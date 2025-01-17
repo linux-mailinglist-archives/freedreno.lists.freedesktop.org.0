@@ -2,91 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06AA7A14B92
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jan 2025 09:57:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3785FA14C75
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jan 2025 10:52:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBD5310EAB2;
-	Fri, 17 Jan 2025 08:56:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13E8610E306;
+	Fri, 17 Jan 2025 09:51:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ytB8T2v9";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="k3aUENt2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E052A10EAB2
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 08:56:58 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-303548a933aso16173831fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 00:56:58 -0800 (PST)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C34AB10E3A7
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 09:51:57 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-540254357c8so1917396e87.1
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 01:51:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737104217; x=1737709017; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=2BRQ6lNkfp8bS79Vg2bjfdOdsHUWBBgAxpLUiozXV7I=;
- b=ytB8T2v9XwjEhBMDdMzv0JSRbYsQQxD17KL8b9DT41cPNRg1DvHlNEB2mJE+L/20qL
- uyY9Lx+GEd7v6mvcHsBd7P//ABdoOXPD7hxP57PI65PgKcV0nmIJ2vSLUaJdgOgpn08i
- A0QjtdBtsuJ4CAXZzHIkj9VZ3s534vRJ0rijyHHaPWSxJT7RlDNevQXDcdTEcujo+EAM
- b1R0ABakeMJcUf3SPovwvQBVDrHuZe/E/AS4PdoNj1xDImoi2qwvaCmGUAspT9YTniaf
- yqpzmK73+cKpu/bBl0zkFf2YugW4eyJkKGptQmJ1GMG7gp+NfUrPKlPIKsHihVQxgYUS
- I+jg==
+ d=linaro.org; s=google; t=1737107456; x=1737712256; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l6F/Qq3d3Zbuu/ir75ukBi8dSYuZyZSR4oRI6lz02Ow=;
+ b=k3aUENt2e7Ur/q0uU62nj5OCr+TPRiSU8lX2io8VRQZDNsvygOG/wPRe7pHsxHTfxV
+ s8GSOHch1fdiX7rJD2f6rwWgOiQKkoLergez6lEw7to1M5BTJ6mtxsEu7ZvKAtfcdkzH
+ 91OhkWYZlMz1sNtaTCr8pKS5/s39WS+GLvuMGEqJkcJ86HL1kYJcXVlN92bmrbYWdkPa
+ WxGRGXcBovYibGdSlUuEOrOm7vTof3icQrKQd787c3vjEeN9w8B3MhPLRux7SAGMIFS0
+ /jJso6nCW3g5YaSGr3m+ni7+IQmL9gBuuhB1L0gCYKI76Ry775K4rWFe/OzLtu7FuwtS
+ JScQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737104217; x=1737709017;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2BRQ6lNkfp8bS79Vg2bjfdOdsHUWBBgAxpLUiozXV7I=;
- b=g5IDcndSpiE03F8aF7BkHdho+gPn/xR41xZFe6DAxfwVZj61wWGxgRQueLAHq8GOMp
- 9NMBdmlxJywlRKrNsxtk+Y5ok1e2U8Prs/sn8b8BJdtF4/5XI3c1cgC3HxD3/G7mNnzW
- /rrKup7kIRpbtvcD05gXQrgi5cgrwVjC2Ysvx7lztnLwvQnyzQlsph9lJ2gaX/ENqxqH
- QjI2VHpJeUaLofbEZv6njTXNR5jzC1W1KJr6izNa0ls52v4UN2UT7/qeWujvdL08fwyz
- HAIJu34KF+7GPNwSMkEdLumyn+lOIX0Ngul6UCjdRahQ46C+erh/u14kNreVmTjELGDu
- O10Q==
+ d=1e100.net; s=20230601; t=1737107456; x=1737712256;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=l6F/Qq3d3Zbuu/ir75ukBi8dSYuZyZSR4oRI6lz02Ow=;
+ b=I5hachwfrPvUQLE0dQumkf31neLzWkHXkzya767TSZtuBwio6ZonXhwPEdDPIhXxda
+ Cg0dMkEmJn9qrH7+sVFN4dUuJlOpq2yrwtmihQgQodFJ6REKE7lE2HDrYL9kpGpAmlw5
+ gXpNKOtwjBYa0gBATRGDcMnGkMWK5H3boGVR5FkWT/F/zyaV1cd5itsDBMKd7w82OH1N
+ QEKxlMLqRZdNq0I7FvtKJlSxGInZgdurJDvrwV+EgJ4f26XrufNwB0Wyg2rqEMyAiW4r
+ /8BWWHEIsRea4IrtFCC34pCAcmMo5qbusNzPQr4mrion2/lEpGlVuWhTxQk6sFbu2PsF
+ 1cmw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX02NkMUuFtPE/ZJx8hOpeEguJBrQmmN+NYQQ21NYipbTMvMAb/2zCeaVxO6X0AWi6HGIjf04LUVWc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxlofDqK4zD5eXV16N1EeafxCu3f44nBkgzRH9nQm2BwbqeBi8q
- Bp0rSv1RauAJwNV3VHRoTEdORWsyZbrjgfZWdsI1AwPQsiDb8UnEQxPiItDhWNs=
-X-Gm-Gg: ASbGncs6ZNZnqj1/vOsGEsTWgNOFUHX8Pc8UC2FtGmQ39PqMvUogrpFm3CeiGqctQKK
- NJ2PGQLa4cY7endYjTizwfkEzHCyqdFZuuwcFx+33YkAO5v/2pPQti+kC9tSg+wxnuq2+HhV5sD
- pdaFk33B6Df0n2SLe+ik/eoGrxl5FI7pigQafnQtUfg9EM5dAvm/kzc5i2xQBOasFx1WmNivaed
- FUFfZ1F0f4r1O+t04W76socbKmGKcGjvLmFKNv7CqCuGj8jPRX4ZS1U5zIJN/PF
-X-Google-Smtp-Source: AGHT+IGJKew3iWflBqoi5/eBNb71qdJHpWzyjt6BMF62fH7cdxIvx8zhS7YOn1v6IRPYf1vezlY6Mg==
-X-Received: by 2002:a2e:a883:0:b0:306:188f:c0b3 with SMTP id
- 38308e7fff4ca-3072cb3cf7amr5794901fa.35.1737104217192; 
- Fri, 17 Jan 2025 00:56:57 -0800 (PST)
+ AJvYcCVhqUhzpAiYElWU0XYj5PXzLHh9bwhJ6cZAfQrvvv1jWkc8J6MKLhHzhZk82Ybzdpt8Xn95QEzkXJo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkiG9ZWejQjFmctMS5QB3Oc1dQfUFIVenqfS9OH1yJpGYjoKE8
+ RjGO8UsHI1PuyYihNYJdndeOex/kw2Ok0nMXGG5DdSGSrEzPigjy8eEQhTZAGx0=
+X-Gm-Gg: ASbGnctM7IiRjbnKvTiQMcdOjaIAJIzKg51/FV2Ix4ddlcBYuqmXLXi3wpTSX38bHxp
+ X5qcuZmNKDOGLxSMwVFNIDRy1z6youFQGvclAdFGcbYSBUQP2bkPW6emAyO3SiGyEPZJ207Ie/F
+ 2tkGZvVDsJ3IvK8MBSGmQUtW0I7szdR22ymimVm/Qdj7c+BIAFzj4iphZKgcNOlpxL6AQpKMjDz
+ 9EU/pbtYDuqI+xSEixG2fwzY0h6WATuHk+Gi8ViuyvrKGtBimVo2x1n1YhNyqmh
+X-Google-Smtp-Source: AGHT+IHJcEHFfl8KbJTI7826EF6H1lRVnlWh7o1f+pZojli98vvrH7/CjvwMD7ZRCtQd4oUKf3C+IA==
+X-Received: by 2002:a2e:be91:0:b0:300:2ddb:aaa5 with SMTP id
+ 38308e7fff4ca-3072cb0df40mr5881951fa.30.1737107456043; 
+ Fri, 17 Jan 2025 01:50:56 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3072a330764sm3402101fa.3.2025.01.17.00.56.54
+ 38308e7fff4ca-3072a34489fsm3450971fa.29.2025.01.17.01.50.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jan 2025 00:56:56 -0800 (PST)
+ Fri, 17 Jan 2025 01:50:54 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 17 Jan 2025 10:56:42 +0200
-Subject: [PATCH RFC 7/7] drm/display: dp-tunnel: use new DCPD access
- helpers
+Date: Fri, 17 Jan 2025 11:50:50 +0200
+Subject: [PATCH v3] drm/bridge-connector: handle subconnector types
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250117-drm-rework-dpcd-access-v1-7-7fc020e04dbc@linaro.org>
-References: <20250117-drm-rework-dpcd-access-v1-0-7fc020e04dbc@linaro.org>
-In-Reply-To: <20250117-drm-rework-dpcd-access-v1-0-7fc020e04dbc@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+Message-Id: <20250117-subconnector-v3-1-1e241c13e576@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAPknimcC/53OTQ6CMBCG4auQri3pHz915T0MiwIDbZTWTJFIC
+ He3kHgBl+9inm82EgEdRHLNNoKwuOiCTyEvGems8SNQ16cmgomCcV7R+G674D10c0AqVNmWAyi
+ t6pqkkxfC4D4nd29SDxgmOlsE80Mk00wKrrRUuairShSactpPbsY1bw2u0T7Ccns6bzDkAceDt
+ S6mtfV8chEH/h/V7Pv+BfOxB3byAAAA
+X-Change-ID: 20250117-subconnector-246b6fe49488
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Jani Nikula <jani.nikula@linux.intel.com>
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3991;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4842;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=W3eVsc55e3ZuouquqjNn9pJNO1JJGFNEugaVYRs9q+4=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ3qXtJub1UL2OoOXbhcTTBRLmuZej50sKPqoXmSaa94ZK
- xb17lWdjMYsDIxcDLJiiiw+BS1TYzYlh33YMbUeZhArE8gUBi5OAZjI+hIOhklzNU4FVAc5WV5y
- MzwS7eByXE656tX0UOPvT6c+/fpr1sfX1kz/OS1ZDY7WXfT3/1K7Up79QrO3zXH287zXWpzNX+h
- 3zb4qNf3xjlS5xQ6uVdOPt5/e8XvlkgLPNLcGy9BUkVWKtXmnD6VaTZVQVZn7uXBdEUvX/ce9Vs
- dDcvUFeTqCX5ZKlu2qTm/qXp7YKn8qrZV5p4+CxUnPnEliJ1fv3LdKQ4p/kY2kV3r22edTzzTLx
- jwSsVZdNsdtao7QjD6jKqPEt/nhO4rYmIQDuR7LfgjLn3pp3bMWv1pfa7W7fGJiPxpslrVLKB57
- PdNl+vdD39QFcuddkzXIcmiWFD2UL/r1zlyBS6vdQnYCAA==
+ bh=BVyrY3hYhzJCVJmvW+IxebCDsuJx/AtqO3kdpzmwFEQ=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBniif9fNPU4d0sQFESZpjYoMfPrnwTQTvCFTXdd
+ yw6j+JsBeaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ4on/QAKCRCLPIo+Aiko
+ 1YnVB/4v0rW4vHVX8JkTtKt78TaM7Ja07Y8IbKIl7tvEBEmUpChompmd9DpOd0Yg/TKbodNV5ho
+ +hKdV2oqkZU59nB14qslKmAaeDw+mHR1V/kX0dygoBkn7JI/R09lpDprBjJT7PWQ/kHuWVpQjo1
+ mbes34w1gaaJCYkn9unRex0CaV6Wp9x2TB00ZklYfn3YL9JRp1mF5XhsPlwcB5vCO0K0cugrBiE
+ Un5zjwrMnyvdJxWKFRI5uYPQTt6NK/yQE4gpK0iQKgR53YdrnRIhoAVZ/1r1GUjEhvpIMezr11N
+ 7KwlCPIg8kdInzI3mmLOJ3BuXXBQl9K7WfHHCm8srjBkvJZp
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -104,106 +109,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Switch drm_dp_tunnel.c to use new set of DPCD read / write helpers.
+If the created connector type supports subconnector type property,
+create and attach corresponding it. The default subtype value is 0,
+which maps to the DRM_MODE_SUBCONNECTOR_Unknown type. Also remove
+subconnector creation from the msm_dp driver to prevent having duplicate
+properties on the DP connectors.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/display/drm_dp_tunnel.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+This is a leftover of my previous attempt to implement USB-C DisplayPort
+uABI. The idea was dropped, but I consider this part still to be useful,
+as it allows one to register corresponding subconnector properties and
+also to export the subconnector type.
+---
+Changes in v3:
+- Rebased on top of linux-next
+- Drop subconnector property from msm_dp driver
+- Link to v2: https://lore.kernel.org/r/20230903214934.2877259-1-dmitry.baryshkov@linaro.org
 
-diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-index 48b2df120086c9b64f7d8b732c9f1f32f7b50fbd..4ef1f20bfe4a0648a92345a80fc6658ab23c5003 100644
---- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-+++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-@@ -222,7 +222,7 @@ static int read_tunnel_regs(struct drm_dp_aux *aux, struct drm_dp_tunnel_regs *r
- 	while ((len = next_reg_area(&offset))) {
- 		int address = DP_TUNNELING_BASE + offset;
+Changes in v2:
+- Dropped all DP and USB-related patches
+- Dropped the patch adding default subtype to
+  drm_connector_attach_dp_subconnector_property()
+- Replaced creation of TV subconnector property with the check that it
+  was created beforehand (Neil, Laurent)
+- Link to v1: https://lore.kernel.org/r/20230729004913.215872-1-dmitry.baryshkov@linaro.org/
+---
+ drivers/gpu/drm/display/drm_bridge_connector.c | 28 +++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/dp/dp_drm.c                |  3 ---
+ include/drm/drm_bridge.h                       |  4 ++++
+ 3 files changed, 31 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 0397e62f9cbc93321caeae99982f5e3c66d308c5..4b616dba4dd8c2dc1725a8d7562d0a37e1557dc8 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -523,6 +523,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 	struct drm_bridge *bridge, *panel_bridge = NULL;
+ 	unsigned int supported_formats = BIT(HDMI_COLORSPACE_RGB);
+ 	unsigned int max_bpc = 8;
++	enum drm_mode_subconnector subconnector;
+ 	int connector_type;
+ 	int ret;
  
--		if (drm_dp_dpcd_read(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
-+		if (drm_dp_dpcd_read_data(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
- 			return -EIO;
+@@ -576,8 +577,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 				max_bpc = bridge->max_bpc;
+ 		}
  
- 		offset += len;
-@@ -913,7 +913,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
- 	u8 mask = DP_DISPLAY_DRIVER_BW_ALLOCATION_MODE_ENABLE | DP_UNMASK_BW_ALLOCATION_IRQ;
- 	u8 val;
+-		if (!drm_bridge_get_next_bridge(bridge))
++		if (!drm_bridge_get_next_bridge(bridge)) {
+ 			connector_type = bridge->type;
++			subconnector = bridge->subtype;
++		}
  
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
- 		goto out_err;
+ #ifdef CONFIG_OF
+ 		if (!drm_bridge_get_next_bridge(bridge) &&
+@@ -643,6 +646,29 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 	if (panel_bridge)
+ 		drm_panel_bridge_set_orientation(connector, panel_bridge);
  
- 	if (enable)
-@@ -921,7 +921,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
- 	else
- 		val &= ~mask;
++	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
++		drm_connector_attach_dp_subconnector_property(connector);
++	} else if (connector_type == DRM_MODE_CONNECTOR_DVII) {
++		ret = drm_mode_create_dvi_i_properties(drm);
++		if (ret)
++			return ERR_PTR(ret);
++
++		drm_object_attach_property(&connector->base,
++					   drm->mode_config.dvi_i_subconnector_property,
++					   subconnector);
++	} else if (connector_type == DRM_MODE_CONNECTOR_TV) {
++		/*
++		 * We do not know which modes are supported by the HW, so the
++		 * property should be created in advance.
++		 */
++		if (!drm->mode_config.tv_subconnector_property)
++			return ERR_PTR(-EINVAL);
++
++		drm_object_attach_property(&connector->base,
++					   drm->mode_config.tv_subconnector_property,
++					   subconnector);
++	}
++
+ 	return connector;
+ }
+ EXPORT_SYMBOL_GPL(drm_bridge_connector_init);
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+index d3e241ea6941615b8e274dd17426c2f8557f09b5..d8e3ec9fd4825916e03ced9011f460c2f32f3912 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+@@ -361,9 +361,6 @@ struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
+ 	if (IS_ERR(connector))
+ 		return connector;
  
--	if (drm_dp_dpcd_writeb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
-+	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
- 		goto out_err;
+-	if (!msm_dp_display->is_edp)
+-		drm_connector_attach_dp_subconnector_property(connector);
+-
+ 	drm_connector_attach_encoder(connector, encoder);
  
- 	tunnel->bw_alloc_enabled = enable;
-@@ -1039,7 +1039,7 @@ static int clear_bw_req_state(struct drm_dp_aux *aux)
- {
- 	u8 bw_req_mask = DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED;
- 
--	if (drm_dp_dpcd_writeb(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
-+	if (drm_dp_dpcd_write_byte(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
- 		return -EIO;
- 
- 	return 0;
-@@ -1052,7 +1052,7 @@ static int bw_req_complete(struct drm_dp_aux *aux, bool *status_changed)
- 	u8 val;
- 	int err;
- 
--	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
- 		return -EIO;
- 
- 	*status_changed = val & status_change_mask;
-@@ -1095,7 +1095,7 @@ static int allocate_tunnel_bw(struct drm_dp_tunnel *tunnel, int bw)
- 	if (err)
- 		goto out;
- 
--	if (drm_dp_dpcd_writeb(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
-+	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
- 		err = -EIO;
- 		goto out;
- 	}
-@@ -1196,13 +1196,13 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
- 	u8 mask = DP_BW_ALLOCATION_CAPABILITY_CHANGED | DP_ESTIMATED_BW_CHANGED;
- 	u8 val;
- 
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
- 		goto out_err;
- 
- 	val &= mask;
- 
- 	if (val) {
--		if (drm_dp_dpcd_writeb(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
-+		if (drm_dp_dpcd_write_byte(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
- 			goto out_err;
- 
- 		return 1;
-@@ -1215,7 +1215,7 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
- 	 * Check for estimated BW changes explicitly to account for lost
- 	 * BW change notifications.
+ 	return connector;
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 4b84faf14e368310dd20aa964e8178ec80aa6fa7..27a4c9aa3475cefe0137f0a7d01b808651125ac5 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -850,6 +850,10 @@ struct drm_bridge {
+ 	 * identifies the type of connected display.
  	 */
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
- 		goto out_err;
- 
- 	if (val * tunnel->bw_granularity != tunnel->estimated_bw)
-@@ -1300,7 +1300,7 @@ int drm_dp_tunnel_handle_irq(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_aux *a
- {
- 	u8 val;
- 
--	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
- 		return -EIO;
- 
- 	if (val & (DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED))
+ 	int type;
++	/**
++	 * @subtype: the subtype of the connector for the DP/TV/DVI-I cases.
++	 */
++	enum drm_mode_subconnector subtype;
+ 	/**
+ 	 * @interlace_allowed: Indicate that the bridge can handle interlaced
+ 	 * modes.
 
+---
+base-commit: 8defad9f57376a89914d16757717a27b567de04e
+change-id: 20250117-subconnector-246b6fe49488
+
+Best regards,
 -- 
-2.39.5
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
