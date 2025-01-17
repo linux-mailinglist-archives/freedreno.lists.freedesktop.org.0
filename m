@@ -2,98 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3785FA14C75
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jan 2025 10:52:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19162A15377
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jan 2025 17:02:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13E8610E306;
-	Fri, 17 Jan 2025 09:51:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB1CF10EB29;
+	Fri, 17 Jan 2025 16:02:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="k3aUENt2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Pe9xBcfq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C34AB10E3A7
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 09:51:57 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-540254357c8so1917396e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 01:51:57 -0800 (PST)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B001310EB29
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 16:02:06 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2165cb60719so43619105ad.0
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 08:02:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737107456; x=1737712256; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=l6F/Qq3d3Zbuu/ir75ukBi8dSYuZyZSR4oRI6lz02Ow=;
- b=k3aUENt2e7Ur/q0uU62nj5OCr+TPRiSU8lX2io8VRQZDNsvygOG/wPRe7pHsxHTfxV
- s8GSOHch1fdiX7rJD2f6rwWgOiQKkoLergez6lEw7to1M5BTJ6mtxsEu7ZvKAtfcdkzH
- 91OhkWYZlMz1sNtaTCr8pKS5/s39WS+GLvuMGEqJkcJ86HL1kYJcXVlN92bmrbYWdkPa
- WxGRGXcBovYibGdSlUuEOrOm7vTof3icQrKQd787c3vjEeN9w8B3MhPLRux7SAGMIFS0
- /jJso6nCW3g5YaSGr3m+ni7+IQmL9gBuuhB1L0gCYKI76Ry775K4rWFe/OzLtu7FuwtS
- JScQ==
+ d=linaro.org; s=google; t=1737129666; x=1737734466; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=PPKBiO+R3EgZx77A0TPWnAvVcvrAKMzeINEZaeXVJnE=;
+ b=Pe9xBcfqf34mm6CE6lHKFGNqqoTy5t19WZ0z1m2PQ+1eJIYnBwIKPrInuwWnyUA0VD
+ 15RV7U8PPuu4h+ApJID1/V35byb5sW7YQs6uz0aBPFvoBH0C9AJY6yuBiXfZoT+Ydhe4
+ BZmtwtaTFGYxtjgvAzTVSZ/PMY1OjVteJ9sa0lO8N/8xAJyUaae8ydbUBo0Fos2cysl1
+ LM6bu2z9egr1iZLgH9omyBR96Vp7vjIwGyiz2E4LxZELb3opQZIuYMNBjuDMTjflF3di
+ yNSYERRKLZjMW0p6+bQS/XggH5+ONoSh1dJhC4bX/d3tBRuXzBOjDMe30e8hXBd6sxMJ
+ PoWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737107456; x=1737712256;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1737129666; x=1737734466;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=l6F/Qq3d3Zbuu/ir75ukBi8dSYuZyZSR4oRI6lz02Ow=;
- b=I5hachwfrPvUQLE0dQumkf31neLzWkHXkzya767TSZtuBwio6ZonXhwPEdDPIhXxda
- Cg0dMkEmJn9qrH7+sVFN4dUuJlOpq2yrwtmihQgQodFJ6REKE7lE2HDrYL9kpGpAmlw5
- gXpNKOtwjBYa0gBATRGDcMnGkMWK5H3boGVR5FkWT/F/zyaV1cd5itsDBMKd7w82OH1N
- QEKxlMLqRZdNq0I7FvtKJlSxGInZgdurJDvrwV+EgJ4f26XrufNwB0Wyg2rqEMyAiW4r
- /8BWWHEIsRea4IrtFCC34pCAcmMo5qbusNzPQr4mrion2/lEpGlVuWhTxQk6sFbu2PsF
- 1cmw==
+ bh=PPKBiO+R3EgZx77A0TPWnAvVcvrAKMzeINEZaeXVJnE=;
+ b=S5Likjj40kBO6OquR0XSKPLe+bAFqRwdHPcp+tAmabI84rpU1a6O3SLrZ/Es8anpg6
+ uCC2OyjEuUUGUzSxNuvlGXRtFzqfM5DtBLa83T2rhQ4MjRLIo2IP5bouGgN97MEkJJOt
+ QDVJsudRUb3bwznkMxs0C7huSq8Wdqdh0hVRbjKz4j64bTmh0EcEJARNwvI1Vm4p/muD
+ w/zXvkzEmm/0S7yUMZQGhf/ycklPF+BvKmHU3hcxVmT/RiSAkErL6O54arrGYfN1fnb8
+ cncJ8RRVM6PDbu5MZ1Sl3By7boJH1DAL/ziCfVjgDMlXx5QyP6tK8/DFhH2AOeOURPtM
+ HhjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVhqUhzpAiYElWU0XYj5PXzLHh9bwhJ6cZAfQrvvv1jWkc8J6MKLhHzhZk82Ybzdpt8Xn95QEzkXJo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkiG9ZWejQjFmctMS5QB3Oc1dQfUFIVenqfS9OH1yJpGYjoKE8
- RjGO8UsHI1PuyYihNYJdndeOex/kw2Ok0nMXGG5DdSGSrEzPigjy8eEQhTZAGx0=
-X-Gm-Gg: ASbGnctM7IiRjbnKvTiQMcdOjaIAJIzKg51/FV2Ix4ddlcBYuqmXLXi3wpTSX38bHxp
- X5qcuZmNKDOGLxSMwVFNIDRy1z6youFQGvclAdFGcbYSBUQP2bkPW6emAyO3SiGyEPZJ207Ie/F
- 2tkGZvVDsJ3IvK8MBSGmQUtW0I7szdR22ymimVm/Qdj7c+BIAFzj4iphZKgcNOlpxL6AQpKMjDz
- 9EU/pbtYDuqI+xSEixG2fwzY0h6WATuHk+Gi8ViuyvrKGtBimVo2x1n1YhNyqmh
-X-Google-Smtp-Source: AGHT+IHJcEHFfl8KbJTI7826EF6H1lRVnlWh7o1f+pZojli98vvrH7/CjvwMD7ZRCtQd4oUKf3C+IA==
-X-Received: by 2002:a2e:be91:0:b0:300:2ddb:aaa5 with SMTP id
- 38308e7fff4ca-3072cb0df40mr5881951fa.30.1737107456043; 
- Fri, 17 Jan 2025 01:50:56 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3072a34489fsm3450971fa.29.2025.01.17.01.50.53
+ AJvYcCVXI8YOEIxMYukPeMrvjR9NJeUw93QXx0v9skvQV2dbPIIoypfcmirTJwD3mJmvtm6tBPaLNzRVHb0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz1eH7a+4jpTxvAnzQVPdzhnZTJ2Flkzt7/3MtIs/AST3VYecbk
+ FHDa1eZLUKkslJSB4+VZ+z1pkSimQqL2V/m0pAFaXKJFddSmClSn8Y8/wWZ4rec=
+X-Gm-Gg: ASbGnctya/jEj/BHDYe3/w0pExMuQMHGOAIXf8oRAaoT1C2jrKaQ0V1Ghn3Z4b7Nvmi
+ HK22Kk8PDJdpHLtGIUQWm1/CDwrdGZr/N3B5swA/0yARM8/8SjGP2cljZ3bsX3RtSOdafx7FFd3
+ SRf7FlvELwgeWgn2Usw/5uGe0XuCIR2Lw49MaA1FO+u2SgYmMMmXzBFyPajU4qmzfah802UU1fr
+ 8rERcLQRziCyxw8DzxJ2SCcfx3BEtEr1cfsyesIQLFaedj+iDVGig==
+X-Google-Smtp-Source: AGHT+IFCeX5eddePBHDI+lbpSYeds/KFM0/bcoTWVb9canYO3oKiBovN+3CGC03Ilb7/N7Iwi6Be2g==
+X-Received: by 2002:a17:902:ea02:b0:215:19ae:77bf with SMTP id
+ d9443c01a7336-21c355028e9mr53570145ad.19.1737129666083; 
+ Fri, 17 Jan 2025 08:01:06 -0800 (PST)
+Received: from [127.0.1.1] ([112.65.12.217]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-21c2d3e0df9sm17879755ad.196.2025.01.17.08.00.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jan 2025 01:50:54 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 17 Jan 2025 11:50:50 +0200
-Subject: [PATCH v3] drm/bridge-connector: handle subconnector types
+ Fri, 17 Jan 2025 08:01:05 -0800 (PST)
+From: Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH v5 00/15] drm/msm/dpu: Support quad pipe with dual-DSI
+Date: Sat, 18 Jan 2025 00:00:43 +0800
+Message-Id: <20250118-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v5-0-9701a16340da@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250117-subconnector-v3-1-1e241c13e576@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAPknimcC/53OTQ6CMBCG4auQri3pHz915T0MiwIDbZTWTJFIC
- He3kHgBl+9inm82EgEdRHLNNoKwuOiCTyEvGems8SNQ16cmgomCcV7R+G674D10c0AqVNmWAyi
- t6pqkkxfC4D4nd29SDxgmOlsE80Mk00wKrrRUuairShSactpPbsY1bw2u0T7Ccns6bzDkAceDt
- S6mtfV8chEH/h/V7Pv+BfOxB3byAAAA
-X-Change-ID: 20250117-subconnector-246b6fe49488
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4842;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=BVyrY3hYhzJCVJmvW+IxebCDsuJx/AtqO3kdpzmwFEQ=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBniif9fNPU4d0sQFESZpjYoMfPrnwTQTvCFTXdd
- yw6j+JsBeaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ4on/QAKCRCLPIo+Aiko
- 1YnVB/4v0rW4vHVX8JkTtKt78TaM7Ja07Y8IbKIl7tvEBEmUpChompmd9DpOd0Yg/TKbodNV5ho
- +hKdV2oqkZU59nB14qslKmAaeDw+mHR1V/kX0dygoBkn7JI/R09lpDprBjJT7PWQ/kHuWVpQjo1
- mbes34w1gaaJCYkn9unRex0CaV6Wp9x2TB00ZklYfn3YL9JRp1mF5XhsPlwcB5vCO0K0cugrBiE
- Un5zjwrMnyvdJxWKFRI5uYPQTt6NK/yQE4gpK0iQKgR53YdrnRIhoAVZ/1r1GUjEhvpIMezr11N
- 7KwlCPIg8kdInzI3mmLOJ3BuXXBQl9K7WfHHCm8srjBkvJZp
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-B4-Tracking: v=1; b=H4sIAKt+imcC/53NSw6CMBSF4a2Qjr2mLwo4ch+GQW0v0GgptkA0h
+ L1bWYLD/wzOt5GE0WEil2IjEVeXXBhzlKeCmEGPPYKzuQmnvKSMKUi+ViWFVQETMHgLFs1DRwv
+ epgSvRVtYpjRH1B6EgE43lkvLK1Mzkk+niJ17H+CtzT24NIf4OfxV/ta/qVUChUpWsjEK71qI6
+ 9ONOoZziD1p933/AndkG9LtAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jun Nie <jun.nie@linaro.org>, Jessica Zhang <quic_jesszhan@quicinc.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1737129659; l=4678;
+ i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
+ bh=g4wHki1acUZ4SGxtT81osJ+lxPcuS+NzxwZWfXfKlgI=;
+ b=CDs/fiB1Bs+rHnEJlPaGI1fKDaA9SzbRS4cYP5EftnVMDeA5XA2eTwmk/z5R9xQUw2/jodlEP
+ bYJpeUXDWuCAxS32iWtY3cgDvQCowwve9gPXYkCcfJLYLbd1MU56fyH
+X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
+ pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,126 +100,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If the created connector type supports subconnector type property,
-create and attach corresponding it. The default subtype value is 0,
-which maps to the DRM_MODE_SUBCONNECTOR_Unknown type. Also remove
-subconnector creation from the msm_dp driver to prevent having duplicate
-properties on the DP connectors.
+2 or more SSPPs and dual-DSI interface are need for super wide panel.
+And 4 DSC are preferred for power optimal in this case due to width
+limitation of SSPP and MDP clock rate constrain. This patch set
+extends number of pipes to 4 and revise related mixer blending logic
+to support quad pipe. All these changes depends on the virtual plane
+feature to split a super wide drm plane horizontally into 2 or more sub
+clip. Thus DMA of multiple SSPPs can share the effort of fetching the
+whole drm plane.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
-This is a leftover of my previous attempt to implement USB-C DisplayPort
-uABI. The idea was dropped, but I consider this part still to be useful,
-as it allows one to register corresponding subconnector properties and
-also to export the subconnector type.
----
+The first pipe pair co-work with the first mixer pair to cover the left
+half of screen and 2nd pair of pipes and mixers are for the right half
+of screen. If a plane is only for the right half of screen, only one
+or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
+assinged for invalid pipe.
+
+For those panel that does not require quad-pipe, only 1 or 2 pipes in
+the 1st pipe pair will be used. There is no concept of right half of
+screen.
+
+For legacy non virtual plane mode, the first 1 or 2 pipes are used for
+the single SSPP and its multi-rect mode.
+
+To test bonded DSI on SM8650, the 5 patches for active-CTL improvement
+are needed:
+https://gitlab.freedesktop.org/lumag/msm/-/commits/dpu-4k?ref_type=heads
+
+Changes in v5:
+- Iterate SSPP flushing within the required mixer pair, instead of all
+  active mixers or specific mixer.
+- Limit qaud-pipe usage case to SoC with 4 or more DSC engines and 2
+  interfaces case.
+- Polish commit messages and code comments.
+- Link to v4: https://lore.kernel.org/r/20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org
+
+Changes in v4:
+- Restrict SSPP flushing to the required mixer, instead of all active mixers.
+- Polish commit messages and code comments.
+- Rebase to latest msm/drm-next branch.
+- Move pipe checking patch to the top of patch set.
+- Link to v3: https://lore.kernel.org/dri-devel/20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org
+
 Changes in v3:
-- Rebased on top of linux-next
-- Drop subconnector property from msm_dp driver
-- Link to v2: https://lore.kernel.org/r/20230903214934.2877259-1-dmitry.baryshkov@linaro.org
+- Split change in trace into a separate patch.
+- Rebase to latest msm-next branch.
+- Reorder patch sequence to make sure valid flag is set in earlier patch
+- Rectify rewrite patch to move logic change into other patch
+- Polish commit messages and code comments.
+- Link to v2: https://lore.kernel.org/dri-devel/20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org
 
 Changes in v2:
-- Dropped all DP and USB-related patches
-- Dropped the patch adding default subtype to
-  drm_connector_attach_dp_subconnector_property()
-- Replaced creation of TV subconnector property with the check that it
-  was created beforehand (Neil, Laurent)
-- Link to v1: https://lore.kernel.org/r/20230729004913.215872-1-dmitry.baryshkov@linaro.org/
----
- drivers/gpu/drm/display/drm_bridge_connector.c | 28 +++++++++++++++++++++++++-
- drivers/gpu/drm/msm/dp/dp_drm.c                |  3 ---
- include/drm/drm_bridge.h                       |  4 ++++
- 3 files changed, 31 insertions(+), 4 deletions(-)
+- Revise the patch sequence with changing to 2 pipes topology first. Then
+  prepare for quad-pipe setup, then enable quad-pipe at last.
+- Split DSI patches into other patch set.
+- Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 0397e62f9cbc93321caeae99982f5e3c66d308c5..4b616dba4dd8c2dc1725a8d7562d0a37e1557dc8 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -523,6 +523,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 	struct drm_bridge *bridge, *panel_bridge = NULL;
- 	unsigned int supported_formats = BIT(HDMI_COLORSPACE_RGB);
- 	unsigned int max_bpc = 8;
-+	enum drm_mode_subconnector subconnector;
- 	int connector_type;
- 	int ret;
- 
-@@ -576,8 +577,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 				max_bpc = bridge->max_bpc;
- 		}
- 
--		if (!drm_bridge_get_next_bridge(bridge))
-+		if (!drm_bridge_get_next_bridge(bridge)) {
- 			connector_type = bridge->type;
-+			subconnector = bridge->subtype;
-+		}
- 
- #ifdef CONFIG_OF
- 		if (!drm_bridge_get_next_bridge(bridge) &&
-@@ -643,6 +646,29 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 	if (panel_bridge)
- 		drm_panel_bridge_set_orientation(connector, panel_bridge);
- 
-+	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
-+		drm_connector_attach_dp_subconnector_property(connector);
-+	} else if (connector_type == DRM_MODE_CONNECTOR_DVII) {
-+		ret = drm_mode_create_dvi_i_properties(drm);
-+		if (ret)
-+			return ERR_PTR(ret);
-+
-+		drm_object_attach_property(&connector->base,
-+					   drm->mode_config.dvi_i_subconnector_property,
-+					   subconnector);
-+	} else if (connector_type == DRM_MODE_CONNECTOR_TV) {
-+		/*
-+		 * We do not know which modes are supported by the HW, so the
-+		 * property should be created in advance.
-+		 */
-+		if (!drm->mode_config.tv_subconnector_property)
-+			return ERR_PTR(-EINVAL);
-+
-+		drm_object_attach_property(&connector->base,
-+					   drm->mode_config.tv_subconnector_property,
-+					   subconnector);
-+	}
-+
- 	return connector;
- }
- EXPORT_SYMBOL_GPL(drm_bridge_connector_init);
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index d3e241ea6941615b8e274dd17426c2f8557f09b5..d8e3ec9fd4825916e03ced9011f460c2f32f3912 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -361,9 +361,6 @@ struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
- 	if (IS_ERR(connector))
- 		return connector;
- 
--	if (!msm_dp_display->is_edp)
--		drm_connector_attach_dp_subconnector_property(connector);
--
- 	drm_connector_attach_encoder(connector, encoder);
- 
- 	return connector;
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 4b84faf14e368310dd20aa964e8178ec80aa6fa7..27a4c9aa3475cefe0137f0a7d01b808651125ac5 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -850,6 +850,10 @@ struct drm_bridge {
- 	 * identifies the type of connected display.
- 	 */
- 	int type;
-+	/**
-+	 * @subtype: the subtype of the connector for the DP/TV/DVI-I cases.
-+	 */
-+	enum drm_mode_subconnector subtype;
- 	/**
- 	 * @interlace_allowed: Indicate that the bridge can handle interlaced
- 	 * modes.
-
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
-base-commit: 8defad9f57376a89914d16757717a27b567de04e
-change-id: 20250117-subconnector-246b6fe49488
+Jun Nie (15):
+      drm/msm/dpu: check every pipe per capability
+      drm/msm/dpu: Do not fix number of DSC
+      drm/msm/dpu: configure DSC per number in use
+      drm/msm/dpu: polish log for resource allocation
+      drm/msm/dpu: decide right side per last bit
+      drm/msm/dpu: fix mixer number counter on allocation
+      drm/msm/dpu: switch RM to use crtc_id rather than enc_id for allocation
+      drm/msm/dpu: bind correct pingpong for quad pipe
+      drm/msm/dpu: Add pipe as trace argument
+      drm/msm/dpu: handle pipes as array
+      drm/msm/dpu: split PIPES_PER_STAGE definition per plane and mixer
+      drm/msm/dpu: blend pipes per mixer pairs config
+      drm/msm/dpu: support SSPP assignment for quad-pipe case
+      drm/msm/dpu: support plane splitting in quad-pipe case
+      drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI case
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  88 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      |  75 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h          |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c        | 404 ++++++++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h        |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c           | 215 ++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h           |  32 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h        |  10 +-
+ 12 files changed, 517 insertions(+), 345 deletions(-)
+---
+base-commit: 793ba0dd2dc6a38180a82d0ad0c58920bcf595b5
+change-id: 20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-fa9d24d27c81
 
 Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Jun Nie <jun.nie@linaro.org>
 
