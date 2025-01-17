@@ -2,88 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F63FA1488B
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jan 2025 04:39:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BBD0A14A2F
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jan 2025 08:33:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A95D10E23E;
-	Fri, 17 Jan 2025 03:39:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2241F10EA72;
+	Fri, 17 Jan 2025 07:33:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yJE4u5OB";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CeTasxHz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D15F10E283
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 03:39:55 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-54025432becso1858318e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 19:39:55 -0800 (PST)
+Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
+ [209.85.219.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0A6110EA72
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2025 07:33:57 +0000 (UTC)
+Received: by mail-yb1-f174.google.com with SMTP id
+ 3f1490d57ef6-e53a5ff2233so3466749276.3
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 23:33:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737085193; x=1737689993; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=a0KmIpWhOnmvP2/79nQLTbunQC6aY9KWQAhT4oyikpE=;
- b=yJE4u5OBYSWOu+N7a6MQYk0/JyF0hTUkgSjwmXmo2zb+GGQbPzU+1bIpbw8njmyana
- P0PHTRinmL15ywUr91TH8GTY4MfCIZ1SWbyr7X6tk7Rp+0i8eik8sw49cSG2rQTK6Cj6
- Pr+HUMFrIVGE2aqE7KG+BIvW6Yjuw+eLGg94CR4pwg1W8lzfKa+qaxiFy88/RvRl+YXO
- vuCTAj4RfOJIUvUGW4GlLSZwvJP18F1wakvx2aqaKy8YcdwvtHcEZgD93EyYvgpry6ma
- 9h1oJGU/LkEE1Jlt6jb05Xu1eOp4a52i63e7uCynVYZYak8sDgHzsQegB7hW9lB9qyHj
- wWUg==
+ d=linaro.org; s=google; t=1737099177; x=1737703977; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=u5hN3WCRaDcwfEGZIF7HwAWSSytle4jyv+q+dyIgSdU=;
+ b=CeTasxHzKqV/3zCtRQ4pu2wpXpOBxDWpcAKk6J+Uoq2WBvKmRil1OuoiyqSksUvDvL
+ PUmQ7hesnPD796LoCvpe07xkcCbNRLX/iwTwWpLTRk60/uSMWfrQut3G113OQnPFz8bk
+ xTN4xiXUHTXeFeA19B4E2Ms1UVAC9w2adJ8fFugIYBgqT0XCzMpkzzrA3Vzxq11ko8sZ
+ p74YfAIv9Fxz2K+Dp4xyDCCJJ5E9CITF+dQ/cqcCX+nVXu7Minxvc1qODlkV6vUgAzEc
+ uWG+XBaCUidSXonqw4uLk1yg5UeSTuBlEw6lSsoVox6kYiyhUHNtYaAb2n8bpI7MSKZN
+ mBAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737085193; x=1737689993;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=a0KmIpWhOnmvP2/79nQLTbunQC6aY9KWQAhT4oyikpE=;
- b=PThhg24Kg8KC5JEB+12ZPo3dXet/+T/kRoPMOha7nyqMAxu8hhsrkm/IlJLxGCHyXP
- Wa4Al3ZAn1RCbFaPShY6KbFshucK/VbydUoggHe4CFkPU/MSU379uFPkOjgRsTJ/7D0f
- dVA2kEJEOFQMw+IRCDwUzmNoKomkZZVvSwS8ZlWbXYu6WZz7ra2EAuVOQIyG0NSYc4PU
- 8c8hOOf/hRH9se/22u5LeMByxACTEW75cFVhzH44VlpO/Zfx4bsPJ7j4WKsbnTOoerR1
- A3E89mWTNaH0sZ8v8cxjvxynv71qkLaaM81g3LI4+srkwtcRqw638OLNUtoylGBNpqrW
- 52WQ==
+ d=1e100.net; s=20230601; t=1737099177; x=1737703977;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=u5hN3WCRaDcwfEGZIF7HwAWSSytle4jyv+q+dyIgSdU=;
+ b=LgoviXNZK4WsmgmmSRUWiQem+7K0DBuAooXNIrBh0c1ls/Mrz809h0bOUequXnkKp0
+ AyJvUky0Cv2QP6Yl15IkdLM3WSExLdPKETVN0tfxbzGUHlYOGWVxsz8L3TaxqcLLjkEX
+ gFpSR4UeXQA5FVHOPEmirPN/UMpTod6VK8KsTUfH/UM8rsUtndHyTMgM6KWKD4DOxKdF
+ 0NUwEIHt5LD/NvTXWRJ/0Qrpzr9QbI+vYxYOnm6+3P5idQW/tzboWEJ+hcWv1RIcpz2p
+ VSplyvNaErqFqVhwFx5eLrX4aVlNiVuWpe+PcSMhPaNJ84erc8hlEE4ZZiMPRianiqoh
+ AjYQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEfubM4cN6AJXuCsSHcN1MpCqIJSgi7xHphK6RZoAqSYt56o+7dk9Lth3vJZKTwRfOlr3duuAbaGM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6y9V2MQeW9/oflpbIxx1qo4IKL6uvbSLIk1eNT3Axkla6ZWmk
- Fodz3EFon6k1UtvrHi/IXq3ir0GWmC0S6dj252hEBMCVKXHqEK3J2Vm2YxOlrGI=
-X-Gm-Gg: ASbGncubWd9xbj8hA7InHlGtySEk/NA8nyoqmEOVlBrA9OvbzXtjSw+22/FN3xqP3qe
- 015EwmlCb511FAjR22xkFHX4ghuV/lR0+eChMgosRFG7DRATuZg6Csp1Ku0sqsCpLHt+o3X26RU
- KALrk25i3oVhtDkQn/nS42sjKYULPKS6shQ4LyxhQ2oLYvY1bNMqex3/AMQpLyuCgUHNLoNAkfP
- O1uCa/hrYOut1QBPwwLH9WCM83zRO9u0d28YdcYf5u4xjcqSXLfzq4oFr+TlgAaBYreJ0PkvutQ
- p8PsviIV6xbsMnKmv7M2xZ1RiMQQeXI5hLQG
-X-Google-Smtp-Source: AGHT+IG1i+XsSg4L26hUUv4AYoaCV/mK4bj6NtE/PFeG94iR1Z0kvDv6pvax9G0WjZar1+ZiQ+L9PQ==
-X-Received: by 2002:ac2:54b5:0:b0:542:249c:215f with SMTP id
- 2adb3069b0e04-5439c22a8f6mr186133e87.4.1737085193491; 
- Thu, 16 Jan 2025 19:39:53 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5439af60992sm191506e87.155.2025.01.16.19.39.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jan 2025 19:39:52 -0800 (PST)
-Date: Fri, 17 Jan 2025 05:39:49 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 14/16] drm/msm/dpu: support SSPP assignment for
- quad-pipe case
-Message-ID: <tae55nwbytxtmskvlelwkldy6tkgurr3mxocpfdhvniuiduxb4@qosnxo2dseu2>
-References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
- <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-14-74749c6eba33@linaro.org>
- <kqrea3es5bwyofk3p3l26wj2iswvfqadwehusfpj4mssgawdos@wombtx67llyc>
- <CABymUCPn=u8jr_OTFwB-WBjj2nNgBeTyH5b=PvF5vLrDhCxr3Q@mail.gmail.com>
+ AJvYcCVyGwv0ibRX6RgRu2lhDg3gCBDWTO2Ndnzkic1xnXEgEuQzfQ+HPRK21LAreslBAoTAHxo5ODJPQpU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy0jyO1FBOV9+Er2WWmK6mUPWWtVM6rJfJBUKOIPOpmik9woGmw
+ vQHdBhKl0PouFyWlK88fy21+AcNfqDqRw5rqmG9kqbZEYcka4V33R9idWKFbi4LwL/1U+WrzmEN
+ olSX/vBHNYtsghV2uyGrfU7a4jPyhTUoRP1wQPg==
+X-Gm-Gg: ASbGnctAgk6eiP/e9Vvh2MdAeO24L53lpLTWQ8LxJwncSY4+7cv3qIph7zXjQ0sVHSn
+ s3s19xgfZf79KuO26g+h7GAkBHvzIyS6aLT/lVUwVpmM=
+X-Google-Smtp-Source: AGHT+IE+XYh2alu1rY2U8oCgLEh1aqoCMjyJMFnHicZCBv3oNDm+hi8vM03R6tYssS6lGIrrrW8gy6Wp3lPsC3GuOFk=
+X-Received: by 2002:a05:6902:140c:b0:e4c:e9b8:eb37 with SMTP id
+ 3f1490d57ef6-e57b1030127mr1141878276.3.1737099175190; Thu, 16 Jan 2025
+ 23:32:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCPn=u8jr_OTFwB-WBjj2nNgBeTyH5b=PvF5vLrDhCxr3Q@mail.gmail.com>
+References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
+ <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-16-74749c6eba33@linaro.org>
+ <mw7zc4ljagxs6sjpl2wfjicq56w7ru2dd43u55rrtwyux62bb5@3w4zayfqxlai>
+In-Reply-To: <mw7zc4ljagxs6sjpl2wfjicq56w7ru2dd43u55rrtwyux62bb5@3w4zayfqxlai>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Fri, 17 Jan 2025 15:32:44 +0800
+X-Gm-Features: AbW1kvbp5yJi4HYj9X5TBWCrEONnlBk4y8iKuerYlGqjnYqdJtYg1reAc_pA1gY
+Message-ID: <CABymUCMnYy-L2Bd6dgYzPTB+qzpFLbU-LyCLDKxCSWy19x_A5g@mail.gmail.com>
+Subject: Re: [PATCH v4 16/16] drm/msm/dpu: Enable quad-pipe for DSC and
+ dual-DSI case
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,39 +89,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 16, 2025 at 10:22:07PM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2025年1月16日周四 16:18写道：
-> >
-> > On Thu, Jan 16, 2025 at 03:26:03PM +0800, Jun Nie wrote:
-> > > Support SSPP assignment for quad-pipe case with unified method.
-> > > The first 2 pipes can share a set of mixer config and enable
-> > > multi-rect mode if condition is met. It is also the case for
-> > > the later 2 pipes.
-> >
-> > Missing problem description.
-> 
-> Is this OK?
->     SSPP are assigned for 2 pipes at most with current implementation,
->     while 4 pipes are required in quad-pipe usage case with involving
->     configuration of 2 stages. Assign SSPPs for pipes of a stage in a
->     loop with unified method. The first 2 pipes can shar a set of mixer
->     config and enable multi-rect mode if condition is met. It is also the
->     case for the later 2 pipes.
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2025=E5=B9=B41=E6=
+=9C=8816=E6=97=A5=E5=91=A8=E5=9B=9B 16:32=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Thu, Jan 16, 2025 at 03:26:05PM +0800, Jun Nie wrote:
+> > Request 4 mixers and 4 DSC for the case that both dual-DSI and DSC are
+> > enabled.
+>
+> Why? What is the issue that you are solving?
 
-No. It should be problem / analysys/ solution. So, 'Assign foo' should
-become a last phrase.  Also please please perform a grammar / typos check.
+    To support high-resolution cases that exceed the width limitation of
+    a pair of SSPPs, or scenarios that surpass the maximum MDP clock rate,
+    additional pipes are necessary to enable parallel data processing
+    within the SSPP width constraints and MDP clock rate.
 
-> 
+    Request 4 mixers and 4 DSCs for high-resolution cases where both DSC
+    and dual interfaces are enabled. More use cases can be incorporated
+    later if quad-pipe capabilities are required.
+
+>
+> > 4 pipes are preferred for dual DSI case for it is power optimal
+> > for DSC.
 > >
-> > Also, shouldn't this patch come before the previous one?
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  2 +-
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 29 ++++++++++++++++=
+++------
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
+> >  6 files changed, 29 insertions(+), 14 deletions(-)
 > >
-> Yeah, it is reasonable to prepare the assignment capability, then
-> enable the plane splitting into 4 pipes. It does not hurt actually
-> because quad-pipe is not enabled in data structure side.
-> Will reverse the sequence in next version anyway.
+>
+> > @@ -664,15 +664,20 @@ static struct msm_display_topology dpu_encoder_ge=
+t_topology(
+> >
+> >       /* Datapath topology selection
+> >        *
+> > -      * Dual display
+> > +      * Dual display without DSC
+> >        * 2 LM, 2 INTF ( Split display using 2 interfaces)
+> >        *
+> > +      * Dual display with DSC
+> > +      * 2 LM, 2 INTF ( Split display using 2 interfaces)
+> > +      * 4 LM, 2 INTF ( Split display using 2 interfaces)
+> > +      *
+> >        * Single display
+> >        * 1 LM, 1 INTF
+> >        * 2 LM, 1 INTF (stream merge to support high resolution interfac=
+es)
+> >        *
+> >        * Add dspps to the reservation requirements if ctm is requested
+> >        */
+> > +
+>
+> irrlevant extra line, please drop.
+>
+> >       if (intf_count =3D=3D 2)
+> >               topology.num_lm =3D 2;
+> >       else if (!dpu_kms->catalog->caps->has_3d_merge)
+> > @@ -691,10 +696,20 @@ static struct msm_display_topology dpu_encoder_ge=
+t_topology(
+> >                * 2 DSC encoders, 2 layer mixers and 1 interface
+> >                * this is power optimal and can drive up to (including) =
+4k
+> >                * screens
+> > +              * But for dual display case, we prefer 4 layer mixers. B=
+ecause
+> > +              * the resolution is always high in the case and 4 DSCs a=
+re more
+> > +              * power optimal.
+>
+> I think this part is thought about in a wrong way. If it was just about
+> power efficiency, we wouldn't have to add quad pipe support.
+> Please correct me if I'm wrong, but I think it is about the maximum
+> width supported by a particular topology being too low for a requested
+> resolution. So, if there is a DSC and mode width is higher than 5120
+> (8.x+) / 4096 ( <=3D 7.x), then we have to use quad pipe. Likewise if
+> there is no DSC in play, the limitation should be 2 * max_mixer_width.
 
-Thanks!
+Both width limitation and clock rate contribute to pipe number decision.
+To support high resolution, the MDP clock may be required to overclock
+to a higher rate than the safe rate. Current implementation does not
+support checking clock rate when deciding topology. We can add the
+clock rate check later with a new patch.
+>
+> >                */
+> > -             topology.num_dsc =3D 2;
+> > -             topology.num_lm =3D 2;
+> > -             topology.num_intf =3D 1;
+> > +
+> > +             if (intf_count =3D=3D 2) {
+> > +                     topology.num_dsc =3D dpu_kms->catalog->dsc_count =
+>=3D 4 ? 4 : 2;
+>
+> This assumes that the driver can support 2:2:2. Is it the case?
 
--- 
-With best wishes
-Dmitry
+The code falls back to 2:2:2 case here. But I guess 2:2:2 does not work yet=
+.
+How about below code for DSC case?
+
+                 if (intf_count =3D=3D 2 && dpu_kms->catalog->dsc_count >=
+=3D 4) {
+                         topology.num_dsc =3D 4;
+                         topology.num_lm =3D 4;
+                         topology.num_intf =3D 2;
+                 } else {
+                         topology.num_dsc =3D 2;
+                         topology.num_lm =3D 2;
+                         topology.num_intf =3D 1;
+                 }
+
+>
+> > +                     topology.num_lm =3D topology.num_dsc;
+> > +                     topology.num_intf =3D 2;
+> > +             } else {
+> > +                     topology.num_dsc =3D 2;
+> > +                     topology.num_lm =3D 2;
+> > +                     topology.num_intf =3D 1;
+> > +             }
+> >       }
+> >
+> >       return topology;
+>
+> --
+> With best wishes
+> Dmitry
