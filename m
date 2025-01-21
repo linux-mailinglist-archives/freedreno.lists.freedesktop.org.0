@@ -2,79 +2,138 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 189E7A17683
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jan 2025 05:29:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F389A179E4
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jan 2025 10:13:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E511410E4B4;
-	Tue, 21 Jan 2025 04:29:38 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="l5CgKuan";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5374F10E513;
+	Tue, 21 Jan 2025 09:13:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57B7110E4B4
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jan 2025 04:29:37 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-e455bf1f4d3so7074022276.2
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jan 2025 20:29:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737433716; x=1738038516; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OZSNB6g5UtUoImhML+UGNfXWXkjaOAV6MUUxlrXnbfE=;
- b=l5CgKuanFCBlh2gDuphdBKYkWW5ONjMVSWemi0WM5ugLVyy6jNV3/cc+NOvvYISuNH
- POG9rxwKXyPPtmFFl1vFSJAO2xzLyfk5Vt0i5ez0eGQaOylgyfR1ian7HFbg/gvwv9mv
- zmRZItVk+di3aciZGa9pBkAuKVRW2RbUTT55FzZR8TKxWMFwonrX9TWLjtzK+Sns2yCD
- 8wbujrC5Fj9kdJ4jm4VsVUq/xC1Z7svlK0MeyUEypdB8Kuix4cbMC/t/f2sPd8CEVY08
- 9VSZXTBVlKLfbkomP7JZOY05Y7Pft6QFdllS09z6vWDQwPnVMeYqUHfGZNwDzOR1RIdY
- UqzA==
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D89C10E507;
+ Tue, 21 Jan 2025 09:13:04 +0000 (UTC)
+Received: by mail-qk1-f174.google.com with SMTP id
+ af79cd13be357-7b6ef047e9bso496089085a.1; 
+ Tue, 21 Jan 2025 01:13:04 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737433716; x=1738038516;
+ d=1e100.net; s=20230601; t=1737450783; x=1738055583;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OZSNB6g5UtUoImhML+UGNfXWXkjaOAV6MUUxlrXnbfE=;
- b=t0jKA7YDDKKaWD2AxFfthdxPsx/cUqHkGGzZ+fpcs85ku9+8tYL+YMsnM+7GedRhkt
- wPFV1VsDmSHUCEaI3I4j8KKdifxnQmAVldxYSjEdjSzRuM31E9Al4Ff8pj01YSPzfPxI
- HI01R5ttqmhFTzjjsS/mf9LNVe4QqbV9fWODuz/uX1yKTMHYKSca5v6N9EdtVPMZAWWS
- 7WcdOrDpkNYCtH3sTqnq9CXsJJ11ecOf0uHXp6gDBUnKLMf+UCvpood0KmVM8Is9Khl4
- l3D7xajjZfYMkfqFsmkxVeZkGxBogaRaMqpbYFPsAy5x9pHPlM99YO2Btvezt4dIrTMv
- NBHA==
+ bh=h0F66BpcncnDZq8+yac2PqIUMY5KsLdGVzSelKc0x5s=;
+ b=Cc+l1wjin+suCCFHL+z+I1gEu0IuCge7UB11MxXgUMoBBzF0zYjrdF9O+9hwU+uhCd
+ C3oLQOgFsYzfmcDTyhEBci7gOL7gdf2XtTq4Vmhr+l2Ya6EsFYDZVZ4kZNv5yA6NrIVp
+ nOP0CF1qwkM/FyH3BgsStpD3Wxqld+3EgAvXutLLF44Uawx4LPDrRWVKfH/pNmEffN+w
+ wJvM3z5Jmu+bpjA3msJOuMLdr3R73oTz+65oOjkBymXVjM7ODTqWTi4W5G/M32be5yPp
+ TMya6Rh2sYxvxCtybr9Bd7hkVUfEOLRGQ5f/ZE4dZzSdZodxIb+oXun7dMO+8UcykMSv
+ uijQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXqiYjH9vsTc6SkLUa0SViBglG4dbDsxu4CPKAzkWUzc+72OZNVkmKzO/mTYMZ4KyesX8FYTlRWFlQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyxom4BNB/xn08zcRttbcVLhYHfApt5CYfx0Y0LElaPWTSGJsOJ
- pX5kqkcJLPfp7LIBC9jCPtymExMI3BhILFFbaCa7qoaU5P417ky+sQHYDxUp8JkkKXUQwu1hDVe
- rboNNzX8F/33LQqaJVOI1b1vzXea9S+bT6p3A6Q==
-X-Gm-Gg: ASbGncvCbW7IWgBOGaermTX3msQNgN4vCh9xN5htCkCdpG++0EqGHufH9xHugRUd7pu
- +acrl4QvZJnefswwhVSfq/sQcScdPFnI0v8hrjE8Hktr0EH4SlpF+KA==
-X-Google-Smtp-Source: AGHT+IGq/MHXBnnIFfgM/13ju/i+ES42JwboBmO2dRvRxF/fPN5yr5dACgnwRZOQCQDqbtKLPqHPHxnGRY22awQjXhE=
-X-Received: by 2002:a05:690c:ed4:b0:6f6:ccef:ef4f with SMTP id
- 00721157ae682-6f6eb659ce5mr124991237b3.2.1737433716183; Mon, 20 Jan 2025
- 20:28:36 -0800 (PST)
+ AJvYcCUFX15iyT0BFJMUKofn0XY8F8Nf60CUyfNKoG6RfVKP3PHygVH5dsFp2E/9ogEJxnH0F6RlN9lhZ5ub@lists.freedesktop.org,
+ AJvYcCUo6+Eb/EYwEAhKFpihcaGhggUMxboCqZR0zAqaK2hO0Lf5k3UtIU/IjFBaYxiSZYxx3kvYfNxn6RM=@lists.freedesktop.org,
+ AJvYcCUre7AtHKTk3FFjRM+VwbB6AqPniaWjwoGqtEPohLqM1Tw5sRsPgKeXXPiRA8AoVzNAnkSLVCrQ7HHP@lists.freedesktop.org,
+ AJvYcCVLZTx7RyMdm1iePYnJedzOjoh4tctAPwCbOSJPHKoikcweZiwGJRpDsaYDu555afbE+j6whDXLRh0yBeY=@lists.freedesktop.org,
+ AJvYcCVQbIo6jWusCh93YLTAZ+5w5P7B3HNoZUatt78pasDGyVybUSgoxrDScG3yu3nTgDPzQGLd3egc@lists.freedesktop.org,
+ AJvYcCXK28d7MKEW7TXrJYhlAzAQOx6eCysJIcrBg8fs9M3jR7hFLWbT0w719Wb6JjhMxUJwR6tRMPBqdQth@lists.freedesktop.org,
+ AJvYcCXzY8iLbtvYB2ZTDeEWu2kzHBPKF55ypcObrmiaekc5J5jCITW0T72fNTtSS5UzJUC+5+acBi4fuw==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwbPJleWF0OAFcmh38cx7+br942aa5X03313imBQu/kqaiia/Pk
+ A95rqfNllJszEFwKn4D0Ly7wfwQbbTRu36Z2S3Lpun1Lv8opqOAIe+pYratc
+X-Gm-Gg: ASbGncu985qL2Y0uyZTUv90FJ7APpHzSIVz/3sblfR4tYYAouTHS2hXhknZcPCG9G/R
+ OOmfTGWIygMdRjzCZYSh0MMDt2aHbQEj1m59AtEvGm/MQHRsNcl71HanItf1H2U2HBzetPBj0UT
+ tl8xfS3G5zsegzoLEsJzKS4dlfp7xGp7XEHEIRbLqWpfptKt6ZEgoGsvOTVHhy2HYokLz+21suJ
+ X/enIUfz4q71ISa8mV3Ta0LjcB27Xe9j2TcUBPXyWYhe5WtBnfCN5TzLc4KiEI1vX3SgYoUOZpr
+ D7PDLjYUnAnrV/CuavCZt0ztZDJWmDoIxBUe
+X-Google-Smtp-Source: AGHT+IFOcUPptTQCvOMHiebMmKIO51iRtzt6r6HM+NEQ7x3Abwl+WNcxNE8vKqEDySENGLdt14ukKg==
+X-Received: by 2002:a05:620a:43a2:b0:7b1:7508:9f38 with SMTP id
+ af79cd13be357-7be523e2a07mr3876635885a.16.1737450782825; 
+ Tue, 21 Jan 2025 01:13:02 -0800 (PST)
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com.
+ [209.85.222.174]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7be614ef1a5sm532894685a.102.2025.01.21.01.13.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Jan 2025 01:13:02 -0800 (PST)
+Received: by mail-qk1-f174.google.com with SMTP id
+ af79cd13be357-7b6ef047e9bso496088185a.1; 
+ Tue, 21 Jan 2025 01:13:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVQJWqNelfcLtnJaBP04o7uW2LCL7GrCXS5T7TRGvoqXVGM+/zvO/5xClBIlvNdhVh9GXCPzi/YMEbMGgY=@lists.freedesktop.org,
+ AJvYcCVYYfWcsLEVspvqfRAlEaf6Fb8/sOZJcclQYSNb9rBzJcyDumPDlkcG8j2NRuYxvTUgxyMs4kpAuTAD@lists.freedesktop.org,
+ AJvYcCW22fC3GKgVtmoBbUOdboA2bkKm1M/Qobm4DJ9o0kNf6ivIif6QCdPJ7tIGYNqbI28149Xn5cjgMWZm@lists.freedesktop.org,
+ AJvYcCW6c2SEePq4y4697mOeGlZ0HbYtKZil/yI/BufMykOgMtFGVLMp/KmQ+Yc/2Ug5OYmvvGAVq5DSZV46@lists.freedesktop.org,
+ AJvYcCWNCpJJ4QJ8EBFfznn5s+mtKP7vEIH6Q5E/laUT8gE4rkU9ZIJHNbB4eSKvK8Kc9JFY8GHQLJMZ@lists.freedesktop.org,
+ AJvYcCXKgArUnzx80sKf5StLAw7gTcyqL+RSpPgoc6pxqQUVQEPjJmqR1iVxUnB7xJNowbEN6jViCj18BA==@lists.freedesktop.org,
+ AJvYcCXLoBu21VlAlq90XjxzuKrv11kwx91gwKS+UeqBStgBFhuQbCCLj57S6R7zx/a8kyVqx9BtGjE+Fsk=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:1783:b0:517:e7b7:d04b with SMTP id
+ 71dfb90a1353d-51cd983d39emr19246646e0c.5.1737450357663; Tue, 21 Jan 2025
+ 01:05:57 -0800 (PST)
 MIME-Version: 1.0
-References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
- <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-16-74749c6eba33@linaro.org>
- <mw7zc4ljagxs6sjpl2wfjicq56w7ru2dd43u55rrtwyux62bb5@3w4zayfqxlai>
- <CABymUCMnYy-L2Bd6dgYzPTB+qzpFLbU-LyCLDKxCSWy19x_A5g@mail.gmail.com>
- <6ds6wxlf56kt3lislorxubwbjldpknz74c76smglynzh4jxcpq@dcr2ptutaopa>
-In-Reply-To: <6ds6wxlf56kt3lislorxubwbjldpknz74c76smglynzh4jxcpq@dcr2ptutaopa>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 20 Jan 2025 20:28:24 -0800
-X-Gm-Features: AbW1kvb-DeFP6oG56gSKdFoJx3QfWKxrxchTK43xDe6e8I2Ayaxn3a_6GSbRAjA
-Message-ID: <CABymUCPviHNEhjV8sp7_dFDXNa5HMOMC+c0V83pyhRQND_0p8A@mail.gmail.com>
-Subject: Re: [PATCH v4 16/16] drm/msm/dpu: Enable quad-pipe for DSC and
- dual-DSI case
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+References: <20241214-drm-connector-mode-valid-const-v2-0-4f9498a4c822@linaro.org>
+ <173624946815.1500596.321177900833598022.b4-ty@linaro.org>
+In-Reply-To: <173624946815.1500596.321177900833598022.b4-ty@linaro.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 21 Jan 2025 10:05:45 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVwcaY2Fgpf7GYhBrE5B+AEg=v0BH4OjMXgnp=wqjxmKg@mail.gmail.com>
+X-Gm-Features: AbW1kvaysGolt62WeN4DkS2DNKlSt5oN-0lBeK1j4PwxsWLIrFBPjsQ9bnC7ZcA
+Message-ID: <CAMuHMdVwcaY2Fgpf7GYhBrE5B+AEg=v0BH4OjMXgnp=wqjxmKg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/5] drm/connector: make mode_valid() callback accept
+ const mode pointer
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Karol Herbst <kherbst@redhat.com>,
+ Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Peter Senna Tschudin <peter.senna@gmail.com>, Ian Ray <ian.ray@ge.com>, 
+ Martyn Welch <martyn.welch@collabora.co.uk>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Stefan Agner <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
+ Samuel Holland <samuel@sholland.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Jani Nikula <jani.nikula@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -92,223 +151,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Marijn Suijten <marijn.suijten@somainline.org> =E4=BA=8E2025=E5=B9=B41=E6=
-=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 04:58=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 2025-01-17 15:32:44, Jun Nie wrote:
-> > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2025=E5=B9=B41=
-=E6=9C=8816=E6=97=A5=E5=91=A8=E5=9B=9B 16:32=E5=86=99=E9=81=93=EF=BC=9A
-> > >
-> > > On Thu, Jan 16, 2025 at 03:26:05PM +0800, Jun Nie wrote:
-> > > > Request 4 mixers and 4 DSC for the case that both dual-DSI and DSC =
-are
-> > > > enabled.
-> > >
-> > > Why? What is the issue that you are solving?
+Hi Dmitry,
+
+On Tue, Jan 7, 2025 at 12:31=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+> On Sat, 14 Dec 2024 15:37:04 +0200, Dmitry Baryshkov wrote:
+> > While working on the generic mode_valid() implementation for the HDMI
+> > Connector framework I noticed that unlike other DRM objects
+> > drm_connector accepts non-const pointer to struct drm_display_mode,
+> > while obviously mode_valid() isn't expected to modify the argument.
 > >
-> >     To support high-resolution cases that exceed the width limitation o=
-f
->
-> How high is high?  Some Sony phones use a bonded 2:2:2 setup.
-
-The high resolution here means the capability of 2 SSPP without multi-rect =
-mode,
-or the clock rate requirement exceed the SoC capability. It depends on spec=
-ific
-SoC spec.
-
->
-> >     a pair of SSPPs, or scenarios that surpass the maximum MDP clock ra=
-te,
-> >     additional pipes are necessary to enable parallel data processing
-> >     within the SSPP width constraints and MDP clock rate.
+> > Mass-change the DRM framework code to pass const argument to that
+> > callback.
 > >
-> >     Request 4 mixers and 4 DSCs for high-resolution cases where both DS=
-C
-> >     and dual interfaces are enabled. More use cases can be incorporated
-> >     later if quad-pipe capabilities are required.
-> >
-> > >
-> > > > 4 pipes are preferred for dual DSI case for it is power optimal
-> > > > for DSC.
-> > > >
-> > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  2 +-
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 29 ++++++++++++=
-++++++------
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
-> > > >  6 files changed, 29 insertions(+), 14 deletions(-)
-> > > >
-> > >
-> > > > @@ -664,15 +664,20 @@ static struct msm_display_topology dpu_encode=
-r_get_topology(
-> > > >
-> > > >       /* Datapath topology selection
-> > > >        *
-> > > > -      * Dual display
-> > > > +      * Dual display without DSC
-> > > >        * 2 LM, 2 INTF ( Split display using 2 interfaces)
-> > > >        *
-> > > > +      * Dual display with DSC
-> > > > +      * 2 LM, 2 INTF ( Split display using 2 interfaces)
-> > > > +      * 4 LM, 2 INTF ( Split display using 2 interfaces)
+> > [...]
 >
-> Are these always bonded (i.e. single display with dual-DSI link), or can =
-it be
-> two independent panels?
+> Applied to drm-misc-next, thanks!
+>
+> [1/5] drm/encoder_slave: make mode_valid accept const struct drm_display_=
+mode
+>       commit: 7a5cd45fab0a2671aa4ea6d8fb80cea268387176
+> [2/5] drm/amdgpu: don't change mode in amdgpu_dm_connector_mode_valid()
+>       commit: b255ce4388e09f14311e7912d0ccd45a14a08d66
+> [3/5] drm/sti: hda: pass const struct drm_display_mode* to hda_get_mode_i=
+dx()
+>       commit: 5f011b442006ccb29044263df10843de80fc0b14
+> [4/5] drm/connector: make mode_valid_ctx take a const struct drm_display_=
+mode
+>       commit: 66df9debcb29d14802912ed79a9cf9ba721b51a4
+> [5/5] drm/connector: make mode_valid take a const struct drm_display_mode
+>       commit: 26d6fd81916e62d2b0568d9756e5f9c33f0f9b7a
 
-It can be two independent panels.
->
-> > > > +      *
-> > > >        * Single display
-> > > >        * 1 LM, 1 INTF
-> > > >        * 2 LM, 1 INTF (stream merge to support high resolution inte=
-rfaces)
-> > > >        *
-> > > >        * Add dspps to the reservation requirements if ctm is reques=
-ted
-> > > >        */
-> > > > +
-> > >
-> > > irrlevant extra line, please drop.
-> > >
-> > > >       if (intf_count =3D=3D 2)
-> > > >               topology.num_lm =3D 2;
-> > > >       else if (!dpu_kms->catalog->caps->has_3d_merge)
-> > > > @@ -691,10 +696,20 @@ static struct msm_display_topology dpu_encode=
-r_get_topology(
-> > > >                * 2 DSC encoders, 2 layer mixers and 1 interface
-> > > >                * this is power optimal and can drive up to (includi=
-ng) 4k
-> > > >                * screens
-> > > > +              * But for dual display case, we prefer 4 layer mixer=
-s. Because
-> > > > +              * the resolution is always high in the case and 4 DS=
-Cs are more
-> > > > +              * power optimal.
-> > >
-> > > I think this part is thought about in a wrong way. If it was just abo=
-ut
-> > > power efficiency, we wouldn't have to add quad pipe support.
-> > > Please correct me if I'm wrong, but I think it is about the maximum
-> > > width supported by a particular topology being too low for a requeste=
-d
-> > > resolution. So, if there is a DSC and mode width is higher than 5120
-> > > (8.x+) / 4096 ( <=3D 7.x), then we have to use quad pipe. Likewise if
-> > > there is no DSC in play, the limitation should be 2 * max_mixer_width=
-.
-> >
-> > Both width limitation and clock rate contribute to pipe number decision=
-.
-> > To support high resolution, the MDP clock may be required to overclock
-> > to a higher rate than the safe rate. Current implementation does not
-> > support checking clock rate when deciding topology. We can add the
-> > clock rate check later with a new patch.
-> > >
-> > > >                */
-> > > > -             topology.num_dsc =3D 2;
-> > > > -             topology.num_lm =3D 2;
-> > > > -             topology.num_intf =3D 1;
-> > > > +
-> > > > +             if (intf_count =3D=3D 2) {
-> > > > +                     topology.num_dsc =3D dpu_kms->catalog->dsc_co=
-unt >=3D 4 ? 4 : 2;
->
-> What if there are other encoders that have already reserved DSC blocks, r=
-educing
-> the current available number of DSC blocks?  This patch seems to cover mu=
-ltiple
-> panels/interfaces on a single virtual encoder, how does one get to such a
-> scenario?  Bonded display?  If one or more DP panel is connected, do they=
- use
-> their own virtual encoder, and hence miss out on logic that properly divi=
-des
-> available DSC blocks?
+I cannot find these in drm-misc or drm-next, but they are in drm-tip?
+The last one due to commit 2bdc721917cf141f ("Merge remote-tracking
+branch 'drm-misc/drm-misc-next' into drm-tip").
 
-Yes, it's bonded display. Your point is valid. The scenario will fail
-at the resource
-allocation stage and CRTC pipe fails to be setup if there is not
-enough DSC block
-available. But it should fail gracefully, so not a big issue. It is
-always possible
-that resource cannot support a usage scenario.
+What am I missing?
+Thanks!
 
->
-> That idea is what's been holding back a quick hack to support 1:1:1
-> topology for sc7280 / FairPhone 5 to perform a similar workaround:
->
->         if (catalog->dsc_count < 2)
->                 num_dsc =3D num_lm =3D 1;.
+P.S. Sima: noticed while resolving a merge conflict using drm-tip. Thx!
 
-Actually, I do not see issue here. Could you help point me the link
-for this change?
-Checking the discussion history helps on understanding more aspects of
-this change.
->
-> > >
-> > > This assumes that the driver can support 2:2:2. Is it the case?
-> >
-> > The code falls back to 2:2:2 case here. But I guess 2:2:2 does not work=
- yet.
-> > How about below code for DSC case?
->
-> I've been working on 2:2:2 support [1] but have stalled it to see how you=
-r
-> series here pans out.  Doesn't look like it's heading in a compatible dir=
-ection
-> though, going for quick wins rather than redesigning how DSC blocks are
-> allocated (to name one of the many topics).
->
-> [1]: https://lore.kernel.org/linux-arm-msm/20240417-drm-msm-initial-dualp=
-ipe-dsc-fixes-v1-0-78ae3ee9a697@somainline.org/
->
-> - Marijn
+Gr{oetje,eeting}s,
 
-Glad to know that a 2:2:2 case can be enabled. That can be supported with
-code structure of quad-pipe in theory and we can co-work on that. But I wou=
-ld
-not call the quad-pipe patch set a quick wins, as I cannot cover a usage ca=
-se
-that's not supported by mainline yet, and I do not have hardware to support
-2:2:2 neither. What I can do is to add new usage case and make sure
-existing usage cases are not broken. More and more usage cases can be
-added later this way.
-Could you help elaborate what do you mean by how DSC blocks are allocated?
-I see DSC is allocated just as other resources. Maybe you mean how the
-topology is decided. While that's about adding new usage case without
-breaking existing usage cases.
+                        Geert
 
-Regards,
-Jun
->
-> >
-> >                  if (intf_count =3D=3D 2 && dpu_kms->catalog->dsc_count=
- >=3D 4) {
-> >                          topology.num_dsc =3D 4;
-> >                          topology.num_lm =3D 4;
-> >                          topology.num_intf =3D 2;
-> >                  } else {
-> >                          topology.num_dsc =3D 2;
-> >                          topology.num_lm =3D 2;
-> >                          topology.num_intf =3D 1;
-> >                  }
-> >
-> > >
-> > > > +                     topology.num_lm =3D topology.num_dsc;
-> > > > +                     topology.num_intf =3D 2;
-> > > > +             } else {
-> > > > +                     topology.num_dsc =3D 2;
-> > > > +                     topology.num_lm =3D 2;
-> > > > +                     topology.num_intf =3D 1;
-> > > > +             }
-> > > >       }
-> > > >
-> > > >       return topology;
-> > >
-> > > --
-> > > With best wishes
-> > > Dmitry
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
