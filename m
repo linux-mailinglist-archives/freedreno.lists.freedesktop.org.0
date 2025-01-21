@@ -2,87 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74328A18185
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jan 2025 16:58:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29ED9A1875A
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jan 2025 22:33:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DBD810E5FA;
-	Tue, 21 Jan 2025 15:58:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 050C610E2E4;
+	Tue, 21 Jan 2025 21:33:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="l9Ovjg1/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GxqHoghG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C991810E5FA
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jan 2025 15:58:26 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5d9837f201aso12487575a12.0
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jan 2025 07:58:26 -0800 (PST)
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74C4210E2E4
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jan 2025 21:33:12 +0000 (UTC)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ 98e67ed59e1d1-2ef718cb473so1269641a91.1
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jan 2025 13:33:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1737475105; x=1738079905; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1737495192; x=1738099992; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XdJdALCpfMsPW8b2vvD3iTsNvqpEAESXqA78u2jp51U=;
- b=l9Ovjg1/Ylf7CX34GBA0D7WgZXsZXjQiVZqpf1hxVgvHEHYIKLGpM9xjzZbGbFAVQl
- jwu5+ZwFDnU+F4n2pUEiGb8fMImRzys7oasjoRcWM7TVWuTGZD/RLvFgsS244BwaLbca
- a4mXU9g5+YJC6aw4y/VY2NPYmKvLCB4EHPlJwdVeetkTQxFu16ss5StwWG9J/aUlBfmy
- 18UZevxmCy3ZH3MMRrMktsk1DLXpUqULBxK8ZWZ4c1oymA1RqxF66m2+QgMyd8H+6OHD
- 4FGI08D+uy+EdhMdU/9m/hSab7MZinmxy+lWQy0TLx8nOI3dghofLkqJXRngmfo5YTLR
- 21mA==
+ bh=DFUI3MpGGkbseTkztZ+yIQpjol+PGIuUpMv3ocf4nfE=;
+ b=GxqHoghG51/9gan3mDNbMbhVZjlDKzlQj2bprgp3yiR4YAP1xwKyM5Xu94A7l7FtqQ
+ XQCoKSs0dOkZp8MJLZCmhKXKAc2P747uYKIGZXOUey8CCU8a6hkWW/sg3RAZ245tOiIo
+ 5KaM1cfeUQEZhABSbwCQFgrKgYSDGd4f7qbPcDvVTBbWURS/B6XbHDsHThPv+WSLfzKa
+ k4s2Sau/NwEUNGkIgsRlVcKlIsfsgY/NekdJKFgnCseZrlhf5pomNSbPS4qINrQdT6Nh
+ Zddb4OvcLh9N932+oetEJ5803hGdyD5mMeg6wLFn/ee4H+vdYwIyyHWwDxe3q4L8vEPS
+ 7gnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737475105; x=1738079905;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=XdJdALCpfMsPW8b2vvD3iTsNvqpEAESXqA78u2jp51U=;
- b=tkzfWPrX8KU1RfP/AFf3yCQLNSdK63MVSSiZyJZxUeo8W4UuwTSz2rNlC1/eNSMLKb
- gnjxSr3vpwBPqr0X55zNUx+ptQ6Mpg9s7IjtkTGBg0Sffgfd4RIW2Axv+m4Fd4QImFBp
- r+u0M0GH6srsTGaFfYvhCr4i/vNM/hd/SsAjMkSwM63uNZo4NXdWJmribOqTOqJbFyCt
- vR8NcBq1+uJd3f1RA+zYz6R0Jp+GPF2Jfg9zsCAEtUzJQIyp2vHxIQSQLBzKb2S11PT+
- 5RX0X/q9uXtSDXj8RtL8P7+GCQ5G5jluuDkZQhx8iYFknFydi0I2rQfGOvnUFzKR+523
- /lwA==
+ d=1e100.net; s=20230601; t=1737495192; x=1738099992;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DFUI3MpGGkbseTkztZ+yIQpjol+PGIuUpMv3ocf4nfE=;
+ b=ioFBpfEofMxtf5W9bUlFFP6GtmfcDk97wzfax5MwDzVfSTq6ONSrWZ5AEYRVOxa2kN
+ eCQJDKJehGcFx9yADjsyGoAyrQjDnYgl13sb3AldekniY7oF7PFBf9LN77d62yN1BrIN
+ 0BJNQl1CJqbGljbQW24lWW2UtB00rpzJq6OwCQPCtULGMnPgPPDCH/F0hKcxEksVBA1S
+ 4LFFfk/k7boDRkyf7EOsNyR+fE0LPVbj1f8BQzhHvXGnX3U/KJlBUGeiNjhsMl4xycJm
+ /tThdQA3MstJlSU45qAK38jPZ7Dlf8Aj/AYke99mnrVJGd2liwkTawkF4b1MmNVl5W8d
+ qdDA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXmpZOq/U0ism50DQSy6KbRz/pVZQ0jk9B0FZs9+n7MJGMrOmovX36v6Ce6qc+thja6MOzGwQec0GE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzftdW3uHZKCA0B6VH+qH6pPVx8hs4sOTqneL1CgsRHjzoF1u8A
- RprK06/Jn9y6xvkVrc7bpuc7/GR+0f2WRhLM1O+Yv4LNl0VVvOPCmsfkdiSdcTI=
-X-Gm-Gg: ASbGnctj3DK9qB6+JD1oEGw816VqBJMdYYc16RdRQi8R1A5AwUCnUaRpXRFbJmi1Ejg
- r2CAP+B00riRPmJ6YTHnyThuFDIG+2A2SQmcNV/+crbVDlWPDvIfLYcMIpx/ufW7qaYtx2Wum5I
- crY7XbLdZE4Xq940OTwLstiwyGDB0LHFHAkD7vjJYAtVxVOLwvH3xQAOWORN9kB4yRjwIuzl+xY
- 9Aqs0FXd1JT22Tkj+gwWzo5EwGtDHvcx6PaSsHzgeFmqWVCVSo7ZurSffqgXd4qJwDLNAAwQHAH
- keMmbPQpiA0paWUQnYrVpptmKzemudgBO3t5Xl8=
-X-Google-Smtp-Source: AGHT+IHdkDoF53x8l2SOkiELIyNRQWLeK1YwI2eN4KFrJeV+1D+AZglekd0sHFlT9ypnhGbNQmdg/A==
-X-Received: by 2002:a17:907:743:b0:aa6:75f4:20df with SMTP id
- a640c23a62f3a-ab36e241bc1mr1900254266b.9.1737475105126; 
- Tue, 21 Jan 2025 07:58:25 -0800 (PST)
-Received: from localhost (144-178-202-138.static.ef-service.nl.
- [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab384fc35b9sm758783466b.161.2025.01.21.07.58.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jan 2025 07:58:24 -0800 (PST)
-Mime-Version: 1.0
+ AJvYcCW4H0crkAjxwDYjPPIHCHecO5Icf5xRn6i+dR1lyehDI+7GKQYwhFuEWs3RRN8MDIIObkBMW04SrFA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxbBvZ6sCF+bCkC+4AWTtMskarX1ANv6oUZjrgf/4AW3zlZbPtj
+ Ykkh2uteQ4J+UKjxwHDTGB06E/yVlEOLAaySV6/KWZe6Kd5nTWaHpt/rIoL1qwGG69Z+AXHgrgG
+ HNUwnXLQU1OkEQ08y38e89FYuuFI=
+X-Gm-Gg: ASbGncs4ubqdP0/lToo9WHtcnKTSGyUfpHcz9GAkfgyXjOEODZQXGhmQNak/G7Bbb+Q
+ bYTL3E1uAFW83Ad6HFOAZv/2BWaLAVX07LEvjRQrpXuOJAmfieuI=
+X-Google-Smtp-Source: AGHT+IEcjzdGu7qYqGn5N4xEYIBOsyWiwpCUBMJHTPuLbHn2zBtCvYF5lxRNHxNZ86fRxljxMK5FHYvAnIcG7/4OKIA=
+X-Received: by 2002:a05:6a00:2e14:b0:725:e499:5b9d with SMTP id
+ d2e1a72fcca58-72f6ab9b6f0mr666087b3a.3.1737495191872; Tue, 21 Jan 2025
+ 13:33:11 -0800 (PST)
+MIME-Version: 1.0
+References: <20250120-msm-gpu-fault-fixes-next-v2-0-d636c4027042@gmail.com>
+ <20250120-msm-gpu-fault-fixes-next-v2-3-d636c4027042@gmail.com>
+ <20250121210818.GS674319@ziepe.ca>
+In-Reply-To: <20250121210818.GS674319@ziepe.ca>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Tue, 21 Jan 2025 16:33:01 -0500
+X-Gm-Features: AbW1kvb6ejz0Edpb-LSeUnSnuaoYq5_MYqcriJkrf00pfJrPDWvH4y-7_JTCMIM
+Message-ID: <CACu1E7EgYzsU1AJfi7MJ9QjX8mypPw0mxcCkX-H59hSaDFnd5Q@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] drm/msm: Temporarily disable stall-on-fault after
+ a page fault
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 21 Jan 2025 16:58:24 +0100
-Message-Id: <D77VIRU2Z0L9.20OBL2OMAIA7I@fairphone.com>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, "AngeloGioacchino Del Regno"
- <angelogioacchino.delregno@collabora.com>, "Konrad Dybcio"
- <konrad.dybcio@oss.qualcomm.com>, "Martin Botka"
- <martin.botka@somainline.org>, "Jami Kettunen"
- <jami.kettunen@somainline.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH RFC] drm/msm/dpu: Fall back to a single DSC encoder
- (1:1:1) on small SoCs
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Marijn Suijten" <marijn.suijten@somainline.org>, "Rob Clark"
- <robdclark@gmail.com>, "Abhinav Kumar" <quic_abhinavk@quicinc.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>, "Sean Paul" <sean@poorly.run>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.18.2-0-ge037c095a049
-References: <20250121-dpu-111-topology-v1-1-d01987205c53@somainline.org>
-In-Reply-To: <20250121-dpu-111-topology-v1-1-d01987205c53@somainline.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,168 +91,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Marijn,
-
-On Tue Jan 21, 2025 at 12:06 AM CET, Marijn Suijten wrote:
-> Some SoCs such as SC7280 (used in the FairPhone 5) have only a single
-> DSC "hard slice" encoder.  The current hardcoded use of 2:2:1 topology
-> (2 LM and 2 DSC for a single interface) make it impossible to use
-> Display Stream Compression panels with mainline, which is exactly what's
-> installed on the FairPhone 5.
-
-Nitpick, if you send another revision: s/FairPhone/Fairphone/
-
+On Tue, Jan 21, 2025 at 4:08=E2=80=AFPM Jason Gunthorpe <jgg@ziepe.ca> wrot=
+e:
 >
-> By loosening the hardcoded `num_dsc =3D 2` to fall back to `num_dsc =3D
-> 1` when the catalog only contains one entry, we can trivially support
-> this phone and unblock further panel enablement on mainline.  A few
-> more supporting changes in this patch ensure hardcoded constants of 2
-> DSC encoders are replaced to count or read back the actual number of
-> DSC hardware blocks that are enabled for the given virtual encoder.
-> Likewise DSC_MODE_SPLIT_PANEL can no longer be unconditionally enabled.
-
-This unblocks panel enablement on upstream without any hacks on top.
-Many thanks!
-
-Tested-by: Luca Weiss <luca.weiss@fairphone.com>
-
-> Cc: Luca Weiss <luca.weiss@fairphone.com>
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
-> Note that this doesn't paint the full picture in case there are SoCs
-> with more DSC hardware blocks, but when multiple virtual encoders
-> have already allocated most of them.  My initial plan was to code
-> ahead for dynamically tracking and reallocating these blocks in RM, if
-> some virtual encoder could potentially be using too many DSC encoders
-> which, while "power optimal", may not be able to support the number of
-> requested displays/interfaces.  Such a solution would automatically
-> ensure DSCmerge is *not* used when there are not enough hardware blocks
-> available in the first place.
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 47 +++++++++++++++--------=
-------
->  1 file changed, 25 insertions(+), 22 deletions(-)
+> On Mon, Jan 20, 2025 at 10:46:47AM -0500, Connor Abbott wrote:
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_encoder.c
-> index 5172ab4dea995a154cd88d05c3842d7425fc34ce..dcf17b5e8ac8eb76f5ba038fc=
-ce48e47f32299d5 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -622,9 +622,10 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *d=
-rm_enc)
->  		if (dpu_enc->phys_encs[i])
->  			intf_count++;
-> =20
-> -	/* See dpu_encoder_get_topology, we only support 2:2:1 topology */
->  	if (dpu_enc->dsc)
-> -		num_dsc =3D 2;
-> +		for (i =3D 0; i < MAX_CHANNELS_PER_ENC; i++)
-> +			if (dpu_enc->hw_dsc[i])
-> +				num_dsc++;
-> =20
->  	return (num_dsc > 0) && (num_dsc > intf_count);
->  }
-> @@ -664,7 +665,7 @@ static struct msm_display_topology dpu_encoder_get_to=
-pology(
->  	/* Datapath topology selection
->  	 *
->  	 * Dual display
-> -	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
-> +	 * 2 LM, 2 INTF (split display using 2 interfaces)
->  	 *
->  	 * Single display
->  	 * 1 LM, 1 INTF
-> @@ -686,13 +687,19 @@ static struct msm_display_topology dpu_encoder_get_=
-topology(
-> =20
->  	if (dsc) {
->  		/*
-> -		 * In case of Display Stream Compression (DSC), we would use
-> -		 * 2 DSC encoders, 2 layer mixers and 1 interface
-> -		 * this is power optimal and can drive up to (including) 4k
-> -		 * screens
-> +		 * Use 2 DSC encoders and 2 layer mixers per single interface
-> +		 * when Display Stream Compression (DSC) is enabled,
-> +		 * and when enough DSC blocks are available.
-> +		 * This is power-optimal and can drive up to (including) 4k
-> +		 * screens.
->  		 */
-> -		topology.num_dsc =3D 2;
-> -		topology.num_lm =3D 2;
-> +		if (dpu_kms->catalog->dsc_count >=3D 2) {
-> +			topology.num_dsc =3D 2;
-> +			topology.num_lm =3D 2;
-> +		} else {
-> +			topology.num_dsc =3D 1;
-> +			topology.num_lm =3D 1;
-> +		}
->  		topology.num_intf =3D 1;
->  	}
-> =20
-> @@ -2020,32 +2027,32 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_h=
-w_ctl *ctl,
->  static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
->  				 struct drm_dsc_config *dsc)
->  {
-> -	/* coding only for 2LM, 2enc, 1 dsc config */
->  	struct dpu_encoder_phys *enc_master =3D dpu_enc->cur_master;
->  	struct dpu_hw_ctl *ctl =3D enc_master->hw_ctl;
->  	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
->  	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
->  	int this_frame_slices;
->  	int intf_ip_w, enc_ip_w;
-> -	int dsc_common_mode;
-> +	int dsc_common_mode =3D 0;
->  	int pic_width;
->  	u32 initial_lines;
-> +	int num_dsc =3D 0;
->  	int i;
-> =20
->  	for (i =3D 0; i < MAX_CHANNELS_PER_ENC; i++) {
->  		hw_pp[i] =3D dpu_enc->hw_pp[i];
->  		hw_dsc[i] =3D dpu_enc->hw_dsc[i];
-> =20
-> -		if (!hw_pp[i] || !hw_dsc[i]) {
-> -			DPU_ERROR_ENC(dpu_enc, "invalid params for DSC\n");
-> -			return;
-> -		}
-> +		if (!hw_pp[i] || !hw_dsc[i])
-> +			break;
-> +		num_dsc++;
->  	}
-> =20
->  	dsc_common_mode =3D 0;
->  	pic_width =3D dsc->pic_width;
-> =20
-> -	dsc_common_mode =3D DSC_MODE_SPLIT_PANEL;
-> +	if (num_dsc > 1)
-> +		dsc_common_mode |=3D DSC_MODE_SPLIT_PANEL;
->  	if (dpu_encoder_use_dsc_merge(enc_master->parent))
->  		dsc_common_mode |=3D DSC_MODE_MULTIPLEX;
->  	if (enc_master->intf_mode =3D=3D INTF_MODE_VIDEO)
-> @@ -2054,14 +2061,10 @@ static void dpu_encoder_prep_dsc(struct dpu_encod=
-er_virt *dpu_enc,
->  	this_frame_slices =3D pic_width / dsc->slice_width;
->  	intf_ip_w =3D this_frame_slices * dsc->slice_width;
-> =20
-> -	/*
-> -	 * dsc merge case: when using 2 encoders for the same stream,
-> -	 * no. of slices need to be same on both the encoders.
-> -	 */
-> -	enc_ip_w =3D intf_ip_w / 2;
-> +	enc_ip_w =3D intf_ip_w / num_dsc;
->  	initial_lines =3D dpu_encoder_dsc_initial_line_calc(dsc, enc_ip_w);
-> =20
-> -	for (i =3D 0; i < MAX_CHANNELS_PER_ENC; i++)
-> +	for (i =3D 0; i < num_dsc; i++)
->  		dpu_encoder_dsc_pipe_cfg(ctl, hw_dsc[i], hw_pp[i],
->  					 dsc, dsc_common_mode, initial_lines);
->  }
+> > To work around these problem, disable stall-on-fault as soon as we get =
+a
+> > page fault until a cooldown period after pagefaults stop. This allows
+> > the GMU some guaranteed time to continue working. We also keep it
+> > disabled so long as the current devcoredump hasn't been deleted, becaus=
+e
+> > in that case we likely won't capture another one if there's a fault.
 >
-> ---
-> base-commit: 1573c8d4cb206a2d1454ff711e79f8df2353290b
-> change-id: 20240204-dpu-111-topology-b12c1de82c8a
+> I don't have any particular interest here, but I'm surprised to read
+> this paragraph, maybe you could explain this some more in the commit
+> message?
 >
-> Best regards,
+> I would think terminating transactions and returning a failure to the
+> GPU would be fatal to the GPU operating model when the entire point of
+> stall and fault handling is to make OS paging transparent to the GPU??
+>
+> What happens on the GPU side when it gets this spurious failure?
+>
+> Jason
 
+It's touched on in an earlier commit, but OS paging is not (yet?)
+transparent to the GPU, and we aren't using stall-on-fault for that.
+Instead we're (ab)using it to stall the GPU while we capture a
+devcoredump with the state of the GPU when it first faults. Stalling
+prevents the GPU from moving onto another job while we capture the
+devcoredump. We only keep one devcoredump at a time, so we don't care
+about subsequent faults until it's read and deleted by userspace. This
+idea is taken directly from downstream, which I suspect is why the old
+Qualcomm MMU used before MMU-500 violates spec and terminates
+subsequent transactions after the first one stalls - it's helping
+downstream implement devcoredump without this workaround.
+
+I can add some of that context to the commit message.
+
+Connor
