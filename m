@@ -2,137 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 312BAA17CE8
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jan 2025 12:21:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74328A18185
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jan 2025 16:58:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CD8610E573;
-	Tue, 21 Jan 2025 11:21:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DBD810E5FA;
+	Tue, 21 Jan 2025 15:58:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dQ62m/oQ";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="l9Ovjg1/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B82A810E161
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jan 2025 11:21:41 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-54025432becso6145778e87.1
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jan 2025 03:21:41 -0800 (PST)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C991810E5FA
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jan 2025 15:58:26 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5d9837f201aso12487575a12.0
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jan 2025 07:58:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737458500; x=1738063300; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Ccl7pK+fGoMwVya6mvoYHjlRDfdrE2si7QnLrLuVzrA=;
- b=dQ62m/oQUnINWTDtZiIvPinMztI/3p5AHmn6QQ1HgukOZb89eSXrBKtoloecJFn8y1
- THeEkiRrOp0dTH2zdHOx2utWLQJqQWzTA94tFSTKqDD4wAIiTyneO0iy1O/mgjFDWrmK
- PZmK3z0UsqgB2GOIWfHuPVfRNYNzVWqYueNU8GtqLpkVb5ko+4ljz1QLBm1cs+WHKTFy
- IwCbMVWfqI377oxohbNRFmPXrw/kL90L8FDC/C7XbjHfQ9EgaR2UVaA0rDUSDrkenhFE
- MsWRPZSeVyF/4djTGlN2oEBsz0mqUjoEdmi/naDON4N4dkhp9vdqDCuBXcg6hgODBo9V
- IhZA==
+ d=fairphone.com; s=fair; t=1737475105; x=1738079905; darn=lists.freedesktop.org;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XdJdALCpfMsPW8b2vvD3iTsNvqpEAESXqA78u2jp51U=;
+ b=l9Ovjg1/Ylf7CX34GBA0D7WgZXsZXjQiVZqpf1hxVgvHEHYIKLGpM9xjzZbGbFAVQl
+ jwu5+ZwFDnU+F4n2pUEiGb8fMImRzys7oasjoRcWM7TVWuTGZD/RLvFgsS244BwaLbca
+ a4mXU9g5+YJC6aw4y/VY2NPYmKvLCB4EHPlJwdVeetkTQxFu16ss5StwWG9J/aUlBfmy
+ 18UZevxmCy3ZH3MMRrMktsk1DLXpUqULBxK8ZWZ4c1oymA1RqxF66m2+QgMyd8H+6OHD
+ 4FGI08D+uy+EdhMdU/9m/hSab7MZinmxy+lWQy0TLx8nOI3dghofLkqJXRngmfo5YTLR
+ 21mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737458500; x=1738063300;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ccl7pK+fGoMwVya6mvoYHjlRDfdrE2si7QnLrLuVzrA=;
- b=RRDtx/mzcVQRaih3IAmKR39hGcCpH6jiQjWtamBakIUW1l1ZdjPbzCp52N9mqwC/Jz
- vHdDmE0ZBNLs7BuuWSbDRsBI/bEkKgtwEDrzMtwNTws5QmUsqSR1YGzF1DeVmXT2/DET
- 3AKzXToxnLVE8G18A2eFJglXTui6vkO4V5scN6mxGBSAd1tmKsQ78IfI9IwX9UucIXy6
- m1jBkrbsj4km/WF5Eyx2TSmUHcBhbuOx3MaOb0q96lJmF/lrKvkwym1zkKm1yqpTJQY6
- MXLoMbPKqB03wBt5tbJeW2s71/FZUHt5BVn+oq6C5zKiC+6OgraNngwNP5IdMG6/4Yg6
- QujQ==
+ d=1e100.net; s=20230601; t=1737475105; x=1738079905;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=XdJdALCpfMsPW8b2vvD3iTsNvqpEAESXqA78u2jp51U=;
+ b=tkzfWPrX8KU1RfP/AFf3yCQLNSdK63MVSSiZyJZxUeo8W4UuwTSz2rNlC1/eNSMLKb
+ gnjxSr3vpwBPqr0X55zNUx+ptQ6Mpg9s7IjtkTGBg0Sffgfd4RIW2Axv+m4Fd4QImFBp
+ r+u0M0GH6srsTGaFfYvhCr4i/vNM/hd/SsAjMkSwM63uNZo4NXdWJmribOqTOqJbFyCt
+ vR8NcBq1+uJd3f1RA+zYz6R0Jp+GPF2Jfg9zsCAEtUzJQIyp2vHxIQSQLBzKb2S11PT+
+ 5RX0X/q9uXtSDXj8RtL8P7+GCQ5G5jluuDkZQhx8iYFknFydi0I2rQfGOvnUFzKR+523
+ /lwA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVWhbtKYosxIb3SlnJtE+TP0FsGevfyitp6UGaDhfBVMKRkJh1GMCwEsYN+mNaksns3K9wV9jSBgOM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzjvUY7hLMkE5D13cYhrLowaLK5X2w+KAZTDb5Y4723hiJoR9IL
- zs79NO4qwAUQHQljIRfHIv6wEmvoSWq0MDbO2hkGsAKjumwDcjXEQ4WsjwDGCcA=
-X-Gm-Gg: ASbGncvnZmkwnxV5T+HuUsnPbcUmBbTRHEnSZFGkRIQWEED6+G+ls6dznw3daidpGHH
- xK/riGLtC2wH+Xx4Ae8BBfEht0/Bj7AN2lssbof7pbu3VpNb19GDudNOMEt/ODec9topjcTVHTc
- nFjxvTulEvW3ZQXeNZOq6DNj/vg08XaIHPMG4jjCl40hEeBJaH6NMWZ9J+Y/le7+6jjbQ0DCBaY
- NS75cgyTswEfpvblf4bMUJ5lKp8YwjEL9w1QRtC2YYEozQgES2ELTReMXbDdLtannv4KOM/c9Ic
- DIU3ex6xXzzN0XVKUcwRNBLdOIre0GIRfjJcmUhUbTHaHQ7Lww==
-X-Google-Smtp-Source: AGHT+IFYzzED8Wa2HZSUyJkmbJmRc7n+A/fvnsoklQLIV99y/1uEpOedpIlkjVzotwOAh8lDtCA/PA==
-X-Received: by 2002:a05:651c:b2a:b0:300:7f87:a65 with SMTP id
- 38308e7fff4ca-3072cb1f9b0mr65240811fa.35.1737458499868; 
- Tue, 21 Jan 2025 03:21:39 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3072a51825fsm20633711fa.111.2025.01.21.03.21.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jan 2025 03:21:38 -0800 (PST)
-Date: Tue, 21 Jan 2025 13:21:35 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Peter Senna Tschudin <peter.senna@gmail.com>, Ian Ray <ian.ray@ge.com>, 
- Martyn Welch <martyn.welch@collabora.co.uk>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Stefan Agner <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
- Samuel Holland <samuel@sholland.org>, Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- nouveau@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, virtualization@lists.linux.dev, 
- spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Jani Nikula <jani.nikula@intel.com>, Stephen Rothwell <sfr@canb.auug.org.au>
-Subject: Re: [PATCH v2 0/5] drm/connector: make mode_valid() callback accept
- const mode pointer
-Message-ID: <ak4cz6v6rjguh4jgacyu2mcfh5igtb7qwhvbvdcnfjc5hraloi@d7dwxc7v5gbo>
-References: <20241214-drm-connector-mode-valid-const-v2-0-4f9498a4c822@linaro.org>
- <173624946815.1500596.321177900833598022.b4-ty@linaro.org>
- <CAMuHMdVwcaY2Fgpf7GYhBrE5B+AEg=v0BH4OjMXgnp=wqjxmKg@mail.gmail.com>
- <CAA8EJpos0HQpr9P4XRkto0Jy+Anf1xEH2xhEU8wtCyUQd+XwMg@mail.gmail.com>
- <CAMuHMdW-9F9aypY_XeU3y=dn3AAxjFrZO+H+=hbMF7nGrTLAQQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMuHMdW-9F9aypY_XeU3y=dn3AAxjFrZO+H+=hbMF7nGrTLAQQ@mail.gmail.com>
+ AJvYcCXmpZOq/U0ism50DQSy6KbRz/pVZQ0jk9B0FZs9+n7MJGMrOmovX36v6Ce6qc+thja6MOzGwQec0GE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzftdW3uHZKCA0B6VH+qH6pPVx8hs4sOTqneL1CgsRHjzoF1u8A
+ RprK06/Jn9y6xvkVrc7bpuc7/GR+0f2WRhLM1O+Yv4LNl0VVvOPCmsfkdiSdcTI=
+X-Gm-Gg: ASbGnctj3DK9qB6+JD1oEGw816VqBJMdYYc16RdRQi8R1A5AwUCnUaRpXRFbJmi1Ejg
+ r2CAP+B00riRPmJ6YTHnyThuFDIG+2A2SQmcNV/+crbVDlWPDvIfLYcMIpx/ufW7qaYtx2Wum5I
+ crY7XbLdZE4Xq940OTwLstiwyGDB0LHFHAkD7vjJYAtVxVOLwvH3xQAOWORN9kB4yRjwIuzl+xY
+ 9Aqs0FXd1JT22Tkj+gwWzo5EwGtDHvcx6PaSsHzgeFmqWVCVSo7ZurSffqgXd4qJwDLNAAwQHAH
+ keMmbPQpiA0paWUQnYrVpptmKzemudgBO3t5Xl8=
+X-Google-Smtp-Source: AGHT+IHdkDoF53x8l2SOkiELIyNRQWLeK1YwI2eN4KFrJeV+1D+AZglekd0sHFlT9ypnhGbNQmdg/A==
+X-Received: by 2002:a17:907:743:b0:aa6:75f4:20df with SMTP id
+ a640c23a62f3a-ab36e241bc1mr1900254266b.9.1737475105126; 
+ Tue, 21 Jan 2025 07:58:25 -0800 (PST)
+Received: from localhost (144-178-202-138.static.ef-service.nl.
+ [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab384fc35b9sm758783466b.161.2025.01.21.07.58.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Jan 2025 07:58:24 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 21 Jan 2025 16:58:24 +0100
+Message-Id: <D77VIRU2Z0L9.20OBL2OMAIA7I@fairphone.com>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, "AngeloGioacchino Del Regno"
+ <angelogioacchino.delregno@collabora.com>, "Konrad Dybcio"
+ <konrad.dybcio@oss.qualcomm.com>, "Martin Botka"
+ <martin.botka@somainline.org>, "Jami Kettunen"
+ <jami.kettunen@somainline.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH RFC] drm/msm/dpu: Fall back to a single DSC encoder
+ (1:1:1) on small SoCs
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Marijn Suijten" <marijn.suijten@somainline.org>, "Rob Clark"
+ <robdclark@gmail.com>, "Abhinav Kumar" <quic_abhinavk@quicinc.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@linaro.org>, "Sean Paul" <sean@poorly.run>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.18.2-0-ge037c095a049
+References: <20250121-dpu-111-topology-v1-1-d01987205c53@somainline.org>
+In-Reply-To: <20250121-dpu-111-topology-v1-1-d01987205c53@somainline.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,85 +98,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 21, 2025 at 12:10:25PM +0100, Geert Uytterhoeven wrote:
-> Hi Dmitry,
-> 
-> CC sfr
-> 
-> On Tue, Jan 21, 2025 at 11:44 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> > On Tue, 21 Jan 2025 at 11:13, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> > > On Tue, Jan 7, 2025 at 12:31 PM Dmitry Baryshkov
-> > > <dmitry.baryshkov@linaro.org> wrote:
-> > > > On Sat, 14 Dec 2024 15:37:04 +0200, Dmitry Baryshkov wrote:
-> > > > > While working on the generic mode_valid() implementation for the HDMI
-> > > > > Connector framework I noticed that unlike other DRM objects
-> > > > > drm_connector accepts non-const pointer to struct drm_display_mode,
-> > > > > while obviously mode_valid() isn't expected to modify the argument.
-> > > > >
-> > > > > Mass-change the DRM framework code to pass const argument to that
-> > > > > callback.
-> > > > >
-> > > > > [...]
-> > > >
-> > > > Applied to drm-misc-next, thanks!
-> > > >
-> > > > [1/5] drm/encoder_slave: make mode_valid accept const struct drm_display_mode
-> > > >       commit: 7a5cd45fab0a2671aa4ea6d8fb80cea268387176
-> > > > [2/5] drm/amdgpu: don't change mode in amdgpu_dm_connector_mode_valid()
-> > > >       commit: b255ce4388e09f14311e7912d0ccd45a14a08d66
-> > > > [3/5] drm/sti: hda: pass const struct drm_display_mode* to hda_get_mode_idx()
-> > > >       commit: 5f011b442006ccb29044263df10843de80fc0b14
-> > > > [4/5] drm/connector: make mode_valid_ctx take a const struct drm_display_mode
-> > > >       commit: 66df9debcb29d14802912ed79a9cf9ba721b51a4
-> > > > [5/5] drm/connector: make mode_valid take a const struct drm_display_mode
-> > > >       commit: 26d6fd81916e62d2b0568d9756e5f9c33f0f9b7a
-> > >
-> > > I cannot find these in drm-misc or drm-next, but they are in drm-tip?
-> >
-> > These are in drm-misc/drm-misc-next, the commit IDs are a part of the
-> > Git history.
-> >
-> > > The last one due to commit 2bdc721917cf141f ("Merge remote-tracking
-> > > branch 'drm-misc/drm-misc-next' into drm-tip").
-> > >
-> > > What am I missing?
-> > > Thanks!
-> >
-> > It might be some kind of misinteraction between drm-misc-next vs
-> > drm-misc-next-fixes vs merge window. Let me recheck dim rebuild-tip.
-> 
-> I indeed see the commit in
-> https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/include/drm/drm_modeset_helper_vtables.h?ref_type=heads
-> 
-> [diving deeper]
-> 
-> So I missed the change from the for-linux-next to the drm-misc-next
-> branch.  Hence I fetched only the former, and was using a stale
-> version of the latter.
-> 
-> Apparently Stephen is also using the old branches for linux-next:
-> 
->     drm-misc-fixes git
-> https://gitlab.freedesktop.org/drm/misc/kernel.git#for-linux-next-fixes
->     drm-misc git
-> https://gitlab.freedesktop.org/drm/misc/kernel.git#for-linux-next
-> 
-> I believe the latter should be drm-misc-next.
-> Should the former be drm-misc-fixes or drm-misc-next-fixes? Or both?
+Hi Marijn,
 
-No. Both branches are correct. This is how the drm-misc tree managed
-development process: during the merge window (and several preceeding
-weeks) the drm-misc-next branch is open for the commits. However those
-commits are not targeted the forthcoming -rc1. Thus the for-linux-next
-branch is diverted to point to drm-misc-next-fixes. This is all being by
-the dim tool.
+On Tue Jan 21, 2025 at 12:06 AM CET, Marijn Suijten wrote:
+> Some SoCs such as SC7280 (used in the FairPhone 5) have only a single
+> DSC "hard slice" encoder.  The current hardcoded use of 2:2:1 topology
+> (2 LM and 2 DSC for a single interface) make it impossible to use
+> Display Stream Compression panels with mainline, which is exactly what's
+> installed on the FairPhone 5.
 
-Respective mode_valid changes were applied too late in the cycle, so
-they are not going to land into 6.14-rc1 (and are not a part of the
-for-linux-next branch). Once 6.14-rc1 is released and we start working
-towards 6.15, for-linux-next will again point to drm-misc-next.
+Nitpick, if you send another revision: s/FairPhone/Fairphone/
 
--- 
-With best wishes
-Dmitry
+>
+> By loosening the hardcoded `num_dsc =3D 2` to fall back to `num_dsc =3D
+> 1` when the catalog only contains one entry, we can trivially support
+> this phone and unblock further panel enablement on mainline.  A few
+> more supporting changes in this patch ensure hardcoded constants of 2
+> DSC encoders are replaced to count or read back the actual number of
+> DSC hardware blocks that are enabled for the given virtual encoder.
+> Likewise DSC_MODE_SPLIT_PANEL can no longer be unconditionally enabled.
+
+This unblocks panel enablement on upstream without any hacks on top.
+Many thanks!
+
+Tested-by: Luca Weiss <luca.weiss@fairphone.com>
+
+> Cc: Luca Weiss <luca.weiss@fairphone.com>
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+> Note that this doesn't paint the full picture in case there are SoCs
+> with more DSC hardware blocks, but when multiple virtual encoders
+> have already allocated most of them.  My initial plan was to code
+> ahead for dynamically tracking and reallocating these blocks in RM, if
+> some virtual encoder could potentially be using too many DSC encoders
+> which, while "power optimal", may not be able to support the number of
+> requested displays/interfaces.  Such a solution would automatically
+> ensure DSCmerge is *not* used when there are not enough hardware blocks
+> available in the first place.
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 47 +++++++++++++++--------=
+------
+>  1 file changed, 25 insertions(+), 22 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/dr=
+m/msm/disp/dpu1/dpu_encoder.c
+> index 5172ab4dea995a154cd88d05c3842d7425fc34ce..dcf17b5e8ac8eb76f5ba038fc=
+ce48e47f32299d5 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -622,9 +622,10 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *d=
+rm_enc)
+>  		if (dpu_enc->phys_encs[i])
+>  			intf_count++;
+> =20
+> -	/* See dpu_encoder_get_topology, we only support 2:2:1 topology */
+>  	if (dpu_enc->dsc)
+> -		num_dsc =3D 2;
+> +		for (i =3D 0; i < MAX_CHANNELS_PER_ENC; i++)
+> +			if (dpu_enc->hw_dsc[i])
+> +				num_dsc++;
+> =20
+>  	return (num_dsc > 0) && (num_dsc > intf_count);
+>  }
+> @@ -664,7 +665,7 @@ static struct msm_display_topology dpu_encoder_get_to=
+pology(
+>  	/* Datapath topology selection
+>  	 *
+>  	 * Dual display
+> -	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
+> +	 * 2 LM, 2 INTF (split display using 2 interfaces)
+>  	 *
+>  	 * Single display
+>  	 * 1 LM, 1 INTF
+> @@ -686,13 +687,19 @@ static struct msm_display_topology dpu_encoder_get_=
+topology(
+> =20
+>  	if (dsc) {
+>  		/*
+> -		 * In case of Display Stream Compression (DSC), we would use
+> -		 * 2 DSC encoders, 2 layer mixers and 1 interface
+> -		 * this is power optimal and can drive up to (including) 4k
+> -		 * screens
+> +		 * Use 2 DSC encoders and 2 layer mixers per single interface
+> +		 * when Display Stream Compression (DSC) is enabled,
+> +		 * and when enough DSC blocks are available.
+> +		 * This is power-optimal and can drive up to (including) 4k
+> +		 * screens.
+>  		 */
+> -		topology.num_dsc =3D 2;
+> -		topology.num_lm =3D 2;
+> +		if (dpu_kms->catalog->dsc_count >=3D 2) {
+> +			topology.num_dsc =3D 2;
+> +			topology.num_lm =3D 2;
+> +		} else {
+> +			topology.num_dsc =3D 1;
+> +			topology.num_lm =3D 1;
+> +		}
+>  		topology.num_intf =3D 1;
+>  	}
+> =20
+> @@ -2020,32 +2027,32 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_h=
+w_ctl *ctl,
+>  static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
+>  				 struct drm_dsc_config *dsc)
+>  {
+> -	/* coding only for 2LM, 2enc, 1 dsc config */
+>  	struct dpu_encoder_phys *enc_master =3D dpu_enc->cur_master;
+>  	struct dpu_hw_ctl *ctl =3D enc_master->hw_ctl;
+>  	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
+>  	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
+>  	int this_frame_slices;
+>  	int intf_ip_w, enc_ip_w;
+> -	int dsc_common_mode;
+> +	int dsc_common_mode =3D 0;
+>  	int pic_width;
+>  	u32 initial_lines;
+> +	int num_dsc =3D 0;
+>  	int i;
+> =20
+>  	for (i =3D 0; i < MAX_CHANNELS_PER_ENC; i++) {
+>  		hw_pp[i] =3D dpu_enc->hw_pp[i];
+>  		hw_dsc[i] =3D dpu_enc->hw_dsc[i];
+> =20
+> -		if (!hw_pp[i] || !hw_dsc[i]) {
+> -			DPU_ERROR_ENC(dpu_enc, "invalid params for DSC\n");
+> -			return;
+> -		}
+> +		if (!hw_pp[i] || !hw_dsc[i])
+> +			break;
+> +		num_dsc++;
+>  	}
+> =20
+>  	dsc_common_mode =3D 0;
+>  	pic_width =3D dsc->pic_width;
+> =20
+> -	dsc_common_mode =3D DSC_MODE_SPLIT_PANEL;
+> +	if (num_dsc > 1)
+> +		dsc_common_mode |=3D DSC_MODE_SPLIT_PANEL;
+>  	if (dpu_encoder_use_dsc_merge(enc_master->parent))
+>  		dsc_common_mode |=3D DSC_MODE_MULTIPLEX;
+>  	if (enc_master->intf_mode =3D=3D INTF_MODE_VIDEO)
+> @@ -2054,14 +2061,10 @@ static void dpu_encoder_prep_dsc(struct dpu_encod=
+er_virt *dpu_enc,
+>  	this_frame_slices =3D pic_width / dsc->slice_width;
+>  	intf_ip_w =3D this_frame_slices * dsc->slice_width;
+> =20
+> -	/*
+> -	 * dsc merge case: when using 2 encoders for the same stream,
+> -	 * no. of slices need to be same on both the encoders.
+> -	 */
+> -	enc_ip_w =3D intf_ip_w / 2;
+> +	enc_ip_w =3D intf_ip_w / num_dsc;
+>  	initial_lines =3D dpu_encoder_dsc_initial_line_calc(dsc, enc_ip_w);
+> =20
+> -	for (i =3D 0; i < MAX_CHANNELS_PER_ENC; i++)
+> +	for (i =3D 0; i < num_dsc; i++)
+>  		dpu_encoder_dsc_pipe_cfg(ctl, hw_dsc[i], hw_pp[i],
+>  					 dsc, dsc_common_mode, initial_lines);
+>  }
+>
+> ---
+> base-commit: 1573c8d4cb206a2d1454ff711e79f8df2353290b
+> change-id: 20240204-dpu-111-topology-b12c1de82c8a
+>
+> Best regards,
+
