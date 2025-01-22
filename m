@@ -2,76 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA2C9A19752
-	for <lists+freedreno@lfdr.de>; Wed, 22 Jan 2025 18:17:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CD1DA198BE
+	for <lists+freedreno@lfdr.de>; Wed, 22 Jan 2025 19:44:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37F2E10E733;
-	Wed, 22 Jan 2025 17:17:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C44CD10E73E;
+	Wed, 22 Jan 2025 18:44:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oxgVDToL";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oeVTrARS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5C510E1AE;
- Wed, 22 Jan 2025 17:17:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1737566188;
- bh=YNtjcguK0wCURTWlmQowDkiy3xCvFy7cbhtTMdPaj1M=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=oxgVDToL1IQinKzt4L5O0jZXaSfpPMDVd85aDvg8x8OPOphX87uVveYbRFfXWN5m5
- SQbwHeS5HYMwUTII+W0ToiQStgr1C2c2oWPmWx0vr7sQO2kg4hS7yaS0hVMoJQD6mf
- Zl+z4MGUkY2JFYTWrBPtMb0FWNTiXt0IksvRmSbzo+e6xu3Rcyn9+LvAKR0wADos2r
- F6p0JupMQQT22cl5wejdv1pPeGFEIEHBdrqLHFRwHPS4Cel/A7QRdnvk/Mq48kSWO7
- U6i9zp3vTn0vTYZMjQKmAOh3+P35OaL5fiXirdMZXMKvQoOTczkGCanjyKTrxVjDpO
- Cyt4z0p8TLILg==
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2288E17E014F;
- Wed, 22 Jan 2025 18:16:27 +0100 (CET)
-Date: Wed, 22 Jan 2025 18:16:19 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>, Frank Binns
- <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Qiang Yu
- <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, Karol Herbst <kherbst@redhat.com>, Lyude
- Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Rob Herring
- <robh@kernel.org>, Steven Price <steven.price@arm.com>, Liviu Dudau
- <liviu.dudau@arm.com>, Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost
- <matthew.brost@intel.com>, Philipp Stanner <pstanner@redhat.com>, Melissa
- Wen <mwen@igalia.com>, =?UTF-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2?=
- =?UTF-8?B?bQ==?= <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Sunil Khatri <sunil.khatri@amd.com>, Lijo Lazar
- <lijo.lazar@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, Ma Jun
- <Jun.Ma2@amd.com>, Yunxiang Li <Yunxiang.Li@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org,
- lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH] drm/sched: Use struct for drm_sched_init() params
-Message-ID: <20250122181227.491b7881@collabora.com>
-In-Reply-To: <20250122140818.45172-3-phasta@kernel.org>
-References: <20250122140818.45172-3-phasta@kernel.org>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFE710E73E
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jan 2025 18:44:09 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-540215984f0so113048e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jan 2025 10:44:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1737571448; x=1738176248; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=EUgHEQvD1kwE2u4wD1OjgHGNz901+pm9SiPReBHmq0k=;
+ b=oeVTrARSm8Z/uvCWD3nfSzADzcI4VlI7eBu5YfRBgx9EV8jgpiHvXK1eWpWZN8UsLx
+ 2Aoqm8P77o8/2njQlZS+cYzdYH6jSdzzMuHpGhhyj05eUI3ZYyyZKqvyan25bHwcLZTy
+ R1m9923H2xjuyNlxyzKYMArXTp+5gANhRKIljwQUppqCKhD0Jz8RPaCxMv6C8wrLwZdl
+ MEGk2YmDBoe/03g9vYAI0sdetrnV4frvK0TR1XwqSszIxMXEVT2K4v+wmFiA6ZMtDxeM
+ 2dRTqN3751NxpOcg53r7A38cKH78aGte/PTBAxnwifUT7Q/wGbXW0TUPDxqsVH4Md590
+ 4puA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737571448; x=1738176248;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EUgHEQvD1kwE2u4wD1OjgHGNz901+pm9SiPReBHmq0k=;
+ b=YGNshKb31PQPAseqJ9S2L2ya6OARcQPjgEBQoUWun2+9KVwqFjDXbNOq7mvsM1yIKP
+ oUwmnjS6dAfQ8ZmWzE+a2DhKKYU03dBlefLOdpEdTBVU0YOquYrx4++/4+JcG18YGoeW
+ rCtR/LwpjSAi6FzPTxi2eDiFGcBB7kwq6kU46BapGFhLrRLxr7q+qoggoImA2/F9lRmj
+ RnRJJYi4RVSNZelHIIdUe3BBqhI+myWkKM7QCHA3kU3auqTd0L5SbKgafpd1GQO/Ftf8
+ u+RZk2qiY08lvwPt9hFmjOqNpII9ImqbweK98io7qkFVIX0B8bGlSpw45PtNS5n8foRP
+ sl+Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUbsHXhan81OSBqmFcdXxUukUwwUYdGiQHtfKYMDJzeBJmUR5CxPxWqEDwA3cNLbtoQJi2xEX0ruR4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy7444j5GtOR0IA2DX7Q1vCb0eu/s3tAJM/K1HSboATsJs0B4XO
+ 5HS3d7ioiGIv56/YAwv/3GWxxmilAJCBg7GFws8bHPwlIlKOh4VJ+xQLWf0BE8A=
+X-Gm-Gg: ASbGnctvPVS/URcMGK9qAzrteo+6T93JK4kPUyqNqeyHPisNfErJIV9LSvSflBq8tJS
+ 0ddNPmWEHTRxdtIuoNsqvh3NLbUMJ6W52padmXWY/4APx2BWErmT3ZmxufQB5YFXqsCsuVnbIZQ
+ Hq4Z8GJlQgdhu2iDfAqlwhAze2vVAKXPdiAXp7oIb3tNh2ZxT2aKsicQ63mSwaWg1AlATapBLpo
+ FjpGtF8XxuPf7cKXaklVvq+JcgB6TG1zEIVDa3M1iZJyOw+4UBHqeXL4blsKIFEh2aGLrtaaUK5
+ QJCFChjK+amYFhWdWx0CV8Jxqj+EhcV4VTEhsCEnz8alEn+2VA==
+X-Google-Smtp-Source: AGHT+IHMuKyIPqrIK1IC1oXzTkFTwuVuxFfR+V2buzAGSQuYz6439CoiOvQ3yyfJTt2r4jUPkmIBJw==
+X-Received: by 2002:ac2:5611:0:b0:53f:f074:801c with SMTP id
+ 2adb3069b0e04-5439c2830e9mr7436905e87.41.1737571447759; 
+ Wed, 22 Jan 2025 10:44:07 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-543bb0e6feasm452237e87.12.2025.01.22.10.44.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Jan 2025 10:44:06 -0800 (PST)
+Date: Wed, 22 Jan 2025 20:44:03 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, ~postmarketos/upstreaming@lists.sr.ht, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+Subject: Re: [PATCH v2] drm/msm/dpu: Fall back to a single DSC encoder
+ (1:1:1) on small SoCs
+Message-ID: <kzmxf6r5kiyh2pr6hdzlwi3gwrlh3g257zlrpk4p5s66rhofio@qm2lbenuc2gw>
+References: <20250122-dpu-111-topology-v2-1-505e95964af9@somainline.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250122-dpu-111-topology-v2-1-505e95964af9@somainline.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,16 +98,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 22 Jan 2025 15:08:20 +0100
-Philipp Stanner <phasta@kernel.org> wrote:
+On Wed, Jan 22, 2025 at 05:23:44PM +0100, Marijn Suijten wrote:
+> Some SoCs such as SC7280 (used in the Fairphone 5) have only a single
+> DSC "hard slice" encoder.  The current hardcoded use of 2:2:1 topology
+> (2 LM and 2 DSC for a single interface) make it impossible to use
+> Display Stream Compression panels with mainline, which is exactly what's
+> installed on the Fairphone 5.
+> 
+> By loosening the hardcoded `num_dsc = 2` to fall back to `num_dsc =
+> 1` when the catalog only contains one entry, we can trivially support
+> this phone and unblock further panel enablement on mainline.  A few
+> more supporting changes in this patch ensure hardcoded constants of 2
+> DSC encoders are replaced to count or read back the actual number of
+> DSC hardware blocks that are enabled for the given virtual encoder.
+> Likewise DSC_MODE_SPLIT_PANEL can no longer be unconditionally enabled.
+> 
+> Cc: Luca Weiss <luca.weiss@fairphone.com>
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+> Note that this doesn't paint the full picture in case there are SoCs
+> with more DSC hardware blocks, but when multiple virtual encoders
+> have already allocated most of them.  My initial plan was to code
+> ahead for dynamically tracking and reallocating these blocks in RM, if
+> some virtual encoder could potentially be using too many DSC encoders
+> which, while "power optimal", may not be able to support the number of
+> requested displays/interfaces.  Such a solution would automatically
+> ensure DSCmerge is *not* used when there are not enough hardware blocks
+> available in the first place.
+> ---
+> Changes in v2:
+> - Fairphone is one word, lowercase the P from phone (Luca);
+> - Skip unnecessary if (dpu_enc->dsc) check and always count the number
+>   of non-NULL dpu_enc->hw_dsc[i] instead (Dmitry);
+> - Revert irrelevant whitespace cleanup in DSC comment, even if
+>   worthless enough to send separately (Dmitry);
+> - Drop dsc_common_mode=0 initialization and move existing 0-assignment
+>   from a random place in the function down to where this variable is
+>   actually being updated (Dmitry);
+> - Link to v1: https://lore.kernel.org/r/20250121-dpu-111-topology-v1-1-d01987205c53@somainline.org
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 47 +++++++++++++++--------------
+>  1 file changed, 25 insertions(+), 22 deletions(-)
+> 
 
->  int drm_sched_init(struct drm_gpu_scheduler *sched,
-> -		   const struct drm_sched_backend_ops *ops,
-> -		   struct workqueue_struct *submit_wq,
-> -		   u32 num_rqs, u32 credit_limit, unsigned int hang_limit,
-> -		   long timeout, struct workqueue_struct *timeout_wq,
-> -		   atomic_t *score, const char *name, struct device *dev);
-> +		const struct drm_sched_init_params *params);
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-
-Another nit: indenting is messed up here.
+-- 
+With best wishes
+Dmitry
