@@ -2,84 +2,43 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57217A18ED8
-	for <lists+freedreno@lfdr.de>; Wed, 22 Jan 2025 10:53:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10FBCA19302
+	for <lists+freedreno@lfdr.de>; Wed, 22 Jan 2025 14:52:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3094110E08F;
-	Wed, 22 Jan 2025 09:53:42 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SWxzkCXy";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1DB110E1E6;
+	Wed, 22 Jan 2025 13:52:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7307A10E08F
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jan 2025 09:53:41 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-304d760f12aso61216371fa.2
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jan 2025 01:53:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737539619; x=1738144419; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=iRgf+4Gq7ci+Ro2VkxNsjuyLNd/CJ4xAOCwqSJx115Q=;
- b=SWxzkCXy911yADLJ7sQNnhNZZOtjT+oEAeaXSzG/HtlViMstcqduqusIzmauW78Ih9
- nj1NhfGoODHjrc/Zv7P0xS2iW7Ap4X2imeWHbledw3UWREdVHIku27IMK/VlLM5uIHKs
- 6STnu858ItSm4uuBN0rQow8wwoecj+jT994NpdkI/0eIO7g+uvppibaeJL2mbs5Y/RT0
- 3bFiDVRnjATxcBl616via4tPZLLCzmTp+hY+k4S3+iRQ+w3Ra+u26qBcDVwcGkZm0nib
- ArQg5jvuHyaLRk827p2M9HsxJZRUr1mTnSfwsFK3eUCeepyXpmckq775tU4K38QXMfjd
- x0nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737539619; x=1738144419;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iRgf+4Gq7ci+Ro2VkxNsjuyLNd/CJ4xAOCwqSJx115Q=;
- b=GJJz4NePBxm+aY1to+v3EpqFbVCNmMkXEQIFnuZXehT2QJ9fUI9eoEcosEI4TSEj4W
- dUKGZUo10Oo/bOrb9BB18W/iiOhD8zvT4PphHGWUWXIwHOt6wD7wbX3rA7h8HO7+IfeL
- e6Cx0zGhowyBbeyWR+LdGHx6kYCLFL7Ns34D4Kpb2goODnNcGBwjgzy850Ufmsz9JHQG
- IhSYNuEejmsiHd39kvFN14qNpuhPVYkDE+SeWzar//3P5YrXXMv4l+xp/yR5pViFPdB9
- nTh9f+xl74GRVGh97QL8535fqdM8ZH12i9QPoPLJwExaxsIeSXEEt5jhlNd/5XJaKDxB
- hEPg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXamt5II4wCC+BVGK3weuCAvUjrWZvjong9LM+D8E6swUKNPh+ZoO70MSBN7n/mb8r9S3ogw0zJtuk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzmf/lIC4H+dzhMqAuSnAo2IUsxLRFrYD3JGki0kPjcQBIQnkse
- 9kj19blijUEJDdmjKH0zsacgI0pndURfM5KKiDNpIJVeTA7zOgnotoM9rpI1tTY=
-X-Gm-Gg: ASbGncsXR5edz8yuxK4CnRVOlbmYYD1fA2Q4kJpWfAmmxhIii/QOWK7Tiuv8Ui5ZHg4
- aAVfcWGHAmfCvNipmKdZEcnN/mC/4F2Uc54ozj4+Lu+hgDivek5+HuZBXkyR7GeiDfL3zEu6MKp
- 5Q+xuQElkqwZMajMiy4IT+oFOPsRDlZ9VWWwdiar7U18WMncK3Zw80olRydZySXubcAv4eBSu8a
- wCuh/Fww8tHRY0XsheY9d9Tp2oNE1v20/JgJTOJ0+9kwpJ50djzGEChlk8Tv3nR3tITc7Xv3cwx
- cJR2lVNVO+uZg1NUmhU1MGOhGReZAC6cPoQwI5H/Rtr5SuH/zg==
-X-Google-Smtp-Source: AGHT+IHLb2Jy8LJxpPjgGgMRTl/2bf+lFr1P6PyDavfCYaMiwjULwOKsJk+FZolKdDj43k4KykRThw==
-X-Received: by 2002:a05:651c:e1b:b0:307:46f3:4e92 with SMTP id
- 38308e7fff4ca-30746f34f8cmr32037541fa.32.1737539619493; 
- Wed, 22 Jan 2025 01:53:39 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3072a330180sm25104611fa.23.2025.01.22.01.53.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jan 2025 01:53:38 -0800 (PST)
-Date: Wed, 22 Jan 2025 11:53:35 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 11/35] drm/msm/dpu: get rid of DPU_CTL_ACTIVE_CFG
-Message-ID: <obrwhv2a4ubg4updrimszy7b7dwjsixuwzf5gutjahgdim6nxh@pin7heiwmco7>
-References: <20241214-dpu-drop-features-v1-0-988f0662cb7e@linaro.org>
- <20241214-dpu-drop-features-v1-11-988f0662cb7e@linaro.org>
- <9d86517e-b05c-4cd6-925e-11c859fcb91d@quicinc.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1F8A410E1E6
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jan 2025 13:52:50 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D8A5C1007;
+ Wed, 22 Jan 2025 05:53:18 -0800 (PST)
+Received: from [10.57.6.202] (unknown [10.57.6.202])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3D0933F738;
+ Wed, 22 Jan 2025 05:52:48 -0800 (PST)
+Message-ID: <79061537-9550-45ad-8bd3-26fe7423f16f@arm.com>
+Date: Wed, 22 Jan 2025 13:52:46 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9d86517e-b05c-4cd6-925e-11c859fcb91d@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] iommu/arm-smmu: Fix spurious interrupts with
+ stall-on-fault
+To: Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org
+References: <20250120-msm-gpu-fault-fixes-next-v2-0-d636c4027042@gmail.com>
+ <20250120-msm-gpu-fault-fixes-next-v2-1-d636c4027042@gmail.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20250120-msm-gpu-fault-fixes-next-v2-1-d636c4027042@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,74 +54,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 21, 2025 at 04:58:03PM -0800, Abhinav Kumar wrote:
+On 2025-01-20 3:46 pm, Connor Abbott wrote:
+> On some SMMUv2 implementations, including MMU-500, SMMU_CBn_FSR.SS
+> asserts an interrupt. The only way to clear that bit is to resume the
+> transaction by writing SMMU_CBn_RESUME, but typically resuming the
+> transaction requires complex operations (copying in pages, etc.) that
+> can't be done in IRQ context. drm/msm already has a problem, because
+> its fault handler sometimes schedules a job to dump the GPU state and
+> doesn't resume translation until this is complete.
 > 
-> 
-> On 12/13/2024 2:14 PM, Dmitry Baryshkov wrote:
-> > Continue migration to the MDSS-revision based checks and replace
-> > DPU_CTL_ACTIVE_CFG feature bit with the core_major_ver >= 5 check.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h  | 8 ++------
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h | 8 ++------
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h  | 8 ++------
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h  | 6 ------
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h  | 8 ++------
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h  | 3 ---
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h  | 1 -
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h  | 4 ----
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h | 1 -
-> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h  | 1 -
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c    | 2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c     | 7 ++-----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c          | 3 +--
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h          | 1 -
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c              | 2 +-
-> >   15 files changed, 13 insertions(+), 50 deletions(-)
-> > 
-> 
-> <snip>
-> 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > index e9bbccc44dad8b391cd51daf902307105b2598fc..e16b0a0c57da4a1aa77064ca2214e37cd9ee4baa 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > @@ -66,7 +66,7 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
-> >   	ctl->ops.setup_intf_cfg(ctl, &intf_cfg);
-> >   	/* setup which pp blk will connect to this intf */
-> > -	if (test_bit(DPU_CTL_ACTIVE_CFG, &ctl->caps->features) && phys_enc->hw_intf->ops.bind_pingpong_blk)
-> > +	if (phys_enc->hw_intf->ops.bind_pingpong_blk)
-> >   		phys_enc->hw_intf->ops.bind_pingpong_blk(
-> >   				phys_enc->hw_intf,
-> >   				phys_enc->hw_pp->idx);
-> 
-> Was it intentional to drop the DPU_CTL_ACTIVE_CFG here but not replace it
-> with core_major_rev >= 5?
+> Work around this by disabling context fault interrupts until after the
+> transaction is resumed. Because other context banks can share an IRQ
+> line, we may still get an interrupt intended for another context bank,
+> but in this case only SMMU_CBn_FSR.SS will be asserted and we can skip
+> it assuming that interrupts are disabled which is accomplished by
+> removing the bit from ARM_SMMU_CB_FSR_FAULT.
 
-The bind_pingpong_blk is only defined for 5.x+ platforms, so the check
-is useless.
+...and we won't see SS set *unless* an external user has gone out of 
+their way to set CFCFG, so it's fair to assume they must have a fault 
+handler and expect it to reenable CFIE. Good enough for me (and thanks 
+for a nice comprehensive writeup). Now let's see how many more bugs we 
+might uncover in MMU-500 and/or QCom firmware's emulation thereof :)
 
-> 
-> <snip>
-> 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > index 5f9cd09589bb403746d48af6f8555cd224bf3195..59d25916d2d412113768d71a76a6aed4c879299a 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > @@ -716,7 +716,7 @@ struct dpu_hw_ctl *dpu_hw_ctl_init(struct drm_device *dev,
-> >   	c->caps = cfg;
-> >   	c->mdss_ver = mdss_ver;
-> > -	if (c->caps->features & BIT(DPU_CTL_ACTIVE_CFG)) {
-> > +	if (mdss_ver->core_major_ver >= 5) {
-> >   		c->ops.trigger_flush = dpu_hw_ctl_trigger_flush_v1;
-> >   		c->ops.setup_intf_cfg = dpu_hw_ctl_intf_cfg_v1;
-> >   		c->ops.reset_intf_cfg = dpu_hw_ctl_reset_intf_cfg_v1;
-> > 
-> 
-> DPU ver 5 introduced active_cfg, so this part is correct. Hence overall
-> change is fine.
+Reviewed-by Robin Murphy <robin.murphy@arm.com>
 
--- 
-With best wishes
-Dmitry
+> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+> ---
+>   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 15 ++++++++++++++-
+>   drivers/iommu/arm/arm-smmu/arm-smmu.c      | 30 ++++++++++++++++++++++++++++++
+>   drivers/iommu/arm/arm-smmu/arm-smmu.h      |  1 -
+>   3 files changed, 44 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> index 59d02687280e8d37b5e944619fcfe4ebd1bd6926..7d86e9972094eb4d304b24259f4ed9a4820cabc7 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> @@ -125,12 +125,25 @@ static void qcom_adreno_smmu_resume_translation(const void *cookie, bool termina
+>   	struct arm_smmu_domain *smmu_domain = (void *)cookie;
+>   	struct arm_smmu_cfg *cfg = &smmu_domain->cfg;
+>   	struct arm_smmu_device *smmu = smmu_domain->smmu;
+> -	u32 reg = 0;
+> +	u32 reg = 0, sctlr;
+> +	unsigned long flags;
+>   
+>   	if (terminate)
+>   		reg |= ARM_SMMU_RESUME_TERMINATE;
+>   
+> +	spin_lock_irqsave(&smmu_domain->cb_lock, flags);
+> +
+>   	arm_smmu_cb_write(smmu, cfg->cbndx, ARM_SMMU_CB_RESUME, reg);
+> +
+> +	/*
+> +	 * Re-enable interrupts after they were disabled by
+> +	 * arm_smmu_context_fault().
+> +	 */
+> +	sctlr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR);
+> +	sctlr |= ARM_SMMU_SCTLR_CFIE;
+> +	arm_smmu_cb_write(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR, sctlr);
+> +
+> +	spin_unlock_irqrestore(&smmu_domain->cb_lock, flags);
+>   }
+>   
+>   static void qcom_adreno_smmu_set_prr_bit(const void *cookie, bool set)
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> index 79afc92e1d8b984dd35c469a3f283ad0c78f3d26..fe3d77984533eb1a0e0e211021598bc808f2a6b2 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> @@ -463,6 +463,36 @@ static irqreturn_t arm_smmu_context_fault(int irq, void *dev)
+>   	if (!(cfi.fsr & ARM_SMMU_CB_FSR_FAULT))
+>   		return IRQ_NONE;
+>   
+> +	/*
+> +	 * On some implementations FSR.SS asserts a context fault
+> +	 * interrupt. We do not want this behavior, because resolving the
+> +	 * original context fault typically requires operations that cannot be
+> +	 * performed in IRQ context but leaving the stall unacknowledged will
+> +	 * immediately lead to another spurious interrupt as FSR.SS is still
+> +	 * set. Work around this by disabling interrupts for this context bank.
+> +	 * It's expected that interrupts are re-enabled after resuming the
+> +	 * translation.
+> +	 *
+> +	 * We have to do this before report_iommu_fault() so that we don't
+> +	 * leave interrupts disabled in case the downstream user decides the
+> +	 * fault can be resolved inside its fault handler.
+> +	 *
+> +	 * There is a possible race if there are multiple context banks sharing
+> +	 * the same interrupt and both signal an interrupt in between writing
+> +	 * RESUME and SCTLR. We could disable interrupts here before we
+> +	 * re-enable them in the resume handler, leaving interrupts enabled.
+> +	 * Lock the write to serialize it with the resume handler.
+> +	 */
+> +	if (cfi.fsr & ARM_SMMU_CB_FSR_SS) {
+> +		u32 val;
+> +
+> +		spin_lock(&smmu_domain->cb_lock);
+> +		val = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_SCTLR);
+> +		val &= ~ARM_SMMU_SCTLR_CFIE;
+> +		arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, val);
+> +		spin_unlock(&smmu_domain->cb_lock);
+> +	}
+> +
+>   	ret = report_iommu_fault(&smmu_domain->domain, NULL, cfi.iova,
+>   		cfi.fsynr & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
+>   
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> index 2dbf3243b5ad2db01e17fb26c26c838942a491be..789c64ff3eb9944c8af37426e005241a8288da20 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> @@ -216,7 +216,6 @@ enum arm_smmu_cbar_type {
+>   					 ARM_SMMU_CB_FSR_TLBLKF)
+>   
+>   #define ARM_SMMU_CB_FSR_FAULT		(ARM_SMMU_CB_FSR_MULTI |	\
+> -					 ARM_SMMU_CB_FSR_SS |		\
+>   					 ARM_SMMU_CB_FSR_UUT |		\
+>   					 ARM_SMMU_CB_FSR_EF |		\
+>   					 ARM_SMMU_CB_FSR_PF |		\
+> 
+
