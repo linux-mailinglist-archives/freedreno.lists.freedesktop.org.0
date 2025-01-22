@@ -2,87 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CD1DA198BE
-	for <lists+freedreno@lfdr.de>; Wed, 22 Jan 2025 19:44:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07881A1996F
+	for <lists+freedreno@lfdr.de>; Wed, 22 Jan 2025 21:02:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C44CD10E73E;
-	Wed, 22 Jan 2025 18:44:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2D2910E305;
+	Wed, 22 Jan 2025 20:02:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oeVTrARS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XuLNdy0B";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFE710E73E
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jan 2025 18:44:09 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-540215984f0so113048e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jan 2025 10:44:09 -0800 (PST)
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2D6110E305
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jan 2025 20:02:09 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-7b6ffda45f3so1395585a.2
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jan 2025 12:02:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737571448; x=1738176248; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=EUgHEQvD1kwE2u4wD1OjgHGNz901+pm9SiPReBHmq0k=;
- b=oeVTrARSm8Z/uvCWD3nfSzADzcI4VlI7eBu5YfRBgx9EV8jgpiHvXK1eWpWZN8UsLx
- 2Aoqm8P77o8/2njQlZS+cYzdYH6jSdzzMuHpGhhyj05eUI3ZYyyZKqvyan25bHwcLZTy
- R1m9923H2xjuyNlxyzKYMArXTp+5gANhRKIljwQUppqCKhD0Jz8RPaCxMv6C8wrLwZdl
- MEGk2YmDBoe/03g9vYAI0sdetrnV4frvK0TR1XwqSszIxMXEVT2K4v+wmFiA6ZMtDxeM
- 2dRTqN3751NxpOcg53r7A38cKH78aGte/PTBAxnwifUT7Q/wGbXW0TUPDxqsVH4Md590
- 4puA==
+ d=gmail.com; s=20230601; t=1737576068; x=1738180868; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=jurTTxyZurW5GCpnwp6J13h1Jad371IuO/OxoFLazdE=;
+ b=XuLNdy0BB4Dw/z8aD9pVST2hp9/wjyWcl1LWSfz9eFrT6sVHO6svRdqYbDOeKydiKo
+ Xcxt1oMO1vuIIIvVc9mW2Rg8Ed2/FgJFiTdPYKMoaX3x+N9M3K2zgYNibrlfO+Lv1sAa
+ 5Q9rIwq30ITJjXzi1slSV6540ZswfGOzhC+rrUBo+KcLU1VkoPX1xdvig24rKzTfyoa+
+ p+yH6fzUzitsrs2CAtJqiJz+WyKC7PgApQqps8TFAZL8Sd2xGHFFWM8WpEJei5GJXO59
+ MYGPQYvRqpsq/oLDfs8PBAnPoLaXaoeiHBqAGRivkLH4qCdDrNyaYhd0CkAtaL10o+/p
+ ToFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737571448; x=1738176248;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EUgHEQvD1kwE2u4wD1OjgHGNz901+pm9SiPReBHmq0k=;
- b=YGNshKb31PQPAseqJ9S2L2ya6OARcQPjgEBQoUWun2+9KVwqFjDXbNOq7mvsM1yIKP
- oUwmnjS6dAfQ8ZmWzE+a2DhKKYU03dBlefLOdpEdTBVU0YOquYrx4++/4+JcG18YGoeW
- rCtR/LwpjSAi6FzPTxi2eDiFGcBB7kwq6kU46BapGFhLrRLxr7q+qoggoImA2/F9lRmj
- RnRJJYi4RVSNZelHIIdUe3BBqhI+myWkKM7QCHA3kU3auqTd0L5SbKgafpd1GQO/Ftf8
- u+RZk2qiY08lvwPt9hFmjOqNpII9ImqbweK98io7qkFVIX0B8bGlSpw45PtNS5n8foRP
- sl+Q==
+ d=1e100.net; s=20230601; t=1737576068; x=1738180868;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jurTTxyZurW5GCpnwp6J13h1Jad371IuO/OxoFLazdE=;
+ b=oAGAHis37w3iMGysyetSLtrgjQVsfVPuNdhzpvsdQRcqv1IZS6NdZHUj9LbIoW0awK
+ JZbbMoXKwH2khoK7ff1rcTudBo24DDPUcuVEHdaLTPvZzy5LRz0EpXox7+E/adSilSlJ
+ kDuMlrJ21exCHLymqvJIaUY4XB6jb4UQZwvbOzDP1ChleWMkA2HwzuJYS/WCbVKbznzb
+ Ab0SF1YDdNPQG86mXwwXVs7wn6ZL3OFXxct30bTvmzOv0aum9PEVlnzxmdM0xLizzLGQ
+ fiCNDfNDNa0YzHdWO9pgwGFObt3yquxyUq/DJ0xQax37XUNCJI1TmYROQn++TMJQHMIX
+ uBYA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUbsHXhan81OSBqmFcdXxUukUwwUYdGiQHtfKYMDJzeBJmUR5CxPxWqEDwA3cNLbtoQJi2xEX0ruR4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7444j5GtOR0IA2DX7Q1vCb0eu/s3tAJM/K1HSboATsJs0B4XO
- 5HS3d7ioiGIv56/YAwv/3GWxxmilAJCBg7GFws8bHPwlIlKOh4VJ+xQLWf0BE8A=
-X-Gm-Gg: ASbGnctvPVS/URcMGK9qAzrteo+6T93JK4kPUyqNqeyHPisNfErJIV9LSvSflBq8tJS
- 0ddNPmWEHTRxdtIuoNsqvh3NLbUMJ6W52padmXWY/4APx2BWErmT3ZmxufQB5YFXqsCsuVnbIZQ
- Hq4Z8GJlQgdhu2iDfAqlwhAze2vVAKXPdiAXp7oIb3tNh2ZxT2aKsicQ63mSwaWg1AlATapBLpo
- FjpGtF8XxuPf7cKXaklVvq+JcgB6TG1zEIVDa3M1iZJyOw+4UBHqeXL4blsKIFEh2aGLrtaaUK5
- QJCFChjK+amYFhWdWx0CV8Jxqj+EhcV4VTEhsCEnz8alEn+2VA==
-X-Google-Smtp-Source: AGHT+IHMuKyIPqrIK1IC1oXzTkFTwuVuxFfR+V2buzAGSQuYz6439CoiOvQ3yyfJTt2r4jUPkmIBJw==
-X-Received: by 2002:ac2:5611:0:b0:53f:f074:801c with SMTP id
- 2adb3069b0e04-5439c2830e9mr7436905e87.41.1737571447759; 
- Wed, 22 Jan 2025 10:44:07 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCWBNTC1eukBnaIoLfzJiZXtNQEZ3foxGD7ljxDUQYaKE0/N/TGPcpivP7mJfbXmh60mcv5hpP21i6w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzj+z4+dnpPfNA1e/d6DFI9eKOG1x2sjNO/+doXqzBEJnzgZ77U
+ lppXZVNOg4KujPPC5+5ckX804lGGkEtT6Z+ywy6ZvZHL9GkhOu/pZQtusA==
+X-Gm-Gg: ASbGncupS34ZvLJwYZidKMjoU5Esg6NquU/AcBkRmorVTw4m8wQ2Ef+ljg1Aj2Q5C/U
+ HoBSrabfUVAr2gNKTd4WJxuAM2+KbbXsWhsq1Gpl5fsjGQh22EdXBArqIV4ZJdELxuAYDXg7BXv
+ Pjz4ZC9WHnVtnDV9A6cQflnzGDcwgbc4IkJrVMtIvjLBYMNNoFfqm/n4L3csfm8NK2TVJVC6SR1
+ IatVr9U7xYODjTE4nhllu8A4dwggN5klAeLWhGK+UfYPAAczAzEidhVtN1cb5NCzefAzW2UWc8r
+ 4orviK/+nd4y2T/+zCP+vZs7QUtF
+X-Google-Smtp-Source: AGHT+IHPM76iU6Z5PtzDIriPWj/nNzCyP2ix3l+fnM7JVaz7sX/vP0vOsO1NLQa7vmhO30zGz8RV4Q==
+X-Received: by 2002:a05:620a:28ca:b0:7a9:a632:48ad with SMTP id
+ af79cd13be357-7be6324e361mr1073763385a.11.1737576068474; 
+ Wed, 22 Jan 2025 12:01:08 -0800 (PST)
+Received: from [192.168.1.99] (ool-4355b0da.dyn.optonline.net. [67.85.176.218])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-543bb0e6feasm452237e87.12.2025.01.22.10.44.05
+ af79cd13be357-7be6147e30asm694606385a.31.2025.01.22.12.01.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jan 2025 10:44:06 -0800 (PST)
-Date: Wed, 22 Jan 2025 20:44:03 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, ~postmarketos/upstreaming@lists.sr.ht, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-Subject: Re: [PATCH v2] drm/msm/dpu: Fall back to a single DSC encoder
- (1:1:1) on small SoCs
-Message-ID: <kzmxf6r5kiyh2pr6hdzlwi3gwrlh3g257zlrpk4p5s66rhofio@qm2lbenuc2gw>
-References: <20250122-dpu-111-topology-v2-1-505e95964af9@somainline.org>
+ Wed, 22 Jan 2025 12:01:08 -0800 (PST)
+From: Connor Abbott <cwabbott0@gmail.com>
+Subject: [PATCH v3 0/3] iommu/arm-smmu, drm/msm: Fixes for stall-on-fault
+Date: Wed, 22 Jan 2025 15:00:57 -0500
+Message-Id: <20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250122-dpu-111-topology-v2-1-505e95964af9@somainline.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHlOkWcC/43NPQ6DMAwF4KtUmevKcfgpnXqPqgMBA5EIoAQQF
+ eLuDUxMVcf3rPd5FZ6dYS8el1U4no03fReCul5E0eRdzWDKkAUhxShlCtZbqIcJqnxqR6jMwh4
+ 6XkbIElaY3ZEUSxHmg+PjGtavd8iN8WPvPsenWe7tH+gsAUEXmVaKdFyiftY2N+2t6K3Y0ZlOE
+ OEPiAJUJiopIqQUIzpD27Z9AdUaNRoJAQAA
+X-Change-ID: 20250117-msm-gpu-fault-fixes-next-96e3098023e1
+To: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org, 
+ Connor Abbott <cwabbott0@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1737576067; l=2962;
+ i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
+ bh=+WyN8FK5rY7qRc7VsIGAiJo2lnVpGPEuUicLFpDWETs=;
+ b=a4zT3xeEwtyC9Lok7bYUo82pNV1IICFMNUHKvQZdQPpSD93+dLg1/j5KSWHZfEPg9D0yl3UG5
+ I8IDAG+Ikk+BU8oBibWzReXFAvKresl7KM82p7INLVNp/P+OYQJ5ccX
+X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
+ pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,51 +104,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 22, 2025 at 05:23:44PM +0100, Marijn Suijten wrote:
-> Some SoCs such as SC7280 (used in the Fairphone 5) have only a single
-> DSC "hard slice" encoder.  The current hardcoded use of 2:2:1 topology
-> (2 LM and 2 DSC for a single interface) make it impossible to use
-> Display Stream Compression panels with mainline, which is exactly what's
-> installed on the Fairphone 5.
-> 
-> By loosening the hardcoded `num_dsc = 2` to fall back to `num_dsc =
-> 1` when the catalog only contains one entry, we can trivially support
-> this phone and unblock further panel enablement on mainline.  A few
-> more supporting changes in this patch ensure hardcoded constants of 2
-> DSC encoders are replaced to count or read back the actual number of
-> DSC hardware blocks that are enabled for the given virtual encoder.
-> Likewise DSC_MODE_SPLIT_PANEL can no longer be unconditionally enabled.
-> 
-> Cc: Luca Weiss <luca.weiss@fairphone.com>
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
-> Note that this doesn't paint the full picture in case there are SoCs
-> with more DSC hardware blocks, but when multiple virtual encoders
-> have already allocated most of them.  My initial plan was to code
-> ahead for dynamically tracking and reallocating these blocks in RM, if
-> some virtual encoder could potentially be using too many DSC encoders
-> which, while "power optimal", may not be able to support the number of
-> requested displays/interfaces.  Such a solution would automatically
-> ensure DSCmerge is *not* used when there are not enough hardware blocks
-> available in the first place.
-> ---
-> Changes in v2:
-> - Fairphone is one word, lowercase the P from phone (Luca);
-> - Skip unnecessary if (dpu_enc->dsc) check and always count the number
->   of non-NULL dpu_enc->hw_dsc[i] instead (Dmitry);
-> - Revert irrelevant whitespace cleanup in DSC comment, even if
->   worthless enough to send separately (Dmitry);
-> - Drop dsc_common_mode=0 initialization and move existing 0-assignment
->   from a random place in the function down to where this variable is
->   actually being updated (Dmitry);
-> - Link to v1: https://lore.kernel.org/r/20250121-dpu-111-topology-v1-1-d01987205c53@somainline.org
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 47 +++++++++++++++--------------
->  1 file changed, 25 insertions(+), 22 deletions(-)
-> 
+drm/msm uses the stall-on-fault model to record the GPU state on the
+first GPU page fault to help debugging. On systems where the GPU is
+paired with a MMU-500, there were two problems:
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+1. The MMU-500 doesn't de-assert its interrupt line until the fault is
+   resumed, which led to a storm of interrupts until the fault handler
+   was called. If we got unlucky and the fault handler was on the same
+   CPU as the interrupt, there was a deadlock.
+2. The GPU is capable of generating page faults much faster than we can
+   resume them. GMU (GPU Management Unit) shares the same context bank
+   as the GPU, so if there was a sudden spurt of page faults it would be
+   effectively starved and would trigger a watchdog reset, made even
+   worse because the GPU cannot be reset while there's a pending
+   transaction leaving the GPU permanently wedged.
 
+Patch 1 fixes the first problem and is independent of the rest of the
+series. Patch 3 fixes the second problem and is dependent on patch 2, so
+there will have to be some cross-tree coordination.
+
+I've rebased this series on the latest linux-next to avoid rebase
+troubles.
+
+Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+---
+Changes in v3:
+- Acknowledge the fault before resuming the transaction in patch 1.
+- Add suggested extra context to commit messages.
+- Link to v2: https://lore.kernel.org/r/20250120-msm-gpu-fault-fixes-next-v2-0-d636c4027042@gmail.com
+
+Changes in v2:
+- Remove unnecessary _irqsave when locking in IRQ handler (Robin)
+- Reuse existing spinlock for CFIE manipulation (Robin)
+- Lock CFCFG manipulation against concurrent CFIE manipulation
+- Don't use timer to re-enable stall-on-fault. (Rob)
+- Use more descriptive name for the function that re-enables
+  stall-on-fault if the cooldown period has ended. (Rob)
+- Link to v1: https://lore.kernel.org/r/20250117-msm-gpu-fault-fixes-next-v1-0-bc9b332b5d0b@gmail.com
+
+---
+Connor Abbott (3):
+      iommu/arm-smmu: Fix spurious interrupts with stall-on-fault
+      iommu/arm-smmu-qcom: Make set_stall work when the device is on
+      drm/msm: Temporarily disable stall-on-fault after a page fault
+
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c      |  2 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  4 +++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 42 +++++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 24 ++++++++++++++++
+ drivers/gpu/drm/msm/msm_iommu.c            |  9 ++++++
+ drivers/gpu/drm/msm/msm_mmu.h              |  1 +
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 45 +++++++++++++++++++++++++++---
+ drivers/iommu/arm/arm-smmu/arm-smmu.c      | 41 ++++++++++++++++++++++++++-
+ drivers/iommu/arm/arm-smmu/arm-smmu.h      |  1 -
+ 9 files changed, 162 insertions(+), 7 deletions(-)
+---
+base-commit: 0907e7fb35756464aa34c35d6abb02998418164b
+change-id: 20250117-msm-gpu-fault-fixes-next-96e3098023e1
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Connor Abbott <cwabbott0@gmail.com>
+
