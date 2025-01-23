@@ -2,146 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E149A1A3B2
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 13:01:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C06C5A1A3DD
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 13:08:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A36FE10E7DC;
-	Thu, 23 Jan 2025 12:01:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F75910E7EB;
+	Thu, 23 Jan 2025 12:08:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AtUoHDJZ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gmaWbzD3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A98FB10E7DC
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 12:01:01 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-5d3ce64e7e5so153146a12.0
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 04:01:01 -0800 (PST)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F37F10E7EC
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 12:08:45 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-5439b0dd4bfso700185e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 04:08:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737633660; x=1738238460; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=UrXgfNcQ6BZmp28khrrcZTapIJra0pknsWVwcp8Cp0I=;
- b=AtUoHDJZ8vPKzeOCelnHjeYXJLIFwyqHVIfnzc9zWhPqP9FaMjvU1u/XdxLqE478sR
- mIOoXFZ3GvnznqdFvc/QXo4po+augKK1yl9UOT2O00989+KI7N2okiUP3veB9MhRyhpM
- EGIzwdICDselJXxci0ZcPWVGEqxRK8d2ev+sKVZTi0ooL2+X5wJ+kLVySPohrccmgFuY
- 11eO+Q53TnDXTScs2HUzjBSXsLoOzpOh1Odtcsfknn3ubfrVijDAIVQqW2fQS6AeMYSr
- apFtsHw6HVOZ2s9nosgQhEWMXrKwHpw1pGC1ctmDEdByIT0WFxg2f9VMGbAdFIgvsJ1F
- 85MA==
+ d=linaro.org; s=google; t=1737634123; x=1738238923; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=vTmEOgD3xfc+fwIttOduP71Ufl9BgBhivnCzDUxKm9A=;
+ b=gmaWbzD3tseZzVhT5Kuc+4O5y6IuvNP/ford78eEtoyG0MYNgguN8f8sJo/9VQBd9D
+ 0ihWiiSPxuwnJVJK+etS41Mxj0OtuFhLFscZJkswZ39Ymv7x7Ngw4AlnxWYiU4y/fX36
+ 0xY9FEFoxYht3g0lyzqMr6ROHEYhX+Bya/iKbptm4Q+E/hhQw+O7YBbOdRcDnCPnhmMw
+ H8gX17uuPgOTlaseLgNjtWXeyM6txNlxp9BeDXJ0/hYy/uRlfFJ4ZcKSTsVVhsNyapX1
+ +JqlooaDdezzVnb+4tdukcLUllvkEnjDKnki5wxito9XBuwCkU/FOhlEyc3Q5My2axOJ
+ igog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737633660; x=1738238460;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UrXgfNcQ6BZmp28khrrcZTapIJra0pknsWVwcp8Cp0I=;
- b=eI60FC7c286r9/mRScaGI6ZP18n9VPgW8ZSIbqK/R1dYCr6o7wUgnRnZEj4KsYcitO
- IVjlVtEF4XkSdc5Izo9jDy0YnQCMXL2rqN99l2WFWaLj8sVScITy5/aA8jkY74RP4Rhu
- zmS+6ry57mH6+N8bDY3bu0pvK0YhoPXeIc9yBUrjtFwGgUbA/5tPZsqfNUIvoNMRLVu9
- Qs3pXlbGQCyZULDDLgnnzUFklhddU4BuKD+Hq5qkzlPK0ijVvtOVmtfQO6cX9fq24T6+
- LnVFlJ2D16VX54ocOGnlRcHKapGgnKsyN0qBQsGOXao6cMU4vbu62S6ixQQDSkK0mowl
- CSYg==
+ d=1e100.net; s=20230601; t=1737634123; x=1738238923;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vTmEOgD3xfc+fwIttOduP71Ufl9BgBhivnCzDUxKm9A=;
+ b=NIKWC5HSzC5FlwmOCS8mF3YANoS96Uf4edXNbH093wLKMXHdXev481KQaKTDCzFT/q
+ YqipidFv384wSxzpvQTyVFnISS2GejVbit+uNFkX329f+Qw9kU61lQP6YKEXIe3CFtZt
+ lYeEB1ZOOnkFRcS7hHvgUeLlTQaQurK/3iy/lsvYQ7iLbHPfnF9r/JG46LQfcHmgR1+T
+ gP2q6ZZ4OxouQ36q/Ijs5q+H08KVG6maKSLrPzWesijapGJvYbW4fA3CPNJwZAFs1R63
+ QA6Gt9WlnvJub18wnWXEiTFEnDpS35a3UPT4LlurwUxC8aJ+bcVlbq2ol2mWh9a86XL8
+ wBVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW1v+IlIwm08EiPXtPqht9ztQiUXmkK+L8lpMpS9j1w4EfBBSUrVBZsYOS79IPooE5AI4+L3PbI+l4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwE5w0NwcXQDz/GHmN7JE/ugubDQdo7fh2/gcegi+UcrxEin1UN
- jRWIAdVDs5oOnKtc2UobEkZYaJ42QAV+y7T4KQfiG+JkWxHSD5r8NNY/Cu+fUaw=
-X-Gm-Gg: ASbGncsmRlZIZUoIaMOxgIeNU6fnb1xxQUg8lcSMcZFjw48DXpzEvCm5jauC5uGEfwK
- apKmD6YpahPCBqY0DMM57rDNPMmyCr36b1jWd61E0ceATgB6Y3maAEFnzgdXcG++Jrfdtdy+13j
- GNq4Ae2WQ/sBmUfxdw851EFOfAgf23cUcnwVswv3EH1NeHlt2CL0WJeEf+sy4BgTY4RGKFbU/P1
- m0pOl0pBe6GL1Ol4VqPTTRchNYhl0zbHXnY9hqGd8RKNJrfvWWPjGGzfJgpyGEWyZh4cyIF1uYS
- EXgqpyHQCVMdfVvZNSD+XOJa
-X-Google-Smtp-Source: AGHT+IEsitVWfU5IVEBtY/CVHy0SWHO/li4n3YFF1n+SaKvLEezsi1TezItFJZIyWkUnvPp+b/wlKQ==
-X-Received: by 2002:a05:6402:4304:b0:5d0:214b:96b4 with SMTP id
- 4fb4d7f45d1cf-5dbf1a99e71mr2376218a12.1.1737633660004; 
- Thu, 23 Jan 2025 04:01:00 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.223.165])
+ AJvYcCUATYbGdis5R3UgmDl7vTKUyiNvs9gdC0ucI6OEP3EY3zD8cjKMU009SOdNGLYk4Pl9YcjMdFAdNWU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywcdbi/S6HjcsgVIbk0uw6NA1U2A5dT0efqb6sfXlkLpBnsRETP
+ LWZclQI2K6xgHh55tCqNxp5rtjPC7k9WapAEWBB+ZbOIXqaT5yC2zYIfQsxwA0Y=
+X-Gm-Gg: ASbGnct7TfCRYkK8n66L2aivgyYr0nu6ktu5+G7q6P1uUc6hKjp2JjNx5Ar8SMxAnK2
+ mFI82WpglKJXgEamJJdY98AddvWlTrDM2IM5QhKqwNw3+VmCpIln3rCaJ1rBUCDLVceHkKZOZNd
+ w118caPVSa7UxrSY3BScsvNeW9jE2jGaFfbdpf2Nfm9sO/4aN26/d7tUs2XiBigs7MCXNYsUcB4
+ 9KhDpsGIx/47SISCGCpob57wQxG93TCcCbE+bw5X9RZLB2VNhtvz10TL1FGdFtPn6iFCARxKmFm
+ udBbVQGMmyqePRp1hvAP2oK5Dop9ZUOY2Lnc+WG5SPW/euQ7C8RYLaTMSdn4
+X-Google-Smtp-Source: AGHT+IFbOx6ctuTmmRLLNk/eHiWv/TSPLK7NEzKkr1HnoNXi9QhiZe7Adm2mXqrnq+teryB16WA3sQ==
+X-Received: by 2002:a05:6512:e8c:b0:540:2223:9b0b with SMTP id
+ 2adb3069b0e04-5439c282cd8mr8971004e87.35.1737634123427; 
+ Thu, 23 Jan 2025 04:08:43 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5db73670ebfsm10068472a12.18.2025.01.23.04.00.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Jan 2025 04:00:59 -0800 (PST)
-Message-ID: <c2bc7ddc-6f43-42bd-8d7e-3367210035e0@linaro.org>
-Date: Thu, 23 Jan 2025 13:00:57 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 08/11] drm/msm/dsi: Add support for SM8750
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ 2adb3069b0e04-543bae0ba76sm786051e87.8.2025.01.23.04.08.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jan 2025 04:08:42 -0800 (PST)
+Date: Thu, 23 Jan 2025 14:08:39 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
-References: <20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org>
- <20250109-b4-sm8750-display-v1-8-b3f15faf4c97@linaro.org>
- <3p7kjok5jzwvgt7dxuad26xgdkjd52v4gbtuudvgkeoj33skqn@afl2ddtsq7s2>
- <4fc7fdd5-36cd-42e6-af4a-e0e429f9f50b@linaro.org>
- <7eupqawhdrbjgsj2p7e3ky7uj62m252i6dzkb6y23btocedp3q@qmw72nmbk2c4>
- <6ee02d22-7a00-4c7c-a5e9-63e91d7d84ba@linaro.org>
- <uyidfuh5ul5kcg4keeev6yagmjc5ksun626dyb6kdgwegc76d7@iu7ggdhgt5qr>
- <7255ae24-983d-452c-bd6d-85804c367f8f@linaro.org>
- <5irzvm4socrdjx3zqdxnogpai3bmfb52f63ddr3pisn5aa4jgf@mbc42kb3gyqd>
- <4adeffe7-ca07-4441-86fe-10a4891b7b4b@linaro.org>
- <uqolptkewqkavtnb6wkc5o6hq6nmqe62mi7y43uu7td7vz722d@ddouvp2z46ti>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <uqolptkewqkavtnb6wkc5o6hq6nmqe62mi7y43uu7td7vz722d@ddouvp2z46ti>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Chandan Uddaraju <chandanu@codeaurora.org>, 
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, 
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Archit Taneja <architt@codeaurora.org>, Rajesh Yadav <ryadav@codeaurora.org>, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Simona Vetter <simona.vetter@ffwll.ch>
+Subject: Re: [PATCH 0/6] drm: enforce rules for
+ drm_atomic_helper_check_modeset()
+Message-ID: <bfuplxwielalawtozidaoj67smxlzqxatwjl7rza5o4gqgky6y@eika3dvihvk7>
+References: <20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org>
+ <e1a1fc68-cb8d-4fb0-879f-a84e679f6b2b@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e1a1fc68-cb8d-4fb0-879f-a84e679f6b2b@suse.de>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,124 +101,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/01/2025 12:42, Dmitry Baryshkov wrote:
-> On Thu, Jan 23, 2025 at 12:34:28PM +0100, Krzysztof Kozlowski wrote:
->> On 13/01/2025 13:13, Dmitry Baryshkov wrote:
->>> On Mon, Jan 13, 2025 at 12:02:54PM +0100, Krzysztof Kozlowski wrote:
->>>> On 13/01/2025 09:29, Dmitry Baryshkov wrote:
->>>>> On Fri, Jan 10, 2025 at 01:43:28PM +0100, Krzysztof Kozlowski wrote:
->>>>>> On 10/01/2025 10:17, Dmitry Baryshkov wrote:
->>>>>>> On Fri, Jan 10, 2025 at 09:59:26AM +0100, Krzysztof Kozlowski wrote:
->>>>>>>> On 10/01/2025 00:18, Dmitry Baryshkov wrote:
->>>>>>>>> On Thu, Jan 09, 2025 at 02:08:35PM +0100, Krzysztof Kozlowski wrote:
->>>>>>>>>> Add support for DSI PHY v7.0 on Qualcomm SM8750 SoC which comes with two
->>>>>>>>>> differences worth noting:
->>>>>>>>>>
->>>>>>>>>> 1. ICODE_ACCUM_STATUS_LOW and ALOG_OBSV_BUS_STATUS_1 registers - their
->>>>>>>>>>    offsets were just switched.  Currently these registers are not used
->>>>>>>>>>    in the driver, so the easiest is to document both but keep them
->>>>>>>>>>    commented out to avoid conflict.
->>>>>>>>>>
->>>>>>>>>> 2. DSI PHY PLLs, the parents of pixel and byte clocks, cannot be used as
->>>>>>>>>>    parents before they are prepared and initial rate is set.  Therefore
->>>>>>>>>>    assigned-clock-parents are not working here and driver is responsible
->>>>>>>>>>    for reparenting clocks with proper procedure: see dsi_clk_init_6g_v2_9().
->>>>>>>>>
->>>>>>>>> Isn't it a description of CLK_SET_PARENT_GATE and/or
->>>>>>>>
->>>>>>>> No - must be gated accross reparent - so opposite.
->>>>>>>>
->>>>>>>>> CLK_OPS_PARENT_ENABLE ?
->>>>>>>>
->>>>>>>> Yes, but does not work. Probably enabling parent, before
->>>>>>>> assigned-clocks-parents, happens still too early:
->>>>>>>>
->>>>>>>> [    1.623554] DSI PLL(0) lock failed, status=0x00000000
->>>>>>>> [    1.623556] PLL(0) lock failed
->>>>>>>> [    1.624650] ------------[ cut here ]------------
->>>>>>>> [    1.624651] disp_cc_mdss_byte0_clk_src: rcg didn't update its
->>>>>>>> configuration.
->>>>>>>>
->>>>>>>> Or maybe something is missing in the DSI PHY PLL driver?
->>>>>>>
->>>>>>> Do you have the no-zero-freq workaround?
->>>>>>
->>>>>> Yes, it is necessary also for my variant. I did not include it here, but
->>>>>> I should mention it in the cover letter.
->>>>>
->>>>> Could you please possibly backtrace the corresponding enable() calls?
->>>>
->>>>
->>>> It's the same backtrace I shared some time ago in internal discussions:
->>>> https://pastebin.com/kxUFgzD9
->>>> Unless you ask for some other backtrace?
->>>>
->>>>> I'd let Stephen and/or Bjorn or Konrad to correct me, but I think that
->>>>> such requirement should be handled by the framework instead of having
->>>>> the drivers to manually reparent the clocks.
->>>>
->>>> I don't know how exactly you would like to solve it. The clocks can be
->>>> reparented only after some other device specific enable sequence. It's
->>>> the third device here, but not reflected in the clocks hierarchy. Maybe
->>>> it's the result how entire Display device nodes were designed in the
->>>> first place?
->>>>
->>>> Assigned clocks are between DSI PHY and DISP cc, but they are a property
->>>> of DSI controller. This looks exactly too specific for core to handle
->>>> and drivers, not framework, should manually reparent such clocks.
->>>> Otherwise we need
->>>> "clk_pre_prepare_callback_if_we_are_called_when_phy_is_disabled" sort of
->>>> callback.
->>>
->>> What kind of PHY programming is required? Is enabling the PLL enough or
->>> does it need anything else? Are the PLL supplies properly enabled at
->>> this point?
->>>
->>
->> I don't know exactly and checking is tricky. I tried to use
->> CLK_OPS_PARENT_ENABLE - with equivalent code, setting proper parents but
->> without enabling the DSI PHY PLL manually just with
->> CLK_OPS_PARENT_ENABLE - but then you have multiple:
->>
->> dsi0_pll_bit_clk: Zero divisor and CLK_DIVIDER_ALLOW_ZERO not set
+On Thu, Jan 09, 2025 at 02:53:16PM +0100, Thomas Zimmermann wrote:
+> Hi
 > 
-> This really looks as if a part of the DSI PHY is unpowered. If you are
-> sure about your DSI and DSI PHY supplies (and power domains) then I also
-> have no other ideas.
-
-Yes, I triple checked them with downstream and with schematics.
-
-The rate setting - which is being discussed/fixed here - is in:
-msm_dsi_host_power_on()
-which does:
-
-    regulator_bulk_enable()
-    pm_runtime_get_sync(&msm_host->pdev->dev);
-    ret = cfg_hnd->ops->link_clk_set_rate(msm_host);
-
-
-If I refactor this code into:
-
-    regulator_bulk_enable()
-    pm_runtime_get_sync(&msm_host->pdev->dev);
-    MY_NEW_PREPARE_REPARENT_UNPREPARE()
-    ret = cfg_hnd->ops->link_clk_set_rate(msm_host);
-
-and use CLK_OPS_PARENT_ENABLE, I still got mentioned errors with calltrace:
-
-dev_pm_opp_set_rate (drivers/opp/core.c:1357)
-    ^^^^^^^^ line numbers won't help you, so explaining:
-             this is exactly in dsi_link_clk_set_rate_6g
-dsi_link_clk_set_rate_6g (drivers/gpu/drm/msm/dsi/dsi_host.c:391)
-msm_dsi_host_power_on (drivers/gpu/drm/msm/dsi/dsi_host.c:2520)
-
-This is actually weird, because PHY is powered in this case. I would
-consider CLK_OPS_PARENT_ENABLE() to be equal to my clk_prepare_enable
-from this patch, but somehow it is not equivalent.
-
 > 
-> Abhinav? Any input from your side? Or from Taniya Das?
+> Am 22.12.24 um 06:00 schrieb Dmitry Baryshkov:
+> > As pointed out by Simona, the drm_atomic_helper_check_modeset() and
+> > drm_atomic_helper_check() require the former function is rerun if the
+> > driver's callbacks modify crtc_state->mode_changed. MSM is one of the
+> > drivers which failed to follow this requirement.
 > 
->>
-Best regards,
-Krzysztof
+> I'm concerned about the implications of this series. How does a driver
+> upgrade from simple pageflip to full modeset if necessary? The solution in
+> msm appears to be to run the related test before drm_atomic_helper_check().
+> (Right?)
+> 
+> My corner case is in mgag200, which has to reprogram the PLL if the color
+> mode changes. So it sets mode_changed to true in the primary plane's
+> atomic_check. [1] This works in practice because the plane checks run before
+> the CRTC checks. So the CRTC code will do the correct thing. Reprogramming
+> the PLL means to disable the display at some point. So it comes down to a
+> full modeset.
+
+After giving this a second thought, I see an obvious issue from the
+generic code perspective. If you set new_crtc_state->mode_changed from
+your atomic_check(), then it's already too late for
+drm_atomic_helper_check_modeset() to add all affected (aka routed to the
+CRTC) planes to the state. Their atomic_check() callback will be
+skipped. So even if the end-result works in the MGAg200 case at this
+moment, I think we should still disallow that.
+
+Another option might be similar to what we had to do in the DPU driver:
+check whether the mode_changed has to be set before calling
+drm_atomic_helper_check(). Maybe we should consider adding new set of
+callbacks to the drm_*_helper_funcs, which are executed at the beginning
+of the drm_atomic_helper_check_modeset().
+
+WDYT?
+
+> You mention that drm_atomic_helper_check() needs to rerun if mode_changed
+> flips. Would it be possible to implement this instead within the helper?
+> 
+> Best regards
+> Thomas
+> 
+> [1] https://elixir.bootlin.com/linux/v6.12/source/drivers/gpu/drm/mgag200/mgag200_mode.c#L493
+> 
+> > 
+> > As suggested by Simona, implement generic code to verify that the
+> > drivers abide to those requirement and rework MSM driver to follow that
+> > restrictions.
+> > 
+> > There are no dependencies between core and MSM parts, so they can go
+> > separately via corresponding trees.
+> > 
+> > Reported-by: Simona Vetter <simona.vetter@ffwll.ch>
+> > Link: https://lore.kernel.org/dri-devel/ZtW_S0j5AEr4g0QW@phenom.ffwll.local/
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> > Dmitry Baryshkov (6):
+> >        drm/atomic-helper: document drm_atomic_helper_check() restrictions
+> >        drm/atomic: prepare to check that drivers follow restrictions for needs_modeset
+> >        drm/msm/dpu: don't use active in atomic_check()
+> >        drm/msm/dpu: move needs_cdm setting to dpu_encoder_get_topology()
+> >        drm/msm/dpu: simplify dpu_encoder_get_topology() interface
+> >        drm/msm/dpu: don't set crtc_state->mode_changed from atomic_check()
+> > 
+> >   drivers/gpu/drm/drm_atomic.c                |  3 +
+> >   drivers/gpu/drm/drm_atomic_helper.c         | 86 ++++++++++++++++++++++++++---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  4 --
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 82 +++++++++++++++++----------
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 26 +++++++++
+> >   drivers/gpu/drm/msm/msm_atomic.c            | 13 ++++-
+> >   drivers/gpu/drm/msm/msm_kms.h               |  7 +++
+> >   include/drm/drm_atomic.h                    | 10 ++++
+> >   9 files changed, 192 insertions(+), 43 deletions(-)
+> > ---
+> > base-commit: b72747fdde637ebf52e181671bf6f41cd773b3e1
+> > change-id: 20241222-drm-dirty-modeset-88079bd27ae6
+> > 
+> > Best regards,
+> 
+> -- 
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstrasse 146, 90461 Nuernberg, Germany
+> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+> HRB 36809 (AG Nuernberg)
+> 
+
+-- 
+With best wishes
+Dmitry
