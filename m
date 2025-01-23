@@ -2,83 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF515A1A4B3
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 14:09:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 330F9A1A55D
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 15:00:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFFB010E80F;
-	Thu, 23 Jan 2025 13:09:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1173C10E814;
+	Thu, 23 Jan 2025 14:00:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="gnpKJjIm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ki00wXjY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 090CF10E7F3;
- Thu, 23 Jan 2025 12:13:44 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4Yf0GW75cTz9sX2;
- Thu, 23 Jan 2025 13:13:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1737634420; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0+7fVHRTKElHIrMWMKEDgFUHTZ0B53rnunyjSKs1E10=;
- b=gnpKJjImu/YQ19v6Zpg9rBZulFKUFHnD/GH5+YNRjv2tZbJk2lBEyPvR5aXVjSjuxsHmyL
- azsdywWxONg3ylq7gFjBaDOErXHVrhsqAvdXndqulHzRKQ10SdEEzagz+4Z3dgtmUZHQil
- I+nHCW3ihPnRWxn1mJe3pP6lFPkc+JZl2G5umz8Ll84v3PMDEbrjzcDI9be4qNqj+ObLda
- viFV7BRw8Cjy5quxQKLqLMHeyOAnkgU1NJ2y3vmG3c06U9vzddGxWwO4eJtqtLrzjk33IQ
- RwlUQiV+HeVyh5daGwiSGWff1zHBxod4PkdwLjLgeaUowmil0D34K11LE0+Y3A==
-Message-ID: <e7414579afbfc25d4027471bc265ee48e7d25932.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Use struct for drm_sched_init() params
-From: Philipp Stanner <phasta@mailbox.org>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Philipp Stanner
- <phasta@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Xinhui Pan
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>, Russell King
- <linux+etnaviv@armlinux.org.uk>,  Christian Gmeiner
- <christian.gmeiner@gmail.com>, Frank Binns <frank.binns@imgtec.com>, Matt
- Coster <matt.coster@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Qiang Yu <yuq825@gmail.com>,  Rob
- Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
- <konradybcio@kernel.org>,  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, Karol Herbst <kherbst@redhat.com>, Lyude
- Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Boris
- Brezillon <boris.brezillon@collabora.com>, Rob Herring <robh@kernel.org>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost
- <matthew.brost@intel.com>, Melissa Wen <mwen@igalia.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sunil Khatri <sunil.khatri@amd.com>,  Lijo Lazar <lijo.lazar@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>, 
- Yunxiang Li <Yunxiang.Li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org, 
- lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org
-Date: Thu, 23 Jan 2025 13:13:25 +0100
-In-Reply-To: <ec4bb0f6-c366-40e7-a1df-332458b08eec@igalia.com>
-References: <20250122140818.45172-3-phasta@kernel.org>
- <24f1c52f-1768-47de-88e3-d4104969d0a9@igalia.com>
- <9713798aa175aef2041e6d688ac4814006f789bc.camel@redhat.com>
- <ec4bb0f6-c366-40e7-a1df-332458b08eec@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95DC910E814
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 14:00:29 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2f7d35de32dso228878a91.3
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 06:00:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1737640829; x=1738245629; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KrivE+jXCcpkJfX31hjpK5tPlRP7KoKj2mnULiizYXQ=;
+ b=Ki00wXjYakzYznvGaKezccWt1qABfrCRsQPwvKOKo/1V9Szi4y6Fta72Mafbs2VLx+
+ VLYSEIWbddV5WNBSxUf5/1U0RdqkMegzSINply6c9/tweZ0ZUVCS6kEjCLb1B1Le3oqd
+ ZuJ3SLer1n5vRWEg6ISs+Qx+eNxJB6K+yPfaXbqqdrGOa6OOOqs4SLO0j9wf9GSuNYmr
+ IRh9ltDgwP7EmasbLRwV8yB/auBW8Az45IO0H06SUoRSQS5XEq1HID0CwBzFDjd3z7Pl
+ p5xQfQAISXeRVg5w7BHRIqeujQWfsFX3Q043+L0qTa88HgQ2MsDX+efUrr4YVD5x30HY
+ WlLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737640829; x=1738245629;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KrivE+jXCcpkJfX31hjpK5tPlRP7KoKj2mnULiizYXQ=;
+ b=xEmJyQZXJUwySVHDFwYqdmGd5MDepdlNzwu8Z8uaYL3ZJJojFvDkRqFzf8WMxGHtHm
+ Obo4oDNFmy+h5m9+lH9AYEuZX8eckIoMGTHwzroJZQ0QeLgKZtrUgSkjj8Y7eSIdKxTU
+ Xi6f32I5L7qV+uzQhPyCfo7TvExg1aR42GnQ6nwIe8q/OwvUDOFhriSDLrNZwayufM7U
+ Gjg2NIhvytBsyk5Vq5HTInsCV2dGmwqMSP3nHjNbdhm4tG/XsNIpu2lSWYUu2lVUaOyn
+ b09RIFxYPZ+GLolybqrMFnqlB4BV3/EIW+bZqGKYPuHIjhuk3bEcNk2jMXe53kRzS1On
+ MWcg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXTTfG/gDIWi9ilQwtqn+gByqcjkTfOJIsBr7n9EJ707/LwNfDC83JJig+xb2xqZEiQ5dVNTfXdYtM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxyd1dnq7sw5D1MGhV3zvDN6s1aVQtIuDGtYkQJWLbM2XXquS2i
+ y7RnAh+l/MAmBHd1bABOeFZOzge0DNt037TNgo43DTcTPxMLjSWeap8fREQA4E0lK2HWJLjpINS
+ u4Jix+EaKgjKlaR6r+wSsbeS2Th8=
+X-Gm-Gg: ASbGncsBiZT3ENidITaezbWaLx4F+LpgZBhWWbVzyaW3rJJMk7vXJ2WxsK1zbsHXBXZ
+ NvdXhb2E2mtWgqo2uvzNxq8WCzWkYH8B6r3Ro6RQyHr6nUiMnWzH+LYPdVAmnYQ==
+X-Google-Smtp-Source: AGHT+IFmTC6qmDF4oUBj7xpD8an7Qpq8DoBkwz2IBfRe4cVvkaz/pes+WZH4kbi478o6Q0jVZbaKQwuX1r2P0uDuuGQ=
+X-Received: by 2002:a05:6a00:2406:b0:72a:a7a4:99ca with SMTP id
+ d2e1a72fcca58-72daf973e78mr14767252b3a.2.1737640828927; Thu, 23 Jan 2025
+ 06:00:28 -0800 (PST)
 MIME-Version: 1.0
-X-MBO-RS-META: atku7wpwx957w9o4ftqprfosj6p5jofp
-X-MBO-RS-ID: d9273a22f3a7c793cfc
-X-Mailman-Approved-At: Thu, 23 Jan 2025 13:09:15 +0000
+References: <20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com>
+ <20250122-msm-gpu-fault-fixes-next-v3-1-0afa00158521@gmail.com>
+ <Z5IjsqQ6vTdUXiGt@hu-guptap-hyd.qualcomm.com>
+In-Reply-To: <Z5IjsqQ6vTdUXiGt@hu-guptap-hyd.qualcomm.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Thu, 23 Jan 2025 09:00:17 -0500
+X-Gm-Features: AWEUYZkhKWn32H9Mkt-2dMmko580derQXOamfCI9VPysLRLbJNJBREOXqAVlk7w
+Message-ID: <CACu1E7H5X2EfY9AG=xceaoZJkbumwnrsU4QvNbxd_A2wgVVOaQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] iommu/arm-smmu: Fix spurious interrupts with
+ stall-on-fault
+To: Prakash Gupta <quic_guptap@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,116 +88,168 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gVGh1LCAyMDI1LTAxLTIzIGF0IDA4OjEwIC0wMzAwLCBNYcOtcmEgQ2FuYWwgd3JvdGU6Cj4g
-SGkgUGhpbGlwcCwKPiAKPiBPbiAyMy8wMS8yNSAwNToxMCwgUGhpbGlwcCBTdGFubmVyIHdyb3Rl
-Ogo+ID4gT24gV2VkLCAyMDI1LTAxLTIyIGF0IDE5OjA3IC0wMzAwLCBNYcOtcmEgQ2FuYWwgd3Jv
-dGU6Cj4gPiA+IEhpIFBoaWxpcHAsCj4gPiA+IAo+ID4gPiBPbiAyMi8wMS8yNSAxMTowOCwgUGhp
-bGlwcCBTdGFubmVyIHdyb3RlOgo+ID4gPiA+IGRybV9zY2hlZF9pbml0KCkgaGFzIGEgZ3JlYXQg
-bWFueSBwYXJhbWV0ZXJzIGFuZCB1cGNvbWluZyBuZXcKPiA+ID4gPiBmdW5jdGlvbmFsaXR5IGZv
-ciB0aGUgc2NoZWR1bGVyIG1pZ2h0IGFkZCBldmVuIG1vcmUuIEdlbmVyYWxseSwKPiA+ID4gPiB0
-aGUKPiA+ID4gPiBncmVhdCBudW1iZXIgb2YgcGFyYW1ldGVycyByZWR1Y2VzIHJlYWRhYmlsaXR5
-IGFuZCBoYXMgYWxyZWFkeQo+ID4gPiA+IGNhdXNlZAo+ID4gPiA+IG9uZSBtaXNzbmFtaW5nIGlu
-Ogo+ID4gPiA+IAo+ID4gPiA+IGNvbW1pdCA2ZjFjYWNmNGViYTcgKCJkcm0vbm91dmVhdTogSW1w
-cm92ZSB2YXJpYWJsZSBuYW1lIGluCj4gPiA+ID4gbm91dmVhdV9zY2hlZF9pbml0KCkiKS4KPiA+
-ID4gPiAKPiA+ID4gPiBJbnRyb2R1Y2UgYSBuZXcgc3RydWN0IGZvciB0aGUgc2NoZWR1bGVyIGlu
-aXQgcGFyYW1ldGVycyBhbmQKPiA+ID4gPiBwb3J0Cj4gPiA+ID4gYWxsCj4gPiA+ID4gdXNlcnMu
-Cj4gPiA+ID4gCj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogUGhpbGlwcCBTdGFubmVyIDxwaGFzdGFA
-a2VybmVsLm9yZz4KPiAKPiBbLi4uXQo+IAo+ID4gPiAKPiA+ID4gPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL3YzZC92M2Rfc2NoZWQuYwo+ID4gPiA+IGIvZHJpdmVycy9ncHUvZHJtL3Yz
-ZC92M2Rfc2NoZWQuYwo+ID4gPiA+IGluZGV4IDk5YWM0OTk1YjVhMS4uNzE2ZTZkMDc0ZDg3IDEw
-MDY0NAo+ID4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS92M2QvdjNkX3NjaGVkLmMKPiA+ID4g
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdjNkL3YzZF9zY2hlZC5jCj4gPiA+ID4gQEAgLTgxNCw2
-NyArODE0LDEyNCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0Cj4gPiA+ID4gZHJtX3NjaGVkX2JhY2tl
-bmRfb3BzCj4gPiA+ID4gdjNkX2NwdV9zY2hlZF9vcHMgPSB7Cj4gPiA+ID4gwqDCoMKgCS5mcmVl
-X2pvYiA9IHYzZF9jcHVfam9iX2ZyZWUKPiA+ID4gPiDCoMKgIH07Cj4gPiA+ID4gwqDCoCAKPiA+
-ID4gPiArLyoKPiA+ID4gPiArICogdjNkJ3Mgc2NoZWR1bGVyIGluc3RhbmNlcyBhcmUgYWxsIGlk
-ZW50aWNhbCwgZXhjZXB0IGZvciBvcHMKPiA+ID4gPiBhbmQKPiA+ID4gPiBuYW1lLgo+ID4gPiA+
-ICsgKi8KPiA+ID4gPiArc3RhdGljIHZvaWQKPiA+ID4gPiArdjNkX2NvbW1vbl9zY2hlZF9pbml0
-KHN0cnVjdCBkcm1fc2NoZWRfaW5pdF9wYXJhbXMgKnBhcmFtcywKPiA+ID4gPiBzdHJ1Y3QKPiA+
-ID4gPiBkZXZpY2UgKmRldikKPiA+ID4gPiArewo+ID4gPiA+ICsJbWVtc2V0KHBhcmFtcywgMCwg
-c2l6ZW9mKHN0cnVjdAo+ID4gPiA+IGRybV9zY2hlZF9pbml0X3BhcmFtcykpOwo+ID4gPiA+ICsK
-PiA+ID4gPiArCXBhcmFtcy0+c3VibWl0X3dxID0gTlVMTDsgLyogVXNlIHRoZSBzeXN0ZW1fd3Eu
-ICovCj4gPiA+ID4gKwlwYXJhbXMtPm51bV9ycXMgPSBEUk1fU0NIRURfUFJJT1JJVFlfQ09VTlQ7
-Cj4gPiA+ID4gKwlwYXJhbXMtPmNyZWRpdF9saW1pdCA9IDE7Cj4gPiA+ID4gKwlwYXJhbXMtPmhh
-bmdfbGltaXQgPSAwOwo+ID4gPiA+ICsJcGFyYW1zLT50aW1lb3V0ID0gbXNlY3NfdG9famlmZmll
-cyg1MDApOwo+ID4gPiA+ICsJcGFyYW1zLT50aW1lb3V0X3dxID0gTlVMTDsgLyogVXNlIHRoZSBz
-eXN0ZW1fd3EuICovCj4gPiA+ID4gKwlwYXJhbXMtPnNjb3JlID0gTlVMTDsKPiA+ID4gPiArCXBh
-cmFtcy0+ZGV2ID0gZGV2Owo+ID4gPiA+ICt9Cj4gPiA+IAo+ID4gPiBDb3VsZCB3ZSB1c2Ugb25s
-eSBvbmUgZnVuY3Rpb24gdGhhdCB0YWtlcyBzdHJ1Y3QgdjNkX2RldiAqdjNkLAo+ID4gPiBlbnVt
-Cj4gPiA+IHYzZF9xdWV1ZSwgYW5kIHNjaGVkX29wcyBhcyBhcmd1bWVudHMgKGluc3RlYWQgb2Yg
-b25lIGZ1bmN0aW9uCj4gPiA+IHBlcgo+ID4gPiBxdWV1ZSk/IFlvdSBjYW4gZ2V0IHRoZSBuYW1l
-IG9mIHRoZSBzY2hlZHVsZXIgYnkgY29uY2F0ZW5hdGluZwo+ID4gPiAidjNkXyIKPiA+ID4gdG8K
-PiA+ID4gdGhlIHJldHVybiBvZiB2M2RfcXVldWVfdG9fc3RyaW5nKCkuCj4gPiA+IAo+ID4gPiBJ
-IGJlbGlldmUgaXQgd291bGQgbWFrZSB0aGUgY29kZSBtdWNoIHNpbXBsZXIuCj4gPiAKPiA+IEhl
-bGxvLAo+ID4gCj4gPiBzbyBqdXN0IHRvIGdldCB0aGF0IHJpZ2h0Ogo+ID4gWW91J2QgbGlrZSB0
-byBoYXZlIG9uZSB1bml2ZXJzYWwgZnVuY3Rpb24gdGhhdCBzd2l0Y2gtY2FzZXMgb3ZlciBhbgo+
-ID4gZW51bSwgc2V0cyB0aGUgb3BzIGFuZCBjcmVhdGVzIHRoZSBuYW1lIHdpdGggc3RyaW5nIGNv
-bmNhdGVuYXRpb24/Cj4gPiAKPiA+IEknbSBub3QgY29udmluY2VkIHRoYXQgdGhpcyBpcyBzaW1w
-bGVyIHRoYW4gYSBmZXcgc21hbGwgZnVuY3Rpb25zLAo+ID4gYnV0Cj4gPiBpdCdzIG5vdCBteSBj
-b21wb25lbnQsIHNv4oCmCj4gPiAKPiA+IFdoYXRldmVyIHdlJ2xsIGRvIHdpbGwgYmUgc2ltcGxl
-ciB0aGFuIHRoZSBleGlzdGluZyBjb2RlLCB0aG91Z2guCj4gPiBSaWdodAo+ID4gbm93IG5vIHJl
-YWRlciBjYW4gc2VlIGF0IGZpcnN0IGdsYW5jZSB3aGV0aGVyIGFsbCB0aG9zZSBzY2hlZHVsZXJz
-Cj4gPiBhcmUKPiA+IGlkZW50aWNhbGx5IHBhcmFtZXRyaXplZCBvciBub3QuCj4gPiAKPiAKPiBU
-aGlzIGlzIG15IHByb3Bvc2FsIChqdXN0IGEgcXVpY2sgZHJhZnQsIHBsZWFzZSBjaGVjayBpZiBp
-dAo+IGNvbXBpbGVzKToKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3YzZC92M2Rf
-c2NoZWQuYyAKPiBiL2RyaXZlcnMvZ3B1L2RybS92M2QvdjNkX3NjaGVkLmMKPiBpbmRleCA5NjE0
-NjUxMjhkODAuLjdjYzQ1YTBjNmNhMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdjNk
-L3YzZF9zY2hlZC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3YzZC92M2Rfc2NoZWQuYwo+IEBA
-IC04MjAsNjcgKzgyMCw2MiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9zY2hlZF9iYWNrZW5k
-X29wcyAKPiB2M2RfY3B1X3NjaGVkX29wcyA9IHsKPiDCoMKgwqDCoMKgwqDCoMKgIC5mcmVlX2pv
-YiA9IHYzZF9jcHVfam9iX2ZyZWUKPiDCoCB9Owo+IAo+ICtzdGF0aWMgaW50Cj4gK3YzZF9zY2hl
-ZF9xdWV1ZV9pbml0KHN0cnVjdCB2M2RfZGV2ICp2M2QsIGVudW0gdjNkX3F1ZXVlIHF1ZXVlLAo+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25zdCBzdHJ1Y3QgZHJt
-X3NjaGVkX2JhY2tlbmRfb3BzICpvcHMsIGNvbnN0CgpJcyBpdCBhIHF1ZXVlLCB0aG91Z2g/CgpI
-b3cgYWJvdXQgX3YzZF9zY2hlZF9pbml0KCk/CgpQLgoKPiBjaGFyIAo+ICpuYW1lKQo+ICt7Cj4g
-K8KgwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX3NjaGVkX2luaXRfcGFyYW1zIHBhcmFtcyA9IHsKPiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuc3VibWl0X3dxID0gTlVMTCwKPiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAubnVtX3JxcyA9IERSTV9TQ0hFRF9QUklPUklUWV9DT1VO
-VCwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuY3JlZGl0X2xpbWl0ID0gMSwKPiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuaGFuZ19saW1pdCA9IDAsCj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgLnRpbWVvdXQgPSBtc2Vjc190b19qaWZmaWVzKDUwMCksCj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnRpbWVvdXRfd3EgPSBOVUxMLAo+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5zY29yZSA9IE5VTEwsCj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgLmRldiA9IHYzZC0+ZHJtLmRldiwKPiArwqDCoMKgwqDCoMKgIH07Cj4g
-Kwo+ICvCoMKgwqDCoMKgwqAgcGFyYW1zLm9wcyA9IG9wczsKPiArwqDCoMKgwqDCoMKgIHBhcmFt
-cy5uYW1lID0gbmFtZTsKPiArCj4gK8KgwqDCoMKgwqDCoCByZXR1cm4gZHJtX3NjaGVkX2luaXQo
-JnYzZC0+cXVldWVbcXVldWVdLnNjaGVkLCAmcGFyYW1zKTsKPiArfQo+ICsKPiDCoCBpbnQKPiDC
-oCB2M2Rfc2NoZWRfaW5pdChzdHJ1Y3QgdjNkX2RldiAqdjNkKQo+IMKgIHsKPiAtwqDCoMKgwqDC
-oMKgIGludCBod19qb2JzX2xpbWl0ID0gMTsKPiAtwqDCoMKgwqDCoMKgIGludCBqb2JfaGFuZ19s
-aW1pdCA9IDA7Cj4gLcKgwqDCoMKgwqDCoCBpbnQgaGFuZ19saW1pdF9tcyA9IDUwMDsKPiDCoMKg
-wqDCoMKgwqDCoMKgIGludCByZXQ7Cj4gCj4gLcKgwqDCoMKgwqDCoCByZXQgPSBkcm1fc2NoZWRf
-aW5pdCgmdjNkLT5xdWV1ZVtWM0RfQklOXS5zY2hlZCwKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICZ2M2RfYmluX3NjaGVkX29wcywgTlVM
-TCwKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIERSTV9TQ0hFRF9QUklPUklUWV9DT1VOVCwKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGh3X2pvYnNfbGltaXQsIGpvYl9oYW5nX2xp
-bWl0LAo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgbXNlY3NfdG9famlmZmllcyhoYW5nX2xpbWl0X21zKSwgTlVMTCwKPiAtwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIE5VTEwsICJ2M2Rf
-YmluIiwgdjNkLT5kcm0uZGV2KTsKPiArwqDCoMKgwqDCoMKgIHJldCA9IHYzZF9zY2hlZF9xdWV1
-ZV9pbml0KHYzZCwgVjNEX0JJTiwgJnYzZF9iaW5fc2NoZWRfb3BzLAo+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgInYz
-ZF9iaW4iKTsKPiDCoMKgwqDCoMKgwqDCoMKgIGlmIChyZXQpCj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPiAKPiAtwqDCoMKgwqDCoMKgIHJldCA9IGRybV9z
-Y2hlZF9pbml0KCZ2M2QtPnF1ZXVlW1YzRF9SRU5ERVJdLnNjaGVkLAo+IC3CoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJnYzZF9yZW5kZXJfc2No
-ZWRfb3BzLCBOVUxMLAo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgRFJNX1NDSEVEX1BSSU9SSVRZX0NPVU5ULAo+IC3CoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaHdfam9ic19saW1pdCwg
-am9iX2hhbmdfbGltaXQsCj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBtc2Vjc190b19qaWZmaWVzKGhhbmdfbGltaXRfbXMpLCBOVUxMLAo+
-IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-TlVMTCwgInYzZF9yZW5kZXIiLCB2M2QtPmRybS5kZXYpOwo+ICvCoMKgwqDCoMKgwqAgcmV0ID0g
-djNkX3NjaGVkX3F1ZXVlX2luaXQodjNkLCBWM0RfUkVOREVSLAo+ICZ2M2RfcmVuZGVyX3NjaGVk
-X29wcywKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgICJ2M2RfcmVuZGVyIik7Cj4gwqDCoMKgwqDCoMKgwqDCoCBpZiAo
-cmV0KQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZmFpbDsKPiAKPiBb
-Li4uXQo+IAo+IEF0IGxlYXN0IGZvciBtZSwgdGhpcyBsb29rcyBtdWNoIHNpbXBsZXIgdGhhbiBv
-bmUgZnVuY3Rpb24gZm9yIGVhY2gKPiBWM0QgcXVldWUuCj4gCj4gQmVzdCBSZWdhcmRzLAo+IC0g
-TWHDrXJhCj4gCj4gPiBQLgo+ID4gCj4gPiAKPiA+ID4gCj4gPiA+IEJlc3QgUmVnYXJkcywKPiA+
-ID4gLSBNYcOtcmEKPiA+ID4gCj4gCgo=
+On Thu, Jan 23, 2025 at 6:10=E2=80=AFAM Prakash Gupta <quic_guptap@quicinc.=
+com> wrote:
+>
+> On Wed, Jan 22, 2025 at 03:00:58PM -0500, Connor Abbott wrote:
+>
+> > @@ -125,12 +125,25 @@ static void qcom_adreno_smmu_resume_translation(c=
+onst void *cookie, bool termina
+> >       struct arm_smmu_domain *smmu_domain =3D (void *)cookie;
+> >       struct arm_smmu_cfg *cfg =3D &smmu_domain->cfg;
+> >       struct arm_smmu_device *smmu =3D smmu_domain->smmu;
+> > -     u32 reg =3D 0;
+> > +     u32 reg =3D 0, sctlr;
+> > +     unsigned long flags;
+> >
+> >       if (terminate)
+> >               reg |=3D ARM_SMMU_RESUME_TERMINATE;
+> >
+> > +     spin_lock_irqsave(&smmu_domain->cb_lock, flags);
+> > +
+> >       arm_smmu_cb_write(smmu, cfg->cbndx, ARM_SMMU_CB_RESUME, reg);
+> > +
+> At this point further transaction can be processed but SCTLR.CFIE is
+> cleared so subequent context fault will not generate interrupt till
+> SCTLR.CFIE is set.
 
+If you're asking why the spin lock is there, it's because this isn't
+true if there's another context bank, they share an interrupt line,
+and it happens to fault around the same time. I haven't checked if
+that's actually the case for Adreno, but in case this gets used by
+other drivers and moved into common code I want it to be as robust as
+possible. This is explained in the comment added to
+arm_smmu_context_fault(). Also the next commit toggles CFCFG and we
+want to serialize against that.
+
+>
+> > +     /*
+> > +      * Re-enable interrupts after they were disabled by
+> > +      * arm_smmu_context_fault().
+> > +      */
+> > +     sctlr =3D arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR);
+> > +     sctlr |=3D ARM_SMMU_SCTLR_CFIE;
+> > +     arm_smmu_cb_write(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR, sctlr);
+> > +
+> > +     spin_unlock_irqrestore(&smmu_domain->cb_lock, flags);
+> >  }
+> >
+> >  static void qcom_adreno_smmu_set_prr_bit(const void *cookie, bool set)
+> > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/=
+arm-smmu/arm-smmu.c
+> > index 79afc92e1d8b984dd35c469a3f283ad0c78f3d26..ca1ff59015a63912f0f9c52=
+56452b2b2efa928f1 100644
+> > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> > @@ -463,13 +463,52 @@ static irqreturn_t arm_smmu_context_fault(int irq=
+, void *dev)
+> >       if (!(cfi.fsr & ARM_SMMU_CB_FSR_FAULT))
+> >               return IRQ_NONE;
+> >
+> > +     /*
+> > +      * On some implementations FSR.SS asserts a context fault
+> > +      * interrupt. We do not want this behavior, because resolving the
+> > +      * original context fault typically requires operations that cann=
+ot be
+> > +      * performed in IRQ context but leaving the stall unacknowledged =
+will
+> > +      * immediately lead to another spurious interrupt as FSR.SS is st=
+ill
+> > +      * set. Work around this by disabling interrupts for this context=
+ bank.
+> > +      * It's expected that interrupts are re-enabled after resuming th=
+e
+> > +      * translation.
+> > +      *
+> > +      * We have to do this before report_iommu_fault() so that we don'=
+t
+> > +      * leave interrupts disabled in case the downstream user decides =
+the
+> > +      * fault can be resolved inside its fault handler.
+> > +      *
+> > +      * There is a possible race if there are multiple context banks s=
+haring
+> > +      * the same interrupt and both signal an interrupt in between wri=
+ting
+> > +      * RESUME and SCTLR. We could disable interrupts here before we
+> > +      * re-enable them in the resume handler, leaving interrupts enabl=
+ed.
+> > +      * Lock the write to serialize it with the resume handler.
+> > +      */
+> > +     if (cfi.fsr & ARM_SMMU_CB_FSR_SS) {
+> > +             u32 val;
+> > +
+> > +             spin_lock(&smmu_domain->cb_lock);
+> > +             val =3D arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_SCTLR);
+> > +             val &=3D ~ARM_SMMU_SCTLR_CFIE;
+> > +             arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, val);
+> > +             spin_unlock(&smmu_domain->cb_lock);
+> > +     }
+> > +
+> > +     /*
+> > +      * The SMMUv2 architecture specification says that if stall-on-fa=
+ult is
+> > +      * enabled the correct sequence is to write to SMMU_CBn_FSR to cl=
+ear
+> > +      * the fault and then write to SMMU_CBn_RESUME. Clear the interru=
+pt
+> > +      * first before running the user's fault handler to make sure we =
+follow
+> > +      * this sequence. It should be ok if there is another fault in th=
+e
+> > +      * meantime because we have already read the fault info.
+> > +      */
+> The context would remain stalled till we write to CBn_RESUME. Which is do=
+ne
+> in qcom_adreno_smmu_resume_translation(). For a stalled context further
+> transactions are not processed and we shouldn't see further faults and
+> or fault inerrupts. Do you observe faults with stalled context?
+
+Yes. I've observed that on MMU-500 writing RESUME before the interrupt
+has been cleared doesn't clear SS. This happened with v2 in the case
+where there was already a devcoredump and drm/msm called
+qcom_adreno_smmu_resume_translation() immediately from its fault
+handler, and we'd get a storm of unhandled interrupts until it was
+disabled. Given that the architecture spec says we're supposed to
+clear the interrupt first this may have been an attempt to "help"
+developers.
+
+>
+> > +     arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_FSR, cfi.fsr);
+> > +
+> >       ret =3D report_iommu_fault(&smmu_domain->domain, NULL, cfi.iova,
+> >               cfi.fsynr & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : =
+IOMMU_FAULT_READ);
+> >
+> >       if (ret =3D=3D -ENOSYS && __ratelimit(&rs))
+> >               arm_smmu_print_context_fault_info(smmu, idx, &cfi);
+> >
+> > -     arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_FSR, cfi.fsr);
+> >       return IRQ_HANDLED;
+> >  }
+> >
+> > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/=
+arm-smmu/arm-smmu.h
+> > index 2dbf3243b5ad2db01e17fb26c26c838942a491be..789c64ff3eb9944c8af3742=
+6e005241a8288da20 100644
+> > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> > @@ -216,7 +216,6 @@ enum arm_smmu_cbar_type {
+> >                                        ARM_SMMU_CB_FSR_TLBLKF)
+> >
+> >  #define ARM_SMMU_CB_FSR_FAULT                (ARM_SMMU_CB_FSR_MULTI | =
+       \
+> > -                                      ARM_SMMU_CB_FSR_SS |           \
+> Given writing to FSR.SS doesn't clear this bit but write to CBn_RESUME
+> does, this seems right. This but can be taken as separate patch.
+>
+> >                                        ARM_SMMU_CB_FSR_UUT |          \
+> >                                        ARM_SMMU_CB_FSR_EF |           \
+> >                                        ARM_SMMU_CB_FSR_PF |           \
+> >
+> > --
+> > 2.47.1
+> >
