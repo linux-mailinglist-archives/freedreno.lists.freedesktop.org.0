@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA49DA1A4B2
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 14:09:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B342A1A4AC
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 14:09:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F4C710E80D;
-	Thu, 23 Jan 2025 13:09:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BFC510E80B;
+	Thu, 23 Jan 2025 13:09:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="NzYwFHsK";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="asOSl9nw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9469310E78C
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 08:11:01 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1604B10E796
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 08:40:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1737619860;
+ s=mimecast20190719; t=1737621607;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HvOzR28wXFq3hBJ5wKPnvyO7ZxlbVgBz+Hd+V2/30Bg=;
- b=NzYwFHsKbHENNuJh9rxm0+fH86r/l4U4ftQ69EqizQzXley+SM+mOkbTkUhnWQ7WA30fjl
- VsO7vlqqVwZWDMSyk//4aEYQw0mqXwjTh0i2RsJwUDWjyfY/2bDJ6+ylho3cPwU6uy3bVx
- p3kFpKPPXrc0J2v1HDFAsVAROG08kAU=
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=cVF1BWLlfkLfyAreYK9ftlrXj/sspdG9aDWb4HVECMw=;
+ b=asOSl9nwjbr3oQmDS8Rw2wYAAxKOJM9KW9+fC0i8R50r0QWrTNgPll3OglArvlvQQInf7z
+ n5WhGon/004kwI5OaKr/bZSi7HwsJOH/t3rfxuoxYivMwHja0jB7TXs9vEUYixAxi4pOaF
+ jJh6RJjZ9PXX1sw2UF2umx5NWiNsIe4=
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-617-2ZSrQqEdP66gdmFBhLrk3g-1; Thu, 23 Jan 2025 03:10:59 -0500
-X-MC-Unique: 2ZSrQqEdP66gdmFBhLrk3g-1
-X-Mimecast-MFC-AGG-ID: 2ZSrQqEdP66gdmFBhLrk3g
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2166f9f52fbso19784935ad.2
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 00:10:59 -0800 (PST)
+ us-mta-462-x8u0S79oMuKa8z0RQ8d5hA-1; Thu, 23 Jan 2025 03:40:05 -0500
+X-MC-Unique: x8u0S79oMuKa8z0RQ8d5hA-1
+X-Mimecast-MFC-AGG-ID: x8u0S79oMuKa8z0RQ8d5hA
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2164fad3792so11579505ad.0
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 00:40:04 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737619858; x=1738224658;
+ d=1e100.net; s=20230601; t=1737621604; x=1738226404;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=LDEdIsdcqGWdcyBaLw2Kh9VKml8ZAgVTT2SKLvAoRWM=;
- b=pLxnr/v7ZpGebjSxvmgQZSmB45826ewtPY8yyHIGePU319RWROUGkrPFkSY6ZJ2T5j
- M1KBD6im6kfRDA/RWTldlvyj8XgAjNeH5ZtFPlSEx3lQZlblpH8r5zm3WUzezeD05nij
- C9vl11W8Xu+EDTCdJYsxW7yCs59rUIHPCl6cnhtT8qH1OLKh3nhJQwRfqYo2DQLqccRz
- Na54OhKjswfjcCo/ZB5P+klrNta7GwxcmVdarVFFRicZrxM2BaxyPQ8oInbWlnKkbC30
- n/4EjxnGSS98ME932TL1eZcyKPnm/OF1/L2sEwYi6RR9THtIKEuRIdbuMfxjG/cp9eNf
- OOSQ==
+ bh=2UVrjYVF1Hj7ct/lR3WK34rJGq50fF4xm9N2x7OTNc8=;
+ b=pS/X99GE1ncjwkUGIu8zCzUrSDUpB7wEB0cjVsj1Qt7TvG6dpS2g7ege3aHc+647W2
+ hzfA5Mw4rVupJou/+LZ+pZphQZnKnS3dXMB7p09tARDY1CES5+OKA9GMUfLMLRNdElUi
+ AykAkNAqmNKPyicwpRkHb4xndoU41rDERiFP+spX3n4lizJABwMxqRfyXynqB2Y/d8NN
+ XWNotoUcDVurVx0OHDQA/mi+mEK3Zz/B58zqw9o6FAyzmW4iDM+7Ol1OaLBmwrTDVXaC
+ UguFyOvN7ALS3JmW48T243dBp/j/naEsLs74hdyDSN+l1E9HwSmlcLrd0iRBRK7z5yLQ
+ h68A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUz7asVnlpZgjqgy/ZpxRtb7KDHYQ0rLUoSamRBgbXzKYMeZRW3bWPlV/Sa+Chx25ga275q1LcZFe4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFXKFEINq9Uh1OfeNjnI2xZi/FFjwkMTBiEshf9BIod7xZw5LE
- lOtfift7fg67ZjYDHkxagc4PyV8kvFOjXAtSMjWdYkvFDZ3KgPYYNBRc8gBrvPZ2aLwvYd9DmWV
- JTF+cvKu4sMIboHb2LFJ4ukBGl7mbcsjzqxtG0cziWPEqeK9f3SL2nR5+nIecMInCpA==
-X-Gm-Gg: ASbGncuskCah7P7oAWHjQvqAz7mqZJakILrY507njj3XHVC1v0KLruTZhTD8RA86A5s
- L37M2LH3efrsW3HYndXxxwsTx2C9hVm1DeIbdLspC6B3AUsTcdVLKdG94QDAvPRDXXB0HC9ggr8
- wkYPkloJiVBatrHNrn6dufyTvrQXRttWT/iGKfnd035a26wllEczFTEdXCM/ulQBqnPs4z4zJCa
- zooHu4P3+WKhHS5/uPVDGLbefI4j1N7SnugiFBIG5rvTqiHYXg1tLK8wOXNh4t6qvUulLmhA5xd
- /Mh8TdGNX+kFJCU+e6qm
-X-Received: by 2002:a05:6a21:999e:b0:1db:e0d7:675c with SMTP id
- adf61e73a8af0-1eb2148cc78mr41049438637.13.1737619858137; 
- Thu, 23 Jan 2025 00:10:58 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH+36dB3XE2+vMLbg7FcqxiNuXmVO5+XixmEOWE9lkbQuRZwM0dXXk81m7Fw5CzxcBMx0XwwA==
-X-Received: by 2002:a05:6a21:999e:b0:1db:e0d7:675c with SMTP id
- adf61e73a8af0-1eb2148cc78mr41049361637.13.1737619857677; 
- Thu, 23 Jan 2025 00:10:57 -0800 (PST)
+ AJvYcCV45Mfqhp8VT+38G2X6/r6BhOM2K/rh5yRqrycm+4NzwW11eP3D0QzrhN+E3MeazGU3D3RY1Xtj6Lw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwhIRuOHOi+1+alrW31yIk1yyHxbp3mzaypTbInirEHuFDQgp2J
+ YwBcG9Nt0EkqEfODNrEgXvsFdj6gi5nfZDzQ4VLzwDKUIzGVIA5bWDXVIdhyZvbMZr9Z2bohtlF
+ DRl+TaYuofWWJSDbaGeUKV4P/FSF40rI5SCwsqPaVbpBUiV+e81ALjbYfqztIvBEUaw==
+X-Gm-Gg: ASbGnctSsAbMcDz04h9zsvEDPgGiYeGm23xFSBOVNMjkBCOCfK3C5oNrjopIcwbXoT6
+ Yu/gNtysy5U2uok3AC4QVWvmO6LAih0OAUh+h5L7lQXZroMELFSSRBD7cp/wNlre/Fb8qBg4/6T
+ kSStB8lmQHqe7ehee+NaX0KFud+UPS7cG0t6+BdINVMVv1+yg4yo9bly8MX4mpDyyCBMPhx1zfT
+ anft3L5J56L13sf5iNq1SEw2OpRSRkRbLcuacRjcVzJZ1idpamh7JvFLBHBtdiGrETi+jlmWGex
+ Y5DT7UyluhwR271mf/xL
+X-Received: by 2002:a17:902:ecd0:b0:21a:8d4c:a9b5 with SMTP id
+ d9443c01a7336-21c354074d5mr440970755ad.12.1737621603769; 
+ Thu, 23 Jan 2025 00:40:03 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGjy5zeoBnE4MWUb8nS8W6PuTx5lRnMpBd96eiXkRiC93gkB/4V1moQBoGz9Tc4XIWiP/Uefw==
+X-Received: by 2002:a17:902:ecd0:b0:21a:8d4c:a9b5 with SMTP id
+ d9443c01a7336-21c354074d5mr440969935ad.12.1737621603306; 
+ Thu, 23 Jan 2025 00:40:03 -0800 (PST)
 Received: from [10.200.68.91] (nat-pool-muc-u.redhat.com. [149.14.88.27])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72dab9c8de3sm12422995b3a.89.2025.01.23.00.10.30
+ d9443c01a7336-21c2d3e907csm107632205ad.199.2025.01.23.00.39.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jan 2025 00:10:57 -0800 (PST)
-Message-ID: <9713798aa175aef2041e6d688ac4814006f789bc.camel@redhat.com>
+ Thu, 23 Jan 2025 00:40:02 -0800 (PST)
+Message-ID: <55569c2edf754c0e751d272016630528a28e86c8.camel@redhat.com>
 Subject: Re: [PATCH] drm/sched: Use struct for drm_sched_init() params
 From: Philipp Stanner <pstanner@redhat.com>
 To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Philipp Stanner
@@ -101,14 +101,15 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
  freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  intel-xe@lists.freedesktop.org
-Date: Thu, 23 Jan 2025 09:10:24 +0100
-In-Reply-To: <24f1c52f-1768-47de-88e3-d4104969d0a9@igalia.com>
+Date: Thu, 23 Jan 2025 09:39:31 +0100
+In-Reply-To: <9713798aa175aef2041e6d688ac4814006f789bc.camel@redhat.com>
 References: <20250122140818.45172-3-phasta@kernel.org>
  <24f1c52f-1768-47de-88e3-d4104969d0a9@igalia.com>
+ <9713798aa175aef2041e6d688ac4814006f789bc.camel@redhat.com>
 User-Agent: Evolution 3.52.4 (3.52.4-2.fc40)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 6ooSzBBTqCs5oh_DJX7pgmRuR1nMlEeNtR_qp925NWo_1737619858
+X-Mimecast-MFC-PROC-ID: RH3wGcEcjSrIMS8ToihkvtGvnVzXtizXq6xkKe-akO4_1737621604
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -128,291 +129,318 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 2025-01-22 at 19:07 -0300, Ma=C3=ADra Canal wrote:
-> Hi Philipp,
->=20
-> On 22/01/25 11:08, Philipp Stanner wrote:
-> > drm_sched_init() has a great many parameters and upcoming new
-> > functionality for the scheduler might add even more. Generally, the
-> > great number of parameters reduces readability and has already
-> > caused
-> > one missnaming in:
+On Thu, 2025-01-23 at 09:10 +0100, Philipp Stanner wrote:
+> On Wed, 2025-01-22 at 19:07 -0300, Ma=C3=ADra Canal wrote:
+> > Hi Philipp,
 > >=20
-> > commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
-> > nouveau_sched_init()").
-> >=20
-> > Introduce a new struct for the scheduler init parameters and port
-> > all
-> > users.
-> >=20
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> > ---
-> > Howdy,
-> >=20
-> > I have a patch-series in the pipe that will add a `flags` argument
-> > to
-> > drm_sched_init(). I thought it would be wise to first rework the
-> > API as
-> > detailed in this patch. It's really a lot of parameters by now, and
-> > I
-> > would expect that it might get more and more over the years for
-> > special
-> > use cases etc.
-> >=20
-> > Regards,
-> > P.
-> > ---
-> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |=C2=A0 21 +++-
-> > =C2=A0 drivers/gpu/drm/etnaviv/etnaviv_sched.c=C2=A0=C2=A0=C2=A0 |=C2=
+> > On 22/01/25 11:08, Philipp Stanner wrote:
+> > > drm_sched_init() has a great many parameters and upcoming new
+> > > functionality for the scheduler might add even more. Generally,
+> > > the
+> > > great number of parameters reduces readability and has already
+> > > caused
+> > > one missnaming in:
+> > >=20
+> > > commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
+> > > nouveau_sched_init()").
+> > >=20
+> > > Introduce a new struct for the scheduler init parameters and port
+> > > all
+> > > users.
+> > >=20
+> > > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > > ---
+> > > Howdy,
+> > >=20
+> > > I have a patch-series in the pipe that will add a `flags`
+> > > argument
+> > > to
+> > > drm_sched_init(). I thought it would be wise to first rework the
+> > > API as
+> > > detailed in this patch. It's really a lot of parameters by now,
+> > > and
+> > > I
+> > > would expect that it might get more and more over the years for
+> > > special
+> > > use cases etc.
+> > >=20
+> > > Regards,
+> > > P.
+> > > ---
+> > > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |=C2=A0 21 +++-
+> > > =C2=A0 drivers/gpu/drm/etnaviv/etnaviv_sched.c=C2=A0=C2=A0=C2=A0 |=C2=
 =A0 20 ++-
-> > =C2=A0 drivers/gpu/drm/imagination/pvr_queue.c=C2=A0=C2=A0=C2=A0 |=C2=
+> > > =C2=A0 drivers/gpu/drm/imagination/pvr_queue.c=C2=A0=C2=A0=C2=A0 |=C2=
 =A0 21 +++-
-> > =C2=A0 drivers/gpu/drm/lima/lima_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 21 +++-
-> > =C2=A0 drivers/gpu/drm/msm/msm_ringbuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 22 ++--
-> > =C2=A0 drivers/gpu/drm/nouveau/nouveau_sched.c=C2=A0=C2=A0=C2=A0 |=C2=
+> > > =C2=A0 drivers/gpu/drm/lima/lima_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 21 +++-
+> > > =C2=A0 drivers/gpu/drm/msm/msm_ringbuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 22 ++--
+> > > =C2=A0 drivers/gpu/drm/nouveau/nouveau_sched.c=C2=A0=C2=A0=C2=A0 |=C2=
 =A0 20 ++-
-> > =C2=A0 drivers/gpu/drm/panfrost/panfrost_job.c=C2=A0=C2=A0=C2=A0 |=C2=
+> > > =C2=A0 drivers/gpu/drm/panfrost/panfrost_job.c=C2=A0=C2=A0=C2=A0 |=C2=
 =A0 22 ++--
-> > =C2=A0 drivers/gpu/drm/panthor/panthor_mmu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 18 ++-
-> > =C2=A0 drivers/gpu/drm/panthor/panthor_sched.c=C2=A0=C2=A0=C2=A0 |=C2=
+> > > =C2=A0 drivers/gpu/drm/panthor/panthor_mmu.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 18 ++-
+> > > =C2=A0 drivers/gpu/drm/panthor/panthor_sched.c=C2=A0=C2=A0=C2=A0 |=C2=
 =A0 23 ++--
-> > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 53 +++-----
-> > =C2=A0 drivers/gpu/drm/v3d/v3d_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 135 +++++++++++++++-
-> > -----
-> > =C2=A0 drivers/gpu/drm/xe/xe_execlist.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+> > > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0 53 +++-----
+> > > =C2=A0 drivers/gpu/drm/v3d/v3d_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 135
+> > > +++++++++++++++-
+> > > -----
+> > > =C2=A0 drivers/gpu/drm/xe/xe_execlist.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 20 ++-
-> > =C2=A0 drivers/gpu/drm/xe/xe_gpu_scheduler.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 19 ++-
-> > =C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 35 +++++-
-> > =C2=A0 14 files changed, 311 insertions(+), 139 deletions(-)
+> > > =C2=A0 drivers/gpu/drm/xe/xe_gpu_scheduler.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 19 ++-
+> > > =C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 35 +++++-
+> > > =C2=A0 14 files changed, 311 insertions(+), 139 deletions(-)
+> > >=20
 > >=20
+> > [...]
+> >=20
+> > > diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
+> > > b/drivers/gpu/drm/v3d/v3d_sched.c
+> > > index 99ac4995b5a1..716e6d074d87 100644
+> > > --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> > > +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> > > @@ -814,67 +814,124 @@ static const struct drm_sched_backend_ops
+> > > v3d_cpu_sched_ops =3D {
+> > > =C2=A0=C2=A0=09.free_job =3D v3d_cpu_job_free
+> > > =C2=A0 };
+> > > =C2=A0=20
+> > > +/*
+> > > + * v3d's scheduler instances are all identical, except for ops
+> > > and
+> > > name.
+> > > + */
+> > > +static void
+> > > +v3d_common_sched_init(struct drm_sched_init_params *params,
+> > > struct
+> > > device *dev)
+> > > +{
+> > > +=09memset(params, 0, sizeof(struct drm_sched_init_params));
+> > > +
+> > > +=09params->submit_wq =3D NULL; /* Use the system_wq. */
+> > > +=09params->num_rqs =3D DRM_SCHED_PRIORITY_COUNT;
+> > > +=09params->credit_limit =3D 1;
+> > > +=09params->hang_limit =3D 0;
+> > > +=09params->timeout =3D msecs_to_jiffies(500);
+> > > +=09params->timeout_wq =3D NULL; /* Use the system_wq. */
+> > > +=09params->score =3D NULL;
+> > > +=09params->dev =3D dev;
+> > > +}
+> >=20
+> > Could we use only one function that takes struct v3d_dev *v3d, enum
+> > v3d_queue, and sched_ops as arguments (instead of one function per
+> > queue)? You can get the name of the scheduler by concatenating
+> > "v3d_"
+> > to
+> > the return of v3d_queue_to_string().
+> >=20
+> > I believe it would make the code much simpler.
 >=20
-> [...]
+> Hello,
 >=20
-> > diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
-> > b/drivers/gpu/drm/v3d/v3d_sched.c
-> > index 99ac4995b5a1..716e6d074d87 100644
-> > --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> > +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> > @@ -814,67 +814,124 @@ static const struct drm_sched_backend_ops
-> > v3d_cpu_sched_ops =3D {
-> > =C2=A0=C2=A0=09.free_job =3D v3d_cpu_job_free
-> > =C2=A0 };
-> > =C2=A0=20
-> > +/*
-> > + * v3d's scheduler instances are all identical, except for ops and
-> > name.
-> > + */
-> > +static void
-> > +v3d_common_sched_init(struct drm_sched_init_params *params, struct
-> > device *dev)
-> > +{
-> > +=09memset(params, 0, sizeof(struct drm_sched_init_params));
-> > +
-> > +=09params->submit_wq =3D NULL; /* Use the system_wq. */
-> > +=09params->num_rqs =3D DRM_SCHED_PRIORITY_COUNT;
-> > +=09params->credit_limit =3D 1;
-> > +=09params->hang_limit =3D 0;
-> > +=09params->timeout =3D msecs_to_jiffies(500);
-> > +=09params->timeout_wq =3D NULL; /* Use the system_wq. */
-> > +=09params->score =3D NULL;
-> > +=09params->dev =3D dev;
-> > +}
->=20
-> Could we use only one function that takes struct v3d_dev *v3d, enum
-> v3d_queue, and sched_ops as arguments (instead of one function per
-> queue)? You can get the name of the scheduler by concatenating "v3d_"
-> to
-> the return of v3d_queue_to_string().
->=20
-> I believe it would make the code much simpler.
+> so just to get that right:
+> You'd like to have one universal function that switch-cases over an
+> enum, sets the ops and creates the name with string concatenation?
 
-Hello,
+Oh, and here's another issue:
+The @name string has life time issues to take into account. It must
+live as long as the scheduler instance.
 
-so just to get that right:
-You'd like to have one universal function that switch-cases over an
-enum, sets the ops and creates the name with string concatenation?
+In your mind, where should the memory for the strings your
+concatenating be and how should their life time be managed?
 
-I'm not convinced that this is simpler than a few small functions, but
-it's not my component, so=E2=80=A6
-
-Whatever we'll do will be simpler than the existing code, though. Right
-now no reader can see at first glance whether all those schedulers are
-identically parametrized or not.
+Currently they're in the TEXT segment, which is fine
 
 P.
 
 
 >=20
-> Best Regards,
-> - Ma=C3=ADra
+> I'm not convinced that this is simpler than a few small functions,
+> but
+> it's not my component, so=E2=80=A6
 >=20
-> > +
-> > +static int
-> > +v3d_bin_sched_init(struct v3d_dev *v3d)
-> > +{
-> > +=09struct drm_sched_init_params params;
-> > +
-> > +=09v3d_common_sched_init(&params, v3d->drm.dev);
-> > +=09params.ops =3D &v3d_bin_sched_ops;
-> > +=09params.name =3D "v3d_bin";
-> > +
-> > +=09return drm_sched_init(&v3d->queue[V3D_BIN].sched,
-> > &params);
-> > +}
-> > +
-> > +static int
-> > +v3d_render_sched_init(struct v3d_dev *v3d)
-> > +{
-> > +=09struct drm_sched_init_params params;
-> > +
-> > +=09v3d_common_sched_init(&params, v3d->drm.dev);
-> > +=09params.ops =3D &v3d_render_sched_ops;
-> > +=09params.name =3D "v3d_render";
-> > +
-> > +=09return drm_sched_init(&v3d->queue[V3D_RENDER].sched,
-> > &params);
-> > +}
-> > +
-> > +static int
-> > +v3d_tfu_sched_init(struct v3d_dev *v3d)
-> > +{
-> > +=09struct drm_sched_init_params params;
-> > +
-> > +=09v3d_common_sched_init(&params, v3d->drm.dev);
-> > +=09params.ops =3D &v3d_tfu_sched_ops;
-> > +=09params.name =3D "v3d_tfu";
-> > +
-> > +=09return drm_sched_init(&v3d->queue[V3D_TFU].sched,
-> > &params);
-> > +}
-> > +
-> > +static int
-> > +v3d_csd_sched_init(struct v3d_dev *v3d)
-> > +{
-> > +=09struct drm_sched_init_params params;
-> > +
-> > +=09v3d_common_sched_init(&params, v3d->drm.dev);
-> > +=09params.ops =3D &v3d_csd_sched_ops;
-> > +=09params.name =3D "v3d_csd";
-> > +
-> > +=09return drm_sched_init(&v3d->queue[V3D_CSD].sched,
-> > &params);
-> > +}
-> > +
-> > +static int
-> > +v3d_cache_sched_init(struct v3d_dev *v3d)
-> > +{
-> > +=09struct drm_sched_init_params params;
-> > +
-> > +=09v3d_common_sched_init(&params, v3d->drm.dev);
-> > +=09params.ops =3D &v3d_cache_clean_sched_ops;
-> > +=09params.name =3D "v3d_cache_clean";
-> > +
-> > +=09return drm_sched_init(&v3d->queue[V3D_CACHE_CLEAN].sched,
-> > &params);
-> > +}
-> > +
-> > +static int
-> > +v3d_cpu_sched_init(struct v3d_dev *v3d)
-> > +{
-> > +=09struct drm_sched_init_params params;
-> > +
-> > +=09v3d_common_sched_init(&params, v3d->drm.dev);
-> > +=09params.ops =3D &v3d_cpu_sched_ops;
-> > +=09params.name =3D "v3d_cpu";
-> > +
-> > +=09return drm_sched_init(&v3d->queue[V3D_CPU].sched,
-> > &params);
-> > +}
-> > +
-> > =C2=A0 int
-> > =C2=A0 v3d_sched_init(struct v3d_dev *v3d)
-> > =C2=A0 {
-> > -=09int hw_jobs_limit =3D 1;
-> > -=09int job_hang_limit =3D 0;
-> > -=09int hang_limit_ms =3D 500;
-> > =C2=A0=C2=A0=09int ret;
-> > =C2=A0=20
-> > -=09ret =3D drm_sched_init(&v3d->queue[V3D_BIN].sched,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_bin_sched_ops, NULL,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit, job_hang_limit,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(hang_limit_ms),
-> > NULL,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_bin", v3d->drm.dev);
-> > +=09ret =3D v3d_bin_sched_init(v3d);
-> > =C2=A0=C2=A0=09if (ret)
-> > =C2=A0=C2=A0=09=09return ret;
-> > =C2=A0=20
-> > -=09ret =3D drm_sched_init(&v3d->queue[V3D_RENDER].sched,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_render_sched_ops, NULL,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit, job_hang_limit,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(hang_limit_ms),
-> > NULL,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_render", v3d->drm.dev);
-> > +=09ret =3D v3d_render_sched_init(v3d);
-> > =C2=A0=C2=A0=09if (ret)
-> > =C2=A0=C2=A0=09=09goto fail;
-> > =C2=A0=20
-> > -=09ret =3D drm_sched_init(&v3d->queue[V3D_TFU].sched,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_tfu_sched_ops, NULL,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit, job_hang_limit,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(hang_limit_ms),
-> > NULL,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_tfu", v3d->drm.dev);
-> > +=09ret =3D v3d_tfu_sched_init(v3d);
-> > =C2=A0=C2=A0=09if (ret)
-> > =C2=A0=C2=A0=09=09goto fail;
-> > =C2=A0=20
-> > =C2=A0=C2=A0=09if (v3d_has_csd(v3d)) {
-> > -=09=09ret =3D drm_sched_init(&v3d->queue[V3D_CSD].sched,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_csd_sched_ops, NULL,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit,
-> > job_hang_limit,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0
-> > msecs_to_jiffies(hang_limit_ms), NULL,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_csd", v3d-
-> > >drm.dev);
-> > +=09=09ret =3D v3d_csd_sched_init(v3d);
-> > =C2=A0=C2=A0=09=09if (ret)
-> > =C2=A0=C2=A0=09=09=09goto fail;
-> > =C2=A0=20
-> > -=09=09ret =3D drm_sched_init(&v3d-
-> > >queue[V3D_CACHE_CLEAN].sched,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_cache_clean_sched_ops,
-> > NULL,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit,
-> > job_hang_limit,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0
-> > msecs_to_jiffies(hang_limit_ms), NULL,
-> > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_cache_clean", v3d-
-> > >drm.dev);
-> > +=09=09ret =3D v3d_cache_sched_init(v3d);
-> > =C2=A0=C2=A0=09=09if (ret)
-> > =C2=A0=C2=A0=09=09=09goto fail;
-> > =C2=A0=C2=A0=09}
-> > =C2=A0=20
-> > -=09ret =3D drm_sched_init(&v3d->queue[V3D_CPU].sched,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_cpu_sched_ops, NULL,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 1, job_hang_limit,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(hang_limit_ms),
-> > NULL,
-> > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_cpu", v3d->drm.dev);
-> > +=09ret =3D v3d_cpu_sched_init(v3d);
-> > =C2=A0=C2=A0=09if (ret)
-> > =C2=A0=C2=A0=09=09goto fail;
-> > =C2=A0=20
+> Whatever we'll do will be simpler than the existing code, though.
+> Right
+> now no reader can see at first glance whether all those schedulers
+> are
+> identically parametrized or not.
+>=20
+> P.
+>=20
+>=20
+> >=20
+> > Best Regards,
+> > - Ma=C3=ADra
+> >=20
+> > > +
+> > > +static int
+> > > +v3d_bin_sched_init(struct v3d_dev *v3d)
+> > > +{
+> > > +=09struct drm_sched_init_params params;
+> > > +
+> > > +=09v3d_common_sched_init(&params, v3d->drm.dev);
+> > > +=09params.ops =3D &v3d_bin_sched_ops;
+> > > +=09params.name =3D "v3d_bin";
+> > > +
+> > > +=09return drm_sched_init(&v3d->queue[V3D_BIN].sched,
+> > > &params);
+> > > +}
+> > > +
+> > > +static int
+> > > +v3d_render_sched_init(struct v3d_dev *v3d)
+> > > +{
+> > > +=09struct drm_sched_init_params params;
+> > > +
+> > > +=09v3d_common_sched_init(&params, v3d->drm.dev);
+> > > +=09params.ops =3D &v3d_render_sched_ops;
+> > > +=09params.name =3D "v3d_render";
+> > > +
+> > > +=09return drm_sched_init(&v3d->queue[V3D_RENDER].sched,
+> > > &params);
+> > > +}
+> > > +
+> > > +static int
+> > > +v3d_tfu_sched_init(struct v3d_dev *v3d)
+> > > +{
+> > > +=09struct drm_sched_init_params params;
+> > > +
+> > > +=09v3d_common_sched_init(&params, v3d->drm.dev);
+> > > +=09params.ops =3D &v3d_tfu_sched_ops;
+> > > +=09params.name =3D "v3d_tfu";
+> > > +
+> > > +=09return drm_sched_init(&v3d->queue[V3D_TFU].sched,
+> > > &params);
+> > > +}
+> > > +
+> > > +static int
+> > > +v3d_csd_sched_init(struct v3d_dev *v3d)
+> > > +{
+> > > +=09struct drm_sched_init_params params;
+> > > +
+> > > +=09v3d_common_sched_init(&params, v3d->drm.dev);
+> > > +=09params.ops =3D &v3d_csd_sched_ops;
+> > > +=09params.name =3D "v3d_csd";
+> > > +
+> > > +=09return drm_sched_init(&v3d->queue[V3D_CSD].sched,
+> > > &params);
+> > > +}
+> > > +
+> > > +static int
+> > > +v3d_cache_sched_init(struct v3d_dev *v3d)
+> > > +{
+> > > +=09struct drm_sched_init_params params;
+> > > +
+> > > +=09v3d_common_sched_init(&params, v3d->drm.dev);
+> > > +=09params.ops =3D &v3d_cache_clean_sched_ops;
+> > > +=09params.name =3D "v3d_cache_clean";
+> > > +
+> > > +=09return drm_sched_init(&v3d-
+> > > >queue[V3D_CACHE_CLEAN].sched,
+> > > &params);
+> > > +}
+> > > +
+> > > +static int
+> > > +v3d_cpu_sched_init(struct v3d_dev *v3d)
+> > > +{
+> > > +=09struct drm_sched_init_params params;
+> > > +
+> > > +=09v3d_common_sched_init(&params, v3d->drm.dev);
+> > > +=09params.ops =3D &v3d_cpu_sched_ops;
+> > > +=09params.name =3D "v3d_cpu";
+> > > +
+> > > +=09return drm_sched_init(&v3d->queue[V3D_CPU].sched,
+> > > &params);
+> > > +}
+> > > +
+> > > =C2=A0 int
+> > > =C2=A0 v3d_sched_init(struct v3d_dev *v3d)
+> > > =C2=A0 {
+> > > -=09int hw_jobs_limit =3D 1;
+> > > -=09int job_hang_limit =3D 0;
+> > > -=09int hang_limit_ms =3D 500;
+> > > =C2=A0=C2=A0=09int ret;
+> > > =C2=A0=20
+> > > -=09ret =3D drm_sched_init(&v3d->queue[V3D_BIN].sched,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_bin_sched_ops, NULL,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit, job_hang_limit,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(hang_limit_ms),
+> > > NULL,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_bin", v3d->drm.dev);
+> > > +=09ret =3D v3d_bin_sched_init(v3d);
+> > > =C2=A0=C2=A0=09if (ret)
+> > > =C2=A0=C2=A0=09=09return ret;
+> > > =C2=A0=20
+> > > -=09ret =3D drm_sched_init(&v3d->queue[V3D_RENDER].sched,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_render_sched_ops, NULL,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit, job_hang_limit,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(hang_limit_ms),
+> > > NULL,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_render", v3d->drm.dev);
+> > > +=09ret =3D v3d_render_sched_init(v3d);
+> > > =C2=A0=C2=A0=09if (ret)
+> > > =C2=A0=C2=A0=09=09goto fail;
+> > > =C2=A0=20
+> > > -=09ret =3D drm_sched_init(&v3d->queue[V3D_TFU].sched,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_tfu_sched_ops, NULL,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit, job_hang_limit,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(hang_limit_ms),
+> > > NULL,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_tfu", v3d->drm.dev);
+> > > +=09ret =3D v3d_tfu_sched_init(v3d);
+> > > =C2=A0=C2=A0=09if (ret)
+> > > =C2=A0=C2=A0=09=09goto fail;
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0=09if (v3d_has_csd(v3d)) {
+> > > -=09=09ret =3D drm_sched_init(&v3d->queue[V3D_CSD].sched,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_csd_sched_ops, NULL,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit,
+> > > job_hang_limit,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0
+> > > msecs_to_jiffies(hang_limit_ms), NULL,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_csd", v3d-
+> > > > drm.dev);
+> > > +=09=09ret =3D v3d_csd_sched_init(v3d);
+> > > =C2=A0=C2=A0=09=09if (ret)
+> > > =C2=A0=C2=A0=09=09=09goto fail;
+> > > =C2=A0=20
+> > > -=09=09ret =3D drm_sched_init(&v3d-
+> > > > queue[V3D_CACHE_CLEAN].sched,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_cache_clean_sched_ops,
+> > > NULL,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 hw_jobs_limit,
+> > > job_hang_limit,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0
+> > > msecs_to_jiffies(hang_limit_ms), NULL,
+> > > -=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_cache_clean",
+> > > v3d-
+> > > > drm.dev);
+> > > +=09=09ret =3D v3d_cache_sched_init(v3d);
+> > > =C2=A0=C2=A0=09=09if (ret)
+> > > =C2=A0=C2=A0=09=09=09goto fail;
+> > > =C2=A0=C2=A0=09}
+> > > =C2=A0=20
+> > > -=09ret =3D drm_sched_init(&v3d->queue[V3D_CPU].sched,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 &v3d_cpu_sched_ops, NULL,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 1, job_hang_limit,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(hang_limit_ms),
+> > > NULL,
+> > > -=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "v3d_cpu", v3d->drm.dev);
+> > > +=09ret =3D v3d_cpu_sched_init(v3d);
+> > > =C2=A0=C2=A0=09if (ret)
+> > > =C2=A0=C2=A0=09=09goto fail;
+> > > =C2=A0=20
+> >=20
 >=20
 
