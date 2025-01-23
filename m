@@ -2,99 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00FFEA1A34B
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 12:42:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 514A0A1A399
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 12:51:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D331F10E7E8;
-	Thu, 23 Jan 2025 11:42:48 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rRa+E4ZZ";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3129210E7E8;
+	Thu, 23 Jan 2025 11:51:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1A510E7E8
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 11:42:47 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-306007227d3so8098801fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 03:42:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737632565; x=1738237365; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=i3P39NTqsEmG+qD3A8uUKR2alt74v//DeAhcZsNNbA0=;
- b=rRa+E4ZZqnsp3kQcaZmbe78Hw2vTwVyT6WGQkyedOYFhpH6D3TmUmcdEkk6UeH+QOU
- 0J0EUeOQVOByXIsZ2wKonKzE7noI79VNx86gOmxlNsx0FxElLEF1IlZPweWptlWexuPC
- oxCAGvql4BImIT5w8TGt1TML3wWkEu4iCLRajgGX1HLKYses8PA5BMikyfSTKBJ2W7oe
- Z9Pbx9Xt/UTILGw84aE3Afn376HI2fEbYtr/UJ3PGSGfqYyB6VR5ft50UYHU+955OVRY
- NEkE7szGWyI0mJPGeyFJQWL6kHgiU1yrYK4Hx66LaKGR2I84ciT5uKIhFAnTDsLa11w+
- 9qKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737632565; x=1738237365;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=i3P39NTqsEmG+qD3A8uUKR2alt74v//DeAhcZsNNbA0=;
- b=lAeAwCA1yxrGi9NvBkPQr1hojTOebNIC+fYwXFd6lG0kLuSv+3iIwnpILxctQqJt2p
- W1qjSG1GuRQtUs6yydcffgowGgXZJI+Qi+EoA0GFDWm9piz9cQgbg5+uhjDL2nVQgMiz
- uVSzFbhBipqRXJdB9CTU03xSyrpievQFVgcSoVYRlOdhQIfOeZMsIIsAzk6T9Wrej+9J
- 1mfbwoGWzFCPU7CwbnYt8e4wLHs2NiwN0ye6gZiz6Pr+HQ6PYVNYcVBHTGKdR96FeCuH
- AhOL+/g08Vp2hY2FTFOzcvPuAIKclX85RlM40uteikipgwQRD6iufZtQQVQY381mLeVg
- cXSQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV/VpHd5EDhs+XJ3KRvVQMU6IOSEgJqUwMRnzbM4eNmbFYSPem6pzakWkCacKubS1lEtxpkpY39B/w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzrqeCiB697qSrtOqDVkiCbhZkq+qJHuRY7U+Ry0but5iM8VHOO
- 7E76qWyj5z6SawpEWuDUyfeQ16mOeL2cNovoqlFCeQ2aBG11itoLdDDLccwvq+0=
-X-Gm-Gg: ASbGncsfJLVuGYfY1GTpe3ZqxPsAXzi+r+E6n6wFCGzm1cyD3YmN8IFc13ohdtIje56
- 9hpeqVO0lmZfyUQ/fvoGgXa+RwQjo7xqG4Gz7HFR+SXsid2QuFEbj/vZxQNxI9Om6ZENo2k/Oo8
- FyXmL6NWgdR1F4vrlN9v1aZSIV98XNts37nC0nkcCpCF+yXbvj1AgNaK+aBm490R9cmlgwPxgna
- 72iv8gXKUm2uuAIDeyN1eOBPYjV7KoGKTB5I57iezCw0D6HtJAS1xL7cYrP6yK9cg3sjHoKweeN
- 33oCEgMXKKK4AomwvVnX25xZ0+OUquvBP8EKYnvSR0iKy3C9TmjVS6u5YM5J
-X-Google-Smtp-Source: AGHT+IE+Ia87Yzw0G3ah3eRZORLnjYGt9PngsTrMv1Yrk3tLzpNB1AsQiaezzDF9LgUfWKQxNA3NSg==
-X-Received: by 2002:a05:651c:896:b0:306:10d6:28b3 with SMTP id
- 38308e7fff4ca-3072ca5da94mr102237171fa.1.1737632565289; 
- Thu, 23 Jan 2025 03:42:45 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3072a344579sm29966991fa.28.2025.01.23.03.42.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jan 2025 03:42:44 -0800 (PST)
-Date: Thu, 23 Jan 2025 13:42:43 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH RFC 08/11] drm/msm/dsi: Add support for SM8750
-Message-ID: <uqolptkewqkavtnb6wkc5o6hq6nmqe62mi7y43uu7td7vz722d@ddouvp2z46ti>
-References: <20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org>
- <20250109-b4-sm8750-display-v1-8-b3f15faf4c97@linaro.org>
- <3p7kjok5jzwvgt7dxuad26xgdkjd52v4gbtuudvgkeoj33skqn@afl2ddtsq7s2>
- <4fc7fdd5-36cd-42e6-af4a-e0e429f9f50b@linaro.org>
- <7eupqawhdrbjgsj2p7e3ky7uj62m252i6dzkb6y23btocedp3q@qmw72nmbk2c4>
- <6ee02d22-7a00-4c7c-a5e9-63e91d7d84ba@linaro.org>
- <uyidfuh5ul5kcg4keeev6yagmjc5ksun626dyb6kdgwegc76d7@iu7ggdhgt5qr>
- <7255ae24-983d-452c-bd6d-85804c367f8f@linaro.org>
- <5irzvm4socrdjx3zqdxnogpai3bmfb52f63ddr3pisn5aa4jgf@mbc42kb3gyqd>
- <4adeffe7-ca07-4441-86fe-10a4891b7b4b@linaro.org>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 770CD10E7E8
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 11:51:31 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B5C31063;
+ Thu, 23 Jan 2025 03:51:59 -0800 (PST)
+Received: from [10.57.6.148] (unknown [10.57.6.148])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFE1D3F5A1;
+ Thu, 23 Jan 2025 03:51:28 -0800 (PST)
+Message-ID: <b593ac5e-cb29-473a-af1b-214168968679@arm.com>
+Date: Thu, 23 Jan 2025 11:51:27 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4adeffe7-ca07-4441-86fe-10a4891b7b4b@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] iommu/arm-smmu: Fix spurious interrupts with
+ stall-on-fault
+To: Prakash Gupta <quic_guptap@quicinc.com>,
+ Connor Abbott <cwabbott0@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ freedreno@lists.freedesktop.org
+References: <20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com>
+ <20250122-msm-gpu-fault-fixes-next-v3-1-0afa00158521@gmail.com>
+ <Z5IjsqQ6vTdUXiGt@hu-guptap-hyd.qualcomm.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <Z5IjsqQ6vTdUXiGt@hu-guptap-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,105 +57,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 23, 2025 at 12:34:28PM +0100, Krzysztof Kozlowski wrote:
-> On 13/01/2025 13:13, Dmitry Baryshkov wrote:
-> > On Mon, Jan 13, 2025 at 12:02:54PM +0100, Krzysztof Kozlowski wrote:
-> >> On 13/01/2025 09:29, Dmitry Baryshkov wrote:
-> >>> On Fri, Jan 10, 2025 at 01:43:28PM +0100, Krzysztof Kozlowski wrote:
-> >>>> On 10/01/2025 10:17, Dmitry Baryshkov wrote:
-> >>>>> On Fri, Jan 10, 2025 at 09:59:26AM +0100, Krzysztof Kozlowski wrote:
-> >>>>>> On 10/01/2025 00:18, Dmitry Baryshkov wrote:
-> >>>>>>> On Thu, Jan 09, 2025 at 02:08:35PM +0100, Krzysztof Kozlowski wrote:
-> >>>>>>>> Add support for DSI PHY v7.0 on Qualcomm SM8750 SoC which comes with two
-> >>>>>>>> differences worth noting:
-> >>>>>>>>
-> >>>>>>>> 1. ICODE_ACCUM_STATUS_LOW and ALOG_OBSV_BUS_STATUS_1 registers - their
-> >>>>>>>>    offsets were just switched.  Currently these registers are not used
-> >>>>>>>>    in the driver, so the easiest is to document both but keep them
-> >>>>>>>>    commented out to avoid conflict.
-> >>>>>>>>
-> >>>>>>>> 2. DSI PHY PLLs, the parents of pixel and byte clocks, cannot be used as
-> >>>>>>>>    parents before they are prepared and initial rate is set.  Therefore
-> >>>>>>>>    assigned-clock-parents are not working here and driver is responsible
-> >>>>>>>>    for reparenting clocks with proper procedure: see dsi_clk_init_6g_v2_9().
-> >>>>>>>
-> >>>>>>> Isn't it a description of CLK_SET_PARENT_GATE and/or
-> >>>>>>
-> >>>>>> No - must be gated accross reparent - so opposite.
-> >>>>>>
-> >>>>>>> CLK_OPS_PARENT_ENABLE ?
-> >>>>>>
-> >>>>>> Yes, but does not work. Probably enabling parent, before
-> >>>>>> assigned-clocks-parents, happens still too early:
-> >>>>>>
-> >>>>>> [    1.623554] DSI PLL(0) lock failed, status=0x00000000
-> >>>>>> [    1.623556] PLL(0) lock failed
-> >>>>>> [    1.624650] ------------[ cut here ]------------
-> >>>>>> [    1.624651] disp_cc_mdss_byte0_clk_src: rcg didn't update its
-> >>>>>> configuration.
-> >>>>>>
-> >>>>>> Or maybe something is missing in the DSI PHY PLL driver?
-> >>>>>
-> >>>>> Do you have the no-zero-freq workaround?
-> >>>>
-> >>>> Yes, it is necessary also for my variant. I did not include it here, but
-> >>>> I should mention it in the cover letter.
-> >>>
-> >>> Could you please possibly backtrace the corresponding enable() calls?
-> >>
-> >>
-> >> It's the same backtrace I shared some time ago in internal discussions:
-> >> https://pastebin.com/kxUFgzD9
-> >> Unless you ask for some other backtrace?
-> >>
-> >>> I'd let Stephen and/or Bjorn or Konrad to correct me, but I think that
-> >>> such requirement should be handled by the framework instead of having
-> >>> the drivers to manually reparent the clocks.
-> >>
-> >> I don't know how exactly you would like to solve it. The clocks can be
-> >> reparented only after some other device specific enable sequence. It's
-> >> the third device here, but not reflected in the clocks hierarchy. Maybe
-> >> it's the result how entire Display device nodes were designed in the
-> >> first place?
-> >>
-> >> Assigned clocks are between DSI PHY and DISP cc, but they are a property
-> >> of DSI controller. This looks exactly too specific for core to handle
-> >> and drivers, not framework, should manually reparent such clocks.
-> >> Otherwise we need
-> >> "clk_pre_prepare_callback_if_we_are_called_when_phy_is_disabled" sort of
-> >> callback.
-> > 
-> > What kind of PHY programming is required? Is enabling the PLL enough or
-> > does it need anything else? Are the PLL supplies properly enabled at
-> > this point?
-> > 
+On 2025-01-23 11:10 am, Prakash Gupta wrote:
+> On Wed, Jan 22, 2025 at 03:00:58PM -0500, Connor Abbott wrote:
+>   
+>> @@ -125,12 +125,25 @@ static void qcom_adreno_smmu_resume_translation(const void *cookie, bool termina
+>>   	struct arm_smmu_domain *smmu_domain = (void *)cookie;
+>>   	struct arm_smmu_cfg *cfg = &smmu_domain->cfg;
+>>   	struct arm_smmu_device *smmu = smmu_domain->smmu;
+>> -	u32 reg = 0;
+>> +	u32 reg = 0, sctlr;
+>> +	unsigned long flags;
+>>   
+>>   	if (terminate)
+>>   		reg |= ARM_SMMU_RESUME_TERMINATE;
+>>   
+>> +	spin_lock_irqsave(&smmu_domain->cb_lock, flags);
+>> +
+>>   	arm_smmu_cb_write(smmu, cfg->cbndx, ARM_SMMU_CB_RESUME, reg);
+>> +
+> At this point further transaction can be processed but SCTLR.CFIE is
+> cleared so subequent context fault will not generate interrupt till
+> SCTLR.CFIE is set.
 > 
-> I don't know exactly and checking is tricky. I tried to use
-> CLK_OPS_PARENT_ENABLE - with equivalent code, setting proper parents but
-> without enabling the DSI PHY PLL manually just with
-> CLK_OPS_PARENT_ENABLE - but then you have multiple:
-> 
-> dsi0_pll_bit_clk: Zero divisor and CLK_DIVIDER_ALLOW_ZERO not set
+>> +	/*
+>> +	 * Re-enable interrupts after they were disabled by
+>> +	 * arm_smmu_context_fault().
+>> +	 */
+>> +	sctlr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR);
+>> +	sctlr |= ARM_SMMU_SCTLR_CFIE;
+>> +	arm_smmu_cb_write(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR, sctlr);
+>> +
+>> +	spin_unlock_irqrestore(&smmu_domain->cb_lock, flags);
+>>   }
+>>   
+>>   static void qcom_adreno_smmu_set_prr_bit(const void *cookie, bool set)
+>> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>> index 79afc92e1d8b984dd35c469a3f283ad0c78f3d26..ca1ff59015a63912f0f9c5256452b2b2efa928f1 100644
+>> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>> @@ -463,13 +463,52 @@ static irqreturn_t arm_smmu_context_fault(int irq, void *dev)
+>>   	if (!(cfi.fsr & ARM_SMMU_CB_FSR_FAULT))
+>>   		return IRQ_NONE;
+>>   
+>> +	/*
+>> +	 * On some implementations FSR.SS asserts a context fault
+>> +	 * interrupt. We do not want this behavior, because resolving the
+>> +	 * original context fault typically requires operations that cannot be
+>> +	 * performed in IRQ context but leaving the stall unacknowledged will
+>> +	 * immediately lead to another spurious interrupt as FSR.SS is still
+>> +	 * set. Work around this by disabling interrupts for this context bank.
+>> +	 * It's expected that interrupts are re-enabled after resuming the
+>> +	 * translation.
+>> +	 *
+>> +	 * We have to do this before report_iommu_fault() so that we don't
+>> +	 * leave interrupts disabled in case the downstream user decides the
+>> +	 * fault can be resolved inside its fault handler.
+>> +	 *
+>> +	 * There is a possible race if there are multiple context banks sharing
+>> +	 * the same interrupt and both signal an interrupt in between writing
+>> +	 * RESUME and SCTLR. We could disable interrupts here before we
+>> +	 * re-enable them in the resume handler, leaving interrupts enabled.
+>> +	 * Lock the write to serialize it with the resume handler.
+>> +	 */
+>> +	if (cfi.fsr & ARM_SMMU_CB_FSR_SS) {
+>> +		u32 val;
+>> +
+>> +		spin_lock(&smmu_domain->cb_lock);
+>> +		val = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_SCTLR);
+>> +		val &= ~ARM_SMMU_SCTLR_CFIE;
+>> +		arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, val);
+>> +		spin_unlock(&smmu_domain->cb_lock);
+>> +	}
+>> +
+>> +	/*
+>> +	 * The SMMUv2 architecture specification says that if stall-on-fault is
+>> +	 * enabled the correct sequence is to write to SMMU_CBn_FSR to clear
+>> +	 * the fault and then write to SMMU_CBn_RESUME. Clear the interrupt
+>> +	 * first before running the user's fault handler to make sure we follow
+>> +	 * this sequence. It should be ok if there is another fault in the
+>> +	 * meantime because we have already read the fault info.
+>> +	 */
+> The context would remain stalled till we write to CBn_RESUME. Which is done
+> in qcom_adreno_smmu_resume_translation(). For a stalled context further
+> transactions are not processed and we shouldn't see further faults and
+> or fault inerrupts. Do you observe faults with stalled context?
 
-This really looks as if a part of the DSI PHY is unpowered. If you are
-sure about your DSI and DSI PHY supplies (and power domains) then I also
-have no other ideas.
+This aspect isn't exclusive to stalled contexts though - even for 
+"normal" terminated faults, clearing the FSR as soon as we've sampled 
+all the associated fault registers is no bad thing, since if a second 
+fault does occur while we're still reporting the first, we're then more 
+likely to get a full syndrome rather than just the FSR.MULTI bit.
 
-Abhinav? Any input from your side? Or from Taniya Das?
+>> +	arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_FSR, cfi.fsr);
+>> +
+>>   	ret = report_iommu_fault(&smmu_domain->domain, NULL, cfi.iova,
+>>   		cfi.fsynr & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
+>>   
+>>   	if (ret == -ENOSYS && __ratelimit(&rs))
+>>   		arm_smmu_print_context_fault_info(smmu, idx, &cfi);
+>>   
+>> -	arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_FSR, cfi.fsr);
+>>   	return IRQ_HANDLED;
+>>   }
+>>   
+>> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+>> index 2dbf3243b5ad2db01e17fb26c26c838942a491be..789c64ff3eb9944c8af37426e005241a8288da20 100644
+>> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
+>> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+>> @@ -216,7 +216,6 @@ enum arm_smmu_cbar_type {
+>>   					 ARM_SMMU_CB_FSR_TLBLKF)
+>>   
+>>   #define ARM_SMMU_CB_FSR_FAULT		(ARM_SMMU_CB_FSR_MULTI |	\
+>> -					 ARM_SMMU_CB_FSR_SS |		\
+> Given writing to FSR.SS doesn't clear this bit but write to CBn_RESUME
+> does, this seems right. This but can be taken as separate patch.
+
+This change on its own isn't really useful - all that would achieve is 
+that instead of constantly re-reporting the FSR.SS "fault", the 
+interrupt goes unhandled and the IRQ core ends up disabling it 
+permanently. If anything that's arguably worse, since the storm of 
+context fault reports does at least give a fairly clear indication of 
+what's gone wrong, rather than having to deduce the cause of an "irq n: 
+nobody cared" message entirely by code inspection.
+
+Thanks,
+Robin.
 
 > 
-> So how do you supposed to test it? Any assigned-clocks-xxx will be way
-> too early. Moving code around? Well, if I move preparing the DSI PLL
-> clocks out of dsi_link_clk_set_rate_6g, then dsi_link_clk_set_rate_6g()
-> will fail. Always and CLK_OPS_PARENT_ENABLE does not help because of above.
-> 
-> If you have specific code in mind, I can try it, but I don't see easy
-> methods to see what has to be enabled exactly because of how everything
-> is entangled together.
-> 
-> Best regards,
-> Krzysztof
+>>   					 ARM_SMMU_CB_FSR_UUT |		\
+>>   					 ARM_SMMU_CB_FSR_EF |		\
+>>   					 ARM_SMMU_CB_FSR_PF |		\
+>>
+>> -- 
+>> 2.47.1
+>>
 
--- 
-With best wishes
-Dmitry
