@@ -2,90 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06C5A1A3DD
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 13:08:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56056A1A44C
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 13:30:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F75910E7EB;
-	Thu, 23 Jan 2025 12:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3156310E7F5;
+	Thu, 23 Jan 2025 12:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gmaWbzD3";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XYGI59eM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F37F10E7EC
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 12:08:45 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5439b0dd4bfso700185e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 04:08:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737634123; x=1738238923; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=vTmEOgD3xfc+fwIttOduP71Ufl9BgBhivnCzDUxKm9A=;
- b=gmaWbzD3tseZzVhT5Kuc+4O5y6IuvNP/ford78eEtoyG0MYNgguN8f8sJo/9VQBd9D
- 0ihWiiSPxuwnJVJK+etS41Mxj0OtuFhLFscZJkswZ39Ymv7x7Ngw4AlnxWYiU4y/fX36
- 0xY9FEFoxYht3g0lyzqMr6ROHEYhX+Bya/iKbptm4Q+E/hhQw+O7YBbOdRcDnCPnhmMw
- H8gX17uuPgOTlaseLgNjtWXeyM6txNlxp9BeDXJ0/hYy/uRlfFJ4ZcKSTsVVhsNyapX1
- +JqlooaDdezzVnb+4tdukcLUllvkEnjDKnki5wxito9XBuwCkU/FOhlEyc3Q5My2axOJ
- igog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737634123; x=1738238923;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vTmEOgD3xfc+fwIttOduP71Ufl9BgBhivnCzDUxKm9A=;
- b=NIKWC5HSzC5FlwmOCS8mF3YANoS96Uf4edXNbH093wLKMXHdXev481KQaKTDCzFT/q
- YqipidFv384wSxzpvQTyVFnISS2GejVbit+uNFkX329f+Qw9kU61lQP6YKEXIe3CFtZt
- lYeEB1ZOOnkFRcS7hHvgUeLlTQaQurK/3iy/lsvYQ7iLbHPfnF9r/JG46LQfcHmgR1+T
- gP2q6ZZ4OxouQ36q/Ijs5q+H08KVG6maKSLrPzWesijapGJvYbW4fA3CPNJwZAFs1R63
- QA6Gt9WlnvJub18wnWXEiTFEnDpS35a3UPT4LlurwUxC8aJ+bcVlbq2ol2mWh9a86XL8
- wBVA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUATYbGdis5R3UgmDl7vTKUyiNvs9gdC0ucI6OEP3EY3zD8cjKMU009SOdNGLYk4Pl9YcjMdFAdNWU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywcdbi/S6HjcsgVIbk0uw6NA1U2A5dT0efqb6sfXlkLpBnsRETP
- LWZclQI2K6xgHh55tCqNxp5rtjPC7k9WapAEWBB+ZbOIXqaT5yC2zYIfQsxwA0Y=
-X-Gm-Gg: ASbGnct7TfCRYkK8n66L2aivgyYr0nu6ktu5+G7q6P1uUc6hKjp2JjNx5Ar8SMxAnK2
- mFI82WpglKJXgEamJJdY98AddvWlTrDM2IM5QhKqwNw3+VmCpIln3rCaJ1rBUCDLVceHkKZOZNd
- w118caPVSa7UxrSY3BScsvNeW9jE2jGaFfbdpf2Nfm9sO/4aN26/d7tUs2XiBigs7MCXNYsUcB4
- 9KhDpsGIx/47SISCGCpob57wQxG93TCcCbE+bw5X9RZLB2VNhtvz10TL1FGdFtPn6iFCARxKmFm
- udBbVQGMmyqePRp1hvAP2oK5Dop9ZUOY2Lnc+WG5SPW/euQ7C8RYLaTMSdn4
-X-Google-Smtp-Source: AGHT+IFbOx6ctuTmmRLLNk/eHiWv/TSPLK7NEzKkr1HnoNXi9QhiZe7Adm2mXqrnq+teryB16WA3sQ==
-X-Received: by 2002:a05:6512:e8c:b0:540:2223:9b0b with SMTP id
- 2adb3069b0e04-5439c282cd8mr8971004e87.35.1737634123427; 
- Thu, 23 Jan 2025 04:08:43 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-543bae0ba76sm786051e87.8.2025.01.23.04.08.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jan 2025 04:08:42 -0800 (PST)
-Date: Thu, 23 Jan 2025 14:08:39 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>, 
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Sravanthi Kollukuduru <skolluku@codeaurora.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Archit Taneja <architt@codeaurora.org>, Rajesh Yadav <ryadav@codeaurora.org>, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Simona Vetter <simona.vetter@ffwll.ch>
-Subject: Re: [PATCH 0/6] drm: enforce rules for
- drm_atomic_helper_check_modeset()
-Message-ID: <bfuplxwielalawtozidaoj67smxlzqxatwjl7rza5o4gqgky6y@eika3dvihvk7>
-References: <20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org>
- <e1a1fc68-cb8d-4fb0-879f-a84e679f6b2b@suse.de>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F14F710E3BC;
+ Thu, 23 Jan 2025 12:30:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Z8XUxzm8dLi8p/kAybuPHg87486j0vTg3MwMyxsqGrU=; b=XYGI59eM5sIdZT+1c4SFmCibW7
+ RRE+aVBPBmsDmfNDKoRUqCep+gcU1Ft51Kl6Y6ZAf1xmC8NVPIIaW9D9hHF+9rX+ldxCDZLDFzp+n
+ qqQoo8nzU9NTkiZYzSYN3tO9xWSldqg8/Fp1G5reECLGSox+YMlp07KtvSCfDJgc07FgDCw9BzHsy
+ d2YUzFCg2sjwf77nMZK8DVdXUBKLLm/dANiOqqwxZjoOF/ybUVWF2G0O3K2vp7A6WQhWS20Y2Slzc
+ zLeoQUd0u4rjxt1/2oNGIx73fdAOdUurYFIwFQCj7oVrz4Z+nJwgQmKIP4rEMzHKQIS8IeWMJBQpZ
+ kOkflMXg==;
+Received: from [187.36.213.55] (helo=[192.168.1.103])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tawLh-001C6o-BU; Thu, 23 Jan 2025 13:30:17 +0100
+Message-ID: <a58da040-2bef-4af0-afae-f2447896080e@igalia.com>
+Date: Thu, 23 Jan 2025 09:29:57 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e1a1fc68-cb8d-4fb0-879f-a84e679f6b2b@suse.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Use struct for drm_sched_init() params
+To: phasta@kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Qiang Yu <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Luben Tuikov <ltuikov89@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>, Melissa Wen <mwen@igalia.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sunil Khatri <sunil.khatri@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Yunxiang Li <Yunxiang.Li@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, mcanal@igalia.com
+References: <20250122140818.45172-3-phasta@kernel.org>
+ <24f1c52f-1768-47de-88e3-d4104969d0a9@igalia.com>
+ <9713798aa175aef2041e6d688ac4814006f789bc.camel@redhat.com>
+ <ec4bb0f6-c366-40e7-a1df-332458b08eec@igalia.com>
+ <e7414579afbfc25d4027471bc265ee48e7d25932.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+In-Reply-To: <e7414579afbfc25d4027471bc265ee48e7d25932.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,98 +93,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 09, 2025 at 02:53:16PM +0100, Thomas Zimmermann wrote:
-> Hi
-> 
-> 
-> Am 22.12.24 um 06:00 schrieb Dmitry Baryshkov:
-> > As pointed out by Simona, the drm_atomic_helper_check_modeset() and
-> > drm_atomic_helper_check() require the former function is rerun if the
-> > driver's callbacks modify crtc_state->mode_changed. MSM is one of the
-> > drivers which failed to follow this requirement.
-> 
-> I'm concerned about the implications of this series. How does a driver
-> upgrade from simple pageflip to full modeset if necessary? The solution in
-> msm appears to be to run the related test before drm_atomic_helper_check().
-> (Right?)
-> 
-> My corner case is in mgag200, which has to reprogram the PLL if the color
-> mode changes. So it sets mode_changed to true in the primary plane's
-> atomic_check. [1] This works in practice because the plane checks run before
-> the CRTC checks. So the CRTC code will do the correct thing. Reprogramming
-> the PLL means to disable the display at some point. So it comes down to a
-> full modeset.
+Hi Philipp,
 
-After giving this a second thought, I see an obvious issue from the
-generic code perspective. If you set new_crtc_state->mode_changed from
-your atomic_check(), then it's already too late for
-drm_atomic_helper_check_modeset() to add all affected (aka routed to the
-CRTC) planes to the state. Their atomic_check() callback will be
-skipped. So even if the end-result works in the MGAg200 case at this
-moment, I think we should still disallow that.
+On 23/01/25 09:13, Philipp Stanner wrote:
+> On Thu, 2025-01-23 at 08:10 -0300, Maíra Canal wrote:
+>> Hi Philipp,
+>>
+>> On 23/01/25 05:10, Philipp Stanner wrote:
+>>> On Wed, 2025-01-22 at 19:07 -0300, Maíra Canal wrote:
+>>>> Hi Philipp,
+>>>>
+>>>> On 22/01/25 11:08, Philipp Stanner wrote:
+>>>>> drm_sched_init() has a great many parameters and upcoming new
+>>>>> functionality for the scheduler might add even more. Generally,
+>>>>> the
+>>>>> great number of parameters reduces readability and has already
+>>>>> caused
+>>>>> one missnaming in:
+>>>>>
+>>>>> commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
+>>>>> nouveau_sched_init()").
+>>>>>
+>>>>> Introduce a new struct for the scheduler init parameters and
+>>>>> port
+>>>>> all
+>>>>> users.
+>>>>>
+>>>>> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+>>
+>> [...]
+>>
+>>>>
+>>>>> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
+>>>>> b/drivers/gpu/drm/v3d/v3d_sched.c
+>>>>> index 99ac4995b5a1..716e6d074d87 100644
+>>>>> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+>>>>> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+>>>>> @@ -814,67 +814,124 @@ static const struct
+>>>>> drm_sched_backend_ops
+>>>>> v3d_cpu_sched_ops = {
+>>>>>     	.free_job = v3d_cpu_job_free
+>>>>>     };
+>>>>>     
+>>>>> +/*
+>>>>> + * v3d's scheduler instances are all identical, except for ops
+>>>>> and
+>>>>> name.
+>>>>> + */
+>>>>> +static void
+>>>>> +v3d_common_sched_init(struct drm_sched_init_params *params,
+>>>>> struct
+>>>>> device *dev)
+>>>>> +{
+>>>>> +	memset(params, 0, sizeof(struct
+>>>>> drm_sched_init_params));
+>>>>> +
+>>>>> +	params->submit_wq = NULL; /* Use the system_wq. */
+>>>>> +	params->num_rqs = DRM_SCHED_PRIORITY_COUNT;
+>>>>> +	params->credit_limit = 1;
+>>>>> +	params->hang_limit = 0;
+>>>>> +	params->timeout = msecs_to_jiffies(500);
+>>>>> +	params->timeout_wq = NULL; /* Use the system_wq. */
+>>>>> +	params->score = NULL;
+>>>>> +	params->dev = dev;
+>>>>> +}
+>>>>
+>>>> Could we use only one function that takes struct v3d_dev *v3d,
+>>>> enum
+>>>> v3d_queue, and sched_ops as arguments (instead of one function
+>>>> per
+>>>> queue)? You can get the name of the scheduler by concatenating
+>>>> "v3d_"
+>>>> to
+>>>> the return of v3d_queue_to_string().
+>>>>
+>>>> I believe it would make the code much simpler.
+>>>
+>>> Hello,
+>>>
+>>> so just to get that right:
+>>> You'd like to have one universal function that switch-cases over an
+>>> enum, sets the ops and creates the name with string concatenation?
+>>>
+>>> I'm not convinced that this is simpler than a few small functions,
+>>> but
+>>> it's not my component, so…
+>>>
+>>> Whatever we'll do will be simpler than the existing code, though.
+>>> Right
+>>> now no reader can see at first glance whether all those schedulers
+>>> are
+>>> identically parametrized or not.
+>>>
+>>
+>> This is my proposal (just a quick draft, please check if it
+>> compiles):
+>>
+>> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
+>> b/drivers/gpu/drm/v3d/v3d_sched.c
+>> index 961465128d80..7cc45a0c6ca0 100644
+>> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+>> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+>> @@ -820,67 +820,62 @@ static const struct drm_sched_backend_ops
+>> v3d_cpu_sched_ops = {
+>>           .free_job = v3d_cpu_job_free
+>>    };
+>>
+>> +static int
+>> +v3d_sched_queue_init(struct v3d_dev *v3d, enum v3d_queue queue,
+>> +                    const struct drm_sched_backend_ops *ops, const
+> 
+> Is it a queue, though?
 
-Another option might be similar to what we had to do in the DPU driver:
-check whether the mode_changed has to be set before calling
-drm_atomic_helper_check(). Maybe we should consider adding new set of
-callbacks to the drm_*_helper_funcs, which are executed at the beginning
-of the drm_atomic_helper_check_modeset().
+In V3D, we use the abstraction of a queue for everything related to job
+submission. For each queue, we have a scheduler instance, a different
+IOCTL and such. The queues work independently and the synchronization
+between them can be done through syncobjs.
 
-WDYT?
-
-> You mention that drm_atomic_helper_check() needs to rerun if mode_changed
-> flips. Would it be possible to implement this instead within the helper?
 > 
-> Best regards
-> Thomas
-> 
-> [1] https://elixir.bootlin.com/linux/v6.12/source/drivers/gpu/drm/mgag200/mgag200_mode.c#L493
-> 
-> > 
-> > As suggested by Simona, implement generic code to verify that the
-> > drivers abide to those requirement and rework MSM driver to follow that
-> > restrictions.
-> > 
-> > There are no dependencies between core and MSM parts, so they can go
-> > separately via corresponding trees.
-> > 
-> > Reported-by: Simona Vetter <simona.vetter@ffwll.ch>
-> > Link: https://lore.kernel.org/dri-devel/ZtW_S0j5AEr4g0QW@phenom.ffwll.local/
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> > Dmitry Baryshkov (6):
-> >        drm/atomic-helper: document drm_atomic_helper_check() restrictions
-> >        drm/atomic: prepare to check that drivers follow restrictions for needs_modeset
-> >        drm/msm/dpu: don't use active in atomic_check()
-> >        drm/msm/dpu: move needs_cdm setting to dpu_encoder_get_topology()
-> >        drm/msm/dpu: simplify dpu_encoder_get_topology() interface
-> >        drm/msm/dpu: don't set crtc_state->mode_changed from atomic_check()
-> > 
-> >   drivers/gpu/drm/drm_atomic.c                |  3 +
-> >   drivers/gpu/drm/drm_atomic_helper.c         | 86 ++++++++++++++++++++++++++---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  4 --
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 82 +++++++++++++++++----------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 26 +++++++++
-> >   drivers/gpu/drm/msm/msm_atomic.c            | 13 ++++-
-> >   drivers/gpu/drm/msm/msm_kms.h               |  7 +++
-> >   include/drm/drm_atomic.h                    | 10 ++++
-> >   9 files changed, 192 insertions(+), 43 deletions(-)
-> > ---
-> > base-commit: b72747fdde637ebf52e181671bf6f41cd773b3e1
-> > change-id: 20241222-drm-dirty-modeset-88079bd27ae6
-> > 
-> > Best regards,
-> 
-> -- 
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstrasse 146, 90461 Nuernberg, Germany
-> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-> HRB 36809 (AG Nuernberg)
+> How about _v3d_sched_init()?
 > 
 
--- 
-With best wishes
-Dmitry
+I'd prefer if you use a function name related to "queue", as it would
+make more sense semantically.
+
+Best Regards,
+- Maíra
+
+> P.
+> 
+>> char
+>> *name)
+>> +{
+>> +       struct drm_sched_init_params params = {
+>> +               .submit_wq = NULL,
+>> +               .num_rqs = DRM_SCHED_PRIORITY_COUNT,
+>> +               .credit_limit = 1,
+>> +               .hang_limit = 0,
+>> +               .timeout = msecs_to_jiffies(500),
+>> +               .timeout_wq = NULL,
+>> +               .score = NULL,
+>> +               .dev = v3d->drm.dev,
+>> +       };
+>> +
+>> +       params.ops = ops;
+>> +       params.name = name;
+>> +
+>> +       return drm_sched_init(&v3d->queue[queue].sched, &params);
+>> +}
+>> +
+>>    int
+>>    v3d_sched_init(struct v3d_dev *v3d)
+>>    {
+>> -       int hw_jobs_limit = 1;
+>> -       int job_hang_limit = 0;
+>> -       int hang_limit_ms = 500;
+>>           int ret;
+>>
+>> -       ret = drm_sched_init(&v3d->queue[V3D_BIN].sched,
+>> -                            &v3d_bin_sched_ops, NULL,
+>> -                            DRM_SCHED_PRIORITY_COUNT,
+>> -                            hw_jobs_limit, job_hang_limit,
+>> -                            msecs_to_jiffies(hang_limit_ms), NULL,
+>> -                            NULL, "v3d_bin", v3d->drm.dev);
+>> +       ret = v3d_sched_queue_init(v3d, V3D_BIN, &v3d_bin_sched_ops,
+>> +                                  "v3d_bin");
+>>           if (ret)
+>>                   return ret;
+>>
+>> -       ret = drm_sched_init(&v3d->queue[V3D_RENDER].sched,
+>> -                            &v3d_render_sched_ops, NULL,
+>> -                            DRM_SCHED_PRIORITY_COUNT,
+>> -                            hw_jobs_limit, job_hang_limit,
+>> -                            msecs_to_jiffies(hang_limit_ms), NULL,
+>> -                            NULL, "v3d_render", v3d->drm.dev);
+>> +       ret = v3d_sched_queue_init(v3d, V3D_RENDER,
+>> &v3d_render_sched_ops,
+>> +                                  "v3d_render");
+>>           if (ret)
+>>                   goto fail;
+>>
+>> [...]
+>>
+>> At least for me, this looks much simpler than one function for each
+>> V3D queue.
+>>
+>> Best Regards,
+>> - Maíra
+>>
+>>> P.
+>>>
+>>>
+>>>>
+>>>> Best Regards,
+>>>> - Maíra
+>>>>
+>>
+> 
+
