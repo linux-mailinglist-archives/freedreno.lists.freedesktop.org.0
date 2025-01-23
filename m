@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB764A1AB07
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 21:14:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF2AA1AB49
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 21:29:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A277E10E3EC;
-	Thu, 23 Jan 2025 20:14:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27E7410E3F5;
+	Thu, 23 Jan 2025 20:29:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dzZtVvGP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bmu6N461";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4803110E3EC
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 20:14:28 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-21bb2c2a74dso3011605ad.0
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 12:14:28 -0800 (PST)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8556210E3F5
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 20:29:50 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2f74e6c6cbcso307934a91.2
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 12:29:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737663268; x=1738268068; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737664190; x=1738268990; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/2QDlQ7ciLXyACEdbXlxDxDDAFIjM/sxdbl1ogTU8Rc=;
- b=dzZtVvGPDQGzW/tQP2pszqnMzE3bftnwKfevJbjK7m++z0cxc6KUE/Psn2ny2vCCGA
- Da0Mw48Ah+UlN9dbFos2mZ5/sbnjGA/XWSsiWO+5lEtqhAHPmrp42Lb8aYqX0XthvVqz
- O7g03eeIuQ/h/lpd3zKtLoIIqKiYO2mRDI32wWvJkAKjtQgC0WA4qiY4Nr3pqpQRBZxI
- WSWNd6SGM3I+Fyd9FznEuFtjoHZV1nDz8t8zk1n3QqL0QCH9+PI07eITzzvPqMwz5bys
- ku0zn1xlouXXu+I1Jyxpvf/dS1hFvIP1cVYHf89ydTqKrBl7IcoipfGpeOvQ3FhFX98n
- 9cGQ==
+ bh=xhXUcAh2hlUnon67PlT/agcOsGJGx82H3mKA5T5zmFk=;
+ b=bmu6N461+nL3FcQr+dKltBhhRnDbftu9ktCC2gRicwNJlPkzdVeLdmrHahL2tpNDE5
+ 1xE0i8ow1XoAFMXGOGU+e3h2OgOHOZMrjYXOsIv/4CcFk+IwaufKOC4DoBHGbxr/Up3G
+ 62LXA8pj641Oo8Jr8o6xA5imhMznYJC/nGk1BQpG/lIgT7jkb6yo5RJJQNKwGPXdqsFM
+ ffjyx/sVvI48FqF/Ks/9xL9RJ9/DFUzkHtI1la6eD2lUwtUNYSDs/npV0VO+gvhAj7aJ
+ 2Im8st9yS0+UfyEipY780ssE7bXowu0Qt7kvofI141oXlTvbHzQl2D+fW+6WLwMfd9F6
+ TWPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737663268; x=1738268068;
+ d=1e100.net; s=20230601; t=1737664190; x=1738268990;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/2QDlQ7ciLXyACEdbXlxDxDDAFIjM/sxdbl1ogTU8Rc=;
- b=ngSIaq0Y9Y8AKRW6pCmXafu8DlHQIgxX7+Bf5ngYTp171bmZfqJSKOVbxGVgjg31ug
- PDEMRI1ykf6hvVDIW/YRuhtXxS887pxK2ld8xqn1L7GTfIn3zMrdXJuwZ1QYjfF4VPmC
- x8OlbZWbGbf5dgdMrNaLUVfn9tmT06EmoiSThG9L5rU7Zp3ZiPdRy0om51SKLxM7W5yC
- Bd+CW9bQu+yMCvZnlg+fyZdQKmYTeS1GPskEvt+5vo18tc/02B+l83cJhKSrUnYU9azX
- M3MDuT5Y7JYuonYmEOgZxGJpC6BsVaY0z4aGAjdkHsSRPQeCRm7CFF1JxWVnLyprJVXz
- uBew==
+ bh=xhXUcAh2hlUnon67PlT/agcOsGJGx82H3mKA5T5zmFk=;
+ b=ihIulzZGIS7wCalFsWaVC227Xv0kQnIWJwfsXkwBqPEE59Qze0NCCqYJDv6CuJq+8o
+ 7yCAPVMFts3Z8BJKmG6dRwhJ8ZundZcLKALGSz3KbuM1ilDRPB+oMlYnMSGqtquK0dMz
+ CPOns96hgYTkRIyRIscFtHbQ+hYYaf5jIOzdNy5bG5hRrx80MgBYQqPqbx9YDGIlkKd6
+ skQxA1mDXkDi7wJnWT63zZps1VRvqIT2uokQkZ8JYFIyauwXbCfls+xKLv4ZDjtfSJQ9
+ zp/rGARfr9vhwF3Nj8N/UR1GULhnpDNnffU0Ekahfofe9KOfc2tIz7dOr126d1uNHobe
+ wLrQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV/wr5jiU6XoSBDPLamGAt0Vipil7VzPwmud1GYzvORiJdFv8AxJ3ZcwY8nqbO3Ba/pomQXlbuM968=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzeVjlNVfDCo9U3xYlirV/t+VIJb4j0dVTKfKex2Evzn+OmTG+c
- zRqaQ55ZPlE5fcVpnCL7GfAcM/hDJLKrkxdvH4U9pyfZcUKsxLU+33mAkhRSIgsrG9geWbRCVtz
- KVGCnPQwIWBNjMGkS0UP0V9S+A34=
-X-Gm-Gg: ASbGnctUTLmR8yCT8ijVNi/qkbIx3w0vEyP0jVC5e59cynwNx3vzo8wwjYdSuQg0d6I
- IGvLeHTKUtbj4AwUbu84o/RoSIKWVp8LvdTzxXf2lkv4D6Fh38EXphrVH+aFXIilxt3YE/Wol
-X-Google-Smtp-Source: AGHT+IF9WRUJHlC8pSwIAj8cVYowT1BAbQRT46w/zBvudQ5hCUtVjX57p1AYxilwi3P5ZVSk1dKDYES+SrAcrckfCwM=
-X-Received: by 2002:a05:6a21:9215:b0:1e1:c26d:d81a with SMTP id
- adf61e73a8af0-1eb5d21c42cmr6183007637.8.1737663267550; Thu, 23 Jan 2025
- 12:14:27 -0800 (PST)
+ AJvYcCVNXlf3McAso1nX+G0ALH6XAvn5/9VNRv5qb5OtjwLJTZdjVsf05CcxHHEr6XZVuQWqpni9iicda+I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIcT+wBZiLemSYdgRS2fhJnthsymffpoZes5J9jc0bCXoMb8UE
+ qfyrTXsikaViMuot+fvddFcsQoBGM8eWEa8GnmyZT/c7zho+EI2xU0/fFQ32e5KRNwuwcO6wCzr
+ p5wJRyd7DSSgfIDjdmLzuhdD1Tjs=
+X-Gm-Gg: ASbGncvZ8Q/WLCrdQU920MMU8BRHf5xA5vnJpAia5qEhxF4fhG5pGe5+mMqn7qC4rnf
+ Ez22SsQGrCgoGmwnVke0s1m9ZC/GlD7tqYjKBfd17Y3TqgNcHAhAj8HhcjVXsGA==
+X-Google-Smtp-Source: AGHT+IEl/Vyc8QmUbX/0GWfiscTSIPf6SvYZLBKkQKTl7lLUFAx/A3wbK7xRIXAG5nlkFHCAISdwVSqrdyt6dZww7dM=
+X-Received: by 2002:a05:6a00:3a1d:b0:72d:8a01:bb6c with SMTP id
+ d2e1a72fcca58-72daf7a1db7mr13737192b3a.0.1737664189916; Thu, 23 Jan 2025
+ 12:29:49 -0800 (PST)
 MIME-Version: 1.0
 References: <20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com>
  <20250122-msm-gpu-fault-fixes-next-v3-1-0afa00158521@gmail.com>
@@ -62,9 +62,9 @@ References: <20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com>
  <Z5KXwNPrdirVUn8Z@hu-guptap-hyd.qualcomm.com>
 In-Reply-To: <Z5KXwNPrdirVUn8Z@hu-guptap-hyd.qualcomm.com>
 From: Connor Abbott <cwabbott0@gmail.com>
-Date: Thu, 23 Jan 2025 15:14:16 -0500
-X-Gm-Features: AWEUYZm4s0a1_xJx4E19lGpX9b_gFH6RT3FcZVLxCaBZ0uPB-4Bak4CDyfFUWL4
-Message-ID: <CACu1E7GOS+_biN=AuQwYK47ApRPFGygyD+U5X9d_4ReXKrzbfw@mail.gmail.com>
+Date: Thu, 23 Jan 2025 15:29:38 -0500
+X-Gm-Features: AWEUYZlzwCzK_Ns_Li_73IXsL90hsOwVuugbU7LWSAnvDp0ILCSA2EsoYowsZGM
+Message-ID: <CACu1E7Hw3WxNzwdA2A8hG2yWNVMLy=r=68_X0C3tkVttgRzXVQ@mail.gmail.com>
 Subject: Re: [PATCH v3 1/3] iommu/arm-smmu: Fix spurious interrupts with
  stall-on-fault
 To: Prakash Gupta <quic_guptap@quicinc.com>
@@ -135,26 +135,6 @@ we
 > operate on their respective context register space, so I don't see the ra=
 ce
 > at context register update.
-
-Let's say CB1 enables stall-on-fault. The sequence is something like this:
-
-- CB0 faults, context fault handler for CB0 runs first
-- resume handler writes RESUME for CB1
-- CB1 faults on some other pending transaction
-- context fault handler for CB1 runs due to the fault from CB0 on
-shared interrupt line, discovers there is an additional fault because
-we just wrote RESUME
-- context fault handler for CB1 writes SCTLR disabling CFIE
-- resume handler writes SCTLR enabling CFIE
-
-At the end CFIE is incorrectly enabled while the second CB1 fault is
-pending and we get an interrupt storm.
-
-Realistically this is only going to happen if the resume handler gets
-interrupted in between the two register writes, otherwise it will
-probably win the race and write SCTLR before CB1 can run its context
-fault handler. But technically we need the spinlock.
-
 >
 > > > > +      * re-enable them in the resume handler, leaving interrupts e=
 nabled.
@@ -187,6 +167,13 @@ n the
 > qcom_adreno_smmu_get_fault_info() reads the fault info as part of client
 > fault hanlder. So it would not be ok to clear FSR before reporting the
 > fault to client.
+
+That's a good point, but as long as stall-on-fault is enabled it
+doesn't matter because subsequent transactions that fault will be
+stalled. Patch 3 of this series disables stall-on-fault after the
+first fault in drm/msm, but we don't care as much about the accuracy
+of those subsequent faults.
+
 >
 > > > The context would remain stalled till we write to CBn_RESUME. Which i=
 s done
@@ -213,35 +200,13 @@ d
 > 4. clear FSR
 >
 > At what point when you try #2->#3->#4 or #4->#2->#3 sequence, is FSR.SS
-> cleared and interrupt storm is observed.
-
-With #2->#3->#4 FSR.SS is *not* cleared and there is a subsequent
-interrupt storm with only FSR.SS asserted. With #4->#2->#3 there is no
-interrupt storm. From this we conclude that MMU-500 does not clear
-FSR.SS unless #4 happens before #3.
-
-> The way CFIE disable is helping
+> cleared and interrupt storm is observed.  The way CFIE disable is helping
 > with current patch indicates write FSR is unstalling context and subseque=
 nt
-> transactions are faulted.
-
-No, it does not indicate that. The interrupt storm happens even when
-there is exactly one context fault, and when the interrupt storm
-happens *only* FSR.SS is asserted. I've verified this with debug
-prints. Once more, MMU-500 will assert an interrupt when only FSR.SS
-is asserted. This has nothing to do with subsequent transactions.
-
-> Do you stop getting interrupt storm after write
-> RESUME.
-
-Yes, as long as the write to RESUME happens after all other bits in
-FSR are cleared.
-
-> If you can mention your SCTLR configuration and FSR state in test
+> transactions are faulted.  Do you stop getting interrupt storm after writ=
+e
+> RESUME. If you can mention your SCTLR configuration and FSR state in test
 > sequence, it would be clearer.
-
-SCTLR has both HUPCF and CFCFG enabled.
-
 >
 > An aside, If reducing delay between FSR and RESUME write helps then both
 > can be done as part of qcom_adreno_smmu_resume_translation(). This will
