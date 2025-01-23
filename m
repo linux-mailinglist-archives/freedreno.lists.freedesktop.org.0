@@ -2,82 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56188A1A96B
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 19:09:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69B29A1AA4D
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 20:26:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 346D010E891;
-	Thu, 23 Jan 2025 18:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31B2210E085;
+	Thu, 23 Jan 2025 19:26:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cYJIE9JN";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="B8NUcHj0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7143310E891
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 18:09:45 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-2ee534d6800so284698a91.2
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 10:09:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737655785; x=1738260585; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nyKfEZgI2q04ubHRnQeM6mRxNH8f7N8tmMhgcpNLYwE=;
- b=cYJIE9JN7b0zTw8VwLq0EuSEM92xTz6pet9borAM74PlVEgO9ViGvSJ7YwtX6O6NDH
- xbJcOWkEWT2pSsQWrC3uydyK6eXK6JIHNX21eGnj6SNBPRpsDpWsG5SU1mB3hfzjNZQT
- MQR0ges40xt5wiKUykJbw/AzR6mu/9YWb8Av4uiDtQRx6WeSZ/Ogwdyxo91VxMLcWWKX
- i19MAV+0TMCYtz64kaNwyRzoOHgdgtZWfQ/BiiyxNvXQxCuq1z+LUqSPvllNsXS/seq/
- xx+Bhf0abNF3yGsjaf4WUxCxIu5aSOU4QQKtXn2vkc3oVykC/F0FhDxiGgMw9oAxUSg8
- ob/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737655785; x=1738260585;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nyKfEZgI2q04ubHRnQeM6mRxNH8f7N8tmMhgcpNLYwE=;
- b=GQjiRmosGd60rqrei6bZPtsmWT1RO81WODUTBAOgDiK/1dt894NY9adNBem2gcrs9y
- A7uXHGEFa7cUDDO1EFuDBoSEvfWMubqoxDNBGZcFoDF6poKKVukZxCnJG70MQK9JYA/c
- xtBFxRguSF5qOsfgeOh9cIuoFIu/JnNVOCNRJlsUrPEk7F3EZKOb/udKfi6DveZTsYnk
- jHVR4aOpjBtE3DcT/zsHxKxEaTfCGvamWcRPiiqUZbkGlqe21ZFVvN5sdAeo9Xntn1H6
- lduzNELin5NeNNIZ60pg2/8tbzRC7PAQyLAzlXdrYrdgHA/LKYqPuCMK+p9bLXLnUEbq
- 27oA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXf/3+VJ3vVMQevVM+DgJAOb5EsNH7Wo4f+bciDBp832Ds7Y8zrdRy4Voz9lw7jTtkztx+IEx1RNd4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6ncwbiDLt9htK1KKIduCY25Y0menWYzSfHcs3IDP012uSNaOk
- bUyDksHnCglkcS+YiFKNIgEHxFRoMKJ5vuVOTHNkWykuAUHYJ/nVLXC3lTVC7y54XUvN61ifm+A
- Zm6u14a8xBB+/36gzTUJkxs7dM1Y=
-X-Gm-Gg: ASbGncvN89v0p+3nXYpqiVT9KbyEQ7BXuvkZGibzwPMvBYuMu6NOZFVETx5482+3qQ5
- h2YW5e4FpDDEGmy3+iAA7rS443bP5Ou+z39x7j18CeyArGi+RVi/zNUkVRcbNLg==
-X-Google-Smtp-Source: AGHT+IEEH3PHsFVxMvB++p2z2cLrzhfGijMDaM+Tji/bw29FKBGdgLy//H/LRds0MsXyeSdRL2jN0EV6I288KPRLGZ0=
-X-Received: by 2002:a05:6a00:850:b0:725:d9b6:3938 with SMTP id
- d2e1a72fcca58-72dafb71a44mr14883468b3a.3.1737655784773; Thu, 23 Jan 2025
- 10:09:44 -0800 (PST)
-MIME-Version: 1.0
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 986F310E085
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 19:26:35 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50NDsI5s029652;
+ Thu, 23 Jan 2025 19:26:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ xbPxKwFgsEnv6VNL5xU4bAl2nRy0Cg3dN5HZEfeLACc=; b=B8NUcHj0AdZFf6hd
+ E+2f5JiMjkEuDXf74j7gu1AvZ3YsxRV79nNnlDFHUt/A2/ReT0JM/f1n9m02vDh6
+ oaTIaciBdpbOct9MiWZUevcQqH1MLk+oJKqY7OrU07/k3Ad0iObv64ownWQJD4Vj
+ EhmHAsBzbGHM35vV+JVD1Euuic3iCeCmh7q6PDOdl6ud88v1FDu/ru0cxUc39NQJ
+ WGI90ZM4OXr+55JcVRAaYSkkwGhKFIIMcTPCfzOu9MGj7wspR/jRQZmGuZ8SUttx
+ hJlC1TwBtz6/cDx1ruq+Y0v6iWnMm2Y2nHHQ4yjiHBYcpY1w6jD1MtphAj0zkAsI
+ 4yyBfw==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44bq2crs02-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 23 Jan 2025 19:26:18 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50NJQHXJ031213
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 23 Jan 2025 19:26:17 GMT
+Received: from hu-guptap-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Thu, 23 Jan 2025 11:26:13 -0800
+Date: Fri, 24 Jan 2025 00:55:52 +0530
+From: Prakash Gupta <quic_guptap@quicinc.com>
+To: Connor Abbott <cwabbott0@gmail.com>
+CC: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>, "Robin
+ Murphy" <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, Sean Paul
+ <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ <iommu@lists.linux.dev>, <linux-arm-msm@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <freedreno@lists.freedesktop.org>
+Subject: Re: [PATCH v3 1/3] iommu/arm-smmu: Fix spurious interrupts with
+ stall-on-fault
+Message-ID: <Z5KXwNPrdirVUn8Z@hu-guptap-hyd.qualcomm.com>
 References: <20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com>
  <20250122-msm-gpu-fault-fixes-next-v3-1-0afa00158521@gmail.com>
  <Z5IjsqQ6vTdUXiGt@hu-guptap-hyd.qualcomm.com>
- <b593ac5e-cb29-473a-af1b-214168968679@arm.com>
- <Z5J9wpooIH5/Ccrt@hu-guptap-hyd.qualcomm.com>
-In-Reply-To: <Z5J9wpooIH5/Ccrt@hu-guptap-hyd.qualcomm.com>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Thu, 23 Jan 2025 13:09:33 -0500
-X-Gm-Features: AbW1kvYGAg-AyeJwPcNQQ2QOH2zEJ2YL7TOxF-zPnlJpiWV2i8GmCg2Npquk7J4
-Message-ID: <CACu1E7EUQxWxGB_OY+CifUufYZzaomn8nMYrmRvfrr5Oqx5XSw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] iommu/arm-smmu: Fix spurious interrupts with
- stall-on-fault
-To: Prakash Gupta <quic_guptap@quicinc.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, Rob Clark <robdclark@gmail.com>, 
- Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CACu1E7H5X2EfY9AG=xceaoZJkbumwnrsU4QvNbxd_A2wgVVOaQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACu1E7H5X2EfY9AG=xceaoZJkbumwnrsU4QvNbxd_A2wgVVOaQ@mail.gmail.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: fBRnQJYsHzIeNqRvZGODuPo4dLE3j9Os
+X-Proofpoint-ORIG-GUID: fBRnQJYsHzIeNqRvZGODuPo4dLE3j9Os
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-23_08,2025-01-23_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=1
+ impostorscore=0 adultscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 spamscore=1
+ lowpriorityscore=0 malwarescore=0 mlxlogscore=222 mlxscore=1 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2501230141
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,134 +98,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 23, 2025 at 12:35=E2=80=AFPM Prakash Gupta <quic_guptap@quicinc=
-.com> wrote:
->
-> On Thu, Jan 23, 2025 at 11:51:27AM +0000, Robin Murphy wrote:
-> > On 2025-01-23 11:10 am, Prakash Gupta wrote:
-> > > On Wed, Jan 22, 2025 at 03:00:58PM -0500, Connor Abbott wrote:
-> > > > + /*
-> > > > +  * The SMMUv2 architecture specification says that if stall-on-fa=
-ult is
-> > > > +  * enabled the correct sequence is to write to SMMU_CBn_FSR to cl=
-ear
-> > > > +  * the fault and then write to SMMU_CBn_RESUME. Clear the interru=
-pt
-> > > > +  * first before running the user's fault handler to make sure we =
-follow
-> > > > +  * this sequence. It should be ok if there is another fault in th=
-e
-> > > > +  * meantime because we have already read the fault info.
-> > > > +  */
-> > > The context would remain stalled till we write to CBn_RESUME. Which i=
-s done
-> > > in qcom_adreno_smmu_resume_translation(). For a stalled context furth=
-er
-> > > transactions are not processed and we shouldn't see further faults an=
-d
-> > > or fault inerrupts. Do you observe faults with stalled context?
+On Thu, Jan 23, 2025 at 09:00:17AM -0500, Connor Abbott wrote:
+> On Thu, Jan 23, 2025 at 6:10 AM Prakash Gupta <quic_guptap@quicinc.com> wrote:
 > >
-> > This aspect isn't exclusive to stalled contexts though - even for "norm=
-al"
-> > terminated faults, clearing the FSR as soon as we've sampled all the
-> > associated fault registers is no bad thing, since if a second fault doe=
-s
-> > occur while we're still reporting the first, we're then more likely to =
-get a
-> > full syndrome rather than just the FSR.MULTI bit.
+> > On Wed, Jan 22, 2025 at 03:00:58PM -0500, Connor Abbott wrote:
 > >
-> ARM SMMUv2 spec recommends, in case of reported fault sw should first
-> correct the condition which casued the fault, I would interpret this as
-> reporting fault to client using callback, and then write CBn_FSR and
-> CBn_RESUME in this order. Even in case of reported fault where context is
-> not stalled, the first step, IMO, I see no reason why should be any
-> different.  I agree that delaying fault clearance can result in FSR.MULTI
-> being set, but clearning fault before  prevent clients to use SCTLR.HUPCF
-> on subsequent transactions while they take any debug action. The client
-> should be reported fault in the same state it occured. Please refer
-> qcom_smmu_context_fault() for this sequence.
+> > > +     /*
+> > > +      * On some implementations FSR.SS asserts a context fault
+> > > +      * interrupt. We do not want this behavior, because resolving the
+> > > +      * original context fault typically requires operations that cannot be
+> > > +      * performed in IRQ context but leaving the stall unacknowledged will
+> > > +      * immediately lead to another spurious interrupt as FSR.SS is still
+> > > +      * set. Work around this by disabling interrupts for this context bank.
+> > > +      * It's expected that interrupts are re-enabled after resuming the
+> > > +      * translation.
+> > > +      *
+> > > +      * We have to do this before report_iommu_fault() so that we don't
+> > > +      * leave interrupts disabled in case the downstream user decides the
+> > > +      * fault can be resolved inside its fault handler.
+> > > +      *
+> > > +      * There is a possible race if there are multiple context banks sharing
+> > > +      * the same interrupt and both signal an interrupt in between writing
+> > > +      * RESUME and SCTLR. We could disable interrupts here before we
+Not sure if multiple context bank with shared interrupt supported for
+arm-smmu driver, but even if does than context fault handler they would
+operate on their respective context register space, so I don't see the race
+at context register update. 
 
-It's not possible to implement it the way the spec describes because
-correcting the condition which caused the fault cannot always be done
-in the client's callback. Sometimes it has to be deferred to a handler
-not in IRQ context. However we must clear FSR (except for the SS bit)
-before leaving the fault handler because while the transaction is
-pending we want to be able to distinguish between a subsequent fault
-in another context bank (only FSR.SS will be set and we can ignore and
-return IRQ_NONE) and this context bank if they share an interrupt
-line. So, moving this up generally doesn't hurt and fixes the case
-where the client does resume the transaction inside its handler. I
-don't think there's really another way to implement this.
+> > > +      * re-enable them in the resume handler, leaving interrupts enabled.
+> > > +      * Lock the write to serialize it with the resume handler.
+> > > +      */
+> > > +     if (cfi.fsr & ARM_SMMU_CB_FSR_SS) {
+> > > +             u32 val;
+> > > +
+> > > +             spin_lock(&smmu_domain->cb_lock);
+> > > +             val = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_SCTLR);
+> > > +             val &= ~ARM_SMMU_SCTLR_CFIE;
+> > > +             arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, val);
+> > > +             spin_unlock(&smmu_domain->cb_lock);
+> > > +     }
+> > > +
+> > > +     /*
+> > > +      * The SMMUv2 architecture specification says that if stall-on-fault is
+> > > +      * enabled the correct sequence is to write to SMMU_CBn_FSR to clear
+> > > +      * the fault and then write to SMMU_CBn_RESUME. Clear the interrupt
+> > > +      * first before running the user's fault handler to make sure we follow
+> > > +      * this sequence. It should be ok if there is another fault in the
+> > > +      * meantime because we have already read the fault info.
+> > > +      */
+qcom_adreno_smmu_get_fault_info() reads the fault info as part of client
+fault hanlder. So it would not be ok to clear FSR before reporting the
+fault to client.
 
-And I have no idea why you think this prevents clients from using
-HUPCF, we already use HUPCF in drm/msm and it works fine with this
-series.
+> > The context would remain stalled till we write to CBn_RESUME. Which is done
+> > in qcom_adreno_smmu_resume_translation(). For a stalled context further
+> > transactions are not processed and we shouldn't see further faults and
+> > or fault inerrupts. Do you observe faults with stalled context?
+> 
+> Yes. I've observed that on MMU-500 writing RESUME before the interrupt
+> has been cleared doesn't clear SS. This happened with v2 in the case
+> where there was already a devcoredump and drm/msm called
+> qcom_adreno_smmu_resume_translation() immediately from its fault
+> handler, and we'd get a storm of unhandled interrupts until it was
+> disabled. Given that the architecture spec says we're supposed to
+> clear the interrupt first this may have been an attempt to "help"
+> developers.
+> 
 
->
-> > > > + arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_FSR, cfi.fsr);
-> > > > +
-> > > >           ret =3D report_iommu_fault(&smmu_domain->domain, NULL, cf=
-i.iova,
-> > > >                   cfi.fsynr & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_=
-WRITE : IOMMU_FAULT_READ);
-> > > >           if (ret =3D=3D -ENOSYS && __ratelimit(&rs))
-> > > >                   arm_smmu_print_context_fault_info(smmu, idx, &cfi=
-);
-> > > > - arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_FSR, cfi.fsr);
-> > > >           return IRQ_HANDLED;
-> > > >   }
-> > > > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/=
-arm/arm-smmu/arm-smmu.h
-> > > > index 2dbf3243b5ad2db01e17fb26c26c838942a491be..789c64ff3eb9944c8af=
-37426e005241a8288da20 100644
-> > > > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> > > > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> > > > @@ -216,7 +216,6 @@ enum arm_smmu_cbar_type {
-> > > >                                            ARM_SMMU_CB_FSR_TLBLKF)
-> > > >   #define ARM_SMMU_CB_FSR_FAULT           (ARM_SMMU_CB_FSR_MULTI | =
-       \
-> > > > -                                  ARM_SMMU_CB_FSR_SS |           \
-> > > Given writing to FSR.SS doesn't clear this bit but write to CBn_RESUM=
-E
-> > > does, this seems right. This but can be taken as separate patch.
-> >
-> > This change on its own isn't really useful - all that would achieve is =
-that
-> > instead of constantly re-reporting the FSR.SS "fault", the interrupt go=
-es
-> > unhandled and the IRQ core ends up disabling it permanently. If anythin=
-g
-> > that's arguably worse, since the storm of context fault reports does at
-> > least give a fairly clear indication of what's gone wrong, rather than
-> > having to deduce the cause of an "irq n: nobody cared" message entirely=
- by
-> > code inspection.
-> >
-> Does spec allow or do we see reported fault with just FSR.SS bit.
+Just to clarify, present sequence is:
+1. context fault with stall enable. FSR.SS set.
+2. Report fault to client
+3. resume/terminate stalled transaction
+4. clear FSR
 
-Yes, the spec allows it and we do see it in practice. After this patch
-we may still see it in the case where multiple context banks share an
-interrupt and the other bank faults, but the correct action is to
-ignore it because we've disabled CFIE for this bank already. This is
-why this hunk has to be in this patch.
+At what point when you try #2->#3->#4 or #4->#2->#3 sequence, is FSR.SS
+cleared and interrupt storm is observed.  The way CFIE disable is helping
+with current patch indicates write FSR is unstalling context and subsequent
+transactions are faulted.  Do you stop getting interrupt storm after write
+RESUME. If you can mention your SCTLR configuration and FSR state in test
+sequence, it would be clearer. 
 
-> If answer
-> is no then Keeping FSR_SS would be misleading. Here ARM_SMMU_CB_FSR_FAULT
-> is used to clear fault bits or check valid faults. Also validity of this
-> is not based on rest of the change.
->
-> Thanks,
-> Prakash
->
-> > >
-> > > >                                            ARM_SMMU_CB_FSR_UUT |   =
-       \
-> > > >                                            ARM_SMMU_CB_FSR_EF |    =
-       \
-> > > >                                            ARM_SMMU_CB_FSR_PF |    =
-       \
-> > > >
-> > > > --
-> > > > 2.47.1
-> > > >
-> >
+An aside, If reducing delay between FSR and RESUME write helps then both
+can be done as part of qcom_adreno_smmu_resume_translation(). This will
+follow spec recommendation and also make sure fault registers are not
+cleared before reporting fault to client.
+
+Thanks,
+Prakash
