@@ -2,75 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A7BFA1A474
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 13:45:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 675EEA1A476
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2025 13:45:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2259C10E287;
-	Thu, 23 Jan 2025 12:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 149C810E7FE;
+	Thu, 23 Jan 2025 12:45:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="STUTsGQl";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BbSgp1fg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
  [209.85.208.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73C2410E287
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 12:44:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F054B10E7FE
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 12:45:00 +0000 (UTC)
 Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-30761be8fcfso8928391fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 04:44:58 -0800 (PST)
+ 38308e7fff4ca-30615661f98so8373801fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2025 04:45:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737636297; x=1738241097; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=VBGx0pJ6DuzAZ6r4ZXbTDW8cZT3/l1BOJrqYDAamGOI=;
- b=STUTsGQlSWwLdu86Wu+h8FBjhIwkdjC4A2J6TzruP9FrLPngJqhbjqBrhYLbtiG4j3
- S7mTwf38qowgMyQoRWrgH5x0DuTtzVYQMTrCN96PU0aMfFTWrwhWPSBb9ZSR9oICaR4F
- omxECfXrLiHCaJlya3yazmrFt9g2PV69DQrvgUW/ic5tFoujbVNqweRjFrXIQHGfI5K4
- Xb9/jo8xUd77knGuClrlvppG/wKNK6x5AJFUh4znKPEL7o8Pq9wDeeTfdzaxOFGV4Xrc
- qd5dJK/AhMPJwG7nba643krVMq9IsvEjXCWkjwT0pEz7QPseOVh3DNzBUArG6TnuGZIx
- 8BqA==
+ d=linaro.org; s=google; t=1737636299; x=1738241099; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=zWl/mrUuu5iSDDnMWnDf6mIxagIYPOHoQVKnYJ6xmpc=;
+ b=BbSgp1fgqchrvBM/UVkQaKf5BYGZhmq1Vp5NP75kUONmU8QVXgBjfvDGPrzBgkP1PY
+ fnDuOpRW9ZmFXxa5HYp1VGbI8shKArZYl2rzpnfftsVOw+sxO+IYELoaoGtSFllR69Dk
+ GSuw0n0zCLmBSnN4RdSMgx2Hg1bujuNL9uhyUbVqGPEPYf3ygNgl/6hTNRhzVVqU0TGh
+ QXkjPvNpyXaVxi5ZCvmDvspK3onfjm0LSwyRXsbOoIjrtE4TzfFLajZktk7UfNCq9PDL
+ pJib7azYuCK8wukN4vAd/VA4gzjnOcPfTCSycZOD4PhJwq5ISdB4yJt6KxbWGqMCqUjt
+ Op9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737636297; x=1738241097;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=VBGx0pJ6DuzAZ6r4ZXbTDW8cZT3/l1BOJrqYDAamGOI=;
- b=cpcuLcLgsqqghYrnki5qAyBJ6awCat0roo60kdLQ3g8r3G6DkB6j85mncSt6GD3ZNK
- /O1L6ASr6zuaIPjp0lefyPq43zwnccRouNmk/tn0LWs5kiglBnWBUeCpXOklMdOzeAWG
- 1PFlLjOoLBaOuoIhQvYBFu9vCX3sjLaK745n2kvY8bEPtrj02XtzP5jXVncV0327UqBk
- QblYNVxgkRfgD7bAGQchWcm7uIj3HmBUvNu9U/QWmVBqkUB0NwvCTFRzkM068Q/FrfmU
- vlVPhaE39HWCaTL0P2xSoJj5X8WPx7RdaslVzEpgqZ49p6Zp+b8aeqES27A3VpmKeuEu
- rzaA==
+ d=1e100.net; s=20230601; t=1737636299; x=1738241099;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zWl/mrUuu5iSDDnMWnDf6mIxagIYPOHoQVKnYJ6xmpc=;
+ b=gY5UdxLucCUaeQtVJ1roNeyXGG3qk38VETWh2cLqd1UyjdqPFZ9ln25UUuQlbEVkny
+ 2ezH4XwDDt0jsi+eBogU6wU/s76wi11csXTIsoZ2OTueJQ8OSOk6NYhzIMslDlxWPM6W
+ ZxaIbVcfdueA4XSakdcizgLoL51b7Xpmu6PVgJSUQufiK4J0DfachtXRxTUoQh+MBazx
+ cgygvC0jrm4njnEMv08XfquLkJAEhktsgknXDr/Z/zDV3s1RiGWafoDyNiw8MuGMlRck
+ LD/PVbIBF176MbAFm0aXBk/DkRb44FgW6Y4U+WfijizR6NDGyZosJXpM4jsN1vubCB1S
+ LmjQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV1kf/Ny/ovKlCHcrjO9MOt95UkSR2SSKxkCzgWlFTlMfJzYMXvOypifzgTrFnhND5lZSZCshlavFE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYjPScuemmnN33kcIsmR5hjbh/cE5m+zCAPX/GfRfkEcwrryEC
- Qipxgvhxelzfs/oQZTh6xNaw8AJx6KQBd5FV0FsISV7aIxSxrshw+fHc2TGrJIQ=
-X-Gm-Gg: ASbGnctrXl2NrZJWUZau9sQQ9WKr8eOdIlqGpqisKbJ2DM3mUJJzxBedUaWlJWOu8wF
- YUwGCwAINT8f3p3FNAb57ehmqgEJW7PlAb2y21U81KWnL0OCxzr6Nwo9qYHqn32CnyRTS6iNIiL
- fgs6VEA6torFIbM2rgybTkbk7aVBRGslB7P5Qht3MH7xGzP3mdEnYJFetHUQVtv27aANWn+mVlr
- 3TvY/4TdyAVJNI2cYvYaDkQiGd6RxLfdi7ysUcCZQr42LDOn1b/9w0dFfBa7MNGGBq9VvagJDXs
- 8PjGJrwiml8U
-X-Google-Smtp-Source: AGHT+IG3iLOKNh57If1JEXvmH21GHFRde3bWIOleZOnKeL2gbIgpP2Dn8w8RPp/ksU6ITD/Az7ZXuQ==
-X-Received: by 2002:a05:651c:b12:b0:304:d31f:2fbc with SMTP id
- 38308e7fff4ca-3072cb817c5mr88941861fa.36.1737636296655; 
- Thu, 23 Jan 2025 04:44:56 -0800 (PST)
+ AJvYcCXN7dsVnwd+ku6ypcD2jjNuFPkhPL/csuJVcCb/6jw7p2FcllvE1VkWSiB4u/ZzpQMMMm/HQFx9Jwg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwS/c/K0mckFdZLzJ96xNwKk33owzl6gSYWxPAVImI73+FNCURY
+ R/zdpqVZuou59pHsa9FP1T2rIIujH7/DS4bF1+DizWzVffH3ydKo18PwC/FuZG0=
+X-Gm-Gg: ASbGncv7eooUR///1TaRORfZYrDvnRS7mfU7qkB6mJVjGq3AMUvOcqd71Q6Al9+2pO5
+ CDOS2eGOZ7DIWd9c32vpu5XxbPcXirgOY8QvLyPjb0+23WjJ9CNeLKdjt2r6Einbff34TQHjqmy
+ 8+xsFH0FeXTodHL7GONeghSlDEnzDZ3X8QxYDc7h2Ql3d52IqM4OTHbCUJERGandEIsytvBOoWp
+ ImBap1g5K4npg5KaKOIE/+yZiNcucng6nRPI+49vEM1nE5it0iCfPucVlLjZD2kG54R5+5ulSBx
+ F69rIT6qgar/
+X-Google-Smtp-Source: AGHT+IH5IcSIZSra8LNFX06NTWLQF49L8vuXLlXRQh+G8XpZMvxMtaLUd8nrGDGk8rwkOVFCuslUyw==
+X-Received: by 2002:a05:651c:b0a:b0:300:31db:a77c with SMTP id
+ 38308e7fff4ca-3072cb66636mr95637551fa.29.1737636299239; 
+ Thu, 23 Jan 2025 04:44:59 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3072a4ed6f3sm30351661fa.86.2025.01.23.04.44.55
+ 38308e7fff4ca-3072a4ed6f3sm30351661fa.86.2025.01.23.04.44.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jan 2025 04:44:55 -0800 (PST)
+ Thu, 23 Jan 2025 04:44:57 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH v2 0/4] drm/msm/dpu: follow rules for
- drm_atomic_helper_check_modeset()
-Date: Thu, 23 Jan 2025 14:43:32 +0200
-Message-Id: <20250123-drm-dirty-modeset-v2-0-bbfd3a6cd1a4@linaro.org>
+Date: Thu, 23 Jan 2025 14:43:33 +0200
+Subject: [PATCH v2 1/4] drm/msm/dpu: don't use active in atomic_check()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHQ5kmcC/32NTQ6CMBBGr0Jm7ZgyKj+uvIdhUegIkwglU0Ikp
- He3cgCX7yXf+3YIrMIB7tkOyqsE8VMCOmXQDXbqGcUlBjJ0zYkInY7oRJcNR+848IJVZcq6dVR
- aLiDtZuWXfI7ms0k8SFi8bsfFmv/sv9qao0HDZWFvF+64rR9vmaz6s9cemhjjF2e5JLCzAAAA
-X-Change-ID: 20241222-drm-dirty-modeset-88079bd27ae6
+Message-Id: <20250123-drm-dirty-modeset-v2-1-bbfd3a6cd1a4@linaro.org>
+References: <20250123-drm-dirty-modeset-v2-0-bbfd3a6cd1a4@linaro.org>
+In-Reply-To: <20250123-drm-dirty-modeset-v2-0-bbfd3a6cd1a4@linaro.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -85,16 +82,16 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org, 
  freedreno@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1665;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2323;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=Nyit5/PcakRGG2zBgKaMVblTWEFKcp9Xc8vegGFDe/8=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnkjnGAk6lcw+a8f/ppbmRkD0F0hPL6Y0pGnznE
- +MxVqrv8Q+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ5I5xgAKCRCLPIo+Aiko
- 1QivB/9Eq+ovxg6lDDNzT97VfEQQ7kaJEY5IZcFlgG/479UoUWv985tRuy+PlAKkkG7Dx4s7UKi
- VBtKSx3gAw57qmEzAGQ2go8ZdLW1tdI0VSfNBG7TlitMgm8LoS4UkK7NP7quElO2IMzVn8KX/lb
- 7WDKrkVkiijoehCceTzrd4ru4rrMdU+kYQOBP/Lskd9+nSPZmBqj7bFWH6KP0Cvv4Gw/f6zuwmf
- pI0/mEm/MIt4PKaezagw5UFmVps25Ru0fNYgGPg7zRs/pQAxGFZ9lMc/EOhaBjXAqehLR4MT427
- cxfNUja7++zAivWmtaNYUWo6JK8zIlXRzpX6DK5XgISn4omr
+ bh=6FHiK9uSt3de2pV2Wxfa/Fv4p/tQ6hl+nIDAnUNBki8=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnkjnGZW1iNAEucAxcOXqyOyw158iAcmY8raCT8
+ 0H4hgMFpe2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ5I5xgAKCRCLPIo+Aiko
+ 1brHB/93op8onAUXr5fU2A91buXHuSnIU4NV07hLC1vcebijvhJa1lT5ijFMMW5lkFVva1FJraK
+ lTMyHGLBKOQVPBInM0u4bJPw23lqTdKT29bvGzjNNqkVjTrQFlQ3jlqGWBVqkqbLC8tEdP0oZlz
+ eHJtnIddkK/uiP/gugYSZysBeHZMaXbYGczZg6LzXAE6ZIOiwVw8f5eIPLnYExHgLSw+qrHo4fd
+ vo57FzUtE7M2eEEtJzTKaiDKfDVuEuLVjPA7ANYeNi7eUmY6tkvVo60tBnB2VvHPLlmGcewJG4M
+ gg6BZn4vxqTEFxE3zWgCnOtwraczzavKlUDfWCb/XymzDNhL
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -112,41 +109,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As pointed out by Simona, the drm_atomic_helper_check_modeset() and
-drm_atomic_helper_check() require the former function is rerun if the
-driver's callbacks modify crtc_state->mode_changed. MSM is one of the
-drivers which failed to follow this requirement.
+The driver isn't supposed to consult crtc_state->active/active_check for
+resource allocation. Instead all resources should be allocated if
+crtc_state->enabled is set. Stop consulting active / active_changed in
+order to determine whether the hardware resources should be
+(re)allocated.
 
-Rework the MSM / DPU driver to follow the requirements of the
-drm_atomic_helper_check_modeset() helper function.
-
+Fixes: ccc862b957c6 ("drm/msm/dpu: Fix reservation failures in modeset")
 Reported-by: Simona Vetter <simona.vetter@ffwll.ch>
-Link: https://lore.kernel.org/dri-devel/ZtW_S0j5AEr4g0QW@phenom.ffwll.local/
+Closes: https://lore.kernel.org/dri-devel/ZtW_S0j5AEr4g0QW@phenom.ffwll.local/
+Reviewed-by: Simona Vetter <simona.vetter@ffwll.ch>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Changes in v2:
-- Dropped drm-core patches (one was applied and another one is disputed)
-- Link to v1: https://lore.kernel.org/r/20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 4 ----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 3 +--
+ 2 files changed, 1 insertion(+), 6 deletions(-)
 
----
-Dmitry Baryshkov (4):
-      drm/msm/dpu: don't use active in atomic_check()
-      drm/msm/dpu: move needs_cdm setting to dpu_encoder_get_topology()
-      drm/msm/dpu: simplify dpu_encoder_get_topology() interface
-      drm/msm/dpu: don't set crtc_state->mode_changed from atomic_check()
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 7191b1a6d41b3a96f956d199398f12b2923e8c82..65e33eba61726929b740831c95330756b2817e28 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1264,10 +1264,6 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+ 
+ 	DRM_DEBUG_ATOMIC("%s: check\n", dpu_crtc->name);
+ 
+-	/* force a full mode set if active state changed */
+-	if (crtc_state->active_changed)
+-		crtc_state->mode_changed = true;
+-
+ 	if (cstate->num_mixers) {
+ 		rc = _dpu_crtc_check_and_setup_lm_bounds(crtc, crtc_state);
+ 		if (rc)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 5172ab4dea995a154cd88d05c3842d7425fc34ce..9aacd3b5bcf808c5712bf797a48484e297386c1c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -793,12 +793,11 @@ static int dpu_encoder_virt_atomic_check(
+ 		crtc_state->mode_changed = true;
+ 	/*
+ 	 * Release and Allocate resources on every modeset
+-	 * Dont allocate when active is false.
+ 	 */
+ 	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+ 		dpu_rm_release(global_state, drm_enc);
+ 
+-		if (!crtc_state->active_changed || crtc_state->enable)
++		if (crtc_state->enable)
+ 			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
+ 					drm_enc, crtc_state, &topology);
+ 		if (!ret)
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  4 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 82 ++++++++++++++++++-----------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 26 +++++++++
- drivers/gpu/drm/msm/msm_atomic.c            | 13 ++++-
- drivers/gpu/drm/msm/msm_kms.h               |  7 +++
- 6 files changed, 101 insertions(+), 35 deletions(-)
----
-base-commit: 2c38461deb29fda236f40950f24d898c49b04e71
-change-id: 20241222-drm-dirty-modeset-88079bd27ae6
-
-Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.5
 
