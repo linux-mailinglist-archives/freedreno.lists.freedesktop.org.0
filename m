@@ -2,77 +2,101 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8D51A1BBE4
-	for <lists+freedreno@lfdr.de>; Fri, 24 Jan 2025 19:07:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13F78A1BE03
+	for <lists+freedreno@lfdr.de>; Fri, 24 Jan 2025 22:47:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 876E610E9FA;
-	Fri, 24 Jan 2025 18:07:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E709810EA25;
+	Fri, 24 Jan 2025 21:47:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gi4zLYL+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nYIIDzNT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0944510E9FA
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jan 2025 18:07:54 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-e3a26de697fso3645812276.3
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jan 2025 10:07:53 -0800 (PST)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 663F410EA21
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jan 2025 21:47:49 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-5426fcb3c69so2167686e87.3
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jan 2025 13:47:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737742073; x=1738346873; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cfjAH6wacEymYVBFOh1WPmz3PQJf2rhJKR5AERmsJw4=;
- b=gi4zLYL+aHnQjXPMpCUBzkzIhNRREWsfOHGwsMb6FNmvFs7pW9Uqr2FAr+/eowan0I
- mpo0hPvRhcT2WOmyp4IHAVPUUb1MPHQsKkMJL9s9Dzk1jtssOY9UyTDJVZHH21dmpY42
- V5hKQBLuAObEyeQdbtwPMp2TurVM9Qo0DUSctzwzwXAR4o/qXFnOK5vt0y/F3Y+/DoNV
- p5kG6Jqi/2fSDE8f62FrD8qe+9J5LHm8nlKxfcyvEKgKK5yhjcZFhlQps9VcalZaZjrL
- gCSuqumCAb1MeAIft5RwJvlnz8b1BopPb4aIbsjmezoNzR0Z9A6DoLCMkRy4qVVyxGzP
- yWhw==
+ d=linaro.org; s=google; t=1737755268; x=1738360068; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=B5Tj33bfeSX/rTFkhgrXRtKcEMb6MiRIfWtM4lbRYlk=;
+ b=nYIIDzNTkk4BwM45Y1T470JWxoSTo//OAJfByB0WJ3GFVG8gikJq1bmuX9TpAjllQR
+ wNU+LqFDYH3yUxbx+798AlLeChcoJqQt+dWzS80V1H4ZjNEsI6hGSTbQPdZJgKv/9Xmu
+ xt8UcO4RGEnSAK0/W9Yvp5MBjzJCipBjSrvTIdsfnT/K2qyeyEvOuvjpBA9VUPPlrI14
+ luFatKJvEBv86nu0L++TuOIDUzxccqhiHQRLcww7GWsfIQcNwlm+m8aK9H8ncegluNGp
+ 3+ODlbEqkvg61NvUQf+8f1GkMvFIVNhb0esFP3ASZ7NRP9QJT5alCgDiAPXz9RP8U7uB
+ HuyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737742073; x=1738346873;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cfjAH6wacEymYVBFOh1WPmz3PQJf2rhJKR5AERmsJw4=;
- b=Ysll14jBftjvVBfvAQt2aGBU8iiD7yYqrPTEqy7OciQxVjzF0MapY7kGX0LnJ39CeS
- Jelyf58g5ge1BwaEoACboMF+4+AMlG0+nutzqMFTJCNsaBsOfISwdXGzYL7eYaWkxfqm
- uOYUJNYqj0PosYlXZO2VLvEw59Rwi7ETDennQYx+ZcB2tE1E0B+mCvMGcJtia7vTEbcD
- WNOngqjTP7lPsE0O8o/qdihft5y0RtVq9EWCkBNe91KMlVubZcOxyPIq4gb9z1CVQ7vx
- ug307DvOon2LckvNXM4bMSNKA3J2MQ9DQxOOD2xFvhec20Ie+mObNN/yL7lcjUXuz5kA
- dKZA==
+ d=1e100.net; s=20230601; t=1737755268; x=1738360068;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=B5Tj33bfeSX/rTFkhgrXRtKcEMb6MiRIfWtM4lbRYlk=;
+ b=Q7JfVQ/XEt+vaRD2hlaMJWrwUB7vS7mWePhR2mGd7wMsHaomwdrVV4intTvQHQ5ENd
+ /GD+YhYrF7AuJDw3apVhODMvD6xvXoJGJzuvtLrgN/PSV1LNLJJ8NUNmYivEAX9fLrcf
+ N/EWRwUt3zXgROhfweDgI94r59N4Dn5sgjwtzDc19fR/8j0marBlKgDCuP5bEs1KjmOz
+ JoKMk5s6P7QPkDP+yJ80k6L180HX6AFXCWJaVx2DzkGmWjac6MLCm64HfNlQDk4N1DLD
+ hVpGh20U8juyHTAbBVFJ5RusxbqtYzz++nCud1lKI4nfMStC7CyuHzd4nT6evbsGv/if
+ imIg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWN/WMl6i5bLI74T291qoh5YdZ3wz7AjSaDyq7dPI2IUkyQgvlHby34m6AZBWEXs2YE7VsG/O2QZ6Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzatmE8mVr6pIEfi3kwiJaUZRWV728X3YSDixz+oho8Zmm+exs4
- nrUNHNwjiVicOizZWR6+r8F5DWMfZndfMH8SZJ0xqZi9Iz120EEjm5B7v6WZOd8HHzLReIN6Vjn
- 1AzEMfNZ3I3Tk01P2qwy0GhYPgzs66dBfW15jlw==
-X-Gm-Gg: ASbGncvcP7y+vehAbicL1fqKPhUq519S3o4QmoAlfsbSmZDwzCxXBw5iio87SBciXyc
- Ekzmx3CbVW7Lqnd+D6FKhy8FL+b2E9yqJK8wSvHsg4/Vl/QgA4iKjIHSai3SvZeuDqdg=
-X-Google-Smtp-Source: AGHT+IEvQawWvbODqKpeWmhbnVvP67aPuBS2qojQLo5WrCMABiRRxMrK1zubuPh/r6/xhtarnZgUkKZJY0JBR3HK9zI=
-X-Received: by 2002:a05:690c:74c7:b0:6ea:5da9:34cc with SMTP id
- 00721157ae682-6f6eb64e5c2mr240082137b3.7.1737742072993; Fri, 24 Jan 2025
- 10:07:52 -0800 (PST)
+ AJvYcCUHeCOSQ1tkrSmKbDU8Z6kqcGABgKC71bs5zAqdayutDNXHhJ3BDewMDboWtRSBp0ZErnILmqNnZbE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzGzeWZh7+epN0f+Z+RMcNXmhS8r+r8gFMlYUnIwqPcItbGtW2S
+ x6VDdusbXwuLFSnC+GQJeWaoWNngqVTxaTKMtZHgC8AQigm5SLzYkfjp8XFnwqA=
+X-Gm-Gg: ASbGncsBB46XVLDmYTi2vVj3h7/T7fSC+SHeDxyYF6j9rrfIt9PF7IVJx0ZNd2tTydf
+ Fs01CFBfwyPOdt1gmn0NlZX+fzSOtEG/4y3GTwBIy0fhVQkJj/DouqvKsg+mDpib9kIjSXbpozs
+ woybhBTTnIsFPYckNpTmOZA1B2YPad9pueD8DbPDV9Q6Eo/u/IAxuePQ3RJ57duaBarj/NNyHe2
+ RSkkgEe12P2IipI0hLcCFQ4y5a+YZnFPz5D2Vji+q0W6wwHLyQ93IDloB4KV8rlq8nS6EHChKg7
+ OcOuRBqPPH8Q
+X-Google-Smtp-Source: AGHT+IH4WpHtN/+DZacffRvpjppuUDgdBR372cJZn6NgO/JVsuy/BYBN+QPCxXqdx7bZE3Ow7XgAJA==
+X-Received: by 2002:ac2:5239:0:b0:542:91ac:3919 with SMTP id
+ 2adb3069b0e04-5439c251224mr10290273e87.23.1737755267531; 
+ Fri, 24 Jan 2025 13:47:47 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-543c8237491sm425014e87.104.2025.01.24.13.47.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jan 2025 13:47:46 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v6 0/7] drm/msm: make use of the HDMI connector infrastructure
+Date: Fri, 24 Jan 2025 23:47:40 +0200
+Message-Id: <20250124-bridge-hdmi-connector-v6-0-1592632327f7@linaro.org>
 MIME-Version: 1.0
-References: <20250118-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v5-0-9701a16340da@linaro.org>
- <fbe9381b-7a61-417c-af97-ff5b8f498673@quicinc.com>
-In-Reply-To: <fbe9381b-7a61-417c-af97-ff5b8f498673@quicinc.com>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Fri, 24 Jan 2025 10:07:42 -0800
-X-Gm-Features: AWEUYZljn2d60ZQAEgu4wX7E2q0L-hbvtZG9qjDwTq_2iWq5aX5k6JqtUqYgnO8
-Message-ID: <CABymUCP2dWK44j8n2ncVGLvLPoOKzgKK1NitRN-y8izpvUs__Q@mail.gmail.com>
-Subject: Re: [PATCH v5 00/15] drm/msm/dpu: Support quad pipe with dual-DSI
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHwKlGcC/3XQzWrDMAwH8FcpPs9DtvyVnfYeYwcnVhrDZhdnm
+ I2Sd59TGO0IPv6F9JPQla1UIq3s5XRlhWpcY04tmKcTmxafzsRjaJlJkAoQLB9LDK26hM/Ip5w
+ STV+5cEtotSJjRADWZi+F5vh9c9/eW17i2tp+bmuq2Kt/ouuIVXDgA4xmQK1BGnj9iMmX/JzLm
+ e1klY/M0GNkYwQ6GMkjkT0yeGc0Qo/BxngRhFPBuJnwwKhHRvQY1RgtBMx2UGikPDD6zpjut6v
+ erxnRtY+DFH7+x2zb9gvmorqw1wEAAA==
+X-Change-ID: 20240307-bridge-hdmi-connector-7e3754e661d0
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4253;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=OC7ZEYNSL8rOgIaV64XmiBZ3RC1b6WLbPxyd6j9an9I=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnlAp/7CaKNWmhSjBn79dG6Gmr8f30McLVpvImv
+ 0h4kXXLlrCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ5QKfwAKCRCLPIo+Aiko
+ 1fLxCACneLGuBUQqh1eJjGii+KDfOA5YnjAzmQ34U+W5QNzI06HVDAtrOEIVEuOe799FLd2hITp
+ MiVPdBAgb6XguUzs9OzYEhtya9wZZta51COuNn6OOcDjxzpCXX3mt+iqGIwvtGhd3ftYT4TtwcC
+ NdDnoF/gdv4/wilF45AnwzBEa9+TxK9OeQcCRcLe6ILRTfI+rOluAMBwd/dcdxID4jNxnlY2hz+
+ mMfQdnnR/0GfOOaIDmu36ZXylsOwbRoyCjUxxwG/xGJN9WRYmL14p2+SMTZYR6uIGx3D9CASdcf
+ KcNPjbTyxQnINjx6C6knaQsEfGbh6GZTd/WU+jtoR3XCvKzw
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,30 +112,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Jessica Zhang <quic_jesszhan@quicinc.com> =E4=BA=8E2025=E5=B9=B41=E6=9C=882=
-3=E6=97=A5=E5=91=A8=E5=9B=9B 15:32=E5=86=99=E9=81=93=EF=BC=9A
->
->
->
-> On 1/17/2025 8:00 AM, Jun Nie wrote:
-> > 2 or more SSPPs and dual-DSI interface are need for super wide panel.
-> > And 4 DSC are preferred for power optimal in this case due to width
-> > limitation of SSPP and MDP clock rate constrain. This patch set
-> > extends number of pipes to 4 and revise related mixer blending logic
-> > to support quad pipe. All these changes depends on the virtual plane
-> > feature to split a super wide drm plane horizontally into 2 or more sub
-> > clip. Thus DMA of multiple SSPPs can share the effort of fetching the
-> > whole drm plane.
->
-> Hi Jun,
->
-> Please add me to the CC list of all future patchsets/revisions.
->
-> Thanks,
->
-> Jessica Zhang
+This patchset sits on top Maxime's HDMI connector patchset ([1]).
 
-Sure.
+Currently this is an RFC exploring the interface between HDMI bridges
+and HDMI connector code. This has been lightly verified on the Qualcomm
+DB820c, which has native HDMI output. If this approach is considered to
+be acceptable, I'll finish MSM HDMI bridge conversion (reworking the
+Audio Infoframe code). Other bridges can follow the same approach (we
+have lt9611 / lt9611uxc / adv7511 on Qualcomm hardware).
 
-Regards,
-Jun
+[1] https://patchwork.freedesktop.org/series/122421/
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v6:
+- Moved HDMI timing engine programming to the end of the atomic_prepare
+  (Abhinav)
+- Rebased on top of drm-misc-next, incorporating changes to
+  drm_bridge_connector
+- Switched to the DRM HDMI Audio framework for the HDMI codec
+  implementation
+- Link to v5: https://lore.kernel.org/r/20240607-bridge-hdmi-connector-v5-0-ab384e6021af@linaro.org
+
+Changes in v5:
+- Made drm_bridge_funcs::hdmi_clear_infoframe() callback mandatory for
+  DRM_BRIDGE_OP_HDMI bridges (Maxime)
+- Added drm_atomic_helper_connector_hdmi_disable_audio_infoframe()
+  instead of passing NULL frame to
+  drm_atomic_helper_connector_hdmi_update_audio_infoframe() (Maxime)
+- Disable Audio Infoframe in MSM HDMI driver on audio shutdown.
+- Link to v4: https://lore.kernel.org/r/20240531-bridge-hdmi-connector-v4-0-5110f7943622@linaro.org
+
+Changes in v4:
+- Reworked drm_bridge_connector functions to remove ternary operators
+  and to reduce indentation level (Maxime)
+- Added hdmi_ prefix to all HDMI-related drm_bridge_funcs calls (Maxime)
+- Made vendor and product mandatory to the HDMI bridges (Maxime)
+- Documented that max_bpc can be 8, 10 or 12 (Maxime)
+- Changed hdmi->pixclock to be set using tmds_char_rate instead of
+  calculating that manually (Maxime)
+- Changed mode_valid to use helper function instead of manually
+  doing mode->clock * 1000
+- Removed hdmi_mode in favour of connector->display_info.is_hdmi
+- Link to v3: https://lore.kernel.org/r/20240530-bridge-hdmi-connector-v3-0-a1d184d68fe3@linaro.org
+
+Changes in v3:
+- Rebased on top of the merged HDMI connector patchset.
+- Changed drm_bridge_connector to use drmm_connector_init() (Maxime)
+- Added a check that write_infoframe callback is present if
+  BRIDGE_OP_HDMI is set.
+- Moved drm_atomic_helper_connector_hdmi_check() call from
+  drm_bridge_connector to the HDMI bridge driver to remove dependency
+  from drm_kms_helpers on the optional HDMI state helpers.
+- Converted Audio InfoFrame handling code.
+- Added support for HDMI Vendor Specific and SPD InfoFrames.
+- Link to v2: https://lore.kernel.org/r/20240309-bridge-hdmi-connector-v2-0-1380bea3ee70@linaro.org
+
+Changes in v2:
+- Dropped drm_connector_hdmi_setup(). Instead added
+  drm_connector_hdmi_init() to be used by drm_bridge_connector.
+- Changed the drm_bridge_connector to act as a proxy for the HDMI
+  connector  infrastructure. This removes most of the logic from
+  the bridge drivers.
+- Link to v1: https://lore.kernel.org/r/20240308-bridge-hdmi-connector-v1-0-90b693550260@linaro.org
+
+---
+Dmitry Baryshkov (7):
+      drm/msm/hdmi: switch to atomic bridge callbacks
+      drm/msm/hdmi: program HDMI timings during atomic_pre_enable
+      drm/msm/hdmi: make use of the drm_connector_hdmi framework
+      drm/msm/hdmi: get rid of hdmi_mode
+      drm/msm/hdmi: update HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE definition
+      drm/msm/hdmi: also send the SPD and HDMI Vendor Specific InfoFrames
+      drm/msm/hdmi: use DRM HDMI Audio framework
+
+ drivers/gpu/drm/msm/Kconfig                    |   2 +
+ drivers/gpu/drm/msm/hdmi/hdmi.c                | 120 +--------
+ drivers/gpu/drm/msm/hdmi/hdmi.h                |  34 +--
+ drivers/gpu/drm/msm/hdmi/hdmi_audio.c          | 131 +++++-----
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c         | 325 +++++++++++++++++++------
+ drivers/gpu/drm/msm/registers/display/hdmi.xml |   2 +-
+ 6 files changed, 337 insertions(+), 277 deletions(-)
+---
+base-commit: 04db8124620ddca01d2fdc48d15471dd77efeff0
+change-id: 20240307-bridge-hdmi-connector-7e3754e661d0
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
