@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 099D3A1CCF4
-	for <lists+freedreno@lfdr.de>; Sun, 26 Jan 2025 17:41:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36E62A1D41B
+	for <lists+freedreno@lfdr.de>; Mon, 27 Jan 2025 11:11:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9AA810E483;
-	Sun, 26 Jan 2025 16:41:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86A5C10E236;
+	Mon, 27 Jan 2025 10:10:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pee83AH9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BC4HhShF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B96F110E483;
- Sun, 26 Jan 2025 16:41:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0416110E21E;
+ Mon, 27 Jan 2025 10:10:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 735055C5F2E;
- Sun, 26 Jan 2025 16:41:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B742C4CED3;
- Sun, 26 Jan 2025 16:41:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9402C5C542F;
+ Mon, 27 Jan 2025 10:10:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56E1C4CED2;
+ Mon, 27 Jan 2025 10:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1737909701;
- bh=/7J4enhP8qcoFPo60PM5Nw959dOsZCztnFfcr76/Vgw=;
+ s=k20201202; t=1737972656;
+ bh=agJ5S9bl4wmfQrtA3be1QnJSpq5ngoYn66pkWUpjpJQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pee83AH90NNXLz7BP6WhQh9IjMp8jfwGZ9tojv7gTNjTmNKW8WrYWQUAOMUS0kr5a
- oJdi8GTMwp7KlcCzszEQObO/I6Bm/NAM41mNcUEaPT7MpzRJb6x2eJNmG5fQbYLP9x
- ekDBQPQP27IjqZ5PdkdkTO2qqQq6kY/nl7u20h7obwyDZXVz40qWKHblmdRGbrJAkk
- lkMMuHtjOyy1hYZ02sefxYoq4hZSFmWgNCN6T3XJwBqhDu3LX1NYsWt9ccRKgWrtpR
- nIw6OBtHZX2lY+rDaUjFHsaweAcXz9YdkIL7NJCYvxhCYnxXlyL7DmmcmxQ/RliNbG
- qpY/ENj0Sn0hg==
-Date: Sun, 26 Jan 2025 17:41:35 +0100
+ b=BC4HhShF/g4jinRM39EfKcfX2tpvQMIDAHkehNMh8IRLiE/IrlvVjLJSTG3uu5STj
+ buToOX0r344ZkiusdUPDg7CqlFcqcX/aEBOEUSuhIIPj615drPE0+nyRUNHV/1KTnE
+ hIVQFbOg/sj6wOxuLIzOb217pwGuy0aC9YCpn/3kr6qfNqWU/fdWcLhTonukjBP98e
+ j0LFW02vGqhqgx73YbSWDDV1yRcRH3N5pH5Y+3IugGyqBCwG4G3zBy30VlTh1VDPj0
+ bNFndaaZmKO0W5H3eo2MTd488YSDPVqO3AmBXFlN5YVF+Xui/R6QY0FV5ocXNXZfPt
+ Hf1deZfAjMgQg==
+Date: Mon, 27 Jan 2025 11:10:52 +0100
 From: Maxime Ripard <mripard@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -45,16 +45,15 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/7] drm/msm/hdmi: program HDMI timings during
- atomic_pre_enable
-Message-ID: <l3f3xg4fjycx4uo66sfdbtke3g6ubf2lrtocys53ymseoi3g6q@z3642rvjy2fe>
+Subject: Re: [PATCH v6 7/7] drm/msm/hdmi: use DRM HDMI Audio framework
+Message-ID: <jsm3rtju3r3nxb5wlar4wkvychcdf6lniluw4c3bxkaijfftpy@nsn5v37s3cmp>
 References: <20250124-bridge-hdmi-connector-v6-0-1592632327f7@linaro.org>
- <20250124-bridge-hdmi-connector-v6-2-1592632327f7@linaro.org>
+ <20250124-bridge-hdmi-connector-v6-7-1592632327f7@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="vuxkawwxcu5moozb"
+ protocol="application/pgp-signature"; boundary="v43khfyyztducgj6"
 Content-Disposition: inline
-In-Reply-To: <20250124-bridge-hdmi-connector-v6-2-1592632327f7@linaro.org>
+In-Reply-To: <20250124-bridge-hdmi-connector-v6-7-1592632327f7@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,36 +70,34 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---vuxkawwxcu5moozb
+--v43khfyyztducgj6
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 2/7] drm/msm/hdmi: program HDMI timings during
- atomic_pre_enable
+Subject: Re: [PATCH v6 7/7] drm/msm/hdmi: use DRM HDMI Audio framework
 MIME-Version: 1.0
 
-On Fri, Jan 24, 2025 at 11:47:42PM +0200, Dmitry Baryshkov wrote:
-> The mode_set callback is deprecated, it doesn't get the
-> drm_bridge_state, just mode-related argumetns. Also Abhinav pointed out
-> that HDMI timings should be programmed after setting up HDMI PHY and
-> PLL. Rework the code to program HDMI timings at the end of
-> atomic_pre_enable().
+On Fri, Jan 24, 2025 at 11:47:47PM +0200, Dmitry Baryshkov wrote:
+> In order to simplify the driver even further and to remove the
+> boilerplate code, rewrite the audio interface to use the DRM HDMI Audio
+> framework.
 >=20
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
+
 Maxime
 
---vuxkawwxcu5moozb
+--v43khfyyztducgj6
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ5ZlvwAKCRAnX84Zoj2+
-dlsVAX9kVIzgidPAipVZkVtP9jTc1dPSHDr7Gekx/pQTRZV2pmWARlzDGnktKhFm
-XBHtBLYBgL/agrjjEvCy6zK7KP5WCZYRuOl7LA1TUlRoYCLBKrezW3Vv6aYQULGO
-IC2jUvOD8A==
-=hxco
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ5dbpgAKCRAnX84Zoj2+
+dhXYAX45o3735N1/kaKk5NCn2pqj0fKc+7jUoqxD+0dXoZX6+i7NcPgf322fOtRP
+Ryy7+ggBf1jmuPDnSIkMIXnLg8ynUROzvy2AN0pISH0RpENCAQiivb5wdF7RYkhV
+Mik42nMxew==
+=lIVh
 -----END PGP SIGNATURE-----
 
---vuxkawwxcu5moozb--
+--v43khfyyztducgj6--
