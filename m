@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DCD0A1D778
-	for <lists+freedreno@lfdr.de>; Mon, 27 Jan 2025 14:54:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97182A1D78E
+	for <lists+freedreno@lfdr.de>; Mon, 27 Jan 2025 14:56:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0914810E51F;
-	Mon, 27 Jan 2025 13:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51AEC10E523;
+	Mon, 27 Jan 2025 13:56:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JOQF+pMT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lu3+qPzg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28D7C10E51C
- for <freedreno@lists.freedesktop.org>; Mon, 27 Jan 2025 13:54:42 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-30219437e63so56708001fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 27 Jan 2025 05:54:42 -0800 (PST)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9C2910E523
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Jan 2025 13:56:07 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-3043e84c687so38372271fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Jan 2025 05:56:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737986080; x=1738590880; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1737986166; x=1738590966; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=MG8vL6IasZgSPWiGApP4GVL5c9606qD22ZEA08oiK0c=;
- b=JOQF+pMT6yt0NcObN8yjUy7XRjb3A5UwrKwAgEqrDKEQhazI+LwhrvFIMwySO4wpTE
- 7ghGCSF/GZRJA8cU4ZDpjHhW04It/GCK01zC+qvrrMP01pOjxWMq2nfgpqBkPjc9QbKo
- eAN4G7ZIWLe0qZMRR2sGOovTcyLnQ++mQVYRDc/SQfPzd+Eh70effkRYlJJ0a3TWuxaN
- gMXbMFuIyoDTY7EGYfjNZwG5lVMHwTVPXMhj4JEGXPTx6/oWzA7eXSXEoLnVIj6eZaoO
- sHHjdA8/ezbCtcSNGmYDfby2VZoQ0rt59mxzstBZUsI2S9RvUx9G/1pqUFWEh8h9ql3s
- CNzA==
+ bh=Wt4sS6zTyCweAZYH++LZePNO/qvVROY3D8Q5U1D/3eY=;
+ b=lu3+qPzgjXB32Qkc6Z/u47cL3LSEVu564pDBZsprDBS+kVSDhtFScX1lN7BEBm+HDH
+ mzaOsf9TGSTYXbR2gOMn7B4yCcwlnzH572eZwupiwJ6geUc4ONWgZvgRazdsFnO1j7gX
+ k0/e8lc20Wkcv4tFUCu/JUAcucrMXjOOqUrAyNmsitWm6cCavCi8V/+na+M5TBL2NIZv
+ BtlugT8kUE6faegDEMQWyy8iJoKc0WW0wlCQNDE4Ris86iEOenAP6Ny9ztLYpwylxROr
+ zhwAUXizBvUtn5g5f1aITl1Qtcb7F84q+RuVPZ/D5Bb5WF6FLhSLJXR64OIOfUUDHJWJ
+ VlLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737986080; x=1738590880;
+ d=1e100.net; s=20230601; t=1737986166; x=1738590966;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MG8vL6IasZgSPWiGApP4GVL5c9606qD22ZEA08oiK0c=;
- b=J8fpA7EoQN4bDHTxOkpIVdXGyrgyafcfYzuXBru13WqEr0g89QClA+/znJWwp4M7X2
- oQN+z9BM/wAKiqmNIZduo332CFsCHsbH3cH5kf/OhAxDtYUlDwwSmDz62pzNe6OuoGr5
- kInGxKkEEp1CoD9wypIbIC0RlegJG2kaPeq+ZRG/dQRrHpqJu85Lq0rH2gpxm6rJsD5M
- 3u/YUhtqhi12uwLY7fvwJQFhilVxe3mSuSXEm1+HHIxQMSD34rtqrCSR7nckgwvZjhX/
- OrT9wkfBk+S++ItaHWL8vbEUa4JJVJ5TyfajQfyudGsL4PfjdVpK9X3VDccJa1S1qOTx
- 917g==
+ bh=Wt4sS6zTyCweAZYH++LZePNO/qvVROY3D8Q5U1D/3eY=;
+ b=EG6LmAc0I9KVKUJ2AkyEJPSlsCdd0u9KXbBvMRrPXURNjd5lVpsrqeZxbpQOCYfIPn
+ 9rm9zU9wb1jyktrmVdGF3GyZ0CckLSt0vuaS1R1uKYmRX/5k/4gwzaToWz7GDNN/yaIY
+ Kv8Gg14qOFoN37JCsX9ESWohmEm279Rlnhgq3GJUWnAX822YMjMTmYntU5WA3eMO4+sb
+ wYZ5By9cZ+2wGWL9HpToEmWdeTOOsH+LsQDytKbajLcZE5xzu3T1P1o4PVs6apwshKYQ
+ ewheVgk8DFf4UJ14HM/GwZNm2wt09W+2NjEj7+9/JpqJDNDNm+TWEdsoLwadXU7mY3R4
+ BVbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWaB2eS2hxm0Z8I8Wu5UZN1j4RreJKWCjdwQI1mYaJutZC3q22ouO8onQPNkUS4RM9Z4lQIgMXeYts=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzp2j+cU4CDP96kiCw2aZZogxkwHvRDsy6b3PLX9L+uYeF+JzcT
- MhUvHgmn8GobcxrJHEHKi8Daf7gNbOzYIzAyIB1FiHwzg9ER+yf56VrllHfXd1s=
-X-Gm-Gg: ASbGncuVgzDTjJhXYxbokTBoF1FRXIvFSD8lEw8asynMXrVJ6CEnItsACtvjbl/rZJ9
- 018NiUmw4TVo47Lx0uq1Qzi1CR7lV7iK1UrlthIp0goZlnVeyaRR6i/f2rUBLBwV3SlT30sEx4E
- SUdsNi7Mu+/v4CTcXMOqkXRGk8tXRCM9aUJwuqI1VP/n71B7NMHzUyWBV91XUNpaSDJuj7aWH0O
- tMxMW6VdU87aUP3cRkiy+CkHHQ3jit8bu3AMKRbcYEICS+txLDaStNfDE79Zzvx1MIO0CsyT0Pa
- +7fqrd6na0P4TX/djSnIORK1Bj7dWP7afRxrIzZl30Ep1EaUEwgdCZnxeAaZ
-X-Google-Smtp-Source: AGHT+IEZNRgyG7avdiIFrrqpYNJ9ma4eAM8WC44WUlJD0d6Eyzriv+5OslGJLlbJ5m5dOBVSOwRTkw==
-X-Received: by 2002:a2e:a917:0:b0:302:2097:392f with SMTP id
- 38308e7fff4ca-3076c33d8d0mr50387271fa.7.1737986080297; 
- Mon, 27 Jan 2025 05:54:40 -0800 (PST)
+ AJvYcCXQy9mr/NnuHQ1bnuIR6oQosqhmiBFIUx7g3qyBmRfiwnLpdriZWElXnf4JdeCMzyiwlv+maARgKjQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzgz64LXCw0nkgECm8RrTFws5AWI7A9wd5QoJLIh5Y9SeZYLV0/
+ 4cpgJpV9x3gQkj6kHWSuo0fkGw8raWoYLFTNOcyGQbkPwg6vOdg9F7cdwMBfLWA=
+X-Gm-Gg: ASbGnctgaRN1GH0fypZmfJjdAh9/zzo4pfXAtQySjFuHOV8wF8dKkKJe22gL8edkJx3
+ W+k5n453mq+WelBl5PmRFuq8qUt9peb7Y/7gOO23Ukh2GCixgdPO92REWeOIVGLZ7h0Hk0LGOGG
+ qjeN/wWZoNF9NwHVHMT5jbk2SDPByGwK1Y+Mb/1ydBuNw9mIpcEOEiL8RPu1ZByT4BGTKDidYeR
+ lox+iQ5toj0sIMlie3KLP5rF8atXxbXXrbSOrSrbVaH0snRmS32gvoetbKsqHSjMVxk87qBW0ll
+ 8s4o1i2PEAuk7re4aiMoifJ72eWchNw3DJQEsgkMYvnlG8GIhGVSJSAQd4Qg
+X-Google-Smtp-Source: AGHT+IEndS/LVqeUqSpxsvwA84LzRH+l+YBnVxcXQWp9YfcsB2fe5zmaDUUkUk95OVNxnfDlx/rsmw==
+X-Received: by 2002:a05:651c:2104:b0:301:12:1ef3 with SMTP id
+ 38308e7fff4ca-3072ca5bc35mr153845421fa.4.1737986166078; 
+ Mon, 27 Jan 2025 05:56:06 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3076ba6bd1asm14100191fa.11.2025.01.27.05.54.38
+ 38308e7fff4ca-3076bc49b5fsm14359241fa.101.2025.01.27.05.56.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jan 2025 05:54:38 -0800 (PST)
-Date: Mon, 27 Jan 2025 15:54:37 +0200
+ Mon, 27 Jan 2025 05:56:05 -0800 (PST)
+Date: Mon, 27 Jan 2025 15:56:03 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -79,14 +79,14 @@ Cc: Rob Clark <robdclark@gmail.com>,
  freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/msm/dsi/phy: Use the header with clock IDs
-Message-ID: <ccs5oxfgtk5zrnw27okvbskddqynurx6hl3e6g4zbmlqcqm4yl@sxghz575bqdo>
+Subject: Re: [PATCH 1/2] dt-bindings: display/msm/dsi-phy: Add header with
+ exposed clock IDs
+Message-ID: <4vy6tjdvhkplly3uqqekdmz6brkcbac6pijrn6gdyz4x3hralr@meeugoua2ats>
 References: <20250127132105.107138-1-krzysztof.kozlowski@linaro.org>
- <20250127132105.107138-2-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250127132105.107138-2-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20250127132105.107138-1-krzysztof.kozlowski@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,22 +102,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 27, 2025 at 02:21:05PM +0100, Krzysztof Kozlowski wrote:
-> Use the header with clock IDs to bind the interface between driver and
-> DTS.
+On Mon, Jan 27, 2025 at 02:21:04PM +0100, Krzysztof Kozlowski wrote:
+> DSI phys, from earliest (28 nm) up to newest (3 nm) generation, provide
+> two clocks.  The respective clock ID is used by drivers and DTS, so it
+> should be documented as explicit ABI.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
 > ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           | 5 ++---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      | 1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       | 1 +
->  6 files changed, 7 insertions(+), 3 deletions(-)
+> 
+> Patch for Display tree, although with Ack from clock.
+> ---
+>  .../devicetree/bindings/display/msm/dsi-phy-common.yaml  | 2 ++
+>  MAINTAINERS                                              | 1 +
+>  include/dt-bindings/clock/qcom,dsi-phy-28nm.h            | 9 +++++++++
+>  3 files changed, 12 insertions(+)
+>  create mode 100644 include/dt-bindings/clock/qcom,dsi-phy-28nm.h
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> diff --git a/include/dt-bindings/clock/qcom,dsi-phy-28nm.h b/include/dt-bindings/clock/qcom,dsi-phy-28nm.h
+> new file mode 100644
+> index 000000000000..ab94d58377a1
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/qcom,dsi-phy-28nm.h
+
+I think this should be dt-bindings/phy/qcom,foo.h
+
+Other than that LGTM
+
+> @@ -0,0 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
+> +
+> +#ifndef _DT_BINDINGS_CLK_QCOM_DSI_PHY_28NM_H
+> +#define _DT_BINDINGS_CLK_QCOM_DSI_PHY_28NM_H
+> +
+> +#define DSI_BYTE_PLL_CLK		0
+> +#define DSI_PIXEL_PLL_CLK		1
+> +
+> +#endif
+> -- 
+> 2.43.0
+> 
+
 -- 
 With best wishes
 Dmitry
