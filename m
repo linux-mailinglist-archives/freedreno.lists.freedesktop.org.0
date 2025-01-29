@@ -2,93 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03351A216BC
-	for <lists+freedreno@lfdr.de>; Wed, 29 Jan 2025 04:21:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3B8FA216E8
+	for <lists+freedreno@lfdr.de>; Wed, 29 Jan 2025 04:25:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF0F510E735;
-	Wed, 29 Jan 2025 03:21:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55D2010E05C;
+	Wed, 29 Jan 2025 03:25:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Hvl2W7va";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dpJlw+pr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED0610E738;
- Wed, 29 Jan 2025 03:21:31 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50T2i3cw015539;
- Wed, 29 Jan 2025 03:21:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Cn/B42vYFebt3hKPyF2K29gAOQdPJFcCxbsIZe5rscg=; b=Hvl2W7vaX+jW7pDS
- s67/PI5KmfAFpQJ2W33tam/bTR85x/e4sYtAWr20LFJo1Nzdf18qUIgM0YBLpyZK
- O6C5r06dH80Ko0xWnj1hAltIynm9GQmOs0vBNrFQnQwf+IgHGbzjQNtK5/t1lCmU
- 0SH40g3oHOQN1WJqOjTyyysHA7h06fC2R4G6HodhtBA/ka+iW4xsvcG9BS9Fx7Ik
- 5CLWCDtcVzXihffd0sd4CpdDRy0Qv7ekbV07O9tsWzqeJUbCvp2Y1Jpo+aqSVFfG
- Hde9KJLYIAcjHTl0mFwo7t42tOLwWrH8TMomhfiLdolY7oPD+emqAy7BRwmZqgTH
- z7tbvw==
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44f9ah08pq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Jan 2025 03:21:24 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50T3L9lV029787
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Jan 2025 03:21:09 GMT
-Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 28 Jan 2025 19:21:09 -0800
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Tue, 28 Jan 2025 19:20:46 -0800
-Subject: [PATCH v5 14/14] drm/msm/dpu: Set possible clones for all encoders
+Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
+ [209.85.166.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 406B510E05C
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 03:25:38 +0000 (UTC)
+Received: by mail-il1-f172.google.com with SMTP id
+ e9e14a558f8ab-3cfc154874eso48868345ab.3
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Jan 2025 19:25:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1738121137; x=1738725937; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6dDIqA4VDST4yPwcwWTbRUjv9OaOCjso0egT8E2lAps=;
+ b=dpJlw+prYqpQsQFpgEGENm7UuiqGf4+f+AQgxFSf8hzPXsMoHj21lLt21ndHAUT2eV
+ UqQ1+uTFS3pYLhbzMzTQo+liq9lOZSH4VNCMHHu/TEK/KLLpk8lANFzQgtWOihGxUKtZ
+ fdJdnsuAw8RPywEob4ynp5c5i6/TSam0FNhh69lT/0ah9vByA2kSl5DCH9HL7jtzmQ4H
+ F+egISgkbiPtXxjxlvEua0v+aoqFc1aCkm7Hf+Nt+zl8Vq6KQP7jaEOzmW68vYSd38Qu
+ zIVpe79qT6LhURAs+3GaqmYUJrE2PGVeJljwIpe2yMexzSOmGwh+s55ibLv1EaYRYgk3
+ k51g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1738121137; x=1738725937;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6dDIqA4VDST4yPwcwWTbRUjv9OaOCjso0egT8E2lAps=;
+ b=FIhg8cJtx0JeewaXD8vs9CnS/CLf6lfdViTD08yFvCnWcU9oMJLDLCZfC5dk9erK5F
+ 7mv9t0/2GH8uygYrXHmdGQy565ynEgwvUPkv6X1hkuYoQWxuyKMnTpWnKkE3eib0ayio
+ TQxbXoMqFBI5Wm4tZSG5rIPVOrhqIQHlblqBC+i8ToRd4qx2kX6FQg9XAHO/FVy7fzF1
+ hvZExnTzmIPHqvDVorfWVWhN5EG9DcY9mIoYg+hGPzY0LK2kvvHo8KjHNYND64ZXm/gz
+ 9CrWwKY+47bzRWw7e84LDnFral4ON/qI0KH7HFwTCyJZ1cu1sL29dAEn7oPg8U67tWWe
+ Gqhg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV3YAiYNTQBd6L7N10KYhECyGPrppxsKEgf5MUTWc+DUpZXmaEfirwvELQhZg7cV83yMLKeFpeNPqw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxIXcCEjPPAkfJpz6+X+Wd/wSQjzLdgQqoY+RZpX+npunXOq8vS
+ OpBO/qQXAQwwQVUGmmNDh560Tv54qyHUi94Lq5IgHHpHZAicFY0sQ+1/79oeppHx/mKkxSoB/qg
+ ytfxUuNail7LqrGljfULZ9dLTaek=
+X-Gm-Gg: ASbGncvDzKBC0V+zkpYjwboNgTG1OKn1ltZNE/gq3zZi5OgOKQxYWnD2ng9ZLjHig+K
+ WAU86Jhwt3BNsyWCp9MsGiTHDdvlLrGM2Cd+A9HB+wMiAB/riHU+1H+2TxSfE0hQ0IFkZBzpdTw
+ ==
+X-Google-Smtp-Source: AGHT+IGpMyCuuvxRf9JKn/IGg4EgOQrCoMhpqUUmXymP6ydEXopJZ7pGxrRwB8qnqi6LFxZVbq4bt2PZZlGgSUMT9/8=
+X-Received: by 2002:a05:6e02:138c:b0:3cf:ba60:e2fd with SMTP id
+ e9e14a558f8ab-3cffe3e5d81mr18188015ab.12.1738121137443; Tue, 28 Jan 2025
+ 19:25:37 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20250128-concurrent-wb-v5-14-6464ca5360df@quicinc.com>
-References: <20250128-concurrent-wb-v5-0-6464ca5360df@quicinc.com>
-In-Reply-To: <20250128-concurrent-wb-v5-0-6464ca5360df@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Simona Vetter <simona.vetter@ffwll.ch>
-CC: <quic_ebharadw@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@chromium.org>,
- =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- "Jessica Zhang" <quic_jesszhan@quicinc.com>
-X-Mailer: b4 0.15-dev-1b0d6
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1738120865; l=3799;
- i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
- bh=a+DUJ01oOCtYoTl0SwY+6asxjrQi3oi5Dx8nX4Bn9g0=;
- b=jSVUoEqbxT0CrILRg4zM/cLzBXU6ucOG0nvBfQ4sJ2A0GUef8ASEHuDaKzqt1SBxvr7OoixLi
- Zk5qOVSPGrdCLfjnggooPGJFZJhm4sKadkdR99F47QuHWbxe0JOwUd1
-X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
- pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: D7kWcti4BHO085TdnategZG1Vm6OLHkF
-X-Proofpoint-ORIG-GUID: D7kWcti4BHO085TdnategZG1Vm6OLHkF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-01-28_04,2025-01-27_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 lowpriorityscore=0
- mlxlogscore=999 phishscore=0 malwarescore=0 priorityscore=1501
- clxscore=1015 spamscore=0 impostorscore=0 adultscore=0 bulkscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501290026
+References: <20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com>
+ <20250122-msm-gpu-fault-fixes-next-v3-1-0afa00158521@gmail.com>
+ <Z5IjsqQ6vTdUXiGt@hu-guptap-hyd.qualcomm.com>
+ <CACu1E7H5X2EfY9AG=xceaoZJkbumwnrsU4QvNbxd_A2wgVVOaQ@mail.gmail.com>
+ <Z5KXwNPrdirVUn8Z@hu-guptap-hyd.qualcomm.com>
+ <CACu1E7GOS+_biN=AuQwYK47ApRPFGygyD+U5X9d_4ReXKrzbfw@mail.gmail.com>
+ <Z5i6GQDd5apN+a10@hu-guptap-hyd.qualcomm.com>
+ <CAF6AEGstcrAJDBpPm-uQ+zSDVEhDJ4AQhCTDT-z9_8Nq0e35WQ@mail.gmail.com>
+ <CACu1E7HErZAL=-GVQfKUAUK5bgK-X0qejt5os3f2UhkeZ1ptMQ@mail.gmail.com>
+ <CAF6AEGsUjp+fp1_cN7SGYTh5WSQrU2mm92QsqA5rcSY1OtA8VQ@mail.gmail.com>
+ <CACu1E7FyHwJ2mp5u3rDganYj80eDq3QJzLRFzxD9E9O7hEDiag@mail.gmail.com>
+In-Reply-To: <CACu1E7FyHwJ2mp5u3rDganYj80eDq3QJzLRFzxD9E9O7hEDiag@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 28 Jan 2025 19:25:25 -0800
+X-Gm-Features: AWEUYZkXMQul2iCS8g_lBAK6cifDDx4C71uDvFmo8QxPAIsqMGize_ZuktCSrPU
+Message-ID: <CAF6AEGugDxYjH63+Up_T_pt+jQ2D0m=x1tSg3fGPteu3XgR2qA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] iommu/arm-smmu: Fix spurious interrupts with
+ stall-on-fault
+To: Connor Abbott <cwabbott0@gmail.com>
+Cc: Prakash Gupta <quic_guptap@quicinc.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,101 +100,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Set writeback encoders as possible clones for DSI encoders and vice
-versa.
+On Tue, Jan 28, 2025 at 6:31=E2=80=AFPM Connor Abbott <cwabbott0@gmail.com>=
+ wrote:
+>
+> On Tue, Jan 28, 2025 at 9:21=E2=80=AFPM Rob Clark <robdclark@gmail.com> w=
+rote:
+> >
+> > On Tue, Jan 28, 2025 at 2:15=E2=80=AFPM Connor Abbott <cwabbott0@gmail.=
+com> wrote:
+> > >
+> > > On Tue, Jan 28, 2025 at 5:10=E2=80=AFPM Rob Clark <robdclark@gmail.co=
+m> wrote:
+> > > >
+> > > > On Tue, Jan 28, 2025 at 3:08=E2=80=AFAM Prakash Gupta <quic_guptap@=
+quicinc.com> wrote:
+> > > > >
+> > > > > On Thu, Jan 23, 2025 at 03:14:16PM -0500, Connor Abbott wrote:
+> > > > > > On Thu, Jan 23, 2025 at 2:26=E2=80=AFPM Prakash Gupta <quic_gup=
+tap@quicinc.com> wrote:
+> > > > > > >
+> > > > > > > On Thu, Jan 23, 2025 at 09:00:17AM -0500, Connor Abbott wrote=
+:
+> > > > > > > > On Thu, Jan 23, 2025 at 6:10=E2=80=AFAM Prakash Gupta <quic=
+_guptap@quicinc.com> wrote:
+> > > > > > > > >
+> > > > > > > > > On Wed, Jan 22, 2025 at 03:00:58PM -0500, Connor Abbott w=
+rote:
+> > > > > > > > > The context would remain stalled till we write to CBn_RES=
+UME. Which is done
+> > > > > > > > > in qcom_adreno_smmu_resume_translation(). For a stalled c=
+ontext further
+> > > > > > > > > transactions are not processed and we shouldn't see furth=
+er faults and
+> > > > > > > > > or fault inerrupts. Do you observe faults with stalled co=
+ntext?
+> > > > > > > >
+> > > > > > > > Yes. I've observed that on MMU-500 writing RESUME before th=
+e interrupt
+> > > > > > > > has been cleared doesn't clear SS. This happened with v2 in=
+ the case
+> > > > > > > > where there was already a devcoredump and drm/msm called
+> > > > > > > > qcom_adreno_smmu_resume_translation() immediately from its =
+fault
+> > > > > > > > handler, and we'd get a storm of unhandled interrupts until=
+ it was
+> > > > > > > > disabled. Given that the architecture spec says we're suppo=
+sed to
+> > > > > > > > clear the interrupt first this may have been an attempt to =
+"help"
+> > > > > > > > developers.
+> > > > > > > >
+> > > > > > >
+> > > > > > > Just to clarify, present sequence is:
+> > > > > > > 1. context fault with stall enable. FSR.SS set.
+> > > > > > > 2. Report fault to client
+> > > > > > > 3. resume/terminate stalled transaction
+> > > > > > > 4. clear FSR
+> > > > > > >
+> > > > > > > At what point when you try #2->#3->#4 or #4->#2->#3 sequence,=
+ is FSR.SS
+> > > > > > > cleared and interrupt storm is observed.
+> > > > > >
+> > > > > > With #2->#3->#4 FSR.SS is *not* cleared and there is a subseque=
+nt
+> > > > > > interrupt storm with only FSR.SS asserted. With #4->#2->#3 ther=
+e is no
+> > > > > > interrupt storm. From this we conclude that MMU-500 does not cl=
+ear
+> > > > > > FSR.SS unless #4 happens before #3.
+> > > > > >
+> > > > > Thanks Connor for clarification. I get your point now. I think it=
+'s
+> > > > > expected interrupt storm with #2->#3->#4 sequence is expected.  W=
+ith
+> > > > > CONFIG_ARM_SMMU_QCOM_DEBUG enabled, context fault follows the seq=
+uence of
+> > > > > #1->#2->#4->#3, which is spec recommended.
+> > > > >
+> > > > > so, common fault handler can be modified to follow the same seque=
+nce, but I
+> > > > > have concern regarding clearing FSR before reporting fault to cli=
+ent.
+> > > > > qcom_adreno_smmu_get_fault_info() is an example I gave but other =
+client
+> > > > > handler may have similar expecation of fault register not changed=
+ before
+> > > > > client fault handler is called.
+> > > >
+> > > > Simple solution would be to move the clearing of FSR to after the
+> > > > fault is reported.  It doesn't really matter if it is before or aft=
+er,
+> > > > as long as it happens before the irq handler returns, AFAIU.  And
+> > > > drm/msm will collect the fault info from the irq handler.
+> > >
+> > > As I said in the earlier mail: "From this we conclude that MMU-500
+> > > does not clear FSR.SS unless #4 happens before #3." #4 is clearing FS=
+R
+> > > and #3 is writing RESUME. So no, unfortunately it does actually matte=
+r
+> > > and we get a storm of unhandled IRQs if we don't clear FSR first. You=
+r
+> > > solution is what v2 did and it didn't work.
+> >
+> > So, just clear FSR also in the resume path
+>
+> Then we'd run the risk of incorrectly accepting a second fault if it
+> happens immediately after we resume. Not terrible for our use-case
+> where we only really need the first fault to be accurate and we
+> disable stall-on-fault afterwards, but if you ever leave it on then it
+> would result in another interrupt storm.
+>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32 +++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  7 +++++--
- 3 files changed, 39 insertions(+), 2 deletions(-)
+Howso? We'd still be ensuring that #4 happens before #3?  If needed we
+can add a param to resume_translation() so drm can tell it to only
+clear FSR if it calls resume_translation from the interrupt handler,
+or something like that.  But I don't want to lose capturing the FSR,
+and I don't think we need to.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index ee740cc881c483370336d84361c2fab7143ff2fc..df4ae6fe0c562983729a79cddc8b9e4306db768a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2557,6 +2557,38 @@ static int dpu_encoder_virt_add_phys_encs(
- 	return 0;
- }
- 
-+/**
-+ * dpu_encoder_get_clones - Calculate the possible_clones for DPU encoder
-+ * @drm_enc:        DRM encoder pointer
-+ * Returns:         possible_clones mask
-+ */
-+uint32_t dpu_encoder_get_clones(struct drm_encoder *drm_enc)
-+{
-+	struct drm_encoder *curr;
-+	int type = drm_enc->encoder_type;
-+	uint32_t clone_mask = drm_encoder_mask(drm_enc);
-+
-+	/*
-+	 * Set writeback as possible clones of real-time DSI encoders and vice
-+	 * versa
-+	 *
-+	 * Writeback encoders can't be clones of each other and DSI
-+	 * encoders can't be clones of each other.
-+	 *
-+	 * TODO: Add DP encoders as valid possible clones for writeback encoders
-+	 * (and vice versa) once concurrent writeback has been validated for DP
-+	 */
-+	drm_for_each_encoder(curr, drm_enc->dev) {
-+		if ((type == DRM_MODE_ENCODER_VIRTUAL &&
-+		    curr->encoder_type == DRM_MODE_ENCODER_DSI) ||
-+		    (type == DRM_MODE_ENCODER_DSI &&
-+		    curr->encoder_type == DRM_MODE_ENCODER_VIRTUAL))
-+			clone_mask |= drm_encoder_mask(curr);
-+	}
-+
-+	return clone_mask;
-+}
-+
- static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
- 				 struct dpu_kms *dpu_kms,
- 				 struct msm_display_info *disp_info)
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index 8503386bb50330a38b065c32d259de18166464d6..ca1ca2e51d7ead0eb34b27f3168e6bb06a71a11a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -60,6 +60,8 @@ enum dpu_intf_mode dpu_encoder_get_intf_mode(struct drm_encoder *encoder);
- 
- void dpu_encoder_virt_runtime_resume(struct drm_encoder *encoder);
- 
-+uint32_t dpu_encoder_get_clones(struct drm_encoder *drm_enc);
-+
- struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
- 		int drm_enc_mode,
- 		struct msm_display_info *disp_info);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 423af6f8251cb9c7c07f5a9878c8abc717d947a4..ec40405b27a1b53d44142c5f84e62bed878a0f6d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -2,7 +2,7 @@
- /*
-  * Copyright (C) 2013 Red Hat
-  * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
-- * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
-  *
-  * Author: Rob Clark <robdclark@gmail.com>
-  */
-@@ -824,8 +824,11 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 		return ret;
- 
- 	num_encoders = 0;
--	drm_for_each_encoder(encoder, dev)
-+	drm_for_each_encoder(encoder, dev) {
- 		num_encoders++;
-+		if (catalog->cwb_count > 0)
-+			encoder->possible_clones = dpu_encoder_get_clones(encoder);
-+	}
- 
- 	max_crtc_count = min(catalog->mixer_count, num_encoders);
- 
-
--- 
-2.34.1
-
+BR,
+-R
