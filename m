@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70A72A22608
-	for <lists+freedreno@lfdr.de>; Wed, 29 Jan 2025 23:04:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BFDAA22613
+	for <lists+freedreno@lfdr.de>; Wed, 29 Jan 2025 23:07:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A70610E8C2;
-	Wed, 29 Jan 2025 22:04:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 086FE10E8C7;
+	Wed, 29 Jan 2025 22:07:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QeqT2Y3U";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="P8ijQkKd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2C3710E8C2
- for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 22:04:47 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-54024aa9febso137802e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 14:04:47 -0800 (PST)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D2A710E8C5
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 22:07:42 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-543e49a10f5so128299e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 14:07:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738188286; x=1738793086; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1738188460; x=1738793260; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=nn+NcTr872jiU0vyNt8zW0XrUbMYhZRRGDuD467dm5Q=;
- b=QeqT2Y3U43BABe48nQhsJfsMDZjt1STD3OXcnxjlUqpDRIjzF34F7flg5tzBvqvXEY
- wbAqpZ8OVjfeg+xfZ0l2E3qN0+pa5q/dyyIRmvFbZ6dnEphxYL/BQxIPmL0pKl/XYvkh
- EtI6hF10B73g9SoJDetKP7gm+67lrLQYk/r0/JFq6dkRRlvAKx8uWB+38Pu1/pnxFru3
- ihiwVJafarCATSDHoqE/dF3NWd7DN7hb3wqXPvQjYIkmxVpACfvqgP2dAFM9qBIyfAjW
- D6IS2mIu1Y+ffBQdC9rAoRUzSmfe2bXvIDa7YK2lJ1MFQLIWoaUMGD8oVbbNG1zXTYsA
- 4Xbw==
+ bh=w8b9LinkIXkdHYsmqasFCr8qLnSUCnJw2wVia4tFFuo=;
+ b=P8ijQkKdIgGhSI2aR3cbEHnT7LTpr5NlXPlr00rY3PdVyslnPynbUrvQXpohhq1V8A
+ Xs+iCCl/oS0mBiACnUhAJc9kfX4E8qMrWRTgOvUKdhNVCQJp0e3UoHtk8Tprgj3C7IUt
+ gEsikM64XvLUOvubIDVO79S4/9ZwLg3re/eheIkI7d3tqZ0IXJyTnm2TyoVs1jO+Yczj
+ R+IUGnUfWBTMnsRO/kRhqPm8BwgqjhR8kkjCknGkp+/MGlomXCfZwiFAGOGSejzDKcuy
+ i8A3cWd7jZMfOPpZjShna3Ddye9iuvdf6AcIG/vtYNsk+MUjNfYkfrSvOAOF8jc/rAKo
+ rsJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738188286; x=1738793086;
+ d=1e100.net; s=20230601; t=1738188460; x=1738793260;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nn+NcTr872jiU0vyNt8zW0XrUbMYhZRRGDuD467dm5Q=;
- b=YQVeuFPGhX4OEsZokc0c+7mPsogWTCMaSAmgmiOwlbB1mAwZg3dw6ROIYEwasDbh8T
- 9bgFxSZ6RDTTWu6ZsjRZxFkXiER/Nn6/ifk5NHvvo7t57jzxus3dYa98jh0OJMmhDrSY
- HtbdXwGv2OwpqT0TA1IAwU2yOVevQU/5T0sd7NIwb65bkIobfeR5LcsJX5pTGxmeobcU
- 6oCA/iC5yM3mid8shD/hXh9kRrSBOCNH85g7YX7FsUpVRtPo8CL1ew//4jxjQ3Eh7EN+
- eJ9AHIXAwkwgg8n1AQPjJQTFeyGAbFe3RWN5znFlr9HLNT8EPLOJcvNCzzS6RxV8KWTD
- T6kg==
+ bh=w8b9LinkIXkdHYsmqasFCr8qLnSUCnJw2wVia4tFFuo=;
+ b=jLw6IxWPh6FyDEX6Xj+DzeNJvBIJf3LENEFLkH/1gawFw2URzTWHZXQtnnWBoe8tf5
+ CBUUc8jyfjgtLA/A2ihhbVwqoaE7shH+hHXE4rBRFQFAEO51n4qF3RBtq/JuccWe7ASU
+ 3NxyORVM4Dxi2DVR6R9gupw5Zmk1YbPuqXGsk+uQkTTRAf915ZDCAchhhFbm3pJAWypZ
+ paFZVMP7K85rBsbonJXxMAKO2ydfhKy91EKdY2UpJILfa1o0XtcuJ+oIOerBt13Kau8D
+ pWnqO23ulcKwG/nkfQ7a0adF4C07XortJlTDnt6z+PjKJTyu9m+V1YrjMWnp/Rc1Uotd
+ +ghg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVNlLV2/HLOMjcIOhVLNvKX4Mj729tbaMUdVsyYUtRbrj9AT4Ss5xl6xAw3K/rBWH3nPwwE3qkaT/4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwcnbaiMLlEWTfU2iz2QPfVsm2i1QxchEwi+3dWWdRkXo/ohIPJ
- xO4ZcSb0tbzY4kXks8T4xsAUVoF4oD50Yug3RH85Ac4fYA0gLalSHJnmAenaVkg=
-X-Gm-Gg: ASbGncvID7LUp0RYvfxcIPxfz7UJOD/JxISCmumFCCBjZfnWGOKTXHEkJt1+vJtY8eD
- qYAQaFfhpJ6nx4xd/QvcQBwEWcCwAsOZygUlNXmMnvgyloKuXf1OD6uBXxjc3THcCwwhwEoRJUE
- iW7GW4N2wC3MPge1sSqPH3uhexGIfNoNpf2j1PL5Q0iMZJMOqM9fC3c5amvjfpL8Yktpjm6tEth
- j086ysZQ5o/1hQ8tD9iZigS9VZJWxrs5/vkFqF9eTXQ9FKYV0Am9sxFDP9tsMpe7NkcdiIuqPoG
- NObllSRBLvV2LdjujgASSIoLsAlwFu/hsJ+1YBIhUjXCtwfPsMge4qfUF0c0u8RoRwMwSYo=
-X-Google-Smtp-Source: AGHT+IFoJoGsIwEL5a5EWttz29YtAkET9nd9l+IhCExm5wdza8/LoWAZwMLvwl0k0ETaASogU8yDBg==
-X-Received: by 2002:a05:6512:38d1:b0:53e:2f9d:6a73 with SMTP id
- 2adb3069b0e04-543e4ba6b47mr1224562e87.0.1738188285781; 
- Wed, 29 Jan 2025 14:04:45 -0800 (PST)
+ AJvYcCW4OAcbO8+NtjPhDpmm96ujOc7Sva5nXxj/WPcIjH+E/sIFNcUJ+t2xdCnSd9FxZyGTW6NeDCtTUDQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrBf6ZhnSja7iAQsLr2rqUTCXVHjJt51X9zPheJa4BuQioOlsZ
+ d7HcPTrr1qo/jEMpPdr5EMHXmi7XDjtut0HZmOAv1jxLlRla2vzFvnVv4CfVU3Y=
+X-Gm-Gg: ASbGncsjDjhpmGn0Ei3qv+ya+OQQ2txkN4ZKerkz3fvtIr9y+pcYj6Uab3/0IrG9gAg
+ M+ImBqFM+QjREStLMtDuJHs0M/X0PNQJMK7n5U5QWLv+f5LEPO4vAbtgqc+CzVni55j9hGXMgHq
+ jZv7sxxqMbSFTXZzyqit+hegu8m8Ov5tJyF1QFPJd7WI0qX9PgdypeHY9LXwGUK4xIpR3MU+Uyq
+ 64CB0umKD65ex6PooKXPdhQWlOYG0UTGHLf+01vJ6PFO84qa46J/lUVUeXiDm9cG43F4t7jP9ff
+ r+36TZEOiOBQCxHdzmqKbuG3uPrrYJGc0RjuH4ZIDDT4Wfanau/8EWRwT35s3g5ngUDwjLM=
+X-Google-Smtp-Source: AGHT+IGU58t9XSUJxpA7hMdaRg2MqAeK33LGZgrgQVW4xaH8bZpNt4BF9puhCwLIYjLLNRPDcZjUUA==
+X-Received: by 2002:a05:6512:1114:b0:541:d287:a53b with SMTP id
+ 2adb3069b0e04-543e4beac2amr1757535e87.19.1738188460355; 
+ Wed, 29 Jan 2025 14:07:40 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-543c8381846sm2067724e87.255.2025.01.29.14.04.43
+ 2adb3069b0e04-543c8379979sm2097867e87.179.2025.01.29.14.07.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jan 2025 14:04:44 -0800 (PST)
-Date: Thu, 30 Jan 2025 00:04:41 +0200
+ Wed, 29 Jan 2025 14:07:39 -0800 (PST)
+Date: Thu, 30 Jan 2025 00:07:37 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Jessica Zhang <quic_jesszhan@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
@@ -75,14 +75,15 @@ Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Rob Clark <robdclark@chromium.org>, 
  Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v5 02/14] drm/msm/dpu: move resource allocation to CRTC
-Message-ID: <34zk3jbcjlbux7737t2ve3xcwbt2uxsalbqih6os4ykqeklyfa@phy4izanhn3d>
+Subject: Re: [PATCH v5 06/14] drm/msm/dpu: Fail atomic_check if multiple
+ outputs request CDM block
+Message-ID: <yxvmnrpa7r55n6l3jf5wpkikd5iqtwjm5n56mqnxw65nboi5js@svaj72pzsevn>
 References: <20250128-concurrent-wb-v5-0-6464ca5360df@quicinc.com>
- <20250128-concurrent-wb-v5-2-6464ca5360df@quicinc.com>
+ <20250128-concurrent-wb-v5-6-6464ca5360df@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250128-concurrent-wb-v5-2-6464ca5360df@quicinc.com>
+In-Reply-To: <20250128-concurrent-wb-v5-6-6464ca5360df@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,213 +99,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 28, 2025 at 07:20:34PM -0800, Jessica Zhang wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Tue, Jan 28, 2025 at 07:20:38PM -0800, Jessica Zhang wrote:
+> Currently, our hardware only supports a single output using CDM block at
+> most. Because of this, we cannot support cases where both writeback and DP
+> output request CDM simultaneously
 > 
-> All resource allocation is centered around the LMs. Then other blocks
-> (except DSCs) are allocated basing on the LMs that was selected, and LM
-> powers up the CRTC rather than the encoder.
+> To avoid this happening when CWB is enabled, change
+> msm_display_topoloy.needs_cdm into a cdm_requested counter to track how
+> many outputs are requesting CDM block. Return EINVAL if multiple outputs
+> are trying to reserve CDM.
 > 
-> Moreover if at some point the driver supports encoder cloning,
-> allocating resources from the encoder will be incorrect, as all clones
-> will have different encoder IDs, while LMs are to be shared by these
-> encoders.
-> 
-> In addition, move mode_changed() to dpu_crtc as encoder no longer has
-> access to topology information
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> [quic_abhinavk@quicinc.com: Refactored resource allocation for CDM]
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> [quic_jesszhan@quicinc.com: Changed to grabbing exising global state]
 > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> 
 > ---
 > Changes in v5:
-> - Reordered to prevent breaking CI and upon partial applciation
-> - Moved mode_changed() from dpu_encoder to dpu_crtc
-> - Dropped dpu_encoder_needs_dsc_merge() refactor to clean up commit
-> - In dpu_encoder_update_topology(), grab DSC config using dpu_encoder
->   helper as dpu_encoder->dsc hasn't been set yet
+> - Changed check to fail only if multiple outputs are requesting CDM
+>   simultaneously
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  79 +++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |   2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 174 +++++++++-------------------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  11 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  19 +--
->  5 files changed, 144 insertions(+), 141 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  4 ++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 12 +++++++++---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      |  5 +++--
+>  3 files changed, 14 insertions(+), 7 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index bd6fef8eb8f267cde4ebe1155be39ce69e786967..99db194f5d095e83ac72f2830814e649a25918ef 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -692,10 +692,10 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
+>  		fb = conn_state->writeback_job->fb;
+>  
+>  		if (fb && MSM_FORMAT_IS_YUV(msm_framebuffer_format(fb)))
+> -			topology->needs_cdm = true;
+> +			topology->cdm_requested++;
+>  	} else if (disp_info->intf_type == INTF_DP) {
+>  		if (msm_dp_is_yuv_420_enabled(priv->dp[disp_info->h_tile_instance[0]], adj_mode))
+> -			topology->needs_cdm = true;
+> +			topology->cdm_requested++;
+>  	}
+>  }
+>  
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> index 0fbb92021b184c4792ddfe059e98b3acf7bc7cc6..dca3107d1e8265a864ac62d6b845d6cb966965ed 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> @@ -585,7 +585,8 @@ static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
+>  
+>  static int _dpu_rm_reserve_cdm(struct dpu_rm *rm,
+>  			       struct dpu_global_state *global_state,
+> -			       uint32_t crtc_id)
+> +			       uint32_t crtc_id,
+> +			       const struct msm_display_topology *top)
 
-> -/**
-> - * dpu_encoder_virt_check_mode_changed: check if full modeset is required
-> - * @drm_enc:    Pointer to drm encoder structure
-> - * @crtc_state:	Corresponding CRTC state to be checked
-> - * @conn_state: Corresponding Connector's state to be checked
-> - *
-> - * Check if the changes in the object properties demand full mode set.
-> - */
-> -int dpu_encoder_virt_check_mode_changed(struct drm_encoder *drm_enc,
-> -					struct drm_crtc_state *crtc_state,
-> -					struct drm_connector_state *conn_state)
-> +bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_state *state)
+I think it's enough to pass num_cdm.
+
 >  {
-> +	struct drm_connector *connector;
-> +	struct drm_connector_state *conn_state;
-> +	struct drm_framebuffer *fb;
->  	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
-> -	struct msm_display_topology topology;
-> -
-> -	DPU_DEBUG_ENC(dpu_enc, "\n");
-> -
-> -	/* Using mode instead of adjusted_mode as it wasn't computed yet */
-> -	topology = dpu_encoder_get_topology(dpu_enc, &crtc_state->mode, crtc_state, conn_state);
-> -
-> -	if (topology.needs_cdm && !dpu_enc->cur_master->hw_cdm)
-> -		crtc_state->mode_changed = true;
-> -	else if (!topology.needs_cdm && dpu_enc->cur_master->hw_cdm)
-> -		crtc_state->mode_changed = true;
-> -
-> -	return 0;
-> -}
-> -
-> -static int dpu_encoder_virt_atomic_check(
-> -		struct drm_encoder *drm_enc,
-> -		struct drm_crtc_state *crtc_state,
-> -		struct drm_connector_state *conn_state)
-> -{
-> -	struct dpu_encoder_virt *dpu_enc;
-> -	struct msm_drm_private *priv;
-> -	struct dpu_kms *dpu_kms;
-> -	struct drm_display_mode *adj_mode;
-> -	struct msm_display_topology topology;
-> -	struct dpu_global_state *global_state;
-> -	int ret = 0;
-> -
-> -	if (!drm_enc || !crtc_state || !conn_state) {
-> -		DPU_ERROR("invalid arg(s), drm_enc %d, crtc/conn state %d/%d\n",
-> -				drm_enc != NULL, crtc_state != NULL, conn_state != NULL);
-> -		return -EINVAL;
-> -	}
-> -
-> -	dpu_enc = to_dpu_encoder_virt(drm_enc);
-> -	DPU_DEBUG_ENC(dpu_enc, "\n");
-> -
-> -	priv = drm_enc->dev->dev_private;
-> -	dpu_kms = to_dpu_kms(priv->kms);
-> -	adj_mode = &crtc_state->adjusted_mode;
-> -	global_state = dpu_kms_get_global_state(crtc_state->state);
-> -	if (IS_ERR(global_state))
-> -		return PTR_ERR(global_state);
->  
-> -	trace_dpu_enc_atomic_check(DRMID(drm_enc));
-> +	if (!drm_enc || !state)
-> +		return false;
->  
-> -	topology = dpu_encoder_get_topology(dpu_enc, adj_mode, crtc_state, conn_state);
-> +	connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
-> +	if (!connector)
-> +		return false;
->  
-> -	/*
-> -	 * Release and Allocate resources on every modeset
-> -	 */
-> -	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
-> -		dpu_rm_release(global_state, drm_enc);
-> +	conn_state = drm_atomic_get_new_connector_state(state, connector);
->  
-> -		if (crtc_state->enable)
-> -			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
-> -					drm_enc, crtc_state, &topology);
-> +	if (dpu_enc->disp_info.intf_type == INTF_WB && conn_state->writeback_job) {
-> +		fb = conn_state->writeback_job->fb;
-> +		if (fb && MSM_FORMAT_IS_YUV(msm_framebuffer_format(fb))) {
-> +			if (!dpu_enc->cur_master->hw_cdm)
-> +				return true;
-> +		} else {
-> +			if (dpu_enc->cur_master->hw_cdm)
-> +				return true;
-> +		}
-
-Nit: this is duplicating a part of the dpu_encoder_update_topology(). It
-would be nice to have a comment here. If there is no need for a new
-versoion, I can probably write something when applying.
-
+>  	/* try allocating only one CDM block */
+>  	if (!rm->cdm_blk) {
+> @@ -593,6 +594,11 @@ static int _dpu_rm_reserve_cdm(struct dpu_rm *rm,
+>  		return -EIO;
 >  	}
 >  
-> -	trace_dpu_enc_atomic_check_flags(DRMID(drm_enc), adj_mode->flags);
-> -
-> -	return ret;
-> +	return false;
->  }
+> +	if (top->cdm_requested > 1) {
+> +		DPU_ERROR("More than 1 INTF requesting CDM\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	if (global_state->cdm_to_crtc_id) {
+>  		DPU_ERROR("CDM_0 is already allocated\n");
+>  		return -EIO;
+> @@ -629,8 +635,8 @@ static int _dpu_rm_make_reservation(
+>  	if (ret)
+>  		return ret;
 >  
->  static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
-> @@ -2612,7 +2545,6 @@ static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
->  	.atomic_mode_set = dpu_encoder_virt_atomic_mode_set,
->  	.atomic_disable = dpu_encoder_virt_atomic_disable,
->  	.atomic_enable = dpu_encoder_virt_atomic_enable,
-> -	.atomic_check = dpu_encoder_virt_atomic_check,
+> -	if (topology->needs_cdm) {
+> -		ret = _dpu_rm_reserve_cdm(rm, global_state, crtc_id);
+> +	if (topology->cdm_requested > 0) {
+> +		ret = _dpu_rm_reserve_cdm(rm, global_state, crtc_id, topology);
+>  		if (ret) {
+>  			DPU_ERROR("unable to find CDM blk\n");
+>  			return ret;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> index b854e42d319d2c482e4e1732239754979f6950dd..7716c226cd7a270a1bac052dc085f5ed84cb9c26 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> @@ -51,7 +51,8 @@ struct dpu_rm_sspp_requirements {
+>   * @num_intf:     number of interfaces the panel is mounted on
+>   * @num_dspp:     number of dspp blocks used
+>   * @num_dsc:      number of Display Stream Compression (DSC) blocks used
+> - * @needs_cdm:    indicates whether cdm block is needed for this display topology
+> + * @cdm_requested:    indicates how many outputs are requesting cdm block for
+> + *                    this display topology
+>   * @cwb_enabled:  indicates whether CWB is enabled for this display topology
+>   */
+>  struct msm_display_topology {
+> @@ -59,7 +60,7 @@ struct msm_display_topology {
+>  	u32 num_intf;
+>  	u32 num_dspp;
+>  	u32 num_dsc;
+> -	bool needs_cdm;
+> +	int cdm_requested;
+
+u32 num_cdm, please.
+
+>  	bool cwb_enabled;
 >  };
 >  
->  static const struct drm_encoder_funcs dpu_encoder_funcs = {
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> index da133ee4701a329f566f6f9a7255f2f6d050f891..b0ac10ebd02c2b63e6f6f9010a22cdace931cf3b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> @@ -80,6 +80,13 @@ int dpu_encoder_get_crc(const struct drm_encoder *drm_enc, u32 *crcs, int pos);
->  
->  bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc);
->  
-> +void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
-> +				 struct msm_display_topology *topology,
-> +				 struct drm_atomic_state *state,
-> +				 const struct drm_display_mode *adj_mode);
-> +
-> +bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_state *state);
-> +
->  void dpu_encoder_prepare_wb_job(struct drm_encoder *drm_enc,
->  		struct drm_writeback_job *job);
->  
-> @@ -88,8 +95,4 @@ void dpu_encoder_cleanup_wb_job(struct drm_encoder *drm_enc,
->  
->  bool dpu_encoder_is_valid_for_commit(struct drm_encoder *drm_enc);
->  
-> -int dpu_encoder_virt_check_mode_changed(struct drm_encoder *drm_enc,
-> -					struct drm_crtc_state *crtc_state,
-> -					struct drm_connector_state *conn_state);
-> -
->  #endif /* __DPU_ENCODER_H__ */
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 5ce06e25990cb70284d3c3f04ac1e1e1bed6142a..c6b3b2e147b4c61ec93db4a9f01d5a288d2b9eb2 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -449,24 +449,11 @@ static void dpu_kms_disable_commit(struct msm_kms *kms)
->  static int dpu_kms_check_mode_changed(struct msm_kms *kms, struct drm_atomic_state *state)
->  {
->  	struct drm_crtc_state *new_crtc_state;
-> -	struct drm_connector *connector;
-> -	struct drm_connector_state *new_conn_state;
-> +	struct drm_crtc *crtc;
->  	int i;
->  
-> -	for_each_new_connector_in_state(state, connector, new_conn_state, i) {
-> -		struct drm_encoder *encoder;
-> -
-> -		WARN_ON(!!new_conn_state->best_encoder != !!new_conn_state->crtc);
-> -
-> -		if (!new_conn_state->crtc || !new_conn_state->best_encoder)
-> -			continue;
-> -
-> -		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
-> -
-> -		encoder = new_conn_state->best_encoder;
-> -
-> -		dpu_encoder_virt_check_mode_changed(encoder, new_crtc_state, new_conn_state);
-> -	}
-> +	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i)
-> +		dpu_crtc_check_mode_changed(new_crtc_state);
->  
->  	return 0;
->  }
 > 
 > -- 
 > 2.34.1
