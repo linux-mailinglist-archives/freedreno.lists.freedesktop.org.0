@@ -2,83 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 330F7A214F0
-	for <lists+freedreno@lfdr.de>; Wed, 29 Jan 2025 00:20:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B00BA2167B
+	for <lists+freedreno@lfdr.de>; Wed, 29 Jan 2025 03:21:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FE5410E0C2;
-	Tue, 28 Jan 2025 23:20:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F065810E0D2;
+	Wed, 29 Jan 2025 02:21:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="a2bJvLVj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gx2MHgpi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53C0910E0C2
- for <freedreno@lists.freedesktop.org>; Tue, 28 Jan 2025 23:20:57 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-53f757134cdso6796796e87.2
- for <freedreno@lists.freedesktop.org>; Tue, 28 Jan 2025 15:20:57 -0800 (PST)
+Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
+ [209.85.166.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E452C10E33C
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 02:21:18 +0000 (UTC)
+Received: by mail-il1-f174.google.com with SMTP id
+ e9e14a558f8ab-3a9c9f2a569so42600325ab.0
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Jan 2025 18:21:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738106455; x=1738711255; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=8nYDe6L0+19gf1NVMQt86eufjnNQxpIjp2WrtO88qBo=;
- b=a2bJvLVjSGlFDOIPG9iuIdmAG9CBq5M2Y2YuhPmItl7nLq2ZcAB6Q9hT70rmt60oA7
- 0HsS1fqWg9SckoM9ub8pORH/HlcViTHAMgWGTfvcZMgFlw85SmyDCZLHAb125ZOrY0fc
- cEa+LiWUl2EEv/zKHHIeFhSGjN/XTV/eYxFpOCc4mebf2DUXltHRIZBvHP1xMiU3Nin4
- yFsZcc6qFK46fhhTWNEVw496VRTVaDm833EkFQ1qd6l39yPlHpTx5yW+vURpVAY6GGFM
- E1MyqLmSwe5pI1HB4JtjYq6fDiLJx6s/JeLto41aCPpUWm3sXR9iDbQE1Mnq0mSTWErO
- 3ypg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738106455; x=1738711255;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1738117278; x=1738722078; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8nYDe6L0+19gf1NVMQt86eufjnNQxpIjp2WrtO88qBo=;
- b=cSPQvgGkzH1Ca5GO5L6hDpQJECq33Oy7k1cfObI+whyZQ1K7RrIuhf8DcyX6WZ/gVl
- vNk53sAtSy6+SIzcTIQeZlfe3bwK1BDUsPu97EDggFz+SVyWmJWmmO7yHqJtOFD8IeOq
- lbh2+aJNAwfGZE2+V1QCAvYSc8Gf8rfwk/FzPaghiLr8Jt7HzvCTHZO/uK0/lMaECywO
- yJWzHVYLUB4BlXEV4c/Km06OJU18jHhxIuzpVxSuPAYFJ7+moukLFsfKBoBcgDCJa4mc
- fROATcakK+zn6jGf2h4y3tCwvg360xvS8SgA8PtxgIt8JzuA8K9CZJG1Pi6+0hnHi7f+
- Grng==
+ bh=ZtnR7A7UffQmykf4aH6iAO9KgDfrU8EA6JB2nIaAYW0=;
+ b=gx2MHgpiwBRyFz54+oZOtffFhTzhY86N0X1GBEUpmpzrpbGbX/S2YKmxaV435BWi9l
+ EzzaMv41W7JCc0xilgvzgjZHdZu9jDrjtIBgireEwNSJ33zEHgoBtYdmOtwpXWSNpiee
+ Y1WyShQWR5qkUE3dnlarwts+rG+Djxueh2tLAky8559lcci3vWC55wIzOAlM5C/Qcrl+
+ EOuX6/gllInqaD2m0pu/gLflvxcrjmE/0KSV5K3l+JbqWwTHnSSmBYsiI/zGZl7dVzb4
+ fVXoTcHoOS/UrKK+4nDu69ESegbuyPhK9/UQPkzOpu5xEsP/TWuTuP26KnTehH+4SFRl
+ rNmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1738117278; x=1738722078;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZtnR7A7UffQmykf4aH6iAO9KgDfrU8EA6JB2nIaAYW0=;
+ b=I8sHJjZd2NrXW2+JyoAB5M4B10pgSH9s2IVf8d/jSg/Uy1ihyG0EfoxyoFrSBos28M
+ UA7BEDV4L9AfZpa3dHgaJj8NyyNeh+6bS99h5nrxdBpIPL//tPXZJuU7cXlC8ncRrTWl
+ 3TiwLP8aufDSXv6wDq/z5qxAQvYMXU+CbJD2vo+SsTobVesUD2Rg3lKiwW5swym/lAoN
+ dtwqi89TT4EL40wEHikh5wKvwyBwiWO8hV/+gTwCnqpwJFvwauW8Q+HNR0LaYkwq7WYJ
+ 9fXxx8bCeSip2OVtDjF2wzSPf1eetiM/xXlKuMIG0kqN1SwNlSTlS00YDy7XOKW3YZqK
+ cwjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUpk74bRGMjcO6P4xoN77Q+PKt3Lb+vA9+I4m6JlSaMtwRPA9+mxl/lnsmWLJOLrTxw9wFS7du6SFw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyFLbxxehSY+8b0CcEuxTFJgufNcKEVgqPMROkuec2UcSfFFhKH
- X8q/YQKOd37LMH5OFbBw7hMqVfBj5AVqQSYHLnjSp8lzDljJdOMWN8esCYMRLFs=
-X-Gm-Gg: ASbGncsvzDE/OUh8MSTbg23/iZnIw5TG+ilNlJsX5CrqkNQ4/vTSnYgqm70NgSzFTLR
- NTvpZ73SxG6oj9Jdws7CmGX1n16thpRQI2AKO5wNuRTO+O0srO5vC5c9Zkjq3RCaobR+ZatQFTP
- sPRHYEzqewLnn+FLtEoI0AD5Zwku8tGLwcVDQXbpsSz7Zb7Tw2ScBQjmhPyWHl6nXdC7LNWSBfS
- RXZBLkai5ghybDoNdHr/eTZRmKwk7DdBKoqQsnXjyvLcsRlQcKVd9YoJugrooxVIdU//NYRm4Gi
- gV1IpvsxBlSxrxGBOCogemR4d4J3vQsPUpds7M7S0Xl/wsSMJvtTvsQT+80IlsHwoTWX3tc=
-X-Google-Smtp-Source: AGHT+IH7ZMuRhx0kEJGVK8oPBDelzjeBZIDBRWzL0TWy2sbaG8ukqZNLJIeLzF9dCSPPjiUWD2Tu8w==
-X-Received: by 2002:a05:6512:3405:b0:53e:314e:6119 with SMTP id
- 2adb3069b0e04-543e4bf9da5mr225169e87.29.1738106455454; 
- Tue, 28 Jan 2025 15:20:55 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-543c838166esm1798379e87.235.2025.01.28.15.20.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jan 2025 15:20:53 -0800 (PST)
-Date: Wed, 29 Jan 2025 01:20:51 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Stephen Boyd <swboyd@chromium.org>, Paloma Arellano <quic_parellan@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dp: account for widebus and yuv420 during mode
- validation
-Message-ID: <eksyfuzjekxkcm5fjxyjjbyu6nkreqdlkuy2eiijrcbeu2fd2f@74viz5tylch5>
-References: <20250128-dp-widebus-fix-v1-1-b66d2265596b@quicinc.com>
+ AJvYcCXQlZoGKjlIvEVoOd0/+8d96xzTKCtZBK3c00aQVUbWrU6lXyQdxoBKZx/TEHsY54GkUgNCGR55v44=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwiaBkOmhhUHI2Y0EqxnNxZJCS9POSOKGESYzn/hdaf4Ar7qA6P
+ z3FIMV7t97AazAtMFezS/BPqx9VeoMiW5miBHqphwkfYUoC8GAkGTcS6LUjgRpmQEmIbTj1CY5P
+ D2+qIUlwEAdsD5hg78EwUw8jkFac=
+X-Gm-Gg: ASbGnctUYo/6xCfw+0+mVTPw5YG+jmvypdX02Niez78EXNogESgdS9E50mKt+XZCFp7
+ ugDV5P/Ds9Nnbn+dpbGAxNRyVJZNNzlsqB81O2IZc1SZF9KFBJ+BclDNaBqPtDDi3ZdicMeVm8w
+ ==
+X-Google-Smtp-Source: AGHT+IHB6eolsV4aH/hplP2BpTqjii/IaDUSxjMDLt9An83E2DQ2Sqv+/y5nVv5os4CQTqahC3lJBJ0CAAndOUs/AC0=
+X-Received: by 2002:a05:6e02:198b:b0:3cf:fcc4:eff9 with SMTP id
+ e9e14a558f8ab-3cffe3e5dbemr15157515ab.8.1738117278041; Tue, 28 Jan 2025
+ 18:21:18 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250128-dp-widebus-fix-v1-1-b66d2265596b@quicinc.com>
+References: <20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com>
+ <20250122-msm-gpu-fault-fixes-next-v3-1-0afa00158521@gmail.com>
+ <Z5IjsqQ6vTdUXiGt@hu-guptap-hyd.qualcomm.com>
+ <CACu1E7H5X2EfY9AG=xceaoZJkbumwnrsU4QvNbxd_A2wgVVOaQ@mail.gmail.com>
+ <Z5KXwNPrdirVUn8Z@hu-guptap-hyd.qualcomm.com>
+ <CACu1E7GOS+_biN=AuQwYK47ApRPFGygyD+U5X9d_4ReXKrzbfw@mail.gmail.com>
+ <Z5i6GQDd5apN+a10@hu-guptap-hyd.qualcomm.com>
+ <CAF6AEGstcrAJDBpPm-uQ+zSDVEhDJ4AQhCTDT-z9_8Nq0e35WQ@mail.gmail.com>
+ <CACu1E7HErZAL=-GVQfKUAUK5bgK-X0qejt5os3f2UhkeZ1ptMQ@mail.gmail.com>
+In-Reply-To: <CACu1E7HErZAL=-GVQfKUAUK5bgK-X0qejt5os3f2UhkeZ1ptMQ@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 28 Jan 2025 18:21:06 -0800
+X-Gm-Features: AWEUYZnLX6CXtNjm5Fg1x_aeoKRaj1zqbCfN_3LTjAFaHbtGLWrCztq9g_rdAEY
+Message-ID: <CAF6AEGsUjp+fp1_cN7SGYTh5WSQrU2mm92QsqA5rcSY1OtA8VQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] iommu/arm-smmu: Fix spurious interrupts with
+ stall-on-fault
+To: Connor Abbott <cwabbott0@gmail.com>
+Cc: Prakash Gupta <quic_guptap@quicinc.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,84 +98,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 28, 2025 at 03:10:27PM -0800, Abhinav Kumar wrote:
-> Widebus allows the DP controller to operate in 2 pixel per clock mode.
-> The mode validation logic validates the mode->clock against the max
-> DP pixel clock. However the max DP pixel clock limit assumes widebus
-> is already enabled. Adjust the mode validation logic to only compare
-> the adjusted pixel clock which accounts for widebus against the max DP
-> pixel clock. Also fix the mode validation logic for YUV420 modes as in
-> that case as well, only half the pixel clock is needed.
-> 
-> Fixes: 757a2f36ab09 ("drm/msm/dp: enable widebus feature for display port")
-> Fixes: 6db6e5606576 ("drm/msm/dp: change clock related programming for YUV420 over DP")
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 10 +++++-----
->  drivers/gpu/drm/msm/dp/dp_drm.c     |  5 ++++-
->  2 files changed, 9 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 24dd37f1682bf5016bb0efbeb44489061deff060..a4b420a2d9eb7f084194f443e84a4013c9b4ef0f 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -930,16 +930,16 @@ enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *bridge,
->  		return -EINVAL;
->  	}
->  
-> -	if (mode->clock > DP_MAX_PIXEL_CLK_KHZ)
-> -		return MODE_CLOCK_HIGH;
-> -
->  	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
->  	link_info = &msm_dp_display->panel->link_info;
->  
-> -	if (drm_mode_is_420_only(&dp->connector->display_info, mode) &&
-> -	    msm_dp_display->panel->vsc_sdp_supported)
-> +	if ((drm_mode_is_420_only(&dp->connector->display_info, mode) &&
-> +	     msm_dp_display->panel->vsc_sdp_supported) || msm_dp_wide_bus_available(dp))
+On Tue, Jan 28, 2025 at 2:15=E2=80=AFPM Connor Abbott <cwabbott0@gmail.com>=
+ wrote:
+>
+> On Tue, Jan 28, 2025 at 5:10=E2=80=AFPM Rob Clark <robdclark@gmail.com> w=
+rote:
+> >
+> > On Tue, Jan 28, 2025 at 3:08=E2=80=AFAM Prakash Gupta <quic_guptap@quic=
+inc.com> wrote:
+> > >
+> > > On Thu, Jan 23, 2025 at 03:14:16PM -0500, Connor Abbott wrote:
+> > > > On Thu, Jan 23, 2025 at 2:26=E2=80=AFPM Prakash Gupta <quic_guptap@=
+quicinc.com> wrote:
+> > > > >
+> > > > > On Thu, Jan 23, 2025 at 09:00:17AM -0500, Connor Abbott wrote:
+> > > > > > On Thu, Jan 23, 2025 at 6:10=E2=80=AFAM Prakash Gupta <quic_gup=
+tap@quicinc.com> wrote:
+> > > > > > >
+> > > > > > > On Wed, Jan 22, 2025 at 03:00:58PM -0500, Connor Abbott wrote=
+:
+> > > > > > > The context would remain stalled till we write to CBn_RESUME.=
+ Which is done
+> > > > > > > in qcom_adreno_smmu_resume_translation(). For a stalled conte=
+xt further
+> > > > > > > transactions are not processed and we shouldn't see further f=
+aults and
+> > > > > > > or fault inerrupts. Do you observe faults with stalled contex=
+t?
+> > > > > >
+> > > > > > Yes. I've observed that on MMU-500 writing RESUME before the in=
+terrupt
+> > > > > > has been cleared doesn't clear SS. This happened with v2 in the=
+ case
+> > > > > > where there was already a devcoredump and drm/msm called
+> > > > > > qcom_adreno_smmu_resume_translation() immediately from its faul=
+t
+> > > > > > handler, and we'd get a storm of unhandled interrupts until it =
+was
+> > > > > > disabled. Given that the architecture spec says we're supposed =
+to
+> > > > > > clear the interrupt first this may have been an attempt to "hel=
+p"
+> > > > > > developers.
+> > > > > >
+> > > > >
+> > > > > Just to clarify, present sequence is:
+> > > > > 1. context fault with stall enable. FSR.SS set.
+> > > > > 2. Report fault to client
+> > > > > 3. resume/terminate stalled transaction
+> > > > > 4. clear FSR
+> > > > >
+> > > > > At what point when you try #2->#3->#4 or #4->#2->#3 sequence, is =
+FSR.SS
+> > > > > cleared and interrupt storm is observed.
+> > > >
+> > > > With #2->#3->#4 FSR.SS is *not* cleared and there is a subsequent
+> > > > interrupt storm with only FSR.SS asserted. With #4->#2->#3 there is=
+ no
+> > > > interrupt storm. From this we conclude that MMU-500 does not clear
+> > > > FSR.SS unless #4 happens before #3.
+> > > >
+> > > Thanks Connor for clarification. I get your point now. I think it's
+> > > expected interrupt storm with #2->#3->#4 sequence is expected.  With
+> > > CONFIG_ARM_SMMU_QCOM_DEBUG enabled, context fault follows the sequenc=
+e of
+> > > #1->#2->#4->#3, which is spec recommended.
+> > >
+> > > so, common fault handler can be modified to follow the same sequence,=
+ but I
+> > > have concern regarding clearing FSR before reporting fault to client.
+> > > qcom_adreno_smmu_get_fault_info() is an example I gave but other clie=
+nt
+> > > handler may have similar expecation of fault register not changed bef=
+ore
+> > > client fault handler is called.
+> >
+> > Simple solution would be to move the clearing of FSR to after the
+> > fault is reported.  It doesn't really matter if it is before or after,
+> > as long as it happens before the irq handler returns, AFAIU.  And
+> > drm/msm will collect the fault info from the irq handler.
+>
+> As I said in the earlier mail: "From this we conclude that MMU-500
+> does not clear FSR.SS unless #4 happens before #3." #4 is clearing FSR
+> and #3 is writing RESUME. So no, unfortunately it does actually matter
+> and we get a storm of unhandled IRQs if we don't clear FSR first. Your
+> solution is what v2 did and it didn't work.
 
-I'd ask to move msm_dp_wide_bus_available to the next line, it makes it
-easier to read.
+So, just clear FSR also in the resume path
 
-With that fixed:
+BR,
+-R
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-
->  		mode_pclk_khz /= 2;
->  
-> +	if (mode_pclk_khz > DP_MAX_PIXEL_CLK_KHZ)
-> +		return MODE_CLOCK_HIGH;
-> +
->  	mode_bpp = dp->connector->display_info.bpc * num_components;
->  	if (!mode_bpp)
->  		mode_bpp = default_bpp;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-> index d3e241ea6941615b8e274dd17426c2f8557f09b5..16b7913d1eefa8c2deb44df201a1977db23f4531 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-> @@ -257,7 +257,10 @@ static enum drm_mode_status msm_edp_bridge_mode_valid(struct drm_bridge *bridge,
->  		return -EINVAL;
->  	}
->  
-> -	if (mode->clock > DP_MAX_PIXEL_CLK_KHZ)
-> +	if (msm_dp_wide_bus_available(dp))
-> +		mode_pclk_khz /= 2;
-> +
-> +	if (mode_pclk_khz > DP_MAX_PIXEL_CLK_KHZ)
->  		return MODE_CLOCK_HIGH;
->  
->  	/*
-> 
-> ---
-> base-commit: 2bd7708f11777d4fd436fcba62b57cff6a92e389
-> change-id: 20250127-dp-widebus-fix-fba78bbe242d
-> 
-> Best regards,
-> -- 
-> Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-
--- 
-With best wishes
-Dmitry
+> Connor
+>
+> >
+> > BR,
+> > -R
+> >
+> > > > > The way CFIE disable is helping
+> > > > > with current patch indicates write FSR is unstalling context and =
+subsequent
+> > > > > transactions are faulted.
+> > > >
+> > > > No, it does not indicate that. The interrupt storm happens even whe=
+n
+> > > > there is exactly one context fault, and when the interrupt storm
+> > > > happens *only* FSR.SS is asserted. I've verified this with debug
+> > > > prints. Once more, MMU-500 will assert an interrupt when only FSR.S=
+S
+> > > > is asserted. This has nothing to do with subsequent transactions.
+> > > >
+> > > > > Do you stop getting interrupt storm after write
+> > > > > RESUME.
+> > > >
+> > > > Yes, as long as the write to RESUME happens after all other bits in
+> > > > FSR are cleared.
+> > > >
+> > > > > If you can mention your SCTLR configuration and FSR state in test
+> > > > > sequence, it would be clearer.
+> > > >
+> > > > SCTLR has both HUPCF and CFCFG enabled.
+> > > >
+> > > > >
+> > > > > An aside, If reducing delay between FSR and RESUME write helps th=
+en both
+> > > > > can be done as part of qcom_adreno_smmu_resume_translation(). Thi=
+s will
+> > > > > follow spec recommendation and also make sure fault registers are=
+ not
+> > > > > cleared before reporting fault to client.
+> > > I think this sequence should address the issue you are observing.
+> > >
+> > > > >
+> > > > > Thanks,
+> > > > > Prakash
