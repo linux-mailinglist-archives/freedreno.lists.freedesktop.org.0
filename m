@@ -2,83 +2,131 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87778A21F21
-	for <lists+freedreno@lfdr.de>; Wed, 29 Jan 2025 15:31:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9DEFA21F9D
+	for <lists+freedreno@lfdr.de>; Wed, 29 Jan 2025 15:50:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC3310E1C4;
-	Wed, 29 Jan 2025 14:31:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22C3510E812;
+	Wed, 29 Jan 2025 14:50:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="izW+pcs4";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mimgsKh8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A767D10E1C4
- for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 14:31:07 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-305d843d925so60212871fa.2
- for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 06:31:07 -0800 (PST)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A554E10E812
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 14:49:59 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4361e82e3c3so10646695e9.0
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2025 06:49:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738161066; x=1738765866; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=pVy4t4cB0UKE4FfYHqIFPU0/jXfWjWZ0p1/3jveveAc=;
- b=izW+pcs4O/uobmYJNNxc3eHKKV8C0pRldDvGtNUWgWRysJwvL4Te7ujeMBGHWCAgEG
- r/z3jMvauL9T48LS1qpV6szpk5ESw7jr3hNBLMBFU3QT56gc5mlAPvlOYr8QfhbRwnV3
- XV4u1otTdBSP65455SgOxScyoIQwDNHxugp0YiSWIFwjirTOLM3QYHxXwBFEbxmIO9lh
- UjTlfwhEh2NEsZG6MHN0VHdYjRgKy1CRzsW9yVd9Chogv5F2DkQE21MIRX4h69xZCpb6
- qEZGRKMUbOmi8476iyJcwHKw8AAOYERUqYr+Y6Fp5JDxh3fr6zv7N9CFZjkzHM+cNJAH
- OyJQ==
+ d=linaro.org; s=google; t=1738162198; x=1738766998; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=V/n482OJOD7YjQStqqcw/7H8YB/93aB4xiCe5kU4AIA=;
+ b=mimgsKh8BNakMQxc3cDEvLQTBHdZ8LdXtw5pNoN4vRN2nzcj8zbpdarNWcHngzbkoQ
+ wgQ4eOR3jc5/KVV2jAgxB0b3Wrx519NwlXrmWzjukZ7fir5XAYq1fhzhsaTO6qvCgfm8
+ rqshh6VwnRiUiNDyR+IbYp1q6qp+LxkAinRHxKe0RE25fnbdttBTwLngy+umhWueV5TR
+ hN8x6OIyJR2clZaSVJ57xJhyRxhwNtDg9T6rROwDTV5SgKNTaGAw55fo3CZuQurGKuG/
+ 0cpzrdhHlVHhdp1US5Dbnp0wGp72bAL2PrXul2Vr7wkU3JqMFsq9F1Ppf49aS3GJRtDP
+ xEXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738161066; x=1738765866;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1738162198; x=1738766998;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=pVy4t4cB0UKE4FfYHqIFPU0/jXfWjWZ0p1/3jveveAc=;
- b=YJwquoDwPVJJ8Y1WLRsN/GTxLVe2DMnpUajRLETIyc/+77R7CQQ6A2OaPnZu2W+XlB
- mbXKuKmdotb5rOl6Im50sJjzhM6bj4atGQuen7u4se5yN7G/paYd7ZWWpiqUUS2tMjc9
- pcZqX3Qej7LSeNox71oxLRR0OLbv+d+x2mQiaLo4lYCccMLRfHbXen7hLPGyoSHwuGyT
- uvfYY7UgORbFm8Uzx0fcldrtCyGlpyBzOcXTsWoovu3oHWBWgaC2cjXmG2DQKvUED/cT
- p/eTGFxoVNyQyOzbHgdjNu5qtIlQ19sTXJqIBImDJm+Pkfapwt8topywf+ZXx+qrJi/B
- apmg==
+ bh=V/n482OJOD7YjQStqqcw/7H8YB/93aB4xiCe5kU4AIA=;
+ b=JYOBXv9lJtRz9y4dYB3isV/RQxD2tj2wThaettTIWDfXhKfATSx3ljP+WF6ME32WRr
+ s7qVwGHJV30FiqqaThIK1RMENWhpczRUULovgsuo3He1ZxKH+Y8Q5HNhbMwYttssJBXO
+ WuRvLWMt5R2oPSPV9pQRyVMlA4vywuC8Ma5Ubeqy7wwuXQJWx/Kp1Wcz1mboijG7wIhf
+ E/j+gM5xOci0v3AhrpualNgsAs9GlZPOlN/0qHvLVinBrRBnLtJ8N2eRG/kXDwy+fdpi
+ 5WUBgbuTPn4G4VbiwdevIG7/S+AFPuvAVfq+sVYnV2NqbLY5qpVYzp9tQfnVPaUeHu48
+ +w4Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqSTMlYWMIz1Fb7lSoUP1TuWcyzOF56fXGySt6ipvMRgtz85zI/fLL30w4pbsm1AXlA+YrZ0PcV4Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnIL65Ssrjbj59UbJOfmb6o1VojQKxfnXAAJ6LbjZRIERwID/h
- mmO+5aXHjiT79YqNferEcmwHcxHTu64J5wxvxQToKjOg4vT0cybA9DIeD7v3No8=
-X-Gm-Gg: ASbGncs6KuzWG8HR6OmydZUaGaJRaBqwdwWYPnuQZCZAcz5VTGdboJbrfZJjv07mjB8
- qfFzdqtC4Wil6KRjzXeAbf2Jj6pmnWZJo/CAc3F5yLIDTmRP7gHzE5RMsprMmW/ZQiLkY7o4fhh
- u4wwBeuAtyrwz9dwhSAzlIpHMeHEKaHt2LxW6s3gpV2CvtTCfApsvx4DHY61ypxsCriwdq1V2uz
- PC8FfDBuRQIC3u0CNWtwI3lzlC4bH45TgMtQwXZJOcmgkTBFDK3DfyqQtnlpLFIgqkOw6shI2tv
- 6Z9ZU0sKwncPLspDj1T4YWfQmbg/isZaNMbkL3ZROm3dSQR2roFwBuZlb+eeG8G81XUuxms=
-X-Google-Smtp-Source: AGHT+IGiFX0DAOip+lO73WcET9swpVWNQ7eiRCrLXIVYnD59II5BJCbVk0x92HCSNEMStqdqKSHwqg==
-X-Received: by 2002:a2e:bc01:0:b0:302:29a5:6e01 with SMTP id
- 38308e7fff4ca-3079680c529mr12837351fa.2.1738161065789; 
- Wed, 29 Jan 2025 06:31:05 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCVcWdOhpZQIOTywpuiir36miKHSqgXpyngdrVi7sG+RN+o/Y1Etj6LajFh+JgljSpor4vckeCvhR34=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxrKvPBPoSNE/2mOvwAzymF0uy47RVtkiuLFtezt0ifhPBy9eTM
+ PuYwehGjCxzuGjkSQXgH4aPaB3wLIC4P8mPsKJQ5UuF+J7LckTJRu09ExzG4MCT4+cbqNtqwfEA
+ 5
+X-Gm-Gg: ASbGncvqPKNPIkThSyEjgdyl6tGpNA4+XQT9cd6balyNUudy83Xht5plEemj2Hml4Km
+ CgJ+ucKjw6eeK3W1WjTlKEna9NMM+qjZsGkam8F3ppV+UoxsKIJYQ38hn2rnXkH6kpsF1ngaPVg
+ KvxZx2kP9O0f7UW2h6CfIXi3BZXFmlnuZqa8DSm2DGPBun6vMnQ90ZSMST7HRIeqLR/cuizxZvn
+ HIklq9+iAWlf/jmWFCJ+89Y4IsOO5fmrv06wEolVeHShvuONkmNHv+lEAl2+FtTnBOPQKX1MXFO
+ crGAnZ/pZgXU+DHGNlS/EPTm6FxZfNBpFw==
+X-Google-Smtp-Source: AGHT+IHDci9L/6AsBEeiuG6BZgyEOBnEPboPoD7HxDCRuBXGZTBAXC+3TfunwokyNjk3QSqkQJSPhg==
+X-Received: by 2002:a05:600c:19d2:b0:42c:bfd6:9d2f with SMTP id
+ 5b1f17b1804b1-438dc3a3ea6mr10969925e9.1.1738162198082; 
+ Wed, 29 Jan 2025 06:49:58 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.218.98])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3076bc18ce8sm21731551fa.67.2025.01.29.06.31.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jan 2025 06:31:05 -0800 (PST)
-Date: Wed, 29 Jan 2025 16:31:03 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ ffacd0b85a97d-38c2a1bb0c9sm17494486f8f.78.2025.01.29.06.49.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jan 2025 06:49:57 -0800 (PST)
+Message-ID: <4a27c3f2-6b36-42bf-b323-2cfb0014ca58@linaro.org>
+Date: Wed, 29 Jan 2025 15:49:55 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH RFC] drm/msm/dsi/phy: Program clock inverters in correct
  register
-Message-ID: <kdnbhw2ng2kuhm2ynlmtxz4bnq6j243ktqwfvr4mgrr6w5uy7d@4j6cictf4tpu>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250129115504.40080-1-krzysztof.kozlowski@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250129115504.40080-1-krzysztof.kozlowski@linaro.org>
+ <kdnbhw2ng2kuhm2ynlmtxz4bnq6j243ktqwfvr4mgrr6w5uy7d@4j6cictf4tpu>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <kdnbhw2ng2kuhm2ynlmtxz4bnq6j243ktqwfvr4mgrr6w5uy7d@4j6cictf4tpu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,49 +142,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 29, 2025 at 12:55:04PM +0100, Krzysztof Kozlowski wrote:
-> Since SM8250 all downstream sources program clock inverters in
-> PLL_CLOCK_INVERTERS_1 register and leave the PLL_CLOCK_INVERTERS as
-> reset value (0x0).  The most recent Hardware Programming Guide for 3 nm,
-> 4 nm, 5 nm and 7 nm PHYs also mention PLL_CLOCK_INVERTERS_1.
+On 29/01/2025 15:31, Dmitry Baryshkov wrote:
+> On Wed, Jan 29, 2025 at 12:55:04PM +0100, Krzysztof Kozlowski wrote:
+>> Since SM8250 all downstream sources program clock inverters in
+>> PLL_CLOCK_INVERTERS_1 register and leave the PLL_CLOCK_INVERTERS as
+>> reset value (0x0).  The most recent Hardware Programming Guide for 3 nm,
+>> 4 nm, 5 nm and 7 nm PHYs also mention PLL_CLOCK_INVERTERS_1.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>
+>> ---
+>>
+>> Not tested except my work-in-progress oon SM8750. Not sure what is the
+>> impact, so also no Fixes tag.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> I'd say,
 > 
-> ---
+> Fixes: 1ef7c99d145c ("drm/msm/dsi: add support for 7nm DSI PHY/PLL")
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> Not tested except my work-in-progress oon SM8750. Not sure what is the
-> impact, so also no Fixes tag.
+> I didn't fully test this, but according to msm-4.14, msm-4.19 and
+> display drivers techpack this change is required on all 7nm- PHYs
+> (including the SM8150).
 
-I'd say,
+Thanks.
 
-Fixes: 1ef7c99d145c ("drm/msm/dsi: add support for 7nm DSI PHY/PLL")
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+This was suggested to me in non-public talks so let's add original
+credits as well:
 
-I didn't fully test this, but according to msm-4.14, msm-4.19 and
-display drivers techpack this change is required on all 7nm- PHYs
-(including the SM8150).
+Reported-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-> ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> index 7f6fb2a840d2..6646f8dbe457 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> @@ -326,7 +326,7 @@ static void dsi_pll_commit(struct dsi_pll_7nm *pll, struct dsi_pll_config *confi
->  	writel(pll->phy->cphy_mode ? 0x00 : 0x10,
->  	       base + REG_DSI_7nm_PHY_PLL_CMODE_1);
->  	writel(config->pll_clock_inverters,
-> -	       base + REG_DSI_7nm_PHY_PLL_CLOCK_INVERTERS);
-> +	       base + REG_DSI_7nm_PHY_PLL_CLOCK_INVERTERS_1);
->  }
->  
->  static int dsi_pll_7nm_vco_set_rate(struct clk_hw *hw, unsigned long rate,
-> -- 
-> 2.43.0
-> 
-
--- 
-With best wishes
-Dmitry
+Best regards,
+Krzysztof
