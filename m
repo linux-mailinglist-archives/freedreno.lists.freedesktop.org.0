@@ -2,100 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8499AA23F5B
-	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2025 16:03:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EEEDA2403B
+	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2025 17:24:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EBEF10EAD8;
-	Fri, 31 Jan 2025 15:03:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 679A010E201;
+	Fri, 31 Jan 2025 16:24:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="x5e5L4/h";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Sgj/Safg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8F1F10EAD5
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2025 15:03:25 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4361aa6e517so2910195e9.2
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2025 07:03:25 -0800 (PST)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D54E610E201
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2025 16:24:29 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-30616d71bb0so22142231fa.3
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2025 08:24:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738335804; x=1738940604; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=m17uzmB00GT6kEfgwcoMSj/iyd95VX3uS9lZYb28L7c=;
- b=x5e5L4/hNLNdg0QSbaqFrLMjoJ423H3/b0IvN/YUAMYMVXVdXwp7Le7zrcr31qDSJt
- mi6JayT4jNgyBo27cVJG9G+S73a1L1U7eBmigzg0Upml+5lw645OmLjWG6fL8XphbSiZ
- o2Y0JWZNDjI9J8JzoS9cGPczpzbCBwhyhD+DTL1ESUdJp5XGqQRtcPxThlaeK8gqYhsb
- n8nBHi7zpNIkfBXXq1WLpVbrZMH1d+2ZAntHtkXRgPiRLTv+I5+mT5nxgKkBvzcMwEBG
- O+tZFc+1i5Zt7NMVkiDOeASWuQDMrYKv/+i4qmAVyTz7eMfkT82n0xImGUQBGiCDMEeZ
- HqNA==
+ d=linaro.org; s=google; t=1738340668; x=1738945468; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=l1OPRB6njxlUcUlHqiK6tXyv78044AchgI/F8gIyGgQ=;
+ b=Sgj/SafgWbRcqdRp6AS7GXIIwGUjIjcwQoy9F6zxp/3/hywjD6vCYW1R7fQrTy8DoW
+ hA33DWB9RzJOpp8wtVpbUc/Dt2jS136BqI59p7OOYX2om0nHrjcKeWFLIhJPsBeHnDZX
+ 10x1nlI/jdRUZol6a+98G+2WMxQC+Xs9Bg+EwfuOn4kAV1ipfRicgwwZe9yq+pxkxsUC
+ CjN5dTDNMczI9T7TQnlrnabFMAWkjJvk1m4sYSks3kRRmM0DX9Nxw/4d0QdLUMvNiUL5
+ C82D+skdRJB4DHmMHITsV0c4TJ1bbyRk75Pox+RlmJ1YLGlAWDWLY+/cC7ol6wsXEBTt
+ pAyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738335804; x=1738940604;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=m17uzmB00GT6kEfgwcoMSj/iyd95VX3uS9lZYb28L7c=;
- b=UlZmEg3vDc25ylRBqKlVYljdMUXed7nec1IFgbPFXeIDgRTwash0E5VBvFXeLguQEA
- Y8T9w/ydaezdncqp1zAS4zUG1GdWGlCMSahicrypudxs9PDfgVOOdT0xnf9ussjMTMP7
- glc8JqFlcKnc5YIWILtm/OBnjBHn7/ehCjPzyOKpwP19s5SnZeGD4ePW0OiHAKX8TNGF
- 3eMXibId9pZDRaji11p/pQUFf6JP+KuozLQaWBvW1mfTfN+StaiuCKgG1KpuR2+5dj5v
- V0wJAxjbHeS82ECkinkWQV48ipO3My1tLY7i3pTe8VWMhNOd52YzDsS63QInLsGZdaTD
- uYZw==
+ d=1e100.net; s=20230601; t=1738340668; x=1738945468;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=l1OPRB6njxlUcUlHqiK6tXyv78044AchgI/F8gIyGgQ=;
+ b=M83CUwh+p1CEQXRAEiAuHK/MeG8gm6q3Qlt2nbXRm/y83gL6kn+QhuO17s5qeAXtfx
+ jO61IWnUcWUfbhhvB1MfnpKEaL5q6bUxN84RkVKCcLNOTAyHPLe1u11amiVVnETneYs0
+ yfY/A20OG7rrG3SxF6hE05Wx5F4FzgAbjouvcAOgvZRuAVD03QZRuRZPxJguyfbqqeya
+ PgklpvNCnNHDFHU022bsgAiS2EUikaF7VbyoVBNc7QQCCqgS0PNFRpCB/ljM4Jno1Z71
+ GPtu0Twln85Gh27V8RM+EpNdSST37OrpJG/0UCRzdw9gUKdDoAry8yA+iBh1UU1y++vb
+ NODw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsdzThoHAx5JTlI4qXtsuqxNgiMsvgt+IAwHGIQadbEDwWeXyuX9HWInbzqAxl5qn9HkHA5OkYDF4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNz7ZbqIYoMOTob2y24CgwI1L+Ev7bTasfArcksJUAopgMMpcm
- d5apPWg9jkAgB/UZZUEa+GPkzFcdYXAc7JxgZ2UnHGf9H+7+FSF9X3yDq1tYxDw=
-X-Gm-Gg: ASbGnctq/DB10Na5EvGU9AG8xo3V5Hh+ttN+RO2N8oN0WC5NuOh+Coi6frNZg2OpI1c
- Flrva9u/cajtF/HnIQmnjfat03WrP2oRCMDXpXWlMYck2vBeNe6NoHEmiR1F5RJMBjY8k4o8j8x
- GpXXUs7n9WFm+qx6Be7yp0U77DCWBIJR0pT5hW2VF9FPrjRXJ/e4Sh8M3TWADh1LM+JOvlkkpNa
- omwW53JjaDWCptcg3jbpxPdi3Y57pndMEydsAOoP6FIu8WH565BwFK8Elq1oMfog9E9KgPmydbu
- D36xaF3J2rJhEf1seWxixOUerMC0oLE=
-X-Google-Smtp-Source: AGHT+IHa61acfT+KyNQENNAEd0Nj8SRxrL3nqrV5AysWz0NDU8+NBDLu7wkd4aqJgwMag9OUt64tTA==
-X-Received: by 2002:a05:600c:4455:b0:438:a240:c62 with SMTP id
- 5b1f17b1804b1-438dc43c9ffmr39701365e9.8.1738335804305; 
- Fri, 31 Jan 2025 07:03:24 -0800 (PST)
-Received: from [127.0.1.1] ([178.197.218.144])
+ AJvYcCVqPZDiJ4R9b+WyQETHgSv+6JY0bC0q2m+Hi2HPF96vURrzibnOqRul1Hx2gTz4SxT/3T8Bj3kYFK0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4hxDwnnabzqJWPh8jknTPHh37g9hWjDjQYyuYOEjV/HMMZOwN
+ FhsJF5XuNep5EYS7L47X/wCR9ucV1Zy/lIrdVY3Myh3YZw7G41UhlxFJSCcXIo0=
+X-Gm-Gg: ASbGnctv7d0jwb6YCQyh1LTjm0xLaKXmrPVS7QrpQUptkxAe9TvI49YMUYgTcyzP1Ko
+ kP2J6gTvZo2eh1fmy0//4wZR7qY9fGL2FeG2N77XwXl88fAtUBEBAqeeXU9z/RCaqyinBRRhARc
+ Vb5RwQjapx1CnYo+QdmjHgcYe9Ps/5nwC0qg+C0cD4l0AZmdcJSBonckeAiV5PUeEL47GjBTfHf
+ iVXXe+DvqBl4SGebhIS+tLqA5auLXfy8jCrHe5uht1odvQj21kd49GzCqQfDznLlyegAt0+z8Pi
+ 2LWIRxTwAhULY6Ulh22DU88/jZpQ0eHqWdCbSpFYlKudy0doADOv1jGWLD7TKStlOhlFOhk=
+X-Google-Smtp-Source: AGHT+IET6Ip7seInrKN40IUQ5plgR5Wbm/yFknTx/GqkNshb2c2sHr/YKBS3/IVjV6dDw1EBZWuIdA==
+X-Received: by 2002:a05:651c:2214:b0:302:25ef:813e with SMTP id
+ 38308e7fff4ca-307968fa2acmr43084751fa.32.1738340667875; 
+ Fri, 31 Jan 2025 08:24:27 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438e245efbcsm56679925e9.33.2025.01.31.07.03.23
+ 38308e7fff4ca-307a34282a5sm6090751fa.102.2025.01.31.08.24.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jan 2025 07:03:23 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Fri, 31 Jan 2025 16:02:52 +0100
-Subject: [PATCH 3/3] drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when
- choosing bitclk source
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250131-drm-msm-phy-pll-cfg-reg-v1-3-3b99efeb2e8d@linaro.org>
+ Fri, 31 Jan 2025 08:24:26 -0800 (PST)
+Date: Fri, 31 Jan 2025 18:24:25 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] drm/msm/dsi/phy: Improvements around concurrent
+ PHY_CMN_CLK_CFG[01]
+Message-ID: <gyslnttjsuav5dsbmglroujpwrqazokfnj65uhbegja3w27yxc@iamitbbg2e7e>
 References: <20250131-drm-msm-phy-pll-cfg-reg-v1-0-3b99efeb2e8d@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <20250131-drm-msm-phy-pll-cfg-reg-v1-0-3b99efeb2e8d@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1421;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=1sAXbb7jAADLo71PpFTSGgQtXDD+l/u76NbI+0/GtkM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBnnOY0/nyLoJ3CPnbjVkTxAPwcTEhEifYYAuKXJ
- U1YeJo4wEOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ5zmNAAKCRDBN2bmhouD
- 16DhEACNy8BVbPJXOrrzsVVDwnau+ETcAxY7IIdQ9JObd8TVWIMy3PeuM3eKAEJCJ37CFfep3nY
- +ebDoCgMut6CmEcOP57zdy+YnCV+Caseuc20ifRjLKQAsta8OJ2iyjTVL3nH6d/ROUGfYaMfOfR
- rfJoce88n0/sCN0G3aeBwvk8kFGdm0zPxIIljWdg7/1lt99vmRDDo9O3XB1aZhrPPelmbEKPXph
- QQsZDu5MYnHYhiZCwpQ4OvAXR5DpVhxhXMjk079rDgFE8FBCjaDeUFOZGgwhlVOHwXoR5CvQBkm
- iHY/1HMqJVhK58xQhgygIQ4SSjGpuU/HKDpdWpy7f6F2FCdEKZk6VGP4NYTWPjkB0v21sHGUw0t
- NEAeQZXh0N49sV2IvJK+hBSJaDecQdFsBcl8T3mEMAJOmv1dcR/fqX/8jEF3cFWZR0UfcLtV4HA
- JtRNxMKk5z9W7uy3ox0nPytAEqWoIPu4PpT4QuF0bi/BhKh5QhKh/w3lfsoz4LXAS5nlet1sd8B
- mbD1GpB3aZxJizYxmAIBXabsVnAaL4mnJ0ZsFM0gdPAcfB7zdWXd9umiaubK4aef6KMvIcnO60O
- CBQd6oPxVjBwecf6pO2TSDYaiM6xUFiP2XjbEOF9af9kHs9mR6rFaAspq/qxYGVUPU7ZfTkqGLo
- O/y6v+ThTBtjsLw==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,42 +94,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-PHY_CMN_CLK_CFG1 register has four fields being used in the driver: DSI
-clock divider, source of bitclk and two for enabling the DSI PHY PLL
-clocks.
+On Fri, Jan 31, 2025 at 04:02:49PM +0100, Krzysztof Kozlowski wrote:
+> Calling these improvements, not fixes, because I don't think we ever hit
+> actual concurrency issue.  Although if we ever hit it, it would be very
+> tricky to debug and find the cause.
 
-dsi_7nm_set_usecase() sets only the source of bitclk, so should leave
-all other bits untouched.  Use newly introduced
-dsi_pll_cmn_clk_cfg1_update() to update respective bits without
-overwriting the rest.
+All of the patches miss Fixes: tags.  Could you please provide those.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index 6c18b9c0e1903bbd0090aceef13ae8c6f2e080ce..8a9ee308ccffc3b9d112a994a064d8be06d9c42e 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -615,7 +615,6 @@ static int dsi_7nm_pll_restore_state(struct msm_dsi_phy *phy)
- static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
- {
- 	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(phy->vco_hw);
--	void __iomem *base = phy->base;
- 	u32 data = 0x0;	/* internal PLL */
- 
- 	DBG("DSI PLL%d", pll_7nm->phy->id);
-@@ -634,7 +633,7 @@ static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
- 	}
- 
- 	/* set PLL src */
--	writel(data << 2, base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
-+	dsi_pll_cmn_clk_cfg1_update(pll_7nm, GENMASK(3, 2), data << 2);
- 
- 	return 0;
- }
+> 
+> Best regards,
+> Krzysztof
+> 
+> ---
+> Krzysztof Kozlowski (3):
+>       drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG0 updated from driver side
+>       drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG1 against clock driver
+>       drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when choosing bitclk source
+> 
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 50 ++++++++++++++++++++-----------
+>  1 file changed, 33 insertions(+), 17 deletions(-)
+> ---
+> base-commit: 375ef7b3d85d8b0fa72092642582ca5b95a64e67
+> change-id: 20250131-drm-msm-phy-pll-cfg-reg-7e5bf5aa9df6
+> 
+> Best regards,
+> -- 
+> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
 
 -- 
-2.43.0
-
+With best wishes
+Dmitry
