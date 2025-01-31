@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1889AA23F5D
-	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2025 16:03:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8499AA23F5B
+	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2025 16:03:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 369A910EAD9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EBEF10EAD8;
 	Fri, 31 Jan 2025 15:03:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="g93R6wj1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="x5e5L4/h";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E75AE10EAD7
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8F1F10EAD5
  for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2025 15:03:25 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-436203f1203so2822915e9.2
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4361aa6e517so2910195e9.2
  for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2025 07:03:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1738335804; x=1738940604; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=4h/tBpBjpFYt6cfG0kP8Ocw563Sweo8KNaY+K0HOhqg=;
- b=g93R6wj1R0lf3FCxYi1+nWs8Sj1QYvFyan1QqKxxL6Jc2pRpPzFEnkJNzzhfiIRTMQ
- 9CUw/MWwJgLuFGtOpy2x/c/KRfEedJaLicZJ9NwQqD+UtWovL/Dymk9Kgin6iVCDU2kj
- ckMFYrAN/SRmz4HHz3f+d1Z5Cyo30zFCSFmkRF4HQ3VAbVNwrfMSkEw3GQDXrmMSZVcJ
- WMmZzn7vQoWk5SeY81CPPyCJqH1b2BkpvytagMKKMWl+CDtCiZ4C0MXYdLXLMaLYqB99
- JvWjyT1Nx9bqkmo8SojRnEJ9HN/kGx7Brb2PsnVe7hJStz9YQEbTQHyaMl76jyJOh00u
- rxsg==
+ :reply-to; bh=m17uzmB00GT6kEfgwcoMSj/iyd95VX3uS9lZYb28L7c=;
+ b=x5e5L4/hNLNdg0QSbaqFrLMjoJ423H3/b0IvN/YUAMYMVXVdXwp7Le7zrcr31qDSJt
+ mi6JayT4jNgyBo27cVJG9G+S73a1L1U7eBmigzg0Upml+5lw645OmLjWG6fL8XphbSiZ
+ o2Y0JWZNDjI9J8JzoS9cGPczpzbCBwhyhD+DTL1ESUdJp5XGqQRtcPxThlaeK8gqYhsb
+ n8nBHi7zpNIkfBXXq1WLpVbrZMH1d+2ZAntHtkXRgPiRLTv+I5+mT5nxgKkBvzcMwEBG
+ O+tZFc+1i5Zt7NMVkiDOeASWuQDMrYKv/+i4qmAVyTz7eMfkT82n0xImGUQBGiCDMEeZ
+ HqNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1738335804; x=1738940604;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4h/tBpBjpFYt6cfG0kP8Ocw563Sweo8KNaY+K0HOhqg=;
- b=JWmlksCTn8FNEc0ugKwyHv7VPeKlCwbFnO2F06ahTEbbqSHiqBXeNv34yO9yLedpYE
- TFu9hOz5lfrQaOdvbIHDRjSKJgCxko29n9t0i5SzTYolGT5ScHaHugM2S3k6ISsWsMr4
- FIFZhrkar/hUMXivQrdWsfTXZ82zy2m1Z07QQSEDt0FpJI/qPdLRb64I6GPVFde/+vaG
- 0xVpamd+Vk8N9Ff+a9drFUDkkdr01uk340lXtk2f8gTZQjhPVme5za7KMQfhIGzcPqcQ
- xNchJKFLg3TyiGG/hgCY3xMHXvd+IsyDtrkzEfR31+av04nizUe42lId3JpmVi3/hrJC
- QkdQ==
+ bh=m17uzmB00GT6kEfgwcoMSj/iyd95VX3uS9lZYb28L7c=;
+ b=UlZmEg3vDc25ylRBqKlVYljdMUXed7nec1IFgbPFXeIDgRTwash0E5VBvFXeLguQEA
+ Y8T9w/ydaezdncqp1zAS4zUG1GdWGlCMSahicrypudxs9PDfgVOOdT0xnf9ussjMTMP7
+ glc8JqFlcKnc5YIWILtm/OBnjBHn7/ehCjPzyOKpwP19s5SnZeGD4ePW0OiHAKX8TNGF
+ 3eMXibId9pZDRaji11p/pQUFf6JP+KuozLQaWBvW1mfTfN+StaiuCKgG1KpuR2+5dj5v
+ V0wJAxjbHeS82ECkinkWQV48ipO3My1tLY7i3pTe8VWMhNOd52YzDsS63QInLsGZdaTD
+ uYZw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU0/GQmyfKFmeAfGy2AdyI5a2zlR4hBDBXkzcSx9NbVB7sLUPqMIfmaASPcY9QkMvU3xDGP+g+0/dc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywd0C8mZW9/0kBB3qTT8ZKqbX/Hfw4gT1yxiqhVcZ5GenOiQZDj
- VDl7YAAEc9B818tgsnPNeGVte/z7x5O8bSenrGYUKT6MlL5laB+IcBJjJb+z91g=
-X-Gm-Gg: ASbGncv5xo1HBFu6BInsIl/HspHI2GrUhkXXh2mu49EHsgwDmwAd19yDPATdEwKMX01
- GuKgQVWgEzbXYWYdVxHo47nNR2Qhe3A4Z6nUOqlHCeP/zltqZT78ueH3+zquI4w370xdaMb06sk
- O3Qb9sxJcDTq8bAMJtJ6vdV0c0OEk5HjaMOQAeOMuFkRtwIM/ZiBIMEqwemC++NreQ+Em+K7bGL
- sVfxphKpaFW1Z+aSDgCCMjfrgP5TBfP/QdLaARnUBdBSP3mWRGJG8ROZpveOMUrF7LV/1faTCpI
- fliyDDstCNJw0npE1N0hyJ7D5t9T6xA=
-X-Google-Smtp-Source: AGHT+IGt/Ma1+xcecSjAs+tIN0S9176VFMEJoZh0tWzQpjFDOP83vGEsqq8F/1t/+/uO38xWoiotQQ==
-X-Received: by 2002:a05:600c:1c94:b0:42c:aeee:80a with SMTP id
- 5b1f17b1804b1-438e183fecfmr30041345e9.7.1738335802809; 
- Fri, 31 Jan 2025 07:03:22 -0800 (PST)
+ AJvYcCUsdzThoHAx5JTlI4qXtsuqxNgiMsvgt+IAwHGIQadbEDwWeXyuX9HWInbzqAxl5qn9HkHA5OkYDF4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNz7ZbqIYoMOTob2y24CgwI1L+Ev7bTasfArcksJUAopgMMpcm
+ d5apPWg9jkAgB/UZZUEa+GPkzFcdYXAc7JxgZ2UnHGf9H+7+FSF9X3yDq1tYxDw=
+X-Gm-Gg: ASbGnctq/DB10Na5EvGU9AG8xo3V5Hh+ttN+RO2N8oN0WC5NuOh+Coi6frNZg2OpI1c
+ Flrva9u/cajtF/HnIQmnjfat03WrP2oRCMDXpXWlMYck2vBeNe6NoHEmiR1F5RJMBjY8k4o8j8x
+ GpXXUs7n9WFm+qx6Be7yp0U77DCWBIJR0pT5hW2VF9FPrjRXJ/e4Sh8M3TWADh1LM+JOvlkkpNa
+ omwW53JjaDWCptcg3jbpxPdi3Y57pndMEydsAOoP6FIu8WH565BwFK8Elq1oMfog9E9KgPmydbu
+ D36xaF3J2rJhEf1seWxixOUerMC0oLE=
+X-Google-Smtp-Source: AGHT+IHa61acfT+KyNQENNAEd0Nj8SRxrL3nqrV5AysWz0NDU8+NBDLu7wkd4aqJgwMag9OUt64tTA==
+X-Received: by 2002:a05:600c:4455:b0:438:a240:c62 with SMTP id
+ 5b1f17b1804b1-438dc43c9ffmr39701365e9.8.1738335804305; 
+ Fri, 31 Jan 2025 07:03:24 -0800 (PST)
 Received: from [127.0.1.1] ([178.197.218.144])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438e245efbcsm56679925e9.33.2025.01.31.07.03.21
+ 5b1f17b1804b1-438e245efbcsm56679925e9.33.2025.01.31.07.03.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jan 2025 07:03:22 -0800 (PST)
+ Fri, 31 Jan 2025 07:03:23 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Fri, 31 Jan 2025 16:02:51 +0100
-Subject: [PATCH 2/3] drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG1 against
- clock driver
+Date: Fri, 31 Jan 2025 16:02:52 +0100
+Subject: [PATCH 3/3] drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when
+ choosing bitclk source
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250131-drm-msm-phy-pll-cfg-reg-v1-2-3b99efeb2e8d@linaro.org>
+Message-Id: <20250131-drm-msm-phy-pll-cfg-reg-v1-3-3b99efeb2e8d@linaro.org>
 References: <20250131-drm-msm-phy-pll-cfg-reg-v1-0-3b99efeb2e8d@linaro.org>
 In-Reply-To: <20250131-drm-msm-phy-pll-cfg-reg-v1-0-3b99efeb2e8d@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -79,21 +79,21 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3807;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1421;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=MzjWwbzWIs8H1LDVE5c7k4kuxK5nlvhG1DNnOpxI2Ws=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBnnOYz5iDHf4Qp20YJL5Udj223hj4lS787xPTNp
- gaRdf1GgciJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ5zmMwAKCRDBN2bmhouD
- 14m0D/0TkOdX7O2JJNLdgRDCRNTqbqeEHBXzU2CW4U2CqKnMqlYR11fm4SNRjb2lGhLO6uReKsp
- XtbxR9n8y7E41NScMxHH1OhgTZ1PCjPA4j74nMRVl4NnATy/HjnM5viCLZVTtDOizYXTELLmR5n
- RjW7EWK/RVgGGcrFmpiWKOFHPsYVm6OP0ifu/9nwMSHUnoJPCTb+bTnPHxFunDh953Yq4bKZQNv
- aFUE3jCtlt7mW1wN/rWFZ2YkMgUBzocomJ2vGw5yKBm2fMA7LsuEXbguVTfkcQsN5LwzUHiW/us
- pBgwU5Gbc3NKrQRwRd7Om3LTx9+kLRGgJtp7CoTL8FzOQooEV3eklb767VX6nKJcVJXw23Uia22
- 4EMD6j1zjIcyN35Cl4NDiGoPVcY55CwBJfplyYePtrtLyII6wnlQvUWu+lLOcThXcWmUAgMzUIm
- 0aV0CyY1MRbo8low9GeH99bNc3XQc4uqtPvPGwy9acLUX6PiduZbF+UJUTfMbP8fw6/fu6+ks1Y
- bJwYEPwZ/U+ZRGl0m0eKMUw4vR8Mcm9WvAmxTwqrXJM3tJQpUjpZTyz6LJX3VwctKQaEioCgJa7
- NMrQ7cDPK4GrtzOx3mM5ZGTuQ/1tKKuJZm21addbAJvQoBxpq4Jf5wNcyjBIBVYWPswBumI49hB
- W4ZFi7pu8eAncyg==
+ bh=1sAXbb7jAADLo71PpFTSGgQtXDD+l/u76NbI+0/GtkM=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBnnOY0/nyLoJ3CPnbjVkTxAPwcTEhEifYYAuKXJ
+ U1YeJo4wEOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ5zmNAAKCRDBN2bmhouD
+ 16DhEACNy8BVbPJXOrrzsVVDwnau+ETcAxY7IIdQ9JObd8TVWIMy3PeuM3eKAEJCJ37CFfep3nY
+ +ebDoCgMut6CmEcOP57zdy+YnCV+Caseuc20ifRjLKQAsta8OJ2iyjTVL3nH6d/ROUGfYaMfOfR
+ rfJoce88n0/sCN0G3aeBwvk8kFGdm0zPxIIljWdg7/1lt99vmRDDo9O3XB1aZhrPPelmbEKPXph
+ QQsZDu5MYnHYhiZCwpQ4OvAXR5DpVhxhXMjk079rDgFE8FBCjaDeUFOZGgwhlVOHwXoR5CvQBkm
+ iHY/1HMqJVhK58xQhgygIQ4SSjGpuU/HKDpdWpy7f6F2FCdEKZk6VGP4NYTWPjkB0v21sHGUw0t
+ NEAeQZXh0N49sV2IvJK+hBSJaDecQdFsBcl8T3mEMAJOmv1dcR/fqX/8jEF3cFWZR0UfcLtV4HA
+ JtRNxMKk5z9W7uy3ox0nPytAEqWoIPu4PpT4QuF0bi/BhKh5QhKh/w3lfsoz4LXAS5nlet1sd8B
+ mbD1GpB3aZxJizYxmAIBXabsVnAaL4mnJ0ZsFM0gdPAcfB7zdWXd9umiaubK4aef6KMvIcnO60O
+ CBQd6oPxVjBwecf6pO2TSDYaiM6xUFiP2XjbEOF9af9kHs9mR6rFaAspq/qxYGVUPU7ZfTkqGLo
+ O/y6v+ThTBtjsLw==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -111,110 +111,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-PHY_CMN_CLK_CFG1 register is updated by the PHY driver and by a mux
-clock from Common Clock Framework:
-devm_clk_hw_register_mux_parent_hws().  There could be a path leading to
-concurrent and conflicting updates between PHY driver and clock
-framework, e.g. changing the mux and enabling PLL clocks.
+PHY_CMN_CLK_CFG1 register has four fields being used in the driver: DSI
+clock divider, source of bitclk and two for enabling the DSI PHY PLL
+clocks.
 
-Add dedicated spinlock to be sure all PHY_CMN_CLK_CFG1 updates are
-synchronized.
+dsi_7nm_set_usecase() sets only the source of bitclk, so should leave
+all other bits untouched.  Use newly introduced
+dsi_pll_cmn_clk_cfg1_update() to update respective bits without
+overwriting the rest.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 34 +++++++++++++++++++------------
- 1 file changed, 21 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index c164f845653816291ad96c863257f75462ef58e7..6c18b9c0e1903bbd0090aceef13ae8c6f2e080ce 100644
+index 6c18b9c0e1903bbd0090aceef13ae8c6f2e080ce..8a9ee308ccffc3b9d112a994a064d8be06d9c42e 100644
 --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
 +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -83,6 +83,9 @@ struct dsi_pll_7nm {
- 	/* protects REG_DSI_7nm_PHY_CMN_CLK_CFG0 register */
- 	spinlock_t postdiv_lock;
- 
-+	/* protects REG_DSI_7nm_PHY_CMN_CLK_CFG1 register */
-+	spinlock_t pclk_mux_lock;
-+
- 	struct pll_7nm_cached_state cached_state;
- 
- 	struct dsi_pll_7nm *slave;
-@@ -381,22 +384,31 @@ static void dsi_pll_cmn_clk_cfg0_write(struct dsi_pll_7nm *pll, u32 val)
- 	spin_unlock_irqrestore(&pll->postdiv_lock, flags);
- }
- 
--static void dsi_pll_disable_global_clk(struct dsi_pll_7nm *pll)
-+static void dsi_pll_cmn_clk_cfg1_update(struct dsi_pll_7nm *pll, u32 mask,
-+					u32 val)
- {
-+	unsigned long flags;
- 	u32 data;
- 
-+	spin_lock_irqsave(&pll->pclk_mux_lock, flags);
- 	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
--	writel(data & ~BIT(5), pll->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
-+	data &= ~mask;
-+	data |= val & mask;
-+
-+	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
-+	spin_unlock_irqrestore(&pll->pclk_mux_lock, flags);
-+}
-+
-+static void dsi_pll_disable_global_clk(struct dsi_pll_7nm *pll)
-+{
-+	dsi_pll_cmn_clk_cfg1_update(pll, BIT(5), 0);
- }
- 
- static void dsi_pll_enable_global_clk(struct dsi_pll_7nm *pll)
- {
--	u32 data;
--
- 	writel(0x04, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_3);
- 
--	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
--	writel(data | BIT(5) | BIT(4), pll->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
-+	dsi_pll_cmn_clk_cfg1_update(pll, BIT(5) | BIT(4), BIT(5) | BIT(4));
- }
- 
- static void dsi_pll_phy_dig_reset(struct dsi_pll_7nm *pll)
-@@ -574,7 +586,6 @@ static int dsi_7nm_pll_restore_state(struct msm_dsi_phy *phy)
+@@ -615,7 +615,6 @@ static int dsi_7nm_pll_restore_state(struct msm_dsi_phy *phy)
+ static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
  {
  	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(phy->vco_hw);
- 	struct pll_7nm_cached_state *cached = &pll_7nm->cached_state;
--	void __iomem *phy_base = pll_7nm->phy->base;
- 	u32 val;
- 	int ret;
+-	void __iomem *base = phy->base;
+ 	u32 data = 0x0;	/* internal PLL */
  
-@@ -585,11 +596,7 @@ static int dsi_7nm_pll_restore_state(struct msm_dsi_phy *phy)
+ 	DBG("DSI PLL%d", pll_7nm->phy->id);
+@@ -634,7 +633,7 @@ static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
+ 	}
  
- 	dsi_pll_cmn_clk_cfg0_write(pll_7nm,
- 				   cached->bit_clk_div | (cached->pix_clk_div << 4));
--
--	val = readl(phy_base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
--	val &= ~0x3;
--	val |= cached->pll_mux;
--	writel(val, phy_base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
-+	dsi_pll_cmn_clk_cfg1_update(pll_7nm, 0x3, cached->pll_mux);
+ 	/* set PLL src */
+-	writel(data << 2, base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
++	dsi_pll_cmn_clk_cfg1_update(pll_7nm, GENMASK(3, 2), data << 2);
  
- 	ret = dsi_pll_7nm_vco_set_rate(phy->vco_hw,
- 			pll_7nm->vco_current_rate,
-@@ -742,7 +749,7 @@ static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm, struct clk_hw **provide
- 					pll_by_2_bit,
- 				}), 2, 0, pll_7nm->phy->base +
- 					REG_DSI_7nm_PHY_CMN_CLK_CFG1,
--				0, 1, 0, NULL);
-+				0, 1, 0, &pll_7nm->pclk_mux_lock);
- 		if (IS_ERR(hw)) {
- 			ret = PTR_ERR(hw);
- 			goto fail;
-@@ -787,6 +794,7 @@ static int dsi_pll_7nm_init(struct msm_dsi_phy *phy)
- 	pll_7nm_list[phy->id] = pll_7nm;
- 
- 	spin_lock_init(&pll_7nm->postdiv_lock);
-+	spin_lock_init(&pll_7nm->pclk_mux_lock);
- 
- 	pll_7nm->phy = phy;
- 
+ 	return 0;
+ }
 
 -- 
 2.43.0
