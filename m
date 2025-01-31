@@ -2,84 +2,134 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C83C0A24061
-	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2025 17:27:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADF26A249CE
+	for <lists+freedreno@lfdr.de>; Sat,  1 Feb 2025 16:27:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9568A10E39F;
-	Fri, 31 Jan 2025 16:27:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5521010E301;
+	Sat,  1 Feb 2025 15:27:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VdZq1Wg/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dXsI0frC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8BD10E39F
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2025 16:27:10 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-305d843d925so17744291fa.2
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2025 08:27:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738340829; x=1738945629; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=UqNHljgGvF39ZoYvi7LQhjvqJjolDyUDugtI7pAIX/w=;
- b=VdZq1Wg/P5sfnS/f0KqM+gChHn8qmDzYmv7IsUW2fa1mOGtiP2kK+cDONjD/teB1GE
- lDEV1Lhait4pr7oy+e29UgkelMxQ2+UMitgBz9zqmMlI9/jVM9/Z5mc/CnvH4b6b+Hqy
- w5mjvHjGAQNdyEaEt6IyxTItNJN+dXDrZjtCAT4GpLztSlsDAyJEbng9L8X5D93GwcTX
- 7N4Hqldt24ipwMD1mO23fAM17dBWwOONcn4elPE2qFnKBLGXV2ayoNzFTYNKEd5TZ020
- gDbMRXxgfQUcGgIDd6Xpt3I+ZGCNr9QGnKakTHTNihaqafOYrfi1oGA1ctR/DTA46kHR
- LxbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738340829; x=1738945629;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UqNHljgGvF39ZoYvi7LQhjvqJjolDyUDugtI7pAIX/w=;
- b=sYqOlAGi0GNzGmrVzhzyB/E3Tfvg5LszKlS5YBRQpCpFguSu1rMkt30ogrzBTkp0hu
- CSSReol4W3Gu3Lk78f9kHO03LoLpIzd7fmmWT9kFgiyw3O9Zhf6ZrFeGFr1lVqvLfEXA
- QNcKCDpIp6k6JJWWrbVgRB9o/+RPLVgbIFmKD2IBrxfZkRy2SOFROZzBRYXWVgEtj0vV
- EMWGhw9lgHC/CpstjlOCu8/gDpYZI4+/Eg7Rzey2Tn/amfcspUo+H+IsYcYhJsUctwLp
- U72f/c4oZSl11kT0BVRyPOXe+Ws6CiV66E/0FmQ9dZj6HK2VXFJ882caj7zi+K5nLwuc
- 9Fpg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXqMjk1AU+0VK3lIN/giok4IEWds05UwvN46dq+vrbbMSu7Ge/Rcifbe8/PjYiWKGsUFwKBCLMOfxQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyA9irn6PYf8FzFnF7yRgFjJkgPfd4wlS5tHjqImH+NCw6AN7fR
- QRrPsT9nFKdl8ztRdLJCgVPMn8ZpAYDmfxrgeBK4VYAgzAQ1AAYGKjRYJB4biQM=
-X-Gm-Gg: ASbGnctTe2DXve0n8Ywzn2hv3RXqfLEdvhAiVn3NFcfpr20shQ+7gKoKUKfn2qklSnM
- /yLfj2JXR8SLMOWUw2tzCklT36I4UDbNX44WCh3HAsgT4UVxzwOmBy8m/NaNEnjpNe0PiWX+iaW
- 0Aym4vKtGKYNU2x40KYpCml31OCpZS9w2GZfJJfGqMBc0oOUIhVv9ln0bMExO43CxqsUR+f4SLH
- QASzxceg0RwIU8tSq3O1erkfh/iO0ZtdpwD0AMnEK/KO/Q6XvgX0hmDye/Z0pvdZU1ey9SDvGJh
- bdm0Cel75QVED3vHa2s1eWEREBo32QDRf5j3X+gT8e+ZgJoeiggZ2Pf4V8ir7v2Qyi2Q0SA=
-X-Google-Smtp-Source: AGHT+IHj2CEfFG1Ny3hI/iiu/YjFUy7k0PuAj0GbWhKpJjm24+fabydi0W5P5bg17qhnO1cLtaZBqg==
-X-Received: by 2002:a05:651c:1608:b0:300:2d54:c2ae with SMTP id
- 38308e7fff4ca-307968e7b65mr51500131fa.27.1738340828800; 
- Fri, 31 Jan 2025 08:27:08 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-307a33f806csm6141981fa.70.2025.01.31.08.27.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jan 2025 08:27:07 -0800 (PST)
-Date: Fri, 31 Jan 2025 18:27:05 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1
- when choosing bitclk source
-Message-ID: <lpg4ig3lzypzbv5nyzjfdz77ma5jdk3ey2hjt5htt5yd3ztfjp@i4qzlexajhvb>
-References: <20250131-drm-msm-phy-pll-cfg-reg-v1-0-3b99efeb2e8d@linaro.org>
- <20250131-drm-msm-phy-pll-cfg-reg-v1-3-3b99efeb2e8d@linaro.org>
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2068.outbound.protection.outlook.com [40.107.223.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5255E10EA64;
+ Fri, 31 Jan 2025 11:03:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OvZoWoYHygQu7kjhnH/0YoO8RO4s9xB4C3TH4Qy+tjIi0CtPWtsK3zud1tDRFmdVfd1v6iau0ECG4CzZ6vekUDJzKm+TJhF46Nq0NqmTrX7KwvxIJkX2bDMBQDFQDmieG2iQDfWMoc4Xxn8TGDSrUT5wI8EZ8OjjTHsyImuDso3eT65jwwEBPKO2B+Zcca2srdOGyipgdxaO9Zh168z4bJ7nG7UUfRUZxume3rnJbX1gjAokKgaiu5FcxOrhv6JpZEOo64hMwbufjV8drS7Q/LfLVs5tmvi6+62TDEKhyxu5soukvOefJexm9FODrBywl7Y9HaTzVdO2l4y8GnreLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8VAGDIpQcJp40PqoDAVHv40LV5uDu0hKJbH7NwMRjaM=;
+ b=iXIsCy5bjeMYnHa7ENaDSsdLgh03Nn74XAcEVPeOVlx3HPrkWqKqT5JP32j9WBDgkd2j7qNc1fGLzg4Y8lfNbzvwWh9gCZeKtrqPav28jcl6i1c5IowIW3kNI7DvmmpFULuiOeTnyMpxXTG+r7a7k85w0ZlkEGxnSVwY8oDnQiUsdW7PvKUQRVz9JzKCdvOlF0mO1sRL7mmivJwIUG6pDLS2XmCnfhmGM8cWIqPgsQCy5TYrR4/9bW8kF6hr+rLHunwzI8rdG0yANZwbX8EGqOSHwdpnVt3DBcKqVowjyvsnU9j+qTTj/gyb8sDPNmdd3k1G6ej0u3/uQWC3Hzdmmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8VAGDIpQcJp40PqoDAVHv40LV5uDu0hKJbH7NwMRjaM=;
+ b=dXsI0frCQkDC4ecWWMF1quaC++5bdVOPn62xd73q2K1mXV0TYG7h/gxVU5Ki6+Gr3t/MFivEyKLlAV8WuwxWuBELcWYTwhk4F2iM+3Y92wrQA4nJT325DRUF7hm7Jlm0hyyX/pPnMR6LFpdMUh+o0a7Z3P8LwiutiolByAFG7JY=
+Received: from BYAPR05CA0009.namprd05.prod.outlook.com (2603:10b6:a03:c0::22)
+ by CY8PR12MB7514.namprd12.prod.outlook.com (2603:10b6:930:92::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.20; Fri, 31 Jan
+ 2025 11:03:46 +0000
+Received: from CO1PEPF000044F0.namprd05.prod.outlook.com
+ (2603:10b6:a03:c0:cafe::de) by BYAPR05CA0009.outlook.office365.com
+ (2603:10b6:a03:c0::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.18 via Frontend Transport; Fri,
+ 31 Jan 2025 11:03:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F0.mail.protection.outlook.com (10.167.241.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8398.14 via Frontend Transport; Fri, 31 Jan 2025 11:03:44 +0000
+Received: from patedamande.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 31 Jan
+ 2025 05:03:40 -0600
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: 
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <etnaviv@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <lima@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <nouveau@lists.freedesktop.org>
+Subject: [PATCH v7 0/7] Improve gpu_scheduler trace events + uAPI
+Date: Fri, 31 Jan 2025 12:02:58 +0100
+Message-ID: <20250131110328.706695-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250131-drm-msm-phy-pll-cfg-reg-v1-3-3b99efeb2e8d@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F0:EE_|CY8PR12MB7514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87ffd7f7-c1b1-4227-f93a-08dd41e6ee35
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?STNkSExJc3FZUjFDeW5zdDQyWVV4RURITzdZcm8veVJSWmdpY2lmQ0MxR0hn?=
+ =?utf-8?B?OWYwMjhBeWlvaXZkUzYzdU1FRnpic3BkUnIzZGpscG5vNWYwNUVFNEZUSHd6?=
+ =?utf-8?B?enhkTVJ4N3Y3RnpSUjlFUnUrc09SWEQ2UnMraEw3MnpKSmJWNk83MC8wV3FV?=
+ =?utf-8?B?QzR5dlhGRkxZdC9JbEg5RmZka0xTb3l4WmxHM3U4V0tKRFBHOE1IT1lNMUI0?=
+ =?utf-8?B?Ris1OFJtQ0cwZ1kvdkVvYlB5QURjaEw3TFhLM0VKVCsraDFNaXV1dnE3cnBo?=
+ =?utf-8?B?bDZhcHFSYlkybjRRSDB3ZnI3a05BanFXbjBqYlhLRGR1MUNQaGlSV0xEZzJP?=
+ =?utf-8?B?TWdPSzlDbHRrVisyRXFlT0ZDTlhEZm5EZWJ5WnZ3d0RyWGpjL2k4UFY2OUhq?=
+ =?utf-8?B?dTU1ZWdIUEFRTFRMRjF4TmQwWnY5Wk9oa01LcGxaUlNnelFod1FhUUtERUo0?=
+ =?utf-8?B?NkFrallRcXo2UEQvdGRJTGJDZmErUndiaDhtNnBNTmpJbVVod0lVWFJ1ZUw5?=
+ =?utf-8?B?clBhRWFuUmtrNVZPWFVPNEJnQUdUc1RsQ1NFcWNEVTg3S1R0ZmZyTDNMTklP?=
+ =?utf-8?B?VmpuZ0d0Sk1XWnozdm5aOGhLQkI1S2ZER2ExdHpHS3hWL2VvNXZqS0VsSUg1?=
+ =?utf-8?B?SEhDQ0QybXo0Sjl1YlZiSzY1TnMrMEtVME0xN0NUeVYzbEhUcncwcG5FMzFn?=
+ =?utf-8?B?WjNpRGZzcHg5T1drTTNqTXBKMkc4VjgwWnRYRHhzZmhDNFZ0L3Y2aVFKek5U?=
+ =?utf-8?B?OGM5WFdocEZydnF2aEdWbThxS28zK05DYVNqMUJVWFFXRHhPOGVvTXQ4V01F?=
+ =?utf-8?B?ZGFmV0pWQ1F1SWxLazl3NmROdGQrSVpDVHRQTG1jU04ya0NYdGM4MEdGVzdu?=
+ =?utf-8?B?NWdqckRoVE1mcUZ3NmdwK1A2TlEzTUxlQ21vaUdZYUJmQ0xGa0NqZDlLQkxs?=
+ =?utf-8?B?d1BwSHliOTQrbTNJcmFMTG8rREwwMVc0MnRzUnVIelNKN2l6bUZ6RDNMTXF0?=
+ =?utf-8?B?c2kwVy80R1ZVMlJzVmxBUmo4cnNiemFqYTdDLzFyUS9MckJIVUU4Y3RtcEhJ?=
+ =?utf-8?B?RjFtK0s1cEJwY1JaTjZ1OFpmb0NGbWhDN3ExNjJpenZLMUZpbk5WOWd1WjdW?=
+ =?utf-8?B?MGg5ZjZzaDdpVlJOMG9GazIySlV1ZjUwMXZmSWU3enZ2dzBMUXdpcFdYb2N2?=
+ =?utf-8?B?TE11N2hBTHMzdVBVZ2E4WGtRQXRBcHFCQURTY1FId1R6V3FndDhwTmZOQXZK?=
+ =?utf-8?B?QTRocGNoR0gwRHdnaG9TRmlLNkEzSEZFN0xUd3pKS2MyUVg0dFhPbTdHOUwz?=
+ =?utf-8?B?SmI5d2ZEeWJVQTMrL2R5djVPMlZwb1hQSktYTzB0SFhIR3ByeHJueCtCL2pl?=
+ =?utf-8?B?QlM3eXBBSlNBSWVFVW1jb0ZGSEZYUm9wTTdxNXlBZHp2cW0xVDVUckJBR0c5?=
+ =?utf-8?B?WEVWSi9sMEhuVjhSaEUzUzhyZUlodlR6RUF1emlRR3dna2Vubkhxc0dZWTc5?=
+ =?utf-8?B?UHB0d29iWmhJZGJCaEkzbHExWVVsVjBGTmJNU2JMb2EwekNVOVBud2llcHNT?=
+ =?utf-8?B?aXpMQ3FkVVc1QVQzOWVtazRhcVlRNFp6VTRteGVZRStDS1NrSzJ4Q3dpWGt3?=
+ =?utf-8?B?WFYwazZjaVNTdFo1WjA3M2QyVTdrVmpMb2V4NTJqNkU1S0VpSlh0YndFSERk?=
+ =?utf-8?B?L1kwZmMyYkNSVWZrY1lpNGhjdWY0bVNIeCtuNW83YlloQzc1c0tTSDQrZTBK?=
+ =?utf-8?B?UEpjSDNhUzFNRnB2dXhVQ1BkTml4eFFZM2I5c2VMQmxOd3NiQSttcTVwWjQ2?=
+ =?utf-8?B?eGJPa1JLNTZnVm11SDI5cDJMZm84aVB3QWcvS3FrOFFxamMwWlVkVVlVOTA3?=
+ =?utf-8?B?UUxMcDFDWjI4ZlIyQ3dpKzFHRFBWN1R2WmhPLzhpaytKaExwc244V3ZYcmNk?=
+ =?utf-8?Q?NYDY5FrYiMI=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2025 11:03:44.9557 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87ffd7f7-c1b1-4227-f93a-08dd41e6ee35
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7514
+X-Mailman-Approved-At: Sat, 01 Feb 2025 15:27:06 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,50 +145,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 31, 2025 at 04:02:52PM +0100, Krzysztof Kozlowski wrote:
-> PHY_CMN_CLK_CFG1 register has four fields being used in the driver: DSI
-> clock divider, source of bitclk and two for enabling the DSI PHY PLL
-> clocks.
-> 
-> dsi_7nm_set_usecase() sets only the source of bitclk, so should leave
-> all other bits untouched.  Use newly introduced
-> dsi_pll_cmn_clk_cfg1_update() to update respective bits without
-> overwriting the rest.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> index 6c18b9c0e1903bbd0090aceef13ae8c6f2e080ce..8a9ee308ccffc3b9d112a994a064d8be06d9c42e 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> @@ -615,7 +615,6 @@ static int dsi_7nm_pll_restore_state(struct msm_dsi_phy *phy)
->  static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
->  {
->  	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(phy->vco_hw);
-> -	void __iomem *base = phy->base;
->  	u32 data = 0x0;	/* internal PLL */
->  
->  	DBG("DSI PLL%d", pll_7nm->phy->id);
-> @@ -634,7 +633,7 @@ static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
->  	}
->  
->  	/* set PLL src */
-> -	writel(data << 2, base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
-> +	dsi_pll_cmn_clk_cfg1_update(pll_7nm, GENMASK(3, 2), data << 2);
+Hi,
 
-This also should be defined.
+The initial goal of this series was to improve the drm and amdgpu
+trace events to be able to expose more of the inner workings of
+the scheduler and drivers to developers via tools.
 
->  
->  	return 0;
->  }
-> 
-> -- 
-> 2.43.0
-> 
+Then, the series evolved to become focused only on gpu_scheduler.
+The changes around vblank events will be part of a different
+series, as well as the amdgpu ones.
+
+Moreover Sima suggested to make some trace events stable uAPI,
+so tools can rely on them long term.
+
+The first patches extend and cleanup the gpu scheduler events.
+
+The last one adds a documentation entry in drm-uapi.rst.
+
+Changes since v6:
+* Addressed comments from Philipp, Tvrtko, Steven
+* The commit storing drm_client_id in sched_fence adds an extra
+field which looks like a duplicate of the owner field. Currently
+amdgpu uses the owner field with some magic values, so we have to
+have 2 separate fields for now, but ultimately one could be removed.
+Similarly storing the drm_client_id in the sched_entity is not
+really possible as there's nothing preventing a driver to use a
+sched_entity with multiple drm_file instances.
+
+
+Useful links:
+- userspace tool using the updated events:
+https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/37
+- v6:
+https://lists.freedesktop.org/archives/dri-devel/2024-November/477644.html
+
+Pierre-Eric Pelloux-Prayer (7):
+  drm/debugfs: output client_id in in drm_clients_info
+  drm/sched: store the drm client_id in drm_sched_fence
+  drm/sched: add device name to the drm_sched_process_job event
+  drm/sched: cleanup gpu_scheduler trace events
+  drm/sched: trace dependencies for gpu jobs
+  drm/sched: add the drm_client_id to the drm_sched_run/exec_job events
+  drm/doc: document some tracepoints as uAPI
+
+ Documentation/gpu/drm-uapi.rst                |  19 +++
+ drivers/accel/amdxdna/aie2_ctx.c              |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   3 +-
+ drivers/gpu/drm/drm_debugfs.c                 |  10 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c  |   2 +-
+ drivers/gpu/drm/imagination/pvr_job.c         |   2 +-
+ drivers/gpu/drm/imagination/pvr_queue.c       |   5 +-
+ drivers/gpu/drm/imagination/pvr_queue.h       |   2 +-
+ drivers/gpu/drm/lima/lima_gem.c               |   2 +-
+ drivers/gpu/drm/lima/lima_sched.c             |   6 +-
+ drivers/gpu/drm/lima/lima_sched.h             |   3 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c          |   8 +-
+ drivers/gpu/drm/nouveau/nouveau_sched.c       |   3 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c       |   2 +-
+ drivers/gpu/drm/panthor/panthor_drv.c         |   3 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c         |   2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |   5 +-
+ drivers/gpu/drm/panthor/panthor_sched.h       |   3 +-
+ .../gpu/drm/scheduler/gpu_scheduler_trace.h   | 123 ++++++++++++++----
+ drivers/gpu/drm/scheduler/sched_entity.c      |   8 +-
+ drivers/gpu/drm/scheduler/sched_fence.c       |   4 +-
+ drivers/gpu/drm/scheduler/sched_main.c        |   8 +-
+ drivers/gpu/drm/v3d/v3d_submit.c              |   2 +-
+ drivers/gpu/drm/xe/xe_sched_job.c             |   3 +-
+ include/drm/gpu_scheduler.h                   |  12 +-
+ 28 files changed, 192 insertions(+), 64 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.47.1
+
