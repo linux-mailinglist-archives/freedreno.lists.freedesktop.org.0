@@ -2,109 +2,130 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E731FA2578E
-	for <lists+freedreno@lfdr.de>; Mon,  3 Feb 2025 11:58:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C632FA257E3
+	for <lists+freedreno@lfdr.de>; Mon,  3 Feb 2025 12:16:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C085710E495;
-	Mon,  3 Feb 2025 10:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A469410E474;
+	Mon,  3 Feb 2025 11:16:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="b/QtydVI";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bAQEBcD4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37D2910E499
- for <freedreno@lists.freedesktop.org>; Mon,  3 Feb 2025 10:58:29 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-43675b1155bso49788805e9.2
- for <freedreno@lists.freedesktop.org>; Mon, 03 Feb 2025 02:58:29 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C1F810E474
+ for <freedreno@lists.freedesktop.org>; Mon,  3 Feb 2025 11:16:54 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-43616c12d72so6496705e9.2
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Feb 2025 03:16:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738580308; x=1739185108; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=YU2toixtghG/UIHIgDfi+TrJAb+KbxkNuLjUS/jgDXM=;
- b=b/QtydVI0PW6nP7mnZhaz4NrS/bPOegsLHzbo9qeJVYF/DxGU2pJwa2DcZmAvm3rKq
- saA5cxL/UkfNG5yis2Hx2Ocj8A68ohiVI9ZHaCveBNcvzWuTOhCiC8ito5aHsWsu8+eu
- 8gsh6GhGnFaAMqPLyxdBcie884m9x6e1JCpk1Jpj85fEUoe9yG6VfgfCh3ORA6hUH8OD
- omxI6d/AgaT/2fr8hTyEa2dCN3VHtUL2WMm0PIEYRFccWT2X7x7PPiubyTpxI9uu1PUr
- G7PEpUcDZWcVH8aJ6AW8oi66bGMWo33ZACJFH4mxz+IIsoc7ECeBXiePa/Cc6Xwxvlxg
- RL9g==
+ d=linaro.org; s=google; t=1738581413; x=1739186213; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=ozyTlPLnaugnaEoHQY+R4AXQEUzCLS18GW7s5hKxc5M=;
+ b=bAQEBcD4ZfgIDhPBZ+9nMcm2AaTgDyCD81pho97rfaum5mlvydyOtyU56AUFl3Sqoc
+ QjxrxV2kngrGI5K1AN70VuptAV0JtpMniIEAgPResNPThYwDoi0mA9lgY+bJxAsV5alf
+ tPiMIBj3qrT+xCyc8sqpQY3jGDLjVhjmGVUfx5MVwcFy6CyHSdOQWuNowLcKulucrkzy
+ Vyn6iLK1ghcWfpdV9hfC0lGRRHO6KU/pm6Q6iLsRJpj6uG7q57QfvvLc0XaMCp38yEp3
+ Wfy0klItSfhGvE2Xo/ETKzKuoRMx2caYzuz8uWNrTMeMyvIRIleUw9kE29z8BDgCavWE
+ 6Tig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738580308; x=1739185108;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YU2toixtghG/UIHIgDfi+TrJAb+KbxkNuLjUS/jgDXM=;
- b=FWHHBrMB4svlYKo9mWk/yBZBozUG4Y3dX8+ISn+kc9DVfavjoBZGRmRXy7BxQ1iSpF
- vVQK+TVacfhj3XKgm7180P1QEwfhcfPcYR1h3xKFawfCTe5PxYVOeC8+062pxriLCVGU
- n45GKVeF/BrbGfJ407E35lhn25pNBsHL+LIGgiA2z4VNfFQoGyLZB99NZJ6xiTo9GpN8
- q9er682VzRH4wk82s3RHmwGgRVU1M4PKABhTGsh+atGqBy0XOuc378b/eczCv4ZygwrL
- TAIW3fbHKj6G0eErp/V9lbVe8ktt6d7hp+E2qWTkAR8dTRLrdJ8RdyCHKRF7W9Qe7Mvy
- QhDA==
+ d=1e100.net; s=20230601; t=1738581413; x=1739186213;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ozyTlPLnaugnaEoHQY+R4AXQEUzCLS18GW7s5hKxc5M=;
+ b=cBv6gSZvUkuFN91lq8CDuuKcqaOPFvR7HntqAd9FD7jWhkDvycGi0zWNM19Q6Br8YJ
+ S2zjCYel0FC+A8t5BB8U90JBxNkrrBorOIzgwC30c/FjiTLJXQa5MqyKHIhSkt9gdp60
+ ZMs7ixgbso+A2+CmITlRTEDX398W1ejWAB6pgohGp02dptX2Gw2UYRUtaIvSn8W1oQpZ
+ 5ZU/hflZUOMdm0bFWBt1SL/f+kxa59FF6auAszeeA5M+t6jnLiFBURy6kDnsqWg55TtB
+ uGoEelOOidSSWqAdFXdMrMmqcFeQh27evVp9G3aFPB+q8HgryNO0rdh3jS8oO0OGEjTW
+ 3cVg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUh7UN4EwMDRgA78YLx0/Wq2fVX582FxELSKXLvkVnuI2jvlI6uCorgy9DYhox+fJ8N6UTW6P5yVZw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHEIcc8Pq7cR7rX714giPnafysu0eqFGSmRrvtbdyw6lZ+g4Uh
- IQmmqFx/hw3NRHjbIonAaGP6Y+RxG2XtFKLxyhrBigz/Uh4Eom4aNmpoZbkuJwY=
-X-Gm-Gg: ASbGncvkuwwummT2Turx45P6ImyQST6COUXK6B+pU+oSBeTIdPr83SLjFXeIN1q1ery
- 8JbT4hX5XmVlWwfR8CwoPqMHDWc8TiR2O1Ux47mcuPY+XJxVxVBCRHSR648OoMY3tL4m3Vx8Px3
- pM9k8sT+/sMH3OlwTsmWZFdKo3KPCS+Tg+7UmrnGmIUZwtaPnxf6IaI8V2vZqbyOlKALPL25Teg
- hBw//q5s+upikTe+0baAKqk9S7Lbdm73WSEwyDy8eAqqqG8Sq8f3JRdVnxn8ewO8B/bM3UOGg8G
- 2VgVHgyFwPw0OJM=
-X-Google-Smtp-Source: AGHT+IG3sxZoF1BxKwDs6D8yKh85vjYaq2CGCwZLuA4JBiE6X/IAqNanFP9ag+j0VZ8Qqg5mgek9bg==
-X-Received: by 2002:a05:600c:35d1:b0:436:1971:2a4 with SMTP id
- 5b1f17b1804b1-438dc3cc9f1mr185238805e9.17.1738580307609; 
- Mon, 03 Feb 2025 02:58:27 -0800 (PST)
-Received: from [127.0.1.1] ([86.123.96.125]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c5c13a0efsm12555083f8f.60.2025.02.03.02.58.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Feb 2025 02:58:27 -0800 (PST)
-From: Abel Vesa <abel.vesa@linaro.org>
-Date: Mon, 03 Feb 2025 12:57:59 +0200
-Subject: [PATCH v5 4/4] drm/msm/dp: Add support for LTTPR handling
+ AJvYcCUJcU/sNkyFevua/NKPa6SW0/+QwPvZEuoOuAXrPG4S4/Hu35nTZP+VoxshXbC/o45S1FydCNa9l4A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzhYBgN/tNBoWLpSuPlPTQltMvKKSi7VFT8n8Pe0qteQajvwBOG
+ YuMYdhmGlktAwb77ADGwCD+19TPqqfIIX9+Hsgy4ilRLqNmv9FECgIAOBF3UOzE=
+X-Gm-Gg: ASbGncvlvIX6QNeLk9cN2xpVKgYDmFncOClVdOAcnteboHyPt6E3CgQvSV7Ogb7d3tD
+ 8wZ9adCRQ+U6TwQK6fzFDzo9yJ+RptelaBVahy0K2124RA2ls6jj73nGkWxPRoQAXWme4N0inV1
+ g8jpJaHrk7H758YcPRlmpCq2a6zlcxHvDPnFYlbi91CYzMkwZ1hUD+V3FxOwq+VujSt8ZDdGUO5
+ qJWx2vTmVp4VNg97zttnFUQUt6hz7W7uY/+X2qcPUCTSIsGemk7fH0ffK25E63S+bVtkCxWDvsy
+ lw8dJF4MEeYWmt1MOvt3nN0OCf/m+G5o5hY=
+X-Google-Smtp-Source: AGHT+IER4b8x4k4tSsG3NXSbXAj/U65SZ2uRmU7FJsNnr3cP55/fxC2eGPVEdqHi8nEykzMTwVK4eg==
+X-Received: by 2002:a5d:6d86:0:b0:38b:eb86:694c with SMTP id
+ ffacd0b85a97d-38c5167a2cfmr6601607f8f.0.1738581412780; 
+ Mon, 03 Feb 2025 03:16:52 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.218.144])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c5c1b57b6sm12487667f8f.72.2025.02.03.03.16.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 03 Feb 2025 03:16:52 -0800 (PST)
+Message-ID: <ab65d951-7d1e-436e-8bcd-5b389991a0ef@linaro.org>
+Date: Mon, 3 Feb 2025 12:16:50 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] drm/msm/dsi/phy: Improvements around concurrent
+ PHY_CMN_CLK_CFG[01]
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20250131-drm-msm-phy-pll-cfg-reg-v1-0-3b99efeb2e8d@linaro.org>
+ <gyslnttjsuav5dsbmglroujpwrqazokfnj65uhbegja3w27yxc@iamitbbg2e7e>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <gyslnttjsuav5dsbmglroujpwrqazokfnj65uhbegja3w27yxc@iamitbbg2e7e>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250203-drm-dp-msm-add-lttpr-transparent-mode-set-v5-4-c865d0e56d6e@linaro.org>
-References: <20250203-drm-dp-msm-add-lttpr-transparent-mode-set-v5-0-c865d0e56d6e@linaro.org>
-In-Reply-To: <20250203-drm-dp-msm-add-lttpr-transparent-mode-set-v5-0-c865d0e56d6e@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@linaro.org>, 
- Johan Hovold <johan+linaro@kernel.org>
-X-Mailer: b4 0.15-dev-dedf8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3226; i=abel.vesa@linaro.org; 
- h=from:subject:message-id;
- bh=Jh+EL4p/6JSMFadATMQ/dMawzZEL4l2MOkq/1iyumns=; 
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBnoKFIouFywSlDaZiCw4jErWqSRIqEpI3epr4AW
- pUfu6e93kKJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZ6ChSAAKCRAbX0TJAJUV
- VkinEADM92QE1zN3OdqwoLmwOoyxpCMwh545d6+dM1Jydy6p2+/Kc4BB1xjuxNF1HNo5rtoqH07
- ym9dN4Q2Qq7XF1KIk/3CrsDT4I6xsQyH+dZXcInkRjCUYzr92gP/vw1kR3ZEqKR0MhGKoby+vee
- AMNZ73KL9sbyxqDOSvYlfU64YT+4M3Y0RjyunUFlc8d0B77KoL9D1lf+9S/cf/VIG5xt10eHvCI
- Y/7TVphY3czZAV8pnzwIf8rvKl8ovXxM1wuxLd5rbHSICbG9xkbeuPm9Gk0ayUP21CpdlnMwnrO
- ZgiMbd646uADECWUTsnLP+vy/yGmYdZk+wxCNssoiv8Uwdn5ZBIDrTreTRLOTRfs0yrkWKw+2Rr
- nvsWS9eg48JbmcR2ZEUHO9TK8fTbA7zOnb/X1M9Xm6dTObpCTrH/1WvFKyJHOT+F8lkUhOhWYM5
- FHml27aV+44Peh/GLto6Qzz4d2+f92sCsBH9ywrCKadg7S/0e9kxiYCsVG5CPv74tlxnI1MJTIk
- 38joR4PETewNrhxKk1ppq87XoZJCSGrVxk/IZsbYHALamKacJUTrn6kJ91yS/mNIU23LtyOTkdh
- M2PhJ+2wRSHuQtQv19TyrWt+d38PCVc5NM4iGWqb0J4QbPzEgPwhp1xeCLwRcvp1mk/vM6udNFY
- hRWMZsNaZcQlw7w==
-X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,83 +141,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
-1.4a specification. As the name suggests, these PHY repeaters are
-capable of adjusting their output for link training purposes.
+On 31/01/2025 17:24, Dmitry Baryshkov wrote:
+> On Fri, Jan 31, 2025 at 04:02:49PM +0100, Krzysztof Kozlowski wrote:
+>> Calling these improvements, not fixes, because I don't think we ever hit
+>> actual concurrency issue.  Although if we ever hit it, it would be very
+>> tricky to debug and find the cause.
+> 
+> All of the patches miss Fixes: tags.  Could you please provide those.
 
-According to the DisplayPort standard, LTTPRs have two operating
-modes:
- - non-transparent - it replies to DPCD LTTPR field specific AUX
-   requests, while passes through all other AUX requests
- - transparent - it passes through all AUX requests.
 
-Switching between these two modes is done by the DPTX by issuing
-an AUX write to the DPCD PHY_REPEATER_MODE register.
+I did not provide on purpose, but I don't mind calling these commits
+fixes. Will do  in v2.
 
-The msm DP driver is currently lacking any handling of LTTPRs.
-This means that if at least one LTTPR is found between DPTX and DPRX,
-the link training would fail if that LTTPR was not already configured
-in transparent mode.
 
-The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
-that before link training with the LTTPR is started, the DPTX may place
-the LTTPR in non-transparent mode by first switching to transparent mode
-and then to non-transparent mode. This operation seems to be needed only
-on first link training and doesn't need to be done again until device is
-unplugged.
-
-It has been observed on a few X Elite-based platforms which have
-such LTTPRs in their board design that the DPTX needs to follow the
-procedure described above in order for the link training to be successful.
-
-So add support for reading the LTTPR DPCD caps to figure out the number
-of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
-at least one such an LTTPR, set its operation mode to transparent mode
-first and then to non-transparent, just like the mentioned section of
-the specification mandates.
-
-Tested-by: Johan Hovold <johan+linaro@kernel.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
-Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 24dd37f1682bf5016bb0efbeb44489061deff060..1dd8f94e27475ae5b5b25d80f758968e6818f6cc 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -367,6 +367,19 @@ static int msm_dp_display_send_hpd_notification(struct msm_dp_display_private *d
- 	return 0;
- }
- 
-+static void msm_dp_display_lttpr_init(struct msm_dp_display_private *dp)
-+{
-+	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
-+	int rc;
-+
-+	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd, lttpr_caps))
-+		return;
-+
-+	rc = drm_dp_lttpr_init(dp->aux, drm_dp_lttpr_count(lttpr_caps));
-+	if (rc)
-+		DRM_ERROR("failed to set LTTPRs transparency mode, rc=%d\n", rc);
-+}
-+
- static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
- {
- 	struct drm_connector *connector = dp->msm_dp_display.connector;
-@@ -377,6 +390,8 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
- 	if (rc)
- 		goto end;
- 
-+	msm_dp_display_lttpr_init(dp);
-+
- 	msm_dp_link_process_request(dp->link);
- 
- 	if (!dp->msm_dp_display.is_edp)
-
--- 
-2.34.1
-
+Best regards,
+Krzysztof
