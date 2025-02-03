@@ -2,44 +2,114 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89C83A24D58
-	for <lists+freedreno@lfdr.de>; Sun,  2 Feb 2025 10:48:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D60F3A2577E
+	for <lists+freedreno@lfdr.de>; Mon,  3 Feb 2025 11:58:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E628210E08E;
-	Sun,  2 Feb 2025 09:47:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A660E10E480;
+	Mon,  3 Feb 2025 10:58:22 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Kze+GGRy";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Sat, 01 Feb 2025 16:03:53 UTC
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 55F3610E235
- for <freedreno@lists.freedesktop.org>; Sat,  1 Feb 2025 16:03:53 +0000 (UTC)
-X-CSE-ConnectionGUID: y2m+J6VtQomP5ceMAG0x6A==
-X-CSE-MsgGUID: L8OgIuffRcaZ81niYHHAfA==
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 02 Feb 2025 00:58:49 +0900
-Received: from localhost.localdomain (unknown [10.226.92.62])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id CBC8E401439D;
- Sun,  2 Feb 2025 00:58:35 +0900 (JST)
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH] drm/msm: Use of_get_available_child_by_name()
-Date: Sat,  1 Feb 2025 15:58:28 +0000
-Message-ID: <20250201155830.39366-1-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23BE510E47D
+ for <freedreno@lists.freedesktop.org>; Mon,  3 Feb 2025 10:58:21 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4363dc916ceso32468035e9.0
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Feb 2025 02:58:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1738580299; x=1739185099; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=XLcAmb5imXFvDRB/VGg4Mua1A1e4qvmBbsZyq6NVDp0=;
+ b=Kze+GGRyITDqHixRawr+JeZ5csPm8PcxEGXIAryfXgc8GwsztkwiCTg68CWWOu556B
+ d/s/GvG+YAiCZIS2fBCs/zknvsqMvWAxRKlQ5cbVSsolANZufPxGd3VxC4hY//6Kifj/
+ Bk0v4azSzEsLovW4K//IuHNegfJvJjUkX0AFgx/hDcd9Y38zwFSAkMQZSV3HUCHYhyhD
+ gjRwL9IsQt1EIqskF9v7X7Mn2UIhTKkExICAtndXjbyrkHznCs8+lQc+vmbldBtXcdKE
+ 2Nio7PySReDwz2IpXe2hjMx/CEwloe6I5gHhfLcMJi/LV4GVzWNyCME4a4Tcefqk0bDz
+ UUtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1738580299; x=1739185099;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XLcAmb5imXFvDRB/VGg4Mua1A1e4qvmBbsZyq6NVDp0=;
+ b=Nm8uGZN1UCYDMXPkyRH/FcUX8L39pp4UxAfZTtxCJGJc7UyHnGV4NX9zzMrkUGn6TR
+ j4VMefyY0HnlCR2Cvb0u9wlMs8lTiaOuyooW1n8mAncGm8s4TML4V+nxcQVrpoqXUKMW
+ z+kawcwBkW2f2RsGrRIjkiNRLWEjq79v7iM3MWEmHXCE2P8XgzbTjlzqgMtvRwKjaELv
+ OoCP3Y+IXydqK4pZFNiQaA1rpdbeB7FxNAzg/nBpXZYARIvsUdKK7HgCS8LFS5x+mxcl
+ p38ODml06rb3CjxLEUBWp55qfre24eZ2B6xiSmnl6wT7TbEX6HAZPuykgUtHK7dDXoGu
+ 1Vag==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWCvj3X929JZGdsyLGy+2eQzxFjEEwKXTu2o6ZaICj6mp/TeoEhsYxbI6imcMlQcmcLbeziSgO+cP4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw2Ad11+igvJ/DcKEu9BwU2148ReXJsRMt3hKB8TpzUBxo27D16
+ M5V2XmDHQLMSzR7e+DYcdl6Wr893SXOz+HUJzle/0pNptLlH40rgaaZBlincOZo=
+X-Gm-Gg: ASbGncvn5jlZXEoQxZO20Bd6EcaEda3q7+LRxFZo6X62lZB2Cm0g693+a7S4Rn6HDG7
+ /oIs5vEpPL/fE9M+pvmF7mpAFuUJF6mSklMuq/Y+U/D0YgZ+LvwVCtba4VeZsxv3W0PMmrcSyVC
+ hypTBGarNB9wXvHa5l8AhAVMUuh8cVf+pF+eoMI90LIFbQFqhKbOVU5uCOmUxIscWcqJvYNb1Kp
+ i4vaKGfOUe7ceq/aoX/GvdTbzDqrNViXtAwzEU4kLEgjOy5OT3prU/dB1VUSFd6gMVpwovrCnyl
+ fgasYub6AfzJ8sg=
+X-Google-Smtp-Source: AGHT+IHhr4klxCQY7Z9qoAXLzjjnoKLjWUAup4X7mSLv7b1sKOjwEc0f9wj6fXBkEb7M9qj8+FK/oA==
+X-Received: by 2002:adf:ea90:0:b0:385:fa30:4f87 with SMTP id
+ ffacd0b85a97d-38c5a86e2acmr11625798f8f.0.1738580299369; 
+ Mon, 03 Feb 2025 02:58:19 -0800 (PST)
+Received: from [127.0.1.1] ([86.123.96.125]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c5c13a0efsm12555083f8f.60.2025.02.03.02.58.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Feb 2025 02:58:18 -0800 (PST)
+From: Abel Vesa <abel.vesa@linaro.org>
+Subject: [PATCH v5 0/4] drm/dp: Rework LTTPR transparent mode handling and
+ add support to msm driver
+Date: Mon, 03 Feb 2025 12:57:55 +0200
+Message-Id: <20250203-drm-dp-msm-add-lttpr-transparent-mode-set-v5-0-c865d0e56d6e@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 02 Feb 2025 09:47:58 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADOhoGcC/53Oy2rDMBCF4VcJWneKrrbUVd+jZKHLKBHElpGEa
+ Qh+9yqB0pas3OWZxffPjVQsCSt5O9xIwTXVlOc+1MuB+LOdTwgp9E045ZJRwSCUCcICU53AhgC
+ X1pYCrdi5Lrbg3GDKAaFiAyYGH5SLAelIurcUjOnz0fo49n1OteVyfaRXdr/+p7IyoOBtdM5op
+ aKk75c025JfczmRe2blPzRnu2je6aAMHTAI7bh+osU3rWh/ew8tOq28GMYoHR0H8UTL37TeQ8t
+ OG6aNNM5zFPYPvW3bF+HbYEf0AQAA
+X-Change-ID: 20241031-drm-dp-msm-add-lttpr-transparent-mode-set-136cd5bfde07
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@linaro.org>, 
+ Johan Hovold <johan+linaro@kernel.org>, Imre Deak <imre.deak@intel.com>
+X-Mailer: b4 0.15-dev-dedf8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4677; i=abel.vesa@linaro.org; 
+ h=from:subject:message-id;
+ bh=cYlnnHTHnfX5A4NpE+h+NMGvTQWwaK7jU/pGGIU9lZs=; 
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBnoKE/zDksHClkVHYccPshbzGhJ7fQegd+I76Dq
+ r6Yy+puSEWJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZ6ChPwAKCRAbX0TJAJUV
+ VuBlD/9R3tniupZZRrrer07wVKnvqgs/DdiuT5gbx9NQtLkOQN54JRBFuse+PIyT0brughjVUES
+ lg+urfITYCZbkfpJbY7AGnIABKvI/AeQWMDEwQYPNoAZuTlr29AQ6wlv75z2h+jcvHUGwjYQrfN
+ XFWQW+ihQY97nLaWgs5SRuduxxNY3cH/QszKlbdsRZDHDfrYhnQpbRYyQQZbksfMtTM/TmBvZ9u
+ wJi+LAtZ2tZM7GRTF3bivkLgjs+xMT2YiPu0ID9joTDTOyxCbHQ4DNza8FWEgsb5FOCKjjEYFEZ
+ i/uJU9RJsxq48wMUMtr3LWkoIwwb+GVPuecGlrUZfG1MLDPCv9kLx5rlDKBpbzT/EsOdDODP+Rw
+ ize5zfxK7CeIc3VcVDjiAvs+2yopgTRPI3XwV0CSWnkTeFoYEKUwFXMe4ksg5MZCabigdq7yW12
+ hBYI5XYzywPC7qUzqo/M3sZ3bLVRprdYMWT7LbJ8iaBo8EkCWmALJSjNYukPRgoyE3k1Tlzy/NP
+ td35ZlzWBHvrYW9bMWzYjSrMlrmON+LjZ048uYmcV7YZgwn1SZuuMvFLHKNt1wSg8ufHv685KDd
+ vosvx3m1JZCrgOgXBd2CnNYOQ4JOw+qx8O6LKqwWAMoleQQtjMLDGPdkcg6HbH998ZpH2fGP4o4
+ p9kEREBVeZGFyyw==
+X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,31 +125,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Simplify zap_shader_load_mdt() by using of_get_available_child_by_name().
+Looking at both i915 and nouveau DP drivers, both are setting the first
+LTTPR (if found) in transparent mode first and then in non-transparent
+mode, just like the DP v2.0 specification mentions in section 3.6.6.1.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-This patch is only compile tested and depend upon[1]
-[1] https://lore.kernel.org/all/20250201093126.7322-1-biju.das.jz@bp.renesas.com/
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Being part of the standard, setting the LTTPR in a specific operation mode
+can be easily moved in the generic framework. So do that by adding a new
+helper.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 1238f3265978..bbbc7428cb11 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -45,8 +45,8 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
- 		return -EINVAL;
- 	}
- 
--	np = of_get_child_by_name(dev->of_node, "zap-shader");
--	if (!of_device_is_available(np)) {
-+	np = of_get_available_child_by_name(dev->of_node, "zap-shader");
-+	if (!np) {
- 		zap_available = false;
- 		return -ENODEV;
- 	}
+Then, the msm DP driver is lacking any kind of support for LTTPR handling,
+so add it by reading the LTTPR caps for figuring out the number of LTTPRs
+found on plug detect and then do exactly what the i915 and nouveau drivers
+do with respect to toggling through operating modes, just like the
+up-mentioned section from DP spec describes.
+
+At some point, link training per sub-segment will probably be needed, but
+for now, toggling the operating modes seems to be enough at least for the
+X Elite-based platforms that this patchset has been tested on.
+
+Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+---
+Changes in v5:
+- Added kernel-doc () suffix and semicolon after "Return" for
+  drm_dp_lttpr_set_transparent_mode, and dropped the extra blank
+  line from kernel-doc of drm_dp_lttpr_init, like Bjorn suggested
+- Picked up Abhinav's R-b tag.
+- Moved the lttpr_caps on stack, as suggested by Bjorn and Abhinav in
+  the msm implementation.
+- Moved the msm_dp_display_lttpr_init call after msm_dp_panel_read_sink_caps,
+  as Abhinav suggested.
+- Link to v4: https://lore.kernel.org/r/20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-0-918949bc2e3a@linaro.org
+
+Changes in v4:
+- Picked up Dmitry's and Johan's R-b tags for the drm generic and drm
+  msm patches.
+- Moved the comment about the roll-back to transparent mode inside the
+  if statement and fixed the typos, like Johan suggested.
+- Added more details in the commit message for the i915 changes. Details
+  about the update that the lttpr_common_caps need w.r.t. rollback to
+  transparent mode in case of failure.
+- Link to v3: https://lore.kernel.org/r/20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-0-5c367f4b0763@linaro.org
+
+Changes in v3:
+- Picked-up T-b tag from Johan for the drm/dp transparent mode set helper
+  patch
+- Re-worked the return value of the drm/dp transparet mode set helper
+- Added some more details about what the values of the lttpr_count arg
+  is expected to be for the drm_dp_lttpr_init(), like Johan suggested.
+- Re-worked the non-transparent mode disable->enable so that the rollback
+  doesn't happen unless enable failed.
+- Picked-up Lyude's R-b tag for the nouveau patch.
+- Dropped extra parantesis at the end of the drm_dp_lttpr_init() call in
+  i915 patch.
+- Picked-up Johan's T-b tag for the drm/msm/dp patch.
+- Added some error handling and an error message in the
+  msm_dp_display_lttpr_init(), while dropping the unnecessary lttpr_count
+  local variable.
+- Link to v2: https://lore.kernel.org/r/20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-0-d5906ed38b28@linaro.org
+
+Changes in v2:
+- Added new wrapper over the set_transparent new helper in order to
+  move the non-transparent disable and the its enable->disable sequence
+  mentioned in the DP standard section 3.6.6.1 entirely in the generic
+  implemetation.
+- Switch all 3 drivers to use the new wrapper.
+- Fixed the return value of the helper to return 0 on success and
+  negative value on error.
+- Added explanation about the transparent/non-transparent modes into the
+  msm dp commit message.
+- Dropped the condition for non-eDP in msm DP driver since it is allowed
+  to try to get the number of LTTPRs even on eDP and it will be always
+  0 anyway.
+- Dropped the RFC prefix
+- Link to v1: https://lore.kernel.org/r/20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org
+
+---
+Abel Vesa (4):
+      drm/dp: Add helper to set LTTPRs in transparent mode
+      drm/nouveau/dp: Use the generic helper to control LTTPR transparent mode
+      drm/i915/dp: Use the generic helper to control LTTPR transparent mode
+      drm/msm/dp: Add support for LTTPR handling
+
+ drivers/gpu/drm/display/drm_dp_helper.c            | 61 ++++++++++++++++++++++
+ .../gpu/drm/i915/display/intel_dp_link_training.c  | 24 ++-------
+ drivers/gpu/drm/msm/dp/dp_display.c                | 15 ++++++
+ drivers/gpu/drm/nouveau/nouveau_dp.c               | 17 +-----
+ include/drm/display/drm_dp_helper.h                |  2 +
+ 5 files changed, 85 insertions(+), 34 deletions(-)
+---
+base-commit: 00f3246adeeacbda0bd0b303604e46eb59c32e6e
+change-id: 20241031-drm-dp-msm-add-lttpr-transparent-mode-set-136cd5bfde07
+
+Best regards,
 -- 
-2.43.0
+Abel Vesa <abel.vesa@linaro.org>
 
