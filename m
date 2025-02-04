@@ -2,89 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D270A2691A
-	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2025 01:54:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23669A2692F
+	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2025 01:59:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEEC910E590;
-	Tue,  4 Feb 2025 00:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAEA510E595;
+	Tue,  4 Feb 2025 00:59:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KecPI4rk";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="S+LqLFdY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
  [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C10FA10E590
- for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2025 00:54:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2861510E011
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2025 00:59:26 +0000 (UTC)
 Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5439b0dd4bfso4437255e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 03 Feb 2025 16:54:21 -0800 (PST)
+ 2adb3069b0e04-54021daa6cbso5364170e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Feb 2025 16:59:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738630460; x=1739235260; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=R6ZjpLJztPd/z6CugDEiLqKFmhAhr9ILcbNmlBzFygY=;
- b=KecPI4rk6+20ZUdTr7agrYTSkmyI7IojCg1d61k2/58B7I9QQaFLt/ayQZjKBqoLHz
- WcLpWBA01YM1zI8zHzq7t33V94J+dOnX4CJKrbshz2K7DmZAPO1ZZt0sK7YU3KfQV1nC
- JnbZaarOdnXYqrbSm7Accdr86zvoJn5CCr5QIMUrrsOOaC5mJaU0qqPXPh59V5CnW6Mr
- H/WNi2C3pgXVZvsmzWXAo3hKJxDi2mTtMrcxQAvyVWXu2Cz+b8ppDrSpCuXnhH+mJq9Q
- IMx48zMY6WhHNiezTMntYamuebohvMOuPTX5sjA8UkrHHmaco5SHtC744bQkDfPUnZE6
- 6XmQ==
+ d=linaro.org; s=google; t=1738630764; x=1739235564; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=iQu+PcBCYHyEWcLorUNu/krN34Y5N713WyAJdtXWICI=;
+ b=S+LqLFdYYZ3mHE75hBhIuw4VcIP9ckoVx5eQLOHJfp0F1MjqkIB3GFwctV64iyD99Q
+ o2gQkEFDlfYJaKN3chNpqqPxG11Madk+DYUdNEO4HeCJdTVe99+asg76+sDg34GpkRTd
+ Bqw+eTR5JAcRPaBvVz5/yoauIY4p1YscadX7EfP7k7EvOUxY96MPdu2Hzjkm0LMtCh1u
+ LqMCXjSpfe9hIUNNrk6uNMTyWXlafr92RLUzc33tzvYxIOlJlZeDFtg88e9G8fyxnf04
+ GXr56vBH+l8zbiZfC/2cFB7BLczoFuf8RrI542YjCLQQSnUlSMLpYCOb7DXpmP5qcGrD
+ aUpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738630460; x=1739235260;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=R6ZjpLJztPd/z6CugDEiLqKFmhAhr9ILcbNmlBzFygY=;
- b=LpaRzgkh9K6YN3PKfrNhfnE4GH3SIGBOzuxjRcTavMHPfyj2iTWUFVeeDDZm7MDBBB
- V2KGAFwgmDDq5CaNVlbsORi7KqHaZlJWtkfneQxTwMElddFsOnul2SPcohXk2t21WlnN
- 4V0I0UOvF0wqwWpkpEiDxz59sdnTLhqglFV1jyrMQ+2k9DmW5K777s3Gv8PkjLBl6+ia
- GxK3IDJyvtKrjde6EgfwtqS3Ps+L7YFtqTDYiwryiKewqQQ8+YlSC80mZJW6z28Tw1wV
- jkl1HELl4ZqrbIDvASaFrIPnSEDPswPXFzJVIqNIrlTDhIRZphgM0k3QedscR73pPXKq
- pAFg==
+ d=1e100.net; s=20230601; t=1738630764; x=1739235564;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iQu+PcBCYHyEWcLorUNu/krN34Y5N713WyAJdtXWICI=;
+ b=AuL7WAx5kAo3I3kOBahP68OKLFmG48i8JbIxYytMkTDyeXPTk/9JoJ8rsPTCctY2iG
+ JOpnIKzABGsbWPyYDFMd3nuUA9/pKbsUB63hxDm8cpb1Vgg4sgMzzd4791inJ9TbXc4w
+ R/swUd1KNO/cLo90GeJ377DFXpbqPtWDCVU4R4nIOs1qRFJ1rG8W+l/kz8mN3/HU8wX5
+ l5iMH0CRtMvKEyImUUHoiPK+S5RzByJue5/39qoUYgzdbHChxxb8RR/gK8f6PjK944sc
+ Vlaf/YGrs+2zs2X8rhCYMEDk2qpl5eEMxATJdVajXW/Nwe7JO8nHH/F0yAGKKU6e0aXI
+ 5Vug==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVSzcHOZY/cWqB8ZuENWfnEW7rbIjIGL0w63MaiYxInNcCvL8pFrBPyil2WXMk38w3avhXc5/CqNjM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKKeR5fCMYkEdd7NX+xIUdh7gT/CQhR6suksi4k+o4Yu0A7EaU
- f1nPMMtcj/vzdE2FzmJYobo+PARwfpqmw0q0ClUzOmUPkNNmJlk3dGjEFOCLDyA=
-X-Gm-Gg: ASbGncvIxEd9LRLTcziijap8wt3zzPmX8LoPlAoMzE049qvcRBASyT1qx1YIG8/jcCZ
- /sb1Y/ay61B+1e7YejzwiOMAyB4jCTNtt2fYv1rZNZbiM69SI+TCuYf1GjvO/25o6cyMq1hVcb5
- 7Wtj/r/IjSkMeaSBedtZpsomJO+20+Es8Rx//DiShcw0hbPSBmTCLEhyY20YrCeJaaGMs4yR0Fr
- rldQqW1YF5CcHWQdMPWvDvc0CDLwLpq7auZEDE+tlzoG5ttJSoWAaDF292wc/3Cctx0EBAuVsqS
- +N8LJ+j2U0qKAM9ch1RWhMFREXTogl0Cz8XaDIQxMzcOLbh3NiQlJpGrFbbzgBs+UtVi8Wc=
-X-Google-Smtp-Source: AGHT+IEpldiWweSia7SrDMC4AL51hi5zwa3/J31Z8ScFto8ds9fwqjC4+DaQa3FfHKj/Zkntym0SuA==
-X-Received: by 2002:a05:6512:3e0e:b0:542:1137:611a with SMTP id
- 2adb3069b0e04-543e4beab45mr7511819e87.17.1738630459976; 
- Mon, 03 Feb 2025 16:54:19 -0800 (PST)
+ AJvYcCWiLwPSFGCu0UrupEAwgIOzPSSzdjSqNJbxTMDhPWr93yjT6zhobvv+EBZCIDOdJHxx4jximgCZDgQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxL2yud575lg+A1M3UESv1mZHarPdnZ7nisl12pMO/MLwep6av1
+ 41FOdpyRqpGl7xoHZK4kcNafE0apPxMNrC4puLqq7i9VGtLqFG1wedNqJvIQJIVYJBIiiEXP9ZN
+ 0r+M=
+X-Gm-Gg: ASbGncvOGX+SYxzJjXEo5yq3gPtD1IfP1wHUBgsHuhDPxX7p8Ujnav0ChNJdfKumiSF
+ tekK1cgmcropf8LinMMX5GsPuHUC78SM6Md6vdeUVU6mjxEwuGL7ZVQ/KepLRp+VOh+6uJnWoAZ
+ 1TG/4Jw2+baiZtiO5QcllD5lZhEv52oX1Y1kYWikRE1198IWDSY9hyNls1SFDEKZHs6p8hVovE3
+ FhGPAqJomF+5kjRCfgoEL4ndla533RIgyl0S18OCXVfxFnobbHkR6cnynR1Vz16Ew3PrK26V/Pm
+ 4SSzoj98HuDchpBPHuFE85WiiNEzL6moW6iRyUNPXR0BSqWXn28n/lZQAGCNKMq9T1mOCJE=
+X-Google-Smtp-Source: AGHT+IE/5jfpsneDUND06UjyJ4Ry6Zih6VLQBI5FGcNFFpcyLlM5QM1i945DtByaC+8TDC003dcEnQ==
+X-Received: by 2002:a05:6512:114a:b0:542:8d45:cb4f with SMTP id
+ 2adb3069b0e04-543e4bdffbcmr6358441e87.1.1738630764308; 
+ Mon, 03 Feb 2025 16:59:24 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-543ebdf0ff7sm1435755e87.8.2025.02.03.16.54.17
+ 2adb3069b0e04-543ebdf10e2sm1449566e87.32.2025.02.03.16.59.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Feb 2025 16:54:18 -0800 (PST)
-Date: Tue, 4 Feb 2025 02:54:16 +0200
+ Mon, 03 Feb 2025 16:59:22 -0800 (PST)
+Date: Tue, 4 Feb 2025 02:59:20 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Danila Tikhonov <danila@jiaxyga.com>
-Cc: neil.armstrong@linaro.org, quic_jesszhan@quicinc.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, 
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- andersson@kernel.org, konradybcio@kernel.org, robdclark@gmail.com, 
- quic_abhinavk@quicinc.com, sean@poorly.run, marijn.suijten@somainline.org, 
- jonathan@marek.ca, jun.nie@linaro.org, fekz115@gmail.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux@mainlining.org, ~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH 3/4] drm/msm/dsi: Allow all bpc values
-Message-ID: <adm72vocbbl5n75eaf7kjosv37xxv42esnosnhshabznmqnsz7@mumtmgopeoxk>
-References: <20250203181436.87785-1-danila@jiaxyga.com>
- <20250203181436.87785-4-danila@jiaxyga.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, Simona Vetter <simona@ffwll.ch>,
+ Simona Vetter <simona.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/7] drm/msm/hdmi: program HDMI timings during
+ atomic_pre_enable
+Message-ID: <na7jgb5leqbugi6a6xkfz3nl6mp7li4oevfevhjmo5y4v7eot6@fsmfv52u2rtz>
+References: <20250124-bridge-hdmi-connector-v6-0-1592632327f7@linaro.org>
+ <20250124-bridge-hdmi-connector-v6-2-1592632327f7@linaro.org>
+ <7fbfc7d5-f6bb-4f99-914a-f91bb7d153fd@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250203181436.87785-4-danila@jiaxyga.com>
+In-Reply-To: <7fbfc7d5-f6bb-4f99-914a-f91bb7d153fd@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,22 +103,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Feb 03, 2025 at 09:14:26PM +0300, Danila Tikhonov wrote:
-> From: Eugene Lepshy <fekz115@gmail.com>
+On Mon, Feb 03, 2025 at 11:34:00AM -0800, Abhinav Kumar wrote:
 > 
-> DRM DSC helper has parameters for various bpc values ​​other than 8:
-> (8/10/12/14/16).
 > 
-> Remove this guard.
+> On 1/24/2025 1:47 PM, Dmitry Baryshkov wrote:
+> > The mode_set callback is deprecated, it doesn't get the
+> > drm_bridge_state, just mode-related argumetns. Also Abhinav pointed out
+> > that HDMI timings should be programmed after setting up HDMI PHY and
+> > PLL. Rework the code to program HDMI timings at the end of
+> > atomic_pre_enable().
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 23 +++++++++++++++--------
+> >   1 file changed, 15 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> > index d839c71091dcdc3b020fcbba8d698d58ee7fc749..d5ab1f74c0e6f47dc59872c016104e9a84d85e9e 100644
+> > --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> > @@ -126,15 +126,26 @@ static void msm_hdmi_config_avi_infoframe(struct hdmi *hdmi)
+> >   	hdmi_write(hdmi, REG_HDMI_INFOFRAME_CTRL1, val);
+> >   }
+> > +static void msm_hdmi_bridge_atomic_set_timings(struct hdmi *hdmi,
+> > +					       const struct drm_display_mode *mode);
+> >   static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+> >   					      struct drm_bridge_state *old_bridge_state)
+> >   {
+> > +	struct drm_atomic_state *state = old_bridge_state->base.state;
+> >   	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+> >   	struct hdmi *hdmi = hdmi_bridge->hdmi;
+> >   	struct hdmi_phy *phy = hdmi->phy;
+> > +	struct drm_encoder *encoder = bridge->encoder;
+> > +	struct drm_connector *connector;
+> > +	struct drm_connector_state *conn_state;
+> > +	struct drm_crtc_state *crtc_state;
+> >   	DBG("power up");
+> > +	connector = drm_atomic_get_new_connector_for_encoder(state, encoder);
+> > +	conn_state = drm_atomic_get_new_connector_state(state, connector);
+> > +	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
+> > +
+> >   	if (!hdmi->power_on) {
+> >   		msm_hdmi_phy_resource_enable(phy);
+> >   		msm_hdmi_power_on(bridge);
+> > @@ -151,6 +162,8 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+> >   	if (hdmi->hdcp_ctrl)
+> >   		msm_hdmi_hdcp_on(hdmi->hdcp_ctrl);
+> > +
+> > +	msm_hdmi_bridge_atomic_set_timings(hdmi, &crtc_state->adjusted_mode);
+> >   }
 > 
-> Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
-> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 7 +------
->  1 file changed, 1 insertion(+), 6 deletions(-)
+> This addresses my comment about setting up the HDMI timing registers before
+> setting up the timing engine registers.
 > 
+> But prior to this change, mode_set was doing the same thing as
+> msm_hdmi_bridge_atomic_set_timings() which means
+> msm_hdmi_bridge_atomic_set_timings() should be called at the beginning of
+> pre_enable()?
+> 
+> The controller is enabled in msm_hdmi_set_mode(). So this should be done
+> before that.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In [1] you provided the following order:
+
+1) setup HDMI PHY and PLL
+2) setup HDMI video path correctly (HDMI timing registers)
+3) setup timing generator to match the HDMI video in (2)
+4) Enable timing engine
+
+This means htat msm_hdmi_bridge_atomic_set_timings() should come at the
+end of msm_hdmi_bridge_atomic_pre_enable(), not in the beginning /
+middle of it.
+
+[1] https://lore.kernel.org/dri-devel/8dd4a43e-d83c-1f36-21ff-61e13ff751e7@quicinc.com/
+
+
+> 
+> >   static void msm_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+> > @@ -177,17 +190,12 @@ static void msm_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+> >   	}
+> >   }
+> > -static void msm_hdmi_bridge_mode_set(struct drm_bridge *bridge,
+> > -		 const struct drm_display_mode *mode,
+> > -		 const struct drm_display_mode *adjusted_mode)
+> > +static void msm_hdmi_bridge_atomic_set_timings(struct hdmi *hdmi,
+> > +					       const struct drm_display_mode *mode)
+> >   {
+> > -	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+> > -	struct hdmi *hdmi = hdmi_bridge->hdmi;
+> >   	int hstart, hend, vstart, vend;
+> >   	uint32_t frame_ctrl;
+> > -	mode = adjusted_mode;
+> > -
+> >   	hdmi->pixclock = mode->clock * 1000;
+> >   	hstart = mode->htotal - mode->hsync_start;
+> > @@ -306,7 +314,6 @@ static const struct drm_bridge_funcs msm_hdmi_bridge_funcs = {
+> >   	.atomic_reset = drm_atomic_helper_bridge_reset,
+> >   	.atomic_pre_enable = msm_hdmi_bridge_atomic_pre_enable,
+> >   	.atomic_post_disable = msm_hdmi_bridge_atomic_post_disable,
+> > -	.mode_set = msm_hdmi_bridge_mode_set,
+> >   	.mode_valid = msm_hdmi_bridge_mode_valid,
+> >   	.edid_read = msm_hdmi_bridge_edid_read,
+> >   	.detect = msm_hdmi_bridge_detect,
+> > 
 
 -- 
 With best wishes
