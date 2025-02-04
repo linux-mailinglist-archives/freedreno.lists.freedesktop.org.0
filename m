@@ -2,94 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0668A2689E
-	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2025 01:32:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D270A2691A
+	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2025 01:54:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A53D10E084;
-	Tue,  4 Feb 2025 00:32:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEEC910E590;
+	Tue,  4 Feb 2025 00:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="IbGQG+Ta";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KecPI4rk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ABDE10E084;
- Tue,  4 Feb 2025 00:32:54 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 513E5Vl5002360;
- Tue, 4 Feb 2025 00:32:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qFmBrDARGgniWbvmjm9pVJdc7Ak6ri7OjDnEab2YvqM=; b=IbGQG+TaHYiltGZh
- K/24cbhsK9Fosap32wf6I5qM1DUELzelyuPgtj8A+Fv00911YCy1VF70tmHO4EcH
- MaHO6PGT7AidfroNrmXor2qNT+ZpgysLOew2hQ59+EOBDrLeOyON795YU9RrlW9E
- eb1HL2OKq4a5JH6agiZ+72SLSvCr5AzAiR+P291fhd6+DuyZlPuhu6QlgqdckxhO
- MqYzZkT61RWGKwDjzoc4h2DUDnFDNeA6XiFu29Lc/jqsINEKDIqgUaWj+QZFesOu
- EfUMgE+1MVr+w8H7vXRLC0c05CmeWJ2n1Xbfe+08aY0on3sskeze3Cz2rIUEQryC
- 4iucBA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44jy8s99kv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Feb 2025 00:32:48 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5140WlMK009330
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 4 Feb 2025 00:32:48 GMT
-Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 3 Feb 2025
- 16:32:39 -0800
-Message-ID: <e88c821f-3103-4d16-9605-bb88842e8911@quicinc.com>
-Date: Mon, 3 Feb 2025 16:32:38 -0800
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C10FA10E590
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2025 00:54:21 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-5439b0dd4bfso4437255e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Feb 2025 16:54:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1738630460; x=1739235260; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=R6ZjpLJztPd/z6CugDEiLqKFmhAhr9ILcbNmlBzFygY=;
+ b=KecPI4rk6+20ZUdTr7agrYTSkmyI7IojCg1d61k2/58B7I9QQaFLt/ayQZjKBqoLHz
+ WcLpWBA01YM1zI8zHzq7t33V94J+dOnX4CJKrbshz2K7DmZAPO1ZZt0sK7YU3KfQV1nC
+ JnbZaarOdnXYqrbSm7Accdr86zvoJn5CCr5QIMUrrsOOaC5mJaU0qqPXPh59V5CnW6Mr
+ H/WNi2C3pgXVZvsmzWXAo3hKJxDi2mTtMrcxQAvyVWXu2Cz+b8ppDrSpCuXnhH+mJq9Q
+ IMx48zMY6WhHNiezTMntYamuebohvMOuPTX5sjA8UkrHHmaco5SHtC744bQkDfPUnZE6
+ 6XmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1738630460; x=1739235260;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=R6ZjpLJztPd/z6CugDEiLqKFmhAhr9ILcbNmlBzFygY=;
+ b=LpaRzgkh9K6YN3PKfrNhfnE4GH3SIGBOzuxjRcTavMHPfyj2iTWUFVeeDDZm7MDBBB
+ V2KGAFwgmDDq5CaNVlbsORi7KqHaZlJWtkfneQxTwMElddFsOnul2SPcohXk2t21WlnN
+ 4V0I0UOvF0wqwWpkpEiDxz59sdnTLhqglFV1jyrMQ+2k9DmW5K777s3Gv8PkjLBl6+ia
+ GxK3IDJyvtKrjde6EgfwtqS3Ps+L7YFtqTDYiwryiKewqQQ8+YlSC80mZJW6z28Tw1wV
+ jkl1HELl4ZqrbIDvASaFrIPnSEDPswPXFzJVIqNIrlTDhIRZphgM0k3QedscR73pPXKq
+ pAFg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVSzcHOZY/cWqB8ZuENWfnEW7rbIjIGL0w63MaiYxInNcCvL8pFrBPyil2WXMk38w3avhXc5/CqNjM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzKKeR5fCMYkEdd7NX+xIUdh7gT/CQhR6suksi4k+o4Yu0A7EaU
+ f1nPMMtcj/vzdE2FzmJYobo+PARwfpqmw0q0ClUzOmUPkNNmJlk3dGjEFOCLDyA=
+X-Gm-Gg: ASbGncvIxEd9LRLTcziijap8wt3zzPmX8LoPlAoMzE049qvcRBASyT1qx1YIG8/jcCZ
+ /sb1Y/ay61B+1e7YejzwiOMAyB4jCTNtt2fYv1rZNZbiM69SI+TCuYf1GjvO/25o6cyMq1hVcb5
+ 7Wtj/r/IjSkMeaSBedtZpsomJO+20+Es8Rx//DiShcw0hbPSBmTCLEhyY20YrCeJaaGMs4yR0Fr
+ rldQqW1YF5CcHWQdMPWvDvc0CDLwLpq7auZEDE+tlzoG5ttJSoWAaDF292wc/3Cctx0EBAuVsqS
+ +N8LJ+j2U0qKAM9ch1RWhMFREXTogl0Cz8XaDIQxMzcOLbh3NiQlJpGrFbbzgBs+UtVi8Wc=
+X-Google-Smtp-Source: AGHT+IEpldiWweSia7SrDMC4AL51hi5zwa3/J31Z8ScFto8ds9fwqjC4+DaQa3FfHKj/Zkntym0SuA==
+X-Received: by 2002:a05:6512:3e0e:b0:542:1137:611a with SMTP id
+ 2adb3069b0e04-543e4beab45mr7511819e87.17.1738630459976; 
+ Mon, 03 Feb 2025 16:54:19 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-543ebdf0ff7sm1435755e87.8.2025.02.03.16.54.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Feb 2025 16:54:18 -0800 (PST)
+Date: Tue, 4 Feb 2025 02:54:16 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Danila Tikhonov <danila@jiaxyga.com>
+Cc: neil.armstrong@linaro.org, quic_jesszhan@quicinc.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, 
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ andersson@kernel.org, konradybcio@kernel.org, robdclark@gmail.com, 
+ quic_abhinavk@quicinc.com, sean@poorly.run, marijn.suijten@somainline.org, 
+ jonathan@marek.ca, jun.nie@linaro.org, fekz115@gmail.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux@mainlining.org, ~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH 3/4] drm/msm/dsi: Allow all bpc values
+Message-ID: <adm72vocbbl5n75eaf7kjosv37xxv42esnosnhshabznmqnsz7@mumtmgopeoxk>
+References: <20250203181436.87785-1-danila@jiaxyga.com>
+ <20250203181436.87785-4-danila@jiaxyga.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] drm/msm/dp: Add support for LTTPR handling
-To: Abel Vesa <abel.vesa@linaro.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-CC: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konradybcio@kernel.org>,
- Johan Hovold <johan@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <nouveau@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- Johan Hovold <johan+linaro@kernel.org>
-References: <20250203-drm-dp-msm-add-lttpr-transparent-mode-set-v5-0-c865d0e56d6e@linaro.org>
- <20250203-drm-dp-msm-add-lttpr-transparent-mode-set-v5-4-c865d0e56d6e@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20250203-drm-dp-msm-add-lttpr-transparent-mode-set-v5-4-c865d0e56d6e@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: HHH7OkCxVvBtWnq8cNv5JGko121Wn2JO
-X-Proofpoint-ORIG-GUID: HHH7OkCxVvBtWnq8cNv5JGko121Wn2JO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-03_10,2025-01-31_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- priorityscore=1501 suspectscore=0 clxscore=1015 mlxscore=0 spamscore=0
- malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2501170000 definitions=main-2502040002
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250203181436.87785-4-danila@jiaxyga.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,51 +100,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 2/3/2025 2:57 AM, Abel Vesa wrote:
-> Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
-> 1.4a specification. As the name suggests, these PHY repeaters are
-> capable of adjusting their output for link training purposes.
+On Mon, Feb 03, 2025 at 09:14:26PM +0300, Danila Tikhonov wrote:
+> From: Eugene Lepshy <fekz115@gmail.com>
 > 
-> According to the DisplayPort standard, LTTPRs have two operating
-> modes:
->   - non-transparent - it replies to DPCD LTTPR field specific AUX
->     requests, while passes through all other AUX requests
->   - transparent - it passes through all AUX requests.
+> DRM DSC helper has parameters for various bpc values ​​other than 8:
+> (8/10/12/14/16).
 > 
-> Switching between these two modes is done by the DPTX by issuing
-> an AUX write to the DPCD PHY_REPEATER_MODE register.
+> Remove this guard.
 > 
-> The msm DP driver is currently lacking any handling of LTTPRs.
-> This means that if at least one LTTPR is found between DPTX and DPRX,
-> the link training would fail if that LTTPR was not already configured
-> in transparent mode.
-> 
-> The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
-> that before link training with the LTTPR is started, the DPTX may place
-> the LTTPR in non-transparent mode by first switching to transparent mode
-> and then to non-transparent mode. This operation seems to be needed only
-> on first link training and doesn't need to be done again until device is
-> unplugged.
-> 
-> It has been observed on a few X Elite-based platforms which have
-> such LTTPRs in their board design that the DPTX needs to follow the
-> procedure described above in order for the link training to be successful.
-> 
-> So add support for reading the LTTPR DPCD caps to figure out the number
-> of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
-> at least one such an LTTPR, set its operation mode to transparent mode
-> first and then to non-transparent, just like the mentioned section of
-> the specification mandates.
-> 
-> Tested-by: Johan Hovold <johan+linaro@kernel.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
-> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
+> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
 > ---
->   drivers/gpu/drm/msm/dp/dp_display.c | 15 +++++++++++++++
->   1 file changed, 15 insertions(+)
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 7 +------
+>  1 file changed, 1 insertion(+), 6 deletions(-)
 > 
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+-- 
+With best wishes
+Dmitry
