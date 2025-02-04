@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CF59A26E12
-	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2025 10:20:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C87A8A26E16
+	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2025 10:21:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B95C10E2C3;
-	Tue,  4 Feb 2025 09:20:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 805D710E2C3;
+	Tue,  4 Feb 2025 09:21:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bdxplgx3";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZdsigDJS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 710F310E2C3
- for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2025 09:20:55 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-434f398a171so6783045e9.2
- for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2025 01:20:55 -0800 (PST)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC4310E2C8
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2025 09:21:29 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-436381876e2so7097175e9.1
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2025 01:21:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738660854; x=1739265654; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1738660887; x=1739265687; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=pjOn8HlqiUp9imgeIwX/Vs1stgG6CCtQrFtgz5ne2w0=;
- b=bdxplgx3tq2hOSKAAfUMphuCJVtfabNR4NOMnHq/Dx9suey+Ri3EAZWf+TScZtCpJg
- ThhwI9ZFDuOblhL2x+uo5RajuBJI5Laff2ZVnZ+MTsmVIbviGENqvZKowkVsYZopLS6X
- CK512RE7XFrkpeImZHFx0A133LSgi1kpQLb7xU05uOc6uDn0t05HK2ylD74SYx11ZnYf
- 5sIvCNNWyeVf+6Y8cfVCBEDMPC62nV74mP3rUm4e9xpXJW7DQyZdkB33RxMGd4hMDEcg
- 2GpQZrMa/3KJdaFxzaRsmExAAtZFHLm1Zra70cPd1Nvf/9vHRu033RrkR9UPyIKcjCsp
- aghQ==
+ bh=MxDn6shiABuWq3wMV9vLvSmKWQSLFhundB+LooO/KY0=;
+ b=ZdsigDJS8HbvHIcG5CDcndh27X15vSEUPzmG36ndiPkl2ddIFlbNJct3QS5C0aczb4
+ 7saKwgBbkP+XcfJn2piZF88dRXyt7LbPPjR9tumMB7YIpYBYXpZDwPpyGBCQhPZPioYk
+ LCbWucVeCmL8AxYVtsLEUt9OqdHzBN/wZLR/RClJj6dJ0HC41teRR2tR6WL3TkEu92VQ
+ JIRmI362UpCLsc+VihU5Me6ydV2PpRJqc6akYJO3ax+q/lWuHeqL0e0tzUuWhJRjNv+4
+ uem4sSfWmIUqSoCzu+rVinA806qobCOcCgnHlS2wSssRTjOJLzIoOzcaqYIA0qA+nxnI
+ 27nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738660854; x=1739265654;
+ d=1e100.net; s=20230601; t=1738660887; x=1739265687;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=pjOn8HlqiUp9imgeIwX/Vs1stgG6CCtQrFtgz5ne2w0=;
- b=K6eJ1ujxCKsH6nev2JZPvxRHbkwetrZPx1Vi98q7srAkadt82ywTfT8IB6OYgBvGLH
- XPgtIr3rUkMAe0pFmGgCBK8f6tgGSSeO7xS2OLs0TQbqnVtcGj0pLBnbzmJy5o1iv/HI
- b+JIGFRF8+AIaykWkpaurrhqot5lUnmitWBxt3e/5pzo7FnqTSnESiWkKpbf6/LyhO+k
- kPCa8o8LPoHPrF5BVDeNBVDp7T1beqjKCdL6J+UvjA6BeScZaUQGsLfXBIV+dRFC5aeS
- E9TfnmQbinxHl0M3d3uHXao7aQp0lsicdOMqoM5XiCLB9jyI6mjqLJwX17HnLy0LPsSW
- IkvA==
+ bh=MxDn6shiABuWq3wMV9vLvSmKWQSLFhundB+LooO/KY0=;
+ b=lFtbRgeQoyZEO+PPib6RJCoH9d1RctlYJ6BWxRYR5AFpoNKqyJQR5GMyiz4F3VCsgM
+ g4RMGVluRDCedJLiAHpCbTILM1YgE4SCJ9rtZlSBABqlRKia7rlv1hjJEdGt4Hl9DC2c
+ 9QZg1cdAl28dU73jXq2ZGqfcF/jcgzPQ2xOl/+4AonV9UUMR50KxLM/dR0WhDXxL+KFn
+ 4VBCVE8NHYxDeIr7sJlWMcchC8ycjCBevyDcrHSR5F3OkA9vH6GpdIGfNPU4ZHMqlJjb
+ GVsiAn1I1VQWBzrfj5jSaYzbnKp4/W3ViquSYacDcudXPvtig9JyRMQ+n64uHy0KptxN
+ LnKw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWfxaRRLuR4zOVGUUlIQzzXkYm3vftxbfqm8oWm2bEBwH4OqeEZN5vgOATbz0StYX/BSeYIlMU9dm8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVSHPdR02k0UVajazQUmCJcKRGfw5fjtqSM6l7OY/6nmYw3L+Z
- J6+MCPNMmzdlvMj8zz71tzSaNaLnIO70Gbvr/3nsNgiFpHyZq2zrPMNxx6qKiEM=
-X-Gm-Gg: ASbGncs0gBOQT/9/l0OGr9w34KvrnWbaoM3A7dMIp3Ii5o2OKq0Oqcy5Vfluin8yBVn
- osHcvgyGMKZamuIQbmML9figC9L9/18CIdQKUOVJuNDrg/DMpvhFhLteq6l5Gakozva+HYgOsSw
- KdIVsyGm4nKjbb/pa06yQFbmboKHOr8lyVTdkEu5Hjb+fwh3Nad0rcYT1lKWDL9WBLXbOOhJ1O5
- CqEgFP3JE81Z/TdBAYDe8qGUJvJbKSrS04qEF8mwpeLY/LJfGP/fiHn3TdbLmGhUq2mC2jCyVz5
- JZ2R3lkq4CLfg8npWdh31sjbYKcqwqcNnsE=
-X-Google-Smtp-Source: AGHT+IFloUpSZQql46Cok/SCgcqCNh/GvapYs4i6t5zqyN7Opagv1IM4g04vLOIGgxfILq4uWlvkXw==
-X-Received: by 2002:a05:600c:3ba6:b0:434:a339:ec67 with SMTP id
- 5b1f17b1804b1-43905ac256fmr8627075e9.3.1738660853880; 
- Tue, 04 Feb 2025 01:20:53 -0800 (PST)
+ AJvYcCXx2Q+Q1K2PyA2V9cptVaF+Vlo/aLicV9/8pu9Fwqwvn22jR7I3az0HVlbXrHxfWLi6vl01cIiiZjo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwFHdnZO8xst1I0Gu1zlBC+ZBkmWcYSHa5MmyVgSVUPw4GlQBPc
+ OK4HYAWnHk02ZAsmBPPHe/JrZp79k5W/edkfq+whvHmGUzh8M7GWve8/PvvvNJs=
+X-Gm-Gg: ASbGnctDhzE0Rds9zhDpDUt6S9VpnWD8xvHGYVaWEhC3E/yT71MWISyBblT1nzynOeR
+ SU1pGTKWkglWjrIgl935DMAMwqInJweviz+WlIjFH/h7K2Ek2TjB+ZPcAWlaQh67CxCeuGDb1Me
+ e+lkE1w2zjGuNpdv2JIVuoKCQ2fAshQlTZGtQmw9z+mZyPMAdnL+RfgWqTApkSAKe/8kr9sqpsE
+ 6LACc/MpDm87khE9I3iKTw7zvunArUkPEdgVyjJxv0hDcqw/OFZ+w0jmy6+ASIdtHtInbBjNRsS
+ KVoaIPjBgzs8hBBZK4Q6BOq75OAYMXsAGHc=
+X-Google-Smtp-Source: AGHT+IHuAsbkXGxd/AEEKWOPNtGCZnolavSf2K5Iiz0RSlT60ZCByR9bM0szeITb48WA7qfXeizZ8g==
+X-Received: by 2002:a05:600c:4f8e:b0:436:fb10:d595 with SMTP id
+ 5b1f17b1804b1-438e17dad66mr76372095e9.1.1738660887443; 
+ Tue, 04 Feb 2025 01:21:27 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.218.144])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438e23d42c7sm187223825e9.3.2025.02.04.01.20.52
+ 5b1f17b1804b1-438dcc12f88sm218334835e9.2.2025.02.04.01.21.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Feb 2025 01:20:53 -0800 (PST)
-Message-ID: <cc63872f-3ad5-479e-bfff-8d62478e446e@linaro.org>
-Date: Tue, 4 Feb 2025 10:20:51 +0100
+ Tue, 04 Feb 2025 01:21:26 -0800 (PST)
+Message-ID: <12275e11-eadc-48be-b8c3-9463cdf92698@linaro.org>
+Date: Tue, 4 Feb 2025 10:21:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG0 updated
- from driver side
+Subject: Re: [PATCH v2 2/4] drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG1 against
+ clock driver
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
  <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
@@ -76,8 +76,8 @@ Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250203-drm-msm-phy-pll-cfg-reg-v2-0-862b136c5d22@linaro.org>
- <20250203-drm-msm-phy-pll-cfg-reg-v2-1-862b136c5d22@linaro.org>
- <le5kxzhm3b2whxoo3eblkelryc7ak2yezugqti2sxw7m244dzc@nyuhhs53jdup>
+ <20250203-drm-msm-phy-pll-cfg-reg-v2-2-862b136c5d22@linaro.org>
+ <u4qho7u2nu2x6qxkfxpeakotmbdgoha3e5csmsamaanlxziiif@22kzxupzibj7>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -124,7 +124,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <le5kxzhm3b2whxoo3eblkelryc7ak2yezugqti2sxw7m244dzc@nyuhhs53jdup>
+In-Reply-To: <u4qho7u2nu2x6qxkfxpeakotmbdgoha3e5csmsamaanlxziiif@22kzxupzibj7>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -142,59 +142,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/02/2025 18:42, Dmitry Baryshkov wrote:
-> On Mon, Feb 03, 2025 at 06:29:18PM +0100, Krzysztof Kozlowski wrote:
->> PHY_CMN_CLK_CFG0 register is updated by the PHY driver and by two
->> divider clocks from Common Clock Framework:
->> devm_clk_hw_register_divider_parent_hw().  Concurrent access by the
->> clocks side is protected with spinlock, however driver's side in
->> restoring state is not.  Restoring state is called from
->> msm_dsi_phy_enable(), so there could be a path leading to concurrent and
->> conflicting updates with clock framework.
+On 03/02/2025 18:41, Dmitry Baryshkov wrote:
+> On Mon, Feb 03, 2025 at 06:29:19PM +0100, Krzysztof Kozlowski wrote:
+>> PHY_CMN_CLK_CFG1 register is updated by the PHY driver and by a mux
+>> clock from Common Clock Framework:
+>> devm_clk_hw_register_mux_parent_hws().  There could be a path leading to
+>> concurrent and conflicting updates between PHY driver and clock
+>> framework, e.g. changing the mux and enabling PLL clocks.
 >>
->> Add missing lock usage on the PHY driver side, encapsulated in its own
->> function so the code will be still readable.
+>> Add dedicated spinlock to be sure all PHY_CMN_CLK_CFG1 updates are
+>> synchronized.
 >>
 >> Fixes: 1ef7c99d145c ("drm/msm/dsi: add support for 7nm DSI PHY/PLL")
 >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>
 >> ---
->>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 13 +++++++++++--
->>  1 file changed, 11 insertions(+), 2 deletions(-)
+>>
+>> Changes in v2:
+>> 1. Store BIT(4) and BIT(5) in local var in dsi_pll_enable_global_clk()
+>> ---
+>>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 35 +++++++++++++++++++------------
+>>  1 file changed, 22 insertions(+), 13 deletions(-)
 >>
 >> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
->> index 031446c87daec0af3f81df324158311f5a80014e..c164f845653816291ad96c863257f75462ef58e7 100644
+>> index c164f845653816291ad96c863257f75462ef58e7..e26f53f7cde8f0f6419a633f5d39784dc2e5bb98 100644
 >> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
 >> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
->> @@ -372,6 +372,15 @@ static void dsi_pll_enable_pll_bias(struct dsi_pll_7nm *pll)
->>  	ndelay(250);
+>> @@ -83,6 +83,9 @@ struct dsi_pll_7nm {
+>>  	/* protects REG_DSI_7nm_PHY_CMN_CLK_CFG0 register */
+>>  	spinlock_t postdiv_lock;
+>>  
+>> +	/* protects REG_DSI_7nm_PHY_CMN_CLK_CFG1 register */
+>> +	spinlock_t pclk_mux_lock;
+>> +
+>>  	struct pll_7nm_cached_state cached_state;
+>>  
+>>  	struct dsi_pll_7nm *slave;
+>> @@ -381,22 +384,32 @@ static void dsi_pll_cmn_clk_cfg0_write(struct dsi_pll_7nm *pll, u32 val)
+>>  	spin_unlock_irqrestore(&pll->postdiv_lock, flags);
 >>  }
 >>  
->> +static void dsi_pll_cmn_clk_cfg0_write(struct dsi_pll_7nm *pll, u32 val)
->> +{
+>> -static void dsi_pll_disable_global_clk(struct dsi_pll_7nm *pll)
+>> +static void dsi_pll_cmn_clk_cfg1_update(struct dsi_pll_7nm *pll, u32 mask,
+>> +					u32 val)
+>>  {
 >> +	unsigned long flags;
+>>  	u32 data;
+>>  
+>> +	spin_lock_irqsave(&pll->pclk_mux_lock, flags);
+>>  	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
+>> -	writel(data & ~BIT(5), pll->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
+>> +	data &= ~mask;
+>> +	data |= val & mask;
 >> +
->> +	spin_lock_irqsave(&pll->postdiv_lock, flags);
->> +	writel(val, pll->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG0);
->> +	spin_unlock_irqrestore(&pll->postdiv_lock, flags);
+>> +	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
+>> +	spin_unlock_irqrestore(&pll->pclk_mux_lock, flags);
 >> +}
 >> +
->>  static void dsi_pll_disable_global_clk(struct dsi_pll_7nm *pll)
->>  {
->>  	u32 data;
->> @@ -574,8 +583,8 @@ static int dsi_7nm_pll_restore_state(struct msm_dsi_phy *phy)
->>  	val |= cached->pll_out_div;
->>  	writel(val, pll_7nm->phy->pll_base + REG_DSI_7nm_PHY_PLL_PLL_OUTDIV_RATE);
+>> +static void dsi_pll_disable_global_clk(struct dsi_pll_7nm *pll)
+>> +{
+>> +	dsi_pll_cmn_clk_cfg1_update(pll, BIT(5), 0);
+>>  }
 >>  
->> -	writel(cached->bit_clk_div | (cached->pix_clk_div << 4),
->> -	       phy_base + REG_DSI_7nm_PHY_CMN_CLK_CFG0);
->> +	dsi_pll_cmn_clk_cfg0_write(pll_7nm,
->> +				   cached->bit_clk_div | (cached->pix_clk_div << 4));
+>>  static void dsi_pll_enable_global_clk(struct dsi_pll_7nm *pll)
+>>  {
+>> -	u32 data;
+>> +	u32 cfg_1 = BIT(5) | BIT(4);
 > 
-> Ideally this would be FIELD_PREP or a special function generated for you
-> in the header.
+> Please define these two bits too.
 
-There is no header. That's patch #1 and I do not see how changing this
-to FIELDPREP is anyhow related to the actual problem being solved here.
+Why? They were not defined before. This only moving existing code.
+
 
 Best regards,
 Krzysztof
