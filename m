@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56132A27664
-	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2025 16:48:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD8FEA2766E
+	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2025 16:50:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32FC610E6B2;
-	Tue,  4 Feb 2025 15:48:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 878F210E6A8;
+	Tue,  4 Feb 2025 15:50:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="C/qRP+3z";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XneKPkTo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9E4210E6A0
- for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2025 15:47:27 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4361e82e3c3so8585765e9.0
- for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2025 07:47:27 -0800 (PST)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E28710E6A3
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2025 15:48:48 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-385db79aafbso290738f8f.1
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2025 07:48:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738684046; x=1739288846; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1738684127; x=1739288927; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=w7UCbvi2PPQx3TM0v1pZVF25QMSWIykhxRAhE4s51Kk=;
- b=C/qRP+3z7oI4bS7dRNf+bohef6i2ULDBCthFTpHkJWT8xI8QRzlMnz8Lkv750+EWDi
- ARUJfryr5RRO3ocfhJY37nfHRwYE9vmvY97xTDU+Mw5vXIKVoLhpNe5O5qk4qGQBNs5u
- na3Hfok6Jp32S9kClkseMhMm2f/+pxkL851vcU2rp/d0rAnGq0hY5FeCa6dtxPBGHwGR
- duggSFg/A112AO+h3TmlNRb4oPT2BNc2fMq7wV2JvPMCt3x0Fyb9SFJdqZUKUhs1kL/s
- kXULkuY36Z35R7HnZtnvILWicKM/YigF1wn8yy0igoQHoOHj4tnq34TKVRyo3oqRigs6
- Qm9A==
+ bh=gU8TkOLaJsHF42Jr0I2/13286opa6qB6pqpOwuEjyOo=;
+ b=XneKPkToOK2PUuuNZ3JAQRxYhWnpiOyNBYsYdKHTZG4I/a9D6paJ9mrMld0yn8hZtR
+ xl7YCctOSeyxCgeNbiBLqQQeMIciNAur4Ow17jDNDon5rfqm+0VUeE++wdnezKQHkB/c
+ kPqhxbB1aYyIcj8pF9nqoP+Mjr5PDrhAozTcbmi8MtKkg9O6ezkZGvsslA3vPGqtGcJ3
+ ZSZcs11oPcmB9R+Z3uhgefsxDzb6bi3qmP6kr2X8aGSoYKfP+KUUvMM5yFS6sJBQamtd
+ Ki9eeuKfWJxg78LEafgcm40iSmffle1OQrJPF7N09cvzMDW4wMvBzPikTP/tJ4psacrM
+ 9yJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738684046; x=1739288846;
+ d=1e100.net; s=20230601; t=1738684127; x=1739288927;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=w7UCbvi2PPQx3TM0v1pZVF25QMSWIykhxRAhE4s51Kk=;
- b=Mse4iNy7TnebSAWg9oKjBN9M//hFNPyjVLxWV5e0jyyIclFCSz8wazdNh7frY1ynR2
- MnJ7VWayc7dRhcUM0ElBTlKCHjPUj0EhFAeKNsZdyMh7YP4yVOHFC/hGO/mHXptbjEAO
- 2ZEqHkTUYOy7mZYfbAGVWLzc2bPY5ElZl/5Jh7fy8VWuKy5B446xi1hgWRV2rLq8WUNL
- 37gV7xpcmqfTW4GLFwEo50+rU8RzYxiqfaMqmQ+aCajhfPaUEzo6+3Ky2i6++W2GDXmo
- 87c8eHz0LCMS1XETigIpGvwANKH5vasC6MKXqDFr3Kw86Z8sqZGW6h0sda7toVcYh7bB
- 2RsA==
+ bh=gU8TkOLaJsHF42Jr0I2/13286opa6qB6pqpOwuEjyOo=;
+ b=EfJ5Kq6lAPUBLc2i5WbxCnSyIZQVR/yQoefKGh1QXQhIrXv6VnOs8tVhHjc1psjUYY
+ Ua2pbH3K8o7IuM3hqhZoaWgizPA6ZQU0CFwS/hxSOaCNVxMU1jqo/wlIPpZ1FwQnZEFn
+ 7cQEHg7qLiaekezrKR0hSHLVO9Z5t772rVvj52mKBh9NAqyS1itPjuAP7c3B6GWsIzg2
+ aLC1hkQduZN5zLzETykJn8mxbT3A0tytxgB+AT1Tv8JED3Ji4YPCMVl9IXSCUbL+SZ8K
+ 4dGyVCaDXmMUbGG6QXXySmH8sjrsmS6mGBcN9ozmdP5Xja+KSsCArKqDFS8mWjjicS0/
+ 1how==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5kVSVBQolF0G7/Ce1XTTc29CJhHEnE/DXXl1FQJcxiXNh98C1MSt1Os/6vLjCmVG+qa8vzXkHcxg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGOfTImviO7qPxH6lHCq2EmNdGnPwv2Ta6K6x8TYWtWotq6NDz
- aGFWlWJyysH81JFtNh6r1Qs2pJHXr47FuMiv0IgRWlcPO0rayKxAm33h9WYS15s=
-X-Gm-Gg: ASbGncvbCtFXNVV3SOzw3RTOwBf1OQNUS+gXiaLP8owks+I0G/BKzWL0mHgRqG9eTQn
- 61MYmwVn+dS4/Vu2goO2WkgGpaq4cwhti4khU4WKDgH800dz8MojUQRvcJDjp1VdxDHQcmr1gtc
- 7LQzdlhrJJIlIpRstI1EPboepMLyB13vrxwaElY7/rAz1z22Fy+KErOJUW/HZkKs6ongpIre4HO
- VUUad9Nn/ddKp4Mvi0HKgZEhigRinYeY+GY697c4lTnjUqdPHdIl/QYgB9o6fqP56SEFCJC8N1g
- 3kYW93FMXIXQjEnKE884kuJurkJGAPc6i8w=
-X-Google-Smtp-Source: AGHT+IHk8t2kGkewf9miDARDQEDhBHmDwc96pGOFGgRiJyAeCiaoi7Ir/rPT4MfBpFGIq6J/A1Wu3g==
-X-Received: by 2002:a05:600c:a41:b0:434:ff85:dd77 with SMTP id
- 5b1f17b1804b1-43905ac4d93mr13292555e9.3.1738684046304; 
- Tue, 04 Feb 2025 07:47:26 -0800 (PST)
+ AJvYcCUZKu24mVlJ4ed/I3YL1v4SzpuCbcFDnWXesqzqLTSbk5wgllbw9gVPjjgrqWKGqjA7YyMIEVsRASg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyEUYAzb1D1M2yPuHg6Az4q8sIU8JbluNXthkA3OTCPM0uMeWDi
+ O0i4VNYuWSrWsdfov2+1HLKXcHSrrJGqmKCXVOONv1SmIcWZKe5RN8PSo4Mrnms=
+X-Gm-Gg: ASbGncslP5www4xwTxoUakd6dlEp4CumuzjKLm7fIlFY8oXMJ5JXGqiRAPVfBuFAsDH
+ oKkwRS5VczkhYXWKkiUN5Mbs1HyUxFfB35nelZixUZzHwbKGMxSPbFS8qStNFVCtqGrUYS6rOeL
+ 07ZbP/t989sE2SE3tYJNt0qRUe9G8iCWSfMApfaLNchbTxizEzwddPdwB1TpEWh36qWg+yR7sqY
+ FkkKoU/Y7HlyeXtv1E/+rNF5nLcaaSe2gFpnpX7EXylcsQWNq8LWQ53WZ8QmF+YaUfUkpvC4C2I
+ u0FyqdU0inaKh+K36UvzIniXRr69KWi8mLI=
+X-Google-Smtp-Source: AGHT+IGveqdu2JixWRUhsUl00uKh2Op+HVMUCQsDgohpXpwMPeoN8qwI4EsRYKpKAjwTtITIgvSlug==
+X-Received: by 2002:a5d:584a:0:b0:38c:1496:2d44 with SMTP id
+ ffacd0b85a97d-38c5a4d87b9mr6729049f8f.6.1738684125187; 
+ Tue, 04 Feb 2025 07:48:45 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.218.144])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c5c0ece21sm15905008f8f.20.2025.02.04.07.47.25
+ 5b1f17b1804b1-438e23e6a4dsm192729835e9.21.2025.02.04.07.48.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Feb 2025 07:47:25 -0800 (PST)
-Message-ID: <25b58de7-b3ff-4d85-9db3-1b1eb0012d44@linaro.org>
-Date: Tue, 4 Feb 2025 16:47:24 +0100
+ Tue, 04 Feb 2025 07:48:44 -0800 (PST)
+Message-ID: <30518b66-71c5-43ed-a770-e3ecbfdb1f58@linaro.org>
+Date: Tue, 4 Feb 2025 16:48:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1
- when choosing bitclk source
+Subject: Re: [PATCH v2 4/4] drm/msm/dsi/phy: Define PHY_CMN_CLK_CFG[01]
+ bitfields and simplify saving
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
  <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
@@ -76,10 +76,10 @@ Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250203-drm-msm-phy-pll-cfg-reg-v2-0-862b136c5d22@linaro.org>
- <20250203-drm-msm-phy-pll-cfg-reg-v2-3-862b136c5d22@linaro.org>
- <c5wtnqiucrfplq4655wk4iiwlxm42pdwozsqohffu54lifpbme@pnrqzul2cx2f>
- <1fdf132f-085d-4420-88c0-bdbe87ac2c74@linaro.org>
- <iygq2utzftqrvekz2mm2nnjriwvbtnpskbb4th3wg2jczfikw3@5m7cttkxwenq>
+ <20250203-drm-msm-phy-pll-cfg-reg-v2-4-862b136c5d22@linaro.org>
+ <hhedgfdbqpbv7s6iegtoztmznqdqn7bdumik7dm5xtsfsj6uwp@3jz422fhchcn>
+ <ef1f91e4-aec4-41e8-b842-52d3f91e82bb@linaro.org>
+ <dtenajcyhcrejiiadcfmpz3h3cg3l2rkio55625umao6gl3q3k@asy2ecfz37ps>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -126,7 +126,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <iygq2utzftqrvekz2mm2nnjriwvbtnpskbb4th3wg2jczfikw3@5m7cttkxwenq>
+In-Reply-To: <dtenajcyhcrejiiadcfmpz3h3cg3l2rkio55625umao6gl3q3k@asy2ecfz37ps>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -144,29 +144,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/02/2025 15:27, Dmitry Baryshkov wrote:
->>>>  	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(phy->vco_hw);
->>>> -	void __iomem *base = phy->base;
->>>>  	u32 data = 0x0;	/* internal PLL */
+On 04/02/2025 15:28, Dmitry Baryshkov wrote:
+>>>>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          | 31 ++++++++++++----------
+>>>>  .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  | 12 +++++++--
+>>>>  2 files changed, 27 insertions(+), 16 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+>>>> index 926fd8e3330b2cdfc69d1e0e5d3930abae77b7d8..b61e75a01e1b69f33548ff0adefc5c92980a15d7 100644
+>>>> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+>>>> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+>>>> @@ -67,8 +67,7 @@ struct dsi_pll_config {
 >>>>  
->>>>  	DBG("DSI PLL%d", pll_7nm->phy->id);
->>>> @@ -635,7 +634,7 @@ static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
->>>>  	}
+>>>>  struct pll_7nm_cached_state {
+>>>>  	unsigned long vco_rate;
+>>>> -	u8 bit_clk_div;
+>>>> -	u8 pix_clk_div;
+>>>> +	u8 clk_div;
+>>>>  	u8 pll_out_div;
+>>>>  	u8 pll_mux;
+>>>>  };
+>>>> @@ -401,12 +400,12 @@ static void dsi_pll_cmn_clk_cfg1_update(struct dsi_pll_7nm *pll, u32 mask,
 >>>>  
->>>>  	/* set PLL src */
->>>> -	writel(data << 2, base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
->>>> +	dsi_pll_cmn_clk_cfg1_update(pll_7nm, GENMASK(3, 2), data << 2);
+>>>>  static void dsi_pll_disable_global_clk(struct dsi_pll_7nm *pll)
+>>>>  {
+>>>> -	dsi_pll_cmn_clk_cfg1_update(pll, BIT(5), 0);
+>>>> +	dsi_pll_cmn_clk_cfg1_update(pll, DSI_7nm_PHY_CMN_CLK_CFG1_CLK_EN, 0);
+>>>>  }
+>>>>  
+>>>>  static void dsi_pll_enable_global_clk(struct dsi_pll_7nm *pll)
+>>>>  {
+>>>> -	u32 cfg_1 = BIT(5) | BIT(4);
+>>>> +	u32 cfg_1 = DSI_7nm_PHY_CMN_CLK_CFG1_CLK_EN | DSI_7nm_PHY_CMN_CLK_CFG1_CLK_EN_SEL;
+>>>>  
+>>>>  	writel(0x04, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_3);
+>>>>  	dsi_pll_cmn_clk_cfg1_update(pll, cfg_1, cfg_1);
+>>>> @@ -572,15 +571,17 @@ static void dsi_7nm_pll_save_state(struct msm_dsi_phy *phy)
+>>>>  	cached->pll_out_div &= 0x3;
+>>>>  
+>>>>  	cmn_clk_cfg0 = readl(phy_base + REG_DSI_7nm_PHY_CMN_CLK_CFG0);
+>>>> -	cached->bit_clk_div = cmn_clk_cfg0 & 0xf;
+>>>> -	cached->pix_clk_div = (cmn_clk_cfg0 & 0xf0) >> 4;
+>>>> +	cached->clk_div = cmn_clk_cfg0 & (DSI_7nm_PHY_CMN_CLK_CFG0_DIV_CTRL_3_0__MASK |
+>>>> +					  DSI_7nm_PHY_CMN_CLK_CFG0_DIV_CTRL_7_4__MASK);
 >>>
->>> The mask is not defined, still.
+>>> Could you rather store these two fields separately by using FIELD_GET?
 >>
->> Why would it be? That's old/existing code. Commit is doing only one
->> thing - fixing something. Not introducing some masks or defines and
->> changing hard-coded values into defines.
+>> So make the code again more complicated? OK.
 > 
-> GENMASK(3, 2) needs to be defined in the XML file. It was not there
-> beforehand, you have just introduced it.
+> It was already there, bit_clk_div and pix_clk_div.
 
-You are right.
+
+Yes and I (believe) simplified it. It is subjective, so I don't mind
+going back to two fields, as you asked.
 
 Best regards,
 Krzysztof
