@@ -2,97 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01281A2AA61
-	for <lists+freedreno@lfdr.de>; Thu,  6 Feb 2025 14:51:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F73EA2ADEC
+	for <lists+freedreno@lfdr.de>; Thu,  6 Feb 2025 17:38:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE2BE10E853;
-	Thu,  6 Feb 2025 13:51:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B0D010E8D1;
+	Thu,  6 Feb 2025 16:38:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZjPz4SFR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RdXAaDXd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0837110E853
- for <freedreno@lists.freedesktop.org>; Thu,  6 Feb 2025 13:51:17 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-30797730cbdso8837121fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 06 Feb 2025 05:51:17 -0800 (PST)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39A2410E8D6
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Feb 2025 16:38:05 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-38dc32a1318so406947f8f.1
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Feb 2025 08:38:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738849876; x=1739454676; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=UlK+TxmJ+8NTEz5MDIlkU8q1+19XAKmZdwH/ArURmjg=;
- b=ZjPz4SFRcHkQA2mbHm2JW8z4zObGNC+qfvMb+gG8pQy/lzoKvMdhYOQUqWcGhWsdPH
- GaADIF2xVSCZOa4DxiAiroAuWe6/UhBk+ppVMKwjCHW/BCcZZ9jNbcS1/QFrj48dIjkD
- KnhdI8/EfLHGTWI5cAtFGlz/4IRM1vg5fucoaNTPl4YFSGF14wnT8jkZmFrGKeaJac9z
- D1P9NUHFygiuQ2jpIRX1C2IT+rOJcmvnHcvkLwsXhj6q/jd1dFzGpXD3908j6Zt5rExs
- RadCXIEjjbXA2VYxp1DhphEk8Ujjff7xEjgzoMgmnX4s3ORgtQjluwqohu6WHIevPAEA
- L5zQ==
+ d=linaro.org; s=google; t=1738859884; x=1739464684; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=f2FAB+iTgyf7DK0nqsLX/lCiNQbaaJsTbkBl60A84eA=;
+ b=RdXAaDXd+JRVmLo+htyoFj95JUV01KJKsIkbZ+VHsl9JfeRFb0H5wYbxkMC/5dKdp2
+ LWXPsHUs5vulyIoyo/Z8BO8jUTs9P0DoklzsDbRE+EC/4Y7EZX1sr8G/ZnHI5onUb+kv
+ EV767/3Z2tlNcFXzPehhC2V1jdZt9BagmYGlFU38EecUHlfGvLsOHoZMrMqbbiowXsZX
+ R//FiFPzwfFFxwpWnuX0Ef8Jwd7We1y5l+2lHfY8SpVUF+JKZCYWz0b4gc6mAl1MgaAY
+ p+bCbV7/cNZ7talKNANcunNbgR4t7CLwTvoV8djhu4pCuN+nHATZGClqC3ZfwiCiJfsj
+ 7sYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738849876; x=1739454676;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UlK+TxmJ+8NTEz5MDIlkU8q1+19XAKmZdwH/ArURmjg=;
- b=uX5VuKJE4cXhNRmEUhWRztrwn0dYbAqvoLfq8jnAV1DLDx8zQBaV0Iv9/C/1lcJjm0
- Oovo1LaMy1hdaYYhJwNPnfJIhY/v0dvZqLqtAeVxNv/63FmSsA2xZLVLjg62nGUOrevJ
- FNSR7K7LgU2K78VjQnpQtaMeAPQ6ELBmLp3jcEIcv27dy+TxTjlcoApKSG6gTQaI6C5y
- kiG9851YtEd21hLfODM8q4h6H4C3fiIZWGoY13Ua5xSCKsBuQmZNlPtiW7JpJ+c+EkDZ
- u9+kZjc1rBYWHS4B0AKCqH/oufKPj79ya5kNIz4yj4aomuGDdubx6NptrIxu+lP06N4l
- tCKg==
+ d=1e100.net; s=20230601; t=1738859884; x=1739464684;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=f2FAB+iTgyf7DK0nqsLX/lCiNQbaaJsTbkBl60A84eA=;
+ b=BR9Oc1HCd9DyQP/0KFuSTcM4HIFGOADj4e/XL/S3bSgJydqbsVs6PPpb++sAQthUaC
+ odEvyk0pwouMoKSow+D1uPMZ8BE7TWXL6u5Wh4YjAViEcvmQyp0fzBg3xTVYlXDTuDEG
+ Ms+h+l502BxKGb5H6GH16zF10ydZRdikaBmMBZAZdZeXyyRQqEP0Y62BCswETr12qI2L
+ QUE4VMqLeraHat8GE7tMXUswgGrmHhEZYMHcatEEqrqZC1u2QrMBXepMyHeirvqscWlJ
+ a9DtBNe+NxKg7rO3/Wm1xj1ztLYvmcqZPPmJgsRoXT/rwx7pdxdMEC2LME3iPTp0wjv7
+ BXtQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXEJQZGISu+LLZs/E8ddyat6/lErGbuo4v342rrX7zukndzQJ6wVkOOWheXYvnvt8y9po3erjTkG1g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAEbgXvMrB6Ru2jrhZdk56s7Ofns8ojPG1lWP/hEgZjOf59opH
- fjKD12tEpLRHmoCKSnR3T7xNWmGBqHFsp5+upPCaqXQubSsQe8quPvHCzHyd96s=
-X-Gm-Gg: ASbGnct6ITBsVFyv6YAtnWLIJvbpSD+qHjKQzk92b7viPYJOyCZLm9I3Xo+ebf50nYP
- wwyduyK1Qg3zgXC8KnCqGYWQBa/OJVKxmUrUn2iR/SBN+qCdqqcID+8iXAN4VMcYI/JgbQdOsPe
- YElnBWfAUjpwj+IM98H9Dc3fZekEpelvdbz/0+jt0hy/LD7jvRPPY51EZLtExM3qWjXki2Hh/Uq
- dvjkdz2cTUvkaD8GUnD8+8O3G/miyr6Msb/qngJWp0Hz3ZkPzjZ8sBmElYbS0ADTnIMGyEQICmu
- OVL6USJF1CN4KOldyUz0VYE=
-X-Google-Smtp-Source: AGHT+IHHeWzoeJmQQGB9ZzM2A2qTjw7A0+OC0cnedk0GgttBKRVUhTQ2a66Cy0CFIBfHwySntG87EA==
-X-Received: by 2002:a05:651c:1588:b0:300:26bc:4311 with SMTP id
- 38308e7fff4ca-307cf31141fmr27383791fa.18.1738849876142; 
- Thu, 06 Feb 2025 05:51:16 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-307de2da11fsm1318521fa.92.2025.02.06.05.51.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Feb 2025 05:51:14 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 06 Feb 2025 15:51:07 +0200
-Subject: [PATCH 2/2] drm/msm/dp: reuse generic HDMI codec implementation
+ AJvYcCVGIcK+d8IOU/zIX1Z9FAAplWFQ+fk4CfIi8cIQVNFfQbxp8NKn/oq/PJIL77WhnjH3D91Ss1FWVtM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxpIPzdaLoxg99LJcqS3JuuzFOVIR5ego1MKYpJqRBircE2X9N4
+ +gT5JPhlgWqAgfxPYh5JZ5Gj/t5fcGutzmSB+IrTj9grjINRyJkOUjlHTQ38JD8=
+X-Gm-Gg: ASbGncsDYgq/qUgntbPUWhIX8K+85YWwSEQGIV6tZ/zLQcXCKkbI23qn7hxZVmMC2tO
+ MHa9UWQ4WKgZhl9KVGp/ki7dMAuKuzL/oRuRILvMJh5vFP/3ULBaVx1d0sQGNS4NFK9zhwuY7dE
+ 6hsk2bI7wuLP2AzJzv20gfK9u0O4j8Ndvi3DF34T/ysRoMbh1JdQw4Ox+esS/CAPto40Ce2PCKr
+ SblElciegv3ArEmrSjpv3FSlrStcqL3/+5BVW+2FVprJaUv8MkDM54yQbXQjVwDkMqlVFqI/yOm
+ JEmV4fvx8OnqSEwv3uwFOL6DvR8DnKT8ei4/Za2F2T/2RjzR7lz6osePHeUKtiCL7Wl9
+X-Google-Smtp-Source: AGHT+IGlqziDYgd+qIttUBo1t8lTgV41m6KBM7E7wDX7PChM3ilTHXoaQrEduT6TQpYPNTTVTKQCEA==
+X-Received: by 2002:a5d:6a03:0:b0:385:f638:c68a with SMTP id
+ ffacd0b85a97d-38db4883bcbmr4850947f8f.30.1738859883521; 
+ Thu, 06 Feb 2025 08:38:03 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:4972:46a2:e0cb:c0a6?
+ ([2a01:e0a:982:cbb0:4972:46a2:e0cb:c0a6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38dbde0fd23sm2118978f8f.71.2025.02.06.08.38.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 Feb 2025 08:38:03 -0800 (PST)
+Message-ID: <da80b9bb-be2f-455c-961d-1d2a55b061ef@linaro.org>
+Date: Thu, 6 Feb 2025 17:38:01 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH 2/4] drm/panel: Add Visionox RM692E5 panel driver
+To: Danila Tikhonov <danila@jiaxyga.com>, quic_jesszhan@quicinc.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ robdclark@gmail.com, quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
+ sean@poorly.run, marijn.suijten@somainline.org, jonathan@marek.ca,
+ jun.nie@linaro.org, fekz115@gmail.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux@mainlining.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20250203181436.87785-1-danila@jiaxyga.com>
+ <20250203181436.87785-3-danila@jiaxyga.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20250203181436.87785-3-danila@jiaxyga.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250206-dp-hdmi-audio-v1-2-8aa14a8c0d4d@linaro.org>
-References: <20250206-dp-hdmi-audio-v1-0-8aa14a8c0d4d@linaro.org>
-In-Reply-To: <20250206-dp-hdmi-audio-v1-0-8aa14a8c0d4d@linaro.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Hermes Wu <Hermes.wu@ite.com.tw>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13373;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=snQ72owwPhrhaFwR4SIaWA+XaNcn+pxVUNbe6nPEt/o=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnpL5NL+X32LMzFHQO7/8STk8fjrrvgD/a7tixD
- 823KYl690aJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ6S+TQAKCRCLPIo+Aiko
- 1RyTCACcx7mBhoDGP6D3QcSCVU6APbA5jrElREWEt4VvBknC/Q3KBzeHzINKm8C423CRHWfc0wC
- YwZrbA9P0/RGECJHcn44K/ucSW4Ylb45ohmYHWa1RKXptfxr0eeW73kwrW4dk2BPx6JFLOlum9y
- yZ73fPkG03Ak4mUPKCOeNIl+bu8LKDrSpHDNNsqVWisx2Z4sFtyY+TMKRLD5jdk5EQIFR70wOMT
- DFQ8XPw6VFYTFr9ej6IL3JptDPNi97RMf3rWKlevGadvyC0YMxp0wHkOTrmhni92WpqRqj9a0MG
- f5AAF3YnqNp4noKbKdwJk8nAagY/nmFXdgIhm198UncLaN7V
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,417 +123,510 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The MSM DisplayPort driver implements several HDMI codec functions
-in the driver, e.g. it manually manages HDMI codec device registration,
-returning ELD and plugged_cb support. In order to reduce code
-duplication reuse drm_hdmi_audio_* helpers and drm_bridge_connector
-integration.
+Hi,
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/Kconfig         |   1 +
- drivers/gpu/drm/msm/dp/dp_audio.c   | 131 ++++--------------------------------
- drivers/gpu/drm/msm/dp/dp_audio.h   |  27 ++------
- drivers/gpu/drm/msm/dp/dp_display.c |  28 ++------
- drivers/gpu/drm/msm/dp/dp_display.h |   6 --
- drivers/gpu/drm/msm/dp/dp_drm.c     |   8 +++
- 6 files changed, 31 insertions(+), 170 deletions(-)
+On 03/02/2025 19:14, Danila Tikhonov wrote:
+> From: Eugene Lepshy <fekz115@gmail.com>
+> 
+> Add the driver for Visionox RM692E5 panel support found in Nothing
+> Phone (1).
+> 
+> Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
+> Co-developed-by: Danila Tikhonov <danila@jiaxyga.com>
+> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+> ---
+>   drivers/gpu/drm/panel/Kconfig                 |  10 +
+>   drivers/gpu/drm/panel/Makefile                |   1 +
+>   .../gpu/drm/panel/panel-visionox-rm692e5.c    | 433 ++++++++++++++++++
+>   3 files changed, 444 insertions(+)
+>   create mode 100644 drivers/gpu/drm/panel/panel-visionox-rm692e5.c
+> 
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index d7469c565d1d..66b2827169fb 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -996,6 +996,16 @@ config DRM_PANEL_VISIONOX_RM69299
+>   	  Say Y here if you want to enable support for Visionox
+>   	  RM69299  DSI Video Mode panel.
+>   
+> +config DRM_PANEL_VISIONOX_RM692E5
+> +	tristate "Visionox RM692E5"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	help
+> +	  Say Y here if you want to enable support for Visionox RM692E5 amoled
+> +	  display panels, such as the one found in the Nothing Phone (1)
+> +	  smartphone.
+> +
+>   config DRM_PANEL_VISIONOX_VTDR6130
+>   	tristate "Visionox VTDR6130"
+>   	depends on OF
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+> index 7dcf72646cac..6177f2d4113e 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -100,6 +100,7 @@ obj-$(CONFIG_DRM_PANEL_TPO_TD043MTEA1) += panel-tpo-td043mtea1.o
+>   obj-$(CONFIG_DRM_PANEL_TPO_TPG110) += panel-tpo-tpg110.o
+>   obj-$(CONFIG_DRM_PANEL_TRULY_NT35597_WQXGA) += panel-truly-nt35597.o
+>   obj-$(CONFIG_DRM_PANEL_VISIONOX_RM69299) += panel-visionox-rm69299.o
+> +obj-$(CONFIG_DRM_PANEL_VISIONOX_RM692E5) += panel-visionox-rm692e5.o
+>   obj-$(CONFIG_DRM_PANEL_VISIONOX_VTDR6130) += panel-visionox-vtdr6130.o
+>   obj-$(CONFIG_DRM_PANEL_VISIONOX_R66451) += panel-visionox-r66451.o
+>   obj-$(CONFIG_DRM_PANEL_WIDECHIPS_WS2401) += panel-widechips-ws2401.o
+> diff --git a/drivers/gpu/drm/panel/panel-visionox-rm692e5.c b/drivers/gpu/drm/panel/panel-visionox-rm692e5.c
+> new file mode 100644
+> index 000000000000..abaa035f3a92
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-visionox-rm692e5.c
+> @@ -0,0 +1,433 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
+> + * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2025, Eugene Lepshy <fekz115@gmail.com>
+> + * Copyright (c) 2025, Danila Tikhonov <danila@jiaxyga.com>
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include <drm/display/drm_dsc.h>
+> +#include <drm/display/drm_dsc_helper.h>
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +#include <drm/drm_probe_helper.h>
+> +
+> +struct visionox_rm692e5 {
+> +	struct drm_panel panel;
+> +	struct mipi_dsi_device *dsi;
+> +	struct drm_dsc_config dsc;
+> +	struct gpio_desc *reset_gpio;
+> +	struct regulator_bulk_data *supplies;
+> +};
+> +
+> +static const struct regulator_bulk_data visionox_rm692e5_supplies[] = {
+> +	{ .supply = "vddio" },	/* 1p8 */
+> +	{ .supply = "vdd" },	/* 3p3 */
+> +};
+> +
+> +static inline
+> +struct visionox_rm692e5 *to_visionox_rm692e5(struct drm_panel *panel)
+> +{
+> +	return container_of(panel, struct visionox_rm692e5, panel);
+> +}
+> +
+> +static void visionox_rm692e5_reset(struct visionox_rm692e5 *ctx)
+> +{
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	usleep_range(1000, 2000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	msleep(32);
+> +}
+> +
+> +static int visionox_rm692e5_on(struct visionox_rm692e5 *ctx)
+> +{
+> +	struct mipi_dsi_device *dsi = ctx->dsi;
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+> +
+> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbd, 0x07);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 17000, 18000);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xd2);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x50, 0x11);
+> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0x00ab);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x52, 0x30);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x09);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x54, 0x60);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x04);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x56, 0x38);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x14);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5a, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5b, 0x1c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5c, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5d, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_CABC_MIN_BRIGHTNESS, 0x20);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5f, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0xe8);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x62, 0x07);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x63, 0x0c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x64, 0x05);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x0e);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x05);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x67, 0x16);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x68, 0x18);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x69, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6a, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6b, 0xf0);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6c, 0x07);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6e, 0x20);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x06);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x71, 0x0f);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x72, 0x0f);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x73, 0x33);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x74, 0x0e);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x75, 0x1c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x76, 0x2a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x77, 0x38);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x78, 0x46);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x79, 0x54);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7a, 0x62);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7b, 0x69);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7c, 0x70);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7d, 0x77);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7e, 0x79);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7f, 0x7b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x80, 0x7d);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x7e);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x82, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x83, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x84, 0x22);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x85, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x86, 0x2a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x87, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x88, 0x2a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x89, 0xbe);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8a, 0x3a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8b, 0xfc);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8c, 0x3a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8d, 0xfa);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8e, 0x3a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8f, 0xf8);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0x3b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x91, 0x38);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x92, 0x3b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x93, 0x78);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x94, 0x3b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x95, 0xb6);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x96, 0x4b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x97, 0xf6);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x98, 0x4c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x99, 0x34);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x4c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x74);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9c, 0x5c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9d, 0x74);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9e, 0x8c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9f, 0xf4);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_READ_PPS_START, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa3, 0x1c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa4, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa5, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa6, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa7, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_READ_PPS_CONTINUE, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xaa, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa0, 0x80);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa1);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xcd, 0x6b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xce, 0xbb);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xd1);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb4, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x38);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x17, 0x0f);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x18, 0x0f);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfa, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc2, 0x08);
+> +	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0x000d);
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 50);
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int visionox_rm692e5_disable(struct drm_panel *panel)
+> +{
+> +	struct visionox_rm692e5 *ctx = to_visionox_rm692e5(panel);
+> +	struct mipi_dsi_device *dsi = ctx->dsi;
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+> +
+> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int visionox_rm692e5_prepare(struct drm_panel *panel)
+> +{
+> +	struct visionox_rm692e5 *ctx = to_visionox_rm692e5(panel);
+> +	struct drm_dsc_picture_parameter_set pps;
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	dsi_ctx.accum_err = regulator_bulk_enable(ARRAY_SIZE
+> +				(visionox_rm692e5_supplies), ctx->supplies);
+> +	if (dsi_ctx.accum_err)
+> +		return dsi_ctx.accum_err;
 
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index 7ec833b6d8292f8cb26cfe5582812f2754cd4d35..fe36a3bcfe03994952d1b5e1b423e923e3e3b014 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -104,6 +104,7 @@ config DRM_MSM_DPU
- config DRM_MSM_DP
- 	bool "Enable DisplayPort support in MSM DRM driver"
- 	depends on DRM_MSM
-+	select DRM_DISPLAY_HDMI_AUDIO_HELPER
- 	select RATIONAL
- 	default y
- 	help
-diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
-index 70fdc9fe228a7149546accd8479a9e4397f3d5dd..f8bfb908f9b4bf93ad5480f0785e3aed23dde160 100644
---- a/drivers/gpu/drm/msm/dp/dp_audio.c
-+++ b/drivers/gpu/drm/msm/dp/dp_audio.c
-@@ -13,13 +13,13 @@
- 
- #include "dp_catalog.h"
- #include "dp_audio.h"
-+#include "dp_drm.h"
- #include "dp_panel.h"
- #include "dp_reg.h"
- #include "dp_display.h"
- #include "dp_utils.h"
- 
- struct msm_dp_audio_private {
--	struct platform_device *audio_pdev;
- 	struct platform_device *pdev;
- 	struct drm_device *drm_dev;
- 	struct msm_dp_catalog *catalog;
-@@ -160,24 +160,11 @@ static void msm_dp_audio_enable(struct msm_dp_audio_private *audio, bool enable)
- 	msm_dp_catalog_audio_enable(catalog, enable);
- }
- 
--static struct msm_dp_audio_private *msm_dp_audio_get_data(struct platform_device *pdev)
-+static struct msm_dp_audio_private *msm_dp_audio_get_data(struct msm_dp *msm_dp_display)
- {
- 	struct msm_dp_audio *msm_dp_audio;
--	struct msm_dp *msm_dp_display;
--
--	if (!pdev) {
--		DRM_ERROR("invalid input\n");
--		return ERR_PTR(-ENODEV);
--	}
--
--	msm_dp_display = platform_get_drvdata(pdev);
--	if (!msm_dp_display) {
--		DRM_ERROR("invalid input\n");
--		return ERR_PTR(-ENODEV);
--	}
- 
- 	msm_dp_audio = msm_dp_display->msm_dp_audio;
--
- 	if (!msm_dp_audio) {
- 		DRM_ERROR("invalid msm_dp_audio data\n");
- 		return ERR_PTR(-EINVAL);
-@@ -186,68 +173,16 @@ static struct msm_dp_audio_private *msm_dp_audio_get_data(struct platform_device
- 	return container_of(msm_dp_audio, struct msm_dp_audio_private, msm_dp_audio);
- }
- 
--static int msm_dp_audio_hook_plugged_cb(struct device *dev, void *data,
--		hdmi_codec_plugged_cb fn,
--		struct device *codec_dev)
--{
--
--	struct platform_device *pdev;
--	struct msm_dp *msm_dp_display;
--
--	pdev = to_platform_device(dev);
--	if (!pdev) {
--		pr_err("invalid input\n");
--		return -ENODEV;
--	}
--
--	msm_dp_display = platform_get_drvdata(pdev);
--	if (!msm_dp_display) {
--		pr_err("invalid input\n");
--		return -ENODEV;
--	}
--
--	return msm_dp_display_set_plugged_cb(msm_dp_display, fn, codec_dev);
--}
--
--static int msm_dp_audio_get_eld(struct device *dev,
--	void *data, uint8_t *buf, size_t len)
--{
--	struct platform_device *pdev;
--	struct msm_dp *msm_dp_display;
--
--	pdev = to_platform_device(dev);
--
--	if (!pdev) {
--		DRM_ERROR("invalid input\n");
--		return -ENODEV;
--	}
--
--	msm_dp_display = platform_get_drvdata(pdev);
--	if (!msm_dp_display) {
--		DRM_ERROR("invalid input\n");
--		return -ENODEV;
--	}
--
--	mutex_lock(&msm_dp_display->connector->eld_mutex);
--	memcpy(buf, msm_dp_display->connector->eld,
--		min(sizeof(msm_dp_display->connector->eld), len));
--	mutex_unlock(&msm_dp_display->connector->eld_mutex);
--
--	return 0;
--}
--
--int msm_dp_audio_hw_params(struct device *dev,
--	void *data,
--	struct hdmi_codec_daifmt *daifmt,
--	struct hdmi_codec_params *params)
-+int msm_dp_audio_prepare(struct drm_connector *connector,
-+			 struct drm_bridge *bridge,
-+			 struct hdmi_codec_daifmt *daifmt,
-+			 struct hdmi_codec_params *params)
- {
- 	int rc = 0;
- 	struct msm_dp_audio_private *audio;
--	struct platform_device *pdev;
- 	struct msm_dp *msm_dp_display;
- 
--	pdev = to_platform_device(dev);
--	msm_dp_display = platform_get_drvdata(pdev);
-+	msm_dp_display = to_dp_bridge(bridge)->msm_dp_display;
- 
- 	/*
- 	 * there could be cases where sound card can be opened even
-@@ -262,7 +197,7 @@ int msm_dp_audio_hw_params(struct device *dev,
- 		goto end;
- 	}
- 
--	audio = msm_dp_audio_get_data(pdev);
-+	audio = msm_dp_audio_get_data(msm_dp_display);
- 	if (IS_ERR(audio)) {
- 		rc = PTR_ERR(audio);
- 		goto end;
-@@ -281,15 +216,14 @@ int msm_dp_audio_hw_params(struct device *dev,
- 	return rc;
- }
- 
--static void msm_dp_audio_shutdown(struct device *dev, void *data)
-+void msm_dp_audio_shutdown(struct drm_connector *connector,
-+			   struct drm_bridge *bridge)
- {
- 	struct msm_dp_audio_private *audio;
--	struct platform_device *pdev;
- 	struct msm_dp *msm_dp_display;
- 
--	pdev = to_platform_device(dev);
--	msm_dp_display = platform_get_drvdata(pdev);
--	audio = msm_dp_audio_get_data(pdev);
-+	msm_dp_display = to_dp_bridge(bridge)->msm_dp_display;
-+	audio = msm_dp_audio_get_data(msm_dp_display);
- 	if (IS_ERR(audio)) {
- 		DRM_ERROR("failed to get audio data\n");
- 		return;
-@@ -311,47 +245,6 @@ static void msm_dp_audio_shutdown(struct device *dev, void *data)
- 	msm_dp_display_signal_audio_complete(msm_dp_display);
- }
- 
--static const struct hdmi_codec_ops msm_dp_audio_codec_ops = {
--	.hw_params = msm_dp_audio_hw_params,
--	.audio_shutdown = msm_dp_audio_shutdown,
--	.get_eld = msm_dp_audio_get_eld,
--	.hook_plugged_cb = msm_dp_audio_hook_plugged_cb,
--};
--
--static struct hdmi_codec_pdata codec_data = {
--	.ops = &msm_dp_audio_codec_ops,
--	.max_i2s_channels = 8,
--	.i2s = 1,
--};
--
--void msm_dp_unregister_audio_driver(struct device *dev, struct msm_dp_audio *msm_dp_audio)
--{
--	struct msm_dp_audio_private *audio_priv;
--
--	audio_priv = container_of(msm_dp_audio, struct msm_dp_audio_private, msm_dp_audio);
--
--	if (audio_priv->audio_pdev) {
--		platform_device_unregister(audio_priv->audio_pdev);
--		audio_priv->audio_pdev = NULL;
--	}
--}
--
--int msm_dp_register_audio_driver(struct device *dev,
--		struct msm_dp_audio *msm_dp_audio)
--{
--	struct msm_dp_audio_private *audio_priv;
--
--	audio_priv = container_of(msm_dp_audio,
--			struct msm_dp_audio_private, msm_dp_audio);
--
--	audio_priv->audio_pdev = platform_device_register_data(dev,
--						HDMI_CODEC_DRV_NAME,
--						PLATFORM_DEVID_AUTO,
--						&codec_data,
--						sizeof(codec_data));
--	return PTR_ERR_OR_ZERO(audio_priv->audio_pdev);
--}
--
- struct msm_dp_audio *msm_dp_audio_get(struct platform_device *pdev,
- 			struct msm_dp_catalog *catalog)
- {
-diff --git a/drivers/gpu/drm/msm/dp/dp_audio.h b/drivers/gpu/drm/msm/dp/dp_audio.h
-index beea34cbab77f31b33873297dc454a9cee446240..58fc14693e48bff2b57ef7278983e5f21ee80ac7 100644
---- a/drivers/gpu/drm/msm/dp/dp_audio.h
-+++ b/drivers/gpu/drm/msm/dp/dp_audio.h
-@@ -35,23 +35,6 @@ struct msm_dp_audio {
- struct msm_dp_audio *msm_dp_audio_get(struct platform_device *pdev,
- 			struct msm_dp_catalog *catalog);
- 
--/**
-- * msm_dp_register_audio_driver()
-- *
-- * Registers DP device with hdmi_codec interface.
-- *
-- * @dev: DP device instance.
-- * @msm_dp_audio: an instance of msm_dp_audio module.
-- *
-- *
-- * Returns the error code in case of failure, otherwise
-- * zero on success.
-- */
--int msm_dp_register_audio_driver(struct device *dev,
--		struct msm_dp_audio *msm_dp_audio);
--
--void msm_dp_unregister_audio_driver(struct device *dev, struct msm_dp_audio *msm_dp_audio);
--
- /**
-  * msm_dp_audio_put()
-  *
-@@ -61,10 +44,12 @@ void msm_dp_unregister_audio_driver(struct device *dev, struct msm_dp_audio *msm
-  */
- void msm_dp_audio_put(struct msm_dp_audio *msm_dp_audio);
- 
--int msm_dp_audio_hw_params(struct device *dev,
--	void *data,
--	struct hdmi_codec_daifmt *daifmt,
--	struct hdmi_codec_params *params);
-+int msm_dp_audio_prepare(struct drm_connector *connector,
-+			 struct drm_bridge *bridge,
-+			 struct hdmi_codec_daifmt *daifmt,
-+			 struct hdmi_codec_params *params);
-+void msm_dp_audio_shutdown(struct drm_connector *connector,
-+			   struct drm_bridge *bridge);
- 
- #endif /* _DP_AUDIO_H_ */
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 24dd37f1682bf5016bb0efbeb44489061deff060..cc3dd56b6ff48494e4c1e561a6cac6a54d7c1f34 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -12,6 +12,7 @@
- #include <linux/phy/phy.h>
- #include <linux/delay.h>
- #include <drm/display/drm_dp_aux_bus.h>
-+#include <drm/display/drm_hdmi_audio_helper.h>
- #include <drm/drm_edid.h>
- 
- #include "msm_drv.h"
-@@ -287,13 +288,6 @@ static int msm_dp_display_bind(struct device *dev, struct device *master,
- 		goto end;
- 	}
- 
--
--	rc = msm_dp_register_audio_driver(dev, dp->audio);
--	if (rc) {
--		DRM_ERROR("Audio registration Dp failed\n");
--		goto end;
--	}
--
- 	rc = msm_dp_hpd_event_thread_start(dp);
- 	if (rc) {
- 		DRM_ERROR("Event thread create failed\n");
-@@ -315,7 +309,6 @@ static void msm_dp_display_unbind(struct device *dev, struct device *master,
- 
- 	of_dp_aux_depopulate_bus(dp->aux);
- 
--	msm_dp_unregister_audio_driver(dev, dp->audio);
- 	msm_dp_aux_unregister(dp->aux);
- 	dp->drm_dev = NULL;
- 	dp->aux->drm_dev = NULL;
-@@ -611,9 +604,9 @@ static void msm_dp_display_handle_plugged_change(struct msm_dp *msm_dp_display,
- 			struct msm_dp_display_private, msm_dp_display);
- 
- 	/* notify audio subsystem only if sink supports audio */
--	if (msm_dp_display->plugged_cb && msm_dp_display->codec_dev &&
--			dp->audio_supported)
--		msm_dp_display->plugged_cb(msm_dp_display->codec_dev, plugged);
-+	if (dp->audio_supported)
-+		drm_connector_hdmi_audio_plugged_notify(msm_dp_display->connector,
-+							plugged);
- }
- 
- static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp, u32 data)
-@@ -892,19 +885,6 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
- 	return 0;
- }
- 
--int msm_dp_display_set_plugged_cb(struct msm_dp *msm_dp_display,
--		hdmi_codec_plugged_cb fn, struct device *codec_dev)
--{
--	bool plugged;
--
--	msm_dp_display->plugged_cb = fn;
--	msm_dp_display->codec_dev = codec_dev;
--	plugged = msm_dp_display->link_ready;
--	msm_dp_display_handle_plugged_change(msm_dp_display, plugged);
--
--	return 0;
--}
--
- /**
-  * msm_dp_bridge_mode_valid - callback to determine if specified mode is valid
-  * @bridge: Pointer to drm bridge structure
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index ecbc2d92f546a346ee53adcf1b060933e4f54317..cc6e2cab36e9c0b1527ff292e547cbb4d69fd95c 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -7,7 +7,6 @@
- #define _DP_DISPLAY_H_
- 
- #include "dp_panel.h"
--#include <sound/hdmi-codec.h>
- #include "disp/msm_disp_snapshot.h"
- 
- #define DP_MAX_PIXEL_CLK_KHZ	675000
-@@ -15,7 +14,6 @@
- struct msm_dp {
- 	struct drm_device *drm_dev;
- 	struct platform_device *pdev;
--	struct device *codec_dev;
- 	struct drm_connector *connector;
- 	struct drm_bridge *next_bridge;
- 	bool link_ready;
-@@ -25,14 +23,10 @@ struct msm_dp {
- 	bool is_edp;
- 	bool internal_hpd;
- 
--	hdmi_codec_plugged_cb plugged_cb;
--
- 	struct msm_dp_audio *msm_dp_audio;
- 	bool psr_supported;
- };
- 
--int msm_dp_display_set_plugged_cb(struct msm_dp *msm_dp_display,
--		hdmi_codec_plugged_cb fn, struct device *codec_dev);
- int msm_dp_display_get_modes(struct msm_dp *msm_dp_display);
- bool msm_dp_display_check_video_test(struct msm_dp *msm_dp_display);
- int msm_dp_display_get_test_bpp(struct msm_dp *msm_dp_display);
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index d3e241ea6941615b8e274dd17426c2f8557f09b5..0139b6c2e53f48785cdffaf4ccfe391098da3715 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -11,6 +11,7 @@
- 
- #include "msm_drv.h"
- #include "msm_kms.h"
-+#include "dp_audio.h"
- #include "dp_drm.h"
- 
- /**
-@@ -113,6 +114,9 @@ static const struct drm_bridge_funcs msm_dp_bridge_ops = {
- 	.hpd_disable  = msm_dp_bridge_hpd_disable,
- 	.hpd_notify   = msm_dp_bridge_hpd_notify,
- 	.debugfs_init = msm_dp_bridge_debugfs_init,
-+
-+	.hdmi_audio_prepare = msm_dp_audio_prepare,
-+	.hdmi_audio_shutdown = msm_dp_audio_shutdown,
- };
- 
- static int msm_edp_bridge_atomic_check(struct drm_bridge *drm_bridge,
-@@ -319,9 +323,13 @@ int msm_dp_bridge_init(struct msm_dp *msm_dp_display, struct drm_device *dev,
- 	 */
- 	if (!msm_dp_display->is_edp) {
- 		bridge->ops =
-+			DRM_BRIDGE_OP_DisplayPort |
- 			DRM_BRIDGE_OP_DETECT |
- 			DRM_BRIDGE_OP_HPD |
- 			DRM_BRIDGE_OP_MODES;
-+		bridge->hdmi_audio_dev = &msm_dp_display->pdev->dev;
-+		bridge->hdmi_audio_max_i2s_playback_channels = 8;
-+		bridge->hdmi_audio_dai_port = -1;
- 	}
- 
- 	rc = devm_drm_bridge_add(dev->dev, bridge);
+This is quite unpretty, just add a additional ret, the compiler will
+optimize things much smarter, keep code readable.
 
--- 
-2.39.5
+> +
+> +	visionox_rm692e5_reset(ctx);
+> +	visionox_rm692e5_on(ctx);
 
+You don't check the return here, just pass the current dsi_ctx
+
+> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+> +	mipi_dsi_compression_mode_ext_multi(&dsi_ctx, true, MIPI_DSI_COMPRESSION_DSC, 0);
+> +
+> +	mipi_dsi_msleep(&dsi_ctx, 28);
+> +
+> +	if (dsi_ctx.accum_err) {
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +		regulator_bulk_disable(ARRAY_SIZE(visionox_rm692e5_supplies),
+> +				       ctx->supplies);
+> +	}
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int visionox_rm692e5_unprepare(struct drm_panel *panel)
+> +{
+> +	struct visionox_rm692e5 *ctx = to_visionox_rm692e5(panel);
+> +
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(visionox_rm692e5_supplies),
+> +			       ctx->supplies);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct drm_display_mode visionox_rm692e5_modes[] = {
+> +	/* Let's initialize the highest frequency first */
+> +	{ /* 120Hz mode */
+> +		.clock = (1080 + 26 + 39 + 36) * (2400 + 16 + 21 + 16) * 120 / 1000,
+> +		.hdisplay = 1080,
+> +		.hsync_start = 1080 + 26,
+> +		.hsync_end = 1080 + 26 + 39,
+> +		.htotal = 1080 + 26 + 39 + 36,
+> +		.vdisplay = 2400,
+> +		.vsync_start = 2400 + 16,
+> +		.vsync_end = 2400 + 16 + 21,
+> +		.vtotal = 2400 + 16 + 21 + 16,
+> +		.width_mm = 68,
+> +		.height_mm = 152,
+> +		.type = DRM_MODE_TYPE_DRIVER,
+> +	},
+> +	{ /* 90Hz mode */
+> +		.clock = (1080 + 26 + 39 + 36) * (2400 + 16 + 21 + 16) * 90 / 1000,
+> +		.hdisplay = 1080,
+> +		.hsync_start = 1080 + 26,
+> +		.hsync_end = 1080 + 26 + 39,
+> +		.htotal = 1080 + 26 + 39 + 36,
+> +		.vdisplay = 2400,
+> +		.vsync_start = 2400 + 16,
+> +		.vsync_end = 2400 + 16 + 21,
+> +		.vtotal = 2400 + 16 + 21 + 16,
+> +		.width_mm = 68,
+> +		.height_mm = 152,
+> +		.type = DRM_MODE_TYPE_DRIVER,
+> +	},
+> +	{ /* 60Hz mode */
+> +		.clock = (1080 + 26 + 39 + 36) * (2400 + 16 + 21 + 16) * 60 / 1000,
+> +		.hdisplay = 1080,
+> +		.hsync_start = 1080 + 26,
+> +		.hsync_end = 1080 + 26 + 39,
+> +		.htotal = 1080 + 26 + 39 + 36,
+> +		.vdisplay = 2400,
+> +		.vsync_start = 2400 + 16,
+> +		.vsync_end = 2400 + 16 + 21,
+> +		.vtotal = 2400 + 16 + 21 + 16,
+> +		.width_mm = 68,
+> +		.height_mm = 152,
+> +		.type = DRM_MODE_TYPE_DRIVER,
+> +	},
+> +};
+> +
+> +static int visionox_rm692e5_get_modes(struct drm_panel *panel,
+> +						   struct drm_connector *connector)
+> +{
+> +	int count = 0;
+> +
+> +	for (int i = 0; i < ARRAY_SIZE(visionox_rm692e5_modes); i++) {
+> +		count += drm_connector_helper_get_modes_fixed(connector,
+> +						    &visionox_rm692e5_modes[i]);
+> +	}
+
+Nit: you can drop those {}
+
+> +
+> +	return count;
+> +}
+> +
+> +static const struct drm_panel_funcs visionox_rm692e5_panel_funcs = {
+> +	.prepare = visionox_rm692e5_prepare,
+> +	.unprepare = visionox_rm692e5_unprepare,
+> +	.disable = visionox_rm692e5_disable,
+> +	.get_modes = visionox_rm692e5_get_modes,
+> +};
+> +
+> +static int visionox_rm692e5_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
+> +	u16 brightness = backlight_get_brightness(bl);
+> +	int ret;
+> +
+> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	return 0;
+> +}
+> +
+> +static int visionox_rm692e5_bl_get_brightness(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
+> +	u16 brightness;
+> +	int ret;
+> +
+> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret = mipi_dsi_dcs_get_display_brightness_large(dsi, &brightness);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	return brightness;
+> +}
+> +
+> +static const struct backlight_ops visionox_rm692e5_bl_ops = {
+> +	.update_status = visionox_rm692e5_bl_update_status,
+> +	.get_brightness = visionox_rm692e5_bl_get_brightness,
+> +};
+> +
+> +static struct backlight_device *
+> +visionox_rm692e5_create_backlight(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	const struct backlight_properties props = {
+> +		.type = BACKLIGHT_RAW,
+> +		.brightness = 2047,
+> +		.max_brightness = 4095,
+> +	};
+> +
+> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
+> +					      &visionox_rm692e5_bl_ops, &props);
+> +}
+> +
+> +static int visionox_rm692e5_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	struct visionox_rm692e5 *ctx;
+> +	int ret;
+> +
+> +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> +	if (!ctx)
+> +		return -ENOMEM;
+> +
+> +	ret = devm_regulator_bulk_get_const(&dsi->dev,
+> +					    ARRAY_SIZE(visionox_rm692e5_supplies),
+> +					    visionox_rm692e5_supplies,
+> +					    &ctx->supplies);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to get regulators\n");
+> +
+> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "Failed to get reset-gpios\n");
+> +
+> +	ctx->dsi = dsi;
+> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +
+> +	dsi->lanes = 4;
+> +	dsi->format = MIPI_DSI_FMT_RGB888;
+> +	dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> +
+> +	drm_panel_init(&ctx->panel, dev, &visionox_rm692e5_panel_funcs,
+> +		       DRM_MODE_CONNECTOR_DSI);
+> +	ctx->panel.prepare_prev_first = true;
+> +
+> +	ctx->panel.backlight = visionox_rm692e5_create_backlight(dsi);
+> +	if (IS_ERR(ctx->panel.backlight))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+> +				     "Failed to create backlight\n");
+> +
+> +	drm_panel_add(&ctx->panel);
+> +
+> +	dsi->dsc = &ctx->dsc;
+> +	ctx->dsc.dsc_version_major = 1;
+> +	ctx->dsc.dsc_version_minor = 1;
+> +	ctx->dsc.slice_height = 20;
+> +	ctx->dsc.slice_width = 540;
+> +	ctx->dsc.slice_count = 1080 / ctx->dsc.slice_width;
+> +	ctx->dsc.bits_per_component = 10;
+> +	ctx->dsc.bits_per_pixel = 8 << 4;
+> +	ctx->dsc.block_pred_enable = true;
+> +
+> +	ret = devm_mipi_dsi_attach(dev, dsi);
+> +	if (ret < 0) {
+> +		drm_panel_remove(&ctx->panel);
+> +		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void visionox_rm692e5_remove(struct mipi_dsi_device *dsi)
+> +{
+> +	struct visionox_rm692e5 *ctx = mipi_dsi_get_drvdata(dsi);
+> +
+> +	drm_panel_remove(&ctx->panel);
+> +}
+> +
+> +static const struct of_device_id visionox_rm692e5_of_match[] = {
+> +	{ .compatible = "visionox,rm692e5" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, visionox_rm692e5_of_match);
+> +
+> +static struct mipi_dsi_driver visionox_rm692e5_driver = {
+> +	.probe = visionox_rm692e5_probe,
+> +	.remove = visionox_rm692e5_remove,
+> +	.driver = {
+> +		.name = "panel-visionox-rm692e5",
+> +		.of_match_table = visionox_rm692e5_of_match,
+> +	},
+> +};
+> +module_mipi_dsi_driver(visionox_rm692e5_driver);
+> +
+> +MODULE_AUTHOR("Eugene Lepshy <fekz115@gmail.com>");
+> +MODULE_AUTHOR("Danila Tikhonov <danila@jiaxyga.com>");
+> +MODULE_DESCRIPTION("DRM driver for Visionox RM692E5 cmd mode dsi panel");
+> +MODULE_LICENSE("GPL");
+
+Thanks,
+Neil
