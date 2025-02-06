@@ -2,92 +2,100 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47F7BA29180
-	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2025 15:51:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC3DAA2AA5F
+	for <lists+freedreno@lfdr.de>; Thu,  6 Feb 2025 14:51:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A13910E7CC;
-	Wed,  5 Feb 2025 14:51:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9C2A10E84F;
+	Thu,  6 Feb 2025 13:51:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Dr8/2Pr+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="M+sGTsu5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24BEA10E289
- for <freedreno@lists.freedesktop.org>; Wed,  5 Feb 2025 14:51:47 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5426fcb3c69so6185901e87.3
- for <freedreno@lists.freedesktop.org>; Wed, 05 Feb 2025 06:51:47 -0800 (PST)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F8FD10E850
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Feb 2025 13:51:14 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-303548a9361so7849351fa.0
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Feb 2025 05:51:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738767105; x=1739371905; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=LeT7aX20SX+o+IXO25YPOzITrejkM0fcygYCYn3nK6U=;
- b=Dr8/2Pr+qjvH2zk1SxFgclShhJ8aGkxfNRrourOPmMLhH15MQUdnKUlCrTb9LSQIYL
- 4mlHCyx1kLbveBoPy2cDes/NTpH9KfIu3hncEZbAuqt372KPzOLtqbb2mw8i4vedqcIZ
- UV+uAPGvTiavX9vQ5lecMMPgun+gaaQoQlTYDW+xMeSTSmfZC7xPln4L2okFxA7WOLEN
- iFuaqZiCCif5zTp1JqyENfWkN0y8eHheAsZyKmTgfFz6HS2AngIIACQbq4kvG6Vg0BVK
- iPi0sf6gArnSH5sRTt5eic8rqZP61S/DAz4xNv4q0gW+HDL3OL0wfpFO1igW2o37EmXY
- AdxQ==
+ d=linaro.org; s=google; t=1738849872; x=1739454672; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=hlvRT/m0xJ3xAgqG1g5fsw9qNYmlNi8FJnlxC1TPJrQ=;
+ b=M+sGTsu5moK6NrD3Q3iHppqgtsC05jKb0AnFyoIrlC48ClXn92vYNz9KBpcjF1mNlP
+ N6+4T+//FjoAkHPTBGWt7rG+ewUxB9vp426ti0+L9L+zqWv5M53OQC82gk5wR6Xr2YYK
+ TuAOMHREnj3CXNlbMRpGSHbAmSD5Yb1utp00x9yhjtI6OhEa3KNmRN5jQZjJfz25OPob
+ 4dEjQjf+8VeL2xgIyvY3HOSByEvfTz5+kUuOX/7z25aNrgUcrHatXfyYn+qfXWqflav3
+ Ck34u8Ugs+FCBfBd2JitJIFZbXb0wtNCDAa3KVbIOiEvBRExl0gI7JGVACw6IexeW0pi
+ 3vxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738767105; x=1739371905;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LeT7aX20SX+o+IXO25YPOzITrejkM0fcygYCYn3nK6U=;
- b=OQUZfedyzBoxjWeiP7xpNX2NLfLZntiCqXPjuappNk6rVUDectZIgj7M16ZNYzrsmg
- g9ni1Sp90/TdedpxxpehPUrTq8zLViV3SSxRcfzlLOhnTyWjYhNacfR4tg3nXWwQCI2b
- cTZUgAh5ru0o+b43vCJMczcbpl+7LmskSXZQl3Ub+OcQv1TfUpIsF4UYm9zh5xP7D6W0
- +2A+cQ2D6veITW+PnHo19bsVnnJvucCc2hiuEKaSE8KOFQ+VV+q0kQklN4cm3BUXeD7Q
- zB3+RsLECEvkmYlO17PCtrYnEaJhp/zxMedcrVgUAei0bAIcU/eL9fd8SeMVYg5ljF5v
- y5/w==
+ d=1e100.net; s=20230601; t=1738849872; x=1739454672;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hlvRT/m0xJ3xAgqG1g5fsw9qNYmlNi8FJnlxC1TPJrQ=;
+ b=dOpFWDa0WrDIb6S+N8DRkmu3JMohNY+Pc4+loMF6i5OEAwxytEscEjxCZC3P5ypb8c
+ 1Qjjv54qeUYnLf3sERV77fR+X0Bpep44JU0KscHTjqDwtzEgzD6qXBQCjCWb2DpeUzp1
+ T1pKMZvXqnzqZyRraFjX9KW8w2Ano+bnPdorwxhx+FhdRUm2H69fK4RtYTqSQ48HiAx5
+ nPJ1uC5pS7iz1k3f5BtLq/EAjgVWcZQxxlAY6FBx6QRfbLBx3tKo9IUZYkcvD51iAq4u
+ HoOT1bHmMjNR13ej91haBI80ry3Achy6KV1G3vXya+JZMsK/eyr3A6aTanyHMIZECDrr
+ rVLA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUnT1Vxxgt1jWwLGVC7uN30gWuEUA5QpL5Nw7pWzqktgbeyIzRMR72eZZMgRmReZugZCvbUwWywLm4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyaRCrPO4RrphJKXPtjTGvyL1wpDwjoVJ9TF79+4PaSBbcshKZF
- BNO/6VoR5QVxxVPgDZGkOe/VbWghf0Hd+h8w0eqxxQpDnVXPTT9029hoZO9E3xo=
-X-Gm-Gg: ASbGncvTpm7FIy659ymXx413TZTTqBSy2gbBlvvsTlYxui9b7mjm+xL9vorOLJgo25p
- +L0gBjMTX5anMTVUZ/NIffYaBIYwZnxd6gpv66GgP1+EEjrvwK0PY5HLUwew5reA/r8j88g6Yxk
- jbGdOZbE/msorCZs3YTiEd0homwlxSSQzjjEQe9C70XaCsGveJ1+ZnLlhv3asebcoJQV8hme2EF
- 4x/SgXOJe0/aBEaXnFior2D5Z41RggxNTeC2pN0fSHbE0tr7XQ0rIZFq/EDEGSfMF/YubDRiMCh
- zTHwSsctljTOoB5VF+9Gjh/MFesRrlQasT78DyUzBfS/hL9v+ZAaxajU3W6PX84Wfi6idqc=
-X-Google-Smtp-Source: AGHT+IHMwGQWUkbLcKi3Dfig/vQU6Jh5hxSytEhR95OvEgmcrJUUat9hAQK1cv5aJz4+KdddNT2XSw==
-X-Received: by 2002:a05:6512:31c1:b0:540:1fd9:b634 with SMTP id
- 2adb3069b0e04-54405a4245dmr1174059e87.34.1738767105316; 
- Wed, 05 Feb 2025 06:51:45 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54408acef1fsm50345e87.41.2025.02.05.06.51.42
+ AJvYcCVIqMzdH8LmNLfUDuK/adq/libeTRZoLz7O6JND22AyiCR3zdeg/w43B4r9pj9vPunEDaNsTWm6/OQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw8siqZcZLiKNRa2AaOgffbiexevjeYVwIpCKEyYd1FzURMSGnb
+ byc8962WyO4fUCBuzjqwc/tHGzMsmKGqStQ9NXfQ0w1XqlMUK0TipK36wt0JfeU=
+X-Gm-Gg: ASbGncvPzu23jmzcY8Z/OcirBCLPrDxDNRfjVeHbqthWfFczHjOmkRhYjKnX2+hYAUQ
+ cNHhTtni0hODNpnvZ8/T8BvEyrYpceSc6cP5mhV8rQx5W31P4j0EHtG3r6mSehrvxBus1csKShS
+ +668Lupf8Nwls4BlHb6dE/qDWe3vsxxKlPp7VkFGctpKl/Er5vY21auv/AeGn61cSf5u9sq2O8x
+ wbZm/MjtdkMNCjuBiO6TTK3cfHHoMWS6kEKGfjLGRbppK6UD/ouRKZ+xG28Yk2Oq0MpCE8F72B0
+ Ww+5uxoJbqc4m9TdZz4gsgE=
+X-Google-Smtp-Source: AGHT+IFSoxJ0P0T7H5ffUZDnHS6utLPPhqQ0Xj+ZAE/hrtS9g7mDuzJ3rLQXiReVNulKoeE9NZoXiw==
+X-Received: by 2002:a2e:a988:0:b0:307:4fda:c544 with SMTP id
+ 38308e7fff4ca-307cf312227mr26755631fa.17.1738849872268; 
+ Thu, 06 Feb 2025 05:51:12 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-307de2da11fsm1318521fa.92.2025.02.06.05.51.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Feb 2025 06:51:44 -0800 (PST)
-Date: Wed, 5 Feb 2025 16:51:41 +0200
+ Thu, 06 Feb 2025 05:51:11 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG1 against
- clock driver
-Message-ID: <54y7vatcrenfty5n2z2i25w7dnjo7j4fhg2rb36f54e4dogd2b@geea3s4zlrmq>
-References: <20250203-drm-msm-phy-pll-cfg-reg-v2-0-862b136c5d22@linaro.org>
- <20250203-drm-msm-phy-pll-cfg-reg-v2-2-862b136c5d22@linaro.org>
- <u4qho7u2nu2x6qxkfxpeakotmbdgoha3e5csmsamaanlxziiif@22kzxupzibj7>
- <12275e11-eadc-48be-b8c3-9463cdf92698@linaro.org>
- <vfqfbpxc3zrerrb2hyis6h4kgk7aqfljwb7sxlduwlkqprmodg@rjjfsgwr5c6j>
- <2e96ae62-3114-4c7b-bea7-27f6e2009634@linaro.org>
- <t4zn2gv3mbn3nqlh5h3l3ej5zxs4wa74ncgymonci7v45w47ai@qmmtxbelichw>
- <6cba59b9-4852-4cad-95eb-dfecb2e44dc4@linaro.org>
- <CAA8EJppUkLYfHUcNcJA5or4ZVJsbTe74a6GGV1CR6zqCWmVjRA@mail.gmail.com>
- <1ac208a7-ec63-42fe-b496-5a2e7fd615f2@linaro.org>
+Subject: [PATCH 0/2] drm/bridge: reuse DRM HDMI Audio helpers for
+ DisplayPort bridges
+Date: Thu, 06 Feb 2025 15:51:05 +0200
+Message-Id: <20250206-dp-hdmi-audio-v1-0-8aa14a8c0d4d@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1ac208a7-ec63-42fe-b496-5a2e7fd615f2@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEm+pGcC/x3MQQqAIBBA0avErBtQocCuEi20GXMWWShFEN49a
+ fkW/79QOAsXmLoXMt9S5EgNuu9gjS5tjELNYJQZlFEj0omRdkF3kRyoB7KBPHtvA7TmzBzk+X/
+ zUusHO3u32V8AAAA=
+X-Change-ID: 20250206-dp-hdmi-audio-15d9fdbebb9f
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1751;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=jEfFPYjhhWYVQQFXyKASWQyErTdoY8Ap+ZCTd9eVCBE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnpL5N8UxuLafoSi1beUZMoklAK0KI+apFqYcXK
+ zIpR+AMEJeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ6S+TQAKCRCLPIo+Aiko
+ 1R90CACi7Ti+Y/t8thf8VuDZcV6zf2WGND598IR0eR6rFaQ0KTGdYwEqLjnjAGefiGxMz85EkOC
+ IMghfm08/ysXE3DHac6U5HNPlQy0dpcn+fvRmjyVel7Lmt65gInbi0Wxz8vVdzmBYO6LqCZuWqU
+ tDJhwMhmsDoCGFLXH7kBEZHRy4aoYFBw77aIAuSNRjuIm/nOBA1fEWNu25c56E+5n+z+HJRVl9F
+ rGJaHzmMRSOS7rdOV7XzPAeVjojxZdKuu/MOu6P16S18LcjidgWRO+oHSANTm6C3uSK8iSKsiP6
+ uJO2TE3WnRU3AyrTmgBAGLDE3BQZYGBtSSq2/hyvu6trgqcl
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,86 +111,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 05, 2025 at 02:42:03PM +0100, Krzysztof Kozlowski wrote:
-> On 05/02/2025 12:23, Dmitry Baryshkov wrote:
-> >>>>>>>> +
-> >>>>>>>> +static void dsi_pll_disable_global_clk(struct dsi_pll_7nm *pll)
-> >>>>>>>> +{
-> >>>>>>>> +        dsi_pll_cmn_clk_cfg1_update(pll, BIT(5), 0);
-> >>>>>>>>  }
-> >>>>>>>>
-> >>>>>>>>  static void dsi_pll_enable_global_clk(struct dsi_pll_7nm *pll)
-> >>>>>>>>  {
-> >>>>>>>> -        u32 data;
-> >>>>>>>> +        u32 cfg_1 = BIT(5) | BIT(4);
-> >>>>>>>
-> >>>>>>> Please define these two bits too.
-> >>>>>>
-> >>>>>> Why? They were not defined before. This only moving existing code.
-> >>>>>
-> >>>>> Previously it was just a bit magic. Currently you are adding them as
-> >>>>
-> >>>> No, previous code:
-> >>>>
-> >>>> writel(data | BIT(5) | BIT(4), pll->phy->base +
-> >>>> REG_DSI_7nm_PHY_CMN_CLK_CFG1);
-> >>>>
-> >>>> This is a mask and update in the same time, because:
-> >>>>      (data & (BIT(5) | BIT(4)) | BIT(5) | BIT(4)
-> >>>> is just redudant.
-> >>>>
-> >>>> I did not do any logical change, I did not add any mask or field.
-> >>>> Everything was already there.
-> >>>
-> >>> Yes... and no. Previously it was just writel(foo | BIT(5) | BIT(4)). Now
-> >>
-> >> You did not address my comment. Previous code was:
-> >>
-> >> (foo & (BIT(5) | BIT(4)) | BIT(5) | BIT(4)
-> >>
-> >> Just for shorter syntax it was written different way:
-> >>
-> >> foo | BIT(5) | BIT(4)
-> > 
-> > Previously it was a simple writel() with some bit magic. Now you call
-> 
-> 
-> The mask was already there, just implied.
-> 
-> > dsi_pll_cmn_clk_cfg1_update() passing the register bit field through
-> > the 'mask' argument. I'm asking to get those masks defined. Is it
-> > possible?
-> 
-> Just like before, because implied mask is being removed due to code
-> redundancy.
-> 
-> I repeat it for third time already.
-> 
-> > 
-> > Yes, the code is equivalent and results in the same values being
-> > written to the same registers.
-> > At the same time you have added a logical entity, a masked write. I
-> > want to be able to understand if bits 4 and 5 are a part of the same
-> > register field or they belong to two different fields and can be
-> 
-> I know you want to understand it and this is achieved in separate patch,
-> because understanding this is not related to this commit.
-> 
-> > written separately. I really don't understand why are we spending so
-> > much time arguing about a simple #define. Okay, in case of drm/msm it
-> > is not a #define, it is <reg><bitfield/></reg>. The net result is the
-> > same.
-> 
-> I also don't get why simple fix could not be just applied and it has to
-> become some sort of big refactoring.
+A lot of DisplayPort bridges use HDMI Codec in order to provide audio
+support. Present DRM HDMI Audio support has been written with the HDMI
+and in particular DRM HDMI Connector framework support, however those
+audio helpers can be easily reused for DisplayPort drivers too.
 
-Well, you have refactored that in this patch. Anyway. Please post the
-next iteration, let's continue the dicussion there.
+Patches by Hermes Wu that targeted implementing HDMI Audio support in
+the iTE IT6506 driver pointed out the necessity of allowing one to use
+generic audio helpers for DisplayPort drivers, as otherwise each driver
+has to manually (and correctly) implement the get_eld() and plugged_cb
+support.
 
-> 
-> Best regards,
-> Krzysztof
+Implement necessary integration in drm_bridge_connector and provide an
+example implementation in the msm/dp driver.
 
+The plan is to land core parts via the drm-misc-next tree and msm patch
+via the msm-next tree.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (2):
+      drm/display: bridge-connector: add DisplayPort bridges
+      drm/msm/dp: reuse generic HDMI codec implementation
+
+ drivers/gpu/drm/display/drm_bridge_connector.c |  66 ++++++++++---
+ drivers/gpu/drm/msm/Kconfig                    |   1 +
+ drivers/gpu/drm/msm/dp/dp_audio.c              | 131 +++----------------------
+ drivers/gpu/drm/msm/dp/dp_audio.h              |  27 ++---
+ drivers/gpu/drm/msm/dp/dp_display.c            |  28 +-----
+ drivers/gpu/drm/msm/dp/dp_display.h            |   6 --
+ drivers/gpu/drm/msm/dp/dp_drm.c                |   8 ++
+ include/drm/drm_bridge.h                       |  14 ++-
+ 8 files changed, 96 insertions(+), 185 deletions(-)
+---
+base-commit: 93c7dd1b39444ebd5a6a98e56a363d7a4e646775
+change-id: 20250206-dp-hdmi-audio-15d9fdbebb9f
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
