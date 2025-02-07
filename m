@@ -2,93 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94091A2B7BB
-	for <lists+freedreno@lfdr.de>; Fri,  7 Feb 2025 02:20:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EB36A2C0FB
+	for <lists+freedreno@lfdr.de>; Fri,  7 Feb 2025 11:52:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4031A10E9CF;
-	Fri,  7 Feb 2025 01:19:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C1EF10EABB;
+	Fri,  7 Feb 2025 10:51:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="t2mxUpKS";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bWQK+xtv";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C619510E9CB
- for <freedreno@lists.freedesktop.org>; Fri,  7 Feb 2025 01:19:57 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5440d1f506aso1676462e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 06 Feb 2025 17:19:57 -0800 (PST)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71FB910EAB1
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Feb 2025 10:50:43 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-38dd011ff8bso26501f8f.0
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Feb 2025 02:50:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738891196; x=1739495996; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=jR7G4bjSs75agGdo58DpWlgOrV5xySB61UFyh6B/Njo=;
- b=t2mxUpKSsjkeLqtxLZ4EHwl47ZKD8Flf+SjDnfeS8pIoLWfNzokMMLP0RHzH7ks83D
- H9fJbPLiUmUGVdDCgqatNkLcDTWvpbjPjsUhrdQyiIRqrDMlOq3GBs0TlNmQ46ywywht
- /9VNtqGZtCWRa73w6PNV9yn9SXl7lb+tyFtDpKi8c+e9/I+gP9Bfq8WWo5MUCJcMJxAG
- G/e4kuZqV84wdjDmEu812CfhROhNj7o7u1V0bWwqIWEuS0qS5JMRGRjtsjhtQ4KElMlr
- OjZuep9mAUdTe7UYadYv2QIvdLrgE9NSJ8Oz33zXRmBidZP77nqC4tVVBTpbPBnHwQvb
- SzjA==
+ d=linaro.org; s=google; t=1738925442; x=1739530242; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/IumZi2mO95I/VuFFDFwokd0aVkiJwKGF91Pl5x5axc=;
+ b=bWQK+xtvCNCKFMt3W3QzIJs7hq1crMqxWH9el0gln5oKrlbwR9GveBoLktIuXWJggp
+ Svg/bXXkMg3OqO1cRzLPFEjmGJV47rYAcKpYXbF6gbpxtPj+zDrEXE/+rF/geNrtE+EO
+ eK+22dV+9ypCRMe0eAE8p0oskeqwF5rnwIxlwCoM6LaBDgjBKuRA7nRrkfnRS3A58Y43
+ f6qAQ9G+uByXjrBlZF9EttGFL3D3aiyTmi1CKbr4TdfRzMvIUSnoMXsbGT5S/SPrWaj2
+ 12sg+nofDlEvVTg7UlDAYN1h+wv1a/55TiUdggzR8MlOWXpP/4ZCZkQixXkpzAGbcSK7
+ 52XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738891196; x=1739495996;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jR7G4bjSs75agGdo58DpWlgOrV5xySB61UFyh6B/Njo=;
- b=kF0iUDnG+DH0t2sSNaVpe4u7s95BMshnjQkevHJiWQSL0I2SxGiiOXFDqC71xg1AGW
- ZtfBlMMzZ8hbO34xJsHS/j3iTiAv3dFnvTnCjHPfdZU5hNg6zbx7YavZk8+SMpX6m9CI
- p4eLs/WwxplP+qjY1UXzKUWsXOQSOlvkvDf8PPcSfB0eOsyCnj/X9yH0NdUaCMvsv3oG
- fi4Z4TOb5DwmKuuL5212PIzfrh7FjGPtzU8RVESAJFmgIgVyTYClVFSo90xwhWAZ1FxC
- 5jJ//8irtQ+EV089qFFzUm3zYyL9AoLX6rZqL7T0jVhcw7Q4zp2lV1fNdiHcZR9JoowV
- S7Tw==
+ d=1e100.net; s=20230601; t=1738925442; x=1739530242;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/IumZi2mO95I/VuFFDFwokd0aVkiJwKGF91Pl5x5axc=;
+ b=HJATZfandbdHnKEnOOIUhaownRQsP/UMciTKFncjoqzBlZtn4HyOOHrgoWVA3Je57c
+ WAg6JtV5HivA1syTzfxPaYP95eF0R+tyyK+UXQcwmCEfKCexoLqGbVXSdjlF3aQwNpOk
+ UhOnySFF4atoR7GHjuTLD1bhFa1pAFBDESkc2RaLbT7duGrgiOk1f+3YU3vtJC8GWX6O
+ DMvhSLYdeEKzZK0gVXh7RIbldZvtxLyahpskdyDcEiYDgbttPYgn3uRjIGxLEQyzOVCC
+ S2tet2N0fTW416qXkeTMQ0AfdU1umWgLKVewDeFJ+tdKJ25iW+ByGyixPYYXSDWHkgVU
+ 1rFg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXbSO/5AqwLLgPAZOtizdPmQu7NuJjtrd7wuK0fRqKN75LwIAX5/txceh54tyfID/8QRxNjbe2IlK8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YztqSbqZONxRi/5jTQ9YzmLFb0uyxBvnr/aDbU6mYNCs9Vj/8mh
- pspBjBSjISyBcsL7yB+RHpYcVbAFeiqTO9+rtQXxGyWJliZo29huIKXwstYQODM=
-X-Gm-Gg: ASbGncuOVlRlyThmMrtC8X7mhmZbjSUnZi8rH9f8ce4PjWftbVOyxYUTvegarKa24VK
- Wp9eg2ccsuZ4gdkVi2X0iycT6KVrk0ZEYYVl0dr+9yFGXP5xRiAupSkhrg45lx8WW51NcPRAhOZ
- w9sOOi4JLDRFV7Qx8LO7Y66dwMcgeOyzVX/zkQ+YEhkf1ltujpBzNt1Zv+wbQFXYS4LaygL9i/Q
- 4lymKwekSBYzkjQqdZ/42WtwO9NDY9iZ9OLAxg8D+SzWWjVkoOSMU6Rixtj2tPjt9ZIbzHkL31u
- xabuB/ujYVEzoMESFeaFuumUBE6LH8CmnxaQN8nvLnJGofA+gc/joguJUI2xLOZ3E0xToOI=
-X-Google-Smtp-Source: AGHT+IGzkRVzaNXC0CL9KdL08++NyesGqxNAQYUMTfafBH2nZwBMw9jHYCswmGLhqdEzxoG/iLL+kQ==
-X-Received: by 2002:a05:6512:159e:b0:540:1abe:d6d2 with SMTP id
- 2adb3069b0e04-54414ae0d71mr280840e87.35.1738891196095; 
- Thu, 06 Feb 2025 17:19:56 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCUD6rce6zB8WMVWx0ihTcD+eqdv6wME957ooFm7tlf9iUBY/f0g8gq1wLPvSo0HsGSNgLdBdVMwumA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzXJEe7mXfQ8l4Lj9qWTjDDGwwYM6hu51u/YDf4LyI6lLU+Fiab
+ nhfsSqh92iWi49+4QkeCoK0Mb3Ugg3YuZnNAPK3CEvzq9LSm9rZbdyoR/hTeE8w=
+X-Gm-Gg: ASbGncvtCPYYAEeyTJp4kkARZSHeQNql/IC3igY9cS03E4EqDthAqtw6SsdOeufCu1k
+ iR3NYg+EjRgi8xDa6UrFPUxyMqX5uXza6H2fqB0JO2VG+uX0nv0dniTBBIVB3D5KLDcGgOvmimR
+ 7/Hm8AIFT6gfiYrd2H7d8LdqdhTRNm6MUauxA05hF+SrYrIayNT7EEKhgkzh+eH2VGOZ3ce8p5Z
+ M0MFEiMsICrFejGxjCvrI7lk4k18u3gKJzkGNhhyVJmb3k/7Wb807LsVX3ES+6/i1Ec4Cu6KQZk
+ jeJtDJ69VRqO9ejecqcRj8DF6KPxFUgav1fH
+X-Google-Smtp-Source: AGHT+IGzmf7u8lOV91tQ2bUO6AOqOzShvP6P0N0+WwarOOa/wfspqpwZ4Rf3iZg3JHMLcnGdfnkCsQ==
+X-Received: by 2002:a05:6000:1a8a:b0:38d:b2a1:244e with SMTP id
+ ffacd0b85a97d-38dc935f87bmr1688184f8f.41.1738925441775; 
+ Fri, 07 Feb 2025 02:50:41 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5441053eb99sm285940e87.22.2025.02.06.17.19.54
+ 5b1f17b1804b1-4390daf4480sm85968635e9.27.2025.02.07.02.50.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Feb 2025 17:19:54 -0800 (PST)
-Date: Fri, 7 Feb 2025 03:19:53 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Fri, 07 Feb 2025 02:50:41 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH 0/2] dt-bindings: display: qcom,sm8[56]50-mdss: only
+ document the mdp0-mem interconnect path
+Date: Fri, 07 Feb 2025 11:50:36 +0100
+Message-Id: <20250207-topic-sm8x50-mdss-interconnect-bindings-fix-v1-0-852b1d6aee46@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHzlpWcC/x2NQQrCQAwAv1JyNhAjS9WviAfdpDWHZstmkULp3
+ 108zhxmdgitpgH3YYeqXwsr3uF8GiB/Xj4rmnQGJk7ENGIrq2WM5bolwkUi0LxpzcVdc8O3uZj
+ PgZNtKHIb08R8EUrQi2vVrv+3x/M4fto8a9V9AAAA
+X-Change-ID: 20250207-topic-sm8x50-mdss-interconnect-bindings-fix-dd975f223d05
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, Simona Vetter <simona@ffwll.ch>,
- Simona Vetter <simona.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/7] drm/msm/hdmi: program HDMI timings during
- atomic_pre_enable
-Message-ID: <fgzcd4gm4uriqbpslh7arfyxjvzyxrck3f2uuv4mhkvcbkdmvm@b2pz5vmmqs3l>
-References: <20250124-bridge-hdmi-connector-v6-0-1592632327f7@linaro.org>
- <20250124-bridge-hdmi-connector-v6-2-1592632327f7@linaro.org>
- <7fbfc7d5-f6bb-4f99-914a-f91bb7d153fd@quicinc.com>
- <na7jgb5leqbugi6a6xkfz3nl6mp7li4oevfevhjmo5y4v7eot6@fsmfv52u2rtz>
- <1b98265e-8766-4504-b374-f7af8203c926@quicinc.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1b98265e-8766-4504-b374-f7af8203c926@quicinc.com>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1173;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=dSRoyjk/LLc0wZ5pRJ9GYPfexVGSK5yA1Y3qknTE2Ls=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnpeV/K8vJ2pQ56PUAoz+0XinHG2mP2E+oDhZ8jXi0
+ f85TrEGJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ6XlfwAKCRB33NvayMhJ0QiyD/
+ 9iUH3Rp2L1QCaj45OJfAnmUngLFmc0VQHV59TFpjfXaPfqfOMTWtHJ/4ZP8wFQJCsxl7yaAzDm6UO4
+ zlFHFM9MoND+vjxn1msUPfMmIkYL08fg8GmtAgRwVGTgyQaW8Y/cTxi8Wc7mmQWo8tmZM/GxCbOT72
+ yRqCu59o14WNCgkx5ASS/VtMlXALTzIiciepqqKKHRaIT+MSnzgAjKhLjH5PX/9/SqvBXScWAJlpXU
+ AmIcI2S82HdjSf1xRZRmTZGZkp1KC14BVM7I/jkA03nzrDEezN284/oo0+Al5ddVMrGc52p4n9uZZ6
+ GOTlUdiIwt8wzAwlbzgM+vE1wFAKpOK/wC04wgk74CNTrF8VP/lhsFAeL5HX1iJyNptRe5CE31/okI
+ VeUnjknXAFfnNURGiEikQSEpC9EI8JdCRCwVkcbK2mgzR6AnYVGz0KnFaWPOYBN5CNGuU4F6Yyu2bX
+ u6rD+sxyXTRD3FkOFPmrpuhSt4RRUjjLgKJe0837rtReagRU8hTueZfih8sf0Y0Gdst+PQPRd81ojD
+ fzeJP1Spg3tCntBFFLFK2UhQ9vXwWoeq4/g/+KPaCGAuCSaMLYn67TJhu0VKBtXrUTEEOnr5Wem1n0
+ yvkD6ast+usxuP7baNqyx2YBbDnjuPvDxdsDgqGXrk9Vu7ulA2eIXLS8P9wA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,100 +116,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 06, 2025 at 12:41:30PM -0800, Abhinav Kumar wrote:
-> 
-> 
-> On 2/3/2025 4:59 PM, Dmitry Baryshkov wrote:
-> > On Mon, Feb 03, 2025 at 11:34:00AM -0800, Abhinav Kumar wrote:
-> > > 
-> > > 
-> > > On 1/24/2025 1:47 PM, Dmitry Baryshkov wrote:
-> > > > The mode_set callback is deprecated, it doesn't get the
-> > > > drm_bridge_state, just mode-related argumetns. Also Abhinav pointed out
-> > > > that HDMI timings should be programmed after setting up HDMI PHY and
-> > > > PLL. Rework the code to program HDMI timings at the end of
-> > > > atomic_pre_enable().
-> > > > 
-> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > ---
-> > > >    drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 23 +++++++++++++++--------
-> > > >    1 file changed, 15 insertions(+), 8 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> > > > index d839c71091dcdc3b020fcbba8d698d58ee7fc749..d5ab1f74c0e6f47dc59872c016104e9a84d85e9e 100644
-> > > > --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> > > > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> > > > @@ -126,15 +126,26 @@ static void msm_hdmi_config_avi_infoframe(struct hdmi *hdmi)
-> > > >    	hdmi_write(hdmi, REG_HDMI_INFOFRAME_CTRL1, val);
-> > > >    }
-> > > > +static void msm_hdmi_bridge_atomic_set_timings(struct hdmi *hdmi,
-> > > > +					       const struct drm_display_mode *mode);
-> > > >    static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-> > > >    					      struct drm_bridge_state *old_bridge_state)
-> > > >    {
-> > > > +	struct drm_atomic_state *state = old_bridge_state->base.state;
-> > > >    	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
-> > > >    	struct hdmi *hdmi = hdmi_bridge->hdmi;
-> > > >    	struct hdmi_phy *phy = hdmi->phy;
-> > > > +	struct drm_encoder *encoder = bridge->encoder;
-> > > > +	struct drm_connector *connector;
-> > > > +	struct drm_connector_state *conn_state;
-> > > > +	struct drm_crtc_state *crtc_state;
-> > > >    	DBG("power up");
-> > > > +	connector = drm_atomic_get_new_connector_for_encoder(state, encoder);
-> > > > +	conn_state = drm_atomic_get_new_connector_state(state, connector);
-> > > > +	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-> > > > +
-> > > >    	if (!hdmi->power_on) {
-> > > >    		msm_hdmi_phy_resource_enable(phy);
-> > > >    		msm_hdmi_power_on(bridge);
-> > > > @@ -151,6 +162,8 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-> > > >    	if (hdmi->hdcp_ctrl)
-> > > >    		msm_hdmi_hdcp_on(hdmi->hdcp_ctrl);
-> > > > +
-> > > > +	msm_hdmi_bridge_atomic_set_timings(hdmi, &crtc_state->adjusted_mode);
-> > > >    }
-> > > 
-> > > This addresses my comment about setting up the HDMI timing registers before
-> > > setting up the timing engine registers.
-> > > 
-> > > But prior to this change, mode_set was doing the same thing as
-> > > msm_hdmi_bridge_atomic_set_timings() which means
-> > > msm_hdmi_bridge_atomic_set_timings() should be called at the beginning of
-> > > pre_enable()?
-> > > 
-> > > The controller is enabled in msm_hdmi_set_mode(). So this should be done
-> > > before that.
-> > 
-> > In [1] you provided the following order:
-> > 
-> > 1) setup HDMI PHY and PLL
-> > 2) setup HDMI video path correctly (HDMI timing registers)
-> > 3) setup timing generator to match the HDMI video in (2)
-> > 4) Enable timing engine
-> > 
-> > This means htat msm_hdmi_bridge_atomic_set_timings() should come at the
-> > end of msm_hdmi_bridge_atomic_pre_enable(), not in the beginning /
-> > middle of it.
-> > 
-> > [1] https://lore.kernel.org/dri-devel/8dd4a43e-d83c-1f36-21ff-61e13ff751e7@quicinc.com/
-> > 
-> 
-> Sequence given is correct and is exactly what is given in the docs. What is
-> somewhat not clear in the docs is the location of the enable of the HDMI
-> controller. This is not there in the above 4 steps. I am referring to the
-> enable bit being programmed in msm_hdmi_set_mode(). Ideally till we enable
-> the timing engine, it should be okay but what I wanted to do was to keep the
-> msm_hdmi_set_mode() as the last call in this function that way we program
-> everything and then enable the controller.
-> 
-> This can be done in either way, move it to the beginning of the function or
-> move it right before msm_hdmi_set_mode(). I had suggested beginning because
-> thats how it was when things were still in mode_set.
+The mdp1-mem is not supported on the SM8550 & SM8650 SoCs, so only support a single
+mdp0-mem interconnect entry.
 
-Well.. following your description it might be better to put it after PHY
-init. What do you think?
+This fixes the following errors:
+display-subsystem@ae00000: interconnects: [[200, 3, 7, 32, 1, 7]] is too short
+        from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8650-mdss.yaml#
+display-subsystem@ae00000: interconnect-names: ['mdp0-mem'] is too short
+        from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8650-mdss.yaml#
 
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Neil Armstrong (2):
+      dt-bindings: display: qcom,sm8550-mdss: only document the mdp0-mem interconnect path
+      dt-bindings: display: qcom,sm8650-mdss: only document the mdp0-mem interconnect path
+
+ Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml | 4 ++--
+ Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+---
+base-commit: 808eb958781e4ebb6e9c0962af2e856767e20f45
+change-id: 20250207-topic-sm8x50-mdss-interconnect-bindings-fix-dd975f223d05
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Neil Armstrong <neil.armstrong@linaro.org>
+
