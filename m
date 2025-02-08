@@ -2,76 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 431AEA2D203
+	by mail.lfdr.de (Postfix) with ESMTPS id EB419A2D205
 	for <lists+freedreno@lfdr.de>; Sat,  8 Feb 2025 01:28:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 024D310E025;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C94F10E344;
 	Sat,  8 Feb 2025 00:28:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wjP4RXm1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="L6HhdN+m";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE9F210E039
- for <freedreno@lists.freedesktop.org>; Sat,  8 Feb 2025 00:27:06 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-543e47e93a3so2858440e87.2
- for <freedreno@lists.freedesktop.org>; Fri, 07 Feb 2025 16:27:06 -0800 (PST)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 448E110E11F
+ for <freedreno@lists.freedesktop.org>; Sat,  8 Feb 2025 00:27:09 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-543e47e93a3so2858494e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Feb 2025 16:27:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738974425; x=1739579225; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pPck6SLH/Kwo2T9+Ge6JyfzFebpTdKePxgnTBTgjN3E=;
- b=wjP4RXm1f34KsKiS94OURVnGW9UGrGbo9lUDGEG0RRe9hTKOVpM99InsfAeAqzGIgK
- AORFOC3MCx+/Z1nPhJtRf5hDgmD5OK3HGbmQxOA5J9DpzmKcjymGyM+fkAnkBiHnunRt
- N1w7Ei4wbLsh6LSll5ssbOzG0FmU4/Nj5T9Z+M9veL2HTY/uKVzjtTZ3GaGcDh61gNSC
- GGshhQDXP+4xkhGLMuSt4nOF0GVf8M54laloivJ+qOpnGYdO8oyZR38GVjHzQRveAbsh
- 4HvxBiGK3w5UYoKbva5pmy1fRgk38IqqcaXBaC7S1pdmHnMfWS+Hbbf/eF2HnFeLfQNe
- 2phg==
+ d=linaro.org; s=google; t=1738974427; x=1739579227; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=lJeDvmYfwTrdzYlRuhgm/ygX8U3uOitNLlW6Q4NvxDE=;
+ b=L6HhdN+m5k7SzS91hROuIYg7C4Rd1tP3t6j233/ftTbdalYaRxM7znQre19w+0PFd2
+ mUy78nBoLb2C6cUu9Kxb5IsfN1TGcP52HNbwIxSbKZa8CqAAbmx3RGmTTkYtYHzT6xOJ
+ 5ncgX1nkwY/I7G1S2loYiGZek22ph+22tX2CyO6NrNIvWR01U85SsfRYH/dSCx+Tk+Lc
+ GJ5IDNn6CytFMFPwxCUS3TzcintOwat5y7K78mnEcE/OFDyuB+ybk829OqtzXvVuVXOn
+ 1h7acT7g9D7YnmSaoosdeKCLc1Vc1aPyqwUdyuAUoa2AIeQWeq/ZxOzuegN9c2+UFpHL
+ pr0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738974425; x=1739579225;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pPck6SLH/Kwo2T9+Ge6JyfzFebpTdKePxgnTBTgjN3E=;
- b=qDLFiebBiITfn9M3pBb1maB/NdSSWTLxwbeMcXGSKcuUQxTinBPc6KkpGKPu64yDFM
- HA6r7kjqdEdSr2pZicimzJPSo64oS19dpSVLVKfuPtpQB43gBc6KANflp7EDF4fVOXNf
- uBAyPAoZZ9dVh2DGadv5xyzdfsfMdpIZHuz3kLVENFZ7msS4jvKkX3oZhpoq0zFoWXST
- 4hcdyGDEX9jd0R6mcSwYqRTOeXh/a38myl+5Px7CXf+RchI14pLvkSOt1g9F6RXMjDsW
- tFeTxoWpOuTT+VZe6bI7FhJ8ZjYnRMohX9L61Vjq6A0Rq60Hb/M/3eWTlJ5Ag5p75b3+
- tGBQ==
+ d=1e100.net; s=20230601; t=1738974427; x=1739579227;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lJeDvmYfwTrdzYlRuhgm/ygX8U3uOitNLlW6Q4NvxDE=;
+ b=fg/ZgXTj5IYq6voEk9g9H/nBpYvkegIb2mliVEj2DU30NntnkpORnWKmhuChU0k7Lk
+ HFjnyd1x67aIsFBAj4K2uOu8eNjSJWkUPBUt4J3POiFo7tR8M7YIsa2EzsPgujsjEhba
+ yyEnfJnzemeYXyioED4MyKF9sQAcuQoRYE+2HldH4jJoKRmNV37UrUEhOmDkyPV0kKwt
+ R9n1zNhgD61xbPMaUu0wKvc1FNlZoolB/NQ/hf2vdVKbH9CczAndGcsIZ2SAptemTVJV
+ HPCCEwf2GXIRpH5j8SJTifucRYHKfYCzBCI4BIJ3B5DEWT2wQlIG9VM67021OhE2gPZv
+ dRIw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU47N2lTlJomF1GXqaM4VN8v7fB5J7d8GzxU2r7iEqUoW9AD4ExoQfx+O5aI7d6ufOC0Yxcyleq0mk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFFdjOc3ltstvQmk9dyhFe3kyaWUjgMCfwOJPKk66p7T8U9nLo
- 48Q48ICP68P30lwY0tbVWdVjSwHTJz5iPI7JjH1k5NBKrpUQ0NjffmLavZ6dzs8=
-X-Gm-Gg: ASbGnctI9/hrd6PtZx3bAs97RRnDfGfzD2+ukRbe8n8a75CCO7DaQ/wzj9AJGNXvDys
- EKJ4s0ep5xPlhVnTiEMCqvvxzE9H9k6VgrAnpu0HhfPMTF6XkyARCAE2RmxH9J8N4hhPgr4spXD
- yhIb1UZPPLofQIGBHb8eIvLaMHtYLlceuq85aooqQgARieIRVpxQvdjzUV09Jbk5pZ9x4cUo8Tp
- VgqflA9Ya9VE6kEXdG12ZyLsN+0AgOzfl+tI/8vHYXVRZNZmyl4sXq3g+fb4Xo+QzZcNvQKcaZE
- FSA6RZ0pOiXftd/hSvX6icw=
-X-Google-Smtp-Source: AGHT+IEBWUnGdgBTihhBBAkyF04vqb9ElAFmmed9NZyC5WBK4lMDvBnJVFrimYw2k00iJFDhnkfVuA==
-X-Received: by 2002:a05:6512:3d18:b0:53e:37e4:1457 with SMTP id
- 2adb3069b0e04-54414adfcdamr1786885e87.33.1738974425074; 
- Fri, 07 Feb 2025 16:27:05 -0800 (PST)
+ AJvYcCXR1uiYObWoxgcjUFqfrwNx+zprV/kbFWk6U4K8ZdFSBxl8cxM0kpvAlNCY1k14Ivrqe/E6PmGUCJw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyeGv1QieyZ8i4G3wzYXX2PNbcvFuQp+Vvsf0fRufxaeKWju3w/
+ NN0uNOvlvwm/pKUqh17+RWDBdHrnYx1zj3CJgVFZqg7HTVKxWATgBOjks/o6z2I=
+X-Gm-Gg: ASbGncsp4pY/Yc9FTvHGlhWVCfCehO2zkgKJESJQZ6ugR87magd3H4CoOckvhXKr2o8
+ 1vlCEEk6VzLqENy5ePFEXPEum5obD3BhCphhHwCJ9qqtdOZVmbzK9JEyANzAtOh51Ou/uT4PF/t
+ fFFVgTw2IIR/5D/k1mG6Xq4lxbtAgU2O3jwxdit2D6uTuh9J6Q2j02zDgzAmw55mxGFzr9vMXHa
+ 3nRIM08ySp9ngf/24Sp734AqEdMNrH7kK9Lb8gyti5YNILteh7obyfsThFDvSi0zKkaUXykgbMq
+ F3NJUqSuO3CHLIpknkNdeHE=
+X-Google-Smtp-Source: AGHT+IEVFsKGgciuBhusWj1+JHw/cRfA7URw+89fCpLGUhjS8WQcgx8wyX3jcJd3Ar8ldB/wtMcXDQ==
+X-Received: by 2002:ac2:5f47:0:b0:540:2122:fae9 with SMTP id
+ 2adb3069b0e04-54414ae5d0cmr1280495e87.46.1738974427575; 
+ Fri, 07 Feb 2025 16:27:07 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5441060413asm588785e87.222.2025.02.07.16.27.02
+ 2adb3069b0e04-5441060413asm588785e87.222.2025.02.07.16.27.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 16:27:03 -0800 (PST)
+ Fri, 07 Feb 2025 16:27:06 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH v7 0/7] drm/msm: make use of the HDMI connector infrastructure
-Date: Sat, 08 Feb 2025 02:26:59 +0200
-Message-Id: <20250208-bridge-hdmi-connector-v7-0-0c3837f00258@linaro.org>
+Date: Sat, 08 Feb 2025 02:27:00 +0200
+Subject: [PATCH v7 1/7] drm/msm/hdmi: switch to atomic bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANOkpmcC/3XQy2rDMBAF0F8JWldlHnrYXfU/She2NY4FrVXkY
- lqC/71yICTFaHkHzRlxL2qRHGVRL6eLyrLGJaa5BP90UsPUzWfRMZSsCMgAg9d9jqFMp/AZ9ZD
- mWYbvlLUX9taIcxhAld2vLGP8ubpv7yVPcSnPfq9nVtynN7GpiCtq0C30rmVrgRy8fsS5y+k55
- bPayZUembbGUGGQG+ilYxF/ZPjOWIYaw4XpMGBjgmtG4QNjHhmsMaYwFhFG3xp2RAfG3hlXbXu
- 1+296bkrjQNiNB8bdGAtIpsa4vRvbkmNi8qP/x2zb9gfq8n4/HgIAAA==
-X-Change-ID: 20240307-bridge-hdmi-connector-7e3754e661d0
+Message-Id: <20250208-bridge-hdmi-connector-v7-1-0c3837f00258@linaro.org>
+References: <20250208-bridge-hdmi-connector-v7-0-0c3837f00258@linaro.org>
+In-Reply-To: <20250208-bridge-hdmi-connector-v7-0-0c3837f00258@linaro.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -85,16 +81,16 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4679;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2282;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=pzd5EfhRagUWHzKGw0gU6h0w+hFjAy7c4zRRuPA1AtI=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnpqTVDumOccMSbe6uagcDjgDLtQSTsu5Sh618T
- jk8W+JK8ACJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ6ak1QAKCRCLPIo+Aiko
- 1e0CCACYhiKBTVTw0n4icKg/NJ+BzHJiDtjkspX0paGN5a1wbKuVuZ2P2qiBVxPu3rulSxzkNKR
- v4nuWOQl/8QIFvL0OAtmEdfEvQfPylWx5zFN2T+IO0lbj9j2kW5UNqx4oxJroWKLz6PSbuPlzpT
- 1oODBJ0rc8qkINNKT+C7ihDikq3kF432FXlqgDmgJVyES78LLide6BOqYpzWEWsw8wOEcr/GsY3
- g/V2Vpsmvct2V6yod7Sb+KVYOkhhEFttkwThFaaY1zCHmkLjx4mFiQnmB/O15fyeQPncDlx4ZCB
- YCf/8A7p/S9lPGeRadCrLyZ3XChOzobJX3+2PBopP3zBV0uk
+ bh=f0rJpJCum+b7lqaI4sn4V9SXHt/v6K6WBKvJft3vbro=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnpqTV+ngwC+ACTteXyvBnI3bH+dIJQoFPCjJDF
+ bdcCD7e1eOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ6ak1QAKCRCLPIo+Aiko
+ 1b/OCACZQ3v0Ts8EKLagTT66fPO5tTexGqVfbvMnhWXrmd/Fm8ZlKpGUwiHKnNtH/55Z/2FPLOW
+ OZmTLAebTJaVrpVBZSjEVNCtS2QLuU0esefSHzCgztQ9OL6mHk7xlSqE8Red9GQ3wmiiy2AAuI8
+ 9Wx4zZLTLObMnwKmfqX5XLMNG8L497pFhUBf1cQncq/TfC8nJEk8+bN/abXEDkp78L58S11hVq7
+ 3wkMXYOleYaJrfuv9bJI4yEmhg6SfOMlu4lPDg6Jet6wAeTmdNwDXKrppEMjJFcegll30LPnfrl
+ CocmH5b5d3mZuEckB17X4qpOHJDAX9VBk3XEaWh6KWXVpFQ9
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -112,101 +108,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patchset sits on top Maxime's HDMI connector patchset ([1]).
+Change MSM HDMI bridge to use atomic_* callbacks in preparation to
+enablign the HDMI connector support.
 
-Currently this is an RFC exploring the interface between HDMI bridges
-and HDMI connector code. This has been lightly verified on the Qualcomm
-DB820c, which has native HDMI output. If this approach is considered to
-be acceptable, I'll finish MSM HDMI bridge conversion (reworking the
-Audio Infoframe code). Other bridges can follow the same approach (we
-have lt9611 / lt9611uxc / adv7511 on Qualcomm hardware).
-
-[1] https://patchwork.freedesktop.org/series/122421/
-
+Acked-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Changes in v7:
-- Updated Audio commit message to mention InfoFrame vs audio packet
-  difference (Abhinav)
-- Brought back msm_audio_update() calls to atomic_pre_enable() and
-  atomic_post_disable() callbacks (Abhinav)
-- Moved the call to msm_hdmi_set_timings() to the beginning of the
-  atomic_pre_enable() (Abhinav)
-- Link to v6: https://lore.kernel.org/r/20250124-bridge-hdmi-connector-v6-0-1592632327f7@linaro.org
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-Changes in v6:
-- Moved HDMI timing engine programming to the end of the atomic_prepare
-  (Abhinav)
-- Rebased on top of drm-misc-next, incorporating changes to
-  drm_bridge_connector
-- Switched to the DRM HDMI Audio framework for the HDMI codec
-  implementation
-- Link to v5: https://lore.kernel.org/r/20240607-bridge-hdmi-connector-v5-0-ab384e6021af@linaro.org
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+index 4a5b5112227f516dfc4279d0f319ec1e5b17f240..d839c71091dcdc3b020fcbba8d698d58ee7fc749 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+@@ -126,7 +126,8 @@ static void msm_hdmi_config_avi_infoframe(struct hdmi *hdmi)
+ 	hdmi_write(hdmi, REG_HDMI_INFOFRAME_CTRL1, val);
+ }
+ 
+-static void msm_hdmi_bridge_pre_enable(struct drm_bridge *bridge)
++static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
++					      struct drm_bridge_state *old_bridge_state)
+ {
+ 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+ 	struct hdmi *hdmi = hdmi_bridge->hdmi;
+@@ -152,7 +153,8 @@ static void msm_hdmi_bridge_pre_enable(struct drm_bridge *bridge)
+ 		msm_hdmi_hdcp_on(hdmi->hdcp_ctrl);
+ }
+ 
+-static void msm_hdmi_bridge_post_disable(struct drm_bridge *bridge)
++static void msm_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
++						struct drm_bridge_state *old_bridge_state)
+ {
+ 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+ 	struct hdmi *hdmi = hdmi_bridge->hdmi;
+@@ -299,8 +301,11 @@ static enum drm_mode_status msm_hdmi_bridge_mode_valid(struct drm_bridge *bridge
+ }
+ 
+ static const struct drm_bridge_funcs msm_hdmi_bridge_funcs = {
+-	.pre_enable = msm_hdmi_bridge_pre_enable,
+-	.post_disable = msm_hdmi_bridge_post_disable,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_reset = drm_atomic_helper_bridge_reset,
++	.atomic_pre_enable = msm_hdmi_bridge_atomic_pre_enable,
++	.atomic_post_disable = msm_hdmi_bridge_atomic_post_disable,
+ 	.mode_set = msm_hdmi_bridge_mode_set,
+ 	.mode_valid = msm_hdmi_bridge_mode_valid,
+ 	.edid_read = msm_hdmi_bridge_edid_read,
 
-Changes in v5:
-- Made drm_bridge_funcs::hdmi_clear_infoframe() callback mandatory for
-  DRM_BRIDGE_OP_HDMI bridges (Maxime)
-- Added drm_atomic_helper_connector_hdmi_disable_audio_infoframe()
-  instead of passing NULL frame to
-  drm_atomic_helper_connector_hdmi_update_audio_infoframe() (Maxime)
-- Disable Audio Infoframe in MSM HDMI driver on audio shutdown.
-- Link to v4: https://lore.kernel.org/r/20240531-bridge-hdmi-connector-v4-0-5110f7943622@linaro.org
-
-Changes in v4:
-- Reworked drm_bridge_connector functions to remove ternary operators
-  and to reduce indentation level (Maxime)
-- Added hdmi_ prefix to all HDMI-related drm_bridge_funcs calls (Maxime)
-- Made vendor and product mandatory to the HDMI bridges (Maxime)
-- Documented that max_bpc can be 8, 10 or 12 (Maxime)
-- Changed hdmi->pixclock to be set using tmds_char_rate instead of
-  calculating that manually (Maxime)
-- Changed mode_valid to use helper function instead of manually
-  doing mode->clock * 1000
-- Removed hdmi_mode in favour of connector->display_info.is_hdmi
-- Link to v3: https://lore.kernel.org/r/20240530-bridge-hdmi-connector-v3-0-a1d184d68fe3@linaro.org
-
-Changes in v3:
-- Rebased on top of the merged HDMI connector patchset.
-- Changed drm_bridge_connector to use drmm_connector_init() (Maxime)
-- Added a check that write_infoframe callback is present if
-  BRIDGE_OP_HDMI is set.
-- Moved drm_atomic_helper_connector_hdmi_check() call from
-  drm_bridge_connector to the HDMI bridge driver to remove dependency
-  from drm_kms_helpers on the optional HDMI state helpers.
-- Converted Audio InfoFrame handling code.
-- Added support for HDMI Vendor Specific and SPD InfoFrames.
-- Link to v2: https://lore.kernel.org/r/20240309-bridge-hdmi-connector-v2-0-1380bea3ee70@linaro.org
-
-Changes in v2:
-- Dropped drm_connector_hdmi_setup(). Instead added
-  drm_connector_hdmi_init() to be used by drm_bridge_connector.
-- Changed the drm_bridge_connector to act as a proxy for the HDMI
-  connector  infrastructure. This removes most of the logic from
-  the bridge drivers.
-- Link to v1: https://lore.kernel.org/r/20240308-bridge-hdmi-connector-v1-0-90b693550260@linaro.org
-
----
-Dmitry Baryshkov (7):
-      drm/msm/hdmi: switch to atomic bridge callbacks
-      drm/msm/hdmi: program HDMI timings during atomic_pre_enable
-      drm/msm/hdmi: make use of the drm_connector_hdmi framework
-      drm/msm/hdmi: get rid of hdmi_mode
-      drm/msm/hdmi: update HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE definition
-      drm/msm/hdmi: also send the SPD and HDMI Vendor Specific InfoFrames
-      drm/msm/hdmi: use DRM HDMI Audio framework
-
- drivers/gpu/drm/msm/Kconfig                    |   2 +
- drivers/gpu/drm/msm/hdmi/hdmi.c                | 120 +--------
- drivers/gpu/drm/msm/hdmi/hdmi.h                |  31 +--
- drivers/gpu/drm/msm/hdmi/hdmi_audio.c          | 124 +++++-----
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c         | 325 +++++++++++++++++++------
- drivers/gpu/drm/msm/registers/display/hdmi.xml |   2 +-
- 6 files changed, 336 insertions(+), 268 deletions(-)
----
-base-commit: ed58d103e6da15a442ff87567898768dc3a66987
-change-id: 20240307-bridge-hdmi-connector-7e3754e661d0
-
-Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.5
 
