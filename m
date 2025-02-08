@@ -2,90 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BAC0A2D3A7
-	for <lists+freedreno@lfdr.de>; Sat,  8 Feb 2025 05:14:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 641E0A2D93B
+	for <lists+freedreno@lfdr.de>; Sat,  8 Feb 2025 23:10:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DEC710E092;
-	Sat,  8 Feb 2025 04:14:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ljsJDmro";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFE5810E12F;
+	Sat,  8 Feb 2025 22:10:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6AE610E092;
- Sat,  8 Feb 2025 04:14:18 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5180JtnJ008130;
- Sat, 8 Feb 2025 04:14:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5cXitFAI/kHsRG6Xi1pHTV60xLTZeyWRCamLyOpJqk4=; b=ljsJDmroB7wCtbEJ
- C8lj+LMptTeGo9yKiGrsiCxAhFcWzWE3XHIYhy39TalzkcLGzPwR8AzY7JRroZx2
- mYvnvHCE5J6TfvChUpqZQqdm4qrGrYp+vgXLDe5gZtfvo9knAxUnP0CKLNkFb537
- sHsI36zh9KCjqq8korEVcJWuwEsmutvTGaINi0S3Zbb1vi8DehkyuQGjryxaqk5Q
- rGT0YAo7SiW3quBmgGAIjidrGbiGy1Z2qE7n/wgYIlbpBd95EY4ScgRW9gpL7j1a
- 1Yu077SdGKBis1PpWWT0L18jHB1tR2kIXqCNmDowE87dnDOspXEQISm8wS2jq0dZ
- Y2Tn3g==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44nvmkgarg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 08 Feb 2025 04:14:05 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5184E4Y4026997
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 8 Feb 2025 04:14:04 GMT
-Received: from [10.110.94.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 7 Feb 2025
- 20:14:03 -0800
-Message-ID: <4130c726-fb63-4ad8-8357-b9ebc78856f0@quicinc.com>
-Date: Fri, 7 Feb 2025 20:14:02 -0800
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1860D10E12F
+ for <freedreno@lists.freedesktop.org>; Sat,  8 Feb 2025 22:10:00 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id A43AA20268;
+ Sat,  8 Feb 2025 23:09:57 +0100 (CET)
+Date: Sat, 8 Feb 2025 23:09:56 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Danila Tikhonov <danila@jiaxyga.com>
+Cc: neil.armstrong@linaro.org, quic_jesszhan@quicinc.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, 
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ andersson@kernel.org, konradybcio@kernel.org, robdclark@gmail.com, 
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ jonathan@marek.ca, 
+ jun.nie@linaro.org, fekz115@gmail.com, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux@mainlining.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH 3/4] drm/msm/dsi: Allow all bpc values
+Message-ID: <rnuv4dieiy6s6c5s33hff7ntr6hkneemsq5qzk3u4ug2abwisd@6ahmijlayhhr>
+References: <20250203181436.87785-1-danila@jiaxyga.com>
+ <20250203181436.87785-4-danila@jiaxyga.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/7] drm/msm/hdmi: make use of the drm_connector_hdmi
- framework
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Simona Vetter <simona@ffwll.ch>, Simona
- Vetter <simona.vetter@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20250208-bridge-hdmi-connector-v7-0-0c3837f00258@linaro.org>
- <20250208-bridge-hdmi-connector-v7-3-0c3837f00258@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20250208-bridge-hdmi-connector-v7-3-0c3837f00258@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: EjB0PO8S4snFNtg7weJu_Zaiq2gdOUlG
-X-Proofpoint-GUID: EjB0PO8S4snFNtg7weJu_Zaiq2gdOUlG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-08_01,2025-02-07_03,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 suspectscore=0
- mlxlogscore=907 mlxscore=0 bulkscore=0 spamscore=0 phishscore=0
- impostorscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2501170000 definitions=main-2502080030
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250203181436.87785-4-danila@jiaxyga.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,21 +58,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 2/7/2025 4:27 PM, Dmitry Baryshkov wrote:
-> Setup the HDMI connector on the MSM HDMI outputs. Make use of
-> atomic_check hook and of the provided Infoframe infrastructure.
+On 2025-02-03 21:14:26, Danila Tikhonov wrote:
+> From: Eugene Lepshy <fekz115@gmail.com>
 > 
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> DRM DSC helper has parameters for various bpc values ​​other than 8:
+
+Weird zero-width \u200b spaces here between "values" and "other", please delete
+those.
+
+> (8/10/12/14/16).
+> 
+> Remove this guard.
+> 
+> Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
+> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+
+Should this patch elaborate that those "DRM DSC helper" don't have any
+additional guarding for the values you mention either, i.e. passing 9 or 11 or
+>16 don't seem to be checked anywhere else either?
+
+And your title might have space to spell out "Bits Per Component" entirely.
+
 > ---
->   drivers/gpu/drm/msm/Kconfig            |   2 +
->   drivers/gpu/drm/msm/hdmi/hdmi.c        |  45 ++-------
->   drivers/gpu/drm/msm/hdmi/hdmi.h        |  15 +--
->   drivers/gpu/drm/msm/hdmi/hdmi_audio.c  |  72 ++++----------
->   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 175 ++++++++++++++++++++++++---------
->   5 files changed, 162 insertions(+), 147 deletions(-)
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 7 +------
+>  1 file changed, 1 insertion(+), 6 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 007311c21fda..d182af7bbb81 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -1767,11 +1767,6 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
+>  		return -EINVAL;
+>  	}
+>  
+> -	if (dsc->bits_per_component != 8) {
+> -		DRM_DEV_ERROR(&msm_host->pdev->dev, "DSI does not support bits_per_component != 8 yet\n");
+> -		return -EOPNOTSUPP;
+> -	}
+> -
+>  	dsc->simple_422 = 0;
+>  	dsc->convert_rgb = 1;
+>  	dsc->vbr_enable = 0;
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+This seems supicous on the dpu1 side, in the original DSC 1.1 (not 1.2) block in
+dpu_hw_dsc_config(), which has:
+
+	data |= (dsc->line_buf_depth << 3);
+	data |= (dsc->simple_422 << 2);
+	data |= (dsc->convert_rgb << 1);
+	data |= dsc->bits_per_component;
+
+The original value of `8` would overlap with the lowest bit of line_buf_depth
+(4th bit in `data`).  Now, the 2nd bit which will take the value from
+convert_rgb, which is already set to 1 above, will overlap with the 2nd bit in
+your new bpc value of 10.
+
+Can you double-check that this code in DPU1 is actually valid?  I assume you
+have tested this panel at least and it is working (worthy mention in the cover
+letter?), this just seems like yet another mistake in the original bindings
+(though the register always had a matching value with downstream on 8 BPC panels
+for me).
+
+> @@ -1779,7 +1774,7 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
+>  	drm_dsc_set_const_params(dsc);
+>  	drm_dsc_set_rc_buf_thresh(dsc);
+>  
+> -	/* handle only bpp = bpc = 8, pre-SCR panels */
+> +	/* handle only pre-SCR panels */
+>  	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
+
+Good catch - this comment sounds like it's documenting a limitation of
+this helper function, but the function does not have such limitations...
+rc_parameters_pre_scr has values for all these combinations.
+
+- Marijn
+
+>  	if (ret) {
+>  		DRM_DEV_ERROR(&msm_host->pdev->dev, "could not find DSC RC parameters\n");
+> -- 
+> 2.48.1
+> 
