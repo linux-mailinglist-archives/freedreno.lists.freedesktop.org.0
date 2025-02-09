@@ -2,93 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33B1BA2DA86
-	for <lists+freedreno@lfdr.de>; Sun,  9 Feb 2025 04:21:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AB5DA2DAA3
+	for <lists+freedreno@lfdr.de>; Sun,  9 Feb 2025 04:38:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34B3E10E479;
-	Sun,  9 Feb 2025 03:21:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D150D10E1ED;
+	Sun,  9 Feb 2025 03:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Y8Ap7KB7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZUBMuD0r";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D952D10E47A
- for <freedreno@lists.freedesktop.org>; Sun,  9 Feb 2025 03:21:44 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5450475df04so956307e87.0
- for <freedreno@lists.freedesktop.org>; Sat, 08 Feb 2025 19:21:44 -0800 (PST)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B9910E428
+ for <freedreno@lists.freedesktop.org>; Sun,  9 Feb 2025 03:38:22 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-543d8badc30so3752629e87.0
+ for <freedreno@lists.freedesktop.org>; Sat, 08 Feb 2025 19:38:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739071303; x=1739676103; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Oi1Az+d17IMWsJWKpM/Z7vG/JaxyEjq4HPEfn1poENE=;
- b=Y8Ap7KB78hJVKINHQdZxPlUu0Ev7ttX0wZ+GCrxynOVWT1aswuC3KL2UaXN6Q6K9fP
- i3mDNlltzNH1JwSD5JyXuVxzgodIT0q9bVNg4TCkIYAw68Ovyg9Nvnqk6wib4awwiN1u
- o+WTMMzydgNtybqlKsAoyBjwW0uXX9wDw1YqHkciU5jmV3VWDcgqI4I0+2RbLjwCvxo4
- K0l9uRAO4DKR6wMv+Jt3pBdvcWxTltqx0iktX4vWHKasfCK2+A/DyBYGqLJvcClVatrY
- R8dfja60sr4QTsVt3EfpdyyWUBYRrcAGILNxd8lQYGs2kSiwXer0UDi4pcUI51yx16v0
- SpjA==
+ d=linaro.org; s=google; t=1739072301; x=1739677101; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Z/6yPVhvzSQt8FpEj+34A3KYWg9MIBUILVNRXOHt7zM=;
+ b=ZUBMuD0rUASNWyXuCMJGv0og58FF8FVCzXzYaxBhbPk0u8o3EDgY1v/eWHBvw5GoAy
+ X+t6VPNQ+rayX+ChI5eFc/TlfQCh7LtDafVVguTtq2pfvp/0Fs0Rln7rtB4s2XIISBFE
+ 8KRraI9VLLtyhAyKWsF3VToyebMCiAd+jfT4l0eGWWJ/Nyi4I6kcGh/DBTcF4eQ+28jm
+ j1DEfhVwlAkQEOrg4xAnCKQAi1McHWdWWZiRO6OeqtGI9Ajb1cmyzo0CF8vaAA7RS+UC
+ g6WIyrEdjYHRZqylSUPJOY4SpqPZuC+2L7sA3mGBVZRRGupnH5y4wLVFCUueT3ryvt2N
+ CFqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739071303; x=1739676103;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Oi1Az+d17IMWsJWKpM/Z7vG/JaxyEjq4HPEfn1poENE=;
- b=hoQy3UNUIX0u1vm0G2uWRWPsuCRpOqMUBEF8grF4CNbpSzWYKG4QkQ+2UEn27X/5dK
- 1M030VlylemD7pElzamHZonNNGQ7gGCYP6yj8l+Uz55y1Bbi8peOhAv45C+onhPxtQNc
- nT7F8QSth2saSf/QO7Zs3S/YJh58CO7Mya+v0wN7EbgxX4w5ObCzrmgikQzxwIWLT1VO
- Sw2JIgSKh9L4/zJeQIfAIyXCI3qCQaCe91XZv4zk0DCbfrM5oA2gYhCMg6p0J7hMHquY
- wXWiwoW2cQfQB3AJGz/m3ovWDFs+Fe3KdXFqdHbK+F6zNFKHoUj2SJSFWvy7OI2krLNS
- YTeg==
+ d=1e100.net; s=20230601; t=1739072301; x=1739677101;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Z/6yPVhvzSQt8FpEj+34A3KYWg9MIBUILVNRXOHt7zM=;
+ b=sINMimer2QfXnA0aidSwLUJha+ECijTVecMYoHkEdvlPNyfBx6xlCY4cF7NS0s5Plj
+ 6ktvIUiSjmW+0fHOX7AdEc96Llc+OhXzE3X0BzG1dnjp5nJA5iagTAD36ZAqcfVofSpC
+ mBZ8NLTvNQ8h+5y5Hy/tsmCuC/XcDLrwBucsEB8nDSHHjUefV1CJSgNaX0xpyHduUA2y
+ Zl5oP8HokNriLsqIVZdXfj0zHPvg1ykijMMqdxVsKdP/4/XS9APWwYGISfvD5eYVDhNR
+ Pmlo+AG4qU7KJv7Smlka2u12kXR/njxvVDKFcJySOoPWnkU5WS9c+Kj8+k8ZPFsOV+TU
+ OUZw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUbACBC6ZP1uEV5GqJEpNVbMYw+RDy1BGspUJLL4esfFczlpZwGUnMFLkbZ8d3bmsX5/hbE0hi5Sgk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw7fP9bHtm8WORk2JJKmN0tJAYOBCAHPwrnOS6elxm59EzgjLcw
- mvFc5KlYh1Om4E+ircZ3Xc2eIq8Bb0CYxbqHuixR8LIWjpsVXEc7dOqx+BOPCKQ=
-X-Gm-Gg: ASbGnctUkM09U0qmNNzpCslrCj4D38zF7l8iBed5+X2kY/xJeJhEH2t7bMqVZwirHNN
- hNuCXBGFlyaN6LzqsC/Vca8lEwlISNgkNw3U6VolZ+gmIS/sY6lohcU03iH5L5XqIFv32q/xHua
- bVpJYh+srMD/i/EuZBFKZsmPb4Rs9+ha9f3yRggJ9k2pFZRRCxzvQsSFZ29DBiLK56Bflxf9BTC
- vj29hnayDn6p2bymBbaXL9g/9w8XktqjFJGmbP/wH3a3X2PNiSIzo1utke496xStg7vU/YYcr8C
- hqUChYjTJ2t7AishbEsvJIE=
-X-Google-Smtp-Source: AGHT+IFEZWwhATFiIjC/mq/2iOVr1pCkgPVkoAotYXpYl7oqtRxrDKn/6LcJLuTgNAVp6QR7gFdePQ==
-X-Received: by 2002:a05:6512:2355:b0:540:2022:e3c6 with SMTP id
- 2adb3069b0e04-54414ae134cmr2990351e87.35.1739071303093; 
- Sat, 08 Feb 2025 19:21:43 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54505e41c63sm279711e87.148.2025.02.08.19.21.40
+ AJvYcCV0jhm4zSB8eS5sVS91brJfjkaJy3+nK0QupzkJ7Hv0hGcAD3CFAOQncJuNbSl6aq/n62nOgs/HHpw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDG6L9y50JFk/seAPWA36slNpInzNsP/Ceo32CaiAw7EYc80pe
+ 1i9PGWWdOxown0aQj3gPDS7EBXqiBmaZC45xetKl4goCzw9iKWf2rxz+TcjOEqg=
+X-Gm-Gg: ASbGncvTyyBv8hSE9KfrAH5gUl3Ec0ijzLjAeodSWfwnk0uuWwKHjK6MFnVYvZiPytU
+ SLGx8yW1CB7y14GS3GEasnXsWEeeLaqsDsHJjXx0e7z/bLVGE0e8HcrNiI6HFzWBQZa0ygPo0sv
+ 2e8bUbZDmtoLz4ISmaGmWCOiAlOiNz6R3F5Pglfx/SDoF/VIWYRF+POBmknisfXztnTOy3MbVhj
+ atCTS7CWYQ9Umell9dXVcXCx355ikiMaG7cnbR5JgzBM1jj1cbB/dh3fpjQukIh/G1Cu6ZPzteP
+ ETR7E7OKO8C0YJTZlfzS0fStlEsy4HoysAXAnoKjRWxmbgktftkL3fZXg1sd8yZb2nQiLe4=
+X-Google-Smtp-Source: AGHT+IES07fxPyHCztfsqpUU3ib0W9GV8knyWCON3WWXjJGQPwrMdTFe5n+ZQFCrewVIai6KclkWWw==
+X-Received: by 2002:a05:6512:108d:b0:540:2a92:7da9 with SMTP id
+ 2adb3069b0e04-54414ab5605mr2768060e87.21.1739072300614; 
+ Sat, 08 Feb 2025 19:38:20 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5450a64ea2dsm39590e87.14.2025.02.08.19.38.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Feb 2025 19:21:41 -0800 (PST)
+ Sat, 08 Feb 2025 19:38:20 -0800 (PST)
+Date: Sun, 9 Feb 2025 05:38:17 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 09 Feb 2025 05:21:18 +0200
-Subject: [PATCH v5 8/8] drm/msm/dpu: handle perf mode in
- _dpu_core_perf_crtc_update_bus()
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250209-dpu-perf-rework-v5-8-87e936cf3004@linaro.org>
-References: <20250209-dpu-perf-rework-v5-0-87e936cf3004@linaro.org>
-In-Reply-To: <20250209-dpu-perf-rework-v5-0-87e936cf3004@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Stephen Boyd <swboyd@chromium.org>, 
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3426;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=EjVnzSvwGeLB3HXokJpPau5v3ni0TOZS9ZUms7htZ/E=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnqB8x64F2cJNeOu1Uli/yCTGic6MsHG4iZAHU0
- xuYkcG1bUyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ6gfMQAKCRCLPIo+Aiko
- 1dRQB/9KevaeocmmMuzIO8TfX0MVz2QgpEIEX19HB0AkRYNpfMcBZFYbPMOEOjm7UT+GjkTHz5Q
- oQQ/7zMIqsyW/6ObGU75R3mPz9vZ8iV9oa/yZ8lv1c3/VSqliYLdwO+gebs92S3DS6ZxGmgTG8c
- a1I83mr92Vh1pxUJDygWzDiflhiVd0KxhTWIjXiyb4Iflz8RET3n+qv8scrqFNe+7RYOx8cIeF2
- cljFJWxAmaIDHdQvvcK/rWlaBdTahxLsET4m7fYFBv0ZM+nptASfNzpI8wRg5aQWf+yUwIQ39si
- dwX5THa0LLAZkrWtLqS8NVfCSd8hKtLkWrV59iILpHtN8zCk
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+ Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC 0/7] drm/display: dp: add new DPCD access functions
+Message-ID: <pxcgcutzjjge6ruw5hobg6jkfqozhtlvbhdlmyazesbi4aipj2@enepqlcvjruw>
+References: <20250117-drm-rework-dpcd-access-v1-0-7fc020e04dbc@linaro.org>
+ <ctla3nt6o3osdxek63zyidyuofzgq3mgshh2azong3ntcqevhi@3rrzr3hrzbor>
+ <87r04tn8is.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87r04tn8is.fsf@intel.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,92 +96,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move perf mode handling for the bandwidth to
-_dpu_core_perf_crtc_update_bus() rather than overriding per-CRTC data
-and then aggregating known values.
+On Thu, Jan 23, 2025 at 12:12:43PM +0200, Jani Nikula wrote:
+> On Thu, 23 Jan 2025, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> > On Fri, Jan 17, 2025 at 10:56:35AM +0200, Dmitry Baryshkov wrote:
+> >> Existing DPCD access functions return an error code or the number of
+> >> bytes being read / write in case of partial access. However a lot of
+> >> drivers either (incorrectly) ignore partial access or mishandle error
+> >> codes. In other cases this results in a boilerplate code which compares
+> >> returned value with the size.
+> >> 
+> >> As suggested by Jani implement new set of DPCD access helpers, which
+> >> ignore partial access, always return 0 or an error code. Reimplement
+> >> existing helpers using the new functions to ensure backwards
+> >> compatibility.
+> >> 
+> >> This series targets only the DRM helpers code. If the approach is found
+> >> to be acceptable, each of the drivers should be converted on its own.
+> >
+> > Gracious ping for the series, it's been posted a week ago.
+> 
+> It's a bit of a bummer the names become longer. I don't have a better
+> suggestion, though.
+> 
+> I do like it that the error handling becomes easier and more uniform
+> overall, and this actually fixes many places that only checked for < 0
+> with the old functions.
+> 
+> I glanced through the series, I didn't spot anything obviously wrong,
+> but didn't do a thorough review either. I can do once we have wider
+> buy-in for the idea in general, so the effort won't be wasted.
+> 
+> For now,
+> 
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-Note, this changes the fix_core_ab_vote. Previously it would be
-multiplied per the CRTC number, now it will be used directly for
-interconnect voting. This better reflects user requirements in the case
-of different resolutions being set on different CRTCs: instead of using
-the same bandwidth for each CRTC (which is incorrect) user can now
-calculate overall bandwidth required by all outputs and use that value.
+Is it okay to merge this? I'd prefer to have comments from other
+developers / maintainers, so that it doesn't become a controversial
+change.
 
-Note #2: this also disables threshold checks for user-entered bandwidth
-values. First of all, it doesn't make sense to fail atomic commits
-because of the debugfs input. Compositors have no way to correlate
-failing commits with debugfs settings. Second, it makes sense to allow
-users to go beyond these values and check whether this makes any
-difference or fixes the issue.
-
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 36 +++++++++++++--------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index c8e20be08aa83c8bdd70065643b46676eeed610f..7ff3405c6867556a8dc776783b91f1da6c86ef3f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -118,20 +118,9 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
- 		return;
- 	}
- 
--	memset(perf, 0, sizeof(struct dpu_core_perf_params));
--
--	if (core_perf->perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
--		perf->bw_ctl = 0;
--		perf->max_per_pipe_ib = 0;
--	} else if (core_perf->perf_tune.mode == DPU_PERF_MODE_FIXED) {
--		perf->bw_ctl = core_perf->fix_core_ab_vote * 1000ULL;
--		perf->max_per_pipe_ib = core_perf->fix_core_ib_vote;
--	} else {
--		perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
--		perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
--	}
-+	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
-+	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
- 	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
--
- 	DRM_DEBUG_ATOMIC(
- 		"crtc=%d clk_rate=%llu core_ib=%u core_ab=%u\n",
- 			crtc->base.id, perf->core_clk_rate,
-@@ -220,18 +209,29 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
- {
- 	struct dpu_core_perf_params perf = { 0 };
- 	int i, ret = 0;
--	u64 avg_bw;
-+	u32 avg_bw;
-+	u32 peak_bw;
- 
- 	if (!kms->num_paths)
- 		return 0;
- 
--	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
-+	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
-+		avg_bw = 0;
-+		peak_bw = 0;
-+	} else if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED) {
-+		avg_bw = kms->perf.fix_core_ab_vote;
-+		peak_bw = kms->perf.fix_core_ib_vote;
-+	} else {
-+		dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
-+
-+		avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
-+		peak_bw = perf.max_per_pipe_ib;
-+	}
- 
--	avg_bw = perf.bw_ctl;
--	do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
-+	avg_bw /= kms->num_paths;
- 
- 	for (i = 0; i < kms->num_paths; i++)
--		icc_set_bw(kms->path[i], avg_bw, perf.max_per_pipe_ib);
-+		icc_set_bw(kms->path[i], avg_bw, peak_bw);
- 
- 	return ret;
- }
+> >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >> ---
+> >> Dmitry Baryshkov (7):
+> >>       drm/display: dp: change drm_dp_dpcd_read_link_status() return
+> >>       drm/display: dp: implement new access helpers
+> >>       drm/display: dp: use new DCPD access helpers
+> >>       drm/display: dp-aux-dev: use new DCPD access helpers
+> >>       drm/display: dp-cec: use new DCPD access helpers
+> >>       drm/display: dp-mst-topology: use new DCPD access helpers
+> >>       drm/display: dp-tunnel: use new DCPD access helpers
+> >> 
+> >>  drivers/gpu/drm/display/drm_dp_aux_dev.c      |  12 +-
+> >>  drivers/gpu/drm/display/drm_dp_cec.c          |  37 ++-
+> >>  drivers/gpu/drm/display/drm_dp_helper.c       | 345 +++++++++++---------------
+> >>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 132 +++++-----
+> >>  drivers/gpu/drm/display/drm_dp_tunnel.c       |  20 +-
+> >>  drivers/gpu/drm/msm/dp/dp_ctrl.c              |  45 ++--
+> >>  drivers/gpu/drm/msm/dp/dp_link.c              |  17 +-
+> >>  include/drm/display/drm_dp_helper.h           |  81 +++++-
+> >>  include/drm/display/drm_dp_mst_helper.h       |  10 +-
+> >>  9 files changed, 354 insertions(+), 345 deletions(-)
+> >> ---
+> >> base-commit: 440aaf479c9aaf5ecea9a463eb826ec243d5f1cf
+> >> change-id: 20241231-drm-rework-dpcd-access-b0fc2e47d613
+> >> 
+> >> Best regards,
+> >> -- 
+> >> Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >> 
+> 
+> -- 
+> Jani Nikula, Intel
 
 -- 
-2.39.5
-
+With best wishes
+Dmitry
