@@ -2,71 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17784A2DA7A
+	by mail.lfdr.de (Postfix) with ESMTPS id F157DA2DA7B
 	for <lists+freedreno@lfdr.de>; Sun,  9 Feb 2025 04:21:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9094910E461;
-	Sun,  9 Feb 2025 03:21:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9EEB10E467;
+	Sun,  9 Feb 2025 03:21:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mUl1eu/u";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cRGqbbWD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93A9410E461
- for <freedreno@lists.freedesktop.org>; Sun,  9 Feb 2025 03:21:30 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-543e4bbcd86so3785314e87.1
- for <freedreno@lists.freedesktop.org>; Sat, 08 Feb 2025 19:21:30 -0800 (PST)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECB5B10E467
+ for <freedreno@lists.freedesktop.org>; Sun,  9 Feb 2025 03:21:32 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5401e6efffcso3375298e87.3
+ for <freedreno@lists.freedesktop.org>; Sat, 08 Feb 2025 19:21:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739071289; x=1739676089; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1739071291; x=1739676091; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=L6wwW0QFPdtORCKU8NZ1/0ghy/8xuSyLBH+dFHVgBk4=;
- b=mUl1eu/uPXTJp8LQGd6a4pfbVFNByPsE25DO/n3ocDe7mh91nld/rnvUQuMhI0O4jy
- rvx2TGfNmrvHMJhBXYjNplZfWo6xlJe8IisAijBXEVV+vkC4w9FUOWJh54E4+ef8+P8F
- eEfZVjxdnXHt6HmWlRU/ZV0PZjnwQXP+I5AIOZATdu8yeueNtHm8/u+LCob1t1icCQFX
- q81KctI71L1ThYolRv/7v/Xg7xMYN4J5P3p5zqCvKcgr6vqlBCr8srtRoTRuor5KExBn
- hL/9et0Gg2W/tUF56GcDvEWNmAcFKZDiXqxZW4KxlTULQ+NTteQOUTYBG3mKOBxJKWTW
- k+qw==
+ :reply-to; bh=v4UlSnEikNx7abvy/6VbAdoXI8N3J7sKCjOK+VfTtyw=;
+ b=cRGqbbWDJWDeo1JKDPan0GvxjOrWifJ3csJ6j2Zcu6ZZisz9hAn1kLszRUkxai1LZc
+ /bohgmNBRvBGGHrPzHHQhMLOo/mhASg9u7p8EwzOn3RerkH/Xdq+mXn6wadS3/yDXQL0
+ x8eGlnV2ua8XyjLvFF6QTdViq8QhX8GCF2IdespHNvQYHW5v+PDgAw049Ax38wBYY06+
+ SOkIvmOUIA2K05jFSbKaI1Wk8MqrhCyk0dYUnJAvSR2/UsMul9xzxg4GBWED40WiHflw
+ oBUiFAY7PNTVrs60xPL9PrqDMWNUJzwrlO2m4SjwDvoChsUiFERPezX2QJQAMMIq+yv1
+ DUwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739071289; x=1739676089;
+ d=1e100.net; s=20230601; t=1739071291; x=1739676091;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=L6wwW0QFPdtORCKU8NZ1/0ghy/8xuSyLBH+dFHVgBk4=;
- b=CRs4j1fd7eGOeV0X2WgnUx4fF/FTJXNsWKXzEWn+GOUS1MvVtRCAZXxfXWiQu4IroR
- 6NfyC8lBuaPZ6mlJT2bZOUsnjITJrw+dknPpEuxr5dDdTJagVcslFxeIXjB+a+uEaZyi
- czQ2Y0xUC0dCqXFJ5kN6pJ2qF9QoMvUHuAi0hMOdhWFxLAiN9Au3dWnmcqSYr15IXB33
- oYaIriKMC8idG9gmBzRHSj/LrFhQGv16I5iEX6ZVW5BFDOFKfm7n8t50f4TE4l1DE2jD
- 4zXwoydtAP+u4o160mKl/ypkdM6KDA3aO2c9nfI48PX0bNaN/+XrvMZ7yWBBALWYJzs0
- EAbA==
+ bh=v4UlSnEikNx7abvy/6VbAdoXI8N3J7sKCjOK+VfTtyw=;
+ b=qN7DvKnZIf7JvISmR5K2KkzweZUYEPEnlZ0NXyR9hZbwp75hcjhST0heDvqGXDM/+v
+ i0ovxOARI7l930THi0NUYrwMkNlEuypNIv05SSigGndEd2qnxzYJ6lLTYUJX3AKlpuH8
+ yopAXhyd3gJw5YHhqnfwpxLjM4EtR4kRvs4LWT0MbG6EoutiQrb8oZVoHm4CAAMrscCG
+ ldAeTxihOQf4cfBZwBVeYqHOT7/Vt0lR/krQYwmKCo2a7RmD4nsdAqQs3bdwQPFcMmGS
+ V7T8+vJtU/gNe88Qzh9Bn8ARyV28EjqOjN3cPvkJ4MB1eIrLOY69gqB++f2LeJG4Kl7S
+ 3jvg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWHqur56O0gSYLsO6/OGcq6jnCbrQeMqOZjc5QJT2aGjdBMIgCZSnwD6a1NyCxOYL7J9CcABOjsMuk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzmPkzsqaoPdkywQEZroy0oEF+fUzcKhoTFiEYVs88vevgrb1zt
- KAGigjmUb1bzURAPgIcswRn/nxvzfdjedU9BWh66Lioke4skS8XQ5riWk5SlaYQ=
-X-Gm-Gg: ASbGncspCXJdTLDy58ePm+IpuCu14fVXze05XYW2qlbdaEEuZQ2/3wLoBOm4ueT1HQ8
- OqcAXdANUObCgGRote5G9Oy7zVHqG1P6+VkKG3JKDP2LuDTLO9O2jPrJhd8yvThq4DMr47c1qrf
- 6zyR4dMcCXo46O8eLzOJbQbmRr97/6zXKYCnHhlKlYobU06cJPy3sSJXg3uZkHZnl3Dx2OzzUKs
- LHrbsaFwOQjpoTbVB0JSCFOhzP8XSxd87pHluXH3WC7aYCBKq34J1BZZ1fC3Y5EwctdTFXYbRB1
- rZKoL0K3/0tMzDR4v5dR/LM=
-X-Google-Smtp-Source: AGHT+IHXUbH/9yqUmGnp3k36rb6gFBh+eJdHg9jUhlwppiog1OyIRRhSRdeufKtsyeV4etFm6mPnPg==
-X-Received: by 2002:a05:6512:3051:b0:545:54b:6a0e with SMTP id
- 2adb3069b0e04-545054b6b1emr1242776e87.48.1739071288890; 
- Sat, 08 Feb 2025 19:21:28 -0800 (PST)
+ AJvYcCVWrxgEtctMdBQ6j2WERHpEr6+zRZbPiYeoHaVTG02AWsfeKtkTjGYhWPH8Nr26bqc5gy5mWJO7CU4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywj/SqdVRg+jOPQFl0xhku13Th6pSJHBCvYoKePkMkdQcsSGsvD
+ 8UPbmgMt9gawa5OnNQKBLgFHNqQwR8PCUp+kNAcM9m2WJuG6wH35vGoRGTEQJ34=
+X-Gm-Gg: ASbGncuG6vWJ4VV4oycPzy5VhQGCk1SYZ5mzNuCdZIGCVpz8sPTnL11zWvky7sYlZyj
+ k8ItlJVrISH4ZjCH/baI4+doIIgIH1TYQ2i/jZ0E/U81b/0C6Bt0WKqFSiaCNvthdtw1lOVVzJn
+ FhVzSL8vzWcqoxM/HbvR0oem2B+hoRp525847N9b9MMrso2HleFW4pJODOXS4HvXZYv21xlJ3Ju
+ +aaDYF5d7ssWYRtTp+YIqPx2c5iy5nOVz8KWUwXxagdfsbodmcMgEbPh88prLPj2w8bBaBNXeT8
+ 5VEw7bfHoaHhi3tcEqOSNA4=
+X-Google-Smtp-Source: AGHT+IEKDarG7rC/R9xtBGIcbxt5IeulVvgGtMHcAmMBT6m3be6rYJT3zF+K9/FgT4Xb7JmkSmruVg==
+X-Received: by 2002:a05:6512:3a89:b0:542:23c9:43ad with SMTP id
+ 2adb3069b0e04-54414af5684mr3151937e87.34.1739071291286; 
+ Sat, 08 Feb 2025 19:21:31 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54505e41c63sm279711e87.148.2025.02.08.19.21.26
+ 2adb3069b0e04-54505e41c63sm279711e87.148.2025.02.08.19.21.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Feb 2025 19:21:27 -0800 (PST)
+ Sat, 08 Feb 2025 19:21:30 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 09 Feb 2025 05:21:12 +0200
-Subject: [PATCH v5 2/8] drm/msm/dpu: remove duplicate code calculating sum
- of bandwidths
+Date: Sun, 09 Feb 2025 05:21:13 +0200
+Subject: [PATCH v5 3/8] drm/msm/dpu: change ib values to u32
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250209-dpu-perf-rework-v5-2-87e936cf3004@linaro.org>
+Message-Id: <20250209-dpu-perf-rework-v5-3-87e936cf3004@linaro.org>
 References: <20250209-dpu-perf-rework-v5-0-87e936cf3004@linaro.org>
 In-Reply-To: <20250209-dpu-perf-rework-v5-0-87e936cf3004@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -77,16 +76,16 @@ To: Rob Clark <robdclark@gmail.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4737;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3509;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=VkKt7DJwj8H2cF9BwqW7u1ROLqNk4NBL0guvyk9GsSU=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnqB8wh6HJKbyu78/IMI06YCXqau9Jwg6s8jEuH
- rR2Fc6F4SyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ6gfMAAKCRCLPIo+Aiko
- 1TPcB/49BWLC7cQRm6HFzEGFU4HgjYm8aRd57tVqmsvestZ0rfSc6ldlE3TwOrteRyekalsf+8D
- ikGK1Cipbxh7Weo3N7TfuM/rtgRCX7NJIhRUlCzqY22seU2u+qYxrm0jDlVhdSv7Tp4N3MJphJx
- o59XVnEiETSkzTcsPUzwuuyBviEWrvr6/r7BPS4da0hrYbgdK8Y1upkZAX+bZAvdSZ/gwlbNjru
- M5GgsRBk6h2X7jZDmy0SSakAePkWwP/209i8iEUmtrkY8RyMljEJZQG1BD8SuErUbNYytCAh93D
- +iUPWQq2L+PkcYRr2V7OdK4pLabe2j86biKfc+KfcW1T3L56
+ bh=X6tV8r+a8XfU3v4vYgDgLRiuGjq6pfQHwg0IaxuHjX0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnqB8wpB7jgP4Qlri1nPaeJxJlTr70cG59uYiVj
+ jaOF3pgSBKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ6gfMAAKCRCLPIo+Aiko
+ 1V/zB/0Rw6yebdjw+ZPWbLHnVkId9fk8H3Og3Oq3ehSuCJVq0uTEa3Vu+K2R2+htujYpJehUt/U
+ G6wPeN0rh34IJrokOjGel7n1IWv7DAwp/QRS4JWd/EiBhmmYyvgTD/5PoQTqAkym4JI61b4TfHn
+ pyrB5uvdRQtf140/VZFA6ynvI53qKEKyR26Z9PTEsCOvbg1QBKXmJsEo9j6H7wUjO8xDmRGRbYz
+ h0HgQ456LEMdhBnVEsdG7kbzUR0VuUuG8SXm8MWVdqHL9wn9r6Q1iHSH7Is8WyqixKBV1pusSlF
+ 6xZM9ToySvI2DMVcnxFEDU/DZpB1r2kHklVsXHhkF66Ubfgq
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -104,146 +103,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The code in dpu_core_perf_crtc_check() mostly duplicates code in
-dpu_core_perf_aggregate(). Remove the duplication by reusing the latter
-function.
+The IB values in core_perf calculations (max_per_pipe_ib,
+fix_core_ib_vote) are expressed in KBps and are passed to icc_set_bw
+without additional division. Change type of those values to u32.
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 94 +++++++++++----------------
- 1 file changed, 38 insertions(+), 56 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h | 6 +++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 2 +-
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index c7ac1140e79dbf48566a89fa4d70f6bec69d1d81..f0d490afb53be2f4bc706af91da05bb893a5fe34 100644
+index f0d490afb53be2f4bc706af91da05bb893a5fe34..7263ab63a692554cd51a7fd91bd6250330179240 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -140,6 +140,30 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
- 			perf->max_per_pipe_ib, perf->bw_ctl);
- }
- 
-+static void dpu_core_perf_aggregate(struct drm_device *ddev,
-+				    enum dpu_crtc_client_type curr_client_type,
-+				    struct dpu_core_perf_params *perf)
-+{
-+	struct dpu_crtc_state *dpu_cstate;
-+	struct drm_crtc *tmp_crtc;
-+
-+	drm_for_each_crtc(tmp_crtc, ddev) {
-+		if (tmp_crtc->enabled &&
-+		    curr_client_type == dpu_crtc_get_client_type(tmp_crtc)) {
-+			dpu_cstate = to_dpu_crtc_state(tmp_crtc->state);
-+
-+			perf->max_per_pipe_ib = max(perf->max_per_pipe_ib,
-+						    dpu_cstate->new_perf.max_per_pipe_ib);
-+
-+			perf->bw_ctl += dpu_cstate->new_perf.bw_ctl;
-+
-+			DRM_DEBUG_ATOMIC("crtc=%d bw=%llu\n",
-+					 tmp_crtc->base.id,
-+					 dpu_cstate->new_perf.bw_ctl);
-+		}
-+	}
-+}
-+
- /**
-  * dpu_core_perf_crtc_check - validate performance of the given crtc state
-  * @crtc: Pointer to crtc
-@@ -150,11 +174,9 @@ int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
- 		struct drm_crtc_state *state)
- {
- 	u32 bw, threshold;
--	u64 bw_sum_of_intfs = 0;
--	enum dpu_crtc_client_type curr_client_type;
- 	struct dpu_crtc_state *dpu_cstate;
--	struct drm_crtc *tmp_crtc;
- 	struct dpu_kms *kms;
-+	struct dpu_core_perf_params perf;
- 
- 	if (!crtc || !state) {
- 		DPU_ERROR("invalid crtc\n");
-@@ -172,68 +194,28 @@ int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
- 	/* obtain new values */
- 	_dpu_core_perf_calc_crtc(&kms->perf, crtc, state, &dpu_cstate->new_perf);
- 
--	bw_sum_of_intfs = dpu_cstate->new_perf.bw_ctl;
--	curr_client_type = dpu_crtc_get_client_type(crtc);
--
--	drm_for_each_crtc(tmp_crtc, crtc->dev) {
--		if (tmp_crtc->enabled &&
--		    dpu_crtc_get_client_type(tmp_crtc) == curr_client_type &&
--		    tmp_crtc != crtc) {
--			struct dpu_crtc_state *tmp_cstate =
--				to_dpu_crtc_state(tmp_crtc->state);
--
--			DRM_DEBUG_ATOMIC("crtc:%d bw:%llu ctrl:%d\n",
--					 tmp_crtc->base.id, tmp_cstate->new_perf.bw_ctl,
--					 tmp_cstate->bw_control);
--
--			bw_sum_of_intfs += tmp_cstate->new_perf.bw_ctl;
--		}
-+	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
- 
--		/* convert bandwidth to kb */
--		bw = DIV_ROUND_UP_ULL(bw_sum_of_intfs, 1000);
--		DRM_DEBUG_ATOMIC("calculated bandwidth=%uk\n", bw);
-+	/* convert bandwidth to kb */
-+	bw = DIV_ROUND_UP_ULL(perf.bw_ctl, 1000);
-+	DRM_DEBUG_ATOMIC("calculated bandwidth=%uk\n", bw);
- 
--		threshold = kms->perf.perf_cfg->max_bw_high;
-+	threshold = kms->perf.perf_cfg->max_bw_high;
- 
--		DRM_DEBUG_ATOMIC("final threshold bw limit = %d\n", threshold);
-+	DRM_DEBUG_ATOMIC("final threshold bw limit = %d\n", threshold);
- 
--		if (!threshold) {
--			DPU_ERROR("no bandwidth limits specified\n");
--			return -E2BIG;
--		} else if (bw > threshold) {
--			DPU_ERROR("exceeds bandwidth: %ukb > %ukb\n", bw,
--					threshold);
--			return -E2BIG;
--		}
-+	if (!threshold) {
-+		DPU_ERROR("no bandwidth limits specified\n");
-+		return -E2BIG;
-+	} else if (bw > threshold) {
-+		DPU_ERROR("exceeds bandwidth: %ukb > %ukb\n", bw,
-+				threshold);
-+		return -E2BIG;
+@@ -135,7 +135,7 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
  	}
  
- 	return 0;
+ 	DRM_DEBUG_ATOMIC(
+-		"crtc=%d clk_rate=%llu core_ib=%llu core_ab=%llu\n",
++		"crtc=%d clk_rate=%llu core_ib=%u core_ab=%llu\n",
+ 			crtc->base.id, perf->core_clk_rate,
+ 			perf->max_per_pipe_ib, perf->bw_ctl);
  }
+@@ -477,7 +477,7 @@ int dpu_core_perf_debugfs_init(struct dpu_kms *dpu_kms, struct dentry *parent)
+ 			(u32 *)perf, &dpu_core_perf_mode_fops);
+ 	debugfs_create_u64("fix_core_clk_rate", 0600, entry,
+ 			&perf->fix_core_clk_rate);
+-	debugfs_create_u64("fix_core_ib_vote", 0600, entry,
++	debugfs_create_u32("fix_core_ib_vote", 0600, entry,
+ 			&perf->fix_core_ib_vote);
+ 	debugfs_create_u64("fix_core_ab_vote", 0600, entry,
+ 			&perf->fix_core_ab_vote);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+index 451bf8021114d9d4a2dfdbb81ed4150fc559c681..e2ab7b3a8246c11f844d25c64354526ad162e15c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+@@ -19,7 +19,7 @@
+  * @core_clk_rate: core clock rate request
+  */
+ struct dpu_core_perf_params {
+-	u64 max_per_pipe_ib;
++	u32 max_per_pipe_ib;
+ 	u64 bw_ctl;
+ 	u64 core_clk_rate;
+ };
+@@ -40,7 +40,7 @@ struct dpu_core_perf_tune {
+  * @perf_tune: debug control for performance tuning
+  * @enable_bw_release: debug control for bandwidth release
+  * @fix_core_clk_rate: fixed core clock request in Hz used in mode 2
+- * @fix_core_ib_vote: fixed core ib vote in bps used in mode 2
++ * @fix_core_ib_vote: fixed core ib vote in KBps used in mode 2
+  * @fix_core_ab_vote: fixed core ab vote in bps used in mode 2
+  */
+ struct dpu_core_perf {
+@@ -50,7 +50,7 @@ struct dpu_core_perf {
+ 	struct dpu_core_perf_tune perf_tune;
+ 	u32 enable_bw_release;
+ 	u64 fix_core_clk_rate;
+-	u64 fix_core_ib_vote;
++	u32 fix_core_ib_vote;
+ 	u64 fix_core_ab_vote;
+ };
  
--static void dpu_core_perf_aggregate(struct drm_device *ddev,
--				    enum dpu_crtc_client_type curr_client_type,
--				    struct dpu_core_perf_params *perf)
--{
--	struct dpu_crtc_state *dpu_cstate;
--	struct drm_crtc *tmp_crtc;
--
--	drm_for_each_crtc(tmp_crtc, ddev) {
--		if (tmp_crtc->enabled &&
--		    curr_client_type == dpu_crtc_get_client_type(tmp_crtc)) {
--			dpu_cstate = to_dpu_crtc_state(tmp_crtc->state);
--
--			perf->max_per_pipe_ib = max(perf->max_per_pipe_ib,
--						    dpu_cstate->new_perf.max_per_pipe_ib);
--
--			perf->bw_ctl += dpu_cstate->new_perf.bw_ctl;
--
--			DRM_DEBUG_ATOMIC("crtc=%d bw=%llu\n",
--					 tmp_crtc->base.id,
--					 dpu_cstate->new_perf.bw_ctl);
--		}
--	}
--}
--
- static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
- 					  struct drm_crtc *crtc)
- {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 7191b1a6d41b3a96f956d199398f12b2923e8c82..8a523eb308630943871c2e075d3d0d9094606d05 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1487,7 +1487,7 @@ static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
+ 	seq_printf(s, "core_clk_rate: %llu\n",
+ 			dpu_crtc->cur_perf.core_clk_rate);
+ 	seq_printf(s, "bw_ctl: %llu\n", dpu_crtc->cur_perf.bw_ctl);
+-	seq_printf(s, "max_per_pipe_ib: %llu\n",
++	seq_printf(s, "max_per_pipe_ib: %u\n",
+ 				dpu_crtc->cur_perf.max_per_pipe_ib);
+ 
+ 	return 0;
 
 -- 
 2.39.5
