@@ -2,80 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E47AAA2F393
-	for <lists+freedreno@lfdr.de>; Mon, 10 Feb 2025 17:32:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BAC8A2F396
+	for <lists+freedreno@lfdr.de>; Mon, 10 Feb 2025 17:32:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD07A10E38A;
-	Mon, 10 Feb 2025 16:32:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF26610E5B8;
+	Mon, 10 Feb 2025 16:32:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gH+hBbsr";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Cn0JoMwZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 382B210E38A
- for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 16:32:16 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51A8esre006114
- for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 16:32:15 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 309F510E5B4
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 16:32:25 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51A9VoUL008261
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 16:32:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jCHUXPT5Jmbjgw9rgNlW8gb3OHlH09svIQMyIII50QM=; b=gH+hBbsrMoJ0EZtr
- 8i2tmGkDg5i78VFBr5c7s4xS0HArBGmQZ5On0j7eb55KczTFAI0rXFIu1h8jEy7D
- eu61Omh9hv+m2juT994GxYFqaNRblpSa1k1vbWFxm0cH2QbpkHbO19U0e5r67RCW
- a2vp8t1nr3uABuHc9TVwQszgo11vfz/9UcFND7sJAExK8Brv7Yq3dSvH9Fzn0j7N
- +Pe100+3an7fT3omg76JyVROf9UVs15e9vPfMySrF4PZmQDYh/u2qutk50Ylg4SD
- 3optfukyB7cOoZKqGasLI5Qm2sy86HDFiigktd16ijFO1KOiS8/XWpJcu4HFlUCn
- wLzEKg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44qe5ms94n-1
+ PllHdGFA8xSW0690rPMUrAEqzelfEIRuIJxgSYa+UlQ=; b=Cn0JoMwZEOyoPkef
+ 61kkoxfOO8ACryC6Dz0YVUUIuK/gbvwFhhTs6OuNOwazixlUJJCm+GW+Sgz4Bdev
+ NI4OlSvfNmM0ilNyUagm/sBmSUnPrAb2ze7+t2hxVxFxsFLWp67rrppA5TtYa+aD
+ 5PwSa/SmbQLC67e45REnAoXtBBJnbXEXdLOMDqG2xYNI3I9pxn/ERV9iHyhF33yf
+ qba+zQ/kZxr0L9AGSZw+SE8XImfJZ9wqxIHz0+dgB/B191xN9/fUGG/3dTC+9tVF
+ zTjQcFrEL0y7wmafcq9tspH64NgPEzOok3vR9QuYI1kla+ullsQK0Hb1f3Ro0tYN
+ uOaC9A==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44qewh14a7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 16:32:14 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6e18596ce32so11571796d6.0
- for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 08:32:14 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 16:32:24 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4718adef552so2349671cf.3
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 08:32:24 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739205134; x=1739809934;
+ d=1e100.net; s=20230601; t=1739205143; x=1739809943;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jCHUXPT5Jmbjgw9rgNlW8gb3OHlH09svIQMyIII50QM=;
- b=m+JI+/mZYHJ1ZylJN7Y1jc6zBwRFWFmK1cZ/GC1aQnEZl00yECHz1Uker4/mRNNfoH
- 0/HjtilwVMrovme/KorMYJeDSO+MLWAt0P8y+TX6lWPxLIkkYcH2fHO3Q4lVs6avjag5
- c4LPw9JWJiNr3Jo/U8GxhvfmMz8kc284+XnY05MYnidGsndI+VZc31O2tJfFJ4lYLDmX
- O8J3ctkMZCbFI8c0kLuGQkUaujp71FOeuGYBhGlQUGnxeJH/F1QgrYVzhZgAaBD1CRpt
- NK/CZ2gt0oImQrVerl4mjW/vlfWV90s6HvOWDJ/TLiE9WN2cmoZzpTRL1vLHI0UXnc/G
- VN2w==
+ bh=PllHdGFA8xSW0690rPMUrAEqzelfEIRuIJxgSYa+UlQ=;
+ b=WisPGqszouzly5k0hTip9F9sWh9c9CVzodn2oPtLAv0zYhtGpUaHvf80PxpVeYv/5F
+ FOKfc43XmW1Xy7h8hY2AnttqD03iQtvJoSwYMbTg9rquFsz+P35DmbU08dW/mtj9Qe3T
+ F9Tqh1Ku2Gd7ngvWEdt2sJcmfHTUcBKL4+abBrGilpUyTsneq/mcHiUYkKxe3KeulEva
+ ZMvsHbykbcmbQkfRw+xIifIWQhfbQTM0Ee9kP0/CqfuiPUb7bkQx2NDagAtOAP/cOT/n
+ RVdOR6F7i6BJqo9KUwmt/fUczIORm1lJ9oAQ6w63ER5avgZrDC53/S8S74b7aMgv60pF
+ xkaw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWHshOzkvvpnpNLXJJvOmuJcehs5ZwCXvZh2kNock+Q9TW8CvgEulRDt0FU3KEiKpWKw8tM8/UNZao=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJIg2Mb+keAoOBtnMJVXuLHiKp9k245Y2cwAkUi7i7eRgrHzRe
- Uy1yJ3GGLPkNqrfTonhbktNwv5RAwlLinAvVLbiCA4k2Be/fNg4NQ9JGajGOLd+mDtq2VeQI5qa
- FmeTV4a5hKP6Jpm/QRb/w3fRpwEjhfmVs7bF5XMr1BnC1B9oxcljH1roqaJEhFmsBJS8=
-X-Gm-Gg: ASbGncujnhjoHMpBJ4rsDAJePfA8kVIfcTzOmna/+Ip7KeCyWoC3m5+sE8BtTMkpieb
- KdnbPCjKcQ6xUbqsKVBqBbp4m78HHTerAnUv3HyFFw5N0XfujVpmhtIoZpSJ8FSfB36uW8oEx6I
- gH34+GLMp6YYCwcsCfURFMScQIlIiyqtFVL4iCk1HRJxti2UjZSrkbeHrYVHlcS8j0t+iWLMLmP
- PsGgBSj7yyqU2Ij0CLK23FyMr2qFlR2wm8i0Ciq63YOklGMQxVl++bfVWTrKGe5Mwjbyoqerl9X
- S853rcEGY/bJQp0MV00VQuEz+zqnLwEvIjKyLIn17lLXearHQa4hOaTJvpI=
-X-Received: by 2002:ac8:5852:0:b0:471:9ad0:9cc2 with SMTP id
- d75a77b69052e-4719ad09d04mr9899531cf.10.1739205134121; 
- Mon, 10 Feb 2025 08:32:14 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IECQbeD0Elon8YIvNJ6FOZ4xgWrOhjbb6XFnJ6XLJ3Ft6s4VlucVZP20dQP1lS3ytB3OAZAtQ==
-X-Received: by 2002:ac8:5852:0:b0:471:9ad0:9cc2 with SMTP id
- d75a77b69052e-4719ad09d04mr9899271cf.10.1739205133726; 
- Mon, 10 Feb 2025 08:32:13 -0800 (PST)
+ AJvYcCVV/dwQRJG+QjzBUJ8Gz1m5XKdfwniiVxhWeOB0Yi0UnvgVBZNlT0rzX9uUFJTDH+DcwQv9zspWsvo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5NgMT2QzStngKdiqko1jcBs6++304audvQNp68pJjJtzR4LvE
+ zV/GIRBowABlJnvvxTkqyxz5vQ7oP8fkKxe8C5JSvvih7HOJRKWEui7Lng6Jyh9WmNeRTbvmkDJ
+ TCVv4RAxwOUdKbMy5BpLxlxQRXccSj6Mn1CQPbsBPY5G9WnrUshRC5ZQ34H/j54ySils=
+X-Gm-Gg: ASbGncvqwVHvsTtcXMCyy4OQlGkejEcI80EVti/AUQoTWcaK2bLN4rnpDeKNxkadP7T
+ fPxDZwrv6vleI59nsxogwNsPUi/TTfXAcVWJ/68lvSyycOg0cRO+LUPNbfPKlEMnE4pTGUbo8OP
+ rBxmx6qFX4DJhCpWm9vEcs8qgJAzUt093TqjzowimQamR16JKYu9+pUZ4CY+If4VghEgNx6euCV
+ DB007vWzCVbbnV45G8eQhhHVE9c8zWtjJWKLCjTXURBMqFODta7IqoohoXagHUGhhS/GrWrWCaE
+ YzBv4udKkeUzBirKg3jCEXQa/I1SmWI/kbeC2JIYJd1sy/KSHwhpzWkn3X4=
+X-Received: by 2002:ac8:7fc3:0:b0:471:9a28:9cd9 with SMTP id
+ d75a77b69052e-4719a289dbfmr10935701cf.12.1739205143352; 
+ Mon, 10 Feb 2025 08:32:23 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF5IbZNKFe36TXsRdBve9RfSnI6zfiiQRD265XZv9cUtcHZVy3F19fELt4eG6KVJYmaMFNtpQ==
+X-Received: by 2002:ac8:7fc3:0:b0:471:9a28:9cd9 with SMTP id
+ d75a77b69052e-4719a289dbfmr10935441cf.12.1739205142905; 
+ Mon, 10 Feb 2025 08:32:22 -0800 (PST)
 Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7b5d8d4a0sm353484466b.159.2025.02.10.08.32.10
+ 4fb4d7f45d1cf-5dcf9f6fa21sm8114981a12.68.2025.02.10.08.32.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 08:32:13 -0800 (PST)
-Message-ID: <a3f7bef6-bfc8-4a2e-b979-4aac7908306f@oss.qualcomm.com>
-Date: Mon, 10 Feb 2025 17:32:10 +0100
+ Mon, 10 Feb 2025 08:32:22 -0800 (PST)
+Message-ID: <1ffe8c68-3668-413a-a289-51a0b6bbc8ca@oss.qualcomm.com>
+Date: Mon, 10 Feb 2025 17:32:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sm8550: add missing cpu-cfg
+Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: sm8650: add missing cpu-cfg
  interconnect path in the mdss node
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -94,23 +94,23 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 References: <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-0-54c96a9d2b7f@linaro.org>
- <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-3-54c96a9d2b7f@linaro.org>
+ <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-4-54c96a9d2b7f@linaro.org>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-3-54c96a9d2b7f@linaro.org>
+In-Reply-To: <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-4-54c96a9d2b7f@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Mvyj-VEjqviRaDDgXtEIpN0fxwLP6OEa
-X-Proofpoint-ORIG-GUID: Mvyj-VEjqviRaDDgXtEIpN0fxwLP6OEa
+X-Proofpoint-ORIG-GUID: RQv1Q6vP17Ec0kOMZXV2KMajyXtPQDTE
+X-Proofpoint-GUID: RQv1Q6vP17Ec0kOMZXV2KMajyXtPQDTE
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-02-10_09,2025-02-10_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- priorityscore=1501 clxscore=1015 suspectscore=0 mlxscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0 spamscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2501170000 definitions=main-2502100136
+ mlxscore=0 spamscore=0
+ impostorscore=0 mlxlogscore=999 phishscore=0 clxscore=1015 adultscore=0
+ lowpriorityscore=0 malwarescore=0 bulkscore=0 suspectscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502100136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,31 +130,9 @@ On 10.02.2025 10:32 AM, Neil Armstrong wrote:
 > The bindings requires the mdp0-mem and the cpu-cfg interconnect path,
 > add the missing cpu-cfg path to fix the dtbs check error.
 > 
-> Fixes: b8591df49cde ("arm64: dts: qcom: sm8550: correct MDSS interconnects")
+> Fixes: 9fa33cbca3d2 ("arm64: dts: qcom: sm8650: correct MDSS interconnects")
 > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
->  arch/arm64/boot/dts/qcom/sm8550.dtsi | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> index eac8de4005d82f246bc50f64f09515631d895c99..702b55296b18ff2f8ea62a3391b7de2804aa9f65 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> @@ -3020,8 +3020,9 @@ mdss: display-subsystem@ae00000 {
->  
->  			power-domains = <&dispcc MDSS_GDSC>;
->  
-> -			interconnects = <&mmss_noc MASTER_MDP 0 &mc_virt SLAVE_EBI1 0>;
-> -			interconnect-names = "mdp0-mem";
-> +			interconnects = <&mmss_noc MASTER_MDP 0 &mc_virt SLAVE_EBI1 0>,
-
-QCOM_ICC_TAG_ALWAYS
-
-> +					<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_DISPLAY_CFG 0>;
-
-QCOM_ICC_TAG_ACTIVE_ONLY
-
-w that
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
