@@ -2,89 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86A1BA2FCF8
-	for <lists+freedreno@lfdr.de>; Mon, 10 Feb 2025 23:26:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D353A2FE49
+	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2025 00:19:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 587E710E3EE;
-	Mon, 10 Feb 2025 22:26:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="KSugTeet";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77B9910E3FA;
+	Mon, 10 Feb 2025 23:19:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A13210E3EE;
- Mon, 10 Feb 2025 22:26:13 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51AJopVQ008282;
- Mon, 10 Feb 2025 22:26:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 3JkX4/9yze2RT6/wf9KzkDi8PmHo10GnvR6H2a/gySE=; b=KSugTeetGCDeoO2m
- MmrLNMMuSa+NF7eMrImHptcSp7nZlIho3RkZ6Y5ZDFRK4uFIF/P2R7+H98xKKaF0
- yPVNHQcGVfIziL6jtxMZ7rwrUfV5CkvoMl3bp3+6KLAScsefsSC4oN4wAXYzpp2S
- btkXVhIEWyDSSUemrDzdDByeq7NJP2J2Z4JhnDHRxrAt3yRMU0p8TayjgXWtzu+L
- vcFdl5l8GfUxur9w6CFSv1wcI/gc7pVJHpfqTch2IAXZNwOOShh62vgd4zA8C9af
- m1F90qVHNEgFnpS559SLHZC3ENmb+/xnyMuNzMekLZ93URv7eFG2be8+5cZqHj10
- TUy4DQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44qewh20wp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Feb 2025 22:26:02 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51AMQ18r007693
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Feb 2025 22:26:01 GMT
-Received: from [10.71.110.136] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 10 Feb
- 2025 14:26:00 -0800
-Message-ID: <a91da500-b575-4071-9c2b-e03c9c737144@quicinc.com>
-Date: Mon, 10 Feb 2025 14:26:00 -0800
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C8CC10E215
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 23:19:38 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id DBBC43EC07;
+ Tue, 11 Feb 2025 00:19:35 +0100 (CET)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+Date: Tue, 11 Feb 2025 00:19:32 +0100
+Subject: [PATCH] drm/msm/dpu: Don't leak bits_per_component into random
+ DSC_ENC fields
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 7/7] drm/msm/hdmi: use DRM HDMI Audio framework
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Simona Vetter <simona@ffwll.ch>, Simona
- Vetter <simona.vetter@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20250208-bridge-hdmi-connector-v7-0-0c3837f00258@linaro.org>
- <20250208-bridge-hdmi-connector-v7-7-0c3837f00258@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20250208-bridge-hdmi-connector-v7-7-0c3837f00258@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: D3xspndLYeAmkruYqi0Uoz3kIT2YabVE
-X-Proofpoint-GUID: D3xspndLYeAmkruYqi0Uoz3kIT2YabVE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-10_11,2025-02-10_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 spamscore=0
- impostorscore=0 mlxlogscore=869 phishscore=0 clxscore=1015 adultscore=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2501170000 definitions=main-2502100176
+Message-Id: <20250211-dsc-10-bit-v1-1-1c85a9430d9a@somainline.org>
+X-B4-Tracking: v=1; b=H4sIAIOJqmcC/x3MMQqAMAxA0auUzAbaiCheRRxsGzVLlUZEkN7d4
+ viG/19QzsIKo3kh8y0qR6pwjYGwL2ljlFgNZKmz5BxGDegsermQiAYfqfXR9lCDM/Mqzz+b5lI
+ +Ueq1NVwAAAA=
+X-Change-ID: 20250211-dsc-10-bit-2228bd23bd07
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Vinod Koul <vkoul@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Martin Botka <martin.botka@somainline.org>, 
+ Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2510;
+ i=marijn.suijten@somainline.org; h=from:subject:message-id;
+ bh=2Vff43PmakmA60WnMtnTOd4EPxaSc0FyYuoDAegnans=;
+ b=owEBbQKS/ZANAwAIAfFi0jHH5IZ2AcsmYgBnqomHEJ0yt3FN3odGPxSVaDdqU42RwEjzbllvz
+ 0WBNVm5D/2JAjMEAAEIAB0WIQROiwG5pb6la1/WZxbxYtIxx+SGdgUCZ6qJhwAKCRDxYtIxx+SG
+ diopD/oD5I500NzBmoLFFSxEF01WQYRQ8Gq7XDaigBvQKt6+I0eotsCcpCtYb/GSgHbdDGWTmLH
+ HN3fF/eqbRgi4ixWdzArCRsrXtpE6GU3+2+EUYLOQYedsplWtb6WrrA0ahCcDc7NNc9SpFYNJKw
+ JHzrzqbpVOtystGN/WQLADgMPZW/7U4fqyowy7gxtRkF8CcNByjifSXuKz5tJ2sUX/ch3DkCcij
+ YwkowENun/OHZeWA6ptQ6A2H9bJWsiJBH3K1VB9czdkdBIp73HhJ3FMz7IFGrX/Be83zi9V1ui1
+ Lr5NdwVTfLv4xtEsJorIVgw49K/L5UTs64QNFFaneu6S7UiL7oUxjbHTXbCXeuEUZeQxc0y67Y4
+ T46Pjn+csennhTIb6YxNwOKDpEWeqcMnNMvjS97jaWARoJ9Em2xdoveL7/bsmwYrwaha/7/yMxZ
+ QeqAGcUZ+juN8HZZOf02IZDReIUGRK8TLNyTNxxj4ci5QlwNa0BAWBP3sCafpYAvDrFLKKaNd2Q
+ 7j+i5HSeOvr+vsDDzi2+Gi/Ajpk6ObbeJcSOZ94ArY/eaG7+olkhSXtrZ7ecG6Kl5Xe36nZgXo6
+ oKM5C7gZ6zKYDE7w6ZKF+EPeLHlzJJej0zlF1sQ1ROLKVS53+wqIVV1K9CmuU4C1SKpU/07sf8n
+ bp6fjw/RTSfN7Gw==
+X-Developer-Key: i=marijn.suijten@somainline.org; a=openpgp;
+ fpr=4E8B01B9A5BEA56B5FD66716F162D231C7E48676
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,30 +77,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+What used to be the input_10_bits boolean - feeding into the lowest
+bit of DSC_ENC - on MSM downstream turned into an accidental OR with
+the full bits_per_component number when it was ported to the upstream
+kernel.
 
+On typical bpc=8 setups we don't notice this because line_buf_depth is
+always an odd value (it contains bpc+1) and will also set the 4th bit
+after left-shifting by 3 (hence this |= bits_per_component is a no-op).
 
-On 2/7/2025 4:27 PM, Dmitry Baryshkov wrote:
-> In order to simplify the driver even further and to remove the
-> boilerplate code, rewrite the audio interface to use the DRM HDMI Audio
-> framework.
-> 
-> Audio InfoFames are controlled centrally via the DRM HDMI framework.
-> Correct InfoFrame data is programmed at the atomic_pre_enable() time (if
-> it was set before, drm_atomic_helper_connector_hdmi_update_infoframes()
-> takes care of writing all InfoFrames, including the Audio one.) or
-> during msm_hdmi_bridge_audio_prepare() when the new stream is started.
-> 
-> All audio data frame management is deferred to
-> msm_hdmi_bridge_audio_prepare() and msm_hdmi_bridge_audio_shutdown().
-> 
-> Reviewed-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/hdmi/hdmi.c        | 91 ----------------------------------
->   drivers/gpu/drm/msm/hdmi/hdmi.h        | 18 +++----
->   drivers/gpu/drm/msm/hdmi/hdmi_audio.c  | 68 +++++++++++++++++++++----
->   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c |  5 ++
->   4 files changed, 71 insertions(+), 111 deletions(-)
-> 
+Now that guards are being removed to allow more bits_per_component
+values besides 8 (possible since commit 49fd30a7153b ("drm/msm/dsi: use
+DRM DSC helpers for DSC setup")), a bpc of 10 will instead clash with
+the 5th bit which is convert_rgb.  This is "fortunately" also always set
+to true by MSM's dsi_populate_dsc_params() already, but once a bpc of 12
+starts being used it'll write into simple_422 which is normally false.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To solve all these overlaps, simply replicate downstream code and only
+set this lowest bit if bits_per_component is equal to 10.  It is unclear
+why DSC requires this only for bpc=10 but not bpc=12, and also notice
+that this lowest bit wasn't set previously despite having a panel and
+patch on the list using it without any mentioned issues.
+
+Fixes: c110cfd1753e ("drm/msm/disp/dpu1: Add support for DSC")
+Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+index 657200401f57635481a22f018ff00076dfd2ba34..cec6d4e8baec4d00282465cfd2885d365f835976 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+@@ -52,6 +52,7 @@ static void dpu_hw_dsc_config(struct dpu_hw_dsc *hw_dsc,
+ 	u32 slice_last_group_size;
+ 	u32 det_thresh_flatness;
+ 	bool is_cmd_mode = !(mode & DSC_MODE_VIDEO);
++	bool input_10_bits = dsc->bits_per_component == 10;
+ 
+ 	DPU_REG_WRITE(c, DSC_COMMON_MODE, mode);
+ 
+@@ -68,7 +69,7 @@ static void dpu_hw_dsc_config(struct dpu_hw_dsc *hw_dsc,
+ 	data |= (dsc->line_buf_depth << 3);
+ 	data |= (dsc->simple_422 << 2);
+ 	data |= (dsc->convert_rgb << 1);
+-	data |= dsc->bits_per_component;
++	data |= input_10_bits;
+ 
+ 	DPU_REG_WRITE(c, DSC_ENC, data);
+ 
+
+---
+base-commit: 77969bdf11bca51038df66410338d088b327fc49
+change-id: 20250211-dsc-10-bit-2228bd23bd07
+
+Best regards,
+-- 
+Marijn Suijten <marijn.suijten@somainline.org>
+
