@@ -2,89 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A5CA2E173
-	for <lists+freedreno@lfdr.de>; Mon, 10 Feb 2025 00:29:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58178A2E2DC
+	for <lists+freedreno@lfdr.de>; Mon, 10 Feb 2025 04:41:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2805010E060;
-	Sun,  9 Feb 2025 23:28:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1F2910E116;
+	Mon, 10 Feb 2025 03:41:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="V4CzUkq1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FAtdmj2P";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39EC910E060;
- Sun,  9 Feb 2025 23:28:55 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 519NOUOD004308;
- Sun, 9 Feb 2025 23:28:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rC6DWwz6HFbX3hsyb/20HB2JgJmP5Fu60Lr1b1bITlo=; b=V4CzUkq1WYi7G5vo
- Wvwuy4j0eBRLmZ8ZXnz3/RfpOcnPlVgd6x/fOGEZLUSBC9oMILsv5ygo95grCGTR
- M8/aI2OGC5cHns9MkyZWXxmbKLwjYkQG+pfUmdaXVN4WGd8YFBlutVzdRCCx2hKi
- bE1JXyLludKeoYlwoDN5P1uWv1PD3I6kG5NkT+6C36nzWQDO0ysdabGbhP87oj2T
- emgXlfJJ4Qm0GOAZuieakcFCVON7F0zM7CYave53IFjzdamhjrl4KYrJC4Ew+FTU
- Y1BkjMV3u7wKxwJ2TahOl33ADSin6MMPAZ6ui2D3QAg+vqwkyip4kWNJV4gvx3al
- VImfLQ==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44p0dyjjh4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 09 Feb 2025 23:28:48 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 519NSlFf016355
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 9 Feb 2025 23:28:47 GMT
-Received: from [10.110.94.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 9 Feb 2025
- 15:28:46 -0800
-Message-ID: <0636a261-f4db-4a62-b6f0-bee4f28c3a02@quicinc.com>
-Date: Sun, 9 Feb 2025 15:28:45 -0800
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C34D210E116
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 03:41:14 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-30797730cbdso38208451fa.3
+ for <freedreno@lists.freedesktop.org>; Sun, 09 Feb 2025 19:41:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1739158873; x=1739763673; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=npEs8jA07Ng6Z03mAEVt5n9zo6OF7AFtNoGrjJ2+5Mw=;
+ b=FAtdmj2PUI9K69wSRb6wVVnsrS9AJXFlfG8c+dIcJrRBjrd0GmRK6GlBY7xFwYsbf4
+ pshi6sG6KQtA12dspH5MezkA8uveVE+2lK7b7Sf8VNIUF4UR1IDpTX7xJmbr5xiBtOX9
+ d2nYK9ahd2efP/x0wZQviE3vIubC0httcDvP3W7UP6LYBtXMH49SIhH4e4L8dDBvsjy0
+ EiTzNYgip3cpYozpUvuDo/gx82SbY+0nJHHgP9GQpJlqZYpQHOip4KjzE7fOsZ880nYd
+ QDL22EIfLi6eXcvwQ/RRIpmHT0rEVXhsOK0mhuPLipJel4N3SgY08vPMsVtODZvZ1FBk
+ K15g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739158873; x=1739763673;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=npEs8jA07Ng6Z03mAEVt5n9zo6OF7AFtNoGrjJ2+5Mw=;
+ b=Dc+6Hico0eYjbUTJW6d0vXUI+L6dA3iVictI0YwpNXHESljU9dolOdyCBCT6GxtgVm
+ SE5FEX8rl1whA9XuMXOc00s8alIwa8ICmSE6qxqLbV43IigBzYi7IsHGMv2iBnMWVRVs
+ Vq9mNcOr3B1VkrPi9L+4J2BHxo94vi6mSQSlvzyzovnXBFJc1s+k8VzlR86YINW/lWhz
+ 2KozJ93RWBR09iYZT0iZi5q/zqmz3Jh3T5abMhjAI4fAoDvJqYkUF1R1e57t81cwaP1s
+ ov1Xu1i7Cpr7vMNxzDpilk4sr+swcyayzCOJF1RklP2dpPt7IiQGfIHGE35FPWCqgePA
+ EINg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWeDCdgneml6peSSLWXsJjUddGKosqy3sPkZ4mO2S9WDvbiu3zq+lCDI3RK07WByQuFeq2LlknziW8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNhD/QF8hELAEErW2rJcuNkdmCtK5SLUco+7al1+NtAb6lemvs
+ EDAS8VtN9XPl0uf0UJi55mcix95soVaH8MSp8MiXprcLWNvIHnPgEmBJOud1P8A=
+X-Gm-Gg: ASbGncsRWozm8AOR9fZnnCpseV+o3f8QPAChZQ5seFiDG4egC2Yiw8pfSKdGAH2WNvf
+ Qdll7g0j7MD1iEecG2pmtH9L7lRfm8d/3R5g6ThbIdVLmohFQmhag+XenHIJsqeHyIGcYAHHkbc
+ pwFCqjgNK81nCdL/+KB31K7qtXY72z5L9dfT23ZY3li6M7zlL8KTpemOdpaIWM9pK4YGaXaxhAP
+ B3D6eY5knobgdZmfK0EqnRhwjKFxYAd5B4iMKkkjut8yZ/4y9FE/whLxE/cqMGjXgP6mwmONb/D
+ MMDidItOF87W5c/UY6iZYgz5uJ/srMO9S7wVUGhmBoFRtAxx5wzcA2wQ6kuS88aG7IJIcsg=
+X-Google-Smtp-Source: AGHT+IH7m6oiasYVqnzqsfHHyi3NYn+WrwlbtgfZKMfhDxmQoU4N6KPHZD2MhJ82kLTvoCVN0EbGyg==
+X-Received: by 2002:a05:651c:1986:b0:302:3356:7ce2 with SMTP id
+ 38308e7fff4ca-307e57ca9acmr39237721fa.11.1739158872958; 
+ Sun, 09 Feb 2025 19:41:12 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-308f2d7fae7sm567661fa.39.2025.02.09.19.41.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Feb 2025 19:41:12 -0800 (PST)
+Date: Mon, 10 Feb 2025 05:41:10 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Ethan Carter Edwards <ethan@ethancedwards.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dpu: Fix uninitialized variable
+Message-ID: <o7yqskbm6px5t2klbiid7dklogrchyn4we2radaoznopupczxw@imywm2ngpoc5>
+References: <20250209-dpu-v1-1-0db666884f70@ethancedwards.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] drm/msm/dsi: Set PHY usescase (and mode) before
- registering DSI host
-To: Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Sean Paul" <sean@poorly.run>, David Airlie <airlied@gmail.com>, Vinod Koul
- <vkoul@kernel.org>, Simona Vetter <simona@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Jordan
- Crouse" <jordan@cosmicpenguin.net>,
- <~postmarketos/upstreaming@lists.sr.ht>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- "Martin Botka" <martin.botka@somainline.org>, Jami Kettunen
- <jami.kettunen@somainline.org>, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>
-References: <20250209-drm-msm-initial-dualpipe-dsc-fixes-v2-0-9a60184fdc36@somainline.org>
- <20250209-drm-msm-initial-dualpipe-dsc-fixes-v2-2-9a60184fdc36@somainline.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20250209-drm-msm-initial-dualpipe-dsc-fixes-v2-2-9a60184fdc36@somainline.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 3Xy3RhDdrsw9yxHr7KT1tiLrtkPA01_e
-X-Proofpoint-GUID: 3Xy3RhDdrsw9yxHr7KT1tiLrtkPA01_e
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-09_10,2025-02-07_03,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 mlxlogscore=927
- mlxscore=0 priorityscore=1501 spamscore=0 adultscore=0 phishscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2501170000 definitions=main-2502090209
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250209-dpu-v1-1-0db666884f70@ethancedwards.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,33 +91,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 2/9/2025 1:42 PM, Marijn Suijten wrote:
-> Ordering issues here cause an uninitialized (default STANDALONE)
-> usecase to be programmed (which appears to be a MUX) in some cases
-> when msm_dsi_host_register() is called, leading to the slave PLL in
-> bonded-DSI mode to source from a clock parent (dsi1vco) that is off.
+On Sun, Feb 09, 2025 at 10:32:33PM -0500, Ethan Carter Edwards wrote:
+> There is a possibility for an uninitialized *ret* variable to be
+> returned in some code paths.
 > 
-> This should seemingly not be a problem as the actual dispcc clocks from
-> DSI1 that are muxed in the clock tree of DSI0 are way further down, this
-> bit still seems to have an effect on them somehow and causes the right
-> side of the panel controlled by DSI1 to not function.
+> Fix this by initializing *ret* to 0.
 > 
-> In an ideal world this code is refactored to no longer have such
-> error-prone calls "across subsystems", and instead model the "PLL src"
-> register field as a regular mux so that changing the clock parents
-> programmatically or in DTS via `assigned-clock-parents` has the
-> desired effect.
-> But for the avid reader, the clocks that we *are* muxing into DSI0's
-> tree are way further down, so if this bit turns out to be a simple mux
-> between dsiXvco and out_div, that shouldn't have any effect as this
-> whole tree is off anyway.
-> 
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Addresses-Coverity-ID: 1642546 ("Uninitialized scalar variable")
+> Fixes: 774bcfb731765d ("drm/msm/dpu: add support for virtual planes")
+> Signed-off-by: Ethan Carter Edwards <ethan@ethancedwards.com>
 > ---
->   drivers/gpu/drm/msm/dsi/dsi_manager.c | 30 +++++++++++++++++++-----------
->   1 file changed, 19 insertions(+), 11 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 098abc2c0003cde90ce6219c97ee18fa055a92a5..74edaa9ecee72111b70f32b832486aeebe545a28 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1164,7 +1164,7 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
+>  			       unsigned int num_planes)
+>  {
+>  	unsigned int i;
+> -	int ret;
+> +	int ret = 0;
+
+Thanks, but I think it better to make the function return ret from
+within the loop and return explicit 0 if there was no error.
+
+>  
+>  	for (i = 0; i < num_planes; i++) {
+>  		struct drm_plane_state *plane_state = states[i];
+> 
+> ---
+> base-commit: a64dcfb451e254085a7daee5fe51bf22959d52d3
+> change-id: 20250209-dpu-c3fac78fc617
+> 
+> Best regards,
+> -- 
+> Ethan Carter Edwards <ethan@ethancedwards.com>
 > 
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+-- 
+With best wishes
+Dmitry
