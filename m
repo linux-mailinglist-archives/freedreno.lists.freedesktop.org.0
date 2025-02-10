@@ -2,91 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33164A2EFA4
-	for <lists+freedreno@lfdr.de>; Mon, 10 Feb 2025 15:24:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E47AAA2F393
+	for <lists+freedreno@lfdr.de>; Mon, 10 Feb 2025 17:32:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1B710E569;
-	Mon, 10 Feb 2025 14:24:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD07A10E38A;
+	Mon, 10 Feb 2025 16:32:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="n7mzpyZE";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gH+hBbsr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8FF010E576
- for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 14:24:46 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-543e47e93a3so4970936e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 06:24:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739197485; x=1739802285; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=rXTOeRR1tSy6DIJNpPaZKkX1fXiI12lzCj4/r2SjPr8=;
- b=n7mzpyZEVuXZYZfWAkE03stGnuGhvtFNO+KRu5YxoCUmxtUorNOBDnIotomW6UaEeg
- TGajhET81U/LzDK101JeBk+oSuGMCAJSntxShd/PA0oPfhgykNuMEG/shbzgQTVK1gp7
- w1wiEvJkZlvDqxYoQWGvrsGay1bAMUb5sdf9rYQyAVab2THcvfU/ly4thdSr2Pe1YNvx
- Q84e/Td8m/z0K4Nff2HYv37zjWktDt830scjXjQhCwdFQfm135ZT6jLjOOrCec8+hJRq
- zf3VnOsr/Olr9mJrN8v7IqZTsMa8cil2/tEZ1Mlxw1BWoTy5yzmCw6Z+57F8UoYpgkHw
- KoGg==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 382B210E38A
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 16:32:16 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51A8esre006114
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 16:32:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ jCHUXPT5Jmbjgw9rgNlW8gb3OHlH09svIQMyIII50QM=; b=gH+hBbsrMoJ0EZtr
+ 8i2tmGkDg5i78VFBr5c7s4xS0HArBGmQZ5On0j7eb55KczTFAI0rXFIu1h8jEy7D
+ eu61Omh9hv+m2juT994GxYFqaNRblpSa1k1vbWFxm0cH2QbpkHbO19U0e5r67RCW
+ a2vp8t1nr3uABuHc9TVwQszgo11vfz/9UcFND7sJAExK8Brv7Yq3dSvH9Fzn0j7N
+ +Pe100+3an7fT3omg76JyVROf9UVs15e9vPfMySrF4PZmQDYh/u2qutk50Ylg4SD
+ 3optfukyB7cOoZKqGasLI5Qm2sy86HDFiigktd16ijFO1KOiS8/XWpJcu4HFlUCn
+ wLzEKg==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44qe5ms94n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 16:32:14 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-6e18596ce32so11571796d6.0
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Feb 2025 08:32:14 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739197485; x=1739802285;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rXTOeRR1tSy6DIJNpPaZKkX1fXiI12lzCj4/r2SjPr8=;
- b=Cr5VOQOK+mabXiHTWlXUgBrs71ypyWs1WFRR/k8rZjP5CdLfWEmqlXTS3GZBSGglRp
- 3CwaTTAv/s+iFgyDy+KfLUHwmy0PcBdPsvuk17AHGrW8SQYX0FhyEat/4dskRN0GlpHJ
- GVi4eBCBcf+TNFGLHigbXVmQ5eVUO9KHLllQZ5mP2PVcTOiQCRkXfKZY9iBOand76H08
- +DdHihkAtqrGibKomd8YGqblJqAYH8JkwxIe8PrVU8ajHD9qVHIYLx2nXFGcdXqvdpZz
- 7yBMsYPSK1s6hWg6pwhZoZE5B7MQ4AERy7P6HDOhM3cGbx85H7MFyz1+ASTuF5YzIbb7
- b/XQ==
+ d=1e100.net; s=20230601; t=1739205134; x=1739809934;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jCHUXPT5Jmbjgw9rgNlW8gb3OHlH09svIQMyIII50QM=;
+ b=m+JI+/mZYHJ1ZylJN7Y1jc6zBwRFWFmK1cZ/GC1aQnEZl00yECHz1Uker4/mRNNfoH
+ 0/HjtilwVMrovme/KorMYJeDSO+MLWAt0P8y+TX6lWPxLIkkYcH2fHO3Q4lVs6avjag5
+ c4LPw9JWJiNr3Jo/U8GxhvfmMz8kc284+XnY05MYnidGsndI+VZc31O2tJfFJ4lYLDmX
+ O8J3ctkMZCbFI8c0kLuGQkUaujp71FOeuGYBhGlQUGnxeJH/F1QgrYVzhZgAaBD1CRpt
+ NK/CZ2gt0oImQrVerl4mjW/vlfWV90s6HvOWDJ/TLiE9WN2cmoZzpTRL1vLHI0UXnc/G
+ VN2w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVfOTwcXOnkJ3IXajmKU6RTfNLliAnQTnXCvTf76qHiLT/W/DFq3LIzNcyuJ+TaOn+NYcTjQa2gEDY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzaB1a3RAfwnrLw3sqd4pnz7TDxJ7b2EBEN7NTlLbaMp1z5StzA
- fTna/VJRpU8Kp2+FBg1dOn+cQy9j3nTp/UnwLbNaYkS0/EyoL0xrnBdkPC4jG6Q=
-X-Gm-Gg: ASbGncvmAFH9c8LXYXb8BpGS+x4Ku9+RM+ZoFGSCxlUecyFNMesDxU6MQAvzneN/Iet
- rFDWeHsjGt1mRTBXw8j/Xhrvd8STSvjJORqf0pLydYfFQjJ0MC4dmh+jKrJsAjqvdn6iIIpJTNV
- 6j/PvzwEoefDgXCO2fukzW925UWqRiEeFiTqVCl9lr+4Tx5uiWy4RHZXYjCRB1z4A/92BlbInfM
- Le8Ox/GkTjoNd9z03kzzX/KZKTidmoZBVyu4XTX+nVlr1gHQAEOugR5OXBzg/0bcapeZoJfjQER
- qkTF8uceVwSgOLIXk1tgUx7Kd8CBDPxg8axv6yUF9ftRsXpqhVexrf21zyiowdW/+rwxfZE=
-X-Google-Smtp-Source: AGHT+IELaktaXJDIQE5h3TJtIdi4mlctf8TeZ8f9LCc0ZKKRgqhqCKUX1/reDvwqcfshWriFj4Hheg==
-X-Received: by 2002:a05:6512:2384:b0:545:d45:3958 with SMTP id
- 2adb3069b0e04-5450d4539a2mr1325590e87.31.1739197484772; 
- Mon, 10 Feb 2025 06:24:44 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-544105bfe6fsm1261556e87.110.2025.02.10.06.24.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Feb 2025 06:24:44 -0800 (PST)
-Date: Mon, 10 Feb 2025 16:24:42 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Vinod Koul <vkoul@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- Jordan Crouse <jordan@cosmicpenguin.net>, ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Martin Botka <martin.botka@somainline.org>, 
- Jami Kettunen <jami.kettunen@somainline.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/3] drm/msm/dsi: Set PHY usescase (and mode) before
- registering DSI host
-Message-ID: <x4jced57uhdfnq4d7tdqsozxbdosu2fcmsjlqtuuvh25ltx2rc@2eqsa7e4vcdv>
-References: <20250209-drm-msm-initial-dualpipe-dsc-fixes-v2-0-9a60184fdc36@somainline.org>
- <20250209-drm-msm-initial-dualpipe-dsc-fixes-v2-2-9a60184fdc36@somainline.org>
- <nzm3tokbvho3hxz3e5vblp5ndagfcv5ah3j7gtkqjmt7ynr6f3@v36juvu73i5v>
- <vsxfi43d7rxh5xxc7ctivjslf6w4yy5iprqpqid3u3diylrtwd@wayafjlgzz7v>
+ AJvYcCWHshOzkvvpnpNLXJJvOmuJcehs5ZwCXvZh2kNock+Q9TW8CvgEulRDt0FU3KEiKpWKw8tM8/UNZao=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJIg2Mb+keAoOBtnMJVXuLHiKp9k245Y2cwAkUi7i7eRgrHzRe
+ Uy1yJ3GGLPkNqrfTonhbktNwv5RAwlLinAvVLbiCA4k2Be/fNg4NQ9JGajGOLd+mDtq2VeQI5qa
+ FmeTV4a5hKP6Jpm/QRb/w3fRpwEjhfmVs7bF5XMr1BnC1B9oxcljH1roqaJEhFmsBJS8=
+X-Gm-Gg: ASbGncujnhjoHMpBJ4rsDAJePfA8kVIfcTzOmna/+Ip7KeCyWoC3m5+sE8BtTMkpieb
+ KdnbPCjKcQ6xUbqsKVBqBbp4m78HHTerAnUv3HyFFw5N0XfujVpmhtIoZpSJ8FSfB36uW8oEx6I
+ gH34+GLMp6YYCwcsCfURFMScQIlIiyqtFVL4iCk1HRJxti2UjZSrkbeHrYVHlcS8j0t+iWLMLmP
+ PsGgBSj7yyqU2Ij0CLK23FyMr2qFlR2wm8i0Ciq63YOklGMQxVl++bfVWTrKGe5Mwjbyoqerl9X
+ S853rcEGY/bJQp0MV00VQuEz+zqnLwEvIjKyLIn17lLXearHQa4hOaTJvpI=
+X-Received: by 2002:ac8:5852:0:b0:471:9ad0:9cc2 with SMTP id
+ d75a77b69052e-4719ad09d04mr9899531cf.10.1739205134121; 
+ Mon, 10 Feb 2025 08:32:14 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IECQbeD0Elon8YIvNJ6FOZ4xgWrOhjbb6XFnJ6XLJ3Ft6s4VlucVZP20dQP1lS3ytB3OAZAtQ==
+X-Received: by 2002:ac8:5852:0:b0:471:9ad0:9cc2 with SMTP id
+ d75a77b69052e-4719ad09d04mr9899271cf.10.1739205133726; 
+ Mon, 10 Feb 2025 08:32:13 -0800 (PST)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab7b5d8d4a0sm353484466b.159.2025.02.10.08.32.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Feb 2025 08:32:13 -0800 (PST)
+Message-ID: <a3f7bef6-bfc8-4a2e-b979-4aac7908306f@oss.qualcomm.com>
+Date: Mon, 10 Feb 2025 17:32:10 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <vsxfi43d7rxh5xxc7ctivjslf6w4yy5iprqpqid3u3diylrtwd@wayafjlgzz7v>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sm8550: add missing cpu-cfg
+ interconnect path in the mdss node
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-0-54c96a9d2b7f@linaro.org>
+ <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-3-54c96a9d2b7f@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-3-54c96a9d2b7f@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Mvyj-VEjqviRaDDgXtEIpN0fxwLP6OEa
+X-Proofpoint-ORIG-GUID: Mvyj-VEjqviRaDDgXtEIpN0fxwLP6OEa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-10_09,2025-02-10_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0
+ priorityscore=1501 clxscore=1015 suspectscore=0 mlxscore=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0 spamscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2501170000 definitions=main-2502100136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,123 +126,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Feb 10, 2025 at 01:54:29PM +0100, Marijn Suijten wrote:
-> On 2025-02-10 01:11:59, Dmitry Baryshkov wrote:
-> > On Sun, Feb 09, 2025 at 10:42:53PM +0100, Marijn Suijten wrote:
-> > > Ordering issues here cause an uninitialized (default STANDALONE)
-> > > usecase to be programmed (which appears to be a MUX) in some cases
-> > > when msm_dsi_host_register() is called, leading to the slave PLL in
-> > > bonded-DSI mode to source from a clock parent (dsi1vco) that is off.
-> > > 
-> > > This should seemingly not be a problem as the actual dispcc clocks from
-> > > DSI1 that are muxed in the clock tree of DSI0 are way further down, this
-> > > bit still seems to have an effect on them somehow and causes the right
-> > > side of the panel controlled by DSI1 to not function.
-> > > 
-> > > In an ideal world this code is refactored to no longer have such
-> > > error-prone calls "across subsystems", and instead model the "PLL src"
-> > > register field as a regular mux so that changing the clock parents
-> > > programmatically or in DTS via `assigned-clock-parents` has the
-> > > desired effect.
-> > > But for the avid reader, the clocks that we *are* muxing into DSI0's
-> > > tree are way further down, so if this bit turns out to be a simple mux
-> > > between dsiXvco and out_div, that shouldn't have any effect as this
-> > > whole tree is off anyway.
-> > > 
-> > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/dsi/dsi_manager.c | 30 +++++++++++++++++++-----------
-> > >  1 file changed, 19 insertions(+), 11 deletions(-)
-> > 
-> > 
-> > Fixes: 57bf43389337 ("drm/msm/dsi: Pass down use case to PHY")
+On 10.02.2025 10:32 AM, Neil Armstrong wrote:
+> The bindings requires the mdp0-mem and the cpu-cfg interconnect path,
+> add the missing cpu-cfg path to fix the dtbs check error.
 > 
-> I'm not exactly confident about that.  Abhinav pointed out in
-> https://gitlab.freedesktop.org/drm/msm/-/issues/41#note_2375646 that
-> msm_dsi_host_register() was not supposed to be enabling the PHY, which I
-> provided a counter-stacktrace for to show that is indeed the case.
+> Fixes: b8591df49cde ("arm64: dts: qcom: sm8550: correct MDSS interconnects")
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8550.dtsi | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> Either this was always a problem that's only become visible now (and it's an
-> issue with that patch), or a different change causes msm_dsi_host_register()
-> to enable the PHY and program the usecase too early?
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> index eac8de4005d82f246bc50f64f09515631d895c99..702b55296b18ff2f8ea62a3391b7de2804aa9f65 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> @@ -3020,8 +3020,9 @@ mdss: display-subsystem@ae00000 {
+>  
+>  			power-domains = <&dispcc MDSS_GDSC>;
+>  
+> -			interconnects = <&mmss_noc MASTER_MDP 0 &mc_virt SLAVE_EBI1 0>;
+> -			interconnect-names = "mdp0-mem";
+> +			interconnects = <&mmss_noc MASTER_MDP 0 &mc_virt SLAVE_EBI1 0>,
 
-As currently usecase is being programmed after the DSI host being
-registered, there might be a race condition between panel driver probe
-_and_ usecase programming.
+QCOM_ICC_TAG_ALWAYS
 
-> 
-> What do you think?
-> 
-> - Marijn
-> 
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > 
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > > index a210b7c9e5ca281a46fbdb226e25832719a684ea..b93205c034e4acc73d536deeddce6ebd694b4a80 100644
-> > > --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > > +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > > @@ -74,17 +74,33 @@ static int dsi_mgr_setup_components(int id)
-> > >  	int ret;
-> > >  
-> > >  	if (!IS_BONDED_DSI()) {
-> > > +		/* Set the usecase before calling msm_dsi_host_register(), which would
-> > > +		 * already program the PLL source mux based on a default usecase.
-> > > +		 */
-> > > +		msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
-> > > +		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> > > +
-> > >  		ret = msm_dsi_host_register(msm_dsi->host);
-> > >  		if (ret)
-> > >  			return ret;
-> > > -
-> > > -		msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
-> > > -		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> > >  	} else if (other_dsi) {
-> > >  		struct msm_dsi *master_link_dsi = IS_MASTER_DSI_LINK(id) ?
-> > >  							msm_dsi : other_dsi;
-> > >  		struct msm_dsi *slave_link_dsi = IS_MASTER_DSI_LINK(id) ?
-> > >  							other_dsi : msm_dsi;
-> > > +
-> > > +		/* PLL0 is to drive both DSI link clocks in bonded DSI mode.
-> > > +		 *
-> > > +		/* Set the usecase before calling msm_dsi_host_register(), which would
-> > > +		 * already program the PLL source mux based on a default usecase.
-> > > +		 */
-> > > +		msm_dsi_phy_set_usecase(clk_master_dsi->phy,
-> > > +					MSM_DSI_PHY_MASTER);
-> > > +		msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
-> > > +					MSM_DSI_PHY_SLAVE);
-> > > +		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> > > +		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
-> > > +
-> > >  		/* Register slave host first, so that slave DSI device
-> > >  		 * has a chance to probe, and do not block the master
-> > >  		 * DSI device's probe.
-> > > @@ -98,14 +114,6 @@ static int dsi_mgr_setup_components(int id)
-> > >  		ret = msm_dsi_host_register(master_link_dsi->host);
-> > >  		if (ret)
-> > >  			return ret;
-> > > -
-> > > -		/* PLL0 is to drive both 2 DSI link clocks in bonded DSI mode. */
-> > > -		msm_dsi_phy_set_usecase(clk_master_dsi->phy,
-> > > -					MSM_DSI_PHY_MASTER);
-> > > -		msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
-> > > -					MSM_DSI_PHY_SLAVE);
-> > > -		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> > > -		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
-> > >  	}
-> > >  
-> > >  	return 0;
-> > > 
-> > > -- 
-> > > 2.48.1
-> > > 
-> > 
-> > -- 
-> > With best wishes
-> > Dmitry
+> +					<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_DISPLAY_CFG 0>;
 
--- 
-With best wishes
-Dmitry
+QCOM_ICC_TAG_ACTIVE_ONLY
+
+w that
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
