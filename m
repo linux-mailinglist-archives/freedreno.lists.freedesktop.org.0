@@ -2,48 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC1CAA2ECF9
-	for <lists+freedreno@lfdr.de>; Mon, 10 Feb 2025 13:54:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6645A2ED5D
+	for <lists+freedreno@lfdr.de>; Mon, 10 Feb 2025 14:17:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C428910E520;
-	Mon, 10 Feb 2025 12:54:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F98410E530;
+	Mon, 10 Feb 2025 13:17:13 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=ethancedwards.com header.i=@ethancedwards.com header.b="Zum5sqxM";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7A310E51F;
- Mon, 10 Feb 2025 12:54:33 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E74710E116;
+ Mon, 10 Feb 2025 03:42:27 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 64F123F68F;
- Mon, 10 Feb 2025 13:54:31 +0100 (CET)
-Date: Mon, 10 Feb 2025 13:54:29 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Vinod Koul <vkoul@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- Jordan Crouse <jordan@cosmicpenguin.net>, ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Martin Botka <martin.botka@somainline.org>, 
- Jami Kettunen <jami.kettunen@somainline.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/3] drm/msm/dsi: Set PHY usescase (and mode) before
- registering DSI host
-Message-ID: <vsxfi43d7rxh5xxc7ctivjslf6w4yy5iprqpqid3u3diylrtwd@wayafjlgzz7v>
-References: <20250209-drm-msm-initial-dualpipe-dsc-fixes-v2-0-9a60184fdc36@somainline.org>
- <20250209-drm-msm-initial-dualpipe-dsc-fixes-v2-2-9a60184fdc36@somainline.org>
- <nzm3tokbvho3hxz3e5vblp5ndagfcv5ah3j7gtkqjmt7ynr6f3@v36juvu73i5v>
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4YrqsS1XtTz9sl9;
+ Mon, 10 Feb 2025 04:33:00 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ethancedwards.com;
+ s=MBO0001; t=1739158380;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=tRuwqs8KnCQigl941VXZN5uap3PzZB4mUUfaIPcppDI=;
+ b=Zum5sqxM4Q4JadLtlN8RsIZGAEmp2nXh+dQCsajjGuCym3uOA8jSwQKWrZRVLJ0+JGOLzv
+ fjv+l0WN++4bzhgvsdQQRpY0HSnuPZirOuAf3y7U5PLzJTHJkTFJePRDVZV4LitV3edu6e
+ LOkycJegE4InZ6YLD7evKic1IRHLiwltgMswn8KLVP6d7CrbBxui+2K/vWBQLa4Sdnhwnb
+ fdZeGbqMeWc4LnXQu0W1JeGaMtkdmwh/N9um/PnyYOyrw53Oypr/mfyCl8OTzXWkvvv45I
+ xmVSE1eQ6dwr1HXxmv5p0zwjqbihex40Gg+ncRBQp/n7tOV/3KtcFLUPRu3SVg==
+From: Ethan Carter Edwards <ethan@ethancedwards.com>
+Date: Sun, 09 Feb 2025 22:32:33 -0500
+Subject: [PATCH] drm/msm/dpu: Fix uninitialized variable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <nzm3tokbvho3hxz3e5vblp5ndagfcv5ah3j7gtkqjmt7ynr6f3@v36juvu73i5v>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250209-dpu-v1-1-0db666884f70@ethancedwards.com>
+X-B4-Tracking: v=1; b=H4sIAFBzqWcC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDIwNL3ZSCUt1k47TEZHOLtGQzQ3MloMqCotS0zAqwKdGxtbUA4F3dx1U
+ AAAA=
+X-Change-ID: 20250209-dpu-c3fac78fc617
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ Ethan Carter Edwards <ethan@ethancedwards.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1184;
+ i=ethan@ethancedwards.com; h=from:subject:message-id;
+ bh=e6u4jgCux0UDketL1vecCE7NvY4pCwpsgSfqIahNaEs=;
+ b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0o0bkp2QXk4ekFKWGJEOXFoNThlVGp6e
+ GhQcXlVeHBLOHNUdi9YbjVLaXljdFFLNTBiKyt4VDhoNXIzczNLCmg2M2M3NlUwT0xuc2Qvd2Vk
+ YmlqbElWQmpJdEJWa3lSNVgrT2N0cER6UmtLTy8rNk5NSE1ZV1VDR2NMQXhTa0EKRS9uZncvQ0g
+ zL0hRVkthdkxhK2xXWlFLanp4Y3ZQZmp6Vi9WTlNlYjdMd3F2ODJleGo3cEFzTWZ2dkRjU3FlVA
+ pIeHhXT0R3TlhyQ25xT0Z1ZW1YbDNYZmU5YW5Qekt3Q2p4V3lBZ0JpWFUrUgo9dDY3OQotLS0tL
+ UVORCBQR1AgTUVTU0FHRS0tLS0tCg==
+X-Developer-Key: i=ethan@ethancedwards.com; a=openpgp;
+ fpr=2E51F61839D1FA947A7300C234C04305D581DBFE
+X-Mailman-Approved-At: Mon, 10 Feb 2025 13:17:12 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,113 +77,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2025-02-10 01:11:59, Dmitry Baryshkov wrote:
-> On Sun, Feb 09, 2025 at 10:42:53PM +0100, Marijn Suijten wrote:
-> > Ordering issues here cause an uninitialized (default STANDALONE)
-> > usecase to be programmed (which appears to be a MUX) in some cases
-> > when msm_dsi_host_register() is called, leading to the slave PLL in
-> > bonded-DSI mode to source from a clock parent (dsi1vco) that is off.
-> > 
-> > This should seemingly not be a problem as the actual dispcc clocks from
-> > DSI1 that are muxed in the clock tree of DSI0 are way further down, this
-> > bit still seems to have an effect on them somehow and causes the right
-> > side of the panel controlled by DSI1 to not function.
-> > 
-> > In an ideal world this code is refactored to no longer have such
-> > error-prone calls "across subsystems", and instead model the "PLL src"
-> > register field as a regular mux so that changing the clock parents
-> > programmatically or in DTS via `assigned-clock-parents` has the
-> > desired effect.
-> > But for the avid reader, the clocks that we *are* muxing into DSI0's
-> > tree are way further down, so if this bit turns out to be a simple mux
-> > between dsiXvco and out_div, that shouldn't have any effect as this
-> > whole tree is off anyway.
-> > 
-> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > ---
-> >  drivers/gpu/drm/msm/dsi/dsi_manager.c | 30 +++++++++++++++++++-----------
-> >  1 file changed, 19 insertions(+), 11 deletions(-)
-> 
-> 
-> Fixes: 57bf43389337 ("drm/msm/dsi: Pass down use case to PHY")
+There is a possibility for an uninitialized *ret* variable to be
+returned in some code paths.
 
-I'm not exactly confident about that.  Abhinav pointed out in
-https://gitlab.freedesktop.org/drm/msm/-/issues/41#note_2375646 that
-msm_dsi_host_register() was not supposed to be enabling the PHY, which I
-provided a counter-stacktrace for to show that is indeed the case.
+Fix this by initializing *ret* to 0.
 
-Either this was always a problem that's only become visible now (and it's an
-issue with that patch), or a different change causes msm_dsi_host_register()
-to enable the PHY and program the usecase too early?
+Addresses-Coverity-ID: 1642546 ("Uninitialized scalar variable")
+Fixes: 774bcfb731765d ("drm/msm/dpu: add support for virtual planes")
+Signed-off-by: Ethan Carter Edwards <ethan@ethancedwards.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-What do you think?
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index 098abc2c0003cde90ce6219c97ee18fa055a92a5..74edaa9ecee72111b70f32b832486aeebe545a28 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -1164,7 +1164,7 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
+ 			       unsigned int num_planes)
+ {
+ 	unsigned int i;
+-	int ret;
++	int ret = 0;
+ 
+ 	for (i = 0; i < num_planes; i++) {
+ 		struct drm_plane_state *plane_state = states[i];
 
-- Marijn
+---
+base-commit: a64dcfb451e254085a7daee5fe51bf22959d52d3
+change-id: 20250209-dpu-c3fac78fc617
 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > index a210b7c9e5ca281a46fbdb226e25832719a684ea..b93205c034e4acc73d536deeddce6ebd694b4a80 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > @@ -74,17 +74,33 @@ static int dsi_mgr_setup_components(int id)
-> >  	int ret;
-> >  
-> >  	if (!IS_BONDED_DSI()) {
-> > +		/* Set the usecase before calling msm_dsi_host_register(), which would
-> > +		 * already program the PLL source mux based on a default usecase.
-> > +		 */
-> > +		msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
-> > +		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> > +
-> >  		ret = msm_dsi_host_register(msm_dsi->host);
-> >  		if (ret)
-> >  			return ret;
-> > -
-> > -		msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
-> > -		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> >  	} else if (other_dsi) {
-> >  		struct msm_dsi *master_link_dsi = IS_MASTER_DSI_LINK(id) ?
-> >  							msm_dsi : other_dsi;
-> >  		struct msm_dsi *slave_link_dsi = IS_MASTER_DSI_LINK(id) ?
-> >  							other_dsi : msm_dsi;
-> > +
-> > +		/* PLL0 is to drive both DSI link clocks in bonded DSI mode.
-> > +		 *
-> > +		/* Set the usecase before calling msm_dsi_host_register(), which would
-> > +		 * already program the PLL source mux based on a default usecase.
-> > +		 */
-> > +		msm_dsi_phy_set_usecase(clk_master_dsi->phy,
-> > +					MSM_DSI_PHY_MASTER);
-> > +		msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
-> > +					MSM_DSI_PHY_SLAVE);
-> > +		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> > +		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
-> > +
-> >  		/* Register slave host first, so that slave DSI device
-> >  		 * has a chance to probe, and do not block the master
-> >  		 * DSI device's probe.
-> > @@ -98,14 +114,6 @@ static int dsi_mgr_setup_components(int id)
-> >  		ret = msm_dsi_host_register(master_link_dsi->host);
-> >  		if (ret)
-> >  			return ret;
-> > -
-> > -		/* PLL0 is to drive both 2 DSI link clocks in bonded DSI mode. */
-> > -		msm_dsi_phy_set_usecase(clk_master_dsi->phy,
-> > -					MSM_DSI_PHY_MASTER);
-> > -		msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
-> > -					MSM_DSI_PHY_SLAVE);
-> > -		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> > -		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
-> >  	}
-> >  
-> >  	return 0;
-> > 
-> > -- 
-> > 2.48.1
-> > 
-> 
-> -- 
-> With best wishes
-> Dmitry
+Best regards,
+-- 
+Ethan Carter Edwards <ethan@ethancedwards.com>
+
