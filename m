@@ -2,53 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83231A326EB
-	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2025 14:25:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DBEDA319F3
+	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2025 00:52:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AEEE10E894;
-	Wed, 12 Feb 2025 13:25:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5362310E1B6;
+	Tue, 11 Feb 2025 23:52:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=lucaweiss.eu header.i=@lucaweiss.eu header.b="DwIB3aVu";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LO38sqNp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 392 seconds by postgrey-1.36 at gabe;
- Tue, 11 Feb 2025 17:21:24 UTC
-Received: from ahti.lucaweiss.eu (ahti.lucaweiss.eu [128.199.32.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BECC10E726;
- Tue, 11 Feb 2025 17:21:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lucaweiss.eu; s=s1;
- t=1739294090; bh=t66d/4AH1fgVYpjkiv6cVclNRKcllufAF+iU4xKquLM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=DwIB3aVuQIyquiaqd/suVGZYHsw4zDypWZsBvl0VHqeEQqHQNIfZrvYwqW1vzjujr
- ZwBFItpsWDKwdbY2ptfB6mlP/eDkDgtwcNX6jrDpzvETBYpzDGBnuEwk5A8eXts2n4
- t4DvgA+aX+ipNWe85je37fRSSpKLxPnXrnpqiYHo=
-From: Luca Weiss <luca@lucaweiss.eu>
-To: Danila Tikhonov <danila@jiaxyga.com>, neil.armstrong@linaro.org,
- quic_jesszhan@quicinc.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, jonathan@marek.ca, jun.nie@linaro.org,
- fekz115@gmail.com, ~postmarketos/upstreaming@lists.sr.ht
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux@mainlining.org,
- ~postmarketos/upstreaming@lists.sr.ht,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: sm7325-nothing-spacewar: Enable
- panel and GPU
-Date: Tue, 11 Feb 2025 18:14:37 +0100
-Message-ID: <12605108.O9o76ZdvQC@lucaweiss.eu>
-In-Reply-To: <4a232b8e-f63e-4f89-aa4e-257165150549@oss.qualcomm.com>
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6425510E769
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 23:52:48 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-54505a75445so4005397e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 15:52:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1739317966; x=1739922766; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=060BUK70oyF2hRYa4NzdOQ1LYVTMQlOAYDrgLB06a/4=;
+ b=LO38sqNpEphjZirtWQHGeFSfm7dtP+prB+qjjWeVqNTu0FyU/9LCMLprVJk9/gGLuC
+ SMpUuOalWoc2XeHGReIRjU9vD16dZ5MBiXQG7v3Ng4VwH3DpKbUH++/6NZhJQxOYTBxW
+ /KRA4sAkiPTklYBnJM98JCwLn24K99uJ5eUFXDsvIXMFLnVK8fr6UvgxRhLbOMiofclL
+ OTqmcsr/9Pn5Q7mrrDgK4zJMuqaPMFW2g6cnzN/ClkS98c1Ndlhm+NFxt/QO/Jad0Q5W
+ BM82kkamWgDTEHyFI1czcIHclcN+AJyzNdGmYkvnPdy76rMYnzSkeFVQTHvRobKMGWzb
+ 0jNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739317966; x=1739922766;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=060BUK70oyF2hRYa4NzdOQ1LYVTMQlOAYDrgLB06a/4=;
+ b=jFuKNHWT7z3E3VlRN7T+LiEilQYxKqxQ1xuJzF8v7RAvOE0/KFVZNhec5m6a31pmHN
+ C/g4U40KDQaHoAoo/nzxHsQWOkERlZjMdyMO5kx4W2Zx5mq3D+tsxWgePIHDqGWb/uR8
+ 8AsthWIwHSg0kGmyQ1QvAF7QNOaJ0D+Vi8eICyaTscggLGNRKNJamc2Qql6KmuqgBnFs
+ 0QXnaxSFddHPuN3XczGdj+KrltmxXSnakjHVIHHj+mo28rs0V26We+RZMGfyhvNOW1Rb
+ s3OELVN59rgQuCIQxL8EjAdOwhvqvckvkb1S1gemvGfAey3F3d65Z/PihrDdpVsXHokQ
+ Kxfg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCViSN74TDQrm6rqeLRJbElKFSwuD3MmDf6grx8oZF0cYHpLcbre+O/FvAT6sU4FP9vwH/Ou+x2ento=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw2xpobE9gOPIsit0GKIK6nFtGLCFXSKcPnxjfjZdhddplwpoeu
+ dZ3s5sQwvIBtT4ISzobggbNKt+267D86UYCOzglFSB0YHmtR0CW0IfOdL5E3vXo=
+X-Gm-Gg: ASbGncsAjie+Mpl98OiHgBql3EsV+LCpuQIOK+C+Re73T0Bqh/DG59K83orbOw0j36W
+ VPzKq0+Guy0SURTfvym0DVrCuydmSaeGBkdIa7dNBLIBUP173oe6xDJI63g6z8PjhOeeOM+ki1+
+ EQxsIAVAfoq4Ftm3f8j6vz7Q8N7JiAxkGY/KFEnyF6n6pOoVCtb7HJZO+yR3pJKNIsADiqFvR/E
+ jKfcLDdZkzJkOnRBKLpx7eVr9gwp5RX9FBFCnFID9NpxXk+j08DGiZca5peHPJRJTLKiCl6OvXB
+ 2cf+ana38kL3eqb1NNk3wtH16/zcgz/0xJr+zNdYICYmoB27AzLJnUGp+dA7AbwX9NlSUho=
+X-Google-Smtp-Source: AGHT+IFQaBMd7owVglZPD32Tkbi94LwNMechqHnLhs8nTLL8DE0vygNazH/5ko+5m5MkF950qtvRDg==
+X-Received: by 2002:a05:6512:10cb:b0:544:ee5:87aa with SMTP id
+ 2adb3069b0e04-545180ea29cmr228634e87.4.1739317966198; 
+ Tue, 11 Feb 2025 15:52:46 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5450ed1411dsm612626e87.97.2025.02.11.15.52.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Feb 2025 15:52:44 -0800 (PST)
+Date: Wed, 12 Feb 2025 01:52:42 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Danila Tikhonov <danila@jiaxyga.com>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
+ neil.armstrong@linaro.org, quic_jesszhan@quicinc.com,
+ maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ sean@poorly.run, 
+ jonathan@marek.ca, jun.nie@linaro.org, fekz115@gmail.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux@mainlining.org, ~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH 3/4] drm/msm/dsi: Allow all bpc values
+Message-ID: <vlni5ophwkwfbvh6zj6aqqdhyt3wwjjkv77d6fublj22zidv2d@hr4qlot72vqi>
 References: <20250203181436.87785-1-danila@jiaxyga.com>
- <20250203181436.87785-5-danila@jiaxyga.com>
- <4a232b8e-f63e-4f89-aa4e-257165150549@oss.qualcomm.com>
+ <20250203181436.87785-4-danila@jiaxyga.com>
+ <rnuv4dieiy6s6c5s33hff7ntr6hkneemsq5qzk3u4ug2abwisd@6ahmijlayhhr>
+ <d7aa140d-ea0d-4288-8e31-29aab9a49077@jiaxyga.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailman-Approved-At: Wed, 12 Feb 2025 13:25:04 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d7aa140d-ea0d-4288-8e31-29aab9a49077@jiaxyga.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,83 +103,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On dinsdag 11 februari 2025 14:31:14 Midden-Europese standaardtijd Konrad Dybcio wrote:
-> On 3.02.2025 7:14 PM, Danila Tikhonov wrote:
-> > From: Eugene Lepshy <fekz115@gmail.com>
+On Tue, Feb 11, 2025 at 09:06:19PM +0300, Danila Tikhonov wrote:
+> On 2/9/25 01:09, Marijn Suijten wrote:
+> > On 2025-02-03 21:14:26, Danila Tikhonov wrote:
+> > > From: Eugene Lepshy <fekz115@gmail.com>
+> > > 
+> > > DRM DSC helper has parameters for various bpc values ​​other than 8:
+> > Weird zero-width \u200b spaces here between "values" and "other", please delete
+> > those.
+> Thanks, I will fix it in the next version.
+> > > (8/10/12/14/16).
+> > > 
+> > > Remove this guard.
+> > > 
+> > > Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
+> > > Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+> > Should this patch elaborate that those "DRM DSC helper" don't have any
+> > additional guarding for the values you mention either, i.e. passing 9 or 11 or
+> > > 16 don't seem to be checked anywhere else either?
+> There are no other bpc checks, you are right. But to be honest I don't
+> really see any sense in this. Anyway, if you still want us to leave the
+> current guard and just extend it with new values ​​(for example via
+> switch case) - let me know.
+
+Yes, please. Add a caselist and also a note that only 8, 10 and 12 are
+valid for DSC 1.1 block. Then whoever stomps upon other bpc value will
+have to extend the check, verifying DSC version.
+
+> > And your title might have space to spell out "Bits Per Component" entirely.
+> I'll fix that too.
+> > > ---
+> > >   drivers/gpu/drm/msm/dsi/dsi_host.c | 7 +------
+> > >   1 file changed, 1 insertion(+), 6 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > > index 007311c21fda..d182af7bbb81 100644
+> > > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > > @@ -1767,11 +1767,6 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
+> > >   		return -EINVAL;
+> > >   	}
+> > > -	if (dsc->bits_per_component != 8) {
+> > > -		DRM_DEV_ERROR(&msm_host->pdev->dev, "DSI does not support bits_per_component != 8 yet\n");
+> > > -		return -EOPNOTSUPP;
+> > > -	}
+> > > -
+> > >   	dsc->simple_422 = 0;
+> > >   	dsc->convert_rgb = 1;
+> > >   	dsc->vbr_enable = 0;
+> > This seems supicous on the dpu1 side, in the original DSC 1.1 (not 1.2) block in
+> > dpu_hw_dsc_config(), which has:
 > > 
-> > Enable the Adreno GPU and configure the Visionox RM692E5 panel.
+> > 	data |= (dsc->line_buf_depth << 3);
+> > 	data |= (dsc->simple_422 << 2);
+> > 	data |= (dsc->convert_rgb << 1);
+> > 	data |= dsc->bits_per_component;
 > > 
-> > Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
-> > Co-developed-by: Danila Tikhonov <danila@jiaxyga.com>
-> > Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
-> > ---
-> > Note:
-> > Depends on https://lore.kernel.org/linux-arm-msm/20250122-dpu-111-topology-v2-1-505e95964af9@somainline.org/
-> > ---
-> >  .../boot/dts/qcom/sm7325-nothing-spacewar.dts | 53 ++++++++++++++++++-
-> >  1 file changed, 51 insertions(+), 2 deletions(-)
+> > The original value of `8` would overlap with the lowest bit of line_buf_depth
+> > (4th bit in `data`).  Now, the 2nd bit which will take the value from
+> > convert_rgb, which is already set to 1 above, will overlap with the 2nd bit in
+> > your new bpc value of 10.
 > > 
-> > diff --git a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
-> > index a5cda478bd78..cda317b49d5c 100644
-> > --- a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
-> > +++ b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
-> > @@ -52,6 +52,8 @@ framebuffer0: framebuffer@e1000000 {
-> >  			stride = <(1080 * 4)>;
-> >  			format = "a8r8g8b8";
-> >  
-> > +			display = <&panel0>;
+> > Can you double-check that this code in DPU1 is actually valid?  I assume you
+> > have tested this panel at least and it is working (worthy mention in the cover
+> > letter?), this just seems like yet another mistake in the original bindings
+> > (though the register always had a matching value with downstream on 8 BPC panels
+> > for me).
 > 
-> This is allowed by bindings but doesn't seem to do anything
+> Of course I have tested the panel and it works, I just thought it would
+> be obvious. We also have tested sm7150-xiaomi-courbet, sm8450-xiaomi-cupid
+> and sm8475-nothing-pong, which already have bpp = bpc = 10 panels and
+> with some hack it also work without any changes to the DRM.
 
-I believe this exposes display dimensions to user space also via simpledrm.
-
-At least I was using something like this before panel support to get phosh
-to scale properly on postmarketOS.
-
-Regards
-Luca
+This is now being fixed by a separate patch.
 
 > 
-> > +
-> >  			clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-> >  				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-> >  				 <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-> > @@ -757,6 +759,10 @@ &gpi_dma1 {
-> >  	status = "okay";
-> >  };
-> >  
-> > +&gpu {
-> > +	status = "okay";
-> > +};
-> > +
-> >  &gpu_zap_shader {
-> >  	firmware-name = "qcom/sm7325/nothing/spacewar/a660_zap.mbn";
-> >  };
-> > @@ -823,15 +829,44 @@ &ipa {
-> >  	status = "okay";
-> >  };
-> >  
-> > -/* MDSS remains disabled until the panel driver is present. */
-> > +&mdss {
-> > +	status = "okay";
-> > +};
-> > +
-> >  &mdss_dsi {
-> >  	vdda-supply = <&vdd_a_dsi_0_1p2>;
-> > +	status = "okay";
-> >  
-> > -	/* Visionox RM692E5 panel */
-> > +	panel0: panel@0 {
-> 
-> Is there going to be a panel1, too? ;)
-> 
-> Please drop the 0
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Konrad
-> 
+> > > @@ -1779,7 +1774,7 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
+> > >   	drm_dsc_set_const_params(dsc);
+> > >   	drm_dsc_set_rc_buf_thresh(dsc);
+> > > -	/* handle only bpp = bpc = 8, pre-SCR panels */
+> > > +	/* handle only pre-SCR panels */
+> > >   	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
+> > Good catch - this comment sounds like it's documenting a limitation of
+> > this helper function, but the function does not have such limitations...
+> > rc_parameters_pre_scr has values for all these combinations.
+> Maybe we should remove this comment entirely?
 
+No, the pre-SCR comment is fine.
 
+> 
+> Regards,
+> Danila
+> > - Marijn
+> > 
+> > >   	if (ret) {
+> > >   		DRM_DEV_ERROR(&msm_host->pdev->dev, "could not find DSC RC parameters\n");
+> > > -- 
+> > > 2.48.1
+> > > 
 
-
+-- 
+With best wishes
+Dmitry
