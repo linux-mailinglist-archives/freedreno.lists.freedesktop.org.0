@@ -2,103 +2,165 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B14A313B9
-	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2025 19:07:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76989A326EA
+	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2025 14:25:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE62210E73E;
-	Tue, 11 Feb 2025 18:07:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52BB210E896;
+	Wed, 12 Feb 2025 13:25:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=jiaxyga.com header.i=@jiaxyga.com header.b="wnFFLz2l";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=jiaxyga.com header.i=@jiaxyga.com header.b="iH8+Ns8D";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=jiaxyga.com header.i=@jiaxyga.com header.b="wke+i5Yb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jz5L2FZN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fallback18.i.mail.ru (fallback18.i.mail.ru [79.137.243.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EFE910E73E;
- Tue, 11 Feb 2025 18:07:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com;
- s=mailru; 
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
- bh=GOlY4F8lpo+TpRzMJN+a1bkfACVX6+oOge20VAskDeM=; 
- t=1739297222;x=1739387222; 
- b=wnFFLz2lxZ21Y9IT8HKc2EKVvFlDcN2EZlh27zkxphWQsKULKQ3tlRUXyr3r3/uzxJWTRWr/TM1ZnWn5EeQAMHE5gphzmk7n+LqsmTs3DDY5RQnm4OytMsxg3NMwSeG/+UzHcp+3K7tdc/mT/mCsw8qI1mjvI5pV+bK3zOOs7RY=;
-Received: from [10.113.174.102] (port=57642 helo=send78.i.mail.ru)
- by fallback18.i.mail.ru with esmtp (envelope-from <danila@jiaxyga.com>)
- id 1thuey-00EbAp-84; Tue, 11 Feb 2025 21:07:00 +0300
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com
- ; s=mailru;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive:X-Cloud-Ids;
- bh=GOlY4F8lpo+TpRzMJN+a1bkfACVX6+oOge20VAskDeM=; t=1739297220; x=1739387220; 
- b=iH8+Ns8DFBhg+UknYPXiRM7vvUMhx1Kfk19+9y9X1eRCewfPrDtNZyR4aPuFlsPI7JMeagDS+kg
- boiFqeQnSFZb/kvWCvUcqzx+sEmdge1dBUOguM1AVxTMRWBPF/LXLLpLBzUqyIs0hoRbgIg9GLngR
- vH/PkJaVH8DoUqgFJLg=;
-Received: from [10.113.97.165] (port=60280 helo=send127.i.mail.ru)
- by exim-fallback-69886cc8d-gsgjn with esmtp (envelope-from
- <danila@jiaxyga.com>)
- id 1thuep-00000000BbH-1cWr; Tue, 11 Feb 2025 21:06:51 +0300
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com
- ; s=mailru;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:To
- :Cc:Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive:X-Cloud-Ids:Disposition-Notification-To;
- bh=GOlY4F8lpo+TpRzMJN+a1bkfACVX6+oOge20VAskDeM=; t=1739297211; x=1739387211; 
- b=wke+i5Yb9DU6BJHbkpd9uMw0RcfE0z9+7ZlChSIxF2d1eOrhsJjvicvJpiQLnXPb2ettuRMEHIB
- crtHTuqAcyOTKd+3ltMJ+qQUUa258UJyoBEmVCLGjyrpR3LA4krB/pLeK9KdzUjel7pMZzoRMu2Xr
- Q431lYEVWpJulbmxAAY=;
-Received: by exim-smtp-79fd7578cb-7v4hj with esmtpa (envelope-from
- <danila@jiaxyga.com>)
- id 1thueW-00000000IrZ-3YE8; Tue, 11 Feb 2025 21:06:33 +0300
-Message-ID: <d7aa140d-ea0d-4288-8e31-29aab9a49077@jiaxyga.com>
-Date: Tue, 11 Feb 2025 21:06:19 +0300
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2075.outbound.protection.outlook.com [40.107.92.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 721B110E38D;
+ Tue, 11 Feb 2025 16:40:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=De6ujw7LzhV/Ehsc4+iEvapELZaHo7l98mATDgH0OTg+S9fU3aHyyFuD8KnXhSzXU9VwkUXOcxh917o5HU0BBNKGk6BI5SqTfhr4mBEqqjInNybYyk4IfACgo3NMvV3ou/VKTXFf369kO2alUeGtsTqc2pSBlDB81CpnVqD+80lohOy1JslbxeLRURGhulut8ZGJgVXKWOyXoCdsY7fcSZ9u/urCuT0yZDLPzjaj6k8qozkvdpEO/OJp5hAXgjSo+Y+o35/HvSDSf4WsYSm2kaIlfYqb+E7R13LdqKJpxMNZXtpgt28LwEL/U+GZEt+chXwBxeobfuwODpHi8BtR3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hse4J9WFYExOzM2VWpB2gOd2bbR1jDffLbyfIjZ+GtI=;
+ b=hzSpkG1bLxZU+BPa6iZE1xFsbpnV/QcxQD9dGAAGXrnZ1uCqKyonTT7UW55DHxOnxXMV+CLAtlW+Vcl79HgufH253Z+tnlNt6/uHwHT619yie1/SX1IEaLPMCFw5VCdRCwJq45v+aKg0A+4+8Vk9YvpQqlXY8R1aZVt8tqPTZFHNTOqoEZAVV6QzuscCa7PVV+E+RCawmdXJCkvfCTLHdLz5sSqGwY1jSza5FOuqgHM0gHOs71LHzgbgFgXh3VW8bZ9UCSEyKXSDe5bdmaVmL+10GTs9OsGu7obm215Aue9bFP0K9FLRmvaofbNlSscFIr4nNzQ57PBkb7KtVq/KGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hse4J9WFYExOzM2VWpB2gOd2bbR1jDffLbyfIjZ+GtI=;
+ b=jz5L2FZNal9T5t4jBfpw6OonQPq8QmenMKNXLjLRH4sXgpZCXv6T4TeHe1Ri7MhnU1VHsXkhGXknynhXMzs0aPKRMT1WEjxUVG8sLMlRjeRvzP80ouFxcj0wAM0vVoCdssQDwwjHXC6zyROu3vMpgstZXhezJqK8HUuL/afiZcs=
+Received: from BN0PR04CA0112.namprd04.prod.outlook.com (2603:10b6:408:ec::27)
+ by DM4PR12MB6157.namprd12.prod.outlook.com (2603:10b6:8:ac::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Tue, 11 Feb
+ 2025 16:40:38 +0000
+Received: from BL6PEPF0002256E.namprd02.prod.outlook.com
+ (2603:10b6:408:ec:cafe::75) by BN0PR04CA0112.outlook.office365.com
+ (2603:10b6:408:ec::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.11 via Frontend Transport; Tue,
+ 11 Feb 2025 16:40:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0002256E.mail.protection.outlook.com (10.167.249.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8445.10 via Frontend Transport; Tue, 11 Feb 2025 16:40:38 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Feb
+ 2025 10:40:37 -0600
+Received: from [172.19.71.207] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 11 Feb 2025 10:40:33 -0600
+Message-ID: <49777292-dbfb-2164-6932-849a8ad96b7c@amd.com>
+Date: Tue, 11 Feb 2025 08:40:33 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/msm/dsi: Allow all bpc values
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: neil.armstrong@linaro.org, quic_jesszhan@quicinc.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- robdclark@gmail.com, quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
- sean@poorly.run, jonathan@marek.ca, jun.nie@linaro.org, fekz115@gmail.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux@mainlining.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20250203181436.87785-1-danila@jiaxyga.com>
- <20250203181436.87785-4-danila@jiaxyga.com>
- <rnuv4dieiy6s6c5s33hff7ntr6hkneemsq5qzk3u4ug2abwisd@6ahmijlayhhr>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v4] drm/sched: Use struct for drm_sched_init() params
 Content-Language: en-US
-From: Danila Tikhonov <danila@jiaxyga.com>
-In-Reply-To: <rnuv4dieiy6s6c5s33hff7ntr6hkneemsq5qzk3u4ug2abwisd@6ahmijlayhhr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Philipp Stanner <phasta@kernel.org>, Min Ma <min.ma@amd.com>, Oded Gabbay
+ <ogabbay@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Xinhui Pan
+ <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>, Russell King
+ <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
+ <christian.gmeiner@gmail.com>, Frank Binns <frank.binns@imgtec.com>, "Matt
+ Coster" <matt.coster@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Qiang Yu <yuq825@gmail.com>, "Rob
+ Clark" <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
+ <konradybcio@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Karol Herbst <kherbst@redhat.com>, "Lyude
+ Paul" <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Rob Herring <robh@kernel.org>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost
+ <matthew.brost@intel.com>, Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?Q?Ma=c3=adra_Canal?= <mcanal@igalia.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, =?UTF-8?Q?Thomas_Hellstr=c3=b6m?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ "Hawking Zhang" <Hawking.Zhang@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>, Yunxiang Li
+ <Yunxiang.Li@amd.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <etnaviv@lists.freedesktop.org>,
+ <lima@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, Christian Gmeiner <cgmeiner@igalia.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+References: <20250211111422.21235-2-phasta@kernel.org>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20250211111422.21235-2-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailru-Src: smtp
-X-7564579A: 646B95376F6C166E
-X-77F55803: 4F1203BC0FB41BD96946CDE51E80C51AD12667F9371EF4D01C0AF24C03CB1A09182A05F5380850405115B8D3FEFBD37D3DE06ABAFEAF6705F8F7DABAC8F41C254F212B46BA5BA54AD37E07BDF5347EEA
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7A179494B5629353BEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F79006370D3D68FCEFFDD9EA8638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D8C87E8B9AC694FCB02EE813EE8383639A8C4D35B05A705896CC7F00164DA146DAFE8445B8C89999728AA50765F790063793270F7220657A0A389733CBF5DBD5E9C8A9BA7A39EFB766F5D81C698A659EA7CC7F00164DA146DA9985D098DBDEAEC8FA486DC37A503D0BF6B57BC7E6449061A352F6E88A58FB86F5D81C698A659EA73AA81AA40904B5D9A18204E546F3947C4E7D9683544204AF302FCEF25BFAB3454AD6D5ED66289B523666184CF4C3C14F6136E347CC761E07725E5C173C3A84C371330ADC0232E4BBBA3038C0950A5D36B5C8C57E37DE458B330BD67F2E7D9AF16D1867E19FE14079C09775C1D3CA48CF3D321E7403792E342EB15956EA79C166A417C69337E82CC275ECD9A6C639B01B78DA827A17800CE71F4E386938175FB9731C566533BA786AA5CC5B56E945C8DA
-X-C1DE0DAB: 0D63561A33F958A58C921C112168955F5002B1117B3ED696DC67B5828A8B775D957033528158102E823CB91A9FED034534781492E4B8EEADE3800B164E348C91BDAD6C7F3747799A
-X-C8649E89: 1C3962B70DF3F0ADBF74143AD284FC7177DD89D51EBB7742DC8270968E61249B1004E42C50DC4CA955A7F0CF078B5EC49A30900B95165D340DAE5B306C240CF52A4A749E3CE031B824E66CC5080D15554FAE63F7707A68C42810D1D3F512E40F1D7E09C32AA3244C31DCC07445F678D777DD89D51EBB77423C27BC6E47C6A235EA455F16B58544A2381B1D8FD003179A5DA084F8E80FEBD322CFFF16B4474ECB4573B60270F1EB7C214C2BC1176D5C25
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2bioj4p5EDZXZmhELJ0Bq/u6sgA==
-X-Mailru-Sender: 9EB879F2C80682A0D0AE6A344B45275F4BF7E89B5CACC366117A099264967948CDF0127AC1F2F4914C3BA25B859F83112C62728BC403A049225EC17F3711B6CF1A6F2E8989E84EC137BFB0221605B344978139F6FA5A77F05FEEDEB644C299C0ED14614B50AE0675
-X-Mras: Ok
-X-Mailru-Src: fallback
-X-7564579A: B8F34718100C35BD
-X-77F55803: 6242723A09DB00B40910A8BADE0CD7832638B662392E9B095D516DDB7B231B2868F3CF0E9FE49B6945DE3909ADCA5804A61C88484FD4ED652B506A067BAB3CD4226B82A55AF6BE472B6B6442568FA380
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5+wYjsrrSY/u6NqYXWMR0/V85CnFjCYTu9APdQH0PvpnP5qz8aO2mjTJzjHGC4ogvVuzB3zfVUBtENeZ6b5av1fnCBE34JUDkWdM6QxE+Ga5d8voMtmXfSoSirc0Sa9/unvnsmttD4RG
-X-Mras: Ok
-X-7564579A: 646B95376F6C166E
-X-77F55803: 6242723A09DB00B40910A8BADE0CD783ED10998927330B56A4A45EE5564821D068F3CF0E9FE49B6945DE3909ADCA58042ACF2E6D713B8E5D483E6E4D9F4F04456A930ED086EA98B2
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5+wYjsrrSY/u6NqYXWMR0/V85CnFjCYTu9APdQH0PvpnP5qz8aO2mjTJzjHGC4ogvVuzB3zfVUBtENeZ6b5av1fnCBE34JUDkWdM6QxE+Ga5d8voMtmXfSocc/adLt2YMrJdENjvzQK2
-X-Mailru-MI: 20000000000000800
-X-Mras: Ok
+Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0002256E:EE_|DM4PR12MB6157:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72f2d2fe-ffd8-4608-7f60-08dd4abad0c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|36860700013|82310400026|921020|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?d2lIR0RBeXFmWkpXQTZQU1FSTTRRTmtVNTI1bnBsbk5LS2cyOVJhTEV1NDNG?=
+ =?utf-8?B?MGd1WkNnOFJxbmlLVjM0ZzVheTFmME1JSUhrWFpwdmllLzVpMm94QTVCYklO?=
+ =?utf-8?B?ZkNtY3UzeC9peXZKbUpmYTFzNFpjbFFhajVETnE2azVXeHNoZ25KU0RSNDVW?=
+ =?utf-8?B?cThsOExBVkVySGVXZ3RodHlQY3l6WGxlcTU2ZWpYa1gvdjQ2RnVhdDNEcER1?=
+ =?utf-8?B?NFRkSlhjSWxFaDFvMDJJSWdGUm9DcWFsSlFIZktMR2tZbDVXdzEyLzhQSGdE?=
+ =?utf-8?B?TFJSZnRQRzZTUHdjQlRKUjdnYlExbnEvRmgvZnZHMHhZTnQzaDFRalFmemxV?=
+ =?utf-8?B?T3VaNTZkVUpCOTFQTHhPeENFVjNvek5YVVdUSnhYMlRkVzl1U3VCc0YvWHJR?=
+ =?utf-8?B?Rzd5Z3BkaWFORXBlOWRoNmpwc3gyZkJyRndZR0JBbjI4V2doYUZod0NIc1R0?=
+ =?utf-8?B?Tk83TWI5VHQ5SkxMeEtZRjdyYXEyWkozVkJDOEZRdjFjWUpBdm5kN3V2dG4v?=
+ =?utf-8?B?TGVTLzFBVG8vOXlSOUFXR1E2N0hudVk3aGxPT0pITitkSGlwL08xbFlSNDIy?=
+ =?utf-8?B?Wm9Cck1UeE9YYW5rQkg3dHU0NUtQTmFubDJJZ0dGL1c4L3dTenVHdFZ6MWFz?=
+ =?utf-8?B?R1RDSG01dTJINXhYdGJOb3BWRnRBNU4yQTNyQzlkVUlQdWw2Wnl3U0VXbjl3?=
+ =?utf-8?B?QzFnTGVBa0ZVR2REbzRZWXkxL3FSRjdXWXZ0OGQyTFdsOXRXYTNraldlaTNR?=
+ =?utf-8?B?b3RXMWJmOENCTktjdnBDeW9LQXFNQi9lWk5taDhZYlo2RlVPNHRJc1JuOHRt?=
+ =?utf-8?B?SUdsMjM5L24vbHJrYmpRTldRVzhPY2hFZ2xzVldJcERpY2V2eUU2S2pqQzdm?=
+ =?utf-8?B?NWpJZ2RoYjdPNUVkSXdEeHVXUTIyMkdmdmt3UHJuMldTWUJnTGtCcXJjQVZH?=
+ =?utf-8?B?SlFoVG56WmowVjkrQ00yZHg1ekhuTCswVm1YL3RYZEhVNGlQNllmQ3R2ZUkx?=
+ =?utf-8?B?SW9LSTVXb2Z2NWtUVlllK3FDQkJ5Y21XNDA4bzJZaDMxZWU3QnBoVWgrL0Vt?=
+ =?utf-8?B?dEJzVWxQV1JkekFFeUppdE1aZGtUYkw4L3RUTUhheUdWSlpNZDRGUzVCWWdX?=
+ =?utf-8?B?cGNNNGhHWTdVcjMrZ1pOZjJUdmtoWVhWTGlaSnhjYnpOWFJPVVVmblZqcTBl?=
+ =?utf-8?B?WGtOSGlhWlh3R2VaRml4aW5nU1ZUNVFKZXdGRzJHUEk5MGRaakppS1RWeVM4?=
+ =?utf-8?B?Z2NnZkhhb2VFWWhZaHBIN3JSTTVUaVlpZm85QldlZ0FGd1BCRkVzZVBkNVlX?=
+ =?utf-8?B?cWZLMHpqUmpsc0VlQUg3eW5uUjF3U1F4TktpaWMwb0U3S2YyWmJaSUFvR1Bo?=
+ =?utf-8?B?Z1RLTmtQdW5qdGp5aXBFZWozMnFGNVRwZkFubEdBZDdqQXI5UEluR0FORGZK?=
+ =?utf-8?B?UmxON1lYUTdSdGxPRjRWOTBuK3Q0T3VMNUxpUUNEMmxvaUYyQytTVWVQcjIz?=
+ =?utf-8?B?MXMzdzhiN3RiclV1T3ZUcUV3K0tYbWU5TFlIK0NhMlFvMzBUTmJTRVU0MkpV?=
+ =?utf-8?B?WHNSQUtSRUJYY2xtNERnSzdUQ01xVE16eUg1eGtMT3UwNkovQ0hicmZiWGll?=
+ =?utf-8?B?aHNiVzZuQjhwdG4zMHlrdlRJUlppYzdpdUF1cFR1RXhTT1pSSEhtMVFyZlFP?=
+ =?utf-8?B?K2pIeUlPUE9GZnNuc1ArT1RQbXZxa0lXNDg4enhMZk9FZEVTWGk2ejlOb1Vl?=
+ =?utf-8?B?cmQycy9WRm93TGxUUFNyaW5oMURIMjUyeHI2VktoU2FWekxad29tQ0kvWjFz?=
+ =?utf-8?B?Y2NBb25keEpJWW1mQnB4THVjYkVGVnpWcUk3RndCd1ZTbEh2R0Z4cHVvS0JN?=
+ =?utf-8?B?bkJIL1VLODY5QXlQVUQyZGlYMXBHQkdlbXFNanZxRTByWDdhMkc5QlpIUi9k?=
+ =?utf-8?B?Rnp4NStXS3hpOFZuL3dWa2RjaWYzR3A3NUtFQzJPeWxVNzVwc1lKNkhGTjdH?=
+ =?utf-8?B?UDAvRVJEb3FaOURqZitOdHV5cG9tRzB5YitmMG1zeDY2V0llVElvYXRDR3cz?=
+ =?utf-8?Q?l5jxCf?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(36860700013)(82310400026)(921020)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2025 16:40:38.2739 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72f2d2fe-ffd8-4608-7f60-08dd4abad0c6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6157
+X-Mailman-Approved-At: Wed, 12 Feb 2025 13:25:04 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,91 +176,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/9/25 01:09, Marijn Suijten wrote:
-> On 2025-02-03 21:14:26, Danila Tikhonov wrote:
->> From: Eugene Lepshy <fekz115@gmail.com>
->>
->> DRM DSC helper has parameters for various bpc values ​​other than 8:
-> Weird zero-width \u200b spaces here between "values" and "other", please delete
-> those.
-Thanks, I will fix it in the next version.
->> (8/10/12/14/16).
->>
->> Remove this guard.
->>
->> Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
->> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
-> Should this patch elaborate that those "DRM DSC helper" don't have any
-> additional guarding for the values you mention either, i.e. passing 9 or 11 or
->> 16 don't seem to be checked anywhere else either?
-There are no other bpc checks, you are right. But to be honest I don't
-really see any sense in this. Anyway, if you still want us to leave the
-current guard and just extend it with new values ​​(for example via
-switch case) - let me know.
-> And your title might have space to spell out "Bits Per Component" entirely.
-I'll fix that too.
->> ---
->>   drivers/gpu/drm/msm/dsi/dsi_host.c | 7 +------
->>   1 file changed, 1 insertion(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> index 007311c21fda..d182af7bbb81 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> @@ -1767,11 +1767,6 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
->>   		return -EINVAL;
->>   	}
->>   
->> -	if (dsc->bits_per_component != 8) {
->> -		DRM_DEV_ERROR(&msm_host->pdev->dev, "DSI does not support bits_per_component != 8 yet\n");
->> -		return -EOPNOTSUPP;
->> -	}
->> -
->>   	dsc->simple_422 = 0;
->>   	dsc->convert_rgb = 1;
->>   	dsc->vbr_enable = 0;
-> This seems supicous on the dpu1 side, in the original DSC 1.1 (not 1.2) block in
-> dpu_hw_dsc_config(), which has:
->
-> 	data |= (dsc->line_buf_depth << 3);
-> 	data |= (dsc->simple_422 << 2);
-> 	data |= (dsc->convert_rgb << 1);
-> 	data |= dsc->bits_per_component;
->
-> The original value of `8` would overlap with the lowest bit of line_buf_depth
-> (4th bit in `data`).  Now, the 2nd bit which will take the value from
-> convert_rgb, which is already set to 1 above, will overlap with the 2nd bit in
-> your new bpc value of 10.
->
-> Can you double-check that this code in DPU1 is actually valid?  I assume you
-> have tested this panel at least and it is working (worthy mention in the cover
-> letter?), this just seems like yet another mistake in the original bindings
-> (though the register always had a matching value with downstream on 8 BPC panels
-> for me).
 
-Of course I have tested the panel and it works, I just thought it would
-be obvious. We also have tested sm7150-xiaomi-courbet, sm8450-xiaomi-cupid
-and sm8475-nothing-pong, which already have bpp = bpc = 10 panels and
-with some hack it also work without any changes to the DRM.
-
->> @@ -1779,7 +1774,7 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
->>   	drm_dsc_set_const_params(dsc);
->>   	drm_dsc_set_rc_buf_thresh(dsc);
->>   
->> -	/* handle only bpp = bpc = 8, pre-SCR panels */
->> +	/* handle only pre-SCR panels */
->>   	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
-> Good catch - this comment sounds like it's documenting a limitation of
-> this helper function, but the function does not have such limitations...
-> rc_parameters_pre_scr has values for all these combinations.
-Maybe we should remove this comment entirely?
-
-Regards,
-Danila
-> - Marijn
+On 2/11/25 03:14, Philipp Stanner wrote:
+> drm_sched_init() has a great many parameters and upcoming new
+> functionality for the scheduler might add even more. Generally, the
+> great number of parameters reduces readability and has already caused
+> one missnaming, addressed in:
 >
->>   	if (ret) {
->>   		DRM_DEV_ERROR(&msm_host->pdev->dev, "could not find DSC RC parameters\n");
->> -- 
->> 2.48.1
->>
+> commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
+> nouveau_sched_init()").
+>
+> Introduce a new struct for the scheduler init parameters and port all
+> users.
+>
+> Signed-off-by: Philipp Stanner<phasta@kernel.org>
+> Reviewed-by: Liviu Dudau<liviu.dudau@arm.com>
+> Acked-by: Matthew Brost<matthew.brost@intel.com>  # for Xe
+> Reviewed-by: Boris Brezillon<boris.brezillon@collabora.com>  # for Panfrost and Panthor
+> Reviewed-by: Christian Gmeiner<cgmeiner@igalia.com>  # for Etnaviv
+> Reviewed-by: Frank Binns<frank.binns@imgtec.com>  # for Imagination
+> Reviewed-by: Tvrtko Ursulin<tvrtko.ursulin@igalia.com>  # for Sched
+> Reviewed-by: Maíra Canal<mcanal@igalia.com>  # for v3d
+> ---
+> Changes in v4:
+>    - Add forgotten driver accel/amdxdna. (Me)
+>    - Rephrase the "init to NULL" comments. (Tvrtko)
+>    - Apply RBs by Tvrtko and Maira.
+>    - Terminate the last struct members with a comma, so that future
+>      fields can be added with a minimal patch diff. (Me)
+>
+> Changes in v3:
+>    - Various formatting requirements.
+>
+> Changes in v2:
+>    - Point out that the hang-limit is deprecated. (Christian)
+>    - Initialize the structs to 0 at declaration. (Planet Earth)
+>    - Don't set stuff explicitly to 0 / NULL. (Tvrtko)
+>    - Make the structs const where possible. (Boris)
+>    - v3d: Use just 1, universal, function for sched-init. (Maíra)
+> ---
+>   drivers/accel/amdxdna/aie2_ctx.c           | 12 +++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 18 ++++--
+>   drivers/gpu/drm/etnaviv/etnaviv_sched.c    | 20 +++----
+>   drivers/gpu/drm/imagination/pvr_queue.c    | 18 ++++--
+>   drivers/gpu/drm/lima/lima_sched.c          | 16 ++++--
+>   drivers/gpu/drm/msm/msm_ringbuffer.c       | 17 +++---
+>   drivers/gpu/drm/nouveau/nouveau_sched.c    | 16 ++++--
+>   drivers/gpu/drm/panfrost/panfrost_job.c    | 20 ++++---
+>   drivers/gpu/drm/panthor/panthor_mmu.c      | 16 ++++--
+>   drivers/gpu/drm/panthor/panthor_sched.c    | 28 ++++++----
+>   drivers/gpu/drm/scheduler/sched_main.c     | 50 ++++++-----------
+>   drivers/gpu/drm/v3d/v3d_sched.c            | 65 +++++++++-------------
+>   drivers/gpu/drm/xe/xe_execlist.c           | 15 +++--
+>   drivers/gpu/drm/xe/xe_gpu_scheduler.c      | 17 +++++-
+>   include/drm/gpu_scheduler.h                | 36 ++++++++++--
+>   15 files changed, 210 insertions(+), 154 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+> index 2799729801f6..8ac01bc2f0db 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -516,6 +516,14 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
+>   {
+>   	struct amdxdna_client *client = hwctx->client;
+>   	struct amdxdna_dev *xdna = client->xdna;
+> +	const struct drm_sched_init_args args = {
+> +		.ops = &sched_ops,
+> +		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+> +		.credit_limit = HWCTX_MAX_CMDS,
+> +		.timeout = msecs_to_jiffies(HWCTX_MAX_TIMEOUT),
+> +		.name = hwctx->name,
+> +		.dev = xdna->ddev.dev,
+> +	};
+>   	struct drm_gpu_scheduler *sched;
+>   	struct amdxdna_hwctx_priv *priv;
+>   	struct amdxdna_gem_obj *heap;
+> @@ -573,9 +581,7 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
+>   	might_lock(&priv->io_lock);
+>   	fs_reclaim_release(GFP_KERNEL);
+>   
+> -	ret = drm_sched_init(sched, &sched_ops, NULL, DRM_SCHED_PRIORITY_COUNT,
+> -			     HWCTX_MAX_CMDS, 0, msecs_to_jiffies(HWCTX_MAX_TIMEOUT),
+> -			     NULL, NULL, hwctx->name, xdna->ddev.dev);
+> +	ret = drm_sched_init(sched, &args);
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	if (ret) {
+>   		XDNA_ERR(xdna, "Failed to init DRM scheduler. ret %d", ret);
+>   		goto free_cmd_bufs;
