@@ -2,119 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66C49A3069F
-	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2025 10:07:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F41A7A306DB
+	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2025 10:24:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 088E210E45A;
-	Tue, 11 Feb 2025 09:07:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HRqD/aRM";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE99210E46C;
+	Tue, 11 Feb 2025 09:23:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 040D210E455
- for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 09:07:10 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4394345e4d5so13917785e9.0
- for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 01:07:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739264829; x=1739869629; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=fEkw8mZ9lpxD+Y89tTOOotL+Ya0/so0WoVdJiViSyms=;
- b=HRqD/aRMWSzDASfkFztudf7QBjrRj7dO2Jag1+pJJKiVVMSWtVdSyZVyjpJrs+VnDZ
- Cl1Pf0lyH+cxxwt9mqlMPTbGufdMDHcWz2TH9nDwyFIOrYRB3E1KNZdyw0TJme1vHdWo
- 80E/oRFhYLIwx25ej6NS3AyfSJ6WdhI6ZUxRuQ7jWq/bDhtPuwPpMo07/udqpplU9wwq
- aXllY4VVZoPTRBGmmKakcigv1SWoAlo4+SAraJGPoHo85F17IyderZRfd93HqzTYsWnD
- 7McjTi8rgwT63UacGzHmvtz2InRxshr4yFYs4ZXfw0c10vxSKcDG6yVqteOQ0NUJzWxP
- H7eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739264829; x=1739869629;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=fEkw8mZ9lpxD+Y89tTOOotL+Ya0/so0WoVdJiViSyms=;
- b=Gxoo+bOJhzo3LwRJRVZ2paTdCvEEn5xFHkTiFsq5KqVr2q3/6k+zLgv92bs07+IDeU
- fwc+y5gZBBr0+tUGY9VApCqBmFHVITVsvRg9+VheJcW2m5FtvhJ2MGukhHt+Bwgl6L1Y
- 4ik3jXSp8Q7YkfE9wTHYUWtlG42T5p/9aqEDXo9ZDM7kVz1EI33jfKiPeXU8oPwTMMR5
- PHcaEh618UZn5PoSRhmY8zHVdYhqRZxbTAu2HQ+I74phrU/pOwmMKQSrpVyZKeVu4hAi
- x8IJFnrGdK7iyFz4MnVvlwMaVMCVKkt56Dp6eLGcZKVgI5E7qLWMSmUdVeQmXxkQVayR
- 7+nA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVgQzd60RNnukUHlRGOzxEI0AYBIisRSzWtNQwKeMB/ggJ8vYY/VIAbJ+uuIPw6z7gI24vi6QDH9XI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwmGFZBH7VKyJeKNhp1RHFHFWyykE/WtBXgG63TwsKzLF0t/YHz
- 9n84XIVjFAP0+fhw6iYrdJoO9MANnRPxDrqhlIysp7tGRhQWQ7dzA37X/L5VUdI=
-X-Gm-Gg: ASbGnctkELE8LXu6rpo+Q5fslRTy7pnjpBu7kfDPL08BnjA5+4GZFtIPOc1g7XUPrlQ
- t85DzuC5gtjOpIPJjiE4BcJz3vNIT2jNVRZIEumgtgPWM7HglaH9FNKAEFKTpIPFSUn4nHIgjr6
- E2hVneYH9YXviihludaTOpBlXuW5q7vLmAfVXns8JtBxc8YMGAp1fHJZdWenYTQHgoeaMoCcM+q
- KnN2EoEvLTWqhmlCd3OYQ0IF7499hm7UyCVpw1EZIZw556ZT5bUcN57wt7MYrraQhOk/iYtO1NT
- K/Km1zQ8anSK8oYM8N8Y3mDkCdqLpb3xI/lq5jivgxXCObHho9b5EDTP2PV1U66FFIVK
-X-Google-Smtp-Source: AGHT+IGHVpSlPQyU0cjYdq4UHMFuNEQDdRE6G+6jYmgVYfWj+t1f7CCzyuHhzxKg1Gx+7it/eNAXag==
-X-Received: by 2002:a05:600c:1e11:b0:436:5fc9:309d with SMTP id
- 5b1f17b1804b1-439249b2bafmr161317725e9.30.1739264829255; 
- Tue, 11 Feb 2025 01:07:09 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:5b96:57e9:d7dc:bc01?
- ([2a01:e0a:982:cbb0:5b96:57e9:d7dc:bc01])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38dce18d6f9sm10698324f8f.29.2025.02.11.01.07.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 01:07:08 -0800 (PST)
-Message-ID: <fcde9fab-b28a-4e09-b77b-f7c6c3840710@linaro.org>
-Date: Tue, 11 Feb 2025 10:07:07 +0100
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73DFF10E46C;
+ Tue, 11 Feb 2025 09:23:57 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id B596D20113;
+ Tue, 11 Feb 2025 10:23:55 +0100 (CET)
+Date: Tue, 11 Feb 2025 10:23:54 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Ethan Carter Edwards <ethan@ethancedwards.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2] drm/msm/dpu: Fix uninitialized variable
+Message-ID: <zj7sqsg3ruev4akl5paedsg65qyh53iddqvssrye2pjtfofs3q@u4g3kevpl2jn>
+References: <20250209-dpu-v2-1-114dfd4ebefd@ethancedwards.com>
+ <8e40c1bf-6da7-46b1-925c-53d1fa25f3ce@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sm8550: add missing cpu-cfg
- interconnect path in the mdss node
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-0-54c96a9d2b7f@linaro.org>
- <20250210-topic-sm8x50-mdss-interconnect-bindings-fix-v3-3-54c96a9d2b7f@linaro.org>
- <a3f7bef6-bfc8-4a2e-b979-4aac7908306f@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <a3f7bef6-bfc8-4a2e-b979-4aac7908306f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8e40c1bf-6da7-46b1-925c-53d1fa25f3ce@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,47 +49,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/02/2025 17:32, Konrad Dybcio wrote:
-> On 10.02.2025 10:32 AM, Neil Armstrong wrote:
->> The bindings requires the mdp0-mem and the cpu-cfg interconnect path,
->> add the missing cpu-cfg path to fix the dtbs check error.
->>
->> Fixes: b8591df49cde ("arm64: dts: qcom: sm8550: correct MDSS interconnects")
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   arch/arm64/boot/dts/qcom/sm8550.dtsi | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
->> index eac8de4005d82f246bc50f64f09515631d895c99..702b55296b18ff2f8ea62a3391b7de2804aa9f65 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
->> @@ -3020,8 +3020,9 @@ mdss: display-subsystem@ae00000 {
->>   
->>   			power-domains = <&dispcc MDSS_GDSC>;
->>   
->> -			interconnects = <&mmss_noc MASTER_MDP 0 &mc_virt SLAVE_EBI1 0>;
->> -			interconnect-names = "mdp0-mem";
->> +			interconnects = <&mmss_noc MASTER_MDP 0 &mc_virt SLAVE_EBI1 0>,
+On 2025-02-10 14:14:14, Abhinav Kumar wrote:
 > 
-> QCOM_ICC_TAG_ALWAYS
 > 
->> +					<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_DISPLAY_CFG 0>;
+> On 2/9/2025 7:51 PM, Ethan Carter Edwards wrote:
+> > There is a possibility for an uninitialized *ret* variable to be
+> > returned in some code paths.
+> > 
+> > Fix this by initializing *ret* to 0.
+> > 
+> > Addresses-Coverity-ID: 1642546 ("Uninitialized scalar variable")
+> > Fixes: 774bcfb731765d ("drm/msm/dpu: add support for virtual planes")
+> > Signed-off-by: Ethan Carter Edwards <ethan@ethancedwards.com>
+> > ---
+> > Changes in v2:
+> > - Return explicit 0 when no error occurs
+> > - Add hardening mailing lists
+> > - Link to v1: https://lore.kernel.org/r/20250209-dpu-v1-1-0db666884f70@ethancedwards.com
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 7 +++----
+> >   1 file changed, 3 insertions(+), 4 deletions(-)
+> > 
 > 
-> QCOM_ICC_TAG_ACTIVE_ONLY
+> Thanks for your patch, this was addressed with
 > 
-> w that
+> https://patchwork.freedesktop.org/patch/631567/ but since this is better 
+> I am fine with this, will pick this one up
 
-So it depends how it articulates with https://lore.kernel.org/all/20250115-topic-sm8x50-upstream-dt-icc-update-v1-0-eaa8b10e2af7@linaro.org/
+The `return 0;` in this patch should certainly fix this issue entirely and we
+don't need to inline the `int ret` for that, which I think is against mixed
+declaration rules anyway?
 
-I can rebase on top of it, it would be simpler, but then the Fixes tag won't work anymore.
+As far as I understand that's what Dmitry suggested in v1, but he r-b'd it in
+this form.  Dmitry, was that intended?
 
+- Marijn
+
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
-> Konrad
-
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > index 098abc2c0003cde90ce6219c97ee18fa055a92a5..af3e541f60c303eb5212524e877129359b5ca98c 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > @@ -1164,7 +1164,6 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
+> >   			       unsigned int num_planes)
+> >   {
+> >   	unsigned int i;
+> > -	int ret;
+> >   
+> >   	for (i = 0; i < num_planes; i++) {
+> >   		struct drm_plane_state *plane_state = states[i];
+> > @@ -1173,13 +1172,13 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
+> >   		    !plane_state->visible)
+> >   			continue;
+> >   
+> > -		ret = dpu_plane_virtual_assign_resources(crtc, global_state,
+> > +		int ret = dpu_plane_virtual_assign_resources(crtc, global_state,
+> >   							 state, plane_state);
+> >   		if (ret)
+> > -			break;
+> > +			return ret;
+> >   	}
+> >   
+> > -	return ret;
+> > +	return 0;
+> >   }
+> >   
+> >   static void dpu_plane_flush_csc(struct dpu_plane *pdpu, struct dpu_sw_pipe *pipe)
+> > 
+> > ---
+> > base-commit: a64dcfb451e254085a7daee5fe51bf22959d52d3
+> > change-id: 20250209-dpu-c3fac78fc617
+> > 
+> > Best regards,
+> 
