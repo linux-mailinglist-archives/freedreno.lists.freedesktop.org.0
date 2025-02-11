@@ -2,93 +2,112 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75EFBA30C88
-	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2025 14:11:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8081CA30CE7
+	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2025 14:31:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50B9010E6B8;
-	Tue, 11 Feb 2025 13:11:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB2E10E2A4;
+	Tue, 11 Feb 2025 13:31:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="MbvFltSY";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ti7IvCwY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D7A710E6B8;
- Tue, 11 Feb 2025 13:11:56 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51BBHiaZ025705;
- Tue, 11 Feb 2025 13:11:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF1110E2A4
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 13:31:20 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51B99UxU005019
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 13:31:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- lVfdPTi5nRQrjao5/LJHP9xj6vjgUkDKr7iUSnXniTw=; b=MbvFltSYav3ESbcQ
- vCIrklwr7yndHppcL3ex6xY1sw2XYGCLqYwGDRW3fMoX3kMMpRwXOWgELsHVhwrf
- Bxyd2b33TX6bGTHKPa2lauJC8/W4cO+/RoSLac8+LMgo4jt/uRRmVP/XXzs1dQQd
- ynZKOZNw6AUdDpLMAqZkGvEvVBE9VVRMqL47+uI4SImPRAnyhbMzQQoqFYVDZ5W6
- /q83sXS1Ifjne7AZkgn7F/ktojccwvgJUTLedH3p1F5SKrRUN+UO3vSIwP0P4NEk
- TskuWfs2ukylSgV5lvzBAQ1vzw1b3VOFvQzL0JOW/qjK+K6kgYZOCKCe0ZSUkBhX
- H73gpg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44r5j58c6q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Feb 2025 13:11:50 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51BDBn3k009230
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Feb 2025 13:11:49 GMT
-Received: from [10.216.36.40] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 11 Feb
- 2025 05:11:42 -0800
-Message-ID: <271e7b4f-454c-426e-a3f6-dcb55389374e@quicinc.com>
-Date: Tue, 11 Feb 2025 18:41:39 +0530
+ V8gfsxl5wjBXJWzy9IZRbAg+/QZ7NlWDPkHV4SG/aR4=; b=Ti7IvCwYBE7joAfU
+ J6wsCP1oRWJ77hUTaDlvc6KN+efAAh324fftecNig1lGEE1Uxx59ZNw6/WGILaJD
+ Kc4mwBZpC44ijC5bpiUd0okiLfOMOBTwQZbzZ4hWMRri/jOtqLCtOaBiortGMzmW
+ fYWA9wuLUqi7WKomIvyDHmsi+NBDwcKgEA3yNS/MIVrxfMHFDdB9xy4JVpL3i748
+ ZQ1pLVpVb8J+JcSvXkGsUUGOAH8mT9FbA74O34+JxhsykezZBZw5RnuFxcZY0k6E
+ WpSliveD4lJB/8vC4MOXynL4BrSe4jTrNVxtyGu5IejbjRmQoINk4pwkS3vPtojM
+ 2ocGiQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44p0dyqw2u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 13:31:19 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6e4521c35c6so9857056d6.1
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 05:31:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739280678; x=1739885478;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=V8gfsxl5wjBXJWzy9IZRbAg+/QZ7NlWDPkHV4SG/aR4=;
+ b=A2LuQSaUxeSSB09HB8b2BdbVhfynxmXbcMyOkOyjnSs3+fHcNgRdbV8pLb+SmA5e3Q
+ DR9Ro/ZItfQRNan1Wm7OgYF7me12ewxLRyEq1NBSEju8cf/fdLUjahgtYmq1ZF6fEgdR
+ F0oDvuvQUiuQ0lDAXDgi0TtjyUWR7rMoWhhuiZ/J7cnMnmIhGLumOrajTKYUQmO44Lwa
+ CbQ7AfsDL9OPql+hnWijRZrUfG0ztZpGK4+5XoY+LI9DBlApvw/B2w5D2yvwhBuOS5Tq
+ 8/TZmZWE6cjkRcMIc0GCwPwWtWiUNtooiF2DPctZMOFJGY+TUNXHwqb0gSSr8ef8R40l
+ buMw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUHUlx3O7zaNsgLPxgoKc4T+ux+dSnUNI3U2GpdDmZwNmRGvYgAy1qudCZxXQGpVlli/Lro1uogUV4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzAdgKQIE7EQDvr2KKEZXT2QIQ4U0bNpICpOX8SJj4CetvNXvLm
+ x1HKEnwhrLv2WQjPQHt6JIaDVdKyUO4RpHIgUuvek4D3+17sJ4cMteNUuPgIdmwFPvYJVwLkB2F
+ OvDw4znSVDsoVBn5v3opEpvy7mVPOtSyZ/PmJSDO1mMYnY0yGMhv/3zLF21LPGo5MUZ0=
+X-Gm-Gg: ASbGncvinDWTjRxm8vAjfvWm5oKwMwEjwXTu7Ri98TpUYP0xaU0+aGCjyBTsT88dcvq
+ D3etsoZeXap/FdVWljUNGe7saUswE6NJRnEOGY7xWozxsFatQerXiETSig1UtSjUUP59v8eNQ4l
+ FaPfi13GOzZzAnV/QCMp3H7Ntnk5LGWqhWxHQINOnonKyLncyVBUv46y5qh3y9R9986vQctwxoW
+ kHOaWEjHEx3X/9zJ2WhiTHa48RI5MsxwC5Mwsnu//+Gmheo7ZW3ALbBGS2Akp0To2A4lA1q8MOw
+ 1zAgbyQj060xh/sZJ3qlsd//xdoBeCZ+OJhLJMrEZpHU4QV5afF6nxn23zM=
+X-Received: by 2002:a05:6214:c65:b0:6d8:b562:efcd with SMTP id
+ 6a1803df08f44-6e468dacecamr11867186d6.7.1739280678115; 
+ Tue, 11 Feb 2025 05:31:18 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHZpgOADXexGty6sVFgmRdsYA39yzSbEDl4lVKreV5wAGJ5UPSGTJjaEwsdYbIYB6FhRH6giA==
+X-Received: by 2002:a05:6214:c65:b0:6d8:b562:efcd with SMTP id
+ 6a1803df08f44-6e468dacecamr11866796d6.7.1739280677621; 
+ Tue, 11 Feb 2025 05:31:17 -0800 (PST)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab7dae77599sm159225066b.30.2025.02.11.05.31.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Feb 2025 05:31:17 -0800 (PST)
+Message-ID: <4a232b8e-f63e-4f89-aa4e-257165150549@oss.qualcomm.com>
+Date: Tue, 11 Feb 2025 14:31:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: sa8775p-ride: Enable Adreno 663
- GPU
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
- Dybcio" <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Connor Abbott <cwabbott0@gmail.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
-References: <20241030-a663-gpu-support-v3-0-bdf1d9ce6021@quicinc.com>
- <20241030-a663-gpu-support-v3-2-bdf1d9ce6021@quicinc.com>
- <4cfd1ebc-1a95-43d4-b36a-8b183c6dfd16@quicinc.com>
- <ah6nusoouth7ziu3iscxmafm6cxuwwebxt44ixsjmesp5adwc4@e5lnbztds2xd>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Subject: Re: [PATCH 4/4] arm64: dts: qcom: sm7325-nothing-spacewar: Enable
+ panel and GPU
+To: Danila Tikhonov <danila@jiaxyga.com>, neil.armstrong@linaro.org,
+ quic_jesszhan@quicinc.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, jonathan@marek.ca, jun.nie@linaro.org,
+ fekz115@gmail.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux@mainlining.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20250203181436.87785-1-danila@jiaxyga.com>
+ <20250203181436.87785-5-danila@jiaxyga.com>
 Content-Language: en-US
-In-Reply-To: <ah6nusoouth7ziu3iscxmafm6cxuwwebxt44ixsjmesp5adwc4@e5lnbztds2xd>
-Content-Type: text/plain; charset="UTF-8"
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250203181436.87785-5-danila@jiaxyga.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: pcXLBtDW7afzte1pcPYanHTRHxKleuwW
-X-Proofpoint-GUID: pcXLBtDW7afzte1pcPYanHTRHxKleuwW
+X-Proofpoint-ORIG-GUID: YKC06MhudLh0eh0cC_oLm9kEkGjAQCIn
+X-Proofpoint-GUID: YKC06MhudLh0eh0cC_oLm9kEkGjAQCIn
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-11_05,2025-02-11_01,2024-11-22_01
+ definitions=2025-02-11_06,2025-02-11_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- priorityscore=1501 mlxscore=0 bulkscore=0 suspectscore=0 malwarescore=0
- phishscore=0 adultscore=0 spamscore=0 clxscore=1015 impostorscore=0
- mlxlogscore=957 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2501170000 definitions=main-2502110087
+ suspectscore=0 bulkscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 mlxlogscore=992
+ mlxscore=0 priorityscore=1501 spamscore=0 adultscore=0 phishscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502110089
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,56 +123,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/9/2025 9:59 PM, Dmitry Baryshkov wrote:
-> On Wed, Nov 13, 2024 at 02:18:43AM +0530, Akhil P Oommen wrote:
->> On 10/30/2024 12:32 PM, Akhil P Oommen wrote:
->>> From: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
->>>
->>> Enable GPU for sa8775p-ride platform and provide path for zap
->>> shader.
->>>
->>> Signed-off-by: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
->>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 8 ++++++++
->>>  1 file changed, 8 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>> index 0c1b21def4b6..4901163df8f3 100644
->>> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>> @@ -407,6 +407,14 @@ queue3 {
->>>  	};
->>>  };
->>>  
->>> +&gpu {
->>> +	status = "okay";
->>> +};
->>> +
->>> +&gpu_zap_shader {
->>> +	firmware-name = "qcom/sa8775p/a663_zap.mbn";
->>> +};
->>> +
->>>  &i2c11 {
->>>  	clock-frequency = <400000>;
->>>  	pinctrl-0 = <&qup_i2c11_default>;
->>>
->>
->> Bjorn,
->>
->> Please ignore this patch for now. This is probably not the right
->> platform dtsi file where gpu should be enabled. I am discussing about
->> this internally. Will send a revision or a new patch based on the
->> conclusion.
+On 3.02.2025 7:14 PM, Danila Tikhonov wrote:
+> From: Eugene Lepshy <fekz115@gmail.com>
 > 
-> Akhil, any updates on this?
+> Enable the Adreno GPU and configure the Visionox RM692E5 panel.
 > 
+> Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
+> Co-developed-by: Danila Tikhonov <danila@jiaxyga.com>
+> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+> ---
+> Note:
+> Depends on https://lore.kernel.org/linux-arm-msm/20250122-dpu-111-topology-v2-1-505e95964af9@somainline.org/
+> ---
+>  .../boot/dts/qcom/sm7325-nothing-spacewar.dts | 53 ++++++++++++++++++-
+>  1 file changed, 51 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+> index a5cda478bd78..cda317b49d5c 100644
+> --- a/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts
+> @@ -52,6 +52,8 @@ framebuffer0: framebuffer@e1000000 {
+>  			stride = <(1080 * 4)>;
+>  			format = "a8r8g8b8";
+>  
+> +			display = <&panel0>;
 
-I am still waiting for the discussion about QCS9075 board dts files [1]
-to conclude.
+This is allowed by bindings but doesn't seem to do anything
 
-[1]
-https://lore.kernel.org/lkml/Z3eMxl1Af8TOAQW%2F@hu-wasimn-hyd.qualcomm.com/T/
+> +
+>  			clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+>  				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
+>  				 <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
+> @@ -757,6 +759,10 @@ &gpi_dma1 {
+>  	status = "okay";
+>  };
+>  
+> +&gpu {
+> +	status = "okay";
+> +};
+> +
+>  &gpu_zap_shader {
+>  	firmware-name = "qcom/sm7325/nothing/spacewar/a660_zap.mbn";
+>  };
+> @@ -823,15 +829,44 @@ &ipa {
+>  	status = "okay";
+>  };
+>  
+> -/* MDSS remains disabled until the panel driver is present. */
+> +&mdss {
+> +	status = "okay";
+> +};
+> +
+>  &mdss_dsi {
+>  	vdda-supply = <&vdd_a_dsi_0_1p2>;
+> +	status = "okay";
+>  
+> -	/* Visionox RM692E5 panel */
+> +	panel0: panel@0 {
 
--Akhil
+Is there going to be a panel1, too? ;)
+
+Please drop the 0
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
