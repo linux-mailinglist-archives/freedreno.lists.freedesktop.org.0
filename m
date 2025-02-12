@@ -2,83 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BC75A31A22
-	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2025 01:07:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71E6DA31A3E
+	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2025 01:14:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7FD910E777;
-	Wed, 12 Feb 2025 00:07:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16C7710E777;
+	Wed, 12 Feb 2025 00:14:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iOEzFF/m";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IuLnpS14";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1878510E777
- for <freedreno@lists.freedesktop.org>; Wed, 12 Feb 2025 00:07:29 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-543e49a10f5so6468766e87.1
- for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 16:07:29 -0800 (PST)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59D8110E772
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Feb 2025 00:14:04 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5450475df18so4062958e87.2
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2025 16:14:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739318847; x=1739923647; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1739319242; x=1739924042; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=rSvVq0Q4byuw3K4FZfEe4v2n2HhjFTVAI/WWeumGLwM=;
- b=iOEzFF/mJB4BwkngYlkUsvi8dfdYbZsr8TLjB3o5u0PKK0KL0Q/rBjFT4cdbUIAmlY
- yWQEUCuSNOsmfVXkkAaDjbCTUd35XF/L8zoHU6DoGMmegX3bQLdkW11k0May9yc+y8TJ
- r/Yt6EXVJtge/0rOZ1V2ajP5u9R7k8p9SBoEbcAHakdJt9eZRRowdbVshY+Yrhb+0xzU
- YoHLBoWIyd/yAzxa3pgHmvrwktm57qnF9p5/m/iAoA3nMgToO8YwOP8gUbzvnLm+ZCz9
- F69IhS/3dIx0lybuOndnvnDii3If5fG+iczQhnNqtyPz1G5qoGuuhwzdQVT/HhMiGPE8
- hCtA==
+ bh=MoiH9kTaTXxwiGqw7nJMhKvn68BG/QNvASYw2+68Zak=;
+ b=IuLnpS14SMOIMlhDDvjLfYUtA3O8S1mZZd6QM1aGHYNr0w5KQmlxfJ+upAa13itoi2
+ NnUBULsTtyXusKTl2hLRWB/09O+EioIBqDHkfJb/jYGtTvQrx+9OzuYebPdCQUwpVruh
+ UU7ZORIy3oO4r/NC+Le13RZtE0L5qspNv4fNHKp5JloAa+1T/4ASxPBbthC9CpH9Ydp+
+ lv/gw+bZTAWQ7yjEkCxrRbwbqBpz7vmU+Ym6Oi/j2O8HTz14WL6QODzkol0fQkwJ5Fsu
+ VOHo7hLdUocwC94ZanavIys33h0H7VWjSM+gCgPUxVjuL3NyuxJXZYeN0Hi+sblpL6CY
+ 8G4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739318847; x=1739923647;
+ d=1e100.net; s=20230601; t=1739319242; x=1739924042;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rSvVq0Q4byuw3K4FZfEe4v2n2HhjFTVAI/WWeumGLwM=;
- b=c+I7tZf0ntXrofv7D8xkM3JwMURSQJFScwk2KVjNmOHDX86jF0/VPIc9JX5ljRDY4v
- cvWuSolLAdgAMqsHXrq3KFV8ddQMQtOmaTNBPeB01oCVvF/bANaIj0d1P+7Td94uInMC
- xdatJ49H8dPmi+yjxWEqzjUB7wrelABZF8xldoX+o8cIGYMCwVAnkimRlL8brD/WvMUG
- s/Ox3VuITrI4AR2eEdm8te0s6Ik1cyDKLGzbatRb/ccPZ8nZcN5icgjShM6eOASX/CbD
- DeqzufC7Ax2uAAHhEpkscOhFnt2PHfhK+BkFNhuXaPobc3Yf7vo27XzJ9udtfwnncI7r
- 276A==
+ bh=MoiH9kTaTXxwiGqw7nJMhKvn68BG/QNvASYw2+68Zak=;
+ b=HQqSDWB58ADFhwPcHaRcNrQav79Zhvpm7Yivrd+jg+smzRIVRy5iFPQ8Pcd63YxdBU
+ b6YHOCmrPvRqLgPtd+7tPt9ciCH3WjRdbrsyEEytD3nDLVG13ySIdZdXe2OgT04tm0IQ
+ FLqpNLM+Rv+W11/abeEpP2nzwh6N3RSV6WZmhytogqhB9CinV4wupVU7C4DBzEm2ki1C
+ pxDevJd8KJLyX5Z63UpnSugqT7rA/4MoKWt320OlsdeVPbiBqDjGzLHIiCmvyvndCHRp
+ sZW8E35+Nv/jrstoxVQRHLLSSGElUw4I5HFtKFUylbYjvI7lsXvPywycWc3HNTFyYTYq
+ oDwA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9Z4lRh0GjGWoa+M49hqAVTR97U5hK9c3zHBJn6dkD8QAGxfBj1Ri13UR2ldkRKrFWlwye9B6AjT8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxY2aS9NZ05GNyUlD8JqKgPk4nC1lL6KrxqRNvexURi+HpudEs6
- OIw6SWrGOnRlcHmk5/LFRE6iB0ckJNziyco2cwuA8Wp/oPWCCwieRhXhg5gfz7c=
-X-Gm-Gg: ASbGncvTWp/KZEKk+TDg7tU498XhoFxQ5zYCrq7+z4mJfHqw0IiBtA2N3WhmeFl+79O
- 4fFlQ83iYu0KjpVoZFAMldj/a2SPkbbdbAzFhg6D/OOqGWSpHKPJneM8OscCW+5Bz/rrgmUo/AD
- 1HpqVT5B/XV5EzLLgjatecaGrPzYng49DsmmgVK3zuWyRh89MdldZdm9gO7yW1vMrW0yDPfxGkS
- Yzg8Uzkl8tJGBH/vsk04wnZMTYvsslaognX47pUdUIbQSbbAgU6lEpYboewnEn9A7y7ql5rWSVU
- snB52QqMxzbvju+a0DztJr2cIrj4n92TCpuWnRdiZBbWl/WjIAa2cQn7Myoca1/LR8OU3Jg=
-X-Google-Smtp-Source: AGHT+IEYSYjM6e26W3BebaqVj9AEp0qCBuSkwbasndm6u40vD94b8fZ5bLT2RmF5vB9zoS1z8G6pdw==
-X-Received: by 2002:a05:6512:745:b0:545:c08:e193 with SMTP id
- 2adb3069b0e04-5451810fe44mr196032e87.27.1739318847359; 
- Tue, 11 Feb 2025 16:07:27 -0800 (PST)
+ AJvYcCVoXyKUuCa2h1bitgGRxtZHpuGchsFbQXzBWUMS/Kvu6ypPybtzs4aqKUp22YjuJAeV4mXqfCH7i5M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBWIURAXuJ46ry+K1Jn3hEdnAq6wyAGJloluY/1DDOdw0U0C2v
+ TyLskZlgJiXSoWNg831Nc6KGLILauUALDUfp4xFLYxrdItZb6jiI83X18cwtT68=
+X-Gm-Gg: ASbGncsUCbuchDcRSmtHEhlC3OlCO5pnGHutABWCsFJe0yAHPWuWea6+JwkfVhrv0B2
+ 9aA1X/gdWjB9uTNdV3j3kGOdVAHZuNe8Cb9owQYKQD41pCkl7XM5Nn3KiQYvf9M+OJmeLqB+o6E
+ +yjhXCx7tBv3ir1qXICShjhjEBMmyY1w93SI+O7APGC4jSqxZeYuVmgSvl0hdvsh9lJkREa24LX
+ RkZIqB+oLVXhXba+mEH8No6l8wiEN3e7dWowEPGT10fsl3iayfopuoMIYz+cxkW3FYRoMkGpS9b
+ fNt4o+q0ZgtutFEtSHkKk86EY/gC8dVZA5lvyshpdXqYzWo/NuULy2/26Nd9pqbCL5G+4Pg=
+X-Google-Smtp-Source: AGHT+IH4K/97rcyNCdtxvfzfnC07ftBx9dEMBnJK66j+zVmsXTMBTzg8TyBPDt/3qMe65yIbgIUqGQ==
+X-Received: by 2002:a05:6512:3e07:b0:545:76e:319 with SMTP id
+ 2adb3069b0e04-545180e5dc7mr263463e87.4.1739319242534; 
+ Tue, 11 Feb 2025 16:14:02 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5450bb646a5sm808177e87.146.2025.02.11.16.07.24
+ 2adb3069b0e04-5450cf9b64bsm742565e87.9.2025.02.11.16.14.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Feb 2025 16:07:26 -0800 (PST)
-Date: Wed, 12 Feb 2025 02:07:23 +0200
+ Tue, 11 Feb 2025 16:14:01 -0800 (PST)
+Date: Wed, 12 Feb 2025 02:13:58 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Yongxing Mou <quic_yongmou@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: Allocate the number of LMs based on
- max_mixer_width to support 4 streams MST case
-Message-ID: <zri44j6baegrcxmnac3o7ujtrlm2ybhon4hq3ondvdbcqfhpa2@zjxcprel7zv7>
-References: <20250211-dp_lm-v1-1-deeca9ac9bd9@quicinc.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Ethan Carter Edwards <ethan@ethancedwards.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2] drm/msm/dpu: Fix uninitialized variable
+Message-ID: <nllxmdfk4wwm2bbrg5jc4tt7la65rwqdtt4tqjp36j6dr4hgmx@ukszi5llldup>
+References: <20250209-dpu-v2-1-114dfd4ebefd@ethancedwards.com>
+ <8e40c1bf-6da7-46b1-925c-53d1fa25f3ce@quicinc.com>
+ <zj7sqsg3ruev4akl5paedsg65qyh53iddqvssrye2pjtfofs3q@u4g3kevpl2jn>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250211-dp_lm-v1-1-deeca9ac9bd9@quicinc.com>
+In-Reply-To: <zj7sqsg3ruev4akl5paedsg65qyh53iddqvssrye2pjtfofs3q@u4g3kevpl2jn>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,50 +95,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 11, 2025 at 06:37:43PM +0800, Yongxing Mou wrote:
-> In 2x2 mst case, each 2k monitor will use 2 lms, but dpu_8_4 only have
-> 6 lms, so let 2k only use one lm to support such case.
+On Tue, Feb 11, 2025 at 10:23:54AM +0100, Marijn Suijten wrote:
+> On 2025-02-10 14:14:14, Abhinav Kumar wrote:
+> > 
+> > 
+> > On 2/9/2025 7:51 PM, Ethan Carter Edwards wrote:
+> > > There is a possibility for an uninitialized *ret* variable to be
+> > > returned in some code paths.
+> > > 
+> > > Fix this by initializing *ret* to 0.
+> > > 
+> > > Addresses-Coverity-ID: 1642546 ("Uninitialized scalar variable")
+> > > Fixes: 774bcfb731765d ("drm/msm/dpu: add support for virtual planes")
+> > > Signed-off-by: Ethan Carter Edwards <ethan@ethancedwards.com>
+> > > ---
+> > > Changes in v2:
+> > > - Return explicit 0 when no error occurs
+> > > - Add hardening mailing lists
+> > > - Link to v1: https://lore.kernel.org/r/20250209-dpu-v1-1-0db666884f70@ethancedwards.com
+> > > ---
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 7 +++----
+> > >   1 file changed, 3 insertions(+), 4 deletions(-)
+> > > 
+> > 
+> > Thanks for your patch, this was addressed with
+> > 
+> > https://patchwork.freedesktop.org/patch/631567/ but since this is better 
+> > I am fine with this, will pick this one up
+> 
+> The `return 0;` in this patch should certainly fix this issue entirely and we
+> don't need to inline the `int ret` for that, which I think is against mixed
+> declaration rules anyway?
+> 
+> As far as I understand that's what Dmitry suggested in v1, but he r-b'd it in
+> this form.  Dmitry, was that intended?
 
-DisplayPort MST is not supported. Please work with Abhinav to get it
-into his patch. Also it's LM and LMs.
+I think it should be fine, if the gcc doesn't warn against it.
 
 > 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
-
-This list of SoBs doesn't make sense.
-
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> - Marijn
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 5172ab4dea995a154cd88d05c3842d7425fc34ce..e8846bf8edc5f9b2b3b7f093e4d5aad75de53da1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -677,7 +677,8 @@ static struct msm_display_topology dpu_encoder_get_topology(
->  	else if (!dpu_kms->catalog->caps->has_3d_merge)
->  		topology.num_lm = 1;
->  	else
-> -		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
-> +		topology.num_lm = (mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width) ?
-> +				   2 : 1;
-
-Please extend commit message to describe how your change affects other
-platforms.
-
->  
->  	if (crtc_state->ctm)
->  		topology.num_dspp = topology.num_lm;
-> 
-> ---
-> base-commit: df5d6180169ae06a2eac57e33b077ad6f6252440
-> change-id: 20250211-dp_lm-8f8ef15f5955
-> 
-> Best regards,
-> -- 
-> Yongxing Mou <quic_yongmou@quicinc.com>
-> 
+> > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > 
+> > 
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > > index 098abc2c0003cde90ce6219c97ee18fa055a92a5..af3e541f60c303eb5212524e877129359b5ca98c 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > > @@ -1164,7 +1164,6 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
+> > >   			       unsigned int num_planes)
+> > >   {
+> > >   	unsigned int i;
+> > > -	int ret;
+> > >   
+> > >   	for (i = 0; i < num_planes; i++) {
+> > >   		struct drm_plane_state *plane_state = states[i];
+> > > @@ -1173,13 +1172,13 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
+> > >   		    !plane_state->visible)
+> > >   			continue;
+> > >   
+> > > -		ret = dpu_plane_virtual_assign_resources(crtc, global_state,
+> > > +		int ret = dpu_plane_virtual_assign_resources(crtc, global_state,
+> > >   							 state, plane_state);
+> > >   		if (ret)
+> > > -			break;
+> > > +			return ret;
+> > >   	}
+> > >   
+> > > -	return ret;
+> > > +	return 0;
+> > >   }
+> > >   
+> > >   static void dpu_plane_flush_csc(struct dpu_plane *pdpu, struct dpu_sw_pipe *pipe)
+> > > 
+> > > ---
+> > > base-commit: a64dcfb451e254085a7daee5fe51bf22959d52d3
+> > > change-id: 20250209-dpu-c3fac78fc617
+> > > 
+> > > Best regards,
+> > 
 
 -- 
 With best wishes
