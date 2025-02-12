@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0F7FA323A2
-	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2025 11:41:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D207A323B1
+	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2025 11:42:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE3B10E842;
-	Wed, 12 Feb 2025 10:41:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17B8510E844;
+	Wed, 12 Feb 2025 10:42:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pZBLa4OU";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ag4FATBo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
  [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5279410E843
- for <freedreno@lists.freedesktop.org>; Wed, 12 Feb 2025 10:41:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85DEE10E844
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Feb 2025 10:42:32 +0000 (UTC)
 Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-54504a6955aso3706752e87.2
- for <freedreno@lists.freedesktop.org>; Wed, 12 Feb 2025 02:41:07 -0800 (PST)
+ 2adb3069b0e04-543e49a10f5so6928384e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Feb 2025 02:42:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739356865; x=1739961665; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1739356951; x=1739961751; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=l1iDkFXJdTLoJv5QQSzaQMxwjFb0WaoMFN/yVr47274=;
- b=pZBLa4OUS+BfGA3OCOF/zbUHmV468X3w2cHL/0zIRWsB8ApkI/ibBWxScdC6HLvhkK
- eY+r/D09MZXlOmsPIJmpQQ81XDh7FTgnlQS06gyY6EeKjYFmf+N/doZQTorbHyIFGUx5
- bJWy1wvD/ydk5JN0qne+DG/HhwHOXWiJJ/6CbYJw25G/UaSw89c8WO1eUltRuSnIirIt
- 7Q5r+9UOF2VQXjEnhTMT8iNgiZ3kGi1HVohRIwtp7pt+JCID7GzD46XwIFdEQcJWka5I
- cbi90uR3QO5w5e/UzTuR4/7ftuJ/CDbBJOTEAizjiihdvor8pASIQ0+HBouRKOXlWcOD
- 4xjA==
+ bh=ld1TfC5Cdjw/PoVC0iP097r1SbIYfGgfFoLiWX4Zz3g=;
+ b=ag4FATBoVcaoe4O2Bt2PZaaWP8IHhgH4ulV4RGtWlviFG87Afp6ExoG62C0JVAeLlg
+ MqxvOHNkHyuqku3B+fjnt/wjYIOLg//hHkQiGBZCF17xqFjHQ0O4mpwSGs52XAxTu5TL
+ eGkIPPC6vGDDJBlRypKBNhCVZhMMiR1mP/KkjRRjNILw5fIl0+IqiWCoSCbmSq/NE2NJ
+ ZPur190Wgerkj7ABjtl2O4ImRwgDWS8PWORQLKFo7XFGHjetK8d0/odICCeaXFwq4kJs
+ 9/BxdRnFpzrpM4nvITMVj3TPlvkgrx+VBogvmBHjz0kcq+slEjDaeW2JPzgiympPPYVv
+ a5oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739356865; x=1739961665;
+ d=1e100.net; s=20230601; t=1739356951; x=1739961751;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=l1iDkFXJdTLoJv5QQSzaQMxwjFb0WaoMFN/yVr47274=;
- b=rTncAfl4kVAru0Dh6Wu8vccanjIjDfLNFC30wgkxxyAm/XZY9Z3pkGxq/IGeI4viQC
- gj1YGHY4OiPtmOTWzH4sNtY59jSlkiV9peoPgVjoWrMOi1/eAPis5RvCiPA+EX4f+pVk
- T2oP9LL09+gJujmlnsGKcW7l6aTQ4eo74JKE/6Bc5WHbVEPtPHldin2jKB28u1IMHosL
- yeWFWr36avhs9eclbuODT4GoGhu8lbCc5S++rlZzz4Xk5Tm6xMrqU8NzpM3k2SSYMnRc
- iI8zhcEn4gru4CNJ932bLBKnNj9q8lC4x4j2Ab6qqk6uvvWdGK+yC1kpemGH7JUHUgaE
- TZgw==
+ bh=ld1TfC5Cdjw/PoVC0iP097r1SbIYfGgfFoLiWX4Zz3g=;
+ b=u3Lkvz1YvytjKuWtwzK+UPApKj6DnofUKumrGA+Tg8VuL8lPqWCGSczolZ0evQWbl7
+ EG6hJ4htdOuxM7vLrMjFgphYFE5RkN/a3g1g5Hf3BkP1OfrdQInwYMOdXE1jk7tGvED1
+ hn3JRdoE74Jap3oR62vQHqIGA4XSKiZ90LovSDL8gjlcNX4Up+8xt9lVsXc9XaleGPjv
+ U8QrtyOJQJLP45VWBiIZSQrz9JI7jkoCyZDfgup21fsPjwVxBp2xrjSPIM4QU98zd2ss
+ 2XPyO4i6CFGSd4KXFHWpXJ2JzLLC4qlOoxsgK1Ej5yz1ejAc49orD+3SFTAt9Z4lp6om
+ VAcA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXKPjbeGnZcIMU0ZttT4Rdvk+Kwijvl4T1vgA02FIo9S7lmnTSrNgQ/KpTYZJkQMf7rmHPtHJoPQX4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwMOO5nnA2BVBTpdG7hnU4n7aQDVn4q6qL2eH57WtCEI2MqQSQS
- gWYvNGct94vALVG724rR4/KuaHqeKsrUeAyCGu7iJBdbHwtTOLgN0UY/SauF/yw=
-X-Gm-Gg: ASbGnctPe2cq3FMHrCMnlrRzG8bDw1WBjkWNTmT3Cj0yZ5uaZM30SmTRsC+QK0AQL63
- 65D2EUb1ySRThY0k/QAsATYrZGNfOumlS61TKWEzKrBeUG2sKqdi/zmBnA0KNISlNe4oKoZUte1
- aP7DqPZQsVGN6ai0VoL1BbM84pAr79nyR0MktOA5ufXY4VyLqXPgZO8ywlQCGcPJlKzfDrOASCs
- 5grhkAMFQcMyNWQxOKOtBFoSsp7Odh0VgSMCYdsOUCP/Cb5AYw4bey8Xb14ozSW4r87lM2JTYoH
- whqKV7TWX81K7vPooPB+vSni4ndqBvR9GpxqKVxfU6Je/Vy3RA9tZFRj349pe0gH6MszSgM=
-X-Google-Smtp-Source: AGHT+IFSoauwUmjTLIfP8x5XTTgpa0CFQaxSPV+VulxRisj6BoyUTlqKfWl0RYYwgy038tCn23zfGQ==
-X-Received: by 2002:a05:6512:3054:b0:545:b49:f96d with SMTP id
- 2adb3069b0e04-54517f86bf8mr848075e87.0.1739356865416; 
- Wed, 12 Feb 2025 02:41:05 -0800 (PST)
+ AJvYcCUCmhC8ts4eyYKnb397eeAXSU1RavE0VqnSGXOwhJBfOZGCoOejKbVy2al4TNvrw3vhsgP/XGB/fzU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyr67Ul2DAxzzvK5HUl4Lj4U5MGTdUgdqn7ERj+WkQ8oreVmVsb
+ giiAM18sVfHZe0Yclh1Oa3A7UVlymQsdGqhlJKr3ND9gYqNg5Fz7ezs8gvT0HFg=
+X-Gm-Gg: ASbGncutHkeYZdZfiQ/YQasLG1wPJsmjS9e+7kreYBHDEYBcdedWAyS1quMxw3KJJjn
+ Jm6bZ+WnlWsgJXhespw+gEshJZNIwCjHXh/g9kBWXUJClIsHHM5fD7C9ZnGrh6HSZachnMfvWON
+ /1IVF4utc7Mr9aiEOBL2K1fDxeNKMY+smhuuQW+TnXbJ6EeSMsv07mGUHN2+Qt1YApGCX9xKcuK
+ eHPtHMDSxaxvprlCsOWaQRBxvGAhe8EspfLhMc3OlLy8zPb801GBzoIeDeGZiOzT5mQc8TtGHaV
+ FRExc1u7FXE30GIIx2TMsZd8FRCpRnUSEK7ZKDgbdRoZEu+R/rDHOII/tQ7nvRk+Gv7A6SU=
+X-Google-Smtp-Source: AGHT+IF+1GUoRD9HhqBh1RL9sJOAG4t7Xk0SYLrZn9lbwf1SpooHUxeWe02/GIT06t3TK4EotARjyA==
+X-Received: by 2002:a05:6512:39cf:b0:545:17d:f96b with SMTP id
+ 2adb3069b0e04-545180eb5f9mr737259e87.14.1739356950858; 
+ Wed, 12 Feb 2025 02:42:30 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54504a2d1d9sm1310680e87.56.2025.02.12.02.41.03
+ 2adb3069b0e04-54504e344a7sm1328754e87.5.2025.02.12.02.42.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Feb 2025 02:41:04 -0800 (PST)
-Date: Wed, 12 Feb 2025 12:41:01 +0200
+ Wed, 12 Feb 2025 02:42:30 -0800 (PST)
+Date: Wed, 12 Feb 2025 12:42:28 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Yongxing Mou <quic_yongmou@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -78,7 +78,7 @@ Cc: Rob Clark <robdclark@gmail.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH 1/4] dt-bindings: display/msm: Redocument the
  dp-controller for QCS8300
-Message-ID: <wyd7i47pkafa7n2yjohuvlh4btasxle4rw5xm55h4bhv24yvah@pfo224xz4xfl>
+Message-ID: <brm43v5kzsum6hc6ahs3lqzgww55kczjzwzxsmx5a6alw3xxvh@3mdqqjvo2b5k>
 References: <20250212-mst_qcs8300-v1-0-38a8aa08394b@quicinc.com>
  <20250212-mst_qcs8300-v1-1-38a8aa08394b@quicinc.com>
 MIME-Version: 1.0
@@ -106,42 +106,15 @@ On Wed, Feb 12, 2025 at 03:12:24PM +0800, Yongxing Mou wrote:
 > patch for qcs8300 mst feature. Modify the corresponding dt-bingding file
 > to compatible with the qcs8300-dp.
 
-NAK for a different reason: QCS8300 is still compatible with SM8650.
-Enable features instead of randomly reshuffle compats. In this case,
-enable MST for both architectures.
+Forgot to mention that in the quick response: please fix usage of
+capital or lowercase letters in the commit message. If you are unusure,
+'git log' will help you.
 
 > 
 > Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
 > ---
 >  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 5 +----
 >  1 file changed, 1 insertion(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 359e364d79b20469d41cd8416a55b6a5d5c7d8ce..59075d7f05147f1f477f236a76fee6ec5d8c5ad8 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -18,6 +18,7 @@ properties:
->    compatible:
->      oneOf:
->        - enum:
-> +          - qcom,qcs8300-dp
->            - qcom,sa8775p-dp
->            - qcom,sc7180-dp
->            - qcom,sc7280-dp
-> @@ -37,10 +38,6 @@ properties:
->                - qcom,sm8450-dp
->                - qcom,sm8550-dp
->            - const: qcom,sm8350-dp
-> -      - items:
-> -          - enum:
-> -              - qcom,qcs8300-dp
-> -          - const: qcom,sm8650-dp
->  
->    reg:
->      minItems: 4
-> 
-> -- 
-> 2.34.1
 > 
 
 -- 
