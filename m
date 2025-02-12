@@ -2,94 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12033A33F94
-	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 13:55:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B706A33380
+	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 00:41:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5E1C10EA90;
-	Thu, 13 Feb 2025 12:55:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OlOPJZSA";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEC1810E280;
+	Wed, 12 Feb 2025 23:41:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 844BC10E294;
- Wed, 12 Feb 2025 23:04:46 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2f9bac7699aso459387a91.1; 
- Wed, 12 Feb 2025 15:04:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739401486; x=1740006286; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=o6fZexvMzlS57FlcyC9jwgq8Jb44X105OrNbzoHVQ5U=;
- b=OlOPJZSAza2O9j3ryVjiQtrSjr+tc1uIIIfkbXhYoRxJgCLz3ohQt7zsNCf+pDXRCZ
- 84kBV5TomYzQ76hWPC7aiCEit+gLnsqCw0OECIks5hEapFYyEs1SeMsq0O5U4fIhJOol
- J7BgkU4FOTYOKuxckzayXEt9CQmLFnvt0Q963xbqkKG8QvtbO1UQC88CbfH+dQ8988Il
- bezMvXZMhIAMLWM3jTuzGcGFUJKWJOmTpFYoZfg3dvf3YLGKbuZfcTCwLysG/ys/NMCP
- Yd+3fYEia4oMvNIT59fyR/xZKZ93LhrxREFhVkwDdPmTsQmUIyKdcdzjlpW+aB++QIYD
- RIFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739401486; x=1740006286;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=o6fZexvMzlS57FlcyC9jwgq8Jb44X105OrNbzoHVQ5U=;
- b=WOH4MBSdKFCoz4XtLIE5yrhgBHY4mIDwPL0uPBy9VhmmnoYT9kinyUQQPO+UzQ6/C6
- DKp5L+kSQB8UDcoCCiYoPx0xEVQQghSdYDTrIHC76xZniOyB6d6tt0/ewOm/jJ5LZrBS
- FEwyjag+iZKR4L2HrhMCzjwj+3Yqh6/xxT/H8wKDK6hOvFJQrViy/Mbo7SGA3c0/lojz
- W6KwhweERuOhXj0R6uOsCWSdH6GkfcH9t8++0mAytsBZzCOJEbpbV15ObwIA/VA58IKp
- ZXdKsW6pVyMTDFVLak4ZwaAB66KOZaTN7qvAOaVJvecUBEk93XsLAU2GIiW4w3y1K1pi
- Vaiw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUFZ5hNebo0hy+yUuAM945zPkTttYf60Ur+xNhHRTPzhJJtG7jROIjRJ5qsKuU3P2ZbsekUxn2dGd4=@lists.freedesktop.org,
- AJvYcCWL63Ux5FDjwPe7hYQ1Wpz3QMjUOW51uVwLogxD+swQ1dal2JfGWfUQH/07Ku4weOSXoX6l0dOZxacT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz16oIN0PIAg5w+Y0nhYNxC10lkcgSNmiGfeS6xP+Ddl+8Pm5La
- u1vT90qRi2mPI+YM7ShRz7WUbvpDn4OKM+0JX6c8C9HAMyrY+OAb
-X-Gm-Gg: ASbGnct7yOHLdtOTxMOlHRc9zZIIZ/bCg1o8UhrGcY3gd6PEog+w2HUmlvo5JNKz4zK
- tQpzAW0aABceqdljDCVbhun9CouhHhS6vI+8ZtWPGj053w16H8RTQNsQjEZPQjnJujKwiYWVXVR
- KxFTv4NS8vkdl4MRUFu0tpTvfDZvExDCTO7L6i0nNr+4FXMPiMnGYqWMBoPk4z7BvjtTfDTi43F
- WmkGY/DdF9Te6vREEsfPrLRhljErLg51uZ5/jEWL+COHrS31jqn6y4I9y5c7zj+ceyWy33UxKhl
- gG1xl7MwH27ruQwCu/+wN2RF
-X-Google-Smtp-Source: AGHT+IHP0p+NONiLl7i2Vw7OYvZPcYWuVz1tQmt2LIN0LjY2OtrDWpizb9LboFu7wNKv18MMihvTqw==
-X-Received: by 2002:a17:90b:358d:b0:2ee:ead6:6213 with SMTP id
- 98e67ed59e1d1-2fbf8f59ed1mr5770571a91.19.1739401485964; 
- Wed, 12 Feb 2025 15:04:45 -0800 (PST)
-Received: from [127.0.1.1] ([66.119.214.127]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-220d556da47sm695655ad.187.2025.02.12.15.04.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Feb 2025 15:04:45 -0800 (PST)
-From: "James A. MacInnes" <james.a.macinnes@gmail.com>
-Date: Wed, 12 Feb 2025 15:03:47 -0800
-Subject: [PATCH v2 2/2] drm/msm/disp: Correct porch timing for SDM845
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250212-sdm845_dp-v2-2-4954e51458f4@gmail.com>
-References: <20250212-sdm845_dp-v2-0-4954e51458f4@gmail.com>
-In-Reply-To: <20250212-sdm845_dp-v2-0-4954e51458f4@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Chandan Uddaraju <chandanu@codeaurora.org>, 
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52AAE10E280
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Feb 2025 23:41:08 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 82D202015E;
+ Thu, 13 Feb 2025 00:41:04 +0100 (CET)
+Date: Thu, 13 Feb 2025 00:41:02 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: "James A. MacInnes" <james.a.macinnes@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Chandan Uddaraju <chandanu@codeaurora.org>, 
  Stephen Boyd <swboyd@chromium.org>, Vara Reddy <quic_varar@quicinc.com>, 
- Tanmay Shah <tanmay@codeaurora.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Tanmay Shah <tanmay@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Guenter Roeck <groeck@chromium.org>, Rob Clark <robdclark@chromium.org>, 
- "James A. MacInnes" <james.a.macinnes@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1739401480; l=1738;
- i=james.a.macinnes@gmail.com; h=from:subject:message-id;
- bh=y4Incp0qb4B4ngPLB+sALUgrKMocGxeOHTAr68tsUbw=;
- b=Vqx/NFaijxFNP/RnAZxTLuD4GWG+Eyg+gmPQCUi+e2pVNsHZnPUs5Ow8PG22uJ66Z56c3Jw58
- 2AgMigYprCpCCP64ekS83C1DDQfTO+hVrVLsPfH/cwQ5AuB69VpWm/G
-X-Developer-Key: i=james.a.macinnes@gmail.com; a=ed25519;
- pk=3z+XoIMKkNT7N5GL2WOp/Lcz2ghtr7b8RBCa1usTz9U=
-X-Mailman-Approved-At: Thu, 13 Feb 2025 12:55:28 +0000
+ Guenter Roeck <groeck@chromium.org>, Rob Clark <robdclark@chromium.org>
+Subject: Re: [PATCH v2 1/2] drm/msm/dp: Disable wide bus support for SDM845
+Message-ID: <voecekzdacvrxedltgkiq5vwnaomchv2dryi6ukvk2xynw72wp@5nre7uesyvkk>
+References: <20250212-sdm845_dp-v2-0-4954e51458f4@gmail.com>
+ <20250212-sdm845_dp-v2-1-4954e51458f4@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250212-sdm845_dp-v2-1-4954e51458f4@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,47 +55,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Type-C DisplayPort inoperable due to incorrect porch settings.
-- Re-used wide_bus_en as flag to prevent porch shifting
+On 2025-02-12 15:03:46, James A. MacInnes wrote:
+> SDM845 DPU hardware is rev 4.0.0 per hardware documents.
+> Original patch to enable wide_bus operation did not take into account
+> the SDM845 and it got carried over by accident.
+> 
+> - Incorrect setting caused inoperable DisplayPort.
+> - Corrected by separating SDM845 into its own descriptor.
 
-Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-Signed-off-by: James A. MacInnes <james.a.macinnes@gmail.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+If anything I'd have appreciated to see our conversation in v1 pasted here
+verbatim which is of the right verbosity to explain this.  I can't do much with
+a list of two items.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index abd6600046cb..a21addc4794f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -94,17 +94,21 @@ static void drm_mode_to_intf_timing_params(
- 		timing->vsync_polarity = 0;
- 	}
- 
--	/* for DP/EDP, Shift timings to align it to bottom right */
--	if (phys_enc->hw_intf->cap->type == INTF_DP) {
-+	timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
-+	timing->compression_en = dpu_encoder_is_dsc_enabled(phys_enc->parent);
-+
-+	/*
-+	 *  For DP/EDP, Shift timings to align it to bottom right.
-+	 *  wide_bus_en is set for everything excluding SDM845 &
-+	 *  porch changes cause DisplayPort failure and HDMI tearing.
-+	 */
-+	if (phys_enc->hw_intf->cap->type == INTF_DP && timing->wide_bus_en) {
- 		timing->h_back_porch += timing->h_front_porch;
- 		timing->h_front_porch = 0;
- 		timing->v_back_porch += timing->v_front_porch;
- 		timing->v_front_porch = 0;
- 	}
- 
--	timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
--	timing->compression_en = dpu_encoder_is_dsc_enabled(phys_enc->parent);
--
- 	/*
- 	 * for DP, divide the horizonal parameters by 2 when
- 	 * widebus is enabled
+I don't have a clearer way of explaining what all I find confusing about this
+description, so let me propose what I would have written if this was my patch
+instead:
 
--- 
-2.43.0
+	When widebus was enabled for DisplayPort in commit c7c412202623 ("drm/msm/dp:
+	enable widebus on all relevant chipsets") it was clarified that it is only
+	supported on DPU 5.0.0 onwards which includes SC7180 on DPU revision 6.2.
+	However, this patch missed that the description structure for SC7180 is also
+	reused for SDM845 (because of identical io_start address) which is only DPU
+	4.0.0, leading to a wrongly enbled widebus feature and corruption on that
+	platform.
 
+	Create a separate msm_dp_desc_sdm845 structure for this SoC compatible,
+	with the wide_bus_supported flag turned off.
+
+	Note that no other DisplayPort compatibles currently exist for SoCs older
+	than DPU 4.0.0 besides SDM845.
+
+Hope I'm not considered being too picky.  I first sketch **how** the original
+patch created a problem, then explain how this patch is intending to fix it,
+and finally describe that we went a step further and ensured no other SoCs
+are suffering from a similar problem.
+
+- Marijn
+
+> 
+> Fixes: c7c412202623 ("drm/msm/dp: enable widebus on all relevant chipsets")
+> Signed-off-by: James A. MacInnes <james.a.macinnes@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index aff51bb973eb..e30cccd63910 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -126,6 +126,11 @@ static const struct msm_dp_desc msm_dp_desc_sa8775p[] = {
+>  	{}
+>  };
+>  
+> +static const struct msm_dp_desc msm_dp_desc_sdm845[] = {
+> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0 },
+> +	{}
+> +};
+> +
+>  static const struct msm_dp_desc msm_dp_desc_sc7180[] = {
+>  	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+>  	{}
+> @@ -178,7 +183,7 @@ static const struct of_device_id msm_dp_dt_match[] = {
+>  	{ .compatible = "qcom,sc8180x-edp", .data = &msm_dp_desc_sc8180x },
+>  	{ .compatible = "qcom,sc8280xp-dp", .data = &msm_dp_desc_sc8280xp },
+>  	{ .compatible = "qcom,sc8280xp-edp", .data = &msm_dp_desc_sc8280xp },
+> -	{ .compatible = "qcom,sdm845-dp", .data = &msm_dp_desc_sc7180 },
+> +	{ .compatible = "qcom,sdm845-dp", .data = &msm_dp_desc_sdm845 },
+>  	{ .compatible = "qcom,sm8350-dp", .data = &msm_dp_desc_sc7180 },
+>  	{ .compatible = "qcom,sm8650-dp", .data = &msm_dp_desc_sm8650 },
+>  	{ .compatible = "qcom,x1e80100-dp", .data = &msm_dp_desc_x1e80100 },
+> 
+> -- 
+> 2.43.0
+> 
