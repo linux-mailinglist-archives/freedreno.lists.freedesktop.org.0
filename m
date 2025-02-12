@@ -2,95 +2,107 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 329FAA31FD6
-	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2025 08:18:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A552EA32127
+	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2025 09:32:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC2010E7C4;
-	Wed, 12 Feb 2025 07:18:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D78D610E7FA;
+	Wed, 12 Feb 2025 08:32:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LKnHOvWc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OtTgso7u";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C69DB10E7C4;
- Wed, 12 Feb 2025 07:18:18 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51BLLxC7025705;
- Wed, 12 Feb 2025 07:18:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- mwUlC2aKZRSlNQSNnZwqh13wOODDDXjJ7+xJpiK0pCs=; b=LKnHOvWcwLX0zHP5
- HeA0gKn+af0/wHtPubeyydNMuIQQTY/2C6+V4oWRtEgABMoSwxn54f+nxX7Sc7q1
- PxylMqcub0u/AJsIq0msEjjWFTMRjSbJrQPgpkB5upzzcypxo6NiF4lWuC7LFOHM
- T3MjZGVCH8A0y/2zTz3z4sL0o9a1dh0B4Cqq1fwYsrAdZJneDp/AUtOSqW3q4lnn
- 789SoCEFckTLWx2hTQa0CtvBk6aqBxKxLdQw7mKhkLfegqmelVxw5SfQPs7of86I
- Hq75h4pQQ637312y2q8MJOXmn3pAIzgGG3z/8mBjgxbtbS+UOjirA8f2uyVV+183
- Y5amrQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44r5j5avc3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Feb 2025 07:18:12 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51C7IBrb017512
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Feb 2025 07:18:11 GMT
-Received: from [10.216.10.188] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 11 Feb
- 2025 23:18:04 -0800
-Message-ID: <c80ef960-7dc6-42bf-89a1-79e43be2bce0@quicinc.com>
-Date: Wed, 12 Feb 2025 12:48:01 +0530
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43FB810E26F;
+ Wed, 12 Feb 2025 08:32:40 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id AF5DF5C06EA;
+ Wed, 12 Feb 2025 08:31:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30939C4CEDF;
+ Wed, 12 Feb 2025 08:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1739349159;
+ bh=Xg9XIDh10rgYubqNHyKWAmhf8OMGcuuYmiDQOuA4mJA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=OtTgso7uw/lVTrFq5eqkpxEsSyuQNJtGzKAKmI6TQD/kkgJsaQesqbHNY3hmqedHl
+ snkThAjnn7m5ZViJDPQ/a1zUE8bwLffr/Y9KZC7wZ3Ky+iyJ8OEUlg/H/RJllzkCUF
+ axPkddm4Wb7IUetkyqfa6KCjSvZXGu+oodzCpSQ+x0PM0UO3H4Ey7D7iVfmCrDMXra
+ u8NJzJqlhdnJ5D8PKPzlKVytlda3QErJlgUM6f7vIyovewhB9UposGpHJAuZa6WgYR
+ /ZX1yncCY2klnDIqSrOpterS9tAs3HGdCIQFAIbPliVWco/0W5wywfTk3hSKGfw9sR
+ g58pl16j5OfRg==
+Message-ID: <85927c8e-f0c5-4241-a840-667aa0459e70@kernel.org>
+Date: Wed, 12 Feb 2025 09:32:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: sa8775p-ride: Enable Adreno 663
- GPU
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
- Dybcio" <konradybcio@kernel.org>,
+Subject: Re: [PATCH v3 2/4] dt-bindings: display: msm: dp-controller: document
+ QCS8300 compatible
+To: Yongxing Mou <quic_yongmou@quicinc.com>, Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Connor Abbott <cwabbott0@gmail.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
-References: <20241030-a663-gpu-support-v3-0-bdf1d9ce6021@quicinc.com>
- <20241030-a663-gpu-support-v3-2-bdf1d9ce6021@quicinc.com>
- <4cfd1ebc-1a95-43d4-b36a-8b183c6dfd16@quicinc.com>
- <ah6nusoouth7ziu3iscxmafm6cxuwwebxt44ixsjmesp5adwc4@e5lnbztds2xd>
- <271e7b4f-454c-426e-a3f6-dcb55389374e@quicinc.com>
- <iymxe2hmjobctdimupp656xeyhctwd4yswbp2wobaneuzgxedu@cyhjb5ibkqmj>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+References: <20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com>
+ <20250113-mdssdt_qcs8300-v3-2-6c8e93459600@quicinc.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-In-Reply-To: <iymxe2hmjobctdimupp656xeyhctwd4yswbp2wobaneuzgxedu@cyhjb5ibkqmj>
-Content-Type: text/plain; charset="UTF-8"
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20250113-mdssdt_qcs8300-v3-2-6c8e93459600@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: I2PG4Q58doEJGIEy3-24I5DTXcJ29dI8
-X-Proofpoint-GUID: I2PG4Q58doEJGIEy3-24I5DTXcJ29dI8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-12_02,2025-02-11_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- priorityscore=1501 mlxscore=0 bulkscore=0 suspectscore=0 malwarescore=0
- phishscore=0 adultscore=0 spamscore=0 clxscore=1015 impostorscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2501170000 definitions=main-2502120055
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,81 +118,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/12/2025 5:30 AM, Dmitry Baryshkov wrote:
-> On Tue, Feb 11, 2025 at 06:41:39PM +0530, Akhil P Oommen wrote:
->> On 2/9/2025 9:59 PM, Dmitry Baryshkov wrote:
->>> On Wed, Nov 13, 2024 at 02:18:43AM +0530, Akhil P Oommen wrote:
->>>> On 10/30/2024 12:32 PM, Akhil P Oommen wrote:
->>>>> From: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
->>>>>
->>>>> Enable GPU for sa8775p-ride platform and provide path for zap
->>>>> shader.
->>>>>
->>>>> Signed-off-by: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
->>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>> ---
->>>>>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 8 ++++++++
->>>>>  1 file changed, 8 insertions(+)
->>>>>
->>>>> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>>>> index 0c1b21def4b6..4901163df8f3 100644
->>>>> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>>>> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>>>> @@ -407,6 +407,14 @@ queue3 {
->>>>>  	};
->>>>>  };
->>>>>  
->>>>> +&gpu {
->>>>> +	status = "okay";
->>>>> +};
->>>>> +
->>>>> +&gpu_zap_shader {
->>>>> +	firmware-name = "qcom/sa8775p/a663_zap.mbn";
->>>>> +};
->>>>> +
->>>>>  &i2c11 {
->>>>>  	clock-frequency = <400000>;
->>>>>  	pinctrl-0 = <&qup_i2c11_default>;
->>>>>
->>>>
->>>> Bjorn,
->>>>
->>>> Please ignore this patch for now. This is probably not the right
->>>> platform dtsi file where gpu should be enabled. I am discussing about
->>>> this internally. Will send a revision or a new patch based on the
->>>> conclusion.
->>>
->>> Akhil, any updates on this?
->>>
->>
->> I am still waiting for the discussion about QCS9075 board dts files [1]
->> to conclude.
->>
->> [1]
->> https://lore.kernel.org/lkml/Z3eMxl1Af8TOAQW%2F@hu-wasimn-hyd.qualcomm.com/T/
-> 
-> Why? We currently have several boards supported. We can enable GPU on
-> those as your patches are pretty fine. Then we can land Wasim's patches.
-> Not to mention that the discussion seems to be dead, last message was
-> sent almost a month ago.
-> 
+On 13/01/2025 09:03, Yongxing Mou wrote:
+> Add compatible string for the DisplayPort controller found on the
+> Qualcomm QCS8300 platform.QCS8300 only support one DisplayPort
+> controller and have the same base offset with sm8650, so we reuse
+> the sm8650 DisplayPort driver.
 
-sa8775p is an automotive-grade chipset which has a pretty different
-non-HLOS firmware. One of the major difference is that it has a SAFETY
-monitoring system (using SAIL IP block) which monitors different
-parameters like GPU frequency for eg and it takes control of the entire
-system when it detects an anomaly. That means we cannot use GPU DCVS,
-passive thermal mitigation etc there.
+Un-reviewed. Other patchset said these are not compatible.
 
-QCS9075 uses the same SoC but has different NHLOS firmwares that has
-SAIL disabled to make it behave like our regular chipsets. I am aware of
-only QCS9075 boards' GPU spec at the moment. I don't know the complete
-details of the impact of SAIL/SAFE features on GPU and other specs yet,
-so I can't disturb sa8775p-ride/qcs9100-ride boards.
+You keep sending stuff to the list which is known to be incorrect. Then,
+while patches are not applied, you send corrections.
 
-I can see that Wazim is still discussing about board DTS internally.
-Hopefully he will send out another revision of his series soon.
+NAK.
 
--Akhil
 
+
+Best regards,
+Krzysztof
