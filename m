@@ -2,64 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C5BA34A6F
-	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 17:45:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B681A34A8F
+	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 17:47:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC07610EB37;
-	Thu, 13 Feb 2025 16:45:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3E2A10EB37;
+	Thu, 13 Feb 2025 16:47:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gzuUXITn";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PmR6xa6R";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F180D10EB1F;
- Thu, 13 Feb 2025 16:45:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 82E315C53FA;
- Thu, 13 Feb 2025 16:44:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D3EC4CED1;
- Thu, 13 Feb 2025 16:44:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739465102;
- bh=wS6QvXcMhwE4DWtt5Jqf+sbLLz2q6PyWoErAL8pV51Q=;
- h=From:Date:Subject:To:Cc:From;
- b=gzuUXITncKYYEdOxAs/G1DWbhDBn8K0kJWkWUxKB9xPygLVOJmWldv/6l+4qGtv88
- xxdv/uYYU8jHOFmd2S4ZF3hdqJEDNaWBl2CSNN6njyQMDioocYHD/f8UMImSK53L3Q
- kQ7LLqy24xvUd//Y6E3pH4ue32SrznhBjdr3jc+WOQ8zzLOOKPtQkfsvSBh/01hJyt
- KB3fbuT4rggpc/tIbfcw4l6eJfR/hHqGqAsDs/geMXmD4K7m19xmSZkrltKyzgr7gF
- fqZluUt4Z00lRhc9a3oVryJeqdf7mFZVsxXaYwkMNSCTq/a/9VlJGwr8GIHjuYxL3r
- /rw7mhLmwn8bA==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Thu, 13 Feb 2025 17:44:43 +0100
-Subject: [PATCH] drm/msm/a6xx: Only print the GMU firmware version once
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6325310EB37
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:47:29 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51DGPlpt001136
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:47:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ pdPqwdhySUYtLxO6ZXkv3AyokTUz8gph0Rz4I17smjk=; b=PmR6xa6RZSIyGQYa
+ 1ohpI/2W5xKQVxwfYPJ0awefbsNAr4lfM/CAAqFZteBUfN/Hk7lWv7DgZJ67Q5J4
+ c0rzp3k/0BDNkKkZbheK4pWx9AWAuimPWGQ2kl3MU6uY8pepcnELWRO2Utp+QssC
+ 3iJvGz1SVsAiFYPQZc2cFWZyG0Q1mQkeZU/+yhfEmsa/yNWF/2RnPo/YP4MLkElr
+ mb9Wc4i+X9gNSB1zhyDWEAYcEG6eYMdgP87W9Jo+OJ0ZKkeAu5n8kB0Qxk0geN4c
+ FBJ3kU3ek6CgDpgJv2DrnjUB3TCBNFMwvjiD6YLH3shOCg9/8l1ZfdjNV+Onap//
+ GLxRbA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44sc7b9g43-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:47:28 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6e65eae5a26so1393546d6.1
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 08:47:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739465247; x=1740070047;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pdPqwdhySUYtLxO6ZXkv3AyokTUz8gph0Rz4I17smjk=;
+ b=N0Kl2QB0EfuLSDD4pacOTZDZeBPEu8vqol0p2EOChFRj0/EWyoaiexgLbKfCzJY8rZ
+ tUQ0nJFj+bHViKEzrTD7UuzGzsTF05jsJ/TFRq7VSD+DAbJu/apG3Xc+7UVocFEQ54rZ
+ jlddLcxFLCrzv6U0jePxmlXpxmBo8oDOevW36dgp9n7kXAp3WWfy0pUqrsOd+R8zAoPL
+ 9ccCnOGRujIq1bjpH88sOxKhkVxr2dNkBPRw5G/hsGqSr7D2MJfUbZy7kjTLMigDxX6B
+ djeJ8r2nzZh/Ap8dg5rv5R3IDuK71OS3L49LSq+e12VhiOZH7QD62x46+/5hjXSjdMal
+ 9G0w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUCqB8krV0+PyFMwQeHJSKzk3nJ1dHkNsLVzh+bxPtwvyl1B84rkVIwvLuccIywxhiwd6nizDluC+U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxmsfzWZeeAwG0T9hiNFm7lFVhegAomt9qA9hhOyK1nFp55/IBo
+ r32d3+wICn/5emk9HHvevGHte+7GBoqI2VJgq3Nhy0WwWSPaZm0kWxHYNeoA6wSuoOxdEEtjUFf
+ xqbWtbxCOUS5tFw3gMKSk1GXuRk/0DWG+hQyL+u8WGohQp1g0GjHCE9tHj37TkBFIpDo=
+X-Gm-Gg: ASbGnctRAIIyEoh9JogQxV68Dcve1L7mwtN8pGHoXLTZGmMzdNZoCdEuXlVLHur2g9m
+ lYgJfdK0rHJq5dPLt55vLRTFcZqps8brFc29YTI6OXF+fcJaAgngisC6dIaCdxi6KFLkVpakKf7
+ aWdyDOMVrckkthtQqFQVcYCij32L7OF13KXx9hSERAul9lzVq2Y8MvF+IXe7LezS+uRptbZ4bW2
+ dWOdIQG9XbBx12a9VqSfIbGMtCjOXXBcvF9AaqSp1jikIbSgi90OkeUYLty3el8vRR41aI+KiVf
+ xm49pdFvZnj2PrA8bemWT+Kij1jOAE+guPT78U+uyoQZwRrkSMcwXfSX+ds=
+X-Received: by 2002:a05:6214:1d0e:b0:6d8:967a:1a60 with SMTP id
+ 6a1803df08f44-6e46ed93ca3mr48905596d6.2.1739465247486; 
+ Thu, 13 Feb 2025 08:47:27 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGEetTXePMyTND5uVB//0Cph5yyIkXDH1QnV5NVQnh4WczSnYALFJyWUjGFeD039hxpYavxng==
+X-Received: by 2002:a05:6214:1d0e:b0:6d8:967a:1a60 with SMTP id
+ 6a1803df08f44-6e46ed93ca3mr48905226d6.2.1739465247027; 
+ Thu, 13 Feb 2025 08:47:27 -0800 (PST)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aba533bee4asm162967666b.170.2025.02.13.08.47.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Feb 2025 08:47:26 -0800 (PST)
+Message-ID: <eb7ec79c-a9d1-4d8e-975e-30f12bf583e5@oss.qualcomm.com>
+Date: Thu, 13 Feb 2025 17:47:23 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/msm/a6xx: Print GMU core firmware version at boot
+To: Thomas Zimmermann <tzimmermann@suse.de>, Abel Vesa <abel.vesa@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20241219-topic-gmu_fw_ver-v1-0-d403a70052d8@oss.qualcomm.com>
+ <20241219-topic-gmu_fw_ver-v1-2-d403a70052d8@oss.qualcomm.com>
+ <Z64fUjIfFzs4R8Im@linaro.org> <b8004a16-6130-4232-91fd-85d62c2b84ec@suse.de>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <b8004a16-6130-4232-91fd-85d62c2b84ec@suse.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250213-topic-gmu_no_spam-v1-1-1e4afdd898b6@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAHohrmcC/x3MQQqAIBBA0avErBPKlKirREjoaLNIRSuC8O5Jy
- 7f4/4WMiTDD3LyQ8KZMwVf0bQN637xDRqYaeMdlx/uBnSGSZu64lA8qx+1gwmqhhZxGKQ3ULia
- 09PzPZS3lAxDyuWBjAAAA
-X-Change-ID: 20250213-topic-gmu_no_spam-4fc4c459755d
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>, 
- Abel Vesa <abel.vesa@linaro.org>, Rob Clark <robdclark@chromium.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1739465097; l=1615;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=rviqRqqnKwEysjKAw+EBRbtmuL1NqJ2+/UqeC8Tajzg=;
- b=UsgAMcHRTZSaBEBYLKKtu4FbqbYob0qDF9JDQfaySiUiCius4FDEb3ZnBpefhpdxw+YbegUIP
- XbZhoE2tGW+AxqEo35/fegDk7OUpXW+Dh9r7OHzFV4sTFLlsJidsF2L
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+X-Proofpoint-ORIG-GUID: HcIGBDbL6Hp3JCdqvx9cjeKYeZSje14J
+X-Proofpoint-GUID: HcIGBDbL6Hp3JCdqvx9cjeKYeZSje14J
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-13_07,2025-02-13_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 mlxlogscore=999
+ phishscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
+ bulkscore=0 mlxscore=0 malwarescore=0 clxscore=1015 impostorscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502130120
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,47 +121,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On 13.02.2025 5:41 PM, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 13.02.25 um 17:35 schrieb Abel Vesa:
+>> On 24-12-19 23:36:56, Konrad Dybcio wrote:
+>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>
+>>> Log the version for informational purposes, such as for keeping track
+>>> of possible GMU fw-related failures in crash / CI logs.
+>>>
+>>> Intentionally not implemented on the if (gmu->legacy) codepath, as
+>>> these registers seem not to be used on there.
+>>>
+>>> Downstream additionally warns if the firmware version is too old for
+>>> a given GPU, but we already pair the binary to a given GPU, so let's
+>>> not go there at the moment.
+>>>
+>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>> ---
 
-We only fetch it once from userland, so let's also only notify the
-user once and not on every runtime resume.
+[...]
 
-As you can notice by the tags chain, more than one user found this
-annoying.
+>> So maybe DRM_INFO_ONCE instead ?
+> 
+> drm_dbg() seems appropriate. Most of the time, firmware versions are not interesting.
 
-Reported-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Suggested-by: Abel Vesa <abel.vesa@linaro.org>
-Suggested-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Unfortunately, in our case they are, given users source them from all
+kinds of places..
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 65d38b25c0707a3c7fff08d110b4ac2b9d410473..699b0dd34b18f0ec811e975779ba95991d485098 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -813,10 +813,10 @@ static int a6xx_gmu_fw_load(struct a6xx_gmu *gmu)
- 	}
- 
- 	ver = gmu_read(gmu, REG_A6XX_GMU_CORE_FW_VERSION);
--	DRM_INFO("Loaded GMU firmware v%u.%u.%u\n",
--		 FIELD_GET(A6XX_GMU_CORE_FW_VERSION_MAJOR__MASK, ver),
--		 FIELD_GET(A6XX_GMU_CORE_FW_VERSION_MINOR__MASK, ver),
--		 FIELD_GET(A6XX_GMU_CORE_FW_VERSION_STEP__MASK, ver));
-+	DRM_INFO_ONCE("Loaded GMU firmware v%u.%u.%u\n",
-+		      FIELD_GET(A6XX_GMU_CORE_FW_VERSION_MAJOR__MASK, ver),
-+		      FIELD_GET(A6XX_GMU_CORE_FW_VERSION_MINOR__MASK, ver),
-+		      FIELD_GET(A6XX_GMU_CORE_FW_VERSION_STEP__MASK, ver));
- 
- 	return 0;
- }
-
----
-base-commit: df5d6180169ae06a2eac57e33b077ad6f6252440
-change-id: 20250213-topic-gmu_no_spam-4fc4c459755d
-
-Best regards,
--- 
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
+Konrad
