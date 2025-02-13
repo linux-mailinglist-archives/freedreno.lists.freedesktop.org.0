@@ -2,88 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A39BCA3360A
-	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 04:24:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27366A34925
+	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 17:10:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDE910E9DB;
-	Thu, 13 Feb 2025 03:24:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07DBC10E09D;
+	Thu, 13 Feb 2025 16:10:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="e/FAwqdX";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="eofMLLMH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A3ED10E9D8;
- Thu, 13 Feb 2025 03:24:35 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51CLSU3A030642;
- Thu, 13 Feb 2025 03:23:59 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C847410E09D;
+ Thu, 13 Feb 2025 16:10:44 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51DAcEbo002191;
+ Thu, 13 Feb 2025 16:10:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- IoDBnBveHbXkdQl+RWjF5XUN6mrpWr/oxCaro/fZcyo=; b=e/FAwqdX9scNW8E9
- R4TuKr7zRLysaMRb34aAPm2WRXFtZp/AkNLzr2WZF+fEb2hxO+g3Eux1uVjTx9DP
- q0SC0SuXMTQhLI8b1owlp8+mJhxP6M5Tic6KaKnUTGxhLOcMMwtYTsJzGwytHKkJ
- TnUocT/V7zhMIwYbl4cJspMw+Oe6c32Hd8nLr5xoFfIvp0U12BAz1W4GuEWnjEjg
- GoL0YGWO7+FWgep1AMJVcDWDQjQx9vKf5uUlCaUa6+SrjSAn1memrO2pVC+sAP9/
- I5BSxGHOm+SqWWe1a0r9MXlFzkPBVYhK0NUDlzk6Xj/w12HNDUoXbLktYtyj8ZqY
- WFkglg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=3HL6sl92zaxhx0opG+pobi
+ HfF3pojHqEdIfAEm4d0Hs=; b=eofMLLMHFdQ+yWZbiGxl+ua2DFD8FTd7RSdbec
+ ismgr7VY4LeBSsTozsqibbtA/cRcshm2KIs/chwjXf2RvzZTIHkf/MTOMaCguRam
+ DpTIs6GecLtI3gBNyQXZ5VNszoZVTOpvy+1ieQniFQm7BmQ65EuTmV+u+DEo8mCQ
+ CQbizqVv0SBwkKE6UUJY3ZwGsfp6trlBwWMHzzzvM7iPiplAgPJ/EW4e497dAhxQ
+ gJfoslKeHbXp0C12IzZy68PEkBQek3dJGuZL0oJqx1H6hGe1d7kQexWJivXHa3P4
+ izI5GPDp0JTJkLtQILurA+Dh9DzWg958ZSsT6v51uc01YHqA==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44qxg9pvpc-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44s5w4a9hk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 13 Feb 2025 03:23:59 +0000 (GMT)
+ Thu, 13 Feb 2025 16:10:38 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51D3NwZP025988
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51DGAbTg004607
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 13 Feb 2025 03:23:58 GMT
-Received: from [10.71.110.136] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ Thu, 13 Feb 2025 16:10:37 GMT
+Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 12 Feb
- 2025 19:23:56 -0800
-Message-ID: <244931ee-acaa-4973-bb8e-aa4c6c1609f0@quicinc.com>
-Date: Wed, 12 Feb 2025 19:23:55 -0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 13 Feb
+ 2025 08:10:31 -0800
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Subject: [PATCH 0/5] EDITME: Support for Adreno 623 GPU
+Date: Thu, 13 Feb 2025 21:40:05 +0530
+Message-ID: <20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/msm/disp: Correct porch timing for SDM845
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "James A. MacInnes"
- <james.a.macinnes@gmail.com>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Stephen Boyd <swboyd@chromium.org>, Vara Reddy <quic_varar@quicinc.com>,
- Tanmay Shah <tanmay@codeaurora.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Guenter Roeck <groeck@chromium.org>, "Rob
- Clark" <robdclark@chromium.org>
-References: <20250212-sdm845_dp-v2-0-4954e51458f4@gmail.com>
- <20250212-sdm845_dp-v2-2-4954e51458f4@gmail.com>
- <5yli2sqw5hxoinlaguxjq2lleez7p4qjkwvexrgn7uphnu44ws@trlvdrpep5uv>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <5yli2sqw5hxoinlaguxjq2lleez7p4qjkwvexrgn7uphnu44ws@trlvdrpep5uv>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAF0ZrmcC/02Nyw6DIBQFf4XcdW/DQ4n1VxoXQEFZoBTEmBj/v
+ UQ3Xc5JzswB2SZvM/TkgGQ3n/0yV2APAmZS82jRfyoDp7ylnAlUkgscY8FcYlzSik7KVyepcLp
+ rod5iss7vl/I93Jzst1Tzeo+gVbZolhD82pNNPlmDyXD4T/bkCjLBUDeok5rNhKPbMYdQUFPBJ
+ XtJQWXTby0M5/kDMURev8kAAAA=
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, Jie Zhang <quic_jiezh@quicinc.com>, "Akhil P
+ Oommen" <quic_akhilpo@quicinc.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1739463031; l=1493;
+ i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
+ bh=WuR3peFWCiiP4y40/7sn77mVtQotfsJB+UuS/7nLy9g=;
+ b=96aU8j1P4fpykQ0YA6UdYOeoBcRwuJwxxNgJcFX8HcKtbk3qJXvvnORjxhU5AsKeL16Ekc/QZ
+ /YLoDXGK50fAPlgTsuCRd84kP1aqzyqep8LnMTi0GvLccxQ+V/P2huX
+X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: m_fdmR81NqWzdNyDNF_pmVfEUnjxa9is
-X-Proofpoint-GUID: m_fdmR81NqWzdNyDNF_pmVfEUnjxa9is
+X-Proofpoint-GUID: zc7jQoVuuJbv4zusTslYyUk3wiZdWcat
+X-Proofpoint-ORIG-GUID: zc7jQoVuuJbv4zusTslYyUk3wiZdWcat
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-13_01,2025-02-11_01,2024-11-22_01
+ definitions=2025-02-13_07,2025-02-13_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0
- mlxscore=0 priorityscore=1501 malwarescore=0 spamscore=0 impostorscore=0
- mlxlogscore=999 lowpriorityscore=0 phishscore=0 clxscore=1015
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2501170000 definitions=main-2502130025
+ mlxscore=0 spamscore=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015
+ suspectscore=0 mlxlogscore=999 priorityscore=1501 adultscore=0
+ malwarescore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502130118
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,71 +107,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This series adds support for A623 GPU found in QCS8300 chipsets. This
+GPU IP is very similar to A621 GPU, except for the UBWC configuration
+and the GMU firmware.
 
+Both DT patches are for Bjorn and rest of the patches for Rob Clark to
+pick up.
 
-On 2/12/2025 4:04 PM, Dmitry Baryshkov wrote:
-> On Wed, Feb 12, 2025 at 03:03:47PM -0800, James A. MacInnes wrote:
->> Type-C DisplayPort inoperable due to incorrect porch settings.
->> - Re-used wide_bus_en as flag to prevent porch shifting
-> 
-> Unfortunately I don't know enough details to comment on this change.
-> Maybe Abhinav can check it. I can only notice that msm-4.14 disables
-> programmable_fetch_config for non-DSI calls. Would disabling that call
-> for DP interface fix your issue?
-> 
+---
+Jie Zhang (5):
+      drm/msm/a6xx: Fix gpucc register block for A621
+      drm/msm/a6xx: Add support for Adreno 623
+      dt-bindings: display/msm/gmu: Add Adreno 623 GMU
+      arm64: dts: qcom: qcs8300: Add gpu and gmu nodes
+      arm64: dts: qcom: qcs8300-ride: Enable Adreno 623 GPU
 
-Yes, this piece of timing adjustment matches what we have even without 
-widebus.
+ .../devicetree/bindings/display/msm/gmu.yaml       |  1 +
+ arch/arm64/boot/dts/qcom/qcs8300-ride.dts          |  8 ++
+ arch/arm64/boot/dts/qcom/qcs8300.dtsi              | 93 ++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 29 +++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  8 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        | 13 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        | 17 ++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  5 ++
+ 8 files changed, 171 insertions(+), 3 deletions(-)
+---
+base-commit: 6a25088d268ce4c2163142ead7fe1975bb687cb7
+change-id: 20250213-a623-gpu-support-f6698603fb85
+prerequisite-change-id: 20250131-b4-branch-gfx-smmu-b03261963064:v5
+prerequisite-patch-id: f8fd1a2020c940e595e58a8bd3c55d00d3d87271
+prerequisite-patch-id: 08a0540f75b0f95fd2018b38c9ed5c6f96433b4d
 
-I do agree about the programmable fetch that it is enabled only on DSI 
-even on the latest kernels.
-
-698 	if (phys_enc->hw_intf->cap->type == INTF_DSI)
-699 		programmable_fetch_config(phys_enc, &timing_params);
-
-We can try if that works.
-
->>
->> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
->> Signed-off-by: James A. MacInnes <james.a.macinnes@gmail.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 14 +++++++++-----
->>   1 file changed, 9 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> index abd6600046cb..a21addc4794f 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> @@ -94,17 +94,21 @@ static void drm_mode_to_intf_timing_params(
->>   		timing->vsync_polarity = 0;
->>   	}
->>   
->> -	/* for DP/EDP, Shift timings to align it to bottom right */
->> -	if (phys_enc->hw_intf->cap->type == INTF_DP) {
->> +	timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
->> +	timing->compression_en = dpu_encoder_is_dsc_enabled(phys_enc->parent);
->> +
->> +	/*
->> +	 *  For DP/EDP, Shift timings to align it to bottom right.
->> +	 *  wide_bus_en is set for everything excluding SDM845 &
->> +	 *  porch changes cause DisplayPort failure and HDMI tearing.
->> +	 */
->> +	if (phys_enc->hw_intf->cap->type == INTF_DP && timing->wide_bus_en) {
->>   		timing->h_back_porch += timing->h_front_porch;
->>   		timing->h_front_porch = 0;
->>   		timing->v_back_porch += timing->v_front_porch;
->>   		timing->v_front_porch = 0;
->>   	}
->>   
->> -	timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
->> -	timing->compression_en = dpu_encoder_is_dsc_enabled(phys_enc->parent);
->> -
->>   	/*
->>   	 * for DP, divide the horizonal parameters by 2 when
->>   	 * widebus is enabled
->>
->> -- 
->> 2.43.0
->>
-> 
+Best regards,
+-- 
+Akhil P Oommen <quic_akhilpo@quicinc.com>
 
