@@ -2,90 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40D75A34B19
-	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 18:00:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8039CA34B39
+	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 18:06:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E90B10EB42;
-	Thu, 13 Feb 2025 17:00:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D48910E021;
+	Thu, 13 Feb 2025 17:06:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Im3QxvqP";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="C9PKfxpL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5DA810EB42
- for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 17:00:41 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-308dfea77e4so12573461fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 09:00:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739466040; x=1740070840; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=8UZNM2cfJDvWcZt1Er+PnBNRIi/F3g3nkljefPZmTuQ=;
- b=Im3QxvqPGG1YHvvK076x2e8t9JjOVilLkdUQY0olqJkOr2YY6MFPa0M8meqhrj3JrH
- Iysd6TQKDsXK3lBDPoercQsUnY8vLQXbpAYTQNB7jvYonwUPLncawzHWfRsIrvtLb2Ho
- TV+NQ5wWmyPujnDZXPFyPmt+SjKNFA2pjHi82Y9z/zg1ugFPZHNvXBLdSAcKFxYP1tWB
- /Akxb9TJrIgU9b594gf6JXnjICI30IXDCpCwJm8lLXkxyT/OkfrsDL1cqg1bPwC4O5oL
- ABxC4+YqwV/QlEzM+Lwfa8iDx8/D6+mjdInj/GKzWL48PGphbYcQql8VVTkwlOxs32vq
- ZPAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739466040; x=1740070840;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8UZNM2cfJDvWcZt1Er+PnBNRIi/F3g3nkljefPZmTuQ=;
- b=HQWbVVDh/5Ynsx2QKGhhpaJ6XlYt2xtBaMRVz3RmsRaeCTXrKcbq4qmcewaZtzRnT1
- CJajc4jUgIn6QbKKcoYyn7Ty8NMIOr+RFC+RIBmNkbkJ1dwn1Jirq0q1ZpfTg00IwILZ
- e/t4U9Nev7ljxRO6GT87rZpfWxTbmcuKwL9OCfNEDMSz3U3dB1W8gmuc7OG1rcnc8sR2
- HjvcgN5JBJjpeCtItHnpyJu6JlYKQu1/VHeJQHNZgl9SBwdNT/D2CTZC6SuSe6IIfNL8
- 0GoWX0aGmjdFnnK6k3tW6k24W5FwVhjzv2jxe4ijeGgNdJYSiAu8eaetLbwpez6Pmewc
- K5EQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUS0F3ZX+i++e7BAsH4Eu8m1mY0uGPSjyejQAhecP3Ml51NL5/rjXUrJ1NXIEyAqNjYbmfTyLWDE4s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzj9I645GEVgqxB6C17uYKRgykDoNlyGE8cZwWv1af1u9niLiEe
- PhSjBzidkdcLKDTXc9DFm+s0ELOk4pLb3OoYx4r7RsPVBmNKaYeEDnNGOpDZKNo=
-X-Gm-Gg: ASbGncv7hDojaFl1A27kdXgV67FkBEj1ru0agBaqSyGE2/7N1QnDytTIr/wKbi0LDBT
- eRlD/mrfZ1CJdJzUV6jgw11YqF/scjLxU1kKNb9wk4Mm0GOhqDIp9V0Yt3hL8zQYqcB2icUV6LJ
- dvB78cvHWimxEtKAvKaTGI5AIeaGaLApggyRo8tsI348s4Q+7wcT6NaQoMocTQnygtKulCbS9Iu
- Ml9N0HGOpeNwZT1js2PiM0dnNXB510VikIck8VNi0R5x+Uyqe7m5deIfP5+LnbbAXgyiKP2vNdq
- IeG0OfUTfDxpHv+rde7tknPdjQ4rLHfX5G8zwjITfFDsml/Dk6DH8WbrqaMuDgp90XdRfoE=
-X-Google-Smtp-Source: AGHT+IFxfLzjVADe+NQ9hyecFQjlri4ibXGiH0NU1miK6ClkLcEickWMwRLitIzMvkrGViP4aYFupQ==
-X-Received: by 2002:a2e:8887:0:b0:300:17a3:7af9 with SMTP id
- 38308e7fff4ca-3090f3bee24mr11613931fa.19.1739466039832; 
- Thu, 13 Feb 2025 09:00:39 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3091029b835sm2457111fa.100.2025.02.13.09.00.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2025 09:00:38 -0800 (PST)
-Date: Thu, 13 Feb 2025 19:00:36 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v4 4/4] arm64: dts: qcom: sm8650: add missing cpu-cfg
- interconnect path in the mdss node
-Message-ID: <7mojw3jf5skm4esa3xquthkpwez52u5fnbvyqj7g7hdjgsz5dz@ewfsb36sa7tx>
-References: <20250213-topic-sm8x50-mdss-interconnect-bindings-fix-v4-0-3fa0bc42dd38@linaro.org>
- <20250213-topic-sm8x50-mdss-interconnect-bindings-fix-v4-4-3fa0bc42dd38@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B7B310E021
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 17:06:47 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51D8eDFR016698
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 17:06:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ bS0vhULhoNWX5f1sJFAntEwyDsM5ciTvrgoCxSKKkoI=; b=C9PKfxpLcQ5kjvOx
+ YBX69EUN3he7ggDVfwiL6CRrRm9qNuz3kLG7smueo7HbBPq2yCS6LptCBrPWyAyc
+ qHU27ZfcjOEnRkvcPi7XgrDSfQlrJT1uNDI5en8CqwEXAXpMUI936lhJtfwBXX0Y
+ aiyYzQzhFTzWJ1+OVKLzdJ9+5di7KC+AAxQiU6zXe7BvGkUjbdXUQFYyD8LB+kTq
+ Q5cbjSpw1/xA9lHXE91ZQsk3LAmLQG3lImEWSawhZtiv1m2YcyMFCUMw4lWwlfeF
+ xQyRlLqar4Wb1FHsOGHg4V4oX0JIeQrvIRhGqgzHhR7ezGkiFm/gHADmGiFGY7Ow
+ MsaY+g==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44sde89amd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 17:06:45 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51DH6iC3025018
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 17:06:44 GMT
+Received: from [10.216.44.15] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 13 Feb
+ 2025 09:06:43 -0800
+Message-ID: <72f30f76-26ee-4c7e-a8e9-8847a5f466bb@quicinc.com>
+Date: Thu, 13 Feb 2025 22:36:40 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250213-topic-sm8x50-mdss-interconnect-bindings-fix-v4-4-3fa0bc42dd38@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] drm/msm/a6xx: Fix gpucc register block for A621
+To: <freedreno@lists.freedesktop.org>
+References: <20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com>
+ <20250213-a623-gpu-support-v1-1-993c65c39fd2@quicinc.com>
+ <2bfaa1ce-0233-456d-ba2e-5b14533f3812@oss.qualcomm.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <2bfaa1ce-0233-456d-ba2e-5b14533f3812@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Q-HeDrdLHDrEWigBFIlIqFwW53_e_86F
+X-Proofpoint-ORIG-GUID: Q-HeDrdLHDrEWigBFIlIqFwW53_e_86F
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-13_07,2025-02-13_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0
+ adultscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0
+ clxscore=1015 mlxscore=0 mlxlogscore=684 spamscore=0 impostorscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502130122
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,24 +89,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 13, 2025 at 05:27:59PM +0100, Neil Armstrong wrote:
-> The bindings requires the mdp0-mem and the cpu-cfg interconnect path,
-> add the missing cpu-cfg path to fix the dtbs check error.
+On 2/13/2025 10:06 PM, Konrad Dybcio wrote:
+> On 13.02.2025 5:10 PM, Akhil P Oommen wrote:
+>> From: Jie Zhang <quic_jiezh@quicinc.com>
+>>
+>> Adreno 621 has a different memory map for GPUCC block. So update
+>> a6xx_gpu_state code to dump the correct set of gpucc registers.
+>>
+>> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
+>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>> ---
+> 
+> So GPU_CC is outside what we consider GPU register region upstream..
+> 
+> And I've heard voices (+Caleb) lately that we should get some clock register
+> dumping infrastructure..
+> 
+> So while I'm not against this patch fixing a bug, perhaps we can get rid of
+> dumping GPU_CC here in the near future
 
-Same comment. Nevertheless
+In A623's case, there are kernel panics due to invalid register access
+here. So this register range need to be skipped or patched up. We chose
+the later.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
+-Akhil.
 
 > 
-> Fixes: 9fa33cbca3d2 ("arm64: dts: qcom: sm8650: correct MDSS interconnects")
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  arch/arm64/boot/dts/qcom/sm8650.dtsi | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
+> Konrad
 
--- 
-With best wishes
-Dmitry
