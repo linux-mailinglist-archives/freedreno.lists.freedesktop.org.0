@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A192A34AF4
-	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 17:56:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2339FA34B01
+	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 17:57:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A22510EB41;
-	Thu, 13 Feb 2025 16:56:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5CA210EB42;
+	Thu, 13 Feb 2025 16:57:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Wpp54qjC";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Mzdu27Zr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7322D10EB43
- for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:56:51 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-54509f46614so1100830e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 08:56:51 -0800 (PST)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FA8C10EB42
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:57:40 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-30761be8fa8so12352861fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 08:57:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739465810; x=1740070610; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1739465858; x=1740070658; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=YyQ7iBPn2LLvOrCnmEhJGLbqAv4rLkRdUEyL8CZvRP4=;
- b=Wpp54qjC2WHFyegnqVkaE4vRlmeTdKgKJk0A3C/qfOwPR64ir51vpInQBKYZXvrHbk
- 1eV2MSphLy1F1DOgTckPooH3zezSincYHfKFZNKA2Rg2oObkb4EwJTzTUbVu1gfg0B+v
- PfQ8/2bOewGOwMh4KVo1aY0T5TYTcUdTyu0Y/PS3dpn8L+OQefGGuXNMXjIwTk3lwNmH
- IjgNduV661H8hA6SJ5GDM9vOzuLur6Mr77v5u/C8Tb04jlbZN4opmxo7IjBNqrdO24Rc
- 2WrLCYCJ5rY7jBX4MnLJYWGriLRnsOnitLBv5PXcCXTLij4Hycyk5UWUsSZamaGVorbb
- BK1g==
+ bh=6DncLcX9aKkMb7TYzbSn7LrwA/nLBwK9XSdK3BMFQDQ=;
+ b=Mzdu27ZrWH92HBFqDnep+0/xRC8qWPw7hTZ3FZyqcWSsdvzZGDkAkhjN2EgtYnRI/L
+ JoHhd7CIdu1T4FHWVQk762/kjg/e4qXDj8fGqB1D+sdgmZNQNrkChfkNTVBTbtOjwm9F
+ ZEiCfANuCHNA6dICqW1MuRQEJMUlcRCkRJf2YfgY/riu/OmKlO5oh7OQjDmVE2k8PeoG
+ xdEE8wbjA/xJffOgw+TLTA6zfRKarxTISTH7kh2AdTsvPhJKWae2vhf6gpPQbfGrLDaa
+ pxDKfM+tZXNdxv/pieqJErdScTu8XTfFCvojX7FiIjJCmsYP6+Amd5s/wmCh8cSnm+UP
+ NBwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739465810; x=1740070610;
+ d=1e100.net; s=20230601; t=1739465858; x=1740070658;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YyQ7iBPn2LLvOrCnmEhJGLbqAv4rLkRdUEyL8CZvRP4=;
- b=KIM1gsLA/3NeKPb+gjf3l0CWRTigUf8PBFdAdlLOvdLDBHksACJSXltTysEWYYGSpW
- 7nC9yR0eO4uxxhrC4LKTvzuCmHjG/9/nwyU3/uUerXF5nd+Ued3HBu76MOuwahRCmo2u
- urP7tvSngmckxuQHXk/gZLcTPKWaNU6FNnTDxH/70xN2cUGfteIwDIkb/VVnBeHflVHS
- 8eXqoOcWKtT97/QvpgfvBlkxrGaUq7wf/9QebWZqIoFoXaajBBupo+nVGxqu+dlIYGoM
- Ua2Z4vJxVkFMQk6lUJ4vnuhN7yRSqk85teXFFWZjRUh+pTObckWGKpAUahIqEVwZrtPd
- D2lg==
+ bh=6DncLcX9aKkMb7TYzbSn7LrwA/nLBwK9XSdK3BMFQDQ=;
+ b=EQL9h9am5OU7/4KzZFs7RGSmjiMwNiyG/SKyqQig5ougCT1Kz0G4+9G2PdWtEVt6VY
+ 4IpfjIojY3SuL91w0sGbbzLjjGbRvzHKrdnvhyaepzt0IWcHJI9iBqqCNeK6fYnwi/Ba
+ 7ewv6iCE8XgYWsx2ehaO9sC6g4y/h1p/HrKf4q6wfcO9QX9hgYqx3E9rSxYd3MR9Mh5c
+ McEzTuR5gK6wJFx4NiqdUNBPZS5SpJa4RcGlE0W+/Dsh/3Ep2VeApGswH6xyivpcjWmt
+ y7GA+Rl3hnI3Sby7+7DU0fR3x/HRRraCCKNAM2JEym/DBMNPHdRa+kRNgXh9O3zElK2a
+ gbRQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWIDP/a1Is3NCFkR96PjR7itpVMLK8GB1D+X512lkKK3zk0yym8DsDuJfdHSzR5GMXOMZH2F1vPDVM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyp7mPZz8lzHhzQ79FB3vdynCgOV7L8QWfHIVoqmICNRY4EJ3xH
- Nl1F1nszlr1qVjUfIbuUpr8UNBOWVfA4v9KY2mJY0wRcMtQvZ/Lgua7k4VmQ/W8=
-X-Gm-Gg: ASbGnctRR33sFsDVwvLpKC/AZQgDGZnsvfRJ987UAyjQ7N579LKAHEMYUqqSQ4RQrkR
- bMDiu1OvGKV8BUfNZnuQ+UMujyX/oZT7RrBJI3ONyPjRle97oP9+kYJHLqkK5K7TvQfOdiUVbwM
- T5XT6y8aBpFAl30QI67DAVt1ER2g+w4AH/Y8sSjjVKhW0PIqYCioZK66SRrqZe+fOmHigVQNIAV
- narLtExmo2RYWpo6wmPEGjX98xVp++X4p4QO/bmocix70yhGoN/WUDCb1pSF16NB+WTcCnsLmyD
- oPKEDCPuf/f+SBKbBP26PIiI/KkegynN8RZzKJ/7xWruj9JLP0JIhNf3Dhr6t0QBGUMUzkA=
-X-Google-Smtp-Source: AGHT+IHPp7z9mHrglxs4Ys3IyXNLHHY1OQEK7JqWZvEuKQ6rWpt9p/SBEJZ/ltRNQXoWyTRbRwY6vQ==
-X-Received: by 2002:a05:6512:128a:b0:53e:3a7c:c0b5 with SMTP id
- 2adb3069b0e04-545180e5df1mr2549482e87.10.1739465809683; 
- Thu, 13 Feb 2025 08:56:49 -0800 (PST)
+ AJvYcCVuTrsQGrLmVUsh+sYxhRM4Kh14lODAM12ravISVpokxPBlNqv9VcJvRMoWhH7zYAH2QdEHtd4wXp4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1azT0u0THefRU49OFvQJnQoDBGv54K/33m7V0ce/dOTmwFLJy
+ RzYmi/yAQmCZsUkPgQHlvwEOAGwysbLgxVGm1GaFRYzqFC61lgiYMyUg2GMmMBw=
+X-Gm-Gg: ASbGncva+1udqVZa/2yvPtgG8jGgMMx7QnjvQLsZMCk6mY/mWApq+fEnmOlGT+zfGWG
+ cpW/BFWRng4LJ4PDAYFVNdkoSEjFln8rEPlcyOlLlh8foQUeRhWjH9XLtqO5uve2gmS4DqXonlC
+ m1CHk5i0jKEk7JaMMGA5iMi5qrmL8C2rXBXTLMVwmn/WaKvHGVJWFFD+Vyt2EtpPkMdasbtnqxE
+ TSSoPAjRulOOAkyZhTSzH1eTwbRvt7xBeeizss17qLd03HpbpipwozHqJegPrFAWhJINTidJ5WX
+ 8P3Tozr8fBKV9/52dcbl78Y5XowV4nXQdJQIF0VqgyCAz+49IfanD6/AhbQ3csEb41P8Vp4=
+X-Google-Smtp-Source: AGHT+IGmG7vAzEnhXHlQo3207L4CmELRiyNhJ3wUUEyMyFbBXvRHz97NRmkBrfrhecbVrZ+I7yOf1Q==
+X-Received: by 2002:a05:651c:4108:b0:309:bc3:3a56 with SMTP id
+ 38308e7fff4ca-309148017bdmr6741931fa.0.1739465858543; 
+ Thu, 13 Feb 2025 08:57:38 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5451f10cc28sm221256e87.201.2025.02.13.08.56.47
+ 38308e7fff4ca-30910276efasm2467321fa.85.2025.02.13.08.57.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2025 08:56:48 -0800 (PST)
-Date: Thu, 13 Feb 2025 18:56:46 +0200
+ Thu, 13 Feb 2025 08:57:37 -0800 (PST)
+Date: Thu, 13 Feb 2025 18:57:34 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Akhil P Oommen <quic_akhilpo@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -77,14 +77,14 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  Jie Zhang <quic_jiezh@quicinc.com>
-Subject: Re: [PATCH 4/5] arm64: dts: qcom: qcs8300: Add gpu and gmu nodes
-Message-ID: <p36nz6p6bbzur7uoitbzc63hv4qf7hhsix3mqa36igarasj67b@evcdfpeybgsh>
+Subject: Re: [PATCH 5/5] arm64: dts: qcom: qcs8300-ride: Enable Adreno 623 GPU
+Message-ID: <gberjl2wv5tafnemlagidyrulhiqtfwri254swv7zoc22dnzns@2obwq2rzcnap>
 References: <20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com>
- <20250213-a623-gpu-support-v1-4-993c65c39fd2@quicinc.com>
+ <20250213-a623-gpu-support-v1-5-993c65c39fd2@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250213-a623-gpu-support-v1-4-993c65c39fd2@quicinc.com>
+In-Reply-To: <20250213-a623-gpu-support-v1-5-993c65c39fd2@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,81 +100,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 13, 2025 at 09:40:09PM +0530, Akhil P Oommen wrote:
+On Thu, Feb 13, 2025 at 09:40:10PM +0530, Akhil P Oommen wrote:
 > From: Jie Zhang <quic_jiezh@quicinc.com>
 > 
-> Add gpu and gmu nodes for qcs8300 chipset.
+> Enable GPU for qcs8300-ride platform and provide path for zap
+> shader.
 > 
 > Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
 > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 > ---
->  arch/arm64/boot/dts/qcom/qcs8300.dtsi | 93 +++++++++++++++++++++++++++++++++++
->  1 file changed, 93 insertions(+)
+>  arch/arm64/boot/dts/qcom/qcs8300-ride.dts | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs8300.dtsi b/arch/arm64/boot/dts/qcom/qcs8300.dtsi
-> index f1c90db7b0e6..2dc487dcc584 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs8300.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/qcs8300.dtsi
-> @@ -2660,6 +2660,99 @@ serdes0: phy@8909000 {
->  			status = "disabled";
->  		};
->  
-> +		gpu: gpu@3d00000 {
-> +			compatible = "qcom,adreno-623.0", "qcom,adreno";
-> +			reg = <0x0 0x03d00000 0x0 0x40000>,
-> +			      <0x0 0x03d9e000 0x0 0x1000>,
-> +			      <0x0 0x03d61000 0x0 0x800>;
-> +			reg-names = "kgsl_3d0_reg_memory",
-> +				    "cx_mem",
-> +				    "cx_dbgc";
-> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-> +			iommus = <&adreno_smmu 0 0xc00>,
-> +				 <&adreno_smmu 1 0xc00>;
-> +			operating-points-v2 = <&gpu_opp_table>;
-> +			qcom,gmu = <&gmu>;
-> +			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-> +			interconnect-names = "gfx-mem";
-> +			#cooling-cells = <2>;
-> +
-> +			status = "disabled";
-> +
-> +			gpu_zap_shader: zap-shader {
-> +				memory-region = <&gpu_microcode_mem>;
-> +			};
-> +
-> +			gpu_opp_table: opp-table {
-> +				compatible = "operating-points-v2";
-> +
-> +				opp-877000000 {
-> +					opp-hz = /bits/ 64 <877000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-> +					opp-peak-kBps = <12484375>;
-> +				};
-> +
-> +				opp-780000000 {
-> +					opp-hz = /bits/ 64 <780000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-> +					opp-peak-kBps = <10687500>;
-> +				};
-> +
-> +				opp-599000000 {
-> +					opp-hz = /bits/ 64 <599000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-> +					opp-peak-kBps = <8171875>;
-> +				};
-> +
-> +				opp-479000000 {
-> +					opp-hz = /bits/ 64 <479000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-> +					opp-peak-kBps = <5285156>;
-> +				};
 
-Does it have no speed bins or are they pending on the nvmem patchset?
-
-> +			};
-> +		};
-> +
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
