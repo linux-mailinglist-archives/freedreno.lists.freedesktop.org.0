@@ -2,69 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F37BA335E6
-	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 04:04:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A39BCA3360A
+	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 04:24:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4127910E9BC;
-	Thu, 13 Feb 2025 03:04:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDE910E9DB;
+	Thu, 13 Feb 2025 03:24:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="UGeF5RPn";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="e/FAwqdX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A90610E9CA;
- Thu, 13 Feb 2025 03:04:40 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51CILd5I008889;
- Thu, 13 Feb 2025 03:03:59 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A3ED10E9D8;
+ Thu, 13 Feb 2025 03:24:35 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51CLSU3A030642;
+ Thu, 13 Feb 2025 03:23:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 8CapTW4zK04vBcb3GwBXZvC4KW59paVIIL6A9X+9/BY=; b=UGeF5RPnTXHg+O+C
- ZR26jzpIGrwNsd/LTOdk2yC3Qjaaj284PCnECF5fp9hvgo2x2u+TapecTYap673A
- bL/ygeIEBqwcPG3qYCFBrqkUOaAhBeJG8jXqFVZq7dhDW5A+FuxAgynZSa4WGAVI
- wbt8DJQJsy57UvfZ1Urp6amv4J8M2w6lgV7/6qwBaAnC6PutEvnc2Ot8ftTEFdjO
- 3gO9l8q/pnEWtobH2VS4aepUt78T1hNm/vN1wZmxAYn4HiJS8mYkVfhzg1O3/a49
- 2dN/pJ+/dDPw+Gk4v3Jp/mBjxr2WGC7uXEIlLYzwrqhk2t7HabMHtrvRYIWSpMU4
- KJz5LA==
+ IoDBnBveHbXkdQl+RWjF5XUN6mrpWr/oxCaro/fZcyo=; b=e/FAwqdX9scNW8E9
+ R4TuKr7zRLysaMRb34aAPm2WRXFtZp/AkNLzr2WZF+fEb2hxO+g3Eux1uVjTx9DP
+ q0SC0SuXMTQhLI8b1owlp8+mJhxP6M5Tic6KaKnUTGxhLOcMMwtYTsJzGwytHKkJ
+ TnUocT/V7zhMIwYbl4cJspMw+Oe6c32Hd8nLr5xoFfIvp0U12BAz1W4GuEWnjEjg
+ GoL0YGWO7+FWgep1AMJVcDWDQjQx9vKf5uUlCaUa6+SrjSAn1memrO2pVC+sAP9/
+ I5BSxGHOm+SqWWe1a0r9MXlFzkPBVYhK0NUDlzk6Xj/w12HNDUoXbLktYtyj8ZqY
+ WFkglg==
 Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44rr1qtkxu-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44qxg9pvpc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 13 Feb 2025 03:03:59 +0000 (GMT)
+ Thu, 13 Feb 2025 03:23:59 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51D33wni031773
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51D3NwZP025988
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 13 Feb 2025 03:03:58 GMT
+ Thu, 13 Feb 2025 03:23:58 GMT
 Received: from [10.71.110.136] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 12 Feb
- 2025 19:03:57 -0800
-Message-ID: <4570ecc8-d991-4160-aba7-250f5580d58d@quicinc.com>
-Date: Wed, 12 Feb 2025 19:03:55 -0800
+ 2025 19:23:56 -0800
+Message-ID: <244931ee-acaa-4973-bb8e-aa4c6c1609f0@quicinc.com>
+Date: Wed, 12 Feb 2025 19:23:55 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/msm/dp: Disable wide bus support for SDM845
-To: Marijn Suijten <marijn.suijten@somainline.org>, "James A. MacInnes"
+Subject: Re: [PATCH v2 2/2] drm/msm/disp: Correct porch timing for SDM845
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "James A. MacInnes"
  <james.a.macinnes@gmail.com>
-CC: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Chandan Uddaraju
- <chandanu@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>, Vara Reddy
- <quic_varar@quicinc.com>,
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ Stephen Boyd <swboyd@chromium.org>, Vara Reddy <quic_varar@quicinc.com>,
  Tanmay Shah <tanmay@codeaurora.org>, <linux-arm-msm@vger.kernel.org>,
  <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, "Guenter Roeck" <groeck@chromium.org>,
- Rob Clark <robdclark@chromium.org>
+ <linux-kernel@vger.kernel.org>, Guenter Roeck <groeck@chromium.org>, "Rob
+ Clark" <robdclark@chromium.org>
 References: <20250212-sdm845_dp-v2-0-4954e51458f4@gmail.com>
- <20250212-sdm845_dp-v2-1-4954e51458f4@gmail.com>
- <voecekzdacvrxedltgkiq5vwnaomchv2dryi6ukvk2xynw72wp@5nre7uesyvkk>
+ <20250212-sdm845_dp-v2-2-4954e51458f4@gmail.com>
+ <5yli2sqw5hxoinlaguxjq2lleez7p4qjkwvexrgn7uphnu44ws@trlvdrpep5uv>
 Content-Language: en-US
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <voecekzdacvrxedltgkiq5vwnaomchv2dryi6ukvk2xynw72wp@5nre7uesyvkk>
+In-Reply-To: <5yli2sqw5hxoinlaguxjq2lleez7p4qjkwvexrgn7uphnu44ws@trlvdrpep5uv>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -73,17 +73,17 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: mr0b57-DXCcKKlBb2_x5gp4txnWhpPdB
-X-Proofpoint-ORIG-GUID: mr0b57-DXCcKKlBb2_x5gp4txnWhpPdB
+X-Proofpoint-ORIG-GUID: m_fdmR81NqWzdNyDNF_pmVfEUnjxa9is
+X-Proofpoint-GUID: m_fdmR81NqWzdNyDNF_pmVfEUnjxa9is
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-12_08,2025-02-11_01,2024-11-22_01
+ definitions=2025-02-13_01,2025-02-11_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0
- mlxscore=0 impostorscore=0 spamscore=0 bulkscore=0 malwarescore=0
- lowpriorityscore=0 mlxlogscore=999 priorityscore=1501 suspectscore=0
- clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2501170000 definitions=main-2502130021
+ bulkscore=0 adultscore=0
+ mlxscore=0 priorityscore=1501 malwarescore=0 spamscore=0 impostorscore=0
+ mlxlogscore=999 lowpriorityscore=0 phishscore=0 clxscore=1015
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502130025
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,89 +101,69 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 2/12/2025 3:41 PM, Marijn Suijten wrote:
-> On 2025-02-12 15:03:46, James A. MacInnes wrote:
->> SDM845 DPU hardware is rev 4.0.0 per hardware documents.
->> Original patch to enable wide_bus operation did not take into account
->> the SDM845 and it got carried over by accident.
+On 2/12/2025 4:04 PM, Dmitry Baryshkov wrote:
+> On Wed, Feb 12, 2025 at 03:03:47PM -0800, James A. MacInnes wrote:
+>> Type-C DisplayPort inoperable due to incorrect porch settings.
+>> - Re-used wide_bus_en as flag to prevent porch shifting
+> 
+> Unfortunately I don't know enough details to comment on this change.
+> Maybe Abhinav can check it. I can only notice that msm-4.14 disables
+> programmable_fetch_config for non-DSI calls. Would disabling that call
+> for DP interface fix your issue?
+> 
+
+Yes, this piece of timing adjustment matches what we have even without 
+widebus.
+
+I do agree about the programmable fetch that it is enabled only on DSI 
+even on the latest kernels.
+
+698 	if (phys_enc->hw_intf->cap->type == INTF_DSI)
+699 		programmable_fetch_config(phys_enc, &timing_params);
+
+We can try if that works.
+
 >>
->> - Incorrect setting caused inoperable DisplayPort.
->> - Corrected by separating SDM845 into its own descriptor.
-> 
-> If anything I'd have appreciated to see our conversation in v1 pasted here
-> verbatim which is of the right verbosity to explain this.  I can't do much with
-> a list of two items.
-> 
-> I don't have a clearer way of explaining what all I find confusing about this
-> description, so let me propose what I would have written if this was my patch
-> instead:
-> 
-> 	When widebus was enabled for DisplayPort in commit c7c412202623 ("drm/msm/dp:
-> 	enable widebus on all relevant chipsets") it was clarified that it is only
-> 	supported on DPU 5.0.0 onwards which includes SC7180 on DPU revision 6.2.
-> 	However, this patch missed that the description structure for SC7180 is also
-> 	reused for SDM845 (because of identical io_start address) which is only DPU
-> 	4.0.0, leading to a wrongly enbled widebus feature and corruption on that
-> 	platform.
-> 
-> 	Create a separate msm_dp_desc_sdm845 structure for this SoC compatible,
-> 	with the wide_bus_supported flag turned off.
-> 
-> 	Note that no other DisplayPort compatibles currently exist for SoCs older
-> 	than DPU 4.0.0 besides SDM845.
-> 
-
-Yes, this is good description. Thanks Marijn!
-
-> Hope I'm not considered being too picky.  I first sketch **how** the original
-> patch created a problem, then explain how this patch is intending to fix it,
-> and finally describe that we went a step further and ensured no other SoCs
-> are suffering from a similar problem.
-> 
-> - Marijn
-> 
-
-Its indeed a bug introduced due to msm_dp_desc_sc7180 re-use. There is 
-no widebus on this chipset.
-
-
-With the commit text fixed like above,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>
->> Fixes: c7c412202623 ("drm/msm/dp: enable widebus on all relevant chipsets")
+>> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
 >> Signed-off-by: James A. MacInnes <james.a.macinnes@gmail.com>
 >> ---
->>   drivers/gpu/drm/msm/dp/dp_display.c | 7 ++++++-
->>   1 file changed, 6 insertions(+), 1 deletion(-)
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 14 +++++++++-----
+>>   1 file changed, 9 insertions(+), 5 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index aff51bb973eb..e30cccd63910 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -126,6 +126,11 @@ static const struct msm_dp_desc msm_dp_desc_sa8775p[] = {
->>   	{}
->>   };
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+>> index abd6600046cb..a21addc4794f 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+>> @@ -94,17 +94,21 @@ static void drm_mode_to_intf_timing_params(
+>>   		timing->vsync_polarity = 0;
+>>   	}
 >>   
->> +static const struct msm_dp_desc msm_dp_desc_sdm845[] = {
->> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0 },
->> +	{}
->> +};
+>> -	/* for DP/EDP, Shift timings to align it to bottom right */
+>> -	if (phys_enc->hw_intf->cap->type == INTF_DP) {
+>> +	timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
+>> +	timing->compression_en = dpu_encoder_is_dsc_enabled(phys_enc->parent);
 >> +
->>   static const struct msm_dp_desc msm_dp_desc_sc7180[] = {
->>   	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
->>   	{}
->> @@ -178,7 +183,7 @@ static const struct of_device_id msm_dp_dt_match[] = {
->>   	{ .compatible = "qcom,sc8180x-edp", .data = &msm_dp_desc_sc8180x },
->>   	{ .compatible = "qcom,sc8280xp-dp", .data = &msm_dp_desc_sc8280xp },
->>   	{ .compatible = "qcom,sc8280xp-edp", .data = &msm_dp_desc_sc8280xp },
->> -	{ .compatible = "qcom,sdm845-dp", .data = &msm_dp_desc_sc7180 },
->> +	{ .compatible = "qcom,sdm845-dp", .data = &msm_dp_desc_sdm845 },
->>   	{ .compatible = "qcom,sm8350-dp", .data = &msm_dp_desc_sc7180 },
->>   	{ .compatible = "qcom,sm8650-dp", .data = &msm_dp_desc_sm8650 },
->>   	{ .compatible = "qcom,x1e80100-dp", .data = &msm_dp_desc_x1e80100 },
+>> +	/*
+>> +	 *  For DP/EDP, Shift timings to align it to bottom right.
+>> +	 *  wide_bus_en is set for everything excluding SDM845 &
+>> +	 *  porch changes cause DisplayPort failure and HDMI tearing.
+>> +	 */
+>> +	if (phys_enc->hw_intf->cap->type == INTF_DP && timing->wide_bus_en) {
+>>   		timing->h_back_porch += timing->h_front_porch;
+>>   		timing->h_front_porch = 0;
+>>   		timing->v_back_porch += timing->v_front_porch;
+>>   		timing->v_front_porch = 0;
+>>   	}
+>>   
+>> -	timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
+>> -	timing->compression_en = dpu_encoder_is_dsc_enabled(phys_enc->parent);
+>> -
+>>   	/*
+>>   	 * for DP, divide the horizonal parameters by 2 when
+>>   	 * widebus is enabled
 >>
 >> -- 
 >> 2.43.0
 >>
+> 
 
