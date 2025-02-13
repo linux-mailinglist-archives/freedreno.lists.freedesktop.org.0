@@ -2,106 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B68D7A349C3
-	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 17:28:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 509E0A349F9
+	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 17:35:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3F1910E0F4;
-	Thu, 13 Feb 2025 16:28:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1067310E411;
+	Thu, 13 Feb 2025 16:35:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="t8MdI4+5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="btVkvgTV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E0B710EB26
- for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:28:07 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-439554db49dso12630645e9.1
- for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 08:28:07 -0800 (PST)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1BE510E0D1
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:35:33 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-43962f7b0e4so5584655e9.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 08:35:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739464086; x=1740068886; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=iDc93kMEYWIE43KW8M1DQx0zrLSt7yqt1TtwJm30k9Y=;
- b=t8MdI4+5u+U2mHDINWC6lMycDuhUZf9l2QjWqRpUNJLfS+ptBk4sGijzuy/YD34PtJ
- v4zNXcTXKQA/phV0rXF8xVVAG+vAwNrmdk0HH95BB/1AvR8sSx0mZvVHOFAPWQFtsAfp
- zxzsn47Xk/dDCeVZsSGzcESFHMJhP8sqxc19q2tKePQcRM5f9Dz7/xW5h7UAmLYnahfU
- 1B29WzlSezBnSmxCkatD5Lz2CsE4gHYWSJYRWQ5YpqHMevxoAyUPPCMUlzopr09Ku+gX
- iSOW+g4YPUsv+NyLJrN9Y4ObFkCsCykv4D2mgVlZOitRvMay35p421FZnOc+oK4jeyGc
- /shA==
+ d=linaro.org; s=google; t=1739464532; x=1740069332; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=VkUcjMmDcjBIWHZCqAgxZp7FU0Fk/ys2zKA4pFxdyX4=;
+ b=btVkvgTVpQvCuY8mFV0bfMMPTWBydF7F6KlQBQ98PaKJ4hzx61uOCpOzgH94PaFzdb
+ kZWWzJxK+rQbaxMu/X97GTmHCDEed1UdG4xb1cTqlYvOcPQZin0jVQ+MyjzwG4jYiUhI
+ oHPHSDZHVX9I//NuKN8UKjbXSIwULtmEj9BGAOwKN4x9Y3WOkVMXWUXHVEkFT0CYzZOa
+ 5Zp+Yd+h2NzYZJ/0rmlherJdG9Yu5SMcNCL28j8Fq9KHEZYsorJD6SIr5EXC6LH3pl+6
+ h6LFWXJlVM4QVGKqO9JY1mFR89w/wRfWlbN9RJGYn2e3HY4/21E3iVqblZ2ZMw96TIu6
+ QDiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739464086; x=1740068886;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=iDc93kMEYWIE43KW8M1DQx0zrLSt7yqt1TtwJm30k9Y=;
- b=nQc33wArYzhNroqTltwdzTLXd4Q+0iCQslwsPXlMm6g0RQiKQL61UbVBHqpnK5tRwS
- s6DB8azbaJ7r7SH+0dgmZ4ongjmoUBd3R6FGYNBbfLGjAEohpzcz7Ckpz3UgUXS2BlLD
- 4H43bSnUjL3T58pjt7i505YgKdwNW+Y8OJpo1rEwVTX8ojcxZbsJI26WtOwWvm8DiMWv
- fCsFAXfY47L/2gCBclIUybkcBtDYyeXJ/fbGbGkHM1H8iBUy/75Umf1zugjAq7yBVzYW
- TPjqLOsKz7ef9Bh3lY8HFnYTGVRmMWczLsXzSd0r+T/T+m3Nd+rp+ceILavHF3QUKM4f
- +f/w==
+ d=1e100.net; s=20230601; t=1739464532; x=1740069332;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VkUcjMmDcjBIWHZCqAgxZp7FU0Fk/ys2zKA4pFxdyX4=;
+ b=XhSfwnu6rbydbh/YDUcqr/Gz6I6kbtC6BOcEbEObNI4YUhZSWw6cp+2/gW/Ju6ORLR
+ 7rYQ22+54qzv09+ws20FCIXaUzKuOr92ZWZoncgHskrFSXqRBN5Rathm5hqLjhrdB9+K
+ B49kKma8vDeXt9wyO78dLASNhzgshJk/L6Tu9RAU+oAXN2gajCPKCpab6TTCiNJvtbPT
+ /fYij+8O+Y4ca19ve1nBQ+sGQw4+nAmlIfCDG+CySgkh28zf9sKGq3qIomssbMF8a0fH
+ goqjTUEWgUxhcxrJdFUqIQhmNG8ktQ0VmL9njb8oo0pSL6tyb4rrKX4zuLqeAxxgXluf
+ gg1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVrfKJCMRFdRdL0N+0OyEnoZNDzoFzPIfja7hCmpz4HLuMx7bMXEnzydRZbS0atUpeKFul6+DyJ9x4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1lun/BSQ1sK4cBjp4dlAuQtVGA7g4NfZdtTaJGsSWBWmJ/+Xr
- i0owPlPONZwzIrRuXXdNZbknejeYqNUaIT+/9jtpaNM40oCVoVDqMYPVDLRBSpw=
-X-Gm-Gg: ASbGncuiQpUV0Ae2ntgmqOGSd4ONJJws7ePH2ECCYR/h/r6aClGjdQ5vwPHZYaq6xPq
- 5m2xGDHjqw+Az921djXK/iOPJDkP36rYjuXQJOB6GkuLBczeL2Db5Os7f6qIQSLDsWa/EYev1dM
- NcWbduOVal1vvsLW/sOMkMIqs72LlK14OyFHhBs2BZZmqTOvRt57j2efoFbZ/QuwbsSxZ3SV7y2
- dyG0FUzy6Fv3UNFZo/eSb4PvUo5573U3jWFFZdjf1XpfOJTjIg8PiOYBRGeIixLMDhXUmpC+hSR
- Ob5TJCushdlrYPcn0JLytRKrbKtEv4al6FOv
-X-Google-Smtp-Source: AGHT+IFU/9Ezw9WpHOEwKFHI3agr//zJrArAr/XSAw2dHqAeOMUzEQHlgonTqcBFZjTTclKxtAjURw==
-X-Received: by 2002:a05:6000:186d:b0:38d:dffc:c134 with SMTP id
- ffacd0b85a97d-38dea2eb4bfmr8227417f8f.39.1739464085999; 
- Thu, 13 Feb 2025 08:28:05 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f258b412esm2274382f8f.1.2025.02.13.08.28.05
+ AJvYcCW/lAVyQlxG0cqQsHaec4gkxqXmVx4NVt2WtnPiDu7kgispYp89aNm7IXDG6z/lPBpeYLjS/2TJBQo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjXOE5JwH67YRcIkgHgzlnAysJyy8XDBsdkUE6u1MLJZgeCtpu
+ AeQwbw7XqrIEpL9C4Dy/BdUzgH/SZ+VgWkoIjNhw7lgJfVm7XJmcoXBySlX3CmY=
+X-Gm-Gg: ASbGnctGaqfYWpkzIlLMQAJCggmjY7s3C8hFVr6oN4gAgxNYtUIFXXYq4s3SP51NA/1
+ YO4VkM3ogAMB0w1GEmbDiPYW17t2mcs/ug2d1/QoFpVMyieVDPvpmdY/DGp/IWI5u2hzJTVfOjC
+ e3nyhzp7J1MJufZkWP0ES/XYyjvHwcVHq7IahfF3A6fBskMXWzpxB7QrrzVa92L7Sgo26yV6sNg
+ 7uNTJji4aT3OFZpVuSvDor7Isnx8VfjDvQhc87p50UlL3tKhwGeFdHe5RFDUU3Q23Jk+U9ilyl4
+ 02GsnAQrfPdgFA==
+X-Google-Smtp-Source: AGHT+IFM1kxdJteFvAGtFfb2y2uOiPSqES4FB6gOuR+NQII0SSEfN8Pt53ab+u81k2xRmqiGXbaHxQ==
+X-Received: by 2002:a7b:cbc7:0:b0:439:65c5:f28a with SMTP id
+ 5b1f17b1804b1-43965c5f2f4mr12621705e9.16.1739464532321; 
+ Thu, 13 Feb 2025 08:35:32 -0800 (PST)
+Received: from linaro.org ([86.123.96.125]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-439653f0556sm7049395e9.1.2025.02.13.08.35.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2025 08:28:05 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 13 Feb 2025 17:27:59 +0100
-Subject: [PATCH v4 4/4] arm64: dts: qcom: sm8650: add missing cpu-cfg
- interconnect path in the mdss node
+ Thu, 13 Feb 2025 08:35:31 -0800 (PST)
+Date: Thu, 13 Feb 2025 18:35:30 +0200
+From: Abel Vesa <abel.vesa@linaro.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 2/2] drm/msm/a6xx: Print GMU core firmware version at boot
+Message-ID: <Z64fUjIfFzs4R8Im@linaro.org>
+References: <20241219-topic-gmu_fw_ver-v1-0-d403a70052d8@oss.qualcomm.com>
+ <20241219-topic-gmu_fw_ver-v1-2-d403a70052d8@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250213-topic-sm8x50-mdss-interconnect-bindings-fix-v4-4-3fa0bc42dd38@linaro.org>
-References: <20250213-topic-sm8x50-mdss-interconnect-bindings-fix-v4-0-3fa0bc42dd38@linaro.org>
-In-Reply-To: <20250213-topic-sm8x50-mdss-interconnect-bindings-fix-v4-0-3fa0bc42dd38@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1271;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=my+RB9Jrip9aPGRvZHAD/1/UpXRs0+h6VzBYQ3PsJO4=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnrh2RyIwuxEyQJnCqN4BQzwBgsz22oIe5p3/foBpN
- 3ycZJKeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ64dkQAKCRB33NvayMhJ0Z4JD/
- 9QWqppUyEnVCwdINgX9VFB0i8zoyuyZeu6IuDCoC9ZEqWoOs8NkpPN3ASdQr13S8PSIYLl377Y1oyp
- 5eeA6/WQAaEysK6t2aXfsQ3/ReD0a5Ac3DdRrNmleh6ZlEeaU0+AmQIoTygKbsAwZPRni9ZA9K98fl
- /NQ8weA+fwoAs+dY4XyM1Mh3m1kA/oq27fC/jiAe8K4S3OS2WaLDRZ3B0SmJMkY82b2fjv73YjqBRV
- 3htFOiOZTllEcFeMvAT7w+fE13umvRgT/kXrTsnd36VAvyDaZFltGUz6ymHB4kJVzytzc0UwLEMDmL
- E4z5cc4mtjo6iEE2Xlc0uY3OQz9pQ/Ni6m4RckyzTQ2ZackPXKh8WuINx/IwLSGFtY4K6i7OgB+YlV
- 49QaGlZgn4Ns7+BI/r8wuaAZHnijxZ17M1a0871JFon21oS/3XOfIDj+PIqVQH9bWGnV1erkdHce7R
- XJK8ffMPB/BQitgVl+Mm3J4mGbVgoTgfO9yjSi3fsoejYJGmspR9wnA5mDszU6zgeLiqYpeOD+hPSy
- hlcMhtnhos8K5RDwdhWfZ7yj/fYr9K4Rv5hxb8jbgxyLbaBMVqXVI6MgSA1Ya5MJnGDI/7uioYE4wW
- GTZlXhTPjsoFcf9wfs4Ga5/nJ/HJjdfx/ymjSsOzPSybrYUrT5wB+dYZxK6w==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241219-topic-gmu_fw_ver-v1-2-d403a70052d8@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,35 +94,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The bindings requires the mdp0-mem and the cpu-cfg interconnect path,
-add the missing cpu-cfg path to fix the dtbs check error.
+On 24-12-19 23:36:56, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Log the version for informational purposes, such as for keeping track
+> of possible GMU fw-related failures in crash / CI logs.
+> 
+> Intentionally not implemented on the if (gmu->legacy) codepath, as
+> these registers seem not to be used on there.
+> 
+> Downstream additionally warns if the firmware version is too old for
+> a given GPU, but we already pair the binary to a given GPU, so let's
+> not go there at the moment.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 14db7376c712d19446b38152e480bd5a1e0a5198..a7ea2b2af1dc3816906236df929df36e37d8f606 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -729,6 +729,7 @@ static int a6xx_gmu_fw_load(struct a6xx_gmu *gmu)
+>  	const struct firmware *fw_image = adreno_gpu->fw[ADRENO_FW_GMU];
+>  	const struct block_header *blk;
+>  	u32 reg_offset;
+> +	u32 ver;
+>  
+>  	u32 itcm_base = 0x00000000;
+>  	u32 dtcm_base = 0x00040000;
+> @@ -775,6 +776,12 @@ static int a6xx_gmu_fw_load(struct a6xx_gmu *gmu)
+>  		}
+>  	}
+>  
+> +	ver = gmu_read(gmu, REG_A6XX_GMU_CORE_FW_VERSION);
+> +	DRM_INFO("Loaded GMU firmware v%u.%u.%u\n",
+> +		 FIELD_GET(A6XX_GMU_CORE_FW_VERSION_MAJOR__MASK, ver),
+> +		 FIELD_GET(A6XX_GMU_CORE_FW_VERSION_MINOR__MASK, ver),
+> +		 FIELD_GET(A6XX_GMU_CORE_FW_VERSION_STEP__MASK, ver));
 
-Fixes: 9fa33cbca3d2 ("arm64: dts: qcom: sm8650: correct MDSS interconnects")
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+I get the following spam:
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index 483ae63e6032823e8cc13e8aeb6db70e3948f02d..1737265d364601494c329e79174c082c98e4d0ec 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -3997,8 +3997,11 @@ mdss: display-subsystem@ae00000 {
- 			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
- 
- 			interconnects = <&mmss_noc MASTER_MDP QCOM_ICC_TAG_ALWAYS
--					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
--			interconnect-names = "mdp0-mem";
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &config_noc SLAVE_DISPLAY_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
-+			interconnect-names = "mdp0-mem",
-+					     "cpu-cfg";
- 
- 			power-domains = <&dispcc MDSS_GDSC>;
- 
+[  109.928924] [drm] Loaded GMU firmware v3.1.10
+[  110.301295] [drm] Loaded GMU firmware v3.1.10
+[  110.472620] [drm] Loaded GMU firmware v3.1.10
+[  111.164303] [drm] Loaded GMU firmware v3.1.10
+[  111.864830] [drm] Loaded GMU firmware v3.1.10
+...
 
--- 
-2.34.1
+Stacktrace shows this being called from runtime resume:
 
+[   19.380390] Call trace:
+[   19.380391]  show_stack+0x18/0x24 (C)
+[   19.380399]  dump_stack_lvl+0x40/0x84
+[   19.380403]  dump_stack+0x18/0x24
+[   19.380405]  a6xx_gmu_resume+0x450/0xc44 [msm]
+[   19.380426]  a6xx_gmu_pm_resume+0x34/0x220 [msm]
+[   19.380437]  adreno_runtime_resume+0x28/0x34 [msm]
+[   19.380446]  pm_generic_runtime_resume+0x28/0x3c
+[   19.380451]  __rpm_callback+0x84/0x390
+[   19.380453]  rpm_resume+0x3d0/0x5c0
+[   19.380455]  __pm_runtime_resume+0x4c/0x94
+[   19.380457]  adreno_get_param+0xdc/0x274 [msm]
+[   19.380466]  msm_ioctl_get_param+0x5c/0x68 [msm]
+[   19.380475]  drm_ioctl_kernel+0xd4/0x10c [drm]
+[   19.380491]  drm_ioctl+0x26c/0x40c [drm]
+[   19.380499]  __arm64_sys_ioctl+0x90/0xcc
+[   19.380503]  invoke_syscall+0x40/0xf8
+[   19.380505]  el0_svc_common+0xac/0xdc
+[   19.380506]  do_el0_svc+0x1c/0x28
+[   19.380508]  el0_svc+0x34/0x7c
+[   19.380512]  el0t_64_sync_handler+0x84/0x108
+[   19.380513]  el0t_64_sync+0x198/0x19c
+
+So maybe DRM_INFO_ONCE instead ?
+
+> +
+>  	return 0;
+>  }
+>  
+> 
+> -- 
+> 2.47.1
+> 
+> 
