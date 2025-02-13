@@ -2,83 +2,114 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 509E0A349F9
-	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 17:35:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDA7FA34A00
+	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2025 17:36:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1067310E411;
-	Thu, 13 Feb 2025 16:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA61D10EB1F;
+	Thu, 13 Feb 2025 16:36:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="btVkvgTV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JNg1ffw5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1BE510E0D1
- for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:35:33 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-43962f7b0e4so5584655e9.3
- for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 08:35:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739464532; x=1740069332; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=VkUcjMmDcjBIWHZCqAgxZp7FU0Fk/ys2zKA4pFxdyX4=;
- b=btVkvgTVpQvCuY8mFV0bfMMPTWBydF7F6KlQBQ98PaKJ4hzx61uOCpOzgH94PaFzdb
- kZWWzJxK+rQbaxMu/X97GTmHCDEed1UdG4xb1cTqlYvOcPQZin0jVQ+MyjzwG4jYiUhI
- oHPHSDZHVX9I//NuKN8UKjbXSIwULtmEj9BGAOwKN4x9Y3WOkVMXWUXHVEkFT0CYzZOa
- 5Zp+Yd+h2NzYZJ/0rmlherJdG9Yu5SMcNCL28j8Fq9KHEZYsorJD6SIr5EXC6LH3pl+6
- h6LFWXJlVM4QVGKqO9JY1mFR89w/wRfWlbN9RJGYn2e3HY4/21E3iVqblZ2ZMw96TIu6
- QDiw==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C63DA10E411
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:36:28 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51DANLRv015721
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:36:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ jRC9JvP4VHXNyNMipFwDuEvtSP6Ksiyg5e611bESZ68=; b=JNg1ffw54vq6vn0N
+ HjZdNMLtyascFWWDAvd3gRaNKL6yhM86wZdWNJMFZ4VyfZ1vTnz+U+xJoHIR5hri
+ o2pgpR9RMJjggd+7MRVjOJjEh0d/uB8G8hdGSFtXp8WBOBnwnpQi6aN1kLbbDl9v
+ manfatZU67QSLS/+Fs6iATNYhdOwxuwEyHJe85BeOjGh68DT9w+VZdt+nhLIpW57
+ hhehWoXSbW5VzVcpMykCpR5IT4EK2rGw16kkEsfTpdxfb/Ern9bZ3iW//bQ6K2j+
+ TwHglL3QsTigQrmqHvWYuDfsofyDVsolNFTp9H4L8AB0dbl8sn50XFqxmM83OPSd
+ j/WOgg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44rgpgnpg4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 16:36:28 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-46e78a271d3so761131cf.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2025 08:36:28 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739464532; x=1740069332;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VkUcjMmDcjBIWHZCqAgxZp7FU0Fk/ys2zKA4pFxdyX4=;
- b=XhSfwnu6rbydbh/YDUcqr/Gz6I6kbtC6BOcEbEObNI4YUhZSWw6cp+2/gW/Ju6ORLR
- 7rYQ22+54qzv09+ws20FCIXaUzKuOr92ZWZoncgHskrFSXqRBN5Rathm5hqLjhrdB9+K
- B49kKma8vDeXt9wyO78dLASNhzgshJk/L6Tu9RAU+oAXN2gajCPKCpab6TTCiNJvtbPT
- /fYij+8O+Y4ca19ve1nBQ+sGQw4+nAmlIfCDG+CySgkh28zf9sKGq3qIomssbMF8a0fH
- goqjTUEWgUxhcxrJdFUqIQhmNG8ktQ0VmL9njb8oo0pSL6tyb4rrKX4zuLqeAxxgXluf
- gg1g==
+ d=1e100.net; s=20230601; t=1739464587; x=1740069387;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jRC9JvP4VHXNyNMipFwDuEvtSP6Ksiyg5e611bESZ68=;
+ b=opq0lassFlitp0X5ZzTFJI7PnX/tyV9ICzswrvFjfzJ9tPbChxVZ49fNYJ4aqehlX+
+ Y2+QzWNGIAgPugQJva7ACFP42zVZlOD8kzvs3te1t53YvsKB5jUlbR4rMsU6sLTTTWYz
+ TQR3sRaEip/mb8VnOpTvB4YNnosMDt77aYn/fq1IGvk/WqTwKho2NH3P+nbaP8CL3aiq
+ tICgGZYqERRZ+F87tjDKtKMrPAsh75UtTrooL9pSFnRJWUaIBMPb7nLR6HC7BDlecGRo
+ DQGZ7ecUaLXPftQFLzghm+cQDLoZ/9F1dirrysZKM4zRCFb7WNbLaCIJaJgNQvrCDwqa
+ RV/g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW/lAVyQlxG0cqQsHaec4gkxqXmVx4NVt2WtnPiDu7kgispYp89aNm7IXDG6z/lPBpeYLjS/2TJBQo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxjXOE5JwH67YRcIkgHgzlnAysJyy8XDBsdkUE6u1MLJZgeCtpu
- AeQwbw7XqrIEpL9C4Dy/BdUzgH/SZ+VgWkoIjNhw7lgJfVm7XJmcoXBySlX3CmY=
-X-Gm-Gg: ASbGnctGaqfYWpkzIlLMQAJCggmjY7s3C8hFVr6oN4gAgxNYtUIFXXYq4s3SP51NA/1
- YO4VkM3ogAMB0w1GEmbDiPYW17t2mcs/ug2d1/QoFpVMyieVDPvpmdY/DGp/IWI5u2hzJTVfOjC
- e3nyhzp7J1MJufZkWP0ES/XYyjvHwcVHq7IahfF3A6fBskMXWzpxB7QrrzVa92L7Sgo26yV6sNg
- 7uNTJji4aT3OFZpVuSvDor7Isnx8VfjDvQhc87p50UlL3tKhwGeFdHe5RFDUU3Q23Jk+U9ilyl4
- 02GsnAQrfPdgFA==
-X-Google-Smtp-Source: AGHT+IFM1kxdJteFvAGtFfb2y2uOiPSqES4FB6gOuR+NQII0SSEfN8Pt53ab+u81k2xRmqiGXbaHxQ==
-X-Received: by 2002:a7b:cbc7:0:b0:439:65c5:f28a with SMTP id
- 5b1f17b1804b1-43965c5f2f4mr12621705e9.16.1739464532321; 
- Thu, 13 Feb 2025 08:35:32 -0800 (PST)
-Received: from linaro.org ([86.123.96.125]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439653f0556sm7049395e9.1.2025.02.13.08.35.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2025 08:35:31 -0800 (PST)
-Date: Thu, 13 Feb 2025 18:35:30 +0200
-From: Abel Vesa <abel.vesa@linaro.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ AJvYcCUeX2gMoSThXkXyTJ/2winQ8ZCx9SeD/PcXY9Jwo6TOBMCh8eyMa5LQxeaj/vn+6VdsLHSyw07a344=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywmo61bbhdnvoW96iblWvzrPQtceROaYFfQEMKnfbpFokC3KG3b
+ PyDw09wkQzAXR4G8OKrm/x9XOoMprkk2BxNQcx+T51pJNAKG3rAbk7Fj4U2TzvCZ8MIHRCPkGQH
+ mv0Bw/a0HbG018UcJpANFbDV68wvoxmBrZgeQG+1UcO7JKB2Cbn9hCYGK2KoArK/ZY3A=
+X-Gm-Gg: ASbGncukB0Gh1KnOLRIixFBaW+stEBK2fnEa2SBslL1zF1ni7mw66QsXjcaV0IZBZTV
+ 6sb8wfLop6w2Iwx2MdXK52tsHKBPaAxavk84kn9lrZjzauZUtUNU9y0wRyos+LFouNo3GZqIxFM
+ fvGPqJCbH6SVYx1xMbhweOgxV6ReB6gCxZ4usFyYVg2p44JffNdT+C5UngscIj949DqWgvo1XR4
+ ZfOX3igt/IHLcGc7D4R5+4GfFJxUhR4ZTzhSc7DswRWrD1FQ+H5DHAEpGWcK5fatReWa4ev02j0
+ b+HxIqSAnInG5zB0gHgafmdmlRmT9LNjLk+Va4mtbP5YjpTefMrvLbqJn2s=
+X-Received: by 2002:a05:622a:1303:b0:467:5d34:aa84 with SMTP id
+ d75a77b69052e-471afe57ae7mr39969121cf.9.1739464586938; 
+ Thu, 13 Feb 2025 08:36:26 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE65B4BdI80A2hYuehypNi18VnhTOKeJzxy4QZub8Qv8xnIyZZrKkYGRhBtPZp8LP3QGhc+eA==
+X-Received: by 2002:a05:622a:1303:b0:467:5d34:aa84 with SMTP id
+ d75a77b69052e-471afe57ae7mr39968921cf.9.1739464586479; 
+ Thu, 13 Feb 2025 08:36:26 -0800 (PST)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aba5339d94asm161583966b.143.2025.02.13.08.36.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Feb 2025 08:36:26 -0800 (PST)
+Message-ID: <2bfaa1ce-0233-456d-ba2e-5b14533f3812@oss.qualcomm.com>
+Date: Thu, 13 Feb 2025 17:36:22 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] drm/msm/a6xx: Fix gpucc register block for A621
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Caleb Connolly <caleb.connolly@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 2/2] drm/msm/a6xx: Print GMU core firmware version at boot
-Message-ID: <Z64fUjIfFzs4R8Im@linaro.org>
-References: <20241219-topic-gmu_fw_ver-v1-0-d403a70052d8@oss.qualcomm.com>
- <20241219-topic-gmu_fw_ver-v1-2-d403a70052d8@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241219-topic-gmu_fw_ver-v1-2-d403a70052d8@oss.qualcomm.com>
+ devicetree@vger.kernel.org, Jie Zhang <quic_jiezh@quicinc.com>
+References: <20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com>
+ <20250213-a623-gpu-support-v1-1-993c65c39fd2@quicinc.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250213-a623-gpu-support-v1-1-993c65c39fd2@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: i1g0gDYiOEgKicyHrZQJfYqB15py4hnS
+X-Proofpoint-GUID: i1g0gDYiOEgKicyHrZQJfYqB15py4hnS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-13_07,2025-02-13_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 mlxlogscore=850
+ priorityscore=1501 mlxscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2501170000
+ definitions=main-2502130119
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,88 +125,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24-12-19 23:36:56, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On 13.02.2025 5:10 PM, Akhil P Oommen wrote:
+> From: Jie Zhang <quic_jiezh@quicinc.com>
 > 
-> Log the version for informational purposes, such as for keeping track
-> of possible GMU fw-related failures in crash / CI logs.
+> Adreno 621 has a different memory map for GPUCC block. So update
+> a6xx_gpu_state code to dump the correct set of gpucc registers.
 > 
-> Intentionally not implemented on the if (gmu->legacy) codepath, as
-> these registers seem not to be used on there.
-> 
-> Downstream additionally warns if the firmware version is too old for
-> a given GPU, but we already pair the binary to a given GPU, so let's
-> not go there at the moment.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 14db7376c712d19446b38152e480bd5a1e0a5198..a7ea2b2af1dc3816906236df929df36e37d8f606 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -729,6 +729,7 @@ static int a6xx_gmu_fw_load(struct a6xx_gmu *gmu)
->  	const struct firmware *fw_image = adreno_gpu->fw[ADRENO_FW_GMU];
->  	const struct block_header *blk;
->  	u32 reg_offset;
-> +	u32 ver;
->  
->  	u32 itcm_base = 0x00000000;
->  	u32 dtcm_base = 0x00040000;
-> @@ -775,6 +776,12 @@ static int a6xx_gmu_fw_load(struct a6xx_gmu *gmu)
->  		}
->  	}
->  
-> +	ver = gmu_read(gmu, REG_A6XX_GMU_CORE_FW_VERSION);
-> +	DRM_INFO("Loaded GMU firmware v%u.%u.%u\n",
-> +		 FIELD_GET(A6XX_GMU_CORE_FW_VERSION_MAJOR__MASK, ver),
-> +		 FIELD_GET(A6XX_GMU_CORE_FW_VERSION_MINOR__MASK, ver),
-> +		 FIELD_GET(A6XX_GMU_CORE_FW_VERSION_STEP__MASK, ver));
 
-I get the following spam:
+So GPU_CC is outside what we consider GPU register region upstream..
 
-[  109.928924] [drm] Loaded GMU firmware v3.1.10
-[  110.301295] [drm] Loaded GMU firmware v3.1.10
-[  110.472620] [drm] Loaded GMU firmware v3.1.10
-[  111.164303] [drm] Loaded GMU firmware v3.1.10
-[  111.864830] [drm] Loaded GMU firmware v3.1.10
-...
+And I've heard voices (+Caleb) lately that we should get some clock register
+dumping infrastructure..
 
-Stacktrace shows this being called from runtime resume:
+So while I'm not against this patch fixing a bug, perhaps we can get rid of
+dumping GPU_CC here in the near future
 
-[   19.380390] Call trace:
-[   19.380391]  show_stack+0x18/0x24 (C)
-[   19.380399]  dump_stack_lvl+0x40/0x84
-[   19.380403]  dump_stack+0x18/0x24
-[   19.380405]  a6xx_gmu_resume+0x450/0xc44 [msm]
-[   19.380426]  a6xx_gmu_pm_resume+0x34/0x220 [msm]
-[   19.380437]  adreno_runtime_resume+0x28/0x34 [msm]
-[   19.380446]  pm_generic_runtime_resume+0x28/0x3c
-[   19.380451]  __rpm_callback+0x84/0x390
-[   19.380453]  rpm_resume+0x3d0/0x5c0
-[   19.380455]  __pm_runtime_resume+0x4c/0x94
-[   19.380457]  adreno_get_param+0xdc/0x274 [msm]
-[   19.380466]  msm_ioctl_get_param+0x5c/0x68 [msm]
-[   19.380475]  drm_ioctl_kernel+0xd4/0x10c [drm]
-[   19.380491]  drm_ioctl+0x26c/0x40c [drm]
-[   19.380499]  __arm64_sys_ioctl+0x90/0xcc
-[   19.380503]  invoke_syscall+0x40/0xf8
-[   19.380505]  el0_svc_common+0xac/0xdc
-[   19.380506]  do_el0_svc+0x1c/0x28
-[   19.380508]  el0_svc+0x34/0x7c
-[   19.380512]  el0t_64_sync_handler+0x84/0x108
-[   19.380513]  el0t_64_sync+0x198/0x19c
-
-So maybe DRM_INFO_ONCE instead ?
-
-> +
->  	return 0;
->  }
->  
-> 
-> -- 
-> 2.47.1
-> 
-> 
+Konrad
