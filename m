@@ -2,77 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8571CA35BD8
-	for <lists+freedreno@lfdr.de>; Fri, 14 Feb 2025 11:51:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0956EA35BE0
+	for <lists+freedreno@lfdr.de>; Fri, 14 Feb 2025 11:52:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4208B10EC4F;
-	Fri, 14 Feb 2025 10:51:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8FB010EC4F;
+	Fri, 14 Feb 2025 10:52:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qaT13MQA";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tA/NJTgx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 364A210EC4F
- for <freedreno@lists.freedesktop.org>; Fri, 14 Feb 2025 10:51:30 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4395b5c703aso2903085e9.0
- for <freedreno@lists.freedesktop.org>; Fri, 14 Feb 2025 02:51:30 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A646A10EC51
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Feb 2025 10:52:18 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4395b5c703aso2903885e9.0
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Feb 2025 02:52:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739530289; x=1740135089; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1739530337; x=1740135137; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MiMW0QhMGWxPdrht6/cv/0ycp5QHgV+RbmVMJuGgUZw=;
- b=qaT13MQACR2ae9cRoHZuHVcfIv93VrOrchK0HYsF4Pir7z9axgeQpPy/U+9A1zKw9b
- f7RPJa3alKivAZe2L0zDUveZn6oA2MMH9jrMGBCZnzdMuOEfX+Eu01oBNBlYg0HT7XEV
- 9Mo733tW+OBAE2emXKpWsinUiWRU0XhhEEAmtgUL9GJyjwoy9qlWaEFyLzV+h0Y3DgUn
- LfbFN3eSQD78qvkqeQox3kIGCFb/83JyC0LWIzKnhLljw0YGDGILGPwhzwy5fdVGefLi
- 38iSHoCiyhCyA1vGTv97kOGUNegtPYKL72lh4/Niz0dBUAVWeUrtm57AxJ+dXfJ9zPsK
- japw==
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=D1E3shrmqji3p4SiOZzcDMZ6w2eLRKPdrleu9Kc2MMQ=;
+ b=tA/NJTgx9Ayohr2fpLr93bbZ27ffIgWkvJMyYn4ZVTrXAXE7UjgWB+GfHwnbOzJiNc
+ 3nNo1Pjm8LXPfmlUzATvWksCTmNz44g9tkeuYc/CQm9l4Fcygd3nkuzuHlxpTKuOZpPa
+ emTCU0mkfE2+aCmMmGgtPiPuXntHzzhO3Rdleri+Pewm8i9X0at0zDBeZM0EGC/sdjUK
+ Q9UxbNhW5k3R+n/FvLXNV3by+5RidOtoevXwOgzRufqL1AFgAzGGmfxCm+R21+IHhEmV
+ rymkQGYIukdRmUCWxCm16VuKU0+4BNzS1wz2dCX81OQRy+kBuzUfdp5JZhZ1SUNdDTNF
+ gFDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739530289; x=1740135089;
+ d=1e100.net; s=20230601; t=1739530337; x=1740135137;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MiMW0QhMGWxPdrht6/cv/0ycp5QHgV+RbmVMJuGgUZw=;
- b=rUcn4y3UAOgVSB+3ssJ9snyzFEtXO1xHRaKl75uX7ATNVextH2WWdsiEnM/t9A+H6X
- TxhcA1XLekx51DbDJweVrYmSLEqCAOCRmekioOUjiMdjdmGT4HzqNu33bA0pE3VTNimX
- X2RIp0FuGDv3S9dyu0AH2StxRG1Ijl9343DmB4PVmtaxnfQP2kYdjHuAh/gUfVpm9KKL
- 7sAEJ6yfGcKvLwvs2KXAC6EC7kvmQ+ReODRHXFOqG9qeeTER+knDGTRIQKrDnJFWc64t
- Tw6DxevbPHAiVO5+tJrG4WqU2syck3LtFlRN/ZEb/+hV9px8+Gr/GC+OqCqqNilnoW3J
- pZtg==
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=D1E3shrmqji3p4SiOZzcDMZ6w2eLRKPdrleu9Kc2MMQ=;
+ b=N7EHlLk5E+lifImThjImEtDXjCZhDABKztKspsfP/FpVXa06C5uCmFATTJlO64y5/F
+ LmnJA02NTNpu06Zm3eX6hywCYY47LLiCZy7nuEKpN8StJq9PYC86k8hYMhk1x68Rv113
+ Q0VGplZM+no/Ij8TZHln513RJRUvgYlzvWfEvgwaHsdNHeBkPayckQ8fiK85jd27W//t
+ cKIGy2FXL47KGrz32svAaBh3RhybHBvCnEcPh5J5n+WNk1tzH4ssrGbiqK1ySY66mRs0
+ lw/c0v2X5HMyWJ5a9snIfYOEcBY1vs26lgJtXMhMSdJrRRNw9fWzNFQzD6hJN3AataED
+ nZ5w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVkrLlXhouXPy9f5hZ84QzSUHGgi5tTEpuUXvf0rmnFypztDGpc4aNSh+BSsjVYY+usfH/UO+ZnHBc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxdPosm5p2rUjh5Rk3/+CCXQxfxvthOckB/NW0z+Oe8VZlCNIgf
- YdbaUT/MprLPRSEJCi7l1NM+bi2KZhb3rDHf2LjHecW+bM7iM7N+COtvQVxUJR0=
-X-Gm-Gg: ASbGncsnXWU2R1WkdOi6E3uA2OtPCL2SsxDkslRcniC+9J/bsqqZWRfSjwKc7gMsBR7
- vHThgkSK7wKyoC0AD1K/oBz1PLz2qTbk2Bw++qYX4LavUyvYwmZqana9bLmKX4g7qHSVyNjrSWD
- Lm90HgqiKo7Qxpw3xcYQL9qZSG6kkDjtEx4Oq7to3UOi23C77F1UcllHagIHEdAI7NjY6LPPll8
- vFsNF51b9vDVZBHjULUXCqHpSyjpICzVZXS2ICN/w3m3CO15J4jRA1GWNW7lHo3iB3h6iFchlbB
- 63cMycvuzcfBiZJawyNHXx3uBeTF6h2cAkk=
-X-Google-Smtp-Source: AGHT+IGj3lp30mMQmhn2Nwm2xrXwZKp+DSJuAZImDZifrTofRvZy/ByzLpQZCA/s6uO45lAm9nj4qA==
-X-Received: by 2002:a05:600c:3556:b0:434:f1d5:144a with SMTP id
- 5b1f17b1804b1-43966fe1dcamr13597475e9.0.1739530288682; 
- Fri, 14 Feb 2025 02:51:28 -0800 (PST)
+ AJvYcCXCHPNYCbTiIm7jdm4v6glldne21tgnIYCab6rm0fLcXD700G/qC+9fXtq2G9vfQeCqA7EiLlwYz1Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRVY7dWrnsxaQb+THaX6rBeLOu/XU6Qs2SO6fFgigcIhXTcrPI
+ GddotvL1K8zriKwU7hBM+rdE9vTHRt2KaEzwY/vEmQ8OKv9N0bVupBMseuUtvWc=
+X-Gm-Gg: ASbGncspLf2f6eKu1JkZsIOgr8yO0cg6pTfjEpxuontYkv4IkFu0UG7WxS0huLxkVK2
+ lRRpz+Ekc2J8EZvbZxqlUSfn4rBnryiNjGsFzwiHoiuujrOw6oo45ppiXZgBfXRFDG6FsplEZVv
+ +4FJtm9uM6jL2kABgfqqWUjYEZdrWdreiqEffXUlRParcBS9b5O4nuGdYNPe965lUG4q/S9aRXI
+ OEYDVfH8vU/G6O0MHLAlcushjb4vhUfRc3Hu79UODpkwI/gDBPvMlR5vh26ZBRVG9TCyfMjAiEO
+ Dkxxk4nA7qRleyfFMOradILd4g7+I2prMIo=
+X-Google-Smtp-Source: AGHT+IElbdA1TctbgcOQxOJNbBvE2aiJ5mWn0ZJu/ogZAqW3AeynhVle2H+4Tay7CqBnSPs/pB2euA==
+X-Received: by 2002:a05:6000:4012:b0:38d:e33d:d0e2 with SMTP id
+ ffacd0b85a97d-38f2c7657d0mr1047399f8f.5.1739530337167; 
+ Fri, 14 Feb 2025 02:52:17 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.218.144])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439618ab352sm41162525e9.40.2025.02.14.02.51.27
+ ffacd0b85a97d-38f25a0fa38sm4359920f8f.98.2025.02.14.02.52.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Feb 2025 02:51:28 -0800 (PST)
-Message-ID: <19d422de-d2da-481c-a5b7-529f6aa49242@linaro.org>
-Date: Fri, 14 Feb 2025 11:51:25 +0100
+ Fri, 14 Feb 2025 02:52:16 -0800 (PST)
+Message-ID: <ad2bc7a7-2e28-4599-bb94-fd66fd2ba88e@linaro.org>
+Date: Fri, 14 Feb 2025 11:52:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dpu: Simplify using local 'ctl' variable
+Subject: Re: [PATCH 0/4] drm/msm/dsi: Minor cleanups
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
  <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250114155959.583889-1-krzysztof.kozlowski@linaro.org>
+References: <20250106-drm-msm-cleanups-v1-0-271ff1c00795@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -119,7 +120,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20250114155959.583889-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20250106-drm-msm-cleanups-v1-0-271ff1c00795@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -137,16 +138,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/01/2025 16:59, Krzysztof Kozlowski wrote:
-> In few places we store 'phys_enc->hw_ctl' to local 'ctl' variable so use
-> it everywhere.  No functional change.
+On 06/01/2025 09:49, Krzysztof Kozlowski wrote:
+> Few minor improvements/cleanups why browsing the code.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32 ++++++++++-----------
->  1 file changed, 16 insertions(+), 16 deletions(-)
+> Best regards,
+> Krzysztof
+> 
 
-Any more comments from DRM side? Can it be merged?
+5 weeks on the list. Any more comments from DRM side? Can it be merged?
 
 Best regards,
 Krzysztof
