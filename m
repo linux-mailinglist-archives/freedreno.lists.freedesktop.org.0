@@ -2,131 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD48CA3739F
-	for <lists+freedreno@lfdr.de>; Sun, 16 Feb 2025 10:46:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95799A37843
+	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 00:06:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D44410E1D4;
-	Sun, 16 Feb 2025 09:46:50 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fJBSJd6b";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id C119F10E0E9;
+	Sun, 16 Feb 2025 23:06:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF4710E2D0
- for <freedreno@lists.freedesktop.org>; Sun, 16 Feb 2025 09:46:48 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-5deb440675eso587449a12.0
- for <freedreno@lists.freedesktop.org>; Sun, 16 Feb 2025 01:46:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739699207; x=1740304007; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=iBwmAM1bqoGKM8ObYOzeB2TB7JgWvPAFUX2t35OVQaQ=;
- b=fJBSJd6byf7EeX7m8zpjXz357+tTvI/jwNdLdjFVdh5r+IylH3kmRFFlETsgxIuy56
- s7OH6+lHPSZt4P9o/XXAbdQrsB/CcRE9V/qcc5ODpxlKpazty73z1iq+oao28NHilWh/
- Ys4RZA0HR1jpzv6KyqZhDaCpr/ypHDZHmsla5oCZxlgubmNLWXCX1fesankD8UAhWW9W
- QskJRQelA6gXbaPsDkx5L7gFQA8FcO6aaUgymKEfFnMpIOyGfjWhHbDz0Hry/c19wXgS
- rs7rVrogG0bTBlkBznTqRyhNxDGDbfCKLyzoASTA/IQY4KQ3kYuOtgrcg9kd3WOp/78y
- /lAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739699207; x=1740304007;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=iBwmAM1bqoGKM8ObYOzeB2TB7JgWvPAFUX2t35OVQaQ=;
- b=LSujxKcInPsuDdo3BbBR7mDXAR7tdEvThr6635FeWK6Sm9tMmUJ3rkI/vd3p666tMe
- dnpWSHKkoI7cQDjtS4/EnBlynvONd8e101wxV5P3Yfqtx/dZn7lmvArGjPc6vRTgdFyK
- U6fA7p3Dg0mTMCw/Eiu4n06Osf9gij3KLgzZ/uHQ5EeI0eYoYKBs/WFiY2u+mIUjh4gR
- CrwiDyjKUOnOq3pRRV2QMQOQJH/OSaBGFYTIDTzACAy6zMeZ1y/tdSwS+jqAAUFOwJ71
- p3fZT7zWyUSjtSWz9XwW7sEzmX0jwwYvOBoXjW/Y80PzD0batUdUM+NvVwg/hipS+WEB
- V9ZQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXrEVL1162Ol46cHqcb8loqI6rHY3bwHFiTszcW8UpI/cL16rOyRib4AahxFJMGHgrwUPVOfm22gmY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+D0r4WXTxoI2jHedwmGhzazvOYctT3KKRZpxTq5/g/z/DFHHr
- ZDNyEzs7N+qp5kIHJzGfUL05CIOcGh/xDb2HQiSCOa4+lfmBFDKNqH2SalWzx2o=
-X-Gm-Gg: ASbGncsNrBhaXHHF/MUlzwOUVVNh1I5HY1JkObi8mjKBz7xTMHz1QkF20Z010Lscw5e
- FMlYMT9ABJcW+UEgrCp/WWVE0S6RQ5Mr5fpyC0lk8wLWlFpqGcp+MeMe+yDWeVEtFyZy5sKonM9
- ummKYiB+wFhKMTwBVuqjZFS4ELlw2m4/3KfWr5tIsLfZQdvX2FczjaDY9/Gu5xUNaiV+gIEVt0y
- 9KkhF0fDvhLGxHntIDdhxS430j+jC7xZWy8AjpFp36VS98LzFyzri1A+6+tUBPFCzpnezjctfvh
- gZ9EvNgq5uaYj8HwmPmFqd8AYCUgiEPXnjE=
-X-Google-Smtp-Source: AGHT+IH/YKXADFiBu6FbTGcilwtif1SrJBL3sTYqxc/Y+L0YsKY4TqDk7b17Epk1VV/TF72nZB3fXQ==
-X-Received: by 2002:a05:6402:22e2:b0:5e0:36c6:2169 with SMTP id
- 4fb4d7f45d1cf-5e036c622bbmr1764024a12.0.1739699207317; 
- Sun, 16 Feb 2025 01:46:47 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.218.144])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dece1b4f59sm5652890a12.6.2025.02.16.01.46.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 16 Feb 2025 01:46:45 -0800 (PST)
-Message-ID: <fb610a26-aafe-4a76-a577-9e659ae54930@linaro.org>
-Date: Sun, 16 Feb 2025 10:46:43 +0100
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C1F10E0E9
+ for <freedreno@lists.freedesktop.org>; Sun, 16 Feb 2025 23:06:27 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id ECDC6402B1;
+ Mon, 17 Feb 2025 00:06:22 +0100 (CET)
+Date: Mon, 17 Feb 2025 00:06:21 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, 
+ Vinod Koul <vkoul@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ Jordan Crouse <jordan@cosmicpenguin.net>, ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Martin Botka <martin.botka@somainline.org>, 
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/3] drm/msm/dsi: Set PHY usescase (and mode) before
+ registering DSI host
+Message-ID: <xtcwuscf3nz6o6qhv4lerpeoxep34iloj6kvxxuad7yoqsus22@tmuv2jqvfpo7>
+References: <20250209-drm-msm-initial-dualpipe-dsc-fixes-v2-0-9a60184fdc36@somainline.org>
+ <20250209-drm-msm-initial-dualpipe-dsc-fixes-v2-2-9a60184fdc36@somainline.org>
+ <nzm3tokbvho3hxz3e5vblp5ndagfcv5ah3j7gtkqjmt7ynr6f3@v36juvu73i5v>
+ <vsxfi43d7rxh5xxc7ctivjslf6w4yy5iprqpqid3u3diylrtwd@wayafjlgzz7v>
+ <x4jced57uhdfnq4d7tdqsozxbdosu2fcmsjlqtuuvh25ltx2rc@2eqsa7e4vcdv>
+ <c5503020-0224-428a-9452-f8d668b47caf@quicinc.com>
+ <ca80bd37-3b3f-48d3-a57d-2440d20d0c6c@quicinc.com>
+ <hvwpqzvdoeosz34ptbksc44ad7ohi6uwioy6o7qc4ewwcvx4d4@g3kksn3rwk6j>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] drm/msm/dsi/phy: Define PHY_CMN_CLK_CFG[01]
- bitfields and simplify saving
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>
-References: <20250214-drm-msm-phy-pll-cfg-reg-v3-0-0943b850722c@linaro.org>
- <20250214-drm-msm-phy-pll-cfg-reg-v3-4-0943b850722c@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTRLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+wsGUBBMBCgA+FiEE
- m9B+DgxR+NWWd7dUG5NDfTtBYpsFAmI+BxMCGwMFCRRfreEFCwkIBwIGFQoJCAsCBBYCAwEC
- HgECF4AACgkQG5NDfTtBYptgbhAAjAGunRoOTduBeC7V6GGOQMYIT5n3OuDSzG1oZyM4kyvO
- XeodvvYv49/ng473E8ZFhXfrre+c1olbr1A8pnz9vKVQs9JGVa6wwr/6ddH7/yvcaCQnHRPK
- mnXyP2BViBlyDWQ71UC3N12YCoHE2cVmfrn4JeyK/gHCvcW3hUW4i5rMd5M5WZAeiJj3rvYh
- v8WMKDJOtZFXxwaYGbvFJNDdvdTHc2x2fGaWwmXMJn2xs1ZyFAeHQvrp49mS6PBQZzcx0XL5
- cU9ZjhzOZDn6Apv45/C/lUJvPc3lo/pr5cmlOvPq1AsP6/xRXsEFX/SdvdxJ8w9KtGaxdJuf
- rpzLQ8Ht+H0lY2On1duYhmro8WglOypHy+TusYrDEry2qDNlc/bApQKtd9uqyDZ+rx8bGxyY
- qBP6bvsQx5YACI4p8R0J43tSqWwJTP/R5oPRQW2O1Ye1DEcdeyzZfifrQz58aoZrVQq+innR
- aDwu8qDB5UgmMQ7cjDSeAQABdghq7pqrA4P8lkA7qTG+aw8Z21OoAyZdUNm8NWJoQy8m4nUP
- gmeeQPRc0vjp5JkYPgTqwf08cluqO6vQuYL2YmwVBIbO7cE7LNGkPDA3RYMu+zPY9UUi/ln5
- dcKuEStFZ5eqVyqVoZ9eu3RTCGIXAHe1NcfcMT9HT0DPp3+ieTxFx6RjY3kYTGLOwU0EVUNc
- NAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDyfv4dEKuCqeh0
- hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOGmLPRIBkXHqJY
- oHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6H79LIsiYqf92
- H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4argt4e+jum3Nwt
- yupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8nO2N5OsFJOcd
- 5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFFknCmLpowhct9
- 5ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz7fMkcaZU+ok/
- +HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgNyxBZepj41oVq
- FPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMip+12jgw4mGjy
- 5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYCGwwWIQSb0H4O
- DFH41ZZ3t1Qbk0N9O0FimwUCYDzvagUJFF+UtgAKCRAbk0N9O0Fim9JzD/0auoGtUu4mgnna
- oEEpQEOjgT7l9TVuO3Qa/SeH+E0m55y5Fjpp6ZToc481za3xAcxK/BtIX5Wn1mQ6+szfrJQ6
- 59y2io437BeuWIRjQniSxHz1kgtFECiV30yHRgOoQlzUea7FgsnuWdstgfWi6LxstswEzxLZ
- Sj1EqpXYZE4uLjh6dW292sO+j4LEqPYr53hyV4I2LPmptPE9Rb9yCTAbSUlzgjiyyjuXhcwM
- qf3lzsm02y7Ooq+ERVKiJzlvLd9tSe4jRx6Z6LMXhB21fa5DGs/tHAcUF35hSJrvMJzPT/+u
- /oVmYDFZkbLlqs2XpWaVCo2jv8+iHxZZ9FL7F6AHFzqEFdqGnJQqmEApiRqH6b4jRBOgJ+cY
- qc+rJggwMQcJL9F+oDm3wX47nr6jIsEB5ZftdybIzpMZ5V9v45lUwmdnMrSzZVgC4jRGXzsU
- EViBQt2CopXtHtYfPAO5nAkIvKSNp3jmGxZw4aTc5xoAZBLo0OV+Ezo71pg3AYvq0a3/oGRG
- KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
- fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20250214-drm-msm-phy-pll-cfg-reg-v3-4-0943b850722c@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <hvwpqzvdoeosz34ptbksc44ad7ohi6uwioy6o7qc4ewwcvx4d4@g3kksn3rwk6j>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,25 +65,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/02/2025 16:08, Krzysztof Kozlowski wrote:
-> Add bitfields for PHY_CMN_CLK_CFG0 and PHY_CMN_CLK_CFG1 registers to
-> avoid hard-coding bit masks and shifts and make the code a bit more
-> readable.  While touching the lines in dsi_7nm_pll_save_state()
-> resulting cached->pix_clk_div assignment would be too big, so just
-> combine pix_clk_div and bit_clk_div into one cached state to make
-> everything simpler.
+On 2025-02-13 04:13:06, Dmitry Baryshkov wrote:
+> On Wed, Feb 12, 2025 at 05:13:08PM -0800, Abhinav Kumar wrote:
+> > Hi Marijn
+> > 
+> > On 2/10/2025 2:17 PM, Abhinav Kumar wrote:
+> > > 
+> > > 
+> > > On 2/10/2025 6:24 AM, Dmitry Baryshkov wrote:
+> > > > On Mon, Feb 10, 2025 at 01:54:29PM +0100, Marijn Suijten wrote:
+> > > > > On 2025-02-10 01:11:59, Dmitry Baryshkov wrote:
+> > > > > > On Sun, Feb 09, 2025 at 10:42:53PM +0100, Marijn Suijten wrote:
+> > > > > > > Ordering issues here cause an uninitialized (default STANDALONE)
+> > > > > > > usecase to be programmed (which appears to be a MUX) in some cases
+> > > > > > > when msm_dsi_host_register() is called, leading to the slave PLL in
+> > > > > > > bonded-DSI mode to source from a clock parent (dsi1vco) that is off.
+> > > > > > > 
+> > > > > > > This should seemingly not be a problem as the actual
+> > > > > > > dispcc clocks from
+> > > > > > > DSI1 that are muxed in the clock tree of DSI0 are way
+> > > > > > > further down, this
+> > > > > > > bit still seems to have an effect on them somehow and causes the right
+> > > > > > > side of the panel controlled by DSI1 to not function.
+> > > > > > > 
+> > > > > > > In an ideal world this code is refactored to no longer have such
+> > > > > > > error-prone calls "across subsystems", and instead model the "PLL src"
+> > > > > > > register field as a regular mux so that changing the clock parents
+> > > > > > > programmatically or in DTS via `assigned-clock-parents` has the
+> > > > > > > desired effect.
+> > > > > > > But for the avid reader, the clocks that we *are* muxing into DSI0's
+> > > > > > > tree are way further down, so if this bit turns out to be a simple mux
+> > > > > > > between dsiXvco and out_div, that shouldn't have any effect as this
+> > > > > > > whole tree is off anyway.
+> > > > > > > 
+> > > > > > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > > > > > > ---
+> > > > > > >   drivers/gpu/drm/msm/dsi/dsi_manager.c | 30
+> > > > > > > ++++++++++++++++++ +-----------
+> > > > > > >   1 file changed, 19 insertions(+), 11 deletions(-)
+> > > > > > 
+> > > > > > 
+> > > > > > Fixes: 57bf43389337 ("drm/msm/dsi: Pass down use case to PHY")
+> > > > > 
+> > > > > I'm not exactly confident about that.  Abhinav pointed out in
+> > > > > https://gitlab.freedesktop.org/drm/msm/-/issues/41#note_2375646 that
+> > > > > msm_dsi_host_register() was not supposed to be enabling the PHY, which I
+> > > > > provided a counter-stacktrace for to show that is indeed the case.
+> > > > > 
+> > > > > Either this was always a problem that's only become visible now
+> > > > > (and it's an
+> > > > > issue with that patch), or a different change causes
+> > > > > msm_dsi_host_register()
+> > > > > to enable the PHY and program the usecase too early?
+> > > > 
+> > > > As currently usecase is being programmed after the DSI host being
+> > > > registered, there might be a race condition between panel driver probe
+> > > > _and_ usecase programming.
+> > > > 
+> > > > > 
+> > > > > What do you think?
+> > > > > 
+> > > > > - Marijn
+> > > > > 
+> > > 
+> > > Yes I agree with Dmitry's explanation. The race condition between the
+> > > two can cause this. Hence I am also fine with this change.
+> > > 
+> > > > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > > > 
+> > > > > > > 
+> > > > > > > diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> > > > > > > b/drivers/gpu/ drm/msm/dsi/dsi_manager.c
+> > > > > > > index a210b7c9e5ca281a46fbdb226e25832719a684ea..b93205c034e4acc73d536deeddce6ebd694b4a80
+> > > > > > > 100644
+> > > > > > > --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> > > > > > > +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> > > > > > > @@ -74,17 +74,33 @@ static int dsi_mgr_setup_components(int id)
+> > > > > > >       int ret;
+> > > > > > >       if (!IS_BONDED_DSI()) {
+> > > > > > > +        /* Set the usecase before calling
+> > > > > > > msm_dsi_host_register(), which would
+> > > > > > > +         * already program the PLL source mux based on
+> > > > > > > a default usecase.
+> > > > > > > +         */
+> > > > > > > +        msm_dsi_phy_set_usecase(msm_dsi->phy,
+> > > > > > > MSM_DSI_PHY_STANDALONE);
+> > > > > > > +        msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
+> > > > > > > +
+> > > > > > >           ret = msm_dsi_host_register(msm_dsi->host);
+> > > > > > >           if (ret)
+> > > > > > >               return ret;
+> > > > > > > -
+> > > > > > > -        msm_dsi_phy_set_usecase(msm_dsi->phy,
+> > > > > > > MSM_DSI_PHY_STANDALONE);
+> > > > > > > -        msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
+> > > > > > >       } else if (other_dsi) {
+> > > > > > >           struct msm_dsi *master_link_dsi = IS_MASTER_DSI_LINK(id) ?
+> > > > > > >                               msm_dsi : other_dsi;
+> > > > > > >           struct msm_dsi *slave_link_dsi = IS_MASTER_DSI_LINK(id) ?
+> > > > > > >                               other_dsi : msm_dsi;
+> > > > > > > +
+> > > > > > > +        /* PLL0 is to drive both DSI link clocks in bonded DSI mode.
+> > > > > > > +         *
+> > > > > > > +        /* Set the usecase before calling
+> > > > > > > msm_dsi_host_register(), which would
+> > > > > > > +         * already program the PLL source mux based on
+> > > > > > > a default usecase.
+> > > > > > > +         */
+> > 
+> > My compiler is throwing a warning here
+> > 
+> > drivers/gpu/drm/msm/dsi/dsi_manager.c: In function
+> > 'dsi_mgr_setup_components':
+> > drivers/gpu/drm/msm/dsi/dsi_manager.c:94:3: warning: "/*" within comment
+> > [-Wcomment]
+> >    /* Set the usecase before calling msm_dsi_host_register(), which would
+> >    ^
+> > drivers/gpu/drm/msm/dsi/dsi_manager.c: At top level:
+> > 
+> > Can you pls address this one so that I can pick this one up?
+
+Whoops, that looks like copy-paste mistake when copying the comment from
+!IS_BONDED_DSI() and merging it with the original comment about PLL0.
+Will resend when I understand Dmitry's question below;
+
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
-> ---
-> 
-> Changes in v3:
-> 1. Use FIELD_GET
+> While you are at it, Marijn, could you please also fix the first comment
+> to be properly formatted?
 
+What exactly do you need to be reformatted about the first comment?  It's
+exactly the same in both branches.  No multiline comments in dsi_manager.c
+start with a newline after the first /*.  Anything I'm missing?
 
-I have LKP build reports here, so this or some earlier patches need
-bitfield.h header.
+- Marijn
 
-
-Best regards,
-Krzysztof
+> -- 
+> With best wishes
+> Dmitry
