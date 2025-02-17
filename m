@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A99A38BCE
-	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 20:00:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5804FA38BD3
+	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 20:01:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE9CC10E5AB;
-	Mon, 17 Feb 2025 19:00:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA6710E5AD;
+	Mon, 17 Feb 2025 19:01:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="r9ClpqaW";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vv1wEtxE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32A1F10E5AB
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 19:00:47 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-543cc81ddebso5038970e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 11:00:47 -0800 (PST)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3F4710E5B3
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 19:01:17 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-30a2f240156so12717931fa.3
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 11:01:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739818845; x=1740423645; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1739818876; x=1740423676; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=XOaJBOao+MMu0MuGznU61rfSupDYmEn2N+XP1yk32jY=;
- b=r9ClpqaWijJX2tFuQ4MwU4XWzXFaSHa3CEjJEQl1zq5X1m0tcZX0gvddL1AKtcovca
- bs1TPypgIIaDB+fC0nw8gWBLSnEoKlMlUkJTEdcgM04EP0vHlLheawLQRsrPoOtHNXl+
- uKAquKPFQBUxlMnPoZiKIg4yOw2+wIat0GqzQbsNMwZQza4hhvvbbBKGE7NozFKCs85G
- d3bh3XHqrXvHCjdrGeWrEJt58wNM3X7OU18N90HCXCRSAcmftlOvMGgt/nd2s5xEHVIC
- NWyVk9E753JZSqt7p6OpwcZEo5EmTWWhFoPAY1RfkvMfrB4g6ywPsaV5R2tbjHUIIAiF
- t1Wg==
+ bh=3KVpMc6HL6H0IbUiBn0TVnYFjN3Gop2XIWiyOAEOilM=;
+ b=vv1wEtxEGfglTUYKBg4ZTJBrZU2DhHSh2YGHktviOrIfo4bp4W9hYnahxyNUcLOwh8
+ PePCn9EeRKX2fRp1jLdp4JWrhGmv/GEd2+eLBPYePstJRF5x8NCNtHSW+S/rR8t9GVnR
+ IrYgivbnRwCwZF0YhiKPPFuHOQDOMtx2akwPCkZC5Q5J/GTUYEvQVbl+L+0QB6GoWHYP
+ GIPmDWqZXZ16jcB8eleKEJqOB4hv2uI8CeUY2R1kmsafxR0LiNKQwhk+lga/QTMJaeUt
+ NLzJ8Lwk5Um9VwMzZ1Y+Ujk6fHB1RL4/6S+77ZNp7llhKCOnetd1YDb4G59mPvXjVokw
+ D27A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739818845; x=1740423645;
+ d=1e100.net; s=20230601; t=1739818876; x=1740423676;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XOaJBOao+MMu0MuGznU61rfSupDYmEn2N+XP1yk32jY=;
- b=hAdZgOpow1VUXuSLEp5YL0J1mjywxgQtnknMHqDVFjCzwd7rA0oggirxqdylW8ESs7
- FXsXv/OAvgCOM4UhMsKDi2xr80nycS/lxsX0Sw+arRo7h13F0r6XzVHUiIjOtMtxY2tP
- HqOVhkln9leChTRD7KqFpubh2QZwHMHLGRPk9zOClNSeXHcwOcjNT0/8h2PPLsuhK1xf
- ri+ChedjLAaSoibVbJWTOqnpnBWzu1QTaq2/s+aGRKHQPY+45GWhCQrssw148L812RR2
- KYfAheAXzkjmVPaFILhWi5op6PWDOYOTHqkeSy0uTtaWwJ3enr0PnDImG6L+u7H6/Q+Y
- 7lTA==
+ bh=3KVpMc6HL6H0IbUiBn0TVnYFjN3Gop2XIWiyOAEOilM=;
+ b=B3rsui4aVJSRqv8zlb0j82c1Y3hQH56FG/0/xNf/akUQUDYKAhV/cYhPbrxpMc9U9T
+ tQum2VNX2i8nfOqQt3ZwwD9PcAvRqUjarM6Jx+Qt+i1p9x7bJyet5qA54jCjOJy23GSP
+ NJNZVEuqctncjsJ2z2UVXCoBBReTjsJbdxuL/MSbisUNN8/izMrXKDf6e4r2bclGWdWv
+ g8NFDWIAQCRwdPVUn/Nx400nSM6sglmX0h/l0plt38c3fDDI83CNSSnn33fTnsaGXQcG
+ 5MLM2vJfVmtoIiEZ8j6LtUPHLIg5HDVYcZTfQdCKHiQVz2rXUuIBFOGDrTPBFHJn3z5V
+ n1dQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWgnBkzu7iz9PwZiY7FqRwSloEo5GzNBD5rUv75tv6lB+V8qaRKyFq2jt24U3f9fGvs2X+Y0ZOQvpw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwEamwbqra7qw3ZfpnjBDIFMPSKBPyCKHX3zc0+uXJVck/LrsI
- 0yt9ScEJryGA1q4Zb/x8K79rNZ0KuJTPT28pQdVisAFHJA8xLwWrJo5mI0TqZvI=
-X-Gm-Gg: ASbGncvnZxUFpVpha+jnOqULN5hnrAr/GrNAX0rWaTt2Awp0N2FaB/Z64E2M5DNb8uN
- sYMNT9+BecSqF40eJ7VXDuOyCcX/kT3RFdpegurrnd9Ucs08umMZgzqNfBAp3A0y7tU4nnepdvI
- d5ucM1M22U5mo1cWVsA8obxRlW+4CrCIBXwdE6JZ0F1YWl99Lvhm14rHUX1xqsjfUtNrEQYKNIp
- DzYGtfp3f04cJdIlcgPrr2fRJxWTUK/2K2U4/JQTjLaiL5BigHGwiJOXvUkRdx3ffBqWUutWcj7
- hv2sqRuMFmI1BkDiLJHrIGJ2o73oRbWSPyVd8w0zwX063TsvLWAySJZetq7+ZU+3ybcQ2Xo=
-X-Google-Smtp-Source: AGHT+IEslo4JCXXW70CatTE3GyUrVciwejCa+A19BXKrlebG5EgoNg1Rdkp6bulWdiqf9EJHhBrftQ==
-X-Received: by 2002:a05:6512:3990:b0:545:746:f36a with SMTP id
- 2adb3069b0e04-5452fe90480mr4199200e87.34.1739818845416; 
- Mon, 17 Feb 2025 11:00:45 -0800 (PST)
+ AJvYcCXxNIlwl0zCQkBzUjMAgIlvAAHGHjRplsbO/GXL62zK/aIEGP/KQ5I27YAO5o0KtSjb0Qh8btfamEk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYyGnKUeg9vOE7ZOhpy09KIYatyjkj+RO8rIVn7dg4uCRis+n2
+ zEdcL7Zlt0hM9g8iuE2luuNM4lexZzF45c74Dl/8DFUqAwMbeSLDJ2GKQU9+9ho=
+X-Gm-Gg: ASbGncuOb3NqR3ql+c28KmggrF2YhrNd3l3j/FsIfq8zkmmRQserxkHBo4+TsssPEeb
+ fZHl6ggjwK8E0mKy58Gg57jSEdhEuyPAAzByMSwLmB7Cu/ZZTnJHrsZvQB4rX1R6tH7D4mOLSgE
+ ZyZolV5Y58sIRRMo4KT4+eSnq3ugIxJB2AEp2vLWKq0IxGRcmlOdHo2v5Z4rO0A0oTvoDjjugB4
+ x5NHhnG9rvBYzAL/mThIy6U9kRmLSD/gbmoLuCG1RBDQkriROsm4az/cI3nMRrzeLAoudlayQ4T
+ 19MSdrXTVx8Xg2ujadBV5tYCIunp2ButAox0z8P0eiWAH1o2+YswDegiXJq4brlK/exyoY8=
+X-Google-Smtp-Source: AGHT+IHOqzXihtG/q/MOUu/ObVGRxR4vcEqAKB3UjZpWusxSGj7tDYpn5jPIEX0hDh+XE6pxaNtc0Q==
+X-Received: by 2002:a2e:8895:0:b0:300:33b1:f0cc with SMTP id
+ 38308e7fff4ca-30927afef0dmr28520491fa.34.1739818875993; 
+ Mon, 17 Feb 2025 11:01:15 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54531d76843sm923155e87.84.2025.02.17.11.00.42
+ 38308e7fff4ca-30a27206f15sm7247121fa.61.2025.02.17.11.01.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2025 11:00:44 -0800 (PST)
-Date: Mon, 17 Feb 2025 21:00:41 +0200
+ Mon, 17 Feb 2025 11:01:15 -0800 (PST)
+Date: Mon, 17 Feb 2025 21:01:13 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -79,15 +79,15 @@ Cc: Rob Clark <robdclark@gmail.com>,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Srini Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v2 09/16] drm/msm/dpu: Add LM_7, DSC_[67], PP_[67] and
- MERGE_3D_5
-Message-ID: <eetx7fuv2vearihvpu3mvfaokmfihiq2plstyhkblh5hklspz4@p7fslha5nong>
+Subject: Re: [PATCH v2 10/16] drm/msm/dpu: Add handling of LM_6 and LM_7 bits
+ in pending flush mask
+Message-ID: <fqmt5h24asj36odjx6bdgc5qjoeqwgpmrrsqq642ss6l3tsnmy@wh52uxkzudvv>
 References: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
- <20250217-b4-sm8750-display-v2-9-d201dcdda6a4@linaro.org>
+ <20250217-b4-sm8750-display-v2-10-d201dcdda6a4@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250217-b4-sm8750-display-v2-9-d201dcdda6a4@linaro.org>
+In-Reply-To: <20250217-b4-sm8750-display-v2-10-d201dcdda6a4@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,13 +103,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Feb 17, 2025 at 05:41:30PM +0100, Krzysztof Kozlowski wrote:
-> Add IDs for new blocks present in MDSS/MDP v12 for LM, DSC, PINGPONG and
-> MERGE_3D blocks.
+On Mon, Feb 17, 2025 at 05:41:31PM +0100, Krzysztof Kozlowski wrote:
+> MDSS/MDP v12 comes with new bits in flush registers (e.g.
+> MDP_CTL_0_FLUSH) for Layer Mixer 6 and 7.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h | 6 ++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 6 ++++++
 >  1 file changed, 6 insertions(+)
 > 
 
