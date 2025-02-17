@@ -2,72 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0D6DA38993
-	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 17:41:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4CAA38994
+	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 17:41:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E42310E558;
-	Mon, 17 Feb 2025 16:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A1FD10E559;
+	Mon, 17 Feb 2025 16:41:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DxVnnOM2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="j3wiCjWK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18B6E10E55B
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 16:41:49 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-5dbf7d45853so587260a12.1
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 08:41:49 -0800 (PST)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 039C610E55A
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 16:41:50 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-5dbf65c0c4fso829570a12.0
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 08:41:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739810507; x=1740415307; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1739810509; x=1740415309; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=N+5aoDlUUPJ10rJqXrmf7ktYiK86nyUI9p9lZazil40=;
- b=DxVnnOM29sIrfPPrFOTV0wK3w3NJl5zBTGPGOZYz6kF8nLy7E+ZKHOSv8/Zmf32FXQ
- /eW8Wi3hP7D5URPVZpCfXjm9yQzJfiGQPW01GHOZlQiEIC1K2jR86L0uRLN2OlZ9Se3h
- kZ5fWJcLGP9jX0wcwtkafeen2lIFuSta42vLUr3/7HmpA5RjBdGdKhLQoc+i2rqWhqB2
- pwgGOi/ULzHHm2twDeoPfgc3MkWNNbnLd92X6QfzzUBJDXmxs0eSJMEggQR0aWh0rCGY
- rTn1UjHVauZ59DSMLcG7x7edt+bIW4N1JTG4BAXxtwV7ztHMsHLszGQWqpypb+F2tYzk
- /EIw==
+ :reply-to; bh=/vtiOtAPErstCZKPiDf9uSSv9XQsaanNrESzaPKJnL4=;
+ b=j3wiCjWK3gFYcgOs4KC2PtZvqUnuzqTkvaaNwy+kjsOiNUA9+bsGAdDCU7hkYoU1RN
+ eA8HH/fk2XGmI0rRgKQLxk2C8OlXdZY8l8YaAJWDRenliORRLQEtlg8MsKAEudnVS0wx
+ 4KSYQxm5f9VAbE4/4R7WmLgNw73/7ZoueRXAI61t/bIwCgiSvGfJr0bwn0JZtQXjWtSU
+ w30stf8QdH7NIEK5+dMO+b/om5YwshqZHwK0xHZg/Ta8iJM3wjbK8h+u7GR4dMKMlo9m
+ BNk3Tfyr0/o/2hn+l2Poi7f/bfCJ0Gswj2pmeBxTH4hklVf460Ac5taEY8hSjOZZB5fa
+ HoUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739810507; x=1740415307;
+ d=1e100.net; s=20230601; t=1739810509; x=1740415309;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=N+5aoDlUUPJ10rJqXrmf7ktYiK86nyUI9p9lZazil40=;
- b=Cps+CwoSbTl5S4nUbZUVLu1fl9gQHQUFQtKBwCbo14q7x8pOOJLXO4cFTRyRuVB2Lb
- tnsuw58UGaXkKhr4uePOFj0D8sXk/X9kolFqdLBMWKVUTcyShOjDBjU0mYFokCHWhq2n
- WpRwzIKFS3SOTdJfjUSN8FkVFa9Hi4g8+3fcxci62BtfS3mHuNl6fsIIgluk1HIlMgfy
- 4F97hyX7//XaMlc0Q9BU9WdamGKJcul/IQgNNC9Pz4C0idJckHp9JSN9YpUoQRYLaGoV
- LF1mM1Xd3QZfo2bf4IPYTjzp16chyE/sZEpPmvE+BaTRIMDmTW7Q1eLT9S9WCjCN2Z+5
- Ov7A==
+ bh=/vtiOtAPErstCZKPiDf9uSSv9XQsaanNrESzaPKJnL4=;
+ b=N72jdSG2xFiU/tFoKdXN2O0kKtzbJG/ripjUAGjelA3AJja/lqwWBrL+x0CUgdfGXO
+ FuhGBmeSZBm5GEa7RPW5zyuf0h4ItpMG05gEZF2rFRQh36+2zUQXdQ/w2vxsk3mHCNQx
+ mF2tvysgrVYHL/V1cNZEahxjOMdosSBP0BeKUoNBspWSlVujsK2R7JAuj2mrZGTytW5v
+ ii/ARDLSi/QRs19WUYSh2ezGpCfu2HsNL3mIUU98LcKpa9sPkeA0jXwS3gc1sGRVHr1u
+ OlSg/6LbD8llPELQPy8ZKEOQUo1CTR8tpaLjXWGT2xFC38A3WDEze/4CcbFtBC90g+8t
+ bNsw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVbpaYausMbXu9GjdegTAxQN7PWzasxAhBr7KZqqspml4rVedDKGJqj2jcZ/z2VsbKeUBXh9W7LBJ4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYC4x0gCR/rAAUIAmo4l0NW4WtufzU16EbXGPafCGWKd8dxazu
- Gt7jnXY4b3qMYdnRWhEoAIU0DzMbxVTPvSbgt1DXklLxQ+LWW+RjgU6peF0DoN8=
-X-Gm-Gg: ASbGnct34PcDq4XlErKWT1ppxFNa2YigEinfWwVvE5IccFpVAmI8qgl21j7L1UNdyed
- jDNwbp7PLFtFfxgx2m6uUs/8rVtYayZxqAuo54ZcE9WLq/ldo70TNAWKeYD1x3nXCeH8fW++ZEH
- ZWFPN3AFd5Ynn6An43KUTGM6n+pd136POvXuvoOcsynBsgT6/kjgACFsXtVy432U/Av0sps0Bf7
- Bh8hmQUZssSIuLxE1ldGoaxmc4Cqhki9BpUO/Q4pZKNg20IIhSA1l2imNHKyB4UBpEC1HJrImQw
- X1EGBwiftJGtGfQwiKLcmWd6qFPXVRE=
-X-Google-Smtp-Source: AGHT+IHRBktJ2CMWFcJl7zTzhiegmw14O+ej0MwM1UHqZCG86dEftz5Cx0FG4ED7AqXi7Fd5goBe5g==
-X-Received: by 2002:a05:6402:5254:b0:5de:b604:355e with SMTP id
- 4fb4d7f45d1cf-5e0361b8ac9mr3287589a12.8.1739810507589; 
- Mon, 17 Feb 2025 08:41:47 -0800 (PST)
+ AJvYcCWnUd5sxWk8wbiDhMDkRPA0qQo4+QQertX/dI0aximDfOYT+Gm4aMdz2ckJusbIyO2d70Fukg/1+PA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzjMwEc+3HL+Qip4XHIpQxByTpkkDXdAMJdykdxXwGY4qBrXx3w
+ XYMbDIHsXxhkBkRwAIKaSJzE7yHMGv78ZnLngGZQSXYIZm2GRhPImFx097UXWZc=
+X-Gm-Gg: ASbGncuzrutLkLQeMYpZJ/QdXbNcicO/SIGK2Te/6wIvbC4c8Kzv6i3pV0qd4u/Mei4
+ vnWfaFQphhNQ4UvW0N7pZ9PfQpZMoRQr400A6HNy48dWX4PTPz/IbArdYcpVZSq2oeXbGcA9/nS
+ z/9AOyhNOrj0rkBEwnOHWt5fZlBlz4TXKENDwBEVyiHfaaJug66Py2defG5ERYuFIKbqVmQGuQl
+ LIAkKvK1fRDb8yJbMgzfZ7SXxabpFqhj1Bwl3LBqBQdxqlOQFIbEe6IkK/ozBrp4701tLQywfWv
+ bRPphloxWsfe5I+5F8FgOLvBDpvMEig=
+X-Google-Smtp-Source: AGHT+IEc2oXDKXrP/maz1R4hPJqgetc2dZKJeGvYBMYH+EpbVdo+sZPF2ut5mzR1sZ6VdIx0Xdn7lA==
+X-Received: by 2002:a17:907:1c1d:b0:ab7:6056:7a7f with SMTP id
+ a640c23a62f3a-abb70dc5587mr338725966b.9.1739810509412; 
+ Mon, 17 Feb 2025 08:41:49 -0800 (PST)
 Received: from [127.0.1.1] ([178.197.206.225])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abbac781b78sm82647966b.60.2025.02.17.08.41.45
+ a640c23a62f3a-abbac781b78sm82647966b.60.2025.02.17.08.41.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2025 08:41:47 -0800 (PST)
+ Mon, 17 Feb 2025 08:41:48 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Mon, 17 Feb 2025 17:41:23 +0100
-Subject: [PATCH v2 02/16] dt-bindings: display/msm: dsi-controller-main:
- Add missing minItems
+Date: Mon, 17 Feb 2025 17:41:24 +0100
+Subject: [PATCH v2 03/16] dt-bindings: display/msm: dsi-phy-7nm: Add SM8750
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250217-b4-sm8750-display-v2-2-d201dcdda6a4@linaro.org>
+Message-Id: <20250217-b4-sm8750-display-v2-3-d201dcdda6a4@linaro.org>
 References: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
 In-Reply-To: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -88,21 +87,21 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
  Srini Kandagatla <srinivas.kandagatla@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1881;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=871;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=wf+CuC28ypTqu4EQD5hdI+GDr7Fn9S7Y7CIcU8MS5oE=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBns2a4hP1oKS+5fk1zOVCpOHjK18I1sB8j5kDHF
- 64DS60m7cOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ7NmuAAKCRDBN2bmhouD
- 16czD/47KDXygwBuqAB7VjF3Nql/EcBgYmDNCQH4Vs9GqJpR/YCiOStKlTsIY6A1WCHPP2arpML
- ojcquVoxXC8dRFfPRP/YjI7pLQBU4oKV9C9P/cfdWSS7uKCjKp0hlfhnlJ1rYVc9ekvDTgu0egr
- FqMKaiUncDx00ORd4/IYAAJIrtfJYsmEd7MlC079iIJDd5JxwTiRvoo/5p6AJOWRQho+aIkPje9
- BVzoCrWGm+ZcqMErfsYTVSJpgjHY/Vf1sDl17MFejYyEXPo1VcQyNNblxsrZ2NwghOgXsItXXIC
- ltZuyEsoG3n+eisguigZElJqHvSBU/+btT+qDZOlP609DaYmw0wjDPl7hG80perADV0fhnocOJX
- /LI8FnN42wi3zxxhX55/ZkhX9eCzKB977V+pbOMiJeBxZBBPKXkEKdL15BIK9UzL9oT0KFDtN3u
- QcptUq2QZANSehzBqMJEQhDCW/4J642FUT6UZKYT6eOB4LVvXnSTFvK72KVohvYqkoOXARq2FMd
- GFHIqugLpTSp3EmuaUgA30u1gI80jpK+9X95fL37bTZLkp/ptIAPRcVp7ml20DYHmm9KL69wpJa
- L7wVyFHHsyKMNuwOSpDizRAw2AqmLewg9LLQhC1QfejxGtnEBYkKeGzytxIeUKAphRlyJXSC9kW
- JCeb2pfpCCbcZtg==
+ bh=C784ypOiHBSE0JJrZYQTBZVh6GbEkSrx2ih7B4SSF4M=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBns2a5e0NkCZRyuFjhGGd9OB9EDr80fjzsYau9k
+ F/FzmPPdEqJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ7NmuQAKCRDBN2bmhouD
+ 134MD/wIjInrEc6QCV4vQq3wwjSnYQQEXn0cbn03E2GJmhUJwd+u6++MPxxlMWJvWnEvr20clpP
+ K9f3WSJf27U0uNd+eOMDFde4gbUV6lBemRnJjQOVjk4rPwCebZ6B6QZ6ZoN1KIns+OX1T07WcD/
+ Fr2A9Qds8uq2+7pd8zbC7b4vd6/6X4/YFUKc5eN6KhOp/PF8Jc6akNSyuyK+Rar3Jo2FiwEso/r
+ nHn0LW9ACmKdef+YqrXwcWY1EzvqxF4lEiLkm6rXsSCpsO+b/j7fZsIcibw0ttfaovuVVC/qJa3
+ EnWD3KwNnOyw7SqrdQ1oZIa7zCAwDM3zFDrTCxDhOEqZ1CAXMP6taiU3QGDFvD9bGkqHR5SFSG3
+ rfBKeN3trcQe+NQs4FHnc8+BrkGJR9Spnx72NMMrPljxOM8pxIzzvznxZFwaLqguApYoIsyHqZA
+ 3MsAyDL4grfJgOe71hOSMTurCeRtTmV0k8q3N2OUvqf4WNZCSObAM36b6mKoF1goxDUP4oaRCnq
+ Ms0vu7DLarYiN/jXeW63Ca4IkCzOGn4bsuX3+QOEZeM4K93LhFC5z5vzxvzaMz6/jZ8thof1mjn
+ KGNxxw1UZh8iF+NUe5FCgEBT+ltuBxvP8azDuescMcwtnwWGEKMdUFnWTpGGYnNG/9HZYqIopi5
+ V8wXPwbQcGqz5VA==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -120,68 +119,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Specific constrain in if:then: blocks for variable lists, like clocks
-and clock-names, should have a fixed upper and lower size.  Older
-dtschema implied minItems, but that's not true since 2024 and missing
-minItems means that lower bound is not set.
+Add DSI PHY v7.0 for Qualcomm SM8750 SoC which is quite different from
+previous (SM8650) generation.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../devicetree/bindings/display/msm/dsi-controller-main.yaml        | 6 ++++++
- 1 file changed, 6 insertions(+)
+ Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index e496e5430918d54b2f07f1d5b64de85d29256951..2aab33cd0017cd4a0c915b7297bb3952e62561fa 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -231,6 +231,7 @@ allOf:
-     then:
-       properties:
-         clocks:
-+          minItems: 7
-           maxItems: 7
-         clock-names:
-           items:
-@@ -253,6 +254,7 @@ allOf:
-     then:
-       properties:
-         clocks:
-+          minItems: 6
-           maxItems: 6
-         clock-names:
-           items:
-@@ -273,6 +275,7 @@ allOf:
-     then:
-       properties:
-         clocks:
-+          minItems: 7
-           maxItems: 7
-         clock-names:
-           items:
-@@ -293,6 +296,7 @@ allOf:
-     then:
-       properties:
-         clocks:
-+          minItems: 7
-           maxItems: 7
-         clock-names:
-           items:
-@@ -328,6 +332,7 @@ allOf:
-     then:
-       properties:
-         clocks:
-+          minItems: 6
-           maxItems: 6
-         clock-names:
-           items:
-@@ -347,6 +352,7 @@ allOf:
-     then:
-       properties:
-         clocks:
-+          minItems: 9
-           maxItems: 9
-         clock-names:
-           items:
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+index 321470435e654f1d569fc54f6a810e3f70fb168c..4ac262d3feb1293c65633f3b804b4f34c518400c 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+@@ -23,6 +23,7 @@ properties:
+       - qcom,sm8450-dsi-phy-5nm
+       - qcom,sm8550-dsi-phy-4nm
+       - qcom,sm8650-dsi-phy-4nm
++      - qcom,sm8750-dsi-phy-3nm
+ 
+   reg:
+     items:
 
 -- 
 2.43.0
