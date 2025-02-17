@@ -2,81 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27E82A37C3F
-	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 08:32:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10C28A37FB4
+	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 11:17:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFB5410E384;
-	Mon, 17 Feb 2025 07:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1C9D10E40A;
+	Mon, 17 Feb 2025 10:17:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AH5/Y+Vt";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Xsmuea3A";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF8C10E384
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 07:32:16 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-abb7f539c35so301334366b.1
- for <freedreno@lists.freedesktop.org>; Sun, 16 Feb 2025 23:32:16 -0800 (PST)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2853010E407
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 10:17:46 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-38a25d4b9d4so2665036f8f.0
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 02:17:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739777535; x=1740382335; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=hO2J1j2m5X6qQF5wOtrAqeimkscPDnsoO2uRIRbK0t0=;
- b=AH5/Y+VtVYkf+GTKX12FVRAHV+lzKnIMtQIQFmtq070JmMqifqbzwWR/EEXqmmlNS9
- PqH9izJ+knayRgCUnYi9Is8keHiMmggmbtBfCTgOoL7L4EBuHxgtdayUpbtRvL6AaZ3u
- ga5F9SAujkOF2LuipZAUCvGULbZJekB5rqMTefDSpYpJyfwh1hNyzwTyjnM5CQZKwdwi
- IOjscH27v741e7TKuqYpW5oTBCEA5j/9eZXTFn3kfGzNHHToNyvTIxRf3MlUuwANTpR0
- 13e+51f/LqZy6XEHUwP909AvymeM9bi8KgNYy9bwwlwimeT9nQ1VSejiEwJGxaKdQ8Pd
- bY+w==
+ d=linaro.org; s=google; t=1739787465; x=1740392265; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sjnizhfij0DxrLOw16h1FTCOX0FfuFrLDYVy7emG8Tk=;
+ b=Xsmuea3As6aZ+Y6TSZZ6vKgn0KJct8ddD4a5SgPOeu/y9IY1TToif3Fx0pMmzbfRct
+ 2dZUWTjZvnJp9j4zpqdLjKKylVv/uGsvpp+Ri8o7/+Ddi37WtRs59Q8EapbWZ6tSBCvB
+ 2/mWk1xXgyEHKY34/NHsCnNeUrdDhvjb9MRXjguaOQFK3c7ST2wQStba3YS9RCY+eVYZ
+ l8oOTWckxsbOk1fcVuOpluemPKCK8KRckzZDGDOaGT/k5MJC+U510aL5KQ5v9bifGfpH
+ CcT5t2mQP8O+w7UyjZ9ZYbj7B0DOtWA4mhTVqX8xsSdAZ5FB+MBFahVk0YgfSFvsjQDa
+ K/Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739777535; x=1740382335;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hO2J1j2m5X6qQF5wOtrAqeimkscPDnsoO2uRIRbK0t0=;
- b=NBQaLhgYCNDy206qFfKUyjsVVvvaBai67Sg8foT/UNPTMBBv8gn9g1awQE2aYaVdks
- p6RmMm2vHd6dm7lBHD+DQgtL/3fDaJPLhtJIKN+hrw6QysTSw0c7tLaRj7l/9CoybRcu
- bzCdL2tzyRCulTI1Cc2gQgRbyu9ouZxn9oyv3Mu8T6AgTjokON++isulKkB2dQ054KbD
- QWB9pGcFCaOrxSYD8v2W9U3eGT9YaTjbWhb7rS62K17l+pvnKMa14OkOK7AWt5UUI9mL
- ajAJDX3NF5kliMcjEat/F1920qwLMKpcfruGbpNZt47XF2bIyZcvgEpAZh83ccx3Tpur
- H0TA==
+ d=1e100.net; s=20230601; t=1739787465; x=1740392265;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=sjnizhfij0DxrLOw16h1FTCOX0FfuFrLDYVy7emG8Tk=;
+ b=BJxQ3XzvNLey1JYSGHCjGnF/KRcyMZ+iSnNcHp3uyGIcbNzatUcaFUmwZKBFZJzLJg
+ XgGqQb/aaOEDceDN8FLNpt0L/KZJJT2ePV/0DRAUstULZeGoKy3CWhfdyRXy786F7jAQ
+ uKiLh4jeBusO5gK3IbP9TFw3t/E9Qjet8AgoIyXJgTjBFwCCGudB85+ubMQ7qvzfp19v
+ O4yJncGXZdua0gsAruZ17Hgb1dZjO9XPbSn7P5DmCq1bLINO1sjN0/PBYRomsW78s/tz
+ Td7utpJJbsj+JlaWNVl9x9OYX0E9hiz9Q/epGsUBDIib6LPMe3Q871vjm6URCq+uD2Sl
+ YAeQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWMoim0MkPLgIho9s3HLD3MjkAt845yA3GOHt6IKqO10Bu28FfXlE7VpgpgcFfRBeCwIIP2MXU/Pkk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw79zFQTXDMq2AzKCLwa1ABRmAHZ7utvcNxTOVdqTCfcbuQwsKo
- U1BA8ymLgAs2wdWFivDcWG/Ki09QMO0L2lSR4VZvYy26uYzx42tb2B7pgU+3Cj4=
-X-Gm-Gg: ASbGncsVZ6A7ZsyQBBDzcVTMFGojz8+jpNtNCo3GDkZOfGDy4R0Tbh2ZxWL/tafKpMO
- tLgH2mihuCgLqlofZOaaPRRcq2/w3bPebKqIQBtYUUoHLb9/rPTxhlRiNsPs8qn42ccJpBxZtHF
- GRxM/Wzy9t8aa7pUBkAVLwxPeti9dsjeUcWUi58ppKPKnVHcF/c3muSI0aNsYXsgx6+5x56RR3e
- f+iIN4WIT99xhiUgKW9J/3XEhGGxzxFLut3iUmEYGdKYkC4r4ez/WUmP142Pdr1Wb9/L7iEw9R9
- LUXzaHC6JVIPEKCzuque
-X-Google-Smtp-Source: AGHT+IEXChx9P0XiKZoNkZiSog2lL7kqWeWWaA+fbxmQW7+pyPDaxfCj2UqyTeAJOchNetAsSy3KVQ==
-X-Received: by 2002:a17:907:c1f:b0:ab6:8bc1:9b5a with SMTP id
- a640c23a62f3a-abb70da2ad5mr751573366b.41.1739777534951; 
- Sun, 16 Feb 2025 23:32:14 -0800 (PST)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-aba910e8b11sm556516266b.21.2025.02.16.23.32.13
+ AJvYcCVWgncBFHM8yACsIPQg5f8rNESojHtrxWUNSYLjijmH92aEpF/lRZHEkPC8DNM4SsFEBA+vbZiX9mE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzjUIbkoUdIhkD8ZNKY6ByjoKcBn8rdeBc67fNXaRUVpzWagY6K
+ uk0eCuewEfKfQBtm78oklEsDbUjmRCgsIwevpTvrc3P30Bh57BvgabtN3k+K5bM=
+X-Gm-Gg: ASbGnctUjbF/s+0zEhBPlYqGON1WGpfivaBMf65xkZzzUx6XJ6Jl3KJvriLRWxFVPZq
+ ObzqN3s88B5DUz4SvXmgmpNPfEmI3mClYeB9KN9tmaKFf29rmvfgNQQtVuQlExKoRh6p+FY95Ld
+ JOed8AJ6ZQUIV19/DuvunOxkNQ3CMLylkslv93Sd0TAAYSqABwVe8x4chNvl9xXkMIK2VAWG1Zm
+ KC4x8M2rtreKk2WmihEg+yFA8Q5z1njzqYw3j/juRpneC6vaFy16R9FO8pFn2xc2QdLnPhusEZw
+ KQ6wfMqk2gURFdOh6dKXI5GxPKxEIO6tZg==
+X-Google-Smtp-Source: AGHT+IF7XwyAqsyVybUOb+YT3My0TlrSfzZx4U/CaLhTm/XLeIcngPTFZD0Vb4ytwztWX6MVo98cdg==
+X-Received: by 2002:a05:6000:402c:b0:38f:3a5d:e62f with SMTP id
+ ffacd0b85a97d-38f3a5dea23mr6895087f8f.33.1739787464671; 
+ Mon, 17 Feb 2025 02:17:44 -0800 (PST)
+Received: from [192.168.68.111] ([5.133.47.210])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f258dcc50sm12046297f8f.34.2025.02.17.02.17.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Feb 2025 23:32:14 -0800 (PST)
-Date: Mon, 17 Feb 2025 10:32:11 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Rob Clark <robdclark@chromium.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-Subject: [PATCH] drm/msm/gem: Fix error code msm_parse_deps()
-Message-ID: <75a78610-281b-458e-b703-57c7e7de573c@stanley.mountain>
+ Mon, 17 Feb 2025 02:17:44 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+In-Reply-To: <20250109-x1e-speedbin-b4-v1-0-009e812b7f2a@quicinc.com>
+References: <20250109-x1e-speedbin-b4-v1-0-009e812b7f2a@quicinc.com>
+Subject: Re: (subset) [PATCH RFC 0/4] Support for Adreno X1-85 Speedbin
+ along with new OPP levels
+Message-Id: <173978746391.27110.17465291668859357570.b4-ty@linaro.org>
+Date: Mon, 17 Feb 2025 10:17:43 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.2
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,30 +99,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The SUBMIT_ERROR() macro turns the error code negative.  This extra '-'
-operation turns it back to positive EINVAL again.  The error code is
-passed to ERR_PTR() and since positive values are not an IS_ERR() it
-eventually will lead to an oops.  Delete the '-'.
 
-Fixes: 866e43b945bf ("drm/msm: UAPI error reporting")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- drivers/gpu/drm/msm/msm_gem_submit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Thu, 09 Jan 2025 04:12:37 +0530, Akhil P Oommen wrote:
+> This series adds gpu speedbin support for Adreno X1-85 GPU along with
+> additional OPP levels. Because the higher OPPs require GPU ACD feature,
+> this series has dependency on the GPU ACD support series [1]. Also,
+> there is dependency on dimtry's series which fixes dword alignment in
+> nvmem driver [2]. We need a small fix up on top of that and that is
+> being discussed there. Hence, the RFC tag.
+> 
+> [...]
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index dee470403036..3e9aa2cc38ef 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -509,7 +509,7 @@ static struct drm_syncobj **msm_parse_deps(struct msm_gem_submit *submit,
- 		}
- 
- 		if (syncobj_desc.flags & ~MSM_SUBMIT_SYNCOBJ_FLAGS) {
--			ret = -SUBMIT_ERROR(EINVAL, submit, "invalid syncobj flags: %x", syncobj_desc.flags);
-+			ret = SUBMIT_ERROR(EINVAL, submit, "invalid syncobj flags: %x", syncobj_desc.flags);
- 			break;
- 		}
- 
+Applied, thanks!
+
+[3/4] dt-bindings: nvmem: qfprom: Add X1E80100 compatible
+      commit: 3419bdfd88e314bc5f80b02fa4651c81a0a85b57
+
+Best regards,
 -- 
-2.47.2
+Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
