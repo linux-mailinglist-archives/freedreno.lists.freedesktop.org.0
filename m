@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3A02A38BFE
-	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 20:08:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D11A38C32
+	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 20:18:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8A2010E5B8;
-	Mon, 17 Feb 2025 19:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D210110E5B8;
+	Mon, 17 Feb 2025 19:18:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RKeLiqAZ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WssupDFL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF3E510E5B8
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 19:08:31 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-546237cd3cbso1236333e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 11:08:31 -0800 (PST)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8560910E5B8
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 19:18:44 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-546210287c1so1401433e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 11:18:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739819310; x=1740424110; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1739819923; x=1740424723; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=wdRXWfwJ/W21WH+kqrSD6iNAMN48NhyL/UJXo71GHvM=;
- b=RKeLiqAZWuzTsbCGbjEhWIXOJBR4BA1ccLWHynngMlcO5JI/KeGiKvdk7HPmPeezk3
- dCB9LRFPH5ff78Da+HasM6qQtjLosHOdvM9ggaouLJb/xrya1qOxrjIHGQUQ7j4gk/FN
- KpDMdW5u8o9l2J9jeB7hJlpjGalpjAwViXF9wYSB3XHhMWrD9OYHvs2TGWUmNY42Ke4z
- Hx4oM+hDxHSY2YCmMP3gvYtLp1hMTCqWXyU7uYXU/cmm+Wl8HOX25SFHuBKoELLaawuI
- 9VfR9BgitZxsFJ/iaLQssCUngsCciysqRC1lwEmWne4aBSdpHBb+aN+G/o8DcOTHmpCW
- jV/Q==
+ bh=DK+fqhLw+0oSKSvkhmUshysfw/dArV7Gb0FGu6H8pRM=;
+ b=WssupDFL0J68EGxTKhR9i6FdTixdAcIBgvLMJrEL+R0W9FPPA8bb/FqVwekQ8A26Bt
+ 5WYzurCw6JzT2TcnoP+V2AfTIJTX/Nti21vhWJx6SHUqzen5XDk2tmQDV+rrg2kbIfPg
+ NYg3HPnKNosQQRH1H6Fhh8q/pPKGa40cDPpGMysP6qz57bFmMGVmTGIazq+bysy0GrXs
+ /NXYx6BXZML8Hh/mty/aDqR6G5EhA/D69STDIEdIEbR31OhPCUN/2/s5fpjH8WD/EjhU
+ DpajDrMD9jrwx+pJBRqeEzoRjxKCXzZnvRZV0jyoEu+yJcSS+wPwdpLslUNx11nVH4c1
+ OivA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739819310; x=1740424110;
+ d=1e100.net; s=20230601; t=1739819923; x=1740424723;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wdRXWfwJ/W21WH+kqrSD6iNAMN48NhyL/UJXo71GHvM=;
- b=A1ybRgio/rCCVAkPUTOveV4pX5qV7Dxgac0pUeGwAYvRd1srDpDn5Oe0++xujRiyg6
- m0ebgNFT/UcGUe9GlaUKkrUhORpnXiTfjcvHCJG/aB3lsnqHTRXQaKxmmX7IsysdCU9K
- tEAl+TTJggyZdrcDUNASUVUoYLKo9Q7YVVyE1TRKSrFKmAu8U/hT3UD72Wc6htw4XthR
- JQU+nXrG2TIUxN3eVUYh51xGr7Vw2vSGCCcZGy2f9Pc92yij77RzVKxa5y4c5MTCXj2Q
- z12jMHIw57idu8lg+Oecyzz+2QIkpIFsrthkSWuZhIx2TdusW395MeruA1HhEh4+9hll
- QIdQ==
+ bh=DK+fqhLw+0oSKSvkhmUshysfw/dArV7Gb0FGu6H8pRM=;
+ b=vCHuFprxi5T/jJ1L6o6370j8IJ8mjS8FuhCnlu+gUKCrmq58sXfEP3RoI0lGD/UQcP
+ QMB5WHywHusSn9BMKCeAeGgmp/LxKV/VJbU9fa2U9zvO3UP5B5f6eSBxmekF1fKS3BGQ
+ 0lpF5DMyQ4ASS8GEn62yatAbrxSnyWHp2G9P3tT3NQVW/7L/rhP9o1eHaivRfaRy7wbz
+ cH+zf/a3sgIqS3rzG9dIbEDfP7erODpXL7rsqTDWpG2yzy9rR5ZbZ3e7f95+wu0gJpcq
+ ESr2kcyXODXvm1wcfqy3f0VBty/kGf3/5dD8dN7Jyj46EKTWD3sCODb7mnItIcUzHezX
+ 6HHg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWe4lr/JzXNuob3anGX33q+fUoUBTZindLeq8dk9b0aPQ58c1kH8a7398TxEYH012C9yl/Nku4EOGA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyePbbTqaMrmOkr/MVo9QPdm+f8ntiSWEcWG0N5PkOPPrNPi0sF
- w4GIUWq5GcL4LCc3sMKnJD3xBto+25SVwxIGX7LApwoXgfvetbF7E1O8WxuHQJI=
-X-Gm-Gg: ASbGncuNfUqdYsZqIs1ozuMMw+zP914jJjscjnAtIY2xKMDcEHHp5sIo8iBxSuVkgBS
- Y6zaWwPW/JGAAqfjcMrGMMVAzijJACEAfP3+dBWUyefrFRooEXN7BkrTB3omb54N+0DuZe7PUr7
- bMvG3OGck+fM8+wty8a1QK+W4kZG3PJ6lFXCyk+FGEe6keE8EkD5aSqajFOeJ1z9asocisrlkU/
- /Y5aRHhgHbRGdliQ7miymq7CzmlILwdY6appYnTIweuCRYDT3ydHmZc08idQ8LBDtPd6EpqW+Ju
- Dow0VrrXW2YFU3Vv8ZO089P0U9LU3/QwJBJGHSt6TDnDL7vLBsqyvYNxs9dpx516KUXrLGw=
-X-Google-Smtp-Source: AGHT+IHamycJDA8JS60gP7tbbymnAwBhYuHbKpt67zrHM+Y3j+U5GzOFbCQPJZF1gEw20AZA/az6qQ==
-X-Received: by 2002:a05:6512:2823:b0:545:4cb:b25d with SMTP id
- 2adb3069b0e04-5452fe37326mr3178556e87.13.1739819310163; 
- Mon, 17 Feb 2025 11:08:30 -0800 (PST)
+ AJvYcCXp28f6SUtVix0yJlrWMTTEU1oTI5K5gWfDiBfU/kV8nUHreOAXxsKFs47tNba3WZ1c3hHoVylFxEc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjDP1ZAjc4aXzKZoZweaqWSIVBl4wvMOvj2/nGXX3X2b4ydLDc
+ 8OgunxA6N/FDcDU7OC6sd73D7mlOBrfOfxHmd39+SYRcHhQhiWjifyZnB4i/j5k=
+X-Gm-Gg: ASbGncvk65A9+vGpblyxnSKjsdiu1CJOOt0gqmZjXx4Ex6pRuvJYvDjjttRQqYd8AUk
+ XRmgAU/1KAzhv5JEdh6h5YIdqf1wqcqT0BGhe0841EduxMux9PXEVClGE2JSwUzplLp4fpRtOsy
+ mU7p45UZfnvmO1HFyp9u/5Vw+MxXoXA272PAsb/EEUsTMMgNmcSHNk/5SjmAXoqRyeNQ0PqyGes
+ ZtXzmVgcwg7KH1/8frQzedcDAQdRO3XpQ8wf2SAc4X80YYe6cpsgNNJig9klFGmU1YoBuLxf16W
+ kSuNQMI1x/clrh5b79nXXB7/p80Yyf5zsvmTWlMi5ZcF7yqdreJ8zr4z+z8ewc/HkEsDR8w=
+X-Google-Smtp-Source: AGHT+IH7pPe9WdA9acnmeu4tM6FBkJrCmOJkB/cGc23MUQGTJZAedW80zQq+KjfFc7YHQvnbMFONmg==
+X-Received: by 2002:a19:2d11:0:b0:546:27f0:21a7 with SMTP id
+ 2adb3069b0e04-54627f02773mr695030e87.49.1739819922816; 
+ Mon, 17 Feb 2025 11:18:42 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54526dc0461sm1398133e87.246.2025.02.17.11.08.27
+ 2adb3069b0e04-5461d4f2aa5sm694294e87.0.2025.02.17.11.18.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2025 11:08:28 -0800 (PST)
-Date: Mon, 17 Feb 2025 21:08:26 +0200
+ Mon, 17 Feb 2025 11:18:41 -0800 (PST)
+Date: Mon, 17 Feb 2025 21:18:39 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -79,15 +79,14 @@ Cc: Rob Clark <robdclark@gmail.com>,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Srini Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v2 14/16] drm/msm/dpu: Add missing "fetch" name to
- set_active_pipes()
-Message-ID: <hnarfrrealmd6uma6ahbnw6v63yqtjw5a4idkp44mu73t6gyfm@4zcb6xkbpwry>
+Subject: Re: [PATCH v2 15/16] drm/msm/dpu: Implement new v12.0 DPU differences
+Message-ID: <qlotuliwnm5spneolztca7avmh2a46pz2xqlxzqbw5kwa53m6q@oyhnzz7fhay3>
 References: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
- <20250217-b4-sm8750-display-v2-14-d201dcdda6a4@linaro.org>
+ <20250217-b4-sm8750-display-v2-15-d201dcdda6a4@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250217-b4-sm8750-display-v2-14-d201dcdda6a4@linaro.org>
+In-Reply-To: <20250217-b4-sm8750-display-v2-15-d201dcdda6a4@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,10 +102,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Feb 17, 2025 at 05:41:35PM +0100, Krzysztof Kozlowski wrote:
-> The set_active_pipes() callback configures CTL_FETCH_PIPE_ACTIVE and
-> newer DPU v12.0 comes with CTL_PIPE_ACTIVE, thus rename it to
-> set_active_fetch_pipes() to better match the purpose.
+On Mon, Feb 17, 2025 at 05:41:36PM +0100, Krzysztof Kozlowski wrote:
+> Implement new features and differences coming in v12.0 of DPU present on
+> Qualcomm SM8750 SoC:
+> 1. 10-bit color alpha.
+> 2. New CTL_PIPE_ACTIVE and CTL_LAYER_ACTIVE registers for pipes and
+>    layer mixers.
+> 2. Several differences in LM registers (also changed offsets) for LM
+>    crossbar hardware changes.
+
+I'd really prefer for this patch to be split into a logical chunks
+rather than "everything for 12.x"
+
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
@@ -115,13 +122,14 @@ On Mon, Feb 17, 2025 at 05:41:35PM +0100, Krzysztof Kozlowski wrote:
 > Changes in v2:
 > 1. New patch
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c   | 12 ++++++------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c |  6 +++---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h |  2 +-
->  3 files changed, 10 insertions(+), 10 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  49 +++++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  12 ++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c  |  59 +++++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h  |  17 +++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c   | 210 +++++++++++++++++++++++++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.h   |  18 +++
+>  6 files changed, 350 insertions(+), 15 deletions(-)
 > 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
