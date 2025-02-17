@@ -2,90 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C955A385E5
-	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 15:18:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F6E1A38751
+	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 16:16:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B8FE10E4F2;
-	Mon, 17 Feb 2025 14:18:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 674B210E4F3;
+	Mon, 17 Feb 2025 15:16:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HOyWTR7f";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QUo1GGny";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1A0710E4F2
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 14:18:26 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-21f2339dcfdso66145005ad.1
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 06:18:26 -0800 (PST)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7868210E4F3
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 15:16:32 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5439e331cceso5329680e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 07:16:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739801906; x=1740406706; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=cXLhjKi+Nzo0OfIZF64sRgLJpm5FXfzGgMsXpBNxX8k=;
- b=HOyWTR7feWVaXudQE1sYVnwXalYC3qOPeEVZbmhIbCICKkZLTGEK1sTgAyCiYo9qUP
- CxkiB4BsPkuA5D5AIkpJYLHpGcr07s7BzFEk7PlxWSv6B3Y6CShNae55Fz74NDozuGT5
- A/VdDY8G7gPcfHKtgC3O9LbGeCeuI2wGqOOmq1A+XhsyIJxt0tE8GWgP4l863CmZPzL9
- +0yHGm3ScCvtC8/6YISvqk6YSR2AcSfRMo2MMbNqBIvxQKN9APQfeA1BGhBQnmTxOTU9
- 9sseMH0YlABQWk7v3WdCPCrnvC3d0B4FaHQdL1kKQ7FslhQg7jaed2Wi0pjaZCU7ro6w
- aiBQ==
+ d=linaro.org; s=google; t=1739805391; x=1740410191; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=PsHNJZf4gBUaXZ8wW29cD/eT1WPiatSWZEkxIO7LMjQ=;
+ b=QUo1GGny3efxK48PPfBi1tEyjowGiQzXVU/dyfk4OGYExvAXmoBWLXv2P2HGxK/WHN
+ XwQFPxllYXVAfzW/wCPMtSlgJbBUtNBNPmXpDqIqJQjz4SsFwkvzJD4AzLiNxI+5HdjK
+ /kW5BdmWqb6VhDtealNvVSxuvplwfK95RuNtjfnvab6CHTaXjCKSU5JqenjiRCP/LwGS
+ QcMoFFALDz8P5Zr730P2a9PmQfp55qAluhYCgDPL20Ry5Sa3ZA9aYuGf4YxsUWjZy1GR
+ 3wVt+nOv/b5opvn+crtJcYWM97SS4rF+fKKO+gxxoPEr0coc04dXHmODtcSU4YW21W+p
+ 9P8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739801906; x=1740406706;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cXLhjKi+Nzo0OfIZF64sRgLJpm5FXfzGgMsXpBNxX8k=;
- b=C/xxxBQWIdui4napYonq2QpPJn07KOBjIbGKcwFWJ++JXmEMxhBukUJmDgvI186FJr
- FW1rlqxpcShf9aIGMlk64qxUzAdaWQblqXv5Z0mi7Y1IRYi+EXbn7oXvwSwmTDIwd8ZX
- 7Dxf5Ti2zh7VJev0ldrwInUvLgDxS9q8WfcFiJoMf10y9kVWayxCVIbbHIU2zm5qfKRw
- henTEkKd/azJ1CYsATprtdcNL5tF8unUbsOCPscpiRuZqR9Mrdw7Ohbqucpozk4KYg1o
- Ysi6x51PSI70F2/+/16tBScL4SrHfNw66t6ktig/iBBcFzSNlNuSRKKfMGmeCRRe/9pc
- fqKw==
+ d=1e100.net; s=20230601; t=1739805391; x=1740410191;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PsHNJZf4gBUaXZ8wW29cD/eT1WPiatSWZEkxIO7LMjQ=;
+ b=Z1mEGmQE67aqN2bLytlpwVRLYvdqZ7XCq9O3bdl83JwDHfaM7g5L7eaYKN79tCSYjX
+ ve5e1r93HQMeAuMqW3eFXiCVCw5WLnt8V4tJhTq448vsmmB0sYOSs04CZX9zZ2BnPnfv
+ ue0sDsBU04R9OhcsX6Heh0hVW3+OigLiftlI1PoK6NPk52a+5RxCcBOqUg6T3xFY/ydk
+ XCx6VLtiWJGlfsO1/jgLt4SZI5A2bY/IDL3wnX23kiOpTyJ9dYUSxaoZWzPx9NbgtX7z
+ PDIxLNrDDHCuXPWSFxqOBfLwfAQlE2ZTfEyzAt1Ra9oBIHP7ZvxsEl6DkdUDJTNcRkP/
+ Q6pA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUCrxyvLlkj22KTrbQTuNk+UymPNuEmxWJrk4wMtYPnkDv9ly1XDDcKNJa/8n+5/5yHFaCbVaR6IuU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yycw5iB3SpErlUCMksN/l21R+7QV/CN6rVYLVfJPj+b1G7kkcwE
- Usl9Qiy4rHszqbZzmhrFM57hvxiCTFwo2FTikvz7sIp1/fptMHWDiL63rIQQcrk=
-X-Gm-Gg: ASbGncvOEKMLpeAkpfYOLY/f5cQ75vO2GK7kMDjVdOj1GTSgMBBK+XZ13zU0Er6UvU+
- 04zJP+zZW1mmr8oEuEuOzIDnBh9KS47zU1oT2ANCrGs+vChQ4GDx3E88fYo2vsu0byYtfVOBx0r
- n7J0ByaSdC5zcD8aF7SS0rmW2lpc85Q/1BnxtDtegtChMbgVCPFRr7ZP45OQDbh1yxPTMpUxFXV
- bKSiZwACRejvJGYqiu5v7yvPUhHQQKsBjJDJ8jF5o9EjtkeBuK4Yytiqp5YdfTfG+fIE8drY0qf
- t3JXmqtAJde1
-X-Google-Smtp-Source: AGHT+IGdb+TI0TyztzjV+M3t6by7GQP11sx53miPRwsVTLVzqy3N7a8SwYhWpx2NGAdC5Z8hX3yH6A==
-X-Received: by 2002:a17:902:ce06:b0:21f:40de:ae4e with SMTP id
- d9443c01a7336-2210458f528mr169643645ad.9.1739801906191; 
- Mon, 17 Feb 2025 06:18:26 -0800 (PST)
-Received: from [127.0.1.1] ([112.65.12.217]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-220d5366984sm71900845ad.60.2025.02.17.06.18.19
+ AJvYcCWSvuDSiEgbXn7TGQBZxekGQRWlMmJdQ1FxcvKhlbjrnp/k7xDqmDw59BbxEo8pclbxYaRl1D+ddqg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy5NZsiNA3Mj4wgOtydiKCMvgcOZ+0adSUZhNZVw6wROoCPRB/U
+ 8v/33bkMWaZJhb8XxCQdvwbJnKDdmZxqLUm+5mFsrXAO68jC2i1V7sFMuLbYSRs=
+X-Gm-Gg: ASbGnctvAHkfB4uqgLbaoc/ZTsPMjEnxg/mf2DxFY4Rlzx7nkGyP5M/CP6WkKPTX8B+
+ n//HSzc3M+e1wqZwBw750HONYPZOOsLE00mfkCT7OH0Ue/zgkbjxS/yx6otc/sgSy8MvHxSJ2qP
+ TklUPOlTsTOq0YOI00yk/u1+WdL6tM7WKoknuIwfRdi4nwasVFM3QK4pZNsalIdPmJUSEu00e4I
+ ah0CjVy/FleeERyiG9HQ58j+uzDxtBtPLqRN9H3WO41kIEIghCfPXQ187vB11o9Ck/szrTfIGnF
+ IVsb6IK5dPWIxzWTVKoHINMhYgAGrJvamg9sgmtmdCom/XbgGd5vsiZUSWJDBVWxr/pdv+c=
+X-Google-Smtp-Source: AGHT+IFYw6tpGjpP7jPGRzku+1SoU+IGeFXOMCovWE5Iolwo1XU7UJdyi6AK5Q+nHB2rwXLxH+SKuQ==
+X-Received: by 2002:a05:6512:238a:b0:545:381:70a with SMTP id
+ 2adb3069b0e04-5452fe42483mr3989060e87.15.1739805390495; 
+ Mon, 17 Feb 2025 07:16:30 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5452fb59e8bsm1043600e87.173.2025.02.17.07.16.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2025 06:18:25 -0800 (PST)
-From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 17 Feb 2025 22:16:04 +0800
-Subject: [PATCH v6 15/15] drm/msm/dpu: Enable quad-pipe for DSC and
- dual-DSI case
+ Mon, 17 Feb 2025 07:16:30 -0800 (PST)
+Date: Mon, 17 Feb 2025 17:16:27 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Marek <jonathan@marek.ca>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>
+Subject: Re: [PATCH v4 4/4] drm/msm/dsi/phy: Define PHY_CMN_CLK_CFG[01]
+ bitfields and simplify saving
+Message-ID: <waevglqatvykntxnmaahjpgbhipxhtcfpn7gfwud4sdidqh3dz@bfm7foignlm4>
+References: <20250217-drm-msm-phy-pll-cfg-reg-v4-0-106b0d1df51e@linaro.org>
+ <20250217-drm-msm-phy-pll-cfg-reg-v4-4-106b0d1df51e@linaro.org>
+ <ocxifv24wxghio3gfoychilmmjsxpeypxkzidspoq2e4dor7ja@wc54pryzyjge>
+ <df4cfdb1-66be-4264-aed3-0d5567e721f7@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-15-c11402574367@linaro.org>
-References: <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org>
-In-Reply-To: <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1739801787; l=6380;
- i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=veu7hLXT3SD4D0Kyuw+V0KvUpZ/gY1t/JfEoWat6gtQ=;
- b=d9M3KDoVU/iLbzEyL4YjLQ9mmF90OA6iC48MVzT+JQBCbawsPxmju9bSUFWMFYIeFV7lsWF2W
- 9YlTcakHl8pAwncAsLQLkRkwRpgQeZDONcnMJMusmu3sZ2L7xguUOzE
-X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
- pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <df4cfdb1-66be-4264-aed3-0d5567e721f7@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,168 +98,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To support high-resolution cases that exceed the width limitation of
-a pair of SSPPs, or scenarios that surpass the maximum MDP clock rate,
-additional pipes are necessary to enable parallel data processing
-within the SSPP width constraints and MDP clock rate.
+On Mon, Feb 17, 2025 at 02:37:31PM +0100, Krzysztof Kozlowski wrote:
+> On 17/02/2025 14:13, Dmitry Baryshkov wrote:
+> > On Mon, Feb 17, 2025 at 12:53:17PM +0100, Krzysztof Kozlowski wrote:
+> >> Add bitfields for PHY_CMN_CLK_CFG0 and PHY_CMN_CLK_CFG1 registers to
+> >> avoid hard-coding bit masks and shifts and make the code a bit more
+> >> readable.  While touching the lines in dsi_7nm_pll_save_state()
+> >> resulting cached->pix_clk_div assignment would be too big, so just
+> >> combine pix_clk_div and bit_clk_div into one cached state to make
+> >> everything simpler.
+> >>
+> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> >>
+> >> ---
+> >>
+> >> Changes in v4:
+> >> 1. Add mising bitfield.h include
+> >> 2. One more FIELD_GET and DSI_7nm_PHY_CMN_CLK_CFG1_DSICLK_SEL (Dmitry)
+> >>
+> >> Changes in v3:
+> >> 1. Use FIELD_GET
+> >> 2. Keep separate bit_clk_div and pix_clk_div
+> >> 3. Rebase (some things moved to previous patches)
+> >>
+> >> Changes in v2:
+> >> 1. New patch
+> >> ---
+> >>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c             | 13 ++++++++-----
+> >>  drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml |  1 +
+> >>  2 files changed, 9 insertions(+), 5 deletions(-)
+> >>
+> >> @@ -739,7 +741,8 @@ static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm, struct clk_hw **provide
+> >>  		u32 data;
+> >>  
+> >>  		data = readl(pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
+> >> -		writel(data | 3, pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
+> >> +		writel(data | DSI_7nm_PHY_CMN_CLK_CFG1_DSICLK_SEL(3),
+> >> +		       pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
+> > 
+> > Nit: should this also be using dsi_pll_cmn_clk_cfg1_update() ?
+> 
+> 
+> This is before clocks are registered so there is really no chance for
+> simultaneous access.
+> 
+> It is rather then question of code readability or obviousness.
 
-Request 4 mixers and 4 DSCs for high-resolution cases where both DSC
-and dual interfaces are enabled. More use cases can be incorporated
-later if quad-pipe capabilities are required.
-
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 28 ++++++++++++++++++------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
- 6 files changed, 28 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 852c2ea632f1bb52b3d83ccd45c8afd2e5f8e988..6b306755fceb3973d2063b7983622543b71a723c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
- 		struct dpu_crtc_state *crtc_state)
- {
- 	struct dpu_crtc_mixer *m;
--	u32 crcs[CRTC_DUAL_MIXERS];
-+	u32 crcs[CRTC_QUAD_MIXERS];
- 
- 	int rc = 0;
- 	int i;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-index b14bab2754635953da402d09e11a43b9b4cf4153..38820d05edb8b3003971dc6dc675ba8ede847be8 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-@@ -210,7 +210,7 @@ struct dpu_crtc_state {
- 
- 	bool bw_control;
- 	bool bw_split_vote;
--	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
-+	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
- 
- 	uint64_t input_fence_timeout_ns;
- 
-@@ -218,10 +218,10 @@ struct dpu_crtc_state {
- 
- 	/* HW Resources reserved for the crtc */
- 	u32 num_mixers;
--	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
-+	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
- 
- 	u32 num_ctls;
--	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
-+	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
- 
- 	enum dpu_crtc_crc_source crc_source;
- 	int crc_frame_skip_count;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index c89a5da0fa8321e9082d5aee304fa16402bb4ad9..d4719b45f4cdd5d1f0bd585283c0c16f1df2f1f2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -54,7 +54,7 @@
- #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
- 	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
- 
--#define MAX_CHANNELS_PER_ENC 2
-+#define MAX_CHANNELS_PER_ENC 4
- 
- #define IDLE_SHORT_TIMEOUT	1
- 
-@@ -664,9 +664,13 @@ static struct msm_display_topology dpu_encoder_get_topology(
- 
- 	/* Datapath topology selection
- 	 *
--	 * Dual display
-+	 * Dual display without DSC
- 	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
- 	 *
-+	 * Dual display with DSC
-+	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
-+	 * 4 LM, 2 INTF ( Split display using 2 interfaces)
-+	 *
- 	 * Single display
- 	 * 1 LM, 1 INTF
- 	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
-@@ -691,10 +695,20 @@ static struct msm_display_topology dpu_encoder_get_topology(
- 		 * 2 DSC encoders, 2 layer mixers and 1 interface
- 		 * this is power optimal and can drive up to (including) 4k
- 		 * screens
-+		 * But for dual display case, we prefer 4 layer mixers. Because
-+		 * the resolution is always high in the case and 4 DSCs are more
-+		 * power optimal.
- 		 */
--		topology.num_dsc = 2;
--		topology.num_lm = 2;
--		topology.num_intf = 1;
-+
-+		if (intf_count == 2 && dpu_kms->catalog->dsc_count >= 4) {
-+			topology.num_dsc = 4;
-+			topology.num_lm = 4;
-+			topology.num_intf = 2;
-+		} else {
-+			topology.num_dsc = 2;
-+			topology.num_lm = 2;
-+			topology.num_intf = 1;
-+		}
- 	}
- 
- 	return topology;
-@@ -2189,8 +2203,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
- 	struct dpu_hw_mixer_cfg mixer;
- 	int i, num_lm;
- 	struct dpu_global_state *global_state;
--	struct dpu_hw_blk *hw_lm[2];
--	struct dpu_hw_mixer *hw_mixer[2];
-+	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-+	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
- 
- 	memset(&mixer, 0, sizeof(mixer));
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index 63f09857025c2004dcb56bd33e9c51f8e0f80e48..a9e122243dce9006aaa582a1537980c86b6203a4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -302,7 +302,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
- 
- 	/* Use merge_3d unless DSC MERGE topology is used */
- 	if (phys_enc->split_role == ENC_ROLE_SOLO &&
--	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
-+	    (dpu_cstate->num_mixers != 1) &&
- 	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
- 		return BLEND_3D_H_ROW_INT;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 4cea19e1a20380c56ae014f2d33a6884a72e0ca0..77a7a5375d545483edb316e8428df12212191362 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -24,7 +24,7 @@
- #define DPU_MAX_IMG_WIDTH 0x3fff
- #define DPU_MAX_IMG_HEIGHT 0x3fff
- 
--#define CRTC_DUAL_MIXERS	2
-+#define CRTC_QUAD_MIXERS	4
- 
- #define MAX_XIN_COUNT 16
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-index 64e220987be5682f26d02074505c5474a547a814..804858e69e7da1c8c67c725aa462c1a558d1b402 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-@@ -35,8 +35,8 @@
- #endif
- 
- #define STAGES_PER_PLANE		2
--#define PIPES_PER_PLANE			2
- #define PIPES_PER_STAGE			2
-+#define PIPES_PER_PLANE			(PIPES_PER_STAGE * STAGES_PER_PLANE)
- #ifndef DPU_MAX_DE_CURVES
- #define DPU_MAX_DE_CURVES		3
- #endif
+That's why I added it as a nit. I don't think that it's required, but I
+think it might improve the patch.
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
