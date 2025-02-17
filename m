@@ -2,132 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1F1FA384C8
-	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 14:37:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F77FA385AF
+	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2025 15:16:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B69B10E345;
-	Mon, 17 Feb 2025 13:37:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18D3D10E4D6;
+	Mon, 17 Feb 2025 14:16:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="j9jA1+lc";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="b/NEoYn4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE0410E345
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 13:37:34 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-43935d1321aso3216425e9.1
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 05:37:34 -0800 (PST)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 300F010E4D6
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 14:16:35 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-2211acda7f6so27317395ad.3
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2025 06:16:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739799453; x=1740404253; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=yf/H9xQPOC5Mf7egObQiUCwJ+y9rttCstxQBnQsk93k=;
- b=j9jA1+lcVP4QuppWE64JH+huJYtYCygVPzd0pR8Y5+paZ7XMEhiyA2GWpqFWpIU1uh
- jhNuil0lFA4bacqYRXBu4VnlZXYw3YdS8Xxkbd4SMPBSZ7F9xjjN54wMzM1bgkn9wTXE
- 0i4JzBaS7rxklbEmGrdwrKjqoHVWiP4qCXPEHykGeC5/mk9aKqLwRVmHUMyGyBMZxCZN
- HlHEPO2qSMVfrMEk+7mf5ioOU6miEL1vA8Op9deTr8ulvKopE13cCDllTsPRc17B+74m
- sCa6+bke4+UTipEyHX7ElQf4TygjQ5MkkKNVelz9mDwU4alKvmZ0hE0WZGDmblTVTX6M
- 9G2g==
+ d=linaro.org; s=google; t=1739801795; x=1740406595; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=RmMTq1yg3BdpG12biaZryVgitfDEs+8M3vo1Tg0fh1k=;
+ b=b/NEoYn4EDHBBCNme7ksnscXAUsJt2fGWemXdxh0CSeEsggayxsrLaB3SuYjEk7QT1
+ RQufi6z9izIyH+cUsy6TjQK+uAe2sIJx27hXigoi9Qn8Z9SBaj27i8wZtwY21IbZEu6V
+ okAqXyJSVwbCyH3uJvc7Jvin5JbPP2dVaOzAadV8TLfnsAlFvb6G7Jhh542JGnlwwvKo
+ 2hUEFtizkPZ2cHpmCeYkwR/wE/BJCr3fOEr5t5jLlruoOzsENGWN1pF/Jk75tk55XST5
+ lauSYY8SOj0hfkEvZOPJOOZ0XPsrodENbLhNqjRlOXl1O5iOPli7aDydQq5BkFIcQMUr
+ ASwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739799453; x=1740404253;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1739801795; x=1740406595;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=yf/H9xQPOC5Mf7egObQiUCwJ+y9rttCstxQBnQsk93k=;
- b=uTgI+XOehJr4hbGkwhsINHB5C0sf12AB2EZppDDQTyQfqv4S0RgbwyD9qmhVOtt7/N
- lnYSUZSbRZ3L66pZYGhJzGf4GRafBoHMb3K5euojstObvjCfkvd0jvtipngXkaIpycqa
- sfyPYz+NhR7qMah6FdGdZ+30GIaoSshmargk0dHoaGA1kA+hbR+pc+LI5ccrZFUFHGKW
- k8v4qScunLL+8kBzW/zJuxBuhEuoj0o47P7MO7GutX01r7aBL4G5+EXyAZ7Qhxq8OID5
- OZfOmGWwivyJvR1f2ODbwXMc63GPW5T2jUcw97oddDt1ErWNPVOXXEJk0yKQm3MpVUGO
- yqTQ==
+ bh=RmMTq1yg3BdpG12biaZryVgitfDEs+8M3vo1Tg0fh1k=;
+ b=NLT/Kt+YDpR4H5g9nDXZZSdRT8cIwu92B+homcO2ACQPhc7gLu8WJcQPIXxMa+ACsN
+ TQGlz5Mu7dUexdynYYRUhpmBRKayOxA3lCDv/wKOvvP5xlBRQMsm0MZD0HB/TrgTEss0
+ lgQtNHxScfNyUn3KiI/8SGXu65GMq7HihEJTJd8tmaS6wDMe/Fv0iYHoWVCCsMwwXuGs
+ 3REJnhJDH1p9/OpSGOFybmg3NRzyYIGydNCqAB2NW/Ezfblm9nORyqdKR9E5uc+FpCrP
+ PKA7rXCwRQAeCNW8HCdZm+m/VjeffCHtivbIJUP5QxQyGFvWQX+TGeeYISZubBKrMaX8
+ /2XA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9FE/bhLYG0cr9Zj1jBz3caOFr/fg6Ey5Y24qnawMut6ssDZPVa8/a9fG+oNsC9Du97pWgqc2dFcc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxELHcqwH4hBjGr66WEwwEDNq1WSoJsbLWVjlL6vGxQWBorNTui
- 0OZgelV4elT2gzXcTF4eU1h725pLF/3gLZo4WFiwzLn62WidPS/T4iXnMw2cIm8=
-X-Gm-Gg: ASbGncuq+DihhkKypkcvi0LyDMutnBHHnGVEk621RGAi3r9ilIOaAV8sl7+hSMem3fm
- om9b8LbQWKc0i5sPI2AwL1kxWZhJNFmE/z5mQkAZ+tGR5KEA+XMzt/W4QgNyW9gH4lcccslo4GR
- J1R3JNbM3AlAxhjjsf3XnDbgcYooEEIg+3ecH+uGAp6Q12PoDmCjDRAJZkQGdD7Tjhbll9xlMu+
- fml+QlFJQnqRzbjVjmT3qZaZk5TmCgC9PXh/XfdPaqiLobv7tLkspo+8KrWiMdtcpJk8A1fhCEY
- uy/0cYCm2kkplGRVxhPWCvuMJrcFaWHYKoc=
-X-Google-Smtp-Source: AGHT+IHJ+dLliMlsrncfroa5visZAN+EnKWNf/e+q93+1SrC2y08Ffo1fzeccqrwlWiQWBM98iwqIg==
-X-Received: by 2002:a05:600c:1d23:b0:434:9cb7:7321 with SMTP id
- 5b1f17b1804b1-4396e6d8163mr36478495e9.1.1739799453088; 
- Mon, 17 Feb 2025 05:37:33 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.206.225])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439831f209bsm33076465e9.13.2025.02.17.05.37.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 05:37:32 -0800 (PST)
-Message-ID: <df4cfdb1-66be-4264-aed3-0d5567e721f7@linaro.org>
-Date: Mon, 17 Feb 2025 14:37:31 +0100
+ AJvYcCVFWqHCVmel6n4ExLGo4v8EsZdy17VDnzMDkTVdFEVtbkdb4WSt1kQ1fESSSG5lPff5yWHN3QUOwrs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyiLaHMVPf4aQUMDWNmF2iUtTTh/vra1qZv8A3wEAVz1HmH8sgz
+ HMQ/Fmj9svyZJGMzG7yxBSy9Q6iWJO6NlRQHaKdMsfTlPVtySXIw53/EysjbF+w=
+X-Gm-Gg: ASbGncvYz2Nz1XipbjEc6W7731+Kok061lVKAACnDWXDpcZ/3MuXmQ1Yo7TkuS9tQGV
+ qdFXbjgohSTTWIfRpw3AK7kffvz0MYTiJOA9KtE3r6MXqYURrMsT5v9qxB7HP91v74w3YY48upm
+ 8HNlooZUEhzU7xDxDj3J9dxdS3z7Gko+r0UvYC1J4MCPcso/zEo7l+yD06h/vsTFU17eagl48Hy
+ Dc7FruAen6uYxKAnRzNXvwEnz7uDEVVqG1ToJ5A2dItIW5LlAGmO2fSis4XmybLISc64fmaIAqH
+ 78SCZooN9XeG
+X-Google-Smtp-Source: AGHT+IHTUhzBstpP8pZgLyNRseCksJ6qVR+zySk21CoPLmhQjIQggRR9jeoPxxbblipKzTHwuYWXjA==
+X-Received: by 2002:a17:903:22c3:b0:220:ef79:aca9 with SMTP id
+ d9443c01a7336-221040ac0cbmr146525745ad.53.1739801794601; 
+ Mon, 17 Feb 2025 06:16:34 -0800 (PST)
+Received: from [127.0.1.1] ([112.65.12.217]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-220d5366984sm71900845ad.60.2025.02.17.06.16.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Feb 2025 06:16:34 -0800 (PST)
+From: Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH v6 00/15] drm/msm/dpu: Support quad pipe with dual-DSI
+Date: Mon, 17 Feb 2025 22:15:49 +0800
+Message-Id: <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/4] drm/msm/dsi/phy: Define PHY_CMN_CLK_CFG[01]
- bitfields and simplify saving
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>
-References: <20250217-drm-msm-phy-pll-cfg-reg-v4-0-106b0d1df51e@linaro.org>
- <20250217-drm-msm-phy-pll-cfg-reg-v4-4-106b0d1df51e@linaro.org>
- <ocxifv24wxghio3gfoychilmmjsxpeypxkzidspoq2e4dor7ja@wc54pryzyjge>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <ocxifv24wxghio3gfoychilmmjsxpeypxkzidspoq2e4dor7ja@wc54pryzyjge>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJZEs2cC/x2OQQ6CMBAAv0J6dpNCpYJfMR4qu5VGS8suoAnh7
+ zYeZy4zuxLiQKKu1a6YtiAhTQXsqVLD6KYnQcDCqtFNq5v6AhI722rYLNRnGCMC0vByjBBRBOb
+ VIaxZFiYXIb3xkdLyYZczMRgLmSkDGd373nfGWKdKqEgfvv+J2/04fpj+YASUAAAA
+X-Change-ID: 20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-e309f9f8336a
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jun Nie <jun.nie@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1739801787; l=5025;
+ i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
+ bh=OFImnrcWjNciYGwVZ8IHue4RaKWvGkRcm4ILoNytHTk=;
+ b=fZZL/25fH4kWX3elYxE/IfiUQQEM+iLOfCeCeHsprloY3Z3NjtUbzGbj+wH3LXYCfbVJomug1
+ scyt7Nz5rU0Byw6dQRLvgLzPqqwFZOKoDExH7GSvYunzmBjnjT4Y9bG
+X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
+ pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,52 +102,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/02/2025 14:13, Dmitry Baryshkov wrote:
-> On Mon, Feb 17, 2025 at 12:53:17PM +0100, Krzysztof Kozlowski wrote:
->> Add bitfields for PHY_CMN_CLK_CFG0 and PHY_CMN_CLK_CFG1 registers to
->> avoid hard-coding bit masks and shifts and make the code a bit more
->> readable.  While touching the lines in dsi_7nm_pll_save_state()
->> resulting cached->pix_clk_div assignment would be too big, so just
->> combine pix_clk_div and bit_clk_div into one cached state to make
->> everything simpler.
->>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->>
->> ---
->>
->> Changes in v4:
->> 1. Add mising bitfield.h include
->> 2. One more FIELD_GET and DSI_7nm_PHY_CMN_CLK_CFG1_DSICLK_SEL (Dmitry)
->>
->> Changes in v3:
->> 1. Use FIELD_GET
->> 2. Keep separate bit_clk_div and pix_clk_div
->> 3. Rebase (some things moved to previous patches)
->>
->> Changes in v2:
->> 1. New patch
->> ---
->>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c             | 13 ++++++++-----
->>  drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml |  1 +
->>  2 files changed, 9 insertions(+), 5 deletions(-)
->>
->> @@ -739,7 +741,8 @@ static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm, struct clk_hw **provide
->>  		u32 data;
->>  
->>  		data = readl(pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
->> -		writel(data | 3, pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
->> +		writel(data | DSI_7nm_PHY_CMN_CLK_CFG1_DSICLK_SEL(3),
->> +		       pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
-> 
-> Nit: should this also be using dsi_pll_cmn_clk_cfg1_update() ?
+2 or more SSPPs and dual-DSI interface are need for super wide panel.
+And 4 DSC are preferred for power optimal in this case due to width
+limitation of SSPP and MDP clock rate constrain. This patch set
+extends number of pipes to 4 and revise related mixer blending logic
+to support quad pipe. All these changes depends on the virtual plane
+feature to split a super wide drm plane horizontally into 2 or more sub
+clip. Thus DMA of multiple SSPPs can share the effort of fetching the
+whole drm plane.
 
+The first pipe pair co-work with the first mixer pair to cover the left
+half of screen and 2nd pair of pipes and mixers are for the right half
+of screen. If a plane is only for the right half of screen, only one
+or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
+assinged for invalid pipe.
 
-This is before clocks are registered so there is really no chance for
-simultaneous access.
+For those panel that does not require quad-pipe, only 1 or 2 pipes in
+the 1st pipe pair will be used. There is no concept of right half of
+screen.
 
-It is rather then question of code readability or obviousness.
+For legacy non virtual plane mode, the first 1 or 2 pipes are used for
+the single SSPP and its multi-rect mode.
 
+To test bonded DSI on SM8650, the 5 patches for active-CTL improvement
+are needed:
+https://gitlab.freedesktop.org/lumag/msm/-/commits/dpu-4k?ref_type=heads
 
+Changes in v6:
+- Replace LM number with PP number to calculate PP number per encoder.
+- Rebase to Linux v6.14-rc2.
+- Add review tags.
+- Link to v5: https://lore.kernel.org/r/20250118-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v5-0-9701a16340da@linaro.org
+
+Changes in v5:
+- Iterate SSPP flushing within the required mixer pair, instead of all
+  active mixers or specific mixer.
+- Limit qaud-pipe usage case to SoC with 4 or more DSC engines and 2
+  interfaces case.
+- Remove valid flag and use width for pipe validation.
+- Polish commit messages and code comments.
+- Link to v4: https://lore.kernel.org/r/20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org
+
+Changes in v4:
+- Restrict SSPP flushing to the required mixer, instead of all active mixers.
+- Polish commit messages and code comments.
+- Rebase to latest msm/drm-next branch.
+- Move pipe checking patch to the top of patch set.
+- Link to v3: https://lore.kernel.org/dri-devel/20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org
+
+Changes in v3:
+- Split change in trace into a separate patch.
+- Rebase to latest msm-next branch.
+- Reorder patch sequence to make sure valid flag is set in earlier patch
+- Rectify rewrite patch to move logic change into other patch
+- Polish commit messages and code comments.
+- Link to v2: https://lore.kernel.org/dri-devel/20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org
+
+Changes in v2:
+- Revise the patch sequence with changing to 2 pipes topology first. Then
+  prepare for quad-pipe setup, then enable quad-pipe at last.
+- Split DSI patches into other patch set.
+- Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org
+    
+
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+Jun Nie (15):
+      drm/msm/dpu: check every pipe per capability
+      drm/msm/dpu: Do not fix number of DSC
+      drm/msm/dpu: configure DSC per number in use
+      drm/msm/dpu: polish log for resource allocation
+      drm/msm/dpu: decide right side per last bit
+      drm/msm/dpu: fix mixer number counter on allocation
+      drm/msm/dpu: switch RM to use crtc_id rather than enc_id for allocation
+      drm/msm/dpu: bind correct pingpong for quad pipe
+      drm/msm/dpu: Add pipe as trace argument
+      drm/msm/dpu: handle pipes as array
+      drm/msm/dpu: split PIPES_PER_STAGE definition per plane and mixer
+      drm/msm/dpu: blend pipes per mixer pairs config
+      drm/msm/dpu: support SSPP assignment for quad-pipe case
+      drm/msm/dpu: support plane splitting in quad-pipe case
+      drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI case
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  88 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      |  70 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h          |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c        | 403 ++++++++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h        |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c           | 215 ++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h           |  32 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h        |  10 +-
+ 12 files changed, 510 insertions(+), 346 deletions(-)
+---
+base-commit: b44251a8c179381b9f3ed3aa49be04fe1d516903
+change-id: 20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-e309f9f8336a
 
 Best regards,
-Krzysztof
+-- 
+Jun Nie <jun.nie@linaro.org>
+
