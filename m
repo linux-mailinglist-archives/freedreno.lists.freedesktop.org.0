@@ -2,76 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A0AA3AB28
-	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2025 22:38:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C1D3A3AB33
+	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2025 22:40:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CEE210E129;
-	Tue, 18 Feb 2025 21:38:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7738510E11D;
+	Tue, 18 Feb 2025 21:40:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="PAxbE9R1";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="W44tu0ty";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE66710E129
- for <freedreno@lists.freedesktop.org>; Tue, 18 Feb 2025 21:38:13 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA97F10E11D
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Feb 2025 21:40:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739914692;
+ s=mimecast20190719; t=1739914825;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6Q/nv5MYkpifCj9TtY/KFYbgGk7lOqasBofZlO8AS6c=;
- b=PAxbE9R1LPlQLJQpzGLJvQT+aCAKtxkSwF2C/qIQAWq2/YX6KugyW8343TMt3fJ0XomgCY
- fTd1smwcOqlyjytc5PbPsi3iIRDoPjXKQjMX9mX/eXAQNGX3LB54w1p00bPxwntlVeK1K/
- p4/tkv2to2bvzDaLzvE/5AdOqIxn/jw=
+ bh=DNlfrM0ihcqZJAh/A5F4bh5Vx3kTtZhhsPFRud0pw6Q=;
+ b=W44tu0tyfHAqIiyuOPzMVWZ4Vw34+R4v4S/fXRXldq1uF5HDarXtNfjr+6YcS6sksuxwfz
+ frfKG7t5B73QbmC4P6GzE8SzUlPe6Sx50EkfBxkEPy9lDk+yrd2xxGkib9mN2NmeMKoTQj
+ tYPPk4mR/7qzHqM2vQsLjypRrvbbXG8=
 Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
  [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-412-2vbDvX_KPKui3wLqbNgLdg-1; Tue, 18 Feb 2025 16:38:11 -0500
-X-MC-Unique: 2vbDvX_KPKui3wLqbNgLdg-1
-X-Mimecast-MFC-AGG-ID: 2vbDvX_KPKui3wLqbNgLdg_1739914691
+ us-mta-569-Ar0HAsFmOWKin4ZM3Y2XOg-1; Tue, 18 Feb 2025 16:40:23 -0500
+X-MC-Unique: Ar0HAsFmOWKin4ZM3Y2XOg-1
+X-Mimecast-MFC-AGG-ID: Ar0HAsFmOWKin4ZM3Y2XOg_1739914823
 Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-471efc79b2dso28613231cf.0
- for <freedreno@lists.freedesktop.org>; Tue, 18 Feb 2025 13:38:11 -0800 (PST)
+ d75a77b69052e-47206d76457so20572271cf.1
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Feb 2025 13:40:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739914691; x=1740519491;
+ d=1e100.net; s=20230601; t=1739914823; x=1740519623;
  h=mime-version:user-agent:content-transfer-encoding:organization
  :references:in-reply-to:date:cc:to:from:subject:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=C6/jY90f+ZV0aNQv4gp0zLs3KrVIc9Qx9ISNTizzO3w=;
- b=erSY7FMKnqtcJkwS490Mc1p0/DwNJukRhBx9/ovHZ789eV19IfoqfDb2yM19TcEBhi
- +AcOen3dxhHf7eOOHMZLo2AkRl1Or2vTSL34SWNmEIHc8Qu6xc9QxUKhFBIRGhKYpWjA
- rbNUQaRzcyYWB0rC2CCM3adzuQdjEIMNIgyR+nF5Fc5fZynvpM29jEtRWsgFupgjXFox
- xXHy467xf3ASArf/1jllo6RqHUvy0aO7/Jmt/eeVsUNwVyO44ezRJivAv0qqtr1uc1EV
- mxUhwRSuHg++MNBI63mHjH3eC4AygRJ9I9Ir4EOWSirvQcEX/bar3F6uBfKQ6I7R9GXl
- ifvg==
+ bh=i4owPHMWBw9CO87MnDvJAWD8Y7KDSKkm6YNX+zADJMM=;
+ b=TF5ALMX4h+H2XyHJ47ParjGhVI2UfpBLYqAeYMCinNKei+I94cTyCK9Fdxo5OH3443
+ WoClnBWV20cG5625sm7Jib4YG/UOze3OzBe+fslAH/Mf38v6Z+C0RSGl2hM+N5WtQFaO
+ p5dnOR54Abi0d8vYdK779lJ9clusX8ElunQ0IH0AamJd0qgAHNbjXymo8f4tpcO37pbs
+ X6/TTRGxQE8ZWVAgQ1NgvmhtQ95+C3Zm8Anf21CAIoUExUTWD/Z/zep5gJzRkXvrg/Us
+ 0xH+okLHxUTfnCCxFdItJbzmvoyhQbWzmpY5H2Q7P0zbaIIFLQ8a6L1SgBy/d2ma1/ea
+ YmEA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXz3eSeZDe9mboGdtgvgW7hN2yHDOzGF0YGxhVQHMM1kd+l5uTmsCpzvRov8SvUmvz3O3j7RmkY/LU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw/Vfht5erqUa7U6l1dxMgSsMLfcvBwq66KKSgjwLZSowsDo2Gb
- M7lFDwsc3o2LC61usS3oWaCYht7XJFiYGyVtbarQYF/Ph6PNfOdRn4pQC42JVNZ8XMbeMgoI7+e
- wdnjiQmqMvaEmoQzZCcsYwKjgJh3ZWR3MSS868eneDDXQWNU4VXgPXNrwWz19r6z3ow==
-X-Gm-Gg: ASbGncsxED/2pWLmlssZU5WowIuL998SxL1DBzukNibK1agRtO9rED+mfVQVtAILAVw
- tjuxbL8c1hUsy+NPyFW+2Ly0fiigSwzRHdJif05oW3FpEuLmEkYIv6InzbjZHLQzY3UFMZTlOcD
- Mm95q50pFgy5T1DtvMXbXpI53Mrde1OYNueS+21CKKvyJdBvawwC/Dgq9RcWQwiVmt4LNVIx/EG
- K3soF9en8gMsAEfBfgtLZHV+macPFXuY9s4k/sDYgA/1/9O/1jixyWYgg1mdALA3AOTAh73MvSA
- Unn4a2fD9ZYFUpe/PpJZSBfIUgUD5hIJnXmzEs4RZfHLWBCDFG8=
-X-Received: by 2002:a05:622a:1f1b:b0:472:6f4:7347 with SMTP id
- d75a77b69052e-472082d5016mr16982001cf.45.1739914691122; 
- Tue, 18 Feb 2025 13:38:11 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGd2t95Ffckl19sx28W5LZpolZKPgvvCrMPtW6dz4AdEkKzB8dM5ulKDWQqm04BKMXy5vgVlw==
-X-Received: by 2002:a05:622a:1f1b:b0:472:6f4:7347 with SMTP id
- d75a77b69052e-472082d5016mr16981661cf.45.1739914690719; 
- Tue, 18 Feb 2025 13:38:10 -0800 (PST)
+ AJvYcCUUcCKQ233UNmEACS+RyVbSNt17gXHE6x/kRx2i42+WfXp9gvDJRZ7cpH1DLu7HMi98E4nAqEAxZ5s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyOu8xJL4lFjijP5y+R/mAb2NwJ5yYbSNAC1H2FEQabE7bddA0n
+ qSPo9PQPH7V7KetpVq40RAgTKO8tPTDqYLxDpq3e72DuCrsC7nyNoRqdBO3L/qNsbmvuVZNw+Zh
+ qTIAkowZ9zRqd2EeoJeOMNHOk9+icgY0AM6JRKCxRvHgcqh+fDfDZN+/udNBz2P5Vyg==
+X-Gm-Gg: ASbGncs4V5etVhdR2TLtFl5L1+hG93Dcww8oTlWVZtqNdOyWzvTlN1eUPAmfdFDRY8i
+ NSzxJQFKfla33JhUtezBKUIJj03jo1FMFRkfIjf/zFu4VeALwgF7UIoFH9/mMO8ssdo/xYkfzx5
+ fOv7fs6fCYB8eqDosKrkMXQgGwGbuFOui5u0JS09wDEf1WWxRLpIimT1KaSY2CrzglIdh24QxmK
+ RaB9mvgsdhy1EwsyXFOXNye8/f/tpNdxYR9CJgVBS21ZX2EQNm3bbL2dEuuWHT1+hKEEsGSdmSE
+ ctLBIOOBeCW45B2wH6k/zZpNW29xYpTcYqmq3JmfY3I9+/TZxkw=
+X-Received: by 2002:ac8:594d:0:b0:471:b0c0:82b0 with SMTP id
+ d75a77b69052e-47208260ab2mr19488751cf.4.1739914823113; 
+ Tue, 18 Feb 2025 13:40:23 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEN2tLcW9DB/ujoGqTeh6fdAqhMMbAQSj+aSRUBNrADJFqYdNDn9NoSjGmAZkmDALZUIX24Mw==
+X-Received: by 2002:ac8:594d:0:b0:471:b0c0:82b0 with SMTP id
+ d75a77b69052e-47208260ab2mr19488391cf.4.1739914822734; 
+ Tue, 18 Feb 2025 13:40:22 -0800 (PST)
 Received: from ?IPv6:2600:4040:5c4c:a000:e00f:8b38:a80e:5592?
  ([2600:4040:5c4c:a000:e00f:8b38:a80e:5592])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-471feb82ecesm14236301cf.63.2025.02.18.13.38.09
+ d75a77b69052e-471f07760bfsm27275321cf.58.2025.02.18.13.40.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Feb 2025 13:38:09 -0800 (PST)
-Message-ID: <59288078d0aa5fc382b5254ebe60de214098eec0.camel@redhat.com>
-Subject: Re: [PATCH RFC 5/7] drm/display: dp-cec: use new DCPD access helpers
+ Tue, 18 Feb 2025 13:40:21 -0800 (PST)
+Message-ID: <cbfa9e6cf6d3967d9495c3db8e1876df4d1e6bcd.camel@redhat.com>
+Subject: Re: [PATCH RFC 6/7] drm/display: dp-mst-topology: use new DCPD
+ access helpers
 From: Lyude Paul <lyude@redhat.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst	
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
@@ -82,15 +83,15 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
  <jani.nikula@linux.intel.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Date: Tue, 18 Feb 2025 16:38:08 -0500
-In-Reply-To: <20250117-drm-rework-dpcd-access-v1-5-7fc020e04dbc@linaro.org>
+Date: Tue, 18 Feb 2025 16:40:20 -0500
+In-Reply-To: <20250117-drm-rework-dpcd-access-v1-6-7fc020e04dbc@linaro.org>
 References: <20250117-drm-rework-dpcd-access-v1-0-7fc020e04dbc@linaro.org>
- <20250117-drm-rework-dpcd-access-v1-5-7fc020e04dbc@linaro.org>
+ <20250117-drm-rework-dpcd-access-v1-6-7fc020e04dbc@linaro.org>
 Organization: Red Hat Inc.
 User-Agent: Evolution 3.54.3 (3.54.3-1.fc41)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: OBnufg-t5WW8203bFGLVi2CvIbZhPnDtKORBvrcM8ww_1739914691
+X-Mimecast-MFC-PROC-ID: zVD13j4usOpnaS6PyqHU0gGGqfIobDy9MthyuP8MFUc_1739914823
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -112,157 +113,266 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 
 On Fri, 2025-01-17 at 10:56 +0200, Dmitry Baryshkov wrote:
-> Switch drm_dp_cec.c to use new set of DPCD read / write helpers.
+> Switch drm_dp_mst_topology.c to use new set of DPCD read / write helpers.
 >=20
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/display/drm_dp_cec.c | 37 ++++++++++++++++++------------=
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 105 +++++++++++++-------=
 ------
->  1 file changed, 18 insertions(+), 19 deletions(-)
+>  1 file changed, 51 insertions(+), 54 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/display/drm_dp_cec.c b/drivers/gpu/drm/displ=
-ay/drm_dp_cec.c
-> index 007ceb281d00da65f5b4957cb8be66c2ea25d4e4..237f9a6a8077c62ff562d8f2d=
-04cab3f079ed367 100644
-> --- a/drivers/gpu/drm/display/drm_dp_cec.c
-> +++ b/drivers/gpu/drm/display/drm_dp_cec.c
-> @@ -96,7 +96,7 @@ static int drm_dp_cec_adap_enable(struct cec_adapter *a=
-dap, bool enable)
->  =09u32 val =3D enable ? DP_CEC_TUNNELING_ENABLE : 0;
->  =09ssize_t err =3D 0;
-> =20
-> -=09err =3D drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_CONTROL, val);
-> +=09err =3D drm_dp_dpcd_write_byte(aux, DP_CEC_TUNNELING_CONTROL, val);
->  =09return (enable && err < 0) ? err : 0;
->  }
-> =20
-> @@ -112,7 +112,7 @@ static int drm_dp_cec_adap_log_addr(struct cec_adapte=
-r *adap, u8 addr)
->  =09=09la_mask |=3D adap->log_addrs.log_addr_mask | (1 << addr);
->  =09mask[0] =3D la_mask & 0xff;
->  =09mask[1] =3D la_mask >> 8;
-> -=09err =3D drm_dp_dpcd_write(aux, DP_CEC_LOGICAL_ADDRESS_MASK, mask, 2);
-> +=09err =3D drm_dp_dpcd_write_data(aux, DP_CEC_LOGICAL_ADDRESS_MASK, mask=
-, 2);
->  =09return (addr !=3D CEC_LOG_ADDR_INVALID && err < 0) ? err : 0;
->  }
-> =20
-> @@ -123,15 +123,14 @@ static int drm_dp_cec_adap_transmit(struct cec_adap=
-ter *adap, u8 attempts,
->  =09unsigned int retries =3D min(5, attempts - 1);
->  =09ssize_t err;
-> =20
-> -=09err =3D drm_dp_dpcd_write(aux, DP_CEC_TX_MESSAGE_BUFFER,
-> -=09=09=09=09msg->msg, msg->len);
-> +=09err =3D drm_dp_dpcd_write_data(aux, DP_CEC_TX_MESSAGE_BUFFER,
-> +=09=09=09=09     msg->msg, msg->len);
->  =09if (err < 0)
->  =09=09return err;
-> =20
-> -=09err =3D drm_dp_dpcd_writeb(aux, DP_CEC_TX_MESSAGE_INFO,
-> -=09=09=09=09 (msg->len - 1) | (retries << 4) |
-> -=09=09=09=09 DP_CEC_TX_MESSAGE_SEND);
-> -=09return err < 0 ? err : 0;
-> +=09return drm_dp_dpcd_write_byte(aux, DP_CEC_TX_MESSAGE_INFO,
-> +=09=09=09=09      (msg->len - 1) | (retries << 4) |
-> +=09=09=09=09      DP_CEC_TX_MESSAGE_SEND);
->  }
-> =20
->  static int drm_dp_cec_adap_monitor_all_enable(struct cec_adapter *adap,
-> @@ -144,13 +143,13 @@ static int drm_dp_cec_adap_monitor_all_enable(struc=
-t cec_adapter *adap,
->  =09if (!(adap->capabilities & CEC_CAP_MONITOR_ALL))
->  =09=09return 0;
-> =20
-> -=09err =3D drm_dp_dpcd_readb(aux, DP_CEC_TUNNELING_CONTROL, &val);
-> -=09if (err >=3D 0) {
-> +=09err =3D drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_CONTROL, &val);
-> +=09if (!err) {
->  =09=09if (enable)
->  =09=09=09val |=3D DP_CEC_SNOOPING_ENABLE;
->  =09=09else
->  =09=09=09val &=3D ~DP_CEC_SNOOPING_ENABLE;
-> -=09=09err =3D drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_CONTROL, val);
-> +=09=09err =3D drm_dp_dpcd_write_byte(aux, DP_CEC_TUNNELING_CONTROL, val)=
-;
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
+drm/display/drm_dp_mst_topology.c
+> index f8db5be53a33e87e94b864ba48151354e091f5aa..1bd9fc0007d214f461ea5476c=
+9f04bb5167e5af0 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -2189,15 +2189,12 @@ static int drm_dp_check_mstb_guid(struct drm_dp_m=
+st_branch *mstb, guid_t *guid)
+>  =09=09=09=09=09=09     mstb->port_parent,
+>  =09=09=09=09=09=09     DP_GUID, sizeof(buf), buf);
+>  =09=09} else {
+> -=09=09=09ret =3D drm_dp_dpcd_write(mstb->mgr->aux,
+> -=09=09=09=09=09=09DP_GUID, buf, sizeof(buf));
+> +=09=09=09ret =3D drm_dp_dpcd_write_data(mstb->mgr->aux,
+> +=09=09=09=09=09=09     DP_GUID, buf, sizeof(buf));
+>  =09=09}
 >  =09}
->  =09return (enable && err < 0) ? err : 0;
+> =20
+> -=09if (ret < 16 && ret > 0)
+> -=09=09return -EPROTO;
+> -
+> -=09return ret =3D=3D 16 ? 0 : ret;
+> +=09return ret;
 >  }
-> @@ -194,7 +193,7 @@ static int drm_dp_cec_received(struct drm_dp_aux *aux=
+> =20
+>  static void build_mst_prop_path(const struct drm_dp_mst_branch *mstb,
+> @@ -2733,14 +2730,13 @@ static int drm_dp_send_sideband_msg(struct drm_dp=
+_mst_topology_mgr *mgr,
+>  =09do {
+>  =09=09tosend =3D min3(mgr->max_dpcd_transaction_bytes, 16, total);
+> =20
+> -=09=09ret =3D drm_dp_dpcd_write(mgr->aux, regbase + offset,
+> -=09=09=09=09=09&msg[offset],
+> -=09=09=09=09=09tosend);
+> -=09=09if (ret !=3D tosend) {
+> -=09=09=09if (ret =3D=3D -EIO && retries < 5) {
+> -=09=09=09=09retries++;
+> -=09=09=09=09goto retry;
+> -=09=09=09}
+> +=09=09ret =3D drm_dp_dpcd_write_data(mgr->aux, regbase + offset,
+> +=09=09=09=09=09     &msg[offset],
+> +=09=09=09=09=09     tosend);
+> +=09=09if (ret =3D=3D -EIO && retries < 5) {
+> +=09=09=09retries++;
+> +=09=09=09goto retry;
+> +=09=09} else if (ret < 0) {
+>  =09=09=09drm_dbg_kms(mgr->dev, "failed to dpcd write %d %d\n", tosend, r=
+et);
+> =20
+>  =09=09=09return -EIO;
+> @@ -3618,7 +3614,7 @@ enum drm_dp_mst_mode drm_dp_read_mst_cap(struct drm=
+_dp_aux *aux,
+>  =09if (dpcd[DP_DPCD_REV] < DP_DPCD_REV_12)
+>  =09=09return DRM_DP_SST;
+> =20
+> -=09if (drm_dp_dpcd_readb(aux, DP_MSTM_CAP, &mstm_cap) !=3D 1)
+> +=09if (drm_dp_dpcd_read_byte(aux, DP_MSTM_CAP, &mstm_cap) < 0)
+>  =09=09return DRM_DP_SST;
+> =20
+>  =09if (mstm_cap & DP_MST_CAP)
+> @@ -3673,10 +3669,10 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp=
+_mst_topology_mgr *mgr, bool ms
+>  =09=09mgr->mst_primary =3D mstb;
+>  =09=09drm_dp_mst_topology_get_mstb(mgr->mst_primary);
+> =20
+> -=09=09ret =3D drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
+> -=09=09=09=09=09 DP_MST_EN |
+> -=09=09=09=09=09 DP_UP_REQ_EN |
+> -=09=09=09=09=09 DP_UPSTREAM_IS_SRC);
+> +=09=09ret =3D drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
+> +=09=09=09=09=09     DP_MST_EN |
+> +=09=09=09=09=09     DP_UP_REQ_EN |
+> +=09=09=09=09=09     DP_UPSTREAM_IS_SRC);
+>  =09=09if (ret < 0)
+>  =09=09=09goto out_unlock;
+> =20
+> @@ -3691,7 +3687,7 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_m=
+st_topology_mgr *mgr, bool ms
+>  =09=09mstb =3D mgr->mst_primary;
+>  =09=09mgr->mst_primary =3D NULL;
+>  =09=09/* this can fail if the device is gone */
+> -=09=09drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL, 0);
+> +=09=09drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL, 0);
+>  =09=09ret =3D 0;
+>  =09=09mgr->payload_id_table_cleared =3D false;
+> =20
+> @@ -3757,8 +3753,8 @@ EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
+>  void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr=
 )
->  =09u8 rx_msg_info;
->  =09ssize_t err;
-> =20
-> -=09err =3D drm_dp_dpcd_readb(aux, DP_CEC_RX_MESSAGE_INFO, &rx_msg_info);
-> +=09err =3D drm_dp_dpcd_read_byte(aux, DP_CEC_RX_MESSAGE_INFO, &rx_msg_in=
-fo);
->  =09if (err < 0)
->  =09=09return err;
-> =20
-> @@ -202,7 +201,7 @@ static int drm_dp_cec_received(struct drm_dp_aux *aux=
-)
->  =09=09return 0;
-> =20
->  =09msg.len =3D (rx_msg_info & DP_CEC_RX_MESSAGE_LEN_MASK) + 1;
-> -=09err =3D drm_dp_dpcd_read(aux, DP_CEC_RX_MESSAGE_BUFFER, msg.msg, msg.=
-len);
-> +=09err =3D drm_dp_dpcd_read_data(aux, DP_CEC_RX_MESSAGE_BUFFER, msg.msg,=
- msg.len);
->  =09if (err < 0)
->  =09=09return err;
-> =20
-> @@ -215,7 +214,7 @@ static void drm_dp_cec_handle_irq(struct drm_dp_aux *=
-aux)
->  =09struct cec_adapter *adap =3D aux->cec.adap;
->  =09u8 flags;
-> =20
-> -=09if (drm_dp_dpcd_readb(aux, DP_CEC_TUNNELING_IRQ_FLAGS, &flags) < 0)
-> +=09if (drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_IRQ_FLAGS, &flags) < =
-0)
->  =09=09return;
-> =20
->  =09if (flags & DP_CEC_RX_MESSAGE_INFO_VALID)
-> @@ -230,7 +229,7 @@ static void drm_dp_cec_handle_irq(struct drm_dp_aux *=
-aux)
->  =09=09 (DP_CEC_TX_ADDRESS_NACK_ERROR | DP_CEC_TX_DATA_NACK_ERROR))
->  =09=09cec_transmit_attempt_done(adap, CEC_TX_STATUS_NACK |
->  =09=09=09=09=09=09CEC_TX_STATUS_MAX_RETRIES);
-> -=09drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_IRQ_FLAGS, flags);
-> +=09drm_dp_dpcd_write_byte(aux, DP_CEC_TUNNELING_IRQ_FLAGS, flags);
->  }
-> =20
->  /**
-> @@ -253,13 +252,13 @@ void drm_dp_cec_irq(struct drm_dp_aux *aux)
->  =09if (!aux->cec.adap)
->  =09=09goto unlock;
-> =20
-> -=09ret =3D drm_dp_dpcd_readb(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
-> -=09=09=09=09&cec_irq);
-> +=09ret =3D drm_dp_dpcd_read_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
-> +=09=09=09=09    &cec_irq);
->  =09if (ret < 0 || !(cec_irq & DP_CEC_IRQ))
->  =09=09goto unlock;
-> =20
->  =09drm_dp_cec_handle_irq(aux);
-> -=09drm_dp_dpcd_writeb(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1, DP_CEC_IRQ=
-);
-> +=09drm_dp_dpcd_write_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1, DP_CEC=
-_IRQ);
->  unlock:
->  =09mutex_unlock(&aux->cec.lock);
->  }
-> @@ -269,7 +268,7 @@ static bool drm_dp_cec_cap(struct drm_dp_aux *aux, u8=
- *cec_cap)
 >  {
->  =09u8 cap =3D 0;
+>  =09mutex_lock(&mgr->lock);
+> -=09drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
+> -=09=09=09   DP_MST_EN | DP_UPSTREAM_IS_SRC);
+> +=09drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
+> +=09=09=09       DP_MST_EN | DP_UPSTREAM_IS_SRC);
+>  =09mutex_unlock(&mgr->lock);
+>  =09flush_work(&mgr->up_req_work);
+>  =09flush_work(&mgr->work);
+> @@ -3807,18 +3803,18 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_=
+mst_topology_mgr *mgr,
+>  =09=09goto out_fail;
+>  =09}
 > =20
-> -=09if (drm_dp_dpcd_readb(aux, DP_CEC_TUNNELING_CAPABILITY, &cap) !=3D 1 =
-||
-> +=09if (drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_CAPABILITY, &cap) < 0=
- ||
->  =09    !(cap & DP_CEC_TUNNELING_CAPABLE))
+> -=09ret =3D drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
+> -=09=09=09=09 DP_MST_EN |
+> -=09=09=09=09 DP_UP_REQ_EN |
+> -=09=09=09=09 DP_UPSTREAM_IS_SRC);
+> +=09ret =3D drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
+> +=09=09=09=09     DP_MST_EN |
+> +=09=09=09=09     DP_UP_REQ_EN |
+> +=09=09=09=09     DP_UPSTREAM_IS_SRC);
+>  =09if (ret < 0) {
+>  =09=09drm_dbg_kms(mgr->dev, "mst write failed - undocked during suspend?=
+\n");
+>  =09=09goto out_fail;
+>  =09}
+> =20
+>  =09/* Some hubs forget their guids after they resume */
+> -=09ret =3D drm_dp_dpcd_read(mgr->aux, DP_GUID, buf, sizeof(buf));
+> -=09if (ret !=3D sizeof(buf)) {
+> +=09ret =3D drm_dp_dpcd_read_data(mgr->aux, DP_GUID, buf, sizeof(buf));
+> +=09if (ret < 0) {
+>  =09=09drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?=
+\n");
+>  =09=09goto out_fail;
+>  =09}
+> @@ -3877,8 +3873,8 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mg=
+r *mgr, bool up,
+>  =09=09*mstb =3D NULL;
+> =20
+>  =09len =3D min(mgr->max_dpcd_transaction_bytes, 16);
+> -=09ret =3D drm_dp_dpcd_read(mgr->aux, basereg, replyblock, len);
+> -=09if (ret !=3D len) {
+> +=09ret =3D drm_dp_dpcd_read_data(mgr->aux, basereg, replyblock, len);
+> +=09if (ret < 0) {
+>  =09=09drm_dbg_kms(mgr->dev, "failed to read DPCD down rep %d %d\n", len,=
+ ret);
 >  =09=09return false;
->  =09if (cec_cap)
+>  =09}
+> @@ -3916,9 +3912,9 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mg=
+r *mgr, bool up,
+>  =09curreply =3D len;
+>  =09while (replylen > 0) {
+>  =09=09len =3D min3(replylen, mgr->max_dpcd_transaction_bytes, 16);
+> -=09=09ret =3D drm_dp_dpcd_read(mgr->aux, basereg + curreply,
+> -=09=09=09=09    replyblock, len);
+> -=09=09if (ret !=3D len) {
+> +=09=09ret =3D drm_dp_dpcd_read_data(mgr->aux, basereg + curreply,
+> +=09=09=09=09=09    replyblock, len);
+> +=09=09if (ret < 0) {
+>  =09=09=09drm_dbg_kms(mgr->dev, "failed to read a chunk (len %d, ret %d)\=
+n",
+>  =09=09=09=09    len, ret);
+>  =09=09=09return false;
+> @@ -4867,9 +4863,9 @@ static bool dump_dp_payload_table(struct drm_dp_mst=
+_topology_mgr *mgr,
+>  =09int i;
+> =20
+>  =09for (i =3D 0; i < DP_PAYLOAD_TABLE_SIZE; i +=3D 16) {
+> -=09=09if (drm_dp_dpcd_read(mgr->aux,
+> -=09=09=09=09     DP_PAYLOAD_TABLE_UPDATE_STATUS + i,
+> -=09=09=09=09     &buf[i], 16) !=3D 16)
+> +=09=09if (drm_dp_dpcd_read_data(mgr->aux,
+> +=09=09=09=09=09  DP_PAYLOAD_TABLE_UPDATE_STATUS + i,
+> +=09=09=09=09=09  &buf[i], 16) < 0)
+>  =09=09=09return false;
+>  =09}
+>  =09return true;
+> @@ -4958,23 +4954,24 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
+>  =09=09}
+>  =09=09seq_printf(m, "dpcd: %*ph\n", DP_RECEIVER_CAP_SIZE, buf);
+> =20
+> -=09=09ret =3D drm_dp_dpcd_read(mgr->aux, DP_FAUX_CAP, buf, 2);
+> -=09=09if (ret !=3D 2) {
+> +=09=09ret =3D drm_dp_dpcd_read_data(mgr->aux, DP_FAUX_CAP, buf, 2);
+> +=09=09if (ret < 0) {
+>  =09=09=09seq_printf(m, "faux/mst read failed\n");
+>  =09=09=09goto out;
+>  =09=09}
+>  =09=09seq_printf(m, "faux/mst: %*ph\n", 2, buf);
+> =20
+> -=09=09ret =3D drm_dp_dpcd_read(mgr->aux, DP_MSTM_CTRL, buf, 1);
+> -=09=09if (ret !=3D 1) {
+> +=09=09ret =3D drm_dp_dpcd_read_data(mgr->aux, DP_MSTM_CTRL, buf, 1);
+> +=09=09if (ret < 0) {
+>  =09=09=09seq_printf(m, "mst ctrl read failed\n");
+>  =09=09=09goto out;
+>  =09=09}
+>  =09=09seq_printf(m, "mst ctrl: %*ph\n", 1, buf);
+> =20
+>  =09=09/* dump the standard OUI branch header */
+> -=09=09ret =3D drm_dp_dpcd_read(mgr->aux, DP_BRANCH_OUI, buf, DP_BRANCH_O=
+UI_HEADER_SIZE);
+> -=09=09if (ret !=3D DP_BRANCH_OUI_HEADER_SIZE) {
+> +=09=09ret =3D drm_dp_dpcd_read_data(mgr->aux, DP_BRANCH_OUI, buf,
+> +=09=09=09=09=09    DP_BRANCH_OUI_HEADER_SIZE);
+> +=09=09if (ret < 0) {
+>  =09=09=09seq_printf(m, "branch oui read failed\n");
+>  =09=09=09goto out;
+>  =09=09}
+> @@ -6098,14 +6095,14 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(st=
+ruct drm_dp_mst_port *port)
+> =20
+>  =09/* DP-to-DP peer device */
+>  =09if (drm_dp_mst_is_virtual_dpcd(immediate_upstream_port)) {
+> -=09=09if (drm_dp_dpcd_read(&port->aux,
+> -=09=09=09=09     DP_DSC_SUPPORT, &endpoint_dsc, 1) !=3D 1)
+> +=09=09if (drm_dp_dpcd_read_data(&port->aux,
+> +=09=09=09=09=09  DP_DSC_SUPPORT, &endpoint_dsc, 1) < 0)
+>  =09=09=09return NULL;
+> -=09=09if (drm_dp_dpcd_read(&port->aux,
+> -=09=09=09=09     DP_FEC_CAPABILITY, &endpoint_fec, 1) !=3D 1)
+> +=09=09if (drm_dp_dpcd_read_data(&port->aux,
+> +=09=09=09=09=09  DP_FEC_CAPABILITY, &endpoint_fec, 1) < 0)
+>  =09=09=09return NULL;
+> -=09=09if (drm_dp_dpcd_read(&immediate_upstream_port->aux,
+> -=09=09=09=09     DP_DSC_SUPPORT, &upstream_dsc, 1) !=3D 1)
+> +=09=09if (drm_dp_dpcd_read_data(&immediate_upstream_port->aux,
+> +=09=09=09=09=09  DP_DSC_SUPPORT, &upstream_dsc, 1) < 0)
+>  =09=09=09return NULL;
+> =20
+>  =09=09/* Enpoint decompression with DP-to-DP peer device */
+> @@ -6143,8 +6140,8 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(stru=
+ct drm_dp_mst_port *port)
+>  =09if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD)) =
+{
+>  =09=09u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
+> =20
+> -=09=09if (drm_dp_dpcd_read(immediate_upstream_aux,
+> -=09=09=09=09     DP_DSC_SUPPORT, &upstream_dsc, 1) !=3D 1)
+> +=09=09if (drm_dp_dpcd_read_data(immediate_upstream_aux,
+> +=09=09=09=09=09  DP_DSC_SUPPORT, &upstream_dsc, 1) < 0)
+>  =09=09=09return NULL;
+> =20
+>  =09=09if (!(upstream_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED))
+> @@ -6166,11 +6163,11 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(st=
+ruct drm_dp_mst_port *port)
+>  =09 * therefore the endpoint needs to be
+>  =09 * both DSC and FEC capable.
+>  =09 */
+> -=09if (drm_dp_dpcd_read(&port->aux,
+> -=09   DP_DSC_SUPPORT, &endpoint_dsc, 1) !=3D 1)
+> +=09if (drm_dp_dpcd_read_data(&port->aux,
+> +=09=09=09=09  DP_DSC_SUPPORT, &endpoint_dsc, 1) < 0)
+>  =09=09return NULL;
+> -=09if (drm_dp_dpcd_read(&port->aux,
+> -=09   DP_FEC_CAPABILITY, &endpoint_fec, 1) !=3D 1)
+> +=09if (drm_dp_dpcd_read_data(&port->aux,
+> +=09=09=09=09  DP_FEC_CAPABILITY, &endpoint_fec, 1) < 0)
+>  =09=09return NULL;
+>  =09if ((endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED) &&
+>  =09   (endpoint_fec & DP_FEC_CAPABLE))
 >=20
 
 --=20
