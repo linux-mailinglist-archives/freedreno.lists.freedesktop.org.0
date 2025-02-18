@@ -2,85 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B33D3A3A542
-	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2025 19:23:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69879A3A79F
+	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2025 20:32:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35FB310E021;
-	Tue, 18 Feb 2025 18:23:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CcovgIvJ";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69F1610E74F;
+	Tue, 18 Feb 2025 19:32:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08E6110E021;
- Tue, 18 Feb 2025 18:23:11 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id
- e9e14a558f8ab-3cfce97a3d9so19124095ab.2; 
- Tue, 18 Feb 2025 10:23:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739902991; x=1740507791; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=z21PGtMoKOkP6/rqvgbqZXruaILXexhwG8Q6wG3Y9zo=;
- b=CcovgIvJ+DuWx+XYYuJpxEFpS9VVhwaAMgg1fx4dfEc9ERJ6e4FtCDV8dOzw7Rbc8Q
- O7HUe2BXrTH2Qa7eck4x+0IUikQZRX8wavAecOwlQ+Ci6Z1NZrTNgEGowqhOFiGePyN4
- bwX1hODQ864p/J4giRa4DdVmcDgszQZRY48tDCpeYTB0CnJDVUcXy8A9dp/nPeaBZlFX
- VGBggoflzLRzaqa7rO5YQbL9oazqvs8uIdq8K+nAXCCMbkTVheWwDY8dZG7cUOhQnjRO
- WkQvbAqAbNfocstzaa0pamX0MLQ3ANYYAdPvZ0TvBSCm17WAH7PtEWLOHMEXAzcCscSR
- bFeQ==
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com
+ [209.85.217.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C31DF10E74B;
+ Tue, 18 Feb 2025 19:32:45 +0000 (UTC)
+Received: by mail-vs1-f49.google.com with SMTP id
+ ada2fe7eead31-4be5b33ff91so631775137.1; 
+ Tue, 18 Feb 2025 11:32:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739902991; x=1740507791;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=z21PGtMoKOkP6/rqvgbqZXruaILXexhwG8Q6wG3Y9zo=;
- b=U0ID2pMbwJW4gB/jS530qn4Wxn3AV2ap9Zc2buraDwqhPHb6tDM/3vtMaeAhB+nf10
- AUULx/2d/rjFxm/LdIJ3PS0kp1Dhg/Eu473OrhG2V94kwP5PKjqI7dcgAtNoIBQXLKRu
- SGg7ttkW3ttVhjfUSl9MHuLlVUahfgUtTIrdL8du9LcWdukBK0j5Vbqwh/ikMgaxCxU9
- kQsHvuAfrTgGMjFvNVj1rnGyfPHhowGXKY6wu76VDW/6PVNVeYecoEkitXCT9vtWM6dM
- rWTR3c5rtqJS9KKw8/VabVqyS/QaZGo94hFzD+Sj/EBZUGi1I0aJqdG3EvWGk7omw/t8
- kmtw==
+ d=1e100.net; s=20230601; t=1739907163; x=1740511963;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=yb7jRjd6uguB9cG41rTvHpSN+ZVtgW/KmSvyau5JmeE=;
+ b=FQc8FP+6XTrTwwOksZwZkHjN1zaCoQFzrDYto+jBCCr3VeWsLbvdqpKlrHr7O4Wj6u
+ g7Uvf5q7N2QJTbXrhfV5n9gzWBLz5SVj279eOzgKLidvbAwunr0hs237VMYvyx+tOWcJ
+ fQJrVC5/RjxUAp1U9obGlaxZHqm1ZYtHvsBNtlW6eAlhAibY7QV3I5XBlimG7p1b5Bmy
+ mrspHCC5qpuCcYfrT641hRZdjVclOpfkh7eQO/dsWFDXiAfnVzYO0+ES8TyPXrhGoE4x
+ z1PYz/18Jz9QDyXPwnI+tvTArmepUfq3wRSnR+PYYvPQzkzT0TiJsDagoGfq+HIQrwD9
+ oqyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX272Wv/wx8howD0xvoMgpaP6Yv8W7mzUf4VJD0emRPZzxBXCPyl0opJxSLaAtOc4rJD6TL+uEU2Plz@lists.freedesktop.org,
- AJvYcCXfPT278cJOvvxyckpcfX+1LkH/0+GQZaCSTVZ4ooLHOlXKCIfV5bv37ZvAEXM0bfSxCQFTGnqCxqY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YySuxrXm0w3l5MfzJVy4PtE7bdonAjvB1S5XeB4E94+YzsLQf2O
- fxGIx/+gY1Vm5evsO4F7pflKM9vDKfexXWhzY74kq9PE9lq2nTj7QQyHgLHRemO/9Qhka8n13Vs
- 59kR5Eaz5HYiz43Be6HiTHu9C1N8=
-X-Gm-Gg: ASbGncvPBQ+z52WBoAk3HABSHRvHgdnOluc5DyWViOnkfh3bX6iBjRFWAPIWQe4PKbC
- itZORsOgS4Q2y0dvpDGjaLJRnAeg+P6cbSRadF6ueq98WW20XQYKjh8BZQx75QCBb1hvNrWzNts
- UVkn7kwXdjo9d/XfpyKDfmMAdyZ64=
-X-Google-Smtp-Source: AGHT+IH6m+3JpSoefsz/wCPh++hcK26qXs4lJwUORXK0FJ65ByGufreIwlwfoIgDMMvRpdHdGUsMMLBHV/pse5FopSc=
-X-Received: by 2002:a05:6e02:20c7:b0:3d1:883c:6e84 with SMTP id
- e9e14a558f8ab-3d2807b9b5fmr128847205ab.8.1739902991169; Tue, 18 Feb 2025
- 10:23:11 -0800 (PST)
+ AJvYcCUvH6SWfIO/utpymYxvZKQ3gOp6NVrrk3q/TIT2lA0P7gnRxpC1rTDiUAszWq6NOySzj3P9o+VlH/E=@lists.freedesktop.org,
+ AJvYcCVaO7Hh8mlWcb7DWHvB3MYL21LBh3w206YvJWQmdY6WSWaUS/Di47NNxj0FcME+I9QYlwMfv+IFDg==@lists.freedesktop.org,
+ AJvYcCVkExXp875JTcTx9wne51a9WQSaLodxVPiSgMouPqdYrvAZMnXjchqUQx97+2yKpFMrDwY5Gwf7ylA=@lists.freedesktop.org,
+ AJvYcCWh72u5gKD4Fd8vZUerygv95B4xiR4Gc+Gh9mWFKt4aR+ECvkBCCRL59lD6Pfq9TTY4Mk4NAOvMLL66@lists.freedesktop.org,
+ AJvYcCXh9CRAmgIhS7j9QB7p6d8zJnHDtBrEX/Cv3wYBTcjc68LsLRIpuw+bKfolNdnK4VS/5ihdHRxOTQIwwJg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzi2IzmYDQBNUCzR+0R+jTX34w2ufbXe5H9CK0sfYM3sDsichTo
+ pcPNYfezZNnwYaCV949ExQoV2GOJ2j8NGtELFR0emogu2wIrmX60dykqSn5f
+X-Gm-Gg: ASbGncvQatqGViAs7rSlXVfaPRC2ajfC0nVLJHdQtIQsHr/zB8XJa/hu7kbPrjz6r3B
+ hTlOFbiSBVI0bJ/JADAUdfly6PVOuKvnSEc2Icel+KA7l6wpxDGIgkXslv3jXtZqI1bNX6nwOIi
+ 8aBOOqanr4nFWcXbeyaw7R/iX1/4SrOXrNXEdLy5r0IaLAzAnKYnIqq8ixliS+Rgc/yajNdSNTJ
+ Z4Yxd+b52QmtUWjL7ltRCkXbXJNGqFMH/j2WMbUTxy8cqZo/qMnQ34jr4tzoKWiVwolH7j2mp/Q
+ LciUJb7uC6FRzJmzAuqGznpJC6lNzIU8sV6lTV8OZ91VtgwoGuBTxg==
+X-Google-Smtp-Source: AGHT+IEDPxqRETVowx9o0L2xfyCCCVaPWhyN34UyZndc/5oNf/lOU19FA8O4l1otgYvu5pbGICZ4zw==
+X-Received: by 2002:a05:6102:dd1:b0:4bb:baa0:371d with SMTP id
+ ada2fe7eead31-4be85cedc05mr615638137.24.1739907161561; 
+ Tue, 18 Feb 2025 11:32:41 -0800 (PST)
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com.
+ [209.85.217.54]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-4bd3b4fe4a6sm2140575137.14.2025.02.18.11.32.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Feb 2025 11:32:40 -0800 (PST)
+Received: by mail-vs1-f54.google.com with SMTP id
+ ada2fe7eead31-4be633cacbbso688026137.3; 
+ Tue, 18 Feb 2025 11:32:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVWMKxIe42Vp7tg1OYuchWQ900PPwh4JCdSVq6c/XIMtoA0/PHHZkCH8EZ7VzaFSlq4vVu+vdi8nHk=@lists.freedesktop.org,
+ AJvYcCWCBqr2+xkX9aYwwXWMML0ZimFB0LenP4PbRt5G2PmzsPBTWY4sHlTY9J88uuOc0geC7/prPTyrvw==@lists.freedesktop.org,
+ AJvYcCWJOHTvy1XmA1mnUhcqWVrxkRSxX1HRjIn5zIln08CjezVOSXKPUIuF1ZDmwy9+q55ER1Uk+flliWI=@lists.freedesktop.org,
+ AJvYcCWY9T/MXqC7nSR/Fts0mmr70ctTvMcIJT7sHZRWWidc40/Vytibt3XbIKgMpWNa8CDD6tSAg1ZvlqCg@lists.freedesktop.org,
+ AJvYcCXKBEjhjJKiJfpYZ7fNAJmgEWzp0kaN82TjcHvUe8Bs2zKOGQX9DqOIpjb4z79sG1EBXqdcqO5O5oZCCr8=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:b10:b0:4bb:d394:46c5 with SMTP id
+ ada2fe7eead31-4be85bb8970mr656557137.9.1739907160582; Tue, 18 Feb 2025
+ 11:32:40 -0800 (PST)
 MIME-Version: 1.0
-References: <20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com>
- <20250213-a623-gpu-support-v1-1-993c65c39fd2@quicinc.com>
-In-Reply-To: <20250213-a623-gpu-support-v1-1-993c65c39fd2@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 18 Feb 2025 10:22:59 -0800
-X-Gm-Features: AWEUYZnNPg2AfVlGCXj9pinFkd16J3E28yQ3KeG-PhyvgCV6j8swgW1l6ohQvEk
-Message-ID: <CAF6AEGvDR1md6D2dnqJWOW5v3t2wnaC29VD1fyX5q48bzqEkHQ@mail.gmail.com>
-Subject: Re: [PATCH 1/5] drm/msm/a6xx: Fix gpucc register block for A621
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Jie Zhang <quic_jiezh@quicinc.com>, Rob Clark <robdclark@chromium.org>
+References: <20250218142542.438557-1-tzimmermann@suse.de>
+ <20250218142542.438557-3-tzimmermann@suse.de>
+In-Reply-To: <20250218142542.438557-3-tzimmermann@suse.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 18 Feb 2025 20:32:28 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdV939ibJTRSaO-oW2Jz4zbkXGRpUYrmA7e=yQfF7W-k_g@mail.gmail.com>
+X-Gm-Features: AWEUYZnARFSxvjPUxC-uDBDfMGz-IvL-HNvEMBPwKo8soOA7GylWEHj75pA7v34
+Message-ID: <CAMuHMdV939ibJTRSaO-oW2Jz4zbkXGRpUYrmA7e=yQfF7W-k_g@mail.gmail.com>
+Subject: Re: [PATCH v3 02/25] drm/dumb-buffers: Provide helper to set pitch
+ and size
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, imx@lists.linux.dev, 
+ linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-tegra@vger.kernel.org, intel-xe@lists.freedesktop.org, 
+ xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,121 +99,232 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 13, 2025 at 8:10=E2=80=AFAM Akhil P Oommen <quic_akhilpo@quicin=
-c.com> wrote:
->
-> From: Jie Zhang <quic_jiezh@quicinc.com>
->
-> Adreno 621 has a different memory map for GPUCC block. So update
-> a6xx_gpu_state code to dump the correct set of gpucc registers.
->
-> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 13 ++++++++++---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 17 +++++++++++++++++
->  2 files changed, 27 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/dr=
-m/msm/adreno/a6xx_gpu_state.c
-> index 0fcae53c0b14..2c10474ccc95 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> @@ -1214,12 +1214,12 @@ static void a6xx_get_gmu_registers(struct msm_gpu=
- *gpu,
->         struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
->
->         a6xx_state->gmu_registers =3D state_kcalloc(a6xx_state,
-> -               3, sizeof(*a6xx_state->gmu_registers));
-> +               4, sizeof(*a6xx_state->gmu_registers));
->
->         if (!a6xx_state->gmu_registers)
->                 return;
->
-> -       a6xx_state->nr_gmu_registers =3D 3;
-> +       a6xx_state->nr_gmu_registers =3D 4;
+Hi Thomas,
 
-nit, this and splitting out a6xx_gpucc_reg from a6xx_gmu_cx_registers
-could probably be it's own commit
+On Tue, 18 Feb 2025 at 15:26, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> Add drm_modes_size_dumb(), a helper to calculate the dumb-buffer
+> scanline pitch and allocation size. Implementations of struct
+> drm_driver.dumb_create can call the new helper for their size
+> computations.
+>
+> There is currently quite a bit of code duplication among DRM's
+> memory managers. Each calculates scanline pitch and buffer size
+> from the given arguments, but the implementations are inconsistent
+> in how they treat alignment and format support. Later patches will
+> unify this code on top of drm_mode_size_dumb() as much as possible.
+>
+> drm_mode_size_dumb() uses existing 4CC format helpers to interpret
+> the given color mode. This makes the dumb-buffer interface behave
+> similar the kernel's video= parameter. Current per-driver implementations
+> again likely have subtle differences or bugs in how they support color
+> modes.
+>
+> The dumb-buffer UAPI is only specified for known color modes. These
+> values describe linear, single-plane RGB color formats or legacy index
+> formats. Other values should not be specified. But some user space
+> still does. So for unknown color modes, there are a number of known
+> exceptions for which drm_mode_size_dumb() calculates the pitch from
+> the bpp value, as before. All other values work the same but print
+> an error.
+>
+> v3:
+> - document the UAPI semantics
+> - compute scanline pitch from for unknown color modes (Andy, Tomi)
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-BR,
--R
+Thanks for your patch!
 
->
->         /* Get the CX GMU registers from AHB */
->         _a6xx_get_gmu_registers(gpu, a6xx_state, &a6xx_gmu_reglist[0],
-> @@ -1227,6 +1227,13 @@ static void a6xx_get_gmu_registers(struct msm_gpu =
-*gpu,
->         _a6xx_get_gmu_registers(gpu, a6xx_state, &a6xx_gmu_reglist[1],
->                 &a6xx_state->gmu_registers[1], true);
->
-> +       if (adreno_is_a621(adreno_gpu))
-> +               _a6xx_get_gmu_registers(gpu, a6xx_state, &a621_gpucc_reg,
-> +                       &a6xx_state->gmu_registers[2], false);
-> +       else
-> +               _a6xx_get_gmu_registers(gpu, a6xx_state, &a6xx_gpucc_reg,
-> +                       &a6xx_state->gmu_registers[2], false);
+> --- a/drivers/gpu/drm/drm_dumb_buffers.c
+> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
+> +/**
+> + * drm_mode_size_dumb - Calculates the scanline and buffer sizes for dumb buffers
+> + * @dev: DRM device
+> + * @args: Parameters for the dumb buffer
+> + * @pitch_align: Scanline alignment in bytes
+> + * @size_align: Buffer-size alignment in bytes
+> + *
+> + * The helper drm_mode_size_dumb() calculates the size of the buffer
+> + * allocation and the scanline size for a dumb buffer. Callers have to
+> + * set the buffers width, height and color mode in the argument @arg.
+> + * The helper validates the correctness of the input and tests for
+> + * possible overflows. If successful, it returns the dumb buffer's
+> + * required scanline pitch and size in &args.
+> + *
+> + * The parameter @pitch_align allows the driver to specifies an
+> + * alignment for the scanline pitch, if the hardware requires any. The
+> + * calculated pitch will be a multiple of the alignment. The parameter
+> + * @size_align allows to specify an alignment for buffer sizes. The
+> + * returned size is always a multiple of PAGE_SIZE.
+> + *
+> + * Returns:
+> + * Zero on success, or a negative error code otherwise.
+> + */
+> +int drm_mode_size_dumb(struct drm_device *dev,
+> +                      struct drm_mode_create_dumb *args,
+> +                      unsigned long pitch_align,
+> +                      unsigned long size_align)
+> +{
+> +       u64 pitch = 0;
+> +       u32 fourcc;
 > +
->         if (!a6xx_gmu_gx_is_on(&a6xx_gpu->gmu))
->                 return;
->
-> @@ -1234,7 +1241,7 @@ static void a6xx_get_gmu_registers(struct msm_gpu *=
-gpu,
->         gpu_write(gpu, REG_A6XX_GMU_AO_AHB_FENCE_CTRL, 0);
->
->         _a6xx_get_gmu_registers(gpu, a6xx_state, &a6xx_gmu_reglist[2],
-> -               &a6xx_state->gmu_registers[2], false);
-> +               &a6xx_state->gmu_registers[3], false);
->  }
->
->  static struct msm_gpu_state_bo *a6xx_snapshot_gmu_bo(
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/dr=
-m/msm/adreno/a6xx_gpu_state.h
-> index dd4c28a8d923..e545106c70be 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-> @@ -363,6 +363,9 @@ static const u32 a6xx_gmu_cx_registers[] =3D {
->         0x51e0, 0x51e2, 0x51f0, 0x51f0, 0x5200, 0x5201,
->         /* GMU AO */
->         0x9300, 0x9316, 0x9400, 0x9400,
-> +};
+> +       /*
+> +        * The scanline pitch depends on the buffer width and the color
+> +        * format. The latter is specified as a color-mode constant for
+> +        * which we first have to find the corresponding color format.
+> +        *
+> +        * Different color formats can have the same color-mode constant.
+> +        * For example XRGB8888 and BGRX8888 both have a color mode of 32.
+> +        * It is possible to use different formats for dumb-buffer allocation
+> +        * and rendering as long as all involved formats share the same
+> +        * color-mode constant.
+> +        */
+> +       fourcc = drm_driver_color_mode_format(dev, args->bpp);
+> +       if (fourcc != DRM_FORMAT_INVALID) {
+> +               const struct drm_format_info *info = drm_format_info(fourcc);
 > +
-> +static const u32 a6xx_gmu_gpucc_registers[] =3D {
->         /* GPU CC */
->         0x9800, 0x9812, 0x9840, 0x9852, 0x9c00, 0x9c04, 0x9c07, 0x9c0b,
->         0x9c15, 0x9c1c, 0x9c1e, 0x9c2d, 0x9c3c, 0x9c3d, 0x9c3f, 0x9c40,
-> @@ -373,6 +376,17 @@ static const u32 a6xx_gmu_cx_registers[] =3D {
->         0xbc00, 0xbc16, 0xbc20, 0xbc27,
->  };
->
-> +static const u32 a621_gmu_gpucc_registers[] =3D {
-> +       /* GPU CC */
-> +       0x9800, 0x980e, 0x9c00, 0x9c0e, 0xb000, 0xb004, 0xb400, 0xb404,
-> +       0xb800, 0xb804, 0xbc00, 0xbc05, 0xbc14, 0xbc1d, 0xbc2a, 0xbc30,
-> +       0xbc32, 0xbc32, 0xbc41, 0xbc55, 0xbc66, 0xbc68, 0xbc78, 0xbc7a,
-> +       0xbc89, 0xbc8a, 0xbc9c, 0xbc9e, 0xbca0, 0xbca3, 0xbcb3, 0xbcb5,
-> +       0xbcc5, 0xbcc7, 0xbcd6, 0xbcd8, 0xbce8, 0xbce9, 0xbcf9, 0xbcfc,
-> +       0xbd0b, 0xbd0c, 0xbd1c, 0xbd1e, 0xbd40, 0xbd70, 0xbe00, 0xbe16,
-> +       0xbe20, 0xbe2d,
-> +};
+> +               if (!info)
+> +                       return -EINVAL;
+> +               pitch = drm_format_info_min_pitch(info, 0, args->width);
+> +       } else if (args->bpp) {
+> +               /*
+> +                * Some userspace throws in arbitrary values for bpp and
+> +                * relies on the kernel to figure it out. In this case we
+> +                * fall back to the old method of using bpp directly. The
+> +                * over-commitment of memory from the rounding is acceptable
+> +                * for compatibility with legacy userspace. We have a number
+> +                * of deprecated legacy values that are explicitly supported.
+> +                */
+> +               switch (args->bpp) {
+> +               default:
+> +                       drm_warn(dev, "Unknown color mode %d; guessing buffer size.\n",
+
+%u
+
+> +                                args->bpp);
+> +                       fallthrough;
+> +               case 12:
+> +               case 15:
+> +               case 30: /* see drm_gem_afbc_get_bpp() */
+> +               case 10:
+
+Perhaps keep them sorted numerically?
+
+> +               case 64: /* used by Mesa */
+> +                       pitch = args->width * DIV_ROUND_UP(args->bpp, SZ_8);
+> +                       break;
+> +               }
+> +       }
 > +
->  static const u32 a6xx_gmu_cx_rscc_registers[] =3D {
->         /* GPU RSCC */
->         0x008c, 0x008c, 0x0101, 0x0102, 0x0340, 0x0342, 0x0344, 0x0347,
-> @@ -386,6 +400,9 @@ static const struct a6xx_registers a6xx_gmu_reglist[]=
- =3D {
->         REGS(a6xx_gmu_gx_registers, 0, 0),
->  };
->
-> +static const struct a6xx_registers a6xx_gpucc_reg =3D REGS(a6xx_gmu_gpuc=
-c_registers, 0, 0);
-> +static const struct a6xx_registers a621_gpucc_reg =3D REGS(a621_gmu_gpuc=
-c_registers, 0, 0);
+> +       if (!pitch || pitch > U32_MAX)
+> +               return -EINVAL;
 > +
->  static u32 a6xx_get_cp_roq_size(struct msm_gpu *gpu);
->  static u32 a7xx_get_cp_roq_size(struct msm_gpu *gpu);
->
->
-> --
-> 2.45.2
->
+> +       args->pitch = pitch;
+> +
+> +       return drm_mode_align_dumb(args, pitch_align, size_align);
+> +}
+> +EXPORT_SYMBOL(drm_mode_size_dumb);
+> +
+>  int drm_mode_create_dumb(struct drm_device *dev,
+>                          struct drm_mode_create_dumb *args,
+>                          struct drm_file *file_priv)
+> diff --git a/include/drm/drm_dumb_buffers.h b/include/drm/drm_dumb_buffers.h
+> new file mode 100644
+> index 000000000000..6fe36004b19d
+> --- /dev/null
+> +++ b/include/drm/drm_dumb_buffers.h
+> @@ -0,0 +1,14 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +#ifndef __DRM_DUMB_BUFFERS_H__
+> +#define __DRM_DUMB_BUFFERS_H__
+> +
+> +struct drm_device;
+> +struct drm_mode_create_dumb;
+> +
+> +int drm_mode_size_dumb(struct drm_device *dev,
+> +                      struct drm_mode_create_dumb *args,
+> +                      unsigned long pitch_align,
+> +                      unsigned long size_align);
+> +
+> +#endif
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index c082810c08a8..eea09103b1a6 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -1058,7 +1058,7 @@ struct drm_mode_crtc_page_flip_target {
+>   * struct drm_mode_create_dumb - Create a KMS dumb buffer for scanout.
+>   * @height: buffer height in pixels
+>   * @width: buffer width in pixels
+> - * @bpp: bits per pixel
+> + * @bpp: color mode
+>   * @flags: must be zero
+>   * @handle: buffer object handle
+>   * @pitch: number of bytes between two consecutive lines
+> @@ -1066,6 +1066,50 @@ struct drm_mode_crtc_page_flip_target {
+>   *
+>   * User-space fills @height, @width, @bpp and @flags. If the IOCTL succeeds,
+>   * the kernel fills @handle, @pitch and @size.
+> + *
+> + * The value of @bpp is a color-mode number describing a specific format
+> + * or a variant thereof. The value often corresponds to the number of bits
+> + * per pixel for most modes, although there are exceptions. Each color mode
+> + * maps to a DRM format plus a number of modes with similar pixel layout.
+> + * Framebuffer layout is always linear.
+> + *
+> + * Support for all modes and formats is optional. Even if dumb-buffer
+> + * creation with a certain color mode succeeds, it is not guaranteed that
+> + * the DRM driver supports any of the related formats. Most drivers support
+> + * a color mode of 32 with a format of DRM_FORMAT_XRGB8888 on their primary
+> + * plane.
+> + *
+> + * +------------+------------------------+------------------------+
+> + * | Color mode | Framebuffer format     | Compatibles            |
+> + * +============+========================+========================+
+> + * |     32     |  * DRM_FORMAT_XRGB8888 |  * DRM_FORMAT_XBGR8888 |
+> + * |            |                        |  * DRM_FORMAT_RGBX8888 |
+> + * |            |                        |  * DRM_FORMAT_BGRX8888 |
+> + * +------------+------------------------+------------------------+
+> + * |     24     |  * DRM_FORMAT_RGB888   |  * DRM_FORMAT_BGR888   |
+> + * +------------+------------------------+------------------------+
+> + * |     16     |  * DRM_FORMAT_RGB565   |  * DRM_FORMAT_BGR565   |
+> + * +------------+------------------------+------------------------+
+> + * |     15     |  * DRM_FORMAT_XRGB1555 |  * DRM_FORMAT_XBGR1555 |
+> + * |            |                        |  * DRM_FORMAT_RGBX1555 |
+> + * |            |                        |  * DRM_FORMAT_BGRX1555 |
+> + * +------------+------------------------+------------------------+
+> + * |      8     |  * DRM_FORMAT_C8       |  * DRM_FORMAT_R8       |
+
++ DRM_FORMAT_D8? (and 4/2/1 below)
+
+And DRM_FORMAT_Y8, if/when Tomi's series introducing that is accepted...
+
+> + * +------------+------------------------+------------------------+
+> + * |      4     |  * DRM_FORMAT_C4       |  * DRM_FORMAT_R4       |
+> + * +------------+------------------------+------------------------+
+> + * |      2     |  * DRM_FORMAT_C2       |  * DRM_FORMAT_R2       |
+> + * +------------+------------------------+------------------------+
+> + * |      1     |  * DRM_FORMAT_C1       |  * DRM_FORMAT_R1       |
+> + * +------------+------------------------+------------------------+
+> + *
+> + * Color modes of 10, 12, 15, 30 and 64 are only supported for use by
+> + * legacy user space. Please don't use them in new code. Other modes
+> + * are not support.
+> + *
+> + * Do not attempt to allocate anything but linear framebuffer memory
+> + * with single-plane RGB data. Allocation of other framebuffer
+> + * layouts requires dedicated ioctls in the respective DRM driver.
+>   */
+>  struct drm_mode_create_dumb {
+>         __u32 height;
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
