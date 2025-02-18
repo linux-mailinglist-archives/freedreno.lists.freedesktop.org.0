@@ -2,83 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC5E0A39057
-	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2025 02:23:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A711DA39EBB
+	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2025 15:25:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E864E10E333;
-	Tue, 18 Feb 2025 01:23:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE0F910E6CD;
+	Tue, 18 Feb 2025 14:25:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="I9SHbfJd";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="LlSs4fnK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zfjHjFGY";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LlSs4fnK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zfjHjFGY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE43D10E32B;
- Tue, 18 Feb 2025 01:23:44 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51HAg5va014197;
- Tue, 18 Feb 2025 01:23:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qMEutTQVuGjBpi2D26yi/Ff62sncQlmCdz6+YwL3Rkw=; b=I9SHbfJdDRfxLLcQ
- OMZcaeo+ERBKdhronzl3b40hibxW9hzXFr4YrUFXV9qxfIF+Gz4ypbTl5UPVXXCB
- JZ5TA7t9cVlPSghFYLGTwJGKVJ3NXaLP9cExGAp//XvLKNN4YQAD9SOSF2QZK8xe
- ImNo1n/HfgpX3H9gzuFY7kwLvkj4FaOMblasU/DcMm0Hx6PqVio3VNZjEWvpAaiz
- AXhF/CC2bD+lXt4nvF/h6Lc0puPOikI96C2NV4P5AnFo1lOQ9iGfhZIJ1TxfnqAp
- iBXmmNccpQqCe81YbNzgUKMWmhazLJIH+DY1xFizh0QPedOYiGNJCTNJPdZIjaT3
- NLfLrg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44ut7tu7xd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Feb 2025 01:23:41 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51I1NebU007543
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Feb 2025 01:23:40 GMT
-Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Mon, 17 Feb 2025 17:23:40 -0800
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Jonathan Marek <jonathan@marek.ca>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski@linaro.org>
-CC: Abhinav Kumar <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@chromium.org>
-Subject: Re: (subset) [PATCH v3 0/4] drm/msm/dsi/phy: Improvements around
- concurrent PHY_CMN_CLK_CFG[01]
-Date: Mon, 17 Feb 2025 17:23:29 -0800
-Message-ID: <173984160581.1759776.15253644637290957859.b4-ty@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250214-drm-msm-phy-pll-cfg-reg-v3-0-0943b850722c@linaro.org>
-References: <20250214-drm-msm-phy-pll-cfg-reg-v3-0-0943b850722c@linaro.org>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48D7D10E071
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Feb 2025 14:25:50 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3493B21178;
+ Tue, 18 Feb 2025 14:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1739888747; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=QM5J5/B9G8ujP3c8N205nGSWXTw5wg263Hg0+XOJCnY=;
+ b=LlSs4fnKPUxG0YDSkxS+AScK2zHHU6AUFcTXFMqoBfjmib46R4TId977rux8ciCDiPyIUV
+ S2M449+jRQKbixMD2cad0wE/SD6qgyzDKj00hFbcDdJfgbzsUVwJFPiG2BfVfKVadK/8z3
+ 73pLe+yXwh/4zHCYJ+glSBbIdv8wtIM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1739888747;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=QM5J5/B9G8ujP3c8N205nGSWXTw5wg263Hg0+XOJCnY=;
+ b=zfjHjFGYF0dL+zF8PaNbOFZbq2k6XV3o4mDpz+e90ubbpxZi99z68oCRZhaGD9oDnmQBXN
+ FbDkD4gD2J20JMDQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LlSs4fnK;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=zfjHjFGY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1739888747; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=QM5J5/B9G8ujP3c8N205nGSWXTw5wg263Hg0+XOJCnY=;
+ b=LlSs4fnKPUxG0YDSkxS+AScK2zHHU6AUFcTXFMqoBfjmib46R4TId977rux8ciCDiPyIUV
+ S2M449+jRQKbixMD2cad0wE/SD6qgyzDKj00hFbcDdJfgbzsUVwJFPiG2BfVfKVadK/8z3
+ 73pLe+yXwh/4zHCYJ+glSBbIdv8wtIM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1739888747;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=QM5J5/B9G8ujP3c8N205nGSWXTw5wg263Hg0+XOJCnY=;
+ b=zfjHjFGYF0dL+zF8PaNbOFZbq2k6XV3o4mDpz+e90ubbpxZi99z68oCRZhaGD9oDnmQBXN
+ FbDkD4gD2J20JMDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A7E59132C7;
+ Tue, 18 Feb 2025 14:25:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id jEGGJ2qYtGdXYQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 18 Feb 2025 14:25:46 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3 00/25] drm/dumb-buffers: Fix and improve buffer-size
+ calculation
+Date: Tue, 18 Feb 2025 15:23:23 +0100
+Message-ID: <20250218142542.438557-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: yik5yCM9l82EwYzBK7JPIH-3VsrL1uxf
-X-Proofpoint-ORIG-GUID: yik5yCM9l82EwYzBK7JPIH-3VsrL1uxf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-17_09,2025-02-13_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- mlxscore=0 mlxlogscore=782 clxscore=1015 phishscore=0 priorityscore=1501
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2501170000 definitions=main-2502180006
+X-Rspamd-Queue-Id: 3493B21178
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RCVD_COUNT_TWO(0.00)[2]; DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -2.01
+X-Spam-Flag: NO
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,26 +126,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Dumb-buffer pitch and size is specified by width, height, bits-per-pixel
+plus various hardware-specific alignments. The calculation of these
+values is inconsistent and duplicated among drivers. The results for
+formats with bpp < 8 are incorrect.
 
-On Fri, 14 Feb 2025 16:08:40 +0100, Krzysztof Kozlowski wrote:
-> Changes in v3:
-> - Define bitfields in patches 1-3, so move there parts from patch #4
-> - Use FIELD_GET
-> - Keep separate cached->bit_clk_div and pix_clk_div
-> - I think this implements entire feedback from Dmitry
-> - Link to v2: https://lore.kernel.org/r/20250203-drm-msm-phy-pll-cfg-reg-v2-0-862b136c5d22@linaro.org
-> 
-> [...]
+This series fixes this for most drivers. Default scanline pitch and
+buffer size are now calculated with the existing 4CC helpers. There is
+a new helper drm_mode_size_dumb() that calculates scanline pitch and
+buffer size according to driver requirements.
 
-Applied to msm-fixes, thanks!
+The series fixes the common GEM implementations for DMA, SHMEM and
+VRAM. It further changes most implementations of dumb_create to use
+the new helper. A small number of drivers has more complicated
+calculations and will be updated by a later patches.
 
-[1/4] drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG0 updated from driver side
-      https://gitlab.freedesktop.org/drm/msm/-/commit/588257897058
-[2/4] drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG1 against clock driver
-      https://gitlab.freedesktop.org/drm/msm/-/commit/5a97bc924ae0
-[3/4] drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when choosing bitclk source
-      https://gitlab.freedesktop.org/drm/msm/-/commit/73f69c6be2a9
+v3:
+- document UAPI semantics
+- fall back to bpp-based allocation for unknown color modes
+- cleanups
+v2:
+- rewrite series
+- convert many individual drivers besides the shared GEM helpers
 
-Best regards,
+Thomas Zimmermann (25):
+  drm/dumb-buffers: Sanitize output on errors
+  drm/dumb-buffers: Provide helper to set pitch and size
+  drm/gem-dma: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/gem-shmem: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/gem-vram: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/armada: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/exynos: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/gma500: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/hibmc: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/imx/ipuv3: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/loongson: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/mediatek: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/msm: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/nouveau: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/omapdrm: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/qxl: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/renesas/rcar-du: Compute dumb-buffer sizes with
+    drm_mode_size_dumb()
+  drm/renesas/rz-du: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/rockchip: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/tegra: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/virtio: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/vmwgfx: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/xe: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/xen: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/xlnx: Compute dumb-buffer sizes with drm_mode_size_dumb()
+
+ drivers/gpu/drm/armada/armada_gem.c           |  16 +-
+ drivers/gpu/drm/drm_dumb_buffers.c            | 156 ++++++++++++++++--
+ drivers/gpu/drm/drm_gem_dma_helper.c          |   7 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |  16 +-
+ drivers/gpu/drm/drm_gem_vram_helper.c         |  89 +++-------
+ drivers/gpu/drm/exynos/exynos_drm_gem.c       |   8 +-
+ drivers/gpu/drm/gma500/gem.c                  |  21 +--
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  25 ++-
+ drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |  29 +++-
+ drivers/gpu/drm/loongson/lsdc_gem.c           |  29 +---
+ drivers/gpu/drm/mediatek/mtk_gem.c            |  13 +-
+ drivers/gpu/drm/msm/msm_gem.c                 |  27 ++-
+ drivers/gpu/drm/nouveau/nouveau_display.c     |   7 +-
+ drivers/gpu/drm/omapdrm/omap_gem.c            |  15 +-
+ drivers/gpu/drm/qxl/qxl_dumb.c                |  17 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c |   7 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c  |   7 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |  12 +-
+ drivers/gpu/drm/tegra/gem.c                   |   8 +-
+ drivers/gpu/drm/virtio/virtgpu_gem.c          |  11 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c       |  21 +--
+ drivers/gpu/drm/xe/xe_bo.c                    |   8 +-
+ drivers/gpu/drm/xen/xen_drm_front.c           |   7 +-
+ drivers/gpu/drm/xlnx/zynqmp_kms.c             |   7 +-
+ include/drm/drm_dumb_buffers.h                |  14 ++
+ include/drm/drm_gem_vram_helper.h             |   6 -
+ include/uapi/drm/drm_mode.h                   |  46 +++++-
+ 27 files changed, 401 insertions(+), 228 deletions(-)
+ create mode 100644 include/drm/drm_dumb_buffers.h
+
 -- 
-Abhinav Kumar <quic_abhinavk@quicinc.com>
+2.48.1
+
