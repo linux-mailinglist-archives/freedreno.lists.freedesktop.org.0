@@ -2,104 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBEA8A3BDC4
-	for <lists+freedreno@lfdr.de>; Wed, 19 Feb 2025 13:07:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26602A3BE68
+	for <lists+freedreno@lfdr.de>; Wed, 19 Feb 2025 13:45:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53DC410E7BB;
-	Wed, 19 Feb 2025 12:07:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A98DF10E7CE;
+	Wed, 19 Feb 2025 12:45:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gtklZxRw";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cJy0g+CY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B22210E0C0;
- Wed, 19 Feb 2025 12:07:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 9A548A425ED;
- Wed, 19 Feb 2025 12:05:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96359C4CED1;
- Wed, 19 Feb 2025 12:07:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739966858;
- bh=zDqQxhgE6MUmynchhg9jklMd/gLcPLFkZLYHIMbYVLI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=gtklZxRwHhLIXfjo0WMYEVFNcCeaugEJziysKCJq3BO/FTl2Z84/nFKuNgDxF1zD/
- Oax8ANHfa3MmkM+DJi0SGEEGd4Eh+lbOOfL45rGkyL5rVyQTsnXDv9JjMdU3lWAha+
- bLb2kf8fRPsVp/Nt2deJJivifEZ54PTVYyolnsWascsnnCllzrAGF9LNTKCZu86PBc
- dcZ4qynzmeHheiOEA2LMaRTqmk4ooR1+7qLuLkwCgHz9r1gmzy4dlFOya4pszBhbTf
- BdDGmhLOtKiqQ3Z4hFRSLtfeQWt8bQQm1O5DnO4euSIO4yir+10LFc2nO/OxPBMgEh
- /jTeChs4SVcnA==
-Message-ID: <ffa5b482-2404-4497-a041-38f970cc9086@kernel.org>
-Date: Wed, 19 Feb 2025 13:07:32 +0100
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF0610E7CE
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 12:45:47 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-3072f8dc069so69943811fa.3
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 04:45:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1739969145; x=1740573945; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=BPuwrJxY2WcVgAzy4da4UTcGT1UhygelXhUrEvq+Dmg=;
+ b=cJy0g+CYYuYKGTlMpPTIaM13eWvhW+5NkO+AhLTKDRm6LGSQr5kEomIrKX+6S1nltS
+ ZupvT7eknY9O+m1FOImDWYIyD4G0QxcEW8Pf/AfAiT7IxKEcHfZHfJgoRch2IA1G1rXe
+ h8jjJgdUBl39dqvuyvfqcJBaScz05zPxmkastaA1NJvvmFKmuoknLiRaGGGlcF+sxAta
+ qJXBuqMeaIWJkx2kcnaLYjaOK1lXirL5tsPSLG5NVGCxUvb+70UDBEB2X9OzJuDe/lT5
+ J5PK5MR635ela83tWuK3198y9tyP35pC7tGUkCqhN3RRrbJmLNF0dS0JisAuoMOcva0c
+ nhXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739969145; x=1740573945;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BPuwrJxY2WcVgAzy4da4UTcGT1UhygelXhUrEvq+Dmg=;
+ b=xFTK76yhGQXvqcF8Tj2N4H6+xO/Jg2s3jEVxlrZh7ady7BBHMn/g6jeIQLXcvA2hWP
+ heiRlPfkcrEq5sGTmCMz9SiZIzVg0jmPah0CLLY6Fmf6YShOncRs/z+oaqVUNvHet1kt
+ 1uUx7tmrYAsaJXPQvoGY/1BX38nzqmt5CFSoaMDCHTqJl8R0NX+NtQzurgHuq5KWXju6
+ zw3OgU6moh/4YaZbMDoU4mpjmqBx5dax/YwW7oqITksJC24SVZi0f9TWweDrPuPDVK0b
+ oiZ9v7LTinqKm6iIlFjAvFcs3kEaX9+bw0Fhr7Oz6N3x/Z7Gei6rwppB+3S2zyIAHuMz
+ OGKw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVcvSODZMqMqse5WoF/hlrCHhZsYnKJKX+qCcTVSe/8Ky3tytyz/Qr6IJBjC2gA4NDPh+rzko/vWoQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySn7fSQvOT7K+1VJyKAJieIl0MJpGSDQxJCsTyYcEcSEGvNz8q
+ KL4gsMfeuApMTu/mLfwHBCrb7IJgnKLN9vMbg0bCB2gURt5laCDXbPWJMFgh0/c=
+X-Gm-Gg: ASbGncsF1bOqmsArbegH0GxxrlJEZ5goQsYwFe+Zq81bsGU5dzdQzueSDJxGg3oO9GK
+ /7e0dwNXPME8fBIXDhgR67AFIU2wIs0loRP6R308XLTfbg9bHNd9pHbhtDb5m120rulAKZVyKmy
+ u54UinivXhtrIhugMZ4KboKuTbPVUa5aK72H+KI1ku597N9tAGP2LNm6M32rm3QWzhsLCJhfqre
+ rd+JmKi1rdQ9Y4wk7a3BtKKBVNXrfS3EmzpvR7hAKz89mAfHafpV8EFsT9VsQOr+sNvlMLJTvdy
+ 6FyGL05YbXCt41wwREUOsAXUNBJU4eqLAN4Pcd1qG2EW0HhNrXynyWqYHzHKt1SAnK507MU=
+X-Google-Smtp-Source: AGHT+IHqzXvswBBHdB6BuGTvdIaOpP/9m10nx1rxuNNktCu7rOUQ1riauWad8Yd8fM2T5tKt6/n/Ow==
+X-Received: by 2002:a2e:780c:0:b0:302:40ee:4c2e with SMTP id
+ 38308e7fff4ca-30a44dac851mr10131541fa.2.1739969145292; 
+ Wed, 19 Feb 2025 04:45:45 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3092fb236cbsm14835491fa.69.2025.02.19.04.45.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Feb 2025 04:45:44 -0800 (PST)
+Date: Wed, 19 Feb 2025 14:45:41 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Haoxiang Li <haoxiang_li2024@163.com>
+Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ jonathan@marek.ca, quic_jesszhan@quicinc.com, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi: Add check for devm_kstrdup()
+Message-ID: <lwtvnlt7rfmsbdgyo32fs4mx2xbcyrnjsjq53nkk5pdzrpqgox@nn27ythhg23k>
+References: <20250219040712.2598161-1-haoxiang_li2024@163.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Add MST support for qcs8300 platform
-To: Yongxing Mou <quic_yongmou@quicinc.com>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20250212-mst_qcs8300-v1-0-38a8aa08394b@quicinc.com>
- <87058b73-8854-4dbd-9f27-1da2a8240c16@kernel.org>
- <2ede97c5-a4f2-42fb-b3cd-68f26297150b@quicinc.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <2ede97c5-a4f2-42fb-b3cd-68f26297150b@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250219040712.2598161-1-haoxiang_li2024@163.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,40 +92,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/02/2025 11:02, Yongxing Mou wrote:
+On Wed, Feb 19, 2025 at 12:07:12PM +0800, Haoxiang Li wrote:
+> Add check for the return value of devm_kstrdup() in
+> dsi_host_parse_dt() to catch potential exception.
 > 
+> Fixes: 958d8d99ccb3 ("drm/msm/dsi: parse vsync source from device tree")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 > 
-> On 2025/2/12 17:06, Krzysztof Kozlowski wrote:
->> On 12/02/2025 08:12, Yongxing Mou wrote:
->>> This series of patches introduces how to enable MST functionality on
->>> the qcs8300 platform. The qcs8300 platform uses dpu_8_4 hardware, which
->>> is the same as the sa8775p, but it only has one DPU. So it only has one
->>> DP0 controller, supporting 4-stream MST. This patch only enables
->>> 2-stream MST, using intf0 and intf3. The first and second patches are
->>> modifications to the correspond dt-bindings, third patch is the dp
->>> controller driver after not reuse sm8650, fourth patch is the qcs8300
->>> dts modification which add the clk support for stream 1.
->>>
->>> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
->>> ---
->>> This patch depends on following series:
->>> https://lore.kernel.org/all/20250120-mdssdt_qcs8300-v4-0-1687e7842125@quicinc.com/
->>> https://lore.kernel.org/all/20250114-dts_qcs8300-v3-0-d114cc5e4af9@quicinc.com/
->>> https://lore.kernel.org/all/20241202-dp_mst_bindings-v1-0-9a9a43b0624a@quicinc.com
->>> https://lore.kernel.org/all/20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com/
->>
->> Buggy patch cannot be the dependency. You need to fix the original patch
->> instead. You are not supposed to wait till knowingly incorrect patches
->> get merged so you can send a fix. You must respond to that patch
->> stopping its merging process.
->>
->> Best regards,
->> Krzysztof
-> Thanks for the reminder. I hadn't noticed that before. We will wait for 
-> our dependencies to be ready before sending the new patchset.
 
-So this means you intend the knowingly incorrect patch to be applied? If
-so, all this should be just NAKed.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
