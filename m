@@ -2,83 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87D66A3CA3C
-	for <lists+freedreno@lfdr.de>; Wed, 19 Feb 2025 21:42:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F446A3CB34
+	for <lists+freedreno@lfdr.de>; Wed, 19 Feb 2025 22:17:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 661CA10E044;
-	Wed, 19 Feb 2025 20:42:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE41510E895;
+	Wed, 19 Feb 2025 21:17:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VVtW/q4S";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="YdKxKivw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 231BF10E044
- for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 20:42:05 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-543e4bbcd86so264128e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 12:42:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739997724; x=1740602524; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=oWfn2QE048JAogGjdO/HN/1zhXyyFXLbFj0VStJXPXI=;
- b=VVtW/q4S1IvwG/iEAatRptWoSWUjlTX2Us9oeOdj2SDJuCx8OWmcPFEbGJffkyQMM9
- S6XHhi1cmpzPEVvPIdUukVZ9bdRiN/AcVF+ZjJeyjSkzmtD3dd9fa1JfGjhZBiMrPkXQ
- vmBkTCYxbq0coa7QUA3dtxOyKv2BhPVDT7AssIRVYkW4eGZ17DY1M0WWjF3GDyt9wLVN
- uX323yp7qSstpObvdOpyXpbiy7mtpiX5YJ3Lfn4EBU5cLLu3NiQf995eORufJjx92dPg
- fbictAaG+eRATRUmw/o9gOxlnAynygcj5xSu6oouDxcOlpQOSa60QG2BSIQuF4s/vFR+
- Czkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739997724; x=1740602524;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oWfn2QE048JAogGjdO/HN/1zhXyyFXLbFj0VStJXPXI=;
- b=qttXuKVaeyxJyxGDANTxdWId3qXMRzkJg1l6AXMbfdyX7uxQFEpgNfh+7yaolxW4ym
- jOUUvWCPJP4v0GkZ2i4tAY8l0+ta9fubCkTCepzF0mAjr/EUKrhfDGZFx/MV6TGJdjBo
- YL7ZbH7/VCtXxeAfmdB7TZZUWFgNtS8BkDOVHoWAKsdH35IbHc/qaJbhaBs3bOb/Fbw6
- Gj/CNT7pCC8RbGPkizVktlGlXnaLtlu5wodU8nUHMz3YYkaU+GxAiR2qIV4HyuY1Gt1/
- R5lCDLdvcxJ1+J8k0Cz9z6d7/S8qlxIfszUUMKzxPOlSILaaFvy3Ey66/cS8bBQhw3A3
- Msog==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUeYESlDZN2HNgw+oxpV26inqiqpCPdOmWzmi4y3mic98JfKw9XTP8tOF2tuvxWGUc1s1S7cqujWZM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7jTwiL4vvgVEYbX0odcPCNaviBByJzmormjXymPUK1wW4XrQm
- XJdYTBUOkD2KLKtP7PjJ5tYzSRY3okLRu00UkvYvoPvGychdb/XzdZPzimNJ9NA=
-X-Gm-Gg: ASbGncv28C6G8VhIBCiBHBWfTvg0m0BuD2smu/gGR1+KVp890cj5dIzGhGzdompLwM9
- qSrXL9D6K8PIhAyi1oXA5kL5K/loZ4euKa2fBuA+v8v1X1r8TtYZkCIomhfbK8WbDYimG3vW9Aa
- C25t0zx8+a1qAFAMrs20qmdQtEN9eThrcmPeDh2bzwWeXG3kOV/PP/UwwrLOmWhynbQtZnDe5vo
- 8OcmRjcnww2MZBWOEeYj4or4F+jRONoR59PlCWx7J2wZ5dVVsLWM4EG9QU2DxIjG1gbLBZMb+zw
- Iksi6y3UFFmnAsLvK5dUTTUyQbmKRHW7F5zAe0IBaPSamFWiF6DG9Lwz9wNJHdV8yAXBrpc=
-X-Google-Smtp-Source: AGHT+IGXMalRxphojh9Kz/mE/PFLZuuLeouSpCzsm5nqbBL2KU5Od7qqkelGjB8u41IdiGOmFC8W3A==
-X-Received: by 2002:a05:6512:e94:b0:545:d54:2ec6 with SMTP id
- 2adb3069b0e04-5462eedb519mr1875009e87.2.1739997723749; 
- Wed, 19 Feb 2025 12:42:03 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5452871ead0sm1907991e87.193.2025.02.19.12.42.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2025 12:42:02 -0800 (PST)
-Date: Wed, 19 Feb 2025 22:41:59 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] drm/msm/dpu: rate limit snapshot capture for mmu
- faults
-Message-ID: <h5i5wegkurgmujrkx35qpyjmkbjv3z4re53dx5i4ly4ghzpek6@hgsdbmfmgxe3>
-References: <20250219-abhinavk-smmu-fault-handler-v3-0-aa3f0bf4434a@quicinc.com>
- <20250219-abhinavk-smmu-fault-handler-v3-5-aa3f0bf4434a@quicinc.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DABA310E065;
+ Wed, 19 Feb 2025 21:17:52 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51JG4Fnu011661;
+ Wed, 19 Feb 2025 21:17:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ w48HOZMFw01ljPkQupwltv/5BomVknzkOw4r7VsrW58=; b=YdKxKivwenLwBHZL
+ 4s+orJp2TcH0p/rj7gUOPXyMDunbpoCHvQdNu2MscCzj2gdZvvA95ddMnazi8QMQ
+ DrpyZ+59oN0mBpAxS6IKp0nm1maY3mhcTMnC+dNsa8hYX5uLWWFD1BNZQUXjkYVl
+ Fbq4OsR+4jNKMezm3a4Gn0QOTqkT7L1pNUG/UtXMM1+K8yjSSbxKH6tUpIiYUptw
+ snOCjLt23VtuPJhSQNLF68D68WHpUWRZZwH5UKiMDg4C5DSq8pLt1nae/EmYhg1b
+ 86k2hFt5BhRktAglO0WMvkNK1WLPMCPxS2yj+hBg5XALFQJvqrd2xS83zcT/mCXe
+ Xdhi5A==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44vyy3kyhh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 19 Feb 2025 21:17:45 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51JLHaji030396
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 19 Feb 2025 21:17:36 GMT
+Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 19 Feb
+ 2025 13:17:35 -0800
+Message-ID: <eedf08c5-d781-45c8-a5f7-b0369e3efac9@quicinc.com>
+Date: Wed, 19 Feb 2025 13:17:35 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250219-abhinavk-smmu-fault-handler-v3-5-aa3f0bf4434a@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/16] drm/msm: Add support for SM8750
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: <linux-arm-msm@vger.kernel.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Rob Herring <robh@kernel.org>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Simona Vetter
+ <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, <dri-devel@lists.freedesktop.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski@linaro.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Srini
+ Kandagatla" <srinivas.kandagatla@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Maxime Ripard
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, Krishna
+ Manikandan <quic_mkrishn@quicinc.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+References: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: SvzmE1HiS2uImoE2ToLabryis8mtKYIl
+X-Proofpoint-GUID: SvzmE1HiS2uImoE2ToLabryis8mtKYIl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-19_09,2025-02-19_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ impostorscore=0 mlxlogscore=999 bulkscore=0 mlxscore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 priorityscore=1501 clxscore=1011
+ malwarescore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2502100000 definitions=main-2502190160
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,34 +101,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 19, 2025 at 11:49:21AM -0800, Jessica Zhang wrote:
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+
+On 2/17/2025 8:41 AM, Krzysztof Kozlowski wrote:
+> Hi,
 > 
-> There is no recovery mechanism in place yet to recover from mmu
-> faults for DPU. We can only prevent the faults by making sure there
-> is no misconfiguration.
+> Dependency / Rabased on top of:
+> https://lore.kernel.org/all/20241214-dpu-drop-features-v1-0-988f0662cb7e@linaro.org/
 > 
-> Rate-limit the snapshot capture for mmu faults to once per
-> msm_atomic_commit_tail() as that should be sufficient to capture
-> the snapshot for debugging otherwise there will be a lot of DPU
-> snapshots getting captured for the same fault which is redundant
-> and also might affect capturing even one snapshot accurately.
+> Changes in v2:
+> - Implement LM crossbar, 10-bit alpha and active layer changes:
+>    New patch: drm/msm/dpu: Implement new v12.0 DPU differences
+> - New patch: drm/msm/dpu: Add missing "fetch" name to set_active_pipes()
+> - Add CDM
+> - Split some DPU patch pieces into separate patches:
+>    drm/msm/dpu: Drop useless comments
+>    drm/msm/dpu: Add LM_7, DSC_[67], PP_[67] and MERGE_3D_5
+>    drm/msm/dpu: Add handling of LM_6 and LM_7 bits in pending flush mask
+> - Split DSI and DSI PHY patches
+> - Mention CLK_OPS_PARENT_ENABLE in DSI commit
+> - Mention DSI PHY PLL work:
+>    https://patchwork.freedesktop.org/patch/542000/?series=119177&rev=1
+> - DPU: Drop SSPP_VIG4 comments
+> - DPU: Add CDM
+> - Link to v1: https://lore.kernel.org/r/20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org
 > 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Description:
+> =============
+> I got modetest writeback working, but DSI panel on MTP8750 still shows
+> darkness.
+
+Hey Dmitry,
+
+Just wanted to emphasize this note on Krzysztof's cover letter.
+
+Can we hold off on picking up the DSI parts of this series until the DSI 
+panel comes up for MTP8750?
+
+Thanks,
+
+Jessica Zhang
+
+> 
+> Best regards,
+> Krzysztof
+> 
 > ---
-> Changes in v3:
-> - Clear fault_snapshot_capture before calling prepare_commit() (Dmitry)
-> - Make fault_snapshot_capture an atomic variable (Dmitry, Abhinav)
+> Krzysztof Kozlowski (16):
+>        dt-bindings: display/msm: dsi-controller-main: Combine if:then: entries
+>        dt-bindings: display/msm: dsi-controller-main: Add missing minItems
+>        dt-bindings: display/msm: dsi-phy-7nm: Add SM8750
+>        dt-bindings: display/msm: dsi-controller-main: Add SM8750
+>        dt-bindings: display/msm: dp-controller: Add SM8750
+>        dt-bindings: display/msm: qcom,sm8650-dpu: Add SM8750
+>        dt-bindings: display/msm: qcom,sm8750-mdss: Add SM8750
+>        drm/msm/dpu: Drop useless comments
+>        drm/msm/dpu: Add LM_7, DSC_[67], PP_[67] and MERGE_3D_5
+>        drm/msm/dpu: Add handling of LM_6 and LM_7 bits in pending flush mask
+>        drm/msm/dsi/phy: Add support for SM8750
+>        drm/msm/dsi: Add support for SM8750
+>        drm/msm/dpu: Add support for SM8750
+>        drm/msm/dpu: Add missing "fetch" name to set_active_pipes()
+>        drm/msm/dpu: Implement new v12.0 DPU differences
+>        drm/msm/mdss: Add support for SM8750
+> 
+>   .../bindings/display/msm/dp-controller.yaml        |   4 +
+>   .../bindings/display/msm/dsi-controller-main.yaml  | 124 +++---
+>   .../bindings/display/msm/dsi-phy-7nm.yaml          |   1 +
+>   .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+>   .../bindings/display/msm/qcom,sm8750-mdss.yaml     | 460 +++++++++++++++++++
+>   .../drm/msm/disp/dpu1/catalog/dpu_12_0_sm8750.h    | 496 +++++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  59 ++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  12 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  35 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  71 ++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  19 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          | 210 ++++++++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.h          |  18 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   6 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>   drivers/gpu/drm/msm/dsi/dsi.h                      |   2 +
+>   drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |  25 ++
+>   drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
+>   drivers/gpu/drm/msm/dsi/dsi_host.c                 |  80 ++++
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |  79 +++-
+>   drivers/gpu/drm/msm/msm_mdss.c                     |  33 ++
+>   drivers/gpu/drm/msm/msm_mdss.h                     |   1 +
+>   .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  |  14 +
+>   26 files changed, 1655 insertions(+), 101 deletions(-)
 > ---
->  drivers/gpu/drm/msm/msm_atomic.c | 2 ++
->  drivers/gpu/drm/msm/msm_kms.c    | 5 ++++-
->  drivers/gpu/drm/msm/msm_kms.h    | 3 +++
->  3 files changed, 9 insertions(+), 1 deletion(-)
+> base-commit: 44ddcc7604ae61eadc748ccc6156bf4b98697978
+> change-id: 20250109-b4-sm8750-display-6ea537754af1
+> 
+> Best regards,
+> -- 
+> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
--- 
-With best wishes
-Dmitry
