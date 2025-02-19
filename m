@@ -2,93 +2,101 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B6F7A3BEF0
-	for <lists+freedreno@lfdr.de>; Wed, 19 Feb 2025 13:56:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBFA7A3BF3F
+	for <lists+freedreno@lfdr.de>; Wed, 19 Feb 2025 14:00:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D312010E7E4;
-	Wed, 19 Feb 2025 12:56:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8FB910E7E9;
+	Wed, 19 Feb 2025 13:00:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GCrLyumS";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NIUjg/dr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5596C10E7E0
- for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 12:56:14 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-54605bfcc72so1009094e87.0
- for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 04:56:14 -0800 (PST)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0C610E7EA
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 13:00:37 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-545fed4642aso3806963e87.0
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 05:00:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739969773; x=1740574573; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=jpdeNF19DgfEm3H7/Uvp6T3atcP8vyt6RGMBKgTt3ic=;
- b=GCrLyumSXDRhPnete/yMEsa0KxhcC+TQb3iE9Z+Y81afzBzj9CjWJNuzPclqlBCVh/
- XszUoNFtSZhUkdPJnf9V7iD9OItsALp7HlfkRlTgpQNjff8AiISpZ/NYXkp0byLtyikK
- lYg7lJdECnujL2PVE/JLBxJyUawHxOFdK49o6MDUgenwXDQbWsUmbZXGbtQeSJe0D3gL
- 8dWNBV3lGPf/xQYJoxRxghpKF5LD3jxL3rGIXo0IVih74o/7D3bJTGRW+Au5FyAo7P75
- 5Z/ZsI2lIycGzCH3zZ5+Q/O/xaCgs1A0VgTYb+ywYoM0ka9b53PzOn4/jOXLZUcexAjX
- Z+UA==
+ d=linaro.org; s=google; t=1739970035; x=1740574835; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=j9nu9CEuORGkEvM5vI9UglG07cy4F38vVcl8XiBSAjU=;
+ b=NIUjg/drWRL4NTX3Lhq3aKQLaEACiyyIEgr7ebXvw1HDE/sr9QhpvPPQjc1mPU0tIl
+ lOtvr9NkHq9Q8Q77qacyguR3dvvyWLcjx/N8It76JMrDL5ZvNTR5ohb8H83cMS3/c696
+ mEkhBv5cP6WVIcmr1OMMfLqOHqQyzLWCTtZ1pXYGwLfgFRq7mLPCqqar8IONwEQndO85
+ l+GfotXv0HqsiFiW0Pw0/9rlDw+oedF2SjyIFt/atIEhAsTFHEW/7Nw8Y5hvD01rvTel
+ TYMREvb32BjDpRor9zEAbpr6WK0rOrDBNWsu0p33hfF8R3hhzRAkgbPM0e/79WyPZFzP
+ ZcjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739969773; x=1740574573;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jpdeNF19DgfEm3H7/Uvp6T3atcP8vyt6RGMBKgTt3ic=;
- b=uju0ik0hUF7PkaB4/yqr+5Vlo3T+wMtF/zCgfblcyM7OGPH65cfJVJ5277lxfcNXZx
- IiMcSbvWfm+Ef7gNJbcXWNlS72RvcRHTGig1h0x4aQDFlQdzQLGJZVxjWb9Wt9w/MWK2
- gCg3ZO+QTDPoblx+R1PefgkvfhHZHAz4/TUNOIaO6UabEGTe8b9gNPjVT3QxPo613XXs
- TN0eZ+9qRrGiMyPNrWHPEj2RTX9JGd0tISaOek5il3QoX8KPkML2EMZNdELLzO7q6voa
- Z5Yi7Tk9nlkieILiqkUr+WnkGdMoD9vPvTU3Xf8AIqSKEJ2pW5FsaimpSUo1c5b+Je0Z
- 6uBQ==
+ d=1e100.net; s=20230601; t=1739970035; x=1740574835;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=j9nu9CEuORGkEvM5vI9UglG07cy4F38vVcl8XiBSAjU=;
+ b=WPNpHhzZRKMhvci1TFryK72RYahi+OKkFTnoXm1Y5ZB0BzTCPcwgQR2DiLKChl3JW/
+ bHC48sYweivHWQoCHiwSfooTBlWWJVw0I5Oi9qeNvgR1+o8800QZDbSLaZ2NPI8UHFF3
+ hw4gzFFvXWWILq7RUvnJeWeheKnTe0KaUuw0HPGU3gQUVgahqeRC4uH+Pj0k/aVtEqtA
+ IsnVPyEXDIvYO9bx0yoZAW7be11mihO5QWHu83PvN0SE0jOamKh3aYyr4YV4YO8QBb3I
+ KcGSj2Y83nfldv/kaPtLdG89e9nlcJUkWxAHBadAvbzi7Q7D6kezYwcj6dXcFL6xWPQ6
+ +I5w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW3EyX1LiL4eKYM8FqWCD57fM+s3ECqG7/V5vJj0wCmkUfd23ArDgXpeHs9/sPo4uUEEGOsC4glqIg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywey2TujSUndnNtuTcbbG/uPvzTVYZO5ztORUNCwE3B9iYZW7Af
- 6qPCW+OkK8a0A8rgn9LlaLm5XaUfJBVzDOGVdTDB1DR1RQZb5n35VySCikRD9b8=
-X-Gm-Gg: ASbGncv8jR3EjvQSRmYD9SIqdUz5EN0XCdrItrdLzuBKfDxHpVE2OkyyO3nhqplzmDZ
- N8nR2IrFH47H1xMgvN0kcennDqJk17jeF8kKPzfK/eYOVe4hPd7mrKEvD3tXJqqEJyCdX3rO3sk
- iKvIf/6+XdV2L3dm9FLQVxw5vf0BRUpEPr0MNuZaSYlBXS97h7G/+yU0PK2yunhaXp8ZSFUKJU7
- IdQY+zAafOTw++trB9F9UKUHUH3C6iT1tB0GO+3I2Uhk+mTYn3xZSbGNtm5lCQL5WNdocgA9Liv
- xyhYmvw8BA7HDjbWjrH+B7rV5ZZPPwxyxnNFR2ut1RCnvZsTUMHePT6Qpn25aBdKqPWjjFs=
-X-Google-Smtp-Source: AGHT+IH0YmAtnjvMy5+btGUvGsvhy9fusmwBi9HtyhuX25OtuhvvQajrAtK6BmKWaYMSFy6bf3k0Sg==
-X-Received: by 2002:a05:6512:3b23:b0:545:550:83e6 with SMTP id
- 2adb3069b0e04-5462eaa1f1amr1151645e87.5.1739969772537; 
- Wed, 19 Feb 2025 04:56:12 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5462c60f99fsm421664e87.118.2025.02.19.04.56.11
+ AJvYcCWGHxDZnuafC0fPf2HPMvO86g2CQj3jGv81HDwBdYLxAFv+70BVRlVozkmkWfHxLKrlRoDbHWBl7c8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxX380XC+YchqLfdKVI9DF0RI1MJ5fNUWMjYJN6SZLleAbMqM6n
+ vdJUUMKevGatKHq2hg64tFGBQHgPV4EkFqyQ+qkcXdaViRCV8xtfVo7WpB1YtqA=
+X-Gm-Gg: ASbGnctU6UzBr5zJRSUN8AlDk4t9XHUkmbQRgRRyP5bsFMmCTAtpSah1YPJnjL7P9zy
+ SUZ3Ny4EI9QtrQgEwC+v252U4/I9TIA08IY5hkm7BCmqe9JkoIs7y3+cbj2zU1TjN75qMyFYsIy
+ Maq0OonKiPdmIIB22RLE6Zj7Xuotp08YqphmxgcQSmPqzmD9gRYRW89qOHfD4+AYLyaXCvdfcQj
+ 61HoRPgHh9BFVarXgHXYBba+JMBbGTYCjaq6OOeTSspAepaPm5kXIwJGMR29rSjz1MLk3YWOXKC
+ Vf8Au5LEvyzV6HoN6Xjt6m0=
+X-Google-Smtp-Source: AGHT+IF6YzLxPjQygzIyCyDmuGvnG2Nvx8WRct2Dh5q/Fm/R1qDKwRlM49lHsASYxtLspq93RsPzSw==
+X-Received: by 2002:a05:6512:36d0:b0:545:3037:a704 with SMTP id
+ 2adb3069b0e04-5453037a70amr4902370e87.17.1739970035480; 
+ Wed, 19 Feb 2025 05:00:35 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5451f105a3dsm2179515e87.144.2025.02.19.05.00.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2025 04:56:11 -0800 (PST)
-Date: Wed, 19 Feb 2025 14:56:09 +0200
+ Wed, 19 Feb 2025 05:00:34 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Yongxing Mou <quic_yongmou@quicinc.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Subject: [PATCH v3 0/2] drm/bridge: reuse DRM HDMI Audio helpers for
+ DisplayPort bridges
+Date: Wed, 19 Feb 2025 15:00:29 +0200
+Message-Id: <20250219-dp-hdmi-audio-v3-0-42900f034b40@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAO3VtWcC/3XMQQ6CMBCF4auQrq1pRyDgynsYFy0zhUmUklYbD
+ eHuFlZq4vK95PtnESkwRXEsZhEocWQ/5nHYFaIbzNiTZMxbgIJKgaolTnLAG0vzQPZSV9g6tGR
+ t60Q2UyDHz613vuQ9cLz78NrySa/vv1LSUsnGGF2aplNY4unKowl+70Mv1lSCT97+cshc12hrs
+ g7AuS++LMsb2LJyleoAAAA=
+X-Change-ID: 20250206-dp-hdmi-audio-15d9fdbebb9f
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display/msm: Redocument the
- dp-controller for QCS8300
-Message-ID: <yjt6wwzrufigpuotsspoolnnonkueyb6evk3gtrtb6zpceuinu@em3ry7pufabw>
-References: <20250212-mst_qcs8300-v1-0-38a8aa08394b@quicinc.com>
- <20250212-mst_qcs8300-v1-1-38a8aa08394b@quicinc.com>
- <wyd7i47pkafa7n2yjohuvlh4btasxle4rw5xm55h4bhv24yvah@pfo224xz4xfl>
- <b4008932-ce56-4cc0-9b53-2253051514da@kernel.org>
- <CAA8EJpoowyKcwDQgbWy4xGHzngNQOcWt_z_Xc49GFB1qYjYO6A@mail.gmail.com>
- <0171746e-1d3c-42e5-9cde-7dcf2708ffc3@quicinc.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0171746e-1d3c-42e5-9cde-7dcf2708ffc3@quicinc.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2231;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=xLBEqgHgGc6f4GhWFZTZYL2fXQhQWUDFIGyzofB5XTk=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntdXxTPSIb3Dq/+5KCR2epY51xmqraveZyobcV
+ 3GTWgbS4XmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7XV8QAKCRCLPIo+Aiko
+ 1fjiCACucytRzp+kgNNU42Wz6rz4JB5m835hRXFZRFNkxVQL4iN1K4NUjk1970tPgxM0ejsc+EJ
+ MWfeH7BZ9kEaJzjH23bIgxBNS955/l6oVPvuQeSHQcNoAyUXhLpeadElzKSiH2IhUu/SxWhGXRg
+ CwMB/Qu99lbFD70FLE2h7FTEOrKs8/JczxvrZ7xAf2CPqC4bS3ZA3/laUBUBEWWc+6p+DzLwkpT
+ +bYDXQK9Z0DMjYbRobucVtIO6DT68dCgfISRT/bJyqeE3+XDQNgsoAxsUzZzvFtulxc+xCTJQVx
+ UX7dBMhG6rvm4CrvBgu8RTYyzk7ugOjkZSp444w1RGcl6nVd
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,38 +112,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 19, 2025 at 05:56:14PM +0800, Yongxing Mou wrote:
-> 
-> 
-> On 2025/2/12 20:26, Dmitry Baryshkov wrote:
-> > On Wed, 12 Feb 2025 at 12:54, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> > > 
-> > > On 12/02/2025 11:41, Dmitry Baryshkov wrote:
-> > > > On Wed, Feb 12, 2025 at 03:12:24PM +0800, Yongxing Mou wrote:
-> > > > > We need to enable mst for qcs8300, dp0 controller will support 2 streams
-> > > > > output. So not reuse sm8650 dp controller driver and will add a new driver
-> > > > > patch for qcs8300 mst feature. Modify the corresponding dt-bingding file
-> > > > > to compatible with the qcs8300-dp.
-> > > > 
-> > > > NAK for a different reason: QCS8300 is still compatible with SM8650.
-> > > > Enable features instead of randomly reshuffle compats. In this case,
-> > > > enable MST for both architectures.
-> > > > 
-> > > So the original patch was probably correct...
-> > 
-> > I have no idea. I'd let Yongxing Mou to comment on this. It would be
-> > nice  instead of getting a lengthy explanation of obvious items to get
-> > an answer to an actual question: is QCS8300 compatible with SM8650 or
-> > not. In other words whether they can support the same number of MST
-> > streams on each controller or not.
-> > 
-> Hi, in hardware, the SM8650's DP controller supports 2 INTFs, while the
-> QCS8300's DP0 controller supports 4 INTFs.In sst mode, only one INTF will be
-> used, they are same, but for MST, sm8650 supports 2 streams while qcs8300
-> support 4 streams. Thanks.
+A lot of DisplayPort bridges use HDMI Codec in order to provide audio
+support. Present DRM HDMI Audio support has been written with the HDMI
+and in particular DRM HDMI Connector framework support, however those
+audio helpers can be easily reused for DisplayPort drivers too.
 
-So, they are not compatible. Please use separate compatible.
+Patches by Hermes Wu that targeted implementing HDMI Audio support in
+the iTE IT6506 driver pointed out the necessity of allowing one to use
+generic audio helpers for DisplayPort drivers, as otherwise each driver
+has to manually (and correctly) implement the get_eld() and plugged_cb
+support.
 
+Implement necessary integration in drm_bridge_connector and provide an
+example implementation in the msm/dp driver.
+
+The plan is to land core parts via the drm-misc-next tree and msm patch
+via the msm-next tree.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v3:
+- Dropped DRM_BRIDGE_OP_DisplayPort, added DRM_BRIDGE_OP_HDMI_AUDIO
+  (Laurent, Maxime)
+- Dropped the subconnector patch (again)
+- Link to v2: https://lore.kernel.org/r/20250209-dp-hdmi-audio-v2-0-16db6ebf22ff@linaro.org
+
+Changes in v2:
+- Added drm_connector_attach_dp_subconnector_property() patches
+- Link to v1: https://lore.kernel.org/r/20250206-dp-hdmi-audio-v1-0-8aa14a8c0d4d@linaro.org
+
+---
+Dmitry Baryshkov (2):
+      drm/bridge: split HDMI Audio from DRM_BRIDGE_OP_HDMI
+      drm/msm/dp: reuse generic HDMI codec implementation
+
+ drivers/gpu/drm/bridge/lontium-lt9611.c        |   2 +-
+ drivers/gpu/drm/display/drm_bridge_connector.c |  59 +++++++----
+ drivers/gpu/drm/msm/Kconfig                    |   1 +
+ drivers/gpu/drm/msm/dp/dp_audio.c              | 131 +++----------------------
+ drivers/gpu/drm/msm/dp/dp_audio.h              |  27 ++---
+ drivers/gpu/drm/msm/dp/dp_display.c            |  28 +-----
+ drivers/gpu/drm/msm/dp/dp_display.h            |   6 --
+ drivers/gpu/drm/msm/dp/dp_drm.c                |   8 ++
+ include/drm/drm_bridge.h                       |  23 ++++-
+ 9 files changed, 90 insertions(+), 195 deletions(-)
+---
+base-commit: 0e9eb9d5dfffee443c2765f86625b3a6d2659e95
+change-id: 20250206-dp-hdmi-audio-15d9fdbebb9f
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
