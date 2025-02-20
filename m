@@ -2,67 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75BB3A3DFED
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 17:10:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C49A3E03D
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 17:17:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED9110E1C7;
-	Thu, 20 Feb 2025 16:10:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E87F10E9A9;
+	Thu, 20 Feb 2025 16:17:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="EduweB5K";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="g2cOYvd3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4091610E174;
- Thu, 20 Feb 2025 16:10:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1740067826; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=fK0hgpnSc7wHdnScZwsvHvmbOkyWb03c01zpIeu3IanN4S/24IADwzwMmHCxMzZh69e0QFLKw+VJlDSQ5aln/0YB2RDSXVsVBcOmmHiTso9hMIalmUv2v2fkpsh2ReLVgNiLiHMfkoe1PZI015y2wn/sO3WfP5mg6mjLzsr/2s8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1740067826;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ZELLhyNrX/AMU/X/XLHluCd0loXd+7aqRfqJaYVGOoE=; 
- b=ViwEYwSYLaplLiRRebA+EavTbgXaGFDif39tG9l0dYzvRf0ts/sv5Zr3fKIj0Tpa2mXGglvmOEcv8ZzesWzbD/NQRcb1JjyqPZqc3wMYU5+EunyG9GZcm9+M2YI1x2DBHIaTHIgSZWttgVwQS7+aK1fAp99vFS8yjuL3nyBC814=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1740067826; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=ZELLhyNrX/AMU/X/XLHluCd0loXd+7aqRfqJaYVGOoE=;
- b=EduweB5KBkR0ccyYBTaR71kHlB+Cm2C1+uOYpnAGhP8fsVCU4dd1oLWvb0mZNeiJ
- 5LPdG3Z1MweoTCjWRid30oQ6iHV9OeNchE42cx4IMeeJ1b4OBPQ5wC3b9rSZ5Fztbc0
- 7ra/K4+6kLD4/HJUfSiWtBOZSIxhWfXx8uvFMDg0=
-Received: by mx.zohomail.com with SMTPS id 1740067825336681.7729656180264;
- Thu, 20 Feb 2025 08:10:25 -0800 (PST)
-Message-ID: <d2bd8baf-e1f7-4e8a-9e33-259051d6f97a@collabora.com>
-Date: Thu, 20 Feb 2025 19:10:18 +0300
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFBAA10E9A9
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 16:17:24 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5461cb12e39so1111455e87.2
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 08:17:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1740068243; x=1740673043; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=YxCgzyXpY/JXfZWrj67IExkL8lKhk1y+mpy4/JkmQsc=;
+ b=g2cOYvd3rLD2eNR5iW3/rtPgBrEGWI5RQLABHkRMBvByl5SX7G6YmD9Y8Yma2CqCRp
+ hwyyc1+sp7g12ZM3smYlmw37bA2Iyw4IdjXdZUBtQQFi3l/r4VKMoPO13BMx/PJPh/PB
+ TQsjobYXhZgHoT0eEYKNYN3MjrIp04RWyocg8gaeT1DnOFC2HOuvry+ZqWwb+QGQZ7Lr
+ esEPbfCztyzbiIfe6yy7ApvnUKe1TxsIo6b4EREZGJRf1Yhj1zLgtT1cqQTldQTQZtjO
+ 6T26JWol7hKDdpoPWF57HwqzYkAEgDYzLHrBd0sSRFYpKrZ0Cc7ewIeo3JMsDDJdMeoP
+ KDWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740068243; x=1740673043;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YxCgzyXpY/JXfZWrj67IExkL8lKhk1y+mpy4/JkmQsc=;
+ b=eGp8ShEgk0ZjqSx4Ln78RfGUGZ/B8d+aAekfQaFv2FETu1o/lL2N8soNDNwqAA3sCd
+ 5ZKTjto/8eDFt2dBqWn6dPUwNHGzQvJBzuGKKCym/YNfSkwietAGZ67spx8x5FIeI0IX
+ FVhwkl41KfcaSCJlYrxSYGMfaA+ho0ONCXKzWp+WIHYVD8D940fsUtLmnNYCO0EIgZZ7
+ ILZLPwOo2jAKQuTZF0QAP4xYNcSqNB9Q1D4ZCXXHc6kv7IPNTmDUVe0Kx24UzZIeE8g1
+ GZZwo+eUkEF52aG/q6uX1kaPrs93DouRZ6Iqsq+ucMCSeKuIXiKfp+I+6sT4k4N+H1ci
+ 4EPA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXoF0c2FAhNXC9EYvrbRGGu6UclJPCbEzf9vdHCTOEiJqHgC8sofB6MQgi9457K7QKZUl1VjR1feUQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyYQy3GR+EW1J+4qOPkyIL17aHyBChx60fRbiuAnxPZESqsuaJi
+ DYm4aeoGP+sRlsf1Ftp7/C/ocXjNEw9UspPfst6a2gul3Xd+bNTyXzJre4Sa0+c=
+X-Gm-Gg: ASbGnctI5Smk2KDBNObS/E6NVHNTzXRYUlBRSwoBX6qOOVT+ZSIQe89x5eC42kVpLXt
+ IMt2rzVAeOLcsetGeLfi4vI/r3zmVpl/khFtj2amFkG9cOv6ewSfLNEY6Q/FTCanby3tk4XwOJg
+ 10DGNfl90mBJDshbjeBSOsFFlimDqB9iybsbCtGwr9Y+vdap/S89rNE+DsVIpG7W1jkyE0+FQvg
+ Ts9jGaiYUmhcKEXFrFyHvdPBSkT5Y2uQv/bHtEbCQMFuEmk/wukGvErVEamjMhA2eOQln6sRF/T
+ mO+Hn+vGRVWaWJi10cxeIrWHuDe2pd6lUQnAGeGtN8R33gVOWnbRjdm0i61weuGN1YtIaIs=
+X-Google-Smtp-Source: AGHT+IFeOg7tp5OAbgC93OlXoFFngw3d0ZH7XDdUb+7qRylGEOLb57jjSdQNnl0wj9HshJooaXws4w==
+X-Received: by 2002:a05:6512:1306:b0:545:ed8:abef with SMTP id
+ 2adb3069b0e04-547243c34a0mr1385075e87.20.1740068243179; 
+ Thu, 20 Feb 2025 08:17:23 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-545f60c18bcsm1624130e87.2.2025.02.20.08.17.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Feb 2025 08:17:21 -0800 (PST)
+Date: Thu, 20 Feb 2025 18:17:20 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 12/15] drm/msm/dpu: blend pipes per mixer pairs config
+Message-ID: <ee7xdxyxjs46zfbotsa6hdmwpsvrkaere2hend4iavcvk6duqn@ogvght5qcx7b>
+References: <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org>
+ <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-12-c11402574367@linaro.org>
+ <qrwo5jtdj64vu27jn3v2wwyuxu25bjqrybj5jjfc5ifiotgzit@6vx2km46j7b3>
+ <CABymUCPEYJTK=gBHcL291qn2zbotC7_8jA4z18sbSZSjRafSsg@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 21/25] drm/virtio: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>
-References: <20250109150310.219442-1-tzimmermann@suse.de>
- <20250109150310.219442-22-tzimmermann@suse.de>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20250109150310.219442-22-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABymUCPEYJTK=gBHcL291qn2zbotC7_8jA4z18sbSZSjRafSsg@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,67 +98,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 1/9/25 17:57, Thomas Zimmermann wrote:
-> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
-> buffer size. Align the pitch to a multiple of 4.
+On Thu, Feb 20, 2025 at 11:48:45PM +0800, Jun Nie wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2025年2月18日周二 03:57写道：
+> >
+> > On Mon, Feb 17, 2025 at 10:16:01PM +0800, Jun Nie wrote:
+> > > Currently, only 2 pipes are used at most for a plane. A stage structure
+> > > describes the configuration for a mixer pair. So only one stage is needed
+> > > for current usage cases. The quad-pipe case will be added in future and 2
+> > > stages are used in the case. So extend the stage to an array with array size
+> > > STAGES_PER_PLANE and blend pipes per mixer pair with configuration in the
+> > > stage structure.
+> > >
+> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > ---
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 45 +++++++++++++++++++----------
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
+> > >  2 files changed, 30 insertions(+), 16 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > index 81474823e6799132db71c9712046d359e3535d90..50acaf25a3ffcc94354faaa816fe74566784844c 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > @@ -401,7 +401,7 @@ static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
+> > >                                      struct dpu_hw_stage_cfg *stage_cfg
+> > >                                     )
+> > >  {
+> > > -     uint32_t lm_idx;
+> > > +     uint32_t lm_idx, lm_in_pair;
+> > >       enum dpu_sspp sspp_idx;
+> > >       struct drm_plane_state *state;
+> > >
+> > > @@ -426,7 +426,8 @@ static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
+> > >       stage_cfg->multirect_index[stage][stage_idx] = pipe->multirect_index;
+> > >
+> > >       /* blend config update */
+> > > -     for (lm_idx = 0; lm_idx < num_mixers; lm_idx++)
+> > > +     lm_in_pair = num_mixers > 1 ? 2 : 1;
+> > > +     for (lm_idx = 0; lm_idx < lm_in_pair; lm_idx++)
+> > >               mixer[lm_idx].lm_ctl->ops.update_pending_flush_sspp(mixer[lm_idx].lm_ctl, sspp_idx);
+> >
+> > I almost missed this. Why is this necessary?
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@redhat.com>
-> Cc: Gerd Hoffmann <kraxel@redhat.com>
-> Cc: Gurchetan Singh <gurchetansingh@chromium.org>
-> Cc: Chia-I Wu <olvaffe@gmail.com>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_gem.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
+> It is protective code. In case there is only 1 LM, we should not
+> iterate 2 LM in a stage.
+
+That's not what the code does.
+
+> >
+> > >  }
+> > >
+> >
+> > [...]
+> >
+> > > @@ -535,8 +543,13 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
+> > >                       mixer[i].mixer_op_mode,
+> > >                       ctl->idx - CTL_0);
+> > >
+> > > +             /*
+> > > +              * call dpu_hw_ctl_setup_blendstage() to blend layers per stage cfg.
+> > > +              * There are 4 mixers at most. The first 2 are for the left half, and
+> > > +              * the later 2 are for the right half.
+> > > +              */
+> >
+> > The comment is invalid until you introduce quad pipe, currently there
+> > are 2 mixers at most. However you can just say something like 'stage
+> > data is shared between PIPES_PER_STAGE pipes'.
 > 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
-> index 5aab588fc400..22cf1cd2fdfd 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_gem.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
-> @@ -23,6 +23,7 @@
->   * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
->   */
->  
-> +#include <drm/drm_dumb_buffers.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_fourcc.h>
->  
-> @@ -66,15 +67,14 @@ int virtio_gpu_mode_dumb_create(struct drm_file *file_priv,
->  	struct virtio_gpu_object_params params = { 0 };
->  	struct virtio_gpu_device *vgdev = dev->dev_private;
->  	int ret;
-> -	uint32_t pitch;
-> +
-> +	ret = drm_mode_size_dumb(dev, args, SZ_4, 0);
+> Accepted.
+> >
+> > >               ctl->ops.setup_blendstage(ctl, mixer[i].hw_lm->idx,
+> > > -                     &stage_cfg);
+> > > +                     &stage_cfg[i / PIPES_PER_STAGE]);
+> > >       }
+> > >  }
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> > > index 5f010d36672cc6440c69779908b315aab285eaf0..64e220987be5682f26d02074505c5474a547a814 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> > > @@ -34,6 +34,7 @@
+> > >  #define DPU_MAX_PLANES                       4
+> > >  #endif
+> > >
+> > > +#define STAGES_PER_PLANE             2
 
-Nit: I'd keep using PAGE_SIZE instead of 0 for more clarity, but that's
-an optional wish.
+BTW, This should be 1 for now.
 
-> +	if (ret)
-> +		return ret;
->  
->  	if (args->bpp != 32)
->  		return -EINVAL;
->  
-> -	pitch = args->width * 4;
-> -	args->size = pitch * args->height;
-> -	args->size = ALIGN(args->size, PAGE_SIZE);
-> -
->  	params.format = virtio_gpu_translate_format(DRM_FORMAT_HOST_XRGB8888);
->  	params.width = args->width;
->  	params.height = args->height;
-> @@ -92,7 +92,6 @@ int virtio_gpu_mode_dumb_create(struct drm_file *file_priv,
->  	if (ret)
->  		goto fail;
->  
-> -	args->pitch = pitch;
->  	return ret;
->  
->  fail:
-
-Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> > >  #define PIPES_PER_PLANE                      2
+> > >  #define PIPES_PER_STAGE                      2
+> > >  #ifndef DPU_MAX_DE_CURVES
+> > >
+> > > --
+> > > 2.34.1
+> > >
+> >
+> > --
+> > With best wishes
+> > Dmitry
 
 -- 
-Best regards,
+With best wishes
 Dmitry
-
