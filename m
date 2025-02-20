@@ -2,87 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C49A3E03D
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 17:17:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92952A3E293
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 18:34:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E87F10E9A9;
-	Thu, 20 Feb 2025 16:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E13B10E4D5;
+	Thu, 20 Feb 2025 17:33:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="g2cOYvd3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VQ5kZbJb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFBAA10E9A9
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 16:17:24 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5461cb12e39so1111455e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 08:17:24 -0800 (PST)
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 552CC10E0C7;
+ Thu, 20 Feb 2025 17:33:56 +0000 (UTC)
+Received: by mail-io1-f41.google.com with SMTP id
+ ca18e2360f4ac-855a1f50a66so32898439f.3; 
+ Thu, 20 Feb 2025 09:33:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740068243; x=1740673043; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=YxCgzyXpY/JXfZWrj67IExkL8lKhk1y+mpy4/JkmQsc=;
- b=g2cOYvd3rLD2eNR5iW3/rtPgBrEGWI5RQLABHkRMBvByl5SX7G6YmD9Y8Yma2CqCRp
- hwyyc1+sp7g12ZM3smYlmw37bA2Iyw4IdjXdZUBtQQFi3l/r4VKMoPO13BMx/PJPh/PB
- TQsjobYXhZgHoT0eEYKNYN3MjrIp04RWyocg8gaeT1DnOFC2HOuvry+ZqWwb+QGQZ7Lr
- esEPbfCztyzbiIfe6yy7ApvnUKe1TxsIo6b4EREZGJRf1Yhj1zLgtT1cqQTldQTQZtjO
- 6T26JWol7hKDdpoPWF57HwqzYkAEgDYzLHrBd0sSRFYpKrZ0Cc7ewIeo3JMsDDJdMeoP
- KDWA==
+ d=gmail.com; s=20230601; t=1740072835; x=1740677635; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=gxER21wbdJEn1/DEOATqVDO/xV7ARnH3zJrJ/dHAsbw=;
+ b=VQ5kZbJbvYwV/L9uAWcEG+dRWwCH3aEaxlM+sElLWhDxWpGQVj3N5TjSOTPbsEsfUl
+ sKaZH3Y/a7ixnSIIASnPYln18I3w/NR220jKaDNSNZVBu6Bb624YcH2RzcLK40yXumAg
+ 23ednYFxR9/+MPKwVbfmJBm4uuMy9H68HoqV3S1KPmYxXQRHr0Bn7BUHHBNSO2TtjlPz
+ M87RApbEFDzYkq+JKH2gFHU5km5BlsKomZWxgKgIisj744XocxcdPckOKj3hXhPJyuha
+ gsJ1ZdFqXKYyk3Dl2pALZ4JR849wRxb8ImOoXlOn8p+NCzstj/wxrC7PHBx9ZyaXZdiW
+ s0YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740068243; x=1740673043;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YxCgzyXpY/JXfZWrj67IExkL8lKhk1y+mpy4/JkmQsc=;
- b=eGp8ShEgk0ZjqSx4Ln78RfGUGZ/B8d+aAekfQaFv2FETu1o/lL2N8soNDNwqAA3sCd
- 5ZKTjto/8eDFt2dBqWn6dPUwNHGzQvJBzuGKKCym/YNfSkwietAGZ67spx8x5FIeI0IX
- FVhwkl41KfcaSCJlYrxSYGMfaA+ho0ONCXKzWp+WIHYVD8D940fsUtLmnNYCO0EIgZZ7
- ILZLPwOo2jAKQuTZF0QAP4xYNcSqNB9Q1D4ZCXXHc6kv7IPNTmDUVe0Kx24UzZIeE8g1
- GZZwo+eUkEF52aG/q6uX1kaPrs93DouRZ6Iqsq+ucMCSeKuIXiKfp+I+6sT4k4N+H1ci
- 4EPA==
+ d=1e100.net; s=20230601; t=1740072835; x=1740677635;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=gxER21wbdJEn1/DEOATqVDO/xV7ARnH3zJrJ/dHAsbw=;
+ b=EOYbh5sMZ0AnwFOujQvrzK08pheFsXp6jrXUpqgcNAJgUMgFSjBjrpv52JuTBfkxzJ
+ JFuINY/dmNeEma+L9h+vFC9WUR5cXefFagj5AGka+D2C3YahoQUEHR0e2r0ZY8Hjo/Tk
+ 0bwhKVAly4jyEQnkFWGeg2V7+DUXi+FtTqv3MfR2oo2yZDr6FW8iaIu7Z0AILidmY0BO
+ kNN5oFAfRnb6Dq/TeGsfi1jLOWM4+BMD8JmFf9/2O2PeOWOfXofgqI9OjmxGSkSIJXTa
+ DS83tUiNxbfHYScId7rC/KwM/bnLcy2Afd4AShCArAqLCjlLIAk9jfUfXccHZrNdIQ3Q
+ 0wXw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXoF0c2FAhNXC9EYvrbRGGu6UclJPCbEzf9vdHCTOEiJqHgC8sofB6MQgi9457K7QKZUl1VjR1feUQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyYQy3GR+EW1J+4qOPkyIL17aHyBChx60fRbiuAnxPZESqsuaJi
- DYm4aeoGP+sRlsf1Ftp7/C/ocXjNEw9UspPfst6a2gul3Xd+bNTyXzJre4Sa0+c=
-X-Gm-Gg: ASbGnctI5Smk2KDBNObS/E6NVHNTzXRYUlBRSwoBX6qOOVT+ZSIQe89x5eC42kVpLXt
- IMt2rzVAeOLcsetGeLfi4vI/r3zmVpl/khFtj2amFkG9cOv6ewSfLNEY6Q/FTCanby3tk4XwOJg
- 10DGNfl90mBJDshbjeBSOsFFlimDqB9iybsbCtGwr9Y+vdap/S89rNE+DsVIpG7W1jkyE0+FQvg
- Ts9jGaiYUmhcKEXFrFyHvdPBSkT5Y2uQv/bHtEbCQMFuEmk/wukGvErVEamjMhA2eOQln6sRF/T
- mO+Hn+vGRVWaWJi10cxeIrWHuDe2pd6lUQnAGeGtN8R33gVOWnbRjdm0i61weuGN1YtIaIs=
-X-Google-Smtp-Source: AGHT+IFeOg7tp5OAbgC93OlXoFFngw3d0ZH7XDdUb+7qRylGEOLb57jjSdQNnl0wj9HshJooaXws4w==
-X-Received: by 2002:a05:6512:1306:b0:545:ed8:abef with SMTP id
- 2adb3069b0e04-547243c34a0mr1385075e87.20.1740068243179; 
- Thu, 20 Feb 2025 08:17:23 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545f60c18bcsm1624130e87.2.2025.02.20.08.17.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2025 08:17:21 -0800 (PST)
-Date: Thu, 20 Feb 2025 18:17:20 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 12/15] drm/msm/dpu: blend pipes per mixer pairs config
-Message-ID: <ee7xdxyxjs46zfbotsa6hdmwpsvrkaere2hend4iavcvk6duqn@ogvght5qcx7b>
-References: <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org>
- <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-12-c11402574367@linaro.org>
- <qrwo5jtdj64vu27jn3v2wwyuxu25bjqrybj5jjfc5ifiotgzit@6vx2km46j7b3>
- <CABymUCPEYJTK=gBHcL291qn2zbotC7_8jA4z18sbSZSjRafSsg@mail.gmail.com>
+ AJvYcCXBmyqhWM57HdT0NZNzTjqrcFs5HCipi4CiA1FFmgsGRXp7QCpwl+dH8p933BRR6y2FlvzUyI6vrqw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzoshtRv0s5P3CgcjOBy61qU7GXF7oKSPixZXaEVzACTF/I3I+E
+ v5RZHpczgVTIfIQxevcB2KzFAu1MBQFGDPJw2SVdEacRqRDGI0UVO4P0ngfTcTlPslNp0roNI1C
+ 1Pl4HYQdGvYA8wc56/xA+bYRsPfm2BT1N
+X-Gm-Gg: ASbGnctdf7EpUpYhEdVDboy1xtb2qfpwZW62cwPV6ChDqYRkzfzLKBaWciW+M22EKbA
+ usitfo/2Lwwa1RGM+RsMDMKXZYHfvuviZk3481eFFYv1+xtJG3WGlou2OnlG2ruIlrxSy3FFQqN
+ S0oliN/bAyjr5Rm1QoWlFhdpyvbgwX5yI=
+X-Google-Smtp-Source: AGHT+IFGwYcN/vp7Fh4H9BvR8I/GiwEabeRWmMmgC/fwrMKjTrncLEvk4UQ9VaGd8Qep4/NNGtnRjtWCpYVEKHWNCPo=
+X-Received: by 2002:a05:6e02:3882:b0:3d0:4a82:3f42 with SMTP id
+ e9e14a558f8ab-3d2b536ef0amr84272825ab.16.1740072835191; Thu, 20 Feb 2025
+ 09:33:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCPEYJTK=gBHcL291qn2zbotC7_8jA4z18sbSZSjRafSsg@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 20 Feb 2025 09:33:43 -0800
+X-Gm-Features: AWEUYZlqKD1Gyp1C5EfK3AsCtFxqBumbtjfPAP1oJTHymGw-8iTynKVDWs30wtk
+Message-ID: <CAF6AEGtt2AODBXdod8ULXcAygf_qYvwRDVeUVtODx=2jErp6cA@mail.gmail.com>
+Subject: [pull] drm/msm: drm-msm-fixes-2025-02-20 for v6.14-rc4
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,104 +81,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 20, 2025 at 11:48:45PM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2025年2月18日周二 03:57写道：
-> >
-> > On Mon, Feb 17, 2025 at 10:16:01PM +0800, Jun Nie wrote:
-> > > Currently, only 2 pipes are used at most for a plane. A stage structure
-> > > describes the configuration for a mixer pair. So only one stage is needed
-> > > for current usage cases. The quad-pipe case will be added in future and 2
-> > > stages are used in the case. So extend the stage to an array with array size
-> > > STAGES_PER_PLANE and blend pipes per mixer pair with configuration in the
-> > > stage structure.
-> > >
-> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 45 +++++++++++++++++++----------
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
-> > >  2 files changed, 30 insertions(+), 16 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > index 81474823e6799132db71c9712046d359e3535d90..50acaf25a3ffcc94354faaa816fe74566784844c 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > @@ -401,7 +401,7 @@ static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
-> > >                                      struct dpu_hw_stage_cfg *stage_cfg
-> > >                                     )
-> > >  {
-> > > -     uint32_t lm_idx;
-> > > +     uint32_t lm_idx, lm_in_pair;
-> > >       enum dpu_sspp sspp_idx;
-> > >       struct drm_plane_state *state;
-> > >
-> > > @@ -426,7 +426,8 @@ static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
-> > >       stage_cfg->multirect_index[stage][stage_idx] = pipe->multirect_index;
-> > >
-> > >       /* blend config update */
-> > > -     for (lm_idx = 0; lm_idx < num_mixers; lm_idx++)
-> > > +     lm_in_pair = num_mixers > 1 ? 2 : 1;
-> > > +     for (lm_idx = 0; lm_idx < lm_in_pair; lm_idx++)
-> > >               mixer[lm_idx].lm_ctl->ops.update_pending_flush_sspp(mixer[lm_idx].lm_ctl, sspp_idx);
-> >
-> > I almost missed this. Why is this necessary?
-> 
-> It is protective code. In case there is only 1 LM, we should not
-> iterate 2 LM in a stage.
+Hi Dave, Simona,
 
-That's not what the code does.
+A few fixes for v6.14, as described below.
 
-> >
-> > >  }
-> > >
-> >
-> > [...]
-> >
-> > > @@ -535,8 +543,13 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
-> > >                       mixer[i].mixer_op_mode,
-> > >                       ctl->idx - CTL_0);
-> > >
-> > > +             /*
-> > > +              * call dpu_hw_ctl_setup_blendstage() to blend layers per stage cfg.
-> > > +              * There are 4 mixers at most. The first 2 are for the left half, and
-> > > +              * the later 2 are for the right half.
-> > > +              */
-> >
-> > The comment is invalid until you introduce quad pipe, currently there
-> > are 2 mixers at most. However you can just say something like 'stage
-> > data is shared between PIPES_PER_STAGE pipes'.
-> 
-> Accepted.
-> >
-> > >               ctl->ops.setup_blendstage(ctl, mixer[i].hw_lm->idx,
-> > > -                     &stage_cfg);
-> > > +                     &stage_cfg[i / PIPES_PER_STAGE]);
-> > >       }
-> > >  }
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > > index 5f010d36672cc6440c69779908b315aab285eaf0..64e220987be5682f26d02074505c5474a547a814 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > > @@ -34,6 +34,7 @@
-> > >  #define DPU_MAX_PLANES                       4
-> > >  #endif
-> > >
-> > > +#define STAGES_PER_PLANE             2
+The following changes since commit 866e43b945bf98f8e807dfa45eca92f931f3a032:
 
-BTW, This should be 1 for now.
+  drm/msm: UAPI error reporting (2025-01-03 07:20:28 -0800)
 
-> > >  #define PIPES_PER_PLANE                      2
-> > >  #define PIPES_PER_STAGE                      2
-> > >  #ifndef DPU_MAX_DE_CURVES
-> > >
-> > > --
-> > > 2.34.1
-> > >
-> >
-> > --
-> > With best wishes
-> > Dmitry
+are available in the Git repository at:
 
--- 
-With best wishes
-Dmitry
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2025-02-20
+
+for you to fetch changes up to 73f69c6be2a9f22c31c775ec03c6c286bfe12cfa:
+
+  drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when choosing
+bitclk source (2025-02-15 11:46:42 -0800)
+
+----------------------------------------------------------------
+Fixes for v6.14-rc4
+
+Display:
+* More catalog fixes:
+ - to skip watchdog programming through top block if its not present
+ - fix the setting of WB mask to ensure the WB input control is programmed
+   correctly through ping-pong
+ - drop lm_pair for sm6150 as that chipset does not have any 3dmerge block
+* Fix the mode validation logic for DP/eDP to account for widebus (2ppc)
+  to allow high clock resolutions
+* Fix to disable dither during encoder disable as otherwise this was
+  causing kms_writeback failure due to resource sharing between
+* WB and DSI paths as DSI uses dither but WB does not
+* Fixes for virtual planes, namely to drop extraneous return and fix
+  uninitialized variables
+* Fix to avoid spill-over of DSC encoder block bits when programming
+  the bits-per-component
+* Fixes in the DSI PHY to protect against concurrent access of
+  PHY_CMN_CLK_CFG regs between clock and display drivers
+
+Core/GPU:
+* Fix non-blocking fence wait incorrectly rounding up to 1 jiffy timeout
+* Only print GMU fw version once, instead of each time the GPU resumes
+
+----------------------------------------------------------------
+Abhinav Kumar (1):
+      drm/msm/dp: account for widebus and yuv420 during mode validation
+
+Dmitry Baryshkov (3):
+      drm/msm/dpu: skip watchdog timer programming through TOP on >= SM8450
+      drm/msm/dpu: enable DPU_WB_INPUT_CTRL for DPU 5.x
+      drm/msm/dpu: correct LM pairing for SM6150
+
+Ethan Carter Edwards (1):
+      drm/msm/dpu: Fix uninitialized variable
+
+Jessica Zhang (2):
+      drm/msm/dpu: Disable dither in phys encoder cleanup
+      drm/msm/dpu: Drop extraneous return in dpu_crtc_reassign_planes()
+
+Konrad Dybcio (1):
+      drm/msm/a6xx: Only print the GMU firmware version once
+
+Krzysztof Kozlowski (3):
+      drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG0 updated from driver side
+      drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG1 against clock driver
+      drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when choosing
+bitclk source
+
+Marijn Suijten (1):
+      drm/msm/dpu: Don't leak bits_per_component into random DSC_ENC fields
+
+Rob Clark (1):
+      drm/msm: Avoid rounding up to one jiffy
+
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  8 ++--
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  2 +-
+ .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  2 +-
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h |  2 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  2 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  3 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c         |  3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  7 ++-
+ drivers/gpu/drm/msm/dp/dp_display.c                | 11 +++--
+ drivers/gpu/drm/msm/dp/dp_drm.c                    |  5 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          | 53 +++++++++++++++-------
+ drivers/gpu/drm/msm/msm_drv.h                      | 11 ++---
+ .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  | 11 ++++-
+ 15 files changed, 75 insertions(+), 49 deletions(-)
