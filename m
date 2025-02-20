@@ -2,97 +2,112 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 778A6A3D7FF
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 12:15:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94FD8A3DC4B
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 15:16:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5392B10E940;
-	Thu, 20 Feb 2025 11:15:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ED4D10E967;
+	Thu, 20 Feb 2025 14:16:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f66OCZ76";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="k+FnlPVz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CFC410E94E
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 11:15:13 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-307d1ab59c6so9118521fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 03:15:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740050111; x=1740654911; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=9X5DqzSWRf6FCwakTqnI1Z6ip+HiUbF/QIcptAcLPLE=;
- b=f66OCZ7625BYtXJaIHbCtHrnDbF5CYlLwrmXM+rI/pfV+A3CpEMazDHZu7ZaRHnzcP
- JqbBO0/gmAV2y9NbztL3e5mhXODxASDCeyEBzWIA0xWjWqOKfKVqjqJg3PHO/uTBcI0W
- d1Xfs2vyiFQaaSZcnK8VbDaZLSaEiaURUWgECGwDjkVOdBpD+fK2nCaaKno8Q6ATRfuD
- M9hOYWx+OF3CpSxRkrF57f+qmOGUixsBJAN68+dsqiPjTxFVckFlwiy0KHcrih9sgmdd
- q1oRtbFLaxu5mltY8m6rg5RCTp+7E/9lYdGimRySw3LrvcZV3xP//Hr24EPibGWzKOjc
- VAuA==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D2A510E967
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 14:16:21 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51K7QkCd009732
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 14:16:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ JuYdE4dlbQ4IVCBmM2eClz9fsFF9FHokS9b6ozmwZV4=; b=k+FnlPVzYzdZ2PE6
+ Kroj/0BmRoWTMqyMDL74lahz3z0gUJEHra+1atu0vb92f2OmCzhuUwgwubYsaH9K
+ kZIijV8sXs4gJd9882zuZr9MDEh8UUUWfjgxceNdpuv0JkcEh1psJ72Vl57W8TET
+ 6uX9aq//ihEVPSyatHS9FU4PpQjNzu61Ea94TK3akqkIXp3VKOi08OHQ0ftKO2x7
+ gFwI3B10Ahan1UtT6vu7pXJTpTM8rTP75+nznsOj+SdU7WYzjUDQ8dNc9e4JhVX7
+ qNssf5RV1Li7Ii6Dx4PWwnJOTpW4S03QSjt4nNqlZMn9+Nhk3tKlqe0RUzvnIE6I
+ 1BiaYQ==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44vyy1xeb6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 14:16:21 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-6e19bfc2025so1864496d6.1
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 06:16:20 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740050111; x=1740654911;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9X5DqzSWRf6FCwakTqnI1Z6ip+HiUbF/QIcptAcLPLE=;
- b=WEDLdP5FpLHzDTnglW80dBS3c+ZQqn2Td1RESfNTT7WuS59yHIvDc3L9bWBaV2hLZ6
- +Zz1XShC+4Yi4ayWKI9a8TnOEBDSqNzyP0JfeiOURzN34AC4+57mun+qg1oRYZDIgclK
- N/OE3Xg6ha7ODKy/hUsBYW+kvrIa8J6R66uJ5gxs5vKHU4dtLvT8T5TGOJIfTkHXgFwP
- O3kp/aFGo7G3fgX9d/E/kzr97zI28e58AVvw5edRSX04V0wlsclDfUQwAKm7QBgYrPpK
- 3rDxq8xP3/mSDkBws546+3JDWdh6Bd8EOEga7HlJHc+r5j+3Ai0FNInFg8uudAC6E6Wn
- 3A9g==
+ d=1e100.net; s=20230601; t=1740060980; x=1740665780;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=JuYdE4dlbQ4IVCBmM2eClz9fsFF9FHokS9b6ozmwZV4=;
+ b=GtwKXil3hgwTXPrFxJP+Ifcfh5IRTwLP8av1nokGIwYGb+RSq0LOvrmSUpHIet+06G
+ 9tR7+YqsIi9nTcZrpgUp4bROcNDyMHJ5NToY0kIp6P4NdNX2x7YWSx4V7p3Kgd9wPDEL
+ u5w2PAvXXllhXT/uBbYnjt++rXZbF4TiTU537isscgUFn9HdGDYn7hkCFZmdnsKBqg0n
+ hewfS7D9NXxbFN+o3DLodpO7kRAEZVKB1gak3DeCIbJ/7vbR6Lp27K9Q8m2IHaXfrSzG
+ SoEgf9cV+nTteW6m3agWzPpZO+8nLeUdt/gS2Jy1A2N0tqF5yjGG76bsaw9gVSyAsacW
+ urig==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXp8oPYJ5we3RnFlMPBMsEF+tHF5DZW1FaBigJPx36izxXsiWCZbSgX28rh5yG4MZt4J/BaIlZcSYE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzTn0wOAwB1TXiaehkk8CwKpfqducnOKLwqh33PUEYUXv5akSrq
- g9wo0SOL23CVQhSwvJ403wc6XEDFPENIgo9XDqZ4aR0bTCt6wBJLx7ToC8K4gmE=
-X-Gm-Gg: ASbGncurjKqwmDFFmRZ/3jL/5msIQyZ5Dpm1RmNkmQXlI7ZroktLIRy/QUDQDl3+EWR
- pFuBcQRjnUV77ZeLTUAX/UJMQHT7YDO9QhzQ9R6xMcOStLsUp43i5pG9xe3YMe31dfctDxaFabu
- j/jhgn55WYqKrqBcHtHJo1QV98osnWCAqGdjRx4hNcOqs0SdCddNiSapq8biO7tGsLzumjof0nv
- FPkpBqlILjVmnQlwk9QOqCP0dtThuEGdKBNJ1wq692jpOCvQOTj5OVqujeDHTih+iVcMcuzWLtt
- RYXm+RDmdh4cY+q4oIo33Yk=
-X-Google-Smtp-Source: AGHT+IEBrH7t5T3Pj2WB/YKjyu6Tt9mfV/BJf6mygTdxQLlHJOo6nI55pj3svLEpB1+vdLAfNkGcnQ==
-X-Received: by 2002:a05:6512:68c:b0:543:e406:6363 with SMTP id
- 2adb3069b0e04-5462eedb651mr3405483e87.3.1740050111516; 
- Thu, 20 Feb 2025 03:15:11 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545297856c6sm2056164e87.142.2025.02.20.03.15.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2025 03:15:11 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 20 Feb 2025 13:14:49 +0200
-Subject: [PATCH v2 7/7] arm: dts: qcom: apq8064: link LVDS clocks
+ AJvYcCU6gyJ39k0IgkBKMMVZ0FdNoLQSSoQ2tZIwZ9yKQdCuaoTVOTvVDZbIKXwQDWdjQ4G0mo5Q8rlQyvY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJaYbOoFZWeHr4wiaBnd8nTwSHHrCpVaJnbZj6NgEM3KBW8LNv
+ zuDFaF7Y3CBrYtywVradSwVhGpE0+J4J5rY+eZ/Ea2J00p7pQpAAZD7fmlfNQpJ4EwTbL7ZmuMt
+ RYSzH6MdU08D7NrFgG/Et0H/SQrXU2US2ZSsFTRAe5nBymXGNIABJiUtoHP8VZfGVXZE=
+X-Gm-Gg: ASbGncuqFOIcPhP5mVFp3j1J7nsVy+Q5EqgqzjbdVo0klgyxxKyP8tghkIMP4m/CYPw
+ FNta27Boy5g4Q6um+bR21tgJFFeeTrdMEBwfER820exApOntRfxuHMPwi+Ke3PV7U3fETx+ja4b
+ AIuHfwIEyo2LHCVGex0IJv0ZSzGC+PPU97pvNdPRTc2MVw11NZAAAJ3VM80voaNG9atCXpKu7mG
+ L0+g2VouLScwLMYxTJrKY4bnhM8t/7rfi+w8T+bcjhveCXYsTtNHdPt5nPfzeil8khFGcuab6qc
+ aPj+zcVah93+JeAAfR0BzVoTWd6VgqSaNqvdOvWV2lsqPTd4CX3amL867zo=
+X-Received: by 2002:a05:6214:daa:b0:6d4:d1c:47d with SMTP id
+ 6a1803df08f44-6e66cc81ee6mr117329906d6.2.1740060980186; 
+ Thu, 20 Feb 2025 06:16:20 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE/rtxy8V+ibsuKKWTYNnpHRyUUiiKw18tEiKCIKFtweF7nc0fiGiUTgniZ2kAyBjdw0RVwQA==
+X-Received: by 2002:a05:6214:daa:b0:6d4:d1c:47d with SMTP id
+ 6a1803df08f44-6e66cc81ee6mr117329606d6.2.1740060979770; 
+ Thu, 20 Feb 2025 06:16:19 -0800 (PST)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aba532322e6sm1462102766b.1.2025.02.20.06.16.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Feb 2025 06:16:19 -0800 (PST)
+Message-ID: <bbb099ae-2389-4b7c-9161-83d8fe94b45d@oss.qualcomm.com>
+Date: Thu, 20 Feb 2025 15:16:16 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250220-fd-mdp4-lvds-v2-7-15afe5578a31@linaro.org>
-References: <20250220-fd-mdp4-lvds-v2-0-15afe5578a31@linaro.org>
-In-Reply-To: <20250220-fd-mdp4-lvds-v2-0-15afe5578a31@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] drm/msm/mdp4: drop mpd4_lvds_pll_init stub
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1634;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=d0CtcQf8Wv3lL9BY8WXV1YwbKLOoSAl/tzsPQ0leEnU=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntw6sydCzdr3lq263K0JOQk4Qc0tnyxdU2wME+
- N15Skc4LBWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7cOrAAKCRCLPIo+Aiko
- 1a22B/4pss99hBOLDX1XScPaKx+olriF4M0K8pHizkh00Z3WXSnIrKWJXBFmoeXMv3qVLJGrM0t
- XYV/MGe18IURcZhSkygCpi9HvJpgzK1QVEW74QVH9x9GSMrWQba0SLDX1XLzOdGYooiBB5mUI8E
- EuXd973XQNSA8aWj4ilqqFrzPvd+O7wYJPNC8s8WnG7Zt3Gz8FuIW5NzveuDEk4+d2delGqk9PY
- Nuxg8zf+Nxh9tMnz6to4uG9vp3dw8eB62vBCBvfcsgEzqok9at27cUaEEKlbBieluMZ6W4HKacr
- IO+VeB/mBl7Pa5mhesh4KgO9VbWqQ5+a9Jc65SqVnFSdjklR
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+References: <20250220-fd-mdp4-lvds-v2-0-15afe5578a31@linaro.org>
+ <20250220-fd-mdp4-lvds-v2-2-15afe5578a31@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250220-fd-mdp4-lvds-v2-2-15afe5578a31@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: ls9EAljt_N-1Zq1uwfZHHn9rewdgc8Gf
+X-Proofpoint-ORIG-GUID: ls9EAljt_N-1Zq1uwfZHHn9rewdgc8Gf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-20_06,2025-02-20_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0
+ bulkscore=0 phishscore=0 suspectscore=0 malwarescore=0 spamscore=0
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 mlxscore=0
+ mlxlogscore=823 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502100000 definitions=main-2502200103
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,61 +123,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Link LVDS clocks to the from MDP4 to the MMCC and back from the MMCC
-to the MDP4 display controller.
+On 20.02.2025 12:14 PM, Dmitry Baryshkov wrote:
+> Drop the !COMMON_CLK stub for mpd4_lvds_pll_init(), the DRM_MSM driver
+> depends on COMMON_CLK.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm/boot/dts/qcom/qcom-apq8064.dtsi | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+Ha, nice bit of archeology
 
-diff --git a/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi b/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
-index 5f1a6b4b764492486df1a2610979f56c0a37b64a..b884900716464b6291869ff50825762a55099982 100644
---- a/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
-+++ b/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
-@@ -737,7 +737,8 @@ mmcc: clock-controller@4000000 {
- 				 <&dsi0_phy 0>,
- 				 <&dsi1_phy 1>,
- 				 <&dsi1_phy 0>,
--				 <&hdmi_phy>;
-+				 <&hdmi_phy>,
-+				 <&mdp>;
- 			clock-names = "pxo",
- 				      "pll3",
- 				      "pll8_vote",
-@@ -745,7 +746,8 @@ mmcc: clock-controller@4000000 {
- 				      "dsi1pllbyte",
- 				      "dsi2pll",
- 				      "dsi2pllbyte",
--				      "hdmipll";
-+				      "hdmipll",
-+				      "lvdspll";
- 		};
- 
- 		l2cc: clock-controller@2011000 {
-@@ -1404,13 +1406,19 @@ mdp: display-controller@5100000 {
- 				 <&mmcc MDP_AXI_CLK>,
- 				 <&mmcc MDP_LUT_CLK>,
- 				 <&mmcc HDMI_TV_CLK>,
--				 <&mmcc MDP_TV_CLK>;
-+				 <&mmcc MDP_TV_CLK>,
-+				 <&mmcc LVDS_CLK>,
-+				 <&rpmcc RPM_PXO_CLK>;
- 			clock-names = "core_clk",
- 				      "iface_clk",
- 				      "bus_clk",
- 				      "lut_clk",
- 				      "hdmi_clk",
--				      "tv_clk";
-+				      "tv_clk",
-+				      "lcdc_clk",
-+				      "pxo";
-+
-+			#clock-cells = <0>;
- 
- 			iommus = <&mdp_port0 0
- 				  &mdp_port0 2
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
--- 
-2.39.5
-
+Konrad
