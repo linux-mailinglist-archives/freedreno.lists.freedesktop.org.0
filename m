@@ -2,72 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CF0FA3D60D
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 11:08:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4A77A3D67D
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 11:26:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F132710E915;
-	Thu, 20 Feb 2025 10:08:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E41210E918;
+	Thu, 20 Feb 2025 10:26:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Js2YtSm2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QFgDu+Yq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0AC910E910;
- Thu, 20 Feb 2025 10:08:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740046121; x=1771582121;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=qEEkaGFEKdByIXhxlRz4s/blmxr0i3FKT7WWs7RYcVE=;
- b=Js2YtSm23SX09ECAeyG+E0bWqFZk8fw8HtXh+EazJvcBVjkWoaUmFc9i
- YcXcso8mk/RXYY2t90n1aDS3b5Nne4uLFwkm8gX+zrDJFxwLYb7K7PcPi
- H+JxIjnqpu/KHTXIt9osI76mChz0+aM0ggGLJd78JWjiRWt1ZHRiDJ/h8
- fV+CetiDk3baXJKMnajlkikHuobf1y5fVY5C/zgkaygJ8MrS1f6QYfkXK
- SpMDy7wNnipsgrepEnA8KuDjFzKhAfbqxXOEna7kRJwyKZ+tk/2yETxnj
- X3HAoZCDZ/qT6uzNeMTVDah/Qx8MLyD3m3oENWtW6XNniKk+mg1UzkOFH Q==;
-X-CSE-ConnectionGUID: lCs+ISorTwCpKQiiMoZiEg==
-X-CSE-MsgGUID: PbtYYoNJSXWOHs7CcPeE5g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11350"; a="44734927"
-X-IronPort-AV: E=Sophos;i="6.13,301,1732608000"; d="scan'208";a="44734927"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2025 02:08:40 -0800
-X-CSE-ConnectionGUID: UUemawqKTUWXKRiDeorKDQ==
-X-CSE-MsgGUID: hc9L0Du1SByRgSK2VuJbDQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120221268"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO [10.245.244.161])
- ([10.245.244.161])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2025 02:08:36 -0800
-Message-ID: <92c1b182-5a0b-4d13-9b16-172ac970b62e@intel.com>
-Date: Thu, 20 Feb 2025 10:08:33 +0000
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 380BF10E916
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 10:26:22 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-30a28bf1baaso6478001fa.3
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 02:26:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1740047180; x=1740651980; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=O7kUm1v64pAlfTNgHXT9+jQTHsgrWw2Fb+swiiw/lqg=;
+ b=QFgDu+YqKsvTOzBeCsLTKiDd1351qJIwwQ6i5aI65uHxCw66AA8hSEdFZX3AMztrUm
+ a7k3g5dcU9PjNFDGg+smDIEhJ5Q+aZml8CK5BY4Sd1s5EAo5Rx01qcmBzKuZ1m37R/Bu
+ tVMZvfe7ZOQGeyWqBhxHQf7AhlQWcl3tb/26eFXqVJL+vW7+9CvQJLfJsyFPTrJGrwkb
+ +897Lh6Ke0ekthXZECRaBH7kCZrYShITPTdQGgaMUrrIjs4AMrIrv6lUl1K2GFBf5x4n
+ As/aG5YbNi4V+BZISCEFZUCuIPaEoTkjhs/1G4vfpnBL1ei2fOUQHY2kGWsvm7nt3wdI
+ sfHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740047180; x=1740651980;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=O7kUm1v64pAlfTNgHXT9+jQTHsgrWw2Fb+swiiw/lqg=;
+ b=Q2UALams1U80nUZwZC23z9oCkJxts8Kd6LA+RF4S50b5CIR1DFqH+ok89248FNIzmD
+ uviuyqcmBGXM2Lhl6zBS9sEW0CstPnFeEr7q8Mrn0BBnSOUE07t+wApgxBMJH1eB0TPI
+ GMTGXwgp2h+l9rXPoOc6kZ0tD8RlQ+piPRl34vbCZPLlD1WqcxGeON7Gerr3CHzQ64Zk
+ iuNnnxZfD3/PHtwSwJe+EUN7vGiAjXOMfwTVyEgsL/yjpFr1louYj2a9MGgIgMxWxesc
+ 6INHuerzwW3/I8cbso31yoBALEY1v+C1icguQM8PW+O1LjJJKqp8xnBs5scuuvwEwSy7
+ CNsg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUjtz8JpXpm3SNfLPBPDRwcow0AOiqvbT/MzLR3T5IwLb0rAQba8oHcxX/itAP2Fps9+WFoPl6Sg6Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxP8QZYDZRNvBAl8MkjHA6bzYrPPsYterw7cW6WVCuF7h6zJFZ+
+ 9BnDqLgRu+xxuLLCu4vfGGRmKjIJbh8UbUzWju8oSAXfV3B3N9Mv+2dw++VQT3fqTfxteAmRuq2
+ e
+X-Gm-Gg: ASbGncunvVFwIexLOYPs6rGbwTMTHnrQzlPj3v2Zb2Et5mwbeirhRLq9K49ie58yVIy
+ 6BBmS3jif+y1cu+/LGHwpzuZcG4klZPkm0Af7S9skS0VRQKXhcrm8alj95MzV4xM4cfgHipiGju
+ UqnGFH3LQt4LyRoAdDBFKUwDH1bhlmbLQr8AwgM7eRmS1fsnoKQUjo/y1+JIR+1u6q01WQOp2eM
+ pKK8DRN4a2zWsln3KtwyJaS7Rq3kJLhBc7Tf6xuXhoUMaHIdkBWmTLN+A0zupuuu/7RSZQOFg0G
+ h9SPw0JOAItrX9+kBzeeNV8=
+X-Google-Smtp-Source: AGHT+IGlXUzn3hUtO3qI4uZIYQwTOom4ZNCtperoIH7T9iwqU09YHCrm1fmNkZnNsMT0VEKdIAouHg==
+X-Received: by 2002:a05:6512:3d28:b0:545:f90:2753 with SMTP id
+ 2adb3069b0e04-5452fe65418mr6812551e87.30.1740047180139; 
+ Thu, 20 Feb 2025 02:26:20 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-545e939224esm1588052e87.135.2025.02.20.02.26.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Feb 2025 02:26:19 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 0/7] drm/msm/dpu: improve CTL handling on DPU >= 5.0 platforms
+Date: Thu, 20 Feb 2025 12:26:17 +0200
+Message-Id: <20250220-dpu-active-ctl-v1-0-71ca67a564f8@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 23/25] drm/xe: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-References: <20250218142542.438557-1-tzimmermann@suse.de>
- <20250218142542.438557-24-tzimmermann@suse.de>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20250218142542.438557-24-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEkDt2cC/x3MMQqAMAxA0atIZgOxKFSvIg41jRoQlVZFkN7d4
+ viG/1+IElQidMULQW6Num8ZVVkAL26bBdVngyHTkKEW/XGh41NvQT5XJMvsam9Hsg5ydASZ9Pm
+ H/ZDSB7a1VLJgAAAA
+X-Change-ID: 20250209-dpu-active-ctl-08cca4d8b08a
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2280;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=YyvVU2M7joMcm6kj5ecMLcRcuQdUfBOt7Mz2QmcKpMA=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntwNKz077CpwnHsET093pRfGyj2RJD7zbmGJM9
+ MlqG+6ye5SJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7cDSgAKCRCLPIo+Aiko
+ 1XSmCACCpPXkFLHWeGP3ru9CD7CIQa+/GkF+9BR52tm4Fr7Um5rFL3qRex3TPMfI8cBBY/PO+oH
+ lk+HugPCgmD8QAwrqrQJjbyyLtTNhd46sBP50hhpLzQapJHQiUanAb8o6S7yqNXeuP/qSCvoku6
+ atL/fSRrZZ5vpPqZ4s3saodLzO12QfdpBIgOJnNHM1yR22wCA9yZR6K3dqnOfG5hfFsXdCP0P+O
+ 6DCM2YASFcARwe8IDUzeyKAHoKow9QSs71o7sayKDSshDtqUmxfDIxHRnbynaXsniBYLChvZ1+x
+ j1sdyqSsZpkGCqjmtMBbWcV6JiXesfFmNnLe5q2U+wcg+898
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,58 +105,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18/02/2025 14:23, Thomas Zimmermann wrote:
-> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch
-> and buffer size. Align the pitch to a multiple of 8. Align the
-> buffer size according to hardware requirements.
-> 
-> Xe's internal calculation allowed for 64-bit wide buffer sizes, but
-> the ioctl's internal checks always verified against 32-bit wide limits.
-> Hance, it is safe to limit the driver code to 32-bit calculations as
-> well.
-> 
-> v3:
-> - mention 32-bit calculation in commit description (Matthew)
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Since version 5.0 the DPU got an improved way of handling multi-output
+configurations. It is now possible to program all pending changes
+through a single CTL and flush everything at the same time.
 
+Implement corresponding changes in the DPU driver.
 
-> ---
->   drivers/gpu/drm/xe/xe_bo.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 78d09c5ed26d..b34f446ad57d 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -9,6 +9,7 @@
->   #include <linux/nospec.h>
->   
->   #include <drm/drm_drv.h>
-> +#include <drm/drm_dumb_buffers.h>
->   #include <drm/drm_gem_ttm_helper.h>
->   #include <drm/drm_managed.h>
->   #include <drm/ttm/ttm_device.h>
-> @@ -2672,14 +2673,13 @@ int xe_bo_dumb_create(struct drm_file *file_priv,
->   	struct xe_device *xe = to_xe_device(dev);
->   	struct xe_bo *bo;
->   	uint32_t handle;
-> -	int cpp = DIV_ROUND_UP(args->bpp, 8);
->   	int err;
->   	u32 page_size = max_t(u32, PAGE_SIZE,
->   		xe->info.vram_flags & XE_VRAM_FLAGS_NEED64K ? SZ_64K : SZ_4K);
->   
-> -	args->pitch = ALIGN(args->width * cpp, 64);
-> -	args->size = ALIGN(mul_u32_u32(args->pitch, args->height),
-> -			   page_size);
-> +	err = drm_mode_size_dumb(dev, args, SZ_64, page_size);
-> +	if (err)
-> +		return err;
->   
->   	bo = xe_bo_create_user(xe, NULL, NULL, args->size,
->   			       DRM_XE_GEM_CPU_CACHING_WC,
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (7):
+      drm/msm/dpu: don't overwrite CTL_MERGE_3D_ACTIVE register
+      drm/msm/dpu: program master INTF value
+      drm/msm/dpu: pass master interface to CTL configuration
+      drm/msm/dpu: use single CTL if it is the only CTL returned by RM
+      drm/msm/dpu: don't select single flush for active CTL blocks
+      drm/msm/dpu: allocate single CTL for DPU >= 5.0
+      drm/msm/dpu: remove DPU_CTL_SPLIT_DISPLAY from CTL blocks on DPU >= 5.0
+
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h |  5 ++---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h  |  5 ++---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h  |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h  |  5 ++---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h  |  5 ++---
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h    |  5 ++---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h  |  5 ++---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h |  5 ++---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h  |  5 ++---
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h    |  5 ++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c             |  6 +++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c    |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c    |  5 ++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c              | 11 +++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h              |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c                  | 17 +++++++++++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h                  |  2 ++
+ 18 files changed, 59 insertions(+), 39 deletions(-)
+---
+base-commit: ed58d103e6da15a442ff87567898768dc3a66987
+change-id: 20250209-dpu-active-ctl-08cca4d8b08a
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
