@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D053A3D687
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 11:26:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 689AEA3D689
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 11:26:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98A4F10E91A;
-	Thu, 20 Feb 2025 10:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2627410E91F;
+	Thu, 20 Feb 2025 10:26:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CylNF4Ja";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zmUOyMUa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8607610E917
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 10:26:29 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-54605bfcc72so2155153e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 02:26:29 -0800 (PST)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1F8C10E91C
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 10:26:31 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-545316f80beso732349e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 02:26:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740047187; x=1740651987; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1740047190; x=1740651990; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=wJNAJ9S8ZhpIeOStYgLD52jkOeAB/llU9h9KOXd2yuE=;
- b=CylNF4Ja9yZiIUrJYy3FuP7xlE7DXPReX3L2N7byuMTP480IoNCmRC77Mh96HWVdVT
- w5jUhI6nj8BWy/3SSQq3pkdRK2TBqqI/qxevnlhQtbGXJQc3uVKQ/1mYTv3TP9ZK0Wcd
- ZdzsjLo0aBwCnlzXcFlQca/fK4ZHyAD96zLuVEX2uc8fZRoU/0Rue+CuQZAQWwwp4gUT
- fHKoaxr9WcnAlE37RCSynnSjhA+WlAEtwXEQq/cXZX89dhJKdTiLQT5B9wXi4ai98iXT
- eo33vyThVwSCh3jrn0yKRqEu2fBkCqREDkjVV2glSNNTvx9tE797FyW6Yj3rocmoBN2o
- ugmg==
+ :reply-to; bh=ff7ItJ+SnMHnASEHcZ5O+TpGECb0jLJ30NNOzaJgwmg=;
+ b=zmUOyMUasW2cjhhlgx3L3FzYUjxSAlgKteSLQJ6jPTBXExmOXc/ORS5/BT7WyyRiso
+ VuxRuJrLMJ8eipWfI8h4yAGQetGAo2TcvLlED6Q04R7omE3gAVREjtZiUMQhllhqZXcR
+ 7j2ysWtKI8MhhcFuNP57vZJ/lKgtLjLrz4t2lS/tui3m2fc5H8TlJmg429NML0LnRWk+
+ M4+9CvSE6w9ab7pBeLuY+hCnrok5eDFR/55H5emm5PJ9gt54WtvI6rNsU4J3m42FVzmU
+ zvLyloF9aBbLwPaBsD8tsB5NLDP0sfhvmzUD7unLXNpnMofN5uL6LQIzD7lYNwGFfr+B
+ 8pjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740047187; x=1740651987;
+ d=1e100.net; s=20230601; t=1740047190; x=1740651990;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wJNAJ9S8ZhpIeOStYgLD52jkOeAB/llU9h9KOXd2yuE=;
- b=uQBFSHj+e2exPDmgaHac89Qjy4hdKDQprB1tDhg0UlgQAmsdpIrsquNKQ4Nrc8241W
- h0WeLq4zFWUKIVOdHNxN8Xr6bLWYqUnfFULEx0YY4CrUssklMsNVhE4K6/ROnOy3yHkS
- oRoDizmsuqkOMjqS5up14tiXv2SH8jduusaof/851WOD6eyZ/Lu3DFLrbA5F5L0xnQVU
- +tMiNfHyRq8pbSezW24MjDLUPLwodADM7Faryt17oERArBg4SCvW1slNxO+wXgFincIt
- VApqlnvTw4eZIxWavF/48l2JkZ1QfuVVPuQnqN9uqLUwydMUEW4yiq1A+6x/oEqzauzi
- BdaA==
+ bh=ff7ItJ+SnMHnASEHcZ5O+TpGECb0jLJ30NNOzaJgwmg=;
+ b=Eo+mbgK3tTyYp3i0wceJ106y0YtmPLjlPfoZtY08v706NNqyv02R1T56Cy9vZuKzIA
+ Teys4pNtqi5hX33TYESt8Zp2xT/ueCOW0x2zbT+rpt00i8qyIX8gCID1dTijK3OH6M/m
+ AAHVgJX7OInob6QpDsrOPcfdpRzIqRglmshkdDwxdJ17muGL7VS6qvoeWWEwxHsf5E1y
+ +zDw12iHCoinc9XDW/K7/XX0vhpCE/ENWxerwoM+e8aL7G7kV95MxNnubP7emFqAg6oZ
+ CZpF3nsKVyVYlp2hf0hdzKHTicpmq8cHi+gmZIEEqeeOicf7rR19UgZSZVg4zFeua4tB
+ ZZVQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXD47IFWbfySIXp70HYAdx+kod7XizawqVPbRccD4esA4aQi7ocSUnXEsrm4BMffHR7Z0Ow5iYAmvM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywv6faOsMoRCvtvk+PtjYlP+3VVwW648b96Xp/zan6iiXLDIsAd
- L/94pl1amWsPOLK328OFbDbkGnbZgYuyn6Ghg4bljnF34mz3WM8FPHdpmfeeaa2UPr64gqAIjr5
- v
-X-Gm-Gg: ASbGncubhdBXd7Yg+dkmRPuJox7ZLcR8Z0FWNjv3/nrx1gyQ85ptD/kPkrrdUKqoH6h
- zhM9L6hlBxIg109JLqUJRnIa/+Bx8Z8XeowG8SFv0ztPxMGzZdA90/Www0OEp+YLOAUKB7oRK2t
- J6kFJ6BZZ4coNsHfI1drSNsAFuzxOPz3GsvgjPcCECqmi/foZjAHPGEane7X8yARjkS/5DHN/Yd
- YfsxX951t9pJyCAsjEoFTIKG0RbCQND7WjXAZOCjfPxdnzFpbspAIoQK2oOTR85uaYQl/fQbR9I
- i/ZNi8hYZjFuiYHlqF0SIps=
-X-Google-Smtp-Source: AGHT+IF331MiMfKkOmnrNILcorNZpHZK9yLwRpgvYJ7WEviZijKR1lVKHGb4C+1ru/+g/xzWTNOJhg==
-X-Received: by 2002:a05:6512:2399:b0:546:2109:1efb with SMTP id
- 2adb3069b0e04-546e4662c70mr1044724e87.11.1740047187568; 
- Thu, 20 Feb 2025 02:26:27 -0800 (PST)
+ AJvYcCUyEoRNSefn2yQbrKl4YUZ5F53IkYgbI2dmhbwMYEOOLz7CdkFi6OUB68h1E74bXSPg3L/26WL77PI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzfZvTROymgDHy577tlIwiRER1kamlCrxHdUOL1xTuoSM3fV6m
+ G9CD7+E5zIIzIjkM/cFOvfJRXOak3AAlyVaoc3taJI2dDI6fCZIAzjfWidBE3lJkcwtVJRvAbBh
+ R
+X-Gm-Gg: ASbGncsUPBIL672Gr6Gl9Kg2HG30ykloA4DCl8G9cdMpYsG6DDnXA+imkklIZM2hHJV
+ F/dxH8guLg3J+hNRX7kNtrz9uQleri+bOaHUdav13bz/yfNyMaYg/X5aPV4JuGDD5kHKxdnzFFl
+ NwWKpu3sj98Z1HHOoZw+DiMjy0KSfKx6fyMPovbdWTJf2lJfSs4d9OV3oBSJbG1oCtoZi8Q5lr2
+ gDN/GRmC7v72BHIGa6heqjVaNnd2fko6ijX+ZLlBIL7+QhLfBsA3y5pU6fzanLR9yE3pL6k4yIn
+ tFrHmUuQ8jgsnKqEn5G+0P0=
+X-Google-Smtp-Source: AGHT+IHBt9HzRKY8jmkakzOnUvvbEh4NOe+or6nzqbYZMeRyoIBCIJTZbNW9HUfXavUHGy8LrqzxzA==
+X-Received: by 2002:a19:5f1e:0:b0:546:2ea4:8e72 with SMTP id
+ 2adb3069b0e04-5462ea490bamr2874449e87.49.1740047190016; 
+ Thu, 20 Feb 2025 02:26:30 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545e939224esm1588052e87.135.2025.02.20.02.26.25
+ 2adb3069b0e04-545e939224esm1588052e87.135.2025.02.20.02.26.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2025 02:26:26 -0800 (PST)
+ Thu, 20 Feb 2025 02:26:28 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 20 Feb 2025 12:26:20 +0200
-Subject: [PATCH 3/7] drm/msm/dpu: pass master interface to CTL
- configuration
+Date: Thu, 20 Feb 2025 12:26:21 +0200
+Subject: [PATCH 4/7] drm/msm/dpu: use single CTL if it is the only CTL
+ returned by RM
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250220-dpu-active-ctl-v1-3-71ca67a564f8@linaro.org>
+Message-Id: <20250220-dpu-active-ctl-v1-4-71ca67a564f8@linaro.org>
 References: <20250220-dpu-active-ctl-v1-0-71ca67a564f8@linaro.org>
 In-Reply-To: <20250220-dpu-active-ctl-v1-0-71ca67a564f8@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -77,16 +77,16 @@ To: Rob Clark <robdclark@gmail.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1894;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1197;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=/O+unDh5T1VFusnWXWTP7rs8hDxFqzKuCi3hJ4pCKbA=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntwNKBFIT3AwoFKTScXTNMjZQ2C302xc/Ih6ae
- /0vg1jl0m6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7cDSgAKCRCLPIo+Aiko
- 1S44B/wIvkjQwHjwie/PsatFKnwZx+EoYi3i/LW0hl9ylAvK2w6DmmfzL+Bmj4+LW93FtBaWvII
- tP8iTCLrVfaXjq+uWjGpkkQydL4uIwTggZex6YpzVf2VqUBrbJEFDrx8alY+FsZY7qA8WG5yn6p
- gWQo603hoUZhG/GxzpU9Yd5HC/ubu7x33LFa9EplSqI7Dm6UKWyUXeUaz7NDZC9hgu7pNRM2jJb
- Si+E5E2Gln050Ey0XAONMApWO8p+x2JtqMef+yI6aqeJfMhK5rjvaizXgvyGGVGKh7U1GtByGwc
- qp2uKF8QeV0QGDWzBjhDSFAet+8SMpKhy7tBdjtITtGsOYkJ
+ bh=R+chS185SijcfPYYCgAaRcXeK8VYBg1VE8B3d9ZjF0k=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntwNKH5HPpczCu9L/5cp+mmYPkPzXuoJvH2zlI
+ /BJSbMIVtaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7cDSgAKCRCLPIo+Aiko
+ 1U/bB/oDpQQYxShoHXWOQQeQDRt4B7KsbhHYKFXsqWyzLIMbrhA2+AYfan+s3Yq5pdKzRTf3LyU
+ 0hiFB09nCcmi8MDPcXtCiN+eDDJWkISat3ZWao6vEH81ToCIcb5opY0qewxzHsl2BB6ytR4DrrP
+ tZLETlHLLEHNswnxDMFE3oQuVO18wQdNR8OItn7QnvTFV4vRr2OZly04xb6qfeWXVSaIs2TTu/q
+ n038iCfbHa4xGdJ7qeiIybTB2quagcnpfdvPMe4onA/rgYIOlI3BSXZZtpWIhvX1VokAzA1oZX8
+ zg4wRffj7liG//1uxiAL25vyvqYRTEGtI3vPaZmZhoWIYRcb
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -104,41 +104,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Active controls require setup of the master interface. Pass the selected
-interface to CTL configuration.
+On DPU >= 5.0 CTL blocks were reworked in order to support using a
+single CTL for all outputs. In preparation of reworking the RM code to
+return single CTL make sure that dpu_encoder can cope with that.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 2 ++
- 2 files changed, 4 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index e9bbccc44dad8b391cd51daf902307105b2598fc..d1e16da00529de35cf4e205077c4264bdb70de16 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -59,6 +59,8 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
- 		return;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 5172ab4dea995a154cd88d05c3842d7425fc34ce..666a755dc74b41b79fa1bb2878339592478e4333 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1283,7 +1283,11 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 			return;
+ 		}
  
- 	intf_cfg.intf = phys_enc->hw_intf->idx;
-+	if (phys_enc->split_role == ENC_ROLE_MASTER)
-+		intf_cfg.intf_master = phys_enc->hw_intf->idx;
- 	intf_cfg.intf_mode_sel = DPU_CTL_MODE_SEL_CMD;
- 	intf_cfg.stream_sel = cmd_enc->stream_sel;
- 	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index abd6600046cb3a91bf88ca240fd9b9c306b0ea2e..232055473ba55998b79dd2e8c752c129bbffbff4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -298,6 +298,8 @@ static void dpu_encoder_phys_vid_setup_timing_engine(
- 	if (phys_enc->hw_cdm)
- 		intf_cfg.cdm = phys_enc->hw_cdm->idx;
- 	intf_cfg.intf = phys_enc->hw_intf->idx;
-+	if (phys_enc->split_role == ENC_ROLE_MASTER)
-+		intf_cfg.intf_master = phys_enc->hw_intf->idx;
- 	intf_cfg.intf_mode_sel = DPU_CTL_MODE_SEL_VID;
- 	intf_cfg.stream_sel = 0; /* Don't care value for video mode */
- 	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
+-		phys->hw_ctl = i < num_ctl ? to_dpu_hw_ctl(hw_ctl[i]) : NULL;
++		/* Use first (and only) CTL if active CTLs are supported */
++		if (num_ctl == 1)
++			phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[0]);
++		else
++			phys->hw_ctl = i < num_ctl ? to_dpu_hw_ctl(hw_ctl[i]) : NULL;
+ 		if (!phys->hw_ctl) {
+ 			DPU_ERROR_ENC(dpu_enc,
+ 				"no ctl block assigned at idx: %d\n", i);
 
 -- 
 2.39.5
