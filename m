@@ -2,70 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCCEBA3DEDB
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 16:40:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 524D7A3DEF2
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 16:42:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B50B310E161;
-	Thu, 20 Feb 2025 15:40:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA4F10E161;
+	Thu, 20 Feb 2025 15:42:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Zbd/BCJM";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Wd7MR72J";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE7510E1B1
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 15:40:16 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-6f74b78df93so10098757b3.0
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 07:40:16 -0800 (PST)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F01FE10E161
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 15:42:39 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-6f6c90b51c3so9997917b3.2
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 07:42:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740066015; x=1740670815; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1740066159; x=1740670959; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UuoPq2e93XPbKnAaHkR9ErZM40sqwUWhuIwAQ7Wv18c=;
- b=Zbd/BCJM9mpLHPzRCFSG1cBnXbEAcD8NKPRBFzfHmjZWli+QpC6N90YWtK2Qr3Mcxd
- 88zzTGGPOQFCJLUOg7QIVad+jCnrYRM6y9ZsEu5vb09uB4CLgL32uYK7WuwQo+OnI0Q3
- zIW61Zrg+QbHQAh2ULCAo0WFIanRuuwZ3FI4R1j9p/SEhGdhh/CkKtP6k0eF15MqHiXr
- Jlb8MHUNZz3txc88OuHgbpoGAeBdXk3f6/RhzLlFefRKjkKEn9njqRc8X+lxkYYU7rFX
- AnZ6N8y+ou/4Ai8s3kQ+gR+4XbD3ZqF7Nh2q6HfrvG14r7Ubq4MEclfMv23s+hIrZ0jI
- WyKA==
+ bh=5FyY/uqpI1+/qb2X9DvR/LN4Auweuub6T5/j2p07sJM=;
+ b=Wd7MR72Jk/yxbgxYKVsR4GW7BpPBqCHCqO9/M2a85dJ4Xk933k9L9TJaqPVPAsUsho
+ 6EK8OnvbgiZ7jhUQgPsglhGukgfKgQbZauxLYH465vYO4NvC9ahUKJdOSGJH/1/snne7
+ V6v2BI4mVZSxRA0IZ4Doq/Fuwi1wxjAhaDwyFN8omhDmVLA5fK/bdiBCv6w6yrPEAUm5
+ 63na1L/cXLDNTsL+eg9jDL4PqEJVbrGaAUlZkzjB2IbGlyWdLDrm5di97T6fmVVmbQy3
+ 80m7GWIPUbIX/yTwv+ry8hkKGwYaI148yCU0HAoSXH6tFqvFudv67TxaceOBDuydCZtA
+ O+gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740066015; x=1740670815;
+ d=1e100.net; s=20230601; t=1740066159; x=1740670959;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=UuoPq2e93XPbKnAaHkR9ErZM40sqwUWhuIwAQ7Wv18c=;
- b=kTZI1TIothB+4xrcSi91HdkmCpQtvvoV75NO2QY7D5WL6GL+KqAhZ2iHbnIOOJlfFL
- dg5xzpSQ/RSBevFGhAA0ogfHpVrPeg5rdAYs/8Rf5uMGAkTbajhOLgtw+chz9/pjyu48
- NZ3OqBpRR8AshQSBo4S2IB/oSu7mfVB+Z4dPQ06FJcMmtWfnLF32q5qHGDLc0ygtYqT8
- IZUaLCieBpQXnn+bK8Bjd4+ruhs6anuICDyQlaxOcgPFtvLxSYOqGjMTKqy025iEpy3q
- NwJJlTg7kbKH2ve4dLmBUJAfd46jHBoEoPGneL+7XpEYORzHSoNAL45akMj+ziwO3h96
- 7WlQ==
+ bh=5FyY/uqpI1+/qb2X9DvR/LN4Auweuub6T5/j2p07sJM=;
+ b=NWKJiGQT+eFoWIgb/qlH96WkECr0kCrJdmHHnbgSfkimasz3P+nvxBapSNZ0f/UoSz
+ 3gdVhkofNP3WdE4lnm7MWN8BC2jZXxy+5wjoBshneOHETvKiGN6kSSQdl8OwZ1ExIM7h
+ 0W2oemgPQ7HgXFUArIH8o+2DAqB109Od85VLXrMt1B43a1BvdYfLEPtpPT8fwAPXoUdi
+ R+07zHKSD+LsVqu7/tN+p0KGVc4Xmux7XQySqA6sNN4NAXRISV55ojsoixWL8fHp+OEi
+ IgCoH6/oiCKrZ8Ku6rUqZsuvVFdgZL0JUUnZd2rLxa2iVaQ3Vk4Bm+Y1wQvGp2cQXy9n
+ 95rA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXKK7T7DFjomhU8fmvQvunvo+iHCmgWyo+TRUEWyC6XqDxc9ByZSl4KEHkyet2gC1nnqA6oNoJK4ZE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwAvI4DSpRFavcTbfeEHEOKRxcfOq3a1QLuUzqaNTP3juRi7Q/Q
- cCVt2wMVdv8NIUfcOH9pEogb/y/L6oQl2cxbkF/UBFI+Nf+twgtazEUSMJuI/dbJKQMUmVS5GKN
- FcxtB3o2rxfvsDW7I2A/vTOQACKSPQxwdHD/Pgg==
-X-Gm-Gg: ASbGnctOjpSSOYdnjI8bpWNRCcsLr0ei1TomYE+Rlur419ufwLUv26GFPrQwbqTnShB
- SScaKp2YXa4VqmyuRvlrKcyT41R813MMWBskGMvX1l8zKvGhoWr9ZVMUAq0MeVrV9pVrRtlnig+
- 1V
-X-Google-Smtp-Source: AGHT+IHtHZhFj6w8a+w7dVjeZYWKiittrIVs8CqnEw31ZTbZ6uSF2vKph0PXxTGqAHFiH+3dzNT93tQlYHmsEeOEsb4=
-X-Received: by 2002:a05:690c:fcc:b0:6f9:82a8:e5dd with SMTP id
- 00721157ae682-6fba579f34dmr76095757b3.29.1740066013981; Thu, 20 Feb 2025
- 07:40:13 -0800 (PST)
+ AJvYcCXtNJN6dTPFdTJ+v3HEUMN6ZH3Gj7RSKYWXhaMgWg7U37FNhgOLlgJWwj+6EcHLti/qm054jscJ8T4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDZokeGPzQy1pHkbqSoY5QuDLsH+yYg1QfmBt4DLRm5nG5hYvJ
+ 7B2cpSAAmdnr2ENeKAbXEkXMkbaxm4nwlhFM9Cz2RAeBXlJpXxuATllQVr0YF5++hkc7jTzKOEP
+ 6Ij6pfuObnoUDK3JxpzgjhZkN86xbEQAtTmlXIA==
+X-Gm-Gg: ASbGnct1hNDepd2EnXB09VvjpV4/GEX3glC9IsAMy/gXZinDg2uGLa/ICkCGB48uqfL
+ Iu+0tjjsClTq9sj3wl3AJgWNOUz/4xCSj5M+LQB51X6EWlfftwku3IE7BA6tXD8NMExB+yfKWPT
+ 5i
+X-Google-Smtp-Source: AGHT+IEz/BdkBxzruDv1BnRXbsP+TA9e8Vw4LtNbmAaEcBP0MwtZCiysLe/spHraIOiIlseufiQMsXOwHbIUKyc7fcQ=
+X-Received: by 2002:a05:690c:498c:b0:6ee:8363:96d3 with SMTP id
+ 00721157ae682-6fb5831dcddmr207514557b3.27.1740066158995; Thu, 20 Feb 2025
+ 07:42:38 -0800 (PST)
 MIME-Version: 1.0
 References: <20250220-dual-dsi-v2-0-6c0038d5a2ef@linaro.org>
- <20250220-dual-dsi-v2-4-6c0038d5a2ef@linaro.org>
- <grdadzunaabzg5jxpsiasgzbioy24tctlhhyxg6zwdkpv5vjwe@7k2di2myu4k6>
-In-Reply-To: <grdadzunaabzg5jxpsiasgzbioy24tctlhhyxg6zwdkpv5vjwe@7k2di2myu4k6>
+ <20250220-dual-dsi-v2-5-6c0038d5a2ef@linaro.org>
+ <iibq3orsb7uf44luz2he2auox43ki42m2z4nnderyqlhypvfgo@pwqpvua6vuyo>
+In-Reply-To: <iibq3orsb7uf44luz2he2auox43ki42m2z4nnderyqlhypvfgo@pwqpvua6vuyo>
 From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 20 Feb 2025 23:40:03 +0800
-X-Gm-Features: AWEUYZnHnOuixko96mQ2117kijVCx6xdBgICQdXQ3HuBcopAGGxNVlm-TLHVG9A
-Message-ID: <CABymUCMn+USbm21agBZbe=JmV-FzLdVD4s0xgg0CPU=M9jvC9w@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] dt-bindings: display/msm: dsi-controller-main:
- Document dual panel property
+Date: Thu, 20 Feb 2025 23:42:28 +0800
+X-Gm-Features: AWEUYZkhT707fwgCYjUo1mZOa8BNPphgYLuTOs0pu7OSbwGyUxHGJN7uYb0yFbQ
+Message-ID: <CABymUCNajuc8WnWgf2JehFYUY-MqxCYmD=By8nY-JppxYHsyNw@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] drm/msm/dsi: Support DSC for dual panel case
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>, 
@@ -96,77 +95,171 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2025=E5=B9=B42=E6=
-=9C=8820=E6=97=A5=E5=91=A8=E5=9B=9B 18:33=E5=86=99=E9=81=93=EF=BC=9A
+=9C=8820=E6=97=A5=E5=91=A8=E5=9B=9B 18:39=E5=86=99=E9=81=93=EF=BC=9A
 >
-> On Thu, Feb 20, 2025 at 06:07:55PM +0800, Jun Nie wrote:
-> > The DSI interface can be connected to a panel that has a dual DSI chann=
-el,
-> > or to two separate panels, each equipped with a single DSI channel. To
-> > prevent the DSC configuration for the dual panel setup from disrupting =
-the
-> > current configuration of a single panel with a dual DSI channel, add a =
-dual
-> > panel property to support the use of two panels.
+> On Thu, Feb 20, 2025 at 06:07:56PM +0800, Jun Nie wrote:
+> > There is dual DSI case that every DSI link is connected to an independe=
+nt
+> > panel. In this dual panel case, the frame width for DSC on each link sh=
+ould
+> > be halved to support the usage case.
 >
-> Please use the terms from the standard. The "channel" is mostly used for
-> the "Virtual Channel" or the "logical channel".
+> Isn't it the case for the DSI panel utilizing two DSI links?
 
-OK, will use DSI link for all later description.
->
-> Also I don't follow how DSC configuration for a dual panel setup can
-> disrupt current (?) configuration of a single panel.
-
-For the disruption, Marijn mentioned it in the last post.
-https://gitlab.freedesktop.org/drm/msm/-/issues/41#note_2411541
-
+The added case here is 2 DSI panel utilizing two DSI links, 1 DSI link
+in each panel.
+I assume default case is 1 panel with 2 DSI link, such as Marijn's case.
 >
 > >
 > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > > ---
-> >  .../devicetree/bindings/display/msm/dsi-controller-main.yaml      | 8 =
-+++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
+> >  drivers/gpu/drm/msm/dsi/dsi.h         |  3 ++-
+> >  drivers/gpu/drm/msm/dsi/dsi_host.c    | 13 +++++++++----
+> >  drivers/gpu/drm/msm/dsi/dsi_manager.c | 10 ++++++++--
+> >  3 files changed, 19 insertions(+), 7 deletions(-)
 > >
-> > diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controll=
-er-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller=
--main.yaml
-> > index ffbd1dc9470e2091b477b0c88392d81802119f48..e3f2eabde27609a66d6d81f=
-afcb14e1bc014613c 100644
-> > --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main=
-.yaml
-> > +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main=
-.yaml
-> > @@ -88,9 +88,15 @@ properties:
-> >    qcom,dual-dsi-mode:
-> >      type: boolean
-> >      description: |
-> > -      Indicates if the DSI controller is driving a panel which needs
-> > +      Indicates if the DSI controller is driving display device which =
-needs
->
-> Unrelated change
->
-> >        2 DSI links.
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/ds=
+i.h
+> > index 35b90c462f637111159b204269ce908614a21586..5a8978bed9f4ca897b418ce=
+d60194042d9dd8d05 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> > @@ -74,7 +74,8 @@ void msm_dsi_host_enable_irq(struct mipi_dsi_host *ho=
+st);
+> >  void msm_dsi_host_disable_irq(struct mipi_dsi_host *host);
+> >  int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+> >                       struct msm_dsi_phy_shared_timings *phy_shared_tim=
+ings,
+> > -                     bool is_bonded_dsi, struct msm_dsi_phy *phy);
+> > +                     bool is_bonded_dsi, bool is_dual_panel,
+> > +                     struct msm_dsi_phy *phy);
+> >  int msm_dsi_host_power_off(struct mipi_dsi_host *host);
+> >  int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+> >                                 const struct drm_display_mode *mode);
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/d=
+si/dsi_host.c
+> > index 976c5d82a2efa0fc51657b8534675890be7c33a6..752a97f7181c30dade0a774=
+5492bf16649b3197b 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > @@ -902,7 +902,8 @@ static void dsi_update_dsc_timing(struct msm_dsi_ho=
+st *msm_host, bool is_cmd_mod
+> >       }
+> >  }
 > >
-> > +  qcom,dual-panel:
-> > +    type: boolean
-> > +    description: |
-> > +      Indicates if the DSI controller is driving display device that c=
-omposed
-> > +      with 2 independent panels and needs 2 DSI links.
->
-> How is tht different from qcom,dual-dsi-mode?
-
-Your questioning is right. The dual panel case is a subset of
-dual-dsi-mode, not parallel with
-dual-dsi-mode. It is single panel with 2 DSI link by default, and 2
-panel with 1 DSI link in
-each panel if property dual-panel is present.
->
-> > +
-> >    qcom,master-dsi:
-> >      type: boolean
-> >      description: |
+> > -static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bo=
+nded_dsi)
+> > +static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bo=
+nded_dsi,
+> > +                          bool is_dual_panel)
+> >  {
+> >       struct drm_display_mode *mode =3D msm_host->mode;
+> >       u32 hs_start =3D 0, vs_start =3D 0; /* take sync start as 0 */
+> > @@ -947,7 +948,10 @@ static void dsi_timing_setup(struct msm_dsi_host *=
+msm_host, bool is_bonded_dsi)
+> >                       return;
+> >               }
+> >
+> > -             dsc->pic_width =3D mode->hdisplay;
+> > +             if (is_dual_panel)
+> > +                     dsc->pic_width =3D hdisplay;
+> > +             else
+> > +                     dsc->pic_width =3D mode->hdisplay;
+> >               dsc->pic_height =3D mode->vdisplay;
+> >               DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
+> >
+> > @@ -2369,7 +2373,8 @@ static void msm_dsi_sfpb_config(struct msm_dsi_ho=
+st *msm_host, bool enable)
+> >
+> >  int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+> >                       struct msm_dsi_phy_shared_timings *phy_shared_tim=
+ings,
+> > -                     bool is_bonded_dsi, struct msm_dsi_phy *phy)
+> > +                     bool is_bonded_dsi, bool is_dual_panel,
+> > +                     struct msm_dsi_phy *phy)
+> >  {
+> >       struct msm_dsi_host *msm_host =3D to_msm_dsi_host(host);
+> >       const struct msm_dsi_cfg_handler *cfg_hnd =3D msm_host->cfg_hnd;
+> > @@ -2412,7 +2417,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *h=
+ost,
+> >               goto fail_disable_clk;
+> >       }
+> >
+> > -     dsi_timing_setup(msm_host, is_bonded_dsi);
+> > +     dsi_timing_setup(msm_host, is_bonded_dsi, is_dual_panel);
+> >       dsi_sw_reset(msm_host);
+> >       dsi_ctrl_enable(msm_host, phy_shared_timings, phy);
+> >
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/ms=
+m/dsi/dsi_manager.c
+> > index be13bf682a9601484c9c14e8419563f37c2281ee..158b6cc907cb39cc3b182d3=
+088b793d322a3527c 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> > @@ -24,6 +24,7 @@ struct msm_dsi_manager {
+> >       struct msm_dsi *dsi[DSI_MAX];
+> >
+> >       bool is_bonded_dsi;
+> > +     bool is_dual_panel;
+> >       bool is_sync_needed;
+> >       int master_dsi_link_id;
+> >  };
+> > @@ -31,6 +32,7 @@ struct msm_dsi_manager {
+> >  static struct msm_dsi_manager msm_dsim_glb;
+> >
+> >  #define IS_BONDED_DSI()              (msm_dsim_glb.is_bonded_dsi)
+> > +#define IS_DUAL_PANEL()              (msm_dsim_glb.is_dual_panel)
+> >  #define IS_SYNC_NEEDED()     (msm_dsim_glb.is_sync_needed)
+> >  #define IS_MASTER_DSI_LINK(id)       (msm_dsim_glb.master_dsi_link_id =
+=3D=3D id)
+> >
+> > @@ -55,6 +57,7 @@ static int dsi_mgr_parse_of(struct device_node *np, i=
+nt id)
+> >               msm_dsim->is_bonded_dsi =3D of_property_read_bool(np, "qc=
+om,dual-dsi-mode");
+> >
+> >       if (msm_dsim->is_bonded_dsi) {
+> > +             msm_dsim->is_dual_panel =3D of_property_read_bool(np, "qc=
+om,dual-panel");
+> >               if (of_property_read_bool(np, "qcom,master-dsi"))
+> >                       msm_dsim->master_dsi_link_id =3D id;
+> >               if (!msm_dsim->is_sync_needed)
+> > @@ -214,6 +217,7 @@ static int dsi_mgr_bridge_power_on(struct drm_bridg=
+e *bridge)
+> >       struct mipi_dsi_host *host =3D msm_dsi->host;
+> >       struct msm_dsi_phy_shared_timings phy_shared_timings[DSI_MAX];
+> >       bool is_bonded_dsi =3D IS_BONDED_DSI();
+> > +     bool is_dual_panel =3D IS_DUAL_PANEL();
+> >       int ret;
+> >
+> >       DBG("id=3D%d", id);
+> > @@ -222,7 +226,8 @@ static int dsi_mgr_bridge_power_on(struct drm_bridg=
+e *bridge)
+> >       if (ret)
+> >               goto phy_en_fail;
+> >
+> > -     ret =3D msm_dsi_host_power_on(host, &phy_shared_timings[id], is_b=
+onded_dsi, msm_dsi->phy);
+> > +     ret =3D msm_dsi_host_power_on(host, &phy_shared_timings[id],
+> > +                                 is_bonded_dsi, is_dual_panel, msm_dsi=
+->phy);
+> >       if (ret) {
+> >               pr_err("%s: power on host %d failed, %d\n", __func__, id,=
+ ret);
+> >               goto host_on_fail;
+> > @@ -230,7 +235,8 @@ static int dsi_mgr_bridge_power_on(struct drm_bridg=
+e *bridge)
+> >
+> >       if (is_bonded_dsi && msm_dsi1) {
+> >               ret =3D msm_dsi_host_power_on(msm_dsi1->host,
+> > -                             &phy_shared_timings[DSI_1], is_bonded_dsi=
+, msm_dsi1->phy);
+> > +                             &phy_shared_timings[DSI_1], is_bonded_dsi=
+,
+> > +                             is_dual_panel, msm_dsi1->phy);
+> >               if (ret) {
+> >                       pr_err("%s: power on host1 failed, %d\n",
+> >                                                       __func__, ret);
 > >
 > > --
 > > 2.34.1
