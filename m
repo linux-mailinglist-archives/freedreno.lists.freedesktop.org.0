@@ -2,71 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4742A3D030
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 04:59:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F390EA3D034
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 04:59:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE1A910E13F;
-	Thu, 20 Feb 2025 03:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBB4510E8C0;
+	Thu, 20 Feb 2025 03:59:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JsB4E7Rx";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NwFeN16n";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1086810E8BC
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 03:59:37 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-543e47e93a3so605479e87.2
- for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 19:59:36 -0800 (PST)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABC6810E8C0
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 03:59:38 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-3061513d353so4752851fa.2
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2025 19:59:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740023975; x=1740628775; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1740023977; x=1740628777; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=+iQktoZgMXFUuH/VI1uCNDXJ1CPN0nauJB73520LxmY=;
- b=JsB4E7RxWzjk6mQ6PF8zCqefMdjKnNLNPwsirgaBy9a5sdY9Q2Sj+Sk2nuXMuSvViB
- dQxK9bEjUBDdrFCwGtzI6pSinEpkNs0jgc1ukSjncgTQxel8hkJxlcKG4GfhkX/3qv91
- 3S/CG+7tXoqUZqosfbSQlJqUa2tdPCu/ScfEsx4mB4NB1Ixwcay9gyTcCyR+ypgSSEDP
- w0e1dFhrkvHVRupT1yyMCD/WpIUmQE8gODLgU1CVtUPp2mf++zHxqxtP0emfebF7E3fj
- YKDfz9NRNCVypYKkj9D+ECuddpmkmNjfrZh7TsOeX/+2TzPwHH57d6Bk8h68EX3f37ki
- OGDQ==
+ :reply-to; bh=EqbHNmz099kigX0TqynbTHurbS64qX/w1xCegrKBwT4=;
+ b=NwFeN16nEXERwAMmg8IJJRd1nnHY1GUGo6dhHc6iGw4gPTqNo8BQpCPFbcYzGz8ER8
+ Edjp2bOY69+uE2EtIXIGYPjGzRXoD4tUlqjzQvR/rJZNZfKoD/WxqWtaPFQyRwyXaqq9
+ gPfXBeEL0Wd/EF5hbAjPAaHM+fGSJxuFWbCEIbkpuHwOTAn0AdZDsAVMwDZP8h7ah1rL
+ WrS4Y1HNvQYG6OjX3aZD/di2ZP9miScv6rDdUKil+ZzEeFggnfjEzDY9izycsW1Hco5r
+ PiWIFGNh3L0wuy41bSy69gIiymTyUtw9Y2zdApco4ujcoNhqYtnTJr0TvOAto8x1kdLN
+ N+tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740023975; x=1740628775;
+ d=1e100.net; s=20230601; t=1740023977; x=1740628777;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+iQktoZgMXFUuH/VI1uCNDXJ1CPN0nauJB73520LxmY=;
- b=wrmXb8sJ2ulnoIkTTnt2bzpZzT8hIWiBM0OGXFjwfD26EfA/2aioNtKEz1NSl79E3v
- j3gKz13WNB53/JpxkzddusqsMy8y4AsvulSymNUV0pAcKQyN2Twe9Dn2nQjOOVPkX4AI
- LB000rLoO8HUMu7NRuI6cuN2GPYlryMl/DMgcSUFN+oVTII16SJB1HnxMqu02uWSTupP
- AWM6biX3/6Z+tLUq0xjwdrlS5iAYGwsSGiv19K/hCs2Tq+tPuJPjoo4olNy2unSR5ecQ
- wYdbUXNDmAoiJ68hE2a3eMdyMlOJvD7ajJnHySqNCf4XwrmF1AMU5JDzGSbFH9mk5S/l
- /iiw==
+ bh=EqbHNmz099kigX0TqynbTHurbS64qX/w1xCegrKBwT4=;
+ b=ntbp1DabK/FOSkqDw1ISZjXfjijseNiY0sE/q1innJnBuVrV4os24TqK6VbfvWMFz9
+ eYqP+KO+5vdPbxyYEwHXs04Nn6pnL5L335Xvey89mgxKXLEdVJBUjsffhXFMrOQ3u3rH
+ M1RTXl45OhYVZWj53TpjAWUrvHDegUnRQ8pDrKjvTEtEfLfNiZ3EB1d5hCgn4ucRJTNl
+ g5IaVDmk+N9yZNZRD7dQyugSbM7NihftQyPbN8LLUPJitMeDWA6IAwpOnDqaTZejuBmn
+ pJKR8mGY3HEMir4YiO4Ap4T8JiZqpQMnlFGAyDwtCe2VLta/j3122ribewf6cwWR73h7
+ S4Aw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV2wZDC3kMpPFG7iuGkZp4k5IqPte8bHxTMtwvafFyK7bkMwxekBkrDLEEJ1Fb5Y0sUSl05l4LGYp4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yytt9Obp/7QgdJed0ckO5XAvd0BmtTDsBNGqj7YLQDm8HdrOnUh
- KaCuOkmk5yWSbPvA32M1O6v2Ac+PW5x77nsEePdIZvittgjeOqGwutDwKQUE105Hso1vSkQTiBs
- U
-X-Gm-Gg: ASbGnct1ib274Xdgo/0Wadyv6wi5H0CsHQ1E+c6doGCSpO2FTHrwJi99J3Vld73Hl52
- 4W397A/29HeF1sc516n7vfUStE4BHtIB+ajTABv0gzzGNc8XpbhjeLSzsl03Fq5O6fhZXV86t/A
- TCACVmQn2bVfaRGTI5El8gRWmclS+tI4Z41MbtGMHGQKAbO1U4NjmIIV17UhwSzfOV4j3b0GKlL
- hdWBE80YyrYhw5smxaxPj/5mlCejBl/yFWA4ZW+FmNv5qumSYVy6TQryX3VNgotVYBervsk/HRW
- oFwstCKtopsQKTKPg5i5HGI=
-X-Google-Smtp-Source: AGHT+IHw7aa5o4uaJn+nouzG3FdTcLYjCCQsNGddd5XryyAd4X9xtVduXFEX5mFe+RqzhgSoX2paAw==
-X-Received: by 2002:a05:6512:238a:b0:545:2300:924d with SMTP id
- 2adb3069b0e04-5452fe3f69bmr8165563e87.22.1740023975060; 
- Wed, 19 Feb 2025 19:59:35 -0800 (PST)
+ AJvYcCU30x02lVYPjfT42Eg+dtuP7YjHCroo5XCTeaXR6+4idbMp5H5Hn8xa982nlhYfW01hFu/ZP9L0su4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwitgQLhA2DykjGYb+84XjgzDrENwv14eySuezrdlAjGTZCQKMO
+ lCgUAJHFQ/lBAptyEGJKwT0hpCiLxt0N1PwGt5t/HxHjX3yU5LN1vVsCX58iY6gwBnbzLe0mM34
+ t
+X-Gm-Gg: ASbGncvBeH7OB+wvLRdqJXjJtTruJSAsRskTJnxfOOQV/bgQByXGZXRNlRN6kiH5Ir7
+ PlLZMRwSi3lHbb5BdBj3QqAWDJAAPf01vVjVhXty6VDjZFFfN+9GzGf177xXVOfrTRyChxIS41C
+ 5gW0S+ncZfx18ddrhsKoV27/GDXvIEFlCSCNsgvP2wOgiky/nrN7AYAivl0wBhnkV1oJggPz0ID
+ cfqAAeNtg+oqNGvy3topTxPri1VwpCH5Vb7VfRdMMqWG2KFlCZQ8FCO9ee0kYJnUC94EfX18Bee
+ COeWtbl/IGwW6u2aO0CcdGo=
+X-Google-Smtp-Source: AGHT+IHNLX1q/p1F1rq4DyZnm4yuozfzfNUpta652kVpbxvogd3CMY4f1V3qt5Csx5Qszd0Ja2VUvw==
+X-Received: by 2002:a05:6512:110b:b0:545:aaf:13fd with SMTP id
+ 2adb3069b0e04-5452fe76fccmr6884137e87.51.1740023976695; 
+ Wed, 19 Feb 2025 19:59:36 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545225f22ebsm2143909e87.16.2025.02.19.19.59.32
+ 2adb3069b0e04-545225f22ebsm2143909e87.16.2025.02.19.19.59.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2025 19:59:33 -0800 (PST)
+ Wed, 19 Feb 2025 19:59:36 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 20 Feb 2025 05:59:24 +0200
-Subject: [PATCH v2 3/5] drm/msm/dpu: enable CDM_0 for DPUs 1.x - 4.x
+Date: Thu, 20 Feb 2025 05:59:25 +0200
+Subject: [PATCH v2 4/5] drm/msm/dpu: enable CDM_0 for SC8280XP platform
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250220-dpu-add-cdm-v2-3-77f5f0df3d9a@linaro.org>
+Message-Id: <20250220-dpu-add-cdm-v2-4-77f5f0df3d9a@linaro.org>
 References: <20250220-dpu-add-cdm-v2-0-77f5f0df3d9a@linaro.org>
 In-Reply-To: <20250220-dpu-add-cdm-v2-0-77f5f0df3d9a@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -76,16 +76,16 @@ To: Rob Clark <robdclark@gmail.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7366;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=975;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=akDkekVVLzHGn2gQgxyT6iyr6q7HQnLI7MIRAAwIajA=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntqidHdzz2cllGriTVveL83n6zPQSayzkPKmLT
- Gzym3Re3QiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7aonQAKCRCLPIo+Aiko
- 1Zt+CAClEde4yYR1pO+IHb7Op+k5ZVM/BBRba55q7cD5ZwxbefaTOABnp+rGAF1etvxhqaIogmN
- B24Evol5ClsCbzvhG6ixQEVf0QnxrGtsqCSC2ZrPFmjv8590VLiVF1l6SBvsPTInLuWA3GRGg9z
- ohhf/V/jtT1Q6/NpDaLj75PUcIdO7NpSMDio0OctOxK3hydtj16OB1sVIf1RzF3D8tzFuoeK5lJ
- hGdcRmwe7B/Q3tNWDn1ft5axI2i0htG6d2amPNtRXWhRR9E5pcy9GdEw+Fd/1qnrMbatOjrfULp
- 6zzaLaIo2U9wMj6nMkHhHbAHKl1JOXtjs5qqGLtGepFzNqRV
+ bh=ksuGoNCpiLiyemIz0C1goT90Bi/HXDBK3gu4zkBcFe4=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntqidVLBOqKTIOpBvG4db7VXVScNmMMC80vm5o
+ Ax1Q2LayhuJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7aonQAKCRCLPIo+Aiko
+ 1Wt6B/4l0tedtz00rD6xE5Nk2oCfAEA9rif90maR94yeStThnNmOlaypC8JzqTsQwzyfYIDLppP
+ 8Ad965InPWg8vKtWToJBb50m5vxxaubDgD/FQgmQqnFfuFsIzC06Uo2Qy9oTcoyXXPuZbw8YKvi
+ K3VE8dPcvKt/74eD8HOTPHK/u4N5szfXBzG6SvzmYwok1e8rvwd+YVfgta0o9RZGN/sjj8SiXku
+ X8/0zk0CE4KwOPA2Y+s0dzLlE5RBhDGuxMZU3ulsUMoOc/eGdn205hFslC6jxR/QIbBfiY34qJo
+ 9K55rA2S3tsK3K2xjDvxlegOvFKTXSdkAnGCv/toxdPo0Ipm
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -103,149 +103,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable the CDM_0 block on DPU versions 1.x - 4.x as
-documented in the vendor dtsi file.
+Enable CDM on the SC8280XP platform, allowing RGB to YUV conversion for
+the output.
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h | 1 +
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h | 1 +
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h | 1 +
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h  | 1 +
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h  | 1 +
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h   | 1 +
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h   | 1 +
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h   | 1 +
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h   | 1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c           | 7 +++++++
- 10 files changed, 16 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h
-index ab3dfb0b374ead36c7f07b0a77c703fb2c09ff8a..1f32807bb5e5d49b696832c4eab54c05106bfd4b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h
-@@ -190,6 +190,7 @@ const struct dpu_mdss_cfg dpu_msm8937_cfg = {
- 	.mdss_ver = &msm8937_mdss_ver,
- 	.caps = &msm8937_dpu_caps,
- 	.mdp = msm8937_mdp,
-+	.cdm = &dpu_cdm_1_x_4_x,
- 	.ctl_count = ARRAY_SIZE(msm8937_ctl),
- 	.ctl = msm8937_ctl,
- 	.sspp_count = ARRAY_SIZE(msm8937_sspp),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h
-index 6bdaecca676144f9162ab1839d99f3e2e3386dc7..42131959ff22020a83c0ea65d79a56fd57c800f9 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h
-@@ -167,6 +167,7 @@ const struct dpu_mdss_cfg dpu_msm8917_cfg = {
- 	.mdss_ver = &msm8917_mdss_ver,
- 	.caps = &msm8917_dpu_caps,
- 	.mdp = msm8917_mdp,
-+	.cdm = &dpu_cdm_1_x_4_x,
- 	.ctl_count = ARRAY_SIZE(msm8917_ctl),
- 	.ctl = msm8917_ctl,
- 	.sspp_count = ARRAY_SIZE(msm8917_sspp),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h
-index 14f36ea6ad0eb61e87f043437a8cd78bb1bde49c..2b4723a5c67606d68dea905d947cd691bb28eda0 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h
-@@ -198,6 +198,7 @@ const struct dpu_mdss_cfg dpu_msm8953_cfg = {
- 	.mdss_ver = &msm8953_mdss_ver,
- 	.caps = &msm8953_dpu_caps,
- 	.mdp = msm8953_mdp,
-+	.cdm = &dpu_cdm_1_x_4_x,
- 	.ctl_count = ARRAY_SIZE(msm8953_ctl),
- 	.ctl = msm8953_ctl,
- 	.sspp_count = ARRAY_SIZE(msm8953_sspp),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h
-index 491f6f5827d151011dd3f74bef2a4b8bf69591ab..5cf19de71f060818d257f95aa781b91ec201d4e4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h
-@@ -316,6 +316,7 @@ const struct dpu_mdss_cfg dpu_msm8996_cfg = {
- 	.mdss_ver = &msm8996_mdss_ver,
- 	.caps = &msm8996_dpu_caps,
- 	.mdp = msm8996_mdp,
-+	.cdm = &dpu_cdm_1_x_4_x,
- 	.ctl_count = ARRAY_SIZE(msm8996_ctl),
- 	.ctl = msm8996_ctl,
- 	.sspp_count = ARRAY_SIZE(msm8996_sspp),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-index 64c94e919a69804599916404dff59fa4a6ac6cff..746474679ef5b9ce7ef351e2d5434706d6109d33 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-@@ -302,6 +302,7 @@ const struct dpu_mdss_cfg dpu_msm8998_cfg = {
- 	.mdss_ver = &msm8998_mdss_ver,
- 	.caps = &msm8998_dpu_caps,
- 	.mdp = &msm8998_mdp,
-+	.cdm = &dpu_cdm_1_x_4_x,
- 	.ctl_count = ARRAY_SIZE(msm8998_ctl),
- 	.ctl = msm8998_ctl,
- 	.sspp_count = ARRAY_SIZE(msm8998_sspp),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h
-index 424815e7fb7dd858448bd41b5368b729373035f8..4f2f68b07f203a11529f7a680fb87b448305d80a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h
-@@ -269,6 +269,7 @@ const struct dpu_mdss_cfg dpu_sdm660_cfg = {
- 	.mdss_ver = &sdm660_mdss_ver,
- 	.caps = &sdm660_dpu_caps,
- 	.mdp = &sdm660_mdp,
-+	.cdm = &dpu_cdm_1_x_4_x,
- 	.ctl_count = ARRAY_SIZE(sdm660_ctl),
- 	.ctl = sdm660_ctl,
- 	.sspp_count = ARRAY_SIZE(sdm660_sspp),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
-index df01227fc36468f4945c03e767e1409ea4fc0896..c70bef025ac4190347f81d75caf4777786fbeaf7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
-@@ -205,6 +205,7 @@ const struct dpu_mdss_cfg dpu_sdm630_cfg = {
- 	.mdss_ver = &sdm630_mdss_ver,
- 	.caps = &sdm630_dpu_caps,
- 	.mdp = &sdm630_mdp,
-+	.cdm = &dpu_cdm_1_x_4_x,
- 	.ctl_count = ARRAY_SIZE(sdm630_ctl),
- 	.ctl = sdm630_ctl,
- 	.sspp_count = ARRAY_SIZE(sdm630_sspp),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-index 72bd4f7e9e504c771d999dcf6277fceb169cffca..ab7b4822ca630f8258bc9eb52c0b967e9bc34d18 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-@@ -319,6 +319,7 @@ const struct dpu_mdss_cfg dpu_sdm845_cfg = {
- 	.mdss_ver = &sdm845_mdss_ver,
- 	.caps = &sdm845_dpu_caps,
- 	.mdp = &sdm845_mdp,
-+	.cdm = &dpu_cdm_1_x_4_x,
- 	.ctl_count = ARRAY_SIZE(sdm845_ctl),
- 	.ctl = sdm845_ctl,
- 	.sspp_count = ARRAY_SIZE(sdm845_sspp),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
-index daef07924886a529ee30349ae80375a324bbc245..c2fde980fb521d9259a9f1e3bf88cc81f46fdfe8 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
-@@ -132,6 +132,7 @@ const struct dpu_mdss_cfg dpu_sdm670_cfg = {
- 	.mdss_ver = &sdm670_mdss_ver,
- 	.caps = &sdm845_dpu_caps,
- 	.mdp = &sdm670_mdp,
-+	.cdm = &dpu_cdm_1_x_4_x,
- 	.ctl_count = ARRAY_SIZE(sdm845_ctl),
- 	.ctl = sdm845_ctl,
- 	.sspp_count = ARRAY_SIZE(sdm670_sspp),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index ec7f42a334fc688bec468df490c81a89dd3d396d..a6bb46b201e907566e88abce945507d1bab51b3b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -507,6 +507,13 @@ static const struct dpu_dsc_sub_blks dsc_sblk_1 = {
- /*************************************************************
-  * CDM block config
-  *************************************************************/
-+static const struct dpu_cdm_cfg dpu_cdm_1_x_4_x = {
-+	.name = "cdm_0",
-+	.id = CDM_0,
-+	.len = 0x224,
-+	.base = 0x79200,
-+};
-+
- static const struct dpu_cdm_cfg dpu_cdm_5_x = {
- 	.name = "cdm_0",
- 	.id = CDM_0,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+index 0d143e390eca964b1c81f835d0904a2079b0b941..fcee1c3665f88a9defca4fec38dd76d56c97297e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+@@ -435,6 +435,7 @@ const struct dpu_mdss_cfg dpu_sc8280xp_cfg = {
+ 	.mdss_ver = &sc8280xp_mdss_ver,
+ 	.caps = &sc8280xp_dpu_caps,
+ 	.mdp = &sc8280xp_mdp,
++	.cdm = &dpu_cdm_5_x,
+ 	.ctl_count = ARRAY_SIZE(sc8280xp_ctl),
+ 	.ctl = sc8280xp_ctl,
+ 	.sspp_count = ARRAY_SIZE(sc8280xp_sspp),
 
 -- 
 2.39.5
