@@ -2,70 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92952A3E293
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 18:34:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 346A2A3E6FC
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 22:51:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E13B10E4D5;
-	Thu, 20 Feb 2025 17:33:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VQ5kZbJb";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F7C210E082;
+	Thu, 20 Feb 2025 21:51:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
- [209.85.166.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 552CC10E0C7;
- Thu, 20 Feb 2025 17:33:56 +0000 (UTC)
-Received: by mail-io1-f41.google.com with SMTP id
- ca18e2360f4ac-855a1f50a66so32898439f.3; 
- Thu, 20 Feb 2025 09:33:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740072835; x=1740677635; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=gxER21wbdJEn1/DEOATqVDO/xV7ARnH3zJrJ/dHAsbw=;
- b=VQ5kZbJbvYwV/L9uAWcEG+dRWwCH3aEaxlM+sElLWhDxWpGQVj3N5TjSOTPbsEsfUl
- sKaZH3Y/a7ixnSIIASnPYln18I3w/NR220jKaDNSNZVBu6Bb624YcH2RzcLK40yXumAg
- 23ednYFxR9/+MPKwVbfmJBm4uuMy9H68HoqV3S1KPmYxXQRHr0Bn7BUHHBNSO2TtjlPz
- M87RApbEFDzYkq+JKH2gFHU5km5BlsKomZWxgKgIisj744XocxcdPckOKj3hXhPJyuha
- gsJ1ZdFqXKYyk3Dl2pALZ4JR849wRxb8ImOoXlOn8p+NCzstj/wxrC7PHBx9ZyaXZdiW
- s0YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740072835; x=1740677635;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gxER21wbdJEn1/DEOATqVDO/xV7ARnH3zJrJ/dHAsbw=;
- b=EOYbh5sMZ0AnwFOujQvrzK08pheFsXp6jrXUpqgcNAJgUMgFSjBjrpv52JuTBfkxzJ
- JFuINY/dmNeEma+L9h+vFC9WUR5cXefFagj5AGka+D2C3YahoQUEHR0e2r0ZY8Hjo/Tk
- 0bwhKVAly4jyEQnkFWGeg2V7+DUXi+FtTqv3MfR2oo2yZDr6FW8iaIu7Z0AILidmY0BO
- kNN5oFAfRnb6Dq/TeGsfi1jLOWM4+BMD8JmFf9/2O2PeOWOfXofgqI9OjmxGSkSIJXTa
- DS83tUiNxbfHYScId7rC/KwM/bnLcy2Afd4AShCArAqLCjlLIAk9jfUfXccHZrNdIQ3Q
- 0wXw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXBmyqhWM57HdT0NZNzTjqrcFs5HCipi4CiA1FFmgsGRXp7QCpwl+dH8p933BRR6y2FlvzUyI6vrqw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoshtRv0s5P3CgcjOBy61qU7GXF7oKSPixZXaEVzACTF/I3I+E
- v5RZHpczgVTIfIQxevcB2KzFAu1MBQFGDPJw2SVdEacRqRDGI0UVO4P0ngfTcTlPslNp0roNI1C
- 1Pl4HYQdGvYA8wc56/xA+bYRsPfm2BT1N
-X-Gm-Gg: ASbGnctdf7EpUpYhEdVDboy1xtb2qfpwZW62cwPV6ChDqYRkzfzLKBaWciW+M22EKbA
- usitfo/2Lwwa1RGM+RsMDMKXZYHfvuviZk3481eFFYv1+xtJG3WGlou2OnlG2ruIlrxSy3FFQqN
- S0oliN/bAyjr5Rm1QoWlFhdpyvbgwX5yI=
-X-Google-Smtp-Source: AGHT+IFGwYcN/vp7Fh4H9BvR8I/GiwEabeRWmMmgC/fwrMKjTrncLEvk4UQ9VaGd8Qep4/NNGtnRjtWCpYVEKHWNCPo=
-X-Received: by 2002:a05:6e02:3882:b0:3d0:4a82:3f42 with SMTP id
- e9e14a558f8ab-3d2b536ef0amr84272825ab.16.1740072835191; Thu, 20 Feb 2025
- 09:33:55 -0800 (PST)
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6F2710E082
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 21:51:03 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 89B6A3ED61;
+ Thu, 20 Feb 2025 22:50:59 +0100 (CET)
+Date: Thu, 20 Feb 2025 22:50:57 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] drm/msm/dsi: Support DSC for dual panel case
+Message-ID: <cokgqc6qd26caz63lwoyjcfbewbh3zxagjedzy6o6tfkt7wgmp@fz2gquyxcxbu>
+References: <20250220-dual-dsi-v2-0-6c0038d5a2ef@linaro.org>
+ <20250220-dual-dsi-v2-5-6c0038d5a2ef@linaro.org>
+ <iibq3orsb7uf44luz2he2auox43ki42m2z4nnderyqlhypvfgo@pwqpvua6vuyo>
+ <CABymUCNajuc8WnWgf2JehFYUY-MqxCYmD=By8nY-JppxYHsyNw@mail.gmail.com>
+ <m7brftsrxdikfeumbjkubeeleezka7mwjbchxefqgs4ybtca5n@ge3ay2olagq2>
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 20 Feb 2025 09:33:43 -0800
-X-Gm-Features: AWEUYZlqKD1Gyp1C5EfK3AsCtFxqBumbtjfPAP1oJTHymGw-8iTynKVDWs30wtk
-Message-ID: <CAF6AEGtt2AODBXdod8ULXcAygf_qYvwRDVeUVtODx=2jErp6cA@mail.gmail.com>
-Subject: [pull] drm/msm: drm-msm-fixes-2025-02-20 for v6.14-rc4
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <m7brftsrxdikfeumbjkubeeleezka7mwjbchxefqgs4ybtca5n@ge3ay2olagq2>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,92 +62,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+On 2025-02-20 18:06:01, Dmitry Baryshkov wrote:
+> On Thu, Feb 20, 2025 at 11:42:28PM +0800, Jun Nie wrote:
+> > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2025年2月20日周四 18:39写道：
+> > >
+> > > On Thu, Feb 20, 2025 at 06:07:56PM +0800, Jun Nie wrote:
+> > > > There is dual DSI case that every DSI link is connected to an independent
 
-A few fixes for v6.14, as described below.
+There is a dual-DSI case where every DSI link ...
 
-The following changes since commit 866e43b945bf98f8e807dfa45eca92f931f3a032:
+> > > > panel. In this dual panel case, the frame width for DSC on each link should
+> > > > be halved to support the usage case.
 
-  drm/msm: UAPI error reporting (2025-01-03 07:20:28 -0800)
+use* case.  Also, it shouldn't be "halved" just... because?  It should be
+"halved" because apparently hdisplay here is the width of the two panels
+together, while the width coded in pic_width should contain that of a single
+panel (since they're independent), which is equal to the width of a single
+interface.
 
-are available in the Git repository at:
+Tl;dr for below: this needs a *lot* more text to explain the setup and
+possibilities.  How is a DSI panel driver supposed to configure this on their
+end?  Hint: look at my previous drm/msm patches that explain how we expect to
+interface with the parameters set by the panel driver.
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2025-02-20
+> > >
+> > > Isn't it the case for the DSI panel utilizing two DSI links?
+> > 
+> > The added case here is 2 DSI panel utilizing two DSI links, 1 DSI link
+> > in each panel.
+> > I assume default case is 1 panel with 2 DSI link, such as Marijn's case.
+> 
+> So it should be halved in your case, but not in Marijn's case? I can
+> suspect that if you are describing two DSI panels as a single instance,
+> you should also adjust drm_dsc_config accordingly (on the panel's side?)
+> 
+> Maybe drm_dsc_config.pic_width and drm_dsc_config.pic_height should be
+> set on the panel's side? But then, how will that function for the DSI
+> panels or bridges which can change the mode?
 
-for you to fetch changes up to 73f69c6be2a9f22c31c775ec03c6c286bfe12cfa:
+It appears that these patches are missing a proper description of the setup
+or use-case.  I previously NAK'd those "dual DSI" patches because of this, but
+reading between the lines I think I came to understand the reason without anyone
+else explaining it, unfortunately.  Needless to say that this needs very careful
+documentation and wording in both code (DT and/or header structs) and commit
+messages.
 
-  drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when choosing
-bitclk source (2025-02-15 11:46:42 -0800)
+In my case I have a single high-resolution high-refresh-rate panel that can
+simply not be driven over a single DSI link.  A dual-DSI link is used in bonded
+mode, most likely to keep the clocks and other things in sync, and to make it
+easier to be represented by one virtual encoder in DPU?  All control commands
+only need the sent over one DSI link, not over both.
 
-----------------------------------------------------------------
-Fixes for v6.14-rc4
+In this case pic_width is equal to the entire width of the panel, hence it is
+double the width of a single interface.
 
-Display:
-* More catalog fixes:
- - to skip watchdog programming through top block if its not present
- - fix the setting of WB mask to ensure the WB input control is programmed
-   correctly through ping-pong
- - drop lm_pair for sm6150 as that chipset does not have any 3dmerge block
-* Fix the mode validation logic for DP/eDP to account for widebus (2ppc)
-  to allow high clock resolutions
-* Fix to disable dither during encoder disable as otherwise this was
-  causing kms_writeback failure due to resource sharing between
-* WB and DSI paths as DSI uses dither but WB does not
-* Fixes for virtual planes, namely to drop extraneous return and fix
-  uninitialized variables
-* Fix to avoid spill-over of DSC encoder block bits when programming
-  the bits-per-component
-* Fixes in the DSI PHY to protect against concurrent access of
-  PHY_CMN_CLK_CFG regs between clock and display drivers
+Jun seems to have a strangely different use-case for bonded-DSI / dual-DSI that
+isn't explained: two "independent" panels.  It is clear to me that pic_width
+here has to contain the width of the entire panel, and is hence equal to the
+entire width of a single interface.
+(And in the future, it seems the quad setup can drive two "bonded" panels with
+ two DSI-merge's each)
 
-Core/GPU:
-* Fix non-blocking fence wait incorrectly rounding up to 1 jiffy timeout
-* Only print GMU fw version once, instead of each time the GPU resumes
+But what we're missing here is what the **advantages and limitations** are
+of this setup: why would one run two DSI links for "independent" panels in
+bonded-DSI mode?  Is it more power-optimal?  Will userspace see this as one
+panel that's simply twice as wide?  Do these panels have to be "identical"
+so that they behave and are clocked the same?  How is the driver expected to
+prepare the mode and DSC configuration parameters to make this work?
 
-----------------------------------------------------------------
-Abhinav Kumar (1):
-      drm/msm/dp: account for widebus and yuv420 during mode validation
+Perhaps it's possible to scrape this info from [1] and prior commits but I
+rather have a more digestible description in the commit message, thanks.
 
-Dmitry Baryshkov (3):
-      drm/msm/dpu: skip watchdog timer programming through TOP on >= SM8450
-      drm/msm/dpu: enable DPU_WB_INPUT_CTRL for DPU 5.x
-      drm/msm/dpu: correct LM pairing for SM6150
+- Marijn
 
-Ethan Carter Edwards (1):
-      drm/msm/dpu: Fix uninitialized variable
-
-Jessica Zhang (2):
-      drm/msm/dpu: Disable dither in phys encoder cleanup
-      drm/msm/dpu: Drop extraneous return in dpu_crtc_reassign_planes()
-
-Konrad Dybcio (1):
-      drm/msm/a6xx: Only print the GMU firmware version once
-
-Krzysztof Kozlowski (3):
-      drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG0 updated from driver side
-      drm/msm/dsi/phy: Protect PHY_CMN_CLK_CFG1 against clock driver
-      drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when choosing
-bitclk source
-
-Marijn Suijten (1):
-      drm/msm/dpu: Don't leak bits_per_component into random DSC_ENC fields
-
-Rob Clark (1):
-      drm/msm: Avoid rounding up to one jiffy
-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  8 ++--
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  2 +-
- .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h |  2 -
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  2 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  3 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c         |  3 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  7 ++-
- drivers/gpu/drm/msm/dp/dp_display.c                | 11 +++--
- drivers/gpu/drm/msm/dp/dp_drm.c                    |  5 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          | 53 +++++++++++++++-------
- drivers/gpu/drm/msm/msm_drv.h                      | 11 ++---
- .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  | 11 ++++-
- 15 files changed, 75 insertions(+), 49 deletions(-)
+[1]: https://gitlab.com/jun.nie/linux/-/commit/98c0f411a85d68a76be500f8421df467d6cc53f3
