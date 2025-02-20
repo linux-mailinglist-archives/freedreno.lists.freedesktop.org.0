@@ -2,75 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCE52A3D7EE
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 12:14:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F0EA3D7F1
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 12:15:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10C3210E93E;
-	Thu, 20 Feb 2025 11:14:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 821DD10E940;
+	Thu, 20 Feb 2025 11:14:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FgJ+Fqc5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fl5YpyWM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
- [209.85.208.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89DC210E93F
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 11:14:56 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-30930b0b420so6770701fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 03:14:56 -0800 (PST)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13B0810E940
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 11:14:59 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-545fed4642aso898224e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 03:14:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740050095; x=1740654895; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=8LyXwrLGK4GdaCCWLeIZs0AErC/jYbMsOGckx5Nm6AE=;
- b=FgJ+Fqc5f1wuarFixOmBlN9hrj11PHVrW4KDXvBFUAx8hfvhs8edMe5QNh/zwO4tPF
- ibSAqswboT1Z8KIo4oCQqbHP8ZrBpMoMyEgwVw6vAjrZs8GmOILInh+D0PbmBN6h3OWK
- xq2ZRnF0D+AwHzR99UMhFNmnvLvzwnjQReq4DKTrbThAzBC/dbgIfyR/6n7VTuU7Zb8/
- 0x5sAN9Y9brJZZTK8wzFA88NHT3cAXRvu0fqJh1yfLXnykcjTdxbvDBEtMQ53reHOLCo
- 9fkJw9pQj1dq+aT5ePUv8YrKe4h3YOGwjsxdzJML1fe8lB4Db2IqFfmtAR9O7E+RI0qG
- /7/A==
+ d=linaro.org; s=google; t=1740050097; x=1740654897; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=Kmi5qZiZT2PWJkmQW4SIR2YbWKNMaLc2hi9Q1PeeMGU=;
+ b=fl5YpyWM+7e/CVzqpTiBLfSmVSRTeQIHU4d+stqkO7jpG+lXG4keMNjn1Mq329mY3Y
+ dMnfJR2KqRbJfQaKJWZVvIY3BYEx+4xUvwEf5hblcp/MLiSfRhSsYo+9vVvhtQTsryZ8
+ E+4bGA3ka0kKTFsuO3TW0Qh6ABEGMlUD5+GlFKt6UL7XlMsGZRMHOO3wZS33+OoScIP1
+ D5U3I+21mwIy3AfZZKdzAwe7qE49hedPA8S0h3Xgn2AbsUFbhCxFR5heM9/ACK8w1hMR
+ fstQuRCz0OvgKUUb48tdIZCASVAxOqqiqpMKMvdv909zu0K511gex8D0+EC1mFsfPX3V
+ DE4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740050095; x=1740654895;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8LyXwrLGK4GdaCCWLeIZs0AErC/jYbMsOGckx5Nm6AE=;
- b=xS91wEMYk9CXiFIdYTwymwhjAIg+E6UcHyhkd2Em1SN2eKziksBS4epKTFBx2sOXL4
- CbeLk2qzKfQbnK6BTw3OZjzXMPWd5FK15q6H5vhru2sK/fyucWEJOzkJ7hkPJRs3VIRo
- VZI+7KgUQ6EPNkUJHEh5R1j6B6egz4UcH0h1fJFiLM5ni6CvlaKHpOn/4S6z8c5rXGa9
- DdkBzT2Fi8NFbjHx0ITMFe9oQQgEaJa4SgpDnMOb/2qBaz7KJV49TrTnYkARd6C/ptH7
- UxSWzxUDWwUKGGRimMCWFEYQZZ9cCdArTziOiQjNl1rQPQ++SWODqOQMgP2/RAIVibW0
- FVhQ==
+ d=1e100.net; s=20230601; t=1740050097; x=1740654897;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Kmi5qZiZT2PWJkmQW4SIR2YbWKNMaLc2hi9Q1PeeMGU=;
+ b=uuwqrcgYR1fQ5Ur2Twe12VvqSxX5EqOJxIVK7fYTXDWu79npbT6H8BceXSdI+AW6ul
+ CQLkq4u++EvcyxtmA0xM57MheX9h865WTk7xhzIOHw8tgbvyo07mqhmKNEj3C/pCSCaf
+ qGQRZIib3NDIknF3clXYxwUxT8H+plVf6iQAs5mWIG6V9Gc+MK8CipnumzgjpEGLhffG
+ r0U6DBakC9VJ0JFCl5DvqAR0kuRyPBy+7ioGCmdwEO0G3tz0zTfD7X2CD8eyqKoh+1No
+ yxiV7Rh6qMBAr8IZHQiFl2DXFmpq3dk7et+C/E47KRIbCQKhwPprrmnXVqF+z3fD0n3K
+ OJXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVZWqdvMv8Gr35cvmL8EKGXS4KO7vz+e1+2BEP7mT7QID0F8puvLqpCNXFESl7RCujFnbUeVSJ8y7g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz9alyhL+7pxA53v8+D4F0bl06VVI2kLKDApmYAD008qbASlTr7
- mAlSHf0nfwdPoLZNT4x50zPdArNJkTx+rMshigVgBBNn2Y8i1GrbunbtuagW0K0=
-X-Gm-Gg: ASbGnctfD6ND6hwfyzZxbHariqPoosL1ycklYqb94pcFn5/bnEEqlpyj7ZDafbEynfD
- r76lHv/6c2nXt84XSsXXLIXXgHXoqqbkBzEteNzI7Pca+Na0h3XnXbhznIVqVoKoO+/zv6d4oY6
- JmAvEgDiJIhQhbA+C4vIi1IE6Y1WO1+ludror3E4a6nfQjYtbwgABaIIuLGXBxtmqsjVm2yRFFl
- v2pJggFppTwT5AtpiT9EjOeYSAXS+Kt2/Ic0PVhF8UU7poWssLb+Nm6BI/C9ufwOTjR/ayUYA4B
- l+tuTh0dTZWIc8oZRM/Oyas=
-X-Google-Smtp-Source: AGHT+IGG9LP6CikwQQLLPJWH6HucdxpA0EQEAovfivAAnbKN4plM1f13MThC8AcAbBz05v8+AbVAlQ==
-X-Received: by 2002:a05:6512:b1f:b0:542:2e09:639a with SMTP id
- 2adb3069b0e04-5462eeda30fmr2764753e87.10.1740050094711; 
- Thu, 20 Feb 2025 03:14:54 -0800 (PST)
+ AJvYcCVa3ylOck3h8UyDMH/RGHrmbdvP6P71Qu1ISNxsp3TXL32w4IaJa/VR8Iwk+tGTJLBqffdMVeXNMBc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxlmlmlYjIrmHqIf9adhFNrSB4dtStVRB3L+g7urUs4EYaiwGGj
+ kCc4PCyV75PnorgkKelLTuURWSjoo1IrhKR5sRK7W3iRTWjIs8gz3ZATRusRESs=
+X-Gm-Gg: ASbGncusxY9rtOh+4Rg9ymNHBMZb4QWVH+5mOPH9pj9KzkeXL1RQLnGOix5HaaYUsgv
+ PyJMlyYPN7fqUkrOm9yyg1Gtq+1zEyV3rT8AQKs7gDLzp/7fu/ERM3qqUmtZnRvIXsFJCbQzY21
+ F0sTHNwAx6HOk6vRMn6rQF2hAgW/8ttKUgtdRl1PqFBmXBbtqzmxurC4wGf7cJLx2nMzuHc+8Nt
+ XT5fLKzKgQEQVZncy8b9oaZJq7U/iZtfbeEwMXLAM/e754eXYrYENXA/2F5sIUn/Gn5qGLJiuwD
+ uEBC0cnZywDB1pOsTEXDgBQ=
+X-Google-Smtp-Source: AGHT+IEcT8WbQ5vEweEAYBbOtxpJnbkkjGYmd95cHUJt/YZkrsXFT+WC5s2N5eKXQwAqzYTMpYUmmA==
+X-Received: by 2002:a05:6512:3a8f:b0:545:cc2:acd7 with SMTP id
+ 2adb3069b0e04-54724a7b458mr785756e87.27.1740050097280; 
+ Thu, 20 Feb 2025 03:14:57 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545297856c6sm2056164e87.142.2025.02.20.03.14.52
+ 2adb3069b0e04-545297856c6sm2056164e87.142.2025.02.20.03.14.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2025 03:14:53 -0800 (PST)
+ Thu, 20 Feb 2025 03:14:55 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH v2 0/7] drm/msm/mdp4: rework LVDS/LCDC panel support
-Date: Thu, 20 Feb 2025 13:14:42 +0200
-Message-Id: <20250220-fd-mdp4-lvds-v2-0-15afe5578a31@linaro.org>
+Date: Thu, 20 Feb 2025 13:14:43 +0200
+Subject: [PATCH v2 1/7] dt-bindings: display: msm: mdp4: add LCDC clock and
+ PLL source
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKIOt2cC/53OTQqDMBCG4atI1o3kD9t01XsUF6lJzFA1MpFQE
- e/eKPQCXb4fzMNsJDkEl8i92gi6DAniVEJcKtIFM/WOgi1NBBOKSX6l3tLRzooO2SbqyuJvjbd
- ad6SczOg8fE7u2Zb2GEe6BHTmhwjW8IZpJgWvlZRCacqpHWHBtX4ZXFN4x/wYYDIY64j9oQZIS
- 8T1/DGLw/5Lavd9/wJwxaVe8AAAAA==
-X-Change-ID: 20240317-fd-mdp4-lvds-e317f86fd99c
+Message-Id: <20250220-fd-mdp4-lvds-v2-1-15afe5578a31@linaro.org>
+References: <20250220-fd-mdp4-lvds-v2-0-15afe5578a31@linaro.org>
+In-Reply-To: <20250220-fd-mdp4-lvds-v2-0-15afe5578a31@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -84,16 +82,16 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1917;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1242;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=fJB6L5AnL5J+S+1HzyLzt2yON/RIJwdvkGfbsOOWwmk=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntw6qU4dq9Ooc3myWYJP8jGjhialgsGg3QNcOT
- GjxIqpl/luJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7cOqgAKCRCLPIo+Aiko
- 1WvCB/9A/koJ46Wd+4RE/e5z//3JgIwbLhFGDMEWzicgUR4oY1y7WUCLZE+7BLtC/LZR6A+7CSj
- +jdz+l/5AQMthKplWcUa8iLlh8ului3i6ynQi7D59MvEBhM5m4fWYIdATHMY7QDldKsjRyb5swD
- Uoa4bz98CR6wxmVNHhV9mbviGyZUw4KYTiaNJuP4hKLnGb7LMCSQSz0UkzkeTHN/uCMgMY5I68P
- regBLW0wZrjTNFDVWZmyTc+EIud38qQidP+Lh4eb3tFRTNdatHDq0LF3g5LnLWdSZ05n3NVrDF8
- 3WuUEZJUz9xe/Ng30GqmRPVcXRYnIqkz3OGSwYRNttTG9f1x
+ bh=h5+bG7QnOGzKdNB1OGuaSSBt1fw1j+BI9wMBVkvkoFE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntw6rLFo5o/3jAn6PLBBB8PgMmUUthGTk+MMz3
+ InhVdiOND2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7cOqwAKCRCLPIo+Aiko
+ 1T+3B/wIyihaqmkz1M8Ue/9XefuiaGR4R8gc3Nvfhww3ydt5DSX5EZw5UVzMInfEP1xG4CPoA4u
+ hKzVa8HwQouiKCKBbdX5vF79BlHcquloeI5Y8JH6w8VLkE0JCiCm1swqbq2Ak52Hi8zWgVMaZ0N
+ /4iptmF7mzSgUYBc/4uQVWvhGzUVB/MxxldvDVJF/ETZHcAK21P7ej6V9VbrZG2QLDAaP94Gz2t
+ 2WGe08QpbdMkw1qz+JWHeigDBpghXOuipKUNxeWdHH3v2spRexhSKjgHaMVb9113vqi9ss/DvkT
+ EZgReHrtG6NJUbt410Dl9MpFn/PHtEem1Eo7Use0eqzsNWEF
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -111,46 +109,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The LCDC controller uses pixel clock provided by the multimedia clock
-controller (mmcc) instead of using LVDS PHY clock directly. Link LVDS
-clocks properly, taking MMCC into account.
+Add the LCDC / LVDS clock input and the XO used to drive internal LVDS
+PLL to MDP4 controller bindings. The controller also provides LVDS PHY
+PLL, so add optional #clock-cells to the device.
 
-MDP4 uses custom code to handle LVDS panel. It predates handling
-EPROBE_DEFER, it tries to work when the panel device is not available,
-etc. Switch MDP4 LCDC code to use drm_panel_bridge/drm_bridge_connector
-to follow contemporary DRM practices.
-
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Changes in v2:
-- Rebase on top of msm-next.
-- Upgrade LVDS clock code to use clock providers and parent_data
-- Use LVDS clock from the MMCC instead of using LVDS PHY directly
-- Link to v1: https://lore.kernel.org/r/20220616090321.433249-1-dmitry.baryshkov@linaro.org
+ Documentation/devicetree/bindings/display/msm/mdp4.yaml | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
----
-Dmitry Baryshkov (7):
-      dt-bindings: display: msm: mdp4: add LCDC clock and PLL source
-      drm/msm/mdp4: drop mpd4_lvds_pll_init stub
-      drm/msm/mdp4: register the LVDS PLL as a clock provider
-      drm/msm/mdp4: use parent_data for LVDS PLL
-      drm/msm/mdp4: move move_valid callback to lcdc_encoder
-      drm/msm/mdp4: switch LVDS to use drm_bridge/_connector
-      arm: dts: qcom: apq8064: link LVDS clocks
+diff --git a/Documentation/devicetree/bindings/display/msm/mdp4.yaml b/Documentation/devicetree/bindings/display/msm/mdp4.yaml
+index 35204a2875795e2c1f7582c8fab227f8a9107ed9..03ee09faa335f332259b64a42eefa3ec199b8e03 100644
+--- a/Documentation/devicetree/bindings/display/msm/mdp4.yaml
++++ b/Documentation/devicetree/bindings/display/msm/mdp4.yaml
+@@ -18,9 +18,10 @@ properties:
+ 
+   clocks:
+     minItems: 6
+-    maxItems: 6
++    maxItems: 8
+ 
+   clock-names:
++    minItems: 6
+     items:
+       - const: core_clk
+       - const: iface_clk
+@@ -28,6 +29,12 @@ properties:
+       - const: lut_clk
+       - const: hdmi_clk
+       - const: tv_clk
++      - const: lcdc_clk
++      - const: pxo
++        description: XO used to drive the internal LVDS PLL
++
++  '#clock-cells':
++    const: 0
+ 
+   reg:
+     maxItems: 1
 
- .../devicetree/bindings/display/msm/mdp4.yaml      |   9 +-
- arch/arm/boot/dts/qcom/qcom-apq8064.dtsi           |  16 ++-
- drivers/gpu/drm/msm/Makefile                       |   1 -
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c           |  34 ++++--
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h           |  16 +--
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c  |  55 +++++-----
- .../gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c    | 121 ---------------------
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c      |  28 ++---
- 8 files changed, 86 insertions(+), 194 deletions(-)
----
-base-commit: 402fdf7dbdc47d0186c4ad4fb1467a05f017bc0f
-change-id: 20240317-fd-mdp4-lvds-e317f86fd99c
-
-Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.5
 
