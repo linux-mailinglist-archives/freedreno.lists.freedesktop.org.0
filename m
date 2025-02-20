@@ -2,75 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4A77A3D67D
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 11:26:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3AD4A3D67F
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2025 11:26:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E41210E918;
-	Thu, 20 Feb 2025 10:26:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9254210E919;
+	Thu, 20 Feb 2025 10:26:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QFgDu+Yq";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IwTxxxq0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 380BF10E916
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 10:26:22 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-30a28bf1baaso6478001fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 02:26:22 -0800 (PST)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9B9C10E919
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 10:26:24 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-5452e6f2999so804347e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 02:26:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740047180; x=1740651980; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=O7kUm1v64pAlfTNgHXT9+jQTHsgrWw2Fb+swiiw/lqg=;
- b=QFgDu+YqKsvTOzBeCsLTKiDd1351qJIwwQ6i5aI65uHxCw66AA8hSEdFZX3AMztrUm
- a7k3g5dcU9PjNFDGg+smDIEhJ5Q+aZml8CK5BY4Sd1s5EAo5Rx01qcmBzKuZ1m37R/Bu
- tVMZvfe7ZOQGeyWqBhxHQf7AhlQWcl3tb/26eFXqVJL+vW7+9CvQJLfJsyFPTrJGrwkb
- +897Lh6Ke0ekthXZECRaBH7kCZrYShITPTdQGgaMUrrIjs4AMrIrv6lUl1K2GFBf5x4n
- As/aG5YbNi4V+BZISCEFZUCuIPaEoTkjhs/1G4vfpnBL1ei2fOUQHY2kGWsvm7nt3wdI
- sfHw==
+ d=linaro.org; s=google; t=1740047183; x=1740651983; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=BHG5/92JHG16RLprBRzXgLa8hI+3p50zsk7zJC6YSjI=;
+ b=IwTxxxq00dZFzA4PUcfrceo2TjGueC3RyOOPrbY/BUnDYO9uwoVjo9wDbmU6uLi3Hc
+ kjcFOIBYou6QPemHJiG+iiW//4+1DhdTUn2RSacKzZq/mM/EuFHVZlWsMlPFHyn5A7yx
+ KROcsGEecotGivrNHZKlTBTk+w5CrKmaXdEYU21udsGxLcSPR4VTIp5WXaEYYoxmrm1Z
+ S3lRMEkWr7FMvX3/52g5bnMb5q9opE9Z29C1lyCOd4IUI268AKjXdHElZy1tuISmd+zI
+ WcRracLYuLtARr1R6ZHmberx0gJXPMnyH9GuyfajSwTbPqQx45JpSMNvl9RqbbUKBlTQ
+ 238g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740047180; x=1740651980;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=O7kUm1v64pAlfTNgHXT9+jQTHsgrWw2Fb+swiiw/lqg=;
- b=Q2UALams1U80nUZwZC23z9oCkJxts8Kd6LA+RF4S50b5CIR1DFqH+ok89248FNIzmD
- uviuyqcmBGXM2Lhl6zBS9sEW0CstPnFeEr7q8Mrn0BBnSOUE07t+wApgxBMJH1eB0TPI
- GMTGXwgp2h+l9rXPoOc6kZ0tD8RlQ+piPRl34vbCZPLlD1WqcxGeON7Gerr3CHzQ64Zk
- iuNnnxZfD3/PHtwSwJe+EUN7vGiAjXOMfwTVyEgsL/yjpFr1louYj2a9MGgIgMxWxesc
- 6INHuerzwW3/I8cbso31yoBALEY1v+C1icguQM8PW+O1LjJJKqp8xnBs5scuuvwEwSy7
- CNsg==
+ d=1e100.net; s=20230601; t=1740047183; x=1740651983;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BHG5/92JHG16RLprBRzXgLa8hI+3p50zsk7zJC6YSjI=;
+ b=FTe+v/pSiZ5n9tz5lHeqTTuZVNqfdtPWt/2U9fHxGBp73UhccrV5H3d+MfJtAuTaVt
+ wqVjyb+ZoQrXH5ODCf2l951BdKmPgkPdAnXvZt7Q7g9MLy/9HhzC7CC4odx2KAGZoyzk
+ 6hymH9qQAkRgKF0k9/DTyMOFVsINTt3MbK/Xbqrj4VC8k1+f5HVkmTMZBFdX7p3I4h8v
+ wy6ptvPzvENXvDxQCT4VI6gbi2wAaBUx8+QBGMhV0H5oR1eJVwWLCl0vrvNaODWoAGka
+ FBvcjIEs/9aWC6ui5L5aAGuVuJx/EgYAKMLz52Lv/zGnycZgCP32aH3x4+eNugj8KKl7
+ syXw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUjtz8JpXpm3SNfLPBPDRwcow0AOiqvbT/MzLR3T5IwLb0rAQba8oHcxX/itAP2Fps9+WFoPl6Sg6Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxP8QZYDZRNvBAl8MkjHA6bzYrPPsYterw7cW6WVCuF7h6zJFZ+
- 9BnDqLgRu+xxuLLCu4vfGGRmKjIJbh8UbUzWju8oSAXfV3B3N9Mv+2dw++VQT3fqTfxteAmRuq2
- e
-X-Gm-Gg: ASbGncunvVFwIexLOYPs6rGbwTMTHnrQzlPj3v2Zb2Et5mwbeirhRLq9K49ie58yVIy
- 6BBmS3jif+y1cu+/LGHwpzuZcG4klZPkm0Af7S9skS0VRQKXhcrm8alj95MzV4xM4cfgHipiGju
- UqnGFH3LQt4LyRoAdDBFKUwDH1bhlmbLQr8AwgM7eRmS1fsnoKQUjo/y1+JIR+1u6q01WQOp2eM
- pKK8DRN4a2zWsln3KtwyJaS7Rq3kJLhBc7Tf6xuXhoUMaHIdkBWmTLN+A0zupuuu/7RSZQOFg0G
- h9SPw0JOAItrX9+kBzeeNV8=
-X-Google-Smtp-Source: AGHT+IGlXUzn3hUtO3qI4uZIYQwTOom4ZNCtperoIH7T9iwqU09YHCrm1fmNkZnNsMT0VEKdIAouHg==
-X-Received: by 2002:a05:6512:3d28:b0:545:f90:2753 with SMTP id
- 2adb3069b0e04-5452fe65418mr6812551e87.30.1740047180139; 
- Thu, 20 Feb 2025 02:26:20 -0800 (PST)
+ AJvYcCWDMUQSjbPSFwtICrP709gtKg32di1mRkwldG1jnlD9C2snairzwqhXpKtnNT5kY+IDDGJLCDzfmrQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxbMH8jNrHYwEUmEnShpQweVxLxY03eR8jQrRdJvwST//QN5JmE
+ IisAPDFtijxga4+uGo9F9s/oFLH0oGLCo1s1osbMruy6w1FldiM7GxbHZE+y7NCWsdgMBD1eapA
+ 2
+X-Gm-Gg: ASbGncvfQcJ9r9fb6o74sml4daqzeW9BsJS5qvKFqWJkIMUSqnKEhlxKkn1SRUXrajM
+ HKwEwBMHb3kTNtChzspWtyyWwDQN1Gg+LcQ2kes8HA7vJp5MCfkJldH3qJ+c9uANApDJWOAJSXc
+ Sx+YfIaMFP6UJOB4Pl8Up/Xro4wsA5QZp4uJqYRP7nLn1LtYp28u1Xh/R2m8AR4lWTUJUXUX53e
+ +fts0h1peCQ11zvwUs3lxw//vlaQRpHyxXOi62GwSnL0JICuu2uia7kXZTW1emncbCAfj0gwwHN
+ vGKNhEltBOzHQms72KRCqw8=
+X-Google-Smtp-Source: AGHT+IHoB8cGAPCGqCy5Ys3Z/ClpL2nQWVmYQHHBfQ6tZBAycg+fN9nJybcNHcZmN/tcLAhsEfwZzQ==
+X-Received: by 2002:a05:6512:308d:b0:545:2f09:a3fc with SMTP id
+ 2adb3069b0e04-5452fe26402mr9020270e87.3.1740047182645; 
+ Thu, 20 Feb 2025 02:26:22 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545e939224esm1588052e87.135.2025.02.20.02.26.19
+ 2adb3069b0e04-545e939224esm1588052e87.135.2025.02.20.02.26.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2025 02:26:19 -0800 (PST)
+ Thu, 20 Feb 2025 02:26:21 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH 0/7] drm/msm/dpu: improve CTL handling on DPU >= 5.0 platforms
-Date: Thu, 20 Feb 2025 12:26:17 +0200
-Message-Id: <20250220-dpu-active-ctl-v1-0-71ca67a564f8@linaro.org>
+Date: Thu, 20 Feb 2025 12:26:18 +0200
+Subject: [PATCH 1/7] drm/msm/dpu: don't overwrite CTL_MERGE_3D_ACTIVE register
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEkDt2cC/x3MMQqAMAxA0atIZgOxKFSvIg41jRoQlVZFkN7d4
- viG/1+IElQidMULQW6Num8ZVVkAL26bBdVngyHTkKEW/XGh41NvQT5XJMvsam9Hsg5ydASZ9Pm
- H/ZDSB7a1VLJgAAAA
-X-Change-ID: 20250209-dpu-active-ctl-08cca4d8b08a
+Message-Id: <20250220-dpu-active-ctl-v1-1-71ca67a564f8@linaro.org>
+References: <20250220-dpu-active-ctl-v1-0-71ca67a564f8@linaro.org>
+In-Reply-To: <20250220-dpu-active-ctl-v1-0-71ca67a564f8@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -78,16 +76,16 @@ To: Rob Clark <robdclark@gmail.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2280;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2119;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=YyvVU2M7joMcm6kj5ecMLcRcuQdUfBOt7Mz2QmcKpMA=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntwNKz077CpwnHsET093pRfGyj2RJD7zbmGJM9
- MlqG+6ye5SJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7cDSgAKCRCLPIo+Aiko
- 1XSmCACCpPXkFLHWeGP3ru9CD7CIQa+/GkF+9BR52tm4Fr7Um5rFL3qRex3TPMfI8cBBY/PO+oH
- lk+HugPCgmD8QAwrqrQJjbyyLtTNhd46sBP50hhpLzQapJHQiUanAb8o6S7yqNXeuP/qSCvoku6
- atL/fSRrZZ5vpPqZ4s3saodLzO12QfdpBIgOJnNHM1yR22wCA9yZR6K3dqnOfG5hfFsXdCP0P+O
- 6DCM2YASFcARwe8IDUzeyKAHoKow9QSs71o7sayKDSshDtqUmxfDIxHRnbynaXsniBYLChvZ1+x
- j1sdyqSsZpkGCqjmtMBbWcV6JiXesfFmNnLe5q2U+wcg+898
+ bh=w10ZfN4br6Ap7llW/HC7sm0zGLP894PWSldkoISRy7I=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBntwNKGB2SRGw4F+CCKnh3jnyyk4Z50hcLkYJZL
+ WDHvV06OyuJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7cDSgAKCRCLPIo+Aiko
+ 1dz1B/9E+EDZuiyFKbu+SOvzfZfWbAo0fN+Z7dtd6euH0aZu3Xj0jlLMVWKP5Gp98xq1o+/fBQw
+ mSvUCdUuEsf4Dx1B8IDw0NCpJq0SpYCgZFjQo7jy3jNGrM0s2dYkT/+ZDRzQQtIu34oiYi0AFLK
+ lvPc8qzUidfSVyfB/LarXGTT/HPKmqn7uFjrDVOqFJeQLV8PNLTjQbjNp+Mc17t3dYlv+hXXnSU
+ mj30TPmuI6n0Y0GFklZBoHHtNHaUZVJXsRHm1q2V8emUk6Y+8cnCQ+PO3xm1qSb7PNSl8Wi0ZIM
+ CXxZrghI2QOhgosSlmSjvUD2JTpAKq91N3VTX1O6/N/HZIfC
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -105,47 +103,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since version 5.0 the DPU got an improved way of handling multi-output
-configurations. It is now possible to program all pending changes
-through a single CTL and flush everything at the same time.
-
-Implement corresponding changes in the DPU driver.
+In case of complex pipelines (e.g. the forthcoming quad-pipe) the DPU
+might use more that one MERGE_3D block for a single output.  Follow the
+pattern and extend the CTL_MERGE_3D_ACTIVE active register instead of
+simply writing new value there. Currently at most one MERGE_3D block is
+being used, so this has no impact on existing targets.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Dmitry Baryshkov (7):
-      drm/msm/dpu: don't overwrite CTL_MERGE_3D_ACTIVE register
-      drm/msm/dpu: program master INTF value
-      drm/msm/dpu: pass master interface to CTL configuration
-      drm/msm/dpu: use single CTL if it is the only CTL returned by RM
-      drm/msm/dpu: don't select single flush for active CTL blocks
-      drm/msm/dpu: allocate single CTL for DPU >= 5.0
-      drm/msm/dpu: remove DPU_CTL_SPLIT_DISPLAY from CTL blocks on DPU >= 5.0
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h |  5 ++---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h  |  5 ++---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h |  4 ++--
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h  |  4 ++--
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h  |  5 ++---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h  |  5 ++---
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h    |  5 ++---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h  |  5 ++---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h |  5 ++---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h  |  5 ++---
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h    |  5 ++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c             |  6 +++++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c    |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c    |  5 ++++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c              | 11 +++++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h              |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c                  | 17 +++++++++++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h                  |  2 ++
- 18 files changed, 59 insertions(+), 39 deletions(-)
----
-base-commit: ed58d103e6da15a442ff87567898768dc3a66987
-change-id: 20250209-dpu-active-ctl-08cca4d8b08a
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+index 4893f10d6a5832521808c0f4d8b231c356dbdc41..321a89e6400d2824ebda2c08be5e6943cb0f6b11 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+@@ -548,6 +548,7 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+ 	u32 dsc_active = 0;
+ 	u32 wb_active = 0;
+ 	u32 mode_sel = 0;
++	u32 merge_3d_active = 0;
+ 
+ 	/* CTL_TOP[31:28] carries group_id to collate CTL paths
+ 	 * per VM. Explicitly disable it until VM support is
+@@ -562,6 +563,7 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+ 	intf_active = DPU_REG_READ(c, CTL_INTF_ACTIVE);
+ 	wb_active = DPU_REG_READ(c, CTL_WB_ACTIVE);
+ 	dsc_active = DPU_REG_READ(c, CTL_DSC_ACTIVE);
++	merge_3d_active = DPU_REG_READ(c, CTL_MERGE_3D_ACTIVE);
+ 
+ 	if (cfg->intf)
+ 		intf_active |= BIT(cfg->intf - INTF_0);
+@@ -572,14 +574,16 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+ 	if (cfg->dsc)
+ 		dsc_active |= cfg->dsc;
+ 
++	if (cfg->merge_3d)
++		merge_3d_active |= BIT(cfg->merge_3d - MERGE_3D_0);
++
+ 	DPU_REG_WRITE(c, CTL_TOP, mode_sel);
+ 	DPU_REG_WRITE(c, CTL_INTF_ACTIVE, intf_active);
+ 	DPU_REG_WRITE(c, CTL_WB_ACTIVE, wb_active);
+ 	DPU_REG_WRITE(c, CTL_DSC_ACTIVE, dsc_active);
+ 
+ 	if (cfg->merge_3d)
+-		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
+-			      BIT(cfg->merge_3d - MERGE_3D_0));
++		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE, merge_3d_active);
+ 
+ 	if (cfg->cdm)
+ 		DPU_REG_WRITE(c, CTL_CDM_ACTIVE, cfg->cdm);
 
-Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.5
 
