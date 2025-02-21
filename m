@@ -2,76 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEF5BA3F255
-	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 11:43:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC7AA3F2C2
+	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 12:14:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC28B10E275;
-	Fri, 21 Feb 2025 10:43:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBF1010E2CD;
+	Fri, 21 Feb 2025 11:14:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="x2bO4bGn";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bDqYs7BL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E08B110E275
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 10:43:23 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-ab7d8953b48so28500366b.2
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 02:43:23 -0800 (PST)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD6B510EA4E
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 11:14:48 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-5dbf7d45853so316110a12.1
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 03:14:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740134602; x=1740739402; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1740136487; x=1740741287; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
+ :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=W9nDvBHgnq2Y1NVf5ENVQRjZ2yktIiYk3KFxT6GMAUs=;
- b=x2bO4bGnTwcMKR0ysLuUCqcIYd/56wVSvEGVGXe/lGNuE24nnIvSn/vswOnEJSvExw
- tBvDd4zpBuj+YKJxgcFe7QpplrCA8qmuTkzSGOddjSpry8WLJ29wf5F/m0PlEtBJHlwx
- aUzdJ8MtQyFIsd1g6CaHOP6GOAyYqwPN1JdgaUZNuSgURucasq+47qUt026mfO2hXtfa
- ISdlmftoPXcJwP7XAWfT5tnjn0j3zD4zRhdQhW/n94pzAfhjCKi3Bozl6fTiIrrGbeES
- Ntu9NNUTGL0jr3YyO62X10v0wdBEfD022+5BG1NZ9W1a321KNCog0zSWDDEcAAB+hU0f
- dOeQ==
+ bh=ovhPZM4lamF/N7gru3ZKZte0ZyqiKzSMS3HZ49d1xIk=;
+ b=bDqYs7BLYRcbobQaF8nffNvZ5Rf5hPEnfTspIcW1JSPdMgRtr9F4h4GI1QuLJqc7LY
+ M7WG02ZuTqM3RftgJ315htsZAmNXl9t7IlU3k2wgfXcdo+GPMh/JwSq0WFJCSdv+29kR
+ 5jVxf/PveFNDrIUmAbd+HkT00r/H9yfFJLVJbTXV/pYjZmX4b0aiWlhUXrZk1CBljTup
+ Gshq5Cbp+vCiCJyVkHa50I2aQXSpBV3xcsY9P0Xit8yP5P8L2X16YHCOyx2hjV0ftenr
+ nMscGadVjlEkcHdc5K0C+/1Jl1taOjMrCk66K5fe3J1diKF5I8FoSb18VeJWX5ex7umA
+ RrMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740134602; x=1740739402;
+ d=1e100.net; s=20230601; t=1740136487; x=1740741287;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
+ :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=W9nDvBHgnq2Y1NVf5ENVQRjZ2yktIiYk3KFxT6GMAUs=;
- b=Cp6uE8gExS5QSk+w8DencekNb6m89v6Xf9s9d4CLhRV9b3EAUQi/t2q9mZaBgSmhH7
- Tn4zJ4RiJmytDBxE/Nh2rqJ56PHRe2Uotbxtgs2LbyOk1pSEpb9/EjRhOklbxY3NCYev
- kyV5+lNfdnpXLWj3W3K3FIdEZgLTPeT98V7KI9hHc6CahbQqaMuRv74MagzJXIbK0j0A
- J9XwE7XgnngZdM5uJ+RU7GDaO1Em06VbeoHH29bx8OrZ32Tg6mQMPo0UTyzvGTxCtELK
- GaRjvjRSiYMrnKWd7lY+AU1hFQl+xX5GeunqSDfMMLvLEcT4pjctSC4D+J+LOPzsEpfi
- q01w==
+ bh=ovhPZM4lamF/N7gru3ZKZte0ZyqiKzSMS3HZ49d1xIk=;
+ b=TYt7cvJkf54H9SBECuwOR/JOyk+FkEzIg/gIHVd2Ncm74oiLIFvodahUYnKMvs+F8y
+ yyeDMrYro6t++fTCI+h9VOV0baTahFAttMStguo4/HA1QRb4uwFpuOn+mFBCxJ+h5M68
+ lIgXaRQn1ohkruqh2ADFvHWjgkvkHxIBuMtCtVT4nOCs86Sx4ehCniwdmQY7BtCyUIsF
+ 8VOL4QF4pvBD8mHgV0gnhPQHjqlSH02eJVXRqeQrh0v5L4nt4wj7zU4H04DPefKphwls
+ rRxFG8Cl+CzI/iyspXr8X6YlJBYB2oeyRvp848Kue+EAPq/IoQBEYJXMPRHKWBAddg5k
+ YDuA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWMmkZVuTh13wCecpOBh6i7hbvSWvv/hMoknYfY6F4E3c6oB3ayxInkGgA5c6cqNWbvl6cuuVTFYyc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyBxKnimcZJX1fdU6rNFg0fqkma6gfx6baTvh0FgEZI5Chy1nkh
- qEZrxtvFw0y13qzoEsX7iCCMoak3n51shcie4COd2wjvaCcmbMwn6Pb+6tbWR+s=
-X-Gm-Gg: ASbGncu1GFylO2ciCEgl6VAYv5l3SvxXvY1FfpKrdLdd35GqWrhRMpTkuW31LIA1dv2
- s/kMKfTYQOzP1U5h1ldLm6U0u61Otgwye4Pz4IgPR5iW3F5nxjgiHEzp8F9zTcPkRTPVdEDoWhi
- j891/NwhuprplF1xjhT1Iit9TO4a4rxR3z++mimd38ZQ7FSqDcXbCupl/JwfftMNibBxWO1Cefo
- MKaW8esKwWGDd9JyfGBnO1Dg6OVtnNsjUkLY4sOJdflvcKLBRrmpAQouVlRDF1QXYb7s9XUkqR9
- D660dfEpuIMuquXg9/lK3z0Rcv63WK0Qqdn6zDJlcqIH2JW7p3uIaDwIu/5EUwGMmxVhvedLS+f
- WpiP2
-X-Google-Smtp-Source: AGHT+IFJ61t1Ztkvz7Fj0diXrn9EhDeYjqCaFDp2KZ4iJ3snoJlNHALHHuaGmotnRpz7Yh9bL0nhQQ==
-X-Received: by 2002:a17:906:4fd0:b0:aae:e684:cc75 with SMTP id
- a640c23a62f3a-abc09e5e43emr101017566b.13.1740134602287; 
- Fri, 21 Feb 2025 02:43:22 -0800 (PST)
+ AJvYcCXXKL6Hfrq2EE2JNtHfSIoeW4zkC7pelSB0x9aBdkv3BNg6YwZAbIH95+z3NRQK80uFkJkCP9qXDWw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz5P9ibCazsVEJjZLUmCG/01hseReTvghW4o4g4K87M1UZKjQOO
+ Wx5JXbeF1Uvyy+MMLDG13oZmBYxPOXFtch1zY4bSodH+VzliVjrRiddeWk15Ytw=
+X-Gm-Gg: ASbGncsjxFSyAHHQ3RD8QT0bJAC2SYzp6JGgmG+BBd20qW7noQuhOIUPTiKQvj2vR+u
+ qkyft0ZPxjOCGKV7exSlgDmUlodhhOQDgI+IYr9qC9tRLrMpGIWBpz7gFtjMM3TQTa4TUR+4Fuo
+ l9h2/MwlwgdAWrjZKpKzxA2kqbb990D26MJapCGJluYKJzcNSfx1Gkhb+2bZ+3/adI7+pk0X0wX
+ z5RQdw2qfr4MhzEoZpcEcQgwqVj7mCjtlKbRqcgcSOmtrT1vR2kzlx+2V785pKE5sI1RxSf1GmX
+ F7+tHcEg7IkQekU9/DlwtdgAh7nKUv+X1rbGOxL1qrvGA36vP+zV6Ip3SCOo95eMMpLRFbpyxk4
+ SewBj
+X-Google-Smtp-Source: AGHT+IHTIA1fQvyQbr36JGTnYgvAC96gBST3BrQs3jUfUMrqHcQUj64Z8yrdBnCwkJYRkKXG6PtV0A==
+X-Received: by 2002:a05:6402:40c4:b0:5cf:cc32:82f2 with SMTP id
+ 4fb4d7f45d1cf-5e0b721ea5bmr762318a12.5.1740136486926; 
+ Fri, 21 Feb 2025 03:14:46 -0800 (PST)
 Received: from [192.168.0.18] (78-11-220-99.static.ip.netia.com.pl.
  [78.11.220.99]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb925bbb1fsm1023439666b.70.2025.02.21.02.43.20
+ a640c23a62f3a-aba53232275sm1635555466b.31.2025.02.21.03.14.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Feb 2025 02:43:21 -0800 (PST)
-Message-ID: <15edc720-1fc3-46a4-b7b2-a3b2217109d4@linaro.org>
-Date: Fri, 21 Feb 2025 11:43:20 +0100
+ Fri, 21 Feb 2025 03:14:46 -0800 (PST)
+Message-ID: <b2c8f313-0558-4499-9ff3-c2b406cad5ca@linaro.org>
+Date: Fri, 21 Feb 2025 12:14:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] drm/msm/dsi/phy: Add support for SM8750
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+Subject: Re: [PATCH v2 12/16] drm/msm/dsi: Add support for SM8750
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -80,15 +79,14 @@ To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark
  Conor Dooley <conor+dt@kernel.org>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>,
  Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Srini Kandagatla <srinivas.kandagatla@linaro.org>
 References: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
- <20250217-b4-sm8750-display-v2-11-d201dcdda6a4@linaro.org>
- <e5b6b5cc-2afb-411d-903e-152a6a617d53@quicinc.com>
- <30b29961-881d-48a6-8688-cb520363b50f@linaro.org>
+ <20250217-b4-sm8750-display-v2-12-d201dcdda6a4@linaro.org>
+ <bvxw6btyefw67owjeke7edxk67dhq56ewu63cw57ckpupcunng@v7oq7knhaukm>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -134,7 +132,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <30b29961-881d-48a6-8688-cb520363b50f@linaro.org>
+In-Reply-To: <bvxw6btyefw67owjeke7edxk67dhq56ewu63cw57ckpupcunng@v7oq7knhaukm>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -152,37 +150,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/02/2025 11:41, Krzysztof Kozlowski wrote:
-> On 20/02/2025 01:50, Jessica Zhang wrote:
->>>   
->>> -	if ((pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V5_2)) {
->>> +	if ((pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V5_2) ||
->>> +	    (pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V7_0)) {
->>>   		if (pll->vco_current_rate < 1557000000ULL)
->>>   			vco_config_1 = 0x08;
->>>   		else
->>> @@ -624,6 +648,7 @@ static int dsi_7nm_pll_restore_state(struct msm_dsi_phy *phy)
->>>   static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
->>>   {
->>>   	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(phy->vco_hw);
->>> +	void __iomem *base = phy->base;
+On 17/02/2025 20:05, Dmitry Baryshkov wrote:
+> On Mon, Feb 17, 2025 at 05:41:33PM +0100, Krzysztof Kozlowski wrote:
+>> Add support for DSI on Qualcomm SM8750 SoC with notable difference:
 >>
->> Hi Krzysztof,
+>> DSI PHY PLLs, the parents of pixel and byte clocks, cannot be used as
+>> parents before DSI PHY is configured and the PLLs are prepared with
+>> initial rate is set.  Therefore assigned-clock-parents are not working
+>> here and driver is responsible for reparenting clocks with proper
+>> procedure: see dsi_clk_init_6g_v2_9().
 >>
->> I see that this line was only previously removed in a patch that was in 
->> an older revision of your PHY_CMN_CLK_CFG[01] improvements series 
->> ("drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when choosing bitclk 
->> source").
+>> Part of the change is exactly the same as CLK_OPS_PARENT_ENABLE, however
+>> CLK_OPS_PARENT_ENABLE won't work here because assigned-clock-parents are
+>> executed way too early - before DSI PHY is configured.
 >>
->> Did you mean for this patch/series to be dependent on that patch? If so, 
->> can you make a note of that in the cover letter?
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>
+>> ---
+>>
+>> SM8750 DSI PHY also needs Dmitry's patch:
+>> https://patchwork.freedesktop.org/patch/542000/?series=119177&rev=1
+>> (or some other way of correct early setting of the DSI PHY PLL rate)
+>> ---
+>>  drivers/gpu/drm/msm/dsi/dsi.h      |  2 +
+>>  drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 25 ++++++++++++
+>>  drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  1 +
+>>  drivers/gpu/drm/msm/dsi/dsi_host.c | 80 ++++++++++++++++++++++++++++++++++++++
+>>  4 files changed, 108 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+>> index 87496db203d6c7582eadcb74e94eb56a219df292..93c028a122f3a59b1632da76472e0a3e781c6ae8 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+>> @@ -98,6 +98,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi);
+>>  int msm_dsi_runtime_suspend(struct device *dev);
+>>  int msm_dsi_runtime_resume(struct device *dev);
+>>  int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host);
+>> +int dsi_link_clk_set_rate_6g_v2_9(struct msm_dsi_host *msm_host);
+>>  int dsi_link_clk_set_rate_v2(struct msm_dsi_host *msm_host);
+>>  int dsi_link_clk_enable_6g(struct msm_dsi_host *msm_host);
+>>  int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
+>> @@ -115,6 +116,7 @@ int dsi_dma_base_get_6g(struct msm_dsi_host *msm_host, uint64_t *iova);
+>>  int dsi_dma_base_get_v2(struct msm_dsi_host *msm_host, uint64_t *iova);
+>>  int dsi_clk_init_v2(struct msm_dsi_host *msm_host);
+>>  int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
+>> +int dsi_clk_init_6g_v2_9(struct msm_dsi_host *msm_host);
+>>  int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+>>  int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+>>  void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+>> index 7754dcec33d06e3d6eb8a9d55e53f24af073adb9..e2a8d6fcc45b6c207a3018ea7c8744fcf34dabd2 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+>> @@ -205,6 +205,17 @@ static const struct msm_dsi_config sm8650_dsi_cfg = {
+>>  	},
+>>  };
+>>  
+>> +static const struct msm_dsi_config sm8750_dsi_cfg = {
 > 
-> I indeed rebased on top of my previous set, assuming it will get merged
-> faster. I will mention this in cover letter.
+> Can we use sm8650_dsi_cfg instead? What is the difference?
+
+Yeah, I'll changeit. I think I was looking at this even and could not
+find differences.
 
 
-Ha, not anymore, that "PHY_CMN_CLK_CFG[01]" pieces were already merged
-to drm/msm.
 
 Best regards,
 Krzysztof
