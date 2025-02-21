@@ -2,69 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FC7AA3F2C2
-	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 12:14:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53E42A3F2C5
+	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 12:14:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBF1010E2CD;
-	Fri, 21 Feb 2025 11:14:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27B1210E2CC;
+	Fri, 21 Feb 2025 11:14:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bDqYs7BL";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YwEREzxE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD6B510EA4E
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 11:14:48 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-5dbf7d45853so316110a12.1
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 03:14:48 -0800 (PST)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C85A110E2D7
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 11:14:52 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-5e064eff5daso305770a12.3
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 03:14:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740136487; x=1740741287; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1740136491; x=1740741291; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
  bh=ovhPZM4lamF/N7gru3ZKZte0ZyqiKzSMS3HZ49d1xIk=;
- b=bDqYs7BLYRcbobQaF8nffNvZ5Rf5hPEnfTspIcW1JSPdMgRtr9F4h4GI1QuLJqc7LY
- M7WG02ZuTqM3RftgJ315htsZAmNXl9t7IlU3k2wgfXcdo+GPMh/JwSq0WFJCSdv+29kR
- 5jVxf/PveFNDrIUmAbd+HkT00r/H9yfFJLVJbTXV/pYjZmX4b0aiWlhUXrZk1CBljTup
- Gshq5Cbp+vCiCJyVkHa50I2aQXSpBV3xcsY9P0Xit8yP5P8L2X16YHCOyx2hjV0ftenr
- nMscGadVjlEkcHdc5K0C+/1Jl1taOjMrCk66K5fe3J1diKF5I8FoSb18VeJWX5ex7umA
- RrMA==
+ b=YwEREzxEg+2DG9Wg8ZU0i9j09i3qBcfgrkFES0tFLcs7cD1U+80C6vcihr+tdje41c
+ 16Txhy/2AxA1xbTqLm+eLj1O4J7VVp9PuxSjoKOM6a9reNr0bjaEfRVYnWLThLMtO/QA
+ MRjAUrfirGYIfyFtUDnLVlvJbk9bmuCkMPAwYh2BAXmTy+31aJF1+onx3Tp3lJjvYuwE
+ s+TLSBWmFO9/tH7thKiAOE4Q+nCEgQbCYbqLl5wSI6og3NVcHmjn5Kt3YNL5hxXbZpsb
+ dhYk2CF243Kfn49Q1hq1DvA+TNFGLJQ2e6RfDStPlqAK7/uqV4esLCeTk1Ol4xOgYN5x
+ 6kcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740136487; x=1740741287;
+ d=1e100.net; s=20230601; t=1740136491; x=1740741291;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
  bh=ovhPZM4lamF/N7gru3ZKZte0ZyqiKzSMS3HZ49d1xIk=;
- b=TYt7cvJkf54H9SBECuwOR/JOyk+FkEzIg/gIHVd2Ncm74oiLIFvodahUYnKMvs+F8y
- yyeDMrYro6t++fTCI+h9VOV0baTahFAttMStguo4/HA1QRb4uwFpuOn+mFBCxJ+h5M68
- lIgXaRQn1ohkruqh2ADFvHWjgkvkHxIBuMtCtVT4nOCs86Sx4ehCniwdmQY7BtCyUIsF
- 8VOL4QF4pvBD8mHgV0gnhPQHjqlSH02eJVXRqeQrh0v5L4nt4wj7zU4H04DPefKphwls
- rRxFG8Cl+CzI/iyspXr8X6YlJBYB2oeyRvp848Kue+EAPq/IoQBEYJXMPRHKWBAddg5k
- YDuA==
+ b=n2QZT8sDgEnu+Gzd/nvMv7n2mbyvQkBpzA5hUQNuBY3UMJ9d48A1lf9Sy4S8Q6Qz/3
+ ifTGGzDhiAkf7c59zf2ytDESUKfARYCbfepjEBQ08Any2DRVA6xrS+Bk4j+ApLP0asGU
+ g7fCYaIgyUIxiEvr6443Aqom+gLTTeeyInyr+Bo9Hu9Ox/yGi0bn83VHfrwpll7ouiBV
+ uK4i32P/Q+Hc28lTH95rnJHB85xoAet5HUsHHBHQ1fOEcbZvU/6c+HHXJVpcYET/pVQp
+ avDjt5v+WYuTU0R0OecTH//4MN51XR4tt7IklvEKC2Uly9RGe/Z7nlCiU5d8zyAudPKc
+ o1CA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXXKL6Hfrq2EE2JNtHfSIoeW4zkC7pelSB0x9aBdkv3BNg6YwZAbIH95+z3NRQK80uFkJkCP9qXDWw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz5P9ibCazsVEJjZLUmCG/01hseReTvghW4o4g4K87M1UZKjQOO
- Wx5JXbeF1Uvyy+MMLDG13oZmBYxPOXFtch1zY4bSodH+VzliVjrRiddeWk15Ytw=
-X-Gm-Gg: ASbGncsjxFSyAHHQ3RD8QT0bJAC2SYzp6JGgmG+BBd20qW7noQuhOIUPTiKQvj2vR+u
- qkyft0ZPxjOCGKV7exSlgDmUlodhhOQDgI+IYr9qC9tRLrMpGIWBpz7gFtjMM3TQTa4TUR+4Fuo
- l9h2/MwlwgdAWrjZKpKzxA2kqbb990D26MJapCGJluYKJzcNSfx1Gkhb+2bZ+3/adI7+pk0X0wX
- z5RQdw2qfr4MhzEoZpcEcQgwqVj7mCjtlKbRqcgcSOmtrT1vR2kzlx+2V785pKE5sI1RxSf1GmX
- F7+tHcEg7IkQekU9/DlwtdgAh7nKUv+X1rbGOxL1qrvGA36vP+zV6Ip3SCOo95eMMpLRFbpyxk4
- SewBj
-X-Google-Smtp-Source: AGHT+IHTIA1fQvyQbr36JGTnYgvAC96gBST3BrQs3jUfUMrqHcQUj64Z8yrdBnCwkJYRkKXG6PtV0A==
-X-Received: by 2002:a05:6402:40c4:b0:5cf:cc32:82f2 with SMTP id
- 4fb4d7f45d1cf-5e0b721ea5bmr762318a12.5.1740136486926; 
- Fri, 21 Feb 2025 03:14:46 -0800 (PST)
+ AJvYcCUy8ht1xH4oXR4RZRq2Wtanb8nWakYiaT/5ivDSld/Q2qFLBJLiZUxNt1KDsRoBY9AgFojTMvheSjU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxqcYWgzrSqpkVjuun3Nvltl/mc2LRP51tTakpIKITgX1T3pcWA
+ zandVUqNaJAQ1mfV+Esqqf3Cx3jXgJnojeBYz6UD2kn3B/pGPCCJwHA1N7AdqcA=
+X-Gm-Gg: ASbGncsjtyTrDQ+pXVO8/l6h+4Yw86la/HCxkNKDe3MjajWvMOln5KxJNgA6LIcFMab
+ /NX3wN06xv0k/dSLpDSkRCgcI0VqTSDy54vv1GqmchoHB3dyk1wurBO75lJXq54t5I1b2KGBHyl
+ D2wEtVQTGENiKS/VY+H+0sG7bsIEJ84wC85D9/LWdELGQl70J7jPjciTj9Aoqaz1i/TFuorKgSH
+ IaGtAVgCIKUYIA828y1m17xYjKSqeDTSV5QoFLBCcchUI+kAQRhyUwaVpYU3UPkKw0u7wgvFyJU
+ FY9Px8hyvjepw8FQnHGYMLlp2aGXG4PG2F19s1Kr9xjB0iOHUAPbK6kgJg3jlxaFXy10B40Dj8J
+ K/0jb
+X-Google-Smtp-Source: AGHT+IExhCVZ6dclPidui8BX3t7w/euKXXQuZ68kuHuXRdrPfZzRBNlO1WRvy20ay5cYzBgVThLtKQ==
+X-Received: by 2002:a17:907:9713:b0:ab7:f92c:8ff9 with SMTP id
+ a640c23a62f3a-abc099c6f28mr112558866b.1.1740136491127; 
+ Fri, 21 Feb 2025 03:14:51 -0800 (PST)
 Received: from [192.168.0.18] (78-11-220-99.static.ip.netia.com.pl.
  [78.11.220.99]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53232275sm1635555466b.31.2025.02.21.03.14.45
+ a640c23a62f3a-abbbe74100asm678855066b.95.2025.02.21.03.14.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Feb 2025 03:14:46 -0800 (PST)
-Message-ID: <b2c8f313-0558-4499-9ff3-c2b406cad5ca@linaro.org>
-Date: Fri, 21 Feb 2025 12:14:44 +0100
+ Fri, 21 Feb 2025 03:14:50 -0800 (PST)
+Message-ID: <1994b168-b6e5-48c7-925a-8ba13e64cce0@linaro.org>
+Date: Fri, 21 Feb 2025 12:14:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 12/16] drm/msm/dsi: Add support for SM8750
