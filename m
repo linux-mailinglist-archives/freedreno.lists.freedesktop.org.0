@@ -2,72 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3128A3F249
-	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 11:41:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEF5BA3F255
+	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 11:43:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA0A10E24A;
-	Fri, 21 Feb 2025 10:41:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC28B10E275;
+	Fri, 21 Feb 2025 10:43:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fi6b9ree";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="x2bO4bGn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECC2810E132
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 10:41:24 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-ab7d8953b48so28484766b.2
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 02:41:24 -0800 (PST)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E08B110E275
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 10:43:23 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-ab7d8953b48so28500366b.2
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 02:43:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740134483; x=1740739283; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1740134602; x=1740739402; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
+ :references:cc:to:from:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=IbPTL2MRvkhMm18G18+076KXTh1mOsNcC8FEdn2M8XY=;
- b=fi6b9reelKyX4r/Qo2zQBRs3zNefxHCoSs2ELA8tnn1gn5Fnu92V4T9kOF9/QBRF2d
- BMJgo1ahvVdwPjUxiaWFbFh6XxvgmiCLe0S35oEPBpjx2zKarp+Vsz8ztG1hfl6KfHAJ
- c2qApv7IXW1J3gBWvqXvt/StrIBqKBleXIlK/kqSjCAun2pON7Q6MHG7LLzcAVwEeoSg
- boTIwWhKRB1JvowIvU140NUbnUygal20tNhIbGYALnBWXMTKOLO8cPPDS2iWLxwy+d0U
- QDzRk3EelIxmw13dwNLEcE/xQB/MrKTdCeEl4J6d35Q8NFBOfjVpTNSocQbk32J6B+sb
- 9xUQ==
+ bh=W9nDvBHgnq2Y1NVf5ENVQRjZ2yktIiYk3KFxT6GMAUs=;
+ b=x2bO4bGnTwcMKR0ysLuUCqcIYd/56wVSvEGVGXe/lGNuE24nnIvSn/vswOnEJSvExw
+ tBvDd4zpBuj+YKJxgcFe7QpplrCA8qmuTkzSGOddjSpry8WLJ29wf5F/m0PlEtBJHlwx
+ aUzdJ8MtQyFIsd1g6CaHOP6GOAyYqwPN1JdgaUZNuSgURucasq+47qUt026mfO2hXtfa
+ ISdlmftoPXcJwP7XAWfT5tnjn0j3zD4zRhdQhW/n94pzAfhjCKi3Bozl6fTiIrrGbeES
+ Ntu9NNUTGL0jr3YyO62X10v0wdBEfD022+5BG1NZ9W1a321KNCog0zSWDDEcAAB+hU0f
+ dOeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740134483; x=1740739283;
+ d=1e100.net; s=20230601; t=1740134602; x=1740739402;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
+ :references:cc:to:from:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=IbPTL2MRvkhMm18G18+076KXTh1mOsNcC8FEdn2M8XY=;
- b=hbDla3TC+5qZJ/in9hlGkjY38US29J0W88wsrtfI2wBosxNVhiCV9ZSEqfek70Z74I
- czjHDREqJgXf91LmH0ROHeeRlNU3Cdah4ZgwGG610hzdXzoPrzwjPJN08lD2szSAlfER
- w8ZriYVm8y0S+NdzJuhCpRhkeN5fPoH3/UeDk0hpewvro0NmipLRZcSeyk7/GztEukU1
- TjM3SRbG6hWaTgOgmnJYmF+ZR2e22gzbErz2b1/5mm2m3sVLCP6gZtHLh72BZdcbmGaN
- UWgX6V9smgan/F9CaOgWdMbvITRknAeH6ngPwpeXBZJAtPm2ozgmHsbMs3qaqp1tBHLx
- Fj8w==
+ bh=W9nDvBHgnq2Y1NVf5ENVQRjZ2yktIiYk3KFxT6GMAUs=;
+ b=Cp6uE8gExS5QSk+w8DencekNb6m89v6Xf9s9d4CLhRV9b3EAUQi/t2q9mZaBgSmhH7
+ Tn4zJ4RiJmytDBxE/Nh2rqJ56PHRe2Uotbxtgs2LbyOk1pSEpb9/EjRhOklbxY3NCYev
+ kyV5+lNfdnpXLWj3W3K3FIdEZgLTPeT98V7KI9hHc6CahbQqaMuRv74MagzJXIbK0j0A
+ J9XwE7XgnngZdM5uJ+RU7GDaO1Em06VbeoHH29bx8OrZ32Tg6mQMPo0UTyzvGTxCtELK
+ GaRjvjRSiYMrnKWd7lY+AU1hFQl+xX5GeunqSDfMMLvLEcT4pjctSC4D+J+LOPzsEpfi
+ q01w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU37bDZxVjBdRrXqLNeWaNhbnwkxnr//q9j/JTLzOWzCb6RBLFGC1LzfuNB8aOqSh+zZG8yBCoZB6I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxVZpqbOlFAyG4TZZBmlS0dnEI6u4jDCfII9hA67D3a0JnpBQA+
- LKBscR8Eqc85HQ55WJ4KX1pZpowirHnMzi238rPWr/I+JPmf5FvIrC9Ex+hLJJs=
-X-Gm-Gg: ASbGncuhNKX5yDbj9kfU9f/vJ5+7V8q5B4ftFJHuiTEyASBYNYz4cffLxjatsfdzty5
- 8T0XK/uVO3PQv7SKcc3rfAMoDRTm9w2/kyaxlrEqiLLMlVhfry58Q4lw/xjzp3mCQIeFb+vV8Bo
- eCWGyoWUcEM2tZwEIOZt7aCagY/GKqnu9uDusZj0BiLgEyRwA7eFEF5YgggnQqlmF+q3to71n+V
- 7zhkoG/yZiHKWIENKo/D4FVbNEBLdbGSbMPZ6cajclcAqBpfmYNJO55vCpRtZjf/hmTnNV5hasv
- wqN9xXNrXLU+JLFqxJV+CFjSnrdHVVw7za41RsHzPNrL78PZujfB9L5abeEDrIByJrduAeqXzat
- CW3H0
-X-Google-Smtp-Source: AGHT+IEuJ8iuesNChPDrriNaIn7Vco3g4VAXYe7aSMcR8uOugRPzUwuC3ibURMIqMQmOaMTN70ZN7Q==
-X-Received: by 2002:a17:907:86ab:b0:aa6:6792:8bce with SMTP id
- a640c23a62f3a-abc099c1e93mr98976266b.3.1740134483371; 
- Fri, 21 Feb 2025 02:41:23 -0800 (PST)
+ AJvYcCWMmkZVuTh13wCecpOBh6i7hbvSWvv/hMoknYfY6F4E3c6oB3ayxInkGgA5c6cqNWbvl6cuuVTFYyc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyBxKnimcZJX1fdU6rNFg0fqkma6gfx6baTvh0FgEZI5Chy1nkh
+ qEZrxtvFw0y13qzoEsX7iCCMoak3n51shcie4COd2wjvaCcmbMwn6Pb+6tbWR+s=
+X-Gm-Gg: ASbGncu1GFylO2ciCEgl6VAYv5l3SvxXvY1FfpKrdLdd35GqWrhRMpTkuW31LIA1dv2
+ s/kMKfTYQOzP1U5h1ldLm6U0u61Otgwye4Pz4IgPR5iW3F5nxjgiHEzp8F9zTcPkRTPVdEDoWhi
+ j891/NwhuprplF1xjhT1Iit9TO4a4rxR3z++mimd38ZQ7FSqDcXbCupl/JwfftMNibBxWO1Cefo
+ MKaW8esKwWGDd9JyfGBnO1Dg6OVtnNsjUkLY4sOJdflvcKLBRrmpAQouVlRDF1QXYb7s9XUkqR9
+ D660dfEpuIMuquXg9/lK3z0Rcv63WK0Qqdn6zDJlcqIH2JW7p3uIaDwIu/5EUwGMmxVhvedLS+f
+ WpiP2
+X-Google-Smtp-Source: AGHT+IFJ61t1Ztkvz7Fj0diXrn9EhDeYjqCaFDp2KZ4iJ3snoJlNHALHHuaGmotnRpz7Yh9bL0nhQQ==
+X-Received: by 2002:a17:906:4fd0:b0:aae:e684:cc75 with SMTP id
+ a640c23a62f3a-abc09e5e43emr101017566b.13.1740134602287; 
+ Fri, 21 Feb 2025 02:43:22 -0800 (PST)
 Received: from [192.168.0.18] (78-11-220-99.static.ip.netia.com.pl.
  [78.11.220.99]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb77551c60sm1223095866b.63.2025.02.21.02.41.21
+ a640c23a62f3a-abb925bbb1fsm1023439666b.70.2025.02.21.02.43.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Feb 2025 02:41:22 -0800 (PST)
-Message-ID: <30b29961-881d-48a6-8688-cb520363b50f@linaro.org>
-Date: Fri, 21 Feb 2025 11:41:21 +0100
+ Fri, 21 Feb 2025 02:43:21 -0800 (PST)
+Message-ID: <15edc720-1fc3-46a4-b7b2-a3b2217109d4@linaro.org>
+Date: Fri, 21 Feb 2025 11:43:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 11/16] drm/msm/dsi/phy: Add support for SM8750
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark
  <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
@@ -87,7 +88,7 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
 References: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
  <20250217-b4-sm8750-display-v2-11-d201dcdda6a4@linaro.org>
  <e5b6b5cc-2afb-411d-903e-152a6a617d53@quicinc.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ <30b29961-881d-48a6-8688-cb520363b50f@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -133,7 +134,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <e5b6b5cc-2afb-411d-903e-152a6a617d53@quicinc.com>
+In-Reply-To: <30b29961-881d-48a6-8688-cb520363b50f@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -151,32 +152,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/02/2025 01:50, Jessica Zhang wrote:
->>   
->> -	if ((pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V5_2)) {
->> +	if ((pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V5_2) ||
->> +	    (pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V7_0)) {
->>   		if (pll->vco_current_rate < 1557000000ULL)
->>   			vco_config_1 = 0x08;
->>   		else
->> @@ -624,6 +648,7 @@ static int dsi_7nm_pll_restore_state(struct msm_dsi_phy *phy)
->>   static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
->>   {
->>   	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(phy->vco_hw);
->> +	void __iomem *base = phy->base;
+On 21/02/2025 11:41, Krzysztof Kozlowski wrote:
+> On 20/02/2025 01:50, Jessica Zhang wrote:
+>>>   
+>>> -	if ((pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V5_2)) {
+>>> +	if ((pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V5_2) ||
+>>> +	    (pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V7_0)) {
+>>>   		if (pll->vco_current_rate < 1557000000ULL)
+>>>   			vco_config_1 = 0x08;
+>>>   		else
+>>> @@ -624,6 +648,7 @@ static int dsi_7nm_pll_restore_state(struct msm_dsi_phy *phy)
+>>>   static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
+>>>   {
+>>>   	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(phy->vco_hw);
+>>> +	void __iomem *base = phy->base;
+>>
+>> Hi Krzysztof,
+>>
+>> I see that this line was only previously removed in a patch that was in 
+>> an older revision of your PHY_CMN_CLK_CFG[01] improvements series 
+>> ("drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when choosing bitclk 
+>> source").
+>>
+>> Did you mean for this patch/series to be dependent on that patch? If so, 
+>> can you make a note of that in the cover letter?
 > 
-> Hi Krzysztof,
-> 
-> I see that this line was only previously removed in a patch that was in 
-> an older revision of your PHY_CMN_CLK_CFG[01] improvements series 
-> ("drm/msm/dsi/phy: Do not overwite PHY_CMN_CLK_CFG1 when choosing bitclk 
-> source").
-> 
-> Did you mean for this patch/series to be dependent on that patch? If so, 
-> can you make a note of that in the cover letter?
+> I indeed rebased on top of my previous set, assuming it will get merged
+> faster. I will mention this in cover letter.
 
-I indeed rebased on top of my previous set, assuming it will get merged
-faster. I will mention this in cover letter.
+
+Ha, not anymore, that "PHY_CMN_CLK_CFG[01]" pieces were already merged
+to drm/msm.
 
 Best regards,
 Krzysztof
