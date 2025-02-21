@@ -2,141 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98E16A3F492
-	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 13:36:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B302EA3F563
+	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 14:14:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F1FE10EA63;
-	Fri, 21 Feb 2025 12:36:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F3CF10E2E0;
+	Fri, 21 Feb 2025 13:14:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XyaQDhS8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QHv6vEql";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85E8E10EA65
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 12:36:56 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-5dfb26020dbso313396a12.3
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 04:36:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740141415; x=1740746215; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=mUQlDd7Utz0aQjBN7sk1gzdB0Wc8pMTCUWTaZwMMJIw=;
- b=XyaQDhS8VD0We+teIS/A2uFBvUuvcz2eWbfLlmS+Bn+5sdxILNOPX5Hg73JDD7lkIe
- beF1HKxoM9IvcdyjllAzjiDYAis0WM0WzKOQ5WSXConb8WRTsKPSPm5yUCpWp6xuhXEG
- bbTzHd6zrqRB+LeLhZjnFp0LPwAvzCbBbGg9TWt+WZYEsxOvwrKMw1SPtc3cajBsGXud
- YqAvJBh5sG80D1yWHI5cCHTQ4mx3aJIge25Er7e1E6fnFgYpvJKCICJDs+kgHtYwaf8j
- 8Y3N1RCLQscUWt3bmY4coThb3sUXJWFGueb18bPw9bb0pxwA7t+iRxJaO2tpeZtx9Z2d
- Er+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740141415; x=1740746215;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=mUQlDd7Utz0aQjBN7sk1gzdB0Wc8pMTCUWTaZwMMJIw=;
- b=JSTQhVOtsjPmclon3KVbPsatR8TqYQZafFQAnmxJc6WmwjPnkkS8P4RHOqSwo4HwUn
- DCNyCJ9/rwtWoU6WGdx2ANGdh55lLEkq71NRWENtwC4hPM8wppTJCRs3bRjCwMKm0DO6
- QroA/6MfhFPLmU9g5z+CL2dKOmZl1O1y/+EPAIuVWSEumxh4Rnd1nlJOS2nCNX903vFM
- eNKv5SYtNXHXpIyNYvqSxnnqyocxerOeNYqcyHEf37LwgoiveM62eOMPNFck+GwEpwi/
- IFmHXRtJ467fzbPlqaDhqq+rTvdh0Rf3SOnFulikq3FW6pn1XzsjlDk4TG0LI4PEIicr
- XXvg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWGR7jfgCNoemG4JAeSjKQc7MTNC44PUMWmUC4DgeIZSgSxwI/6qjkHOfrrxTNfr5A31MftFjMGOs8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxDHb5SD251U3wlo/SIggQ9gnGUzr8M6oQBShWfIF9pLBkv1W6p
- Al9NYqvU5eeVdnhbIwRJFM0bAoTbAxXx391G+/sNu9psjsMVeTyUbN5k5hIim44=
-X-Gm-Gg: ASbGncvXp87vn91HBezv3AOSN50eFo8nf3tEubrOiJMF2UlImXHupyQW2J1WuFkNtH1
- rzNWrjb4rfrkWmilHKtpRbcfygzXR9Sp5jZMB/Y4KzLgOQY1Bn32CrSPKbbRZ7dCIDPuA213xYB
- NbL7/8g5j33lZ7cVPXt1fIseuacY7llfeQBQmaPmHuNXSZNsvtpagXUbrbgGY8cZND64PVFEI4V
- bEyBZvZGe21OfzYK4CZGFjnsX7+9JQhKzyB2svBgAmnOZa7XBPT/fPdfcQYQ7kYhE5rzpjiEzN+
- /CSgazGSiLS+91ESO6PaLPrli1UQ/LmqsMY4aNtIg+HhaPFRCzijKFcKJEXHhvBhOdu9DvLsR5o
- 1i7SX
-X-Google-Smtp-Source: AGHT+IEJMhelvd9k6prcrL/5SvES/+s36hwykYnIzV7bIabZ3ZkmismiB8YKbKK1g+iW0hPsnp9qYg==
-X-Received: by 2002:a05:6402:26c2:b0:5d0:d183:cc11 with SMTP id
- 4fb4d7f45d1cf-5e0b70d2736mr945575a12.2.1740141414885; 
- Fri, 21 Feb 2025 04:36:54 -0800 (PST)
-Received: from [192.168.0.18] (78-11-220-99.static.ip.netia.com.pl.
- [78.11.220.99]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dece1b4e3bsm13594295a12.11.2025.02.21.04.36.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Feb 2025 04:36:53 -0800 (PST)
-Message-ID: <883fed07-1d21-4ab1-8c72-9a1750ec1606@linaro.org>
-Date: Fri, 21 Feb 2025 13:36:51 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55C7510E1D9;
+ Fri, 21 Feb 2025 13:14:44 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1E4C6612B5;
+ Fri, 21 Feb 2025 13:14:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2A0AC4CED6;
+ Fri, 21 Feb 2025 13:14:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1740143683;
+ bh=4SLtRVzYW2Epxvc52iwU1nHpJqyBgABkLoe0js9iRpY=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=QHv6vEqlf4x8hZS5I+CDOVG3hd40C8YTA1T31EuW2WH+Zwxu0iOHsnm0MI6i2bw9H
+ G41CnL0ZNSu0pkhn8f9l7dpDwt1mRxAx62WaNNfik6I0cv6qj4rcKYjAFu/FDpHoKb
+ DC8jYuf/04RfmmI2qtsW1Be230JkMM9QdLsTkqm8HJfT1YaEHAYyTN/x6QhIN61R13
+ jpioxmZ/xEnywpf7MKN7VTQ3YmYeTlx5ah79rNC0RUXEeb1tpCUums5S7vneDClZNL
+ H62wHgckTdom1N+PDY6w/xRoJDw5UcZHRJ18B4KbudH82/GEYCOu7cOMUKvDRZ4BsR
+ S0j8JDnDVYVrA==
+Date: Fri, 21 Feb 2025 07:14:41 -0600
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/16] drm/msm/dpu: Implement new v12.0 DPU differences
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
-References: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
- <20250217-b4-sm8750-display-v2-15-d201dcdda6a4@linaro.org>
- <qlotuliwnm5spneolztca7avmh2a46pz2xqlxzqbw5kwa53m6q@oyhnzz7fhay3>
- <4b2426d2-a7bb-4c19-9ebe-77f6a90caf5e@linaro.org>
- <CAA8EJpquBhQeac0E66NqeagkxP-qY0whmah2ND0xziUQdxc_7g@mail.gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <CAA8EJpquBhQeac0E66NqeagkxP-qY0whmah2ND0xziUQdxc_7g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robdclark@gmail.com>, devicetree@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ linux-arm-msm@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Mahadevan <quic_mahap@quicinc.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20250221121703.72230-1-krzysztof.kozlowski@linaro.org>
+References: <20250221121703.72230-1-krzysztof.kozlowski@linaro.org>
+Message-Id: <174014368122.2668239.11304901481263017777.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: display/msm: qcom,sa8775p-mdss: Add
+ missing eDP phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,49 +67,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/02/2025 18:24, Dmitry Baryshkov wrote:
-> On Wed, 19 Feb 2025 at 19:04, Krzysztof Kozlowski
-> <krzysztof.kozlowski@linaro.org> wrote:
->>
->> On 17/02/2025 20:18, Dmitry Baryshkov wrote:
->>> On Mon, Feb 17, 2025 at 05:41:36PM +0100, Krzysztof Kozlowski wrote:
->>>> Implement new features and differences coming in v12.0 of DPU present on
->>>> Qualcomm SM8750 SoC:
->>>> 1. 10-bit color alpha.
->>>> 2. New CTL_PIPE_ACTIVE and CTL_LAYER_ACTIVE registers for pipes and
->>>>    layer mixers.
->>>> 2. Several differences in LM registers (also changed offsets) for LM
->>>>    crossbar hardware changes.
->>>
->>> I'd really prefer for this patch to be split into a logical chunks
->>> rather than "everything for 12.x"
->> everything 12.x is still logical chunk. I can split more, but without
->> guidance what is here logical chunk, will be tricky.
->>
->> For example 10-bit color alpha looks like separate feature. But
->> remaining PIPE/LAYER active - not sure.
->>
->> I can split them but I would not call such split necessarily logical.
+
+On Fri, 21 Feb 2025 13:17:03 +0100, Krzysztof Kozlowski wrote:
+> The Qualcomm SA8775p MDSS display block comes with eDP phy, already used
+> in DTS and already documented in phy/qcom,edp-phy.yaml binding.  Add the
+> missing device node in the binding and extend example to silence
+> dtbs_check warnings like:
 > 
-> I'd say, the following items are logical chunks:
-> - ctl->ops.active_fetch_pipes in dpu_encoder_helper_reset_mixers() and
-> dpu_hw_ctl_reset_intf_cfg_v1() (with a proper Fixes tag?)
+>   sa8775p-ride.dtb: display-subsystem@ae00000: Unevaluated properties are not allowed ('phy@aec2a00', 'phy@aec5a00' were unexpected)
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  .../display/msm/qcom,sa8775p-mdss.yaml        | 32 +++++++++++++++++--
+>  1 file changed, 30 insertions(+), 2 deletions(-)
+> 
 
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Ack
+yamllint warnings/errors:
 
-> - 10-bit alpha, border color,
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: phy@aec2a00: reg: [[0, 183249408], [0, 512], [0, 183247360], [0, 208], [0, 183248384], [0, 208], [0, 183246848], [0, 456]] is too long
+	from schema $id: http://devicetree.org/schemas/phy/qcom,edp-phy.yaml#
 
+doc reference errors (make refcheckdocs):
 
-Ack,
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20250221121703.72230-1-krzysztof.kozlowski@linaro.org
 
-> - active_pipes
-> - blend stage in LM + set_active_lms
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Ack,  but you do understand that this is purely from new hardware, so
-new registers. Even the 10bit border color is actually for new
-registers. It makes no context outside of new hardware. same here.
+pip3 install dtschema --upgrade
 
-Best regards,
-Krzysztof
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
