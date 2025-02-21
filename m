@@ -2,95 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40EEEA3E91F
-	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 01:21:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72909A3EDDF
+	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 09:08:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16E8F10E02B;
-	Fri, 21 Feb 2025 00:21:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C29C710EA3F;
+	Fri, 21 Feb 2025 08:08:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="l2+IqDJw";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PCaZKGuj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EAEA10E196
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 00:21:03 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5461b5281bcso1387207e87.3
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 16:21:03 -0800 (PST)
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B70110EA3F
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 08:07:59 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-6f74b78df93so17619097b3.0
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 00:07:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740097261; x=1740702061; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=uumccPimCc696EpPgURZ0zz8UVBod+A3tWmA8Rwx4ak=;
- b=l2+IqDJw2XX2mnn44/DhlSsbgO7xH8CQBSM8gj/szVQNJr+gqiZcqoQg2Ugs0kqi1a
- cANesazoG9ARFsmn5fryVXvQwLn18VciWCp+87pxCr6Z/yFOzNPQinUhBVf4e7npErjT
- FMqFk700BuPJ2a+4wUURTW/4vad4Z5ADmijfSMeKnryRxGiTVwj8LB1wvMROxc38MMMm
- svRgb/n9OILZs1bktwP7GV4jw8jhxPjg+1bsPa3HWURJmR3NGsSF33wElGc3csG908K4
- BpKWEZFNGe01Dj0mvruicyeQHV56wlUMilyLsmiKgi/sgziDnS2ULxLk96q9VRf4hAVo
- HF2A==
+ d=linaro.org; s=google; t=1740125278; x=1740730078; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PKLARkfaaKwz/7mRhDEGEg4d9xF3Ru4DEnZAZer9QI0=;
+ b=PCaZKGujumQ1yCW15suVSJmDoKeKhgn9krjkC/9YR1on7ekompGHT9fv9EHC7dYR6J
+ Qm+BLMBaJ5zk07v1BeNSeQSH+SWZklsuSIy1mJFP38RpqkvPhKlfmTYotmTh4DKP6kXN
+ uH7+kMAITs5bcH614jTJ1ptuqbD7fmjCnvPi7dnBhl9MArFyMqp8/CjG7EfxJ0bPUQL2
+ ++iHLznzBaHEp7XW47oL0GLqfNF12/qhmPbJ18TEj0k6ccRXY0u/u5LMDwe3ozExB4L5
+ af0YbXNNXP6SyTpKOIVNGHyFRRqtMRmr8mKeBq0G/ChhJsNXiXEepZcBZSd3qBlYLFEy
+ M2Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740097261; x=1740702061;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uumccPimCc696EpPgURZ0zz8UVBod+A3tWmA8Rwx4ak=;
- b=G8cVmaE7W7IrYrVY0uDIDeXu0a9UqDUJrmbfzRMc1OZLRjyXH6EKwjM8eIwUvgyICc
- 7jxGN2lO3nI+en4pLpaZVK15QiqitEgL7/qJU7XEE/IfDGldBT0sJr/UKDXBtN6iSmzV
- c/hl+1IDCchljx5MoHIm6/7AAjBnVl1U71nbvT1LQlm2HZqr1uv0MWFJzKkZDflacmdK
- PB+1qaedNoq5alavEgMi/MiEE5Acu35OWwkk+eotgIA71laE6tGbc6AXCJ66cfTsheQs
- kLZ1FJ8vpvOqOxLoPh1w+ahTVfMmEiS8YQhU2tqClPrEqPPyUw1QgpN9d6+8n6WO8OYE
- 5H5g==
+ d=1e100.net; s=20230601; t=1740125278; x=1740730078;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PKLARkfaaKwz/7mRhDEGEg4d9xF3Ru4DEnZAZer9QI0=;
+ b=Xiasw4WGmuWcLhnvdmuSTaKWH/PhhYZUlKwf3/1d1n+cb2BO6EDV6aj+lgcVy0bC5O
+ 7WdUdXTC/SwKYFbHZrbRdKXypFZtkHa6ujdxgo1qcGIqaQu58l6wM2hiuZUfyeS8/0HZ
+ 8lnXNLrXtuAuiupsgkOiqVN7H2EUtFyae8Kn4UpMZDeh+YedJCFJ7SAMy4wwd9FDw0Fc
+ Bn2f/rluNOdIwhnUTAR423TdpwmCymsacPWkYn6pnjXxhi7XEoQaHU4RGdfTdfDK6/nX
+ rU0KhFlNxsj1p5lACMZkvFMjHOxa6UiCUApdRVsf7SnvbN3WiJ5IUjtx79JKlWdp/r/U
+ 7Bkg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUBjyh3kKRsdvxeJMUEkGKP7HDUQU6mNG12FRwuE30ZEnKbFQFCFSPx8jItCUcP/z2ZWesg/G5CPr0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHFMMV2QI0tauvORLiF5TsGuGv/Anb1Aaz9a7RC5VtfGXq369l
- LpmfgDbg0KIwlc2tSDwqg22U5NJAfzZuDiGl20AxiagEjG3yQgXDU/GaU8lgE/g=
-X-Gm-Gg: ASbGncuyqJSCqwkySokbMyecPvsUHHu9fL8dLOBiEgF5tFYjcgGZqhlq8EuRIjmtKy9
- SN7boyKyqCt+a+TwLZA3zdWIGeuP8razfPuRa/kd8Rc3EpdW1u9InsfLl2NdaFNOTg8CNHUF7z7
- YB7AbYP8N8tc4KvTrPyNE57kgnzSeDqMB80nRLZlm50U60klRPK+N7deX/dZ0SLL0AIgk8RX/Yl
- MsNYYsRjIROPcRQNHdEKh2RI+Fi2EjbRZvx+bFRh0O/0OCa13ftIhT5gvm2IofP4iNGOIRtSjR7
- 68BbnffdUZ36Jcdf9qRRa4MFS4h6qMvXSjBM0xtYWsSus+9yNvLO1WVlnXTFAKbL5ATLJrw=
-X-Google-Smtp-Source: AGHT+IGNo0fUbZvhJBTd0sVsxry1VC2OXImPx0tjx0XJ5qw8Unx7mQg3SjKB4fdzbc9nKdNk/+jLJA==
-X-Received: by 2002:a05:6512:3186:b0:546:2f44:ee99 with SMTP id
- 2adb3069b0e04-54838eeb268mr405891e87.17.1740097261039; 
- Thu, 20 Feb 2025 16:21:01 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-547df6106f6sm159624e87.204.2025.02.20.16.20.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2025 16:20:59 -0800 (PST)
-Date: Fri, 21 Feb 2025 02:20:58 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 5/5] drm/msm/dsi: Support DSC for dual panel case
-Message-ID: <jsir3n555ucylcc3m63gzrcf2arvsmsoivubsnrhzuxm3ts3qw@lyrghilffo5j>
-References: <20250220-dual-dsi-v2-0-6c0038d5a2ef@linaro.org>
- <20250220-dual-dsi-v2-5-6c0038d5a2ef@linaro.org>
- <iibq3orsb7uf44luz2he2auox43ki42m2z4nnderyqlhypvfgo@pwqpvua6vuyo>
- <CABymUCNajuc8WnWgf2JehFYUY-MqxCYmD=By8nY-JppxYHsyNw@mail.gmail.com>
- <m7brftsrxdikfeumbjkubeeleezka7mwjbchxefqgs4ybtca5n@ge3ay2olagq2>
- <cokgqc6qd26caz63lwoyjcfbewbh3zxagjedzy6o6tfkt7wgmp@fz2gquyxcxbu>
+ AJvYcCUkgftfpTpctEvd1mt0rHS2ZZkz1eO+kJ1UP49tmWDU2RJMPSduOupfbwLMaEBfflhls41vRHTAMew=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwZ1fG9lVKegj/eiaUrdpwDNvzapRb988dQnEPAG6xuNmXfWm5/
+ 1x6Gz8pHcGf7yFdFF6pwR3X50HmmHivEPPTOGzvIGlhE8F7xXHZdcksvABic4weEPXLbZU4/3u3
+ tWt0wNH9/+OWulS5Urm4N9MD96gn18S8dkD3/pw==
+X-Gm-Gg: ASbGncusQny17wMUv8/8L4pvIRC6TtvdmKbblJWYY2V9JVjqloV28jhdoyYxs3U7d2n
+ 0xdX+LgDLO7X6BRA0lVgSYdHYEe64u0gCzKw4zxoyKFdHqR7tv8U2xHyUd9YVKv8LKrsxztS16r
+ Q/RQsnfYJ0jJ0t
+X-Google-Smtp-Source: AGHT+IHr2Wt5r/ae1OtDGgTQeXf4bmm0pRkFgOlmNseOyKuTFSKX76LPYNlKpjw3JATtGd1XmmsjYnJQVJjXE60Qut8=
+X-Received: by 2002:a05:690c:7409:b0:6f7:406e:48d with SMTP id
+ 00721157ae682-6fbcc3942efmr21304927b3.35.1740125277969; Fri, 21 Feb 2025
+ 00:07:57 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cokgqc6qd26caz63lwoyjcfbewbh3zxagjedzy6o6tfkt7wgmp@fz2gquyxcxbu>
+References: <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org>
+ <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-12-c11402574367@linaro.org>
+ <qrwo5jtdj64vu27jn3v2wwyuxu25bjqrybj5jjfc5ifiotgzit@6vx2km46j7b3>
+ <CABymUCPEYJTK=gBHcL291qn2zbotC7_8jA4z18sbSZSjRafSsg@mail.gmail.com>
+ <ee7xdxyxjs46zfbotsa6hdmwpsvrkaere2hend4iavcvk6duqn@ogvght5qcx7b>
+In-Reply-To: <ee7xdxyxjs46zfbotsa6hdmwpsvrkaere2hend4iavcvk6duqn@ogvght5qcx7b>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Fri, 21 Feb 2025 16:07:45 +0800
+X-Gm-Features: AWEUYZlT0zegnUUFwqf9cd6gL2K4vN_ADtmplkuq26WeBuVh9ov_dWbeEYx7A5c
+Message-ID: <CABymUCNnt0Jiks+Fv8Os=V+zxzPAKMyH-wUpgDNMibWA_KNAxg@mail.gmail.com>
+Subject: Re: [PATCH v6 12/15] drm/msm/dpu: blend pipes per mixer pairs config
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,88 +91,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 20, 2025 at 10:50:57PM +0100, Marijn Suijten wrote:
-> On 2025-02-20 18:06:01, Dmitry Baryshkov wrote:
-> > On Thu, Feb 20, 2025 at 11:42:28PM +0800, Jun Nie wrote:
-> > > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2025年2月20日周四 18:39写道：
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2025=E5=B9=B42=E6=
+=9C=8821=E6=97=A5=E5=91=A8=E4=BA=94 00:17=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Thu, Feb 20, 2025 at 11:48:45PM +0800, Jun Nie wrote:
+> > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2025=E5=B9=B42=
+=E6=9C=8818=E6=97=A5=E5=91=A8=E4=BA=8C 03:57=E5=86=99=E9=81=93=EF=BC=9A
+> > >
+> > > On Mon, Feb 17, 2025 at 10:16:01PM +0800, Jun Nie wrote:
+> > > > Currently, only 2 pipes are used at most for a plane. A stage struc=
+ture
+> > > > describes the configuration for a mixer pair. So only one stage is =
+needed
+> > > > for current usage cases. The quad-pipe case will be added in future=
+ and 2
+> > > > stages are used in the case. So extend the stage to an array with a=
+rray size
+> > > > STAGES_PER_PLANE and blend pipes per mixer pair with configuration =
+in the
+> > > > stage structure.
 > > > >
-> > > > On Thu, Feb 20, 2025 at 06:07:56PM +0800, Jun Nie wrote:
-> > > > > There is dual DSI case that every DSI link is connected to an independent
-> 
-> There is a dual-DSI case where every DSI link ...
-> 
-> > > > > panel. In this dual panel case, the frame width for DSC on each link should
-> > > > > be halved to support the usage case.
-> 
-> use* case.  Also, it shouldn't be "halved" just... because?  It should be
-> "halved" because apparently hdisplay here is the width of the two panels
-> together, while the width coded in pic_width should contain that of a single
-> panel (since they're independent), which is equal to the width of a single
-> interface.
-> 
-> Tl;dr for below: this needs a *lot* more text to explain the setup and
-> possibilities.  How is a DSI panel driver supposed to configure this on their
-> end?  Hint: look at my previous drm/msm patches that explain how we expect to
-> interface with the parameters set by the panel driver.
-> 
+> > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > > ---
+> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 45 +++++++++++++++++=
+++----------
+> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
+> > > >  2 files changed, 30 insertions(+), 16 deletions(-)
 > > > >
-> > > > Isn't it the case for the DSI panel utilizing two DSI links?
-> > > 
-> > > The added case here is 2 DSI panel utilizing two DSI links, 1 DSI link
-> > > in each panel.
-> > > I assume default case is 1 panel with 2 DSI link, such as Marijn's case.
-> > 
-> > So it should be halved in your case, but not in Marijn's case? I can
-> > suspect that if you are describing two DSI panels as a single instance,
-> > you should also adjust drm_dsc_config accordingly (on the panel's side?)
-> > 
-> > Maybe drm_dsc_config.pic_width and drm_dsc_config.pic_height should be
-> > set on the panel's side? But then, how will that function for the DSI
-> > panels or bridges which can change the mode?
-> 
-> It appears that these patches are missing a proper description of the setup
-> or use-case.  I previously NAK'd those "dual DSI" patches because of this, but
-> reading between the lines I think I came to understand the reason without anyone
-> else explaining it, unfortunately.  Needless to say that this needs very careful
-> documentation and wording in both code (DT and/or header structs) and commit
-> messages.
-> 
-> In my case I have a single high-resolution high-refresh-rate panel that can
-> simply not be driven over a single DSI link.  A dual-DSI link is used in bonded
-> mode, most likely to keep the clocks and other things in sync, and to make it
-> easier to be represented by one virtual encoder in DPU?  All control commands
-> only need the sent over one DSI link, not over both.
-> 
-> In this case pic_width is equal to the entire width of the panel, hence it is
-> double the width of a single interface.
-> 
-> Jun seems to have a strangely different use-case for bonded-DSI / dual-DSI that
-> isn't explained: two "independent" panels.  It is clear to me that pic_width
-> here has to contain the width of the entire panel, and is hence equal to the
-> entire width of a single interface.
-> (And in the future, it seems the quad setup can drive two "bonded" panels with
->  two DSI-merge's each)
-> 
-> But what we're missing here is what the **advantages and limitations** are
-> of this setup: why would one run two DSI links for "independent" panels in
-> bonded-DSI mode?  Is it more power-optimal?  Will userspace see this as one
-> panel that's simply twice as wide?  Do these panels have to be "identical"
-> so that they behave and are clocked the same?  How is the driver expected to
-> prepare the mode and DSC configuration parameters to make this work?
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu=
+/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > index 81474823e6799132db71c9712046d359e3535d90..50acaf25a3ffcc94354=
+faaa816fe74566784844c 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > @@ -401,7 +401,7 @@ static void _dpu_crtc_blend_setup_pipe(struct d=
+rm_crtc *crtc,
+> > > >                                      struct dpu_hw_stage_cfg *stage=
+_cfg
+> > > >                                     )
+> > > >  {
+> > > > -     uint32_t lm_idx;
+> > > > +     uint32_t lm_idx, lm_in_pair;
+> > > >       enum dpu_sspp sspp_idx;
+> > > >       struct drm_plane_state *state;
+> > > >
+> > > > @@ -426,7 +426,8 @@ static void _dpu_crtc_blend_setup_pipe(struct d=
+rm_crtc *crtc,
+> > > >       stage_cfg->multirect_index[stage][stage_idx] =3D pipe->multir=
+ect_index;
+> > > >
+> > > >       /* blend config update */
+> > > > -     for (lm_idx =3D 0; lm_idx < num_mixers; lm_idx++)
+> > > > +     lm_in_pair =3D num_mixers > 1 ? 2 : 1;
+> > > > +     for (lm_idx =3D 0; lm_idx < lm_in_pair; lm_idx++)
+> > > >               mixer[lm_idx].lm_ctl->ops.update_pending_flush_sspp(m=
+ixer[lm_idx].lm_ctl, sspp_idx);
+> > >
+> > > I almost missed this. Why is this necessary?
+> >
+> > It is protective code. In case there is only 1 LM, we should not
+> > iterate 2 LM in a stage.
+>
+> That's not what the code does.
 
-Fair enough. Maybe you will suggest how to handle it in a more efficient
-way. We have been running such configurations (2 independent panels over
-a bonded DSI link) in order to get a single synchronous CRTC vblank for
-both panels. This is a nice hack for the software that outputs data for
-both panels, but doesn't want to be concerned with separate vblanks.
+I do not get your iea. _dpu_crtc_blend_setup_pipe() is called with
+num_mixers set as:
+cstate->num_mixers - (stage * PIPES_PER_STAGE).
+So lm_in_pair will get the LM number in this stage to iterate.
+>
+> > >
+> > > >  }
+> > > >
+> > >
+> > > [...]
+> > >
+> > > > @@ -535,8 +543,13 @@ static void _dpu_crtc_blend_setup(struct drm_c=
+rtc *crtc)
+> > > >                       mixer[i].mixer_op_mode,
+> > > >                       ctl->idx - CTL_0);
+> > > >
+> > > > +             /*
+> > > > +              * call dpu_hw_ctl_setup_blendstage() to blend layers=
+ per stage cfg.
+> > > > +              * There are 4 mixers at most. The first 2 are for th=
+e left half, and
+> > > > +              * the later 2 are for the right half.
+> > > > +              */
+> > >
+> > > The comment is invalid until you introduce quad pipe, currently there
+> > > are 2 mixers at most. However you can just say something like 'stage
+> > > data is shared between PIPES_PER_STAGE pipes'.
+> >
+> > Accepted.
+> > >
+> > > >               ctl->ops.setup_blendstage(ctl, mixer[i].hw_lm->idx,
+> > > > -                     &stage_cfg);
+> > > > +                     &stage_cfg[i / PIPES_PER_STAGE]);
+> > > >       }
+> > > >  }
+> > > >
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/=
+gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> > > > index 5f010d36672cc6440c69779908b315aab285eaf0..64e220987be5682f26d=
+02074505c5474a547a814 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> > > > @@ -34,6 +34,7 @@
+> > > >  #define DPU_MAX_PLANES                       4
+> > > >  #endif
+> > > >
+> > > > +#define STAGES_PER_PLANE             2
+>
+> BTW, This should be 1 for now.
 
-> Perhaps it's possible to scrape this info from [1] and prior commits but I
-> rather have a more digestible description in the commit message, thanks.
-> 
-> - Marijn
-> 
-> [1]: https://gitlab.com/jun.nie/linux/-/commit/98c0f411a85d68a76be500f8421df467d6cc53f3
-
--- 
-With best wishes
-Dmitry
+Yeah, it can be added in the last patch.
+>
+> > > >  #define PIPES_PER_PLANE                      2
+> > > >  #define PIPES_PER_STAGE                      2
+> > > >  #ifndef DPU_MAX_DE_CURVES
+> > > >
+> > > > --
+> > > > 2.34.1
+> > > >
+> > >
+> > > --
+> > > With best wishes
+> > > Dmitry
+>
+> --
+> With best wishes
+> Dmitry
