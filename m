@@ -2,83 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC580A3E8F4
-	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 00:59:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40EEEA3E91F
+	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2025 01:21:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 586D510E9F9;
-	Thu, 20 Feb 2025 23:59:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16E8F10E02B;
+	Fri, 21 Feb 2025 00:21:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dOl32k7w";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="l2+IqDJw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F86010E9F9
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 23:59:04 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-307bc125e2eso14659921fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 15:59:04 -0800 (PST)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EAEA10E196
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2025 00:21:03 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-5461b5281bcso1387207e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2025 16:21:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740095942; x=1740700742; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=OMtrq7jLHSed46Czeo2rEh53wj+rn3fFBHyDQDyX/HA=;
- b=dOl32k7w1zU85coN6JDOmTzWV3aVCWRNSOMQZcTk/HdiXpHMXOuAtR+FHVyjHR7/2a
- eoW1JGKquKdNfoa2T6+bvxmDwIGTF1swA1tpRJknt9woLKbGj1y4SGG/Zzr1/asbozAp
- 7QqGH2Q+H2lr4vI6RuY4uYaAPmsj1OiNLYSLIFj/PMpCxxPMlYU2izifS7zNXt9ynWe3
- U/spSlrAT2dwpg9oBl71m5a2BHiy34OTHbU3i5EBk/jj0xBGsC72/FBWWzCsmyX+oeTa
- Dx9Js+W1SfF5FNxVkEHEsfL7c8iCNyDVwpLWhUcim1mXWS+nn5iQEm3+uCcywtCi9H0+
- jQAA==
+ d=linaro.org; s=google; t=1740097261; x=1740702061; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=uumccPimCc696EpPgURZ0zz8UVBod+A3tWmA8Rwx4ak=;
+ b=l2+IqDJw2XX2mnn44/DhlSsbgO7xH8CQBSM8gj/szVQNJr+gqiZcqoQg2Ugs0kqi1a
+ cANesazoG9ARFsmn5fryVXvQwLn18VciWCp+87pxCr6Z/yFOzNPQinUhBVf4e7npErjT
+ FMqFk700BuPJ2a+4wUURTW/4vad4Z5ADmijfSMeKnryRxGiTVwj8LB1wvMROxc38MMMm
+ svRgb/n9OILZs1bktwP7GV4jw8jhxPjg+1bsPa3HWURJmR3NGsSF33wElGc3csG908K4
+ BpKWEZFNGe01Dj0mvruicyeQHV56wlUMilyLsmiKgi/sgziDnS2ULxLk96q9VRf4hAVo
+ HF2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740095942; x=1740700742;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OMtrq7jLHSed46Czeo2rEh53wj+rn3fFBHyDQDyX/HA=;
- b=Y6D9v5o6frUxQXZCqOFXjcYc1heDn/+DZYjzI9g5/FmXgqhlq7lT9spGF0MccuCKNG
- NVgxkfjVSQoaCrLtf0AHmOVwbBoO8Th3rsTl6gFeMpsv0ri2+QblKMagMIIeCBNzgtla
- SP8CjmSW35C5w56Wq3Gna9Y0O4kIk3W71CspFo9zBfl40R0lYoY9Gcl6wuvoar4IznIB
- wD7sVk8M/ET9wJVSAgC17EaZm4Fu0f++Myj2/ZdBMzjytl73ipciMoAnF80tuSgFfVm2
- nwO4dNsMT6PvOIEZQn5c4Td9d2wvh/pZVP4iNh3/OKVUYMorTT2YI2+3mD+ZAvK8wQrM
- fNNA==
+ d=1e100.net; s=20230601; t=1740097261; x=1740702061;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uumccPimCc696EpPgURZ0zz8UVBod+A3tWmA8Rwx4ak=;
+ b=G8cVmaE7W7IrYrVY0uDIDeXu0a9UqDUJrmbfzRMc1OZLRjyXH6EKwjM8eIwUvgyICc
+ 7jxGN2lO3nI+en4pLpaZVK15QiqitEgL7/qJU7XEE/IfDGldBT0sJr/UKDXBtN6iSmzV
+ c/hl+1IDCchljx5MoHIm6/7AAjBnVl1U71nbvT1LQlm2HZqr1uv0MWFJzKkZDflacmdK
+ PB+1qaedNoq5alavEgMi/MiEE5Acu35OWwkk+eotgIA71laE6tGbc6AXCJ66cfTsheQs
+ kLZ1FJ8vpvOqOxLoPh1w+ahTVfMmEiS8YQhU2tqClPrEqPPyUw1QgpN9d6+8n6WO8OYE
+ 5H5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU+xgSAdx/j1xF9vgGYUXXhec3dMYF8X212GdSvQGlHQj8s5sMLPjRAwVuA1KcLY4l+LSNEbdlTlds=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLeBXNamjmsYh3oA3Jn1r0ZTAG0sci193aiRmw2Z+YkCXXvLIh
- 9A3ypzo2ZbHabphYG5DtRvrMfJ7O68UW96c7KcthYfTeUwvR8wNnJqfpcHDfuLQ=
-X-Gm-Gg: ASbGnctXYCfGynA2+flqMC6EL4FPKZXMPrXneUmksi3I7kJb0sALrO7OhPrEuTtA8tD
- KV23xrn6p2s9My2UmpnL1a8g9F+xkFQGQYJx64yf/7S0CP9GL1XL7yYeOAETiAW7kCbHB+PBmau
- zU2xxwLmju+OUljpCP747nLnXYKkfIRChj4U3/uxo00LzFHvo1O4AojcvyHNNfEucqcq/RRHnGJ
- /qnNOAuNCktIH9yAR0IcpFDtMEfVlrT5mKUroeGCbnnwTtLNPg46/1fhJQLoUFF/R2kGmp4sZQ9
- Qvrr7jmkJ+Qb/S8wxXPYk0LCMfSZeeOsGAHjRMjR03VrJ+peodW8yopdIRUeyn/qbIBeW5M=
-X-Google-Smtp-Source: AGHT+IFRmoaRAMtXQeskCBCDhTrEaQ+Ff7h67LqHPuXzExls+JzAw5IkkULjzP9XZbzdpa2zldli3A==
-X-Received: by 2002:a2e:7009:0:b0:309:23ea:5919 with SMTP id
- 38308e7fff4ca-30a5998baa8mr2567221fa.31.1740095942262; 
- Thu, 20 Feb 2025 15:59:02 -0800 (PST)
+ AJvYcCUBjyh3kKRsdvxeJMUEkGKP7HDUQU6mNG12FRwuE30ZEnKbFQFCFSPx8jItCUcP/z2ZWesg/G5CPr0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHFMMV2QI0tauvORLiF5TsGuGv/Anb1Aaz9a7RC5VtfGXq369l
+ LpmfgDbg0KIwlc2tSDwqg22U5NJAfzZuDiGl20AxiagEjG3yQgXDU/GaU8lgE/g=
+X-Gm-Gg: ASbGncuyqJSCqwkySokbMyecPvsUHHu9fL8dLOBiEgF5tFYjcgGZqhlq8EuRIjmtKy9
+ SN7boyKyqCt+a+TwLZA3zdWIGeuP8razfPuRa/kd8Rc3EpdW1u9InsfLl2NdaFNOTg8CNHUF7z7
+ YB7AbYP8N8tc4KvTrPyNE57kgnzSeDqMB80nRLZlm50U60klRPK+N7deX/dZ0SLL0AIgk8RX/Yl
+ MsNYYsRjIROPcRQNHdEKh2RI+Fi2EjbRZvx+bFRh0O/0OCa13ftIhT5gvm2IofP4iNGOIRtSjR7
+ 68BbnffdUZ36Jcdf9qRRa4MFS4h6qMvXSjBM0xtYWsSus+9yNvLO1WVlnXTFAKbL5ATLJrw=
+X-Google-Smtp-Source: AGHT+IGNo0fUbZvhJBTd0sVsxry1VC2OXImPx0tjx0XJ5qw8Unx7mQg3SjKB4fdzbc9nKdNk/+jLJA==
+X-Received: by 2002:a05:6512:3186:b0:546:2f44:ee99 with SMTP id
+ 2adb3069b0e04-54838eeb268mr405891e87.17.1740097261039; 
+ Thu, 20 Feb 2025 16:21:01 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3091fbf58cfsm23285251fa.110.2025.02.20.15.58.59
+ 2adb3069b0e04-547df6106f6sm159624e87.204.2025.02.20.16.20.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2025 15:59:00 -0800 (PST)
-Date: Fri, 21 Feb 2025 01:58:58 +0200
+ Thu, 20 Feb 2025 16:20:59 -0800 (PST)
+Date: Fri, 21 Feb 2025 02:20:58 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/7] drm/msm/dpu: allocate single CTL for DPU >= 5.0
-Message-ID: <7vcnej2hh3knti66dfyatbcyrlygbwqtwdlumpf4aqmupuopcf@pcpkbn6fs4h4>
-References: <20250220-dpu-active-ctl-v1-0-71ca67a564f8@linaro.org>
- <20250220-dpu-active-ctl-v1-6-71ca67a564f8@linaro.org>
- <4aix26abutkas2fpj6ubu2hbqeljpgr5e3m24akeb3jz33limj@c7rymwz6zmft>
+Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] drm/msm/dsi: Support DSC for dual panel case
+Message-ID: <jsir3n555ucylcc3m63gzrcf2arvsmsoivubsnrhzuxm3ts3qw@lyrghilffo5j>
+References: <20250220-dual-dsi-v2-0-6c0038d5a2ef@linaro.org>
+ <20250220-dual-dsi-v2-5-6c0038d5a2ef@linaro.org>
+ <iibq3orsb7uf44luz2he2auox43ki42m2z4nnderyqlhypvfgo@pwqpvua6vuyo>
+ <CABymUCNajuc8WnWgf2JehFYUY-MqxCYmD=By8nY-JppxYHsyNw@mail.gmail.com>
+ <m7brftsrxdikfeumbjkubeeleezka7mwjbchxefqgs4ybtca5n@ge3ay2olagq2>
+ <cokgqc6qd26caz63lwoyjcfbewbh3zxagjedzy6o6tfkt7wgmp@fz2gquyxcxbu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <4aix26abutkas2fpj6ubu2hbqeljpgr5e3m24akeb3jz33limj@c7rymwz6zmft>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cokgqc6qd26caz63lwoyjcfbewbh3zxagjedzy6o6tfkt7wgmp@fz2gquyxcxbu>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,101 +106,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Feb 21, 2025 at 12:34:12AM +0100, Marijn Suijten wrote:
-> On 2025-02-20 12:26:23, Dmitry Baryshkov wrote:
-> > Unlike previous generation, since DPU 5.0 it is possible to use just one
-> > CTL to handle all INTF and WB blocks for a single output. And one has to
-> > use single CTL to support bonded DSI config. Allocate single CTL for
-> > these DPU versions.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 17 +++++++++++++----
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h |  2 ++
-> >  2 files changed, 15 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > index 5baf9df702b84b74ba00e703ad3cc12afb0e94a4..4dbc9bc7eb4f151f83055220665ee5fd238ae7ba 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > @@ -53,6 +53,8 @@ int dpu_rm_init(struct drm_device *dev,
-> >  	/* Clear, setup lists */
-> >  	memset(rm, 0, sizeof(*rm));
-> >  
-> > +	rm->has_legacy_ctls = (cat->mdss_ver->core_major_ver < 5);
-> > +
-> >  	/* Interrogate HW catalog and create tracking items for hw blocks */
-> >  	for (i = 0; i < cat->mixer_count; i++) {
-> >  		struct dpu_hw_mixer *hw;
-> > @@ -381,10 +383,16 @@ static int _dpu_rm_reserve_ctls(
-> >  	int i = 0, j, num_ctls;
-> >  	bool needs_split_display;
-> >  
-> > -	/* each hw_intf needs its own hw_ctrl to program its control path */
-> > -	num_ctls = top->num_intf;
-> > +	if (rm->has_legacy_ctls) {
-> > +		/* each hw_intf needs its own hw_ctrl to program its control path */
-> > +		num_ctls = top->num_intf;
-> >  
-> > -	needs_split_display = _dpu_rm_needs_split_display(top);
-> > +		needs_split_display = _dpu_rm_needs_split_display(top);
-> > +	} else {
-> > +		/* use single CTL */
-> > +		num_ctls = 1;
-> > +		needs_split_display = false;
-> > +	}
-> >  
-> >  	for (j = 0; j < ARRAY_SIZE(rm->ctl_blks); j++) {
-> >  		const struct dpu_hw_ctl *ctl;
-> > @@ -402,7 +410,8 @@ static int _dpu_rm_reserve_ctls(
-> >  
-> >  		DPU_DEBUG("ctl %d caps 0x%lX\n", j + CTL_0, features);
-> >  
-> > -		if (needs_split_display != has_split_display)
-> > +		if (rm->has_legacy_ctls &&
-> > +		    needs_split_display != has_split_display)
+On Thu, Feb 20, 2025 at 10:50:57PM +0100, Marijn Suijten wrote:
+> On 2025-02-20 18:06:01, Dmitry Baryshkov wrote:
+> > On Thu, Feb 20, 2025 at 11:42:28PM +0800, Jun Nie wrote:
+> > > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2025年2月20日周四 18:39写道：
+> > > >
+> > > > On Thu, Feb 20, 2025 at 06:07:56PM +0800, Jun Nie wrote:
+> > > > > There is dual DSI case that every DSI link is connected to an independent
 > 
-> I deduced a long time ago that the check for rm->has_legacy_ctls is not needed.
+> There is a dual-DSI case where every DSI link ...
 > 
-> needs_split_display is always false on DPU >= 5, and neither of those SoCs has
-> DPU_CTRL_SPLIT_DISPLAY which means false != false is false, and this condition
-> never triggers on active CTLs even without checking has_legacy_ctls.
+> > > > > panel. In this dual panel case, the frame width for DSC on each link should
+> > > > > be halved to support the usage case.
+> 
+> use* case.  Also, it shouldn't be "halved" just... because?  It should be
+> "halved" because apparently hdisplay here is the width of the two panels
+> together, while the width coded in pic_width should contain that of a single
+> panel (since they're independent), which is equal to the width of a single
+> interface.
+> 
+> Tl;dr for below: this needs a *lot* more text to explain the setup and
+> possibilities.  How is a DSI panel driver supposed to configure this on their
+> end?  Hint: look at my previous drm/msm patches that explain how we expect to
+> interface with the parameters set by the panel driver.
+> 
+> > > >
+> > > > Isn't it the case for the DSI panel utilizing two DSI links?
+> > > 
+> > > The added case here is 2 DSI panel utilizing two DSI links, 1 DSI link
+> > > in each panel.
+> > > I assume default case is 1 panel with 2 DSI link, such as Marijn's case.
+> > 
+> > So it should be halved in your case, but not in Marijn's case? I can
+> > suspect that if you are describing two DSI panels as a single instance,
+> > you should also adjust drm_dsc_config accordingly (on the panel's side?)
+> > 
+> > Maybe drm_dsc_config.pic_width and drm_dsc_config.pic_height should be
+> > set on the panel's side? But then, how will that function for the DSI
+> > panels or bridges which can change the mode?
+> 
+> It appears that these patches are missing a proper description of the setup
+> or use-case.  I previously NAK'd those "dual DSI" patches because of this, but
+> reading between the lines I think I came to understand the reason without anyone
+> else explaining it, unfortunately.  Needless to say that this needs very careful
+> documentation and wording in both code (DT and/or header structs) and commit
+> messages.
+> 
+> In my case I have a single high-resolution high-refresh-rate panel that can
+> simply not be driven over a single DSI link.  A dual-DSI link is used in bonded
+> mode, most likely to keep the clocks and other things in sync, and to make it
+> easier to be represented by one virtual encoder in DPU?  All control commands
+> only need the sent over one DSI link, not over both.
+> 
+> In this case pic_width is equal to the entire width of the panel, hence it is
+> double the width of a single interface.
+> 
+> Jun seems to have a strangely different use-case for bonded-DSI / dual-DSI that
+> isn't explained: two "independent" panels.  It is clear to me that pic_width
+> here has to contain the width of the entire panel, and is hence equal to the
+> entire width of a single interface.
+> (And in the future, it seems the quad setup can drive two "bonded" panels with
+>  two DSI-merge's each)
+> 
+> But what we're missing here is what the **advantages and limitations** are
+> of this setup: why would one run two DSI links for "independent" panels in
+> bonded-DSI mode?  Is it more power-optimal?  Will userspace see this as one
+> panel that's simply twice as wide?  Do these panels have to be "identical"
+> so that they behave and are clocked the same?  How is the driver expected to
+> prepare the mode and DSC configuration parameters to make this work?
 
-During the transition time of 1 or 2 patches there is a window of
-DPU >= 5 and DPU_CTRL_SPLIT_DISPLAY.
+Fair enough. Maybe you will suggest how to handle it in a more efficient
+way. We have been running such configurations (2 independent panels over
+a bonded DSI link) in order to get a single synchronous CRTC vblank for
+both panels. This is a nice hack for the software that outputs data for
+both panels, but doesn't want to be concerned with separate vblanks.
 
+> Perhaps it's possible to scrape this info from [1] and prior commits but I
+> rather have a more digestible description in the commit message, thanks.
 > 
-> Other than that, this is all successfully tested and:
+> - Marijn
 > 
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> 
-> >  			continue;
-> >  
-> >  		ctl_idx[i] = j;
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> > index 99bd594ee0d1995eca5a1f661b15e24fdf6acf39..130f753c36338544e84a305b266c3b47fa028d84 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> > @@ -24,6 +24,7 @@ struct dpu_global_state;
-> >   * @dspp_blks: array of dspp hardware resources
-> >   * @hw_sspp: array of sspp hardware resources
-> >   * @cdm_blk: cdm hardware resource
-> > + * @has_legacy_ctls: DPU uses pre-ACTIVE CTL blocks.
-> >   */
-> >  struct dpu_rm {
-> >  	struct dpu_hw_blk *pingpong_blks[PINGPONG_MAX - PINGPONG_0];
-> > @@ -37,6 +38,7 @@ struct dpu_rm {
-> >  	struct dpu_hw_blk *dsc_blks[DSC_MAX - DSC_0];
-> >  	struct dpu_hw_sspp *hw_sspp[SSPP_MAX - SSPP_NONE];
-> >  	struct dpu_hw_blk *cdm_blk;
-> > +	bool has_legacy_ctls;
-> >  };
-> >  
-> >  struct dpu_rm_sspp_requirements {
-> > 
-> > -- 
-> > 2.39.5
-> > 
+> [1]: https://gitlab.com/jun.nie/linux/-/commit/98c0f411a85d68a76be500f8421df467d6cc53f3
 
 -- 
 With best wishes
