@@ -2,86 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3188EA420DC
-	for <lists+freedreno@lfdr.de>; Mon, 24 Feb 2025 14:39:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 172BAA428E8
+	for <lists+freedreno@lfdr.de>; Mon, 24 Feb 2025 18:08:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DA2610E2C5;
-	Mon, 24 Feb 2025 13:39:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB62210E487;
+	Mon, 24 Feb 2025 17:08:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jf89Vtru";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="o+xA+XU9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88E1910E2B7
- for <freedreno@lists.freedesktop.org>; Mon, 24 Feb 2025 13:39:15 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-307325f2436so42533091fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 24 Feb 2025 05:39:15 -0800 (PST)
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
+ [209.85.208.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D6DF10E487
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Feb 2025 17:08:11 +0000 (UTC)
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-3098088c630so43417611fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Feb 2025 09:08:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740404354; x=1741009154; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=HpiZKM1D+dktug9FLneInEDvc/Zhfv4RR713WMJNSc8=;
- b=jf89VtruVAZeJEWL5sn5CS0hzpxW2RhEwOLVw6Av5fp6wa20/lKkOzEB18Gw1snew0
- c/7Ocz1nMSsnyQg9Ehlyxq/yF8rwPc/FumWagvHOFEyR71Fw0rWc/ydFObRqby7zE7n1
- +yeu6u7cb2qcMa1/vp8Z3cO6MbK0Y3U4QZZnxRyb25U7lFR6P8CoG15bvX8L1Hc7e1yT
- 8wzJ/ec/mSoJGIy/9kycEj/0AKpgqkrziiYFUzq134cX2ejhrhbvE8BJBoqqAdxD9lpw
- hvnlMFq3W9zVBeStj8iBb93Y6evmjfVLNBSjG1Ko+sTvr65EiwDYkV0WyJ2YR5+QmbfY
- FKYw==
+ d=linaro.org; s=google; t=1740416889; x=1741021689; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=SDD7C/XbQ4WEaFEyI9RS4ouDEECOxDAKosUSoNyCeps=;
+ b=o+xA+XU9VQBXj6eW3MvNp6hv0Pem35pStZoOBSPreexFtfo8mR8qQgf0MRSJ+TBMQm
+ SROAWK5ctCRUXe+CInGkLYLYzWuq3+qkfZpuCeNfh3I7e0bLRmb/he2i9nwlUBDWAOE5
+ P4cMooKQc63195R+P+AdDk8GGNLwIQqx6N/9M/14e6e2HlCylm1+LuYivdMSw9CeFFdH
+ b8iP653fiFz9WEENhqExsNnbxEUTXOgL0HlMEcN7ogwMLKcO89+WaFeX4Hc4LNRMdjhg
+ CjlcJDQ1Qx+1onpePE7QSalQfEN08anZ9TNgo+ksBb0pH6IVasBRzV+5cT+edvOd/ly/
+ dx7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740404354; x=1741009154;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HpiZKM1D+dktug9FLneInEDvc/Zhfv4RR713WMJNSc8=;
- b=iN36c025cUP0pbQGFZoNK1lpuUrXXgK0VZP2fvwYAQeD9QtWuyHQZo3i/Reo7gZpAZ
- Z6a8PQIbwpfJlRfwKdEXc8ZHHXorVHx45NkGMqqiennT9ifjvceMipHyz1V5A9PHV98o
- KoQXjyjU3cMbk34vaLffYXTl9pya2wUB1Tihd6qVPARaJaZ2wPo782lPppKLvpnUSP00
- Yx59iJ884WFstW/p/mGLV4wCXjRg64roMn06clBvwppWRhfVWgj/PL6iB+K8sEOxJDhP
- N1SZ3qvss+c5A5zixGSONVgkvM7U4HeW+40PAKd4IpfZ3AvJj6kSnQKBYrdAV/Eu97TH
- xNMw==
+ d=1e100.net; s=20230601; t=1740416889; x=1741021689;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SDD7C/XbQ4WEaFEyI9RS4ouDEECOxDAKosUSoNyCeps=;
+ b=adb1fbtIgP/Nowh3HauDK0bRU1ZPp8Cr4vCFrql3LaSiEo3syw0TBjWARmo9esBg8W
+ w20keHx3EYvu6/C7ZPeomHrO4rbel9PUgZO/MEs7lU0eZlorNgPZFQPREgjKXMQS6xbF
+ pJAGclkQpBbNFaNGsoW/XJDtwj/rxlEqMO1ZAva2K7oSwtu7/n9xb7/fir9IRQdQtGZM
+ kkuuelvEqWU6TZ+lSoFjsIuAC/o/I/ZXuxHFl3PpdHFrI6L+xdtXWT+d0FgtWxzNPs4C
+ QtpIHjRJf6xbM4tvoX7IFoQJXNS157/6C7iQNc2cxtJOWwEO6Uvb0O9viBX6nlxMdUqU
+ k79Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXWVLTh3iaOKdQOMA/lq+hg0lY0X6tqWkDxo7FD4nWQZjzgwZEX9RrfqoZ7pnAVW3a+9XEnn7encvg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7lnLFkSrwReqcwvrfYCdflMXCQ3itLT4AbZv7MdyzxmkhQV1e
- ahi2TIov49nrq/PqcdFPDvKlbdnefJIywsuL3h7l69tv5RRbhmHTWVFC8LaVuKg=
-X-Gm-Gg: ASbGncvgWviQk+w4OROb69iDXIOAKX2OKS79FMGB11CHlQeQnvWynqNbB91ALRYh4OL
- 7eyND4jD7M4w0Pvs6zg9ZEpn4O7yGg/1ZDBA8OBw8SHld+o/4ANgRX4+MB1Sauqb/NyHm0HjIIS
- NqtbGgxaSL4y/PFnTRnFN7Mmh7KXyMc0R8H1qnhWIcvMqsRYmHkaxTwAt7E0YnSGrZ4R/BO2io0
- A/26p50SptQU7lRjHxvojLl4rZ7p+Q7NovMOrWzCdFBN3YSIk/NZenH6E4TrMx3ZfxvKBrXO7Ne
- P7vA0yH3KUgeHadUUwFiYCzsPcZdPufXB2JoUdtEARXbJTm4ZRaq57Bljiv0PtCuRyVUCp4tobJ
- NSpwEow==
-X-Google-Smtp-Source: AGHT+IGpWpgpPy98plh9aAWeGN4aFpnSv7Z09YXBn/2iaCyySuDx/5dPxRzvR239TBYipIAbDWvEPQ==
-X-Received: by 2002:a2e:9b05:0:b0:308:f6fc:9569 with SMTP id
- 38308e7fff4ca-30a59986b49mr35140841fa.29.1740404353659; 
- Mon, 24 Feb 2025 05:39:13 -0800 (PST)
+ AJvYcCXTGgtTEAtalxJPs/N2eHTc0LhoPP3rSskD/Cbh6MtWP4LoIUBQjppHfnu4+y728FqnV3Y/CKI5Fg0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyfis7nBpnS2/ETy+YN9XuwlbXaGJPvPuouKwnrtgKR2XQuNCKW
+ fdO5dWlp31hkRD5dfHmnJb2cQHnwn4sOHJHro9fMazOKU4MoNWBfROhLOBnJGn0=
+X-Gm-Gg: ASbGncuQr3XwiUN6aIkau+sxlpUrH02xhGKOjY1H1ldyR8XrCSJykS25duiCMytyjpo
+ rdbAAfyFQ5L2fQ9HM0K7B7RP21SsIGzlpQIWO50nM5v7DF6UCvYOnDA+Yz0UxaUMQz27E9cbrwR
+ bf8WvHHzNBpk+mzfUapCWqykZai4S7vyp2r1DQ7cGn6cg+36X4NPqXL1ODOrQv6i9k73zwfAlDS
+ bQ82UpGWfOdN7f738dZOSId1Pt4bVF9bkrc5FUJrgV4sj4HfZOgfr7m1xQuPc6MyGiAo+YHsxBz
+ 2zi87zxIYeSo5ik8CVX+I/LhnJSWrUgbRajbb65t2YF8ylbtPwGR/UWUfpSTXojc8z+CNU2Zlyr
+ Fod5IMg==
+X-Google-Smtp-Source: AGHT+IHB1gFnnaGSzBphtTkMlhlOX/xtMLMcfN5SzTa6WkSqGOzrAt8tTjA8bVyEGzKZWV+BQiheoQ==
+X-Received: by 2002:a05:6512:691:b0:545:e7f:cf33 with SMTP id
+ 2adb3069b0e04-54838efaefcmr5529016e87.28.1740416889466; 
+ Mon, 24 Feb 2025 09:08:09 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3091e04742esm34522851fa.86.2025.02.24.05.39.12
+ 2adb3069b0e04-545243fdfb6sm3283441e87.218.2025.02.24.09.08.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Feb 2025 05:39:13 -0800 (PST)
-Date: Mon, 24 Feb 2025 15:39:10 +0200
+ Mon, 24 Feb 2025 09:08:08 -0800 (PST)
+Date: Mon, 24 Feb 2025 19:08:06 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Marijn Suijten <marijn.suijten@somainline.org>
+To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
+ Simona Vetter <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/7] drm/msm/dpu: allocate single CTL for DPU >= 5.0
-Message-ID: <d4chicea6vhlbvw23lclnqovlhq4rfdtefkk66vnbo5y3wf5y4@ajrutdjao2e2>
-References: <20250220-dpu-active-ctl-v1-0-71ca67a564f8@linaro.org>
- <20250220-dpu-active-ctl-v1-6-71ca67a564f8@linaro.org>
- <4aix26abutkas2fpj6ubu2hbqeljpgr5e3m24akeb3jz33limj@c7rymwz6zmft>
- <7vcnej2hh3knti66dfyatbcyrlygbwqtwdlumpf4aqmupuopcf@pcpkbn6fs4h4>
- <n6cljmchentiycfbnlxoptl6gtrv5n5353gdmvbrrssfp7mkiy@lenjcbxn732p>
+Subject: Re: [PATCH v6 13/15] drm/msm/dpu: support SSPP assignment for
+ quad-pipe case
+Message-ID: <n22g66ruabunma4w4p44zjtsnb5t4vdpjuaocasbup3alb4fxp@74tu3wnqbwfg>
+References: <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org>
+ <20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-13-c11402574367@linaro.org>
+ <khmeegjx5jmu4c32un3gqu7sumkbtdkg6cawwwmwtmkp5gkrag@sklf5tr7qbwv>
+ <CABymUCOnnWQZpOhgDfENmWrTUuwb76zSN7nSeO+eyNp4k+PKRw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <n6cljmchentiycfbnlxoptl6gtrv5n5353gdmvbrrssfp7mkiy@lenjcbxn732p>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABymUCOnnWQZpOhgDfENmWrTUuwb76zSN7nSeO+eyNp4k+PKRw@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,114 +100,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Feb 24, 2025 at 01:38:22PM +0100, Marijn Suijten wrote:
-> On 2025-02-21 01:58:58, Dmitry Baryshkov wrote:
-> > On Fri, Feb 21, 2025 at 12:34:12AM +0100, Marijn Suijten wrote:
-> > > On 2025-02-20 12:26:23, Dmitry Baryshkov wrote:
-> > > > Unlike previous generation, since DPU 5.0 it is possible to use just one
-> > > > CTL to handle all INTF and WB blocks for a single output. And one has to
-> > > > use single CTL to support bonded DSI config. Allocate single CTL for
-> > > > these DPU versions.
-> > > > 
-> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 17 +++++++++++++----
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h |  2 ++
-> > > >  2 files changed, 15 insertions(+), 4 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > > > index 5baf9df702b84b74ba00e703ad3cc12afb0e94a4..4dbc9bc7eb4f151f83055220665ee5fd238ae7ba 100644
-> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > > > @@ -53,6 +53,8 @@ int dpu_rm_init(struct drm_device *dev,
-> > > >  	/* Clear, setup lists */
-> > > >  	memset(rm, 0, sizeof(*rm));
-> > > >  
-> > > > +	rm->has_legacy_ctls = (cat->mdss_ver->core_major_ver < 5);
-> > > > +
-> > > >  	/* Interrogate HW catalog and create tracking items for hw blocks */
-> > > >  	for (i = 0; i < cat->mixer_count; i++) {
-> > > >  		struct dpu_hw_mixer *hw;
-> > > > @@ -381,10 +383,16 @@ static int _dpu_rm_reserve_ctls(
-> > > >  	int i = 0, j, num_ctls;
-> > > >  	bool needs_split_display;
-> > > >  
-> > > > -	/* each hw_intf needs its own hw_ctrl to program its control path */
-> > > > -	num_ctls = top->num_intf;
-> > > > +	if (rm->has_legacy_ctls) {
-> > > > +		/* each hw_intf needs its own hw_ctrl to program its control path */
-> > > > +		num_ctls = top->num_intf;
-> > > >  
-> > > > -	needs_split_display = _dpu_rm_needs_split_display(top);
-> > > > +		needs_split_display = _dpu_rm_needs_split_display(top);
-> > > > +	} else {
-> > > > +		/* use single CTL */
-> > > > +		num_ctls = 1;
-> > > > +		needs_split_display = false;
-> > > > +	}
-> > > >  
-> > > >  	for (j = 0; j < ARRAY_SIZE(rm->ctl_blks); j++) {
-> > > >  		const struct dpu_hw_ctl *ctl;
-> > > > @@ -402,7 +410,8 @@ static int _dpu_rm_reserve_ctls(
-> > > >  
-> > > >  		DPU_DEBUG("ctl %d caps 0x%lX\n", j + CTL_0, features);
-> > > >  
-> > > > -		if (needs_split_display != has_split_display)
-> > > > +		if (rm->has_legacy_ctls &&
-> > > > +		    needs_split_display != has_split_display)
-> > > 
-> > > I deduced a long time ago that the check for rm->has_legacy_ctls is not needed.
-> > > 
-> > > needs_split_display is always false on DPU >= 5, and neither of those SoCs has
-> > > DPU_CTRL_SPLIT_DISPLAY which means false != false is false, and this condition
-> > > never triggers on active CTLs even without checking has_legacy_ctls.
-> > 
-> > During the transition time of 1 or 2 patches there is a window of
-> > DPU >= 5 and DPU_CTRL_SPLIT_DISPLAY.
+On Mon, Feb 24, 2025 at 06:14:22PM +0800, Jun Nie wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2025年2月22日周六 00:36写道：
+> >
+> > On Mon, Feb 17, 2025 at 10:16:02PM +0800, Jun Nie wrote:
+> > > Currently, SSPPs are assigned to a maximum of two pipes. However,
+> > > quad-pipe usage scenarios require four pipes and involve configuring
+> > > two stages. In quad-pipe case, the first two pipes share a set of
+> > > mixer configurations and enable multi-rect mode when certain
+> > > conditions are met. The same applies to the subsequent two pipes.
+> > >
+> > > Assign SSPPs to the pipes in each stage using a unified method and
+> > > to loop the stages accordingly.
+> > >
+> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > ---
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 63 +++++++++++++++++++------------
+> > >  1 file changed, 39 insertions(+), 24 deletions(-)
+> > >
+> > > +     for (stage_id = 0; stage_id < num_stages; stage_id++) {
+> > > +             for (i = stage_id * PIPES_PER_STAGE; i < (stage_id + 1) * PIPES_PER_STAGE; i++) {
 > 
-> Correct, but would there be any harm in reordering the patches?  Before this
-> patch DPU_CTL_SPLIT_DISPLAY seems to have caused wrongfully allocating multiple
-> CTLs when multiple intfs are requested anyway.
+> Do you mean define and assign r_pipe / r_pipe_cfg here?
 
-Why do you think that it is done wrongly? Before this patch there was no
-way to use one CTL in such a case.
+No, because for i = num_stages-1, the r_pipe would point to invalid
+memory.
 
 > 
-> - Marijn
+> > > +                     pipe = &pstate->pipe[i];
+> > > +                     pipe_cfg = &pstate->pipe_cfg[i];
+> > > +
+> > > +                     if (drm_rect_width(&pipe_cfg->src_rect) == 0)
+> > > +                             break;
+> > > +
+> > > +                     pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
+> > > +                     if (!pipe->sspp)
+> > > +                             return -ENODEV;
+> > > +
+> > > +                     r_pipe = &pstate->pipe[i + 1];
+> > > +                     r_pipe_cfg = &pstate->pipe_cfg[i + 1];
+> > > +
+> > > +                     /*
+> > > +                      * If current pipe is the first pipe in pipe pair, check
+> > > +                      * multi-rect opportunity for the 2nd pipe in the pair.
+> > > +                      * SSPP multi-rect mode cross mixer pairs is not supported.
+> > > +                      */
+> > > +                     if ((i % PIPES_PER_STAGE == 0) &&
+> >
+> > Please move r_pipe / r_pipe_cfg definition and assignment here.
 > 
-> > > Other than that, this is all successfully tested and:
-> > > 
-> > > Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > > 
-> > > >  			continue;
-> > > >  
-> > > >  		ctl_idx[i] = j;
-> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> > > > index 99bd594ee0d1995eca5a1f661b15e24fdf6acf39..130f753c36338544e84a305b266c3b47fa028d84 100644
-> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> > > > @@ -24,6 +24,7 @@ struct dpu_global_state;
-> > > >   * @dspp_blks: array of dspp hardware resources
-> > > >   * @hw_sspp: array of sspp hardware resources
-> > > >   * @cdm_blk: cdm hardware resource
-> > > > + * @has_legacy_ctls: DPU uses pre-ACTIVE CTL blocks.
-> > > >   */
-> > > >  struct dpu_rm {
-> > > >  	struct dpu_hw_blk *pingpong_blks[PINGPONG_MAX - PINGPONG_0];
-> > > > @@ -37,6 +38,7 @@ struct dpu_rm {
-> > > >  	struct dpu_hw_blk *dsc_blks[DSC_MAX - DSC_0];
-> > > >  	struct dpu_hw_sspp *hw_sspp[SSPP_MAX - SSPP_NONE];
-> > > >  	struct dpu_hw_blk *cdm_blk;
-> > > > +	bool has_legacy_ctls;
-> > > >  };
-> > > >  
-> > > >  struct dpu_rm_sspp_requirements {
-> > > > 
-> > > > -- 
-> > > > 2.39.5
-> > > > 
-> > 
-> > -- 
+> r_pipe / r_pipe_cfg is used in this if(). Please see above question.
+
+Maybe we can rework it somehow. I really don't fancy the after-the-array
+pointer.
+
+> >
+> >
+> > > +                         drm_rect_width(&r_pipe_cfg->src_rect) != 0 &&
+> > > +                         dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pipe_cfg,
+> > > +                                                           pipe->sspp,
+> > > +                                                           msm_framebuffer_format(plane_state->fb),
+> > > +                                                           dpu_kms->catalog->caps->max_linewidth)) {
+> > > +                             i++;
+> > > +                     } else {
+> > > +                             /* multirect is not possible, use two SSPP blocks */
+> > > +                             pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+> > > +                             pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> > > +                             DPU_DEBUG_PLANE(pdpu, "allocating sspp_%d for pipe %d.\n",
+> > > +                                             pipe->sspp->idx - SSPP_NONE, i);
+> > > +                     }
+> > > +             }
+> > >       }
+> > >
+> > >       return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
+> > >
+> > > --
+> > > 2.34.1
+> > >
+> >
+> > --
 > > With best wishes
 > > Dmitry
 
