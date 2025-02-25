@@ -2,79 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E96D5A45080
-	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 23:52:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74876A450C9
+	for <lists+freedreno@lfdr.de>; Wed, 26 Feb 2025 00:03:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74FF10E811;
-	Tue, 25 Feb 2025 22:52:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D0D10E819;
+	Tue, 25 Feb 2025 23:03:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mxGrX6x8";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="SjZkHExh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8B9710E810;
- Tue, 25 Feb 2025 22:52:48 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-220e83d65e5so116903595ad.1; 
- Tue, 25 Feb 2025 14:52:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740523968; x=1741128768; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=OxsB6aMdBT4Hx4H6RblTo/4XJIt/eXGQbiNeASQfp+4=;
- b=mxGrX6x88btBP3Ljah4DHyod5UorbvQ7gLITf9IjHmrS3DakF4RZVI+5+IkyT3CbC5
- 5eTYUCJjf7t/xXNKAl627rlexpv+UR5xoGXkHTI7VCKKPK1dGX+8H6jETAhT95t6bEy2
- +o1gZZ5IY1IIONm0YbB0eM4l2eJG/BCwkJ5bQy6P53+bSKkUnKwz2F/KA0SX/CV0U5qb
- QiRcoT3IXu1qr6m1yltqKYwwJBfsXnxermgvKzrDK5uVYt3lOaa+RkvFa/fxMh62DQ3Z
- WhdIpEzJSVzsOZuRhblXTVFyrL9v6yLEjSe+pogDwBvfiuKoUzPk8wWITJAeaUhZuGgO
- hC3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740523968; x=1741128768;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=OxsB6aMdBT4Hx4H6RblTo/4XJIt/eXGQbiNeASQfp+4=;
- b=fiPZmt8qjzau9oN8BuJPTQxWzwoggSYyv9KpQqTMtdRuRZXPyJXIeKzpnhzQLOApVE
- bMe9Kn7EiR2a9w9ntQiTn0kQXm72b8PwzEl2ilq7S5/WuOUlCeRvWrq0BPB5abK3FAxK
- ELwMg4zendtOWdejY2FvE6O922ERnKUOfz1HYF6yQnONE47vvS7cIxGZgB+6nd4h1jaQ
- /LdW3WX/u9RbGq6+A1gwLs6NCGwazXFEGRC3B3piBFiIy3PjugAmwaRT0mKus+rNopg0
- l3rXi+89GXKb8I5xYJP70LDGnLOpb2dcXyYIubU6f7NnfLKVonSlcBEiIiUWumLbkwWK
- W90A==
-X-Gm-Message-State: AOJu0Ywneexma/M5NDC1yBemQvjawNWA7r/W7e0F/3DrllXuMt7p1ALg
- GcXu7j8Z1Hyo7Khkj7WPCLhAbEq6dsS3XtQtKtM0lYDW9g14uH57gxKWvw==
-X-Gm-Gg: ASbGncujGedAc9xIRUAJ31xpdbXtTgxosTtyNwosmWXzRJfgt/c65FKhajfAIQcq8Bz
- NIN6k5pcomsizZutBcQB+JZDhyltNdi0XZ66ZYq0CtK9eQ3gS1JsF9rAqewh2GCYV1IkusQRsDH
- TKPYF7xFq42R5dbYgEiQIaathMhZ43Y0A+SW/2pmpxx0AVjU9R8vtAYxh1SsWETZPIhkTCPLb+W
- VHVlkzHm9rdG8KgF1MVoe8Bv1nvOBXaC6WcuKIlc53J+3soroY8zetDkn4YCkLk1SA+n263aFQ6
- S2Chxxp7Yps58bMkTSgOOtKAtxnMaRtRQW7t+J2JK6dZYY/2tURcERZmTfUwO8McWLS/vTu4x0D
- l
-X-Google-Smtp-Source: AGHT+IE96kce529uDgDYL6+xVtBIYKH6aY66S2u6/reMukc5S8jwhotL/L+R/0JeO62YdHg51R5X+w==
-X-Received: by 2002:a17:902:ecca:b0:220:f06b:318 with SMTP id
- d9443c01a7336-22320080b32mr19996865ad.14.1740523967658; 
- Tue, 25 Feb 2025 14:52:47 -0800 (PST)
-Received: from localhost ([2a00:79e1:2e00:1301:12e9:d196:a1e9:ab67])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2230a0b2975sm19402755ad.259.2025.02.25.14.52.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Feb 2025 14:52:46 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm: Expose DRIVER_SYNCOBJ_TIMELINE
-Date: Tue, 25 Feb 2025 14:52:43 -0800
-Message-ID: <20250225225244.26625-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.48.1
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C625610E819;
+ Tue, 25 Feb 2025 23:03:21 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51PMWrai023826;
+ Tue, 25 Feb 2025 23:03:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ vzTbpIQHeO/NQvneOetGfXYw+iaT57eRWGCj9DIDnSM=; b=SjZkHExha3huMzTM
+ c6FUj5iLu7U9mWhAyXj1lSrAxnL1eowl3tnP9kmTnIBG8SBFAnThyYOU0yU4UgsF
+ NnkiH0RpzwHT/kQvhTcdmPlOSOZL4lxELs1yk2klfVKKL1xxA6xA6QzDGUsipfce
+ 4BA6DVVQBSqU8xpTISa0wiYUGzueidGNWu3ceQUKci9d/vOKD+Rka237u9dFGq42
+ +lRcanD+MJjddelvi+5tSjpprrZnSsbxwaXWL4s0iRtwhPjwZA2lGcfD6j5AvuA5
+ XufNgJ0dVKFC8Nu+MEpu9S0vtg/aSuzhLB7VXqb+L2W5/wGkunXEJZMLpf5kIhWv
+ nQgiOA==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 451prmg1t3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 25 Feb 2025 23:03:17 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51PN3GmS025432
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 25 Feb 2025 23:03:16 GMT
+Received: from [10.110.101.220] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 25 Feb
+ 2025 15:03:16 -0800
+Message-ID: <dd8e3f51-e8e5-4a4d-9932-c2005988c366@quicinc.com>
+Date: Tue, 25 Feb 2025 15:03:16 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH next] drm/msm/dpu: fix error pointer dereference in
+ msm_kms_init_aspace()
+To: Dan Carpenter <dan.carpenter@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <kernel-janitors@vger.kernel.org>
+References: <3221e88c-3351-42e6-aeb1-69f4f014b509@stanley.mountain>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <3221e88c-3351-42e6-aeb1-69f4f014b509@stanley.mountain>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: nxPbVw4LaHUfcyUv3F-1fAKLkVzQfzZy
+X-Proofpoint-ORIG-GUID: nxPbVw4LaHUfcyUv3F-1fAKLkVzQfzZy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-25_08,2025-02-25_03,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0 mlxscore=0
+ priorityscore=1501 adultscore=0 spamscore=0 mlxlogscore=873
+ lowpriorityscore=0 clxscore=1011 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2502100000 definitions=main-2502250136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,31 +95,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-Initially we didn't want to expose the cap, as it would expose a bug
-in the vk driver (turnip) with older mesa versions.  This was fixed over
-a year ago (and cherry-picked to stable release branches at the time),
-see https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/25981.
-So let's go ahead and expose it now.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+On 2/24/2025 11:30 PM, Dan Carpenter wrote:
+> If msm_gem_address_space_create() fails, then return right away.
+> Otherwise it leads to a Oops when we dereference "aspace" on the next
+> line.
+> 
+> Fixes: 2d215d440faa ("drm/msm: register a fault handler for display mmu faults")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/msm_kms.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 37db92c8cecb..70373e0fd4a6 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -812,6 +812,7 @@ static const struct drm_driver msm_driver = {
- 				DRIVER_RENDER |
- 				DRIVER_ATOMIC |
- 				DRIVER_MODESET |
-+				DRIVER_SYNCOBJ_TIMELINE |
- 				DRIVER_SYNCOBJ,
- 	.open               = msm_open,
- 	.postclose          = msm_postclose,
--- 
-2.48.1
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
