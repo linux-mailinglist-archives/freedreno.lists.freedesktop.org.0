@@ -2,95 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2839FA446C9
-	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 17:49:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1380DA4479B
+	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 18:14:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F24A010E763;
-	Tue, 25 Feb 2025 16:49:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF4EE10E772;
+	Tue, 25 Feb 2025 17:14:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eoRX8dAK";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pTLQgqkU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9160B10E763
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 16:49:39 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-546210287c1so5921835e87.2
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 08:49:39 -0800 (PST)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9ABB10E772
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 17:14:54 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-54524740032so6003121e87.3
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 09:14:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740502178; x=1741106978; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0mgWZibQMuHj44S/S8PoDTRgBr00ghmQvGRAk6+vKs4=;
- b=eoRX8dAKzZZXlynfyIAwCHv7NDiGxATa1HbDJ0Cf7qm7qDe1AdRjOEt3+PT6xz8ROX
- tVEPpXq7AK7diZFRjebygpSLc59tLee0smwdRtKYMqEiS6sW//RjPtgvRpOOkvEhY3mW
- +EGKy4cDvAxASbAnrM4SpjV31YlH/USmnS+yPJbqvwaW6Ki6TwmxsFv3+NMGY54nlKCd
- zbGBL6B674Y7WwgL1v7miwocs3aP3n4p/892tg/p2G2C01Di8Ghzf0+Ifq3mjA9ScDGI
- g/LQU5T1rijBQan5nfnMWj9agdAjuTpgsrDsd8OtS7/h8RK0xhbAH6AvvLy0/igjXaz1
- qBhA==
+ d=linaro.org; s=google; t=1740503693; x=1741108493; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=+dODZ+7MTPPBH6S67MBivWnFKuk0Orcv5ZDM65vBwrU=;
+ b=pTLQgqkU2DQ5VlHKNgS+Cpmpo7yygf4jAo6Stlml10uLqhI9UTTsxKeeX5WiLB1GvU
+ dZOCoWlorSS85nx5M2GnSH1xcy1QApbhm5arwP5/HPVRrAAnWNJS9x9scQFzSPVcVj//
+ q8pnc5LVvIyt1g+d1wCpNrKkbbOFfsZewS4XmsOkouC3kdUkj5JsQBLn7A4TJBC/F5Bw
+ WXTOvqVtp0ZR+E2usHr29h5BV3j4oozjKLvtnwPYvIuRL6r2e14Fs6c08iAysaf2YjEm
+ V6OaAzxLmsvH1p1u4fpig/8ro2hsACnWLwpKWXL5dlsAFWjRNmb1i52XjBFgZ4RhIqXf
+ iaxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740502178; x=1741106978;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0mgWZibQMuHj44S/S8PoDTRgBr00ghmQvGRAk6+vKs4=;
- b=ndWOZ19g0qTzyRiie1wUpsseEVb+NKzC7dClXd2H0QYw9lePXk6o1l7zKVX4B2tA2s
- ftdAAXY6PYtdFH0Uhw6tOyoESCF22r0ZUfW3xqwIqgnvHY97IjCchwGhu1n5DvIqpHGE
- 46fEPYIavXA+W5+gjDm+VIwX9PGrSEHru9JDf/3Q7g8DhKtEIWldUHCGOPSkeRPEqkVe
- RglQIqGYMhgzbKx37Kodry/7etx28MrXMVP6q3CXYOE98CkWNnZsNkEmATONMLd4Jmkh
- 0bVKWoHMIFFTbKn6cpL4JD2rOr78xwZ59T5mW7/ysClojGhEkcdCyhgiwzQIYXP55zz5
- hq7A==
+ d=1e100.net; s=20230601; t=1740503693; x=1741108493;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+dODZ+7MTPPBH6S67MBivWnFKuk0Orcv5ZDM65vBwrU=;
+ b=wHB3VfMMgeoAUXvlsRrE0DYEafjgji0fpVYeog8kf194Fl6Z4A6oU4t9AwPRFp+OF6
+ Hl0MWiZqwpAXRYAYyU+PUaJrX8eZbudH+laINmgdBX3PyLWxtthRtgZlswOuGVWaJxiJ
+ VFAS42w1ItG/ijWqXzlCkcLKApDhVtnURPhwxMpUHbsdxatyLTcW1lgK06ozSIiD5GVw
+ cTZSqmmvU6qc5VqjohHdvu37EDYXKteKWAxVf9ZugzuPIe48Jou/K8R+4eB1LoVY+r1m
+ PBCOYD16GwzyRkZ/DMU1DHN7U3vXh4md04dwl66E8NMIRVxhIVJyk6nkkAGf59k3S47L
+ ixbQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQASZ9VDsuw2nR4Ko8JhHlIeUT9PWFy2NU6AOyKm0UvO4CmXZoPS0Q+WYZBSIig0QaIfMzOUNukiE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbTf2ZfF9lZbcYkIn2UmXJao/+GmW99goSj8udTLB+CZSmj95n
- Us9iUMIC0ffVm/TrpdUEXhummRU3hVTue2QbLqM1K36HzRUheaGZlHuxmlVd+m8=
-X-Gm-Gg: ASbGnctKwVy9yqlZeil4uDpBA5+BHysA77W9IH5E8v2iwHrxjs9X4LGMVUDhtDqOc0Q
- BWfSrkCLg0VwETLBlGUFM/zTyHifDEWui9kT4+9/pLhAvK0FxpcUh9527GsvCMcW0G6cmereluX
- 0jkXOq7uWRpIaqEGihW3EHT7QAFpjXL8gh50WYnxYd6D9cfxJYNJv56AN/TpfOHczokAo9SvOlU
- weNRxfEugvEoE/iaB5/zlU0OYe4hnO/xG4VNxtvdRm+zhLH+uMN5iS+2AAs3s+CyGN+WkCNMoSY
- zPsgu9uPM7+QkJqCouu4JsLsunP4rCnoN4N+x400MKejcPTNrrUqjPMVp9pLAfQHT2qwow==
-X-Google-Smtp-Source: AGHT+IFORbfzYSemq6WfOCUglMYdhzTg71XD6K2L6XeaH8kQIvUGNHFObPzSD2MUJfic2yxCajAruA==
-X-Received: by 2002:a05:6512:b0a:b0:545:1d96:d701 with SMTP id
- 2adb3069b0e04-548392598eamr7478215e87.36.1740502177754; 
- Tue, 25 Feb 2025 08:49:37 -0800 (PST)
-Received: from eriador.lan (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00::7a1]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-548514b25e6sm220407e87.7.2025.02.25.08.49.36
+ AJvYcCV6buJZHxm4zzzDgGr7RYLqywVB+GPESGkq3vPSVW9zxanY2tW6SKuoNeImF5ghjlz/ufyzvj2cj5Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy43w1JGjLWsQCChbV701ow/rFPHf5ikR4Szdurm/nxRVj4ZkD+
+ 6IbO8nBDcTAZ4q9/X1i3uOMa5aNVCmHb9kzjSqj+Yfy892KKlwI5vi0AhKOfdrw=
+X-Gm-Gg: ASbGncvOtlYeof3a8fD+EfP4evYB0TiDK/7LNsx897lWomf/05MjvKpVsS0etbphCxS
+ Z8nIZ3AltkPH9I3WF32N4wQ+tJ0BQ5zQm/FV0EfCj0ddrvSgLz3kJReGxBeDKPUAbnU1NR91rBt
+ Guc78uiJiCKhazE2G+Anf1/n9+PoBNzbC/fYlRiwoqbwVnZFkexEtXcfKqaXTdzNDyb3X99rK2f
+ PDz8RgdvVhbOblLR/WFOc0WO84rmAw3ltilsoZFdeQwiIR6tEL12DfLg79wUFBU0aJ0H15NKDL3
+ FEgzFw4cLn8sxBc0gFBL+6KzS7tolpUhEA3M+lQdnIRu1EFqDds91xMQxJi5L69vc0lx7uhsPUk
+ A1sfQiQ==
+X-Google-Smtp-Source: AGHT+IG2JNWtG5t9NbVNuoQ9NN6EnQTrfMLDjiH8gZ0sx1WPbonGS4f2ipr94i56nk1lp01l/rVSZw==
+X-Received: by 2002:a05:6512:3d16:b0:545:62c:4b29 with SMTP id
+ 2adb3069b0e04-548510d2891mr1850229e87.22.1740503691782; 
+ Tue, 25 Feb 2025 09:14:51 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-548514b237bsm233549e87.4.2025.02.25.09.14.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Feb 2025 08:49:37 -0800 (PST)
+ Tue, 25 Feb 2025 09:14:51 -0800 (PST)
+Date: Tue, 25 Feb 2025 19:14:48 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Karol Herbst <kherbst@redhat.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Abel Vesa <abel.vesa@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Johan Hovold <johan+linaro@kernel.org>,
- Imre Deak <imre.deak@intel.com>
-Subject: Re: [PATCH v5 0/4] drm/dp: Rework LTTPR transparent mode handling and
- add support to msm driver
-Date: Tue, 25 Feb 2025 18:49:35 +0200
-Message-ID: <174050217098.2377948.2211237197268827323.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250203-drm-dp-msm-add-lttpr-transparent-mode-set-v5-0-c865d0e56d6e@linaro.org>
-References: <20250203-drm-dp-msm-add-lttpr-transparent-mode-set-v5-0-c865d0e56d6e@linaro.org>
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ robdclark@gmail.com, sean@poorly.run, marijn.suijten@somainline.org, 
+ andersson@kernel.org, robh@kernel.org, robh+dt@kernel.org, krzk+dt@kernel.org, 
+ konradybcio@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
+ neil.armstrong@linaro.org, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
+ jonas@kwiboo.se, jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com, 
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com, quic_jesszhan@quicinc.com
+Subject: Re: [PATCH 04/11] drm/msm/dsi: add DSI PHY configuration on SA8775P
+Message-ID: <jrlpgcg4f4p76muibh4hypdjag2fl7ex55bspxhkjya6dyqjin@gcsrrrtoggcg>
+References: <20250225121824.3869719-1-quic_amakhija@quicinc.com>
+ <20250225121824.3869719-5-quic_amakhija@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250225121824.3869719-5-quic_amakhija@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,30 +97,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 03 Feb 2025 12:57:55 +0200, Abel Vesa wrote:
-> Looking at both i915 and nouveau DP drivers, both are setting the first
-> LTTPR (if found) in transparent mode first and then in non-transparent
-> mode, just like the DP v2.0 specification mentions in section 3.6.6.1.
+On Tue, Feb 25, 2025 at 05:48:17PM +0530, Ayushi Makhija wrote:
+> The SA8775P SoC uses the 5nm (v4.2) DSI PHY driver with
+> different enable regulator load.
 > 
-> Being part of the standard, setting the LTTPR in a specific operation mode
-> can be easily moved in the generic framework. So do that by adding a new
-> helper.
+> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c     |  2 ++
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h     |  1 +
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 27 +++++++++++++++++++++++
+>  3 files changed, 30 insertions(+)
 > 
-> [...]
 
-Applied to drm-misc-next, thanks!
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-[1/4] drm/dp: Add helper to set LTTPRs in transparent mode
-      commit: 5e7715478c273e5b17b08942182bc0350b7ef3a6
-[2/4] drm/nouveau/dp: Use the generic helper to control LTTPR transparent mode
-      commit: 226a0baf9098841ceb92ab7804a07426540663c7
-[3/4] drm/i915/dp: Use the generic helper to control LTTPR transparent mode
-      commit: 6dcc3c5121b72c3633592db761e76083cf7623a3
-[4/4] drm/msm/dp: Add support for LTTPR handling
-      commit: 72d0af4accd965dc32f504440d74d0a4d18bf781
-
-Best regards,
 -- 
 With best wishes
 Dmitry
-
