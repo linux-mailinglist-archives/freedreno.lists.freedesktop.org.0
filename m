@@ -2,90 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBFCEA43563
-	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 07:37:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1DDA4362E
+	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 08:30:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 766C710E549;
-	Tue, 25 Feb 2025 06:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7481610E592;
+	Tue, 25 Feb 2025 07:30:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="H7Jep5N7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="p7UG6gv1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB0BD10E549;
- Tue, 25 Feb 2025 06:36:59 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51OKONt9020059;
- Tue, 25 Feb 2025 06:36:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- EFTr1omY/36Zc/A0Hj9WYT9KmGBOYpdjr/SrE1PVDp4=; b=H7Jep5N7z00MHWXJ
- sKfHIuUlL9kj2oZV2V4Izh/6gU4JPgB4+Wl9tgWJKGw0XFsLBB28ST8667de3c2B
- /jcM5a86eYj/9IBqA7E+7eUkVTYPJ0Qjj1IwWv9fPxF2t/ErVBODZRhDjZWEe63r
- HSyD6IbfSOys0F+rbk5Ng60jJf/ejZ6olQ3WLC1PACzuz1fem6gPIQySZ/hZV0bQ
- onh3Up/nKRUheGY8h/EN5ZLFEkRCocsdPkBFqEoHM8lchfmUwIflrKhC1zswu7OB
- XMOXf0iVFnu+BIqrBRaQiIDcNA4gUD6TBf7s5waEeFpIsjJZibg4vD+pcV0BG4oX
- tdI5jA==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44y6t2qnwy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Feb 2025 06:36:54 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51P6arZm031164
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Feb 2025 06:36:53 GMT
-Received: from [10.216.12.26] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 24 Feb
- 2025 22:36:46 -0800
-Message-ID: <ae1cc6be-4834-4266-bc77-54d25f72fc96@quicinc.com>
-Date: Tue, 25 Feb 2025 12:06:44 +0530
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2AAD10E182
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 07:30:32 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-5ded69e6134so8666969a12.0
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Feb 2025 23:30:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1740468631; x=1741073431; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=TfuM5g5b1bzsFznJjaGXX66+r8znKzFeJVWgK6VGC58=;
+ b=p7UG6gv1SjP0T5PwGANjG92JPBoCV0OB82ed0p+yyAr33gc4B69w+x9JLx00HsSitQ
+ NzkGZKCYCOkTQbwf5rYbjG49750paIwfW5+8EOu2AV9ALdKk/g4t02zvpgeLpMsX6Gi6
+ FaOakmEI0d8rKTRWHGxhJcXKsgI04VksJ/+ENMyk8X0CsBkSvo/GqTDPdgI6BQv9cC26
+ 8hkZ0p9NwmZsyLvuguV1M5AnSxQNML/DL4HN1tZcMc+zbvZs0oJKTyYMhqyQIg5yX9Gd
+ DncoH3qR0ZXHTf/8q6b3VuqmQGTMSab1g6dltqsN2jvuZJQ/aFKthwMWANKVYU8FE9py
+ lOBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740468631; x=1741073431;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=TfuM5g5b1bzsFznJjaGXX66+r8znKzFeJVWgK6VGC58=;
+ b=oA5L2hPOyTni8AEotrwLHS4KuugRYJ3vTL61W3ZvaDMazs9EYHSp6Rxr1aSDIyojcf
+ BsxPVs1FMC/S74nDBbXH36qpNIGj1r/FYqPXeOwY5/OCZrk0klNarv7SbZMzS6yhzX1f
+ Hm6uPtC6XZnrOUtyLRR/9UuusFDB5VmRPFcQw3BZALAi23g8QQhPlMXZfmk4eNmUdqp9
+ 9ueqQv5/8CZA0XDLuCo19UMivjNK3MtyCrCeAqTgzcTfW0vm06sjOqygoz7VVlTQSyTr
+ k5+w1LKv4gpT7NM2FTUenIXJRY8E/6Xc9J6pC7Ubowbd+Pb+J7oLuPqFso7fljFLULqX
+ MyHQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV69oyibgA9GrBTO34XeW22253GrT4Djtkj0qpMVqEoNL0cPMbqW/QLSXbzEcCL/VW64H9V88Y9qfU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyNc5/smXvaENZL8SrNTkMsNcf1PYAazQQtFoe2gxPhnAHzcSIG
+ zjKbVR8VTXJpRHmXdM7aTnFBYsc8q8Opf/xZWCRpuThr2yHP680ItxBFCoWga5E=
+X-Gm-Gg: ASbGncuvkBJLVNgtxCjLfQBvDZEYNCbBp/ZJXP6l61FLPI82CkVr4nWbWu5x69vczJA
+ JDkOAh9Nyby1aRdpCsPArSK0RXd3aU9pryYFVDZDG+Xjcadc0COKiDgcvTaVUd3jrB8p0MAGlDN
+ hZzjk75lDEUnEX0bCuGvfKepTloVFh31RV7dfVGsmE/UYOl9c583LT7TMz97SBqHmKsDZXlpt+e
+ +4VDEGoDE1R+QW3f/wayTDMEqItA0lIUuNzj3Vr57NQhJ/y0gcXZzUySigOTYW8VMopexNGse87
+ mZ+LlfV2lAzjVTHl5ST2l0xNRFKEmGE=
+X-Google-Smtp-Source: AGHT+IF1jD1nIi0UqQ/yrLSB611MTk3aZB/2hvtf9cDDpXVP93eDIhNTWNWnPWPNHZu27Gv83YTAhQ==
+X-Received: by 2002:a05:6402:27c8:b0:5e0:8261:ebb2 with SMTP id
+ 4fb4d7f45d1cf-5e0b70d6598mr16065265a12.12.1740468631260; 
+ Mon, 24 Feb 2025 23:30:31 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 4fb4d7f45d1cf-5e461f3e7f8sm788694a12.69.2025.02.24.23.30.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Feb 2025 23:30:30 -0800 (PST)
+Date: Tue, 25 Feb 2025 10:30:26 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+Subject: [PATCH next] drm/msm/dpu: fix error pointer dereference in
+ msm_kms_init_aspace()
+Message-ID: <3221e88c-3351-42e6-aeb1-69f4f014b509@stanley.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] drm/msm/a6xx: Add support for Adreno 623
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
- <konradybcio@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, Jie Zhang <quic_jiezh@quicinc.com>
-References: <20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com>
- <20250213-a623-gpu-support-v1-2-993c65c39fd2@quicinc.com>
- <4a3eec8a-4f71-4ac7-a6e6-0e8490c020bc@oss.qualcomm.com>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Content-Language: en-US
-In-Reply-To: <4a3eec8a-4f71-4ac7-a6e6-0e8490c020bc@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 2yiweo9wjLZDJMIeMdho8gTahRfJ1uGH
-X-Proofpoint-GUID: 2yiweo9wjLZDJMIeMdho8gTahRfJ1uGH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-25_02,2025-02-24_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0
- spamscore=0 priorityscore=1501 mlxscore=0 phishscore=0 malwarescore=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2502100000 definitions=main-2502250041
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,60 +93,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/13/2025 10:51 PM, Konrad Dybcio wrote:
-> On 13.02.2025 5:10 PM, Akhil P Oommen wrote:
->> From: Jie Zhang <quic_jiezh@quicinc.com>
->>
->> Add support for Adreno 623 GPU found in QCS8300 chipsets.
->>
->> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
->> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->> ---
->>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c   | 29 +++++++++++++++++++++++++++++
->>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |  8 ++++++++
->>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  2 +-
->>  drivers/gpu/drm/msm/adreno/adreno_gpu.h     |  5 +++++
->>  4 files changed, 43 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> index edffb7737a97..ac156c8b5af9 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> @@ -879,6 +879,35 @@ static const struct adreno_info a6xx_gpus[] = {
->>  			{ 0, 0 },
->>  			{ 137, 1 },
->>  		),
->> +	}, {
->> +		.chip_ids = ADRENO_CHIP_IDS(0x06020300),
->> +		.family = ADRENO_6XX_GEN3,
->> +		.fw = {
->> +			[ADRENO_FW_SQE] = "a650_sqe.fw",
->> +			[ADRENO_FW_GMU] = "a623_gmu.bin",
->> +		},
->> +		.gmem = SZ_512K,
->> +		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
->> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
->> +			ADRENO_QUIRK_HAS_HW_APRIV,
->> +		.init = a6xx_gpu_init,
->> +		.a6xx = &(const struct a6xx_info) {
->> +			.hwcg = a620_hwcg,
-> 
-> On downstream a663 hwcg table is used, with the following differences:
-> 
-> < A620
->> A663
-> 
-> < {REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x02222222},
->> {REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x22222222},
-> 
-> < {REG_A6XX_RBBM_CLOCK_HYST_TEX_FCHE, 0x00000777},
->> {REG_A6XX_RBBM_CLOCK_HYST_TEX_FCHE, 0x00000000}
+If msm_gem_address_space_create() fails, then return right away.
+Otherwise it leads to a Oops when we dereference "aspace" on the next
+line.
 
-Thanks. We ended up reviewing this with HW folks and found that the
-downstream code is incorrect too. Will send another revision.
+Fixes: 2d215d440faa ("drm/msm: register a fault handler for display mmu faults")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/msm/msm_kms.c | 1 +
+ 1 file changed, 1 insertion(+)
 
--Akhil.
-
-> 
-> Konrad
+diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+index b877278888e6..35d5397e73b4 100644
+--- a/drivers/gpu/drm/msm/msm_kms.c
++++ b/drivers/gpu/drm/msm/msm_kms.c
+@@ -209,6 +209,7 @@ struct msm_gem_address_space *msm_kms_init_aspace(struct drm_device *dev)
+ 	if (IS_ERR(aspace)) {
+ 		dev_err(mdp_dev, "aspace create, error %pe\n", aspace);
+ 		mmu->funcs->destroy(mmu);
++		return aspace;
+ 	}
+ 
+ 	msm_mmu_set_fault_handler(aspace->mmu, kms, msm_kms_fault_handler);
+-- 
+2.47.2
 
