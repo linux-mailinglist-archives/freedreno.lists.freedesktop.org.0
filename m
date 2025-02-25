@@ -2,54 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EECBA44C17
-	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 21:12:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 031A0A44E16
+	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 21:57:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC9A10E0F6;
-	Tue, 25 Feb 2025 20:12:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D247F10E7E3;
+	Tue, 25 Feb 2025 20:57:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rxKxVRfA";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TiXmcF92";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABAB410E07E;
- Tue, 25 Feb 2025 20:12:43 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id BE15C611FC;
- Tue, 25 Feb 2025 20:12:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560F2C4CEDD;
- Tue, 25 Feb 2025 20:12:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740514358;
- bh=7S6m5qj19j2HH2oirUAYDNOi+Wj6A6WK3mHdMWXnPOs=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=rxKxVRfA6iOtsiT3k9Ku1jxKYLor7MNqxEi3U5vaGizZg067EjMB4y61uJojIRlAW
- UAIhecahjb9vXBcGth4vfPWKPTya25Mjx3qtTHseFZ+xs7VL4MXURYQwx104ctQO0v
- qpRWPveKcx5tNUI1QpEfSPtYA6RzYJjncIgztOLC75Btg0Uy/mgWku7SCz97COSXUZ
- jGwQu3HeWX0lRJj1LYfVgUYCYGe9Mrfn71KO9BHVaXIM8cVeea1r5qKLTATF9Mtk/e
- Ktk6uzEPhXiA9uXpWP1Z/6HCrdqNsY7hASZRortJTgG3AtQgYC7pdUjAaV0h2qtr81
- xH/ElgTCWgXkA==
-Date: Tue, 25 Feb 2025 14:12:37 -0600
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com, 
- quic_rajeevny@quicinc.com, krzk+dt@kernel.org, linux-kernel@vger.kernel.org, 
- freedreno@lists.freedesktop.org, neil.armstrong@linaro.org, sean@poorly.run, 
- devicetree@vger.kernel.org, robdclark@gmail.com, andersson@kernel.org, 
- dmitry.baryshkov@linaro.org, conor+dt@kernel.org, rfoss@kernel.org, 
- quic_jesszhan@quicinc.com, quic_vproddut@quicinc.com, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- marijn.suijten@somainline.org, Laurent.pinchart@ideasonboard.com, 
- andrzej.hajda@intel.com, jonas@kwiboo.se, konradybcio@kernel.org, 
- robh+dt@kernel.org
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F187710E7E3
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 20:57:12 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5454f00fc8dso5671778e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 12:57:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1740517031; x=1741121831; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=RC4nwCVky+xPc0uxnaEdDnOXaTOZCldxGM13yaUgyKU=;
+ b=TiXmcF92H3ihVeI0USM2KDlx+m2rNEsJCK8kD3wmi+izsZS75nSzTZrKnZI5zQOaVJ
+ BMH9hdSu6i7GOmk1SzgjPm/JutKaLoAAqGNEQgaIKOTPslQDNQZnfsQ36qZDiHsNxnlk
+ VfIiQ4jgiYaMCT/x4EhHAaKg1cVmHTU6yXjiSlE5hqFy1gf6HFleqk90FX2f8zLM0KCy
+ 9IAO0Cuwat1fBQQrHqRHXQ7w/d3tvNbmy9eAjOfjL1D19bmVoV2QEuewcfReNdOAPc1M
+ iJp7yFLkDhPnvB+/ktXpvjY3brmBenzmhe6GAP+iyr6orDtEHCKOQOfehzRP1MYbadKW
+ ToKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740517031; x=1741121831;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RC4nwCVky+xPc0uxnaEdDnOXaTOZCldxGM13yaUgyKU=;
+ b=S0Xjp4ojg2Si8w9m6BF4iDSzWXsaHZQY6ITQvn5NhubnnTAsObKvbycqkV585TIyF8
+ 01XV5b/SeGsDPIMj9P35YtwnfWYvzuP+QH16Brlla26ynmahDEgr2vhiIYfZNwKXMOwK
+ eaRzJboEGYSkETzFrvsJiLRuHbsEsiNWMw2xa9KHyOG9L73mY9iSTN+Gr0cqNHaNQWSM
+ 9EW3RT/IzGpDFXvEVFff8wHiQWsTMvkkdL3Zv3hiZVZcslqV0uobj5KHmkDAN9tp1Int
+ ydP5/Rm3rTOOYHV5mQExtEW+6W+Kfma9VD3pO3z0b05aH31gpqgS1JKj9Y6cAkfcJcJ+
+ pNOQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUmVj3VUQbD1F6HSA/T+uSgNoFO/7IUB6J4GLWtTar+iexz/zN+MGKQvTDNutQwwUWvB6DIbCuOHow=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywb/EmoOqulbSIAp2D+2C6rNw/zhSdqyyIq9x85OzgwqR8cqGFv
+ B0Ii/91neMgGVdsTeW5stTOVq3FiTYEFgUh46uHUiyPJl4tQSpDRRtg/fARA8iE=
+X-Gm-Gg: ASbGncviQf9R5FGkK/QqMdSlxDNX4mXj9z3+NNwpDwGfAgmrzo8i7cWDq60/66fJib9
+ HdA2GIvMXmoWpkhMtQhiii+dTD/fZayIOxVSWVYO1Ddy75L0ihtmyy26SsIIIfN2BcYc3k8m0rq
+ AvYVY8bXdjEQIFQ/QDiUlMtLYveFicaJDZ+BOYS3p+VUEtdX14G0jXeih7TGTkTzIilydNDATGK
+ yWD+mwy3QJoH6kvisv0dv6SnLBOJEDXMIhRbrxUZCnDC2BJOq10SfliG+18cXXwdUUY2EwZfKxb
+ oapjJ9+q5oqHM/H2ZAXjKTzRv2pIj3FMa88OhSfm7gxL1l5cclzj0EY/w2YTyaRL/iGfr7LTp8r
+ JEIQSKA==
+X-Google-Smtp-Source: AGHT+IHRv8mh/QNtBZyrnliPjjpkMnU2s4zUsA7EqzstzJNaDy/fNbCuH+kkInHHb1dD5QukYC4paA==
+X-Received: by 2002:a05:6512:130c:b0:545:2953:1667 with SMTP id
+ 2adb3069b0e04-5493c57a2eamr788746e87.13.1740517031002; 
+ Tue, 25 Feb 2025 12:57:11 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-548514b9d78sm271652e87.79.2025.02.25.12.57.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Feb 2025 12:57:10 -0800 (PST)
+Date: Tue, 25 Feb 2025 22:57:08 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Ayushi Makhija <quic_amakhija@quicinc.com>
-In-Reply-To: <20250225121824.3869719-1-quic_amakhija@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ robdclark@gmail.com, sean@poorly.run, marijn.suijten@somainline.org, 
+ andersson@kernel.org, robh@kernel.org, robh+dt@kernel.org, krzk+dt@kernel.org, 
+ konradybcio@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
+ neil.armstrong@linaro.org, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
+ jonas@kwiboo.se, jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com, 
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com, quic_jesszhan@quicinc.com
+Subject: Re: [PATCH 10/11] drm/bridge: anx7625: update bridge_ops and sink
+ detect logic
+Message-ID: <yvjb7sd42uhvomsw2svotyxrvdxihsa3qch3lfynpaoap6g3hp@dcqmaw65zsk2>
 References: <20250225121824.3869719-1-quic_amakhija@quicinc.com>
-Message-Id: <174051415386.2971902.3360853171203974622.robh@kernel.org>
-Subject: Re: [PATCH 00/11] Add DSI display support for SA8775P target
+ <20250225121824.3869719-11-quic_amakhija@quicinc.com>
+ <ne35ljkudi5jta2cby7fgjzqsd5sjpwcjpwhv6kmedq6nomho5@txynsflvtc6f>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ne35ljkudi5jta2cby7fgjzqsd5sjpwcjpwhv6kmedq6nomho5@txynsflvtc6f>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,121 +99,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Tue, 25 Feb 2025 17:48:13 +0530, Ayushi Makhija wrote:
-> This series enables the support for DSI to DP bridge ports
-> (labled as DSI0 and DSI1) of the Qualcomm's SA8775P Ride platform.
+On Tue, Feb 25, 2025 at 07:58:24PM +0200, Dmitry Baryshkov wrote:
+> On Tue, Feb 25, 2025 at 05:48:23PM +0530, Ayushi Makhija wrote:
+> > The anx7625_link_bridge() checks if a device is a not a panel
+> > bridge and add DRM_BRIDGE_OP_HPD and DRM_BRIDGE_OP_DETECT to
+> > the bridge operations. However, on port 1 of the anx7625
+> > bridge, any device added is always treated as a panel
+> > bridge, preventing connector_detect function from being
+> > called. To resolve this, instead of just checking if it is a
+> > panel bridge, we should verify the type of panel bridge
+> > whether it is a DisplayPort or eDP panel. If the panel
+> > bridge is of the DisplayPort type, we should add
+> > DRM_BRIDGE_OP_HPD or DRM_BRIDGE_OP_DETECT to the bridge
+> > operations.
+> > 
+> > In the anx7625_sink_detect(), the device is checked to see
+> > if it is a panel bridge, and it always sends a "connected"
+> > status to the connector. When adding the DP port on port 1 of the
+> > anx7625, it incorrectly treats it as a panel bridge and sends an
+> > always "connected" status. Instead of checking the status on the
+> > panel bridge, it's better to check the hpd_status for connectors
+> > like DisplayPort. This way, it verifies the hpd_status variable
+> > before sending the status to the connector.
+> > 
+> > Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> > ---
+> >  drivers/gpu/drm/bridge/analogix/anx7625.c | 10 ++++------
+> >  1 file changed, 4 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+> > index d2655bf46842..9b6303267924 100644
+> > --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
+> > +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+> > @@ -1814,9 +1814,6 @@ static enum drm_connector_status anx7625_sink_detect(struct anx7625_data *ctx)
+> >  
+> >  	DRM_DEV_DEBUG_DRIVER(dev, "sink detect\n");
+> >  
+> > -	if (ctx->pdata.panel_bridge)
+> > -		return connector_status_connected;
+> > -
+> >  	return ctx->hpd_status ? connector_status_connected :
+> >  				     connector_status_disconnected;
+> >  }
+> > @@ -2596,9 +2593,10 @@ static int anx7625_link_bridge(struct drm_dp_aux *aux)
+> >  	platform->bridge.of_node = dev->of_node;
+> >  	if (!anx7625_of_panel_on_aux_bus(dev))
+> >  		platform->bridge.ops |= DRM_BRIDGE_OP_EDID;
+> > -	if (!platform->pdata.panel_bridge)
+> > -		platform->bridge.ops |= DRM_BRIDGE_OP_HPD |
+> > -					DRM_BRIDGE_OP_DETECT;
+> > +	if (!platform->pdata.panel_bridge ||
+> > +	    platform->pdata.panel_bridge->type == DRM_MODE_CONNECTOR_DisplayPort) {
 > 
-> SA8775P SoC has DSI controller v2.5.1 and DSI PHY v4.2.
-> The Ride platform is having ANX7625 DSI to DP bridge chip from Analogix.
+> This is incorrect, because there can be other kinds of bridges in the DP
+> chain. I think it's better to check for !eDP instead.
+
+Another option comes from the aux-bus bindings. If there is an aux-bus
+node, it is an eDP. If there is none, it is most likely DP (well, unless
+anybody has been using the bridge with eDP panels defclared using
+platform devices rather than the aux-bus.
+
 > 
-> Ayushi Makhija (11):
->   dt-bindings: display: msm-dsi-phy-7nm: document the SA8775P DSI PHY
->   dt-bindings: msm: dsi-controller-main: document the SA8775P DSI CTRL
->   dt-bindings: display: msm: document DSI controller and phy on SA8775P
->   drm/msm/dsi: add DSI PHY configuration on SA8775P
->   drm/msm/dsi: add DSI support for SA8775P
->   arm64: dts: qcom: sa8775p: add Display Serial Interface device nodes
->   arm64: dts: qcom: sa8775p-ride: add anx7625 DSI to DP bridge nodes
->   arm64: dts: qcom: sa8775p-ride: enable Display serial interface
->   drm/bridge: anx7625: enable HPD interrupts
->   drm/bridge: anx7625: update bridge_ops and sink detect logic
->   drm/bridge: anx7625: change the gpiod_set_value API
+> > +		platform->bridge.ops |= DRM_BRIDGE_OP_HPD | DRM_BRIDGE_OP_DETECT;
+> > +	}
+> >  	platform->bridge.type = platform->pdata.panel_bridge ?
+> >  				    DRM_MODE_CONNECTOR_eDP :
+> >  				    DRM_MODE_CONNECTOR_DisplayPort;
+> > -- 
+> > 2.34.1
+> > 
 > 
->  .../display/msm/dsi-controller-main.yaml      |   1 +
->  .../bindings/display/msm/dsi-phy-7nm.yaml     |   1 +
->  .../display/msm/qcom,sa8775p-mdss.yaml        | 170 +++++++++++++++
->  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi    | 198 +++++++++++++++++-
->  arch/arm64/boot/dts/qcom/sa8775p.dtsi         | 183 +++++++++++++++-
->  drivers/gpu/drm/bridge/analogix/anx7625.c     |  24 ++-
->  drivers/gpu/drm/msm/dsi/dsi_cfg.c             |  18 ++
->  drivers/gpu/drm/msm/dsi/dsi_cfg.h             |   1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         |   2 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |   1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     |  27 +++
->  11 files changed, 614 insertions(+), 12 deletions(-)
-> 
-> --
-> 2.34.1
-> 
-> 
-> 
+> -- 
+> With best wishes
+> Dmitry
 
-
-My bot found new DTB warnings on the .dts files added or changed in this
-series.
-
-Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-are fixed by another series. Ultimately, it is up to the platform
-maintainer whether these warnings are acceptable or not. No need to reply
-unless the platform maintainer has comments.
-
-If you already ran DT checks and didn't see these error(s), then
-make sure dt-schema is up to date:
-
-  pip3 install dtschema --upgrade
-
-
-New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/qcom/' for 20250225121824.3869719-1-quic_amakhija@quicinc.com:
-
-arch/arm64/boot/dts/qcom/qcs9100-ride.dtb: gpio@74: 'gpio10_cfg', 'gpio11_cfg', 'gpio2_cfg', 'gpio3_cfg' do not match any of the regexes: '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/gpio/gpio-pca95xx.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride.dtb: anx7625@58: 'vdd10-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride.dtb: anx7625@58: 'vdd18-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride.dtb: anx7625@58: 'vdd33-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride.dtb: anx7625@58: 'vdd10-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride.dtb: anx7625@58: 'vdd18-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride.dtb: anx7625@58: 'vdd33-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride.dtb: gpio@74: 'gpio10_cfg', 'gpio11_cfg', 'gpio2_cfg', 'gpio3_cfg' do not match any of the regexes: '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/gpio/gpio-pca95xx.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride.dtb: anx7625@58: 'vdd10-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride.dtb: anx7625@58: 'vdd18-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride.dtb: anx7625@58: 'vdd33-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride.dtb: anx7625@58: 'vdd10-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride.dtb: anx7625@58: 'vdd18-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride.dtb: anx7625@58: 'vdd33-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dtb: gpio@74: 'gpio10_cfg', 'gpio11_cfg', 'gpio2_cfg', 'gpio3_cfg' do not match any of the regexes: '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/gpio/gpio-pca95xx.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dtb: anx7625@58: 'vdd10-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dtb: anx7625@58: 'vdd18-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dtb: anx7625@58: 'vdd33-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dtb: anx7625@58: 'vdd10-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dtb: anx7625@58: 'vdd18-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dtb: anx7625@58: 'vdd33-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dtb: gpio@74: 'gpio10_cfg', 'gpio11_cfg', 'gpio2_cfg', 'gpio3_cfg' do not match any of the regexes: '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/gpio/gpio-pca95xx.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dtb: anx7625@58: 'vdd10-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dtb: anx7625@58: 'vdd18-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dtb: anx7625@58: 'vdd33-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dtb: anx7625@58: 'vdd10-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dtb: anx7625@58: 'vdd18-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dtb: anx7625@58: 'vdd33-supply' is a required property
-	from schema $id: http://devicetree.org/schemas/display/bridge/analogix,anx7625.yaml#
-
-
-
-
-
+-- 
+With best wishes
+Dmitry
