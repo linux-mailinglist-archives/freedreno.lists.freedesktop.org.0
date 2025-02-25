@@ -2,111 +2,102 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 853CEA44038
-	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 14:11:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 363EAA440D4
+	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 14:31:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33CAF10E163;
-	Tue, 25 Feb 2025 13:11:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02F1710E692;
+	Tue, 25 Feb 2025 13:31:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q7QgPDQg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VVKU5PdM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78AA510E163
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 13:11:21 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51P8B1AT020230
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 13:11:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- uuwVfqXUmGXRoU+kSMckG71FjFzg8qfTg24k4ONKjKE=; b=Q7QgPDQgDt0t1CeK
- ncM6P5dXSfVXjSbuTvW5j326SSv+P5RtKcgmfvrWC7mlW+rNYU8oiZMqIhyzCQ1b
- S57rKzVVpRE9S6vUu/vufoSH9/1ar7WOjCP1r87uhhMFOAACB6vm51/Sxdxfzbgn
- S6gE6GjCeacByhW8T85L1FsMHwBadCeruDJMirLF0IseQAzcXpAdqRMnZBXpaaKT
- tSS612lp898nrWFnjLMlIpqKLWvnuJsvNgzait4f4KDVJr/6nbcAnl2rgtTENaJe
- SfcME86DQwJ3qsND+ywAmeutEH8InBpkfZ2uhkNUbRR5kmXwsPONCfhDMq6IWAYQ
- f51syg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44y6t2rt01-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 13:11:20 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-471ed6f95d2so7503011cf.3
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 05:11:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740489080; x=1741093880;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uuwVfqXUmGXRoU+kSMckG71FjFzg8qfTg24k4ONKjKE=;
- b=lCdX7uuuLhyxA27VWwjvPzDaEC/SHBB6b7uCXcrJHajAJPigPe2esl7V0/WuKtseac
- 38aa8U4CfkWt4P8d8vAo/lueKQvAT0uREhn7gQPJ5se2Cy392nwW6jR13RgW6ncv8l9C
- pGP+eGoXirGBcNXDIlZPzA2NNinthabTt+Oi+Q6s6FNAwz6SRuKEgipVt+CTWurwjpK1
- fHDpvCUXY5190egW9P8+uCnFR/XhgZCT7D1nU2U9n5/LZWFNvu5x9Rine+1eocQL4pcU
- zgCoVv4EJAbUmUm1P/I6QuQ8prfXcWY0nJ2RP9BL+8AKq7OZXklWOOT860EZJW7qIG4A
- 00WQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWaamMCk68dQpxlsvSwzAKwgxfSPcDsdE7XxZkdJxHMUPbsyqzH31UQz+s9T4sIM8Ym+xsvZSmWqv0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzW4gXHOMcEAM4RgBJcGTd9KbwYkGbPCWW1dJMcrUWLJ0mbXoIZ
- XEZemtBk1cgQrCTmaWm1ifGZoKgyXD/oDDj+1JmzvfupYW5/gwbis2pW7mHS88LzZAhLkLHLBaC
- bW3bl727Qr9gURGMeqSEi/Tnq2YQD13T7KDi4Zleat2h8iJBhnFCvDMfIYjWmjxoN+cI=
-X-Gm-Gg: ASbGncu1B2g7APvPe9u6XNkShr3W6P3azJNpEEDz4QMRTrj2ENena2eBcA6yw6o/mQl
- bNQoTu4LKsDkW04ahXHE6alX5PamimBabQj3RHzvVUo0mAMSqalZyw1s9AlLixf6FUR+h6S4n9M
- G7z0VCFjetTCh+3RUFR0d9jaAnwzSJDIP0AzINzbtkMADHPnSNKSQ3VzCiH+3ansDIBo5SHcHF+
- nn0SH1p2Ba6T0C3XtHKkRZHQOfj1H6u14hxlqmS4n8c3MAcqR9gDgtCi/4HzMrGOyzQyUSORX3n
- 65qFIlx2ef0RYOnO/hBDu+6agaOpyF+4Nv+zAl54R2qW+kUDCxhtGgeoh9PzpO9cvrHDJQ==
-X-Received: by 2002:ac8:5a43:0:b0:472:14b8:ee01 with SMTP id
- d75a77b69052e-472228d7e30mr71677881cf.6.1740489079611; 
- Tue, 25 Feb 2025 05:11:19 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IErDUxqjVZVeKivo2X+WzYQGTk3m9wBnXFgnKFF8mPGrQ+En9HUm/GLFcoa+lNQennqXJ70qw==
-X-Received: by 2002:ac8:5a43:0:b0:472:14b8:ee01 with SMTP id
- d75a77b69052e-472228d7e30mr71677541cf.6.1740489079098; 
- Tue, 25 Feb 2025 05:11:19 -0800 (PST)
-Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abee36dddecsm37813166b.61.2025.02.25.05.11.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 05:11:18 -0800 (PST)
-Message-ID: <3b91b340-2d01-4685-bb73-818924c4ec29@oss.qualcomm.com>
-Date: Tue, 25 Feb 2025 14:11:15 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2AD310E692;
+ Tue, 25 Feb 2025 13:31:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9D36A61262;
+ Tue, 25 Feb 2025 13:31:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB604C4CEDD;
+ Tue, 25 Feb 2025 13:31:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1740490275;
+ bh=/xG0T3HHO8KtJyPXienzsV4NNKgXtezz1VzjO9CjT+A=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=VVKU5PdM86DtqR1Wt2aF3udQDRTW9m3pMWCDfIEy+1LHDotjXi2A06KRXW2L2yeAw
+ NQt5W6tMTsR+BejspVh99lgsByjeI1Eb90Vsj34PKxIewDwnUd8DmEn1t1hSNSk6VZ
+ 3KBVl4uJNF6VuyyARDYs0z31c9zQ+vY5IMp3I8hvvZNqb5HkYHFyvQTxFD7SLx4t0l
+ 6YaClksnZPqyyKhePfkLbQzz/+mGFfPMBEqmohv1Ja0w1jBcd1LnI+QIrWfwdZe7tQ
+ AHZH++6fvRShUZiS8grCKveco/CCh1qrgcSETf9nO3/uPxnvkbMkJAoy1Xzo4PVjrj
+ m5jgDb+7f8JMw==
+Message-ID: <ecdc2230-1ce1-4d70-a352-180f6cd29e61@kernel.org>
+Date: Tue, 25 Feb 2025 14:31:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/11] arm64: dts: qcom: sa8775p-ride: enable Display
- serial interface
-To: Ayushi Makhija <quic_amakhija@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 07/11] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI to
+ DP bridge nodes
+To: Ayushi Makhija <quic_amakhija@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Cc: robdclark@gmail.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
  marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
  robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
  jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
  quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
  quic_jesszhan@quicinc.com
 References: <20250225121824.3869719-1-quic_amakhija@quicinc.com>
- <20250225121824.3869719-9-quic_amakhija@quicinc.com>
+ <20250225121824.3869719-8-quic_amakhija@quicinc.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250225121824.3869719-9-quic_amakhija@quicinc.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20250225121824.3869719-8-quic_amakhija@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: S1ia3_KMw8t8UO6UGMNMhechxFJEhl0f
-X-Proofpoint-GUID: S1ia3_KMw8t8UO6UGMNMhechxFJEhl0f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-25_04,2025-02-25_03,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0
- spamscore=0 priorityscore=1501 mlxscore=0 phishscore=0 malwarescore=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2502100000 definitions=main-2502250091
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,42 +113,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25.02.2025 1:18 PM, Ayushi Makhija wrote:
-> Enable both DSI to DP bridge ports on SA8775P Ride plaftrom.
-> 
-> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-> ---
->  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 66 +++++++++++++++++++++-
->  1 file changed, 64 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-> index 151f66512303..02d8a9c2c909 100644
-> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-> @@ -128,6 +128,30 @@ dp1_connector_in: endpoint {
->  			};
->  		};
->  	};
+On 25/02/2025 13:18, Ayushi Makhija wrote:
+> +		pinctrl-0 = <&dsi0_int_pin>,
+> +				<&dsi0_cbl_det_pin>,
+> +				<&dsi1_int_pin>,
+> +				<&dsi1_cbl_det_pin>;
+> +		pinctrl-names = "default";
 > +
-> +	dsi0-connector {
-> +		compatible = "dp-connector";
-> +		label = "DSI0";
+> +		dsi0_int_pin: gpio2_cfg {
 
-DP0
 
-> +		type = "full-size";
+No underscores, see DTS coding style.
+
+> +			pins = "gpio2";
+> +			input-enable;
+> +			bias-disable;
+> +		};
 > +
-> +		port {
-> +			dsi0_connector_in: endpoint {
-> +				remote-endpoint = <&anx7625_1_out>;
-> +			};
+> +		dsi0_cbl_det_pin: gpio3_cfg {
+> +			pins = "gpio3";
+> +			bias-pull-down;
+> +		};
+> +
+> +		dsi1_int_pin: gpio10_cfg {
+> +			pins = "gpio10";
+> +			input-enable;
+> +			bias-disable;
+> +		};
+> +
+> +		dsi1_cbl_det_pin: gpio11_cfg {
+> +			pins = "gpio11";
+> +			bias-pull-down;
 > +		};
 > +	};
 > +
-> +	dsi1-connector {
-> +		compatible = "dp-connector";
-> +		label = "DSI1";
+> +	i2c-mux@70 {
+> +		compatible = "nxp,pca9543";
+> +		#address-cells = <1>;
+> +
+> +		#size-cells = <0>;
+> +		reg = <0x70>;
+> +
+> +		i2c@0 {
+> +			reg = <0>;
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			anx_bridge_1: anx7625@58 {
 
-DP1
+Node names should be generic. See also an explanation and list of
+examples (not exhaustive) in DT specification:
+https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
 
-Konrad
+
+> +				compatible = "analogix,anx7625";
+> +				reg = <0x58>;
+> +				interrupt-parent = <&io_expander>;
+> +				interrupts = <2 IRQ_TYPE_EDGE_FALLING>;
+> +				enable-gpios = <&io_expander 1 0>;
+> +				reset-gpios = <&io_expander 0 0>;
+
+Use proper defines.
+
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					dsi2dp_bridge_1_in: port@0 {
+> +						reg = <0>;
+> +
+> +						anx7625_1_in: endpoint {
+> +							remote-endpoint = <&mdss0_dsi0_out>;
+> +						};
+> +					};
+> +
+> +					dsi2dp_bridge_1_out: port@1 {
+> +						reg = <1>;
+> +
+> +						anx7625_1_out: endpoint { };
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		i2c@1 {
+> +			reg = <1>;
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			anx_bridge_2: anx7625@58 {
+
+Node names should be generic. See also an explanation and list of
+examples (not exhaustive) in DT specification:
+https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+
+
+> +				compatible = "analogix,anx7625";
+> +				reg = <0x58>;
+> +				interrupt-parent = <&io_expander>;
+> +				interrupts = <10 IRQ_TYPE_EDGE_FALLING>;
+> +				enable-gpios = <&io_expander 9 0>;
+> +				reset-gpios = <&io_expander 8 0>;
+
+
+
+Best regards,
+Krzysztof
