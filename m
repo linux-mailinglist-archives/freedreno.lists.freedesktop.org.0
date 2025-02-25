@@ -2,88 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 031A0A44E16
-	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 21:57:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E96D5A45080
+	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2025 23:52:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D247F10E7E3;
-	Tue, 25 Feb 2025 20:57:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C74FF10E811;
+	Tue, 25 Feb 2025 22:52:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TiXmcF92";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mxGrX6x8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F187710E7E3
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 20:57:12 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-5454f00fc8dso5671778e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2025 12:57:12 -0800 (PST)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8B9710E810;
+ Tue, 25 Feb 2025 22:52:48 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-220e83d65e5so116903595ad.1; 
+ Tue, 25 Feb 2025 14:52:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740517031; x=1741121831; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=RC4nwCVky+xPc0uxnaEdDnOXaTOZCldxGM13yaUgyKU=;
- b=TiXmcF92H3ihVeI0USM2KDlx+m2rNEsJCK8kD3wmi+izsZS75nSzTZrKnZI5zQOaVJ
- BMH9hdSu6i7GOmk1SzgjPm/JutKaLoAAqGNEQgaIKOTPslQDNQZnfsQ36qZDiHsNxnlk
- VfIiQ4jgiYaMCT/x4EhHAaKg1cVmHTU6yXjiSlE5hqFy1gf6HFleqk90FX2f8zLM0KCy
- 9IAO0Cuwat1fBQQrHqRHXQ7w/d3tvNbmy9eAjOfjL1D19bmVoV2QEuewcfReNdOAPc1M
- iJp7yFLkDhPnvB+/ktXpvjY3brmBenzmhe6GAP+iyr6orDtEHCKOQOfehzRP1MYbadKW
- ToKQ==
+ d=gmail.com; s=20230601; t=1740523968; x=1741128768; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=OxsB6aMdBT4Hx4H6RblTo/4XJIt/eXGQbiNeASQfp+4=;
+ b=mxGrX6x88btBP3Ljah4DHyod5UorbvQ7gLITf9IjHmrS3DakF4RZVI+5+IkyT3CbC5
+ 5eTYUCJjf7t/xXNKAl627rlexpv+UR5xoGXkHTI7VCKKPK1dGX+8H6jETAhT95t6bEy2
+ +o1gZZ5IY1IIONm0YbB0eM4l2eJG/BCwkJ5bQy6P53+bSKkUnKwz2F/KA0SX/CV0U5qb
+ QiRcoT3IXu1qr6m1yltqKYwwJBfsXnxermgvKzrDK5uVYt3lOaa+RkvFa/fxMh62DQ3Z
+ WhdIpEzJSVzsOZuRhblXTVFyrL9v6yLEjSe+pogDwBvfiuKoUzPk8wWITJAeaUhZuGgO
+ hC3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740517031; x=1741121831;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RC4nwCVky+xPc0uxnaEdDnOXaTOZCldxGM13yaUgyKU=;
- b=S0Xjp4ojg2Si8w9m6BF4iDSzWXsaHZQY6ITQvn5NhubnnTAsObKvbycqkV585TIyF8
- 01XV5b/SeGsDPIMj9P35YtwnfWYvzuP+QH16Brlla26ynmahDEgr2vhiIYfZNwKXMOwK
- eaRzJboEGYSkETzFrvsJiLRuHbsEsiNWMw2xa9KHyOG9L73mY9iSTN+Gr0cqNHaNQWSM
- 9EW3RT/IzGpDFXvEVFff8wHiQWsTMvkkdL3Zv3hiZVZcslqV0uobj5KHmkDAN9tp1Int
- ydP5/Rm3rTOOYHV5mQExtEW+6W+Kfma9VD3pO3z0b05aH31gpqgS1JKj9Y6cAkfcJcJ+
- pNOQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUmVj3VUQbD1F6HSA/T+uSgNoFO/7IUB6J4GLWtTar+iexz/zN+MGKQvTDNutQwwUWvB6DIbCuOHow=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywb/EmoOqulbSIAp2D+2C6rNw/zhSdqyyIq9x85OzgwqR8cqGFv
- B0Ii/91neMgGVdsTeW5stTOVq3FiTYEFgUh46uHUiyPJl4tQSpDRRtg/fARA8iE=
-X-Gm-Gg: ASbGncviQf9R5FGkK/QqMdSlxDNX4mXj9z3+NNwpDwGfAgmrzo8i7cWDq60/66fJib9
- HdA2GIvMXmoWpkhMtQhiii+dTD/fZayIOxVSWVYO1Ddy75L0ihtmyy26SsIIIfN2BcYc3k8m0rq
- AvYVY8bXdjEQIFQ/QDiUlMtLYveFicaJDZ+BOYS3p+VUEtdX14G0jXeih7TGTkTzIilydNDATGK
- yWD+mwy3QJoH6kvisv0dv6SnLBOJEDXMIhRbrxUZCnDC2BJOq10SfliG+18cXXwdUUY2EwZfKxb
- oapjJ9+q5oqHM/H2ZAXjKTzRv2pIj3FMa88OhSfm7gxL1l5cclzj0EY/w2YTyaRL/iGfr7LTp8r
- JEIQSKA==
-X-Google-Smtp-Source: AGHT+IHRv8mh/QNtBZyrnliPjjpkMnU2s4zUsA7EqzstzJNaDy/fNbCuH+kkInHHb1dD5QukYC4paA==
-X-Received: by 2002:a05:6512:130c:b0:545:2953:1667 with SMTP id
- 2adb3069b0e04-5493c57a2eamr788746e87.13.1740517031002; 
- Tue, 25 Feb 2025 12:57:11 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ d=1e100.net; s=20230601; t=1740523968; x=1741128768;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=OxsB6aMdBT4Hx4H6RblTo/4XJIt/eXGQbiNeASQfp+4=;
+ b=fiPZmt8qjzau9oN8BuJPTQxWzwoggSYyv9KpQqTMtdRuRZXPyJXIeKzpnhzQLOApVE
+ bMe9Kn7EiR2a9w9ntQiTn0kQXm72b8PwzEl2ilq7S5/WuOUlCeRvWrq0BPB5abK3FAxK
+ ELwMg4zendtOWdejY2FvE6O922ERnKUOfz1HYF6yQnONE47vvS7cIxGZgB+6nd4h1jaQ
+ /LdW3WX/u9RbGq6+A1gwLs6NCGwazXFEGRC3B3piBFiIy3PjugAmwaRT0mKus+rNopg0
+ l3rXi+89GXKb8I5xYJP70LDGnLOpb2dcXyYIubU6f7NnfLKVonSlcBEiIiUWumLbkwWK
+ W90A==
+X-Gm-Message-State: AOJu0Ywneexma/M5NDC1yBemQvjawNWA7r/W7e0F/3DrllXuMt7p1ALg
+ GcXu7j8Z1Hyo7Khkj7WPCLhAbEq6dsS3XtQtKtM0lYDW9g14uH57gxKWvw==
+X-Gm-Gg: ASbGncujGedAc9xIRUAJ31xpdbXtTgxosTtyNwosmWXzRJfgt/c65FKhajfAIQcq8Bz
+ NIN6k5pcomsizZutBcQB+JZDhyltNdi0XZ66ZYq0CtK9eQ3gS1JsF9rAqewh2GCYV1IkusQRsDH
+ TKPYF7xFq42R5dbYgEiQIaathMhZ43Y0A+SW/2pmpxx0AVjU9R8vtAYxh1SsWETZPIhkTCPLb+W
+ VHVlkzHm9rdG8KgF1MVoe8Bv1nvOBXaC6WcuKIlc53J+3soroY8zetDkn4YCkLk1SA+n263aFQ6
+ S2Chxxp7Yps58bMkTSgOOtKAtxnMaRtRQW7t+J2JK6dZYY/2tURcERZmTfUwO8McWLS/vTu4x0D
+ l
+X-Google-Smtp-Source: AGHT+IE96kce529uDgDYL6+xVtBIYKH6aY66S2u6/reMukc5S8jwhotL/L+R/0JeO62YdHg51R5X+w==
+X-Received: by 2002:a17:902:ecca:b0:220:f06b:318 with SMTP id
+ d9443c01a7336-22320080b32mr19996865ad.14.1740523967658; 
+ Tue, 25 Feb 2025 14:52:47 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:12e9:d196:a1e9:ab67])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-548514b9d78sm271652e87.79.2025.02.25.12.57.09
+ d9443c01a7336-2230a0b2975sm19402755ad.259.2025.02.25.14.52.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Feb 2025 12:57:10 -0800 (PST)
-Date: Tue, 25 Feb 2025 22:57:08 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Ayushi Makhija <quic_amakhija@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- robdclark@gmail.com, sean@poorly.run, marijn.suijten@somainline.org, 
- andersson@kernel.org, robh@kernel.org, robh+dt@kernel.org, krzk+dt@kernel.org, 
- konradybcio@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
- neil.armstrong@linaro.org, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
- jonas@kwiboo.se, jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com, 
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com, quic_jesszhan@quicinc.com
-Subject: Re: [PATCH 10/11] drm/bridge: anx7625: update bridge_ops and sink
- detect logic
-Message-ID: <yvjb7sd42uhvomsw2svotyxrvdxihsa3qch3lfynpaoap6g3hp@dcqmaw65zsk2>
-References: <20250225121824.3869719-1-quic_amakhija@quicinc.com>
- <20250225121824.3869719-11-quic_amakhija@quicinc.com>
- <ne35ljkudi5jta2cby7fgjzqsd5sjpwcjpwhv6kmedq6nomho5@txynsflvtc6f>
+ Tue, 25 Feb 2025 14:52:46 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm: Expose DRIVER_SYNCOBJ_TIMELINE
+Date: Tue, 25 Feb 2025 14:52:43 -0800
+Message-ID: <20250225225244.26625-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ne35ljkudi5jta2cby7fgjzqsd5sjpwcjpwhv6kmedq6nomho5@txynsflvtc6f>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,80 +90,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 25, 2025 at 07:58:24PM +0200, Dmitry Baryshkov wrote:
-> On Tue, Feb 25, 2025 at 05:48:23PM +0530, Ayushi Makhija wrote:
-> > The anx7625_link_bridge() checks if a device is a not a panel
-> > bridge and add DRM_BRIDGE_OP_HPD and DRM_BRIDGE_OP_DETECT to
-> > the bridge operations. However, on port 1 of the anx7625
-> > bridge, any device added is always treated as a panel
-> > bridge, preventing connector_detect function from being
-> > called. To resolve this, instead of just checking if it is a
-> > panel bridge, we should verify the type of panel bridge
-> > whether it is a DisplayPort or eDP panel. If the panel
-> > bridge is of the DisplayPort type, we should add
-> > DRM_BRIDGE_OP_HPD or DRM_BRIDGE_OP_DETECT to the bridge
-> > operations.
-> > 
-> > In the anx7625_sink_detect(), the device is checked to see
-> > if it is a panel bridge, and it always sends a "connected"
-> > status to the connector. When adding the DP port on port 1 of the
-> > anx7625, it incorrectly treats it as a panel bridge and sends an
-> > always "connected" status. Instead of checking the status on the
-> > panel bridge, it's better to check the hpd_status for connectors
-> > like DisplayPort. This way, it verifies the hpd_status variable
-> > before sending the status to the connector.
-> > 
-> > Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-> > ---
-> >  drivers/gpu/drm/bridge/analogix/anx7625.c | 10 ++++------
-> >  1 file changed, 4 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
-> > index d2655bf46842..9b6303267924 100644
-> > --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
-> > +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
-> > @@ -1814,9 +1814,6 @@ static enum drm_connector_status anx7625_sink_detect(struct anx7625_data *ctx)
-> >  
-> >  	DRM_DEV_DEBUG_DRIVER(dev, "sink detect\n");
-> >  
-> > -	if (ctx->pdata.panel_bridge)
-> > -		return connector_status_connected;
-> > -
-> >  	return ctx->hpd_status ? connector_status_connected :
-> >  				     connector_status_disconnected;
-> >  }
-> > @@ -2596,9 +2593,10 @@ static int anx7625_link_bridge(struct drm_dp_aux *aux)
-> >  	platform->bridge.of_node = dev->of_node;
-> >  	if (!anx7625_of_panel_on_aux_bus(dev))
-> >  		platform->bridge.ops |= DRM_BRIDGE_OP_EDID;
-> > -	if (!platform->pdata.panel_bridge)
-> > -		platform->bridge.ops |= DRM_BRIDGE_OP_HPD |
-> > -					DRM_BRIDGE_OP_DETECT;
-> > +	if (!platform->pdata.panel_bridge ||
-> > +	    platform->pdata.panel_bridge->type == DRM_MODE_CONNECTOR_DisplayPort) {
-> 
-> This is incorrect, because there can be other kinds of bridges in the DP
-> chain. I think it's better to check for !eDP instead.
+From: Rob Clark <robdclark@chromium.org>
 
-Another option comes from the aux-bus bindings. If there is an aux-bus
-node, it is an eDP. If there is none, it is most likely DP (well, unless
-anybody has been using the bridge with eDP panels defclared using
-platform devices rather than the aux-bus.
+Initially we didn't want to expose the cap, as it would expose a bug
+in the vk driver (turnip) with older mesa versions.  This was fixed over
+a year ago (and cherry-picked to stable release branches at the time),
+see https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/25981.
+So let's go ahead and expose it now.
 
-> 
-> > +		platform->bridge.ops |= DRM_BRIDGE_OP_HPD | DRM_BRIDGE_OP_DETECT;
-> > +	}
-> >  	platform->bridge.type = platform->pdata.panel_bridge ?
-> >  				    DRM_MODE_CONNECTOR_eDP :
-> >  				    DRM_MODE_CONNECTOR_DisplayPort;
-> > -- 
-> > 2.34.1
-> > 
-> 
-> -- 
-> With best wishes
-> Dmitry
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 37db92c8cecb..70373e0fd4a6 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -812,6 +812,7 @@ static const struct drm_driver msm_driver = {
+ 				DRIVER_RENDER |
+ 				DRIVER_ATOMIC |
+ 				DRIVER_MODESET |
++				DRIVER_SYNCOBJ_TIMELINE |
+ 				DRIVER_SYNCOBJ,
+ 	.open               = msm_open,
+ 	.postclose          = msm_postclose,
 -- 
-With best wishes
-Dmitry
+2.48.1
+
