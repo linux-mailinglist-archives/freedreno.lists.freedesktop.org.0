@@ -2,80 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF607A4730C
-	for <lists+freedreno@lfdr.de>; Thu, 27 Feb 2025 03:37:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AFC0A47490
+	for <lists+freedreno@lfdr.de>; Thu, 27 Feb 2025 05:37:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA72710EA19;
-	Thu, 27 Feb 2025 02:37:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A830310EA26;
+	Thu, 27 Feb 2025 04:37:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="m8j1/lhN";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="p3gi+M/d";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D48A10EA20
- for <freedreno@lists.freedesktop.org>; Thu, 27 Feb 2025 02:37:18 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-6fd22658e26so3458057b3.0
- for <freedreno@lists.freedesktop.org>; Wed, 26 Feb 2025 18:37:17 -0800 (PST)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0663A10EA27
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Feb 2025 04:37:41 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-54605bfcc72so1943306e87.0
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Feb 2025 20:37:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740623837; x=1741228637; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1740631059; x=1741235859; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=w2/JikIOXuq+9YZgvX/I0sOxCDWRqOTZNtQmLEPFnPo=;
- b=m8j1/lhNfAAcG8bXP5ckqnd9RBBi2PFlkX3VJ/DhasG+/MhuFrC1Bmnn9RPpOrTyPO
- TBCPhPB20l7kepZTGL1PgUq77eKPj6noTS0PLPvsuQwTcxaChmgumpE9wtEUgPZQdAIa
- w2yhDh8yRJgM675QW9RmWIF/sJyJE5+2QSJbZG4yZwHM6solXbdkmTUaVmUgxJ57Fo9H
- T0lo15xbLAEpoKDq52pCOmichuVVDOpw4U6NL/YfPrnJIPyloRqsMlNCJOygL+oH5sue
- iiF44+WxDpVRLafm+DO8mbNs7qIIJHQUygRuqkUaRUWKaJpF25V88WU3DqY06Da1WQQv
- 5ANg==
+ bh=kYSgKUYrO2YlmDkolp8bEhCgpgQOBl0qveOjHBhwpts=;
+ b=p3gi+M/drkwULihc4DgpJhjZWB53IziljPAg4bvrNdzhwIpU+0NYI+fJMdaT3qLC1I
+ cUlu4KtV+liKiD5gxPHUQdWLQa3oooUwEdewemtYhcPWWvuREw+QMb6LLoL2jgywG2Qe
+ vqFmI9ulO39qycjqfTlyOaWI4CSccz965k+Jfyafx7RufbYlFvQ8Koq8lYI97snACtfv
+ XlFr8sEOdR1gi+of2EuysdvCFOJJZZ2mQ8w7hHjKWSyYefLZAc4Lajpye0PNf4RBYELP
+ T/cpWHBUW28orxgO3H3AfxTeu64w7d0T6QasLm4RlsgT06K5MPv+Ws4r4IibYziIaxHW
+ EBHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740623837; x=1741228637;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1740631059; x=1741235859;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=w2/JikIOXuq+9YZgvX/I0sOxCDWRqOTZNtQmLEPFnPo=;
- b=KgGhL/vO5VP+jsS2c3d2DwPVboTJysNERJnKaVSeOTCH3+WDWUMqu3O+0jRhieXW89
- 7TMFlFLDSUuzg3drDG5mdZoWOpr/Yppatkx2aNG2XpF7MB2DiK9GcbtyVS7tNzVIP1nk
- PkOXEiQ7T//61/t12csxpvCEJCPzl84s3kfZLV6n0h8i4BALBpPcuc3JDGnhvVfm2UyH
- dWjIJxg6RLc9+qwlWkdoYVb9OYeGDXAW1sfkrdajEuqAxi5xp1jzzk8GoRdfLFS/yi/Q
- BtY43uw9eUqbWGmaQBrWgpcMAK7xZbPaGkcN032/mrm6xE7ND73/vmiiSiKLYCIEwmg8
- o+5A==
+ bh=kYSgKUYrO2YlmDkolp8bEhCgpgQOBl0qveOjHBhwpts=;
+ b=HCdQuAy/Iw9llgRGWN2nxymbQfhFi1IcFOHi4p+f9SrtSBkZ08FMejwmcDmF9tTTuR
+ d9wl+npXVoe/LcJCn1cNP2wwS2jWPmreWdOV+ZjZWY/WeEH/e8CY2mcxvtsR69acbIPU
+ BHAx4lEkiUIh3mnb3Nc9HaLRBs/VERj6UhOdoloIeocyao+q7eN/4gnAG+OgD8PmyISb
+ 4MoYB0ZUGoQJE8LLBDqVAynNzCsO5rgVQkuLA9x4ounOwouCFmC//6Rj4jOhmeWMevyL
+ 72mKd2ftVLDPq91w9Egt/Ph5r2mCj1sEjVehksDqR75Xfco8aWKRLKl7ZP6q9DMQLnBp
+ KAwg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVnKPw+0LDHO1AdMul0Q71BKw++6NPMvklY6C5q3YLaUXG4SBMiKn57sMsXb38V7iX+MxJQhFhzoHk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxLeVCaj0vos+JnCYXWYGNOsC8kMGkVeOLhjq+OPQZvhd4fwCtw
- ofPZWdrJd3Jx63NY8DqhYXkF+sD43E7jCelZI2YbpmoforhvXrv9EHQBGzPCOXrASC+oxhjWBVQ
- N6HoG3d6urw7GreFS71VpjOTQZQpolPgSIXkCVQ==
-X-Gm-Gg: ASbGnctuD9f+61xdap5t5xhBhLnleP+P5Vovfsr2JNVE5AHP77KPM/+zvq/tG57uxD1
- UTl4HYgX1zm5bOsbVS8ooyWgywXqqz3+htXcpICCzO3kLYSP+l5FHPLe1QE+w5BB6OyQhR1DpDC
- 036rBrWeK2THps
-X-Google-Smtp-Source: AGHT+IGSw0gtdKcK4e/gjlWOJp54+6uLHAkVBNTZI2SEuatfi8tmEUqUfZLol5dS7eJGj3x1CROAqXjTXvG9Xlr25R0=
-X-Received: by 2002:a05:690c:4512:b0:6f9:ac35:4483 with SMTP id
- 00721157ae682-6fd2207a924mr52773417b3.25.1740623837083; Wed, 26 Feb 2025
- 18:37:17 -0800 (PST)
+ AJvYcCUvZxb5xV6unkJnh1ySqDImU9JvMMbvncvGS2RjoJoumsjmn4sK4Qfe/eHSikl6mCXMqFLnItvoGkU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz9KSCYZovE8WIAXyjAtGXX5WToQx/xWWOTMJW5GR0G/BBIhd4A
+ 0IfsFHsaBVzUN04fZcNIIUbucuVlONVq8bt8l5iPTNKDkfVlsB3IHP3uoOsFB7s=
+X-Gm-Gg: ASbGncvhvdmcZmStZL9c7EGPN6qGcpYV4CICEcaHdDjJbXkqWpfP8Jq38d0A+NO5WA+
+ EjWTKQQnuo3Ln8A5W6OTts7e1B1mdyuShmXVIIOmHVo0uv9kktJcSGB8oZ5PQyncTzOW/zufKzd
+ rMUJLyRbJdHdlYBhJGFa3y6vgoLrkTMPNJDjDTBw+P0JNgbyNZT8qd0amCo0Ulo3y4gHGzgA/o4
+ sfTu8m4xxMCuZpu2/QQlZRKoMVauxIbL218rYS8yt0sk9jEpWAbBrBlQEtj9/AVYrOPr1sU+e/8
+ FkQqNNpPivGUcOYx9Llthnpos7X5yI637tjTX/gJUw==
+X-Google-Smtp-Source: AGHT+IFJTbOhodvzE89VyWlm98mXeqCjUzL4IWC2ENgI8KAMI2IbCSRQGTMlBENkiboZNnQ5ghsFCA==
+X-Received: by 2002:a05:6512:3b9b:b0:546:1ca7:81a1 with SMTP id
+ 2adb3069b0e04-549432ccb18mr616846e87.3.1740631058787; 
+ Wed, 26 Feb 2025 20:37:38 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.90])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-549443ccf45sm63485e87.229.2025.02.26.20.37.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Feb 2025 20:37:37 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: neil.armstrong@linaro.org, quic_jesszhan@quicinc.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
+ marijn.suijten@somainline.org, jonathan@marek.ca, fekz115@gmail.com,
+ Danila Tikhonov <danila@jiaxyga.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux@mainlining.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH v2 0/4] Add and enable the panel
+Date: Thu, 27 Feb 2025 06:37:22 +0200
+Message-Id: <174063096229.3733075.14794380891862567011.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250217222431.82522-1-danila@jiaxyga.com>
+References: <20250217222431.82522-1-danila@jiaxyga.com>
 MIME-Version: 1.0
-References: <20250226-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v7-0-8d5f5f426eb2@linaro.org>
- <20250226-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v7-11-8d5f5f426eb2@linaro.org>
- <f7a1a1ef-bab7-4024-bfca-a9fa33f189b5@quicinc.com>
-In-Reply-To: <f7a1a1ef-bab7-4024-bfca-a9fa33f189b5@quicinc.com>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 27 Feb 2025 10:37:06 +0800
-X-Gm-Features: AQ5f1JpajceI_JjtWnScexhP25AZZx5gURBP9Id9s4kjX02P38LidJgsE8Muoks
-Message-ID: <CABymUCNgwWf8cvNB0thWP3AmHYK5WDv9AwyhhE1q5X7sYCArsA@mail.gmail.com>
-Subject: Re: [PATCH v7 11/15] drm/msm/dpu: split PIPES_PER_STAGE definition
- per plane and mixer
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,107 +97,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Jessica Zhang <quic_jesszhan@quicinc.com> =E4=BA=8E2025=E5=B9=B42=E6=9C=882=
-7=E6=97=A5=E5=91=A8=E5=9B=9B 09:38=E5=86=99=E9=81=93=EF=BC=9A
->
->
->
-> On 2/26/2025 4:31 AM, Jun Nie wrote:
-> > The stage contains configuration for a mixer pair. Currently the plane
-> > supports just one stage and 2 pipes. Quad-pipe support will require
-> > handling 2 stages and 4 pipes at the same time. In preparation for that
-> > add a separate define, PIPES_PER_PLANE, to denote number of pipes that
-> > can be used by the plane.
-> >
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 14 +++++++-------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h   |  4 ++--
-> >   4 files changed, 11 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm=
-/msm/disp/dpu1/dpu_crtc.c
-> > index 193818b02197d0737c86de7765d98732fa914e8e..81474823e6799132db71c97=
-12046d359e3535d90 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > @@ -463,7 +463,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_=
-crtc *crtc,
-> >               if (pstate->stage =3D=3D DPU_STAGE_BASE && format->alpha_=
-enable)
-> >                       bg_alpha_enable =3D true;
-> >
-> > -             for (i =3D 0; i < PIPES_PER_STAGE; i++) {
-> > +             for (i =3D 0; i < PIPES_PER_PLANE; i++) {
-> >                       if (!pstate->pipe[i].sspp)
-> >                               continue;
-> >                       set_bit(pstate->pipe[i].sspp->idx, fetch_active);
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/=
-drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > index ba7bb05efe9b8cac01a908e53121117e130f91ec..5f010d36672cc6440c69779=
-908b315aab285eaf0 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > @@ -34,6 +34,7 @@
-> >   #define DPU_MAX_PLANES                      4
-> >   #endif
-> >
-> > +#define PIPES_PER_PLANE                      2
-> >   #define PIPES_PER_STAGE                     2
-> >   #ifndef DPU_MAX_DE_CURVES
-> >   #define DPU_MAX_DE_CURVES           3
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_plane.c
-> > index ef44af5ab681c8f526333fa92531a2225983aa09..d67f2ad20b4754ca4bcb759=
-a65a39628b7236b0f 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > @@ -1078,7 +1078,7 @@ static int dpu_plane_virtual_atomic_check(struct =
-drm_plane *plane,
-> >                * resources are freed by dpu_crtc_assign_plane_resources=
-(),
-> >                * but clean them here.
-> >                */
-> > -             for (i =3D 0; i < PIPES_PER_STAGE; i++)
-> > +             for (i =3D 0; i < PIPES_PER_PLANE; i++)
-> >                       pstate->pipe[i].sspp =3D NULL;
-> >
-> >               return 0;
-> > @@ -1129,7 +1129,7 @@ static int dpu_plane_virtual_assign_resources(str=
-uct drm_crtc *crtc,
-> >       pipe_cfg =3D &pstate->pipe_cfg[0];
-> >       r_pipe_cfg =3D &pstate->pipe_cfg[1];
-> >
-> > -     for (i =3D 0; i < PIPES_PER_STAGE; i++)
-> > +     for (i =3D 0; i < PIPES_PER_PLANE; i++)
-> >               pstate->pipe[i].sspp =3D NULL;
-> >
-> >       if (!plane_state->fb)
-> > @@ -1241,7 +1241,7 @@ void dpu_plane_flush(struct drm_plane *plane)
-> >               /* force 100% alpha */
-> >               _dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
-> >       else {
-> > -             for (i =3D 0; i < PIPES_PER_STAGE; i++)
-> > +             for (i =3D 0; i < PIPES_PER_PLANE; i++)
->
-> Hi Jun,
->
-> Is there a reason why only this case was changed to PIPES_PER_PLANE but
-> _dpu_plane_color_fill() only loops over PIPES_PER_STAGE?
->
-> Similarly, I see that dpu_plane_danger_signal_ctrl() also only loops
-> over PIPES_PER_STAGE.
->
-> Thanks,
->
-> Jessica Zhang
->
-It is missed and should be converted to PIPES_PER_PLANE in
-_dpu_plane_color_fill.
-Thanks for pointing this out!
 
-Regards,
-Jun
+On Tue, 18 Feb 2025 01:24:27 +0300, Danila Tikhonov wrote:
+> This patch series adds support for the Visionox RM692E5 panel, which is
+> used on the Nothing Phone (1) and then adds it to the DTS.
+> 
+> Before integrating the panel into the DTS, we update the DSI code to
+> allow bits-per-component (bpc) values of 10 and 12, since the Visionox
+> RM692E5 panel operates at 10 bpc.
+> 
+> [...]
+
+Applied, thanks!
+
+[3/4] drm/msm/dsi: Allow values of 10 and 12 for bits per component
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/b0e71c2637d1
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
