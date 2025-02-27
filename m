@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA444A47271
-	for <lists+freedreno@lfdr.de>; Thu, 27 Feb 2025 03:25:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED23BA47270
+	for <lists+freedreno@lfdr.de>; Thu, 27 Feb 2025 03:25:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5F3210EA18;
-	Thu, 27 Feb 2025 02:25:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C99FF10EA13;
+	Thu, 27 Feb 2025 02:25:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kV+u69lz";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="a9sBrF5t";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A65C710EA13
- for <freedreno@lists.freedesktop.org>; Thu, 27 Feb 2025 02:25:25 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-548409cd2a8so403642e87.3
- for <freedreno@lists.freedesktop.org>; Wed, 26 Feb 2025 18:25:25 -0800 (PST)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25AC810EA13
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Feb 2025 02:25:28 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-547bcef2f96so444339e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Feb 2025 18:25:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740623124; x=1741227924; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1740623126; x=1741227926; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=4ouKK+P8Bp77QlLVV+lTMqGiv9R+6akFjSocFKtf2Jk=;
- b=kV+u69lz7f8PteSFEc8XBMhe7aGVZJSS0CEDWDZA2fL3OC0NFUeTFFQL5MQbg675vm
- 7l2y+uE+hU3SC7V0Da2pFfSOsKPmdVSMTQOVlBbxhac/nhoGJ0+rjfa+WO+vmoZtg9GQ
- XUJiAZJJGFRH22oWGxvKpFrsV489leKtgAyKALgEC0HiWppEjDPPQ5W+3qaMJmocfL5D
- dcArbMQJ5UYUhiz77GSrS6k41L3++ZztX1oQjS/hilpbfI3W6MzBsqbeTMNJuH7cNeuZ
- 52kGdlceVFY9yHYkPNWXGsqz6/y16nT6+VSWjJJCe11o5lbkAbuGeN7I4y4XleejgP9/
- heBQ==
+ :reply-to; bh=E18tpw+zq+SBOUnMq7VeJ2wmflhlIp1Qicz+wQlS2Sw=;
+ b=a9sBrF5twxv3GitSFZcvqW4Ewi2Pw7nsExfqG8VtQdTpEW49omq/nKVW6gfMyNc6IH
+ 7hr9Sz0yLnmAVx73WqfRxMswQj5P6f/L9VxQvH4oXSohtWs5yeK56pN7yDKm4nwywI8D
+ m5FpbumT8bfbCmCo/OIt4wSCJW3GQWOMBkAMji4jx7y+zujOkq+dcIxTTE/6zghijxPZ
+ bPPROYtVx3sx/7VuJjNE0OmSuf97evkCHMFVOTnBXMQvzjQVg2N8RH0zCGEhdHhfkpoR
+ xjbSe3kFuk4tQhpp9V+XyY2NzdBAP0oI/SYX11NtWa5Z27y0l4JQvmxNPnSRIOkkPRCN
+ QcTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740623124; x=1741227924;
+ d=1e100.net; s=20230601; t=1740623126; x=1741227926;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4ouKK+P8Bp77QlLVV+lTMqGiv9R+6akFjSocFKtf2Jk=;
- b=Eez12t6A0rLkv2wvS3ifeBSkJVGRo2rqQZvev6zrpz067Ap0XrkPrVRmSzWIvXqnOp
- oXSmk3Uq4cwbgx/HOHGm1F8fxJaRed9hKnZVlp44AJKkG0jQyz6I8ShLjYizv+LaGJ6P
- RmEFY6Ym0imIWoGZmTWf/E37xcWbABpRcN8NavSO4ysL9wM9zoiFbimhaUrWSUnHEugN
- Ls4T/VUIuTBr44wN5ZxIawCR2aeoclRAFGyy+kbw9fi4gdv2rSsL98XzI6J76W+QXEUO
- t0Mt4Z60tg6t//WOqKxXDxWmEOGQk6gGnegk7QpYxlWwTNUH3NMu9M37f9M7Il+VX2/1
- 2q6w==
+ bh=E18tpw+zq+SBOUnMq7VeJ2wmflhlIp1Qicz+wQlS2Sw=;
+ b=YX0sEQb/+TxmH7rXylQ5gbze9avYWCuXxH25UC2Fj4E0SFQXhYNoDsL/2AqoQQ6cO8
+ XFlFqmfSlcWCQPZjYBuyoxweKO/HGGk8im9mDnU5l9bvgHSUKpTuTafGdZRKxX5BzYbU
+ jVFnsBTR86pVcuNMyDYOF0tSQnXEGdqpF800LdRiSQvVuH3a1iyWRAmYxpeCn46CXf6z
+ +ovsxZYZwEy0o2Co1RsrbV2CfLeXf5Ks7trSnMTCsR15qHmU17ZewW9KnCBKQ0No7okq
+ Fj2FZyGtPHT6VxaFS6ct/nfOUTlZOL9fCG0nLAHzOIfW78bgxXj4xOeSJ20U5X6t3Kvo
+ +wrg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWRJcXiEkX+KTypiZIMHHJyNPAE3jFYy+N5SjNXz9fNSLKjwHcpHZYiFXltJkZGXxKdo3LtNKIQRto=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxj3x4qfNesWO36cFz4lhGtVRzN9ElauOSQg5L9667cJ5Zd83pZ
- uhQyEwcq+R1tPIaPA9Lx0fYH17rIrpymMSbV+E4EFXKIR2vGVgc0rblrhm20c6g=
-X-Gm-Gg: ASbGncthuaMRAqralso56j7xWJTZUARNxEVRKU5FJOduQcqwDxlZ8F3CR2ICbbizq2f
- a5DPCJbvJG8p52swtXjqMh6DA1i8nPoOsiWgBhij0eqq2p7SFwEFME4E5R4EVm4GtGqGtX5utyG
- kKFJn1yFHEXHAn74QmuJ3i0JaPevFTCq5oEDW0sSMFj5tvjsL79uQ3F7FsYDg3eZwxiZu9OUWti
- i8trQNwtVVfw7XO/c/aqgwhZt8Y141pnHW7UHW3umlVLEDbMj7z4ry0JMv9x6nnuPd4qWM7I3RU
- 7gJjYSXpgDr5oKDua+J/GUip/b9qfz7BAQ==
-X-Google-Smtp-Source: AGHT+IGw8901cx7jCW8IdagRI7moWHr/MMfNM5yDe+5tE18iV9njnk83dC4KRsquOX1KAt/AJwgQyg==
-X-Received: by 2002:a05:6512:3053:b0:546:2f44:ee99 with SMTP id
- 2adb3069b0e04-548510d68fbmr6201726e87.17.1740623123953; 
- Wed, 26 Feb 2025 18:25:23 -0800 (PST)
+ AJvYcCUVKz+RyraQCE0EheD5tmKXErq2mvv51+xD6z1jfxxKiPYtZKefq0mDc6HJOO+zR8qTqgmGv64k7SU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxHA0SdHlmI2eW1QdFZophoP/JpdaNvOz8p8V5FyvQLGsAesyn
+ aYMIMNX44JDnUohYje0aZ2Grm49Y/IngHBCEoyNTpeVPijYn9h17fte+H/xudV0=
+X-Gm-Gg: ASbGnctyjImc8fCm2QZMTgYKD1qsvnN4WxVkRJs/ukIToz6XmAQkO07aweeZwnwfHz3
+ HCdMd6XOABCr6sGyI5MXKePAGiuO5lJvCAZ2Q5kkcrjOCiWctxYwZx1eTNuLtB07/aU17x3zGbt
+ qHurza5Ag63DO2MRP/64tx3BhNrJnsBVq0Zn40AOc+L6saSL978iT0FRq+XK3J6fkz+6AEaXbE7
+ EW5t2UPiAQi33YldPRUQMwns41UAgJWVdCn2SW4pCrc/rYm/IgjfNME5AORD6XVy3tX7konjzeX
+ V2Tob9m3jl4TTaXKDqEc5CWQIGgYZZwn0w==
+X-Google-Smtp-Source: AGHT+IH6JvW63owJyZ1PeivaBeeBGjJMDrOP0137MVcsa3BSvMkJ++/F3s9OT2J6ygpsST5S+eTgWg==
+X-Received: by 2002:a05:6512:3b22:b0:545:60b:f38b with SMTP id
+ 2adb3069b0e04-54838edd919mr10462109e87.8.1740623126477; 
+ Wed, 26 Feb 2025 18:25:26 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-549441742a0sm48067e87.5.2025.02.26.18.25.21
+ 2adb3069b0e04-549441742a0sm48067e87.5.2025.02.26.18.25.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2025 18:25:22 -0800 (PST)
+ Wed, 26 Feb 2025 18:25:25 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 27 Feb 2025 04:25:12 +0200
-Subject: [PATCH v3 4/7] drm/msm/mdp4: use parent_data for LVDS PLL
+Date: Thu, 27 Feb 2025 04:25:13 +0200
+Subject: [PATCH v3 5/7] drm/msm/mdp4: move move_valid callback to lcdc_encoder
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250227-fd-mdp4-lvds-v3-4-c983788987ae@linaro.org>
+Message-Id: <20250227-fd-mdp4-lvds-v3-5-c983788987ae@linaro.org>
 References: <20250227-fd-mdp4-lvds-v3-0-c983788987ae@linaro.org>
 In-Reply-To: <20250227-fd-mdp4-lvds-v3-0-c983788987ae@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -79,18 +79,19 @@ To: Rob Clark <robdclark@gmail.com>,
  Konrad Dybcio <konradybcio@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1213;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4330;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=RyZRLS8pZm8hoJDU+OVp+AAZeLhFhiibO05/Oz7CvDI=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnv80HC1H31A21mg4pym4gsBNuP+Y0XPTOg2WqT
- WP81odVunCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7/NBwAKCRCLPIo+Aiko
- 1bN2B/4+9AgpU9l9qzAXAQxbcg+hLFdSjQXilior66+rMZDVFalCW9/W3knGRJVNzfacf2hDInD
- j9l325E0ZCZR1eVT0PXx9CaGTuKokn/6FTCRGnk/YYWG407FY+wlntoX9fObr7ED8+WHRcafZtx
- k9gjzwnEDAym1/FoHs1XpDh4a/856niPt8lgRzoxEu6bA95Z3ko8DD9iomDdDT2itq++sevwF0N
- 1QhipfDTUGvODMu/xumMe54Yup2nSs/dwosAzUGm2krQthWKpXy4RH01jIMhXOSXu81lVlQ4wPg
- VAHGB8kgtUGZ5IVJY7DzCQfDdvTTRU6ydn3L9tQNfMO2Tla4
+ bh=9z1p16IGdhhxiTm15wIHhYzKoRC0TrBbMnzmOx4bB8I=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnv80H9mWNP5xm0U518aEA7MFJlLbfnScNOLNek
+ 6ngfP55A2CJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ7/NBwAKCRCLPIo+Aiko
+ 1TS4B/4jhTAUlM4rgtB8XhTYa1IaFlN4nD5YNisfDQe3RWIPeYXqasBrLgy3wsErfrpwSgbwk9Z
+ dqw1eQFoMXtsQY5rCvEBgyDOyUwen61/QK9vPLoCKjkWlZi/9v5zHT3YMX7V2UaqjZb29UTSuNN
+ 9KdTVUxqtgOYBzGLe7W3IMI5YtBGFuVe+21N2/q3WZ1ddbaFYbYuSCMcbym4iC42bZctMjHTmm7
+ wxgXY/Ny8i5fCoeiew39A6P4vYGvzigO2bJDaPFEAFI4yfVw8lpC25+5w1Yi03d2WZv/mmnJMeO
+ 9y53Z/5Yh/8tu/PRj6tzTwc+b9VtXnp11bYtMffN9wgXQ4eD
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -108,37 +109,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Instead of using .parent_names, use .parent_data, which binds parent
-clocks by using relative names specified in DT in addition to using global
-system clock names.
+We can check the LCDC clock directly from the LCDC encoder driver, so
+remove it from the LVDS connector.
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h           |  1 -
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c  | 27 ++++++++++++++++------
+ .../gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c    | 21 -----------------
+ 3 files changed, 20 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
-index cbd154c72e44c848fa65fe01d848879b9f6735fb..a99bf482ba2c02e27a76341ae454930a13c8dd92 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
-@@ -122,14 +122,14 @@ static const struct clk_ops mpd4_lvds_pll_ops = {
- 	.set_rate = mpd4_lvds_pll_set_rate,
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+index b8bdc3712c73b14f3547dce3439a895e3d10f193..e0380d3b7e0cee99c4c376bf6369887106f44ede 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+@@ -191,7 +191,6 @@ struct drm_crtc *mdp4_crtc_init(struct drm_device *dev,
+ long mdp4_dtv_round_pixclk(struct drm_encoder *encoder, unsigned long rate);
+ struct drm_encoder *mdp4_dtv_encoder_init(struct drm_device *dev);
+ 
+-long mdp4_lcdc_round_pixclk(struct drm_encoder *encoder, unsigned long rate);
+ struct drm_encoder *mdp4_lcdc_encoder_init(struct drm_device *dev,
+ 		struct device_node *panel_node);
+ 
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+index db93795916cdaa87ac8e61d3b44c2dadac10fd9e..cfcedd8a635cf0297365e845ef415a8f0d553183 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+@@ -348,19 +348,32 @@ static void mdp4_lcdc_encoder_enable(struct drm_encoder *encoder)
+ 	mdp4_lcdc_encoder->enabled = true;
+ }
+ 
++static enum drm_mode_status
++mdp4_lcdc_encoder_mode_valid(struct drm_encoder *encoder,
++		const struct drm_display_mode *mode)
++{
++	struct mdp4_lcdc_encoder *mdp4_lcdc_encoder =
++			to_mdp4_lcdc_encoder(encoder);
++	long actual, requested;
++
++	requested = 1000 * mode->clock;
++	actual = clk_round_rate(mdp4_lcdc_encoder->lcdc_clk, requested);
++
++	DBG("requested=%ld, actual=%ld", requested, actual);
++
++	if (actual != requested)
++		return MODE_CLOCK_RANGE;
++
++	return MODE_OK;
++}
++
+ static const struct drm_encoder_helper_funcs mdp4_lcdc_encoder_helper_funcs = {
+ 	.mode_set = mdp4_lcdc_encoder_mode_set,
+ 	.disable = mdp4_lcdc_encoder_disable,
+ 	.enable = mdp4_lcdc_encoder_enable,
++	.mode_valid = mdp4_lcdc_encoder_mode_valid,
  };
  
--static const char *mpd4_lvds_pll_parents[] = {
--	"pxo",
-+static const struct clk_parent_data mpd4_lvds_pll_parents[] = {
-+	{ .fw_name = "pxo", .name = "pxo", },
+-long mdp4_lcdc_round_pixclk(struct drm_encoder *encoder, unsigned long rate)
+-{
+-	struct mdp4_lcdc_encoder *mdp4_lcdc_encoder =
+-			to_mdp4_lcdc_encoder(encoder);
+-	return clk_round_rate(mdp4_lcdc_encoder->lcdc_clk, rate);
+-}
+-
+ /* initialize encoder */
+ struct drm_encoder *mdp4_lcdc_encoder_init(struct drm_device *dev,
+ 		struct device_node *panel_node)
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+index 52e728181b523cc3380d7718b5956e7e2dbd4cad..4755eb13ef79f313d2be088145c8cd2e615226fe 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+@@ -56,26 +56,6 @@ static int mdp4_lvds_connector_get_modes(struct drm_connector *connector)
+ 	return ret;
+ }
+ 
+-static enum drm_mode_status
+-mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
+-			       const struct drm_display_mode *mode)
+-{
+-	struct mdp4_lvds_connector *mdp4_lvds_connector =
+-			to_mdp4_lvds_connector(connector);
+-	struct drm_encoder *encoder = mdp4_lvds_connector->encoder;
+-	long actual, requested;
+-
+-	requested = 1000 * mode->clock;
+-	actual = mdp4_lcdc_round_pixclk(encoder, requested);
+-
+-	DBG("requested=%ld, actual=%ld", requested, actual);
+-
+-	if (actual != requested)
+-		return MODE_CLOCK_RANGE;
+-
+-	return MODE_OK;
+-}
+-
+ static const struct drm_connector_funcs mdp4_lvds_connector_funcs = {
+ 	.detect = mdp4_lvds_connector_detect,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+@@ -87,7 +67,6 @@ static const struct drm_connector_funcs mdp4_lvds_connector_funcs = {
+ 
+ static const struct drm_connector_helper_funcs mdp4_lvds_connector_helper_funcs = {
+ 	.get_modes = mdp4_lvds_connector_get_modes,
+-	.mode_valid = mdp4_lvds_connector_mode_valid,
  };
  
- static struct clk_init_data pll_init = {
- 	.name = "mpd4_lvds_pll",
- 	.ops = &mpd4_lvds_pll_ops,
--	.parent_names = mpd4_lvds_pll_parents,
-+	.parent_data = mpd4_lvds_pll_parents,
- 	.num_parents = ARRAY_SIZE(mpd4_lvds_pll_parents),
- };
- 
+ /* initialize connector */
 
 -- 
 2.39.5
