@@ -2,81 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEEA9A49AC9
-	for <lists+freedreno@lfdr.de>; Fri, 28 Feb 2025 14:43:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 601E2A49ACC
+	for <lists+freedreno@lfdr.de>; Fri, 28 Feb 2025 14:43:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23E2310E2AB;
-	Fri, 28 Feb 2025 13:43:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B81CD10ECA4;
+	Fri, 28 Feb 2025 13:43:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MuawQ7rN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Jc8yrn4g";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3D8810E2AB
- for <freedreno@lists.freedesktop.org>; Fri, 28 Feb 2025 13:43:13 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51SAXKD2018898
- for <freedreno@lists.freedesktop.org>; Fri, 28 Feb 2025 13:43:13 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB5F910ECA7
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Feb 2025 13:43:21 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51SAXD4C001790
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Feb 2025 13:43:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jUsBvFfhxrhyKEITeHg16SL90hIVl1i/tkcjRyAbRMk=; b=MuawQ7rN7uMY4trK
- 9U0OV8+fLM7b3FJmBkcbWeksm90hjlaAt5uaKzIoNOW4ODG87JtUjOFXdrOrgQov
- jcFg0a0ag3EzpFSrFWw/XupXTOP+TG4u5eyKxcZkbCi/I28ej+sX2pt3cvHwOxc2
- Q9v1FGWvwapWWfx9d7I7tyPG+9dctZGWfoAziqDvsoYw+VWgqJMYfj0bYivCuDwk
- T5iivyqltIL8reAKTkomLwzNxoT1kLOXWed6X+CVGOXprgPcVusFRO6IxiTJjKYM
- RbexFxPM1yy7sLvR1J+OL6fQVpLbDzcypH93SDCJOmwqePLaNSzmoZFJyXUrEvAv
- j9M+HQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 451prn9f8q-1
+ X8ScGz40JRccpFkf1d+tHM1VpGzuLrp85WFCzzDHaHs=; b=Jc8yrn4g7Mrf1wB6
+ ErFhcikirR7ykGAIThDbwgB8j9wqXUUNSukiiucnpQsFWtEguATofNQ490ZWNvak
+ w9GpIMhD+dMP2jVXGitR5Ej8uPcOPjZ5kUkcGo46LO0d0Ht5oHSsIEB/3AJDnPER
+ CijrCykE0kbtRWWCSysuMMFBgUJGhmT0EvbMXeOlACbh7ElRSiqp5m2uSnKqHVZ6
+ eg33pswtF7QyOUVEJUsfVrchYSFT1ve8K8USh+2SuQKWLreD5GG3VpW5IdFWjRn7
+ uxzO5wTvPRhZ+a4JgvCny9JcJzSD7JBHp/g+NdRfs2WPA+1SYfW/291OUnFhhmHb
+ K6HvbQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 452ynwte23-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 28 Feb 2025 13:43:12 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6e1b2251f36so3862016d6.3
- for <freedreno@lists.freedesktop.org>; Fri, 28 Feb 2025 05:43:12 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Feb 2025 13:43:20 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6e422f1ceadso4802506d6.0
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Feb 2025 05:43:20 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740750192; x=1741354992;
+ d=1e100.net; s=20230601; t=1740750200; x=1741355000;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jUsBvFfhxrhyKEITeHg16SL90hIVl1i/tkcjRyAbRMk=;
- b=EjxIQdwJLeKfFLGFjmUOQeuBOulHbFZyTElzAL2qlAI81M0veUXLQa+Q7hX/MM0ugV
- 3taGCx7vQlkgmlMOe3H8F+pGHPXUfkuAMbE2yJDz+LKYHgJmcOONIMNvJ4XnrRShDKel
- XlvVja9B29PFzr6MeWrbzkmbMMek6/vPk5RLDMHzqWgniE8xDIp0/kCAG3hCo+Id9WJ8
- VP1wc0Wz7R8o1Xxi4n1GQrwGgzfOvZbSqoTQiH+fAjHzsRtk0cfZE1NiP7XwOqzuYmPe
- F+YAuNokLLHAZzaSzL0lauRp4JMhcxoU5dIVoOktKjwvBFFlEjcZhFRSp1N/wRd23pLx
- EtDg==
+ bh=X8ScGz40JRccpFkf1d+tHM1VpGzuLrp85WFCzzDHaHs=;
+ b=MyAp3PXZaVeNB+H6O3HudCbodjxvgyDZqQI2I9L2+iFg3DWZpEi5r+XkfYgSlcHax4
+ NFd5i0mdnUgtWg4mXfG9Nb37DY93XGjTB+VH95QaLVfq8ntD3E/odJnbYT0ZycWaDF/O
+ ZkSy3UVbKaArFIC0Fc6zBUbcBq8pz8WvjciF6n1pW3qRZImpqaCIWYN0pj6Nl/mKnXGb
+ kClhNdm/ltH8A3Me89Fo0O/c2HafkAu017OPD1gALNxDwkrZMb/zKVaoCeEIQlM1IHy9
+ PzeFf2QJj2hpw6yQE6FMGfAKbLE11t6di6e9UAeWdS1cWLJ4novQ0TMyOlO6yfKB1v/4
+ 7ZGg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU+G26QIMB4YwuSV/QAkahahTMoCUP5BZC4Iyr1b+eD06p2x9uzr3WGfLQJ6d0g28GqQWUXZjD0Xwk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6EEjWpje5DM24RCfbMnOSAlkhfql2aZfI6pVI9iI1bXE08dkb
- xPbL2egg+IDaBwuPLviiKykG9VXSGv1FHotZpPQs3b8JRO8hcz2yNvTQzGL5HfmUMBTDv74gQWe
- nsJgG42bnJKoWyb37rK0EhG3qj25nUs3CnaqM+GZnEKRO5m+W8YUUGdLzLwM8y53oT8E=
-X-Gm-Gg: ASbGncuQXC8KFRzvfu4hdiR51vWUMPjdhUoX9baTDzmnAlait99jLOpkDb0No6STNJf
- cw5WlLqaAgw+SGNEu6X9I3V/CFpsCXD+alUNlvgeNBo8tfUB+7UHTGHx7xrZRlHHpaZv+lKuEri
- 2NGIJrVtW2v/uUMSULjmNARG0xRkUEZF65yFdQfyaofLPJYTZNoIk5qZsGzmk1FnaJJvJebjYhg
- s3qPxxBymjG9lvTthWtw9UjFoY/OGkY7FMajaYS2ykTtjH/voYhDYn44MxRTKzwszWPZJz1Qcww
- jaCRpAcHjdSb6gp/myYEeFkKohe48gRVedfvnLSkguZh88icG8CMiS2hfhCLZs1zURvI8w==
-X-Received: by 2002:a05:6214:2b0b:b0:6e4:3910:ecf0 with SMTP id
- 6a1803df08f44-6e8a0d82de6mr16983696d6.8.1740750191813; 
- Fri, 28 Feb 2025 05:43:11 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IG2eA/mVAmzoZ00yrwl3fYZmJW1K5Im2B6KfwGP2t2rb3Y2cUvSzpqF4mUz+BIR54vSE5s4Uw==
-X-Received: by 2002:a05:6214:2b0b:b0:6e4:3910:ecf0 with SMTP id
- 6a1803df08f44-6e8a0d82de6mr16983486d6.8.1740750191306; 
- Fri, 28 Feb 2025 05:43:11 -0800 (PST)
+ AJvYcCVOjJ9OkwKVZ6J872l7Ax7T0ufsoW9kiEO+tj0XnfkdGco6xDB6OsjGZcVGatlmc8tepU18ak5Pf1Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzp2TjqFkIlOpyyfVxcCYG8hjSFYhoXp5WGtYwxB+W35O5AiiN3
+ j57COexgR4R/jhbrz7r0w4ZkUERJHZyE5xh4g0orIMcNy+ykppcfCHAYhV2bIfs6n/EIG5rPk1B
+ ASR5fa3J6mVl7QOXGAzWkz27DE3p23EtCtNzBgJSpAV3t7N3vXrH8O86pc4JnMireWhQ=
+X-Gm-Gg: ASbGncs+NhZx/QHcLSeCxYIlU8N/jj5qhGLp8tNw2hSqI6xOb8NWx61WVQDEXDtgZYP
+ Uq9e96gPNF0OAhMaN78QWKCbPGaulLeySF30vlyNr4Wu3PIXDOEQYF+I+fj/kPW+4yHS591QMt7
+ jRxPqUsZN6iJ3Mn49QFLYvzFRYzxW/S5hAFCoRNYH+r8Nk+H9SEHCWHLYJkC8g/oI0RP1iq2On4
+ agqt1kx06BvlBp5uCDI9qBAiSYUFn371joNUuyOenT2C3qJkxWsywiBnhiUOma5qfWup0h5pANw
+ Bz8p5EN9XhxoZVODzG/emiw+/kxQaosKtLpC7fb6Hg1h2nzXalCZo+S0uXtWK0W99trryg==
+X-Received: by 2002:ad4:5f87:0:b0:6e4:29f8:1e9e with SMTP id
+ 6a1803df08f44-6e8a0acb028mr19315536d6.0.1740750200119; 
+ Fri, 28 Feb 2025 05:43:20 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE2BhTFPrGcsBUD3d+js2LSjbjIbSoqrswvT4KyTm/vYvLllJTBt7l/wIo7yhlMbwFAi0+lCQ==
+X-Received: by 2002:ad4:5f87:0:b0:6e4:29f8:1e9e with SMTP id
+ 6a1803df08f44-6e8a0acb028mr19315376d6.0.1740750199768; 
+ Fri, 28 Feb 2025 05:43:19 -0800 (PST)
 Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abf0c0db671sm291962566b.72.2025.02.28.05.43.09
+ a640c23a62f3a-abf0c0bab1bsm289935166b.28.2025.02.28.05.43.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Feb 2025 05:43:10 -0800 (PST)
-Message-ID: <50cf6659-ae08-45a7-869a-2300f4d037da@oss.qualcomm.com>
-Date: Fri, 28 Feb 2025 14:43:08 +0100
+ Fri, 28 Feb 2025 05:43:19 -0800 (PST)
+Message-ID: <98a9bedb-cdf9-4865-a089-85a2f411bbd9@oss.qualcomm.com>
+Date: Fri, 28 Feb 2025 14:43:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/msm/dpu: remove DSC feature bit for PINGPONG on
- MSM8937
+Subject: Re: [PATCH 2/4] drm/msm/dpu: remove DSC feature bit for PINGPONG on
+ MSM8917
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
@@ -87,22 +87,22 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250228-dpu-fix-catalog-v1-0-b05d22fbc2b4@linaro.org>
- <20250228-dpu-fix-catalog-v1-1-b05d22fbc2b4@linaro.org>
+ <20250228-dpu-fix-catalog-v1-2-b05d22fbc2b4@linaro.org>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250228-dpu-fix-catalog-v1-1-b05d22fbc2b4@linaro.org>
+In-Reply-To: <20250228-dpu-fix-catalog-v1-2-b05d22fbc2b4@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 1K-oCQk_cr_gh_KBIuVw055ALeKQHKJ0
-X-Proofpoint-GUID: 1K-oCQk_cr_gh_KBIuVw055ALeKQHKJ0
+X-Proofpoint-ORIG-GUID: CNTFmlD1HiKHNwBEKLf8as08Thyz6NdH
+X-Proofpoint-GUID: CNTFmlD1HiKHNwBEKLf8as08Thyz6NdH
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-02-28_03,2025-02-27_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- spamscore=0 clxscore=1015 mlxscore=0 adultscore=0 mlxlogscore=997
- suspectscore=0 phishscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ phishscore=0 spamscore=0
+ suspectscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
+ malwarescore=0 impostorscore=0 mlxscore=0 bulkscore=0 adultscore=0
+ mlxlogscore=995 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.19.0-2502100000 definitions=main-2502280100
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -125,7 +125,7 @@ On 28.02.2025 3:40 AM, Dmitry Baryshkov wrote:
 > from the PINGPONG's feature mask and, as it is the only remaining bit,
 > drop the .features assignment completely.
 > 
-> Fixes: c079680bb0fa ("drm/msm/dpu: Add support for MSM8937")
+> Fixes: 62af6e1cb596 ("drm/msm/dpu: Add support for MSM8917")
 > Reported-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
