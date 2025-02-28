@@ -2,51 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80EBBA48EA4
-	for <lists+freedreno@lfdr.de>; Fri, 28 Feb 2025 03:31:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60C43A48EBD
+	for <lists+freedreno@lfdr.de>; Fri, 28 Feb 2025 03:40:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A10610EBD6;
-	Fri, 28 Feb 2025 02:31:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5974410EBE7;
+	Fri, 28 Feb 2025 02:40:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ibnGn6IK";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SM9zzDTB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTP id 329C410EBD6;
- Fri, 28 Feb 2025 02:31:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=rcHVV
- NPM3mgsOgMcJQbDPlD26VF9g2Q5u3/LlGBoFIM=; b=ibnGn6IK5uwh5qLasuhn5
- ECJNJqf9G0/aAlk5r+5Yb8zGEooF0ir6u1R8SW3IxgQ6SzMUoq5T336UWDWKyfed
- fxXohFW+sYmjME39Ojufx44Sf4HU4q4d4ilLkIRG7d0E3IIYXUQsy9BwFF2/6293
- IhB2cHFdLMJI/27tBvS1X8=
-Received: from icess-ProLiant-DL380-Gen10.. (unknown [])
- by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
- _____wDX3+brH8Fn5_6yOg--.23918S4; 
- Fri, 28 Feb 2025 10:31:09 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Haoxiang Li <haoxiang_li2024@163.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/msm: fix a potential memory leak issue in submit_create()
-Date: Fri, 28 Feb 2025 10:31:05 +0800
-Message-Id: <20250228023105.3737605-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 565D910EBDF
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Feb 2025 02:40:46 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-545fed4642aso1589021e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Feb 2025 18:40:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1740710444; x=1741315244; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=I4yYgoXSkPDEHxZJYvKHSYFoTnrDSY0PIOlWyJbY7oM=;
+ b=SM9zzDTBekpiI3w0AHojwtG4iRnfYjNSCfdIPDi1hDaNXRwrISENwrJO29Kxmx7W5m
+ QZsBIiw0oQyGI8lZDSejKiHlwjAk7gmEaVomzqAFMsn37VhtQ721qOMuOXt5+69LS2CW
+ bqz83pkHsPbIIT+9NhpxZlL7I8fmvigATGyeB7lzWkXb/cIaJXBrxK2qIndjt6xsGDhL
+ eZjy+8yizyFe+gyopXBlZj4TadlnXnPDYJC8cFlo5+Uf8vREU6y4iqP2c3wPfcTpaQpd
+ WoZydOW5BOhxvHA29OlWNKZUnhnyzBEu16D206TikA9C0WL5pY3qnMYcn2bZ/CxdW5Fk
+ VP8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740710444; x=1741315244;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=I4yYgoXSkPDEHxZJYvKHSYFoTnrDSY0PIOlWyJbY7oM=;
+ b=IbS/bDaX91J88aESnbzp43+JCIlY4UqR5A2URDHfHT8LCNeEQfznDPowfx5ulOvP3A
+ GHe0qAYZ5jhl/BTLDWpu6jd84SsVm2HMgDuYmKVknZirDsauMLJNx6KzbG1iYppXK1HK
+ z7CI6JejcsOEpKYYPwpt8x3qhhZWTtgemGkDQxjuLfH9rlZzsOfWwyUMvG9J2gaPbagm
+ FsF79yBKypsbJw9cmVjfvtarltv/cQKgpUb+SzBPruYox+XpfLKepsuSA6h9tasKnd/S
+ YM0LyhyNGjDut4EdJetmu8VgC1O3gSYlnjYPKGbILOzdTBrIIpPt68SFkQcENGuWLBDE
+ 0SLg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXSS/fzrH/hZO5nGr6Ns+P11ssp6wgWKz9PNwTqX8DkL/JnuyKIrdYIpk7Z4m5tXw8xkwcQ7rbcvxo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwoluheMaw8RDFb2j8bdGJbIRxb9BXVpXDyOB13ij+05LWLV9T5
+ O6yoYn7cnrQHx3Sg/kmoTUK1Vsm7CVtcm9h15CVrE3bmWQnzSJDK6poouhmXq7A=
+X-Gm-Gg: ASbGncuSCK4fLwj6QgP5cMCBY6s8doZ07yG5UdRMIpKKJn1qXH1WbdDXLudruL5UnjM
+ XOR1Wm/bagM1UQYNhOewWgzYjrnb1UXIPP9XbyvUfuM9qlqge5rgbC5D4blIHEH5b5MlssbrXwG
+ q1dJVe+a9zcKicOW0Y3bjxkk0Ym/ZgroX5hSdB/WjRV/VJgePGoBKVuBPWQhS8KS1+obqacOntm
+ W9k8bPtNNriohPz87yFSn9E16+jbLr6SGte2SnMuRk8s/Oz1hGq9QXTzvNxSPb+lqlBeV2mEL7/
+ 7R8+2EvkUG8iDpv80K+nni0jsu2rY0E7yQ==
+X-Google-Smtp-Source: AGHT+IEtW0WMPANQ6F9JpDf+C1+6JFlyEN+Vr6zomJwOBX9tkR/2r9ue9QaM1C6U7eBAlBJHB7ZBbQ==
+X-Received: by 2002:a05:6512:e8b:b0:545:296e:ac1d with SMTP id
+ 2adb3069b0e04-5494c36f2c0mr538764e87.51.1740710443803; 
+ Thu, 27 Feb 2025 18:40:43 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-30b867a7403sm3493881fa.17.2025.02.27.18.40.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Feb 2025 18:40:42 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 0/4] drm/msm/dpu: disable DSC on some of old DPU models
+Date: Fri, 28 Feb 2025 04:40:37 +0200
+Message-Id: <20250228-dpu-fix-catalog-v1-0-b05d22fbc2b4@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDX3+brH8Fn5_6yOg--.23918S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJr13Kryxur18JryfZw48Crg_yoW8trWkpF
- 4UG34jkr1UA3WaqwsFkF1jka45Gw18WayxKF4qv3sxuwn0yw1UW3WUJ3yjqFWUJF92yry3
- tFs2kr1UXF10krUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zicdjtUUUUU=
-X-Originating-IP: [183.174.60.14]
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/1tbiqBQCbmfBGNbydQAAs-
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACUiwWcC/x2MQQqAIBAAvxJ7bsGWiuwr0cF0s4Ww0Iog+nvSc
+ RhmHkgchRP0xQORL0myhQxVWYBdTPCM4jIDKWoUUYduP3GWG605zLp5bGvtpmq2pE0LudojZ/0
+ fh/F9P29WEudhAAAA
+X-Change-ID: 20250228-dpu-fix-catalog-649db1fc29a6
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1061;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=NqHFkZTNSAOJT6jUtd40Rvhz1aSYBkpu5FVcerkF0Jc=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnwSIo20QqL+PSUtzMvu2VMoizDb8f7qpVvsxX+
+ ee6P7F2eHSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8EiKAAKCRCLPIo+Aiko
+ 1RIxB/9DmOc9LFEh7/7feQPzGvjW/BRBpCsJ4lENZIx6U+ByPKdT5v2qDT4+NRfGKfq4u8OVIwm
+ b1hT8PQf3Kx24uw/Yu7XgggS+nahjQE0T0i689EqYkMHON/DsOqxgRrjjRAx4TsR9VuMuM8nY/7
+ ZZXb6fl3xHc3uRFi2iGydqJYRs6uk+IP/NyZVllESvieHOqAxhW5KH0cijdaPsljJEI+PRNEM/o
+ XoL7fmb2jXrYhsIkKm01znKQvs+F/LNwQLD18F8UKOYbCqOats/SYHkddp6HT5uzCvM8R8SOt1u
+ sxZyXYxO48mPbZu1iffvBy+E8dzZ0/h1AH33BKTd3vMuKiUx
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +106,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The memory allocated by msm_fence_alloc() actually is the
-container of msm_fence_alloc()'s return value. Thus, just
-free its return value is not enough.
-Add a helper 'msm_fence_free()' in msm_fence.h/msm_fence.c
-to do the complete job.
+During one of the chats Abhinav pointed out that in the 1.x generation
+most of the DPU/MDP5 instances didn't have DSC support. Also SDM630
+didn't provide DSC support. Disable DSC on those platforms.
 
-Fixes: f94e6a51e17c ("drm/msm: Pre-allocate hw_fence")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_fence.c      | 7 +++++++
- drivers/gpu/drm/msm/msm_fence.h      | 1 +
- drivers/gpu/drm/msm/msm_gem_submit.c | 2 +-
- 3 files changed, 9 insertions(+), 1 deletion(-)
+Dmitry Baryshkov (4):
+      drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8937
+      drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8917
+      drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8953
+      drm/msm/dpu: remove DSC feature bit for PINGPONG on SDM630
 
-diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
-index 1a5d4f1c8b42..0e257afaf443 100644
---- a/drivers/gpu/drm/msm/msm_fence.c
-+++ b/drivers/gpu/drm/msm/msm_fence.c
-@@ -184,6 +184,13 @@ msm_fence_alloc(void)
- 	return &f->base;
- }
- 
-+void msm_fence_free(struct dma_fence *fence)
-+{
-+	struct msm_fence *f = to_msm_fence(fence);
-+
-+	kfree(f);
-+}
-+
- void
- msm_fence_init(struct dma_fence *fence, struct msm_fence_context *fctx)
- {
-diff --git a/drivers/gpu/drm/msm/msm_fence.h b/drivers/gpu/drm/msm/msm_fence.h
-index 148196375a0b..635c68629070 100644
---- a/drivers/gpu/drm/msm/msm_fence.h
-+++ b/drivers/gpu/drm/msm/msm_fence.h
-@@ -82,6 +82,7 @@ bool msm_fence_completed(struct msm_fence_context *fctx, uint32_t fence);
- void msm_update_fence(struct msm_fence_context *fctx, uint32_t fence);
- 
- struct dma_fence * msm_fence_alloc(void);
-+void msm_fence_free(struct dma_fence *fence);
- void msm_fence_init(struct dma_fence *fence, struct msm_fence_context *fctx);
- 
- static inline bool
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index dee470403036..3fdcfc5714b6 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -56,7 +56,7 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
- 
- 	ret = drm_sched_job_init(&submit->base, queue->entity, 1, queue);
- 	if (ret) {
--		kfree(submit->hw_fence);
-+		msm_fence_free(submit->hw_fence);
- 		kfree(submit);
- 		return ERR_PTR(ret);
- 	}
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h | 2 --
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h | 1 -
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h | 2 --
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h   | 5 +++--
+ 4 files changed, 3 insertions(+), 7 deletions(-)
+---
+base-commit: be5c7bbb3a64baf884481a1ba0c2f8fb2f93f7c3
+change-id: 20250228-dpu-fix-catalog-649db1fc29a6
+
+Best regards,
 -- 
-2.25.1
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
