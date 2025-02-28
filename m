@@ -2,58 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4B0EA49BD7
-	for <lists+freedreno@lfdr.de>; Fri, 28 Feb 2025 15:24:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 777DFA4A51A
+	for <lists+freedreno@lfdr.de>; Fri, 28 Feb 2025 22:31:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF4610ECBA;
-	Fri, 28 Feb 2025 14:24:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18B7A10ED51;
+	Fri, 28 Feb 2025 21:31:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J4f3okZz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ApHLKIQB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B869510ECBB;
- Fri, 28 Feb 2025 14:23:58 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D730461F6C;
- Fri, 28 Feb 2025 14:23:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19873C4CED6;
- Fri, 28 Feb 2025 14:23:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740752637;
- bh=kbCWeMKmYUCMjknkwLpFQ4vOZhr06uyQ6A8L6Y6j3cA=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=J4f3okZzEW756AuEQGKk7lNHCr0rV9x4HUiSPHdbrH79q2OMaEG15g+F9fjCZwRAy
- 1ec/689S42x9Ffi1ic8yUwKt7/FP5dyzSkOvGyFNW5HM/NRq52XWCg3PrinV4TsJ0J
- CbkaQ2xVseBR8CmnlXfB48YqG8VwTK+N+uc3+Xw69v3zzRUOk0vvOGQhSPPU4XOcJZ
- bYQsbsYcS+ZOnkPzyS4IorM6ElTBaSCH33WXdR3z7p5Wr25sfKrsmoScfWWfV66T0B
- qX049SjwbGE5N5ZNQ1EtTx58pd/fmSlu4cC2UYPINuB4+6fBznGZMM/8YfGgbW5JVi
- L5tiHwAuWdAlg==
-Date: Fri, 28 Feb 2025 08:23:55 -0600
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E372B10ED46;
+ Fri, 28 Feb 2025 21:31:31 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-2feb96064e4so3077682a91.1; 
+ Fri, 28 Feb 2025 13:31:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1740778290; x=1741383090; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=93u9FMaBovFoKZ6qB26R5Bei+BiF4xVMXoIYM5LNkow=;
+ b=ApHLKIQBNPw7KhyqjF0ftd+Gpgp0HcygAEKQiptYGkTNMVvyXOFgfZp61V4K2YdRj+
+ 7k/Fi5P2sG/Y3YoMozcKqIjbeiF2xQUgGmQF33iDVEwRsymDgq1yVPeRBXp5h9ltCC6j
+ FOd0u/iU44frVWkk/T+yz8RK5MpEjVnfG9QQHS+RVErNVKUk85yGWXRL4Dytdfo/UWEo
+ Tbwv1Q3wLdV5XkKEpn8vIt0NDQKsjbITx66FHUoiOXSQH1UX39IBHZK7HKs6alzZog4d
+ MRPh7p8z8Pje9szfhIYa+HY12KgbMRcxCp1Fych1Ocg2BL2hFmW1ch7zLoiLDPeeBjMi
+ MghQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740778290; x=1741383090;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=93u9FMaBovFoKZ6qB26R5Bei+BiF4xVMXoIYM5LNkow=;
+ b=CQVAQS5MKplMUi4bIBAZdtwXVjbJEOXk/76wYQ6bEWsuq0uiEHCy2r2WXofdSo9xlX
+ WFmfYrfEhyw8R88ueXPis7mohxTvAVtnKPDbN+zFuj+4JcYuJeNzY6pS6sLwzBAaSMfN
+ 18ZV8lm22Ptya0OU8UfccaPgWhkQTgiLal5acPNg4EsaIYaYWw+emQVQ2AFNRKzacnAj
+ D9P3e/2VggPzyn3wPHf93n92p7Jqk3TNQSJYeLgbS4p6mL2c5DN4bO9D8P7bTAkRR1J8
+ MdNkCz+JnuUTbRn9YynRRaUcVKLlLgiKMTKjiLn/X9WbRBuafhFf06O+6J+AYv7Pd4Ww
+ /4pQ==
+X-Gm-Message-State: AOJu0YwsRZqrNWTZ+r9OBICBW8I+dcmXQbEGlJ//IgaX+YAZlo4n2D3l
+ /wPb7QaWkYRAznLWopntM106dDdhiW6ntAiG20rjnYUcTrOLdvbL2Vk40A==
+X-Gm-Gg: ASbGncu+hFGH/hyG7HZYXLd8e6bWZEfwqkFic6YP+8mBV/ZgELMGBIFsAe3upeg+3yj
+ OWtSAOZZrPLMDtX3yG7BpGGV2b9ALiCRRRHcBXMkvS6ZHplQ4TVV3jOvA3P3dm3Rn8J8P1lP9vN
+ xzsPgzwwFtoHLd5L9hxuEd2ZaOHFlruNENVdoPXaq1W5rqYAAuWdAaLYtAsn5Ofzx/UybCKu5IX
+ e4HzDJIuz2lQo5V4pPnv71NxTQt8Uxo8GMm4poOqkmyvLAdPTknu6D3ghajxwlKiKxTMiWSTjev
+ ktXnoqGUXQp0rBdNce+D1pv5l0jm26AdzmbsAZgtT4EdX2UcSfelIRei0X+njeg6Qje9AQsFxg2
+ d
+X-Google-Smtp-Source: AGHT+IFIrARPSHoqgSXOC06UG9mDf7Pz3KJcb8i4kd5NHyX2D35P54N5Ad/Fqa37E2Gj9VBa53GQrw==
+X-Received: by 2002:a17:90a:e703:b0:2fa:1851:a023 with SMTP id
+ 98e67ed59e1d1-2febac06670mr7684454a91.35.1740778289973; 
+ Fri, 28 Feb 2025 13:31:29 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:12e9:d196:a1e9:ab67])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2235050f3c6sm37776505ad.210.2025.02.28.13.31.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Feb 2025 13:31:29 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm/a6xx: Fix a6xx indexed-regs in devcoreduump
+Date: Fri, 28 Feb 2025 13:31:24 -0800
+Message-ID: <20250228213124.54213-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, Simona Vetter <simona@ffwll.ch>, 
- linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Jie Zhang <quic_jiezh@quicinc.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org, 
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, 
- freedreno@lists.freedesktop.org, 
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Rob Clark <robdclark@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- David Airlie <airlied@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, devicetree@vger.kernel.org
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com>
-References: <20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com>
-Message-Id: <174075232770.2756163.15128447349702656600.robh@kernel.org>
-Subject: Re: [PATCH v2 0/6] Support for Adreno 623 GPU
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,85 +90,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
-On Fri, 28 Feb 2025 01:37:48 +0530, Akhil P Oommen wrote:
-> This series adds support for A623 GPU found in QCS8300 chipsets. This
-> GPU IP is very similar to A621 GPU, except for the UBWC configuration
-> and the GMU firmware.
-> 
-> Both DT patches are for Bjorn and rest of the patches for Rob Clark to
-> pick up.
-> 
-> ---
-> Changes in v2:
-> - Fix hwcg config (Konrad)
-> - Split gpucc reg list patch (Rob)
-> - Rebase on msm-next tip
-> - Link to v1: https://lore.kernel.org/r/20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com
-> 
-> ---
-> Jie Zhang (6):
->       drm/msm/a6xx: Split out gpucc register block
->       drm/msm/a6xx: Fix gpucc register block for A621
->       drm/msm/a6xx: Add support for Adreno 623
->       dt-bindings: display/msm/gmu: Add Adreno 623 GMU
->       arm64: dts: qcom: qcs8300: Add gpu and gmu nodes
->       arm64: dts: qcom: qcs8300-ride: Enable Adreno 623 GPU
-> 
->  .../devicetree/bindings/display/msm/gmu.yaml       |  1 +
->  arch/arm64/boot/dts/qcom/qcs8300-ride.dts          |  8 ++
->  arch/arm64/boot/dts/qcom/qcs8300.dtsi              | 93 ++++++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 29 +++++++
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  8 ++
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        | 13 ++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        | 17 ++++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  5 ++
->  8 files changed, 171 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 89839e69f6154feecd79bd01171375225b0296e9
-> change-id: 20250213-a623-gpu-support-f6698603fb85
-> prerequisite-change-id: 20250131-b4-branch-gfx-smmu-b03261963064:v5
-> prerequisite-patch-id: f8fd1a2020c940e595e58a8bd3c55d00d3d87271
-> prerequisite-patch-id: 08a0540f75b0f95fd2018b38c9ed5c6f96433b4d
-> 
-> Best regards,
-> --
-> Akhil P Oommen <quic_akhilpo@quicinc.com>
-> 
-> 
-> 
+Somehow, possibly as a result of rebase gone badly, setting
+nr_indexed_regs for pre-a650 a6xx devices lost the setting of
+nr_indexed_regs, resulting in values getting snapshot, but omitted
+from the devcoredump.
 
+Fixes: e997ae5f45ca ("drm/msm/a6xx: Mostly implement A7xx gpu_state")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-My bot found new DTB warnings on the .dts files added or changed in this
-series.
-
-Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-are fixed by another series. Ultimately, it is up to the platform
-maintainer whether these warnings are acceptable or not. No need to reply
-unless the platform maintainer has comments.
-
-If you already ran DT checks and didn't see these error(s), then
-make sure dt-schema is up to date:
-
-  pip3 install dtschema --upgrade
-
-
-New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/qcom/' for 20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com:
-
-arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:0: 'gcc_gpu_memnoc_gfx_clk' was expected
-	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
-arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:1: 'gcc_gpu_snoc_dvm_gfx_clk' was expected
-	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
-arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:2: 'gpu_cc_ahb_clk' was expected
-	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
-arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:3: 'gpu_cc_hlos1_vote_gpu_smmu_clk' was expected
-	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
-arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:4: 'gpu_cc_cx_gmu_clk' was expected
-	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
-arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:5: 'gpu_cc_hub_cx_int_clk' was expected
-	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
-
-
-
-
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+index a73613551493..b37ff7433072 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+@@ -1507,6 +1507,8 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
+ 
+ 	/* Restore the size in the hardware */
+ 	gpu_write(gpu, REG_A6XX_CP_MEM_POOL_SIZE, mempool_size);
++
++	a6xx_state->nr_indexed_regs = count;
+ }
+ 
+ static void a7xx_get_indexed_registers(struct msm_gpu *gpu,
+-- 
+2.48.1
 
