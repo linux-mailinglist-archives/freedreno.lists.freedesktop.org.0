@@ -2,90 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20B0A48CC2
-	for <lists+freedreno@lfdr.de>; Fri, 28 Feb 2025 00:27:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80EBBA48EA4
+	for <lists+freedreno@lfdr.de>; Fri, 28 Feb 2025 03:31:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD0A910EBB0;
-	Thu, 27 Feb 2025 23:27:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A10610EBD6;
+	Fri, 28 Feb 2025 02:31:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zBSXKMh9";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ibnGn6IK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4588910EBB0
- for <freedreno@lists.freedesktop.org>; Thu, 27 Feb 2025 23:27:05 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-546267ed92fso1527559e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 27 Feb 2025 15:27:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740698823; x=1741303623; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=7WNTtnPyIuJT+/uJWKYo/FYFhAssVEsvM4kIc7boJOo=;
- b=zBSXKMh9w7pPYReJfENZNf+vdnFVylR4j+xrZP9aK3eKtWZUI57uEP6AKw355NT4yz
- Lm4SzU/XlV7/vxM7uQ9ITY/zrlGLi7LfaO3vFxJ2lAJk/Poy+HFfxsuLXH5MQLmxtIpZ
- 2y7sBHvr7RCbfwTm3mrnY/MOyzz4lfPSCaOfylnUc9byBPkQNKXqUvybvpapnFN5jKuD
- IL3Y2hBln6WLOHC0+kp6zcBLwYrLf/eJ4aRnhPU2196XT7Gv8h8Rv0PBbUsgpjt5mcC0
- SZOqoC1ZtwtvUWeG//lJweggQcmLbbaCrcgaxht6ovsTN6hEhGV/aXBI3iuTE+W2cI+J
- QFpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740698823; x=1741303623;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7WNTtnPyIuJT+/uJWKYo/FYFhAssVEsvM4kIc7boJOo=;
- b=P1iF8ITQtgdVG+/OOtkopr+pS8CI8QZXR4IAzoRGpNo6jrzRBWu5clx9CyEQ7gU22f
- cOhlKwciKTu0ZhYNRDLTCFeoKc9Ratf8yhMnHIzrCAVbNvvUiYmmvP97oQ/zTuCbCQta
- 8UqiC1oGurZV9iMA8f/C0W5ck/pK9/MecujhO1xwSbbAk3lq8rFz6U6v7Vm5gYB/kxCs
- ClhpaI0/oWQkExsGnYlwzEaVjuWHkgHvfVavUhkrdzFqYAw92X/qmLk9rJL5I3LC140E
- kgDat3jVpH6vq9BacsMFWr0kBzdj8iNUVbZUUVXykpall1g0XJxe/N06AgewwvBe08jt
- XSAg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX2NGr3OR14c5j7tljMPSHpG/8Rl/oxSdlHrkrFYGZO6WJ0fz3GLrh/125l73oH06Hm6YBsVUuGu9o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRAh09V9eVkXMr6W+AhEUK3aA75peTIb+CRUFNFGQWUCL+v2Ub
- E2KpS3s6RPEdfxKy50pfo/MEkfybSi7SNcaXsNp2BKxgPFKhagXU51IOvnXRwNw=
-X-Gm-Gg: ASbGncvCY4/fNmcmmZIob0Yc57jrjAfJ0VmrDrYffHcJVJ/HYUMQqx3cru5A92mvdGl
- 0g+sCN0ZuIQulNh5ndu57oVFP3b9oJz+K4watDcij7KmR2Y/qxMPIU/0MNytkfdk1pg/J8PsdwU
- hdwLpp1u7ucrmhJa5HDaKgUEUmT8j4flvO/AEOM2nCQXOIg/2q9PwfnMg0OfWSN5xXCps+0P9hd
- lV/MyR9jwrjJbEZsFV/bPCp+9KoZCS8O0/eKeQ7zx54aqFcijifOwwczolzpgFN7aLW/oxlbArL
- Jwxe0YW2QvwpNKV6yGlWel3l4zWaJTiNfRhB3Hv3NFurBATwU1hyeDHqW8SQPW+tMZdxBga+5f2
- eruLmGg==
-X-Google-Smtp-Source: AGHT+IHxjxlMLhD3oxVC5PDwEv4tONUbYy57JLfGirnQiWK4YcosMJV+1qf98e7hbSx7Q8klj5cPTw==
-X-Received: by 2002:a05:6512:281d:b0:545:2950:5361 with SMTP id
- 2adb3069b0e04-5494c129f93mr514211e87.5.1740698823331; 
- Thu, 27 Feb 2025 15:27:03 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-549443be608sm299637e87.173.2025.02.27.15.27.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Feb 2025 15:27:01 -0800 (PST)
-Date: Fri, 28 Feb 2025 01:26:59 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Jie Zhang <quic_jiezh@quicinc.com>
-Subject: Re: [PATCH v2 3/6] drm/msm/a6xx: Add support for Adreno 623
-Message-ID: <67jiudy4bopd3mzoylj47stuxwc5jdt63akxwn5qqo4dov47za@xcece4v2k3m5>
-References: <20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com>
- <20250228-a623-gpu-support-v2-3-aea654ecc1d3@quicinc.com>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 329C410EBD6;
+ Fri, 28 Feb 2025 02:31:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=rcHVV
+ NPM3mgsOgMcJQbDPlD26VF9g2Q5u3/LlGBoFIM=; b=ibnGn6IK5uwh5qLasuhn5
+ ECJNJqf9G0/aAlk5r+5Yb8zGEooF0ir6u1R8SW3IxgQ6SzMUoq5T336UWDWKyfed
+ fxXohFW+sYmjME39Ojufx44Sf4HU4q4d4ilLkIRG7d0E3IIYXUQsy9BwFF2/6293
+ IhB2cHFdLMJI/27tBvS1X8=
+Received: from icess-ProLiant-DL380-Gen10.. (unknown [])
+ by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
+ _____wDX3+brH8Fn5_6yOg--.23918S4; 
+ Fri, 28 Feb 2025 10:31:09 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ sumit.semwal@linaro.org, christian.koenig@amd.com
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Haoxiang Li <haoxiang_li2024@163.com>, stable@vger.kernel.org
+Subject: [PATCH] drm/msm: fix a potential memory leak issue in submit_create()
+Date: Fri, 28 Feb 2025 10:31:05 +0800
+Message-Id: <20250228023105.3737605-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250228-a623-gpu-support-v2-3-aea654ecc1d3@quicinc.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wDX3+brH8Fn5_6yOg--.23918S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr13Kryxur18JryfZw48Crg_yoW8trWkpF
+ 4UG34jkr1UA3WaqwsFkF1jka45Gw18WayxKF4qv3sxuwn0yw1UW3WUJ3yjqFWUJF92yry3
+ tFs2kr1UXF10krUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zicdjtUUUUU=
+X-Originating-IP: [183.174.60.14]
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/1tbiqBQCbmfBGNbydQAAs-
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,44 +62,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Feb 28, 2025 at 01:37:51AM +0530, Akhil P Oommen wrote:
-> From: Jie Zhang <quic_jiezh@quicinc.com>
-> 
-> Add support for Adreno 623 GPU found in QCS8300 chipsets.
-> 
-> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c   | 29 +++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |  8 ++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  2 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h     |  5 +++++
->  4 files changed, 43 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 0ae29a7c8a4d3f74236a35cc919f69d5c0a384a0..1820c167fcee609deee3d49e7b5dd3736da23d99 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -616,6 +616,14 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
->  		gpu->ubwc_config.uavflagprd_inv = 2;
->  	}
->  
-> +	if (adreno_is_a623(gpu)) {
-> +		gpu->ubwc_config.highest_bank_bit = 16;
+The memory allocated by msm_fence_alloc() actually is the
+container of msm_fence_alloc()'s return value. Thus, just
+free its return value is not enough.
+Add a helper 'msm_fence_free()' in msm_fence.h/msm_fence.c
+to do the complete job.
 
-Just to doublecheck, the MDSS patch for QCS8300 used HBB=2, which
-means 15. Is 16 correct here? Or might the be a mistake in the MDSS
-patch?
+Fixes: f94e6a51e17c ("drm/msm: Pre-allocate hw_fence")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ drivers/gpu/drm/msm/msm_fence.c      | 7 +++++++
+ drivers/gpu/drm/msm/msm_fence.h      | 1 +
+ drivers/gpu/drm/msm/msm_gem_submit.c | 2 +-
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
-> +		gpu->ubwc_config.amsbc = 1;
-> +		gpu->ubwc_config.rgb565_predicator = 1;
-> +		gpu->ubwc_config.uavflagprd_inv = 2;
-> +		gpu->ubwc_config.macrotile_mode = 1;
-> +	}
-> +
->  	if (adreno_is_a640_family(gpu))
->  		gpu->ubwc_config.amsbc = 1;
->  
+diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
+index 1a5d4f1c8b42..0e257afaf443 100644
+--- a/drivers/gpu/drm/msm/msm_fence.c
++++ b/drivers/gpu/drm/msm/msm_fence.c
+@@ -184,6 +184,13 @@ msm_fence_alloc(void)
+ 	return &f->base;
+ }
+ 
++void msm_fence_free(struct dma_fence *fence)
++{
++	struct msm_fence *f = to_msm_fence(fence);
++
++	kfree(f);
++}
++
+ void
+ msm_fence_init(struct dma_fence *fence, struct msm_fence_context *fctx)
+ {
+diff --git a/drivers/gpu/drm/msm/msm_fence.h b/drivers/gpu/drm/msm/msm_fence.h
+index 148196375a0b..635c68629070 100644
+--- a/drivers/gpu/drm/msm/msm_fence.h
++++ b/drivers/gpu/drm/msm/msm_fence.h
+@@ -82,6 +82,7 @@ bool msm_fence_completed(struct msm_fence_context *fctx, uint32_t fence);
+ void msm_update_fence(struct msm_fence_context *fctx, uint32_t fence);
+ 
+ struct dma_fence * msm_fence_alloc(void);
++void msm_fence_free(struct dma_fence *fence);
+ void msm_fence_init(struct dma_fence *fence, struct msm_fence_context *fctx);
+ 
+ static inline bool
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index dee470403036..3fdcfc5714b6 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -56,7 +56,7 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
+ 
+ 	ret = drm_sched_job_init(&submit->base, queue->entity, 1, queue);
+ 	if (ret) {
+-		kfree(submit->hw_fence);
++		msm_fence_free(submit->hw_fence);
+ 		kfree(submit);
+ 		return ERR_PTR(ret);
+ 	}
 -- 
-With best wishes
-Dmitry
+2.25.1
+
