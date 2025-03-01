@@ -2,92 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B657A4A9FA
-	for <lists+freedreno@lfdr.de>; Sat,  1 Mar 2025 10:25:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8442BA4AD02
+	for <lists+freedreno@lfdr.de>; Sat,  1 Mar 2025 18:11:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34F5310E195;
-	Sat,  1 Mar 2025 09:25:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4D8D10E1D5;
+	Sat,  1 Mar 2025 17:11:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OzWJprgB";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UnrMWTv/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6670510E195
- for <freedreno@lists.freedesktop.org>; Sat,  1 Mar 2025 09:25:13 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-5452e6f2999so2971622e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 01 Mar 2025 01:25:13 -0800 (PST)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE5CA10E09C
+ for <freedreno@lists.freedesktop.org>; Sat,  1 Mar 2025 17:11:02 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5462ea9691cso3527408e87.2
+ for <freedreno@lists.freedesktop.org>; Sat, 01 Mar 2025 09:11:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740821112; x=1741425912; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=URwOcNjnz6PkMJ2QDjvaSLAsGLbSDP+kGsc1C7zaZt0=;
- b=OzWJprgB48RskC+QJhiQ/thQgeALx3F9ngmFSv7ECg2FtcD6eG802KlzU32DeWfDPG
- VOaLHzUzccYqbUyuTJgHZ/rANjWRZrKZtGNWWgXrlVl7YY4a4quzhpXkMUGJrehWSLVf
- iYUUmvqXk1Mf81wLzmUGlJF5aG63kVHSgnt2DdwQQAkRpa0ir8L+R0OVMC5l4jI+GTaO
- aeqS2K76EO0w1vwYY2S9d3F0DFoEH61DXJG1BO/SLUIT0Y+LBNzajuM0w4KbjTrsxTmG
- 5yN0QQN2RFQvnqVTG9uZ63WgOCkgRkSCQ1WFYGFqq84xIgNq1j8POe5HHychTjV+afYU
- z6bw==
+ d=linaro.org; s=google; t=1740849061; x=1741453861; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=gTSOh+6vc0fDAR7E7U91UFAeOUujh+ZpJVLlLuHs1jA=;
+ b=UnrMWTv/sjXiBOwltR9iLH3V9n1ns0jIhsOtB3AiAJ2nJ2U0Zyo7xoPlmTWhgQjHZQ
+ mS/0jGSeaTFZwV/PJ01MvqIWtE/uNHoQsUXcOQiNS5uslZbGN8S87sgiq6Pg1qe/NVf6
+ KCJznC+W7OIu3eGYrSJsXU+e8jby0CoUysFkG7AIjwOtl+4IKGyjzgOkGa954pkX4ObH
+ vL9cXqMVSZg48bfi3Zywjkiw4fbRsUAfiOZObsbABgnGFNCojJ94qS7as6qvhw8SdA9u
+ +U+qS1VCKMSSidj9uwuXAHu+bu5J3GP13Q5AWcxZ04rV+hP/GIKXI6v1OAAAotC6ry5I
+ Q7Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740821112; x=1741425912;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=URwOcNjnz6PkMJ2QDjvaSLAsGLbSDP+kGsc1C7zaZt0=;
- b=vfukPpbJ+fdcLF70LaCnRxqDd9eHXbtvjJ5RoF2DpR8ftI5UJ7S2tO9Wilybgnug2N
- NQlb/sWORv2BpFNWkBljbi0/Stb+JHLdbJffMGVO6gQiimTdEGWZv6xfN8nXUXu9dWDr
- eDP8fQ4fszpgNyM1CaT/w9cyMhIwKpJKXrLan42TFyHSquBwKG0kWLrngzCcRgLOegT8
- Kk+ERVGk1vVAAlxh9qT6JJ75fbx63Smbs9BWgKtnbuPLybYAv9yuvAtR5Dswh3vziOtN
- YtVo3bRAVap/gvRgcRbTEacCiXK0mmOg0pszxo1gwphTHeFTWV3pStaDmU6N59BGodQm
- RPqQ==
+ d=1e100.net; s=20230601; t=1740849061; x=1741453861;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gTSOh+6vc0fDAR7E7U91UFAeOUujh+ZpJVLlLuHs1jA=;
+ b=vQIiiyuwt5SSyTuRYHkbbvxz0aHhFkVnxBtpNxu4BBosyOvrlh2z1UwG7K3MMeYmUw
+ zGfIYioxnKLJjkZSZmloN5JIG76SN/RhZ2QqSvuzrplvqzhwRNZ5wcObEr+wJ2BA9xkv
+ aoVixby85J082u4NZwb1dPAn5pmEKPdiiEGYfeIvAdTK4zqP1di+heG6NSCKidVZXQFU
+ jMsP+xOmnlKI2+zCMsmEAR3xNCJMMXgvkUo3rks0FCgKWDy2ErflXgsMboYpr1QlzIBg
+ gfyvsOOSTWlssjvtbePnARhxbtWb2CZ0J3kRqHQ/+qFDoblRv12nR5bbK8igkBPE08Og
+ wRZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUkHsQVcj7MRdhlkRuIfAWP9Y4ptIELmnbOLA1sxUU39P8Y9atKj1/9jDYpSHfyDJLIChvoAwdi7iw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzkou4LP0doXmQYWfCUxR6Poa+E05qL4eGODM46WAgGQltRZaKc
- gQkNczSjcLhatSjih4k3FKB9rf2dC3uc0zRdukHUFBrnYRpcONl2P7tWuRDkHCo=
-X-Gm-Gg: ASbGnctvbYa/5QXiIGgfu/BvkLJtx5tiPwf7UmbNOxmpoX0oVRF0tbSCc0iY66T2Xwq
- zP6m8PNgm1F8ZxMUBlV62erffIvxeh3DMPa5BHjTp1grJWjzNokL5PicZeUDFnls/RHSCeMj7lW
- rNjm88v9k9oDk4jcK3XtPjSJcugYsPnyaLcUtlKzrJ4FiFfHNEFUMdeOyseA4zAIPeAr5kt84hI
- ZO7l++A4N1CpxRoPLsMYn1ayS6IaSB5PQ5zAIuIUtn1qmFgPuyecNECZOYS07diSOd25Xz+iXW+
- R80L+4zPmXdm0f3vpRLUTHudORPyCrstR0WzpqCeeCXpqT4sNc1w
-X-Google-Smtp-Source: AGHT+IEh8A2sl1pAlOlMCHBvb8v6txd7ryhkeXioo/K+sIwr784pk95XMok+4SarSyMfmUmdP9cUsw==
-X-Received: by 2002:a05:6512:128e:b0:545:9e4:ca91 with SMTP id
- 2adb3069b0e04-5494c38072bmr2929372e87.39.1740821111736; 
- Sat, 01 Mar 2025 01:25:11 -0800 (PST)
+ AJvYcCWZRfmKG04EQdIeAE4RsnXTU4K2Jb9apjDYHZmq1Z7UQKQjNmJjBwmQWqr7jx0nShZyPNC9gxHdwVI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3kextjPG84v2qfuH3EoAdm9CXytCEHvrdKaG5II7tonyvsGch
+ ixybZov8wke8WYQJ4R3sA9PGY9rCuhfp5HaOEhANDoKn6LglFK8h35hu61Kf2+E=
+X-Gm-Gg: ASbGncvnzfvxXadb+6HpE/ZVaevQcdT/2yx7iTpHD+hIwjNaihUz7iuwvAtfquF/b1w
+ FITtzjdZR+vToT5aknUNfwbcWyrxi4fyJAY5MP3wYbkX7L8Iku5SJlfrMTxsbHk3OKphnuFx3t/
+ 22MhpwKON4ghu8C0uATUB2uJMcW/r/IxR7RJmHThyRc5hvHyYJpyIgxLUZu3M30Z/tLZvj0MWRV
+ 1BIyhZKLu1UUpnwpZfi+o4MEmEyNZdoZ5I8GbCt3sh8yzqk7Lkzi0P23J+HxcXwfy5yMqWSEmZ1
+ A1Z2I84VZqK3ru4syEtOiKNjBVwCJblUuRcULDpqVF7j6CO8/o+U
+X-Google-Smtp-Source: AGHT+IGjfTP3M1nC+JbXSe2IaduGP60EMXDnTNEYi01oiNBZO4gw8RM8QJ/UJEMcz87+6uNQsTJatw==
+X-Received: by 2002:a05:6512:3f19:b0:545:c08:e17b with SMTP id
+ 2adb3069b0e04-5494c328c3dmr2817722e87.23.1740849060798; 
+ Sat, 01 Mar 2025 09:11:00 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5494417432csm738406e87.52.2025.03.01.01.25.09
+ 2adb3069b0e04-5494e52a47asm585313e87.152.2025.03.01.09.10.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 01 Mar 2025 01:25:10 -0800 (PST)
+ Sat, 01 Mar 2025 09:10:59 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 01 Mar 2025 11:24:58 +0200
-Subject: [PATCH v2 5/5] drm/msm/dpu: remove DSC feature bit for PINGPONG on
- SDM630
+Subject: [PATCH v4 0/2] drm/bridge: reuse DRM HDMI Audio helpers for
+ DisplayPort bridges
+Date: Sat, 01 Mar 2025 19:10:54 +0200
+Message-Id: <20250301-dp-hdmi-audio-v4-0-82739daf28cc@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250301-dpu-fix-catalog-v2-5-498271be8b50@linaro.org>
-References: <20250301-dpu-fix-catalog-v2-0-498271be8b50@linaro.org>
-In-Reply-To: <20250301-dpu-fix-catalog-v2-0-498271be8b50@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
+X-B4-Tracking: v=1; b=H4sIAJ4/w2cC/3XMQQ6CMBCF4auQrq2ZlkLAlfcwLlqmhUmUklaJh
+ nB3CyuUuHwv+f6JRRvIRnbKJhbsSJF8n4Y6ZKzpdN9aTpg2kyALkFByHHiHd+L6ieS5KLB2aKw
+ xtWPJDME6eq29yzXtjuLDh/eaH8Xy/iuNggOvtBZKVw2gwvONeh380YeWLalRbnn9y2XiokRTW
+ uOkdG7H8w0XO54nrmQN4CBXRsEXn+f5AzSqXcopAQAA
+X-Change-ID: 20250206-dp-hdmi-audio-15d9fdbebb9f
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1811;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2562;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=xfJndy0LJ6tSYaPs6OPWvlHfde8Gt+RzIdnKqXQJW2A=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnwtJouDh1p63euLoMf/eO1Aa1kaVi4m9jHe64K
- bORUvpxw0GJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8LSaAAKCRCLPIo+Aiko
- 1Q2wB/9+J8HcIzLcD4Z54mCSlyjwkQ3C2RZjJ0uAwHKstzXjx0uAq015I1fXZN787warvOm3j3L
- ig0302evj00WTzKaZrN10rzDnrgNK02AHwxv8GzoFst4YwaX6cEHT+KdUdURGSwS9ZTrJiTxTLw
- mxpz/opigMTdni3hSRSAGrPYop6rS3y8nVJ4FaFfXPptbG/RBr0iOlIfL8rgqK6DWb0bw7vYMJm
- xlMPF66WvRaTDGCudXLahAGjGqT4ggHR+p03OVjhQdOyCGRscvTvI7Q3JwqN09qFwJSKR/+y78n
- vU7sLNkNz1VHMK+BKtoWqHFza6tec6uBRWhHiKh9KtHSCX/W
+ bh=S5OuChTXe8RHWTOOd2rYoBZZVbvzR+cAiAR/WVy1ROk=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnwz+hDFEtA8PzYi0XDQQscdSYGMSloFEiiE+wO
+ wBuAM+tGneJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8M/oQAKCRCLPIo+Aiko
+ 1RKbB/9yAM+aFQr7rcGvek4nWGz6fp6p7m+5TGAd3H10HnDGv9SrKPgyABE60xmFii+QLYK4YSz
+ Y/CSGbOpBjMRJCSSmFnNa0Wm1hKX8luykI0PUe2DIbScy0lN4sV8fFWglwrYwqp1xyaD0yVR3F/
+ foFeKAR8IFx9NmHQ6eK0AnFtzp0Wik6lp3vOAM0QoWdvp+F7k6I27b9MZCg3jTfe9sDj4eLfhuX
+ JSkKgtxP5AkELE2kZ34NaMYvtgRE87EiifLrhbK6yTHml3V7NP916I6KAMrKVDUn87vylJiDPaP
+ jIP3/ELrIcEaI3CpxIebsfg1aLyxcRXEW71TE7mBCPPoHL1+
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -105,45 +112,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The SDM630 platform doesn't have DSC blocks nor does have it DSC
-registers in the PINGPONG block. Drop the DPU_PINGPONG_DSC feature bit
-from the PINGPONG's feature mask, replacing PINGPONG_SDM845_MASK with
-BIT(DPU_PINGPONG_DITHER).
+A lot of DisplayPort bridges use HDMI Codec in order to provide audio
+support. Present DRM HDMI Audio support has been written with the HDMI
+and in particular DRM HDMI Connector framework support, however those
+audio helpers can be easily reused for DisplayPort drivers too.
 
-Fixes: 7204df5e7e68 ("drm/msm/dpu: add support for SDM660 and SDM630 platforms")
-Reported-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Patches by Hermes Wu that targeted implementing HDMI Audio support in
+the iTE IT6506 driver pointed out the necessity of allowing one to use
+generic audio helpers for DisplayPort drivers, as otherwise each driver
+has to manually (and correctly) implement the get_eld() and plugged_cb
+support.
+
+Implement necessary integration in drm_bridge_connector and provide an
+example implementation in the msm/dp driver.
+
+The plan is to land core parts via the drm-misc-next tree and msm patch
+via the msm-next tree.
+
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v4:
+- Rebased on linux-next, adding DRM_BRIDGE_OP_HDMI_AUDIO to Synopsys QP
+  HDMI driver.
+- Drop outdated comment regarding subconnector from the commit message.
+- Link to v3: https://lore.kernel.org/r/20250219-dp-hdmi-audio-v3-0-42900f034b40@linaro.org
+
+Changes in v3:
+- Dropped DRM_BRIDGE_OP_DisplayPort, added DRM_BRIDGE_OP_HDMI_AUDIO
+  (Laurent, Maxime)
+- Dropped the subconnector patch (again)
+- Link to v2: https://lore.kernel.org/r/20250209-dp-hdmi-audio-v2-0-16db6ebf22ff@linaro.org
+
+Changes in v2:
+- Added drm_connector_attach_dp_subconnector_property() patches
+- Link to v1: https://lore.kernel.org/r/20250206-dp-hdmi-audio-v1-0-8aa14a8c0d4d@linaro.org
 
 ---
-Note, Konrad pointed out that vendor DT doesn't define DIPTHER support
-for this platform, however I believe this is because support for this
-platform predates DITHER support in the vendor kernels.
+Dmitry Baryshkov (2):
+      drm/bridge: split HDMI Audio from DRM_BRIDGE_OP_HDMI
+      drm/msm/dp: reuse generic HDMI codec implementation
+
+ drivers/gpu/drm/bridge/lontium-lt9611.c        |   2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c   |   1 +
+ drivers/gpu/drm/display/drm_bridge_connector.c |  59 +++++++----
+ drivers/gpu/drm/msm/Kconfig                    |   1 +
+ drivers/gpu/drm/msm/dp/dp_audio.c              | 131 +++----------------------
+ drivers/gpu/drm/msm/dp/dp_audio.h              |  27 ++---
+ drivers/gpu/drm/msm/dp/dp_display.c            |  28 +-----
+ drivers/gpu/drm/msm/dp/dp_display.h            |   6 --
+ drivers/gpu/drm/msm/dp/dp_drm.c                |   8 ++
+ include/drm/drm_bridge.h                       |  23 ++++-
+ 10 files changed, 91 insertions(+), 195 deletions(-)
 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+base-commit: 5299e75907dcd85c906bd58fb6226e72c36742fe
+change-id: 20250206-dp-hdmi-audio-15d9fdbebb9f
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
-index 3aed9aa4c533f167ece7b4a5eb84fe49c4929df5..99c0f824d8f00474812bde12e7d83ba3de1834f1 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
-@@ -115,14 +115,14 @@ static const struct dpu_pingpong_cfg sdm630_pp[] = {
- 	{
- 		.name = "pingpong_0", .id = PINGPONG_0,
- 		.base = 0x70000, .len = 0xd4,
--		.features = PINGPONG_SDM845_MASK,
-+		.features = BIT(DPU_PINGPONG_DITHER),
- 		.sblk = &sdm845_pp_sblk,
- 		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
- 		.intr_rdptr = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12),
- 	}, {
- 		.name = "pingpong_2", .id = PINGPONG_2,
- 		.base = 0x71000, .len = 0xd4,
--		.features = PINGPONG_SDM845_MASK,
-+		.features = BIT(DPU_PINGPONG_DITHER),
- 		.sblk = &sdm845_pp_sblk,
- 		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
- 		.intr_rdptr = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 14),
-
+Best regards,
 -- 
-2.39.5
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
