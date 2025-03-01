@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48374A4A9ED
-	for <lists+freedreno@lfdr.de>; Sat,  1 Mar 2025 10:25:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A68DA4A9F0
+	for <lists+freedreno@lfdr.de>; Sat,  1 Mar 2025 10:25:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 171B110E07A;
-	Sat,  1 Mar 2025 09:25:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA3910E167;
+	Sat,  1 Mar 2025 09:25:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pBnxe+wx";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RkeNhkfO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 169A310E07A
- for <freedreno@lists.freedesktop.org>; Sat,  1 Mar 2025 09:25:01 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-548878c6a5aso3174689e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 01 Mar 2025 01:25:00 -0800 (PST)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97DB910E16D
+ for <freedreno@lists.freedesktop.org>; Sat,  1 Mar 2025 09:25:03 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5484fa1401cso2590089e87.1
+ for <freedreno@lists.freedesktop.org>; Sat, 01 Mar 2025 01:25:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740821099; x=1741425899; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ypB915vJqmRaH63cKoFbSo3grjRFws/DTwU9I0cazvs=;
- b=pBnxe+wxv6ILj09Kg1bEifsHkdke3NfU7FciiXXKne3vrgm6gPpuLKYInSX9+N08eW
- cIrxFYjZ8h6y83yXi99Wj+CbphLmUN/7Jd9OVgigRkvGoVUMWd1jZFeuJE/3oQIsGVVt
- /k8g1fDOCaeKH/FQbegVfkg944sXLsdsOBsIg7Y6uCd921EMjzZ+Ws+2mqk/nqum/by/
- ZJe/1zmoCqfDxwZ2623vBOI+kqQaS5FIrh10fFgiEkrsh2DHFF6t94MQcRYjI0cqCN0X
- VB25+DWGpc70sC+q18eTO2esBH08ezhcjOTToA+o077KSATdXhw/kPcquJqD+IigRGOp
- 9Y0w==
+ d=linaro.org; s=google; t=1740821102; x=1741425902; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=0JVwBbchrlGfLWd7zeEe09mlkUBfIcbBf0ReoU16PUE=;
+ b=RkeNhkfOfJSdVJu/uzlhQ19S75M1pSOHlsw5iinR/4l9gQTTdDnPI0QkiU7Ac3or4Q
+ z82lROBjzIX49S/cEC/jVGV2VLEnvSRYppDDl9cwmWUqnf1mlu1r+OYslKXowqf0v4wf
+ H7lClAWsFqJPlMzgWrjtvOPCiL02FN6eSvRdBu2dQ9id000P4ii2gocadVLzp+iG/iz1
+ 2txVb1Ay4JXl1iggN3xm3Q617sFSU9dFhZF5fQ4WuwmW9OzAxsQ1VRp4LNVNFZeF/ysv
+ C6PThbUwSID+NnAr4SnXEE7NpJf8K/+WEk9mg0lSxj3721NA3JAjHVbs4+I+YyeuyMSg
+ Bf2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740821099; x=1741425899;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ypB915vJqmRaH63cKoFbSo3grjRFws/DTwU9I0cazvs=;
- b=EyGqw6dOw/p45/zVtGOezdzU4J5NhXstcavIfFaELBQS42dBKm5aUXCSDvCHdvlAic
- jYqis1cRjAT/iE46qCQstT/A3cA893FdSp7eQeax3redvDENdT27uGNj7cMmkarC5fSt
- /w8B29L8kQE2FvhShDybWgrsDDiEQ6Xu2btSNlxGZ7QrH+989zkOQkjrbVgtXKKPjQo5
- 1Hv/ZmvOyQenjprjm/MMtPN+b/Ht5DNCwty+WhbrwOusdBSVqTGAAkA0XBl5VhTdpIfK
- T5VmkMjdMPWleCG2EQYpfPnV5qn+UxIjTbnhh0LgWCHDSLCwWlFVp/8bgnaEA1L4Vi+B
- YXTg==
+ d=1e100.net; s=20230601; t=1740821102; x=1741425902;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=0JVwBbchrlGfLWd7zeEe09mlkUBfIcbBf0ReoU16PUE=;
+ b=Vdsp/V7E1fXzDv1qJFYOG+2PhuvD9gZFk0NZl/r0RcadR5VGX1ADayTo+xfrUSF+MI
+ PLdNREkStmal7+SUjJB1XM7l0n/uT1PE2tW4IbV8Zh1AK43qhogQTlASvhwsHRVF6Wsy
+ AcgycDlk/4tHcsjwMuFyu0/gARexSO1t7EX47LQEbRc10QhMIBT61Grf8eIMaf8i/n07
+ 3JubMGKTiwxX0efFA4A/3wv+JRsz301azRarZHxFb/6UrZckvNd4rfQiQCZkN5cP7FdJ
+ tjPL/tKlgrNqXaPmvmRYpwFETbONLKznY8SoccqAT7wZxV7wPz5211pvFJkt0aDqOZg0
+ sGPw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVP4oFTfuB/oM1aoP/SqG92g8dpS9v4q2GQjbdmQ99HraJz1VbVoiYFLq526lcw4HJ7RrQomMoJMcg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyX4sMyRAKt8+Y5QeOmh6uHTexRDa80RZKw7l+JV/+AtEfyNwCJ
- 7oRcsR/AJh2hZzfLOybAV4aPSrxqWp1uhgFmdQXBt5FCm9fPZsJLSlKsZKmFDoE=
-X-Gm-Gg: ASbGncv3/FX3F19KqLz0Xz2xwjUzVBHmHA4H41Wdsgfp8Lv53PogobQLAh6LosULsO/
- jdPv2+ZaAb9uklZkQEpCI4rEfBXPJY7SlLRhG/GO/Dn/fozZpzM5fG6Q3m9dDrXpadKWTG/oIu6
- ZIQ4Duirj/rYqKDujdnBfMJu5zZ/rs65uiKBkkStBR4tQmHGhHnCAjB+2vpPCPG6PVp0RkcwrLu
- IKalLuMccdw8sNZ8H8ZG75t+ax/vbsBGUV547H1ge7bEI81bhUz5QhFm0vVut4NlMmEF5zuLqRx
- Bg3MS31rzF9d4KclfGiet2cBBwUhCkChgygGViMn73mNOLUidCJ1
-X-Google-Smtp-Source: AGHT+IG/1AayJVp+qm5RXrxUhbjPYPpH8uNl8/6SF/4ZZfwJzrYVs2UolooqjFryoLYeJuDT1/fK0g==
-X-Received: by 2002:a05:6512:3a90:b0:545:441:52d4 with SMTP id
- 2adb3069b0e04-5494c33089emr2269458e87.26.1740821099342; 
- Sat, 01 Mar 2025 01:24:59 -0800 (PST)
+ AJvYcCUKkk8jBwBQQ4d1AmzhH7g7UQ+0Vxq2tGFyWLwL0+AFvYfCaLqvQg64I5b9S+4mU6L/st+Kt20S+cw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyonZ1tnY6T8LseTZE1yJgWkmV2fdwcRUBGdSK9Mg7eYEYbv+xW
+ yG9hHdCAkzBI8W4GXqVWhJgUbsNakListH+wE5fUuYiZLhjZ4MWrqOtFXp5E4NTQFDQ2BNCRvZO
+ rg2I=
+X-Gm-Gg: ASbGncs8E402hg1WRt9pNyHXCgpwZB+oDrq7NvMpzILEljZvZsuGkcQJHFPPKKkLN3k
+ lGZmqHE+0F0dgHEwYZsrIADbCPj+YMLxAFA5wC+wkjCrQRVewoxCImyqoi11h+zsbYPH1VuWBGC
+ VPU8NYwyYIlvY+GifluxSG1v0+4YH4YTdwxLAMf/Cr3aANAphIV6/yiz2QrodJMq1cfkFq6V1Qj
+ n/4z3UpTITkurfwc0cgKJD0RD7uIZWA6+Trfy9knw9r5/d9T46Hmvpbum26QQ2rvNbMRe5LOsbC
+ Q0WVdw8NKdno066+SC8o87g4qP4dTxjAhHyvUguhBHb8i9HVBIt3
+X-Google-Smtp-Source: AGHT+IFyI4K4ofy4rt283J1E493B2LFgM14L99NpHlb5eH+sLu5qjueAHc56DM5e2fZC/5lr7A1fIQ==
+X-Received: by 2002:a05:6512:158f:b0:546:2ea9:6666 with SMTP id
+ 2adb3069b0e04-5494c37d8b1mr2545975e87.34.1740821101846; 
+ Sat, 01 Mar 2025 01:25:01 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5494417432csm738406e87.52.2025.03.01.01.24.56
+ 2adb3069b0e04-5494417432csm738406e87.52.2025.03.01.01.24.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 01 Mar 2025 01:24:57 -0800 (PST)
+ Sat, 01 Mar 2025 01:25:00 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH v2 0/5] drm/msm/dpu: disable DSC on some of old DPU models
-Date: Sat, 01 Mar 2025 11:24:53 +0200
-Message-Id: <20250301-dpu-fix-catalog-v2-0-498271be8b50@linaro.org>
+Date: Sat, 01 Mar 2025 11:24:54 +0200
+Subject: [PATCH v2 1/5] drm/msm/dpu: remove DSC feature bit for PINGPONG on
+ MSM8937
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGXSwmcC/3WNzQqDMBCEX0X23C3JolJ76nsUD/lTFySRjZUW8
- d2beu/xm2G+2SEH4ZDhXu0gYePMKRagSwVuMnEMyL4wkKJGEd3QLy8c+I3OrGZOI7Z1560eHHW
- mhbJaJJT6ND77whPnNcnnPNj0L/3v2jQqtKrxRIN1ZOvHzNFIuiYZoT+O4wurkalurwAAAA==
-X-Change-ID: 20250228-dpu-fix-catalog-649db1fc29a6
+Message-Id: <20250301-dpu-fix-catalog-v2-1-498271be8b50@linaro.org>
+References: <20250301-dpu-fix-catalog-v2-0-498271be8b50@linaro.org>
+In-Reply-To: <20250301-dpu-fix-catalog-v2-0-498271be8b50@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -80,16 +80,16 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1769;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1574;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=GqOq9rkDu6v4PggutY2CL3RwcYuHkk2cBFFkYzV4MYY=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnwtJn2qMf0VS7G3JEN+uWvtBRgvvIOldnrQcYS
- k7crSZsssOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8LSZwAKCRCLPIo+Aiko
- 1e0HB/sHdFdwVnCgI6jz4PMEGkIyskrbhGqY3Hqwu8/2I5ecn5HgHXqKgNxEmhAwseUs8bRMoym
- 4fn8fkRTrsmTSihzFm8rom7vUKX8po4+Dh13YIGBfhBugH0Uvsb42HOAOq6bCOJ6YVJnl5u8SkM
- Yv9QaHmoQKWeLG+PsJck7cp5GRXF41+7G6rN02fpQ0QaP0lv/NjfbtSEUV3OEHUPv3HYSgVTqjz
- 8M3RhzQQACJhts2u77bNT9Zm2N915NZFfph69mY6YiOYdtljBt5LCoftEdUaYtxZxW5+AlHG3eA
- 1NwcGGLIHnLk/CndkDteu7KMYCaQ6G7oG3gfKRv8Ic01evLE
+ bh=6iPuaAjsYMeQVkUS24obUEbYrmaOHTnqfR5LGKvkJrI=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnwtJn4QALW4Yp9jHaAiSTff5oWqqXJrWsumAXS
+ yBUql9GT86JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8LSZwAKCRCLPIo+Aiko
+ 1bKaB/0TSkQtXBypTrGIYYMHCArbLA2WM5wcSRk1VeH/6Oy/jD6i8npth08Pb7n3qqv42TSGdFP
+ 9Ah5kV7z1VZiMxs16n5Zqq/sUNCXg4gVnuuNUTp/Q0RQGDZdwMyhANgV7PFR//V6/UVDw0BKhub
+ t8ehERkXMhY00pPHTnpuTRlqvUkbpsWNx8xy801MR0qAm4NSJ9PFmWbiaa7+zbDlpSxoU3g6kog
+ AlLCfhbQ1mQpBiCGvxrFEvOayxMX+Qra03tg/D9jtulkr8Qyn52sfGmKsoMENLpc7PBh5isfGBE
+ w1iRAIAElUBfHMniHEFWvPnwro0GxfbQZM5s+GTcwVjZCYk6
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -107,41 +107,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-During one of the chats Abhinav pointed out that in the 1.x generation
-most of the DPU/MDP5 instances didn't have DSC support. Also SDM630
-didn't provide DSC support. Disable DSC on those platforms.
+The MSM8937 platform doesn't have DSC blocks nor does have it DSC
+registers in the PINGPONG block. Drop the DPU_PINGPONG_DSC feature bit
+from the PINGPONG's feature mask and, as it is the only remaining bit,
+drop the .features assignment completely.
 
+Fixes: c079680bb0fa ("drm/msm/dpu: Add support for MSM8937")
+Reported-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Changes in v2:
-- Fixed commit messages (Konrad)
-- Dropped TE2 bits and pieces, they are unused in the upstream driver.
-- Link to v1: https://lore.kernel.org/r/20250228-dpu-fix-catalog-v1-0-b05d22fbc2b4@linaro.org
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h | 2 --
+ 1 file changed, 2 deletions(-)
 
----
-Dmitry Baryshkov (5):
-      drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8937
-      drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8917
-      drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8953
-      drm/msm/dpu: drop TE2 definitions
-      drm/msm/dpu: remove DSC feature bit for PINGPONG on SDM630
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h
+index ab3dfb0b374ead36c7f07b0a77c703fb2c09ff8a..a848f825c5948c5819758e131af60b83b543b15a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h
+@@ -100,14 +100,12 @@ static const struct dpu_pingpong_cfg msm8937_pp[] = {
+ 	{
+ 		.name = "pingpong_0", .id = PINGPONG_0,
+ 		.base = 0x70000, .len = 0xd4,
+-		.features = PINGPONG_MSM8996_MASK,
+ 		.sblk = &msm8996_pp_sblk,
+ 		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+ 		.intr_rdptr = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12),
+ 	}, {
+ 		.name = "pingpong_1", .id = PINGPONG_1,
+ 		.base = 0x70800, .len = 0xd4,
+-		.features = PINGPONG_MSM8996_MASK,
+ 		.sblk = &msm8996_pp_sblk,
+ 		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
+ 		.intr_rdptr = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 13),
 
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h    |  2 --
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h    |  1 -
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h    |  2 --
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h |  8 ++++----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h |  8 ++++----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h  |  8 ++++----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h  |  6 +++---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h  |  8 ++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c          | 17 -----------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h          |  6 +-----
- 10 files changed, 20 insertions(+), 46 deletions(-)
----
-base-commit: be5c7bbb3a64baf884481a1ba0c2f8fb2f93f7c3
-change-id: 20250228-dpu-fix-catalog-649db1fc29a6
-
-Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.5
 
