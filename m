@@ -2,98 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4843A4CD71
-	for <lists+freedreno@lfdr.de>; Mon,  3 Mar 2025 22:24:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E015A4CF65
+	for <lists+freedreno@lfdr.de>; Tue,  4 Mar 2025 00:43:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2868510E4E6;
-	Mon,  3 Mar 2025 21:24:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7B610E2EB;
+	Mon,  3 Mar 2025 23:43:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Cdex1G6L";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IeM+S0Mn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BDC610E23F;
- Mon,  3 Mar 2025 21:24:00 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 523AP2bf019978;
- Mon, 3 Mar 2025 21:23:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7ty50yskNa4pYew6F6vyuvTbJ7taysYiM7S/eCucEBE=; b=Cdex1G6Lyyx8+TYb
- sSrzs1L/nSugkKtyoYxe3JSPFDJXiPs/4kRV4wJ11U0jiyHUcuU1CbyVvILem9RO
- /TlFhRHdoltrCZTM00SzFqj9VMOhwglNEKlJ2Shc7kHyP1gjFhBX/6UsccXPXN4i
- vLZQtsq1L6LYAAIg7CLG+v9rEJ8VqCs6ZICshH3ncYa8oGn8oNSMP6OJhZMWY1iK
- j+FXiyj6rE3z54ErXmVFDKm6VcUFs0yNyJpsIbPyEVQQ/fGELLvp+pFmBMTDnwiz
- mkp6v/14DWylOwNao9k1k+0LS4EAUYH4gFtix1c9IHgnu1c04bmHMbqgsbjVGmER
- ntpFnA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 453t95x5vm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Mar 2025 21:23:53 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 523LNqnR001016
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 3 Mar 2025 21:23:52 GMT
-Received: from [10.110.69.79] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 3 Mar 2025
- 13:23:51 -0800
-Message-ID: <8c0c0935-3a20-4c6a-a6fb-556e14ecedda@quicinc.com>
-Date: Mon, 3 Mar 2025 13:23:11 -0800
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1C2110E3FF
+ for <freedreno@lists.freedesktop.org>; Mon,  3 Mar 2025 23:43:14 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-54973b49353so740492e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Mar 2025 15:43:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1741045393; x=1741650193; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Yfy39VluGQcEyItLjFB3XiPgmFo3CCnquxjFCjbOFIA=;
+ b=IeM+S0MndYEuwsEHPQ6ANjmyr/+kTUV1fo5c+fU6wvcKC48GLBaB2evHgPpJWAbEh9
+ syX7pf+ij4jucfmcg2mkCPnHS9I7ZiQGzAEl+I7qSNcWcf9WevLjrLqE7HJdWgnRIwmX
+ l8psA/P5I6Qt1kqAaIwiMotlnRCU/Zt953GtwRpzFdzJ3I+Wa38BvVqLDF5UCHkqlgUh
+ zTDC7sNuna5BV2h6pNXbja/sF5FmaOgp77t83aVh04U1dakuAx13F/Iemp1BU0N7TyiS
+ /j656iE88xEEaMDw2Gqsj5ngft7QOWpp8WKyzqT6qnwH3AnF/JzZPPHTzq+ilPT3wWil
+ 1ivg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741045393; x=1741650193;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Yfy39VluGQcEyItLjFB3XiPgmFo3CCnquxjFCjbOFIA=;
+ b=iOYHIWffuh/VY8q6rlnZL5nlmiPdyQu1IsvDLHX5PVv5xQHvz1Tnzlx6c8OWcHbrlf
+ G+0SDvMb1mPKd5HvrvrFh2+y7OfXwkdaEU3Z6/9DvCW9G4u46Xf5vrtOCmoTT4QeduAx
+ pR0JmmkYExpUAO5XNZPZyKabt4ICsD9R5M7eeFH2l7Q0+EeRE2RM12KAGpffQ+7yQEva
+ FoZQOcn/y+vDlxnYgbZfSgt56PLv0n1K8UONQgdlvPUA+4nwO6fKCbrN0O5uBK4oj6K2
+ b6Rh2x6bTvRvy5+gT0dOAlBhxDImd3n1CcQ8JzSN9Mp+HHu1JCJ9aPNIp03I0cHn4yJL
+ PHbA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVjlmBrSKYo0RJmv/C7qeOWESCfCFvnzqmIeARuhX+46XRuIL2nHC/IPynPu7EBSsXSZGOLHOC+eYU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyf07Ppt6SfcCP1EL2E0ueIA+MoFhXn5sWXgFm1pVaDElKRmpFC
+ gGBmA1X2nTf/Wn4+NgCS8Fi87WlPBz44Z2ZNY4Z3E+NlPi8hFKOrcOJMGSxQyTA=
+X-Gm-Gg: ASbGncu59YWjheQi9f3nPpHoQuxlqm3J40ArttsIPXTLh4zrM0jOG5IijWwcXP3QfDD
+ PERS+sTTzs/upn30OYh3vrggxu3IwYRW132opkklgJalstYmi7EfFOEeQuKlVFw513PVFKL7MjI
+ TWgwDQG/KRGE+qA2BaacuySI1K4oKZCXALBYNiFPBeW+R7Y6wDApCT5FgtrP/dRBo6TropV5Z3p
+ u7eh1dTv8h4/AvXeTNzI3mcjfja3uRUJtDL7ZWR6Jh6hpde1NTwKqIMFWVUhxAEaOJKVi/fqxjN
+ P9lPHam35SksCSRAEOw9v5bf1C+mc8ocSODqsDogQCjvLa0inoPahnsMGSpO5/q6aQIb8x/0ZD3
+ L5my/zneBfQeN+sFpFBbEyB4/
+X-Google-Smtp-Source: AGHT+IHS43FrPoYrbI5lM/r4eVcPkidPny7B+4+NzFlSF1VJA+JMi5IVAexs7xXUBzw/FSOsOiL98Q==
+X-Received: by 2002:a05:6512:1085:b0:545:1d96:d702 with SMTP id
+ 2adb3069b0e04-5494c38c05dmr6560457e87.48.1741045393007; 
+ Mon, 03 Mar 2025 15:43:13 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5495f4c36d1sm667879e87.52.2025.03.03.15.43.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Mar 2025 15:43:12 -0800 (PST)
+Date: Tue, 4 Mar 2025 01:43:09 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
+ quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, 
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH v6 03/14] drm/msm/dpu: switch RM to use crtc_id rather
+ than enc_id for allocation
+Message-ID: <da6e2hygdv6ewdr5hqeks2ocsxwvfvozby4b53unk5ckyqvu7t@wh3y4jnucapl>
+References: <20250214-concurrent-wb-v6-0-a44c293cf422@quicinc.com>
+ <20250214-concurrent-wb-v6-3-a44c293cf422@quicinc.com>
+ <se4b4kzp3vej4b6albecdc2t65ueiuba4kidutwvrv2rcfyjwr@e62fn225jwcr>
+ <8c727bd6-94f1-4ee3-9bf3-793899038895@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/16] dt-bindings: display/msm: dp-controller: Add
- SM8750
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Jonathan Marek
- <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>, Neil Armstrong
- <neil.armstrong@linaro.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Srini
- Kandagatla" <srinivas.kandagatla@linaro.org>
-References: <20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org>
- <20250217-b4-sm8750-display-v2-5-d201dcdda6a4@linaro.org>
- <aqpuik4zitdfuk4pahn4wyzxdvxldy4dcqjs3mhr6fqtxpoxhf@ssfzzbfce2nu>
- <2dfe466c-ad94-4683-a2e9-a49e77a61f4f@linaro.org>
- <h2shpen65r7v4in54avsez7qtlwojbt2cthyomqrsgs5ewprwb@bn53suqrzkac>
- <4e82404a-0ea5-4641-829a-bba666edd352@quicinc.com>
- <CAA8EJpoWEuqKkreUTu1gO-Pr=VFNNP_vBfNZpitJiJH728vjPA@mail.gmail.com>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpoWEuqKkreUTu1gO-Pr=VFNNP_vBfNZpitJiJH728vjPA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: U0A0gXsukuszRPuGJAxn_2wPnvZt7M3G
-X-Proofpoint-GUID: U0A0gXsukuszRPuGJAxn_2wPnvZt7M3G
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-03_10,2025-03-03_04,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0
- phishscore=0 mlxlogscore=999 clxscore=1015 priorityscore=1501
- lowpriorityscore=0 spamscore=0 malwarescore=0 suspectscore=0 adultscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2502100000 definitions=main-2503030165
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8c727bd6-94f1-4ee3-9bf3-793899038895@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,67 +102,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 2/24/2025 7:14 PM, Dmitry Baryshkov wrote:
-> On Mon, 24 Feb 2025 at 20:59, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 2/19/2025 9:08 AM, Dmitry Baryshkov wrote:
->>> On Wed, Feb 19, 2025 at 06:02:20PM +0100, Krzysztof Kozlowski wrote:
->>>> On 17/02/2025 19:58, Dmitry Baryshkov wrote:
->>>>> On Mon, Feb 17, 2025 at 05:41:26PM +0100, Krzysztof Kozlowski wrote:
->>>>>> Add DisplayPort controller for Qualcomm SM8750 SoC which so far looks
->>>>>> fully compatible with earlier SM8650 variant.
->>>>>
->>>>> As that became a question for QCS8300, does SM8750 also support exactly
->>>>> two MST streams?
->>>>
->>>> v1.5 of DP (starting from SA8775p , then SM8650 and SM8750) support 4x
->>>> MST for DPTX0 and 2x MST for DPTX1.
->>>>
->>>> The DP in SM8650 and SM8750 are identical, according to datasheet (v1.5.1).
->>>
->>> Hmm. This also means that QCS8300 is compatible with SM8650. I'll let
->>> Abhinav comment here.
->>>
->>
->> DP version by itself is not a good measure of whether the controller can
->> support 4 streams or not.
->>
->> Firstly, sm8650/sm8750 do not have a DPTX1 so we are only discussing
->> about DP TX0.
->>
->> Coming to the QCS8300 Vs sm8650/sm8750, even though the DP controller
->> version is the same, there is no HW support for more than 2 streams on
->> sm8650/sm8750 because there are no INTF blocks to drive 4 streams.
->>
->> On sm8650/sm8750, only INTF_0 and INTF_3 can be used for DP. Hence 2
->> streams.
->>
->> Whereas on Monaco, we have INTF_0, INTF_3, INTF_6 and INTF_7 capable of
+On Mon, Mar 03, 2025 at 10:45:19AM -0800, Jessica Zhang wrote:
 > 
-> No idea what Monaco is, most likely it is some platform. Please use
-> SoC names in public.
+> 
+> On 2/27/2025 7:07 AM, Dmitry Baryshkov wrote:
+> > On Fri, Feb 14, 2025 at 04:14:26PM -0800, Jessica Zhang wrote:
+> > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > 
+> > > Up to now the driver has been using encoder to allocate hardware
+> > > resources. Switch it to use CRTC id in preparation for the next step.
+> > > 
+> > > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > > ---
+> > > Changes in v6:
+> > > - Drop duplicate cstate initialization code and unnecessary memset
+> > > Changes in v5:
+> > > - Reordered to prevent breaking CI and upon partial application
+> > > 
+> > > Changes in v4 (due to rebase):
+> > > - moved *_get_assigned_resources() changes for DSPP and LM from
+> > >    encoder *_virt_atomic_mode_set() to *_assign_crtc_resources()
+> > > ---
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  18 +--
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  10 +-
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  12 +-
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 189 ++++++++++++++--------------
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      |   7 +-
+> > >   5 files changed, 110 insertions(+), 126 deletions(-)
+> > 
+> > This commit breaks several tests in CI:
+> > - sc7180-trogdor-kingoftown:
+> >    - kms_cursor_crc@cursor-dpms
+> >    - kms_pipe_crc_basic@disable-crc-after-crtc
+> > - sc7180-trogdor-lazor-limozeen
+> >    - kms_cursor_crc@cursor-dpms
+> >    - kms_pipe_crc_basic@disable-crc-after-crtc
+> 
+> Hey Dmitry,
+> 
+> Thanks for catching this. Looks like this was exposed due to a recent IGT
+> uprev that included  dc2d7fb4f978 ("lib/igt_kms: move setting
+> DRM_CLIENT_CAP_WRITEBACK_CONNECTORS to kms_writeback").
+> 
+> The issue itself is that when DPMS is toggled, it is possible for RM to
+> reserve new HW resources but skip the atomic_enable() due to the checks here
+> [1]. This means that the change in HW block reservation won't be propagated
+> to encoder if DPMS is set to off.
+
+Could you possibly clarify this. What is the state change that causes
+the issue (describe CRTC / connectors / encoders and active / enabled
+state). Why does the issue manifest only after switching to the CRTC id
+for resource allocation (the tests run successfully before this patch,
+i.e. with the resource allocation being moved to CRTC, but using the
+encoder ID for allocation).
+
+Note, the CRTC won't re-allocate resources if
+drm_atomic_crtc_needs_modeset() is not true. So I'm not sure how can we
+end up in a situation when the resources are reallocated _and_ we need
+to raise the mode_changed flag.
+
+> I've posted a fix for this here [2].
+> 
+> Thanks,
+> 
+> Jessica Zhang
+> 
+> [1] https://elixir.bootlin.com/linux/v6.14-rc4/source/drivers/gpu/drm/drm_atomic_helper.c#L1502
+> [2] https://patchwork.freedesktop.org/series/145735/
+> 
+> > 
+> > Corresponding pipeline is available at [1]
+> > 
+> > As I had to rebase your changes on top of msm-next, corresponding tree
+> > is available at [2]. It might be possible that the regression is
+> > introduced by my rebase.
+> > 
+> > [1] https://gitlab.freedesktop.org/drm/msm/-/pipelines/1374165
+> > 
+> > [2] https://gitlab.freedesktop.org/lumag/msm/-/commits/msm-next-lumag-cwb
+> > 
+> > -- 
+> > With best wishes
+> > Dmitry
 > 
 
-Monaco is indeed QCS8300. I usually do use SoC names, in this instance 
-just intuitively ended up using the internal one as I use it often.
-
->> driving DP. Hence 4 streams.
->>
->> Let me know if there are more questions.
-> 
-> How many stream clocks are present on those platforms? I'm asking
-> because there is a small, but not non-existing difference between 'DPs
-> are not completely compatible / the same' and 'DPs are fully
-> compatible but different DPU blocks impose different restrictions on
-> the number of MST streams'.
-> 
-
-I have confirmed this internally. sm8650/sm8750 have only 2 stream 
-clocks and not 4.
-
-
-
+-- 
+With best wishes
+Dmitry
