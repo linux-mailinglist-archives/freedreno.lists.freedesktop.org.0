@@ -2,91 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5E09A4C4A1
-	for <lists+freedreno@lfdr.de>; Mon,  3 Mar 2025 16:16:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 922EAA4CAF7
+	for <lists+freedreno@lfdr.de>; Mon,  3 Mar 2025 19:28:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC08710E467;
-	Mon,  3 Mar 2025 15:16:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF1210E3C9;
+	Mon,  3 Mar 2025 18:28:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OL2JDteP";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="nYlOwgyz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13DDD10E469
- for <freedreno@lists.freedesktop.org>; Mon,  3 Mar 2025 15:16:35 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2238e884f72so29728155ad.3
- for <freedreno@lists.freedesktop.org>; Mon, 03 Mar 2025 07:16:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741014994; x=1741619794; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=MS7z2kKTQMha/2re0nvvr2SV5BXsIJZSh7OQaRN4Das=;
- b=OL2JDtePz+rWqCWhpruhVmu/WDjv204gClOssASwvqiIMiU4IChRMorSt4Kon02EaA
- bnJ9unHMbSn3C9vmx5RZpgrLThFptGsACwNlyOws1ybS+kGvpM/RAz8AGE+1iXbm4FoU
- Y+H7OwkzqXxhebskq24hx0uEdNzW8s4LOGA4+9nh/hX4gdgfzSPEKUyYW9R9xde03Bih
- ilzaxC6VB35syW/ed/hnZ29piIhdOn8pBijxVT1uhKUrdjVmAR+MIpWD2HAM6aAOK0Tb
- 8FH0wKkgxm+samoQWfQHZ7eVkZbqh0c4VWP5MeZRR2zc/uvzqs8Z+zQnlkjrenKUF5N5
- dfdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741014994; x=1741619794;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MS7z2kKTQMha/2re0nvvr2SV5BXsIJZSh7OQaRN4Das=;
- b=XsGwGadaTWMQhaOARI7Ri3UOEZ6Qx7UvxJ6ZxiXU79WuPWbaXGrNWAoaCua4I58dVZ
- 19iFHdgbxtjSt+0DCVitz9Xr6LjnXgE8L7OEn0ec4dbBfO0uuMUfFSA6KsEWul+IUebv
- vfPTsfm39XkM4w0hXeNxNvIPzsMpAvsdWAEYLxtUzr8qZ/GWx4kw7/QYNOqm+89/qJbd
- 6tfU/7Di+S8QnnRNc6vsRDlSRyf40ieiZ63rX9mNM5ZnWB3cHBa0cXmQgs5RvuafIoak
- 4PW015jWgbW2KoAdcUEdT3nTEmiPkuJZji2zotRA43u4+jBAKxbPoljT4DFb50RKFEQ2
- H+Pw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV875xDaFMyMACblvXpOSv0NBFjmo6XEInMSrAX4If8F8N1GlOJGVIHG9B/TwNMABc9vTN0YZe7P7s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKpfc8gsiyceBGOYv721cp/8s/oDTY8xPNcVC6zsjTI3fkLc6L
- F/uK82o/2zbCxyfEqqa5SqZM+MHrwIGeDspR1X5GePjPjOiRk3HcHVvfPzBMA8VHpgg64o2I+Kt
- AJlDCQw==
-X-Gm-Gg: ASbGncuMC1yXIdPU0vqFlPcXTHCEuyU/LcXXqmDe1me4Gd/KJLNF7CgsY29+dil6k6Y
- zT28qb4HIC2eDDo9Tjqr6S1HGTVixoHwPwxBRHVBMrYNbJItYyqHJqYop+gl40+ItPM442Nb8fV
- UTOgs2X3rS2pxFkAwdjSFP+fZOlCsByiKU3FujMFZzx5zv7rLBfKqRr7COoxB5kQCgQfqZUYzA5
- Tb68JmwENVuEq8Y1RkwqK3F/YyXGOq6wVxBNBlVDrjOsFB3OrDlkqgq2sagrTG72VVSBz0YzPyU
- YlxwcK9KnID6NNr62TfryQCnk3kSwgkvlHc8bh9afQ==
-X-Google-Smtp-Source: AGHT+IGqsUIgxn0VTNpF19GsGLIer8kpx9wejYDX5o6ypocdMcDRG9DFSFFgDQK2xCjfWuXX2Z073g==
-X-Received: by 2002:a17:902:da8d:b0:215:9bc2:42ec with SMTP id
- d9443c01a7336-22369260956mr180094215ad.47.1741014994609; 
- Mon, 03 Mar 2025 07:16:34 -0800 (PST)
-Received: from [127.0.1.1] ([112.64.60.252]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-736584b3cffsm1851984b3a.4.2025.03.03.07.16.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Mar 2025 07:16:34 -0800 (PST)
-From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 03 Mar 2025 23:14:44 +0800
-Subject: [PATCH v8 15/15] drm/msm/dpu: Enable quad-pipe for DSC and
- dual-DSI case
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93F8C10E0D1;
+ Mon,  3 Mar 2025 18:28:09 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 523B17Gj000958;
+ Mon, 3 Mar 2025 18:28:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=mWBUAND2jMvUI68h8cXcib
+ OJmnxxc14QYWwE2utG2JY=; b=nYlOwgyzzHZtx2jIzlcHfITsArrrGWfN3kDJ2t
+ WPoxeyXkl8TQ4gaHhdYOewV0ch/S3a69vGHk92R2uuZG/zLhBGV6WliQX9wPFljE
+ tFAhwVrzeCKZVXHkVudlDEPc4sFQo0Yj4Yx+EzR5+7a5JUaWnGwHTHjVbPOOS7bW
+ 5j2Sqt7/0VTCN6dk8Ojf7QsxwNd4wqTwwubm2XCuNUyWAdj4ONqH/MpraW7+iLeB
+ 2DjUtvSDSJf/ioqM14KVYCY2u5jLbX4cQLi4tnuwRO80EVH1PmzJZMmqSAfMWA2L
+ 4Lo9zb6FyFjYQ2J9GgGv4bjxwxar1XyVH/IGDkd5Fd972Z7Q==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 453t95wsva-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 03 Mar 2025 18:28:07 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 523IS6EM006933
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 3 Mar 2025 18:28:06 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Mon, 3 Mar 2025 10:28:05 -0800
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Mon, 3 Mar 2025 10:28:00 -0800
+Subject: [PATCH RFC] drm/msm/dpu: Force modeset if new CTLs have been reserved
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-15-eb5df105c807@linaro.org>
-References: <20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org>
-In-Reply-To: <20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1741014878; l=6430;
- i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=rX4nJ3PHyeb9gnK5N+cxWYOBB+Jzkkre8ByfC3xgFBE=;
- b=9UZ4kRU7Qe3va1BaKQBnLEfFqWWUCBKjhv6fByihkWOdhAiMfzx9LyYLeSaGKDjgDcOGEd/qm
- nZPYWQnu/wVBHtKJD4K0/RfHVJvZg7184CAx0USfoxd9XSg+xCQPlEx
-X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
- pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
+Message-ID: <20250303-force-modeset-hw-ctl-v1-1-9cbf6d4fbf8e@quicinc.com>
+X-B4-Tracking: v=1; b=H4sIALD0xWcC/21PyWrDMBD9FaNzBdLI2nwt9AN6LTloGdWC2E5lx
+ WkJ+fcqaQiF9jS8mbfNmaxYMq5k6M6k4JbXvMwN8KeOhNHN70hzbJgAA8kADE1LCUinJeKKlY4
+ nGuqeRgbeMAfe94E06aFgyp832zfy+vJMdj/Lgh/HFlHvl0fC0DX/ngMAjWWiMZf69cgwhmnrI
+ 2iHatiA/K52E7ZizNJ4ONIgkgvapKC4vlMProbxxkzeoNPeog5GJnd1lMYGJSXnzAgDDoRk7P8
+ AzlurOmJpY3V+j9Rr7TkKbrVOw8b/qnqmuKFhmcOxFJwrPXlqdVQgjE5WwrCpq8i7FRtrmnIdO
+ qMU9sLbXvpkTTLYfo/J9RKDs5Cs4Ek4JoDsLpdvv8X1kbwBAAA=
+X-Change-ID: 20250228-force-modeset-hw-ctl-d02b80a2bb4c
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>
+CC: Abhinav Kumar <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "Jessica Zhang" <quic_jesszhan@quicinc.com>
+X-Mailer: b4 0.15-dev-f0f05
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1741026485; l=6237;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=rTv0ijG4Y1jg8aOqfg1mevw98KDyQ3ZbLmXyHct+QcM=;
+ b=/AoYFcIzBi1s8fDLKXYokxW3oiO45xaz61z7I/CT+KWZL6btUS9MQuO6wJUCxUECMh7wqLwwQ
+ PkxYIxyOUTCCsA7eb2BcCZ/+WHRkfDD0KtmJqJQW5JI6ZgFR7SslPzK
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 0E42vUDQHO_gYKbLxyznwv8ZLb1_5t1p
+X-Proofpoint-GUID: 0E42vUDQHO_gYKbLxyznwv8ZLb1_5t1p
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-03_09,2025-03-03_03,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 mlxscore=0
+ phishscore=0 mlxlogscore=999 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 malwarescore=0 suspectscore=0 adultscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502100000 definitions=main-2503030141
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,168 +103,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To support high-resolution cases that exceed the width limitation of
-a pair of SSPPs, or scenarios that surpass the maximum MDP clock rate,
-additional pipes are necessary to enable parallel data processing
-within the SSPP width constraints and MDP clock rate.
+If new CTLs are reserved by CRTC but atomic_enable() is skipped, the
+encoders will configure the stale CTL instead of the newly reserved one.
 
-Request 4 mixers and 4 DSCs for high-resolution cases where both DSC
-and dual interfaces are enabled. More use cases can be incorporated
-later if quad-pipe capabilities are required.
+Avoid this by setting mode_changed to true if new CTLs have been
+reserved by CRTC.
 
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Note: This patch only adds tracking for the CTL reservation, but eventually
+all HW blocks used by encoders (i.e. DSC, PINGPONG, CWB) should have a
+similar check to avoid the same issue.
+
+Suggested-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Closes: https://lists.freedesktop.org/archives/freedreno/2025-February/036719.html
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 28 ++++++++++++++++++------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
- 6 files changed, 28 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 13 +++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 ++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  1 +
+ 3 files changed, 26 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index fa487d625dde5cbd9a83ceb5163c049da45163f7..14b08f11a567b3747101fdbffa36ff5701db7a83 100644
+index 4073d821158c0..a1a8be8f5ab9f 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
- 		struct dpu_crtc_state *crtc_state)
- {
- 	struct dpu_crtc_mixer *m;
--	u32 crcs[CRTC_DUAL_MIXERS];
-+	u32 crcs[CRTC_QUAD_MIXERS];
+@@ -1406,19 +1406,32 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_state *old_crtc_state,
+ 	struct drm_crtc *crtc = new_crtc_state->crtc;
+ 	bool clone_mode_enabled = drm_crtc_in_clone_mode(old_crtc_state);
+ 	bool clone_mode_requested = drm_crtc_in_clone_mode(new_crtc_state);
++	struct dpu_crtc_state *cstate = to_dpu_crtc_state(new_crtc_state);
++	uint32_t enc_ctl_mask = 0;
++	uint32_t crtc_ctl_mask = 0;
++	struct dpu_crtc_mixer *m;
  
- 	int rc = 0;
- 	int i;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-index b14bab2754635953da402d09e11a43b9b4cf4153..38820d05edb8b3003971dc6dc675ba8ede847be8 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-@@ -210,7 +210,7 @@ struct dpu_crtc_state {
+ 	DRM_DEBUG_ATOMIC("%d\n", crtc->base.id);
  
- 	bool bw_control;
- 	bool bw_split_vote;
--	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
-+	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
- 
- 	uint64_t input_fence_timeout_ns;
- 
-@@ -218,10 +218,10 @@ struct dpu_crtc_state {
- 
- 	/* HW Resources reserved for the crtc */
- 	u32 num_mixers;
--	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
-+	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
- 
- 	u32 num_ctls;
--	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
-+	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
- 
- 	enum dpu_crtc_crc_source crc_source;
- 	int crc_frame_skip_count;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index c89a5da0fa8321e9082d5aee304fa16402bb4ad9..d4719b45f4cdd5d1f0bd585283c0c16f1df2f1f2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -54,7 +54,7 @@
- #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
- 	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
- 
--#define MAX_CHANNELS_PER_ENC 2
-+#define MAX_CHANNELS_PER_ENC 4
- 
- #define IDLE_SHORT_TIMEOUT	1
- 
-@@ -664,9 +664,13 @@ static struct msm_display_topology dpu_encoder_get_topology(
- 
- 	/* Datapath topology selection
- 	 *
--	 * Dual display
-+	 * Dual display without DSC
- 	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
- 	 *
-+	 * Dual display with DSC
-+	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
-+	 * 4 LM, 2 INTF ( Split display using 2 interfaces)
-+	 *
- 	 * Single display
- 	 * 1 LM, 1 INTF
- 	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
-@@ -691,10 +695,20 @@ static struct msm_display_topology dpu_encoder_get_topology(
- 		 * 2 DSC encoders, 2 layer mixers and 1 interface
- 		 * this is power optimal and can drive up to (including) 4k
- 		 * screens
-+		 * But for dual display case, we prefer 4 layer mixers. Because
-+		 * the resolution is always high in the case and 4 DSCs are more
-+		 * power optimal.
- 		 */
--		topology.num_dsc = 2;
--		topology.num_lm = 2;
--		topology.num_intf = 1;
++	for (int i = 0; i < cstate->num_mixers; i++) {
++		m = &cstate->mixers[i];
++		crtc_ctl_mask |= BIT(m->lm_ctl->idx - CTL_0);
++	}
 +
-+		if (intf_count == 2 && dpu_kms->catalog->dsc_count >= 4) {
-+			topology.num_dsc = 4;
-+			topology.num_lm = 4;
-+			topology.num_intf = 2;
-+		} else {
-+			topology.num_dsc = 2;
-+			topology.num_lm = 2;
-+			topology.num_intf = 1;
-+		}
+ 	/* there might be cases where encoder needs a modeset too */
+ 	drm_for_each_encoder_mask(drm_enc, crtc->dev, new_crtc_state->encoder_mask) {
+ 		if (dpu_encoder_needs_modeset(drm_enc, new_crtc_state->state))
+ 			new_crtc_state->mode_changed = true;
++		enc_ctl_mask |= dpu_encoder_get_ctls(drm_enc);
  	}
  
- 	return topology;
-@@ -2189,8 +2203,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
- 	struct dpu_hw_mixer_cfg mixer;
- 	int i, num_lm;
- 	struct dpu_global_state *global_state;
--	struct dpu_hw_blk *hw_lm[2];
--	struct dpu_hw_mixer *hw_mixer[2];
-+	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-+	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
+ 	if ((clone_mode_requested && !clone_mode_enabled) ||
+ 	    (!clone_mode_requested && clone_mode_enabled))
+ 		new_crtc_state->mode_changed = true;
  
- 	memset(&mixer, 0, sizeof(mixer));
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index 63f09857025c2004dcb56bd33e9c51f8e0f80e48..a9e122243dce9006aaa582a1537980c86b6203a4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -302,7 +302,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
++	if (crtc_ctl_mask != enc_ctl_mask)
++		new_crtc_state->mode_changed = true;
++
+ 	return 0;
+ }
  
- 	/* Use merge_3d unless DSC MERGE topology is used */
- 	if (phys_enc->split_role == ENC_ROLE_SOLO &&
--	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
-+	    (dpu_cstate->num_mixers != 1) &&
- 	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
- 		return BLEND_3D_H_ROW_INT;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index a61598710acda..2f3101caeba91 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -188,6 +188,7 @@ struct dpu_encoder_virt {
  
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 4cea19e1a20380c56ae014f2d33a6884a72e0ca0..77a7a5375d545483edb316e8428df12212191362 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -24,7 +24,7 @@
- #define DPU_MAX_IMG_WIDTH 0x3fff
- #define DPU_MAX_IMG_HEIGHT 0x3fff
+ 	unsigned int dsc_mask;
+ 	unsigned int cwb_mask;
++	unsigned int ctl_mask;
  
--#define CRTC_DUAL_MIXERS	2
-+#define CRTC_QUAD_MIXERS	4
+ 	bool intfs_swapped;
  
- #define MAX_XIN_COUNT 16
+@@ -707,6 +708,13 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
+ 	}
+ }
  
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-index 74bf3ab9d6cfb8152b32d89a6c66e4d92d5cee1d..804858e69e7da1c8c67c725aa462c1a558d1b402 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-@@ -34,7 +34,7 @@
- #define DPU_MAX_PLANES			4
- #endif
++uint32_t dpu_encoder_get_ctls(struct drm_encoder *drm_enc)
++{
++	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
++
++	return dpu_enc->ctl_mask;
++}
++
+ bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_state *state)
+ {
+ 	struct drm_connector *connector;
+@@ -1155,6 +1163,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 	bool is_cwb_encoder;
+ 	unsigned int dsc_mask = 0;
+ 	unsigned int cwb_mask = 0;
++	unsigned int ctl_mask = 0;
+ 	int i;
  
--#define STAGES_PER_PLANE		1
-+#define STAGES_PER_PLANE		2
- #define PIPES_PER_STAGE			2
- #define PIPES_PER_PLANE			(PIPES_PER_STAGE * STAGES_PER_PLANE)
- #ifndef DPU_MAX_DE_CURVES
+ 	if (!drm_enc) {
+@@ -1245,11 +1254,14 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 				"no ctl block assigned at idx: %d\n", i);
+ 			return;
+ 		}
++		ctl_mask |= BIT(phys->hw_ctl->idx - CTL_0);
+ 
+ 		phys->cached_mode = crtc_state->adjusted_mode;
+ 		if (phys->ops.atomic_mode_set)
+ 			phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
+ 	}
++
++	dpu_enc->ctl_mask = ctl_mask;
+ }
+ 
+ static void _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+index ca1ca2e51d7ea..70b03743dc346 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+@@ -91,6 +91,7 @@ bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_st
+ 
+ void dpu_encoder_prepare_wb_job(struct drm_encoder *drm_enc,
+ 		struct drm_writeback_job *job);
++uint32_t dpu_encoder_get_ctls(struct drm_encoder *drm_enc);
+ 
+ void dpu_encoder_cleanup_wb_job(struct drm_encoder *drm_enc,
+ 		struct drm_writeback_job *job);
 
+---
+base-commit: 866e43b945bf98f8e807dfa45eca92f931f3a032
+change-id: 20250228-force-modeset-hw-ctl-d02b80a2bb4c
+prerequisite-change-id: 20241222-drm-dirty-modeset-88079bd27ae6:v2
+prerequisite-patch-id: 0c61aabfcd13651203f476985380cbf4d3c299e6
+prerequisite-patch-id: c6026f08011c288fd301676e9fa6f46d0cc1dab7
+prerequisite-patch-id: b0cb06d5c88791d6e4755d879ced0d5050aa3cbf
+prerequisite-patch-id: fd72ddde9dba0df053113bc505c213961a9760da
+prerequisite-change-id: 20250209-dpu-c3fac78fc617:v2
+prerequisite-patch-id: c84d2b4b06be06384968429085d1e8ebae23a583
+prerequisite-patch-id: fb8ea7b9e7c85fabd27589c6551108382a235002
+prerequisite-change-id: 20250211-dither-disable-b77b1e31977f:v1
+prerequisite-patch-id: 079e04296212b4b83d51394b5a9b5eea6870d98a
+prerequisite-change-id: 20240618-concurrent-wb-97d62387f952:v6
+prerequisite-patch-id: b52034179741dc182aea9411fd446e270fdc69d1
+prerequisite-patch-id: bc472765a7d5214691f3d92696cc8b0119f3252e
+prerequisite-patch-id: c959bc480e96b04297ebaf30fea3a68bbac69da6
+prerequisite-patch-id: f7db8449b241a41faac357d9257f8c7cb16503ec
+prerequisite-patch-id: 7beb73131d0ab100f266fcd3c1f67c818a3263f4
+prerequisite-patch-id: c08cbb5cf4e67e308afd61fdad6684b89429d3b6
+prerequisite-patch-id: a4e343143b8fbe98ae4aa068cc459c750105eb9d
+prerequisite-patch-id: 1d09edcf12ef7e7ab43547eefacae5b604b698e9
+prerequisite-patch-id: 0008f9802bfd3c5877267666cceb7608203e5830
+prerequisite-patch-id: 49402eb767c97915faf2378c5f5d05ced2dcfdac
+prerequisite-patch-id: 522be2a6b5fe4e3a2d609526bb1539f9bc6f828f
+prerequisite-patch-id: 031da00d0fffd522f74d682a551362f3ecda0c71
+prerequisite-patch-id: 9454cec22231a8f3f01c33d52a5df3e26dd88287
+prerequisite-patch-id: 7edbeaace3549332e581bee3183a76b0e4d18163
+
+Best regards,
 -- 
-2.34.1
+Jessica Zhang <quic_jesszhan@quicinc.com>
 
