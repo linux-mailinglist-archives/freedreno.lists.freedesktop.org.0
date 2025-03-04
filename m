@@ -2,52 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60CD1A4D858
-	for <lists+freedreno@lfdr.de>; Tue,  4 Mar 2025 10:30:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5009EA4D906
+	for <lists+freedreno@lfdr.de>; Tue,  4 Mar 2025 10:45:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C41010E537;
-	Tue,  4 Mar 2025 09:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F390510E546;
+	Tue,  4 Mar 2025 09:45:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="L56dBXf5";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="YsVVuzkc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B246710E533;
- Tue,  4 Mar 2025 09:30:51 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 523NX4HG027319;
- Tue, 4 Mar 2025 09:30:35 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98D6310E545;
+ Tue,  4 Mar 2025 09:45:18 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 523NXGmo017322;
+ Tue, 4 Mar 2025 09:45:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- E8a1MoI/DSxQaVM5wDw1IAkuYTIlsrqYIzpG40JKed8=; b=L56dBXf5yPBG4No1
- rqXnA4Lx02tbLzkucYYJsXKN4PvM92u6jI6rf7Wx8vWQRma1nG70rhO080zMkvjU
- XmLMXP+Mar4/RZ5vliroe1qgVZfLzMxqZGdkeuGRdto4Tmkm8acFAEolSRwXMblu
- BIlT45UWJ9bRQkdQefpT/1gOGty/xlBhZA9955L2DOXzkL9aTBsbj3pUX9+XPr0P
- jjLZy4XkM2eU+vKf6c8V/EDXOofctX0KDIqDZt+I1TN1NTfcN5LRtAHi07yAV/bN
- FV6/EYlb7JfZsiw0PN4L3DFqO3xngk3l6ibfdVSAT0ps+wl4OSrud1PGjRerWtjt
- iLkxNA==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ 6oWK79+LmvvrmQWMaq/+oZ+bqCxhDrEG7H+xB6EtRf4=; b=YsVVuzkcObuQvFDt
+ HKI4Fh4wAmTfydF3pCeFO88l1xjQMQW53oJ5UVrEyHcbvMktaawCIYdfLzpKeix+
+ XCmZF0WcbUUZzm7iQXYjmwOhI8kPtgcLAEpurD6UCqcRoo0IxWEdl7SzMcYUR0o0
+ vNDUO9tDy/pBXVktR3V0kZPQBgT69JOX3Tr8rPAFi0V3SYqCcYsBqgTXTZvtVeu0
+ 2fxPOyjBnajgb7Otzrvcqx8z3vLumG4oW/dad2pC7o1kcxLUzbKaV6rYPQmHoK/d
+ q5TDcmcx+1Gh1grnXjbmTLHigp8g5PIosG4n/FmgHBGsnsCHczQ8LMdlsxENokg3
+ 8Rtpig==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 455p6uhbq6-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 455p6theh3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Mar 2025 09:30:35 +0000 (GMT)
+ Tue, 04 Mar 2025 09:45:07 +0000 (GMT)
 Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
  [10.46.141.250])
- by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5249UZhU011921
+ by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5249j76l023483
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 4 Mar 2025 09:30:35 GMT
+ Tue, 4 Mar 2025 09:45:07 GMT
 Received: from [10.204.66.137] (10.80.80.8) by nasanex01b.na.qualcomm.com
  (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 4 Mar 2025
- 01:30:28 -0800
-Message-ID: <91934960-c9fc-4442-88f3-ba1371470d05@quicinc.com>
-Date: Tue, 4 Mar 2025 15:00:25 +0530
+ 01:45:00 -0800
+Message-ID: <5293f723-2a27-4d2a-8939-059226d460c3@quicinc.com>
+Date: Tue, 4 Mar 2025 15:14:57 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/11] drm/msm/dsi: add DSI support for SA8775P
+Subject: Re: [PATCH 08/11] arm64: dts: qcom: sa8775p-ride: enable Display
+ serial interface
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
@@ -61,35 +62,35 @@ CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <quic_abhinavk@quicinc.com>, <quic_rajeevny@quicinc.com>,
  <quic_vproddut@quicinc.com>, <quic_jesszhan@quicinc.com>
 References: <20250225121824.3869719-1-quic_amakhija@quicinc.com>
- <20250225121824.3869719-6-quic_amakhija@quicinc.com>
- <hl352hhpv6imtilpw554njkpod4nycjlls4gg75barlugc2e42@okw2snj2bqm3>
+ <20250225121824.3869719-9-quic_amakhija@quicinc.com>
+ <tfd27qk543dt4sqcawogoszsjax3cqxmi6mcy3qd2mwzauedpf@l6xmy5okswrd>
 Content-Language: en-US
 From: Ayushi Makhija <quic_amakhija@quicinc.com>
-In-Reply-To: <hl352hhpv6imtilpw554njkpod4nycjlls4gg75barlugc2e42@okw2snj2bqm3>
+In-Reply-To: <tfd27qk543dt4sqcawogoszsjax3cqxmi6mcy3qd2mwzauedpf@l6xmy5okswrd>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: YAGyFw0Vmnxo5OEXqgHet3JwugnAXHCB
-X-Authority-Analysis: v=2.4 cv=H40hw/Yi c=1 sm=1 tr=0 ts=67c6c83b cx=c_pps
+X-Authority-Analysis: v=2.4 cv=PMb1+eqC c=1 sm=1 tr=0 ts=67c6cba3 cx=c_pps
  a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
  a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=COk6AnOGAAAA:8
- a=SqrKEsC-_tjMY2b0tDgA:9 a=QEXdDO2ut3YA:10
+ a=5EIoLlhqkPllPMRGZxYA:9 a=QEXdDO2ut3YA:10
  a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: YAGyFw0Vmnxo5OEXqgHet3JwugnAXHCB
+X-Proofpoint-ORIG-GUID: u7ZpYciTQNRFJC6gt9X6GZO_zKOShwbl
+X-Proofpoint-GUID: u7ZpYciTQNRFJC6gt9X6GZO_zKOShwbl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-03-04_04,2025-03-03_04,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0
- impostorscore=0 clxscore=1015 malwarescore=0 priorityscore=1501 mlxscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 spamscore=0 mlxlogscore=999
- classifier=spam authscore=0 adjust=0 reason=mlx scancount=1
- engine=8.19.0-2502100000 definitions=main-2503040080
+ bulkscore=0 mlxlogscore=999
+ phishscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ mlxscore=0 adultscore=0 spamscore=0 suspectscore=0 impostorscore=0
+ clxscore=1015 classifier=spam authscore=0 adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502100000 definitions=main-2503040082
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,43 +106,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/25/2025 10:48 PM, Dmitry Baryshkov wrote:
-> On Tue, Feb 25, 2025 at 05:48:18PM +0530, Ayushi Makhija wrote:
->> Add DSI Controller v2.5.1 support for SA8775P SoC.
+On 2/25/2025 11:25 PM, Dmitry Baryshkov wrote:
+> On Tue, Feb 25, 2025 at 05:48:21PM +0530, Ayushi Makhija wrote:
+>> Enable both DSI to DP bridge ports on SA8775P Ride plaftrom.
 >>
 >> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
 >> ---
->>  drivers/gpu/drm/msm/dsi/dsi_cfg.c | 18 ++++++++++++++++++
->>  drivers/gpu/drm/msm/dsi/dsi_cfg.h |  1 +
->>  2 files changed, 19 insertions(+)
+>>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 66 +++++++++++++++++++++-
+>>  1 file changed, 64 insertions(+), 2 deletions(-)
+> 
+> Please squash into the previous patch. It doesn't make a lot of sense separately.
+> 
 >>
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
->> index 7754dcec33d0..71881d9370af 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
->> @@ -221,6 +221,22 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
->>  	},
->>  };
->>  
->> +static const struct regulator_bulk_data sa8775p_dsi_regulators[] = {
->> +	{ .supply = "vdda", .init_load_uA = 30100 },    /* 1.2 V */
->> +	{ .supply = "refgen" },
->> +};
+>> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>> index 151f66512303..02d8a9c2c909 100644
+>> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>> @@ -128,6 +128,30 @@ dp1_connector_in: endpoint {
+>>  			};
+>>  		};
+>>  	};
+>> +
+>> +	dsi0-connector {
 > 
-> sc7280 has 8350 uA here. I'd say, having those two next to each other is
-> suspicious. Could you please doublecheck it?
-> 
-> LGTM otherwise
-> 
+> dpN-connector. It is not DSI.
 
-Hi Dmitry,
+Hi Dmitry, Konrad
+
 Thanks, for the review.
 
-This chipset is being used in Auto, and I have taken the init load values from the downstream code.
-After you raised the doubt, I checked in the power grid for the DSI ctrl 1p2 supply (mdss0_dsi0 && mdss0_dsi1) and found the load is 8300 uA. 
-I also checked DSI PHY 0p9 supply (mdss0_dsi0_phy & mdss0_dsi1_phy) load and it seems the downstream SW values are incorrect for the PHY as well.
-Correct value for 0p9 supply as per the Power grid is 48000 uA. 
-I have tested using update load and it's working fine. I will update the both in my next patchset.
+I will change dsi0-connector -> dp2-connector and dsi1-connector -> dp3-connector respectively.
+
+> 
+>> +		compatible = "dp-connector";
+>> +		label = "DSI0";
+> 
+> Is it an actual label on it?
+
+The label for DSI to DP bridge ports itself on the device is DSI0 and DSI1 respectively.
 
 Thanks,
 Ayushi
