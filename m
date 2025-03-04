@@ -2,174 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BE04A4E357
-	for <lists+freedreno@lfdr.de>; Tue,  4 Mar 2025 16:31:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7101CA4E71B
+	for <lists+freedreno@lfdr.de>; Tue,  4 Mar 2025 17:57:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3447910E2D0;
-	Tue,  4 Mar 2025 15:31:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5F210E655;
+	Tue,  4 Mar 2025 16:57:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZQ1W/RQ5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FdpfQ3ID";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 649 seconds by postgrey-1.36 at gabe;
- Tue, 04 Mar 2025 15:31:36 UTC
-Received: from beeline2.cc.itu.edu.tr (beeline2.cc.itu.edu.tr [160.75.25.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7107910E2D0
- for <freedreno@lists.freedesktop.org>; Tue,  4 Mar 2025 15:31:36 +0000 (UTC)
-Received: from lesvatest1.cc.itu.edu.tr (lesvatest1.cc.itu.edu.tr
- [10.146.128.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by beeline2.cc.itu.edu.tr (Postfix) with ESMTPS id C96D240F1CEE
- for <freedreno@lists.freedesktop.org>; Tue,  4 Mar 2025 18:20:45 +0300 (+03)
-X-Envelope-From: <root@cc.itu.edu.tr>
-Authentication-Results: lesvatest1.cc.itu.edu.tr;
- dkim=fail reason="signature verification failed" (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ZQ1W/RQ5
-Received: from lesva1.cc.itu.edu.tr (unknown [160.75.70.79])
- by lesvatest1.cc.itu.edu.tr (Postfix) with ESMTP id 4Z6fVZ4wTTzG06n
- for <freedreno@lists.freedesktop.org>; Tue,  4 Mar 2025 18:19:34 +0300 (+03)
-Received: by le1 (Postfix, from userid 0)
- id 43C4E42726; Tue,  4 Mar 2025 18:19:29 +0300 (+03)
-Authentication-Results: lesva1.cc.itu.edu.tr;
- dkim=fail reason="signature verification failed" (2048-bit key)
- header.d=linaro.org header.i=@linaro.org header.b=ZQ1W/RQ5
-X-Envelope-From: <linux-kernel+bounces-541148-bozkiru=itu.edu.tr@vger.kernel.org>
-Authentication-Results: lesva2.cc.itu.edu.tr;
- dkim=fail reason="signature verification failed" (2048-bit key)
- header.d=linaro.org header.i=@linaro.org header.b=ZQ1W/RQ5
-Received: from fgw1.itu.edu.tr (fgw1.itu.edu.tr [160.75.25.103])
- by le2 (Postfix) with ESMTP id 66DA742749
- for <bozkiru@itu.edu.tr>; Mon,  3 Mar 2025 11:26:50 +0300 (+03)
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
- by fgw1.itu.edu.tr (Postfix) with SMTP id 40B583064C0C
- for <bozkiru@itu.edu.tr>; Mon,  3 Mar 2025 11:26:50 +0300 (+03)
-Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by am.mirrors.kernel.org (Postfix) with ESMTPS id 4AFEA1893EA4
- for <bozkiru@itu.edu.tr>; Mon,  3 Mar 2025 08:26:20 +0000 (UTC)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by smtp.subspace.kernel.org (Postfix) with ESMTP id 521C91F03D3;
- Mon,  3 Mar 2025 08:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ZQ1W/RQ5"
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501E01E1A31
- for <linux-kernel@vger.kernel.org>; Mon,  3 Mar 2025 08:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
- arc=none smtp.client-ip=209.85.218.54
-ARC-Seal: i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
- t=1740990274; cv=none;
- b=NgFSNUFod+jy083OWw8UP7+9U1TI4/FJ1iy7OzMPtKV6L62Gy4siEFNpVTdmaBazjEPXEMv83+0GJEYJ/4r6/y6k/TkbPJa1VHy5ZmQfRuelyrkXSnqM1uHa+QZnH3IWc1eJgPGJsFwPSc27m9sCPF9BA/prdPRLKdvzamQ0f3g=
-ARC-Message-Signature: i=1; a=rsa-sha256; d=subspace.kernel.org;
- s=arc-20240116; t=1740990274; c=relaxed/simple;
- bh=hSBIYLscn2H9J+MqRxZlM/7jQNfEuoPNFDdWWYwe6ss=;
- h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
- Content-Type:Content-Disposition:In-Reply-To;
- b=bEXOBSOV3AFkmiDbEOsb6kkT8Ll1QJ+DZuY+1VGKKgIP7tf+Q0IUuPU52qH0QYtV8sg5BZpWZg/a+WN5rqzVyI4UxxW59FXxvW6LQSvI/hE8uaFFAwZtLqXFKzjUlqQ9/Sv+zO68KTfD1Mig5J/dluDQGJU1MYBo3YJ1kpOCgTc=
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
- dmarc=pass (p=none dis=none)
- header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b=ZQ1W/RQ5; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
- spf=pass smtp.mailfrom=linaro.org
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-aaeec07b705so664445366b.2
- for <linux-kernel@vger.kernel.org>; Mon, 03 Mar 2025 00:24:32 -0800 (PST)
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D01D610E655
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Mar 2025 16:57:21 +0000 (UTC)
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-6e88ee9dd84so9052286d6.1
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Mar 2025 08:57:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740990270; x=1741595070; darn=vger.kernel.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=RaZ/CcmeFoBTR8ddNDuQVJv3AT8EACnAOxQQ2V8mS5A=;
- b=ZQ1W/RQ5pKHe6TuSfXOOT8Y1/PkFTG7ziIuqCfIBuPCyOp5tNnH1ufGf9RtfhRcTGh
- 1M76XPwwFhZLx3vuuIWLTXaC0F+nLB4dwcXcIwomg6E9VBPNJdyKw251zXFlkxJOIK0g
- aSzJrZlR7Eanw6I82ZLVXkksb3VXsx8SCU30MNrIJMrV9chLYs3a2wzboY5gTtRsZBTy
- iqxnfXUG89mZwhF9E0Q8mPMSA2CdkWuM5nK67He+MWYzkm47y2wGu28LBrnKFi73Wrlz
- OMXrXhBsJHaIjUsvI08nypKwfYvs0Ze0r676YLdW/ELE8/11cd/B4x8WI1swGZOFjZMV
- ndgg==
+ d=gmail.com; s=20230601; t=1741107440; x=1741712240; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4N8VHwibUhruAck2dmF0TGYAITA4/2gddqUqD7otHMo=;
+ b=FdpfQ3IDQMNBJ0tlcCV4tjb4J7UZdAAGSGFRA5w5LaEQbN8uvlDc0GoSdjai8YWXI2
+ M0WPXZlq1rhbYW9vw0cFvGhH1LXVkVQWHXlxf3h1arKs535JUCfjN9YZu+VAlhk/50jy
+ fKkNX1i+5MtX5ZmI/cySd+xD5WiiYtPdZgjamPvyvh1dAcnVpq8gAHk0iXmaUvUnT8bG
+ TuQLgD6i9oJguLOJXz1/OTYAz6pITj9w6OnMTw2o83b9k9tyWge5FAwQ0pRobV4/tBmB
+ 1V7SuuBh6EPlE6V4ONAanv53BAJQHXpQnkDkt/eCaI6Tiuw3X5JhX4ZWHTqA14rf0vKO
+ iQhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740990270; x=1741595070;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RaZ/CcmeFoBTR8ddNDuQVJv3AT8EACnAOxQQ2V8mS5A=;
- b=tMiRrGx+YDrvZ2fDFT5nae58MfBoqWRQ2B8XykKsrkmsFG68wPnwS2iZLX3thahMEV
- 5pNADOZ6JqKRLY8in3e+CF3HI8ZNcNubu7ahvmBm2YVwhGV7R115odpv081nvz8ogbf+
- fRlCOQfQ1w5j2Txm/Cj3UxKB3y+jhWPUYzwY9oxsZigGY+Ggp0irxmbWoQNq//zK7cMc
- Kp1+55dr+BQOll/tqLK0uPG1D/hosiZoJij5OqZUmb5n2JXDgcS7unvkHom8ijFfHNLt
- SsEZ8r0NBa6uilKmMupXqxKxC9VZW9+jzNv7Wnt90JbNXeiAbHRKoT5o54ZPvv9aFXrf
- 3l4A==
+ d=1e100.net; s=20230601; t=1741107440; x=1741712240;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4N8VHwibUhruAck2dmF0TGYAITA4/2gddqUqD7otHMo=;
+ b=pCu8cHWgaLTodPohExM1dMW7NA0N6zs2c6iohh1EcuUnNXZSjEJlYbws+2rZ/ih5ZF
+ Bayr9+vjYLzFQQIWxTu0rlRcRBd5b7Mt0tJ3XJYL+S1uT8+rihQLwlEeiKqoGxnGlRVR
+ MVfWivJcqrzEePMcMxKwHrm4uT5Mjvo19MK0dVrbBvenMSXewhNqcV4u6AE8bHxDlKW5
+ NGyi8nXdiGXuT2oJ7mPZ+Fzp7bCWF/yMHBSF4NCYt+3v7fTc0FiFvUqpCbOA9Dqv4V5I
+ jTQUol1JUbwtZ/3NL2V/WzlVdwWE+nr1ViYi6c0TwXOfnrTdakuW77NWeZFJ1a3ixEMD
+ nKlA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV8zh63Z3qjMalws9sXnkMWt25g3q+4ufujpvUlT/KzQcb6Ny2zBSWNf5RzM5RlGQkUeTay8iNdEYk5xrg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwuYNhjysgan5/k64/C9ar0hgACHzbJuksaPQMEieFmWuHO6tCb
- 8nwRTOLdfAfApLserB8eoTqBp4ebsK9b8iagIXQTb9RxoDWOsJ5YTtToez+OeBg=
-X-Gm-Gg: ASbGnctG5Fcq+v1WdXqY/kZ+MhzWqsxnwJ4Qm6DtLLn5nOKXJvMbA1fgnmIhFYk7n1n
- f33K8td+VxXOqVz6tNXlZXLa/FksQ/UcqMKpn6Tm1tsph3G5SDAkuJesDPbEt1OKlBMNsh0Mnnf
- lqO0xFYVADk08AhbLtD0GqXiFrerEYunjQPCdd46et+/hvyv0n+lOAvaiDiGN7JBqus149T1uUb
- DXVIQo+MNWBXXEUFFZZgF2hPRqUjfMn3J8SXg9aiwUsknTFVKit2mBLujrSDhvOIu3bVVuz3RlA
- zSym+HKPBOHs6fXyfB8F9zLf2G7neuRNEwAhikXd/YICwbrsbQ==
-X-Google-Smtp-Source: AGHT+IFy4o0lL4wbVfv25BbUZiZprY5pePIQkrVcMtYcd0n6ALHYFSnKECFQ/9k22YMwYBQpC08ZKg==
-X-Received: by 2002:a17:907:6d0c:b0:ac1:791c:1526 with SMTP id
- a640c23a62f3a-ac1791c1cd3mr169820066b.56.1740990270586; 
- Mon, 03 Mar 2025 00:24:30 -0800 (PST)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-abf3f3bbfb3sm525674166b.77.2025.03.03.00.24.29
+ AJvYcCVy9blejBI7tGWxoh+nC/mPWvOLMath+0+D3Vh/ZXplo8zwYgT1o5Wg1z8vXkjufWhl1xPfP8mxt34=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz4OMz7vtnJWfs9UI6MgFLxC6Q1NiJuePhC7wK64edsUPLI2rY4
+ RU145d0qtUQe3Tyvns8ajObNqOG9r/Uzvv20EQo9IGbfrRWsj3SE
+X-Gm-Gg: ASbGncsa2YAsVOlhm7J4Wv55sKjgHiXvLE1XNiQS+rH6jT+jkAVTgzFEgk9iMy5an/O
+ GIE5H+uCxw+rnIua01Jxh9Dr1cmlif2KTDl6jfMCEuezbCmjIamWDoMjMVhIB6ABzaisMYOf9IH
+ Cmw/jm9XGoosxB7PYb7TuvFqAmhno6elj2A81bjHt026dYjYisZhKWWg9fNGCEGpwle9pA5XL29
+ NAUEUj9rRLjzU8ybiH7E2lWUuXmv5HiK+BsW3U+G/dv51baJTTQLqX6BRUp3DXR3/h970WWeBkf
+ 3N3/BnpDQ06WwPrxjSI1+xpruCqnhXUzGEw2YsPOSfiPw+ParPFbrfKsM6RoYQ2WsXd/s40ntj5
+ yDVE=
+X-Google-Smtp-Source: AGHT+IEjBShiUHTmpe9BMjUgMebZZwGJVd8KDtAxwtvq24tPACT0iVbZHCMtbB96Yct3APfYOpiThw==
+X-Received: by 2002:ad4:5ca3:0:b0:6e8:8f31:3120 with SMTP id
+ 6a1803df08f44-6e8a0d8b6cbmr87598206d6.8.1741107440528; 
+ Tue, 04 Mar 2025 08:57:20 -0800 (PST)
+Received: from [192.168.1.99] (ool-4355b0da.dyn.optonline.net. [67.85.176.218])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6e8976ec3b6sm68915966d6.125.2025.03.04.08.57.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Mar 2025 00:24:30 -0800 (PST)
-Date: Mon, 3 Mar 2025 11:24:26 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Archit Taneja <architt@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
- cocci@inria.fr, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [RESEND] drm/msm/dpu: Delete a variable initialisation before a
- null pointer check in two functions
-Message-ID: <ce9599fb-a798-4f22-b51a-3341e690f8bc@stanley.mountain>
-References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
- <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
- <13566308-9a80-e4aa-f64e-978c02b1406d@web.de>
- <54c30a69-71cf-4582-9086-50eb0d39f273@web.de>
- <k7un3bjavyt4ogscgc7jn7thfobegaguqqiy7gtypmq6vq7zox@l4bsevbsjrud>
- <29b32b0d-312d-4848-9e26-9e5e76e527a7@stanley.mountain>
- <12050afd-ab60-4bac-bd25-0c3cc925b38b@web.de>
-Precedence: bulk
-X-Mailing-List: linux-kernel@vger.kernel.org
+ Tue, 04 Mar 2025 08:57:19 -0800 (PST)
+From: Connor Abbott <cwabbott0@gmail.com>
+Subject: [PATCH v4 0/5] iommu/arm-smmu, drm/msm: Fixes for stall-on-fault
+Date: Tue, 04 Mar 2025 11:56:46 -0500
+Message-Id: <20250304-msm-gpu-fault-fixes-next-v4-0-be14be37f4c3@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <12050afd-ab60-4bac-bd25-0c3cc925b38b@web.de>
-Content-Transfer-Encoding: quoted-printable
-X-ITU-Libra-ESVA-Information: Please contact Istanbul Teknik Universitesi for
- more information
-X-ITU-Libra-ESVA-ID: 4Z6fVZ4wTTzG06n
-X-ITU-Libra-ESVA: No virus found
-X-ITU-Libra-ESVA-From: root@cc.itu.edu.tr
-X-ITU-Libra-ESVA-Watermark: 1741706382.62809@1hrFnDOqHV0ss/FycOc+Jg
-X-ITU-MailScanner-SpamCheck: not spam
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAM4wx2cC/43NSw6DMAwE0KugrOvKcfh21XtUXQQwEImfCCAqx
+ N0bWKEuUJcz1jyvwvJg2IqHt4qBZ2NN17rg3zyRVbotGUzusiCkAKWMoLENlP0EhZ7qEQqzsIW
+ WlxGSkBUmMZJiKdy8H/i4uvXr7XJl7NgNn+PTLPf2D3SWgJBmSaoUpUGO6bNstKnvWdeIHZ3pB
+ BFeQOSgPFRh5iNF6NMvpM4QXUDKQagLjSiDOCB5hrZt+wLr0SnRUgEAAA==
+X-Change-ID: 20250117-msm-gpu-fault-fixes-next-96e3098023e1
+To: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org, 
+ Connor Abbott <cwabbott0@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1741107439; l=3515;
+ i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
+ bh=msh5539EjP+JTGfOm7TmnwDK21yliTFnve+XoihROqc=;
+ b=Yavv0d1CLCCiAkzMuG0FSXiwmFR5GAOb6ZI7nc0yBLbQYtJjjJMoJ6ZB5l36VedPILL/LfxB/
+ 3FVj0xLJBQtCu9H3ML69818ww2mDXCQabfOEhSJAL5M0FYjXXvbU03/
+X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
+ pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Freedreno graphics driver community testing & development
  <freedreno.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
@@ -182,30 +105,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Mar 03, 2025 at 09:15:14AM +0100, Markus Elfring wrote:
-> >>> The address of a data structure member was determined before
-> >>> a corresponding null pointer check in the implementation of
-> >>> the functions =E2=80=9Cdpu_hw_pp_enable_te=E2=80=9D and =E2=80=9Cdp=
-u_hw_pp_get_vsync_info=E2=80=9D.
-> >>>
-> >>> Thus avoid the risk for undefined behaviour by removing extra
-> >>> initialisations for the variable =E2=80=9Cc=E2=80=9D (also because =
-it was already
-> >>> reassigned with the same value behind this pointer check).
-> >
-> > There is no undefined behavior here.
-> Will any software development concerns evolve further also according to
-> undesirable null pointer dereferences?
-> https://wiki.sei.cmu.edu/confluence/display/c/EXP34-C.+Do+not+dereferen=
-ce+null+pointers
->=20
+drm/msm uses the stall-on-fault model to record the GPU state on the
+first GPU page fault to help debugging. On systems where the GPU is
+paired with a MMU-500, there were two problems:
 
-It's not a NULL pointer dereference.  It's just pointer math.  It was
-a common way to implement offsetof() before we had a builtin for that.
+1. The MMU-500 doesn't de-assert its interrupt line until the fault is
+   resumed, which led to a storm of interrupts until the fault handler
+   was called. If we got unlucky and the fault handler was on the same
+   CPU as the interrupt, there was a deadlock.
+2. The GPU is capable of generating page faults much faster than we can
+   resume them. GMU (GPU Management Unit) shares the same context bank
+   as the GPU, so if there was a sudden spurt of page faults it would be
+   effectively starved and would trigger a watchdog reset, made even
+   worse because the GPU cannot be reset while there's a pending
+   transaction leaving the GPU permanently wedged.
 
-samples/bpf/test_lru_dist.c
-# define offsetof(TYPE, MEMBER) ((size_t)&((TYPE *)0)->MEMBER)
+Patches 1-3 fixes the first problem and is independent of the rest of the
+series. Patch 5 fixes the second problem and is dependent on patch 4, so
+there will have to be some cross-tree coordination.
 
-regards,
-dan carpenter
+I've rebased this series on the latest linux-next to avoid rebase
+troubles.
+
+Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+---
+Changes in v4:
+- Add patches 1-2, which fix reading registers in drm/msm when
+  acknowledging the fault early. This was Robin's preferred solution
+  compared to making drm/msm's fault handler tell arm-smmu to resume the
+  fault.
+- Link to v3: https://lore.kernel.org/r/20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com
+
+Changes in v3:
+- Acknowledge the fault before resuming the transaction in patch 1.
+- Add suggested extra context to commit messages.
+- Link to v2: https://lore.kernel.org/r/20250120-msm-gpu-fault-fixes-next-v2-0-d636c4027042@gmail.com
+
+Changes in v2:
+- Remove unnecessary _irqsave when locking in IRQ handler (Robin)
+- Reuse existing spinlock for CFIE manipulation (Robin)
+- Lock CFCFG manipulation against concurrent CFIE manipulation
+- Don't use timer to re-enable stall-on-fault. (Rob)
+- Use more descriptive name for the function that re-enables
+  stall-on-fault if the cooldown period has ended. (Rob)
+- Link to v1: https://lore.kernel.org/r/20250117-msm-gpu-fault-fixes-next-v1-0-bc9b332b5d0b@gmail.com
+
+---
+Connor Abbott (5):
+      iommu/arm-smmu: Save additional information on context fault
+      iommu/arm-smmu-qcom: Don't read fault registers directly
+      iommu/arm-smmu: Fix spurious interrupts with stall-on-fault
+      iommu/arm-smmu-qcom: Make set_stall work when the device is on
+      drm/msm: Temporarily disable stall-on-fault after a page fault
+
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c            |  2 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c            |  4 ++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c          | 42 ++++++++++++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h          | 24 ++++++++
+ drivers/gpu/drm/msm/msm_iommu.c                  |  9 +++
+ drivers/gpu/drm/msm/msm_mmu.h                    |  1 +
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c |  4 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c       | 64 ++++++++++++++-----
+ drivers/iommu/arm/arm-smmu/arm-smmu.c            | 78 ++++++++++++++++++------
+ drivers/iommu/arm/arm-smmu/arm-smmu.h            | 19 +++---
+ 10 files changed, 204 insertions(+), 43 deletions(-)
+---
+base-commit: 866e43b945bf98f8e807dfa45eca92f931f3a032
+change-id: 20250117-msm-gpu-fault-fixes-next-96e3098023e1
+
+Best regards,
+-- 
+Connor Abbott <cwabbott0@gmail.com>
 
