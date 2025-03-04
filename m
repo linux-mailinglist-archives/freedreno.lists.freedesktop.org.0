@@ -2,92 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2E1EA4EEBB
-	for <lists+freedreno@lfdr.de>; Tue,  4 Mar 2025 21:48:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64B15A4EFA0
+	for <lists+freedreno@lfdr.de>; Tue,  4 Mar 2025 22:56:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C814110E15E;
-	Tue,  4 Mar 2025 20:48:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42BB710E472;
+	Tue,  4 Mar 2025 21:56:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hVmo3Do7";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Gy+HAwGF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A891410E6B2
- for <freedreno@lists.freedesktop.org>; Tue,  4 Mar 2025 20:48:16 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-54943bb8006so6728270e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 04 Mar 2025 12:48:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741121295; x=1741726095; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=/oAPJle7igvkCOj9wNSaohLqS/9lmDq/1xSw1olJhfs=;
- b=hVmo3Do7udqhocPSMmLDDICMftfOPp/X+/rAuj05OdUQp7xZH6UoVB5YEyTivGBxHy
- QnoYFNboytNoqnyWxW93A7oe7/w6qnYyuBkj7PB6O2LcXdmtNElGbcP1+r1SJe6w7pR/
- umipDVKGwmwzn9N0twa3CG+pHYtwKY+Jh3tEk9IcKI0ZnAoKZNBCVPFEVd0wFEQ7PUOd
- 02u/88jYxMjeJx++l009mU2+6cAqsSi/re+CynDQamr3JkcKITDodfC957nDBddPSv7b
- EZbr8XMwaUBxUVznZsWK1o/wESVbAMr17W2+pt648iQM1xSmqqyFWynEkfGLUFosDmeN
- FhgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741121295; x=1741726095;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/oAPJle7igvkCOj9wNSaohLqS/9lmDq/1xSw1olJhfs=;
- b=exe2KAdRqu1hFrvgGqWGCuV+3HxuRAG+G9o657O0DzdyMSVGwP7UhAXziSA47m49cB
- VONuherNuuPBJJLwC2uSsOc7/r2nS2P+5/GUCWBD5gkDj8kvkJq9+GDXPlga4jJfXevm
- oAOisO644wD1RZeNnURzdOTcJp/uw23Q4Nnmo+3DcmsiyYHsrGTG0HQdPAqFFLzPHq4W
- FW2oyxn6MExsOYSp+LPf0MBHZo3HP6LGXDaRHOdjdiFp0+ogQvAiKH4xh9OeQ1jib+wx
- 1UCOr8quRCvvLZJ+tEk3yv5NC0fsOnnplgq5QTq9tbTlS4245JxyeVny/6KHSt+nZvJ7
- klKA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWVVYuu6Sv79tC4nZx/q8bBiqkiZds10TgNF1NisvMVZEnZcKUg0XPTiJdE9jLGKHVr0XLLqoHWzGU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1ul7w6izlXGS9vQy2rjYjGkd6bW1B8A5lPvH6d9nKrjQgy0Qd
- ezhzDJuY1aNaIGJvJkSwgCCJky2x9dvkkuj5i86SyM2TbUYG8RFAWfgpP+fWGNU=
-X-Gm-Gg: ASbGncvh1Ybu1aWYWDMXBuMmc02/heAbhnFqSLNiJRkcbNk/Va+0zGPTSH3twiZ8Imy
- SlkEhUsgIT2zaWycIVXDB8hCZyonlh+t0cwQZ8QfNfl/8wu0e5DvkJdL0fDTDr9uocanNKSsY3s
- /wBVbGfgmhssxu1q5j+tw26yehmBmIS1Ah6iTRYYeDz1+aK2xS1/GzOX70OS2inbx3mSltWIrIi
- cFgcUr03SfqGLexDwg4XFeV5YgqxJdQvr9O3Cvsgpx36n1SiQQB6IkKemk2sZGFTOBqmpDZ3eI9
- O4/f8bVVQ+j7VNc2ljXJDUtJY6GO9cdQuUP0R7XiKXiK9e4jGT7tUf+EtkweaBLesTZy1o1VmeQ
- 8Fdtsk8hsL6kRhnPiEmzy3U7z
-X-Google-Smtp-Source: AGHT+IH5VMC586i36hYasuRbMAJ6daWnnollvxQ5ODQDmTBEMUXbbXzEafbSoZ2SOMQnxMX8oAh9Jg==
-X-Received: by 2002:a05:6512:304e:b0:545:e19:ba24 with SMTP id
- 2adb3069b0e04-5497d37e371mr237109e87.48.1741121294899; 
- Tue, 04 Mar 2025 12:48:14 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-549443be587sm1667436e87.177.2025.03.04.12.48.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Mar 2025 12:48:13 -0800 (PST)
-Date: Tue, 4 Mar 2025 22:48:12 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
- quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v6 03/14] drm/msm/dpu: switch RM to use crtc_id rather
- than enc_id for allocation
-Message-ID: <cqpqtuh2tztdhsg3nrvxnobxmsytsxthcd5wybiuzyefurkme2@hvv5zjiqczyb>
-References: <20250214-concurrent-wb-v6-0-a44c293cf422@quicinc.com>
- <20250214-concurrent-wb-v6-3-a44c293cf422@quicinc.com>
- <se4b4kzp3vej4b6albecdc2t65ueiuba4kidutwvrv2rcfyjwr@e62fn225jwcr>
- <8c727bd6-94f1-4ee3-9bf3-793899038895@quicinc.com>
- <da6e2hygdv6ewdr5hqeks2ocsxwvfvozby4b53unk5ckyqvu7t@wh3y4jnucapl>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF2E10E472;
+ Tue,  4 Mar 2025 21:56:34 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 524KD6aY015969;
+ Tue, 4 Mar 2025 21:56:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Qyp8m8Sh49PD9qumn7tFoylai5tKzYR7lV/vxRbdQTY=; b=Gy+HAwGFVG+sHqUu
+ 5HWaAf7DzhaDWLrLy9rHCTQFu470a4lfzgjSvZscG8fPqjcMcERabEiDg8Ta3+A4
+ b9vTUeiewZ+rBCNZpQAgio1iqpziBUU2UBHteE+gekT5tHNfCh6JfhFeQAMx0Ue8
+ SwTTLM5Nrsx71cAw3fu8Z9zXdexygKpfrsYfKRqGDWY8W4cF+0JorZY+pdST+uWk
+ GSr2g+FCUcA98WksrbYG7uz5oVZaQkcSZ9KD5tOjkb0KH2nfWF4AgKGKok4zQeeO
+ 8ymWm82eCGQzFzR8iW4WuENRwbslsP77UzuGH3BkufSznLPaFrDLj2hqMjjSiKgV
+ QgAh3Q==
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 455p6tkb2x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Mar 2025 21:56:30 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 524LuT5X013434
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 4 Mar 2025 21:56:29 GMT
+Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 4 Mar 2025
+ 13:56:29 -0800
+Message-ID: <942b9411-e170-47ac-8af5-9a26f06db0a3@quicinc.com>
+Date: Tue, 4 Mar 2025 13:56:11 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <da6e2hygdv6ewdr5hqeks2ocsxwvfvozby4b53unk5ckyqvu7t@wh3y4jnucapl>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 11/15] drm/msm/dpu: split PIPES_PER_STAGE definition
+ per plane and mixer
+To: Jun Nie <jun.nie@linaro.org>, Rob Clark <robdclark@gmail.com>, "Abhinav
+ Kumar" <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org>
+ <20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-11-eb5df105c807@linaro.org>
+Content-Language: en-US
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-11-eb5df105c807@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=PMb1+eqC c=1 sm=1 tr=0 ts=67c7770e cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=KKAkSRfTAAAA:8
+ a=0uiON693c8ldkTsWMEsA:9 a=QEXdDO2ut3YA:10
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: gkLFucouSjbiLnl0kPQGbnXC1jqo0jyk
+X-Proofpoint-GUID: gkLFucouSjbiLnl0kPQGbnXC1jqo0jyk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-04_09,2025-03-04_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 mlxlogscore=999
+ phishscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ mlxscore=0 adultscore=0 spamscore=0 suspectscore=0 impostorscore=0
+ clxscore=1015 classifier=spam authscore=0 adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502100000 definitions=main-2503040175
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,124 +100,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 04, 2025 at 01:43:09AM +0200, Dmitry Baryshkov wrote:
-> On Mon, Mar 03, 2025 at 10:45:19AM -0800, Jessica Zhang wrote:
-> > 
-> > 
-> > On 2/27/2025 7:07 AM, Dmitry Baryshkov wrote:
-> > > On Fri, Feb 14, 2025 at 04:14:26PM -0800, Jessica Zhang wrote:
-> > > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > 
-> > > > Up to now the driver has been using encoder to allocate hardware
-> > > > resources. Switch it to use CRTC id in preparation for the next step.
-> > > > 
-> > > > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> > > > ---
-> > > > Changes in v6:
-> > > > - Drop duplicate cstate initialization code and unnecessary memset
-> > > > Changes in v5:
-> > > > - Reordered to prevent breaking CI and upon partial application
-> > > > 
-> > > > Changes in v4 (due to rebase):
-> > > > - moved *_get_assigned_resources() changes for DSPP and LM from
-> > > >    encoder *_virt_atomic_mode_set() to *_assign_crtc_resources()
-> > > > ---
-> > > >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  18 +--
-> > > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  10 +-
-> > > >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  12 +-
-> > > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 189 ++++++++++++++--------------
-> > > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      |   7 +-
-> > > >   5 files changed, 110 insertions(+), 126 deletions(-)
-> > > 
-> > > This commit breaks several tests in CI:
-> > > - sc7180-trogdor-kingoftown:
-> > >    - kms_cursor_crc@cursor-dpms
-> > >    - kms_pipe_crc_basic@disable-crc-after-crtc
-> > > - sc7180-trogdor-lazor-limozeen
-> > >    - kms_cursor_crc@cursor-dpms
-> > >    - kms_pipe_crc_basic@disable-crc-after-crtc
-> > 
-> > Hey Dmitry,
-> > 
-> > Thanks for catching this. Looks like this was exposed due to a recent IGT
-> > uprev that included  dc2d7fb4f978 ("lib/igt_kms: move setting
-> > DRM_CLIENT_CAP_WRITEBACK_CONNECTORS to kms_writeback").
-> > 
-> > The issue itself is that when DPMS is toggled, it is possible for RM to
-> > reserve new HW resources but skip the atomic_enable() due to the checks here
-> > [1]. This means that the change in HW block reservation won't be propagated
-> > to encoder if DPMS is set to off.
-> 
-> Could you possibly clarify this. What is the state change that causes
-> the issue (describe CRTC / connectors / encoders and active / enabled
-> state). Why does the issue manifest only after switching to the CRTC id
-> for resource allocation (the tests run successfully before this patch,
-> i.e. with the resource allocation being moved to CRTC, but using the
-> encoder ID for allocation).
-> 
-> Note, the CRTC won't re-allocate resources if
-> drm_atomic_crtc_needs_modeset() is not true. So I'm not sure how can we
-> end up in a situation when the resources are reallocated _and_ we need
-> to raise the mode_changed flag.
 
-I'm going to apply the following fixup on top of your series (to the
-previous patch), fixing the DPMS issue. It makes all SC7180 tests pass
-in CI.
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 3/3/2025 7:14 AM, Jun Nie wrote:
+> The stage contains configuration for a mixer pair. Currently the plane
+> supports just one stage and 2 pipes. Quad-pipe support will require
+> handling 2 stages and 4 pipes at the same time. In preparation for that
+> add a separate define, PIPES_PER_PLANE, to denote number of pipes that
+> can be used by the plane.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index ba5c60296e17..10653bd52885 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1373,7 +1373,8 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 
- 	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
- 
--	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
-+	/* don't reallocate resources if only ACTIVE has beeen changed */
-+	if (crtc_state->mode_changed || crtc_state->connectors_changed) {
- 		rc = dpu_crtc_assign_resources(crtc, crtc_state);
- 		if (rc < 0)
- 			return rc;
--- 
-2.39.5
+Hi Jun,
 
+Sorry for missing this in the last revision, but it seems to me that the 
+looping of the pipes in `_dpu_debugfs_status_show()` should also be 
+using PIPES_PER_PLANE.
+
+Thanks,
+
+Jessica Zhang
 
 > 
-> > I've posted a fix for this here [2].
-> > 
-> > Thanks,
-> > 
-> > Jessica Zhang
-> > 
-> > [1] https://elixir.bootlin.com/linux/v6.14-rc4/source/drivers/gpu/drm/drm_atomic_helper.c#L1502
-> > [2] https://patchwork.freedesktop.org/series/145735/
-> > 
-> > > 
-> > > Corresponding pipeline is available at [1]
-> > > 
-> > > As I had to rebase your changes on top of msm-next, corresponding tree
-> > > is available at [2]. It might be possible that the regression is
-> > > introduced by my rebase.
-> > > 
-> > > [1] https://gitlab.freedesktop.org/drm/msm/-/pipelines/1374165
-> > > 
-> > > [2] https://gitlab.freedesktop.org/lumag/msm/-/commits/msm-next-lumag-cwb
-> > > 
-> > > -- 
-> > > With best wishes
-> > > Dmitry
-> > 
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  2 ++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 16 ++++++++--------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h   |  4 ++--
+>   4 files changed, 13 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 193818b02197d0737c86de7765d98732fa914e8e..81474823e6799132db71c9712046d359e3535d90 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -463,7 +463,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>   		if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
+>   			bg_alpha_enable = true;
+>   
+> -		for (i = 0; i < PIPES_PER_STAGE; i++) {
+> +		for (i = 0; i < PIPES_PER_PLANE; i++) {
+>   			if (!pstate->pipe[i].sspp)
+>   				continue;
+>   			set_bit(pstate->pipe[i].sspp->idx, fetch_active);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> index ba7bb05efe9b8cac01a908e53121117e130f91ec..74bf3ab9d6cfb8152b32d89a6c66e4d92d5cee1d 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> @@ -34,7 +34,9 @@
+>   #define DPU_MAX_PLANES			4
+>   #endif
+>   
+> +#define STAGES_PER_PLANE		1
+>   #define PIPES_PER_STAGE			2
+> +#define PIPES_PER_PLANE			(PIPES_PER_STAGE * STAGES_PER_PLANE)
+>   #ifndef DPU_MAX_DE_CURVES
+>   #define DPU_MAX_DE_CURVES		3
+>   #endif
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index ef44af5ab681c8f526333fa92531a2225983aa09..1095727d1d9f17407f2b063039bf2efd8733ec70 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -633,7 +633,7 @@ static void _dpu_plane_color_fill(struct dpu_plane *pdpu,
+>   		return;
+>   
+>   	/* update sspp */
+> -	for (i = 0; i < PIPES_PER_STAGE; i++) {
+> +	for (i = 0; i < PIPES_PER_PLANE; i++) {
+>   		if (!pstate->pipe[i].sspp)
+>   			continue;
+>   		_dpu_plane_color_fill_pipe(pstate, &pstate->pipe[i],
+> @@ -1078,7 +1078,7 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
+>   		 * resources are freed by dpu_crtc_assign_plane_resources(),
+>   		 * but clean them here.
+>   		 */
+> -		for (i = 0; i < PIPES_PER_STAGE; i++)
+> +		for (i = 0; i < PIPES_PER_PLANE; i++)
+>   			pstate->pipe[i].sspp = NULL;
+>   
+>   		return 0;
+> @@ -1129,7 +1129,7 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
+>   	pipe_cfg = &pstate->pipe_cfg[0];
+>   	r_pipe_cfg = &pstate->pipe_cfg[1];
+>   
+> -	for (i = 0; i < PIPES_PER_STAGE; i++)
+> +	for (i = 0; i < PIPES_PER_PLANE; i++)
+>   		pstate->pipe[i].sspp = NULL;
+>   
+>   	if (!plane_state->fb)
+> @@ -1241,7 +1241,7 @@ void dpu_plane_flush(struct drm_plane *plane)
+>   		/* force 100% alpha */
+>   		_dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
+>   	else {
+> -		for (i = 0; i < PIPES_PER_STAGE; i++)
+> +		for (i = 0; i < PIPES_PER_PLANE; i++)
+>   			dpu_plane_flush_csc(pdpu, &pstate->pipe[i]);
+>   	}
+>   
+> @@ -1364,7 +1364,7 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane,
+>   			&fmt->pixel_format, MSM_FORMAT_IS_UBWC(fmt));
+>   
+>   	/* move the assignment here, to ease handling to another pairs later */
+> -	for (i = 0; i < PIPES_PER_STAGE; i++) {
+> +	for (i = 0; i < PIPES_PER_PLANE; i++) {
+>   		if (!pstate->pipe[i].sspp)
+>   			continue;
+>   		dpu_plane_sspp_update_pipe(plane, &pstate->pipe[i],
+> @@ -1378,7 +1378,7 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane,
+>   
+>   	pstate->plane_fetch_bw = 0;
+>   	pstate->plane_clk = 0;
+> -	for (i = 0; i < PIPES_PER_STAGE; i++) {
+> +	for (i = 0; i < PIPES_PER_PLANE; i++) {
+>   		if (!pstate->pipe[i].sspp)
+>   			continue;
+>   		pstate->plane_fetch_bw += _dpu_plane_calc_bw(pdpu->catalog, fmt,
+> @@ -1397,7 +1397,7 @@ static void _dpu_plane_atomic_disable(struct drm_plane *plane)
+>   	struct dpu_sw_pipe *pipe;
+>   	int i;
+>   
+> -	for (i = 0; i < PIPES_PER_STAGE; i += 1) {
+> +	for (i = 0; i < PIPES_PER_PLANE; i += 1) {
+>   		pipe = &pstate->pipe[i];
+>   		if (!pipe->sspp)
+>   			continue;
+> @@ -1519,7 +1519,7 @@ static void dpu_plane_atomic_print_state(struct drm_printer *p,
+>   
+>   	drm_printf(p, "\tstage=%d\n", pstate->stage);
+>   
+> -	for (i = 0; i < PIPES_PER_STAGE; i++) {
+> +	for (i = 0; i < PIPES_PER_PLANE; i++) {
+>   		pipe = &pstate->pipe[i];
+>   		if (!pipe->sspp)
+>   			continue;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> index 052fd046e8463855b16b30389c2efc67c0c15281..18ff5ec2603ed63ce45f530ced3407d3b70c737b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> @@ -33,8 +33,8 @@
+>   struct dpu_plane_state {
+>   	struct drm_plane_state base;
+>   	struct msm_gem_address_space *aspace;
+> -	struct dpu_sw_pipe pipe[PIPES_PER_STAGE];
+> -	struct dpu_sw_pipe_cfg pipe_cfg[PIPES_PER_STAGE];
+> +	struct dpu_sw_pipe pipe[PIPES_PER_PLANE];
+> +	struct dpu_sw_pipe_cfg pipe_cfg[PIPES_PER_PLANE];
+>   	enum dpu_stage stage;
+>   	bool needs_qos_remap;
+>   	bool pending;
 > 
 > -- 
-> With best wishes
-> Dmitry
+> 2.34.1
+> 
 
--- 
-With best wishes
-Dmitry
