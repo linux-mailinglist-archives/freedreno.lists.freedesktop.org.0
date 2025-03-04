@@ -2,92 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C5AA4E71E
-	for <lists+freedreno@lfdr.de>; Tue,  4 Mar 2025 17:57:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 005C3A4ED8C
+	for <lists+freedreno@lfdr.de>; Tue,  4 Mar 2025 20:38:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92A0510E389;
-	Tue,  4 Mar 2025 16:57:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C56A910E6B1;
+	Tue,  4 Mar 2025 19:38:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ncQNu/0S";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="mxSuuWSH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
- [209.85.219.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4926D10E652
- for <freedreno@lists.freedesktop.org>; Tue,  4 Mar 2025 16:57:27 +0000 (UTC)
-Received: by mail-qv1-f41.google.com with SMTP id
- 6a1803df08f44-6e890e0ebeaso9173366d6.3
- for <freedreno@lists.freedesktop.org>; Tue, 04 Mar 2025 08:57:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741107446; x=1741712246; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=uvSBZTv+Bn83Qgi3n8/RjQE01uKIcw895iDtbXzMRaM=;
- b=ncQNu/0SrzYbpW/WlVUBQEtImBbRB1q2nuRMWNlYvtIn7ir/c1eTnRtJ2MBeVD6lrB
- mtVCJgjrRlGcLtkMhXbqA9FLkebsUk35OhLUudcD1i13/QFgTdHJnSLy9NwSdRQeTXjS
- XqrnN1jsBGKWBF4uPvEr8heZYCuoW0uu3yU2V8eNPt7molRMpZN3QFleS3HxYZfdQbKw
- fbZLKBMwMSvxc50eFSb2luUqsMiEryjZk/15KdjV5xaG5JTvmCetpcoMRKXTAsUFwuAh
- fZS1n94XEqha4kMKbJajLQhF848AhtJL7Ye5PUyUhSNjmDPvafodKh436QPaE9EylV9U
- FOAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741107446; x=1741712246;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uvSBZTv+Bn83Qgi3n8/RjQE01uKIcw895iDtbXzMRaM=;
- b=Q6dCTj7DcEnM/0aUiOKAyDJu2/5/2gvydzVgQHg0auziQUGpbtcG5xI8wPiSlxR5Cy
- 3K/9vGLFPVmT0hyq4BTPvCIl2YiCJG5WT1BXS3JSWK3ilxCpajmf6GqypYk5uBu0I4M1
- mGyltFmmtvjpOj4a4IB2Cz35hD7+Q2dhsYlQRzpNXKPhIM1ypV+ryBwxNCbDplK0/+Kb
- Xg4DtO8uIOsu/zmCPkej4RrmcTk6OUphbgmt5Dnav3lmZGZCvQoPPgiclaKWQqI2GW/o
- iE/fZdRriQekOH6GNZOTEtkm8r13KC3pItF1cdKpL9U/TAHz0EW6C4fSOHyBwXEvuR2h
- HI5Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXL/Ajzm5DzWzumZnQ7Cft5x40nCkjrXqrp9AlEpmg/LbevIDyz3QoZ0K6G6HNeMtkKCVJ3a0OHcdY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKkXUGYV3eJBkRw36abL5GFDKdV89MFzOlbzL/Ioc/9E2JWQ/w
- rVUXzXyBQlQAvOVbVYQWjhuiYIWWo2MIJL9jyctJHf63BPP5PzNQ
-X-Gm-Gg: ASbGncsBo54fpZS9tgw6axoJDp6TjicmrR7FNxHCcXYrYBJ1jD36mrBqgKqLZrv9TVj
- 3I5xvcTWgx0fYmbQ6aubAiiR+CwnIMerBxXU3xUIpEcOhBNin7vag7r5IeUCs0dfDAGaBLsiEDg
- wqUyrJ72Bm4EZuQpwp+EnaJSWW1O2NxmM92RxmZM2vmBkg96QUy8D6sPtEULQlWfqhaRZyk495F
- O9juA4+Hm6D+52W1Y5FXMGWuhwy1tPWhKnMFzXAQVwPX24oQtcxNlK4wDuNkdNseRRERZZjD2It
- WTspwnh7qyHwzd63zXCf3MWeKq2MnGlOU2pYD0X2PLEPhtA3/yNKSd4QFy9Sa5CWJJp68EylaNc
- VsQg=
-X-Google-Smtp-Source: AGHT+IG5ertw9SqZ82seP6yo0bwmOgw/MoKrjDy2609FiAuOH0UXSvPb32PmJG14bpD2BohhLdq4Qw==
-X-Received: by 2002:a05:6214:2462:b0:6d8:e6be:50fc with SMTP id
- 6a1803df08f44-6e8a0d7281amr88986276d6.6.1741107446025; 
- Tue, 04 Mar 2025 08:57:26 -0800 (PST)
-Received: from [192.168.1.99] (ool-4355b0da.dyn.optonline.net. [67.85.176.218])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6e8976ec3b6sm68915966d6.125.2025.03.04.08.57.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Mar 2025 08:57:25 -0800 (PST)
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Tue, 04 Mar 2025 11:56:51 -0500
-Subject: [PATCH v4 5/5] drm/msm: Temporarily disable stall-on-fault after a
- page fault
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 517DD10E6BB;
+ Tue,  4 Mar 2025 19:38:35 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5249U7D5021653;
+ Tue, 4 Mar 2025 19:38:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ zEp8i7U+l5khG6pL7HTwi5xcOknPQUg/tJDGukOY8Yo=; b=mxSuuWSH6f5AERzA
+ v4eWc0PF94XCdJ1Gr3jNIKa30SD2Tio85Ow4d6+MmLHZzWmT9zjvtaWacW6CVFhv
+ MXmQCch8M0D5IexZy4PfGVoedu4BoTuVeCK3NfwkIwsHyD609313OwKC60u6JsxJ
+ rkXtD/2DAwi9FXdMVr1ejtl4sSNKwgCK72WmcGkj8/N9hBim7XxI3EZdlUVv8Usw
+ ivZkom/Pcwdy9WVA3FLlRHizjVy2YFF9JPUKeB2xZ0VmSDlM8O1UOGE8nLIxiJ1v
+ YZEOEloumWWRyRBErGONHOMzsnDze/wGzpfLb2nuQumO8f4ZONjI1RXNamFBcU6c
+ rlWJpQ==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 455p6t3161-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Mar 2025 19:38:27 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 524JcQp0025947
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 4 Mar 2025 19:38:26 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 4 Mar 2025
+ 11:38:25 -0800
+Message-ID: <a098b6f9-547d-42c7-b4f5-91762dc7c631@quicinc.com>
+Date: Tue, 4 Mar 2025 11:38:24 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC] drm/msm/dpu: Force modeset if new CTLs have been
+ reserved
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jessica Zhang
+ <quic_jesszhan@quicinc.com>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20250303-force-modeset-hw-ctl-v1-1-9cbf6d4fbf8e@quicinc.com>
+ <flc3cyky4wxfin7dlxhukwmhonze3napmuyhl2s6jbsgepco7a@q4l2ndh23lus>
+ <4bb1d4a7-dd0b-4565-8d5d-ff8fd4cda20a@quicinc.com>
+ <CAA8EJppMV7uj6w1_qr2AMVT7KYJiVqPRWBibqXtf3adLpRKcrw@mail.gmail.com>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJppMV7uj6w1_qr2AMVT7KYJiVqPRWBibqXtf3adLpRKcrw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250304-msm-gpu-fault-fixes-next-v4-5-be14be37f4c3@gmail.com>
-References: <20250304-msm-gpu-fault-fixes-next-v4-0-be14be37f4c3@gmail.com>
-In-Reply-To: <20250304-msm-gpu-fault-fixes-next-v4-0-be14be37f4c3@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org, 
- Connor Abbott <cwabbott0@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1741107439; l=9275;
- i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
- bh=1LEQ/SMNbwf2yI/kiLpEh729+NspG9MjxFycNdw8Mco=;
- b=da8F8D1JeaERAjqcBDywOQpSKylWhhwOpzeiLpZTehLyJpqF0L/L+8uNejzktaGj0JeAqNW7Z
- /QFELiO7dWWCtNdvh2Mupw/wlKE+PXfXv4iEBsA3JcXDq3o0HxQpHgb
-X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
- pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=I/ufRMgg c=1 sm=1 tr=0 ts=67c756b3 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=P-IC7800AAAA:8
+ a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8
+ a=jVAXrJZt0FHHRTfu4j0A:9 a=QEXdDO2ut3YA:10 a=QOpKv_Gl0K8A:10
+ a=d3PnA9EDa4IxuAV0gXij:22 a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: AlNjHJePDkNEgOdiKtbOvA1a7zPotWdU
+X-Proofpoint-ORIG-GUID: AlNjHJePDkNEgOdiKtbOvA1a7zPotWdU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-04_08,2025-03-03_04,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 mlxscore=0
+ spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ suspectscore=0 phishscore=0 malwarescore=0 mlxlogscore=999 impostorscore=0
+ clxscore=1015 classifier=spam authscore=0 adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502100000 definitions=main-2503040158
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,233 +103,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When things go wrong, the GPU is capable of quickly generating millions
-of faulting translation requests per second. When that happens, in the
-stall-on-fault model each access will stall until it wins the race to
-signal the fault and then the RESUME register is written. This slows
-processing page faults to a crawl as the GPU can generate faults much
-faster than the CPU can acknowledge them. It also means that all
-available resources in the SMMU are saturated waiting for the stalled
-transactions, so that other transactions such as transactions generated
-by the GMU, which shares a context bank with the GPU, cannot proceed.
-This causes a GMU watchdog timeout, which leads to a failed reset
-because GX cannot collapse when there is a transaction pending and a
-permanently hung GPU.
 
-On older platforms with qcom,smmu-v2, it seems that when one transaction
-is stalled subsequent faulting transactions are terminated, which avoids
-this problem, but the MMU-500 follows the spec here.
 
-To work around these problem, disable stall-on-fault as soon as we get a
-page fault until a cooldown period after pagefaults stop. This allows
-the GMU some guaranteed time to continue working. We only use
-stall-on-fault to halt the GPU while we collect a devcoredump and we
-always terminate the transaction afterward, so it's fine to miss some
-subsequent page faults. We also keep it disabled so long as the current
-devcoredump hasn't been deleted, because in that case we likely won't
-capture another one if there's a fault.
+On 3/3/2025 9:32 PM, Dmitry Baryshkov wrote:
+> On Tue, 4 Mar 2025 at 03:44, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 3/3/2025 3:49 PM, Dmitry Baryshkov wrote:
+>>> On Mon, Mar 03, 2025 at 10:28:00AM -0800, Jessica Zhang wrote:
+>>>> If new CTLs are reserved by CRTC but atomic_enable() is skipped, the
+>>>> encoders will configure the stale CTL instead of the newly reserved one.
+>>>
+>>> The CTLs are propagates in .atomic_mode_set(), not in .atomic_enable().
+>>
+>> Hi Dmitry,
+>>
+>> Yes, sorry mixed up the two function ops here and in my reply in the CWB
+>> thread.
+>>
+>>>
+>>>>
+>>>> Avoid this by setting mode_changed to true if new CTLs have been
+>>>> reserved by CRTC.
+>>>
+>>> This looks very strange. First we reserve new CTLs when there is a
+>>> modeset requested. Then on one of the next commits we detect that
+>>> encoder has stale CTLs and try to upgrade the commit to full modeset
+>>> (while the user might not have .allow_modeset set to true for whatever
+>>> reason, e.g. because only ACTIVE is changed).
+>>
+>> Ah I see what you mean. I think this is an issue with how/when we're
+>> calling dpu_rm_reserve(). Since RM reservation is tied to
+>> atomic_check(), we aren't able to force a modeset based on HW block
+>> reservation. The only reason we were able to avoid this issue with
+>> needs_cdm is because needs_cdm didn't depend on the CDM HW block index.
+>>
+>> I think there's not really a good way to avoid this other than flipping
+>> the order of the msm_atomic_check to drm_helper_atomic_check ->
+>> dpu_kms.check_mode_changed -> drm_atomic_helper_check_modeset().
+> 
+> No-no-no. This would require a full drm_atomic_helper_check() call
+> again, after the check_mode_changed() callback. But again, this should
+> not be required at all. The whole point of .check_mode_changed() is to
+> be called before performing full atomic_check() chains.
+> 
 
-After this commit HFI messages still occasionally time out, because the
-crashdump handler doesn't run fast enough to let the GMU resume, but the
-driver seems to recover from it. This will probably go away after the
-HFI timeout is increased.
+Right but the documentation also allows calling 
+drm_atomic_helper_check_modeset() again. We are looking at all options 
+even moving forward and not just this issue.
 
-Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  2 ++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  4 ++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 42 ++++++++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 24 +++++++++++++++++++
- drivers/gpu/drm/msm/msm_iommu.c         |  9 +++++++
- drivers/gpu/drm/msm/msm_mmu.h           |  1 +
- 6 files changed, 81 insertions(+), 1 deletion(-)
+>>
+>> What do you think? It seems to be valid given the examples in the DRM
+>> docs [1]
+>>
+>> [1]
+>> https://elixir.bootlin.com/linux/v6.13.5/source/drivers/gpu/drm/drm_atomic_helper.c#L610
+>>
+>>>
+>>> Could you please check if the following change fixes the issue: in
+>>> crtc_set_mode() replace the raw !new_crtc_state->mode_changed check with
+>>> the drm_atomic_crtc_needs_modeset() call?
+>>
+>> This also fixes the DPMS failures. IIRC Abhinav had suggested a similar
+>> change to fix a different issue [2] and you gave some feedback on
+>> avoiding mode_set() for enable/disable calls which don't have mode_changed.
+> 
+> After reading the documentation for
+> drm_encoder_helper_funcs.atomic_mode_set() and looking around, I think
+> the issue is in the handling of the DPMS functions. I might have a fix
+> for the issue.
+> 
+>> Also, while this may fix the CWB CI failures, wouldn't the issue still
+>> remain regarding how to force modeset for changes in HW block reservation?
+> 
+> I think it is the other way around: HW block reservation is only
+> changed if there is a modeset. I'm currently testing my theory :-) We
+> were performing HW reassignment if drm_atomic_crtc_needs_modeset() was
+> true. However this function returns true in one of the cases, where
+> there is no actual modeset happening (and it's even documented this
+> way) - when only DPMS call has happened (in other words, when
+> .active_changed = true, but two other bits are false). It is required
+> not to reassign HW resources in such a case. So, I think, a correct
+> fix is to change the condition in dpu_crtc_atomic_check().
+> 
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 71dca78cd7a5324e9ff5b14f173e2209fa42e196..670141531112c9d29cef8ef1fd51b74759fdd6d2 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -131,6 +131,8 @@ static void a5xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	struct msm_ringbuffer *ring = submit->ring;
- 	unsigned int i, ibs = 0;
- 
-+	adreno_check_and_reenable_stall(adreno_gpu);
-+
- 	if (IS_ENABLED(CONFIG_DRM_MSM_GPU_SUDO) && submit->in_rb) {
- 		ring->cur_ctx_seqno = 0;
- 		a5xx_submit_in_rb(gpu, submit);
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 0ae29a7c8a4d3f74236a35cc919f69d5c0a384a0..5a34cd2109a2d74c92841448a61ccb0d4f34e264 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -212,6 +212,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	struct msm_ringbuffer *ring = submit->ring;
- 	unsigned int i, ibs = 0;
- 
-+	adreno_check_and_reenable_stall(adreno_gpu);
-+
- 	a6xx_set_pagetable(a6xx_gpu, ring, submit);
- 
- 	get_stats_counter(ring, REG_A6XX_RBBM_PERFCTR_CP(0),
-@@ -335,6 +337,8 @@ static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	struct msm_ringbuffer *ring = submit->ring;
- 	unsigned int i, ibs = 0;
- 
-+	adreno_check_and_reenable_stall(adreno_gpu);
-+
- 	/*
- 	 * Toggle concurrent binning for pagetable switch and set the thread to
- 	 * BR since only it can execute the pagetable switch packets.
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 1238f326597808eb28b4c6822cbd41a26e555eb9..bac586101dc0494f46b069a8440a45825dfe9b5e 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -246,16 +246,53 @@ u64 adreno_private_address_space_size(struct msm_gpu *gpu)
- 	return SZ_4G;
- }
- 
-+void adreno_check_and_reenable_stall(struct adreno_gpu *adreno_gpu)
-+{
-+	struct msm_gpu *gpu = &adreno_gpu->base;
-+	unsigned long flags;
-+
-+	/*
-+	 * Wait until the cooldown period has passed and we would actually
-+	 * collect a crashdump to re-enable stall-on-fault.
-+	 */
-+	spin_lock_irqsave(&adreno_gpu->fault_stall_lock, flags);
-+	if (!adreno_gpu->stall_enabled &&
-+			ktime_after(ktime_get(), adreno_gpu->stall_reenable_time) &&
-+			!READ_ONCE(gpu->crashstate)) {
-+		adreno_gpu->stall_enabled = true;
-+
-+		gpu->aspace->mmu->funcs->set_stall(gpu->aspace->mmu, true);
-+	}
-+	spin_unlock_irqrestore(&adreno_gpu->fault_stall_lock, flags);
-+}
-+
- #define ARM_SMMU_FSR_TF                 BIT(1)
- #define ARM_SMMU_FSR_PF			BIT(3)
- #define ARM_SMMU_FSR_EF			BIT(4)
-+#define ARM_SMMU_FSR_SS			BIT(30)
- 
- int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int flags,
- 			 struct adreno_smmu_fault_info *info, const char *block,
- 			 u32 scratch[4])
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	const char *type = "UNKNOWN";
--	bool do_devcoredump = info && !READ_ONCE(gpu->crashstate);
-+	bool do_devcoredump = info && (info->fsr & ARM_SMMU_FSR_SS) &&
-+		!READ_ONCE(gpu->crashstate);
-+	unsigned long irq_flags;
-+
-+	/*
-+	 * In case there is a subsequent storm of pagefaults, disable
-+	 * stall-on-fault for at least half a second.
-+	 */
-+	spin_lock_irqsave(&adreno_gpu->fault_stall_lock, irq_flags);
-+	if (adreno_gpu->stall_enabled) {
-+		adreno_gpu->stall_enabled = false;
-+
-+		gpu->aspace->mmu->funcs->set_stall(gpu->aspace->mmu, false);
-+	}
-+	adreno_gpu->stall_reenable_time = ktime_add_ms(ktime_get(), 500);
-+	spin_unlock_irqrestore(&adreno_gpu->fault_stall_lock, irq_flags);
- 
- 	/*
- 	 * If we aren't going to be resuming later from fault_worker, then do
-@@ -1143,6 +1180,9 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 		adreno_gpu->info->inactive_period);
- 	pm_runtime_use_autosuspend(dev);
- 
-+	spin_lock_init(&adreno_gpu->fault_stall_lock);
-+	adreno_gpu->stall_enabled = true;
-+
- 	return msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->base,
- 			gpu_name, &adreno_gpu_config);
- }
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index dcf454629ce037b2a8274a6699674ad754ce1f07..a528036b46216bd898f6d48c5fb0555c4c4b053b 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -205,6 +205,28 @@ struct adreno_gpu {
- 	/* firmware: */
- 	const struct firmware *fw[ADRENO_FW_MAX];
- 
-+	/**
-+	 * fault_stall_lock:
-+	 *
-+	 * Serialize changes to stall-on-fault state.
-+	 */
-+	spinlock_t fault_stall_lock;
-+
-+	/**
-+	 * fault_stall_reenable_time:
-+	 *
-+	 * if stall_enabled is false, when to reenable stall-on-fault.
-+	 */
-+	ktime_t stall_reenable_time;
-+
-+	/**
-+	 * stall_enabled:
-+	 *
-+	 * Whether stall-on-fault is currently enabled.
-+	 */
-+	bool stall_enabled;
-+
-+
- 	struct {
- 		/**
- 		 * @rgb565_predicator: Unknown, introduced with A650 family,
-@@ -629,6 +651,8 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int flags,
- 			 struct adreno_smmu_fault_info *info, const char *block,
- 			 u32 scratch[4]);
- 
-+void adreno_check_and_reenable_stall(struct adreno_gpu *gpu);
-+
- int adreno_read_speedbin(struct device *dev, u32 *speedbin);
- 
- /*
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index 2a94e82316f95c5f9dcc37ef0a4664a29e3492b2..8d5380e6dcc217c7c209b51527bf15748b3ada71 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -351,6 +351,14 @@ static void msm_iommu_resume_translation(struct msm_mmu *mmu)
- 		adreno_smmu->resume_translation(adreno_smmu->cookie, true);
- }
- 
-+static void msm_iommu_set_stall(struct msm_mmu *mmu, bool enable)
-+{
-+	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(mmu->dev);
-+
-+	if (adreno_smmu->set_stall)
-+		adreno_smmu->set_stall(adreno_smmu->cookie, enable);
-+}
-+
- static void msm_iommu_detach(struct msm_mmu *mmu)
- {
- 	struct msm_iommu *iommu = to_msm_iommu(mmu);
-@@ -399,6 +407,7 @@ static const struct msm_mmu_funcs funcs = {
- 		.unmap = msm_iommu_unmap,
- 		.destroy = msm_iommu_destroy,
- 		.resume_translation = msm_iommu_resume_translation,
-+		.set_stall = msm_iommu_set_stall,
- };
- 
- struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks)
-diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-index 88af4f490881f2a6789ae2d03e1c02d10046331a..2694a356a17904e7572b767b16ed0cee806406cf 100644
---- a/drivers/gpu/drm/msm/msm_mmu.h
-+++ b/drivers/gpu/drm/msm/msm_mmu.h
-@@ -16,6 +16,7 @@ struct msm_mmu_funcs {
- 	int (*unmap)(struct msm_mmu *mmu, uint64_t iova, size_t len);
- 	void (*destroy)(struct msm_mmu *mmu);
- 	void (*resume_translation)(struct msm_mmu *mmu);
-+	void (*set_stall)(struct msm_mmu *mmu, bool enable);
- };
- 
- enum msm_mmu_type {
+Yes, Jessica had also suggested this option. This will work because now 
+the resource re-assignment will not happen and hence will avoid the 
+issue. The documentation of DPMS was not fully clear. So it said, the 
+same thing you mentioned, that when active has changed there is no need 
+to reassign hardware resources but I was not sure if that would impact 
+normal suspend/resume because across suspend/resume hardware resources 
+need to be cleared / re-assigned. I do still think that, even if this 
+also works, we will still run into issues when we will need to force a 
+mode_changed based on resource assignment of other encoder based blocks 
+such as DSC or PP etc.
 
--- 
-2.47.1
+>>
+>> [2] https://gitlab.freedesktop.org/drm/msm/-/issues/59
+>>
+>> Thanks,
+>>
+>> Jessica Zhang
+>>
+>>>
+>>>>
+>>>> Note: This patch only adds tracking for the CTL reservation, but eventually
+>>>> all HW blocks used by encoders (i.e. DSC, PINGPONG, CWB) should have a
+>>>> similar check to avoid the same issue.
+>>>>
+>>>> Suggested-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>> Closes: https://lists.freedesktop.org/archives/freedreno/2025-February/036719.html
+>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 13 +++++++++++++
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 ++++++++++++
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  1 +
+>>>>    3 files changed, 26 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> index 4073d821158c0..a1a8be8f5ab9f 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> @@ -1406,19 +1406,32 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_state *old_crtc_state,
+>>>>       struct drm_crtc *crtc = new_crtc_state->crtc;
+>>>>       bool clone_mode_enabled = drm_crtc_in_clone_mode(old_crtc_state);
+>>>>       bool clone_mode_requested = drm_crtc_in_clone_mode(new_crtc_state);
+>>>> +    struct dpu_crtc_state *cstate = to_dpu_crtc_state(new_crtc_state);
+>>>> +    uint32_t enc_ctl_mask = 0;
+>>>> +    uint32_t crtc_ctl_mask = 0;
+>>>> +    struct dpu_crtc_mixer *m;
+>>>>
+>>>>       DRM_DEBUG_ATOMIC("%d\n", crtc->base.id);
+>>>>
+>>>> +    for (int i = 0; i < cstate->num_mixers; i++) {
+>>>> +            m = &cstate->mixers[i];
+>>>> +            crtc_ctl_mask |= BIT(m->lm_ctl->idx - CTL_0);
+>>>> +    }
+>>>> +
+>>>>       /* there might be cases where encoder needs a modeset too */
+>>>>       drm_for_each_encoder_mask(drm_enc, crtc->dev, new_crtc_state->encoder_mask) {
+>>>>               if (dpu_encoder_needs_modeset(drm_enc, new_crtc_state->state))
+>>>>                       new_crtc_state->mode_changed = true;
+>>>> +            enc_ctl_mask |= dpu_encoder_get_ctls(drm_enc);
+>>>>       }
+>>>>
+>>>>       if ((clone_mode_requested && !clone_mode_enabled) ||
+>>>>           (!clone_mode_requested && clone_mode_enabled))
+>>>>               new_crtc_state->mode_changed = true;
+>>>>
+>>>> +    if (crtc_ctl_mask != enc_ctl_mask)
+>>>> +            new_crtc_state->mode_changed = true;
+>>>> +
+>>>>       return 0;
+>>>>    }
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>> index a61598710acda..2f3101caeba91 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>> @@ -188,6 +188,7 @@ struct dpu_encoder_virt {
+>>>>
+>>>>       unsigned int dsc_mask;
+>>>>       unsigned int cwb_mask;
+>>>> +    unsigned int ctl_mask;
+>>>>
+>>>>       bool intfs_swapped;
+>>>>
+>>>> @@ -707,6 +708,13 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
+>>>>       }
+>>>>    }
+>>>>
+>>>> +uint32_t dpu_encoder_get_ctls(struct drm_encoder *drm_enc)
+>>>> +{
+>>>> +    struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+>>>> +
+>>>> +    return dpu_enc->ctl_mask;
+>>>> +}
+>>>> +
+>>>>    bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_state *state)
+>>>>    {
+>>>>       struct drm_connector *connector;
+>>>> @@ -1155,6 +1163,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>>>>       bool is_cwb_encoder;
+>>>>       unsigned int dsc_mask = 0;
+>>>>       unsigned int cwb_mask = 0;
+>>>> +    unsigned int ctl_mask = 0;
+>>>>       int i;
+>>>>
+>>>>       if (!drm_enc) {
+>>>> @@ -1245,11 +1254,14 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>>>>                               "no ctl block assigned at idx: %d\n", i);
+>>>>                       return;
+>>>>               }
+>>>> +            ctl_mask |= BIT(phys->hw_ctl->idx - CTL_0);
+>>>>
+>>>>               phys->cached_mode = crtc_state->adjusted_mode;
+>>>>               if (phys->ops.atomic_mode_set)
+>>>>                       phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
+>>>>       }
+>>>> +
+>>>> +    dpu_enc->ctl_mask = ctl_mask;
+>>>>    }
+>>>>
+>>>>    static void _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>>> index ca1ca2e51d7ea..70b03743dc346 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>>> @@ -91,6 +91,7 @@ bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_st
+>>>>
+>>>>    void dpu_encoder_prepare_wb_job(struct drm_encoder *drm_enc,
+>>>>               struct drm_writeback_job *job);
+>>>> +uint32_t dpu_encoder_get_ctls(struct drm_encoder *drm_enc);
+>>>>
+>>>>    void dpu_encoder_cleanup_wb_job(struct drm_encoder *drm_enc,
+>>>>               struct drm_writeback_job *job);
+>>>>
+>>>> ---
+>>>> base-commit: 866e43b945bf98f8e807dfa45eca92f931f3a032
+>>>> change-id: 20250228-force-modeset-hw-ctl-d02b80a2bb4c
+>>>> prerequisite-change-id: 20241222-drm-dirty-modeset-88079bd27ae6:v2
+>>>> prerequisite-patch-id: 0c61aabfcd13651203f476985380cbf4d3c299e6
+>>>> prerequisite-patch-id: c6026f08011c288fd301676e9fa6f46d0cc1dab7
+>>>> prerequisite-patch-id: b0cb06d5c88791d6e4755d879ced0d5050aa3cbf
+>>>> prerequisite-patch-id: fd72ddde9dba0df053113bc505c213961a9760da
+>>>> prerequisite-change-id: 20250209-dpu-c3fac78fc617:v2
+>>>> prerequisite-patch-id: c84d2b4b06be06384968429085d1e8ebae23a583
+>>>> prerequisite-patch-id: fb8ea7b9e7c85fabd27589c6551108382a235002
+>>>> prerequisite-change-id: 20250211-dither-disable-b77b1e31977f:v1
+>>>> prerequisite-patch-id: 079e04296212b4b83d51394b5a9b5eea6870d98a
+>>>> prerequisite-change-id: 20240618-concurrent-wb-97d62387f952:v6
+>>>> prerequisite-patch-id: b52034179741dc182aea9411fd446e270fdc69d1
+>>>> prerequisite-patch-id: bc472765a7d5214691f3d92696cc8b0119f3252e
+>>>> prerequisite-patch-id: c959bc480e96b04297ebaf30fea3a68bbac69da6
+>>>> prerequisite-patch-id: f7db8449b241a41faac357d9257f8c7cb16503ec
+>>>> prerequisite-patch-id: 7beb73131d0ab100f266fcd3c1f67c818a3263f4
+>>>> prerequisite-patch-id: c08cbb5cf4e67e308afd61fdad6684b89429d3b6
+>>>> prerequisite-patch-id: a4e343143b8fbe98ae4aa068cc459c750105eb9d
+>>>> prerequisite-patch-id: 1d09edcf12ef7e7ab43547eefacae5b604b698e9
+>>>> prerequisite-patch-id: 0008f9802bfd3c5877267666cceb7608203e5830
+>>>> prerequisite-patch-id: 49402eb767c97915faf2378c5f5d05ced2dcfdac
+>>>> prerequisite-patch-id: 522be2a6b5fe4e3a2d609526bb1539f9bc6f828f
+>>>> prerequisite-patch-id: 031da00d0fffd522f74d682a551362f3ecda0c71
+>>>> prerequisite-patch-id: 9454cec22231a8f3f01c33d52a5df3e26dd88287
+>>>> prerequisite-patch-id: 7edbeaace3549332e581bee3183a76b0e4d18163
+>>>>
+>>>> Best regards,
+>>>> --
+>>>> Jessica Zhang <quic_jesszhan@quicinc.com>
+>>>>
+>>>
+>>> --
+>>> With best wishes
+>>> Dmitry
+>>
+> 
+> 
 
