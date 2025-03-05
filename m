@@ -2,107 +2,98 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85749A4FBAD
-	for <lists+freedreno@lfdr.de>; Wed,  5 Mar 2025 11:21:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBB8CA501FC
+	for <lists+freedreno@lfdr.de>; Wed,  5 Mar 2025 15:30:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6908E10E728;
-	Wed,  5 Mar 2025 10:21:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8223310E7BA;
+	Wed,  5 Mar 2025 14:30:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="B8S6wrjo";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ElIxzQX/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE3AC10E723;
- Wed,  5 Mar 2025 10:21:05 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 524N9vor012465;
- Wed, 5 Mar 2025 10:20:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- +ROcKvUblyM/oecfiHr/sopXV3L5MwWZxt5566wETFk=; b=B8S6wrjoJnL3Kufd
- x4hMdJukTjzGSOwZhbsWIhxbNoStYsP4fXUTuyMMqIyJcg4T+QkFVN70e8GpeWku
- JEEiTDpuhnZ1Tr51IO48SJoGpz1gTRVvPjEnCjrev7bbL54JE4fWPEYaKYQWTgWq
- lHbp8kuBzfHGj/+2yL9BiE+tf5TIY0AIYHg8hCk93p0M/QC9/y4i8zxC/zTss9ji
- 6zBPjGRqympcB9RPK39BkqZLjl70dSt+cBs9ovPPu4QWpXTRstXq/WNxt5BiSqI0
- wuXVCTv3cqMgClSf6a77r21TBEdfoE2cxWXG8oE2csVpHFxoVrMKBUl5GXlyKKpR
- rkZ7nA==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 455p6wmwne-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 05 Mar 2025 10:20:56 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
- by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 525AKtQk014188
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 5 Mar 2025 10:20:55 GMT
-Received: from [10.64.16.135] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 5 Mar 2025
- 02:20:47 -0800
-Message-ID: <4c06aeec-161d-4e67-9a64-ac74991a0f73@quicinc.com>
-Date: Wed, 5 Mar 2025 18:20:45 +0800
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61F1610E7BD
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Mar 2025 14:30:34 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-39104c1cbbdso1801856f8f.3
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Mar 2025 06:30:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1741185033; x=1741789833; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=R0yOXShCD331pfPEJ3FsGxKQVoIHXaBgZZkBDARsPvQ=;
+ b=ElIxzQX/yg3uxmb56SPyXDIb2re5qt6FjTvn2/QXuu4Q5I0PpK3fQIVrQj2h4D94QI
+ 9TCFuOWhZN/A91IAKl1WRYlxnpoztWMQfXUQx9YSuL1ZWaY5Di7OUGR8ZMZZM9WUQySr
+ gDgADdVGibYgs6QMsQm6rjJcOyBuLts4cMeOUdxm332ByxMq98UdcqXCppepoQUXYeSH
+ 45kDvWfBmeW65qGOFeI4RGQdtec26RuRFXXyHBUK/lzvLzl2lKKj13O5j30cTSf5YbAJ
+ Hf9QD+5E526sLpfX7t2Wopw3593F1mJPkhHGu5m/P2em0YWigvjygjxzFmFR5is+jJtQ
+ GH2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741185033; x=1741789833;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=R0yOXShCD331pfPEJ3FsGxKQVoIHXaBgZZkBDARsPvQ=;
+ b=cqtId+AzZZV0wi48m7BRrqIn9LR77JHidBX8BCLggJFkWw5ODweMZYUOJ0TFA7qeMF
+ yewqVfALWIOZIxtrXMxvVaKlujiWEPwVZhBx4qzBeVSjd6GwVq8dLgdT8fLDhcGAQZqP
+ VyWFGKIrKR2zmzT/YnKHUavhGKkdB9VY3AfK1uGt1OzlPzwVYmN3G/5cIbqQaKGpzxqP
+ LWZzvOwlwpY/Pgwbp5B42VhlIVfHt0CqOeusj64B1x5ErsUwC4U4hliLo8zyD6otixx3
+ yCNIa6pzu7+h0VMCME0ryfb/SyKdrLYvzxBUhjwZ+w6XZ17UK4rQj6o+cqUQVuQEzot8
+ YtmA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWrBIrduk1fYRDblG2uTPBB1TKkLIORfu2mg6FLRsvDmeTKsu9vBLij32Jy2WKv2NvJ0/b/7G/+c/U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyD37aM3DMz2v5n3S69g+B8vtz/fDbqEH8kNCTXpzhCGuyF/O4N
+ ++7QBaPFiGnByimVEu6bveXIz89if5m//SGjiyEhz53NYMR/kWEG2KQuRvgkOXs=
+X-Gm-Gg: ASbGnctO0J87OidUaYu9zoTRFh34IalhU1rlYDkXwzR9wiGLwZ89HDBrv++K30qZsef
+ Kn5AWD1QMJ6zjTzuOIyq2e0nE3aXFpJN9J/klspqdaj6dZl/+IDZJhdZS1NAiOMdILx1PzCk+Av
+ 0Sck3bwSF1/chw6F6XHKdhCRkux+/Jh39U4vFWWo8qRMDY0xujU/ocDt7s/P8r0H17fTD//67RU
+ nndl2mELBrE77Vhxnug6VBe/6BbBKXIzpa7J7Tz3mAqJ78Eq9UCl+MZ8s255uCClFChr6cydxZC
+ OLWGsKy9BYWmWZwkYBRE1GCbvApz8Me/7t/ww2rT3MB1+jDeNg==
+X-Google-Smtp-Source: AGHT+IHFtdp8P9AwIBs/SYYRDTy7hEWSk3RAiMKjuzC82tpdeKPpX7kjP/l1pi94ZuG5P/EuaCVziw==
+X-Received: by 2002:a05:6000:1844:b0:390:f698:ecd0 with SMTP id
+ ffacd0b85a97d-3911f726495mr2931784f8f.11.1741185032737; 
+ Wed, 05 Mar 2025 06:30:32 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-390e485d785sm21057865f8f.83.2025.03.05.06.30.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Mar 2025 06:30:32 -0800 (PST)
+Date: Wed, 5 Mar 2025 17:30:28 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Markus Elfring <Markus.Elfring@web.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ kernel-janitors@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Archit Taneja <architt@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
+ cocci@inria.fr, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC] Clarification for =?utf-8?B?4oCc?=
+ =?utf-8?Q?undefined_behaviour=E2=80=9D=3F?=
+Message-ID: <ed9e65a7-6cdf-4d93-83a8-464b47a4bc1d@stanley.mountain>
+References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
+ <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
+ <13566308-9a80-e4aa-f64e-978c02b1406d@web.de>
+ <54c30a69-71cf-4582-9086-50eb0d39f273@web.de>
+ <k7un3bjavyt4ogscgc7jn7thfobegaguqqiy7gtypmq6vq7zox@l4bsevbsjrud>
+ <29b32b0d-312d-4848-9e26-9e5e76e527a7@stanley.mountain>
+ <e665514b-5a62-4afb-b267-7c320e4872af@web.de>
+ <4c489b64-4c25-43e3-90d3-37f2f335d665@stanley.mountain>
+ <20250305141732.26b91742@pumpkin>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/8] phy: qcom: qmp-usbc: Add DP phy mode support on QCS615
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Kuogee
- Hsieh" <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, "Kishon
- Vijay Abraham I" <kishon@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, <quic_lliu6@quicinc.com>,
- <quic_fangez@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-phy@lists.infradead.org>, <linux-gpio@vger.kernel.org>
-References: <20241129-add-displayport-support-for-qcs615-platform-v1-3-09a4338d93ef@quicinc.com>
- <CAA8EJppOR_UXoVpMt-dhfWdCz3UNfsXGdz8X9NqpaSmYj3AZDg@mail.gmail.com>
- <5ea14162-567b-462d-be02-b73b954b7507@quicinc.com>
- <5whv4z7u6fkfwlv5muox5dmv6fow4mga76ammapw7wph7vwv3f@xibcjdfqorgf>
- <iqcofcntirmlwcpyfr4yabymqfcgyrij57bibf337tmxpa73t6@npkt6wquenf6>
- <527baded-f348-48a8-81cd-3f84c0ff1077@quicinc.com>
- <t5vcjlf44fhae4f2h75cfs3f7r6tdstw4ysmkapvvawj6xp23x@xnxqnxvyhshe>
- <d5151b82-5f05-4826-99b4-e925c20550b4@quicinc.com>
- <7vdaasc3flhpabnorjty5qjorlbp22honuscgpbteakgagg2tq@frqa6flk2mmv>
- <df1a4457-129e-452c-8089-ee1e6f9a3e12@quicinc.com>
- <jdw3xuknq2atcowl5xboimp3fol56t5nilefrxzpbdpwdoo5oc@pggif3lysjhh>
-From: Xiangxu Yin <quic_xiangxuy@quicinc.com>
-In-Reply-To: <jdw3xuknq2atcowl5xboimp3fol56t5nilefrxzpbdpwdoo5oc@pggif3lysjhh>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Authority-Analysis: v=2.4 cv=EZcyQOmC c=1 sm=1 tr=0 ts=67c82588 cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=COk6AnOGAAAA:8
- a=g_gWVRsLUC6QYS0Rm0QA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: T5Scpoiq5Hu68qu9Zq7NdwV2CxK3fPes
-X-Proofpoint-ORIG-GUID: T5Scpoiq5Hu68qu9Zq7NdwV2CxK3fPes
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-05_04,2025-03-05_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 phishscore=0
- adultscore=0 lowpriorityscore=0 mlxlogscore=999 suspectscore=0 bulkscore=0
- clxscore=1015 priorityscore=1501 spamscore=0 impostorscore=0
- malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502100000
- definitions=main-2503050082
+In-Reply-To: <20250305141732.26b91742@pumpkin>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,165 +109,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 12/20/2024 8:01 AM, Dmitry Baryshkov wrote:
-> On Wed, Dec 18, 2024 at 08:55:54PM +0800, Xiangxu Yin wrote:
->>
->>
->> On 12/12/2024 3:15 AM, Dmitry Baryshkov wrote:
->>> On Wed, Dec 11, 2024 at 08:50:02PM +0800, Xiangxu Yin wrote:
->>>>
->>>>
->>>> On 12/11/2024 5:46 PM, Dmitry Baryshkov wrote:
->>>>> On Wed, Dec 11, 2024 at 08:46:16AM +0800, Xiangxu Yin wrote:
->>>>>>
->>>>>>
->>>>>> On 12/10/2024 11:09 PM, Dmitry Baryshkov wrote:
->>>>>>> On Thu, Dec 05, 2024 at 08:31:24PM +0200, Dmitry Baryshkov wrote:
->>>>>>>> On Thu, Dec 05, 2024 at 09:26:47PM +0800, Xiangxu Yin wrote:
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> On 11/29/2024 10:33 PM, Dmitry Baryshkov wrote:
->>>>>>>>>> On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
->>>>>>>>>>>
->>>>>>>>>>> Extended DP support for QCS615 USB or DP phy. Differentiated between
->>>>>>>>>>> USBC and DP PHY using the match table’s type, dynamically generating
->>>>>>>>>>> different types of cfg and layout attributes during initialization based
->>>>>>>>>>> on this type. Static variables are stored in cfg, while parsed values
->>>>>>>>>>> are organized into the layout structure.
->>>>>>>>>>
->>>>>>>>>> We didn't have an understanding / conclusion whether
->>>>>>>>>> qcom,usb-ssphy-qmp-usb3-or-dp PHYs are actually a single device / PHY
->>>>>>>>>> or two PHYs being placed next to each other. Could you please start
->>>>>>>>>> your commit message by explaining it? Or even better, make that a part
->>>>>>>>>> of the cover letter for a new series touching just the USBC PHY
->>>>>>>>>> driver. DP changes don't have anything in common with the PHY changes,
->>>>>>>>>> so you can split the series into two.
->>>>>>>>>>
->>>>>>>>> Before implement DP extension, we have discussed with abhinav and krishna about whether use combo, usbc or separate phy.
->>>>>>>>
->>>>>>>> What is "DP extension"?
->>>>>>>>
->>>>>> I'm sorry confusion casued by my description. It's means extend DP implemnt for USBC phy driver.
->>>>>>>>>
->>>>>>>>> We identified that DP and USB share some common controls for phy_mode and orientation.
->>>>>>>>> Specifically, 'TCSR_USB3_0_DP_PHYMODE' controls who must use the lanes - USB or DP,
->>>>>>>>> while PERIPH_SS_USB0_USB3PHY_PCS_MISC_TYPEC_CTRL controls the orientation.
->>>>>>>>> It would be more efficient for a single driver to manage these controls. 
->>>>>>>>
->>>>>>>> The question is about the hardware, not about the driver.
->>>>>>>>
->>>>>>>>> Additionally, this PHY does not support Alt Mode, and the two control registers are located in separate address spaces. 
->>>>>>>>> Therefore, even though the orientation for DP on this platform is always normal and connected to the video output board, 
->>>>>>>>> we still decided to base it on the USBC extension.
->>>>>>>>
->>>>>>>> Could you please clarify, do usb3-or-dp PHYs support DP-over-USB-C? I
->>>>>>>> thought that usbc-or-dp platforms support that, but they don't
->>>>>>>> support DP+USB pin configuration. Note, the question is broader than
->>>>>>>> just QCS615, it covers the PHY type itself.
->>>>>>>>
->>>>>>>> Also, is TCSR configuration read/write or read-only? Are we supposed to
->>>>>>>> set the register from OS or are we supposed to read it and thus detemine
->>>>>>>> the PHY mode?
->>>>>>>
->>>>>>> Any updates on these two topics?
->>>>>>>
->>>>>> Still confirming detail info with HW & design team.
->>>>>> I’ll update the information that has been confirmed so far.
->>>>>> This phy support DP-over-USB-C,but it's not support alt-mode which 2 lane work for DP, other 2 lane work for USB.
->>>>>> TCSR phy mode is read/write reg and we can read for determine phy mode.
->>>>>
->>>>> Ok, thanks for the explanation. From my point of view:
->>>>>
->>>>> - Implement the DP PHY to be a part of the same driver. Each device
->>>>>   supported by the usbc driver should get both PHYs.
->>>>>
->>>>> - Make sure not to break the ABI: #phy-cells = <0> should still work and
->>>>>   return USB PHY, keeping backwards compatibility. Newer devices or
->>>>>   upgraded DT for old devices should return USB PHY for <... 0> and DP
->>>>>   PHY for <... 1>.
->>>>>
->>>> Yes, currently we have implemented like your description,
->>>> Each deivce shoud get both PHYs, DP PHY for <... 1> and USB PHY for <... 0>.
->>>
->>> Please note the backwards compatibility clause.
->>>
->> For the USB node, we kept the same implementation as the original function interface, and the devicetree node definition also remains unchanged.
->> In subsequent patches, I will follow Krzysztof’s suggestion to use a separate DT-binding to describe the DP PHY configuration, 
->> without making changes to the USB devicetree and DT-binding implementation.
->>>>> - I'm not shure how to handle the USB and DP coexistence, especially in
->>>>>   your case of the USB-or-DP PHY.
->>>>>
->>>> For coexistence process:
->>>>
->>>> When we start implement DP part, usb driver team said only need config TCSR phy mode and orientation during switch in USB-C port.
->>>> Based on your previous comments avout SW_PWRDN, I'm confirming with the USB team whether SW_REST/SWPWRDN/START_CTRL registers might affect DP.
->>>
->>> Thanks!
->>>
->>>> Anyway, even though the original SoC design supports DP or USB over Type-C，
->>>> but on QCS615 ADP AIR platform, there are only four USB-A port which works with 'qcs615-qmp-usb3-phy' driver, and no USB-C port.
->>>> DP port is mappped from usb pin to the video out sub-board.
->>>> so we are unable to verify the switching case between DP and USB devices under USB-C.
->>>
->>> That's also fine. We will get to that point once MSM8998 / SDM660
->>> get USB-C support (the only current blocker is the support for the
->>> TYPEC block of the PMI8998).
->>>
->> I can't access MSM8998 / SDM660 documents now, but I have confirmed detail info about USB & DP phy design for sm6150.
->>
->> The 'usb-ssphy-qmp-usb3-or-dp PHY' on the current platform is essentially composed of three sub-PHYs, 
->> which can even be considered as three separate PHYs: USB3 primary PHY, USB3 secondary PHY, and USB3 DP PHY.
+On Wed, Mar 05, 2025 at 02:17:32PM +0000, David Laight wrote:
+> On Wed, 5 Mar 2025 11:51:59 +0300
+> Dan Carpenter <dan.carpenter@linaro.org> wrote:
 > 
-> I've looked at sm6150-usb.dtsi and now I'm completely puzzled by your
-> answer. The msm-4.14 kernel lists a single USB QMP PHY at 0x88e6000,
-> used for the primary USB3 host. It it defined as
-> qcom,usb-ssphy-qmp-usb3-or-dp. Secondary USB host is listed as USB 2.0
-> only. So what do you mean by the USB3 secondary PHY? Which PHY and which
-> pins are connected to your video-out board?
+> > On Wed, Mar 05, 2025 at 09:40:43AM +0100, Markus Elfring wrote:
+> > > >>> The address of a data structure member was determined before
+> > > >>> a corresponding null pointer check in the implementation of
+> > > >>> the functions “dpu_hw_pp_enable_te” and “dpu_hw_pp_get_vsync_info”.
+> > > >>>
+> > > >>> Thus avoid the risk for undefined behaviour by removing extra
+> > > >>> initialisations for the variable “c” (also because it was already
+> > > >>> reassigned with the same value behind this pointer check).  
+> > > > There is no undefined behavior here.  
+> > > 
+> > > Is there a need to improve the wording precision?
+> > > 
+> > > There are words which denote a special meaning according to aspects of
+> > > the programming language “C”.
+> > > https://en.cppreference.com/w/c/language/behavior
+> > > 
+> > > Dereferences of null pointers are treated in special ways.  
+> > 
+> > This not a dereference.  It's just pointer math.
 > 
-Five PHYs are integrated into Talos SoC: two USB2 PHYs, two USB3 PHYs, and one DP PHY.
-PERIPH_SS_QUSB2PHY_PRIM_QUSB2PHY_PRIM_CM_QUSB2_LQ_1EX (0x088E2000)
-PERIPH_SS_QUSB2PHY_SEC_QUSB2PHY_SEC_CM_QUSB2_LQ_1EX (0x088E3000)
-PERIPH_SS_USB0_USB3PHY_USB0_USB3PHY_CM_USB3_SW (0x088E6000)
-PERIPH_SS_USB1_USB3PHY_USB1_USB3PHY_CM_USB3_SW (0x088E8000)
-PERIPH_SS_DP_PHY_DP_PHY_CM_DP_4LN_SW (0x088E9000)
-
-The USB3 secondary PHY(0x088E8000) is the one mutually exclusive with the DP PHY, which controlled by the TCSR switch.
-USB3 secondary PHY is not configed in qcs615 dtsi.
-
-In Ride, DP PHY, DP lane 0~3 and DP aux pins are connected to video-out board.
->>
->> On the QCS615, the USB primary PHY is currently used to handle USB 3.0 communication for the previously mentioned four USB Type-A ports, 
->> while the USB3 secondary PHY and USB3 DP PHY are used for the output of the Type-C port,
->> but since the Type-C port is forcibly pin-to-pin configured to the video out board, the Type-C port will always configure as DP PHY.
->>
->> The internal registers of these three PHYs are independent of each other, Neither their respective SWPWR_DN nor SWRST will affect the other two PHYs.
->> Additionally, there was a misunderstanding about the orientation previously.
->> The USB orientation setting only affects the current PHY and does not impact the DP PHY. The DP PHY is configured in the DP_PHY_CFG_1.
->>
->> TSCR_PHY_MODE can specify which PHY outputs to the Type-C port, and the global reset will simultaneously reset the two associated PHYs. 
->> Therefore, the correct switching process is as follows.
->> When switching the inserted device:
->> 	1.Identify the PHY type.
->> 	2.Enable the regulator.
->> 	3.Trigger a reset.
->> 	4.Enable the clock.
->> 	5.Configure PHY type related orientation
->> 	6.switch the TCSR PHY mode.
->> 	7.Configure the registers of PHY.
->> During release:
->> 	1.Reset.
->> 	2.Disable the clock.
->> 	3.Disable the regulator.
->>
->> Our current design overall complies with this process, but it lacks the configuration for DP_PHY_CFG_1.
->>
->> Shall we continue the discussion to clarify remain comments of the USBC driver?
->>
->>>> However, I'm also confirming whether anything other will affect USB and DP each other.
->>>
->>
+> And the 'fun' starts because NULL isn't required to use the all-zero
+> bit pattern.
+> Regardless of the bit-pattern, things like (void *)(1 - 1) are valid
+> NULL pointers.
 > 
+> Of course, while C allows this, I doubt NULL has ever been other than 0.
+> (It was 0 on a system I used many years ago where the O/S invalid pointer
+> was ~0.)
+
+Kernel style guidelines don't even allow if (p == NULL) so we would be
+screwed.  :P
+
+> 
+> I know Clang has started warning about arithmetic on NULL.
+
+Huh.  You're right.
+
+$ clang -Weverything test.c
+test.c:13:22: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+   13 |         printf("%p\n", NULL + 1);
+      |                        ~~~~ ^
+test.c:13:22: warning: arithmetic on a pointer to void is a GNU extension [-Wgnu-pointer-arith]
+   13 |         printf("%p\n", NULL + 1);
+      |                        ~~~~ ^
+test.c:11:14: warning: unused parameter 'argc' [-Wunused-parameter]
+   11 | int main(int argc, char *argv[])
+      |              ^
+test.c:11:26: warning: unused parameter 'argv' [-Wunused-parameter]
+   11 | int main(int argc, char *argv[])
+      |                          ^
+test.c:13:17: warning: unsafe pointer arithmetic [-Wunsafe-buffer-usage]
+   13 |         printf("%p\n", NULL + 1);
+      |                        ^~~~
+/usr/lib/llvm-19/lib/clang/19/include/__stddef_null.h:26:14: note: expanded from macro 'NULL'
+   26 | #define NULL ((void*)0)
+      |              ^~~~~~~~~~
+5 warnings generated.
+
+Well, that's stupid.
+
+regards,
+dan carpenter
 
