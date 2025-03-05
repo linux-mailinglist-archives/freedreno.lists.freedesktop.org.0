@@ -2,98 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBB8CA501FC
-	for <lists+freedreno@lfdr.de>; Wed,  5 Mar 2025 15:30:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69400A50AEC
+	for <lists+freedreno@lfdr.de>; Wed,  5 Mar 2025 20:07:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8223310E7BA;
-	Wed,  5 Mar 2025 14:30:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA0389B57;
+	Wed,  5 Mar 2025 19:07:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ElIxzQX/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AZz1KmQW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F1610E7BD
- for <freedreno@lists.freedesktop.org>; Wed,  5 Mar 2025 14:30:34 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-39104c1cbbdso1801856f8f.3
- for <freedreno@lists.freedesktop.org>; Wed, 05 Mar 2025 06:30:34 -0800 (PST)
+Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
+ [209.85.166.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CF1C89B57
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Mar 2025 19:07:12 +0000 (UTC)
+Received: by mail-il1-f171.google.com with SMTP id
+ e9e14a558f8ab-3d03d2bd7d2so66187085ab.0
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Mar 2025 11:07:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741185033; x=1741789833; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=R0yOXShCD331pfPEJ3FsGxKQVoIHXaBgZZkBDARsPvQ=;
- b=ElIxzQX/yg3uxmb56SPyXDIb2re5qt6FjTvn2/QXuu4Q5I0PpK3fQIVrQj2h4D94QI
- 9TCFuOWhZN/A91IAKl1WRYlxnpoztWMQfXUQx9YSuL1ZWaY5Di7OUGR8ZMZZM9WUQySr
- gDgADdVGibYgs6QMsQm6rjJcOyBuLts4cMeOUdxm332ByxMq98UdcqXCppepoQUXYeSH
- 45kDvWfBmeW65qGOFeI4RGQdtec26RuRFXXyHBUK/lzvLzl2lKKj13O5j30cTSf5YbAJ
- Hf9QD+5E526sLpfX7t2Wopw3593F1mJPkhHGu5m/P2em0YWigvjygjxzFmFR5is+jJtQ
- GH2Q==
+ d=gmail.com; s=20230601; t=1741201632; x=1741806432; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=igyyFXxSN2EPjWaUS4Vz0/cPHllbqagXXxWfZOFJbH0=;
+ b=AZz1KmQWRqf+xbd6YQ12No8wHRNMFyyO4Q1QoRiwTNX6TeoWcQGLJFn7qQPKm1qi8K
+ Wmnzswt4DgsHnntoQ1KtMP9Fci4DvTyzcA7ZUKEd1nQVsc1Nwwgshs7TqYe9qkZEP8/8
+ XLKDlncZncehXbKH48PLh5+99FscGb+lwVTgMC96ivVEkM9vS4pz/cvBbjtx/+nei4SP
+ MUkNFBxCmxh5ADM8d76yHt17xdwMM/mQOyoJltHEKKTmZOPC3Z3ogZ7CEKHV+KzClCRx
+ 58YfK3zSaMtb0z7hqO99Go2pePa5Uoyf2PvDvCYNhcXQ079b906EF26s5DNdcHSm0J+o
+ Ka5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741185033; x=1741789833;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=R0yOXShCD331pfPEJ3FsGxKQVoIHXaBgZZkBDARsPvQ=;
- b=cqtId+AzZZV0wi48m7BRrqIn9LR77JHidBX8BCLggJFkWw5ODweMZYUOJ0TFA7qeMF
- yewqVfALWIOZIxtrXMxvVaKlujiWEPwVZhBx4qzBeVSjd6GwVq8dLgdT8fLDhcGAQZqP
- VyWFGKIrKR2zmzT/YnKHUavhGKkdB9VY3AfK1uGt1OzlPzwVYmN3G/5cIbqQaKGpzxqP
- LWZzvOwlwpY/Pgwbp5B42VhlIVfHt0CqOeusj64B1x5ErsUwC4U4hliLo8zyD6otixx3
- yCNIa6pzu7+h0VMCME0ryfb/SyKdrLYvzxBUhjwZ+w6XZ17UK4rQj6o+cqUQVuQEzot8
- YtmA==
+ d=1e100.net; s=20230601; t=1741201632; x=1741806432;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=igyyFXxSN2EPjWaUS4Vz0/cPHllbqagXXxWfZOFJbH0=;
+ b=AYRob9nY+Af5RYK6DRg7TuSFrAtLe1AblCKMG/PZmeWmpOumL/eZ7qmv3gKNCgWdlu
+ osXFpfBEb1MFDKS/9pnLaLHjdSfP64BJyX150krNVACufIH2nA+H97PKKpKtUP/Qs4kO
+ u1chlDlUdXJCnOkg65m7P2SjXmh0zBqHiHg+hHHVnv+hjQcASFlwPdRsnzHPT5Tf3uqW
+ V38E2cfdDlIsOuPCUECnfqhDzm4O2PbYVvpQP7R9vpMoVah5C4tqmyMdYgVaFwiI+3NI
+ 910n38/g7YDN0/n15Np4EEgFkVaVsTo6b0DVbk5ZdQrjXwHqyPbSMgTATbZjAuNmAh59
+ GA1A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWrBIrduk1fYRDblG2uTPBB1TKkLIORfu2mg6FLRsvDmeTKsu9vBLij32Jy2WKv2NvJ0/b/7G/+c/U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyD37aM3DMz2v5n3S69g+B8vtz/fDbqEH8kNCTXpzhCGuyF/O4N
- ++7QBaPFiGnByimVEu6bveXIz89if5m//SGjiyEhz53NYMR/kWEG2KQuRvgkOXs=
-X-Gm-Gg: ASbGnctO0J87OidUaYu9zoTRFh34IalhU1rlYDkXwzR9wiGLwZ89HDBrv++K30qZsef
- Kn5AWD1QMJ6zjTzuOIyq2e0nE3aXFpJN9J/klspqdaj6dZl/+IDZJhdZS1NAiOMdILx1PzCk+Av
- 0Sck3bwSF1/chw6F6XHKdhCRkux+/Jh39U4vFWWo8qRMDY0xujU/ocDt7s/P8r0H17fTD//67RU
- nndl2mELBrE77Vhxnug6VBe/6BbBKXIzpa7J7Tz3mAqJ78Eq9UCl+MZ8s255uCClFChr6cydxZC
- OLWGsKy9BYWmWZwkYBRE1GCbvApz8Me/7t/ww2rT3MB1+jDeNg==
-X-Google-Smtp-Source: AGHT+IHFtdp8P9AwIBs/SYYRDTy7hEWSk3RAiMKjuzC82tpdeKPpX7kjP/l1pi94ZuG5P/EuaCVziw==
-X-Received: by 2002:a05:6000:1844:b0:390:f698:ecd0 with SMTP id
- ffacd0b85a97d-3911f726495mr2931784f8f.11.1741185032737; 
- Wed, 05 Mar 2025 06:30:32 -0800 (PST)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-390e485d785sm21057865f8f.83.2025.03.05.06.30.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Mar 2025 06:30:32 -0800 (PST)
-Date: Wed, 5 Mar 2025 17:30:28 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Markus Elfring <Markus.Elfring@web.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- kernel-janitors@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Archit Taneja <architt@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
- cocci@inria.fr, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC] Clarification for =?utf-8?B?4oCc?=
- =?utf-8?Q?undefined_behaviour=E2=80=9D=3F?=
-Message-ID: <ed9e65a7-6cdf-4d93-83a8-464b47a4bc1d@stanley.mountain>
-References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
- <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
- <13566308-9a80-e4aa-f64e-978c02b1406d@web.de>
- <54c30a69-71cf-4582-9086-50eb0d39f273@web.de>
- <k7un3bjavyt4ogscgc7jn7thfobegaguqqiy7gtypmq6vq7zox@l4bsevbsjrud>
- <29b32b0d-312d-4848-9e26-9e5e76e527a7@stanley.mountain>
- <e665514b-5a62-4afb-b267-7c320e4872af@web.de>
- <4c489b64-4c25-43e3-90d3-37f2f335d665@stanley.mountain>
- <20250305141732.26b91742@pumpkin>
+ AJvYcCUhh53B1Bs/Kq5SzNbGCX6pvHgAcP4lRs8F7wN6TX3moGC/k8FIDu0xtWlScm/ajXaCmBrJbSFZ15Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxM+N2vMlts3oUZDmg/fa2NiVo412ahSPvqQKAoJ5NciII9iYpz
+ 778oeCyjt4g/EQcoPA0AQbgnRrpvpLm2CQK9NPc00YfD+248c/ISdsa47rGURirQmgQUq98LJzo
+ siP5SxW6MK6aKzhvm1c0fa902Lbi0v+p6
+X-Gm-Gg: ASbGncuJpEBlZ9hMOVvQbE5hnCStliI8FxLG/StYPwMFlHkptLP2i+/MBTrbUbRrFia
+ SO+tnUAcvvLX++G1JEFaIvguR0SBrZvtj03vgpqLDKBUrIeuj/hfeasTgzkwe+uuouOZgTVV2nx
+ eIt9V7bJlHgxZTMWOlh5LakF+0Zg==
+X-Google-Smtp-Source: AGHT+IGYtR++XLGKg7WK1w3GYDj0e0n1QpvcnFkb204I5h9atpnxCMGvT/sEIHR5tT2MZc3jnLdXSP/4A5fmxG0fMts=
+X-Received: by 2002:a05:6e02:188c:b0:3d0:237e:c29c with SMTP id
+ e9e14a558f8ab-3d42b8d2344mr63739685ab.12.1741201631687; Wed, 05 Mar 2025
+ 11:07:11 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250305141732.26b91742@pumpkin>
+References: <20250304-msm-gpu-fault-fixes-next-v4-0-be14be37f4c3@gmail.com>
+ <20250304-msm-gpu-fault-fixes-next-v4-5-be14be37f4c3@gmail.com>
+In-Reply-To: <20250304-msm-gpu-fault-fixes-next-v4-5-be14be37f4c3@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 5 Mar 2025 11:07:00 -0800
+X-Gm-Features: AQ5f1JqutkipSibnfC3SgjszgkeUqvo1oFxSOhTED1WYYvansmyVCncnRJGo40w
+Message-ID: <CAF6AEGufRP9NuqC1gYy6jrQ9z+XqGFd7KNsbQw8C8NscSOJnJQ@mail.gmail.com>
+Subject: Re: [PATCH v4 5/5] drm/msm: Temporarily disable stall-on-fault after
+ a page fault
+To: Connor Abbott <cwabbott0@gmail.com>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,70 +91,290 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 05, 2025 at 02:17:32PM +0000, David Laight wrote:
-> On Wed, 5 Mar 2025 11:51:59 +0300
-> Dan Carpenter <dan.carpenter@linaro.org> wrote:
-> 
-> > On Wed, Mar 05, 2025 at 09:40:43AM +0100, Markus Elfring wrote:
-> > > >>> The address of a data structure member was determined before
-> > > >>> a corresponding null pointer check in the implementation of
-> > > >>> the functions “dpu_hw_pp_enable_te” and “dpu_hw_pp_get_vsync_info”.
-> > > >>>
-> > > >>> Thus avoid the risk for undefined behaviour by removing extra
-> > > >>> initialisations for the variable “c” (also because it was already
-> > > >>> reassigned with the same value behind this pointer check).  
-> > > > There is no undefined behavior here.  
-> > > 
-> > > Is there a need to improve the wording precision?
-> > > 
-> > > There are words which denote a special meaning according to aspects of
-> > > the programming language “C”.
-> > > https://en.cppreference.com/w/c/language/behavior
-> > > 
-> > > Dereferences of null pointers are treated in special ways.  
-> > 
-> > This not a dereference.  It's just pointer math.
-> 
-> And the 'fun' starts because NULL isn't required to use the all-zero
-> bit pattern.
-> Regardless of the bit-pattern, things like (void *)(1 - 1) are valid
-> NULL pointers.
-> 
-> Of course, while C allows this, I doubt NULL has ever been other than 0.
-> (It was 0 on a system I used many years ago where the O/S invalid pointer
-> was ~0.)
+On Tue, Mar 4, 2025 at 8:57=E2=80=AFAM Connor Abbott <cwabbott0@gmail.com> =
+wrote:
+>
+> When things go wrong, the GPU is capable of quickly generating millions
+> of faulting translation requests per second. When that happens, in the
+> stall-on-fault model each access will stall until it wins the race to
+> signal the fault and then the RESUME register is written. This slows
+> processing page faults to a crawl as the GPU can generate faults much
+> faster than the CPU can acknowledge them. It also means that all
+> available resources in the SMMU are saturated waiting for the stalled
+> transactions, so that other transactions such as transactions generated
+> by the GMU, which shares a context bank with the GPU, cannot proceed.
 
-Kernel style guidelines don't even allow if (p == NULL) so we would be
-screwed.  :P
+Nit, the GMU does not actually share a cb.. looking on x1e80100.dtsi,
+the GMU has cb 5 and gpu has 0 and 1.  (Currently we just use the
+first, but I guess the 2nd would be used if we supported protected
+content?)
 
-> 
-> I know Clang has started warning about arithmetic on NULL.
+fwiw, you can read this from dtsi, ie. in the GMU node, "iommus =3D
+<&adreno_smmu 5 0x0>;"
 
-Huh.  You're right.
+> This causes a GMU watchdog timeout, which leads to a failed reset
+> because GX cannot collapse when there is a transaction pending and a
+> permanently hung GPU.
+>
+> On older platforms with qcom,smmu-v2, it seems that when one transaction
+> is stalled subsequent faulting transactions are terminated, which avoids
+> this problem, but the MMU-500 follows the spec here.
+>
+> To work around these problem, disable stall-on-fault as soon as we get a
+> page fault until a cooldown period after pagefaults stop. This allows
+> the GMU some guaranteed time to continue working. We only use
+> stall-on-fault to halt the GPU while we collect a devcoredump and we
+> always terminate the transaction afterward, so it's fine to miss some
+> subsequent page faults. We also keep it disabled so long as the current
+> devcoredump hasn't been deleted, because in that case we likely won't
+> capture another one if there's a fault.
+>
+> After this commit HFI messages still occasionally time out, because the
+> crashdump handler doesn't run fast enough to let the GMU resume, but the
+> driver seems to recover from it. This will probably go away after the
+> HFI timeout is increased.
+>
+> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  2 ++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  4 ++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 42 +++++++++++++++++++++++++++=
++++++-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 24 +++++++++++++++++++
+>  drivers/gpu/drm/msm/msm_iommu.c         |  9 +++++++
+>  drivers/gpu/drm/msm/msm_mmu.h           |  1 +
+>  6 files changed, 81 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a5xx_gpu.c
+> index 71dca78cd7a5324e9ff5b14f173e2209fa42e196..670141531112c9d29cef8ef1f=
+d51b74759fdd6d2 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -131,6 +131,8 @@ static void a5xx_submit(struct msm_gpu *gpu, struct m=
+sm_gem_submit *submit)
+>         struct msm_ringbuffer *ring =3D submit->ring;
+>         unsigned int i, ibs =3D 0;
+>
+> +       adreno_check_and_reenable_stall(adreno_gpu);
+> +
+>         if (IS_ENABLED(CONFIG_DRM_MSM_GPU_SUDO) && submit->in_rb) {
+>                 ring->cur_ctx_seqno =3D 0;
+>                 a5xx_submit_in_rb(gpu, submit);
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index 0ae29a7c8a4d3f74236a35cc919f69d5c0a384a0..5a34cd2109a2d74c92841448a=
+61ccb0d4f34e264 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -212,6 +212,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct m=
+sm_gem_submit *submit)
+>         struct msm_ringbuffer *ring =3D submit->ring;
+>         unsigned int i, ibs =3D 0;
+>
+> +       adreno_check_and_reenable_stall(adreno_gpu);
+> +
+>         a6xx_set_pagetable(a6xx_gpu, ring, submit);
+>
+>         get_stats_counter(ring, REG_A6XX_RBBM_PERFCTR_CP(0),
+> @@ -335,6 +337,8 @@ static void a7xx_submit(struct msm_gpu *gpu, struct m=
+sm_gem_submit *submit)
+>         struct msm_ringbuffer *ring =3D submit->ring;
+>         unsigned int i, ibs =3D 0;
+>
+> +       adreno_check_and_reenable_stall(adreno_gpu);
+> +
+>         /*
+>          * Toggle concurrent binning for pagetable switch and set the thr=
+ead to
+>          * BR since only it can execute the pagetable switch packets.
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index 1238f326597808eb28b4c6822cbd41a26e555eb9..bac586101dc0494f46b069a84=
+40a45825dfe9b5e 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -246,16 +246,53 @@ u64 adreno_private_address_space_size(struct msm_gp=
+u *gpu)
+>         return SZ_4G;
+>  }
+>
+> +void adreno_check_and_reenable_stall(struct adreno_gpu *adreno_gpu)
+> +{
+> +       struct msm_gpu *gpu =3D &adreno_gpu->base;
+> +       unsigned long flags;
+> +
+> +       /*
+> +        * Wait until the cooldown period has passed and we would actuall=
+y
+> +        * collect a crashdump to re-enable stall-on-fault.
+> +        */
+> +       spin_lock_irqsave(&adreno_gpu->fault_stall_lock, flags);
+> +       if (!adreno_gpu->stall_enabled &&
+> +                       ktime_after(ktime_get(), adreno_gpu->stall_reenab=
+le_time) &&
+> +                       !READ_ONCE(gpu->crashstate)) {
+> +               adreno_gpu->stall_enabled =3D true;
+> +
+> +               gpu->aspace->mmu->funcs->set_stall(gpu->aspace->mmu, true=
+);
+> +       }
+> +       spin_unlock_irqrestore(&adreno_gpu->fault_stall_lock, flags);
+> +}
+> +
+>  #define ARM_SMMU_FSR_TF                 BIT(1)
+>  #define ARM_SMMU_FSR_PF                        BIT(3)
+>  #define ARM_SMMU_FSR_EF                        BIT(4)
+> +#define ARM_SMMU_FSR_SS                        BIT(30)
+>
+>  int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int fl=
+ags,
+>                          struct adreno_smmu_fault_info *info, const char =
+*block,
+>                          u32 scratch[4])
+>  {
+> +       struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+>         const char *type =3D "UNKNOWN";
+> -       bool do_devcoredump =3D info && !READ_ONCE(gpu->crashstate);
+> +       bool do_devcoredump =3D info && (info->fsr & ARM_SMMU_FSR_SS) &&
+> +               !READ_ONCE(gpu->crashstate);
+> +       unsigned long irq_flags;
+> +
+> +       /*
+> +        * In case there is a subsequent storm of pagefaults, disable
+> +        * stall-on-fault for at least half a second.
+> +        */
+> +       spin_lock_irqsave(&adreno_gpu->fault_stall_lock, irq_flags);
+> +       if (adreno_gpu->stall_enabled) {
+> +               adreno_gpu->stall_enabled =3D false;
+> +
+> +               gpu->aspace->mmu->funcs->set_stall(gpu->aspace->mmu, fals=
+e);
+> +       }
+> +       adreno_gpu->stall_reenable_time =3D ktime_add_ms(ktime_get(), 500=
+);
+> +       spin_unlock_irqrestore(&adreno_gpu->fault_stall_lock, irq_flags);
+>
+>         /*
+>          * If we aren't going to be resuming later from fault_worker, the=
+n do
+> @@ -1143,6 +1180,9 @@ int adreno_gpu_init(struct drm_device *drm, struct =
+platform_device *pdev,
+>                 adreno_gpu->info->inactive_period);
+>         pm_runtime_use_autosuspend(dev);
+>
+> +       spin_lock_init(&adreno_gpu->fault_stall_lock);
+> +       adreno_gpu->stall_enabled =3D true;
+> +
+>         return msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->base,
+>                         gpu_name, &adreno_gpu_config);
+>  }
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.h
+> index dcf454629ce037b2a8274a6699674ad754ce1f07..a528036b46216bd898f6d48c5=
+fb0555c4c4b053b 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -205,6 +205,28 @@ struct adreno_gpu {
+>         /* firmware: */
+>         const struct firmware *fw[ADRENO_FW_MAX];
+>
+> +       /**
+> +        * fault_stall_lock:
 
-$ clang -Weverything test.c
-test.c:13:22: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-   13 |         printf("%p\n", NULL + 1);
-      |                        ~~~~ ^
-test.c:13:22: warning: arithmetic on a pointer to void is a GNU extension [-Wgnu-pointer-arith]
-   13 |         printf("%p\n", NULL + 1);
-      |                        ~~~~ ^
-test.c:11:14: warning: unused parameter 'argc' [-Wunused-parameter]
-   11 | int main(int argc, char *argv[])
-      |              ^
-test.c:11:26: warning: unused parameter 'argv' [-Wunused-parameter]
-   11 | int main(int argc, char *argv[])
-      |                          ^
-test.c:13:17: warning: unsafe pointer arithmetic [-Wunsafe-buffer-usage]
-   13 |         printf("%p\n", NULL + 1);
-      |                        ^~~~
-/usr/lib/llvm-19/lib/clang/19/include/__stddef_null.h:26:14: note: expanded from macro 'NULL'
-   26 | #define NULL ((void*)0)
-      |              ^~~~~~~~~~
-5 warnings generated.
+nit, @fault_stall_lock:  And for
+fault_stall_reenable_time/stall_enabled, it wouldn't hurt to add
+something along the lines of "Protected by @fault_stall_lock".  I've
+been slowly trying to improve the comment docs over time, I have some
+of that in my vmbind patchset.
 
-Well, that's stupid.
+Anyways, with those nits addressed, r-b
 
-regards,
-dan carpenter
+BR,
+-R
 
+> +        *
+> +        * Serialize changes to stall-on-fault state.
+> +        */
+> +       spinlock_t fault_stall_lock;
+> +
+> +       /**
+> +        * fault_stall_reenable_time:
+> +        *
+> +        * if stall_enabled is false, when to reenable stall-on-fault.
+> +        */
+> +       ktime_t stall_reenable_time;
+> +
+> +       /**
+> +        * stall_enabled:
+> +        *
+> +        * Whether stall-on-fault is currently enabled.
+> +        */
+> +       bool stall_enabled;
+> +
+> +
+>         struct {
+>                 /**
+>                  * @rgb565_predicator: Unknown, introduced with A650 fami=
+ly,
+> @@ -629,6 +651,8 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigne=
+d long iova, int flags,
+>                          struct adreno_smmu_fault_info *info, const char =
+*block,
+>                          u32 scratch[4]);
+>
+> +void adreno_check_and_reenable_stall(struct adreno_gpu *gpu);
+> +
+>  int adreno_read_speedbin(struct device *dev, u32 *speedbin);
+>
+>  /*
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_io=
+mmu.c
+> index 2a94e82316f95c5f9dcc37ef0a4664a29e3492b2..8d5380e6dcc217c7c209b5152=
+7bf15748b3ada71 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> @@ -351,6 +351,14 @@ static void msm_iommu_resume_translation(struct msm_=
+mmu *mmu)
+>                 adreno_smmu->resume_translation(adreno_smmu->cookie, true=
+);
+>  }
+>
+> +static void msm_iommu_set_stall(struct msm_mmu *mmu, bool enable)
+> +{
+> +       struct adreno_smmu_priv *adreno_smmu =3D dev_get_drvdata(mmu->dev=
+);
+> +
+> +       if (adreno_smmu->set_stall)
+> +               adreno_smmu->set_stall(adreno_smmu->cookie, enable);
+> +}
+> +
+>  static void msm_iommu_detach(struct msm_mmu *mmu)
+>  {
+>         struct msm_iommu *iommu =3D to_msm_iommu(mmu);
+> @@ -399,6 +407,7 @@ static const struct msm_mmu_funcs funcs =3D {
+>                 .unmap =3D msm_iommu_unmap,
+>                 .destroy =3D msm_iommu_destroy,
+>                 .resume_translation =3D msm_iommu_resume_translation,
+> +               .set_stall =3D msm_iommu_set_stall,
+>  };
+>
+>  struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks)
+> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.=
+h
+> index 88af4f490881f2a6789ae2d03e1c02d10046331a..2694a356a17904e7572b767b1=
+6ed0cee806406cf 100644
+> --- a/drivers/gpu/drm/msm/msm_mmu.h
+> +++ b/drivers/gpu/drm/msm/msm_mmu.h
+> @@ -16,6 +16,7 @@ struct msm_mmu_funcs {
+>         int (*unmap)(struct msm_mmu *mmu, uint64_t iova, size_t len);
+>         void (*destroy)(struct msm_mmu *mmu);
+>         void (*resume_translation)(struct msm_mmu *mmu);
+> +       void (*set_stall)(struct msm_mmu *mmu, bool enable);
+>  };
+>
+>  enum msm_mmu_type {
+>
+> --
+> 2.47.1
+>
