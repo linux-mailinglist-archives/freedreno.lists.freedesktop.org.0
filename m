@@ -2,82 +2,104 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E819A50C05
-	for <lists+freedreno@lfdr.de>; Wed,  5 Mar 2025 20:56:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46902A50D2C
+	for <lists+freedreno@lfdr.de>; Wed,  5 Mar 2025 22:14:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5DCD89CE3;
-	Wed,  5 Mar 2025 19:56:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6D0410E827;
+	Wed,  5 Mar 2025 21:14:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lPRz8OqA";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qOYZtnq6";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
- [209.85.166.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B48A89CE3
- for <freedreno@lists.freedesktop.org>; Wed,  5 Mar 2025 19:56:41 +0000 (UTC)
-Received: by mail-il1-f181.google.com with SMTP id
- e9e14a558f8ab-3d0465a8d34so63291425ab.0
- for <freedreno@lists.freedesktop.org>; Wed, 05 Mar 2025 11:56:41 -0800 (PST)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E55D110E825
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Mar 2025 21:14:06 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5495c1e1b63so5208459e87.0
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Mar 2025 13:14:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741204599; x=1741809399; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EK4b3HyJgM3hGDfJ0A/txTzVctgiGO140h7Vyc0X/Ho=;
- b=lPRz8OqAf/LH3aVsw6Mnf9ERhvpprwLIpwlYStvm0zdOqiqCdLCqAALVJcxf6j8l8M
- M3AzBXLQVU7XnbWJFq5ZiT4To0qX4RWUfL2aPPjjsslsoGd5116ubpngc/HQWYeosCSz
- WXKil74ISQqNSUnyKWt92mYrPWrHWHUNNP5Mod8bywkesINcwqCv2udZXsR5eDu0x0NM
- XnWFUnt1W2c3T3cxxY3I+VOYT2zSNEp3BFgAdxRkmYOQ+0PpgFT1A0S1kGe5Gc7gXDqS
- HzuUVH33a1NAh0+XJ5nhAeOHBBq83Xg/6W8Tz+DpDNdjCJxJ1hKyBUHe6vb2tGdIltGl
- gpxA==
+ d=linaro.org; s=google; t=1741209245; x=1741814045; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=4jAKYbTUJpewVNmKScs/KV5h9MR6DBwgVHxpvatN8NY=;
+ b=qOYZtnq6W4hBlrN2VVbHSY/dYggqKUjnKD+Iihz7QXsRIEk0GINtYacJFAzhfMqvi0
+ DEmsC5fQf2G6Ra8UtmfPQFwCjN/OPAYJEHvrPd2LoIpsiaLtlt+h+GV7RiiA1rDEWQDh
+ L0LUV5Bi67gcjl0uM5uv7mPxjrJbGalEM43TBwkbZhfi/9/+0Uhv0pwXG2FVQ8V928OB
+ Jvt8PWxdkUfkQNHg9zTTuS7b64mRzzFQRSK2rcD6p0sANdEHposFBrVkB816sIEnHAK6
+ 6svcFCurnavresgX9ONB4CwOkruIejGIsFJu95P98vh3eCpY0KVj5ajWv1UiuwhIvG3h
+ T9gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741204599; x=1741809399;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EK4b3HyJgM3hGDfJ0A/txTzVctgiGO140h7Vyc0X/Ho=;
- b=GVmLTJCD7FPDs9oV/x4JWLe4RrcWo1jnE9R9pe8x/jj4Mp54jXPF77ZUzS3eQttV2V
- UagDO7UZLieYO9LY4KDZXPwGCRj61nahompH7B9OGAVK3cTw7JBP/eHbPO6qV7xCD5F2
- hQAffxDdk96cfj/YRtlPnjJimoM3kKsSTaQs5fwTAiHvVDChzHA1KW3OYGQQo1+mJqff
- feh9puZ0bO0nLtxuUk3KRyiU+MmeC4ci/ua2R9IX0/HTy08DPMf52Ot9GUZi/Jv18Aop
- v9MEzgtc7Kc7gJGWjaEoMgDhC7uVOmcC13eahsDNjZNtXMDzzNe+nceaSv69hUSB9hHO
- hDZA==
+ d=1e100.net; s=20230601; t=1741209245; x=1741814045;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=4jAKYbTUJpewVNmKScs/KV5h9MR6DBwgVHxpvatN8NY=;
+ b=nGcVTf4cDeUFLUuQzP7hMOP05J3BueaLaypD2eHY7dmuIC/RmwVXTNchiDo/SXEbHR
+ UjVicECuE+J1P1wbagYUNpSNhjUiq+4MwMO+c8NFwa+hGA1G1SaJWd5geMW3PzHKforR
+ 21NitF2MmWyLyHBj/R/SQ/XHqyXrtoabALdKm7fxHroNwWML4spSbekTuh9g6Ahxs8I/
+ PmyeCJB1fkIV2O32xCOj4v7ygbmacHqGrTgAFrAqRFaPADdFrPsoUv+H+zvFsJ7ZFLa/
+ xU3wYdrmsAoSsCRXeYveSRbSBaU33HVHPDfNgqivwzWuzmV/amev/p/kMiu/wFuaDMtp
+ 0Rag==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV4dRJfc94F9fl+o7gSTdbItGMDzKFhHfpHvNMinZuaBPxJgA36gixW2htVQm74pZXuhDaOdsDwQR4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywvc2VjZpkK9tXD7Bcfif9uNxDGewuKa8xRlIIyvv62485i3rcJ
- tYuTzgHE14SD9UMuFmvPsQmGo2qFweUqwF2e5y4Tr/X0yJVd669vJXeuEPkQfwpn8zFIhHOisKe
- HAhzQQwcUXeUc1xYsnWJclINHe94=
-X-Gm-Gg: ASbGncukzEEZSaipLl7MRMaGRNr8Ucq5sFQ/DCbToimWS2sGL+T7moLts6unxpPAfeZ
- NsfpY5F0TC5FQMZGRa/YNDTVpbuliH5WXbXjbvCfnf5/3EtnEefPNa5/lIRnavayYm6T4GTVW/U
- U1yRUoa6LO404K8BrjptqEbaft6g==
-X-Google-Smtp-Source: AGHT+IEvt+UeE/beJRdg2VM3BUepDP4RJEo89AbGQ5rVgDSPcu2ds6I3XEN68wZm8UcUBUrYG/0mZAlqvUDAOGYFzYg=
-X-Received: by 2002:a05:6e02:216d:b0:3d1:9999:4f62 with SMTP id
- e9e14a558f8ab-3d42b873b43mr55740585ab.2.1741204598734; Wed, 05 Mar 2025
- 11:56:38 -0800 (PST)
+ AJvYcCUANhytWBIbG8cINNm5BX4BQavz0SUpN+ndusV+QCINLcCqsvx53BJIeuNOLKC4BSk9RTOdaZHqGmI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrluwzBWNDDmUnzBEx0wXslMGOyqUAyX7O4Up3T+l6ug2dANFI
+ IVgOOHIzN++uWlvUouA7Jgwe3XgMKEhaaxXlq6GVGThDI+zvuvFgXXmY1wT1qjc=
+X-Gm-Gg: ASbGncskAsVwf82fKTJmkKcDwV6X6GcPtGDFuqWGkEXXBBNVkyfMWr/G84RX5LmZU7m
+ XmT6Fe0pUni7SEyNnhtwtkbsAGo32mS73f5OhOCBp5t0vcJwAfq2o3GFDlyWkvQfGlL3IdUJk3I
+ BP5GOX+T58em56P1FiAaQSfXrhP8+UqzfGUh4S5E+lwmd8QCYH+TM4sF966k8UBcHtz9DD37Lwy
+ GFdTe+wc0/09IMIrPmv3ujRIXY8F6wwwh0mJrcZurPIuxeqKBTkmXOjyuqjsq9exrUoJ1htFkP4
+ 249bUf46fR2id1yxKXn4xceuKkdNyM+e4+lxcIgWI3XhBQzVU1O3m/uYOorUAu1gzebN7DijSBw
+ MJNNDjkwHffZ9dAPCLQMQt8Bl
+X-Google-Smtp-Source: AGHT+IHASTT0I2RZzxvHW6GJOilteC+6lJrj4HK7/2n8Ey2P5/4CP44E+Gzu2m+8VSksWNVCFKgRdQ==
+X-Received: by 2002:a05:6512:b8f:b0:545:62c:4b13 with SMTP id
+ 2adb3069b0e04-5497d37704fmr1656131e87.40.1741209244983; 
+ Wed, 05 Mar 2025 13:14:04 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54986c730e2sm24619e87.18.2025.03.05.13.14.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Mar 2025 13:14:03 -0800 (PST)
+Date: Wed, 5 Mar 2025 23:14:01 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Bartosz Golaszewski <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
+ quic_fangez@quicinc.com, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 5/8] drm/msm/dp: Add support for lane mapping configuration
+Message-ID: <td4dkb6qoxfa7lfmfszlowov6qxdukqq5qnwnhmajnskr5mu2u@todczb6inttv>
+References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
+ <20241129-add-displayport-support-for-qcs615-platform-v1-5-09a4338d93ef@quicinc.com>
+ <CAA8EJpoY8hySQd00yODGeHjSpVZpEBLjF3aBiKGJPUhpr-2mgw@mail.gmail.com>
+ <d2a3cd6f-1077-4edb-9f0c-0c940a639050@quicinc.com>
+ <zvapsvfftai4fp6vwrn33edqsyuuprq2pxz6spij6j7t4y6xmn@zzgp7gbsivbk>
+ <93ddb63c-42da-43c8-9a77-c517ca5d6432@quicinc.com>
+ <CAA8EJprAFYD6ykN10-r=JwHM4A4XeDDcZVcVWYp_5A5FP-=RyA@mail.gmail.com>
+ <e647d143-dc6e-483d-ac81-2733fb526fc3@quicinc.com>
+ <h6tmbuv26tdv633udphttsydpbvnwownulvglcxktdaxqdhtvw@ereftfs5hiso>
+ <9fb34496-d823-414a-b7dc-54b4677829e5@quicinc.com>
 MIME-Version: 1.0
-References: <20250304-msm-gpu-fault-fixes-next-v4-0-be14be37f4c3@gmail.com>
- <20250304-msm-gpu-fault-fixes-next-v4-5-be14be37f4c3@gmail.com>
- <CAF6AEGufRP9NuqC1gYy6jrQ9z+XqGFd7KNsbQw8C8NscSOJnJQ@mail.gmail.com>
- <CACu1E7FPO253T+EvdJdaBuqh3kb7H_r7WhBE+bVxSHMPq6ixEg@mail.gmail.com>
-In-Reply-To: <CACu1E7FPO253T+EvdJdaBuqh3kb7H_r7WhBE+bVxSHMPq6ixEg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 5 Mar 2025 11:56:27 -0800
-X-Gm-Features: AQ5f1Jo3pnEpBqQToA3LD72hOF_KzihlX-Y2K6yNJMcq_UDDF0AT1ChF9aDzUjw
-Message-ID: <CAF6AEGu+eHBzSu-4vsGJEcJtDhOV=LnDM1xMZJVK3=1o71B0KQ@mail.gmail.com>
-Subject: Re: [PATCH v4 5/5] drm/msm: Temporarily disable stall-on-fault after
- a page fault
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9fb34496-d823-414a-b7dc-54b4677829e5@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,324 +115,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 5, 2025 at 11:38=E2=80=AFAM Connor Abbott <cwabbott0@gmail.com>=
- wrote:
->
-> On Wed, Mar 5, 2025 at 2:07=E2=80=AFPM Rob Clark <robdclark@gmail.com> wr=
-ote:
-> >
-> > On Tue, Mar 4, 2025 at 8:57=E2=80=AFAM Connor Abbott <cwabbott0@gmail.c=
-om> wrote:
-> > >
-> > > When things go wrong, the GPU is capable of quickly generating millio=
-ns
-> > > of faulting translation requests per second. When that happens, in th=
-e
-> > > stall-on-fault model each access will stall until it wins the race to
-> > > signal the fault and then the RESUME register is written. This slows
-> > > processing page faults to a crawl as the GPU can generate faults much
-> > > faster than the CPU can acknowledge them. It also means that all
-> > > available resources in the SMMU are saturated waiting for the stalled
-> > > transactions, so that other transactions such as transactions generat=
-ed
-> > > by the GMU, which shares a context bank with the GPU, cannot proceed.
-> >
-> > Nit, the GMU does not actually share a cb.. looking on x1e80100.dtsi,
-> > the GMU has cb 5 and gpu has 0 and 1.  (Currently we just use the
-> > first, but I guess the 2nd would be used if we supported protected
-> > content?)
->
-> Yeah, I realized after writing this that's the case. But I guess the
-> QoS issues happen even with separate context banks due to the way they
-> allocate translation units?
+On Wed, Mar 05, 2025 at 06:16:45PM +0800, Xiangxu Yin wrote:
+> 
+> 
+> On 12/20/2024 5:45 AM, Dmitry Baryshkov wrote:
+> > On Thu, Dec 19, 2024 at 06:36:38PM +0800, Xiangxu Yin wrote:
+> >>
+> >>
+> >> On 12/5/2024 7:40 PM, Dmitry Baryshkov wrote:
+> >>> On Thu, 5 Dec 2024 at 13:28, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
+> >>>>
+> >>>>
+> >>>>
+> >>>> On 12/2/2024 6:46 PM, Dmitry Baryshkov wrote:
+> >>>>> On Mon, Dec 02, 2024 at 04:40:05PM +0800, Xiangxu Yin wrote:
+> >>>>>>
+> >>>>>>
+> >>>>>> On 11/29/2024 9:50 PM, Dmitry Baryshkov wrote:
+> >>>>>>> On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
+> >>>>>>>>
+> >>>>>>>> Add the ability to configure lane mapping for the DP controller. This is
+> >>>>>>>> required when the platform's lane mapping does not follow the default
+> >>>>>>>> order (0, 1, 2, 3). The mapping rules are now configurable via the
+> >>>>>>>> `data-lane` property in the devicetree. This property defines the
+> >>>>>>>> logical-to-physical lane mapping sequence, ensuring correct lane
+> >>>>>>>> assignment for non-default configurations.
+> >>>>>>>>
+> >>>>>>>> Signed-off-by: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+> >>>>>>>> ---
+> >>>>>>>>  drivers/gpu/drm/msm/dp/dp_catalog.c | 11 +++++------
+> >>>>>>>>  drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
+> >>>>>>>>  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  2 +-
+> >>>>>>>>  drivers/gpu/drm/msm/dp/dp_panel.c   | 13 ++++++++++---
+> >>>>>>>>  drivers/gpu/drm/msm/dp/dp_panel.h   |  3 +++
+> >>>>>>>>  5 files changed, 20 insertions(+), 11 deletions(-)
+> >>>>>>>>
+> >>>>>
+> >>>>>>>> @@ -461,6 +460,7 @@ static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
+> >>>>>>>>         struct msm_dp_panel_private *panel;
+> >>>>>>>>         struct device_node *of_node;
+> >>>>>>>>         int cnt;
+> >>>>>>>> +       u32 lane_map[DP_MAX_NUM_DP_LANES] = {0, 1, 2, 3};
+> >>>>>>>>
+> >>>>>>>>         panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
+> >>>>>>>>         of_node = panel->dev->of_node;
+> >>>>>>>> @@ -474,10 +474,17 @@ static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
+> >>>>>>>>                 cnt = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
+> >>>>>>>>         }
+> >>>>>>>>
+> >>>>>>>> -       if (cnt > 0)
+> >>>>>>>> +       if (cnt > 0) {
+> >>>>>>>> +               struct device_node *endpoint;
+> >>>>>>>> +
+> >>>>>>>>                 msm_dp_panel->max_dp_lanes = cnt;
+> >>>>>>>> -       else
+> >>>>>>>> +               endpoint = of_graph_get_endpoint_by_regs(of_node, 1, -1);
+> >>>>>>>> +               of_property_read_u32_array(endpoint, "data-lanes", lane_map, cnt);
+> >>>>>>>> +       } else {
+> >>>>>>>>                 msm_dp_panel->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
+> >>>>>>>> +       }
+> >>>>>>>
+> >>>>>>> Why? This sounds more like dp_catalog or (after the refactoring at
+> >>>>>>> [1]) dp_ctrl. But not the dp_panel.
+> >>>>>>>
+> >>>>>>> [1] https://patchwork.freedesktop.org/project/freedreno/series/?ordering=-last_updated
+> >>>>>>>
+> >>>>>> We are used the same prop 'data-lanes = <3 2 0 1>' in mdss_dp_out to keep similar behaviour with dsi_host_parse_lane_data.
+> >>>>>> From the modules used, catalog seems more appropriate, but since the max_dp_lanes is parsed at dp_panel, it has been placed here.
+> >>>>>> Should lane_map parsing in msm_dp_catalog_get, and keep max_dp_lanes parsing at the dp_panel?
+> >>>>>
+> >>>>> msm_dp_catalog_get() is going to be removed. Since the functions that
+> >>>>> are going to use it are in dp_ctrl module, I thought that dp_ctrl.c is
+> >>>>> the best place. A better option might be to move max_dp_lanes and
+> >>>>> max_dp_link_rate to dp_link.c as those are link params. Then
+> >>>>> lane_mapping also logically becomes a part of dp_link module.
+> >>>>>
+> >>>>> But now I have a more important question (triggered by Krishna's email
+> >>>>> about SAR2130P's USB): if the lanes are swapped, does USB 3 work on that
+> >>>>> platform? Or is it being demoted to USB 2 with nobody noticing that?
+> >>>>>
+> >>>>> If lanes 0/1 and 2/3 are swapped, shouldn't it be handled in the QMP
+> >>>>> PHY, where we handle lanes and orientation switching?
+> >>>>>
+> >>>> I have checked the DP hardware programming guide and also discussed it with Krishna.
+> >>>>
+> >>>> According to the HPG section '3.4.2 PN and Lane Swap: PHY supports PN swap for mainlink and AUX, but it doesn't support lane swap feature.'
+> >>>>
+> >>>> The lane swap mainly refers to the logical to physical mapping between the DP controller and the DP PHY. The PHY handles polarity inversion, and the lane map does not affect USB behavior.
+> >>>>
+> >>>> On the QCS615 platform, we have also tested when DP works with lane swap, other USB 3.0 ports can works normally at super speed.
+> >>>
+> >>> "Other USB 3.0 ports"? What does that mean? Please correct me if I'm
+> >>> wrong, you should have a USB+DP combo port that is being managed with
+> >>> combo PHY. Does USB 3 work on that port?
+> >>>
+> >>> In other words, where the order of lanes is actually inverted? Between
+> >>> DP and combo PHY? Within combo PHY? Between the PHY and the pinout?
+> >>> Granted that SM6150 was supported in msm-4.14 could you possibly point
+> >>> out a corresponding commit or a set of commits from that kernel?
+> >>>
+> >> For "Other USB 3.0 ports", as replied in USBC driver, USB3 primary phy works for other four USB type-A port.
+> > 
+> > So if that's the USB3 primary, then why do you mention here at all? We
+> > are taling about the secondary USB3 + DP.
+> > 
+> OK, sorry for confusing you.
+> >> The REG_DP_LOGICAL2PHYSICAL_LANE_MAPPING mapping determines how logical lanes (0, 1, 2, 3) map to physical lanes sent to the PHY.
+> >> This ensures alignment with hardware requirements.
+> >> The PHY’s polarity inversion only adjusts signal polarity and doesn’t affect lane mapping.
+> >> Both DP ctrl and PHY lane related config will not affect USB phy.
+> > 
+> > Probably we misundersand each other. The DP PHY should have orientation
+> > switch register, which controls whether 2-lane DP uses lanes 0/1 or 2/3.
+> > Can you use that register?
+> > 
+> Yes, DP PHY have orientation register as below.
+> DP_PHY_DP_PHY_CFG_1(0x88e9014) bit(7) SW_PORTSELECT
+> > Also, could you _please_ answer the question that I have asked? Is the
+> > order of lanes inverted between the DP controller and DP PHY? Or between
+> > DP PHY and the DP connector? If one uses USB3 signals coming from this
+> > port (yes, on the other board, not on the Ride), would they also need to
+> > switch the order of USB3 lanes? If one uses a DP-over-USB-C, are DP
+> > lanes are swapped?
+> > 
+> It's inverted between the DP controller and DP PHY.
+> If other use USB3 on the other board, will not need switch order of USB3 lanes,
+> If one use DP-over-USB-C, then need DP lanes swap.
 
-Right, however resources are allocated to track pending translations
-seems to be shared across CBs
+Thanks!
 
-BR,
--R
+> >> Without extra Type-C mapping, the DP controller’s mapping indirectly decides how signals are transmitted through Type-C.
+> >> Mapping ensures proper data transmission and compatibility across interfaces.
+> >>
+> >> We only found sm6150 need this lane mapping config, 
+> >> For msm 4.14, please refer these links,
+> >> https://android.googlesource.com/kernel/msm/+/af03eef7d4c3cbd1fe26c67d4f1915b05d0c1488/arch/arm64/boot/dts/qcom/sm6150-sde.dtsi (qcom,logical2physical-lane-map)
+> >> https://android.googlesource.com/kernel/msm/+/af03eef7d4c3cbd1fe26c67d4f1915b05d0c1488/drivers/gpu/drm/msm/dp/dp_parser.c (dp_parser_misc)
+> >> https://android.googlesource.com/kernel/msm/+/af03eef7d4c3cbd1fe26c67d4f1915b05d0c1488/drivers/gpu/drm/msm/dp/dp_catalog_v200.c (dp_catalog_ctrl_lane_mapping_v200)
+> >>
+> >> If need process orientation info like dp_catalog_ctrl_lane_mapping_v200, 
+> >> then 
+> >> if implement in DP phy, then we need config dp_link register in PHY,
+> >> if implement in DP link, then we need pass orientation info to DP driver, perhaps we could add a new attribute to the phy_configure_opts_dp structure to pass this.
+> >> Do you have any suggestions?
+> > 
+> > Does SW_PORTSEL_VAL affect the DP lanes on this platform?
+> > 
+> SW_PORTSEL_VAL for USB3PHY_PCS_MISC_TYPEC_CTRL will not affect DP lanes in this DP or USB3 chip series.
+> USB3 will use USB3PHY_PCS_MISC_TYPEC_CTRL(SW_PORTSEL_VAL BIT_0) and DP will use DP_PHY_DP_PHY_CFG_1(SW_PORTSELECT BIT_7)
 
->
-> Connor
->
-> >
-> > fwiw, you can read this from dtsi, ie. in the GMU node, "iommus =3D
-> > <&adreno_smmu 5 0x0>;"
-> >
-> > > This causes a GMU watchdog timeout, which leads to a failed reset
-> > > because GX cannot collapse when there is a transaction pending and a
-> > > permanently hung GPU.
-> > >
-> > > On older platforms with qcom,smmu-v2, it seems that when one transact=
-ion
-> > > is stalled subsequent faulting transactions are terminated, which avo=
-ids
-> > > this problem, but the MMU-500 follows the spec here.
-> > >
-> > > To work around these problem, disable stall-on-fault as soon as we ge=
-t a
-> > > page fault until a cooldown period after pagefaults stop. This allows
-> > > the GMU some guaranteed time to continue working. We only use
-> > > stall-on-fault to halt the GPU while we collect a devcoredump and we
-> > > always terminate the transaction afterward, so it's fine to miss some
-> > > subsequent page faults. We also keep it disabled so long as the curre=
-nt
-> > > devcoredump hasn't been deleted, because in that case we likely won't
-> > > capture another one if there's a fault.
-> > >
-> > > After this commit HFI messages still occasionally time out, because t=
-he
-> > > crashdump handler doesn't run fast enough to let the GMU resume, but =
-the
-> > > driver seems to recover from it. This will probably go away after the
-> > > HFI timeout is increased.
-> > >
-> > > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  2 ++
-> > >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  4 ++++
-> > >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 42 +++++++++++++++++++++++=
-+++++++++-
-> > >  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 24 +++++++++++++++++++
-> > >  drivers/gpu/drm/msm/msm_iommu.c         |  9 +++++++
-> > >  drivers/gpu/drm/msm/msm_mmu.h           |  1 +
-> > >  6 files changed, 81 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/=
-msm/adreno/a5xx_gpu.c
-> > > index 71dca78cd7a5324e9ff5b14f173e2209fa42e196..670141531112c9d29cef8=
-ef1fd51b74759fdd6d2 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> > > @@ -131,6 +131,8 @@ static void a5xx_submit(struct msm_gpu *gpu, stru=
-ct msm_gem_submit *submit)
-> > >         struct msm_ringbuffer *ring =3D submit->ring;
-> > >         unsigned int i, ibs =3D 0;
-> > >
-> > > +       adreno_check_and_reenable_stall(adreno_gpu);
-> > > +
-> > >         if (IS_ENABLED(CONFIG_DRM_MSM_GPU_SUDO) && submit->in_rb) {
-> > >                 ring->cur_ctx_seqno =3D 0;
-> > >                 a5xx_submit_in_rb(gpu, submit);
-> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/=
-msm/adreno/a6xx_gpu.c
-> > > index 0ae29a7c8a4d3f74236a35cc919f69d5c0a384a0..5a34cd2109a2d74c92841=
-448a61ccb0d4f34e264 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > @@ -212,6 +212,8 @@ static void a6xx_submit(struct msm_gpu *gpu, stru=
-ct msm_gem_submit *submit)
-> > >         struct msm_ringbuffer *ring =3D submit->ring;
-> > >         unsigned int i, ibs =3D 0;
-> > >
-> > > +       adreno_check_and_reenable_stall(adreno_gpu);
-> > > +
-> > >         a6xx_set_pagetable(a6xx_gpu, ring, submit);
-> > >
-> > >         get_stats_counter(ring, REG_A6XX_RBBM_PERFCTR_CP(0),
-> > > @@ -335,6 +337,8 @@ static void a7xx_submit(struct msm_gpu *gpu, stru=
-ct msm_gem_submit *submit)
-> > >         struct msm_ringbuffer *ring =3D submit->ring;
-> > >         unsigned int i, ibs =3D 0;
-> > >
-> > > +       adreno_check_and_reenable_stall(adreno_gpu);
-> > > +
-> > >         /*
-> > >          * Toggle concurrent binning for pagetable switch and set the=
- thread to
-> > >          * BR since only it can execute the pagetable switch packets.
-> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/dr=
-m/msm/adreno/adreno_gpu.c
-> > > index 1238f326597808eb28b4c6822cbd41a26e555eb9..bac586101dc0494f46b06=
-9a8440a45825dfe9b5e 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > @@ -246,16 +246,53 @@ u64 adreno_private_address_space_size(struct ms=
-m_gpu *gpu)
-> > >         return SZ_4G;
-> > >  }
-> > >
-> > > +void adreno_check_and_reenable_stall(struct adreno_gpu *adreno_gpu)
-> > > +{
-> > > +       struct msm_gpu *gpu =3D &adreno_gpu->base;
-> > > +       unsigned long flags;
-> > > +
-> > > +       /*
-> > > +        * Wait until the cooldown period has passed and we would act=
-ually
-> > > +        * collect a crashdump to re-enable stall-on-fault.
-> > > +        */
-> > > +       spin_lock_irqsave(&adreno_gpu->fault_stall_lock, flags);
-> > > +       if (!adreno_gpu->stall_enabled &&
-> > > +                       ktime_after(ktime_get(), adreno_gpu->stall_re=
-enable_time) &&
-> > > +                       !READ_ONCE(gpu->crashstate)) {
-> > > +               adreno_gpu->stall_enabled =3D true;
-> > > +
-> > > +               gpu->aspace->mmu->funcs->set_stall(gpu->aspace->mmu, =
-true);
-> > > +       }
-> > > +       spin_unlock_irqrestore(&adreno_gpu->fault_stall_lock, flags);
-> > > +}
-> > > +
-> > >  #define ARM_SMMU_FSR_TF                 BIT(1)
-> > >  #define ARM_SMMU_FSR_PF                        BIT(3)
-> > >  #define ARM_SMMU_FSR_EF                        BIT(4)
-> > > +#define ARM_SMMU_FSR_SS                        BIT(30)
-> > >
-> > >  int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, in=
-t flags,
-> > >                          struct adreno_smmu_fault_info *info, const c=
-har *block,
-> > >                          u32 scratch[4])
-> > >  {
-> > > +       struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-> > >         const char *type =3D "UNKNOWN";
-> > > -       bool do_devcoredump =3D info && !READ_ONCE(gpu->crashstate);
-> > > +       bool do_devcoredump =3D info && (info->fsr & ARM_SMMU_FSR_SS)=
- &&
-> > > +               !READ_ONCE(gpu->crashstate);
-> > > +       unsigned long irq_flags;
-> > > +
-> > > +       /*
-> > > +        * In case there is a subsequent storm of pagefaults, disable
-> > > +        * stall-on-fault for at least half a second.
-> > > +        */
-> > > +       spin_lock_irqsave(&adreno_gpu->fault_stall_lock, irq_flags);
-> > > +       if (adreno_gpu->stall_enabled) {
-> > > +               adreno_gpu->stall_enabled =3D false;
-> > > +
-> > > +               gpu->aspace->mmu->funcs->set_stall(gpu->aspace->mmu, =
-false);
-> > > +       }
-> > > +       adreno_gpu->stall_reenable_time =3D ktime_add_ms(ktime_get(),=
- 500);
-> > > +       spin_unlock_irqrestore(&adreno_gpu->fault_stall_lock, irq_fla=
-gs);
-> > >
-> > >         /*
-> > >          * If we aren't going to be resuming later from fault_worker,=
- then do
-> > > @@ -1143,6 +1180,9 @@ int adreno_gpu_init(struct drm_device *drm, str=
-uct platform_device *pdev,
-> > >                 adreno_gpu->info->inactive_period);
-> > >         pm_runtime_use_autosuspend(dev);
-> > >
-> > > +       spin_lock_init(&adreno_gpu->fault_stall_lock);
-> > > +       adreno_gpu->stall_enabled =3D true;
-> > > +
-> > >         return msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->bas=
-e,
-> > >                         gpu_name, &adreno_gpu_config);
-> > >  }
-> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/dr=
-m/msm/adreno/adreno_gpu.h
-> > > index dcf454629ce037b2a8274a6699674ad754ce1f07..a528036b46216bd898f6d=
-48c5fb0555c4c4b053b 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > > @@ -205,6 +205,28 @@ struct adreno_gpu {
-> > >         /* firmware: */
-> > >         const struct firmware *fw[ADRENO_FW_MAX];
-> > >
-> > > +       /**
-> > > +        * fault_stall_lock:
-> >
-> > nit, @fault_stall_lock:  And for
-> > fault_stall_reenable_time/stall_enabled, it wouldn't hurt to add
-> > something along the lines of "Protected by @fault_stall_lock".  I've
-> > been slowly trying to improve the comment docs over time, I have some
-> > of that in my vmbind patchset.
-> >
-> > Anyways, with those nits addressed, r-b
-> >
-> > BR,
-> > -R
-> >
-> > > +        *
-> > > +        * Serialize changes to stall-on-fault state.
-> > > +        */
-> > > +       spinlock_t fault_stall_lock;
-> > > +
-> > > +       /**
-> > > +        * fault_stall_reenable_time:
-> > > +        *
-> > > +        * if stall_enabled is false, when to reenable stall-on-fault=
-.
-> > > +        */
-> > > +       ktime_t stall_reenable_time;
-> > > +
-> > > +       /**
-> > > +        * stall_enabled:
-> > > +        *
-> > > +        * Whether stall-on-fault is currently enabled.
-> > > +        */
-> > > +       bool stall_enabled;
-> > > +
-> > > +
-> > >         struct {
-> > >                 /**
-> > >                  * @rgb565_predicator: Unknown, introduced with A650 =
-family,
-> > > @@ -629,6 +651,8 @@ int adreno_fault_handler(struct msm_gpu *gpu, uns=
-igned long iova, int flags,
-> > >                          struct adreno_smmu_fault_info *info, const c=
-har *block,
-> > >                          u32 scratch[4]);
-> > >
-> > > +void adreno_check_and_reenable_stall(struct adreno_gpu *gpu);
-> > > +
-> > >  int adreno_read_speedbin(struct device *dev, u32 *speedbin);
-> > >
-> > >  /*
-> > > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/ms=
-m_iommu.c
-> > > index 2a94e82316f95c5f9dcc37ef0a4664a29e3492b2..8d5380e6dcc217c7c209b=
-51527bf15748b3ada71 100644
-> > > --- a/drivers/gpu/drm/msm/msm_iommu.c
-> > > +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> > > @@ -351,6 +351,14 @@ static void msm_iommu_resume_translation(struct =
-msm_mmu *mmu)
-> > >                 adreno_smmu->resume_translation(adreno_smmu->cookie, =
-true);
-> > >  }
-> > >
-> > > +static void msm_iommu_set_stall(struct msm_mmu *mmu, bool enable)
-> > > +{
-> > > +       struct adreno_smmu_priv *adreno_smmu =3D dev_get_drvdata(mmu-=
->dev);
-> > > +
-> > > +       if (adreno_smmu->set_stall)
-> > > +               adreno_smmu->set_stall(adreno_smmu->cookie, enable);
-> > > +}
-> > > +
-> > >  static void msm_iommu_detach(struct msm_mmu *mmu)
-> > >  {
-> > >         struct msm_iommu *iommu =3D to_msm_iommu(mmu);
-> > > @@ -399,6 +407,7 @@ static const struct msm_mmu_funcs funcs =3D {
-> > >                 .unmap =3D msm_iommu_unmap,
-> > >                 .destroy =3D msm_iommu_destroy,
-> > >                 .resume_translation =3D msm_iommu_resume_translation,
-> > > +               .set_stall =3D msm_iommu_set_stall,
-> > >  };
-> > >
-> > >  struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quir=
-ks)
-> > > diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_=
-mmu.h
-> > > index 88af4f490881f2a6789ae2d03e1c02d10046331a..2694a356a17904e7572b7=
-67b16ed0cee806406cf 100644
-> > > --- a/drivers/gpu/drm/msm/msm_mmu.h
-> > > +++ b/drivers/gpu/drm/msm/msm_mmu.h
-> > > @@ -16,6 +16,7 @@ struct msm_mmu_funcs {
-> > >         int (*unmap)(struct msm_mmu *mmu, uint64_t iova, size_t len);
-> > >         void (*destroy)(struct msm_mmu *mmu);
-> > >         void (*resume_translation)(struct msm_mmu *mmu);
-> > > +       void (*set_stall)(struct msm_mmu *mmu, bool enable);
-> > >  };
-> > >
-> > >  enum msm_mmu_type {
-> > >
-> > > --
-> > > 2.47.1
-> > >
+Is it possible to set this bit from the PHY driver rather than remapping
+the lanes in the DP driver?
+
+> >>
+> >>>>
+> >>>> Additionally, if it were placed on the PHY side, the PHY would need access to dp_link’s domain which can access REG_DP_LOGICAL2PHYSICAL_LANE_MAPPING.
+> >>>
+> >>> I was thinking about inverting the SW_PORTSEL_VAL bit.
+> >>>
+> >>>> Therefore, we believe that the  max_dp_link_rate,max_dp_lanes and lane_map move to dp_link side is better.
+> >>>>
+> >>>>>>>> +
+> >>>>>>>> +       memcpy(msm_dp_panel->lane_map, lane_map, msm_dp_panel->max_dp_lanes * sizeof(u32));
+> >>>>>>>>
+> >>>>>>>>         msm_dp_panel->max_dp_link_rate = msm_dp_panel_link_frequencies(of_node);
+> >>>>>>>>         if (!msm_dp_panel->max_dp_link_rate)
+> >>>>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
+> >>>>>>>> index 0e944db3adf2f187f313664fe80cf540ec7a19f2..7603b92c32902bd3d4485539bd6308537ff75a2c 100644
+> >>>>>>>> --- a/drivers/gpu/drm/msm/dp/dp_panel.h
+> >>>>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.h
+> >>>>>>>> @@ -11,6 +11,8 @@
+> >>>>>>>>  #include "dp_aux.h"
+> >>>>>>>>  #include "dp_link.h"
+> >>>>>>>>
+> >>>>>>>> +#define DP_MAX_NUM_DP_LANES    4
+> >>>>>>>> +
+> >>>>>>>>  struct edid;
+> >>>>>>>>
+> >>>>>>>>  struct msm_dp_display_mode {
+> >>>>>>>> @@ -46,6 +48,7 @@ struct msm_dp_panel {
+> >>>>>>>>         bool video_test;
+> >>>>>>>>         bool vsc_sdp_supported;
+> >>>>>>>>
+> >>>>>>>> +       u32 lane_map[DP_MAX_NUM_DP_LANES];
+> >>>>>>>>         u32 max_dp_lanes;
+> >>>>>>>>         u32 max_dp_link_rate;
+> >>>>>>>>
+> >>>>>>>>
+> >>>>>>>> --
+> >>>>>>>> 2.25.1
+> >>>>>>>>
+> >>>>>>>
+> >>>>>>>
+> >>>>>>
+> >>>>>>
+> >>>>>> --
+> >>>>>> linux-phy mailing list
+> >>>>>> linux-phy@lists.infradead.org
+> >>>>>> https://lists.infradead.org/mailman/listinfo/linux-phy
+> >>>>>
+> >>>>
+> >>>
+> >>>
+> >>
+> > 
+> 
+
+-- 
+With best wishes
+Dmitry
