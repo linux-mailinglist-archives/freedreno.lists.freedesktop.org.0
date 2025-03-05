@@ -2,70 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21F1EA50B34
-	for <lists+freedreno@lfdr.de>; Wed,  5 Mar 2025 20:12:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44340A50BA2
+	for <lists+freedreno@lfdr.de>; Wed,  5 Mar 2025 20:38:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E900D89A94;
-	Wed,  5 Mar 2025 19:12:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1707210E2A9;
+	Wed,  5 Mar 2025 19:38:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cVPiWgpm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TpyTTaQO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
- [209.85.166.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32A6589A94
- for <freedreno@lists.freedesktop.org>; Wed,  5 Mar 2025 19:12:49 +0000 (UTC)
-Received: by mail-il1-f176.google.com with SMTP id
- e9e14a558f8ab-3d0465a8d34so62979645ab.0
- for <freedreno@lists.freedesktop.org>; Wed, 05 Mar 2025 11:12:49 -0800 (PST)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27278894EA
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Mar 2025 19:38:45 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2217875d103so19477185ad.3
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Mar 2025 11:38:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741201968; x=1741806768; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1741203525; x=1741808325; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SZzymmmsUuwspRI0dSqBHFmnHJEtQiDmh4Y19RgEygc=;
- b=cVPiWgpmPRLn6mr23uPkrWZezzcKT5xsWFNM1NmAGmH79WFLkMQOOCB21qcbqFBYef
- fcGGCU5Q3y3LASmxqoq3SmgBi6XINsV31fcxi6S88D8MYf1r/YTJHc/1K/DWowSJjutZ
- wARNzNl0g1+HkldEzYh6sqGmChbvKwm0V3yuRtkEdN7x/FfAlwLwoVmZj6q65KcdPprm
- T15QYprQeGEKYhMkhr/PjiO63rLqqvhbYb/TstxL0mFqixqEnxAqUOSKo6W6MNQ6XUkd
- GM2DCgEduqED7zkg1SfN1tFc7HF2ZyIYdJQ/2M1V17FukVljkLC9uAMWvu1XqfzTtSkv
- AVOg==
+ bh=5VSNFszbahKaJkcW+v0MHhL95zb4sCAydonSXrjA+2M=;
+ b=TpyTTaQOY5XC7FndE9dfICNZvm6sgKOlVFGWYTmhq2CIHHZ6vYloMb84yLA7R947Kp
+ 8Ijzuf85cFfo2LX1JnbDRGkcTw0nCfDD/PDBXLX6pvynDL1uZeblLSoucK/XbZKgodzs
+ bpCwgaG0aqapEWUTwzLA98IM9Mgfb53fNzw8J86w41wJBRFBMm1xP9iksraUKbtEczVF
+ clr7rRFcyHte95251ncHm09kwWMLLBTec66n0IZdsbb/mb+SIQ6DZTG/WFRCkQcSl/Wa
+ 5PNDWbuGRbyNNnal2JvhOFJkYNpObTzh1dNIUWebWEJRUVJrHh8ovAoZOluS+xbjZ35y
+ ekjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741201968; x=1741806768;
+ d=1e100.net; s=20230601; t=1741203525; x=1741808325;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SZzymmmsUuwspRI0dSqBHFmnHJEtQiDmh4Y19RgEygc=;
- b=aVqE01gPRpSN6TU/Og2jSUBdPq2kzjX86Er0Sou9R4xeClDbHEzYVj1G18SCf83J4F
- U1Ly3QEHHQpjHOHddGuhRr65JTgvmHDkcUF3X94zSQn5r0DUCs99lpQqrJ9q5HCWJOq3
- q5FKyM12DHQJeSEK2iBuZJ43w5sK1xIcEb207IrS6nSDxdINBHChKtj8kIsJtuN8VEd2
- j5EP1zJ1n7vae63tdivIRzKz25lz00DvfiBisc5wsHbv+XdcODhSky002d1UTResCsAl
- yLheV2w4RJrEvag54sDH0pBqtaqioyZEsJvZwVGe8eR3pg1QNw11/DNV/GRo+txJ0h//
- Owkw==
+ bh=5VSNFszbahKaJkcW+v0MHhL95zb4sCAydonSXrjA+2M=;
+ b=E07cBWD4r7xq3frrhQ87hnSUSLZ2AaXCY0O9t1jGVpBsF4YpyRahhymHmzsTKKsni3
+ 4XvbT3tENSU3OsYgzmzC25iuWkn1clHBfDLVE/CtkLZkNp6WzZ+/sXtz3TucS0gEssiD
+ nRFkSXkyj2kLMmEdtBgcznjHXran+F7nQT9cKVhg7OPNLHQVZKBv6SKaRR5d6EK1FP98
+ 5cG4B8rXNA3aS4o8iqqnzCX6/HVHVI5I/kHaw261P0yaxv5wHdg5xO3NqfsHSByxTVhs
+ 3YDOTkY0Sq1K/oTAstbsZv9AIzrsZXSzhyVd/rxMEsx9c7hZPzQfhC1qLidQOiiIn2Zc
+ nM+w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVV2fSJiVG0N38jGy1LptpHAxDh5f94VLNAg4edhy2x5aXcIrBnO8K9LO3y4ZNNr/qbS4y3649OKkU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxeKmREgNoKrYwSeA1lbZG5hiIf/oYy/iUI3nW1t8Yck34nGLdz
- IA/ggCRmM339J9gCOvRD3pcn6X8Zx/Gfvf/iiE34v1Rqu3ahSBZjk2PKyhRkhYP9PQD3Yh08/KI
- ImzLVKqiVM22G2dOqeozvj9Qo33A=
-X-Gm-Gg: ASbGncuA83tCU3jGc5YoPqFCSgsGtze5D8kSSquorFRDhvhzo2f3ZdBNBnvuGEb7IKp
- 5ia5nQII80v6bthEMovlxWqDrCP5pwGfFox1g3M3G1NxIUuvSVmxa8xijiUP4B9hYAAy2qE/Xqv
- 8JqX2JyPG331WBCZy3+TiWq0jYTA==
-X-Google-Smtp-Source: AGHT+IHlEINA/jfl2bBPP1ul53oTsOP5ym9Trq3jpGpB8Vm7TzTmI2nqJcEmRK+XL9G3vhk3sJwn4J0bQLvJBmoMCFg=
-X-Received: by 2002:a05:6e02:188c:b0:3d3:d28e:eae9 with SMTP id
- e9e14a558f8ab-3d42b890630mr57345765ab.7.1741201968293; Wed, 05 Mar 2025
- 11:12:48 -0800 (PST)
+ AJvYcCVQjCT5wHvJ/iwBP/pwc2X9L6zpm3cUMWdLIUTYZ0sVhyodg7FXS8sdDMTzyD76+LNAUqSjsvyWRHs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw3q8LQzXzba9cSsbP26uA02GbmJb8vq+wB+g73ft1XBpnnkKJD
+ 1joJMgnGXo1M6vDp9VQlnNKmKL71CYlll+2MFdLDJGwUfnq7gU4zVM8WsMtNGJnUbEk4aWBHedW
+ sPIN3yoUy9M4JzugEHoqR8EOUhLs=
+X-Gm-Gg: ASbGncsptCWbo5N9wBblg50cBX2zfpNZUC2gg5SY8rpGYsVuLKYxtknu43m8mXCNae2
+ y8uKKSpIj1EggY0p9HQ7OaREhQ1q4E+LArUDrrE/kgzp5aucSS01PbylJqSf2RPry+NqaHMgv4W
+ d6xw2wbDQ+1cGSKbK9e57JoVO4jw==
+X-Google-Smtp-Source: AGHT+IGkUD67LVwvrDDzeIP3Gk8ODe8QE0TQVfS+q8UCYC5dtWHz2mbZqV0v//k1ot8vwNyp2q8z92TRSaaL2MCYYq8=
+X-Received: by 2002:a17:903:11c3:b0:223:397e:a55b with SMTP id
+ d9443c01a7336-223f1c9821cmr25525185ad.4.1741203524671; Wed, 05 Mar 2025
+ 11:38:44 -0800 (PST)
 MIME-Version: 1.0
 References: <20250304-msm-gpu-fault-fixes-next-v4-0-be14be37f4c3@gmail.com>
- <20250304-msm-gpu-fault-fixes-next-v4-3-be14be37f4c3@gmail.com>
-In-Reply-To: <20250304-msm-gpu-fault-fixes-next-v4-3-be14be37f4c3@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 5 Mar 2025 11:12:36 -0800
-X-Gm-Features: AQ5f1Jo4BXeEdaC2izHqFmQ2gL7iBiicL-43RgNDhM5BByTDG8vBtJ6rU6EziYc
-Message-ID: <CAF6AEGsi1s4rO0_HSy44ikFGXNJAkBxfBMucRyGA+xokzOsP_A@mail.gmail.com>
-Subject: Re: [PATCH v4 3/5] iommu/arm-smmu: Fix spurious interrupts with
- stall-on-fault
-To: Connor Abbott <cwabbott0@gmail.com>
+ <20250304-msm-gpu-fault-fixes-next-v4-5-be14be37f4c3@gmail.com>
+ <CAF6AEGufRP9NuqC1gYy6jrQ9z+XqGFd7KNsbQw8C8NscSOJnJQ@mail.gmail.com>
+In-Reply-To: <CAF6AEGufRP9NuqC1gYy6jrQ9z+XqGFd7KNsbQw8C8NscSOJnJQ@mail.gmail.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Wed, 5 Mar 2025 14:38:32 -0500
+X-Gm-Features: AQ5f1Jp1eKuGw2SRyjhHwJJ1tVPBo4HU7lGgDAsHmIIiVFDPfMP5Apowl_tCUTo
+Message-ID: <CACu1E7FPO253T+EvdJdaBuqh3kb7H_r7WhBE+bVxSHMPq6ixEg@mail.gmail.com>
+Subject: Re: [PATCH v4 5/5] drm/msm: Temporarily disable stall-on-fault after
+ a page fault
+To: Rob Clark <robdclark@gmail.com>
 Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
  Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>, 
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -91,164 +92,307 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 4, 2025 at 8:57=E2=80=AFAM Connor Abbott <cwabbott0@gmail.com> =
-wrote:
+On Wed, Mar 5, 2025 at 2:07=E2=80=AFPM Rob Clark <robdclark@gmail.com> wrot=
+e:
 >
-> On some SMMUv2 implementations, including MMU-500, SMMU_CBn_FSR.SS
-> asserts an interrupt. The only way to clear that bit is to resume the
-> transaction by writing SMMU_CBn_RESUME, but typically resuming the
-> transaction requires complex operations (copying in pages, etc.) that
-> can't be done in IRQ context. drm/msm already has a problem, because
-> its fault handler sometimes schedules a job to dump the GPU state and
-> doesn't resume translation until this is complete.
+> On Tue, Mar 4, 2025 at 8:57=E2=80=AFAM Connor Abbott <cwabbott0@gmail.com=
+> wrote:
+> >
+> > When things go wrong, the GPU is capable of quickly generating millions
+> > of faulting translation requests per second. When that happens, in the
+> > stall-on-fault model each access will stall until it wins the race to
+> > signal the fault and then the RESUME register is written. This slows
+> > processing page faults to a crawl as the GPU can generate faults much
+> > faster than the CPU can acknowledge them. It also means that all
+> > available resources in the SMMU are saturated waiting for the stalled
+> > transactions, so that other transactions such as transactions generated
+> > by the GMU, which shares a context bank with the GPU, cannot proceed.
 >
-> Work around this by disabling context fault interrupts until after the
-> transaction is resumed. Because other context banks can share an IRQ
-> line, we may still get an interrupt intended for another context bank,
-> but in this case only SMMU_CBn_FSR.SS will be asserted and we can skip
-> it assuming that interrupts are disabled which is accomplished by
-> removing the bit from ARM_SMMU_CB_FSR_FAULT. SMMU_CBn_FSR.SS won't be
-> asserted unless an external user enabled stall-on-fault, and they are
-> expected to resume the translation and re-enable interrupts.
->
-> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
-> Reviewed-by Robin Murphy <robin.murphy@arm.com>
+> Nit, the GMU does not actually share a cb.. looking on x1e80100.dtsi,
+> the GMU has cb 5 and gpu has 0 and 1.  (Currently we just use the
+> first, but I guess the 2nd would be used if we supported protected
+> content?)
 
-Reviewed-by: Rob Clark <robdclark@gmail.com>
+Yeah, I realized after writing this that's the case. But I guess the
+QoS issues happen even with separate context banks due to the way they
+allocate translation units?
 
-> ---
->  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 15 ++++++++++-
->  drivers/iommu/arm/arm-smmu/arm-smmu.c      | 41 ++++++++++++++++++++++++=
-+++++-
->  drivers/iommu/arm/arm-smmu/arm-smmu.h      |  1 -
->  3 files changed, 54 insertions(+), 3 deletions(-)
+Connor
+
 >
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/a=
-rm/arm-smmu/arm-smmu-qcom.c
-> index 186d6ad4fd1c990398df4dec53f4d58ada9e658c..a428e53add08d451fb2152e3a=
-b80e0fba936e214 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> @@ -90,12 +90,25 @@ static void qcom_adreno_smmu_resume_translation(const=
- void *cookie, bool termina
->         struct arm_smmu_domain *smmu_domain =3D (void *)cookie;
->         struct arm_smmu_cfg *cfg =3D &smmu_domain->cfg;
->         struct arm_smmu_device *smmu =3D smmu_domain->smmu;
-> -       u32 reg =3D 0;
-> +       u32 reg =3D 0, sctlr;
-> +       unsigned long flags;
+> fwiw, you can read this from dtsi, ie. in the GMU node, "iommus =3D
+> <&adreno_smmu 5 0x0>;"
 >
->         if (terminate)
->                 reg |=3D ARM_SMMU_RESUME_TERMINATE;
->
-> +       spin_lock_irqsave(&smmu_domain->cb_lock, flags);
-> +
->         arm_smmu_cb_write(smmu, cfg->cbndx, ARM_SMMU_CB_RESUME, reg);
-> +
-> +       /*
-> +        * Re-enable interrupts after they were disabled by
-> +        * arm_smmu_context_fault().
-> +        */
-> +       sctlr =3D arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR);
-> +       sctlr |=3D ARM_SMMU_SCTLR_CFIE;
-> +       arm_smmu_cb_write(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR, sctlr);
-> +
-> +       spin_unlock_irqrestore(&smmu_domain->cb_lock, flags);
->  }
->
->  #define QCOM_ADRENO_SMMU_GPU_SID 0
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/ar=
-m-smmu/arm-smmu.c
-> index 498b96e95cb4fdb67c246ef13de1eb8f40d68f7d..284079ef95cd2deeb71816a28=
-4850523897badd8 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> @@ -466,13 +466,52 @@ static irqreturn_t arm_smmu_context_fault(int irq, =
-void *dev)
->         if (!(cfi->fsr & ARM_SMMU_CB_FSR_FAULT))
->                 return IRQ_NONE;
->
-> +       /*
-> +        * On some implementations FSR.SS asserts a context fault
-> +        * interrupt. We do not want this behavior, because resolving the
-> +        * original context fault typically requires operations that cann=
-ot be
-> +        * performed in IRQ context but leaving the stall unacknowledged =
-will
-> +        * immediately lead to another spurious interrupt as FSR.SS is st=
-ill
-> +        * set. Work around this by disabling interrupts for this context=
- bank.
-> +        * It's expected that interrupts are re-enabled after resuming th=
+> > This causes a GMU watchdog timeout, which leads to a failed reset
+> > because GX cannot collapse when there is a transaction pending and a
+> > permanently hung GPU.
+> >
+> > On older platforms with qcom,smmu-v2, it seems that when one transactio=
+n
+> > is stalled subsequent faulting transactions are terminated, which avoid=
+s
+> > this problem, but the MMU-500 follows the spec here.
+> >
+> > To work around these problem, disable stall-on-fault as soon as we get =
+a
+> > page fault until a cooldown period after pagefaults stop. This allows
+> > the GMU some guaranteed time to continue working. We only use
+> > stall-on-fault to halt the GPU while we collect a devcoredump and we
+> > always terminate the transaction afterward, so it's fine to miss some
+> > subsequent page faults. We also keep it disabled so long as the current
+> > devcoredump hasn't been deleted, because in that case we likely won't
+> > capture another one if there's a fault.
+> >
+> > After this commit HFI messages still occasionally time out, because the
+> > crashdump handler doesn't run fast enough to let the GMU resume, but th=
 e
-> +        * translation.
-> +        *
-> +        * We have to do this before report_iommu_fault() so that we don'=
-t
-> +        * leave interrupts disabled in case the downstream user decides =
-the
-> +        * fault can be resolved inside its fault handler.
-> +        *
-> +        * There is a possible race if there are multiple context banks s=
-haring
-> +        * the same interrupt and both signal an interrupt in between wri=
-ting
-> +        * RESUME and SCTLR. We could disable interrupts here before we
-> +        * re-enable them in the resume handler, leaving interrupts enabl=
-ed.
-> +        * Lock the write to serialize it with the resume handler.
-> +        */
-> +       if (cfi->fsr & ARM_SMMU_CB_FSR_SS) {
-> +               u32 val;
-> +
-> +               spin_lock(&smmu_domain->cb_lock);
-> +               val =3D arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_SCTLR);
-> +               val &=3D ~ARM_SMMU_SCTLR_CFIE;
-> +               arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, val);
-> +               spin_unlock(&smmu_domain->cb_lock);
-> +       }
-> +
-> +       /*
-> +        * The SMMUv2 architecture specification says that if stall-on-fa=
-ult is
-> +        * enabled the correct sequence is to write to SMMU_CBn_FSR to cl=
-ear
-> +        * the fault and then write to SMMU_CBn_RESUME. Clear the interru=
-pt
-> +        * first before running the user's fault handler to make sure we =
-follow
-> +        * this sequence. It should be ok if there is another fault in th=
-e
-> +        * meantime because we have already read the fault info.
-> +        */
-> +       arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_FSR, cfi->fsr);
-> +
->         ret =3D report_iommu_fault(&smmu_domain->domain, NULL, cfi->iova,
->                 cfi->fsynr0 & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE =
-: IOMMU_FAULT_READ);
+> > driver seems to recover from it. This will probably go away after the
+> > HFI timeout is increased.
+> >
+> > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  2 ++
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  4 ++++
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 42 +++++++++++++++++++++++++=
++++++++-
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 24 +++++++++++++++++++
+> >  drivers/gpu/drm/msm/msm_iommu.c         |  9 +++++++
+> >  drivers/gpu/drm/msm/msm_mmu.h           |  1 +
+> >  6 files changed, 81 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/a5xx_gpu.c
+> > index 71dca78cd7a5324e9ff5b14f173e2209fa42e196..670141531112c9d29cef8ef=
+1fd51b74759fdd6d2 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> > @@ -131,6 +131,8 @@ static void a5xx_submit(struct msm_gpu *gpu, struct=
+ msm_gem_submit *submit)
+> >         struct msm_ringbuffer *ring =3D submit->ring;
+> >         unsigned int i, ibs =3D 0;
+> >
+> > +       adreno_check_and_reenable_stall(adreno_gpu);
+> > +
+> >         if (IS_ENABLED(CONFIG_DRM_MSM_GPU_SUDO) && submit->in_rb) {
+> >                 ring->cur_ctx_seqno =3D 0;
+> >                 a5xx_submit_in_rb(gpu, submit);
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/a6xx_gpu.c
+> > index 0ae29a7c8a4d3f74236a35cc919f69d5c0a384a0..5a34cd2109a2d74c9284144=
+8a61ccb0d4f34e264 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > @@ -212,6 +212,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct=
+ msm_gem_submit *submit)
+> >         struct msm_ringbuffer *ring =3D submit->ring;
+> >         unsigned int i, ibs =3D 0;
+> >
+> > +       adreno_check_and_reenable_stall(adreno_gpu);
+> > +
+> >         a6xx_set_pagetable(a6xx_gpu, ring, submit);
+> >
+> >         get_stats_counter(ring, REG_A6XX_RBBM_PERFCTR_CP(0),
+> > @@ -335,6 +337,8 @@ static void a7xx_submit(struct msm_gpu *gpu, struct=
+ msm_gem_submit *submit)
+> >         struct msm_ringbuffer *ring =3D submit->ring;
+> >         unsigned int i, ibs =3D 0;
+> >
+> > +       adreno_check_and_reenable_stall(adreno_gpu);
+> > +
+> >         /*
+> >          * Toggle concurrent binning for pagetable switch and set the t=
+hread to
+> >          * BR since only it can execute the pagetable switch packets.
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/=
+msm/adreno/adreno_gpu.c
+> > index 1238f326597808eb28b4c6822cbd41a26e555eb9..bac586101dc0494f46b069a=
+8440a45825dfe9b5e 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > @@ -246,16 +246,53 @@ u64 adreno_private_address_space_size(struct msm_=
+gpu *gpu)
+> >         return SZ_4G;
+> >  }
+> >
+> > +void adreno_check_and_reenable_stall(struct adreno_gpu *adreno_gpu)
+> > +{
+> > +       struct msm_gpu *gpu =3D &adreno_gpu->base;
+> > +       unsigned long flags;
+> > +
+> > +       /*
+> > +        * Wait until the cooldown period has passed and we would actua=
+lly
+> > +        * collect a crashdump to re-enable stall-on-fault.
+> > +        */
+> > +       spin_lock_irqsave(&adreno_gpu->fault_stall_lock, flags);
+> > +       if (!adreno_gpu->stall_enabled &&
+> > +                       ktime_after(ktime_get(), adreno_gpu->stall_reen=
+able_time) &&
+> > +                       !READ_ONCE(gpu->crashstate)) {
+> > +               adreno_gpu->stall_enabled =3D true;
+> > +
+> > +               gpu->aspace->mmu->funcs->set_stall(gpu->aspace->mmu, tr=
+ue);
+> > +       }
+> > +       spin_unlock_irqrestore(&adreno_gpu->fault_stall_lock, flags);
+> > +}
+> > +
+> >  #define ARM_SMMU_FSR_TF                 BIT(1)
+> >  #define ARM_SMMU_FSR_PF                        BIT(3)
+> >  #define ARM_SMMU_FSR_EF                        BIT(4)
+> > +#define ARM_SMMU_FSR_SS                        BIT(30)
+> >
+> >  int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int =
+flags,
+> >                          struct adreno_smmu_fault_info *info, const cha=
+r *block,
+> >                          u32 scratch[4])
+> >  {
+> > +       struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> >         const char *type =3D "UNKNOWN";
+> > -       bool do_devcoredump =3D info && !READ_ONCE(gpu->crashstate);
+> > +       bool do_devcoredump =3D info && (info->fsr & ARM_SMMU_FSR_SS) &=
+&
+> > +               !READ_ONCE(gpu->crashstate);
+> > +       unsigned long irq_flags;
+> > +
+> > +       /*
+> > +        * In case there is a subsequent storm of pagefaults, disable
+> > +        * stall-on-fault for at least half a second.
+> > +        */
+> > +       spin_lock_irqsave(&adreno_gpu->fault_stall_lock, irq_flags);
+> > +       if (adreno_gpu->stall_enabled) {
+> > +               adreno_gpu->stall_enabled =3D false;
+> > +
+> > +               gpu->aspace->mmu->funcs->set_stall(gpu->aspace->mmu, fa=
+lse);
+> > +       }
+> > +       adreno_gpu->stall_reenable_time =3D ktime_add_ms(ktime_get(), 5=
+00);
+> > +       spin_unlock_irqrestore(&adreno_gpu->fault_stall_lock, irq_flags=
+);
+> >
+> >         /*
+> >          * If we aren't going to be resuming later from fault_worker, t=
+hen do
+> > @@ -1143,6 +1180,9 @@ int adreno_gpu_init(struct drm_device *drm, struc=
+t platform_device *pdev,
+> >                 adreno_gpu->info->inactive_period);
+> >         pm_runtime_use_autosuspend(dev);
+> >
+> > +       spin_lock_init(&adreno_gpu->fault_stall_lock);
+> > +       adreno_gpu->stall_enabled =3D true;
+> > +
+> >         return msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->base,
+> >                         gpu_name, &adreno_gpu_config);
+> >  }
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/=
+msm/adreno/adreno_gpu.h
+> > index dcf454629ce037b2a8274a6699674ad754ce1f07..a528036b46216bd898f6d48=
+c5fb0555c4c4b053b 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > @@ -205,6 +205,28 @@ struct adreno_gpu {
+> >         /* firmware: */
+> >         const struct firmware *fw[ADRENO_FW_MAX];
+> >
+> > +       /**
+> > +        * fault_stall_lock:
 >
->         if (ret =3D=3D -ENOSYS && __ratelimit(&rs))
->                 arm_smmu_print_context_fault_info(smmu, idx, cfi);
+> nit, @fault_stall_lock:  And for
+> fault_stall_reenable_time/stall_enabled, it wouldn't hurt to add
+> something along the lines of "Protected by @fault_stall_lock".  I've
+> been slowly trying to improve the comment docs over time, I have some
+> of that in my vmbind patchset.
 >
-> -       arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_FSR, cfi->fsr);
->         return IRQ_HANDLED;
->  }
+> Anyways, with those nits addressed, r-b
 >
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/ar=
-m-smmu/arm-smmu.h
-> index 411d807e0a7033833716635efb3968a0bd3ff237..4235b772c2cb032778816578c=
-9e6644512543a5e 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> @@ -214,7 +214,6 @@ enum arm_smmu_cbar_type {
->                                          ARM_SMMU_CB_FSR_TLBLKF)
+> BR,
+> -R
 >
->  #define ARM_SMMU_CB_FSR_FAULT          (ARM_SMMU_CB_FSR_MULTI |        \
-> -                                        ARM_SMMU_CB_FSR_SS |           \
->                                          ARM_SMMU_CB_FSR_UUT |          \
->                                          ARM_SMMU_CB_FSR_EF |           \
->                                          ARM_SMMU_CB_FSR_PF |           \
->
-> --
-> 2.47.1
->
+> > +        *
+> > +        * Serialize changes to stall-on-fault state.
+> > +        */
+> > +       spinlock_t fault_stall_lock;
+> > +
+> > +       /**
+> > +        * fault_stall_reenable_time:
+> > +        *
+> > +        * if stall_enabled is false, when to reenable stall-on-fault.
+> > +        */
+> > +       ktime_t stall_reenable_time;
+> > +
+> > +       /**
+> > +        * stall_enabled:
+> > +        *
+> > +        * Whether stall-on-fault is currently enabled.
+> > +        */
+> > +       bool stall_enabled;
+> > +
+> > +
+> >         struct {
+> >                 /**
+> >                  * @rgb565_predicator: Unknown, introduced with A650 fa=
+mily,
+> > @@ -629,6 +651,8 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsig=
+ned long iova, int flags,
+> >                          struct adreno_smmu_fault_info *info, const cha=
+r *block,
+> >                          u32 scratch[4]);
+> >
+> > +void adreno_check_and_reenable_stall(struct adreno_gpu *gpu);
+> > +
+> >  int adreno_read_speedbin(struct device *dev, u32 *speedbin);
+> >
+> >  /*
+> > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_=
+iommu.c
+> > index 2a94e82316f95c5f9dcc37ef0a4664a29e3492b2..8d5380e6dcc217c7c209b51=
+527bf15748b3ada71 100644
+> > --- a/drivers/gpu/drm/msm/msm_iommu.c
+> > +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> > @@ -351,6 +351,14 @@ static void msm_iommu_resume_translation(struct ms=
+m_mmu *mmu)
+> >                 adreno_smmu->resume_translation(adreno_smmu->cookie, tr=
+ue);
+> >  }
+> >
+> > +static void msm_iommu_set_stall(struct msm_mmu *mmu, bool enable)
+> > +{
+> > +       struct adreno_smmu_priv *adreno_smmu =3D dev_get_drvdata(mmu->d=
+ev);
+> > +
+> > +       if (adreno_smmu->set_stall)
+> > +               adreno_smmu->set_stall(adreno_smmu->cookie, enable);
+> > +}
+> > +
+> >  static void msm_iommu_detach(struct msm_mmu *mmu)
+> >  {
+> >         struct msm_iommu *iommu =3D to_msm_iommu(mmu);
+> > @@ -399,6 +407,7 @@ static const struct msm_mmu_funcs funcs =3D {
+> >                 .unmap =3D msm_iommu_unmap,
+> >                 .destroy =3D msm_iommu_destroy,
+> >                 .resume_translation =3D msm_iommu_resume_translation,
+> > +               .set_stall =3D msm_iommu_set_stall,
+> >  };
+> >
+> >  struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks=
+)
+> > diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mm=
+u.h
+> > index 88af4f490881f2a6789ae2d03e1c02d10046331a..2694a356a17904e7572b767=
+b16ed0cee806406cf 100644
+> > --- a/drivers/gpu/drm/msm/msm_mmu.h
+> > +++ b/drivers/gpu/drm/msm/msm_mmu.h
+> > @@ -16,6 +16,7 @@ struct msm_mmu_funcs {
+> >         int (*unmap)(struct msm_mmu *mmu, uint64_t iova, size_t len);
+> >         void (*destroy)(struct msm_mmu *mmu);
+> >         void (*resume_translation)(struct msm_mmu *mmu);
+> > +       void (*set_stall)(struct msm_mmu *mmu, bool enable);
+> >  };
+> >
+> >  enum msm_mmu_type {
+> >
+> > --
+> > 2.47.1
+> >
