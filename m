@@ -2,63 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A257A544A4
-	for <lists+freedreno@lfdr.de>; Thu,  6 Mar 2025 09:22:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07385A54650
+	for <lists+freedreno@lfdr.de>; Thu,  6 Mar 2025 10:30:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C853510E919;
-	Thu,  6 Mar 2025 08:22:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB40810E157;
+	Thu,  6 Mar 2025 09:30:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mAa4vXbj";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JhYcXHuV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF9D10E918;
- Thu,  6 Mar 2025 08:22:43 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 84FCEA43B26;
- Thu,  6 Mar 2025 08:17:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C6EC4CEE0;
- Thu,  6 Mar 2025 08:22:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741249361;
- bh=fT03+6G5rTucsQWnUyxVVl43dK+hKfqe4LZr7gl7Kb4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mAa4vXbj0l7wHS1jpYZEoZxVCa/1hhXmPkSBeCVNdJgaOH2H/0cvEtH2vfaymKScb
- rE/cUkwiweXf9FCrq2/1r6q60Jy/fMDOc4L89wsSXsmcDxYi2QwwSMjFT3jYW9H12F
- PlxbMd8F01b6SbzQfyVuksz0yK+AiJvz3sSIMu+Vi7Ygi5EO/evF8zoHlglal7UWCO
- hU57TWeNdKszmSDipZ95PbZY9qGi0u5MtIffekfHxUxzcKd8Swy+2MMyVGUsTuvfxM
- hh+gvw6bmmEUE2voZkKOv9wdbNoUhies4wV7nDDxD0yduUX6DS0x4OBlvcE4CLjGDG
- kbMY12KDv8+ZQ==
-From: Dmitry Baryshkov <lumag@kernel.org>
-Date: Thu, 06 Mar 2025 10:22:30 +0200
-Subject: [PATCH 2/2] drm/msm/dpu: correct struct dpu_encoder_virt docs
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF1CC10E157
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Mar 2025 09:30:26 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-390e3b3d432so234956f8f.2
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Mar 2025 01:30:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1741253425; x=1741858225; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=z79m0LRwylL1TUcFIowHlysw5aOIkiMWOUVmjSLVUX0=;
+ b=JhYcXHuVpeLxmQzTdNVxodq9TzkE4oyXjW/dnGAJJ9GQEUZxIzlAcIpyUo1pe7NwTm
+ 3iQwerAwuJ7fM7uCFPDNKpQ/I85n9stmOfDXYiNYTyzNSiEGnIi4cwGRVIvcnBwNGk8H
+ aztKZ62TS0EHE7cywYDoxWoFZ12VVypPrpKgeGgg6fRbktRA4SsFGkzGkUMRAXLxinwF
+ VlNXhj1GbQZx817hnLulH0nztxs3v2f+kUH8YKMKEAyxU2I22wZukYhIB6sjAglVUWdF
+ kZuBRp2pJ7PaOL9o1T+cCl8YCJBk1avd21Biwmr4+shNhTe2UiZZbwYVLOTywv8UH23F
+ cL0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741253425; x=1741858225;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=z79m0LRwylL1TUcFIowHlysw5aOIkiMWOUVmjSLVUX0=;
+ b=ieT1FXXJre9+hJ8YaCJFLb7EA9cz0ryS5K11BwIUSZN6fGZv0lLfmN9cz6ZDGCMQGZ
+ pd5iWt88AAYXo75d39v/biY99Sp8lNkZ5VY2y4os0GOgNIZHtdJOQUOtoOXBDkrGSsOQ
+ IpU1LinBFm0NxWP0js+SzzfelcmH3zENT6qnUF6guGQkXkP+dFvp+030X9WOgCv0PkGJ
+ FGsU8MwavaYOdWJudzIRGGBMhc2EjWnx1KWYTdJYjvgg0+mN0jVo39uhAxpde/Bqnh/O
+ giwwJ/F42DVhUGdYJczNACDR8lNsxAaPUYP6teBPn/XT1egTTiClADkar8hbvKd1OFGb
+ BdlA==
+X-Gm-Message-State: AOJu0Yz3TfybJ2FjoWg9jgkR4ISXMETEyA9FrXeOKIAKpXVJNPCbBBvZ
+ q0LuudDhQbB5PPn7Rmf+dN1nh8Y1ssBCe/i6B75hwE35moJM6dQdQT8oebKIYKI=
+X-Gm-Gg: ASbGnct3lVgbxtLM7dDc6GaVJLumi505RKIlHPy9F0tZLKIUUUQ6mYdOF1SRZGy+gGD
+ f1xfiVXEGxzF72CbFKUVY9GOSKg7Gih+yThLlz0OYJ4tZJ1mwJejfpvxoo5w4XbG8O71t9iHrMf
+ JFbJ01ZQR/0Im+U4iCsC7mvQMAr2BMKkwSp5/nczQAOqOUsrwgcw/xVvkee02+KP6txw8eYcRbN
+ izUIIMED/LDRnavOfrB+8UpQj0wHN8Xsebj9RGRK7nrM4KRhh/CyLp+MEEgm+jQAeVRuuHBaMMj
+ WA/rewlBInDNISPKrWhH0TXh0LWD0yt1qigsYnWy7A5Os+Qw0tvX5f05
+X-Google-Smtp-Source: AGHT+IGnpFmsJBY/qEamoUmfbMXLuOWckaWioHNi22rQde52T2IvnSzLx8zdUb49jRIT4IcdS2vy1A==
+X-Received: by 2002:a05:6000:1f88:b0:390:ed04:a676 with SMTP id
+ ffacd0b85a97d-3911f7491a1mr4619791f8f.22.1741253425200; 
+ Thu, 06 Mar 2025 01:30:25 -0800 (PST)
+Received: from [192.168.1.101] ([37.167.199.63])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3912c0e2b8bsm1440616f8f.64.2025.03.06.01.30.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 Mar 2025 01:30:24 -0800 (PST)
+Message-ID: <16130141-2cb0-4f28-b0ad-fee5be061dd3@linaro.org>
+Date: Thu, 6 Mar 2025 10:30:21 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH 2/2] mailmap: remap all addresses to kernel.org alias
+To: Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20250306-update-email-v1-0-9a231571e905@kernel.org>
+ <20250306-update-email-v1-2-9a231571e905@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20250306-update-email-v1-2-9a231571e905@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250306-dpu-fix-docs-v1-2-e51b71e8ad84@kernel.org>
-References: <20250306-dpu-fix-docs-v1-0-e51b71e8ad84@kernel.org>
-In-Reply-To: <20250306-dpu-fix-docs-v1-0-e51b71e8ad84@kernel.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1118; i=lumag@kernel.org;
- h=from:subject:message-id; bh=fT03+6G5rTucsQWnUyxVVl43dK+hKfqe4LZr7gl7Kb4=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnyVtI7mRqwuVVjTWP/aMe3udqwy8sYNoLG1duY
- pSclayXg/eJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8lbSAAKCRCLPIo+Aiko
- 1UZQCACIB6mll0aSulvMTwV9aVTAG6d8mbAAMUuuaxASi9Po0bRXGeRh5TaZPo3zQj5EKbmONBz
- ENodmFfUO2nU3lfJfdropq64aR4apsJLbf3XwM0emXy8jZmrTWEpJx5R8lKeABz+9OHfTh41py+
- slx2MBJdah2BEzh9SokdpBqY3mQKun1eewIifUcHYx8Lifa8Fdrha3ZIGIREy/G2DHt8jlVQRWm
- F+yTpM9bTmTGxxeKE3bTr9yWYQZXNCDHyFojqouK8VF9gIuVdJgWIcq0gPl3D3nDDPIkuQ/BUlI
- xzoVD4KVs5wyhhsTgHibX/M3Kb4lrnSEx9GmsRO3nw+prRPZ
-X-Developer-Key: i=lumag@kernel.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,32 +114,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix a typo in struct dpu_encoder_virt kerneldoc, which made it ignore
-description of the cwb_mask field.
+On 05/03/2025 23:44, Dmitry Baryshkov wrote:
+> Remap all historical and non-historical entries to my kernel.org email.
+> 
+> Signed-off-by: Dmitry Baryshkov <lumag@kernel.org>
+> ---
+>   .mailmap | 9 +++++----
+>   1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/.mailmap b/.mailmap
+> index 01145c078838bf9348e8d0e5e48b7b0954248dc5..a5c80ef0b7800519f3124e0d85294f34d6b275ca 100644
+> --- a/.mailmap
+> +++ b/.mailmap
+> @@ -198,10 +198,11 @@ Dengcheng Zhu <dzhu@wavecomp.com> <dengcheng.zhu@imgtec.com>
+>   Dengcheng Zhu <dzhu@wavecomp.com> <dengcheng.zhu@mips.com>
+>   <dev.kurt@vandijck-laurijssen.be> <kurt.van.dijck@eia.be>
+>   Dikshita Agarwal <quic_dikshita@quicinc.com> <dikshita@codeaurora.org>
+> -Dmitry Baryshkov <dbaryshkov@gmail.com>
+> -Dmitry Baryshkov <dbaryshkov@gmail.com> <[dbaryshkov@gmail.com]>
+> -Dmitry Baryshkov <dbaryshkov@gmail.com> <dmitry_baryshkov@mentor.com>
+> -Dmitry Baryshkov <dbaryshkov@gmail.com> <dmitry_eremin@mentor.com>
+> +Dmitry Baryshkov <lumag@kernel.org> <dbaryshkov@gmail.com>
+> +Dmitry Baryshkov <lumag@kernel.org> <[dbaryshkov@gmail.com]>
+> +Dmitry Baryshkov <lumag@kernel.org> <dmitry_baryshkov@mentor.com>
+> +Dmitry Baryshkov <lumag@kernel.org> <dmitry_eremin@mentor.com>
+> +Dmitry Baryshkov <lumag@kernel.org> <dmitry.baryshkov@linaro.org>
+>   Dmitry Safonov <0x7f454c46@gmail.com> <dima@arista.com>
+>   Dmitry Safonov <0x7f454c46@gmail.com> <d.safonov@partner.samsung.com>
+>   Dmitry Safonov <0x7f454c46@gmail.com> <dsafonov@virtuozzo.com>
+> 
 
-Fixes: dd331404ac7c ("drm/msm/dpu: Configure CWB in writeback encoder")
-Signed-off-by: Dmitry Baryshkov <lumag@kernel.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 0eed93a4d056beda6b54c0d20f027a53c84f67db..0637be07eb293041a350161b39a6276eb44bfb42 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -140,7 +140,7 @@ enum dpu_enc_rc_states {
-  *			num_phys_encs.
-  * @hw_dsc:		Handle to the DSC blocks used for the display.
-  * @dsc_mask:		Bitmask of used DSC blocks.
-- * @cwb_mask		Bitmask of used CWB muxes
-+ * @cwb_mask:		Bitmask of used CWB muxes
-  * @intfs_swapped:	Whether or not the phys_enc interfaces have been swapped
-  *			for partial update right-only cases, such as pingpong
-  *			split where virtual pingpong does not generate IRQs
-
--- 
-2.39.5
-
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
