@@ -2,99 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC08FA54F58
-	for <lists+freedreno@lfdr.de>; Thu,  6 Mar 2025 16:41:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34E18A5518B
+	for <lists+freedreno@lfdr.de>; Thu,  6 Mar 2025 17:42:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82E6F10E20F;
-	Thu,  6 Mar 2025 15:41:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F05C810EA1C;
+	Thu,  6 Mar 2025 16:42:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aUte/Ugy";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xkmHnfCa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 958AD10E09E;
- Wed,  5 Mar 2025 21:35:05 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-43bdc607c16so639295e9.1; 
- Wed, 05 Mar 2025 13:35:05 -0800 (PST)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67ADF10EA1A
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Mar 2025 16:42:34 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5495078cd59so1051392e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Mar 2025 08:42:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741210504; x=1741815304; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GkfOGAJyjI2lzXCaMBa1FddJd+TtvvII6nxqC6Kgsa0=;
- b=aUte/UgyXoXl8wR90RqjIbgxDoJoFYkuazTrM7On+hIASYdW4nzNWaQvSoerjlHeJ3
- 5hemr5jlQlxIfLC9XIDsERGbUR5UiYl9UPeixEufuArPNWXEU7SVKFPLtDEKdYLMG8q3
- /AfyoDIgyg8Z26yhTGMfh1QkiJQpd2AMviluntmVwbNrJU2jUueMV6NocsFy7Qh4/hSV
- 8BbHGtA+KWc4K1qPpiHuQgpO27oyPMg5lCXAxhV5vNqeBN0ajnN4ahXMYYtNWrVTfbUq
- l4WmnHnU+Z/RGPC0d68EfTsjJz5gbe73M1Z+fneGMfDL+jmJSuqFDUb+cQN1SoItXLa3
- FCzg==
+ d=linaro.org; s=google; t=1741279353; x=1741884153; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=k1TEoG6Bs4dGXKhJ2AGcoAN5xoNJpv8hc7dD8huvzUY=;
+ b=xkmHnfCashRsaPuEYvlnzRTRazy8SzFXFLJfeFixs8p877S9xK1yFED7ONEWlDsrdY
+ y+dCE7MfC1qP4lENupIe2OFJucr+gIeRyGX2Z2kKjdLxbJ9Swd22pDnvjejsx0uCibQx
+ g4vdNqoN+3oIgptSUf/Vd9B7Iu5vKyjI6KpEZZ5F3Aj2LeS/aNHhK66QH+pyAinUccin
+ 5w+ZywVJosj+lpfMAK809vJrwnfx+Qzekhi8Sz2I+ttFEt/idQejc3453J5nOBRGEqMH
+ vjUoVjvBZlyPR/IBi8QBXHrybTtLnmt8/nvIRD5uzC6khxNaBLvJ459MMRUuzOnBEl5Z
+ X3vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741210504; x=1741815304;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GkfOGAJyjI2lzXCaMBa1FddJd+TtvvII6nxqC6Kgsa0=;
- b=LDU23A6q3ONRsrQhy9X2KqCV6vgMeme9PhWX3jBJ3NaWZMIttN1O9KqFeimSIUaTDW
- N4GD+WNnp8n986tQtUzSu/tes974DOWUDm812sEl0/Wn1jK5rLF8Gk9S33DpqVCmfCIE
- 8KOLA5EUvhHF8fXzHqVq7bPXlc9t2BNtprOshuVVB0xz45BSMFWNue+C9l6zeUR3t2xF
- BSfwXtkb70PeFvNFuHaqkjXoEVONWVXEj1ylnocEJVArmbNItZgI9eHLcfBG3s7Gp3BQ
- kLzrVX9X9yz95XHMSxd4ZQrqADtc1BNDvytq57lX4wok4VDCCz/pYna5J2iC0S3IYixf
- w7nw==
+ d=1e100.net; s=20230601; t=1741279353; x=1741884153;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=k1TEoG6Bs4dGXKhJ2AGcoAN5xoNJpv8hc7dD8huvzUY=;
+ b=gX5pYaHkuOK7U1EM0B6H5N/3EJMdu4u+Y17ykURig7UTPeR0ZY3GQ5gWmkNRgtH+Q/
+ rSjTjnv1tNWyleR9zdOukWw4nML1DvAreU7bW1YQUb6b+Y3pcfI/V0qL3lhkue/PvCKw
+ 1L2/tZ+i3iccTl3n4+D8XNlIe9D13zCx+IJTXV9UQu1Dnj+w5jByvlD/EkOt2bx7YGi7
+ 7bxxctkUt+NKWBuB2qRxyYYkO94EjYMd5Scf1HNr2oTREWTrWGP7fdBdxebYJd+vTJ6y
+ 2yJh7XLN32NHeY8g2kjAZgYMKdcnsj5ayRS0Xel3CDoAiQfWTFSNoHhS3gVf3UnUzXfb
+ Ux+g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV0VoFg2/7VvQ0+H28Z49MISgD5zaPmtWCLkuBznU19r87Uw/dqk8NPoHMvHIPGBy1QwLxA5cPgF6zR@lists.freedesktop.org,
- AJvYcCXLVYpVYaoh3Ipvw+PxjuvEsR2TEGaD0WpxMsRiYOIOv8SRxuAtPFjUuR/85YlnbNTc/SLOGLsbeGg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzr2NkIcGtUqKbFG3cr0+SBrQ4LX423h/1ZKzVDOFBfMey+yhGW
- JQ1MLTzvg/6nm+HANufDcy/LZ4DZopT3IzKgGy0+5BglkQzXBzHd
-X-Gm-Gg: ASbGnctflaArNnRW3ikfKbhy2WuEkaJNC14DgdHHI2EZ0qPW3DL+WrPp0LofCZTizCD
- wYMiDA3/rL+r5D3IazA1qCYAnXmB/ib7Uro3nSdxkwZI2iHkSDMUloVyJPTi82/FUSc95ea+m+2
- Dzp6XNuClUaIzEf5XGZdTm21cua3XJ3TTFStl4tZNKTyOl+tR1eDc9/0ewGHmzgEegb9GfG2SNe
- Q1qX8TNtSPDYwyfbou9UYBqVY4yG7Zwex/R3a2z74HmPihsWwQM1lzho9M7YCF9/z4xojbJRO6b
- 5QfRtxEmRaTYFsK283UPIEHDeMw7SrFfhfvXBPfSAlfLGoPAzYvchko/WlslTiHGcy3LYv8KBVA
- yoSZ1uGo=
-X-Google-Smtp-Source: AGHT+IE8jxO6kdtaaWpEp4oWi8exS7NgMp++p3+pS078xL7aEkKJBfV7Vnbc8oFxX1styMXDjNOaDg==
-X-Received: by 2002:a05:600c:190d:b0:43b:cf9c:6ffc with SMTP id
- 5b1f17b1804b1-43bd298a59emr40252875e9.12.1741210503722; 
- Wed, 05 Mar 2025 13:35:03 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ AJvYcCV8GHJB+SAbnlKzamkdK4rkQaB4tXL+/Gm9qFGghV5V8Tr2f7HH1nK0CdyKYcxK9WRDm7jaSVxv02U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzFlSyoM3BHzxKm3I59A09NZBpdgRl5NsK9gLQvZYmJpWHDAa1Y
+ ttWK+bSrdq+jSgLVLx3qeuhixu/I2M6de8t1k9qbeMXxL1U3dL7CexwUR7OvJ0A=
+X-Gm-Gg: ASbGncsACbuYyE4BSJOBnYQf9e5Kmv8Eu8EGh9FR6EqaM5L1Kq+hz+rLskoGFUbL0Je
+ +V9qpKOv2T4ssoA6bJBEiNpidqpacG+onqLa+M7GDVA4kzTRd+SqapJUdxMhcyt82KpdDuW3CX4
+ +8iGlWeo2bIdazkGaCFEb/V6UXtv2P1AGaAYcYl2w72ZXGwAxBaKH1WOLKF/dbqKz4J2/tS8PiL
+ 61ViOeFqyl1orA8WihG9OeAEw+rHXt8alEl0+ktYFoB+VLL+DzNp9khVr/osii+WTpsW9oCaxLQ
+ 1SBC9hEwnxmlI5ET840zSeT0qrX0+EmG0e6EC7hQeM+zIkET27MtNm/BrSE6JDt0vjwA5hnLJv7
+ +Ioovblli0p69NcTrLdRQ1QVB
+X-Google-Smtp-Source: AGHT+IE1wW9mQTVmacyoQdeIAvRVB50L7n4ewIxrLBTw9juMr8FpFISjO6I/fHqGbHPO6+88qFtLCw==
+X-Received: by 2002:a05:6512:33d1:b0:545:2efc:7458 with SMTP id
+ 2adb3069b0e04-5497d377827mr2510465e87.39.1741279352687; 
+ Thu, 06 Mar 2025 08:42:32 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd42e6bcfsm28935975e9.32.2025.03.05.13.35.02
+ 2adb3069b0e04-5498b1bc204sm225871e87.176.2025.03.06.08.42.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Mar 2025 13:35:02 -0800 (PST)
-Date: Wed, 5 Mar 2025 21:35:01 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Markus Elfring <Markus.Elfring@web.de>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, kernel-janitors@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Archit Taneja <architt@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Jeykumar Sankaran
- <jsanka@codeaurora.org>, Jordan Crouse <jordan@cosmicpenguin.net>, Marijn
- Suijten <marijn.suijten@somainline.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>, Vinod Koul
- <vkoul@kernel.org>, cocci@inria.fr, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC] Clarification for =?UTF-8?B?4oCcdW5kZWZpbmVkIGJlaGF2?=
- =?UTF-8?B?aW91cuKAnT8=?=
-Message-ID: <20250305213501.496ea4bf@pumpkin>
-In-Reply-To: <ed9e65a7-6cdf-4d93-83a8-464b47a4bc1d@stanley.mountain>
-References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
- <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
- <13566308-9a80-e4aa-f64e-978c02b1406d@web.de>
- <54c30a69-71cf-4582-9086-50eb0d39f273@web.de>
- <k7un3bjavyt4ogscgc7jn7thfobegaguqqiy7gtypmq6vq7zox@l4bsevbsjrud>
- <29b32b0d-312d-4848-9e26-9e5e76e527a7@stanley.mountain>
- <e665514b-5a62-4afb-b267-7c320e4872af@web.de>
- <4c489b64-4c25-43e3-90d3-37f2f335d665@stanley.mountain>
- <20250305141732.26b91742@pumpkin>
- <ed9e65a7-6cdf-4d93-83a8-464b47a4bc1d@stanley.mountain>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ Thu, 06 Mar 2025 08:42:31 -0800 (PST)
+Date: Thu, 6 Mar 2025 18:42:28 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Lyude Paul <lyude@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC v2 0/7] drm/display: dp: add new DPCD access functions
+Message-ID: <fdhegbtikit7n6ftql4cx4giikgt2vkue4jrasxfgkpxlgdbo3@vlcv63kz4j4r>
+References: <20250301-drm-rework-dpcd-access-v2-0-4d92602fc7cd@linaro.org>
+ <87a59ywda3.fsf@intel.com> <877c52wbrh.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 06 Mar 2025 15:41:25 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <877c52wbrh.fsf@intel.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,37 +97,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 5 Mar 2025 17:30:28 +0300
-Dan Carpenter <dan.carpenter@linaro.org> wrote:
-
-> On Wed, Mar 05, 2025 at 02:17:32PM +0000, David Laight wrote:
-...
-> > And the 'fun' starts because NULL isn't required to use the all-zero
-> > bit pattern.
-> > Regardless of the bit-pattern, things like (void *)(1 - 1) are valid
-> > NULL pointers.
-> > 
-> > Of course, while C allows this, I doubt NULL has ever been other than 0.
-> > (It was 0 on a system I used many years ago where the O/S invalid pointer
-> > was ~0.)  
+On Thu, Mar 06, 2025 at 03:04:50PM +0200, Jani Nikula wrote:
+> On Thu, 06 Mar 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+> > On Sat, 01 Mar 2025, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> >> Existing DPCD access functions return an error code or the number of
+> >> bytes being read / write in case of partial access. However a lot of
+> >> drivers either (incorrectly) ignore partial access or mishandle error
+> >> codes. In other cases this results in a boilerplate code which compares
+> >> returned value with the size.
+> >>
+> >> As suggested by Jani implement new set of DPCD access helpers, which
+> >> ignore partial access, always return 0 or an error code. Reimplement
+> >> existing helpers using the new functions to ensure backwards
+> >> compatibility.
+> >
+> > I think that description is for earlier versions of the series, it's the
+> > other way round now.
+> >
+> > Regardless, glanced through the series quickly, I like it, this is
+> >
+> > Acked-by: Jani Nikula <jani.nikula@intel.com>
 > 
-> Kernel style guidelines don't even allow if (p == NULL) so we would be
-> screwed.  :P
+> PS. If you need to send another round, please Cc: intel-gfx and intel-xe
+> to run this through CI for both i915 and xe drivers. Thanks!
 
-Doesn't matter:
-	if (!p) ...
-	if (p == 0) ...
-	if (p == (void *)0) ...
-	if (p == NULL) ...
-	if (p == (void *)(constant integer expression with value 0)) ...
-and the equivalent assignments all behave the same regardless of the
-bit-pattern use for NULL.
-So:
-	union { long l; void *p; } lpu;
-	lpu.p = 0;
-	return lpu.l;
-Returns ABI (implementation) defined constant value.
-I think the only requirement is that it can never be the address
-of a valid variable.
+It might be a good idea to do that anyway. I'll send next iteration,
+fixing the cover letter and adding both MLs. I hope we can tolerate a
+bit of spam for the sake of getting the series a proper CI test.
 
-	David
+
+-- 
+With best wishes
+Dmitry
