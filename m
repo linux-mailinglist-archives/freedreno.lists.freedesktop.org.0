@@ -2,86 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34E18A5518B
-	for <lists+freedreno@lfdr.de>; Thu,  6 Mar 2025 17:42:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52D88A55439
+	for <lists+freedreno@lfdr.de>; Thu,  6 Mar 2025 19:11:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F05C810EA1C;
-	Thu,  6 Mar 2025 16:42:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2255610EA5A;
+	Thu,  6 Mar 2025 18:11:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xkmHnfCa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nbs7AZZC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67ADF10EA1A
- for <freedreno@lists.freedesktop.org>; Thu,  6 Mar 2025 16:42:34 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5495078cd59so1051392e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 06 Mar 2025 08:42:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741279353; x=1741884153; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=k1TEoG6Bs4dGXKhJ2AGcoAN5xoNJpv8hc7dD8huvzUY=;
- b=xkmHnfCashRsaPuEYvlnzRTRazy8SzFXFLJfeFixs8p877S9xK1yFED7ONEWlDsrdY
- y+dCE7MfC1qP4lENupIe2OFJucr+gIeRyGX2Z2kKjdLxbJ9Swd22pDnvjejsx0uCibQx
- g4vdNqoN+3oIgptSUf/Vd9B7Iu5vKyjI6KpEZZ5F3Aj2LeS/aNHhK66QH+pyAinUccin
- 5w+ZywVJosj+lpfMAK809vJrwnfx+Qzekhi8Sz2I+ttFEt/idQejc3453J5nOBRGEqMH
- vjUoVjvBZlyPR/IBi8QBXHrybTtLnmt8/nvIRD5uzC6khxNaBLvJ459MMRUuzOnBEl5Z
- X3vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741279353; x=1741884153;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=k1TEoG6Bs4dGXKhJ2AGcoAN5xoNJpv8hc7dD8huvzUY=;
- b=gX5pYaHkuOK7U1EM0B6H5N/3EJMdu4u+Y17ykURig7UTPeR0ZY3GQ5gWmkNRgtH+Q/
- rSjTjnv1tNWyleR9zdOukWw4nML1DvAreU7bW1YQUb6b+Y3pcfI/V0qL3lhkue/PvCKw
- 1L2/tZ+i3iccTl3n4+D8XNlIe9D13zCx+IJTXV9UQu1Dnj+w5jByvlD/EkOt2bx7YGi7
- 7bxxctkUt+NKWBuB2qRxyYYkO94EjYMd5Scf1HNr2oTREWTrWGP7fdBdxebYJd+vTJ6y
- 2yJh7XLN32NHeY8g2kjAZgYMKdcnsj5ayRS0Xel3CDoAiQfWTFSNoHhS3gVf3UnUzXfb
- Ux+g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV8GHJB+SAbnlKzamkdK4rkQaB4tXL+/Gm9qFGghV5V8Tr2f7HH1nK0CdyKYcxK9WRDm7jaSVxv02U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzFlSyoM3BHzxKm3I59A09NZBpdgRl5NsK9gLQvZYmJpWHDAa1Y
- ttWK+bSrdq+jSgLVLx3qeuhixu/I2M6de8t1k9qbeMXxL1U3dL7CexwUR7OvJ0A=
-X-Gm-Gg: ASbGncsACbuYyE4BSJOBnYQf9e5Kmv8Eu8EGh9FR6EqaM5L1Kq+hz+rLskoGFUbL0Je
- +V9qpKOv2T4ssoA6bJBEiNpidqpacG+onqLa+M7GDVA4kzTRd+SqapJUdxMhcyt82KpdDuW3CX4
- +8iGlWeo2bIdazkGaCFEb/V6UXtv2P1AGaAYcYl2w72ZXGwAxBaKH1WOLKF/dbqKz4J2/tS8PiL
- 61ViOeFqyl1orA8WihG9OeAEw+rHXt8alEl0+ktYFoB+VLL+DzNp9khVr/osii+WTpsW9oCaxLQ
- 1SBC9hEwnxmlI5ET840zSeT0qrX0+EmG0e6EC7hQeM+zIkET27MtNm/BrSE6JDt0vjwA5hnLJv7
- +Ioovblli0p69NcTrLdRQ1QVB
-X-Google-Smtp-Source: AGHT+IE1wW9mQTVmacyoQdeIAvRVB50L7n4ewIxrLBTw9juMr8FpFISjO6I/fHqGbHPO6+88qFtLCw==
-X-Received: by 2002:a05:6512:33d1:b0:545:2efc:7458 with SMTP id
- 2adb3069b0e04-5497d377827mr2510465e87.39.1741279352687; 
- Thu, 06 Mar 2025 08:42:32 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5498b1bc204sm225871e87.176.2025.03.06.08.42.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Mar 2025 08:42:31 -0800 (PST)
-Date: Thu, 6 Mar 2025 18:42:28 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Lyude Paul <lyude@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH RFC v2 0/7] drm/display: dp: add new DPCD access functions
-Message-ID: <fdhegbtikit7n6ftql4cx4giikgt2vkue4jrasxfgkpxlgdbo3@vlcv63kz4j4r>
-References: <20250301-drm-rework-dpcd-access-v2-0-4d92602fc7cd@linaro.org>
- <87a59ywda3.fsf@intel.com> <877c52wbrh.fsf@intel.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A085F10EA59;
+ Thu,  6 Mar 2025 18:11:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 184C15C54C5;
+ Thu,  6 Mar 2025 18:09:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E160C4AF09;
+ Thu,  6 Mar 2025 18:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741284688;
+ bh=bU5AMb4R/DshyEbA+d2oRecQTp/i83dn8rpMf9Jrb6A=;
+ h=From:Subject:Date:To:Cc:From;
+ b=nbs7AZZCIkCccljjMQDL/BvTJZTZy6Ke5hFijBsumz7BWz7iuuJxLEnp/DFPoo0El
+ onvgGJxI6I0pEhgCx31vb/4yhxmUE3+fYLnMYSxo3UYeaFBHIZEwtpsx3t3ZuSUgbp
+ 8CGszMKKT/mTgc0AWFEa4bIoUdM9wKvUg0ovVzSfOVCh2OqUNNcfN/nRVw6NY+2/AC
+ 2rRRlPrD1pnfhqNpkv25bXQnW8pZc9Aaw7CCB2xMtYqVJ6jzXqOyO620TQQ5S7DmZh
+ dZX4wVQmnEpFuXJugOoJBHd5Ex/9DBc9S/YyRnwSJd9WNEmhJHJmwZ/8+31oPVB8XA
+ qzVDw6YroewUA==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH 00/11] Various dt-bindings fixes
+Date: Thu, 06 Mar 2025 19:11:12 +0100
+Message-Id: <20250306-topic-dt_bindings_fixups-v1-0-0c84aceb0ef9@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <877c52wbrh.fsf@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEDlyWcC/x2MQQqAIBAAvxJ7TjBNg74SEaWb7cXErQiivycdh
+ 2HmAcZMyNBXD2S8iGmPBZq6ArfNMaAgXxiUVEZqacWxJ3LCH9NC0VMMPK10n4mFlcq3ndNOWwM
+ lTxmL+dfD+L4fgdDHYmoAAAA=
+X-Change-ID: 20250306-topic-dt_bindings_fixups-602d47c3c365
+To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Robert Foss <rfoss@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Wesley Cheng <quic_wcheng@quicinc.com>, 
+ Christian Marangi <ansuelsmth@gmail.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Rohit Agarwal <quic_rohiagar@quicinc.com>, 
+ Kyle Deng <quic_chunkaid@quicinc.com>, Vinod Koul <vkoul@kernel.org>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ linux-usb@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1741284679; l=1852;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=bU5AMb4R/DshyEbA+d2oRecQTp/i83dn8rpMf9Jrb6A=;
+ b=Rbjc8lynnoqJxMnMySspJrBir6TO0ftRb/hlYhjDyLT0lbuTVzPYrkP9kJkNdvrmrF5sSirOY
+ OpJClHeQ7/8BgUFoYoOiD3hVI7w1qyfUua0bCJfHAswnznxd0oDPZ94
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,35 +86,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 06, 2025 at 03:04:50PM +0200, Jani Nikula wrote:
-> On Thu, 06 Mar 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> > On Sat, 01 Mar 2025, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> >> Existing DPCD access functions return an error code or the number of
-> >> bytes being read / write in case of partial access. However a lot of
-> >> drivers either (incorrectly) ignore partial access or mishandle error
-> >> codes. In other cases this results in a boilerplate code which compares
-> >> returned value with the size.
-> >>
-> >> As suggested by Jani implement new set of DPCD access helpers, which
-> >> ignore partial access, always return 0 or an error code. Reimplement
-> >> existing helpers using the new functions to ensure backwards
-> >> compatibility.
-> >
-> > I think that description is for earlier versions of the series, it's the
-> > other way round now.
-> >
-> > Regardless, glanced through the series quickly, I like it, this is
-> >
-> > Acked-by: Jani Nikula <jani.nikula@intel.com>
-> 
-> PS. If you need to send another round, please Cc: intel-gfx and intel-xe
-> to run this through CI for both i915 and xe drivers. Thanks!
+A set of not quite related bindings warnings fixes.
 
-It might be a good idea to do that anyway. I'll send next iteration,
-fixing the cover letter and adding both MLs. I hope we can tolerate a
-bit of spam for the sake of getting the series a proper CI test.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Konrad Dybcio (11):
+      dt-bindings: iommu: qcom,iommu: Add optional TBU clock
+      dt-bindings: display: msm: sm8350-mdss: Describe the CPU-CFG icc path
+      dt-bindings: power: qcom,kpss-acc-v2: Add MSM8916 compatible
+      arm64: dts: qcom: msm8916: Fix KPSS ACC compatible
+      arm64: dts: qcom: sdx75: Fix up the USB interrupt description
+      arm64: dts: qcom: sdx75: Rename AOSS_QMP to power-management
+      arm64: dts: qcom: qcs615: Rename AOSS_QMP to power-management
+      arm64: dts: qcom: sc8180x: Rename AOSS_QMP to power-management
+      arm64: dts: qcom: x1e80100-dell-xps13-9345: Drop clock-names from PS8830
+      arm64: dts: qcom: x1e80100-romulus: Drop clock-names from PS8830
+      arm64: dts: qcom: x1e001de-devkit: Drop clock-names from PS8830
 
+ .../bindings/display/msm/qcom,sm8350-mdss.yaml           |  6 +++++-
+ Documentation/devicetree/bindings/iommu/qcom,iommu.yaml  |  4 ++++
+ .../devicetree/bindings/power/qcom,kpss-acc-v2.yaml      |  4 +++-
+ arch/arm64/boot/dts/qcom/msm8916.dtsi                    |  8 ++++----
+ arch/arm64/boot/dts/qcom/qcs615.dtsi                     |  2 +-
+ arch/arm64/boot/dts/qcom/sc8180x.dtsi                    |  2 +-
+ arch/arm64/boot/dts/qcom/sdx75.dtsi                      | 16 +++++++++-------
+ arch/arm64/boot/dts/qcom/x1e001de-devkit.dts             |  3 ---
+ arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts    |  2 --
+ arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi |  2 --
+ 10 files changed, 27 insertions(+), 22 deletions(-)
+---
+base-commit: 565351ae7e0cee80e9b5ed84452a5b13644ffc4d
+change-id: 20250306-topic-dt_bindings_fixups-602d47c3c365
 
+Best regards,
 -- 
-With best wishes
-Dmitry
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
