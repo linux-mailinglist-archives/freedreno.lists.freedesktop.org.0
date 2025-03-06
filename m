@@ -2,106 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BF06A54653
-	for <lists+freedreno@lfdr.de>; Thu,  6 Mar 2025 10:30:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C0E7A54AB8
+	for <lists+freedreno@lfdr.de>; Thu,  6 Mar 2025 13:32:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C2B10E926;
-	Thu,  6 Mar 2025 09:30:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1165110E195;
+	Thu,  6 Mar 2025 12:32:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IK1a5jPk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B5Ris81x";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CC1F10E151
- for <freedreno@lists.freedesktop.org>; Thu,  6 Mar 2025 09:30:29 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-43bd03ed604so3482835e9.2
- for <freedreno@lists.freedesktop.org>; Thu, 06 Mar 2025 01:30:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741253428; x=1741858228; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=3ncB2tuQORatDJdRGujzDM4Ip4LmUwzu5C0be3bbhYo=;
- b=IK1a5jPkCD5IEVpDpV78UgFhDlYBx3iPYkzIbbT297626M+FIriq/JiLnVP7ElNRFR
- 3XivZVhPPnXQZT8XKOOZxzAeCKWWakYLM1rYhK22S54K+fK+wgPtyW2jknR6r8363EGu
- XqRqtEKFV5EnSCSTS3W90/Skc7JWPvPZIv+Kg4iwff7aGgK+Icc0K2EO++4rmAqELCF+
- imUgeomD17vydbOLzfFG9YEX4W7Xtw6lv6KRfClLkBPhUbH6GhWab3u2j7ygJ2MyiLTt
- DTP7R7SFWxE/rUhx6+6j6xvM9yspnFJioyo/Gw79gxMPizlEH9snPU1jsHJe+8WjmUKF
- DTQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741253428; x=1741858228;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=3ncB2tuQORatDJdRGujzDM4Ip4LmUwzu5C0be3bbhYo=;
- b=H7MVaZEFUKIymA6rzw+qv7rRYIyJ2112KV2ezf3vU7Vhqw+hTRSuIOodWNWFduRri8
- /ilvaW6EvX8V3SQFh5WCokz6lhOyjGIFSfafpRQdDmNhNgNNkAWra+Mjd6jpp5olfcun
- scXQIW3UBN94VPMjQeO0PqeI/sGFFq2Bc1CUSwcjkOP/2VM0vSVF0nD+Xj7HLwzeDzaB
- BnnO4WVHxIvZCu0k8fhaUrDJi19iueF0xlicwZsEnXEO+QHk9Asl8v29A4pWB92TjKt/
- ZdJ6Kgr9BGuSd17wmnwYOgEIFTWyKMtOBOPcgbhJ9I1oJODLLdnKYrjAgCPPtWeIm+LK
- WKlw==
-X-Gm-Message-State: AOJu0Yybm/tH0s5IMNJgHwpQS/TXiFK7pLHTst/ANbmBT0kBEDnlNzIQ
- 0lQLzr62LQuz2hTsac8WoAk8EE2c1okgXXPRa9IhqrbFHZLb/O44IPG0Y/Tyji8=
-X-Gm-Gg: ASbGncvhNPrjtTeq9sWIllju2pMnTMPMtpabTh9sqHp0sD/UMjl3RK9lalyRtcqHnOC
- HboPTuLUIEfq+pOa9ZBHCEfB27lY6nPvWdd76aPCgQrNmyu4Fdqcv9UT/ShUvZQqJkGdzaKKH+J
- 6gGeWCP0LS3XaHLOi9FcQfofhWcl6Kx4M+ly8D1wFhxkTCi8tJg6mgi1LzD3JjfF9FGppbOsKXZ
- S2fJ2HFETnkF+7E9EwQahPhzzJ/4nJ4cTQGnX6ET/k8Qz0wj6VV56tZIvbqPgUXrKnV6zU8dgPt
- 4TTNkm9Dyb7vqeLhqwvsTGytC3C+gwTnY6ppAh5URyg4S2F3PQqJLLZk
-X-Google-Smtp-Source: AGHT+IEyknlGy0vVxl7IFJZZCVesAcPmZtefHHgNNLbDgMorbZ9ZZYO+JvFG/OeIm1Ql1Pr2uoj2Wg==
-X-Received: by 2002:a05:600c:35c2:b0:439:8bc3:a698 with SMTP id
- 5b1f17b1804b1-43bd293f637mr53469645e9.6.1741253427697; 
- Thu, 06 Mar 2025 01:30:27 -0800 (PST)
-Received: from [192.168.1.101] ([37.167.199.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912c0e2b8bsm1440616f8f.64.2025.03.06.01.30.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 01:30:27 -0800 (PST)
-Message-ID: <3cb174c1-ef1f-4578-b5b0-b82366d02ebb@linaro.org>
-Date: Thu, 6 Mar 2025 10:30:27 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F91810E195;
+ Thu,  6 Mar 2025 12:32:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1741264332; x=1772800332;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=oy4+bcRMMxQbh/qp4MXWjzg4Vg1yhmrjLtOiLO41T6c=;
+ b=B5Ris81xLx/YiT8ezEMBnPHnhb+eIdNPA+KkOLihG3vCy5KP4VgEucxn
+ eME2nmdikviGaoueOhLyxeby1P7NsYRZDj41uanXcmbObQvMR8qEWx3+T
+ F3TSjAxzaGCEaKvmCiRy2te4orIY/7HNV3APYH0JrhGeNwfIZ0afyyd1m
+ SFLKO2eg2Kfdb0DmsDab+uOhuQ4gU5EzVcWHfsmOXMFSXZCHnJ61fMoFO
+ LFfkgedj4j38xT+ESzo1AunfCb/R1YYZGnCsB5gqYUAPk3OELNABgg4Jd
+ WnN9zPtvag/eCLn7oHq4DHlrgr1UlqNJST//uwMa4NdfJwT2N8W7H5MNy Q==;
+X-CSE-ConnectionGUID: kr8/Nw+PSZm5pMBLYyvp4Q==
+X-CSE-MsgGUID: bLQJmPVeRPqq+IglbhZfeg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11363"; a="59815059"
+X-IronPort-AV: E=Sophos;i="6.14,226,1736841600"; d="scan'208";a="59815059"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2025 04:32:12 -0800
+X-CSE-ConnectionGUID: YmCqY4ujQDa8dAipYWTt6Q==
+X-CSE-MsgGUID: CmcuiUPlQemGc3evzetPjg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.14,226,1736841600"; d="scan'208";a="149790584"
+Received: from unknown (HELO localhost) ([10.237.66.160])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2025 04:32:07 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Lyude Paul
+ <lyude@redhat.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC v2 0/7] drm/display: dp: add new DPCD access functions
+In-Reply-To: <20250301-drm-rework-dpcd-access-v2-0-4d92602fc7cd@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20250301-drm-rework-dpcd-access-v2-0-4d92602fc7cd@linaro.org>
+Date: Thu, 06 Mar 2025 14:32:04 +0200
+Message-ID: <87a59ywda3.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH 1/2] MAINTAINERS: use kernel.org alias
-To: Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20250306-update-email-v1-0-9a231571e905@kernel.org>
- <20250306-update-email-v1-1-9a231571e905@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20250306-update-email-v1-1-9a231571e905@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,31 +71,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 05/03/2025 23:44, Dmitry Baryshkov wrote:
-> My Linaro email will stop working soon. Use @kernel.org email instead.
-> 
-> Signed-off-by: Dmitry Baryshkov <lumag@kernel.org>
-> ---
->   MAINTAINERS | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 29e1a423eee5bcf9df7938aaffe5bd3e2f6a2bbe..b3a67e278a839fa14d1329a249ecf4bbec00c26c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -7459,7 +7459,7 @@ F:	include/uapi/drm/msm_drm.h
->   DRM DRIVER for Qualcomm display hardware
->   M:	Rob Clark <robdclark@gmail.com>
->   M:	Abhinav Kumar <quic_abhinavk@quicinc.com>
-> -M:	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> +M:	Dmitry Baryshkov <lumag@kernel.org>
->   R:	Sean Paul <sean@poorly.run>
->   R:	Marijn Suijten <marijn.suijten@somainline.org>
->   L:	linux-arm-msm@vger.kernel.org
-> 
+On Sat, 01 Mar 2025, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> Existing DPCD access functions return an error code or the number of
+> bytes being read / write in case of partial access. However a lot of
+> drivers either (incorrectly) ignore partial access or mishandle error
+> codes. In other cases this results in a boilerplate code which compares
+> returned value with the size.
+>
+> As suggested by Jani implement new set of DPCD access helpers, which
+> ignore partial access, always return 0 or an error code. Reimplement
+> existing helpers using the new functions to ensure backwards
+> compatibility.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+I think that description is for earlier versions of the series, it's the
+other way round now.
+
+Regardless, glanced through the series quickly, I like it, this is
+
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+
+>
+> This series targets only the DRM helpers code. If the approach is found
+> to be acceptable, each of the drivers should be converted on its own.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> Changes in v2:
+> - Reimplemented new helpers using old ones (Lyude)
+> - Reworked the drm_dp_dpcd_read_link_status() patch (Lyude)
+> - Dropped the dp-aux-dev patch (Jani)
+> - Link to v1: https://lore.kernel.org/r/20250117-drm-rework-dpcd-access-v1-0-7fc020e04dbc@linaro.org
+>
+> ---
+> Dmitry Baryshkov (7):
+>       drm/display: dp: implement new access helpers
+>       drm/display: dp: change drm_dp_dpcd_read_link_status() return value
+>       drm/display: dp: use new DCPD access helpers
+>       drm/display: dp-aux-dev: use new DCPD access helpers
+>       drm/display: dp-cec: use new DCPD access helpers
+>       drm/display: dp-mst-topology: use new DCPD access helpers
+>       drm/display: dp-tunnel: use new DCPD access helpers
+>
+>  drivers/gpu/drm/amd/amdgpu/atombios_dp.c           |   8 +-
+>  .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |   2 +-
+>  drivers/gpu/drm/display/drm_dp_aux_dev.c           |  12 +-
+>  drivers/gpu/drm/display/drm_dp_cec.c               |  37 ++-
+>  drivers/gpu/drm/display/drm_dp_helper.c            | 307 +++++++++------------
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c      | 105 ++++---
+>  drivers/gpu/drm/display/drm_dp_tunnel.c            |  20 +-
+>  drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c       |   4 +-
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  24 +-
+>  drivers/gpu/drm/msm/dp/dp_link.c                   |  18 +-
+>  drivers/gpu/drm/radeon/atombios_dp.c               |   8 +-
+>  include/drm/display/drm_dp_helper.h                |  92 +++++-
+>  12 files changed, 322 insertions(+), 315 deletions(-)
+> ---
+> base-commit: c0eb65494e59d9834af7cbad983629e9017b25a1
+> change-id: 20241231-drm-rework-dpcd-access-b0fc2e47d613
+>
+> Best regards,
+
+-- 
+Jani Nikula, Intel
