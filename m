@@ -2,64 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4180CA560C9
-	for <lists+freedreno@lfdr.de>; Fri,  7 Mar 2025 07:25:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4625DA562C7
+	for <lists+freedreno@lfdr.de>; Fri,  7 Mar 2025 09:42:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFB210EAF8;
-	Fri,  7 Mar 2025 06:25:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02ADC10EB10;
+	Fri,  7 Mar 2025 08:42:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NVNWmUcj";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="UHoYFcDD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF33D10EAF8;
- Fri,  7 Mar 2025 06:25:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 60DF7A4544A;
- Fri,  7 Mar 2025 06:19:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54A88C4CEEA;
- Fri,  7 Mar 2025 06:25:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741328718;
- bh=AF3zl1+3FmKibEn7/QOSbKUdjP/4OElMD03QmbV+0OA=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NVNWmUcjMZmGp4yR1hKCdWcuzmbDRihO4EAht1fDtP9oknIizerW8vCOa2OyySi3r
- QKq1UyUIG2ujIkRo065FRVnRi7lIT/fc+SJDbxmHzVtJEClmsA0UnsUGygI5m05RKI
- HJ1M2xUgtP2TSZXse4PFiFfTbJVS//wuqd8vIizVhv7LnCzNs6nAkIGf7NEQOl69Al
- qKeuLOR4UZ5/iJfDmkg50X5lJ/0qBCQ7GIqKEeAaHtswQit3tqVxCkQIOkBx/XjVxh
- 673YR0rAcF13t5QzFelv1UWVg6429xbZe8t0gaz6tv7HuaTalKbGYwhVQuhGxXq9nZ
- PqhsBrc1NnX0A==
-From: Dmitry Baryshkov <lumag@kernel.org>
-Date: Fri, 07 Mar 2025 08:24:56 +0200
-Subject: [PATCH v3 8/8] drm/msm/dpu: drop now-unused condition for
- has_legacy_ctls
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3926E10EB10
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Mar 2025 08:42:30 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-43bcad638efso9188965e9.2
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Mar 2025 00:42:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1741336948; x=1741941748; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=US2Wc6icG0i9/47aJ/pkH3GP4es8yYK0BFMiCt7We04=;
+ b=UHoYFcDD0Skf7cFaM+X8gx2Y7Pkmxma5w0h6S4l3NEPfz2ae6qzeiajLxtio+hXN8J
+ YPEKOD8S4ibjYkcvlZRWBGtZ72oGb8buuc3HVq4v2JLMqCqWyhfDxXiYDEKuyAXfWflB
+ uLsdtl0ea0BfzdUp8xcm5pONN6zAHixpfahjQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741336948; x=1741941748;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=US2Wc6icG0i9/47aJ/pkH3GP4es8yYK0BFMiCt7We04=;
+ b=JXJ6rcMkOvPQc5wtBiDyIkrwgvVVV8FfVrGg0Q1Nmfnw2BY23af1LdyiR6JzszFKSW
+ BhAXAijLgThDcD9uzNkQb4B7V1J6vulLQD0G9AFl22zJDXtTEwaQxuy7Hxw1W517I3MZ
+ FLg3wfygJfzI/w2kYASA5lXy8H54Nl2b9G+9qUjGv7WxtrFcqlCmePXLpdhBuRs0uY1u
+ DOM7+vP382nbtbWAAsdZ1R4WWYwJ1BTyQBExeLBh+GSN8W2nxAjUHI9uUSE468mFmBVq
+ DVUM4D3V6lsqjPC5e5gNrDOZT4zaokOeBFV7yfuJX2TVLA65w3zA9tudHcipyR2/DEcI
+ MVOg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXG3IgXxemw4OxSHL+cYr6eCtXMuSmRYLyZCSrIA+oz+/1UX1IDPWCjUkQRHc2JS2fDpD1ETQI2Y9M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy58Phg739iFphNarrCrdhIyAlhFNLoObpWDTnyssxz+kFwt1Ig
+ diAbzfV68o0a3/yA0UhIGRT8yOFf7WmZ6vZo39QuOb/AS0arEtr72n0N1qh/S9A=
+X-Gm-Gg: ASbGnctNBGRj9xRgMyHgEevDfuj6+nrOgleVLf4BBGbmwa8vxl7M//PvQCR9TwCTjrx
+ osA4wac0Pw+6oDK0AR+GUU+dKjqt669vChJ7rQSz0eu25f+opceQCeoXVrcwI2qyHFalE+u/QGc
+ 6OUL3MAs2nrM+RxW/F+sQtQkkPfIfZzz6WCrv3EXUnwNkZ6utgFFWm3ufet0wc93oAAcNjvwnG3
+ 2bzPanBACEfXj9APn9SceV/zmFnyOGzbUKggIwpRYkcPbXTXxAOLBNg9cmwwPsI71YB6IZZ1ekA
+ L6dWKvZ4bwwge5YpbKOPZaLF8Pgb7vcR8wV8Tc11cd+nJTwfLFzaoToM
+X-Google-Smtp-Source: AGHT+IHeHcCAYfYIfg5Jap/0uuzQ6Oi2iytybYQTlJnuwARBxYqbc0PxFDylyktyJP3I4EPX9/4QPQ==
+X-Received: by 2002:a05:600c:1c19:b0:439:a1ef:c238 with SMTP id
+ 5b1f17b1804b1-43c601e1162mr16070975e9.13.1741336948296; 
+ Fri, 07 Mar 2025 00:42:28 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3912c0194f2sm4703188f8f.54.2025.03.07.00.42.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Mar 2025 00:42:27 -0800 (PST)
+Date: Fri, 7 Mar 2025 09:42:25 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, imx@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 02/25] drm/dumb-buffers: Provide helper to set pitch
+ and size
+Message-ID: <Z8qxcTIcD4W5OGwL@phenom.ffwll.local>
+References: <20250218142542.438557-1-tzimmermann@suse.de>
+ <20250218142542.438557-3-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250307-dpu-active-ctl-v3-8-5d20655f10ca@linaro.org>
-References: <20250307-dpu-active-ctl-v3-0-5d20655f10ca@linaro.org>
-In-Reply-To: <20250307-dpu-active-ctl-v3-0-5d20655f10ca@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1293;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=ZJQfVL2u4VLDEzUOjMo39hljcpjLahCFYCRsgXyDRmA=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnypE1yrtWX3xCYRYx1ZvpKfNuxSjI3TqtdorJY
- Xwo5LuIbXaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8qRNQAKCRCLPIo+Aiko
- 1Y5oCACxrnDt4RHInE5qYZQOS7Yfg2KFXB99dPyXHoPvVCAeCuxMNrnXLdRIuMXk3V9ffq3qRQh
- 9C2GhKbH6x6iUpA8CqKyOhGrgyK5pjiUAQB2lVQF85Y2Tf/XV1KsVceGZw3xqqP/6VMDXXs11R+
- q/zJ5WMdZvZIpdrvtbetOQITH1Z6I0IE00DgR6jyiCRqE7iBLENLsAHU0jfJeoK3caKmjK0LFZM
- PhXZCdHzLwZzvXOwURoOz4zIEu22NpKUCv3z7WQPrTg4QfLhq0cZ9dX4YroRR0XeMaFtVV27cCn
- EZ8iyNI2V8jzddau3hXEe+dgmeOhjbS2DNhmATa1bIZV70yq
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250218142542.438557-3-tzimmermann@suse.de>
+X-Operating-System: Linux phenom 6.12.11-amd64 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,40 +94,283 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Tue, Feb 18, 2025 at 03:23:25PM +0100, Thomas Zimmermann wrote:
+> Add drm_modes_size_dumb(), a helper to calculate the dumb-buffer
+> scanline pitch and allocation size. Implementations of struct
+> drm_driver.dumb_create can call the new helper for their size
+> computations.
+> 
+> There is currently quite a bit of code duplication among DRM's
+> memory managers. Each calculates scanline pitch and buffer size
+> from the given arguments, but the implementations are inconsistent
+> in how they treat alignment and format support. Later patches will
+> unify this code on top of drm_mode_size_dumb() as much as possible.
+> 
+> drm_mode_size_dumb() uses existing 4CC format helpers to interpret
+> the given color mode. This makes the dumb-buffer interface behave
+> similar the kernel's video= parameter. Current per-driver implementations
+> again likely have subtle differences or bugs in how they support color
+> modes.
+> 
+> The dumb-buffer UAPI is only specified for known color modes. These
+> values describe linear, single-plane RGB color formats or legacy index
+> formats. Other values should not be specified. But some user space
+> still does. So for unknown color modes, there are a number of known
+> exceptions for which drm_mode_size_dumb() calculates the pitch from
+> the bpp value, as before. All other values work the same but print
+> an error.
+> 
+> v3:
+> - document the UAPI semantics
+> - compute scanline pitch from for unknown color modes (Andy, Tomi)
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/drm_dumb_buffers.c | 116 +++++++++++++++++++++++++++++
+>  include/drm/drm_dumb_buffers.h     |  14 ++++
+>  include/uapi/drm/drm_mode.h        |  46 +++++++++++-
+>  3 files changed, 175 insertions(+), 1 deletion(-)
+>  create mode 100644 include/drm/drm_dumb_buffers.h
+> 
+> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
+> index 9916aaf5b3f2..600ab281712b 100644
+> --- a/drivers/gpu/drm/drm_dumb_buffers.c
+> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
+> @@ -25,6 +25,8 @@
+>  
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_drv.h>
+> +#include <drm/drm_dumb_buffers.h>
+> +#include <drm/drm_fourcc.h>
+>  #include <drm/drm_gem.h>
+>  #include <drm/drm_mode.h>
+>  
+> @@ -57,6 +59,120 @@
+>   * a hardware-specific ioctl to allocate suitable buffer objects.
+>   */
+>  
+> +static int drm_mode_align_dumb(struct drm_mode_create_dumb *args,
+> +			       unsigned long pitch_align,
+> +			       unsigned long size_align)
+> +{
+> +	u32 pitch = args->pitch;
+> +	u32 size;
+> +
+> +	if (!pitch)
+> +		return -EINVAL;
+> +
+> +	if (pitch_align)
+> +		pitch = roundup(pitch, pitch_align);
+> +
+> +	/* overflow checks for 32bit size calculations */
+> +	if (args->height > U32_MAX / pitch)
+> +		return -EINVAL;
+> +
+> +	if (!size_align)
+> +		size_align = PAGE_SIZE;
+> +	else if (!IS_ALIGNED(size_align, PAGE_SIZE))
+> +		return -EINVAL;
+> +
+> +	size = ALIGN(args->height * pitch, size_align);
+> +	if (!size)
+> +		return -EINVAL;
+> +
+> +	args->pitch = pitch;
+> +	args->size = size;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * drm_mode_size_dumb - Calculates the scanline and buffer sizes for dumb buffers
+> + * @dev: DRM device
+> + * @args: Parameters for the dumb buffer
+> + * @pitch_align: Scanline alignment in bytes
+> + * @size_align: Buffer-size alignment in bytes
+> + *
+> + * The helper drm_mode_size_dumb() calculates the size of the buffer
+> + * allocation and the scanline size for a dumb buffer. Callers have to
+> + * set the buffers width, height and color mode in the argument @arg.
+> + * The helper validates the correctness of the input and tests for
+> + * possible overflows. If successful, it returns the dumb buffer's
+> + * required scanline pitch and size in &args.
+> + *
+> + * The parameter @pitch_align allows the driver to specifies an
+> + * alignment for the scanline pitch, if the hardware requires any. The
+> + * calculated pitch will be a multiple of the alignment. The parameter
+> + * @size_align allows to specify an alignment for buffer sizes. The
+> + * returned size is always a multiple of PAGE_SIZE.
+> + *
+> + * Returns:
+> + * Zero on success, or a negative error code otherwise.
+> + */
+> +int drm_mode_size_dumb(struct drm_device *dev,
+> +		       struct drm_mode_create_dumb *args,
+> +		       unsigned long pitch_align,
+> +		       unsigned long size_align)
+> +{
+> +	u64 pitch = 0;
+> +	u32 fourcc;
+> +
+> +	/*
+> +	 * The scanline pitch depends on the buffer width and the color
+> +	 * format. The latter is specified as a color-mode constant for
+> +	 * which we first have to find the corresponding color format.
+> +	 *
+> +	 * Different color formats can have the same color-mode constant.
+> +	 * For example XRGB8888 and BGRX8888 both have a color mode of 32.
+> +	 * It is possible to use different formats for dumb-buffer allocation
+> +	 * and rendering as long as all involved formats share the same
+> +	 * color-mode constant.
+> +	 */
+> +	fourcc = drm_driver_color_mode_format(dev, args->bpp);
+> +	if (fourcc != DRM_FORMAT_INVALID) {
+> +		const struct drm_format_info *info = drm_format_info(fourcc);
+> +
+> +		if (!info)
+> +			return -EINVAL;
+> +		pitch = drm_format_info_min_pitch(info, 0, args->width);
+> +	} else if (args->bpp) {
+> +		/*
+> +		 * Some userspace throws in arbitrary values for bpp and
+> +		 * relies on the kernel to figure it out. In this case we
+> +		 * fall back to the old method of using bpp directly. The
+> +		 * over-commitment of memory from the rounding is acceptable
+> +		 * for compatibility with legacy userspace. We have a number
+> +		 * of deprecated legacy values that are explicitly supported.
+> +		 */
+> +		switch (args->bpp) {
+> +		default:
+> +			drm_warn(dev, "Unknown color mode %d; guessing buffer size.\n",
+> +				 args->bpp);
+> +			fallthrough;
 
-Now as we have dropped the DPU_CTL_SPLIT_DISPLAY from DPU >= 5.0
-configuration, drop the rm->has_legacy_ctl condition which short-cutted
-the check for those platforms.
+We cannot let userspace trigger dmesg warnings (or anything else really
+that spams logs). Also I think for future proofing it would be good if we
+just reject anything we don't currently know about instead of silently
+letting this mess become worse. Hence my vote is to reject unknown bpp
+hack values.
 
-Suggested-by: Marijn Suijten <marijn.suijten@somainline.org>
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
+> +		case 12:
+> +		case 15:
+> +		case 30: /* see drm_gem_afbc_get_bpp() */
 
-Note, it is imposible to reoder commits in any other sensible way. The
-DPU_CTL_SPLIT_DISPLAY can not be dropped before the patch that enables
-single-CTL support.
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+This is a bit too cryptic to me, I think if you want to do comments I'd
+just put a long-form one above each value that explains where we've found
+it and why it happens. I'm also assuming these all have depth = 0, which I
+guess is something we should check just to keep this as strict as
+possible? Or do they have matching depth?
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-index c72b968d58a65960605456e752278def2a21df7b..2e296f79cba1437470eeb30900a650f6f4e334b6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-@@ -466,8 +466,7 @@ static int _dpu_rm_reserve_ctls(
- 
- 		DPU_DEBUG("ctl %d caps 0x%lX\n", j + CTL_0, features);
- 
--		if (rm->has_legacy_ctls &&
--		    needs_split_display != has_split_display)
-+		if (needs_split_display != has_split_display)
- 			continue;
- 
- 		ctl_idx[i] = j;
+Cheers, Sima
+
+> +		case 10:
+> +		case 64: /* used by Mesa */
+> +			pitch = args->width * DIV_ROUND_UP(args->bpp, SZ_8);
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!pitch || pitch > U32_MAX)
+> +		return -EINVAL;
+> +
+> +	args->pitch = pitch;
+> +
+> +	return drm_mode_align_dumb(args, pitch_align, size_align);
+> +}
+> +EXPORT_SYMBOL(drm_mode_size_dumb);
+> +
+>  int drm_mode_create_dumb(struct drm_device *dev,
+>  			 struct drm_mode_create_dumb *args,
+>  			 struct drm_file *file_priv)
+> diff --git a/include/drm/drm_dumb_buffers.h b/include/drm/drm_dumb_buffers.h
+> new file mode 100644
+> index 000000000000..6fe36004b19d
+> --- /dev/null
+> +++ b/include/drm/drm_dumb_buffers.h
+> @@ -0,0 +1,14 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +#ifndef __DRM_DUMB_BUFFERS_H__
+> +#define __DRM_DUMB_BUFFERS_H__
+> +
+> +struct drm_device;
+> +struct drm_mode_create_dumb;
+> +
+> +int drm_mode_size_dumb(struct drm_device *dev,
+> +		       struct drm_mode_create_dumb *args,
+> +		       unsigned long pitch_align,
+> +		       unsigned long size_align);
+> +
+> +#endif
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index c082810c08a8..eea09103b1a6 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -1058,7 +1058,7 @@ struct drm_mode_crtc_page_flip_target {
+>   * struct drm_mode_create_dumb - Create a KMS dumb buffer for scanout.
+>   * @height: buffer height in pixels
+>   * @width: buffer width in pixels
+> - * @bpp: bits per pixel
+> + * @bpp: color mode
+>   * @flags: must be zero
+>   * @handle: buffer object handle
+>   * @pitch: number of bytes between two consecutive lines
+> @@ -1066,6 +1066,50 @@ struct drm_mode_crtc_page_flip_target {
+>   *
+>   * User-space fills @height, @width, @bpp and @flags. If the IOCTL succeeds,
+>   * the kernel fills @handle, @pitch and @size.
+> + *
+> + * The value of @bpp is a color-mode number describing a specific format
+> + * or a variant thereof. The value often corresponds to the number of bits
+> + * per pixel for most modes, although there are exceptions. Each color mode
+> + * maps to a DRM format plus a number of modes with similar pixel layout.
+> + * Framebuffer layout is always linear.
+> + *
+> + * Support for all modes and formats is optional. Even if dumb-buffer
+> + * creation with a certain color mode succeeds, it is not guaranteed that
+> + * the DRM driver supports any of the related formats. Most drivers support
+> + * a color mode of 32 with a format of DRM_FORMAT_XRGB8888 on their primary
+> + * plane.
+> + *
+> + * +------------+------------------------+------------------------+
+> + * | Color mode | Framebuffer format     | Compatibles            |
+> + * +============+========================+========================+
+> + * |     32     |  * DRM_FORMAT_XRGB8888 |  * DRM_FORMAT_XBGR8888 |
+> + * |            |                        |  * DRM_FORMAT_RGBX8888 |
+> + * |            |                        |  * DRM_FORMAT_BGRX8888 |
+> + * +------------+------------------------+------------------------+
+> + * |     24     |  * DRM_FORMAT_RGB888   |  * DRM_FORMAT_BGR888   |
+> + * +------------+------------------------+------------------------+
+> + * |     16     |  * DRM_FORMAT_RGB565   |  * DRM_FORMAT_BGR565   |
+> + * +------------+------------------------+------------------------+
+> + * |     15     |  * DRM_FORMAT_XRGB1555 |  * DRM_FORMAT_XBGR1555 |
+> + * |            |                        |  * DRM_FORMAT_RGBX1555 |
+> + * |            |                        |  * DRM_FORMAT_BGRX1555 |
+> + * +------------+------------------------+------------------------+
+> + * |      8     |  * DRM_FORMAT_C8       |  * DRM_FORMAT_R8       |
+> + * +------------+------------------------+------------------------+
+> + * |      4     |  * DRM_FORMAT_C4       |  * DRM_FORMAT_R4       |
+> + * +------------+------------------------+------------------------+
+> + * |      2     |  * DRM_FORMAT_C2       |  * DRM_FORMAT_R2       |
+> + * +------------+------------------------+------------------------+
+> + * |      1     |  * DRM_FORMAT_C1       |  * DRM_FORMAT_R1       |
+> + * +------------+------------------------+------------------------+
+> + *
+> + * Color modes of 10, 12, 15, 30 and 64 are only supported for use by
+> + * legacy user space. Please don't use them in new code. Other modes
+> + * are not support.
+> + *
+> + * Do not attempt to allocate anything but linear framebuffer memory
+> + * with single-plane RGB data. Allocation of other framebuffer
+> + * layouts requires dedicated ioctls in the respective DRM driver.
+>   */
+>  struct drm_mode_create_dumb {
+>  	__u32 height;
+> -- 
+> 2.48.1
+> 
 
 -- 
-2.39.5
-
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
