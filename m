@@ -2,70 +2,101 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45AF1A563D4
-	for <lists+freedreno@lfdr.de>; Fri,  7 Mar 2025 10:30:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 232E9A5663C
+	for <lists+freedreno@lfdr.de>; Fri,  7 Mar 2025 12:07:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C5FB10EB26;
-	Fri,  7 Mar 2025 09:30:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 717CB10E0AD;
+	Fri,  7 Mar 2025 11:07:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vepRDBUt";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gOQFns06";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CC5910EB32
- for <freedreno@lists.freedesktop.org>; Fri,  7 Mar 2025 09:30:54 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-43bbd711eedso12528055e9.3
- for <freedreno@lists.freedesktop.org>; Fri, 07 Mar 2025 01:30:54 -0800 (PST)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85D8010E068
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Mar 2025 11:07:15 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-5dc89df7eccso2929112a12.3
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Mar 2025 03:07:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741339853; x=1741944653; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cWeDyXgdM9hubjOCKBZmiC1OcDCgIXm8CMskHHCrzsU=;
- b=vepRDBUt9YXbVQseOnAUDik2TELB/4XoposLetgHKuKbHeoGeb4hgkfyWFRvaSQCq2
- sXITsNTe54jB3g1sTt7SNvdE/Py8tt90n6IbBmO9s0KD62PWu3MXqzO3XEVHlmXk7/nK
- qn2APOQDM/mgVfuT3CUmWL0dYER0+DZJNwaNgTimv+r2hgLhtrma5vtjt7iIYlRxusS5
- JF2ooAgP2MZGGXwtMtKTnROzk25zo693leOTfECPfqjYIIfz/O8MjqYnd19lIOuk2j5y
- wfUk7XvXEbjMoUK144xIOH3svN+53mRYCNARhjUQFuqxRwR1xRxgUUSza7xINeq8UeRs
- aptA==
+ d=linaro.org; s=google; t=1741345634; x=1741950434; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=yfDn9FH6gBIL3kasCeeYhlqgNKvkAd8JgXjYP0PTb+0=;
+ b=gOQFns06i3PMdY5Ffge267GV4gedH49obqaPM4vDpFik1qJWaBPpnIlS9HbgE4hA7f
+ jcqsi0a9hiTmrmascN12Ee5cox927SQzI7yOd+ZNLPwAimFxil7sialb8vqZjHHRx5vn
+ mQ/3RXM39xv8+V4qNQGFaFOp5R9uW6OpFUogk/duQP60oAR6n0CiUFsZIwEByVTAtt2H
+ Cba/yfo6bTfPOakQENoYsk1Fm1qqv60oB3ZzGL6wTCK/N4X4FNfq+KglkmY2Brn0+7xq
+ cukrSbv+u3VZSfKLQlRKUyivCAmlrFSbhbfApwtZlv3EPTGYGTtJwmbIwzW1CNwerLbA
+ ufYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741339853; x=1741944653;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20230601; t=1741345634; x=1741950434;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cWeDyXgdM9hubjOCKBZmiC1OcDCgIXm8CMskHHCrzsU=;
- b=LPMkkV2UcGvneF3Ym0OXh4EWS5ud72KrBm3equFaW29Z4tNJOKuh58iI+GhZ8zb6X7
- zr9rWZo4tMArFHqsxrLTcNw/H5ZS+fEyhigJLML5pafNPOhzFcS5N9UQA8edCvCzvqLB
- Z3IkztcDVVZm/mtkrSExnZePQMI5QNaZW45EEZPR6aciuycRetNids4GC26gHYn6yIVu
- opZFnRCN5gOrNg7gBPE6q004O4abbCA6PLBksiADZwXRmnaBn2gxWgLzMBnKFIXqNMLZ
- RSMW2Gu2UAb8jJJEE5DAfIElj8oF231f07WGUun3DFvST4SI2jnkyEOoWR8YyiP+rALp
- nNkg==
-X-Gm-Message-State: AOJu0YzmpYiJQNzrKWsdJp3u83FjfS23DsChRjR8GsFD3H+P005OVr+o
- rcHFtv3fYPp28zVPYp6cqGuwu/6tYZ8N9UtMyXLIte7C3k2JaL7ZV/quw5gQVOI=
-X-Gm-Gg: ASbGncu42cRNjwR0XwPcQiBSGrqEcVPM0nbo6dqhDm95spC21UoJecQwD/dMcMWp18S
- Drg7L1mBY8MIhtcFlMdO4iFLmZw8qWReyVXIYOrTbSPVGuGUaOcetkv/JTdRj80fL/EMcIeyFjH
- zFThfmjq3gzGG+Xg3jvUSG9Ot/Z5DxKTd3XKgsP+iOKXTGYOYXq0R3KHyc1R6G7hEj3+gLpFZNR
- tLOQNN/mFWnUOkjc8jQ8liVse0feehv3kAegfVR6gkq3jAfeClZ+xAjkSNs2lSUSHvX77mbxs2/
- R8xZ80bmzABY3gsjyN2T8K/xOyD5j4UPQAtqv/tdi6+rpYQ4Gg==
-X-Google-Smtp-Source: AGHT+IH6CU/bySlh4OV3OfPmWXUpozBNfLBAqdUz3u7EFMIMNivPuPX2v3k9lyc8xhBj5OEmDoLHbg==
-X-Received: by 2002:a05:600c:46ca:b0:439:88bb:d002 with SMTP id
- 5b1f17b1804b1-43c5a629b5bmr17283005e9.23.1741339852678; 
- Fri, 07 Mar 2025 01:30:52 -0800 (PST)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-43bd4293250sm74899315e9.16.2025.03.07.01.30.51
+ bh=yfDn9FH6gBIL3kasCeeYhlqgNKvkAd8JgXjYP0PTb+0=;
+ b=RmkTfMzd6qII3EU+5kHwWyrwXZjwZiS6CJlZE5QHC5RXPuBjNKSi56W50ALhf2flu/
+ SlukT0lshy1tDzeb5oqWXLUlrMfBKvzYvu7DmPnYdOUj+wzld/ZQNZCmmExNd1pPBeQH
+ WPaagI7YD5LWVii0NjsHC5JguxGbTRJFCdzyKICf3LVQJSjrWFw8RRXD6JJEHfETZlye
+ EZV+nmgvc/x4wz+V404PCQ9lgiiM8bWOQHgvab2LoWsG+ZShnBrwe0aVa1np2mTeNJnc
+ gjCbYRdIBWbW7nz8x14WZmAuqTPdRlAUGSuHL0OS1muc/AWPjZfsWNoObZOwTWOZHIkh
+ aPPg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU6KoKm07qkCOGPfFEzD91j/t8Diavn9rpLy5QX42vgCIQDtCSYEUDrhd7KKvhEFUfaSL3sLflLdms=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxpp005P7kAhe5fA5KqYExenPQvAaPJqhBRyQM3GS4lFViyGIHB
+ lQluCIBN8SrOTU7K37gFNJkyLHvlgY0yc28U5wVeplM1AbSPNZ8JZX7bgdW7Ds4=
+X-Gm-Gg: ASbGncsE1pwfeh8JQbvM3H6tV9ERjO2CKV5Ae2VzWCd/ZX/nadDeUorNxiGOP6ZsBLd
+ gT/udyGolr7YyZm43Uh5zjQ65h6jsqSu5iUwmI/WBwABn4cvl9HX/Ks7NyeK5zD/Fv46DwwpS9i
+ uRCSldOLtR2WIvhmum5N/uA8D2PONXqdpSBLRQErOo+2ckTQFqR9DXCY5UTfUqiYUEjoAkqelGP
+ /xtRqR2z1ZBZ851FqcVXSpWuoQDQ0ey6xW8+Ddq4Xmhclnr4RLEScFbJECPZQp3BgNeLF5k1jRz
+ HxfOcvYkfiUuitkEjMjnn7qRo0rPo/07OcThiUAT/4UJ48EUE8lk
+X-Google-Smtp-Source: AGHT+IGgkdI1f8j3o1gNtZn8e4RQmGqfj9SGVx8IYAmQaeWhqRp49yPnbjkO8kd42BMMr1gZ+zPEWw==
+X-Received: by 2002:a17:906:f59c:b0:abf:fb7b:8d09 with SMTP id
+ a640c23a62f3a-ac252ed8b2cmr349617466b.51.1741345633855; 
+ Fri, 07 Mar 2025 03:07:13 -0800 (PST)
+Received: from linaro.org ([2a02:2454:ff21:ef30:c140:2ce9:b81:70])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac239481685sm264956366b.58.2025.03.07.03.07.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Mar 2025 01:30:52 -0800 (PST)
-Date: Fri, 7 Mar 2025 12:30:48 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: freedreno@lists.freedesktop.org
-Subject: [bug report] drm/msm/dpu: Skip trigger flush and start for CWB
-Message-ID: <19f0b5b4-6d27-4b25-9019-1fb44d05ea2c@stanley.mountain>
+ Fri, 07 Mar 2025 03:07:13 -0800 (PST)
+Date: Fri, 7 Mar 2025 12:07:07 +0100
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Robert Foss <rfoss@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Rohit Agarwal <quic_rohiagar@quicinc.com>,
+ Kyle Deng <quic_chunkaid@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-usb@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 03/11] dt-bindings: power: qcom,kpss-acc-v2: Add MSM8916
+ compatible
+Message-ID: <Z8rTW3fQObiZ7del@linaro.org>
+References: <20250306-topic-dt_bindings_fixups-v1-0-0c84aceb0ef9@oss.qualcomm.com>
+ <20250306-topic-dt_bindings_fixups-v1-3-0c84aceb0ef9@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250306-topic-dt_bindings_fixups-v1-3-0c84aceb0ef9@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,51 +112,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Jessica Zhang,
+On Thu, Mar 06, 2025 at 07:11:15PM +0100, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> MSM8916 seems to reuse the same hardware as MSM8974 and friends (for
+> whom this binding document was created). Add a new compatible for it.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/power/qcom,kpss-acc-v2.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/power/qcom,kpss-acc-v2.yaml b/Documentation/devicetree/bindings/power/qcom,kpss-acc-v2.yaml
+> index 202a5d51ee88c7190805efe8f1bf493bdb69ec45..27dae49163fa0790ceb6fda8a5c674f739d4a41a 100644
+> --- a/Documentation/devicetree/bindings/power/qcom,kpss-acc-v2.yaml
+> +++ b/Documentation/devicetree/bindings/power/qcom,kpss-acc-v2.yaml
+> @@ -18,7 +18,9 @@ description:
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,kpss-acc-v2
+> +    enum:
+> +      - qcom,msm8916-kpss-acc
 
-This is a semi-automatic email about new static checker warnings.
+Hm, MSM8916 doesn't have a *K*PSS (Krait Processor SubSystem), it has an
+*A*PSS (ARM Cortex – A53 SubSystem, or Application Processor SubSystem).
 
-Commit 8144d17a81d9 ("drm/msm/dpu: Skip trigger flush and start for
-CWB") from Feb 14, 2025, leads to the following Smatch complaint:
+I think this should be either qcom,msm8916-apss-acc, or you just keep
+the qcom,msm8916-acc we already use. I'm guessing ACC stands for
+"Application Clock Controller", so it would be unique enough already.
 
-    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1672 _dpu_encoder_trigger_start()
-    warn: variable dereferenced before check 'phys' (see line 1670)
+There is actually a patch from Rayyan already with a R-b from Krzysztof.
+Maybe you, or whoever is responsible, can pick it up?
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-  1669	{
-  1670		struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys->parent);
-                                                                       ^^^^^^^^^^^^
-Dereference
+https://lore.kernel.org/linux-arm-msm/20240710155226.130086-1-rayyan.ansari@linaro.org/
 
-  1671	
-  1672		if (!phys) {
-                    ^^^^^
-
-  1673			DPU_ERROR("invalid argument(s)\n");
-  1674			return;
-
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1814 _dpu_encoder_kickoff_phys()
-error: we previously assumed 'dpu_enc->cur_master' could be null (see line 1807)
-
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-  1805  
-  1806          /* for split flush, combine pending flush masks and send to master */
-  1807          if (pending_flush && dpu_enc->cur_master) {
-                                     ^^^^^^^^^^^^^^^^^^^
-Check for NULL
-
-  1808                  _dpu_encoder_trigger_flush(
-  1809                                  &dpu_enc->base,
-  1810                                  dpu_enc->cur_master,
-  1811                                  pending_flush);
-  1812          }
-  1813  
-  1814          _dpu_encoder_trigger_start(dpu_enc->cur_master);
-                                           ^^^^^^^^^^^^^^^^^^^
-Unchecked dereference.  Although, I guess this will go away if we
-fix the first warning.
-
-  1815  
-
-regards,
-dan carpenter
+Thanks,
+Stephan
