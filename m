@@ -2,76 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6AB8A57570
-	for <lists+freedreno@lfdr.de>; Fri,  7 Mar 2025 23:53:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFA3CA57579
+	for <lists+freedreno@lfdr.de>; Fri,  7 Mar 2025 23:55:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6D210E1C3;
-	Fri,  7 Mar 2025 22:53:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53FE610E2DA;
+	Fri,  7 Mar 2025 22:55:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="bj8gipsf";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FwNH7ZZD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95FE910E1C8
- for <freedreno@lists.freedesktop.org>; Fri,  7 Mar 2025 22:53:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7143010E1CB
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Mar 2025 22:55:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1741388028;
+ s=mimecast20190719; t=1741388135;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=yXQXV78ilg8QbOSeJ1gVq2QaFlA5Vhfr6jcj7iBBUVM=;
- b=bj8gipsfbnUUg7psEBvOuE9u2wHe9lFKY2IrGatbLatGs9+AXH/sC165v3pBcBaF2fNrJg
- HHiEMmJjp6uY9t7wpdfCAkoFqBfOhLwQnGY46rKa/MC6+chbv8GYG3TW2jQJ77zYJ/NHlI
- BbH0TndMlkYt1evjlmwhsDo9TGDYyjk=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=EZgkTW0PfC3woBgT3YCgFFVc+jgJ5kRHhtlj0Arr8jE=;
+ b=FwNH7ZZD8uRqfw8/H6/GgYoWo2iy5j/OJAx9+GCV1q3oTotY0UUAx9Q5PBvAvvxHsCfVLr
+ Ixo95z1X2UjBvGK0V0Y/1JibQGUzph7p1/YdInsAJB2+GP6jnSP1AA8/2O9hA3+0vvia3b
+ PQ17J+XM6CemIo0NmcM9CTZaVop4Bjc=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-661-y8X2I3N9NGGa5XwBtFLCew-1; Fri, 07 Mar 2025 17:53:43 -0500
-X-MC-Unique: y8X2I3N9NGGa5XwBtFLCew-1
-X-Mimecast-MFC-AGG-ID: y8X2I3N9NGGa5XwBtFLCew_1741388022
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-6e8fae3e448so44815726d6.2
- for <freedreno@lists.freedesktop.org>; Fri, 07 Mar 2025 14:53:43 -0800 (PST)
+ us-mta-641-cjnGgOB0Pdawg0cMj8vjdQ-1; Fri, 07 Mar 2025 17:55:32 -0500
+X-MC-Unique: cjnGgOB0Pdawg0cMj8vjdQ-1
+X-Mimecast-MFC-AGG-ID: cjnGgOB0Pdawg0cMj8vjdQ_1741388132
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-6e8ea277063so58489206d6.1
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Mar 2025 14:55:32 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741388022; x=1741992822;
+ d=1e100.net; s=20230601; t=1741388131; x=1741992931;
  h=mime-version:user-agent:content-transfer-encoding:organization
  :references:in-reply-to:date:cc:to:from:subject:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hUL+877T7W+vhCtWKRqEvjVJGq6XPC4hoxV7RN/J3+k=;
- b=IYtZjTGCqdsOw6xSkXzZQ8z9/7HqbdTs6FFTZIxzItax6RRghWPmNgFeA5uzN81PNM
- W+k6orP1tT/2GWzuuAMtOHDPElU2SeSwwm4JBMH64SxJTA6UmhxAG62rsCnPJk1po8C3
- V29eV0qEMZYIgdCaGk5fRdbc30Mooig/edY+/GpxvRyqMi4TmUf9By0kkA98iv1+xSGI
- 3QV9b0G1rvuMR/K+7ghpm2yPE9lV9dbryPdKAU9334GOxX+DfNwBPMfxiCIo14Llw3jh
- IAklAT4Qev/gLk1uHZBSHNaYdW7odcH7zfL3tSYTCoxBCVL925IeJEL4LN9QkvRfwt+/
- V3Pg==
+ bh=dFu+NrVigBnHfIjCfBEs0lOnPpe6u5dBWj04wheoJZ8=;
+ b=tX2dhr21wH49zwk2HS4DpcNvlXgZdFfePYoAG4bIt9mcJ3N0aYLHJK+3aj+8BdK/VU
+ SL7f3n6ckIy4S0N++Zaa+36tmclM0i6joiXVdF7/gFxqiIlR5byJVPWA3nC5zjBJYTff
+ tl9JsPyqPN51pwSmdCAbMpa8GM8n8chB/GFaHgdnoRZEt23/kCJTyj6ovm4/xSdrXC5W
+ ZtLAIR2cW7Cdrwrihm3m9JhzGo3Xb5319s/CTT5pLFJn4bSqMW2CRN36+fFQX3pJ4GrV
+ FqmZBeHk5a0aDHz2Yk6/hBIOr+ewGkdG8fNHOuvb2L695xa7HV2vxeyvAvYvZJpEjgvO
+ lzVg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVVd2FfZSQku5RsE5Pi5JWcqS7EutzZj0XpdPdwchN/LoIoilmuY9U0r+Lkb2xy6QVO1t/xWgIANfw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkOzbwOJINVQaNQm8q2d32nan8EMfXNVfO1jES7vbqZ7JmAArL
- /VYCn2sR5yiwLXo/8xonM/B6mwQZ79TQ9+Hyf/3JliGRThmp4ttxjG+FuVZ5yn+sNfroR0AfqOD
- yxjtC1yV05005JGvLwD7bWAcrKSYh/F+vr/BXJEbT17Me5dYfSHAqG0yw86zXap43gw==
-X-Gm-Gg: ASbGnctM9R8q/pob62/TObZzOd5xQp7xMjZE1lThXilbRTe3ib9WVCdzx5mAWKPj93O
- cqx0n8jlUz6QlONJbpvZsN6veug9YFxW7sXLvMqglJwC7wmF/B87UElmrKZhxhxkS5Uki00LhuP
- ASpjzSeMKhhcGjgXI8d/Ihw1PJavR7w8x6mvW2xtFL18wRJcLumxn30I2AEfQQ87gc17gxq76qP
- ZZyeaBX/tJyvkTVhPhdSql3Fj65nUtk8HLgxxz2GTiGfxeYpQs1zRO7/tJG2HjkQlFESrMfmh2k
- ggw6O9q0Z2fahG5149KdpQ==
-X-Received: by 2002:a05:6214:29ef:b0:6e6:6048:f42c with SMTP id
- 6a1803df08f44-6e9005b68eemr66446906d6.8.1741388022532; 
- Fri, 07 Mar 2025 14:53:42 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEDDx2rTaJi63HJhzso4+ebLHCkJR0Kmxc4FsJ4KCXCsy68pYu1tuiCIaWn34AyzdbIYAeIKA==
-X-Received: by 2002:a05:6214:29ef:b0:6e6:6048:f42c with SMTP id
- 6a1803df08f44-6e9005b68eemr66446336d6.8.1741388021846; 
- Fri, 07 Mar 2025 14:53:41 -0800 (PST)
+ AJvYcCV481bTXY5xCf/Qnd8uc8hDuuw00qjL8a+uR4FepFtmuPabJPhF3Djah5I7vKeAEK//k/GfnFiIOYg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyvi9hBX/Q/06uFxC8yDi2GMilX8+jYbx/5ez7e6hHOsDYYl/4R
+ 7/QFqApzm39lxkd90v3azalw04s+F2Hih1E9F5H1jRXr+noyWX+pnZitmPpibhL5iGkOa9txQHZ
+ WPzvk+wP6hjncApsbt6ptpz/uqaxFLjL0LjIKaV69uzZhX4AHYMOVKAaTaV64w0njyA==
+X-Gm-Gg: ASbGnct3jIhdMss0s/J6WO+wgODbgliWCTTK0HRpU9ux31D1BH8luV0N16qXi2QFRqO
+ 0Hz3/tYWOalftJHgWwXFv1l+qilbhP9DQoOs5PcfSYPBlShp8I+V3FN+qzIe/ssoviA51Hv6gdP
+ 4yoHXqsAOXXHARDEdaJg4WIW5ro5feIoud2e29THyc7U1CHFn52WAcRYdghQiZE/rkC2DnOFeSR
+ 9tE/ZNT4YjyxS0iMTtroq0IdyJeBIfRRgzvHOWapg0/VwPQqIARxOe7L1X9hLovyjLYQX6BrDZc
+ TAmP209Xz6d++P8SJgf9tQ==
+X-Received: by 2002:ad4:5be2:0:b0:6e8:f464:c9a0 with SMTP id
+ 6a1803df08f44-6e9005dc726mr64882006d6.13.1741388131640; 
+ Fri, 07 Mar 2025 14:55:31 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IG8AKKY0jpBKLmKWkjdsIw8u6W3x176/uKH9n5inazPr5cu/O3VYS5I4SNZhwIeRNxII752cQ==
+X-Received: by 2002:ad4:5be2:0:b0:6e8:f464:c9a0 with SMTP id
+ 6a1803df08f44-6e9005dc726mr64881726d6.13.1741388131261; 
+ Fri, 07 Mar 2025 14:55:31 -0800 (PST)
 Received: from ?IPv6:2600:4040:5c4c:a000::bb3? ([2600:4040:5c4c:a000::bb3])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6e8f71724c9sm24389386d6.106.2025.03.07.14.53.39
+ 6a1803df08f44-6e8f715baaasm24249266d6.85.2025.03.07.14.55.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Mar 2025 14:53:40 -0800 (PST)
-Message-ID: <3284acdfa43fa62e7230355b4ed2e09ab75f326a.camel@redhat.com>
-Subject: Re: [PATCH RFC v3 4/7] drm/display: dp-aux-dev: use new DCPD access
- helpers
+ Fri, 07 Mar 2025 14:55:30 -0800 (PST)
+Message-ID: <f830cb19df3296cccc4f490e8e2cd1675af2b01f.camel@redhat.com>
+Subject: Re: [PATCH RFC v3 1/7] drm/display: dp: implement new access helpers
 From: Lyude Paul <lyude@redhat.com>
 To: Dmitry Baryshkov <lumag@kernel.org>, Maarten Lankhorst	
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
@@ -92,15 +91,15 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>
-Date: Fri, 07 Mar 2025 17:53:38 -0500
-In-Reply-To: <20250307-drm-rework-dpcd-access-v3-4-9044a3a868ee@linaro.org>
+Date: Fri, 07 Mar 2025 17:55:27 -0500
+In-Reply-To: <20250307-drm-rework-dpcd-access-v3-1-9044a3a868ee@linaro.org>
 References: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
- <20250307-drm-rework-dpcd-access-v3-4-9044a3a868ee@linaro.org>
+ <20250307-drm-rework-dpcd-access-v3-1-9044a3a868ee@linaro.org>
 Organization: Red Hat Inc.
 User-Agent: Evolution 3.54.3 (3.54.3-1.fc41)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: WzIEUz6B8Hs-mo7nRIo5w4x_JfQOszOcgkZngGJ8sqU_1741388022
+X-Mimecast-MFC-PROC-ID: 1MlWVcMePlQv7jvQhkr9P0WrK-egd13vpzrPU3NiplU_1741388132
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -119,65 +118,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-I thought we had agreed that drm_dp_aux_dev.c was one of the few places whe=
-re
-we wanted to keep using the old functions here?
+A few tiny nitpicks below, but with those addressed:
+
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
 On Fri, 2025-03-07 at 06:34 +0200, Dmitry Baryshkov wrote:
 > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 >=20
-> Switch drm_dp_aux_dev.c to use new set of DPCD read / write helpers.
+> Existing DPCD access functions return an error code or the number of
+> bytes being read / write in case of partial access. However a lot of
+> drivers either (incorrectly) ignore partial access or mishandle error
+> codes. In other cases this results in a boilerplate code which compares
+> returned value with the size.
 >=20
+> Implement new set of DPCD access helpers, which ignore partial access,
+> always return 0 or an error code.
+>=20
+> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
 > Acked-by: Jani Nikula <jani.nikula@intel.com>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/display/drm_dp_aux_dev.c | 12 +++++-------
->  1 file changed, 5 insertions(+), 7 deletions(-)
+>  drivers/gpu/drm/display/drm_dp_helper.c |  4 ++
+>  include/drm/display/drm_dp_helper.h     | 92 +++++++++++++++++++++++++++=
++++++-
+>  2 files changed, 94 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/display/drm_dp_aux_dev.c b/drivers/gpu/drm/d=
-isplay/drm_dp_aux_dev.c
-> index 29555b9f03c8c42681c17c4a01e74a966cf8611f..a31ab3f41efb71fd5f936c24b=
-a5c3b8ebea68a5e 100644
-> --- a/drivers/gpu/drm/display/drm_dp_aux_dev.c
-> +++ b/drivers/gpu/drm/display/drm_dp_aux_dev.c
-> @@ -163,17 +163,16 @@ static ssize_t auxdev_read_iter(struct kiocb *iocb,=
- struct iov_iter *to)
->  =09=09=09break;
->  =09=09}
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
+splay/drm_dp_helper.c
+> index dbce1c3f49691fc687fee2404b723c73d533f23d..e43a8f4a252dae22eeaae1f4c=
+a94da064303033d 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -704,6 +704,8 @@ EXPORT_SYMBOL(drm_dp_dpcd_set_powered);
+>   * function returns -EPROTO. Errors from the underlying AUX channel tran=
+sfer
+>   * function, with the exception of -EBUSY (which causes the transaction =
+to
+>   * be retried), are propagated to the caller.
+> + *
+> + * In most of the cases you want to use drm_dp_dpcd_read_data() instead.
+>   */
+>  ssize_t drm_dp_dpcd_read(struct drm_dp_aux *aux, unsigned int offset,
+>  =09=09=09 void *buffer, size_t size)
+> @@ -752,6 +754,8 @@ EXPORT_SYMBOL(drm_dp_dpcd_read);
+>   * function returns -EPROTO. Errors from the underlying AUX channel tran=
+sfer
+>   * function, with the exception of -EBUSY (which causes the transaction =
+to
+>   * be retried), are propagated to the caller.
+> + *
+> + * In most of the cases you want to use drm_dp_dpcd_write_data() instead=
+.
+>   */
+>  ssize_t drm_dp_dpcd_write(struct drm_dp_aux *aux, unsigned int offset,
+>  =09=09=09  void *buffer, size_t size)
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/dr=
+m_dp_helper.h
+> index 5ae4241959f24e2c1fb581d7c7d770485d603099..c5be44d72c9a04474f6c795e0=
+3bf02bf08f5eaef 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -527,6 +527,64 @@ ssize_t drm_dp_dpcd_read(struct drm_dp_aux *aux, uns=
+igned int offset,
+>  ssize_t drm_dp_dpcd_write(struct drm_dp_aux *aux, unsigned int offset,
+>  =09=09=09  void *buffer, size_t size);
 > =20
-> -=09=09res =3D drm_dp_dpcd_read(aux_dev->aux, pos, buf, todo);
-> -
-> +=09=09res =3D drm_dp_dpcd_read_data(aux_dev->aux, pos, buf, todo);
->  =09=09if (res <=3D 0)
->  =09=09=09break;
+> +/**
+> + * drm_dp_dpcd_read_data() - read a series of bytes from the DPCD
+> + * @aux: DisplayPort AUX channel (SST or MST)
+> + * @offset: address of the (first) register to read
+> + * @buffer: buffer to store the register values
+> + * @size: number of bytes in @buffer
+> + *
+> + * Returns zero (0) on success, or a negative error
+> + * code on failure. -EIO is returned if the request was NAKed by the sin=
+k or
+> + * if the retry count was exceeded. If not all bytes were transferred, t=
+his
+> + * function returns -EPROTO. Errors from the underlying AUX channel tran=
+sfer
+> + * function, with the exception of -EBUSY (which causes the transaction =
+to
+> + * be retried), are propagated to the caller.
+> + */
+> +static inline int drm_dp_dpcd_read_data(struct drm_dp_aux *aux,
+> +=09=09=09=09=09unsigned int offset,
+> +=09=09=09=09=09void *buffer, size_t size)
+> +{
+> +=09int ret;
+> +
+> +=09ret =3D drm_dp_dpcd_read(aux, offset, buffer, size);
+> +=09if (ret < 0)
+> +=09=09return ret;
+> +=09if (ret < size)
+> +=09=09return -EPROTO;
+> +
+> +=09return 0;
+> +}
+> +
+> +/**
+> + * drm_dp_dpcd_write_data() - write a series of bytes to the DPCD
+> + * @aux: DisplayPort AUX channel (SST or MST)
+> + * @offset: address of the (first) register to write
+> + * @buffer: buffer containing the values to write
+> + * @size: number of bytes in @buffer
+> + *
+> + * Returns zero (0) on success, or a negative error
+> + * code on failure. -EIO is returned if the request was NAKed by the sin=
+k or
+> + * if the retry count was exceeded. If not all bytes were transferred, t=
+his
+> + * function returns -EPROTO. Errors from the underlying AUX channel tran=
+sfer
+> + * function, with the exception of -EBUSY (which causes the transaction =
+to
+> + * be retried), are propagated to the caller.
+> + */
+> +static inline int drm_dp_dpcd_write_data(struct drm_dp_aux *aux,
+> +=09=09=09=09=09 unsigned int offset,
+> +=09=09=09=09=09 void *buffer, size_t size)
+> +{
+> +=09int ret;
+> +
+> +=09ret =3D drm_dp_dpcd_write(aux, offset, buffer, size);
+> +=09if (ret < 0)
+> +=09=09return ret;
+> +=09if (ret < size)
+> +=09=09return -EPROTO;
+> +
+> +=09return 0;
+> +}
+> +
+>  /**
+>   * drm_dp_dpcd_readb() - read a single byte from the DPCD
+>   * @aux: DisplayPort AUX channel
+> @@ -534,7 +592,8 @@ ssize_t drm_dp_dpcd_write(struct drm_dp_aux *aux, uns=
+igned int offset,
+>   * @valuep: location where the value of the register will be stored
+>   *
+>   * Returns the number of bytes transferred (1) on success, or a negative
+> - * error code on failure.
+> + * error code on failure. In most of the cases you should be using
+> + * drm_dp_dpcd_read_byte() instead
+
+Missing a period here
+
+>   */
+>  static inline ssize_t drm_dp_dpcd_readb(struct drm_dp_aux *aux,
+>  =09=09=09=09=09unsigned int offset, u8 *valuep)
+> @@ -549,7 +608,8 @@ static inline ssize_t drm_dp_dpcd_readb(struct drm_dp=
+_aux *aux,
+>   * @value: value to write to the register
+>   *
+>   * Returns the number of bytes transferred (1) on success, or a negative
+> - * error code on failure.
+> + * error code on failure. In most of the cases you should be using
+> + * drm_dp_dpcd_write_byte() instead
+
+And here
+
+Otherwise looks great! :)
+
+>   */
+>  static inline ssize_t drm_dp_dpcd_writeb(struct drm_dp_aux *aux,
+>  =09=09=09=09=09 unsigned int offset, u8 value)
+> @@ -557,6 +617,34 @@ static inline ssize_t drm_dp_dpcd_writeb(struct drm_=
+dp_aux *aux,
+>  =09return drm_dp_dpcd_write(aux, offset, &value, 1);
+>  }
 > =20
-> -=09=09if (copy_to_iter(buf, res, to) !=3D res) {
-> +=09=09if (copy_to_iter(buf, todo, to) !=3D todo) {
->  =09=09=09res =3D -EFAULT;
->  =09=09=09break;
->  =09=09}
+> +/**
+> + * drm_dp_dpcd_read_byte() - read a single byte from the DPCD
+> + * @aux: DisplayPort AUX channel
+> + * @offset: address of the register to read
+> + * @valuep: location where the value of the register will be stored
+> + *
+> + * Returns zero (0) on success, or a negative error code on failure.
+> + */
+> +static inline int drm_dp_dpcd_read_byte(struct drm_dp_aux *aux,
+> +=09=09=09=09=09unsigned int offset, u8 *valuep)
+> +{
+> +=09return drm_dp_dpcd_read_data(aux, offset, valuep, 1);
+> +}
+> +
+> +/**
+> + * drm_dp_dpcd_write_byte() - write a single byte to the DPCD
+> + * @aux: DisplayPort AUX channel
+> + * @offset: address of the register to write
+> + * @value: value to write to the register
+> + *
+> + * Returns zero (0) on success, or a negative error code on failure.
+> + */
+> +static inline int drm_dp_dpcd_write_byte(struct drm_dp_aux *aux,
+> +=09=09=09=09=09 unsigned int offset, u8 value)
+> +{
+> +=09return drm_dp_dpcd_write_data(aux, offset, &value, 1);
+> +}
+> +
+>  int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
+>  =09=09=09  u8 dpcd[DP_RECEIVER_CAP_SIZE]);
 > =20
-> -=09=09pos +=3D res;
-> +=09=09pos +=3D todo;
->  =09}
-> =20
->  =09if (pos !=3D iocb->ki_pos)
-> @@ -211,12 +210,11 @@ static ssize_t auxdev_write_iter(struct kiocb *iocb=
-, struct iov_iter *from)
->  =09=09=09break;
->  =09=09}
-> =20
-> -=09=09res =3D drm_dp_dpcd_write(aux_dev->aux, pos, buf, todo);
-> -
-> +=09=09res =3D drm_dp_dpcd_write_data(aux_dev->aux, pos, buf, todo);
->  =09=09if (res <=3D 0)
->  =09=09=09break;
-> =20
-> -=09=09pos +=3D res;
-> +=09=09pos +=3D todo;
->  =09}
-> =20
->  =09if (pos !=3D iocb->ki_pos)
 >=20
 
 --=20
