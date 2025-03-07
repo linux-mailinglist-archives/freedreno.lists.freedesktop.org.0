@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D1EBA56054
-	for <lists+freedreno@lfdr.de>; Fri,  7 Mar 2025 06:49:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A474A5605B
+	for <lists+freedreno@lfdr.de>; Fri,  7 Mar 2025 06:50:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BEDA10EADB;
-	Fri,  7 Mar 2025 05:49:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50FE210EADC;
+	Fri,  7 Mar 2025 05:50:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QxxxrwbL";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BTZC1037";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75B0110EAD7
- for <freedreno@lists.freedesktop.org>; Fri,  7 Mar 2025 05:49:50 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-30b936ffc51so12193051fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 06 Mar 2025 21:49:50 -0800 (PST)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC8C10EADC
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Mar 2025 05:50:41 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-5494bc8a526so1621099e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Mar 2025 21:50:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741326589; x=1741931389; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1741326640; x=1741931440; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=jN6ZIl4heduOl3aV1Xlhy1GPaNYpaPeTUI2tGOU7POw=;
- b=QxxxrwbLVqCaItnjB/RhxnSTM4X3jCGU4H+Bv5hy9HjJdhba+9jcp3kDHMJXBTb7Mx
- yK+7qFEOlAMIkj6Xr7C2ym4wZqhlqQ5XHcDYWD29I0T/Iarvnp3IokhYPr0U2sqjTaY3
- uaPvRkeGh7272HVln+OyLbyk2OTK55Y0bkx4qQFYhe6e0dxu1qFwJqyPfUZPeybowjgc
- V4x2H1KlGqA7KEIdETsshMfcyDLUXuHSOnibZhcLnjJ7UhUFCObHQfS2wAc3ww1sZmFl
- xtTH1Z/4DI5KzNJNoFxpX5W6lXuWPwdQ0vHXguNAodvB3DmL6AY2YCDjxKpEVW0SlZtD
- QwVg==
+ bh=Cklowoo6XciocBvug5xE2tihHXT/6nAX/LWrS1DCIo4=;
+ b=BTZC1037iPWdNFkQDwuFojxFcpApWneU844dw2Dowc13kFRC3+gx0PfTSnaQZTxgX1
+ Z9CU03kUHcGJ6/7R86noATmUNUFjHkfAjtyfCWX6b2ghD82lV2ukXJP9cYxeCCZAe6cy
+ 1BY4Xevr4/TYZr5F7HAsIUn3ghhTnuNIqK8YKocrA+Y8I7X3/SsukFxK9GxoLcbEHFi2
+ Tdj4mII8rhlDnBqCd3kW2AtVWwfpUrl9ssVdA6OqFoGVY/Kg895OG7Jf1OzH8wd20jYE
+ wbt6wM73WwqND/AwYUy2gsrYftpZNA7HNNkeaU4zdplUdVheJCahWYKruAktOG/QmHyV
+ CKyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741326589; x=1741931389;
+ d=1e100.net; s=20230601; t=1741326640; x=1741931440;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jN6ZIl4heduOl3aV1Xlhy1GPaNYpaPeTUI2tGOU7POw=;
- b=rKxLrGr2rQSD70sDxXyYZY/611DwDIqj6l5n+hw8bxMAycyCJ3WBiHTDWsLzn02EbZ
- 91pmmG67OloKn0Z3nJOOT7t7VH2G401tBWu/iDEUrXNKeOYh1PqmoFKPnp/d055uFlv9
- oZNl09e7MUZcFunKIzUrVtLksgOQazZBUPCO8czRYv1No13R2ksZVAal06WP3okTTtqs
- EcHi+cyjTMRS+cDLOTJGTuMxwVnDkNCHbDDf1bG0ynlCek7/WILwYs4fAts7jaB7RSFa
- iEjVdnjBQWXsWtGiUTIvR0hJPqJbsq62pJSqoZodqeDQCRTxeWtia+1qtgHfddMMKMbl
- XlQw==
+ bh=Cklowoo6XciocBvug5xE2tihHXT/6nAX/LWrS1DCIo4=;
+ b=Aq2HoR9BMQibzQDF59oyOnsuUPVR4ltEtDScU0Pgwe5aDiXwnzmrR1UzZfp6rBRe9T
+ qTP2sS1da1W2c2Bt+2AhSvtcdRB3KnmF9ZGFF8BjyHfsHzB49/qBVZbU6LtQP3UuMlcV
+ BXQDYlf4QhMC/X1uQAFzaBwijudp5wEbCUTXYaQXOZK0mzTaAl3MvmZWKVOVScGqFmJw
+ j20pc+0Nk4CFYcyLGSnyJ5qmGivZVtL3dhG3/TxvUMAJ5XewlmXRIV9wZETlnbpjiqli
+ Z1OtNsfGswsuJkohopxl1YQyPgPPZWBmvLlcPCWwCkGloa600VzET3i7BuvZQySk12Rs
+ aeSA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWtSMuzjNYiSTz2XN57Jo9KNlb+TrZlYK2Ggoj9MeK/vSn/MKFue6dp2LuySoSTC+D7gBMsq4uaZDw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxiIfXKiXd/Bu0qrqKlrwhepk3xh264rmKZ3TXFhryMVf06/gfD
- FGOncnT+kn6t1eNyV2Wtf7BSJpnlS84yI/6WIInoh7KEmacqQA0caaXjoSh4WNE=
-X-Gm-Gg: ASbGnctSytuArjHqWVfoWtwac+AjpCo2NRaPN1Kl6t2PnWqKt67BeEILjd6DoH79iT6
- RcDIpQZwMQaPbou1YYa6okFR0BbIbxsWpJmHd3UVG/DYF8C+wTWVL/mlIEE69HChr4k7axFVOul
- jFIqnukv4NLhUjJibB1w1pzXDQvLrXvzHpX1NCYqKEejO3V7X4Ym5wKK9WqRevopP+J9nF2vWvc
- v+CArTr6sTUHM7ByYg+/bKPH847rlodslzKrL2wK5z7O3V0RmwwRORtYBr9WGc+3aTBkg316xF/
- WjqH8gI8bpR4g9dHM+j3d2vGe4pDDOlRZ8yuFdIxJ0dVtEj3ZjgqCm8wF5L2Y5EeNRknbvuorl/
- HxUM+MrVAj33RnVYUygOW/8p4
-X-Google-Smtp-Source: AGHT+IGP9JChyCLN8oP+7KejrIg47v5OBKkR88FiJPVHk9F4HcqJxHQhiZKSP3fE87nRAiAkngPRQA==
-X-Received: by 2002:a05:6512:2804:b0:545:2871:7cd5 with SMTP id
- 2adb3069b0e04-54990e3ed57mr611055e87.15.1741326588773; 
- Thu, 06 Mar 2025 21:49:48 -0800 (PST)
+ AJvYcCUFQWOVSd4zcTePCcz3Zc7B2CAWOGhp8C06+WoxkAdzdof+b/CbVh8WOqMLd8cWloeJYngJSg6Hf4o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyFrK4qnnZ1zuUI/Ds836Nvz0/WnYH6Vu61l9BwMfoAggtZJ7ww
+ N07QV4GhDP05w9Yrn5c67vD1Gmse24YumqFdIhSIFuQstDnoS+bfPMdV4LoUG/o=
+X-Gm-Gg: ASbGncuVxcolNkJMCPDmunpH6nX94drgGGp57/wZu76t3fSnsepRZpgWoAHHH4rB0bZ
+ 55jOGLjYQ3h5WdtKcHvKV+f+rMk/O0PMtIy5Gz3bVS4qX15YfgDZdLr+hduOhByZu7XIP1lammO
+ yWE3TZU1XUw/2gCkWnCCClwZDQSo5OrUw2RNhc9iaHQVY8oJTAKFL5g0rg6EMgDaBap8MwPYAli
+ 5p20tadG2nCA0/KJIDKQQBsgkIIW5M/BjWduQjb56NUhWBroW9mml4MlNtu/TWHPpFkHWpJOfWU
+ R71XtfPdJelwOoN1QNwj2ilE76WpC2NMHb15av4RKp9x5n6NeI4JfrH1FmpH5jaggjJicIE7YQK
+ 7+vkIdzuj3rY5g/b/FbfVO03p
+X-Google-Smtp-Source: AGHT+IFxMJzgkc6aT8SLqY3HFH44f3uS0Pbx7E1LtfSoww8PpYJPAwYDmAvb6be7iccEdwfO0MQmLQ==
+X-Received: by 2002:a05:6512:12c3:b0:549:8cc9:67b3 with SMTP id
+ 2adb3069b0e04-549910b5d9fmr492625e87.42.1741326639884; 
+ Thu, 06 Mar 2025 21:50:39 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5498b1b2d66sm382417e87.153.2025.03.06.21.49.46
+ 2adb3069b0e04-5498b1bc56asm382830e87.183.2025.03.06.21.50.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Mar 2025 21:49:47 -0800 (PST)
-Date: Fri, 7 Mar 2025 07:49:44 +0200
+ Thu, 06 Mar 2025 21:50:39 -0800 (PST)
+Date: Fri, 7 Mar 2025 07:50:37 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Konrad Dybcio <konradybcio@kernel.org>
 Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
@@ -85,15 +85,15 @@ Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
  linux-usb@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 10/11] arm64: dts: qcom: x1e80100-romulus: Drop
+Subject: Re: [PATCH 11/11] arm64: dts: qcom: x1e001de-devkit: Drop
  clock-names from PS8830
-Message-ID: <737cuybby2fsp5hl2c75q4dajax2keymfe7ka4w2b7omw5b4yx@elprmcldts5r>
+Message-ID: <ec272btbpxlewp2qiz42c7c77gpg476wdzx23dpv7fqoe2v5fj@53vu6jgpa7xc>
 References: <20250306-topic-dt_bindings_fixups-v1-0-0c84aceb0ef9@oss.qualcomm.com>
- <20250306-topic-dt_bindings_fixups-v1-10-0c84aceb0ef9@oss.qualcomm.com>
+ <20250306-topic-dt_bindings_fixups-v1-11-0c84aceb0ef9@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250306-topic-dt_bindings_fixups-v1-10-0c84aceb0ef9@oss.qualcomm.com>
+In-Reply-To: <20250306-topic-dt_bindings_fixups-v1-11-0c84aceb0ef9@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,7 +109,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 06, 2025 at 07:11:22PM +0100, Konrad Dybcio wrote:
+On Thu, Mar 06, 2025 at 07:11:23PM +0100, Konrad Dybcio wrote:
 > From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
 > The preemptively-merged node contains a property absent from the final
@@ -117,13 +117,13 @@ On Thu, Mar 06, 2025 at 07:11:22PM +0100, Konrad Dybcio wrote:
 > 
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi | 2 --
->  1 file changed, 2 deletions(-)
+>  arch/arm64/boot/dts/qcom/x1e001de-devkit.dts | 3 ---
+>  1 file changed, 3 deletions(-)
 > 
 
-Fixes: b16ee3d0cda4 ("arm64: dts: qcom: x1e80100-romulus: Set up PS8830s")
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Fixes: 019e1ee32fec ("arm64: dts: qcom: x1e001de-devkit: Enable external DP support")
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
