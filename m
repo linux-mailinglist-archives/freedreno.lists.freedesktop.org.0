@@ -2,82 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81A25A582F8
-	for <lists+freedreno@lfdr.de>; Sun,  9 Mar 2025 11:19:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC63A5843A
+	for <lists+freedreno@lfdr.de>; Sun,  9 Mar 2025 14:25:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C5F10E30B;
-	Sun,  9 Mar 2025 10:19:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01F7210E255;
+	Sun,  9 Mar 2025 13:25:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kDIz1gex";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CRgodqMo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A8BE10E30C
- for <freedreno@lists.freedesktop.org>; Sun,  9 Mar 2025 10:19:46 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-307c13298eeso39004851fa.0
- for <freedreno@lists.freedesktop.org>; Sun, 09 Mar 2025 03:19:46 -0700 (PDT)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79A1D10E227;
+ Sat,  8 Mar 2025 14:49:36 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-abbd96bef64so449911566b.3; 
+ Sat, 08 Mar 2025 06:49:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741515585; x=1742120385; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6s2IN28UcJK9AIeEgePs+AKeLtN5DfXNmrIRckMBKOk=;
- b=kDIz1gexGFKxiItHtZ4yN6bEwSOd0vGkDkvZpz+rs2628BvUkcYN42r6BDwFP42KpJ
- h+Wx9ZeedNUPCFbeFpuFuUKg/ZY86ZSHL7ncGaxJ+0uPiy5tQE+nde3N6dBF/bSH55eh
- 3TZ/Gi6SG91x0reXplP9WRGp9GT14fXOddnyLEbLA3YA6Ih4e5NEv6NzI8k1jvm1zwBZ
- I7X9EQkQq0g5s6LKBoKAWNBpsXUY1ezw6KmT3oVoQsT+ODvJACAnx7Jbkl4XLgzM9hEA
- JZ9AQYbMZfP+VcMosZkDAnwLSsSb2W2qXR/FXFeSVlQr5M8E6sJ+mFSP85UXBgfA/UVk
- Os5Q==
+ d=gmail.com; s=20230601; t=1741445375; x=1742050175; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=RRs8q/E+YxEHfYzeqhGXM8vaWWky3KZk5dtfm8gcKag=;
+ b=CRgodqMoHX7SUQ5OAXrfLsbm+tP8xKPGW/82Qf/fPt3SuFSnaNzJ3V/pk5VHooMJau
+ 4CAWFF9D3OsZYPBwlq1fWZ1Dsf1azPUMBZzRziV5TlheALkjJaJKiCJFZuzHqAKexbwY
+ e//eeX8/Bh7Tou6rXMgOWWIg2lVh58xcu6MMLcVjr/Yo8mzwxFISPlywb2iGWIEjg2KA
+ 7J0M8vJP6IH3ggZr2bp6eh/GoO1Oh0bV2IrIfe3Zop3lGCTYgflCsoR7qfG7rMEIE8VH
+ fW9sbFaWxq5HESIRvoX/x9CiIXJL8SLGyjrBv7D72S5HbsvEud4J8rPkhuDY7uGDckbn
+ V9aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741515585; x=1742120385;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6s2IN28UcJK9AIeEgePs+AKeLtN5DfXNmrIRckMBKOk=;
- b=pYSXmABfhHJi4nlhrrNYClUmp89NIPPGvK998dcHFWKBvmoUdgsblstCbFbw1FAxdM
- 8CU2np40MUhJMRJ1E9wzeDsi6DM3s6dMpesqpXda2tuwA4YY0STy/ONdZ1Ey0N9GZIkX
- W/gxk28WWEmn6Xpf6B1GhY0tIDp4N1QhEpe5r9aspR9Dm7uK7/lV5x2Df6BFARc1NA35
- bKbs9fhTS78vBZmBH5OX8yRr45F+JphO40svE0TashzoFzx0vMv3i4Zxr8e2cRvbQFjM
- ieCL6/iZtbXFhzHkfoyzpRowH2rDDvaEfzjyc0QcOo4BN0OQ7gY4LfAWbFzZLbTscbIc
- MTRg==
+ d=1e100.net; s=20230601; t=1741445375; x=1742050175;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=RRs8q/E+YxEHfYzeqhGXM8vaWWky3KZk5dtfm8gcKag=;
+ b=h+mBUnhz6YH+f6PL1HUqNPxL+doIvSo8TctTup9LhGurISHgIoxci745NAC+fAG3as
+ KB3c8KCQjRbxQsydeRHgzH0QSBJAN8WoKMonN0+uDZfLgnjxzv3vg3flmyJ0yr+zYu9P
+ MVuOFoRjYYTF3wH8vDz1AUmw44KLRTCsaHPaPLSTRwJj+zGAkiZC+I0vRGnR5d1kqPkm
+ YMDTxT+qztpIKA2hNS2LOIMwvdDtTarMdFkE2W+CiWYdg0emUS7yg8pHQdly4BYCxZ5E
+ 32+IJJVMo0BU0+hvAfK20jcB3BhR+TLjXqXOjplkBeG1iLMraQSEfilpoNAZfc0u6aph
+ CI4A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUpbFpzrTfNzjY7ys4TskDc6IWzKqnbIBuBTAZO5GhWhtVEsLIZgchwG7/Hk+00LMg8Tg+GZ5LSpgM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzd1dgbhYDuAL02Kn544vpEBhFgOfFFTZCHwRCF31uX2holNC7H
- 4rZmI9bnFeyAo5VBUtUIevo2u79BgPuIV7VlHAs228sZYesrD/zsnZ6ptuIEYTU=
-X-Gm-Gg: ASbGncu3BuzS5ni+ngE3kGlMK1Kyt/J+kOGDSCArK8axBHcDGsoF+WjApUXXhc9Y8n2
- 8nCvNM8Gcdt5eABiUX/uvPJTy6Xt639vN8coa0z4TjsFgIkFwvJg+3TO/nNp8xepcnqTppNtHTB
- V6X0dcZSfCAFLEy724+dxLZCRmcP+WAzfQ3YwGTrWy6VDMjZ+fTqKydh93awHfnvNATwZzD//fi
- M/UOF+SM/PNBis4BFLwIvpwf4wAMEkXnYiNsR/a1YD/pVo+71LyyLayu5ju6sWNYiOdcWHSVR4N
- lWrPZbA6p4la64O/o2wEbf16Qp1qD7fmSsMveg1rR2J77VpjlWhzC9w25waHGPaC3kfLjDBZeBj
- WZBEaB19imWiIKGTNdVYWroWqt51WbqpmSMg=
-X-Google-Smtp-Source: AGHT+IHlBdJ1qjhe/o7S4dso2ZCEpH6o3JPt/ko/A+fRZieBU37zQ/ClCK+PPXWZo0QJwKYGgx8DEw==
-X-Received: by 2002:a2e:a985:0:b0:30b:c36c:ba96 with SMTP id
- 38308e7fff4ca-30bfe3eeeafmr15772901fa.1.1741515584802; 
- Sun, 09 Mar 2025 03:19:44 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ AJvYcCVXArp2Z1/BxDKIitgCjfZ1E8rDW/ek8X81PI6nSUq1llp26KypOp0BbUhv6UiS+1IP9FrpVZL36JjD@lists.freedesktop.org,
+ AJvYcCW6X3kzrs7t3YZ6cR6uFw7w+wqJ04LsOBItLcOgqrF/pDrB1ztyz+8N9nsUnrCK3D3BIA7QwCgY+wU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwjRKDLZ+qvjDHS5XUDVA8WstI3HezRSxsCzoqmI74TmHMMeEee
+ HLB3mxl8whcFMpHC8Kq5lG2QHu2EvlZGzvfrAvOOw9DnWb19SmTLo/ccng==
+X-Gm-Gg: ASbGncsV868d49AI4iHq4L7YgewlvD8XoewhNH+5iFgplT7iNp8tRmLquSGhRu7vBoD
+ WdsF9Q3J2dHoQafhaf+PJnjzfw7P4LF2agmDI/SCuYPVYzX0vXAgE+TjDxqBYCEgNPNhnN9nvTK
+ tfKNPivH4acz/Tiwm0PofPXJOo16rcfIu3SAJ/P2JFEvB1VbP0n7tNLmSDnvJxZcnFiixdmAZNj
+ jswupGPkv0WVHalq2yrpleptoCSGQJiWJwx0bWBdJHzIh6/T2/EZJM24KXeMPJ+bcUAz45ywivC
+ FNlfaJs1JhLg4zXWrV2o+7egM8lzD7puC8y+YuT97ukZLA==
+X-Google-Smtp-Source: AGHT+IH3iWpTp/kADlD2HLaPKcJqEBeUrsjaLWMoTc5IY7cK4QXHzs4NBpWr7xZoA4gbaakl4pzjbQ==
+X-Received: by 2002:a17:907:6d01:b0:abf:6cc9:7ef2 with SMTP id
+ a640c23a62f3a-ac252ba35cemr875905866b.42.1741445374674; 
+ Sat, 08 Mar 2025 06:49:34 -0800 (PST)
+Received: from qasdev.Home ([2a02:c7c:6696:8300:f465:a080:411e:5b2d])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30bee0c8565sm11460361fa.53.2025.03.09.03.19.42
+ a640c23a62f3a-ac2394fda1asm444581766b.78.2025.03.08.06.49.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Mar 2025 03:19:43 -0700 (PDT)
-Date: Sun, 9 Mar 2025 12:19:41 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Qasim Ijaz <qasdev00@gmail.com>
-Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
+ Sat, 08 Mar 2025 06:49:34 -0800 (PST)
+From: Qasim Ijaz <qasdev00@gmail.com>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run,
  marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- quic_jesszhan@quicinc.com, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_jesszhan@quicinc.com
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/msm/dpu: reorder pointer operations after sanity
- checks to avoid NULL deref
-Message-ID: <s3zlxsj6gsmoz3rc5fqopi7etfibaurkz5oo5wgvurebx2z3zt@t3h73v5lcmhi>
-References: <20250309095525.7738-1-qasdev00@gmail.com>
+Subject: [PATCH] drm/msm/dpu: reorder pointer operations after sanity checks
+ to avoid NULL deref
+Date: Sat,  8 Mar 2025 14:48:39 +0000
+Message-Id: <20250308144839.33849-1-qasdev00@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250309095525.7738-1-qasdev00@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 09 Mar 2025 13:25:19 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,22 +91,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Mar 09, 2025 at 09:55:25AM +0000, Qasim Ijaz wrote:
-> _dpu_encoder_trigger_start dereferences "struct dpu_encoder_phys *phys"
-> before the sanity checks which can lead to a NULL pointer dereference if
-> phys is NULL.
->  
-> Fix this by reordering the dereference after the sanity checks.
->  
-> Fixes: 8144d17a81d9 ("drm/msm/dpu: Skip trigger flush and start for CWB")
-> Signed-off-by: Qasim Ijaz <qasdev00@gmail.com>
-> ---
-> v2:
-> - Moved Signed-off tag below Fixes tag
-> - Moved dpu_enc declaration to the top and initialisation below sanity checks
-> 
+_dpu_encoder_trigger_start dereferences "struct dpu_encoder_phys *phys" 
+before the sanity checks which can lead to a NULL pointer dereference if 
+phys is NULL. 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Fix this by reordering the dereference after the sanity checks.
+
+Signed-off-by: Qasim Ijaz <qasdev00@gmail.com>
+Fixes: 8144d17a81d9 ("drm/msm/dpu: Skip trigger flush and start for CWB")
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 0eed93a4d056..ba8b2a163232 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1667,8 +1667,6 @@ static void _dpu_encoder_trigger_flush(struct drm_encoder *drm_enc,
+  */
+ static void _dpu_encoder_trigger_start(struct dpu_encoder_phys *phys)
+ {
+-	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys->parent);
+-
+ 	if (!phys) {
+ 		DPU_ERROR("invalid argument(s)\n");
+ 		return;
+@@ -1679,6 +1677,8 @@ static void _dpu_encoder_trigger_start(struct dpu_encoder_phys *phys)
+ 		return;
+ 	}
+ 
++	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys->parent);
++
+ 	if (phys->parent->encoder_type == DRM_MODE_ENCODER_VIRTUAL &&
+ 	    dpu_enc->cwb_mask) {
+ 		DPU_DEBUG("encoder %d CWB enabled, skipping\n", DRMID(phys->parent));
 -- 
-With best wishes
-Dmitry
+2.39.5
+
