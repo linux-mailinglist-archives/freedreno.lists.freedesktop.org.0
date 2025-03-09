@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBC63A5843A
+	by mail.lfdr.de (Postfix) with ESMTPS id 3778CA58439
 	for <lists+freedreno@lfdr.de>; Sun,  9 Mar 2025 14:25:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F7210E255;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAFCF10E171;
 	Sun,  9 Mar 2025 13:25:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CRgodqMo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lItLYkVV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79A1D10E227;
- Sat,  8 Mar 2025 14:49:36 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-abbd96bef64so449911566b.3; 
- Sat, 08 Mar 2025 06:49:36 -0800 (PST)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E84B310E073;
+ Sun,  9 Mar 2025 09:55:30 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-43bcc85ba13so25706335e9.0; 
+ Sun, 09 Mar 2025 01:55:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741445375; x=1742050175; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1741514129; x=1742118929; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=RRs8q/E+YxEHfYzeqhGXM8vaWWky3KZk5dtfm8gcKag=;
- b=CRgodqMoHX7SUQ5OAXrfLsbm+tP8xKPGW/82Qf/fPt3SuFSnaNzJ3V/pk5VHooMJau
- 4CAWFF9D3OsZYPBwlq1fWZ1Dsf1azPUMBZzRziV5TlheALkjJaJKiCJFZuzHqAKexbwY
- e//eeX8/Bh7Tou6rXMgOWWIg2lVh58xcu6MMLcVjr/Yo8mzwxFISPlywb2iGWIEjg2KA
- 7J0M8vJP6IH3ggZr2bp6eh/GoO1Oh0bV2IrIfe3Zop3lGCTYgflCsoR7qfG7rMEIE8VH
- fW9sbFaWxq5HESIRvoX/x9CiIXJL8SLGyjrBv7D72S5HbsvEud4J8rPkhuDY7uGDckbn
- V9aA==
+ bh=8ZpuHav96lrk832Cicku4PQcIvGBzmRkHChNSbUFJB4=;
+ b=lItLYkVV9GrR+byIKL7kJ4VRr2oBnTfVhptgAT+f92G/J3D8w5Oore6pAABWJymnTz
+ byvxRPSxYzMP6mgKlyc9JLexh8s7fD8R+pvnfJlu8LGv2jcdpVU6dZiMsD0GobjaygVA
+ kMOH2s83ul8u3gND38RdEkcjbcjefjko0EvB/XMYD7s5g9j0byKa9R/pXxRHuQW3nwE1
+ T48sJUYkHPMW9f1aX1xVc+naDEix164wuTmuVfmVKm2XyY2722awG3fBkK7ozRXmkioJ
+ YIqCeMnFKb4kYN9iwdpL6QhdT7LsOSN8iKj5HTXxjm6Rdrc0bCxD3LifwQaV4NQDfuJg
+ LXxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741445375; x=1742050175;
+ d=1e100.net; s=20230601; t=1741514129; x=1742118929;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=RRs8q/E+YxEHfYzeqhGXM8vaWWky3KZk5dtfm8gcKag=;
- b=h+mBUnhz6YH+f6PL1HUqNPxL+doIvSo8TctTup9LhGurISHgIoxci745NAC+fAG3as
- KB3c8KCQjRbxQsydeRHgzH0QSBJAN8WoKMonN0+uDZfLgnjxzv3vg3flmyJ0yr+zYu9P
- MVuOFoRjYYTF3wH8vDz1AUmw44KLRTCsaHPaPLSTRwJj+zGAkiZC+I0vRGnR5d1kqPkm
- YMDTxT+qztpIKA2hNS2LOIMwvdDtTarMdFkE2W+CiWYdg0emUS7yg8pHQdly4BYCxZ5E
- 32+IJJVMo0BU0+hvAfK20jcB3BhR+TLjXqXOjplkBeG1iLMraQSEfilpoNAZfc0u6aph
- CI4A==
+ bh=8ZpuHav96lrk832Cicku4PQcIvGBzmRkHChNSbUFJB4=;
+ b=T0dfDePC+CXaF/yp27oz28/spNuUsO5G4uZY0N8kdyG2b5VbVKsewk9QqB405HIU9Z
+ U5eCLqOjpDaAi8V0nSWZLwLgxOKXLMhqFap3YUtRRrUAZLk8X15swmBl1ptXEJYsvu56
+ tuQ7k6/fAAL+6Pga2QYc7Ke0m38oBQyXEcJi0/0Mn4pIM4omMCGo6lexlXbIyew0na3a
+ vQToBh90WFm5Y13dNSRgTjO5WF/OPSPs4TPiCDNpJEBZtLd9pfnvVkjn9eftLsp0XBRe
+ Ka9+rgdpbhcC9ADLUwHDaIbOLUZ77olpFbkOjen9p940g7TkXbThuzVjR8KxRBhxNMl0
+ Y51g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVXArp2Z1/BxDKIitgCjfZ1E8rDW/ek8X81PI6nSUq1llp26KypOp0BbUhv6UiS+1IP9FrpVZL36JjD@lists.freedesktop.org,
- AJvYcCW6X3kzrs7t3YZ6cR6uFw7w+wqJ04LsOBItLcOgqrF/pDrB1ztyz+8N9nsUnrCK3D3BIA7QwCgY+wU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjRKDLZ+qvjDHS5XUDVA8WstI3HezRSxsCzoqmI74TmHMMeEee
- HLB3mxl8whcFMpHC8Kq5lG2QHu2EvlZGzvfrAvOOw9DnWb19SmTLo/ccng==
-X-Gm-Gg: ASbGncsV868d49AI4iHq4L7YgewlvD8XoewhNH+5iFgplT7iNp8tRmLquSGhRu7vBoD
- WdsF9Q3J2dHoQafhaf+PJnjzfw7P4LF2agmDI/SCuYPVYzX0vXAgE+TjDxqBYCEgNPNhnN9nvTK
- tfKNPivH4acz/Tiwm0PofPXJOo16rcfIu3SAJ/P2JFEvB1VbP0n7tNLmSDnvJxZcnFiixdmAZNj
- jswupGPkv0WVHalq2yrpleptoCSGQJiWJwx0bWBdJHzIh6/T2/EZJM24KXeMPJ+bcUAz45ywivC
- FNlfaJs1JhLg4zXWrV2o+7egM8lzD7puC8y+YuT97ukZLA==
-X-Google-Smtp-Source: AGHT+IH3iWpTp/kADlD2HLaPKcJqEBeUrsjaLWMoTc5IY7cK4QXHzs4NBpWr7xZoA4gbaakl4pzjbQ==
-X-Received: by 2002:a17:907:6d01:b0:abf:6cc9:7ef2 with SMTP id
- a640c23a62f3a-ac252ba35cemr875905866b.42.1741445374674; 
- Sat, 08 Mar 2025 06:49:34 -0800 (PST)
-Received: from qasdev.Home ([2a02:c7c:6696:8300:f465:a080:411e:5b2d])
+ AJvYcCUfk1pAQlqoo98c6F4M+/q83geT4BLT0/dgBpVyaquY8nIDV1YkfBDUR3mjmFMVbBLDcqH0BSRBbS0=@lists.freedesktop.org,
+ AJvYcCXzEJsXHDAAY16tnPBzEnxpRCF5KaYrk/hOZ1rXuTCxbndjw3r8EW/XTe2PhYkj1j0groD4E2mLC35s@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxy+wuEqPpRMhas6k67qyMM6zBr89rB/djGz56rCgHTm/0CJd6P
+ BoJ815y46qHdI+PvpwF4j+z9mrFE8uqreIZf1pDaGVJ06clVzj1k
+X-Gm-Gg: ASbGncuHhi6yXkB15ou+QbXX9I2WgnpoJpR4Seo8YKvBJmNEMb3FalfN4MtG1vtcFEp
+ 1KfM/tKUVdfRE2xOlEPCMPMJ4SIW3rdsRIyLkvEzwpi7iDyeUH4iKXwEb0LIS6Okzxs2P82Qmcv
+ 3YVwzCIBGR41CX7A6TrQfem2D3NX3OMEgossRNN1M3qZ66mQQxi2j0kEIn4QjZCU2Y9+unZDCvt
+ Ic38H5vYLwyRtBdPBI/wpS12v5m9bCbUnMOdaFG3F+JmaurdFg40erD6BWmVjzRk10CJC3ZXnvA
+ gEJextYr39eI0qrB5C9PT3wVYSOWwSUtkXpuYa7CfHE9Cg==
+X-Google-Smtp-Source: AGHT+IHfI/VJZftDRqHYeb3Xwib26RWuigXJPjvLBRgin8Bg+mZushMIzjAxfzKYiLNvU6b4hTnErA==
+X-Received: by 2002:a5d:6d8a:0:b0:391:12a5:3cb3 with SMTP id
+ ffacd0b85a97d-39132d2af8bmr6599086f8f.3.1741514129156; 
+ Sun, 09 Mar 2025 01:55:29 -0800 (PST)
+Received: from qasdev.Home ([2a02:c7c:6696:8300:8afb:1194:b90e:9410])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac2394fda1asm444581766b.78.2025.03.08.06.49.32
+ ffacd0b85a97d-3912c0e2bb7sm11567926f8f.63.2025.03.09.01.55.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Mar 2025 06:49:34 -0800 (PST)
+ Sun, 09 Mar 2025 01:55:27 -0800 (PST)
 From: Qasim Ijaz <qasdev00@gmail.com>
 To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
  dmitry.baryshkov@linaro.org, sean@poorly.run,
@@ -68,10 +68,10 @@ To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
  quic_jesszhan@quicinc.com
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/dpu: reorder pointer operations after sanity checks
- to avoid NULL deref
-Date: Sat,  8 Mar 2025 14:48:39 +0000
-Message-Id: <20250308144839.33849-1-qasdev00@gmail.com>
+Subject: [PATCH v2] drm/msm/dpu: reorder pointer operations after sanity
+ checks to avoid NULL deref 
+Date: Sun,  9 Mar 2025 09:55:25 +0000
+Message-Id: <20250309095525.7738-1-qasdev00@gmail.com>
 X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -91,40 +91,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-_dpu_encoder_trigger_start dereferences "struct dpu_encoder_phys *phys" 
-before the sanity checks which can lead to a NULL pointer dereference if 
-phys is NULL. 
-
+_dpu_encoder_trigger_start dereferences "struct dpu_encoder_phys *phys"
+before the sanity checks which can lead to a NULL pointer dereference if
+phys is NULL.
+ 
 Fix this by reordering the dereference after the sanity checks.
-
-Signed-off-by: Qasim Ijaz <qasdev00@gmail.com>
+ 
 Fixes: 8144d17a81d9 ("drm/msm/dpu: Skip trigger flush and start for CWB")
+Signed-off-by: Qasim Ijaz <qasdev00@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v2:
+- Moved Signed-off tag below Fixes tag
+- Moved dpu_enc declaration to the top and initialisation below sanity checks
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 0eed93a4d056..ba8b2a163232 100644
+index 0eed93a4d056..0bd1f2bfaaff 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1667,8 +1667,6 @@ static void _dpu_encoder_trigger_flush(struct drm_encoder *drm_enc,
+@@ -1667,7 +1667,7 @@ static void _dpu_encoder_trigger_flush(struct drm_encoder *drm_enc,
   */
  static void _dpu_encoder_trigger_start(struct dpu_encoder_phys *phys)
  {
 -	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys->parent);
--
++	struct dpu_encoder_virt *dpu_enc;
+ 
  	if (!phys) {
  		DPU_ERROR("invalid argument(s)\n");
- 		return;
-@@ -1679,6 +1677,8 @@ static void _dpu_encoder_trigger_start(struct dpu_encoder_phys *phys)
+@@ -1678,6 +1678,8 @@ static void _dpu_encoder_trigger_start(struct dpu_encoder_phys *phys)
+ 		DPU_ERROR("invalid pingpong hw\n");
  		return;
  	}
- 
-+	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys->parent);
 +
++	dpu_enc = to_dpu_encoder_virt(phys->parent);
+ 
  	if (phys->parent->encoder_type == DRM_MODE_ENCODER_VIRTUAL &&
  	    dpu_enc->cwb_mask) {
- 		DPU_DEBUG("encoder %d CWB enabled, skipping\n", DRMID(phys->parent));
 -- 
 2.39.5
 
