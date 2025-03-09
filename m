@@ -2,48 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65B25A588A7
-	for <lists+freedreno@lfdr.de>; Sun,  9 Mar 2025 22:55:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53637A5896B
+	for <lists+freedreno@lfdr.de>; Mon, 10 Mar 2025 00:58:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D74BE10E06A;
-	Sun,  9 Mar 2025 21:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2992C10E381;
+	Sun,  9 Mar 2025 23:58:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C4SZu6jd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VYpVNIID";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13F1810E06A;
- Sun,  9 Mar 2025 21:55:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7415910E37B;
+ Sun,  9 Mar 2025 23:58:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741557330; x=1773093330;
+ t=1741564705; x=1773100705;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=XV4TFGJPOwdEuo+Uu6vVn9rLCbiRTLhhS72SB0Cnyxo=;
- b=C4SZu6jdPS5NRnpt8LsE7pK1Dy6x83hSAfD6WBfw2OpYIa7PHjw9l+e9
- Zn6cUFMONT0bsZcj7QDfXDiyelK8Z2V00R3JlQgJps4CWJOaEtaY+gE13
- Kr+5oOpKneSnbpS5EtCzWKcW9wIqS4IRhPf/UAXd8KTt/Xn0+a1rJRK9e
- 9F56+eg4510yRViHkxkTT89t5SRSpkGxgq0setekkYkk+xKV6mlBGtJGP
- TRhg2neBDGJseJc/UmNKjVVGHVMWJjmvhDwdJQQrDR8aeJSE6gdLDWewA
- KaJHyT/heXdr3j2GL/50w4bYNLC/OcPHAtAbBFZgMC0T96MpgZcp4dfbS w==;
-X-CSE-ConnectionGUID: GYVbc2zzTVK1F308FYnBwQ==
-X-CSE-MsgGUID: pZFYX0+kSliIOPbYcq81sQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11368"; a="42657020"
-X-IronPort-AV: E=Sophos;i="6.14,235,1736841600"; d="scan'208";a="42657020"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2025 14:55:30 -0700
-X-CSE-ConnectionGUID: KmuazXWsTQuQ/12EcYE7Ug==
-X-CSE-MsgGUID: dX7NmjAVR0eX9IkEFZMktA==
+ bh=3g/+jeRs5nhDAbqAZc0kAv6A5GCo+NTky5mMlZ8s5Zw=;
+ b=VYpVNIIDWhm7i0bWJdVottemoAoV5Pp1/5/EpB46Cv6i2jOt89oGdpko
+ rkLV/QbAKup2yeHXeN0XXmi/l8Amb+lLNAfZxD1m5HvST3LVJGInF/Vq2
+ YAwKcekBqHaU/OZW8IpTpiiekwR0MkaFEKDUxIydlHJg8ounf1gws5tPw
+ 23JF+Q4qFYz8ruL6gnv/qTPgLBsWgNB0y4mKX6M8oxrJb4VlqUTwrbLs3
+ 68NKYr7+aMexlcMv8ltxJUZThzNSKfiFbIbJ1ZsFMgY9w0extH3Oo0f9U
+ BlXy3yo0iObea59LnJ3F8ILTYOmbFphJq0xhSA8m6MBI9oLxIlgl5U/wE w==;
+X-CSE-ConnectionGUID: E5XjRYvtQQWsYWBmeG5uuA==
+X-CSE-MsgGUID: fvWkdraxRMSMJUP2f3K3zw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11368"; a="52756897"
+X-IronPort-AV: E=Sophos;i="6.14,235,1736841600"; d="scan'208";a="52756897"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2025 16:58:25 -0700
+X-CSE-ConnectionGUID: AipAg9jNT0is5bFPMhYlNQ==
+X-CSE-MsgGUID: D/npFTWhRJGdziAE2u95Pw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,235,1736841600"; d="scan'208";a="119668697"
+X-IronPort-AV: E=Sophos;i="6.14,235,1736841600"; d="scan'208";a="124439273"
 Received: from lkp-server02.sh.intel.com (HELO a4747d147074) ([10.239.97.151])
- by fmviesa006.fm.intel.com with ESMTP; 09 Mar 2025 14:55:24 -0700
+ by fmviesa005.fm.intel.com with ESMTP; 09 Mar 2025 16:58:19 -0700
 Received: from kbuild by a4747d147074 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1trOcD-0003VI-2o;
- Sun, 09 Mar 2025 21:55:21 +0000
-Date: Mon, 10 Mar 2025 05:55:02 +0800
+ (envelope-from <lkp@intel.com>) id 1trQX8-0003ZI-02;
+ Sun, 09 Mar 2025 23:58:15 +0000
+Date: Mon, 10 Mar 2025 07:57:55 +0800
 From: kernel test robot <lkp@intel.com>
 To: Dmitry Baryshkov <lumag@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -63,13 +63,13 @@ To: Dmitry Baryshkov <lumag@kernel.org>,
 Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 4/4] drm: bridge: dw-hdmi: use new helper to get ACR values
-Message-ID: <202503100501.SlwYOb9U-lkp@intel.com>
-References: <20250309-drm-hdmi-acr-v1-4-bb9c242f4d4b@linaro.org>
+Subject: Re: [PATCH 2/4] drm/msm/hdmi: use new helper for ACR tables
+Message-ID: <202503100745.KWEAWjFD-lkp@intel.com>
+References: <20250309-drm-hdmi-acr-v1-2-bb9c242f4d4b@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250309-drm-hdmi-acr-v1-4-bb9c242f4d4b@linaro.org>
+In-Reply-To: <20250309-drm-hdmi-acr-v1-2-bb9c242f4d4b@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,20 +93,20 @@ kernel test robot noticed the following build errors:
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-display-hdmi-provide-central-data-authority-for-ACR-params/20250309-161610
 base:   0a2f889128969dab41861b6e40111aa03dc57014
-patch link:    https://lore.kernel.org/r/20250309-drm-hdmi-acr-v1-4-bb9c242f4d4b%40linaro.org
-patch subject: [PATCH 4/4] drm: bridge: dw-hdmi: use new helper to get ACR values
-config: arm64-randconfig-002-20250310 (https://download.01.org/0day-ci/archive/20250310/202503100501.SlwYOb9U-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250310/202503100501.SlwYOb9U-lkp@intel.com/reproduce)
+patch link:    https://lore.kernel.org/r/20250309-drm-hdmi-acr-v1-2-bb9c242f4d4b%40linaro.org
+patch subject: [PATCH 2/4] drm/msm/hdmi: use new helper for ACR tables
+config: arm-randconfig-004-20250310 (https://download.01.org/0day-ci/archive/20250310/202503100745.KWEAWjFD-lkp@intel.com/config)
+compiler: clang version 21.0.0git (https://github.com/llvm/llvm-project e15545cad8297ec7555f26e5ae74a9f0511203e7)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250310/202503100745.KWEAWjFD-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202503100501.SlwYOb9U-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202503100745.KWEAWjFD-lkp@intel.com/
 
 All errors (new ones prefixed by >>, old ones prefixed by <<):
 
->> ERROR: modpost: "drm_hdmi_acr_get_n_cts" [drivers/gpu/drm/bridge/synopsys/dw-hdmi.ko] undefined!
+>> ERROR: modpost: "drm_hdmi_acr_get_n_cts" [drivers/gpu/drm/msm/msm.ko] undefined!
 
 -- 
 0-DAY CI Kernel Test Service
