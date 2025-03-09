@@ -2,74 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59DDAA58070
-	for <lists+freedreno@lfdr.de>; Sun,  9 Mar 2025 04:12:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4613A5817E
+	for <lists+freedreno@lfdr.de>; Sun,  9 Mar 2025 09:14:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5A410E19B;
-	Sun,  9 Mar 2025 03:12:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B52E210E300;
+	Sun,  9 Mar 2025 08:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XEgXUH/C";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mFHjYm2y";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6537A10E19B;
- Sun,  9 Mar 2025 03:12:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741489969; x=1773025969;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=DHi9MJPnGZGRDihEky9eZ9K5pTtJu5JwGfbsXs63aYM=;
- b=XEgXUH/CaHJfamfrqqWcAkwW0EPPqnITK/sy35b+6/95VC2+QfMqzzJe
- e3WKXGYdjuB+YSD3qBoeM9Bcr3Z++vhuxBG55X3UzzuJSpIJ46uVVjKf0
- JO+6gZaMXma3dAqwDj3dr4WHYuO5qFAMW7O0XYMjHOFTtg6j+6r7uOn5S
- N+xKJf790Gz3o3srn2Udix5tlXJ4NBMoa3s0Ntg17S4JneG4x9NXLmeC7
- zj3x6wXjGBjAdQP2qdqFJqvFK96DeuK+HOAtKZJtBRKzM8yAM5jdKFuTR
- dTXmKai3ZnqYKmAPVPodHvvM1E5Bc25g6TOINUJNgF3soy3PbjYg5mFtr A==;
-X-CSE-ConnectionGUID: S1zPL2IVTDGDYr9BjCD47A==
-X-CSE-MsgGUID: 1FCuDAqoRRShs56io7QQ4w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11367"; a="46422508"
-X-IronPort-AV: E=Sophos;i="6.14,233,1736841600"; d="scan'208";a="46422508"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2025 19:12:47 -0800
-X-CSE-ConnectionGUID: DqzgJJ8mTwWR1tSSMsjUwA==
-X-CSE-MsgGUID: YMO4U9C0R/6Uf0PY2hDqTA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,233,1736841600"; d="scan'208";a="119656338"
-Received: from lkp-server02.sh.intel.com (HELO a4747d147074) ([10.239.97.151])
- by orviesa006.jf.intel.com with ESMTP; 08 Mar 2025 19:12:41 -0800
-Received: from kbuild by a4747d147074 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tr75i-0002bY-13;
- Sun, 09 Mar 2025 03:12:38 +0000
-Date: Sun, 9 Mar 2025 11:12:14 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Bjorn Andersson <andersson@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 06/10] drm/msm/mdss: add SAR2130P device configuration
-Message-ID: <202503091045.4UVScL8t-lkp@intel.com>
-References: <20250308-sar2130p-display-v1-6-1d4c30f43822@linaro.org>
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11AC210E2F8;
+ Sun,  9 Mar 2025 08:14:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 53C30A458F0;
+ Sun,  9 Mar 2025 08:08:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42974C4CEE5;
+ Sun,  9 Mar 2025 08:13:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741508043;
+ bh=9BlOFXAcL52pqaOXhKgnjzByr6uM1wVuOwRZXNaUb5U=;
+ h=From:Subject:Date:To:Cc:From;
+ b=mFHjYm2yvmooa7VfxOxgsAscGInvMY323dYDX60lY26eCBThxwGaL0HW2fKbanbpc
+ ELX3fBT2vf/s56edwOmnZs0z9/MTlrwW1A5Q/r/MSs9eVdojUpjjd4+YhBoLlck3aV
+ L7Ix0QXLrTSo4NoEIbepg6xcXaPrxcBaXo39f0wNjT3cXy1s22LEAP8Nqr937qrrgf
+ Nw39hEHX8ZinCGx75RxxirHedc6Gm54rstKIgVbRSCO3mnC6He9HO6cXt9xlbPao8w
+ LZg4kvVmsXD+hhFbRTQZXOBZ4VHADAk4Bj7SbEjKzt/oYf64N6VOGqhNlJXASBKBds
+ 5baqpIPnQhTxQ==
+From: Dmitry Baryshkov <lumag@kernel.org>
+Subject: [PATCH 0/4] drm/display: hdmi: provide common code to get Audio
+ Clock Recovery params
+Date: Sun, 09 Mar 2025 10:13:55 +0200
+Message-Id: <20250309-drm-hdmi-acr-v1-0-bb9c242f4d4b@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250308-sar2130p-display-v1-6-1d4c30f43822@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMNNzWcC/x3MMQqAMAxA0atIZgNpRRSvIg6lSTWDVVIQQby7x
+ fEN/z9QxFQKTM0DJpcWPXKFaxuIW8iroHI1ePI9dTQi244b74ohGg6BXSIm5zlBTU6TpPe/m5f
+ 3/QAV9Dc7XgAAAA==
+X-Change-ID: 20250308-drm-hdmi-acr-7ad1f0d012df
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1241;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=9BlOFXAcL52pqaOXhKgnjzByr6uM1wVuOwRZXNaUb5U=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnzU3Gy7L1n0F+9PZnSM8l3ElHgqHAXY9nQIo/u
+ R01KQwreQWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ81NxgAKCRCLPIo+Aiko
+ 1aKeB/95KJqQpYAAWap+VHmraWFLscqQJ7F7hm5jYkVoocd3/6Yk08Xc56MZByxJYoH748BXYxk
+ WrPZDf/487GWfes9Iib7OVFPjn2lCecJtXZCoqqMHxQMjmFyx66Lg4kdW4IvEBeYl/QRWEQyXaj
+ vveEHUUTNJAU/BGSwoVUhU5PrcF4w9QQbNrBya+6RgXnmJqLlHZsoVnOPt7IV/mmtuEZX6OY6qN
+ GM0JZrUNZ7QgYnRL24Xv8HS9QG1mJlSty1hHH1GV2rE9I8Bsya6QtAyQNUvqR7GTjSrE+zuTa5/
+ 5HUneJNp8V74RgjTPA00gtFKGb1tCZ9qK6ZHMkfm72vNSLUJ
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,50 +84,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+HDMI standards define a recommended set of values to be used for Audio
+Clock Regeneration. Nevertheless, each HDMI driver dealing with audio
+implements its own way to determine those values. Implement a common
+helper and use it for MSM HDMI (tested), VC4 and DW-HDMI (compile-tested
+only) drivers.
 
-kernel test robot noticed the following build errors:
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (4):
+      drm/display: hdmi: provide central data authority for ACR params
+      drm/msm/hdmi: use new helper for ACR tables
+      drm/vc4: use new helper to get ACR values
+      drm: bridge: dw-hdmi: use new helper to get ACR values
 
-[auto build test ERROR on 0a2f889128969dab41861b6e40111aa03dc57014]
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c |  90 ++--------------
+ drivers/gpu/drm/display/drm_hdmi_helper.c | 164 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/hdmi/hdmi_audio.c     | 107 ++-----------------
+ drivers/gpu/drm/vc4/vc4_hdmi.c            |  10 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.h            |   7 ++
+ include/drm/display/drm_hdmi_helper.h     |   6 ++
+ 6 files changed, 197 insertions(+), 187 deletions(-)
+---
+base-commit: 0a2f889128969dab41861b6e40111aa03dc57014
+change-id: 20250308-drm-hdmi-acr-7ad1f0d012df
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/dt-bindings-display-msm-dp-controller-describe-SAR2130P/20250308-094544
-base:   0a2f889128969dab41861b6e40111aa03dc57014
-patch link:    https://lore.kernel.org/r/20250308-sar2130p-display-v1-6-1d4c30f43822%40linaro.org
-patch subject: [PATCH 06/10] drm/msm/mdss: add SAR2130P device configuration
-config: arm-randconfig-004-20250309 (https://download.01.org/0day-ci/archive/20250309/202503091045.4UVScL8t-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250309/202503091045.4UVScL8t-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202503091045.4UVScL8t-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/msm/msm_mdss.c:599:10: error: 'const struct msm_mdss_data' has no member named 'ubwc_static'
-     599 |         .ubwc_static = 1,
-         |          ^~~~~~~~~~~
-   drivers/gpu/drm/msm/msm_mdss.c:600:29: warning: initialized field overwritten [-Woverride-init]
-     600 |         .highest_bank_bit = 0,
-         |                             ^
-   drivers/gpu/drm/msm/msm_mdss.c:600:29: note: (near initialization for 'sar2130p_data.highest_bank_bit')
-
-
-vim +599 drivers/gpu/drm/msm/msm_mdss.c
-
-   594	
-   595	static const struct msm_mdss_data sar2130p_data = {
-   596		.ubwc_enc_version = UBWC_3_0, /* 4.0.2 in hw */
-   597		.ubwc_dec_version = UBWC_4_3,
-   598		.ubwc_swizzle = 6,
- > 599		.ubwc_static = 1,
-   600		.highest_bank_bit = 0,
-   601		.macrotile_mode = 1,
-   602		.reg_bus_bw = 74000,
-   603	};
-   604	
-
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
