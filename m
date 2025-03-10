@@ -2,72 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0EA0A596DA
-	for <lists+freedreno@lfdr.de>; Mon, 10 Mar 2025 14:59:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31151A59806
+	for <lists+freedreno@lfdr.de>; Mon, 10 Mar 2025 15:46:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CACD410E298;
-	Mon, 10 Mar 2025 13:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D4810E359;
+	Mon, 10 Mar 2025 14:46:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pezYgOk6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nFeKqGMY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97DEF10E298
- for <freedreno@lists.freedesktop.org>; Mon, 10 Mar 2025 13:59:17 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-43bc4b16135so24822325e9.1
- for <freedreno@lists.freedesktop.org>; Mon, 10 Mar 2025 06:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741615156; x=1742219956; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Ppfwn2QQfECUfr6VWbo/Er8VHdHAsKrXKFLiNhCsl+4=;
- b=pezYgOk6y3C4mIGFrM/dt4QEaNjMoeW7K2v6BUmSx3NXervjyK9xPb6cURubNXlSov
- j2JtztdjaxmmVKqmcZsDvLHD13BW891IQ2JeZnR1Ch4LSAVlKC38BJqFErUWYHnDB4Iu
- VGJkPm434zprsNfzH9hYMJCMLg5p2SVireMkSgRAQoTtP+i+SuX/zijtjVzK+wCleizC
- Tq0bpXkH6mxb88nWKGaYmqzxU0vWfKbABm9LfIh8dZpYzDddguAC6LJ1+ht4URuzeIMg
- se04MVDa8QoOiwYTxR0gnCIxGnpvq1JlsT4yblWbT5NcJqX0Sbg1h+yVZxnoUDErBpry
- yPwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741615156; x=1742219956;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ppfwn2QQfECUfr6VWbo/Er8VHdHAsKrXKFLiNhCsl+4=;
- b=ZToRYfOcbnYbiX9i2BngPO9RJXanIL9KKKBUqo53aNhc4qOCK5wU++kx91Y9O+lh99
- +ca2J297ytA4gLkJ09IGjqgMr9WweVusxjeUuhqUFPSc8WqL29I0Rh3/bfjkL0T3FxY9
- cyBMEHqgAbLiW3B4FzMwtkme6Y/UWSgiR0kvu2ovwvfzam0lS+fnaCmIwfb1Gwf9fBIs
- 4nYIZqnD414bpBhT261xQfDCBqz1sfVJNoGZFh2IZXK6Gx41Ie92AA6YoDeaboMOO4Fu
- 0loNN74WM6W1MQP7Gu5XUL8GKSWkarsRP9IQCr26uNklqenI7PSBBbDU0VHRwSGfvHRp
- GMdg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW1xZ7/Jsvd3ZLG6EjAEvVspjo/+y6qiq/oVQRzi/anjMZJH0J5JCg3RrOUYADAfZSal7G+usk9i1w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzycBPPdJQvkovjfzCKFts+Sc5N2zo71fq0MNluGStEsbnk83F9
- ZOhEYtyySYUJxs4fGdXqu7hkRPlktLjY8n0F5nzNEPjbuDdMQ7fBtpgmhILELuo=
-X-Gm-Gg: ASbGncs+HLvTQorZw+236WeWg3a/KxuZ02vh/k2ueOFoSFKM0Zp53S5S3lRaVpy/pl2
- doPgKxr6/uQIxXdzP63CiOzWU/PzDRCqcKEWKaQNZJq1Cdy5AQdBVxzX0oYc5qHwDfwaI/XGIpU
- 0M0L2tUaaB5nTcrmTDihVa2ZJai76k2/k8jVcgGZ7fYYv0WRwxJqoKWlCHdUJYMvFMGjHblGECT
- t9D1B+H7JPuEUv5gj2nZ94SkrSmvqN9/tnStoqqL2XN4YIFaNVA2QMss9y/PYhdj0KPllZ3pNy4
- O05Fx9KfBDuayu5G3EOOHQdP6T3EjRh6KOaB5NJ5jzcWROHqpg==
-X-Google-Smtp-Source: AGHT+IHhlPge1QdiXNWDLFdy1b+GATvLkusfheev4kJ9+6b7/X0g+edMS2rZmPk8kSvKobX3NbWCJA==
-X-Received: by 2002:a05:600c:4f0c:b0:43c:eeee:b706 with SMTP id
- 5b1f17b1804b1-43ceeeeb95amr31294145e9.24.1741615156074; 
- Mon, 10 Mar 2025 06:59:16 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-43bdd8c28f5sm145821965e9.9.2025.03.10.06.59.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Mar 2025 06:59:15 -0700 (PDT)
-Date: Mon, 10 Mar 2025 16:59:11 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [bug report] drm/msm/a6xx: Introduce GMU wrapper support
-Message-ID: <7129575c-28ce-48be-9c4d-201f8d6741fb@stanley.mountain>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CAC410E46C;
+ Mon, 10 Mar 2025 14:46:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 933475C66F0;
+ Mon, 10 Mar 2025 14:44:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962F9C4CEE5;
+ Mon, 10 Mar 2025 14:46:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741617996;
+ bh=GLQSltiOgMxAYAZXcLvBH55+/pHocreYQyR1jF4z2Vw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=nFeKqGMYfaurXgDalKxg+AYAGtSqAHU3aEaxasDv6hEEMGAAByM0ZEqzLvjIdCKRT
+ FztKL0+ONe+sf0GfKVY8um0eL2fzvFk5S7Row4oyRvpYIYOkWNE8FuiWRRswvyd3uv
+ 5Wmm6G4MmYPrSdkYLQrPMKvhbD4IDGuQwt0nsNm/WzZys+VtcRcJpBUwz7motpZMDC
+ IKezOJ1nBhW6Pml89+UVl8x0x4pP12T9VIhgg1bXe3S0mIkKKr7TdSHt0wjV8E00FJ
+ aWKOjUI1IGjJvt8/OLW2G3PN8ONYsF+nSIWbtTtoF6ypHr2oWiVjdkxKk6es1oOYgW
+ SsevxLLYAYRLw==
+Date: Mon, 10 Mar 2025 15:46:33 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH 1/4] drm/display: hdmi: provide central data authority
+ for ACR params
+Message-ID: <20250310-funny-malamute-of-promotion-bb759e@houat>
+References: <20250309-drm-hdmi-acr-v1-0-bb9c242f4d4b@linaro.org>
+ <20250309-drm-hdmi-acr-v1-1-bb9c242f4d4b@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="fzlgoro4mekg644q"
 Content-Disposition: inline
+In-Reply-To: <20250309-drm-hdmi-acr-v1-1-bb9c242f4d4b@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,89 +73,245 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Konrad Dybcio,
 
-Commit 5a903a44a984 ("drm/msm/a6xx: Introduce GMU wrapper support")
-from Jun 16, 2023 (linux-next), leads to the following Smatch static
-checker warning:
+--fzlgoro4mekg644q
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/4] drm/display: hdmi: provide central data authority
+ for ACR params
+MIME-Version: 1.0
 
-	drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1844 a6xx_gmu_wrapper_init()
-	warn: 'gmu->cxpd' can also be NULL
+On Sun, Mar 09, 2025 at 10:13:56AM +0200, Dmitry Baryshkov wrote:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>=20
+> HDMI standard defines recommended N and CTS values for Audio Clock
+> Regeneration. Currently each driver implements those, frequently in
+> somewhat unique way. Provide a generic helper for getting those values
+> to be used by the HDMI drivers.
+>=20
+> The helper is added to drm_hdmi_helper.c rather than drm_hdmi_audio.c
+> since HDMI drivers can be using this helper function even without
+> switching to DRM HDMI Audio helpers.
+>=20
+> Note: currently this only handles the values per HDMI 1.4b Section 7.2
+> and HDMI 2.0 Section 9.2.1. Later the table can be expanded to
+> accommodate for Deep Color TMDS char rates per HDMI 1.4 Appendix D
+> and/or HDMI 2.0 / 2.1 Appendix C).
+>=20
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/display/drm_hdmi_helper.c | 164 ++++++++++++++++++++++++=
+++++++
+>  include/drm/display/drm_hdmi_helper.h     |   6 ++
+>  2 files changed, 170 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/=
+display/drm_hdmi_helper.c
+> index 74dd4d01dd9bb2c9e69ec1c60b0056bd69417e8a..89d25571bfd21c56c6835821d=
+2272a12c816a76e 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+> @@ -256,3 +256,167 @@ drm_hdmi_compute_mode_clock(const struct drm_displa=
+y_mode *mode,
+>  	return DIV_ROUND_CLOSEST_ULL(clock * bpc, 8);
+>  }
+>  EXPORT_SYMBOL(drm_hdmi_compute_mode_clock);
+> +
+> +struct drm_hdmi_acr_n_cts_entry {
+> +	unsigned int n;
+> +	unsigned int cts;
+> +};
+> +
+> +struct drm_hdmi_acr_data {
+> +	unsigned long tmds_clock_khz;
+> +	struct drm_hdmi_acr_n_cts_entry n_cts_32k,
+> +					n_cts_44k1,
+> +					n_cts_48k;
+> +};
+> +
+> +static const struct drm_hdmi_acr_data hdmi_acr_n_cts[] =3D {
+> +	{
+> +		/* "Other" entry */
+> +		.n_cts_32k =3D  { .n =3D 4096, },
+> +		.n_cts_44k1 =3D { .n =3D 6272, },
+> +		.n_cts_48k =3D  { .n =3D 6144, },
+> +	}, {
+> +		.tmds_clock_khz =3D 25175,
+> +		.n_cts_32k =3D  { .n =3D 4576,  .cts =3D 28125, },
+> +		.n_cts_44k1 =3D { .n =3D 7007,  .cts =3D 31250, },
+> +		.n_cts_48k =3D  { .n =3D 6864,  .cts =3D 28125, },
+> +	}, {
+> +		.tmds_clock_khz =3D 25200,
+> +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 25200, },
+> +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 28000, },
+> +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 25200, },
+> +	}, {
+> +		.tmds_clock_khz =3D 27000,
+> +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 27000, },
+> +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 30000, },
+> +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 27000, },
+> +	}, {
+> +		.tmds_clock_khz =3D 27027,
+> +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 27027, },
+> +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 30030, },
+> +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 27027, },
+> +	}, {
+> +		.tmds_clock_khz =3D 54000,
+> +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 54000, },
+> +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 60000, },
+> +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 54000, },
+> +	}, {
+> +		.tmds_clock_khz =3D 54054,
+> +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 54054, },
+> +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 60060, },
+> +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 54054, },
+> +	}, {
+> +		.tmds_clock_khz =3D 74176,
+> +		.n_cts_32k =3D  { .n =3D 11648, .cts =3D 210937, }, /* and 210938 */
+> +		.n_cts_44k1 =3D { .n =3D 17836, .cts =3D 234375, },
+> +		.n_cts_48k =3D  { .n =3D 11648, .cts =3D 140625, },
+> +	}, {
+> +		.tmds_clock_khz =3D 74250,
+> +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 74250, },
+> +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 82500, },
+> +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 74250, },
+> +	}, {
+> +		.tmds_clock_khz =3D 148352,
+> +		.n_cts_32k =3D  { .n =3D 11648, .cts =3D 421875, },
+> +		.n_cts_44k1 =3D { .n =3D 8918,  .cts =3D 234375, },
+> +		.n_cts_48k =3D  { .n =3D 5824,  .cts =3D 140625, },
+> +	}, {
+> +		.tmds_clock_khz =3D 148500,
+> +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 148500, },
+> +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 165000, },
+> +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 148500, },
+> +	}, {
+> +		.tmds_clock_khz =3D 296703,
+> +		.n_cts_32k =3D  { .n =3D 5824,  .cts =3D 421875, },
+> +		.n_cts_44k1 =3D { .n =3D 4459,  .cts =3D 234375, },
+> +		.n_cts_48k =3D  { .n =3D 5824,  .cts =3D 281250, },
+> +	}, {
+> +		.tmds_clock_khz =3D 297000,
+> +		.n_cts_32k =3D  { .n =3D 3072,  .cts =3D 222750, },
+> +		.n_cts_44k1 =3D { .n =3D 4704,  .cts =3D 247500, },
+> +		.n_cts_48k =3D  { .n =3D 5120,  .cts =3D 247500, },
+> +	}, {
+> +		.tmds_clock_khz =3D 593407,
+> +		.n_cts_32k =3D  { .n =3D 5824,  .cts =3D 843750, },
+> +		.n_cts_44k1 =3D { .n =3D 8918,  .cts =3D 937500, },
+> +		.n_cts_48k =3D  { .n =3D 5824,  .cts =3D 562500, },
+> +	}, {
+> +		.tmds_clock_khz =3D 594000,
+> +		.n_cts_32k =3D  { .n =3D 3072,  .cts =3D 445500, },
+> +		.n_cts_44k1 =3D { .n =3D 9408,  .cts =3D 990000, },
+> +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 594000, },
+> +	},
+> +};
+> +
+> +static int drm_hdmi_acr_find_tmds_entry(unsigned long tmds_clock_khz)
+> +{
+> +	int i;
+> +
+> +	/* skip the "other" entry */
+> +	for (i =3D 1; i < ARRAY_SIZE(hdmi_acr_n_cts); i++) {
+> +		if (hdmi_acr_n_cts[i].tmds_clock_khz =3D=3D tmds_clock_khz)
+> +			return i;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * drm_hdmi_acr_get_n_cts() - get N and CTS values for Audio Clock Regen=
+eration
+> + *
+> + * @tmds_char_rate: TMDS clock (char rate) as used by the HDMI connector
+> + * @sample_rate: audio sample rate
+> + * @out_n: a pointer to write the N value
+> + * @out_cts: a pointer to write the CTS value
+> + *
+> + * Get the N and CTS values (either by calculating them or by returning =
+data
+> + * from the tables. This follows the HDMI 1.4b Section 7.2 "Audio Sample=
+ Clock
+> + * Capture and Regeneration".
+> + */
 
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-    1790 int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
-    1791 {
-    1792         struct platform_device *pdev = of_find_device_by_node(node);
-    1793         struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-    1794         int ret;
-    1795 
-    1796         if (!pdev)
-    1797                 return -ENODEV;
-    1798 
-    1799         gmu->dev = &pdev->dev;
-    1800 
-    1801         ret = of_dma_configure(gmu->dev, node, true);
-    1802         if (ret)
-    1803                 return ret;
-    1804 
-    1805         pm_runtime_enable(gmu->dev);
-    1806 
-    1807         /* Mark legacy for manual SPTPRAC control */
-    1808         gmu->legacy = true;
-    1809 
-    1810         /* Map the GMU registers */
-    1811         gmu->mmio = a6xx_gmu_get_mmio(pdev, "gmu");
-    1812         if (IS_ERR(gmu->mmio)) {
-    1813                 ret = PTR_ERR(gmu->mmio);
-    1814                 goto err_mmio;
-    1815         }
-    1816 
-    1817         gmu->cxpd = dev_pm_domain_attach_by_name(gmu->dev, "cx");
+I think we need to make it clear that it's for L-PCM only (I think?),
+either through a format parameter or through the documentation.
 
-dev_pm_domain_attach_by_name() sure seemse like it can return NULL.
+> +void
+> +drm_hdmi_acr_get_n_cts(unsigned long long tmds_char_rate,
+> +		       unsigned int sample_rate,
+> +		       unsigned int *out_n,
+> +		       unsigned int *out_cts)
 
-    1818         if (IS_ERR(gmu->cxpd)) {
-    1819                 ret = PTR_ERR(gmu->cxpd);
-    1820                 goto err_mmio;
-    1821         }
-    1822 
-    1823         if (!device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME)) {
+And we should probably take the connector (or EDID) to make sure the
+monitor can support the format and sample rates.
 
-If it did then device_link_add() then this would fail
+> +{
+> +	/* be a bit more tolerant, especially for the 1.001 entries */
+> +	unsigned long tmds_clock_khz =3D DIV_ROUND_CLOSEST_ULL(tmds_char_rate, =
+1000);
+> +	const struct drm_hdmi_acr_n_cts_entry *entry;
+> +	unsigned int n, cts, mult;
+> +	int tmds_idx;
+> +
+> +	tmds_idx =3D drm_hdmi_acr_find_tmds_entry(tmds_clock_khz);
+> +
+> +	/*
+> +	 * Don't change the order, 192 kHz is divisible by 48k and 32k, but it
+> +	 * should use 48k entry.
+> +	 */
+> +	if (sample_rate % 48000 =3D=3D 0) {
+> +		entry =3D &hdmi_acr_n_cts[tmds_idx].n_cts_48k;
+> +		mult =3D sample_rate / 48000;
+> +	} else if (sample_rate % 44100 =3D=3D 0) {
+> +		entry =3D &hdmi_acr_n_cts[tmds_idx].n_cts_44k1;
+> +		mult =3D sample_rate / 44100;
+> +	} else if (sample_rate % 32000 =3D=3D 0) {
+> +		entry =3D &hdmi_acr_n_cts[tmds_idx].n_cts_32k;
+> +		mult =3D sample_rate / 32000;
+> +	} else {
+> +		entry =3D NULL;
+> +	}
+> +
+> +	if (entry) {
+> +		n =3D entry->n * mult;
+> +		cts =3D entry->cts;
+> +	} else {
+> +		/* Recommended optimal value, HDMI 1.4b, Section 7.2.1 */
+> +		n =3D 128 * sample_rate / 1000;
+> +		cts =3D 0;
+> +	}
+> +
+> +	if (!cts)
+> +		cts =3D DIV_ROUND_CLOSEST_ULL(tmds_char_rate * n,
+> +					    128 * sample_rate);
+> +
+> +	*out_n =3D n;
+> +	*out_cts =3D cts;
+> +}
 
-    1824                 ret = -ENODEV;
-    1825                 goto detach_cxpd;
-    1826         }
-    1827 
-    1828         init_completion(&gmu->pd_gate);
-    1829         complete_all(&gmu->pd_gate);
-    1830         gmu->pd_nb.notifier_call = cxpd_notifier_cb;
-    1831 
-    1832         /* Get a link to the GX power domain to reset the GPU */
-    1833         gmu->gxpd = dev_pm_domain_attach_by_name(gmu->dev, "gx");
-    1834         if (IS_ERR(gmu->gxpd)) {
-    1835                 ret = PTR_ERR(gmu->gxpd);
-    1836                 goto err_mmio;
-    1837         }
-    1838 
-    1839         gmu->initialized = true;
-    1840 
-    1841         return 0;
-    1842 
-    1843 detach_cxpd:
---> 1844         dev_pm_domain_detach(gmu->cxpd, false);
-                                      ^^^^^^^^^
-And this would crash.
+EXPORT_SYMBOL?
 
-    1845 
-    1846 err_mmio:
-    1847         iounmap(gmu->mmio);
-    1848 
-    1849         /* Drop reference taken in of_find_device_by_node */
-    1850         put_device(gmu->dev);
-    1851 
-    1852         return ret;
-    1853 }
+Also, I'd really like to have some unit tests for this. Not for all the
+combinations, obviously, but testing that, say, 44.1kHz with a 148.5 MHz
+char rate works as expected, and then all the failure conditions
+depending on the monitor capabilities.
 
-regards,
-dan carpenter
+Maxime
+
+--fzlgoro4mekg644q
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZ877SAAKCRDj7w1vZxhR
+xZL/AQCbnrSWHvvcYWV8z2lpIEsk/2tlvNNCVsy3qYsVwLgGfwD/TytjqPeUuusl
+NZX6CBh2nab+Vs1DBhdA808Fk/RIiQk=
+=omRF
+-----END PGP SIGNATURE-----
+
+--fzlgoro4mekg644q--
