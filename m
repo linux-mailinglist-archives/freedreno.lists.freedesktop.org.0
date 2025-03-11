@@ -2,140 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EA57A5C2EC
-	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 14:42:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A8E8A5C79C
+	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 16:37:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A0DB10E1E2;
-	Tue, 11 Mar 2025 13:42:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D13710E5BB;
+	Tue, 11 Mar 2025 15:37:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MQRzC31s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HjYyUw/l";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44B6810E1E2
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 13:42:48 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-ac2c7a367d9so10090966b.3
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 06:42:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741700567; x=1742305367; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=OK/mNeXOS3BnFUBUb28LMgXW4oDwAfaEiFXsceleu8s=;
- b=MQRzC31sGkP7kFDjVXj0e3fEh/20bb0zCgsvSS8Q6X9dWQJsE0lUIuXOftyz0JBg+2
- /YxjBLm5KmchsL8454SXIifF6BK9KWgMqg+5nc7/ZPDses86pvxYT01OtsBhMW1oB5C3
- GL4T4nxCY/vh4i/Sz4Mff1lnA0oDRtMwal+UOz6wJ0OcM3VcfBPsCO38/UfVM1+NcGQF
- DkE9D78DCP+JLEZDLnfJmIQNFtSHD3B2niU11+MaDCVD8O59wIrbOYvbhu9kRbtT4zjo
- JbD0N/J/o8MftZhoSJLdC9eFrVVAv3y8L0Ondgll6zMOOrkE2Bph86YTPiJ9sZqswdiI
- E7nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741700567; x=1742305367;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=OK/mNeXOS3BnFUBUb28LMgXW4oDwAfaEiFXsceleu8s=;
- b=jhxLBhuQD/yc/LVUdu+au4xD/PqMQIp2JAQWUdh0Jlm4QQHKDfMVqHchhXlaZ6IzsJ
- CuxMXzPEqmudPorfkFI96VCVG/zXY+QsGQUhThdu3FverxzD3ROCUoSyjZzQ9e7ZjsRt
- /LAFaIFzMnl+xvbNxx43uVf1lvTpw6Abp67dL+41hd9TTFkKM08WjLLHXE1DKYlJvYbu
- jou5CvgUw+WvJ6hvMlU1DIyCm1ZhZsUknvP8CdXI/c1Hm9JRIVNUrK2QfDYN9XO/j9Bb
- Rty/e8JMAfkv5nOUGONec+6PYZMJUF0amZWJfKODq1Mlf+qQAnV8AHib/1U3k4k3xXPB
- asEg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV4IIog75i1jvPAxi3myPSG/iKZQCpFRI7jCyxBNYefZVWqqzxGvyshvdZVickuL0R015cDO1fE/cE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywi/UK+5XK3oxCZks97Ah6J9GvCgQ+VnFCRQme2sirmrqGnVeXw
- kcq0HqT8U7Ip3B/7PSQR5LYFv6gY5nY8/K+fkhUG/Ku5psydn5EOMHhEn4livX4=
-X-Gm-Gg: ASbGncvsUFXrJeEhMh4PHz/2VdIHjClTJjGnGUTo8Qx+hjq/rmI8IISKmAyeqmUxQAm
- 2+NFonlz6ORTyoShIKxG4T6gAPJx+9OIxFNjsdJl5JsT9QH0910hNm7Q7ZkNfd+cST2hF/Y7whO
- 6Oaau9GxhdtMIMypnv9sHSKAlnTg/jCacXSXw7we+jNoGyJmMwZw/ND+yn61g5MjuOjGMubqa0E
- eX7s1ztNHJjiTn2UjviQIgXFNSIgMNF79a2hW7P+SMVJODIPxhQDSfk0pl0SEuLwgyv5GQCQ/Eo
- V6WMIzKvwPzOr3cLmwXVWG6kuK1N8t/+mjdt2nyYmy//wotf1CXBMBNBg7TtnpE=
-X-Google-Smtp-Source: AGHT+IHtY6iWQCXAHAWxWQCwXcAH70yQ6uYRmE6uUNf099ZZ+4osiFbnrB1uJPfMgJq80ObdnKhGcw==
-X-Received: by 2002:a17:906:f5aa:b0:ac1:4da:3edd with SMTP id
- a640c23a62f3a-ac2b9db47ddmr183374666b.1.1741700566810; 
- Tue, 11 Mar 2025 06:42:46 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.198.86])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac256654fa6sm773804766b.93.2025.03.11.06.42.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 06:42:46 -0700 (PDT)
-Message-ID: <c7c72397-c7d3-426d-b971-35b1cd213775@linaro.org>
-Date: Tue, 11 Mar 2025 14:42:43 +0100
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3708810E5BB;
+ Tue, 11 Mar 2025 15:37:02 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C5CFE5C65C1;
+ Tue, 11 Mar 2025 15:34:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF956C4CEEA;
+ Tue, 11 Mar 2025 15:36:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741707421;
+ bh=6MY+p+THkRLPDJf4bpCm16v7GT3wOaJEbrTnEIllu/k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HjYyUw/lf6uzVXxn+qnTyXm9oCP52lArYSzZvoKk+6DHf3d5wD31s0RM9RWQaj86x
+ doZcgNSmhjkb86YsxSwO/tPTGlaOHEUeL1sPuWO0Q+m0YNNjiNQqs41Hoen3nVKOUa
+ H/1JvTxD3Y9PV2RraIdsQefBxr3yweepjTYXry2yxQIW5OUJA4NEsjFPR+KQo0Nhh8
+ ixFfmbB1sjMX6XKTC/up8/BFwmZjCyG+XR9DPvgIINpgVJ0iRVPTtYpuqTYygRFGUJ
+ qhZti1CoHKysnzP45rzhSufZ35yK4+RHCgYy9j2LPltRJow3dlEO1oGWirN7Lvt+de
+ 2rdB+n/lvv31Q==
+Date: Tue, 11 Mar 2025 17:36:53 +0200
+From: Dmitry Baryshkov <lumag@kernel.org>
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ robdclark@gmail.com, dmitry.baryshkov@linaro.org, sean@poorly.run, 
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, 
+ krzk+dt@kernel.org, konradybcio@kernel.org, conor+dt@kernel.org, 
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+ quic_abhinavk@quicinc.com, quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+ quic_jesszhan@quicinc.com
+Subject: Re: [PATCH v2 03/10] dt-bindings: display: msm: document DSI
+ controller and phy on SA8775P
+Message-ID: <emlstgunwzmmymq7pu7ouuzpo5jamatsfqbkbfah25gnvwb3gl@y6t2lxl7vwsy>
+References: <20250311122445.3597100-1-quic_amakhija@quicinc.com>
+ <20250311122445.3597100-4-quic_amakhija@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 19/21] drm/msm/dpu: Implement CTL_PIPE_ACTIVE for v12.0
- DPU
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- Rob Clark <robdclark@chromium.org>
-References: <20250221-b4-sm8750-display-v3-0-3ea95b1630ea@linaro.org>
- <20250221-b4-sm8750-display-v3-19-3ea95b1630ea@linaro.org>
- <5rlcxx7pcu32hz3r4qufqcq2jzk2z4g2ep7reecpm2kksttwyi@66p2u4nwfzx6>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <5rlcxx7pcu32hz3r4qufqcq2jzk2z4g2ep7reecpm2kksttwyi@66p2u4nwfzx6>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250311122445.3597100-4-quic_amakhija@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,21 +68,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/02/2025 17:26, Dmitry Baryshkov wrote:
-> Minot nit below
+On Tue, Mar 11, 2025 at 05:54:38PM +0530, Ayushi Makhija wrote:
+> Document DSI controller and phy on SA8775P platform.
 > 
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->> index 43a254cf57da571e2ec8aad38028477652f9283c..3e0bdd1100ebb0d302a852ceeaf8af86835e69a1 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->> @@ -40,6 +40,7 @@
->>  #define   CTL_INTF_FLUSH                0x110
->>  #define   CTL_CDM_FLUSH                0x114
->>  #define   CTL_PERIPH_FLUSH              0x128
->> +#define   CTL_PIPE_ACTIVE               0x12C
+> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> ---
+>  .../display/msm/qcom,sa8775p-mdss.yaml        | 188 ++++++++++++++++++
+>  1 file changed, 188 insertions(+)
 > 
-> lowercase hex, please.
-Ack
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> index a90a8b3f1a9e..628ca68871f4 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> @@ -52,6 +52,26 @@ patternProperties:
+>          items:
+>            - const: qcom,sa8775p-dp
+>  
+> +  "^dsi@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
+> +    properties:
+> +      compatible:
+> +        items:
+> +          - const: qcom,sa8775p-dsi-ctrl
+> +          - const: qcom,mdss-dsi-ctrl
+> +
+> +  "^phy@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
+> +    properties:
+> +      compatible:
+> +        enum:
+> +          - qcom,sa8775p-dsi-phy-5nm
+> +          - qcom,sa8775p-edp-phy
 
-Best regards,
-Krzysztof
+This does more than is written in the commit message: it also adds eDP
+PHY as a possible child. Please expand the commit message to account for
+that.
+
+> +
+>  required:
+>    - compatible
+>  
+> @@ -131,6 +151,20 @@ examples:
+>                          remote-endpoint = <&mdss0_dp0_in>;
+>                      };
+>                  };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    dpu_intf1_out: endpoint {
+> +                        remote-endpoint = <&mdss0_dsi0_in>;
+> +                    };
+> +                };
+> +
+> +                port@2 {
+> +                    reg = <2>;
+> +                    dpu_intf2_out: endpoint {
+> +                        remote-endpoint = <&mdss0_dsi1_in>;
+> +                    };
+> +                };
+>              };
+>  
+>              mdss0_mdp_opp_table: opp-table {
+> @@ -158,6 +192,160 @@ examples:
+>              };
+>          };
+>  
+> +        dsi@ae94000 {
+> +            compatible = "qcom,sa8775p-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+> +            reg = <0x0ae94000 0x400>;
+> +            reg-names = "dsi_ctrl";
+> +
+> +            interrupt-parent = <&mdss>;
+> +            interrupts = <4>;
+> +
+> +            clocks = <&dispc_byte_clk>,
+> +                     <&dispcc_intf_clk>,
+> +                     <&dispcc_pclk>,
+> +                     <&dispcc_esc_clk>,
+> +                     <&dispcc_ahb_clk>,
+> +                     <&gcc_bus_clk>;
+> +            clock-names = "byte",
+> +                          "byte_intf",
+> +                          "pixel",
+> +                          "core",
+> +                          "iface",
+> +                          "bus";
+> +            assigned-clocks = <&dispcc_byte_clk>,
+> +                              <&dispcc_pclk>;
+> +            assigned-clock-parents = <&mdss0_dsi0_phy 0>, <&mdss0_dsi0_phy 1>;
+> +            phys = <&mdss0_dsi0_phy>;
+> +
+> +            operating-points-v2 = <&dsi0_opp_table>;
+> +            power-domains = <&rpmhpd SA8775P_MMCX>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    mdss0_dsi0_in: endpoint {
+> +                        remote-endpoint = <&dpu_intf1_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    mdss0_dsi0_out: endpoint { };
+> +                };
+> +            };
+> +
+> +            dsi0_opp_table: opp-table {
+> +                compatible = "operating-points-v2";
+> +
+> +                opp-358000000 {
+> +                    opp-hz = /bits/ 64 <358000000>;
+> +                    required-opps = <&rpmhpd_opp_svs_l1>;
+> +                };
+> +            };
+> +        };
+> +
+> +        mdss0_dsi0_phy: phy@ae94400 {
+> +            compatible = "qcom,sa8775p-dsi-phy-5nm";
+> +            reg = <0x0ae94400 0x200>,
+> +                  <0x0ae94600 0x280>,
+> +                  <0x0ae94900 0x27c>;
+> +            reg-names = "dsi_phy",
+> +                        "dsi_phy_lane",
+> +                        "dsi_pll";
+> +
+> +            #clock-cells = <1>;
+> +            #phy-cells = <0>;
+> +
+> +            clocks = <&dispcc_iface_clk>,
+> +                     <&rpmhcc_ref_clk>;
+> +            clock-names = "iface", "ref";
+> +
+> +            vdds-supply = <&vreg_dsi_supply>;
+> +        };
+> +
+> +        dsi@ae96000 {
+> +            compatible = "qcom,sa8775p-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+> +            reg = <0x0ae96000 0x400>;
+> +            reg-names = "dsi_ctrl";
+> +
+> +            interrupt-parent = <&mdss>;
+> +            interrupts = <4>;
+> +
+> +            clocks = <&dispc_byte_clk>,
+> +                     <&dispcc_intf_clk>,
+> +                     <&dispcc_pclk>,
+> +                     <&dispcc_esc_clk>,
+> +                     <&dispcc_ahb_clk>,
+> +                     <&gcc_bus_clk>;
+> +            clock-names = "byte",
+> +                          "byte_intf",
+> +                          "pixel",
+> +                          "core",
+> +                          "iface",
+> +                          "bus";
+> +            assigned-clocks = <&dispcc_byte_clk>,
+> +                              <&dispcc_pclk>;
+> +            assigned-clock-parents = <&mdss0_dsi1_phy 0>, <&mdss0_dsi1_phy 1>;
+> +            phys = <&mdss0_dsi1_phy>;
+> +
+> +            operating-points-v2 = <&dsi1_opp_table>;
+> +            power-domains = <&rpmhpd SA8775P_MMCX>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    mdss0_dsi1_in: endpoint {
+> +                        remote-endpoint = <&dpu_intf2_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    mdss0_dsi1_out: endpoint { };
+> +                };
+> +            };
+> +
+> +            dsi1_opp_table: opp-table {
+> +                compatible = "operating-points-v2";
+> +
+> +                opp-358000000 {
+> +                    opp-hz = /bits/ 64 <358000000>;
+> +                    required-opps = <&rpmhpd_opp_svs_l1>;
+> +                };
+> +            };
+> +        };
+> +
+> +        mdss0_dsi1_phy: phy@ae96400 {
+> +            compatible = "qcom,sa8775p-dsi-phy-5nm";
+> +            reg = <0x0ae96400 0x200>,
+> +                  <0x0ae96600 0x280>,
+> +                  <0x0ae96900 0x27c>;
+> +            reg-names = "dsi_phy",
+> +                        "dsi_phy_lane",
+> +                        "dsi_pll";
+> +
+> +            #clock-cells = <1>;
+> +            #phy-cells = <0>;
+> +
+> +            clocks = <&dispcc_iface_clk>,
+> +                     <&rpmhcc_ref_clk>;
+> +            clock-names = "iface", "ref";
+> +
+> +            vdds-supply = <&vreg_dsi_supply>;
+> +        };
+> +
+>          displayport-controller@af54000 {
+>              compatible = "qcom,sa8775p-dp";
+>  
+> -- 
+> 2.34.1
+> 
+
+-- 
+With best wishes
+Dmitry
