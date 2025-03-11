@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 692B1A5BA54
-	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 09:00:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8EAAA5BA75
+	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 09:07:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8915810E51F;
-	Tue, 11 Mar 2025 07:59:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83D9810E521;
+	Tue, 11 Mar 2025 08:07:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ocB6+Ne3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U/h7PXgM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7613D10E51F;
- Tue, 11 Mar 2025 07:59:49 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD32410E521;
+ Tue, 11 Mar 2025 08:07:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 81AD5A4687A;
- Tue, 11 Mar 2025 07:54:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0A4C4CEEA;
- Tue, 11 Mar 2025 07:59:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 74BF45C41E3;
+ Tue, 11 Mar 2025 08:04:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 951E6C4CEE9;
+ Tue, 11 Mar 2025 08:07:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741679988;
- bh=AH+p4JW6F+z5XeodYcVKSYSZhEHmVRaoVWCiPMOXiw8=;
+ s=k20201202; t=1741680432;
+ bh=ZtI3BPfxkUxUFIHbmyl6XFRwlrtyk7qksexHnsdaz0s=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ocB6+Ne3bwI510+KrvoPiNBTOEbeV0xxCJArmYfvnNV1F6GJhHmBiF6nYY6cgD21T
- qqDTrEyvlCKO7yoZSa2d5/G5l03sfbtQ0iMEcERXH3CNb9mnOPX5WWOVtBLmp7Jxtt
- 7Ic+MaOEpw6OI0YEQwB5fi+iVZYVMepCgDhwcU8vyEA3i27Ij2HFPhiGcD1dBSgHNH
- 5ANOcmSeLc0pW0RXlrf0hg/eXrATFVwYbE86AJGyYbEEelFJzKzT5bvPemZ9b4zC8k
- 7bJGUqDdgY8HSvfOXMDm+C3+iP8GAZrTmltrg3SJMEF7s+q3aEh+H7r7fabXSSkiCd
- rrVTExHAzKPOQ==
-Date: Tue, 11 Mar 2025 08:59:45 +0100
+ b=U/h7PXgMOSAGbndHGkKUKiEIJoiOTC00zUrB+InlOsaKJ9us1tQK8WaTVTYTX6/31
+ rvpED6HJyNuGG1rl9XU0wQy0IalgnzmWgqSRL3jDkJnA7nRTUAah3ImRMrh8aVUYuI
+ ZHDm5qFuFV85SFttR4Sxg82jSO18jmLS2XGUpP6lDWMfcsvpaN23VWwQ4rltpydqBZ
+ R3WBSwkOGmMBQvBUx5PjSIbTIPo7UZogIzN9tmEHX2Tl0FDnHvZFNugr3Oinv/IHXJ
+ r7zY67ZQrzN4yQZ6YvgEZg+GZ6EXm3JjtnoSGPg1my692rl9GFkVE/VWJBnPNIRCyP
+ 6clygOGhD9QZw==
+Date: Tue, 11 Mar 2025 09:07:10 +0100
 From: Maxime Ripard <mripard@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, 
@@ -50,18 +50,17 @@ Cc: Dmitry Baryshkov <lumag@kernel.org>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 1/4] drm/display: hdmi: provide central data authority
- for ACR params
-Message-ID: <20250311-bouncy-hissing-chupacabra-0dff3f@houat>
+Subject: Re: [PATCH 3/4] drm/vc4: use new helper to get ACR values
+Message-ID: <20250311-intrepid-obedient-lizard-64ad2c@houat>
 References: <20250309-drm-hdmi-acr-v1-0-bb9c242f4d4b@linaro.org>
- <20250309-drm-hdmi-acr-v1-1-bb9c242f4d4b@linaro.org>
- <20250310-funny-malamute-of-promotion-bb759e@houat>
- <bensvtxc67i566qqcjketdlffyrwxcnydwarqyjau6b7ibcq4b@d6d4sbm3rubf>
+ <20250309-drm-hdmi-acr-v1-3-bb9c242f4d4b@linaro.org>
+ <20250310-invisible-married-firefly-945c84@houat>
+ <esgb42dyhpjixm62tfk2nfzdiygnfn4bcwq4zn7rhydmt4np2q@7v77p7kveb4e>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="sgxudawjzyo43qu5"
+ protocol="application/pgp-signature"; boundary="dyye5w7y4dznz4ng"
 Content-Disposition: inline
-In-Reply-To: <bensvtxc67i566qqcjketdlffyrwxcnydwarqyjau6b7ibcq4b@d6d4sbm3rubf>
+In-Reply-To: <esgb42dyhpjixm62tfk2nfzdiygnfn4bcwq4zn7rhydmt4np2q@7v77p7kveb4e>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,213 +77,73 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---sgxudawjzyo43qu5
+--dyye5w7y4dznz4ng
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/4] drm/display: hdmi: provide central data authority
- for ACR params
+Subject: Re: [PATCH 3/4] drm/vc4: use new helper to get ACR values
 MIME-Version: 1.0
 
-On Mon, Mar 10, 2025 at 10:14:52PM +0200, Dmitry Baryshkov wrote:
-> On Mon, Mar 10, 2025 at 03:46:33PM +0100, Maxime Ripard wrote:
-> > On Sun, Mar 09, 2025 at 10:13:56AM +0200, Dmitry Baryshkov wrote:
+On Mon, Mar 10, 2025 at 10:18:04PM +0200, Dmitry Baryshkov wrote:
+> On Mon, Mar 10, 2025 at 03:51:53PM +0100, Maxime Ripard wrote:
+> > On Sun, Mar 09, 2025 at 10:13:58AM +0200, Dmitry Baryshkov wrote:
 > > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > > >=20
-> > > HDMI standard defines recommended N and CTS values for Audio Clock
-> > > Regeneration. Currently each driver implements those, frequently in
-> > > somewhat unique way. Provide a generic helper for getting those values
-> > > to be used by the HDMI drivers.
-> > >=20
-> > > The helper is added to drm_hdmi_helper.c rather than drm_hdmi_audio.c
-> > > since HDMI drivers can be using this helper function even without
-> > > switching to DRM HDMI Audio helpers.
-> > >=20
-> > > Note: currently this only handles the values per HDMI 1.4b Section 7.2
-> > > and HDMI 2.0 Section 9.2.1. Later the table can be expanded to
-> > > accommodate for Deep Color TMDS char rates per HDMI 1.4 Appendix D
-> > > and/or HDMI 2.0 / 2.1 Appendix C).
+> > > Use drm_hdmi_acr_get_n_cts() helper instead of calculating N and CTS
+> > > values in the VC4 driver.
 > > >=20
 > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > > > ---
-> > >  drivers/gpu/drm/display/drm_hdmi_helper.c | 164 ++++++++++++++++++++=
-++++++++++
-> > >  include/drm/display/drm_hdmi_helper.h     |   6 ++
-> > >  2 files changed, 170 insertions(+)
+> > >  drivers/gpu/drm/vc4/vc4_hdmi.c | 10 +++-------
+> > >  drivers/gpu/drm/vc4/vc4_hdmi.h |  7 +++++++
+> > >  2 files changed, 10 insertions(+), 7 deletions(-)
 > > >=20
-> > > diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/=
-drm/display/drm_hdmi_helper.c
-> > > index 74dd4d01dd9bb2c9e69ec1c60b0056bd69417e8a..89d25571bfd21c56c6835=
-821d2272a12c816a76e 100644
-> > > --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
-> > > +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-> > > @@ -256,3 +256,167 @@ drm_hdmi_compute_mode_clock(const struct drm_di=
-splay_mode *mode,
-> > >  	return DIV_ROUND_CLOSEST_ULL(clock * bpc, 8);
-> > >  }
-> > >  EXPORT_SYMBOL(drm_hdmi_compute_mode_clock);
+>=20
+> > > diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4=
+_hdmi.h
+> > > index e3d989ca302b72533c374dfa3fd0d5bd7fe64a82..0a775dbfe99d45521f3d0=
+a2016555aefa81d7934 100644
+> > > --- a/drivers/gpu/drm/vc4/vc4_hdmi.h
+> > > +++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
+> > > @@ -211,6 +211,13 @@ struct vc4_hdmi {
+> > >  	 * KMS hooks. Protected by @mutex.
+> > >  	 */
+> > >  	enum hdmi_colorspace output_format;
 > > > +
-> > > +struct drm_hdmi_acr_n_cts_entry {
-> > > +	unsigned int n;
-> > > +	unsigned int cts;
-> > > +};
-> > > +
-> > > +struct drm_hdmi_acr_data {
-> > > +	unsigned long tmds_clock_khz;
-> > > +	struct drm_hdmi_acr_n_cts_entry n_cts_32k,
-> > > +					n_cts_44k1,
-> > > +					n_cts_48k;
-> > > +};
-> > > +
-> > > +static const struct drm_hdmi_acr_data hdmi_acr_n_cts[] =3D {
-> > > +	{
-> > > +		/* "Other" entry */
-> > > +		.n_cts_32k =3D  { .n =3D 4096, },
-> > > +		.n_cts_44k1 =3D { .n =3D 6272, },
-> > > +		.n_cts_48k =3D  { .n =3D 6144, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 25175,
-> > > +		.n_cts_32k =3D  { .n =3D 4576,  .cts =3D 28125, },
-> > > +		.n_cts_44k1 =3D { .n =3D 7007,  .cts =3D 31250, },
-> > > +		.n_cts_48k =3D  { .n =3D 6864,  .cts =3D 28125, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 25200,
-> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 25200, },
-> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 28000, },
-> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 25200, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 27000,
-> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 27000, },
-> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 30000, },
-> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 27000, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 27027,
-> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 27027, },
-> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 30030, },
-> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 27027, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 54000,
-> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 54000, },
-> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 60000, },
-> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 54000, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 54054,
-> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 54054, },
-> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 60060, },
-> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 54054, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 74176,
-> > > +		.n_cts_32k =3D  { .n =3D 11648, .cts =3D 210937, }, /* and 210938 =
-*/
-> > > +		.n_cts_44k1 =3D { .n =3D 17836, .cts =3D 234375, },
-> > > +		.n_cts_48k =3D  { .n =3D 11648, .cts =3D 140625, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 74250,
-> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 74250, },
-> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 82500, },
-> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 74250, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 148352,
-> > > +		.n_cts_32k =3D  { .n =3D 11648, .cts =3D 421875, },
-> > > +		.n_cts_44k1 =3D { .n =3D 8918,  .cts =3D 234375, },
-> > > +		.n_cts_48k =3D  { .n =3D 5824,  .cts =3D 140625, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 148500,
-> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 148500, },
-> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 165000, },
-> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 148500, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 296703,
-> > > +		.n_cts_32k =3D  { .n =3D 5824,  .cts =3D 421875, },
-> > > +		.n_cts_44k1 =3D { .n =3D 4459,  .cts =3D 234375, },
-> > > +		.n_cts_48k =3D  { .n =3D 5824,  .cts =3D 281250, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 297000,
-> > > +		.n_cts_32k =3D  { .n =3D 3072,  .cts =3D 222750, },
-> > > +		.n_cts_44k1 =3D { .n =3D 4704,  .cts =3D 247500, },
-> > > +		.n_cts_48k =3D  { .n =3D 5120,  .cts =3D 247500, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 593407,
-> > > +		.n_cts_32k =3D  { .n =3D 5824,  .cts =3D 843750, },
-> > > +		.n_cts_44k1 =3D { .n =3D 8918,  .cts =3D 937500, },
-> > > +		.n_cts_48k =3D  { .n =3D 5824,  .cts =3D 562500, },
-> > > +	}, {
-> > > +		.tmds_clock_khz =3D 594000,
-> > > +		.n_cts_32k =3D  { .n =3D 3072,  .cts =3D 445500, },
-> > > +		.n_cts_44k1 =3D { .n =3D 9408,  .cts =3D 990000, },
-> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 594000, },
-> > > +	},
-> > > +};
-> > > +
-> > > +static int drm_hdmi_acr_find_tmds_entry(unsigned long tmds_clock_khz)
-> > > +{
-> > > +	int i;
-> > > +
-> > > +	/* skip the "other" entry */
-> > > +	for (i =3D 1; i < ARRAY_SIZE(hdmi_acr_n_cts); i++) {
-> > > +		if (hdmi_acr_n_cts[i].tmds_clock_khz =3D=3D tmds_clock_khz)
-> > > +			return i;
-> > > +	}
-> > > +
-> > > +	return 0;
-> > > +}
-> > > +
-> > > +/**
-> > > + * drm_hdmi_acr_get_n_cts() - get N and CTS values for Audio Clock R=
-egeneration
-> > > + *
-> > > + * @tmds_char_rate: TMDS clock (char rate) as used by the HDMI conne=
-ctor
-> > > + * @sample_rate: audio sample rate
-> > > + * @out_n: a pointer to write the N value
-> > > + * @out_cts: a pointer to write the CTS value
-> > > + *
-> > > + * Get the N and CTS values (either by calculating them or by return=
-ing data
-> > > + * from the tables. This follows the HDMI 1.4b Section 7.2 "Audio Sa=
-mple Clock
-> > > + * Capture and Regeneration".
-> > > + */
+> > > +	/**
+> > > +	 * @tmds_char_rate: Copy of
+> > > +	 * @drm_connector_state.hdmi.tmds_char_rate for use outside of
+> > > +	 * KMS hooks. Protected by @mutex.
+> > > +	 */
+> > > +	unsigned long long tmds_char_rate;
+> > >  };
 > >=20
-> > I think we need to make it clear that it's for L-PCM only (I think?),
-> > either through a format parameter or through the documentation.
+> > This should be in drm_connector_hdmi if it's useful
 >=20
-> Ack
->=20
-> >=20
-> > > +void
-> > > +drm_hdmi_acr_get_n_cts(unsigned long long tmds_char_rate,
-> > > +		       unsigned int sample_rate,
-> > > +		       unsigned int *out_n,
-> > > +		       unsigned int *out_cts)
-> >=20
-> > And we should probably take the connector (or EDID) to make sure the
-> > monitor can support the format and sample rates.
->=20
-> Interesting perspective, I'll give it a thought. I was really just
-> trying to get rid of the duplication.
->=20
-> I think that 'supported' parts should be implemented in the hdmi-codec
-> instead, parsing the ELD and updating hw constraints. WDYT?
+> That would mean bringing the state to a non-state structure on the
+> framework level. Is it fine from your POV?
 
-Basically, I want to make sure we cover section 7.3 of HDMI 1.4, ie,
-make sure we can't end up (or validate) in a situation that isn't
-allowed by the spec.
+Sorry, I'm changing my mind a little bit, but it's pretty much the same
+case than for accessing the infoframes from debugfs: we want to get some
+information stored in the state from outside of KMS.
 
-If ALSA covers it already, then I guess it's fine, but we should
-document it and point to where it's dealt with.
+What we did for the infoframes is that we're actually just taking the
+connection_mutex from the DRM device and access the drm_connector->state
+pointer.
+
+I guess it would also work for ALSA?
 
 Maxime
 
---sgxudawjzyo43qu5
+--dyye5w7y4dznz4ng
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZ8/tcAAKCRDj7w1vZxhR
-xYK1AP9/SASOIb6xDFXNFnI8SsF1/5V5/KTrCBMAV3hTDBsXZgD9FAEbhD7QHdf7
-Gow15VWygI2kgzc5wBGMNwZiESQlKgM=
-=xbRV
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZ8/vLQAKCRDj7w1vZxhR
+xUTYAQDyuqn5t5cMpn/5BQvLfTTmRbB8sQbVEyGnQO76VRXLEgD8DIkV+06Aq3Wk
+upcHhxdxp69/BSRmI5L12OmC4dqEywU=
+=V2Cq
 -----END PGP SIGNATURE-----
 
---sgxudawjzyo43qu5--
+--dyye5w7y4dznz4ng--
