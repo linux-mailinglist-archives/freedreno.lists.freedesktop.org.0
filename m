@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 518BAA5C9F2
-	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 16:59:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1931DA5CAC3
+	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 17:25:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E96310E5EC;
-	Tue, 11 Mar 2025 15:59:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2AD310E638;
+	Tue, 11 Mar 2025 16:25:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iOUtArjQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NbUe9Dtc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5D2D10E5D4;
- Tue, 11 Mar 2025 15:59:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15C8910E2A0;
+ Tue, 11 Mar 2025 16:25:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 8B882A45B05;
- Tue, 11 Mar 2025 15:53:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF56FC4CEEF;
- Tue, 11 Mar 2025 15:59:01 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id E2F96A45FDB;
+ Tue, 11 Mar 2025 16:19:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5628C4CEE9;
+ Tue, 11 Mar 2025 16:24:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741708742;
- bh=ey0TvjtocjBIN/gJtaPZmGpboACR4kND9J0lHiP1218=;
+ s=k20201202; t=1741710304;
+ bh=qaHg9TZ/u/KpRnHhdqQajkXaqiwDjPjVD2+Cg0eyXsE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iOUtArjQndy07Zy38L727Ruxnz/8ksN6kE/fkWAPM1AnImem1bckhuCZuqtVNgHT+
- oCnbFBqLL2z+qgFR0qHQRKpyn1CeVZB9FO6emRJ/g+TxHk8Ek28ZMoRs01mD6R6rHD
- 5JM2nQEp1D358yHJ1HhjlMemDEJiQnL6f5ZpZavy6KyhbWedE9IkBbsQMKSvAsgfAn
- x1ncQA8Yq1P/cOZNzSL5jdPiPXVVOrS3vt6Q+GcEsNRu35XCwCQoZexUgssafeiQmj
- fsPeznnac04lfvhNU0/oNnOX+bxgn+Bw4wxKYq+VtYSsqj9gNMHWql2tU4570Jj4yl
- cIn9Rt43yHBQA==
-Date: Tue, 11 Mar 2025 16:58:59 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Dmitry Baryshkov <dbaryshkov@gmail.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ b=NbUe9DtcpfHIGEMT6uz1RREf5ezvlrsD5/16BqY3BmsFPfH2WQWm012jQgDeoYQdq
+ RxRZpw7I+FxNkedlHT05lthDo5ZypiCaf+yliE4VYtsIoEv8+SioJUx4zbm0LMq8Ut
+ lPuzxiKpfynwx+hc/9YCoYY9Zv1M6b7BK4yCt0/+UoQfJclQfvMRjXCVT8CND7fnzL
+ tB78j2VCVQXEVEo5IH8dCj8k/cPIeow1KB2cZDpS8WY92eOZ7gswxNHoJyHJD8Q+Vf
+ LvcbHMV5z1ODAHskN64E8ISEt4H2MzNmXlqGG/BiyPKQGShYBsvXzGBm2ndotXMkxB
+ EpkzwV6kThOfA==
+Date: Tue, 11 Mar 2025 18:24:57 +0200
+From: Dmitry Baryshkov <lumag@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- Hermes Wu <Hermes.wu@ite.com.tw>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v5 1/2] drm/bridge: split HDMI Audio from
- DRM_BRIDGE_OP_HDMI
-Message-ID: <20250311-benevolent-goat-of-thunder-8e73bb@houat>
-References: <20250307-dp-hdmi-audio-v5-0-f3be215fdb78@linaro.org>
- <20250307-dp-hdmi-audio-v5-1-f3be215fdb78@linaro.org>
- <20250310-unnatural-puffin-of-revolution-59d726@houat>
- <CALT56yPKe8+tSyChAo6ypHR8EWUpqeJDNM6mcOBUnFwFE7rg4w@mail.gmail.com>
- <20250311-quizzical-warthog-of-leadership-53d224@houat>
- <nx67lft5x4ytsxsd4mpxfocig5dfaolsurlwqzvkrniwzv3huz@hmwucvqykaid>
+Subject: Re: [PATCH 1/4] drm/display: hdmi: provide central data authority
+ for ACR params
+Message-ID: <xidaohhyugexyapghteaioladfs2ma3trett6lyenmz2ubnlud@hnxjccqvbvz2>
+References: <20250309-drm-hdmi-acr-v1-0-bb9c242f4d4b@linaro.org>
+ <20250309-drm-hdmi-acr-v1-1-bb9c242f4d4b@linaro.org>
+ <20250310-funny-malamute-of-promotion-bb759e@houat>
+ <bensvtxc67i566qqcjketdlffyrwxcnydwarqyjau6b7ibcq4b@d6d4sbm3rubf>
+ <20250311-bouncy-hissing-chupacabra-0dff3f@houat>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pl6g7hvtmixanolq"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <nx67lft5x4ytsxsd4mpxfocig5dfaolsurlwqzvkrniwzv3huz@hmwucvqykaid>
+In-Reply-To: <20250311-bouncy-hissing-chupacabra-0dff3f@houat>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,333 +77,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Mar 11, 2025 at 08:59:45AM +0100, Maxime Ripard wrote:
+> On Mon, Mar 10, 2025 at 10:14:52PM +0200, Dmitry Baryshkov wrote:
+> > On Mon, Mar 10, 2025 at 03:46:33PM +0100, Maxime Ripard wrote:
+> > > On Sun, Mar 09, 2025 at 10:13:56AM +0200, Dmitry Baryshkov wrote:
+> > > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > 
+> > > > HDMI standard defines recommended N and CTS values for Audio Clock
+> > > > Regeneration. Currently each driver implements those, frequently in
+> > > > somewhat unique way. Provide a generic helper for getting those values
+> > > > to be used by the HDMI drivers.
+> > > > 
+> > > > The helper is added to drm_hdmi_helper.c rather than drm_hdmi_audio.c
+> > > > since HDMI drivers can be using this helper function even without
+> > > > switching to DRM HDMI Audio helpers.
+> > > > 
+> > > > Note: currently this only handles the values per HDMI 1.4b Section 7.2
+> > > > and HDMI 2.0 Section 9.2.1. Later the table can be expanded to
+> > > > accommodate for Deep Color TMDS char rates per HDMI 1.4 Appendix D
+> > > > and/or HDMI 2.0 / 2.1 Appendix C).
+> > > > 
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > ---
+> > > >  drivers/gpu/drm/display/drm_hdmi_helper.c | 164 ++++++++++++++++++++++++++++++
+> > > >  include/drm/display/drm_hdmi_helper.h     |   6 ++
+> > > >  2 files changed, 170 insertions(+)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
+> > > > index 74dd4d01dd9bb2c9e69ec1c60b0056bd69417e8a..89d25571bfd21c56c6835821d2272a12c816a76e 100644
+> > > > --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
+> > > > +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+> > > > @@ -256,3 +256,167 @@ drm_hdmi_compute_mode_clock(const struct drm_display_mode *mode,
+> > > >  	return DIV_ROUND_CLOSEST_ULL(clock * bpc, 8);
+> > > >  }
+> > > >  EXPORT_SYMBOL(drm_hdmi_compute_mode_clock);
+> > > > +
+> > > > +struct drm_hdmi_acr_n_cts_entry {
+> > > > +	unsigned int n;
+> > > > +	unsigned int cts;
+> > > > +};
+> > > > +
+> > > > +struct drm_hdmi_acr_data {
+> > > > +	unsigned long tmds_clock_khz;
+> > > > +	struct drm_hdmi_acr_n_cts_entry n_cts_32k,
+> > > > +					n_cts_44k1,
+> > > > +					n_cts_48k;
+> > > > +};
+> > > > +
+> > > > +static const struct drm_hdmi_acr_data hdmi_acr_n_cts[] = {
+> > > > +	{
+> > > > +		/* "Other" entry */
+> > > > +		.n_cts_32k =  { .n = 4096, },
+> > > > +		.n_cts_44k1 = { .n = 6272, },
+> > > > +		.n_cts_48k =  { .n = 6144, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 25175,
+> > > > +		.n_cts_32k =  { .n = 4576,  .cts = 28125, },
+> > > > +		.n_cts_44k1 = { .n = 7007,  .cts = 31250, },
+> > > > +		.n_cts_48k =  { .n = 6864,  .cts = 28125, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 25200,
+> > > > +		.n_cts_32k =  { .n = 4096,  .cts = 25200, },
+> > > > +		.n_cts_44k1 = { .n = 6272,  .cts = 28000, },
+> > > > +		.n_cts_48k =  { .n = 6144,  .cts = 25200, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 27000,
+> > > > +		.n_cts_32k =  { .n = 4096,  .cts = 27000, },
+> > > > +		.n_cts_44k1 = { .n = 6272,  .cts = 30000, },
+> > > > +		.n_cts_48k =  { .n = 6144,  .cts = 27000, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 27027,
+> > > > +		.n_cts_32k =  { .n = 4096,  .cts = 27027, },
+> > > > +		.n_cts_44k1 = { .n = 6272,  .cts = 30030, },
+> > > > +		.n_cts_48k =  { .n = 6144,  .cts = 27027, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 54000,
+> > > > +		.n_cts_32k =  { .n = 4096,  .cts = 54000, },
+> > > > +		.n_cts_44k1 = { .n = 6272,  .cts = 60000, },
+> > > > +		.n_cts_48k =  { .n = 6144,  .cts = 54000, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 54054,
+> > > > +		.n_cts_32k =  { .n = 4096,  .cts = 54054, },
+> > > > +		.n_cts_44k1 = { .n = 6272,  .cts = 60060, },
+> > > > +		.n_cts_48k =  { .n = 6144,  .cts = 54054, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 74176,
+> > > > +		.n_cts_32k =  { .n = 11648, .cts = 210937, }, /* and 210938 */
+> > > > +		.n_cts_44k1 = { .n = 17836, .cts = 234375, },
+> > > > +		.n_cts_48k =  { .n = 11648, .cts = 140625, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 74250,
+> > > > +		.n_cts_32k =  { .n = 4096,  .cts = 74250, },
+> > > > +		.n_cts_44k1 = { .n = 6272,  .cts = 82500, },
+> > > > +		.n_cts_48k =  { .n = 6144,  .cts = 74250, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 148352,
+> > > > +		.n_cts_32k =  { .n = 11648, .cts = 421875, },
+> > > > +		.n_cts_44k1 = { .n = 8918,  .cts = 234375, },
+> > > > +		.n_cts_48k =  { .n = 5824,  .cts = 140625, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 148500,
+> > > > +		.n_cts_32k =  { .n = 4096,  .cts = 148500, },
+> > > > +		.n_cts_44k1 = { .n = 6272,  .cts = 165000, },
+> > > > +		.n_cts_48k =  { .n = 6144,  .cts = 148500, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 296703,
+> > > > +		.n_cts_32k =  { .n = 5824,  .cts = 421875, },
+> > > > +		.n_cts_44k1 = { .n = 4459,  .cts = 234375, },
+> > > > +		.n_cts_48k =  { .n = 5824,  .cts = 281250, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 297000,
+> > > > +		.n_cts_32k =  { .n = 3072,  .cts = 222750, },
+> > > > +		.n_cts_44k1 = { .n = 4704,  .cts = 247500, },
+> > > > +		.n_cts_48k =  { .n = 5120,  .cts = 247500, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 593407,
+> > > > +		.n_cts_32k =  { .n = 5824,  .cts = 843750, },
+> > > > +		.n_cts_44k1 = { .n = 8918,  .cts = 937500, },
+> > > > +		.n_cts_48k =  { .n = 5824,  .cts = 562500, },
+> > > > +	}, {
+> > > > +		.tmds_clock_khz = 594000,
+> > > > +		.n_cts_32k =  { .n = 3072,  .cts = 445500, },
+> > > > +		.n_cts_44k1 = { .n = 9408,  .cts = 990000, },
+> > > > +		.n_cts_48k =  { .n = 6144,  .cts = 594000, },
+> > > > +	},
+> > > > +};
+> > > > +
+> > > > +static int drm_hdmi_acr_find_tmds_entry(unsigned long tmds_clock_khz)
+> > > > +{
+> > > > +	int i;
+> > > > +
+> > > > +	/* skip the "other" entry */
+> > > > +	for (i = 1; i < ARRAY_SIZE(hdmi_acr_n_cts); i++) {
+> > > > +		if (hdmi_acr_n_cts[i].tmds_clock_khz == tmds_clock_khz)
+> > > > +			return i;
+> > > > +	}
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +/**
+> > > > + * drm_hdmi_acr_get_n_cts() - get N and CTS values for Audio Clock Regeneration
+> > > > + *
+> > > > + * @tmds_char_rate: TMDS clock (char rate) as used by the HDMI connector
+> > > > + * @sample_rate: audio sample rate
+> > > > + * @out_n: a pointer to write the N value
+> > > > + * @out_cts: a pointer to write the CTS value
+> > > > + *
+> > > > + * Get the N and CTS values (either by calculating them or by returning data
+> > > > + * from the tables. This follows the HDMI 1.4b Section 7.2 "Audio Sample Clock
+> > > > + * Capture and Regeneration".
+> > > > + */
+> > > 
+> > > I think we need to make it clear that it's for L-PCM only (I think?),
+> > > either through a format parameter or through the documentation.
+> > 
+> > Ack
+> > 
+> > > 
+> > > > +void
+> > > > +drm_hdmi_acr_get_n_cts(unsigned long long tmds_char_rate,
+> > > > +		       unsigned int sample_rate,
+> > > > +		       unsigned int *out_n,
+> > > > +		       unsigned int *out_cts)
+> > > 
+> > > And we should probably take the connector (or EDID) to make sure the
+> > > monitor can support the format and sample rates.
+> > 
+> > Interesting perspective, I'll give it a thought. I was really just
+> > trying to get rid of the duplication.
+> > 
+> > I think that 'supported' parts should be implemented in the hdmi-codec
+> > instead, parsing the ELD and updating hw constraints. WDYT?
+> 
+> Basically, I want to make sure we cover section 7.3 of HDMI 1.4, ie,
+> make sure we can't end up (or validate) in a situation that isn't
+> allowed by the spec.
 
---pl6g7hvtmixanolq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 1/2] drm/bridge: split HDMI Audio from
- DRM_BRIDGE_OP_HDMI
-MIME-Version: 1.0
+I think that's a question for a separate function. This one really
+targets 7.2 rather than 7.3.
 
-On Tue, Mar 11, 2025 at 05:50:09PM +0200, Dmitry Baryshkov wrote:
-> On Tue, Mar 11, 2025 at 09:36:37AM +0100, Maxime Ripard wrote:
-> > On Mon, Mar 10, 2025 at 08:42:29PM +0200, Dmitry Baryshkov wrote:
-> > > On Mon, 10 Mar 2025 at 16:55, Maxime Ripard <mripard@kernel.org> wrot=
-e:
-> > > >
-> > > > Hi,
-> > > >
-> > > > On Fri, Mar 07, 2025 at 07:55:52AM +0200, Dmitry Baryshkov wrote:
-> > > > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > >
-> > > > > As pointed out by Laurent, OP bits are supposed to describe opera=
-tions.
-> > > > > Split DRM_BRIDGE_OP_HDMI_AUDIO from DRM_BRIDGE_OP_HDMI instead of
-> > > > > overloading DRM_BRIDGE_OP_HDMI.
-> > > > >
-> > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > > ---
-> > > > >  drivers/gpu/drm/bridge/lontium-lt9611.c        |  2 +-
-> > > > >  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c   |  1 +
-> > > > >  drivers/gpu/drm/display/drm_bridge_connector.c | 59 ++++++++++++=
-+++++---------
-> > > > >  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c         |  1 +
-> > > > >  include/drm/drm_bridge.h                       | 23 ++++++++--
-> > > > >  5 files changed, 61 insertions(+), 25 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gp=
-u/drm/bridge/lontium-lt9611.c
-> > > > > index 026803034231f78c17f619dc04119bdd9b2b6679..3b93c17e25c18ae0d=
-13e9bb74553cf21dcc39f9d 100644
-> > > > > --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
-> > > > > +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-> > > > > @@ -1130,7 +1130,7 @@ static int lt9611_probe(struct i2c_client *=
-client)
-> > > > >       lt9611->bridge.of_node =3D client->dev.of_node;
-> > > > >       lt9611->bridge.ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP=
-_EDID |
-> > > > >                            DRM_BRIDGE_OP_HPD | DRM_BRIDGE_OP_MODE=
-S |
-> > > > > -                          DRM_BRIDGE_OP_HDMI;
-> > > > > +                          DRM_BRIDGE_OP_HDMI | DRM_BRIDGE_OP_HDM=
-I_AUDIO;
-> > > > >       lt9611->bridge.type =3D DRM_MODE_CONNECTOR_HDMIA;
-> > > > >       lt9611->bridge.vendor =3D "Lontium";
-> > > > >       lt9611->bridge.product =3D "LT9611";
-> > > > > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drive=
-rs/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> > > > > index 6166f197e37b552cb8a52b7b0d23ffc632f54557..5e5f8c2f95be1f5c4=
-633f1093b17a00f9425bb37 100644
-> > > > > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> > > > > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> > > > > @@ -1077,6 +1077,7 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct p=
-latform_device *pdev,
-> > > > >       hdmi->bridge.ops =3D DRM_BRIDGE_OP_DETECT |
-> > > > >                          DRM_BRIDGE_OP_EDID |
-> > > > >                          DRM_BRIDGE_OP_HDMI |
-> > > > > +                        DRM_BRIDGE_OP_HDMI_AUDIO |
-> > > > >                          DRM_BRIDGE_OP_HPD;
-> > > > >       hdmi->bridge.of_node =3D pdev->dev.of_node;
-> > > > >       hdmi->bridge.type =3D DRM_MODE_CONNECTOR_HDMIA;
-> > > > > diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/dri=
-vers/gpu/drm/display/drm_bridge_connector.c
-> > > > > index 30c736fc0067e31a97db242e5b16ea8a5b4cf359..030f98d454608a631=
-54827c65d4822d378df3b4c 100644
-> > > > > --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> > > > > +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> > > > > @@ -98,6 +98,13 @@ struct drm_bridge_connector {
-> > > > >        * HDMI connector infrastructure, if any (see &DRM_BRIDGE_O=
-P_HDMI).
-> > > > >        */
-> > > > >       struct drm_bridge *bridge_hdmi;
-> > > > > +     /**
-> > > > > +      * @bridge_hdmi_audio:
-> > > > > +      *
-> > > > > +      * The bridge in the chain that implements necessary suppor=
-t for the
-> > > > > +      * HDMI Audio infrastructure, if any (see &DRM_BRIDGE_OP_HD=
-MI_AUDIO).
-> > > > > +      */
-> > > > > +     struct drm_bridge *bridge_hdmi_audio;
-> > > > >  };
-> > > > >
-> > > > >  #define to_drm_bridge_connector(x) \
-> > > > > @@ -433,7 +440,7 @@ static int drm_bridge_connector_audio_startup=
-(struct drm_connector *connector)
-> > > > >               to_drm_bridge_connector(connector);
-> > > > >       struct drm_bridge *bridge;
-> > > > >
-> > > > > -     bridge =3D bridge_connector->bridge_hdmi;
-> > > > > +     bridge =3D bridge_connector->bridge_hdmi_audio;
-> > > > >       if (!bridge)
-> > > > >               return -EINVAL;
-> > > > >
-> > > > > @@ -451,7 +458,7 @@ static int drm_bridge_connector_audio_prepare=
-(struct drm_connector *connector,
-> > > > >               to_drm_bridge_connector(connector);
-> > > > >       struct drm_bridge *bridge;
-> > > > >
-> > > > > -     bridge =3D bridge_connector->bridge_hdmi;
-> > > > > +     bridge =3D bridge_connector->bridge_hdmi_audio;
-> > > > >       if (!bridge)
-> > > > >               return -EINVAL;
-> > > > >
-> > > > > @@ -464,7 +471,7 @@ static void drm_bridge_connector_audio_shutdo=
-wn(struct drm_connector *connector)
-> > > > >               to_drm_bridge_connector(connector);
-> > > > >       struct drm_bridge *bridge;
-> > > > >
-> > > > > -     bridge =3D bridge_connector->bridge_hdmi;
-> > > > > +     bridge =3D bridge_connector->bridge_hdmi_audio;
-> > > > >       if (!bridge)
-> > > > >               return;
-> > > > >
-> > > > > @@ -478,7 +485,7 @@ static int drm_bridge_connector_audio_mute_st=
-ream(struct drm_connector *connecto
-> > > > >               to_drm_bridge_connector(connector);
-> > > > >       struct drm_bridge *bridge;
-> > > > >
-> > > > > -     bridge =3D bridge_connector->bridge_hdmi;
-> > > > > +     bridge =3D bridge_connector->bridge_hdmi_audio;
-> > > > >       if (!bridge)
-> > > > >               return -EINVAL;
-> > > > >
-> > > > > @@ -576,6 +583,21 @@ struct drm_connector *drm_bridge_connector_i=
-nit(struct drm_device *drm,
-> > > > >                               max_bpc =3D bridge->max_bpc;
-> > > > >               }
-> > > > >
-> > > > > +             if (bridge->ops & DRM_BRIDGE_OP_HDMI_AUDIO) {
-> > > > > +                     if (bridge_connector->bridge_hdmi_audio)
-> > > > > +                             return ERR_PTR(-EBUSY);
-> > > > > +
-> > > > > +                     if (!bridge->hdmi_audio_max_i2s_playback_ch=
-annels &&
-> > > > > +                         !bridge->hdmi_audio_spdif_playback)
-> > > > > +                             return ERR_PTR(-EINVAL);
-> > > > > +
-> > > > > +                     if (!bridge->funcs->hdmi_audio_prepare ||
-> > > > > +                         !bridge->funcs->hdmi_audio_shutdown)
-> > > > > +                             return ERR_PTR(-EINVAL);
-> > > > > +
-> > > > > +                     bridge_connector->bridge_hdmi_audio =3D bri=
-dge;
-> > > > > +             }
-> > > > > +
-> > > > >               if (!drm_bridge_get_next_bridge(bridge))
-> > > > >                       connector_type =3D bridge->type;
-> > > > >
-> > > > > @@ -611,22 +633,6 @@ struct drm_connector *drm_bridge_connector_i=
-nit(struct drm_device *drm,
-> > > > >                                              max_bpc);
-> > > > >               if (ret)
-> > > > >                       return ERR_PTR(ret);
-> > > > > -
-> > > > > -             if (bridge->hdmi_audio_max_i2s_playback_channels ||
-> > > > > -                 bridge->hdmi_audio_spdif_playback) {
-> > > > > -                     if (!bridge->funcs->hdmi_audio_prepare ||
-> > > > > -                         !bridge->funcs->hdmi_audio_shutdown)
-> > > > > -                             return ERR_PTR(-EINVAL);
-> > > > > -
-> > > > > -                     ret =3D drm_connector_hdmi_audio_init(conne=
-ctor,
-> > > > > -                                                         bridge-=
->hdmi_audio_dev,
-> > > > > -                                                         &drm_br=
-idge_connector_hdmi_audio_funcs,
-> > > > > -                                                         bridge-=
->hdmi_audio_max_i2s_playback_channels,
-> > > > > -                                                         bridge-=
->hdmi_audio_spdif_playback,
-> > > > > -                                                         bridge-=
->hdmi_audio_dai_port);
-> > > > > -                     if (ret)
-> > > > > -                             return ERR_PTR(ret);
-> > > > > -             }
-> > > > >       } else {
-> > > > >               ret =3D drmm_connector_init(drm, connector,
-> > > > >                                         &drm_bridge_connector_fun=
-cs,
-> > > > > @@ -635,6 +641,19 @@ struct drm_connector *drm_bridge_connector_i=
-nit(struct drm_device *drm,
-> > > > >                       return ERR_PTR(ret);
-> > > > >       }
-> > > > >
-> > > > > +     if (bridge_connector->bridge_hdmi_audio) {
-> > > > > +             bridge =3D bridge_connector->bridge_hdmi_audio;
-> > > > > +
-> > > > > +             ret =3D drm_connector_hdmi_audio_init(connector,
-> > > > > +                                                 bridge->hdmi_au=
-dio_dev,
-> > > > > +                                                 &drm_bridge_con=
-nector_hdmi_audio_funcs,
-> > > > > +                                                 bridge->hdmi_au=
-dio_max_i2s_playback_channels,
-> > > > > +                                                 bridge->hdmi_au=
-dio_spdif_playback,
-> > > > > +                                                 bridge->hdmi_au=
-dio_dai_port);
-> > > > > +             if (ret)
-> > > > > +                     return ERR_PTR(ret);
-> > > > > +     }
-> > > > > +
-> > > > >       drm_connector_helper_add(connector, &drm_bridge_connector_h=
-elper_funcs);
-> > > > >
-> > > > >       if (bridge_connector->bridge_hpd)
-> > > > > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu=
-/drm/msm/hdmi/hdmi_bridge.c
-> > > > > index 1456354c8af4bc7f655e8a47e958e9e0b99b7d29..ab6c8bc4a30b681f7=
-de8ca7031f833795d1f7d94 100644
-> > > > > --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> > > > > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> > > > > @@ -515,6 +515,7 @@ int msm_hdmi_bridge_init(struct hdmi *hdmi)
-> > > > >       bridge->ops =3D DRM_BRIDGE_OP_HPD |
-> > > > >               DRM_BRIDGE_OP_DETECT |
-> > > > >               DRM_BRIDGE_OP_HDMI |
-> > > > > +             DRM_BRIDGE_OP_HDMI_AUDIO |
-> > > > >               DRM_BRIDGE_OP_EDID;
-> > > > >       bridge->hdmi_audio_max_i2s_playback_channels =3D 8;
-> > > > >       bridge->hdmi_audio_dev =3D &hdmi->pdev->dev;
-> > > > > diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> > > > > index d4c75d59fa12be1bd7375ce3ea56415235781b28..dff8cf035b30d5c7e=
-00bfdf5d6e12802559823ba 100644
-> > > > > --- a/include/drm/drm_bridge.h
-> > > > > +++ b/include/drm/drm_bridge.h
-> > > > > @@ -693,8 +693,10 @@ struct drm_bridge_funcs {
-> > > > >       /**
-> > > > >        * @hdmi_audio_prepare:
-> > > > >        * Configures HDMI-encoder for audio stream. Can be called =
-multiple
-> > > > > -      * times for each setup. Mandatory if HDMI audio is enabled=
- in the
-> > > > > -      * bridge's configuration.
-> > > > > +      * times for each setup.
-> > > > > +      *
-> > > > > +      * This callback is optional but it must be implemented by =
-bridges that
-> > > > > +      * set the DRM_BRIDGE_OP_HDMI_AUDIO flag in their &drm_brid=
-ge->ops.
-> > > > >        *
-> > > > >        * Returns:
-> > > > >        * 0 on success, a negative error code otherwise
-> > > > > @@ -707,8 +709,10 @@ struct drm_bridge_funcs {
-> > > > >       /**
-> > > > >        * @hdmi_audio_shutdown:
-> > > > >        *
-> > > > > -      * Shut down the audio stream. Mandatory if HDMI audio is e=
-nabled in
-> > > > > -      * the bridge's configuration.
-> > > > > +      * Shut down the audio stream.
-> > > > > +      *
-> > > > > +      * This callback is optional but it must be implemented by =
-bridges that
-> > > > > +      * set the DRM_BRIDGE_OP_HDMI_AUDIO flag in their &drm_brid=
-ge->ops.
-> > > > >        *
-> > > > >        * Returns:
-> > > > >        * 0 on success, a negative error code otherwise
-> > > > > @@ -814,6 +818,17 @@ enum drm_bridge_ops {
-> > > > >        * drivers.
-> > > > >        */
-> > > > >       DRM_BRIDGE_OP_HDMI =3D BIT(4),
-> > > > > +     /**
-> > > > > +      * @DRM_BRIDGE_OP_HDMI_AUDIO: The bridge provides HDMI audi=
-o operations.
-> > > > > +      * Bridges that set this flag must implement the
-> > > > > +      * &drm_bridge_funcs->hdmi_audio_prepare and
-> > > > > +      * &drm_bridge_funcs->hdmi_audio_shutdown callbacks.
-> > > > > +      *
-> > > > > +      * Note: currently there can be at most one bridge in a cha=
-in that sets
-> > > > > +      * this bit. This is to simplify corresponding glue code in=
- connector
-> > > > > +      * drivers.
-> > > > > +      */
-> > > > > +     DRM_BRIDGE_OP_HDMI_AUDIO =3D BIT(5),
-> > > >
-> > > > We should make this conditional on HDMI being set. It doesn't make =
-sense
-> > > > to have OP_HDMI_AUDIO enabled when OP_HDMI isn't.
-> > >=20
-> > > It totally does.
-> >=20
-> > I'm sure it works properly. I meant on a conceptual level. In our
-> > codebase, as it is today, the HDMI audio support is part of the HDMI
-> > infrastructure, and thus implementing audio without the main part
-> > doesn't make sense. IIRC, the spec also mandates video support, but
-> > audio is optional.
->=20
-> I can imagine a HDMI bridge using OP_HDMI_AUDIO, but not OP_HDMI. For
-> example, lontium-lt9611uxc.c. It is a 'smart' chip, which handles nearly
-> everything on its own. I even don't know if there is a way to program
-> the InfoFrames, etc., so I'm very skeptical about setting OP_HDMI.
-> However at the same time, it would defeinitely benefit from using
-> OP_HDMI_AUDIO.
+> If ALSA covers it already, then I guess it's fine, but we should
+> document it and point to where it's dealt with.
 
-You're going to have the same argument for that chip for audio: if not
-be able to set the infoframe disqualifies, then there's audio infoframes
-too and thus it should be disqualified from OP_HDMI_AUDIO.
+I'm not sure if it covers that right now, but it should be handled on
+ALSA side. For example, see sound/pci/hda/patch_hdmi.c, I think it is
+handling those bits. We are providing ELD to hdmi-codec, it can
+implement and propagate HW constraints.
 
-I don't believe it's an issue though: if a driver doesn't want the
-infoframes for whatever reason, it's free to do so.
 
-It's also something I'd like to reevaluate when we actually have that
-problem to deal with. At the moment, it sounds like reducing the safety
-of the API for an hypothetical case.
-
-Maxime
-
---pl6g7hvtmixanolq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZ9BdwwAKCRDj7w1vZxhR
-xR/IAP9v2rXA6H+WNAN3pWG4eBzvmHPfv6A8dmEtShhwat2DXgEAhqR080GlXY6t
-2tKR+NI6rpcNiWdaNKEgeH77PIDjVwE=
-=3j/T
------END PGP SIGNATURE-----
-
---pl6g7hvtmixanolq--
+-- 
+With best wishes
+Dmitry
