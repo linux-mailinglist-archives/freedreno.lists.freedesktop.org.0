@@ -2,82 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D687A5B9A8
-	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 08:22:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 692B1A5BA54
+	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 09:00:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 729CA10E129;
-	Tue, 11 Mar 2025 07:22:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8915810E51F;
+	Tue, 11 Mar 2025 07:59:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Rp1Y2/mr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ocB6+Ne3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08C1B10E514
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 07:22:16 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-390fdaf2897so4824820f8f.0
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 00:22:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741677734; x=1742282534; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=76PI8U0C3grhZ+WuGPDq/YmQnaoHPH4xWIdsOpqhIzo=;
- b=Rp1Y2/mrQEpSJ/Zv5qQYBv8OStqKs6ej6lMcFA8m6KYgNS0FinblxI3I8wudLWDXEN
- XpRrl/h2sTnoz2Fu1jpFz/movGi5WfTJgZA5lJJmXknPvglAtRFA3c6hOQGa9jQOLlAv
- aqV3RLHqdOhN5uhw/Qfp+TfavNxt7VvrgLx6eEBlg7ZMQxKua5EFQ5GE5NkruiZyg/Sl
- 96gbhXtTW+cTMu5PdpeScxX4pYFyZDvmGm65+9qx26dGYThB0+qs/ywlnJEOXJMsQkDm
- FUTLFXzS3JmD3psM/popbZgyIakYNeRxOaEcyLajfk2Ns7myDSmzd2+tqnif09B1ngWd
- 4UFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741677734; x=1742282534;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=76PI8U0C3grhZ+WuGPDq/YmQnaoHPH4xWIdsOpqhIzo=;
- b=sb4sEnDWWp0Z2annD+q0arh1fhLIEPjkc9H8bTS7uIpV0VtdWOXLWNhiMIW6KAm08P
- oco/2uB9ovkTdDlVnKYMB3SjEXAL+1fjaibhUCXMnssJgtZ5CvC0NxO5ZURrZGpLezFE
- ikNpf/6zykitt3fhdupy8/127YqfpgSwPj27eSorfYKSk5FDI55HOGpPRwAUGDQc21jH
- k5KCXydzGlURWpuTZp2GJsXYNg1/Z+M2ABKyM0kWWgDSPXDMH2HFuy7MMiyyITtiuNIV
- u41J3UyBTTUF5KMAZjoQuZxD+iX/XBnRGpqRAkCQuf3LUjUyEGNSTHaNbpPjofygJfOS
- VfrA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUCv92hwdK/c+bwCGYgtv//m7XXjjJvlNIuUC8UhjO48Bktq3FJw/ojElXPCT9oTkBB6kQPKQVuCRY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwwiR+Z+L2SiBc4F1/wiS5eSdVTm8LnWSwsjLHfNSjEs7J/gem1
- oWrMDCOhDGiYn4mjk5sXGZPBDS4ptqAnHDXqfwSIjsYnZwmuJfIb5oZUCxg7jR0=
-X-Gm-Gg: ASbGncuGyT6tUfbRnxSJF3F2+CpqltvLmc3X9/PQGtSm2uOWJoXgZF80A/oHn2oc/2E
- idrZ+RkvjH93HTOUF0QJgi2DA/j2j6MyXnZX48u+EcbIb1DjUi9ese7K5tIgRsRIuvhs2r/BSVc
- SVeuvzV0xpopEfMtiyE1uVu78Ea1c/9WWc6HB1ywhoCdC4dcQpOv0vxwUpY/W5pmNV5cxlxqxmh
- rTrdayrEBlkv6RiN3Sl1nhZzhBYjyIUpFdMZXwh9Wi/XEtpgUUzaJ+3PwTyIv7hbf3Cv/QlUEyb
- 2h83eUDXaUN6sEIDbIL/S9IqZQy/jM4ZUzZWDsXUug==
-X-Google-Smtp-Source: AGHT+IHpxAncgrnL4ALrjetV1ziQLeJlcqXChyQIooItqRdevyNiOEaTJs5Dyo8WU/a2A84bNO/4SA==
-X-Received: by 2002:a05:6000:1564:b0:38d:d666:5457 with SMTP id
- ffacd0b85a97d-39132da24cfmr13958644f8f.42.1741677734190; 
- Tue, 11 Mar 2025 00:22:14 -0700 (PDT)
-Received: from linaro.org ([62.231.96.41]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912c0e1d67sm17233831f8f.74.2025.03.11.00.22.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Mar 2025 00:22:13 -0700 (PDT)
-Date: Tue, 11 Mar 2025 09:22:11 +0200
-From: Abel Vesa <abel.vesa@linaro.org>
-To: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7613D10E51F;
+ Tue, 11 Mar 2025 07:59:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 81AD5A4687A;
+ Tue, 11 Mar 2025 07:54:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0A4C4CEEA;
+ Tue, 11 Mar 2025 07:59:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741679988;
+ bh=AH+p4JW6F+z5XeodYcVKSYSZhEHmVRaoVWCiPMOXiw8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ocB6+Ne3bwI510+KrvoPiNBTOEbeV0xxCJArmYfvnNV1F6GJhHmBiF6nYY6cgD21T
+ qqDTrEyvlCKO7yoZSa2d5/G5l03sfbtQ0iMEcERXH3CNb9mnOPX5WWOVtBLmp7Jxtt
+ 7Ic+MaOEpw6OI0YEQwB5fi+iVZYVMepCgDhwcU8vyEA3i27Ij2HFPhiGcD1dBSgHNH
+ 5ANOcmSeLc0pW0RXlrf0hg/eXrATFVwYbE86AJGyYbEEelFJzKzT5bvPemZ9b4zC8k
+ 7bJGUqDdgY8HSvfOXMDm+C3+iP8GAZrTmltrg3SJMEF7s+q3aEh+H7r7fabXSSkiCd
+ rrVTExHAzKPOQ==
+Date: Tue, 11 Mar 2025 08:59:45 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Dmitry Baryshkov <lumag@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- laurentiu.tudor1@dell.com, johan@kernel.org
-Subject: Re: [PATCH v1 1/2] drm/msm/dp: Fix support of LTTPR handling
-Message-ID: <Z8/ko76QAGPE46R/@linaro.org>
-References: <20250310211039.29843-1-alex.vinarskis@gmail.com>
- <20250310211039.29843-2-alex.vinarskis@gmail.com>
+ Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH 1/4] drm/display: hdmi: provide central data authority
+ for ACR params
+Message-ID: <20250311-bouncy-hissing-chupacabra-0dff3f@houat>
+References: <20250309-drm-hdmi-acr-v1-0-bb9c242f4d4b@linaro.org>
+ <20250309-drm-hdmi-acr-v1-1-bb9c242f4d4b@linaro.org>
+ <20250310-funny-malamute-of-promotion-bb759e@houat>
+ <bensvtxc67i566qqcjketdlffyrwxcnydwarqyjau6b7ibcq4b@d6d4sbm3rubf>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="sgxudawjzyo43qu5"
 Content-Disposition: inline
-In-Reply-To: <20250310211039.29843-2-alex.vinarskis@gmail.com>
+In-Reply-To: <bensvtxc67i566qqcjketdlffyrwxcnydwarqyjau6b7ibcq4b@d6d4sbm3rubf>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,179 +77,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25-03-10 22:05:51, Aleksandrs Vinarskis wrote:
-> Take into account LTTPR capabilities when selecting maximum allowed
-> link rate, number of data lines. Initialize LTTPR before
-> msm_dp_panel_read_sink_caps, as
-> a) Link params computation need to take into account LTTPR's caps
-> b) It appears DPTX shall (re)read DPRX caps after LTTPR detection
-> 
-> Return lttpr_count to prepare for per-segment link training.
-> 
-> Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 31 +++++++++++++++++++----------
->  drivers/gpu/drm/msm/dp/dp_panel.c   | 30 +++++++++++++++++++---------
->  drivers/gpu/drm/msm/dp/dp_panel.h   |  2 ++
->  3 files changed, 44 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index bbc47d86ae9e..2edbc6adfde5 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -108,6 +108,8 @@ struct msm_dp_display_private {
->  	struct msm_dp_event event_list[DP_EVENT_Q_MAX];
->  	spinlock_t event_lock;
->  
-> +	u8 lttpr_common_caps[DP_LTTPR_COMMON_CAP_SIZE];
-> +
->  	bool wide_bus_supported;
->  
->  	struct msm_dp_audio *audio;
-> @@ -367,17 +369,21 @@ static int msm_dp_display_send_hpd_notification(struct msm_dp_display_private *d
->  	return 0;
->  }
->  
-> -static void msm_dp_display_lttpr_init(struct msm_dp_display_private *dp)
-> +static int msm_dp_display_lttpr_init(struct msm_dp_display_private *dp, u8 *dpcd)
->  {
-> -	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
-> -	int rc;
-> +	int rc, lttpr_count;
->  
-> -	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd, lttpr_caps))
-> -		return;
-> +	if (drm_dp_read_lttpr_common_caps(dp->aux, dpcd, dp->lttpr_common_caps))
-> +		return 0;
->  
-> -	rc = drm_dp_lttpr_init(dp->aux, drm_dp_lttpr_count(lttpr_caps));
-> -	if (rc)
-> -		DRM_ERROR("failed to set LTTPRs transparency mode, rc=%d\n", rc);
-> +	lttpr_count = drm_dp_lttpr_count(dp->lttpr_common_caps);
-> +	rc = drm_dp_lttpr_init(dp->aux, lttpr_count);
-> +	if (rc) {
-> +		DRM_ERROR("fialed to set LTTPRs transparency mode, rc=%d\n", rc);
 
-Nitpick: failed
+--sgxudawjzyo43qu5
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/4] drm/display: hdmi: provide central data authority
+ for ACR params
+MIME-Version: 1.0
 
-With that fixed, LGTM:
+On Mon, Mar 10, 2025 at 10:14:52PM +0200, Dmitry Baryshkov wrote:
+> On Mon, Mar 10, 2025 at 03:46:33PM +0100, Maxime Ripard wrote:
+> > On Sun, Mar 09, 2025 at 10:13:56AM +0200, Dmitry Baryshkov wrote:
+> > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > >=20
+> > > HDMI standard defines recommended N and CTS values for Audio Clock
+> > > Regeneration. Currently each driver implements those, frequently in
+> > > somewhat unique way. Provide a generic helper for getting those values
+> > > to be used by the HDMI drivers.
+> > >=20
+> > > The helper is added to drm_hdmi_helper.c rather than drm_hdmi_audio.c
+> > > since HDMI drivers can be using this helper function even without
+> > > switching to DRM HDMI Audio helpers.
+> > >=20
+> > > Note: currently this only handles the values per HDMI 1.4b Section 7.2
+> > > and HDMI 2.0 Section 9.2.1. Later the table can be expanded to
+> > > accommodate for Deep Color TMDS char rates per HDMI 1.4 Appendix D
+> > > and/or HDMI 2.0 / 2.1 Appendix C).
+> > >=20
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > ---
+> > >  drivers/gpu/drm/display/drm_hdmi_helper.c | 164 ++++++++++++++++++++=
+++++++++++
+> > >  include/drm/display/drm_hdmi_helper.h     |   6 ++
+> > >  2 files changed, 170 insertions(+)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/=
+drm/display/drm_hdmi_helper.c
+> > > index 74dd4d01dd9bb2c9e69ec1c60b0056bd69417e8a..89d25571bfd21c56c6835=
+821d2272a12c816a76e 100644
+> > > --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
+> > > +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+> > > @@ -256,3 +256,167 @@ drm_hdmi_compute_mode_clock(const struct drm_di=
+splay_mode *mode,
+> > >  	return DIV_ROUND_CLOSEST_ULL(clock * bpc, 8);
+> > >  }
+> > >  EXPORT_SYMBOL(drm_hdmi_compute_mode_clock);
+> > > +
+> > > +struct drm_hdmi_acr_n_cts_entry {
+> > > +	unsigned int n;
+> > > +	unsigned int cts;
+> > > +};
+> > > +
+> > > +struct drm_hdmi_acr_data {
+> > > +	unsigned long tmds_clock_khz;
+> > > +	struct drm_hdmi_acr_n_cts_entry n_cts_32k,
+> > > +					n_cts_44k1,
+> > > +					n_cts_48k;
+> > > +};
+> > > +
+> > > +static const struct drm_hdmi_acr_data hdmi_acr_n_cts[] =3D {
+> > > +	{
+> > > +		/* "Other" entry */
+> > > +		.n_cts_32k =3D  { .n =3D 4096, },
+> > > +		.n_cts_44k1 =3D { .n =3D 6272, },
+> > > +		.n_cts_48k =3D  { .n =3D 6144, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 25175,
+> > > +		.n_cts_32k =3D  { .n =3D 4576,  .cts =3D 28125, },
+> > > +		.n_cts_44k1 =3D { .n =3D 7007,  .cts =3D 31250, },
+> > > +		.n_cts_48k =3D  { .n =3D 6864,  .cts =3D 28125, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 25200,
+> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 25200, },
+> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 28000, },
+> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 25200, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 27000,
+> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 27000, },
+> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 30000, },
+> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 27000, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 27027,
+> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 27027, },
+> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 30030, },
+> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 27027, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 54000,
+> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 54000, },
+> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 60000, },
+> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 54000, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 54054,
+> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 54054, },
+> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 60060, },
+> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 54054, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 74176,
+> > > +		.n_cts_32k =3D  { .n =3D 11648, .cts =3D 210937, }, /* and 210938 =
+*/
+> > > +		.n_cts_44k1 =3D { .n =3D 17836, .cts =3D 234375, },
+> > > +		.n_cts_48k =3D  { .n =3D 11648, .cts =3D 140625, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 74250,
+> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 74250, },
+> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 82500, },
+> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 74250, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 148352,
+> > > +		.n_cts_32k =3D  { .n =3D 11648, .cts =3D 421875, },
+> > > +		.n_cts_44k1 =3D { .n =3D 8918,  .cts =3D 234375, },
+> > > +		.n_cts_48k =3D  { .n =3D 5824,  .cts =3D 140625, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 148500,
+> > > +		.n_cts_32k =3D  { .n =3D 4096,  .cts =3D 148500, },
+> > > +		.n_cts_44k1 =3D { .n =3D 6272,  .cts =3D 165000, },
+> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 148500, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 296703,
+> > > +		.n_cts_32k =3D  { .n =3D 5824,  .cts =3D 421875, },
+> > > +		.n_cts_44k1 =3D { .n =3D 4459,  .cts =3D 234375, },
+> > > +		.n_cts_48k =3D  { .n =3D 5824,  .cts =3D 281250, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 297000,
+> > > +		.n_cts_32k =3D  { .n =3D 3072,  .cts =3D 222750, },
+> > > +		.n_cts_44k1 =3D { .n =3D 4704,  .cts =3D 247500, },
+> > > +		.n_cts_48k =3D  { .n =3D 5120,  .cts =3D 247500, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 593407,
+> > > +		.n_cts_32k =3D  { .n =3D 5824,  .cts =3D 843750, },
+> > > +		.n_cts_44k1 =3D { .n =3D 8918,  .cts =3D 937500, },
+> > > +		.n_cts_48k =3D  { .n =3D 5824,  .cts =3D 562500, },
+> > > +	}, {
+> > > +		.tmds_clock_khz =3D 594000,
+> > > +		.n_cts_32k =3D  { .n =3D 3072,  .cts =3D 445500, },
+> > > +		.n_cts_44k1 =3D { .n =3D 9408,  .cts =3D 990000, },
+> > > +		.n_cts_48k =3D  { .n =3D 6144,  .cts =3D 594000, },
+> > > +	},
+> > > +};
+> > > +
+> > > +static int drm_hdmi_acr_find_tmds_entry(unsigned long tmds_clock_khz)
+> > > +{
+> > > +	int i;
+> > > +
+> > > +	/* skip the "other" entry */
+> > > +	for (i =3D 1; i < ARRAY_SIZE(hdmi_acr_n_cts); i++) {
+> > > +		if (hdmi_acr_n_cts[i].tmds_clock_khz =3D=3D tmds_clock_khz)
+> > > +			return i;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +/**
+> > > + * drm_hdmi_acr_get_n_cts() - get N and CTS values for Audio Clock R=
+egeneration
+> > > + *
+> > > + * @tmds_char_rate: TMDS clock (char rate) as used by the HDMI conne=
+ctor
+> > > + * @sample_rate: audio sample rate
+> > > + * @out_n: a pointer to write the N value
+> > > + * @out_cts: a pointer to write the CTS value
+> > > + *
+> > > + * Get the N and CTS values (either by calculating them or by return=
+ing data
+> > > + * from the tables. This follows the HDMI 1.4b Section 7.2 "Audio Sa=
+mple Clock
+> > > + * Capture and Regeneration".
+> > > + */
+> >=20
+> > I think we need to make it clear that it's for L-PCM only (I think?),
+> > either through a format parameter or through the documentation.
+>=20
+> Ack
+>=20
+> >=20
+> > > +void
+> > > +drm_hdmi_acr_get_n_cts(unsigned long long tmds_char_rate,
+> > > +		       unsigned int sample_rate,
+> > > +		       unsigned int *out_n,
+> > > +		       unsigned int *out_cts)
+> >=20
+> > And we should probably take the connector (or EDID) to make sure the
+> > monitor can support the format and sample rates.
+>=20
+> Interesting perspective, I'll give it a thought. I was really just
+> trying to get rid of the duplication.
+>=20
+> I think that 'supported' parts should be implemented in the hdmi-codec
+> instead, parsing the ELD and updating hw constraints. WDYT?
 
-Reviewed-by: Abel Vesa <abel.vesa@linaro.org>
+Basically, I want to make sure we cover section 7.3 of HDMI 1.4, ie,
+make sure we can't end up (or validate) in a situation that isn't
+allowed by the spec.
 
-> +		return 0;
-> +	}
-> +
-> +	return lttpr_count;
->  }
->  
->  static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
-> @@ -385,12 +391,17 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
->  	struct drm_connector *connector = dp->msm_dp_display.connector;
->  	const struct drm_display_info *info = &connector->display_info;
->  	int rc = 0;
-> +	u8 dpcd[DP_RECEIVER_CAP_SIZE];
->  
-> -	rc = msm_dp_panel_read_sink_caps(dp->panel, connector);
-> +	rc = drm_dp_read_dpcd_caps(dp->aux, dpcd);
->  	if (rc)
->  		goto end;
->  
-> -	msm_dp_display_lttpr_init(dp);
-> +	msm_dp_display_lttpr_init(dp, dpcd);
-> +
-> +	rc = msm_dp_panel_read_sink_caps(dp->panel, dp->lttpr_common_caps, connector);
-> +	if (rc)
-> +		goto end;
->  
->  	msm_dp_link_process_request(dp->link);
->  
-> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-> index 92415bf8aa16..f41b4cf7002e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> @@ -45,9 +45,12 @@ static void msm_dp_panel_read_psr_cap(struct msm_dp_panel_private *panel)
->  	}
->  }
->  
-> -static int msm_dp_panel_read_dpcd(struct msm_dp_panel *msm_dp_panel)
-> +static int msm_dp_panel_read_dpcd(struct msm_dp_panel *msm_dp_panel,
-> +				  const u8 lttpr_common_caps[DP_LTTPR_COMMON_CAP_SIZE])
->  {
->  	int rc;
-> +	int max_sink_lanes, max_source_lanes, max_lttpr_lanes;
-> +	int max_sink_rate, max_source_rate, max_lttpr_rate;
->  	struct msm_dp_panel_private *panel;
->  	struct msm_dp_link_info *link_info;
->  	u8 *dpcd, major, minor;
-> @@ -64,16 +67,24 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_panel *msm_dp_panel)
->  	major = (link_info->revision >> 4) & 0x0f;
->  	minor = link_info->revision & 0x0f;
->  
-> -	link_info->rate = drm_dp_max_link_rate(dpcd);
-> -	link_info->num_lanes = drm_dp_max_lane_count(dpcd);
-> +	max_source_lanes = msm_dp_panel->max_dp_lanes;
-> +	max_source_rate = msm_dp_panel->max_dp_link_rate;
->  
-> -	/* Limit data lanes from data-lanes of endpoint property of dtsi */
-> -	if (link_info->num_lanes > msm_dp_panel->max_dp_lanes)
-> -		link_info->num_lanes = msm_dp_panel->max_dp_lanes;
-> +	max_sink_lanes = drm_dp_max_lane_count(dpcd);
-> +	max_sink_rate = drm_dp_max_link_rate(dpcd);
-> +
-> +	max_lttpr_lanes = drm_dp_lttpr_max_lane_count(lttpr_common_caps);
-> +	max_lttpr_rate = drm_dp_lttpr_max_link_rate(lttpr_common_caps);
->  
-> +	if (max_lttpr_lanes)
-> +		max_sink_lanes = min(max_sink_lanes, max_lttpr_lanes);
-> +	if (max_lttpr_rate)
-> +		max_sink_rate = min(max_sink_rate, max_lttpr_rate);
-> +
-> +	/* Limit data lanes from data-lanes of endpoint property of dtsi */
-> +	link_info->num_lanes = min(max_sink_lanes, max_source_lanes);
->  	/* Limit link rate from link-frequencies of endpoint property of dtsi */
-> -	if (link_info->rate > msm_dp_panel->max_dp_link_rate)
-> -		link_info->rate = msm_dp_panel->max_dp_link_rate;
-> +	link_info->rate = min(max_sink_rate, max_source_rate);
->  
->  	drm_dbg_dp(panel->drm_dev, "version: %d.%d\n", major, minor);
->  	drm_dbg_dp(panel->drm_dev, "link_rate=%d\n", link_info->rate);
-> @@ -109,6 +120,7 @@ static u32 msm_dp_panel_get_supported_bpp(struct msm_dp_panel *msm_dp_panel,
->  }
->  
->  int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
-> +	const u8 lttpr_common_caps[DP_LTTPR_COMMON_CAP_SIZE],
->  	struct drm_connector *connector)
->  {
->  	int rc, bw_code;
-> @@ -125,7 +137,7 @@ int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
->  	drm_dbg_dp(panel->drm_dev, "max_lanes=%d max_link_rate=%d\n",
->  		msm_dp_panel->max_dp_lanes, msm_dp_panel->max_dp_link_rate);
->  
-> -	rc = msm_dp_panel_read_dpcd(msm_dp_panel);
-> +	rc = msm_dp_panel_read_dpcd(msm_dp_panel, lttpr_common_caps);
->  	if (rc) {
->  		DRM_ERROR("read dpcd failed %d\n", rc);
->  		return rc;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-> index 4906f4f09f24..d89e17a9add5 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_panel.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-> @@ -7,6 +7,7 @@
->  #define _DP_PANEL_H_
->  
->  #include <drm/msm_drm.h>
-> +#include <drm/display/drm_dp_helper.h>
->  
->  #include "dp_aux.h"
->  #include "dp_link.h"
-> @@ -49,6 +50,7 @@ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel);
->  int msm_dp_panel_deinit(struct msm_dp_panel *msm_dp_panel);
->  int msm_dp_panel_timing_cfg(struct msm_dp_panel *msm_dp_panel);
->  int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
-> +		const u8 lttpr_common_caps[DP_LTTPR_COMMON_CAP_SIZE],
->  		struct drm_connector *connector);
->  u32 msm_dp_panel_get_mode_bpp(struct msm_dp_panel *msm_dp_panel, u32 mode_max_bpp,
->  			u32 mode_pclk_khz);
-> -- 
-> 2.45.2
-> 
+If ALSA covers it already, then I guess it's fine, but we should
+document it and point to where it's dealt with.
+
+Maxime
+
+--sgxudawjzyo43qu5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZ8/tcAAKCRDj7w1vZxhR
+xYK1AP9/SASOIb6xDFXNFnI8SsF1/5V5/KTrCBMAV3hTDBsXZgD9FAEbhD7QHdf7
+Gow15VWygI2kgzc5wBGMNwZiESQlKgM=
+=xbRV
+-----END PGP SIGNATURE-----
+
+--sgxudawjzyo43qu5--
