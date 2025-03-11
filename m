@@ -2,95 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7B57A5A4A6
-	for <lists+freedreno@lfdr.de>; Mon, 10 Mar 2025 21:18:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BF02A5B910
+	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 07:16:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 847CD10E2BA;
-	Mon, 10 Mar 2025 20:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 195EC10E0C5;
+	Tue, 11 Mar 2025 06:16:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="M8WeATvQ";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="o8xoj3wR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36EC710E4DD
- for <freedreno@lists.freedesktop.org>; Mon, 10 Mar 2025 20:18:10 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-30bfed67e08so27022861fa.2
- for <freedreno@lists.freedesktop.org>; Mon, 10 Mar 2025 13:18:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741637888; x=1742242688; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Na0+//dCirkAQ9ySuY1KKDPsWyMmAsRZj0GKZr2mXwM=;
- b=M8WeATvQmX8MuXFDWX3zoycilLC3oagmLkM6IVNUU2+W5tIgHamjpOCPDWlONlZgIE
- WXlw3X6J+T6M3WPNlQ/tRsJpcU05XNp3dkyG+VPh7ahbnxBAmaNTY/cC+9b7gmwuWKii
- aa4lbaIvrfD/0RL3Qqc26BvlG76gQkMRbXk04hCxejMXSlhY5Ixh9UGw1+gxzYbmgfkv
- ClVSZotlo9gjrRRt9GSDKvavHK/beWoJkmTJNeG+wFHTIjqV5gNYX9qXdy1TmNT/XLkR
- xeUsujPul1dVqSc/jCf8Gd1PnYxDl6mxL4OSttagQOJ0lcy6Vb/RUEZza6Wpr8m+jE9R
- 5yjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741637888; x=1742242688;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Na0+//dCirkAQ9ySuY1KKDPsWyMmAsRZj0GKZr2mXwM=;
- b=Lv7jVndgCZa4TTXrxSRCrWLzWsOl6BeAvLhzKjg+5+4bb8R99EbSYVJNSR8m1hajgZ
- LiJV2WGaFwiWPZRs4iMgK95p3JpOFPlEFjEkhIoQgF2c6tfYu+qETwh9utWd/QDGVPzP
- nWSbtr1BEfW/5Jezu/X3dHZ8/E6vmSubeqBq9iNbv5lFxvMfilAxN+x1q639UAnID2Aa
- P1b0xpCPtKWUFxR+UyjuJlxu9+OHWVHpWECr1bl4Rkc2jV2L4W1dtKFXGaOKmhES8A61
- 8TERpRZ1IQU8Pqwu1M/79sNK0nguv2+Uk5V8B6P3LCA4wdydaleQc07K9uxuqwRfhFXy
- pqKw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVTntskmyTeJi0hNkpRHf6YHkXIYDU5pJ7xyhhdR4y1E1JEgiWxx9n/T1jkNlFkVRCIw4UOwd0HxPw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzs0Davg/4ayzghpgVvipVhNRnQw5Ja09YBk4kET7JGeUtUlQT0
- xgSXQA6y+vDVNQCKQa6P0+5ru2nREseFA4v/TVUuPHHxDtXbJYgk36Ub2KlhlUs=
-X-Gm-Gg: ASbGncvOq2arPCjar1C0x7jc5BIZ/zn+MebAcE0ZshltPspzFktOL83VosMNxdNazzi
- JG7oAuG5g2mtUnYFuGGF1LHDs9bcpF5DkHawMHX7bhBFL+Olj49H8A8ali/aAbtPMcZwYLTW9fO
- 9+Av9F9eM8tzepcf8pCBA9vMuPoNX1CbvhGL72fyuogCKZemBvIlDV7lcljb0xqHvnHFIpTo/nP
- oNZV+q0IwvEUsySFJnsgRBoce6BuYs4mlBD/30UIyTqgDwEudaX/EAOtL6Fo6aNOIoaQ1Cb7Y/7
- UWYaGgf/3iyKgxm+ObweqDAoPZaQUvtK+fZ/dnsyuJ6yjOTKZPS4Cr1tN064YTEF43e49smsHOQ
- //AHsIstZerWYX0nWOgY9hj6B
-X-Google-Smtp-Source: AGHT+IHcA7kOtf3sam4WAbu1ps2qyynLobUE0HG0axG5MF7JuYSDH5Zq3T6DIc7mWO7eWXCbFWGVLA==
-X-Received: by 2002:a05:651c:3c3:b0:30b:c569:4665 with SMTP id
- 38308e7fff4ca-30bf46468dcmr39513851fa.29.1741637888405; 
- Mon, 10 Mar 2025 13:18:08 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30bef40f9cdsm16595941fa.48.2025.03.10.13.18.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Mar 2025 13:18:07 -0700 (PDT)
-Date: Mon, 10 Mar 2025 22:18:04 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 3/4] drm/vc4: use new helper to get ACR values
-Message-ID: <esgb42dyhpjixm62tfk2nfzdiygnfn4bcwq4zn7rhydmt4np2q@7v77p7kveb4e>
-References: <20250309-drm-hdmi-acr-v1-0-bb9c242f4d4b@linaro.org>
- <20250309-drm-hdmi-acr-v1-3-bb9c242f4d4b@linaro.org>
- <20250310-invisible-married-firefly-945c84@houat>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5AF610E0C5;
+ Tue, 11 Mar 2025 06:16:33 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52AKjhn9006253;
+ Tue, 11 Mar 2025 06:16:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ JHbVnjh4q9xB2LzjdS6wKi6kBiBzwQ1KsR99fp+DG5Q=; b=o8xoj3wRXkNGjHkd
+ m17NVXxJSmYebZ39uddwWFBFVLv7GC8TDVZ4ywuP/QbdtAM/LhcfsnLwgG6o8nz6
+ q4WtbRL9Jk9sPWwaUD+MdjKYce7WWHI0cult3UNBokRIGpZZXXS9WLH66+bvEHfA
+ yzdj7JWelO/OVKAiAoj0DblS6AzrWWKyRmT9D0db5LopDLxn3iVdAzoRi/Pj7fYm
+ kIo0Y1nNj8RJSLXvuHWWL1c6Vi43k/AGtlhSEWw/+XIv3jB5j0po6hRTE/e0Ud5R
+ AiPdvZmH942Qe0YOvsjCPtZoNcUCXoGmfL/of5UOVK7lvPDO3NtUJUZT7e0cADAt
+ GFjHpA==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 458f2mf92x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Mar 2025 06:16:21 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 52B6GKfs015925
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Mar 2025 06:16:20 GMT
+Received: from [10.216.23.206] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 10 Mar
+ 2025 23:16:13 -0700
+Message-ID: <8d54a612-433e-4860-a843-294fe0d6db4e@quicinc.com>
+Date: Tue, 11 Mar 2025 11:46:11 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250310-invisible-married-firefly-945c84@houat>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/6] Support for Adreno 623 GPU
+To: "Rob Herring (Arm)" <robh@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ <linux-kernel@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "Abhinav Kumar" <quic_abhinavk@quicinc.com>,
+ Jie Zhang <quic_jiezh@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Konrad Dybcio
+ <konradybcio@kernel.org>, <dri-devel@lists.freedesktop.org>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, <freedreno@lists.freedesktop.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sean Paul <sean@poorly.run>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "David Airlie" <airlied@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, "Bjorn
+ Andersson" <andersson@kernel.org>, <devicetree@vger.kernel.org>
+References: <20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com>
+ <174075232770.2756163.15128447349702656600.robh@kernel.org>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <174075232770.2756163.15128447349702656600.robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: EFmODcM4L_YS48Fyr14FyKTDBWPkoAE0
+X-Proofpoint-ORIG-GUID: EFmODcM4L_YS48Fyr14FyKTDBWPkoAE0
+X-Authority-Analysis: v=2.4 cv=ab+bnQot c=1 sm=1 tr=0 ts=67cfd535 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=VwQbUJbxAAAA:8
+ a=COk6AnOGAAAA:8 a=gEfo2CItAAAA:8
+ a=Qi1LLK4JJPgfJq4B5soA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-11_01,2025-03-07_03,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ mlxlogscore=999 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ mlxscore=0 impostorscore=0 phishscore=0 clxscore=1015 spamscore=0
+ adultscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502100000
+ definitions=main-2503110040
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,45 +110,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Mar 10, 2025 at 03:51:53PM +0100, Maxime Ripard wrote:
-> On Sun, Mar 09, 2025 at 10:13:58AM +0200, Dmitry Baryshkov wrote:
-> > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > 
-> > Use drm_hdmi_acr_get_n_cts() helper instead of calculating N and CTS
-> > values in the VC4 driver.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/gpu/drm/vc4/vc4_hdmi.c | 10 +++-------
-> >  drivers/gpu/drm/vc4/vc4_hdmi.h |  7 +++++++
-> >  2 files changed, 10 insertions(+), 7 deletions(-)
-> > 
-
-> > diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
-> > index e3d989ca302b72533c374dfa3fd0d5bd7fe64a82..0a775dbfe99d45521f3d0a2016555aefa81d7934 100644
-> > --- a/drivers/gpu/drm/vc4/vc4_hdmi.h
-> > +++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
-> > @@ -211,6 +211,13 @@ struct vc4_hdmi {
-> >  	 * KMS hooks. Protected by @mutex.
-> >  	 */
-> >  	enum hdmi_colorspace output_format;
-> > +
-> > +	/**
-> > +	 * @tmds_char_rate: Copy of
-> > +	 * @drm_connector_state.hdmi.tmds_char_rate for use outside of
-> > +	 * KMS hooks. Protected by @mutex.
-> > +	 */
-> > +	unsigned long long tmds_char_rate;
-> >  };
+On 2/28/2025 7:53 PM, Rob Herring (Arm) wrote:
 > 
-> This should be in drm_connector_hdmi if it's useful
+> On Fri, 28 Feb 2025 01:37:48 +0530, Akhil P Oommen wrote:
+>> This series adds support for A623 GPU found in QCS8300 chipsets. This
+>> GPU IP is very similar to A621 GPU, except for the UBWC configuration
+>> and the GMU firmware.
+>>
+>> Both DT patches are for Bjorn and rest of the patches for Rob Clark to
+>> pick up.
+>>
+>> ---
+>> Changes in v2:
+>> - Fix hwcg config (Konrad)
+>> - Split gpucc reg list patch (Rob)
+>> - Rebase on msm-next tip
+>> - Link to v1: https://lore.kernel.org/r/20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com
+>>
+>> ---
+>> Jie Zhang (6):
+>>       drm/msm/a6xx: Split out gpucc register block
+>>       drm/msm/a6xx: Fix gpucc register block for A621
+>>       drm/msm/a6xx: Add support for Adreno 623
+>>       dt-bindings: display/msm/gmu: Add Adreno 623 GMU
+>>       arm64: dts: qcom: qcs8300: Add gpu and gmu nodes
+>>       arm64: dts: qcom: qcs8300-ride: Enable Adreno 623 GPU
+>>
+>>  .../devicetree/bindings/display/msm/gmu.yaml       |  1 +
+>>  arch/arm64/boot/dts/qcom/qcs8300-ride.dts          |  8 ++
+>>  arch/arm64/boot/dts/qcom/qcs8300.dtsi              | 93 ++++++++++++++++++++++
+>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 29 +++++++
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  8 ++
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        | 13 ++-
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        | 17 ++++
+>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  5 ++
+>>  8 files changed, 171 insertions(+), 3 deletions(-)
+>> ---
+>> base-commit: 89839e69f6154feecd79bd01171375225b0296e9
+>> change-id: 20250213-a623-gpu-support-f6698603fb85
+>> prerequisite-change-id: 20250131-b4-branch-gfx-smmu-b03261963064:v5
+>> prerequisite-patch-id: f8fd1a2020c940e595e58a8bd3c55d00d3d87271
+>> prerequisite-patch-id: 08a0540f75b0f95fd2018b38c9ed5c6f96433b4d
+>>
+>> Best regards,
+>> --
+>> Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>
+>>
+>>
+> 
+> 
+> My bot found new DTB warnings on the .dts files added or changed in this
+> series.
+> 
+> Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+> are fixed by another series. Ultimately, it is up to the platform
+> maintainer whether these warnings are acceptable or not. No need to reply
+> unless the platform maintainer has comments.
+> 
+> If you already ran DT checks and didn't see these error(s), then
+> make sure dt-schema is up to date:
+> 
+>   pip3 install dtschema --upgrade
+> 
+> 
+> New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/qcom/' for 20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com:
+> 
+> arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:0: 'gcc_gpu_memnoc_gfx_clk' was expected
+> 	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
+> arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:1: 'gcc_gpu_snoc_dvm_gfx_clk' was expected
+> 	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
+> arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:2: 'gpu_cc_ahb_clk' was expected
+> 	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
+> arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:3: 'gpu_cc_hlos1_vote_gpu_smmu_clk' was expected
+> 	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
+> arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:4: 'gpu_cc_cx_gmu_clk' was expected
+> 	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
+> arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: iommu@3da0000: clock-names:5: 'gpu_cc_hub_cx_int_clk' was expected
+> 	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
+> 
+> 
+> 
+> 
+> 
 
-That would mean bringing the state to a non-state structure on the
-framework level. Is it fine from your POV? Is it also fine to use
-drm_connector.mutex for protecting this? Or should we be using something
-like drm_connector_hdmi.infoframes.mutex (maybe after moving it from
-.infoframes to the top level)?
+These warnings are for the smmu dt change which I marked as a
+dependency. Hopefully, the v6 revision from Pratyush will fix this.
 
--- 
-With best wishes
-Dmitry
+https://lore.kernel.org/linux-arm-kernel/20250310-b4-branch-gfx-smmu-v6-1-15c60b8abd99@quicinc.com/T/
+
+-Akhil.
