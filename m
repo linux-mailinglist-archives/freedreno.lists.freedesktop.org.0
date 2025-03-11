@@ -2,81 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 479E5A5D29D
-	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 23:36:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C8E8A5D339
+	for <lists+freedreno@lfdr.de>; Wed, 12 Mar 2025 00:41:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E60C10E159;
-	Tue, 11 Mar 2025 22:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2FAD10E6A5;
+	Tue, 11 Mar 2025 23:41:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ArTD2Bo5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XH48olcw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1248F10E159
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 22:36:51 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-2ff6b9a7f91so1528434a91.3
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 15:36:51 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A38FB10E6A3;
+ Tue, 11 Mar 2025 23:41:16 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-43cf0d787eeso29137195e9.3; 
+ Tue, 11 Mar 2025 16:41:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741732610; x=1742337410; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=75JlrEnI8tdqw5rkhyab++osfwTd4EpAvf26QJsRa+Q=;
- b=ArTD2Bo52sEexvC/L/yU7ifML9z9dctjIYU8qaFrvyKOW/IUEUUWMKgZSKcQyrJxx6
- 5KbqoMwvSi3ZB8yxi5o2DsBhP3h5aX0smNxubzFM5FcRNmjtV7YnGOCnaHXY7UGwklBL
- 9wR8E/C/BuaD0rkkMIk8qSKtB/N5TlBkQyPoGXdI72C6FsVBClYLmsATTtyY6f26YzKM
- TZJ/1oh8+SC1BdC2LsFqmsy9ZrALbR728Cg/BQTRI7YuBVKPzZ0FH3zTg5gdpzBfH/Uk
- QgiVWuI9MPfd4yX9vdRYWquSBALlx/O4NUtxhi6EQM4eCcq7eglgI2qi+BgadYB2pbcV
- 9kag==
+ d=gmail.com; s=20230601; t=1741736475; x=1742341275; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=gJ8EyWj+V3lGQ1KYljBA+TqtPpIeQuDsaPbpLuX41JU=;
+ b=XH48olcwkcRTWR46Iq7n6eS81rnvY/G8CGe5JRKrmmJrc3WisVpwTzD4FovbIrfOjW
+ PA3s3qeK/cR+nH0jkfaPYWKni9GWlYC17eaKMOiYRZOaRwxBFouOCccennTko26P2R5n
+ Wf6xjsDCu9wEoepptEMiUXI/LPIuAPFiq8Bw4Gcm/k/F55ko++Ww+YJQVSM4UuzGQCI5
+ 2pmqjJw0gOC/Gk4iDCTZWtPkNP9m4xupoL0OrzJxfDBcV7Nsexeq5fGUCvSQL1iOUafZ
+ nFMmDi+CPurw3ULPu49P201rMzr39PCV/j46a1M7b1XbE80JQQQt+cCToiws13H++A3v
+ VATw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741732610; x=1742337410;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=75JlrEnI8tdqw5rkhyab++osfwTd4EpAvf26QJsRa+Q=;
- b=w1MGijgHavhZsudXXpx93SmzB4bblrxfy6QpVnOMd0CCE8BDFFoETlzH3NSp5wj38H
- cJbmFplxqKEzpKZJHlgCh2ReLPpBJEVYPmn76+KtFpyIHgo2pUBfpefE4PtuteBHINTE
- disIxrmGyZtlFgGoVln6E0Qj0KrV+sdscEzep3aDAnRI+3wCUulT3eD0+VgtwTN8esaW
- uiC4STRdJaB9tqbkQpcZkiaZuJ+Q+YPamncDT+FzP11eUk3/TaLe2/1DfGrolOyJAJJO
- JKMnItE8X1e4pjE0oIxVbMWfcyS10Lvk4sWisd/icusA8RrI6DcXU1gdO2tsSJWgXJAz
- hhBA==
+ d=1e100.net; s=20230601; t=1741736475; x=1742341275;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gJ8EyWj+V3lGQ1KYljBA+TqtPpIeQuDsaPbpLuX41JU=;
+ b=R/QpzR1vAu67SNG0h+6t3pZYLY6UOBYxzwrbjOB8B+K1cGWKQ8qdQ5VPTW6jFdYOLE
+ vDP8jZzsXEtIy/80vL+cCqJtP6DwlOhUwGgbwCEWOAu1qjzA5fai15c3IuoousqDip7O
+ zPs02M/T180qTmULM5osXbAQ5HIpqFxK/TvGJ30VvIAoNi0aDh2ufl2IiE6HRbfArD3y
+ i/RtSjlvCm777l8uBF2rrkTiRhzdaFNjyh9VQzPLGCVah8/EZxepPEi8YCOS2Mrlmtf9
+ zIRUtLxSEAZx6kdm2DNNKRjkvI0wEDXqyfdxbyF45SJYfMcWU2VMzCOxpj5WeNyTQctT
+ UulA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVnw0xNT2Bo8PKZRSfPqhMKdYpApD2hew5LktPAJKI1dGhLJKjj+mELh+AWVJE1wKNZgB3pBcll0xc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwG1hNQv7Xg5F4qe31yPqnReYL0YWS3Iv6kL9rU41Bl3/Cpuk6R
- XgX+mKiYJ7s3zuuaTSLKOyYE7sPcl6qk+ea9ZBvYS4/Cb56visc6URSUJ8PDchqiL6u+83cP23u
- mQoF8GSFVtjD7RcY4/8uob9flsjTT8XmU
-X-Gm-Gg: ASbGncsxk4G9T7PG4oTTL6G9HfTwA57vz9xJ+SUSalMVD6f6EESTUxkqphq+FHdLN29
- nLCUJ+EDmUEmhcHApu2/wSfvQDvcqF5i7UPzf0b5zB0om62NRauj1TCTSEG8p/T7h/1WTQuc/Ju
- 7RbralwaghhD6E8zobPaE/eirF0w==
-X-Google-Smtp-Source: AGHT+IE2yP0Oqp5icApOYEeT5S9ryMzCphdSruIQb+pyZ1tL48mZ6lOK0AKajCd16hcESy+fMFtcVCe/Z6YypMdt4rI=
-X-Received: by 2002:a17:90b:4a81:b0:2ee:f59a:94d3 with SMTP id
- 98e67ed59e1d1-300a2891c23mr8155406a91.0.1741732609220; Tue, 11 Mar 2025
- 15:36:49 -0700 (PDT)
+ AJvYcCU2OvpEouHi9Ns6hkdUsoFw+tzy6q/0C4UP8XIBad2WnvggYBYqF+0R6OjzvqOSZFLuS6jIXgZpVCFh@lists.freedesktop.org,
+ AJvYcCXsLKz1yvuTJJzuegeWJf5qyJ/tSd/7sEtcLaQGAFcaHZ8cKvjXGuPB35NPnw2JJDojzeOxl90apI0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/tGWCWENxkR21MaUSyxWOlTSCwaFDJAjnEie9hCx+nKpGHHYg
+ /L4Cb03eS6QQJ7YpezPaXAVHW+arsEvA2RmL//Os3G4a7Eld63M=
+X-Gm-Gg: ASbGncsonCYsDo/4Qt3lI1eYdsmQa3uKWQeKCba1SvktcIDBczxBmCkvh1hIeXH9fxS
+ MJebAIxMIH0GVYzoyuyaOBC93BxIVQaiaS0CJEb/ZgO83IzN7usrrEY2oY7+R/Ln5TN5pyoJOGr
+ cl8LjUIWYbHg/A4YLvHhycQa4uvh7+Phob33OMArNjR9djg2xp6f9j+Q50S672dXGHO9IWNaT1j
+ 0Z/vsxKwDvPtPlHGSWFdUY6GHMkF8220qYp8i8A6eXfCwhomrUeOBTcz4CI4TpuY7lKX7GizsmT
+ JXr1YEBzSh6Ht0RLEfzkRh8+ZpFcVHivrt7oimH7ppJVORT0baTzM6Pf2/X3JCw2vDq1HoZrykY
+ 0u5YeeA==
+X-Google-Smtp-Source: AGHT+IGmpUbEyhkAFSxBQp5Q99XB7Lq9csmnsvhQmC59eDhmUh1KPfKQ3rq38gkn1WnBBi9iEZyJhw==
+X-Received: by 2002:a05:600c:4f0e:b0:43c:fa0e:471a with SMTP id
+ 5b1f17b1804b1-43cfa0e4b6cmr100755055e9.5.1741736474607; 
+ Tue, 11 Mar 2025 16:41:14 -0700 (PDT)
+Received: from alex-x1e.lan (adsl-178-39-53-103.adslplus.ch. [178.39.53.103])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d0a72ea88sm3988345e9.7.2025.03.11.16.41.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Mar 2025 16:41:14 -0700 (PDT)
+From: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ laurentiu.tudor1@dell.com, abel.vesa@linaro.org, johan@kernel.org,
+ Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+Subject: [PATCH v2 0/2] drm/msm/dp: Introduce link training per-segment for
+ LTTPRs
+Date: Wed, 12 Mar 2025 00:38:02 +0100
+Message-ID: <20250311234109.136510-1-alex.vinarskis@gmail.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20250304-msm-gpu-fault-fixes-next-v4-0-be14be37f4c3@gmail.com>
- <20250304-msm-gpu-fault-fixes-next-v4-1-be14be37f4c3@gmail.com>
- <20250311180553.GB5216@willie-the-truck>
-In-Reply-To: <20250311180553.GB5216@willie-the-truck>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Tue, 11 Mar 2025 18:36:38 -0400
-X-Gm-Features: AQ5f1Jpps08fowB20qui8teO0kCK3_0sMgX__rQse3av3tUA4enIqUvNjCSXypk
-Message-ID: <CACu1E7GzCiO2b7AFJSDC+pN2VD9VaD2aYz_GGymM3-xAUqd__A@mail.gmail.com>
-Subject: Re: [PATCH v4 1/5] iommu/arm-smmu: Save additional information on
- context fault
-To: Will Deacon <will@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
- Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,97 +94,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 11, 2025 at 2:06=E2=80=AFPM Will Deacon <will@kernel.org> wrote=
-:
->
-> On Tue, Mar 04, 2025 at 11:56:47AM -0500, Connor Abbott wrote:
-> > This will be used by drm/msm for GPU page faults, replacing the manual
-> > register reading it does.
-> >
-> > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
-> > ---
-> >  drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c |  4 ++--
-> >  drivers/iommu/arm/arm-smmu/arm-smmu.c            | 27 +++++++++++++---=
---------
-> >  drivers/iommu/arm/arm-smmu/arm-smmu.h            |  5 ++++-
-> >  3 files changed, 21 insertions(+), 15 deletions(-)
-> >
-> > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c b/drivers=
-/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c
-> > index 548783f3f8e89fd978367afa65c473002f66e2e7..ae4fdbbce6ba80440f53955=
-7a39866a932360d4e 100644
-> > --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c
-> > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c
-> > @@ -400,7 +400,7 @@ irqreturn_t qcom_smmu_context_fault(int irq, void *=
-dev)
-> >
-> >       if (list_empty(&tbu_list)) {
-> >               ret =3D report_iommu_fault(&smmu_domain->domain, NULL, cf=
-i.iova,
-> > -                                      cfi.fsynr & ARM_SMMU_CB_FSYNR0_W=
-NR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
-> > +                                      cfi.fsynr0 & ARM_SMMU_CB_FSYNR0_=
-WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
-> >
-> >               if (ret =3D=3D -ENOSYS)
-> >                       arm_smmu_print_context_fault_info(smmu, idx, &cfi=
-);
-> > @@ -412,7 +412,7 @@ irqreturn_t qcom_smmu_context_fault(int irq, void *=
-dev)
-> >       phys_soft =3D ops->iova_to_phys(ops, cfi.iova);
-> >
-> >       tmp =3D report_iommu_fault(&smmu_domain->domain, NULL, cfi.iova,
-> > -                              cfi.fsynr & ARM_SMMU_CB_FSYNR0_WNR ? IOM=
-MU_FAULT_WRITE : IOMMU_FAULT_READ);
-> > +                              cfi.fsynr0 & ARM_SMMU_CB_FSYNR0_WNR ? IO=
-MMU_FAULT_WRITE : IOMMU_FAULT_READ);
-> >       if (!tmp || tmp =3D=3D -EBUSY) {
-> >               ret =3D IRQ_HANDLED;
-> >               resume =3D ARM_SMMU_RESUME_TERMINATE;
-> > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/=
-arm-smmu/arm-smmu.c
-> > index ade4684c14c9b2724a71e2457288dbfaf7562c83..a9213e0f1579d1e3be0bfba=
-75eea1d5de23117de 100644
-> > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> > @@ -409,9 +409,12 @@ void arm_smmu_read_context_fault_info(struct arm_s=
-mmu_device *smmu, int idx,
-> >                                     struct arm_smmu_context_fault_info =
-*cfi)
-> >  {
-> >       cfi->iova =3D arm_smmu_cb_readq(smmu, idx, ARM_SMMU_CB_FAR);
-> > +     cfi->ttbr0 =3D arm_smmu_cb_readq(smmu, idx, ARM_SMMU_CB_TTBR0);
-> >       cfi->fsr =3D arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSR);
-> > -     cfi->fsynr =3D arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR0);
-> > +     cfi->fsynr0 =3D arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR0);
-> > +     cfi->fsynr1 =3D arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR1);
->
-> We already have an implementation hook (->get_fault_info()) which the
-> qcom SMMU driver can override with qcom_adreno_smmu_get_fault_info().
-> That thing dumps these registers already so if we're moving that into
-> the core SMMU driver, let's get rid of the hook and move everybody over
-> rather than having it done in both places.
+Recently added Initial LTTPR support in msm/dp has configured LTTPR(s)
+to non-transparent mode to enable video output on X1E-based devices
+that come with LTTPR on the motherboards. However, video would not work
+if additional LTTPR(s) are present between sink and source, which is
+the case for USB Type-C docks (eg. Dell WD19TB/WD22TB4), and at least
+some universal Thunderbolt/USB Type-C monitors (eg. Dell U2725QE).
 
-As you probably saw, the next commit moves over
-qcom_adreno_smmu_get_fault_info() to use this. The current back door
-used by drm/msm to access these functions is specific to adreno_smmu
-and there isn't an equivalent interface to allow it to call a generic
-SMMU function so it isn't possible to move it entirely to the core. At
-least not without a bigger refactoring that isn't justified for this
-series that is just trying to fix things.
+First, take into account LTTPR capabilities when computing max link
+rate, number of lanes. Take into account previous discussion on the
+lists - exit early if reading DPCD caps failed. This also fixes
+"*ERROR* panel edid read failed" on some monitors which seems to be
+caused by msm_dp_panel_read_sink_caps running before LTTPR(s) are
+initialized.
 
->
-> >       cfi->cbfrsynra =3D arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA=
-(idx));
-> > +     cfi->contextidr =3D arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_CONTE=
-XTIDR);
->
-> I think the CONTEXTIDR register is stage-1 only, so we shouldn't dump
-> it for stage-2 domains.
->
-> Will
+Finally, implement link training per-segment. Pass lttpr_count to all
+required helpers.
+This seems to also partially improve UI (Wayland) hanging when
+changing external display's link parameters (resolution, framerate):
+* Prior to this series, via direct USB Type-C to display connection,
+  attempt to change resolution or framerate hangs the UI, setting does
+  not stick. Some back and forth replugging finally sets desired
+  parameters.
+* With this series, via direct USB Type-C to display connection,
+  changing parameters works most of the time, without UI freezing. Via
+  docking station/multiple LTTPRs the setting again does not stick.
+* On Xorg changing link paramaters works in all combinations.
 
-Does it matter if we read the register though, as long as users are
-aware of this and don't use its value for anything?
+These appear to be mainlink initialization related, as in all cases LT
+passes successfully.
 
-Connor
+Test matrix:
+* Dell XPS 9345, Ubuntu 24.10, Gnome 47, Wayland
+	* Left USB Type-C, Right USB Type-C
+	* Direct monitor connection, Dell WD19TB, Dell WD22TB4, USB
+          Type-C to HDMI dongle, USB Type-C to DP dongle
+	* Dell AW3423DWF, Samsung LS24A600, dual Samsung LS24A600 (one
+	  monitor per USB Type-C connector)
+* Dell XPS 9345, Ubuntu 24.10, Gnome 47, Wayland
+	* Left USB Type-C, Right USB Type-C
+	* Direct monitor connection
+	* Samsung S34BG85 (USB Type-C), Dell U2725QE (universal
+          Thunderbolt/USB Type-C, probes with an LTTPR when in USB
+          Type-C/DP Alt mode)
+
+In both cases, "Thunderbot Support"/"USB4 PCIE Tunneling" was disabled
+in UEFI to force universal Thunderbolt/USB Type-C devices to work in
+DP Alt mode.
+In both cases laptops had HBR3 patches applied [1], resulting in
+maximum successful link at 3440x1440@100hz and 4k@60hz respectively.
+When using Dell WD22TB4/U2725QE, USB Type-C pin assigment D got enabled
+and USB3.0 devices were working in parallel to video ouput.
+
+Known issues:
+* As mentioned above, it appears that on Gnome+Wayland framerate and
+  resolution parameter adjustment is not stable.
+
+Due to lack of access to the official DisplayPort specfication, changes
+were primarily inspired by/reverse engineered from Intel's i915 driver.
+
+[1] https://lore.kernel.org/all/20250226231436.16138-2-alex.vinarskis@gmail.com/
+
+Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+
+---
+
+Changes in v2:
+- Picked up Abel's R-b tags
+- Fixed typo as per Abel, fixed readability as per Johan
+- Updated cover and commit message on mailink issue which appears to be 
+  specific to Gnome+Wayland. No problems on Xorg.
+- Link to v1: https://lore.kernel.org/all/20250310211039.29843-1-alex.vinarskis@gmail.com/
+
+---
+
+Aleksandrs Vinarskis (2):
+  drm/msm/dp: Fix support of LTTPR handling
+  drm/msm/dp: Introduce link training per-segment for LTTPRs
+
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 137 +++++++++++++++++++---------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |   2 +-
+ drivers/gpu/drm/msm/dp/dp_display.c |  31 +++++--
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  30 ++++--
+ drivers/gpu/drm/msm/dp/dp_panel.h   |   2 +
+ 5 files changed, 141 insertions(+), 61 deletions(-)
+
+-- 
+2.45.2
+
