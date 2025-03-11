@@ -2,71 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BCF8A5CE84
-	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 20:02:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EA4BA5CE82
+	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 20:02:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42F8F10E672;
-	Tue, 11 Mar 2025 19:02:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E4210E66E;
+	Tue, 11 Mar 2025 19:02:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UrAC3Zo8";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="N96Vbobe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A357810E676
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 19:02:35 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-391324ef4a0so300729f8f.2
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 12:02:35 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB11810E676
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 19:02:37 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-43ceeb85ab2so2846325e9.0
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 12:02:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741719754; x=1742324554; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1741719756; x=1742324556; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=PVge0Bi84m1W4nmefcb1/Z/IlfylqQMKskx2WHqiPRI=;
- b=UrAC3Zo8woqlEVcVHL1njz/oq+yUP+FCdqKzQdfrxqJyrA0cyamogu3rKSICDd47FO
- +5zlIXmwI+mkIAbQFGbFTC+Fs01GgBvXJ5iUD7ebsmf34nNcjDmJY0mSwxeLVt5hTv8g
- B9ErHk1O4Bvd6lw68k0FNAGXQYgEgwLXudWGOZ+TnX7lygM6WLeJJ7K8Ilx478HLVf67
- ibEHZA8KuLE0/tO132rOYzrKdS9JWEGYNSyq/U6XTaZDe4OF7QSKGY5HCxaiFYtJTxSx
- Siv39aut2ZFeell+MLCn1KwS40hpX8e4ZtLprHa6XdWFlSswCTinSoXZlBBygm/uYa+H
- ryqA==
+ :reply-to; bh=RcjB+241gLR6s1cCQ4uICqRoaXk8v/y0NqsWEvqWvyI=;
+ b=N96VbobeYfBxC7j4FGXkpki8h20cJ3yLjUC89ycDg81C5BXjClH2HhWWrmlvCnnREj
+ McOl9uI3AUO3bBy4H8tTLYLboml8miHjsN9zMJlTvApYQhdSa+6C0BlVCm1dvH2DfCws
+ tTmQUqe/JYTaI23CHSXwnV9DgBsCnF6lijLxLc7UlYKgyuCo4Ryj40YugGZGs09gGdZP
+ En6VmvQea7U9V/rAWrIEQ/Qdf0eg9Ni9K4fxMtRwmsLLK3c851656541UQRQOBtjve1P
+ lhbves9rcLiA3pzfGPG+o9MOW7JKP5dFhLrtHbfCIYi6zQfcYo3Gp06dQ6N0HxT7fpWK
+ Hvdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741719754; x=1742324554;
+ d=1e100.net; s=20230601; t=1741719756; x=1742324556;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=PVge0Bi84m1W4nmefcb1/Z/IlfylqQMKskx2WHqiPRI=;
- b=xTqmzkB4j96//betoJFEwHpk47qmLeCb2epnKjo6LkUkTDQwCL8SxYFfp72MNJTwHB
- whyZS8e9NQhqcPNT+aOGB9v8bcvLOkV63t1vYnW8MSzvgxYSLjTmnDRL3RvBNFbEDiXF
- gmUiG1dAEuh2uoKybpV9VIyWIN6o6ULzmSN8qWCnWAvybu5cNPNVVmWKgCxDa/TJv9Oz
- 05biNc6jCHlECLC1OK2MYVQUw9qiTETWD4cHvxAj/i71TcibDzEt2XrIPwcD0VWOPM/3
- v3DOFWKnNBbHwh1zznUVjSpiK/juO7z6e88ibO6JX5o1zaTufBfo4Y3cF2VLdVS9tjG3
- Jh8g==
+ bh=RcjB+241gLR6s1cCQ4uICqRoaXk8v/y0NqsWEvqWvyI=;
+ b=N0683d48tZWqCLwuQIJEi1vuv65OSuL6SDnOE8AaAy6uKQ/0jfm1i5umQZAetxDbZ5
+ M8Bx7ue3DeK8nMiP9CAlyJ+Rp51R4QxHa7+DYdjGXruyeJMeQKC406LLaIqhO84OZttD
+ aTxy0g1thYN5H14U23ysbdDn8DV1ouyd57BBWcrp8/dmOkYEJmuXx8JQEV7JGDKbwM0p
+ SXrd+d0MMMBLo82xWDKHm8XNtJ8LhbeueaO5HyFCR1wIlGrVfnciuspsyYszLUKbf/fg
+ MZiTt0qaT9ZlKBpzE/g1C1RkLRQZh2DImyyUqH0Y8vDzRArh1RgtuOSd6dwzLLNBWqwE
+ rjLA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWTg3Y6DdsefKAKY2z5CunpHD7qYSONl2HGm9v9x9oBf24Y7EG7jjzfca8z8LrPcHWxz5/EG7kAGuw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRf6l86zz6CjvXtZ57NOK4g9Pe0WPeanfuiNkA+qTBgMLknqg3
- diSjc3bxm4FDOMrPNotIsNppo/vGn65Sr8t5ku47eYL3Akmtxate7nF7nIUUI4k=
-X-Gm-Gg: ASbGncvP5QmsgFgESbKQ9wCg/EoUNrGN+2lmWybKCN3mY3XGIOG/Jp1NCo1GYYCihJC
- bBgpdEixLnFmdhu67byNvGqeUL8kHLauk7vdPQtUO8wPRFBEuLKpchEmcRfZBGykzor1dIR7Zuq
- odLgsKyuHQo/0+ly3x0wtAcaISrLM4ZKhRtd604zfWIY8O5nCS8zcKwoHHTOQMBklai1IH8AmfM
- dPAt4sP3vEfk2ru5vP63N9FH6XDrd8WpnCMWRt46Z/CDAPuigfiVEpd253t4Pj9bFtl9sXtVJmv
- e7I/PMcnoXzcNkcQA+w5lRMpaWUI3L887JadsRbS7vJJ6RUGV/SXqrN5bkk=
-X-Google-Smtp-Source: AGHT+IHKlpY9sCmu/+h6R5RUmpIVQoWt904tfMIQ0oOjY3httFCJIuM1s3lsgHr80J6zp84jA8A/6w==
-X-Received: by 2002:a05:6000:18a9:b0:38f:20b5:2c80 with SMTP id
- ffacd0b85a97d-3913bb5cd34mr4480539f8f.6.1741719754177; 
- Tue, 11 Mar 2025 12:02:34 -0700 (PDT)
+ AJvYcCWWo033BGZjNsvnCQpTPXD/ACbTjJijoQ8rLVIT4KVZPPEM1foEMj+Bru+BTKn5PtV/LjnPGMBsv28=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzEzCVxyQzcY97R0A4cJv+Ehaaa3RktTEQUbrVWiQGpwis2fJxU
+ 66F8fqJop2LT3mg2WwTUmTR27GkP489qOEm+P/M3NJIjOod5utrVW0YPLXpT5n8=
+X-Gm-Gg: ASbGncs7wJxPWol1g2p0RD1kX1esAcEAoBsL3k5PT7JRVTU8/Ryj91QAVJMY9/V64lC
+ 12D/UtMO0RaFwVaT6VC/z5fQdobtR7bLBW7d12rUCUvJXJX0jehmd6cHlhaOsIr28wH34zyZklk
+ SGLgHyUvX987fujdAoB9ZPTWl6GqTlUpGbakHEAt7t5dZefO3yg4BwpXopw3Ksc5OKGsxHDSx5L
+ ai94Qkuu5LBjmZP1tszT2Tv9vPj9c725nWOMJr98b/OHUt7DUu0PT467WPHt0pmAg9lDh5PRVIo
+ qVuyP9exhWgU/xTPlYkdKW/eRiNTbCJDL6Mg3ekHpRu0xdoO4FNGkV+PTIM=
+X-Google-Smtp-Source: AGHT+IHUI/GfBvqMOBGLfMGJ5oC3n7CH3DWUPWiGMnSbl7+9ajR5P08W9uLIpwe5ervzERP38Emslg==
+X-Received: by 2002:a05:600c:198e:b0:439:94f8:fc74 with SMTP id
+ 5b1f17b1804b1-43d01b88b9amr24028355e9.0.1741719756112; 
+ Tue, 11 Mar 2025 12:02:36 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.198.86]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ce70d13b4sm127681155e9.38.2025.03.11.12.02.31
+ 5b1f17b1804b1-43ce70d13b4sm127681155e9.38.2025.03.11.12.02.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Mar 2025 12:02:32 -0700 (PDT)
+ Tue, 11 Mar 2025 12:02:35 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 11 Mar 2025 20:01:57 +0100
-Subject: [PATCH v4 07/19] drm/msm/dpu: Clear CTL_FETCH_PIPE_ACTIVE on mixer
- reset
+Date: Tue, 11 Mar 2025 20:01:58 +0100
+Subject: [PATCH v4 08/19] drm/msm/dpu: Clear CTL_FETCH_PIPE_ACTIVE on
+ ctl_path reset
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250311-b4-sm8750-display-v4-7-da6b3e959c76@linaro.org>
+Message-Id: <20250311-b4-sm8750-display-v4-8-da6b3e959c76@linaro.org>
 References: <20250311-b4-sm8750-display-v4-0-da6b3e959c76@linaro.org>
 In-Reply-To: <20250311-b4-sm8750-display-v4-0-da6b3e959c76@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
@@ -87,21 +87,21 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Srini Kandagatla <srinivas.kandagatla@linaro.org>, 
  Rob Clark <robdclark@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1109;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1115;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=o16ipdDJogxXtmv8XiNUlgMzR8bXtNv0QSZLobZ5CdA=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBn0IirK+DqA2UIM8DZHlsOXQa9Nx+Al/d/PGk1R
- zQAUrjjVOmJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ9CIqwAKCRDBN2bmhouD
- 16IQEACUNi5yj4LEEOfNFUK6AUDkaxdL1plVw/D8RsMSuzs0lPQIhs82LP+td2eIZavNoPmewxT
- Igl4mnEYW8nQdNDaN3+n9twRQAZFtl9zAxy/h/YLO34xhoY0cggoqpxgHPPEKPAcsSP3THmB/LE
- x6eSi9ZqlInAaiYO/vMxRJKZUMRWI5kyKQ9g1Inf3O2rJM5RHt59BlSiqW5xw7pv03gXPUL8jEO
- D3Tn6tu0ogHvP/ry+9bfRxQtp3V3i7UYc1ueD3eOC0iTAnWY8F5maVhZW7Wpb6EOkw7lltEqE1E
- 236OEMinPy4moxCSHToijfAmTL8NQF5E1ab9Wgbwb52r5WUfI75I8hPGfXn48NGf89ZVt3qkXZd
- zpYGtE9jhw36+c9QzxJuCXueXWPEWnujIeGHxjfT4D1q60r9XhABITpSdz7aCF0zn0xojgeDuWR
- jI+WVmQJk2CsFfe0PcsZMsax0FL97wB4MGPRR2DopFh4gcH5hmSrYFl/iUsHrupoe15Qk9P+6FP
- 2FiSuSYH4ZgwHGShWinySJYjb4MbOX8oPTNSht6iNMlxmfzyuPUqczLAPpSCE8kMOHLlEBZ26lx
- 1XRzXZO9k2uw/h8flwYU84oaGIkOmssZZOpYnsFpFnr8qcpBzyMHDmSNFCfC/lar2jRkO0lAaXy
- vIgcSk1MY5MuiaA==
+ bh=y6bWRccagbxiPugi9lqg3LxI5q7Luq+aGXW341tS1oo=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBn0IirZiMlFxIwx/kR+5CN6LQ3oI+wkm7qHAayp
+ hUmAyRP61CJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ9CIqwAKCRDBN2bmhouD
+ 1wb3EACZNeztGLSxAB1Jrehurx9bUz7y7xVphpXYvou6pmU5jzCVchBQAyL8H06dHtkF/USEAME
+ PjWBgSX+pMv+XgZPHpS5LMcwTMbqhq+Wqkr2kcDK6NlJmcs73zqBXrth372YEkRA8o5GCdw8FNC
+ Y6sJ4dZlEQ9SsrCrSX2zkKZqtWigfDoA7xT/t5YV+1CBKG8Fl4wT/6PMVqIdxZuuedrh16802jU
+ uKsFObCjV7DbADi4TGkM3VobbZ4JNyUC+A5h9cTICYDPo2TZF2RRCazQNXtUnDdy+kahUi6mrnY
+ vKBDezawNLxOzN1L2D4YaDKxBjNvULH7GF0kdSe9F+Wnqu/r9GIh/q9aa+7hOwe5ZzjtQA9WOjE
+ 8vgCEuSTwFpbBYOJoda2m+eLXLAXWyI+aCTnQm1LwFmfv6hoif5uOYEstvl8k/0U9itEvlKDtaB
+ jhQBIEe7YH+FzNcofg1WXN14yOITrTbdj7Foz6axPodRVHweRunALci7Bn4pTogy5yOXoiiwrf9
+ 2eKLxrVAGWwACGfqaePe85ONfxCaDB/aYSKZnu9OKHaOQ78OTswV6BagZKrQ8EE2/yoBgCcnwBi
+ GLhNs1AQy9dconnR8Q+137TWMtS49s/SqCp9cPq8azzW002V6nKJS4E91m72uSWWuYevbwpWaeo
+ iyggg/4Vc6qXoHg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -119,9 +119,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Resetting mixers should also include resetting active fetch pipes.
+Resetting entire CTL path should also include resetting active fetch
+pipes.
 
-Fixes: ae4d721ce100 ("drm/msm/dpu: add an API to reset the encoder related hw blocks")
+Fixes: e1a950eec256 ("drm/msm/dpu: add reset_intf_cfg operation for dpu_hw_ctl")
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
@@ -129,23 +130,23 @@ Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Changes in v3:
 1. New patch, split from previous big DPU v12.0.
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 3 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 284e69bb47c179ba62363b2df2cebd5172c44f8a..ccf492f27140a2841b454d413e885e4bbd9ee497 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2188,6 +2188,9 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
- 		/* clear all blendstages */
- 		if (ctl->ops.setup_blendstage)
- 			ctl->ops.setup_blendstage(ctl, hw_mixer[i]->idx, NULL);
-+
-+		if (ctl->ops.set_active_fetch_pipes)
-+			ctl->ops.set_active_fetch_pipes(ctl, NULL);
- 	}
- }
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+index 951d5dccab6faf34a519d06683514aea1ee6ef60..2ce59ba50ffa0d14eaa07e993fadf0f218390ef1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+@@ -667,6 +667,9 @@ static void dpu_hw_ctl_reset_intf_cfg_v1(struct dpu_hw_ctl *ctx,
  
+ 	dpu_hw_ctl_clear_all_blendstages(ctx);
+ 
++	if (ctx->ops.set_active_fetch_pipes)
++		ctx->ops.set_active_fetch_pipes(ctx, NULL);
++
+ 	if (cfg->intf) {
+ 		intf_active = DPU_REG_READ(c, CTL_INTF_ACTIVE);
+ 		intf_active &= ~BIT(cfg->intf - INTF_0);
 
 -- 
 2.43.0
