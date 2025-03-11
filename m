@@ -2,107 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35BD8A5CEA1
-	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 20:03:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19B44A5CFA0
+	for <lists+freedreno@lfdr.de>; Tue, 11 Mar 2025 20:42:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 002DA10E680;
-	Tue, 11 Mar 2025 19:03:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC45A10E09C;
+	Tue, 11 Mar 2025 19:42:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OX0jkjHZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZkRaRc0U";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D184C10E684
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 19:03:18 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-43d0953d3e1so320035e9.2
- for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 12:03:18 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCDC710E09C
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 19:42:51 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2240d930f13so9594355ad.3
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Mar 2025 12:42:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741719797; x=1742324597; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=a3bwniejdI/OPbevpLj33tIqt0/bau3qVCvVDzBOjOY=;
- b=OX0jkjHZiCRywf/EGVSjk4lDBlvS3yhj7f3lqjlTp9uH3bi5lsYhw0/5ead/Sw4SHu
- T7AV56S9IwQyILAZQzOevIYuu0tKSdFVXaFGw7lsqu5/5gYLOoSfxn4S+U3YvbnVOHoH
- nrFMzUBAgxU7NA3ofIHdy/Ui6w5zwyvm4imRhPn0+z8ya1HH49egBLTOeg190mc2wud0
- G9ktpXvu2wNBb9YsWvZFLCwF5fZZHPOYYhzC9cHkJoEQUMMv5mQoMKWhsFhwcKf1nJfA
- kziEqc1vSZjh5qRH9BD6+upiLv14espoV7Fw4f++N/q0djTEy+h7prG1iIggFB3JQ7K4
- L7ow==
+ d=gmail.com; s=20230601; t=1741722171; x=1742326971; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8N/4+Bu0y09vjMihB3VFFSKzM9LtDAemE75jVPYGVnw=;
+ b=ZkRaRc0U/mbQXX53n2B/iM7juFPryPE3qrz1jREwHk5XUFh3EPs4Ip03JrybixCxDn
+ 6UculpYmtcTRGJuWm7vh20B74nBiVf1nm0woensr1OXOTMu4NhyXV139uPMuGnbW+GIU
+ FxD1Nh9xP6DG/yf40j81p4H8gL5AUtAgC+Hi7Bee8tjQs5rV1mAgiHdrG7durwJGiZ9Z
+ JhllRgbv6qSlx8ITeZZ7mT1Yf409KhldELjf9uYzyIZr3HofNiD3ieEVEVslh/NpqEve
+ lIEymTwV8qKC2GVApCmklMpUYP3oZUNEZzVnaRwyNqfrhR6B2J+tDXPD21pciUWrF311
+ mOpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741719797; x=1742324597;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1741722171; x=1742326971;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=a3bwniejdI/OPbevpLj33tIqt0/bau3qVCvVDzBOjOY=;
- b=ZK5jF1zAwlhZ78q3e1Rb4uNJzYMHuvDpGGbHHwtjbV4TLkXafiMNHXpeDQMAZvTyo1
- rt8rvoGI+m9V9g20ymuhDEixRvb58S/x+6TYbGIZXDl2/X/MFk+ten0MkniFCZDaPRhU
- hjGK9+UME+AwUL9wW6fyLd6xpCYYqiVZ6NVkMQ/1l2A/r6cAJZtcDBugToHP0d+kyS4T
- l+tnTYj8qkfeAB9vAfSzQF8bOlcaQkt1hw7GFCLZOhR/KhYvVNQ29sOSD1TDGycFT9fQ
- ddrdpjUh/QewNa9gXEvRXaD26X8Ptuhdg8J68CpgwWsXrIrWabCjNPHWSUwqTDbTEQbh
- FsTQ==
+ bh=8N/4+Bu0y09vjMihB3VFFSKzM9LtDAemE75jVPYGVnw=;
+ b=NT9o/TBlZwV4AD3/S91dgSKErqGjYEiom1u1fEyxXSzldGoD6Tqm4UVcvsxQmf+xcI
+ LrjhNnG7ts687ckYs+65Z5Oo4oo+7UwbtpqfoKo6rS6mnuh/OiSuxBaqxfF3f+yQ0Vhl
+ rOqI1aWDq6/Cf+2vmyUx8M3yp6yFogdKLpYOqconx4nf0xfdIoTH0tDumYcZn9URDTwp
+ hYRpifWz1i8NCPpCtQPBO1OkmJxpJD8B+lt90D7PWZ/IdHuPM2AzloDNtfBjdJbax048
+ Wis3pQt4Z87MqsX8x40hJD254rAA86ya5VP5UnBlYwYh6zl/DKTYGWa5ftjQsA8xgls9
+ SW2w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX6V1NCyMrJgXQn7Wk2nF3iF4hgc+GqYiMvN1bFAap9uy0hcRSmX5b+hTRwLvEQYmADfuPGOUEz/FE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwyCmxxNlGkE35nnxIDR2Iz7Kxdn7wv+9zSp9QzhYA4m8k7VhN4
- r9WHrvzFmASRTb7uZpofJktufE1Kfw6TfUVrSj9OzQOvCuKFoEmPzXbnRPqR6xg=
-X-Gm-Gg: ASbGncvLiQplgqB7aOnTS6Ldw0r/CraoZ+BaAz2p7r8CvroaIB42aVrYXeRc2I4/m49
- hdwIeMVZhMcifE8ErynMccpSzbC8OA9mDUcBOeLFCW6XcedNOdOsxcoUu8IexiY1Zs3QfI+0qfL
- nP6sRX3IMFzh9PlJ4gW2VyYbVZNXlyUZMNNaZL7w9uipr3V42X89+3tVyh5kC0rI11d5y9zaT7k
- smId61a0+KR0HAzmIlQkovqzjdMXnS2jTDBmT6rW4Auj5KjXinV+zL92wSbI3tbvsGDsgu2lj5R
- 3CEUa8Czy2dl0ZKrB9N2RQGSKCOg5IrHIYJygQDUHX7GlgGJa5O2Mva62+M=
-X-Google-Smtp-Source: AGHT+IHF8uLli3Mscw7Wz7pzlQgN98nmS03vxbjY+FMS38uVER5+D4/KmiqUOx0hRsjBec9IPhX0ew==
-X-Received: by 2002:a05:600c:1c9a:b0:43b:c228:1ee0 with SMTP id
- 5b1f17b1804b1-43d01c2abc9mr25985105e9.7.1741719797380; 
- Tue, 11 Mar 2025 12:03:17 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.198.86]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ce70d13b4sm127681155e9.38.2025.03.11.12.03.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Mar 2025 12:03:16 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 11 Mar 2025 20:02:09 +0100
-Subject: [PATCH v4 19/19] drm/msm/mdss: Add support for SM8750
+ AJvYcCVGZ9N2Xg68n/NwQ854b7T2KyyIGqI6oez5u8+dls5r7WqnmswpLbz6tTE2nJHJv4dVmhi+pNY4g4M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVM1dwo6xrMCVs0rMs3z2nyaJayqMbhA77Nnkqyxu9zhFPORsq
+ 7Z23sYoWDxwDFI3vqzHrpihCkafDPkthFCSX98cIUeAdCf/OInci7hs0hn3d3lXj/t6OnxOjpiV
+ /XjbrBxRONaVczXouqROFrfCitH0=
+X-Gm-Gg: ASbGncvcXCtQ26jDp/tXtJt23RwBj+n4C7QX16lKAC8g5wPXTPA792S/TuBVSXDb7hH
+ BBrfyyiXfmrowkzaBXMC+LoY2YQRPaRJPaK1M+V1PzrNx6t3Naf3x5/Fvl95DeL09oo6HlYDf/e
+ kp3fkJAXoZVbWJikAo/s3lQVkPMa2eQ0zwEu6s
+X-Google-Smtp-Source: AGHT+IFUV+t76koSVwvfP0DiZwzaDgX4TU97m1RDJMgX9rF6Maeao/NZF5n1twVNajoiVfnFuWNdcIiFIJEURljqxUQ=
+X-Received: by 2002:a05:6a00:3e04:b0:730:9989:d2d4 with SMTP id
+ d2e1a72fcca58-736eba65be7mr2466708b3a.3.1741722171206; Tue, 11 Mar 2025
+ 12:42:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250311-b4-sm8750-display-v4-19-da6b3e959c76@linaro.org>
-References: <20250311-b4-sm8750-display-v4-0-da6b3e959c76@linaro.org>
-In-Reply-To: <20250311-b4-sm8750-display-v4-0-da6b3e959c76@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
- Srini Kandagatla <srinivas.kandagatla@linaro.org>, 
- Rob Clark <robdclark@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3191;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=npT/AUk70cBHCRbn81WnGX4UoVxSXbDYwaGyJuk3VME=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBn0Ii1yuO48mmFAfjVI5TUjpkb33aMMB6mobfjo
- UUveOoKZZCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ9CItQAKCRDBN2bmhouD
- 17owD/9LjgAfcE9wntXboxUQq1wq53OyBXwxPik3FSCXq00B/qklbILV0ge/Szdeo9zTuS8y3DG
- knhGywWnB9nHdRoi+TPbAZBJs8cuw7tnj4TNMi3FYQd9cQySHGKHAE7ioVFYfYHEMGctY+Jt2nr
- 5lJrIhhz8dUXHl/FUI7jfDdrcg/L6pWAoEI+YideSmhj/cj7gs04qCP0jVZwnNEle8pUv/YPQeg
- KI72byD5UP8v7iIM1/PurcrImftuR4WoV+eNVAJwh7SaeCem6YbZIW8rZK2vfiNbtHEu+2G2Qc0
- rD8nmha0MhFUXguzZfTaaqFP0Bup6J84yfAoondQpmxp9zMu780/O5Q1/8rrl2boTiIVZw5rSwg
- bmHjqCnfBMtHi1PfdJhQagiDmbQwLR7fOgBaHvc2IPG2AqgLmB5lFQC2NeiWDhv9NY0HQKKOxLE
- PeGtM37TtdWZYYHppyE8o/vKWNFXJl622/lZPmfLlqBDeqSe0FDrb4sARfnpXdv1STDLqHXtYFb
- mAD80MXlqqvpo5/gO4ySYdZUluuS6zkd+/cq7EXE/h6W9H3oRVVV4abUnquCLbPfZMQITgvWlii
- alysPpRr0FTtk14vawx9/5uirQdtKn8irnP7UvKc6S/k0YG84FMg+E/ieo3N6NGBDiQ21fVOsiS
- bWBVJLuy1zrqZWw==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+References: <20250304-msm-gpu-fault-fixes-next-v4-0-be14be37f4c3@gmail.com>
+ <20250304-msm-gpu-fault-fixes-next-v4-2-be14be37f4c3@gmail.com>
+ <20250311180807.GC5216@willie-the-truck>
+In-Reply-To: <20250311180807.GC5216@willie-the-truck>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Tue, 11 Mar 2025 15:42:38 -0400
+X-Gm-Features: AQ5f1Jpiv6Ky6TiyCXBXNy8BjxnsE1wP6MKIErri1CZPIQdm5BNmyqGHT0u49Nw
+Message-ID: <CACu1E7Hw6vGbTQ7t-Hj3ziycZhPxtOGSDkt7o4fNUx91KDcXfg@mail.gmail.com>
+Subject: Re: [PATCH v4 2/5] iommu/arm-smmu-qcom: Don't read fault registers
+ directly
+To: Will Deacon <will@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
+ Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,93 +92,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for the Qualcomm SM8750 platform.
+On Tue, Mar 11, 2025 at 2:08=E2=80=AFPM Will Deacon <will@kernel.org> wrote=
+:
+>
+> On Tue, Mar 04, 2025 at 11:56:48AM -0500, Connor Abbott wrote:
+> > In some cases drm/msm has to resume a stalled transaction directly in
+> > its fault handler. Experimentally this doesn't work on SMMU500 if the
+> > fault hasn't already been acknowledged by clearing FSR. Rather than
+> > trying to clear FSR in msm's fault handler and implementing a
+> > tricky handshake to avoid accidentally clearing FSR twice, we want to
+> > clear FSR before calling the fault handlers, but this means that the
+> > contents of registers can change underneath us in the fault handler and
+> > msm currently uses a private function to read the register contents for
+> > its own purposes in its fault handler, such as using the
+> > implementation-defined FSYNR1 to determine which block caused the fault=
+.
+> > Fix this by making msm use the register values already read by arm-smmu
+> > itself before clearing FSR rather than messing around with reading
+> > registers directly.
+> >
+> > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+> > ---
+> >  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 19 +++++++++----------
+> >  drivers/iommu/arm/arm-smmu/arm-smmu.c      | 14 +++++++-------
+> >  drivers/iommu/arm/arm-smmu/arm-smmu.h      | 21 +++++++++++----------
+> >  3 files changed, 27 insertions(+), 27 deletions(-)
+>
+> [...]
+>
+> > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/=
+arm-smmu/arm-smmu.h
+> > index d3bc77dcd4d40f25bc70f3289616fb866649b022..411d807e0a7033833716635=
+efb3968a0bd3ff237 100644
+> > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> > @@ -373,6 +373,16 @@ enum arm_smmu_domain_stage {
+> >       ARM_SMMU_DOMAIN_NESTED,
+> >  };
+> >
+> > +struct arm_smmu_context_fault_info {
+> > +     unsigned long iova;
+> > +     u64 ttbr0;
+> > +     u32 fsr;
+> > +     u32 fsynr0;
+> > +     u32 fsynr1;
+> > +     u32 cbfrsynra;
+> > +     u32 contextidr;
+> > +};
+> > +
+> >  struct arm_smmu_domain {
+> >       struct arm_smmu_device          *smmu;
+> >       struct io_pgtable_ops           *pgtbl_ops;
+> > @@ -380,6 +390,7 @@ struct arm_smmu_domain {
+> >       const struct iommu_flush_ops    *flush_ops;
+> >       struct arm_smmu_cfg             cfg;
+> >       enum arm_smmu_domain_stage      stage;
+> > +     struct arm_smmu_context_fault_info cfi;
+>
+> Does this mean we have to serialise all faults for a given domain? That
+> can't be right...
+>
+> Will
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/gpu/drm/msm/msm_mdss.c | 33 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/msm_mdss.h |  1 +
- 2 files changed, 34 insertions(+)
+They are already serialized? There's only one of each register per
+context bank, so you can only have one context fault at a time per
+context bank, and AFAIK a context bank is 1:1 with a domain. Also this
+struct is only written and then read inside the context bank's
+interrupt handler, and you can only have one interrupt at a time, no?
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index dcb49fd30402b80edd2cb5971f95a78eaad6081f..3f00eb6de3a9d2bee7637c6f516efff78b7d872b 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -222,6 +222,24 @@ static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
- 	}
- }
- 
-+static void msm_mdss_setup_ubwc_dec_50(struct msm_mdss *msm_mdss)
-+{
-+	const struct msm_mdss_data *data = msm_mdss->mdss_data;
-+	u32 value = MDSS_UBWC_STATIC_UBWC_SWIZZLE(data->ubwc_swizzle) |
-+		    MDSS_UBWC_STATIC_HIGHEST_BANK_BIT(data->highest_bank_bit);
-+
-+	if (data->ubwc_bank_spread)
-+		value |= MDSS_UBWC_STATIC_UBWC_BANK_SPREAD;
-+
-+	if (data->macrotile_mode)
-+		value |= MDSS_UBWC_STATIC_MACROTILE_MODE;
-+
-+	writel_relaxed(value, msm_mdss->mmio + REG_MDSS_UBWC_STATIC);
-+
-+	writel_relaxed(4, msm_mdss->mmio + REG_MDSS_UBWC_CTRL_2);
-+	writel_relaxed(1, msm_mdss->mmio + REG_MDSS_UBWC_PREDICTION_MODE);
-+}
-+
- #define MDSS_HW_MAJ_MIN		\
- 	(MDSS_HW_VERSION_MAJOR__MASK | MDSS_HW_VERSION_MINOR__MASK)
- 
-@@ -339,6 +357,9 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
- 	case UBWC_4_3:
- 		msm_mdss_setup_ubwc_dec_40(msm_mdss);
- 		break;
-+	case UBWC_5_0:
-+		msm_mdss_setup_ubwc_dec_50(msm_mdss);
-+		break;
- 	default:
- 		dev_err(msm_mdss->dev, "Unsupported UBWC decoder version %x\n",
- 			msm_mdss->mdss_data->ubwc_dec_version);
-@@ -722,6 +743,17 @@ static const struct msm_mdss_data sm8550_data = {
- 	.reg_bus_bw = 57000,
- };
- 
-+static const struct msm_mdss_data sm8750_data = {
-+	.ubwc_enc_version = UBWC_5_0,
-+	.ubwc_dec_version = UBWC_5_0,
-+	.ubwc_swizzle = 6,
-+	.ubwc_bank_spread = true,
-+	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
-+	.highest_bank_bit = 3,
-+	.macrotile_mode = true,
-+	.reg_bus_bw = 57000,
-+};
-+
- static const struct msm_mdss_data x1e80100_data = {
- 	.ubwc_enc_version = UBWC_4_0,
- 	.ubwc_dec_version = UBWC_4_3,
-@@ -756,6 +788,7 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,sm8450-mdss", .data = &sm8350_data },
- 	{ .compatible = "qcom,sm8550-mdss", .data = &sm8550_data },
- 	{ .compatible = "qcom,sm8650-mdss", .data = &sm8550_data},
-+	{ .compatible = "qcom,sm8750-mdss", .data = &sm8750_data},
- 	{ .compatible = "qcom,x1e80100-mdss", .data = &x1e80100_data},
- 	{}
- };
-diff --git a/drivers/gpu/drm/msm/msm_mdss.h b/drivers/gpu/drm/msm/msm_mdss.h
-index 14dc53704314558841ee1fe08d93309fd2233812..dd0160c6ba1a297cea5b87cd8b03895b2aa08213 100644
---- a/drivers/gpu/drm/msm/msm_mdss.h
-+++ b/drivers/gpu/drm/msm/msm_mdss.h
-@@ -22,6 +22,7 @@ struct msm_mdss_data {
- #define UBWC_3_0 0x30000000
- #define UBWC_4_0 0x40000000
- #define UBWC_4_3 0x40030000
-+#define UBWC_5_0 0x50000000
- 
- const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev);
- 
-
--- 
-2.43.0
-
+Connor
