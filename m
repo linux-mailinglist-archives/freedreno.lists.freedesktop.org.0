@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC4A3A5DBDB
-	for <lists+freedreno@lfdr.de>; Wed, 12 Mar 2025 12:46:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D275A5DBE8
+	for <lists+freedreno@lfdr.de>; Wed, 12 Mar 2025 12:48:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8BE110E0AD;
-	Wed, 12 Mar 2025 11:45:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44D7E10E114;
+	Wed, 12 Mar 2025 11:48:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jTziJHhg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="slYiwfFl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D76AB10E0AD;
- Wed, 12 Mar 2025 11:45:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7398C10E114;
+ Wed, 12 Mar 2025 11:48:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 15891A46986;
- Wed, 12 Mar 2025 11:40:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E2FC4CEEE;
- Wed, 12 Mar 2025 11:45:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9CE6C5C431F;
+ Wed, 12 Mar 2025 11:45:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED828C4CEE3;
+ Wed, 12 Mar 2025 11:48:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741779957;
- bh=AGRqmwUTIygKiqPKyMDl1Xfn64z9qv9+ODfA6XnE8TY=;
+ s=k20201202; t=1741780087;
+ bh=R8v6pS0pixsrHLGD3aftIutJXs5Es7Ccu+wDgrw5dfQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jTziJHhgTLIits6Md7rklsxcwoC9511QKZbqrNdHamLJeb8xlvPSyzn5P7U3j4DFA
- 4oZ7OpgqzERYsppkzvV3JIeNcwJE3+bhHmtnf0iqrR7O89CdJ/5qcyE0b425Q9hRXY
- H99+UB8CZWASWwCWItFuxNluGPeWJWlU86ru6bmXDmaTDbije+cPwtlsUkEYJHjwjq
- ngeFDD6nRaMxX+pf2eu/hgCOT0hhoW97KEiPIu7Hu22CD0deC+nkK7NTAmbK0uFbw9
- dFxeVuaBEmIUVN+lKMcB80K9iKEqp2+XbmjM9CbTYe9zgwQUcaPRPyXd6s33cGcg05
- ADtHScuiRjJ8g==
-Date: Wed, 12 Mar 2025 12:45:53 +0100
+ b=slYiwfFlETo+CSOzUJfEviQJA3id2tmJKLSvxzbMzg7HtHWPTHlVwz+LwX+GAWsCa
+ xanbQiLQbbUIKSPUg/XZnlPtR1KZE8dDBmijAvmF2c+5REYDKdWVZFzNssdUTLJ040
+ EjGuwT5BGAsHa+Ye/Lbgna9pDpkYewuCm4sJN5ZMsbt6JWXh37g43AHM4P95pH3T89
+ QT4ZhxRODZzca56xRKeXQiDXENaoroZ0JGTuZU2sNMoGsbFQ0wkTvxKC+531zQ47Lk
+ 7c1n8hiTvqrg2dxnLAUX51w9PDk6uyj69r2dkH8mp/eMUtremxUvFPhnvxeJzT9fZo
+ 3aaVAnitvBnMg==
+Date: Wed, 12 Mar 2025 12:48:03 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Ayushi Makhija <quic_amakhija@quicinc.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
@@ -44,15 +44,15 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
  quic_abhinavk@quicinc.com, quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
  quic_jesszhan@quicinc.com
-Subject: Re: [PATCH v2 03/10] dt-bindings: display: msm: document DSI
- controller and phy on SA8775P
-Message-ID: <20250312-calm-steadfast-cricket-fe9dd8@krzk-bin>
+Subject: Re: [PATCH v2 07/10] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
+ to DP bridge nodes
+Message-ID: <20250312-athletic-cockle-of-happiness-e88a3a@krzk-bin>
 References: <20250311122445.3597100-1-quic_amakhija@quicinc.com>
- <20250311122445.3597100-4-quic_amakhija@quicinc.com>
+ <20250311122445.3597100-8-quic_amakhija@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250311122445.3597100-4-quic_amakhija@quicinc.com>
+In-Reply-To: <20250311122445.3597100-8-quic_amakhija@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,42 +68,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 11, 2025 at 05:54:38PM +0530, Ayushi Makhija wrote:
-> Document DSI controller and phy on SA8775P platform.
+On Tue, Mar 11, 2025 at 05:54:42PM +0530, Ayushi Makhija wrote:
+> Add anx7625 DSI to DP bridge device nodes.
 > 
 > Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
 > ---
->  .../display/msm/qcom,sa8775p-mdss.yaml        | 188 ++++++++++++++++++
->  1 file changed, 188 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
-> index a90a8b3f1a9e..628ca68871f4 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
-> @@ -52,6 +52,26 @@ patternProperties:
->          items:
->            - const: qcom,sa8775p-dp
->  
-> +  "^dsi@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +
+>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 208 ++++++++++++++++++++-
+>  1 file changed, 207 insertions(+), 1 deletion(-)
+>
 
-Drop blank line
+So you just gave up after one comment? Context of every email should be
+trimmed, so if it is not trimmed means something is still there. I know
+there are reviewers who respond with huge unrelated context, but that's
+just disrespectful to our time and don't take it as normal.
 
-> +    properties:
-> +      compatible:
-> +        items:
+<form letter>
+This is a friendly reminder during the review process.
 
-contains
+It seems my or other reviewer's previous comments were not fully
+addressed. Maybe the feedback got lost between the quotes, maybe you
+just forgot to apply it. Please go back to the previous discussion and
+either implement all requested changes or keep discussing them.
 
-> +          - const: qcom,sa8775p-dsi-ctrl
-> +          - const: qcom,mdss-dsi-ctrl
-
-Drop fallback
-
-Same comments further
-
-Best regards,
-Krzysztof
+Thank you.
+</form letter>
 
