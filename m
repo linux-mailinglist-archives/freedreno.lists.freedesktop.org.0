@@ -2,71 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95279A5EA59
-	for <lists+freedreno@lfdr.de>; Thu, 13 Mar 2025 04:59:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B025A5EBC2
+	for <lists+freedreno@lfdr.de>; Thu, 13 Mar 2025 07:31:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC1110E7EC;
-	Thu, 13 Mar 2025 03:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10C9710E02B;
+	Thu, 13 Mar 2025 06:31:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kGiEvRdO";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="AE/Wt8a4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 104B810E061;
- Thu, 13 Mar 2025 03:59:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741838358; x=1773374358;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=cYwKWE3qx6aAxxggYpyZsccNMSnGdzKXacMIEiXDO/w=;
- b=kGiEvRdO7ypxyKy9Dq7ERrqi+cRZELn0kZdpKbsZ9OglnTZ44djU0w9U
- rjeUe0OEb+klJuessPL5uKt88muhj50SvsOaN0V2wnozm05W+p53IaV0a
- uPMjbQl9b2Wg4CAEsb+rHQ25D4+EY3Kcb5EWfESAoWiFyVGheoDM4By5P
- pGxliT9RptJ7/9KXDqWxzxRo5rPJYZBFRFLRvjzFf2pvYkgFRVfIYgFZP
- 3ynis5t86WFyYFcm33LJOuri/7AwpZX0p4or3qkgFyNo7gqyMVpXQ2Y/T
- B2xA7uHaZV+RuLH6lzZLfwzcuMwJP+qEWPJKV8zq/4PIF8DjTxuCqN9I0 g==;
-X-CSE-ConnectionGUID: Sg6Bp9MCQ2K7iTHHrKFtfg==
-X-CSE-MsgGUID: twVIn27DTL2xdc4lj8xUQA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11371"; a="68294330"
-X-IronPort-AV: E=Sophos;i="6.14,243,1736841600"; d="scan'208";a="68294330"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2025 20:59:17 -0700
-X-CSE-ConnectionGUID: Jk/rBPr/R+CE+fsVXvv0Hg==
-X-CSE-MsgGUID: rCVWNuURQ4Kucu2VbRCsgw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,243,1736841600"; d="scan'208";a="121530505"
-Received: from lkp-server02.sh.intel.com (HELO a4747d147074) ([10.239.97.151])
- by fmviesa009.fm.intel.com with ESMTP; 12 Mar 2025 20:59:12 -0700
-Received: from kbuild by a4747d147074 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tsZij-00096K-1j;
- Thu, 13 Mar 2025 03:59:01 +0000
-Date: Thu, 13 Mar 2025 11:58:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
- airlied@gmail.com, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, geert@linux-m68k.org,
- tomi.valkeinen@ideasonboard.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v4 18/25] drm/renesas/rz-du: Compute dumb-buffer sizes
- with drm_mode_size_dumb()
-Message-ID: <202503131309.ZzS9Tova-lkp@intel.com>
-References: <20250311155120.442633-19-tzimmermann@suse.de>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00AA410E02B;
+ Thu, 13 Mar 2025 06:31:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1741847495;
+ bh=r9wOzZAb7lh74joaS/3Q8N4jgKKEEgxKxSDaj1n8jHs=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=AE/Wt8a4kPLLiHdH/OKdrQl3Hum7kZPqP6rP6CikppGajHzQaRyqWJge8hO6LRKIf
+ 9Xrf1WBtlp7RZxOV1kRcMg/X1/D9zZk/AL85JkkRGUz2m2xQERI/KjX72eDw7UjEvr
+ S+/JQ/bfgQ0V2dN9wj7e6NFur3MAbCuy7/sHgj0ToexfqtvjL1GGreKz5IRsUkyI4X
+ SvYramnoCq2kBkcyjMLWN0GqvyTQdYc3HfQY43zJPFp1iOrgzB5Rac5D3VWXZ1D1g2
+ MRYJqm3cOuQ6VIGvRqPylgP+hNojpMc5lr/ukPavLPEUyOP7oAGjJONk9krMjfSvwF
+ p1H1x0ukgql3g==
+Received: from [192.168.50.250] (unknown [171.76.87.92])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0584117E1521;
+ Thu, 13 Mar 2025 07:31:31 +0100 (CET)
+Message-ID: <f716925c-d8f8-4713-9f02-a373297ab5a3@collabora.com>
+Date: Thu, 13 Mar 2025 12:01:29 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250311155120.442633-19-tzimmermann@suse.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/ci: add kms_cursor_legacy@torture-bo to apq8016
+ flakes
+From: Vignesh Raman <vignesh.raman@collabora.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Helen Koike <helen.koike@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ lumag@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+References: <20241204-cursor_tor_skip-v2-1-f03bcbc4b455@quicinc.com>
+ <cc9501d1-c779-4728-a609-ce83a73f46f6@collabora.com>
+Content-Language: en-US
+In-Reply-To: <cc9501d1-c779-4728-a609-ce83a73f46f6@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,76 +70,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Hi Abhinav,
 
-kernel test robot noticed the following build errors:
+On 13/03/25 07:40, Vignesh Raman wrote:
+> Hi Abhinav,
+> 
+> On 05/12/24 01:29, Abhinav Kumar wrote:
+>>  From the jobs [1] and [2] of pipeline [3], its clear that
+>> kms_cursor_legacy@torture-bo is most certainly a flake and
+>> not a fail for apq8016. Mark the test accordingly to match the results.
+>>
+>> [1] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481
+>> [2] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430
+>> [3]: https://gitlab.freedesktop.org/drm/msm/-/pipelines/1322770
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> ---
+>> Changes in v2:
+>> - Fix the failure rate from 100 to 33 as thats the accurate one
+>> - Link to v1: https://lore.kernel.org/r/20241204-cursor_tor_skip-v1-1- 
+>> f5f0bba5df7b@quicinc.com
+>> ---
+>>   drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt | 5 +++++
+>>   1 file changed, 5 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt b/ 
+>> drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+>> new file mode 100644
+>> index 000000000000..2fb192c92559
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+>> @@ -0,0 +1,5 @@
+>> +# Board Name: msm-apq8016-db410c
 
-[auto build test ERROR on next-20250311]
-[also build test ERROR on v6.14-rc6]
-[cannot apply to drm-exynos/exynos-drm-next rockchip/for-next tegra/for-next drm-xe/drm-xe-next linus/master v6.14-rc6 v6.14-rc5 v6.14-rc4]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Board name should the dtb name. In this case, apq8016-sbc-usb-host
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-dumb-buffers-Sanitize-output-on-errors/20250311-235818
-base:   next-20250311
-patch link:    https://lore.kernel.org/r/20250311155120.442633-19-tzimmermann%40suse.de
-patch subject: [PATCH v4 18/25] drm/renesas/rz-du: Compute dumb-buffer sizes with drm_mode_size_dumb()
-config: i386-buildonly-randconfig-003-20250313 (https://download.01.org/0day-ci/archive/20250313/202503131309.ZzS9Tova-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250313/202503131309.ZzS9Tova-lkp@intel.com/reproduce)
+# Bug Report: https://gitlab.freedesktop.org/drm/msm/-/issues/72
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202503131309.ZzS9Tova-lkp@intel.com/
+Please add the bug report link as well for flake test. I have created an 
+issue in msm.
 
-All errors (new ones prefixed by >>):
+With this fixed,
+Reviewed-by: Vignesh Raman <vignesh.raman@collabora.com>
 
-   In file included from drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c:10:
-   In file included from include/drm/drm_atomic.h:31:
-   In file included from include/drm/drm_crtc.h:32:
-   In file included from include/drm/drm_modes.h:33:
-   In file included from include/drm/drm_connector.h:32:
-   In file included from include/drm/drm_util.h:36:
-   In file included from include/linux/kgdb.h:19:
-   In file included from include/linux/kprobes.h:28:
-   In file included from include/linux/ftrace.h:13:
-   In file included from include/linux/kallsyms.h:13:
-   In file included from include/linux/mm.h:2296:
-   include/linux/vmstat.h:507:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     507 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
->> drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c:80:8: error: call to undeclared function 'drm_mode_size_dumb'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      80 |         ret = drm_mode_size_dumb(dev, args, 16 * args->bpp / 8, 0);
-         |               ^
-   drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c:80:8: note: did you mean 'drm_mode_set_name'?
-   include/drm/drm_modes.h:530:6: note: 'drm_mode_set_name' declared here
-     530 | void drm_mode_set_name(struct drm_display_mode *mode);
-         |      ^
-   1 warning and 1 error generated.
+Regards,
+Vignesh
 
 
-vim +/drm_mode_size_dumb +80 drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
+>> +# Failure Rate: 33
+>> +# IGT Version: 1.28-ga73311079
+>> +# Linux Version: 6.12.0-rc2
+>> +kms_cursor_legacy@torture-bo
+> 
+> Reviewed-by: Vignesh Raman <vignesh.raman@collabora.com>
+> 
+> Regards,
+> Vignesh
+> 
+>>
+>> ---
+>> base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b
+>> change-id: 20241204-cursor_tor_skip-9d128dd62c4f
+>>
+>> Best regards,
+> 
 
-    70	
-    71	/* -----------------------------------------------------------------------------
-    72	 * Frame buffer
-    73	 */
-    74	
-    75	int rzg2l_du_dumb_create(struct drm_file *file, struct drm_device *dev,
-    76				 struct drm_mode_create_dumb *args)
-    77	{
-    78		int ret;
-    79	
-  > 80		ret = drm_mode_size_dumb(dev, args, 16 * args->bpp / 8, 0);
-    81		if (ret)
-    82			return ret;
-    83	
-    84		return drm_gem_dma_dumb_create_internal(file, dev, args);
-    85	}
-    86	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
