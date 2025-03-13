@@ -2,78 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9F7BA5E657
-	for <lists+freedreno@lfdr.de>; Wed, 12 Mar 2025 22:17:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEBDCA5E9A3
+	for <lists+freedreno@lfdr.de>; Thu, 13 Mar 2025 03:11:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C3A10E7D2;
-	Wed, 12 Mar 2025 21:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C19F10E7BC;
+	Thu, 13 Mar 2025 02:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yoA8Aokz";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="K96VwPv+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
- [209.85.219.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4579F10E7D6
- for <freedreno@lists.freedesktop.org>; Wed, 12 Mar 2025 21:17:00 +0000 (UTC)
-Received: by mail-qv1-f49.google.com with SMTP id
- 6a1803df08f44-6dd1962a75bso2530506d6.3
- for <freedreno@lists.freedesktop.org>; Wed, 12 Mar 2025 14:17:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741814219; x=1742419019; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=XxDKgr5VuN6noi0Wfhw4cTV3jZ9TmVruadjdpxToKRg=;
- b=yoA8AokzBKKeCgnepQFmb66D6OcTkVA2ZxYzH2FIhZXopz37JNVt5YaICXGFYlMfQ3
- yB2OFXtcMV9O9Uxrzy9X5/AZ1ehSiWa0CtVsPZvsQTkCHE9F3ZcsjwOd4O4Cw2bTluQE
- ZsuJZ5hLm1Y1YfHvqk+eVXxDib9sNJF9KzCn9IcczruTe1u1Uu/jVsulR6OAD+bNhMZz
- i9Rq1NayrhDEd9VUSVV6+Kv7dYUgNNtrWWzgfdJvNXQSHUeWY822+oW+aimTFJDQtnzT
- lfDzmvbntKMJP80iPGBNgHSBUfGHNYjnL8uz9lS+E+6uL/848JIannves0q5JdR39WPi
- l3jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741814219; x=1742419019;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XxDKgr5VuN6noi0Wfhw4cTV3jZ9TmVruadjdpxToKRg=;
- b=Twqeerr/BvuoTEas0zX18Ep49u8GzGnkRnnMB2sBWawJ8Yb1PPnBGPpQJM0rqBeQ5i
- CYcHd9/Smo9TfpwBe36Hu/tMHy7TZzJHz79QIJDitFECqSm1ODWwfF4kLDQtS+XJ9uUH
- 8UYmpPgs8JX2ubr7XZBBIv03Ii5/y27qS9Ex8CSqvFcwH880Arl0lZdpiXXy67sdAJOt
- dlVGLRoojytmHzkqSB/05W7ky4NKitq/satsNpz7lGDL8mZr9iQ0+AJ6QpL1Eq2HlOp/
- rU/qYP7pwQ8XwNPo8UoI7nTSa9/p/Q8b+018mBG2LhReAJbpJ2NsjeQlPo9+jkzC0TUE
- n7qQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXaLf39+rA2hvhEMq3eHAcdJshX5aUYZbi6ux2EOCQcMx75kgwNn0v+uSlshNoQjMmt042bMuav4Ws=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwBlaZuwMnkA8Cn8UfRYQaiCcjolkYqVliPPk4muGeQkl6U1SkR
- k6ZIAzdSYT90JaXtHn/bV9aKvbEsssmp7bXnCgUfHjrze6EBRRF8zl5AFg0u3RUa4lgNvtZS8zj
- JTnAJntWMTmBgEUX4aZa54ecaezYEP9yJoXy9tA==
-X-Gm-Gg: ASbGnctXx28H85l/NFbl/gVey0ybeDRqpc/egZQx1aEppxxRiUTVmQiMy0ojJ2w1dBg
- 2yqwSDwT26v+bkUr77lk1xrbFUf6XV9TqPWsQzYa7uNQ8208QfWpQLHKLi3QA17fyW0Xf7UJ0Qc
- vPELEnDFCIjEhXDJpSdpA4BW26CA==
-X-Google-Smtp-Source: AGHT+IE8URVhSLvPJIFsnTX7Z5pSwgsdAxYcwLbP1+O/xS7LPEmPA9PmITKDBxz3rcylfz6xQGMlbZxbKqtozlnBWHY=
-X-Received: by 2002:ad4:5b84:0:b0:6e6:698f:cafd with SMTP id
- 6a1803df08f44-6e900681c65mr390346036d6.37.1741814219178; Wed, 12 Mar 2025
- 14:16:59 -0700 (PDT)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B500010E10E;
+ Thu, 13 Mar 2025 02:11:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1741831881;
+ bh=FpC/vTuwIK5xIUgyQayYXS0BC2eQhbdB7objGTLAYV0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=K96VwPv+aIwjbtzVY9PiUbxOZEX7YVvF3CNB/wJzqT34HrNwMBSIY6172lqADQjVk
+ xqGE8H7jqxTScepZPCRIBTlOI5eIVnZ55BOhvUHMMux8yRR2FSSlxtpg1Hnr4h1nHG
+ 7rR+Fpdjnn7k3GVKPKhZ52mYWzfQiaXAHNlMjfrDrx9Lab6deu+lD980tlczpHtm+J
+ dBhB2uksMY+FsynP2gf+lom+DEzd6bsBwHZcGP9gCUrNLgqKYV2ZUaoxCYjmDRPsyF
+ MAThuelWlIXJzj6Z3OR1ZGvcbN4pH5xamSzylh6Ca/BK7fBiF63S1OR5/Bb01Xm5oq
+ YcxJQwdEchJVg==
+Received: from [192.168.50.250] (unknown [171.76.87.92])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5D09C17E1134;
+ Thu, 13 Mar 2025 03:11:18 +0100 (CET)
+Message-ID: <cc9501d1-c779-4728-a609-ce83a73f46f6@collabora.com>
+Date: Thu, 13 Mar 2025 07:40:54 +0530
 MIME-Version: 1.0
-References: <20250311234109.136510-1-alex.vinarskis@gmail.com>
-In-Reply-To: <20250311234109.136510-1-alex.vinarskis@gmail.com>
-From: Stefan Schmidt <stefan.schmidt@linaro.org>
-Date: Wed, 12 Mar 2025 22:16:48 +0100
-X-Gm-Features: AQ5f1JpPzCg_wcL5Oq5TpalUho1WYNfDBRHd08R0PtwUoX5vs0HUJe7LYQzHVM0
-Message-ID: <CAEvtbusre2PUwNiD42d-xTCVf4dV0npN-5UxxwrjriVOsbj0Fg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] drm/msm/dp: Introduce link training per-segment
- for LTTPRs
-To: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, laurentiu.tudor1@dell.com,
- abel.vesa@linaro.org, johan@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/ci: add kms_cursor_legacy@torture-bo to apq8016
+ flakes
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Helen Koike <helen.koike@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ lumag@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+References: <20241204-cursor_tor_skip-v2-1-f03bcbc4b455@quicinc.com>
+Content-Language: en-US
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <20241204-cursor_tor_skip-v2-1-f03bcbc4b455@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,87 +69,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Aleksandrs,
+Hi Abhinav,
 
-On Wed, 12 Mar 2025 at 00:41, Aleksandrs Vinarskis
-<alex.vinarskis@gmail.com> wrote:
->
-> Recently added Initial LTTPR support in msm/dp has configured LTTPR(s)
-> to non-transparent mode to enable video output on X1E-based devices
-> that come with LTTPR on the motherboards. However, video would not work
-> if additional LTTPR(s) are present between sink and source, which is
-> the case for USB Type-C docks (eg. Dell WD19TB/WD22TB4), and at least
-> some universal Thunderbolt/USB Type-C monitors (eg. Dell U2725QE).
->
-> First, take into account LTTPR capabilities when computing max link
-> rate, number of lanes. Take into account previous discussion on the
-> lists - exit early if reading DPCD caps failed. This also fixes
-> "*ERROR* panel edid read failed" on some monitors which seems to be
-> caused by msm_dp_panel_read_sink_caps running before LTTPR(s) are
-> initialized.
->
-> Finally, implement link training per-segment. Pass lttpr_count to all
-> required helpers.
-> This seems to also partially improve UI (Wayland) hanging when
-> changing external display's link parameters (resolution, framerate):
-> * Prior to this series, via direct USB Type-C to display connection,
->   attempt to change resolution or framerate hangs the UI, setting does
->   not stick. Some back and forth replugging finally sets desired
->   parameters.
-> * With this series, via direct USB Type-C to display connection,
->   changing parameters works most of the time, without UI freezing. Via
->   docking station/multiple LTTPRs the setting again does not stick.
-> * On Xorg changing link paramaters works in all combinations.
->
-> These appear to be mainlink initialization related, as in all cases LT
-> passes successfully.
->
-> Test matrix:
-> * Dell XPS 9345, Ubuntu 24.10, Gnome 47, Wayland
->         * Left USB Type-C, Right USB Type-C
->         * Direct monitor connection, Dell WD19TB, Dell WD22TB4, USB
->           Type-C to HDMI dongle, USB Type-C to DP dongle
->         * Dell AW3423DWF, Samsung LS24A600, dual Samsung LS24A600 (one
->           monitor per USB Type-C connector)
-> * Dell XPS 9345, Ubuntu 24.10, Gnome 47, Wayland
->         * Left USB Type-C, Right USB Type-C
->         * Direct monitor connection
->         * Samsung S34BG85 (USB Type-C), Dell U2725QE (universal
->           Thunderbolt/USB Type-C, probes with an LTTPR when in USB
->           Type-C/DP Alt mode)
+On 05/12/24 01:29, Abhinav Kumar wrote:
+>  From the jobs [1] and [2] of pipeline [3], its clear that
+> kms_cursor_legacy@torture-bo is most certainly a flake and
+> not a fail for apq8016. Mark the test accordingly to match the results.
+> 
+> [1] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481
+> [2] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430
+> [3]: https://gitlab.freedesktop.org/drm/msm/-/pipelines/1322770
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+> Changes in v2:
+> - Fix the failure rate from 100 to 33 as thats the accurate one
+> - Link to v1: https://lore.kernel.org/r/20241204-cursor_tor_skip-v1-1-f5f0bba5df7b@quicinc.com
+> ---
+>   drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+> new file mode 100644
+> index 000000000000..2fb192c92559
+> --- /dev/null
+> +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+> @@ -0,0 +1,5 @@
+> +# Board Name: msm-apq8016-db410c
+> +# Failure Rate: 33
+> +# IGT Version: 1.28-ga73311079
+> +# Linux Version: 6.12.0-rc2
+> +kms_cursor_legacy@torture-bo
 
-You can  add the following:
-* Dell XPS 9345, Debian trixie/sid, Gnome 48, Wayland
-        * Left USB Type-C, Right USB Type-C
-        * Dell WD15 Dock with DisplayPort connected
-        * Dell HD22Q dock with HDMI connected
-        * USB Type-C to HDMI dongle
-        * Dell U3417W
+Reviewed-by: Vignesh Raman <vignesh.raman@collabora.com>
 
-> In both cases, "Thunderbot Support"/"USB4 PCIE Tunneling" was disabled
-> in UEFI to force universal Thunderbolt/USB Type-C devices to work in
-> DP Alt mode.
-> In both cases laptops had HBR3 patches applied [1], resulting in
-> maximum successful link at 3440x1440@100hz and 4k@60hz respectively.
-> When using Dell WD22TB4/U2725QE, USB Type-C pin assigment D got enabled
-> and USB3.0 devices were working in parallel to video ouput.
->
-> Known issues:
-> * As mentioned above, it appears that on Gnome+Wayland framerate and
->   resolution parameter adjustment is not stable.
+Regards,
+Vignesh
 
-I can confirm this on Gnome 48 + Wayland as well. Sometimes the resolution
-change from gnome settings gets stuck and does not apply. It normally works
-here around every third try or so when using a dock.
+> 
+> ---
+> base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b
+> change-id: 20241204-cursor_tor_skip-9d128dd62c4f
+> 
+> Best regards,
 
-> Due to lack of access to the official DisplayPort specfication, changes
-> were primarily inspired by/reverse engineered from Intel's i915 driver.
->
-> [1] https://lore.kernel.org/all/20250226231436.16138-2-alex.vinarskis@gmail.com/
->
-> Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-
-Tested-by: Stefan Schmidt <stefan.schmidt@linaro.org>
-
-regards
-Stefan Schmidt
