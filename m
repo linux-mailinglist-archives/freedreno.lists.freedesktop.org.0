@@ -2,87 +2,146 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75102A604DA
-	for <lists+freedreno@lfdr.de>; Thu, 13 Mar 2025 23:59:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57119A609F9
+	for <lists+freedreno@lfdr.de>; Fri, 14 Mar 2025 08:22:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5220410E203;
-	Thu, 13 Mar 2025 22:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C46F710E2F0;
+	Fri, 14 Mar 2025 07:22:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TZfvY3tK";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tnBSZLTR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2B0310E203;
- Thu, 13 Mar 2025 22:59:11 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-3912c09be7dso1000798f8f.1; 
- Thu, 13 Mar 2025 15:59:11 -0700 (PDT)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCC9F10E972
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Mar 2025 07:22:22 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-3912ebb8e88so152107f8f.0
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Mar 2025 00:22:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741906750; x=1742511550; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=yO5kyBpcT0BbdxDO5L56bH6b4vFcrtwYw7f0yDEAAbM=;
- b=TZfvY3tKd1pgyfXc6BD9Z64kctTw69aJWNnSBW9vDFU7UG5sagIat4yOnM9RYDv8eG
- 9d9DWC1prprEThIR9ns7XV7pqgpplC9v4OV+b2VKXbYDhGMJ05Ke8bkrxgPYuBJ5QHeD
- uK3RzSRuCOWXxNYsC/YxpCI97WCqyftM39RwS+uQsk8BCfOzFzuCaTTl65WAnGr1q4j6
- we52ITlPmdabZS7jWny5Tw+n4TEsDwfEy7CnO/4drWk3J1M4uMoko0EqxTJx073HjYBE
- 43IKE/b5M7db/M6IJKk48cymejEqAoK1K0JGBLdfBZRR8xzyH2luiFHe+I5Fle8wVvFN
- BPTg==
+ d=linaro.org; s=google; t=1741936941; x=1742541741; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=7HUWZLB6XvkRSYV5keU5hc5SgzMl7bKgaxvzLFxeeb0=;
+ b=tnBSZLTRBnDHtN2FmCOtP53zE3PQyXeXzQ5y0Tiju1M5kMeXwLNDBV2n+/U8h2mfQ0
+ m4CoI2uT9Nf/Ov7KwoGt1yHCDVOScpDW6o8/Q3LeFAoxabo9QTAYzXBbRdGFE6gCVokf
+ PgPV5k7hOpMo6O8KeKMgzvC+yL8HUQz0KxNYn/7ttVgsfYpxK0rmYYzm0HTuyGYAsA4E
+ ggOtRoQr77TTwAn6U/HgXE/PY7JI/rkTj7YKN2cUF0P27Y/c9erefFqLVJv5gbIKio23
+ t/CecpHT1INmODLfdKL2rJEL9BAm/24xq87+CddPZ5gIboLt4wpRe1dWeEANAmoOibFp
+ +pKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741906750; x=1742511550;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=yO5kyBpcT0BbdxDO5L56bH6b4vFcrtwYw7f0yDEAAbM=;
- b=j4eQAxs576IPYQSzVAx25KAIlpNmMyHSZq29MkwGmcu0qCEowSsZi13QYtNXtBFf3t
- RAbip63f8lfFX+EsGRIKUTG06FCeM/FoBohh6xAbqvH2tvbazRqMUtSastYYNwgudwBq
- r0mmQRokEUysiqgvwbLL+JJD8hlwiY715TmIq9rcIa9AKl17bbzxrFDOn1ZUTNQvY7Ah
- vkk3jJdhb25huAZ4M8YyRVcXlIznS7omLWGe6/pm3V7wUaq1ceZxZWNPza/PFNRAFuhX
- K0zlB8K7PdMV8nTg8DWE+ua440Ai4GopNDWGlLcja4MRYaF2yVqnWdVuQJ0pNyMoL8DZ
- 2iog==
+ d=1e100.net; s=20230601; t=1741936941; x=1742541741;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7HUWZLB6XvkRSYV5keU5hc5SgzMl7bKgaxvzLFxeeb0=;
+ b=c5ZexhSjYJ5oCAWq6hvXmW/9fmA/bWWEMU74gawu9SRj/82dKhQE1Ux115sifmz0ZC
+ 0F4o4SWqIrsgEc5ev3XVJZkXnuJpCe6y8a3EL0ufEYHZOJF2hi3gDQDTvYSt1fptgP3F
+ dIWquRhfSfbJz0Rorucsfhw7RT/Rhhfb9pkMMftypU6d4OfIDylkBhvMjLTb83zB67ZI
+ +renj/D6jdB1B7F3F4mp+4xRAwHkgsFaKolFss0yBaZIDQQ2YMVWM9wRF3zAK7wmSmsI
+ bl5TD2ijZS+ECNppDeyjgNlNYh+Bh44QmfVAPaiXLk3MWaNuF5w4dF7Qzh+cQdABcf/m
+ P+dg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUjg71z+BTkslb34ORX6dCP1hbhZawUYXMPucfUp/pyQz6pLbK3Jb8/dRNY4LKSrlRR3Vr5P8cLQS5O@lists.freedesktop.org,
- AJvYcCWbZUx16JlotVH+XAWq3c5nZhzuojuz21uCDoWIrk1boF6YuWBxsSkEw/49WHuhRovd9fORHNqSv7E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1OX08hMdQI4CCJ42ByQgPsDHkuLEyX98jUSqcMgqKd/vTaECd
- KJOEC2ddx1crIdGIkaXfK5Pu/HJXd3ERd9IOP527oCjGMDF9n2M=
-X-Gm-Gg: ASbGncvzi6worKDXTCGr1z03S3eUYd0CuPL+UwPsZTaFxZ9v5qATKJ0k9KipYdMdnh3
- eECRVtujrmqRWcUnEDjXXZRXyZu8ov0JV9LcSK6YMTKVP5USqC06+i6CKGAgfF6NTMDNeHb6CRQ
- U6PlwXeDz/Nku8gMhDuEh18pwwsDol2vHrnCumgjc4jrxOlWsW5GzWPVlqjH0te9Yb8+M7oN1Sr
- qn1NFd53RLrt5nkYV2XMNAhg/fqjH4ivhREHjSM7ZEA09XVrSzirx5WqiXBM0Bjh8X9S23iql7V
- MBauDI63dvmn1JCra1iQ4ejl4/3zrxLqsisrh/q/9omzjMZqAkRMzQyqsh4Z2L72BdyAUfl6daU
- P2Fx5BCZAvDs=
-X-Google-Smtp-Source: AGHT+IEEcr5tLlHRCwRgIm81YAO79o0KXmqFBuZsB1QvlKMuOiqa3CoD7fSJfWVzyXEVc8D0DoWmIQ==
-X-Received: by 2002:a05:6000:1865:b0:391:275a:273f with SMTP id
- ffacd0b85a97d-3971d1349a3mr141997f8f.4.1741906750151; 
- Thu, 13 Mar 2025 15:59:10 -0700 (PDT)
-Received: from [192.168.20.171] (adsl-178-39-53-103.adslplus.ch.
- [178.39.53.103]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb318a3dsm3503210f8f.74.2025.03.13.15.59.09
+ AJvYcCU2f9NzebCkBXpR7is0klvhXq5EAbR65FEDyiK0YAjojbQMyd+G9XIvqUArSrB0fdXlEgFk7jOP0Ns=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzHMneh56eMA0GU2vzBWy/i/Y4YvVtN+OsHyeAAg9XJqip63yV3
+ fUL7gXjyuQPXWIPz8ESRVIbaVmM15efsRTX9G0eLxCnN3A12RqrNujaPu8uRECA=
+X-Gm-Gg: ASbGncuPKud9/kc8aKm+d0/q2a0MHr8rNQSpqjeQ6fYegfkO635uiVxST3GphLUeZnC
+ cA66PjWPRP6+FKcWFapSsuHv6Tw0YCrmlN974aXc6dKiDGZ+RHYU/B+Z2yZKsqi0Gua5O0nuxX+
+ lPJpnyJYVM81Tl/r4pV7vwXKV4ut5UnLwMgTsd8Bf2eJunFkTWOZrdzqn2DvPUay9dLnJED7aLq
+ 2OBDGWi+UcBNTJO8kYfX6WTPkHLHiJZgoS2+wFImKYx6oFedoWlRMtwHzMyf47HoxnH+RN3Aggm
+ 1hw3KMBULOynUSG00z7Zbsn5wN2iOQIBJXglcPZkUq68nGzW8IteWRHQfQajTWm0rsmkYMsJDA=
+ =
+X-Google-Smtp-Source: AGHT+IFqpUaO5BAfoMAWgpp/S+O2lpqO7jCO2UugS/12kRgniuV1f4bQhR/s6iZFyVH1bsT9wmCuew==
+X-Received: by 2002:a05:6000:186f:b0:391:2b54:5fb5 with SMTP id
+ ffacd0b85a97d-3971f40fecemr667494f8f.10.1741936941192; 
+ Fri, 14 Mar 2025 00:22:21 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.198.86])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c8975febsm4713500f8f.59.2025.03.14.00.22.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 15:59:09 -0700 (PDT)
-Message-ID: <990c38f8-0e7a-4e06-afa7-41d7c63bbc1e@gmail.com>
-Date: Thu, 13 Mar 2025 23:59:08 +0100
+ Fri, 14 Mar 2025 00:22:20 -0700 (PDT)
+Message-ID: <6957575c-9957-48b8-b828-0a6b48d4a743@linaro.org>
+Date: Fri, 14 Mar 2025 08:22:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] drm/msm/dp: Introduce link training per-segment
- for LTTPRs
-To: Stefan Schmidt <stefan.schmidt@linaro.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH 03/11] dt-bindings: power: qcom,kpss-acc-v2: Add MSM8916
+ compatible
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- laurentiu.tudor1@dell.com, abel.vesa@linaro.org, johan@kernel.org
-References: <20250311234109.136510-1-alex.vinarskis@gmail.com>
- <CAEvtbusre2PUwNiD42d-xTCVf4dV0npN-5UxxwrjriVOsbj0Fg@mail.gmail.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Robert Foss <rfoss@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Rohit Agarwal <quic_rohiagar@quicinc.com>,
+ Kyle Deng <quic_chunkaid@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20250306-topic-dt_bindings_fixups-v1-0-0c84aceb0ef9@oss.qualcomm.com>
+ <20250306-topic-dt_bindings_fixups-v1-3-0c84aceb0ef9@oss.qualcomm.com>
+ <a7d76aff-0dc2-4b0e-9ee8-f433d8e745f6@linaro.org>
+ <wccjda6emgvsgn3t5qj7kfsih2stcelnvwu45qok4bbln5kk74@drqp7wrrges4>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
-From: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-In-Reply-To: <CAEvtbusre2PUwNiD42d-xTCVf4dV0npN-5UxxwrjriVOsbj0Fg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <wccjda6emgvsgn3t5qj7kfsih2stcelnvwu45qok4bbln5kk74@drqp7wrrges4>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,101 +158,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 3/12/25 22:16, Stefan Schmidt wrote:
-> Hello Aleksandrs,
+On 13/03/2025 23:53, Bjorn Andersson wrote:
+>>
 > 
-> On Wed, 12 Mar 2025 at 00:41, Aleksandrs Vinarskis
-> <alex.vinarskis@gmail.com> wrote:
->>
->> Recently added Initial LTTPR support in msm/dp has configured LTTPR(s)
->> to non-transparent mode to enable video output on X1E-based devices
->> that come with LTTPR on the motherboards. However, video would not work
->> if additional LTTPR(s) are present between sink and source, which is
->> the case for USB Type-C docks (eg. Dell WD19TB/WD22TB4), and at least
->> some universal Thunderbolt/USB Type-C monitors (eg. Dell U2725QE).
->>
->> First, take into account LTTPR capabilities when computing max link
->> rate, number of lanes. Take into account previous discussion on the
->> lists - exit early if reading DPCD caps failed. This also fixes
->> "*ERROR* panel edid read failed" on some monitors which seems to be
->> caused by msm_dp_panel_read_sink_caps running before LTTPR(s) are
->> initialized.
->>
->> Finally, implement link training per-segment. Pass lttpr_count to all
->> required helpers.
->> This seems to also partially improve UI (Wayland) hanging when
->> changing external display's link parameters (resolution, framerate):
->> * Prior to this series, via direct USB Type-C to display connection,
->>    attempt to change resolution or framerate hangs the UI, setting does
->>    not stick. Some back and forth replugging finally sets desired
->>    parameters.
->> * With this series, via direct USB Type-C to display connection,
->>    changing parameters works most of the time, without UI freezing. Via
->>    docking station/multiple LTTPRs the setting again does not stick.
->> * On Xorg changing link paramaters works in all combinations.
->>
->> These appear to be mainlink initialization related, as in all cases LT
->> passes successfully.
->>
->> Test matrix:
->> * Dell XPS 9345, Ubuntu 24.10, Gnome 47, Wayland
->>          * Left USB Type-C, Right USB Type-C
->>          * Direct monitor connection, Dell WD19TB, Dell WD22TB4, USB
->>            Type-C to HDMI dongle, USB Type-C to DP dongle
->>          * Dell AW3423DWF, Samsung LS24A600, dual Samsung LS24A600 (one
->>            monitor per USB Type-C connector)
->> * Dell XPS 9345, Ubuntu 24.10, Gnome 47, Wayland
->>          * Left USB Type-C, Right USB Type-C
->>          * Direct monitor connection
->>          * Samsung S34BG85 (USB Type-C), Dell U2725QE (universal
->>            Thunderbolt/USB Type-C, probes with an LTTPR when in USB
->>            Type-C/DP Alt mode)
-> 
-> You can  add the following:
-> * Dell XPS 9345, Debian trixie/sid, Gnome 48, Wayland
->          * Left USB Type-C, Right USB Type-C
->          * Dell WD15 Dock with DisplayPort connected
->          * Dell HD22Q dock with HDMI connected
->          * USB Type-C to HDMI dongle
->          * Dell U3417W
+> Where are you carrying these? Are there any other patches on your list
+> that have fallen through the cracks?
 
-Hi,
 
-Thanks for testing, will add on next re-spin.
+Since 4-5 years I have a branch on top of next for pending patches for
+Samsung (initially) and Qualcomm (since ~3 years) bindings, where I
+collect all my and other people's work related to 0-dbts-check
+wanrnings. The point is to avoid duplicated work. Around 2022-2023 the
+branch grew to and kept size of around 100-120 patches. I was rebasing
+it daily.
+
+I don't maintain that branch anymore, so for dtbs-check it has probably
+just 10 patches in total (remaining ~30-40 patches now is some other my
+work). I also rebase it once per month or two months.
+
+That Rayyan's patch is there since ~July/August last year, just like few
+things for IPQ, qcom,pm8941-pon, DWC3.
+https://github.com/krzk/linux/commits/pending/dt-bindings-qcom-new-and-fixes-for-warnings-linux-next/
+
+https://github.com/krzk/linux/commit/f6761796e02330b92653b35ba4b1c20ff304dded
+https://github.com/krzk/linux/commit/fdd475359f378760085d3680423b291eca4bf808
+https://github.com/krzk/linux/commit/855535ad2c4346b49f48c3fea6adbeea2262ffd8
+https://github.com/krzk/linux/commit/f648bb95180f131241a5c7a7808c9f0865379c75
 
 > 
->> In both cases, "Thunderbot Support"/"USB4 PCIE Tunneling" was disabled
->> in UEFI to force universal Thunderbolt/USB Type-C devices to work in
->> DP Alt mode.
->> In both cases laptops had HBR3 patches applied [1], resulting in
->> maximum successful link at 3440x1440@100hz and 4k@60hz respectively.
->> When using Dell WD22TB4/U2725QE, USB Type-C pin assigment D got enabled
->> and USB3.0 devices were working in parallel to video ouput.
+>> https://lore.kernel.org/all/20240710155226.130086-1-rayyan.ansari@linaro.org/
 >>
->> Known issues:
->> * As mentioned above, it appears that on Gnome+Wayland framerate and
->>    resolution parameter adjustment is not stable.
 > 
-> I can confirm this on Gnome 48 + Wayland as well. Sometimes the resolution
-> change from gnome settings gets stuck and does not apply. It normally works
-> here around every third try or so when using a dock.
+> I'm picking Ryan's patch through the Qualcomm tree...
+Thanks! That was my intention. Whenever subsystem maintainer skips such
+simple driver binding, please don't hesitate to pick it up.
 
-Good to know that it isn't issue only on my side :)
-
-Alex
-
-> 
->> Due to lack of access to the official DisplayPort specfication, changes
->> were primarily inspired by/reverse engineered from Intel's i915 driver.
->>
->> [1] https://lore.kernel.org/all/20250226231436.16138-2-alex.vinarskis@gmail.com/
->>
->> Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-> 
-> Tested-by: Stefan Schmidt <stefan.schmidt@linaro.org>
-> 
-> regards
-> Stefan Schmidt
-
+Best regards,
+Krzysztof
