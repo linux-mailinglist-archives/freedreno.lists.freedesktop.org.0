@@ -2,125 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95805A615D9
-	for <lists+freedreno@lfdr.de>; Fri, 14 Mar 2025 17:09:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBB8DA618A3
+	for <lists+freedreno@lfdr.de>; Fri, 14 Mar 2025 18:53:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 705D710E148;
-	Fri, 14 Mar 2025 16:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C50BE10E318;
+	Fri, 14 Mar 2025 17:53:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pCULBLvv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bUIcLe7B";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2CE910E148
- for <freedreno@lists.freedesktop.org>; Fri, 14 Mar 2025 16:09:34 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52EA38t3023050
- for <freedreno@lists.freedesktop.org>; Fri, 14 Mar 2025 16:09:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=4bfnZNLncJjN6sD4k19N7fqv
- 87YFw/Wyvudwmu2GWLw=; b=pCULBLvvEJ5zlulgOx5Keu1ILqe5T/PE0nPgv8wz
- fgd5lJf0gE69EWhdteWIjjhh4xBK3+BNnON8biUvqP0enCRIt4BqNirWryS/hTeX
- zsJ2SHoOLxxp2Ifx3Y0nRG3f6BEs6hmVBtf4qUFal0jDfltfzrfIaO5oz6i+M+7z
- CTIO6+guaadWjLOLT/2xGge9xKLGwZXvFn3stK+WVm7rbmU3fRQ3JlbapvhL9vwi
- sPtuJzbmlahLsX8DQnrqgSuScrx1saoE9Y0bq1m1vpgliA+AOru9iHrIMk2bDWPa
- FoebxzTzNmZk2XqefExvyGTHGvePt7P9xbRkIiHkZu1Eiw==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45cjc58x12-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 14 Mar 2025 16:09:31 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-6e8ffb630ffso38168306d6.1
- for <freedreno@lists.freedesktop.org>; Fri, 14 Mar 2025 09:09:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741968570; x=1742573370;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4bfnZNLncJjN6sD4k19N7fqv87YFw/Wyvudwmu2GWLw=;
- b=kwHOc+YtgzYU3i0H4RpAHmVO2nme5jLffrHa7dElLAADK1xPzXdM4RdqxoyhxACm8I
- 2zZb4CPnhvxpwuvbAot5ps2yZAcTeMuSR0JhW8hRfn2ZrH6lwJN8ZHNs0+sMa94+DeqW
- 5bMFFsCTCS8N8SijxKFOuAYSDM9RO8Y+ORP4b4FgJcyGTaZUtEilLYng3FzszzLNmhdT
- ftFSb4CMkywp+tK6ldQPSiDpGI137Xvp5GVZw4UE4Sv205QUG+eDA0EBhm7BzBXlMdIW
- 60QPr0pY73yrHFEmVtIEkibnWIKDMTDzloHgEyrFwjzRSGO1T5BEobApt+XBBsGj1Qbe
- VYVQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVW5SkzfeaT+8Z1roDsIYEzC3ZzB48y8jNB3UDIGC7Zl8rRnopd6U1njU/c2TZJzOidefzpFWZGayI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YygMV3rt9pvnTH/Yh6P0zkBpuQz7OUlQn2QNomiRS8PeDacGsOi
- KfEV2fzIJd80NdY55poN3qgkz6TOAChKANQHWyalc93a2rGVH4wlqnlpuBCo8LvXFMrvsw13KZN
- tR8cnStzrYM+NCIOOcNk72sAI8GKupautnfTy7jpwKf2+6V97sUIoEDRefg72crioJRs=
-X-Gm-Gg: ASbGncvkOg/JlKAv6H38zt0iSrNUfEZdYSEud8tIkuHNJIeUsYPUTur7QXq29xATDg0
- SpxApsgJPdcWnKBbMS3ejF6lNy+M+YpzQ7p/5V5xRBMYV3mQZBoeMjIPjRbguD/FOAXoBL//Fnb
- a/iOGmWJ7b0+hkUtYlRR0APmhRoqskp+RN8qMRtYftBiiyfwPjitdPsAOLkxKtW28RV2y1wQPlU
- pIxcPyyl6H8wDzS0s14CJaOpl6eCQvBBwZ7OpTnFJ+1TyQbAIqPhNlrsa4xkds8XRRoKAc1JXto
- LkKCY4I/+vptVwhT67OcOO5GETX3z0WaXfq88nmnNwJf4kJDyvBab7uiAAcdMcE7nOueG/kdE8q
- eyo4=
-X-Received: by 2002:a05:6214:226c:b0:6e8:97d2:99a2 with SMTP id
- 6a1803df08f44-6eaeab371camr48807026d6.39.1741968569770; 
- Fri, 14 Mar 2025 09:09:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE2EjdDnqtRenbzdvH5JrG4m54Jxc0lHOH/tkPmuYrU9Psmdz0yG5KOTxSFr5UTWXvBDmjLAw==
-X-Received: by 2002:a05:6214:226c:b0:6e8:97d2:99a2 with SMTP id
- 6a1803df08f44-6eaeab371camr48806386d6.39.1741968569358; 
- Fri, 14 Mar 2025 09:09:29 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30c3f0d3003sm6297611fa.10.2025.03.14.09.09.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Mar 2025 09:09:27 -0700 (PDT)
-Date: Fri, 14 Mar 2025 18:09:24 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 3/4] drm/vc4: use new helper to get ACR values
-Message-ID: <5fjxnvt3e7t3qgvyprpsiun3d2xqqoz5ovwcbabdqpptg5zj27@k4jjjshf2ps7>
-References: <20250309-drm-hdmi-acr-v1-0-bb9c242f4d4b@linaro.org>
- <20250309-drm-hdmi-acr-v1-3-bb9c242f4d4b@linaro.org>
- <20250310-invisible-married-firefly-945c84@houat>
- <esgb42dyhpjixm62tfk2nfzdiygnfn4bcwq4zn7rhydmt4np2q@7v77p7kveb4e>
- <20250311-intrepid-obedient-lizard-64ad2c@houat>
- <wass63nz24l4h3umszsyptb5bnkny4h2wmnbeunjrdfhyacl4l@w6emq2ipt552>
- <20250314-sassy-illustrious-koala-3ad3dd@houat>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250314-sassy-illustrious-koala-3ad3dd@houat>
-X-Proofpoint-ORIG-GUID: EneaKMUGLVOEUOwCH7SN48TUVzchgRlY
-X-Proofpoint-GUID: EneaKMUGLVOEUOwCH7SN48TUVzchgRlY
-X-Authority-Analysis: v=2.4 cv=G/kcE8k5 c=1 sm=1 tr=0 ts=67d454bb cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Vs1iUdzkB0EA:10 a=KKAkSRfTAAAA:8 a=JEape1zOPL1jDBVHQqIA:9 a=CjuIK1q_8ugA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-14_06,2025-03-14_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
- adultscore=0 impostorscore=0 mlxlogscore=726 mlxscore=0 phishscore=0
- spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2503140127
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9203210E1CD;
+ Fri, 14 Mar 2025 17:53:24 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 79CB7A487CE;
+ Fri, 14 Mar 2025 17:47:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E918C4CEE3;
+ Fri, 14 Mar 2025 17:53:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741974800;
+ bh=5NZxvad2uFczUGWwHFcIrEEWa5q75IDbRp+3vgAAUdM=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
+ b=bUIcLe7BZXsuxfxRLxhFOe4XDbUgIDCeAo1QrGvwNrmdvFbLlTMWcKuOLI8rPY5RW
+ p+XP5QNd5nlL0tg0IzWqYmLnZn4saPAXMgJvKuS4k6gqe3xJWq0QWCdH9kd6jZ2oX6
+ s5xTRCNUDFMmA3fQcJ44NP4VzX9ZBUaWr34QsAf77bPE4MwJiMeqEn2tg8pcblmQYJ
+ 2t9wVNWCDHJNG77cQipcAIQVnLP1Ur+2jQPY47nVi8U74jA6yXFccprXDD+hldxheI
+ VW7gWoUAL0uvGAbRX0ZQCHI/juGj6oX10UvFxP4uODy2hJUGuoxTLOn1QinsvvmyLP
+ tLyTp2w/IQ82w==
+Message-ID: <b56aa82c22a2e2ee41dd9689185bc99f@kernel.org>
+Date: Fri, 14 Mar 2025 17:53:17 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v6 1/4] drm/bridge: split HDMI Audio from
+ DRM_BRIDGE_OP_HDMI
+In-Reply-To: <20250314-dp-hdmi-audio-v6-1-dbd228fa73d7@oss.qualcomm.com>
+References: <20250314-dp-hdmi-audio-v6-1-dbd228fa73d7@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, "Abhinav
+ Kumar" <quic_abhinavk@quicinc.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
+ "David
+ Airlie" <airlied@gmail.com>, "Dmitry Baryshkov" <lumag@kernel.org>, "Hermes
+ Wu" <Hermes.wu@ite.com.tw>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jonas
+ Karlman" <jonas@kwiboo.se>,
+ "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Marijn Suijten" <marijn.suijten@somainline.org>, "Maxime
+ Ripard" <mripard@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Rob Clark" <robdclark@gmail.com>, "Robert Foss" <rfoss@kernel.org>,
+ "Sean Paul" <sean@poorly.run>, "Simona
+ Vetter" <simona@ffwll.ch>, "Thomas Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,69 +68,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 14, 2025 at 02:46:09PM +0100, Maxime Ripard wrote:
-> On Tue, Mar 11, 2025 at 06:28:50PM +0200, Dmitry Baryshkov wrote:
-> > On Tue, Mar 11, 2025 at 09:07:10AM +0100, Maxime Ripard wrote:
-> > > On Mon, Mar 10, 2025 at 10:18:04PM +0200, Dmitry Baryshkov wrote:
-> > > > On Mon, Mar 10, 2025 at 03:51:53PM +0100, Maxime Ripard wrote:
-> > > > > On Sun, Mar 09, 2025 at 10:13:58AM +0200, Dmitry Baryshkov wrote:
-> > > > > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > > > 
-> > > > > > Use drm_hdmi_acr_get_n_cts() helper instead of calculating N and CTS
-> > > > > > values in the VC4 driver.
-> > > > > > 
-> > > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > > > ---
-> > > > > >  drivers/gpu/drm/vc4/vc4_hdmi.c | 10 +++-------
-> > > > > >  drivers/gpu/drm/vc4/vc4_hdmi.h |  7 +++++++
-> > > > > >  2 files changed, 10 insertions(+), 7 deletions(-)
-> > > > > > 
-> > > > 
-> > > > > > diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
-> > > > > > index e3d989ca302b72533c374dfa3fd0d5bd7fe64a82..0a775dbfe99d45521f3d0a2016555aefa81d7934 100644
-> > > > > > --- a/drivers/gpu/drm/vc4/vc4_hdmi.h
-> > > > > > +++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
-> > > > > > @@ -211,6 +211,13 @@ struct vc4_hdmi {
-> > > > > >  	 * KMS hooks. Protected by @mutex.
-> > > > > >  	 */
-> > > > > >  	enum hdmi_colorspace output_format;
-> > > > > > +
-> > > > > > +	/**
-> > > > > > +	 * @tmds_char_rate: Copy of
-> > > > > > +	 * @drm_connector_state.hdmi.tmds_char_rate for use outside of
-> > > > > > +	 * KMS hooks. Protected by @mutex.
-> > > > > > +	 */
-> > > > > > +	unsigned long long tmds_char_rate;
-> > > > > >  };
-> > > > > 
-> > > > > This should be in drm_connector_hdmi if it's useful
-> > > > 
-> > > > That would mean bringing the state to a non-state structure on the
-> > > > framework level. Is it fine from your POV?
-> > > 
-> > > Sorry, I'm changing my mind a little bit, but it's pretty much the same
-> > > case than for accessing the infoframes from debugfs: we want to get some
-> > > information stored in the state from outside of KMS.
-> > > 
-> > > What we did for the infoframes is that we're actually just taking the
-> > > connection_mutex from the DRM device and access the drm_connector->state
-> > > pointer.
-> > > 
-> > > I guess it would also work for ALSA?
-> > 
-> > I'd really prefer to follow the drm_connector.infoframes.audio. It makes
-> > sense to group all ALSA-related functionality together. Maybe I should
-> > refactor it to:
+On Fri, 14 Mar 2025 11:36:48 +0200, Dmitry Baryshkov wrote:
+> From: Dmitry Baryshkov <lumag@kernel.org>
 > 
-> That's the thing though: the tmds_char_rate has nothing to do with ALSA.
-> It's useful to derive the parameters, but KMS controls it, it's part of
-> its state, and that's where it belongs.
+> As pointed out by Laurent, OP bits are supposed to describe operations.
+> Split DRM_BRIDGE_OP_HDMI_AUDIO from DRM_BRIDGE_OP_HDMI instead of
+> overloading DRM_BRIDGE_OP_HDMI.
 > 
-> Just like any infoframe but the audio one.
+> [ ... ]
 
-Ack, I'll take a look.
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-
--- 
-With best wishes
-Dmitry
+Thanks!
+Maxime
