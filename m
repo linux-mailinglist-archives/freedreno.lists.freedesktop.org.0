@@ -2,68 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB8EA65E4B
-	for <lists+freedreno@lfdr.de>; Mon, 17 Mar 2025 20:44:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64A76A65F41
+	for <lists+freedreno@lfdr.de>; Mon, 17 Mar 2025 21:37:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77DD510E17F;
-	Mon, 17 Mar 2025 19:44:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C782310E17F;
+	Mon, 17 Mar 2025 20:37:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LOa737wr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fNK+qsZM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D242710E17F;
- Mon, 17 Mar 2025 19:44:49 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 679EC10E15D;
+ Mon, 17 Mar 2025 20:37:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 051235C3CE2;
- Mon, 17 Mar 2025 19:42:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45DB4C4CEE3;
- Mon, 17 Mar 2025 19:44:44 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id C5D49A48D26;
+ Mon, 17 Mar 2025 20:32:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2036C4CEF3;
+ Mon, 17 Mar 2025 20:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742240684;
- bh=OiQVuvTN1/XflXpR3RqcHCaJ640D1uHI1i9Ur7T7qKs=;
+ s=k20201202; t=1742243863;
+ bh=EAH6DiCttghSq5ONxKx1j8unsQnFPM5gcsSzH37iVwk=;
  h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=LOa737wrjHepnbxep326FXIDSAcB2rL++PYLUj/AszMLNZHv7tdoRhUNrX9QZrleC
- A0dKbD1XhZRR5Kv2Fi+eBXALlamDgHb3ExZfje4E09ZLXgLCzdM/CMLltD/YSV7Pql
- e7ZJ5fJgFeVAZJVt/ZwuHnhroS4ZRwlm5COLLNnvU8vbZJXfoyHcuiETR0b9hB60XY
- aFKci0gMNcgOLFIieuVYhfo08wg0yLhvo7tpxm4rMSU2JW1PuIIf5br0HavPhfuvHQ
- PCMfyIH4pXJC7Kvc1Ss6nyRrHrpCcUm6EDHLoZdJDiFJf2sqKkQp++J2gbgdnaGf5p
- pRfeDmX1+CpwQ==
-Date: Mon, 17 Mar 2025 14:44:43 -0500
+ b=fNK+qsZMETCsE4vmpMKLZl6mMxKbZdsm1Ao1mDGWMjmPYCVkQXEsVH09rfa1QEZCx
+ TXKDmiRQLmQufOImGnEtGDP7Mulf2Rnm4WsbooLztBQdCpHtNPwc1Q6NB9RxZ47fO3
+ ZwojOst6zp4Gj5Y2HczDnx1KkC6PVg+0nHIfHM/NG2IpNJkBkIwIpiydFBaU/kJhDd
+ 5+23T/UpyHw9HRtOO5TqmfrL+7fCf+AsMgNpYaYQXQ3lgiHRWuaTjQPH1gK2reI7aJ
+ V0/tCr4gKU5y88UahVcaADEzP8z9wXgLlkpquCy/p2G3ck6oMT8ePuUc21Fl717hWQ
+ 7SDdACX9nDedQ==
+Date: Mon, 17 Mar 2025 15:37:41 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
 Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Conor Dooley <conor+dt@kernel.org>, 
+ Lee Jones <lee@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
- Georgi Djakov <djakov@kernel.org>, James Clark <james.clark@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, Andy Gross <andy.gross@linaro.org>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-kernel@lists.infradead.org, 
- Leo Yan <leo.yan@linux.dev>, Andy Gross <agross@codeaurora.org>, 
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Konrad Dybcio <konradybcio@kernel.org>, David Airlie <airlied@gmail.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- coresight@lists.linaro.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- "Ivan T. Ivanov" <ivan.ivanov@linaro.org>, 
- Mike Leach <mike.leach@linaro.org>, Maxime Ripard <mripard@kernel.org>, 
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Heidelberg <david@ixit.cz>, 
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>, 
- linux-arm-msm@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, freedreno@lists.freedesktop.org, 
+ Kumar Gala <galak@codeaurora.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sean Paul <sean@poorly.run>, "Ivan T. Ivanov" <ivan.ivanov@linaro.org>, 
+ David Heidelberg <david@ixit.cz>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ James Clark <james.clark@linaro.org>, David Airlie <airlied@gmail.com>, 
+ Georgi Djakov <djakov@kernel.org>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, coresight@lists.linaro.org, 
+ linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
  Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Kumar Gala <galak@codeaurora.org>
+ Andy Gross <andy.gross@linaro.org>, Mike Leach <mike.leach@linaro.org>, 
+ linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+ Andy Gross <agross@codeaurora.org>, Leo Yan <leo.yan@linux.dev>, 
+ dri-devel@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <20250317-fix-nexus-4-v1-4-655c52e2ad97@oss.qualcomm.com>
+In-Reply-To: <20250317-fix-nexus-4-v1-0-655c52e2ad97@oss.qualcomm.com>
 References: <20250317-fix-nexus-4-v1-0-655c52e2ad97@oss.qualcomm.com>
- <20250317-fix-nexus-4-v1-4-655c52e2ad97@oss.qualcomm.com>
-Message-Id: <174224068328.474126.11922746474259386307.robh@kernel.org>
-Subject: Re: [PATCH 4/9] dt-bindings: arm:
- qcom,coresight-static-replicator: add optional clocks
+Message-Id: <174224352766.683604.12560729798577306237.robh@kernel.org>
+Subject: Re: [PATCH 0/9] ARM: qcom: fix APQ8064 schema warnings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,40 +77,72 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 17 Mar 2025 19:44:39 +0200, Dmitry Baryshkov wrote:
-> As most other CoreSight devices the replicator can use either of the
-> optional clocks (or both). Document those optional clocks in the schema.
+On Mon, 17 Mar 2025 19:44:35 +0200, Dmitry Baryshkov wrote:
+> Rob's bot has reported [1] several warnings for Nexus 4 submisson,
+> however none of those warnings are specific to that device. Fix all
+> those warnings for all APQ8064 platforms by extending existing schemas,
+> adding missing schemas and making APQ8064 DT follow all the schema
+> files.
 > 
-> Fixes: 3c15fddf3121 ("dt-bindings: arm: Convert CoreSight bindings to DT schema")
+> [1]: https://lore.kernel.org/linux-arm-msm/174221818190.3957236.3364090534153729086.robh@kernel.org/
+> 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->  .../bindings/arm/arm,coresight-static-replicator.yaml          | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+> Dmitry Baryshkov (9):
+>       dt-bindings: soc: qcom,rpm: add missing clock-controller node
+>       dt-bindings: display/msm: describe SFPB device
+>       dt-bindings: soc: qcom: add Smart Peripheral System Interrupt Controller
+>       dt-bindings: arm: qcom,coresight-static-replicator: add optional clocks
+>       ARM: dts: qcom-apq8064: add missing clocks to the timer node
+>       ARM: dts: qcom: apq8064 merge hw splinlock into corresponding syscon device
+>       ARM: dts: qcom: apq8064: use new compatible for SFPB device
+>       ARM: dts: qcom: apq8064: use new compatible for SPS SIC device
+>       ARM: dts: qcom: apq8064: move replicator out of soc node
+> 
+>  .../arm/arm,coresight-static-replicator.yaml       | 10 +++
+>  .../devicetree/bindings/display/msm/qcom,sfpb.yaml | 39 ++++++++++
+>  .../devicetree/bindings/soc/qcom/qcom,rpm.yaml     |  8 ++
+>  .../devicetree/bindings/soc/qcom/qcom,sps-sic.yaml | 38 ++++++++++
+>  arch/arm/boot/dts/qcom/qcom-apq8064.dtsi           | 85 +++++++++++-----------
+>  5 files changed, 136 insertions(+), 44 deletions(-)
+> ---
+> base-commit: 2bb3cf7805af73af62ebfcbb55e350549b6a0912
+> change-id: 20250317-fix-nexus-4-dd0fe3bca987
+> 
+> Best regards,
+> --
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> 
+> 
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
 
-yamllint warnings/errors:
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml: properties:clock-names: 'enum' should not be valid under {'enum': ['const', 'enum', 'exclusiveMaximum', 'exclusiveMinimum', 'minimum', 'maximum', 'multipleOf', 'pattern']}
-	hint: Scalar and array keywords cannot be mixed
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml#
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
 
-doc reference errors (make refcheckdocs):
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20250317-fix-nexus-4-v1-4-655c52e2ad97@oss.qualcomm.com
+  pip3 install dtschema --upgrade
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+New warnings running 'make CHECK_DTBS=y for arch/arm/boot/dts/qcom/' for 20250317-fix-nexus-4-v1-0-655c52e2ad97@oss.qualcomm.com:
 
-pip3 install dtschema --upgrade
+arch/arm/boot/dts/qcom/qcom-ipq8064-ap148.dtb: rpm@108000: 'clock-names', 'clocks' do not match any of the regexes: '^regulators(-[01])?$', 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/soc/qcom/qcom,rpm.yaml#
+arch/arm/boot/dts/qcom/qcom-ipq8064-rb3011.dtb: rpm@108000: 'clock-names', 'clocks' do not match any of the regexes: '^regulators(-[01])?$', 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/soc/qcom/qcom,rpm.yaml#
+arch/arm/boot/dts/qcom/qcom-apq8060-dragonboard.dtb: rpm@104000: 'clock-names', 'clocks' do not match any of the regexes: '^regulators(-[01])?$', 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/soc/qcom/qcom,rpm.yaml#
+arch/arm/boot/dts/qcom/qcom-msm8660-surf.dtb: rpm@104000: 'clock-names', 'clocks' do not match any of the regexes: '^regulators(-[01])?$', 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/soc/qcom/qcom,rpm.yaml#
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+
+
+
 
