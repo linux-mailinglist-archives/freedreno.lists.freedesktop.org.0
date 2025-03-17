@@ -2,121 +2,113 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9226A650A7
-	for <lists+freedreno@lfdr.de>; Mon, 17 Mar 2025 14:22:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4661BA6526C
+	for <lists+freedreno@lfdr.de>; Mon, 17 Mar 2025 15:10:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2BD510E3FC;
-	Mon, 17 Mar 2025 13:22:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A38110E183;
+	Mon, 17 Mar 2025 14:10:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ApvQoRSY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tCtccsA6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ApvQoRSY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tCtccsA6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iu18zEvO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EC1710E3FC
- for <freedreno@lists.freedesktop.org>; Mon, 17 Mar 2025 13:22:41 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7BAC41FDF8;
- Mon, 17 Mar 2025 13:22:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1742217760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BvjmCGnV+8VGo3L2IiQSD86BR3ahfRZ2uwyt6V6eGuo=;
- b=ApvQoRSY76Mslur9CGTSGVU0HFFlU1lDozgOP3lPymSQfR8CD28OmctZDWrXsBHBgDdW3B
- GlNTnCqCShF+HUaANFu2BElAtLw/Y3FtDCJQ2iRwz3SpwazIQgvW6uKccTRwbWwTkDKEbp
- kwDC9IGtbPYPrKjmL5HfCus7RVW5YxY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1742217760;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BvjmCGnV+8VGo3L2IiQSD86BR3ahfRZ2uwyt6V6eGuo=;
- b=tCtccsA6t4WfkHbleV6UfAioCXfeXOA4kLg20sx/BgyCuNDcU03bsMCAyjQEkNj0J4ym+n
- DDgH0x9aKltCmOCA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ApvQoRSY;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=tCtccsA6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1742217760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BvjmCGnV+8VGo3L2IiQSD86BR3ahfRZ2uwyt6V6eGuo=;
- b=ApvQoRSY76Mslur9CGTSGVU0HFFlU1lDozgOP3lPymSQfR8CD28OmctZDWrXsBHBgDdW3B
- GlNTnCqCShF+HUaANFu2BElAtLw/Y3FtDCJQ2iRwz3SpwazIQgvW6uKccTRwbWwTkDKEbp
- kwDC9IGtbPYPrKjmL5HfCus7RVW5YxY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1742217760;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BvjmCGnV+8VGo3L2IiQSD86BR3ahfRZ2uwyt6V6eGuo=;
- b=tCtccsA6t4WfkHbleV6UfAioCXfeXOA4kLg20sx/BgyCuNDcU03bsMCAyjQEkNj0J4ym+n
- DDgH0x9aKltCmOCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2701A139D2;
- Mon, 17 Mar 2025 13:22:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2Nc4CCAi2GdFWQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 17 Mar 2025 13:22:40 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org
-Cc: dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B9D10E40A
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Mar 2025 14:10:23 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52H9xbEU018677
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Mar 2025 14:10:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=1449/WYbuYcaYwnkoadiFehF
+ 7dXcVB4TA3yA3L94cbU=; b=iu18zEvOu1bcysiTo7+4gc+ahaoAAWo0Bi0YKy8H
+ RVs83kjtNbmUim4RzPzGi6PUzyvAvH2HQuKTAD4FOBpbHlrIgbr+Q5bazIIG1ipx
+ dQ4KIERWD38Wq0EsOmr+AeMr3o003f6fZbcclnA5pfdrGJsevfwFQYI/aubHw/8n
+ sn/c5bljdZWQYkdXgU8LMM1sv6/FjPm8UU7K0UyWI6Sv4cEk03vWeX8viefCnp6e
+ hejao6Ve+SWZr1gALc4PLS22MVIQM84ZgW+YxDA4VE39HpKFTBxBTAI9MJ++dTip
+ 24zdzSiD7b4rbuKLnUdyd0wYbbZIiQD5tYgtIoHB5fdltg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45d1r14yq5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Mar 2025 14:10:19 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c3cbb51f03so819695385a.1
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Mar 2025 07:10:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742220618; x=1742825418;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1449/WYbuYcaYwnkoadiFehF7dXcVB4TA3yA3L94cbU=;
+ b=Vvjzxw9alnvVM4ozIHXFYxffr7Bhf6pfopSBd0stJmzZ3m+5+fa6OhfN4Rs0REqCEm
+ h2Q/UDNPvCDDK3QcuT9Xh/4ncCYBRRAYPz0HHZNb+2jQq6bxlAmGIMKCD2fcCxLRUr9g
+ bfTUy94HJXHmQs0sRN2wmO1zrS1gXUBECd6P5LZ9xGEiehKYrtRYKjZr5LyOVzsm3FC+
+ +3dHDFBiGshwLS/jiPz7U/fvGMrAMfjARNzUdW3nHuOnXRwCwf8ddgifKsr3GO3nwnCT
+ mzeadfjZx6oA2lxf4wKeydMB2e5vKTtji1jLK7hMJVhT4/O0ZNs+npEMLvMkeP1NKsXp
+ xqiA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWb6ghsl+yd5cIFOrMInppi/R439UCvR07+auk7ivlmu2NdtPecIhM1BygiLMQvkUz2OMJmSkSzNGQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxscxEJyI3pX1EYJ3lQt1Ji2198uYW6OhZwWTbUQHCaV3YCac2b
+ HsrmfmvzBCYpgOPSgcCXjPZKdLDxZVQDdjZP1XHUbcJMO8owxrTTL24HSAcaYimT2JRVNLleask
+ Re6lSZHYUzwlxmZFUrErSscrEuKifvg3FxiAepFW/tVY2tPFH9JT/up6lVYYagXZq+U8=
+X-Gm-Gg: ASbGncsBOO9Y2EkRCZWalsk7PKuvCJi6aKHTMSbdleI14Z5GJyUFKcA5J4ZYbSnOtBd
+ QaSRjbCHhi24LEFTdegntkIbmfYKiy2H1gYrfki7B0qx3oi7C9bC/t79T2O714cUQJ0CaamDHkl
+ AlxUbbNVaB1HE2vOhZTfvFmu+SxxbQcvsTB3cluvrw0k6W7aJ3KOIJWRRSgBlfz3mUGUSh1ydDw
+ Sd31CF6WTDdf8T4OZnCxh4kWZIn6Sjvnx+APcFVN4Cp8hg16ajaOB79BLtbl2aFrriuzYQJy03w
+ Tue5igdFN1XwHXZyOPW9nFE/Hhq7KQsxbXRNczPznKHyzCIK0rEWGpdxmU+ODqb3t8BR8LDKjEE
+ h130=
+X-Received: by 2002:a05:620a:4089:b0:7c5:6299:3da with SMTP id
+ af79cd13be357-7c57c8fc7e7mr1286949385a.39.1742220618357; 
+ Mon, 17 Mar 2025 07:10:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFJFdSdzFzRlQMfyJs+MkA+3WBZa7mH06t7taxNZZWaQyeYqJOxUH7YxaZmqOhaAH+nbNuARg==
+X-Received: by 2002:a05:620a:4089:b0:7c5:6299:3da with SMTP id
+ af79cd13be357-7c57c8fc7e7mr1286945285a.39.1742220617964; 
+ Mon, 17 Mar 2025 07:10:17 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-549ba882788sm1338685e87.183.2025.03.17.07.10.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Mar 2025 07:10:17 -0700 (PDT)
+Date: Mon, 17 Mar 2025 16:10:15 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, dri-devel@lists.freedesktop.org,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [PATCH 06/15] drm/msm: Test for imported buffers with
+Subject: Re: [PATCH 06/15] drm/msm: Test for imported buffers with
  drm_gem_is_imported()
-Date: Mon, 17 Mar 2025 14:06:44 +0100
-Message-ID: <20250317131923.238374-7-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250317131923.238374-1-tzimmermann@suse.de>
+Message-ID: <xvlixbldl5phzstzayjwuf4c34x7ji2xts62m7dmnhmdcokoqs@2os7zdjrq2ft>
 References: <20250317131923.238374-1-tzimmermann@suse.de>
+ <20250317131923.238374-7-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 7BAC41FDF8
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[gmail.com,ffwll.ch,linux.intel.com,kernel.org];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_TWELVE(0.00)[13]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,lists.freedesktop.org:email,suse.de:email,suse.de:dkim,suse.de:mid];
- FROM_EQ_ENVFROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,suse.de,gmail.com,quicinc.com,kernel.org,poorly.run,somainline.org,vger.kernel.org];
- RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250317131923.238374-7-tzimmermann@suse.de>
+X-Authority-Analysis: v=2.4 cv=LuaSymdc c=1 sm=1 tr=0 ts=67d82d4b cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Vs1iUdzkB0EA:10 a=pGLkceISAAAA:8 a=COk6AnOGAAAA:8 a=VwQbUJbxAAAA:8
+ a=tVI0ZWmoAAAA:8 a=e5mUnYsNAAAA:8
+ a=EUspDBNiAAAA:8 a=RpfBGSZpqGWm18XDRZsA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=TjNXssC_j7lpFel5tvFf:22 a=-BPWgnxRz2uhmvdm1NTO:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: Fbus6UHqirh-EehcgUpjnSGl6GwuA_-t
+X-Proofpoint-ORIG-GUID: Fbus6UHqirh-EehcgUpjnSGl6GwuA_-t
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-17_05,2025-03-17_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0
+ mlxscore=0 suspectscore=0 priorityscore=1501 phishscore=0 adultscore=0
+ clxscore=1015 lowpriorityscore=0 spamscore=0 mlxlogscore=684
+ malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2503170103
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,96 +124,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Instead of testing import_attach for imported GEM buffers, invoke
-drm_gem_is_imported() to do the test. The helper tests the dma_buf
-itself while import_attach is just an artifact of the import. Prepares
-to make import_attach optional.
+On Mon, Mar 17, 2025 at 02:06:44PM +0100, Thomas Zimmermann wrote:
+> Instead of testing import_attach for imported GEM buffers, invoke
+> drm_gem_is_imported() to do the test. The helper tests the dma_buf
+> itself while import_attach is just an artifact of the import. Prepares
+> to make import_attach optional.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <lumag@kernel.org>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> ---
+>  drivers/gpu/drm/msm/msm_drv.c       | 2 +-
+>  drivers/gpu/drm/msm/msm_gem.c       | 4 ++--
+>  drivers/gpu/drm/msm/msm_gem.h       | 2 +-
+>  drivers/gpu/drm/msm/msm_gem_prime.c | 4 ++--
+>  4 files changed, 6 insertions(+), 6 deletions(-)
+> 
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
----
- drivers/gpu/drm/msm/msm_drv.c       | 2 +-
- drivers/gpu/drm/msm/msm_gem.c       | 4 ++--
- drivers/gpu/drm/msm/msm_gem.h       | 2 +-
- drivers/gpu/drm/msm/msm_gem_prime.c | 4 ++--
- 4 files changed, 6 insertions(+), 6 deletions(-)
+Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index c3588dc9e537..f316e6776f67 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -671,7 +671,7 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
- 		ret = msm_ioctl_gem_info_set_iova(dev, file, obj, args->value);
- 		break;
- 	case MSM_INFO_GET_FLAGS:
--		if (obj->import_attach) {
-+		if (drm_gem_is_imported(obj)) {
- 			ret = -EINVAL;
- 			break;
- 		}
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index ebc9ba66efb8..2995e80fec3b 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -735,7 +735,7 @@ static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
- 
- 	msm_gem_assert_locked(obj);
- 
--	if (obj->import_attach)
-+	if (drm_gem_is_imported(obj))
- 		return ERR_PTR(-ENODEV);
- 
- 	pages = msm_gem_get_pages_locked(obj, madv);
-@@ -1074,7 +1074,7 @@ static void msm_gem_free_object(struct drm_gem_object *obj)
- 
- 	put_iova_spaces(obj, true);
- 
--	if (obj->import_attach) {
-+	if (drm_gem_is_imported(obj)) {
- 		GEM_WARN_ON(msm_obj->vaddr);
- 
- 		/* Don't drop the pages for imported dmabuf, as they are not
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 85f0257e83da..ba5c4ff76292 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -224,7 +224,7 @@ msm_gem_assert_locked(struct drm_gem_object *obj)
- /* imported/exported objects are not purgeable: */
- static inline bool is_unpurgeable(struct msm_gem_object *msm_obj)
- {
--	return msm_obj->base.import_attach || msm_obj->pin_count;
-+	return drm_gem_is_imported(&msm_obj->base) || msm_obj->pin_count;
- }
- 
- static inline bool is_purgeable(struct msm_gem_object *msm_obj)
-diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-index ee267490c935..2e37913d5a6a 100644
---- a/drivers/gpu/drm/msm/msm_gem_prime.c
-+++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-@@ -50,7 +50,7 @@ int msm_gem_prime_pin(struct drm_gem_object *obj)
- 	struct page **pages;
- 	int ret = 0;
- 
--	if (obj->import_attach)
-+	if (drm_gem_is_imported(obj))
- 		return 0;
- 
- 	pages = msm_gem_pin_pages_locked(obj);
-@@ -62,7 +62,7 @@ int msm_gem_prime_pin(struct drm_gem_object *obj)
- 
- void msm_gem_prime_unpin(struct drm_gem_object *obj)
- {
--	if (obj->import_attach)
-+	if (drm_gem_is_imported(obj))
- 		return;
- 
- 	msm_gem_unpin_pages_locked(obj);
 -- 
-2.48.1
-
+With best wishes
+Dmitry
