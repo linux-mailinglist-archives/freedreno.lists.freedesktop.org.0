@@ -2,71 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C697FA64701
-	for <lists+freedreno@lfdr.de>; Mon, 17 Mar 2025 10:21:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD631A647EA
+	for <lists+freedreno@lfdr.de>; Mon, 17 Mar 2025 10:45:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 836BD10E3D7;
-	Mon, 17 Mar 2025 09:21:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9772910E05F;
+	Mon, 17 Mar 2025 09:45:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GtSD5kPr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vc5R1QmP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C5F110E3D7;
- Mon, 17 Mar 2025 09:21:54 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 908F910E05F;
+ Mon, 17 Mar 2025 09:45:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id F0F895C53F4;
- Mon, 17 Mar 2025 09:19:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878E3C4CEEE;
- Mon, 17 Mar 2025 09:21:52 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id E11CDA4899B;
+ Mon, 17 Mar 2025 09:39:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9377C4CEF0;
+ Mon, 17 Mar 2025 09:45:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742203313;
- bh=UIR53RBEBGjhoxZodhVv//7PYC64fcsZWaxeAors98k=;
+ s=k20201202; t=1742204719;
+ bh=IDfEO9ixbAv5kWVNwF8BvMXACU0glZwpuOKgM/NINyM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GtSD5kPr+LfiDNyVdFU85kUPAvtVq8Kutc4BbhAQojIQLxvx9vvddHoblN5gsu04W
- 6sRbGW7QN9sax49m8IKwxDIpvclkqIDOoBVu4PZp/V3/0tjwSDgNKMheZLvj4hwiIw
- Djb7sXVsReG8U8rD9F9mcTiiRGhmCMfJTSffcFm+WLG9Iaum4Wnvhwl+BnYHk+XijX
- 2aiiGdWr3IBULXidx9BVnh77IwUp9oE288nt6ve6g8sYA+5OzZV8fNaCmXeuEyN2l+
- tuwtAthxo0m64qccp+YKMWk1YI1a2erhC7pwsmz1oRdVwkNFoBsFN6IcNWY5HsjvoS
- k4Ne+lFQixi9Q==
-Date: Mon, 17 Mar 2025 10:21:50 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Stephan Gerhold <stephan@gerhold.net>,
- Otto =?utf-8?Q?Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
- Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ b=Vc5R1QmPHOTrhSdJtjbXjn3Q/pVsWLlIO/2wjHWiT71fsu3wrrUDlsbP/CPZXw+mc
+ xysGjRvhtSwfdQA7HGJt+RsKNKcxEBhM6/R8SmwI47z5/kKsgxaSoneE4b6337Kx/S
+ q29zb4BgGaWy9Qun1/SXXBOv4DEQWAk0xS038Xs+ce/2+w3rg3YTC20kityrcogz6z
+ YP6/VILT5UbbeNCTguFiYnXZ2Tpaqa/ZbTBIEViVGHFSJqOudQTjAM6x9yYNcJPurG
+ VLYLFVMq+ZIaNNcvvUNSE6050QM1p9nJenFIgDe2tf1Qp4VUnagqewQiw3BvpA4WHx
+ uGNkNd+wpqZVA==
+Date: Mon, 17 Mar 2025 10:45:16 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Hermes Wu <Hermes.wu@ite.com.tw>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Dmitry Baryshkov <lumag@kernel.org>, 
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- phone-devel@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, linux@mainlining.org,
- Adam Skladowski <a39.skl@gmail.com>
-Subject: Re: [PATCH v4 3/6] dt-bindings: drm/msm/gpu: Document AON clock for
- A505/A506/A510
-Message-ID: <20250317-hypnotic-weightless-mosquito-f489ad@krzk-bin>
-References: <20250315-msm8937-v4-0-1f132e870a49@mainlining.org>
- <20250315-msm8937-v4-3-1f132e870a49@mainlining.org>
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Robert Foss <rfoss@kernel.org>, 
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>, 
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v6 2/4] drm/bridge: add function interface for
+ DisplayPort audio implementation
+Message-ID: <20250317-dancing-loyal-malkoha-ad5a36@houat>
+References: <20250314-dp-hdmi-audio-v6-2-dbd228fa73d7@oss.qualcomm.com>
+ <d5b8a7fa506ed3026c19b383edf160d6@kernel.org>
+ <otidtln4pjb47azr7zhllxkqmwocdnbdiay6xcg6psphz3436i@fn5hxgaflgv6>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="ixvl3eaawni5mk5e"
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20250315-msm8937-v4-3-1f132e870a49@mainlining.org>
+In-Reply-To: <otidtln4pjb47azr7zhllxkqmwocdnbdiay6xcg6psphz3436i@fn5hxgaflgv6>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,44 +73,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Mar 15, 2025 at 03:57:37PM +0100, Barnab=C3=A1s Cz=C3=A9m=C3=A1n wr=
-ote:
-> From: Adam Skladowski <a39.skl@gmail.com>
->=20
-> Adreno 505 (MSM8937), Adreno 506(MSM8953) and Adreno 510(MSM8976)
-> require Always-on branch clock to be enabled, describe it.
->=20
-> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
-> [reword commit, move alwayson on the first place]
-> Signed-off-by: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas.czeman@mainlining=
-=2Eorg>
-> ---
->  Documentation/devicetree/bindings/display/msm/gpu.yaml | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Doc=
-umentation/devicetree/bindings/display/msm/gpu.yaml
-> index 6ddc72fd85b04537ea270754a897b4e7eb269641..5028398cc3b517e404a92a2c3=
-0688f72eab4c1b3 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> @@ -152,11 +152,13 @@ allOf:
->        properties:
->          clocks:
->            minItems: 2
-> -          maxItems: 7
-> +          maxItems: 8
-> =20
->          clock-names:
->            items:
->              anyOf:
-> +              - const: alwayson
-> +                description: GPU Always-On clock
 
-Are you adding bindings for devices which were not described previously?
-Then don't grow this pattern, but create if:then: with a strictly
-ordered list for them (and keeping order of other variants).
+--ixvl3eaawni5mk5e
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 2/4] drm/bridge: add function interface for
+ DisplayPort audio implementation
+MIME-Version: 1.0
 
-Best regards,
-Krzysztof
+On Fri, Mar 14, 2025 at 08:55:05PM +0200, Dmitry Baryshkov wrote:
+> On Fri, Mar 14, 2025 at 05:54:14PM +0000, Maxime Ripard wrote:
+> > On Fri, 14 Mar 2025 11:36:49 +0200, Dmitry Baryshkov wrote:
+> > > It is common for the DisplayPort bridges to implement audio support. =
+In
+> > > preparation to providing a generic framework for DP audio, add
+> > > corresponding interface to struct drm_bridge. As suggested by Maxime
+> > > for now this is mostly c&p of the corresponding HDMI audio API.
+> > >=20
+> > >=20
+> > > [ ... ]
+> >=20
+> > Reviewed-by: Maxime Ripard <mripard@kernel.org>
+>=20
+> You've sent two r-b's for patch 2. Is there a chance that one of those
+> was for patch 3?
 
+Did I? Sorry, it was indeed meant for patch 3
+
+Maxime
+
+--ixvl3eaawni5mk5e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ9fvJwAKCRAnX84Zoj2+
+dnNVAYDhZWYDGXn7oAB0Fo0Lf64zRQfKXIpnqEHJYJiwjUC3bU8WN/EHUFxqFVpX
+epcnHMkBf1TqVVJjt8AS9ICP0MFlT1pGgiaFWa2B8bah6LI77fyFdkT67q5xD9JQ
+oz5+buRd4w==
+=mQjr
+-----END PGP SIGNATURE-----
+
+--ixvl3eaawni5mk5e--
