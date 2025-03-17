@@ -2,55 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96F98A63C2A
-	for <lists+freedreno@lfdr.de>; Mon, 17 Mar 2025 03:56:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826EAA640CF
+	for <lists+freedreno@lfdr.de>; Mon, 17 Mar 2025 07:09:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56AA010E075;
-	Mon, 17 Mar 2025 02:56:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42A8310E0B8;
+	Mon, 17 Mar 2025 06:09:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="u2vUp7FR";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="NPCIXPAE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96F1010E075;
- Mon, 17 Mar 2025 02:56:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2C9715C4CC6;
- Mon, 17 Mar 2025 02:53:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC82C4CEEE;
- Mon, 17 Mar 2025 02:56:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742180166;
- bh=yFaYSWToPIOrq3oUyCJ+rb7qmaxSDreLelw+cCjbNrE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=u2vUp7FR8iNUvbFNnB+D5qW3wx64gbqbldcd7XvXeQu9rKyUpoy+ga8voex6sGSm/
- oP9gioQHHdJE32BiMGw8USnQTogWDMGg4yUoWwWP+B6mtPx9EeYdQtza9yXbAx+1Eh
- C12tiM31dh9n3t/St+7BcLsU4/pGnufthbrrBu1CT4lVI7Ptd+oVAh//jA97OMDgyZ
- Sjp73NBn7bttiSvwGZ7gOqYy6Wis72KhXQ+lhxAF593DMq7emDHsE9wJD6H3mFq+4t
- y+KGj5vZ+kc+c7BcbcxKqIwxWgk1tMLOyLZRqEHw83THmtLg33Qoi8aqHAe7VElFD/
- PvFRlg2TV/NKg==
-From: Bjorn Andersson <andersson@kernel.org>
-To: neil.armstrong@linaro.org, quic_jesszhan@quicinc.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, konradybcio@kernel.org, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, jonathan@marek.ca, fekz115@gmail.com,
- Danila Tikhonov <danila@jiaxyga.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux@mainlining.org,
- ~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: (subset) [PATCH v2 0/4] Add and enable the panel
-Date: Sun, 16 Mar 2025 21:55:46 -0500
-Message-ID: <174218015895.1913428.7302445471992593262.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250217222431.82522-1-danila@jiaxyga.com>
-References: <20250217222431.82522-1-danila@jiaxyga.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 661FC89B33;
+ Mon, 17 Mar 2025 06:09:22 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52GMbtIR026060;
+ Mon, 17 Mar 2025 06:09:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ cs252hSKQ8r3PqXg/ZWLSpu++8tfs3RG1zspmH9vM4c=; b=NPCIXPAESuAWi4Rz
+ eteoXut6ZvguedzyQE/Bpj+OMq80SdLVsauzHMInbbtICDDvOdDLgQozXl4KrQ9d
+ 0BxWnuph0C6gcgHyWdDLRrtpiXzzuH8ynsj0ndR2dNm6qmswepH8mrcoIC9TM0aq
+ WLAtDcq5nVrnr9yJDW9RwkxJp3yIojXVG/lzy6EhGxozMqC5FLF+Qr3LpVdrEYbL
+ 3DrcoQveITCFCGFRQNUqwU837ZhD8GH8+YZS8zJhKFi6VdnY5DK/bia2CkuGTiFn
+ zY3XleKTgGMBxM2J/1toL0RMYg6FZUCqvC5vQJdRwH9SAGu5N5/yye31xs2NSdhV
+ LyDNsA==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45d1sxuj5f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 Mar 2025 06:09:13 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 52H69BVW011181
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 Mar 2025 06:09:11 GMT
+Received: from [10.216.43.207] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 16 Mar
+ 2025 23:09:05 -0700
+Message-ID: <e2168ae0-2eef-4f48-91ee-daec5bfc0fc8@quicinc.com>
+Date: Mon, 17 Mar 2025 11:39:02 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/6] Support for Adreno 623 GPU
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, Jie Zhang <quic_jiezh@quicinc.com>,
+ "Krzysztof Kozlowski" <krzysztof.kozlowski@linaro.org>
+References: <20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: SM1T1GtEYDSow5VpaqeRCWGPHv7Q-4SH
+X-Proofpoint-ORIG-GUID: SM1T1GtEYDSow5VpaqeRCWGPHv7Q-4SH
+X-Authority-Analysis: v=2.4 cv=XKcwSRhE c=1 sm=1 tr=0 ts=67d7bc89 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=VwQbUJbxAAAA:8
+ a=COk6AnOGAAAA:8 a=CB1IMkvWpqPTZiQhnbEA:9
+ a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-17_02,2025-03-17_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ mlxlogscore=999 priorityscore=1501 clxscore=1015 phishscore=0
+ impostorscore=0 adultscore=0 mlxscore=0 malwarescore=0 suspectscore=0
+ spamscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2503170043
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,22 +106,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Tue, 18 Feb 2025 01:24:27 +0300, Danila Tikhonov wrote:
-> This patch series adds support for the Visionox RM692E5 panel, which is
-> used on the Nothing Phone (1) and then adds it to the DTS.
+On 2/28/2025 1:37 AM, Akhil P Oommen wrote:
+> This series adds support for A623 GPU found in QCS8300 chipsets. This
+> GPU IP is very similar to A621 GPU, except for the UBWC configuration
+> and the GMU firmware.
 > 
-> Before integrating the panel into the DTS, we update the DSI code to
-> allow bits-per-component (bpc) values of 10 and 12, since the Visionox
-> RM692E5 panel operates at 10 bpc.
+> Both DT patches are for Bjorn and rest of the patches for Rob Clark to
+> pick up.
 > 
-> [...]
+> ---
+> Changes in v2:
+> - Fix hwcg config (Konrad)
+> - Split gpucc reg list patch (Rob)
+> - Rebase on msm-next tip
+> - Link to v1: https://lore.kernel.org/r/20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com
+> 
+> ---
+> Jie Zhang (6):
+>       drm/msm/a6xx: Split out gpucc register block
+>       drm/msm/a6xx: Fix gpucc register block for A621
+>       drm/msm/a6xx: Add support for Adreno 623
+>       dt-bindings: display/msm/gmu: Add Adreno 623 GMU
+>       arm64: dts: qcom: qcs8300: Add gpu and gmu nodes
+>       arm64: dts: qcom: qcs8300-ride: Enable Adreno 623 GPU
+> 
+>  .../devicetree/bindings/display/msm/gmu.yaml       |  1 +
+>  arch/arm64/boot/dts/qcom/qcs8300-ride.dts          |  8 ++
+>  arch/arm64/boot/dts/qcom/qcs8300.dtsi              | 93 ++++++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 29 +++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  8 ++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        | 13 ++-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        | 17 ++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  5 ++
+>  8 files changed, 171 insertions(+), 3 deletions(-)
+> ---
+> base-commit: 89839e69f6154feecd79bd01171375225b0296e9
+> change-id: 20250213-a623-gpu-support-f6698603fb85
+> prerequisite-change-id: 20250131-b4-branch-gfx-smmu-b03261963064:v5
+> prerequisite-patch-id: f8fd1a2020c940e595e58a8bd3c55d00d3d87271
+> prerequisite-patch-id: 08a0540f75b0f95fd2018b38c9ed5c6f96433b4d
+> 
+> Best regards,
 
-Applied, thanks!
+Bjorn,
 
-[4/4] arm64: dts: qcom: sm7325-nothing-spacewar: Enable panel and GPU
-      commit: 27b85be287f96180de2499b981eec83850df0da9
+Now that the adreno smmu changes have merged, can we pick up the GPU DT
+patches into your tree?
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+https://lore.kernel.org/linux-arm-kernel/174198247897.1604753.3634981110002933426.b4-ty@kernel.org/
+
+-Akhil.
