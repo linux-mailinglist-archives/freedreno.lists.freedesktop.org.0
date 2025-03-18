@@ -2,66 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D060A68CB0
-	for <lists+freedreno@lfdr.de>; Wed, 19 Mar 2025 13:23:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 898A5A68CAE
+	for <lists+freedreno@lfdr.de>; Wed, 19 Mar 2025 13:22:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 842E310E34F;
-	Wed, 19 Mar 2025 12:22:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="LRqoEGFD";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50D6C10E346;
+	Wed, 19 Mar 2025 12:22:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 354 seconds by postgrey-1.36 at gabe;
- Tue, 18 Mar 2025 13:18:51 UTC
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8801E10E489;
- Tue, 18 Mar 2025 13:18:51 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4ZHC1y2V9Sz9shl;
- Tue, 18 Mar 2025 14:12:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1742303574;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nZg7KYseVqSzxe03YTERtCQVwxfRyFFBlFRftXqUL1w=;
- b=LRqoEGFDgNtB9nYw2DcqGDcXJN5bec93E0w7/Ic/1C6vK1KeYaDcaANLrNwH/N57tQerEs
- N+iG1EXTXpET6md2gbIidZ4WwEqtH9dfVFArrjVDPuEo4cD9xXZBddC6Em+6lbYzelgai0
- ZHrZcB1s7DAmnteVnGwyXWnbfL/rB5KbvwazDlwnnlre4IWqwfZx22KQuMKh0jeSUbkH98
- VlLUdnpgUWs1hDEppuqCOsnVzMqH1qulShQtRK79LJId7TMtY15Xcw6pNVLfGPQlO+Dx7T
- XERPteHtO9hwoe7pSLUPYQ3rPJG8jp53nomJtq+yrYLL6BoSCoepbNVVqepMsQ==
-Date: Tue, 18 Mar 2025 14:12:48 +0100
-From: Anthony Ruhier <aruhier@mailbox.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/7] Support for GPU ACD feature on Adreno X1-85
-Message-ID: <dj256lrkc4s5ylqkqdrak6a6p3v62ckkd3orsg7ykz2w6ugllg@rbfkojacklvx>
-References: <20250109-gpu-acd-v4-0-08a5efaf4a23@quicinc.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0006810E48C;
+ Tue, 18 Mar 2025 13:37:28 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E78EC13D5;
+ Tue, 18 Mar 2025 06:37:36 -0700 (PDT)
+Received: from [10.1.197.1] (ewhatever.cambridge.arm.com [10.1.197.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7FEDC3F673;
+ Tue, 18 Mar 2025 06:37:24 -0700 (PDT)
+Message-ID: <eeff769a-ff81-4017-9738-98ad130980a9@arm.com>
+Date: Tue, 18 Mar 2025 13:37:23 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250109-gpu-acd-v4-0-08a5efaf4a23@quicinc.com>
-X-MBO-RS-META: g43o4q78m7rpfhcwdtfye1rj1q8t7sc6
-X-MBO-RS-ID: 137da8c6ec8de9572e9
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/9] dt-bindings: arm: qcom,coresight-static-replicator:
+ add optional clocks
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Mike Leach <mike.leach@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
+ Leo Yan <leo.yan@linux.dev>, Kumar Gala <galak@codeaurora.org>,
+ Andy Gross <agross@codeaurora.org>, "Ivan T. Ivanov"
+ <ivan.ivanov@linaro.org>, Andy Gross <andy.gross@linaro.org>,
+ Georgi Djakov <djakov@kernel.org>, David Heidelberg <david@ixit.cz>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20250317-fix-nexus-4-v1-0-655c52e2ad97@oss.qualcomm.com>
+ <20250317-fix-nexus-4-v1-4-655c52e2ad97@oss.qualcomm.com>
+ <7b0af57c-a38c-4c30-9bb7-efe511d6bd1d@arm.com>
+ <klcggfxrhjqty4rktx24xmnosqnwzsbyfzgv5ea6okqbffyswn@5yei6276hlla>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <klcggfxrhjqty4rktx24xmnosqnwzsbyfzgv5ea6okqbffyswn@5yei6276hlla>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 19 Mar 2025 12:22:56 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,24 +71,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Using this patch serie on 6.14-rc (tested over multiple RCs, up to rc7) on a
-Yoga Slim 7x (x1e80100), I often get a video output freeze a few seconds after
-my wayland compositor loads. I can still ssh into the laptop. I get these
-kernel errors in loop:
+On 18/03/2025 12:19, Dmitry Baryshkov wrote:
+> On Tue, Mar 18, 2025 at 10:38:17AM +0000, Suzuki K Poulose wrote:
+>> On 17/03/2025 17:44, Dmitry Baryshkov wrote:
+>>
+>> nit: Subject:
+>>
+>> s/qcom,coresight-static-replicator/arm,coresight-static-replicator
+>>
+>>> As most other CoreSight devices the replicator can use either of the
+>>> optional clocks (or both). Document those optional clocks in the schema.
+>>>
+>>> Fixes: 3c15fddf3121 ("dt-bindings: arm: Convert CoreSight bindings to DT schema")
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> ---
+>>>    .../bindings/arm/arm,coresight-static-replicator.yaml          | 10 ++++++++++
+>>>    1 file changed, 10 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml
+>>> index a6f793ea03b6c193fc0ff72a45e0249a63a2ba3c..56e64067ed3d63c5e293a0840858f13428bacb45 100644
+>>> --- a/Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml
+>>> +++ b/Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml
+>>> @@ -30,6 +30,16 @@ properties:
+>>>      power-domains:
+>>>        maxItems: 1
+>>> +  clocks:
+>>> +    minItems: 1
+>>> +    maxItems: 2
+>>> +
+>>
+>> For the static replicator, you don't have an APB clock, as they can't be
+>> programmed. It may have an ATB clock. So minItems 0, maxItems: 1
+> 
+> It can, see qcom-apq8064.dtsi
+> 
+> Also minItems:0 doesn't make sense to me. I'd rather keep this as an
+> optional property rather than requiring an empty set.
 
-	msm_dpu ae01000.display-controller: [drm:hangcheck_handler [msm]] *ERROR* 67.5.12.1: hangcheck detected gpu lockup rb 0!
-	msm_dpu ae01000.display-controller: [drm:hangcheck_handler [msm]] *ERROR* 67.5.12.1:     completed fence: 777
-	msm_dpu ae01000.display-controller: [drm:hangcheck_handler [msm]] *ERROR* 67.5.12.1:     submitted fence: 778
+Interesting, that must be atclk in fact. Because a static replicator
+only manages ATB transactions. It doesn't have an APB interface.
 
-Rob Clark recommended to me to remove the higher GPU frequencies added by this
-patch (1.25Ghz and 1.175 Ghz). The lockups happen then less often, but are
-still present. It is easily reproducible.
+I am not an expert in DTB schema. But the point is the clocks are optional.
 
-A way to mitigate the problem is by constantly moving my cursor during a few
-seconds after my wayland session starts, then no freeze happens. Reverting this
-patch serie fixes the problem.
+Suzuki
 
-Thanks,
 
---
-Anthony Ruhier
+> 
+>>
+>> Suzuki
+>>
+>>
+>>
+>>> +  clock-names:
+>>> +    minItems: 1
+>>> +    enum:
+>>> +      - apb_pclk
+>>> +      - atclk
+>>> +
+>>>      in-ports:
+>>>        $ref: /schemas/graph.yaml#/properties/ports
+>>>        additionalProperties: false
+>>>
+>>
+> 
+
