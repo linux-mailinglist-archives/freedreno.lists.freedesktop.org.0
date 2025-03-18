@@ -2,77 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB61AA673C4
-	for <lists+freedreno@lfdr.de>; Tue, 18 Mar 2025 13:24:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D482CA673DA
+	for <lists+freedreno@lfdr.de>; Tue, 18 Mar 2025 13:26:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD1410E475;
-	Tue, 18 Mar 2025 12:24:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFF4B10E476;
+	Tue, 18 Mar 2025 12:26:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cP/aKPBG";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KUyifBEd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0A0F10E46E
- for <freedreno@lists.freedesktop.org>; Tue, 18 Mar 2025 12:24:20 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52I9HjVX008239
- for <freedreno@lists.freedesktop.org>; Tue, 18 Mar 2025 12:24:20 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30E8610E476
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Mar 2025 12:26:52 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52IAqdnU020847
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Mar 2025 12:26:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=EDN4zD1N+DunuKV6N3O+L5Yt
- WP/lxLEnoiHEUOXeOZo=; b=cP/aKPBG9s3vx4Hdf72/D3QdvS1KhRO5zz17XOnk
- 7cjlNesi62VajSyHwTUYBfZ0xRhoOdp1/Oct7T3ABolIZ+39zcc2CetYT9SnVata
- y29IhJSV4MrjFv7KpcPrYOitMsdbuKDTUfuHd1lM49gkivSu/ag5rXprxfYeeAJV
- jPN2ZRnKb8VOwUmbKxP07dOQbg1Rc7at7Olr7smEA4TGo02DYTAHr6snVWfFCAEl
- p1xTyQH1os5oXAgISy/XorPaGgp/GMG3AIIAlTbQE3UhKqO5XuuO8NFakOXhY+0/
- EFN7U5mT/+bkB2ggfiXhff+0d5+ARnt3dKgvjn323KGNCQ==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45d1rdr6bm-1
+ :references:subject:to; s=qcppdkim1; bh=fn6o9sruIXfwvCI8WMCUouk1
+ Y9QTIiAVEqwCsNznX/A=; b=KUyifBEdxAy+bNjktmMLxn1q0cz885B8NnY82uZV
+ BXPTBeBzaz+rjyOpCifm8s04bgwGhH6WFTRw031xNMOkFSKCqeivFf/hXTnAECC8
+ JCYrzC0pzigFX2h1ZhI3NaZP+ALy0/o+xN7zXMwPzFkpJXpn24todpgOz9XTsHA7
+ b5ILmsHdrOVkqjh8ZTf/XfqiytLlM+tvqLqJTGsZHSxIMmeh5xIhHEqykGtP+k9v
+ sqCfqI+xO46ERt9zeG2tN9FxJ0/XBrAQp/dcQaKr5WBQYZP2x1UUHmTBAdI3ObQj
+ BE6RB5aO7zh4oJtZQGCAjPgpq0d2inE5ox0J7bPeYJ9bqg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45exxbhqpu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 18 Mar 2025 12:24:20 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-6e917965e3eso84234986d6.3
- for <freedreno@lists.freedesktop.org>; Tue, 18 Mar 2025 05:24:20 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Mar 2025 12:26:51 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-476870bad3bso102057791cf.3
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Mar 2025 05:26:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742300659; x=1742905459;
+ d=1e100.net; s=20230601; t=1742300810; x=1742905610;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EDN4zD1N+DunuKV6N3O+L5YtWP/lxLEnoiHEUOXeOZo=;
- b=Uz5EcoE725XNO9kfZZoasexuue7mMil5Zr02sqtj2aI6IzlPwrqhH0fMx54Pb1CUCF
- BQZVkuCwpeZeTGV1Ryzk5p9Drl4dnHfo38pcy32JSfQJCsPmdp/x6H/ZrYH0OJa1goJM
- bC9gy98PAEeX7wkTt7MFcwkKRpE8r5vzoVgTnjiJKfU6PT+a5uvQ/eBmx9E0YXnkAXi2
- aE9lHhEboD/qxtOkzJgf6HiY6MUbCQQbGssspurojJJ5wizNAEKEfrNbJYI6WXs4rffs
- StnAtDH1Ale0YMgSJSFU5ye4LfZWXlGm9VyKgAv1LPL9e3d4u2nxyCN86iug219Pwu6Z
- VD4w==
+ bh=fn6o9sruIXfwvCI8WMCUouk1Y9QTIiAVEqwCsNznX/A=;
+ b=Om/rp8AtE2PGHNNf1cVZTppK7rZ8XByIDKugBIg70ZwaqEkibC9ss+BVqxamGKGpA0
+ yhj/iKEWegcSK2Dehr3tDLnsHm1U7RPfWKn2ClPwH2Xdjs1PYvxR7Qro4rf9dTSiURxz
+ AxLqSYReMowiOQAtc8zfabW0nbl6Czdgp8H7C1pufnnE+iMOl+9mv473cafZ5XMXomka
+ SgzurySp35oNHmsEkOQlqhnuy9HPd8I3sVPb9FzEflCao6bsmh9puvnnT2H2OEIrip02
+ 8qzFntUlappVJw+RuZWtB+Xh/tITzkq0MRaQvNv3WzNyf7t9uTo3hjIHIufyIpXTr9Pu
+ Nijg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVkDj1GPv8dHaa2crfDQKGD54d3fusU4zQ8Fub/viMrk2Q82boc0aLVQjxmG1L9D1ikuQOjne7U29I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyipeL9itLC+OX5rkPMCSt9kTNWJQ+GVS+aQWzA3e+li1bxCkN5
- WiDSqsKuiBaLqWj+4qMMDMqvWRZGX70bhC3BzLeNnh2rgr/u1vVi/UfhI48Kpc4MyvDehzEi37z
- WSzZXDRQzwmHH3cYwCIjZJ/qDF5Df7Jz+tr+zuL/5VU1v92juPZbqCSbhngiyo1WDSFA=
-X-Gm-Gg: ASbGncvR7DlAwdEYI2/3qFMOfOkq6QhkTPihI7T025spIxICbmBv7V1vG8XtcWtrmhK
- ecwT6M4JLm+r1UzSdweLJsMhEe8AvQn0QkUj/LgqEGrjl4xJZ822XVpQGjX8mn+S572ovkHI0nR
- AmQpfDxYUgwqtwQcIkAWlnLNhIEIuxx14X0Y78mN68APhLXznc3Ftm6avh+Eb1W5TCf4UTKAG6H
- 4GMlU5QGeuLAbk5sUaz5QKX9d81ETcw/gv1ZPlCVP2BztXFORTLwCk5XIKr9z5HcNCRSmg5LTj5
- 8Ink01E3O0jpQarY/e04gVzT69z5vcOsJYkCarcuGrSLwu0/jbSdBHdmFPMwGhWTMgWFjLhP8Uf
- SB/Y=
-X-Received: by 2002:a05:6214:21a9:b0:6d8:ada3:26c9 with SMTP id
- 6a1803df08f44-6eaeaa4282emr238045646d6.10.1742300658861; 
- Tue, 18 Mar 2025 05:24:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFPP6bwgBzTV1pHyJ776Y2OqHo+uHrhx19IfFmQmbn8H0Ej5qHdf7EgW3rLl5dPKhTFj/jdAQ==
-X-Received: by 2002:a05:6214:21a9:b0:6d8:ada3:26c9 with SMTP id
- 6a1803df08f44-6eaeaa4282emr238044836d6.10.1742300658446; 
- Tue, 18 Mar 2025 05:24:18 -0700 (PDT)
+ AJvYcCUgRfwYWJaP6p6gUr/xzczJ/RfCm/aOn9NMphM6THXFpQI3kg8gJcVFet0KzDCC16kH/BrRu+u60B0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx57pyxDYUaXzUh8WAaIk//T691KaaebUGmSWkftQSfRHeA/H17
+ NpZFY5VbaYGQAm2p9dKfpzbH1CHv0lM7J4rATDQJMXIJvq350xNBk5rNzoqbEE6k3uEBkqfM7Y/
+ /6VMbGnbNLoxlyzVmsxEZnr3jkM4WSFYb5Bzfqa49LvngBTDX6s0Zl76V5c+zdPTCaRY=
+X-Gm-Gg: ASbGncvUd9n8fpYRUsZ6d2z+Wqj5ZhfFffNH63nrrOXfQR9P0A82weSTbfwMA5CjECj
+ hn+3PcYHmvoM5GpD3WnTQzWzg4Mi/+m7UkqXHAgrhW40yKMYNzElUjyjOwIPYx/AIzYcgUrM4Hy
+ q3myMV6SUfN9CsnCAP/2kUeDbEjX8/1nAmkO7h01Wc45TUQGI1iBENHFZ1sbDa4zg6tQpq68nK1
+ qeJJa2ypWIiI10DDwuGROX8iEIT2f9nEahH+WjCGAsgVqwzmVBdVfbpOh1OMYADoqkOUNAx/mBe
+ MfbfnnG35qcGoYC/lUrdD6WR7c+onyWI4qID2zVXUt9otvMp4fE5JWemi2GfsImztMO13pLSXjT
+ Dhlk=
+X-Received: by 2002:ac8:574d:0:b0:476:7327:382b with SMTP id
+ d75a77b69052e-476c814a05emr237383151cf.16.1742300810261; 
+ Tue, 18 Mar 2025 05:26:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFcR9xUHBK9TFXZWSwLWT2FsKGFofnO2SkdyZ7fM94gEY42uE07dGuuS4gCqZY8gVYIkurgsg==
+X-Received: by 2002:ac8:574d:0:b0:476:7327:382b with SMTP id
+ d75a77b69052e-476c814a05emr237382801cf.16.1742300809924; 
+ Tue, 18 Mar 2025 05:26:49 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30c3f1170dbsm19027101fa.64.2025.03.18.05.24.15
+ 2adb3069b0e04-549ba7bee7fsm1638070e87.54.2025.03.18.05.26.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Mar 2025 05:24:17 -0700 (PDT)
-Date: Tue, 18 Mar 2025 14:24:14 +0200
+ Tue, 18 Mar 2025 05:26:48 -0700 (PDT)
+Date: Tue, 18 Mar 2025 14:26:46 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>,
@@ -99,31 +99,31 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 6/9] ARM: dts: qcom: apq8064 merge hw splinlock into
- corresponding syscon device
-Message-ID: <5g5ni3xoeliy4xs7wlhjjeust32qerutt4tdkkdvgeisdvbc6d@shlkxbzsw3vw>
+Subject: Re: [PATCH 8/9] ARM: dts: qcom: apq8064: use new compatible for SPS
+ SIC device
+Message-ID: <p4hda4puovabvqnf3unge2rifzu37hgim2k4fnvdpbekhojzq5@cx7j4hrspzdy>
 References: <20250317-fix-nexus-4-v1-0-655c52e2ad97@oss.qualcomm.com>
- <20250317-fix-nexus-4-v1-6-655c52e2ad97@oss.qualcomm.com>
- <579cd909-8a0f-4998-88a6-47073ecc0eae@oss.qualcomm.com>
+ <20250317-fix-nexus-4-v1-8-655c52e2ad97@oss.qualcomm.com>
+ <e26284b1-217b-4afe-af40-ae65cb7ee646@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <579cd909-8a0f-4998-88a6-47073ecc0eae@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=Fe83xI+6 c=1 sm=1 tr=0 ts=67d965f4 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Vs1iUdzkB0EA:10 a=EUspDBNiAAAA:8 a=DJPKDmouk0REp9whk4oA:9 a=CjuIK1q_8ugA:10
- a=IFyWz7IVXAM99tgoijJH:22 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-ORIG-GUID: 8hzbou74PgDX80RRTW3o5Lm45hpZiCHF
-X-Proofpoint-GUID: 8hzbou74PgDX80RRTW3o5Lm45hpZiCHF
+In-Reply-To: <e26284b1-217b-4afe-af40-ae65cb7ee646@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=QN1oRhLL c=1 sm=1 tr=0 ts=67d9668b cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Vs1iUdzkB0EA:10 a=EUspDBNiAAAA:8 a=q9XyVQKgEbIbea8yYzIA:9 a=CjuIK1q_8ugA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: T35JYwRjfL-e7xe7jjvJGO9RC0MZ8_NY
+X-Proofpoint-GUID: T35JYwRjfL-e7xe7jjvJGO9RC0MZ8_NY
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-03-18_06,2025-03-17_03,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 bulkscore=0 mlxscore=0 mlxlogscore=623 spamscore=0
- clxscore=1015 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
- priorityscore=1501 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ mlxscore=0 clxscore=1015
+ phishscore=0 spamscore=0 impostorscore=0 suspectscore=0 mlxlogscore=469
+ priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
+ bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
  definitions=main-2503180092
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,48 +140,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 18, 2025 at 01:08:00PM +0100, Konrad Dybcio wrote:
+On Tue, Mar 18, 2025 at 01:13:23PM +0100, Konrad Dybcio wrote:
 > On 3/17/25 6:44 PM, Dmitry Baryshkov wrote:
-> > Follow up the expected way of describing the SFPB hwspinlock and merge
-> > hwspinlock node into corresponding syscon node, fixing several dt-schema
-> > warnings.
+> > Use new SoC-specific compatible to the SPS SIC in addition to the
+> > "syscon" compatible and rename the node to follow the purpose of it.
 > > 
-> > Fixes: 24a9baf933dc ("ARM: dts: qcom: apq8064: Add hwmutex and SMEM nodes")
 > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > > ---
-> >  arch/arm/boot/dts/qcom/qcom-apq8064.dtsi | 11 +++--------
-> >  1 file changed, 3 insertions(+), 8 deletions(-)
+> >  arch/arm/boot/dts/qcom/qcom-apq8064.dtsi | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
 > > 
 > > diff --git a/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi b/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
-> > index ba99e794dcd2236f65f2f3d8c49213cfdaee5f6e..3728875a5506397b36a4c0d6a5ad12c067bbdd8c 100644
+> > index 522387700fc8ce854c0995636998d2d4237e33df..a106f9f984fcb51dea1fff1515e6f290b36ccf99 100644
 > > --- a/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
 > > +++ b/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
-> > @@ -213,12 +213,6 @@ sleep_clk: sleep_clk {
-> >  		};
-> >  	};
-> >  
-> > -	sfpb_mutex: hwmutex {
-> > -		compatible = "qcom,sfpb-mutex";
-> > -		syscon = <&sfpb_wrapper_mutex 0x604 0x4>;
-> > -		#hwlock-cells = <1>;
-> > -	};
-> > -
-> >  	smem {
-> >  		compatible = "qcom,smem";
-> >  		memory-region = <&smem_region>;
-> > @@ -305,9 +299,10 @@ tlmm_pinmux: pinctrl@800000 {
-> >  			pinctrl-0 = <&ps_hold_default_state>;
+> > @@ -402,8 +402,8 @@ saw3_vreg: regulator {
+> >  			};
 > >  		};
 > >  
-> > -		sfpb_wrapper_mutex: syscon@1200000 {
+> > -		sps_sic_non_secure: sps-sic-non-secure@12100000 {
 > > -			compatible = "syscon";
-> > +		sfpb_mutex: hwmutex@1200000 {
-> > +			compatible = "qcom,sfpb-mutex";
-> >  			reg = <0x01200000 0x8000>;
+> > +		sps_sic_non_secure: interrupt-controller@12100000 {
 > 
-> The mutex is at +0x600
+> The register that the consumer of this points to doesn't seem to exist..
 
-Indeed...
+It does, although it is marked as reserved. And this matches msm-3.4:
+
+                .smsm_int.out_bit_pos =  1,
+                .smsm_int.out_base = (void __iomem *)MSM_SIC_NON_SECURE_BASE,
+                .smsm_int.out_offset = 0x4094,
+
+#define MSM_SIC_NON_SECURE_BASE IOMEM(0xFA600000)
+#define MSM_SIC_NON_SECURE_PHYS 0x12100000
+#define MSM_SIC_NON_SECURE_SIZE SZ_64K
+
+I don't think anybody tried bringing up dsps on APQ8064 though.
 
 -- 
 With best wishes
