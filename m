@@ -2,69 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C58FA69480
-	for <lists+freedreno@lfdr.de>; Wed, 19 Mar 2025 17:15:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64E0CA69ADF
+	for <lists+freedreno@lfdr.de>; Wed, 19 Mar 2025 22:32:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2A1E10E544;
-	Wed, 19 Mar 2025 16:15:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB9E410E040;
+	Wed, 19 Mar 2025 21:31:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QKSki44T";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I9UuLrf9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CA4510E544;
- Wed, 19 Mar 2025 16:15:48 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2240b4de10eso19951085ad.1; 
- Wed, 19 Mar 2025 09:15:48 -0700 (PDT)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC3610E00B;
+ Wed, 19 Mar 2025 21:31:56 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id
+ ca18e2360f4ac-85517db52a2so2450939f.3; 
+ Wed, 19 Mar 2025 14:31:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742400948; x=1743005748; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742419915; x=1743024715; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tpcB9t6A6KxaND4R+weRblu7REH8HLN/jg/pD41KDJ0=;
- b=QKSki44T0cifz0WM0R7OM9CiYXZTLX7XuqdgIyr4c10a7aLfjaCeEg0CY5beTVjr44
- AcP+zUNHnjtaFTWKhRq6iiYCW5bWfOOH0Vugf6FWQolxjq03l10x1OG9PP4MLNFJk40l
- 5kOeNAzg8JBCRpd1A7xcja21BSPbfvR1HIvkwHDp7U31DvkfsKy04dxQAoJTHUqG1YO+
- 8WYsOn74SzvGy9qWKMhi9ENsJsBKfuqnaXLiT2CyA+hcM2fWhob1vhTvw+MB0luce3ZP
- Ilo4CGyBG9BoW1ULue0lr0vh5apoNGZzhH/abOfbfhBQfLFQr84LQcMnsY+IORlZdLss
- RXAw==
+ bh=eGXYnVlo4fA0RFIIo/kNFkQOG0FR1x2vD9pp9kcKWLQ=;
+ b=I9UuLrf9DfcQUoFG9+Bgp42ijMIOPSSNTpsiY0zrooNrFDKdGjH1f1nqf4zs8Bng2K
+ i/eLFK+TNwA4DnCt3rkSRFHkKKYyosIMgjmDAI3VwLPC00WMPSXfzoVWk/VeQMb7C6bO
+ 1oans9TEBN1jkfeb3CQUUf+Q5IhbuwszOKEDOVtqsJARfuDAWE1d4mHE7xz9S6ocxUzp
+ TiG7olXKvdu23NvYZnpQnCfxr1lGC24teODpLoivxynyyq+4lo5j5dxcCZ+IEoiqZIXS
+ zMRdTeGOVpKkR0FFNB1zeRl4KnrOjj3Tz325O+6B51wpm0XNmmqOJomih/F18O39WSht
+ HhaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742400948; x=1743005748;
+ d=1e100.net; s=20230601; t=1742419915; x=1743024715;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tpcB9t6A6KxaND4R+weRblu7REH8HLN/jg/pD41KDJ0=;
- b=Oq8ktNzXG1T7jmJk3bOF9Oa1HZi9K68YIEAWyJGPzi4sUNiTB5go9j4W3b/NRPmbuu
- oIjQhHTErVVQoOAMKQ50u0z0e1txAR9VjCbm4w/upeG7c/ucD7qBFO5X3tgbdF39pDg1
- sJ4BnsaM7A8ITNb4OwlWkhCkoACpgSdCRTHMYLx1drzHVWzU/oNA9FNpU8N4LZdKZyQu
- lZyFFSiLXq55nkBmObhJL9wBP8iOd2RNakxIkc1dyONE8pI7/u8lrsJ6y8HNrvYXkq9u
- +Q9emmttgI2McPovCwfhiS1+KD7P3r9fqhQyOFdlaHfu0lsxfjD6XOaFwSVHmTk6UPWI
- Y8Rw==
+ bh=eGXYnVlo4fA0RFIIo/kNFkQOG0FR1x2vD9pp9kcKWLQ=;
+ b=G6TJoVp+7GuinmXwcwS51PusgsTWQ6vgSmb6A5E0LuHtHYhIKjTvhj4MVGv8/zEN6x
+ OlLiqOpGEz6QSxG/jShp0VECNFA3+mVlAGQYdZbLzK4SoVgNHZbtRYCp8344p+EIJ+JC
+ I3c4bQcdln3fA9XnaX3UnFjWCqocNNN0Gmo9Tj5kr7sCTLAtVyYnH+MFp1XAQe0t2XRM
+ 0UqIW4/4CjtbfPWW/UoFKrIHuRfv6ug6uYLO1lis1BFPjMKN7acmD3a2T7JdP7OAjZXN
+ CmY9oLFbXLORBvC9Uin0VKHhHmK4mCDTST625QWr4YqANVXj1T2V27tSkLzPvIen27rZ
+ X0wQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUvUbdcnfWCUKnbDNIsj6YdcfYQ9ScgEoQKgXmAs5M/nlDNuHZdEktEVNV2kMnhlZyNbrOZ95/bUJQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzjT80XngnGYsIylgg2dD4EfVDKr8MGnuTO6cfAhGabGryN+pzc
- a+Ym7vuisoGVJU5hI2dvexex90X5e69Nhg5nnXAWKk6fDnjMk9V291c4tGVGBzh6GNOm/Hd7RVV
- G4mnGTq0Q499CukDmq7tPGicivrU=
-X-Gm-Gg: ASbGnctFZfwgoLLdLZRN0TT6tHlZ2luMAYxb0Nxt7mYs0dDcrZYw4HYrr4E+AMCbwN7
- lOXqI01oeHV4AE4Kww0bhhJLnXswaKEojIwkh21KWcguO2/ZxX8SS/t10OAsthilYU+WEryU1f7
- 4igfP0YB8NuOd01lnWHip6xgScew==
-X-Google-Smtp-Source: AGHT+IHWf/Je75FDADPOS0gdYyM/GsQweQ6GrhMRjO/NYZMBlz6LRlFzJmEWomdQ90VHrVYogY6aTxo+mtD5MpEKp0A=
-X-Received: by 2002:a17:902:f686:b0:215:a96d:ec36 with SMTP id
- d9443c01a7336-2264c5e1a84mr15053705ad.5.1742400947817; Wed, 19 Mar 2025
- 09:15:47 -0700 (PDT)
+ AJvYcCWCmw+6o1YyyvyfcAo8CkUqlvbY+fmM0UgnfUQQATJ1Wj4ohjjqb5SixznicrKU+FW6x37fhFo8rYk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwuE8Xnf7CSspWcfHx7KdzPX9ATs5h36QYs6CHXVAqGWwii8jYU
+ esiS1QVjAuANvFI42MVjOW570/UBgXLt6zsnKmdWyVUjAQ3pfzZeIyOJh8Va6C0FKbkgpbmiLAa
+ 5eHYB4C7ZM63aPQDRVvXzYJ2d30VWjQ==
+X-Gm-Gg: ASbGncvXKF2V29ragv/T40mSvAUjd9Zak3EtSnEYAU5bxam2gXXMXpXfLxB3u33ziVT
+ QnknBZEpsWODU0zJQ7wVRa8o/3p/LmSxNrMi++EF0NftuRC8ktTklWd4TLvYmU+u1XrMVLPc1Lo
+ xC0zguBOPx179EfeKXmHbyzCPsSy8UktS9VIh9uWwMfYZROP9sRKhHAqLkbdguWN9dxKULjBs=
+X-Google-Smtp-Source: AGHT+IG6eJdQijicuz0JhXeewGnZhBud8RVqN+j9v9xBQdOBT2axAWMn8vRd7OQcpT6RTCan1DoKTU3vvrEEu2tAwIQ=
+X-Received: by 2002:a05:6e02:1a47:b0:3d3:ff09:432c with SMTP id
+ e9e14a558f8ab-3d586b24451mr38482965ab.4.1742419915226; Wed, 19 Mar 2025
+ 14:31:55 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250319145425.51935-1-robdclark@gmail.com>
  <20250319145425.51935-17-robdclark@gmail.com>
-In-Reply-To: <20250319145425.51935-17-robdclark@gmail.com>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Wed, 19 Mar 2025 12:15:36 -0400
-X-Gm-Features: AQ5f1JrFZ7qplWix08QqXWgrDRrXseMvNo6DIRzsT4jHmQ6Da3MfyWiADCs7_mc
-Message-ID: <CACu1E7FduhsXY22BKpjt5WcnAcVtGu01eUiLc9T47OUR+yp_0Q@mail.gmail.com>
+ <CACu1E7FduhsXY22BKpjt5WcnAcVtGu01eUiLc9T47OUR+yp_0Q@mail.gmail.com>
+In-Reply-To: <CACu1E7FduhsXY22BKpjt5WcnAcVtGu01eUiLc9T47OUR+yp_0Q@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 19 Mar 2025 14:31:43 -0700
+X-Gm-Features: AQ5f1JoLQDinqTeGHJh8TxkwUkgoOW697Nl89kftPZ83P_IL6WWPoVNwetQQV1s
+Message-ID: <CAF6AEGvkKhx2JLpNsDgYigX41QhbhXt4VvSP9n-QmO=cAvTxHw@mail.gmail.com>
 Subject: Re: [PATCH v2 16/34] drm/msm: Mark VM as unusable on faults
-To: Rob Clark <robdclark@gmail.com>
+To: Connor Abbott <cwabbott0@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@chromium.org>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>,
@@ -89,110 +90,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 19, 2025 at 10:55=E2=80=AFAM Rob Clark <robdclark@gmail.com> wr=
-ote:
+On Wed, Mar 19, 2025 at 9:15=E2=80=AFAM Connor Abbott <cwabbott0@gmail.com>=
+ wrote:
 >
-> From: Rob Clark <robdclark@chromium.org>
+> On Wed, Mar 19, 2025 at 10:55=E2=80=AFAM Rob Clark <robdclark@gmail.com> =
+wrote:
+> >
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > If userspace has opted-in to VM_BIND, then GPU faults and VM_BIND error=
+s
+> > will mark the VM as unusable.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/msm/msm_gem.h        | 17 +++++++++++++++++
+> >  drivers/gpu/drm/msm/msm_gem_submit.c |  3 +++
+> >  drivers/gpu/drm/msm/msm_gpu.c        | 16 ++++++++++++++--
+> >  3 files changed, 34 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_ge=
+m.h
+> > index acb976722580..7cb720137548 100644
+> > --- a/drivers/gpu/drm/msm/msm_gem.h
+> > +++ b/drivers/gpu/drm/msm/msm_gem.h
+> > @@ -82,6 +82,23 @@ struct msm_gem_vm {
+> >
+> >         /** @managed: is this a kernel managed VM? */
+> >         bool managed;
+> > +
+> > +       /**
+> > +        * @unusable: True if the VM has turned unusable because someth=
+ing
+> > +        * bad happened during an asynchronous request.
+> > +        *
+> > +        * We don't try to recover from such failures, because this imp=
+lies
+> > +        * informing userspace about the specific operation that failed=
+, and
+> > +        * hoping the userspace driver can replay things from there. Th=
+is all
+> > +        * sounds very complicated for little gain.
+> > +        *
+> > +        * Instead, we should just flag the VM as unusable, and fail an=
+y
+> > +        * further request targeting this VM.
+> > +        *
+> > +        * As an analogy, this would be mapped to a VK_ERROR_DEVICE_LOS=
+T
+> > +        * situation, where the logical device needs to be re-created.
+> > +        */
+> > +       bool unusable;
+> >  };
+> >  #define to_msm_vm(x) container_of(x, struct msm_gem_vm, base)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm=
+/msm_gem_submit.c
+> > index 9731ad7993cf..9cef308a0ad1 100644
+> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> > @@ -668,6 +668,9 @@ int msm_ioctl_gem_submit(struct drm_device *dev, vo=
+id *data,
+> >         if (args->pad)
+> >                 return -EINVAL;
+> >
+> > +       if (to_msm_vm(ctx->vm)->unusable)
+> > +               return UERR(EPIPE, dev, "context is unusable");
+> > +
+> >         /* for now, we just have 3d pipe.. eventually this would need t=
+o
+> >          * be more clever to dispatch to appropriate gpu module:
+> >          */
+> > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gp=
+u.c
+> > index 503e4dcc5a6f..4831f4e42fd9 100644
+> > --- a/drivers/gpu/drm/msm/msm_gpu.c
+> > +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> > @@ -386,8 +386,20 @@ static void recover_worker(struct kthread_work *wo=
+rk)
+> >
+> >         /* Increment the fault counts */
+> >         submit->queue->faults++;
+> > -       if (submit->vm)
+> > -               to_msm_vm(submit->vm)->faults++;
+> > +       if (submit->vm) {
+> > +               struct msm_gem_vm *vm =3D to_msm_vm(submit->vm);
+> > +
+> > +               vm->faults++;
+> > +
+> > +               /*
+> > +                * If userspace has opted-in to VM_BIND (and therefore =
+userspace
+> > +                * management of the VM), faults mark the VM as unusuab=
+le.  This
+> > +                * matches vulkan expectations (vulkan is the main targ=
+et for
+> > +                * VM_BIND)
 >
-> If userspace has opted-in to VM_BIND, then GPU faults and VM_BIND errors
-> will mark the VM as unusable.
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/msm_gem.h        | 17 +++++++++++++++++
->  drivers/gpu/drm/msm/msm_gem_submit.c |  3 +++
->  drivers/gpu/drm/msm/msm_gpu.c        | 16 ++++++++++++++--
->  3 files changed, 34 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.=
-h
-> index acb976722580..7cb720137548 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.h
-> +++ b/drivers/gpu/drm/msm/msm_gem.h
-> @@ -82,6 +82,23 @@ struct msm_gem_vm {
->
->         /** @managed: is this a kernel managed VM? */
->         bool managed;
-> +
-> +       /**
-> +        * @unusable: True if the VM has turned unusable because somethin=
-g
-> +        * bad happened during an asynchronous request.
-> +        *
-> +        * We don't try to recover from such failures, because this impli=
-es
-> +        * informing userspace about the specific operation that failed, =
-and
-> +        * hoping the userspace driver can replay things from there. This=
- all
-> +        * sounds very complicated for little gain.
-> +        *
-> +        * Instead, we should just flag the VM as unusable, and fail any
-> +        * further request targeting this VM.
-> +        *
-> +        * As an analogy, this would be mapped to a VK_ERROR_DEVICE_LOST
-> +        * situation, where the logical device needs to be re-created.
-> +        */
-> +       bool unusable;
->  };
->  #define to_msm_vm(x) container_of(x, struct msm_gem_vm, base)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/m=
-sm_gem_submit.c
-> index 9731ad7993cf..9cef308a0ad1 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -668,6 +668,9 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void=
- *data,
->         if (args->pad)
->                 return -EINVAL;
->
-> +       if (to_msm_vm(ctx->vm)->unusable)
-> +               return UERR(EPIPE, dev, "context is unusable");
-> +
->         /* for now, we just have 3d pipe.. eventually this would need to
->          * be more clever to dispatch to appropriate gpu module:
->          */
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.=
-c
-> index 503e4dcc5a6f..4831f4e42fd9 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -386,8 +386,20 @@ static void recover_worker(struct kthread_work *work=
-)
->
->         /* Increment the fault counts */
->         submit->queue->faults++;
-> -       if (submit->vm)
-> -               to_msm_vm(submit->vm)->faults++;
-> +       if (submit->vm) {
-> +               struct msm_gem_vm *vm =3D to_msm_vm(submit->vm);
-> +
-> +               vm->faults++;
-> +
-> +               /*
-> +                * If userspace has opted-in to VM_BIND (and therefore us=
-erspace
-> +                * management of the VM), faults mark the VM as unusuable=
-.  This
-> +                * matches vulkan expectations (vulkan is the main target=
- for
-> +                * VM_BIND)
+> The bit about this matching Vulkan expectations isn't exactly true.
+> Some Vulkan implementations do do this, but many will also just ignore
+> the fault and try to continue going, and the spec allows either. It's
+> a choice that we're making.
 
-The bit about this matching Vulkan expectations isn't exactly true.
-Some Vulkan implementations do do this, but many will also just ignore
-the fault and try to continue going, and the spec allows either. It's
-a choice that we're making.
+As mentioned on IRC, this is actually about GPU hangs rather then smmu
+faults.   I guess the $subject is a bit misleading.
 
-Connor
+BR,
+-R
 
-> +                */
-> +               if (!vm->managed)
-> +                       vm->unusable =3D true;
-> +       }
+> Connor
 >
->         get_comm_cmdline(submit, &comm, &cmd);
->
-> --
-> 2.48.1
->
+> > +                */
+> > +               if (!vm->managed)
+> > +                       vm->unusable =3D true;
+> > +       }
+> >
+> >         get_comm_cmdline(submit, &comm, &cmd);
+> >
+> > --
+> > 2.48.1
+> >
