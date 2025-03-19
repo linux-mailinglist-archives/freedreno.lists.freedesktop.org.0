@@ -2,78 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B127A6900A
+	by mail.lfdr.de (Postfix) with ESMTPS id 83530A6900B
 	for <lists+freedreno@lfdr.de>; Wed, 19 Mar 2025 15:44:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 111EF10E256;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 420BE10E26F;
 	Wed, 19 Mar 2025 14:44:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UvXsc0tm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ngdj9xxh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1B6210E256
- for <freedreno@lists.freedesktop.org>; Wed, 19 Mar 2025 14:44:08 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-7c0ca5e6d45so118661785a.3
- for <freedreno@lists.freedesktop.org>; Wed, 19 Mar 2025 07:44:08 -0700 (PDT)
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
+ [209.85.222.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A66A10E26F
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Mar 2025 14:44:09 +0000 (UTC)
+Received: by mail-qk1-f176.google.com with SMTP id
+ af79cd13be357-7c5a55bf777so11508385a.0
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Mar 2025 07:44:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742395447; x=1743000247; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=DZvJrb+zBc9tB4E4JhmrwjQA5QPEwUV+8PpbNLpgvNM=;
- b=UvXsc0tmsiOHEWvUS/xsd0RDrt+JCoXrio4ubvOKQI3TqRGiETwo88kkJyjMvK1EUI
- D4nSDGADIcdQqeLVLdLPYperVv8caVMGCV6fG4OwOwZXFc0xVmWXpJoCFU6NgDLyCjxy
- o/xdcrCyI3eCjIlLLDWERWX5hFElrieydds9lbxWSHTxQB0V0nSv9qvUgwMlGh0zntcJ
- kPTEgQ/8qyl4yyjt1JL4VJx1ycoscCZc3J6G9JqmEOl/s2iAqBTKMs6m1k3p9V59CJ6m
- tmpfWeKeK4PksFj7a7d4I5kYSuPQXi3W9b5bEQfXip6LDXrNOimdCEHJ4rkNYJZT2Y8G
- ZfFA==
+ d=gmail.com; s=20230601; t=1742395448; x=1743000248; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=AS2XW5pVq0bthsTGPB5Ou/UximnBEjkkBn7KlYu8Dbk=;
+ b=ngdj9xxh2B1Sy3AEBBmNb3HPI/EudC/H+eLyNy49u1rW36EE/jTIEUim1AbezZvwaT
+ FksJKbfTkYZpEIROcCabTShbUaLE2s72i1bVAlYy2LOckHanCeQBjmLNVEwnk9ykF7Vs
+ L6dhBsS12iB4s+e4F+bfZO25IRa/4sbjtQ9jHSYxSpObIt9DU1i5DqNPunEqEwF6h2U6
+ duOLaTFQMLAu1NoBu0CBWoGV4mcKGO+myX8APOtBg/TOCu2GynpX4vLBkA0tAm+0CtBj
+ ayFPTKM7cK1PYHHrC7RBEFHXV53S344Em1drOkmjS8d4YKmUbhJzY4+AY9QeAANIqZl6
+ DmcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742395447; x=1743000247;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DZvJrb+zBc9tB4E4JhmrwjQA5QPEwUV+8PpbNLpgvNM=;
- b=fa606k3uWwlB7kFSJge1ZjDQs3c+10oIjD/ErbVM9i0Ddq5I0WqeBc+CY5MWSospnp
- crgEhXUvbmj1hTVW7sEhsVIvZMCe8Rb3pSbeP3T2a5cwk0DH8j/ly3WGxP+JiHS8VdJ+
- LBYMoNPgceM195J1S4lXcPpRU8DNsM1EiamB4zmSsycs95KI/PlC8EaykcfF45P2FsNU
- l8Z2cmkV7VnP1BjoxGDj6oQXDdUGHYT9TMqvZjZkEaWOD+aEfiRh8rEU66p/MiWfGN54
- fL1JaNIqTOxZaNA1x/MRwUiKTGX8DqnzDKJHfi8BkCNmcCl7jNYhiAAsw3nn68owS5hU
- /MMQ==
+ d=1e100.net; s=20230601; t=1742395448; x=1743000248;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=AS2XW5pVq0bthsTGPB5Ou/UximnBEjkkBn7KlYu8Dbk=;
+ b=JtvDWeIgyxjySEKdY1D3OpwFxky93cFQoPBUlK/E75P5BQoEpdxuWxbVP+stYaOFvw
+ XDeDes1fYsSJsvMQOPespCMzOoEhRMam+YWSYtkR3G+y2JWQiEvcmy/lzl0J8qbJNe3U
+ xhAgyFnrdDYVKfKfReQYKh/hsEU3Mde3o7WtkLkZegglpOU4fiwnqrDm2oEt2vGq5CcM
+ 2dYu0jk51/0ja4gv6w/4iFoQLUPuVuPgODOuH4NxBo09r4mQ0cGkDU/gafsdyTRaWg+Y
+ 0kbcYGfjixADFjBlVWUMGAkXgRE5R+lS+uqZwW5+g+gyA6fNe21X0/P9A9K4YX6tnsak
+ oDGw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUa443HfssEcGjXq0ed3o8pngRKgYlm2E9R3TVnIWyynFY2qjOORcNNUOSUUd7OP+S/eYdFlM1M74k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz80UQ8oLu0fbUOfd+EDKpv6ZWBOZOYIRSVz3jrWngGQuD/2AL9
- oXq1PipBEmbAgYTAm5KXpea//8lI7/llI+wRkPUV4rKK6xfqZ5WytiHcijNs
-X-Gm-Gg: ASbGncu4FE/K7a+AkKlYTiqdoJpUpDYq2nAmVz8EdNofg1blhFW/iJuIFmzRBMv1KMU
- O9FnzkIPClqFocNhG3ZR+ep735l+vSI8euMrQVEs1YX0bhnXKCKrz1lZi22ElPFDZAz18XerTqk
- 6nkmP2ZsXMoLTyHmWcyW1UPvGApmtvMiYgXe51s2PeIzj+833A+b4103ojIsZZj3eesnfK9XKOo
- wpsLfX6aH7TDWcuc5kBfVuYV9XlB70DZq/ZIwKIGnlhnwQDSEzrPYeDAXqI3zMdLHWBmy+Y+29P
- o2ifDRGZf793V3QZoqza9lXinTH5HLu0ZvNQRxEWKAQMDGpoZ1xgPlQVF7BmnXyx5I+wXBc+PHq
- 5L2ztocRNHb5nmQ==
-X-Google-Smtp-Source: AGHT+IH8wFR2r4P4bYD39ofrHSl4H2gYM7bk1WgoKLisHaottHVJmyfq/MFmaRHVPdil7K8nUd/zNA==
-X-Received: by 2002:a05:620a:472c:b0:7c5:8f36:fbeb with SMTP id
- af79cd13be357-7c5a8454c75mr149047885a.12.1742395447329; 
- Wed, 19 Mar 2025 07:44:07 -0700 (PDT)
+ AJvYcCV33JJpFvY0Ch+mNMF2NXNyB7UVSJZsIIbRUOS4ijBsDL3o2Yv/aNdZQKvei17yVEw0MPpu/+m8giA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxwLaUD9LvgNZQQph9tfcP33od3Jtsb5lyUkRkZYhcgDIj02F/h
+ /Y/mqYX4/SnPCQNohjMIbguIyzsXf6nOLhaY4Ar4u6QVbc/RlHWUY6+o918h
+X-Gm-Gg: ASbGncsZEzbFuDVUrJdMGBp7OCJgBSuuGD6QFSyVKuqSfDscmnKQqGjhjh+0eM+IrWX
+ Xox4zGAc0ACNsC8Adscj5Ghz6Samfqfq3M5FgJQ0mhQBq2tIlOMO981Q3gbZSQkBeLtTza9li7f
+ lIKOgy8+lOom50L4Z6UFkkgB+dsUYGvx1VbfdpwXwIlrLPKWqnxiYv3dE4JHdQdvZ2lTy+EsSca
+ njen9PXtpPg/mu/GtTiIyhOsJTn0ofCH/4oYv38deMv68tqvYAIysz1+6lUq1FY7q0FWgohtJU0
+ WzSC48j5BBsWbfxyBeHNja3b3Vak8oCewG/MBdPyvmuAVVXIuKVlHsTG3p/iIT14P8A+4amH7U6
+ 3mmg=
+X-Google-Smtp-Source: AGHT+IEUBVxNH3Lj7tUjS4Mop+GMxjYMq/idGTGfkbzDE/H+cThDC2WmGJXmJn8+8iyby/rSDnLTuw==
+X-Received: by 2002:a05:620a:2907:b0:7c5:606e:763 with SMTP id
+ af79cd13be357-7c5a83dac18mr168535685a.6.1742395448390; 
+ Wed, 19 Mar 2025 07:44:08 -0700 (PDT)
 Received: from [192.168.1.99] (ool-4355b0da.dyn.optonline.net. [67.85.176.218])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7c573c5201fsm868587485a.23.2025.03.19.07.44.06
+ af79cd13be357-7c573c5201fsm868587485a.23.2025.03.19.07.44.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Mar 2025 07:44:06 -0700 (PDT)
+ Wed, 19 Mar 2025 07:44:07 -0700 (PDT)
 From: Connor Abbott <cwabbott0@gmail.com>
-Subject: [PATCH v5 0/5] iommu/arm-smmu, drm/msm: Fixes for stall-on-fault
-Date: Wed, 19 Mar 2025 10:43:59 -0400
-Message-Id: <20250319-msm-gpu-fault-fixes-next-v5-0-97561209dd8c@gmail.com>
+Date: Wed, 19 Mar 2025 10:44:00 -0400
+Subject: [PATCH v5 1/5] iommu/arm-smmu: Save additional information on
+ context fault
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC/Y2mcC/43PwW6DMAwG4Fepcp4nx06g7LT3mHZIgqGRClSEo
- lYV797Qy1APaMff1v9ZfqgkY5Skvg4PNcocUxz6HOzHQYWT61uBWOesCMmi1iV0qYP2coXGXc8
- TNPEmCXq5TVAVwlgdkVi0yvXLKK9tbv/85nyKaRrG++vSrNfpP9BZA4IPlWcmb2v0323n4vkzD
- J1a0Zk2EOEORBmqCy6CQSrR0DvEW4h2IM4QusYhanu0pN8h8wcxmh3IrK+JNl64bEzgLbQsyxM
- DZl6smwEAAA==
-X-Change-ID: 20250117-msm-gpu-fault-fixes-next-96e3098023e1
+Message-Id: <20250319-msm-gpu-fault-fixes-next-v5-1-97561209dd8c@gmail.com>
+References: <20250319-msm-gpu-fault-fixes-next-v5-0-97561209dd8c@gmail.com>
+In-Reply-To: <20250319-msm-gpu-fault-fixes-next-v5-0-97561209dd8c@gmail.com>
 To: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>, 
  Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
  Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
@@ -84,11 +81,11 @@ Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org, 
  Connor Abbott <cwabbott0@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1742395446; l=3767;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1742395446; l=6457;
  i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
- bh=W+2qxiUePPwUKrcvsCPyy4DS+hrPlZHy31bDsxo4fQg=;
- b=KuiYN+2L5L9ZTkYhp2nQbTVJiw0RI+ulKpDIosj5jHuAWlohXExldKuu0bne/raFKDh/osyLf
- wtodUGcp3MSBERRMcHsuvuYsQDtGtaxFLRVCv768rnsZMtcPy0a/I1z
+ bh=/ySPkR/aTeuRK+/xkC1Wp/+XmiGAN99nf8Z+rdcy/nM=;
+ b=pW8dnSeUfSbbfScY5Vu7vapW0rnsWlSENK31M8LwJ9ZeP96qlfErtrGGKpYyBtWsx1mMigWyp
+ vKyhFyEZW4TCrO317brQ3fcTSH96lKmKEef17al8GUGD6CWZfeVLay9
 X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
  pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -106,81 +103,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-drm/msm uses the stall-on-fault model to record the GPU state on the
-first GPU page fault to help debugging. On systems where the GPU is
-paired with a MMU-500, there were two problems:
-
-1. The MMU-500 doesn't de-assert its interrupt line until the fault is
-   resumed, which led to a storm of interrupts until the fault handler
-   was called. If we got unlucky and the fault handler was on the same
-   CPU as the interrupt, there was a deadlock.
-2. The GPU is capable of generating page faults much faster than we can
-   resume them. GMU (GPU Management Unit) shares the same context bank
-   as the GPU, so if there was a sudden spurt of page faults it would be
-   effectively starved and would trigger a watchdog reset, made even
-   worse because the GPU cannot be reset while there's a pending
-   transaction leaving the GPU permanently wedged.
-
-Patches 1-3 fixes the first problem and is independent of the rest of the
-series. Patch 5 fixes the second problem and is dependent on patch 4, so
-there will have to be some cross-tree coordination.
-
-I've rebased this series on the latest linux-next to avoid rebase
-troubles.
+This will be used by drm/msm for GPU page faults, replacing the manual
+register reading it does.
 
 Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 ---
-Changes in v5:
-- Don't read CONTEXTIDR for stage 2 domains.
-- Clarify that we don't need TLB invalidation when changing
-  SMMU_CBn_SCTLR.CFCFG.
-- Link to v4: https://lore.kernel.org/r/20250304-msm-gpu-fault-fixes-next-v4-0-be14be37f4c3@gmail.com
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c |  6 ++--
+ drivers/iommu/arm/arm-smmu/arm-smmu.c            | 35 ++++++++++++++----------
+ drivers/iommu/arm/arm-smmu/arm-smmu.h            |  7 +++--
+ 3 files changed, 29 insertions(+), 19 deletions(-)
 
-Changes in v4:
-- Add patches 1-2, which fix reading registers in drm/msm when
-  acknowledging the fault early. This was Robin's preferred solution
-  compared to making drm/msm's fault handler tell arm-smmu to resume the
-  fault.
-- Link to v3: https://lore.kernel.org/r/20250122-msm-gpu-fault-fixes-next-v3-0-0afa00158521@gmail.com
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c
+index 548783f3f8e89fd978367afa65c473002f66e2e7..5bf1aa4aa941962710f1f14260e133d560aee86f 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c
+@@ -393,14 +393,14 @@ irqreturn_t qcom_smmu_context_fault(int irq, void *dev)
+ 				      DEFAULT_RATELIMIT_INTERVAL,
+ 				      DEFAULT_RATELIMIT_BURST);
+ 
+-	arm_smmu_read_context_fault_info(smmu, idx, &cfi);
++	arm_smmu_read_context_fault_info(smmu_domain, &cfi);
+ 
+ 	if (!(cfi.fsr & ARM_SMMU_CB_FSR_FAULT))
+ 		return IRQ_NONE;
+ 
+ 	if (list_empty(&tbu_list)) {
+ 		ret = report_iommu_fault(&smmu_domain->domain, NULL, cfi.iova,
+-					 cfi.fsynr & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
++					 cfi.fsynr0 & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
+ 
+ 		if (ret == -ENOSYS)
+ 			arm_smmu_print_context_fault_info(smmu, idx, &cfi);
+@@ -412,7 +412,7 @@ irqreturn_t qcom_smmu_context_fault(int irq, void *dev)
+ 	phys_soft = ops->iova_to_phys(ops, cfi.iova);
+ 
+ 	tmp = report_iommu_fault(&smmu_domain->domain, NULL, cfi.iova,
+-				 cfi.fsynr & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
++				 cfi.fsynr0 & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
+ 	if (!tmp || tmp == -EBUSY) {
+ 		ret = IRQ_HANDLED;
+ 		resume = ARM_SMMU_RESUME_TERMINATE;
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+index ade4684c14c9b2724a71e2457288dbfaf7562c83..a02078eb968b81a35c1c086ed7007ea2a453ef94 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -405,13 +405,20 @@ static const struct iommu_flush_ops arm_smmu_s2_tlb_ops_v1 = {
+ };
+ 
+ 
+-void arm_smmu_read_context_fault_info(struct arm_smmu_device *smmu, int idx,
++void arm_smmu_read_context_fault_info(struct arm_smmu_domain *smmu_domain,
+ 				      struct arm_smmu_context_fault_info *cfi)
+ {
++	struct arm_smmu_device *smmu = smmu_domain->smmu;
++	int idx = smmu_domain->cfg.cbndx;
++
+ 	cfi->iova = arm_smmu_cb_readq(smmu, idx, ARM_SMMU_CB_FAR);
++	cfi->ttbr0 = arm_smmu_cb_readq(smmu, idx, ARM_SMMU_CB_TTBR0);
+ 	cfi->fsr = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSR);
+-	cfi->fsynr = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR0);
++	cfi->fsynr0 = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR0);
++	cfi->fsynr1 = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR1);
+ 	cfi->cbfrsynra = arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA(idx));
++	if (smmu_domain->stage == ARM_SMMU_DOMAIN_S1)
++		cfi->contextidr = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_CONTEXTIDR);
+ }
+ 
+ void arm_smmu_print_context_fault_info(struct arm_smmu_device *smmu, int idx,
+@@ -419,7 +426,7 @@ void arm_smmu_print_context_fault_info(struct arm_smmu_device *smmu, int idx,
+ {
+ 	dev_err(smmu->dev,
+ 		"Unhandled context fault: fsr=0x%x, iova=0x%08lx, fsynr=0x%x, cbfrsynra=0x%x, cb=%d\n",
+-		cfi->fsr, cfi->iova, cfi->fsynr, cfi->cbfrsynra, idx);
++		cfi->fsr, cfi->iova, cfi->fsynr0, cfi->cbfrsynra, idx);
+ 
+ 	dev_err(smmu->dev, "FSR    = %08x [%s%sFormat=%u%s%s%s%s%s%s%s%s], SID=0x%x\n",
+ 		cfi->fsr,
+@@ -437,15 +444,15 @@ void arm_smmu_print_context_fault_info(struct arm_smmu_device *smmu, int idx,
+ 		cfi->cbfrsynra);
+ 
+ 	dev_err(smmu->dev, "FSYNR0 = %08x [S1CBNDX=%u%s%s%s%s%s%s PLVL=%u]\n",
+-		cfi->fsynr,
+-		(u32)FIELD_GET(ARM_SMMU_CB_FSYNR0_S1CBNDX, cfi->fsynr),
+-		(cfi->fsynr & ARM_SMMU_CB_FSYNR0_AFR) ? " AFR" : "",
+-		(cfi->fsynr & ARM_SMMU_CB_FSYNR0_PTWF) ? " PTWF" : "",
+-		(cfi->fsynr & ARM_SMMU_CB_FSYNR0_NSATTR) ? " NSATTR" : "",
+-		(cfi->fsynr & ARM_SMMU_CB_FSYNR0_IND) ? " IND" : "",
+-		(cfi->fsynr & ARM_SMMU_CB_FSYNR0_PNU) ? " PNU" : "",
+-		(cfi->fsynr & ARM_SMMU_CB_FSYNR0_WNR) ? " WNR" : "",
+-		(u32)FIELD_GET(ARM_SMMU_CB_FSYNR0_PLVL, cfi->fsynr));
++		cfi->fsynr0,
++		(u32)FIELD_GET(ARM_SMMU_CB_FSYNR0_S1CBNDX, cfi->fsynr0),
++		(cfi->fsynr0 & ARM_SMMU_CB_FSYNR0_AFR) ? " AFR" : "",
++		(cfi->fsynr0 & ARM_SMMU_CB_FSYNR0_PTWF) ? " PTWF" : "",
++		(cfi->fsynr0 & ARM_SMMU_CB_FSYNR0_NSATTR) ? " NSATTR" : "",
++		(cfi->fsynr0 & ARM_SMMU_CB_FSYNR0_IND) ? " IND" : "",
++		(cfi->fsynr0 & ARM_SMMU_CB_FSYNR0_PNU) ? " PNU" : "",
++		(cfi->fsynr0 & ARM_SMMU_CB_FSYNR0_WNR) ? " WNR" : "",
++		(u32)FIELD_GET(ARM_SMMU_CB_FSYNR0_PLVL, cfi->fsynr0));
+ }
+ 
+ static irqreturn_t arm_smmu_context_fault(int irq, void *dev)
+@@ -458,13 +465,13 @@ static irqreturn_t arm_smmu_context_fault(int irq, void *dev)
+ 	int idx = smmu_domain->cfg.cbndx;
+ 	int ret;
+ 
+-	arm_smmu_read_context_fault_info(smmu, idx, &cfi);
++	arm_smmu_read_context_fault_info(smmu_domain, &cfi);
+ 
+ 	if (!(cfi.fsr & ARM_SMMU_CB_FSR_FAULT))
+ 		return IRQ_NONE;
+ 
+ 	ret = report_iommu_fault(&smmu_domain->domain, NULL, cfi.iova,
+-		cfi.fsynr & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
++		cfi.fsynr0 & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
+ 
+ 	if (ret == -ENOSYS && __ratelimit(&rs))
+ 		arm_smmu_print_context_fault_info(smmu, idx, &cfi);
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+index e2aeb511ae903302e3c15d2cf5f22e2a26ac2346..ef6915a0d9f62b0a1734a3ee57ea422615036094 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+@@ -543,12 +543,15 @@ int arm_mmu500_reset(struct arm_smmu_device *smmu);
+ 
+ struct arm_smmu_context_fault_info {
+ 	unsigned long iova;
++	u64 ttbr0;
+ 	u32 fsr;
+-	u32 fsynr;
++	u32 fsynr0;
++	u32 fsynr1;
+ 	u32 cbfrsynra;
++	u32 contextidr;
+ };
+ 
+-void arm_smmu_read_context_fault_info(struct arm_smmu_device *smmu, int idx,
++void arm_smmu_read_context_fault_info(struct arm_smmu_domain *smmu_domain,
+ 				      struct arm_smmu_context_fault_info *cfi);
+ 
+ void arm_smmu_print_context_fault_info(struct arm_smmu_device *smmu, int idx,
 
-Changes in v3:
-- Acknowledge the fault before resuming the transaction in patch 1.
-- Add suggested extra context to commit messages.
-- Link to v2: https://lore.kernel.org/r/20250120-msm-gpu-fault-fixes-next-v2-0-d636c4027042@gmail.com
-
-Changes in v2:
-- Remove unnecessary _irqsave when locking in IRQ handler (Robin)
-- Reuse existing spinlock for CFIE manipulation (Robin)
-- Lock CFCFG manipulation against concurrent CFIE manipulation
-- Don't use timer to re-enable stall-on-fault. (Rob)
-- Use more descriptive name for the function that re-enables
-  stall-on-fault if the cooldown period has ended. (Rob)
-- Link to v1: https://lore.kernel.org/r/20250117-msm-gpu-fault-fixes-next-v1-0-bc9b332b5d0b@gmail.com
-
----
-Connor Abbott (5):
-      iommu/arm-smmu: Save additional information on context fault
-      iommu/arm-smmu-qcom: Don't read fault registers directly
-      iommu/arm-smmu: Fix spurious interrupts with stall-on-fault
-      iommu/arm-smmu-qcom: Make set_stall work when the device is on
-      drm/msm: Temporarily disable stall-on-fault after a page fault
-
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c            |  2 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c            |  4 ++
- drivers/gpu/drm/msm/adreno/adreno_gpu.c          | 42 +++++++++++-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h          | 26 ++++++++
- drivers/gpu/drm/msm/msm_iommu.c                  |  9 +++
- drivers/gpu/drm/msm/msm_mmu.h                    |  1 +
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c |  6 +-
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c       | 67 +++++++++++++++----
- drivers/iommu/arm/arm-smmu/arm-smmu.c            | 84 ++++++++++++++++++------
- drivers/iommu/arm/arm-smmu/arm-smmu.h            | 21 +++---
- 10 files changed, 216 insertions(+), 46 deletions(-)
----
-base-commit: 866e43b945bf98f8e807dfa45eca92f931f3a032
-change-id: 20250117-msm-gpu-fault-fixes-next-96e3098023e1
-
-Best regards,
 -- 
-Connor Abbott <cwabbott0@gmail.com>
+2.47.1
 
