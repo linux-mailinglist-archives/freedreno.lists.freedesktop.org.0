@@ -2,95 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6E93A6AF95
-	for <lists+freedreno@lfdr.de>; Thu, 20 Mar 2025 22:06:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 625F1A6B7C5
+	for <lists+freedreno@lfdr.de>; Fri, 21 Mar 2025 10:41:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE5410E6D2;
-	Thu, 20 Mar 2025 21:06:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD4D710E767;
+	Fri, 21 Mar 2025 09:41:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="XMT0udc+";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Q2q+HaQb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5EE310E6D0;
- Thu, 20 Mar 2025 21:06:47 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52KEIJpE005901;
- Thu, 20 Mar 2025 21:06:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- tATHTglTJM9UOHXhCrFGkpEE6lgCWEeNaBCm00pblL0=; b=XMT0udc+TIuEWqJx
- yewPmloMniiWPcvzNVhkFVDg+EwZHjSoBI13rEbe5Pe8DxwBCMBXmHdEHJYISWrx
- G+le01FJ6BWWm3IQcz+nKOvCWenvn4eD81pzHTdZzMR3rtgAcMZcjp9Mkyy6Fnvt
- 4SpyCVSHDs15ALaK8eK2CQ7CEZsNMNtwSQoET0BHyPz74HQ2ZHn5FmTe6tcTP7eB
- 3JsXu3XVSbBSzV0sXJSh9Oo8NeN684hfsD3SqnOg1T0UsmEA3swp1YOqYSfmM7nq
- s7ioLAoU+NWrFe0+1VH20mr/kyGofHZQaIZ4O9SrEtP6ORkDEJwCgHlb2mW99r6C
- OoD7PQ==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45etmc313e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Mar 2025 21:06:36 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 52KL6Zl6003583
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Mar 2025 21:06:35 GMT
-Received: from [10.216.3.194] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 20 Mar
- 2025 14:06:25 -0700
-Message-ID: <3abefb09-c1b6-4339-8cd9-cd86652c35d6@quicinc.com>
-Date: Fri, 21 Mar 2025 02:36:21 +0530
+X-Greylist: delayed 2767 seconds by postgrey-1.36 at gabe;
+ Fri, 21 Mar 2025 09:41:33 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B645A10E767
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Mar 2025 09:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-ID:MIME-Version; bh=mZPiX
+ quyeyecb4DW24Tg2cMooYApUCDgOih/gW3Z9R0=; b=Q2q+HaQb6m1V6zhg2GZ3x
+ ApDdI20drvLGz5KHCSSpKrOwxl25P8rhpcPPnxSEP/op78ftR8pqOIIsIeYaj6Pa
+ fha7H2gzaIpVnuxuJNLhshBzJl818rFe7wmtfPvHhXGmgMagRItzF/HgZ0QW0AgX
+ yCXdpnqxIc6RaaN7ERPnRY=
+Received: from ProDesk.. (unknown [])
+ by gzsmtp3 (Coremail) with SMTP id PigvCgC3lmIbKd1nvVJ9AQ--.2326S2;
+ Fri, 21 Mar 2025 16:53:51 +0800 (CST)
+From: Andy Yan <andyshrk@163.com>
+To: lumag@kernel.org
+Cc: mripard@kernel.org, neil.armstrong@linaro.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ jani.nikula@intel.com, lyude@redhat.com, jonathanh@nvidia.com,
+ p.zabel@pengutronix.de, simona@ffwll.ch, victor.liu@nxp.com,
+ rfoss@kernel.org, chunkuang.hu@kernel.org,
+ cristian.ciocaltea@collabora.com, Laurent.pinchart@ideasonboard.com,
+ linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Andy Yan <andy.yan@rock-chips.com>
+Subject: [PATCH 0/1] Pass down connector to drm bridge detect hook
+Date: Fri, 21 Mar 2025 16:53:37 +0800
+Message-ID: <20250321085345.136380-1-andyshrk@163.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/10] drm/bridge: anx7625: enable HPD interrupts
-To: Dmitry Baryshkov <lumag@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <robdclark@gmail.com>,
- <dmitry.baryshkov@linaro.org>, <sean@poorly.run>,
- <marijn.suijten@somainline.org>, <andersson@kernel.org>,
- <robh@kernel.org>, <robh+dt@kernel.org>, <krzk+dt@kernel.org>,
- <konradybcio@kernel.org>, <conor+dt@kernel.org>,
- <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
- <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
- <quic_abhinavk@quicinc.com>, <quic_rajeevny@quicinc.com>,
- <quic_vproddut@quicinc.com>, <quic_jesszhan@quicinc.com>
-References: <20250311122445.3597100-1-quic_amakhija@quicinc.com>
- <20250311122445.3597100-9-quic_amakhija@quicinc.com>
- <5hvpacx3qeqhjqemhqizws4esdhwg7reli77qey2nin2fggljp@ykgyayj2v3e6>
-Content-Language: en-US
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-In-Reply-To: <5hvpacx3qeqhjqemhqizws4esdhwg7reli77qey2nin2fggljp@ykgyayj2v3e6>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: tRozAjq0hfhDi8U9-fjhIm8fjK2Givoe
-X-Proofpoint-GUID: tRozAjq0hfhDi8U9-fjhIm8fjK2Givoe
-X-Authority-Analysis: v=2.4 cv=aMLwqa9m c=1 sm=1 tr=0 ts=67dc835c cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10
- a=VNkCFBYSnlPScTfBtzoA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-20_07,2025-03-20_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 mlxscore=0
- suspectscore=0 malwarescore=0 mlxlogscore=997 bulkscore=0 adultscore=0
- lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2503200136
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: PigvCgC3lmIbKd1nvVJ9AQ--.2326S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAw48KrWfKF1UWr4UXr15twb_yoW5WF1rpF
+ W2gry3Ary8ZFWakayxAF18CF98A3Z7JFWFkrW2ywna93WruF1UArsxAayYqFyDWF17Jr1a
+ ywnrGrWxGF1xAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jvuWdUUUUU=
+X-Originating-IP: [58.22.7.114]
+X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbBkBcXXmfdIWPYKgAAsE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,36 +65,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 3/11/2025 9:09 PM, Dmitry Baryshkov wrote:
-> On Tue, Mar 11, 2025 at 05:54:43PM +0530, Ayushi Makhija wrote:
->> When device enters the suspend state, it prevents
->> HPD interrupts from occurring. To address this,
->> add an additional PM runtime vote in hpd_enable().
->> This vote is removed in hpd_disable().
-> 
-> Is it really enough to toggle the HPD interrupts? Is there any kind of
-> programming that should be moved to .hpd_enable() too (so that by
-> default the bridge doesn't generate HPD interrupts)?
-> 
+From: Andy Yan <andy.yan@rock-chips.com>
 
-Hi Dmirty,
 
-I couldn't find the ANX7625 bridge driver datasheet, where all the registers information are present.
+In some application scenarios, we hope to get the corresponding
+connector when the bridge's detect hook is invoked.
 
-As per my understanding, we have anx7625_hpd_timer_config(), where debounce timer registers are getting set, which help to manage the detection and stability of the HPD signal.
+For example, we may want to call drm_dp_read_sink_count_cap(which needs
+a drm_connector) at the dp deteck hook, intel_dp and nouveau_dp do this
+at it's connector's detetc_ctx/detect hook.
 
-anx7625_hpd_timer_config() is getting called from anx7625_runtime_pm_resume().
+But for a bridge driver, it's detect hook is initiated by the connector,
+there is no connector passed down.
 
-anx7625_runtime_pm_resume
-   anx7625_power_on_init
-       anx7625_ocm_loading_check
-           anx7625_disable_pd_protocol
-              anx7625_hpd_timer_config
+In most cases, we can get the connector by drm_atomic_get_connector_for_encoder
+if the encoder attached to the bridge is enabled, however there will
+still be some scenarios where the detect hook of the bridge is called
+but the corresponding encoder has not been enabled yet. For instance,
+this occurs when the device is hot plug in for the first time.
 
-So, I think HPD programming is already taken care in anx7625_hpd_timer_config(). anx7625_runtime_pm_resume() is getting called for both eDP and DP configuration. 
+Since the call to bridge's detect is initiated by the connector, passing
+down the corresponding connector directly will make things simpler.
 
-If you suggest then, I can move the anx7625_hpd_timer_config() from anx7625_disable_pd_protocol() to anx7625_bridge_hpd_enable().
+Before preparing this patch, we have had some discussions on the details
+here[0].
 
-Thanks,
-Ayushi
+[0]https://patchwork.freedesktop.org/patch/640712/?series=143573&rev=5
+
+
+Andy Yan (1):
+  drm/bridge: Pass down connector to drm bridge detect hook
+
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c          |  3 ++-
+ drivers/gpu/drm/bridge/analogix/anx7625.c             |  2 +-
+ drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c   |  3 ++-
+ drivers/gpu/drm/bridge/chrontel-ch7033.c              |  2 +-
+ drivers/gpu/drm/bridge/display-connector.c            | 11 ++++++++---
+ drivers/gpu/drm/bridge/ite-it6263.c                   |  3 ++-
+ drivers/gpu/drm/bridge/ite-it6505.c                   |  2 +-
+ drivers/gpu/drm/bridge/ite-it66121.c                  |  3 ++-
+ drivers/gpu/drm/bridge/lontium-lt8912b.c              |  6 +++---
+ drivers/gpu/drm/bridge/lontium-lt9611.c               |  3 ++-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c            |  3 ++-
+ .../gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c  |  3 ++-
+ drivers/gpu/drm/bridge/sii902x.c                      |  3 ++-
+ drivers/gpu/drm/bridge/simple-bridge.c                |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c          |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c             |  3 ++-
+ drivers/gpu/drm/bridge/tc358767.c                     |  5 +++--
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c                 |  3 ++-
+ drivers/gpu/drm/bridge/ti-tfp410.c                    |  2 +-
+ drivers/gpu/drm/bridge/ti-tpd12s015.c                 |  8 +++++++-
+ drivers/gpu/drm/display/drm_bridge_connector.c        |  2 +-
+ drivers/gpu/drm/drm_bridge.c                          |  5 +++--
+ drivers/gpu/drm/mediatek/mtk_dp.c                     |  3 ++-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c                   |  3 ++-
+ drivers/gpu/drm/msm/dp/dp_drm.c                       |  3 ++-
+ drivers/gpu/drm/msm/hdmi/hdmi.h                       |  2 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c                |  2 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_hpd.c                   |  4 ++--
+ drivers/gpu/drm/xlnx/zynqmp_dp.c                      |  3 ++-
+ include/drm/drm_bridge.h                              |  6 ++++--
+ 30 files changed, 67 insertions(+), 38 deletions(-)
+
+-- 
+2.43.0
 
