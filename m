@@ -2,80 +2,112 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D186A6C2CD
-	for <lists+freedreno@lfdr.de>; Fri, 21 Mar 2025 19:54:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A9F9A6CDA0
+	for <lists+freedreno@lfdr.de>; Sun, 23 Mar 2025 02:18:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 157D010E18D;
-	Fri, 21 Mar 2025 18:54:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA2C510E176;
+	Sun, 23 Mar 2025 01:18:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kGcJqPcP";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fuJBJc/p";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B01410E03D;
- Fri, 21 Mar 2025 18:54:50 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-224019ad9edso58946605ad.1; 
- Fri, 21 Mar 2025 11:54:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742583289; x=1743188089; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=kuWrbcuvodyfwyDX9ovNtAfDuo8x7JtH0NBDGtHQx3E=;
- b=kGcJqPcPBdDNTclZggcnvys7wRZBVg5Ag+vmbpumY1uZxW5Ba6dbtgEN41YxoLMVIG
- yHe5u0Zpv1EYnjrYbI+WZfivWJRTrUANcXxJIUrrZ5Z7rNBljq2bottiZ+9nct9Xmz/V
- OmI7OsGjZuOXdOCClZkoMNeEq00adWJcIItDG1LAh/no8IJgsxf1X4YqPh51vajTvQd2
- pQGY0wwmlvxCARwcovpuu73KmmiSqO3Q6Bev2JnUrJ8ytLoSZ+FrFo3VHI+sFcjsV9T1
- UbTr5B8FfDJMhHYWFf+A8nHpeLcLqbIB/efKh1fAfVUz+wG816uXQSBr0NnqBIaUzbm2
- XV1A==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C872210E1AD
+ for <freedreno@lists.freedesktop.org>; Sun, 23 Mar 2025 01:18:47 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52MMOhW4002095
+ for <freedreno@lists.freedesktop.org>; Sun, 23 Mar 2025 01:18:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=2R9ezOTp2OXuwq2T5MuT2vKZ
+ RZJiv8BpmQQIAHvkRRo=; b=fuJBJc/p1pME36ADkN25DN8/FvUuW4LGyR0BJfGw
+ LkfBleFjuQmWhD3r/zLQxhZevo4KIET1dD+C2qwlXWstLq60ZJZe1UcKDJIq43L3
+ CbzhVWK8TZ8GFc0blvX23vdn1TKDHrcS7vkFjFiw5H8mO7VlstReT98uuc+nBpJi
+ xjoytF7/xSAbzpfbBlsjpvvIrZoK6zyJYbZivwCcOmxoSPCIXag7aj3djHnuS6IA
+ GNHuEJ7oZVXqxDF68QuzHldLNY8Tx7cWhb4EjGuO2lbqa+xbjdioZdfGU/bvRc6U
+ BgdttTafXS3rzpFRgTL+wxNRTAok9q0/ier+QJvHf1GFiQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45hnk8hcq1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Sun, 23 Mar 2025 01:18:36 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-476664bffbeso53280161cf.3
+ for <freedreno@lists.freedesktop.org>; Sat, 22 Mar 2025 18:18:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742583289; x=1743188089;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kuWrbcuvodyfwyDX9ovNtAfDuo8x7JtH0NBDGtHQx3E=;
- b=daYadIlxt9DQN3tbb8j3D4vPNGnJIcHl9yAbkWqpU45z7sjF91eH/0FPi4uuhIsNIy
- 5BWWebF+0fVe0ZCx6/R7kM6zhSPlgAkA452q54UsWmpQ6vA8i7i9KZsTLo4TH4ntFSuL
- fJK4QPMkVOKP367CtynjDyoH4TxiAPG76ceApTAv8mJOL2EfdrACWbnKe1BFq8icI240
- Ef67nELmuzfSjOv2ao6B1C/zM4WWTIecw8hRLLehMwTAYdqkRpl61yu45lAgdXQGeB7/
- YWUY1heBY1yIkHhdyb/HAbXp3D48MnzMltUXYMa+6Qeo6ha6Gi/vhbbXZaq4Hh0me2ji
- nJTg==
-X-Gm-Message-State: AOJu0YyGH4Lg9u+M2vQiTPv0L254jUC7gJNp/6NujrzEWVkTo4bdoIqU
- Mk7zL/+uxm+UiKXIPjCB4MVMqjuwjYXFONHqZDgZixi71e9KK3KYKBaSWg==
-X-Gm-Gg: ASbGncuwHje0IO2DovQ5sUbH+JTxmnKMr4N5LVJumX92SR+BoO+vTZR2awFRGUNXZvK
- TSVzORd1mop8pSqm5Q1F4Qfpy0p5ghCApuSU1fkT+Jm9W1vMnAYM+6dLbuFneax5ObejZ0bm/6o
- QDOtkXS3na5NdHLV1W8QqySWbWMCoqOnCmZGB6rYxiPGHZslwBm68wGbrB2IPABFFsK4n0mdj7j
- rTz0icuMSl01jDuQ80NAEwYbdIcl1M7/XkuHnz7vr7zM2bSyoOOAEUXVq0hO05zgqj/JzOkFJDh
- g2xI6SpUgc0yeHbQ3rbiVVkMaqdwOWl8UgeboKS6RSnApuxu1Rn4zHhe5zSQTcMqRvgpT9kP5Ix
- ZAWI/zRQ3kB9HEeWi3aA=
-X-Google-Smtp-Source: AGHT+IENwJPy3NZ2JgeNry3ajUMcfwlItfAMwMe80EXJa+Ja58OE0NniLaywafeM20eG0xAejI6Hpg==
-X-Received: by 2002:a17:902:ce05:b0:223:fd7f:2752 with SMTP id
- d9443c01a7336-22780d9325amr73936175ad.29.1742583289057; 
- Fri, 21 Mar 2025 11:54:49 -0700 (PDT)
-Received: from localhost ([2a00:79e0:3e00:2601:3afc:446b:f0df:eadc])
+ d=1e100.net; s=20230601; t=1742692716; x=1743297516;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2R9ezOTp2OXuwq2T5MuT2vKZRZJiv8BpmQQIAHvkRRo=;
+ b=v+x9tHKm6+1Kw5jqXOZJ4xDEQlcvqKSjFRm+t8o2NiNUQt/Ij2JXIM83MnAfqaxAnk
+ OlddF48ihsM1kgUzhw4mmUIjCGhsVjiVDOwoFsz1JqgQUI447g1d/2HzefSvWee8pRPj
+ l5yPYoATj2DACmHIf8fTtLubzb8cQTJoe4xxmDCEiIgcbD5SKfjP6nJmTq3mMTKin0o3
+ DBWf2yxmJ29kcSUEs/oAcCdfHQr9y5XO+EVbJz7XQ5xi8jcqYBa1cEaLnS+EjPS8MHIq
+ 64n7kC2lgQiA6cZylnu0H9rJgpBucSzKb1xsdii0L/fqKhhhGWaRNTZ4qNmSX+ouCJ0I
+ 35AQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXTj/8KTfB8XiPm1Iy18FXFsFOlV+KntHgtv9w3ffV9tw1Nfol81xjMN5tD9tGp+VbOaw8Z7U1k5Cc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyiac2DQzhpFXuDF5R9Z7WP7QUwJTno0dcjlQ/AxMnvtohIpUch
+ wG21pzJtLV/Wgk4dnM+IXodXUZT8FwUmfcXgzwYTU6YQ6/RC5jAzx6uWOqSW2cdtwl5n5VtCNYP
+ w7UyLr8QTLWAbnugE6PqUYZM+aR9Yyr/I8zNdyqQbSZXlUn2zhSs7THF1sMO3m7CrpBU=
+X-Gm-Gg: ASbGncv923RWrD2PLKOOch4UU8TeJNTD4yYeMw11HyGpUaMvSPS+1Z6WApL3hgv5FFm
+ fwTQKkCcTE+yvpsP5P2CgcGdjkSqv1K2PFT71iawsLqcyIHgoYtQmOE5uoLZUHf1Gt2uY/GulN1
+ 7yyEZDTnZ81UJ1Q74d8gQTj59C1z4klazu1LXN3bPPMfnWV1Qmgi1oFep+g1Rc2YK8N+6P20IZk
+ 4oc0y97SQl159ffpAgy0qp6EraZ7em0MzBZbkbv7/RtPhM6bDbL4NaU0c9QVgmVXgjdjhPmxfZ6
+ Y0+5nj274n5BVhhujkehOc1+bFyKeZaXSvtxPhF4r65i1ulysxzRmN/4F4qGOpAYYDbsn952au0
+ CTuY=
+X-Received: by 2002:a05:622a:906:b0:476:a655:c4a2 with SMTP id
+ d75a77b69052e-4771dd922e7mr125176651cf.22.1742692716017; 
+ Sat, 22 Mar 2025 18:18:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF0/WAUbrypxHSD2MRLn7a/ohpYmGZD79AJWPxjbyAjULl0qmwkDIxxDUHGu7wO7VnkZgiMmw==
+X-Received: by 2002:a05:622a:906:b0:476:a655:c4a2 with SMTP id
+ d75a77b69052e-4771dd922e7mr125176401cf.22.1742692715594; 
+ Sat, 22 Mar 2025 18:18:35 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-22780f4c4easm20943485ad.84.2025.03.21.11.54.48
+ 2adb3069b0e04-54ad64685besm635531e87.33.2025.03.22.18.18.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Mar 2025 11:54:48 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>,
- Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sat, 22 Mar 2025 18:18:34 -0700 (PDT)
+Date: Sun, 23 Mar 2025 03:18:31 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <robdclark@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ Will Deacon <will@kernel.org>, Rob Clark <robdclark@chromium.org>,
  Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm/adreno: Drop fictional address_space_size
-Date: Fri, 21 Mar 2025 11:54:37 -0700
-Message-ID: <20250321185437.5890-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.49.0
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/msm/adreno: Drop fictional address_space_size
+Message-ID: <tih7arhudjn2sotdvjddzncqi7nyx3xgsvnfi472ve7xcwhhqd@2nlrtoyymkfj>
+References: <20250321185437.5890-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250321185437.5890-1-robdclark@gmail.com>
+X-Proofpoint-ORIG-GUID: 4hLcd70YDyCz8JiC3AEXfdEgTLH76PN9
+X-Authority-Analysis: v=2.4 cv=KMlaDEFo c=1 sm=1 tr=0 ts=67df616c cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Vs1iUdzkB0EA:10 a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=qQjcqu3RhaNh0RZ1ZdMA:9
+ a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: 4hLcd70YDyCz8JiC3AEXfdEgTLH76PN9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-22_10,2025-03-21_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxlogscore=822
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 mlxscore=0 priorityscore=1501
+ adultscore=0 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2503230009
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,264 +123,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Fri, Mar 21, 2025 at 11:54:37AM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Really the only purpose of this was to limit the address space size to
+> 4GB to avoid 32b rollover problems in 64b pointer math in older sqe fw.
+> So replace the address_space_size with a quirk limiting the address
+> space to 4GB.  In all other cases, use the SMMU input address size (IAS)
+> to determine the address space size.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 33 +++++++++++------------
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c   | 19 ++++++++++---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  2 +-
+>  3 files changed, 33 insertions(+), 21 deletions(-)
+> 
 
-Really the only purpose of this was to limit the address space size to
-4GB to avoid 32b rollover problems in 64b pointer math in older sqe fw.
-So replace the address_space_size with a quirk limiting the address
-space to 4GB.  In all other cases, use the SMMU input address size (IAS)
-to determine the address space size.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 33 +++++++++++------------
- drivers/gpu/drm/msm/adreno/adreno_gpu.c   | 19 ++++++++++---
- drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  2 +-
- 3 files changed, 33 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index 53e2ff4406d8..f85b7e89bafb 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -681,6 +681,7 @@ static const struct adreno_info a6xx_gpus[] = {
- 			[ADRENO_FW_SQE] = "a630_sqe.fw",
- 		},
- 		.gmem = (SZ_128K + SZ_4K),
-+		.quirks = ADRENO_QUIRK_4GB_VA,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a610_zap.mdt",
-@@ -713,6 +714,7 @@ static const struct adreno_info a6xx_gpus[] = {
- 			[ADRENO_FW_GMU] = "a630_gmu.bin",
- 		},
- 		.gmem = SZ_512K,
-+		.quirks = ADRENO_QUIRK_4GB_VA,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a615_zap.mdt",
-@@ -743,7 +745,8 @@ static const struct adreno_info a6xx_gpus[] = {
- 		},
- 		.gmem = SZ_512K,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_4GB_VA,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a615_zap.mbn",
- 		.a6xx = &(const struct a6xx_info) {
-@@ -769,7 +772,8 @@ static const struct adreno_info a6xx_gpus[] = {
- 		},
- 		.gmem = SZ_512K,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_4GB_VA,
- 		.init = a6xx_gpu_init,
- 		.a6xx = &(const struct a6xx_info) {
- 			.protect = &a630_protect,
-@@ -791,6 +795,7 @@ static const struct adreno_info a6xx_gpus[] = {
- 			[ADRENO_FW_GMU] = "a619_gmu.bin",
- 		},
- 		.gmem = SZ_512K,
-+		.quirks = ADRENO_QUIRK_4GB_VA,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a615_zap.mdt",
-@@ -815,6 +820,7 @@ static const struct adreno_info a6xx_gpus[] = {
- 			[ADRENO_FW_GMU] = "a619_gmu.bin",
- 		},
- 		.gmem = SZ_512K,
-+		.quirks = ADRENO_QUIRK_4GB_VA,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a615_zap.mdt",
-@@ -838,8 +844,9 @@ static const struct adreno_info a6xx_gpus[] = {
- 			[ADRENO_FW_GMU] = "a619_gmu.bin",
- 		},
- 		.gmem = SZ_512K,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_4GB_VA,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a615_zap.mdt",
- 		.a6xx = &(const struct a6xx_info) {
-@@ -874,7 +881,6 @@ static const struct adreno_info a6xx_gpus[] = {
- 			.gmu_cgc_mode = 0x00020200,
- 			.prim_fifo_threshold = 0x00010000,
- 		},
--		.address_space_size = SZ_16G,
- 		.speedbins = ADRENO_SPEEDBINS(
- 			{ 0, 0 },
- 			{ 137, 1 },
-@@ -907,7 +913,6 @@ static const struct adreno_info a6xx_gpus[] = {
- 				{ /* sentinel */ },
- 			},
- 		},
--		.address_space_size = SZ_16G,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(
- 			0x06030001,
-@@ -920,8 +925,9 @@ static const struct adreno_info a6xx_gpus[] = {
- 			[ADRENO_FW_GMU] = "a630_gmu.bin",
- 		},
- 		.gmem = SZ_1M,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_4GB_VA,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a630_zap.mdt",
- 		.a6xx = &(const struct a6xx_info) {
-@@ -939,8 +945,9 @@ static const struct adreno_info a6xx_gpus[] = {
- 			[ADRENO_FW_GMU] = "a640_gmu.bin",
- 		},
- 		.gmem = SZ_1M,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_4GB_VA,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a640_zap.mdt",
- 		.a6xx = &(const struct a6xx_info) {
-@@ -973,7 +980,6 @@ static const struct adreno_info a6xx_gpus[] = {
- 			.gmu_cgc_mode = 0x00020202,
- 			.prim_fifo_threshold = 0x00300200,
- 		},
--		.address_space_size = SZ_16G,
- 		.speedbins = ADRENO_SPEEDBINS(
- 			{ 0, 0 },
- 			{ 1, 1 },
-@@ -1000,7 +1006,6 @@ static const struct adreno_info a6xx_gpus[] = {
- 			.gmu_cgc_mode = 0x00020000,
- 			.prim_fifo_threshold = 0x00300200,
- 		},
--		.address_space_size = SZ_16G,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x06060300),
- 		.family = ADRENO_6XX_GEN4,
-@@ -1019,7 +1024,6 @@ static const struct adreno_info a6xx_gpus[] = {
- 			.gmu_cgc_mode = 0x00020200,
- 			.prim_fifo_threshold = 0x00300200,
- 		},
--		.address_space_size = SZ_16G,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x06030500),
- 		.family = ADRENO_6XX_GEN4,
-@@ -1039,7 +1043,6 @@ static const struct adreno_info a6xx_gpus[] = {
- 			.gmu_cgc_mode = 0x00020202,
- 			.prim_fifo_threshold = 0x00200200,
- 		},
--		.address_space_size = SZ_16G,
- 		.speedbins = ADRENO_SPEEDBINS(
- 			{ 0,   0 },
- 			{ 117, 0 },
-@@ -1056,8 +1059,9 @@ static const struct adreno_info a6xx_gpus[] = {
- 			[ADRENO_FW_GMU] = "a640_gmu.bin",
- 		},
- 		.gmem = SZ_2M,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_4GB_VA,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a640_zap.mdt",
- 		.a6xx = &(const struct a6xx_info) {
-@@ -1085,7 +1089,6 @@ static const struct adreno_info a6xx_gpus[] = {
- 			.gmu_cgc_mode = 0x00020200,
- 			.prim_fifo_threshold = 0x00800200,
- 		},
--		.address_space_size = SZ_16G,
- 	}
- };
- DECLARE_ADRENO_GPULIST(a6xx);
-@@ -1395,7 +1398,6 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.pwrup_reglist = &a7xx_pwrup_reglist,
- 			.gmu_cgc_mode = 0x00020000,
- 		},
--		.address_space_size = SZ_16G,
- 		.preempt_record_size = 2860 * SZ_1K,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x43050a01), /* "C510v2" */
-@@ -1429,7 +1431,6 @@ static const struct adreno_info a7xx_gpus[] = {
- 				{ /* sentinel */ },
- 			},
- 		},
--		.address_space_size = SZ_16G,
- 		.preempt_record_size = 4192 * SZ_1K,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x43050c01), /* "C512v2" */
-@@ -1451,7 +1452,6 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.gmu_chipid = 0x7050001,
- 			.gmu_cgc_mode = 0x00020202,
- 		},
--		.address_space_size = SZ_256G,
- 		.preempt_record_size = 4192 * SZ_1K,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x43051401), /* "C520v2" */
-@@ -1484,7 +1484,6 @@ static const struct adreno_info a7xx_gpus[] = {
- 				{ /* sentinel */ },
- 			},
- 		},
--		.address_space_size = SZ_16G,
- 		.preempt_record_size = 3572 * SZ_1K,
- 	}
- };
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index bac6cd3afe37..b07c785d3aee 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -236,14 +236,27 @@ adreno_iommu_create_vm(struct msm_gpu *gpu,
- u64 adreno_private_vm_size(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(&gpu->pdev->dev);
-+	const struct io_pgtable_cfg *ttbr1_cfg;
- 
- 	if (address_space_size)
- 		return address_space_size;
- 
--	if (adreno_gpu->info->address_space_size)
--		return adreno_gpu->info->address_space_size;
-+	if (adreno_gpu->info->quirks & ADRENO_QUIRK_4GB_VA)
-+		return SZ_4G;
-+
-+	if (!adreno_smmu || !adreno_smmu->get_ttbr1_cfg)
-+		return SZ_4G;
-+
-+	ttbr1_cfg = adreno_smmu->get_ttbr1_cfg(adreno_smmu->cookie);
- 
--	return SZ_4G;
-+	/*
-+	 * Userspace VM is actually using TTBR0, but both are the same size,
-+	 * with b48 (sign bit) selecting which TTBRn to use.  So if IAS is
-+	 * 48, the total (kernel+user) address space size is effectively
-+	 * 49 bits.  But what userspace is control of is the lower 48.
-+	 */
-+	return BIT(ttbr1_cfg->ias);
- }
- 
- void adreno_check_and_reenable_stall(struct adreno_gpu *adreno_gpu)
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index a76f4c62deee..ec58dd2ff208 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -56,6 +56,7 @@ enum adreno_family {
- #define ADRENO_QUIRK_HAS_HW_APRIV		BIT(3)
- #define ADRENO_QUIRK_HAS_CACHED_COHERENT	BIT(4)
- #define ADRENO_QUIRK_PREEMPTION			BIT(5)
-+#define ADRENO_QUIRK_4GB_VA			BIT(6)
- 
- /* Helper for formating the chip_id in the way that userspace tools like
-  * crashdec expect.
-@@ -103,7 +104,6 @@ struct adreno_info {
- 	union {
- 		const struct a6xx_info *a6xx;
- 	};
--	u64 address_space_size;
- 	/**
- 	 * @speedbins: Optional table of fuse to speedbin mappings
- 	 *
 -- 
-2.49.0
-
+With best wishes
+Dmitry
