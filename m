@@ -2,128 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6B0CA70383
-	for <lists+freedreno@lfdr.de>; Tue, 25 Mar 2025 15:22:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42C41A71E36
+	for <lists+freedreno@lfdr.de>; Wed, 26 Mar 2025 19:22:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B72D810E581;
-	Tue, 25 Mar 2025 14:22:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0276B10E780;
+	Wed, 26 Mar 2025 18:22:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TO/ZQV6Z";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="h7xEFfyV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4817910E56D
- for <freedreno@lists.freedesktop.org>; Tue, 25 Mar 2025 14:22:00 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52PD4F9A021568
- for <freedreno@lists.freedesktop.org>; Tue, 25 Mar 2025 14:21:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Kp3yGWdT4AV6kkrdyjO2FJdT8nOV4kJcKTIpcQc7Pgs=; b=TO/ZQV6ZSOOIQO6/
- EtuY3avalnKyKRDIYJ5L4diQO64ei0GCwfEGLTRLRfVAUZ/dzhogZfZsGwr9LOfG
- 6TsfxYd6uqNSrVZNUlLTFuv07jCOec/l3ioo50XpUDWxWIYIRkN7L3dr850X+yIj
- HNHk3Gu+WKCv8y5y1u+nxfPs/LGlnGX5jev1//5a2WihdrtiE8NxMe1Blu7DCzR1
- am8P3+vZrj7jB6YzVh40dx/1uVJIwXjjB4hDQKb5Dx190G4OrLdmfaSNIRlfSgM8
- 7HORa5z9tbLv2cqroJ8L3F7PUPAVoqWOGQp3NkI4MSprpbK3KVzwcDLasnSUFOLz
- ygOT8w==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45hmhk864c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 25 Mar 2025 14:21:59 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7c3c8f8ab79so797177185a.2
- for <freedreno@lists.freedesktop.org>; Tue, 25 Mar 2025 07:21:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742912518; x=1743517318;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Kp3yGWdT4AV6kkrdyjO2FJdT8nOV4kJcKTIpcQc7Pgs=;
- b=N1u5wzafxZgZrmIGOMULU+xhVnPV4KxmxfNhIBQhrVQCGVzJWh/BDi+k5DHhZpJHyN
- eKSmQHTasE7hz/GulOEWt/F8DnB2+7Ry51ZmC0P/iOMCdpyHbO6muF6pRYfzdA1Oq5C7
- T1Axvgt8ZiHpDM4/ln3rnnyYnhtpusiDYXdfs++lIEMRBygBUAtCF5kTMPHxrm+yRhOI
- HCOyOgdTnFUdk8XQVk/aL5oX/xpbBZpy+mbtOP2rizhkrho+flsD38DgPZ1Wl42rwdzX
- 27Bz0CgrZBJGTCFmFKcwj5ZveUWjA2pcxK9Se93+KSK/YQeNoe2DAMF/iXZBNZOnUVWt
- ARww==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWf19kthtykjX2yB3rvvVUAhgjjWvqhqD1KP1o2KW6wsk/oNMtMwRqLwb1jgd+lLV88BSIht/ZCtXA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtNsUe4dQ+g7QUKY45RZkSFNhuDyyAT4oiw2Y/AeXoM/DVnGTu
- pZTflP1JRsWb3bFv1QV9OdwsjJqKntmrUGGDiX992PO/8nwhMy9Hg2pdufq/4uubzph/VqGvq5K
- 57GAu9mSztGfYiY7zHCKwY9XatKdvU/JJaeeahs0f4iSEK/3vivaasIjePgWv72MDtGs=
-X-Gm-Gg: ASbGncsfU+qbT2rVIL5M08P3b9JdYO+ErqAtTW46RJNkpocDAPP3WAtFtfbifXAsR3i
- BsVzzUd7l1yql6oA3omICOtRhthvpPgSUrnRDl6DJPiJsPPvjPcxYj8AXBIGYqp0IwU5Bplsyvm
- ArFXEY2kF1L0H5AHKzS0r7WGj8gju8BiG/+46ky5OMFGnLZRf/5qCjdkatBRRkv4kNpS2Xq2UfQ
- heG8cC+Lu2t621jjDbMfPJaZB/k2WwiVGtG1tWEQJDXYksXpEuc7pzR/r4OyDvBrqoUfqtvheSv
- eY361CG4fF6Z1B87S3nECS0jZOJZhfO8dBC7Zdx5OHadqMgRaEEzXR3BhMlqlj0yHLw=
-X-Received: by 2002:a05:620a:4082:b0:7c5:4194:bbcc with SMTP id
- af79cd13be357-7c5ba1a5851mr2078811785a.29.1742912518291; 
- Tue, 25 Mar 2025 07:21:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHE3gf2K5kIjZtYjJH4qhQtLNFCQgnGxwMyKEgZu4Q/N9eWpJ5iD6eXdGIpzuGP7y89fDMGrg==
-X-Received: by 2002:a05:620a:4082:b0:7c5:4194:bbcc with SMTP id
- af79cd13be357-7c5ba1a5851mr2078805785a.29.1742912517757; 
- Tue, 25 Mar 2025 07:21:57 -0700 (PDT)
-Received: from eriador.lan (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00::7a1]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54ad65083e4sm1508348e87.171.2025.03.25.07.21.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Mar 2025 07:21:56 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [RFC PATCH RESEND v4 0/6] drm/display: dp: add new DPCD access
- functions
-Date: Tue, 25 Mar 2025 16:21:55 +0200
-Message-ID: <174291251084.2000243.209850835590674876.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
-References: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
+X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
+ Wed, 26 Mar 2025 18:22:08 UTC
+Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
+ [136.143.188.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9312B10E773
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Mar 2025 18:22:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1743012423; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=HL5nz7fqRJ8yOm9tI/PVhQXzCXqEcHjhaJeHZg+VJoqChg65vFG8JPUtZvbDioafEord78XmD3xgebO9fcKqAEf/rCzYZA1Yroyj5riLRgQyA1mZr0/oDSnNolTkfofK8CePIQ/bnL3Rkqdfv0u70BFpt+pnn9JAXVEDJWLwXsU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1743012423;
+ h=Content-Type:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=r66UckMdO9y2fgZ++mVLA5u+P9f+MJtVunv2ciWOoqs=; 
+ b=gikZzr8TCxD4/Krl+XVI7SmZyY/grMMDXKmHjC4+5KQA4paahoWhfdT8gEBFh7hkxYoRHPc3VNsLwvR5vqSGnCxYA4VqUTUQOGVLNsZbr0D93HlVLgKHD2mqWts5FBIkSBVdQv2kOKBd+mV3tSVrZXE/LqGDhqUg6FfvpMGYjlk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=mark.filion@collabora.com;
+ dmarc=pass header.from=<mark.filion@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1743012423; 
+ s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:MIME-Version:Message-Id:Reply-To:Cc;
+ bh=r66UckMdO9y2fgZ++mVLA5u+P9f+MJtVunv2ciWOoqs=;
+ b=h7xEFfyVImsPPdMvVUDIyhUwmo5hX44qyBQTYfbMHKp06oIotVQ8OcY0EnX5nApG
+ WMKGYi9QUV2OSY98QqvDuhInftyR9rE7UapOrF0OU+nmkZkwjsQVjS0KR1PsOg9Kc9j
+ YL2Wx++1/3UEisS1+dvbPh6Lyg1CSQnbzGhA5nEI=
+Received: by mx.zohomail.com with SMTPS id 1743012420921218.29833543170741;
+ Wed, 26 Mar 2025 11:07:00 -0700 (PDT)
+Message-ID: <fcb14086327db3d5961d5b7fb6a7697ffc487376.camel@collabora.com>
+Subject: 2025 X.Org Foundation Membership deadline for voting in the
+ upcoming election
+From: Mark Filion <mark.filion@collabora.com>
+To: Freedreno <freedreno@lists.freedesktop.org>
+Date: Wed, 26 Mar 2025 14:06:59 -0400
+Content-Type: multipart/alternative; boundary="=-HaBJpcpmwuzN8/5cc+0j"
+User-Agent: Evolution 3.54.3 (3.54.3-1.fc41app1) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=C4PpyRP+ c=1 sm=1 tr=0 ts=67e2bc07 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Vs1iUdzkB0EA:10 a=DZoDOQWOqP-ft6bgs5oA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: odEDCikEn8oqsHd9gC-QJoRdZPf6zWxU
-X-Proofpoint-ORIG-GUID: odEDCikEn8oqsHd9gC-QJoRdZPf6zWxU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-25_06,2025-03-25_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxscore=0
- phishscore=0 mlxlogscore=999 priorityscore=1501 impostorscore=0
- bulkscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
- lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2503250100
+X-ZohoMailClient: External
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,39 +64,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 24 Mar 2025 13:51:18 +0200, Dmitry Baryshkov wrote:
-> Existing DPCD access functions return an error code or the number of
-> bytes being read / write in case of partial access. However a lot of
-> drivers either (incorrectly) ignore partial access or mishandle error
-> codes. In other cases this results in a boilerplate code which compares
-> returned value with the size.
-> 
-> As suggested by Jani implement new set of DPCD access helpers, which
-> ignore partial access, always return 0 or an error code. Implement
-> new helpers using existing functions to ensure backwards compatibility
-> and to assess necessity to handle incomplete reads on a global scale.
-> Currently only one possible place has been identified, dp-aux-dev, which
-> needs to handle possible holes in DPCD.
-> 
-> [...]
+--=-HaBJpcpmwuzN8/5cc+0j
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Applied to drm-misc-next, thanks!
+Hello,
 
-[1/6] drm/display: dp: implement new access helpers
-      commit: d8343e115658fb35115e0720f4761ffa0147329a
-[2/6] drm/display: dp: change drm_dp_dpcd_read_link_status() return value
-      commit: fcbb93f1e48a150159534a1e6ec19e6fdf9196df
-[3/6] drm/display: dp: use new DCPD access helpers
-      commit: af67978ee37e543e62d6d3f7eba58f8f259423a7
-[4/6] drm/display: dp-cec: use new DCPD access helpers
-      commit: 97f37939881327e118d6252289973c186377a075
-[5/6] drm/display: dp-mst-topology: use new DCPD access helpers
-      commit: 2554da0de3e8312c7149d03d702ddc6c1ff5e3de
-[6/6] drm/display: dp-tunnel: use new DCPD access helpers
-      commit: 95c4ea2e0329b370a53a041a19227f8da3f47481
+Now that the freedesktop server migration is almost done, it's time to
+turn our attention on the 2025 X.Org Foundation elections, which are
+rapidly approaching! We will be forwarding the election schedule and
+nominating process to the membership shortly.
 
-Best regards,
--- 
-With best wishes
-Dmitry
+Please note that only current members can vote in the upcoming
+election, and that the deadline for new memberships or renewals to vote
+in the upcoming election is 23 April 2025 at 23:59 UTC.
 
+If you are interested in joining the X.Org Foundation or in renewing
+your membership, please visit the membership system site
+at:=C2=A0https://members.x.org/
+
+Mark Filion, on behalf of the X.Org elections committee
+
+--=-HaBJpcpmwuzN8/5cc+0j
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><style>pre,code,address {
+  margin: 0px;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+ol,ul {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+blockquote {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+</style></head><body><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0,=
+ 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps: norm=
+al; font-weight: 400; letter-spacing: normal; text-align: start; text-inden=
+t: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webk=
+it-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px;=
+ text-decoration: none;">Hello,</div><div style=3D"caret-color: rgb(0, 0, 0=
+); color: rgb(0, 0, 0); font-family: Cantarell; font-style: normal; font-va=
+riant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: s=
+tart; text-indent: 0px; text-transform: none; white-space: normal; word-spa=
+cing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-st=
+roke-width: 0px; text-decoration: none;"><br></div><div style=3D"caret-colo=
+r: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style: n=
+ormal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal;=
+ text-align: start; text-indent: 0px; text-transform: none; white-space: no=
+rmal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -=
+webkit-text-stroke-width: 0px; text-decoration: none;">Now that the freedes=
+ktop server migration is almost done, it's time to turn our attention on th=
+e 2025 X.Org Foundation elections, which are rapidly approaching! We will b=
+e forwarding the election schedule and nominating process to the membership=
+ shortly.</div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0)=
+; font-family: Cantarell; font-style: normal; font-variant-caps: normal; fo=
+nt-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px=
+; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap=
+-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-=
+decoration: none;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color=
+: rgb(0, 0, 0); font-family: Cantarell; font-style: normal; font-variant-ca=
+ps: normal; font-weight: 400; letter-spacing: normal; text-align: start; te=
+xt-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0p=
+x; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-wid=
+th: 0px; text-decoration: none;">Please note that only current members can =
+vote in the upcoming election, and that the deadline for new memberships or=
+ renewals to vote in the upcoming election is 23 April 2025 at 23:59 UTC.</=
+div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-fami=
+ly: Cantarell; font-style: normal; font-variant-caps: normal; font-weight: =
+400; letter-spacing: normal; text-align: start; text-indent: 0px; text-tran=
+sform: none; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-=
+color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration:=
+ none;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0,=
+ 0); font-family: Cantarell; font-style: normal; font-variant-caps: normal;=
+ font-weight: 400; letter-spacing: normal; text-align: start; text-indent: =
+0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-=
+tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; te=
+xt-decoration: none;">If you are interested in joining the X.Org Foundation=
+ or in renewing your membership, please visit the membership system site at=
+:<span class=3D"Apple-converted-space">&nbsp;</span><a href=3D"https://memb=
+ers.x.org/" style=3D"color: rgb(238, 238, 236);">https://members.x.org/</a>=
+</div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-fa=
+mily: Cantarell; font-style: normal; font-variant-caps: normal; font-weight=
+: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-tr=
+ansform: none; white-space: normal; word-spacing: 0px; -webkit-tap-highligh=
+t-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoratio=
+n: none;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, =
+0, 0); font-family: Cantarell; font-style: normal; font-variant-caps: norma=
+l; font-weight: 400; letter-spacing: normal; text-align: start; text-indent=
+: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webki=
+t-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; =
+text-decoration: none;">Mark Filion, on behalf of the X.Org elections commi=
+ttee</div><div><span></span></div></body></html>
+
+--=-HaBJpcpmwuzN8/5cc+0j--
