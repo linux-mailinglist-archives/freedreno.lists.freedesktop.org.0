@@ -2,113 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 732C3A75101
-	for <lists+freedreno@lfdr.de>; Fri, 28 Mar 2025 20:45:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 902F2A755E4
+	for <lists+freedreno@lfdr.de>; Sat, 29 Mar 2025 12:36:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 374CB10E160;
-	Fri, 28 Mar 2025 19:45:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7C9310E21B;
+	Sat, 29 Mar 2025 11:35:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZlO/OiMs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dyFzhWmF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D675C10EABB
- for <freedreno@lists.freedesktop.org>; Fri, 28 Mar 2025 19:45:29 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52SJ813O022621
- for <freedreno@lists.freedesktop.org>; Fri, 28 Mar 2025 19:45:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Hvro5GjO+Wldw2eoT96XJ63A
- JVuzQWMJ2SYOkl9vzGo=; b=ZlO/OiMsXxnfibTyZMAPDrBEtjwu2ltf8lQmaeA5
- W248m61J2AHxcnDgiZy0T4s3fEFUMzZGeEDPye3Q1jT2y9Dz/smTI4Jp1SNhj+aJ
- w0caTVUJroQ2M1PPu1dZnA2O8tu9mqGspOUzPdEYZTvExU87TT86gSSr8KfDABDZ
- C+Hp8+IQuY1eLoado+IKzp/9bg8pMr7vey8pV64ubw5kYcDqt/EwjzdBg5QrAsyx
- CtkEymqeCzmwEVZzUHt7zG0INLoEgrG+kGJ6VFNk3OAMqNg9AIl6J86R6Mu+jcQ3
- iRKxsCWRTf41D6LacYwwkKx7L60n4ogpWZwgfKmu6EXLhA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45kyr9u7vh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 28 Mar 2025 19:45:26 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2262051205aso35963925ad.3
- for <freedreno@lists.freedesktop.org>; Fri, 28 Mar 2025 12:45:26 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2903810E21B;
+ Sat, 29 Mar 2025 11:35:58 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-43cfba466b2so29396505e9.3; 
+ Sat, 29 Mar 2025 04:35:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743248157; x=1743852957; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=k4URTuU4OqPDMxhBgu52MpzTH+LX835ANJbVjlWk8JY=;
+ b=dyFzhWmFtXCRlub2LuRmpdLC36rSDIFsu8GYkIudxvIISg+HJuow42pPVjbGdBNqP5
+ JEgGlKCNUg90MsCvLUge9iKzDdmlBHzYBOWf9O0mxezqLaw4p6r0GmNN+jzGKv58csO4
+ xRI0x8BkOq0w5yofQGkRB36wpYe7BTRa4+VOnvpLUVqRGrjFalk4ELy90ynMDfX1VIE5
+ T+TeaHdq8Nfnek/NrvF9DBoK4746cN50ROJF7LI8pt0jyLdqNsJc5ZPal2lB6W6JJPcv
+ t7nLj9u3c9sU6raDVzCWQHHRVczswW3DRSX5vNtwPKPsk+0yr1l+nEyiIarooa8nJM3U
+ O/ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743191125; x=1743795925;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1743248157; x=1743852957;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Hvro5GjO+Wldw2eoT96XJ63AJVuzQWMJ2SYOkl9vzGo=;
- b=s0+kk25w13lljRu5DygS5WCX27ESgJgazHzLP2AMGxyNvy5wz5YGIaYuufIChES2pr
- uMSWNh0Y82g8dI/HODRKfD806cYoWEdc680tJfUJgg3l7g5SvNRymBdFU+9DYJ89Eayp
- ndrgoVnHMIA1LcSuqcNjbDNI/DkocewGWdAipuzBTvHC1rZHqHw3tbKYdab9vpUEdLaY
- o9tD6NdUDC+lCvPzHbFzYHQlEZESl3g0Nlz4V0re+7/GKsK+/hVhvVsDGAz3CGAlLQQk
- v39ggiG20MXGnAKqZOjmjFkagx0a44WrT35MfF7f7yhgrzgFNNbHjFJrfhhjfppxdSMI
- FgiQ==
+ bh=k4URTuU4OqPDMxhBgu52MpzTH+LX835ANJbVjlWk8JY=;
+ b=jEcPQrc6d5NE/2Mdk3EPwdhMr7yRM65uyxMn8QtPu6rHcF/xCIIW2Fh/4Nbekc54U8
+ 2TuTqcZHBkOrYXdZ/9DkwDr2uXK/7i9EAdXvwpJH4g5JP9O3ddzGtXE6egc6W35vIywy
+ IPrT71Z8nst32a6Fzy9yhKNJnVFOVh/OvuzaZ4Yn5HRHj2iQpijtQnXLUR1eZsH7UIBq
+ +YR1bVFHs1gjlhPDpNyi8NMGX11GRU78rbhAf7If8iSVL9YQjEQfm5u1wQbvrLAk1GT2
+ 822EvJsCXpIt/c2svZBqpfi6irwV7q/qlS2Gw/wnzhnpNJduPctx2iWzo7pLydsgr+M3
+ N55g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUAFZowIPOOY0LHToSkfMPQuJRwKHTRwMifCzS3KUC4dbenBB0Ix4/w4K5k+978XbSBaJ+bsAoMLM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUjRoe/fC/He9woRJ/+VqZPMM/BLx1ZsN46HCFHRb3LEZzvVmx
- 7MFjJuPq67621pnpO+B7/QsO8tgfTs07JctSX92/Cz9Ph8c7n84RPPuoInKeP7VJKgVnsLIkWOC
- 20mU2d6MhBwPug3BjuIQrNvO/76TyMmnvXRBhHVsGLX1Vc/0GexendTNs3gJ7P74ni8Jkescb1C
- FyfCrqt+4aCLD5QtB+6fkHGtcHZT+3OG5Fe0IY6yhESA==
-X-Gm-Gg: ASbGncuj2QnsSLxIkzBBxcEoqiFi4Ycp5kBvkuDerzFGoRS10A4D+MzKNtpP5yYjzUX
- rN+jmkBwDeZsLO1K/7ghh35m+oaX6Hyy0yrSLnuReUY8jKyEQ9XnLQCB/4kitZuAItvUh8PY5vF
- BUQo0dVf7sMyNmbGIzO0NJWlugoIdW
-X-Received: by 2002:a17:902:ea02:b0:220:ea90:191e with SMTP id
- d9443c01a7336-2292f944dd7mr5603155ad.4.1743191124711; 
- Fri, 28 Mar 2025 12:45:24 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH2FloYykYPJgUHYSECpQ9Y3zz3A/KY/pa3AFDLAj9DQXvG9v4c/yWr4SAhhsaubUsKlu76YHyagAGjGMbmqyc=
-X-Received: by 2002:a17:902:ea02:b0:220:ea90:191e with SMTP id
- d9443c01a7336-2292f944dd7mr5602735ad.4.1743191124237; Fri, 28 Mar 2025
- 12:45:24 -0700 (PDT)
+ AJvYcCUHE/D7KKQYGjQBSFQj6XevefbJ4PGTwGaALmrHmsRVaxxtYI9gFcSeAxSzJxhFHoqFdIl6UZerdpA=@lists.freedesktop.org,
+ AJvYcCXVijnuY5HDH00TQd/ptvy+IJMUhQIkXnT215obXDdZP4bNfzKtaNE9m9UU6Q4muC7V7BZ59OojJ9UF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxmZjhtagWbftVLS8W/u5fO8PAPJhtY3VEWceXyJ0dloLyIQEqG
+ ARgmdOBVib01zfe7+M24TxRqXb2f6zRhdxSGj8gmyLLKJXcTeqVI
+X-Gm-Gg: ASbGncuBmCtsWAdX7xocbEuCGcP+E6BYwbMpuUeg7wohn1n+S92kdJoXxZR+XwfYn9g
+ /ul3dmXzJccl1a2s+bggeG6bD+tdXv9ebvhIgfzN8tX2egMT8Z2ho+ZJ9yTPBwT1kgmm667d4mu
+ Q0B2xmfhW9bZXuQoGDheSBLi3+Odtta89Mqj7SqexmP1JTtQJzKlxzXUZrn9yOBJE5csO7JpuX9
+ h+kxm1YknTsR8Yi1KMl8RhAupqpy8M5v+OAkaTlQh6IUrf9VkrrcnngH51wqYR1dZqBXOlbluWQ
+ h5QPyMsmykIPVJuf+xLu4MHiSsCI+oqziWH4Vx68qmMbdw==
+X-Google-Smtp-Source: AGHT+IGzFDOv0az8Oo04Dh1HgtexqBpJ0sbaJycOwnYRGsKdBcmFIR0JBxHT3YADEewHZjwrHQSoFQ==
+X-Received: by 2002:a05:600c:4e48:b0:43c:fb95:c752 with SMTP id
+ 5b1f17b1804b1-43db61e05abmr26723235e9.3.1743248155735; 
+ Sat, 29 Mar 2025 04:35:55 -0700 (PDT)
+Received: from qasdev.Home ([2a02:c7c:6696:8300:c564:b82e:4883:713c])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d82e834a5sm104631655e9.13.2025.03.29.04.35.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 29 Mar 2025 04:35:55 -0700 (PDT)
+From: Qasim Ijaz <qasdev00@gmail.com>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com, lumag@kernel.org,
+ sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, quic_jesszhan@quicinc.com
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v2 RESEND] drm/msm/dpu: reorder pointer operations after
+ sanity checks to avoid NULL deref
+Date: Sat, 29 Mar 2025 11:35:38 +0000
+Message-Id: <20250329113538.7935-1-qasdev00@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-References: <20250311122445.3597100-1-quic_amakhija@quicinc.com>
- <20250311122445.3597100-8-quic_amakhija@quicinc.com>
- <20250312-athletic-cockle-of-happiness-e88a3a@krzk-bin>
- <d64bf3b3-7c4d-490e-8bd7-1ad889aa7472@quicinc.com>
- <0220605f-3ff6-4ea3-88e3-09e602962a61@quicinc.com>
- <zzcd4pv7laryb2c5wkuwrhj2ih3lciqgxfyefj4qmi5clxftbi@ykpy42anl4jm>
- <d09fe2f8-fdfa-474c-a742-b6cd2f8662e1@kernel.org>
-In-Reply-To: <d09fe2f8-fdfa-474c-a742-b6cd2f8662e1@kernel.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 28 Mar 2025 21:45:12 +0200
-X-Gm-Features: AQ5f1JrEmDVBvWjH9IO2Mtkm1mRjebe3Iamg0GwU0FiHaNIm70ztqd-cjwD8G_8
-Message-ID: <CAO9ioeXSdpNq+cOSHhbbE2Qya5LXjXixj4_g0h2PHBRcLxdsfQ@mail.gmail.com>
-Subject: Re: [PATCH v2 07/10] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
- to DP bridge nodes
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_jesszhan@quicinc.com
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-GUID: ebnitj5GIni-7YbvaT9SiGdHR8jBi1in
-X-Authority-Analysis: v=2.4 cv=UblRSLSN c=1 sm=1 tr=0 ts=67e6fc56 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10
- a=VwQbUJbxAAAA:8 a=AD09SHeqe-8lbBjqVQoA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: ebnitj5GIni-7YbvaT9SiGdHR8jBi1in
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-28_09,2025-03-27_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- suspectscore=0 priorityscore=1501 phishscore=0 mlxscore=0 impostorscore=0
- adultscore=0 clxscore=1015 mlxlogscore=698 bulkscore=0 malwarescore=0
- spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2503280134
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,34 +90,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 28 Mar 2025 at 16:22, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 28/03/2025 13:45, Dmitry Baryshkov wrote:
-> > On Fri, Mar 28, 2025 at 03:13:57PM +0530, Ayushi Makhija wrote:
-> >>> These both above commented from Dmitry I have addressed in the version 2 of patch 7 of the series.
-> >>> I have squash patch 8 into patch 7 of version 1 into patch 7 of version 2 of the series.
-> >>>
-> >>>
-> >>> Thanks,
-> >>> Ayushi
-> >>
-> >> Hi Krzysztof,
-> >>
-> >> I hope this message finds you well. I wanted to follow up on the reply I sent. Your feedback is invaluable to us, and we would greatly appreciate any further insights or comments you might have.
-> >>
-> >
-> > Granted the lack of response, please make sure that you've addressed all
-> > the comments and proceed with the next iteration of the patchset.
->
-> Just to clarify, I did not plan to respond here, because email style
-> which tries to respond to my comments is unreadable. It's impossible to
-> find what is quote, what is the comment and what is the response.
->
-> I expected inline responses to the original emails and detailed changelog.
+_dpu_encoder_trigger_start dereferences "struct dpu_encoder_phys *phys"
+before the sanity checks which can lead to a NULL pointer dereference if
+phys is NULL.
+ 
+Fix this by reordering the dereference after the sanity checks.
+ 
+Fixes: 8144d17a81d9 ("drm/msm/dpu: Skip trigger flush and start for CWB")
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Qasim Ijaz <qasdev00@gmail.com>
+---
+v2:
+- Moved Signed-off tag below Fixes tag
+- Moved dpu_enc declaration to the top and initialisation below sanity checks
 
-Works for me. I'd say, let's get the next revision and check if it
-resolves your comments or we have more comments.
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 0eed93a4d056..0bd1f2bfaaff 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1667,7 +1667,7 @@ static void _dpu_encoder_trigger_flush(struct drm_encoder *drm_enc,
+  */
+ static void _dpu_encoder_trigger_start(struct dpu_encoder_phys *phys)
+ {
+-	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys->parent);
++	struct dpu_encoder_virt *dpu_enc;
+ 
+ 	if (!phys) {
+ 		DPU_ERROR("invalid argument(s)\n");
+@@ -1678,6 +1678,8 @@ static void _dpu_encoder_trigger_start(struct dpu_encoder_phys *phys)
+ 		DPU_ERROR("invalid pingpong hw\n");
+ 		return;
+ 	}
++
++	dpu_enc = to_dpu_encoder_virt(phys->parent);
+ 
+ 	if (phys->parent->encoder_type == DRM_MODE_ENCODER_VIRTUAL &&
+ 	    dpu_enc->cwb_mask) {
 -- 
-With best wishes
-Dmitry
+2.39.5
+
