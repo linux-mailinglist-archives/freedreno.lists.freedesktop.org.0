@@ -2,79 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 902F2A755E4
-	for <lists+freedreno@lfdr.de>; Sat, 29 Mar 2025 12:36:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C37FBA7599D
+	for <lists+freedreno@lfdr.de>; Sun, 30 Mar 2025 12:36:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7C9310E21B;
-	Sat, 29 Mar 2025 11:35:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88D0910E105;
+	Sun, 30 Mar 2025 10:36:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dyFzhWmF";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fict1UxL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2903810E21B;
- Sat, 29 Mar 2025 11:35:58 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-43cfba466b2so29396505e9.3; 
- Sat, 29 Mar 2025 04:35:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743248157; x=1743852957; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=k4URTuU4OqPDMxhBgu52MpzTH+LX835ANJbVjlWk8JY=;
- b=dyFzhWmFtXCRlub2LuRmpdLC36rSDIFsu8GYkIudxvIISg+HJuow42pPVjbGdBNqP5
- JEgGlKCNUg90MsCvLUge9iKzDdmlBHzYBOWf9O0mxezqLaw4p6r0GmNN+jzGKv58csO4
- xRI0x8BkOq0w5yofQGkRB36wpYe7BTRa4+VOnvpLUVqRGrjFalk4ELy90ynMDfX1VIE5
- T+TeaHdq8Nfnek/NrvF9DBoK4746cN50ROJF7LI8pt0jyLdqNsJc5ZPal2lB6W6JJPcv
- t7nLj9u3c9sU6raDVzCWQHHRVczswW3DRSX5vNtwPKPsk+0yr1l+nEyiIarooa8nJM3U
- O/ZA==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C6C210E11F
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Mar 2025 10:36:45 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52U9rghU006729
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Mar 2025 10:36:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=fVH5lVnR08zuySJUeq+uoGrf
+ ogdD6s0iW5s7dVDfwco=; b=fict1UxLW9xXrMeULzi7aTNRGiMCuVAdVu2AI9Wn
+ CUxu4l7FL4W0EFMDbbXhPn6J5urF2TJrWPg9ZXdEMOv1j4FffzrXTFn2hcrRGSRD
+ nvNnqa6qPxPf8I/BDwILE1Ndg9CgfpMbLv04a6Sfb8fDUAvbMcEbEN7vL3nLhtpj
+ ENCOEW2H5pvxflIvhNgZvNDJnC0hD77ObAC2z4o9y+L0SXoHcVDm4/Aa/YOQVhKz
+ k/TYfFO4Mb7BGxCMgYhNAIPoAC/NWcIfqaPZ8SC/Xbacvte86MwEbUHlbILZwqUk
+ H2B5pQqDd5jd19wdd9ylTxiUzNh6GdmT5YjIEJAkyF10og==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45p86kj55f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Mar 2025 10:36:44 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c5ac559cbaso598302685a.1
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Mar 2025 03:36:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743248157; x=1743852957;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=k4URTuU4OqPDMxhBgu52MpzTH+LX835ANJbVjlWk8JY=;
- b=jEcPQrc6d5NE/2Mdk3EPwdhMr7yRM65uyxMn8QtPu6rHcF/xCIIW2Fh/4Nbekc54U8
- 2TuTqcZHBkOrYXdZ/9DkwDr2uXK/7i9EAdXvwpJH4g5JP9O3ddzGtXE6egc6W35vIywy
- IPrT71Z8nst32a6Fzy9yhKNJnVFOVh/OvuzaZ4Yn5HRHj2iQpijtQnXLUR1eZsH7UIBq
- +YR1bVFHs1gjlhPDpNyi8NMGX11GRU78rbhAf7If8iSVL9YQjEQfm5u1wQbvrLAk1GT2
- 822EvJsCXpIt/c2svZBqpfi6irwV7q/qlS2Gw/wnzhnpNJduPctx2iWzo7pLydsgr+M3
- N55g==
+ d=1e100.net; s=20230601; t=1743331003; x=1743935803;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fVH5lVnR08zuySJUeq+uoGrfogdD6s0iW5s7dVDfwco=;
+ b=t3A1hmJUVYGV4CdxHc6wixmzOLsOb2mhOYrmU/NbCQJHR2T60gWTEOSjZHaQCkn3dK
+ Bqxp8gGAjx+se2IHgWWCnULbHVxVWotAcxwrNJtU3WhMFXeZil4JUbdLr05iSAYizgJm
+ CiJt1DiOcHNz5d4lHcVBkTF/AUJF6C54Y7TpFQAHtjXLpL3tgpeom7PyenrQdNde29N4
+ PJxuT/e4N4AB2eD2b3VWuVEyA8wlOAnlRHDewRlDKD0JYyRk+YqCSw1EpO6uR4SZ6RUy
+ u3UJxXroltDe41hWHdHvylYis5X5RlGd29mRkDDSo7Q6bQv+DJKqfBX/Sm8K1ggNnFfr
+ OpQw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUHE/D7KKQYGjQBSFQj6XevefbJ4PGTwGaALmrHmsRVaxxtYI9gFcSeAxSzJxhFHoqFdIl6UZerdpA=@lists.freedesktop.org,
- AJvYcCXVijnuY5HDH00TQd/ptvy+IJMUhQIkXnT215obXDdZP4bNfzKtaNE9m9UU6Q4muC7V7BZ59OojJ9UF@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmZjhtagWbftVLS8W/u5fO8PAPJhtY3VEWceXyJ0dloLyIQEqG
- ARgmdOBVib01zfe7+M24TxRqXb2f6zRhdxSGj8gmyLLKJXcTeqVI
-X-Gm-Gg: ASbGncuBmCtsWAdX7xocbEuCGcP+E6BYwbMpuUeg7wohn1n+S92kdJoXxZR+XwfYn9g
- /ul3dmXzJccl1a2s+bggeG6bD+tdXv9ebvhIgfzN8tX2egMT8Z2ho+ZJ9yTPBwT1kgmm667d4mu
- Q0B2xmfhW9bZXuQoGDheSBLi3+Odtta89Mqj7SqexmP1JTtQJzKlxzXUZrn9yOBJE5csO7JpuX9
- h+kxm1YknTsR8Yi1KMl8RhAupqpy8M5v+OAkaTlQh6IUrf9VkrrcnngH51wqYR1dZqBXOlbluWQ
- h5QPyMsmykIPVJuf+xLu4MHiSsCI+oqziWH4Vx68qmMbdw==
-X-Google-Smtp-Source: AGHT+IGzFDOv0az8Oo04Dh1HgtexqBpJ0sbaJycOwnYRGsKdBcmFIR0JBxHT3YADEewHZjwrHQSoFQ==
-X-Received: by 2002:a05:600c:4e48:b0:43c:fb95:c752 with SMTP id
- 5b1f17b1804b1-43db61e05abmr26723235e9.3.1743248155735; 
- Sat, 29 Mar 2025 04:35:55 -0700 (PDT)
-Received: from qasdev.Home ([2a02:c7c:6696:8300:c564:b82e:4883:713c])
+ AJvYcCWeDeSH6qvwwbJyV+mGdRQylbQqlPuNI68/KxnbHDGvmvSgqt+Q0br9uq7WrUzoet9sxVZC4hW8vVk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIaJ4IBH1sp02B2P08t2ZAbc9Y5vDOzp5AyoKo4pxM+J0GDp8Y
+ W81D5gfre1eWCxYx+vTrdbg6UKCvqD3MlmrajB4nB6pn9zO1/Cpzu/4HS7aXIHfQDIq1Wznk+DA
+ EJK3OEji2yopzIhVeFYnGjWXmaTbYt3pagGUOYO3J7zWnPvUnB05CU/K6OUn7LMFqc9A=
+X-Gm-Gg: ASbGncuQWEtuvbTbUrymw7T5dm75fthLQrgBJzAslRBDFp33IjDFZncv0XhVC6rm8gr
+ ukf7/9EaZSqg/UzUERg+k8kAKmwK5HjLG3T3bsP5n504gtP7L2XDgs3ACVg2kr4b9wPCO0VoI95
+ oDoGWkASdxQJXWHNJEJXKH5wLIAvkrZPIIHuxvn7npzANkOOFVgyedtEfp2I5stKVGVnhGGawi/
+ uTEdRhz/g1r+kI55HnRzgOpBmOQL0cLeW+Bm3bNfnulykn0jLgjfFNEAaUMW7OPtFh62g6CUW4M
+ pL4JWS7g6xw0+4O+irlla1HPVkJzRpXAJDsMf6rqK4QQkyJ9ocamDkBFT4yUiOJFACk44wr9XdQ
+ PS7o=
+X-Received: by 2002:a05:620a:394a:b0:7c0:c469:d651 with SMTP id
+ af79cd13be357-7c6908950bcmr823934085a.57.1743331003106; 
+ Sun, 30 Mar 2025 03:36:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEBtS6gPnV+Pz3tdsrxXFX0gc/+BT66q02s4zf4BNLAjJe/IVitafLnQPXX0a4yMcsExGqSNg==
+X-Received: by 2002:a05:620a:394a:b0:7c0:c469:d651 with SMTP id
+ af79cd13be357-7c6908950bcmr823930385a.57.1743331002525; 
+ Sun, 30 Mar 2025 03:36:42 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d82e834a5sm104631655e9.13.2025.03.29.04.35.55
+ 2adb3069b0e04-54b0959150csm848746e87.187.2025.03.30.03.36.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 29 Mar 2025 04:35:55 -0700 (PDT)
-From: Qasim Ijaz <qasdev00@gmail.com>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com, lumag@kernel.org,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, quic_jesszhan@quicinc.com
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH v2 RESEND] drm/msm/dpu: reorder pointer operations after
- sanity checks to avoid NULL deref
-Date: Sat, 29 Mar 2025 11:35:38 +0000
-Message-Id: <20250329113538.7935-1-qasdev00@gmail.com>
-X-Mailer: git-send-email 2.39.5
+ Sun, 30 Mar 2025 03:36:40 -0700 (PDT)
+Date: Sun, 30 Mar 2025 13:36:37 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+ quic_jesszhan@quicinc.com
+Subject: Re: [PATCH v2 07/10] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
+ to DP bridge nodes
+Message-ID: <mki4de5adulxmmpi756bi5frnsa5yx2ng2vh22q7sz6ijsc5kw@oyvb5xuu547c>
+References: <20250311122445.3597100-1-quic_amakhija@quicinc.com>
+ <20250311122445.3597100-8-quic_amakhija@quicinc.com>
+ <20250312-athletic-cockle-of-happiness-e88a3a@krzk-bin>
+ <d64bf3b3-7c4d-490e-8bd7-1ad889aa7472@quicinc.com>
+ <4aebd1f6-5098-4548-adae-843db8f45aa5@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4aebd1f6-5098-4548-adae-843db8f45aa5@kernel.org>
+X-Authority-Analysis: v=2.4 cv=W8g4VQWk c=1 sm=1 tr=0 ts=67e91ebc cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Vs1iUdzkB0EA:10 a=UXIAUNObAAAA:8 a=J_IFRixHdDkWMPCtAZcA:9 a=CjuIK1q_8ugA:10
+ a=bFq2RbqkfqsA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=a1s67YnXd6TbAZZNj1wK:22
+X-Proofpoint-GUID: Yt3HdnfixlFsKUMcnUGiXq3N63PYulVa
+X-Proofpoint-ORIG-GUID: Yt3HdnfixlFsKUMcnUGiXq3N63PYulVa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-30_05,2025-03-27_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ mlxlogscore=853 mlxscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ phishscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502280000 definitions=main-2503300072
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,45 +131,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-_dpu_encoder_trigger_start dereferences "struct dpu_encoder_phys *phys"
-before the sanity checks which can lead to a NULL pointer dereference if
-phys is NULL.
- 
-Fix this by reordering the dereference after the sanity checks.
- 
-Fixes: 8144d17a81d9 ("drm/msm/dpu: Skip trigger flush and start for CWB")
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Qasim Ijaz <qasdev00@gmail.com>
----
-v2:
-- Moved Signed-off tag below Fixes tag
-- Moved dpu_enc declaration to the top and initialisation below sanity checks
+On Fri, Mar 28, 2025 at 03:28:20PM +0100, Krzysztof Kozlowski wrote:
+> On 13/03/2025 13:10, Ayushi Makhija wrote:
+> 
+> ...
+> 
+> > 
+> >> +
+> >> +			anx_bridge_1: anx7625@58 {
+> > 
+> > Node names should be generic. See also an explanation and list of
+> > examples (not exhaustive) in DT specification:
+> > https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+> > 
+> > In this I have changed the node name as anx_bridge1 : anx7625@58.
+> 
+> Except that it is difficult to understand what is what, let's recap.
+> 
+> Original code was:
+> 	anx_bridge_1: anx7625@58 {
+> 
+> You said you changed it to:
+> 
+> 	anx_bridge1 : anx7625@58.
+> 
+> and now I give my offer: I offer to buy a beer (or tee/coffee/juice) to
+> anyone who will spot the difference(s) between these two node names,
+> IOW, tell me what changed here.
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Ayushi: mediatek DT are a bad example here. Please use bridge@58 as node
+name.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 0eed93a4d056..0bd1f2bfaaff 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1667,7 +1667,7 @@ static void _dpu_encoder_trigger_flush(struct drm_encoder *drm_enc,
-  */
- static void _dpu_encoder_trigger_start(struct dpu_encoder_phys *phys)
- {
--	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys->parent);
-+	struct dpu_encoder_virt *dpu_enc;
- 
- 	if (!phys) {
- 		DPU_ERROR("invalid argument(s)\n");
-@@ -1678,6 +1678,8 @@ static void _dpu_encoder_trigger_start(struct dpu_encoder_phys *phys)
- 		DPU_ERROR("invalid pingpong hw\n");
- 		return;
- 	}
-+
-+	dpu_enc = to_dpu_encoder_virt(phys->parent);
- 
- 	if (phys->parent->encoder_type == DRM_MODE_ENCODER_VIRTUAL &&
- 	    dpu_enc->cwb_mask) {
+> 
+> Best regards,
+> Krzysztof
+
 -- 
-2.39.5
-
+With best wishes
+Dmitry
