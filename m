@@ -2,113 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A04DA77224
-	for <lists+freedreno@lfdr.de>; Tue,  1 Apr 2025 02:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 412D0A79650
+	for <lists+freedreno@lfdr.de>; Wed,  2 Apr 2025 22:11:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF7D510E1B9;
-	Tue,  1 Apr 2025 00:55:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0C6310E8CE;
+	Wed,  2 Apr 2025 20:11:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MlvfbK3z";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="HGuCkfsL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55E6A10E042
- for <freedreno@lists.freedesktop.org>; Tue,  1 Apr 2025 00:55:31 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52VFCvnF024680
- for <freedreno@lists.freedesktop.org>; Tue, 1 Apr 2025 00:55:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Yt9/DkdKL9fcmRUwD+msEiKi
- l6RqRPihQ0PGpkAzQ4g=; b=MlvfbK3zLw0CvqP2YA3udjDGeqMXjbeHHe3kuKxG
- F5QY3Wqay0jRBfMgF5P9ehCWBJHvstUvvwKbhLac/lEMKjJ6B6hpNKrTqlRC6bc+
- 2QQ9DwXWlEwOJcjuInslqvH85uGiwDv2T+94V6IdrcnbPH+6rCbWV8JOHoqBTGae
- IFTkcfQCuWgS7i97GamtPLMo9vMotcgWruyveqDJcblbpoIVYFZlHTcdOJz0lqtm
- 5tuRmcNUOo6IdvwaRzJqak8N0/iS0qQucnT6bqzq4c51vXwIFD1I6xWMf3M3GiRc
- GxDwHqmEJp8uz5ipvTzcCb7HObjYxfX+aL7P6s4uvaFv/A==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45p86kp379-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 01 Apr 2025 00:55:30 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c5f876bfe0so626422185a.3
- for <freedreno@lists.freedesktop.org>; Mon, 31 Mar 2025 17:55:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743468929; x=1744073729;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Yt9/DkdKL9fcmRUwD+msEiKil6RqRPihQ0PGpkAzQ4g=;
- b=bx3lPjC8/NpyUqF+wnDZYWVVBHAIyraZ6jOSaNekClOcDdTXQgNWzrCTXAGjpFeZ0d
- xK/FEYmPDH94xTxznITwqW4aF8mvl6iSE7zyxV6WwGvrLIc0IsIVWo/9LbdOwBPb4ci6
- K0DKriZ0Sph0ySj8DmbMVg1uLb9sZ3AjOffQ2sx3UAEjf5D7lZuM3gxiRoAC3hzuEpcf
- 6ZixTxtsCF2hd5xTsatHMvbgEEVR+91C8YY+gbrdRDIpvGnUA9+R79cTp7F6rz0GQKA6
- 3ssBL3dlG/URmR9IY/YZJ9rZACgN+ZVOsb428lAjDsng7F1BLufoGKDTyrcSRhIEwM4O
- lfPQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVHI0qzJZ3Dv9JoWeUYN6BY8saxl+ExKtcCdr+wujSWupUKvJ7i9ruNkFdfiJsSxP2Zvoeb1Exfwq4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxlcTZ0FclHRfYOM/qsVFncrbkJJLRIN31U8CPUi6lbwg5Haey2
- uA1Wzco7as52GG66985Cteq0H0dhHvHydZuDCapkhctcP7h7O0XAk84wYv7/5IYr1f2Cg0hSxwn
- oAZe2jfkAsOfaV3cYlm50O883YXRprUNJnuSXFIH5bgfzQRR5fYqqmKMATVr3Puwya8A=
-X-Gm-Gg: ASbGncuORFKCNAYuO33bxOKzwSthjtjFj/b5HNSpcnAolNvnu9y8REMU4iPbJEbAe0I
- 0Rgd6J5AArv0pRZ9oqYFg1LCunj97VSYHkf2PVeJZz0+fcVCtykOVMz0GFmUT7gsBT2yTJDCiB0
- bzGD/eCEobtylNSE08T8DkNgcAkqhPzFagFusw0ifvpiqCOUndV77uLIonNgeWJUJO8E7cj742C
- oN8BCjPPEHnIFCKe3UQXmJ69dH3V04R0p5vvujpJROfi5lWY3q2wxTXqVbsAhmib/kCQpNay9ph
- TJR6BfJ1QPXv8QPcF8EUl7LFJolvDkUyw4BBh+qef2BsHWOPjZbCnFNac9tbntUFYCEYNv/Bh5F
- H6P8=
-X-Received: by 2002:a05:620a:2913:b0:7c5:e283:7d0a with SMTP id
- af79cd13be357-7c6908430d8mr1598417185a.30.1743468929131; 
- Mon, 31 Mar 2025 17:55:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG+s43CcP4CDnMik98fedETIwmIvBFIiiN42MxuJhRd7qeTCnzq7nkWQ3AXlUV1C1XQuX7+5w==
-X-Received: by 2002:a05:620a:2913:b0:7c5:e283:7d0a with SMTP id
- af79cd13be357-7c6908430d8mr1598414585a.30.1743468928726; 
- Mon, 31 Mar 2025 17:55:28 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54b0957fd7fsm1227575e87.114.2025.03.31.17.55.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Mar 2025 17:55:26 -0700 (PDT)
-Date: Tue, 1 Apr 2025 03:55:23 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- laurentiu.tudor1@dell.com, abel.vesa@linaro.org, johan@kernel.org
-Subject: Re: [PATCH v2 2/2] drm/msm/dp: Introduce link training per-segment
- for LTTPRs
-Message-ID: <ytqnodci5xhkd4eqs3homrdwbv4zkaiewalfsbuclvkkaw754t@wpt3noqxlcvu>
-References: <20250311234109.136510-1-alex.vinarskis@gmail.com>
- <20250311234109.136510-3-alex.vinarskis@gmail.com>
+Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
+ [136.143.188.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B09CD10E8CE
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Apr 2025 20:11:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1743624679; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=mfz5yIpK/rupYqs3dqqkqLvlFDKu2aavCOSb4NHsZ1AvZ/5EqGrSl/9lSB0eEXrzgVUb6PK0mKp8jDLzGFZopKEyFqYvkQjytdpQ1eEHn7PaB7z/KE8RZjL0k8I4m3UeHANPdry5WdY+F7hQzj6jTllfyE0aEOp8GIbA+Fs2jzw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1743624679;
+ h=Content-Type:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=M3bXHwBzQmGUMGtcXh25stu5sxO7DW4XKR1JO+/CU48=; 
+ b=d6mvqtI/hQRDE4osgWTcYVqIi+3/xWijanM76Igw+uw4bjsr09wZ+oQ9DQtwkLx+ZVNWM4qbDXcQ/fRssoPVShT13xFIfRRpijfhDoL1SCcTusgOQ2Fs5f1MGZtYomwTlo5BbAakNLKfamlf8iKofUEBRY7096qqkS0NItLf5m0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=mark.filion@collabora.com;
+ dmarc=pass header.from=<mark.filion@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1743624679; 
+ s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:MIME-Version:Message-Id:Reply-To:Cc;
+ bh=M3bXHwBzQmGUMGtcXh25stu5sxO7DW4XKR1JO+/CU48=;
+ b=HGuCkfsL2Dm0RGKiw8vQcQ6CyQk4JHeBYDvjDKkHXmOGYBSwdfzR/0HtejFzJbQ9
+ pE4qTU9E/woH3S3yenQjzBeMX+rQ2qD1TtUKQ6LrWa3xIxz/ynyDngRW33HMwp912f8
+ xWTViQC98febFWKX/F8FWBhtyEVTk4UNTYxp1VWw=
+Received: by mx.zohomail.com with SMTPS id 1743624677059945.3831051504048;
+ Wed, 2 Apr 2025 13:11:17 -0700 (PDT)
+Message-ID: <16217edbe025f343c0f2394be321c2a88cab16a6.camel@collabora.com>
+Subject: 2025 X.Org Board of Directors Elections Nomination period is NOW OPEN
+From: Mark Filion <mark.filion@collabora.com>
+To: Freedreno <freedreno@lists.freedesktop.org>
+Date: Wed, 02 Apr 2025 16:11:15 -0400
+Content-Type: multipart/alternative; boundary="=-N4w+JuuoYDVljEzsMMft"
+User-Agent: Evolution 3.54.3 (3.54.3-1.fc41app1) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250311234109.136510-3-alex.vinarskis@gmail.com>
-X-Authority-Analysis: v=2.4 cv=W8g4VQWk c=1 sm=1 tr=0 ts=67eb3982 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=XR8D0OoHHMoA:10 a=pGLkceISAAAA:8 a=KKAkSRfTAAAA:8 a=Wc1Mo8DDgmJwFSagYRAA:9
- a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: juWgO5LQztCf_Rco3g5aG7qFAo8VpG6H
-X-Proofpoint-ORIG-GUID: juWgO5LQztCf_Rco3g5aG7qFAo8VpG6H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-31_11,2025-03-27_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 suspectscore=0
- mlxlogscore=999 mlxscore=0 clxscore=1015 malwarescore=0 adultscore=0
- phishscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2502280000 definitions=main-2504010004
+X-ZohoMailClient: External
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,445 +61,227 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 12, 2025 at 12:38:04AM +0100, Aleksandrs Vinarskis wrote:
-> DisplayPort requires per-segment link training when LTTPR are switched
-> to non-transparent mode, starting with LTTPR closest to the source.
-> Only when each segment is trained individually, source can link train
-> to sink.
-> 
-> Implement per-segment link traning when LTTPR(s) are detected, to
-> support external docking stations. On higher level, changes are:
-> 
-> * Pass phy being trained down to all required helpers
-> * Run CR, EQ link training per phy
-> * Set voltage swing, pre-emphasis levels per phy
-> 
-> This ensures successful link training both when connected directly to
-> the monitor (single LTTPR onboard most X1E laptops) and via the docking
-> station (at least two LTTPRs).
-> 
-> Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-> Reviewed-by: Abel Vesa <abel.vesa@linaro.org>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 137 +++++++++++++++++++---------
->  drivers/gpu/drm/msm/dp/dp_ctrl.h    |   2 +-
->  drivers/gpu/drm/msm/dp/dp_display.c |   4 +-
->  3 files changed, 99 insertions(+), 44 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index d8633a596f8d..419a519ccf6b 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -79,6 +79,8 @@ struct msm_dp_ctrl_private {
->  	struct msm_dp_link *link;
->  	struct msm_dp_catalog *catalog;
->  
-> +	int *lttpr_count;
+--=-N4w+JuuoYDVljEzsMMft
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Please move lttpr_count to msm_dp_ctrl or msm_dp_link. It would remove a
-need for this ugly pointer.
+Hello!
 
-> +
->  	struct phy *phy;
->  
->  	unsigned int num_core_clks;
-> @@ -1034,9 +1036,11 @@ static int msm_dp_ctrl_set_vx_px(struct msm_dp_ctrl_private *ctrl,
->  	return 0;
->  }
->  
-> -static int msm_dp_ctrl_update_vx_px(struct msm_dp_ctrl_private *ctrl)
-> +static int msm_dp_ctrl_update_phy_vx_px(struct msm_dp_ctrl_private *ctrl,
-> +					enum drm_dp_phy dp_phy)
->  {
->  	struct msm_dp_link *link = ctrl->link;
-> +	int reg = DP_TRAINING_LANE0_SET;
->  	int ret = 0, lane, lane_cnt;
->  	u8 buf[4];
->  	u32 max_level_reached = 0;
-> @@ -1075,8 +1079,11 @@ static int msm_dp_ctrl_update_vx_px(struct msm_dp_ctrl_private *ctrl)
->  
->  	drm_dbg_dp(ctrl->drm_dev, "sink: p|v=0x%x\n",
->  			voltage_swing_level | pre_emphasis_level);
-> -	ret = drm_dp_dpcd_write(ctrl->aux, DP_TRAINING_LANE0_SET,
-> -					buf, lane_cnt);
-> +
-> +	if (dp_phy != DP_PHY_DPRX)
-> +		reg = DP_TRAINING_LANE0_SET_PHY_REPEATER(dp_phy);
+We are seeking nominations for candidates for election to the X.Org
+Foundation Board of Directors. All X.Org Foundation members are
+eligible for election to the board.
 
-Please always init reg here rather than using a default value above.
-It's a cleaner code IMO.
+Nominations for the 2025 election are now open and will remain open
+until 23:59 UTC on 16 April 2025.
 
-> +
-> +	ret = drm_dp_dpcd_write(ctrl->aux, reg, buf, lane_cnt);
->  	if (ret == lane_cnt)
->  		ret = 0;
->  
-> @@ -1084,9 +1091,10 @@ static int msm_dp_ctrl_update_vx_px(struct msm_dp_ctrl_private *ctrl)
->  }
->  
->  static bool msm_dp_ctrl_train_pattern_set(struct msm_dp_ctrl_private *ctrl,
-> -		u8 pattern)
-> +		u8 pattern, enum drm_dp_phy dp_phy)
->  {
->  	u8 buf;
-> +	int reg = DP_TRAINING_PATTERN_SET;
->  	int ret = 0;
->  
->  	drm_dbg_dp(ctrl->drm_dev, "sink: pattern=%x\n", pattern);
-> @@ -1096,7 +1104,10 @@ static bool msm_dp_ctrl_train_pattern_set(struct msm_dp_ctrl_private *ctrl,
->  	if (pattern && pattern != DP_TRAINING_PATTERN_4)
->  		buf |= DP_LINK_SCRAMBLING_DISABLE;
->  
-> -	ret = drm_dp_dpcd_writeb(ctrl->aux, DP_TRAINING_PATTERN_SET, buf);
-> +	if (dp_phy != DP_PHY_DPRX)
-> +		reg = DP_TRAINING_PATTERN_SET_PHY_REPEATER(dp_phy);
+The Board consists of directors elected from the membership. Each year,
+an election is held to bring the total number of directors to eight.
+The four members receiving the highest vote totals will serve as
+directors for two year terms.
 
-The same comment here.
+The directors who received two year terms starting in 2024 were Erik
+Faye-Lund, Mark Filion, Neal Gompa and Simon Ser. They will continue to
+serve until their term ends in 2026. Current directors whose term
+expires in 2025 are Lyude Paul, Arkadiusz Hiler and Christopher
+Michael. Additionally, a fourth board position is open following the
+resignation of Simona Vetter in Q3 2024.
 
-> +
-> +	ret = drm_dp_dpcd_writeb(ctrl->aux, reg, buf);
->  	return ret == 1;
->  }
->  
-> @@ -1115,12 +1126,16 @@ static int msm_dp_ctrl_read_link_status(struct msm_dp_ctrl_private *ctrl,
->  }
->  
->  static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
-> -			int *training_step)
-> +			int *training_step, enum drm_dp_phy dp_phy)
->  {
-> +	int delay_us;
->  	int tries, old_v_level, ret = 0;
->  	u8 link_status[DP_LINK_STATUS_SIZE];
->  	int const maximum_retries = 4;
->  
-> +	delay_us = drm_dp_read_clock_recovery_delay(ctrl->aux,
-> +		ctrl->panel->dpcd, dp_phy, false);
-> +
->  	msm_dp_catalog_ctrl_state_ctrl(ctrl->catalog, 0);
->  
->  	*training_step = DP_TRAINING_1;
-> @@ -1129,18 +1144,19 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
->  	if (ret)
->  		return ret;
->  	msm_dp_ctrl_train_pattern_set(ctrl, DP_TRAINING_PATTERN_1 |
-> -		DP_LINK_SCRAMBLING_DISABLE);
-> +		DP_LINK_SCRAMBLING_DISABLE, dp_phy);
->  
-> -	ret = msm_dp_ctrl_update_vx_px(ctrl);
-> +	msm_dp_link_reset_phy_params_vx_px(ctrl->link);
-> +	ret = msm_dp_ctrl_update_phy_vx_px(ctrl, dp_phy);
->  	if (ret)
->  		return ret;
->  
->  	tries = 0;
->  	old_v_level = ctrl->link->phy_params.v_level;
->  	for (tries = 0; tries < maximum_retries; tries++) {
-> -		drm_dp_link_train_clock_recovery_delay(ctrl->aux, ctrl->panel->dpcd);
-> +		fsleep(delay_us);
->  
-> -		ret = msm_dp_ctrl_read_link_status(ctrl, link_status);
-> +		ret = drm_dp_dpcd_read_phy_link_status(ctrl->aux, dp_phy, link_status);
+A director is expected to participate in the fortnightly IRC meeting to
+discuss current business and to attend the annual meeting of the X.Org
+Foundation, which will be held at a location determined in advance by
+the Board of Directors.
 
-Please rebase this code on top of drm-misc-next.
+A member may nominate themselves or any other member they feel is
+qualified. Nominations should be sent to the Election Committee
+at=C2=A0elections@x.org.
 
->  		if (ret)
->  			return ret;
->  
-> @@ -1161,7 +1177,7 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
->  		}
->  
->  		msm_dp_link_adjust_levels(ctrl->link, link_status);
-> -		ret = msm_dp_ctrl_update_vx_px(ctrl);
-> +		ret = msm_dp_ctrl_update_phy_vx_px(ctrl, dp_phy);
->  		if (ret)
->  			return ret;
->  	}
-> @@ -1213,21 +1229,31 @@ static int msm_dp_ctrl_link_lane_down_shift(struct msm_dp_ctrl_private *ctrl)
->  	return 0;
->  }
->  
-> -static void msm_dp_ctrl_clear_training_pattern(struct msm_dp_ctrl_private *ctrl)
-> +static void msm_dp_ctrl_clear_training_pattern(struct msm_dp_ctrl_private *ctrl,
-> +					       enum drm_dp_phy dp_phy)
->  {
-> -	msm_dp_ctrl_train_pattern_set(ctrl, DP_TRAINING_PATTERN_DISABLE);
-> -	drm_dp_link_train_channel_eq_delay(ctrl->aux, ctrl->panel->dpcd);
-> +	int delay_us;
-> +
-> +	msm_dp_ctrl_train_pattern_set(ctrl, DP_TRAINING_PATTERN_DISABLE, dp_phy);
-> +
-> +	delay_us = drm_dp_read_channel_eq_delay(ctrl->aux,
-> +		ctrl->panel->dpcd, dp_phy, false);
+Nominees shall be required to be current members of the X.Org
+Foundation, and submit a personal statement of up to 200 words that
+will be provided to prospective voters. The collected statements, along
+with the statement of contribution to the X.Org Foundation in the
+member's account page on=C2=A0http://members.x.org, will be made available
+to all voters to help them make their voting decisions.
 
-Misaligned, checkpatch should warn about it.
+Nominations, membership applications or renewals and completed personal
+statements must be received no later than 23:59 UTC on 16 April 2025.
 
-> +	fsleep(delay_us);
->  }
->  
->  static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
-> -			int *training_step)
-> +			int *training_step, enum drm_dp_phy dp_phy)
->  {
-> +	int delay_us;
->  	int tries = 0, ret = 0;
->  	u8 pattern;
->  	u32 state_ctrl_bit;
->  	int const maximum_retries = 5;
->  	u8 link_status[DP_LINK_STATUS_SIZE];
->  
-> +	delay_us = drm_dp_read_channel_eq_delay(ctrl->aux,
-> +		ctrl->panel->dpcd, dp_phy, false);
+The slate of candidates will be published 23 April 2025 and candidate
+Q&A will begin then. The deadline for Xorg membership applications and
+renewals is 28 April 2025.
 
-Misaligned
+Best,=C2=A0
 
-> +
->  	msm_dp_catalog_ctrl_state_ctrl(ctrl->catalog, 0);
->  
->  	*training_step = DP_TRAINING_2;
-> @@ -1247,12 +1273,12 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
->  	if (ret)
->  		return ret;
->  
-> -	msm_dp_ctrl_train_pattern_set(ctrl, pattern);
-> +	msm_dp_ctrl_train_pattern_set(ctrl, pattern, dp_phy);
->  
->  	for (tries = 0; tries <= maximum_retries; tries++) {
-> -		drm_dp_link_train_channel_eq_delay(ctrl->aux, ctrl->panel->dpcd);
-> +		fsleep(delay_us);
->  
-> -		ret = msm_dp_ctrl_read_link_status(ctrl, link_status);
-> +		ret = drm_dp_dpcd_read_phy_link_status(ctrl->aux, dp_phy, link_status);
->  		if (ret)
->  			return ret;
->  
-> @@ -1262,7 +1288,7 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
->  		}
->  
->  		msm_dp_link_adjust_levels(ctrl->link, link_status);
-> -		ret = msm_dp_ctrl_update_vx_px(ctrl);
-> +		ret = msm_dp_ctrl_update_phy_vx_px(ctrl, dp_phy);
->  		if (ret)
->  			return ret;
->  
-> @@ -1271,10 +1297,32 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
->  	return -ETIMEDOUT;
->  }
->  
-> +static int msm_dp_ctrl_link_train_1_2(struct msm_dp_ctrl_private *ctrl,
-> +				      int *training_step, enum drm_dp_phy dp_phy)
-> +{
-> +	int ret;
-> +
-> +	ret = msm_dp_ctrl_link_train_1(ctrl, training_step, dp_phy);
-> +	if (ret) {
-> +		DRM_ERROR("link training #1 on phy %d failed. ret=%d\n", dp_phy, ret);
-> +		return ret;
-> +	}
-> +	drm_dbg_dp(ctrl->drm_dev, "link training #1 on phy %d successful\n", dp_phy);
-> +
-> +	ret = msm_dp_ctrl_link_train_2(ctrl, training_step, dp_phy);
-> +	if (ret) {
-> +		DRM_ERROR("link training #2 on phy %d failed. ret=%d\n", dp_phy, ret);
-> +		return ret;
-> +	}
-> +	drm_dbg_dp(ctrl->drm_dev, "link training #2 on phy %d successful\n", dp_phy);
-> +
-> +	return 0;
-> +}
-> +
->  static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
->  			int *training_step)
->  {
-> -	int ret = 0;
-> +	int ret = 0, i;
+Mark Filion, on behalf of the X.Org BoD
 
-Don't mix initialized and non-initialized variables in the same line.
+--=-N4w+JuuoYDVljEzsMMft
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
->  	const u8 *dpcd = ctrl->panel->dpcd;
->  	u8 encoding[] = { 0, DP_SET_ANSI_8B10B };
->  	u8 assr;
-> @@ -1286,8 +1334,6 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
->  	link_info.rate = ctrl->link->link_params.rate;
->  	link_info.capabilities = DP_LINK_CAP_ENHANCED_FRAMING;
->  
-> -	msm_dp_link_reset_phy_params_vx_px(ctrl->link);
-> -
->  	msm_dp_aux_link_configure(ctrl->aux, &link_info);
->  
->  	if (drm_dp_max_downspread(dpcd))
-> @@ -1302,23 +1348,29 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
->  				&assr, 1);
->  	}
->  
-> -	ret = msm_dp_ctrl_link_train_1(ctrl, training_step);
-> +	for (i = *ctrl->lttpr_count - 1; i >= 0; i--) {
-> +		enum drm_dp_phy dp_phy = DP_PHY_LTTPR(i);
-> +
-> +		ret = msm_dp_ctrl_link_train_1_2(ctrl, training_step, dp_phy);
-> +		msm_dp_ctrl_clear_training_pattern(ctrl, dp_phy);
-> +
-> +		if (ret)
-> +			break;
-> +	}
-> +
->  	if (ret) {
-> -		DRM_ERROR("link training #1 failed. ret=%d\n", ret);
-> +		DRM_ERROR("link training of LTTPR(s) failed. ret=%d\n", ret);
->  		goto end;
->  	}
->  
-> -	/* print success info as this is a result of user initiated action */
-> -	drm_dbg_dp(ctrl->drm_dev, "link training #1 successful\n");
-> -
-> -	ret = msm_dp_ctrl_link_train_2(ctrl, training_step);
-> +	ret = msm_dp_ctrl_link_train_1_2(ctrl, training_step, DP_PHY_DPRX);
->  	if (ret) {
-> -		DRM_ERROR("link training #2 failed. ret=%d\n", ret);
-> +		DRM_ERROR("link training on sink failed. ret=%d\n", ret);
->  		goto end;
->  	}
->  
->  	/* print success info as this is a result of user initiated action */
-> -	drm_dbg_dp(ctrl->drm_dev, "link training #2 successful\n");
-> +	drm_dbg_dp(ctrl->drm_dev, "link training on sink successful\n");
->  
+<html><head><style>pre,code,address {
+  margin: 0px;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+ol,ul {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+blockquote {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+</style></head><body><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0,=
+ 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps: norm=
+al; font-weight: 400; letter-spacing: normal; text-align: start; text-inden=
+t: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webk=
+it-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px;=
+ text-decoration: none;">Hello!</div><div style=3D"caret-color: rgb(0, 0, 0=
+); color: rgb(0, 0, 0); font-family: Cantarell; font-style: normal; font-va=
+riant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: s=
+tart; text-indent: 0px; text-transform: none; white-space: normal; word-spa=
+cing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-st=
+roke-width: 0px; text-decoration: none;"><br></div><div style=3D"caret-colo=
+r: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style: n=
+ormal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal;=
+ text-align: start; text-indent: 0px; text-transform: none; white-space: no=
+rmal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -=
+webkit-text-stroke-width: 0px; text-decoration: none;">We are seeking nomin=
+ations for candidates for election to the X.Org Foundation Board of Directo=
+rs. All X.Org Foundation members are eligible for election to the board.</d=
+iv><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-famil=
+y: Cantarell; font-style: normal; font-variant-caps: normal; font-weight: 4=
+00; letter-spacing: normal; text-align: start; text-indent: 0px; text-trans=
+form: none; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-c=
+olor: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: =
+none;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, =
+0); font-family: Cantarell; font-style: normal; font-variant-caps: normal; =
+font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0=
+px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-t=
+ap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; tex=
+t-decoration: none;">Nominations for the 2025 election are now open and wil=
+l remain open until 23:59 UTC on 16 April 2025.</div><div style=3D"caret-co=
+lor: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style:=
+ normal; font-variant-caps: normal; font-weight: 400; letter-spacing: norma=
+l; text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);=
+ -webkit-text-stroke-width: 0px; text-decoration: none;"><br></div><div sty=
+le=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarel=
+l; font-style: normal; font-variant-caps: normal; font-weight: 400; letter-=
+spacing: normal; text-align: start; text-indent: 0px; text-transform: none;=
+ white-space: normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(=
+0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none;">The =
+Board consists of directors elected from the membership. Each year, an elec=
+tion is held to bring the total number of directors to eight. The four memb=
+ers receiving the highest vote totals will serve as directors for two year =
+terms.</div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); f=
+ont-family: Cantarell; font-style: normal; font-variant-caps: normal; font-=
+weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; t=
+ext-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap-hi=
+ghlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-dec=
+oration: none;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: r=
+gb(0, 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps:=
+ normal; font-weight: 400; letter-spacing: normal; text-align: start; text-=
+indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width:=
+ 0px; text-decoration: none;">The directors who received two year terms sta=
+rting in 2024 were Erik Faye-Lund, Mark Filion, Neal Gompa and Simon Ser. T=
+hey will continue to serve until their term ends in 2026. Current directors=
+ whose term expires in 2025 are Lyude Paul, Arkadiusz Hiler and Christopher=
+ Michael. Additionally, a fourth board position is open following the resig=
+nation of Simona Vetter in Q3 2024.</div><div style=3D"caret-color: rgb(0, =
+0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style: normal; fon=
+t-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-alig=
+n: start; text-indent: 0px; text-transform: none; white-space: normal; word=
+-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-tex=
+t-stroke-width: 0px; text-decoration: none;"><br></div><div style=3D"caret-=
+color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-styl=
+e: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: nor=
+mal; text-align: start; text-indent: 0px; text-transform: none; white-space=
+: normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4=
+); -webkit-text-stroke-width: 0px; text-decoration: none;">A director is ex=
+pected to participate in the fortnightly IRC meeting to discuss current bus=
+iness and to attend the annual meeting of the X.Org Foundation, which will =
+be held at a location determined in advance by the Board of Directors.</div=
+><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family:=
+ Cantarell; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-col=
+or: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: no=
+ne;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0)=
+; font-family: Cantarell; font-style: normal; font-variant-caps: normal; fo=
+nt-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px=
+; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap=
+-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-=
+decoration: none;">A member may nominate themselves or any other member the=
+y feel is qualified. Nominations should be sent to the Election Committee a=
+t<span class=3D"Apple-converted-space">&nbsp;</span><a href=3D"mailto:elect=
+ions@x.org" style=3D"color: rgb(46, 52, 54);">elections@x.org</a>.</div><di=
+v style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Can=
+tarell; font-style: normal; font-variant-caps: normal; font-weight: 400; le=
+tter-spacing: normal; text-align: start; text-indent: 0px; text-transform: =
+none; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-color: =
+rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none;"=
+><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); fo=
+nt-family: Cantarell; font-style: normal; font-variant-caps: normal; font-w=
+eight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; te=
+xt-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap-hig=
+hlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-deco=
+ration: none;">Nominees shall be required to be current members of the X.Or=
+g Foundation, and submit a personal statement of up to 200 words that will =
+be provided to prospective voters. The collected statements, along with the=
+ statement of contribution to the X.Org Foundation in the member's account =
+page on<span class=3D"Apple-converted-space">&nbsp;</span><a href=3D"http:/=
+/members.x.org/" style=3D"color: rgb(46, 52, 54);">http://members.x.org</a>=
+, will be made available to all voters to help them make their voting decis=
+ions.</div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); fo=
+nt-family: Cantarell; font-style: normal; font-variant-caps: normal; font-w=
+eight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; te=
+xt-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap-hig=
+hlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-deco=
+ration: none;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rg=
+b(0, 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps: =
+normal; font-weight: 400; letter-spacing: normal; text-align: start; text-i=
+ndent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -=
+webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: =
+0px; text-decoration: none;">Nominations, membership applications or renewa=
+ls and completed personal statements must be received no later than 23:59 U=
+TC on 16 April 2025.</div><div style=3D"caret-color: rgb(0, 0, 0); color: r=
+gb(0, 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps:=
+ normal; font-weight: 400; letter-spacing: normal; text-align: start; text-=
+indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width:=
+ 0px; text-decoration: none;"><br></div><div style=3D"caret-color: rgb(0, 0=
+, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style: normal; font=
+-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align=
+: start; text-indent: 0px; text-transform: none; white-space: normal; word-=
+spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text=
+-stroke-width: 0px; text-decoration: none;">The slate of candidates will be=
+ published 23 April 2025 and candidate Q&amp;A will begin then. The deadlin=
+e for Xorg membership applications and renewals is 28 April 2025.</div><div=
+ style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cant=
+arell; font-style: normal; font-variant-caps: normal; font-weight: 400; let=
+ter-spacing: normal; text-align: start; text-indent: 0px; text-transform: n=
+one; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-color: r=
+gba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none;">=
+<br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); fon=
+t-family: Cantarell; font-style: normal; font-variant-caps: normal; font-we=
+ight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; tex=
+t-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap-high=
+light-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decor=
+ation: none;">Best,<span class=3D"Apple-converted-space">&nbsp;</span></div=
+><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family:=
+ Cantarell; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-col=
+or: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: no=
+ne;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0)=
+; font-family: Cantarell; font-style: normal; font-variant-caps: normal; fo=
+nt-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px=
+; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap=
+-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-=
+decoration: none;">Mark Filion, on behalf of the X.Org BoD</div><div><span>=
+</span></div></body></html>
 
-No need for keeping these debug messages, you have them in
-msm_dp_ctrl_link_train_1_2().
-
->  end:
->  	msm_dp_catalog_ctrl_state_ctrl(ctrl->catalog, 0);
-> @@ -1636,7 +1688,7 @@ static int msm_dp_ctrl_link_maintenance(struct msm_dp_ctrl_private *ctrl)
->  	if (ret)
->  		goto end;
->  
-> -	msm_dp_ctrl_clear_training_pattern(ctrl);
-> +	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
->  
->  	msm_dp_catalog_ctrl_state_ctrl(ctrl->catalog, DP_STATE_CTRL_SEND_VIDEO);
->  
-> @@ -1660,7 +1712,7 @@ static bool msm_dp_ctrl_send_phy_test_pattern(struct msm_dp_ctrl_private *ctrl)
->  		return false;
->  	}
->  	msm_dp_catalog_ctrl_send_phy_pattern(ctrl->catalog, pattern_requested);
-> -	msm_dp_ctrl_update_vx_px(ctrl);
-> +	msm_dp_ctrl_update_phy_vx_px(ctrl, DP_PHY_DPRX);
->  	msm_dp_link_send_test_response(ctrl->link);
->  
->  	pattern_sent = msm_dp_catalog_ctrl_read_phy_pattern(ctrl->catalog);
-> @@ -1902,7 +1954,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
->  			}
->  
->  			/* stop link training before start re training  */
-> -			msm_dp_ctrl_clear_training_pattern(ctrl);
-> +			msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
-
-Just DPRX or should this include all LTTPRs? Could you point out how
-this is handled inside Intel or AMD drivers?
-
->  		}
->  
->  		rc = msm_dp_ctrl_reinitialize_mainlink(ctrl);
-> @@ -1926,7 +1978,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
->  		 * link training failed
->  		 * end txing train pattern here
->  		 */
-> -		msm_dp_ctrl_clear_training_pattern(ctrl);
-> +		msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
-
-The same.
-
->  
->  		msm_dp_ctrl_deinitialize_mainlink(ctrl);
->  		rc = -ECONNRESET;
-> @@ -1997,7 +2049,7 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train
->  		msm_dp_ctrl_link_retrain(ctrl);
->  
->  	/* stop txing train pattern to end link training */
-> -	msm_dp_ctrl_clear_training_pattern(ctrl);
-> +	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
->  
->  	/*
->  	 * Set up transfer unit values and set controller state to send
-> @@ -2207,7 +2259,7 @@ static int msm_dp_ctrl_clk_init(struct msm_dp_ctrl *msm_dp_ctrl)
->  
->  struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link,
->  			struct msm_dp_panel *panel,	struct drm_dp_aux *aux,
-> -			struct msm_dp_catalog *catalog,
-> +			struct msm_dp_catalog *catalog, int *lttpr_count,
->  			struct phy *phy)
->  {
->  	struct msm_dp_ctrl_private *ctrl;
-> @@ -2242,12 +2294,13 @@ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link
->  	init_completion(&ctrl->video_comp);
->  
->  	/* in parameters */
-> -	ctrl->panel    = panel;
-> -	ctrl->aux      = aux;
-> -	ctrl->link     = link;
-> -	ctrl->catalog  = catalog;
-> -	ctrl->dev      = dev;
-> -	ctrl->phy      = phy;
-> +	ctrl->panel       = panel;
-> +	ctrl->aux         = aux;
-> +	ctrl->link        = link;
-> +	ctrl->catalog     = catalog;
-> +	ctrl->dev         = dev;
-> +	ctrl->phy         = phy;
-> +	ctrl->lttpr_count = lttpr_count;
-
-I'd rather reduce noise and keep old assignments intact.
-
->  
->  	ret = msm_dp_ctrl_clk_init(&ctrl->msm_dp_ctrl);
->  	if (ret) {
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-> index b7abfedbf574..3fb45b138b31 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-> @@ -27,7 +27,7 @@ irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl);
->  void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl);
->  struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link,
->  			struct msm_dp_panel *panel,	struct drm_dp_aux *aux,
-> -			struct msm_dp_catalog *catalog,
-> +			struct msm_dp_catalog *catalog, int *lttpr_count,
->  			struct phy *phy);
->  
->  void msm_dp_ctrl_reset_irq_ctrl(struct msm_dp_ctrl *msm_dp_ctrl, bool enable);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index d0c2dc7e6648..393ce3479a7e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -108,6 +108,7 @@ struct msm_dp_display_private {
->  	struct msm_dp_event event_list[DP_EVENT_Q_MAX];
->  	spinlock_t event_lock;
->  
-> +	int lttpr_count;
->  	u8 lttpr_common_caps[DP_LTTPR_COMMON_CAP_SIZE];
->  
->  	bool wide_bus_supported;
-> @@ -397,7 +398,7 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
->  	if (rc)
->  		goto end;
->  
-> -	msm_dp_display_lttpr_init(dp, dpcd);
-> +	dp->lttpr_count = msm_dp_display_lttpr_init(dp, dpcd);
->  
->  	rc = msm_dp_panel_read_sink_caps(dp->panel, dp->lttpr_common_caps, connector);
->  	if (rc)
-> @@ -798,6 +799,7 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
->  
->  	dp->ctrl = msm_dp_ctrl_get(dev, dp->link, dp->panel, dp->aux,
->  			       dp->catalog,
-> +			       &dp->lttpr_count,
->  			       phy);
->  	if (IS_ERR(dp->ctrl)) {
->  		rc = PTR_ERR(dp->ctrl);
-> -- 
-> 2.45.2
-> 
-
--- 
-With best wishes
-Dmitry
+--=-N4w+JuuoYDVljEzsMMft--
