@@ -2,117 +2,102 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6E7FA7C662
-	for <lists+freedreno@lfdr.de>; Sat,  5 Apr 2025 00:39:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABA80A7C80A
+	for <lists+freedreno@lfdr.de>; Sat,  5 Apr 2025 09:49:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC5F510E120;
-	Fri,  4 Apr 2025 22:39:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77B5210E04A;
+	Sat,  5 Apr 2025 07:49:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jOhfj/0z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ysvju0Ij";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08FA110E120
- for <freedreno@lists.freedesktop.org>; Fri,  4 Apr 2025 22:39:06 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 534JEcCn005340
- for <freedreno@lists.freedesktop.org>; Fri, 4 Apr 2025 22:39:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- oAQPPAwHz4E9W2g7oqIWAj/qTk23uygOmdFEWxol8hk=; b=jOhfj/0zRCcAbJQe
- qFeozMfMur4+mg0GLAWSsq/qWByJ10Zn03FKYICtyOqJ7DehQikQ8TOuqhBixExJ
- qxm3qFcRlkD6ry99hrq+4CiY7ydxVWN0gLiYpvPZ6gAg6+RaUIZeEmwJJn5vVdF7
- hkQxR9J3+JLhWhbXzcNHegkIDOyB6f54PSiOLrd5vapiiw/3oB4bqvAdqPx9l4hg
- W8cSl2mPs8VwYSFCkGHNuHXR6CSyaLtP2mi5JfyjxqFnbrEuuzIQhz16bbSkhJOE
- vXB8vcrhSCLAhAj6dnExSJHsKIyqWH5HOqnsJYmEVZZg4KFTX60kxRZ/7ZQBKchK
- BTdAsw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45t2d9b5gd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 04 Apr 2025 22:39:05 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-477608e8e4aso1179631cf.1
- for <freedreno@lists.freedesktop.org>; Fri, 04 Apr 2025 15:39:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743806345; x=1744411145;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oAQPPAwHz4E9W2g7oqIWAj/qTk23uygOmdFEWxol8hk=;
- b=nkKZ0LPpmw3HzuFmBP+6FGO/MZA4o08BTGV7OW2CcrWg+EFJyIJplOVa/Rljo//XX4
- zc649OlW8WhKC6BwfDblNNlA8ZvNCSVhHr93jTxch2eOqA/VVRuljlSQjUKuegEStbNJ
- cApOez3HVpXQndWV98PJUSdblenbJQ0k5s+gL+IymJL7Ufo54C9FEHt7J1Eedm0MZklx
- A8iJRWHVe0htOqs5R2pQD6SrcIfM+L0OBktqST4DHs664/x/OwRFPyaBfhGDqhjhlyXS
- QMZwfDD90jE8GmIanuNqpyecc/KyU/a8ra6yJj6HeRkltcIt7sARr/nimgV5Rb1lmJez
- p6Mw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUPWV6PYuzGFfP+NkVmrk3Dpazdvds7Iy5coz4vKoW3Zq3yxNSPtgt6OFaGKWnbvbiJwRO+DuZkTHc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwacLRaoWNPL0jH4namp0HCBYI5YpM2kmvu753YXuoGhg+IsKt9
- L+gcFsbXM/kMXXBTaTv9UAC1vJRbIkT59IspH2pOltUc7y+pOPoRXnMw3as+23egKxtY3mVg+P6
- Q5c969nR8oxnagc0HLFgMTIGPHA85IDndu+YOlXTqUag2yTQ7UZGVrhOYUPbusHnaSO8=
-X-Gm-Gg: ASbGnctsiMs5i4cX9t0cU0/WKi5PnDDDgwe5+3NL8L4B9BMQ46l8X7ChX6ZFnfT2/53
- 9wGA7z6fbMISAQC/Ypv/ELZUHljW5A1e1RMntDt5LlhXWLoX79t11HmN/HmTkt0Ca8Tj//7H3t4
- myTFQAl2HGa5zOREe0Bp3FMMxujhvATgoy2aBA7jWpeVYuHZBWGiQ3q3AWKARxm3ok8t1cavSSq
- ldndpDw4kc6ZsNYkcb5vF48XeaU2DcuKa241evXL+UMTFItfKC64JoikyydXypU2iCSiPeK5l82
- Gmb5wcVNw+NWBYw+xFwZCZB1OtzQjR1wi80Z8BPJlmim1FKrPLa+VnKRbgSKycXCj2jXuA==
-X-Received: by 2002:a05:622a:1898:b0:475:876:ac3d with SMTP id
- d75a77b69052e-479249e2cd1mr26006411cf.13.1743806345082; 
- Fri, 04 Apr 2025 15:39:05 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG+NzcEKIjX/Q355mfL2t7DYQXJRcMD6VxP8/NFF8Z5Gmr/gnpuijoylXIpLqB0qI6DVbx04w==
-X-Received: by 2002:a05:622a:1898:b0:475:876:ac3d with SMTP id
- d75a77b69052e-479249e2cd1mr26006291cf.13.1743806344699; 
- Fri, 04 Apr 2025 15:39:04 -0700 (PDT)
-Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f087f0a9c9sm3106401a12.41.2025.04.04.15.39.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Apr 2025 15:39:04 -0700 (PDT)
-Message-ID: <79c9ab2d-f970-4dfb-9170-ac3dd8b1c772@oss.qualcomm.com>
-Date: Sat, 5 Apr 2025 00:39:01 +0200
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7AA610E04A;
+ Sat,  5 Apr 2025 07:49:02 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 4F13BA42F65;
+ Sat,  5 Apr 2025 07:43:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1773C4CEE4;
+ Sat,  5 Apr 2025 07:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1743839335;
+ bh=qSAjI2E+tEYEM0N/MFL6Ug4lRw8s4ygUndqmmsXk7U8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Ysvju0IjPsxskJ9tgek7o9PMWwtfb4UKUUo6G3cKCOxGgD5qIlc26qJhXVQWDfJfa
+ 6jOZb3O7h4LiyXSJ3OdcWwW95uXZXKfxTm+ABJbAcR53nGA6QWgiT89PgiAAqvBbE4
+ IMTdZMRiM8x8sk0lR8nfLvK48U+SegTgvrZFLHs9VWtc5pNNqh7+FEHUOJlVqMDouM
+ fIGBCuGMpr6rJUTU+VZoRS6vn6RP90UOi+zTY1KIfppmfhyd/H6w72a4JiDc3l33rG
+ uDhtLBa0MHKaZr200PuwP7ox+97zB1tAR7K6okIBHszjktrmCzA5ST8Xl/ETrIplGn
+ jrDzkt1VtzRDg==
+Message-ID: <5cfdb91e-54d3-4871-a09c-5ece37099b6a@kernel.org>
+Date: Sat, 5 Apr 2025 09:48:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/10] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
- to DP bridge nodes
-To: Ayushi Makhija <quic_amakhija@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 03/10] dt-bindings: display: msm: document DSI
+ controller and phy on SA8775P
+To: Ayushi Makhija <quic_amakhija@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Cc: robdclark@gmail.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
  marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
  robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
  jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
  quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
  quic_jesszhan@quicinc.com
 References: <20250404115539.1151201-1-quic_amakhija@quicinc.com>
- <20250404115539.1151201-8-quic_amakhija@quicinc.com>
+ <20250404115539.1151201-4-quic_amakhija@quicinc.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250404115539.1151201-8-quic_amakhija@quicinc.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20250404115539.1151201-4-quic_amakhija@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 0cM4or8Q8vtFdPIj-IqkOleESYT__HI3
-X-Authority-Analysis: v=2.4 cv=cpybk04i c=1 sm=1 tr=0 ts=67f05f89 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=GLHRRWOWZVtnXAxWSSAA:9
- a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: 0cM4or8Q8vtFdPIj-IqkOleESYT__HI3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-04_10,2025-04-03_03,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0
- lowpriorityscore=0 mlxscore=0 impostorscore=0 malwarescore=0 clxscore=1015
- phishscore=0 suspectscore=0 mlxlogscore=731 bulkscore=0 adultscore=0
- priorityscore=1501 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504040156
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,31 +113,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/4/25 1:55 PM, Ayushi Makhija wrote:
-> Add anx7625 DSI to DP bridge device nodes.
+On 04/04/2025 13:55, Ayushi Makhija wrote:
+> Document DSI controller and phy on SA8775P platform.
 > 
 > Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
 > ---
+>  .../display/msm/qcom,sa8775p-mdss.yaml        | 183 +++++++++++++++++-
+>  1 file changed, 182 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> index 5fac3e266703..1be26137b7b6 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> @@ -52,12 +52,25 @@ patternProperties:
+>          items:
+>            - const: qcom,sa8775p-dp
+>  
+> +  "^dsi@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +    properties:
+> +      compatible:
+> +        contains:
+> +          enum:
 
-[...]
+huh?
 
-> +
-> +	io_expander: gpio@74 {
-> +		compatible = "ti,tca9539";
-> +		reg = <0x74>;
-> +		interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
-> +		gpio-controller;
-> +		#gpio-cells = <2>;
-> +		interrupt-controller;
-> +		#interrupt-cells = <2>;
-> +
-> +		gpio2-hog {
-> +			gpio-hog;
-> +			gpios = <2 GPIO_ACTIVE_HIGH>;
-> +			input;
-> +			line-name = "dsi0_int_pin";
+> +            - qcom,sa8775p-dsi-ctrl
+> +            - qcom,mdss-dsi-ctrl
 
-Are you sure hogging is what you need here? Aren't those GPIOs only
-required to be in a certain state when the connected devices are active?
+This makes no sense and I am pretty sure it breaks everything and was
+not tested.
 
-Konrad
+All previous comments apply.
+
+
+Best regards,
+Krzysztof
