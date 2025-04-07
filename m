@@ -2,67 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 409E3A7D097
-	for <lists+freedreno@lfdr.de>; Sun,  6 Apr 2025 23:04:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 611A0A7D874
+	for <lists+freedreno@lfdr.de>; Mon,  7 Apr 2025 10:50:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC9D510E13C;
-	Sun,  6 Apr 2025 21:04:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E9C810E3D5;
+	Mon,  7 Apr 2025 08:50:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=lucaweiss.eu header.i=@lucaweiss.eu header.b="7w4oGq+H";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CVVDZL/g";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 542 seconds by postgrey-1.36 at gabe;
- Sun, 06 Apr 2025 21:04:34 UTC
-Received: from ahti.lucaweiss.eu (ahti.lucaweiss.eu [128.199.32.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7153010E13C
- for <freedreno@lists.freedesktop.org>; Sun,  6 Apr 2025 21:04:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lucaweiss.eu; s=s1;
- t=1743972926; bh=GYQDKxQYPeumdjpCWFzmT/BFYkqlpiumCHjzhGY3a/I=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=7w4oGq+H+b6MbgG4oSCp8yrzLQHtRTTLN8U2pbRKfqcb3Jc1ynW4HfhfBc492CW6q
- E7G8QLuq9qvchlYL188PiKSmm6KQONBYb5Nz8yxd2RBhiUaPBGr0Bdb+i55hh4rW9z
- zhqWgHp3J/I9NG6NeE5yzabU6WdYQU6cINs9Qpik=
-From: Luca Weiss <luca@lucaweiss.eu>
-Date: Sun, 06 Apr 2025 22:55:04 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: msm8953: Add interconnects
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAB5110E3CD
+ for <freedreno@lists.freedesktop.org>; Mon,  7 Apr 2025 08:50:06 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5378dnkh010472
+ for <freedreno@lists.freedesktop.org>; Mon, 7 Apr 2025 08:50:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ A7W/suLq2UM8HkanTs1604dpOyHgBjMoRJIiCRyj9+s=; b=CVVDZL/gws/Rm+jT
+ YWCrTw9nhBzrno64L/nvG3wxIxarrWOLWV/RhmuPrTZ4uA/GkKdNvaDa25pR5lVT
+ WIi1R+8kUyxISodhlpcpZwEVdKIGZTbOCjNoM1bWOTznfU1IaBj7lNsy1ecjOnTB
+ wMv+bUs4AM/UyiLPhVuvWE3xV9VXuCFGhgkSWYdvGscXy1oGaoT5Pd4D55dGoyrq
+ OwkC/NYXb/HZ5nWb3bBxknxfBtzRjwy6Nub+5Zvz9dTMiABGhd3lxUpKGLeqEl4y
+ MDxoOChXlFyEhwHTM7OskUXKfWQTreg851nWAjUkGAgBDWAsxYIPdwgaABaG0Lqr
+ LYHTmQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twd2kn30-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 07 Apr 2025 08:50:01 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6eeb8a269a7so12195546d6.0
+ for <freedreno@lists.freedesktop.org>; Mon, 07 Apr 2025 01:50:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744015800; x=1744620600;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=A7W/suLq2UM8HkanTs1604dpOyHgBjMoRJIiCRyj9+s=;
+ b=jN/upHGcjd7d1nFpkZGRyez0nAfxS1qUsgedQBJP4fFYo33cTsmedSBfvNQiZ2T7tT
+ kKOrlMZRZZit/qJ5EOuMtMW4mvUf254B5Eyx8NMxd3Gl406j8Zjhw72e2F84MMykaxx+
+ 7mSOewbhLlv1JtpIpOEDHT5FBpQXYKx7Eb+H79pykGOvahWO6Lp29F6ehmqlfmSiUaRG
+ XszCBxwdQ4E9zrQJeCBM3ZT/b/CzXkKC3HJ55CTxATm7lJRAU42/p9CVgcOeuBZkLsYP
+ s470JFV9pEiU2/9nlmm/sak5Jz4WPLe+7t5A8+r8ytRPVQ0NpvaSBTcKfqn8dfPxL8sz
+ LIXQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX23ekdlerwoSUmGnLgiY3Q8jBYtOsTo7UmGwSiq0+2Vf3bdp+SbFY+PXzkWVy3IxwdtmpcLcuBZAI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwP7DSwcUHXSPVsFY+L6E4ozPmrj6yhw3zneK9nMHl4TMgrdBKE
+ MEGtvCWggJZHSdagYwggr2g+P0MxiN4mya2EhBC6HF8KYqvrGf/NmZ6DYdfkldRDxLNOg4zSvs6
+ TN5FEdv5pPEz8M2Ya+Q1JzmdtGZQZG4lN7fmSsFzNDpb8ctu50MfusNQz3VryKYjvSUY=
+X-Gm-Gg: ASbGnctM7CtnPPwowa06hs9HeBXZp1Nvb0M5e9HTOwevkmB/p1PuOs2BCTC64Tk504G
+ x8Zr8CPkDqTNXtvUrJaCLDjSFgJ1k2A2nCsZhWfwwFXuBK7icZv6Ubo02HqaNwigfkYEy1Hek7b
+ fk3JmytgB+PS9AsWwP7Eo8LomxCMpgMlLEvdhZ2AgmdCtTSAFFzZpz10K067nDRgjV3QMd+V9DJ
+ aiCSGf5IKKPGB3kwWfkgmYebHTua+xrJEsRLnkzsnKzud1Go4M6J4NWkRku0hb/PreoaCug/jWU
+ J5W3LzIb/Rt0fKple15N9jjckXxOeij2477OrpnJtCLPKefuvKgJRhZrPsxWKd3YYGaQgg==
+X-Received: by 2002:a05:620a:454e:b0:7c0:c42a:707d with SMTP id
+ af79cd13be357-7c774def534mr617003685a.15.1744015800135; 
+ Mon, 07 Apr 2025 01:50:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHM3ImiIeUKkCnXzozuTunhbkQzhWJNYwKRsFjSxrcYnNZn6j0yjPM2Ovp2gCk1ymCBdM3FPw==
+X-Received: by 2002:a05:620a:454e:b0:7c0:c42a:707d with SMTP id
+ af79cd13be357-7c774def534mr617000985a.15.1744015799813; 
+ Mon, 07 Apr 2025 01:49:59 -0700 (PDT)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5f0880a55aasm6468304a12.78.2025.04.07.01.49.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Apr 2025 01:49:59 -0700 (PDT)
+Message-ID: <9583f74f-2dce-4535-bdff-92b1da1566b5@oss.qualcomm.com>
+Date: Mon, 7 Apr 2025 10:49:55 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250406-msm8953-interconnect-v1-2-a23e22e236e0@lucaweiss.eu>
-References: <20250406-msm8953-interconnect-v1-0-a23e22e236e0@lucaweiss.eu>
-In-Reply-To: <20250406-msm8953-interconnect-v1-0-a23e22e236e0@lucaweiss.eu>
-To: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: msm8953: Add interconnects
+To: Luca Weiss <luca@lucaweiss.eu>, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Vladimir Lypak <vladimir.lypak@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Luca Weiss <luca@lucaweiss.eu>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8564; i=luca@lucaweiss.eu;
- h=from:subject:message-id; bh=9ktMphiDY7XwX/inEIMXs+LhqzzNNoazAkIIZJrkXKg=;
- b=owEBbQKS/ZANAwAIAXLYQ7idTddWAcsmYgBn8uo8VRx5k5lFLWc/sZAtRJHoRQ9Ivwq0PlI3i
- 2BLqzjQBG+JAjMEAAEIAB0WIQQ5utIvCCzakboVj/py2EO4nU3XVgUCZ/LqPAAKCRBy2EO4nU3X
- Vs62D/46FF04VEtCjUPVZ3L0DJ4AyXJI5QNJ3kkzSpYn8YY3R6xzkOkgeVisINfxJFq7eBoEtTO
- 2/CwEMAA1bKK0Sq/yBKgm+JWGFAeyfXN0Wm2ZqPm1N0XP4hpDe1ec9FmjBzBrJms7xfHzrk/LxF
- X5+wkLzMOzG94ZXnlhHhnlSzqz73sUa3FCmoSGRSICHjTf/9sdlHZv5n4P8phrlKIoO63q0k+kQ
- VxUqD3S4cf3m7dIGNUSYIUBooJW9XXpMVCwKnm5EvutFf/x8pwKcoqsEaXbXiTODkpuBTAfFt/w
- yeuvKs2LKp3rna2jUtVOYBl7E2uv7UEabEeA9NgTWd0m1vRsZnf9qoJdgi9sqaA6GitewAFpNEY
- d/j8XG1IjI+dMLaG5XfpJ84S/Wgsqiu0oTkBBZhgQSe0P1Hn8LNanPRp17IfUiQuolAwsZ2dWQ7
- LSWpNkrlNugt5N/YQ2sYJBQI2dnvc9eCToEYMVTDOjRPMipQ8+ma7ZVb3R47QLtzWR3HSUAXJIK
- JnQkSIfWYi1SZHbTgt8y7g3zDUwff+gHDo7i8Weba0hQjtY3J6KXDm9VU/3x9HI988U6hJMMsnz
- A66tF/5YC3w4uVz1hLjJyjgmEYQutc54CuimuZ3NA1k/QjM/Q8kx/CsTd+OSbs1G0CthOlAOsje
- vtJZb8E3/2HHB0g==
-X-Developer-Key: i=luca@lucaweiss.eu; a=openpgp;
- fpr=BD04DA24C971B8D587B2B8D7FAF69CF6CD2D02CD
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20250406-msm8953-interconnect-v1-0-a23e22e236e0@lucaweiss.eu>
+ <20250406-msm8953-interconnect-v1-2-a23e22e236e0@lucaweiss.eu>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250406-msm8953-interconnect-v1-2-a23e22e236e0@lucaweiss.eu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: VB96QTNM7Pk3lB8xvb-KKm7CFK3IMbKx
+X-Proofpoint-GUID: VB96QTNM7Pk3lB8xvb-KKm7CFK3IMbKx
+X-Authority-Analysis: v=2.4 cv=NaLm13D4 c=1 sm=1 tr=0 ts=67f391b9 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=pGLkceISAAAA:8 a=dlmhaOwlAAAA:8
+ a=Dw-YgVe96UOjDrfUO-cA:9 a=QZKuY7mROTJmt8fO:21
+ a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22 a=y4cfut4LVr_MrANMpYTh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-07_02,2025-04-03_03,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 impostorscore=0
+ priorityscore=1501 adultscore=0 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 mlxlogscore=999 clxscore=1015 phishscore=0
+ spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504070062
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,285 +131,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Vladimir Lypak <vladimir.lypak@gmail.com>
+On 4/6/25 10:55 PM, Luca Weiss wrote:
+> From: Vladimir Lypak <vladimir.lypak@gmail.com>
+> 
+> Add the nodes for the bimc, pcnoc, snoc and snoc_mm. And wire up the
+> interconnects where applicable.
+> 
+> Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
+> [luca: Prepare patch for upstream submission]
+> Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
+> ---
 
-Add the nodes for the bimc, pcnoc, snoc and snoc_mm. And wire up the
-interconnects where applicable.
+[...]
 
-Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
-[luca: Prepare patch for upstream submission]
-Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
----
- arch/arm64/boot/dts/qcom/msm8953.dtsi | 96 +++++++++++++++++++++++++++++++++++
- 1 file changed, 96 insertions(+)
+> +			interconnects = <&snoc_mm MAS_MDP RPM_ACTIVE_TAG
+> +					 &bimc SLV_EBI RPM_ACTIVE_TAG>,
+> +					<&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
+> +					 &pcnoc SLV_DISP_SS_CFG RPM_ACTIVE_TAG>;
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8953.dtsi b/arch/arm64/boot/dts/qcom/msm8953.dtsi
-index af4c341e2533ef2cca593e0dc97003334d3fd6b7..bc75c0bd67a27d0b2437e1bd29498f45a4822c08 100644
---- a/arch/arm64/boot/dts/qcom/msm8953.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8953.dtsi
-@@ -4,6 +4,8 @@
- #include <dt-bindings/clock/qcom,gcc-msm8953.h>
- #include <dt-bindings/clock/qcom,rpmcc.h>
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interconnect/qcom,msm8953.h>
-+#include <dt-bindings/interconnect/qcom,rpm-icc.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/power/qcom-rpmpd.h>
- #include <dt-bindings/soc/qcom,apr.h>
-@@ -44,6 +46,8 @@ cpu0: cpu@0 {
- 			reg = <0x0>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
-+			interconnects = <&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>;
- 			next-level-cache = <&l2_0>;
- 			#cooling-cells = <2>;
- 		};
-@@ -54,6 +58,8 @@ cpu1: cpu@1 {
- 			reg = <0x1>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
-+			interconnects = <&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>;
- 			next-level-cache = <&l2_0>;
- 			#cooling-cells = <2>;
- 		};
-@@ -64,6 +70,8 @@ cpu2: cpu@2 {
- 			reg = <0x2>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
-+			interconnects = <&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>;
- 			next-level-cache = <&l2_0>;
- 			#cooling-cells = <2>;
- 		};
-@@ -74,6 +82,8 @@ cpu3: cpu@3 {
- 			reg = <0x3>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
-+			interconnects = <&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>;
- 			next-level-cache = <&l2_0>;
- 			#cooling-cells = <2>;
- 		};
-@@ -84,6 +94,8 @@ cpu4: cpu@100 {
- 			reg = <0x100>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
-+			interconnects = <&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>;
- 			next-level-cache = <&l2_1>;
- 			#cooling-cells = <2>;
- 		};
-@@ -94,6 +106,8 @@ cpu5: cpu@101 {
- 			reg = <0x101>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
-+			interconnects = <&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>;
- 			next-level-cache = <&l2_1>;
- 			#cooling-cells = <2>;
- 		};
-@@ -104,6 +118,8 @@ cpu6: cpu@102 {
- 			reg = <0x102>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
-+			interconnects = <&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>;
- 			next-level-cache = <&l2_1>;
- 			#cooling-cells = <2>;
- 		};
-@@ -114,6 +130,8 @@ cpu7: cpu@103 {
- 			reg = <0x103>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
-+			interconnects = <&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>;
- 			next-level-cache = <&l2_1>;
- 			#cooling-cells = <2>;
- 		};
-@@ -470,6 +488,13 @@ rng@e3000 {
- 			clock-names = "core";
- 		};
- 
-+		bimc: interconnect@400000 {
-+			compatible = "qcom,msm8953-bimc";
-+			reg = <0x00400000 0x5a000>;
-+
-+			#interconnect-cells = <2>;
-+		};
-+
- 		tsens0: thermal-sensor@4a9000 {
- 			compatible = "qcom,msm8953-tsens", "qcom,tsens-v2";
- 			reg = <0x004a9000 0x1000>, /* TM */
-@@ -486,6 +511,29 @@ restart@4ab000 {
- 			reg = <0x004ab000 0x4>;
- 		};
- 
-+		pcnoc: interconnect@500000 {
-+			compatible = "qcom,msm8953-pcnoc";
-+			reg = <0x00500000 0x12080>;
-+
-+			clocks = <&gcc GCC_PCNOC_USB3_AXI_CLK>;
-+			clock-names = "pcnoc_usb3_axi";
-+
-+			#interconnect-cells = <2>;
-+		};
-+
-+		snoc: interconnect@580000 {
-+			compatible = "qcom,msm8953-snoc";
-+			reg = <0x00580000 0x16080>;
-+
-+			#interconnect-cells = <2>;
-+
-+			snoc_mm: interconnect-snoc {
-+				compatible = "qcom,msm8953-snoc-mm";
-+
-+				#interconnect-cells = <2>;
-+			};
-+		};
-+
- 		tlmm: pinctrl@1000000 {
- 			compatible = "qcom,msm8953-pinctrl";
- 			reg = <0x01000000 0x300000>;
-@@ -849,6 +897,13 @@ mdss: display-subsystem@1a00000 {
- 			interrupt-controller;
- 			#interrupt-cells = <1>;
- 
-+			interconnects = <&snoc_mm MAS_MDP RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>,
-+					<&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &pcnoc SLV_DISP_SS_CFG RPM_ACTIVE_TAG>;
-+			interconnect-names = "mdp0-mem",
-+					     "cpu-cfg";
-+
- 			clocks = <&gcc GCC_MDSS_AHB_CLK>,
- 				 <&gcc GCC_MDSS_AXI_CLK>,
- 				 <&gcc GCC_MDSS_VSYNC_CLK>,
-@@ -1065,6 +1120,11 @@ gpu: gpu@1c00000 {
- 				      "alwayson";
- 			power-domains = <&gcc OXILI_GX_GDSC>;
- 
-+			interconnects = <&bimc MAS_OXILI RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>,
-+					<&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &pcnoc SLV_GPU_CFG RPM_ACTIVE_TAG>;
-+
- 			iommus = <&gpu_iommu 0>;
- 			operating-points-v2 = <&gpu_opp_table>;
- 
-@@ -1302,6 +1362,12 @@ usb3: usb@70f8800 {
- 					  <&gcc GCC_USB30_MASTER_CLK>;
- 			assigned-clock-rates = <19200000>, <133330000>;
- 
-+			interconnects = <&pcnoc MAS_USB3 RPM_ALWAYS_TAG
-+					 &bimc SLV_EBI RPM_ALWAYS_TAG>,
-+					<&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &pcnoc SLV_USB3 RPM_ACTIVE_TAG>;
-+			interconnect-names = "usb-ddr", "apps-usb";
-+
- 			power-domains = <&gcc USB30_GDSC>;
- 
- 			qcom,select-utmi-as-pipe-clk;
-@@ -1354,6 +1420,11 @@ sdhc_1: mmc@7824900 {
- 				 <&rpmcc RPM_SMD_XO_CLK_SRC>;
- 			clock-names = "iface", "core", "xo";
- 
-+			interconnects = <&pcnoc MAS_SDCC_1 RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>,
-+					<&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &pcnoc SLV_SDCC_1 RPM_ACTIVE_TAG>;
-+
- 			power-domains = <&rpmpd MSM8953_VDDCX>;
- 			operating-points-v2 = <&sdhc1_opp_table>;
- 
-@@ -1374,26 +1445,36 @@ sdhc1_opp_table: opp-table-sdhc1 {
- 
- 				opp-25000000 {
- 					opp-hz = /bits/ 64 <25000000>;
-+					opp-peak-kBps = <200000>, <100000>;
-+					opp-avg-kBps = <65360>, <32768>;
- 					required-opps = <&rpmpd_opp_low_svs>;
- 				};
- 
- 				opp-50000000 {
- 					opp-hz = /bits/ 64 <50000000>;
-+					opp-peak-kBps = <400000>, <200000>;
-+					opp-avg-kBps = <130718>, <65360>;
- 					required-opps = <&rpmpd_opp_svs>;
- 				};
- 
- 				opp-100000000 {
- 					opp-hz = /bits/ 64 <100000000>;
-+					opp-peak-kBps = <400000>, <400000>;
-+					opp-avg-kBps = <130718>, <65360>;
- 					required-opps = <&rpmpd_opp_svs>;
- 				};
- 
- 				opp-192000000 {
- 					opp-hz = /bits/ 64 <192000000>;
-+					opp-peak-kBps = <800000>, <600000>;
-+					opp-avg-kBps = <261438>, <130718>;
- 					required-opps = <&rpmpd_opp_nom>;
- 				};
- 
- 				opp-384000000 {
- 					opp-hz = /bits/ 64 <384000000>;
-+					opp-peak-kBps = <800000>, <800000>;
-+					opp-avg-kBps = <261438>, <300000>;
- 					required-opps = <&rpmpd_opp_nom>;
- 				};
- 			};
-@@ -1414,6 +1495,11 @@ sdhc_2: mmc@7864900 {
- 				 <&rpmcc RPM_SMD_XO_CLK_SRC>;
- 			clock-names = "iface", "core", "xo";
- 
-+			interconnects = <&pcnoc MAS_SDCC_2 RPM_ACTIVE_TAG
-+					 &bimc SLV_EBI RPM_ACTIVE_TAG>,
-+					<&bimc MAS_APPS_PROC RPM_ACTIVE_TAG
-+					 &pcnoc SLV_SDCC_2 RPM_ACTIVE_TAG>;
-+
- 			power-domains = <&rpmpd MSM8953_VDDCX>;
- 			operating-points-v2 = <&sdhc2_opp_table>;
- 
-@@ -1430,26 +1516,36 @@ sdhc2_opp_table: opp-table-sdhc2 {
- 
- 				opp-25000000 {
- 					opp-hz = /bits/ 64 <25000000>;
-+					opp-peak-kBps = <200000>, <100000>;
-+					opp-avg-kBps = <65360>, <32768>;
- 					required-opps = <&rpmpd_opp_low_svs>;
- 				};
- 
- 				opp-50000000 {
- 					opp-hz = /bits/ 64 <50000000>;
-+					opp-peak-kBps = <400000>, <400000>;
-+					opp-avg-kBps = <130718>, <65360>;
- 					required-opps = <&rpmpd_opp_svs>;
- 				};
- 
- 				opp-100000000 {
- 					opp-hz = /bits/ 64 <100000000>;
-+					opp-peak-kBps = <800000>, <400000>;
-+					opp-avg-kBps = <130718>, <130718>;
- 					required-opps = <&rpmpd_opp_svs>;
- 				};
- 
- 				opp-177770000 {
- 					opp-hz = /bits/ 64 <177770000>;
-+					opp-peak-kBps = <600000>, <600000>;
-+					opp-avg-kBps = <261438>, <130718>;
- 					required-opps = <&rpmpd_opp_nom>;
- 				};
- 
- 				opp-200000000 {
- 					opp-hz = /bits/ 64 <200000000>;
-+					opp-peak-kBps = <800000>, <800000>;
-+					opp-avg-kBps = <261438>, <130718>;
- 					required-opps = <&rpmpd_opp_nom>;
- 				};
- 			};
+RPM_ACTIVE_TAG is akin to QCOM_ICC_TAG_ACTIVE_ONLY, keep it on the CPUs
+and on the cpu-cfg paths, use RPM_ALWAYS_TAG otherwise
 
--- 
-2.49.0
-
+Konrad
