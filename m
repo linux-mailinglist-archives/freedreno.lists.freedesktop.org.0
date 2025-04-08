@@ -2,133 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412A5A80CFE
-	for <lists+freedreno@lfdr.de>; Tue,  8 Apr 2025 15:54:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BF5FA810A3
+	for <lists+freedreno@lfdr.de>; Tue,  8 Apr 2025 17:51:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CD7D10E6BB;
-	Tue,  8 Apr 2025 13:54:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 587C610E6E3;
+	Tue,  8 Apr 2025 15:51:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RnFwscvg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U92RPZbz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 328F210E6BB
- for <freedreno@lists.freedesktop.org>; Tue,  8 Apr 2025 13:54:34 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 538BFdL5032655
- for <freedreno@lists.freedesktop.org>; Tue, 8 Apr 2025 13:54:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- VoddT4WTJIJT0yNhT4FC4b/bYXrodo9njax9aVNsabE=; b=RnFwscvgRGaY79kn
- CufrIekzoCXLRuK4GT6Br4LqUZ/MXzkW16QwRiGW94WlUpnHdZy5ZautnWgy9Psc
- 6xWLFuSZRpua+C2ky1MIoiZOlT7D2CujIvLgdWBwz3TYLPYGZ4JOZubi6yljjAvf
- JRAKbKwUKl/dBQHt90//P8HYlU/EDekO2TJESAAYxc9Xz1qoLU1Wm8GKiR658qmK
- 3Elg9YIcVfUQH5VIkyDwqTabJeW23B0wVFQSbuIxFIMilfEXYhYru2vTPUmGGb28
- pmBK1FiwuaekPL6PhF31u5BFdOzBNL8D8b43Ysjp5QPdSY9zIekIV1oojEMY6ese
- 91eQRQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twfkfugs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 13:54:33 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6e8ffb630ffso84682566d6.1
- for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 06:54:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744120472; x=1744725272;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VoddT4WTJIJT0yNhT4FC4b/bYXrodo9njax9aVNsabE=;
- b=ktyAut3cW1l7E0BVILCUkPoskKTglIbPzKHA9CMv0Cq3gZiIfchNw/naWhIDSI/0QS
- Fgy6XqyFW79Ull3pA1VBbJOQl5iWkg9tmVkZnZKO5/NnhiBabIOAkbt52sUBM1ogEqXV
- Bg5aU3CRVmS13r2VvCpkQ7R9HQ7K8lii5WXz5aZRvKIN55cRiE7pdk1vPSgIB0FP6a5p
- SMqUzbJjsiGRCO6fCzt/40GrHk/RPk4m70w81b1/KXy+BW36s2N9KLgJGdn9bLIWG13N
- j5QC/FZOetGE4/Rn7/t/nMwTjy6JqT7dgH9A8X+pcgaPHcZORGeuPgYS112et5d5Nzxj
- gfJQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW/XoMZ1NiOA9LhbI3gDHQIPRYWVAxQk1Q2Q1ZyPL0fxXY0sv2pCr7DlRVgVK//yLrPuJVrAQhposk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbEAW/+tcJVDexowcWqWWZsKj2WrutcRo455erPiGXXeqQhU4o
- HCgjXI1Ok0g5RqiNmMl2QRvMU4r8aZsw2xuDdHb0O1QerYQqMtA2oY7bVjxW0H1LRnSBjS8VwBV
- 1INd06Ybs/eAEkdMvAiMAzYjD0gWa3gaLbU8PJCyqR+7CUNF0PKvlF4YB2kud/xT5uEc=
-X-Gm-Gg: ASbGncvyKmHTGanC5rediyg5XBrjOooRjx9hzjx/aCldj8dJY484RmgMdErbTi17Oc+
- HsDZDFBhzO/ror7j3eVFLhWVKEpDWlO25yEOS5O7Wtb7ql1qvrnJbd9G2pPcM+lLf79UPMVtE7i
- 1NSGeS0iAfyc26QS688Nt3TAc2sd4QHXhd/yA7VmRS7J8yr1c52hp2IOrtqWJHJZgQwvqNibFix
- 4G1O6pKUCLeKDpPp0jVZzDDaS11lhoxHUrSWo8KgerG/4vMQS7DyyZqTNgcBG1t88xYnYobSCTC
- nkf9/W93uVfwhd0UCDpwXISY7d+1hrqnfg8FhYxBIHFsjNGHyBC7KJyqc1jAfpGRb7Rc1jMI8Mt
- eODfzBUQdKP3XyO4nssu6gmspS/8j
-X-Received: by 2002:ad4:5d6f:0:b0:6e8:f945:ec5 with SMTP id
- 6a1803df08f44-6f0b74a2698mr150976766d6.24.1744120472346; 
- Tue, 08 Apr 2025 06:54:32 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHo5PtguWrlPQkg7PzNT6JSePd3gmBOQfxAcQUB3c3JU0H5P9uXM23N437IMVVcobqB10EG3g==
-X-Received: by 2002:ad4:5d6f:0:b0:6e8:f945:ec5 with SMTP id
- 6a1803df08f44-6f0b74a2698mr150976406d6.24.1744120471980; 
- Tue, 08 Apr 2025 06:54:31 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54c1e672306sm1515306e87.237.2025.04.08.06.54.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Apr 2025 06:54:31 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Tue, 08 Apr 2025 16:54:27 +0300
-Subject: [PATCH v2 3/3] drm/msm/hdmi: use new helper for ACR tables
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250408-drm-hdmi-acr-v2-3-dee7298ab1af@oss.qualcomm.com>
-References: <20250408-drm-hdmi-acr-v2-0-dee7298ab1af@oss.qualcomm.com>
-In-Reply-To: <20250408-drm-hdmi-acr-v2-0-dee7298ab1af@oss.qualcomm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B42410E6E3;
+ Tue,  8 Apr 2025 15:51:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id AD96DA460A3;
+ Tue,  8 Apr 2025 15:45:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51D55C4CEE5;
+ Tue,  8 Apr 2025 15:51:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1744127472;
+ bh=fHyIFk+1JdVwh1YZHnuAzmhPYe/0ws1mktZxa7Zztis=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=U92RPZbzB9fHNqMYcnKtrz/GqeAT94kOVr2zBKXfoy72b/TXH1UV1Pf1iKd+FF1Mt
+ fEsn+06FNEilpE9JZe4Zlklge1+NhbTctVc202lqfcvEDxj3sfuL425JMNNKbAv8Zy
+ 3XZ06lfKlaKvFyseN7gHRyVtS+O6zfETbsBEAg0e1albQ4vcN7UBXLpfMV13u9PmCO
+ VjMZ379EgPxs5yizezEA0IXimAOEARimykKOEUJudXEx1J1Bn/fiNpJrruF/5hvVXa
+ WxLGHFI56wktIKiFGnLrOz+2A1PufwrmZcAevCgKRkjYZ5K2i1sRn3kLD8oPjvHubU
+ vUx4RBSwAqNqQ==
+Date: Tue, 8 Apr 2025 17:51:08 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6543;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=m7dH730YTdioUF5BVViTo6J7jKQSmTmURsxOFoLc+Wo=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn9SqRUveFfRw04aerqV4P1mxeRUVXtv2YfHPig
- cIqw6Sz6R+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ/UqkQAKCRCLPIo+Aiko
- 1cPYCACXyHEU5d593vgc9iDjQqplYCWxJZ93UbGcZfD1ZH0Xfqdy1Qtquvs1tTi+yEuDsXtp578
- EUJZJws/+kRBMjcM95QDIJiWifHuirYizSbSpj6d/qi8qfGh54EK9TEG1azNWdwgwqYjG/VMWDv
- vt5tJivF4ADAa2D0YzINUtR4WE4/+fuMZsrOchgAecygGGIxEKcQdmgZeZNKIP4pYrKLRw/PluH
- gVr+B3LM3NMq+VO8GGBsi+F43msoMbFC/t7vUdjdKPMtVm9EcKoTHqyhfeoE0iBVZdOY4zOYagj
- HzhkW/3QEMqUTUN5r1BmzIglWJ2TUxYe4gtA/qlbCy8TBkaE
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: URGaBN7h6FjQ7kK4ZkVPG-ZTzdwiVWhq
-X-Proofpoint-ORIG-GUID: URGaBN7h6FjQ7kK4ZkVPG-ZTzdwiVWhq
-X-Authority-Analysis: v=2.4 cv=b7Oy4sGx c=1 sm=1 tr=0 ts=67f52a99 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=qxPvP1J6ODAoBo1RHxQA:9
- a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-08_06,2025-04-08_03,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0
- priorityscore=1501 suspectscore=0 mlxscore=0 impostorscore=0 phishscore=0
- clxscore=1015 spamscore=0 mlxlogscore=999 bulkscore=0 lowpriorityscore=0
- classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504080098
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Douglas Anderson <dianders@chromium.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Anusha Srivatsa <asrivats@redhat.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+ Dmitry Baryshkov <lumag@kernel.org>,
+ =?utf-8?B?SGVydsOp?= Codina <herve.codina@bootlin.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, asahi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, 
+ chrome-platform@lists.linux.dev, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-renesas-soc@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH 34/34] drm/bridge: panel: convert to
+ devm_drm_bridge_alloc() API
+Message-ID: <20250408-thankful-husky-of-weather-355cae@houat>
+References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
+ <20250407-drm-bridge-convert-to-alloc-api-v1-34-42113ff8d9c0@bootlin.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="whaxztwnulei2tij"
+Content-Disposition: inline
+In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-34-42113ff8d9c0@bootlin.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,196 +86,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use new drm_hdmi_acr_get_n_cts() helper instead of hand-coding the
-tables. Instead of storing the rate 'index', store the audio sample rate
-in hdmi->audio.rate, removing the need for even more defines.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/hdmi/hdmi_audio.c | 107 +++-------------------------------
- 1 file changed, 9 insertions(+), 98 deletions(-)
+--whaxztwnulei2tij
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 34/34] drm/bridge: panel: convert to
+ devm_drm_bridge_alloc() API
+MIME-Version: 1.0
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_audio.c b/drivers/gpu/drm/msm/hdmi/hdmi_audio.c
-index 8bb975e82c17c1d77217128e9ddbd6a0575bb33d..b9ec14ef2c20ebfa03c30994eb2395f21b9502bb 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_audio.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_audio.c
-@@ -4,6 +4,7 @@
-  * Author: Rob Clark <robdclark@gmail.com>
-  */
- 
-+#include <drm/display/drm_hdmi_helper.h>
- #include <drm/display/drm_hdmi_state_helper.h>
- 
- #include <linux/hdmi.h>
-@@ -12,71 +13,9 @@
- 
- #include "hdmi.h"
- 
--/* Supported HDMI Audio sample rates */
--#define MSM_HDMI_SAMPLE_RATE_32KHZ		0
--#define MSM_HDMI_SAMPLE_RATE_44_1KHZ		1
--#define MSM_HDMI_SAMPLE_RATE_48KHZ		2
--#define MSM_HDMI_SAMPLE_RATE_88_2KHZ		3
--#define MSM_HDMI_SAMPLE_RATE_96KHZ		4
--#define MSM_HDMI_SAMPLE_RATE_176_4KHZ		5
--#define MSM_HDMI_SAMPLE_RATE_192KHZ		6
--#define MSM_HDMI_SAMPLE_RATE_MAX		7
--
--
--struct hdmi_msm_audio_acr {
--	uint32_t n;	/* N parameter for clock regeneration */
--	uint32_t cts;	/* CTS parameter for clock regeneration */
--};
--
--struct hdmi_msm_audio_arcs {
--	unsigned long int pixclock;
--	struct hdmi_msm_audio_acr lut[MSM_HDMI_SAMPLE_RATE_MAX];
--};
--
--#define HDMI_MSM_AUDIO_ARCS(pclk, ...) { (1000 * (pclk)), __VA_ARGS__ }
--
--/* Audio constants lookup table for hdmi_msm_audio_acr_setup */
--/* Valid Pixel-Clock rates: 25.2MHz, 27MHz, 27.03MHz, 74.25MHz, 148.5MHz */
--static const struct hdmi_msm_audio_arcs acr_lut[] = {
--	/*  25.200MHz  */
--	HDMI_MSM_AUDIO_ARCS(25200, {
--		{4096, 25200}, {6272, 28000}, {6144, 25200}, {12544, 28000},
--		{12288, 25200}, {25088, 28000}, {24576, 25200} }),
--	/*  27.000MHz  */
--	HDMI_MSM_AUDIO_ARCS(27000, {
--		{4096, 27000}, {6272, 30000}, {6144, 27000}, {12544, 30000},
--		{12288, 27000}, {25088, 30000}, {24576, 27000} }),
--	/*  27.027MHz */
--	HDMI_MSM_AUDIO_ARCS(27030, {
--		{4096, 27027}, {6272, 30030}, {6144, 27027}, {12544, 30030},
--		{12288, 27027}, {25088, 30030}, {24576, 27027} }),
--	/*  74.250MHz */
--	HDMI_MSM_AUDIO_ARCS(74250, {
--		{4096, 74250}, {6272, 82500}, {6144, 74250}, {12544, 82500},
--		{12288, 74250}, {25088, 82500}, {24576, 74250} }),
--	/* 148.500MHz */
--	HDMI_MSM_AUDIO_ARCS(148500, {
--		{4096, 148500}, {6272, 165000}, {6144, 148500}, {12544, 165000},
--		{12288, 148500}, {25088, 165000}, {24576, 148500} }),
--};
--
--static const struct hdmi_msm_audio_arcs *get_arcs(unsigned long int pixclock)
--{
--	int i;
--
--	for (i = 0; i < ARRAY_SIZE(acr_lut); i++) {
--		const struct hdmi_msm_audio_arcs *arcs = &acr_lut[i];
--		if (arcs->pixclock == pixclock)
--			return arcs;
--	}
--
--	return NULL;
--}
--
- int msm_hdmi_audio_update(struct hdmi *hdmi)
- {
- 	struct hdmi_audio *audio = &hdmi->audio;
--	const struct hdmi_msm_audio_arcs *arcs = NULL;
- 	bool enabled = audio->enabled;
- 	uint32_t acr_pkt_ctrl, vbi_pkt_ctrl, aud_pkt_ctrl;
- 	uint32_t audio_config;
-@@ -94,15 +33,6 @@ int msm_hdmi_audio_update(struct hdmi *hdmi)
- 		enabled = false;
- 	}
- 
--	if (enabled) {
--		arcs = get_arcs(hdmi->pixclock);
--		if (!arcs) {
--			DBG("disabling audio: unsupported pixclock: %lu",
--					hdmi->pixclock);
--			enabled = false;
--		}
--	}
--
- 	/* Read first before writing */
- 	acr_pkt_ctrl = hdmi_read(hdmi, REG_HDMI_ACR_PKT_CTRL);
- 	vbi_pkt_ctrl = hdmi_read(hdmi, REG_HDMI_VBI_PKT_CTRL);
-@@ -116,15 +46,12 @@ int msm_hdmi_audio_update(struct hdmi *hdmi)
- 		uint32_t n, cts, multiplier;
- 		enum hdmi_acr_cts select;
- 
--		n   = arcs->lut[audio->rate].n;
--		cts = arcs->lut[audio->rate].cts;
-+		drm_hdmi_acr_get_n_cts(hdmi->pixclock, audio->rate, &n, &cts);
- 
--		if ((MSM_HDMI_SAMPLE_RATE_192KHZ == audio->rate) ||
--				(MSM_HDMI_SAMPLE_RATE_176_4KHZ == audio->rate)) {
-+		if (audio->rate == 192000 || audio->rate == 176400) {
- 			multiplier = 4;
- 			n >>= 2; /* divide N by 4 and use multiplier */
--		} else if ((MSM_HDMI_SAMPLE_RATE_96KHZ == audio->rate) ||
--				(MSM_HDMI_SAMPLE_RATE_88_2KHZ == audio->rate)) {
-+		} else if (audio->rate == 96000 || audio->rate == 88200) {
- 			multiplier = 2;
- 			n >>= 1; /* divide N by 2 and use multiplier */
- 		} else {
-@@ -137,13 +64,11 @@ int msm_hdmi_audio_update(struct hdmi *hdmi)
- 		acr_pkt_ctrl |= HDMI_ACR_PKT_CTRL_AUDIO_PRIORITY;
- 		acr_pkt_ctrl |= HDMI_ACR_PKT_CTRL_N_MULTIPLIER(multiplier);
- 
--		if ((MSM_HDMI_SAMPLE_RATE_48KHZ == audio->rate) ||
--				(MSM_HDMI_SAMPLE_RATE_96KHZ == audio->rate) ||
--				(MSM_HDMI_SAMPLE_RATE_192KHZ == audio->rate))
-+		if (audio->rate == 48000 || audio->rate == 96000 ||
-+		    audio->rate == 192000)
- 			select = ACR_48;
--		else if ((MSM_HDMI_SAMPLE_RATE_44_1KHZ == audio->rate) ||
--				(MSM_HDMI_SAMPLE_RATE_88_2KHZ == audio->rate) ||
--				(MSM_HDMI_SAMPLE_RATE_176_4KHZ == audio->rate))
-+		else if (audio->rate == 44100 || audio->rate == 88200 ||
-+			 audio->rate == 176400)
- 			select = ACR_44;
- 		else /* default to 32k */
- 			select = ACR_32;
-@@ -204,7 +129,6 @@ int msm_hdmi_bridge_audio_prepare(struct drm_connector *connector,
- {
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
- 	struct hdmi *hdmi = hdmi_bridge->hdmi;
--	unsigned int rate;
- 	int ret;
- 
- 	drm_dbg_driver(bridge->dev, "%u Hz, %d bit, %d channels\n",
-@@ -214,25 +138,12 @@ int msm_hdmi_bridge_audio_prepare(struct drm_connector *connector,
- 
- 	switch (params->sample_rate) {
- 	case 32000:
--		rate = MSM_HDMI_SAMPLE_RATE_32KHZ;
--		break;
- 	case 44100:
--		rate = MSM_HDMI_SAMPLE_RATE_44_1KHZ;
--		break;
- 	case 48000:
--		rate = MSM_HDMI_SAMPLE_RATE_48KHZ;
--		break;
- 	case 88200:
--		rate = MSM_HDMI_SAMPLE_RATE_88_2KHZ;
--		break;
- 	case 96000:
--		rate = MSM_HDMI_SAMPLE_RATE_96KHZ;
--		break;
- 	case 176400:
--		rate = MSM_HDMI_SAMPLE_RATE_176_4KHZ;
--		break;
- 	case 192000:
--		rate = MSM_HDMI_SAMPLE_RATE_192KHZ;
- 		break;
- 	default:
- 		drm_err(bridge->dev, "rate[%d] not supported!\n",
-@@ -245,7 +156,7 @@ int msm_hdmi_bridge_audio_prepare(struct drm_connector *connector,
- 	if (ret)
- 		return ret;
- 
--	hdmi->audio.rate = rate;
-+	hdmi->audio.rate = params->sample_rate;
- 	hdmi->audio.channels = params->cea.channels;
- 	hdmi->audio.enabled = true;
- 
+Hi,
 
--- 
-2.39.5
+On Mon, Apr 07, 2025 at 05:27:39PM +0200, Luca Ceresoli wrote:
+> This is the new API for allocating DRM bridges.
+>=20
+> The devm lifetime management of this driver is peculiar. The underlying
+> device for the panel_bridge is the panel, and the devm lifetime is tied t=
+he
+> panel device (panel->dev). However the panel_bridge allocation is not
+> performed by the panel driver, but rather by a separate entity (typically
+> the previous bridge in the encoder chain).
+>=20
+> Thus when that separate entoty is destroyed, the panel_bridge is not
+> removed automatically by devm, so it is rather done explicitly by calling
+> drm_panel_bridge_remove(). This is the function that does devm_kfree() the
+> panel_bridge in current code, so update it as well to put the bridge
+> reference instead.
+>=20
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+>=20
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: Andrzej Hajda <andrzej.hajda@intel.com>
+> To: Neil Armstrong <neil.armstrong@linaro.org>
+> To: Robert Foss <rfoss@kernel.org>
+> To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+> To: Jonas Karlman <jonas@kwiboo.se>
+> To: Jernej Skrabec <jernej.skrabec@gmail.com>
+> To: Jagan Teki <jagan@amarulasolutions.com>
+> To: Shawn Guo <shawnguo@kernel.org>
+> To: Sascha Hauer <s.hauer@pengutronix.de>
+> To: Pengutronix Kernel Team <kernel@pengutronix.de>
+> To: Fabio Estevam <festevam@gmail.com>
+> To: Douglas Anderson <dianders@chromium.org>
+> To: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+> To: Krzysztof Kozlowski <krzk@kernel.org>
+> To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Anusha Srivatsa <asrivats@redhat.com>
+> Cc: Paul Kocialkowski <paulk@sys-base.io>
+> Cc: Dmitry Baryshkov <lumag@kernel.org>
+> Cc: Herv=E9 Codina <herve.codina@bootlin.com>
+> Cc: Hui Pu <Hui.Pu@gehealthcare.com>
+> Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: asahi@lists.linux.dev
+> Cc: linux-kernel@vger.kernel.org
+> Cc: chrome-platform@lists.linux.dev
+> Cc: imx@lists.linux.dev
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-mediatek@lists.infradead.org
+> Cc: linux-amlogic@lists.infradead.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> Cc: platform-driver-x86@vger.kernel.org
+> Cc: linux-samsung-soc@vger.kernel.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+>  drivers/gpu/drm/bridge/panel.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/pane=
+l.c
+> index 79b009ab9396048eac57ad47631a902e949d77c6..ddd1e91970d09b93aa64f50cd=
+9155939a12a2c6f 100644
+> --- a/drivers/gpu/drm/bridge/panel.c
+> +++ b/drivers/gpu/drm/bridge/panel.c
+> @@ -287,15 +287,14 @@ struct drm_bridge *drm_panel_bridge_add_typed(struc=
+t drm_panel *panel,
+>  	if (!panel)
+>  		return ERR_PTR(-EINVAL);
+> =20
+> -	panel_bridge =3D devm_kzalloc(panel->dev, sizeof(*panel_bridge),
+> -				    GFP_KERNEL);
+> -	if (!panel_bridge)
+> -		return ERR_PTR(-ENOMEM);
+> +	panel_bridge =3D devm_drm_bridge_alloc(panel->dev, struct panel_bridge,=
+ bridge,
+> +					     &panel_bridge_bridge_funcs);
+> +	if (IS_ERR(panel_bridge))
+> +		return (void *)panel_bridge;
+> =20
+>  	panel_bridge->connector_type =3D connector_type;
+>  	panel_bridge->panel =3D panel;
+> =20
+> -	panel_bridge->bridge.funcs =3D &panel_bridge_bridge_funcs;
+>  	panel_bridge->bridge.of_node =3D panel->dev->of_node;
+>  	panel_bridge->bridge.ops =3D DRM_BRIDGE_OP_MODES;
+>  	panel_bridge->bridge.type =3D connector_type;
+> @@ -327,7 +326,7 @@ void drm_panel_bridge_remove(struct drm_bridge *bridg=
+e)
+>  	panel_bridge =3D drm_bridge_to_panel_bridge(bridge);
+> =20
+>  	drm_bridge_remove(bridge);
+> -	devm_kfree(panel_bridge->panel->dev, bridge);
+> +	devm_drm_put_bridge(panel_bridge->panel->dev, bridge);
+>  }
+>  EXPORT_SYMBOL(drm_panel_bridge_remove);
 
+I'm fine with it on principle, but as a temporary measure.
+
+Now that we have the panel allocation function in place, we can just
+allocate a bridge for each panel and don't need drm_panel_bridge_add_*
+at all.
+
+As I was saying before, it doesn't need to happen right now, or before
+the rest of your work for hotplug goes in. But this needs to be tackled
+at some point.
+
+Maxime
+
+--whaxztwnulei2tij
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZ/VF6wAKCRDj7w1vZxhR
+xZU9AP9+Olq0gODzONr66OWy2JUMq3Zt+9qdaFGpPxZ/7/LDgAD+JNtu7g0v4KKA
+HdXhPPGzl2cAOI04En1cGAdCRKq6ZQw=
+=xkvL
+-----END PGP SIGNATURE-----
+
+--whaxztwnulei2tij--
