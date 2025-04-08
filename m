@@ -2,119 +2,136 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B05A80205
-	for <lists+freedreno@lfdr.de>; Tue,  8 Apr 2025 13:44:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 648B9A8039A
+	for <lists+freedreno@lfdr.de>; Tue,  8 Apr 2025 14:00:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFB0310E214;
-	Tue,  8 Apr 2025 11:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F79A10E676;
+	Tue,  8 Apr 2025 12:00:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EUpQTWNF";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qq0eafbl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83B1F10E214
- for <freedreno@lists.freedesktop.org>; Tue,  8 Apr 2025 11:44:20 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 538BBxej027678
- for <freedreno@lists.freedesktop.org>; Tue, 8 Apr 2025 11:44:19 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC63710E675
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Apr 2025 12:00:19 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 538AxxDq023653
+ for <freedreno@lists.freedesktop.org>; Tue, 8 Apr 2025 11:59:19 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=QiH0xgG4cw0AZfAy/Vvm2ZJJ
- V+VbLE6k/8voYBHRRpk=; b=EUpQTWNF0QGjiTo5X2CUR/GYtBQCAM9kje5bNJN9
- 7w6PzBw9QzAnLVlko7o/QmN5PcSfHqy2A44CsEXISrPWbijoFz+Dn9C6+SJIyudi
- 3SjrY8xKY7uSwSoQNhD7xLhUIPW7K8u2jEEwa16LB8F6aneBmvMJT8jc3rD+MWqr
- xagh561hbh8IWhPdTmtSzqXfVVSTnJnNj8s9COV7vvx9nxcwELPHgT0T6evxo9qN
- bOyanp+H2LMmb1TsA6EXlZeUcSDJ8KpdZ5Eg9ufPBJU03vQcwby6wwjL1AA0Zza6
- VT7j4O191SllL2CKQYz5bHsgjVwgcl2A/vcG2w7E53SY8g==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twcyymv2-1
+ :references:subject:to; s=qcppdkim1; bh=SfYGShmqcwDU8m6aPQIeDmLf
+ R7GexvsEqe4YAvcqLMU=; b=Qq0eafblor3qJaHW7n07AL9wxfveW1I8JCHLiC+H
+ V9piv80KGismzTB5g0giCp2vGl5NiuE7MPsCrHob7HF3WBxcbnvH4rsyfI7Yblve
+ d4oodt5CF5fF6IXEi0rv6AqzVcmFMl7ZC1dboI/ZcG+wydrdymBzznPgskQc4DA9
+ ljYD+HmmufXng68S2WBHECRg873kfgxI9H9JUsg+hUbihvlrKD0WuyVt6Hhc6Ri7
+ 1wYLucM3v118dxFdb/2QCDt2lAEYCyF/CfSofY0qFHsugaZE7mRqZyjO8xHL1Adt
+ QF3D+iZw6JMSAiSbMUhcFQk3AO/1eQvB+vYKhBfJfKx4Ew==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twdgfp4x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 11:44:19 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c54e9f6e00so1061986085a.0
- for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 04:44:19 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 11:59:18 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6e8ffb630ffso82809786d6.1
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 04:59:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744112658; x=1744717458;
+ d=1e100.net; s=20230601; t=1744113558; x=1744718358;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QiH0xgG4cw0AZfAy/Vvm2ZJJV+VbLE6k/8voYBHRRpk=;
- b=fA7muj5zuJwFo4Yin8IBco+WaZYDMvcKw3hNK69ULCtq5+YCtutd0mM5zthrshH1fn
- xecef46uTPTD2omIzmCK80j9bXUt2IzIZGtRv5s6WvRY7p7Pzih8mydmCS9nj0u1ByXb
- Z73uJP1+Ppwxv2ZrcHCtQdH76Rkg822cxMwm9R0n7NUP/OxDh8V456XlPCek8k+xpmfz
- Bkh8AMqysDWyXmgxTmpNTvPCRrVSXnT5owiiFMfgVi3ZpHq8NFpORnEArC7+6XQIlQHa
- m+veUpdhrGFMCWFLu7Gj0P0Xvl8PbY1wO3lm/5+QuixAbp6oyDQy5pu3oAEFkq3ty8uj
- eRlA==
+ bh=SfYGShmqcwDU8m6aPQIeDmLfR7GexvsEqe4YAvcqLMU=;
+ b=VCt+Xhe0V11iZi1gNmNd2AmgvxvtPXJojeq9wxW5lq9nj9NDYi1gOFcE7+EL2QTzaM
+ aWdSTz9ApTE49kH0SqJsoVX9VI7daqwHoDg+8Pt0g4yY5bOuYpQAxzERjgbDhJ6EgDKI
+ uDyVY53TCJHYecbpZ8G0AmStiSO8D4Nppad7RmeTNZ5nAetAL9HGXTJmfAhfFCKkuk5K
+ d/OG7wzIyVu47ruSDSPFZNTPHi9bQQnZl/nW8wzhxcnh4CL26uOfFxUE8BpdkNq71n4I
+ 9PAmgiftJxKyqEjiZTsw7q0ZgHqbmjUX8lo3hX56c7THLpmDygoy3T9inffAq9B5iJcH
+ pU6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVkc5YqhLnpKDEPamSXt5pOVIbGy25How6hehIJRlCnY8GCP1uhiViD+cmd5NNveDLYJWaXZ0Tir/o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzaOGFYEBObTpOS+6orkApl6V/gF0ckV2rIxYwS22zjv2ra6g90
- 4BdJuC5vLzijLQtm3FvsBC77BBYOn3VQ7ZHdPkFRVK7IwTKimG/mnrjXsgLKUpwvlBrdV6rGGz+
- XcgW4sBhTBfIXWz7RUdPxieMu8DSr0c2umWqBxNSR7MUerkAwY+L6azX88gCTi746lkg=
-X-Gm-Gg: ASbGncvCyoyLPTb9VaecT383Mm8HfEXlqf2DTWfXB08QU/TTjOfRSbb2N1t9e5SnH/M
- 8DBC83HxvEWFeWU9q4r8++kvJuH973UYe74VeMtRM+X8oRwrbkSMWUkHYww/MhN3EfBjGssF77b
- ib/HAEn3l5LB8kyx66CEM1Ie/CY/DfuIXE37jdaL0MF+YgwC93F004oPnohuO/CFilxU64Ona/s
- eGYs8VjMsH4VTi56QvtRGyrOhui3PJBaZAxxQfm5pybMT438eb4lsu7Y+Aww4zwIF1o59Tk7ws5
- jF1NW/xaGnoR2z3SA5CSxVe+b2gpRT7/TIQ/+gZpkhyv0MZpcagnlq65Jl8RWD4Bfd9gCmWFwep
- v3KA=
-X-Received: by 2002:a05:620a:1a85:b0:7c2:f39d:d0e0 with SMTP id
- af79cd13be357-7c79405806amr399835085a.3.1744112658521; 
- Tue, 08 Apr 2025 04:44:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF9w/HQSwcn+z9yoY59a3SkR++9C/Xa/l18tIcBrY3nXcExKTwVPb0rBd71tZyAyXxczD6fRg==
-X-Received: by 2002:a05:620a:1a85:b0:7c2:f39d:d0e0 with SMTP id
- af79cd13be357-7c79405806amr399830485a.3.1744112658207; 
- Tue, 08 Apr 2025 04:44:18 -0700 (PDT)
+ AJvYcCX7SyXBz4XnsOWdJK35BEErJsLA2mOeblATzpM8ZrnLzWQ8nZ9jQOZ/Ut2Fp8IEtND1wgeydqEZmss=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyKZSGUIRkwK3OAqc3WwgZ9oRZo+m4Y3lYjlCm6O2YI43H8gPfW
+ 9LZsYPZQ8ova4l7RWO8JQ/2MPSbfV7o7gKt32dE93VWhOcNsScL2MK/BHaDjV301E7+vRVWF8lL
+ yii1YS9i22+oWixHXl1adjxbkk+BZlmFIdDw5Js/0mU+KwKAzLXWAXD7KqXjMUfhbkn0=
+X-Gm-Gg: ASbGncsHyw35rqEDiAjoyrCM1UtEtAiU0JJyjPD2dsHp99zoHtk/3WoHnKu1dBP5TlB
+ XHynWAnre+BuNEJGTpqu8TnlLXXjpscIbo7rRf7sLgI1uli7Wo/ygEAZ8jSXZGF+xzCEHwObdcN
+ MTgztJ7JgM6/lDnZ0yD0qLuGuK6SkT5asS1WEm2PJRa7SNP1lageOwzVK4YCnyUBoOYXzEQSd7q
+ FTpH7eRXsv1XF+VlY3jX/q0xwd2W75bBpAbXSDsuIfMgUkjyeo3PCUjYZYSTxnhVKM9LMB4QK5V
+ H3skEqHNXTECCNUzMVX6ZQRu4Jxx8r+0c2LtIvSI6UQl9pwBgs8gk1nGS6UOU/TTtskcvn1rnWS
+ j5Lo=
+X-Received: by 2002:a05:6214:20a1:b0:6ea:d629:f48b with SMTP id
+ 6a1803df08f44-6f0b7471828mr249821156d6.19.1744113557894; 
+ Tue, 08 Apr 2025 04:59:17 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHUpzBYgQ78WcZ+1SeialBgHtwM9sX7c9zUkOnk8QyfR5MRu/+7FIzLJ9zYjIy/Tt3IVQbLfw==
+X-Received: by 2002:a05:6214:20a1:b0:6ea:d629:f48b with SMTP id
+ 6a1803df08f44-6f0b7471828mr249820476d6.19.1744113557475; 
+ Tue, 08 Apr 2025 04:59:17 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30f031246acsm19338721fa.16.2025.04.08.04.44.17
+ 2adb3069b0e04-54c1e65cc04sm1517615e87.164.2025.04.08.04.59.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Apr 2025 04:44:17 -0700 (PDT)
-Date: Tue, 8 Apr 2025 14:44:15 +0300
+ Tue, 08 Apr 2025 04:59:14 -0700 (PDT)
+Date: Tue, 8 Apr 2025 14:59:12 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_jesszhan@quicinc.com
-Subject: Re: [PATCH v2 03/10] dt-bindings: display: msm: document DSI
- controller and phy on SA8775P
-Message-ID: <zpmr6cpiixyu2sj7r7oqpqsge6dcqw6xszldf7ugznmcrxqsme@efiwnggcn5qx>
-References: <20250311122445.3597100-1-quic_amakhija@quicinc.com>
- <20250311122445.3597100-4-quic_amakhija@quicinc.com>
- <20250312-calm-steadfast-cricket-fe9dd8@krzk-bin>
- <654d409e-2325-46e7-a064-ed9e64277e69@quicinc.com>
- <a168a473-c363-4041-8e3e-84fa44e92b10@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, Dmitry Baryshkov <lumag@kernel.org>,
+ =?utf-8?B?SGVydsOp?= Codina <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, asahi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-renesas-soc@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Subject: Re: [PATCH 18/34] drm/msm/hdmi: convert to devm_drm_bridge_alloc() API
+Message-ID: <6aeiyzkrjgq44lhdjsh6o6rzibwmpcgxjwwx4vefoyk5n3p7h6@uipdbbcxwsbn>
+References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
+ <20250407-drm-bridge-convert-to-alloc-api-v1-18-42113ff8d9c0@bootlin.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a168a473-c363-4041-8e3e-84fa44e92b10@kernel.org>
-X-Proofpoint-ORIG-GUID: UcGZxYy3PUs33vsF-owDc4pNpAVew2Yp
-X-Authority-Analysis: v=2.4 cv=Q4vS452a c=1 sm=1 tr=0 ts=67f50c13 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=XR8D0OoHHMoA:10 a=VUUUEbkTROAwnXgzEp4A:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: UcGZxYy3PUs33vsF-owDc4pNpAVew2Yp
+In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-18-42113ff8d9c0@bootlin.com>
+X-Authority-Analysis: v=2.4 cv=PJgP+eqC c=1 sm=1 tr=0 ts=67f50f96 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=XR8D0OoHHMoA:10 a=P-IC7800AAAA:8 a=COk6AnOGAAAA:8 a=tVI0ZWmoAAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
+ a=MqdoT2xZwiyagvIbdbwA:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+ a=d3PnA9EDa4IxuAV0gXij:22 a=TjNXssC_j7lpFel5tvFf:22 a=-BPWgnxRz2uhmvdm1NTO:22
+X-Proofpoint-ORIG-GUID: P4xrSmFlZeFyOsq_ctbc7K75UqSUhQe-
+X-Proofpoint-GUID: P4xrSmFlZeFyOsq_ctbc7K75UqSUhQe-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-08_04,2025-04-08_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- impostorscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 malwarescore=0 mlxscore=0 suspectscore=0
- mlxlogscore=777 classifier=spam authscore=0 authtc=n/a authcc=
+ phishscore=0
+ lowpriorityscore=0 clxscore=1015 adultscore=0 malwarescore=0 spamscore=0
+ impostorscore=0 suspectscore=0 mlxlogscore=981 bulkscore=0 mlxscore=0
+ priorityscore=1501 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504080083
+ definitions=main-2504080085
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,26 +147,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 08, 2025 at 01:03:53PM +0200, Krzysztof Kozlowski wrote:
-> On 08/04/2025 12:38, Ayushi Makhija wrote:
-> >>> +    properties:
-> >>> +      compatible:
-> >>> +        items:
-> >>
-> >> contains
-> >>
-> >>> +          - const: qcom,sa8775p-dsi-ctrl
-> >>> +          - const: qcom,mdss-dsi-ctrl
-> >>
-> >> Drop fallback
-> >>
-> >  
-> > Hi Krzysztof,
-> > 
-> > I couldn't understand the meaning of "Drop fallback", could please elaborate it ?
-> Look at SM8750 example on the lists. Keep only front compatible.
+On Mon, Apr 07, 2025 at 04:23:33PM +0200, Luca Ceresoli wrote:
+> This is the new API for allocating DRM bridges.
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+> ---
+> 
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> ---
+>  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
 
-Why?
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 -- 
 With best wishes
