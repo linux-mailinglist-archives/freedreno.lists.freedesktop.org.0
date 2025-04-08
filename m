@@ -2,97 +2,104 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E667AA7FC54
-	for <lists+freedreno@lfdr.de>; Tue,  8 Apr 2025 12:39:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 382C1A7FD87
+	for <lists+freedreno@lfdr.de>; Tue,  8 Apr 2025 13:04:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B318310E095;
-	Tue,  8 Apr 2025 10:39:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E684F10E64B;
+	Tue,  8 Apr 2025 11:04:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="eojACxmi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AsMUIa52";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9AE10E095;
- Tue,  8 Apr 2025 10:39:03 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5382GOTS010519;
- Tue, 8 Apr 2025 10:38:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4ADjzn89USD7dkigsxKLtRctPWf17q4/PIP1TT/2F/U=; b=eojACxmi0iS15s9D
- QHBTHZv5Jt+/m5ckpOY9rKZpLFnmeppuI/lnpDyvPjmnN9iQ0we0kXgY8E3pjOlI
- G1/Pf8fqGzFvoqhTvogPgUcqmfoIqzIBySf7xIA9V7XQwer7jA309qYB2R68lbPn
- L7OD0Zu3qBmrWdWTwXtWZQ/ewoTGGOskUn9gvsBfR3bZ+xW2HjdXxZJXszI6SQF5
- du5FZEb3VfGeUbt71P6UXR3V2WsVTCHf1Dj3jwQoDXlq9datMhtr7XXMFUqt+MLM
- /xFfDQ5ZJ4kSBcKg56h+zrLJ0Vt5+qzXV8Vzag6rWtx197TuxeZfF+udI7bQwNP7
- Wlx+Qg==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twc1fbjv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Apr 2025 10:38:47 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 538AckEx016860
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 8 Apr 2025 10:38:46 GMT
-Received: from [10.206.97.61] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 8 Apr 2025
- 03:38:38 -0700
-Message-ID: <654d409e-2325-46e7-a064-ed9e64277e69@quicinc.com>
-Date: Tue, 8 Apr 2025 16:08:34 +0530
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93CBD10E095;
+ Tue,  8 Apr 2025 11:04:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 80B505C5CFE;
+ Tue,  8 Apr 2025 11:01:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B34AC4CEE5;
+ Tue,  8 Apr 2025 11:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1744110242;
+ bh=IaCE8ry81yWFWl+oEdRavtYitFtnqyoIWiboz1QixuI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=AsMUIa52fzeBKKEqmrnQMlNDCitU8Pu1J6NuuGG6YCd12zHY1ha4sv3v4N7T7QKWg
+ PS71rMag431FVF7V9v7CjKzcl2zuF4R/MTq0syXXNhA0Qlvq3YpTx2dS9NibUAjVPt
+ /q963+kJw00nqnQKj3eoXEKCtgo7UnRDMFAJ9bKJOCxN8o/j+e5wMMvXGe42ffKdPC
+ AqL/pKjG4S5rwCNSfHzqRWC4oRv6v3rwf+cRNjecooD1oFVY4yYq+jzByN7sCNjFrZ
+ uQ4SPksu7OiSD8HjJ9TpZmnpEeIamICfzb4HPiT2gfNFmMQIo6f6V6BFMsHT/P67FE
+ enmRbUTKUbdxg==
+Message-ID: <a168a473-c363-4041-8e3e-84fa44e92b10@kernel.org>
+Date: Tue, 8 Apr 2025 13:03:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 03/10] dt-bindings: display: msm: document DSI
  controller and phy on SA8775P
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <robdclark@gmail.com>,
- <dmitry.baryshkov@linaro.org>, <sean@poorly.run>,
- <marijn.suijten@somainline.org>, <andersson@kernel.org>,
- <robh@kernel.org>, <robh+dt@kernel.org>, <krzk+dt@kernel.org>,
- <konradybcio@kernel.org>, <conor+dt@kernel.org>,
- <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
- <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
- <quic_abhinavk@quicinc.com>, <quic_rajeevny@quicinc.com>,
- <quic_vproddut@quicinc.com>, <quic_jesszhan@quicinc.com>
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run, marijn.suijten@somainline.org,
+ andersson@kernel.org, robh@kernel.org, robh+dt@kernel.org,
+ krzk+dt@kernel.org, konradybcio@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+ quic_jesszhan@quicinc.com
 References: <20250311122445.3597100-1-quic_amakhija@quicinc.com>
  <20250311122445.3597100-4-quic_amakhija@quicinc.com>
  <20250312-calm-steadfast-cricket-fe9dd8@krzk-bin>
+ <654d409e-2325-46e7-a064-ed9e64277e69@quicinc.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-In-Reply-To: <20250312-calm-steadfast-cricket-fe9dd8@krzk-bin>
-Content-Type: text/plain; charset="UTF-8"
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <654d409e-2325-46e7-a064-ed9e64277e69@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: NcqhLJn_YjNX6jUAZO9TiF035QhZQKct
-X-Authority-Analysis: v=2.4 cv=KtdN2XWN c=1 sm=1 tr=0 ts=67f4fcb7 cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8
- a=jCZCQBWE56vx5fooemgA:9 a=QEXdDO2ut3YA:10
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: NcqhLJn_YjNX6jUAZO9TiF035QhZQKct
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-08_03,2025-04-08_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0
- priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 spamscore=0
- malwarescore=0 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504080076
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,45 +115,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 3/12/2025 5:15 PM, Krzysztof Kozlowski wrote:
-> On Tue, Mar 11, 2025 at 05:54:38PM +0530, Ayushi Makhija wrote:
->> Document DSI controller and phy on SA8775P platform.
+On 08/04/2025 12:38, Ayushi Makhija wrote:
+>>> +    properties:
+>>> +      compatible:
+>>> +        items:
 >>
->> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
->> ---
->>  .../display/msm/qcom,sa8775p-mdss.yaml        | 188 ++++++++++++++++++
->>  1 file changed, 188 insertions(+)
+>> contains
 >>
->> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
->> index a90a8b3f1a9e..628ca68871f4 100644
->> --- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
->> @@ -52,6 +52,26 @@ patternProperties:
->>          items:
->>            - const: qcom,sa8775p-dp
->>  
->> +  "^dsi@[0-9a-f]+$":
->> +    type: object
->> +    additionalProperties: true
->> +
+>>> +          - const: qcom,sa8775p-dsi-ctrl
+>>> +          - const: qcom,mdss-dsi-ctrl
+>>
+>> Drop fallback
+>>
+>  
+> Hi Krzysztof,
 > 
-> Drop blank line
-> 
->> +    properties:
->> +      compatible:
->> +        items:
-> 
-> contains
-> 
->> +          - const: qcom,sa8775p-dsi-ctrl
->> +          - const: qcom,mdss-dsi-ctrl
-> 
-> Drop fallback
->
- 
-Hi Krzysztof,
+> I couldn't understand the meaning of "Drop fallback", could please elaborate it ?
+Look at SM8750 example on the lists. Keep only front compatible.
 
-I couldn't understand the meaning of "Drop fallback", could please elaborate it ?
-
-Thanks,
-Ayushi
+Best regards,
+Krzysztof
