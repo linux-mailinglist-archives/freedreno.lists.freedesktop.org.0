@@ -2,77 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 648B9A8039A
-	for <lists+freedreno@lfdr.de>; Tue,  8 Apr 2025 14:00:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42426A8038B
+	for <lists+freedreno@lfdr.de>; Tue,  8 Apr 2025 13:59:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F79A10E676;
-	Tue,  8 Apr 2025 12:00:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C19E710E037;
+	Tue,  8 Apr 2025 11:59:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qq0eafbl";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xklge4he";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC63710E675
- for <freedreno@lists.freedesktop.org>; Tue,  8 Apr 2025 12:00:19 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 538AxxDq023653
- for <freedreno@lists.freedesktop.org>; Tue, 8 Apr 2025 11:59:19 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED14710E651
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Apr 2025 11:59:32 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 538B78jU008168
+ for <freedreno@lists.freedesktop.org>; Tue, 8 Apr 2025 11:59:32 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=SfYGShmqcwDU8m6aPQIeDmLf
- R7GexvsEqe4YAvcqLMU=; b=Qq0eafblor3qJaHW7n07AL9wxfveW1I8JCHLiC+H
- V9piv80KGismzTB5g0giCp2vGl5NiuE7MPsCrHob7HF3WBxcbnvH4rsyfI7Yblve
- d4oodt5CF5fF6IXEi0rv6AqzVcmFMl7ZC1dboI/ZcG+wydrdymBzznPgskQc4DA9
- ljYD+HmmufXng68S2WBHECRg873kfgxI9H9JUsg+hUbihvlrKD0WuyVt6Hhc6Ri7
- 1wYLucM3v118dxFdb/2QCDt2lAEYCyF/CfSofY0qFHsugaZE7mRqZyjO8xHL1Adt
- QF3D+iZw6JMSAiSbMUhcFQk3AO/1eQvB+vYKhBfJfKx4Ew==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twdgfp4x-1
+ :references:subject:to; s=qcppdkim1; bh=NEuaNgipirFcEWokWSaWAS/H
+ yieGaYJXo6f7MVJMQQ8=; b=Xklge4heqEb6htj8B5O7IHd428xO57ftGWanUiIw
+ mR4/sOdbi8VjXnwUa/ND193G+DoZbkPHxW2lv0gGqWArKaC4QvbiMDqbKNYNn0RF
+ QVwRWcIUMVSe9xonU831+uYGwXOTZ17u7ZTIoMDhD7tO1bEtxkzMZZ39nOSo7AwW
+ w3Wg1ispeItWnd1UvoIbgN1aDTOo/NYdJhqKlDXO0EFK5isRGO7hg2LaSSEawevu
+ ftk6T7ByD0kTjgLBRvUix5cFS0MPr2WbshmO3ILW20l4gSXfoXM3mfraDwCcXWXJ
+ fQytu+NoPZiBJqSR3yhMlc9oLW4/uxFhMHFSFd23bIDFqQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twtaypev-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 11:59:18 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-6e8ffb630ffso82809786d6.1
- for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 04:59:18 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 11:59:32 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7c5bb68b386so1640375085a.3
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Apr 2025 04:59:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744113558; x=1744718358;
+ d=1e100.net; s=20230601; t=1744113571; x=1744718371;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SfYGShmqcwDU8m6aPQIeDmLfR7GexvsEqe4YAvcqLMU=;
- b=VCt+Xhe0V11iZi1gNmNd2AmgvxvtPXJojeq9wxW5lq9nj9NDYi1gOFcE7+EL2QTzaM
- aWdSTz9ApTE49kH0SqJsoVX9VI7daqwHoDg+8Pt0g4yY5bOuYpQAxzERjgbDhJ6EgDKI
- uDyVY53TCJHYecbpZ8G0AmStiSO8D4Nppad7RmeTNZ5nAetAL9HGXTJmfAhfFCKkuk5K
- d/OG7wzIyVu47ruSDSPFZNTPHi9bQQnZl/nW8wzhxcnh4CL26uOfFxUE8BpdkNq71n4I
- 9PAmgiftJxKyqEjiZTsw7q0ZgHqbmjUX8lo3hX56c7THLpmDygoy3T9inffAq9B5iJcH
- pU6A==
+ bh=NEuaNgipirFcEWokWSaWAS/HyieGaYJXo6f7MVJMQQ8=;
+ b=ekHyQCDMnw4tJY/Cs+WpZfWfGBMKmWSIcQhBtwdt2MYF33ZxAXXg0NR3QYRqei129r
+ Vdal9TRC6hlBofYJ5mexCRdmHjSufVl+Mdw3M+hi9qEFEhZWWwJRXEmIWhn4fdX9edCl
+ ArpcUhADPk2kdNQ9DTT+6Oco27HLWxVgAx8icUQL9lB7gOT6KQ7hcOA+9v05ZCfpHGIc
+ 2YGbFGesoDCfoaI1ZTky/2OFOQ7wqGYeyZQPzlaDE/j08FeA9pPwTqVG2Eyvg+mKxXWB
+ li5KFhndnRyueaF/wOmub6WQ0ydV8yg80cUeQRFWwpMvL4RT6NKxWgDWpzg1QWu2pGgo
+ 097g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX7SyXBz4XnsOWdJK35BEErJsLA2mOeblATzpM8ZrnLzWQ8nZ9jQOZ/Ut2Fp8IEtND1wgeydqEZmss=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyKZSGUIRkwK3OAqc3WwgZ9oRZo+m4Y3lYjlCm6O2YI43H8gPfW
- 9LZsYPZQ8ova4l7RWO8JQ/2MPSbfV7o7gKt32dE93VWhOcNsScL2MK/BHaDjV301E7+vRVWF8lL
- yii1YS9i22+oWixHXl1adjxbkk+BZlmFIdDw5Js/0mU+KwKAzLXWAXD7KqXjMUfhbkn0=
-X-Gm-Gg: ASbGncsHyw35rqEDiAjoyrCM1UtEtAiU0JJyjPD2dsHp99zoHtk/3WoHnKu1dBP5TlB
- XHynWAnre+BuNEJGTpqu8TnlLXXjpscIbo7rRf7sLgI1uli7Wo/ygEAZ8jSXZGF+xzCEHwObdcN
- MTgztJ7JgM6/lDnZ0yD0qLuGuK6SkT5asS1WEm2PJRa7SNP1lageOwzVK4YCnyUBoOYXzEQSd7q
- FTpH7eRXsv1XF+VlY3jX/q0xwd2W75bBpAbXSDsuIfMgUkjyeo3PCUjYZYSTxnhVKM9LMB4QK5V
- H3skEqHNXTECCNUzMVX6ZQRu4Jxx8r+0c2LtIvSI6UQl9pwBgs8gk1nGS6UOU/TTtskcvn1rnWS
- j5Lo=
-X-Received: by 2002:a05:6214:20a1:b0:6ea:d629:f48b with SMTP id
- 6a1803df08f44-6f0b7471828mr249821156d6.19.1744113557894; 
- Tue, 08 Apr 2025 04:59:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHUpzBYgQ78WcZ+1SeialBgHtwM9sX7c9zUkOnk8QyfR5MRu/+7FIzLJ9zYjIy/Tt3IVQbLfw==
-X-Received: by 2002:a05:6214:20a1:b0:6ea:d629:f48b with SMTP id
- 6a1803df08f44-6f0b7471828mr249820476d6.19.1744113557475; 
- Tue, 08 Apr 2025 04:59:17 -0700 (PDT)
+ AJvYcCUBH4TE9B1NwVolpQo3hMJ8QoxrRtmd5Dm2iEO1++T6oChjjeko8k2k/LUuX891DVcAaVZ4GZSGj1A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUMHbbFSsJlXEb5J89InW8V0WDCrPKam6ITlXSo68CKlkQhbdZ
+ IvTnOoxjM04+5IpVfiXo0+McNb450AZ8GrunJAjL5cByG2uZwaRegrsmigbF/iNdRyt+Um9ZZgc
+ ows+e6BvJS6se0dF7GGTG9mbjk/qjz0VkyoAByLRAnb3wyChfSEpwoWffqy9FP/jK0vM=
+X-Gm-Gg: ASbGncs1tEBdznOqsx1OE8vbCF1ayPnCXdHhuAuA3q2lyH9sbIs3kUZY+UwBAyju4Sa
+ EArzFNZQKj4EZ5QPWXjx4oEQpq1HBd7sp8BGlPJn4VlwBgU8/UiSmzMeZgLRUEIupX83FYchrZe
+ sSy+wClYZ+DboZSWLI/XNBK896UOCAl6G/qVx78438QHp4r6+2JHz8Enwpy+ZXaWJPA6hebKUEL
+ AA9rWAB8ZBNwpNAoq6J5kJMP9c7d8MN5nuDTEPstY47OEtH65TOVWh2uwQi1bZCfDDimw3kCCMP
+ YVGWdOLEviaDuvNuCOhfZ5gCjXCIrMWW8V+enR9Y1IF60M0hzYVmmN9hDJ5Hunxy3OqrX4j3Z5C
+ DBt0=
+X-Received: by 2002:a05:620a:4452:b0:7c5:5d4b:e63b with SMTP id
+ af79cd13be357-7c774dd611emr2077710085a.38.1744113570953; 
+ Tue, 08 Apr 2025 04:59:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEO0pdqrUOojsKZC0LUZebfwayX/lBneIGD6ckCJRsQXTk8bZ4JOWxGmFcuR+OIU3QqcGFMkQ==
+X-Received: by 2002:a05:620a:4452:b0:7c5:5d4b:e63b with SMTP id
+ af79cd13be357-7c774dd611emr2077706885a.38.1744113570585; 
+ Tue, 08 Apr 2025 04:59:30 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54c1e65cc04sm1517615e87.164.2025.04.08.04.59.14
+ 2adb3069b0e04-54c1e5ab4e1sm1507877e87.23.2025.04.08.04.59.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Apr 2025 04:59:14 -0700 (PDT)
-Date: Tue, 8 Apr 2025 14:59:12 +0300
+ Tue, 08 Apr 2025 04:59:28 -0700 (PDT)
+Date: Tue, 8 Apr 2025 14:59:25 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -106,32 +106,32 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH 18/34] drm/msm/hdmi: convert to devm_drm_bridge_alloc() API
-Message-ID: <6aeiyzkrjgq44lhdjsh6o6rzibwmpcgxjwwx4vefoyk5n3p7h6@uipdbbcxwsbn>
+Subject: Re: [PATCH 17/34] drm/msm/dsi: convert to devm_drm_bridge_alloc() API
+Message-ID: <megx72fwv3xljmimtftryg6ueusjd2f3wv37u2lstdrjt2vlyf@3w32pt3ozivr>
 References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
- <20250407-drm-bridge-convert-to-alloc-api-v1-18-42113ff8d9c0@bootlin.com>
+ <20250407-drm-bridge-convert-to-alloc-api-v1-17-42113ff8d9c0@bootlin.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-18-42113ff8d9c0@bootlin.com>
-X-Authority-Analysis: v=2.4 cv=PJgP+eqC c=1 sm=1 tr=0 ts=67f50f96 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-17-42113ff8d9c0@bootlin.com>
+X-Proofpoint-GUID: zk4_yiQ2F_3Ycy7RX4iQDgWCJnUSu4y3
+X-Authority-Analysis: v=2.4 cv=LLlmQIW9 c=1 sm=1 tr=0 ts=67f50fa4 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=XR8D0OoHHMoA:10 a=P-IC7800AAAA:8 a=COk6AnOGAAAA:8 a=tVI0ZWmoAAAA:8
  a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
- a=MqdoT2xZwiyagvIbdbwA:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+ a=MqdoT2xZwiyagvIbdbwA:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
  a=d3PnA9EDa4IxuAV0gXij:22 a=TjNXssC_j7lpFel5tvFf:22 a=-BPWgnxRz2uhmvdm1NTO:22
-X-Proofpoint-ORIG-GUID: P4xrSmFlZeFyOsq_ctbc7K75UqSUhQe-
-X-Proofpoint-GUID: P4xrSmFlZeFyOsq_ctbc7K75UqSUhQe-
+X-Proofpoint-ORIG-GUID: zk4_yiQ2F_3Ycy7RX4iQDgWCJnUSu4y3
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-08_04,2025-04-08_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0
- lowpriorityscore=0 clxscore=1015 adultscore=0 malwarescore=0 spamscore=0
- impostorscore=0 suspectscore=0 mlxlogscore=981 bulkscore=0 mlxscore=0
- priorityscore=1501 classifier=spam authscore=0 authtc=n/a authcc=
+ impostorscore=0 bulkscore=0
+ clxscore=1015 mlxlogscore=926 malwarescore=0 phishscore=0
+ lowpriorityscore=0 priorityscore=1501 mlxscore=0 spamscore=0 adultscore=0
+ suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504080085
+ definitions=main-2504080084
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,7 +147,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 07, 2025 at 04:23:33PM +0200, Luca Ceresoli wrote:
+On Mon, Apr 07, 2025 at 04:23:32PM +0200, Luca Ceresoli wrote:
 > This is the new API for allocating DRM bridges.
 > 
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
@@ -159,7 +159,7 @@ On Mon, Apr 07, 2025 at 04:23:33PM +0200, Luca Ceresoli wrote:
 > Cc: Rob Clark <robdclark@gmail.com>
 > Cc: Sean Paul <sean@poorly.run>
 > ---
->  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 9 ++++-----
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c | 9 ++++-----
 >  1 file changed, 4 insertions(+), 5 deletions(-)
 > 
 
