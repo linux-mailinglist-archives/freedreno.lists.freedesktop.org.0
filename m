@@ -2,119 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32D89A82973
-	for <lists+freedreno@lfdr.de>; Wed,  9 Apr 2025 17:09:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E29E1A829A6
+	for <lists+freedreno@lfdr.de>; Wed,  9 Apr 2025 17:12:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2C9710E924;
-	Wed,  9 Apr 2025 15:09:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8D7410E93A;
+	Wed,  9 Apr 2025 15:12:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EfpnjdFK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FrFSkFNI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B12F410E91E
- for <freedreno@lists.freedesktop.org>; Wed,  9 Apr 2025 15:09:02 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5398MJBB002911
- for <freedreno@lists.freedesktop.org>; Wed, 9 Apr 2025 15:09:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ZM49O2ioHcxPJFgz0BW7OWFv9D0F8HSwleBnH7gV14s=; b=EfpnjdFKzGCqHJEN
- Ma/mOBmSYSbE/oWDxhUGfjgKLsaLrT7haeMHc6DuaLFAaUTf1Rgmfr4kGnwJMNZp
- iIQxKlLT0tzeg8Qton673zuoj8X8AsnHcbwsDyXDdQG68/zAkephLqY/V1Yur2g+
- y1TBsGfnEznmvp/YydzaD0uxRqkpIiG7OG+qX/SPY3rXuoWCFbzky0bfRQBW8pfJ
- AJH327Xmon8PrmBGBoK0rLCOKaa9NDumDOv2TLVL8ipaiJQsWiWfx34CwiAvAgE2
- BPCcRA2Cbq9Bc/G7a4L00twnwaVQ93L2sLu4SQ2I0XSxMO67tiUMtBMC6PyuSJET
- 0MTMeg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twc1knw2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 09 Apr 2025 15:09:01 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c76062c513so170821885a.3
- for <freedreno@lists.freedesktop.org>; Wed, 09 Apr 2025 08:09:01 -0700 (PDT)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B54210E931;
+ Wed,  9 Apr 2025 15:12:44 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-736abdac347so584877b3a.2; 
+ Wed, 09 Apr 2025 08:12:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744211564; x=1744816364; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=spXIMkoF1Z09BVLFL9QdSknj0ntJh/yAq4L0FidyZ90=;
+ b=FrFSkFNIes6hKIDhXDprSj66k8x40YyAl395iEQnu393OfTvJx3pYhnIV7awmx8s1o
+ w/6ftq/a+TCrJ6XfgvvabIiwKj1ly6SNq719LaEumjhWhQ9FadVPnNa9oiW/WN333Lib
+ Beu1cqmQqcauSq3khEH9Mg9QzPfU8SwuAN4FaiR26umYRTzPS0sLfslu3ovAGrPitBgY
+ fvjzmcqZdRU9nNuPZnNBstgdZnauXIOZBfA48+5i/zzd76V/hzMHJqFsmh2pO/L6KWPg
+ Y1Uvuoiiv1+RgxXKzFxrYR+nEX7bP3xCQgkTEkmGTxlHbVfMelvIfHqmUuHqvLbtXXlV
+ URBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744211341; x=1744816141;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZM49O2ioHcxPJFgz0BW7OWFv9D0F8HSwleBnH7gV14s=;
- b=JpzH8CAjyPFYE9GluvHoOTfRjLYVLIUMtQ0UIqgrT7XhMZ9TNQ72wjEbIATK0rklk3
- UmNmiO3t7eSYcrfGLfyrs5Ab1EwfsracaPGWoQW1rj0CdGz6rMjD1a5vOUlzOBMp1utm
- Mzrk8oBocOq12+f4aYligsJm+WyHRKg2WV1tUh/5jjGROpIVLO/AbDjoE/khNfckaAYS
- 3/Xvr7odjoQThnPwjfNdb/CVQ7ldLsNX0yJ2RxC4Mw8dny2gPeXpYYWtSnPZi/J2/WMb
- NjHisVRnXkacvk+Hio2bejMtdUw2fkE5W88UGRxVhE4EQskxQfrNArvXnabc3kL+JkxB
- S2HA==
+ d=1e100.net; s=20230601; t=1744211564; x=1744816364;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=spXIMkoF1Z09BVLFL9QdSknj0ntJh/yAq4L0FidyZ90=;
+ b=GV72iKC4ivzObUO7kLpjGbDOvVIefAuQ1uHGlH/iQeywbZJY5uY7K+WGE+BNk3JsrS
+ Gz9FR4B9LZotOY/m0M377C3rFH3PlU7G3PHhckWcmgr6NEvW0eJF21LOT6mZxsGAh1fk
+ zk/dNYy76JpUnUY1+E3Wux37JVaIq4miEYK35YY46MQXIEma8cso5BvbmnKJXipDeNEO
+ WjSIE6rydTX3fm/yMJEyUDawCgazZIbkOTAIl0UhQOi59/SSFpGVKQmh9wnJFP4E32gH
+ jOEdVbXWc1TW5HnqsItVeP1NQgHu1GX9D8DiPtJrz25ze3VmBDdSfGLqIhV3OM0cfYAR
+ lLaw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXkZyuaPJ/qYbpEciwkXw8jZINH0CqkSn3kts2Ls/aVPv99MWSwPeMS+81qUDTo2rfLCRjNrYMctFs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJ62jov6RLGSEEbvteAu3xQd2p09QpRJnDsvPaOfYX85oUfqrv
- 5D1Mttlx0Zrn9r/Ody1IQuY1U+0n5MsqgL5E0JRrmOy7Jyst1ExIhbCZJeBeY0bdcclNs1nxyLQ
- 8pPazfHcm9GZCdcCX/+Yc2grVCeIkWkQ4iMrj2F9qNyr16gToUSpDHOIRRIJl9lsmRJ0=
-X-Gm-Gg: ASbGncvHe2aEvMc+KL+egYHKm6+0Lr25kzLxcwIgZwmfJSeNRAkmJTY5HJVLoqcI/bS
- 551tEq1wgiS1kcJu+cXn0b46McHfrY8+/jd75VtVJMObqMDo0CU9oilzhODzHuPfYf3lofBHxL0
- 40dD/Px79anycUvTPvtYj6ZUtXWeK0CENuF3Th+KUCdVK42g8WBPFkeY3Fi0Tgzh6ixl81382rd
- td0j5ReFYAivXndJCaZAAZDYU2mf+6nxUz88GGQMnTTX24oMHZvQW1vNrpumDPlSQsuqftFrU+G
- VxmL+WJBoP8aWMUmMtFyrPtuzIFUwnVs+kgnoYtOm12Inf8B6TblwDf0VlI3GjubMw==
-X-Received: by 2002:a05:620a:2805:b0:7c0:bb63:536c with SMTP id
- af79cd13be357-7c79cbd8ad2mr156918385a.4.1744211340654; 
- Wed, 09 Apr 2025 08:09:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHKqxp7rcrINyn8M6wMLr3P4dzZIUo2PduztsqFYTGLMrH5xZk1qXZ1BhuOXgUr9MLv4mhnXA==
-X-Received: by 2002:a05:620a:2805:b0:7c0:bb63:536c with SMTP id
- af79cd13be357-7c79cbd8ad2mr156916885a.4.1744211340304; 
- Wed, 09 Apr 2025 08:09:00 -0700 (PDT)
-Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acaa1cb425csm110988066b.104.2025.04.09.08.08.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 08:08:59 -0700 (PDT)
-Message-ID: <0d1aaba8-7736-497e-8424-84489c637914@oss.qualcomm.com>
-Date: Wed, 9 Apr 2025 17:08:55 +0200
+ AJvYcCWPnEQynV/GL2WffabUwavVze2lWJNfMiWOqJf04S+mw8PY0EmervM6LvxVll2KR33hCSD0B21K1Aca@lists.freedesktop.org,
+ AJvYcCXd+rpyDTY/eOa+c0Qk43Ur+RKXQojC3NN6yhmQ3sgaZeLI8SqilzO4WvVHUG/14kW02RWAO+p/jUA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyc4e7b2rqA4rw5s40f+AIbxbo+K4U60hZqZc5PfZpOEQTsnvxG
+ satgKRL0EzM1ZXO4orjMvMuG1ddPJMwhDewu6Ne7Z/tFdvjybA0+s8IIEoJ6+GSAj9xnd5g++VC
+ RLj4ErCsPbLYMZ5jt9SnYU/7JAK4=
+X-Gm-Gg: ASbGncvUdPD5w82wYOEDAcjuz+kki26Dmxe722es2AMi3vf5xThz4ZuKSgnGD1DroqF
+ 3sCFXkaKWhVeVMcIujVgpUuzDV0jah554roit5fuYSjqS3YeeDQtBDH/eleij6hBZFQhXAU8ybK
+ u1OT6JfB3TaTWyE6F0C/n66g==
+X-Google-Smtp-Source: AGHT+IGmvjw/CZ0ahGJko3AXY/wq4QVFoHwj3QvuU8T+/npoxIO1lkE99naDDV8VaKBZcMlrX9YQHA07xRRq12EhXRk=
+X-Received: by 2002:a05:6a00:3c96:b0:730:8526:5db2 with SMTP id
+ d2e1a72fcca58-73bae54fb51mr1430135b3a.5.1744211563880; Wed, 09 Apr 2025
+ 08:12:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/7] Support for GPU ACD feature on Adreno X1-85
-To: Anthony Ruhier <aruhier@mailbox.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Maya Matuszczyk <maccraft123mc@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20250109-gpu-acd-v4-0-08a5efaf4a23@quicinc.com>
- <dj256lrkc4s5ylqkqdrak6a6p3v62ckkd3orsg7ykz2w6ugllg@rbfkojacklvx>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <dj256lrkc4s5ylqkqdrak6a6p3v62ckkd3orsg7ykz2w6ugllg@rbfkojacklvx>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: jTP_uXvnx14xtz5n-pyhOLPuKTqwtf69
-X-Authority-Analysis: v=2.4 cv=KtdN2XWN c=1 sm=1 tr=0 ts=67f68d8d cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=vjlbkFh1sCUApBijkyAA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: jTP_uXvnx14xtz5n-pyhOLPuKTqwtf69
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-09_05,2025-04-08_04,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0
- priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 spamscore=0
- malwarescore=0 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=906 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504090095
+References: <20250409-topic-smem_dramc-v1-0-94d505cd5593@oss.qualcomm.com>
+ <20250409-topic-smem_dramc-v1-3-94d505cd5593@oss.qualcomm.com>
+In-Reply-To: <20250409-topic-smem_dramc-v1-3-94d505cd5593@oss.qualcomm.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Wed, 9 Apr 2025 11:12:31 -0400
+X-Gm-Features: ATxdqUHV6LVmuZ52LZQ7mUM3HFrIL30_gejAbDkXbhXaGiKJi8H-XzjJ57AVTyE
+Message-ID: <CACu1E7GMf0Mx2ZX_t76h+b1CPin49LGix7c5uvoWaJZC3dKyOw@mail.gmail.com>
+Subject: Re: [PATCH 3/4] drm/msm/a6xx: Get HBB dynamically, if available
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,28 +93,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 3/18/25 2:12 PM, Anthony Ruhier wrote:
-> Using this patch serie on 6.14-rc (tested over multiple RCs, up to rc7) on a
-> Yoga Slim 7x (x1e80100), I often get a video output freeze a few seconds after
-> my wayland compositor loads. I can still ssh into the laptop. I get these
-> kernel errors in loop:
-> 
-> 	msm_dpu ae01000.display-controller: [drm:hangcheck_handler [msm]] *ERROR* 67.5.12.1: hangcheck detected gpu lockup rb 0!
-> 	msm_dpu ae01000.display-controller: [drm:hangcheck_handler [msm]] *ERROR* 67.5.12.1:     completed fence: 777
-> 	msm_dpu ae01000.display-controller: [drm:hangcheck_handler [msm]] *ERROR* 67.5.12.1:     submitted fence: 778
-> 
-> Rob Clark recommended to me to remove the higher GPU frequencies added by this
-> patch (1.25Ghz and 1.175 Ghz). The lockups happen then less often, but are
-> still present. It is easily reproducible.
-> 
-> A way to mitigate the problem is by constantly moving my cursor during a few
-> seconds after my wayland session starts, then no freeze happens. Reverting this
-> patch serie fixes the problem.
+On Wed, Apr 9, 2025 at 10:48=E2=80=AFAM Konrad Dybcio <konradybcio@kernel.o=
+rg> wrote:
+>
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>
+> The Highest Bank address Bit value can change based on memory type used.
+>
+> Attempt to retrieve it dynamically, and fall back to a reasonable
+> default (the one used prior to this change) on error.
+>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index 06465bc2d0b4b128cddfcfcaf1fe4252632b6777..0cc397378c99db35315209d02=
+65ad9223e8b55c7 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/firmware/qcom/qcom_scm.h>
+>  #include <linux/pm_domain.h>
+>  #include <linux/soc/qcom/llcc-qcom.h>
+> +#include <linux/soc/qcom/smem.h>
+>
+>  #define GPU_PAS_ID 13
+>
+> @@ -669,17 +670,22 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu=
+ *gpu)
+>  static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+>  {
+>         struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> +       u32 hbb =3D qcom_smem_dram_get_hbb();
+> +       u32 ubwc_mode =3D adreno_gpu->ubwc_config.ubwc_swizzle & 1;
+> +       u32 level2_swizzling_dis =3D !(adreno_gpu->ubwc_config.ubwc_swizz=
+le & 2);
+> +       u32 hbb_hi, hbb_lo;
+> +
+>         /*
+>          * We subtract 13 from the highest bank bit (13 is the minimum va=
+lue
+>          * allowed by hw) and write the lowest two bits of the remaining =
+value
+>          * as hbb_lo and the one above it as hbb_hi to the hardware.
+>          */
+> -       BUG_ON(adreno_gpu->ubwc_config.highest_bank_bit < 13);
+> -       u32 hbb =3D adreno_gpu->ubwc_config.highest_bank_bit - 13;
+> -       u32 hbb_hi =3D hbb >> 2;
+> -       u32 hbb_lo =3D hbb & 3;
+> -       u32 ubwc_mode =3D adreno_gpu->ubwc_config.ubwc_swizzle & 1;
+> -       u32 level2_swizzling_dis =3D !(adreno_gpu->ubwc_config.ubwc_swizz=
+le & 2);
+> +       if (hbb < 0)
+> +               hbb =3D adreno_gpu->ubwc_config.highest_bank_bit;
 
-What firmware files are you using? ZAP surely comes from the Windows
-package, but what about GMU and SQE? Linux-firmware?
+No. The value we expose to userspace must match what we program.
+You'll break VK_EXT_host_image_copy otherwise.
 
-Specifically, please provide the GMU version which is printed to dmesg
-on first GPU open
+Connor
 
-Konrad
+> +       hbb -=3D 13;
+> +       BUG_ON(hbb < 0);
+> +       hbb_hi =3D hbb >> 2;
+> +       hbb_lo =3D hbb & 3;
+>
+>         gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
+>                   level2_swizzling_dis << 12 |
+> @@ -2467,6 +2473,10 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *d=
+ev)
+>         bool is_a7xx;
+>         int ret;
+>
+> +       /* We need data from SMEM to retrieve HBB in set_ubwc_config() */
+> +       if (!qcom_smem_is_available())
+> +               return ERR_PTR(-EPROBE_DEFER);
+> +
+>         a6xx_gpu =3D kzalloc(sizeof(*a6xx_gpu), GFP_KERNEL);
+>         if (!a6xx_gpu)
+>                 return ERR_PTR(-ENOMEM);
+>
+> --
+> 2.49.0
+>
