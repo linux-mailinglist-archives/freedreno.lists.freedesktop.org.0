@@ -2,124 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA44DA83E33
-	for <lists+freedreno@lfdr.de>; Thu, 10 Apr 2025 11:17:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D73C3A8428A
+	for <lists+freedreno@lfdr.de>; Thu, 10 Apr 2025 14:08:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80E7A10E810;
-	Thu, 10 Apr 2025 09:17:00 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dBjjiOSD";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A60210E978;
+	Thu, 10 Apr 2025 12:08:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 829F410E801
- for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 09:16:59 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53A75hm4030646
- for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 09:16:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=/NI4HaeWdHG20yTgWgvdAsga
- B/QNYBVNAVRuaUYyJe4=; b=dBjjiOSD0xzRRsCKkHFO3BiTt1gp1gMlwu7NcCea
- wn1eKWRBYcX4S3JyOJC0wP6aje1NUF6+kzFxd6C21x4cAvpEFAzQeIfd5QoWzSzO
- 4lgWxkDfuQ45s6XRLsgClUk0I8+fRoURxQQuEqQfs4O7QLpYDTdOb/3YXDCIWSmi
- LI9PdHN/uX8aaWh4PAa+CUqw9eM4ed8BrqlG3SZjm1IONcXsUtRu6pLhSL9Esbx2
- pPDvqctjuLyKN2T3NSakRTPfGep6b5FNRQr9AX8zR9vm7ezPgoliTjLovyH0E4gq
- DtL6tqINPp3Qg12idSbsT9Z6RIAxnU9Cw63V7WUis0+xVw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twftp65h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 09:16:58 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7c549ea7166so95352385a.2
- for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 02:16:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744276617; x=1744881417;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/NI4HaeWdHG20yTgWgvdAsgaB/QNYBVNAVRuaUYyJe4=;
- b=wzS+ZdT/sKCkHPNGx53h2+DP8XClm3ObDBDuxqzrDvzSskM75nTv6t+ttvgOmz2MLe
- S5awiUlXZoFboeHGZLt8D5FsQZgIiTL0pOHlVu2Re4GH0WUJNf9em4wEawCQUibMj4JD
- ZroR4GF6vQtaideAIfcVnyi2MPklfP+TCEjcST6XNnnBZKz56yByBk3r62I6z9VX8ubc
- gTre6hvi+HpC5vvqVSAqS6+dyFAA8gjQbdIVDO8gp0W5Uz6WDRi8palS3744aqbZmD/X
- AlZg64Md31rZYTWoaeDB8zmkl3G4hEeFd6nGrvRSLeDVj8ZgGSVy3UpkJpBiX3iKgt8d
- 9r6g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU8B8nzqlzbmJaqsAVE+oycIsiUh3HOYzeG50Uc0tkq6Eczt5TVJUFBhCwYM++g+9kRXT6Z7kJqzZA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzhQqrC7NInDc9mdefLzkeCCIUb5U5z4h6jbCtAozKaDbRXt8q/
- jMZ7svH1SfphShTH7beW08U9FGz7C48+AibhcIHYt9YDt4eB7pEYlHxQLUepxYhpv2DR22USBdF
- HDIkHy1/dz8cqQN/1L1aH0Hf1pQH7fA8avHIP9yjN6hEW7xinSSaCy7na76zR5nSsWec=
-X-Gm-Gg: ASbGncswbj3ZCk8AWnxgC2pbrGBakLS8wfQiORDcIDTderg+iCiVJsvGrtK+bZy6iEL
- aG5kJQwiJraotzbRVIrmQaZQrbiWos9iCaPGuQcMKlvxu3foNK/OQDvpwnlFLGb1BWi5cSG/iAH
- Q+YaI0oORI7O4lqwZ3cv5trYDRPJm5qP4YbSZG0BtEMue8ynZOkGL1m58hZ0B/5bPksGwkOoCNf
- K2EVHN+9+JoPJnPJZ8TLT2T3dytHdYh25Q9OteXIwRaoSsDBXMEEikhz3xy2vg7qnE7cMgwOcTe
- 6/2OJkNl0IknfQyxvL6JqP2obyc4tWcXiE30Pf4osVR7gnh07SRMLPv0do0WpmpAPgmNYdM0pXY
- =
-X-Received: by 2002:a05:620a:171e:b0:7c7:609d:d223 with SMTP id
- af79cd13be357-7c7a76bfdf6mr244707285a.42.1744276617607; 
- Thu, 10 Apr 2025 02:16:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFvugvbzG1bQhMo5tx4WT5oAVkdX9Zwn/H4ZbJ4q7g7do1hwxxuv+2Xv7nYPcjDjrokpnPXVA==
-X-Received: by 2002:a05:620a:171e:b0:7c7:609d:d223 with SMTP id
- af79cd13be357-7c7a76bfdf6mr244704485a.42.1744276617283; 
- Thu, 10 Apr 2025 02:16:57 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30f4649d812sm4115651fa.11.2025.04.10.02.16.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Apr 2025 02:16:56 -0700 (PDT)
-Date: Thu, 10 Apr 2025 12:16:54 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_jesszhan@quicinc.com
-Subject: Re: [PATCH v2 03/10] dt-bindings: display: msm: document DSI
- controller and phy on SA8775P
-Message-ID: <vw4qkj6wtets6dx4irslusnyz2oztjljymzzcmomqxlcphxnvd@gpxrdgzhu5xu>
-References: <20250311122445.3597100-4-quic_amakhija@quicinc.com>
- <20250312-calm-steadfast-cricket-fe9dd8@krzk-bin>
- <654d409e-2325-46e7-a064-ed9e64277e69@quicinc.com>
- <a168a473-c363-4041-8e3e-84fa44e92b10@kernel.org>
- <zpmr6cpiixyu2sj7r7oqpqsge6dcqw6xszldf7ugznmcrxqsme@efiwnggcn5qx>
- <a654d62e-502a-4a47-96c4-a44c14860e54@kernel.org>
- <767e11cd-e338-4e00-a8e7-2e15f3da84b4@oss.qualcomm.com>
- <04d90c1b-1b73-4b6a-b7fc-351754fbb16b@kernel.org>
- <bcc44dcc-8b8a-427a-9a38-8dc6d59c13e3@oss.qualcomm.com>
- <bfab7272-5a41-4072-82a8-0f7401b2affc@kernel.org>
+X-Greylist: delayed 471 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Apr 2025 08:02:49 UTC
+Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5327310E7FF;
+ Wed,  9 Apr 2025 08:02:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1744185144;
+ bh=m0UnMasJN//idMnYkH7ZVnj
+ GqZ6c589EeVyBi7IEG6E=; b=slk6VF1v2JektGaPflcGO2CTCGnjVtConEYnMwNQuHIKv5GnZN
+ iKySxNzKqaqmMSGTHV2sD7e6p9JMM/bWwVV60dKGgbydrphz39R0nULHz7MEORNs5C/68+fh8hE
+ mlZ9b5Z88OSQ8xg9+VjAXpw/HRZzgwVLlWHsB8EiA5jMt5rjUUhF+Q/YRDNDgE1oqjF2JbvgPva
+ cS89tlOy4Apc6IPe8ZmM/vtazs3BSCEAEgUDzLIxcvGjev4kX2xaLfNCszaUERyyBxHykYumB+1
+ dBO7Dwa0yztI3rfuRieQ6sKhWOyoHaC9sv/tmFXCcrxeOxKvOvdgQCq577mnEJ+VpWw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1744185144; bh=m0UnMasJN//idMnYkH7ZVnj
+ GqZ6c589EeVyBi7IEG6E=; b=09y8o62Y7U+ZSS7gXzumhfKXC15qDUDbHWKwRc+54MEVLT3ms7
+ XJzrgBE+FB+rwkzQeINVbFqIXq5dQESfANCg==;
+Message-ID: <f3416edf-46f8-4296-86bd-600ab629fe60@damsy.net>
+Date: Wed, 9 Apr 2025 09:52:23 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bfab7272-5a41-4072-82a8-0f7401b2affc@kernel.org>
-X-Authority-Analysis: v=2.4 cv=B5+50PtM c=1 sm=1 tr=0 ts=67f78c8b cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=XR8D0OoHHMoA:10 a=mGSTcfrgQxl9XoTJgfIA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: oVuQoGDtOxzWtsThyMg4AMlRqJVJFtq_
-X-Proofpoint-ORIG-GUID: oVuQoGDtOxzWtsThyMg4AMlRqJVJFtq_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-10_01,2025-04-08_04,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=856
- suspectscore=0 malwarescore=0 bulkscore=0 phishscore=0 spamscore=0
- priorityscore=1501 adultscore=0 impostorscore=0 lowpriorityscore=0
- mlxscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504100069
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 00/10] Improve gpu_scheduler trace events + UAPI
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, lima@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-arm-msm@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, nouveau@lists.freedesktop.org
+References: <20250320095818.40622-1-pierre-eric.pelloux-prayer@amd.com>
+Content-Language: en-US
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <20250320095818.40622-1-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 10 Apr 2025 12:08:11 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,39 +64,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 10, 2025 at 08:08:17AM +0200, Krzysztof Kozlowski wrote:
-> On 09/04/2025 17:24, Dmitry Baryshkov wrote:
-> > On 09/04/2025 09:07, Krzysztof Kozlowski wrote:
-> >> On 08/04/2025 22:26, Dmitry Baryshkov wrote:
-> >>>>>>>>> +          - const: qcom,sa8775p-dsi-ctrl
-> >>>>>>>>> +          - const: qcom,mdss-dsi-ctrl
-> >>>>>>>>
-> >>>>>>>> Drop fallback
-> >>>>>>>>
-> >>>>>>>    
-> >>>>>>> Hi Krzysztof,
-> >>>>>>>
-> >>>>>>> I couldn't understand the meaning of "Drop fallback", could please elaborate it ?
-> >>>>>> Look at SM8750 example on the lists. Keep only front compatible.
-> >>>>>
-> >>>>> Why?
-> >>>>
-> >>>> To make things simpler and shorter.
-> >>>
-> >>> I'd prefer consistency. Previous platforms use qcom,mdss-dsi-ctrl.
-> >> Then you should have objected month(s) ago when Rob asked for dropping
-> >> fallback and since then we consistently drop it.
-> > 
-> > Well... It's still not merged. is it?
-> > For SM8750 it kinda makes sense, because the clock handling is different 
-> > from all other current platforms. For the existing devices... I'm not 
-> > that sure.
-> How does it differ? The clock handling does not matter - this is just
-> select of schema for the child node.
+Hi,
 
-Ah.... I'm sorry, I misinterpreted the email. Yes, having only a single
-compat here is perfectly fine. Please excuse me for the confusion.
+I've rebased the series on top of drm-next, applied the minor tweaks suggested by Tvrtko on v8 and 
+the R-b tags. The result can be found on gitlab.fdo:
 
--- 
-With best wishes
-Dmitry
+https://gitlab.freedesktop.org/pepp/linux/-/commits/improve_gpu_scheduler_trace_v9
+
+I believe it's ready to be merged, unless I've missed something?
+
+Thanks,
+Pierre-Eric
+
+Le 20/03/2025 à 10:57, Pierre-Eric Pelloux-Prayer a écrit :
+> Hi,
+> 
+> The initial goal of this series was to improve the drm and amdgpu
+> trace events to be able to expose more of the inner workings of
+> the scheduler and drivers to developers via tools.
+> 
+> Then, the series evolved to become focused only on gpu_scheduler.
+> The changes around vblank events will be part of a different
+> series, as well as the amdgpu ones.
+> 
+> Moreover Sima suggested to make some trace events stable uAPI,
+> so tools can rely on them long term.
+> 
+> The first patches extend and cleanup the gpu scheduler events,
+> then add a documentation entry in drm-uapi.rst.
+> 
+> The last 2 patches are new in v8. One is based on a suggestion
+> from Tvrtko and gets rid of drm_sched_job::id. The other is a
+> cleanup of amdgpu trace events to use the fence=%llu:%llu format.
+> 
+> The drm_sched_job patches don't affect gpuvis which has code to parse
+> the gpu_scheduler events but these events are not enabled.
+> 
+> Changes since v7:
+> * uint64_t -> u64
+> * reworked dependencies tracing (Tvrtko)
+> * use common name prefix for all events (Tvrtko)
+> * dropped drm_sched_job::id (Tvrtko)
+> 
+> Useful links:
+> - userspace tool using the updated events:
+> https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/37
+> - v7:
+> https://lists.freedesktop.org/archives/dri-devel/2025-January/488117.html
+> 
+> Pierre-Eric Pelloux-Prayer (10):
+>    drm/debugfs: output client_id in in drm_clients_info
+>    drm/sched: store the drm client_id in drm_sched_fence
+>    drm/sched: add device name to the drm_sched_process_job event
+>    drm/sched: cleanup gpu_scheduler trace events
+>    drm/sched: trace dependencies for gpu jobs
+>    drm/sched: add the drm_client_id to the drm_sched_run/exec_job events
+>    drm/sched: cleanup event names
+>    drm/doc: document some tracepoints as uAPI
+>    drm: get rid of drm_sched_job::id
+>    drm/amdgpu: update trace format to match gpu_scheduler_trace
+> 
+>   Documentation/gpu/drm-uapi.rst                |  19 ++++
+>   drivers/accel/amdxdna/aie2_ctx.c              |   3 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |   2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   3 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |   8 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   3 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |  32 ++----
+>   drivers/gpu/drm/drm_debugfs.c                 |  10 +-
+>   drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c  |   2 +-
+>   drivers/gpu/drm/imagination/pvr_job.c         |   2 +-
+>   drivers/gpu/drm/imagination/pvr_queue.c       |   5 +-
+>   drivers/gpu/drm/imagination/pvr_queue.h       |   2 +-
+>   drivers/gpu/drm/lima/lima_gem.c               |   2 +-
+>   drivers/gpu/drm/lima/lima_sched.c             |   6 +-
+>   drivers/gpu/drm/lima/lima_sched.h             |   3 +-
+>   drivers/gpu/drm/msm/msm_gem_submit.c          |   8 +-
+>   drivers/gpu/drm/nouveau/nouveau_sched.c       |   3 +-
+>   drivers/gpu/drm/panfrost/panfrost_drv.c       |   2 +-
+>   drivers/gpu/drm/panthor/panthor_drv.c         |   3 +-
+>   drivers/gpu/drm/panthor/panthor_mmu.c         |   2 +-
+>   drivers/gpu/drm/panthor/panthor_sched.c       |   5 +-
+>   drivers/gpu/drm/panthor/panthor_sched.h       |   3 +-
+>   .../gpu/drm/scheduler/gpu_scheduler_trace.h   | 103 +++++++++++++-----
+>   drivers/gpu/drm/scheduler/sched_entity.c      |  16 ++-
+>   drivers/gpu/drm/scheduler/sched_fence.c       |   4 +-
+>   drivers/gpu/drm/scheduler/sched_internal.h    |   2 +-
+>   drivers/gpu/drm/scheduler/sched_main.c        |  11 +-
+>   drivers/gpu/drm/v3d/v3d_submit.c              |   2 +-
+>   drivers/gpu/drm/xe/xe_sched_job.c             |   3 +-
+>   include/drm/gpu_scheduler.h                   |  13 ++-
+>   30 files changed, 186 insertions(+), 96 deletions(-)
+> 
