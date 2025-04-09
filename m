@@ -2,75 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA47CA82ED6
-	for <lists+freedreno@lfdr.de>; Wed,  9 Apr 2025 20:34:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97226A8319E
+	for <lists+freedreno@lfdr.de>; Wed,  9 Apr 2025 22:11:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5480310E172;
-	Wed,  9 Apr 2025 18:34:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56E7310E74D;
+	Wed,  9 Apr 2025 20:11:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; secure) header.d=ijzerbout.nl header.i=@ijzerbout.nl header.b="YlmtSUyk";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="iHO58UBI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 389 seconds by postgrey-1.36 at gabe;
- Wed, 09 Apr 2025 18:34:29 UTC
-Received: from bout3.ijzerbout.nl (bout3.ijzerbout.nl [136.144.140.114])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1695510E172;
- Wed,  9 Apr 2025 18:34:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ijzerbout.nl; s=key;
- t=1744223279; bh=yjh43TtDm+paZlNIRlrqPwPQ02q0Bjp2xXCqZ3x0O0c=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=YlmtSUykxFWQOWVLo+nuJDSq9I10JBfzx/66JhXKSVrahZo3YJ6OrGtlr9ANrHZj2
- V6XiMqpK5OtKbhC9wJdVENM3IBjJ66WuPAP9VObAoATnjkuDNDJz4p45IsRtoD8KMz
- tShzVjfUHsGSeiN3XfKjI1xAFznPtdmevsMFKTnsxebUPkfu1JweZZDOdU8xEjU4Yi
- 8DG8G7XynnQFT8ZdBW1c8E/DdiJmtu3vsy5gXtsAeSJUlfYELB3eJE6fXpJV3Ypmjn
- t43MuhuOhLr8gEyXgjLs1OUb9idkDTmKBM5JxNeJqp5Ekw5rCqvcr13L1grwRvDLXL
- F7OiH+2W5w1zuhq4YoL4LoYvuFpPg0VXZLdlg1bn9au7WqqcpmUlmzoarSv7ACMc/l
- HDwo9v86T+VRmsczy+3/ce+MLITfcvq7ZinrzpvgqusM99Hs251S1IyT6RmsO1YtQm
- ybww8NKSL6xDVxDqKEpVZ5GZDehNJYj2uHsiBNfB8ejnoRbI7nZAICrUIdivrqLQbF
- evOy9P93l28c/7HPtSJFzkn9x4KHSr0gGvjZzUoRUkvYyr5PMPbY1kiSt/ItmkOhCV
- VPLKBd34n1pTFkHGCwPPsP7RgP5RRPFgKB4o+9UCEM0UAsa3jjocytrCV1KQs98aB7
- 2B+/mq2B1o77rBAHWz5a3fjs=
-Received: from [IPV6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a] (racer.ijzerbout.nl
- [IPv6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a])
- by bout3.ijzerbout.nl (Postfix) with ESMTPSA id 7B4B8162A2C;
- Wed,  9 Apr 2025 20:27:58 +0200 (CEST)
-Message-ID: <bf7bfe6f-69d7-4166-b3c4-010f7b9f3113@ijzerbout.nl>
-Date: Wed, 9 Apr 2025 20:27:56 +0200
+Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
+ [136.143.188.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9B1510E286
+ for <freedreno@lists.freedesktop.org>; Wed,  9 Apr 2025 20:10:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1744229458; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=JMpxD1mfBf3aAV2eihk3x0DQtTCMPcEYGvRHRV5ZzKKKuIshE4oTxPYQutp4/45ItCqZg3d95udafAUNHphY8eho1hX3Fp7/7BibCFWTXhMIPeQ2EElAQAN6W566IbLNTBjI1nWq6pMNWevuYq++27uFLGLw3MnjNdkScAcImRQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1744229458;
+ h=Content-Type:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=80eAGe+BpXg8sva8YgS+aONfcGhs+Za2ZJNRWpVpb8E=; 
+ b=J96eHfe5trG2l4ZbSOB2Kc776psQU1fto4dl6IOllDMuinG9+x6bKGyelQD4ZVhVzMVXLCskmczZDYgUg2gAn7z/Y3F82jhVf7bbFMo49KmZgWQSETUqY1lb8Y9W9ucn7m9KJSm2Zjw9h0xeTG00DRgYXt4HIkpPDxpGUWD8PW4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=mark.filion@collabora.com;
+ dmarc=pass header.from=<mark.filion@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744229458; 
+ s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:MIME-Version:Message-Id:Reply-To:Cc;
+ bh=80eAGe+BpXg8sva8YgS+aONfcGhs+Za2ZJNRWpVpb8E=;
+ b=iHO58UBIDyjhaRFlqNM57ziNI2tz/tzALYv48BSaGNsae2tbNN9dqVw5bu6K6Hsc
+ InhObtjaKZrTaxvyt1yL/ho+DUo6Wuf+TN8Niu2lwrs1OgUI935aG+LOtDFHF6RfXaP
+ PArtC5iVk3lXG6Ogk+gwL3D9MiSAXhhwFK0wJuPs=
+Received: by mx.zohomail.com with SMTPS id 1744229457154545.7963043028817;
+ Wed, 9 Apr 2025 13:10:57 -0700 (PDT)
+Message-ID: <c94450a248819c9013997149d970be74d1f25cd3.camel@collabora.com>
+Subject: Reminder: Seeking nominations for the 2025 X.Org Board of Directors
+ Elections
+From: Mark Filion <mark.filion@collabora.com>
+To: Freedreno <freedreno@lists.freedesktop.org>
+Date: Wed, 09 Apr 2025 16:10:56 -0400
+Content-Type: multipart/alternative; boundary="=-QLPLnwrtt6yCRPGPvXfy"
+User-Agent: Evolution 3.54.3 (3.54.3-1.fc41app1) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND RFC v4 3/6] drm/display: dp: use new DCPD access
- helpers
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
- <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Jani Nikula <jani.nikula@intel.com>
-References: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
- <20250324-drm-rework-dpcd-access-v4-3-e80ff89593df@oss.qualcomm.com>
-Content-Language: en-US
-From: Kees Bakker <kees@ijzerbout.nl>
-In-Reply-To: <20250324-drm-rework-dpcd-access-v4-3-e80ff89593df@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,33 +62,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Op 24-03-2025 om 12:51 schreef Dmitry Baryshkov:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
-> Switch drm_dp_helper.c to use new set of DPCD read / write helpers.
->
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
-> Acked-by: Jani Nikula <jani.nikula@intel.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/display/drm_dp_helper.c | 296 +++++++++++++-------------------
->   1 file changed, 116 insertions(+), 180 deletions(-)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index 410be0be233ad94702af423262a7d98e21afbfeb..e2439c8a7fefe116b04aaa689b557e2387b05540 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> [...]
-> @@ -3542,7 +3509,7 @@ int drm_dp_pcon_frl_configure_2(struct drm_dp_aux *aux, int max_frl_mask,
->   	else
->   		buf &= ~DP_PCON_FRL_LINK_TRAIN_EXTENDED;
->   
-> -	ret = drm_dp_dpcd_writeb(aux, DP_PCON_HDMI_LINK_CONFIG_2, buf);
-> +	return drm_dp_dpcd_write_byte(aux, DP_PCON_HDMI_LINK_CONFIG_2, buf);
->   	if (ret < 0)
->   		return ret;
->   
-Don't forget to delete the remainder of the function.
-Also the variable `ret` isn't used anymore.
--- 
-Kees
+--=-QLPLnwrtt6yCRPGPvXfy
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello!
+
+The nomination period is currently open for the upcoming election to
+the X.Org Foundation Board of Directors. All X.Org Foundation members
+are eligible for election to the board.
+
+Nominations for the 2025 election are now open and will remain open
+until 23:59 UTC on 16 April 2025.
+
+The Board consists of directors elected from the membership. Each year,
+an election is held to bring the total number of directors to eight.
+The four members receiving the highest vote totals will serve as
+directors for two year terms.
+
+The directors who received two year terms starting in 2024 were Erik
+Faye-Lund, Mark Filion, Neal Gompa and Simon Ser. They will continue to
+serve until their term ends in 2026. Current directors whose term
+expires in 2025 are Lyude Paul, Arkadiusz Hiler and Christopher
+Michael. Additionally, a fourth board position is open following the
+resignation of Simona Vetter in Q3 2024.
+
+A director is expected to participate in the bi-weekly BBB meeting to
+discuss current business and to attend the annual meeting of the X.Org
+Foundation, which will be held at a location determined in advance by
+the Board of Directors.
+
+A member may nominate themselves or any other member they feel is
+qualified. Nominations should be sent to the Election Committee
+at=C2=A0elections@x.org.
+
+Nominees shall be required to be current members of the X.Org
+Foundation, and submit a personal statement of up to 200 words that
+will be provided to prospective voters. The collected statements, along
+with the statement of contribution to the X.Org Foundation in the
+member's account page on=C2=A0http://members.x.org, will be made available
+to all voters to help them make their voting decisions.
+
+Nominations, membership applications or renewals and completed personal
+statements must be received no later than 23:59 UTC on 16 April 2025.
+
+The slate of candidates will be published 23 April 2025 and candidate
+Q&A will begin then. The deadline for Xorg membership applications and
+renewals is 28 April 2025.
+
+Best,=C2=A0
+
+Mark Filion, on behalf of the X.Org BoD
+
+--=-QLPLnwrtt6yCRPGPvXfy
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><style>pre,code,address {
+  margin: 0px;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+ol,ul {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+blockquote {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+</style></head><body><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0,=
+ 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps: norm=
+al; font-weight: 400; letter-spacing: normal; text-align: start; text-inden=
+t: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webk=
+it-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px;=
+ text-decoration: none; unicode-bidi: plaintext;">Hello!</div><div style=3D=
+"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; fo=
+nt-style: normal; font-variant-caps: normal; font-weight: 400; letter-spaci=
+ng: normal; text-align: start; text-indent: 0px; text-transform: none; whit=
+e-space: normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0,=
+ 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none; unicode-bi=
+di: plaintext;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: r=
+gb(0, 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps:=
+ normal; font-weight: 400; letter-spacing: normal; text-align: start; text-=
+indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width:=
+ 0px; text-decoration: none; unicode-bidi: plaintext;">The nomination perio=
+d is currently open for the upcoming election to the X.Org Foundation Board=
+ of Directors. All X.Org Foundation members are eligible for election to th=
+e board.</div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0);=
+ font-family: Cantarell; font-style: normal; font-variant-caps: normal; fon=
+t-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px;=
+ text-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap-=
+highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-d=
+ecoration: none; unicode-bidi: plaintext;"><br></div><div style=3D"caret-co=
+lor: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style:=
+ normal; font-variant-caps: normal; font-weight: 400; letter-spacing: norma=
+l; text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);=
+ -webkit-text-stroke-width: 0px; text-decoration: none; unicode-bidi: plain=
+text;">Nominations for the 2025 election are now open and will remain open =
+until 23:59 UTC on 16 April 2025.</div><div style=3D"caret-color: rgb(0, 0,=
+ 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style: normal; font-=
+variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align:=
+ start; text-indent: 0px; text-transform: none; white-space: normal; word-s=
+pacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-=
+stroke-width: 0px; text-decoration: none; unicode-bidi: plaintext;"><br></d=
+iv><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-famil=
+y: Cantarell; font-style: normal; font-variant-caps: normal; font-weight: 4=
+00; letter-spacing: normal; text-align: start; text-indent: 0px; text-trans=
+form: none; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-c=
+olor: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: =
+none; unicode-bidi: plaintext;">The Board consists of directors elected fro=
+m the membership. Each year, an election is held to bring the total number =
+of directors to eight. The four members receiving the highest vote totals w=
+ill serve as directors for two year terms.</div><div style=3D"caret-color: =
+rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style: norm=
+al; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; te=
+xt-align: start; text-indent: 0px; text-transform: none; white-space: norma=
+l; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -web=
+kit-text-stroke-width: 0px; text-decoration: none; unicode-bidi: plaintext;=
+"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); f=
+ont-family: Cantarell; font-style: normal; font-variant-caps: normal; font-=
+weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; t=
+ext-transform: none; white-space: normal; word-spacing: 0px; -webkit-tap-hi=
+ghlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-dec=
+oration: none; unicode-bidi: plaintext;">The directors who received two yea=
+r terms starting in 2024 were Erik Faye-Lund, Mark Filion, Neal Gompa and S=
+imon Ser. They will continue to serve until their term ends in 2026. Curren=
+t directors whose term expires in 2025 are Lyude Paul, Arkadiusz Hiler and =
+Christopher Michael. Additionally, a fourth board position is open followin=
+g the resignation of Simona Vetter in Q3 2024.</div><div style=3D"caret-col=
+or: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style: =
+normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal=
+; text-align: start; text-indent: 0px; text-transform: none; white-space: n=
+ormal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); =
+-webkit-text-stroke-width: 0px; text-decoration: none; unicode-bidi: plaint=
+ext;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0=
+); font-family: Cantarell; font-style: normal; font-variant-caps: normal; f=
+ont-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0p=
+x; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-ta=
+p-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text=
+-decoration: none; unicode-bidi: plaintext;">A director is expected to part=
+icipate in the bi-weekly BBB meeting to discuss current business and to att=
+end the annual meeting of the X.Org Foundation, which will be held at a loc=
+ation determined in advance by the Board of Directors.</div><div style=3D"c=
+aret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font=
+-style: normal; font-variant-caps: normal; font-weight: 400; letter-spacing=
+: normal; text-align: start; text-indent: 0px; text-transform: none; white-=
+space: normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0=
+, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none; unicode-bidi=
+: plaintext;"><br></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb=
+(0, 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps: n=
+ormal; font-weight: 400; letter-spacing: normal; text-align: start; text-in=
+dent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -w=
+ebkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0=
+px; text-decoration: none; unicode-bidi: plaintext;">A member may nominate =
+themselves or any other member they feel is qualified. Nominations should b=
+e sent to the Election Committee at<span class=3D"Apple-converted-space">&n=
+bsp;</span><a href=3D"mailto:elections@x.org" title=3D"Click to mail electi=
+ons@x.org" style=3D"color: rgb(46, 52, 54);">elections@x.org</a>.</div><div=
+ style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cant=
+arell; font-style: normal; font-variant-caps: normal; font-weight: 400; let=
+ter-spacing: normal; text-align: start; text-indent: 0px; text-transform: n=
+one; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-color: r=
+gba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none; u=
+nicode-bidi: plaintext;"><br></div><div style=3D"caret-color: rgb(0, 0, 0);=
+ color: rgb(0, 0, 0); font-family: Cantarell; font-style: normal; font-vari=
+ant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: sta=
+rt; text-indent: 0px; text-transform: none; white-space: normal; word-spaci=
+ng: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stro=
+ke-width: 0px; text-decoration: none; unicode-bidi: plaintext;">Nominees sh=
+all be required to be current members of the X.Org Foundation, and submit a=
+ personal statement of up to 200 words that will be provided to prospective=
+ voters. The collected statements, along with the statement of contribution=
+ to the X.Org Foundation in the member's account page on<span class=3D"Appl=
+e-converted-space">&nbsp;</span><a href=3D"http://members.x.org/" title=3D"=
+Click to open http://members.x.org/" style=3D"color: rgb(46, 52, 54);">http=
+://members.x.org</a>, will be made available to all voters to help them mak=
+e their voting decisions.</div><div style=3D"caret-color: rgb(0, 0, 0); col=
+or: rgb(0, 0, 0); font-family: Cantarell; font-style: normal; font-variant-=
+caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; word-spacing: =
+0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-w=
+idth: 0px; text-decoration: none; unicode-bidi: plaintext;"><br></div><div =
+style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Canta=
+rell; font-style: normal; font-variant-caps: normal; font-weight: 400; lett=
+er-spacing: normal; text-align: start; text-indent: 0px; text-transform: no=
+ne; white-space: normal; word-spacing: 0px; -webkit-tap-highlight-color: rg=
+ba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none; un=
+icode-bidi: plaintext;">Nominations, membership applications or renewals an=
+d completed personal statements must be received no later than 23:59 UTC on=
+ 16 April 2025.</div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0,=
+ 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps: norm=
+al; font-weight: 400; letter-spacing: normal; text-align: start; text-inden=
+t: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webk=
+it-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px;=
+ text-decoration: none; unicode-bidi: plaintext;"><br></div><div style=3D"c=
+aret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font=
+-style: normal; font-variant-caps: normal; font-weight: 400; letter-spacing=
+: normal; text-align: start; text-indent: 0px; text-transform: none; white-=
+space: normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0=
+, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none; unicode-bidi=
+: plaintext;">The slate of candidates will be published 23 April 2025 and c=
+andidate Q&amp;A will begin then. The deadline for Xorg membership applicat=
+ions and renewals is 28 April 2025.</div><div style=3D"caret-color: rgb(0, =
+0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font-style: normal; fon=
+t-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-alig=
+n: start; text-indent: 0px; text-transform: none; white-space: normal; word=
+-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-tex=
+t-stroke-width: 0px; text-decoration: none; unicode-bidi: plaintext;"><br><=
+/div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-fam=
+ily: Cantarell; font-style: normal; font-variant-caps: normal; font-weight:=
+ 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-tra=
+nsform: none; white-space: normal; word-spacing: 0px; -webkit-tap-highlight=
+-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px; text-decoration=
+: none; unicode-bidi: plaintext;">Best,<span class=3D"Apple-converted-space=
+">&nbsp;</span></div><div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0,=
+ 0, 0); font-family: Cantarell; font-style: normal; font-variant-caps: norm=
+al; font-weight: 400; letter-spacing: normal; text-align: start; text-inden=
+t: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webk=
+it-tap-highlight-color: rgba(0, 0, 0, 0.4); -webkit-text-stroke-width: 0px;=
+ text-decoration: none; unicode-bidi: plaintext;"><br></div><div style=3D"c=
+aret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Cantarell; font=
+-style: normal; font-variant-caps: normal; font-weight: 400; letter-spacing=
+: normal; text-align: start; text-indent: 0px; text-transform: none; white-=
+space: normal; word-spacing: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0=
+, 0.4); -webkit-text-stroke-width: 0px; text-decoration: none; unicode-bidi=
+: plaintext;">Mark Filion, on behalf of the X.Org BoD</div><div><span></spa=
+n></div></body></html>
+
+--=-QLPLnwrtt6yCRPGPvXfy--
