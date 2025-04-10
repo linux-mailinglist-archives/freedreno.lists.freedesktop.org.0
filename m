@@ -2,113 +2,117 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53C3AA84D7A
-	for <lists+freedreno@lfdr.de>; Thu, 10 Apr 2025 21:49:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 957B6A84DA8
+	for <lists+freedreno@lfdr.de>; Thu, 10 Apr 2025 22:01:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17FE810EA71;
-	Thu, 10 Apr 2025 19:49:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B15710E195;
+	Thu, 10 Apr 2025 20:01:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZpC/npS2";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CekWLmOX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4F9D10EA85
- for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 19:49:39 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53AGO3vx031905
- for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 19:49:39 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 350D010E195
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 20:01:53 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53AG1LB6032650
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 20:01:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=aNhuwxgEqLQlGdQ0sOZNsXWl
- JqoDDoZqwpr4m2bgAv8=; b=ZpC/npS2kfZgcSJsiieah2iW9S2n+3kFAJli3xUZ
- whp5TGslpUiPVsr4vIPkzojf5GmDVamfBFj3b/bnJPSF3DRtwYckKtsl4ZLMSs+b
- jHLQx8rl+XchJtVaBA0gw5NEptWFXndkXcWSeggoGmpWBKLG022/bqS2deXhiRGN
- z2v6m1Vl8ape1N5ibjcx4H5W4llmhrqbXbPL1JD9uFTgpEZwfXStfBeN2+fIBPJd
- SnLMj+oXQSQMdRNEx1BnQ3S0rDL6g2DB+0cQSwlNAFf/gd3UGYg8yLwC+ACv8kEt
- NGeJEc26PIAVNF/63o2zoUWkIAJEST1sOkqGIvyXb5KSVA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twpmg38t-1
+ :references:subject:to; s=qcppdkim1; bh=cQKF/VxyCC/OpmAoONC18oPV
+ cOgA+smPZj7cgddFWhE=; b=CekWLmOXP/799feVGPBXyj1rLU0O205hSip17lRn
+ 1ZYB/jJTw5GWr9C/+D3Y/7cwpC90R0y32893q7WDyQNgHlzMZj12S3UeIrpNrgSh
+ AmyPeytI35uNhNHR38qcioQoKtpU4o77PbSq7KmkdTUUnR5GzST/AxmBQ0kAUW+u
+ Wuf9R+Q+0I38BY+GQBgxtnVwwhOO+FyT+dyyn4GqFBedvqdYnAtZQbFHx6pELFWQ
+ jy/fqStHIgA1D6p8GZDWF8B9TTt2AxLyJmooiEP769ozMIoUfLbDGye2UmEz/qpt
+ mnG3iudCH4i8IMKScfwJ+X5qjE3170a9RGSYFJad9KSwKQ==
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
+ [209.85.166.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twfkr0k7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 19:49:39 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7c5cd0f8961so262546485a.1
- for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 12:49:38 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 20:01:52 +0000 (GMT)
+Received: by mail-io1-f72.google.com with SMTP id
+ ca18e2360f4ac-85b5e46a526so152060939f.1
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Apr 2025 13:01:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744314578; x=1744919378;
+ d=1e100.net; s=20230601; t=1744315311; x=1744920111;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aNhuwxgEqLQlGdQ0sOZNsXWlJqoDDoZqwpr4m2bgAv8=;
- b=srzoAMfYpnzCQmwPnzVCWKW/U+dPHaPss5B3URVy+Y03Ywyk2VreQEI0PsYT303+G+
- /4rj7pXaZk7MRBntiWX1smD3vVn4SVjy89+uV3GpNG29Q+J5FIFkklVeYlBq7NlWF62Z
- xTCcBJ6evRW6sB4u5Qk1wFkuey+Q7LGA8mBWlGMr5vOOsd4sqVr6RR+8Qv6W8qiZ2yvF
- 9jfYBpNLK17tq9C1PkrQ1mvQ6amkVZs1GXoDWmWl4N3FQoRqI99CCYqwyqdH+PlBksj4
- ymEXeCuKhEPX6cGmrQ+OcHDz+rvZJ0nQgct2qxeA39Jqgo/+tN6oRFFTfYb60+DtktO7
- mpeg==
+ bh=cQKF/VxyCC/OpmAoONC18oPVcOgA+smPZj7cgddFWhE=;
+ b=BcvikBYg9EH6+W5yMzdEwjDIbwTZHS/pemarbJ/jygX2gBE5xAcEYqNt4knBpE+pCu
+ m23K1SA2QE0rEYJOe16D3WixZu+fk9cuPVeDF4guVc8khwzhuvCr+0ceC3/WK7q+30J9
+ HWbLY0aLq3fpxMYbf55aK1WgaXzEx7JXPGrO/DqQ7R2VDO8obftVq0y56tIZcvZ5mdum
+ pp7UgQH1ZQNxeBzxvKxGkzlf5PwtJuKbPHShy0DPsvtV3x+Rb/yJ1DX1xwNtURBT/mvA
+ SuH0oyECOjU9zw39VHUK8i6WETCC0B3MNFnR9My56YUmqAojyjNsngBYAL3o+AO0h3fi
+ dBJA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXNFv7bH0LPZOxRExHV8xxdK5IzP7jYcSZxheV6D/wUgWCGMIomBNWe2XJKsXrvgsx9LeUiGTh8XHc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzzf42G5mW8ibgQ3fV1dlOH6ulkhqEJNw0VjnuAKPVbAqv1qI/v
- 4nvrFxH2cEqD9qY0qB1VUDWd2qY+FjQQGGhPaVLs8ZrOtzi+JjvjqO8taFkw1ZsNbkr/R/4Tkn6
- 3qiS6Mx607X9+BZJxXnrx0xPDgBqWWSCRhq74MUlzkSRER+KfAVnBmGB4GBvLfW3kF0o=
-X-Gm-Gg: ASbGncsQXysYmG8l2ac9WkbX+lJWAxh8pswg/6WXcA2KeWfsdeHz8X0OPum0NUzBeUY
- NrNDq5/hSHnvZY2DAu5pvY31YOMvRCF7Q7gOMhtTm3NFF8+XqJg3K2Hh/DFwbrwQcx1vmycqmKE
- PliC0Aifc4W5GSUsXorKExyq+4HkRJxoe2LItVNPUspKkr8yuwZkdB+HejJz1rcXuQJ2cdcCbqN
- 3nlgR12o9DlK6oeUpboqihVYZ4gQ1Xhx6iZchw8I9k/5n5LMmbQsj+ujbKr2CDjm1oiR07Uxp1P
- tzFufEzOIH+VVllOo6O+VQIas5uS6v1TpHFoX0bkGyilRcAZ1GTx11/d3T3lvOMD7cHp3odC7CM
+ AJvYcCUmtQzcwkn3w63whBBSltFuwrcA+6jaU/jpr9AdhSgdVrfP3/ZbbRy8rpK60EWLotvEI6p4NAuXOBc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyTTzOIN42wgNvJam8TeDyArBAsAY1JoZKAr2cWnXqWgT7odwtm
+ +VIYBlHZv2Fy//Pxr3V00i3ZG5P5AnDGF3jiaA94JufsQDH21ebiEX1Rb/D4jtPrpN5w08rdZ3j
+ Qvur3HA0lkHc8yQifHazEJYYHql7bgBxhuil5pZf7LjqREa9tGjlBRJWL61T2DCPpjSw=
+X-Gm-Gg: ASbGncuamRg5fj3LnpXwITu+FeFoKF1DhpFGkd76hZps6+VctZqE1L34Y9HtCFyZ//a
+ XpS8nMaYstDQRB0reKuFn8Cp+6u9q5xgwOp3Sbk5o53vV4m5HHFkUd3MwPXAa6tM1i+EAFBm/+C
+ GIFM/gtiuICZfcYQTa0vygkl1KaHIUu4ivp+cPCZ25WTTNN/KmAIv8CMZr1jXqxZOJ9yrL0F0SJ
+ sym4v6YFKeV8SotnTdpc5DgMQXE2RGdz/zdNqs3iWd5xTahxiFeCje1SXXBf31BN06YppecucNx
+ MxNjFmFkXq/u9rz31n0Sn2qZOgwkvEE3+zhfiOu/nMdApWiAFkJBnKllujzGHti2/1aB6tQogoA
  =
-X-Received: by 2002:a05:620a:2941:b0:7c5:4711:dc51 with SMTP id
- af79cd13be357-7c7af0f8841mr36837085a.2.1744314577842; 
- Thu, 10 Apr 2025 12:49:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFsp+mbswefuSskvfP4MGPlMZhuL5PnvXrRuwIIXDia3tt/3yJFdDa3tlw5fgy10G42iTdrsg==
-X-Received: by 2002:a05:620a:2941:b0:7c5:4711:dc51 with SMTP id
- af79cd13be357-7c7af0f8841mr36833885a.2.1744314577477; 
- Thu, 10 Apr 2025 12:49:37 -0700 (PDT)
+X-Received: by 2002:a05:6e02:989:b0:3d6:d162:be12 with SMTP id
+ e9e14a558f8ab-3d7ec277267mr1619345ab.21.1744315311165; 
+ Thu, 10 Apr 2025 13:01:51 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEOcgglq72/KtLWeA8A2vkExuJ9YEmeKKzeIWF0tQFF4TsI9WFOgD8ectS26sdoezA0dGVAXQ==
+X-Received: by 2002:a05:6e02:989:b0:3d6:d162:be12 with SMTP id
+ e9e14a558f8ab-3d7ec277267mr1618855ab.21.1744315310705; 
+ Thu, 10 Apr 2025 13:01:50 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30f4649d86esm5793871fa.14.2025.04.10.12.49.36
+ 2adb3069b0e04-54d3d51006bsm234397e87.170.2025.04.10.13.01.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Apr 2025 12:49:36 -0700 (PDT)
-Date: Thu, 10 Apr 2025 22:49:34 +0300
+ Thu, 10 Apr 2025 13:01:48 -0700 (PDT)
+Date: Thu, 10 Apr 2025 23:01:45 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/4] Retrieve information about DDR from SMEM
-Message-ID: <iebl74rolk2t6xyoedy5p2e7clssh4dvxtpzerykyivrhkao4g@dbmnpia3xtxv>
-References: <20250410-topic-smem_dramc-v2-0-dead15264714@oss.qualcomm.com>
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+ quic_jesszhan@quicinc.com
+Subject: Re: [PATCH v3 07/10] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
+ to DP bridge nodes
+Message-ID: <wzqct2y67h6bkazxv3se77slsheaw5rspgcrcfjm7ngr5t4alw@nktpqrt5woky>
+References: <20250404115539.1151201-1-quic_amakhija@quicinc.com>
+ <20250404115539.1151201-8-quic_amakhija@quicinc.com>
+ <nxnqwh2mzvnxv5ytwjsyulxr6ct6mhv3z3v6q4ojrjhhclwv2i@55nb56hnwi3y>
+ <0f4eca6c-67df-4730-88b3-a277903deabc@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250410-topic-smem_dramc-v2-0-dead15264714@oss.qualcomm.com>
-X-Proofpoint-GUID: 3jfMHjNujL2-75LGkTlR2hT6gsgjeHY3
-X-Proofpoint-ORIG-GUID: 3jfMHjNujL2-75LGkTlR2hT6gsgjeHY3
-X-Authority-Analysis: v=2.4 cv=MpRS63ae c=1 sm=1 tr=0 ts=67f820d3 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=XR8D0OoHHMoA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=OxrDjszf_QBMMd4ylzMA:9
- a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+In-Reply-To: <0f4eca6c-67df-4730-88b3-a277903deabc@quicinc.com>
+X-Proofpoint-GUID: odS4NyXBq-CnhptvdzBrn1kG7jcUjZml
+X-Proofpoint-ORIG-GUID: odS4NyXBq-CnhptvdzBrn1kG7jcUjZml
+X-Authority-Analysis: v=2.4 cv=b7Oy4sGx c=1 sm=1 tr=0 ts=67f823b0 cx=c_pps
+ a=uNfGY+tMOExK0qre0aeUgg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=u-yodfwXetj8OPw8cswA:9 a=CjuIK1q_8ugA:10
+ a=61Ooq9ZcVZHF1UnRMGoz:22 a=TjNXssC_j7lpFel5tvFf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-10_06,2025-04-10_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- mlxlogscore=796 clxscore=1015 priorityscore=1501 impostorscore=0
- spamscore=0 bulkscore=0 suspectscore=0 malwarescore=0 adultscore=0
- phishscore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504100143
+ adultscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 mlxscore=0 impostorscore=0 phishscore=0
+ clxscore=1015 spamscore=0 mlxlogscore=999 bulkscore=0 lowpriorityscore=0
+ classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504100145
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,64 +128,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 10, 2025 at 07:43:43PM +0200, Konrad Dybcio wrote:
-> SMEM allows the OS to retrieve information about the DDR memory.
-> Among that information, is a semi-magic value called 'HBB', or Highest
-> Bank address Bit, which multimedia drivers (for hardware like Adreno
-> and MDSS) must retrieve in order to program the IP blocks correctly.
+On Thu, Apr 10, 2025 at 06:37:54PM +0530, Ayushi Makhija wrote:
+> Hi Dmirity/Konard
 > 
-> This series introduces an API to retrieve that value, uses it in the
-> aforementioned programming sequences and exposes available DDR
-> frequencies in debugfs (to e.g. pass to aoss_qmp debugfs). More
-> information can be exposed in the future, as needed.
+> On 4/7/2025 1:42 AM, Dmitry Baryshkov wrote:
+> > On Fri, Apr 04, 2025 at 05:25:36PM +0530, Ayushi Makhija wrote:
+> >> Add anx7625 DSI to DP bridge device nodes.
+> >>
+> >> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 208 ++++++++++++++++++++-
+> >>  1 file changed, 207 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+> >> index 175f8b1e3b2d..8e784ccf4138 100644
+> >> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+> >> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+> >> @@ -28,6 +28,13 @@ chosen {
+> >>  		stdout-path = "serial0:115200n8";
+> >>  	};
+> >>  
+> >> +	vph_pwr: vph-pwr-regulator {
+> >> +		compatible = "regulator-fixed";
+> >> +		regulator-name = "vph_pwr";
+> >> +		regulator-always-on;
+> >> +		regulator-boot-on;
+> >> +	};
+> >> +
+> >>  	vreg_conn_1p8: vreg_conn_1p8 {
+> >>  		compatible = "regulator-fixed";
+> >>  		regulator-name = "vreg_conn_1p8";
+> >> @@ -128,6 +135,30 @@ dp1_connector_in: endpoint {
+> >>  			};
+> >>  		};
+> >>  	};
+> >> +
+> >> +	dp-dsi0-connector {
+> >> +		compatible = "dp-connector";
+> >> +		label = "DSI0";
+> >> +		type = "full-size";
+> >> +
+> >> +		port {
+> >> +			dp_dsi0_connector_in: endpoint {
+> >> +				remote-endpoint = <&dsi2dp_bridge0_out>;
+> >> +			};
+> >> +		};
+> >> +	};
+> >> +
+> >> +	dp-dsi1-connector {
+> >> +		compatible = "dp-connector";
+> >> +		label = "DSI1";
+> >> +		type = "full-size";
+> >> +
+> >> +		port {
+> >> +			dp_dsi1_connector_in: endpoint {
+> >> +				remote-endpoint = <&dsi2dp_bridge1_out>;
+> >> +			};
+> >> +		};
+> >> +	};
+> >>  };
+> >>  
+> >>  &apps_rsc {
+> >> @@ -517,9 +548,135 @@ &i2c11 {
+> >>  
+> >>  &i2c18 {
+> >>  	clock-frequency = <400000>;
+> >> -	pinctrl-0 = <&qup_i2c18_default>;
+> >> +	pinctrl-0 = <&qup_i2c18_default>,
+> >> +		    <&io_expander_intr_active>,
+> >> +		    <&io_expander_reset_active>;
+> > 
+> > These pinctrl entries should go to the IO expander itself.
+> > 
+> >>  	pinctrl-names = "default";
+> >> +
+> >>  	status = "okay";
+> >> +
+> >> +	io_expander: gpio@74 {
+> >> +		compatible = "ti,tca9539";
+> >> +		reg = <0x74>;
+> >> +		interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
+> >> +		gpio-controller;
+> >> +		#gpio-cells = <2>;
+> >> +		interrupt-controller;
+> >> +		#interrupt-cells = <2>;
+> >> +
+> >> +		gpio2-hog {
+> > 
+> > This needs a huuge explanation in the commit message. Otherwise I'd say
+> > these pins should likely be used by the corresponding anx bridges.
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Avoid checking for < 0 on unsigned types
-> - Overwrite Adreno UBWC data to keep the data shared with userspace
->   coherent with what's programmed into the hardware
-> - Call get_hbb() in msm_mdss_enable() instead of all UBWC setup
->   branches separately
-> - Pick up Bjorn's rb on patch 1
-> - Link to v1: https://lore.kernel.org/r/20250409-topic-smem_dramc-v1-0-94d505cd5593@oss.qualcomm.com
+> Thanks, for the review.
 > 
-> ---
-> Konrad Dybcio (4):
->       soc: qcom: Expose DDR data from SMEM
->       drm/msm/a5xx: Get HBB dynamically, if available
->       drm/msm/a6xx: Get HBB dynamically, if available
->       drm/msm/mdss: Get HBB dynamically, if available
-> 
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c |  12 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  15 +-
->  drivers/gpu/drm/msm/msm_mdss.c        |  30 ++--
+> Previously, I was referring to the downstream DT and misunderstood the use of gpio-hog.
+> After reading the schematic, I realized that gpio2, gpio3, gpio10, and gpio11 are all input pins
+> to the IO expander TC9539. We have already configured gpio2 and gpio10 as interrupts in the
+> ANX7625 bridges, so the gpio-hog is not required. It is working without the gpio-hog configuration.
 
-This misses the dpu_hw_sspp.c, which uses ubwc_config from msm_mdss.c
-(but the config isn't being updated with the acquired HBB value).
-
-I'd suggest behaving it slightly differntly: can we please have a helper
-module (in drivers/soc/qcom) which would return UBWC configuration data.
-We can start with HBB values, migrating the rest of UBWC-related flags
-one by one.
-
-Also, were you able to solve the issue of the platforms where GPU and
-MDSS disagreed upon HBB data?
-
->  drivers/soc/qcom/Makefile             |   3 +-
->  drivers/soc/qcom/smem.c               |  14 +-
->  drivers/soc/qcom/smem.h               |   9 ++
->  drivers/soc/qcom/smem_dramc.c         | 287 ++++++++++++++++++++++++++++++++++
->  include/linux/soc/qcom/smem.h         |   4 +
->  8 files changed, 360 insertions(+), 14 deletions(-)
-> ---
-> base-commit: 46086739de22d72319e37c37a134d32db52e1c5c
-> change-id: 20250409-topic-smem_dramc-6467187ac865
-> 
-> Best regards,
-> -- 
-> Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
+Please make sure that there are pinctrl entries for all pins.
 
 -- 
 With best wishes
