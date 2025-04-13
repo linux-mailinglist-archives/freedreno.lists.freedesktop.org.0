@@ -2,85 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E18CA8727E
-	for <lists+freedreno@lfdr.de>; Sun, 13 Apr 2025 18:33:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3062EA87282
+	for <lists+freedreno@lfdr.de>; Sun, 13 Apr 2025 18:33:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C81EF10E234;
-	Sun, 13 Apr 2025 16:33:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA7E10E2CA;
+	Sun, 13 Apr 2025 16:33:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gk5nmMT0";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dou7qtQP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEFB410E245
- for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 16:33:04 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53DFP6Kc030454
- for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 16:33:03 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD2C510E234
+ for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 16:33:05 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53DCZnE6002596
+ for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 16:33:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- bOWXlqW2H1X69rbgrXv1oCon4lNL/6HLaxB38aViTLE=; b=Gk5nmMT0KFwOM/HV
- NH+rUzdU2YJ/bYywWdcFHSgokhC8yTvTMWm9RJTKL8M1Um60+x8zCmYUaAFikyb7
- Dmws9gYo+qA6bsJy1NpVTsL3pKQcegB5ONjRL3MHBUho6geDkMbxWvYgqwO+T4vv
- Hj8l7WVTd15fc7dZDEvqntMXZZxv41w3wXt3KbEDCsgShZhjofjqXRd6+Dg82GUj
- uCoVModH/qRjSYt/m6yJTsePuscCQ7Dfeh9E56PuJdz1C8sfRd/K3tgwcwg8aMNY
- uATP9NITvcALNgHGoM0iHgr5cXGh0I2hZq2+DbRAF6jnPBwWeZnh2pk+v+glgRXx
- TsqSOw==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45ydhq2m7g-1
+ +lOfrQC97itnkemnTsDOXPlft8YCdkPBpyMvVoCbScU=; b=Dou7qtQPuTJQmifs
+ fyIyU+hJUAibYcI5ro0nRZw4LRrRd5NhwOV2Vcw0Zm8pw9MAYTEvzL0XdbLdam1S
+ Qz/iP8TFggdcpNcDo4A+h5VXdvOITcsZsKjYgho8W+8lYs6NMzHuWBQJTGbTv4rl
+ QgyNQLDV0acWRD72r6+/GvWiP6nHvvwwJvntm+MJz9V0vJnEFzkGlrSqG2cZk5UY
+ HtJGfi7imiRLwlcsPl07Uai92ubEnfWVryN7aAgQy1+FHSE6o66jCT8A6kx+I7yG
+ Lzfz70ITzjwawtK4OzaT8i4f9qQOFoKkpDjqR4c1oIxZou5kcoZRC1AKHkvM0SDz
+ kuXVTw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45ydvj2j7b-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 16:33:03 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6e91ee078aaso63898286d6.3
- for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 09:33:03 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 16:33:04 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-7c5750ca8b2so588018985a.0
+ for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 09:33:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744561982; x=1745166782;
+ d=1e100.net; s=20230601; t=1744561983; x=1745166783;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bOWXlqW2H1X69rbgrXv1oCon4lNL/6HLaxB38aViTLE=;
- b=AZQ7mQyIm802r8qww8F+54YqqmhXSRSBzURsb7uYkzLukGy/yA37IKwhv4ihqf3H6M
- x4SbPJHjrNieChHVeWtbN+ahITqnPuHRIdPgvqiW1M7qiE95z15ST8f5LpwaS6cKxN/6
- cHrLXG66a4QGVBGSkFjqSlmy6mDllMZKOlBaChq9SZLiORA7GDiQNSZ+wCBmEzCY6b9v
- fXHJnWFLxVy0PrwwG9V0VOl5Sp7at97sf3noWZBAy+E9L8RbdLk49MJH7gISVQklLiK3
- QSjLfjJ26Sx4skPkXQTabZK1pyrZ0WF7O8drOuAI3iaYDgFqvVVNNisS88YgKRgXnBao
- rrtQ==
+ bh=+lOfrQC97itnkemnTsDOXPlft8YCdkPBpyMvVoCbScU=;
+ b=G/neFnj9VdfF6hQDq/y+rju7dbUoI/Rl+2uy6Iy4wTpOTTqZLXOL0d5QpDPSjf2ky9
+ Wf2IQZFir5YHjzyvf84lA+xmIDg1yfNraD0P4cuRsYJrkF2Fmtgqtkr6fy/i2LVj6fo3
+ I1BXIAOTqD2MOpPqfkP0rhkvtdW5Z9tHrOIlrNzbNANF8zqHc8HQAFDhcaqMJo9OXI8L
+ F1oVwHA2G88OW4chuLjzqNoXiFPJZHTZ+HI0CRB8H4ffEBPyHXCgHLI7x7wF8S8cCjNW
+ DwBOZhgSMe9KU/Ib9z91TP7SKL5nmmZU7rCr3zPLyNZvBQ9CtdcuPY9lliIYytDk/bHf
+ /9ug==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVTQgMqCXfsWUJTn6mMU+50Vz1jC+NjT6shJXngIPe0Mua+LB9abwTp0PCS+ikhLyYRWoarhkettiY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKUhXM1HQo2Qvp2KpNYz1iXVZNxG+BCU8FX4Q7Z9GVWnMSMP0k
- M+Ah4D28rzCfP0eL4f/eVJdGCc3hga/mD06ikmxhJpBQsAVuucEPJ7Hc814L6M/FAUsWCxB6TCx
- 7l71OAudmAPqvB9AS4/q1exsAnrvQUqmtWKq3z8NbsHeeR9gZlG1Xq+WnLcrRz1PbYug=
-X-Gm-Gg: ASbGnct/OhimmNb+lBcbPs9Z6XSpiIUoF3z7VAh5L03sBJzzxCgildoaIEZUx77WQTa
- 0BkcxIkvds3EiKxF8R+Tw2+qR/LtcqAPUZx0xd6WEXkXsTmYLccGmn155s3CftEgaQprwLBGUHs
- 7nFKYYDM/5D9CgQKoAa2lmJAkMQkT0tWJ4kEOLn49XS94s32HslG2hjLN0XSRT12DUN/5UYxQtP
- m6Hqpuzzwo5k57eVh013LNTfz4chkQDFDZfjwyHoN1LhYKYTnj4sn7FwOgWKed6eNh9mobI6snn
- CyxIFFUTDceGb5lYptpi6EINVrzcPOvRHmmcJZf8yDodRZ2cvLScbpDEZHYh0wX1ddcnGzFnibK
- PL2npSrzPZBih+raNHmfx9PIY
-X-Received: by 2002:a05:6214:2387:b0:6e6:61a5:aa57 with SMTP id
- 6a1803df08f44-6f230cf8f72mr137524606d6.14.1744561982136; 
+ AJvYcCUO1OMXFV+NF5mxWvd1Me+3B48rUhFzklJbwWl2l/Bx8aRqHAq+U03xCn0igdSG8FEXUB+qNmOThtk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNFccKlOQh5XR/lOAsPEmYfhDk2Wv9v2QDeg4YV5SZQcsFIj2V
+ HG9+Io/+YmyEBdI1fhyTpoXdstYbdU/L3NOnvK661SpI0+0NdWRyxhMqnap431Y4kNjQpz6XiQ1
+ 0pzfv1cbRZHQpW9oydZoHSZlT7MDT+rACYZTDlg2x7es4QIa3lGkvKGo2TcXHNwB2ABM=
+X-Gm-Gg: ASbGncvX2kmwDBP/Tqm3guPvBWqIjtoZMpBHAZfyNwjDg0uwz5WF85yFqshl+rCquk6
+ +1wZmOYA3G3ujVCoHDZaaUpuf2sfuyxJLUSCGDA8ojmIA089cyxgZaBIK8WQKLvop0mwvTDCunw
+ eDaCYEpJcUGWhFDR2A9cmugJZPiLi+gPEnVD+kfEzhqv2BvFfmCX5YZeJB48Rb+cvkQiL/71dMt
+ jWrxTMDNC6uTaxSyjx2k1spb+rSG4ebWV1fzkSeu1wajoLeLh+plW6hE7zluvOtM6qvzDvsl6am
+ w3SOT+KL1OgagbGc6/qTMSoekPNq6yOlFeMTmcTU0wseLACBzHA/dbFx3pFdr/FdJfCLygjFn94
+ /HX7B21lliCfK9hVmuVV6psz0
+X-Received: by 2002:a05:620a:24c1:b0:7c5:9788:1762 with SMTP id
+ af79cd13be357-7c7af115a88mr1553671385a.45.1744561983369; 
+ Sun, 13 Apr 2025 09:33:03 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGoYxRLeLUP8wwMv47f5bvT970+5SGoyAUvtb70jI/1SHBFVXLdrQfg1QuWdHYnMb2Kidxnlg==
+X-Received: by 2002:a05:620a:24c1:b0:7c5:9788:1762 with SMTP id
+ af79cd13be357-7c7af115a88mr1553667185a.45.1744561982876; 
  Sun, 13 Apr 2025 09:33:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHYlIetlwLWD8fWLuwPElP336tSus44Q9FzUT8/6hvSsG59ryTL0vVnyXP15pLCLjXU2KHuEw==
-X-Received: by 2002:a05:6214:2387:b0:6e6:61a5:aa57 with SMTP id
- 6a1803df08f44-6f230cf8f72mr137524226d6.14.1744561981505; 
- Sun, 13 Apr 2025 09:33:01 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30f464e9812sm13345431fa.49.2025.04.13.09.32.59
+ 38308e7fff4ca-30f464e9812sm13345431fa.49.2025.04.13.09.33.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Apr 2025 09:32:59 -0700 (PDT)
+ Sun, 13 Apr 2025 09:33:01 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sun, 13 Apr 2025 19:32:55 +0300
-Subject: [PATCH 1/7] drm/msm: move wq handling to KMS code
+Date: Sun, 13 Apr 2025 19:32:56 +0300
+Subject: [PATCH 2/7] drm/msm: move helper calls to msm_kms.c
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250413-msm-gpu-split-v1-1-1132f4b616c7@oss.qualcomm.com>
+Message-Id: <20250413-msm-gpu-split-v1-2-1132f4b616c7@oss.qualcomm.com>
 References: <20250413-msm-gpu-split-v1-0-1132f4b616c7@oss.qualcomm.com>
 In-Reply-To: <20250413-msm-gpu-split-v1-0-1132f4b616c7@oss.qualcomm.com>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -91,31 +91,31 @@ To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3644;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3462;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=OXKR8Bekin1jml/eRU8BDlgsy1eZQ5R/fWSgssRh70w=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn++c539kpkZcgiwYj8YBtJ6U0W2bhkdYpBMw/v
- o5tB6Y2aWKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ/vnOQAKCRCLPIo+Aiko
- 1aPsB/9fRlpj+FblmlkY+PCOG4ByEVp4sWFeaROnjT2dfgoK3+QwyU/Llyo9oHzj8HactL4XoYq
- miaDayv3LVoxjcYvJeamoUAKf1zbIHcvs7Ld6nQuDU26dpaaH0iAD2sC5e1FWMGoCTI7x1w3z4I
- CpocIXGNsIPQAzcJkfd/wJYYJWk/+rw9VpGIQ50fA1BZ+j72jON015Hhl8xMcSgF8Wz9zVp3VBv
- c/jp9L/WphXV+pIhSouvXlFsarXX8HWMv1aCXHOPjpNtKjsUKo04/gF5InsNOvxRAu82hfqgi+e
- PVHtnO3PPWtW0u9oWzJXef04tRenRJLyUwpNS11wASpwI2S9
+ bh=q2TV3za2YMsS1/tN81KHJ6sYde0HsrTUt/tA1uoSM5c=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn++c514hgycc6s0hl5iJqgNWSan8fYW0TqNOeE
+ In8GBkJzWaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ/vnOQAKCRCLPIo+Aiko
+ 1R+sB/4xQ14DFSepN3Pc/dbRTGNkwhgiKH0xD3kf8gzdciIq/WiOkRHnv74I0gKlgWOluGtINBd
+ kJZzB7nhyLthcwogNvGAFbuNK8c1pUImkP+KZbO4YTfNXvcsMq54NO6G9CDEKfaI2XjGMbcQmBd
+ rDRSAjk2H+FTk599L8VZnHpYvggAOf8Gvj1qBIPYSNVXLkS5DG5m388FtcQjA3TTD3S74Oi+Dhs
+ k2umJR9C8JNvDB/7m/QVEAReT5xjXU8rUjErbWERr+cFD/6Ot0oiQjjWMDi/f2AG4bbeFFVzJso
+ dK/XWFH5cnmw9z4QIAcNhuSiuuuMZ5WTHWRwVzkANkKmr88V
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: Z688qgMnybjRT2LQ95AzlK2YUNhv_A93
-X-Authority-Analysis: v=2.4 cv=C7DpyRP+ c=1 sm=1 tr=0 ts=67fbe73f cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8 a=4zMMb90fMlmLdFOEXiAA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-GUID: Z688qgMnybjRT2LQ95AzlK2YUNhv_A93
+X-Authority-Analysis: v=2.4 cv=ZIrXmW7b c=1 sm=1 tr=0 ts=67fbe740 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8 a=5yuRF9vT8A_X6ws8YtoA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: 0b-miCdQx4HNsdyirih1_ezsr-sfoTyc
+X-Proofpoint-ORIG-GUID: 0b-miCdQx4HNsdyirih1_ezsr-sfoTyc
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-13_08,2025-04-10_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=999
- priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0 bulkscore=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 mlxscore=0
+ adultscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 phishscore=0 mlxlogscore=999
+ spamscore=0 impostorscore=0 malwarescore=0 mlxscore=0 lowpriorityscore=0
  classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.19.0-2502280000
  definitions=main-2504130127
@@ -134,130 +134,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The global workqueue is only used for vblanks inside KMS code. Move
-allocation / flushing / deallcation of it to msm_kms.c
+Extract two more KMS-related codepieces to msm_kms.c, removing last
+pieces of KMS code from msm_drv.c.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_drv.c | 21 ++-------------------
- drivers/gpu/drm/msm/msm_kms.c | 16 +++++++++++++++-
- 2 files changed, 17 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.c |  9 +++------
+ drivers/gpu/drm/msm/msm_kms.c | 20 ++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_kms.h |  2 ++
+ 3 files changed, 25 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index c3588dc9e53764a27efda1901b094724cec8928a..02beb40eb9146941aa43862d07a6d82ae21c965e 100644
+index 02beb40eb9146941aa43862d07a6d82ae21c965e..b296d1315aa249638e073d08d43e8d41a4354f3b 100644
 --- a/drivers/gpu/drm/msm/msm_drv.c
 +++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -82,13 +82,6 @@ static int msm_drm_uninit(struct device *dev)
- 			drm_atomic_helper_shutdown(ddev);
+@@ -11,7 +11,6 @@
+ #include <linux/of_address.h>
+ #include <linux/uaccess.h>
+ 
+-#include <drm/clients/drm_client_setup.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_ioctl.h>
+@@ -79,7 +78,7 @@ static int msm_drm_uninit(struct device *dev)
+ 	if (ddev->registered) {
+ 		drm_dev_unregister(ddev);
+ 		if (priv->kms)
+-			drm_atomic_helper_shutdown(ddev);
++			msm_drm_kms_unregister(dev);
  	}
  
--	/* We must cancel and cleanup any pending vblank enable/disable
--	 * work before msm_irq_uninstall() to avoid work re-enabling an
--	 * irq after uninstall has disabled it.
--	 */
--
--	flush_workqueue(priv->wq);
--
  	msm_gem_shrinker_cleanup(ddev);
- 
- 	msm_perf_debugfs_cleanup(priv);
-@@ -104,8 +97,6 @@ static int msm_drm_uninit(struct device *dev)
- 	ddev->dev_private = NULL;
- 	drm_dev_put(ddev);
- 
--	destroy_workqueue(priv->wq);
--
- 	return 0;
- }
- 
-@@ -227,12 +218,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
- 	ddev->dev_private = priv;
- 	priv->dev = ddev;
- 
--	priv->wq = alloc_ordered_workqueue("msm", 0);
--	if (!priv->wq) {
--		ret = -ENOMEM;
--		goto err_put_dev;
--	}
--
- 	INIT_LIST_HEAD(&priv->objects);
- 	mutex_init(&priv->obj_lock);
- 
-@@ -253,12 +238,12 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
- 	if (priv->kms_init) {
- 		ret = drmm_mode_config_init(ddev);
- 		if (ret)
--			goto err_destroy_wq;
-+			goto err_put_dev;
- 	}
- 
- 	ret = msm_init_vram(ddev);
+@@ -275,10 +274,8 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
  	if (ret)
--		goto err_destroy_wq;
-+		goto err_put_dev;
+ 		goto err_msm_uninit;
  
- 	dma_set_max_seg_size(dev, UINT_MAX);
+-	if (priv->kms_init) {
+-		drm_kms_helper_poll_init(ddev);
+-		drm_client_setup(ddev, NULL);
+-	}
++	if (priv->kms_init)
++		msm_drm_kms_post_init(dev);
  
-@@ -304,8 +289,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
- 
- err_deinit_vram:
- 	msm_deinit_vram(ddev);
--err_destroy_wq:
--	destroy_workqueue(priv->wq);
- err_put_dev:
- 	drm_dev_put(ddev);
+ 	return 0;
  
 diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-index 35d5397e73b4c5cb90b1770e8570277e782be7ec..821f0b9f968fc3d448e612bfae04639ceb770353 100644
+index 821f0b9f968fc3d448e612bfae04639ceb770353..fdb22c41bdc1a772b45c6940dda787dd96879bc2 100644
 --- a/drivers/gpu/drm/msm/msm_kms.c
 +++ b/drivers/gpu/drm/msm/msm_kms.c
-@@ -227,6 +227,13 @@ void msm_drm_kms_uninit(struct device *dev)
+@@ -13,6 +13,7 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_mode_config.h>
+ #include <drm/drm_vblank.h>
++#include <drm/clients/drm_client_setup.h>
  
- 	BUG_ON(!kms);
- 
-+	/* We must cancel and cleanup any pending vblank enable/disable
-+	 * work before msm_irq_uninstall() to avoid work re-enabling an
-+	 * irq after uninstall has disabled it.
-+	 */
-+
-+	flush_workqueue(priv->wq);
-+
- 	/* clean up event worker threads */
- 	for (i = 0; i < priv->num_crtcs; i++) {
- 		if (priv->event_thread[i].worker)
-@@ -243,6 +250,8 @@ void msm_drm_kms_uninit(struct device *dev)
- 
- 	if (kms && kms->funcs)
- 		kms->funcs->destroy(kms);
-+
-+	destroy_workqueue(priv->wq);
+ #include "disp/msm_disp_snapshot.h"
+ #include "msm_drv.h"
+@@ -217,6 +218,15 @@ struct msm_gem_address_space *msm_kms_init_aspace(struct drm_device *dev)
+ 	return aspace;
  }
  
- int msm_drm_kms_init(struct device *dev, const struct drm_driver *drv)
-@@ -258,10 +267,14 @@ int msm_drm_kms_init(struct device *dev, const struct drm_driver *drv)
- 	if (ret)
- 		return ret;
- 
-+	priv->wq = alloc_ordered_workqueue("msm", 0);
-+	if (!priv->wq)
-+		return -ENOMEM;
++void msm_drm_kms_unregister(struct device *dev)
++{
++	struct platform_device *pdev = to_platform_device(dev);
++	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct drm_device *ddev = priv->dev;
 +
- 	ret = priv->kms_init(ddev);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev, "failed to load kms\n");
--		return ret;
-+		goto err_msm_uninit;
- 	}
- 
- 	/* Enable normalization of plane zpos */
-@@ -319,6 +332,7 @@ int msm_drm_kms_init(struct device *dev, const struct drm_driver *drv)
- 	return 0;
- 
- err_msm_uninit:
-+	destroy_workqueue(priv->wq);
- 	return ret;
++	drm_atomic_helper_shutdown(ddev);
++}
++
+ void msm_drm_kms_uninit(struct device *dev)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+@@ -373,3 +383,13 @@ void msm_kms_shutdown(struct platform_device *pdev)
+ 	if (drm && drm->registered && priv->kms)
+ 		drm_atomic_helper_shutdown(drm);
  }
++
++void msm_drm_kms_post_init(struct device *dev)
++{
++	struct platform_device *pdev = to_platform_device(dev);
++	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct drm_device *ddev = priv->dev;
++
++	drm_kms_helper_poll_init(ddev);
++	drm_client_setup(ddev, NULL);
++}
+diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+index 43b58d052ee6aae0ce34d09c88e1e1c34f9c52ef..057b20367724a4ca60f2d60c038077dbcc1c7abc 100644
+--- a/drivers/gpu/drm/msm/msm_kms.h
++++ b/drivers/gpu/drm/msm/msm_kms.h
+@@ -192,6 +192,8 @@ static inline void msm_kms_destroy(struct msm_kms *kms)
+ 		for_each_if (drm_crtc_mask(crtc) & (crtc_mask))
  
+ int msm_drm_kms_init(struct device *dev, const struct drm_driver *drv);
++void msm_drm_kms_post_init(struct device *dev);
++void msm_drm_kms_unregister(struct device *dev);
+ void msm_drm_kms_uninit(struct device *dev);
+ 
+ #endif /* __MSM_KMS_H__ */
 
 -- 
 2.39.5
