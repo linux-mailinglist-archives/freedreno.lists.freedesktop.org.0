@@ -2,124 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 381EEA87289
-	for <lists+freedreno@lfdr.de>; Sun, 13 Apr 2025 18:33:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DA7CA87C8B
+	for <lists+freedreno@lfdr.de>; Mon, 14 Apr 2025 11:57:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E492F10E3AE;
-	Sun, 13 Apr 2025 16:33:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 623DE10E50C;
+	Mon, 14 Apr 2025 09:57:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PiR5Iqnr";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ZHx+w8bl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B07610E3A5
- for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 16:33:15 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53DEvY5Y025826
- for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 16:33:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C71F510E50C;
+ Mon, 14 Apr 2025 09:57:08 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53E99qRt011398;
+ Mon, 14 Apr 2025 09:56:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- UuPtyiVA/6cDpd/3zUk6BEemR8NUNNneHIkaqSQq2J0=; b=PiR5IqnrLE8GkzVh
- leLIWJOVWAMj9xbBptdAgpAeoDjGe/RY/gbCXlakS6o6Q79/3nkz+MRJL8CJ8zGU
- K9h+RRJwGEYJmIahZkDiu1b8i6bDpfixCfxNrM6MMn/ceTNAGq5p5R63AuUcXsuM
- 4O0WKPOkTdnXO0lyzIj9zSvzhoH05iZtcYPEQJlkeJWh77X2EQ3pxuMr0yBhIXYK
- Cp9HtWDK/8GNHuhGUyriDbfStyyphUSJQZSJEJTCp2yne0tGVhTBQZyiuO/Bws02
- 5dWphJa3JZ5y9JNLUC1XzJL/xWMsrOJ+luUQ/0FPto7NFSIhgd5o/4WxLlmo+nj9
- StHs9Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45yhfct8qs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 16:33:14 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c5f3b94827so628417885a.0
- for <freedreno@lists.freedesktop.org>; Sun, 13 Apr 2025 09:33:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744561993; x=1745166793;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UuPtyiVA/6cDpd/3zUk6BEemR8NUNNneHIkaqSQq2J0=;
- b=qr7aZYNkR4EhripbJVe6QjA7A9nBPauvAZJGxIdxA8ChArqKdnv1JRWh831x26gR67
- 22/wW/SXh6pVeX2DW0ynLRD+velWziVmQxM7PU5/z2LDeujV1OPjdEmbC1M0t9K90iJm
- QXY2tBAolxjJdLQjSHchz++mC1cZ8GIFGq93BjT7HKh8nb02nzSBjUZO1NGyICFKkBpz
- tK1xeJU38PQtKYNY5xXTSv7pEorwlBI0VLRKEAwPkaKsMkXpm7erVMRaNZpnAeE0pCO1
- IrBVYM9ZNN8ikjdxgV+rks+Y3PWMNVxZ9dEpYOLdsleJDLo1n04aOQFDbW3pYsU6bPTS
- fQiw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV9u1fXLp6NziF9lScFX8muRF3o86XJuJXPYrDugjpHJuRrVmuSdLkrAaHw4pqi7hHGmtktnZyE8FY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwfANqMo+Xn5Qk1CSAcy6Q/HYvYM4uY23H+c3nq64Vu1gnXZ5mX
- bkKXhZ0gdYxW7Sy+gz1c7BE5q8+z3B3jNGZXTWEdnL0A2jeSPZPQ/tQyYZKJjjqc9JDBO80O6mY
- 1prgOlpeAhjfdvmQ27aKtPf68bg+wxq31ejyQ4821AEC5Cv4DIBNlmE86Xi+NkQvZxhA=
-X-Gm-Gg: ASbGnctGPDtH/2RMEdJVP4Ynafho+b08IwWxh5xPsT6Xiarm9fQRVygokkTaAXgo/fM
- fdRwWm5usehcaiXX5FaHVUs5shUQwjfIGQYg2ugNsr29thuju9F795wvE0e/kEutxIyOZ7lax6/
- Dtb0VagqanjNtH096us1kDcljJiGJJ4AUw+ss0wiUaBZdceBbBsOUi452opsbCmss5gDgOduBpF
- PoqOwOrdKe+GNwAuhMJVZHQiR/FXqOiNflKuFddu5HzUXK9pUtK42NRByR27JsGT8Lo6Pu+EuLo
- RVkDL03yWgIHkclABqcbyjQsmw42t6URANbi0ZUoG+6RbLfdP8rJzruVqBQVZUwwSCAYXF1Lu/o
- NjaT9n/ASgkYAygSzbcbNFjX1
-X-Received: by 2002:a05:620a:d95:b0:7c7:bb7d:f67e with SMTP id
- af79cd13be357-7c7bb7df6aemr452649585a.47.1744561993001; 
- Sun, 13 Apr 2025 09:33:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFNR98aAElfqPa6OLOXpEvJVnVaQhTH6M3IfGzuZCausW3DOq5IxfSdRHR7UVjslmBN9V5SZg==
-X-Received: by 2002:a05:620a:d95:b0:7c7:bb7d:f67e with SMTP id
- af79cd13be357-7c7bb7df6aemr452645385a.47.1744561992502; 
- Sun, 13 Apr 2025 09:33:12 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30f464e9812sm13345431fa.49.2025.04.13.09.33.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Apr 2025 09:33:11 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sun, 13 Apr 2025 19:33:01 +0300
-Subject: [PATCH 7/7] drm/msm: enable separate binding of GPU and display
- devices
+ 4VHC8WYpl+uLggBA75zLhVV+Fe7u1dbbrYvZ0DxrmwE=; b=ZHx+w8blJmgNpPdx
+ ZuI3JHLeJJ0EpXJT9Ql1p0pzljSctU6IqOmkcWjmvFvL0DaVexXTM/08XA6ySM5o
+ 6HG3jxqUIinw+R9LFxJfIsiQrc6OmW+heO8sB77+Eromy1i4v2bJAxWJW4Cj3HcN
+ ckbQYSU2r7BMkKd1v9pl7YtuUXV+rZyJOQ+qUCczugtsY0L7a2Jyut58Rn9W1iak
+ YOvRUtKSc2/iq+enK+jjyQ2ovoYtw+BRn+CV2q3pHfbEXVRnMjPWtyLHX5uAjr1J
+ clJV25yfr36AJRivRDT+/vO9tbJnVIsqHzlZ3R7bvHJGzJYP++Ji7hubdSa4xfWk
+ b4V8Iw==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45yg8wc2u6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Apr 2025 09:56:54 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53E9ur1R006022
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Apr 2025 09:56:53 GMT
+Received: from [10.204.66.137] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 14 Apr
+ 2025 02:56:46 -0700
+Message-ID: <bb277124-a225-450b-acfe-0acd0f94b263@quicinc.com>
+Date: Mon, 14 Apr 2025 15:26:43 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/10] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
+ to DP bridge nodes
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: <konradybcio@kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <robdclark@gmail.com>, <dmitry.baryshkov@linaro.org>,
+ <sean@poorly.run>, <marijn.suijten@somainline.org>,
+ <andersson@kernel.org>, <robh@kernel.org>, <robh+dt@kernel.org>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <andrzej.hajda@intel.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
+ <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <quic_abhinavk@quicinc.com>,
+ <quic_rajeevny@quicinc.com>, <quic_vproddut@quicinc.com>,
+ <quic_jesszhan@quicinc.com>
+References: <20250404115539.1151201-1-quic_amakhija@quicinc.com>
+ <20250404115539.1151201-8-quic_amakhija@quicinc.com>
+ <nxnqwh2mzvnxv5ytwjsyulxr6ct6mhv3z3v6q4ojrjhhclwv2i@55nb56hnwi3y>
+ <0f4eca6c-67df-4730-88b3-a277903deabc@quicinc.com>
+ <wzqct2y67h6bkazxv3se77slsheaw5rspgcrcfjm7ngr5t4alw@nktpqrt5woky>
+Content-Language: en-US
+From: Ayushi Makhija <quic_amakhija@quicinc.com>
+In-Reply-To: <wzqct2y67h6bkazxv3se77slsheaw5rspgcrcfjm7ngr5t4alw@nktpqrt5woky>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250413-msm-gpu-split-v1-7-1132f4b616c7@oss.qualcomm.com>
-References: <20250413-msm-gpu-split-v1-0-1132f4b616c7@oss.qualcomm.com>
-In-Reply-To: <20250413-msm-gpu-split-v1-0-1132f4b616c7@oss.qualcomm.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5275;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=UxZvo7l110r3KAnUQgRno9j/OlNY5H8wua2pwV5trbs=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn++c6xk595/qU6lqR7+MBkfXinWGfnTdtvf7QO
- 3tAT79FMAOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ/vnOgAKCRCLPIo+Aiko
- 1aq3B/4gWDn1BXiVN2x3dkE3F5IM9H0YEoSpl84TFh02x2sgfiV8VNcKO29VxJMloosHzJbbvP/
- WWoZozD7+u9t0wAiqHodnse1EjYNEWoBEikmgL8yL9GBw/YQtPNEvPQwWWC7HXx2LNanoz6AIiY
- YbgaYJd/SE/8zAoMUZHNpvnU+WwG/U70ervTpqTO60q6ak+P+KYwRO0BVR+tZUpYLlKQlpqYfBv
- bvyCueCeCPIO7vr500Jytr6lpeqkusGM2+1uk4rTn+eqEV0RtWPne4a/8ldct0y3dbT4YX+W6yi
- sAATZrCx4ZAPtf8WExh7bR26I08rfRjfUK3cxQ2xHPLPJS4F
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=CfUI5Krl c=1 sm=1 tr=0 ts=67fbe74a cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8 a=d3EbUlffPpwbv2rupc8A:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: HQUip62cyrJUjU30pZBLvNdG_5Xyh-8S
-X-Proofpoint-ORIG-GUID: HQUip62cyrJUjU30pZBLvNdG_5Xyh-8S
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=E9TNpbdl c=1 sm=1 tr=0 ts=67fcdbe7 cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=gEfo2CItAAAA:8
+ a=COk6AnOGAAAA:8 a=8v7svmj6aq3A3Q3kazgA:9
+ a=QEXdDO2ut3YA:10 a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: 8Z-j7vyNj4iUSOfE710VIG7ZGQwXoleI
+X-Proofpoint-GUID: 8Z-j7vyNj4iUSOfE710VIG7ZGQwXoleI
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-13_08,2025-04-10_01,2024-11-22_01
+ definitions=2025-04-14_03,2025-04-10_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- bulkscore=0 malwarescore=0 impostorscore=0 spamscore=0 phishscore=0
- lowpriorityscore=0 suspectscore=0 mlxlogscore=999 mlxscore=0 clxscore=1015
- adultscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504130127
+ malwarescore=0 adultscore=0
+ mlxscore=0 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ suspectscore=0 mlxlogscore=999 spamscore=0 priorityscore=1501
+ impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504140072
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,141 +110,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There are cases when we want to have separate DRM devices for GPU and
-display pipelines.
-One example is development, when it is beneficial to be able to bind the
-GPU driver separately, without the display pipeline (and without the
-hacks adding "amd,imageon" to the compatible string).
-Another example is some of Qualcomm platforms, which have two MDSS
-units, but only one GPU. With current approach it is next to impossible
-to support this usecase properly, while separate binding allows users to
-have three DRM devices: two for MDSS units and a single headless GPU.
+Hi Dmitry,
 
-Add kernel param msm.separate_gpu_drm, which if set to true forces
-creation of separate display and GPU DRM devices. Mesa supports this
-setup by using the kmsro wrapper.
+On 4/11/2025 1:31 AM, Dmitry Baryshkov wrote:
+> On Thu, Apr 10, 2025 at 06:37:54PM +0530, Ayushi Makhija wrote:
+>> Hi Dmirity/Konard
+>>
+>> On 4/7/2025 1:42 AM, Dmitry Baryshkov wrote:
+>>> On Fri, Apr 04, 2025 at 05:25:36PM +0530, Ayushi Makhija wrote:
+>>>> Add anx7625 DSI to DP bridge device nodes.
+>>>>
+>>>> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+>>>> ---
+>>>>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 208 ++++++++++++++++++++-
+>>>>  1 file changed, 207 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>>>> index 175f8b1e3b2d..8e784ccf4138 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>>>> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>>>> @@ -28,6 +28,13 @@ chosen {
+>>>>  		stdout-path = "serial0:115200n8";
+>>>>  	};
+>>>>  
+>>>> +	vph_pwr: vph-pwr-regulator {
+>>>> +		compatible = "regulator-fixed";
+>>>> +		regulator-name = "vph_pwr";
+>>>> +		regulator-always-on;
+>>>> +		regulator-boot-on;
+>>>> +	};
+>>>> +
+>>>>  	vreg_conn_1p8: vreg_conn_1p8 {
+>>>>  		compatible = "regulator-fixed";
+>>>>  		regulator-name = "vreg_conn_1p8";
+>>>> @@ -128,6 +135,30 @@ dp1_connector_in: endpoint {
+>>>>  			};
+>>>>  		};
+>>>>  	};
+>>>> +
+>>>> +	dp-dsi0-connector {
+>>>> +		compatible = "dp-connector";
+>>>> +		label = "DSI0";
+>>>> +		type = "full-size";
+>>>> +
+>>>> +		port {
+>>>> +			dp_dsi0_connector_in: endpoint {
+>>>> +				remote-endpoint = <&dsi2dp_bridge0_out>;
+>>>> +			};
+>>>> +		};
+>>>> +	};
+>>>> +
+>>>> +	dp-dsi1-connector {
+>>>> +		compatible = "dp-connector";
+>>>> +		label = "DSI1";
+>>>> +		type = "full-size";
+>>>> +
+>>>> +		port {
+>>>> +			dp_dsi1_connector_in: endpoint {
+>>>> +				remote-endpoint = <&dsi2dp_bridge1_out>;
+>>>> +			};
+>>>> +		};
+>>>> +	};
+>>>>  };
+>>>>  
+>>>>  &apps_rsc {
+>>>> @@ -517,9 +548,135 @@ &i2c11 {
+>>>>  
+>>>>  &i2c18 {
+>>>>  	clock-frequency = <400000>;
+>>>> -	pinctrl-0 = <&qup_i2c18_default>;
+>>>> +	pinctrl-0 = <&qup_i2c18_default>,
+>>>> +		    <&io_expander_intr_active>,
+>>>> +		    <&io_expander_reset_active>;
+>>>
+>>> These pinctrl entries should go to the IO expander itself.
+>>>
+>>>>  	pinctrl-names = "default";
+>>>> +
+>>>>  	status = "okay";
+>>>> +
+>>>> +	io_expander: gpio@74 {
+>>>> +		compatible = "ti,tca9539";
+>>>> +		reg = <0x74>;
+>>>> +		interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
+>>>> +		gpio-controller;
+>>>> +		#gpio-cells = <2>;
+>>>> +		interrupt-controller;
+>>>> +		#interrupt-cells = <2>;
+>>>> +
+>>>> +		gpio2-hog {
+>>>
+>>> This needs a huuge explanation in the commit message. Otherwise I'd say
+>>> these pins should likely be used by the corresponding anx bridges.
+>>
+>> Thanks, for the review.
+>>
+>> Previously, I was referring to the downstream DT and misunderstood the use of gpio-hog.
+>> After reading the schematic, I realized that gpio2, gpio3, gpio10, and gpio11 are all input pins
+>> to the IO expander TC9539. We have already configured gpio2 and gpio10 as interrupts in the
+>> ANX7625 bridges, so the gpio-hog is not required. It is working without the gpio-hog configuration.
+> 
+> Please make sure that there are pinctrl entries for all pins.
+> 
 
-The param is disabled by default, in order to be able to test userspace
-for the compatibility issues. Simple clients are able to handle this
-setup automatically.
+Thanks, for the review.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/adreno_device.c |  3 +-
- drivers/gpu/drm/msm/msm_drv.c              | 49 +++++++++++++++++++++++++++---
- drivers/gpu/drm/msm/msm_drv.h              |  2 ++
- 3 files changed, 49 insertions(+), 5 deletions(-)
+While declaring the pinctrl entries inside the io_expander node, I am getting below error while checking the DTBS check against DT-binding.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 325cb710ea08ac8e5c3d9c80c8d8e18e1946e994..2322a3301a5226c4e2590344e4744934addeea33 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -243,7 +243,8 @@ static const struct component_ops a3xx_ops = {
- 
- static int adreno_probe(struct platform_device *pdev)
- {
--	if (of_device_is_compatible(pdev->dev.of_node, "amd,imageon"))
-+	if (of_device_is_compatible(pdev->dev.of_node, "amd,imageon") ||
-+	    msm_gpu_no_components())
- 		return msm_gpu_probe(pdev, &a3xx_ops);
- 
- 	return component_add(&pdev->dev, &a3xx_ops);
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index e5c1124d45fa146c91caaad39a39fb9d21e5f5f3..4502425d0a62e1efaca5b987fa5b657dc0a4e927 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -59,9 +59,18 @@ static bool modeset = true;
- MODULE_PARM_DESC(modeset, "Use kernel modesetting [KMS] (1=on (default), 0=disable)");
- module_param(modeset, bool, 0600);
- 
-+static bool separate_gpu_drm;
-+MODULE_PARM_DESC(separate_gpu_drm, "Use separate DRM device for the GPU (0=single DRM device for both GPU and display (default), 1=two DRM devices)");
-+module_param(separate_gpu_drm, bool, 0400);
-+
- DECLARE_FAULT_ATTR(fail_gem_alloc);
- DECLARE_FAULT_ATTR(fail_gem_iova);
- 
-+bool msm_gpu_no_components(void)
-+{
-+	return separate_gpu_drm;
-+}
-+
- static int msm_drm_uninit(struct device *dev, const struct component_ops *gpu_ops)
- {
- 	struct platform_device *pdev = to_platform_device(dev);
-@@ -898,6 +907,32 @@ static const struct drm_driver msm_driver = {
- 	.patchlevel         = MSM_VERSION_PATCHLEVEL,
- };
- 
-+static const struct drm_driver msm_kms_driver = {
-+	.driver_features    = DRIVER_GEM |
-+				DRIVER_ATOMIC |
-+				DRIVER_MODESET |
-+				DRIVER_SYNCOBJ_TIMELINE |
-+				DRIVER_SYNCOBJ,
-+	.open               = msm_open,
-+	.postclose          = msm_postclose,
-+	.dumb_create        = msm_gem_dumb_create,
-+	.dumb_map_offset    = msm_gem_dumb_map_offset,
-+	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
-+#ifdef CONFIG_DEBUG_FS
-+	.debugfs_init       = msm_debugfs_init,
-+#endif
-+	MSM_FBDEV_DRIVER_OPS,
-+	.show_fdinfo        = msm_show_fdinfo,
-+	.ioctls             = msm_ioctls,
-+	.num_ioctls         = ARRAY_SIZE(msm_ioctls),
-+	.fops               = &fops,
-+	.name               = "msm-kms",
-+	.desc               = "MSM Snapdragon DRM",
-+	.major              = MSM_VERSION_MAJOR,
-+	.minor              = MSM_VERSION_MINOR,
-+	.patchlevel         = MSM_VERSION_PATCHLEVEL,
-+};
-+
- static const struct drm_driver msm_gpu_driver = {
- 	.driver_features    = DRIVER_GEM |
- 				DRIVER_RENDER |
-@@ -1044,7 +1079,11 @@ static int add_gpu_components(struct device *dev,
- 
- static int msm_drm_bind(struct device *dev)
- {
--	return msm_drm_init(dev, &msm_driver, NULL);
-+	return msm_drm_init(dev,
-+			    msm_gpu_no_components() ?
-+				    &msm_kms_driver :
-+				    &msm_driver,
-+			    NULL);
- }
- 
- static void msm_drm_unbind(struct device *dev)
-@@ -1080,9 +1119,11 @@ int msm_drv_probe(struct device *master_dev,
- 			return ret;
- 	}
- 
--	ret = add_gpu_components(master_dev, &match);
--	if (ret)
--		return ret;
-+	if (!msm_gpu_no_components()) {
-+		ret = add_gpu_components(master_dev, &match);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	/* on all devices that I am aware of, iommu's which can map
- 	 * any address the cpu can see are used:
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 78c4f0ca689cc93b8dba3fae061a92923e3115a5..73dd90cf4f17ae1b9e29d4309eed74393a99d6db 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -569,4 +569,6 @@ void msm_kms_shutdown(struct platform_device *pdev);
- 
- bool msm_disp_drv_should_bind(struct device *dev, bool dpu_driver);
- 
-+bool msm_gpu_no_components(void);
-+
- #endif /* __MSM_DRV_H__ */
+Error : /local/mnt/workspace/amakhija/linux_next_11042025/linux/arch/arm64/boot/dts/qcom/sa8775p-ride.dtb: gpio@74: 'dsi0-int-pin-state', 'dsi1-int-pin-state' do not match any of the regexes:
+        '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$', 'pinctrl-[0-9]+' from schema $id: http://devicetree.org/schemas/gpio/gpio-pca95xx.yaml#
 
--- 
-2.39.5
+        io_expander: gpio@74 {
+                compatible = "ti,tca9539";
+                reg = <0x74>;
+                interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
+                gpio-controller;
+                #gpio-cells = <2>;
+                interrupt-controller;
+                #interrupt-cells = <2>;
 
+                pinctrl-0 = <&io_expander_intr_active>,
+                            <&io_expander_reset_active>;
+                pinctrl-names = "default";
+
+                dsi0_int_pin: dsi0-int-pin-state {
+                        pins = "gpio2";
+                        input-enable;
+                        bias-disable;
+                };
+
+                dsi1_int_pin: dsi1-int-pin-state {
+                        pins = "gpio10";
+                        input-enable;
+                        bias-disable;
+                };
+
+        };
+
+I couldn't find any devicetree example of tca9539 which is using pinctrl. The gpio-pca95xx.yaml DT binding does not match with any regex of the patterns properties.
+
+Thanks,
+Ayushi
