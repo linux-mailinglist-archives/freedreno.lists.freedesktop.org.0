@@ -2,81 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 127F4A88D30
-	for <lists+freedreno@lfdr.de>; Mon, 14 Apr 2025 22:35:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4326CA88D47
+	for <lists+freedreno@lfdr.de>; Mon, 14 Apr 2025 22:45:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 142EA10E28B;
-	Mon, 14 Apr 2025 20:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2DE110E28B;
+	Mon, 14 Apr 2025 20:45:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ikVxrvTU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KBxCIJWE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1FF110E28B
- for <freedreno@lists.freedesktop.org>; Mon, 14 Apr 2025 20:35:51 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53EJ7kBL016520
- for <freedreno@lists.freedesktop.org>; Mon, 14 Apr 2025 20:35:50 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65D1210E298
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Apr 2025 20:45:08 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53EKeYqZ011857
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Apr 2025 20:45:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- TcfeZVOyedKWdzur922HOzg3A7r2ZIv8dN0aYlvohuY=; b=ikVxrvTU13ys9n6N
- jaLLgH1FaPL+nIYUpFJPW7Q409nPG1nghVHIT6Cx2I1bRUnGTqQYaYpcknUVlAZW
- Qd515P9l5wS0CXUIXBha6uLcHrCyNbrn1gg+cn8BqUsMIPb2arDJOAuU/ED9u1Co
- ornb1tJSAxhEU4uRJZ3pHG2Ct4p/LS22YDGHOu1dsBCUam9Znu1hp3Fg6EJ+T4JT
- S4P5Ph/luMP/LjxzNt27frSZMeHtEOMRCC61liIXC+rmIW3wYIjF3n4+/6s5nYHz
- KE2ouncoT/DaqRlTIPQJu3RNpP9ykc51eXyvXr72x9Fr/aFf4Qf/bwrLUgihG2Wq
- jRfY0A==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45yf69ntdb-1
+ 8GpvC2xMf26mIWpkQqHlnNwAhWALEdfs8GLwqb4OfI8=; b=KBxCIJWEzDpTzj4J
+ XjyWl8fUJsYhEsbotApe19vWNG1m0Yvs7M1ROZt8nJk3KhDcHY42mF/oxvQ1UPZ9
+ YqAZf1nQ3GWl0r26lWtz8/zsBZqO7tSbFiRyV5KHmpdZOXJGzNkGfypP4TA2Hehy
+ dND01cfjyEO5NGuwOieSKvNsS1KpqPE/ZuBpZiRTXKquifUmwGsMUheDJ8wyc8g0
+ 4g9BEWhO4vSGavr7e/V24EUFWGPKyJSGiclYyx1iUY4aIfC0MNUnRjEHm70jFM8L
+ EjpHugjS/PPy3aPlKeHuaEW+RLdkCOVYAOvZ+y5KTAMCOwgQ5HFjYQwNJjIKwn2m
+ qzQqFw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45yhfcwnmn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 14 Apr 2025 20:35:50 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6ece59c3108so10507316d6.2
- for <freedreno@lists.freedesktop.org>; Mon, 14 Apr 2025 13:35:50 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Apr 2025 20:45:07 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7c547ab8273so53787585a.3
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Apr 2025 13:45:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744662940; x=1745267740;
+ d=1e100.net; s=20230601; t=1744663506; x=1745268306;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TcfeZVOyedKWdzur922HOzg3A7r2ZIv8dN0aYlvohuY=;
- b=gTUGWtS4OjOx1y+Nx4RQI797Ry0V1LR9RWxY/pw3RU5fKbckGXnK40St1xkELBR5Ip
- xSVn05my8MkxuMzGRMEdB5UNDJUMa9/we/6V20dlQJr5DFUjgmx794hQ0uGsxwkqWwhu
- 6tr7mUQGoO14o6YHsxMMiRYN5UbRzs4dKMFavaIyDc80uBDICdwKMALzPFUBVHf5VPbY
- XbwbN9cxLkgxBTMdrrpxgtsPcFg9+j6PDT1R+livrSSbZ/b/Ar4h4Cn3+tMRKlkx1n1B
- hv0nLcTHHJn1O2ap+zeSbtdICBFGePJcXwMJApYJjKNdC/wC3KFQyfVQQ5zUguPvz7FT
- CzDw==
+ bh=8GpvC2xMf26mIWpkQqHlnNwAhWALEdfs8GLwqb4OfI8=;
+ b=Nmp3QQcwnE5KajHPwMeDUZbvI3jdwDQ6FxFBgL+XOIusSdlxuxitQFarUiqcvnhxUi
+ 01GsAAhiYHBus8qSWehpejUf/V+GogBJCyq8vOVwhz1tzkWbTBp+Mc5Gd56HvmdhrbFJ
+ 5cPcoezdiAyBvGwF6M620QKxIQFa5pTeURS/ypX/VjfSBA2oVjTql7W7SuH+iVg3dpv0
+ 8Lv4aJ2kOLbB4bV2uu4CHA7zZMAKBlTUv2Ae0qKtppq3YukKkpGAXyiZKzAHG8dO+wNU
+ o8+KL9u9ZRk/J1syEhsyySVuoEXLh6Nyr1jmFpSxSkTesjZVmPW6C2JTMw6N6nqXOeaT
+ ZMqQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpChJ4ulhNZdgklLjSPkhVu57EJiSsD6XRa2sT2LFZqlME0nXgNyifvgWcVEGUIVjbHrWELsA2Y10=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxIhDpTnnemLlhJPGbYf163ubyKwVOwLu/Gnz963t4MLPpvE5hR
- jmGLPpH5kucfk/cSnEdcGFN7S6tfCvVKN0FJeH2ddXnB5kEK7rTyx5fNIBi/LQgmdlKhrEJorF/
- /h77Nq1/iDAq91it73Fobth4uuhv0gMG3pOhGiNJsDGp8/5noFDf2BgpXuB4msiZzcFg=
-X-Gm-Gg: ASbGncuSGbp52KOZqstsyBj46NOGginYyzdmsJvQ64yBQmVRNPSvP2M11Tcdp6V6d0Q
- nI+d8CsVnQgFhKFrGiT9I4pV8n7jrfCKxP73YCQpl0vzXFIJI8gvKtcS59UIiypDNJHmPVC8rSz
- 38pyoB4mbkfzFC8FVO46O8dp+uTJwYORejG5xsBN5G35oeWypAcnJI9w8fhFdatJOFKXnWE4xOs
- reexactKE23OAHd4wAzcv3dK3zKOZRKkMbHLgcyli7AYxChO0CUOuTYEznhs3vzn97TiOCaMYvU
- pNuj/SGfnr/9MYS53SjUSRDMMBQdx9l8N+Q4igICHtQ3b8ij4flqnIluQONDpEgOEA==
-X-Received: by 2002:a05:620a:4405:b0:7c3:c406:ec10 with SMTP id
- af79cd13be357-7c7af1d0611mr694927485a.14.1744662940224; 
- Mon, 14 Apr 2025 13:35:40 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IES94yre95taymhy/asOVTUHtSDJQP8JMi6CuPlrYL55wGW9j9JqYzSQvw7vL4wpMWwbjEpGw==
-X-Received: by 2002:a05:620a:4405:b0:7c3:c406:ec10 with SMTP id
- af79cd13be357-7c7af1d0611mr694923685a.14.1744662939794; 
- Mon, 14 Apr 2025 13:35:39 -0700 (PDT)
+ AJvYcCXq/ph/hJpxAB+OimKs9yZsB29wApxcp4Ic7wIxu4+WqDJSxx9ZaF0G3Ue1I3ZQtQDJ6I9oj6udQik=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyyMlOwxoVR5Cp0GRGZV0DPw0ZQ7gtRjzkHmKevn2tYjLmr0dxT
+ wiQVuMgozYKsVuMcjwU6FyZdEcu0z3i8z3Sk2IjZ4B/v6fCFs7fGzBfHxLRbHpfUtiIXqIx598M
+ uVIr8nolBlDu6gUpA6AIvmukAMctX+jPCOLqM2W6ABZXeQEKoy2nmjCgc0hdMiJ5G3Cs=
+X-Gm-Gg: ASbGncssQ6uk3WYgRlRHhWKCFWixgA0A5nnpz1g7uD85qDtoi/o1VexdVI8Ja537n0y
+ WmzGIQYIXGrFjmq/BfXvjgPHopcwCr05fkJJrtvmbfyz7uFhlNDZW7A3SQ2cT9wBQFg+C9hPuEF
+ nnfKVz3+ENfQkQBivGjZJvuwhisgDQHdgrbDby1B5MF8NfHgPlXk9TxdLJQFwcBGt0tBoH1IAHu
+ pYHqUAo7P7XT0L+r5Cx50btFcdgfIqGBA8RVAGDUIxVAcTW8Zk5GLvF6nOcEk06Vuwa50J3tF2q
+ FfX/eL8bIuIPbaporB06IEYtU7TC7zBHLJZT281ceqE2tbHrZNUC6w6DcJCcgn83iA==
+X-Received: by 2002:a05:620a:c4e:b0:7c0:bb63:5375 with SMTP id
+ af79cd13be357-7c7af0d639amr601361685a.4.1744663505690; 
+ Mon, 14 Apr 2025 13:45:05 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHLBb2WpVtzoAT+y2FmV5MGo40yUFAbGagDmJALFL0LsA+GecCl49y7VoJexczSZFb7o/nmpw==
+X-Received: by 2002:a05:620a:c4e:b0:7c0:bb63:5375 with SMTP id
+ af79cd13be357-7c7af0d639amr601360185a.4.1744663505264; 
+ Mon, 14 Apr 2025 13:45:05 -0700 (PDT)
 Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acaa1ccc195sm993479766b.143.2025.04.14.13.35.35
+ a640c23a62f3a-acaa1ce7fdcsm982525066b.176.2025.04.14.13.45.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Apr 2025 13:35:39 -0700 (PDT)
-Message-ID: <9c21f321-1aec-4b36-9e3b-026ea9a810fd@oss.qualcomm.com>
-Date: Mon, 14 Apr 2025 22:35:34 +0200
+ Mon, 14 Apr 2025 13:45:04 -0700 (PDT)
+Message-ID: <c1672544-eb0f-474d-a975-2a4f6b29d549@oss.qualcomm.com>
+Date: Mon, 14 Apr 2025 22:45:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/6] clk: qcom: gcc: Add support for Global Clock
- controller found on MSM8937
+Subject: Re: [PATCH v4 6/6] arm64: dts: qcom: Add Xiaomi Redmi 3S
 To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
@@ -102,31 +101,32 @@ Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
  linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- linux@mainlining.org, Daniil Titov <daniilt971@gmail.com>
+ linux@mainlining.org
 References: <20250315-msm8937-v4-0-1f132e870a49@mainlining.org>
- <20250315-msm8937-v4-2-1f132e870a49@mainlining.org>
+ <20250315-msm8937-v4-6-1f132e870a49@mainlining.org>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250315-msm8937-v4-2-1f132e870a49@mainlining.org>
+In-Reply-To: <20250315-msm8937-v4-6-1f132e870a49@mainlining.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 0Bn45Qy-bukKs0ESFFlpNs3O2DDs7up5
-X-Authority-Analysis: v=2.4 cv=JNc7s9Kb c=1 sm=1 tr=0 ts=67fd71a6 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=pGLkceISAAAA:8 a=OuZLqq7tAAAA:8
- a=XF3jJdBvCvMoejL92xsA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-ORIG-GUID: 0Bn45Qy-bukKs0ESFFlpNs3O2DDs7up5
+X-Authority-Analysis: v=2.4 cv=CfUI5Krl c=1 sm=1 tr=0 ts=67fd73d3 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8
+ a=OuZLqq7tAAAA:8 a=JKK38O5rW3uoAxCGYa0A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+ a=cvBusfyB2V15izCimMoJ:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-GUID: xlsOyZrPlM_gfpRRWAWsqCX8-m9vnNty
+X-Proofpoint-ORIG-GUID: xlsOyZrPlM_gfpRRWAWsqCX8-m9vnNty
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-14_07,2025-04-10_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0
- suspectscore=0 mlxlogscore=999 lowpriorityscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 phishscore=0 adultscore=0 priorityscore=1501
- spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ priorityscore=1501
+ bulkscore=0 malwarescore=0 impostorscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 suspectscore=0 mlxlogscore=859 mlxscore=0 clxscore=1015
+ adultscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
  adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504140150
+ definitions=main-2504140151
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,27 +143,37 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 3/15/25 3:57 PM, Barnabás Czémán wrote:
-> From: Daniil Titov <daniilt971@gmail.com>
+> Add initial support for Xiaomi Redmi 3S (land).
 > 
-> Modify existing MSM8917 driver to support MSM8937 SoC. Override frequencies
-> which are different in this chip. Register all the clocks to the framework
-> for the clients to be able to request for them. Add new variant of GDSC for
-> new chip.
-> 
-> Signed-off-by: Daniil Titov <daniilt971@gmail.com>
 > Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
 > ---
 
 [...]
 
-> +static void msm8937_clock_override(void)
-> +{
-> +	/* GPLL3 750MHz configuration */
+> +	headphones_switch: audio-switch {
+> +		compatible = "simple-audio-amplifier";
+> +		enable-gpios = <&tlmm 129 GPIO_ACTIVE_HIGH>;
+> +		sound-name-prefix = "Headphones Switch";
+> +		pinctrl-0 = <&headphones_switch_default>;
+> +		pinctrl-names = "default";
+> +	};
 
-So this is a variable rate PLL, I'm not sure how it plays out
-with your frequency table - it looks a little different to the
-3.18 version
+We've had a similar change lately
 
-The patch looks good otherwise
+https://lore.kernel.org/linux-arm-msm/20250327100633.11530-1-srinivas.kandagatla@linaro.org/
+
+I think this could be some sort of a drivers/mux/...
+
+[...]
+
+> +&pm8937_resin {
+> +	linux,code = <KEY_VOLUMEDOWN>;
+> +	status = "okay";
+> +};
+
+Please also unify the style such that there's a newline before status
+
+Looks good otherwise
 
 Konrad
+
