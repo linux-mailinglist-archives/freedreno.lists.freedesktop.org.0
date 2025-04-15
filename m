@@ -2,126 +2,140 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F8A0A897FF
-	for <lists+freedreno@lfdr.de>; Tue, 15 Apr 2025 11:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A39BDA8981E
+	for <lists+freedreno@lfdr.de>; Tue, 15 Apr 2025 11:39:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC90B10E6A8;
-	Tue, 15 Apr 2025 09:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3112210E6B0;
+	Tue, 15 Apr 2025 09:39:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zha2cXVs";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SmW0bNr4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3534B10E6A8
- for <freedreno@lists.freedesktop.org>; Tue, 15 Apr 2025 09:30:22 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53F8tIPN031780
- for <freedreno@lists.freedesktop.org>; Tue, 15 Apr 2025 09:30:20 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9053010E6AF
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Apr 2025 09:39:39 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53F8tIHT024904
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Apr 2025 09:39:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- e7rEIe9nkXGFJWd3ji5OvlykGCyqATfbb/4yOX6WSIs=; b=Zha2cXVsLk6EOw+1
- pWzvoQ5TlIRWzAfdm5c1M+TesYRoan9tapyeBb++xJb15uyaWa2HsEtvtIxW4ZKn
- G9KkGoAQIvCzM9dK8j6u5Q06/RriFiGlhkQ/ZFJz+Uc+7Jb34YlU4UdR6urUNFSg
- GT/0Sg1l8rZumkUuZYfpzQarn+GZ5H0VJ7CBOP4zur6PuGSCOEkOnEwd4J15F5SQ
- O8F26k81NDwhYKFo65hgqlOsoaINGhLXmWYiD3bmAbJemY5QU9U62/dH4Q1FjvSa
- y2qxQR+35Sy9pYNPOtl7hsFOI9cV0Tb2j3jd7X4gZVzYXG4PFCYRCkKK4P1/K8Db
- KwHlSg==
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=V8/InWf/oEp6mC1XkXIEKa
+ Vat3glgwm35TmdtOEWZG8=; b=SmW0bNr4aipfz2iUbnS7akLkYvwi4n+q1kzQAb
+ Z4ggY3zeY1GRWHOrwGJC8yFh6czu3l44zUUQemIy6uXNASeFAF7FVVQ7R+2fYlcT
+ uO8GwSWvIZK7+LwGAQFQTYKho3vYoZ7NHR+Ie1dJmgoxW4eUPgdpGNNHiYn2jz+X
+ ZXYr6VVYdt3NnrAkM1lI6K1TsW8O5eY0U1Rft223nDcub1knNIpstQ3Y/8i6KYNK
+ dbcTpGUfFTKEH/zZc494PeLaCvuvoc+7OKO1BkGPg7v/zvoysCHFuAchmBbsI38/
+ z7wFdygB+q+S7ZQVl38xYUxecpm7OcCCrPwnqMtqvzqRD+BQ==
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
  [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45yfs17h0g-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45yf69qjqa-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 15 Apr 2025 09:30:20 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Apr 2025 09:39:38 +0000 (GMT)
 Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7c579d37eeeso818964185a.0
- for <freedreno@lists.freedesktop.org>; Tue, 15 Apr 2025 02:30:20 -0700 (PDT)
+ af79cd13be357-7c5bb68b386so1522358285a.3
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Apr 2025 02:39:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744709420; x=1745314220;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=e7rEIe9nkXGFJWd3ji5OvlykGCyqATfbb/4yOX6WSIs=;
- b=nSVJADY9v+pLz4ptZCigvNickQVfZNf9Au8ipX8hdi1xLcmY0pO9JHMLH9Hjyq3PFJ
- BOf6eptD2E25tR3W7jybRB1101e5rRFD4RvTIdy1JvBpdfbjocZAmzXmbsFO108kMorD
- ePDk9HRoFCDkKwERhINavQDIe3Fk4iy3xi/TgXLFebWC6QhHUN/Vfq/ZzEmJGDgnCALp
- y+EoQp1vqqPFE26FFjJjxNx4jtXKbED9REQ+QJCvTpLrK7dtDopkBD7wpqWQT0dxAslP
- pRenv4x7Oe82flfk2gaTLdEkBkm0YbP8P2vatWa/kcwz9gppu+tz5g5umqbYY0UDWjDQ
- JArg==
+ d=1e100.net; s=20230601; t=1744709978; x=1745314778;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=V8/InWf/oEp6mC1XkXIEKaVat3glgwm35TmdtOEWZG8=;
+ b=sVQipKnqEyqjJqvNL/nmsFS3a5dovLQqFMmHPDIg6Vz4axxy+ul7fDqlK61o2+8Brb
+ LdYU8kIi4xp3S7Z/kHBmTzUuHKlJgmYoNXqTrxPR9jjvGUnyzHr1smcYNiN3g/qRXgMX
+ WTFdWgzCSMFQVs/Z/2bIJbNuvWWM68FNUIsnoYkFP1ri3LQhfAY9vxx3hsJ4oeziezwU
+ BOx+whEmbrX6mLRRYRaQ3+StE4+zxvCXbhYJgxfAnOqENlHx6ViyVkRXiGmfDtV+ulUJ
+ 6GF/x5PX3Emq8G0L3kJONVj1hyWzXeJj+yGF4L4KiNlwgNk6nL2tPupPJk9LdiAp16AD
+ /CGw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXmZLW3TNb8ovPoQyXeHbSVK7P3d0l0O0gUHaxe+eOQdQvQD590gLj2cHpY0smV6e6p7mVqNoebO3c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwdH0T1u3pNFwFKQDjCRcqPgP14/fsqPRqTuVtLRdih+1hWDVFy
- 97Oj6wrLQ35cP+5E5CSHigyJ5gi6YyNsfR6FoCMECBX8TKPbRqhJw48neU++x6M6qNMtBrStULj
- QVJC5ncoobXJ8Ati6gXnD4K5cplJ4+skYr+zbsyy1EabNW4Mwiz3SL7woKL9hw1UU+8U=
-X-Gm-Gg: ASbGncvh0Q2/cMuXnCX+iH/T7AvcWlMevPCeIDtvtcC7T7WpGEJJ2xtLRYN4sbXW1rY
- 6Z9XqACaAuboDa9GQjCDeaY52PyLabm558PwnFvEkbQvwHeKEKYfRbLXih9RRYrn+7n5gZD+NAX
- ul6wSbFSn3/99PuHL729aAJ/akpNIQjEyH4N3XA/uwlljkKVvXv9GHW6RhOOywqYMQM/eHAIuvt
- V59RKYB807xfdFCI9oocaPq2DPDKfxbBBSHXq0+U0ngO1f92ITwTr2GZKrYsLj9WEr2ov5k7QGl
- SJzbdPaCnwFWs8UvTJg1sQ+P+sZFmIs1hYFCap599tFd9ZzOT5d2qh1HO7MxbzVQUENPfI9qUa7
- DICiRD/jgQbqE3FQCy8GGPmrmvYLBxuug2A1Hza5PlC8cXO407k9pCOMxSOlt
-X-Received: by 2002:a05:620a:3182:b0:7c5:dfe5:ea78 with SMTP id
- af79cd13be357-7c7af118cb9mr2148271385a.8.1744709419549; 
- Tue, 15 Apr 2025 02:30:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHD7KeYwZL5LASnn/RIXjWS4yY4pIenuEWMyr8YbWxKLXL0KqveiG1Fu/gAksh1TLOPVMlFyg==
-X-Received: by 2002:a05:620a:3182:b0:7c5:dfe5:ea78 with SMTP id
- af79cd13be357-7c7af118cb9mr2148265485a.8.1744709419051; 
- Tue, 15 Apr 2025 02:30:19 -0700 (PDT)
-Received: from ?IPV6:2001:14bb:aa:77bc:64e0:30e4:f6ff:5bd?
- (2001-14bb-aa-77bc-64e0-30e4-f6ff-5bd.rev.dnainternet.fi.
- [2001:14bb:aa:77bc:64e0:30e4:f6ff:5bd])
+ AJvYcCWA2lbxEAM4Ts+c6PXGKp0OD6EG544nbG9TtIWHPSTp9zv3+GWK6z8p9c8/3GJG7eEt3iSWm3Ul3Nw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7YBraRFGPl2yOpBix2lmE5K6jwo+/2+2iAxFomo/DlrXNSCHO
+ z9P/6VXxDwvHlPIxsiojJ0uoZPR6B6gP3jDN1Q/a4UWxHw3VYTYHTUAtHy/iJ+DU/tcArahEEiS
+ BwWc81yVo809NI0Q6KiZWVabbP4v7HV3kt+3Mrk/hkUQXSW5gIiqaiwMBnO6x13GQJv8=
+X-Gm-Gg: ASbGncsrsICQxyBDp2/nyctuPRdRqGMtdwAAAb5LipywaVMMy4g3ElaCMjJFYeNDkwB
+ 9lW/eD2j1HcVWMOEgfUiIJMyiwrorgdgzxrbBOlXEo+d90nWn8EwBHzIo7RY8wseVWe5fj5OImf
+ raNOGgpFuUQr+Z4i34EM89S97q6Pxqphgp5h5/NrSmJKjPEnC8xeAssbXCCF9MhKzqsy2d9Dt1N
+ hh7fbv+V+tI2Z1CLtibfZMvjwn+4wWxFmPRVVG2fjf03jZ7RmvjV3TLr08IVT6/erG5c8QRj6Al
+ H2fclA8uO2s6qMs5y2DkKjSASerojTVRXffaoC0eyxVNA/wSdydpHzAa5HpYvlL/wn1WaZlPNTh
+ ssJwjZEJQEsJbqlm9tPsZDL3A
+X-Received: by 2002:a05:620a:2941:b0:7c5:57b2:2cb7 with SMTP id
+ af79cd13be357-7c7af13effdmr2310020285a.56.1744709977778; 
+ Tue, 15 Apr 2025 02:39:37 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG4rACzgVsYI3BzPQGoMw4ZxLMn+GpdVuPdRl/4ZF9EcAu0Pa9lLDPfkwsny6yqR1/CgDYg7g==
+X-Received: by 2002:a05:620a:2941:b0:7c5:57b2:2cb7 with SMTP id
+ af79cd13be357-7c7af13effdmr2310016085a.56.1744709977374; 
+ Tue, 15 Apr 2025 02:39:37 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30f464cc096sm20862631fa.29.2025.04.15.02.30.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Apr 2025 02:30:18 -0700 (PDT)
-Message-ID: <ebfbc145-eb8f-4354-b6b6-ad7ecec5856b@oss.qualcomm.com>
-Date: Tue, 15 Apr 2025 12:30:16 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/10] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
- to DP bridge nodes
-To: Ayushi Makhija <quic_amakhija@quicinc.com>
-Cc: konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_jesszhan@quicinc.com
-References: <20250404115539.1151201-1-quic_amakhija@quicinc.com>
- <20250404115539.1151201-8-quic_amakhija@quicinc.com>
- <nxnqwh2mzvnxv5ytwjsyulxr6ct6mhv3z3v6q4ojrjhhclwv2i@55nb56hnwi3y>
- <0f4eca6c-67df-4730-88b3-a277903deabc@quicinc.com>
- <wzqct2y67h6bkazxv3se77slsheaw5rspgcrcfjm7ngr5t4alw@nktpqrt5woky>
- <bb277124-a225-450b-acfe-0acd0f94b263@quicinc.com>
- <7b876428-6f54-4c40-a234-57443eb97ecb@oss.qualcomm.com>
- <a2b44f41-bb54-4d88-bba0-f5b86b8186b5@quicinc.com>
-Content-Language: en-US
+ 38308e7fff4ca-30f464cbc60sm20141901fa.24.2025.04.15.02.39.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Apr 2025 02:39:36 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <a2b44f41-bb54-4d88-bba0-f5b86b8186b5@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=P9I6hjAu c=1 sm=1 tr=0 ts=67fe272c cx=c_pps
+Subject: [PATCH v3 00/10] drm/msm: add support for SAR2130P
+Date: Tue, 15 Apr 2025 12:39:28 +0300
+Message-Id: <20250415-sar2130p-display-v3-0-62314b1c9023@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFAp/mcC/3WOQY7CMAxFr1J5TYqTtKOKFfcYsUhbByy1TYlDB
+ UK9+4SyYcFsLD3r+/k/QSgyCRyKJ0RaWDhMGeyugO7ipjMp7jODQVOjxUaJi0ZbnFXPMg/uoVr
+ 8Qe07T61FyGdzJM/3Tfl7enOk6y2b03sJrRNSXRhHTodionvaj04SRXjFLywpxMdWaNFb/v/fi
+ 1aodF91Fn1lG2OOA08uhjLE82ZbzIdBV18MJhus9q6q0bimxmMQKa83N7wKlnnAaV3XP7wHV6w
+ oAQAA
+X-Change-ID: 20250308-sar2130p-display-b0601fcfeb30
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>, Bjorn Andersson <andersson@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2735;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=8+FdRKBRcQNHe/n056K1ZGMprSxiSZfCl3rDyLla6E8=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn/ilVQblGdMJpbMs8bFSCq/qV9blClDIrPNXU6
+ 68xeWaH1FuJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ/4pVQAKCRCLPIo+Aiko
+ 1YZ2B/9ihoSC4zR3Eh0ZFAbhucp8PMMkr8PUnF6yxorCyMNhIOUeGw59NXQ2agjKOhmZKNGyVeq
+ 2PIodoZBADp4xLaOIJvTAl8kTIpiTzAGCM4NENMGP71c45NOsrqdS2LwYdLWb/D3ousXN2mvLTG
+ No5siL7covudh6eimBrUt1Z3meFpoIzAW8u626EL43LRw5PYxttaZDPvdfEtpm1Mhs68j3IdpWO
+ FwogpnPBKKUKAnj1pLbzXxNZN7vV+p7BKHSCDPWjZfuVByr+oxX9D68q/ePAJK2xNaSKDiQa6HH
+ LguDGt1yqk7R2lhJDP+UtaMyk2i6z0OAO/GNQ3NVXiZxgZav
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: tyh5mSXuDuXWEDawmlKsHGObOpSfT5Os
+X-Authority-Analysis: v=2.4 cv=JNc7s9Kb c=1 sm=1 tr=0 ts=67fe295a cx=c_pps
  a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=XR8D0OoHHMoA:10 a=gEfo2CItAAAA:8 a=COk6AnOGAAAA:8 a=yQgE6wdlrsv_WjiXGEMA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: 5NNIPhClcSh9AVZS6GHaaTIKVxWWIRLS
-X-Proofpoint-ORIG-GUID: 5NNIPhClcSh9AVZS6GHaaTIKVxWWIRLS
+ a=XR8D0OoHHMoA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=qnNoV65vq9fCYBTq3NIA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: tyh5mSXuDuXWEDawmlKsHGObOpSfT5Os
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-15_04,2025-04-10_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- clxscore=1015 bulkscore=0 impostorscore=0 phishscore=0 suspectscore=0
- mlxscore=0 spamscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504150065
+ mlxscore=0 malwarescore=0
+ suspectscore=0 mlxlogscore=931 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 phishscore=0 adultscore=0 priorityscore=1501
+ spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504150067
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,206 +151,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/04/2025 16:54, Ayushi Makhija wrote:
-> On 4/14/2025 3:37 PM, Dmitry Baryshkov wrote:
->> On 14/04/2025 12:56, Ayushi Makhija wrote:
->>> Hi Dmitry,
->>>
->>> On 4/11/2025 1:31 AM, Dmitry Baryshkov wrote:
->>>> On Thu, Apr 10, 2025 at 06:37:54PM +0530, Ayushi Makhija wrote:
->>>>> Hi Dmirity/Konard
->>>>>
->>>>> On 4/7/2025 1:42 AM, Dmitry Baryshkov wrote:
->>>>>> On Fri, Apr 04, 2025 at 05:25:36PM +0530, Ayushi Makhija wrote:
->>>>>>> Add anx7625 DSI to DP bridge device nodes.
->>>>>>>
->>>>>>> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
->>>>>>> ---
->>>>>>>    arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 208 ++++++++++++++++++++-
->>>>>>>    1 file changed, 207 insertions(+), 1 deletion(-)
->>>>>>>
->>>>>>> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>>>>>> index 175f8b1e3b2d..8e784ccf4138 100644
->>>>>>> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>>>>>> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>>>>>> @@ -28,6 +28,13 @@ chosen {
->>>>>>>            stdout-path = "serial0:115200n8";
->>>>>>>        };
->>>>>>>    +    vph_pwr: vph-pwr-regulator {
->>>>>>> +        compatible = "regulator-fixed";
->>>>>>> +        regulator-name = "vph_pwr";
->>>>>>> +        regulator-always-on;
->>>>>>> +        regulator-boot-on;
->>>>>>> +    };
->>>>>>> +
->>>>>>>        vreg_conn_1p8: vreg_conn_1p8 {
->>>>>>>            compatible = "regulator-fixed";
->>>>>>>            regulator-name = "vreg_conn_1p8";
->>>>>>> @@ -128,6 +135,30 @@ dp1_connector_in: endpoint {
->>>>>>>                };
->>>>>>>            };
->>>>>>>        };
->>>>>>> +
->>>>>>> +    dp-dsi0-connector {
->>>>>>> +        compatible = "dp-connector";
->>>>>>> +        label = "DSI0";
->>>>>>> +        type = "full-size";
->>>>>>> +
->>>>>>> +        port {
->>>>>>> +            dp_dsi0_connector_in: endpoint {
->>>>>>> +                remote-endpoint = <&dsi2dp_bridge0_out>;
->>>>>>> +            };
->>>>>>> +        };
->>>>>>> +    };
->>>>>>> +
->>>>>>> +    dp-dsi1-connector {
->>>>>>> +        compatible = "dp-connector";
->>>>>>> +        label = "DSI1";
->>>>>>> +        type = "full-size";
->>>>>>> +
->>>>>>> +        port {
->>>>>>> +            dp_dsi1_connector_in: endpoint {
->>>>>>> +                remote-endpoint = <&dsi2dp_bridge1_out>;
->>>>>>> +            };
->>>>>>> +        };
->>>>>>> +    };
->>>>>>>    };
->>>>>>>      &apps_rsc {
->>>>>>> @@ -517,9 +548,135 @@ &i2c11 {
->>>>>>>      &i2c18 {
->>>>>>>        clock-frequency = <400000>;
->>>>>>> -    pinctrl-0 = <&qup_i2c18_default>;
->>>>>>> +    pinctrl-0 = <&qup_i2c18_default>,
->>>>>>> +            <&io_expander_intr_active>,
->>>>>>> +            <&io_expander_reset_active>;
->>>>>>
->>>>>> These pinctrl entries should go to the IO expander itself.
->>>>>>
->>>>>>>        pinctrl-names = "default";
->>>>>>> +
->>>>>>>        status = "okay";
->>>>>>> +
->>>>>>> +    io_expander: gpio@74 {
->>>>>>> +        compatible = "ti,tca9539";
->>>>>>> +        reg = <0x74>;
->>>>>>> +        interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
->>>>>>> +        gpio-controller;
->>>>>>> +        #gpio-cells = <2>;
->>>>>>> +        interrupt-controller;
->>>>>>> +        #interrupt-cells = <2>;
->>>>>>> +
->>>>>>> +        gpio2-hog {
->>>>>>
->>>>>> This needs a huuge explanation in the commit message. Otherwise I'd say
->>>>>> these pins should likely be used by the corresponding anx bridges.
->>>>>
->>>>> Thanks, for the review.
->>>>>
->>>>> Previously, I was referring to the downstream DT and misunderstood the use of gpio-hog.
->>>>> After reading the schematic, I realized that gpio2, gpio3, gpio10, and gpio11 are all input pins
->>>>> to the IO expander TC9539. We have already configured gpio2 and gpio10 as interrupts in the
->>>>> ANX7625 bridges, so the gpio-hog is not required. It is working without the gpio-hog configuration.
->>>>
->>>> Please make sure that there are pinctrl entries for all pins.
->>>>
->>>
->>> Thanks, for the review.
->>>
->>> While declaring the pinctrl entries inside the io_expander node, I am getting below error while checking the DTBS check against DT-binding.
->>>
->>> Error : /local/mnt/workspace/amakhija/linux_next_11042025/linux/arch/arm64/boot/dts/qcom/sa8775p-ride.dtb: gpio@74: 'dsi0-int-pin-state', 'dsi1-int-pin-state' do not match any of the regexes:
->>>           '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$', 'pinctrl-[0-9]+' from schema $id: http://devicetree.org/schemas/gpio/gpio-pca95xx.yaml#
->>
->> TCA9539 is a GPIO controller rather than a pinctrl device, so it doesn't use pinctrl functions. You don't need to describe properties of the pins that it provides. However, it can use some pins on its own (like reset-gpios). In such a case corresponding pin should have a pinctrl configuration under its pinctrl device.
->>
-> 
-> Hi Dmitry,
-> 
-> Thanks, for the review.
-> 
->   ______________                  _____________________                       ___________________
-> |              |                |                     |                     |                   |
-> |       GPIO 98|---ioexp_intr-->|              GPIO 0 |------Reset--------->|RESET_N            |
-> |       GPIO 97|<--ioexp_reset--|              GPIO 1 |----power-enable---->|POWER_EN           |
-> |              |                |                     |                     |                   |
-> |    SOC       |                |  tca9539            |                     |    anx7625 bridge |
-> |  LeMans      |                |  io_expander        |                     |                   |
-> |              |                |              GPIO 2 |<----DSI0_INT_1P8_N--|ALERT_N/INTP       |
-> |______________|                |_____________________|                     |___________________|
-> 
-> 
-> Based on the above connection diagram, I have already configured the reset(gpio0), power-enable(gpio1) and interrupt (ALERT_N/INTP) (gpio2) for first instance of anx7625 bridge. Similarly I have configured the reset(gpio8), power-enable(gpio9) and interrupt (gpio10) for the second instance of the anx7625 bridge.
-> 
-> bridge@58 {
->               compatible = "analogix,anx7625";
->               reg = <0x58>;
->               interrupts-extended = <&io_expander 2 IRQ_TYPE_EDGE_FALLING>;
->               enable-gpios = <&io_expander 1 GPIO_ACTIVE_HIGH>;
->               reset-gpios = <&io_expander 0 GPIO_ACTIVE_HIGH>;
-> 
-> 
-> I think above configuration should be fine, we don't need any pinctrl for io expander's gpios going to anx7625 bridge.
-> 
-> Other two RESET (gpio97) and INTR (gpio98) gpios, which is connecting SOC to io expander (tca9539), I have already declared them under tlmm node.
-> 
-> io_expander_intr_active: io-expander-intr-active-state {
->          pins = "gpio98";
->          function = "gpio";
->          drive-strength = <2>;
->          bias-disable;
-> };
-> 
-> io_expander_reset_active: io-expander-reset-active-state {
->          pins = "gpio97";
->          function = "gpio";
->          drive-strength = <2>;
->          bias-disable;
->          output-high;
+Add support for the Mobile Display SubSystem (MDSS) device present on
+the Qualcomm SAR2130P platform. The MDSS device is similar to SM8550, it
+features two MIPI DSI controllers, two MIPI DSI PHYs and one DisplayPort
+controller.
 
-Yes, this this was I was looking for, thank you.
+Note, due to the technical limitations DP controller wasn't completely
+evaluated.
 
-> };
-> 
-> Thanks,
-> Ayushi
-> 
->>>
->>>           io_expander: gpio@74 {
->>>                   compatible = "ti,tca9539";
->>>                   reg = <0x74>;
->>>                   interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
->>>                   gpio-controller;
->>>                   #gpio-cells = <2>;
->>>                   interrupt-controller;
->>>                   #interrupt-cells = <2>;
->>>
->>>                   pinctrl-0 = <&io_expander_intr_active>,
->>>                               <&io_expander_reset_active>;
->>>                   pinctrl-names = "default";
->>>
->>>                   dsi0_int_pin: dsi0-int-pin-state {
->>>                           pins = "gpio2";
->>>                           input-enable;
->>>                           bias-disable;
->>>                   };
->>>
->>>                   dsi1_int_pin: dsi1-int-pin-state {
->>>                           pins = "gpio10";
->>>                           input-enable;
->>>                           bias-disable;
->>>                   };
->>>
->>>           };
->>>
->>> I couldn't find any devicetree example of tca9539 which is using pinctrl. The gpio-pca95xx.yaml DT binding does not match with any regex of the patterns properties.
->>>
->>> Thanks,
->>> Ayushi
->>
->>
-> 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Changes in v3:
+- Use defines for DSI PHY clock indices (Konrad)
+- Increas VBIF region size of 0x3000 (Konrad)
+- Link to v2: https://lore.kernel.org/r/20250314-sar2130p-display-v2-0-31fa4502a850@oss.qualcomm.com
 
+Changes in v2:
+- In MDSS schema switched from list items to contains: (Krzyztof)
+- In MDSS schema dropped extra empty lines (Krzysztof)
+- Fixed .ubwc_bank_spread in msm_mdss. (LKP)
+- Link to v1: https://lore.kernel.org/r/20250308-sar2130p-display-v1-0-1d4c30f43822@linaro.org
 
+---
+Dmitry Baryshkov (10):
+      dt-bindings: display/msm: dp-controller: describe SAR2130P
+      dt-bindings: display/msm: dsi-controller-main: describe SAR2130P
+      dt-bindings: display/msm: dsi-phy-7nm: describe SAR2130P
+      dt-bindings: display/msm: qcom,sc7280-dpu: describe SAR2130P
+      dt-bindings: display/msm: Add Qualcomm SAR2130P
+      drm/msm/mdss: add SAR2130P device configuration
+      drm/msm/dsi/phy: add configuration for SAR2130P
+      drm/msm/dpu: add catalog entry for SAR2130P
+      iommu/arm-smmu-qcom: Add SAR2130P MDSS compatible
+      arm64: dts: qcom: sar2130p: add display nodes
+
+ .../bindings/display/msm/dp-controller.yaml        |   1 +
+ .../bindings/display/msm/dsi-controller-main.yaml  |   2 +
+ .../bindings/display/msm/dsi-phy-7nm.yaml          |   1 +
+ .../bindings/display/msm/qcom,sar2130p-mdss.yaml   | 439 +++++++++++++++++++++
+ .../bindings/display/msm/qcom,sc7280-dpu.yaml      |   1 +
+ arch/arm64/boot/dts/qcom/sar2130p.dtsi             | 395 ++++++++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_9_1_sar2130p.h   | 434 ++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |  23 ++
+ drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   1 +
+ 15 files changed, 1314 insertions(+), 1 deletion(-)
+---
+base-commit: 2bdde620f7f2bff2ff1cb7dc166859eaa0c78a7c
+change-id: 20250308-sar2130p-display-b0601fcfeb30
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
