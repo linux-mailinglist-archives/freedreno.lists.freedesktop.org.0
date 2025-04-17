@@ -2,132 +2,125 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BA64A91A24
-	for <lists+freedreno@lfdr.de>; Thu, 17 Apr 2025 13:11:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5867A91A34
+	for <lists+freedreno@lfdr.de>; Thu, 17 Apr 2025 13:12:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6AC10E1E4;
-	Thu, 17 Apr 2025 11:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5525610E1E4;
+	Thu, 17 Apr 2025 11:12:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JAvYzxEN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="adcDkBd6";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9EFE10E1E4
- for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 11:11:23 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53H5l5Gj009300
- for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 11:11:23 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6621A10E1E4
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 11:12:57 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53H5l439022774
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 11:12:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- cQFl5PUzH6hg0oQP041Wr6N3dkwwS+iRu/+8WAAEhHg=; b=JAvYzxEN2qi+MMUi
- ZC1VD7t5J625JEd9CrPq3AAkROFDv7AVAMbvQkO3obP0OSyN5T9Ucmzz5OGPg+4Z
- UXHDA1S+yX2j6xA/0Eu0PNDPmynTwngd0hpDdNMU/y1vuUHOhtdt6w+VoySpxsnl
- XAsxSHSuhnDGRC3s4lXR1skfZ6T0fHlx1QX3K0k6M7Ruw9tyAdVd9OfmpLs103UM
- IzgwJVxmKDOcVGSEZ14f2DbJljZbVF8vgrrHDkResKonzukGlYlzK55OyhK0eH91
- kfd2h57cfjtPI/KieNACUEQGSw/cy+f9j6VrolxIznyDvBMiBqTVs+H0RwTfEbrv
- /UKxcA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4628rvbwvy-1
+ qxLfze/zTU8C+QNrMs305310NbgxbagwueNtXuKqL/E=; b=adcDkBd6wQd9KwXu
+ Y5qcUyfKvzgCP77H6O5zK0SV93bKBEX5htjINmUWG/bw9UlxjHHMf1diagE82Jl+
+ nzmjGhh4kFl1k7kNcMa1PoD7Ep3nos1gibHRpcBjOztQSAKz3iT2SXW6ebuCwVxO
+ 4i6d6K8fuAERCOiGwVYnJa4+QoRJCLd/aGFnaoQx267Dvyqercxlb5PsZlWC6r9R
+ 16fND/5wGGvmnZ1sIFuJS81Ai6iYr3MO8tJyPcfiPd3JfZq9E0+c1d5qRRQWrBef
+ qxnTBx/crw9bXR+CCdw51hD/5G68rnzn/9ygQ24oemKZ7nbFx754P58AIIR7jRU/
+ JegZiw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45ygj9en1b-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 11:11:23 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-6ead1d6fd54so761856d6.2
- for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 04:11:23 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 11:12:56 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-6f0c76e490cso955226d6.1
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 04:12:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744888282; x=1745493082;
+ d=1e100.net; s=20230601; t=1744888375; x=1745493175;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cQFl5PUzH6hg0oQP041Wr6N3dkwwS+iRu/+8WAAEhHg=;
- b=uaQ7UU3fxbpGEtgiFaa3iN1dsUhfVWSiJJ7tuLDe5W9xWsNrk//95s7Vx+JYdJuu3l
- RsuNamZrIC+821e1YIJ+g4m9Hr3Vd9hQ9n8YxLZFu2eVxj2mMOXmzf4x0f2c6iqakrLg
- 73zx0t3nOd05/zAzC1c/dpLq5ipSD/txWjiFRyUtH2kN/ceg73VDlkRjyvdDrU/qVS6W
- MFR/hYIJ2xIqZHass6GlxbuVA/B2840pKmoqXmFQ7KpysXPll5gqw0/+DCyTiY3ly5wE
- Sx+FiE5fAXBaKcvr7k6c3U/dlSNa07qgD/CJ3jxdSjMunMIDZ75AUtwuc40jz4zcFX+n
- llSw==
+ bh=qxLfze/zTU8C+QNrMs305310NbgxbagwueNtXuKqL/E=;
+ b=BIpqSoWKvbXLRk9SZ2Tlv1KB6QMmabzpI8S/4/MrbEOQO2NxOZGiy+gE30fU/wROPq
+ 676HuI2Kf93V53+lFB9X7ynn4/ZACMlU9IBRU9e44srW4XNN/gripzf3oy/Uo2uoOFEE
+ 64bSl0wfEJfS76OilQkyQXE2caZAqvtbhaeVgj522l1oN7dx7hJTBSHCHAvHG3BkBuBz
+ MjUrEYo9/j5VuVQ3RITz8SoeVKflp95QOgY4YlwIzMKx3CDfxhU8sLgFQzbEXJGa/8ty
+ Tpzi7Mc3qOUqUugJruWyxXrInJQO2uZ31cHFUSJyHXcWwzrtILLgCfcUs+wy113hUg+V
+ kgUw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUaDf3nbIyHP17wxmfP2BYp4S9R0199j7svc+L3Bl4LAuTYyBGNJpwzuVg0H1wyjRJiE8qdqXRQMvU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwkLz1KDDFanTmeA2hhT+tNagVJhB4DpzX74FwgG19Oxd0JopQK
- AxM5C5XK+XYOqU53KcJ7Tn56kur2kEFsq24IfCJ2kPKr29BMPmSp9/vgKiqQDDMcTI0PAXfWwOU
- bIa85n18gCp+4G6JY8mrviGLrolGTavlKMYtLGnt/FRG+1gDrdw1ehyDC//Zh4dhSufA=
-X-Gm-Gg: ASbGncvj0p2UUbtiPrGadjXJ8KsxLb3HDRiA2OQZK42tVHbN4jhblg0aOx+jSa6mp3L
- lFK72eQbLR6TyGALMfWJPdjVHGqiDUFQP1mTHc/Y8qtm44QHhnYs+2X4q5rl4xDNktr/slPv29k
- +lxeSM11k5gixbbY0zWDBhSD0UxZA3H+g/2pSDGgaPE4vz5ivCPkC9HwvLDmBODSAzHF7tEoK4M
- OS5zjidhwAsEgPtevQ+sKBxr2e3doR3Syr1tfz0AgRK3DU5ErID6kSSfsgOCwJAd6q197h4Qr77
- eT90RdSXvKHogDrpEo73WkjL/u23/gkU4VGmAX+GII2SuEiZdf6kP3zqYnROOozC4g==
-X-Received: by 2002:a05:6214:b11:b0:6f2:c10b:db04 with SMTP id
- 6a1803df08f44-6f2c10be8bcmr1283146d6.1.1744888282054; 
- Thu, 17 Apr 2025 04:11:22 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF5kju+O/dWoPIE9Ybn1kg3pBvJPXA+KWO908qYET4dQsJeQp8XiEZRcojtLSXCqXemg9A1+Q==
-X-Received: by 2002:a05:6214:b11:b0:6f2:c10b:db04 with SMTP id
- 6a1803df08f44-6f2c10be8bcmr1282886d6.1.1744888281656; 
- Thu, 17 Apr 2025 04:11:21 -0700 (PDT)
+ AJvYcCUlU2Le09Lm4h7IHwduuCryrWOt0Us/G48L6Rc/30fWja1YlvVxKJMbZXlOw+xKu/TYkEKHNPvfIrQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzE9GwBe8096a+0aSNxVZa6lkSViELCNNsg55mW9ggPsFFzaEA0
+ TjFUbdjsgAd7iTtD1/xXZU8nkIxqbMMgvq9GjmW5D8uxLz55nN8nzJefMgHSxeKEkctBO7JGBf5
+ tJywQw2FEWQyAiMtlND4nsiJIT+ysr7AILRWRD7R+lXSQa+lmBYVUT5eMUUoyW0NjwvQ=
+X-Gm-Gg: ASbGncvGzVa6Pm5KVBhoHlWJ4veJFVTGPnHCTb3YV0/y/Rbb8KOEfs+5jsmSsQSmPN5
+ jbPYuALen6WpmGYgR5kZCuHnSQLkmwgXWs2VdN9sL74i6rSJwaeUxPdXDhuNtZRKIcZ+zD8hdUB
+ p+pIR91iSPRZHltp/KhywMqv654ou4/wZdDISTz/ZVPsotahgAlD11mZUu1L9n+dqIQoLISS/hY
+ khbYwG0EeJxBY6hom2Y7x30j0LBAqZg4qifBy4D+GzRQDx201X0pdeOtIA0hHnzeBKjdyIRF5n9
+ tjZxZ7kr6TmA0N+tKgEqdjvFyNaBh6Nx8RWZnra/yZnPU13FBG5+GLOceDX2Ao5vOA==
+X-Received: by 2002:a05:622a:19a0:b0:474:e7de:8595 with SMTP id
+ d75a77b69052e-47ad8159564mr27695041cf.14.1744888375719; 
+ Thu, 17 Apr 2025 04:12:55 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGPBxjpffnmkirnLBBB0Y2hOG9UcPArMHvszmAnlUI030yse54CdKoXRd2cuVM3FD9w0+N0bA==
+X-Received: by 2002:a05:622a:19a0:b0:474:e7de:8595 with SMTP id
+ d75a77b69052e-47ad8159564mr27694831cf.14.1744888375327; 
+ Thu, 17 Apr 2025 04:12:55 -0700 (PDT)
 Received: from [192.168.65.58] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acb3cd6257bsm278243066b.13.2025.04.17.04.11.17
+ 4fb4d7f45d1cf-5f36f527df0sm10099976a12.71.2025.04.17.04.12.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 04:11:21 -0700 (PDT)
-Message-ID: <bfc3247e-16e7-4897-bdbd-dc7d82d45fa3@oss.qualcomm.com>
-Date: Thu, 17 Apr 2025 13:11:16 +0200
+ Thu, 17 Apr 2025 04:12:54 -0700 (PDT)
+Message-ID: <7b559f03-f131-435e-95de-b5faee37b4d5@oss.qualcomm.com>
+Date: Thu, 17 Apr 2025 13:12:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/6] arm64: dts: qcom: Add initial support for MSM8937
-To: barnabas.czeman@mainlining.org
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
- =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
- Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Subject: Re: [PATCH v4 01/10] dt-bindings: display/msm: dp-controller:
+ describe SAR2130P
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- iommu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, linux@mainlining.org,
- Dang Huynh <danct12@riseup.net>
-References: <20250315-msm8937-v4-0-1f132e870a49@mainlining.org>
- <20250315-msm8937-v4-4-1f132e870a49@mainlining.org>
- <f85195a1-f55e-41ea-967d-b758014cba06@oss.qualcomm.com>
- <93ea35691deaa1ff38d229225e26cf41@mainlining.org>
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>, Bjorn Andersson <andersson@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+References: <20250417-sar2130p-display-v4-0-b91dd8a21b1a@oss.qualcomm.com>
+ <20250417-sar2130p-display-v4-1-b91dd8a21b1a@oss.qualcomm.com>
+ <20250417-arboreal-turkey-of-acumen-e1e3da@shite>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <93ea35691deaa1ff38d229225e26cf41@mainlining.org>
+In-Reply-To: <20250417-arboreal-turkey-of-acumen-e1e3da@shite>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: c0w37RIE3UJw6G7DypLVgPwfeHkZTTx-
-X-Authority-Analysis: v=2.4 cv=RbSQC0tv c=1 sm=1 tr=0 ts=6800e1db cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=OuZLqq7tAAAA:8 a=bBqXziUQAAAA:8
- a=L7gxQ87vPTAOeZ-rjWYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22 a=AKGiAy9iJ-JzxKVHQNES:22
- a=BjKv_IHbNJvPKzgot4uq:22
-X-Proofpoint-GUID: c0w37RIE3UJw6G7DypLVgPwfeHkZTTx-
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: cH3iDNr-MCRe_kU36OTWopjOyI3yYl8I
+X-Authority-Analysis: v=2.4 cv=PruTbxM3 c=1 sm=1 tr=0 ts=6800e238 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8
+ a=hUMovHauaXhaw1qFzIsA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: cH3iDNr-MCRe_kU36OTWopjOyI3yYl8I
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-17_03,2025-04-15_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=733
- suspectscore=0 adultscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- phishscore=0 priorityscore=1501 spamscore=0 mlxscore=0 lowpriorityscore=0
- malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ suspectscore=0 bulkscore=0
+ priorityscore=1501 malwarescore=0 adultscore=0 lowpriorityscore=0
+ impostorscore=0 clxscore=1015 spamscore=0 mlxscore=0 mlxlogscore=782
+ phishscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
  definitions=main-2504170084
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,24 +137,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/17/25 8:20 AM, barnabas.czeman@mainlining.org wrote:
-> On 2025-04-14 22:55, Konrad Dybcio wrote:
->> On 3/15/25 3:57 PM, Barnabás Czémán wrote:
->>> From: Dang Huynh <danct12@riseup.net>
->>>
->>> Add initial support for MSM8937 SoC.
->>>
->>> Signed-off-by: Dang Huynh <danct12@riseup.net>
->>> Co-developed-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->>> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->>> ---
+On 4/17/25 8:03 AM, Krzysztof Kozlowski wrote:
+> On Thu, Apr 17, 2025 at 02:16:31AM GMT, Dmitry Baryshkov wrote:
+>> From: Dmitry Baryshkov <lumag@kernel.org>
+>>
+>> Describe DisplayPort controller present on Qualcomm SAR2130P platform.
+>>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Addresses do not match. You re-authored the commit, so now everywhere is
+> mess.
 
-[...]
-
->> 0xff is overly broad, please document the existing known speed bins
-> There are no speedbins for 8937 gpu. 8940 have but 8940 is not scope of this series.
-
-So it would make sense to either drop them, or fill in the actual
-values here
+It's git's fault with replacing the linaro address based on .mailmap
 
 Konrad
