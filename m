@@ -2,69 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FA0BA913EE
-	for <lists+freedreno@lfdr.de>; Thu, 17 Apr 2025 08:20:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E556A9158B
+	for <lists+freedreno@lfdr.de>; Thu, 17 Apr 2025 09:45:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB7910EA36;
-	Thu, 17 Apr 2025 06:20:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D29A910EA1C;
+	Thu, 17 Apr 2025 07:45:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="kKGEobHR";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="oau3UoiT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1093C10E0E7;
- Thu, 17 Apr 2025 06:20:43 +0000 (UTC)
-Received: from localhost (web.docker-mailserver_default [172.18.0.2])
- by mail.mainlining.org (Postfix) with ESMTPSA id 6B705BBAD2;
- Thu, 17 Apr 2025 06:20:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mainlining.org;
- s=psm; t=1744870836;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vINGxXd1a/HvJqBAZg5qAK4jrccoMyLLJvCH80uIjEo=;
- b=kKGEobHRSReKJ1RvO2JA11xM/eViImkOIcHP3mrAOubxN+UtDvrII4KRy90i6k5bPBDIxT
- szymDQiM9mbUgeEAd+KC8kJj4nNTqMOtsXfegsmboLsNM9nF0NaFXgRLtF8reYVZ+X4j70
- eWpZCm1qaIh+JSMAaxId0BwWa/iiFqEdOiJfPZY9M7Q7DTHYq8khJz7+GBYZmI/KXdUHej
- GWRv94Oq5IAOHG+4U3UoYBhps/O6touiPhMBHdgavS8A24LcSel9RT68m+cRBoGYoD2Ojw
- vqEltuN9kIh+Qe0hYbnsP36WWfGc0tbAdntaxQ7ro6DSZmtgp2I3ulVQygqZmQ==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B003810EA1C;
+ Thu, 17 Apr 2025 07:45:35 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53H5lcgf022725;
+ Thu, 17 Apr 2025 07:45:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ohJkgmWZHjmK4M5DZdPTsNUzOeS2abtFjmhwenkskEc=; b=oau3UoiTvvy4N648
+ rymPTp/G3vCBhichF4Cgs9jULAoIgrpEKYsgvhj+glpsD5+6UN0U/onQslTUCSBS
+ NA7J9nx9wz4zS16Z/pk5wH84seSVjmOY4EHxoj9ZApXLxkgc7R1HpnokW8uADoYg
+ bstEtcomebkTyPFlXCDCh46pQa+Wmcoqlbf6R4iradSy/4inHSebdpLDezG09Iu/
+ S8iyBueVAba0fvTdJ1ZRD2d7g6cD6XbAw9r3nPc7+BEt+EADKzgSczkHZYtS/jvn
+ EuxzP67ocEln9HrV3MZItP+9zE6s8x4uiPYn/2r2K9j/NkmhghfuGdvJIkjpJK8B
+ KiOBWg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45yhbpwvkm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 17 Apr 2025 07:45:29 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53H7jS2b028358
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 17 Apr 2025 07:45:28 GMT
+Received: from [10.216.6.49] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 17 Apr
+ 2025 00:45:22 -0700
+Message-ID: <20911703-ab4e-4eb2-8611-294730a06d2f@quicinc.com>
+Date: Thu, 17 Apr 2025 13:15:19 +0530
 MIME-Version: 1.0
-Date: Thu, 17 Apr 2025 08:20:36 +0200
-From: barnabas.czeman@mainlining.org
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
- =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, Linus Walleij
- <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>, Joerg Roedel <joro@8bytes.org>, Will
- Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Konrad Dybcio
- <konradybcio@kernel.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Dmitry Baryshkov
- <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- iommu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, linux@mainlining.org, Dang Huynh
- <danct12@riseup.net>
-Subject: Re: [PATCH v4 4/6] arm64: dts: qcom: Add initial support for MSM8937
-In-Reply-To: <f85195a1-f55e-41ea-967d-b758014cba06@oss.qualcomm.com>
-References: <20250315-msm8937-v4-0-1f132e870a49@mainlining.org>
- <20250315-msm8937-v4-4-1f132e870a49@mainlining.org>
- <f85195a1-f55e-41ea-967d-b758014cba06@oss.qualcomm.com>
-Message-ID: <93ea35691deaa1ff38d229225e26cf41@mainlining.org>
-X-Sender: barnabas.czeman@mainlining.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] drm/msm/a6xx: Get HBB dynamically, if available
+To: Konrad Dybcio <konradybcio@kernel.org>, Bjorn Andersson
+ <andersson@kernel.org>, Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva"
+ <gustavoars@kernel.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov
+ <lumag@kernel.org>
+CC: Marijn Suijten <marijn.suijten@somainline.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-hardening@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>
+References: <20250410-topic-smem_dramc-v2-0-dead15264714@oss.qualcomm.com>
+ <20250410-topic-smem_dramc-v2-3-dead15264714@oss.qualcomm.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <20250410-topic-smem_dramc-v2-3-dead15264714@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Spj1uZnIe82_3M7CjYuxQzY3doSiZGES
+X-Proofpoint-GUID: Spj1uZnIe82_3M7CjYuxQzY3doSiZGES
+X-Authority-Analysis: v=2.4 cv=I+plRMgg c=1 sm=1 tr=0 ts=6800b199 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8
+ a=tRh8Vh706W9Pm3wTBG4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-17_01,2025-04-15_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0
+ phishscore=0 adultscore=0 priorityscore=1501 mlxscore=0 lowpriorityscore=0
+ bulkscore=0 mlxlogscore=999 clxscore=1011 impostorscore=0 malwarescore=0
+ classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504170059
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,159 +104,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2025-04-14 22:55, Konrad Dybcio wrote:
-> On 3/15/25 3:57 PM, Barnabás Czémán wrote:
->> From: Dang Huynh <danct12@riseup.net>
->> 
->> Add initial support for MSM8937 SoC.
->> 
->> Signed-off-by: Dang Huynh <danct12@riseup.net>
->> Co-developed-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->> ---
+On 4/10/2025 11:13 PM, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
-> [...]
+> The Highest Bank address Bit value can change based on memory type used.
 > 
->> +			power-domains = <&cpu_pd0>;
->> +			power-domain-names = "psci";
+> Attempt to retrieve it dynamically, and fall back to a reasonable
+> default (the one used prior to this change) on error.
 > 
-> So CPU4-7 get "nicer" idle, but 0-3 don't?
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
 > 
-> [...]
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 06465bc2d0b4b128cddfcfcaf1fe4252632b6777..a6232b382bd16319f20ae5f8f5e57f38ecc62d9f 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/firmware/qcom/qcom_scm.h>
+>  #include <linux/pm_domain.h>
+>  #include <linux/soc/qcom/llcc-qcom.h>
+> +#include <linux/soc/qcom/smem.h>
+>  
+>  #define GPU_PAS_ID 13
+>  
+> @@ -587,6 +588,8 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+>  
+>  static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+>  {
+> +	int hbb;
+> +
+>  	gpu->ubwc_config.rgb565_predicator = 0;
+>  	gpu->ubwc_config.uavflagprd_inv = 0;
+>  	gpu->ubwc_config.min_acc_len = 0;
+> @@ -635,7 +638,6 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+>  	    adreno_is_a690(gpu) ||
+>  	    adreno_is_a730(gpu) ||
+>  	    adreno_is_a740_family(gpu)) {
+> -		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
+>  		gpu->ubwc_config.highest_bank_bit = 16;
+>  		gpu->ubwc_config.amsbc = 1;
+>  		gpu->ubwc_config.rgb565_predicator = 1;
+> @@ -664,6 +666,13 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+>  		gpu->ubwc_config.highest_bank_bit = 14;
+>  		gpu->ubwc_config.min_acc_len = 1;
+>  	}
+> +
+> +	/* Attempt to retrieve the data from SMEM, keep the above defaults in case of error */
+> +	hbb = qcom_smem_dram_get_hbb();
+> +	if (hbb < 0)
+> +		return;
+> +
+> +	gpu->ubwc_config.highest_bank_bit = hbb;
+
+I am worried about blindly relying on SMEM data directly for HBB for
+legacy chipsets. There is no guarantee it is accurate on every chipset
+and every version of firmware. Also, until recently, this value was
+hardcoded in Mesa which matched the value in KMD. So it is better to
+make this opt in, for newer chipsets or those which somebody can verify.
+We can invert this logic to something like this:
+
+if (!gpu->ubwc_config.highest_bank_bit)
+    gpu->ubwc_config.highest_bank_bit = qcom_smem_dram_get_hbb();
+
+>  }
+>  
+>  static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+> @@ -2467,6 +2476,10 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>  	bool is_a7xx;
+>  	int ret;
+>  
+> +	/* We need data from SMEM to retrieve HBB in calc_ubwc_config() */
+> +	if (!qcom_smem_is_available())
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +
+
+We should add "depends on QCOM_SMEM" to Kconfig. Is SMEM device present
+in all Qcom SoC devicetrees? I wonder if there is a scenario where there
+might be an infinite EPROBE_DEFER here.
+
+-Akhil.
+
+>  	a6xx_gpu = kzalloc(sizeof(*a6xx_gpu), GFP_KERNEL);
+>  	if (!a6xx_gpu)
+>  		return ERR_PTR(-ENOMEM);
 > 
->> +		cpu-map {
->> +			/* The MSM8937 has 2 cluster A53 setup. */
-> 
-> This comment seems superfluous
-> 
-> [...]
-> 
->> +	timer {
-> 
-> 'p' < 't', please sort top-level nodes alphabetically
-> 
-> [...]
-> 
->> +				wcss-wlan2-pins {
->> +					pins = "gpio76";
->> +					function = "wcss_wlan2";
->> +					drive-strength = <6>;
-> 
-> please unify this order (drive-strength before bias)
-> 
->> +					bias-pull-up;
->> +
->> +				};
-> 
-> Extra newline
-> 
-> [...]
-> 
->> +		gpu: gpu@1c00000 {
->> +			compatible = "qcom,adreno-505.0", "qcom,adreno";
->> +			reg = <0x1c00000 0x40000>;
->> +			reg-names = "kgsl_3d0_reg_memory";
->> +			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
->> +			interrupt-names = "kgsl_3d0_irq";
->> +			#cooling-cells = <2>;
->> +			clocks = <&gcc GCC_OXILI_GFX3D_CLK>,
->> +				<&gcc GCC_OXILI_AHB_CLK>,
->> +				<&gcc GCC_BIMC_GFX_CLK>,
->> +				<&gcc GCC_BIMC_GPU_CLK>,
->> +				<&gcc GCC_OXILI_TIMER_CLK>,
->> +				<&gcc GCC_OXILI_AON_CLK>;
-> 
-> Please align the <s
-> 
->> +			clock-names = "core",
->> +				      "iface",
->> +				      "mem_iface",
->> +				      "alt_mem_iface",
->> +				      "rbbmtimer",
->> +				      "alwayson";
->> +			operating-points-v2 = <&gpu_opp_table>;
->> +			power-domains = <&gcc OXILI_GX_GDSC>;
->> +
->> +			iommus = <&adreno_smmu 0>;
->> +
->> +			status = "disabled";
->> +
->> +			gpu_opp_table: opp-table {
->> +				compatible = "operating-points-v2";
->> +
->> +				opp-19200000 {
->> +					opp-hz = /bits/ 64 <19200000>;
->> +					opp-supported-hw = <0xFF>;
-> 
-> 0xff is overly broad, please document the existing known speed bins
-There are no speedbins for 8937 gpu. 8940 have but 8940 is not scope of 
-this series.
-> 
-> [...]
-> 
->> +		adreno_smmu: iommu@1c40000 {
->> +			compatible = "qcom,msm8996-smmu-v2",
->> +				     "qcom,adreno-smmu",
->> +				     "qcom,smmu-v2";
->> +			reg = <0x1c40000 0x10000>;
-> 
-> Does it work as-is, without iommu changes?
-> 
-> [...]
-> 
->> +	thermal_zones: thermal-zones {
->> +		aoss-thermal {
->> +			polling-delay-passive = <250>;
-> 
-> There are no passive trip points> +
->> +			thermal-sensors = <&tsens 0>;
->> +
->> +			trips {
->> +				aoss_alert0: trip-point0 {
->> +					temperature = <85000>;
->> +					hysteresis = <2000>;
->> +					type = "hot";
->> +				};
-> 
-> Please convert these to 'critical' instead
-> 
-> [...]
-> 
->> +		cpuss1-thermal {
->> +			polling-delay-passive = <250>;
-> 
-> You can drop polling-delay-passive under CPU tzones, as threshold
-> crossing is interrupt-driven
-> 
->> +
->> +			thermal-sensors = <&tsens 4>;
->> +
->> +			cooling-maps {
->> +				map0 {
->> +					trip = <&cpuss1_alert0>;
->> +					cooling-device = <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
->> +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
->> +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
->> +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
->> +				};
->> +			};
->> +
->> +			trips {
->> +				cpuss1_alert0: trip-point0 {
->> +					temperature = <75000>;
->> +					hysteresis = <2000>;
->> +					type = "passive";
->> +				};
->> +
->> +				cpuss1_alert1: trip-point1 {
->> +					temperature = <85000>;
->> +					hysteresis = <2000>;
->> +					type = "hot";
->> +				};
-> 
-> On newer platforms we rely on LMH to shut down the device if it
-> were to reach the junction temperature, but let's leave them here
-> as probably no one remembers for sure how reliable that is on these
-> older platforms and you're most likely not willing to test that
-> 
-> Konrad
+
