@@ -2,85 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFECCA91188
-	for <lists+freedreno@lfdr.de>; Thu, 17 Apr 2025 04:14:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51E0CA91338
+	for <lists+freedreno@lfdr.de>; Thu, 17 Apr 2025 07:47:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03A1510EA0A;
-	Thu, 17 Apr 2025 02:13:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9B4E10EA34;
+	Thu, 17 Apr 2025 05:46:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bVi/KaNr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IVwKHJv7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8468F10EA03;
- Thu, 17 Apr 2025 02:13:57 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-43cfe63c592so2999875e9.2; 
- Wed, 16 Apr 2025 19:13:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744856036; x=1745460836; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rYDK8MO7JAoEQRHU7R+shDCnltN0/XfcZdUoIFwe50E=;
- b=bVi/KaNrgMpoP3xZZy7E+JLjCGHklldng//Nx+PYtwGsh1tS6RDGDLcGK3QrySEKFz
- 4cPNANMtjjqcgLDeZVAdFP6qRKTYPq9++Ms4UFRlstY0viW2asbM9irLbHdVrO6C8ogS
- dqZtykE2Vs/QP4sz5aiizh2otvd2AE9vINHTALbwWrDiHsXNIWCA7zV0fd6/Gw+5niaR
- dGdhV/a94eNFZMfPr6sArBM2rVuC9X0aTCPkpdZHHPIK+6CjK/tkDgPcBsSH0EpJToDr
- j0AsFp2wfpH0nHHbYjpuEpPbgSc3yYuhr9UytXQeU6kaxpGWcjJyyyOBFYJ/sM5INE3g
- +PDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744856036; x=1745460836;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rYDK8MO7JAoEQRHU7R+shDCnltN0/XfcZdUoIFwe50E=;
- b=KShkYY0HirduJZP4qTkv1XAcsQolVQDIY8KimOXAfJ4MWWzN+cmBxp6/r3Ei3yWogu
- sdjJErlikYYxTR6vw1O3vbRJ1Gf5u2FuwiIsRsZjwemlCzSmSoR3sH4eKsN4Ulo8mr8k
- zvVQ0w6S72BXxGQyNiUuS0UjHRDI7I/wYQvW3WwZvKXqqYTwQ4eYVLoX0/jgX7jKuWiN
- gLvQoFiQQtw0d9Qjm6fYNR5DkniXak8Q/JipGkCbP5y8HSSI8880jkm9ZbXB7YJIclW5
- iHPWbtH82T2hLBpjEOV4H+0z3ZZkO7guw806rtvj+0OiJmqittADrCLJcLIDt2B8SR0n
- 0edg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2evIezdMd3mfx2l1d7mrTkFG5SDGAgNb4LqROeNeUnJYnYjpM6mrPqlLmhc6zm1kwhf+MSx0R990z@lists.freedesktop.org,
- AJvYcCUWRJcKkxApgaqNhGZ6q0tWgQQanq0fyvIP1ol5NljCxmLlZNQDGx8EihrTHXXtaMKEcQd7akU+hWM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywaeq7Ctjmctf55tKM1gNxGZYKwAVH3EqYlsgTxpxgqfsCzmzR6
- Wm16jZuonRe+R/SOi+F6NGyzwGJpQqQbzh8Py50QOjbugeFWDXE=
-X-Gm-Gg: ASbGncvFpKvdeVJxK4zakcgqhCC5BLtSYQVVoxppeJd+nVeN7kpViZWVAP+EPs5MKqs
- qphK03IEcWgAg75lIa8N2bRd2N1CR5vdcKOV0QSyTsb9SCsaSqRBe/Q891NuN1/RnpWlZHiGIMp
- qsmJNwQh3g72EVO0+YVVyYQTYYKf/rqrhaVZ5aoKWZvzNMBDHjUYcg3yNfEUABTaWp0+Si0NxNa
- 7n3z2TTHZ2olWypq3R6qZUw6XaKIkdMa7BSnN2E7ckSVkplVMa+vB/5IrK4NR+bKZw3XNcguSUH
- 0KAjg6+F9tCe7ea/SMb6idq2WDMs0bn07au1yrWqdyiCZw==
-X-Google-Smtp-Source: AGHT+IHcvL6u4p6HIC4ZehG4yHbh215Az7JL1A+vQxM3e7+Tr4ILiUpxPezP6UqCtyeQ8mKF9xaknQ==
-X-Received: by 2002:a05:600c:570b:b0:43d:b32:40aa with SMTP id
- 5b1f17b1804b1-4405d5fda03mr31634345e9.3.1744856035449; 
- Wed, 16 Apr 2025 19:13:55 -0700 (PDT)
-Received: from alex-x1.lan ([84.226.118.249]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4405b4d1236sm36940485e9.13.2025.04.16.19.13.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Apr 2025 19:13:55 -0700 (PDT)
-From: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-To: Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- laurentiu.tudor1@dell.com, abel.vesa@linaro.org, johan@kernel.org,
- Aleksandrs Vinarskis <alex.vinarskis@gmail.com>,
- Stefan Schmidt <stefan.schmidt@linaro.org>
-Subject: [PATCH v3 4/4] drm/msm/dp: Introduce link training per-segment for
- LTTPRs
-Date: Thu, 17 Apr 2025 04:10:35 +0200
-Message-ID: <20250417021349.148911-5-alex.vinarskis@gmail.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20250417021349.148911-1-alex.vinarskis@gmail.com>
-References: <20250417021349.148911-1-alex.vinarskis@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A46510E97A;
+ Thu, 17 Apr 2025 05:46:53 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B06AA6842A;
+ Thu, 17 Apr 2025 05:46:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E06C4CEE4;
+ Thu, 17 Apr 2025 05:46:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1744868811;
+ bh=w+Fw8NVAHUYrbrF2QdmSIueeFjlxwKqtyaXHc3p/lLA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=IVwKHJv77n9ud6ICAau+0RNSnlXkz/ZNaoZgcKqgTWhL6RCaInGFTpKMMBURKWtm4
+ AmK8ByNzCvLMWQdU0mpA3eiPha3gJoTeRACaiNNmAygB4NH9FMudtj1jGbZDO3ADiB
+ Lxs9CTzS8T3xdiYmqM8rk37j60G1m14SftrVhdqbgcbiDHrY3XA01phZI0ppXMwtkg
+ Iaq/DupNqE1l5zdWgV9NlTvsz0caXZPpjmMO3qVPgT7QWHIG8vXwpxbKzKt2hzRtbB
+ k7+MruJAl8anp/e+SnFajn0FzFl3g40csVCVRsSYU4ORgfGc6fVKpuXJOQ9KYaYFnA
+ 3FOkQuO6nMZXA==
+Message-ID: <7dc797c3-36d4-4477-a0c6-2a8c84ef1f11@kernel.org>
+Date: Thu, 17 Apr 2025 07:46:44 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 03/11] dt-bindings: display: msm: document DSI
+ controller and phy on SA8775P
+To: Ayushi Makhija <amakhija@qti.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, robdclark@gmail.com,
+ dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+ quic_jesszhan@quicinc.com
+References: <20250417053909.1051416-1-amakhija@qti.qualcomm.com>
+ <20250417053909.1051416-4-amakhija@qti.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20250417053909.1051416-4-amakhija@qti.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,324 +114,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DisplayPort requires per-segment link training when LTTPR are switched
-to non-transparent mode, starting with LTTPR closest to the source.
-Only when each segment is trained individually, source can link train
-to sink.
+On 17/04/2025 07:39, Ayushi Makhija wrote:
+> From: Ayushi Makhija <quic_amakhija@quicinc.com>
+> 
+> Document DSI controller and phy on SA8775P platform.
+> 
+> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
 
-Implement per-segment link traning when LTTPR(s) are detected, to
-support external docking stations. On higher level, changes are:
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-* Pass phy being trained down to all required helpers
-* Run CR, EQ link training per phy
-* Set voltage swing, pre-emphasis levels per phy
-
-This ensures successful link training both when connected directly to
-the monitor (single LTTPR onboard most X1E laptops) and via the docking
-station (at least two LTTPRs).
-
-Tested-by: Stefan Schmidt <stefan.schmidt@linaro.org>
-Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-Reviewed-by: Abel Vesa <abel.vesa@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 126 ++++++++++++++++++++++---------
- 1 file changed, 89 insertions(+), 37 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 69a26bb5fabd..a50bfafbb4ea 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1034,10 +1034,12 @@ static int msm_dp_ctrl_set_vx_px(struct msm_dp_ctrl_private *ctrl,
- 	return 0;
- }
- 
--static int msm_dp_ctrl_update_vx_px(struct msm_dp_ctrl_private *ctrl)
-+static int msm_dp_ctrl_update_phy_vx_px(struct msm_dp_ctrl_private *ctrl,
-+					enum drm_dp_phy dp_phy)
- {
- 	struct msm_dp_link *link = ctrl->link;
--	int ret = 0, lane, lane_cnt;
-+	int lane, lane_cnt, reg;
-+	int ret = 0;
- 	u8 buf[4];
- 	u32 max_level_reached = 0;
- 	u32 voltage_swing_level = link->phy_params.v_level;
-@@ -1075,8 +1077,13 @@ static int msm_dp_ctrl_update_vx_px(struct msm_dp_ctrl_private *ctrl)
- 
- 	drm_dbg_dp(ctrl->drm_dev, "sink: p|v=0x%x\n",
- 			voltage_swing_level | pre_emphasis_level);
--	ret = drm_dp_dpcd_write(ctrl->aux, DP_TRAINING_LANE0_SET,
--					buf, lane_cnt);
-+
-+	if (dp_phy == DP_PHY_DPRX)
-+		reg = DP_TRAINING_LANE0_SET;
-+	else
-+		reg = DP_TRAINING_LANE0_SET_PHY_REPEATER(dp_phy);
-+
-+	ret = drm_dp_dpcd_write(ctrl->aux, reg, buf, lane_cnt);
- 	if (ret == lane_cnt)
- 		ret = 0;
- 
-@@ -1084,9 +1091,10 @@ static int msm_dp_ctrl_update_vx_px(struct msm_dp_ctrl_private *ctrl)
- }
- 
- static bool msm_dp_ctrl_train_pattern_set(struct msm_dp_ctrl_private *ctrl,
--		u8 pattern)
-+		u8 pattern, enum drm_dp_phy dp_phy)
- {
- 	u8 buf;
-+	int reg;
- 	int ret = 0;
- 
- 	drm_dbg_dp(ctrl->drm_dev, "sink: pattern=%x\n", pattern);
-@@ -1096,17 +1104,26 @@ static bool msm_dp_ctrl_train_pattern_set(struct msm_dp_ctrl_private *ctrl,
- 	if (pattern && pattern != DP_TRAINING_PATTERN_4)
- 		buf |= DP_LINK_SCRAMBLING_DISABLE;
- 
--	ret = drm_dp_dpcd_writeb(ctrl->aux, DP_TRAINING_PATTERN_SET, buf);
-+	if (dp_phy == DP_PHY_DPRX)
-+		reg = DP_TRAINING_PATTERN_SET;
-+	else
-+		reg = DP_TRAINING_PATTERN_SET_PHY_REPEATER(dp_phy);
-+
-+	ret = drm_dp_dpcd_writeb(ctrl->aux, reg, buf);
- 	return ret == 1;
- }
- 
- static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
--			int *training_step)
-+			int *training_step, enum drm_dp_phy dp_phy)
- {
-+	int delay_us;
- 	int tries, old_v_level, ret = 0;
- 	u8 link_status[DP_LINK_STATUS_SIZE];
- 	int const maximum_retries = 4;
- 
-+	delay_us = drm_dp_read_clock_recovery_delay(ctrl->aux,
-+						    ctrl->panel->dpcd, dp_phy, false);
-+
- 	msm_dp_catalog_ctrl_state_ctrl(ctrl->catalog, 0);
- 
- 	*training_step = DP_TRAINING_1;
-@@ -1115,18 +1132,19 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
- 	if (ret)
- 		return ret;
- 	msm_dp_ctrl_train_pattern_set(ctrl, DP_TRAINING_PATTERN_1 |
--		DP_LINK_SCRAMBLING_DISABLE);
-+		DP_LINK_SCRAMBLING_DISABLE, dp_phy);
- 
--	ret = msm_dp_ctrl_update_vx_px(ctrl);
-+	msm_dp_link_reset_phy_params_vx_px(ctrl->link);
-+	ret = msm_dp_ctrl_update_phy_vx_px(ctrl, dp_phy);
- 	if (ret)
- 		return ret;
- 
- 	tries = 0;
- 	old_v_level = ctrl->link->phy_params.v_level;
- 	for (tries = 0; tries < maximum_retries; tries++) {
--		drm_dp_link_train_clock_recovery_delay(ctrl->aux, ctrl->panel->dpcd);
-+		fsleep(delay_us);
- 
--		ret = drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
-+		ret = drm_dp_dpcd_read_phy_link_status(ctrl->aux, dp_phy, link_status);
- 		if (ret)
- 			return ret;
- 
-@@ -1147,7 +1165,7 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
- 		}
- 
- 		msm_dp_link_adjust_levels(ctrl->link, link_status);
--		ret = msm_dp_ctrl_update_vx_px(ctrl);
-+		ret = msm_dp_ctrl_update_phy_vx_px(ctrl, dp_phy);
- 		if (ret)
- 			return ret;
- 	}
-@@ -1199,21 +1217,31 @@ static int msm_dp_ctrl_link_lane_down_shift(struct msm_dp_ctrl_private *ctrl)
- 	return 0;
- }
- 
--static void msm_dp_ctrl_clear_training_pattern(struct msm_dp_ctrl_private *ctrl)
-+static void msm_dp_ctrl_clear_training_pattern(struct msm_dp_ctrl_private *ctrl,
-+					       enum drm_dp_phy dp_phy)
- {
--	msm_dp_ctrl_train_pattern_set(ctrl, DP_TRAINING_PATTERN_DISABLE);
--	drm_dp_link_train_channel_eq_delay(ctrl->aux, ctrl->panel->dpcd);
-+	int delay_us;
-+
-+	msm_dp_ctrl_train_pattern_set(ctrl, DP_TRAINING_PATTERN_DISABLE, dp_phy);
-+
-+	delay_us = drm_dp_read_channel_eq_delay(ctrl->aux,
-+						ctrl->panel->dpcd, dp_phy, false);
-+	fsleep(delay_us);
- }
- 
- static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
--			int *training_step)
-+			int *training_step, enum drm_dp_phy dp_phy)
- {
-+	int delay_us;
- 	int tries = 0, ret = 0;
- 	u8 pattern;
- 	u32 state_ctrl_bit;
- 	int const maximum_retries = 5;
- 	u8 link_status[DP_LINK_STATUS_SIZE];
- 
-+	delay_us = drm_dp_read_channel_eq_delay(ctrl->aux,
-+						ctrl->panel->dpcd, dp_phy, false);
-+
- 	msm_dp_catalog_ctrl_state_ctrl(ctrl->catalog, 0);
- 
- 	*training_step = DP_TRAINING_2;
-@@ -1233,12 +1261,12 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
- 	if (ret)
- 		return ret;
- 
--	msm_dp_ctrl_train_pattern_set(ctrl, pattern);
-+	msm_dp_ctrl_train_pattern_set(ctrl, pattern, dp_phy);
- 
- 	for (tries = 0; tries <= maximum_retries; tries++) {
--		drm_dp_link_train_channel_eq_delay(ctrl->aux, ctrl->panel->dpcd);
-+		fsleep(delay_us);
- 
--		ret = drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
-+		ret = drm_dp_dpcd_read_phy_link_status(ctrl->aux, dp_phy, link_status);
- 		if (ret)
- 			return ret;
- 
-@@ -1248,7 +1276,7 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
- 		}
- 
- 		msm_dp_link_adjust_levels(ctrl->link, link_status);
--		ret = msm_dp_ctrl_update_vx_px(ctrl);
-+		ret = msm_dp_ctrl_update_phy_vx_px(ctrl, dp_phy);
- 		if (ret)
- 			return ret;
- 
-@@ -1257,9 +1285,32 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
- 	return -ETIMEDOUT;
- }
- 
-+static int msm_dp_ctrl_link_train_1_2(struct msm_dp_ctrl_private *ctrl,
-+				      int *training_step, enum drm_dp_phy dp_phy)
-+{
-+	int ret;
-+
-+	ret = msm_dp_ctrl_link_train_1(ctrl, training_step, dp_phy);
-+	if (ret) {
-+		DRM_ERROR("link training #1 on phy %d failed. ret=%d\n", dp_phy, ret);
-+		return ret;
-+	}
-+	drm_dbg_dp(ctrl->drm_dev, "link training #1 on phy %d successful\n", dp_phy);
-+
-+	ret = msm_dp_ctrl_link_train_2(ctrl, training_step, dp_phy);
-+	if (ret) {
-+		DRM_ERROR("link training #2 on phy %d failed. ret=%d\n", dp_phy, ret);
-+		return ret;
-+	}
-+	drm_dbg_dp(ctrl->drm_dev, "link training #2 on phy %d successful\n", dp_phy);
-+
-+	return 0;
-+}
-+
- static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
- 			int *training_step)
- {
-+	int i;
- 	int ret = 0;
- 	const u8 *dpcd = ctrl->panel->dpcd;
- 	u8 encoding[] = { 0, DP_SET_ANSI_8B10B };
-@@ -1272,8 +1323,6 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
- 	link_info.rate = ctrl->link->link_params.rate;
- 	link_info.capabilities = DP_LINK_CAP_ENHANCED_FRAMING;
- 
--	msm_dp_link_reset_phy_params_vx_px(ctrl->link);
--
- 	msm_dp_aux_link_configure(ctrl->aux, &link_info);
- 
- 	if (drm_dp_max_downspread(dpcd))
-@@ -1288,24 +1337,27 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
- 				&assr, 1);
- 	}
- 
--	ret = msm_dp_ctrl_link_train_1(ctrl, training_step);
-+	for (i = ctrl->link->lttpr_count - 1; i >= 0; i--) {
-+		enum drm_dp_phy dp_phy = DP_PHY_LTTPR(i);
-+
-+		ret = msm_dp_ctrl_link_train_1_2(ctrl, training_step, dp_phy);
-+		msm_dp_ctrl_clear_training_pattern(ctrl, dp_phy);
-+
-+		if (ret)
-+			break;
-+	}
-+
- 	if (ret) {
--		DRM_ERROR("link training #1 failed. ret=%d\n", ret);
-+		DRM_ERROR("link training of LTTPR(s) failed. ret=%d\n", ret);
- 		goto end;
- 	}
- 
--	/* print success info as this is a result of user initiated action */
--	drm_dbg_dp(ctrl->drm_dev, "link training #1 successful\n");
--
--	ret = msm_dp_ctrl_link_train_2(ctrl, training_step);
-+	ret = msm_dp_ctrl_link_train_1_2(ctrl, training_step, DP_PHY_DPRX);
- 	if (ret) {
--		DRM_ERROR("link training #2 failed. ret=%d\n", ret);
-+		DRM_ERROR("link training on sink failed. ret=%d\n", ret);
- 		goto end;
- 	}
- 
--	/* print success info as this is a result of user initiated action */
--	drm_dbg_dp(ctrl->drm_dev, "link training #2 successful\n");
--
- end:
- 	msm_dp_catalog_ctrl_state_ctrl(ctrl->catalog, 0);
- 
-@@ -1622,7 +1674,7 @@ static int msm_dp_ctrl_link_maintenance(struct msm_dp_ctrl_private *ctrl)
- 	if (ret)
- 		goto end;
- 
--	msm_dp_ctrl_clear_training_pattern(ctrl);
-+	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
- 
- 	msm_dp_catalog_ctrl_state_ctrl(ctrl->catalog, DP_STATE_CTRL_SEND_VIDEO);
- 
-@@ -1646,7 +1698,7 @@ static bool msm_dp_ctrl_send_phy_test_pattern(struct msm_dp_ctrl_private *ctrl)
- 		return false;
- 	}
- 	msm_dp_catalog_ctrl_send_phy_pattern(ctrl->catalog, pattern_requested);
--	msm_dp_ctrl_update_vx_px(ctrl);
-+	msm_dp_ctrl_update_phy_vx_px(ctrl, DP_PHY_DPRX);
- 	msm_dp_link_send_test_response(ctrl->link);
- 
- 	pattern_sent = msm_dp_catalog_ctrl_read_phy_pattern(ctrl->catalog);
-@@ -1888,7 +1940,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
- 			}
- 
- 			/* stop link training before start re training  */
--			msm_dp_ctrl_clear_training_pattern(ctrl);
-+			msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
- 		}
- 
- 		rc = msm_dp_ctrl_reinitialize_mainlink(ctrl);
-@@ -1912,7 +1964,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
- 		 * link training failed
- 		 * end txing train pattern here
- 		 */
--		msm_dp_ctrl_clear_training_pattern(ctrl);
-+		msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
- 
- 		msm_dp_ctrl_deinitialize_mainlink(ctrl);
- 		rc = -ECONNRESET;
-@@ -1983,7 +2035,7 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train
- 		msm_dp_ctrl_link_retrain(ctrl);
- 
- 	/* stop txing train pattern to end link training */
--	msm_dp_ctrl_clear_training_pattern(ctrl);
-+	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
- 
- 	/*
- 	 * Set up transfer unit values and set controller state to send
--- 
-2.45.2
-
+Best regards,
+Krzysztof
