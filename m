@@ -2,77 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B0B5A9198A
-	for <lists+freedreno@lfdr.de>; Thu, 17 Apr 2025 12:40:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16439A91993
+	for <lists+freedreno@lfdr.de>; Thu, 17 Apr 2025 12:44:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B9A410E1DD;
-	Thu, 17 Apr 2025 10:40:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8E4210EA95;
+	Thu, 17 Apr 2025 10:44:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nbak8cI5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O6Mwf05P";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50C8C10E1DD
- for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 10:40:29 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53H5l72p010534
- for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 10:40:28 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF4110EA89
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 10:44:13 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53H5lLQa027350
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 10:44:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=BjuAWeJK5hlBcayQ9LKvqOos
- Uc8OqTctTywMTRf5ORQ=; b=nbak8cI5wjIQO6uUIznf424kTrDzTn/9K6GVP0tC
- DQSa3ZpmDdvwWVI64JsD7GtF9lDiVsVOp1ac9cFWIEzd0kOQwLMS5AD7DKqj57hf
- kv2QhUSltme7lzAkD4N+LMcNbChzk3ztBl7prlt6Olub6H1wVTqfGAFmeUDItA61
- NGgpEcImagTbnFygZCFeO/DUafoTRyHR+5mfcnokURzZaYruh2OuLGSOS7Iw6pmP
- 7NeGCKDmCIOHO5I6NYIv+vEzIPM3lb7CDzTEmrq59h3AuOQMfqRIc4pu+Eeml6z/
- tqyMkwzXZy8HutaRIPs6kv8JMKOg10oNsboprHUkcgppjA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45yfgjpg5u-1
+ :references:subject:to; s=qcppdkim1; bh=ppWs9/kYd+Q7yQxJO3DvRjoy
+ waOVkrLIFLA17j6xOGA=; b=O6Mwf05P4kGfqD5bTvxKVJ9Df3yOj2jKW9796z87
+ 3DAhnrNJM+2l6xeAAS+jxraUunychdF+WIlUHtfpu8BNy+roR6Ca1rbImIOH8bZM
+ 2cfq2l+9JQnKvEStXnJuUy0Vm1CQGHp+ArI7+iK33EpW2y/YqnGxHcJlCEsY/6fD
+ LECvHVaa+xnma99jzj1liXPReQpqknMfpyq7zOt6CWGvu3IXcAMzO15Un2JVxb6+
+ 6rGffgz87Xx1GTXHkhqWcakd43A9SDZmsY0UIJI0zLxOclQ9/nNHSFdg9+fxVW3p
+ E8g5XhMFTlIfJoqctsmUwTrk1am0cQ2FiQqlIn97Md2HDg==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45ydvjetcc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 10:40:28 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-6e8f4367446so7812206d6.0
- for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 03:40:28 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 10:44:12 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-6e8f99a9524so18369466d6.1
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Apr 2025 03:44:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744886427; x=1745491227;
+ d=1e100.net; s=20230601; t=1744886651; x=1745491451;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BjuAWeJK5hlBcayQ9LKvqOosUc8OqTctTywMTRf5ORQ=;
- b=G7Cd0yjt75vQHZLCOfSKUS5doJUv0MerP1NkNDpa7RXqUfx+G7PktBTiwxkisRqXzH
- WYA+RZ+MQ4lb12aAigg1cRSCpsILA7r5Ql3I9lZ0k0OpdA9V6q9pCvj7qCiV7ENDeVOB
- 0dxqPZ601LFEFjmgWUGvxDyXnctxlmfXovBAa6KGCtesWGrFCW6e9g+yli/ctMU1c0Qc
- +QULZUI53ouBLAKgGV9nhhEsMIHZqJdzz4qdENt6gsVPg7kvcuUsnHbQTTfnBmyJg73f
- RUbHIgvtBmq1/EQmqkpqDlGWITc6dbcEIgElRAxfwhTTarkRXd8A+Ts5JXaiesed2qTB
- kJWw==
+ bh=ppWs9/kYd+Q7yQxJO3DvRjoywaOVkrLIFLA17j6xOGA=;
+ b=RUV334sgVwv4o88qZJg4/2wirBNQbzohjVgjpUE7Q85r9YVFcIZuJEaJL0YW2ittXx
+ jGXDYlgsHxBj8DnGNADTU6zqKJ1ndzUEgS34YX+0wvG0qZt5YggYpqeQn8gjTOv6DUhp
+ mk8LDn9uP/F+0CwzMMnEluwk6gUmAv7/FTXFKoZuw3r9SNSD+7wbUGFQV9rINdbONZbJ
+ rwfINqiSei2RHzp38eEm6nu6qvYRhudCBxXY9LPMXtL9alpb/XnaUVRaGdoCIM/BFlzB
+ pyStIIa5Ry2cmjODd2TNmtUOna3mhQ3+8TU0QAAL/uC1WlG3utUSkGY7aYm40od2aQBq
+ FoZA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVGd1zz7AxNK6gQKNLkaPXs321ysB/FP5cpr0Do58cvwd3e6g7QzBIA+z7AUtLsvdTYLmp9mwfTwBs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyaa3c5uIsB3p2+DwhOptTaIb5+v/0HoeA5nQHqSwTW9mr5CbIL
- Ga2OvWOYcPjiTyUdAs+sXh2tNAMMX/XjloxH/okMxTDpA0T9SdsF1zA8WJ0xbFK5FG7JfgnIiHl
- sW5pqGif/gElC1X8RiAaodTbD9NNLOX9AEDg4t61paz2LzDmvAUY2FEJ7S2qJPaRy05c=
-X-Gm-Gg: ASbGnctcasZ2fWzZe8RbcuFTIOpZ9Mg3bgagggJIzZ8iVAJplVqn4/jFt2gPi2zj5Am
- PyN5EmATWXvL+kUNmGhMFVR10h7fSEABuBgi8bP9fVfN8E48Eoc1c+YWjqeZqi+MTJyMHlxynT9
- NvJ4GGRSS4F5yPOLANF+YL4A9K3/fmBQ9vhOg7D+8N0QWErqpUQYIpj2ue5LESvAnhhGxRXpMAH
- W+wXHveC4Vz5AlEBNjbcsyd6m7oXJN8i4f6Q6d2PRA5eDe4Rwad49+9CNrKHPq1tDQeIgTH2Rhe
- ilo9DH5gsiVk7fP0VI25Wyo5r/tgmeH/hjy6P0W7qwuouALeO/OCDBYSnfHZstjkwZQ0oxPfe6Y
+ AJvYcCVZkyYtLUCWhwcyN+7UQDUMSOAnXEwOk89xMc1WYlGixya7Yi1c9ywBzMbr5it1M6vOw59Ivn3viqE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwQTJswvwlohoqxbbFPBtxmIIfh1AUHFyIMtxWCo9n7JE4PaWnb
+ nljuiCtCDkwoZanwWcedv8cEka3xxH23ZS2UtxOlwiEnOWaoB5mO8H8EkJqHUosUEaaPxNEw44C
+ Uwz0VDvNYcnK/bpHUZYasz9waBYYv+uD+njuw7WzDlE0UH3LN8UjcAh9lzWdxMblg7D4=
+X-Gm-Gg: ASbGncsb0k28yGcOibRVK8htP7iKcubGH0Dpslw/+Oy3ru+MIxgeGZKOYX54Pi9+kmC
+ qKUtUeDS97G6Kx9WcrAc+tKklUPY543bm50aKbr4d8mRzIAifVk+sK1FYxW9MJQy3JSTsmwp+we
+ T6YLJtb6e0IgiHyBqQvF6QDEY9FdbpPdAcKYOKJz2vZRlvrGseyBDQw7TB2J40j9Goher9ngErS
+ 5v0oWCh0GKE8fMk6w4gV4zwLaMU6Cih2nBfAyJjaHhcT1Fy8aZUTICJiqHfXs0BhoEK2o+sXq5Y
+ zSvrdw1i3r3nMSDRJYB7Xjgv2/dJv+/8gxDHbwOchENWHoxkumkFWwLEmHK1zKyHvJzVsut8c1g
  =
-X-Received: by 2002:a05:6214:4001:b0:6e8:9e9c:d212 with SMTP id
- 6a1803df08f44-6f2b2dc00e7mr77993436d6.0.1744886427422; 
- Thu, 17 Apr 2025 03:40:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHWp4eovQ0JlsFx/TXAsBf4ivXXpH+ynJJ2l0sinoyay/KdVJnwv8l7W0CfA/7FfRZ5I9Fg8A==
-X-Received: by 2002:a05:6214:4001:b0:6e8:9e9c:d212 with SMTP id
- 6a1803df08f44-6f2b2dc00e7mr77992926d6.0.1744886427069; 
- Thu, 17 Apr 2025 03:40:27 -0700 (PDT)
+X-Received: by 2002:ad4:5766:0:b0:6e6:6c18:3ab7 with SMTP id
+ 6a1803df08f44-6f2b2f5fb3bmr87154716d6.27.1744886651491; 
+ Thu, 17 Apr 2025 03:44:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGqQ/KLp/IVSmaGp6NzSaGXvhrK11Hurnr+RjFchMqCJQpnKTKhboZA08HmNSeTGf/pdOABqQ==
+X-Received: by 2002:ad4:5766:0:b0:6e6:6c18:3ab7 with SMTP id
+ 6a1803df08f44-6f2b2f5fb3bmr87154306d6.27.1744886651159; 
+ Thu, 17 Apr 2025 03:44:11 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54d3d50253csm1981832e87.129.2025.04.17.03.40.25
+ 2adb3069b0e04-54d3d510914sm1896321e87.196.2025.04.17.03.44.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Apr 2025 03:40:26 -0700 (PDT)
-Date: Thu, 17 Apr 2025 13:40:24 +0300
+ Thu, 17 Apr 2025 03:44:10 -0700 (PDT)
+Date: Thu, 17 Apr 2025 13:44:07 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Ayushi Makhija <amakhija@qti.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -87,31 +87,32 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
  quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
  quic_jesszhan@quicinc.com
-Subject: Re: [PATCH v4 07/11] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
- to DP bridge nodes
-Message-ID: <qnhfnxvdsgnw5jh4xxaqz3p2x67qcrr7kn3vwdnyz5huchdtzy@aagflznjrvly>
+Subject: Re: [PATCH v4 10/11] drm/bridge: anx7625: fix anx7625_sink_detect()
+ to return correct hpd status
+Message-ID: <g5mrn6o2arkbt356xtisszqtiokxm4oq4gkwa23y3f3aaahbfr@umcg5ikf5qjb>
 References: <20250417053909.1051416-1-amakhija@qti.qualcomm.com>
- <20250417053909.1051416-8-amakhija@qti.qualcomm.com>
+ <20250417053909.1051416-11-amakhija@qti.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250417053909.1051416-8-amakhija@qti.qualcomm.com>
-X-Proofpoint-GUID: o6ZyQHFPXL5gM5FHVPt9l6B9UZeFnzlG
-X-Proofpoint-ORIG-GUID: o6ZyQHFPXL5gM5FHVPt9l6B9UZeFnzlG
-X-Authority-Analysis: v=2.4 cv=Cve/cm4D c=1 sm=1 tr=0 ts=6800da9c cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=49572xSsTLiTCUh2GlUA:9 a=CjuIK1q_8ugA:10
- a=OIgjcC2v60KrkQgK7BGD:22 a=TjNXssC_j7lpFel5tvFf:22
+In-Reply-To: <20250417053909.1051416-11-amakhija@qti.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=ZIrXmW7b c=1 sm=1 tr=0 ts=6800db7c cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=JL1rjniFVyafwILi9_cA:9
+ a=CjuIK1q_8ugA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: kEXImkeenmAq1v-sqSih7zb78yVOU-9B
+X-Proofpoint-ORIG-GUID: kEXImkeenmAq1v-sqSih7zb78yVOU-9B
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-17_03,2025-04-15_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015
- malwarescore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 phishscore=0
- suspectscore=0 impostorscore=0 mlxlogscore=963 mlxscore=0
- priorityscore=1501 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504170079
+ adultscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 phishscore=0 mlxlogscore=999
+ spamscore=0 impostorscore=0 malwarescore=0 mlxscore=0 lowpriorityscore=0
+ classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504170080
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,92 +128,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 17, 2025 at 11:09:05AM +0530, Ayushi Makhija wrote:
+On Thu, Apr 17, 2025 at 11:09:08AM +0530, Ayushi Makhija wrote:
 > From: Ayushi Makhija <quic_amakhija@quicinc.com>
 > 
-> Add anx7625 DSI to DP bridge device nodes.
+> In the anx7625_sink_detect(), the device is checked to see
+> if it is a panel bridge, and it always sends a "connected"
+> status to the connector. When adding the DP port on port 1 of the
+> anx7625, it incorrectly treats it as a panel bridge and sends an
+> always "connected" status. Instead of checking the status on the
+> panel bridge, it's better to check the hpd_status for connectors
+> that supports hot-plugging. This way, it verifies the hpd_status
+> variable before sending the status to the connector.
+
+Does this work if the Analogix bridge is connected to an eDP panel? In
+such a case it should report 'connected' even before powering up the
+panel (which might mean HPD pin being low).
+
 > 
 > Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 180 +++++++++++++++++++++
->  1 file changed, 180 insertions(+)
+>  drivers/gpu/drm/bridge/analogix/anx7625.c | 3 ---
+>  1 file changed, 3 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-> index 175f8b1e3b2d..d5b2dabe927d 100644
-> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-> @@ -28,6 +28,13 @@ chosen {
->  		stdout-path = "serial0:115200n8";
->  	};
+> diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+> index a32ebe1fa0cd..365d1c871028 100644
+> --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
+> +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+> @@ -1814,9 +1814,6 @@ static enum drm_connector_status anx7625_sink_detect(struct anx7625_data *ctx)
 >  
-> +	vph_pwr: vph-pwr-regulator {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vph_pwr";
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
->  	vreg_conn_1p8: vreg_conn_1p8 {
->  		compatible = "regulator-fixed";
->  		regulator-name = "vreg_conn_1p8";
-> @@ -128,6 +135,30 @@ dp1_connector_in: endpoint {
->  			};
->  		};
->  	};
-> +
-> +	dp-dsi0-connector {
-> +		compatible = "dp-connector";
-> +		label = "DSI0";
-> +		type = "full-size";
-> +
-> +		port {
-> +			dp_dsi0_connector_in: endpoint {
-> +				remote-endpoint = <&dsi2dp_bridge0_out>;
-> +			};
-> +		};
-> +	};
-> +
-> +	dp-dsi1-connector {
-> +		compatible = "dp-connector";
-> +		label = "DSI1";
-> +		type = "full-size";
-> +
-> +		port {
-> +			dp_dsi1_connector_in: endpoint {
-> +				remote-endpoint = <&dsi2dp_bridge1_out>;
-> +			};
-> +		};
-> +	};
->  };
+>  	DRM_DEV_DEBUG_DRIVER(dev, "sink detect\n");
 >  
->  &apps_rsc {
-> @@ -519,7 +550,107 @@ &i2c18 {
->  	clock-frequency = <400000>;
->  	pinctrl-0 = <&qup_i2c18_default>;
->  	pinctrl-names = "default";
-> +
->  	status = "okay";
-> +
-> +	io_expander: gpio@74 {
-> +		compatible = "ti,tca9539";
-> +		reg = <0x74>;
-> +		interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
-> +		gpio-controller;
-> +		#gpio-cells = <2>;
-> +		interrupt-controller;
-> +		#interrupt-cells = <2>;
-
-No reset-gpios? Is the expander being used by something else so that we
-don't want it to be reset during the bootup?
-
-> +
-> +		pinctrl-0 = <&io_expander_intr_active>,
-> +			    <&io_expander_reset_active>;
-> +		pinctrl-names = "default";
-> +	};
-> +
-
-The rest LGTM
+> -	if (ctx->pdata.panel_bridge)
+> -		return connector_status_connected;
+> -
+>  	return ctx->hpd_status ? connector_status_connected :
+>  				     connector_status_disconnected;
+>  }
+> -- 
+> 2.34.1
+> 
 
 -- 
 With best wishes
