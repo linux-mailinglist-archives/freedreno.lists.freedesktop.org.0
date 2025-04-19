@@ -2,82 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 040A5A94423
-	for <lists+freedreno@lfdr.de>; Sat, 19 Apr 2025 17:17:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A53B0A943BF
+	for <lists+freedreno@lfdr.de>; Sat, 19 Apr 2025 16:34:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B038110E158;
-	Sat, 19 Apr 2025 15:17:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE46A10E0BF;
+	Sat, 19 Apr 2025 14:34:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WxjJEyfM";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="W7tDhLCr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CB7210E250;
- Fri, 18 Apr 2025 18:34:42 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-22c33ac23edso24077505ad.0; 
- Fri, 18 Apr 2025 11:34:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745001282; x=1745606082; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GEL5hwj4ZcKmQgInqqPjANGqLqKJKFxTEKIu2C+lufU=;
- b=WxjJEyfMNJT4uRpWWMf2Nglp2aTiWwUshr+Nhq+W3JhjprHonkiCk44RHB6fHgi4gh
- c6yuSk+5FcYk1gqlMPjl4GaVqm3l4101birlMxSzi7BBPVpS9CYaedw650SX70XP9u8g
- PMjSTp+SscMwQ9isAERuvGQwV4fDJFHD8TP9XRYlYtJLvbIOWBcya06y2o3vMU4e8q9g
- nhlV+1RgmEPxtbcyk7lS5F1WfkrfCMbEPEir48WC2SGthFJ/vkYlJFsCSXR+Rr0cvkPm
- q+psHY2LTGCv7jJupx2bBB74gIEGl6GzC8WRnCdd6N2TJFEiKlyhYc0SlnqTYKewSxWD
- WjIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745001282; x=1745606082;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GEL5hwj4ZcKmQgInqqPjANGqLqKJKFxTEKIu2C+lufU=;
- b=R/HWoXzBRwWXXWv6bXEJ+7yJTN4enw2ejloYTqXjUoCjG//83AdNyWdEEPha2o9XbL
- KTXym6z8WvwH/jSqLFJHp7rCaTC6fZbknLiHSU7UzwE7w40RbkOPx7QwTNv3WIqn+yYY
- SX/qac6nzlzYO5w1ycDawOquNSzOZ+hzeoW9aaqkTPvIBpP2xLjWVCcXdbauMe3OR11Q
- XUMEMFgaudbcKRuJ+gPWqxGAXoKliAgt/UZrnffEclbXk1Vz2RfZ+8EOUtn4K5TDOIq8
- y4UbpwM/Dax0hRWW4Z0aWbsB5vCvf0nOK70oUUMuiVulnbhzifiYZryyWh81ZW2mZCSh
- 59cA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVNEEbROW1J3PSXRJpRiXgO7rC1ezpu0LM4jItk0DBAaMc5DATCBpvvaPYn70xeF9R2ZqkKt4kQM+0=@lists.freedesktop.org,
- AJvYcCWVgz+KIjChvvhu+hJ3PIAYJKjWrmwlCFgU4wAjS1ossUq5QwbJICL3stDWl07P+En5EN4l9WtN6ECj@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yztkp7hB8PkCAxNkHTh6VdJ17B/jMtfD3811mFpcK1TqXm9pkeh
- +sgRrU4lY55WhWxf5iXwJScbN7XqPpaeY1OMgsoEod0WLa+X4qK8
-X-Gm-Gg: ASbGncsxAaFjmqibLNHHjkYp56cqKo6twS0ouxnSaztcVlaHn6NXwX8mv0dsm413cFb
- z/f06Rb3+YFFDF8ztR4QLK0hmS+rhvXHvdC1TTfGviLkXFq2zZC1OvS5hAQCip4UQ6yIP7p8rZ7
- JkWZsiWtM8mAmsChrkCIcjQ4UXEsDhuGosJPUDNYHsPAV98p8wwB8xc6eSlxsAbGtUWrDZIEKLu
- YLUr/SEalu06wCooyhikMjCInnaLJWSkukmrUujXneSz8e/PK4T4FYpTwkrZm4i55Xqg+3pH/QU
- 5tEoy7ab/f6S+uP5phWdizhICf9MRDAjsIC691o=
-X-Google-Smtp-Source: AGHT+IGAg/lnXCq2oW7mJKwA03rXOp9bjmqxNymxHwT8OBsAUwilnAGzFjMlghfXVPNRrh8L2LFXNg==
-X-Received: by 2002:a17:90b:1f8c:b0:2ff:5ed8:83d0 with SMTP id
- 98e67ed59e1d1-3087bb631d7mr5824623a91.16.1745001281749; 
- Fri, 18 Apr 2025 11:34:41 -0700 (PDT)
-Received: from nuvole.. ([144.202.86.13]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3087dee325bsm1774222a91.9.2025.04.18.11.34.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Apr 2025 11:34:41 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: jun.nie@linaro.org
-Cc: airlied@gmail.com, dmitry.baryshkov@linaro.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- marijn.suijten@somainline.org, quic_abhinavk@quicinc.com,
- quic_jesszhan@quicinc.com, robdclark@gmail.com, sean@poorly.run,
- simona@ffwll.ch
-Subject: Re: [PATCH v8 00/15] drm/msm/dpu: Support quad pipe with dual-DSI
-Date: Sat, 19 Apr 2025 02:32:36 +0800
-Message-ID: <20250418183236.209236-1-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org>
-References: <20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7018710E0BF;
+ Sat, 19 Apr 2025 14:34:12 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53JAMm61004420;
+ Sat, 19 Apr 2025 14:34:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ tq+xo0jmaVq0813/+U7iMFutk6jBM/hJCGNbvQnaqpg=; b=W7tDhLCr5pTXGvt1
+ ROTKGsb0iMOkNBC7HRCnLo0nPiR+RvqqOQu3/22g/DmIehKwsjFfCqFYedEzEZt9
+ CZYEMsFbPitLMKFKkXYeDOu5sEZDCAu8RhjRbSLgreiBO+cEFz4eD96H+BrFQXQf
+ 0++PSQ6sm+Na8oCXD9siENkykzqDNLCxPRA1GvDhcm4YjYMiSc4Rfhc/OcqqdiRy
+ QSAtvRXSyOohd/BaT/cySqbMdz0pRZqaD3GL+PhZJ0eWmguAWWiqz0zu7MG+XbH3
+ Gjj90H0SvbrQbSjef/AAXQCduMVHAkZIQl1xrvCI5yFRLnV9lX8hNkCOK+lUGwdk
+ AIkHRQ==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46416qrtnf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 19 Apr 2025 14:34:06 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53JEY5Gt005346
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 19 Apr 2025 14:34:05 GMT
+Received: from [10.216.62.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sat, 19 Apr
+ 2025 07:33:59 -0700
+Message-ID: <0cd538c0-7d1f-44a4-b89d-f285535c0fcb@quicinc.com>
+Date: Sat, 19 Apr 2025 20:03:35 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 19 Apr 2025 15:17:14 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/7] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
+ <konradybcio@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Maya Matuszczyk <maccraft123mc@gmail.com>
+References: <20250109-gpu-acd-v4-0-08a5efaf4a23@quicinc.com>
+ <20250109-gpu-acd-v4-5-08a5efaf4a23@quicinc.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <20250109-gpu-acd-v4-5-08a5efaf4a23@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=N7UpF39B c=1 sm=1 tr=0 ts=6803b45e cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=gEfo2CItAAAA:8
+ a=VwQbUJbxAAAA:8 a=e5mUnYsNAAAA:8
+ a=pGLkceISAAAA:8 a=COk6AnOGAAAA:8 a=au9r1ZwfxwjuOwkqCsUA:9 a=QEXdDO2ut3YA:10
+ a=sptkURWiP4Gy88Gu7hUp:22 a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: kGF76mqJEhxl_ZmAWa5RWnpkDmNLc7Zb
+X-Proofpoint-ORIG-GUID: kGF76mqJEhxl_ZmAWa5RWnpkDmNLc7Zb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-19_06,2025-04-17_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0
+ mlxscore=0 clxscore=1011 lowpriorityscore=0 priorityscore=1501
+ mlxlogscore=999 impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504190120
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,42 +108,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 03 Mar 2025 23:14:29 +0800 Jun Nie <jun.nie@linaro.org> wrote:
-> 2 or more SSPPs and dual-DSI interface are need for super wide panel.
-> And 4 DSC are preferred for power optimal in this case due to width
-> limitation of SSPP and MDP clock rate constrain. This patch set
-> extends number of pipes to 4 and revise related mixer blending logic
-> to support quad pipe. All these changes depends on the virtual plane
-> feature to split a super wide drm plane horizontally into 2 or more sub
-> clip. Thus DMA of multiple SSPPs can share the effort of fetching the
-> whole drm plane.
->
-> The first pipe pair co-work with the first mixer pair to cover the left
-> half of screen and 2nd pair of pipes and mixers are for the right half
-> of screen. If a plane is only for the right half of screen, only one
-> or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
-> assinged for invalid pipe.
->
-> For those panel that does not require quad-pipe, only 1 or 2 pipes in
-> the 1st pipe pair will be used. There is no concept of right half of
-> screen.
->
-> For legacy non virtual plane mode, the first 1 or 2 pipes are used for
-> the single SSPP and its multi-rect mode.
->
-> To test bonded DSI on SM8650, the 5 patches for active-CTL improvement
-> are needed:
-> https://gitlab.freedesktop.org/lumag/msm/-/commits/dpu-4k?ref_type=heads
->
+On 1/9/2025 2:10 AM, Akhil P Oommen wrote:
+> Add a new schema which extends opp-v2 to support a new vendor specific
+> property required for Adreno GPUs found in Qualcomm's SoCs. The new
+> property called "qcom,opp-acd-level" carries a u32 value recommended
+> for each opp needs to be shared to GMU during runtime.
+> 
+> Also, update MAINTAINERS file include the new opp-v2-qcom-adreno.yaml.
+> 
+> Cc: Rob Clark <robdclark@gmail.com>
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
+>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 97 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 98 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> new file mode 100644
+> index 000000000000..de1f7c6c4f0e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> @@ -0,0 +1,97 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Adreno compatible OPP supply
+> +
+> +description:
+> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
+> +  ACD related information tailored for the specific chipset. This binding
+> +  provides the information needed to describe such a hardware value.
+> +
+> +maintainers:
+> +  - Rob Clark <robdclark@gmail.com>
+> +
+> +allOf:
+> +  - $ref: opp-v2-base.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: operating-points-v2-adreno
+> +      - const: operating-points-v2
 
-[...]
+https://lore.kernel.org/all/173637143564.1057127.5997544431977689674.robh@kernel.org/
 
-> base-commit: b44251a8c179381b9f3ed3aa49be04fe1d516903
+Krzysztof, sorry for the late response. I was checking further about the
+above bot error. AFAIU, we should not include "const:
+operating-points-v2" here, otherwise all opp tables compatible with
+"operating-points-v2" get matched with opp-v2-qcom-adreno.yaml during
+validation. So I am sending the v5 revision with the below fix:
 
-Hi, Jun. The display of my sm8650 device requires 4:4:2(lm, dsc, intf)
-topology, I want to test this series, these patches can't be applied to
-the latest linux-next tree, and I can't find the commit id in linux-next
-or msm-next. Where can I fetch the tree?
++++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+@@ -19,9 +19,8 @@ allOf:
 
-Best wishes,
-Pengyu
+ properties:
+   compatible:
+-    items:
+-      - const: operating-points-v2-adreno
+-      - const: operating-points-v2
++    contains:
++      const: operating-points-v2-adreno
+
+-Akhil.
+
+> +
+> +patternProperties:
+> +  '^opp-[0-9]+$':
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      opp-hz: true
+> +
+> +      opp-level: true
+> +
+> +      opp-peak-kBps: true
+> +
+> +      opp-supported-hw: true
+> +
+> +      qcom,opp-acd-level:
+> +        description: |
+> +          A positive value representing the ACD (Adaptive Clock Distribution,
+> +          a fancy name for clk throttling during voltage droop) level associated
+> +          with this OPP node. This value is shared to a co-processor inside GPU
+> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
+> +          be present for some OPPs and GMU will disable ACD while transitioning
+> +          to that OPP. This value encodes a voltage threshold, delay cycles &
+> +          calibration margins which are identified by characterization of the
+> +          SoC. So, it doesn't have any unit. This data is passed to GMU firmware
+> +          via 'HFI_H2F_MSG_ACD' packet.
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +    required:
+> +      - opp-hz
+> +      - opp-level
+> +
+> +required:
+> +  - compatible
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    gpu_opp_table: opp-table {
+> +        compatible = "operating-points-v2-adreno", "operating-points-v2";
+> +
+> +        opp-687000000 {
+> +            opp-hz = /bits/ 64 <687000000>;
+> +            opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+> +            opp-peak-kBps = <8171875>;
+> +            qcom,opp-acd-level = <0x882e5ffd>;
+> +        };
+> +
+> +        opp-550000000 {
+> +            opp-hz = /bits/ 64 <550000000>;
+> +            opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+> +            opp-peak-kBps = <6074219>;
+> +            qcom,opp-acd-level = <0xc0285ffd>;
+> +        };
+> +
+> +        opp-390000000 {
+> +            opp-hz = /bits/ 64 <390000000>;
+> +            opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+> +            opp-peak-kBps = <3000000>;
+> +            qcom,opp-acd-level = <0xc0285ffd>;
+> +        };
+> +
+> +        opp-300000000 {
+> +            opp-hz = /bits/ 64 <300000000>;
+> +            opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
+> +            opp-peak-kBps = <2136719>;
+> +            /* Intentionally left out qcom,opp-acd-level property here */
+> +        };
+> +
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 910305c11e8a..f7119623e1f3 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7292,6 +7292,7 @@ S:	Maintained
+>  B:	https://gitlab.freedesktop.org/drm/msm/-/issues
+>  T:	git https://gitlab.freedesktop.org/drm/msm.git
+>  F:	Documentation/devicetree/bindings/display/msm/gpu.yaml
+> +F:	Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+>  F:	drivers/gpu/drm/msm/adreno/
+>  F:	drivers/gpu/drm/msm/msm_gpu.*
+>  F:	drivers/gpu/drm/msm/msm_gpu_devfreq.*
+> 
+
