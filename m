@@ -2,66 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 898D1A94B63
-	for <lists+freedreno@lfdr.de>; Mon, 21 Apr 2025 05:10:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB776A94BFD
+	for <lists+freedreno@lfdr.de>; Mon, 21 Apr 2025 06:28:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2423C10E346;
-	Mon, 21 Apr 2025 03:10:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7125910E20F;
+	Mon, 21 Apr 2025 04:28:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="bmmBAkN9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gda07qmI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.mainlining.org (unknown [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C38D310E1E2;
- Mon, 21 Apr 2025 03:09:45 +0000 (UTC)
-Received: from [192.168.183.162] (254C255A.nat.pool.telekom.hu [37.76.37.90])
- by mail.mainlining.org (Postfix) with ESMTPSA id ADECDBBB03;
- Mon, 21 Apr 2025 03:09:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mainlining.org;
- s=psm; t=1745204970;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=D4erXkx1N6odG+LR0LejQIlj+eK/ZO/Lp1JgPLjIo9Q=;
- b=bmmBAkN95K4IlrqMxNY9XRjPbRR7+U9XQ1PN253AF6O+qtZ/rJ2zhkfdBuujpGAjswLrk5
- uc2dsvR+fC5qjaRUWDwvgNhR98xeuuN3dp5sJSBdtuC96w74VTehS4kSC7FgQDnSqexoxc
- Lq2KADQU1Lm8/0KUCYsQsIjoenI/eeqZnKUJ4twcgFlIPOY1WcBZbbh7Be6Uk0Q4rrWG4W
- VS7iUEhEU3MtgKez7B5XoZUKtkxnsOjvxTNdLnepRgfOysoen2GwhkSzYHcLUNZQ9GUXvG
- 7BpoFv64ZFzt2luPMYJ1CqSwgyorNPrEQ17kK4ZBdyfSGm02+W02HLmz6T3fnw==
-From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
- <barnabas.czeman@mainlining.org>
-Date: Mon, 21 Apr 2025 05:09:23 +0200
-Subject: [PATCH 3/3] arm64: dts: qcom: msm8976: sort adreno clocks
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA18610E071;
+ Mon, 21 Apr 2025 04:28:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id ECD3F61155;
+ Mon, 21 Apr 2025 04:28:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC41C4CEEB;
+ Mon, 21 Apr 2025 04:28:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745209709;
+ bh=7RTjC413WFNTnsJ+sW8AYTWPri18G27NFZBUWSw+9jY=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=gda07qmIq4zjbljH2XaqDeIlFaDNEcWJ94MEuYowVNAeWl2WSVru4XnzlYVwIntgT
+ i6ZPsySZnkqdfF782pC1R5Yl2KnMVu7+9WRXRmzBbMfP6V3i3/FsgFep3TVXz4/rwy
+ uEp5JRNE7DBD5vK625t9740OVCJnLlsVgaotWh/posQF1UwLJPNrdu5c5DTSHn6FgI
+ G6+yjEDVqLx6PzadoSvbxRRlPkuex+LeD3lSPMGozrwUC9tcxpkl7UfQMRTEyeW0U9
+ AzYApueuj4mdi6ndXGQ6Yfx6pdHr1doOT+QHcjkYFUinD4Gfp/qrAf5ZcpMM5yDqDx
+ oBRR/fO1tq8pg==
+Date: Sun, 20 Apr 2025 23:28:27 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20250421-a5xx-schema-v1-3-7d96b889322a@mainlining.org>
-References: <20250421-a5xx-schema-v1-0-7d96b889322a@mainlining.org>
-In-Reply-To: <20250421-a5xx-schema-v1-0-7d96b889322a@mainlining.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Rob Clark <robdclark@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1745204964; l=1290;
- i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
- bh=fAfyXieDjeLVW7PmrL+oK+9YbBprYzNzlpQ7ltV8A0Q=;
- b=k+ltu8PJiKWj7fBFhPfjLb0vyR3IdskK9K/Dotz1CAdug3F4FC1aBBsn6aKX4LIQxplwPNPg5
- 2kURV563nu8CQVvBohjt8M6PWcd+KTqeVtpyZvpvbGipgmfjYTTsLcg
-X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
- pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
+ Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, 
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+In-Reply-To: <20250421-a5xx-schema-v1-1-7d96b889322a@mainlining.org>
+References: <20250421-a5xx-schema-v1-0-7d96b889322a@mainlining.org>
+ <20250421-a5xx-schema-v1-1-7d96b889322a@mainlining.org>
+Message-Id: <174520970724.607579.8539771287232502050.robh@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: display/msm/gpu: Document clocks of
+ Adreno 505/506/510
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,43 +68,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Sort adreno clocks in alphabetical order.
 
-Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
----
- arch/arm64/boot/dts/qcom/msm8976.dtsi | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+On Mon, 21 Apr 2025 05:09:21 +0200, Barnabás Czémán wrote:
+> Adreno 505/506/510 have previously undocumented alwayson clock.
+> Document clocks for them and enforce their order.
+> 
+> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+> ---
+>  .../devicetree/bindings/display/msm/gpu.yaml       | 83 +++++++++++++++++++++-
+>  1 file changed, 82 insertions(+), 1 deletion(-)
+> 
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8976.dtsi b/arch/arm64/boot/dts/qcom/msm8976.dtsi
-index e2ac2fd6882fcf47e846a92d45e0fcb9beba633a..86a9d24da0faab2dc7ecc53d60aa0c78703eef91 100644
---- a/arch/arm64/boot/dts/qcom/msm8976.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8976.dtsi
-@@ -1129,18 +1129,18 @@ adreno_gpu: gpu@1c00000 {
- 			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "kgsl_3d0_irq";
- 
--			clocks = <&gcc GCC_GFX3D_OXILI_CLK>,
-+			clocks = <&gcc GCC_GFX3D_OXILI_AON_CLK>,
-+				 <&gcc GCC_GFX3D_OXILI_CLK>,
- 				 <&gcc GCC_GFX3D_OXILI_AHB_CLK>,
- 				 <&gcc GCC_GFX3D_OXILI_GMEM_CLK>,
- 				 <&gcc GCC_GFX3D_BIMC_CLK>,
--				 <&gcc GCC_GFX3D_OXILI_TIMER_CLK>,
--				 <&gcc GCC_GFX3D_OXILI_AON_CLK>;
--			clock-names = "core",
-+				 <&gcc GCC_GFX3D_OXILI_TIMER_CLK>;
-+			clock-names = "alwayson",
-+				      "core",
- 				      "iface",
- 				      "mem",
- 				      "mem_iface",
--				      "rbbmtimer",
--				      "alwayson";
-+				      "rbbmtimer";
- 
- 			power-domains = <&gcc OXILI_GX_GDSC>;
- 
+My bot found errors running 'make dt_binding_check' on your patch:
 
--- 
-2.49.0
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/gpu.yaml: allOf:1:then:properties:clock-names: {'items': [{'const': 'alt_mem_iface', 'description': 'GPU Alternative Memory Interface clock'}, {'const': 'alwayson', 'description': 'GPU Always-On clock'}, {'const': 'core', 'description': 'GPU Core clock'}, {'const': 'iface', 'description': 'GPU Interface clock'}, {'const': 'mem_iface', 'description': 'GPU Memory Interface clock'}, {'const': 'rbbmtimer', 'description': 'GPU RBBM Timer for Adreno 5xx series'}], 'minItems': 6, 'maxItems': 6} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/gpu.yaml: allOf:1:then:properties:clock-names: 'oneOf' conditional failed, one must be fixed:
+	[{'const': 'alt_mem_iface', 'description': 'GPU Alternative Memory Interface clock'}, {'const': 'alwayson', 'description': 'GPU Always-On clock'}, {'const': 'core', 'description': 'GPU Core clock'}, {'const': 'iface', 'description': 'GPU Interface clock'}, {'const': 'mem_iface', 'description': 'GPU Memory Interface clock'}, {'const': 'rbbmtimer', 'description': 'GPU RBBM Timer for Adreno 5xx series'}] is too long
+	[{'const': 'alt_mem_iface', 'description': 'GPU Alternative Memory Interface clock'}, {'const': 'alwayson', 'description': 'GPU Always-On clock'}, {'const': 'core', 'description': 'GPU Core clock'}, {'const': 'iface', 'description': 'GPU Interface clock'}, {'const': 'mem_iface', 'description': 'GPU Memory Interface clock'}, {'const': 'rbbmtimer', 'description': 'GPU RBBM Timer for Adreno 5xx series'}] is too short
+	False schema does not allow 6
+	1 was expected
+	6 is greater than the maximum of 2
+	6 is greater than the maximum of 3
+	6 is greater than the maximum of 4
+	6 is greater than the maximum of 5
+	hint: "minItems" is only needed if less than the "items" list length
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/gpu.yaml: allOf:2:then:properties:clock-names: {'items': [{'const': 'alwayson', 'description': 'GPU Always-On clock'}, {'const': 'core', 'description': 'GPU Core clock'}, {'const': 'iface', 'description': 'GPU Interface clock'}, {'const': 'mem', 'description': 'GPU Memory clock'}, {'const': 'mem_iface', 'description': 'GPU Memory Interface clock'}, {'const': 'rbbmtimer', 'description': 'GPU RBBM Timer for Adreno 5xx series'}], 'minItems': 6, 'maxItems': 6} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/gpu.yaml: allOf:2:then:properties:clock-names: 'oneOf' conditional failed, one must be fixed:
+	[{'const': 'alwayson', 'description': 'GPU Always-On clock'}, {'const': 'core', 'description': 'GPU Core clock'}, {'const': 'iface', 'description': 'GPU Interface clock'}, {'const': 'mem', 'description': 'GPU Memory clock'}, {'const': 'mem_iface', 'description': 'GPU Memory Interface clock'}, {'const': 'rbbmtimer', 'description': 'GPU RBBM Timer for Adreno 5xx series'}] is too long
+	[{'const': 'alwayson', 'description': 'GPU Always-On clock'}, {'const': 'core', 'description': 'GPU Core clock'}, {'const': 'iface', 'description': 'GPU Interface clock'}, {'const': 'mem', 'description': 'GPU Memory clock'}, {'const': 'mem_iface', 'description': 'GPU Memory Interface clock'}, {'const': 'rbbmtimer', 'description': 'GPU RBBM Timer for Adreno 5xx series'}] is too short
+	False schema does not allow 6
+	1 was expected
+	6 is greater than the maximum of 2
+	6 is greater than the maximum of 3
+	6 is greater than the maximum of 4
+	6 is greater than the maximum of 5
+	hint: "minItems" is only needed if less than the "items" list length
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20250421-a5xx-schema-v1-1-7d96b889322a@mainlining.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
