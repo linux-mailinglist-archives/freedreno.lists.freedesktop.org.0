@@ -2,120 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 476BDA94DDD
-	for <lists+freedreno@lfdr.de>; Mon, 21 Apr 2025 10:16:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA141A94E0E
+	for <lists+freedreno@lfdr.de>; Mon, 21 Apr 2025 10:25:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC52C10E34D;
-	Mon, 21 Apr 2025 08:16:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4E6010E24C;
+	Mon, 21 Apr 2025 08:25:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="j3Iz+LpB";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YH1+Q21i";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD3810E34E
- for <freedreno@lists.freedesktop.org>; Mon, 21 Apr 2025 08:16:16 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53KNdpcQ006488
- for <freedreno@lists.freedesktop.org>; Mon, 21 Apr 2025 08:16:14 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75D0410E24C
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Apr 2025 08:25:46 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53KLpTlT001092
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Apr 2025 08:25:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qARCO4unAM6dJGj6oIu6kaF+8Quq5ZnXo3x6/YySZCc=; b=j3Iz+LpB8LorWG4/
- 1CRgb50Hdr7BG4LFJAXQcqfgg1+Uj9+RXqkWfEfMwjm6Apr+D8X6NSY0xWaIuiPb
- /8b4y4IATVJqv5A4W1NFSukAznl4+FtXIAf29CGI6SUP8+15uI+PgyGQ/vJlGzTc
- OJC/P7bHBUgYXsXmTkC2GpGB/vr5ToGLBauB5n6BbdB3Fw2TqPrV7e/ha9ILEL1n
- zai/mocynsO2NurF4QT4Cn0FxuUSuYd3QNDdlXDj+Bkzhx+1gn/wTaoigp8VD9EZ
- bkn2lu58n0V5tc2ASxUlKGGAUnFYjV7lMu5pulZzGR+MYYZPmuNf1VZjQpDQ51By
- NTUDIw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46454bkcvt-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=FRb6vmGaZWj66VKHke2gwyzE
+ xYa6h3+rIt/MDpsOeAI=; b=YH1+Q21ixLsZoKOFBaFCve80V8EjcW9WBgn4y8X1
+ CbKmC/skwooMzbudLcoFWR2xDA7v6/fhCvCYPkUa+d7POH29TIrCeNPF6O6dc+Dj
+ SEAdWZXKV2a4+tes+UPcogaQgRrBrE+Ze3rmo3s2g6QgsoWSONjJ6kpdBJWBzR3K
+ zQESnLM38pmIejBjxsDU1UyruF6FI4gRjF+c+l3CbjUJzz2XjNrqPamDiL6ldZpb
+ d1xRgwfEaXroI8sYAevtIDQbD/a1xWyyVsmAnAWmb42VF7pov/oZFN9q2H/B2jat
+ bQJEjy03rJ/SYqQBOJYwGSC7gqjsdN742sDtobFgh3qWPA==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4642u9bj8e-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 21 Apr 2025 08:16:14 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c54a6b0c70so335807385a.0
- for <freedreno@lists.freedesktop.org>; Mon, 21 Apr 2025 01:16:14 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Apr 2025 08:25:44 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-6e916df0d5dso70391026d6.2
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Apr 2025 01:25:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745223373; x=1745828173;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qARCO4unAM6dJGj6oIu6kaF+8Quq5ZnXo3x6/YySZCc=;
- b=E0HU0fSmHQtLxGqCHDyujpJ1Xy6vW6MVNGtW00yvxhjcAQ22OZSIP9qrqf6ujruREx
- ciLePG0sPG8zl6tFRIRGygf8WQChuulI6WN5maxTDWoAF0Xpf85QaxkojwtVTrm2rqpK
- kGNa1e1HH8QbBqUEc/2mHixU+8pvKpDelqLEdAfDDpT8w07xu/XKRG3htNGExqADCBYz
- DTTZ7nZhmMrCgYhk15McS0HGLAexMImznbY/pfhkNwEXB2BZz9F5gnieJbDyCTakh4F/
- Nu0e+m5XT7myr8u45CBW6mJ3SsD4NGvO3Aq/X8ON4h4UISFdmY6C40EFzcMCSq54eAuh
- GRgQ==
+ d=1e100.net; s=20230601; t=1745223937; x=1745828737;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FRb6vmGaZWj66VKHke2gwyzExYa6h3+rIt/MDpsOeAI=;
+ b=tJ1+RyIQNUaw7nL6Q95K3FZJvgoZ0xVjH/gQmcaz5fP4IsNHmTYSMqG2IUxmLv5djH
+ YwbATW+hZjUi5d6FcLnkzECqUhCqk37BeKUfKnl4GFixGxeqftFPXL9BTKzFF22ljAdf
+ NN8msLTsaLyTxT9mMZihk59x1fzv6AefJeLANE1J0d3xGUlmO+RW+u4TAjwTU5OMytMA
+ RPdbPKMaUIFzZdHbHDT2zxMT5fj2Ax/4SD7uF4ndiCXYALPG/sowr0s7D2Zjj9VhFUiE
+ F+bX9acnHFydVLCTNpKrGlSIfO0g5K/DVnpNHD98PrabqS/ivWCj4q9sgahhGU1GQWUz
+ IBJQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXERJy/doeAkWZLXQnxMKa0pUSqypD7LlfLDpnwXCctt8WsATE3Ciqt5vBSRGi5zaDTaKEUREm06YY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJnQdsk1W8Vn3SM39SguA7T69tfhz4W7QZoprjZrqwavIci1AY
- 0gafoNMJDCEgfQHfBaW/TvTziGdlcmV4DBRMNYwr5CMFPQuDU/auByo8qObXaXJzwIesytI4hw/
- z/lfj3HWvuo0AQoL/YviOc/JitqncKZBUuXGv3kYoZU+07tvN/l1ICDiRPdnNsF8+Pls=
-X-Gm-Gg: ASbGncsdeuNZcl/pMnpda0zoDbDQ0qsICgtLE+VddE+FSshFzXU1MdaxXTALGa62QKg
- z2RnaJcbTwCxxtCME040sa+bUR25eSNGD3mFXdihDHPxiqx0jlEl+dMY2yFZAxm3fNPGJAiCix4
- V8ZgB+811IU35LkTjCry4Fj8LkD3LFxG8Ye22QENbwpUkPUw4Qlme/AA/JhFVCJRlXsZDGA06Mv
- iV9jbfrLalGaL1Zuvjxyq4qZLW0woK0kS7bOcLNpLbthM7gtrdxClsH3VCJKDI+XWZP0VFI0BU2
- v8QA7LXBYuqk6unOCPd7Dy5/Ff0MY3FfylRZalD5E81ZgDwPlu0GC7A2UEcp4ryTjqZGN7WPzb4
+ AJvYcCWfTE8HO6Fcxp32R+eW/UTu0txlxZ0kVC5OfTT3WydMqYNo/S9B3W8FRKSZ8S6v5swilHX12ndeEcw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqeLcdH8M8TIaa08aFI6Zsxe+/47ZIKxZXiKqcoXrRgTi3IDMR
+ VXfEi1MzK0l9b+xVavW0hO7K3zkORfrYs5eVcGh5iH8wvGCKEdtLe2Us8RHapUSClfV1XSAsoVu
+ dOBex/24NlAzkUrVGK/5mRIGQA+Z3/n5Sm6SLDi6JX7Jx+Q5/fAjDMJ2BuV05GKZXgWQ=
+X-Gm-Gg: ASbGnctP0Bs5YG1vLxQcn6hp2/ng0SrrBODKJ+nSBf7/HE0Mxj1MmGltdZmu7GN39hh
+ 21dJphGq/eKQNsP6D4UCoy2VfUulo5tUXuzgQe4i0yAlfhcNgtKt0H0vAOe8kMpUchxa031Zbeq
+ ZsRqDXD6OvqJ/xaexnIbcwIhPkjUEhc/nzMNg4ug+cVGV3kdNJdW3JLp/c7jlLCJ/gU/7I1LtDz
+ tomf1hovSq6u/9cTP1dz39oazI4o+z5dS9lP51tS2HxZYtUEYabkDzb5zW2eC10OckEgCHJM7jN
+ AVMaogyBLAQbI5oIdcrqLkdeAvmeXegAvdeCUblz9RRH1YhEXskPTUM10eTqBbYeuTXYH9XbSg4
  =
-X-Received: by 2002:a05:620a:28c2:b0:7c5:5670:bd77 with SMTP id
- af79cd13be357-7c928049ca2mr1716049285a.55.1745223373010; 
- Mon, 21 Apr 2025 01:16:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGjwyE7MQkTDxkTD4bMTdrQVyq0KgcRLomu9pE/oxDMbBAj8GbWGPITnj/B2mJvuVUIGwaJfg==
-X-Received: by 2002:a05:620a:28c2:b0:7c5:5670:bd77 with SMTP id
- af79cd13be357-7c928049ca2mr1716045985a.55.1745223372683; 
- Mon, 21 Apr 2025 01:16:12 -0700 (PDT)
+X-Received: by 2002:ad4:5965:0:b0:6e8:e828:820d with SMTP id
+ 6a1803df08f44-6f2c4655860mr234166406d6.36.1745223937555; 
+ Mon, 21 Apr 2025 01:25:37 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGcwFV65OMdQz9ncrfoufy1rJ3V3naoM3eXJeqCGxfS+6c9u1tp+a8GZ25KDTC2huv5liCQYQ==
+X-Received: by 2002:ad4:5965:0:b0:6e8:e828:820d with SMTP id
+ 6a1803df08f44-6f2c4655860mr234166086d6.36.1745223937199; 
+ Mon, 21 Apr 2025 01:25:37 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54d6e5424b5sm869330e87.95.2025.04.21.01.16.10
+ 38308e7fff4ca-3109075e91bsm10810151fa.1.2025.04.21.01.25.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Apr 2025 01:16:10 -0700 (PDT)
-Date: Mon, 21 Apr 2025 11:16:08 +0300
+ Mon, 21 Apr 2025 01:25:36 -0700 (PDT)
+Date: Mon, 21 Apr 2025 11:25:34 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: msm8953: sort adreno clocks
-Message-ID: <nxv2k2ofiao47w7gmqcgfgn57heucs6yp2og3lkzlavjarado7@p5u4663yw3oz>
-References: <20250421-a5xx-schema-v1-0-7d96b889322a@mainlining.org>
- <20250421-a5xx-schema-v1-2-7d96b889322a@mainlining.org>
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Maya Matuszczyk <maccraft123mc@gmail.com>
+Subject: Re: [PATCH v4 5/7] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
+Message-ID: <fvi3cshu253kfxiwreny66g3niff6zjdpv2xwfr3644gbrj4et@ypzjy4naj55f>
+References: <20250109-gpu-acd-v4-0-08a5efaf4a23@quicinc.com>
+ <20250109-gpu-acd-v4-5-08a5efaf4a23@quicinc.com>
+ <0cd538c0-7d1f-44a4-b89d-f285535c0fcb@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250421-a5xx-schema-v1-2-7d96b889322a@mainlining.org>
-X-Authority-Analysis: v=2.4 cv=cdrSrmDM c=1 sm=1 tr=0 ts=6805fece cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=XR8D0OoHHMoA:10 a=OuZLqq7tAAAA:8 a=StrfYul8zGH_qiMLSD8A:9 a=3ZKOabzyN94A:10
- a=wPNLvfGTeEIA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-ORIG-GUID: SkRe7qJME1O3BsdVzCY8p6voYXYzEPd6
-X-Proofpoint-GUID: SkRe7qJME1O3BsdVzCY8p6voYXYzEPd6
+In-Reply-To: <0cd538c0-7d1f-44a4-b89d-f285535c0fcb@quicinc.com>
+X-Authority-Analysis: v=2.4 cv=TYaWtQQh c=1 sm=1 tr=0 ts=68060108 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=XR8D0OoHHMoA:10 a=gEfo2CItAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=COk6AnOGAAAA:8 a=DdzL4o_DZVg8PLORQZwA:9
+ a=CjuIK1q_8ugA:10 a=1HOtulTD9v-eNWfpl4qZ:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: Z4BN4nQZ2hUJpoV0bccNTvarw5hrIo5w
+X-Proofpoint-GUID: Z4BN4nQZ2hUJpoV0bccNTvarw5hrIo5w
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-21_04,2025-04-21_02,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 suspectscore=0
- phishscore=0 adultscore=0 mlxlogscore=906 malwarescore=0 clxscore=1015
- spamscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ lowpriorityscore=0
+ bulkscore=0 suspectscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ mlxlogscore=999 mlxscore=0 malwarescore=0 spamscore=0 impostorscore=0
+ phishscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
  adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504210063
+ definitions=main-2504210065
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,52 +131,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 21, 2025 at 05:09:22AM +0200, Barnabás Czémán wrote:
-> Sort adreno clocks in alphabetical order.
+On Sat, Apr 19, 2025 at 08:03:35PM +0530, Akhil P Oommen wrote:
+> On 1/9/2025 2:10 AM, Akhil P Oommen wrote:
+> > Add a new schema which extends opp-v2 to support a new vendor specific
+> > property required for Adreno GPUs found in Qualcomm's SoCs. The new
+> > property called "qcom,opp-acd-level" carries a u32 value recommended
+> > for each opp needs to be shared to GMU during runtime.
+> > 
+> > Also, update MAINTAINERS file include the new opp-v2-qcom-adreno.yaml.
+> > 
+> > Cc: Rob Clark <robdclark@gmail.com>
+> > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> > ---
+> >  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 97 ++++++++++++++++++++++
+> >  MAINTAINERS                                        |  1 +
+> >  2 files changed, 98 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> > new file mode 100644
+> > index 000000000000..de1f7c6c4f0e
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> > @@ -0,0 +1,97 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Qualcomm Adreno compatible OPP supply
+> > +
+> > +description:
+> > +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
+> > +  ACD related information tailored for the specific chipset. This binding
+> > +  provides the information needed to describe such a hardware value.
+> > +
+> > +maintainers:
+> > +  - Rob Clark <robdclark@gmail.com>
+> > +
+> > +allOf:
+> > +  - $ref: opp-v2-base.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    items:
+> > +      - const: operating-points-v2-adreno
+> > +      - const: operating-points-v2
+> 
+> https://lore.kernel.org/all/173637143564.1057127.5997544431977689674.robh@kernel.org/
+> 
+> Krzysztof, sorry for the late response. I was checking further about the
+> above bot error. AFAIU, we should not include "const:
+> operating-points-v2" here, otherwise all opp tables compatible with
+> "operating-points-v2" get matched with opp-v2-qcom-adreno.yaml during
+> validation. So I am sending the v5 revision with the below fix:
 
-Why? The order of the clocks here matches the order in which they should
-be brought up.
+This is not quite correct. The table is compatible with op-v2. Instead
+you should add 'select:' clause which will limit the cases where this
+schema gets selected.
 
 > 
-> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
-> ---
->  arch/arm64/boot/dts/qcom/msm8953.dtsi | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
+> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> @@ -19,9 +19,8 @@ allOf:
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8953.dtsi b/arch/arm64/boot/dts/qcom/msm8953.dtsi
-> index 4793a60fa946195d3220b6c44dec170d443f56db..8a7e80c959fad09f950fe202eba76d3aae01d1ea 100644
-> --- a/arch/arm64/boot/dts/qcom/msm8953.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/msm8953.dtsi
-> @@ -1052,18 +1052,18 @@ gpu: gpu@1c00000 {
->  			reg-names = "kgsl_3d0_reg_memory";
->  			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
->  
-> -			clocks = <&gcc GCC_OXILI_GFX3D_CLK>,
-> +			clocks = <&gcc GCC_BIMC_GPU_CLK>,
-> +				 <&gcc GCC_OXILI_AON_CLK>,
-> +				 <&gcc GCC_OXILI_GFX3D_CLK>,
->  				 <&gcc GCC_OXILI_AHB_CLK>,
->  				 <&gcc GCC_BIMC_GFX_CLK>,
-> -				 <&gcc GCC_BIMC_GPU_CLK>,
-> -				 <&gcc GCC_OXILI_TIMER_CLK>,
-> -				 <&gcc GCC_OXILI_AON_CLK>;
-> -			clock-names = "core",
-> +				 <&gcc GCC_OXILI_TIMER_CLK>;
-> +			clock-names = "alt_mem_iface",
-> +				      "alwayson",
-> +				      "core",
->  				      "iface",
->  				      "mem_iface",
-> -				      "alt_mem_iface",
-> -				      "rbbmtimer",
-> -				      "alwayson";
-> +				      "rbbmtimer";
->  			power-domains = <&gcc OXILI_GX_GDSC>;
->  
->  			iommus = <&gpu_iommu 0>;
+>  properties:
+>    compatible:
+> -    items:
+> -      - const: operating-points-v2-adreno
+> -      - const: operating-points-v2
+> +    contains:
+> +      const: operating-points-v2-adreno
 > 
-> -- 
-> 2.49.0
+> -Akhil.
 > 
 
 -- 
