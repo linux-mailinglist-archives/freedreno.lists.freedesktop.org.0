@@ -2,49 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84A2DA95D4C
-	for <lists+freedreno@lfdr.de>; Tue, 22 Apr 2025 07:29:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1CCCA95EBD
+	for <lists+freedreno@lfdr.de>; Tue, 22 Apr 2025 08:58:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BDFE10E4F1;
-	Tue, 22 Apr 2025 05:29:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B678110E505;
+	Tue, 22 Apr 2025 06:58:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="MVKaUbsg";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="jgxllVWd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C49EC10E170;
- Tue, 22 Apr 2025 05:29:06 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53M4OsP4011415;
- Tue, 22 Apr 2025 05:28:56 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C36E810E17B;
+ Tue, 22 Apr 2025 06:58:41 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53M4Oohx019535;
+ Tue, 22 Apr 2025 06:58:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- SGo+5kHX90davWHoF4JP27rYZAn0DXVkykLLUqXlGDM=; b=MVKaUbsguomy7AYB
- QhsdsPWfyJhE7r7YruI1ViLDMqX83sv9P1HUipzNO6EBZx4iIODSk+qnmpQ971KU
- RZbaam/z4UxL9zL33HXShqNgGHsSXd5gX+tQcoMc+I0NdO/Fq/NkkIwRybPZwKEj
- J9vzgPtYgIlyIO/TzWyiMQi702Zjr0EecxFC3s1KZpiDwKRo89JX9VhOXGEiAx7A
- fO8iYCCbIZRMTbFEdsCrhzaGVaRwQa3hjCN6u7L017nDMbTIEfk/dXQZ7RGjA/hY
- w+dorfJpoyab6xBLVyq+zzzmolMY7jQYxb68xrQjZm4PHTSeTvDOgNtrtjYaJDF0
- BaYsBg==
+ ZmNhp6IS4qDHzzExCOLDgWRkIsbXzXs/M/jKX/6Spns=; b=jgxllVWd1gWzzvIT
+ NiwQOBOqNldOXHhGhrYh4oZa26K2B5XoPZI19+vEzHO5fK0FRNjnP2PbDClAvqYX
+ M1TZ5EencLowilJR2uxbi15ZdbPLuNv5qd8XpH6Mmz2QQgO/khfMQZ1OWeXU37dv
+ iz6Dzo1tF3pVUSNH7eS4DKcclZmhOSMeHvChRvbDVLk98TuncPzVcUZ7W6VWai6s
+ HZtpRBGzI8StiqoWm5tVUYmBh5tf8rf5qe6w3Bj5AUFFaAdePe+Yo5St6Mi+5cR+
+ Y3ASoECGPFxSCYFBONmsgf4Rf3TzbPizXnoElhjo8XJgJXNjV39YC8srUTt4hvl9
+ 7SymOQ==
 Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46450pe32s-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46454bpc94-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 22 Apr 2025 05:28:56 +0000 (GMT)
+ Tue, 22 Apr 2025 06:58:31 +0000 (GMT)
 Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
  [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53M5StYH003021
+ by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53M6wU1B002047
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 22 Apr 2025 05:28:55 GMT
-Received: from [10.204.66.137] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ Tue, 22 Apr 2025 06:58:30 GMT
+Received: from [10.206.97.61] (10.80.80.8) by nasanex01b.na.qualcomm.com
  (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 21 Apr
- 2025 22:28:49 -0700
-Message-ID: <cadaeb59-9f6a-4132-8570-212c3817efa9@quicinc.com>
-Date: Tue, 22 Apr 2025 10:58:46 +0530
+ 2025 23:58:23 -0700
+Message-ID: <d77353b0-94e6-4461-bd34-44c8cb80eb07@quicinc.com>
+Date: Tue, 22 Apr 2025 12:28:20 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 07/11] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
@@ -71,28 +71,28 @@ In-Reply-To: <qnhfnxvdsgnw5jh4xxaqz3p2x67qcrr7kn3vwdnyz5huchdtzy@aagflznjrvly>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Authority-Analysis: v=2.4 cv=Hd0UTjE8 c=1 sm=1 tr=0 ts=68072918 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=cdrSrmDM c=1 sm=1 tr=0 ts=68073e17 cx=c_pps
  a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
  a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8
  a=174sz1Ju-uvedw1KsVAA:9 a=QEXdDO2ut3YA:10
  a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: uGDgHQO1p69jAn046d_FxfeytHtXYAZ1
-X-Proofpoint-ORIG-GUID: uGDgHQO1p69jAn046d_FxfeytHtXYAZ1
+X-Proofpoint-ORIG-GUID: 90qiLFkghPTaMIsNlUuo9KD-nYnuIL4g
+X-Proofpoint-GUID: 90qiLFkghPTaMIsNlUuo9KD-nYnuIL4g
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-22_02,2025-04-21_02,2024-11-22_01
+ definitions=2025-04-22_03,2025-04-21_02,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- priorityscore=1501 mlxscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- adultscore=0 mlxlogscore=999 phishscore=0 clxscore=1015 spamscore=0
- impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504220040
+ mlxscore=0 suspectscore=0
+ phishscore=0 adultscore=0 mlxlogscore=999 malwarescore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504220052
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -187,12 +187,18 @@ On 4/17/2025 4:10 PM, Dmitry Baryshkov wrote:
 > No reset-gpios? Is the expander being used by something else so that we
 > don't want it to be reset during the bootup?
 > 
-
 Hi Dmitry,
 
-Reset-gpios is optional for tca9539, because of which it is not throwing an error.
-After adding reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>; it is working. Will add it in next
-patchset.
+Please, ignore the previous reply.
+
+This io_expander is used by anx7625 bridge only. I have defined the gpio in pinctrl setting and so far it was helping out indirectly to bring io_expander out
+of the reset. The reset-gpios is optional for tca9539, because of which the io_expander driver didn't throw an error and I never realize that I should add this property.
+
+I tested by adding the reset-gpios entry and it's working fine. I will update in the next patchset.
+
++ reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>; 
+
+Thanks again, for pointing it out.
 
 Thanks,
 Ayushi
