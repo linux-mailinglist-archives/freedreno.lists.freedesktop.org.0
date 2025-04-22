@@ -2,97 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1CCCA95EBD
-	for <lists+freedreno@lfdr.de>; Tue, 22 Apr 2025 08:58:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94932A9603E
+	for <lists+freedreno@lfdr.de>; Tue, 22 Apr 2025 10:00:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B678110E505;
-	Tue, 22 Apr 2025 06:58:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C749310E51D;
+	Tue, 22 Apr 2025 08:00:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="jgxllVWd";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="psAeqVoP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C36E810E17B;
- Tue, 22 Apr 2025 06:58:41 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53M4Oohx019535;
- Tue, 22 Apr 2025 06:58:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ZmNhp6IS4qDHzzExCOLDgWRkIsbXzXs/M/jKX/6Spns=; b=jgxllVWd1gWzzvIT
- NiwQOBOqNldOXHhGhrYh4oZa26K2B5XoPZI19+vEzHO5fK0FRNjnP2PbDClAvqYX
- M1TZ5EencLowilJR2uxbi15ZdbPLuNv5qd8XpH6Mmz2QQgO/khfMQZ1OWeXU37dv
- iz6Dzo1tF3pVUSNH7eS4DKcclZmhOSMeHvChRvbDVLk98TuncPzVcUZ7W6VWai6s
- HZtpRBGzI8StiqoWm5tVUYmBh5tf8rf5qe6w3Bj5AUFFaAdePe+Yo5St6Mi+5cR+
- Y3ASoECGPFxSCYFBONmsgf4Rf3TzbPizXnoElhjo8XJgJXNjV39YC8srUTt4hvl9
- 7SymOQ==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46454bpc94-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 22 Apr 2025 06:58:31 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53M6wU1B002047
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 22 Apr 2025 06:58:30 GMT
-Received: from [10.206.97.61] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 21 Apr
- 2025 23:58:23 -0700
-Message-ID: <d77353b0-94e6-4461-bd34-44c8cb80eb07@quicinc.com>
-Date: Tue, 22 Apr 2025 12:28:20 +0530
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2994D10E528;
+ Tue, 22 Apr 2025 07:59:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=0/6nEFrgS1C04Ibd4G7cvNL9wRLiPUrNDF6gwaEK1B4=; b=p
+ sAeqVoPySESnzmUVTK4aza7vwvLgunqAAY/En8AQLpv1FFiqv+yOtXhPxWiYk3KI
+ iK98sKhWxw/jKvgpUCPlQMXDk/BeEe27ep2hzNPzjqlUlvrd1r9KjxBTPkQDm+30
+ AzaZYLUhnWPuCl5qXIBFqEoqI+RM10mV0MPkeobP5Q=
+Received: from andyshrk$163.com ( [58.22.7.114] ) by
+ ajax-webmail-wmsvr-40-102 (Coremail) ; Tue, 22 Apr 2025 15:59:27 +0800
+ (CST)
+X-Originating-IP: [58.22.7.114]
+Date: Tue, 22 Apr 2025 15:59:27 +0800 (CST)
+From: "Andy Yan" <andyshrk@163.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
+ "Maxime Ripard" <mripard@kernel.org>
+Cc: lumag@kernel.org, neil.armstrong@linaro.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ jani.nikula@intel.com, lyude@redhat.com, jonathanh@nvidia.com,
+ p.zabel@pengutronix.de, simona@ffwll.ch, victor.liu@nxp.com,
+ rfoss@kernel.org, chunkuang.hu@kernel.org,
+ cristian.ciocaltea@collabora.com, Laurent.pinchart@ideasonboard.com,
+ linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
+ "Andy Yan" <andy.yan@rock-chips.com>
+Subject: Re:Re: [PATCH 1/1] drm/bridge: Pass down connector to drm bridge
+ detect hook
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.14 build 20240801(9da12a7b)
+ Copyright (c) 2002-2025 www.mailtech.cn 163com
+In-Reply-To: <20250321-optimistic-prompt-civet-bdcdba@houat>
+References: <20250321085345.136380-1-andyshrk@163.com>
+ <20250321085345.136380-2-andyshrk@163.com>
+ <20250321-optimistic-prompt-civet-bdcdba@houat>
+X-NTES-SC: AL_Qu2fB/+bt08t4SmeY+kfmkcVgOw9UcO5v/Qk3oZXOJF8jCzp8D4yf1JTEnDy1fCDKg+MkAiHYjpJ8Pt0f7d2fYwujCqEY09RcV7NnzuMedMx4g==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/11] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
- to DP bridge nodes
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Ayushi Makhija
- <amakhija@qti.qualcomm.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <marijn.suijten@somainline.org>,
- <andersson@kernel.org>, <robh@kernel.org>, <robh+dt@kernel.org>,
- <krzk+dt@kernel.org>, <konradybcio@kernel.org>, <conor+dt@kernel.org>,
- <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
- <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
- <quic_abhinavk@quicinc.com>, <quic_rajeevny@quicinc.com>,
- <quic_vproddut@quicinc.com>, <quic_jesszhan@quicinc.com>
-References: <20250417053909.1051416-1-amakhija@qti.qualcomm.com>
- <20250417053909.1051416-8-amakhija@qti.qualcomm.com>
- <qnhfnxvdsgnw5jh4xxaqz3p2x67qcrr7kn3vwdnyz5huchdtzy@aagflznjrvly>
-Content-Language: en-US
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-In-Reply-To: <qnhfnxvdsgnw5jh4xxaqz3p2x67qcrr7kn3vwdnyz5huchdtzy@aagflznjrvly>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Authority-Analysis: v=2.4 cv=cdrSrmDM c=1 sm=1 tr=0 ts=68073e17 cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8
- a=174sz1Ju-uvedw1KsVAA:9 a=QEXdDO2ut3YA:10
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: 90qiLFkghPTaMIsNlUuo9KD-nYnuIL4g
-X-Proofpoint-GUID: 90qiLFkghPTaMIsNlUuo9KD-nYnuIL4g
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-22_03,2025-04-21_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 suspectscore=0
- phishscore=0 adultscore=0 mlxlogscore=999 malwarescore=0 clxscore=1015
- spamscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504220052
+Message-ID: <1bb549f4.746e.1965c8256e4.Coremail.andyshrk@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: ZigvCgAnjYdgTAdoaPGbAA--.58451W
+X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbB0gA3XmgHRzC35wACsx
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,108 +71,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/17/2025 4:10 PM, Dmitry Baryshkov wrote:
-> On Thu, Apr 17, 2025 at 11:09:05AM +0530, Ayushi Makhija wrote:
->> From: Ayushi Makhija <quic_amakhija@quicinc.com>
->>
->> Add anx7625 DSI to DP bridge device nodes.
->>
->> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
->> ---
->>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 180 +++++++++++++++++++++
->>  1 file changed, 180 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->> index 175f8b1e3b2d..d5b2dabe927d 100644
->> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->> @@ -28,6 +28,13 @@ chosen {
->>  		stdout-path = "serial0:115200n8";
->>  	};
->>  
->> +	vph_pwr: vph-pwr-regulator {
->> +		compatible = "regulator-fixed";
->> +		regulator-name = "vph_pwr";
->> +		regulator-always-on;
->> +		regulator-boot-on;
->> +	};
->> +
->>  	vreg_conn_1p8: vreg_conn_1p8 {
->>  		compatible = "regulator-fixed";
->>  		regulator-name = "vreg_conn_1p8";
->> @@ -128,6 +135,30 @@ dp1_connector_in: endpoint {
->>  			};
->>  		};
->>  	};
->> +
->> +	dp-dsi0-connector {
->> +		compatible = "dp-connector";
->> +		label = "DSI0";
->> +		type = "full-size";
->> +
->> +		port {
->> +			dp_dsi0_connector_in: endpoint {
->> +				remote-endpoint = <&dsi2dp_bridge0_out>;
->> +			};
->> +		};
->> +	};
->> +
->> +	dp-dsi1-connector {
->> +		compatible = "dp-connector";
->> +		label = "DSI1";
->> +		type = "full-size";
->> +
->> +		port {
->> +			dp_dsi1_connector_in: endpoint {
->> +				remote-endpoint = <&dsi2dp_bridge1_out>;
->> +			};
->> +		};
->> +	};
->>  };
->>  
->>  &apps_rsc {
->> @@ -519,7 +550,107 @@ &i2c18 {
->>  	clock-frequency = <400000>;
->>  	pinctrl-0 = <&qup_i2c18_default>;
->>  	pinctrl-names = "default";
->> +
->>  	status = "okay";
->> +
->> +	io_expander: gpio@74 {
->> +		compatible = "ti,tca9539";
->> +		reg = <0x74>;
->> +		interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
->> +		gpio-controller;
->> +		#gpio-cells = <2>;
->> +		interrupt-controller;
->> +		#interrupt-cells = <2>;
-> 
-> No reset-gpios? Is the expander being used by something else so that we
-> don't want it to be reset during the bootup?
-> 
-Hi Dmitry,
-
-Please, ignore the previous reply.
-
-This io_expander is used by anx7625 bridge only. I have defined the gpio in pinctrl setting and so far it was helping out indirectly to bring io_expander out
-of the reset. The reset-gpios is optional for tca9539, because of which the io_expander driver didn't throw an error and I never realize that I should add this property.
-
-I tested by adding the reset-gpios entry and it's working fine. I will update in the next patchset.
-
-+ reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>; 
-
-Thanks again, for pointing it out.
-
-Thanks,
-Ayushi
-
->> +
->> +		pinctrl-0 = <&io_expander_intr_active>,
->> +			    <&io_expander_reset_active>;
->> +		pinctrl-names = "default";
->> +	};
->> +
-> 
-> The rest LGTM
-> 
-
+CkhpIGFsbCwKCkF0IDIwMjUtMDMtMjEgMTc6NDg6MDQsICJNYXhpbWUgUmlwYXJkIiA8bXJpcGFy
+ZEBrZXJuZWwub3JnPiB3cm90ZToKPk9uIEZyaSwgTWFyIDIxLCAyMDI1IGF0IDA0OjUzOjM4UE0g
+KzA4MDAsIEFuZHkgWWFuIHdyb3RlOgo+PiBGcm9tOiBBbmR5IFlhbiA8YW5keS55YW5Acm9jay1j
+aGlwcy5jb20+Cj4+IAo+PiBJbiBzb21lIGFwcGxpY2F0aW9uIHNjZW5hcmlvcywgd2UgaG9wZSB0
+byBnZXQgdGhlIGNvcnJlc3BvbmRpbmcKPj4gY29ubmVjdG9yIHdoZW4gdGhlIGJyaWRnZSdzIGRl
+dGVjdCBob29rIGlzIGludm9rZWQuCj4+IAo+PiBJbiBtb3N0IGNhc2VzLCB3ZSBjYW4gZ2V0IHRo
+ZSBjb25uZWN0b3IgYnkgZHJtX2F0b21pY19nZXRfY29ubmVjdG9yX2Zvcl9lbmNvZGVyCj4+IGlm
+IHRoZSBlbmNvZGVyIGF0dGFjaGVkIHRvIHRoZSBicmlkZ2UgaXMgZW5hYmxlZCwgaG93ZXZlciB0
+aGVyZSB3aWxsCj4+IHN0aWxsIGJlIHNvbWUgc2NlbmFyaW9zIHdoZXJlIHRoZSBkZXRlY3QgaG9v
+ayBvZiB0aGUgYnJpZGdlIGlzIGNhbGxlZAo+PiBidXQgdGhlIGNvcnJlc3BvbmRpbmcgZW5jb2Rl
+ciBoYXMgbm90IGJlZW4gZW5hYmxlZCB5ZXQuIEZvciBpbnN0YW5jZSwKPj4gdGhpcyBvY2N1cnMg
+d2hlbiB0aGUgZGV2aWNlIGlzIGhvdCBwbHVnIGluIGZvciB0aGUgZmlyc3QgdGltZS4KPj4gCj4+
+IFNpbmNlIHRoZSBjYWxsIHRvIGJyaWRnZSdzIGRldGVjdCBpcyBpbml0aWF0ZWQgYnkgdGhlIGNv
+bm5lY3RvciwgcGFzc2luZwo+PiBkb3duIHRoZSBjb3JyZXNwb25kaW5nIGNvbm5lY3RvciBkaXJl
+Y3RseSB3aWxsIG1ha2UgdGhpbmdzIHNpbXBsZXIuCj4+IAo+PiBTaWduZWQtb2ZmLWJ5OiBBbmR5
+IFlhbiA8YW5keS55YW5Acm9jay1jaGlwcy5jb20+Cj4KPkZUUiwgSSdtIGFnYWluc3QgaXQgYW5k
+IHdvdWxkIGhhdmUgYXBwcmVjaWF0ZWQgdGhhdCB5b3Ugd2FpdCBmb3IgYQo+bWVhbmluZ2Z1bCBj
+bG9zdXJlIHRvIHRoZSBkaXNjdXNzaW9uIHdlJ3ZlIGhhZCBvbiB0aGlzLgoKQ2FuIHdlIHN0YXJ0
+IHRvIHJldmlldyB0aGlzIHBhdGNoPyBTaW5jZSBpdCdzIGJlZW4gYWxtb3N0IGEgbW9udGggbm93
+IGFuZApubyBvbmUgaGFzIHJhaXNlZCBhbnkgb2JqZWN0aW9uIHRvIERtaXRyeSdzIHN1Z2dlc3Rp
+b25bMV0uCgoKWzFdaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvZHJpLWRldmVsL3Z3Mm5jZG9teDNy
+d2x0YjJ4bG82bmYzcmFwZ2NkdGNqY29kb2ZnbWVjcnp6YWJmN2ppQHB5YnNmdjI3amtxMi8KCgo+
+Cj5NYXhpbWUK
