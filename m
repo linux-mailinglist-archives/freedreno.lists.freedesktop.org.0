@@ -2,117 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61AFFA966C4
-	for <lists+freedreno@lfdr.de>; Tue, 22 Apr 2025 13:02:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EACEA96D0E
+	for <lists+freedreno@lfdr.de>; Tue, 22 Apr 2025 15:38:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18AA410E1DD;
-	Tue, 22 Apr 2025 11:02:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49C2E10E2B6;
+	Tue, 22 Apr 2025 13:38:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lv9deyP0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H2du47yr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D794710E561
- for <freedreno@lists.freedesktop.org>; Tue, 22 Apr 2025 11:02:49 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53M4Os3O031908
- for <freedreno@lists.freedesktop.org>; Tue, 22 Apr 2025 11:02:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=sJhtSdw5nK1pkgx2a60KWDZ+
- +Ku84pOdAteitB7NlXw=; b=lv9deyP0hg7JX5LqUsV8SP8lgKAQfS9cGDSlrN24
- KXiAQzT1X5p2TU4H1meirbYwqPraKBqT/HgqEY3tdBjxMT9OplOHv75wdVVztgA+
- VBahFk6NYoR4/K+nE4FCPJhzvEJjqBzG0UI71PIY1HUcMSCdSa5OPuG9W7PoPCw2
- Gqe7bO8lrdeUBwgOhnlu0iN/U7Yh1GSK69iXvRYhKiUmxtExDc6GKJxiVS9u7BV6
- ggAV74OWgBSFEZVKcCm5sgLfpmsHnvrOvE1lQF9AKYEyts6L8Nht6TyU1wulKVDr
- l4movz6vzHEFwGInOy1QKvEgQlIbjid3tGGSHb6rJzkzpg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4641hhqbsq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 22 Apr 2025 11:02:49 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c09f73873fso762000285a.1
- for <freedreno@lists.freedesktop.org>; Tue, 22 Apr 2025 04:02:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745319768; x=1745924568;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sJhtSdw5nK1pkgx2a60KWDZ++Ku84pOdAteitB7NlXw=;
- b=uTcuyFTCIDFi/3AgJNNP6KMN0JU6ifnJmr9XyvdBpnlZ3NKOTvvZuC+XQfo1l//PG8
- bP+MKMHOkPK9QikNPU9JFzu+zB/yKkCQUnf7VrwXmnqyQT/c3R1ONHmDM8xzhMKSX0p2
- s9RQRfgjgp+itpd97cRHF1mKNZJQKi1QQZBRmmnniejNqX3rB2x0IaSM4NZV3d4Y3aVU
- /UsINiSxDppN/ZFipB1HMLGeXhXAljqeI5hQOCgf1sfv1Ij2V+6YI8d2lqk4KzgT9HDj
- Sr/hDZ1wWwk8aFSnxvBdH1jPRplPVWarwR+usWttx0WOty94N5VdkYb4EriJ9vhCINOk
- swRw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXuAO7OZ4se0hgYllsT8IqY6/KvUarcIje3GgoeG6Oc1P7dAsF6RvJgN85fBI0KMXfOHRdqR/b6Yec=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRAmMaXgoMG9hVntbT8KxE7aTEanOA3HtVrebZaUWfrFdI8aoy
- l2Vy3igfbGkc5BMd8dvv4GL8XaQ/dwEniRXL3vktPbEoOmGx71Kff+KZ0+rAsxNczgNBYWKDDv2
- INUJe17ZqosY+qmyM1CPlLUPCnJaAM2UQpUY45Mq6l05EETcteWHeIYGoSukc2zqWmy0=
-X-Gm-Gg: ASbGncuTcYLWgSYctbsqHfcDUp9MiTsr8nIGQmW+F5O1dYtRuMSELM+/4xI7CgoDtzq
- KyDqJlHdXM0iR6E+U6iCnJAWz0tpmmsdECBxZDoMhJb0JwoPXQCw+SgmDSl34VQxc+LIipMfSMM
- m6nwqCPa5XE5MiorRi/fYK17rH/PPk436NUOxxfg4DvrFuzdFRzgP5+x8QsAt40nHO8LuUYq5L/
- WMcYK5EB9nNabYBYOoFAoyK+xkKYIM2rl+a9xEBVYRHyVqBAXpEHBPYAGp2mcaPgm+KfrJ4m9Nl
- L5FyM3jfaC47EG1tWzdWkcj1ngsIFTc2U4plh5uVknUhtwVrTEHlxchURe3Y9vlkFSPi27DbPa0
- =
-X-Received: by 2002:a05:620a:17aa:b0:7c5:a41a:b1a with SMTP id
- af79cd13be357-7c927f6b4e5mr2210333785a.10.1745319767866; 
- Tue, 22 Apr 2025 04:02:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFN4wwPzrrHx8nsqrV5sbJ9OQl73YTYbgT962Arex3Cx5QfII5Wsr6EMD6ZHVslJXEdDC01pg==
-X-Received: by 2002:a05:620a:17aa:b0:7c5:a41a:b1a with SMTP id
- af79cd13be357-7c927f6b4e5mr2210328785a.10.1745319767506; 
- Tue, 22 Apr 2025 04:02:47 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54d6e5251f5sm1189258e87.51.2025.04.22.04.02.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Apr 2025 04:02:46 -0700 (PDT)
-Date: Tue, 22 Apr 2025 14:02:44 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ayushi Makhija <quic_amakhija@quicinc.com>
-Cc: Ayushi Makhija <amakhija@qti.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- andersson@kernel.org, robh@kernel.org, robh+dt@kernel.org,
- krzk+dt@kernel.org, konradybcio@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_jesszhan@quicinc.com
-Subject: Re: [PATCH v4 07/11] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
- to DP bridge nodes
-Message-ID: <2qpcmniww7uaemu5tvgbjpnijqqzlrcvf2dkewvumffnsdpsib@fl3tvbldtjds>
-References: <20250417053909.1051416-1-amakhija@qti.qualcomm.com>
- <20250417053909.1051416-8-amakhija@qti.qualcomm.com>
- <qnhfnxvdsgnw5jh4xxaqz3p2x67qcrr7kn3vwdnyz5huchdtzy@aagflznjrvly>
- <d77353b0-94e6-4461-bd34-44c8cb80eb07@quicinc.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A2A10E1DB;
+ Tue, 22 Apr 2025 13:38:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 888EA5C077F;
+ Tue, 22 Apr 2025 13:36:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15A7EC4CEE9;
+ Tue, 22 Apr 2025 13:38:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745329131;
+ bh=CkhGofHYVtZe5hwWpqyifYoxIzURV+H5yr2M2EHIPvQ=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=H2du47yr54JJf2eJXq1fEyDIO61CAboibIcuOQ7VcI+rIdG2W1wJgmQrhvBmEaGKs
+ hmIhFHGC4C07bWoPtdDTwxQ1BxF5j+3vwVBOmai2Eh/bRpeD3Ms/d8/YvJiniutJR6
+ G3sB9QpbxaidBuAO8Or2Oe5SpWZ9/DyionsQfwL7+GY1pt138NaGRoh6m3qtAgDZwO
+ Tx0odcrYGghj1dofU4kYtKvA1qENMWaLrhXqbC2I7HbHEAqcGvoH0U5Z6I+14j07n5
+ EeZGKZdtB+OYr4H6DDgvVn8hK6MfMAwYZpfJD6lC+OVlTPB5rIgrQ/0TXUKVUpGas3
+ GWGodsm8oA0rQ==
+Date: Tue, 22 Apr 2025 08:38:49 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d77353b0-94e6-4461-bd34-44c8cb80eb07@quicinc.com>
-X-Authority-Analysis: v=2.4 cv=Fe43xI+6 c=1 sm=1 tr=0 ts=68077759 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=Ofgg3MdZYWJxeOF5shIA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: lQjjwPHvVkJGIkH68pgXFwLESfvQ96zD
-X-Proofpoint-ORIG-GUID: lQjjwPHvVkJGIkH68pgXFwLESfvQ96zD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-22_05,2025-04-21_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0
- bulkscore=0 malwarescore=0 mlxlogscore=999 mlxscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 suspectscore=0
- spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504220083
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Daniil Titov <daniilt971@gmail.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, iommu@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Will Deacon <will@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Rob Clark <robdclark@gmail.com>, 
+ Sireesh Kodali <sireeshkodali@protonmail.com>, linux-clk@vger.kernel.org, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Joerg Roedel <joro@8bytes.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Srinivas Kandagatla <srini@kernel.org>, Lee Jones <lee@kernel.org>, 
+ linux@mainlining.org, phone-devel@vger.kernel.org, 
+ Robin Murphy <robin.murphy@arm.com>, Stephan Gerhold <stephan@gerhold.net>, 
+ linux-arm-msm@vger.kernel.org, 
+ =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ Adam Skladowski <a_skl39@protonmail.com>, Sean Paul <sean@poorly.run>, 
+ freedreno@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Dang Huynh <danct12@riseup.net>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ devicetree@vger.kernel.org
+To: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+In-Reply-To: <20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org>
+References: <20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org>
+Message-Id: <174532908923.1111892.11576927834327283251.robh@kernel.org>
+Subject: Re: [PATCH v5 0/5] Initial support of MSM8937 and Xiaomi Redmi 3S
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,67 +82,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 22, 2025 at 12:28:20PM +0530, Ayushi Makhija wrote:
-> On 4/17/2025 4:10 PM, Dmitry Baryshkov wrote:
-> > On Thu, Apr 17, 2025 at 11:09:05AM +0530, Ayushi Makhija wrote:
-> >> From: Ayushi Makhija <quic_amakhija@quicinc.com>
-> >>
-> >> Add anx7625 DSI to DP bridge device nodes.
-> >>
-> >> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-> >> ---
-> >>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 180 +++++++++++++++++++++
-> >>  1 file changed, 180 insertions(+)
-> >>
-> >> @@ -519,7 +550,107 @@ &i2c18 {
-> >>  	clock-frequency = <400000>;
-> >>  	pinctrl-0 = <&qup_i2c18_default>;
-> >>  	pinctrl-names = "default";
-> >> +
-> >>  	status = "okay";
-> >> +
-> >> +	io_expander: gpio@74 {
-> >> +		compatible = "ti,tca9539";
-> >> +		reg = <0x74>;
-> >> +		interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
-> >> +		gpio-controller;
-> >> +		#gpio-cells = <2>;
-> >> +		interrupt-controller;
-> >> +		#interrupt-cells = <2>;
-> > 
-> > No reset-gpios? Is the expander being used by something else so that we
-> > don't want it to be reset during the bootup?
-> > 
-> Hi Dmitry,
-> 
-> Please, ignore the previous reply.
-> 
-> This io_expander is used by anx7625 bridge only. I have defined the gpio in pinctrl setting and so far it was helping out indirectly to bring io_expander out
-> of the reset. The reset-gpios is optional for tca9539, because of which the io_expander driver didn't throw an error and I never realize that I should add this property.
-> 
-> I tested by adding the reset-gpios entry and it's working fine. I will update in the next patchset.
-> 
-> + reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>; 
-> 
-> Thanks again, for pointing it out.
 
-SGTM
+On Mon, 21 Apr 2025 22:18:22 +0200, Barnabás Czémán wrote:
+> This patch series add initial support for MSM8937 SoC
+> and Xiaomi Redmi 3S (land).
+> 
+> The series is extending the MSM8917 gcc and pinctrl drivers
+> because they are sibling SoCs.
+> MSM8937 have 4 more A53 cores and have one more dsi port then
+> MSM8917.
+> It implements little-big architecture and uses Adreno 505.
+> 
+> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+> ---
+> Changes in v5:
+> - msm8937:
+>   - Remove wrongly defined idle-states.
+>   - Fix thermal zones.
+>   - Use the header with DSI phy clock IDs.
+>   - Fix the nodes order.
+>   - Fix the pinctrls style.
+>   - Follow gcc header changes.
+> - msm8937-xiaomi-land:
+>   - Remove headphone switch and speaker amplifier bindings.
+>   - Unify status property style.
+> - gcc bindings:
+>   - Expand MSM8953 gcc schema with MSM8937.
+>   - Add MSM8937 prefix for MSM8937 specific clocks.
+> - gcc:
+>   - Follow the bindings changes.
+> - Drop alwayson clock documentation it will be handled in another
+>   patchset.
+> - Link to v4: https://lore.kernel.org/r/20250315-msm8937-v4-0-1f132e870a49@mainlining.org
+> 
+> Changes in v4:
+> - Add missing rpmcc include for qcom,gcc-msm8937 dtbinding exmaple.
+> - msm8937: add missing space after s9-p1@230
+> - msm8937-xiaomi-land: replace LED_FUNCTION_INDICATOR to LED_FUNCTION_STATUS
+> - Remove applied patches
+> - Link to v3: https://lore.kernel.org/r/20250224-msm8937-v3-0-dad7c182cccb@mainlining.org
+> 
+> Changes in v3:
+> - Fix qcom,gcc-msm8937 dtbinding example
+> - Link to v2: https://lore.kernel.org/r/20250223-msm8937-v2-0-b99722363ed3@mainlining.org
+> 
+> Changes in v2:
+> - drop applied patches
+> - drop gcc schema commits infavor of a new schema for gcc-msm8937
+> - document always on clock for adreno 505/506/510
+> - msm8937:
+>   - set cache size
+>   - rename cpu labels
+>   - fix style issues addressed by review
+> - msm8937-xiaom-land:
+>   - remove unused serial0 alias
+>   - remove regulator-always-on from pm8937_l6
+>   - add blue indicator led for aw2013
+> - Link to v1: https://lore.kernel.org/r/20250211-msm8937-v1-0-7d27ed67f708@mainlining.org
+> 
+> ---
+> Barnabás Czémán (3):
+>       dt-bindings: clock: qcom: Add MSM8937 Global Clock Controller
+>       dt-bindings: arm: qcom: Add Xiaomi Redmi 3S
+>       arm64: dts: qcom: Add Xiaomi Redmi 3S
+> 
+> Dang Huynh (1):
+>       arm64: dts: qcom: Add initial support for MSM8937
+> 
+> Daniil Titov (1):
+>       clk: qcom: gcc: Add support for Global Clock controller found on MSM8937
+> 
+>  Documentation/devicetree/bindings/arm/qcom.yaml    |    7 +
+>  .../bindings/clock/qcom,gcc-msm8953.yaml           |   11 +-
+>  arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+>  arch/arm64/boot/dts/qcom/msm8937-xiaomi-land.dts   |  381 ++++
+>  arch/arm64/boot/dts/qcom/msm8937.dtsi              | 2069 ++++++++++++++++++++
+>  drivers/clk/qcom/Kconfig                           |    6 +-
+>  drivers/clk/qcom/gcc-msm8917.c                     |  617 +++++-
+>  include/dt-bindings/clock/qcom,gcc-msm8917.h       |   19 +
+>  8 files changed, 3101 insertions(+), 10 deletions(-)
+> ---
+> base-commit: 5b37f7bfff3b1582c34be8fb23968b226db71ebd
+> change-id: 20250210-msm8937-228ef0dc3ec9
+> 
+> Best regards,
+> --
+> Barnabás Czémán <barnabas.czeman@mainlining.org>
+> 
+> 
+> 
 
-> 
-> Thanks,
-> Ayushi
-> 
-> >> +
-> >> +		pinctrl-0 = <&io_expander_intr_active>,
-> >> +			    <&io_expander_reset_active>;
-> >> +		pinctrl-names = "default";
-> >> +	};
-> >> +
-> > 
-> > The rest LGTM
-> > 
-> 
 
--- 
-With best wishes
-Dmitry
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
+
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
+
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+This patch series was applied (using b4) to base:
+ Base: using specified base-commit 5b37f7bfff3b1582c34be8fb23968b226db71ebd
+
+If this is not the correct base, please add 'base-commit' tag
+(or use b4 which does this automatically)
+
+New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/qcom/' for 20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org:
+
+arch/arm64/boot/dts/qcom/msm8937-xiaomi-land.dtb: gpu@1c00000 (qcom,adreno-505.0): clock-names:5: 'alwayson' is not one of ['core', 'iface', 'mem', 'mem_iface', 'alt_mem_iface', 'gfx3d', 'rbbmtimer', 'rbcpr']
+	from schema $id: http://devicetree.org/schemas/display/msm/gpu.yaml#
+
+
+
+
+
