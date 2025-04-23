@@ -2,77 +2,109 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED835A97D0A
-	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 04:50:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D928FA97FDE
+	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 08:56:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0B4C10E643;
-	Wed, 23 Apr 2025 02:50:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57C8E10E3FF;
+	Wed, 23 Apr 2025 06:56:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ur2bOFrx";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="lJdLuOkq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
- [209.85.219.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8075510E3F1
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 02:50:36 +0000 (UTC)
-Received: by mail-yb1-f175.google.com with SMTP id
- 3f1490d57ef6-e72bb146baeso2638935276.3
- for <freedreno@lists.freedesktop.org>; Tue, 22 Apr 2025 19:50:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1745376635; x=1745981435; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pvLBDDsYBas19wUJSHN+4qLHbj0kQt2zzQgLxxn1VJw=;
- b=ur2bOFrxUJvC9XxZKckueyI0euBYgS6GRUYE7+1V7DXafbFl3OKI34U52Y/EwL/w0n
- dROy2LkAh1YZeFAfsQ3vOJr3dYeRfeDBOkF/+ZWZPwvDo+AmP3HFSR+1Tn7bwogFSgdQ
- otmNOr8NeCLz0BEILQSjcCo6DJqT3QRm8SSNe5MkW9taXPOXeABxQ/qDAWRcKqolWIoJ
- l7NX3N299zgUeQhWBuwCUOABz79p/BMDh0b7SjJpCSCqeBh6QnlWuBqdKj/GMFUOohGx
- xHn6zmKswPXV21WP+PXDeWpdXdDZfgA5BGHEiLUWxAXcGpk7Mmk3bsnYT8xdZfCyCR2+
- i80g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745376635; x=1745981435;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pvLBDDsYBas19wUJSHN+4qLHbj0kQt2zzQgLxxn1VJw=;
- b=YfS7xdmvEkLK5RSFySGfdB/dUvxC0z6/w6HChLac1OphjWT9Q5c+aCDWqIDx++x/R9
- 1LMLGh709uVby3E0NY6NhWJtuYmd8RyxiTDvu6lg/EuFc3GGy3jXs8t1vuigJ0nqce6L
- 1YjnUZ29YUKz1iuXMHQhnO/TzfACzSwOpbiaNXsljLPQr7IOQnKJRtCQXnZifx5pp1S8
- maL0s/bNsxXekDFP0Vfm7bYTE2IpMS4KylZlnATJFnOlLssjhfkq5Ds9bvkx+bTLWydu
- 08T3DCKMRF47HMTQeogZkmALYvWHlom/3dsN9KIbWFlLCG1SmUGbLcuZ4ZqQ2Dm0hWeE
- JDYQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWkq7qksQt7ab9Ba1HyrTFx54QUmf9tbRNAsReSk1EnfU15wFou0Me+9WkYEASy+qNfMov0y3tFg7E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZ81We9LkJ1Z3tqk2XiDZ5vlsaqvnqgh0vbT5K1OqH6nTDiYi3
- lQNU248JvLEfawcgvopLxuLtAoFs35CuUxxmGhZRmWR3Gic8jy5ce+9abM3cYI194qekUIYmnHS
- Ui8BAe1xHsq7b8FEm756mjNXTWs5Ld0d0Wdc7dw==
-X-Gm-Gg: ASbGncsYiPlr4C+MPh1CkqH19pvn4oZuPd85QX97hiyTal2jtdnkuXrqhITjcYEwQqy
- LrkP+quDQOHzub88f5Hu4Uj9fmJ+HrwgldM/DRdVhPPrHdS5fHa102thF7KkTIfkt6Y+cx4NjKE
- Q8OIQPi/ACOWQu6QAdDTbtfw==
-X-Google-Smtp-Source: AGHT+IFS7GMJaX0GM076iPvZ4Mqv8sbSOQ2aAa8tFq8e5VIVWaIK11j6XpLBL5g1xrPI44TmKCq1OKq9pAfO+Q9jung=
-X-Received: by 2002:a05:6902:1381:b0:e69:371d:67ef with SMTP id
- 3f1490d57ef6-e7297e9ab9amr24210024276.33.1745376635244; Tue, 22 Apr 2025
- 19:50:35 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D83DD10E3FF;
+ Wed, 23 Apr 2025 06:56:00 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53N0imR8024486;
+ Wed, 23 Apr 2025 06:55:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ JNK7csbWWJGOBAas9TNoxtKn6v3A37YJlU2owPvz6As=; b=lJdLuOkq+MbHdKqP
+ z8NnZEUKPIhCq6xJxTd82za4RIknfuKjwOqKKIkbtRC9xSmzONt7kqg9m48M64jb
+ 88UuMvPeKJzsodTpd8rS1nl4SN0sQNWqIaLnkG/KfUus/xZY5UnrrZBH6y2NOIU3
+ EDSj5v62nF2POvqbsSvwMlZUPQnlCcJVTVyKrOI64kUlZGShNBt3kdEykcAIvqKv
+ qOYnHTQLDLiqHtqcjb9LLX/GMEsy9wqanlIHtgEyKJ61WUhUUa9LWw5tU8kgisQG
+ XnVmJJxvxEZIjq0C9p+GO+tVDakkdWbVUhzVxWKhgRloee8EU1USbw3iALUGIfiu
+ x9P5Uw==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh395cb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Apr 2025 06:55:49 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53N6teTU023927
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Apr 2025 06:55:40 GMT
+Received: from [10.216.1.162] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 22 Apr
+ 2025 23:55:23 -0700
+Message-ID: <d67b8fe7-ab92-4756-b549-827210240593@quicinc.com>
+Date: Wed, 23 Apr 2025 12:25:18 +0530
 MIME-Version: 1.0
-References: <20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org>
- <20250418183236.209236-1-mitltlatltl@gmail.com>
-In-Reply-To: <20250418183236.209236-1-mitltlatltl@gmail.com>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Wed, 23 Apr 2025 10:50:23 +0800
-X-Gm-Features: ATxdqUHPz54vm6pZFuzIqsgbIcK5d4qHYfWOJGGxPj-jtXf6WoRf3GOGq6HIB5k
-Message-ID: <CABymUCNL2FQax13vie8kqX_FpNOTZBPwKbxvKzmXHaXr2OjbAw@mail.gmail.com>
-Subject: Re: [PATCH v8 00/15] drm/msm/dpu: Support quad pipe with dual-DSI
-To: Pengyu Luo <mitltlatltl@gmail.com>
-Cc: airlied@gmail.com, dmitry.baryshkov@linaro.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- marijn.suijten@somainline.org, quic_abhinavk@quicinc.com, 
- quic_jesszhan@quicinc.com, robdclark@gmail.com, sean@poorly.run, 
- simona@ffwll.ch
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] drm/msm/a6xx: Get HBB dynamically, if available
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Rob Clark
+ <robdclark@gmail.com>
+CC: Connor Abbott <cwabbott0@gmail.com>, Konrad Dybcio
+ <konradybcio@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Kees Cook
+ <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, Sean Paul
+ <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov
+ <lumag@kernel.org>, Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, linux-arm-msm
+ <linux-arm-msm@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20250410-topic-smem_dramc-v2-0-dead15264714@oss.qualcomm.com>
+ <20250410-topic-smem_dramc-v2-3-dead15264714@oss.qualcomm.com>
+ <20911703-ab4e-4eb2-8611-294730a06d2f@quicinc.com>
+ <CACu1E7HDmQXDNtEQCXpHXsOKPCOgrWgo+_kcgizo9Mp1ntjDbA@mail.gmail.com>
+ <1282bf58-e431-4a07-97e5-628437e7ce5f@quicinc.com>
+ <CACu1E7GwMCt6+JJQGgSvJObTMMWYLPd69owyFo7S=sxu_EEsUw@mail.gmail.com>
+ <16845de2-a40a-4e3d-b3aa-c91e7072b57f@quicinc.com>
+ <CAF6AEGvyeRLHFBYmxkevgT+hosXGiH_w8Z+UjQmL+LdbNfVZ+w@mail.gmail.com>
+ <acd1c8dd-286b-40b7-841d-e53e2d155a61@oss.qualcomm.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <acd1c8dd-286b-40b7-841d-e53e2d155a61@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: DCJhFJ_Gse0nR6-0i__p9vnIB0-LNb6Q
+X-Proofpoint-GUID: DCJhFJ_Gse0nR6-0i__p9vnIB0-LNb6Q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDA0NiBTYWx0ZWRfXz8Kag/OH6Cal
+ r7KNWLltqrX/X7mjyOb9yk7doxf9dMeHmhsy/yjUAv9zXfKu3tDv8UfwS01/rMfQ1O1SWmFCuQy
+ ZtGQ3I/ZNMwvM4PL+Tor1vH4Nk1UQxAAoiqBc8elIya0JS99uQoIhCvGa9jKaDUhEdLXGhCcJCB
+ pVi1rH2emJY3Kim1ZvDbLVGL9efSWDpx1UKy7s6hH54KpxmRCwKO0BO/xDsl5woAnLiWq6eZj6r
+ 9XLaAuu+eLBPUtLNrAqv/UT/j6m4EYFEZIKwPrEDdz277HCtvYlhIOk9o/oyaUfuZ+DdxGLXsPn
+ 8zZzjkc2Ui46l6lTRaS2xjLD/GUwzjLFovlemvMSffib9S3dQY+YCvSmODoVeXMpa+5XQwHfAB1
+ ZcO463UBR9M3NpXznRwpAEqXmVtYC5htmrNVjzbVo72cILAsONssDFmNapA0/1/DtbsFIejL
+X-Authority-Analysis: v=2.4 cv=Mepsu4/f c=1 sm=1 tr=0 ts=68088ef5 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=BtPMHYKAB6ts6yx63a4A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-23_05,2025-04-22_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 mlxscore=0 impostorscore=0 clxscore=1015
+ mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504230046
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,54 +120,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Pengyu Luo <mitltlatltl@gmail.com> =E4=BA=8E2025=E5=B9=B44=E6=9C=8819=E6=97=
-=A5=E5=91=A8=E5=85=AD 02:34=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Mon, 03 Mar 2025 23:14:29 +0800 Jun Nie <jun.nie@linaro.org> wrote:
-> > 2 or more SSPPs and dual-DSI interface are need for super wide panel.
-> > And 4 DSC are preferred for power optimal in this case due to width
-> > limitation of SSPP and MDP clock rate constrain. This patch set
-> > extends number of pipes to 4 and revise related mixer blending logic
-> > to support quad pipe. All these changes depends on the virtual plane
-> > feature to split a super wide drm plane horizontally into 2 or more sub
-> > clip. Thus DMA of multiple SSPPs can share the effort of fetching the
-> > whole drm plane.
-> >
-> > The first pipe pair co-work with the first mixer pair to cover the left
-> > half of screen and 2nd pair of pipes and mixers are for the right half
-> > of screen. If a plane is only for the right half of screen, only one
-> > or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
-> > assinged for invalid pipe.
-> >
-> > For those panel that does not require quad-pipe, only 1 or 2 pipes in
-> > the 1st pipe pair will be used. There is no concept of right half of
-> > screen.
-> >
-> > For legacy non virtual plane mode, the first 1 or 2 pipes are used for
-> > the single SSPP and its multi-rect mode.
-> >
-> > To test bonded DSI on SM8650, the 5 patches for active-CTL improvement
-> > are needed:
-> > https://gitlab.freedesktop.org/lumag/msm/-/commits/dpu-4k?ref_type=3Dhe=
-ads
-> >
->
-> [...]
->
-> > base-commit: b44251a8c179381b9f3ed3aa49be04fe1d516903
->
-> Hi, Jun. The display of my sm8650 device requires 4:4:2(lm, dsc, intf)
-> topology, I want to test this series, these patches can't be applied to
-> the latest linux-next tree, and I can't find the commit id in linux-next
-> or msm-next. Where can I fetch the tree?
->
-> Best wishes,
-> Pengyu
+On 4/23/2025 5:27 AM, Konrad Dybcio wrote:
+> On 4/21/25 10:13 PM, Rob Clark wrote:
+>> On Fri, Apr 18, 2025 at 9:00 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>>>
+>>> On 4/18/2025 6:40 AM, Connor Abbott wrote:
+>>>> On Thu, Apr 17, 2025, 1:50 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>>>>>
+>>>>> On 4/17/2025 9:02 PM, Connor Abbott wrote:
+>>>>>> On Thu, Apr 17, 2025 at 3:45 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>>>>>>>
+>>>>>>> On 4/10/2025 11:13 PM, Konrad Dybcio wrote:
+>>>>>>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>>>>>>
+>>>>>>>> The Highest Bank address Bit value can change based on memory type used.
+>>>>>>>>
+>>>>>>>> Attempt to retrieve it dynamically, and fall back to a reasonable
+>>>>>>>> default (the one used prior to this change) on error.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>>>>>> ---
+>>>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 15 ++++++++++++++-
+>>>>>>>>  1 file changed, 14 insertions(+), 1 deletion(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>> index 06465bc2d0b4b128cddfcfcaf1fe4252632b6777..a6232b382bd16319f20ae5f8f5e57f38ecc62d9f 100644
+>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>> @@ -13,6 +13,7 @@
+>>>>>>>>  #include <linux/firmware/qcom/qcom_scm.h>
+>>>>>>>>  #include <linux/pm_domain.h>
+>>>>>>>>  #include <linux/soc/qcom/llcc-qcom.h>
+>>>>>>>> +#include <linux/soc/qcom/smem.h>
+>>>>>>>>
+>>>>>>>>  #define GPU_PAS_ID 13
+>>>>>>>>
+>>>>>>>> @@ -587,6 +588,8 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+>>>>>>>>
+>>>>>>>>  static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+>>>>>>>>  {
+>>>>>>>> +     int hbb;
+>>>>>>>> +
+>>>>>>>>       gpu->ubwc_config.rgb565_predicator = 0;
+>>>>>>>>       gpu->ubwc_config.uavflagprd_inv = 0;
+>>>>>>>>       gpu->ubwc_config.min_acc_len = 0;
+>>>>>>>> @@ -635,7 +638,6 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+>>>>>>>>           adreno_is_a690(gpu) ||
+>>>>>>>>           adreno_is_a730(gpu) ||
+>>>>>>>>           adreno_is_a740_family(gpu)) {
+>>>>>>>> -             /* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
+>>>>>>>>               gpu->ubwc_config.highest_bank_bit = 16;
+>>>>>>>>               gpu->ubwc_config.amsbc = 1;
+>>>>>>>>               gpu->ubwc_config.rgb565_predicator = 1;
+>>>>>>>> @@ -664,6 +666,13 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+>>>>>>>>               gpu->ubwc_config.highest_bank_bit = 14;
+>>>>>>>>               gpu->ubwc_config.min_acc_len = 1;
+>>>>>>>>       }
+>>>>>>>> +
+>>>>>>>> +     /* Attempt to retrieve the data from SMEM, keep the above defaults in case of error */
+>>>>>>>> +     hbb = qcom_smem_dram_get_hbb();
+>>>>>>>> +     if (hbb < 0)
+>>>>>>>> +             return;
+>>>>>>>> +
+>>>>>>>> +     gpu->ubwc_config.highest_bank_bit = hbb;
+>>>>>>>
+>>>>>>> I am worried about blindly relying on SMEM data directly for HBB for
+>>>>>>> legacy chipsets. There is no guarantee it is accurate on every chipset
+>>>>>>> and every version of firmware. Also, until recently, this value was
+>>>>>>> hardcoded in Mesa which matched the value in KMD.
+>>>>>>
+>>>>>> To be clear about this, from the moment we introduced host image
+>>>>>> copies in Mesa we added support for querying the HBB from the kernel,
+>>>>>> explicitly so that we could do what this series does without Mesa ever
+>>>>>> breaking. Mesa will never assume the HBB unless the kernel is too old
+>>>>>> to support querying it. So don't let Mesa be the thing that stops us
+>>>>>> here.
+>>>>>
+>>>>> Thanks for clarifying about Mesa. I still don't trust a data source that
+>>>>> is unused in production.
+>>>>
+>>>> Fair enough, I'm not going to argue with that part. Just wanted to
+>>>> clear up any confusion about Mesa.
+>>>>
+>>>> Although, IIRC kgsl did set different values for a650 depending on
+>>>> memory type... do you know what source that used?
+>>>
+>>> KGSL relies on an undocumented devicetree node populated by bootloader
+>>> to detect ddrtype and calculates the HBB value based on that.
+>>
+>> Would it be reasonable to use the smem value, but if we find the
+>> undocumented dt property, WARN_ON() if it's value disagrees with smem?
+>>
+>> That would at least give some confidence, or justified un-confidence
+>> about the smem values
+> 
+> The aforementioned value is populated based on the data that this
+> driver reads out, and only on the same range of platforms that this
+> driver happens to cater to
 
-This is staging patch set. Code clean and formatting is still needed.
+Like I suggested privately, can we centralize all ubwc configuration so
+that it is consistent across all drivers. With that, we will need to
+maintain a table of ubwc config for each chipset and HBB can be
+calculated based on the DDR configuration identified from SMEM. Once we
+migrate the downstream drivers to the new API, we can hopefully move to
+the HBB value from SMEM. This will ensure that the SMEM data for HBB is
+accurate in all future chipsets.
 
-https://gitlab.com/jun.nie/linux/-/tree/sm8650/v6.15-quadpipe-staging?ref_t=
-ype=3Dheads
+-Akhil.
 
-Regards,
-Jun
+
+
+> 
+> Konrad
+
