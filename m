@@ -2,137 +2,142 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AABCCA990D2
-	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 17:23:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AFAEA99725
+	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 19:52:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 733A210E6E1;
-	Wed, 23 Apr 2025 15:23:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F14FA10E22D;
+	Wed, 23 Apr 2025 17:52:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OM9E2ZUy";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FNjoF03p";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD77810E6E1
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 15:23:49 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NAt75P017255
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 15:23:48 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A50910E08C
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 17:52:50 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NAoU0A016500
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 17:52:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- r3FIkxvIinGQIcn2H7NbkL17x51IYW6d98QsKUMr6mM=; b=OM9E2ZUy88IfGzVL
- FoatmTtvhHzimCX7SP40jD5dm4SdjRbCGLzLC8D/vnO3aIYKZF5HdjzMVGMlqZPy
- mqojsB0Jv2CVheREflSAupJj2e5l21D4FfGn1TWumer7Tl1a9jaLOy25UN6uze7V
- zszN9rfpfUXbRDR0Fl0KBeL/r4UmLVBi79RGr/jGus4XfKqWlRwbnQCIYC+LcK7k
- C77M7vBEehcysBHElXFFeR40tWqcdY/38hjCI3WEAz09wtb4JSBD2MH5VJm8YCHS
- ezXgBV7ZY56YWioqDuzBv9O7JUgJxRdcKQBRPwZ4R6GKUtufn7hvQv33ZgHsFT+k
- yFxR9A==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh3jjaq-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=rJBziJdVKGd+U1aRarV6xf
+ PxdaU3heLDlLUsnc4hHzs=; b=FNjoF03pGwFAC8CUpPgKgDKvfo1+3HiFPnwiOC
+ N9nVCHG7hzFDeC3rLsRxK/e9jSJ5IMZW6BLJfPIDEkoUsSg7jcvTXHKpRdWPwBoN
+ c5Yr0rXzJs/yHH9GukP1yuCzItsSMo06Pnh7RuFM+zBDXGHEEWCNs9Gjzxo8fCyV
+ JrZFM9qoQppCRF0TgeWuTsd0V9BGX0oJE7hByzSTMCNK/oYgL+AEJsKvFrVPizPV
+ gvLA4yiK13qTaPLzMHzk42gzizFFqPMnwn64Jw0hVpYe0iMTTRQ6d5ERbWtJVelm
+ VJFHHoi3tvzG1uFb1GXGUQtNPh0T6upn201OG5JAsy2Q5DcQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh0b0p9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 15:23:48 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7c5e28d0cc0so1112267585a.3
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 08:23:48 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 17:52:50 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c54e7922a1so18294985a.2
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 10:52:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745421828; x=1746026628;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=r3FIkxvIinGQIcn2H7NbkL17x51IYW6d98QsKUMr6mM=;
- b=YJB1+egK1rM5YT6HCvabM+It/KvS9M6dLC7wUs7pL5a+shsSjMkp5mp/EHQ0b8ATgk
- rw2Yrxd78caGjFPumhU91rdVgEsYbyQ7PX0Y8N2GXo2EWjc0iit9zgBuXCJjiB0pDmLD
- ee3ptBK1u1yOhwbvSHhGb8W4W6/aCY/WMwUkFP/mQ6s2eLdEH8kTcYKLI6MUgGaNIlbj
- cwkX3fmE+Em8Y4JmZkk0kPD0h81CPgQnacPds3e7+TpQYFRZlfa4wmD8a38Zy1185AR6
- AOfXo3a5XG7oPG2RybEfDis40LstITJyNBuUnRUT8xcyLi6h6gz4/Yiubea2Ywf1Np+Z
- QN4w==
+ d=1e100.net; s=20230601; t=1745430768; x=1746035568;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rJBziJdVKGd+U1aRarV6xfPxdaU3heLDlLUsnc4hHzs=;
+ b=CpNFTzT8G625+VN0zIx8Nn65q3xfq0EFMf7Hdf6xkUyuUbXOHePc0hSuMMaAMg+SPK
+ yw7Kw7cbgulz4rN3Q3qURpdSAJvo+b6V5mVX08jgkKF5APq6E4ke/F7PyWArXc0kIWu9
+ a9S1O4vArtgT6BPEwzaB6JKm2u9CT2vjzu8aHZCYHKHBtkUD9cGZS4VmylquNYDVAG8F
+ etcKaaNJAy1iWQJ4HlIjuIawUJPU6WjyRXvhTZM58IYBLEAyuhSMZ4qNRtvFh9gk4sR/
+ bwexVQwT830Ur6A87FGq9p1kxHH+rNwgD1qYmjTK5kqmT6kEed4UrzkYCoT6sMFn8jLH
+ 9URA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWfl6+oYaX4y4Bw6BZl9gGRBWwXWuRY7q5PTvugnAYozEtl/PJ++vLilERQ5oGuKGre2aOD4XBP+1s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSj4qeDfvDz6CPOaQqXmbO4Rp8Z1AzjrJea0zLxa7vS3uRWz/U
- qF8Vc4F80e5CEb/4S2oq+pmQiOpVcYhzqxz0Ed5eVgvZ2AR3RWGy82ut88csGwx18d39067EQGk
- Pg+k9hGQNTDYl2zq6z7bmBCUApd5RcI6YTGQ8VO+vJtHDv7EuquongYD5V8uREEpbAn0=
-X-Gm-Gg: ASbGncsgeBK0RUF11xPHBPteL9qzR7IbUn2tKp/HhNlHmcGWvX/kNEY9CwHTQL1Pnkn
- mYl7GkHd4mwwA6A78yie/npFabnBocCWlyoQfawIMNUO6gJnySTYmymcwZMS8jYBIda0eWaq/ef
- dSg0MCnhAQH5pBZzhDwh1eYDs0m5QC2JHaKML32wJPuuypiE/n36PMbarg0qc+xWtbg0SF09hIV
- qmhPwa3BACDtvPOHezztZbgis2neGYVtnuProId05Iiy5jQrcasFA+s4kStXys9RqVsJ02O+0b7
- EOXEBmd8PIZE413P9XM9LCyI9rFx7bfhfFs6wOZcgIlaRKzQklS9T4r1MnCpj2eRrnR1eTtbwXg
- zlsqiLLJXtJ+AJUOP0pAWTYx00swc6wQZIMLUOn3Be7Z36m/xLPz38NFkNht6QEPp
-X-Received: by 2002:a05:620a:4149:b0:7c5:3cf6:7838 with SMTP id
- af79cd13be357-7c92805dcd3mr3251754885a.49.1745421827618; 
- Wed, 23 Apr 2025 08:23:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF4VINuu2Xy9f+Jgd9x+sEEy1ml8USXXDrXZs3i+/S1a0FB6ilwJUPYzKZPPdxuaxS+9i8laA==
-X-Received: by 2002:a05:620a:4149:b0:7c5:3cf6:7838 with SMTP id
- af79cd13be357-7c92805dcd3mr3251749885a.49.1745421827190; 
- Wed, 23 Apr 2025 08:23:47 -0700 (PDT)
-Received: from ?IPV6:2001:14bb:ce:6a0b:b501:c51a:e775:2fe5?
- (2001-14bb-ce-6a0b-b501-c51a-e775-2fe5.rev.dnainternet.fi.
- [2001:14bb:ce:6a0b:b501:c51a:e775:2fe5])
+ AJvYcCVopEYPwo61L0W/kZLX6L39T7L4izhy9bIJGJuQVHEu5sBRSGBXVTRP3jWPM+I/bqcaqr/PWlgk9U4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyCbHkE92PYKOEHzC8a1YDeyWmZL74ryG6otsdmgA14UvdXg7Po
+ x2kHFObZW/xh7ncpY26A3rZN78cv6Fw1DlEQKRwtbcVFFN2r5QT9NpavSKEF54UmYovMhyRvdvq
+ WbpZo7VrcZbw35hagoGJHYiIdoI4uTvDr/S9ZnF0fEpY1H455aVr41v2PXsMbXdxj1u0=
+X-Gm-Gg: ASbGncs9PTnVi3HS0/PZ8ywI045T9aR9z7IvsTmsOP72mEgUoob+wM1CBKkvaVx1YDo
+ gK3jY10gBUL9/zgTH4WHl/GbC2lh+XWH3Vnm2RXJDZkWYzEGWHpzY+Epo46ZevyECb4hIcr8XnB
+ HJqcKQBXgdXjjr1b+1byz+QCLCLfl0Kcb84En3rFQbc1mDjLPS86Mu810n1JmGjynetoVmfCfdT
+ 8fmQ2Xe1y4Nof1SrK4/+hQTTWnJZ9n9eFnqIw2tsy3/hlpLFAEoo2elQcXMpw/0wzfzDH5lNPR0
+ oTWxrH7PbRhhn2/KG6ty0J7zFoB3upE6n3Kl3QyUmSrqeryyu4VTUXL3p8uUqIj/XCwwBvjdSwt
+ wsTcH3wCDKO4zoJ9WCqq43lcj
+X-Received: by 2002:a05:620a:408a:b0:7c7:a5f5:5616 with SMTP id
+ af79cd13be357-7c928015e4cmr2844232685a.42.1745430768308; 
+ Wed, 23 Apr 2025 10:52:48 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH06bKro5o+MpHPMmBUD8XdZI2r4jnXZAX6VOuKtKLaYMgm91xHLkpTseCzHq1rm6HfhxaxHQ==
+X-Received: by 2002:a05:620a:408a:b0:7c7:a5f5:5616 with SMTP id
+ af79cd13be357-7c928015e4cmr2844226485a.42.1745430767624; 
+ Wed, 23 Apr 2025 10:52:47 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-31090822c3asm19762901fa.65.2025.04.23.08.23.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 08:23:46 -0700 (PDT)
-Message-ID: <6233171a-2964-4d57-986c-d3f1725eacd6@oss.qualcomm.com>
-Date: Wed, 23 Apr 2025 18:23:44 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] drm/msm/a6xx: Get HBB dynamically, if available
-To: Rob Clark <robdclark@gmail.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Connor Abbott <cwabbott0@gmail.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- linux-hardening@vger.kernel.org, dri-devel
- <dri-devel@lists.freedesktop.org>, freedreno@lists.freedesktop.org
-References: <20250410-topic-smem_dramc-v2-0-dead15264714@oss.qualcomm.com>
- <20250410-topic-smem_dramc-v2-3-dead15264714@oss.qualcomm.com>
- <20911703-ab4e-4eb2-8611-294730a06d2f@quicinc.com>
- <CACu1E7HDmQXDNtEQCXpHXsOKPCOgrWgo+_kcgizo9Mp1ntjDbA@mail.gmail.com>
- <1282bf58-e431-4a07-97e5-628437e7ce5f@quicinc.com>
- <CACu1E7GwMCt6+JJQGgSvJObTMMWYLPd69owyFo7S=sxu_EEsUw@mail.gmail.com>
- <16845de2-a40a-4e3d-b3aa-c91e7072b57f@quicinc.com>
- <CAF6AEGvyeRLHFBYmxkevgT+hosXGiH_w8Z+UjQmL+LdbNfVZ+w@mail.gmail.com>
- <acd1c8dd-286b-40b7-841d-e53e2d155a61@oss.qualcomm.com>
- <CAF6AEGts5rWvgyZy8RtAaUOsad362AG-uNjxF9vyj4szg=b5Bw@mail.gmail.com>
-Content-Language: en-US
+ 2adb3069b0e04-54d6e5f516bsm1588710e87.221.2025.04.23.10.52.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Apr 2025 10:52:46 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <CAF6AEGts5rWvgyZy8RtAaUOsad362AG-uNjxF9vyj4szg=b5Bw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: L8bA7fqLWfa5Su0Z_CURy_rqGeZPP0ez
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDEwOCBTYWx0ZWRfX+49bmqCnP7ws
- pC+3I9lxL2aCS+siwYJOdLS6GFEmbcxAZS9EX8b47JXI+lYhxwyDJzDVQwbac4w/LsSsFr7qiqR
- zeiuwxRb6yhcEVKzLHLWJfupWWcRkOTd9chVN8M/En0KxWMKmnhWtBcTO8Qn37P35W4nlJoAZC1
- mFsMI147k3gqT6vbCNUBUU7fmMGiUrGPnwCdEOsmVTspbkSFXq62zpK786eqwjnjf1B8tUqS442
- TbZg/lEx2Pa2225hUdXrsXSGFER6wR3wBSLVgpz/9As2U7xqHZH0eaAcL5FKbYKDnc0zplC9UeJ
- 9Pmvrp0RURDR5+vTHyA5VXdFSQf3rHgbNWzk1q5J37OQL1vqrQwRUiIeifmwUmygJhfHMpJsenb
- BB1fTs1jhBa6+IEHtijL8w7i7LGBy/1jw3WiC6ukbpE/iggBEHrnoyFACR5r/CkaNujHaLHZ
-X-Authority-Analysis: v=2.4 cv=ELgG00ZC c=1 sm=1 tr=0 ts=68090604 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=INHOtyMNgn4pQtdJY3IA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: L8bA7fqLWfa5Su0Z_CURy_rqGeZPP0ez
+Date: Wed, 23 Apr 2025 20:52:45 +0300
+Subject: [PATCH v7] drm/msm/dp: reuse generic HDMI codec implementation
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250423-dp-hdmi-audio-v7-1-8407a23e55b2@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAOwoCWgC/3XQwWrEIBAG4FdZPNego8akp32Psgd1dCNs4la7o
+ WXJu9fspSGhl4F/4PsZ5kmKz9EX8n56kuznWGKaatBvJ+IGM109jVgzAQaKAWsp3umAY6TmgTF
+ RrrAPaL21fSDV3LMP8fvV93GpeYjlK+WfV/3M1+1/TTOnjHbGcGk6x1Di+RYnk1OT8pWsVTNse
+ b/nUDlv0bbeBoAQDlxsOD9wUbmEnrHAhLSSHbj844LxPZfr8aBFjyZA59yBqy3Xe64qD8J64Kp
+ +U3cH3m44l3veVo4WAbpgtEB9TqU0nw9zc2kcmzrIZVmWX/hQY5zsAQAA
+X-Change-ID: 20250206-dp-hdmi-audio-15d9fdbebb9f
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Hermes Wu <Hermes.wu@ite.com.tw>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Dmitry Baryshkov <lumag@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=15589;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=USmdaNvtUti3XoeMQJw2vdNINUHLESzxn6cO7uGNC3c=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoCSjusuNS8VYTXvwcrCifxb/u92yLsudpehbxQ
+ jjegQmnHBKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaAko7gAKCRCLPIo+Aiko
+ 1UyJB/4vlZucDGKjjs099wh+9yQe4YzzsE5br8pIqyhkx+1lvFl8tcjk9asJl9eWWxTqoP9oold
+ s0nIGZSD+o/yyo0bC1fm/BmJlq48yRkmxAF8DGE+rGNAqjanuV5zs5EPbcV0axXrakMHWXKG+fF
+ vz7+5Tk7BsCFyu+njpnfbgmTci0uudCrmsjRhgG4QFt8zSBAv774gAoPwZ6FlfOufV0rQEG/85z
+ odkF2EkCEflxd+5ItI6nzFMQSrLU4j/dK5k7hroK1y1qyAo4mjYUdI2hnj82sLsiEEfdU18gv41
+ GxX2cM3oIdgfTtwjGwbWsfG96Y5gksyAgZoSRDjnm5AvGA7l
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: vnu_5084VFcXIKMgpHfInN1Zqr5zVLFR
+X-Proofpoint-ORIG-GUID: vnu_5084VFcXIKMgpHfInN1Zqr5zVLFR
+X-Authority-Analysis: v=2.4 cv=Fv0F/3rq c=1 sm=1 tr=0 ts=680928f2 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=XR8D0OoHHMoA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=5sB3F6IwpAO9Ay8VHbAA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDEyNSBTYWx0ZWRfX7S7L9kC04ZWF
+ GDNDN9yb9inkf33AHnN6nf8jWTJ1dDLc1Qpm0y0qbCYhQuQSeM74nxJxckpvZOjv5iSJXLJJRb+
+ Ej5MHmC879moXuUu+T1uef7D5EmqyNswuaxEWifWt037dAzdPrgiXqb495bCPGNkuUxzitrqX+j
+ pIRAj8AUuD7cEFk2otWQ902YfzxcTM89T5UGKSl+Ly5V3wH+EILhfeHhQEzMlo6K+YM67SygkmH
+ 0cTU4dSHHDE5UZ0GgJqCSCrzTdSDKh/JK1VWkbU79rLLFHXbj0LUh6WD2PsCzrK8+hgB4OrkUbV
+ CMGqTqTJXhUH8oVvLFfeoIZupGTYuh+1arBBrqMmNeYahBqy861gKSxLuLEhgC5KEergrFlLwEv
+ w/RTtPV+y1ci6bSe+b2jPX2FLz0AiCp1AawG/IAoX5Cu5cXWDaeQ7ubSxTbSOwwv93G+mvf6
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.80.40
- definitions=2025-04-23_09,2025-04-22_01,2025-02-21_01
+ definitions=2025-04-23_10,2025-04-22_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 phishscore=0 spamscore=0
- mlxscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
- mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504230108
+ impostorscore=0 mlxscore=0
+ malwarescore=0 mlxlogscore=999 priorityscore=1501 suspectscore=0
+ adultscore=0 bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ phishscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504230125
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,114 +153,466 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/04/2025 17:55, Rob Clark wrote:
-> On Tue, Apr 22, 2025 at 4:57 PM Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
->>
->> On 4/21/25 10:13 PM, Rob Clark wrote:
->>> On Fri, Apr 18, 2025 at 9:00 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->>>>
->>>> On 4/18/2025 6:40 AM, Connor Abbott wrote:
->>>>> On Thu, Apr 17, 2025, 1:50 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->>>>>>
->>>>>> On 4/17/2025 9:02 PM, Connor Abbott wrote:
->>>>>>> On Thu, Apr 17, 2025 at 3:45 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->>>>>>>>
->>>>>>>> On 4/10/2025 11:13 PM, Konrad Dybcio wrote:
->>>>>>>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>>>>>>>
->>>>>>>>> The Highest Bank address Bit value can change based on memory type used.
->>>>>>>>>
->>>>>>>>> Attempt to retrieve it dynamically, and fall back to a reasonable
->>>>>>>>> default (the one used prior to this change) on error.
->>>>>>>>>
->>>>>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>>>>>>> ---
->>>>>>>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 15 ++++++++++++++-
->>>>>>>>>   1 file changed, 14 insertions(+), 1 deletion(-)
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>>>>> index 06465bc2d0b4b128cddfcfcaf1fe4252632b6777..a6232b382bd16319f20ae5f8f5e57f38ecc62d9f 100644
->>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>>>>> @@ -13,6 +13,7 @@
->>>>>>>>>   #include <linux/firmware/qcom/qcom_scm.h>
->>>>>>>>>   #include <linux/pm_domain.h>
->>>>>>>>>   #include <linux/soc/qcom/llcc-qcom.h>
->>>>>>>>> +#include <linux/soc/qcom/smem.h>
->>>>>>>>>
->>>>>>>>>   #define GPU_PAS_ID 13
->>>>>>>>>
->>>>>>>>> @@ -587,6 +588,8 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
->>>>>>>>>
->>>>>>>>>   static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
->>>>>>>>>   {
->>>>>>>>> +     int hbb;
->>>>>>>>> +
->>>>>>>>>        gpu->ubwc_config.rgb565_predicator = 0;
->>>>>>>>>        gpu->ubwc_config.uavflagprd_inv = 0;
->>>>>>>>>        gpu->ubwc_config.min_acc_len = 0;
->>>>>>>>> @@ -635,7 +638,6 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
->>>>>>>>>            adreno_is_a690(gpu) ||
->>>>>>>>>            adreno_is_a730(gpu) ||
->>>>>>>>>            adreno_is_a740_family(gpu)) {
->>>>>>>>> -             /* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
->>>>>>>>>                gpu->ubwc_config.highest_bank_bit = 16;
->>>>>>>>>                gpu->ubwc_config.amsbc = 1;
->>>>>>>>>                gpu->ubwc_config.rgb565_predicator = 1;
->>>>>>>>> @@ -664,6 +666,13 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
->>>>>>>>>                gpu->ubwc_config.highest_bank_bit = 14;
->>>>>>>>>                gpu->ubwc_config.min_acc_len = 1;
->>>>>>>>>        }
->>>>>>>>> +
->>>>>>>>> +     /* Attempt to retrieve the data from SMEM, keep the above defaults in case of error */
->>>>>>>>> +     hbb = qcom_smem_dram_get_hbb();
->>>>>>>>> +     if (hbb < 0)
->>>>>>>>> +             return;
->>>>>>>>> +
->>>>>>>>> +     gpu->ubwc_config.highest_bank_bit = hbb;
->>>>>>>>
->>>>>>>> I am worried about blindly relying on SMEM data directly for HBB for
->>>>>>>> legacy chipsets. There is no guarantee it is accurate on every chipset
->>>>>>>> and every version of firmware. Also, until recently, this value was
->>>>>>>> hardcoded in Mesa which matched the value in KMD.
->>>>>>>
->>>>>>> To be clear about this, from the moment we introduced host image
->>>>>>> copies in Mesa we added support for querying the HBB from the kernel,
->>>>>>> explicitly so that we could do what this series does without Mesa ever
->>>>>>> breaking. Mesa will never assume the HBB unless the kernel is too old
->>>>>>> to support querying it. So don't let Mesa be the thing that stops us
->>>>>>> here.
->>>>>>
->>>>>> Thanks for clarifying about Mesa. I still don't trust a data source that
->>>>>> is unused in production.
->>>>>
->>>>> Fair enough, I'm not going to argue with that part. Just wanted to
->>>>> clear up any confusion about Mesa.
->>>>>
->>>>> Although, IIRC kgsl did set different values for a650 depending on
->>>>> memory type... do you know what source that used?
->>>>
->>>> KGSL relies on an undocumented devicetree node populated by bootloader
->>>> to detect ddrtype and calculates the HBB value based on that.
->>>
->>> Would it be reasonable to use the smem value, but if we find the
->>> undocumented dt property, WARN_ON() if it's value disagrees with smem?
->>>
->>> That would at least give some confidence, or justified un-confidence
->>> about the smem values
->>
->> The aforementioned value is populated based on the data that this
->> driver reads out, and only on the same range of platforms that this
->> driver happens to cater to
-> 
-> Did I understand that correctly to mean that the dt property is based
-> on the same smem value that you are using?  In that case, there should
-> be no argument against using the smem value as the source of truth.
+From: Dmitry Baryshkov <lumag@kernel.org>
 
-It is, but is done by the bootloader that knows exact format of the data.
+The MSM DisplayPort driver implements several HDMI codec functions
+in the driver, e.g. it manually manages HDMI codec device registration,
+returning ELD and plugged_cb support. In order to reduce code
+duplication reuse drm_hdmi_audio_* helpers and drm_bridge_connector
+integration.
 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+A lot of DisplayPort bridges use HDMI Codec in order to provide audio
+support. Present DRM HDMI Audio support has been written with the HDMI
+and in particular DRM HDMI Connector framework support, however those
+audio helpers can be easily reused for DisplayPort drivers too.
 
+Patches by Hermes Wu that targeted implementing HDMI Audio support in
+the iTE IT6506 driver pointed out the necessity of allowing one to use
+generic audio helpers for DisplayPort drivers, as otherwise each driver
+has to manually (and correctly) implement the get_eld() and plugged_cb
+support.
+
+Implement necessary integration in drm_bridge_connector and provide an
+example implementation in the msm/dp driver.
+---
+Changes in v7:
+- Dropped applied patches
+- Link to v6: https://lore.kernel.org/r/20250314-dp-hdmi-audio-v6-0-dbd228fa73d7@oss.qualcomm.com
+
+Changes in v6:
+- Added DRM_BRIDGE_OP_DP_AUDIO and separate set of DisplayPort audio
+  callbacks to the drm_bridge interface (Maxime)
+- Link to v5: https://lore.kernel.org/r/20250307-dp-hdmi-audio-v5-0-f3be215fdb78@linaro.org
+
+Changes in v5:
+- Rebased on top of linux-next, also handling HDMI audio piece of the
+  MSM HDMI driver.
+- Link to v4: https://lore.kernel.org/r/20250301-dp-hdmi-audio-v4-0-82739daf28cc@linaro.org
+
+Changes in v4:
+- Rebased on linux-next, adding DRM_BRIDGE_OP_HDMI_AUDIO to Synopsys QP
+  HDMI driver.
+- Drop outdated comment regarding subconnector from the commit message.
+- Link to v3: https://lore.kernel.org/r/20250219-dp-hdmi-audio-v3-0-42900f034b40@linaro.org
+
+Changes in v3:
+- Dropped DRM_BRIDGE_OP_DisplayPort, added DRM_BRIDGE_OP_HDMI_AUDIO
+  (Laurent, Maxime)
+- Dropped the subconnector patch (again)
+- Link to v2: https://lore.kernel.org/r/20250209-dp-hdmi-audio-v2-0-16db6ebf22ff@linaro.org
+
+Changes in v2:
+- Added drm_connector_attach_dp_subconnector_property() patches
+- Link to v1: https://lore.kernel.org/r/20250206-dp-hdmi-audio-v1-0-8aa14a8c0d4d@linaro.org
+---
+ drivers/gpu/drm/msm/Kconfig         |   1 +
+ drivers/gpu/drm/msm/dp/dp_audio.c   | 131 ++++--------------------------------
+ drivers/gpu/drm/msm/dp/dp_audio.h   |  27 ++------
+ drivers/gpu/drm/msm/dp/dp_display.c |  28 ++------
+ drivers/gpu/drm/msm/dp/dp_display.h |   6 --
+ drivers/gpu/drm/msm/dp/dp_drm.c     |   8 +++
+ 6 files changed, 31 insertions(+), 170 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+index 974bc7c0ea761147d3326bdce9039d6f26f290d0..7f127e2ae44292f8f5c7ff6a9251c3d7ec8c9f58 100644
+--- a/drivers/gpu/drm/msm/Kconfig
++++ b/drivers/gpu/drm/msm/Kconfig
+@@ -104,6 +104,7 @@ config DRM_MSM_DPU
+ config DRM_MSM_DP
+ 	bool "Enable DisplayPort support in MSM DRM driver"
+ 	depends on DRM_MSM
++	select DRM_DISPLAY_HDMI_AUDIO_HELPER
+ 	select RATIONAL
+ 	default y
+ 	help
+diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
+index 70fdc9fe228a7149546accd8479a9e4397f3d5dd..f8bfb908f9b4bf93ad5480f0785e3aed23dde160 100644
+--- a/drivers/gpu/drm/msm/dp/dp_audio.c
++++ b/drivers/gpu/drm/msm/dp/dp_audio.c
+@@ -13,13 +13,13 @@
+ 
+ #include "dp_catalog.h"
+ #include "dp_audio.h"
++#include "dp_drm.h"
+ #include "dp_panel.h"
+ #include "dp_reg.h"
+ #include "dp_display.h"
+ #include "dp_utils.h"
+ 
+ struct msm_dp_audio_private {
+-	struct platform_device *audio_pdev;
+ 	struct platform_device *pdev;
+ 	struct drm_device *drm_dev;
+ 	struct msm_dp_catalog *catalog;
+@@ -160,24 +160,11 @@ static void msm_dp_audio_enable(struct msm_dp_audio_private *audio, bool enable)
+ 	msm_dp_catalog_audio_enable(catalog, enable);
+ }
+ 
+-static struct msm_dp_audio_private *msm_dp_audio_get_data(struct platform_device *pdev)
++static struct msm_dp_audio_private *msm_dp_audio_get_data(struct msm_dp *msm_dp_display)
+ {
+ 	struct msm_dp_audio *msm_dp_audio;
+-	struct msm_dp *msm_dp_display;
+-
+-	if (!pdev) {
+-		DRM_ERROR("invalid input\n");
+-		return ERR_PTR(-ENODEV);
+-	}
+-
+-	msm_dp_display = platform_get_drvdata(pdev);
+-	if (!msm_dp_display) {
+-		DRM_ERROR("invalid input\n");
+-		return ERR_PTR(-ENODEV);
+-	}
+ 
+ 	msm_dp_audio = msm_dp_display->msm_dp_audio;
+-
+ 	if (!msm_dp_audio) {
+ 		DRM_ERROR("invalid msm_dp_audio data\n");
+ 		return ERR_PTR(-EINVAL);
+@@ -186,68 +173,16 @@ static struct msm_dp_audio_private *msm_dp_audio_get_data(struct platform_device
+ 	return container_of(msm_dp_audio, struct msm_dp_audio_private, msm_dp_audio);
+ }
+ 
+-static int msm_dp_audio_hook_plugged_cb(struct device *dev, void *data,
+-		hdmi_codec_plugged_cb fn,
+-		struct device *codec_dev)
+-{
+-
+-	struct platform_device *pdev;
+-	struct msm_dp *msm_dp_display;
+-
+-	pdev = to_platform_device(dev);
+-	if (!pdev) {
+-		pr_err("invalid input\n");
+-		return -ENODEV;
+-	}
+-
+-	msm_dp_display = platform_get_drvdata(pdev);
+-	if (!msm_dp_display) {
+-		pr_err("invalid input\n");
+-		return -ENODEV;
+-	}
+-
+-	return msm_dp_display_set_plugged_cb(msm_dp_display, fn, codec_dev);
+-}
+-
+-static int msm_dp_audio_get_eld(struct device *dev,
+-	void *data, uint8_t *buf, size_t len)
+-{
+-	struct platform_device *pdev;
+-	struct msm_dp *msm_dp_display;
+-
+-	pdev = to_platform_device(dev);
+-
+-	if (!pdev) {
+-		DRM_ERROR("invalid input\n");
+-		return -ENODEV;
+-	}
+-
+-	msm_dp_display = platform_get_drvdata(pdev);
+-	if (!msm_dp_display) {
+-		DRM_ERROR("invalid input\n");
+-		return -ENODEV;
+-	}
+-
+-	mutex_lock(&msm_dp_display->connector->eld_mutex);
+-	memcpy(buf, msm_dp_display->connector->eld,
+-		min(sizeof(msm_dp_display->connector->eld), len));
+-	mutex_unlock(&msm_dp_display->connector->eld_mutex);
+-
+-	return 0;
+-}
+-
+-int msm_dp_audio_hw_params(struct device *dev,
+-	void *data,
+-	struct hdmi_codec_daifmt *daifmt,
+-	struct hdmi_codec_params *params)
++int msm_dp_audio_prepare(struct drm_connector *connector,
++			 struct drm_bridge *bridge,
++			 struct hdmi_codec_daifmt *daifmt,
++			 struct hdmi_codec_params *params)
+ {
+ 	int rc = 0;
+ 	struct msm_dp_audio_private *audio;
+-	struct platform_device *pdev;
+ 	struct msm_dp *msm_dp_display;
+ 
+-	pdev = to_platform_device(dev);
+-	msm_dp_display = platform_get_drvdata(pdev);
++	msm_dp_display = to_dp_bridge(bridge)->msm_dp_display;
+ 
+ 	/*
+ 	 * there could be cases where sound card can be opened even
+@@ -262,7 +197,7 @@ int msm_dp_audio_hw_params(struct device *dev,
+ 		goto end;
+ 	}
+ 
+-	audio = msm_dp_audio_get_data(pdev);
++	audio = msm_dp_audio_get_data(msm_dp_display);
+ 	if (IS_ERR(audio)) {
+ 		rc = PTR_ERR(audio);
+ 		goto end;
+@@ -281,15 +216,14 @@ int msm_dp_audio_hw_params(struct device *dev,
+ 	return rc;
+ }
+ 
+-static void msm_dp_audio_shutdown(struct device *dev, void *data)
++void msm_dp_audio_shutdown(struct drm_connector *connector,
++			   struct drm_bridge *bridge)
+ {
+ 	struct msm_dp_audio_private *audio;
+-	struct platform_device *pdev;
+ 	struct msm_dp *msm_dp_display;
+ 
+-	pdev = to_platform_device(dev);
+-	msm_dp_display = platform_get_drvdata(pdev);
+-	audio = msm_dp_audio_get_data(pdev);
++	msm_dp_display = to_dp_bridge(bridge)->msm_dp_display;
++	audio = msm_dp_audio_get_data(msm_dp_display);
+ 	if (IS_ERR(audio)) {
+ 		DRM_ERROR("failed to get audio data\n");
+ 		return;
+@@ -311,47 +245,6 @@ static void msm_dp_audio_shutdown(struct device *dev, void *data)
+ 	msm_dp_display_signal_audio_complete(msm_dp_display);
+ }
+ 
+-static const struct hdmi_codec_ops msm_dp_audio_codec_ops = {
+-	.hw_params = msm_dp_audio_hw_params,
+-	.audio_shutdown = msm_dp_audio_shutdown,
+-	.get_eld = msm_dp_audio_get_eld,
+-	.hook_plugged_cb = msm_dp_audio_hook_plugged_cb,
+-};
+-
+-static struct hdmi_codec_pdata codec_data = {
+-	.ops = &msm_dp_audio_codec_ops,
+-	.max_i2s_channels = 8,
+-	.i2s = 1,
+-};
+-
+-void msm_dp_unregister_audio_driver(struct device *dev, struct msm_dp_audio *msm_dp_audio)
+-{
+-	struct msm_dp_audio_private *audio_priv;
+-
+-	audio_priv = container_of(msm_dp_audio, struct msm_dp_audio_private, msm_dp_audio);
+-
+-	if (audio_priv->audio_pdev) {
+-		platform_device_unregister(audio_priv->audio_pdev);
+-		audio_priv->audio_pdev = NULL;
+-	}
+-}
+-
+-int msm_dp_register_audio_driver(struct device *dev,
+-		struct msm_dp_audio *msm_dp_audio)
+-{
+-	struct msm_dp_audio_private *audio_priv;
+-
+-	audio_priv = container_of(msm_dp_audio,
+-			struct msm_dp_audio_private, msm_dp_audio);
+-
+-	audio_priv->audio_pdev = platform_device_register_data(dev,
+-						HDMI_CODEC_DRV_NAME,
+-						PLATFORM_DEVID_AUTO,
+-						&codec_data,
+-						sizeof(codec_data));
+-	return PTR_ERR_OR_ZERO(audio_priv->audio_pdev);
+-}
+-
+ struct msm_dp_audio *msm_dp_audio_get(struct platform_device *pdev,
+ 			struct msm_dp_catalog *catalog)
+ {
+diff --git a/drivers/gpu/drm/msm/dp/dp_audio.h b/drivers/gpu/drm/msm/dp/dp_audio.h
+index beea34cbab77f31b33873297dc454a9cee446240..58fc14693e48bff2b57ef7278983e5f21ee80ac7 100644
+--- a/drivers/gpu/drm/msm/dp/dp_audio.h
++++ b/drivers/gpu/drm/msm/dp/dp_audio.h
+@@ -35,23 +35,6 @@ struct msm_dp_audio {
+ struct msm_dp_audio *msm_dp_audio_get(struct platform_device *pdev,
+ 			struct msm_dp_catalog *catalog);
+ 
+-/**
+- * msm_dp_register_audio_driver()
+- *
+- * Registers DP device with hdmi_codec interface.
+- *
+- * @dev: DP device instance.
+- * @msm_dp_audio: an instance of msm_dp_audio module.
+- *
+- *
+- * Returns the error code in case of failure, otherwise
+- * zero on success.
+- */
+-int msm_dp_register_audio_driver(struct device *dev,
+-		struct msm_dp_audio *msm_dp_audio);
+-
+-void msm_dp_unregister_audio_driver(struct device *dev, struct msm_dp_audio *msm_dp_audio);
+-
+ /**
+  * msm_dp_audio_put()
+  *
+@@ -61,10 +44,12 @@ void msm_dp_unregister_audio_driver(struct device *dev, struct msm_dp_audio *msm
+  */
+ void msm_dp_audio_put(struct msm_dp_audio *msm_dp_audio);
+ 
+-int msm_dp_audio_hw_params(struct device *dev,
+-	void *data,
+-	struct hdmi_codec_daifmt *daifmt,
+-	struct hdmi_codec_params *params);
++int msm_dp_audio_prepare(struct drm_connector *connector,
++			 struct drm_bridge *bridge,
++			 struct hdmi_codec_daifmt *daifmt,
++			 struct hdmi_codec_params *params);
++void msm_dp_audio_shutdown(struct drm_connector *connector,
++			   struct drm_bridge *bridge);
+ 
+ #endif /* _DP_AUDIO_H_ */
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index bbc47d86ae9e67245c87a8365df366cce0dc529e..ece184d20c0f8bffa3c2a48216015185d6cbc99e 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -13,6 +13,7 @@
+ #include <linux/delay.h>
+ #include <linux/string_choices.h>
+ #include <drm/display/drm_dp_aux_bus.h>
++#include <drm/display/drm_hdmi_audio_helper.h>
+ #include <drm/drm_edid.h>
+ 
+ #include "msm_drv.h"
+@@ -288,13 +289,6 @@ static int msm_dp_display_bind(struct device *dev, struct device *master,
+ 		goto end;
+ 	}
+ 
+-
+-	rc = msm_dp_register_audio_driver(dev, dp->audio);
+-	if (rc) {
+-		DRM_ERROR("Audio registration Dp failed\n");
+-		goto end;
+-	}
+-
+ 	rc = msm_dp_hpd_event_thread_start(dp);
+ 	if (rc) {
+ 		DRM_ERROR("Event thread create failed\n");
+@@ -316,7 +310,6 @@ static void msm_dp_display_unbind(struct device *dev, struct device *master,
+ 
+ 	of_dp_aux_depopulate_bus(dp->aux);
+ 
+-	msm_dp_unregister_audio_driver(dev, dp->audio);
+ 	msm_dp_aux_unregister(dp->aux);
+ 	dp->drm_dev = NULL;
+ 	dp->aux->drm_dev = NULL;
+@@ -626,9 +619,9 @@ static void msm_dp_display_handle_plugged_change(struct msm_dp *msm_dp_display,
+ 			struct msm_dp_display_private, msm_dp_display);
+ 
+ 	/* notify audio subsystem only if sink supports audio */
+-	if (msm_dp_display->plugged_cb && msm_dp_display->codec_dev &&
+-			dp->audio_supported)
+-		msm_dp_display->plugged_cb(msm_dp_display->codec_dev, plugged);
++	if (dp->audio_supported)
++		drm_connector_hdmi_audio_plugged_notify(msm_dp_display->connector,
++							plugged);
+ }
+ 
+ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp, u32 data)
+@@ -907,19 +900,6 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
+ 	return 0;
+ }
+ 
+-int msm_dp_display_set_plugged_cb(struct msm_dp *msm_dp_display,
+-		hdmi_codec_plugged_cb fn, struct device *codec_dev)
+-{
+-	bool plugged;
+-
+-	msm_dp_display->plugged_cb = fn;
+-	msm_dp_display->codec_dev = codec_dev;
+-	plugged = msm_dp_display->link_ready;
+-	msm_dp_display_handle_plugged_change(msm_dp_display, plugged);
+-
+-	return 0;
+-}
+-
+ /**
+  * msm_dp_bridge_mode_valid - callback to determine if specified mode is valid
+  * @bridge: Pointer to drm bridge structure
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index ecbc2d92f546a346ee53adcf1b060933e4f54317..cc6e2cab36e9c0b1527ff292e547cbb4d69fd95c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -7,7 +7,6 @@
+ #define _DP_DISPLAY_H_
+ 
+ #include "dp_panel.h"
+-#include <sound/hdmi-codec.h>
+ #include "disp/msm_disp_snapshot.h"
+ 
+ #define DP_MAX_PIXEL_CLK_KHZ	675000
+@@ -15,7 +14,6 @@
+ struct msm_dp {
+ 	struct drm_device *drm_dev;
+ 	struct platform_device *pdev;
+-	struct device *codec_dev;
+ 	struct drm_connector *connector;
+ 	struct drm_bridge *next_bridge;
+ 	bool link_ready;
+@@ -25,14 +23,10 @@ struct msm_dp {
+ 	bool is_edp;
+ 	bool internal_hpd;
+ 
+-	hdmi_codec_plugged_cb plugged_cb;
+-
+ 	struct msm_dp_audio *msm_dp_audio;
+ 	bool psr_supported;
+ };
+ 
+-int msm_dp_display_set_plugged_cb(struct msm_dp *msm_dp_display,
+-		hdmi_codec_plugged_cb fn, struct device *codec_dev);
+ int msm_dp_display_get_modes(struct msm_dp *msm_dp_display);
+ bool msm_dp_display_check_video_test(struct msm_dp *msm_dp_display);
+ int msm_dp_display_get_test_bpp(struct msm_dp *msm_dp_display);
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+index cca57e56c906255a315e759e85a5af5982c80e9c..838bc7d052c5cfa31572f7e23a6b1d09c4c63b5f 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+@@ -12,6 +12,7 @@
+ 
+ #include "msm_drv.h"
+ #include "msm_kms.h"
++#include "dp_audio.h"
+ #include "dp_drm.h"
+ 
+ /**
+@@ -114,6 +115,9 @@ static const struct drm_bridge_funcs msm_dp_bridge_ops = {
+ 	.hpd_disable  = msm_dp_bridge_hpd_disable,
+ 	.hpd_notify   = msm_dp_bridge_hpd_notify,
+ 	.debugfs_init = msm_dp_bridge_debugfs_init,
++
++	.dp_audio_prepare = msm_dp_audio_prepare,
++	.dp_audio_shutdown = msm_dp_audio_shutdown,
+ };
+ 
+ static int msm_edp_bridge_atomic_check(struct drm_bridge *drm_bridge,
+@@ -320,9 +324,13 @@ int msm_dp_bridge_init(struct msm_dp *msm_dp_display, struct drm_device *dev,
+ 	 */
+ 	if (!msm_dp_display->is_edp) {
+ 		bridge->ops =
++			DRM_BRIDGE_OP_DP_AUDIO |
+ 			DRM_BRIDGE_OP_DETECT |
+ 			DRM_BRIDGE_OP_HPD |
+ 			DRM_BRIDGE_OP_MODES;
++		bridge->hdmi_audio_dev = &msm_dp_display->pdev->dev;
++		bridge->hdmi_audio_max_i2s_playback_channels = 8;
++		bridge->hdmi_audio_dai_port = -1;
+ 	}
+ 
+ 	rc = devm_drm_bridge_add(dev->dev, bridge);
+
+---
+base-commit: 6ac908f24cd7ddae52c496bbc888e97ee7b033ac
+change-id: 20250206-dp-hdmi-audio-15d9fdbebb9f
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
