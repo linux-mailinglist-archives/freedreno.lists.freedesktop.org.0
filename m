@@ -2,104 +2,113 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2634DA98598
-	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 11:33:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7F62A986D9
+	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 12:12:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5576E10E1F6;
-	Wed, 23 Apr 2025 09:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9563A10E67C;
+	Wed, 23 Apr 2025 10:12:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="c1wwUiRr";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="omPMv5Bn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9328F10E0E9;
- Wed, 23 Apr 2025 09:33:23 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53N0iA17022006;
- Wed, 23 Apr 2025 09:33:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD42310E67D
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 10:12:15 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53N0iG1b024116
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 10:12:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- nVlsx9qZswuIkhwiDwB1700PG/9McPtWUYBeZgLA4uw=; b=c1wwUiRrMcFRDHYr
- L2PpTwzcCo8e77KUwioOBUJFoUBnuTHsRURijECbrcsy5jj8JnIxyXWVZ0QtfoUM
- 2Uh9CmMNAtxjLBd1qlW5nqLbClCeYgeCCEAgq+Qbpl0FLc0DTC9OmhCKcNMVnfkl
- e9TtTQvnd8jiZSltMSLxYKdhjLaTSaufbpFmzVGwzAkgNrQNLNR14BNO3uVOTESw
- gt8DP+76ie2BfdzjxcfTXRfNHwyFwFxYwKGbRpGozRm9AkpDX5vm/bmZ3sNAWs4p
- SQWCulEqyJc9DCfBJmLccD9SpbLMxHCYkFBvU83uuW4umwa8bkcNiDvrjXfDTR/A
- zFMJrw==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh11m9y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Apr 2025 09:33:13 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53N9XBmw015675
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Apr 2025 09:33:11 GMT
-Received: from [10.204.76.38] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 23 Apr
- 2025 02:33:05 -0700
-Message-ID: <783a80d6-63d7-4c00-ba09-0ec07492103c@quicinc.com>
-Date: Wed, 23 Apr 2025 15:03:02 +0530
+ 9+dBvSJd0zAUTLsCbjOYAkNRRWwJZJT51j7Z36fU19U=; b=omPMv5BndKDbKrT5
+ eappybBz41373qpdmy1tnTX1OpgfRcToBTH/YhOpUC3LDqGXel1Be9EwY1iY6PY3
+ X1FmrmpRVZQZM7I1r6Fr5Dt5pSKlmpPuFbcBcW1OregBVvyyQIbiD2ArH++wPCUA
+ 144vn83nwGFWakWHhJt88TRebrew5LBOcd/UY0n48+BrSvvG4ibAKBUfL1ucAOFP
+ YY9MIYUKBlGlmxyf7/n/Uyd7c9Q/Ps/fMFiC2tK0gVYNegoETHVmsx9AUuo4seMT
+ J+zh7zbD1E7/FVn0X3AEyXRnax+q8EwMz6KNTD6yGt2iIaZBZ0LI729U2zL5cAIe
+ HWuDcQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh39qdq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 10:12:15 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-6e8f3c21043so15752706d6.1
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 03:12:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745403134; x=1746007934;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9+dBvSJd0zAUTLsCbjOYAkNRRWwJZJT51j7Z36fU19U=;
+ b=bYU1rdy/qf3JHIpYsayzYleoeaFeNNRx0nl3Kv0z+k5TBCCxdCEmjWTlQZSP1ZUluW
+ hS8E4s8F2rmWCEPV12hNItKjVvfaGIYOQ0uTcrxExOpCUcy1PVmpm5B/jq9BMW4QVFI8
+ 0Ca6wygc7P89BVrMnX0vgvYujxi4plJbJuBSMP4iEJ1Ced5WJuKDjiz36Y4qSPAnlfC2
+ ngG8QEzbzOAU9ofzwTgOPHpQiIiVRPAg/76oa2kmm9u6Y8BsxSEGOVSwBT18LTJNgXF5
+ 6esdcxVNaNCfSko/nkNeiIuMzACHEKig+pBg+apyh8c/RaKellOSpWqOoYtMO6kFOtNH
+ VThg==
+X-Gm-Message-State: AOJu0YxA0GZ0vR+nEG9jqJemsNH5BA6gqEoIkO7RSx7b9rHuz03BYt+L
+ EsEuKQz4NQ8B1CqTgRL5yDXnGDJW/FvIk+E3fwW1uhDKiFjeByDlFPIC99C+lGSV45tF2k3DoMi
+ FX76vMuQkZRzN+usZgxPnAX6GgheEZP4gpwC6UbY3nTjgiI7TsWm/U3VDzyIAIuDba00=
+X-Gm-Gg: ASbGncuTL5Y1quM43+Lt6S8/6gm1EdY1SKkFRUAgwKN6AgblTTI+MdMG7D6WCaoFh15
+ h0AtlOhS4vosMzWPzrtstaUi3CX3VUtZhgZSeLxCO7Qst0HSp4gMqGK/O6qNKaG311qMSPK8Al+
+ ZyMTbWo2hxRFyLy8diVdNAnJfRqJ3Z3q5O0lKCaOHKu/tO99LJ5YwXMtGzLeeHaxo3eW8XNXitB
+ z+Ox5XrkVRlINeEiFE5XSDt9WTwSgtpt4CuwYmBKmN4nE2SuWg+XKolyB2n6vOdDUaiBJ1igMhG
+ 6cffNiYXKTrgMY7rXAdrwVaPY4IVe8IqO+ZbW0V/3cQQ75fY3Uggd7LNUhuHHYm2HDk=
+X-Received: by 2002:ac8:7c55:0:b0:476:652f:4dba with SMTP id
+ d75a77b69052e-47d1b7a1420mr15734031cf.3.1745403133995; 
+ Wed, 23 Apr 2025 03:12:13 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE1c5hjU7bDVhPGcaGxJotrWjeTyrTEEbUpQnOrZAQ+6GVrQmeDxoOBmd2pT6N+VRVsBQkOlg==
+X-Received: by 2002:ac8:7c55:0:b0:476:652f:4dba with SMTP id
+ d75a77b69052e-47d1b7a1420mr15733841cf.3.1745403133607; 
+ Wed, 23 Apr 2025 03:12:13 -0700 (PDT)
+Received: from [192.168.65.183] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acb6eefcf97sm779939666b.88.2025.04.23.03.12.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Apr 2025 03:12:13 -0700 (PDT)
+Message-ID: <0cce7121-3a13-4a75-8f89-c2c2c737fc2b@oss.qualcomm.com>
+Date: Wed, 23 Apr 2025 12:12:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/11] drm/bridge: anx7625: fix anx7625_sink_detect()
- to return correct hpd status
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Ayushi Makhija
- <amakhija@qti.qualcomm.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <marijn.suijten@somainline.org>,
- <andersson@kernel.org>, <robh@kernel.org>, <robh+dt@kernel.org>,
- <krzk+dt@kernel.org>, <konradybcio@kernel.org>, <conor+dt@kernel.org>,
- <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
- <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
- <quic_abhinavk@quicinc.com>, <quic_rajeevny@quicinc.com>,
- <quic_vproddut@quicinc.com>, <quic_jesszhan@quicinc.com>
-References: <20250417053909.1051416-1-amakhija@qti.qualcomm.com>
- <20250417053909.1051416-11-amakhija@qti.qualcomm.com>
- <g5mrn6o2arkbt356xtisszqtiokxm4oq4gkwa23y3f3aaahbfr@umcg5ikf5qjb>
+Subject: Re: [PATCH] drm/msm: Be more robust when HFI response times out
+To: Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: freedreno@lists.freedesktop.org
+References: <20250422-msm-hfi-resp-fix-v1-1-b0ba02b93b91@gmail.com>
 Content-Language: en-US
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-In-Reply-To: <g5mrn6o2arkbt356xtisszqtiokxm4oq4gkwa23y3f3aaahbfr@umcg5ikf5qjb>
-Content-Type: text/plain; charset="UTF-8"
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250422-msm-hfi-resp-fix-v1-1-b0ba02b93b91@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: atwl_ogHiymCFyzGPglBsaxDggYiZ_PA
-X-Authority-Analysis: v=2.4 cv=OY6YDgTY c=1 sm=1 tr=0 ts=6808b3d9 cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=NEAV23lmAAAA:8
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=Kes1uffF6ZZPxm_MNuEA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: atwl_ogHiymCFyzGPglBsaxDggYiZ_PA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDA2NSBTYWx0ZWRfX+u+Dv7Njo31q
- 3eOyB258d1hnhilLnobUfIX5r86javbBhkh8qwEuo0ZAhujxMjX7EPPRD47QZTPNcnZqZVL7wrJ
- lS4HxH/2mJ63EOcdd3uOIb8efa/2XgFOrdMzluDTeS8bHwF/jnCEgaB/qJnE521YC2OOv3zY3JI
- ZLZCWzlNkCs2uAL1gHwH2Z0OMj0zHAjZalcWN97/prLYEk+mXgZyxkB/sPpNkfOOdbWNAqyxoY7
- LxzqDB6PoSRKLV/OQEjNA0YkzYAi7DqKjg6v54KQ44O6SXw8a8M6ZOs6xFufd202bLiGkl5wuyj
- S3fp8U1H1xx0TghyV1bCAIttRMz1pAk0xMpiWbSgcRz/R1tnziluekWBCuI4LF7i88VLouiR3Zf
- FT4cTTPHGlDDCuDR/f3bvflONWLWZVk2kX3gy98CyRCZmsGMOf1VDaDbfZYaFKngUQe/jxF8
+X-Proofpoint-ORIG-GUID: 7fRcAUllEYwZfb-tSAYUv7wBntJDuLTp
+X-Proofpoint-GUID: 7fRcAUllEYwZfb-tSAYUv7wBntJDuLTp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDA3MCBTYWx0ZWRfX3+RpMV3seaih
+ g1dd8Dip1VkJYY6jY1SXpfH/fBhytzDKPXbaUXVKUgAeIMCnIZmhNBVxMyIotply8Yzg3+FWjCo
+ AnZxezXLU4Ojt+sG1uKgI7O5nrpIPBchEr4nvNrQLQiLUOJo/eq5ebQpYHjxI8GlEHeCLiae9/e
+ +uISVNbBSpF6O4BxfVP3qlOjVDkYCL+ve0xZnFvWO1OxoVzxk4fTLw31KLv7RzVZRUNJF8tlcK6
+ 4cAs1yElLHZiiD+0Ui6FZpI6kgH0fEYtgJ/dIwVHv0OexkMSSaeHxoLT/lWbXZ3bwSHuGBA9j8p
+ yyewHmKtjSj0vOF+qnnpurXpTwT44m/C2iv6GqYHqgc7S8pk2kCIp50ao36IHADakvANMeJ2bCR
+ 8m/FsZCXu0yL26xBIut0AQ11pfVCWT7rZWB4kgO+pf+N3sHIc4aNeOsvhYU8woJg75K0g8Si
+X-Authority-Analysis: v=2.4 cv=Mepsu4/f c=1 sm=1 tr=0 ts=6808bcff cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=pGLkceISAAAA:8 a=-SdSJ3g0f5efAq2XM2wA:9
+ a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-23_06,2025-04-22_01,2024-11-22_01
+ definitions=2025-04-23_07,2025-04-22_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 suspectscore=0 mlxscore=0 clxscore=1015 malwarescore=0
- mlxlogscore=999 phishscore=0 priorityscore=1501 spamscore=0 adultscore=0
- bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504230065
+ suspectscore=0 phishscore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 mlxscore=0 impostorscore=0 clxscore=1015
+ mlxlogscore=528 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504230070
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,99 +124,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/17/2025 4:14 PM, Dmitry Baryshkov wrote:
-> On Thu, Apr 17, 2025 at 11:09:08AM +0530, Ayushi Makhija wrote:
->> From: Ayushi Makhija <quic_amakhija@quicinc.com>
->>
->> In the anx7625_sink_detect(), the device is checked to see
->> if it is a panel bridge, and it always sends a "connected"
->> status to the connector. When adding the DP port on port 1 of the
->> anx7625, it incorrectly treats it as a panel bridge and sends an
->> always "connected" status. Instead of checking the status on the
->> panel bridge, it's better to check the hpd_status for connectors
->> that supports hot-plugging. This way, it verifies the hpd_status
->> variable before sending the status to the connector.
+On 4/22/25 6:00 PM, Connor Abbott wrote:
+> If the GMU takes too long to respond to an HFI message, we may return
+> early. If the GMU does eventually respond, and then we send a second
+> message, we will see the response for the first, throw another error,
+> and keep going. But we don't currently wait for the interrupt from the
+> GMU again, so if the second response isn't there immediately we may
+> prematurely return. This can cause a continuous cycle of missed HFI
+> messages, and for reasons I don't quite understand the GMU does not shut
+> down properly when this happens.
 > 
-> Does this work if the Analogix bridge is connected to an eDP panel? In
-> such a case it should report 'connected' even before powering up the
-> panel (which might mean HPD pin being low).
+> Fix this by waiting for the GMU interrupt when we see an empty queue. If
+> the GMU never responds then the queue really is empty and we quit. We
+> can't wait for the interrupt when we see a wrong response seqnum because
+> the GMU might have already queued both responses by the time we clear
+> the interrupt the first time so we do need to check the queue before
+> waiting on the interrupt again.
 > 
+> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+> ---
 
-Hi Dmitry,
+[...]
 
-Thanks for the review.
+> -		/* If the queue is empty our response never made it */
+> +		/* If the queue is empty, there may have been previous missed
+> +		 * responses that preceded the response to our packet. Wait
+> +		 * further before we give up.
+> +		 */
+>  		if (!ret) {
+> -			DRM_DEV_ERROR(gmu->dev,
+> -				"The HFI response queue is unexpectedly empty\n");
+> -
+> -			return -ENOENT;
+> +			ret = a6xx_hfi_wait_for_msg_interrupt(gmu, id, seqnum);
+> +			if (ret)
+> +				return ret;
 
-In case of eDP, anx7625_bridge_detect()  will not get called, because this below condition
-in anx7625_link_bridge() will not get satisfy. anx7625_sink_detect() is getting called from
-anx7625_bridge_detect().
+I think we should keep the error print in the second-failure case
 
-Anx7625_link_bridge()
-
-	if (!platform->pdata.panel_bridge || !anx7625_of_panel_on_aux_bus(dev))
-		platform->bridge.ops |= DRM_BRIDGE_OP_HPD | DRM_BRIDGE_OP_DETECT;
-
-So, during the probe time drm_bridge_connector_detect() will return always connected for eDP
-connector. Control will go into the else part and for DRM_MODE_CONNECTOR_eDP it will return
-the connector status as connector_status_connected (always connected).
-
-drm_bridge_connector_detect 
-
-if (detect) {
-                status = detect->funcs->detect(detect);
-
-                if (hdmi)
-                        drm_atomic_helper_connector_hdmi_hotplug(connector, status);
-
-                drm_bridge_connector_hpd_notify(connector, status);
-        } else {
-                switch (connector->connector_type) {
-                case DRM_MODE_CONNECTOR_DPI:
-                case DRM_MODE_CONNECTOR_LVDS:
-                case DRM_MODE_CONNECTOR_DSI:
-                case DRM_MODE_CONNECTOR_eDP:
-                        status = connector_status_connected;
-                        break;
-                default:
-                        status = connector_status_unknown;
-                        break;
-                }
-        }
-
-https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/display/drm_bridge_connector.c#L180
-
-I don't think so, by removing the below lines of code from anx7625_sink_detect(),
-will affect the eDP configuration.Let me know, If I am missing anything.
-
--	if (ctx->pdata.panel_bridge)
--		return connector_status_connected;
--
-
-Thanks,
-Ayushi
-
->>
->> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> ---
->>  drivers/gpu/drm/bridge/analogix/anx7625.c | 3 ---
->>  1 file changed, 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
->> index a32ebe1fa0cd..365d1c871028 100644
->> --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
->> +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
->> @@ -1814,9 +1814,6 @@ static enum drm_connector_status anx7625_sink_detect(struct anx7625_data *ctx)
->>  
->>  	DRM_DEV_DEBUG_DRIVER(dev, "sink detect\n");
->>  
->> -	if (ctx->pdata.panel_bridge)
->> -		return connector_status_connected;
->> -
->>  	return ctx->hpd_status ? connector_status_connected :
->>  				     connector_status_disconnected;
->>  }
->> -- 
->> 2.34.1
->>
-> 
-
+Konrad 
