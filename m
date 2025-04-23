@@ -2,141 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58DB3A99B9F
-	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 00:47:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF6CFA99BAF
+	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 00:54:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 423F010E398;
-	Wed, 23 Apr 2025 22:47:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC3FA10E398;
+	Wed, 23 Apr 2025 22:54:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RFbqFKet";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Tpg/+3CB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D857610E398
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 22:47:44 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NKqLkS016813
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 22:47:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF3310E2D2;
+ Wed, 23 Apr 2025 22:54:22 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NMPmvH022015;
+ Wed, 23 Apr 2025 22:54:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ihLjRZPlLIWGlyTXxQVjwKyUINfd4mtFX1kBkVK4xz0=; b=RFbqFKet4C7XAcmr
- uF5l93uiKoYOIpW8pKISLlNb/6aUfRkdhfZCwj81DjrkRecyxn0IKak+VzOAN1vI
- kw+YX+eCRVZB6kh2zBGWoloFdT/TuLhMVwH0gT6N68JStZEtSNL7tzVY3H1ZfiVY
- CHa4RdeututYol1HUcfFXrxVyeDNlKlJE5a9Sk0TSNKo3p+Yh9p8NxsaUBVo4WM/
- LxgE0HcFg+S4AavN2k5aoumEGjxtKb7wpUPAzlCACltegnXV/j+zLe+JLIzIhFYy
- 5gx3+GvOkk4ZnWAcJnq+H4Mx64JafGwPvSVQ285T9vO8vlcFuqIO49KJVHqp+GHN
- dP9DSA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh0bmxm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 22:47:43 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7c5cd0f8961so79198185a.1
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 15:47:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745448462; x=1746053262;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ihLjRZPlLIWGlyTXxQVjwKyUINfd4mtFX1kBkVK4xz0=;
- b=uprhiRwiH8+hHE7l9Ezr6puq+UTowXt7h8FRZwr4HlKexa/fomS4d5k7HMunns4ngO
- A8OgAeMaaFbRy6r87nV3PynyJ7GmoMYmgRuxxnqJNFWSgRb2FoyMdEWWhozzjKLpJSDl
- VXaPvAnpQWFD2wP+Z4T6FK2VIcuf2nW4H4o0Bmxtz2nsrJoBidk4/4wrW0WO3CKTrx4J
- mwx0qKxjA+nkOH+Aanmhv95CGdFin190GmTlSPc+NDo+/b4HYqtXjHn8uQgJvaHeezCX
- lH9sl4YL4HBBtYAKj7v5CUx1jGlI8v7Imw2D83OzSDynWIre/uMQUHCOK4/O+PgOI02t
- ntGg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7SGCzGr16a8nSRTR/du8agXaGy1dgKM+yHpaGDUDJk+XmNpMBMgukDmzq/lY+3AcAP6qgagYgTlM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyIb5xy4ZDcVR8hIgDQpLihIIdE1oZR0oy4uzsVmX43A8FT+Jng
- oY4Qz7K8rIRE4cv+A/X1bOY2uUSiCO4+qHkdlzUAPfjgC9WMq3EZypLn83TYuBOejE9+Ml9h9UH
- ZfZJxrQrnGsLzW4DBuucPA5LFqGyHb5PjwQYNeyaBee/aDdD0QF5lrFUAsFdiMCxpNao=
-X-Gm-Gg: ASbGncvBDloA4HtaS4yGeVMFTJVSjBcZ3XLVdr6LgLn2l496ebC/Pci7ongnBdPw/VZ
- AInX1h2woPtPHBLugXCaRHZHRc31u7kX0gN2U3idnT/bR3dYXxzI7iLbXfYCELAjqSBM1Jr3Ip7
- hgn6sBXG1BvtaDZ2ElDAVUd2Ul8WRshbE7qHXnkh4iN5X8sJdB4VcbhRe3O7TDxxodmY1dDHMN/
- PXlmdYKawsG2g7jx3H//XstJbesezWQaO/3w65RYJB8m8r9TqljFHTsleawKnviFSz31aBnBVBm
- ndGYJqDFlDcKQ/TxQau9yKqwoY4kOHa5fu4/w4hpEGcEtWFBqYhvXP3MayBW3rQwRn/uae20thQ
- =
-X-Received: by 2002:a05:620a:4728:b0:7c5:6410:3a6 with SMTP id
- af79cd13be357-7c956ed7543mr92879085a.27.1745448462218; 
- Wed, 23 Apr 2025 15:47:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGInwM3Ub2jQ1lwD3hZid86OUOjGIyjsbPxDcJGVMhOF+7PpJenxAlmHg66u64h4q9mPPY9dQ==
-X-Received: by 2002:a05:620a:4728:b0:7c5:6410:3a6 with SMTP id
- af79cd13be357-7c956ed7543mr92875085a.27.1745448461829; 
- Wed, 23 Apr 2025 15:47:41 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54e7cb3be1asm26736e87.93.2025.04.23.15.47.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Apr 2025 15:47:40 -0700 (PDT)
-Date: Thu, 24 Apr 2025 01:47:38 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
- Otto =?utf-8?Q?Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
- Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Adam Skladowski <a_skl39@protonmail.com>,
- Sireesh Kodali <sireeshkodali@protonmail.com>,
- Srinivas Kandagatla <srini@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- iommu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, linux@mainlining.org,
- Daniil Titov <daniilt971@gmail.com>
-Subject: Re: [PATCH v5 2/5] clk: qcom: gcc: Add support for Global Clock
- controller found on MSM8937
-Message-ID: <h46amkfanqmu2v2bbsx3f4iqdwxzcgmu7ibngffn4wfavbdp2q@ho6sy346vjxp>
-References: <20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org>
- <20250421-msm8937-v5-2-bf9879ef14d9@mainlining.org>
+ zx7YRlSGD1wD9AFEKY5CsiKOPRvFjFjoxyPzbULqgSA=; b=Tpg/+3CBl5L/Bc6y
+ Sjo8nbvlg2qNphSBuKWBy+UgDdiodu551WVsLQBO1der4Bo38vft/vh7XpFCSZ1u
+ FaRJwuW7PJQSja2dwEkNqvSsuI3Bl8jKRygC5hxvSYccOnuMElcy/HMG1lxI6XlO
+ 3gNkk2BUeB3f/2VzTXtfxoLOf3tsRHCfpi5Sn/xZQleuEbtPkY48HFeCZa4kIK2h
+ AHt7y8Z50+Rml6hiK35vFY/f3n/Gwp/K4Z2f1KScRInfta6yNvpO+5ivyQQYuxb3
+ ppQzIjbamHb7HdK7iNVzQMUam/7wdYGYPDy//s4jqu2EG5YBYXd1RZ7wnELJhiHI
+ xc2jkA==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh13j1h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Apr 2025 22:54:15 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53NMsEiD003673
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Apr 2025 22:54:14 GMT
+Received: from [10.71.110.123] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 23 Apr
+ 2025 15:54:13 -0700
+Message-ID: <029f3bfb-a031-4dfe-a2b4-bc41a0da7772@quicinc.com>
+Date: Wed, 23 Apr 2025 15:54:13 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250421-msm8937-v5-2-bf9879ef14d9@mainlining.org>
-X-Proofpoint-GUID: zU_PyoMFBqWVeT89_didy4lj7k2Bqnu1
-X-Proofpoint-ORIG-GUID: zU_PyoMFBqWVeT89_didy4lj7k2Bqnu1
-X-Authority-Analysis: v=2.4 cv=Fv0F/3rq c=1 sm=1 tr=0 ts=68096e0f cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=XR8D0OoHHMoA:10 a=pGLkceISAAAA:8 a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8
- a=XF3jJdBvCvMoejL92xsA:9 a=3ZKOabzyN94A:10
- a=wPNLvfGTeEIA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDE1MSBTYWx0ZWRfX38fnQtJl93k+
- OJ07DxmX1j3sCMR3J9lvXievStYKkXN1E4ANDBrygzlAIEq/LD4JUiqkGUdsXBMd4JlaILXPaBg
- MUYC76nKvKasVPh6G+fjGwqEHzWwD5MGmXyJgpRxUb2qJoIJMgPI0ZrnzyJGJcjWKuzZNXYCjt7
- 6QdSFC5NlFEVl6o9zYVTZ8Q8v4J0XTO4pl3aNwjmJGjHkkuTh3TYHh/SvDnqaaZAfwUbWK62U/Y
- U0BPc1McmHb+V20zAk5+KvAiAsikhVDlvWMecGZw219n3KM1tbmDBrkBzDcjbxQn37541SqjZFh
- DspCkyUhlTw5/xj9g9JV1iUhJNwEvXE86ThEgiTbIXgv5ls4gC2h6zaUK8wHhfXy1isjXD/vbXY
- on77V6DHxHW0nS30ESfDbCCgIXgDWANHeKAGnp5DQy6TfHRcwUxgRon+bMps/3RBCD75gP0U
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/7] drm/msm/mdp4: register the LVDS PLL as a clock
+ provider
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Bjorn
+ Andersson" <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>
+References: <20250227-fd-mdp4-lvds-v3-0-c983788987ae@linaro.org>
+ <20250227-fd-mdp4-lvds-v3-3-c983788987ae@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20250227-fd-mdp4-lvds-v3-3-c983788987ae@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: C5POw0o9ZjBQ9Cq__clJJI3ULJz7kvDe
+X-Authority-Analysis: v=2.4 cv=OY6YDgTY c=1 sm=1 tr=0 ts=68096f97 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8
+ a=KKAkSRfTAAAA:8 a=u7um27V6BFjZWMNL6CAA:9
+ a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: C5POw0o9ZjBQ9Cq__clJJI3ULJz7kvDe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDE1MiBTYWx0ZWRfX6HUpk9BRH6Xi
+ K9oo/uOmTz52DXpNd8UIIzOdfpD+epDDhEzMGBKHP03YYChf9vPZB1/E4EAHJKAErwv+4B43F3X
+ rxDkgE8A54N9JzQsxlT7EwRtAyCF42ARJ5EBMi53AKj+Pc5KawaxpeRF7oXcn6oQKtCQEhX+7up
+ 1CWsGPkw16FTIfupmZq0K8dXpYkHUv0BmJLPU/Zt5/3Ug0mo5foWHGNlXjzblekHGRrlmgh37HU
+ Q24phxjWbYc2wKSGQfWDmK/h/gOI5bvawQadvMJACOQ5XJC8O/eyJsl7mzu4UoZ8PFdWmqCqG5h
+ mdP17q4R0QyH4M1zSYsWH+mq+uysK/ElUGWJvHZ5sDk5Wr/wxOwm7oHq+MRHIfJTtj6H5sixL4W
+ P5/CTz6L6soP5z08bRtm+UqahjtuJA8MLHR1WZZu33dcBnj9iASdaXU+Dhwy9EG5grEWvPBj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.80.40
  definitions=2025-04-23_12,2025-04-22_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0
- malwarescore=0 mlxlogscore=986 priorityscore=1501 suspectscore=0
- adultscore=0 bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
- phishscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ impostorscore=0
+ lowpriorityscore=0 suspectscore=0 mlxscore=0 clxscore=1015 malwarescore=0
+ mlxlogscore=999 phishscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
  adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504230151
+ definitions=main-2504230152
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,24 +114,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 21, 2025 at 10:18:24PM +0200, Barnabás Czémán wrote:
-> From: Daniil Titov <daniilt971@gmail.com>
+
+
+On 2/26/2025 6:25 PM, Dmitry Baryshkov wrote:
+> The LVDS/LCDC controller uses pixel clock coming from the multimedia
+> controller (mmcc) rather than using the PLL directly. Stop using LVDS
+> PLL directly and register it as a clock provider. Use lcdc_clk as a
+> pixel clock for the LCDC.
 > 
-> Modify existing MSM8917 driver to support MSM8937 SoC. Override frequencies
-> which are different in this chip. Register all the clocks to the framework
-> for the clients to be able to request for them. Add new variant of GDSC for
-> new chip.
-> 
-> Signed-off-by: Daniil Titov <daniilt971@gmail.com>
-> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/clk/qcom/Kconfig       |   6 +-
->  drivers/clk/qcom/gcc-msm8917.c | 617 ++++++++++++++++++++++++++++++++++++++++-
->  2 files changed, 616 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h          |  2 +-
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c |  8 +++++++-
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c     | 22 +++++++---------------
+>   3 files changed, 15 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> index 142ccb68b435263f91ba1ab27676e426d43e5d84..b8bdc3712c73b14f3547dce3439a895e3d10f193 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> @@ -207,6 +207,6 @@ static inline struct drm_encoder *mdp4_dsi_encoder_init(struct drm_device *dev)
+>   }
+>   #endif
+>   
+> -struct clk *mpd4_lvds_pll_init(struct drm_device *dev);
+> +int mpd4_lvds_pll_init(struct drm_device *dev);
+>   
+>   #endif /* __MDP4_KMS_H__ */
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+> index 8bbc7fb881d599e7d309cc61bda83697fecd253a..db93795916cdaa87ac8e61d3b44c2dadac10fd9e 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+> @@ -381,7 +381,13 @@ struct drm_encoder *mdp4_lcdc_encoder_init(struct drm_device *dev,
+>   	drm_encoder_helper_add(encoder, &mdp4_lcdc_encoder_helper_funcs);
+>   
+>   	/* TODO: do we need different pll in other cases? */
+> -	mdp4_lcdc_encoder->lcdc_clk = mpd4_lvds_pll_init(dev);
+> +	ret = mpd4_lvds_pll_init(dev);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(dev->dev, "failed to register LVDS PLL\n");
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	mdp4_lcdc_encoder->lcdc_clk = devm_clk_get(dev->dev, "lcdc_clk");
+>   	if (IS_ERR(mdp4_lcdc_encoder->lcdc_clk)) {
+>   		DRM_DEV_ERROR(dev->dev, "failed to get lvds_clk\n");
+>   		return ERR_CAST(mdp4_lcdc_encoder->lcdc_clk);
+
+Change seems fine to me, one question on the order of changes, DT change 
+has to be merged first otherwise it will fail here?
+
+Will that be managed by co-ordinating with the DT maintainer?
+
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
+> index ab8c0c187fb2cd05e26f5019244af15f1b2470c8..cbd154c72e44c848fa65fe01d848879b9f6735fb 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
+> @@ -133,29 +133,21 @@ static struct clk_init_data pll_init = {
+>   	.num_parents = ARRAY_SIZE(mpd4_lvds_pll_parents),
+>   };
+>   
+> -struct clk *mpd4_lvds_pll_init(struct drm_device *dev)
+> +int mpd4_lvds_pll_init(struct drm_device *dev)
+>   {
+>   	struct mdp4_lvds_pll *lvds_pll;
+> -	struct clk *clk;
+>   	int ret;
+>   
+>   	lvds_pll = devm_kzalloc(dev->dev, sizeof(*lvds_pll), GFP_KERNEL);
+> -	if (!lvds_pll) {
+> -		ret = -ENOMEM;
+> -		goto fail;
+> -	}
+> +	if (!lvds_pll)
+> +		return -ENOMEM;
+>   
+>   	lvds_pll->dev = dev;
+>   
+>   	lvds_pll->pll_hw.init = &pll_init;
+> -	clk = devm_clk_register(dev->dev, &lvds_pll->pll_hw);
+> -	if (IS_ERR(clk)) {
+> -		ret = PTR_ERR(clk);
+> -		goto fail;
+> -	}
+> +	ret = devm_clk_hw_register(dev->dev, &lvds_pll->pll_hw);
+> +	if (ret)
+> +		return ret;
+>   
+> -	return clk;
+> -
+> -fail:
+> -	return ERR_PTR(ret);
+> +	return devm_of_clk_add_hw_provider(dev->dev, of_clk_hw_simple_get, &lvds_pll->pll_hw);
+>   }
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
--- 
-With best wishes
-Dmitry
