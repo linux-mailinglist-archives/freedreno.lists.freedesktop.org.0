@@ -2,127 +2,126 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32824A989BF
-	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 14:25:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30962A98AC2
+	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 15:21:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBD6D10E668;
-	Wed, 23 Apr 2025 12:25:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDFA910E1BE;
+	Wed, 23 Apr 2025 13:21:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="H9M+wcqI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bwfqo26k";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A54C10E668
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 12:25:44 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NAThrC022375
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 12:25:43 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B448710E0BD
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 13:21:14 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NAvG5K016805
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 13:21:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- t2kUl9QgvO/uB6b51hcAn/oawqIiVbquzPdGvE1gnSU=; b=H9M+wcqITMErLoAk
- nCZGjwKmkqvEHEVExGXss+3rF0Imtxhh59d0youCTSamwjbJnF4KWRQ7zUSdrdE1
- 7TFGsNEVGYrvgU7GPSAkBGDhcmdGmW2kf7RFQOwCNIVYuHFB/axONCL/Xpu3mDzY
- x5Sc7cM/yN+ay62Mt11+v8EWNlxGfYR7Iiyl7WR0pbqkoeRaFRop8CyqcQg0fBUO
- 5rRqoS83uZvcyLewGFkwOjxhZCC5kowdwcsm+9Y2rdMRdGShrSTIn9AuW3YzTmUA
- SUA75r2+1394TjRCzieHwQ4D8c/GDx0lp7SRa45EexVwMcSepdKPN3d6A+Vaiv/i
- QCr4cg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh122rc-1
+ o0Oojh+DOVkC76UOAHNrHiaA7ZHX478F8dAXStkU6sU=; b=bwfqo26keTZguCUI
+ lpFj1PVfOvesj82rvdjoEPQXNXnQadeUl8hxFEs60qbBjGgUKByuKmIIty+JUt0Z
+ 1iG+B6M2ng2pDbbR3KErXPer4so6qHukcVDOyHn827gdZ1ceCVmDUj9cQFX9FCCG
+ etndl05X6EAzNkTGUrTlA2SwND/bAJSJA+y+PM1M6hhH0446eGgzC1WF1pc+ZhgJ
+ jllaqY4MO0VdxvmvaUpcXA4kOraQH2dumRY11UUDVBvz0jy59xhliaIQhBlkaqs5
+ FxYJ7ippD19BNgReAjUR6XisBOtFW0IS/1RjbWhxLFwBrjjsUw9ne5hCGpWLXgvR
+ YVYvZw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh027y7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 12:25:43 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6e8fb83e15fso15887456d6.0
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 05:25:43 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 13:21:13 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-2ff52e1c56fso8563332a91.2
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 06:21:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745411142; x=1746015942;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=t2kUl9QgvO/uB6b51hcAn/oawqIiVbquzPdGvE1gnSU=;
- b=BMzw8AUGpRVbezuD2+v7ixYfysn/A+3qP4GXXFWVuMcmLFxehOIlT3ikzn8cPGuIlX
- HVYY82CSANcaHHn4DqoUYzb4xXbN+kkjvXPaakfLGDNhv+0p1i9p522ILk5prXRfs+8j
- Camkvo5wVcwJMBeqVVoA40B2F0O2KpwGAL2jl7ytOtNF8IS4wLiH1l9hUREwfVhq0Rjl
- mHJUmRjM/0ylI3UZvVn4BiPuh0/HuElLJ55ZSLvCzKo4JPG3xqRRuG2tMTBLJCTl2f/o
- 5h34lieK6ZtS5Hh76ePBMY3Q0/B4I8+g8+V48kY1HOlJzDGCVxCJPIPr8mHW71sbbtKv
- KWHA==
+ d=1e100.net; s=20230601; t=1745414472; x=1746019272;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=o0Oojh+DOVkC76UOAHNrHiaA7ZHX478F8dAXStkU6sU=;
+ b=okLS4LKtDu39BZgIDuoXqvJclUQI51ts4xO3Kw1WNTYK+lcntTsLFqlwqHjbWDuuLh
+ 1hNJG/Ek6CGMjgd75bL1Zibp/uGRzTZKY2BS1IJdn+xSdpXh8cNEnY3lpw+/iAlqJriV
+ H7PzIQLF1qE/Nq3xnOSVHDb/7VmkReTCobeyo1JBK5mQoSx7ZzdEb+dy0QOObgBeWSL5
+ 2NRKGkmCu9NAQ8KhLANxePONAAvFMhxPeG/ujwDmtmZzcXbYVX6aostzk9rB2tn1K7oe
+ QgZubRT9NDB1fBgHqLSuXE7GkgtuYPh1tREnF3sia/4cHr4tbS9/vUd9UBrj6/1ymm2F
+ FTZQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXBmrsddiqqgNrUTHcXRehZcpE4OUMN2bP+kaBSWyt2SAGM1A2j9XK4f+NE11X408z25iSVOdMS6NM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2U8pSPLV3P8XBXvHLvK8uhD0gbIJll9qGN/05ZoKATTKD4NO2
- H8lShPZOWqO0VRAFeElSDZDGBj+36anCOkF0k1dkYH3tep7W9TUM9YIZR4CdtTbEI0eazl0XEUa
- O8jGEXTUaWLjbXUNXVXdhgEj2pWEK6/em1u64IA7IAZ9QFoSlbMIvBEI+ZST8wjhsLxc=
-X-Gm-Gg: ASbGncuiK9VjGCukwJ9omFPHfOMKZtx2/6x2HiiCyX99t2j8hOvcl/AMqFp3lR8YHD5
- ni6erWTuAcVtwS9nJEVUSr/UT7vYgJE72pFrjTj8yQek8V8Y21DmcRYT1NHFsQ+HViBQbWAkvxu
- un+th5vmkpQ1r2rCtgqQ13aFIKt2uULH62mzGd6iOFQOf3tZe+uLTqWKdZ0fXDaz6W3HdPIOsXx
- viIsrtXHtzdBXyTJajY+pKC9T5Jpj0/GiSRoVW1y/ubn1wjBJGc3gVOVnbS7u54cXer8wl3a6GJ
- jYkqIE+zgftx+xIKQZWwTVuiOIGj0KGQCzE+k+DSJeGpUbihN0mXXBN2FWTL39uP0Pg=
-X-Received: by 2002:ad4:5d68:0:b0:6ed:122c:7daa with SMTP id
- 6a1803df08f44-6f4b4715783mr16544146d6.4.1745411142452; 
- Wed, 23 Apr 2025 05:25:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH8oXZ9JnKtVNQzSjdw+36R1Viqv7RB6F1PrfW3UoImxkzoWPf3HA1/z5215kcW7wchhdalKQ==
-X-Received: by 2002:ad4:5d68:0:b0:6ed:122c:7daa with SMTP id
- 6a1803df08f44-6f4b4715783mr16543846d6.4.1745411142040; 
- Wed, 23 Apr 2025 05:25:42 -0700 (PDT)
-Received: from [192.168.65.183] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f6255778b3sm7388108a12.19.2025.04.23.05.25.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 05:25:41 -0700 (PDT)
-Message-ID: <8671d7f8-0d41-4574-a0de-aa40c1ed3c0b@oss.qualcomm.com>
-Date: Wed, 23 Apr 2025 14:25:38 +0200
+ AJvYcCVBdO4we/wFe+n4a8IFRwKlDGXOwMTumnQr3clHihp0g2rY6DC746d6PtI7lgBdKG4uFKyWoKQAMEg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyTdBizpYs3YB/1PmgZFb/eFHmz2melXtdP1RIA5wRL4pIfJmaZ
+ ROE1hjl4hhLBfkFxtg7BtRUIJLc3jpiaRpyaaIuqHBlKtPX+ZwbiWU9lfVTJ8iPb9GpNkQmuzfq
+ NX704Upn8WwLXRoIoZQV5Npzp2kG3QXAl/t91KGfdahzT1Vd/OveIOGY+HO9xgYC5WFInTBy0Ue
+ pQ2b+MvlEBCSX76piyuNNlz8GVjbCXijFy1a4bi/Xx+g==
+X-Gm-Gg: ASbGnctLYvOlgdVRa/TDaxuvOVHM0ByCe3GIqPgz79e0EmGP2TuoXQp5EIRstn3jnCT
+ nvVoYOcwUBf55PdldQ1tuPTj1s8+K1CMemmcvP1A5bo0EYJJlKikNMRNIBDqsMDjWu0nqP27XZ5
+ yqjBpei7hBqZmyWalyoDOByuP+
+X-Received: by 2002:a17:90b:2f48:b0:2ee:ee77:2263 with SMTP id
+ 98e67ed59e1d1-3087bb418dfmr30784367a91.7.1745414472176; 
+ Wed, 23 Apr 2025 06:21:12 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEqmjm/2kDzMUyAfKU30umWUUv1n/JyBQC1oaF07FgLHjm7bKHWdrgbopbp7m+vpW/yO0v9Q/VkT8i0fw84gas=
+X-Received: by 2002:a17:90b:2f48:b0:2ee:ee77:2263 with SMTP id
+ 98e67ed59e1d1-3087bb418dfmr30784318a91.7.1745414471636; Wed, 23 Apr 2025
+ 06:21:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/7] drm/msm/adreno: Add module param to disable ACD
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+References: <20250410-topic-smem_dramc-v2-0-dead15264714@oss.qualcomm.com>
+ <20250410-topic-smem_dramc-v2-3-dead15264714@oss.qualcomm.com>
+ <20911703-ab4e-4eb2-8611-294730a06d2f@quicinc.com>
+ <CACu1E7HDmQXDNtEQCXpHXsOKPCOgrWgo+_kcgizo9Mp1ntjDbA@mail.gmail.com>
+ <1282bf58-e431-4a07-97e5-628437e7ce5f@quicinc.com>
+ <CACu1E7GwMCt6+JJQGgSvJObTMMWYLPd69owyFo7S=sxu_EEsUw@mail.gmail.com>
+ <16845de2-a40a-4e3d-b3aa-c91e7072b57f@quicinc.com>
+ <CAF6AEGvyeRLHFBYmxkevgT+hosXGiH_w8Z+UjQmL+LdbNfVZ+w@mail.gmail.com>
+ <acd1c8dd-286b-40b7-841d-e53e2d155a61@oss.qualcomm.com>
+ <d67b8fe7-ab92-4756-b549-827210240593@quicinc.com>
+In-Reply-To: <d67b8fe7-ab92-4756-b549-827210240593@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Wed, 23 Apr 2025 16:21:00 +0300
+X-Gm-Features: ATxdqUGiKzLZZWpft--coqQChZkRh8TF47Vs6qYx0rHMcX_qIVdwunZSkKSPdaU
+Message-ID: <CAO9ioeU9_MsLn3THJDkR1J6efmvm2u9vPZSu9U8Qe2mdHx0_tw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] drm/msm/a6xx: Get HBB dynamically, if available
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>, Connor Abbott <cwabbott0@gmail.com>,
  Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Maya Matuszczyk <maccraft123mc@gmail.com>,
- Anthony Ruhier <aruhier@mailbox.org>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20250419-gpu-acd-v5-0-8dbab23569e0@quicinc.com>
- <20250419-gpu-acd-v5-4-8dbab23569e0@quicinc.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250419-gpu-acd-v5-4-8dbab23569e0@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: jebMlz4UL2x7ZXMc_ct4u7wuzrNyHQxR
-X-Authority-Analysis: v=2.4 cv=OY6YDgTY c=1 sm=1 tr=0 ts=6808dc47 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=pGLkceISAAAA:8
- a=b3CbU_ItAAAA:8 a=EUspDBNiAAAA:8
- a=T2YAUAM4dRpUgQIxx5oA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
- a=TjNXssC_j7lpFel5tvFf:22 a=Rv2g8BkzVjQTVhhssdqe:22
-X-Proofpoint-ORIG-GUID: jebMlz4UL2x7ZXMc_ct4u7wuzrNyHQxR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDA4NiBTYWx0ZWRfXzOJpPYvhyMgs
- JSqeARy2OinXozu7F6X63s+mL353XXYoUxYZs5jRkz+Z5liLJnD2aghHr9VmFRS57VNEW0Q7s4n
- CdHJbLzIL8ksk5WyL0tNmVu6060Lr5dKsLOWFa72Wy+RD99BG2d0ft66QKAPOT/oUhsOHtqm3TL
- /2YJzl0zgteBVzUQyw/OaybhxM6383jhNQchIxmFYtqfQsnZGx6fV9EVDH4QrsGWBUggVyKLzhc
- y+TfCk4ccS//j55eW38zrOjn57diE9wnliQoHTXVqzoav3+2R/lzWDUyuddZiCh6iRUMHL9RLCx
- AXPfU5/l/3UDvy06/ZWvGPRtkCO758wxcFUwUyoaVfl77podaxrh3RaeE14ONdproVLtGNZmn8R
- QQcu4zQ719+FUrr/0QiGwKnOtOVvZP2kDLZ38zK16xCBnZlX/0Dz8pKVUompof8HlJEdcpp2
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ linux-hardening@vger.kernel.org,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDA5MyBTYWx0ZWRfXxM8sKn9eIpTS
+ sRCQI1M/TtloskHZOcLo8HLvrP2kmXKgMPsbLzWQp39rt5lKrm9GUHlti4h/T+zHXNfCqX5dyNt
+ fKmDXXHcrF7SNVgzfXIRL/rwoXUBd1Yvx8Ipz2QU2kG8IbvEQZsTHYTu5Zggr1EcBexmn/kW86Y
+ QteQWURqwreSMruEPpEW5HTG0xDTpzPZZwvynstcbwZupm0Ely3s0TZEo5cU7LLSKNLSdso6HUV
+ l+tK1W79w3m0eTxVCrnBgujtGuE3iIr4EBigEyIX+G6eO+rPw9IgCu7gEBPocr7UuZpM0hdVnze
+ 8FPUwMGp7kJw/bDFBKzFWuekLrhzUGn7QPUQcbAV6DBC8hp2mHdIWMIRr1qDO6IVjo58h5+vuEl
+ 878RK4yqbld3Bfezl5V5dntT/aaHKopmvtG2XckCLUrfrhk7g8EVpbO6sCCy6vi++fc9yQrb
+X-Proofpoint-GUID: dPszD2-dGlus3VuXBn7ci6Cthfhmb-WJ
+X-Authority-Analysis: v=2.4 cv=ZuTtK87G c=1 sm=1 tr=0 ts=6808e949 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=QMXKlZcuWh9fA9xejY4A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: dPszD2-dGlus3VuXBn7ci6Cthfhmb-WJ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.80.40
- definitions=2025-04-23_07,2025-04-22_01,2025-02-21_01
+ definitions=2025-04-23_08,2025-04-22_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 suspectscore=0 mlxscore=0 clxscore=1015 malwarescore=0
- mlxlogscore=999 phishscore=0 priorityscore=1501 spamscore=0 adultscore=0
- bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ phishscore=0 clxscore=1015
+ impostorscore=0 bulkscore=0 mlxscore=0 adultscore=0 lowpriorityscore=0
+ mlxlogscore=999 priorityscore=1501 malwarescore=0 suspectscore=0
+ spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
  adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504230086
+ definitions=main-2504230093
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,30 +137,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/19/25 4:51 PM, Akhil P Oommen wrote:
-> Add a module param to disable ACD which will help to quickly rule it
-> out for any GPU issues.
-> 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> Tested-by: Maya Matuszczyk <maccraft123mc@gmail.com>
-> Tested-by: Anthony Ruhier <aruhier@mailbox.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 7 +++++++
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 4 ++++
->  2 files changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 48b4ca8894ba38176481b62b7fd1406472369df1..38c0f8ef85c3d260864541d83abe43e49c772c52 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -1670,6 +1670,13 @@ static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
->  	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->  	struct msm_gpu *gpu = &adreno_gpu->base;
->  	int ret, i, cmd_idx = 0;
-> +	extern bool disable_acd;
+On Wed, 23 Apr 2025 at 09:55, Akhil P Oommen <quic_akhilpo@quicinc.com> wro=
+te:
+>
+> On 4/23/2025 5:27 AM, Konrad Dybcio wrote:
+> > On 4/21/25 10:13 PM, Rob Clark wrote:
+> >> On Fri, Apr 18, 2025 at 9:00=E2=80=AFAM Akhil P Oommen <quic_akhilpo@q=
+uicinc.com> wrote:
+> >>>
+> >>> On 4/18/2025 6:40 AM, Connor Abbott wrote:
+> >>>> On Thu, Apr 17, 2025, 1:50=E2=80=AFPM Akhil P Oommen <quic_akhilpo@q=
+uicinc.com> wrote:
+> >>>>>
+> >>>>> On 4/17/2025 9:02 PM, Connor Abbott wrote:
+> >>>>>> On Thu, Apr 17, 2025 at 3:45=E2=80=AFAM Akhil P Oommen <quic_akhil=
+po@quicinc.com> wrote:
+> >>>>>>>
+> >>>>>>> On 4/10/2025 11:13 PM, Konrad Dybcio wrote:
+> >>>>>>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>>>>>>>
+> >>>>>>>> The Highest Bank address Bit value can change based on memory ty=
+pe used.
+> >>>>>>>>
+> >>>>>>>> Attempt to retrieve it dynamically, and fall back to a reasonabl=
+e
+> >>>>>>>> default (the one used prior to this change) on error.
+> >>>>>>>>
+> >>>>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>>>>>>> ---
+> >>>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 15 ++++++++++++++-
+> >>>>>>>>  1 file changed, 14 insertions(+), 1 deletion(-)
+> >>>>>>>>
+> >>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu=
+/drm/msm/adreno/a6xx_gpu.c
+> >>>>>>>> index 06465bc2d0b4b128cddfcfcaf1fe4252632b6777..a6232b382bd16319=
+f20ae5f8f5e57f38ecc62d9f 100644
+> >>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >>>>>>>> @@ -13,6 +13,7 @@
+> >>>>>>>>  #include <linux/firmware/qcom/qcom_scm.h>
+> >>>>>>>>  #include <linux/pm_domain.h>
+> >>>>>>>>  #include <linux/soc/qcom/llcc-qcom.h>
+> >>>>>>>> +#include <linux/soc/qcom/smem.h>
+> >>>>>>>>
+> >>>>>>>>  #define GPU_PAS_ID 13
+> >>>>>>>>
+> >>>>>>>> @@ -587,6 +588,8 @@ static void a6xx_set_cp_protect(struct msm_g=
+pu *gpu)
+> >>>>>>>>
+> >>>>>>>>  static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+> >>>>>>>>  {
+> >>>>>>>> +     int hbb;
+> >>>>>>>> +
+> >>>>>>>>       gpu->ubwc_config.rgb565_predicator =3D 0;
+> >>>>>>>>       gpu->ubwc_config.uavflagprd_inv =3D 0;
+> >>>>>>>>       gpu->ubwc_config.min_acc_len =3D 0;
+> >>>>>>>> @@ -635,7 +638,6 @@ static void a6xx_calc_ubwc_config(struct adr=
+eno_gpu *gpu)
+> >>>>>>>>           adreno_is_a690(gpu) ||
+> >>>>>>>>           adreno_is_a730(gpu) ||
+> >>>>>>>>           adreno_is_a740_family(gpu)) {
+> >>>>>>>> -             /* TODO: get ddr type from bootloader and use 2 fo=
+r LPDDR4 */
+> >>>>>>>>               gpu->ubwc_config.highest_bank_bit =3D 16;
+> >>>>>>>>               gpu->ubwc_config.amsbc =3D 1;
+> >>>>>>>>               gpu->ubwc_config.rgb565_predicator =3D 1;
+> >>>>>>>> @@ -664,6 +666,13 @@ static void a6xx_calc_ubwc_config(struct ad=
+reno_gpu *gpu)
+> >>>>>>>>               gpu->ubwc_config.highest_bank_bit =3D 14;
+> >>>>>>>>               gpu->ubwc_config.min_acc_len =3D 1;
+> >>>>>>>>       }
+> >>>>>>>> +
+> >>>>>>>> +     /* Attempt to retrieve the data from SMEM, keep the above =
+defaults in case of error */
+> >>>>>>>> +     hbb =3D qcom_smem_dram_get_hbb();
+> >>>>>>>> +     if (hbb < 0)
+> >>>>>>>> +             return;
+> >>>>>>>> +
+> >>>>>>>> +     gpu->ubwc_config.highest_bank_bit =3D hbb;
+> >>>>>>>
+> >>>>>>> I am worried about blindly relying on SMEM data directly for HBB =
+for
+> >>>>>>> legacy chipsets. There is no guarantee it is accurate on every ch=
+ipset
+> >>>>>>> and every version of firmware. Also, until recently, this value w=
+as
+> >>>>>>> hardcoded in Mesa which matched the value in KMD.
+> >>>>>>
+> >>>>>> To be clear about this, from the moment we introduced host image
+> >>>>>> copies in Mesa we added support for querying the HBB from the kern=
+el,
+> >>>>>> explicitly so that we could do what this series does without Mesa =
+ever
+> >>>>>> breaking. Mesa will never assume the HBB unless the kernel is too =
+old
+> >>>>>> to support querying it. So don't let Mesa be the thing that stops =
+us
+> >>>>>> here.
+> >>>>>
+> >>>>> Thanks for clarifying about Mesa. I still don't trust a data source=
+ that
+> >>>>> is unused in production.
+> >>>>
+> >>>> Fair enough, I'm not going to argue with that part. Just wanted to
+> >>>> clear up any confusion about Mesa.
+> >>>>
+> >>>> Although, IIRC kgsl did set different values for a650 depending on
+> >>>> memory type... do you know what source that used?
+> >>>
+> >>> KGSL relies on an undocumented devicetree node populated by bootloade=
+r
+> >>> to detect ddrtype and calculates the HBB value based on that.
+> >>
+> >> Would it be reasonable to use the smem value, but if we find the
+> >> undocumented dt property, WARN_ON() if it's value disagrees with smem?
+> >>
+> >> That would at least give some confidence, or justified un-confidence
+> >> about the smem values
+> >
+> > The aforementioned value is populated based on the data that this
+> > driver reads out, and only on the same range of platforms that this
+> > driver happens to cater to
+>
+> Like I suggested privately, can we centralize all ubwc configuration so
+> that it is consistent across all drivers. With that, we will need to
+> maintain a table of ubwc config for each chipset and HBB can be
+> calculated based on the DDR configuration identified from SMEM. Once we
+> migrate the downstream drivers to the new API, we can hopefully move to
+> the HBB value from SMEM. This will ensure that the SMEM data for HBB is
+> accurate in all future chipsets.
 
-'extern' in local scope is.. rare but sure, why not
+I like this suggestion.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+--=20
+With best wishes
+Dmitry
