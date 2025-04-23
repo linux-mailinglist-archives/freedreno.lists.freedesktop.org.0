@@ -2,139 +2,124 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7026A98BEF
-	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 15:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11439A98C18
+	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 15:58:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C384A10E6AF;
-	Wed, 23 Apr 2025 13:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C273210E6BA;
+	Wed, 23 Apr 2025 13:58:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DeLymmwS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UTgqP1+e";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0668510E6AF
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 13:54:19 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NBHVBX003738
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 13:54:14 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1002010E6B7
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 13:58:31 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NAxVNZ017062
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 13:58:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- cJX2fb/ffnpa/u3aYJ64X7d+kE1K0IKu9sD+lgBHlKg=; b=DeLymmwSMCbIy49E
- r5QVfafjNeO5exfLzXBvDczdCEQWbWvZ11WkESac/Rq0arZQLUSoJaELhn20+YIZ
- sC+UQfw+/VMJJgLlZanr2oEEhZqyDuTtnboBdB5iMjHldgpGT8ppytlhB/+pckxS
- 5BGXW+ki9ikYF7VAuGSy94VON6HvUbcVQaS6BYicOMI+nz+/dPaqOIMt1DD66Uco
- /tJxpKHQvUikXqBi/4DOWR1wK5XlafuCwOIGZ0hRKMymFHxOmTLTnTlK3OsUYoxS
- 0ckxiVqN9S7gSTClq+tP/+yjl/eoLxsYVYANw5DfUqrXoT7lVDMSr+/+5VG4KM1d
- 7zRTeg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jgy2a6y-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=C1pEN0V7ta1blhUvOSjeh8t4
+ 4YefebhUlQwfthVEXOM=; b=UTgqP1+etb3ty0z6u7O7hwoOAlcDHh5vsbXu8c0z
+ rwfN6RHS+54OuaLDkQPttzlnSpLzH/+b/o4UPUfSno6Ii6P0XKAvyFXhBYXRqGKD
+ oSVtEJdBFsvlTxZj08ZjWxSvofBfOQGBlTPcY169WdwxucX2FL/eff9cDybipwQg
+ L1Qq5AgQRK2M9anMqZeVzx3hPa0NYXdoKRkVQzQDPdtB4qk/1SHO7YQeGZPh2cbH
+ IL+pXOWUaZv1EU8Gwk2Q2eQFVCrwM7UQpGzZ7fgl6vaXirhM0sHUheRN9QdZkczN
+ MOXHY3NwAEfwsmDAC3N0/Dbj+KHHsbbZ1YErmYLVmef7zg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh3ja6v-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 13:54:14 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7c76062c513so124702685a.3
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 06:54:14 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 13:58:31 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7c95556f824so7190485a.2
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 06:58:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745416453; x=1746021253;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cJX2fb/ffnpa/u3aYJ64X7d+kE1K0IKu9sD+lgBHlKg=;
- b=GzgyBstrWR9dS9UcqN5ut7Np8QWQyi683XoPMaYf2XQihqWUl5Kxfg7LibkQftyqI5
- jL122Q3lrHE9EkRSDwHIq/D3V4YPs0dGS65swsrBpR0DKae+e/kLPyvq5Os5nosiV2ba
- Q4jMzhJM+3O8McB89wFNfI52epiJIJVFkAS7nTX5Bk3svatP9q1piYkFtQsBGievr1uc
- M0sCfghVC2Sg+ORDfmsFZjpFIZBt0ViE7pxR0DRxrVXU3SkneI0yBW3It9QArXsVCsgr
- fWh981R2fE9pgMHWMBndFvcIbt52MOXecYDKOQAuMq60BeOJ5ww8jKqiV8OymUtDQvw2
- /StQ==
+ d=1e100.net; s=20230601; t=1745416710; x=1746021510;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=C1pEN0V7ta1blhUvOSjeh8t44YefebhUlQwfthVEXOM=;
+ b=YVI9RP/SVx7BG67/h2ijjdWk1scHG30rK5+tKjOrWNmVev6wnWSg74GWJHDueRoQRq
+ LBiJ4Rt654QhF2Xq3P5FBUFoz/siQV7giAW+5kUUj9He3wx2R2jJ3O2gmASG8izh1DZh
+ Vk/0DyQ28ZDMGmjV9oytLRfq7RYpYZ+GaRHVDCx1tyF86wcMzG14dbQfpiI3R8S37d/C
+ fAM9VLqinnC21RMLR56v5PqKi2ge3p4kTqdNKL1s6oTOdaWECyq5SgXRTQJffZ3Aya/N
+ yNQVoi82Ste2U+a4p8LHH6fCUjvw3S+DD+unSQsYKf9LRi0AlPQKDqCs91JUvpCtGr1S
+ q8fQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVDEGfvMathN66QnoowTgGdKyuWqpaMgcH9hXMBQTRjse17saweo1BSld6HnyC+p+NLipfyIsmifFc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzns3P/LVgWmKFJ20X+tUJx6B9qwIcMz0AlAKeqJbEg5rZcrj1d
- tzvOUxhXS7m1fRoIh3HmqYn/pEOmRIY2oVYtbghwYR/ZZ7EzSsxPOpZYxSCGStlwa8nwvxd1uqr
- /YD7iJsoqDN/QRgSVEwaAkToXAKEODrvV7r2Xp+AVsYezweGSDEzRqWCoBshkUgZXtHw=
-X-Gm-Gg: ASbGncvGOhuWw3giHYWmuTjqZ3WY10jcQk2OIrwa0p6jvUIdXJD2eVcz5vJh1zBUUuG
- +MP3pqi4MkCbZd0bz/bSoR5DppBBTpOq+paq1DucjI/YL55pOZOxkBtea59gVezyUtZWEczDXkA
- 4KgqNrPNfDKJcRF74mgJW5u2xes2y0hc/P66/P9yp4MVL6Ul9rZ570XFv+9E8AFXYOy8N1Zp8rQ
- b8Ovgpci37IAtHLEbEf/f1+pbvELbcZ9sQj6pDKbq25iIagEx84yhmXHGFJDlm42611U585DzjH
- 0Ek3+943y6+r5oLvxUqHDFauPNvB3psbP+gYZpxRDloDTi5Gyk+T3B442CL17Cj34O8=
-X-Received: by 2002:a05:620a:17a1:b0:7c5:8f37:5eb8 with SMTP id
- af79cd13be357-7c94d2cdeb6mr185089385a.12.1745416453364; 
- Wed, 23 Apr 2025 06:54:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG5GSKl5nOJGI1IDLlBzmI6OWMLujvoHpe4eYG3KxeTMc/rjtv7PPTjZDEBvTI5D7TyWEbafg==
-X-Received: by 2002:a05:620a:17a1:b0:7c5:8f37:5eb8 with SMTP id
- af79cd13be357-7c94d2cdeb6mr185087885a.12.1745416452864; 
- Wed, 23 Apr 2025 06:54:12 -0700 (PDT)
-Received: from [192.168.65.183] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acbbab86f15sm299799566b.76.2025.04.23.06.54.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 06:54:12 -0700 (PDT)
-Message-ID: <da5f63ad-3206-436f-9b0f-4e966b817fc3@oss.qualcomm.com>
-Date: Wed, 23 Apr 2025 15:54:06 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/5] arm64: dts: qcom: Add Xiaomi Redmi 3S
-To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
- =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
- Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <lumag@kernel.org>, Adam Skladowski
- <a_skl39@protonmail.com>, Sireesh Kodali <sireeshkodali@protonmail.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
+ AJvYcCWHRjgNXV3ifMiLMa9+DXh4A/gUWXdEmRx9GQeApismar9IBlxhhJj8F8XrHPPQlqpYVXSMrZW4vhM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzVOBHUqgpJfbauKqeerUWpqiLjQVxdjRurLNVImmBAd2pC8o2X
+ XIghxJwt3TGUDuDfe+zfOln42OuhPYdZTeS1U11LVCd1nDqnmCaHrIIlGEKMvg5vmqgaoCEUq+/
+ SfG6D1Qo4BpE0o0OBIFv+zUZVEL5gSPiYZ9LgfbNpoWNqOAK40I70TbkyaTj0uKLabUY=
+X-Gm-Gg: ASbGncvrJiZE+EuV9Z6z6qMLSfJBBUKS9Mi41UnxPMNwvSCZjIFzK3GW/lB+LslOGH6
+ nyczeRUnBkLBB8qUu9kg9ShX+L50K7CPZzP5jHWHiWtWeAh+yUTzIrMgAOuedO0yGUjoxX8RpS1
+ r3fIwuCUD25F1SVG0eKojeQ41Pgn4gEgdb6rFk8GsNRS0qaaem2zaw1T9TrIwmCYBn2dUnjDPg9
+ 99f6CXpenCaH7u5L2kg478O0bs3d79NBmrZ7h2aUjmimO+YTr8OmGmHO0Mh4yJ5jTv0wnSbtCas
+ lwrGqimuyVzy+bANjM1IpkCmKAaOWRpbDIlJg2/mKCWsmSidkxNUGbq8ru9zxjP0FDlPyWnXgaM
+ =
+X-Received: by 2002:a05:620a:29d4:b0:7c5:642f:b22f with SMTP id
+ af79cd13be357-7c927f780aemr2925735185a.18.1745416710310; 
+ Wed, 23 Apr 2025 06:58:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGbMHBNHoF6fiuAveTacg+V4AVRjDSJG6H3O7cmW3Wv+n7Ux0OzCJ4jiXurojEiqthLPkdZuw==
+X-Received: by 2002:a05:620a:29d4:b0:7c5:642f:b22f with SMTP id
+ af79cd13be357-7c927f780aemr2925730785a.18.1745416709828; 
+ Wed, 23 Apr 2025 06:58:29 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54e721ab8c6sm461722e87.232.2025.04.23.06.58.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Apr 2025 06:58:28 -0700 (PDT)
+Date: Wed, 23 Apr 2025 16:58:27 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: Ayushi Makhija <amakhija@qti.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- linux@mainlining.org
-References: <20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org>
- <20250421-msm8937-v5-5-bf9879ef14d9@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250421-msm8937-v5-5-bf9879ef14d9@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDA5NiBTYWx0ZWRfX45cmhQLHGDJA
- JVXcTofnIRc1I6s4OI6vC8KIK5FxzaWpXCpCxUIYQlfsPWxSqLSdUEusjNy2nmI8DoYezC1sXZ5
- nvTxBo05PQVgXfejD7+wqATixKCkDIpNcY62pd1i6vknfNNTr5lX89Y1IZ84tx+4KuHpvukwnru
- c5Xhg6S/eDmdA0cv0WfCUgGErhwvjDcq0QwzJaHPfQUk2IK0GxZNdbN6xUFXRZ6AOrWhOnuj6nE
- nwR0q0AqfBaJzO1vKbPjdKnAgutDRBgYlU1ePuHqQByH6IJT0ovvYTGtoTj0h06MPHrt62irQ52
- tJsJRDfE4wyI9LILiVGPhHsTH+IuCjWXg0sXXWib+s4RmiePxvd0p/yoBsygfrQxIL5zlhtE4CC
- dqRitNVmX1ltMp1zybmZeL09XcmXflMiP+bbLIxy32t2e7JtBkr/jIgD0v3dwyr6qm4TwG4k
-X-Proofpoint-GUID: 9xktjqN5gU9qppBtbQRgtAuQYcetagHz
-X-Proofpoint-ORIG-GUID: 9xktjqN5gU9qppBtbQRgtAuQYcetagHz
-X-Authority-Analysis: v=2.4 cv=M5VNKzws c=1 sm=1 tr=0 ts=6808f106 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8
- a=VJhJOi4SVWMle1XIrLYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=YF3nxe-81eYA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=AKGiAy9iJ-JzxKVHQNES:22
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
+ andersson@kernel.org, robh@kernel.org, robh+dt@kernel.org,
+ krzk+dt@kernel.org, konradybcio@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+ quic_jesszhan@quicinc.com
+Subject: Re: [PATCH v4 10/11] drm/bridge: anx7625: fix anx7625_sink_detect()
+ to return correct hpd status
+Message-ID: <5mbgo73lfr5yc7nmdgzgdogdtog6cfhqya7ekjjd2guhmogtml@ngoial7rsmrh>
+References: <20250417053909.1051416-1-amakhija@qti.qualcomm.com>
+ <20250417053909.1051416-11-amakhija@qti.qualcomm.com>
+ <g5mrn6o2arkbt356xtisszqtiokxm4oq4gkwa23y3f3aaahbfr@umcg5ikf5qjb>
+ <783a80d6-63d7-4c00-ba09-0ec07492103c@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <783a80d6-63d7-4c00-ba09-0ec07492103c@quicinc.com>
+X-Proofpoint-ORIG-GUID: vVaZe8nd2ZSm3PRTklGJppSLvrtw0-kf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDA5OCBTYWx0ZWRfX/Tr0JOLDFQnL
+ 06NFg/+hVJbTk76FrvUrw2EcwIVf9fUv9D8m/bwnF+zM8kPgd3/kSyXHTQZChnG0Wda8Nryfu0K
+ NueYatjY2eT2geHcaMmzgiWAn7EJ4ZjiMGLwugXtdJBwzi9uQ4fzm7tPCL6ZYiBTzgaou/Lax8/
+ QM0LisuQgrqA3Wv/W/LAwXJ7t9d8qWo0YpzQvhA/L0BxFEUa2qp7A4NDDH7r0mIIDRPL2JNB3Ge
+ RTnCWR8z17qXkbaKxlnYp4enZPqTGCgSEktPUveDLv11rV5Tx1UWgnpsBXuqwK677rb3zSEeK7M
+ GiIHA4ucp/Shv70ZiKA0EaC6M1bm3+CBRcJFta7JcA4nHAu4+54o2lfv8oWW43wkr8pU5xKv8QI
+ Vg91ZzR/TU9DqYJT5uQmcOvHWKuzO8NAqxjmyYe3SVgnJh1/akmhoRe1VgzaePb+a3n72GBf
+X-Authority-Analysis: v=2.4 cv=ELgG00ZC c=1 sm=1 tr=0 ts=6808f207 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=TmeSYMYVi8BcKzM9Xd0A:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: vVaZe8nd2ZSm3PRTklGJppSLvrtw0-kf
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.80.40
  definitions=2025-04-23_08,2025-04-22_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- lowpriorityscore=0 adultscore=0 spamscore=0 priorityscore=1501 mlxscore=0
- mlxlogscore=702 malwarescore=0 impostorscore=0 clxscore=1015
- suspectscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ impostorscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 phishscore=0 spamscore=0
+ mlxscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504230096
+ definitions=main-2504230098
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,12 +135,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/21/25 10:18 PM, Barnabás Czémán wrote:
-> Add initial support for Xiaomi Redmi 3S (land).
+On Wed, Apr 23, 2025 at 03:03:02PM +0530, Ayushi Makhija wrote:
+> On 4/17/2025 4:14 PM, Dmitry Baryshkov wrote:
+> > On Thu, Apr 17, 2025 at 11:09:08AM +0530, Ayushi Makhija wrote:
+> >> From: Ayushi Makhija <quic_amakhija@quicinc.com>
+> >>
+> >> In the anx7625_sink_detect(), the device is checked to see
+> >> if it is a panel bridge, and it always sends a "connected"
+> >> status to the connector. When adding the DP port on port 1 of the
+> >> anx7625, it incorrectly treats it as a panel bridge and sends an
+> >> always "connected" status. Instead of checking the status on the
+> >> panel bridge, it's better to check the hpd_status for connectors
+> >> that supports hot-plugging. This way, it verifies the hpd_status
+> >> variable before sending the status to the connector.
+> > 
+> > Does this work if the Analogix bridge is connected to an eDP panel? In
+> > such a case it should report 'connected' even before powering up the
+> > panel (which might mean HPD pin being low).
+> > 
 > 
-> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
-> ---
+> Hi Dmitry,
+> 
+> Thanks for the review.
+> 
+> In case of eDP, anx7625_bridge_detect()  will not get called, because this below condition
+> in anx7625_link_bridge() will not get satisfy. anx7625_sink_detect() is getting called from
+> anx7625_bridge_detect().
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Please mention this in the commit message. With that fixed, LGTM.
 
-Konrad
+-- 
+With best wishes
+Dmitry
