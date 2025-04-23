@@ -2,85 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25F66A99A01
-	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 23:10:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D3ACA999FF
+	for <lists+freedreno@lfdr.de>; Wed, 23 Apr 2025 23:10:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B900710E29E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0441C10E27E;
 	Wed, 23 Apr 2025 21:10:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eNDHNM6+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZwSqMxrp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2B4010E27E
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 21:10:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A481810E27E
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 21:10:22 +0000 (UTC)
 Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NAbjXW016256
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 21:10:19 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NAFuM3016178
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 21:10:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- nrVtWH6tESq1UP3QtmhPrfd4OSTJbd5wusMpKFP/3tQ=; b=eNDHNM6+9WJEUQLL
- P2DTjnamaO8f7mcaoiVLnGovumC8hrx5b0+VcGyZMZwNVqgFL589EyDEmm/aL6pt
- hFvPfKrxO/fzmLIwR9Wv1a87CZiqO10Z/ogWM5n/2v1RSFPEOpp5dnx4YNaIr8VI
- FPNfyc4Bfny5653P6Ee9YFkp5fPZSbnKJZbh1l0lCWMB3q1eBBCZC0QkZbUYc/4h
- 90EJcO41wJt2fQgb1hYNZF1dAawwUPvk2SyBJ9kmoasb0fUbJIIsFvljnPoWmAWf
- OmmzvHsxd/zUuxUwPlpuU+5LuZsW0NiCHtRgOoidhEWn5I7nvYkyzq3vEysNsaEI
- w/jaBA==
+ Y6UKS4JYcuUAg5jzEbt/jNsmLaCkbGKSDsl+QGDcjdU=; b=ZwSqMxrpCeaqh9zu
+ 8Sq/gr9zW9NlUd7jaLhaZ5mGrFYkL1zBBTbKfNbGQYmMkt07NSk1+psX73B6QqJj
+ xVCAT5ETsxIN61PJJ6RUB5lTFFXNrGlG07TvETl/s9fYNZerBkMHfeS6fxtrGGPi
+ eEh0SQ8Y8pyu6DpmRpW71kdUnSkwbe+V6fjTCFxeR0EsYGVcwI1KF77lFrFHv37o
+ iT7MAlVYKUtc5jIFhHWgkzOQK0sG/dHHzHEMNFFHQuhf6eJeEcdTkRc5d/i0vNJ9
+ CM022l/p8WH0fJsALNr2ns352rJz+qB1pqzQVrbyO1BPgB1vBETM+8nbhHrDetaL
+ lOW4+w==
 Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
  [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh3kdab-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh3kdag-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 21:10:18 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 21:10:21 +0000 (GMT)
 Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6e8f99a9524so8308696d6.1
- for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 14:10:18 -0700 (PDT)
+ 6a1803df08f44-6f2b3e4c176so6476196d6.2
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 14:10:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745442618; x=1746047418;
+ d=1e100.net; s=20230601; t=1745442620; x=1746047420;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nrVtWH6tESq1UP3QtmhPrfd4OSTJbd5wusMpKFP/3tQ=;
- b=YPkG68BAoYaltyxhrapw15sS9zA+cI4QjVqvAF9WKNmBY8uF3UYLYF0R1rKdjRg1iQ
- hSf/h3t8kmCEqNb29bx1xu1j6bch/DOvckfUVfdbmMZKXOjukt6a6pGGTbweg1akBETJ
- y0L5yQQ01gNbf8tWI7mthyoQtCbOQHB68V5jp6q4xFiU/wf8zwYTkNZOL1bdGrV0Ko5v
- qEwaQFrsoPDphbkw8gg9Xtd+uq3q88X5fk44WlvkxIQNM61zL5hXuLwwczQt9xgQ+zrE
- /c1UMDNwEmZZOH9gyjPWJdlMODvjppLeOPr+MGw1kckU0Ae6Z39hvq1Sie4CsQieUMWk
- zinA==
+ bh=Y6UKS4JYcuUAg5jzEbt/jNsmLaCkbGKSDsl+QGDcjdU=;
+ b=iu8L4NsiJl8UciLeioONq/OXPeLQVTp7t6jYieNdtCGXbyZPuaSm/9Ta5669q2rHPr
+ Y0nIf7Bm53s6Td00k4cf5xrsXbFFJ5MGrfMI5ccEVYH020VePp7As81xIQ+U9uf85G8W
+ MZOQMOJig5JXAhdiZ9EFr24v+pynJPBKSmOkl2S0jPsW78mTeXVaCSjSi43IS/ci0w+P
+ rPbLM9XZ2Mr83Bz+E2YisN2B/IX4DmxTI94mLsCqvA9zZaASGrCqzfdK1oy7LmJ77LqA
+ qhN1iag3vI766WqOEE64x4UyeSCYoaSSqvasW/e4zxdQ6sG+UxkOaVLCL5fad0ufYpjV
+ dhlA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX9MwjqZMptR15Uk0IwgJqgH+uyNZVFrv1F2yq5Jwpfz/yrZCG57jiACNkAjul/Y4LTg+UBmPglKq4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyK9yXQR37UUuepmDAD6t3IGBs6vmzsk92yiPidtoRyN5bfys4l
- pU93eyZMRGPDKhr2yUwyBqj5N/X7dZtEpWtdi+Pov+8ztmhqRBfJRnL3LvjHh2IjNg5kTpY/wpS
- opvbDDR6EaQ4gfxGEqFjq0JJ3/DNaW1luzv8cIRAxdJh2HE1k+k7R43A5riauk8ZkwT4=
-X-Gm-Gg: ASbGncs4EeEh/olwiWzmFENU2x6o8ZldZ4eIzTz7i9J+6n8sJHJjuXD/L9nWQE+njc5
- vvYTpjoMT4T6ougJz8Mo5i0c1VTNhuCXMkodBGHOCxSWAypsr9PpmMyEtgAnXT5Ejc6BJ0ZKmDP
- diAhqLG7pwg47KX76/+ifMve9Pep3jV9J8UiAqyKNW2KGmeb6OOqFyVJXALJXQS8oBTcu8URcPh
- SVFpLZoXfamTM/leuVNET5mZs9zSBw13OrtCQSGyDI5zzqH2hDtOeBeyeL+tqPypZVEZiZ6PgAe
- /jBwzJSbhwXxeuEAETHHejbp+fRRF35P2tzLfD8I/sEunrgwFGFMaErW60j+88TJXyeOVqtT24p
- lLi+M5Mx57DSKo+srpPeedbrV
-X-Received: by 2002:ad4:5c82:0:b0:6f2:d45c:4a25 with SMTP id
- 6a1803df08f44-6f4bfc9677emr2898536d6.41.1745442617980; 
- Wed, 23 Apr 2025 14:10:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEdN8j3WxVtC4umEdxXTXJ5CwdHR5VLabTb7DZpOIhVSxnxjki9ZdAxSPM6E0yzlSTACN9uGA==
-X-Received: by 2002:ad4:5c82:0:b0:6f2:d45c:4a25 with SMTP id
- 6a1803df08f44-6f4bfc9677emr2898126d6.41.1745442617513; 
- Wed, 23 Apr 2025 14:10:17 -0700 (PDT)
+ AJvYcCVyZz80/vNJzrC6vtJcQJvgE1yN/Kww2P+P3qanTEXpnho5o092GDXOos8DAmrgrytD+rAsKs9uDo0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+/7cGa7GcEo2563ZwYDlpx4gKRy/gHhCYXDhqMZTmBAgAPmr5
+ 3qa9LYLgkKKPx98VWqm2EeoHOI3lu4DufCnjlQBVI0fa/lD+/4SGYjaeuW+PO0Go2vFhrbkABOR
+ wISuvSSoBg/hgBSmQswWWAsBgFIcQ8TrkvuekQu7ztgI/ANNTWWHUus4DcUF9o/pnIwI=
+X-Gm-Gg: ASbGncuNuwB4TAKNyEa61sgeWIWkDIO1s1pWvtcihBVizdBvVsJrktFW39mK5oTWz7b
+ ndSn3M5ZkGaH7h7nSzE+BjwsYIIoH5HsosLNj0w1WOqIYVm5tBJm4Hpan+woUfog2eX/n+DwiwW
+ C3mW2/tMqGG36CHvdbuA0Kg1DRnHa3OTZ75DJKdBtm3zccW7z7dvm3Y9LKIxNxyb/UG4f3Ta9X3
+ oBChUyphT2D02I29LdUcVt8UttJ3+F7kpVVh5mst1FrjdbTK+NJ04ZCUlkx7EXQXP6sYftwfsJy
+ bTQYk9MmU30Jm6iOGFI8vC9cInG+H+08CGSugY3wTaZU6WNoglMEq/TthUoLoMoG68mnk8Jqylk
+ pVBnsAyLxpa9AB+tQjDzh/rsb
+X-Received: by 2002:a05:6214:5099:b0:6e6:5bd5:f3a8 with SMTP id
+ 6a1803df08f44-6f4bfc7d20bmr3253226d6.29.1745442620340; 
+ Wed, 23 Apr 2025 14:10:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFLzUPfct4nWaD35EhN1BKf8WJ1RrzjFP9v77ONKcGBSU1K4tluJaOglVnxZysGEb6xpd0Hww==
+X-Received: by 2002:a05:6214:5099:b0:6e6:5bd5:f3a8 with SMTP id
+ 6a1803df08f44-6f4bfc7d20bmr3252846d6.29.1745442619941; 
+ Wed, 23 Apr 2025 14:10:19 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54e7cb3987csm3852e87.59.2025.04.23.14.10.15
+ 2adb3069b0e04-54e7cb3987csm3852e87.59.2025.04.23.14.10.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Apr 2025 14:10:16 -0700 (PDT)
+ Wed, 23 Apr 2025 14:10:17 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 24 Apr 2025 00:10:00 +0300
-Subject: [PATCH v2 04/33] drm/msm/dpu: inline _setup_dsc_ops()
+Date: Thu, 24 Apr 2025 00:10:01 +0300
+Subject: [PATCH v2 05/33] drm/msm/dpu: inline _setup_dspp_ops()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250424-dpu-drop-features-v2-4-0a9a66a7b3a2@oss.qualcomm.com>
+Message-Id: <20250424-dpu-drop-features-v2-5-0a9a66a7b3a2@oss.qualcomm.com>
 References: <20250424-dpu-drop-features-v2-0-0a9a66a7b3a2@oss.qualcomm.com>
 In-Reply-To: <20250424-dpu-drop-features-v2-0-0a9a66a7b3a2@oss.qualcomm.com>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -92,32 +92,32 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dmitry Baryshkov <lumag@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1652;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1344;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=pmq5vBCUeBdexnqWIWU7CFkRwfE1mAJP/nnHW7qtnOo=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQwZnuNb5wrJr2VbZ3pd+aopnix4TOpr1KLyK1dm40YaLo
- TjxYH0nozELAyMXg6yYIotPQcvUmE3JYR92TK2HGcTKBDKFgYtTACbC68/+V1bWfIVXc9pcFg+L
- DTGGD1+m+nowevZq3BG/rC/IsLS48/BzL7V+afY2xgXJ6l/Eqx8HX9nG4Tttgu7h5teiAbXHZyT
- H9XJIZi6O5+CTk89dvcjUMbTmid6K7xOMFq/U2PGgpMW8cWZWRajNKweWTqHfsy/qHFBxUvz5gF
- 122px79fff+FlM0cor/fxhW/Oxa6sVzebOtuEx+6vWLJgntcFpXZ43b8qc7X8lnkw74naxoXB9n
- laH98IN75Z9PMrqVntY/Tzrzyf/IhdoG138tORHz5/qaCXPU8eOBwftvqIuLPBb7de6nNSXrzd3
- mtbPbJYyrW++JcXGmhcmX+7pvWqF6uSmmrsaSorP334CAA==
+ bh=TzajbLeXFeWcm21J+7IjoKJq84HYxMWKTI0BXOLnjkU=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoCVcqdYHwIQ3qP/JElrts5dzGjsyXrqAefsV/M
+ KkmWKUjvkyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaAlXKgAKCRCLPIo+Aiko
+ 1ZcpB/4qSyr0iP11NwqcYPY610/qlcZAOgtRs99lx3yKCEOY5PzkYC72ZxkGfXGOXEA6nXfTzyl
+ cb6OASx6Lq9TjBIV17S6OQvRCgsSv3gOk06jBLZu2YxODeb0MdSyHVAaT8LeZuat2AZpUlFI4md
+ q3nrHZDpe103lINB6WVHPr6W0jVxQ11gTvE7GZh1BFaEzfcN0XDdNX3lVgDUWt9nukFUQdT9Ft0
+ LXIVqf+W4zBQnef/8i4d+/RY7Oh2JNw076zuSFudcj09F/jyF6SWBQExFxIX764etPahGpBxmRC
+ PtkOFyph43NfGYRF0cK17NqVB97JAp4e7T9WyDzyxMP4it9e
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: YK-WWS7sOIoSh20-lD2-_mwcY-M7O5f2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDE0MyBTYWx0ZWRfX8bAzw5AfXKob
- 0u4/obaAQx8cw/Ny5rXVz7IEkmSVt87/UpyWTUP9z8XK+SgetZnpOziaohXOceaNl5FSQuqk/n8
- 3Gm2sRI9p5AZXleHWbzLMkiPUic/aRGlncA1XVATNRIpmMVOYtNUr+PyFyz41o2g0aiqBB8TW8H
- DpHchhWNgpz2miGAEISvf7fzI2NtPeI5I5DBHf4V1hclaqfm5+EBB6wnrzNWjgovSioXjHWqtlR
- AOLucYxsUPTcRumS1bT0xAbFfczmZ0J0HkC1/kOKdXQ6KpBEHTYlvOr9jurB0lSlG4AKB+fjJoy
- HehlWqKcV8VfOS+/Cs4VHNWioj/cW3Pfw2DIp1uhyoIh0QdAwMPEWySQROEoyXwcTdheyc4uGVY
- NV45uv0zFUTvurtIhpFqfzadFGAJGsxeyVNrFfEcNjFAJU7SijYF6INdeAmkFlzXkLqndlPH
-X-Authority-Analysis: v=2.4 cv=ELgG00ZC c=1 sm=1 tr=0 ts=6809573a cx=c_pps
+X-Proofpoint-ORIG-GUID: 562lZ6JocNkn2CxNOCfdpvDgmy9fvbs4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDE0MyBTYWx0ZWRfXzVFM5UqyQGb0
+ s2MoN7NaDSPcMpBo8fQplCsZObdcJKRnVT6uoeM+IQ+dBaiatDEkjHPHWsLWQV+bEcb+mK0LVni
+ 3SkuNTzxY9FpZ6Wv23JmCr0PwdZJ/V4VOM2oJ3xrvhMKNZjbIjR2QVYwaikHGbF4u7ALA6xIeBQ
+ 8uUj73pCAuNKFdExwUTgdehaVaHuwTEgBAbRwEQcuiostHhzmXxI6YmtFUayW+L74qQVRTq/ozO
+ iZ8O2za4kcWesmRJqJPnShWsWQkNEGfAeZSYTrq3uZng8TCzbWlT8npJDKp2xrNm37oDfrtoFKy
+ KQvJKq0qeaq+OlKQZ6ZBG1YrKSyuOnQFJ3eVeFKb/PFokgNaMu0FlvkC+X37+jrEWrBVhgrW+PO
+ n+g/+4IP58iVaccibzRK944KXgwxrUNbtPWFAofqtzshKL+wQ8bjImJ7ZOvzZm47Y/16im0K
+X-Authority-Analysis: v=2.4 cv=ELgG00ZC c=1 sm=1 tr=0 ts=6809573d cx=c_pps
  a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=XR8D0OoHHMoA:10 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=aBwJmt2KlYBR8C_sNNsA:9
+ a=XR8D0OoHHMoA:10 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=ezFYmCdhRMHQQexkQpIA:9
  a=QEXdDO2ut3YA:10
  a=iYH6xdkBrDN1Jqds4HTS:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: YK-WWS7sOIoSh20-lD2-_mwcY-M7O5f2
+X-Proofpoint-GUID: 562lZ6JocNkn2CxNOCfdpvDgmy9fvbs4
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.80.40
  definitions=2025-04-23_11,2025-04-22_01,2025-02-21_01
@@ -145,46 +145,39 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Dmitry Baryshkov <lumag@kernel.org>
 
-Inline the _setup_dsc_ops() function, it makes it easier to handle
-different conditions involving DSC configuration.
+Inline the _setup_dspp_ops() function, it makes it easier to handle
+different conditions involving DSPP configuration.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-index cec6d4e8baec4d00282465cfd2885d365f835976..c7db917afd27e3daf1e8aad2ad671246bf6c8fbf 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-@@ -181,16 +181,6 @@ static void dpu_hw_dsc_bind_pingpong_blk(
- 	DPU_REG_WRITE(c, dsc_ctl_offset, mux_cfg);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+index 829ca272873e45b122c04bea7da22dc569732e10..0f5a74398e66642fba48c112db41ffc75ae2a79f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+@@ -63,13 +63,6 @@ static void dpu_setup_dspp_pcc(struct dpu_hw_dspp *ctx,
+ 	DPU_REG_WRITE(&ctx->hw, base, PCC_EN);
  }
  
--static void _setup_dsc_ops(struct dpu_hw_dsc_ops *ops,
--			   unsigned long cap)
+-static void _setup_dspp_ops(struct dpu_hw_dspp *c,
+-		unsigned long features)
 -{
--	ops->dsc_disable = dpu_hw_dsc_disable;
--	ops->dsc_config = dpu_hw_dsc_config;
--	ops->dsc_config_thresh = dpu_hw_dsc_config_thresh;
--	if (cap & BIT(DPU_DSC_OUTPUT_CTRL))
--		ops->dsc_bind_pingpong_blk = dpu_hw_dsc_bind_pingpong_blk;
--};
+-	if (test_bit(DPU_DSPP_PCC, &features))
+-		c->ops.setup_pcc = dpu_setup_dspp_pcc;
+-}
 -
  /**
-  * dpu_hw_dsc_init() - Initializes the DSC hw driver object.
-  * @dev:  Corresponding device for devres management
-@@ -213,7 +203,12 @@ struct dpu_hw_dsc *dpu_hw_dsc_init(struct drm_device *dev,
- 
+  * dpu_hw_dspp_init() - Initializes the DSPP hw driver object.
+  * should be called once before accessing every DSPP.
+@@ -97,7 +90,8 @@ struct dpu_hw_dspp *dpu_hw_dspp_init(struct drm_device *dev,
+ 	/* Assign ops */
  	c->idx = cfg->id;
- 	c->caps = cfg;
--	_setup_dsc_ops(&c->ops, c->caps->features);
-+
-+	c->ops.dsc_disable = dpu_hw_dsc_disable;
-+	c->ops.dsc_config = dpu_hw_dsc_config;
-+	c->ops.dsc_config_thresh = dpu_hw_dsc_config_thresh;
-+	if (c->caps->features & BIT(DPU_DSC_OUTPUT_CTRL))
-+		c->ops.dsc_bind_pingpong_blk = dpu_hw_dsc_bind_pingpong_blk;
+ 	c->cap = cfg;
+-	_setup_dspp_ops(c, c->cap->features);
++	if (test_bit(DPU_DSPP_PCC, &c->cap->features))
++		c->ops.setup_pcc = dpu_setup_dspp_pcc;
  
  	return c;
  }
