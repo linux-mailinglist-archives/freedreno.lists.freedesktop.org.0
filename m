@@ -2,103 +2,141 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AAAAA99B60
-	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 00:19:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58DB3A99B9F
+	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 00:47:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8600210E39E;
-	Wed, 23 Apr 2025 22:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 423F010E398;
+	Wed, 23 Apr 2025 22:47:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="R8GRu/FZ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RFbqFKet";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 799B910E0B9;
- Wed, 23 Apr 2025 22:19:05 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NB6N7g024369;
- Wed, 23 Apr 2025 22:18:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D857610E398
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 22:47:44 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53NKqLkS016813
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 22:47:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- oeUFxMFx6nrxzSXI/SkRX4Q1OugOEfgA+K7GIguWCd4=; b=R8GRu/FZJpRG5pEu
- DP+yW0+BmptsdIdEhA8Kz3BmbRimN/uSZTbyd0AjJPFpZtD8E0TwGE1bfTLab905
- K3GgTC20xs5DbqfsRQ7PoETWvq9oBDoUSaNW65vw+H9UjbmU4Hf5VKaDyJczwoXj
- oe6KtfJeO7kCIFY0xWs4NK4Zbc7VTjr9L7pf/7ZJf3bFAzm4cvsFJ0zlmGF+hrIf
- MkFY6j6O2qJ8se+QhT6MKNQSTiDZly9v2X0tBFaj29LvtK3PNs8jskAkohPuuh1l
- wXbdBnchR22SgD8qZmDDpY/rN7SKV0hJywainD1yOCkxONOI9bx3i2Ej0lspoQ9c
- 0shSYg==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh3bgud-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Apr 2025 22:18:58 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53NMIwJF010406
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Apr 2025 22:18:58 GMT
-Received: from [10.71.110.123] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 23 Apr
- 2025 15:18:57 -0700
-Message-ID: <d9ef9d85-7d38-4bfa-84dd-1ae0878aa02b@quicinc.com>
-Date: Wed, 23 Apr 2025 15:18:57 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] drm/msm/mdp4: drop mpd4_lvds_pll_init stub
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ ihLjRZPlLIWGlyTXxQVjwKyUINfd4mtFX1kBkVK4xz0=; b=RFbqFKet4C7XAcmr
+ uF5l93uiKoYOIpW8pKISLlNb/6aUfRkdhfZCwj81DjrkRecyxn0IKak+VzOAN1vI
+ kw+YX+eCRVZB6kh2zBGWoloFdT/TuLhMVwH0gT6N68JStZEtSNL7tzVY3H1ZfiVY
+ CHa4RdeututYol1HUcfFXrxVyeDNlKlJE5a9Sk0TSNKo3p+Yh9p8NxsaUBVo4WM/
+ LxgE0HcFg+S4AavN2k5aoumEGjxtKb7wpUPAzlCACltegnXV/j+zLe+JLIzIhFYy
+ 5gx3+GvOkk4ZnWAcJnq+H4Mx64JafGwPvSVQ285T9vO8vlcFuqIO49KJVHqp+GHN
+ dP9DSA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh0bmxm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 22:47:43 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c5cd0f8961so79198185a.1
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Apr 2025 15:47:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745448462; x=1746053262;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ihLjRZPlLIWGlyTXxQVjwKyUINfd4mtFX1kBkVK4xz0=;
+ b=uprhiRwiH8+hHE7l9Ezr6puq+UTowXt7h8FRZwr4HlKexa/fomS4d5k7HMunns4ngO
+ A8OgAeMaaFbRy6r87nV3PynyJ7GmoMYmgRuxxnqJNFWSgRb2FoyMdEWWhozzjKLpJSDl
+ VXaPvAnpQWFD2wP+Z4T6FK2VIcuf2nW4H4o0Bmxtz2nsrJoBidk4/4wrW0WO3CKTrx4J
+ mwx0qKxjA+nkOH+Aanmhv95CGdFin190GmTlSPc+NDo+/b4HYqtXjHn8uQgJvaHeezCX
+ lH9sl4YL4HBBtYAKj7v5CUx1jGlI8v7Imw2D83OzSDynWIre/uMQUHCOK4/O+PgOI02t
+ ntGg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV7SGCzGr16a8nSRTR/du8agXaGy1dgKM+yHpaGDUDJk+XmNpMBMgukDmzq/lY+3AcAP6qgagYgTlM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyIb5xy4ZDcVR8hIgDQpLihIIdE1oZR0oy4uzsVmX43A8FT+Jng
+ oY4Qz7K8rIRE4cv+A/X1bOY2uUSiCO4+qHkdlzUAPfjgC9WMq3EZypLn83TYuBOejE9+Ml9h9UH
+ ZfZJxrQrnGsLzW4DBuucPA5LFqGyHb5PjwQYNeyaBee/aDdD0QF5lrFUAsFdiMCxpNao=
+X-Gm-Gg: ASbGncvBDloA4HtaS4yGeVMFTJVSjBcZ3XLVdr6LgLn2l496ebC/Pci7ongnBdPw/VZ
+ AInX1h2woPtPHBLugXCaRHZHRc31u7kX0gN2U3idnT/bR3dYXxzI7iLbXfYCELAjqSBM1Jr3Ip7
+ hgn6sBXG1BvtaDZ2ElDAVUd2Ul8WRshbE7qHXnkh4iN5X8sJdB4VcbhRe3O7TDxxodmY1dDHMN/
+ PXlmdYKawsG2g7jx3H//XstJbesezWQaO/3w65RYJB8m8r9TqljFHTsleawKnviFSz31aBnBVBm
+ ndGYJqDFlDcKQ/TxQau9yKqwoY4kOHa5fu4/w4hpEGcEtWFBqYhvXP3MayBW3rQwRn/uae20thQ
+ =
+X-Received: by 2002:a05:620a:4728:b0:7c5:6410:3a6 with SMTP id
+ af79cd13be357-7c956ed7543mr92879085a.27.1745448462218; 
+ Wed, 23 Apr 2025 15:47:42 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGInwM3Ub2jQ1lwD3hZid86OUOjGIyjsbPxDcJGVMhOF+7PpJenxAlmHg66u64h4q9mPPY9dQ==
+X-Received: by 2002:a05:620a:4728:b0:7c5:6410:3a6 with SMTP id
+ af79cd13be357-7c956ed7543mr92875085a.27.1745448461829; 
+ Wed, 23 Apr 2025 15:47:41 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54e7cb3be1asm26736e87.93.2025.04.23.15.47.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Apr 2025 15:47:40 -0700 (PDT)
+Date: Thu, 24 Apr 2025 01:47:38 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
+ Otto =?utf-8?Q?Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Bjorn
- Andersson" <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>
-References: <20250227-fd-mdp4-lvds-v3-0-c983788987ae@linaro.org>
- <20250227-fd-mdp4-lvds-v3-2-c983788987ae@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20250227-fd-mdp4-lvds-v3-2-c983788987ae@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 6dLsYDGlO3Qdum4Szw-okUyxaD8VzboY
-X-Proofpoint-GUID: 6dLsYDGlO3Qdum4Szw-okUyxaD8VzboY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDE0NyBTYWx0ZWRfX2F41hgkfPksM
- gfcjU69aYf6ZywdwH4bliHUyBHahqUuBEtnYsU518CKMqUBsSLe9Qg7moeKd0AWeQCdlfflQaUa
- lL+zdvGbusOf5GcBOQ4ZqZyTcj64ya4pbtL3Lm65hNBVxVr2z4cYjbomVokuXb9hgxYP5MZQFEL
- iuobVGS2cu2W3sHoxPtT7jixc/3GCnLcQjPtjjcVgVwn5vLb+cIl/GBkYLbeFF3hhkQ94alOJ5c
- O8J9vKyT002odTAk70Hbl3YqVSCTCaBCkKcdMgeNEtSPaobqOnAHsFpIOjAhGTwgQtxBaWaig7D
- 6ea/X8ptVga65oYUJaV/GOxwMzhbS2J2gkFFXSKqKcavKx797aoYTuBOX/hVCZ94SR4OvbpaR88
- aPDZcUMaZQxsXv7SWf2sn59M+/x66WpTcjXKUVKtiAwhhzOR71zczLB6iM52pPRe2EMghNH7
-X-Authority-Analysis: v=2.4 cv=Mepsu4/f c=1 sm=1 tr=0 ts=68096752 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=COk6AnOGAAAA:8
- a=44wy0eceGWqoRLgzOdEA:9 a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22
- a=TjNXssC_j7lpFel5tvFf:22
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Adam Skladowski <a_skl39@protonmail.com>,
+ Sireesh Kodali <sireeshkodali@protonmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ iommu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, linux@mainlining.org,
+ Daniil Titov <daniilt971@gmail.com>
+Subject: Re: [PATCH v5 2/5] clk: qcom: gcc: Add support for Global Clock
+ controller found on MSM8937
+Message-ID: <h46amkfanqmu2v2bbsx3f4iqdwxzcgmu7ibngffn4wfavbdp2q@ho6sy346vjxp>
+References: <20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org>
+ <20250421-msm8937-v5-2-bf9879ef14d9@mainlining.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250421-msm8937-v5-2-bf9879ef14d9@mainlining.org>
+X-Proofpoint-GUID: zU_PyoMFBqWVeT89_didy4lj7k2Bqnu1
+X-Proofpoint-ORIG-GUID: zU_PyoMFBqWVeT89_didy4lj7k2Bqnu1
+X-Authority-Analysis: v=2.4 cv=Fv0F/3rq c=1 sm=1 tr=0 ts=68096e0f cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=XR8D0OoHHMoA:10 a=pGLkceISAAAA:8 a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8
+ a=XF3jJdBvCvMoejL92xsA:9 a=3ZKOabzyN94A:10
+ a=wPNLvfGTeEIA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDIzMDE1MSBTYWx0ZWRfX38fnQtJl93k+
+ OJ07DxmX1j3sCMR3J9lvXievStYKkXN1E4ANDBrygzlAIEq/LD4JUiqkGUdsXBMd4JlaILXPaBg
+ MUYC76nKvKasVPh6G+fjGwqEHzWwD5MGmXyJgpRxUb2qJoIJMgPI0ZrnzyJGJcjWKuzZNXYCjt7
+ 6QdSFC5NlFEVl6o9zYVTZ8Q8v4J0XTO4pl3aNwjmJGjHkkuTh3TYHh/SvDnqaaZAfwUbWK62U/Y
+ U0BPc1McmHb+V20zAk5+KvAiAsikhVDlvWMecGZw219n3KM1tbmDBrkBzDcjbxQn37541SqjZFh
+ DspCkyUhlTw5/xj9g9JV1iUhJNwEvXE86ThEgiTbIXgv5ls4gC2h6zaUK8wHhfXy1isjXD/vbXY
+ on77V6DHxHW0nS30ESfDbCCgIXgDWANHeKAGnp5DQy6TfHRcwUxgRon+bMps/3RBCD75gP0U
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.80.40
  definitions=2025-04-23_12,2025-04-22_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0
- adultscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 mlxscore=0 impostorscore=0 clxscore=1015
- mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504230147
+ impostorscore=0 mlxscore=0
+ malwarescore=0 mlxlogscore=986 priorityscore=1501 suspectscore=0
+ adultscore=0 bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ phishscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504230151
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,17 +152,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 2/26/2025 6:25 PM, Dmitry Baryshkov wrote:
-> Drop the !COMMON_CLK stub for mpd4_lvds_pll_init(), the DRM_MSM driver
-> depends on COMMON_CLK.
+On Mon, Apr 21, 2025 at 10:18:24PM +0200, Barnabás Czémán wrote:
+> From: Daniil Titov <daniilt971@gmail.com>
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Modify existing MSM8917 driver to support MSM8937 SoC. Override frequencies
+> which are different in this chip. Register all the clocks to the framework
+> for the clients to be able to request for them. Add new variant of GDSC for
+> new chip.
+> 
+> Signed-off-by: Daniil Titov <daniilt971@gmail.com>
+> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
 > ---
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h | 7 -------
->   1 file changed, 7 deletions(-)
+>  drivers/clk/qcom/Kconfig       |   6 +-
+>  drivers/clk/qcom/gcc-msm8917.c | 617 ++++++++++++++++++++++++++++++++++++++++-
+>  2 files changed, 616 insertions(+), 7 deletions(-)
 > 
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+-- 
+With best wishes
+Dmitry
