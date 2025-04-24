@@ -2,106 +2,153 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56924A9A1E6
-	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 08:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A56D0A9A657
+	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 10:40:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD67010E735;
-	Thu, 24 Apr 2025 06:26:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BC5B10E777;
+	Thu, 24 Apr 2025 08:39:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Xt2b3oIR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k/CrjkOu";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC0E310E737;
- Thu, 24 Apr 2025 06:24:50 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53O0F63K028369;
- Thu, 24 Apr 2025 06:24:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=hVCi7gtLhpA
- XdSAk9dtD/5Maw7VEwUB2kEsjxp7ZhWY=; b=Xt2b3oIR5qTBVm6UzG6rkDmjbAz
- RYxhwoD2n3e3OJ3DsLJLFJqRxr6SKCG2zpf5MiVtJPR2LvJ4off2fE+PMu3qHXLP
- 8YB2DroVTNZl6udb45hulbNnxWJkzIuhQ/cEAZdHu+WeJB37pIkv9Ek0+0/CFxkl
- uV5uwx4XD9OK0JZQBwW1R5r/CNWxQAXN3W6u+Uz4ic5t3tAIAzrlpoVB4oNFA/L8
- 671jfZVlTyoiQ238aU2zEar7i9FDKjKcr5x0elh8ZqnC8bAwWo8370VAvBNE+tyF
- 0OmuMG+TUkwcFI/NR+Fq4wHkqh1xScCuelCJuusgo0+dCFrTPpIk2+7AKiw==
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jgy4epv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Apr 2025 06:24:40 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 53O6OZcg003919; 
- Thu, 24 Apr 2025 06:24:36 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4644wn010r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Apr 2025 06:24:36 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 53O6Oa24003994;
- Thu, 24 Apr 2025 06:24:36 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com
- [10.213.99.91])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 53O6OZkY003947
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Apr 2025 06:24:36 +0000
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
- id DBE205A0; Thu, 24 Apr 2025 11:54:33 +0530 (+0530)
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, robdclark@gmail.com,
- dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_jesszhan@quicinc.com, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH v5 11/11] drm/bridge: anx7625: change the gpiod_set_value API
-Date: Thu, 24 Apr 2025 11:54:31 +0530
-Message-Id: <20250424062431.2040692-12-quic_amakhija@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250424062431.2040692-1-quic_amakhija@quicinc.com>
-References: <20250424062431.2040692-1-quic_amakhija@quicinc.com>
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 103D110E76B;
+ Thu, 24 Apr 2025 08:39:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LGJs90zMc1bACi2eGEiV0VbNAckeQz6pjDU5JLIBu+ZgTY7FWz0Xcz9sX3F53AyZq9uAgSwIpE+fYYXN3CMsS8nUj9CIKgcfprPoVO1jmXLyRmvZuRhBS7ilqK4sdj8nsNYz/xPak+j55Ea0D3vZhhuRrNA8NuzQCMc0hpdNsaLHR8bj/ub/pzxMiAv+F5UroL91d/cHFRyORnsg/qIA+DYdas9/e+ejB5HoM55Sc7BGSfrffA9NgWSwEplkQjgA2LwFFrkR5+5qFGJVLkqSfpWWkyKH5IZthFdgcaZSwDOVXldRMdZCSIQ0WH79HJpLf3oKMJmWcLDzKAzcfII1+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0tSD/J5biPvWWJwRdEfa6+ZRmIYWhZ7uE7oXnoFb3No=;
+ b=UEVYpA8rThNMzqotdfDWnsfV3sMXAZ+H3aTjsa5VB2ZimgOedKi+aI+feErDrCJR1Mb5DuB3YkjWl7F0DJICYEijC08HKHHJiFmjHZ2Ow1H+Qxq472yRmHXBUeOGhyyrHWDDl5s+QQJAAJjC2FCQUXevhdPy0lKS1TT6xfOZkuzphWGdNBkVb6AFoaCcrq/JRSaUykKdyIj97x2bpnXaUhakT9StBNV1U+nJlzZ9C+NGEy0vSTZ47kF68LN8yW/X4YgnwBdvD/KZ20sg7jpzudE1VIamvZsAJaGsIwztRTxRcU97Z1u3O7267Aai1hQCjmHLM7MyWZhYPaEAAP+UYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0tSD/J5biPvWWJwRdEfa6+ZRmIYWhZ7uE7oXnoFb3No=;
+ b=k/CrjkOu73xtGphmNM2f/nyjLinzWsGsQR/aSCLuJ7R8gsWUYWGqJCQTaFD/LQ82pZF5y4rhBOE5v/Ee5h2um8sxm0Epn1O4euLhS19lKWVE8kSTt1mzZ3UFC+qzdlCA8aPFOW/5QCYNoR+JsvzXAjIXKWZRaMZ887y9L8vd2UI=
+Received: from DS7PR03CA0360.namprd03.prod.outlook.com (2603:10b6:8:55::33) by
+ DM3PR12MB9288.namprd12.prod.outlook.com (2603:10b6:0:4a::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8678.26; Thu, 24 Apr 2025 08:39:40 +0000
+Received: from CH3PEPF00000018.namprd21.prod.outlook.com
+ (2603:10b6:8:55:cafe::91) by DS7PR03CA0360.outlook.office365.com
+ (2603:10b6:8:55::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.36 via Frontend Transport; Thu,
+ 24 Apr 2025 08:39:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH3PEPF00000018.mail.protection.outlook.com (10.167.244.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8699.1 via Frontend Transport; Thu, 24 Apr 2025 08:39:39 +0000
+Received: from FRAPPELLOUX01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 24 Apr
+ 2025 03:39:29 -0500
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: 
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Boris Brezillon <boris.brezillon@collabora.com>, 
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, "Dmitry
+ Baryshkov" <lumag@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ "Frank Binns" <frank.binns@imgtec.com>, Jonathan Corbet <corbet@lwn.net>,
+ Liviu Dudau <liviu.dudau@arm.com>, Lizhi Hou <lizhi.hou@amd.com>, Lucas De
+ Marchi <lucas.demarchi@intel.com>, Lucas Stach <l.stach@pengutronix.de>,
+ Lyude Paul <lyude@redhat.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Matt Coster <matt.coster@imgtec.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Melissa Wen <mwen@igalia.com>, Min Ma <min.ma@amd.com>, Oded Gabbay
+ <ogabbay@kernel.org>, Philipp Stanner <phasta@kernel.org>, Qiang Yu
+ <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>, Rob Herring
+ <robh@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter
+ <simona@ffwll.ch>, Steven Price <steven.price@arm.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, "Thomas Zimmermann" <tzimmermann@suse.de>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <etnaviv@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <lima@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <nouveau@lists.freedesktop.org>
+Subject: [PATCH v9 00/10] Improve gpu_scheduler trace events + UAPI
+Date: Thu, 24 Apr 2025 10:38:12 +0200
+Message-ID: <20250424083834.15518-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI0MDA0MCBTYWx0ZWRfX6FarFfVhAbTP
- 3l0QX11ANsmg3oGoZJVONa5RykAevxrZLnoSTSqA7RwSzO26T0Q5PbSjjK9EXUK8rCMueEIVQ1G
- Gdep7mxxcBwsjXDuWKIAkeTvWGBBqhLV762z2AiAHVSpkGO3ksxLem9E2hTbCJ1syoj3duW6i+s
- JJ8XA3vTfZz/smRLuHReyj4C3+9h4LZmCIoioIbiPuYEH6rnZfrXqxsdvTTVY6fOdzSl4DdStqE
- 42a7fy39g+AeG9gl19RXdcoR2NU5ReDHmMtnAz9kPbjuDyhmmvRr00kTFQ6Dr2Y7ycwtqCZzbvp
- MLpAeNsjueSrGADWYqiSxRP1RJSmYqycor6AXpbMh6uJQ7TLM7pfiydeRSaUCIUUFt+uLtpSAWa
- 6XBJq2bOeCW5I2bFiiaBWNzrkBfM1s4udQWFc8++3k1ItBViMGu97KAiEqdvOXy+3nnkp+zg
-X-Proofpoint-GUID: 3Fjfht5TouTk55Xyv179oXI4V3hsGabw
-X-Proofpoint-ORIG-GUID: 3Fjfht5TouTk55Xyv179oXI4V3hsGabw
-X-Authority-Analysis: v=2.4 cv=M5VNKzws c=1 sm=1 tr=0 ts=6809d928 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=KKAkSRfTAAAA:8 a=qu7jSu7UeuI-ykz2460A:9
- a=TjNXssC_j7lpFel5tvFf:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.80.40
- definitions=2025-04-24_02,2025-04-22_01,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- lowpriorityscore=0 adultscore=0 spamscore=0 priorityscore=1501 mlxscore=0
- mlxlogscore=999 malwarescore=0 impostorscore=0 clxscore=1015
- suspectscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504240040
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000018:EE_|DM3PR12MB9288:EE_
+X-MS-Office365-Filtering-Correlation-Id: 54712985-a53a-442f-999f-08dd830b8d94
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|1800799024|7416014|376014|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VE1QUnduWlMvMStxUzZqSWhneHVXRFlCczFJM3ZwSmhPYkNrZEZiMG9adE5D?=
+ =?utf-8?B?Mnc3dlhldFNNRk9ma3JRWlZ1Y0tMQWhzMjdzamhmV0Zld21BMVdZZHJKWjZU?=
+ =?utf-8?B?RkFoL1NJYTJLQkJ1Mm1FVitQR2E4blVsSWpkQTcySjQrQTZaZ01tVzAwKzFm?=
+ =?utf-8?B?Z1lKdjJvRm9JU0hIaVYvTENiVTFaOEhHQ3VWOFZhZWFMemlEbGRVMk4vQ3E4?=
+ =?utf-8?B?RjMrWGNXRDJkb1pNWmttWFA1RDBYUFJ0ZkE4OWI0TFZ2ZzF2L0hPa2djUWxC?=
+ =?utf-8?B?cHpEa2VHVUlpbkpiaFdvZ252aFVaeGc3cUppWHVrKytVbUMyWVQvRXV0WDFO?=
+ =?utf-8?B?Z2ZQYzk2OElkQnhINlBya2d5OE1KUUJSYnZMWGRpQkIvYmlWOFlCOENFamFM?=
+ =?utf-8?B?SmNQNnVMN0xUMG1BQkQrellhS28vTFN6VFBvTlhLMjFYR1I3aEZ6K2cxTTdW?=
+ =?utf-8?B?bFcvcFZFUmIwejVtVUVDOGdTYng5RW14YmJrcXZGL3hwbW9EL1M0M3JWVFZ5?=
+ =?utf-8?B?N3diVGErRzh3V0hJZDJoMXpMWVRTWSttZ0ZWYmVGQ3drY2RXZjRqakhoTGV0?=
+ =?utf-8?B?ZnowY1JYQW9DVGF5ZWJOTkV1b0RzeE8xRWZIUnRnam5XTnFqYjVYZG9PQ2lh?=
+ =?utf-8?B?WmpvS2phbEpyRzlaOUJvNFV4S2Y2Z3dLb2tENFFiNUdPQlJZWjZWRFprZjdi?=
+ =?utf-8?B?Q2J4OGJnQlVLUk1CY2hVTjc2eGU0cE5aREQxOXhMRXBmTXRUcTdEbTJrTm9Y?=
+ =?utf-8?B?NlF3Q2N1dDB4NTMzNWVTaE1DTzI5ZStWWXg2WnhYMmRWYnpqNmJqNmJOZWVa?=
+ =?utf-8?B?eWFIWGpHUFNYS1A4dWMvTS90SzZpNUMrL21Vb2hwVTlHVVNMV3lUMG5RZW5Y?=
+ =?utf-8?B?UjBKRG9HNkY2dFk1bXo4SEJjd0dnNytZNTYreVR4Q3VMSS9BMnNHQnlER1hk?=
+ =?utf-8?B?NEZ4dVRMKy9TWGd6VjA4N0dTOWs3eUc3OCtvUEFpY1puMmFPZUtjYmh4YlBE?=
+ =?utf-8?B?VmpiWWhVR3RQSUVncmYvTW5sVThQZEt0OEVnN1o4ZGgzenBiSXhSWGh2TGxO?=
+ =?utf-8?B?SUZzNmRWZ2YwbGhUaERIeGlmVGhDRE94MFhXRFF4dE50UUVYcEQ1TXNjL0d3?=
+ =?utf-8?B?SmNaT3VROGVVRTQxTHZaRWhiV0V5SzJKRDFxRXlqUllnN0NNb1Z3RzJJQzZu?=
+ =?utf-8?B?eVFrdjJQK3RsNkY4RXhSNjEzbWVmK1docWxzbngrTVdoNnpVaEJRMEw4Y0VZ?=
+ =?utf-8?B?UXZWUWdzUDZKS1BoU00rcFcrSWVLODlkZTd2NXVWVU51Um4wQnFaU0RpUnM0?=
+ =?utf-8?B?Q000d0NBZDF3cm9FalZYeXlWUnFFTlBBYnRRNlEvQ0dMeWZ1TzJ5a0JJS2U1?=
+ =?utf-8?B?RUU1RmFVTHQyaEVBUkNaMk1ra2hJcGdrSUdFbDJ6SSt3RC9aaUZDTFE4cUVY?=
+ =?utf-8?B?U0xGTkdhc0grYXhqeEF2TDdpT3FlZ2hqc2tKVmxOLzlFRVRVVS8xMFZ6QnFH?=
+ =?utf-8?B?NGRodE9ITy9ZT3VkdHdIVXNNN2Y0VHVtZmVBQzJmOURoV0pqSjZvaEQzK1By?=
+ =?utf-8?B?QVFmZEgyRWFGdGlON2R0STRxQ0lSNjU0bE1LMFRrS1VKSWMwZG1pK2NnZjlJ?=
+ =?utf-8?B?S0IrUnRzVHVBM2ZSNU9BU2tnb0RpRXZuQ1hKeG9pSkIza0dJYUh0M1lyRzYy?=
+ =?utf-8?B?dTlMaWtERFpNSis2QlBRQmxzdUNQNUkvOWE4Wkp3TFgzMkNITUp2SnFQbXhV?=
+ =?utf-8?B?Y3BJVy9qTU1lbzdoSi82dVhiMnB0QXhqUzUyVlJUa1I0WU80aDBld2dNaGlC?=
+ =?utf-8?B?UmNxR2pFZit4dHhPeXRSb2FVeHVKdXdTWE1kYUdmdzZWZHZWSFdzdDBUOC9k?=
+ =?utf-8?B?QVlYd08xSlBzZmpJUTZWcUErTk1XcVNaWlZyVC9nK3FoWndra1U2Q3lpdkJm?=
+ =?utf-8?B?Y2wwZzBUY1Q5U1dYa1FMckNNV1ZHbkR3dFNWOGVMcGJkU2gxa1RPRW5HcmE5?=
+ =?utf-8?B?OVJVMDNYWWt3PT0=?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(7416014)(376014)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2025 08:39:39.9052 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54712985-a53a-442f-999f-08dd830b8d94
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000018.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9288
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,54 +164,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use gpiod_set_value_cansleep() instead of gpiod_set_value()
-to fix the below call trace in the boot log:
+Hi,
 
-[    5.690534] Call trace:
-[    5.690536]  gpiod_set_value+0x40/0xa4
-[    5.690540]  anx7625_runtime_pm_resume+0xa0/0x324 [anx7625]
-[    5.690545]  __rpm_callback+0x48/0x1d8
-[    5.690549]  rpm_callback+0x6c/0x78
+The initial goal of this series was to improve the drm and amdgpu
+trace events to be able to expose more of the inner workings of
+the scheduler and drivers to developers via tools.
 
-Certain GPIO controllers require access via message-based buses
-such as I2C or SPI, which may cause the GPIOs to enter a sleep
-state. Therefore, use the gpiod_set_value_cansleep().
+Then, the series evolved to become focused only on gpu_scheduler.
+The changes around vblank events will be part of a different
+series, as well as the amdgpu ones.
 
-Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/bridge/analogix/anx7625.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Moreover Sima suggested to make some trace events stable uAPI,
+so tools can rely on them long term.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
-index 365d1c871028..f6f730262511 100644
---- a/drivers/gpu/drm/bridge/analogix/anx7625.c
-+++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
-@@ -1257,10 +1257,10 @@ static void anx7625_power_on(struct anx7625_data *ctx)
- 	usleep_range(11000, 12000);
- 
- 	/* Power on pin enable */
--	gpiod_set_value(ctx->pdata.gpio_p_on, 1);
-+	gpiod_set_value_cansleep(ctx->pdata.gpio_p_on, 1);
- 	usleep_range(10000, 11000);
- 	/* Power reset pin enable */
--	gpiod_set_value(ctx->pdata.gpio_reset, 1);
-+	gpiod_set_value_cansleep(ctx->pdata.gpio_reset, 1);
- 	usleep_range(10000, 11000);
- 
- 	DRM_DEV_DEBUG_DRIVER(dev, "power on !\n");
-@@ -1280,9 +1280,9 @@ static void anx7625_power_standby(struct anx7625_data *ctx)
- 		return;
- 	}
- 
--	gpiod_set_value(ctx->pdata.gpio_reset, 0);
-+	gpiod_set_value_cansleep(ctx->pdata.gpio_reset, 0);
- 	usleep_range(1000, 1100);
--	gpiod_set_value(ctx->pdata.gpio_p_on, 0);
-+	gpiod_set_value_cansleep(ctx->pdata.gpio_p_on, 0);
- 	usleep_range(1000, 1100);
- 
- 	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->pdata.supplies),
+The first patches extend and cleanup the gpu scheduler events,
+then add a documentation entry in drm-uapi.rst.
+
+The last 2 patches are new in v8. One is based on a suggestion
+from Tvrtko and gets rid of drm_sched_job::id. The other is a
+cleanup of amdgpu trace events to use the fence=%llu:%llu format.
+
+The drm_sched_job patches don't affect gpuvis which has code to parse
+the gpu_scheduler events but these events are not enabled.
+
+Changes since v8:
+* swapped patches 8 & 9
+* rebased on drm-next
+
+Changes since v7:
+* uint64_t -> u64
+* reworked dependencies tracing (Tvrtko)
+* use common name prefix for all events (Tvrtko)
+* dropped drm_sched_job::id (Tvrtko)
+
+Useful links:
+- userspace tool using the updated events:
+https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/37
+- v8:
+https://lists.freedesktop.org/archives/dri-devel/2025-March/496781.html
+
+Pierre-Eric Pelloux-Prayer (10):
+  drm/debugfs: output client_id in in drm_clients_info
+  drm/sched: store the drm client_id in drm_sched_fence
+  drm/sched: add device name to the drm_sched_process_job event
+  drm/sched: cleanup gpu_scheduler trace events
+  drm/sched: trace dependencies for gpu jobs
+  drm/sched: add the drm_client_id to the drm_sched_run/exec_job events
+  drm/sched: cleanup event names
+  drm: get rid of drm_sched_job::id
+  drm/doc: document some tracepoints as uAPI
+  drm/amdgpu: update trace format to match gpu_scheduler_trace
+
+ Documentation/gpu/drm-uapi.rst                |  19 ++++
+ drivers/accel/amdxdna/aie2_ctx.c              |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |  32 +++---
+ drivers/gpu/drm/drm_debugfs.c                 |  10 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c  |   2 +-
+ drivers/gpu/drm/imagination/pvr_job.c         |   2 +-
+ drivers/gpu/drm/imagination/pvr_queue.c       |   5 +-
+ drivers/gpu/drm/imagination/pvr_queue.h       |   2 +-
+ drivers/gpu/drm/lima/lima_gem.c               |   2 +-
+ drivers/gpu/drm/lima/lima_sched.c             |   6 +-
+ drivers/gpu/drm/lima/lima_sched.h             |   3 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c          |   8 +-
+ drivers/gpu/drm/nouveau/nouveau_sched.c       |   3 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c       |   2 +-
+ drivers/gpu/drm/panthor/panthor_drv.c         |   3 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c         |   2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |   5 +-
+ drivers/gpu/drm/panthor/panthor_sched.h       |   3 +-
+ .../gpu/drm/scheduler/gpu_scheduler_trace.h   | 100 +++++++++++++-----
+ drivers/gpu/drm/scheduler/sched_entity.c      |  16 ++-
+ drivers/gpu/drm/scheduler/sched_fence.c       |   4 +-
+ drivers/gpu/drm/scheduler/sched_internal.h    |   2 +-
+ drivers/gpu/drm/scheduler/sched_main.c        |  11 +-
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |   2 +-
+ drivers/gpu/drm/v3d/v3d_submit.c              |   2 +-
+ drivers/gpu/drm/xe/xe_sched_job.c             |   3 +-
+ include/drm/gpu_scheduler.h                   |  13 ++-
+ 31 files changed, 184 insertions(+), 97 deletions(-)
+
 -- 
-2.34.1
+2.43.0
 
