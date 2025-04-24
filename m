@@ -2,75 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81760A9B770
-	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 21:01:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C658DA9B864
+	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 21:42:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D14A110E860;
-	Thu, 24 Apr 2025 19:01:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB43E10E84D;
+	Thu, 24 Apr 2025 19:42:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Q3yeMYEV";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="OufSxmzq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D80E810E85B;
- Thu, 24 Apr 2025 19:01:39 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id B6A97443A6;
- Thu, 24 Apr 2025 19:01:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1745521298;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZiG+eY4/6DfmVhqwEGto1bBfeJJItjfMUvkQ8WFHCiM=;
- b=Q3yeMYEVYzuYyyGJiR31+9UCksAyeaX696NZPd3iMQR37dr7Zy+bvWYlf1mAG88yQVg3Ps
- yolDD0AcIw6YU0Y+6DwvOszsjC7X/owF0Bjt/APta662mls7fmYR/uNX5lQKsWDeMDX72L
- UEDETa4ivQ9oAc/biBUcgvu1475piaUQaU3OKOKlIC6z5PBBouv5BFK4aV4hChYSoFc5k5
- B+JvsfsG3WRyOBn+FFe0o6ftc1DFf3Fjt64H1uRNJ2x/uECljdePxgH0lf4WbERBhgHw+I
- FD5KK6bx9eD19gjg5uKpM7lUi7h/5q+bXnM2k7vtI4bYo2Bf0VS/Ckv96UdoMw==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 24 Apr 2025 20:59:40 +0200
-Subject: [PATCH v2 33/34] drm/bridge: add devm_drm_put_bridge()
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3682D10E84D;
+ Thu, 24 Apr 2025 19:42:01 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53OC3CFT013019;
+ Thu, 24 Apr 2025 19:41:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ kmrdY01l/P1o7a+YzkNeqbcMF6GdVsxYqz3ZJBSMMoQ=; b=OufSxmzqd39nivK6
+ y83oZX6KyORiGGh/dpBIGtoL969ZQkMiuyPTpuN3KMY+eVh05GjSJ8NyQ6H31EfF
+ 1nJu5o/lPaWoJalsUs6oHuqEHH+r2XIaOtdqP+FHm5QcTxXanaM9XJlaA5zLj57X
+ tA1opXxxc6etAIjc78MYFdUAgNp9WZm/Wu0VhbVG55jUXfdw4EvRo2GuW5MBy3Wc
+ OUS4ZUc+RHkp/gnLdkvCfLHOMa7xeUSDRoldxozVI/QUB4iHyfO958AXmzf1NXzO
+ rogegBFTX7bfsy5hDAJsvbyOKBBAP57bomRR2xKNwGQJbuF13SB/nphhVLEY9rpx
+ I7yijw==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh06rn6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Apr 2025 19:41:53 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53OJfqkG002909
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Apr 2025 19:41:52 GMT
+Received: from [10.110.70.248] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 24 Apr
+ 2025 12:41:51 -0700
+Message-ID: <b0d81293-af00-4d84-96b4-2a26e1ea8677@quicinc.com>
+Date: Thu, 24 Apr 2025 12:41:50 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/7] drm/msm/mdp4: register the LVDS PLL as a clock
+ provider
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Bjorn
+ Andersson" <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>
+References: <20250227-fd-mdp4-lvds-v3-0-c983788987ae@linaro.org>
+ <20250227-fd-mdp4-lvds-v3-3-c983788987ae@linaro.org>
+ <029f3bfb-a031-4dfe-a2b4-bc41a0da7772@quicinc.com>
+ <orh3v7knajhmpv4uzmarpgdbfhkhtipjxc7agfmvlqdzggpwzz@yohc5d763ynp>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <orh3v7knajhmpv4uzmarpgdbfhkhtipjxc7agfmvlqdzggpwzz@yohc5d763ynp>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250424-drm-bridge-convert-to-alloc-api-v2-33-8f91a404d86b@bootlin.com>
-References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
-In-Reply-To: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Douglas Anderson <dianders@chromium.org>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Anusha Srivatsa <asrivats@redhat.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, Dmitry Baryshkov <lumag@kernel.org>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, asahi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.14.2
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvhedtvdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegrgeeivdemudgsuggumeeluddtudemvdelgehfnecuvehluhhsthgvrhfuihiivgepvdelnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemrgegiedvmedusgguugemledutddumedvleegfhdphhgvlhhopegludelvddrudeikedrudejkedruddukegnpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfeejpdhrtghpthhtohepkhhriihksehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepjhgrghgrnhesrghmrghruhhlrghsohhluhhtihhonhhsrdgtohhmpdhrt
- ghpthhtohepihhmgieslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepnfgruhhrvghnthdrphhinhgthhgrrhhtsehiuggvrghsohhnsghorghrugdrtghomhdprhgtphhtthhopehlihhnuhigqdhmvgguihgrthgvkheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdprhgtphhtthhopehfrhgvvggurhgvnhhosehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
-X-GND-Sasl: luca.ceresoli@bootlin.com
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI0MDEzNyBTYWx0ZWRfX3P9lTmTh1nzA
+ GZkD/jsp/3Z6etBOcdqVOaFYzwTlZN9w4KMyZeaSBHWmTfbwGznlPrJVnGNDdanLNgYXawWUgbS
+ Y5yhCh8mVaUVzdMF86KExfivM9T3OgoYc/+MsD+R5IUKdO+SCF2p/bJrKxmPW+HG0Da/zLgjfHn
+ tlnlYyq4LKjFO2DxBztzRZx2VKoKXjPNjmq+aFMe6xHJ0uZKHTzNQaAl/urZv15MAqnhCtcFrxs
+ NaVzOBcIhETv7v+cyk3Ud0cYV66AX3N3MG9SjQjvmZcIaaRg7cn7dlbJ3ndU9u+Mln6l6G5K5Tu
+ nsFDziZdirsluywhgsEY7LcTI8CenFPLCCdAW5YHCEri9Hc1oJTU6+FD2VrsJvieAhALpryYduR
+ 27L5kFPN48/sVlleqz2AtO1HcjaA2GUeEf1XYX+5rMOSF9FLIK1jYp0cJ7GmNOtOkmLTyxVj
+X-Proofpoint-GUID: aTsTeaZslzfWCmtMOsf1f2bO3Chcbxq-
+X-Authority-Analysis: v=2.4 cv=ZuTtK87G c=1 sm=1 tr=0 ts=680a9401 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8
+ a=KKAkSRfTAAAA:8 a=3cKAJhnaDEdsQ5v88lUA:9
+ a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: aTsTeaZslzfWCmtMOsf1f2bO3Chcbxq-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-24_08,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1011
+ impostorscore=0 bulkscore=0 mlxscore=0 adultscore=0 lowpriorityscore=0
+ mlxlogscore=999 priorityscore=1501 malwarescore=0 suspectscore=0
+ spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504240137
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,71 +117,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Bridges obtained via devm_drm_bridge_alloc(dev, ...) will be put when the
-requesting device (@dev) is removed.
 
-However drivers which obtained them may need to put the obtained reference
-explicitly. One such case is if they bind the devm removal action to a
-different device than the one implemented by the driver itself and which
-might be removed at a different time, such as bridge/panel.c.
 
-Add devm_drm_put_bridge() to manually release a devm-obtained bridge in
-such cases.
+On 4/24/2025 3:22 AM, Dmitry Baryshkov wrote:
+> On Wed, Apr 23, 2025 at 03:54:13PM -0700, Abhinav Kumar wrote:
+>>
+>>
+>> On 2/26/2025 6:25 PM, Dmitry Baryshkov wrote:
+>>> The LVDS/LCDC controller uses pixel clock coming from the multimedia
+>>> controller (mmcc) rather than using the PLL directly. Stop using LVDS
+>>> PLL directly and register it as a clock provider. Use lcdc_clk as a
+>>> pixel clock for the LCDC.
+>>>
+>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h          |  2 +-
+>>>    drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c |  8 +++++++-
+>>>    drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c     | 22 +++++++---------------
+>>>    3 files changed, 15 insertions(+), 17 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+>>> index 142ccb68b435263f91ba1ab27676e426d43e5d84..b8bdc3712c73b14f3547dce3439a895e3d10f193 100644
+>>> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+>>> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+>>> @@ -207,6 +207,6 @@ static inline struct drm_encoder *mdp4_dsi_encoder_init(struct drm_device *dev)
+>>>    }
+>>>    #endif
+>>> -struct clk *mpd4_lvds_pll_init(struct drm_device *dev);
+>>> +int mpd4_lvds_pll_init(struct drm_device *dev);
+>>>    #endif /* __MDP4_KMS_H__ */
+>>> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+>>> index 8bbc7fb881d599e7d309cc61bda83697fecd253a..db93795916cdaa87ac8e61d3b44c2dadac10fd9e 100644
+>>> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+>>> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+>>> @@ -381,7 +381,13 @@ struct drm_encoder *mdp4_lcdc_encoder_init(struct drm_device *dev,
+>>>    	drm_encoder_helper_add(encoder, &mdp4_lcdc_encoder_helper_funcs);
+>>>    	/* TODO: do we need different pll in other cases? */
+>>> -	mdp4_lcdc_encoder->lcdc_clk = mpd4_lvds_pll_init(dev);
+>>> +	ret = mpd4_lvds_pll_init(dev);
+>>> +	if (ret) {
+>>> +		DRM_DEV_ERROR(dev->dev, "failed to register LVDS PLL\n");
+>>> +		return ERR_PTR(ret);
+>>> +	}
+>>> +
+>>> +	mdp4_lcdc_encoder->lcdc_clk = devm_clk_get(dev->dev, "lcdc_clk");
+>>>    	if (IS_ERR(mdp4_lcdc_encoder->lcdc_clk)) {
+>>>    		DRM_DEV_ERROR(dev->dev, "failed to get lvds_clk\n");
+>>>    		return ERR_CAST(mdp4_lcdc_encoder->lcdc_clk);
+>>
+>> Change seems fine to me, one question on the order of changes, DT change has
+>> to be merged first otherwise it will fail here?
+> 
+> It is already semi-broken, as just enabling the PLL is not enough. The
+> branch clocks in MMSS are to be toggled / manipulated. As such, it's
+> questionable if we need to coordinate or not.
+> 
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/drm_bridge.c | 14 ++++++++++++++
- include/drm/drm_bridge.h     |  4 ++++
- 2 files changed, 18 insertions(+)
+Yes but wouldnt this cause mdp4_lcdc_encoder_init() failure which in 
+turn will cause mdp4_kms_init() failure?
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index b4c89ec01998b849018ce031c7cd84614e65e710..456363d86080b2a55035c3108c16afa4f9e57e06 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1392,6 +1392,20 @@ struct drm_bridge *of_drm_find_bridge(struct device_node *np)
- EXPORT_SYMBOL(of_drm_find_bridge);
- #endif
- 
-+/**
-+ * devm_drm_put_bridge - Release a bridge reference obtained via devm
-+ * @dev: device that got the bridge via devm
-+ * @bridge: pointer to a struct drm_bridge obtained via devm
-+ *
-+ * Same as drm_bridge_put() for bridge pointers obtained via devm functions
-+ * such as devm_drm_bridge_alloc().
-+ */
-+void devm_drm_put_bridge(struct device *dev, struct drm_bridge *bridge)
-+{
-+	devm_release_action(dev, drm_bridge_put_void, bridge);
-+}
-+EXPORT_SYMBOL(devm_drm_put_bridge);
-+
- static void drm_bridge_debugfs_show_bridge(struct drm_printer *p,
- 					   struct drm_bridge *bridge,
- 					   unsigned int idx)
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 4e418a29a9ff9d014d6ac0910a5d9bcf7118195e..6f00a3998ed6d026332b0f1e3bb5bee3cb5158e0 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1265,6 +1265,8 @@ static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
- 	return ERR_PTR(-ENODEV);
- }
- 
-+static inline void devm_drm_put_bridge(struct device *dev, struct drm_bridge *bridge) {}
-+
- static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
- 						     struct device_node *node,
- 						     u32 port,
-@@ -1274,6 +1276,8 @@ static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
- }
- #endif
- 
-+void devm_drm_put_bridge(struct device *dev, struct drm_bridge *bridge);
-+
- void drm_bridge_debugfs_params(struct dentry *root);
- void drm_bridge_debugfs_encoder_params(struct dentry *root, struct drm_encoder *encoder);
- 
+So I thought that by merging the DTSI piece first this can be avoided.
 
--- 
-2.49.0
+>>
+>> Will that be managed by co-ordinating with the DT maintainer?
+>>
+> 
 
