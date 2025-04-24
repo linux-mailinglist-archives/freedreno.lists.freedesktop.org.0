@@ -2,79 +2,117 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 887ADA9B995
-	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 23:12:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 740C1A9BA22
+	for <lists+freedreno@lfdr.de>; Thu, 24 Apr 2025 23:49:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47A1310E872;
-	Thu, 24 Apr 2025 21:12:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C04210E876;
+	Thu, 24 Apr 2025 21:49:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ll9F8mlz";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="P5cOLPW8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
- [209.85.166.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A01AB10E86D;
- Thu, 24 Apr 2025 21:12:29 +0000 (UTC)
-Received: by mail-io1-f47.google.com with SMTP id
- ca18e2360f4ac-86135ad7b4cso44666839f.1; 
- Thu, 24 Apr 2025 14:12:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745529148; x=1746133948; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5jecia6s2JNR2xEO3HrUkYsvVoWooMAU8KQ0rtFmv/c=;
- b=Ll9F8mlz79Bh3evWU8PMvjRNHY/z2I73OaULgEidr9cYNx0BdgKeR3drDE2fS2dHfQ
- rAoBj/qaAEobyYkf8hyKVpCHo1Dpxm/erHCnnIul3A/DefYlf5MEMhMPj0xcpADz+0tw
- T1mEQ9Wt47f4eigo/WP6ZWRhQZkLzz1FsiEcxMibgeCPwdBSqbqCnauJq+crSCM+82nD
- loBmj7kIO7QJ9Ev1vfZ5BXhjhxevpvxH+UP3XqCR17qj8jWSgKZTSu2wB/QYD+u5/qmj
- lHMH12C8odvDA74CQL8ao63h+yLLGhsMihXvthfseJpRcixRSNNZOHDxPOu4Zt1/aMxn
- njhw==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D5E110E876
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Apr 2025 21:48:55 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53OJmpgw008490
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Apr 2025 21:48:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=vJjKyI0rQI/9msOKqrosK9Bq
+ uNXjcnMHw9Fb+7VsjdE=; b=P5cOLPW8tJRX6P/90ulOi4MeADMGmK9LLjAGy7y7
+ 0oI+UnDh0e4YfWrxqdBohtrb1TDHB3Kf7H9wFjHG/keMJFsWqfoji1fYIMikm4SW
+ XZIbBw2qmwVHrVEcQfah8A5qEelf4WPPY4nSB5MygvuPs21BV+zU1JgR/TcXsJ8p
+ Pxc1f1gNOXV2HBUxDOlEePVL27A9uo7kWMsRegqPEQ5EEy4i3bOVPkDwoqE4JREg
+ zIwLyeLbBnXkmfH550nYhtvfrszE1pVGbjxNLvAHZkix6ZzUBJlQs6cQC5iVgZAn
+ 5kvTW6mQTaQ4T8Unwd+A5UgiKTfF0y42gh097fPsfl58XA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh3pxg8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Apr 2025 21:48:54 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c0a3ff7e81so263343685a.3
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Apr 2025 14:48:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745529148; x=1746133948;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5jecia6s2JNR2xEO3HrUkYsvVoWooMAU8KQ0rtFmv/c=;
- b=GmxwH8/L+wsOvw/oy8yWXb6/9+pw2Je9c7rUHo1JtDTIxcCD15Ie4B3cqVCG/Xxqf2
- lyIVkdVkD/zf5lH5dD9zNb/j2KwQRrDtleqwOGUoDN16uiMS/O2bT72g9dPGCEYEy7M2
- a36m+6HI1nSv2TSPMgOP8xe1XXqC5tlZCzMZHczZEYa7IoktdjsrNy5PIh+3BZUGJ4KP
- kP0yNqvCZv92P+Mzdqu3DdW2sdIkPhtal9pO/6D4VrdJM1NinFk38VT0X6ycAZ6k0Kaj
- lQuybquTT7lxAs99/S56WnJCsvWwvs6wYG82Klb4BGYEQQ6lhon+Oaa/g/+kxSTx5ZmM
- V0+w==
+ d=1e100.net; s=20230601; t=1745531334; x=1746136134;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vJjKyI0rQI/9msOKqrosK9BquNXjcnMHw9Fb+7VsjdE=;
+ b=u2U7xWOSJm/5JsgEs7MouokN1Yb97rD+UlWsEuW+tzRRz0ahTlwS2IUFt/lEYwd66S
+ gbGWzQRKZzRhnyu6YC/j5r5kNbEZPhVHy/UuZLZ8XJona2EACL2NDZ6+lNjdHSDkZqyx
+ zeEnWLSEmCQcpusbnRKpBrtWDYWEfct2o2inl1UyaYi/iwQhj6bAkyfMsTqOK944etz7
+ 5p+DFosQSrC6hFWZGqbfm+ggBs0PHy0LEF+VA3nhExpWmmdf9hgBblwbTryuAX1ICejf
+ fktwbjsGN8G1DKD/febRiMegKUQ2nx0TNRIL/mKRjIBAlAyVRuEh12xHHbG27O74+TIH
+ HuOA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUCcsnPsu44Ypz1L1d7JeeMN7/PJ2mhZTqpSVxdF3lFg3Bq1YbbMwzdlImqH5g+tJknKT5Oxhfrnud8@lists.freedesktop.org,
- AJvYcCVCn020bwc+fJWoPTNoXuglHgV2t856QPj2sI5uozxI/IN/P76NORz647bfQSBD0zPIgjuNIkoV5Dk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNQbj9wKmW3Ydj6kAhDBj5oMGqRhpCfOiLtiMDCsGDAg1YcnA3
- 0FhtybCpRNtYzdJFlAQ4Y2NHk2/pgYZjYe0pQHax/Q2a796daRLByo78ghuTRsZpBLkp99OwAGu
- iUs5GY6JOpNdVF/QPr2tBlSRbKvU=
-X-Gm-Gg: ASbGncvH7sy9n5xyFU1Gxj3qkQKEKg+Ayo4nUxkAlPSLr1TFFcs96hjHAcWNf8kte88
- 6QKdHt4RmMyVjiasT3J5bE85vR521MtGF07jlMfoUlK49PkOJN94elOjhddiDAYFku46350Wnkz
- Ym/hNVmcOfLvqK9H/aCzxpeJhiLcWkyEzAIcbWTaKhRLM9jDAWq/4lwajt
-X-Google-Smtp-Source: AGHT+IGwg57PbGCAJtcA1b9fqEb8SXvQsj9ID0gfQZuJ29n4nfIKh+iiGOC7fjlxHKkpbrZ6VyFzhutJKQUYzyyRRFU=
-X-Received: by 2002:a05:6e02:188f:b0:3d6:cbed:330c with SMTP id
- e9e14a558f8ab-3d9303b7774mr45553075ab.11.1745529148486; Thu, 24 Apr 2025
- 14:12:28 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250417021349.148911-1-alex.vinarskis@gmail.com>
-In-Reply-To: <20250417021349.148911-1-alex.vinarskis@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 24 Apr 2025 14:12:15 -0700
-X-Gm-Features: ATxdqUHz6DZ9blgWAq2Iad4ekg_aVkIGiDF4KqqZFyT1Q27qjUmJcTIdj9Q8vng
-Message-ID: <CAF6AEGs5Sw76kVS6_GaK6=VZ3jWPuqN9bc+7UvVU=jfaBBTLDQ@mail.gmail.com>
-Subject: Re: drm/msm/dp: Introduce link training per-segment for LTTPRs
+ AJvYcCXnyJI0biqwdrAgeGAf+mL+Y/57M0icLLOQfAUwtOn4+EkkDCqnV5yA3IUaAcAUTI7RFdrM3DoJtQc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz21RXjdpGSd4elNwLpNABuu39acvO8V+Q4fJlhIYAwjkD3VGmy
+ +2zv6tI2adSeLq6R3tKWfeM14DDja+wQ3zD7qfwIp/Sq5gj0DdBjG6XW2vpikZp1TDqC0Ti/qCU
+ 0KZtIUqm39IoSwJIR4bLARLWS9YTjzZWXTczIUcOQ2X+CZ1cFyrCWsj337ZKdYXrflZo=
+X-Gm-Gg: ASbGncv1mAkrgjgy/8KDtni/uRJRgzVB/gTGdYsQf22VUugjp7S0c7yN1fBzcxpl1a4
+ ZC9R0UMeNEU8bChQ0vh3ns8cZd0PPdRzbmiENz75XzNSmD4Qm08fS98s1hJyZBs1V8cOFppGMQ3
+ I50pvuwknw1e0rVedX1pNfAopYZXxl8aADr1nsIZwT2FbEfDqq/hudFfHb4YvA+8QiORulh/Ja1
+ jlzkNX+l94JWPz2Or1/hX3IpYFK3BLAwIaPW5AcLK2EPSN5LVPHOSWSkA+AXfuQ5ohakUSGyXS4
+ rBi8H7wAOGoVsOIl9BT0bZTzAjzcDMlX2OAaKSVI5CtfdIeII5Joc2deRgTj7Pd+cXQUYAeDBmA
+ =
+X-Received: by 2002:a05:620a:2a11:b0:7c7:aed7:907b with SMTP id
+ af79cd13be357-7c9607d2caamr24641985a.54.1745531333783; 
+ Thu, 24 Apr 2025 14:48:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE0qarO4qVaIHzjVmmbkwRDLZaton6bL+gzlVk0PfxAhAHsQF6WlByLxtZIfk0z6pubJzUsMQ==
+X-Received: by 2002:a05:620a:2a11:b0:7c7:aed7:907b with SMTP id
+ af79cd13be357-7c9607d2caamr24639485a.54.1745531333520; 
+ Thu, 24 Apr 2025 14:48:53 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54e7cca7fbbsm364985e87.159.2025.04.24.14.48.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Apr 2025 14:48:52 -0700 (PDT)
+Date: Fri, 25 Apr 2025 00:48:50 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+Cc: Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, laurentiu.tudor1@dell.com,
- abel.vesa@linaro.org, johan@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ laurentiu.tudor1@dell.com, abel.vesa@linaro.org, johan@kernel.org
+Subject: Re: [PATCH v3 1/4] drm/msm/dp: Fix support of LTTPR initialization
+Message-ID: <num3gu5gfpnu3hw7ofk5ado2hnmftgqw3jfzlp4pi4yganugvu@ntsyr6lwry7v>
+References: <20250417021349.148911-1-alex.vinarskis@gmail.com>
+ <20250417021349.148911-2-alex.vinarskis@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250417021349.148911-2-alex.vinarskis@gmail.com>
+X-Proofpoint-ORIG-GUID: iLJnG35TuGkxBZbptkQED_mVr_W5PtUE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI0MDE1MyBTYWx0ZWRfXyUBFSSsU8ixE
+ L9ADLj5bngt2NszGh8FekZ+PPaZiTvxPop4Qf4BgEE01ZUcOkv0hVZBua8pLO8OCjhCTFnJ8Fiv
+ 0FYlxg+l+5wPJU/EJjDXUtwMksoLJ7BAaZ6kOQn/SJZgIoCrRSTWBaNcriqwwnkO9ChNCxCBkgQ
+ ZrFkf3X7ieEsHGOtu9RlrLlPAt4WgFb17c8X8tjr2LAxftsL8fSpEADJ7gRuSE8MIhohlaKsGQY
+ Bsr3woaxFBfmapeSRudXEXcMCC0nlVznqPy1w/UwGqyJQ58CvosaPJnsdEgYfqyXOtAvaIYgLwv
+ s8QwobYaObPsbfKZGP5mqgRaHL97H/arEjtnDLZWTFZ1T9J9NUC52InmeStMVPalXI1ltLg7yzF
+ pTNHN7sllAq+JXq+XlBgN7yjPgQvEiduKEXSKQC/PaXgxyXLN33otv9HLQKPOiSuYweK6TBo
+X-Authority-Analysis: v=2.4 cv=ELgG00ZC c=1 sm=1 tr=0 ts=680ab1c6 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=XR8D0OoHHMoA:10 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=7ctMvB4_1dO5SEtod34A:9
+ a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: iLJnG35TuGkxBZbptkQED_mVr_W5PtUE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-24_09,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 phishscore=0 spamscore=0
+ mlxscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ mlxlogscore=988 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504240153
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,123 +128,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Apr 16, 2025 at 7:13=E2=80=AFPM Aleksandrs Vinarskis
-<alex.vinarskis@gmail.com> wrote:
->
-> Recently added Initial LTTPR support in msm/dp has configured LTTPR(s)
-> to non-transparent mode to enable video output on X1E-based devices
-> that come with LTTPR on the motherboards. However, video would not work
-> if additional LTTPR(s) are present between sink and source, which is
-> the case for USB Type-C docks (eg. Dell WD19TB/WD22TB4), and at least
-> some universal Thunderbolt/USB Type-C monitors (eg. Dell U2725QE).
->
-> First, take into account LTTPR capabilities when computing max link
-> rate, number of lanes. Take into account previous discussion on the
-> lists - exit early if reading DPCD caps failed. This also fixes
-> "*ERROR* panel edid read failed" on some monitors which seems to be
-> caused by msm_dp_panel_read_sink_caps running before LTTPR(s) are
-> initialized.
->
-> Finally, implement link training per-segment. Pass lttpr_count to all
-> required helpers.
-> This seems to also partially improve UI (Wayland) hanging when
-> changing external display's link parameters (resolution, framerate):
-> * Prior to this series, via direct USB Type-C to display connection,
->   attempt to change resolution or framerate hangs the UI, setting does
->   not stick. Some back and forth replugging finally sets desired
->   parameters.
-> * With this series, via direct USB Type-C to display connection,
->   changing parameters works most of the time, without UI freezing. Via
->   docking station/multiple LTTPRs the setting again does not stick.
-> * On Xorg changing link paramaters works in all combinations.
->
-> These appear to be mainlink initialization related, as in all cases LT
-> passes successfully.
->
-> Test matrix:
-> * Dell XPS 9345, Ubuntu 24.10, Gnome 47, Wayland (myself)
->         * Left USB Type-C, Right USB Type-C
->         * Direct monitor connection, Dell WD19TB, Dell WD22TB4, USB
->           Type-C to HDMI dongle, USB Type-C to DP dongle
->         * Dell AW3423DWF, Samsung LS24A600, dual Samsung LS24A600 (one
->           monitor per USB Type-C connector)
-> * Dell XPS 9345, Ubuntu 24.10, Gnome 47, Wayland (myself)
->         * Left USB Type-C, Right USB Type-C
->         * Direct monitor connection
->         * Samsung S34BG85 (USB Type-C), Dell U2725QE (universal
->           Thunderbolt/USB Type-C, probes with an LTTPR when in USB
->           Type-C/DP Alt mode)
-> * Dell XPS 9345, Debian trixie/sid, Gnome 48, Wayland (Stefan Schmidt)
->         * Left USB Type-C, Right USB Type-C
->         * Dell WD15 Dock with DisplayPort connected
->         * Dell HD22Q dock with HDMI connected
->         * USB Type-C to HDMI dongle
->         * Dell U3417W
-
-For the series,
-
-Tested-by: Rob Clark <robdclark@gmail.com>  # yoga slim 7x
-
-patch 4/4 had a number of conflicting hunks, you might need to rebase
-on msm-next
-
-BR,
--R
-
-> In both cases, "Thunderbot Support"/"USB4 PCIE Tunneling" was disabled
-> in UEFI to force universal Thunderbolt/USB Type-C devices to work in
-> DP Alt mode.
-> In both cases laptops had HBR3 patches applied [1], resulting in
-> maximum successful link at 3440x1440@100hz and 4k@60hz respectively.
-> When using Dell WD22TB4/U2725QE, USB Type-C pin assigment D got enabled
-> and USB3.0 devices were working in parallel to video ouput.
->
-> Known issues:
-> * As mentioned above, it appears that on Gnome+Wayland framerate and
->   resolution parameter adjustment is not stable.
->
-> Due to lack of access to the official DisplayPort specfication, changes
-> were primarily inspired by/reverse engineered from Intel's i915 driver.
->
-> [1] https://lore.kernel.org/all/20250226231436.16138-2-alex.vinarskis@gma=
-il.com/
->
+On Thu, Apr 17, 2025 at 04:10:32AM +0200, Aleksandrs Vinarskis wrote:
+> Initialize LTTPR before msm_dp_panel_read_sink_caps, as DPTX shall
+> (re)read DPRX caps after LTTPR detection, as required by DP 2.1,
+> Section 3.6.7.6.1.
+> 
 > Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
->
 > ---
->
-> Changes in v3:
-> - Split 1st patch into 3
-> - Simplified handling of max_lttpr_lanes/max_lttpr_rate
-> - Moved lttpr_common_caps to msm_dp_link (not msm_dp_panel, as LTTPRs
->   are link related, not panel related)
-> - Picked Stefan's T-b tag (last patch only, as 1st one is getting split)
-> - Droped Abel's R-b tags from 1st patch that got split due to high diff
-> - Fixed alignment issues, initialization of variables, debug prints
-> - Moved lttpr_count to avoid ugly pointer
-> - Link to v2: https://lore.kernel.org/all/20250311234109.136510-1-alex.vi=
-narskis@gmail.com/
->
-> Changes in v2:
-> - Picked up Abel's R-b tags
-> - Fixed typo as per Abel, fixed readability as per Johan
-> - Updated cover and commit message on mailink issue which appears to be
->   specific to Gnome+Wayland. No problems on Xorg.
-> - Link to v1: https://lore.kernel.org/all/20250310211039.29843-1-alex.vin=
-arskis@gmail.com/
->
-> Aleksandrs Vinarskis (4):
->   drm/msm/dp: Fix support of LTTPR initialization
->   drm/msm/dp: Account for LTTPRs capabilities
->   drm/msm/dp: Prepare for link training per-segment for LTTPRs
->   drm/msm/dp: Introduce link training per-segment for LTTPRs
->
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 126 ++++++++++++++++++++--------
->  drivers/gpu/drm/msm/dp/dp_display.c |  27 ++++--
->  drivers/gpu/drm/msm/dp/dp_link.h    |   4 +
->  drivers/gpu/drm/msm/dp/dp_panel.c   |  12 ++-
->  4 files changed, 122 insertions(+), 47 deletions(-)
->
-> --
-> 2.45.2
->
+>  drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+> 
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+-- 
+With best wishes
+Dmitry
