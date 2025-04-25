@@ -2,86 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A59BCA9C444
-	for <lists+freedreno@lfdr.de>; Fri, 25 Apr 2025 11:52:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43280A9C445
+	for <lists+freedreno@lfdr.de>; Fri, 25 Apr 2025 11:52:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5922C10E91A;
-	Fri, 25 Apr 2025 09:52:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E25F910E91E;
+	Fri, 25 Apr 2025 09:52:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mCHfUH2e";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="i/vqPwgp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83F9A10E91A
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:05 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53P8TGK7025223
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:04 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93F5310E91E
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:07 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53P8T78S008601
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- TZfczLUxnWTdMqDmkRvetbnLGF6+K+kBxElbD/jIQGQ=; b=mCHfUH2eedgMf8ua
- ulLCCbT8l+iO9zEcYHxVfAEbKNLEPjskH6QYR4aFYBOmJXnpSM03V2bXh/F/drKQ
- 4cVAJv8UBOyV0M3gOz2X9rGsOD5iIk6ASu/EMV0ASJHRuaV7azWaakkhKWt8P2lu
- jVl5mCOHytZiKDKP6xtUHuYCReLv1ihhWOAE2jjARbQOkPpNca5xqI/1vsDBgsi+
- 1bnaxGr+CEn0H5uTpuS1Tp0v6IICM7smLCuzmSnISk383jrM7R6+fZEfvmV+gnoa
- ES3SH7dV2FBN9zonP10IKL7rv8Hcwf4jhzzm349/LSj46EfuYozOQyeye9dy4Er7
- aoPQ3Q==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh3rg29-1
+ ViRsjns1v8Jro2gFleFt5r8weaEEOv6Mpy9ydokco3c=; b=i/vqPwgpSUlhVzrp
+ bL0NIDzAcykLSIAA0KhJpA7nIZlBF1U0mj864gs+xAomimCbDsyBYG4038Vv7WfL
+ YK5sg5hW5qd2HxIluNNtHS3fAhch8SyMmssCszQNVyZY/iqP/lwEuoWwaOfXW7TG
+ 8WFtVYGilE9ACORLbiQRFtsQaFCwPdecB5W/KJzquQT0BahzZeA7wFlfZusYdgac
+ LKOzxz1CcdFM+Iw8135ASNxEDD9LmHaD5HZwrYisBd8qOzf/mUq8JvtJik37+se2
+ elLs2wqVOo7Y2HgzW8nWIMHdcVWAao7YErPYBBod/6DZNzEkKTeaYYMS1dj7RH3E
+ BldwpA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jgy8gy1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:04 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7c53e316734so345063385a.2
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 02:52:04 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:06 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-7c5c82c6d72so343342085a.2
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 02:52:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745574723; x=1746179523;
+ d=1e100.net; s=20230601; t=1745574726; x=1746179526;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TZfczLUxnWTdMqDmkRvetbnLGF6+K+kBxElbD/jIQGQ=;
- b=u1z/x6irQHloO3+dWSw4bL+XmDjgIVnuMiiEO5JWjPW5Z77zpg2f5YAgwDvjLkAv8b
- +yttIQXIexMCC0r5rbhRkhtRR7IGLZ/gt2ATOFsHpQyFgF3QE5/PP2wFWjTugJbe0rxc
- Ptl7g0UcZ+sWXzgYPMlflAbGxF3e4GdQnNR4K4LboqYpY9OkDdvoeo8Cz6/nCfBQwvJt
- A/D4JGFYom5EEC3xfLjLEuESj6KUhRqXGlDT3Dl3uLCH39PS5fS+B91xIjviRz2WnWvO
- XWRB7OlxreIA6naqOOZGYgzrfgK6uos1amY7NpiZMMjg/yCRTIRceZE+So1+QDhZ4z40
- quqw==
+ bh=ViRsjns1v8Jro2gFleFt5r8weaEEOv6Mpy9ydokco3c=;
+ b=AguHSFxCeZYEmXIeWJZIKbvrC5L1jT1UvAgIWRUNUsZl/AIIr3djgyFGFwKWOFkAYD
+ xwvs7LMXlqcRzN1l6A9eBpS0PVhxZ/S+0KkrSaYAUFeVdhSn9lrR9IE58aswIfikeRP4
+ lJEz1rH+/oImB3bP0vLmSnOnEe/GHnf3XkBUBZoGycXbZb3h6hD6Bon/vrfwJQmYXTbd
+ istJLmLdPOfD7jAgIpIa+BEmTjc2hdVvbcqrBTVBOPAAcm8Jd3xm/T/HiD8shefUVDiP
+ lglnX1XGP+0TMhUFoacwnwia2X1ebNXHt5PqtJfG9kaASNupLZM+iKLqWhDQXL78dOVO
+ U0iw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVe9/Ki1tVq1l6fi2al+A55GN/npTsOZFxj2h3wfD1rS3N5UckLJ5qYOtB06o4v2Fl8uVq+IYDwnVA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxeON2OGGMpb2XhTkQUz0KtuEaYOSBDpxg6bDFmThAyhe3/a17k
- jV/+XMzcpqXElA+TmP916WTPDObYXGY7Z7dWJJ+xRV1ZltfwzmxTqmlL/S0Tgx8dsLD7cG5fu5f
- R8ydfc5l2Jg/yhoiE5nJYsyRBS3uDEPSuLqelCZI1MzpJ9/RR9KiA/77WgxfAQxn4aHekR7REQA
- I=
-X-Gm-Gg: ASbGncsRAP55MnPDNUm7KnYFDKCXj0BrHeWie4dgnLkiestu8Rto7yYwoNDNPA6rkT/
- uDucihdIUEquY38vN2JZpq6E4tpYx15hTgp/GRjaS3RMRG2rKlBW+kgeK03akIUSaWp2BCb3eGS
- ivLuyHsnWlC9mUcwEoPq69iWmNoE+hgcpjzjzvCSOXarrF7MBaToLDWwq5XNTUx5ymo03Wmm8DF
- qzPUFqJ4V1L002/ZbMz1QtQCoGCfGFmAuNrQEdxgg0QnpXhHRtLzcCLBj0Ic8lMfFYIjxDxY/m7
- 0LadPl8LC79M1jQKhtzkr8ofCEkKo6N74VXpLX8kj0cCBUWt7Y4iY/iHnikphcS3e1bf83EhKSy
- yFXRy9wEfwz0wqa3VpQKOTjfm
-X-Received: by 2002:a05:620a:40c4:b0:7c5:53ab:a745 with SMTP id
- af79cd13be357-7c9607a9524mr306226385a.36.1745574723407; 
- Fri, 25 Apr 2025 02:52:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHcOR5RT8Ys3lrOEeDC6ELuWjVuKpQ4U7qX2eJ0JrlAWEm5qUDXGcz5n45dHFY2oJeOok/1nw==
-X-Received: by 2002:a05:620a:40c4:b0:7c5:53ab:a745 with SMTP id
- af79cd13be357-7c9607a9524mr306222285a.36.1745574723063; 
- Fri, 25 Apr 2025 02:52:03 -0700 (PDT)
+ AJvYcCXAI8DCNAQVQRDAWUo3Mb+5gTsntB97fE+DtHBplsEl5CCtGyDS8qR24h+Du7E+UCAUQsKif9uZ5HI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuHoDzeLMcEMvBvWWikkxUaNAV29kqirzdjoGYwY4kwolH4cvd
+ xWGipZeI6eEO2HCW1ZH4c6rEmcknUXn5BTq9vDoRShEh2wkZe55wn2c8FiMUXxRKSikmzyLaMZV
+ SniFzbFKkUmB6Hswa5yLG6XttIJIjrRTkiSh6w5XaiLPxgbsZ0fek6iHZd4pN1xDkdaI=
+X-Gm-Gg: ASbGncukZ9V9naxgpZeJQWWtUd/eMLSXV7aZPuDDauR1g1Nm5UYIFar1dEer/DaB3IY
+ M7DFwCY3VVy7uFa9FpzEtlyRidEhfaF2JJok95V4W0RT9oVeOwDwOJrf+w6GZQmpB9IYYYeS6Ui
+ bo9o+V2XgopL5j622/njPWU5uaelsTCFQnVaF7892yJ2cbIhGXDv5APz06WP0fTD74Gli99NmVp
+ BdkxvtErcdfiF86mwM1c6bHEsrSxru/jAGfKmESomTevtd4zcUrLxlfByTAM+5A0BlDdClTm8tg
+ T4i0JjXc4g7J1dPg4P6MgnayTxblHo6OL8dCHSCWSmRXXJ62C4K2H5qtYMj9w9VoSqv6fd5zHJD
+ OTtcAIpoyFUzfGffQxzC1XPPI
+X-Received: by 2002:a05:620a:2916:b0:7c7:a629:8ae5 with SMTP id
+ af79cd13be357-7c9607b24e8mr256006485a.56.1745574725878; 
+ Fri, 25 Apr 2025 02:52:05 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IECepdx3M8voxwdgIotc4jExjaEsT/aNU+/NJvxWGcXVKGq8zZgS2csyHQXp7J1OZcAB7cxMg==
+X-Received: by 2002:a05:620a:2916:b0:7c7:a629:8ae5 with SMTP id
+ af79cd13be357-7c9607b24e8mr256004185a.56.1745574725551; 
+ Fri, 25 Apr 2025 02:52:05 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54e7ccb7c99sm539164e87.218.2025.04.25.02.52.00
+ 2adb3069b0e04-54e7ccb7c99sm539164e87.218.2025.04.25.02.52.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Apr 2025 02:52:02 -0700 (PDT)
+ Fri, 25 Apr 2025 02:52:03 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 25 Apr 2025 12:51:54 +0300
-Subject: [PATCH v4 4/7] drm/msm/mdp4: use parent_data for LVDS PLL
+Date: Fri, 25 Apr 2025 12:51:55 +0300
+Subject: [PATCH v4 5/7] drm/msm/mdp4: move move_valid callback to lcdc_encoder
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250425-fd-mdp4-lvds-v4-4-6b212160b44c@oss.qualcomm.com>
+Message-Id: <20250425-fd-mdp4-lvds-v4-5-6b212160b44c@oss.qualcomm.com>
 References: <20250425-fd-mdp4-lvds-v4-0-6b212160b44c@oss.qualcomm.com>
 In-Reply-To: <20250425-fd-mdp4-lvds-v4-0-6b212160b44c@oss.qualcomm.com>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -100,40 +99,40 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1330;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4386;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=5QLeLaZ4u0g3jUxOIWPZIeS25ToIY4u/0NRZi3Wj6kk=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoC1s5iD+ue7B/ncg0smiCdmNNJbzhQ7e2zXxwh
- CKQDUKIPP+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaAtbOQAKCRCLPIo+Aiko
- 1cVsB/952BXavkqHOo9fTgYGdajfI8ZXs/aaV7h12vKdVkwrLrXZPXL9YdKOWBEsnBCViNDKJz1
- Sirzb/XOt5rdGdbbG9Jrkkkl3EHLgHvvpAIuJFeOjVv28YnIr0Ik7nKELJLcU8pxyNLsIsSvHQC
- cXg9YZFkfWhqvC6M/UNgNqLj1hmh3Iy8qx6I4osKefG/0EhTWPYMk1/K/Hfff00JHQ9PNlExzay
- 1poSB6PmItQqmNE+OcyvBHWJQRi6YyL4gps1DDO4CstG++o/Rk3da71KT5wnhpdKvpLd5W3Zbig
- pZ739t9ddffJrjlDV923QPmg3hLU/Ov+JyVSbN091wfkTz+9
+ bh=6zDfbr+Ff50cCHiOONUZ29i4X43jN3/ObgolYfFGR7I=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoC1s5Y0P8ukyZ1hYkilVgrYffYkcTvLpslNl2w
+ sJplHwF+wWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaAtbOQAKCRCLPIo+Aiko
+ 1TaXB/0VGI/G1ISEDOkZaFT9pqBVkHDfekywPNWp5O2H7Z4FvVhu+yHLnRliZHkqzPgLLvuHOnW
+ 51ZW3cJpWWXK1v688XqY6G7cLyH08XzUAy/8fiEeknzCOzhyeoie+VkN2QQ72nr8vVJjUCgy2Qy
+ E5HgCku6uLjfA2r7J6gc0tV5Q6PIGTIRO++sSF7yYagJtC6o/mKWAS5ajyk9MPSEQhm4GKhH89K
+ R9Z253sD2HKp/IA5NZkE2gciW5iiTMnqMhB9b+nJzwJfCEvz9mh1u4z/lqsxwB89WbEKKZXI7L/
+ HmrAJYr82dKvzyuSCNuqq7tl28rWs2v6wJkffxGi+CxV2Uce
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: n8sJ-HKmuQsAp_VyZUDsSH0AcvJPrlIk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI1MDA3MSBTYWx0ZWRfX8WWjZiQ2Pl0E
- J5ddofVyttXSdsLxHX4+0UJQ1ZkM44C5eMGR+gHW5QoJWiNx9ckWO8XJ5u77KDLO70q4h24+Qze
- rEQ4ICEWJo6kYb0Q+3xrVFcvhlyn6BiA/tMXl9OzDepd5HFCg2XShTUHhrFiRwJV9o+As+azTIH
- Dcl+vYSfqKaIsWCSR3SJphXKnQvRldubsmbA7WareduU0g86ll3K5XaU6DL9DGe3dpgBwbwDogh
- IKgXnKZKCzLuWHlRPmp/34rjaf0D4rmmkhp4NEDC+qpX2WDsmtm/T2LV4HdEv1HOQS3dl4ukS0R
- SsZxxAtDv8rUdsVommsLWdUBdoiZqRBEf4LdGFbywIXDhydHxDDLqmEpVS4Gy60jUeqKQ8D9G4X
- +oFaaJawR/z9JK9CF4A/KQKWhK/3op5FnlXxWwrm2DnaGs8kL/61mZJoTvFXlQAlfTRIJSVp
-X-Authority-Analysis: v=2.4 cv=ELgG00ZC c=1 sm=1 tr=0 ts=680b5b44 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=9KfIv9cJTkqftt8VF2oA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: n8sJ-HKmuQsAp_VyZUDsSH0AcvJPrlIk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI1MDA3MSBTYWx0ZWRfX6VR56Qg8cASt
+ ZvJFsGDvFbfn9nf9XDwha4CxRuniF3wQE/5bagzR9bhrPL3e+g4p/3qiRJwJlfowHxpzlwjb82d
+ 0FHlrg0ZFnCPyI/8s7sZw8PqYEgaybZQdtH9MtokA3wwdIEB7NCHUyrpvu9WZzFxCiFlSrCMOUa
+ 2FZ9dtcwKWe4LSHbvKfPyEyDrODfz16zlgmJBzPFpTNNWM3sIuNmiW7oSALyq1Z3mSxiWMCJWL0
+ J2ZnoZ8BgBydLBUpuTwaMWlGQKfRhv1N2bU+tNCO7tOyhjkOC2zB7SNyP1rof0nUQOlKOc3OomY
+ ax/muGRmV7Fyn49zX2Fk7CgaxxHPOEvtxS+AnrYZmZTOW/6LeYln7in2nF87XZcq4ELaVe76/EQ
+ za8hbwlWRzaQq2uN0wUT6p64/ufsY6Tk6ol1BHDgJSkRSlxazHp9n1MyJ8gp+KvErhSJqaLJ
+X-Proofpoint-GUID: cXuLedPgMo647tNeYbl_xqhexDQX2ipp
+X-Proofpoint-ORIG-GUID: cXuLedPgMo647tNeYbl_xqhexDQX2ipp
+X-Authority-Analysis: v=2.4 cv=M5VNKzws c=1 sm=1 tr=0 ts=680b5b46 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8
+ a=e5J9yQtEsebikEsHgo4A:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-04-25_02,2025-04-24_02,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 phishscore=0 spamscore=0
- mlxscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
- mlxlogscore=935 classifier=spam authscore=0 authtc=n/a authcc=
+ bulkscore=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 priorityscore=1501 mlxscore=0
+ mlxlogscore=999 malwarescore=0 impostorscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
  definitions=main-2504250071
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -153,39 +152,113 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Instead of using .parent_names, use .parent_data, which binds parent
-clocks by using relative names specified in DT in addition to using global
-system clock names.
+We can check the LCDC clock directly from the LCDC encoder driver, so
+remove it from the LVDS connector.
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h           |  1 -
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c  | 27 ++++++++++++++++------
+ .../gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c    | 21 -----------------
+ 3 files changed, 20 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
-index df2bbd475cc2a11da20ac07be8e757527ef41ae8..fa2c294705105f5facbf7087a9d646f710c4a7fe 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
-@@ -122,14 +122,14 @@ static const struct clk_ops mpd4_lvds_pll_ops = {
- 	.set_rate = mpd4_lvds_pll_set_rate,
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+index 3d7ffd874e0d234f450f6170e623f87572456757..66f5009fdf8aebcc543b5539d1c2d03075171001 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+@@ -191,7 +191,6 @@ struct drm_crtc *mdp4_crtc_init(struct drm_device *dev,
+ long mdp4_dtv_round_pixclk(struct drm_encoder *encoder, unsigned long rate);
+ struct drm_encoder *mdp4_dtv_encoder_init(struct drm_device *dev);
+ 
+-long mdp4_lcdc_round_pixclk(struct drm_encoder *encoder, unsigned long rate);
+ struct drm_encoder *mdp4_lcdc_encoder_init(struct drm_device *dev,
+ 		struct device_node *panel_node);
+ 
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+index 8694e5d7d3f012070c72214df063a6488b2ef707..7f4e8005bc4ae0bc82ec5b87a1fea0530301b427 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+@@ -348,19 +348,32 @@ static void mdp4_lcdc_encoder_enable(struct drm_encoder *encoder)
+ 	mdp4_lcdc_encoder->enabled = true;
+ }
+ 
++static enum drm_mode_status
++mdp4_lcdc_encoder_mode_valid(struct drm_encoder *encoder,
++		const struct drm_display_mode *mode)
++{
++	struct mdp4_lcdc_encoder *mdp4_lcdc_encoder =
++			to_mdp4_lcdc_encoder(encoder);
++	long actual, requested;
++
++	requested = 1000 * mode->clock;
++	actual = clk_round_rate(mdp4_lcdc_encoder->lcdc_clk, requested);
++
++	DBG("requested=%ld, actual=%ld", requested, actual);
++
++	if (actual != requested)
++		return MODE_CLOCK_RANGE;
++
++	return MODE_OK;
++}
++
+ static const struct drm_encoder_helper_funcs mdp4_lcdc_encoder_helper_funcs = {
+ 	.mode_set = mdp4_lcdc_encoder_mode_set,
+ 	.disable = mdp4_lcdc_encoder_disable,
+ 	.enable = mdp4_lcdc_encoder_enable,
++	.mode_valid = mdp4_lcdc_encoder_mode_valid,
  };
  
--static const char *mpd4_lvds_pll_parents[] = {
--	"pxo",
-+static const struct clk_parent_data mpd4_lvds_pll_parents[] = {
-+	{ .fw_name = "pxo", .name = "pxo", },
+-long mdp4_lcdc_round_pixclk(struct drm_encoder *encoder, unsigned long rate)
+-{
+-	struct mdp4_lcdc_encoder *mdp4_lcdc_encoder =
+-			to_mdp4_lcdc_encoder(encoder);
+-	return clk_round_rate(mdp4_lcdc_encoder->lcdc_clk, rate);
+-}
+-
+ /* initialize encoder */
+ struct drm_encoder *mdp4_lcdc_encoder_init(struct drm_device *dev,
+ 		struct device_node *panel_node)
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+index 52e728181b523cc3380d7718b5956e7e2dbd4cad..4755eb13ef79f313d2be088145c8cd2e615226fe 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+@@ -56,26 +56,6 @@ static int mdp4_lvds_connector_get_modes(struct drm_connector *connector)
+ 	return ret;
+ }
+ 
+-static enum drm_mode_status
+-mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
+-			       const struct drm_display_mode *mode)
+-{
+-	struct mdp4_lvds_connector *mdp4_lvds_connector =
+-			to_mdp4_lvds_connector(connector);
+-	struct drm_encoder *encoder = mdp4_lvds_connector->encoder;
+-	long actual, requested;
+-
+-	requested = 1000 * mode->clock;
+-	actual = mdp4_lcdc_round_pixclk(encoder, requested);
+-
+-	DBG("requested=%ld, actual=%ld", requested, actual);
+-
+-	if (actual != requested)
+-		return MODE_CLOCK_RANGE;
+-
+-	return MODE_OK;
+-}
+-
+ static const struct drm_connector_funcs mdp4_lvds_connector_funcs = {
+ 	.detect = mdp4_lvds_connector_detect,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+@@ -87,7 +67,6 @@ static const struct drm_connector_funcs mdp4_lvds_connector_funcs = {
+ 
+ static const struct drm_connector_helper_funcs mdp4_lvds_connector_helper_funcs = {
+ 	.get_modes = mdp4_lvds_connector_get_modes,
+-	.mode_valid = mdp4_lvds_connector_mode_valid,
  };
  
- static struct clk_init_data pll_init = {
- 	.name = "mpd4_lvds_pll",
- 	.ops = &mpd4_lvds_pll_ops,
--	.parent_names = mpd4_lvds_pll_parents,
-+	.parent_data = mpd4_lvds_pll_parents,
- 	.num_parents = ARRAY_SIZE(mpd4_lvds_pll_parents),
- };
- 
+ /* initialize connector */
 
 -- 
 2.39.5
