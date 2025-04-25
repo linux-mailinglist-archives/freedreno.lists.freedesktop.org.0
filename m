@@ -2,85 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367F1A9C43F
-	for <lists+freedreno@lfdr.de>; Fri, 25 Apr 2025 11:52:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A59BCA9C444
+	for <lists+freedreno@lfdr.de>; Fri, 25 Apr 2025 11:52:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE9BD10E916;
-	Fri, 25 Apr 2025 09:52:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5922C10E91A;
+	Fri, 25 Apr 2025 09:52:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oSyerK4m";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mCHfUH2e";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A139D10E917
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:02 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53P8TZdm009655
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:01 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83F9A10E91A
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:05 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53P8TGK7025223
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YPhUAy0IKCydcq3qR8LkaE9TXn8NhCRkCwjmuP0vxxg=; b=oSyerK4mwaRllSNK
- 3sw8FcX21GXYU15W4lY9Q7Kh/vDfLXDZyDgTVsWcgWU2MmJppnyRsjR8k5EEHMMq
- UcIg6aET6JPINlQI6pIw9U5OEpvo6/glEWx7v5Kxqd6w0zL0dlowymV4iSr+SDNF
- 5ezkXNEShGXVhNPKCHrUM0r0+pq2xWBvp6gYpTmO7o6l9hKFZonUT/D/jFZ/uilp
- BLF09h5/Fc6S44OLXZdZ1KeOp/RS2ev7ExP203gM4emUaKcth3YNDAjtfMTGqD8B
- 333E4bzIVncWmEBmqf6IcvEEjGqwa1tUncjG1LP1LVilF1XBJEaUtddQja+c2txq
- Cc4sZA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jgy8gxg-1
+ TZfczLUxnWTdMqDmkRvetbnLGF6+K+kBxElbD/jIQGQ=; b=mCHfUH2eedgMf8ua
+ ulLCCbT8l+iO9zEcYHxVfAEbKNLEPjskH6QYR4aFYBOmJXnpSM03V2bXh/F/drKQ
+ 4cVAJv8UBOyV0M3gOz2X9rGsOD5iIk6ASu/EMV0ASJHRuaV7azWaakkhKWt8P2lu
+ jVl5mCOHytZiKDKP6xtUHuYCReLv1ihhWOAE2jjARbQOkPpNca5xqI/1vsDBgsi+
+ 1bnaxGr+CEn0H5uTpuS1Tp0v6IICM7smLCuzmSnISk383jrM7R6+fZEfvmV+gnoa
+ ES3SH7dV2FBN9zonP10IKL7rv8Hcwf4jhzzm349/LSj46EfuYozOQyeye9dy4Er7
+ aoPQ3Q==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh3rg29-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:01 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7c5c77aff78so588221585a.0
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 02:52:01 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 09:52:04 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-7c53e316734so345063385a.2
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 02:52:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745574721; x=1746179521;
+ d=1e100.net; s=20230601; t=1745574723; x=1746179523;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YPhUAy0IKCydcq3qR8LkaE9TXn8NhCRkCwjmuP0vxxg=;
- b=UbgRyqLUd9aMIoqS8JB4lIARdidLSI/FWVT1bpEC7+tPlI+oK9+ykb65EfgNlbMugK
- zBg7SqiTNzOUDswloApVz0vSBh/CjVjS45HG7NOQg87ZUswtluoAoIaQMrntfBfOfH7s
- vbM4s/kbVpNaFf18B2nkBJGR6XNsGszNKbb8AECw/gIyDelzCj6l0Q+YyV5eujLpVcSr
- iWLEwFMTRJQERkuSxXr4r/iKMTW5ylVE7oNyXuYlgRNQq09egGsDPqaB1E9NxV/UBWT2
- G9T/XYnmyXwyR+NkNAvl67pD83V9gzS4nZDno+8O/NMMLr7vKrIYHnAhGrXIkMyUGZOJ
- kFeg==
+ bh=TZfczLUxnWTdMqDmkRvetbnLGF6+K+kBxElbD/jIQGQ=;
+ b=u1z/x6irQHloO3+dWSw4bL+XmDjgIVnuMiiEO5JWjPW5Z77zpg2f5YAgwDvjLkAv8b
+ +yttIQXIexMCC0r5rbhRkhtRR7IGLZ/gt2ATOFsHpQyFgF3QE5/PP2wFWjTugJbe0rxc
+ Ptl7g0UcZ+sWXzgYPMlflAbGxF3e4GdQnNR4K4LboqYpY9OkDdvoeo8Cz6/nCfBQwvJt
+ A/D4JGFYom5EEC3xfLjLEuESj6KUhRqXGlDT3Dl3uLCH39PS5fS+B91xIjviRz2WnWvO
+ XWRB7OlxreIA6naqOOZGYgzrfgK6uos1amY7NpiZMMjg/yCRTIRceZE+So1+QDhZ4z40
+ quqw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWIP+lyFWNFhMiftGMBvuxrYPYDR8Dk5ay2X9Vq5KkGVM5K7ymfcSqdg1mT6jSq6g/BCNUDn927UzE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzTgYVRGmSkbEdMSJ7n/izJLARscqFHqvjG1psfzOtUBIyNp8df
- Lq4L2aGXQC/uCy0H3+R1b3uVdapOEpA9BLNDJ/FKoKR25Cfqexyc5GJFuVFNPqPD1Jxe1PlsUH+
- 3X6lupjmBNtb+/UopNrw20aKy0O18TgGoEr1IQzQYI3tEGZJxhuWivUefEXzC9vjOU3o=
-X-Gm-Gg: ASbGncsRtxU0M+nCOMvUElH8moXgg8CFAGA5xVxW7tsQBp2XGqL/yGad2IQ3V2WUknq
- bOgVxyb2uOknF0DrgSEkKpH5KzYq5GuQCktU3zYt4VDxagHUtKpXPdB0UDRZ263OyAo1oCZEUAg
- 77+W0tTcY5D5MEGfXQkNBufYnRlcABSXMQKmYlZjEeaAQegmX5bmD81AR2cjoyYDeP53PsBo9Fi
- uEAhUblj98oo1E0HSnH2j9BwhMYMO94RWhAJMHa19dSDiizgMFF+fncVUSLvC9yxqJaxKDC+io1
- irDvsLmXt4g+iMJj7YwQ3LDVeRIBQy308qIJ/LYI06mdX4J8/7oF8RBL8YGZXqmNehaZ2ylJ5SQ
- w8NYC3p3VgEnmQNhwIOJN/MFF
-X-Received: by 2002:a05:620a:bc4:b0:7c5:5e69:4450 with SMTP id
- af79cd13be357-7c9606f846amr220217585a.17.1745574720831; 
- Fri, 25 Apr 2025 02:52:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGJ1PuPUG5UA+Ta0KBqmp76nB4H7hKk2B9kKWJeFr07+c/AZQczeUIZjnYJCQvFsn+MeMN9ug==
-X-Received: by 2002:a05:620a:bc4:b0:7c5:5e69:4450 with SMTP id
- af79cd13be357-7c9606f846amr220214885a.17.1745574720525; 
- Fri, 25 Apr 2025 02:52:00 -0700 (PDT)
+ AJvYcCVe9/Ki1tVq1l6fi2al+A55GN/npTsOZFxj2h3wfD1rS3N5UckLJ5qYOtB06o4v2Fl8uVq+IYDwnVA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxeON2OGGMpb2XhTkQUz0KtuEaYOSBDpxg6bDFmThAyhe3/a17k
+ jV/+XMzcpqXElA+TmP916WTPDObYXGY7Z7dWJJ+xRV1ZltfwzmxTqmlL/S0Tgx8dsLD7cG5fu5f
+ R8ydfc5l2Jg/yhoiE5nJYsyRBS3uDEPSuLqelCZI1MzpJ9/RR9KiA/77WgxfAQxn4aHekR7REQA
+ I=
+X-Gm-Gg: ASbGncsRAP55MnPDNUm7KnYFDKCXj0BrHeWie4dgnLkiestu8Rto7yYwoNDNPA6rkT/
+ uDucihdIUEquY38vN2JZpq6E4tpYx15hTgp/GRjaS3RMRG2rKlBW+kgeK03akIUSaWp2BCb3eGS
+ ivLuyHsnWlC9mUcwEoPq69iWmNoE+hgcpjzjzvCSOXarrF7MBaToLDWwq5XNTUx5ymo03Wmm8DF
+ qzPUFqJ4V1L002/ZbMz1QtQCoGCfGFmAuNrQEdxgg0QnpXhHRtLzcCLBj0Ic8lMfFYIjxDxY/m7
+ 0LadPl8LC79M1jQKhtzkr8ofCEkKo6N74VXpLX8kj0cCBUWt7Y4iY/iHnikphcS3e1bf83EhKSy
+ yFXRy9wEfwz0wqa3VpQKOTjfm
+X-Received: by 2002:a05:620a:40c4:b0:7c5:53ab:a745 with SMTP id
+ af79cd13be357-7c9607a9524mr306226385a.36.1745574723407; 
+ Fri, 25 Apr 2025 02:52:03 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHcOR5RT8Ys3lrOEeDC6ELuWjVuKpQ4U7qX2eJ0JrlAWEm5qUDXGcz5n45dHFY2oJeOok/1nw==
+X-Received: by 2002:a05:620a:40c4:b0:7c5:53ab:a745 with SMTP id
+ af79cd13be357-7c9607a9524mr306222285a.36.1745574723063; 
+ Fri, 25 Apr 2025 02:52:03 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54e7ccb7c99sm539164e87.218.2025.04.25.02.51.59
+ 2adb3069b0e04-54e7ccb7c99sm539164e87.218.2025.04.25.02.52.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Apr 2025 02:51:59 -0700 (PDT)
+ Fri, 25 Apr 2025 02:52:02 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 25 Apr 2025 12:51:53 +0300
-Subject: [PATCH v4 3/7] drm/msm/mdp4: register the LVDS PLL as a clock provider
+Date: Fri, 25 Apr 2025 12:51:54 +0300
+Subject: [PATCH v4 4/7] drm/msm/mdp4: use parent_data for LVDS PLL
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250425-fd-mdp4-lvds-v4-3-6b212160b44c@oss.qualcomm.com>
+Message-Id: <20250425-fd-mdp4-lvds-v4-4-6b212160b44c@oss.qualcomm.com>
 References: <20250425-fd-mdp4-lvds-v4-0-6b212160b44c@oss.qualcomm.com>
 In-Reply-To: <20250425-fd-mdp4-lvds-v4-0-6b212160b44c@oss.qualcomm.com>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -99,40 +100,40 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3936;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1330;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=p1IT7slnVG8OxIiWvFIYnjVg2GsFl620wCCz7LSey7Y=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoC1s5zHFbFUsFBUaPCTVFVTZYS/OOWyjMl5RFl
- LJ56EsTJsiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaAtbOQAKCRCLPIo+Aiko
- 1SmgB/kBSZl7DR5mdH319Q7IjDuxugjrvDTqfN0OW7Hax/kXdA6o9r1/XNhMlAR3p76mdAzj7vD
- JLuiAtSJeYXUSdUis6xvxhWP+5HyqGlF9U1c9+A9BoZ3TS+OsWez1z6CKhEMVHdq1haPKc6aBTC
- OugfsPPtzCA0ynJhnJ/+snE4r6gOk1XhQe2U67A6mEz78aanZkgrbHq1wce4GeEKBNoL2ABlv9M
- zz5o3lB3R4Ddq7M5JlyQJP84JKNcZ1Qg9/nlNNk8/LH1sGkOisMuROp2pPWfR4orL99WxQ2/1jH
- tQhpFJ0in5sE972LvIgawuejazSBoeXVvOqmRocjy4SS4zmW
+ bh=5QLeLaZ4u0g3jUxOIWPZIeS25ToIY4u/0NRZi3Wj6kk=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoC1s5iD+ue7B/ncg0smiCdmNNJbzhQ7e2zXxwh
+ CKQDUKIPP+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaAtbOQAKCRCLPIo+Aiko
+ 1cVsB/952BXavkqHOo9fTgYGdajfI8ZXs/aaV7h12vKdVkwrLrXZPXL9YdKOWBEsnBCViNDKJz1
+ Sirzb/XOt5rdGdbbG9Jrkkkl3EHLgHvvpAIuJFeOjVv28YnIr0Ik7nKELJLcU8pxyNLsIsSvHQC
+ cXg9YZFkfWhqvC6M/UNgNqLj1hmh3Iy8qx6I4osKefG/0EhTWPYMk1/K/Hfff00JHQ9PNlExzay
+ 1poSB6PmItQqmNE+OcyvBHWJQRi6YyL4gps1DDO4CstG++o/Rk3da71KT5wnhpdKvpLd5W3Zbig
+ pZ739t9ddffJrjlDV923QPmg3hLU/Ov+JyVSbN091wfkTz+9
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI1MDA3MSBTYWx0ZWRfX/GUqpayXEzhr
- dN5mp87EPLpHvJozcbpyYRez508HexKEXVlkTrgZPBhO2/RL4JcFXdJFULkGbuiB3/kalLMSxPf
- WscvelbgYCEb4FkXmrZQLq6RfqwLF6YNyT+BKLsIhPISc3LhzhSsiYhI5whAwwAdEtDrnaBxLeu
- LO86nO+Gwo8Fyh91BWgLYwTW0UTGnQxXyJD1lsakyVCCwINIDf1jxcUY9lA+2GNqzZR+xChm5pH
- bffHrfIhaQSX77eHefBnzq4t7sqt6L83coqZqwJAnyrtmvFfoUvFsDgcoC+i8YjzaHZdAO+RLsA
- EvbFdOCSRTgtnaOVG/0DIvGJo2vqL4E9kXBc8b6z7RhXxDt/xeFkDx2wxqF0K+VwfOSlm31WusU
- y6fgH+TH0Ng/4zAs6b2od3u/mSYj9ZZ5qms7JL3wzarDBcHACp3vLthj4SWlYdW+Nf57omPr
-X-Proofpoint-GUID: vK-azL5iqT_efZUDty6ypjYXkauzedqF
-X-Proofpoint-ORIG-GUID: vK-azL5iqT_efZUDty6ypjYXkauzedqF
-X-Authority-Analysis: v=2.4 cv=M5VNKzws c=1 sm=1 tr=0 ts=680b5b41 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=TDJnK0Sta0nlXdS-8S8A:9
- a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: n8sJ-HKmuQsAp_VyZUDsSH0AcvJPrlIk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI1MDA3MSBTYWx0ZWRfX8WWjZiQ2Pl0E
+ J5ddofVyttXSdsLxHX4+0UJQ1ZkM44C5eMGR+gHW5QoJWiNx9ckWO8XJ5u77KDLO70q4h24+Qze
+ rEQ4ICEWJo6kYb0Q+3xrVFcvhlyn6BiA/tMXl9OzDepd5HFCg2XShTUHhrFiRwJV9o+As+azTIH
+ Dcl+vYSfqKaIsWCSR3SJphXKnQvRldubsmbA7WareduU0g86ll3K5XaU6DL9DGe3dpgBwbwDogh
+ IKgXnKZKCzLuWHlRPmp/34rjaf0D4rmmkhp4NEDC+qpX2WDsmtm/T2LV4HdEv1HOQS3dl4ukS0R
+ SsZxxAtDv8rUdsVommsLWdUBdoiZqRBEf4LdGFbywIXDhydHxDDLqmEpVS4Gy60jUeqKQ8D9G4X
+ +oFaaJawR/z9JK9CF4A/KQKWhK/3op5FnlXxWwrm2DnaGs8kL/61mZJoTvFXlQAlfTRIJSVp
+X-Authority-Analysis: v=2.4 cv=ELgG00ZC c=1 sm=1 tr=0 ts=680b5b44 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
+ a=9KfIv9cJTkqftt8VF2oA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: n8sJ-HKmuQsAp_VyZUDsSH0AcvJPrlIk
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-04-25_02,2025-04-24_02,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- lowpriorityscore=0 adultscore=0 spamscore=0 priorityscore=1501 mlxscore=0
- mlxlogscore=965 malwarescore=0 impostorscore=0 clxscore=1015
- suspectscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ impostorscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 phishscore=0 spamscore=0
+ mlxscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ mlxlogscore=935 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
  definitions=main-2504250071
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -152,112 +153,39 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-The LVDS/LCDC controller uses pixel clock coming from the multimedia
-controller (mmcc) rather than using the PLL directly. Stop using LVDS
-PLL directly and register it as a clock provider. Use lcdc_clk as a
-pixel clock for the LCDC.
+Instead of using .parent_names, use .parent_data, which binds parent
+clocks by using relative names specified in DT in addition to using global
+system clock names.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h          |  2 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c |  3 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c     | 45 ++++++++++++++++-------
- 3 files changed, 34 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-index 142ccb68b435263f91ba1ab27676e426d43e5d84..3d7ffd874e0d234f450f6170e623f87572456757 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-@@ -207,6 +207,6 @@ static inline struct drm_encoder *mdp4_dsi_encoder_init(struct drm_device *dev)
- }
- #endif
- 
--struct clk *mpd4_lvds_pll_init(struct drm_device *dev);
-+struct clk *mpd4_get_lcdc_clock(struct drm_device *dev);
- 
- #endif /* __MDP4_KMS_H__ */
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
-index 8bbc7fb881d599e7d309cc61bda83697fecd253a..8694e5d7d3f012070c72214df063a6488b2ef707 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
-@@ -380,8 +380,7 @@ struct drm_encoder *mdp4_lcdc_encoder_init(struct drm_device *dev,
- 
- 	drm_encoder_helper_add(encoder, &mdp4_lcdc_encoder_helper_funcs);
- 
--	/* TODO: do we need different pll in other cases? */
--	mdp4_lcdc_encoder->lcdc_clk = mpd4_lvds_pll_init(dev);
-+	mdp4_lcdc_encoder->lcdc_clk = mpd4_get_lcdc_clock(dev);
- 	if (IS_ERR(mdp4_lcdc_encoder->lcdc_clk)) {
- 		DRM_DEV_ERROR(dev->dev, "failed to get lvds_clk\n");
- 		return ERR_CAST(mdp4_lcdc_encoder->lcdc_clk);
 diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
-index ab8c0c187fb2cd05e26f5019244af15f1b2470c8..df2bbd475cc2a11da20ac07be8e757527ef41ae8 100644
+index df2bbd475cc2a11da20ac07be8e757527ef41ae8..fa2c294705105f5facbf7087a9d646f710c4a7fe 100644
 --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
 +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
-@@ -133,29 +133,48 @@ static struct clk_init_data pll_init = {
+@@ -122,14 +122,14 @@ static const struct clk_ops mpd4_lvds_pll_ops = {
+ 	.set_rate = mpd4_lvds_pll_set_rate,
+ };
+ 
+-static const char *mpd4_lvds_pll_parents[] = {
+-	"pxo",
++static const struct clk_parent_data mpd4_lvds_pll_parents[] = {
++	{ .fw_name = "pxo", .name = "pxo", },
+ };
+ 
+ static struct clk_init_data pll_init = {
+ 	.name = "mpd4_lvds_pll",
+ 	.ops = &mpd4_lvds_pll_ops,
+-	.parent_names = mpd4_lvds_pll_parents,
++	.parent_data = mpd4_lvds_pll_parents,
  	.num_parents = ARRAY_SIZE(mpd4_lvds_pll_parents),
  };
  
--struct clk *mpd4_lvds_pll_init(struct drm_device *dev)
-+static struct clk_hw *mpd4_lvds_pll_init(struct drm_device *dev)
- {
- 	struct mdp4_lvds_pll *lvds_pll;
--	struct clk *clk;
- 	int ret;
- 
- 	lvds_pll = devm_kzalloc(dev->dev, sizeof(*lvds_pll), GFP_KERNEL);
--	if (!lvds_pll) {
--		ret = -ENOMEM;
--		goto fail;
--	}
-+	if (!lvds_pll)
-+		return ERR_PTR(-ENOMEM);
- 
- 	lvds_pll->dev = dev;
- 
- 	lvds_pll->pll_hw.init = &pll_init;
--	clk = devm_clk_register(dev->dev, &lvds_pll->pll_hw);
--	if (IS_ERR(clk)) {
--		ret = PTR_ERR(clk);
--		goto fail;
-+	ret = devm_clk_hw_register(dev->dev, &lvds_pll->pll_hw);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	ret = devm_of_clk_add_hw_provider(dev->dev, of_clk_hw_simple_get, &lvds_pll->pll_hw);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return &lvds_pll->pll_hw;
-+}
-+
-+struct clk *mpd4_get_lcdc_clock(struct drm_device *dev)
-+{
-+	struct clk_hw *hw;
-+	struct clk *clk;
-+
-+
-+	/* TODO: do we need different pll in other cases? */
-+	hw = mpd4_lvds_pll_init(dev);
-+	if (IS_ERR(hw)) {
-+		DRM_DEV_ERROR(dev->dev, "failed to register LVDS PLL\n");
-+		return ERR_CAST(hw);
- 	}
- 
--	return clk;
-+	clk = devm_clk_get(dev->dev, "lcdc_clk");
-+	if (clk == ERR_PTR(-ENOENT)) {
-+		drm_warn(dev, "can't get LCDC clock, using PLL directly\n");
- 
--fail:
--	return ERR_PTR(ret);
-+		return devm_clk_hw_get_clk(dev->dev, hw, "lcdc_clk");
-+	}
-+
-+	return clk;
- }
 
 -- 
 2.39.5
