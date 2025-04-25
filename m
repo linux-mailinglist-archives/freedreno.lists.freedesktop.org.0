@@ -2,72 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF6BDA9CC84
-	for <lists+freedreno@lfdr.de>; Fri, 25 Apr 2025 17:13:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B8D6A9D079
+	for <lists+freedreno@lfdr.de>; Fri, 25 Apr 2025 20:26:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A590010E326;
-	Fri, 25 Apr 2025 15:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED9E010E98A;
+	Fri, 25 Apr 2025 18:26:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="MiecbeKS";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="T4qEaufg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23D9710E326;
- Fri, 25 Apr 2025 15:13:50 +0000 (UTC)
-Received: from localhost (web.docker-mailserver_default [172.18.0.2])
- by mail.mainlining.org (Postfix) with ESMTPSA id 4E4B2BBAC4;
- Fri, 25 Apr 2025 15:13:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mainlining.org;
- s=psm; t=1745594025;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ECsaLysjp6B31lix5ePZqbR776k53fktpSr8Jb8kvHE=;
- b=MiecbeKSC9qPTxgyzouBu54qd4VjFtmkfHV/2qTsOefPU2eAaK5cBCTcImhw+T75qlqO2+
- xsNGxQQjX0OdP68jb2HZKFeV8do4HMOWxaZhIfySqXsdEKz5Op//pZWwxEqwnctK8A8rVg
- P2WjEybiUv3PnKk+10v9R9AGnDIaowzlxTfxSncUT2oXgzv8YLcXGPbJ5rn9brvr+KfYzt
- y9ZSgyOeTe1KRw4YfSE60ZQrWAbmyN8y261B96MCfrdyWbqrTrbHB4hEewS6ZzpxeAxnO5
- sW1MJRWbpDrguja+qwxdVjlEkU+50iOBR8LfCx5VBQuphi1fOseWw4tM2FcHfg==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8713F10E994;
+ Fri, 25 Apr 2025 18:26:26 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53PGK26X004870;
+ Fri, 25 Apr 2025 18:26:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ xZMv7SiIoHshOTME9bNp9P8XtaYBKhPto2h6/jAokac=; b=T4qEaufgt6xwG+3O
+ zZT/onNhMwuPebIK0Oah9ptCnnPoAhDxbKaziYBeGK/G3y8L91qqpop50ovWX6rJ
+ YbTHguYTHl1MAunpupcTL+26rKmJoDFgygoX20DKmV/7pVm1xLxP77nG02DW9Vrb
+ xRtFN65gw4/gS3aBkcQ+Fim7ihxsIYWV7OA5cclgh4wztntnjPxcdM/fh3pNfKxI
+ lNP1O/srPBB9DAyvyvcn8v8UJXI/IWNwJDa/+ykKWBBq+nrMHEea+FvHP0XWVLu1
+ vSvN+pPgb6yA5uBQNfWOx57p1RzQZTVrkQBI7wxM9Nt5WlhDoMDLLcF8/c4pewU/
+ JB06xA==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh0a0e4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Apr 2025 18:26:22 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53PIQLgC027567
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Apr 2025 18:26:21 GMT
+Received: from [10.134.71.99] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 25 Apr
+ 2025 11:26:20 -0700
+Message-ID: <bf242898-bf47-4235-9086-745bd4f05acf@quicinc.com>
+Date: Fri, 25 Apr 2025 11:26:20 -0700
 MIME-Version: 1.0
-Date: Fri, 25 Apr 2025 17:13:45 +0200
-From: barnabas.czeman@mainlining.org
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
- =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, Linus Walleij
- <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>, Joerg Roedel
- <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy
- <robin.murphy@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Dmitry
- Baryshkov <lumag@kernel.org>, Adam Skladowski <a_skl39@protonmail.com>,
- Sireesh Kodali <sireeshkodali@protonmail.com>, Srinivas Kandagatla
- <srini@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- iommu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, linux@mainlining.org, Dang Huynh
- <danct12@riseup.net>
-Subject: Re: [PATCH v5 3/5] arm64: dts: qcom: Add initial support for MSM8937
-In-Reply-To: <70635d75-03f9-49ea-8098-57cb144fda94@oss.qualcomm.com>
-References: <20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org>
- <20250421-msm8937-v5-3-bf9879ef14d9@mainlining.org>
- <2e3d94a4-d9e1-429e-9f65-d004c80180e5@oss.qualcomm.com>
- <790a0b7537e0b82b70bc4b32612ecee6@mainlining.org>
- <70635d75-03f9-49ea-8098-57cb144fda94@oss.qualcomm.com>
-Message-ID: <5ccb39f9393b44761127717096a38a46@mainlining.org>
-X-Sender: barnabas.czeman@mainlining.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] drm/msm/dpu: enable SmartDMA on SM8150
+To: Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Konrad Dybcio
+ <konradybcio@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20250308-dpu-rework-vig-masks-v1-0-f1b5d101ae0b@linaro.org>
+ <20250308-dpu-rework-vig-masks-v1-1-f1b5d101ae0b@linaro.org>
+Content-Language: en-US
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20250308-dpu-rework-vig-masks-v1-1-f1b5d101ae0b@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI1MDEzMSBTYWx0ZWRfX9zvCSfmEj78N
+ vSGqAbA/px4fVmzpjUG784FVIgHBl266uZoWOlrvJ2ejyfrBVPUSfbEl9PsaJ4P9fWKNMxRc+f7
+ zCdhnE4E6tj+rw1Aj5ollsKzRteQy6VnnInwAG8X8HT44s/r/12lww2WpHx7q0nQ/2EvhcB4Mpg
+ P+2wIu9f0Rg8aQ/XY7p1pBCMeWG+PDLyp3Q1HV6uFSJAf0gABRyI+0/xV/PrBrTpunFT0uuUoKq
+ V/uCdoJkTA6jYWmURQGOdNhhcdp7mLdNYzDDm56saYnGOljmyIsN4L2Wvjr2p6Tkl/Nfgy4cTjY
+ wMpzlLmIUMbCMD8hFIFmFSEENitcyQ4BvOr9Hf4+pQ2/kRS9U8eMl7oAeZbNga3YkYe0FEYqXWw
+ wf9P+vL/i7U5pdTS1qiHExjkurmc42LwB2Fx74fWUC2ZEUcVIGgYVZK1TO2pS7G3zO/xS2yt
+X-Proofpoint-GUID: Vh98sIYu5l51usn4sAh59jX_r0H9-Ja9
+X-Authority-Analysis: v=2.4 cv=ZuTtK87G c=1 sm=1 tr=0 ts=680bd3ce cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8
+ a=dNBeuL6aYRtJqjdC8AEA:9 a=QEXdDO2ut3YA:10
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: Vh98sIYu5l51usn4sAh59jX_r0H9-Ja9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-25_05,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015
+ impostorscore=0 bulkscore=0 mlxscore=0 adultscore=0 lowpriorityscore=0
+ mlxlogscore=999 priorityscore=1501 malwarescore=0 suspectscore=0
+ spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504250131
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,37 +107,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2025-04-25 11:57, Konrad Dybcio wrote:
-> On 4/23/25 4:46 PM, barnabas.czeman@mainlining.org wrote:
->> On 2025-04-23 16:03, Konrad Dybcio wrote:
->>> On 4/21/25 10:18 PM, Barnabás Czémán wrote:
->>>> From: Dang Huynh <danct12@riseup.net>
->>>> 
->>>> Add initial support for MSM8937 SoC.
->>>> 
->>>> Signed-off-by: Dang Huynh <danct12@riseup.net>
->>>> Co-developed-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->>>> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->>>> ---
+
+
+On 3/7/2025 9:38 PM, Dmitry Baryshkov wrote:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> [...]
+> Reworking of the catalog dropped the SmartDMA feature bit on the SM8150
+> platform. Renable SmartDMA support on this SoC.
 > 
->>>> +            gpu_opp_table: opp-table {
->>>> +                compatible = "operating-points-v2";
->>>> +
->>>> +                opp-19200000 {
->>>> +                    opp-hz = /bits/ 64 <19200000>;
->>>> +                    opp-supported-hw = <0xff>;
->>> 
->>> The comment from the previous revision still stands
->> If i remove opp-supported-hw i will got -22 EINVAL messages and the 
->> opp will be not fine.
+> Fixes: 460c410f02e4 ("drm/msm/dpu: duplicate sdm845 catalog entries")
+
+Hi Dmitry,
+
+The code LGTM, but was just wondering why there's a fixes tag for the 
+first two patches but not for the other catalog changes.
+
+Is there some context I'm missing with regards to this?
+
+Thanks,
+
+Jessica Zhang
+
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h | 16 ++++++++--------
+>   1 file changed, 8 insertions(+), 8 deletions(-)
 > 
-> Right, I have a series pending to improve this situation a bit..
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+> index 23188290001ffb45563a9953a9f710bacb4dac89..fe4de5b31644de33b77a882fa21a18f48ecd1790 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+> @@ -76,7 +76,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
+>   	{
+>   		.name = "sspp_0", .id = SSPP_VIG0,
+>   		.base = 0x4000, .len = 0x1f0,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_1_4,
+>   		.xin_id = 0,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -84,7 +84,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_1", .id = SSPP_VIG1,
+>   		.base = 0x6000, .len = 0x1f0,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_1_4,
+>   		.xin_id = 4,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -92,7 +92,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_2", .id = SSPP_VIG2,
+>   		.base = 0x8000, .len = 0x1f0,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_1_4,
+>   		.xin_id = 8,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -100,7 +100,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_3", .id = SSPP_VIG3,
+>   		.base = 0xa000, .len = 0x1f0,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_1_4,
+>   		.xin_id = 12,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -108,7 +108,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_8", .id = SSPP_DMA0,
+>   		.base = 0x24000, .len = 0x1f0,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 1,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -116,7 +116,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_9", .id = SSPP_DMA1,
+>   		.base = 0x26000, .len = 0x1f0,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 5,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -124,7 +124,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_10", .id = SSPP_DMA2,
+>   		.base = 0x28000, .len = 0x1f0,
+> -		.features = DMA_CURSOR_SDM845_MASK,
+> +		.features = DMA_CURSOR_SDM845_MASK_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 9,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -132,7 +132,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_11", .id = SSPP_DMA3,
+>   		.base = 0x2a000, .len = 0x1f0,
+> -		.features = DMA_CURSOR_SDM845_MASK,
+> +		.features = DMA_CURSOR_SDM845_MASK_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 13,
+>   		.type = SSPP_TYPE_DMA,
 > 
-> In the meantime, you should be able to define the nvmem cell and
-> fill in meaningful values for this platform
-As I wrote in the previous revision there is no nvmem for GPU on msm8937 
-only on msm8940.
-> 
-> Konrad
+
