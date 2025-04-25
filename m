@@ -2,147 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47F35A9D3BB
-	for <lists+freedreno@lfdr.de>; Fri, 25 Apr 2025 23:02:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D5E8A9D3CD
+	for <lists+freedreno@lfdr.de>; Fri, 25 Apr 2025 23:05:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0240210E9D6;
-	Fri, 25 Apr 2025 21:02:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9294D10E9DC;
+	Fri, 25 Apr 2025 21:05:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LMbg4l+U";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="dYkQNb26";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7494810E9D6
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 21:02:17 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53PGJwgj011513
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 21:02:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC3110E9DC;
+ Fri, 25 Apr 2025 21:05:54 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53PGJrsh011041;
+ Fri, 25 Apr 2025 21:05:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- FoxC89tHfNSH1oVha4VRoLqPnSjX0y1D+aZDbZJvJ1g=; b=LMbg4l+UfM1XN+1b
- fnn3cciq8zI/v6YHyGoQJYanBK8fzNxWOsQFQogpx6hA5gac1kJ5EI9mwh949+YG
- xkbNzzGbm4IFoCIrYeIbvVN9FUAem5kY88dAr51K6evolZpvB4wSYmNZ7xiwcjmd
- xQ86Ie2lEOWL3uy6ptC+bNCEgAQIE0E5+rzpfbPsRisyNWh+gdXNrNUv4Yx1pu1c
- cFGAo1cVmap9F0n/mttdFH9AQsx4V8g2GkWClEsEPZIBebrXqUXO4Fli+te2zZGF
- DnP7qW6Mhh2P807dKDoxoRFUk3df3QXtByclxuNBjBFT4WV2g5bqG2NPbmuyxTHo
- Jmr73w==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh3t76a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 21:02:16 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-47aeab7b918so6149091cf.0
- for <freedreno@lists.freedesktop.org>; Fri, 25 Apr 2025 14:02:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745614935; x=1746219735;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FoxC89tHfNSH1oVha4VRoLqPnSjX0y1D+aZDbZJvJ1g=;
- b=ncfnX9X5G6DcT44EQVDeLY7S6AUSgD0b9Dx4QjvOHWinJPFH6L/ucm2aDOsFln2/zP
- URUj2GD0hPCfTf/JRo8CpOKrIUqF/r+IALd9XzVuDvIG9F/ZV/c9Jus+QHrc0/cmAPRP
- Bq/kk5DWIq34NQG1tXDKSYQLUC0MfqBBofMN0VZKPhnpN2jquIicl45HL/gmJ5XxMuDi
- TDgicIC9eorrWmOcAHokJrBvd2GGL2QfMjlcyZ3uTUScm5QmgISjTs5l1bLAV+Zo9wxK
- VM1f7KuZfEDDsgbDXT5m5RF3smMWggavyG0jNwet39XhfrzmWcoHNYCwSRDMoM61pe5M
- +CTA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWPSyD+dShdGGYapzoNSWvGbmOTiKGaS7NWxTWZmnvaAXZ8zGgojUJaHNxklWJAhhp0pQlx3fOnEEQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YymKOgou+FISmhrSe3UNHpLQUXoSIdvOmgtRgrHDDWzn29qbbIQ
- ljdte6x/fpuY4ZflSyAHg3xKFYJHvOD7bQmPpvK7/CiD6Mpgw2F5ei25SAkXUn8SZYJPKd85k1Q
- MwIsLa+TBDMpKEVavS1cWgSWQ8ywh33VCRTIQUwCcint6AkWADmwboL/uVxwCS1ZI1mw=
-X-Gm-Gg: ASbGnctcaoO/pI6xXsVWfjj5m8xc2/ogSi8C96r0x00FRAas3wZ2NAkuQ22tefe+rIm
- SFiMeqOgcrqdPixRClRijSepOHYWcw7IGhxkTxun70xaQ8BvKIJq5jyQdTsprwIBeIh88mS3BPH
- hduhAtSAsuh9ExtHGk1I7y53fatc0CXITH5JJwypJYaDWucSXPEAwTUd8Ca0zHnmksYbXeifMM3
- wpfgCXDgSY9K5jYVlz5AeuMP1RNXuv5fSBYC+3nMhm8evJH/Z1eVkiy3mfqmrbb8vLC9zDVgaCq
- BGwAtTI4R5OaZN7VyE/3Yz0aVCWk/2AaW9Ds10fZyw+UjLHp8LRS7X6f+xI+Ubv0N30=
-X-Received: by 2002:a05:622a:1455:b0:472:1ee7:d2d with SMTP id
- d75a77b69052e-4801c2c16e9mr20346651cf.1.1745614935200; 
- Fri, 25 Apr 2025 14:02:15 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEg0tvFhoQ0KNEBhHGLhEi7O5sgae/+O/jdTQKiFWyNNG4fCuoMl6ZMxe0c4BHyGdyFSXXbhQ==
-X-Received: by 2002:a05:622a:1455:b0:472:1ee7:d2d with SMTP id
- d75a77b69052e-4801c2c16e9mr20346351cf.1.1745614934774; 
- Fri, 25 Apr 2025 14:02:14 -0700 (PDT)
-Received: from [192.168.65.156] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6ed49c2fsm187099666b.124.2025.04.25.14.02.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Apr 2025 14:02:14 -0700 (PDT)
-Message-ID: <656da4e9-b609-43f4-9afd-006698a2c7d6@oss.qualcomm.com>
-Date: Fri, 25 Apr 2025 23:02:10 +0200
+ ZNAcUSAKBKbOBL0RLRNtwx29CM1/wy1xWy6nRYRzfyA=; b=dYkQNb26nEyyTziy
+ 4hHMSo9Ji9Pry2O9x4SEgxvqKM+dGhPRM6UzQu7oPRv25yMvdyT7qnPqf4w5qKkS
+ oBKOGXbniocjW8rpDRc2aVz5XtvT9ypkzLEhAVKxEdT35jn0fpop3VW7mczZfxsR
+ 2/Vpy8Ra/VsyzLs7EH3y2u92zJ0w2pXMUUuw9lIx6ml8MYqmJIRiF/+DzmRcmZBw
+ dX+0g8tTNkf5Z8KmORy/lJrdfV7XiSgx9kZ1Bp1zJ2N3UbTYoCkc/T4vH3WlSozb
+ +rEHJLzGEm/aLPZMV93yl0dQwU1nFWs4fAm7ukog3QspuAdi8scEWOQmQdc89fiB
+ ZJRyGA==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 466jh0jf5y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Apr 2025 21:05:49 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53PL5mpx025431
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Apr 2025 21:05:48 GMT
+Received: from [10.134.71.99] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 25 Apr
+ 2025 14:05:48 -0700
+Message-ID: <a5b6846a-5287-4a6d-a9a4-fd7e9c7c537b@quicinc.com>
+Date: Fri, 25 Apr 2025 14:05:47 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/5] arm64: dts: qcom: Add initial support for MSM8937
-To: barnabas.czeman@mainlining.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
- =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
- Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <lumag@kernel.org>, Adam Skladowski
- <a_skl39@protonmail.com>, Sireesh Kodali <sireeshkodali@protonmail.com>,
- Srinivas Kandagatla <srini@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- iommu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, linux@mainlining.org,
- Dang Huynh <danct12@riseup.net>
-References: <20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org>
- <20250421-msm8937-v5-3-bf9879ef14d9@mainlining.org>
- <2e3d94a4-d9e1-429e-9f65-d004c80180e5@oss.qualcomm.com>
- <790a0b7537e0b82b70bc4b32612ecee6@mainlining.org>
- <70635d75-03f9-49ea-8098-57cb144fda94@oss.qualcomm.com>
- <5ccb39f9393b44761127717096a38a46@mainlining.org>
- <68e2c0ee-d5e2-40fd-9ca0-262ed3270628@oss.qualcomm.com>
- <31559417a92d1e1ff17d0f3add9a1ba0@mainlining.org>
+Subject: Re: [PATCH 5/5] drm/msm/dpu: rename non-SmartDMA feature masks to be
+ more explicit
+To: Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Konrad Dybcio
+ <konradybcio@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20250308-dpu-rework-vig-masks-v1-0-f1b5d101ae0b@linaro.org>
+ <20250308-dpu-rework-vig-masks-v1-5-f1b5d101ae0b@linaro.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <31559417a92d1e1ff17d0f3add9a1ba0@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: RmWu3oQB2cGZDE4EW8NCanFxcteOiCJ6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI1MDE1MSBTYWx0ZWRfX9j06LpIjGt7n
- nhHxj05t1MZcYPWTKSW9zMvDcGcx+acV1BwFHBZlUBcSOD8EOWPL4HX7pUfu0HJTGbLNu864llN
- REMZOV7C9NAi+UxtnjZhYxHn/wMwa0fFQQrjv0yRSab2BUuBJ7tgf1RfUXYLbGKjidB9IWr0yjP
- BYHulOlbcqEWc8i3rfAWILS7h20mbC5TMGG66i8FM5DOEz/cOg+au+heyYM422AWyXWUr9xP1Ey
- mNQLVIbinaKhVGCRhEfe7nwbcooNdRoW8RZaJ2+m38krJVL+snOvll6DV3JbNW+Wd8bcmss1HSt
- Bc1MnOQXfhkTEopNTl7LULqiLjK+ADoKh7/zzUfYSt/y8X+nSdbRz04Z9haNwIthizswfR6RAcT
- gIcLOIIPewBC7eZsV9I4RilU5MPdqzOPN6QCpMF5iWAucNZVek8VjraQje0ywBHnHYzJ2843
-X-Authority-Analysis: v=2.4 cv=ELgG00ZC c=1 sm=1 tr=0 ts=680bf858 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=NEAV23lmAAAA:8 a=qC_FGOx9AAAA:8
- a=OuZLqq7tAAAA:8 a=bBqXziUQAAAA:8
- a=BjP4FqewG5DG9Cpw7CUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=fsdK_YakeE02zTmptMdW:22 a=AKGiAy9iJ-JzxKVHQNES:22
- a=BjKv_IHbNJvPKzgot4uq:22
-X-Proofpoint-GUID: RmWu3oQB2cGZDE4EW8NCanFxcteOiCJ6
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20250308-dpu-rework-vig-masks-v1-5-f1b5d101ae0b@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: aOpDLYDMkf95TFV9LK_3mf_ktSIBwzl_
+X-Proofpoint-ORIG-GUID: aOpDLYDMkf95TFV9LK_3mf_ktSIBwzl_
+X-Authority-Analysis: v=2.4 cv=Fv0F/3rq c=1 sm=1 tr=0 ts=680bf92d cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8
+ a=COk6AnOGAAAA:8 a=guVRrMrZfzPb1VQVluUA:9
+ a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI1MDE1MiBTYWx0ZWRfXzidrBan1IzGX
+ rajDHpawIhcql0tarL6zkWN+JnHIqWWw6YGHyokqCr3T8AkzNt7aQH7q8QRAsHZYP4Ksl5aRuz4
+ cF/yBxxj66wGbPJGi5JFCIGyiYNU20k4J9wpIe36yr3SDr6GAZ1NC9bLS8QXtG4tF/5RaJbAZUv
+ UNEN4boTd4+0pwOc2lKwpjKi2Wx55Xiy7dz0MCT5Ki3iWS0cVBVbVazmFnJ7xACnXsMaBS3GCmM
+ Qf3fVIkC7LptvoragQ2rIFf45MkyFgbRia5dSppLZl1aoCGH1zSIJzBKGfzTIv46EhKJ10LjsI2
+ g6+UehPqH6jh3jIBLLSnODx5tJaR5LwOzmb2YinT2OKFqt1envc7Tw3RCAom/SWrJmSfz8uUDL2
+ 7FihU3ztdcEn0pPG0WQGpE2miZLTJljqgFTt6CHj8hRHB8433Jc3O+62uRfUsTEF/itsvlkG
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-04-25_06,2025-04-24_02,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 phishscore=0 spamscore=0
- mlxscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
- mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504250151
+ impostorscore=0 mlxscore=0
+ malwarescore=0 mlxlogscore=780 priorityscore=1501 suspectscore=0
+ adultscore=0 bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ phishscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504250152
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,49 +108,297 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/25/25 10:22 PM, barnabas.czeman@mainlining.org wrote:
-> On 2025-04-25 21:26, Konrad Dybcio wrote:
->> On 4/25/25 5:13 PM, barnabas.czeman@mainlining.org wrote:
->>> On 2025-04-25 11:57, Konrad Dybcio wrote:
->>>> On 4/23/25 4:46 PM, barnabas.czeman@mainlining.org wrote:
->>>>> On 2025-04-23 16:03, Konrad Dybcio wrote:
->>>>>> On 4/21/25 10:18 PM, Barnabás Czémán wrote:
->>>>>>> From: Dang Huynh <danct12@riseup.net>
->>>>>>>
->>>>>>> Add initial support for MSM8937 SoC.
->>>>>>>
->>>>>>> Signed-off-by: Dang Huynh <danct12@riseup.net>
->>>>>>> Co-developed-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->>>>>>> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->>>>>>> ---
->>>>
->>>> [...]
->>>>
->>>>>>> +            gpu_opp_table: opp-table {
->>>>>>> +                compatible = "operating-points-v2";
->>>>>>> +
->>>>>>> +                opp-19200000 {
->>>>>>> +                    opp-hz = /bits/ 64 <19200000>;
->>>>>>> +                    opp-supported-hw = <0xff>;
->>>>>>
->>>>>> The comment from the previous revision still stands
->>>>> If i remove opp-supported-hw i will got -22 EINVAL messages and the opp will be not fine.
->>>>
->>>> Right, I have a series pending to improve this situation a bit..
->>>>
->>>> In the meantime, you should be able to define the nvmem cell and
->>>> fill in meaningful values for this platform
->>> As I wrote in the previous revision there is no nvmem for GPU on msm8937 only on msm8940.
->>
->> This seems not to be the case
->>
->> https://github.com/penglezos/android_kernel_xiaomi_msm8953/blob/pie/arch/arm/boot/dts/qcom/msm8937.dtsi#L2046-L2191
->>
-> These are on msm-4.9 was moved to msm8940.dtsi
-> https://git.codelinaro.org/clo/la/kernel/msm-4.9/-/blob/LA.UM.10.6.2.c26-01500-89xx.0/arch/arm64/boot/dts/qcom/msm8937-gpu.dtsi#L162
-> https://git.codelinaro.org/clo/la/kernel/msm-4.9/-/blob/LA.UM.10.6.2.c26-01500-89xx.0/arch/arm64/boot/dts/qcom/msm8940.dtsi#L600
-> 475 MHz and 500 MHz is for msm8940 at least based on 4.9
 
-I'll try to get a more conclusive answer internally
 
-Konrad
+On 3/7/2025 9:38 PM, Dmitry Baryshkov wrote:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> It is easy to skip or ignore the fact that the default SSPP feature
+> masks for SDM845+ don't include the SmartDMA bit (both during
+> development and during the review stage). Rename SSPP feature masks to
+> make it more explicit that using non-SmartDMA masks should not be an
+> exception rather than the rule.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h  | 10 +++++-----
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h  |  6 +++---
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h  |  8 ++++----
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h  |  4 ++--
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h  |  8 ++++----
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h |  2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h  |  4 ++--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c          | 16 ++++++++--------
+>   8 files changed, 29 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h
+> index b2ebf76e386718b95292e119d53e67f5d9f0743a..99d8b1218db812ca7e99caf62aa48476aee5e02d 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h
+> @@ -72,7 +72,7 @@ static const struct dpu_sspp_cfg sm7150_sspp[] = {
+>   	{
+>   		.name = "sspp_0", .id = SSPP_VIG0,
+>   		.base = 0x4000, .len = 0x1f0,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_2_4,
+>   		.xin_id = 0,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -80,7 +80,7 @@ static const struct dpu_sspp_cfg sm7150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_1", .id = SSPP_VIG1,
+>   		.base = 0x6000, .len = 0x1f0,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_2_4,
+>   		.xin_id = 4,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -88,7 +88,7 @@ static const struct dpu_sspp_cfg sm7150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_2", .id = SSPP_DMA0,
+>   		.base = 0x24000, .len = 0x1f0,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 1,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -96,7 +96,7 @@ static const struct dpu_sspp_cfg sm7150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_9", .id = SSPP_DMA1,
+>   		.base = 0x26000, .len = 0x1f0,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 5,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -104,7 +104,7 @@ static const struct dpu_sspp_cfg sm7150_sspp[] = {
+>   	}, {
+>   		.name = "sspp_10", .id = SSPP_DMA2,
+>   		.base = 0x28000, .len = 0x1f0,
+> -		.features = DMA_CURSOR_SDM845_MASK,
+> +		.features = DMA_CURSOR_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 9,
+>   		.type = SSPP_TYPE_DMA,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
+> index cc2951112bdadca60fe51faeecb81e57280662c3..ea1004e2295b215ef165fef862fa9c15c6ab3856 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
+> @@ -69,7 +69,7 @@ static const struct dpu_sspp_cfg sm6125_sspp[] = {
+>   	{
+>   		.name = "sspp_0", .id = SSPP_VIG0,
+>   		.base = 0x4000, .len = 0x1f0,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_2_4,
+>   		.xin_id = 0,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -77,7 +77,7 @@ static const struct dpu_sspp_cfg sm6125_sspp[] = {
+>   	}, {
+>   		.name = "sspp_8", .id = SSPP_DMA0,
+>   		.base = 0x24000, .len = 0x1f0,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 1,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -85,7 +85,7 @@ static const struct dpu_sspp_cfg sm6125_sspp[] = {
+>   	}, {
+>   		.name = "sspp_9", .id = SSPP_DMA1,
+>   		.base = 0x26000, .len = 0x1f0,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 5,
+>   		.type = SSPP_TYPE_DMA,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+> index 42a00550eefbc10e97515340d6d8b33d4ef5e3fd..5e15a8dcbc2b701e47e352a8aaee72a25240817c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+> @@ -51,7 +51,7 @@ static const struct dpu_sspp_cfg sc7180_sspp[] = {
+>   	{
+>   		.name = "sspp_0", .id = SSPP_VIG0,
+>   		.base = 0x4000, .len = 0x1f8,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_3_0,
+>   		.xin_id = 0,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -59,7 +59,7 @@ static const struct dpu_sspp_cfg sc7180_sspp[] = {
+>   	}, {
+>   		.name = "sspp_8", .id = SSPP_DMA0,
+>   		.base = 0x24000, .len = 0x1f8,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 1,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -67,7 +67,7 @@ static const struct dpu_sspp_cfg sc7180_sspp[] = {
+>   	}, {
+>   		.name = "sspp_9", .id = SSPP_DMA1,
+>   		.base = 0x26000, .len = 0x1f8,
+> -		.features = DMA_CURSOR_SDM845_MASK,
+> +		.features = DMA_CURSOR_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 5,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -75,7 +75,7 @@ static const struct dpu_sspp_cfg sc7180_sspp[] = {
+>   	}, {
+>   		.name = "sspp_10", .id = SSPP_DMA2,
+>   		.base = 0x28000, .len = 0x1f8,
+> -		.features = DMA_CURSOR_SDM845_MASK,
+> +		.features = DMA_CURSOR_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 9,
+>   		.type = SSPP_TYPE_DMA,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
+> index 43f64a005f5a89e09ee9506a12cfff781530cb80..c5fd89dd7c89046bdbf1b1bf223aac2e3c4c0b26 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
+> @@ -38,7 +38,7 @@ static const struct dpu_sspp_cfg sm6115_sspp[] = {
+>   	{
+>   		.name = "sspp_0", .id = SSPP_VIG0,
+>   		.base = 0x4000, .len = 0x1f8,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_3_0,
+>   		.xin_id = 0,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -46,7 +46,7 @@ static const struct dpu_sspp_cfg sm6115_sspp[] = {
+>   	}, {
+>   		.name = "sspp_8", .id = SSPP_DMA0,
+>   		.base = 0x24000, .len = 0x1f8,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 1,
+>   		.type = SSPP_TYPE_DMA,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> index 828a02429405238807562dd0aa29575f8367fdc7..fbbcaa5b98a23c0fcb570b7d33110860f1bf01a4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> @@ -59,7 +59,7 @@ static const struct dpu_sspp_cfg sm6350_sspp[] = {
+>   	{
+>   		.name = "sspp_0", .id = SSPP_VIG0,
+>   		.base = 0x4000, .len = 0x1f8,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_3_0,
+>   		.xin_id = 0,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -67,7 +67,7 @@ static const struct dpu_sspp_cfg sm6350_sspp[] = {
+>   	}, {
+>   		.name = "sspp_8", .id = SSPP_DMA0,
+>   		.base = 0x24000, .len = 0x1f8,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 1,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -75,7 +75,7 @@ static const struct dpu_sspp_cfg sm6350_sspp[] = {
+>   	}, {
+>   		.name = "sspp_9", .id = SSPP_DMA1,
+>   		.base = 0x26000, .len = 0x1f8,
+> -		.features = DMA_CURSOR_SDM845_MASK,
+> +		.features = DMA_CURSOR_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 5,
+>   		.type = SSPP_TYPE_DMA,
+> @@ -83,7 +83,7 @@ static const struct dpu_sspp_cfg sm6350_sspp[] = {
+>   	}, {
+>   		.name = "sspp_10", .id = SSPP_DMA2,
+>   		.base = 0x28000, .len = 0x1f8,
+> -		.features = DMA_CURSOR_SDM845_MASK,
+> +		.features = DMA_CURSOR_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 9,
+>   		.type = SSPP_TYPE_DMA,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+> index 3cbb2fe8aba24c7b9db6bb61ff4c48f34db48bf4..53f3be28f6f61bb7e3f519b0efa4cb2f68d38810 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+> @@ -46,7 +46,7 @@ static const struct dpu_sspp_cfg qcm2290_sspp[] = {
+>   	}, {
+>   		.name = "sspp_8", .id = SSPP_DMA0,
+>   		.base = 0x24000, .len = 0x1f8,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 1,
+>   		.type = SSPP_TYPE_DMA,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
+> index a06c8634d2d7779f7e867fb821f8d332652ba7e9..3a3bc8e429be0ba86185741b6b27d8a62489779f 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
+> @@ -39,7 +39,7 @@ static const struct dpu_sspp_cfg sm6375_sspp[] = {
+>   	{
+>   		.name = "sspp_0", .id = SSPP_VIG0,
+>   		.base = 0x4000, .len = 0x1f8,
+> -		.features = VIG_SDM845_MASK,
+> +		.features = VIG_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_vig_sblk_qseed3_3_0,
+>   		.xin_id = 0,
+>   		.type = SSPP_TYPE_VIG,
+> @@ -47,7 +47,7 @@ static const struct dpu_sspp_cfg sm6375_sspp[] = {
+>   	}, {
+>   		.name = "sspp_8", .id = SSPP_DMA0,
+>   		.base = 0x24000, .len = 0x1f8,
+> -		.features = DMA_SDM845_MASK,
+> +		.features = DMA_SDM845_MASK_NO_SDMA,
+>   		.sblk = &dpu_dma_sblk,
+>   		.xin_id = 1,
+>   		.type = SSPP_TYPE_DMA,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index a6bb46b201e907566e88abce945507d1bab51b3b..d495dfa67192b99655ae432589d70fc5be8abbb6 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -34,11 +34,11 @@
+>   #define VIG_MSM8998_MASK \
+>   	(VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3_COMPATIBLE))
+>   
+> -#define VIG_SDM845_MASK \
+> +#define VIG_SDM845_MASK_NO_SDMA \
+>   	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3_COMPATIBLE))
+>   
+>   #define VIG_SDM845_MASK_SDMA \
+> -	(VIG_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
+> +	(VIG_SDM845_MASK_NO_SDMA | BIT(DPU_SSPP_SMART_DMA_V2))
+>   
+>   #define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
+>   
+> @@ -54,24 +54,24 @@
+>   	BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_EXCL_RECT))
+>   
+>   #define VIG_SC7280_MASK \
+> -	(VIG_SDM845_MASK | BIT(DPU_SSPP_INLINE_ROTATION))
+> +	(VIG_SDM845_MASK_NO_SDMA | BIT(DPU_SSPP_INLINE_ROTATION))
+>   
+>   #define VIG_SC7280_MASK_SDMA \
+>   	(VIG_SC7280_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
+>   
+> -#define DMA_SDM845_MASK \
+> +#define DMA_SDM845_MASK_NO_SDMA \
+>   	(BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
+>   	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1) |\
+>   	BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_EXCL_RECT))
+>   
+> -#define DMA_CURSOR_SDM845_MASK \
+> -	(DMA_SDM845_MASK | BIT(DPU_SSPP_CURSOR))
+> +#define DMA_CURSOR_SDM845_MASK_NO_SDMA \
+> +	(DMA_SDM845_MASK_NO_SDMA | BIT(DPU_SSPP_CURSOR))
+>   
+>   #define DMA_SDM845_MASK_SDMA \
+> -	(DMA_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
+> +	(DMA_SDM845_MASK_NO_SDMA | BIT(DPU_SSPP_SMART_DMA_V2))
+>   
+>   #define DMA_CURSOR_SDM845_MASK_SDMA \
+> -	(DMA_CURSOR_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
+> +	(DMA_CURSOR_SDM845_MASK_NO_SDMA | BIT(DPU_SSPP_SMART_DMA_V2))
+>   
+>   #define DMA_CURSOR_MSM8996_MASK \
+>   	(DMA_MSM8996_MASK | BIT(DPU_SSPP_CURSOR))
+> 
+
