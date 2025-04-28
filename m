@@ -2,120 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D363A9F5E7
-	for <lists+freedreno@lfdr.de>; Mon, 28 Apr 2025 18:34:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B504A9F86C
+	for <lists+freedreno@lfdr.de>; Mon, 28 Apr 2025 20:24:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 405C210E61C;
-	Mon, 28 Apr 2025 16:34:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0002010E683;
+	Mon, 28 Apr 2025 18:24:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="A5vI5CPA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h/lkl/cN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AE1B10E620;
- Mon, 28 Apr 2025 16:34:16 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id F39DA43962;
- Mon, 28 Apr 2025 16:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1745858053;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0+W4uodyxoQUQ7gTcLqHUOqlDvIcEkj4yx+1gWHy3Mc=;
- b=A5vI5CPAhG7Ec31vAslCrct99yDYQUT4yEVpjGag1L5A3ypdDOeM06X6a2NpNi4YWnE6mC
- 2NyQNklaS4GH5N+Y0O0KorENjPo6XmIKRUe43hr2bljZ9KcS30qPhwmXIPUFXXOTPm5XIu
- n26mA6Au7+KoHn580KonEgnc/bZs1s5A97JkVcqC4ISpJzXNYjj+t+twS22sMPY2EzjhQZ
- iio59hjvBN4KHAeTHadmXNHM9e/08/R+WKLujQCoy1O7rhd/OkZ8uYxTFLAP+7H0ewrqHT
- 6PMrAxpgk6up77rZyTiJAqPjC9S4tcckhsI1eEGu3LR+due+PAeNxJSMadl6Qw==
-Date: Mon, 28 Apr 2025 18:33:58 +0200
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Jagan Teki
- <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Douglas Anderson
- <dianders@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, Krzysztof
- Kozlowski <krzk@kernel.org>, Anusha Srivatsa <asrivats@redhat.com>, Paul
- Kocialkowski <paulk@sys-base.io>, Dmitry Baryshkov <lumag@kernel.org>, Hui
- Pu <Hui.Pu@gehealthcare.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
- asahi@lists.linux.dev, linux-kernel@vger.kernel.org,
- chrome-platform@lists.linux.dev, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, Adam Ford <aford173@gmail.com>,
- Adrien Grassein <adrien.grassein@gmail.com>, Aleksandr Mishin
- <amishin@t-argos.ru>, Andy Yan <andy.yan@rock-chips.com>, AngeloGioacchino
- Del Regno <angelogioacchino.delregno@collabora.com>, Benson Leung
- <bleung@chromium.org>, Biju Das <biju.das.jz@bp.renesas.com>, Christoph
- Fritz <chf.fritz@googlemail.com>, Cristian Ciocaltea
- <cristian.ciocaltea@collabora.com>, Detlev Casanova
- <detlev.casanova@collabora.com>, Dharma Balasubiramani
- <dharma.b@microchip.com>, Guenter Roeck <groeck@chromium.org>, Heiko
- Stuebner <heiko@sntech.de>, Jani Nikula <jani.nikula@intel.com>, Janne
- Grunau <j@jannau.net>, Jerome Brunet <jbrunet@baylibre.com>, Jesse Van
- Gavere <jesseevg@gmail.com>, Kevin Hilman <khilman@baylibre.com>, Kieran
- Bingham <kieran.bingham+renesas@ideasonboard.com>, Liu Ying
- <victor.liu@nxp.com>, Manikandan Muralidharan <manikandan.m@microchip.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Matthias Brugger
- <matthias.bgg@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, Phong LE
- <ple@baylibre.com>, Sasha Finkelstein <fnkl.kernel@gmail.com>, Sugar Zhang
- <sugar.zhang@rock-chips.com>, Sui Jingfeng <sui.jingfeng@linux.dev>, Tomi
- Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, Vitalii Mordan
- <mordan@ispras.ru>, Ilpo =?UTF-8?B?SsOkcnZpbmVu?=
- <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue
- <bryan.odonoghue@linaro.org>, Hans de Goede <hdegoede@redhat.com>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>, Dmitry
- Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, "Rob Herring (Arm)"
- <robh@kernel.org>, Hsin-Te Yuan <yuanhsinte@chromium.org>, Pin-yen Lin
- <treapking@chromium.org>, Xin Ji <xji@analogixsemi.com>, Aradhya Bhatia
- <a-bhatia1@ti.com>, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Ian
- Ray <ian.ray@ge.com>, Martyn Welch <martyn.welch@collabora.co.uk>, Peter
- Senna Tschudin <peter.senna@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Herve Codina <herve.codina@bootlin.com>, Alim
- Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>, Kyungmin
- Park <kyungmin.park@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Linus Walleij <linus.walleij@linaro.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Bjorn Andersson <quic_bjorande@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Helge Deller
- <deller@gmx.de>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Philippe Cornu <philippe.cornu@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, Yannick Fertre
- <yannick.fertre@foss.st.com>, =?UTF-8?B?TWHDrXJh?= Canal
- <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Alain Volmat
- <alain.volmat@foss.st.com>, Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Michal Simek <michal.simek@amd.com>
-Subject: Re: [PATCH v2 00/34] drm: convert all bridges to
- devm_drm_bridge_alloc()
-Message-ID: <20250428183358.4d28ca6a@booty>
-In-Reply-To: <20250428-colossal-fiery-alpaca-8c5fee@houat>
-References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
- <20250428172457.23e23df5@booty>
- <20250428-colossal-fiery-alpaca-8c5fee@houat>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.43; x86_64-redhat-linux-gnu)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 328E910E67B;
+ Mon, 28 Apr 2025 18:23:58 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-39ee651e419so2695578f8f.3; 
+ Mon, 28 Apr 2025 11:23:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1745864637; x=1746469437; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=bfkSNuW9ZLA+zt1E4XJ6Y4jl13nx7BJaRR54OIX8urI=;
+ b=h/lkl/cNF2E/K7yn021n2jfJJPCHfzAWvo7T9zQe21KklgmXdno/PPWToTkQRnuC6x
+ Oi35e7XdLkwMjdj53yC5PrZ2K8rlNWvuUVcerCbFIhgwSJY0fgQgcBxMkDwYNqQUwaE9
+ grSHwl8nbiATzB31AhYi7VVM5L05iM2h9/EpQRQ0+Fc5nwD5CA6pUj5ft3RmvJBhlHAr
+ g3VVJ3pAUuXMQpNC30nC0BzSYSbhUNsQdp1vfansb12dUCx8papY1ROPAg/6WUHw2h0e
+ umMRTYkT3S6ymn8E0T2Yov6k5nGO5zZ/ue2udURiMpHW7Zn3yR187I/QXoW+AQbkvtLz
+ /MAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745864637; x=1746469437;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bfkSNuW9ZLA+zt1E4XJ6Y4jl13nx7BJaRR54OIX8urI=;
+ b=o0rtptD159ZnSaJ9Bi29VaEr+1qlbXwM5Ah548uP1ZBD389NIrJEVG5nGtJZyN1BBi
+ FHC0RefcYGDwJ7lArXb3pN/8Qn9fmekTOlmgOGUp4q+5W0h8Hruns8a6+Dx0oopPQuFH
+ WsPfV/tFsfBVYnEh3uMjikBW9j7DTDTJavEcsrvBAoKPwZhJB0eT+eYYtz3XljLcv7M+
+ btT3diiKvH7kRnxhObKk/pea/cmSa2bb3bWkuIjuWpSMKOb6JRlqt9sJ5OTnQak7SHQZ
+ McbI+VcoJcZrfNVfMWcJA7Z+Ggh2F2Jlzw5WutqgEnPAAqvBGyo7rnyxKJGVJ7THs4oD
+ uOXQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVRocNQVgB4BG7NAGX0F2r9tUvDKH23VI4/isvrUUoKTy/txu++ZZyGFgTqNTD4BZwlNFVwGl7ouvk=@lists.freedesktop.org,
+ AJvYcCX+Ohwwu+ZDzJ3zbEjB1YTl0zaVkPQfoCXGPi0bRNLwIReFTXYTeK6ieHE4cTX3aDBdOgmSHR1/SlPl@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGauwT9etN5YNwOM+7Khmll0c3bJFAr0HYm2jL+w+dUcMtqFqH
+ c6F5KaiDpwSPprtnOEGxdQmgtfhOx0SR9/Ub9NVM8PPAah2AHtH86Xc9ct+bvaiUuhmC7nu9rsv
+ 4AAyx7aCaFAzQduIBDVq5alxnBw==
+X-Gm-Gg: ASbGnct8wVirI+L3FaqkU2jX0e0//P82Ii5HqIVP75erLMTvf+niWe3UGptUu78lac2
+ nbVE7SNp5HNYdHBfsyxWHE4Jw7S6DZbxVA0pMNBWBPMzgdIIYnHBVJroVg09VTmkDzogTfsHgas
+ kAi747DbGnCgTAVTCZjF4pmQ==
+X-Google-Smtp-Source: AGHT+IFwDSjFDsXFqDEajGlCEG2JWphdEKba/Sl0xJc1WhGDflX1dA0OlyRMRIVd6p09uVXAOpHTVyL0aAWfZUYjs78=
+X-Received: by 2002:a05:6000:4310:b0:3a0:8549:302 with SMTP id
+ ffacd0b85a97d-3a08a371450mr255248f8f.35.1745864636424; Mon, 28 Apr 2025
+ 11:23:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddviedugeegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtqhertdertdejnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhephfetudeugfehheeliefhjeejuddvledtuddttdevledthfehgeeugfetheekgfffnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegsohhothihpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepuddtkedprhgtphhtthhopehmrhhiphgrrhgusehkvghrnhgvlhdrohhrghdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepthiiihhmmhgvrhhmr
- ghnnhesshhushgvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrghdprhgtphhtthhopehrfhhoshhssehkvghrnhgvlhdrohhrgh
-X-GND-Sasl: luca.ceresoli@bootlin.com
+References: <20250417021349.148911-1-alex.vinarskis@gmail.com>
+ <aA8yFI2Bvm-lFJTl@hovoldconsulting.com>
+ <CAMcHhXpmii=Rc9YVeKXaB17mYv0piSFs02K=0r8kWe5tQGk7eA@mail.gmail.com>
+ <aA94yOjsayZHNDpx@hovoldconsulting.com> <aA+N8YHX0DZ6h9Uj@linaro.org>
+In-Reply-To: <aA+N8YHX0DZ6h9Uj@linaro.org>
+From: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+Date: Mon, 28 Apr 2025 20:23:45 +0200
+X-Gm-Features: ATxdqUFJV2eKUF6Ib5_rQijD8ZDNXLbxDy4yxnBcyxEjzsLTAojaiverpqjEJgQ
+Message-ID: <CAMcHhXpG-1AP7qP6bAfFcdxtDxsC+_3TYFqwByp5pkFiRYvmJQ@mail.gmail.com>
+Subject: Re: drm/msm/dp: Introduce link training per-segment for LTTPRs
+To: Abel Vesa <abel.vesa@linaro.org>
+Cc: Johan Hovold <johan@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ laurentiu.tudor1@dell.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,81 +91,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Maxime,
-
-On Mon, 28 Apr 2025 17:42:46 +0200
-Maxime Ripard <mripard@kernel.org> wrote:
-
-> On Mon, Apr 28, 2025 at 05:24:57PM +0200, Luca Ceresoli wrote:
-> > Hi Maxime, other DRM maintainers,
-> >=20
-> > On Thu, 24 Apr 2025 20:59:07 +0200
-> > Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
-> >  =20
-> > > devm_drm_bridge_alloc() [0] is the new API to allocate and initialize=
- a DRM
-> > > bridge, and the only one supported from now on. It is also necessary =
-for
-> > > implementing reference counting and thus needed to support removal of
-> > > bridges from a still existing DRM pipeline without use-after-free.
-> > >=20
-> > > This series converts all DRM bridges to the new API.
-> > >=20
-> > > Patch 1 uses a coccinelle semantic patch to mass-convert some of those
-> > > drivers -- thanks Maxime for having suggested the patch that served a=
-s a
-> > > starting point for me. I was unable to come up with a better patch
-> > > converting more drivers though, so I converted all others manually. M=
-ost of
-> > > them were trivial. I left the non-trivial ones at the end of the seri=
-es to
-> > > help reviewers know where to look at more carefully.
-> > >=20
-> > > Due to the large number of touched files, the list of recipients gene=
-rated
-> > > by get_maintainers (b4 actually) was huge, 60~70 people (not counting
-> > > mailing lists), so I took the liberty of trimming the list as reasona=
-bly as
-> > > I could to DRM maintainers and frequent contributors, and added all o=
-ther
-> > > recipients individually per-patch. I hope this is fine. Don't hesitat=
-e to
-> > > suggest more people which should be Cc-ed in a future series, or a be=
-tter
-> > > Cc policy.
-> > >=20
-> > > Current plan and status of the DRM bridge refcounting work:
-> > >=20
-> > >  A. =E2=9C=94 add new alloc API and refcounting -> (now in drm-misc-n=
-ext)
-> > >  B. =E2=9E=9C convert all bridge drivers to new API (this series)
-> > >  C. =E2=80=A6 documentation, kunit tests, debugfs improvements (v1 un=
-der discussion)
-> > >  D. after (B), add get/put to drm_bridge_add/remove() + attach/detech=
-()
-> > >  E. after (B), convert accessors; this is a large work and can be done
-> > >     in chunks =20
+On Mon, 28 Apr 2025 at 16:17, Abel Vesa <abel.vesa@linaro.org> wrote:
+>
+> On 25-04-28 14:47:04, Johan Hovold wrote:
+> > On Mon, Apr 28, 2025 at 11:06:39AM +0200, Aleksandrs Vinarskis wrote:
+> > > On Mon, 28 Apr 2025 at 09:45, Johan Hovold <johan@kernel.org> wrote:
+> > > > On Thu, Apr 17, 2025 at 04:10:31AM +0200, Aleksandrs Vinarskis wrote:
+> > > > > Recently added Initial LTTPR support in msm/dp has configured LTTPR(s)
+> > > > > to non-transparent mode to enable video output on X1E-based devices
+> > > > > that come with LTTPR on the motherboards. However, video would not work
+> > > > > if additional LTTPR(s) are present between sink and source, which is
+> > > > > the case for USB Type-C docks (eg. Dell WD19TB/WD22TB4), and at least
+> > > > > some universal Thunderbolt/USB Type-C monitors (eg. Dell U2725QE).
+> > > >
+> > > > Does this mean that the incomplete LTTPR support in 6.15-rc1 broke
+> > > > adapters or docks with retimers in transparent mode?
+> > >
+> > > I am actually not 100% sure.
+> > > - If without LTTPR initialization, they default to transparent mode,
+> > > then yes, incomplete LTTPR support sets them to non-transparent
+> > > without per-segment training and breaks docks with retimers, while it
+> > > would've worked if LTTPR(s) would've been left in default transparent
+> > > mode. Note that in this case, X1E devices with ps883x are somehow an
+> > > exception, because without LTTPR initialization at all the training
+> > > always fails.
 > >
-> > Maintaining this long series is quite painful. Do you think at least
-> > patches with a R-by or T-by tag could be merged before I send v3, so
-> > we can relieve the maintenance effort, mail servers, and everybody's
-> > inboxes? =20
->=20
-> Yes?
->=20
-> What's stopping you though? You have at least a colleague that can apply
-> them, and you could just as well apply for commit rights yourself.
+> > Right, I'm concerned about breaking working setups for users of machines
+> > like the X13s.
+> >
+> > > - If LTTPR has to be initialized either way, and explicitly set to
+> > > transparent mode if we do not want non-transparent, then no,
+> > > incomplete LTTPR support in 6.15-rcX did not explicitly break docks
+> > > with retimers, as those never worked in the first place. As per my
+> > > understanding, this is the case, unless something (firmware?) has
+> > > already placed LTTPR to transparent mode before the driver takes over
+> > > - then 1st case would be applicable.
+> > >
+> > > Docks with retimers do not work in 6.15-rcX, but I am unable to verify
+> > > if it did work before, as I do not have a Qualcomm based device
+> > > without LTTPR on the baseboard.
+> >
+> > Abel (or anyone else), do you have one of these docks that you could
+> > test with the X13s to confirm whether this series fixes a regression or
+> > not?
+>
+> Before the support for LTTPRs has been merged, if you would have one of
+> those docks (I do not own one) with LTTPRs, link training would've just
+> failed if the LTTPRs were not by default in transparent mode, which IIRC
+> is what the standard dictates.
+>
+> X13s doesn't have LTTPRs on-board so when reading the caps, LTTPRs count
+> would return 0 and none of the of the transparent/non-transparent setup
+> would happen. Now, as already mentioned, DP would be considered already
+> broken (or rather not supported) if you would connect a dock with LTTPRs in it.
+>
+> With the support in, if one such dock is used, the training should be
+> successful as all LTTPRs are set in transparent mode. This I was not
+> able to test myself as I do not own such a dock.
+>
+> >
+> > > > You describe at least one of this patches as a fix but I'm not seeing
+> > > > any Fixes tags or indication that these need to go into 6.15-rc to fix
+> > > > a regression.
+> > >
+> > > You are right, I will add Fixes tag to the 1st patch to make it clear:
+> > > Fixes 72d0af4accd (drm/msm/dp: Add support for LTTPR handling)
+> > >
+> > > Or should I mark the entire series with Fixes, so that the docking
+> > > stations with retimers can be fixed in 6.15 already? Landing only the
+> > > 1st patch will fix inconsistency with DP spec, but will not fix
+> > > docking stations with retimers. I guess this comes down to whether
+> > > existing LTTPR (but not multiple LTTPRs) support is considered a bug
+> > > (and patches 2,3,4 are a fix) or lack of functionality (and patches
+> > > 2,3,4 are a new feature).
+> >
+> > Indeed. If LTTPR support broke existing setups, then I think all should
+> > be marked with a Fixes tag and merged for 6.15. If we can't get it into
+> > 6.15 we may consider just disabling LTTPR support in 6.15 to address the
+> > regression and then enable it again once fixed in 6.16.
+>
+> The LTTPR support did not break existing (working) setups because on these
+> setups, LTTPR count would read 0 and would be basically a no-op.
+>
+> >
+> > But if this series is just enabling support for docks (and USB-C ports)
+> > that did not used to work, then I guess this can all wait for 6.16.
+>
+> I'm not sure about what this actually fixes. It might be that is
+> specific to a dock or something. But as far as X Elite boards go, even
+> without this "fix" display has been working fine.
+>
+> The change itself makes sense though and I think makes sense to be marked as a fix.
 
-OK, thanks. Will do.
+Just to confirm, you mean to mark as fix only the 1st patch, correct?
+Since it's obvious now that the currently present partial LTTPR
+support did not break anything that used to work.
 
-The reason I haven't done it is this policy in DRM still appears a bit
-unusual to me, but if it works for DRM I'm OK with it. Only, in case of
-doubt, I didn't want to risk abusing of the commit rights.
+Thanks,
+Alex
 
-Best regards,
-Luca
-
---=20
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+>
+> >
+> > Johan
+>
+> Abel
