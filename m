@@ -2,136 +2,129 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D071A9FB8C
-	for <lists+freedreno@lfdr.de>; Mon, 28 Apr 2025 23:06:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6390A9FC14
+	for <lists+freedreno@lfdr.de>; Mon, 28 Apr 2025 23:19:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 825AA10E171;
-	Mon, 28 Apr 2025 21:06:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A902E10EA6A;
+	Mon, 28 Apr 2025 21:19:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="ms0uZtE5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eNTaQp8O";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E496B10E171
- for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 21:06:12 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-7c08fc20194so1211992085a.2
- for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 14:06:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1745874371; x=1746479171;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0HZyp8budJTYWJ9MOmTZnBjDzB8PV0g52ckHb+nyRQs=;
- b=ms0uZtE5jUU1GZ/TPxhy1QxIiljyBps9V5pW8L27CPDFbWLorOp73A0Ol/pKjzis0S
- UlqTBSu0rgXcACEf1qtrO1zYI6X+48VKE7mtbqUzsUnQ0dhANXedrD8/ZprP6tO1/FzS
- UqYrSa0LvDxpWJ+lbHa7wwXp3PhGpBTqs6f9M=
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 170C810EA6A
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 21:19:39 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SACUMp027132
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 21:19:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 1p0DQQl3Uv/CeewEIX8WmFJDpqWu+zknhFq+jDxcqzs=; b=eNTaQp8OWPZ8bjaJ
+ siO4gZnXx47CjAcBmt71c18UjDCk4ZVh/jMyqSEZUJzIvyn/7fefYAXn/pYrF1bl
+ p2KMxaJaRMThp2AKhC59qPuHUKcQGa4trnmhLTtIiY/T6e3EOD5T/a1bIHPuplle
+ XPySL3CsCCVI21Q0dsmwg8TjaTRk3d2xk+CDoE2Wmci0cdhAR0yNWZtf8sYTQ4CV
+ 0RiX4tWV2+LjX2zdXzHlspi9TvxrvSPJkeaddZ5dALUxBNAif1H2ySlaJ0MlfiKW
+ LSV5Ro3kfMHAOT55MgOnsnVtbBSI234SnKXf1Ns8JdkigwMqJCWzaxtOFUfhwIHS
+ h6fGvQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 468qjwtccb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 21:19:37 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-476a4a83106so6762741cf.2
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 14:19:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745874371; x=1746479171;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0HZyp8budJTYWJ9MOmTZnBjDzB8PV0g52ckHb+nyRQs=;
- b=RprsYYNpagD99bzHR31kWLV2sbnCy3JAm87gn8vxUkDDg2cDPVCqKuF0c4iU/ukrV3
- l8Ntd+HU3j5m4MmVLERgwW+HU+p1oBc1QEcSZYkDBmpiu9hKTp2RncY2JApOxHfwrfKq
- rzbzttCkuFYluQVuEnZoyUoZ+OAfuma9bhjSAYFxWDPfe0ZMB7sBQiz9mBRHs4Dh32Bv
- HDyvWYSxAneCkfdLS6kCuWzNkx4YV3YVxPQkByN63TqLN5st38b73x6uJ3Eg6cZ3+D4M
- YiPLR5BBobxHrJ0WlDvdd4Uk+sVf/IowRxNjiHZpy//SuXWgHzb5rFGXRxmHNbrtdKWv
- dJZQ==
+ d=1e100.net; s=20230601; t=1745875177; x=1746479977;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=1p0DQQl3Uv/CeewEIX8WmFJDpqWu+zknhFq+jDxcqzs=;
+ b=pAT0evdR2FoYU3TpppYvdxz4hkxFk3+Ihkg8tbimctsoByMmRRSVnKq8nV9TqrPpNt
+ FnqmxKAwYhUcTO7iJDqyjRYRvyY3FQaTch6qa3aTmsQnVmRJ6yF6Ds9W266aVenVYTOv
+ RNX140gLNbAHV2+c2BG1tEk8IoolVaVyzTcDUdtXs6mxkVGX66HJropBYDVTzDrubC9r
+ Qq+gS4LolQlfTmK8zhgdVUb5qDPfn/ONnlV7nZvjkAoA7hhKv2OJxD0HGLI6DDgDJzLu
+ xOHdDht4ipAo4jmhanKDcYGPW6/B3zewMkBzgQaGHcy+fShS3Z2etEEFLz4nspYl5sLS
+ G2YA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEVV0bk9YPqADGwlXQ7hkxnzxLiTtk0KD/XthGr3A8leV4j4rwQLrNSegIbc9TBvLyTYHOQDjM458=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyVhuRjj6rpCsP6OgqlTdlBhSHKmdbL+XXTbSLQirHS7KTKQxpx
- CsMQtaJddjd1erwd5+IAgEY1SjgjcjWqFNHUGd3NvXZMVGswqQ+cWhxSBUhuP2KBpgKdzIsH35A
- =
-X-Gm-Gg: ASbGnctRFYHiS4Ww5SjDMSrfa88XhfJ2w0eXRhQZIATh7Szq0ipR7zS7sNESeI9aLHt
- Bk6pMPNQf0HUrhFupPmMZeWX9dENpLAY3ypFuY2HWJ/zGJ0KBffMnRuW1Co53PysUh9opoOjA2o
- dvJuLFU8LJaINeCaJXtScwAwlFS/cknpuQGf+z/Bqy1IgfNTtxJoRoJhNxs2MMe5fCEder5xT3k
- GuzGxEXGTsR2E+/Ee/5ivQCgYPhgjGmlkWOEY5LCa1Qh6Ayi9zkKb/wxiwYt09TlRqI6AQzft4Z
- QO7FlamNl9VaFY+e1PNWaEvKQ4EgSiWRxIRx3qPubfDVK8zdsOyQ8kLtbBvIuHeb/51VKNPH+Kq
- h5K2Xf7U0GdbhQyw=
-X-Google-Smtp-Source: AGHT+IHwcBgDIIpCdsSedNaII349kE3VMFV7CeVkVue+4mXJlzOcgszeuRzCXUAx1NWi8ldCDJH8XA==
-X-Received: by 2002:a05:620a:1a97:b0:7c7:a5ce:aaf1 with SMTP id
- af79cd13be357-7c9668bfd6cmr1417367485a.35.1745874371113; 
- Mon, 28 Apr 2025 14:06:11 -0700 (PDT)
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com.
- [209.85.219.53]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7c958e7f1edsm661220985a.89.2025.04.28.14.06.10
- for <freedreno@lists.freedesktop.org>
+ AJvYcCUcH24Uu+ddUr1UhQcIZKGSN9yvW8gv+V4Cio+xnEsyL9Sr63wrZDZmwnJyiVrEOvtVSxTv51Bd1Xw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzox5M9+zbqWvFz59XVkxCBX7fgR1Hmp7DXfUqlr1Sd2bqWPv4I
+ WjIce3tVB7awL/DNROzBrP5UJJSMyGyE3hasH5Pq1G8z1JDL7/X6Wt5daFjZ8A/IYd401KekCtR
+ 3pQbPTM6SFDW73rpDC1I4lZ7jEvJQNkYRso/s35Y4Hy580b0gV+tvZ04BAHO++kbownk=
+X-Gm-Gg: ASbGncsTTffozEE0JVarjnBOejCczKv0yz2GOGW5A+XjdIw318texfAyOpllW6ygJHd
+ azubXw4o6afrkyWNX03HjLd1+C7iPcJosQOST3sq3cwi7y8xYAFilBtdfBl85urevFS/RfM8p26
+ MVx5TvRLGDwKy8oSf3Rb8EfI8aObAo0veAnRcibhLK+Pe2NHp2SErAYmRCbv/ZmHCl4pomkrDJP
+ IR5NTG3LowDDmvrZkA9I9w75ngAuw+LoAuwFtJi6AKoWF/X+JGXcZHEDCuvvHmFkNSmAskQfrCA
+ plzmw0V3yaozjxBH7UUqxAM4RwG4XFayJalWp3UYUHnmG6aOGWVz6FNDEwQgCPgYkQ==
+X-Received: by 2002:ac8:5d43:0:b0:47a:e81b:cca6 with SMTP id
+ d75a77b69052e-4801e5ef61bmr86239911cf.10.1745875177210; 
+ Mon, 28 Apr 2025 14:19:37 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEHGM4Gsyyf3DoqVCxTr5c/Fx29SX0hifWAwRSJIcxlPqb02dtB8cwcCNR+5BkrZ9k/UWtLcg==
+X-Received: by 2002:ac8:5d43:0:b0:47a:e81b:cca6 with SMTP id
+ d75a77b69052e-4801e5ef61bmr86239641cf.10.1745875176771; 
+ Mon, 28 Apr 2025 14:19:36 -0700 (PDT)
+Received: from [192.168.65.47] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ace6e41c431sm693197766b.18.2025.04.28.14.19.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 14:06:10 -0700 (PDT)
-Received: by mail-qv1-f53.google.com with SMTP id
- 6a1803df08f44-6e8fd49b85eso98668796d6.0
- for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 14:06:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUp9mbky8ziqyj+FowFqKqZMq3seHPTXKCZ0wU4AbcQEd0YrjXY+HV7bkxPvFtVaJcZQuxYwLoEmfQ=@lists.freedesktop.org
-X-Received: by 2002:a17:90b:2e03:b0:2fa:1a23:c01d with SMTP id
- 98e67ed59e1d1-30a0132e771mr15291417a91.21.1745874002058; Mon, 28 Apr 2025
- 14:00:02 -0700 (PDT)
+ Mon, 28 Apr 2025 14:19:36 -0700 (PDT)
+Message-ID: <41df5398-79f6-484a-8ad3-f3488eb1b71c@oss.qualcomm.com>
+Date: Mon, 28 Apr 2025 23:19:32 +0200
 MIME-Version: 1.0
-References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
- <20250424-drm-bridge-convert-to-alloc-api-v2-1-8f91a404d86b@bootlin.com>
-In-Reply-To: <20250424-drm-bridge-convert-to-alloc-api-v2-1-8f91a404d86b@bootlin.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 28 Apr 2025 13:59:50 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VmV5yb0HWWGTiKyyC8+WNPJpM7vE9PQGh5_=KPk6+HCg@mail.gmail.com>
-X-Gm-Features: ATxdqUFp3e4vRAA9U9jS3-gUD9FhwChMaNCvlfej-PAqltrXksVDq12UxaUaXqM
-Message-ID: <CAD=FV=VmV5yb0HWWGTiKyyC8+WNPJpM7vE9PQGh5_=KPk6+HCg@mail.gmail.com>
-Subject: Re: [PATCH v2 01/34] drm: convert many bridge drivers from
- devm_kzalloc() to devm_drm_bridge_alloc() API
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Anusha Srivatsa <asrivats@redhat.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, Dmitry Baryshkov <lumag@kernel.org>,
- Hui Pu <Hui.Pu@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, 
- asahi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- chrome-platform@lists.linux.dev, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
- platform-driver-x86@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-stm32@st-md-mailman.stormreply.com, Adam Ford <aford173@gmail.com>, 
- Adrien Grassein <adrien.grassein@gmail.com>,
- Aleksandr Mishin <amishin@t-argos.ru>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Benson Leung <bleung@chromium.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Christoph Fritz <chf.fritz@googlemail.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Detlev Casanova <detlev.casanova@collabora.com>, 
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Guenter Roeck <groeck@chromium.org>, 
- Heiko Stuebner <heiko@sntech.de>, Jani Nikula <jani.nikula@intel.com>,
- Janne Grunau <j@jannau.net>, 
- Jerome Brunet <jbrunet@baylibre.com>, Jesse Van Gavere <jesseevg@gmail.com>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Liu Ying <victor.liu@nxp.com>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Phong LE <ple@baylibre.com>, Sasha Finkelstein <fnkl.kernel@gmail.com>, 
- Sugar Zhang <sugar.zhang@rock-chips.com>, Sui Jingfeng <sui.jingfeng@linux.dev>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Vitalii Mordan <mordan@ispras.ru>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/6] arm64: dts: qcom: qcs8300: Add gpu and gmu nodes
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Jie Zhang <quic_jiezh@quicinc.com>
+References: <20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com>
+ <20250228-a623-gpu-support-v2-5-aea654ecc1d3@quicinc.com>
+ <e22daaae-57fc-4523-b594-87d202d255f3@oss.qualcomm.com>
+ <aa8ebd50-683b-4043-9494-5675a2d9a01e@quicinc.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <aa8ebd50-683b-4043-9494-5675a2d9a01e@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: _QcqBle7a5LrLajoOWFhL2iGtAiTyQDl
+X-Proofpoint-GUID: _QcqBle7a5LrLajoOWFhL2iGtAiTyQDl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDE3MCBTYWx0ZWRfXyIUREQSD7vE+
+ Hv23LNzIH9BJZW35mdOiPjNEZJr2JqFK5d/OXcFz8ny8wH3hdkZndqHC1vw7FdXGJoTk/krrov/
+ CzdTdFDPfRCATFufQKxHCN0zxjZGoA27rl3SZ4PeKCrVlejs2FmRYK0yFpJlgThpU7KczhCvD5Z
+ Ms2iwBe2Sc+rnlTvezuRnGAl3jdgGv7WMvXEcp23pe2rjdPBsafe/HEznDjfX+ocnA9Me0iA1ds
+ tFDln0G1F9CO5zh/x6GUmU0kARRZtLaVie6FGgJW6ck9OweoVcxEAH/LZMRv9HsOL0kqyga6XNR
+ AY1LpOaGVjQlUGg1TJBY9XDHWYDS9Xb//INxaMXs+q/v6XX7L91RCu9QgVRRPc2uRVj/dm2nD+4
+ N/HjkiMOzzgrEDNqkvrrXPprPqxDyQwFCgqDa9YcQwds3CXIxkquU9yXRq6vk9H28kRcX0Ae
+X-Authority-Analysis: v=2.4 cv=c/urQQ9l c=1 sm=1 tr=0 ts=680ff0e9 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=dalwKpVopYczjXflRRgA:9
+ a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-28_08,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 mlxlogscore=683
+ phishscore=0 lowpriorityscore=0 impostorscore=0 mlxscore=0 malwarescore=0
+ clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504280170
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,136 +140,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 4/28/25 12:44 PM, Akhil P Oommen wrote:
+> On 4/14/2025 4:31 PM, Konrad Dybcio wrote:
+>> On 2/27/25 9:07 PM, Akhil P Oommen wrote:
+>>> From: Jie Zhang <quic_jiezh@quicinc.com>
+>>>
+>>> Add gpu and gmu nodes for qcs8300 chipset.
+>>>
+>>> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
+>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>> ---
+>>
+>> [...]
+>>
+>>> +		gmu: gmu@3d6a000 {
+>>> +			compatible = "qcom,adreno-gmu-623.0", "qcom,adreno-gmu";
+>>> +			reg = <0x0 0x03d6a000 0x0 0x34000>,
+>>
+>> size = 0x26000 so that it doesn't leak into GPU_CC
+> 
+> We dump GPUCC regs into snapshot!
 
-On Thu, Apr 24, 2025 at 11:59=E2=80=AFAM Luca Ceresoli
-<luca.ceresoli@bootlin.com> wrote:
->
-> devm_drm_bridge_alloc() is the new API to be used for allocating (and
-> partially initializing) a private driver struct embedding a struct
-> drm_bridge.
->
-> For many drivers having a simple code flow in the probe function, this
-> commit does a mass conversion automatically with the following semantic
-> patch. The changes have been reviewed manually for correctness as well as
-> to find any false positives.
->
->   @@
->   type T;
->   identifier C;
->   identifier BR;
->   expression DEV;
->   expression FUNCS;
->   @@
->   -T *C;
->   +T *C;
->    ...
->   (
->   -C =3D devm_kzalloc(DEV, ...);
->   -if (!C)
->   -    return -ENOMEM;
->   +C =3D devm_drm_bridge_alloc(DEV, T, BR, FUNCS);
->   +if (IS_ERR(C))
->   +     return PTR_ERR(C);
->   |
->   -C =3D devm_kzalloc(DEV, ...);
->   -if (!C)
->   -    return ERR_PTR(-ENOMEM);
->   +C =3D devm_drm_bridge_alloc(DEV, T, BR, FUNCS);
->   +if (IS_ERR(C))
->   +     return PTR_ERR(C);
->   )
->    ...
->   -C->BR.funcs =3D FUNCS;
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->
-> ---
->
-> Cc: Adam Ford <aford173@gmail.com>
-> Cc: Adrien Grassein <adrien.grassein@gmail.com>
-> Cc: Aleksandr Mishin <amishin@t-argos.ru>
-> Cc: Andy Yan <andy.yan@rock-chips.com>
-> Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Cc: Benson Leung <bleung@chromium.org>
-> Cc: Biju Das <biju.das.jz@bp.renesas.com>
-> Cc: Christoph Fritz <chf.fritz@googlemail.com>
-> Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> Cc: Detlev Casanova <detlev.casanova@collabora.com>
-> Cc: Dharma Balasubiramani <dharma.b@microchip.com>
-> Cc: Guenter Roeck <groeck@chromium.org>
-> Cc: Heiko Stuebner <heiko@sntech.de>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Janne Grunau <j@jannau.net>
-> Cc: Jerome Brunet <jbrunet@baylibre.com>
-> Cc: Jesse Van Gavere <jesseevg@gmail.com>
-> Cc: Kevin Hilman <khilman@baylibre.com>
-> Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> Cc: Liu Ying <victor.liu@nxp.com>
-> Cc: Manikandan Muralidharan <manikandan.m@microchip.com>
-> Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-> Cc: Matthias Brugger <matthias.bgg@gmail.com>
-> Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> Cc: Phong LE <ple@baylibre.com>
-> Cc: Sasha Finkelstein <fnkl.kernel@gmail.com>
-> Cc: Sugar Zhang <sugar.zhang@rock-chips.com>
-> Cc: Sui Jingfeng <sui.jingfeng@linux.dev>
-> Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> Cc: Vitalii Mordan <mordan@ispras.ru>
->
-> Changed in v2:
-> - added missing PTR_ERR() in the second spatch alternative
-> ---
->  drivers/gpu/drm/adp/adp-mipi.c                      |  8 ++++----
->  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c        |  9 ++++-----
->  drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c  |  9 ++++-----
->  drivers/gpu/drm/bridge/aux-bridge.c                 |  9 ++++-----
->  drivers/gpu/drm/bridge/aux-hpd-bridge.c             |  9 +++++----
->  drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c |  8 ++++----
->  drivers/gpu/drm/bridge/chipone-icn6211.c            |  9 ++++-----
->  drivers/gpu/drm/bridge/chrontel-ch7033.c            |  8 ++++----
->  drivers/gpu/drm/bridge/cros-ec-anx7688.c            |  9 ++++-----
->  drivers/gpu/drm/bridge/fsl-ldb.c                    |  7 +++----
->  drivers/gpu/drm/bridge/imx/imx-legacy-bridge.c      |  9 ++++-----
->  drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c        | 10 ++++------
->  drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c     |  8 ++++----
->  drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c        |  8 ++++----
->  drivers/gpu/drm/bridge/ite-it6263.c                 |  9 ++++-----
->  drivers/gpu/drm/bridge/ite-it6505.c                 |  9 ++++-----
->  drivers/gpu/drm/bridge/ite-it66121.c                |  9 ++++-----
->  drivers/gpu/drm/bridge/lontium-lt8912b.c            |  9 ++++-----
->  drivers/gpu/drm/bridge/lontium-lt9211.c             |  8 +++-----
->  drivers/gpu/drm/bridge/lontium-lt9611.c             |  9 ++++-----
->  drivers/gpu/drm/bridge/lvds-codec.c                 |  9 ++++-----
->  drivers/gpu/drm/bridge/microchip-lvds.c             |  8 ++++----
->  drivers/gpu/drm/bridge/nwl-dsi.c                    |  8 ++++----
->  drivers/gpu/drm/bridge/parade-ps8622.c              |  9 ++++-----
->  drivers/gpu/drm/bridge/parade-ps8640.c              |  9 ++++-----
->  drivers/gpu/drm/bridge/sii9234.c                    |  9 ++++-----
->  drivers/gpu/drm/bridge/sil-sii8620.c                |  9 ++++-----
->  drivers/gpu/drm/bridge/simple-bridge.c              | 10 ++++------
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c        |  8 ++++----
->  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c       |  8 ++++----
->  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c      |  8 ++++----
->  drivers/gpu/drm/bridge/tc358762.c                   |  9 ++++-----
->  drivers/gpu/drm/bridge/tc358764.c                   |  9 ++++-----
->  drivers/gpu/drm/bridge/tc358768.c                   |  9 ++++-----
->  drivers/gpu/drm/bridge/tc358775.c                   |  9 ++++-----
->  drivers/gpu/drm/bridge/thc63lvd1024.c               |  8 ++++----
->  drivers/gpu/drm/bridge/ti-dlpc3433.c                |  9 ++++-----
->  drivers/gpu/drm/bridge/ti-tdp158.c                  |  8 ++++----
->  drivers/gpu/drm/bridge/ti-tfp410.c                  |  9 ++++-----
->  drivers/gpu/drm/bridge/ti-tpd12s015.c               |  9 ++++-----
->  drivers/gpu/drm/mediatek/mtk_dp.c                   |  9 ++++-----
->  drivers/gpu/drm/mediatek/mtk_dpi.c                  |  9 ++++-----
->  drivers/gpu/drm/mediatek/mtk_dsi.c                  |  9 ++++-----
->  drivers/gpu/drm/mediatek/mtk_hdmi.c                 |  9 ++++-----
->  drivers/gpu/drm/meson/meson_encoder_cvbs.c          | 12 ++++++------
->  drivers/gpu/drm/meson/meson_encoder_dsi.c           | 12 ++++++------
->  drivers/gpu/drm/meson/meson_encoder_hdmi.c          | 12 ++++++------
->  drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c         |  9 ++++-----
->  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c      | 10 ++++------
->  49 files changed, 201 insertions(+), 237 deletions(-)
+Right, that's bad.. the dt heuristics are such that each region
+is mapped by a single device that it belongs to, with some rare
+exceptions..
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org> # parade-ps8640
-Tested-by: Douglas Anderson <dianders@chromium.org> # parade-ps8640
+Instead, the moderately dirty way would be to expose gpucc as
+syscon & pass it to the GPU device, or the clean way would be
+to implement an API within the clock framework that would dump
+the relevant registers
+
+Konrad
