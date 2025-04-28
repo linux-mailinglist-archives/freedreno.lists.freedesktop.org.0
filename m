@@ -2,129 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6390A9FC14
-	for <lists+freedreno@lfdr.de>; Mon, 28 Apr 2025 23:19:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4829A9FD43
+	for <lists+freedreno@lfdr.de>; Tue, 29 Apr 2025 00:49:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A902E10EA6A;
-	Mon, 28 Apr 2025 21:19:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB1C910E297;
+	Mon, 28 Apr 2025 22:49:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eNTaQp8O";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="O3O+5fhp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 170C810EA6A
- for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 21:19:39 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SACUMp027132
- for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 21:19:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D21610E28C;
+ Mon, 28 Apr 2025 22:49:02 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SGwfxK021725;
+ Mon, 28 Apr 2025 22:48:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 1p0DQQl3Uv/CeewEIX8WmFJDpqWu+zknhFq+jDxcqzs=; b=eNTaQp8OWPZ8bjaJ
- siO4gZnXx47CjAcBmt71c18UjDCk4ZVh/jMyqSEZUJzIvyn/7fefYAXn/pYrF1bl
- p2KMxaJaRMThp2AKhC59qPuHUKcQGa4trnmhLTtIiY/T6e3EOD5T/a1bIHPuplle
- XPySL3CsCCVI21Q0dsmwg8TjaTRk3d2xk+CDoE2Wmci0cdhAR0yNWZtf8sYTQ4CV
- 0RiX4tWV2+LjX2zdXzHlspi9TvxrvSPJkeaddZ5dALUxBNAif1H2ySlaJ0MlfiKW
- LSV5Ro3kfMHAOT55MgOnsnVtbBSI234SnKXf1Ns8JdkigwMqJCWzaxtOFUfhwIHS
- h6fGvQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 468qjwtccb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 21:19:37 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-476a4a83106so6762741cf.2
- for <freedreno@lists.freedesktop.org>; Mon, 28 Apr 2025 14:19:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745875177; x=1746479977;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1p0DQQl3Uv/CeewEIX8WmFJDpqWu+zknhFq+jDxcqzs=;
- b=pAT0evdR2FoYU3TpppYvdxz4hkxFk3+Ihkg8tbimctsoByMmRRSVnKq8nV9TqrPpNt
- FnqmxKAwYhUcTO7iJDqyjRYRvyY3FQaTch6qa3aTmsQnVmRJ6yF6Ds9W266aVenVYTOv
- RNX140gLNbAHV2+c2BG1tEk8IoolVaVyzTcDUdtXs6mxkVGX66HJropBYDVTzDrubC9r
- Qq+gS4LolQlfTmK8zhgdVUb5qDPfn/ONnlV7nZvjkAoA7hhKv2OJxD0HGLI6DDgDJzLu
- xOHdDht4ipAo4jmhanKDcYGPW6/B3zewMkBzgQaGHcy+fShS3Z2etEEFLz4nspYl5sLS
- G2YA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUcH24Uu+ddUr1UhQcIZKGSN9yvW8gv+V4Cio+xnEsyL9Sr63wrZDZmwnJyiVrEOvtVSxTv51Bd1Xw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzox5M9+zbqWvFz59XVkxCBX7fgR1Hmp7DXfUqlr1Sd2bqWPv4I
- WjIce3tVB7awL/DNROzBrP5UJJSMyGyE3hasH5Pq1G8z1JDL7/X6Wt5daFjZ8A/IYd401KekCtR
- 3pQbPTM6SFDW73rpDC1I4lZ7jEvJQNkYRso/s35Y4Hy580b0gV+tvZ04BAHO++kbownk=
-X-Gm-Gg: ASbGncsTTffozEE0JVarjnBOejCczKv0yz2GOGW5A+XjdIw318texfAyOpllW6ygJHd
- azubXw4o6afrkyWNX03HjLd1+C7iPcJosQOST3sq3cwi7y8xYAFilBtdfBl85urevFS/RfM8p26
- MVx5TvRLGDwKy8oSf3Rb8EfI8aObAo0veAnRcibhLK+Pe2NHp2SErAYmRCbv/ZmHCl4pomkrDJP
- IR5NTG3LowDDmvrZkA9I9w75ngAuw+LoAuwFtJi6AKoWF/X+JGXcZHEDCuvvHmFkNSmAskQfrCA
- plzmw0V3yaozjxBH7UUqxAM4RwG4XFayJalWp3UYUHnmG6aOGWVz6FNDEwQgCPgYkQ==
-X-Received: by 2002:ac8:5d43:0:b0:47a:e81b:cca6 with SMTP id
- d75a77b69052e-4801e5ef61bmr86239911cf.10.1745875177210; 
- Mon, 28 Apr 2025 14:19:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEHGM4Gsyyf3DoqVCxTr5c/Fx29SX0hifWAwRSJIcxlPqb02dtB8cwcCNR+5BkrZ9k/UWtLcg==
-X-Received: by 2002:ac8:5d43:0:b0:47a:e81b:cca6 with SMTP id
- d75a77b69052e-4801e5ef61bmr86239641cf.10.1745875176771; 
- Mon, 28 Apr 2025 14:19:36 -0700 (PDT)
-Received: from [192.168.65.47] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6e41c431sm693197766b.18.2025.04.28.14.19.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 14:19:36 -0700 (PDT)
-Message-ID: <41df5398-79f6-484a-8ad3-f3488eb1b71c@oss.qualcomm.com>
-Date: Mon, 28 Apr 2025 23:19:32 +0200
+ SNSgNixVRJ2OzCygTsEE8+iowZE9s2YjgD/URUrTvvw=; b=O3O+5fhpVOMycqBL
+ B7Abop/enz4GNtbbwZspnD9/kOx225mo0eESfLTCFTZwiauwUkIBUJ8VC9SArXYt
+ mayKRsXhiacA+lmqEPgH+qniBJRzx0dJMbosgRYTHJqhKCc9QC3zFLJULqzO0Gtj
+ +UUDUZXQyGRQ8GTUn2A5CWyk9QCGF4GOE7KX0pAnc++0ruEwXGKj+TS4Vyj1zwV3
+ +FuwKZY2PZo9A1qVLjQboYQkhrok7AJqTLjI2lRkfaR8UTiHO+I7r7bXWMbsTB+d
+ 37EzkRBwCZEZfPkos1uHa8mO1WxV8QiPn427FKgS2WaouJEx9kScFp7MSShVuauf
+ ywUfIA==
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 468n6jhv2n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 28 Apr 2025 22:48:54 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53SMmsNg002588
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 28 Apr 2025 22:48:54 GMT
+Received: from [10.134.71.99] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 28 Apr
+ 2025 15:48:53 -0700
+Message-ID: <61310672-171e-4496-ae6a-ad31fbdb2b83@quicinc.com>
+Date: Mon, 28 Apr 2025 15:48:52 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/6] arm64: dts: qcom: qcs8300: Add gpu and gmu nodes
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Jie Zhang <quic_jiezh@quicinc.com>
-References: <20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com>
- <20250228-a623-gpu-support-v2-5-aea654ecc1d3@quicinc.com>
- <e22daaae-57fc-4523-b594-87d202d255f3@oss.qualcomm.com>
- <aa8ebd50-683b-4043-9494-5675a2d9a01e@quicinc.com>
+Subject: Re: [PATCH v3 2/8] drm/msm/dpu: program master INTF value
+To: Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>
+References: <20250307-dpu-active-ctl-v3-0-5d20655f10ca@linaro.org>
+ <20250307-dpu-active-ctl-v3-2-5d20655f10ca@linaro.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <aa8ebd50-683b-4043-9494-5675a2d9a01e@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20250307-dpu-active-ctl-v3-2-5d20655f10ca@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: _QcqBle7a5LrLajoOWFhL2iGtAiTyQDl
-X-Proofpoint-GUID: _QcqBle7a5LrLajoOWFhL2iGtAiTyQDl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDE3MCBTYWx0ZWRfXyIUREQSD7vE+
- Hv23LNzIH9BJZW35mdOiPjNEZJr2JqFK5d/OXcFz8ny8wH3hdkZndqHC1vw7FdXGJoTk/krrov/
- CzdTdFDPfRCATFufQKxHCN0zxjZGoA27rl3SZ4PeKCrVlejs2FmRYK0yFpJlgThpU7KczhCvD5Z
- Ms2iwBe2Sc+rnlTvezuRnGAl3jdgGv7WMvXEcp23pe2rjdPBsafe/HEznDjfX+ocnA9Me0iA1ds
- tFDln0G1F9CO5zh/x6GUmU0kARRZtLaVie6FGgJW6ck9OweoVcxEAH/LZMRv9HsOL0kqyga6XNR
- AY1LpOaGVjQlUGg1TJBY9XDHWYDS9Xb//INxaMXs+q/v6XX7L91RCu9QgVRRPc2uRVj/dm2nD+4
- N/HjkiMOzzgrEDNqkvrrXPprPqxDyQwFCgqDa9YcQwds3CXIxkquU9yXRq6vk9H28kRcX0Ae
-X-Authority-Analysis: v=2.4 cv=c/urQQ9l c=1 sm=1 tr=0 ts=680ff0e9 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8 a=dalwKpVopYczjXflRRgA:9
- a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDE4MiBTYWx0ZWRfX4upFlcHnLI08
+ cD5weaYf/VbcAcsWqp8kiHNbg85HhbiDedc6i6l6R5oZNv6zkWvcXQEolODnFwpym224XGl/dLX
+ H2cgMX/NcGtO3ZTOWgCzKTTBh+Yl0nzj6xBz3CooEu9nMMz1i5eeWTYaYcjxDb9NVOqMsyFbCys
+ rmTPpX/1r/GIkEq9cpOgFDpN8RW1TjzoznUu9JFVkFWgPpQ5HzuTjabZl/1+mxbuVZFyB1okRr8
+ MhbpdTz6xJ2n1MRJnfIMX9AyOnI4Xq8PafwledbOzB78iTFOleaRuaTMpqu8fpcl58Ckazt67kF
+ 7/Ex0aDWz67pVQO7sx+UTFNyHVoDxFmfnKt1ZvX5RnsFuTQ5VfVO8wpvKnYAxDSizqCytbJLeYK
+ 2BJ781zkP3RQEDbcGh9Oqb4xa1VmBF9eyZcxM0e7q674h/JKzS6lLVyShJ/XDccETovNsdPJ
+X-Proofpoint-GUID: jZ6lApvq3ZJIw4APME12GlatR0Jf897T
+X-Proofpoint-ORIG-GUID: jZ6lApvq3ZJIw4APME12GlatR0Jf897T
+X-Authority-Analysis: v=2.4 cv=C8fpyRP+ c=1 sm=1 tr=0 ts=681005d6 cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8
+ a=tVI0ZWmoAAAA:8 a=COk6AnOGAAAA:8
+ a=rxETW27_YrsaSjKoF0MA:9 a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22
+ a=-BPWgnxRz2uhmvdm1NTO:22 a=TjNXssC_j7lpFel5tvFf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-04-28_08,2025-04-24_02,2025-02-21_01
+ definitions=2025-04-28_09,2025-04-24_02,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 mlxlogscore=683
- phishscore=0 lowpriorityscore=0 impostorscore=0 mlxscore=0 malwarescore=0
- clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ impostorscore=0 phishscore=0
+ mlxlogscore=999 priorityscore=1501 clxscore=1015 spamscore=0 adultscore=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0 mlxscore=0
  classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504280170
+ definitions=main-2504280182
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,34 +108,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/28/25 12:44 PM, Akhil P Oommen wrote:
-> On 4/14/2025 4:31 PM, Konrad Dybcio wrote:
->> On 2/27/25 9:07 PM, Akhil P Oommen wrote:
->>> From: Jie Zhang <quic_jiezh@quicinc.com>
->>>
->>> Add gpu and gmu nodes for qcs8300 chipset.
->>>
->>> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
->>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>> ---
->>
->> [...]
->>
->>> +		gmu: gmu@3d6a000 {
->>> +			compatible = "qcom,adreno-gmu-623.0", "qcom,adreno-gmu";
->>> +			reg = <0x0 0x03d6a000 0x0 0x34000>,
->>
->> size = 0x26000 so that it doesn't leak into GPU_CC
+
+
+On 3/6/2025 10:24 PM, Dmitry Baryshkov wrote:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> We dump GPUCC regs into snapshot!
+> If several interfaces are being handled through a single CTL, a main
+> ('master') INTF needs to be programmed into a separate register. Write
+> corresponding value into that register.
+> 
+> Co-developed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Right, that's bad.. the dt heuristics are such that each region
-is mapped by a single device that it belongs to, with some rare
-exceptions..
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 
-Instead, the moderately dirty way would be to expose gpucc as
-syscon & pass it to the GPU device, or the clean way would be
-to implement an API within the clock framework that would dump
-the relevant registers
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 12 ++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h |  2 ++
+>   2 files changed, 14 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index cef3bfaa4af82ebc55fb8cf76adef3075c7d73e3..21f4d403e3c278d83d7eaa6a7dd53f471d9e296d 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -603,6 +603,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+>   	DPU_REG_WRITE(c, CTL_DSC_ACTIVE, dsc_active);
+>   	DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE, merge_3d_active);
+>   
+> +	if (cfg->intf_master)
+> +		DPU_REG_WRITE(c, CTL_INTF_MASTER, BIT(cfg->intf_master - INTF_0));
+> +
+>   	if (cfg->cdm)
+>   		DPU_REG_WRITE(c, CTL_CDM_ACTIVE, cfg->cdm);
+>   }
+> @@ -645,6 +648,7 @@ static void dpu_hw_ctl_reset_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+>   {
+>   	struct dpu_hw_blk_reg_map *c = &ctx->hw;
+>   	u32 intf_active = 0;
+> +	u32 intf_master = 0;
+>   	u32 wb_active = 0;
+>   	u32 cwb_active = 0;
+>   	u32 merge3d_active = 0;
+> @@ -672,6 +676,14 @@ static void dpu_hw_ctl_reset_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+>   		intf_active = DPU_REG_READ(c, CTL_INTF_ACTIVE);
+>   		intf_active &= ~BIT(cfg->intf - INTF_0);
+>   		DPU_REG_WRITE(c, CTL_INTF_ACTIVE, intf_active);
+> +
+> +		intf_master = DPU_REG_READ(c, CTL_INTF_MASTER);
+> +
+> +		/* Unset this intf as master, if it is the current master */
+> +		if (intf_master == BIT(cfg->intf - INTF_0)) {
+> +			DPU_DEBUG_DRIVER("Unsetting INTF_%d master\n", cfg->intf - INTF_0);
+> +			DPU_REG_WRITE(c, CTL_INTF_MASTER, 0);
+> +		}
+>   	}
+>   
+>   	if (cfg->cwb) {
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> index 080a9550a0cc6530b4115165dd737857b6213d15..cea23436fc80a17a679363a47f9f287b72623a1c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> @@ -36,6 +36,7 @@ struct dpu_hw_stage_cfg {
+>   /**
+>    * struct dpu_hw_intf_cfg :Describes how the DPU writes data to output interface
+>    * @intf :                 Interface id
+> + * @intf_master:           Master interface id in the dual pipe topology
+>    * @mode_3d:               3d mux configuration
+>    * @merge_3d:              3d merge block used
+>    * @intf_mode_sel:         Interface mode, cmd / vid
+> @@ -46,6 +47,7 @@ struct dpu_hw_stage_cfg {
+>    */
+>   struct dpu_hw_intf_cfg {
+>   	enum dpu_intf intf;
+> +	enum dpu_intf intf_master;
+>   	enum dpu_wb wb;
+>   	enum dpu_3d_blend_mode mode_3d;
+>   	enum dpu_merge_3d merge_3d;
+> 
 
-Konrad
