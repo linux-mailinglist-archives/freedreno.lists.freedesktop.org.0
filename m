@@ -2,77 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4BB8A9EB73
-	for <lists+freedreno@lfdr.de>; Mon, 28 Apr 2025 11:06:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A929A9EE3D
+	for <lists+freedreno@lfdr.de>; Mon, 28 Apr 2025 12:44:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58D5310E3D0;
-	Mon, 28 Apr 2025 09:06:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4826510E0D4;
+	Mon, 28 Apr 2025 10:44:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eVL+xo2P";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="bNS/ZROp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E202D10E3D0;
- Mon, 28 Apr 2025 09:06:52 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-39c1efc4577so2569084f8f.0; 
- Mon, 28 Apr 2025 02:06:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745831211; x=1746436011; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=vrP2CkY7EdRWUrqip7eV8X83IUPU9ETL4wnHODJxb2w=;
- b=eVL+xo2PF1dpOqm8Yi2X0PNXiEn5IRGV0KBkwjuWWnot4jSXDf0VSCum4GSHWyn9IB
- Osjg23CRZfPKN0GMxkdJsQIF3OU6V2fB/qD9Raxx3dBfnfN1SUkrLr7hQZIdepK0Zj5V
- 15IPSpkTSSp4RxbfmqitPY3pm5RCzRXAY0yo/EmT7H4K4qZud8f9dPI8L+vDsyM7RFqd
- 5tre4OWjnkLxwKGE1vU0QC0hSfxZ+ww93IzklqeiU1nWXpIQFg2ZJ0FffnYSzA7F6B9S
- 9WcVTiBa2IrwghfhmgMCS6MUB6yZy4H7MOLhWo/whfIarHtCPTQJviLuaFMNkmMJmrxu
- pf7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745831211; x=1746436011;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vrP2CkY7EdRWUrqip7eV8X83IUPU9ETL4wnHODJxb2w=;
- b=ayuKnMJnJU+w7vrkIr4KNfHpmp0k/P/NeZq7+PUJmcNOXP7WEm9MkcyUP4MX4pW6s8
- 3ccV8T95Z6rA0RbIRU1/ZYoMsYM+Hr9dPwa9UuOb4cUF+8Uj/pPGEGnsWPSfEVnCu3iI
- 8a6R9Qrf1rba31ItksW3FF71cxN4acKVUNeRx29MChPBUcC15n7oKaC/7Z8XD9lZwll1
- iKZEGUDzkzkgesUQA2CyDW9OhSTBVDQHVMRbgJmXWbtQBEEThyNFRp0PCiI2CP8q0PIw
- NlnN3UMIJ66LTwPhu2fUS6V+MF8AnE18MoDMWuxfQutuWVRYLtIwnVdqmdaXvzqxcSww
- PeXA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWy/DTkzBYj6S8J16lTwOZ5q+VrmBo9XDC6nmecA2GU7iBx0yuH6P5Sx6+UmSqk95z0D9c30CAiBgs=@lists.freedesktop.org,
- AJvYcCX9OhV/Zn3b7JRXh5oRjbcFoe+8HAA1haBKwt98rztaeTsa1r+D9UWFg+VFJDFLP8sd3Ndo60HWCoqa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDzMgehECnm3i6f5QNfQkQXyioONyReTGHuk5NrBQt+rYtrYM9
- 7aNYK99bgFb1Lt8XpIYemeegAe+K5VkiETDer/X2G9QwEjFKdr3d4785QTnxguHLaaRCRbYOE5s
- k33dMaHr1d+6rakAFFCRAQTuHFQ==
-X-Gm-Gg: ASbGncsthE2dmccT4TXvgjYL4Tk4DiLOMX/xuJZDYMPOxhXHLE4KVJmLq6BrnbwjA0U
- m67J5Yp1FZXeX35K7LFzAG7lL2ZoQV1AdtDxCvsdQXT9q2ONr+3jlglyyQfD1LYaYeBxl/KON5t
- BEJnKjpwj+BN2v6DeY1mrT/A==
-X-Google-Smtp-Source: AGHT+IHd5cOvjdSZ4jvtyMnwviGdePLYjYKhf+NbtpduvF+uiSPCjh2ycn+8lgcJGcQkuWFGpwfb0lxDvsulR2tTh74=
-X-Received: by 2002:a05:6000:22c2:b0:399:71d4:a9 with SMTP id
- ffacd0b85a97d-3a074f7f22amr8908857f8f.52.1745831210949; Mon, 28 Apr 2025
- 02:06:50 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD7E10E0D4;
+ Mon, 28 Apr 2025 10:44:54 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SACRke025798;
+ Mon, 28 Apr 2025 10:44:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ rilsCXWAK9vi7OM2nXU4iJx4djTQbOQyhyG3UdhMzd0=; b=bNS/ZROpElA+PTY1
+ rKr0lddW+wXsA6IPw96KCvTH5aTNzlAU0WwJzigIHF+0yFcHjKwjbUqY+GOq2yr3
+ vRhhna2U7lrWk+LceacvD5mX4EFFMpUNLWc+h1RURdfNCOEd358LrN+F5QjBdL47
+ 7Mhw5gWlXQMCEPj6wlYBRhBux9NnGtW6+0WUSKZ1U+Pg8NFGJsKJQxSuHhuCYcBJ
+ /VtAT1t9gklUonJ37t7u8GTxPiF3MKE2QLc2MIzpFakNgzaaq9sp/IS+KeolTvZK
+ Z/Ii0cIN9RpgRIv4dB/wqCN/U+28UwXQeF1/ZP7pBOFdUm1F5+0q210tZUM4KpTD
+ yKstKg==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 468q320ufm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 28 Apr 2025 10:44:46 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53SAijlp014497
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 28 Apr 2025 10:44:45 GMT
+Received: from [10.216.32.231] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 28 Apr
+ 2025 03:44:37 -0700
+Message-ID: <aa8ebd50-683b-4043-9494-5675a2d9a01e@quicinc.com>
+Date: Mon, 28 Apr 2025 16:14:33 +0530
 MIME-Version: 1.0
-References: <20250417021349.148911-1-alex.vinarskis@gmail.com>
- <aA8yFI2Bvm-lFJTl@hovoldconsulting.com>
-In-Reply-To: <aA8yFI2Bvm-lFJTl@hovoldconsulting.com>
-From: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-Date: Mon, 28 Apr 2025 11:06:39 +0200
-X-Gm-Features: ATxdqUE21e2Yp75-k_wyhiJlMRQ-z3ZtLT7itOJ8xGoFly7x2Ai_IKkUtx-RkD4
-Message-ID: <CAMcHhXpmii=Rc9YVeKXaB17mYv0piSFs02K=0r8kWe5tQGk7eA@mail.gmail.com>
-Subject: Re: drm/msm/dp: Introduce link training per-segment for LTTPRs
-To: Johan Hovold <johan@kernel.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- laurentiu.tudor1@dell.com, abel.vesa@linaro.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/6] arm64: dts: qcom: qcs8300: Add gpu and gmu nodes
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
+ <konradybcio@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, Jie Zhang <quic_jiezh@quicinc.com>
+References: <20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com>
+ <20250228-a623-gpu-support-v2-5-aea654ecc1d3@quicinc.com>
+ <e22daaae-57fc-4523-b594-87d202d255f3@oss.qualcomm.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <e22daaae-57fc-4523-b594-87d202d255f3@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=M7xNKzws c=1 sm=1 tr=0 ts=680f5c1e cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8
+ a=ICJeL3kfza5QV274o94A:9 a=QEXdDO2ut3YA:10
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: WRz8n5WYy_YEjm6Lor_fkkGCisA8WlSe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDA4OCBTYWx0ZWRfXzX04qvK3h2ns
+ XrxsGaiaLUPn2KaF2xIhrqLJu3sOK9Ccv6aP8RzulL9JY5Indny16q34xu2pQzCB98eZBW9E2Kv
+ JiAuBiyekyi0LK6YztG3Vxr7cMsyDKuS2uEEkzZBXrbQekTBdTteKMAkvEBaYO79HE0LzMP9pH8
+ LOGFo0LlUOJ8S1/UnG3iIyWg6kohGLjE8h/w7AAXdJv2fEwSwcVMxRNgpQwi1PCZxvL05JxWjBn
+ l4k6HPOmgcUAaMQkRL2Os6CwEKG4EUq1gXbg9QcAf4pz6cstDfI+r5gQNy8vQjQRcxKowsbgnp3
+ beRADFu304b4ff+6CuK9PfhUHyZ1oSxHvtGXS2WqMMKTcRdzsqOWQdf8aKtjD+dfa70gBuJe9Up
+ nIdX/XKbg8Ooq2fOcb1eD+ub81CHWNjyaGweZ1VpEjVQ+3ZJcsQMK8zQD+xHLLHs3oonNtUj
+X-Proofpoint-ORIG-GUID: WRz8n5WYy_YEjm6Lor_fkkGCisA8WlSe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-28_04,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ priorityscore=1501 clxscore=1015 mlxlogscore=701 spamscore=0 phishscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504280088
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,80 +114,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 28 Apr 2025 at 09:45, Johan Hovold <johan@kernel.org> wrote:
->
-> On Thu, Apr 17, 2025 at 04:10:31AM +0200, Aleksandrs Vinarskis wrote:
-> > Recently added Initial LTTPR support in msm/dp has configured LTTPR(s)
-> > to non-transparent mode to enable video output on X1E-based devices
-> > that come with LTTPR on the motherboards. However, video would not work
-> > if additional LTTPR(s) are present between sink and source, which is
-> > the case for USB Type-C docks (eg. Dell WD19TB/WD22TB4), and at least
-> > some universal Thunderbolt/USB Type-C monitors (eg. Dell U2725QE).
->
-> Does this mean that the incomplete LTTPR support in 6.15-rc1 broke
-> adapters or docks with retimers in transparent mode?
+On 4/14/2025 4:31 PM, Konrad Dybcio wrote:
+> On 2/27/25 9:07 PM, Akhil P Oommen wrote:
+>> From: Jie Zhang <quic_jiezh@quicinc.com>
+>>
+>> Add gpu and gmu nodes for qcs8300 chipset.
+>>
+>> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
+>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>> ---
+> 
+> [...]
+> 
+>> +		gmu: gmu@3d6a000 {
+>> +			compatible = "qcom,adreno-gmu-623.0", "qcom,adreno-gmu";
+>> +			reg = <0x0 0x03d6a000 0x0 0x34000>,
+> 
+> size = 0x26000 so that it doesn't leak into GPU_CC
 
-I am actually not 100% sure.
-- If without LTTPR initialization, they default to transparent mode,
-then yes, incomplete LTTPR support sets them to non-transparent
-without per-segment training and breaks docks with retimers, while it
-would've worked if LTTPR(s) would've been left in default transparent
-mode. Note that in this case, X1E devices with ps883x are somehow an
-exception, because without LTTPR initialization at all the training
-always fails.
-- If LTTPR has to be initialized either way, and explicitly set to
-transparent mode if we do not want non-transparent, then no,
-incomplete LTTPR support in 6.15-rcX did not explicitly break docks
-with retimers, as those never worked in the first place. As per my
-understanding, this is the case, unless something (firmware?) has
-already placed LTTPR to transparent mode before the driver takes over
-- then 1st case would be applicable.
+We dump GPUCC regs into snapshot!
 
-Docks with retimers do not work in 6.15-rcX, but I am unable to verify
-if it did work before, as I do not have a Qualcomm based device
-without LTTPR on the baseboard.
+> 
+>> +			      <0x0 0x03de0000 0x0 0x10000>,
+>> +			      <0x0 0x0b290000 0x0 0x10000>;
+>> +			reg-names = "gmu", "rscc", "gmu_pdc";
+>> +			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
+>> +			interrupt-names = "hfi", "gmu";
+>> +			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
+>> +				 <&gpucc GPU_CC_CXO_CLK>,
+>> +				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
+>> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+>> +				 <&gpucc GPU_CC_AHB_CLK>,
+>> +				 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
+>> +				 <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
+> 
+> This should only be bound to the SMMU
 
-> You describe at least one of this patches as a fix but I'm not seeing
-> any Fixes tags or indication that these need to go into 6.15-rc to fix
-> a regression.
+Not sure how this sneaked in. Will remove this.
 
-You are right, I will add Fixes tag to the 1st patch to make it clear:
-Fixes 72d0af4accd (drm/msm/dp: Add support for LTTPR handling)
+> 
+>> +			clock-names = "gmu",
+>> +				      "cxo",
+>> +				      "axi",
+>> +				      "memnoc",
+>> +				      "ahb",
+>> +				      "hub",
+>> +				      "smmu_vote";
+>> +			power-domains = <&gpucc GPU_CC_CX_GDSC>,
+>> +					<&gpucc GPU_CC_GX_GDSC>;
+>> +			power-domain-names = "cx",
+>> +					     "gx";
+>> +			iommus = <&adreno_smmu 5 0xc00>;
+>> +			operating-points-v2 = <&gmu_opp_table>;
+>> +
+>> +			gmu_opp_table: opp-table {
+>> +				compatible = "operating-points-v2";
+>> +
+>> +				opp-200000000 {
+>> +					opp-hz = /bits/ 64 <200000000>;
+> 
+> It looks like this clock only has a 500 Mhz rate 
 
-Or should I mark the entire series with Fixes, so that the docking
-stations with retimers can be fixed in 6.15 already? Landing only the
-1st patch will fix inconsistency with DP spec, but will not fix
-docking stations with retimers. I guess this comes down to whether
-existing LTTPR (but not multiple LTTPRs) support is considered a bug
-(and patches 2,3,4 are a fix) or lack of functionality (and patches
-2,3,4 are a new feature).
+Ack.
 
->
-> > Changes in v3:
-> > - Split 1st patch into 3
-> > - Simplified handling of max_lttpr_lanes/max_lttpr_rate
-> > - Moved lttpr_common_caps to msm_dp_link (not msm_dp_panel, as LTTPRs
-> >   are link related, not panel related)
-> > - Picked Stefan's T-b tag (last patch only, as 1st one is getting split)
-> > - Droped Abel's R-b tags from 1st patch that got split due to high diff
-> > - Fixed alignment issues, initialization of variables, debug prints
-> > - Moved lttpr_count to avoid ugly pointer
-> > - Link to v2: https://lore.kernel.org/all/20250311234109.136510-1-alex.vinarskis@gmail.com/
->
-> I tested v2 due to the dependencies in msm-next and DP altmode still
-> works on my X13s and T14s (while not using any docks):
->
-> Tested-by: Johan Hovold <johan+linaro@kernel.org>
+-Akhil.
+> 
+> Konrad
 
-Thanks,
-
-Alex
-
->
-> > Aleksandrs Vinarskis (4):
-> >   drm/msm/dp: Fix support of LTTPR initialization
-> >   drm/msm/dp: Account for LTTPRs capabilities
-> >   drm/msm/dp: Prepare for link training per-segment for LTTPRs
-> >   drm/msm/dp: Introduce link training per-segment for LTTPRs
->
-> Johan
