@@ -2,83 +2,129 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D86BAA0E06
-	for <lists+freedreno@lfdr.de>; Tue, 29 Apr 2025 15:59:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1137AA0EDD
+	for <lists+freedreno@lfdr.de>; Tue, 29 Apr 2025 16:32:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C0D810E49E;
-	Tue, 29 Apr 2025 13:59:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 723A510E4AB;
+	Tue, 29 Apr 2025 14:32:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c2PY34vV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="J12JJMR9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
- [209.85.166.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5394710E49E;
- Tue, 29 Apr 2025 13:59:34 +0000 (UTC)
-Received: by mail-il1-f171.google.com with SMTP id
- e9e14a558f8ab-3d93c060279so15099925ab.3; 
- Tue, 29 Apr 2025 06:59:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1745935173; x=1746539973; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PN2fPM9RQoCTPXB4B9XFqTVhXX0UMZxTQo24wURnSIU=;
- b=c2PY34vVz1erfMYe9JY+W4dWc3yypnKInD/npLso2yG5mYKI/T2sp05OZesf92dKu4
- y6/UMG1V+pwRZUhlFxSerW6fE5pMUQKMH0XP+cHhwlAxZhQlBVAnfQJTDCGMffjMdQQr
- CGnJU31N4ADK20QrDrY3TcR3iyukkgL4NM6QJhInhAFCpuwE3SruE+a+XQjmPZPQjb2r
- MXe/7gVeVAMAe51ZylqX+wjzc9/w444YNHOn8uzTixxeM7dl+lU1GJynSNa+fAAzq1rU
- Yx03KU7/Mu4MTji8hDow4kodCeSSQQBc3KJyGg0wyxnzRbZKQhyEf2jDx8sfWCfFHpZ2
- KTlw==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F66410E4AB
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 14:32:45 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53TAFtpV015798
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 14:32:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=bPriHSZx3KQJP/KsDQOWzlOT
+ mChm8sjxQPQzHrr/5WY=; b=J12JJMR9Q7NMWgxDtjREBVcwp4RzpJ5+02SMlUX4
+ qVgDGXteJgupzg7oZ5a0Ewx2671aEd1SzhiO9/H8SGrnSsAstywaK+KnSTQCzMKm
+ OzVftgwcJoCv0VCRLjooCp+6O4EDafmLLWX51ffh7cYkAScLWyaM0ZePtOWz8/ya
+ Wj6QrtpRz0croBpfkTmRT63iScrCDoUAgHAan7vVwxILXq0AbfMLgLYiACH2GKKZ
+ G0eyAoprIyDtOryovl9CY5A80QgjWUwM2hdCS+PhY00qa6C9kcwh1dGR0ulSkhIj
+ lnAzHx9VnmbmM2ECcHfPNQIhrus7mEpk/56biYdFgdo06g==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 468q324sfy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 14:32:43 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-7c9255d5e8cso1062675885a.1
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 07:32:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745935173; x=1746539973;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PN2fPM9RQoCTPXB4B9XFqTVhXX0UMZxTQo24wURnSIU=;
- b=VT6GSJamSxMvP1rwCtNlf/bulbTsmS4nfURsVfvi11jMcIKE5bF1BjqKVthX5JhQ8Q
- e1FKi6HT+R3HfLCwWERKabDukLt+bNV8A46yWxSaXzTvwwZG2TJrIBaIT8Ed0BudXfQX
- PWuGYNnA+DSaOtq4cgo8aRYwGri3p0ie+E7pqm5+NsP0M/VEikVbjBbP3qQDZXWKZcMD
- wcBNCQ1fcR+UqYS0YjK7L4+ceicP0ZFFXcFpir/V+OTLGwKQuf9NIUq7jQJL9inEpk//
- Ggl5dlU92xAS1ObqWqmG9kd230w8gJNIWN3k70dBpzsL+mRxhvhrjrZ5N7PQeN3BcZKC
- pr3A==
+ d=1e100.net; s=20230601; t=1745937163; x=1746541963;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bPriHSZx3KQJP/KsDQOWzlOTmChm8sjxQPQzHrr/5WY=;
+ b=TWVM6YxqJoa5uF99r5bQSgyBYYXkAVmgTytCGS0DuftNYnrNTHIMzZVYMTdEcSfZv4
+ zMRvd0OROnjEHynxOus/3R2hJf7V1fTYesj928mixyQ6lqSZVliJ3QGV7GLUO9fRxwak
+ o2524GPMIKSmBvhUMGWQ3Hi9vf/+yyvIximIGAQoO2Kukkd1RNl3G+2Hy/HcfsEe60AE
+ gr0E+wZuq3eQOhvSd3b04O3yyjbYhuebWRvyBiuS1GKqWUoA7elc46vithqnN3KsqF33
+ Rh2dsEXmPEyRSCGUyARnPkvH3hKz1KvzNRf4FmuKCg0KedWi1MXm4O/S6d3HD/J9+Nrc
+ gPpQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpGAzp43iYTJ9VAu6QNr/cpTtmxIq4INTyBw9yVbBy8e2pGcQPPyGM2Z398pk19EeWbzlDkd+tV9c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzL5LAaJRyoO0kOmaon+TFvFpIikmqC/p4IXkQ0G6beywvqwlOX
- RaCN/O/XgSJYnJJkSUAkG+AnzHprygVHoCLDQiO+8Bm2/27Xltfx6mbZ5Oy/4iaQvn/02qHtKAS
- RpdEjIWmK4BOOOQI8SGX3VfgwM4E=
-X-Gm-Gg: ASbGncvLZPiNTuZ+ZEgSu6LjbiZYgRPBJn9NMzswpz8YciCY6d2ls7xbZFt7zmdl+CX
- 8CxiS+U2b5S7Pwy10xwM0fHunCPB+Da8phU3F8FV/FoE9rUksyikK66aIzQzzgKnHgVqBLysNbf
- 58SWjs8TYjllU8Kq3W3lQUi/Bk87Gf7Ck8ZYL7GLWBv3GTYD5eJW4=
-X-Google-Smtp-Source: AGHT+IEdTO5hNn1ezgivOymNsegNzfJ83eKjctWNeTpWMsM57J4OJKn3z6ximxQld4YNySvnfhfQGQpz4RThMZJUjO0=
-X-Received: by 2002:a05:6e02:3e02:b0:3d4:3ab3:5574 with SMTP id
- e9e14a558f8ab-3d95d24557emr38606775ab.3.1745935173509; Tue, 29 Apr 2025
- 06:59:33 -0700 (PDT)
+ AJvYcCXSs4Qj2Ia5xIlT444D7x/JF9gfzriiJ9mHQzQUnlozw2tROc/Bp9WunRlJOWXdurqK4TqLEQDZ0AQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz48qsYXLwQIsmR9n/4VYTwQ4ePo6KXacfAVkV2GeyxDAw/lIT9
+ dQ/chtescKcFLO8eYfZRvQ0MrsDunSnYz+BGpUwIvi06Lydq+R0bYKcnKvVFOgoqNzBjFV/kw5w
+ dmhNCNjpRaw0tLWPv0zA3WtZE+GrHAlg9Hb9B+Qkcdl4sGv7dRN7Z5i96qs4DmL2JYho=
+X-Gm-Gg: ASbGncteV2K09yNHWpqtlSxBecQBHUdPi1SoW0QqK7gAyK1jLBdo86ZSHfePpFHqj+9
+ 2c7t5btF2ba4lzddK9DrMhCnVUImMWdVIXWeo0kuWUeM06tm0STARoJV4vX/TiKOwQuoMIUVx/t
+ fh7PYaWLUwxwziGHBO9C0dIfmQluACDjSjECYo0BL0vODLv/DO+1uDKiE34WAwooqjH1uAZIxed
+ V+Wn+l2o8DXbzlT2ERVOn0N5P5BTMgxEuKZUpzYxhE9dWCqOA9RdypiHQyh9DKCsLJtDBfeoQxI
+ 0s34dcYh1/7XJMPwSlcAt9nYneU5sClqxgA0TJ+zq9NkduXZNBZkz6AO8UKGcSvrKacJ99/feHk
+ =
+X-Received: by 2002:a05:620a:3184:b0:7c5:5003:81b0 with SMTP id
+ af79cd13be357-7cabdd823cdmr635637785a.23.1745937163043; 
+ Tue, 29 Apr 2025 07:32:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGWF2xshAzyNqq5fdOAsbkOvEB3opt7kXShCLYeUNW9cmZ74LfQEMRBALbW7HQGg1CwIOtf9Q==
+X-Received: by 2002:a05:620a:3184:b0:7c5:5003:81b0 with SMTP id
+ af79cd13be357-7cabdd823cdmr635632385a.23.1745937162672; 
+ Tue, 29 Apr 2025 07:32:42 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54e7cc9eb8dsm1880507e87.135.2025.04.29.07.32.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Apr 2025 07:32:41 -0700 (PDT)
+Date: Tue, 29 Apr 2025 17:32:40 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>,
+ Rob Clark <robdclark@chromium.org>
+Subject: Re: [PATCH v4 16/19] drm/msm/dpu: Implement 10-bit color alpha for
+ v12.0 DPU
+Message-ID: <oibskwq6gk234lu6bymqlrtgt2yd7o4qbpk46snhba66uqbupi@lwwcfmgp7bul>
+References: <20250311-b4-sm8750-display-v4-0-da6b3e959c76@linaro.org>
+ <20250311-b4-sm8750-display-v4-16-da6b3e959c76@linaro.org>
 MIME-Version: 1.0
-References: <20250428205619.227835-1-robdclark@gmail.com>
- <20250428205619.227835-4-robdclark@gmail.com>
- <2e074d63-ad0c-47fa-aeb0-cb03c81829fe@arm.com>
-In-Reply-To: <2e074d63-ad0c-47fa-aeb0-cb03c81829fe@arm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 29 Apr 2025 06:59:20 -0700
-X-Gm-Features: ATxdqUHI0I0FZW2gLzxkvF3EsTwzlI4FDJUgZ3k8m88LbsKKtn-nlD3_9TKUqac
-Message-ID: <CAF6AEGs8gPtmYeYBMCn3r=w4eq4pk25fdS=YeqMYUySj7kz0ow@mail.gmail.com>
-Subject: Re: [PATCH v3 03/33] iommu/io-pgtable-arm: Add quirk to quiet
- WARN_ON()
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>, 
- Rob Clark <robdclark@chromium.org>, Will Deacon <will@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, 
- Joao Martins <joao.m.martins@oracle.com>, 
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>, 
- "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250311-b4-sm8750-display-v4-16-da6b3e959c76@linaro.org>
+X-Authority-Analysis: v=2.4 cv=M7xNKzws c=1 sm=1 tr=0 ts=6810e30b cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=0cLWEtKbF7AIdJ2SciEA:9
+ a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: nwtLKR_bcc2b9YazvZB3acFP4yYLFGcX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI5MDEwOCBTYWx0ZWRfX7W0XBkBTadvV
+ CawSL3gfOfcC/oo3gSFy0Xkjn0OTxo9oZPYcDKdWp3g9hDgP6yhjw8kpiqdhzkBUG0AherDukq5
+ UF+ji7Z+B+MI5r3tqyuxPYz03zu4L0nMFtafjP+FO7G3q6FuVVPVEKlaQOTRBl3gZe1XPe6c7du
+ 179KdWGmuGXW8bBPyAxEjAJVTo03qDOd2K+MSwNbRLuGgMA8aIkgilSrq3XetQ7jfOQ5nbetnkG
+ 2vqaWKvYYCWbqUWxozcVR4i26VuVqILnQOyN+XD5fIY8GAXpNKXsFoFSyhCvOjXfZDSbLgxfys0
+ h46yRO48ubce4WLsXURs0WF4ElzGQT45oXZ6ZN/IJ6WCnwindkKv4Q4oyW/NHvz3CKo926htoOm
+ wCBYQ9Vb3MYHuKCPa2ZsVGELVIbhfic3Cd50j5aueYFwvuh/nETZ43zvA4z6+PQH/Godg3gQ
+X-Proofpoint-ORIG-GUID: nwtLKR_bcc2b9YazvZB3acFP4yYLFGcX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-29_05,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ priorityscore=1501 clxscore=1015 mlxlogscore=850 spamscore=0 phishscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504290108
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,131 +140,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 29, 2025 at 5:38=E2=80=AFAM Robin Murphy <robin.murphy@arm.com>=
- wrote:
->
-> On 28/04/2025 9:54 pm, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > In situations where mapping/unmapping squence can be controlled by
-> > userspace, attempting to map over a region that has not yet been
-> > unmapped is an error.  But not something that should spam dmesg.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >   drivers/iommu/io-pgtable-arm.c | 18 ++++++++++++------
-> >   include/linux/io-pgtable.h     |  8 ++++++++
-> >   2 files changed, 20 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-=
-arm.c
-> > index f27965caf6a1..99523505dac5 100644
-> > --- a/drivers/iommu/io-pgtable-arm.c
-> > +++ b/drivers/iommu/io-pgtable-arm.c
-> > @@ -475,7 +475,7 @@ static int __arm_lpae_map(struct arm_lpae_io_pgtabl=
-e *data, unsigned long iova,
-> >               cptep =3D iopte_deref(pte, data);
-> >       } else if (pte) {
-> >               /* We require an unmap first */
-> > -             WARN_ON(!selftest_running);
-> > +             WARN_ON(!selftest_running && !(cfg->quirks & IO_PGTABLE_Q=
-UIRK_NO_WARN_ON));
->
-> If we are going to have this as a general mechanism then the selftests
-> should use it as well.
+On Tue, Mar 11, 2025 at 08:02:06PM +0100, Krzysztof Kozlowski wrote:
+> v12.0 DPU on SM8750 comes with 10-bit color alpha.  Add register
+> differences and new implementations of setup_alpha_out,
+> setup_border_color and so one for this.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> Changes in v4:
+> 1. Lowercase hex, use spaces for define indentation
+> 2. _dpu_crtc_setup_blend_cfg(): pass mdss_ver instead of ctl
+> 
 
-Makes sense, I can remove the selftest_running hack in the next version.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-BR,
--R
-
-> Thanks,
-> Robin.
->
-> >               return -EEXIST;
-> >       }
-> >
-> > @@ -649,8 +649,10 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_=
-pgtable *data,
-> >       unmap_idx_start =3D ARM_LPAE_LVL_IDX(iova, lvl, data);
-> >       ptep +=3D unmap_idx_start;
-> >       pte =3D READ_ONCE(*ptep);
-> > -     if (WARN_ON(!pte))
-> > -             return 0;
-> > +     if (!pte) {
-> > +             WARN_ON(!(data->iop.cfg.quirks & IO_PGTABLE_QUIRK_NO_WARN=
-_ON));
-> > +             return -ENOENT;
-> > +     }
-> >
-> >       /* If the size matches this level, we're in the right place */
-> >       if (size =3D=3D ARM_LPAE_BLOCK_SIZE(lvl, data)) {
-> > @@ -660,8 +662,10 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_=
-pgtable *data,
-> >               /* Find and handle non-leaf entries */
-> >               for (i =3D 0; i < num_entries; i++) {
-> >                       pte =3D READ_ONCE(ptep[i]);
-> > -                     if (WARN_ON(!pte))
-> > +                     if (!pte) {
-> > +                             WARN_ON(!(data->iop.cfg.quirks & IO_PGTAB=
-LE_QUIRK_NO_WARN_ON));
-> >                               break;
-> > +                     }
-> >
-> >                       if (!iopte_leaf(pte, lvl, iop->fmt)) {
-> >                               __arm_lpae_clear_pte(&ptep[i], &iop->cfg,=
- 1);
-> > @@ -976,7 +980,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg =
-*cfg, void *cookie)
-> >       if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
-> >                           IO_PGTABLE_QUIRK_ARM_TTBR1 |
-> >                           IO_PGTABLE_QUIRK_ARM_OUTER_WBWA |
-> > -                         IO_PGTABLE_QUIRK_ARM_HD))
-> > +                         IO_PGTABLE_QUIRK_ARM_HD |
-> > +                         IO_PGTABLE_QUIRK_NO_WARN_ON))
-> >               return NULL;
-> >
-> >       data =3D arm_lpae_alloc_pgtable(cfg);
-> > @@ -1079,7 +1084,8 @@ arm_64_lpae_alloc_pgtable_s2(struct io_pgtable_cf=
-g *cfg, void *cookie)
-> >       struct arm_lpae_io_pgtable *data;
-> >       typeof(&cfg->arm_lpae_s2_cfg.vtcr) vtcr =3D &cfg->arm_lpae_s2_cfg=
-.vtcr;
-> >
-> > -     if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_S2FWB))
-> > +     if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_S2FWB |
-> > +                         IO_PGTABLE_QUIRK_NO_WARN_ON))
-> >               return NULL;
-> >
-> >       data =3D arm_lpae_alloc_pgtable(cfg);
-> > diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
-> > index bba2a51c87d2..639b8f4fb87d 100644
-> > --- a/include/linux/io-pgtable.h
-> > +++ b/include/linux/io-pgtable.h
-> > @@ -88,6 +88,13 @@ struct io_pgtable_cfg {
-> >        *
-> >        * IO_PGTABLE_QUIRK_ARM_HD: Enables dirty tracking in stage 1 pag=
-etable.
-> >        * IO_PGTABLE_QUIRK_ARM_S2FWB: Use the FWB format for the MemAttr=
-s bits
-> > +      *
-> > +      * IO_PGTABLE_QUIRK_NO_WARN_ON: Do not WARN_ON() on conflicting
-> > +      *      mappings, but silently return -EEXISTS.  Normally an atte=
-mpt
-> > +      *      to map over an existing mapping would indicate some sort =
-of
-> > +      *      kernel bug, which would justify the WARN_ON().  But for G=
-PU
-> > +      *      drivers, this could be under control of userspace.  Which
-> > +      *      deserves an error return, but not to spam dmesg.
-> >        */
-> >       #define IO_PGTABLE_QUIRK_ARM_NS                 BIT(0)
-> >       #define IO_PGTABLE_QUIRK_NO_PERMS               BIT(1)
-> > @@ -97,6 +104,7 @@ struct io_pgtable_cfg {
-> >       #define IO_PGTABLE_QUIRK_ARM_OUTER_WBWA         BIT(6)
-> >       #define IO_PGTABLE_QUIRK_ARM_HD                 BIT(7)
-> >       #define IO_PGTABLE_QUIRK_ARM_S2FWB              BIT(8)
-> > +     #define IO_PGTABLE_QUIRK_NO_WARN_ON             BIT(9)
-> >       unsigned long                   quirks;
-> >       unsigned long                   pgsize_bitmap;
-> >       unsigned int                    ias;
+-- 
+With best wishes
+Dmitry
