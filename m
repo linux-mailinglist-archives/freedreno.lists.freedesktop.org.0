@@ -2,139 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BA19AA078D
-	for <lists+freedreno@lfdr.de>; Tue, 29 Apr 2025 11:41:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D976BAA08F9
+	for <lists+freedreno@lfdr.de>; Tue, 29 Apr 2025 12:57:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E14A210E40E;
-	Tue, 29 Apr 2025 09:40:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63A8510E41B;
+	Tue, 29 Apr 2025 10:57:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="b3QffBEW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cWVhq1IA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8661110E410
- for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 09:40:58 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
- by mslow3.mail.gandi.net (Postfix) with ESMTP id 7297C5801EE
- for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 09:28:04 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 9DE5D43AD6;
- Tue, 29 Apr 2025 09:27:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1745918880;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kdpP6+IZV0QYmrFxTy58B29gyyja9aTG1LwyoYVwA54=;
- b=b3QffBEWXOkepRbRJBAxG56ebIFGpWNAlbC+KLQo0RM4CJOdHofw9LcRaXOlQzjEbdB3RX
- Z+03iDitY3AAR93mhf5d6WLE4XuT3QGY7QachEbLrEI4kcECt5/wn0GKM7h1OqhW4SjOpz
- HOTdVe7S/cZE605Z0+HeFU5eI+Z3o6g8ShHK76B/FqbRAkibTMzruH5CF/IoUuGm4GYVXs
- sFtz6X9pJP9Yj6BYgD109FXC4ES1/uz4pLgGybsGQHMDOgyJx5zG6q/WG2yh6+/TQM4XDc
- hqGRyOgKhSdGaqn9GMqCPbl95bREdu4X3Ttbed9zcOzDQJjjJUJriSfQHcCMEg==
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Douglas Anderson <dianders@chromium.org>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Anusha Srivatsa <asrivats@redhat.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, Dmitry Baryshkov <lumag@kernel.org>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, asahi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com, 
- Adam Ford <aford173@gmail.com>, Adrien Grassein <adrien.grassein@gmail.com>, 
- Aleksandr Mishin <amishin@t-argos.ru>, Andy Yan <andy.yan@rock-chips.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Benson Leung <bleung@chromium.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Christoph Fritz <chf.fritz@googlemail.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Detlev Casanova <detlev.casanova@collabora.com>, 
- Dharma Balasubiramani <dharma.b@microchip.com>, 
- Guenter Roeck <groeck@chromium.org>, Heiko Stuebner <heiko@sntech.de>, 
- Jani Nikula <jani.nikula@intel.com>, Janne Grunau <j@jannau.net>, 
- Jerome Brunet <jbrunet@baylibre.com>, Jesse Van Gavere <jesseevg@gmail.com>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Liu Ying <victor.liu@nxp.com>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Phong LE <ple@baylibre.com>, 
- Sasha Finkelstein <fnkl.kernel@gmail.com>, 
- Sugar Zhang <sugar.zhang@rock-chips.com>, 
- Sui Jingfeng <sui.jingfeng@linux.dev>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Vitalii Mordan <mordan@ispras.ru>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Hans de Goede <hdegoede@redhat.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>, 
- Hsin-Te Yuan <yuanhsinte@chromium.org>, 
- Pin-yen Lin <treapking@chromium.org>, Xin Ji <xji@analogixsemi.com>, 
- Aradhya Bhatia <a-bhatia1@ti.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Ian Ray <ian.ray@ge.com>, 
- Martyn Welch <martyn.welch@collabora.co.uk>, 
- Peter Senna Tschudin <peter.senna@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Linus Walleij <linus.walleij@linaro.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Bjorn Andersson <quic_bjorande@quicinc.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Helge Deller <deller@gmx.de>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Michal Simek <michal.simek@amd.com>
-In-Reply-To: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
-References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
-Subject: Re: (subset) [PATCH v2 00/34] drm: convert all bridges to
- devm_drm_bridge_alloc()
-Message-Id: <174591887152.961603.7706063017853945511.b4-ty@bootlin.com>
-Date: Tue, 29 Apr 2025 11:27:51 +0200
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D7F110E41A;
+ Tue, 29 Apr 2025 10:57:29 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-43cec5cd73bso28713975e9.3; 
+ Tue, 29 Apr 2025 03:57:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1745924247; x=1746529047; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Uvtd6fy4RCGG//kBsfKgM+4FFLLpycksKJkZw5rqC0Q=;
+ b=cWVhq1IAACKfpxcXvLRHj1t21oEmYRhdIry72N9MEGfyatCHdn49WiXgtA/cu8pY27
+ gB4I4N4ROU+19jnHI8sXK6uLaECkic41zkFFz8IvbpVaaPyrkeja/jSOWp+T4tsLMdQl
+ C07uTue7XXrNiVhWxmshGgS763sx5yWQegG2Fl3L+x5K/QCyBe0QjyedaC/zXY+8a4y8
+ 6wk7LSROj9qWklIjm89EPmusVS1UvaOngovHAZf8wAw37t1y4LLV60Q1xX7PaKU5FP/+
+ xRKl183MFj6riReZziZX1WcsSpUyqNP6vWi7f0z1h0hd9qHfkeSikVUhAabPWtJh7keS
+ GP2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745924247; x=1746529047;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Uvtd6fy4RCGG//kBsfKgM+4FFLLpycksKJkZw5rqC0Q=;
+ b=H9ykgENCtvp5xZmuUltjupnYqY5hixnmS8870PRwGgdB/M3ItyhXiQl4qBNdwyg+5W
+ f80VPgGfP9S4cQBnXFeArHV/MVzD3x0jgKr18HlvWGYzWQ255FW4W/tXL1v/5Vq0hptH
+ 0Vsv+cCTso+xnxF9mHxkibT9+uDpECmTDPZ+SGYPCcM+cMmQjd10gkLuOfp1i41c1lyy
+ /fQFTnJxPuomLfUdhF5MO0EnAX3jb+C9mtucyBwrspAb52y+u1CMVD7281XaCaMCgmV9
+ J6/wQKeFKRcu5iY4ONFt9jshcqjZwauzrAWJBcSdOyTxM/hYlXw826afzBLH1eyHc2Ir
+ GWEA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVG03bZPCcAr+Tt2Osmb5i8/1V50RTQFyOrymitYAzfV6YgQS/tBCFyIKE476cCRjPE31cy7V6HJjHq@lists.freedesktop.org,
+ AJvYcCXzR2J6DCElMuQgmjrdoo+apPRBxVp6nc0v4nZA/k3SjliIw+9yjuqKFaAHGtUqi3SE8MmygtQ+rsk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxd6+WSBfgDRr8sW+0k3fGJfWT8PhPTCqz0w18faf1cc0qZj3rR
+ 4whUMHIogUF0nyd6m9m9sRHe2r9a7dQZakGPhzWpuPbRYJNjIm5I+uOmtFTIhMJ5U0bM6kABfYj
+ prN6AgipKTE+mad+WxIwcVAZRMw==
+X-Gm-Gg: ASbGncsbagxg+iWg6AfOpkhvX9vRThlv3BUJP8jLTegqeuYPN33d+4mjadSM/wAshr0
+ nJIsPXpQw2svOPORPoKciGJaI6vD+1PeW4DWQK4SYLv6pdgWIju/HJgzmPTne3Au9btcGNyazNw
+ m4F7x1ts9fUTD7HxZPxjnvvg==
+X-Google-Smtp-Source: AGHT+IHirYlnb/J0Rw491chdfeUL8F8I4KZrN9hJ04U8tCSV4ragmKxqYNjWe5UdaZyFQMvJteyrgFv9C6magoKSZoE=
+X-Received: by 2002:a05:600c:1550:b0:43d:79:ae1b with SMTP id
+ 5b1f17b1804b1-441ad3b5ea9mr23239755e9.14.1745924247107; Tue, 29 Apr 2025
+ 03:57:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvieefgeehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevjghfuffkffggtgfgofesthejredtredtjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeejheeiledvkeeigeeluddtleejvdfhleefleffffeitdetvdeltddttddtgfelteenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgdujedvrddukedrtddrudgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepuddutddprhgtphhtthhopehmrghtthhhihgrshdrsghgghesghhmrghilhdrtghomhdprhgtphhtthhopehjsghruhhnvghtsegsrgihlhhisghrvgdrtghomhdprhgtphhtthhopehfnhhklhdrkhgvrhhnvghlsehgmhgrihhlrdgtohhmpdhrtghpthhtohepphdriigrsggvlhesphgvnhhguhhtrhhonhhigidruggvpdhrtghpthhtoheprghirhhlihgvugesghhmrghilhdrtghomhdprhgtp
- hhtthhopeguvghllhgvrhesghhmgidruggvpdhrtghpthhtoheprhhgrghllhgrihhsphhouhesghhmrghilhdrtghomhdprhgtphhtthhopehlihhnuhigqdgrrhhmqdhmshhmsehvghgvrhdrkhgvrhhnvghlrdhorhhg
-X-GND-Sasl: louis.chauvet@bootlin.com
+References: <20250417021349.148911-1-alex.vinarskis@gmail.com>
+ <aA8yFI2Bvm-lFJTl@hovoldconsulting.com>
+ <CAMcHhXpmii=Rc9YVeKXaB17mYv0piSFs02K=0r8kWe5tQGk7eA@mail.gmail.com>
+ <aA94yOjsayZHNDpx@hovoldconsulting.com> <aA+N8YHX0DZ6h9Uj@linaro.org>
+ <aBB-gl150GVaZPn5@hovoldconsulting.com> <aBCE3wSG2g5pp7jg@linaro.org>
+ <aBCH4oo7dbG8ajvP@hovoldconsulting.com>
+In-Reply-To: <aBCH4oo7dbG8ajvP@hovoldconsulting.com>
+From: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+Date: Tue, 29 Apr 2025 12:57:16 +0200
+X-Gm-Features: ATxdqUFvmRK5viywa4f0WLPi0f48GWdtHCGAXUyP3eWhlaokJqLCQWixu2VChH0
+Message-ID: <CAMcHhXrDEVrM4fEyMwZ9TDgqgY=s_mTcKZMacCoUuZ2fa8FhWg@mail.gmail.com>
+Subject: Re: drm/msm/dp: Introduce link training per-segment for LTTPRs
+To: Johan Hovold <johan@kernel.org>
+Cc: Abel Vesa <abel.vesa@linaro.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ dmitry.baryshkov@oss.qualcomm.com, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, laurentiu.tudor1@dell.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,49 +93,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, 29 Apr 2025 at 10:03, Johan Hovold <johan@kernel.org> wrote:
+>
+> On Tue, Apr 29, 2025 at 10:50:55AM +0300, Abel Vesa wrote:
+> > On 25-04-29 09:23:46, Johan Hovold wrote:
+> > > On Mon, Apr 28, 2025 at 05:17:21PM +0300, Abel Vesa wrote:
+> > > > On 25-04-28 14:47:04, Johan Hovold wrote:
+> > > > > On Mon, Apr 28, 2025 at 11:06:39AM +0200, Aleksandrs Vinarskis wrote:
+> > > > > > On Mon, 28 Apr 2025 at 09:45, Johan Hovold <johan@kernel.org> wrote:
+>
+> > > > > > > Does this mean that the incomplete LTTPR support in 6.15-rc1 broke
+> > > > > > > adapters or docks with retimers in transparent mode?
+>
+> > > Ok, but my concern is if they may have worked in a default transparent
+> > > mode.
+> >
+> > But if they are by default in transparent mode, doing the setup to
+> > transparent mode will not break it in any way.
+>
+> It looks like it will, see below.
+>
+> > > > X13s doesn't have LTTPRs on-board so when reading the caps, LTTPRs count
+> > > > would return 0 and none of the of the transparent/non-transparent setup
+> > > > would happen.
+> > >
+> > > But this is the crux; does any off-board LTTPRs in transparent mode add
+> > > to the count or not? If they don't, how would you ever learn that there
+> > > are any LTTPRs? If they do, it seems we may have a problem here.
+> >
+> > Count gets increased either way. It doesn't matter if they are in
+> > transparent mode or not.
+>
+> Thanks for confirming. So then it seems we do have a problem as since
+> 6.15-rc1 drm_dp_lttpr_init() will switch all LTTPRs to non-transparent
+> mode.
 
-On Thu, 24 Apr 2025 20:59:07 +0200, Luca Ceresoli wrote:
-> devm_drm_bridge_alloc() [0] is the new API to allocate and initialize a DRM
-> bridge, and the only one supported from now on. It is also necessary for
-> implementing reference counting and thus needed to support removal of
-> bridges from a still existing DRM pipeline without use-after-free.
-> 
-> This series converts all DRM bridges to the new API.
-> 
-> [...]
+In this case, let me add Fixes to the entire series. Do you think we
+could land it in 6.15-rcX then? The second option proposed to roll
+back current LTTPR support and wait until 6.16 will completely break
+DP output on all X1E, so it's very undesirable.
 
-Applied, thanks!
+This series was tested quite a bit on at least the X1E/X1P devices,
+both with and without docking stations, as it is also (v2 iirc) part
+of Ubuntu's concept tree since little over a month ago. You have
+confirmed that x13s also works with this change but without a docking
+station. If someone could confirm that x13s with this change does work
+with a docking station as well, it would be safe to merge the entire
+series as fix to 6.15, correct? I could reach out on #aarch64-laptops,
+perhaps someone has both x13s (or another qcom-based non X1(E) device)
+and a docking station.
 
-[02/34] platform: arm64: acer-aspire1-ec: convert to devm_drm_bridge_alloc() API
-        commit: 411465d35bc56877c33e2498ac697acfcf484e6b
-[03/34] drm/bridge: analogix-anx6345: convert to devm_drm_bridge_alloc() API
-        commit: 53ddeb25159781b029fda404226af600e76f975f
-[06/34] drm/bridge: display-connector: convert to devm_drm_bridge_alloc() API
-        commit: 4e90a3d96a6185e143041273f9867a1092dd4a71
-[07/34] drm/bridge: lt9611uxc: convert to devm_drm_bridge_alloc() API
-        commit: 6287ffd9eff6eea65865e64b9d4c45e115fa5ecf
-[11/34] drm/bridge: dw-hdmi: convert to devm_drm_bridge_alloc() API
-        commit: ed6987b674185873ebed7a619a646da6dd1a78fa
-[12/34] drm/bridge: tda998x: convert to devm_drm_bridge_alloc() API
-        commit: 7fe58bf1a9a24b533875c262a3222581a3f759e4
-[13/34] drm/bridge: ti-sn65dsi86: convert to devm_drm_bridge_alloc() API
-        commit: a4754ae9cfa76fbce79f023c268a5bac56f36321
-[14/34] drm/exynos: mic: convert to devm_drm_bridge_alloc() API
-        commit: 91c5c7b5bb2dd09b43b025bce6d790d3c79f4518
-[15/34] drm/mcde: convert to devm_drm_bridge_alloc() API
-        commit: 40c25b9ec641f43ba17c7b788ac16ec23f8daaa8
-[16/34] drm/msm/dp: convert to devm_drm_bridge_alloc() API
-        commit: b2aabe5c6b65516d88214aba4b12ce2ca78bac6c
-[17/34] drm/msm/dsi: convert to devm_drm_bridge_alloc() API
-        commit: fffc8847743e45604c4478f554d628481b985556
-[18/34] drm/msm/hdmi: convert to devm_drm_bridge_alloc() API
-        commit: e11532be87e437648521a8ed5358c56df11933b4
-[27/34] drm/vc4: convert to devm_drm_bridge_alloc() API
-        commit: 9545c91ed75ff65e114761a7729de0e1b440aec6
-[31/34] drm/bridge: imx8*-ldb: convert to devm_drm_bridge_alloc() API
-        commit: e74b84cd83962e357329a695ba348b3dfe37395c
+Thanks,
+Alex
 
-Best regards,
--- 
-Louis Chauvet <louis.chauvet@bootlin.com>
-
+>
+> Johan
