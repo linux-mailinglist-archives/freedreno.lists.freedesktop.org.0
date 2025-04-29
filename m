@@ -2,109 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B609A9FE0D
-	for <lists+freedreno@lfdr.de>; Tue, 29 Apr 2025 02:03:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECE97A9FE5D
+	for <lists+freedreno@lfdr.de>; Tue, 29 Apr 2025 02:37:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D61DF10E037;
-	Tue, 29 Apr 2025 00:03:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1374810E037;
+	Tue, 29 Apr 2025 00:37:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="g357zBq8";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="JniuNjHy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E96BC10E037;
- Tue, 29 Apr 2025 00:03:32 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SNqxT0013632;
- Tue, 29 Apr 2025 00:03:20 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 529EB10E037;
+ Tue, 29 Apr 2025 00:37:27 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SNqni1001785;
+ Tue, 29 Apr 2025 00:37:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5yQq99vkLsa1w0G1Lg+vZYB2vDdvIHE/Uu0S+iTulGg=; b=g357zBq8xrEHzKQu
- s0FVT6Gl3ko6VuljJuRXh5tnPsRuT1fGc9bJhk7b6srbvnLMn3U3Cx6NoDZETpos
- mI+O7ZNn5q9/nTDWv1vHmIDYc4qQXKQ57MbJnPwaYulpSGqor+/kCdGZx+TiBK9z
- qvbRY0xbuhPK0VUl4h/4Cav4L32n7nTvowuhHM/kKLCOgyWx2x3koJ11tatwwF3C
- r/i4VNJ2t+1BCsxNuj89TVL+Bev6MDBINyHqYLOk3SU1tOLwN8Xhb30jkUt/T+FS
- lG5QGZid2fPxqmeICxNE2+sIbdNs4HBa1fxkk9sUorZxt1lMdqikCydhC1b381Ka
- TjEqTQ==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 468rnn1m54-1
+ psXrmKyxbRBwpbmTOJvAdED66voICAJ+SwqB0hGQ7HE=; b=JniuNjHyAIBxPS84
+ 9YXGUP0HifIXTfyN7iF7pSpp66bgxOxwRtY64UZSCToEERW1VtepRyi+o+sHCKJD
+ W7nuY4k9HbTFkApZMdcjhWio0fu8CtnJjfOu+jUNF6GxBCEDDyTyI4c/vecmZCzq
+ +BOoR9P/86SAWcV3k5EAEBfDa6T2JK2FGGo44P31bsQBrD9MzS2kG46zxazBy6MZ
+ v0nxRSGHo7ePD1YNvb1VmpFtuaRRxiN25YoMZbhuaC/7ckazhJ097t/Se7ObQ6nB
+ dOIpyWG1yvPy/nlZM3FlbqJmaUIu4ENuY3+MFyqIjbj1/dw+jpq+8VWuHg5zoplC
+ ziD7TQ==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 468qv9jqp8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Apr 2025 00:03:19 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53T03JfI009026
+ Tue, 29 Apr 2025 00:37:22 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53T0bL7n032059
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Apr 2025 00:03:19 GMT
-Received: from [10.134.71.99] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ Tue, 29 Apr 2025 00:37:21 GMT
+Received: from [10.71.110.123] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 28 Apr
- 2025 17:03:18 -0700
-Message-ID: <ef0b0a0b-ad08-4716-8eba-8745aced8981@quicinc.com>
-Date: Mon, 28 Apr 2025 17:03:17 -0700
+ 2025 17:37:20 -0700
+Message-ID: <4fb243c8-87aa-4114-8867-937a45ae3670@quicinc.com>
+Date: Mon, 28 Apr 2025 17:37:20 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/10] drm/msm/mdss: add SAR2130P device configuration
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
- Baryshkov" <lumag@kernel.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+Subject: Re: [PATCH v2 1/5] drm/msm/dpu: remove DSC feature bit for PINGPONG
+ on MSM8937
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
  <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, "Bjorn
- Andersson" <andersson@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Will Deacon <will@kernel.org>, Robin Murphy
- <robin.murphy@arm.com>, "Joerg Roedel" <joro@8bytes.org>, Konrad Dybcio
- <konradybcio@kernel.org>
+ Vetter" <simona@ffwll.ch>, =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?=
+ <barnabas.czeman@mainlining.org>, Konrad Dybcio <konradybcio@kernel.org>
 CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <iommu@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-References: <20250418-sar2130p-display-v5-0-442c905cb3a4@oss.qualcomm.com>
- <20250418-sar2130p-display-v5-6-442c905cb3a4@oss.qualcomm.com>
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Konrad
+ Dybcio" <konrad.dybcio@oss.qualcomm.com>
+References: <20250301-dpu-fix-catalog-v2-0-498271be8b50@linaro.org>
+ <20250301-dpu-fix-catalog-v2-1-498271be8b50@linaro.org>
 Content-Language: en-US
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20250418-sar2130p-display-v5-6-442c905cb3a4@oss.qualcomm.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20250301-dpu-fix-catalog-v2-1-498271be8b50@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: ZNRjRlcfew--F-L5Dko5CQ0VhzFk2FfT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDE5MSBTYWx0ZWRfX4gyRfNrTYC4g
- 18L9qJvZpbTQ7Dydx4KdgwqKGDSBrQUZ+gDZkUZ38ScCr7hiD4c4+jM9skafDTzAyU2gEXjpYk8
- TY3KsKCVMn7OktrSTS/bo+DClFhlRKucIOrRpFNrH6Q2xJZzVOLRPy6+nlvVFvQjQQdPwIfg8MV
- SQLL9R5pSzgt6+QzaZy6XFNgPZSiVfNTK63l5zI21KtEhLH29Z3CUXOeQ9E+MlbPaYtMlZ3B5A3
- nK93IlsyiYIb5qPmhikt2gC5DOTO9oNFrFo7qyKmi81r4BlXVvWxRGZFI62XyFJoLFNZkHKuUf0
- aiWHOX+QUtC9RpZQ5OK15MZroTj7TIFLVGxlBRYe0qrQtjpE4s+CKFn4BaNW8JJnWM/xCjOkSg2
- n6G8g9PcyN1e7DlWQBv04kuz+0rvlDwpRd7CzDD+rJd7M/Kpur+OmuPhtdfOdFDlncEQR71X
-X-Proofpoint-GUID: ZNRjRlcfew--F-L5Dko5CQ0VhzFk2FfT
-X-Authority-Analysis: v=2.4 cv=V9990fni c=1 sm=1 tr=0 ts=68101748 cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8
- a=COk6AnOGAAAA:8 a=oemococDzsnvMBNZoewA:9
- a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Authority-Analysis: v=2.4 cv=AO34vM+d c=1 sm=1 tr=0 ts=68101f42 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=iTZM9pQ1TWb8sfHiNRoA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: 31yn-E73McJ-lA7Pt-ydn3PewTO4hj1E
+X-Proofpoint-ORIG-GUID: 31yn-E73McJ-lA7Pt-ydn3PewTO4hj1E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI5MDAwMiBTYWx0ZWRfXyS2SukoHCVI0
+ fsn3RsbESYO+c05Rl6Cri/vBT8d+l6TEDz7TurQKLccI6FIvi2cTIk4aNqr2Tm/ll+EQ66iLPMC
+ tS4IRCqS73HFRR5SkI7dd7xWzeiayKUoh+4oFfRq7HWVYh8wMjuFJ37acVUyN0uWoWG85S/ejeU
+ cT9l03dKQcf462cNeI8FrMeYYiTj8ZFAFURRBcoF4RZfF55ppvHyybEYBvhv1fc8Hh02B5nJM0J
+ Qr/7pPM8kBNrzVaDcqFlzle5EmlbJsnCE8hbuq6K7DO5APAG25qNI8/hgUGcHoAIfSbKziGFTOJ
+ xq9O0qoqVc7umjZh8u20OvR3DGK90CfGrLFv+j3fGyO/J/OvgmTL0EjWHIyQG2ez4jHLK3RQVEi
+ 2YumrAAOEp7lh+IIG3tu6TxFXJfQrSUhB4fSZpgYtR9KoAKgOuRjNHTJD7qqJvrqh8UairSQ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-04-28_09,2025-04-24_02,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0
- adultscore=0 mlxlogscore=999 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 clxscore=1011 phishscore=0 mlxscore=0
- spamscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ priorityscore=1501
+ adultscore=0 clxscore=1015 malwarescore=0 spamscore=0 suspectscore=0
+ mlxlogscore=977 mlxscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
  adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504280191
+ definitions=main-2504290002
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,48 +112,19 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 4/18/2025 12:50 AM, Dmitry Baryshkov wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 3/1/2025 1:24 AM, Dmitry Baryshkov wrote:
+> The MSM8937 platform doesn't have DSC blocks nor does have it DSC
+> registers in the PINGPONG block. Drop the DPU_PINGPONG_DSC feature bit
+> from the PINGPONG's feature mask and, as it is the only remaining bit,
+> drop the .features assignment completely.
 > 
-> Add compatible and device configuration for the Qualcomm SAR2130P
-> platform.
-> 
+> Fixes: c079680bb0fa ("drm/msm/dpu: Add support for MSM8937")
+> Reported-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-
 > ---
->   drivers/gpu/drm/msm/msm_mdss.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index dcb49fd30402b80edd2cb5971f95a78eaad6081f..f706e44231a9c360ac4abe26e4050e416d8c3940 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -592,6 +592,16 @@ static const struct msm_mdss_data sa8775p_data = {
->   	.reg_bus_bw = 74000,
->   };
->   
-> +static const struct msm_mdss_data sar2130p_data = {
-> +	.ubwc_enc_version = UBWC_3_0, /* 4.0.2 in hw */
-> +	.ubwc_dec_version = UBWC_4_3,
-> +	.ubwc_swizzle = 6,
-> +	.ubwc_bank_spread = true,
-> +	.highest_bank_bit = 0,
-> +	.macrotile_mode = 1,
-> +	.reg_bus_bw = 74000,
-> +};
-> +
->   static const struct msm_mdss_data sc7180_data = {
->   	.ubwc_enc_version = UBWC_2_0,
->   	.ubwc_dec_version = UBWC_2_0,
-> @@ -738,6 +748,7 @@ static const struct of_device_id mdss_dt_match[] = {
->   	{ .compatible = "qcom,msm8998-mdss", .data = &msm8998_data },
->   	{ .compatible = "qcom,qcm2290-mdss", .data = &qcm2290_data },
->   	{ .compatible = "qcom,sa8775p-mdss", .data = &sa8775p_data },
-> +	{ .compatible = "qcom,sar2130p-mdss", .data = &sar2130p_data },
->   	{ .compatible = "qcom,sdm670-mdss", .data = &sdm670_data },
->   	{ .compatible = "qcom,sdm845-mdss", .data = &sdm845_data },
->   	{ .compatible = "qcom,sc7180-mdss", .data = &sc7180_data },
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h | 2 --
+>   1 file changed, 2 deletions(-)
 > 
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
