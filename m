@@ -2,129 +2,114 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1137AA0EDD
-	for <lists+freedreno@lfdr.de>; Tue, 29 Apr 2025 16:32:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8079EAA0F12
+	for <lists+freedreno@lfdr.de>; Tue, 29 Apr 2025 16:36:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 723A510E4AB;
-	Tue, 29 Apr 2025 14:32:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C82589D63;
+	Tue, 29 Apr 2025 14:36:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="J12JJMR9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VtRl8Ac+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F66410E4AB
- for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 14:32:45 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53TAFtpV015798
- for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 14:32:44 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2E7689864
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 14:36:44 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53TA6UWO031801
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 14:36:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=bPriHSZx3KQJP/KsDQOWzlOT
- mChm8sjxQPQzHrr/5WY=; b=J12JJMR9Q7NMWgxDtjREBVcwp4RzpJ5+02SMlUX4
- qVgDGXteJgupzg7oZ5a0Ewx2671aEd1SzhiO9/H8SGrnSsAstywaK+KnSTQCzMKm
- OzVftgwcJoCv0VCRLjooCp+6O4EDafmLLWX51ffh7cYkAScLWyaM0ZePtOWz8/ya
- Wj6QrtpRz0croBpfkTmRT63iScrCDoUAgHAan7vVwxILXq0AbfMLgLYiACH2GKKZ
- G0eyAoprIyDtOryovl9CY5A80QgjWUwM2hdCS+PhY00qa6C9kcwh1dGR0ulSkhIj
- lnAzHx9VnmbmM2ECcHfPNQIhrus7mEpk/56biYdFgdo06g==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 468q324sfy-1
+ :references:subject:to; s=qcppdkim1; bh=J4vapM77cSti5bfb1sVRmOKt
+ P/l43U94DBDBHARRk/k=; b=VtRl8Ac+hVPXwWy3/5FThBwnFkxYES1cyFx9j5c5
+ hrB2Emh+tAttSdQ+cSoIFI6chbPBLR648bmTBP47f63eENqDm0QBDU4i/XYPRSiT
+ v06MrvR57ohjYvmvcb0vwmwCVGIzSPcP6qQhxm3nchPEZVN/5lRUM5VnfNVcQnZQ
+ k4ueE1E5Nri70Q8k5o3pDlSVz20AqlCjQPk2qSEp5tvq6qsQ2TCb54u7h5uKIXmg
+ a5oObn7EiZ95kkrm/mbYcM3oG2aLymTgEXXX28wPQQQxLl0puKP4CEvEy690RDlt
+ ZbYRERWS5C6ftUhef9uRSaBS96mGNu8f2od/7M3eWJETNg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 468qq5m0y8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 14:32:43 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7c9255d5e8cso1062675885a.1
- for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 07:32:43 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 14:36:43 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7c5cd0f8961so1211364285a.1
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Apr 2025 07:36:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745937163; x=1746541963;
+ d=1e100.net; s=20230601; t=1745937402; x=1746542202;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bPriHSZx3KQJP/KsDQOWzlOTmChm8sjxQPQzHrr/5WY=;
- b=TWVM6YxqJoa5uF99r5bQSgyBYYXkAVmgTytCGS0DuftNYnrNTHIMzZVYMTdEcSfZv4
- zMRvd0OROnjEHynxOus/3R2hJf7V1fTYesj928mixyQ6lqSZVliJ3QGV7GLUO9fRxwak
- o2524GPMIKSmBvhUMGWQ3Hi9vf/+yyvIximIGAQoO2Kukkd1RNl3G+2Hy/HcfsEe60AE
- gr0E+wZuq3eQOhvSd3b04O3yyjbYhuebWRvyBiuS1GKqWUoA7elc46vithqnN3KsqF33
- Rh2dsEXmPEyRSCGUyARnPkvH3hKz1KvzNRf4FmuKCg0KedWi1MXm4O/S6d3HD/J9+Nrc
- gPpQ==
+ bh=J4vapM77cSti5bfb1sVRmOKtP/l43U94DBDBHARRk/k=;
+ b=K/AG9YbN1Imw8uD1Gw3uRcyUc4vGg0PEWT7jkyfCsuqZngptPj5UqAJZNQIiEJ9Mr4
+ lOcdCFRtLQELpkocS9M/2/hYGwWN27d8KTFmiJ8OXQ1OXgrdg/t0YaRiKxRj4NZWYvia
+ X70gDGFsyJZ13aw7bwtt7UoEiwsm45vh65mwtPd9HOz9gNialPlxwIKsXyFdquEq2/B3
+ 3W/0sBPg0chkTTSW34Hul14M9PAlJs0xQGl4DigstBzXSV7L8Cpo/9cU10U+dw5AxdKb
+ FSkHnxXG2dlT2TFR0igqEfB4Dl22HIKMQnk2HhnlyFPT+zRBWhiswy3hbTmu9eT0J1T2
+ /5iQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXSs4Qj2Ia5xIlT444D7x/JF9gfzriiJ9mHQzQUnlozw2tROc/Bp9WunRlJOWXdurqK4TqLEQDZ0AQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz48qsYXLwQIsmR9n/4VYTwQ4ePo6KXacfAVkV2GeyxDAw/lIT9
- dQ/chtescKcFLO8eYfZRvQ0MrsDunSnYz+BGpUwIvi06Lydq+R0bYKcnKvVFOgoqNzBjFV/kw5w
- dmhNCNjpRaw0tLWPv0zA3WtZE+GrHAlg9Hb9B+Qkcdl4sGv7dRN7Z5i96qs4DmL2JYho=
-X-Gm-Gg: ASbGncteV2K09yNHWpqtlSxBecQBHUdPi1SoW0QqK7gAyK1jLBdo86ZSHfePpFHqj+9
- 2c7t5btF2ba4lzddK9DrMhCnVUImMWdVIXWeo0kuWUeM06tm0STARoJV4vX/TiKOwQuoMIUVx/t
- fh7PYaWLUwxwziGHBO9C0dIfmQluACDjSjECYo0BL0vODLv/DO+1uDKiE34WAwooqjH1uAZIxed
- V+Wn+l2o8DXbzlT2ERVOn0N5P5BTMgxEuKZUpzYxhE9dWCqOA9RdypiHQyh9DKCsLJtDBfeoQxI
- 0s34dcYh1/7XJMPwSlcAt9nYneU5sClqxgA0TJ+zq9NkduXZNBZkz6AO8UKGcSvrKacJ99/feHk
+ AJvYcCWHOZgWaGcKO0z3jQq+WR+/P9YsHep6w1W3lG2JW4g7Ni/5+7+MyvjcPpJ9aAb17OuLvEc4bp3DH14=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzeSLR1MGaa8gMQK7YPOOoIICsnZNH0Za0CvLPN98AACmU2GjiL
+ dCXLGa+9yuj4Ayd0Smfxed6iV4QVPJKQBq+njdaSCZeRXxVYn4NSaadHUJF+lLiimCv3D3JlmBu
+ uT4unrymB2ssLIF9yYGTeq/b5q+BKFKXfhLlGcSPi3X4XyBGNwpCgFimMY8jqb5bNc64=
+X-Gm-Gg: ASbGnctdgrRi01gCq5aAXvKtF9XW+bZwK56l1g0Tt8q7l93hYBiZOWEsyk0jP8H4K7s
+ Wa/MVTB/+0mAbjorWPYC8rJitAw9wyokE3AhLJaHldnbHxy7kTxOESHuJ2Uf7Z3rvG5hpo2lkmx
+ G7CN15juES89mhjU+lM9wmSxV3OQpSVOme/WxRjjVIX297ZgurOza2FD4Z1SvU+v6SNeKbZ2J2K
+ zY1gtCunLpO4bNeu4aZT2Gos68wbU4l9dQb+ReqUpZUqOx3tsHtvtMtt8qMXJ0J0GrlWawHjxVA
+ V3Fz9rS8Zur/DLaTM1hpgb+oPjPGxVdIKzIgSvzqy5cd4kJ8IL/o5OQBj7Uh9U2fd67isqi3Axs
  =
-X-Received: by 2002:a05:620a:3184:b0:7c5:5003:81b0 with SMTP id
- af79cd13be357-7cabdd823cdmr635637785a.23.1745937163043; 
- Tue, 29 Apr 2025 07:32:43 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGWF2xshAzyNqq5fdOAsbkOvEB3opt7kXShCLYeUNW9cmZ74LfQEMRBALbW7HQGg1CwIOtf9Q==
-X-Received: by 2002:a05:620a:3184:b0:7c5:5003:81b0 with SMTP id
- af79cd13be357-7cabdd823cdmr635632385a.23.1745937162672; 
- Tue, 29 Apr 2025 07:32:42 -0700 (PDT)
+X-Received: by 2002:a05:620a:4309:b0:7c7:b600:8368 with SMTP id
+ af79cd13be357-7cabddb646cmr566808785a.38.1745937402005; 
+ Tue, 29 Apr 2025 07:36:42 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEvlRPDp4nVxPl5jkoeJcUjoMVkueqG9MbxVn9JenlF+X3kyGNQRHfqzf9TZwOykEYT4V2bWQ==
+X-Received: by 2002:a05:620a:4309:b0:7c7:b600:8368 with SMTP id
+ af79cd13be357-7cabddb646cmr566804385a.38.1745937401635; 
+ Tue, 29 Apr 2025 07:36:41 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54e7cc9eb8dsm1880507e87.135.2025.04.29.07.32.41
+ 38308e7fff4ca-317d16a833esm24539771fa.85.2025.04.29.07.36.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Apr 2025 07:32:41 -0700 (PDT)
-Date: Tue, 29 Apr 2025 17:32:40 +0300
+ Tue, 29 Apr 2025 07:36:40 -0700 (PDT)
+Date: Tue, 29 Apr 2025 17:36:39 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>,
+To: Chen Ni <nichen@iscas.ac.cn>
+Cc: robdclark@gmail.com, sean@poorly.run, konradybcio@kernel.org,
+ quic_abhinavk@quicinc.com, lumag@kernel.org,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- Rob Clark <robdclark@chromium.org>
-Subject: Re: [PATCH v4 16/19] drm/msm/dpu: Implement 10-bit color alpha for
- v12.0 DPU
-Message-ID: <oibskwq6gk234lu6bymqlrtgt2yd7o4qbpk46snhba66uqbupi@lwwcfmgp7bul>
-References: <20250311-b4-sm8750-display-v4-0-da6b3e959c76@linaro.org>
- <20250311-b4-sm8750-display-v4-16-da6b3e959c76@linaro.org>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm: Convert comma to semicolon
+Message-ID: <67u334iujxbhkklsy2awxhmionha6b2qxshv4gjvjesudas2ie@6hhn6gxgjyqb>
+References: <20250410025221.3358387-1-nichen@iscas.ac.cn>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250311-b4-sm8750-display-v4-16-da6b3e959c76@linaro.org>
-X-Authority-Analysis: v=2.4 cv=M7xNKzws c=1 sm=1 tr=0 ts=6810e30b cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=0cLWEtKbF7AIdJ2SciEA:9
- a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: nwtLKR_bcc2b9YazvZB3acFP4yYLFGcX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI5MDEwOCBTYWx0ZWRfX7W0XBkBTadvV
- CawSL3gfOfcC/oo3gSFy0Xkjn0OTxo9oZPYcDKdWp3g9hDgP6yhjw8kpiqdhzkBUG0AherDukq5
- UF+ji7Z+B+MI5r3tqyuxPYz03zu4L0nMFtafjP+FO7G3q6FuVVPVEKlaQOTRBl3gZe1XPe6c7du
- 179KdWGmuGXW8bBPyAxEjAJVTo03qDOd2K+MSwNbRLuGgMA8aIkgilSrq3XetQ7jfOQ5nbetnkG
- 2vqaWKvYYCWbqUWxozcVR4i26VuVqILnQOyN+XD5fIY8GAXpNKXsFoFSyhCvOjXfZDSbLgxfys0
- h46yRO48ubce4WLsXURs0WF4ElzGQT45oXZ6ZN/IJ6WCnwindkKv4Q4oyW/NHvz3CKo926htoOm
- wCBYQ9Vb3MYHuKCPa2ZsVGELVIbhfic3Cd50j5aueYFwvuh/nETZ43zvA4z6+PQH/Godg3gQ
-X-Proofpoint-ORIG-GUID: nwtLKR_bcc2b9YazvZB3acFP4yYLFGcX
+In-Reply-To: <20250410025221.3358387-1-nichen@iscas.ac.cn>
+X-Proofpoint-ORIG-GUID: akd5h2l0O-ovQsFZA3YqNub-sS1HMKFJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI5MDEwOSBTYWx0ZWRfX8p+F2Lz25W49
+ kaW8Z6esIsIUYml/698w6O3qN1vkiJQyz5UrYAGM0/I0XpPbva1IdAuawgK5F072xEimnmTGRit
+ mertU3fXQxFR5v8/L+rnUYqcWzslCtC1+SMLbF0KI/7q0t4ZHX6Ld7mb7iOMMsHh0qqzKti3k6k
+ 35lZN0CH84c4HdwJfVSMO59knwHneJyLZuHL6GezPZWg3skaCimeQlSJ1B//h7WRzNyL9lgF7GK
+ 5DsTKvUvc6RTJWzEu9gcoa1T11sdaiimy94wxp59zZN1kPNs/EiBvanuE1sp6eKBfcCI80oqwbu
+ tpejoNdWiyGEy3LoE6yLFHtwhV1N9GgG5FY17sPIMuwQ/nBbvx0veinKjVeaRJ+mAxqC4vQip+J
+ xaqsadRGxadXkC0WA5yjwd0k+OysX98aVZAClIODOALV75ItwHkC7Zi83lwsW5Ujbz32mnU7
+X-Authority-Analysis: v=2.4 cv=QP1oRhLL c=1 sm=1 tr=0 ts=6810e3fb cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8 a=sNhlO-HqowW9r6Pg40gA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: akd5h2l0O-ovQsFZA3YqNub-sS1HMKFJ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-04-29_05,2025-04-24_02,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- priorityscore=1501 clxscore=1015 mlxlogscore=850 spamscore=0 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2504290108
+ suspectscore=0 spamscore=0
+ clxscore=1015 mlxlogscore=812 lowpriorityscore=0 adultscore=0 mlxscore=0
+ bulkscore=0 phishscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
+ classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504290109
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,18 +125,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 11, 2025 at 08:02:06PM +0100, Krzysztof Kozlowski wrote:
-> v12.0 DPU on SM8750 comes with 10-bit color alpha.  Add register
-> differences and new implementations of setup_alpha_out,
-> setup_border_color and so one for this.
+On Thu, Apr 10, 2025 at 10:52:21AM +0800, Chen Ni wrote:
+> Replace comma between expressions with semicolons.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Using a ',' in place of a ';' can have unintended side effects.
+> Although that is not the case here, it is seems best to use ';'
+> unless ',' is intended.
 > 
+> Found by inspection.
+> No functional change intended.
+> Compile tested only.
+> 
+> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
 > ---
-> 
-> Changes in v4:
-> 1. Lowercase hex, use spaces for define indentation
-> 2. _dpu_crtc_setup_blend_cfg(): pass mdss_ver instead of ctl
+>  drivers/gpu/drm/msm/msm_ringbuffer.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
