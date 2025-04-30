@@ -2,111 +2,128 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFF0FAA4C5E
-	for <lists+freedreno@lfdr.de>; Wed, 30 Apr 2025 15:02:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D292BAA4CC6
+	for <lists+freedreno@lfdr.de>; Wed, 30 Apr 2025 15:09:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A997D10E7C6;
-	Wed, 30 Apr 2025 13:02:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9312610E011;
+	Wed, 30 Apr 2025 13:09:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XeM5jj97";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TdPTRbew";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17B3C10E7C3
- for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 13:02:02 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-391324ef4a0so401902f8f.2
- for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 06:02:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746018121; x=1746622921; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=tndmMRLasPafzGI8us3kiKmdtf1aIReqkNl96kpfR9I=;
- b=XeM5jj970y6+G6XHbOGvdv+yZCYD/gaa+KtWgja89xONhKpYNraP//BpKWKL2Avi4P
- 6H9aRmsU+701zvQOomDb7dLXb5vqr3W8ke6Zj+QrZ6OvQiYluQ52fJhscY5YneLssCBK
- Dr7VLp94t+IWTnQ0XQYV9fdhdrgxVnUYZE/x1fU4MDP22Yltq2AYN86tKMPtN34tsfnf
- Z8aO26S7GRtaStmvaqpNDfSTX7AMXKWhpcFkfUXkyaaeHrXG7pXBDCSyMuF42Q4oDkXJ
- QPuzHu7aLSu1pUzpQ/Pfw5poqtFDvZuIwCEP4hDq9Lz5sYGXAcdCG6CamcOsNjAspenU
- xwVQ==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C397010E011
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 13:09:46 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53U98c2W032081
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 13:09:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ vRMOzQ1+a8EQloSooTZ1VPQWAuenrRDcnTPBGwn0XDk=; b=TdPTRbewAN+TNHGe
+ NxnkUu8cl0q+5/I3KAw4TNDDFaIwyp6ja6iYQjo/dcbF7M2ZgapbqAw/H5dyN3iI
+ VQex1vfjt+ogLMbv9q7yyFrTPbRhIOvSiDB5kQP1kE4mWkIIp/geLeT7Ifbc7VG0
+ wLIgT07RMsu9I/+9m/bO76jk3zYPrSC3ONZd9EmtdmiKvogGZpDMvG+UORF+sxQw
+ XnZM+IoXtcz+vduJPvPN5ckLfWNxX1k78wy28emvabbeMxJ7mNxmJrjrGRaaLiwV
+ 0l4xRDGklngle0GNSdXfGPJie1Q5hIImVQN7cry34YwqVA8D5SJysTQ3QFH/Ro/V
+ iE0zhA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46b6u72aqd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 13:09:46 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c54be4b03aso102800985a.3
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 06:09:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746018121; x=1746622921;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tndmMRLasPafzGI8us3kiKmdtf1aIReqkNl96kpfR9I=;
- b=ZaOVzs+mt2R8KFJNbbcH/frkgTzUo/01aOv63EyPwKBrH0er1XjF/4Li/iim0oXZIl
- LO3MaJ68mUZP4nz+gWQYPyB51K5NIdy6lF1RQd1FaPRBVlqLcEGTQhIxXKpbysMalmBb
- kscnf7ah0aqSAK+3nrX5iyfB5NmvZ7Zk0f53Ij64YCcF49l7w7Eswd3E68S/NTMBFdyJ
- HHEPWNpO2EJ1DaOtUDRV1s5XO3rB2xH6wKFLdbZNCJcKDab6IrYrLH6q4OOCjbFUz1+n
- 1Xsz5JSPLrm1pPusC3i4Ql+VrHkkiXsK4oG7m72ptU1VBNBj90E/e/LGhZoufDW9Q70j
- 22Yg==
+ d=1e100.net; s=20230601; t=1746018585; x=1746623385;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vRMOzQ1+a8EQloSooTZ1VPQWAuenrRDcnTPBGwn0XDk=;
+ b=jGLkLvY+ZYzRrbxRp8uExb0WBU8/+s4nzFN2QfrlxjKIfQNu83H+xOLdAgTBWdShWb
+ MfIub7x2zPSa0jruHIIn4OBmpmreBshOwP6XH3RQVVpRxgvlCUJhfVsaL/uqU0bPVpun
+ lkCISrZEgvikgtI43dsccNCa4lLOSyhS/AVU1geshBsvnYPqS4tjyVPIadqdN4dG2Hbe
+ PJhkFArY6cAum2Yc7qA/NJ2RlE44YDqXRltbOgV1DiyDgSPhA9pUZ+sDUSWvH8IvHdW4
+ VjFvvB//9qxrg2jBQw85fDno1cFMgErN+sxYriPH83p6l0KlyrtUPB8hCxhNjIL83SRD
+ Tfgw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqrp7b2ZuPThaeZZAdGCOLPNnhwVQn+Q9B0IR9xQ8pim1TXXS/A9s638pH95Obry2dmZvzy2oC1Jg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJAB4gCnbxOhyPFWQTDg0sjJLajrx6rLaBnkPjK4NOGVZ9NMoj
- VjhGew0qmZTtNcxDkt08fTG/XvVXsyTdh+bAopwpsDzYAlGgILXFQZFpBH+/9/Q=
-X-Gm-Gg: ASbGncuNSBYyXSZupnMdxapevqu+9bCKz69RYsHP5VB+ICdGaMVUQbWoe2MN1jU2mVQ
- 3+ig6AjQZouY3gVp3uWBHHUFcDBTPt0QkhPoT49kusVBbo8gwa4dz7NkL9hrFkaXX40EzTWrIlE
- lthBCxJBTBctU0JbUr+IQWuvh6xI68YpQIObv/OXBzpFgMBzX1EwseNkIuTdzVMA/rqPO4q+vI6
- FQR0Tti1ZXhs3jl3C3knfHSiv4wl/apNentFS3ZRMDex+dGQj/1nm8ul0PFNMqUsTWC4HvH3/5t
- mjFWzyXSftKquIPmf1ctETGB9mYwW+ucFFakxR/eqSOuSeJwJ53xkd+2Eq552ePb62HNZw==
-X-Google-Smtp-Source: AGHT+IFi7AgExT+UHxJr37nV09KKAM1KH3QuKRe5WJLZQda5LnvxXNiP5Xe86NeUpMJvDYVJnyIoGw==
-X-Received: by 2002:a05:6000:2404:b0:3a0:9188:ef58 with SMTP id
- ffacd0b85a97d-3a091d667cdmr96227f8f.14.1746018120453; 
- Wed, 30 Apr 2025 06:02:00 -0700 (PDT)
-Received: from [192.168.1.28] ([178.197.207.88])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a073e46c23sm16884043f8f.75.2025.04.30.06.01.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Apr 2025 06:01:59 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 30 Apr 2025 15:00:54 +0200
-Subject: [PATCH v5 24/24] drm/msm/mdss: Add support for SM8750
+ AJvYcCXtO5tS3drJNOpcCl7EUYBiqn/IRf5FIh/8dIUwsLGl70WF6RoJAEHeIRKfuZ2j+ucmI+fsvOmvM+k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyPGLJn7htUkUFmwwfTQaiSAeSM/iPido9gYLMM1RWYOBTlh1cY
+ iIf/O/MXmLo0pbLPHoZfk3ry3RO0plAdfNiot+0wHtX99RXwEK2SM6cJaBZUNLgfPWZx3/tokHO
+ BlN1skRKoohvm/uF+yHCxxk48QbvP1OgFgEtLkGgL4pNIsbtCQBCdw4wjjQPjsBgxUqY=
+X-Gm-Gg: ASbGnctmvi3RVThRPJZJuQxLYlnOZ4IfX1ZmR/MUc65ACJUPZOK/esQo6DqyrCtt1WY
+ 7DryKzHKuBZGF1wpiGkF1XxgwmMzDm/O9GhJJ820vXfXDO5Y5wTB3GLUoKvoE4jf9B0K4LmIiAo
+ grJ2/+qb1QDuY2i99+1htkm77lOyIya0vpbDnHE61elY8dbyvTF6Lspy01dFlUBss/mguiOozBI
+ GDueBnbuGMcyK0XGubbnT1vjhx3KTcG9rkEMjZTS2OsHXYz1UV490d67+oW3pUE4VRhQorROFcl
+ BKbMpwCL4Q/+YuZEle3fhUyQCVO+P+TNVZf5mjnRjDa2aWaCEMB3pqVYHr8eJYebcoE=
+X-Received: by 2002:a05:620a:4494:b0:7c0:af16:b4a8 with SMTP id
+ af79cd13be357-7cacc172af5mr26593685a.3.1746018584838; 
+ Wed, 30 Apr 2025 06:09:44 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEO097WTrfuIxU7CNWA83CThbCdCAbQ6J4gL7u3jo8Kby/5gjdIscRtpOeE3Q1bQkyisdevfw==
+X-Received: by 2002:a05:620a:4494:b0:7c0:af16:b4a8 with SMTP id
+ af79cd13be357-7cacc172af5mr26591185a.3.1746018584214; 
+ Wed, 30 Apr 2025 06:09:44 -0700 (PDT)
+Received: from [192.168.65.132] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ace6e4cd79dsm920573466b.38.2025.04.30.06.09.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Apr 2025 06:09:43 -0700 (PDT)
+Message-ID: <98a4ad20-c141-4280-801e-015dafd1fb39@oss.qualcomm.com>
+Date: Wed, 30 Apr 2025 15:09:41 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250430-b4-sm8750-display-v5-24-8cab30c3e4df@linaro.org>
-References: <20250430-b4-sm8750-display-v5-0-8cab30c3e4df@linaro.org>
-In-Reply-To: <20250430-b4-sm8750-display-v5-0-8cab30c3e4df@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
- Rob Clark <robdclark@chromium.org>, linux-clk@vger.kernel.org, 
- Srinivas Kandagatla <srini@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3191;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=be21JxufejHw2rq84sJ/VfYaP1y6cCq/ZMTy8SJRrHY=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoEh8PByvnI0Trv3zsZhzQ6VfXKE9citqdjgGC3
- PsTmPZCN/WJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaBIfDwAKCRDBN2bmhouD
- 1wrrD/4u2PuQ2ouXBCx8tly07ATHb1/Zj1EzEBIaw19Oi3HJew675YV4BPClQF9J7CrOB2m/ywR
- hbw/dqZXqTP4kUCrmDAqP8pwBvmJGIPQcCuznZGjaUFbdLyBqJeVV95jMfLE31jOOkDhWSZEYwV
- 5jc29JXj/nPLvDAjfUv/yylQnfHKEpLeliBjwI9j6hFpDUHUEIWYsFrD7XC5gRowjCIrVWYArhu
- mg57pYWMhuBdbvtzbhsZ5Tu84iPLXB98/DznQXv97jj0t81MD1NB6vz1NN6c3s1uOrA4shA+N6L
- fpAXoNrr2+b/F6pw5r/BomV7TrYL3CX0nN4cxW11IA74vPAIV8Jgu2t0mOui5caqBaPR0rvT36m
- Kw1qNZIVTme4Ql8nZmmon1XlHcDKyjXljdJQyS0zNuyPOR4h9bFO5Fd4ZQi/vMYZIyNgL4xIVVn
- eFobglFBZ/q6CZkQ1vAotPvPkkIfBmigkKk7Q5ZdddttpPEA/Nq6UN77mcgpg+KyOVSMIToABqe
- FFzMztgK+MUi2pBiL4pp5TvizsJL5qolZqdIT6SSwni8B/WhYEl/YOH7cqaAccf7vh7IpLLW1tK
- DlnN4VVi0lbl86fzVBqvpNpfIbVkSE2PxXaOdvdUFFFEYmDm5zo0ifolEz4rzBiPZlD1TBHug82
- ZgJejiSvYezahmg==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFT v6 2/5] drm/msm/adreno: Add speedbin data for SM8550 /
+ A740
+To: neil.armstrong@linaro.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>
+References: <20250430-topic-smem_speedbin_respin-v6-0-954ff66061cf@oss.qualcomm.com>
+ <20250430-topic-smem_speedbin_respin-v6-2-954ff66061cf@oss.qualcomm.com>
+ <13cd20c6-f758-45ff-82d1-4fd663d1698c@linaro.org>
+ <886d979d-c513-4ab8-829e-4a885953079a@oss.qualcomm.com>
+ <b838f9bd-0537-4f8d-b24b-d96700d566c8@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <b838f9bd-0537-4f8d-b24b-d96700d566c8@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDMwMDA5MyBTYWx0ZWRfXxxAEzx82qjgU
+ s6e1T+7YkfmM/G7g9uEl0lJEevGnQPFtux2xWYW/QdQqfV9OF0seBzx6POimOTtcd9OoTOkHive
+ l4iJJ/6WlV3spt+S2qIuedmcA69BjgpCv6UY0xiwjRIPLl6ANygJIn9YkHf/MN15E3gCDlB6WXd
+ tS2S1zO7ORDnsFcf2/RPVcH9XGatS7of/W9rEsIqNF4bGS9d2EtE/GdR271Abgpcuse0b6b5+YA
+ DGdSPEUSKQXBvOv6zxOuqB9r44Yrsz+n6vLuRN79eT2p0ZwW5KH7EemHsyvXIBogLIkIXCtWFK4
+ ZnoHRXRCP2nTyQj/4dvCvI08uft9Qz+d9cExpSTH8S+iL7owr0SVK+OdhMdAut7qrzKaBiwsI/h
+ cZM4wnSGZXrwLzJeX3dw9smuJZ3J4H5ozyMvWVOZi09ISvMc2btO3UobU+o40sqIcteGB5Ke
+X-Proofpoint-GUID: 46bTO_4pE3yx5IvO-rJi1P7Bm4MEgWgc
+X-Authority-Analysis: v=2.4 cv=W404VQWk c=1 sm=1 tr=0 ts=6812211a cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=KKAkSRfTAAAA:8 a=aak9J4RPMLM6hOP-xocA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: 46bTO_4pE3yx5IvO-rJi1P7Bm4MEgWgc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-30_04,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0
+ lowpriorityscore=0 priorityscore=1501 mlxscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 phishscore=0 impostorscore=0 mlxlogscore=999 malwarescore=0
+ suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2504300093
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,93 +139,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for the Qualcomm SM8750 platform.
+On 4/30/25 2:49 PM, neil.armstrong@linaro.org wrote:
+> On 30/04/2025 14:35, Konrad Dybcio wrote:
+>> On 4/30/25 2:26 PM, neil.armstrong@linaro.org wrote:
+>>> Hi,
+>>>
+>>> On 30/04/2025 13:34, Konrad Dybcio wrote:
+>>>> From: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>>
+>>>> Add speebin data for A740, as found on SM8550 and derivative SoCs.
+>>>>
+>>>> For non-development SoCs it seems that "everything except FC_AC, FC_AF
+>>>> should be speedbin 1", but what the values are for said "everything" are
+>>>> not known, so that's an exercise left to the user..
+>>>>
+>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 8 ++++++++
+>>>>    1 file changed, 8 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>> index 53e2ff4406d8f0afe474aaafbf0e459ef8f4577d..61daa331567925e529deae5e25d6fb63a8ba8375 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>> @@ -11,6 +11,9 @@
+>>>>    #include "a6xx.xml.h"
+>>>>    #include "a6xx_gmu.xml.h"
+>>>>    +#include <linux/soc/qcom/smem.h>
+>>>> +#include <linux/soc/qcom/socinfo.h>
+>>>> +
+>>>>    static const struct adreno_reglist a612_hwcg[] = {
+>>>>        {REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222},
+>>>>        {REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
+>>>> @@ -1431,6 +1434,11 @@ static const struct adreno_info a7xx_gpus[] = {
+>>>>            },
+>>>>            .address_space_size = SZ_16G,
+>>>>            .preempt_record_size = 4192 * SZ_1K,
+>>>> +        .speedbins = ADRENO_SPEEDBINS(
+>>>> +            { ADRENO_SKU_ID(SOCINFO_FC_AC), 0 },
+>>>> +            { ADRENO_SKU_ID(SOCINFO_FC_AF), 0 },
+>>>> +            /* Other feature codes (on prod SoCs) should match to speedbin 1 */
+>>>
+>>> I'm trying to understand this sentence. because reading patch 4, when there's no match
+>>> devm_pm_opp_set_supported_hw() is simply never called so how can it match speedbin 1 ?
+>>
+>> What I'm saying is that all other entries that happen to be possibly
+>> added down the line are expected to be speedbin 1 (i.e. BIT(1))
+>>
+>>> Before this change the fallback was speedbin = BIT(0), but this disappeared.
+>>
+>> No, the default was to allow speedbin mask ~(0U)
+> 
+> Hmm no:
+> 
+>     supp_hw = fuse_to_supp_hw(info, speedbin);
+> 
+>     if (supp_hw == UINT_MAX) {
+>         DRM_DEV_ERROR(dev,
+>             "missing support for speed-bin: %u. Some OPPs may not be supported by hardware\n",
+>             speedbin);
+>         supp_hw = BIT(0); /* Default */
+>     }
+> 
+>     ret = devm_pm_opp_set_supported_hw(dev, &supp_hw, 1);
+>     if (ret)
+>         return ret;
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/gpu/drm/msm/msm_mdss.c | 33 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/msm_mdss.h |  1 +
- 2 files changed, 34 insertions(+)
+Right, that's my own code even..
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index dcb49fd30402b80edd2cb5971f95a78eaad6081f..3f00eb6de3a9d2bee7637c6f516efff78b7d872b 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -222,6 +222,24 @@ static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
- 	}
- }
- 
-+static void msm_mdss_setup_ubwc_dec_50(struct msm_mdss *msm_mdss)
-+{
-+	const struct msm_mdss_data *data = msm_mdss->mdss_data;
-+	u32 value = MDSS_UBWC_STATIC_UBWC_SWIZZLE(data->ubwc_swizzle) |
-+		    MDSS_UBWC_STATIC_HIGHEST_BANK_BIT(data->highest_bank_bit);
-+
-+	if (data->ubwc_bank_spread)
-+		value |= MDSS_UBWC_STATIC_UBWC_BANK_SPREAD;
-+
-+	if (data->macrotile_mode)
-+		value |= MDSS_UBWC_STATIC_MACROTILE_MODE;
-+
-+	writel_relaxed(value, msm_mdss->mmio + REG_MDSS_UBWC_STATIC);
-+
-+	writel_relaxed(4, msm_mdss->mmio + REG_MDSS_UBWC_CTRL_2);
-+	writel_relaxed(1, msm_mdss->mmio + REG_MDSS_UBWC_PREDICTION_MODE);
-+}
-+
- #define MDSS_HW_MAJ_MIN		\
- 	(MDSS_HW_VERSION_MAJOR__MASK | MDSS_HW_VERSION_MINOR__MASK)
- 
-@@ -339,6 +357,9 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
- 	case UBWC_4_3:
- 		msm_mdss_setup_ubwc_dec_40(msm_mdss);
- 		break;
-+	case UBWC_5_0:
-+		msm_mdss_setup_ubwc_dec_50(msm_mdss);
-+		break;
- 	default:
- 		dev_err(msm_mdss->dev, "Unsupported UBWC decoder version %x\n",
- 			msm_mdss->mdss_data->ubwc_dec_version);
-@@ -722,6 +743,17 @@ static const struct msm_mdss_data sm8550_data = {
- 	.reg_bus_bw = 57000,
- };
- 
-+static const struct msm_mdss_data sm8750_data = {
-+	.ubwc_enc_version = UBWC_5_0,
-+	.ubwc_dec_version = UBWC_5_0,
-+	.ubwc_swizzle = 6,
-+	.ubwc_bank_spread = true,
-+	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
-+	.highest_bank_bit = 3,
-+	.macrotile_mode = true,
-+	.reg_bus_bw = 57000,
-+};
-+
- static const struct msm_mdss_data x1e80100_data = {
- 	.ubwc_enc_version = UBWC_4_0,
- 	.ubwc_dec_version = UBWC_4_3,
-@@ -756,6 +788,7 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,sm8450-mdss", .data = &sm8350_data },
- 	{ .compatible = "qcom,sm8550-mdss", .data = &sm8550_data },
- 	{ .compatible = "qcom,sm8650-mdss", .data = &sm8550_data},
-+	{ .compatible = "qcom,sm8750-mdss", .data = &sm8750_data},
- 	{ .compatible = "qcom,x1e80100-mdss", .data = &x1e80100_data},
- 	{}
- };
-diff --git a/drivers/gpu/drm/msm/msm_mdss.h b/drivers/gpu/drm/msm/msm_mdss.h
-index 14dc53704314558841ee1fe08d93309fd2233812..dd0160c6ba1a297cea5b87cd8b03895b2aa08213 100644
---- a/drivers/gpu/drm/msm/msm_mdss.h
-+++ b/drivers/gpu/drm/msm/msm_mdss.h
-@@ -22,6 +22,7 @@ struct msm_mdss_data {
- #define UBWC_3_0 0x30000000
- #define UBWC_4_0 0x40000000
- #define UBWC_4_3 0x40030000
-+#define UBWC_5_0 0x50000000
- 
- const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev);
- 
+in any case, the kernel can't know about the speed bins that aren't
+defined and here we only define bin0, which doesn't break things
 
--- 
-2.45.2
+the kernel isn't aware about hw with bin1 with or without this change
+so it effectively doesn't matter
 
+Konrad
