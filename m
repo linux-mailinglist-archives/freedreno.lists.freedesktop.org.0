@@ -2,72 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BFFDAA4C46
-	for <lists+freedreno@lfdr.de>; Wed, 30 Apr 2025 15:01:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ECE3AA4C43
+	for <lists+freedreno@lfdr.de>; Wed, 30 Apr 2025 15:01:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C192110E7CC;
-	Wed, 30 Apr 2025 13:01:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6268610E795;
+	Wed, 30 Apr 2025 13:01:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hXHkzJT2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="samyk1yq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCA7110E795
- for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 13:01:30 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-43f106a3591so8097675e9.3
- for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 06:01:30 -0700 (PDT)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D364810E7BB
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 13:01:32 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-39ab85402c9so244415f8f.2
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Apr 2025 06:01:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746018089; x=1746622889; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1746018091; x=1746622891; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=BNTFOxnRPcZ6WhYGseWxY5vst5HAgaN+nMOkTX4NrTc=;
- b=hXHkzJT2ndXLSvVuz4lZZOhClhMzpN+kezto19waM0PPzNZNvhcP1qKSCbYJVtUfAT
- 4qsUSLMonor+9+CMYqyR+7SZwL1MCwbGRQevI7Nc+vs/b5kCAdgW1kH/H8KKlSmvrVdb
- jcvnHph1vMYTWHZhbLxwvyr4+jYwDfiPe/bnktYyetFA9hjLWtVbaBLKhT63TB/pIAWV
- Lo5ap2GAFC3fXptheVYh0IMnQxr+qPzcnpnYUmHCYGoKk/W6k3BgxAg0n81M1aXha/1I
- ugAaYYVCQjIdWjf1CahtPvtrpdpsWdsaSihCsb5kJYRAeQUtOapnAVSNcSxz6YuYfCKX
- otZw==
+ :reply-to; bh=6W8PiSICnArGlEy5suIco/UFspl13NFPEnygazXjjlY=;
+ b=samyk1yqYNM+EPUvET8L2HyR2DJ1U4LhHOpxjZppAfcYPGoG1wVYvp3a2e8C+hgSHh
+ prwIhvxVpDOXMcK0VzxcCtY8nU/gvucZzc0JFlUDVFw9UszidEgzy5uyf5fLuNkte7rK
+ AuuawdMl9tiv+ZjqXIsycckAoeiyUVtQj5YABpOiXgyKpZaTVFYQ+V9jqNLrLzwGRuTR
+ nykIDSylRTj2xEemT1cXpQp7K8nTfI9ajN5oB1U2yyFfkBA6DcPjAmL6h7hTNhRZkOTO
+ RInmofupC4QLJ0EpskKdSWrudLcHf1iONOIfOfRC2kRuJJwSHFpLi5brfmMHBx5855Gn
+ 46mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746018089; x=1746622889;
+ d=1e100.net; s=20230601; t=1746018091; x=1746622891;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BNTFOxnRPcZ6WhYGseWxY5vst5HAgaN+nMOkTX4NrTc=;
- b=QEnUNrvhueLTUX047IA6Z0rDgPL/U7WrTmOQz93uN0SXmHfpHcxcvzk/rlpSJEZyC9
- 2MmeoFYgJhEqOgt7vPJwPzIcbqlOgWqcbJPGZNwar+n6JZgchgLdU1jzw+0ltL1FAVT8
- PYp0wm9GPR6f90Pn0DEG5KMMy0+bTQvf2b8KmyBZPRDnoND+XUlIzf4R603A594xtzjN
- ODrNbOrQ+VqBptalAn/rZSVIMhAAAQIIrprRDkYj6UXaSu1ZE0ZfhJpXD58jyw+bZ+FO
- yQEzNrGWDVXpbA7yhnpey7fVSpP+vobxO8h3YqZD0w8PWqN4Asq3FIsQ86p+z3y6280l
- hJhA==
+ bh=6W8PiSICnArGlEy5suIco/UFspl13NFPEnygazXjjlY=;
+ b=g/kaXWzoBpIyYvIzu1r9Lb1LcZaqgqrh2NH8hnjmuntJzQqJZZExnOpcjmoLEI94Jj
+ SGK6W0YJE/5tNjJvSOAJn1u+U8Dt70PJ712ukzA9ErVSmKJhadM+/I7nKxImicjdSjhP
+ KBocBlVBqXYw++a/T60A+fdyHQTGN3/3Cj4rz5eBciZ0YI4XmfOLnjW+a2fmw5kEUfwH
+ Y3dWq91ufjgK5kxvGkWKS5U9TObrUIUMZVWWIWq9/LM0TItZoGEJah4nIFpP7pkppJPK
+ a69pCnaf42fwLLgm8ODlxJ9mYvrE9IWvjfNhGwOSrrtArm4FgW31LknEaS5DIXkhBBuT
+ bDgg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX1uSgCr157zekkqMOtoestRWUDgh+UI+E9pBndY83RBNe0N5izPq1rh4kPI/PWaewokNdjLUW4inU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwD0e/Hc/pNW4XRcPA6pvStlVBW+0lJmuTOFLt0+j1XpYTQ2wVE
- jrb+BWzd90FDT/+N9qHO4n0DlIUFRyC/Bej1ZaP3tjhrYzn5VHNLgs9iZOkEvt4=
-X-Gm-Gg: ASbGncvJCyoc2XW5TZ6QxYZRbJdwrRG14gm7/Adw/htTX3pVe7zEvqyCqzTc4IKRfr7
- Py/cxgmxMGoyyDABvPmLLVbznCDP8rfBnpYNZ49p03xsg9NRxFuIvmyDsQDJgKvyBU90CIhtHT2
- MAYwgSgI9mMHaMsc3/8CDT1iH67Xi/zV2/SWzPNyFLR22YssTbZbVCUS7oN3LKc7JS+8BhkEQX2
- 2uy51Rs/lf/hIcvmjWomjaraoGdKhrHnD0yI+UDitNQ1N8GpIRdeV1Nap4jhCkNSMxuWkmI5gaO
- /hEhwUgMuKb7lB2O5KZK1zoYJg6bGnecV51S/1yRJGjnBMOJqItq9lbIGVI=
-X-Google-Smtp-Source: AGHT+IHlMZoelGJ6rtfEW34I9gDhC5o7c3KzV3fOro3gqzM9q65jvlNnMYM38ebtswKyn1TlcHWz7A==
-X-Received: by 2002:a05:6000:2909:b0:3a0:7e53:b52d with SMTP id
- ffacd0b85a97d-3a09009a227mr815193f8f.15.1746018089253; 
- Wed, 30 Apr 2025 06:01:29 -0700 (PDT)
+ AJvYcCUbyEs02lKtrUi5ts3jYFJbInslnGPoccdiTcuOg/YQabjnfzeG0Kvy8h0KTIM0d20kc1YLExtDe1o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5Uef5wX3xRPtZLHKv60KZareVWSv6FbyKxWS8mhhL6234B1gY
+ ZghjMyLHUnQnCFYQ9o9akbfCE3La7yaxz8RDyUCV+8KiRdaB5z8wKKqzJ7XLeZQ=
+X-Gm-Gg: ASbGncuvxjD5BoHfwGwpwBSOE5c3oxuPMnqvmULGI2V81lKzba37neSInfWZirYiNCH
+ 0pBVB1w4MzEmtdldUmzf7EH97ND5QKC3xglu+zXkd6z6lUsRgnVcKFUU26saC4ocNJ2yHOzcQyY
+ 30U0rb+HcMdyWEQb4WNE3wBGiIIflDPtIWEXqXY3R8B2qalqPUBrDYVED9B9WGgjt8dDaPaL+IF
+ ar0wnj0940xaYJKRuyXlwsikFHNpMqdRutrM5RP9btn4XeZ7UScdCZX1MQ1fSLJRdWLoFatcBNY
+ dgLWjAabztoFN/B4F8n4ow2roOphY/bQ/lbeekUWGMBz7qC70oGuEjKxBU0=
+X-Google-Smtp-Source: AGHT+IEzCVJSZiNy03fnea/6PddfMije0Ez6+H5H/3q7+6IeMV2wmIColAuFLdNMOykqDCe1ho59RQ==
+X-Received: by 2002:a05:6000:2dc3:b0:3a0:7a00:61e9 with SMTP id
+ ffacd0b85a97d-3a08ff35f51mr816355f8f.0.1746018091363; 
+ Wed, 30 Apr 2025 06:01:31 -0700 (PDT)
 Received: from [192.168.1.28] ([178.197.207.88])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a073e46c23sm16884043f8f.75.2025.04.30.06.01.27
+ ffacd0b85a97d-3a073e46c23sm16884043f8f.75.2025.04.30.06.01.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Apr 2025 06:01:28 -0700 (PDT)
+ Wed, 30 Apr 2025 06:01:30 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 30 Apr 2025 15:00:40 +0200
-Subject: [PATCH v5 10/24] drm/msm/dpu: Clear CTL_FETCH_PIPE_ACTIVE before
- blend setup
+Date: Wed, 30 Apr 2025 15:00:41 +0200
+Subject: [PATCH v5 11/24] drm/msm/dpu: Drop useless comments
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250430-b4-sm8750-display-v5-10-8cab30c3e4df@linaro.org>
+Message-Id: <20250430-b4-sm8750-display-v5-11-8cab30c3e4df@linaro.org>
 References: <20250430-b4-sm8750-display-v5-0-8cab30c3e4df@linaro.org>
 In-Reply-To: <20250430-b4-sm8750-display-v5-0-8cab30c3e4df@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
@@ -89,23 +88,25 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
  Rob Clark <robdclark@chromium.org>, linux-clk@vger.kernel.org, 
- Srinivas Kandagatla <srini@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1155;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1894;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=rNPVbhB/QSRIjSYo9UdGRQ8CHtMBy7PxOxlH2MpHIDo=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoEh7+xOav7RjOIgw1tKTvRgYi5MGUr3Nvn6ffF
- DktegQym0WJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaBIe/gAKCRDBN2bmhouD
- 14V2D/0cEjo50TqGVwh5U1oCpUGPuNxeiJf20wytN6G/FP5xGLDBYyQ7oqUAkRA70Q2VAFET4QC
- s+r0nB/xg5qYov+QiLpFla1T6ofO8FHse7oWNZNqjjb1wy+CtOgndE+1SnuR0vbIdL9EkO0gNaR
- x3CFilBosicr9qeDWRFq0JNLO+KIm+IpbpgTbAw2sM+YU/cJ3/Xfy1ZfiZMiF8JcRaqJPQYLSXb
- OGSN1epVnBW7lbk8gNl2ffS93CjKEYZiPrWnQOIRBIiIoL/q9Y9t0uv66Xtsm9UCcBDKNAFr6kK
- Mi03YIqJ25MVTZnx/cWPvQIw8ky1JVM1JsMIgvch462i99sla9M+6EFR0Rig9HjiKeWg2aAysP3
- /29IfyYKxr72bFbrrtk74jLQE3v16+44KYgZTeY8+VCCxNCqaI85xtbPxAnU+3QX9CiWZ1AC1St
- pa4woR/a7oHvGT27M+8LUP2IkwKWYuGgnYMtM8azy0TSbh7Z1nuJzIEt63BuqGCcDVO0MzLXzDb
- 0fv7p8O5peB3moQFv4xfb0ow6N/wIbjCBjmYaehuRINZqpfCAKvTQlL4rXTT5Y8mAeZ2yCrKfxR
- 3+FMPLLN/NuWI8c8yghMzsRyKiOHdE0vTetXcVskI/eTULK2ZRn08umdqtc11PdfsmGTIzUnyHl
- QKTkmrEPpaQNMmw==
+ bh=EgQvRIwsoBEOkUVe8WeaPf0nvrRgE3ViQnu5z4RaG84=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoEh7/hjxULANnZsDBXQ9N4MIbAkaAFea1m4jPi
+ E+UFb7/NniJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaBIe/wAKCRDBN2bmhouD
+ 1w72D/49TEEa+O1HXIvMk8OwZyiFgnoDx2yoNXTIZm8QQFkLIQxNbY1WHWkL6uu/mqeglbwGJ/N
+ K7XZjzF5yIY+UuBv0lHDqbU1HYoXoJlQhQjkL7/PC95TiF9JxhizGNa0DPvS2DfVIoEVJAwZwZX
+ LZQjyTeUPP4K5hD47QA1+Z5mq9+FuuyRna3P2I04PREAfWCJ7XKpE5aREGGvjL6YH178pdUdK6c
+ 8MdFYwjGYIDNnUdh1g5ouNoRJg2wLpOvTQXx3TfPoC9Y934tngeSHhhKiXyLo12hcd9x6bcNW1c
+ +nXr08JZYQjE8yyEbxVspdObll9D/qoj192GAytqqplPK8LWYvJzxmP9zuXfAVCkduPooy0fzx5
+ vQByLDEsyWU28Z0+m6Kp0ov+ozQnu7pTZfsTjl0/dbi1WsGam1FWGxGhrddBUDiyug4eAKMjEba
+ c3BhvLd9pgNJXy5i6AUoF5hP9tfYbjd12FUGlg8CY3dLZxLDk1W7vA0ve8IO+QSuiEr4ZJ3SA6j
+ NVBaR/FTwWi1ATtoR7KPs6gbVupFmCjRp/oB1UfFrzjDpaxNx1lIJpup6L3zM/P+fAD2bciZV3R
+ 9WW+JZbsiYa80I6x0Gx4PAl6+IYDEL+LZ5JoiRxC2VK74YizWNiWfXfuZ++A7FzfC6QVVVQMG9e
+ E1s4mNyiNLcYCjQ==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -123,33 +124,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Before blend setup, all existing blend stages are cleared, so shall be
-active fetch pipes.
+Drop comments about SoC before each 'struct dpu_lm_sub_blks' for given
+SoC because it's duplicating the actual name of structure.
 
-Fixes: b3652e87c03c ("drm/msm/disp/dpu1: add support to program fetch active in ctl path")
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-Changes in v3:
-1. New patch, split from previous big DPU v12.0.
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 2d7af6fff2708c12520a78cc6c979b9930dffc95..a4b0fe0d9899b32141928f0b6a16503a49b3c27a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -519,6 +519,8 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
- 		if (mixer[i].lm_ctl->ops.clear_all_blendstages)
- 			mixer[i].lm_ctl->ops.clear_all_blendstages(
- 					mixer[i].lm_ctl);
-+		if (mixer[i].lm_ctl->ops.set_active_fetch_pipes)
-+			mixer[i].lm_ctl->ops.set_active_fetch_pipes(mixer[i].lm_ctl, NULL);
- 	}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 2db27c55787791309962acf796d5c49aaf018fc1..a310a5234e99ea4886e82ac2100c4099e6a1841e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -331,8 +331,6 @@ static const struct dpu_sspp_sub_blks dpu_dma_sblk = _DMA_SBLK();
+  * MIXER sub blocks config
+  *************************************************************/
  
- 	/* initialize stage cfg */
+-/* MSM8998 */
+-
+ static const struct dpu_lm_sub_blks msm8998_lm_sblk = {
+ 	.maxwidth = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+ 	.maxblendstages = 7, /* excluding base layer */
+@@ -342,8 +340,6 @@ static const struct dpu_lm_sub_blks msm8998_lm_sblk = {
+ 	},
+ };
+ 
+-/* SDM845 */
+-
+ static const struct dpu_lm_sub_blks sdm845_lm_sblk = {
+ 	.maxwidth = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+ 	.maxblendstages = 11, /* excluding base layer */
+@@ -353,8 +349,6 @@ static const struct dpu_lm_sub_blks sdm845_lm_sblk = {
+ 	},
+ };
+ 
+-/* SC7180 */
+-
+ static const struct dpu_lm_sub_blks sc7180_lm_sblk = {
+ 	.maxwidth = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+ 	.maxblendstages = 7, /* excluding base layer */
+@@ -363,8 +357,6 @@ static const struct dpu_lm_sub_blks sc7180_lm_sblk = {
+ 	},
+ };
+ 
+-/* QCM2290 */
+-
+ static const struct dpu_lm_sub_blks qcm2290_lm_sblk = {
+ 	.maxwidth = DEFAULT_DPU_LINE_WIDTH,
+ 	.maxblendstages = 4, /* excluding base layer */
 
 -- 
 2.45.2
