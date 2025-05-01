@@ -2,102 +2,111 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81A09AA5C87
-	for <lists+freedreno@lfdr.de>; Thu,  1 May 2025 11:17:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E0A8AA5CA6
+	for <lists+freedreno@lfdr.de>; Thu,  1 May 2025 11:30:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C85710E069;
-	Thu,  1 May 2025 09:17:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D76610E221;
+	Thu,  1 May 2025 09:30:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="HYVYiDSS";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="am8cMkEX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C92F10E069;
- Thu,  1 May 2025 09:17:36 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5413oFrh031394;
- Thu, 1 May 2025 09:17:32 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D23F10E221;
+ Thu,  1 May 2025 09:30:13 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5418ETh6013717;
+ Thu, 1 May 2025 09:30:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- hNb1dl3k0K+rbG/BUE8UZ57J0ajZ81B0ROyGlfaeqBI=; b=HYVYiDSS9NHc2xot
- 8V1WxCFNYeJrhVrQ/xICepbLqOoqOVpcVRK8NZ7F1KU2tyYFe55+GnRSIlRB1HQm
- mQzQ7rugMw4nS25nFMRWLitP2qk97pgMejEhxca6mbtbq50x59Y6FiyyklzTEvcW
- rvvBGq0RA2KwJqub54fGqMfD+WWGw0XgfKnmo7RqWna6Gfmjmxaf94LhsP+mc6k1
- hNrM7abUliFiaNlsklInhY/DTOYyQ9I3jvmjNOs1PcaH+SqCQcF+iXmYZXPvojfw
- 6ndhg96sRG/Eg8FvjFPV2l5grdGKNaNm7vgWedTcycf4gdcBIIwFqlWKRhLdK+d9
- NZos0A==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ O1Yvn+lb+vHDCgyXybiOa4uhoN/0L23iOUqIx7+v4RY=; b=am8cMkEX09b26Wg+
+ sRbegF1BsRtsooMy4iKog7gd8h5U47E+yqyTlts/WgWsoRSyPXNiulr2D72o3ZKu
+ I2NsnrAqE604X6bGIoucuvu86scqY06U1eehycFuT1lL/KgCw+DdGRG78qe5jn7H
+ QB0K8CMV9uyk2jx3BtO/2m8lpfQC4gB2fIt6kkg9H0Guztlqkmi/q98+9rMgUbYW
+ U8TxL/NWIAd8SbRYiu8XnuDNKHUVqxkbijtT6zrSJP5C2n/7+S/Zzt+fCh8TN1Mj
+ zPRYYddimk5k8TuPjRCJyYyBkzN314hUsKsBSbB2PWlPNWi0r9RpStwk+y7P8EQx
+ axUYkQ==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46b6u1vvue-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46b6ubmxkt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 01 May 2025 09:17:31 +0000 (GMT)
+ Thu, 01 May 2025 09:30:07 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5419HUc5015257
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5419U69V017858
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 1 May 2025 09:17:30 GMT
+ Thu, 1 May 2025 09:30:06 GMT
 Received: from [10.216.32.231] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 1 May 2025
- 02:17:25 -0700
-Message-ID: <3de5d4f0-606e-48b5-b3f5-d7acf726d0ee@quicinc.com>
-Date: Thu, 1 May 2025 14:47:22 +0530
+ 02:30:00 -0700
+Message-ID: <f5734944-1ed2-4acc-a015-0c638c331bbe@quicinc.com>
+Date: Thu, 1 May 2025 14:59:58 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/5] drm/msm/adreno: Implement SMEM-based speed bin
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Abhinav
- Kumar" <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH RFT v6 2/5] drm/msm/adreno: Add speedbin data for SM8550 /
+ A740
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, <neil.armstrong@linaro.org>
+CC: Konrad Dybcio <konradybcio@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>,
  <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>
-References: <20240709-topic-smem_speedbin-v5-0-e2146be0c96f@linaro.org>
- <20240709-topic-smem_speedbin-v5-1-e2146be0c96f@linaro.org>
- <20240715200419.l47ng6efa25in6sg@hu-akhilpo-hyd.qualcomm.com>
- <c6cff2a7-4497-44b3-a019-60e3c6034d4f@oss.qualcomm.com>
+ <devicetree@vger.kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>
+References: <20250430-topic-smem_speedbin_respin-v6-0-954ff66061cf@oss.qualcomm.com>
+ <20250430-topic-smem_speedbin_respin-v6-2-954ff66061cf@oss.qualcomm.com>
+ <13cd20c6-f758-45ff-82d1-4fd663d1698c@linaro.org>
+ <886d979d-c513-4ab8-829e-4a885953079a@oss.qualcomm.com>
+ <b838f9bd-0537-4f8d-b24b-d96700d566c8@linaro.org>
+ <98a4ad20-c141-4280-801e-015dafd1fb39@oss.qualcomm.com>
+ <a26213ec-808f-4edf-bb0d-ab469ee0a884@linaro.org>
+ <281ab1b6-498e-4b29-9e15-19b5aae25342@oss.qualcomm.com>
+ <63105bce-6b8e-4b99-bca1-3741f27ea25a@linaro.org>
+ <892fc1eb-efd3-4fb6-9110-2df3349960a6@oss.qualcomm.com>
+ <b989522d-bd41-4d76-91a9-3cf680214003@linaro.org>
 From: Akhil P Oommen <quic_akhilpo@quicinc.com>
 Content-Language: en-US
-In-Reply-To: <c6cff2a7-4497-44b3-a019-60e3c6034d4f@oss.qualcomm.com>
+In-Reply-To: <b989522d-bd41-4d76-91a9-3cf680214003@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Authority-Analysis: v=2.4 cv=G5AcE8k5 c=1 sm=1 tr=0 ts=68133c2b cx=c_pps
+X-Proofpoint-GUID: QmQgx0QKw4N_AUeIp4AiKYfhaSQgKFSG
+X-Authority-Analysis: v=2.4 cv=bsxMBFai c=1 sm=1 tr=0 ts=68133f1f cx=c_pps
  a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=KKAkSRfTAAAA:8
- a=egTsXL45pzzUbfgsQh0A:9 a=QEXdDO2ut3YA:10
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTAxMDA3MCBTYWx0ZWRfX5jLRlGnSk/Mx
- M+VM9128DOCfSEWouU13szJGqFe9OLsvyu60hnds8BTruCnCdo8G9XugGnAbtVeLsHWblNBD+XU
- DWd2Alk2yZqEE3n8VH5Ll2swuHULak/jaHx+w8HnBBQUT3y4JBdTN6WH7apTwiCsKfs/VjGYkmi
- VNIiZmPeQ5qJ9cKcegTmxspQMk86SBFEo7YBQH1Jns9x+vJdJSoEzxtD9l5T6l5NI2oB1bpbDDn
- iLLioZZxLHsl6azkkDwQEoAgyp9f/PyBtohEtUE9Aq1a/BHOXQzLbzVynbtIcOsugxqK6Epu8o5
- IsmojkuXV6d9Fap9tO0j/fXr96bATtaUmmdqFXVeeaM7nk8dvALarMwXWe/viQPvqPhCvBrZrLA
- s7vgohspwzOju+eZwVUiY+DbraudljuDZfz6mPSxPfr5z6fi1LopRsppQ0ritjb8Ff4k6+9l
-X-Proofpoint-GUID: hIRcUUZtDzD6m2PKlExzGT_a9w5TezNA
-X-Proofpoint-ORIG-GUID: hIRcUUZtDzD6m2PKlExzGT_a9w5TezNA
+ a=xjiPyf2SZMVwIgDpRVcA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTAxMDA3MSBTYWx0ZWRfX5TOjlfODYpbK
+ IruKOoM8nqbFttpvjYJNfapBa4Rs+GPIKBiOWUZ7eIBYAHG1GL4Vpthvoxasf7zUrsh29Q0eZvV
+ PnMGaOYAcbX9uQBZH4WyJuL069cc+I5h3tPkw6e3g+6EK4JHKFpLHPmQo7FN5Rcj5crbvg5cbUR
+ ghd4I972B0uiRCDLWZwG2zS83LR4BzJ9reUK/1ypoWqoMjin0MrWovADY6gCY3n4L/215Lt9rWz
+ d2ucH5CFL1uUupu1BiEcVEVHh5FdX2SRXJD+Bd+3W5Wpf2f/J8pD+WVsyX4tPhAlAWbOTNs6ovc
+ SP6I0AYPqnkFQJK9J6S1qWGrhOzknsKIht49Nh8qmotx11UAWTtjLEOBpF1bNwd4LRmJxDQNuS2
+ XHnO12iU3xx48a6tTXVwusIkmV+5XhwLHZS5QIuENuSykUyaNBQ0aYVhqsDXSbgjOkjeWrU9
+X-Proofpoint-ORIG-GUID: QmQgx0QKw4N_AUeIp4AiKYfhaSQgKFSG
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-05-01_03,2025-04-24_02,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- spamscore=0 impostorscore=0 phishscore=0 mlxlogscore=999
- lowpriorityscore=0 adultscore=0 mlxscore=0 malwarescore=0 suspectscore=0
- clxscore=1011 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2505010070
+ impostorscore=0 phishscore=0
+ clxscore=1011 mlxscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ adultscore=0 malwarescore=0 bulkscore=0 suspectscore=0 mlxlogscore=999
+ classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2505010071
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,72 +122,279 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/25/2025 2:35 PM, Konrad Dybcio wrote:
-> On 7/15/24 10:04 PM, Akhil P Oommen wrote:
->> On Tue, Jul 09, 2024 at 12:45:29PM +0200, Konrad Dybcio wrote:
->>> On recent (SM8550+) Snapdragon platforms, the GPU speed bin data is
->>> abstracted through SMEM, instead of being directly available in a fuse.
+On 4/30/2025 10:26 PM, neil.armstrong@linaro.org wrote:
+> On 30/04/2025 18:39, Konrad Dybcio wrote:
+>> On 4/30/25 6:19 PM, neil.armstrong@linaro.org wrote:
+>>> On 30/04/2025 17:36, Konrad Dybcio wrote:
+>>>> On 4/30/25 4:49 PM, neil.armstrong@linaro.org wrote:
+>>>>> On 30/04/2025 15:09, Konrad Dybcio wrote:
+>>>>>> On 4/30/25 2:49 PM, neil.armstrong@linaro.org wrote:
+>>>>>>> On 30/04/2025 14:35, Konrad Dybcio wrote:
+>>>>>>>> On 4/30/25 2:26 PM, neil.armstrong@linaro.org wrote:
+>>>>>>>>> Hi,
+>>>>>>>>>
+>>>>>>>>> On 30/04/2025 13:34, Konrad Dybcio wrote:
+>>>>>>>>>> From: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>>>>>>>>
+>>>>>>>>>> Add speebin data for A740, as found on SM8550 and derivative
+>>>>>>>>>> SoCs.
+>>>>>>>>>>
+>>>>>>>>>> For non-development SoCs it seems that "everything except
+>>>>>>>>>> FC_AC, FC_AF
+>>>>>>>>>> should be speedbin 1", but what the values are for said
+>>>>>>>>>> "everything" are
+>>>>>>>>>> not known, so that's an exercise left to the user..
+>>>>>>>>>>
+>>>>>>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>>>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>>>>>>>> ---
+>>>>>>>>>>       drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 8 ++++++++
+>>>>>>>>>>       1 file changed, 8 insertions(+)
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/
+>>>>>>>>>> drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>>>>>>>> index
+>>>>>>>>>> 53e2ff4406d8f0afe474aaafbf0e459ef8f4577d..61daa331567925e529deae5e25d6fb63a8ba8375 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>>>>>>>> @@ -11,6 +11,9 @@
+>>>>>>>>>>       #include "a6xx.xml.h"
+>>>>>>>>>>       #include "a6xx_gmu.xml.h"
+>>>>>>>>>>       +#include <linux/soc/qcom/smem.h>
+>>>>>>>>>> +#include <linux/soc/qcom/socinfo.h>
+>>>>>>>>>> +
+>>>>>>>>>>       static const struct adreno_reglist a612_hwcg[] = {
+>>>>>>>>>>           {REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222},
+>>>>>>>>>>           {REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
+>>>>>>>>>> @@ -1431,6 +1434,11 @@ static const struct adreno_info
+>>>>>>>>>> a7xx_gpus[] = {
+>>>>>>>>>>               },
+>>>>>>>>>>               .address_space_size = SZ_16G,
+>>>>>>>>>>               .preempt_record_size = 4192 * SZ_1K,
+>>>>>>>>>> +        .speedbins = ADRENO_SPEEDBINS(
+>>>>>>>>>> +            { ADRENO_SKU_ID(SOCINFO_FC_AC), 0 },
+>>>>>>>>>> +            { ADRENO_SKU_ID(SOCINFO_FC_AF), 0 },
+>>>>>>>>>> +            /* Other feature codes (on prod SoCs) should
+>>>>>>>>>> match to speedbin 1 */
+>>>>>>>>>
+>>>>>>>>> I'm trying to understand this sentence. because reading patch
+>>>>>>>>> 4, when there's no match
+>>>>>>>>> devm_pm_opp_set_supported_hw() is simply never called so how
+>>>>>>>>> can it match speedbin 1 ?
+>>>>>>>>
+>>>>>>>> What I'm saying is that all other entries that happen to be
+>>>>>>>> possibly
+>>>>>>>> added down the line are expected to be speedbin 1 (i.e. BIT(1))
+>>>>>>>>
+>>>>>>>>> Before this change the fallback was speedbin = BIT(0), but this
+>>>>>>>>> disappeared.
+>>>>>>>>
+>>>>>>>> No, the default was to allow speedbin mask ~(0U)
+>>>>>>>
+>>>>>>> Hmm no:
+>>>>>>>
+>>>>>>>        supp_hw = fuse_to_supp_hw(info, speedbin);
+>>>>>>>
+>>>>>>>        if (supp_hw == UINT_MAX) {
+>>>>>>>            DRM_DEV_ERROR(dev,
+>>>>>>>                "missing support for speed-bin: %u. Some OPPs may
+>>>>>>> not be supported by hardware\n",
+>>>>>>>                speedbin);
+>>>>>>>            supp_hw = BIT(0); /* Default */
+>>>>>>>        }
+>>>>>>>
+>>>>>>>        ret = devm_pm_opp_set_supported_hw(dev, &supp_hw, 1);
+>>>>>>>        if (ret)
+>>>>>>>            return ret;
+>>>>>>
+>>>>>> Right, that's my own code even..
+>>>>>>
+>>>>>> in any case, the kernel can't know about the speed bins that aren't
+>>>>>> defined and here we only define bin0, which doesn't break things
+>>>>>>
+>>>>>> the kernel isn't aware about hw with bin1 with or without this change
+>>>>>> so it effectively doesn't matter
+>>>>>
+>>>>> But it's regression for the other platforms, where before an
+>>>>> unknown SKU
+>>>>> mapped to supp_hw=BIT(0)
+>>>>>
+>>>>> Not calling devm_pm_opp_set_supported_hw() is a major regression,
+>>>>> if the opp-supported-hw is present, the OPP will be rejected:
+>>>>
+>>>> A comment in patch 4 explains that. We can either be forwards or
+>>>> backwards
+>>>> compatible (i.e. accept a limited amount of
+>>>> speedbin_in_driver x speedbin_in_dt combinations)
 >>>
->>> Add support for SMEM-based speed binning, which includes getting
->>> "feature code" and "product code" from said source and parsing them
->>> to form something that lets us match OPPs against.
+>>> I have a hard time understanding the change, please be much more verbose
+>>> in the cover letter and commit messages.
 >>>
->>> Due to the product code being ignored in the context of Adreno on
->>> production parts (as of SM8650), hardcode it to SOCINFO_PC_UNKNOWN.
+>>> The fact that you do such a large change in the speedbin policy in
+>>> patch 4
+>>> makes it hard to understand why it's needed in the first place.
 >>>
->>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>> ---
-> 
-> [...]
-> 
->>>  
->>>  int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>> @@ -1102,9 +1136,9 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>>  			devm_pm_opp_set_clkname(dev, "core");
->>>  	}
->>>  
->>> -	if (adreno_read_speedbin(dev, &speedbin) || !speedbin)
->>> +	if (adreno_read_speedbin(adreno_gpu, dev, &speedbin) || !speedbin)
->>>  		speedbin = 0xffff;
->>> -	adreno_gpu->speedbin = (uint16_t) (0xffff & speedbin);
->>> +	adreno_gpu->speedbin = speedbin;
+>>> Finally I'm very concerned that "old" SM8550 DT won't work on new
+>>> kernels,
+>>> this is frankly unacceptable, and this should be addressed in the first
+>>> place.
+>>>
+>>> The nvmem situation was much simple, where we considered we added the
+>>> nvmem
+>>> property at the same time as opp-supported-hw in OPPs, but it's no
+>>> more the
+>>> case.
+>>>
+>>> So I think the OPP API should probably be extended to address this
+>>> situation
+>>> first, since if we do not have the opp-supported-hw in OPPs, all OPPs
+>>> are safe.
+>>>
+>>> So this code:
+>>>      count = of_property_count_u32_elems(np, "opp-supported-hw");
+>>>      if (count <= 0 || count % levels) {
+>>>          dev_err(dev, "%s: Invalid opp-supported-hw property (%d)\n",
+>>>              __func__, count);
+>>>          return false;
+>>>      }
+>>> should return true in this specific case, like a
+>>> supported_hw_failsafe mode.
 >>
->> There are some chipsets which uses both Speedbin and Socinfo data for
->> SKU detection [1]. We don't need to worry about that logic for now. But
->> I am worried about mixing Speedbin and SKU_ID in the UABI with this patch.
->> It will be difficult when we have to expose both to userspace.
+>> Not really. opp-supported-hws = <BIT(0)> usually translates to the
+>> *fastest*
+>> bin in our case, so perhaps that change I made previously to default
+>> to it
+>> wasn't the wisest. In other words, all slower SKUs that weren't added
+>> to the
+>> kernel catalog & dt are potentially getting overclocked, which is no
+>> bueno.
+>> That is not always the case, but it most certainly has been for a
+>> number of
+>> years.
 >>
->> I think we can use a separate bitfield to expose FCODE/PCODE. Currently,
->> the lower 32 bit is reserved for chipid and 33-48 is reserved for speedbin,
->> so I think we can use the rest of the 16 bits for SKU_ID. And within that
->> 16bits, 12 bits should be sufficient for FCODE and the rest 8 bits
->> reserved for future PCODE.
+>> Old DTs in this case would be DTs lacking opp-supported-hw with the
+>> kernel
+>> having speedbin tables. The inverse ("too new DTs") case translates into
+>> "someone put some unexpected stuff in dt and the kernel has no idea what
+>> to do with it".
+>> In this context, old DTs would continue to work after patch 4, as the
+>> first
+>> early return in adreno_set_speedbin() takes care of that.
 > 
-> So I revisited this patchset and had another thought - maybe we could just
-> extend the speedbin bitfield to cover [63:32] and worry about filling these
-> higher bits in the future, when adding the platforms you mentioned?
+> No.
+> 
+> With only patches 1-4 applied (keep "old" DT) on today's -next:
+> 
+> SM8550-QRD:
+> [    7.574569] msm_dpu ae01000.display-controller: bound ae94000.dsi
+> (ops dsi_ops [msm])
+> [    7.586578] msm_dpu ae01000.display-controller: bound
+> ae90000.displayport-controller (ops msm_dp_display_comp_ops [msm])
+> [    7.597886] adreno 3d00000.gpu: error -EINVAL: Unknown speed bin fuse
+> value: 0x2
+> [    7.605518] msm_dpu ae01000.display-controller: failed to load adreno
+> gpu
+> [    7.612599] msm_dpu ae01000.display-controller: failed to bind
+> 3d00000.gpu (ops a3xx_ops [msm]): -22
+> 
+> SM8550-HDK:
+> [   10.137558] msm_dpu ae01000.display-controller: bound ae94000.dsi
+> (ops dsi_ops [msm])
+> [   10.151796] msm_dpu ae01000.display-controller: bound
+> ae90000.displayport-controller (ops msm_dp_display_comp_ops [msm])
+> [   10.163358] adreno 3d00000.gpu: error -EINVAL: Unknown speed bin fuse
+> value: 0x2
+> [   10.171066] msm_dpu ae01000.display-controller: failed to load adreno
+> gpu
+> [   10.178118] msm_dpu ae01000.display-controller: failed to bind
+> 3d00000.gpu (ops a3xx_ops [msm]): -22
+> 
+> With:
+> =================><==================
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/
+> drm/msm/adreno/a6xx_catalog.c
+> index 61daa3315679..7cac14a585a9 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1435,6 +1435,7 @@ static const struct adreno_info a7xx_gpus[] = {
+>                 .address_space_size = SZ_16G,
+>                 .preempt_record_size = 4192 * SZ_1K,
+>                 .speedbins = ADRENO_SPEEDBINS(
+> +                       { ADRENO_SKU_ID(SOCINFO_FC_AB), 1 },
+>                         { ADRENO_SKU_ID(SOCINFO_FC_AC), 0 },
+>                         { ADRENO_SKU_ID(SOCINFO_FC_AF), 0 },
+>                         /* Other feature codes (on prod SoCs) should
+> match to speedbin 1 */
+> =================><==================
+> 
+> SM8550-QRD:
+> [    7.681816] msm_dpu ae01000.display-controller: bound ae94000.dsi
+> (ops dsi_ops [msm])
+> [    7.694479] msm_dpu ae01000.display-controller: bound
+> ae90000.displayport-controller (ops msm_dp_display_comp_ops [msm])
+> [    7.705784] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [    7.714322] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [    7.722851] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [    7.722853] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [    7.722855] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [    7.722856] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [    7.722858] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [    7.722860] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [    7.722861] adreno 3d00000.gpu: _of_add_opp_table_v2: no supported OPPs
+> [    7.722863] adreno 3d00000.gpu: [drm:adreno_gpu_init [msm]] *ERROR*
+> Unable to set the OPP table
+> 
+> SM8550-HDK:
+> [   10.119986] msm_dpu ae01000.display-controller: bound ae94000.dsi
+> (ops dsi_ops [msm])
+> [   10.133872] msm_dpu ae01000.display-controller: bound
+> ae90000.displayport-controller (ops msm_dp_display_comp_ops [msm])
+> [   10.147377] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [   10.161640] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [   10.171198] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [   10.179756] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [   10.188313] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [   10.196868] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [   10.205424] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [   10.226025] adreno 3d00000.gpu: _opp_is_supported: Invalid opp-
+> supported-hw property (-22)
+> [   10.234589] adreno 3d00000.gpu: _of_add_opp_table_v2: no supported OPPs
+> [   10.247165] adreno 3d00000.gpu: [drm:adreno_gpu_init [msm]] *ERROR*
+> Unable to set the OPP table
+> 
+> This behaves exactly as I said, so please fix it.
 
-Sorry for the late response, I needed sometime to think this through.
+Konrad,
 
-My concern is about mixing speedbin and socinfo in the same UABI. It
-will be complicated to handle this correctly later. We have to track the
-set of chipsets which exposes socinfo data via speedbin fields and those
-do not. I think it is be simpler to handle this correctly from the start.
+iirc, we discussed this in one of the earlier revision. There is a
+circular dependency between the driver change for SKU support and the dt
+change that adds supported_hw bitmask in opp-table. Only scenario it
+works is when you add these to the initial patches series of a new GPU.
 
-If you are worried about breaking backward compatibility with Mesa, we
-can probably use a separate property for socinfo data which can be
-implemented later? Just don't expose socinfo via speedbin UABI.
+It will be very useful if we can break this circular dependency.
+
+-Akhil.
 
 > 
-> Do we still have plans to use *both* SMEM and fuse encoding on them?
-
-It is better to keep that option open since there are chipsets using
-both production. And there will be for foreseeable future because
-automotive team stick with fuse register and mobile team stick with
-socinfo data.
-
--Akhil
-
+> Neil
 > 
-> Konrad
+>>
+>> Konrad
+> 
+> 
 
