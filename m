@@ -2,123 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1049DAA7E41
-	for <lists+freedreno@lfdr.de>; Sat,  3 May 2025 05:24:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C539BAA7ECA
+	for <lists+freedreno@lfdr.de>; Sat,  3 May 2025 08:59:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42F3E10E2DF;
-	Sat,  3 May 2025 03:24:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 342FA10E1BA;
+	Sat,  3 May 2025 06:59:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mqNimg8F";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ErK4dPjl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9C3910E2DF
- for <freedreno@lists.freedesktop.org>; Sat,  3 May 2025 03:24:22 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5432A5qe012875
- for <freedreno@lists.freedesktop.org>; Sat, 3 May 2025 03:24:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=HNn11L6/OJdqL1KxlXTIOqrP
- MSyd/4d85l4dZRszfNE=; b=mqNimg8FgKNPkxiVarAAUTad7ddxgTRQAYpKfGG6
- sXGc0i203ddz+WMgaLCFslK9m0A6rZrgnKmebT86cvlZxQzAZQWHJYtG5uCQFNBm
- 7pOuqW9VXfvsmR74jnKhOMr5a1nvjVzZDHTmYtGTIVAOWqkCCh1/mIEFIpEdToOY
- 6zOWhw8ejDWM6TFYiayelzkzmtrapr3Fwp4oAUEiVgEO5JG+zNvYEWCHp2zJrFoV
- cVukF5AU5O8dCQdzhqLyzB4tK4gmULwGFtsJy7aVIfiCexma6J4LWntq4kzFDTHS
- 3WEsIE1HmirLiuWqXB8N1klupAEOFU7Q5q33a9qUBKIRoQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46da3rr2qu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 03 May 2025 03:24:17 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4767bab171dso29971771cf.1
- for <freedreno@lists.freedesktop.org>; Fri, 02 May 2025 20:24:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746242656; x=1746847456;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HNn11L6/OJdqL1KxlXTIOqrPMSyd/4d85l4dZRszfNE=;
- b=GKPViMTyWP8F7Vl4vEWCYGLhlRa8DMVGnf5uzXsgeoqg3lbNZK9HDIk4RnwiAYG2EY
- BXa0eg434Yjj06FBRR6tvCaaXl2U13+5Pu8YPO0ELspNG5Tz/sHNvFzfrHhlvAqBzU7/
- ZZw+TxTOKll2qodaaGgJtC766ekpD1DLjImkdcH8I7kexh13J/eAwkvMV8HeJ3FPWHmb
- lqSZyFTx4gcDw4dYq+xdgdCg2qvVnZDWlRqOMjGsS3zJ/bcHE6CnP92yY132i2l4qvt5
- FmUpdtXjVUW+99xpm7NgT6XS0kbVdO5yctf8VRgyF003SzrdWJ0hbM8ePMTAhJxveth8
- HYJQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX6eAydxRNOSK8JL/f5RL+wDRq7P5T/gFu4ify5+bT+ZtwjNKzyvMUy25rd0nF62++Wv9O7wsekIfM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzo15MgmEZYpqOFIR8mwc1NeVTKrygqouuD0QVrrtzXJ5iBY9Bf
- p2ChqmbAMyLcDL2Kx09KP0v8s1Dc7V5BJB2M6EyqWoyFCLgR7770nwnHQhX7xTz/eeKqnD9Tcme
- V8O4Gm2yK7JFr8rwlC6mqW4UD4KxrOPCYSQ35dr2I2kFNEFwHqxBHfaAAPDGVage0Bx0=
-X-Gm-Gg: ASbGncssHGF82nzm+KoT6gplwd5Ip9s+UA0uTO3nTWgWvhwL75uL7rDD3sNH66OfKWB
- 0tabesi6YPNLr3C5GqyTL4WPPNBgSyKtcACB9xBnP+ctvLuv3OEDin6XidzbqNI9EqSFAvsounI
- kRlp+jkP2Sk7jrnlOUt4T/pWItYcnK+9XbE66xjLYdJmU/XptHWMp6qt0qc4N0O/j1ZeCEUQbPR
- CGyc3p9iXBDHAfRxR0qo6k0qgh9YY26aHrBp63ZNUIJR1xZ6mSqxNikBhbPUqAcFEkjvtF+o4aE
- GHDbrTW9CDI785X8gHJ3Zdo5em2aTPCVoPmzSE0XvAkqSDuZefj/STBFzjAvBCVglcbNC29Ox6U
- =
-X-Received: by 2002:a05:622a:418c:b0:48a:c90f:ce6f with SMTP id
- d75a77b69052e-48c30d80333mr98285481cf.4.1746242656386; 
- Fri, 02 May 2025 20:24:16 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE4Nh9w5WVGC3RST0VkgGNMJID+vfLETSNmPjq/gLaq5uaPvrEtf8fnY9OXH5/qZ29zeu9ZRg==
-X-Received: by 2002:a05:622a:418c:b0:48a:c90f:ce6f with SMTP id
- d75a77b69052e-48c30d80333mr98285261cf.4.1746242655974; 
- Fri, 02 May 2025 20:24:15 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54ea94f6a9fsm605856e87.234.2025.05.02.20.24.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 May 2025 20:24:13 -0700 (PDT)
-Date: Sat, 3 May 2025 06:24:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- laurentiu.tudor1@dell.com, abel.vesa@linaro.org, johan@kernel.org,
- Johan Hovold <johan+linaro@kernel.org>
-Subject: Re: [PATCH v4 1/4] drm/msm/dp: Fix support of LTTPR initialization
-Message-ID: <nxft5c4fi3pmm3r6y46cx7nigto75g3j74qmtcyyaysebegvh7@vseouireocc3>
-References: <20250430001330.265970-1-alex.vinarskis@gmail.com>
- <20250430001330.265970-2-alex.vinarskis@gmail.com>
- <de448e66-01c7-498c-b5ea-d3592ac4b40f@quicinc.com>
- <bax6ropbymr2jqwlqvvmetgvsh35s7veevtj4sdwoh5jqghdwb@yrikyb5z3dkn>
- <b3e9650d-906f-4b03-82dc-9e8c09cab226@quicinc.com>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5383110E0D1;
+ Sat,  3 May 2025 06:59:51 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5434lcZm006376;
+ Sat, 3 May 2025 06:59:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ NgLeN5VZkeSiPFB2WCWDd93UA38Mb55ObzOHv882Vus=; b=ErK4dPjlum/vC5J/
+ AU8ignha1YrYedgyxlDEq6GYYgXWxOacZV1Eo3XTJ+NituRu/8+WTcGkKaO5Ut8P
+ 9sprU88s50rSVa47ifn/EPTVQfRYJ3IARlMWF8nt1OBEIB37U+0E6foegsIMSfwW
+ T7IqTIVlUERJS8D+xBMyhoMmcedzYYvBwSwslNO8+dj/imqQ0j2TPilBcrv3pjau
+ axOPKfUILXiQA0oQqdIBEbtP9ih3d9+XgKdGN/z5QGvnFdBfglSFXJ5+dQb/zlnG
+ j0y4CfLb0044T4+VSPcFsFpOViv4eplHQ2XwUP+MpFleqwqZLVJFsDRSlsfBSlou
+ d9nQTw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dce984d5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 03 May 2025 06:59:46 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5436xjSr023814
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 3 May 2025 06:59:45 GMT
+Received: from [10.216.30.160] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 2 May 2025
+ 23:59:38 -0700
+Message-ID: <e070cce2-5037-4c22-af4e-5783bfaa51c5@quicinc.com>
+Date: Sat, 3 May 2025 12:29:34 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b3e9650d-906f-4b03-82dc-9e8c09cab226@quicinc.com>
-X-Proofpoint-ORIG-GUID: TfQtT0nstNsdt9gXdK1f81rQtfIQrpf0
-X-Authority-Analysis: v=2.4 cv=cpWbk04i c=1 sm=1 tr=0 ts=68158c61 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=dt9VzEwgFbYA:10 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8
- a=COk6AnOGAAAA:8 a=H_hWaF1uyuAelWpSFMAA:9 a=CjuIK1q_8ugA:10
- a=kacYvNCVWA4VmyqE58fU:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: TfQtT0nstNsdt9gXdK1f81rQtfIQrpf0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTAzMDAyNSBTYWx0ZWRfXxDC5L3ZGfV/g
- yEb5Gq/KrdlgXStjy4vcDAzvNhPxbpClpU2gXIcoPl67qyBUKlnjVVCDUAJnFa7bfyK76HkDjWf
- elqTi0ks+23Zs2r2hvFyrAgY1vDEshv8psOD5sjh1D/bTN3k5muntGxEeie4ORUTpE+j0o1IJze
- hB2HZz7pxxQIa/HputmPIMUkRESMqRo/ojWOw/yxngiWaEASrP9zg/6p7r4iRTq5zTtoEvG2fr3
- 2JOr6vN/EdERly3zdgPiSQlyp60S3bMOjYtPlgQ8vVfABPMM75KUeYNkucB7Ht6AU1NHYkjAQEb
- eo36iRT3YRuiL7p9UJtowIUMaeFK1RvL7RCpvO9Blt/FVWEodcY4iT3DRTyqWIPf3eV3+aLfpp7
- JPi/lmwrfIzKUCvlQxlqsQ3kQQ4rQkMXgtkm3sVSNdJOStA2ZEpKTgzRGS3p1IMbsQ7spHB1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/7] drm/msm: a6x: Rework qmp_get() error handling
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Viresh Kumar
+ <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson
+ <andersson@kernel.org>, Maya Matuszczyk <maccraft123mc@gmail.com>, "Anthony
+ Ruhier" <aruhier@mailbox.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>
+References: <20250419-gpu-acd-v5-0-8dbab23569e0@quicinc.com>
+ <20250419-gpu-acd-v5-3-8dbab23569e0@quicinc.com>
+ <skrb5hkl66gt6vr6c42tx2ipfn62uuouztd2g37xlhreeq7nqj@r6ohzexpwmy7>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <skrb5hkl66gt6vr6c42tx2ipfn62uuouztd2g37xlhreeq7nqj@r6ohzexpwmy7>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTAzMDA1OCBTYWx0ZWRfXxYx8NKd1jrlU
+ 3EhPj1LNv0deJSXgltdFpDVPEwfg63hVQHz8p35itW6qnOpswhvgxPlX4mcOzE53WJ1xFKFMZBr
+ /IJRbpnfsflHCnQ5B1gg5yyZ7FzzkD/v3zO+YsFvQO0K8kiDf5Z51rn2asL8W/HfrNDfMZC+dEp
+ 4Lliax+8sYZq9w0aNcs7nttD9Q7OcFfYUAcw4ccMhvUKV3s5a/T2BvUVovH80fk3HdY4J/ZpG5D
+ dsqss3+NFRKgDvZOq7ffUwHwrwBKNmXakmXq8BgI6CmAr+rRyXLhTkQJBxA/zjSkt7tQpr4xpxH
+ z2C+TolToFuLe3NLdnr7aqBm2VnnBNFpz5ratY5oSxnqBTK6PwM51QcKa3/DFkXFXD1CM6Sew1w
+ Dhgw8Oth9RTxNAp3JQ0FpWVZSZdXZAHCTbedYRqgvvzU+n6ds+fIY62GpnMse6zVFtXOJCtM
+X-Proofpoint-ORIG-GUID: 9QGvogbD9ghAWpoHKMAQYvNAx3dHsIob
+X-Authority-Analysis: v=2.4 cv=Qope3Uyd c=1 sm=1 tr=0 ts=6815bee2 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=b3CbU_ItAAAA:8 a=KmM3JoVms-3i-2Ah5kEA:9
+ a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22 a=Rv2g8BkzVjQTVhhssdqe:22
+X-Proofpoint-GUID: 9QGvogbD9ghAWpoHKMAQYvNAx3dHsIob
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-03_02,2025-04-30_01,2025-02-21_01
+ definitions=2025-05-03_03,2025-04-30_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- malwarescore=0 suspectscore=0 bulkscore=0 priorityscore=1501 mlxlogscore=999
- clxscore=1015 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ lowpriorityscore=0 priorityscore=1501 mlxscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0 phishscore=0
+ mlxlogscore=999 spamscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2505030025
+ definitions=main-2505030058
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,47 +116,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, May 02, 2025 at 04:01:35PM -0700, Jessica Zhang wrote:
+On 4/23/2025 6:58 PM, Dmitry Baryshkov wrote:
+> On Sat, Apr 19, 2025 at 08:21:32PM +0530, Akhil P Oommen wrote:
+>> Fix the following for qmp_get() errors:
+>>
+>> 1. Correctly handle probe defer for A6x GPUs
+>> 2. Ignore other errors because those are okay when GPU ACD is
+>> not required. They are checked again during gpu acd probe.
+>>
+>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> Tested-by: Maya Matuszczyk <maccraft123mc@gmail.com>
+>> Tested-by: Anthony Ruhier <aruhier@mailbox.org>
+>> ---
+>>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 5 +++--
+>>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> 
-> On 5/2/2025 2:54 PM, Dmitry Baryshkov wrote:
-> > On Fri, May 02, 2025 at 10:41:41AM -0700, Jessica Zhang wrote:
-> > > 
-> > > 
-> > > On 4/29/2025 5:09 PM, Aleksandrs Vinarskis wrote:
-> > > > Initialize LTTPR before msm_dp_panel_read_sink_caps, as DPTX shall
-> > > > (re)read DPRX caps after LTTPR detection, as required by DP 2.1,
-> > > > Section 3.6.7.6.1.
-> > > > 
-> > > > Fixes: 72d0af4accd9 ("drm/msm/dp: Add support for LTTPR handling")
-> > > > 
-> > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-> > > > Tested-by: Johan Hovold <johan+linaro@kernel.org>
-> > > > Tested-by: Rob Clark <robdclark@gmail.com>
-> > > 
-> > > Hi Aleksandrs,
-> > > 
-> > > For this patch and the rest of the series:
-> > > 
-> > > Tested-by: Jessica Zhang <quic_jesszhan@quicinc.com> # SA8775P
-> > 
-> > Were you testing in a setup with LTTPRs?
-> 
-> Hi Dmitry,
-> 
-> No, I have a setup with MST so I re-verified SST and MST with these changes.
+> If this a fix for the existing commit, it should come first and have a
+> proper Fixes: tag. If not, please squash it into the first patch.
 
-Ack, thank you. I was hoping that you have some interesting dock setup.
+This patch is dependent on the ACD support patch, so we can't reorder it
+(mentioned in the added comment below). No Fixes tag because qmp
+messaging was unused until now, so there is no point in backports. I
+prefer to keep this patch separate because this looks logically separate
+to me and we are changing the behavior for a6x gpu probe (removed
+adreno_is_a7xx() check).
+
+-Akhil
 
 > 
-> Thanks,
-> 
-> Jessica Zhang
-> 
-> > 
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> index 6bd6d7c67f98b38cb1d23f926b5e6ccbd7f2ec53..48b4ca8894ba38176481b62b7fd1406472369df1 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> @@ -2043,9 +2043,10 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>>  		goto detach_cxpd;
+>>  	}
+>>  
+>> +	/* Other errors are handled during GPU ACD probe */
+>>  	gmu->qmp = qmp_get(gmu->dev);
+>> -	if (IS_ERR(gmu->qmp) && adreno_is_a7xx(adreno_gpu)) {
+>> -		ret = PTR_ERR(gmu->qmp);
+>> +	if (PTR_ERR_OR_ZERO(gmu->qmp) == -EPROBE_DEFER) {
+>> +		ret = -EPROBE_DEFER;
+>>  		goto detach_gxpd;
+>>  	}
+>>  
+>>
+>> -- 
+>> 2.48.1
+>>
 > 
 
--- 
-With best wishes
-Dmitry
