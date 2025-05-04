@@ -2,116 +2,130 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3E1EAA87B9
-	for <lists+freedreno@lfdr.de>; Sun,  4 May 2025 18:13:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93077AA87BB
+	for <lists+freedreno@lfdr.de>; Sun,  4 May 2025 18:13:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A1B110E2CD;
-	Sun,  4 May 2025 16:13:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A9D510E2CE;
+	Sun,  4 May 2025 16:13:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kTA9X857";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="p61HPtGl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A3B210E2CD
- for <freedreno@lists.freedesktop.org>; Sun,  4 May 2025 16:13:47 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 544FI6nx022383
- for <freedreno@lists.freedesktop.org>; Sun, 4 May 2025 16:13:47 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CAB310E2D7
+ for <freedreno@lists.freedesktop.org>; Sun,  4 May 2025 16:13:49 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 544FK2cs002951
+ for <freedreno@lists.freedesktop.org>; Sun, 4 May 2025 16:13:48 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- oCrre7kyL+DtRhPaevA50uxzh9J+o0WUmDy9isEPb9c=; b=kTA9X857O4qZsmJA
- 6y2rNIy9JrJ8GrF81eNoH58AnwJNaWPIBB1Q3dMByyCJNeOL5Sma4DJ9GG+g1Gnr
- cBIl1ZyZVs1j1guQmlWPODmhrfUmF+vYHk4rUkSWGFPa4FtPciVsHmRztZrAs1iq
- nMdNbqpxt0qbZLJ4SCwHx0YOOPeuIw7pgrcGgRhZy8GZAb2jRJGiomKmUNxmZWsi
- jLH0R20DZ/Zt+t/mAooQzIZ1I99RlVqfdYmhhT0Dy3IPcC8kaSBg8vkQSBs8VbvX
- 4Ap1lb/kMycBkqrAZrI8WDIVxHFqaSltHWRdennRthYKtBrNwHW19tYiXPT8SGYh
- OhLqLA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dce9a2ug-1
+ UZZqo/joJUMTmddqZvrzyvK+OoeIHz4Jyy9kaXceNaA=; b=p61HPtGlIeEUxjqo
+ ybywT5R1PFpAyKPZrQFAiTzHEkkKv0mRm11o7LyHDiys31qJI/nQ45V0w0HEnLwx
+ Jc/K2zT6KjvWz7OkhlHVloBS6Q69jmEjaxNIa8wxcMzaGwNE2cpfjF74yleafYys
+ 2H9n+GA4P3pB8MclK5INKPmMr+tVT+rJ7IDT4wZ586o5OyAjnulK0p0Gpok7jnwZ
+ Zohh2mA8Gb//nS99mU5BcKvJKYO8aPujBAaiE1DVjYrvTegcOHS0+jMi7BlIcM+x
+ vpIhZlTndetVnqAp3JWyG4pCb4vL60Zq/D9OsRhtacCzexQSUTUiJi89EHyazPXD
+ JLDw0Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46da3rt82g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 16:13:46 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-47699e92ab0so78133791cf.0
- for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 09:13:46 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 16:13:48 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c5c9abdbd3so354266685a.1
+ for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 09:13:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746375225; x=1746980025;
+ d=1e100.net; s=20230601; t=1746375227; x=1746980027;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oCrre7kyL+DtRhPaevA50uxzh9J+o0WUmDy9isEPb9c=;
- b=ZQA/KR64sebQ8lYZP+UoAyeS0EALxNFpA6Uv68d4Q1wG5RnXs6uubrng6gKLlPZpdi
- E1aTMVrUMMM89zIqxjSOLmlqqcAQnhd/7AChco93eicDJ0RjB+s12Ljpf8gWW/fYHvjo
- Dr6V3PN6qY8i3ARU7OynOtz1xP5cwy9sOP4FJiWNE/II/CWe4YIjwSk3pxn89+iyth+d
- w0AwMKK1+hm01+1Pd5ThHS1x+/bUQpfzplFb4+S+be0wfpjg3IpvtCwT/9dXzlWgY90B
- 16bO8k+bAW6BNjk7FKzaztg1TwbQAkYUMg5eVVGUxcDTXmFBgr1cGVKJ+Jq4cEJOHdSd
- q6Pg==
+ bh=UZZqo/joJUMTmddqZvrzyvK+OoeIHz4Jyy9kaXceNaA=;
+ b=l/kuDwLhwX3mdw7Q+B809c5fiHBfG4/6sAT3tRilkjO2BORaXcE+zn4mn42ZN5XLnz
+ +1AhVCslFaBjSjCUHtyk8Ug5P9M4odJ10NgcocBK9i8pcD+f3ts7oozKNOeBB4UeHgj6
+ p6CgyVktUh4s/FqqF7vnVmImUNsgyAILK2tNNIrLsbEI9fB8qjWcs1QGosTa3Aium62S
+ qaBOm8wOSMeUcVQ8P24BPNjHmL3RNJzOyhvA760nH35a2q8QvBlH/fNciJmGHVTM3BiX
+ FHEO5mIbs95SK5QEwP08Ce6VACTYjXPjxqzvIWkb7v4lNaExRnr7qALBkD8Kh5+gpEhk
+ hH7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWHgD6UOhdNnfnSyAP78p1y6Rx/kwJVh/Kk7mNsQ1CN2LvLDqzeBcmImRi4IHeDOQOba4b7c32fZk0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVHBjnNxltd0NLIAbavy2qsgX+KMToA/AnAhwtSNovF5V+2mET
- 6wwt0IgHukOD94LxT+vYaQFkjwsmYoTsIct7MUtnDZGwLoKeiWj6Ri42Ij+Z5f+S3TDjSh3qY1t
- lfP98RERFSnFB46SQx9+yzbhtRUsMGYfcFfq22TOaI0NFiJildCmOpZ5/e9aFsniAI4s=
-X-Gm-Gg: ASbGncuIQ1PqdXzG6gsejHHKWZXm3sztNVYsUhZ6BsMFvMxFOaAnNzugHAVRW+FTT1R
- SVanQ1wbx804P26mEV+UGZRwTXEeMirojIAO0voeEsbRlzeWzuId7D8pYYLG61mwKpRr6trzlHE
- QGVs47WbYDbRoI/zXJbeH3fMWGBT7As6FCUKHyfbTJeBiBf/R2TwRZYBz7+u+m7mMktwWBuzSNg
- +yfgRD4BZ36H81ZNJzR8I9+DlijEaqHfFJqiZkgufqZ2Gi1H9PEvrH7/MRJGhky/8f85PPoFivt
- csTqsWJCP1HTyqSvg0Dny4exv+nsMqp7WAegAJcEFOiW0oE5NEZ4TxSSLgyZPyOjrOQ11fYduOl
- my/pqPZ7rEAw7TarpERuiVJyV
-X-Received: by 2002:a05:622a:1b8b:b0:47a:eade:95d3 with SMTP id
- d75a77b69052e-48e0115d91amr64684051cf.33.1746375225663; 
- Sun, 04 May 2025 09:13:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEodRLHLfsZWcNzptQvg9NDQY4Nk8aia4aLV5WiHHWopfrsacCXqFhOTDBmUdTbnXE8qdnXrw==
-X-Received: by 2002:a05:622a:1b8b:b0:47a:eade:95d3 with SMTP id
- d75a77b69052e-48e0115d91amr64683641cf.33.1746375225283; 
- Sun, 04 May 2025 09:13:45 -0700 (PDT)
+ AJvYcCWVMRQCimGCWRFxb5Ep21bfw2W+S2ZqqQD4K1VAIwUey+rUsJFCqcMhfiApW+6p2Xr29ph8JAfp7a4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8LEHBScF79iX48a6TFqda16vyd0iowiRUVxYqjsRxDT7NaKxg
+ YJxpagvFtIZWIVlO2mlEfzYMvO0nUz2lRZf3xKd1cHgzSHn8taiNOQi0yUkZ6zmbnGlZ/cs/PBz
+ is96hOAINt27QwT6/CDGhTXc2fDyR3UOFUGthPnhVJximYkRuR9L5bEJyKNSNB6VzkHw=
+X-Gm-Gg: ASbGncvVe6l3Ge2eO6ngeSuOK2G61KbvzPcj3cl+alx0FZMU1BfcuaFtsYUJp9pEqGV
+ G90pMC53JfEUfp6g7iTI3Lv/bSjfhD/BvphNREcwrW/RVDPMQ7gl6+r3AaxaqosGdE7x1QFNlGk
+ JG2/wmODg/rvV8+YgMvkTsljnbbJP6uwsa6i2pjNOdqvXvw7bAbKjg4F5iJYUEe7BGQZkOQYlOM
+ UvF/ozBVQtjG+K+d0K10IMl+7i3fr5bGlxqCcPuWS+wOPY6vV/O6wQ+DAg9gka5Sw69iz+GF00T
+ rx1a1Mfuy3s4R3mCMVmelx0kZQu4N2cIN1DZrYFn+x4IUC47JH2+MEFA/yXdt8Dn6O+yh7BKoeY
+ ccLK4IZdncEO+IAjXVvyazfL4
+X-Received: by 2002:a05:620a:414f:b0:7c9:23c7:a92b with SMTP id
+ af79cd13be357-7cae3a883afmr521804985a.8.1746375227104; 
+ Sun, 04 May 2025 09:13:47 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEWfqVRImHTF2hlg2i8dPTXb3VY+dorTtSOXnHwH9+M7i4F2YAepO0JanfpdKI8BQ8brOlCnQ==
+X-Received: by 2002:a05:620a:414f:b0:7c9:23c7:a92b with SMTP id
+ af79cd13be357-7cae3a883afmr521800685a.8.1746375226766; 
+ Sun, 04 May 2025 09:13:46 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54ea94ee937sm1335231e87.142.2025.05.04.09.13.44
+ 2adb3069b0e04-54ea94ee937sm1335231e87.142.2025.05.04.09.13.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 May 2025 09:13:44 -0700 (PDT)
+ Sun, 04 May 2025 09:13:45 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <lumag@kernel.org>
-Subject: Re: [PATCH v7] drm/msm/dpu: allow sharing SSPP between planes
-Date: Sun,  4 May 2025 19:13:26 +0300
-Message-Id: <174637445761.1385605.4846218535199859363.b4-ty@oss.qualcomm.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Robert Foss <rfoss@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Rohit Agarwal <quic_rohiagar@quicinc.com>,
+ Kyle Deng <quic_chunkaid@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-usb@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 00/11] Various dt-bindings fixes
+Date: Sun,  4 May 2025 19:13:27 +0300
+Message-Id: <174637445759.1385605.15383087742490646226.b4-ty@oss.qualcomm.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250426-dpu-share-sspp-v7-1-6f4c719e373c@oss.qualcomm.com>
-References: <20250426-dpu-share-sspp-v7-1-6f4c719e373c@oss.qualcomm.com>
+In-Reply-To: <20250306-topic-dt_bindings_fixups-v1-0-0c84aceb0ef9@oss.qualcomm.com>
+References: <20250306-topic-dt_bindings_fixups-v1-0-0c84aceb0ef9@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA0MDE1MiBTYWx0ZWRfX5mldkBvqs5yq
- tlPBsY64D55F/jEz77oys1tETGmdVSSobV3az6SImoFwhxweuV7WsCKkErW43NIAWohgxHqT4M2
- vHEh0Vk1UF6QkewbFZccfuAK7XCZEeEUIA8cEezsczGWtlXeUudnAKKkml5+pIJ+Wr4TqXn6564
- myEnTJoFJ6SKWx86SWJI8dQmDYBfl5HAgT8j2xR3UOF08E9sKY2R6msfhsDvw2GqGsKrCGD4eIm
- 2nPuN6wJ6KIqLlWy5ockCkWMzHOKbbMb0BqFOGUy3TENLGgEI5SWrj77LARardaGPojgC3NL6v2
- zZVR1T6nAdD3ewm6niOL5+KhYkFk3bjBfSpmDfxqhq1CTG39Qvf+AyPLM8nhmJJA0MVp8uqafbg
- OkUhKCxYs/uwh9J+fDqiGkw7OAStAiPFPGkUP9AuL5ozHMVb+g1QjMz6JTieO2Z0cd8hg6hu
-X-Proofpoint-ORIG-GUID: N3wEpCRg9bDoo_yV8hFNcaHpNR-U0lf0
-X-Authority-Analysis: v=2.4 cv=Qope3Uyd c=1 sm=1 tr=0 ts=6817923a cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=dt9VzEwgFbYA:10 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=-ylb_1dp-gWGt-a8D6MA:9
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: N3wEpCRg9bDoo_yV8hFNcaHpNR-U0lf0
+X-Proofpoint-ORIG-GUID: pUK_r8Wy4A51n3sm9sGoCMBrjdthpUsi
+X-Authority-Analysis: v=2.4 cv=cpWbk04i c=1 sm=1 tr=0 ts=6817923c cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=dt9VzEwgFbYA:10 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=AprTATsQUE9CPNEuHX8A:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: pUK_r8Wy4A51n3sm9sGoCMBrjdthpUsi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA0MDE1MiBTYWx0ZWRfX4MTGai/D/v/q
+ fK+Jqa70/Hgef/OrxL2Bqc3LGbROU5/u1i+y97K3cwhdk62TN1qZ8KzAHWQ6/Y2jFVhBtuWz9qe
+ 5dLxrocx2TvTRaFbgagrDikTgZ50pejltoBxvk1dFwsFAU9w6rHOfhOG+4tYt9K8iFJbT127o4e
+ RJvdKYr2SjwHcJpYh3c2+CBCejZPzd8bjZmo5xew9BpV+6neRgRFPcdbYloJrFvsNfO2Z3a7d2I
+ R3KopajXZonEmvcOSsOrtLMeP0+rxRr+fjS09BBYB845tEn9T1O9df/Bz1LnweMQ9yzXbgQtEur
+ z2lhv2H1twTQXg3/S0a/6dimOsg3kVqeg35jXR0JecGx2xYZI/4BL4j3AxrKWjMYC4aZdq9AeXZ
+ tzm0+bkb4dN0W/f14vm/Qyozzj28+IvKp6ThJG/fTnHJDHFxrQ1MSAy/yZ4TPDVPrM6MO/kG
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-05-04_06,2025-04-30_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 mlxscore=0 adultscore=0 clxscore=1015
- malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0 phishscore=0
- mlxlogscore=603 spamscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ mlxscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
+ malwarescore=0 suspectscore=0 bulkscore=0 priorityscore=1501 mlxlogscore=833
+ clxscore=1015 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
  definitions=main-2505040152
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -130,20 +144,15 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sat, 26 Apr 2025 07:51:17 +0300, Dmitry Baryshkov wrote:
-> Since SmartDMA planes provide two rectangles, it is possible to use them
-> to drive two different DRM planes, first plane getting the rect_0,
-> another one using rect_1 of the same SSPP. The sharing algorithm is
-> pretty simple, it requires that each of the planes can be driven by the
-> single rectangle and only consecutive planes are considered.
+On Thu, 06 Mar 2025 19:11:12 +0100, Konrad Dybcio wrote:
+> A set of not quite related bindings warnings fixes.
 > 
 > 
-> [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: allow sharing SSPP between planes
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/3ed12a3664b3
+[02/11] dt-bindings: display: msm: sm8350-mdss: Describe the CPU-CFG icc path
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/60b8d3a2365a
 
 Best regards,
 -- 
