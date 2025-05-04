@@ -2,116 +2,126 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682AEAA87AD
-	for <lists+freedreno@lfdr.de>; Sun,  4 May 2025 18:13:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5229AA87AF
+	for <lists+freedreno@lfdr.de>; Sun,  4 May 2025 18:13:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42F4610E0A7;
-	Sun,  4 May 2025 16:13:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09ED710E0EE;
+	Sun,  4 May 2025 16:13:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UN5hFAEe";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="G0bQyENw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14A2F10E0C2
- for <freedreno@lists.freedesktop.org>; Sun,  4 May 2025 16:13:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F8FA10E0A7
+ for <freedreno@lists.freedesktop.org>; Sun,  4 May 2025 16:13:39 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 544BcIhQ010740
- for <freedreno@lists.freedesktop.org>; Sun, 4 May 2025 16:13:35 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 544BcIhR010740
+ for <freedreno@lists.freedesktop.org>; Sun, 4 May 2025 16:13:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Z4Q4oxnerkJx95uYsxiAX3sxi06TpYgZRYzGCnLdyRY=; b=UN5hFAEek1zei9jk
- i+ey+b23GE5m8v0soCodqbAk7BIMQ9UxSa2etCQLexjOb50jI3RqkrXM3ZSptuEw
- YnDbu1OwqigsjQmynUJmgkQk9wgsrZ9M0zP0s8mwwC0ORKaNj6128QQYzdH26Qdn
- m+ajBudEMr+SBCAbQX9qF3lu1kEpUpUdq98X083XqBVRB4wORvvCqPnYumNug7BI
- WfBUA/owmqHe5f2qI5S3q4qkf5SmdcOI5H9yBlujFjx2o29O58rYe/0Pk616/RoB
- m3oK1rl/vFJOOcIVTV6ZUwsUV9OTsZ1prG5jlHTQjpG+4Fj/zW+lfy0f0S2wIDkD
- 2jM7AQ==
+ vfA7GtnSYSKUo7p5wgEOmrBapgaTIQDubiWjfuODSw0=; b=G0bQyENwGIhr0PVK
+ ug3iJeV0Ooe8RkgrDJY8XiTfO+EmvDmYKm/xaClavI87LG9by3tiU7sE5gBwL4bQ
+ u2YAfNjznGHiXMfTre2Onw3P/J2YHg2uL2TvS75dKYAiFms4lVZKorf6NixiUqLY
+ 4D3Amd7+FV7adT58Rb5w0J86GN8RJgg/FP6/1f3j38Q6C/aqZQeXT5wQpN0ufY9b
+ hjUJpxzgzVwRSegiBytj72kJ+87BKLaqZ6RxNuT9s/YdVhd8GLeh5Vvi+oM45HEM
+ c0R7IzAQ6sbEUgjBzfupiXKa89b0U1hDRuWJZtEoMe/FZxQLQSOqmn0Y9NmX79B6
+ /v/imQ==
 Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
  [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dbh7a5ch-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dbh7a5cp-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 16:13:35 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 16:13:38 +0000 (GMT)
 Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c5f876bfe0so643734085a.3
- for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 09:13:35 -0700 (PDT)
+ af79cd13be357-7c7c30d8986so411520185a.2
+ for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 09:13:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746375215; x=1746980015;
+ d=1e100.net; s=20230601; t=1746375217; x=1746980017;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Z4Q4oxnerkJx95uYsxiAX3sxi06TpYgZRYzGCnLdyRY=;
- b=WFDrC+wT+2j9rPSIyuPD9Bz6WFKeVHiQ25Jb4Q3jyOlKVKCHbXmjNqD3XTKBXyNn84
- cNCwSmb/kNC75f4qFlOLtpjXjgHAFg5zxWM0hdHVO2V+4BBMVqKAulQ5aGX3qIc83BVS
- inPIFEE1V/tWJrbVwukymgz+Nf396hzD3BYPFjSOX8/2mVdtEmBhpq389T581LaiXxkt
- 1l1EWfIMOvTmZK1FhsiRvazJNmBHHU8/88V7m326QfgIy0jH2UMLyeZJXGvW8n7Q5N9T
- btenogQcUHIS7+jco5w98ttpeCTBVJKPOFxeQBTSMgkTXtuCjnjuGB3FLecQ7xDdDijE
- qHug==
+ bh=vfA7GtnSYSKUo7p5wgEOmrBapgaTIQDubiWjfuODSw0=;
+ b=TazGPPqbGgTTNvaztJI8fS2I0ZNtpGk+gtNY8oVPdlstukRVIDH96czCsy23RcCmpV
+ JEZca/5fNcETYJWrbRIsFvhQdT6oipdpubSob/cPut24DGXZQQeDY6QPf8FwOWZ9ImTT
+ O6k02NtiroMmMI0kgQSFMJq0IfVAXjxu/TdB2rzfgj2ENB3z99y1xZt0W2PRCPYmIwGR
+ s9Doq754OEmvybmfRolLXEZAFT04cesPI23YeeZQjSQ6MclJevoZkd1SXMdOTg58WHw7
+ a+5MLkwpaonG4EZJ3Egbi+i28VJNk0XpujI29aEUlCl72VHNTjrthqnyQAqPkCoC6+WK
+ vTJA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXmOg8AyAozpatb7hWojG7z41/QPDKlULYIY1SgJW0GGTSzSzCV+ZIAG1aZmZ2kSqekohldHefPJVw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2arFdbQy7TJPq1aji0VWEtFZi31Gzvcv5BYMiqg9b3FpMZLhz
- zd3o5anNc5yVmRjDBJKwzc9HF89RJvcBpr4vRul1rl93J1dNwWwZJQvlyVGmfhD+VT8evtKkKbD
- Wj0dd3jMVlDPtMFlgfaBZXgtcw9uMRQPiOlgr2ysZugUlBLtKA14CZw4uhVz9A2skwKQ=
-X-Gm-Gg: ASbGnctwS+80rZ4zzEwGF0hyx4jp05W01DpRrzWkL+Vt2P/5T7vbeG7SCeasZgRriUa
- 4ntkO+DDVeoUNU4IHJPPHLd/AHXYEv/Q4w53bUinz99lPMx2MORQMkbIsAunzuH30sFC+RexEoA
- 7kLloAT7F2jGSF0zh7X/otUeIMYqY5DzPDpdB/9Yis/+iszNSW9+XTUUSB1Y3dNUJLJOPpdsBpk
- 4EN3FR+OEezeURGtADsXuIsQbzCQVhBjNRMJ80mKcVw/ILHFzFgMEAEroTa9lByAH/JzrxdmWqv
- tdAFLs0sK8pwknxw7HHkdQpROa1p5yS1CBSMOfurI0JJrJ/9I+1FhlRpWiKbfRPnxcceShSUu/e
- RSua4ZbrqYwUpFoTkt346nXs6
-X-Received: by 2002:a05:620a:1723:b0:7ca:dac1:a2b9 with SMTP id
- af79cd13be357-7cadfed926emr912055985a.50.1746375214997; 
- Sun, 04 May 2025 09:13:34 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGco5fgaYnNMpsBBxEXRo5nZ43X/rGRriKVtlsYHoJbTZ+8uY8xGUEUU9xBouzMhrR9HrsDow==
-X-Received: by 2002:a05:620a:1723:b0:7ca:dac1:a2b9 with SMTP id
- af79cd13be357-7cadfed926emr912052685a.50.1746375214680; 
- Sun, 04 May 2025 09:13:34 -0700 (PDT)
+ AJvYcCVUDIV0jI6adpAMaLxh1O0FiaAP8GgdSdzSoJNbEoVROjXBRcw0ABwwwIut0V4hIkPUqvOErOmE7FA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyfusjNcwzPeP9rB0GeyoVFT/rsY1Hc07vxIk9GDhPs7ahhnl34
+ aHzSS/ZHqK/mRnvuiS9jMmbZgAESiBE5IgHhpI7r5ONf/rjqWcWn6wZ0ykcUNqoCbYm3CErGsWR
+ 9YBs/iErcrpefU0Fat865RBuZNWs1HAbScsmq3ZDvo7kEQthQXUkvwLXiPFmfXbe/53k=
+X-Gm-Gg: ASbGncuuBoyNBgV8BDXu64oaXW6pvMVRP83FgvOr2ZwKZ+DP7N5fjxb5MBkKQJzH532
+ 2XEF5WXDd2IxlJDGhsBwSasYG+cjFAuNOXO9XzmPpyNw1agY0O+iKguKnYduw3bYk/Y48X2kROD
+ K05uB5Kn+AFPT7SwrizdxQ7D3ZZzt7LyYldYr7lsRUh79vcTNfroWHBeFCG52PcKHJ6EBIga6nV
+ Ki4bsZToaM0bSUUGttCd4CColFWnBV4pMn9lmd7uAffmmiBkl/9AHcrZffr0l2IhWrbuqdkCGGh
+ sJWnVF1Ob0xeSFeFRSZYl5xnDt9ZnW9uTd7gyLYayM39BtikIvI+bMIF3i+Tz0SiYOCNDRl8y1T
+ 0qQO/8cneE1xI8RK4Idp7Aq3c
+X-Received: by 2002:a05:620a:414e:b0:7c7:a524:9fe9 with SMTP id
+ af79cd13be357-7cae3aa3a7cmr721242685a.27.1746375217703; 
+ Sun, 04 May 2025 09:13:37 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHeiOTVT2ymuT82iRFejLq29xysyG8uAckrB2qV1iZnT3Z31gVfU5M2H+L7Io6knC2h1rUhaA==
+X-Received: by 2002:a05:620a:414e:b0:7c7:a524:9fe9 with SMTP id
+ af79cd13be357-7cae3aa3a7cmr721238785a.27.1746375217366; 
+ Sun, 04 May 2025 09:13:37 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54ea94ee937sm1335231e87.142.2025.05.04.09.13.32
+ 2adb3069b0e04-54ea94ee937sm1335231e87.142.2025.05.04.09.13.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 May 2025 09:13:33 -0700 (PDT)
+ Sun, 04 May 2025 09:13:36 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/5] drm/msm/dpu: disable DSC on some of old DPU models
-Date: Sun,  4 May 2025 19:13:20 +0300
-Message-Id: <174637445760.1385605.8148657144550211301.b4-ty@oss.qualcomm.com>
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2 0/3] drm/display: hdmi: provide common code to get
+ Audio Clock Recovery params
+Date: Sun,  4 May 2025 19:13:21 +0300
+Message-Id: <174637445761.1385605.12669862804792916978.b4-ty@oss.qualcomm.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250301-dpu-fix-catalog-v2-0-498271be8b50@linaro.org>
-References: <20250301-dpu-fix-catalog-v2-0-498271be8b50@linaro.org>
+In-Reply-To: <20250408-drm-hdmi-acr-v2-0-dee7298ab1af@oss.qualcomm.com>
+References: <20250408-drm-hdmi-acr-v2-0-dee7298ab1af@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=fMY53Yae c=1 sm=1 tr=0 ts=6817922f cx=c_pps
+X-Authority-Analysis: v=2.4 cv=fMY53Yae c=1 sm=1 tr=0 ts=68179232 cx=c_pps
  a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=dt9VzEwgFbYA:10 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=FEuYHSLItigONA-XwN0A:9
+ a=dt9VzEwgFbYA:10 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=OVqkDxUf0f5yx8408MQA:9
  a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: S_YdbLodsACvrFxUzF1TIXbIF00gDPze
-X-Proofpoint-ORIG-GUID: S_YdbLodsACvrFxUzF1TIXbIF00gDPze
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA0MDE1MiBTYWx0ZWRfX0KdcI7E5HxCi
- s/y060RLce5PlpkLzhnV4+cQMdj4HTKyjCB0X1wkUmO5BtMe15LVth7ei6ggn9EBtW8SOr/hw7J
- FZCv1DeC6aBLbekWP/4qqlKNk614jAiaE0wp9nHJNWzPrLXRhzSlsFRFF+Wb28Z58S+kbvlFz9K
- P++aeQgTBgxLkmEk6B9rP220XQpSPwD30KIqJ1fSVNR+lixXCzpamz9p/IUuIcoQ5Rl7WfPornC
- Zcu9X3k47IrL/gOdyy12UVKXQye8DyyyzjRWqtj+vSg8u5CWO5HGYW8UhoAT6nUdztS0Dvd7YXW
- dnvLWATEFyayrKBuUVVcs2AXzmywk9tX4csC+dVxLW7mlvc8JZD1WxRnubcU3gE9P3pmzuS+lzg
- 3PfeHQSPQjmpm1yHZbwHl24V+xDt2UuNM98BKr+oWze4Rf2XsxNOypB5DbIUPO2wJLj6ALGh
+X-Proofpoint-GUID: wiY1EUq5CuMuhIAKiK40tbMVxoR6T5cx
+X-Proofpoint-ORIG-GUID: wiY1EUq5CuMuhIAKiK40tbMVxoR6T5cx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA0MDE1MiBTYWx0ZWRfX3MVZQJ/IltJ3
+ igCkEbCvM68ZdIyNOtBBhmoqy+NIEyUCdMH3hhqocNWJdRMnT5vwocE6f54aWQCqAYF44C54o4+
+ F9icxNRifDb4hFz5c/v3+l3Xutbw4ZsQrdYZPsawMyEmWebCIgh+7lkIe+zE9plfTSvW3XoHQzl
+ jvgzKZKfMsfTanN7hoSz7q1C/P2gieI+aaayz7NK1zAnqyNfzSZLsS530U+E68WDAS3b//Lme6k
+ BRQLSqCBW0q0eSq9L9Lp1K8BD1AIHcvc0suDSBsYPJg1y8CmAuhzuwVZPVcudpP5kikYOwyfTRG
+ BzcjxBfwqAZHd/kPkH8Pl52jYSOo2rGP2E/vZwzg7U6Ez7688C0/NawlrHlTBjrPM52+NaOWRhS
+ AgQ2jZkQg0YKCHIs2EbzZmowIYoQ5X6IRBAb03zSNbQ5peaBn52J4ZrilWA7v2Sm31ODR6h5
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-05-04_06,2025-04-30_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501 impostorscore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 mlxlogscore=579 malwarescore=0 spamscore=0 mlxscore=0
+ suspectscore=0 mlxlogscore=923 malwarescore=0 spamscore=0 mlxscore=0
  adultscore=0 bulkscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
  engine=8.19.0-2504070000 definitions=main-2505040152
@@ -131,25 +141,26 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sat, 01 Mar 2025 11:24:53 +0200, Dmitry Baryshkov wrote:
-> During one of the chats Abhinav pointed out that in the 1.x generation
-> most of the DPU/MDP5 instances didn't have DSC support. Also SDM630
-> didn't provide DSC support. Disable DSC on those platforms.
+On Tue, 08 Apr 2025 16:54:24 +0300, Dmitry Baryshkov wrote:
+> HDMI standards define a recommended set of values to be used for Audio
+> Clock Regeneration. Nevertheless, each HDMI driver dealing with audio
+> implements its own way to determine those values. Implement a common
+> helper and use it for MSM HDMI (tested), VC4 and DW-HDMI (compile-tested
+> only) drivers.
 > 
+> Note, this helper simply implements the database for these values (HDMI
+> Section 7.2). The question of selecting supported formats and rates
+> should be handled by sound/soc/codecs/hdmi-codec.c (pretty much like it
+> is handled by sound/pci/hda/patch_hdmi.c).
 > 
+> [...]
 
 Applied, thanks!
 
-[1/5] drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8937
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/b43c524134e0
-[2/5] drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8917
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/5be98120115c
-[3/5] drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8953
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/5232a29ebc74
-[4/5] drm/msm/dpu: drop TE2 definitions
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/e1fbb0d78e86
-[5/5] drm/msm/dpu: remove DSC feature bit for PINGPONG on SDM630
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/075667e986f3
+[2/3] drm/msm/hdmi: move msm_hdmi_audio_update() out of msm_hdmi_set_timings()
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/1735917ac44a
+[3/3] drm/msm/hdmi: use new helper for ACR tables
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/88321e3529f1
 
 Best regards,
 -- 
