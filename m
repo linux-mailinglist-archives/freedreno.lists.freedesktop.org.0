@@ -2,86 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47F5CAA8A1A
-	for <lists+freedreno@lfdr.de>; Mon,  5 May 2025 02:15:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37C8DAA8A1F
+	for <lists+freedreno@lfdr.de>; Mon,  5 May 2025 02:15:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE1EF10E164;
-	Mon,  5 May 2025 00:15:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 125F010E1A5;
+	Mon,  5 May 2025 00:15:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vra3753X";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HL1NeU5O";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8734910E164
- for <freedreno@lists.freedesktop.org>; Mon,  5 May 2025 00:15:04 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 544NjmaJ016270
- for <freedreno@lists.freedesktop.org>; Mon, 5 May 2025 00:15:04 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C7610E1A5
+ for <freedreno@lists.freedesktop.org>; Mon,  5 May 2025 00:15:07 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 544MVVwD011110
+ for <freedreno@lists.freedesktop.org>; Mon, 5 May 2025 00:15:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yWQo4Z5PDmysZkCoY6xDQm8GNhU23pomDWkcqd41CLs=; b=Vra3753XLpzj9XhG
- rLOCnw+ZFpvaLCo9PQmpjqii9BLcl4fPJP6eJIkYRm4Qd6O7pBeIAeRHfQkmnX2K
- 239xwd0UcID43in+N5PcRWnA+4gYf8hyFLeWpC2XLYsg/ftQjk/udiPeyVyqRGh9
- UyIHVXBgRSUoa59ZSXNAWdTiDBQVIc3a8ie+43Xr0TOazFJgnCGKRsYH6mQJVKun
- OEtJx6Lx48Qq0T0GHbmT0M82kW9a5DNN37EZAsTBHKUb3va6vVsbM3Q00PK5xwy4
- 1aU+1BQDorWitpwVEsf9cX7cY8weDartyI44uADGL0tteX4PyJbGd9bW5Z9wcib8
- LBw0yA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dbwfjj3m-1
+ d0wLs0iVHofkv4RiL71eod9NJCAwyTb7zT17L0PQFSE=; b=HL1NeU5OLXXFcxXy
+ TjxFc6NtarcUGFTLNJwNhYH30ubvXysRIKcrydvpwYpqJAErHlC5QSk7C69Ygyou
+ oNgK9TODN1LMY8bueOKRi6Em/mCGU98zB5NLOoWx1YhFoE5GFGw9mKe1Nki20Bbi
+ j6P3oY+ZlPTMpNSuXtV+fq38TqzNYDn5uW14MWocJpMZTM1Ml+lRVeTSUwYSRBrY
+ wx1NcuuYHmbJteRKsUfc5VVb0H+o/DHip9hVaERvDW8VLET+E+p8/fYg5QgF85cY
+ peBqqy2cdq0rUmC5rmyXtx3OcCrEOJDCM0lyeQPcTZimN/j6yBixzqHpFXw4Khi3
+ asiWMQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dafg2neg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 05 May 2025 00:15:03 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7c7c30d8986so491029185a.2
- for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 17:15:03 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 05 May 2025 00:15:06 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4770cbdb9c7so89650911cf.1
+ for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 17:15:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746404102; x=1747008902;
+ d=1e100.net; s=20230601; t=1746404106; x=1747008906;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yWQo4Z5PDmysZkCoY6xDQm8GNhU23pomDWkcqd41CLs=;
- b=D7ysD9a/U3uhwThv6sBf+O8VBfK8kuNIQ2zCJAAQLPFrG3DfPUvUcm0YtIl5dRgnJO
- j9u2w2yubPwRmd2sXPrHXrkYKNOp9j+YnYWxNaVipldDoOjdhkt+dPkwyG1HHZJXRlPY
- yJOi/Gz/sLuFrC7Sq8sj8mDFk1ugWXUTy7F6t75B3Bh8e7gq2r7WZ+3gzft5B4/gf7O9
- OaaJuxIC2S5ijSuyjO41/ViZ8QSaLub/1yZGLeCmqp8ibXDG5hvJMYhij1ERWaiJV0ze
- d4ei0Z7VRpmqfZGbR2KsfXCaiyCaYCNN3nTK225EDDvw/e+MF0MXmp+GcZTljhwD+Vu/
- tx2g==
+ bh=d0wLs0iVHofkv4RiL71eod9NJCAwyTb7zT17L0PQFSE=;
+ b=FBLdjapA5ijw2aHI5VSukojeN996CuaMoCzQLsJdlY/0XRs4FkK9AUjk9ZGxYH80RN
+ cS5IjFgvfh1YAJO+mwTrnkSQp92VrS0rHf3LHIhjPB32nEih1T4RzTOIcLQFJxzds9jf
+ A4qbTyiFRQsEmtnGEMxnQLZzB1/z0nMG8D7qteXlBVmOq60OJgUmyCVx3P55rMFtejr2
+ zH/WxW8zXAvvwMHEiHl7hcjS/G+fKjmCNVzKujjs+9hlE32xAgh8qHXpteHZa8i+vd/P
+ aZ/KfrkKJHudkZKhLJkzggDEHPV/7bFBFDY3W8RHP9UktHQLiJoDz/rjv2Wa9COOjC15
+ npRw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWVm0Zuq7IwWzNUfpZofivLIJX+e2Raj3+mt4BKymsb5WCSBvmvZrHVBhvC7P9DDegJ3raDM4lmj7E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxQadEt/qhmuGY/mLYs7eXzBOEe1ItTbaYW3yqegjPiL6kuiyYW
- PalvSkf04tVm93x1EllcTy+byfV+D9e7y5+s3VtssUOJgEVaipNbtkBqs0//YwPepXR0XOIuQCd
- 5D+Vd4NVBkBhcRJxJ6850WN2eErx3nx9csKksqE8gJ119wj9/apzsulMj0gWa5Zpxn64=
-X-Gm-Gg: ASbGncva04HOC2MLKZVtEJUPy4OIN7yKCtBH48CE0LjjoXc4hunQ/QiwvhML+0lnHyg
- 3mLlEIfeDnWuRGHI4JyBCUrjWY4nltDEhyCv7mKwltZWCN2eA4WbHF1IP2I79LZnhkxYa1kS1Uy
- /qZxh7Q6VEVs2U+8IsIldz6VLkndibd/jq1hVrX0q1UY8yFWgzpvfo7ymz7rKtlpEosXrzqyHhZ
- 4rKXwNhqpJagqULIPs9ln8cSUcZYw6SSHfbRybu/iRDIAR8ApmNd9lBtFn1GZk1vgGhoJo6q1Y9
- rIDdjQBaOZILyTMayBZTO+ASKIkW9CuuJLZ4TZCdtC8ZNrUUq5/UjQKI7H0TzdN4p2GIZal2zpr
- NT2K17iWgiOJWnqb7bI0ovJ69
-X-Received: by 2002:a05:620a:414e:b0:7c7:a524:9fe9 with SMTP id
- af79cd13be357-7cae3aa3a7cmr896858185a.27.1746404102517; 
- Sun, 04 May 2025 17:15:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHdrC3ycJxwH2BFRg4EiyOh6BromHc5ZkAaskVVGgI4h6Va9/YdT+row9ABNiVdh8lkwLCRUA==
-X-Received: by 2002:a05:620a:414e:b0:7c7:a524:9fe9 with SMTP id
- af79cd13be357-7cae3aa3a7cmr896855485a.27.1746404102179; 
- Sun, 04 May 2025 17:15:02 -0700 (PDT)
+ AJvYcCWP9owb0k+vsz2vfely5EVuAjaECtIVRlXBqjxNAGYfWbP0QN2lt6Ggf5vv//e8mMoYISgDTW3owD8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzIaw6mjwEK1qjcdWnU3vPaHQHXhX8WOfOt1x89NH5ZRJ0RwCh
+ P022EiEFQ9PveAVUlyze4LUWzU2WE7JDFDMSQRM1DQ0HlrZr3aZYonOLlpB8k21Xk7S/mdx12tr
+ Cz4MHq+J8CvKstIN8NfumTgTa/BdTt8veOwndojSu19k/JrTwWHL81POjL01Jd86lmB8=
+X-Gm-Gg: ASbGnct6SfEnQxa1S5mbe+67omugIFj5tflLMotfykXfSIXDIORRS1wybJurjihOheR
+ LZeRoxW5mxOR6/UkknqsKc7FoEJUY0tgPexro+5OA7XCYGrxkpRYLNfxdExcszremPvsL/pOknU
+ r14c60fFduSznYEBJ0W79B0Mk+JufT6Wnh+HmRnDI8Q+C4tvPQWn5GddEsJIaz8O2jhyWY9I4KA
+ m/4XXcr/Q77rcBXb7vysZ5Ou3CUt9ifs0cFQn6sSt8fiIZ1HGv9TOFyKgTg9tP/jGcuObgRQh7e
+ +8wBFO+JwtoQs/+oFqPt5c5X2y30MGv7npWCFnkSWlYbKaAva6h9og/5mKwH2dI7Y6E+vuqhWer
+ us4jx9D9Al/eVkF//tP2SjiGL
+X-Received: by 2002:a05:622a:5585:b0:479:2509:528a with SMTP id
+ d75a77b69052e-48c32ac7333mr177680381cf.42.1746404106151; 
+ Sun, 04 May 2025 17:15:06 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGSLLxowO0dJGPkvuX9RhOj9QBfPznkAxKoanIkxu8WWIzBNeIlJLloQOmPJXB6Ug9KK63z7w==
+X-Received: by 2002:a05:622a:5585:b0:479:2509:528a with SMTP id
+ d75a77b69052e-48c32ac7333mr177679971cf.42.1746404105839; 
+ Sun, 04 May 2025 17:15:05 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54ea94ce656sm1454066e87.105.2025.05.04.17.14.59
+ 2adb3069b0e04-54ea94ce656sm1454066e87.105.2025.05.04.17.15.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 May 2025 17:15:01 -0700 (PDT)
+ Sun, 04 May 2025 17:15:03 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 05 May 2025 03:14:46 +0300
-Subject: [PATCH v5 02/13] drm/msm/hdmi: convert clock and regulator arrays
- to const arrays
+Date: Mon, 05 May 2025 03:14:47 +0300
+Subject: [PATCH v5 03/13] drm/msm/hdmi: move the alt_iface clock to the hpd
+ list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250505-fd-hdmi-hpd-v5-2-48541f76318c@oss.qualcomm.com>
+Message-Id: <20250505-fd-hdmi-hpd-v5-3-48541f76318c@oss.qualcomm.com>
 References: <20250505-fd-hdmi-hpd-v5-0-48541f76318c@oss.qualcomm.com>
 In-Reply-To: <20250505-fd-hdmi-hpd-v5-0-48541f76318c@oss.qualcomm.com>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -98,41 +98,42 @@ To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Simona Vetter <simona.vetter@ffwll.ch>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>
+ devicetree@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2874;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1513;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=7lUrs50zxWBMH2nsFJkOQKE5+V0if7+ZVLc7E3wO528=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoGAL7jjBvGfEJeiKcCCLimLWwORrs1iML3cwOS
- v/PWWa5PVaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaBgC+wAKCRCLPIo+Aiko
- 1cgSCACoTdcO9lLaa/U2BZvy7Z0dCUC8lk/IbILad1+ifw9OHX/97i8usZKH82EYAQIhmtN/8xZ
- r7N2D2jMw3qQD8XiC6JXCjURIVn2GMhFPrln2fHBzkqGM0YsvPlUG8GjspEtpokQudAAqxGQKiX
- E/tUoubpyVWIZH9XrXMPjzBthY5I7eDgLc7gBPcmf2JF1FSKZ1LQSkd5SmQN7xwyQ4oMmZFJSod
- nZPasXJcwNAqBBoKCNJSvwoW15Odj6hNSGbsrnQlXq5SkKJd7gdZyJZM0mIgfEEs36X8uxvMamz
- B/0kp9bpsiAhwUDA1RD7uzFikxbGam8B4Eo6RfrgQXyXCfil
+ bh=OUSREmRh8249bUIyNnvM4Q8G4H+YLOauuOGWEq+Beno=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoGAL7KLXUMBlRbyuEJArZP28ojba3pXgt+c1/7
+ okMpiFlV4yJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaBgC+wAKCRCLPIo+Aiko
+ 1Xm6B/4gs76RF9xtIzBzLSkxCGgpkPU1UtrIEEvR2dHR8161J3VbiGvR7Ho29PviL72l057riaX
+ NrQAUbxJjM3NBSI97ryLHmN3LAFCjIKCPLGGg2jC8RcYRV02KzNB5KcXvfLOAarTKfMRxxLCB09
+ bZTxJOrJPbR9Q76Os5esA7DB7VasvSsJrub2zlYxD5WZTtMIZ68bCGJxOgkMkdsOS19tVutXkKZ
+ DxpQifCrW9U8CIXk3GVAU95EdQUpTwBucj0J+6lRmtf4R9P80W4C2G+U2KBogFT5hSdvCU8MUy3
+ vw/9EYy9LjHyseDqJIoZCglgw9ae8APErjI5wti7eMo6y7lS
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: lAc-drhqfMOdiuu9gHebSKwxatanVOIu
-X-Proofpoint-GUID: lAc-drhqfMOdiuu9gHebSKwxatanVOIu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA1MDAwMCBTYWx0ZWRfXxgk1S7eRG3zl
- uvVK4tF+0pS2lgr/7k0Hbdf6/ulGlAiuBnlFeglk0zoaAYrW4pZn3JXRquM2ws70LyxLEI0HXMm
- 63kPcx8+GT+cALl6y28XMkmV72ZSa4jnHDHVzemzHsNhpS9wNU7A0kIbwbnKtNvIc3VSidt+7RQ
- ltfS55agiC3B50gk/g3PMo1yBDhalFy46Iu5mBc0CBaLZJevPYlf8NL0EtWJFltZ4iZf6iL1Atx
- v/P7WBvFDMOgblCqM9/QXcQ9KTILPxEEEhuL4sG1WTl6UdVDykIEXHjk9wgDsmX1D3Bu1SZcWeR
- KzL4yCc6YhuvhRp+ak3d7GL0Xp7nwGiTfcAJyod+tITreG4j1qIq1fGBlqVEIq8S5R5uNKlnK38
- 0sCk5Vi14vYvQ8+eGpj2DWWVdHbQNOeyzu2yAzAslel0/CSP9UlXsF39o+OKBziOjeoF2Qki
-X-Authority-Analysis: v=2.4 cv=AfqxH2XG c=1 sm=1 tr=0 ts=68180307 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=dt9VzEwgFbYA:10 a=KKAkSRfTAAAA:8 a=COk6AnOGAAAA:8 a=cMmCfeQhgp6qDJoOuqgA:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
- a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: v-FD4j6Nr_DEC9nImy2Nn44iOsdIkkH-
+X-Proofpoint-ORIG-GUID: v-FD4j6Nr_DEC9nImy2Nn44iOsdIkkH-
+X-Authority-Analysis: v=2.4 cv=atqyCTZV c=1 sm=1 tr=0 ts=6818030a cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=dt9VzEwgFbYA:10 a=qC_FGOx9AAAA:8 a=KKAkSRfTAAAA:8 a=COk6AnOGAAAA:8
+ a=-Tkwmxe0xhrxJHpsn9cA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+ a=fsdK_YakeE02zTmptMdW:22 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA1MDAwMCBTYWx0ZWRfX4D7s1cVajmyI
+ r5tFHZYE35KRNq2kCLEHpCdHqsngHJv8hUJ2xqzTpzCRxNHyo8noKG6PDbTmzFYfZ3YetSHj6jc
+ L+RA0nez17YdwDg2fHxb5O36uhU1ucTQnTJKFmSSFZDUhpu8vV7rop8UBGO/JnDEuSMCtYnQnZh
+ DVjl4Tq0w81tVYVNUGWz6R4GE5RBpHf2Uf0KnRPlVqRU2pZdUJD5rRD/6bkaT1T9wtRt+3/c8iG
+ Yhmk4fCTNKtOL1dLcEuzpVznXxLIbb0Xo5BWuzG5c1xsRA4hr+E8dAap+vOIbn+ll4HqMN8utSA
+ 3lYD2hYVRgpZ5xpJCr4EwfgTHFulEWGdYe5HkVT7EBegBqT7BZI9ATMOq68hpl5xhNl+6HXCp7+
+ ij4tAh2aat/EgtzsDth/5n58XKFmNCGHBc49i32Y+MF+2w7O/fqC2NABshntGqijIypbwuWP
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-05-04_09,2025-04-30_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 priorityscore=1501 phishscore=0 impostorscore=0
- mlxscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 mlxlogscore=999
- spamscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ bulkscore=0 priorityscore=1501 phishscore=0 malwarescore=0 spamscore=0
+ lowpriorityscore=0 mlxlogscore=999 mlxscore=0 impostorscore=0 adultscore=0
+ clxscore=1015 suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
  definitions=main-2505050000
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -152,72 +153,36 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-As a preparation to the next patches convert 'static const char *'
-arrays to 'static const char * const', as required by the checkpatch.pl
+According to the vendor kernel [1] , the alt_iface clock should be
+enabled together with the rest of HPD clocks, to make HPD to work
+properly.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+[1] https://git.codelinaro.org/clo/la/kernel/msm-3.18/-/commit/e07a5487e521e57f76083c0a6e2f995414ac6d03
+
 Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi.c | 10 +++++-----
- drivers/gpu/drm/msm/hdmi/hdmi.h |  8 ++++----
- 2 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 248541ff449204c72cd444458dadb9ae4a0a53d1..9e9900882687fa2ae4a734d5cf10b5bae5af2f87 100644
+index 9e9900882687fa2ae4a734d5cf10b5bae5af2f87..ebf9d8162c6e5759a3780c74354b6c159598750f 100644
 --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
 +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -224,17 +224,17 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
- 	.item ## _names = item ##_names_ ## entry, \
- 	.item ## _cnt   = ARRAY_SIZE(item ## _names_ ## entry)
- 
--static const char *hpd_reg_names_8960[] = {"core-vdda"};
--static const char *hpd_clk_names_8960[] = {"core", "master_iface", "slave_iface"};
-+static const char * const hpd_reg_names_8960[] = {"core-vdda"};
-+static const char * const hpd_clk_names_8960[] = {"core", "master_iface", "slave_iface"};
- 
- static const struct hdmi_platform_config hdmi_tx_8960_config = {
- 		HDMI_CFG(hpd_reg, 8960),
- 		HDMI_CFG(hpd_clk, 8960),
+@@ -233,9 +233,9 @@ static const struct hdmi_platform_config hdmi_tx_8960_config = {
  };
  
--static const char *pwr_reg_names_8x74[] = {"core-vdda", "core-vcc"};
--static const char *pwr_clk_names_8x74[] = {"extp", "alt_iface"};
--static const char *hpd_clk_names_8x74[] = {"iface", "core", "mdp_core"};
-+static const char * const pwr_reg_names_8x74[] = {"core-vdda", "core-vcc"};
-+static const char * const pwr_clk_names_8x74[] = {"extp", "alt_iface"};
-+static const char * const hpd_clk_names_8x74[] = {"iface", "core", "mdp_core"};
- static unsigned long hpd_clk_freq_8x74[] = {0, 19200000, 0};
+ static const char * const pwr_reg_names_8x74[] = {"core-vdda", "core-vcc"};
+-static const char * const pwr_clk_names_8x74[] = {"extp", "alt_iface"};
+-static const char * const hpd_clk_names_8x74[] = {"iface", "core", "mdp_core"};
+-static unsigned long hpd_clk_freq_8x74[] = {0, 19200000, 0};
++static const char * const pwr_clk_names_8x74[] = {"extp"};
++static const char * const hpd_clk_names_8x74[] = {"iface", "core", "mdp_core", "alt_iface"};
++static unsigned long hpd_clk_freq_8x74[] = {0, 19200000, 0, 0};
  
  static const struct hdmi_platform_config hdmi_tx_8974_config = {
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
-index a5f481c39277631b7a19d294b086d6208be26511..381f957b34305494cb4da0b7dccb73b6ac3a1377 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.h
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
-@@ -84,20 +84,20 @@ struct hdmi {
- /* platform config data (ie. from DT, or pdata) */
- struct hdmi_platform_config {
- 	/* regulators that need to be on for hpd: */
--	const char **hpd_reg_names;
-+	const char * const *hpd_reg_names;
- 	int hpd_reg_cnt;
- 
- 	/* regulators that need to be on for screen pwr: */
--	const char **pwr_reg_names;
-+	const char * const *pwr_reg_names;
- 	int pwr_reg_cnt;
- 
- 	/* clks that need to be on for hpd: */
--	const char **hpd_clk_names;
-+	const char * const *hpd_clk_names;
- 	const long unsigned *hpd_freq;
- 	int hpd_clk_cnt;
- 
- 	/* clks that need to be on for screen pwr (ie pixel clk): */
--	const char **pwr_clk_names;
-+	const char * const *pwr_clk_names;
- 	int pwr_clk_cnt;
- };
- 
+ 		HDMI_CFG(pwr_reg, 8x74),
 
 -- 
 2.39.5
