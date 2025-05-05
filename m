@@ -2,85 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ECD6AA8A21
-	for <lists+freedreno@lfdr.de>; Mon,  5 May 2025 02:15:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D70EAA8A23
+	for <lists+freedreno@lfdr.de>; Mon,  5 May 2025 02:15:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78B6610E179;
-	Mon,  5 May 2025 00:15:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E89C10E1BF;
+	Mon,  5 May 2025 00:15:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hVlzso7i";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mn23ySEZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB9910E1AF
- for <freedreno@lists.freedesktop.org>; Mon,  5 May 2025 00:15:10 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 544MDJ0M020157
- for <freedreno@lists.freedesktop.org>; Mon, 5 May 2025 00:15:10 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF6710E1B2
+ for <freedreno@lists.freedesktop.org>; Mon,  5 May 2025 00:15:12 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 544MvNMH031719
+ for <freedreno@lists.freedesktop.org>; Mon, 5 May 2025 00:15:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Xg9l60XwzB5oTcWL0mTb9MXi9hdCzTMTTy3uoJ/DZ98=; b=hVlzso7i5rb7vweQ
- KOezQ5jYaOYfZ3eTYxwpgIzqgw10MAl/iwBqC3IUbCCvhr/psy9hKyaHctRkDG0a
- cxQQMdEo4bMohinBh3D96W4aKJPoSbHcUpv512VPg1loFFnZDNVDYbn+7XgkOOQl
- t+RrUyYUvqLxGG0XviUOZ7RbkNnRgXkgrdn11gj0jhW0pivV7DlINUWem72Td5Ih
- wXE+rTVqpC0GvkMAeBUtMLtVKODkOI/o/Sv42leNAKLt9omQZkV7jAndOB+iTg2t
- Z45SLSoIVr7t4cTS6ZHRx5RkOLSm/Iuc49+JsQ+MrSQecKLyerOE9NnR4qb9TS//
- 04ovsQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46da3rtpn8-1
+ X5c1T2okNkBRPy3LP55P7/c8OhgWI8CTU4FhNq9qA4o=; b=mn23ySEZ/pXl19HG
+ +7YA8VJNFSYz7kXn9vsxvpHYPUpm6e+g0diYAoj0YCUR6XTbKEZu8dWBs8cOu0q5
+ wmc1yXobvHKpopc6dBau5/0IZY6pj/m+h4RVigbZ7qmug6GuyCzMNsOPy34rfCOe
+ KRO/ER1QoyknRcIohyzH4QlZ8nIaoV+z5FuYmAyhehzS0+FxVwRmG5Ahenx34lVO
+ ki+HwOsBUF4uPU7kRzdUCMkPazignGzzdGkEvaqXnCgLUKnB8ybi3E6a+SvbquJ2
+ M/5MykGZv+bhx0eo7vOgAXf+gLHuIoOmR+/wAV0xYbyOC6thOHwY7HaNHngN8fVT
+ t7n7NQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dcakjhjh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 05 May 2025 00:15:10 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7c5e2a31f75so445486285a.1
- for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 17:15:09 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 05 May 2025 00:15:11 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-7c760637fe5so104673085a.0
+ for <freedreno@lists.freedesktop.org>; Sun, 04 May 2025 17:15:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746404109; x=1747008909;
+ d=1e100.net; s=20230601; t=1746404110; x=1747008910;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Xg9l60XwzB5oTcWL0mTb9MXi9hdCzTMTTy3uoJ/DZ98=;
- b=kjzWfvHHy5fscqnefai8GsY+U8VBBqoPSLfnh1EwMzQlWjD4S7a9lAeCS2Tn7lUu0I
- FUw4ugh0mRVcCoPwYDIcBEP7itghbBvGT6PQbmsFaNNGlHCvUNaAN5ml6ABchHfCIO7b
- +lg2GcqeWIihH+imehtnsplZNlItvMyhcezuo+8CzJY4Y4A0xC3KhNRM9gUhkfj+TN8C
- pJq1z3jZlvcMQl0VsHmmC2gKCuLO9V19a+zYmobdalt9jLGCSsWQO0VRx+xApGHkrNlo
- qRDWYMnB/lZBzNUmmqzIVCiiwBaHVmp7Q9Ooz7NvJe3lo+UFXMC/Pp8p9LNDDE5C1zn9
- t5MQ==
+ bh=X5c1T2okNkBRPy3LP55P7/c8OhgWI8CTU4FhNq9qA4o=;
+ b=GrHwrreRVo4BsRtJuAFdoV/C7sujDZkLggowcO6XnLMg6Q7Km0+5NNPnmCxBB6TvLv
+ mDYwG7bVrpmmc0qcpBjc2gU7CIXHqC2f7NRX//w4mRgQDV4vAuXhn7N4W+X43mB29Tb0
+ RIswEJIDfFLTyQVB/FbePV5qa3DMV5y+Q9XpiTM4c++BC8S4ZfKnyKwE6qtlqKpGgzP5
+ rHYgVKWpRjc+N0ynUeEQD0l3csg8mVnU4Sk8o1xquFKMHXozCpD5W//X2dziTDoAYJ2B
+ Sz/DWCInUwlCkVPDGNIpEFIL+oYOs5g7AfSusrjp+y8efXmb8TmIvJWIkFELyXX6/bsz
+ xhuQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXUiAAppWmUsic8pKXCp1h4ZW7LQSpXRPTw1BR1Yh8F1V2trJh8Qlczcu6T8aqcpfQMBhlO8/LbS9U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxUtRG5ZUvBdnkBLsCcqCo22Os6PylnG4G2/fwqA361RNYtGRj
- pP/PTRTPPGfvDNxzKnq2gRpz7a4q9w9fUH/Ng5ibNSnMg3P6BiNDjJcyNWTGRUsp/BlobyAJhHY
- ccRYYAs3Jj7H+tOtVztzTZlwn69lXadpxFFdWk7EwEeTVBc/2c3SOf4LDYsdD2ESjm20=
-X-Gm-Gg: ASbGncsm/TsIEo/3L/UlDsjz/Ie7w54GqUOKClcSucgbUOnU9/YzPTGkCOgV8U/Tvh+
- z55Ooz0VgomzqoFNOWDsu/JSQ86lTCHrVgsGKB5Jw/D9kMXV31W3uYssB6HgkHjK/28uuSog6hU
- JkdxOFy+NmhCp1E/Tkx7skrVMyJqCaMdSgX3c4DRFMeZl7dL5glNVk4WJ3vLuxuJfuj4Fovd8g7
- YCNskQQzeZ61BO9d3eqUf/GgUaECHujUeuIVZbOBYw6oxxlopCekXhgHnk6aGMl3wpMN3dItjn7
- gCbDdfgrk89nPuI5VE9fm0o7CmlOCEbo15RZI37iOgX8YySIDWsqa8GIdzIPnt0HfedWLLvx4eL
- o8NNOa+VyXJRu1INaad+VwG8z
-X-Received: by 2002:a05:620a:d86:b0:7c5:4c49:769c with SMTP id
- af79cd13be357-7cae3a59f28mr912965885a.6.1746404108756; 
- Sun, 04 May 2025 17:15:08 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHSchSqqIllw/dp4wXGA/G9vNYNJ3/7RegF1McjKHRI33aoVuXIEV0ZuKbcFKyOwgpSuikqTw==
-X-Received: by 2002:a05:620a:d86:b0:7c5:4c49:769c with SMTP id
- af79cd13be357-7cae3a59f28mr912961585a.6.1746404108357; 
- Sun, 04 May 2025 17:15:08 -0700 (PDT)
+ AJvYcCXImN0AHX0HT3s6ig2zI0PXOqunGGRyc1k9pqzvYBCDOwUrnqhopVAesTVy/CjLpzl8DPsHeybuIYM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzikJPZEtqSrjkpLDuBupxHVGahKobALyyAn9v628tHETLio9DR
+ ozUDTqMIf2o58Y/FaF/ETKTTXc2NhEr9oQP9rtuaxUx+ZsYFna1+O9WKGlnnIGOVQzZl/C3h233
+ gLe0RoQm/mzy6MxO1LJvDzw+UpevwCNhKW2jZpqlKhJvqxxZhN30JlGpcT4TmY8F8h/c=
+X-Gm-Gg: ASbGncu83qDNBKSL4Al/161Q+S4It21yycQBY/br+Sa8B8x+h5snKXqtytL48x7kaug
+ Ze8xUBKWSPFHe7oO3A9BodCsSPizu+P1Th/NOcW5T258CXcBOm49eVpebEmXD4tOhsrDqzRbdMb
+ KtyKpSJOqH4eVpFggpr7cjwakM9nKDhIMw+wHwzWoQQJ0mY3I4GnOVFxpazEO3XRb+f4ypBaX+W
+ t+5X/UuH5wdFHLIDlknWZuIhQ6uf/QzopNhwW5iKcUy25qyIA81jWTs5bQCNLCX/9gsKnSC0mOb
+ HL1HeNJbNXrZ/+4IqHgBwlIv6tvDPBBN/pA6Ux9yYbzvAUq9shpJkg7RbUtaUbIsyjRSGJInTe2
+ heBVMMr6++9CgeS+4HO+ZbNJt
+X-Received: by 2002:a05:620a:190e:b0:7ca:cd43:e46e with SMTP id
+ af79cd13be357-7cadfea82a1mr1176852885a.36.1746404110477; 
+ Sun, 04 May 2025 17:15:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHQhfFbqpZslO2eWr4LyRzSnWS8Njh66IBcHVpnb9J96WelvVwOaL7E7JvQ4d0L3KLXii73DA==
+X-Received: by 2002:a05:620a:190e:b0:7ca:cd43:e46e with SMTP id
+ af79cd13be357-7cadfea82a1mr1176849985a.36.1746404110144; 
+ Sun, 04 May 2025 17:15:10 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54ea94ce656sm1454066e87.105.2025.05.04.17.15.06
+ 2adb3069b0e04-54ea94ce656sm1454066e87.105.2025.05.04.17.15.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 May 2025 17:15:07 -0700 (PDT)
+ Sun, 04 May 2025 17:15:08 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 05 May 2025 03:14:48 +0300
-Subject: [PATCH v5 04/13] drm/msm/hdmi: simplify extp clock handling
+Date: Mon, 05 May 2025 03:14:49 +0300
+Subject: [PATCH v5 05/13] drm/msm/hdmi: drop clock frequency assignment
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250505-fd-hdmi-hpd-v5-4-48541f76318c@oss.qualcomm.com>
+Message-Id: <20250505-fd-hdmi-hpd-v5-5-48541f76318c@oss.qualcomm.com>
 References: <20250505-fd-hdmi-hpd-v5-0-48541f76318c@oss.qualcomm.com>
 In-Reply-To: <20250505-fd-hdmi-hpd-v5-0-48541f76318c@oss.qualcomm.com>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -99,41 +99,41 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6078;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2616;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=LnFkmu2jUxjoORgRsclE+weSQh+e+mvrliRGfmUM560=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoGAL71Ad5wzmGBcA8VFE7DMRBOvRLx8dxrUs4z
- ufIjtAOA5aJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaBgC+wAKCRCLPIo+Aiko
- 1dB3B/wO2n/Jj+8+fzMeoCUmZO35ugj4pPICfzq+pGY21TBlDhk6XwBQ+bSYWUjkqExpqq5P6TT
- dE+HyOW7coWIirnhFz1W81mJ9PA+jtr34B72UqGTJ1upQveyTw0dM8ZBsCighxmvP4tmz4RWFGS
- YowEdaVv3uOgWAmC0+PxhDaCc/ZXPnKdsW+QnSBd5sbSuGhLJmBeYxDQwzbqlFQ+gbizHdcEtpW
- mp0dE1JsvV4rTuzx5quTpd7comXMTQ5mvYwSR9mk/HyB6+QIC0BAv+SftitCfBTPu5MCnXlu4n+
- Xf3mZJA84P7lqM9EW+Bv8O1n00KilJndpoz7nuk3hvseEvZ0
+ bh=WW4ls3rpXG1GIIqJFaRsd5YlkFmkvDhOcZwn0x64Row=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoGAL82x04Ldn8u0VpFSsk00EMCwD9Pm1yAeD5b
+ ys5oLHbZ7uJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaBgC/AAKCRCLPIo+Aiko
+ 1WmsB/sHPPAf9NychOLipLaNxz2HhgodbrgZJWqKAWrZjaD1lVAT7NmeDWPl9qIV1saOMtOU5lr
+ wVowfYQ399VVJQq2/C26DQKbVs8j4NxaEOJNTfJbOnoWc/6OlCBe01vp28OrqdjzDnp+vPPJln4
+ JYK7wO+dvBtHfERYjMhTyUKsBzR8G/GReWfTdL9oug+KvOcMytfwahFaxQXH5UJo16spstBcpiW
+ 5xVK8bJgepjs8phsyTDqNNta2we+VYBqxdJd7BArrtlYmmdCQC+HPJVzuf3Myr4rMQrVmDNtj6A
+ 9CC+Cv8ORrYXG2FbKrevADexNzYZvs3VBeEbuYf1gDkC6n7m
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: ATekxEsCoUNij_5DRWOMCc0ZYdtEQDeM
-X-Authority-Analysis: v=2.4 cv=cpWbk04i c=1 sm=1 tr=0 ts=6818030e cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=dt9VzEwgFbYA:10 a=KKAkSRfTAAAA:8 a=COk6AnOGAAAA:8 a=-xysCvM_RUkaYHfiAagA:9
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: ATekxEsCoUNij_5DRWOMCc0ZYdtEQDeM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA1MDAwMCBTYWx0ZWRfXytlKp2gPHYnv
- rgn78MSSHXnCwj2lKgAwqCOiJDkhNEeXcdOhLCqpNZ1OohiT+CqROHsu9FERKu3z+RgnYTqWp39
- /S8E8TpOkktuoZtbrlemkk1IoVwe7k24Ql67raT9DD1lTHIIpSqWTEVL9Yb8OfLJb1fqazzgj2K
- bFG7LYSAeQRVAL0Y7SesKu9S9gaMDYPL6pv70hZNbyoDjQ9cwLt5azd76d67H7iF+oY7KOiM6AD
- Yms7tSNdNhExsKQP8PeIKGwzZBXz00PT8MPvoSFfrPpWKlBk/HieU2yWM3fIII4kmvyZ3nSJHCW
- Tq/4r3oLmdljSNwqxQtfxdJR5ArPlUFXb4Zsw3QfcKFaIsdI12WbP74sJFkJ3K2fUnXqxFvWbJ+
- hZFxWIHWE12U91yjNn8LccvO78SqoNcsIUV80Xyzbe2SJD8eenSax5IhnpEdniXhBpj72EJH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA1MDAwMCBTYWx0ZWRfX/xFnA9FAHQ/X
+ kMmVIEKnJpJuSzJ9T/DShbOJjTXReizz8/xQL7r9ecsy5mq2/Ww+Bg6qHgfktn/kugwwkEI6gUV
+ kE68nYNJjENzUNa3KukQsH7rzRxuilRN8LOEeNqI0cIsiQ8Ke8HCdsD16ae3Mi6UaKQVsggW8Qt
+ 0M5NXQ6o9miCXhOQKD4pQVud7/+O6IuWhcOOwM8pIcDJiM1OqW7mLMRKBTH64os8RkhvOi7x3tH
+ wliFteQgMr+qo84TpCLOAAJC6u2ls0Sldu/L44xNG23b47m+I6cLlwCcun1ufkaAMutkZOXWEub
+ I8broxf18Lb6kOVyOyIFF3reqHy9bznImgEZTdwp/wF1QuXQ46wg83uRiqLCIlBpLYJEATsoqvh
+ L/ViOZEwUnj/vEby+VJbKGHvhmD6q+Go+xWRs6j+RWpCSr5onutC+rMtrxXdK5/1ULU5Co/p
+X-Proofpoint-ORIG-GUID: F-uya2ESWz0CxJOtVxpwkKNxpPtVefU-
+X-Authority-Analysis: v=2.4 cv=JtvxrN4C c=1 sm=1 tr=0 ts=6818030f cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=dt9VzEwgFbYA:10 a=KKAkSRfTAAAA:8 a=COk6AnOGAAAA:8 a=F7atGr4GHeWUWaFcoCIA:9
+ a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+ a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: F-uya2ESWz0CxJOtVxpwkKNxpPtVefU-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-05-04_09,2025-04-30_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- malwarescore=0 suspectscore=0 bulkscore=0 priorityscore=1501 mlxlogscore=999
- clxscore=1015 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2505050000
+ adultscore=0 impostorscore=0 bulkscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 mlxscore=0 suspectscore=0 mlxlogscore=999 clxscore=1015
+ malwarescore=0 priorityscore=1501 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2504070000 definitions=main-2505050000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,168 +151,68 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-With the extp being the only "power" clock left, remove the surrounding
-loops and handle the extp clock directly.
+The only clock which has frequency being set through hpd_freqs is the
+"core" aka MDSS_HDMI_CLK clock. It always has the specified frequency,
+so we can drop corresponding clk_set_rate() call together with the
+hpd_freq infrastructure.
 
 Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi.c        | 24 ++++--------------------
- drivers/gpu/drm/msm/hdmi/hdmi.h        |  6 +-----
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 33 +++++++++++++--------------------
- 3 files changed, 18 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi.c     | 2 --
+ drivers/gpu/drm/msm/hdmi/hdmi.h     | 1 -
+ drivers/gpu/drm/msm/hdmi/hdmi_hpd.c | 9 ---------
+ 3 files changed, 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index ebf9d8162c6e5759a3780c74354b6c159598750f..104f9cefa14834d04fb957eb48777e605d1e29a5 100644
+index 104f9cefa14834d04fb957eb48777e605d1e29a5..6f09920c58190a9c195de0407e4c2dcc3d58b30f 100644
 --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
 +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -233,13 +233,11 @@ static const struct hdmi_platform_config hdmi_tx_8960_config = {
- };
+@@ -234,12 +234,10 @@ static const struct hdmi_platform_config hdmi_tx_8960_config = {
  
  static const char * const pwr_reg_names_8x74[] = {"core-vdda", "core-vcc"};
--static const char * const pwr_clk_names_8x74[] = {"extp"};
  static const char * const hpd_clk_names_8x74[] = {"iface", "core", "mdp_core", "alt_iface"};
- static unsigned long hpd_clk_freq_8x74[] = {0, 19200000, 0, 0};
+-static unsigned long hpd_clk_freq_8x74[] = {0, 19200000, 0, 0};
  
  static const struct hdmi_platform_config hdmi_tx_8974_config = {
  		HDMI_CFG(pwr_reg, 8x74),
--		HDMI_CFG(pwr_clk, 8x74),
  		HDMI_CFG(hpd_clk, 8x74),
- 		.hpd_freq      = hpd_clk_freq_8x74,
+-		.hpd_freq      = hpd_clk_freq_8x74,
  };
-@@ -369,24 +367,10 @@ static int msm_hdmi_dev_probe(struct platform_device *pdev)
- 		hdmi->hpd_clks[i] = clk;
- 	}
  
--	hdmi->pwr_clks = devm_kcalloc(&pdev->dev,
--				      config->pwr_clk_cnt,
--				      sizeof(hdmi->pwr_clks[0]),
--				      GFP_KERNEL);
--	if (!hdmi->pwr_clks)
--		return -ENOMEM;
--
--	for (i = 0; i < config->pwr_clk_cnt; i++) {
--		struct clk *clk;
--
--		clk = msm_clk_get(pdev, config->pwr_clk_names[i]);
--		if (IS_ERR(clk))
--			return dev_err_probe(dev, PTR_ERR(clk),
--					     "failed to get pwr clk: %s\n",
--					     config->pwr_clk_names[i]);
--
--		hdmi->pwr_clks[i] = clk;
--	}
-+	hdmi->extp_clk = devm_clk_get_optional(&pdev->dev, "extp");
-+	if (IS_ERR(hdmi->extp_clk))
-+		return dev_err_probe(dev, PTR_ERR(hdmi->extp_clk),
-+				     "failed to get extp clock\n");
- 
- 	hdmi->hpd_gpiod = devm_gpiod_get_optional(&pdev->dev, "hpd", GPIOD_IN);
- 	/* This will catch e.g. -EPROBE_DEFER */
+ static int msm_hdmi_bind(struct device *dev, struct device *master, void *data)
 diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
-index 381f957b34305494cb4da0b7dccb73b6ac3a1377..3314bb8a09d6bea7e34ad9050970bf43c64d1558 100644
+index 3314bb8a09d6bea7e34ad9050970bf43c64d1558..e93d49d9e86936cb6c1f852a958398de2e134ad4 100644
 --- a/drivers/gpu/drm/msm/hdmi/hdmi.h
 +++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
-@@ -50,7 +50,7 @@ struct hdmi {
- 	struct regulator_bulk_data *hpd_regs;
- 	struct regulator_bulk_data *pwr_regs;
- 	struct clk **hpd_clks;
--	struct clk **pwr_clks;
-+	struct clk *extp_clk;
+@@ -93,7 +93,6 @@ struct hdmi_platform_config {
  
- 	struct gpio_desc *hpd_gpiod;
- 
-@@ -95,10 +95,6 @@ struct hdmi_platform_config {
+ 	/* clks that need to be on for hpd: */
  	const char * const *hpd_clk_names;
- 	const long unsigned *hpd_freq;
+-	const long unsigned *hpd_freq;
  	int hpd_clk_cnt;
--
--	/* clks that need to be on for screen pwr (ie pixel clk): */
--	const char * const *pwr_clk_names;
--	int pwr_clk_cnt;
  };
  
- struct hdmi_bridge {
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 9f1191e4c02081c99caa75e1c9c99051f7cd14d1..e7997e4a741c3b27c9086651efe6b79dbba6bf88 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -19,7 +19,7 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
- 	struct hdmi *hdmi = hdmi_bridge->hdmi;
- 	const struct hdmi_platform_config *config = hdmi->config;
--	int i, ret;
-+	int ret;
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
+index 9ce0ffa3541795a076b433566a3cafe156120b15..7ae69b14e953f0ee6deea8a216bfa9d3616b09af 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
+@@ -68,15 +68,6 @@ static void enable_hpd_clocks(struct hdmi *hdmi, bool enable)
  
- 	pm_runtime_get_sync(&hdmi->pdev->dev);
- 
-@@ -27,21 +27,15 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
- 	if (ret)
- 		DRM_DEV_ERROR(dev->dev, "failed to enable pwr regulator: %d\n", ret);
- 
--	if (config->pwr_clk_cnt > 0) {
-+	if (hdmi->extp_clk) {
- 		DBG("pixclock: %lu", hdmi->pixclock);
--		ret = clk_set_rate(hdmi->pwr_clks[0], hdmi->pixclock);
--		if (ret) {
--			DRM_DEV_ERROR(dev->dev, "failed to set pixel clk: %s (%d)\n",
--					config->pwr_clk_names[0], ret);
--		}
--	}
-+		ret = clk_set_rate(hdmi->extp_clk, hdmi->pixclock);
-+		if (ret)
-+			DRM_DEV_ERROR(dev->dev, "failed to set extp clk rate: %d\n", ret);
- 
--	for (i = 0; i < config->pwr_clk_cnt; i++) {
--		ret = clk_prepare_enable(hdmi->pwr_clks[i]);
--		if (ret) {
--			DRM_DEV_ERROR(dev->dev, "failed to enable pwr clk: %s (%d)\n",
--					config->pwr_clk_names[i], ret);
--		}
-+		ret = clk_prepare_enable(hdmi->extp_clk);
-+		if (ret)
-+			DRM_DEV_ERROR(dev->dev, "failed to enable extp clk: %d\n", ret);
- 	}
- }
- 
-@@ -51,15 +45,15 @@ static void power_off(struct drm_bridge *bridge)
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
- 	struct hdmi *hdmi = hdmi_bridge->hdmi;
- 	const struct hdmi_platform_config *config = hdmi->config;
--	int i, ret;
-+	int ret;
- 
- 	/* TODO do we need to wait for final vblank somewhere before
- 	 * cutting the clocks?
- 	 */
- 	mdelay(16 + 4);
- 
--	for (i = 0; i < config->pwr_clk_cnt; i++)
--		clk_disable_unprepare(hdmi->pwr_clks[i]);
-+	if (hdmi->extp_clk)
-+		clk_disable_unprepare(hdmi->extp_clk);
- 
- 	ret = regulator_bulk_disable(config->pwr_reg_cnt, hdmi->pwr_regs);
- 	if (ret)
-@@ -438,7 +432,6 @@ static enum drm_mode_status msm_hdmi_bridge_tmds_char_rate_valid(const struct dr
- {
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
- 	struct hdmi *hdmi = hdmi_bridge->hdmi;
--	const struct hdmi_platform_config *config = hdmi->config;
- 	struct msm_drm_private *priv = bridge->dev->dev_private;
- 	struct msm_kms *kms = priv->kms;
- 	long actual;
-@@ -451,8 +444,8 @@ static enum drm_mode_status msm_hdmi_bridge_tmds_char_rate_valid(const struct dr
- 		actual = kms->funcs->round_pixclk(kms,
- 						  tmds_rate,
- 						  hdmi_bridge->hdmi->encoder);
--	else if (config->pwr_clk_cnt > 0)
--		actual = clk_round_rate(hdmi->pwr_clks[0], tmds_rate);
-+	else if (hdmi->extp_clk)
-+		actual = clk_round_rate(hdmi->extp_clk, tmds_rate);
- 	else
- 		actual = tmds_rate;
- 
+ 	if (enable) {
+ 		for (i = 0; i < config->hpd_clk_cnt; i++) {
+-			if (config->hpd_freq && config->hpd_freq[i]) {
+-				ret = clk_set_rate(hdmi->hpd_clks[i],
+-						   config->hpd_freq[i]);
+-				if (ret)
+-					dev_warn(dev,
+-						 "failed to set clk %s (%d)\n",
+-						 config->hpd_clk_names[i], ret);
+-			}
+-
+ 			ret = clk_prepare_enable(hdmi->hpd_clks[i]);
+ 			if (ret) {
+ 				DRM_DEV_ERROR(dev,
 
 -- 
 2.39.5
