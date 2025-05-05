@@ -2,64 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30F11AA91B3
-	for <lists+freedreno@lfdr.de>; Mon,  5 May 2025 13:14:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAD18AA9274
+	for <lists+freedreno@lfdr.de>; Mon,  5 May 2025 13:56:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E70B710E0DF;
-	Mon,  5 May 2025 11:14:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8622310E294;
+	Mon,  5 May 2025 11:56:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qh8+eQ5Z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OBaK1A2A";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8279E10E0DF;
- Mon,  5 May 2025 11:13:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8D3A10E294;
+ Mon,  5 May 2025 11:56:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7ABB65C57D9;
- Mon,  5 May 2025 11:11:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E03C4CEE4;
- Mon,  5 May 2025 11:13:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id B635D5C4808;
+ Mon,  5 May 2025 11:54:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91311C4CEE4;
+ Mon,  5 May 2025 11:56:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746443629;
- bh=AaQcMocTswbAmkTdEzSSbOG0pVTDoi2WqaauvfNtRiU=;
- h=From:Date:Subject:To:Cc:From;
- b=qh8+eQ5Zxs+DL7I2lSTEzr2M/Xp4Va8NGNtmsExxRy7iE4WqEPapJqKxeeanwLZ4s
- 1hBtDtGJHqm0dvBQavNFlw+SDzQwPQ4qakIP/eIP4FvVgcvOk8Zm1U6Xx+VWX4WWIe
- tk4tAirNRczoolrc7igqmS+UEBLH5dH4thg9J3y/WoPQFmxrUCBrS/I7xU/KQAj6qh
- mk4PowqIEVN5uRQpnIA1YXolMFLeNy1VeYRJMglWOEPn+684r4txKfAAMOguRogLEU
- 13LE/lYCSNQNORShB373VmDatEnoG02Wmqcseo/j72mD7DVkCUJYTScmZtFnAIC0XD
- LFVlHWKY8EOAA==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Mon, 05 May 2025 13:13:40 +0200
-Subject: [PATCH] drm/msm/a6xx: Disable rgb565_predicator on Adreno 7c3
+ s=k20201202; t=1746446200;
+ bh=bhylBd3wO/oU3H4pz2cS+C+DeqobvL/gAITFSoI+DlI=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=OBaK1A2ACY5mLHZc1RwNmwdp3qGVhRPpfBpIBc11MpDdTgvZjzJh9c2HqD1j/xbtF
+ IE3axwUzyoBNXJJ9wLAZrwk/C5ae9vmLf+t52fKUMymHOy8rLX7A/TqYZDsgIjmxJO
+ uqRWlNO0+YLXrPDFvUm39DtT/cGgYkARn3xxiCBrZ2IsI7xVrutO9LTBggxr7tyo3O
+ Ew0kuk3bVIOPSA41viB1pvME5VT2HftocjkLZGxd/CD0ih9duJtfPjYxm7uyH2I3Y+
+ LWBUIscuFZsWPeiYe6cTPw8irWThpkd0fbUAw29CUnAaOBvzQ70iM6xL28Uvz7HSBp
+ JM6Z0txoM6w3w==
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-ac3fcf5ab0dso707186566b.3; 
+ Mon, 05 May 2025 04:56:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV0SRps6QY6g44EBT3Ow28r0uF5qjYtUNswUKi+9fE7nSB+Irp3HKibYd/F/unVb3YP5/aD2/BZYt4f@lists.freedesktop.org,
+ AJvYcCX/C4I46OjyOViWm2es0feKxifkdRLNhIibJTb/93ug7QfiARJ86L1QwYsRxs+PARdMpPPOAKSdynA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz1prP4M4bNZFn5UP4eejKoCMOhZtw2MrVX9dEXIG4+AFuBw6kU
+ m+lTQcVHKm6/ZkuMKCQft0TILmL8u/OKuMy40BPTQT0dLAPPBxJS07VqugGgTo3jh45mJtxcOD9
+ 4Ah031MQIhhUUkbtPjrXIqpbSDQ==
+X-Google-Smtp-Source: AGHT+IFS+UYRYhqu0qLApsmsVcQPU5PxbnUTRMgU4A8cLFv9VbzJgVSFzBJ4TlrMHVGbrQpwwBTff7ATCPn82nTV/yU=
+X-Received: by 2002:a17:907:97c7:b0:aca:d52d:b59b with SMTP id
+ a640c23a62f3a-ad19084ec5fmr805337566b.47.1746446199152; Mon, 05 May 2025
+ 04:56:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250505-topic-7c3_rgb565pred_fix-v1-1-b1aebe890b8e@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAGOdGGgC/x2MUQ5AMBBEryL7rQnaVVxFRLQW+4O0IhLp3W1kv
- t68zLwQKTBF6LIXAt0c+dgFyjwDv037SopnYaiKCguJuo6TvbJej2F1WOMZaB4XfhRa5xrbmtK
- gBpmLkPq/7oeUPqxtkKJqAAAA
-X-Change-ID: 20250505-topic-7c3_rgb565pred_fix-57bb87941453
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org, 
+References: <20250306-topic-dt_bindings_fixups-v1-0-0c84aceb0ef9@oss.qualcomm.com>
+ <174637445759.1385605.15383087742490646226.b4-ty@oss.qualcomm.com>
+In-Reply-To: <174637445759.1385605.15383087742490646226.b4-ty@oss.qualcomm.com>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 5 May 2025 06:56:27 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqKr8Xd8uxFzE0YJTyD+V6N++VV8SX-GB5Xt0_BKkeoGUQ@mail.gmail.com>
+X-Gm-Features: ATxdqUFnhjeEjXeL57DSByQBGcanFON-MWfWdUb7FuuvpsF2gYXLeAeEkshoH0k
+Message-ID: <CAL_JsqKr8Xd8uxFzE0YJTyD+V6N++VV8SX-GB5Xt0_BKkeoGUQ@mail.gmail.com>
+Subject: Re: [PATCH 00/11] Various dt-bindings fixes
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Robert Foss <rfoss@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wesley Cheng <quic_wcheng@quicinc.com>, 
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Rohit Agarwal <quic_rohiagar@quicinc.com>,
+ Kyle Deng <quic_chunkaid@quicinc.com>, 
+ Vinod Koul <vkoul@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1746443624; l=1310;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=IN73Hc5vtHqaf2jmhJG3ZQUQts07NjQLJ9UAoPOD0S4=;
- b=2LUrEXE0O4fL2lEjHVHF7eqGJ6PVnu0BiFuXGzRVCgA2pvD1Oqj1yL+IW9HG5u8eklH2L+MhC
- zrv36HIF3tQCsEwij3GbN2WGISEPUbSEFwoszZExE8mQJa/HHKGReB6
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, linux-usb@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,38 +93,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Sun, May 4, 2025 at 11:13=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+>
+> On Thu, 06 Mar 2025 19:11:12 +0100, Konrad Dybcio wrote:
+> > A set of not quite related bindings warnings fixes.
+> >
+> >
+>
+> Applied, thanks!
+>
+> [02/11] dt-bindings: display: msm: sm8350-mdss: Describe the CPU-CFG icc =
+path
+>         https://gitlab.freedesktop.org/lumag/msm/-/commit/60b8d3a2365a
 
-This feature is supposed to be enabled with UBWC v4 or later.
-Implementations of this SKU feature an effective UBWC version of 3, so
-disable it, in line with the BSP kernel.
+And now there's a warning in linux-next:
 
-Reported-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Fixes: 192f4ee3e408 ("drm/msm/a6xx: Add support for Adreno 7c Gen 3 gpu")
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 2289fecbbbf14f7ec02227972049d62408c11dc1..bf3758f010f4079aa86f9c658b52a70acf10b488 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -655,7 +655,6 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
- 	if (adreno_is_7c3(gpu)) {
- 		gpu->ubwc_config.highest_bank_bit = 14;
- 		gpu->ubwc_config.amsbc = 1;
--		gpu->ubwc_config.rgb565_predicator = 1;
- 		gpu->ubwc_config.uavflagprd_inv = 2;
- 		gpu->ubwc_config.macrotile_mode = 1;
- 	}
-
----
-base-commit: 407f60a151df3c44397e5afc0111eb9b026c38d3
-change-id: 20250505-topic-7c3_rgb565pred_fix-57bb87941453
-
-Best regards,
--- 
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/q=
+com,sm8350-mdss.example.dtb:
+display-subsystem@ae00000 (qcom,sm8350-mdss): interconnect-names:
+['mdp0-mem', 'mdp1-mem'] is too short
+        from schema $id:
+http://devicetree.org/schemas/display/msm/qcom,sm8350-mdss.yaml#
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/q=
+com,sm8350-mdss.example.dtb:
+display-subsystem@ae00000 (qcom,sm8350-mdss): interconnects:
+[[4294967295, 7, 0, 4294967295, 1, 0], [4294967295, 8, 0, 4294967295,
+1, 0]] is too short
+        from schema $id:
+http://devicetree.org/schemas/display/msm/qcom,sm8350-mdss.yaml#
