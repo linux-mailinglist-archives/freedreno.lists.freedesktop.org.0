@@ -2,138 +2,122 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118CDAA9555
-	for <lists+freedreno@lfdr.de>; Mon,  5 May 2025 16:18:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4314EAA95BE
+	for <lists+freedreno@lfdr.de>; Mon,  5 May 2025 16:26:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B24C510E2FE;
-	Mon,  5 May 2025 14:18:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01EF710E3FA;
+	Mon,  5 May 2025 14:26:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="b4PAbizK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UR96SL6e";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C50D310E2AC
- for <freedreno@lists.freedesktop.org>; Mon,  5 May 2025 14:18:55 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 545D8SBS013428
- for <freedreno@lists.freedesktop.org>; Mon, 5 May 2025 14:18:55 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD59F10E3FA
+ for <freedreno@lists.freedesktop.org>; Mon,  5 May 2025 14:26:26 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 545C6jaM008231
+ for <freedreno@lists.freedesktop.org>; Mon, 5 May 2025 14:26:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4OMp8lVlfqOS6nQjtVYiy+vsTT7GaERnrIvMt0I4OI8=; b=b4PAbizKQdgKo4Sz
- hAnB7gq3XzspJ7yxkI0rAfW/7gt8MI6H80NV0PqEJqNV3uxySOCpIdYv4a0kcI2M
- g1H+XyC3/zZ8nd+XzuT6p7yv5WQH3G5GZtwy8+MHRWRMP7nTsg1OhRLVB8Ao2Q2x
- LkOtxTrcjQC+ePkmFGRmr3CN7it78qUDiXOhLLNJydEezJTaB/wbSUgoAEn3EOEG
- rKFYA+c7uVYVYrRyokY177Tx7LL2A80L42El0vWjD1xeGlYr1oHgT2qD08MrheoD
- BeqGEQ6MFyy3CrqaZ4pB2puT0olee4bxczYriQ4HokKGlV5XmOK/jOHNeDjjVuKv
- NniVyQ==
+ hUuUX8bIcyPlPuoPDbT04z3jokr92aiRh0rQ0I5EFxU=; b=UR96SL6e5gPFzkXA
+ odKlmcPqeKK41JVxUf82jk//dsmtkYSa5HknVSNgzHAOjwsMkfXcZLC87mqYYI7b
+ fKFwJhpAWdHtpEWLgBXi+6uSOYndtTRgIvYSR/MNzvDmUYhC6EZkhWjchi4GXnul
+ azXI2GoGYe8SpUEE3e1T8tuCeZahsR/vzglHnO+TcoJxQpax8BPjaQUkCO07zZsQ
+ OQ3cdGKI1orl3EqwA+Mw9+a4nR+ZQhZ0vpspTeWdR5+CGl444OKWsaZQQS7LVpNS
+ FRGFUJft8cqpRT2YQrGA1iDA9E2hGvBVjhPxJ3yJ4F+wp9kICXpUQJ1tsKyT3OuX
+ 0XSOIw==
 Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
  [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dcakm4x3-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dbwfm6f1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 05 May 2025 14:18:55 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Mon, 05 May 2025 14:26:26 +0000 (GMT)
 Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c3c8f8ab79so192538385a.2
- for <freedreno@lists.freedesktop.org>; Mon, 05 May 2025 07:18:55 -0700 (PDT)
+ af79cd13be357-7c791987cf6so909047685a.0
+ for <freedreno@lists.freedesktop.org>; Mon, 05 May 2025 07:26:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746454734; x=1747059534;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4OMp8lVlfqOS6nQjtVYiy+vsTT7GaERnrIvMt0I4OI8=;
- b=U7BPDpENAyi7x8zTgkNc0rtdWMuD3wzCEs8QtRJJVMu1HAgCFLNKbi7Riu4QKPZwjy
- eWY+ajPq1hr6SKBECXrKfSWwddlzz3tB0jzylltb8SvV9Xlr8UzrjoLiGs/W487dctIE
- HNx3tgu9l9Ilgb4ydCKmXB9xK2CvFROVqgipe3TDUl50+o9ECzUKZAFx8GS/76UZ6yNz
- i5RXlKPjCo3mFXtarNbcieXlDbEN+8BHD1pilvBaa2oTn3axtLF3AhTUQbpLWbYRvXYe
- MyM1ounLTTNJrHfArcF3Ob40krCzXwNmgoEaA3WAEtp+FLUBO/UW0FexJ9fVYkM9fQ9Y
- zIPA==
+ d=1e100.net; s=20230601; t=1746455185; x=1747059985;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=hUuUX8bIcyPlPuoPDbT04z3jokr92aiRh0rQ0I5EFxU=;
+ b=uinycPOqxKYiJRPjSz9+gJS0/bCri6BYSsocVm5+ud/aSQZwhPFEDCFbfZWCY8IEqP
+ GIPG27wqoUARaLId1oGBK+z/NrBmqBxVDVFlRg9j/9/kSP492jM/olB1zNL29CoZubbW
+ Vm8q7uHB595Zn9SdDBkL05tyF/MwZCn2tq0fQiYPNiRxUVNB6OMyjvCMs3fjnZl9cr4d
+ 2RXpoy1cHNRqTpYS6sJqr1cRBP10EnmUFpfseEzRrxOLV8eoEPDVjLuBRvUwC2SyURD+
+ eiYlIBayA/7E0JNH0ndmpz+1i6ExAuVa2WKnNcXP534WuEJ4wCLYFKosvxE4X+BhOel8
+ Q5pQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWY3EeI4RK033upHX7scULK9tt7lDZ44kzJ271+glhJWoAgUHly2XXWuTMMQU+ZO2FRUwADVc+yDnE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz3LF95F4F5q7hgJLRoDSDGvTJGTbP8SR1tV2eMqNlCrtrgZRAG
- Q8zY5/i4b7lZTKOIt7aVFFV47Fx0p3ruzGwGloC2SrU7qQUtXW8pcNOU3i9hEOQYtkpKcq26dGL
- s8f2klGGDZ2Wn5UwBUAOxdunolmV5VYYVDEaGhOpDlHAELwRscFSqGG3GKUoTBVpQSrk=
-X-Gm-Gg: ASbGncvgmxLvDg6iJiXUdfjgtyefu0pZSK/nhNgxjcbYTZv3Y7IddOkGWNqPr7FFMdx
- 4syLQP5IqYjtJrlm5puVXLBDhoY2zZKiZB3uqwEsz9eRAPi7M3xdAA+YvR5pEeRSLs4M1wOaJ3t
- ZckzI9sqvHAsXqr9uWwOid29CCTil74mIa/YNdt6rc2oS21/5iwD304XP3WjuNilWoUH2UVvotJ
- jWVUiWc/FW7DAJPaTmNE2YZA2Yct7ihP/3JHr+NuS4cXkup+dbTczNDc7bjCLtOh2g24oBSdEP+
- VWe5KHQOAtALuwPbWckz+XKEy4GnJxlz7UvHaIeHGVSX7nDgYmoz1DkJwzY9jPmlT0Ky+N9Nrzi
- 0DkIzwXaLt9Q3oBkucpiQ4nwZUPgyEWJ8N+pQZVcboiIQ4G2BaaE34pI/4NbjXOIG3nH9
-X-Received: by 2002:a05:620a:1a0e:b0:7c5:e283:7d0a with SMTP id
- af79cd13be357-7cadfe15ab6mr1528029485a.30.1746454733831; 
- Mon, 05 May 2025 07:18:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHxLIuDmlMk0BDjjG/jcKroZx3ooAtnxfCFD86oCFhHuF1R3mpWcw+w7OoB3Ift4T6LrXoRzw==
-X-Received: by 2002:a05:620a:1a0e:b0:7c5:e283:7d0a with SMTP id
- af79cd13be357-7cadfe15ab6mr1528024685a.30.1746454733441; 
- Mon, 05 May 2025 07:18:53 -0700 (PDT)
-Received: from ?IPV6:2001:14bb:671:42db:147e:6740:cd7c:7688?
- (2001-14bb-671-42db-147e-6740-cd7c-7688.rev.dnainternet.fi.
- [2001:14bb:671:42db:147e:6740:cd7c:7688])
+ AJvYcCXFlnusRfHpxLFJEngUF5g1ymf76ludDqvTx1Fl3RSWNRixnaVeScR8Ap7dzUe+I0Nj5aUCE+7+1Qc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZZc0oY8j1jRpc4fFYaKKlBhqOKf605FYfGZkog1RC6cVbyyeL
+ zq1q1hF8sLGEdOOEUPRtl20UnCQZyzgBvq0SEo+znu5odAcTrfaTniz05qnKACc/pfmD8Y5tRhs
+ +0W6AaZhUBPBW+ucF++xpt4hWU9NLGlZa9V8YgPp3FEJegjlXkTQCwUnEUJRq0/8iO6U=
+X-Gm-Gg: ASbGncvRLIVD3ZRgfd3uItWyVu71WyuIiBYABpbguTWcjy6d4hDRuIU7K7y+S9BFlYJ
+ Xen6sibCWFMTPsl1WmfW2idQgaWzNvzSPfhFEOlm7a5l0lggeprZMLS++7txolOS+ZkbSEsd3Xy
+ rnwUh5HZ26TEK3ALfWR2oK2cMMzJ0JRfCct3OGyYWu8Z/gVd82Wmj3dnGwaQOCKqO5ElFVYsU2U
+ ZpOPFNs+js25eZBMkbgPg04iUTRl7HnDRIC0ZWjvSO6hQewp+Lm/DpkMrv+0xRehpnkrqapA/oU
+ EXwwyF8o+IELMWS6R3c1kGg7zPDOcYaz0N1pWZF+HrmVaqV5o+xd5Z0noehOSO5JiM0TaRpVaaZ
+ PsjuPSVurQkY9G25ojtz4TmgR
+X-Received: by 2002:a05:620a:4711:b0:7c5:5768:40b9 with SMTP id
+ af79cd13be357-7cae3af02b7mr1068082285a.43.1746455185089; 
+ Mon, 05 May 2025 07:26:25 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH96RuYp8rf3yGAy4C3TKAyGKugvGUg3+4xADJwkHYt/kyUMmED6s/qSvsMF10QY2xjxR0J+g==
+X-Received: by 2002:a05:620a:4711:b0:7c5:5768:40b9 with SMTP id
+ af79cd13be357-7cae3af02b7mr1068079385a.43.1746455184728; 
+ Mon, 05 May 2025 07:26:24 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54ea94f2043sm1707308e87.179.2025.05.05.07.18.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 May 2025 07:18:52 -0700 (PDT)
-Message-ID: <4a186d4f-9966-4569-bee2-77e237cf0c54@oss.qualcomm.com>
-Date: Mon, 5 May 2025 17:18:49 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/11] Various dt-bindings fixes
-To: Rob Herring <robh@kernel.org>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Robert Foss <rfoss@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Wesley Cheng <quic_wcheng@quicinc.com>,
- Christian Marangi <ansuelsmth@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Rohit Agarwal <quic_rohiagar@quicinc.com>,
- Kyle Deng <quic_chunkaid@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-usb@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20250306-topic-dt_bindings_fixups-v1-0-0c84aceb0ef9@oss.qualcomm.com>
- <174637445759.1385605.15383087742490646226.b4-ty@oss.qualcomm.com>
- <CAL_JsqKr8Xd8uxFzE0YJTyD+V6N++VV8SX-GB5Xt0_BKkeoGUQ@mail.gmail.com>
-Content-Language: en-US
+ 2adb3069b0e04-54ea94f17fbsm1726765e87.170.2025.05.05.07.26.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 May 2025 07:26:24 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <CAL_JsqKr8Xd8uxFzE0YJTyD+V6N++VV8SX-GB5Xt0_BKkeoGUQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: robdclark@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
+ andersson@kernel.org, robh@kernel.org, robh+dt@kernel.org,
+ krzk+dt@kernel.org, konradybcio@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+ quic_jesszhan@quicinc.com
+Subject: Re: (subset) [PATCH v6 00/11] Add DSI display support for SA8775P
+ target
+Date: Mon,  5 May 2025 17:26:23 +0300
+Message-Id: <174645517266.1455227.14417676448478997955.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250505094245.2660750-1-quic_amakhija@quicinc.com>
+References: <20250505094245.2660750-1-quic_amakhija@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA1MDEzNyBTYWx0ZWRfX4hHBLWexVzj1
- MSiDTY1OKX7Dh+ixrlVcENN3l1RHxI0nQtsY9WC/B8AXiLmckkJ/ruGHW0GQ5WwFLFOoc/cGlFd
- ZN0P9BKaYLg6csjK/i5k7e3mOmxECjhbAFF9ymmDtMY+FWzTHnUi3QNgnCEnqt/j+sw82LQtUIz
- sX3XUmkvQJVc4SiaC6sr5ZbAhlNNByzBVi4XTo4q2I7f/89JlSyx4xE9CFsHy8akTZjutCMrdh7
- 27GnYHq1gEzrAE5z5RavZ9/pEu/jKlla3rECsefAX23n8hXkcB68wd0r891Z3QO1/jBF1gu9xp6
- XWbxG/da8s/jfD74ebqaY5uviku/YUBx+SopZOYAcGDcFKU/P/u0f+wurBLm4ZcKL9K2EC5anzU
- 4+S5BWlrXiCZ7OVpF6gjbuNPzllcfh8/6XnZ4RJoCqudNDB+THIuBiYFy3uOzHIdBAUwskFe
-X-Proofpoint-ORIG-GUID: vo4iJQFXWeiRNK3gr3Az3bmvJgffPRS5
-X-Authority-Analysis: v=2.4 cv=JtvxrN4C c=1 sm=1 tr=0 ts=6818c8cf cx=c_pps
+X-Proofpoint-ORIG-GUID: 161CBKP_HPKUECwKcs3G3tNMcXbkMw-U
+X-Proofpoint-GUID: 161CBKP_HPKUECwKcs3G3tNMcXbkMw-U
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA1MDEzOCBTYWx0ZWRfXyk3HqzNHmaU6
+ ZooBnhS+bSbXw5ZkvwIwy+IZ9ugPe9uPZ9wroqoWQecfqsRG/qPWeJrhzo5jw9VO1ulWbISu8GD
+ RtHinEl6L9PPckyyLh+QmfDFVMGp9OOPPy7XhftYFwTTmqRAx1dOfNkWJp8w5gMWYhdfA8zDZlt
+ 9ct1h2cR2ZO1LHFOkjHnqq1fTLFUAJeHck5hRnS4K+aDtfjA6DsCIgm3qS+g8gYM85K7S1h/viB
+ a4pgglJnpm168aAaI589CHY+DmlTi5DqjO3dUUOoVk+W5omW+x9SWvv4VEVfaSd18fAJdZk/2Bt
+ MShLo9RVN2BIvDEK0/gxiOwjevRdHSqBH1Y7gQrE3NabOSWvngMKZyCt6IsNXoQLy9vw4tAJPyX
+ gGOr+6ZqGs7qFZSUv90hA+r6GwogUSOJV9lc/vYHuM/lzwVjauryiuSgkbm8INDXwYZiG/oo
+X-Authority-Analysis: v=2.4 cv=AfqxH2XG c=1 sm=1 tr=0 ts=6818ca92 cx=c_pps
  a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=dt9VzEwgFbYA:10 a=e5mUnYsNAAAA:8 a=gEfo2CItAAAA:8 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=Y8Lu5Vov3j2QtJBI0v0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=Vxmtnl_E_bksehYqCbjh:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-GUID: vo4iJQFXWeiRNK3gr3Az3bmvJgffPRS5
+ a=dt9VzEwgFbYA:10 a=EUspDBNiAAAA:8 a=-3-qUcdfqlWSZcId2SUA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-05-05_06,2025-05-05_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 bulkscore=0 spamscore=0 phishscore=0
- lowpriorityscore=0 mlxscore=0 suspectscore=0 mlxlogscore=999 clxscore=1015
- malwarescore=0 priorityscore=1501 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2504070000 definitions=main-2505050137
+ malwarescore=0 clxscore=1015 priorityscore=1501 phishscore=0 impostorscore=0
+ mlxscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 mlxlogscore=999
+ spamscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2505050138
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,38 +133,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 05/05/2025 14:56, Rob Herring wrote:
-> On Sun, May 4, 2025 at 11:13 AM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
->>
->>
->> On Thu, 06 Mar 2025 19:11:12 +0100, Konrad Dybcio wrote:
->>> A set of not quite related bindings warnings fixes.
->>>
->>>
->>
->> Applied, thanks!
->>
->> [02/11] dt-bindings: display: msm: sm8350-mdss: Describe the CPU-CFG icc path
->>          https://gitlab.freedesktop.org/lumag/msm/-/commit/60b8d3a2365a
-> 
-> And now there's a warning in linux-next:
-> 
-> /builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb:
-> display-subsystem@ae00000 (qcom,sm8350-mdss): interconnect-names:
-> ['mdp0-mem', 'mdp1-mem'] is too short
->          from schema $id:
-> http://devicetree.org/schemas/display/msm/qcom,sm8350-mdss.yaml#
-> /builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb:
-> display-subsystem@ae00000 (qcom,sm8350-mdss): interconnects:
-> [[4294967295, 7, 0, 4294967295, 1, 0], [4294967295, 8, 0, 4294967295,
-> 1, 0]] is too short
->          from schema $id:
-> http://devicetree.org/schemas/display/msm/qcom,sm8350-mdss.yaml#
 
-I've sent a patch fixing the issue, 
-https://lore.kernel.org/linux-arm-msm/20250505-sm8350-fix-example-v1-1-36d5d9ccba66@oss.qualcomm.com/
+On Mon, 05 May 2025 15:12:39 +0530, Ayushi Makhija wrote:
+> This series enables the support for DSI to DP bridge ports
+> (labled as DSI0 and DSI1) of the Qualcomm's SA8775P Ride platform.
+> 
+> SA8775P SoC has DSI controller v2.5.1 and DSI PHY v4.2.
+> The Ride platform is having ANX7625 DSI to DP bridge chip from Analogix.
+> 
 
+Applied, thanks!
+
+[08/11] drm/bridge: anx7625: enable HPD interrupts
+        commit: ca8a78cdceb48ad3b753f836068611265840ef22
+[09/11] drm/bridge: anx7625: fix drm_bridge ops flags to support hot-plugging
+        commit: 71867e8d88fc7f94c2e47b3cfd676710c120cbe3
+[10/11] drm/bridge: anx7625: fix anx7625_sink_detect() to return correct hpd status
+        commit: 366ca0bcc953a4a8a9c9ce2133e6843730210049
+[11/11] drm/bridge: anx7625: change the gpiod_set_value API
+        commit: 50935044e58e563cdcfd556d62f27bc8744dd64e
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
