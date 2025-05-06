@@ -2,55 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84AC6AAC2BC
-	for <lists+freedreno@lfdr.de>; Tue,  6 May 2025 13:32:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB473AAC388
+	for <lists+freedreno@lfdr.de>; Tue,  6 May 2025 14:13:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC1210E65E;
-	Tue,  6 May 2025 11:32:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA9188867;
+	Tue,  6 May 2025 12:13:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q+FElNUN";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="YyTlYYaa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0961010E65E
- for <freedreno@lists.freedesktop.org>; Tue,  6 May 2025 11:32:53 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BDFF0438CC;
- Tue,  6 May 2025 11:32:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4D4C4CEE4;
- Tue,  6 May 2025 11:32:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746531172;
- bh=mE1e1B9m9uhzxTNZaDZ3TY+lY86rVvjhSEag8/l7vDc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Q+FElNUNhdG5CYgnApQsUFYFp+lb9D4evnzqSTmmE3FJtKAA5aDKSQq9jDoh1b+uq
- Qmvb5zCPGb51aJ8iAHF1LRTFA4EdtPTaS7yN3EahbaJHl4AVY3Z3yy2TN5HoAfgZmW
- WfWzf+kPc5cHicOck1lE7ZB+j+UfmUzzpkximKT9KQmSyixoPaVzM3FlbXzht8aJQC
- LA3yNCAtSJX1w0hDiUB9QQ1iEhCG9qgFME2SviolTzXq+lEEjA9KRip8/v6JMUlftA
- anKqkQ+2LIoi1JtBxda8j9cG7AO5KGzAtZP5qML5SV0Es1CK7n/tlFEphi5y07Dewh
- yAxG4yeV/iD2A==
-Date: Tue, 6 May 2025 12:32:46 +0100
-From: Will Deacon <will@kernel.org>
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v5 1/5] iommu/arm-smmu: Save additional information on
- context fault
-Message-ID: <20250506113246.GA723@willie-the-truck>
-References: <20250319-msm-gpu-fault-fixes-next-v5-0-97561209dd8c@gmail.com>
- <20250319-msm-gpu-fault-fixes-next-v5-1-97561209dd8c@gmail.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 120B110E66F;
+ Tue,  6 May 2025 12:13:10 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54695gtl007469;
+ Tue, 6 May 2025 12:13:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ g+8ErY9oHQMlQMEnCRYn1BQv+DISlwRBCfGqrDlnd+s=; b=YyTlYYaaARdxifdJ
+ 86gqUytYI/7Q+xkYSlqDwSrn5sOqNBOge1qhuYKiXucHKVW2h/hWZXmVSrqmYCsA
+ DX6k/ON+ByKSpg8t+vcpNlTdtfIJukBzOVhRZnZJmj7Kyi+2K0eFrJwbpM6YKCIT
+ duPlSffrNiinm/1WqF9ZLFpMvKqKkEVAK3UPUNXj7Q1KnUMKoyhDTsLuB8NGPVuF
+ +fDZykNCnaMeAbc9rb9HT2svIZMwN0o20TLSRGTD9Cnbnudirj054u3qwOh0Jgcm
+ HRQg9hGel40SsF0iPu+gzjP4wxYH6x3W1gYKu7AINL2DiZTDKfGfsbM9faSlV3I5
+ v1tdMQ==
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46f5wg25da-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 06 May 2025 12:13:01 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 546CCxEs002722
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 6 May 2025 12:12:59 GMT
+Received: from [10.204.66.29] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 6 May 2025
+ 05:12:53 -0700
+Message-ID: <88b139c4-0a35-4c9e-9993-573fede29b71@quicinc.com>
+Date: Tue, 6 May 2025 17:42:50 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250319-msm-gpu-fault-fixes-next-v5-1-97561209dd8c@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 07/11] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
+ to DP bridge nodes
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <marijn.suijten@somainline.org>,
+ <andersson@kernel.org>, <robh@kernel.org>, <robh+dt@kernel.org>,
+ <krzk+dt@kernel.org>, <konradybcio@kernel.org>, <conor+dt@kernel.org>,
+ <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
+ <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
+ <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
+ <quic_abhinavk@quicinc.com>, <quic_rajeevny@quicinc.com>,
+ <quic_vproddut@quicinc.com>, <quic_jesszhan@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20250505094245.2660750-1-quic_amakhija@quicinc.com>
+ <20250505094245.2660750-3-quic_amakhija@quicinc.com>
+ <grwlmrgi5cfv3jtuki57ug7gsqykpwdf2to2l7di6glfxtb7vz@6id6cpfkrbuh>
+Content-Language: en-US
+From: Ayushi Makhija <quic_amakhija@quicinc.com>
+In-Reply-To: <grwlmrgi5cfv3jtuki57ug7gsqykpwdf2to2l7di6glfxtb7vz@6id6cpfkrbuh>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: G1KgRhxzS8wGVuQOxOuy73P-KLg8HOge
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA2MDExNyBTYWx0ZWRfX6DTOTWhNQiUz
+ vgbkH0f/GaPe1RAjRB75eI/YgIIB3lBSA+nkS3ri13WLyxh23kPK8KLWiMqzzAnOGJbSOtDn1nG
+ zh5M2oM9OndoYb6SxefuqY3QwKoJIJplF9p2yRNYSMwqtJp9pXP9AyV8hYn1s+t2ak+bXAMjuDt
+ hrtDJ97NC7LcBLKtVuvIziQG2joTxJyKzYnlbPbgkzMwpEEmCFz3H7lLYmSy/qqV7t7Ye/n6gJ6
+ xZsYrzgytNGjguyHfOKc3Ugs/qPOJpxgXtJZrEZx//SunPZQ7xgrsjSKiqjZojA4ntvfpTrMzIS
+ pBGtydxGcB5uppluLmVZAlHyyJyc5Q/66VcmdTGcCUBjFoHDXoB8SRDBZmXi2/x/C2rboADvM31
+ 0YsPgokQ/0eTc/mVjmTNb/Xi7kckczQWomGOwzfbYiptQDCm5jzckuDhHeq6ZRJ5cbRVcjgN
+X-Authority-Analysis: v=2.4 cv=dPemmPZb c=1 sm=1 tr=0 ts=6819fccd cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=lEiHe2e3eBi0j0Qs8ccA:9 a=QEXdDO2ut3YA:10
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: G1KgRhxzS8wGVuQOxOuy73P-KLg8HOge
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-06_05,2025-05-05_01,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 mlxlogscore=999 priorityscore=1501 impostorscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ mlxscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2505060117
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,51 +114,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 19, 2025 at 10:44:00AM -0400, Connor Abbott wrote:
-> This will be used by drm/msm for GPU page faults, replacing the manual
-> register reading it does.
+Hi Dmitry,
+
+On 5/5/2025 3:32 PM, Dmitry Baryshkov wrote:
+> On Mon, May 05, 2025 at 03:12:41PM +0530, Ayushi Makhija wrote:
+>> Add anx7625 DSI to DP bridge device nodes.
+>>
+>> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 183 +++++++++++++++++++++
+>>  1 file changed, 183 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>> index 175f8b1e3b2d..de14f3ea8835 100644
+>> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>> @@ -28,6 +28,15 @@ chosen {
+>>  		stdout-path = "serial0:115200n8";
+>>  	};
+>>  
+>> +	vph_pwr: vph-pwr-regulator {
+>> +		compatible = "regulator-fixed";
+>> +		regulator-name = "vph_pwr";
+>> +		regulator-min-microvolt = <12000000>;
+>> +		regulator-max-microvolt = <12000000>;
 > 
-> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
-> Reviewed-by: Rob Clark <robdclark@gmail.com>
-> ---
->  drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c |  6 ++--
->  drivers/iommu/arm/arm-smmu/arm-smmu.c            | 35 ++++++++++++++----------
->  drivers/iommu/arm/arm-smmu/arm-smmu.h            |  7 +++--
->  3 files changed, 29 insertions(+), 19 deletions(-)
+> 12 V, if my eyes don't deceive me.
 
-[...]
+Yes, it's 12V. According to the chipset's power grid, the VPH rail is rated at 12 volts.
+That's significantly higher than what we typically see on mobile platforms. I guess,
+this is due to the SA8775P Ride SX being designed for automotive applications, where higher voltage levels are required.
 
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> index ade4684c14c9b2724a71e2457288dbfaf7562c83..a02078eb968b81a35c1c086ed7007ea2a453ef94 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> @@ -405,13 +405,20 @@ static const struct iommu_flush_ops arm_smmu_s2_tlb_ops_v1 = {
->  };
->  
->  
-> -void arm_smmu_read_context_fault_info(struct arm_smmu_device *smmu, int idx,
-> +void arm_smmu_read_context_fault_info(struct arm_smmu_domain *smmu_domain,
->  				      struct arm_smmu_context_fault_info *cfi)
->  {
-> +	struct arm_smmu_device *smmu = smmu_domain->smmu;
-> +	int idx = smmu_domain->cfg.cbndx;
-> +
->  	cfi->iova = arm_smmu_cb_readq(smmu, idx, ARM_SMMU_CB_FAR);
-> +	cfi->ttbr0 = arm_smmu_cb_readq(smmu, idx, ARM_SMMU_CB_TTBR0);
->  	cfi->fsr = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSR);
-> -	cfi->fsynr = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR0);
-> +	cfi->fsynr0 = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR0);
-> +	cfi->fsynr1 = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR1);
->  	cfi->cbfrsynra = arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA(idx));
-> +	if (smmu_domain->stage == ARM_SMMU_DOMAIN_S1)
-> +		cfi->contextidr = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_CONTEXTIDR);
+> 
+>> +		regulator-always-on;
+>> +		regulator-boot-on;
+>> +	};
+>> +
+> 
+> [...]
+> 
+>> +
+>> +			bridge@58 {
+>> +				compatible = "analogix,anx7625";
+>> +				reg = <0x58>;
+>> +				interrupts-extended = <&io_expander 2 IRQ_TYPE_EDGE_FALLING>;
+>> +				enable-gpios = <&io_expander 1 GPIO_ACTIVE_HIGH>;
+>> +				reset-gpios = <&io_expander 0 GPIO_ACTIVE_HIGH>;
+>> +				vdd10-supply = <&vph_pwr>;
+>> +				vdd18-supply = <&vph_pwr>;
+>> +				vdd33-supply = <&vph_pwr>;
+> 
+> Here you are saying that 1.0V, 1.8V and 3.3V pins are powered on by 12V
+> supply. I wonder how the board doesn't trigger all fire alarms in the
+> building.
+> 
 
-I think this leaves 'cfi->contextidr' uninitialised for stage-2 domains.
-We should probably either zero it here or just zero-initialise the whole
-'cfi' struct in arm_smmu_context_fault() with a:
+Let me try to explain the connections from the schematics.
 
-	struct arm_smmu_context_fault_info cfi = {};
+In the SA8775P RIDE SX platform, the ANX bridge supplies are connected from the below sources:
 
-line.
+1) AVDD1P8 is sourced from the `VREG_1P8` of the backplane card.
+2) AVDD3P0 is sourced from the `VREG_3P0` of the backplane card.
+3) AVDD1P0 is sourced from the TPS74801 LDO voltage regulator that has `VREG_1P8` connected to
+   VIN & EN lines, and `VREG_3P0` connected to BIAS line.
+ 
+The `VREG_1P8` is sourced from a buck converter TPS54618CQRTERQ1 that is using 
+`VREG_5P0` as VIN and EN_VR1P8_M3P3 as EN signal. 
+Where the `EN_VR1P8_M3P3` is an output signal from SAK-TC397XX-256F300S BD micro-controller.
+ 
+Similarly, the `VREG_1P3` and `VREG_5P0` are sourced from another buck converter LM5143QRWGRQ1
+that is using `VREG_12P0` as VIN and `EN_VR5P0_M3P3` as EN signal.
+Where the EN_VR5P0_M3P3 is an output from the same micro-controller.
+ 
+Combining above details, all three ANX bridge supplies are getting enabled by `VREG_12P0` supply,
+`EN_VR1P8_M3P3` and `EN_VR5P0_M3P3` signals once the SOC is out of reset.
+ 
+The `VREG_12P0` is directly sourced from `VBATT_IN`.
+ 
+Since, there is no SW control for ANX bridge supplies and they are getting enabled
+once the SOC is out of reset, I have used vph-pwr-regulator dummy regulator.
+I am not sure if it's the right way to handle above scenario. Please let me know if there is other way to do the same.
 
-Will
+Thanks,
+Ayushi
+
+>> +
+> 
+
