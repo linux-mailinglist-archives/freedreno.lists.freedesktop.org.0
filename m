@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE26AAC9D8
-	for <lists+freedreno@lfdr.de>; Tue,  6 May 2025 17:48:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DA6AAAC9DC
+	for <lists+freedreno@lfdr.de>; Tue,  6 May 2025 17:48:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6013A10E6E8;
-	Tue,  6 May 2025 15:48:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0940710E6DC;
+	Tue,  6 May 2025 15:48:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YahiTdIK";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SKak6r5Z";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7294110E6C4
- for <freedreno@lists.freedesktop.org>; Tue,  6 May 2025 15:48:08 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-3018e2d042bso4109699a91.2
- for <freedreno@lists.freedesktop.org>; Tue, 06 May 2025 08:48:08 -0700 (PDT)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACB4510E6E6
+ for <freedreno@lists.freedesktop.org>; Tue,  6 May 2025 15:48:15 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id
+ 41be03b00d2f7-879d2e419b9so5570428a12.2
+ for <freedreno@lists.freedesktop.org>; Tue, 06 May 2025 08:48:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746546488; x=1747151288; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1746546495; x=1747151295; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1t7c3igEg2x4olSUhClV/gNMpW/HqELZn2hx26e4MFw=;
- b=YahiTdIK6I0xLpuzYTNsk5k0ojmnttWPGMCKzbxGLE+lOrm5XnbkiscNjQaB54TWKJ
- 9CdhEoeU71ptOU5ETYm1sd61ItDndHx5VbVLGoFVNi1PH/zo+2t9f6JYO264XKovrvUp
- yzCCxYeppqb1qi469J6gIx/93hVG0SLO2fXL/yuIL76q5VhQhsMHY8VDPv7+EOIIYMR9
- j4/5OGi9WypHYqFhr8B/hBh6+L+5lQsa57ndD7EwUFs3W+Em821ilUdtxxVhrIVUFW5b
- laK+YdAgcF4+jIz9rYDapDwkZ5tktaOhTh5OfPG15EuSphQvywkCBgDLnmOhCogFF9qP
- ZTNg==
+ :reply-to; bh=kCs6mQa6d6Sysv16lrw4i0rJKFis740t82vRQM3M2ps=;
+ b=SKak6r5ZusN4/Nth3wHx3rKVu0aB0Y5FECL0Y8GgPj8+6+4wezBLEit/VUh96ZGj6y
+ Y4kqVEtxXN4e/WetM9k8mEUU330Mb6nZr5Bf8Swvf13zB42Soy0zKnHqF66U0OAWrC1V
+ eSN89YGmJbXSx/ebKBBthBVB5/HhhP7FK75UecwAInC8I1UIuZljKS7dlkjpb2P8bBRy
+ JtbTmvC6aFWHY5RApgi4TKHf8GWwfBOEoHBdYRhoXXXtG0hxn2UOSyie8kwZJOG2OoRk
+ Gj11wRrVaYmebt9g8mnn58eg7H6nCshsEau7Nu3XQMsu1WXGd0tjqdg3U+wlVyVfJgmL
+ jvZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746546488; x=1747151288;
+ d=1e100.net; s=20230601; t=1746546495; x=1747151295;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1t7c3igEg2x4olSUhClV/gNMpW/HqELZn2hx26e4MFw=;
- b=Rc5iUG1t6R+OK4fc6oT4PXF/dEyMlqmzlIL8XWXCxSkLndB29oz0aT2+RVdOYEg+es
- 6T95NKGfcEEyH/tJTAu6Y3Yt2T/B854bWBD495Sz0CItJzNqbRxMY4Y6YTH8tAtyr6eB
- zZpeSVIB2VYm+Jr4veu0s3SZPbc+T8JR5N55sZbfK5XcXx/gr3iNP5eVdBxlvQ1i3C8s
- 7ZY1C3OD2sA2KgseI8BIOM2fu+11NNOLbSe1N8+7r9noK177g9BrPGijzACjwioPAbBu
- vVRqGkAzXJWZV4LIt6EX+lXfraZLe4dhVJ0fiUMIFbIO/vJwsLbyv04LsBlnrc0R02Zl
- ryHA==
+ bh=kCs6mQa6d6Sysv16lrw4i0rJKFis740t82vRQM3M2ps=;
+ b=atreO5obT9/OYCUgVPV+307CKCqwqRANjYFszAwo0dSC8dyrFD88FuGqE1TQdYaWbr
+ tvMUvTQJQCBgGE6ZK9fC0jM1A/lLtPKtTPTqljpgWGNtIibvVd4kUBj69pwyZuX9GtaE
+ WMbD3vOdxzmYqVglTCidS/pj5ec81qHYVmCvklmZFzgefrUaCIQAVd3tVdMf0UTLZNoA
+ ch7tFrx20Tr+zIp7lUHlODhUj9QuJtp9ps/pQx6Z4dFLy7MInYR9zK6kNVdzdrqQPXao
+ G7xxUDvBM+2u4hY+Nd4kjOfTvcCzSrIak7SW6FU0gDKfX1ltpX8BhBLEnS0m8LHXyyRE
+ T2Sg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUoUd/3AfGgKOb7AY3Xb5KF93GO3Ry124TaTrsQ8uzUVnqaKqvQ4pNhOqz51SnO5NFQbVw///mZdU0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwyihDmE06/7HvVxQ/Og+pomC/F4dgCgZ9vYGyr4EaGHuW59nqV
- 0gMk1gVJK6tj+rdBJ98sshmCQnHAU++6KHT0OeQZvQsLzu1M/TiDJ9UHmoINxUM=
-X-Gm-Gg: ASbGncuBsCWH4U2/AJFIZBZNR4K7+jrJREBFWSL8R4zAW4RiHqOzCCuzB6bRD2RDkdV
- G8uV58Qa9QrLg+j49WMjWHBguMcU59eh6T+oXLp2y9SnMtl/Jrpvtp5AwzLfaNN9qxFwNpYaQta
- 6pw7Sf1hPCWJEulbCAvMSzhmfcj+KFFCJYN69A7dtorJpNlggr0E4f5gxkEHT4zEbdRhtQXDzn/
- oHNJxAChcMpHz9o3WrArA6/UJZ7yU/gWLVUym85kuxcH687xQL7i4O88A4hRTBnW/+6GEbF4GkP
- OUird4K2FUhaRRIWolljUNXKAPFlr+iHk6K6vNsMWyIvMcfO
-X-Google-Smtp-Source: AGHT+IHFnX+o2nRs6PiAJQ+M/4Myfc9A4VCD1dMDlWNAgzLHxrW1ODuhrQWlbAIrmPukBYmSBfVpTQ==
-X-Received: by 2002:a17:90b:3c43:b0:2ff:5e4e:861 with SMTP id
- 98e67ed59e1d1-30a4e622775mr26468833a91.24.1746546487995; 
- Tue, 06 May 2025 08:48:07 -0700 (PDT)
+ AJvYcCVYer+ooT4B95QIITDdLc9gyYxZSjAi4Llv7RKtE4ZjOG7PV+YwUhP+DdhcXHSd3oGUpEv5SQXwYy8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw03zJULsF1oDntunN8ibZvSy2AGGbPWsISoiHpg7x8cNRcuoEs
+ xZEUK8Ke8jNmnibZVjkv5zAj8exTde2k7vNjMzrJeCI5PqXDIEx93/hZyJKbljg=
+X-Gm-Gg: ASbGncvxv9arJ6q/O4cWzOI7nCGU3+Z1qVWyEp6D5phRAOtW+yEnJOv0SNLa7Pv1/P8
+ w1E0CaKZQAp5K8wQhWyQnt/K5lgSI+eOp3FRONM20DKFdJq0khUA9AYBo3SFGhRoyR78NbN18xK
+ VwJ1EJBOR1WCIji4D2rH+RJOf3/YhthMI49YTTadzx7QAaot4lIi6fCy5Pa8rV+82oMxZIKbNAj
+ wXyBosnjFbNUfsjHGTkaL5ESjO/yUruvPC3cr+u19hoDZa+1y71xcnvYoghcZpvXsAPyNzIMcXR
+ ihqWRAhHNIIDLCB8i5p31RHSoiLwZu+UFU79wg==
+X-Google-Smtp-Source: AGHT+IHaKwKEvXzLTqTr/1A7MQN4Me4XT0ed1TOsVVnu7pipcnmoLBioOA2O7sPAGBJ8Yn6aH3f1zw==
+X-Received: by 2002:a17:90b:2741:b0:2fe:994d:613b with SMTP id
+ 98e67ed59e1d1-30a7feb391dmr4817890a91.35.1746546495150; 
+ Tue, 06 May 2025 08:48:15 -0700 (PDT)
 Received: from [127.0.1.1] ([112.65.12.170]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-30a4748e83bsm11495999a91.22.2025.05.06.08.48.00
+ 98e67ed59e1d1-30a4748e83bsm11495999a91.22.2025.05.06.08.48.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 May 2025 08:48:07 -0700 (PDT)
+ Tue, 06 May 2025 08:48:14 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Tue, 06 May 2025 23:47:33 +0800
-Subject: [PATCH v9 03/14] drm/msm/dpu: polish log for resource allocation
+Date: Tue, 06 May 2025 23:47:34 +0800
+Subject: [PATCH v9 04/14] drm/msm/dpu: decide right side per last bit
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250506-quad-pipe-upstream-v9-3-f7b273a8cc80@linaro.org>
+Message-Id: <20250506-quad-pipe-upstream-v9-4-f7b273a8cc80@linaro.org>
 References: <20250506-quad-pipe-upstream-v9-0-f7b273a8cc80@linaro.org>
 In-Reply-To: <20250506-quad-pipe-upstream-v9-0-f7b273a8cc80@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -80,11 +80,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jun Nie <jun.nie@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1746546456; l=2319;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1746546456; l=1985;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=2tgdYLNBOLqvrFN89J2Z5WKCnyYFo8/7L7F+T0zCRyk=;
- b=JtV2qtTQ1bo0l3o+ig+MQ18Sv4GmdmhOn3SvnpALB6vADW+/Z8VvzKg777kclcOGctKDVG9jD
- SS0llAeD0JGAph4iYlLEke77vbl4IF6X4/C1VYk1Gnpo9PPhUdWm7MA
+ bh=ElZgntW6cVR9qnlks4TCWMj4wphRN+VzmR8acR2dHO0=;
+ b=WurUww9qTP5NJzjw7DKmnANRtQuR6CmdKjbio9SjuZbzLSg6ZoBF98Mu+izvbv8VkWc+uLJRw
+ /pltqUhwsF2CUO7V4/FlORBn3izCrvO6BXXtDHddEqkSkLhjfyvokQZ
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -102,64 +102,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-It is more likely that resource allocation may fail in complex usage
-case, such as quad-pipe case, than existing usage cases.
-A resource type ID is printed on failure in the current implementation,
-but the raw ID number is not explicit enough to help easily understand
-which resource caused the failure, so add a table to match the type ID
-to an human readable resource name and use it in the error print.
+Currently, only one pair of mixers is supported, so a non-zero counter
+value is sufficient to identify the correct mixer within that pair.
+However, future implementations may involve multiple mixer pairs. With
+the current implementation, all mixers within the second pair would be
+incorrectly selected as right mixer. To correctly select the mixer
+within a pair, test the least significant bit of the counter. If the
+least significant bit is not set, select the mixer as left one;
+otherwise, select the mixer as right one for all pairs.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-index 2e296f79cba1437470eeb30900a650f6f4e334b6..2d8ff4b524715c658188fe56bc337e3ffa831c0a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-@@ -865,6 +865,21 @@ void dpu_rm_release_all_sspp(struct dpu_global_state *global_state,
- 		ARRAY_SIZE(global_state->sspp_to_crtc_id), crtc_id);
- }
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 0714936d883523e5c53bfb42f932234db76c58db..b0ee89ed7053f940d01bb55a8ea8de8ec5bc3462 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -369,11 +369,10 @@ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
+ static void _dpu_crtc_program_lm_output_roi(struct drm_crtc *crtc)
+ {
+ 	struct dpu_crtc_state *crtc_state;
+-	int lm_idx, lm_horiz_position;
++	int lm_idx;
  
-+static char *dpu_hw_blk_type_name[] = {
-+	[DPU_HW_BLK_TOP] = "TOP",
-+	[DPU_HW_BLK_SSPP] = "SSPP",
-+	[DPU_HW_BLK_LM] = "LM",
-+	[DPU_HW_BLK_CTL] = "CTL",
-+	[DPU_HW_BLK_PINGPONG] = "pingpong",
-+	[DPU_HW_BLK_INTF] = "INTF",
-+	[DPU_HW_BLK_WB] = "WB",
-+	[DPU_HW_BLK_DSPP] = "DSPP",
-+	[DPU_HW_BLK_MERGE_3D] = "merge_3d",
-+	[DPU_HW_BLK_DSC] = "DSC",
-+	[DPU_HW_BLK_CDM] = "CDM",
-+	[DPU_HW_BLK_MAX] = "unknown",
-+};
-+
- /**
-  * dpu_rm_get_assigned_resources - Get hw resources of the given type that are
-  *     assigned to this encoder
-@@ -946,13 +961,13 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
- 		}
+ 	crtc_state = to_dpu_crtc_state(crtc->state);
  
- 		if (num_blks == blks_size) {
--			DPU_ERROR("More than %d resources assigned to crtc %d\n",
--				  blks_size, crtc_id);
-+			DPU_ERROR("More than %d %s assigned to crtc %d\n",
-+				  blks_size, dpu_hw_blk_type_name[type], crtc_id);
- 			break;
- 		}
- 		if (!hw_blks[i]) {
--			DPU_ERROR("Allocated resource %d unavailable to assign to crtc %d\n",
--				  type, crtc_id);
-+			DPU_ERROR("%s unavailable to assign to crtc %d\n",
-+				  dpu_hw_blk_type_name[type], crtc_id);
- 			break;
- 		}
- 		blks[num_blks++] = hw_blks[i];
+-	lm_horiz_position = 0;
+ 	for (lm_idx = 0; lm_idx < crtc_state->num_mixers; lm_idx++) {
+ 		const struct drm_rect *lm_roi = &crtc_state->lm_bounds[lm_idx];
+ 		struct dpu_hw_mixer *hw_lm = crtc_state->mixers[lm_idx].hw_lm;
+@@ -384,7 +383,7 @@ static void _dpu_crtc_program_lm_output_roi(struct drm_crtc *crtc)
+ 
+ 		cfg.out_width = drm_rect_width(lm_roi);
+ 		cfg.out_height = drm_rect_height(lm_roi);
+-		cfg.right_mixer = lm_horiz_position++;
++		cfg.right_mixer = lm_idx & 0x1;
+ 		cfg.flags = 0;
+ 		hw_lm->ops.setup_mixer_out(hw_lm, &cfg);
+ 	}
 
 -- 
 2.34.1
