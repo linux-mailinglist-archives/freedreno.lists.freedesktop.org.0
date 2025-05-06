@@ -2,44 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9A4DAABDCB
-	for <lists+freedreno@lfdr.de>; Tue,  6 May 2025 10:52:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84AC6AAC2BC
+	for <lists+freedreno@lfdr.de>; Tue,  6 May 2025 13:32:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3470110E5D2;
-	Tue,  6 May 2025 08:52:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC1210E65E;
+	Tue,  6 May 2025 11:32:57 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q+FElNUN";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 331 seconds by postgrey-1.36 at gabe;
- Tue, 06 May 2025 08:52:52 UTC
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it [5.144.164.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D57910E58C;
- Tue,  6 May 2025 08:52:52 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id B25F4404A1;
- Tue,  6 May 2025 10:47:14 +0200 (CEST)
-Date: Tue, 6 May 2025 10:47:13 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 1/8] drm/msm/dpu: don't overwrite CTL_MERGE_3D_ACTIVE
- register
-Message-ID: <wykubtbdukui3lmqraq2yklu3obeutcczuw24idhslyaunyb2e@iandx2xswmu6>
-References: <20250307-dpu-active-ctl-v3-0-5d20655f10ca@linaro.org>
- <20250307-dpu-active-ctl-v3-1-5d20655f10ca@linaro.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0961010E65E
+ for <freedreno@lists.freedesktop.org>; Tue,  6 May 2025 11:32:53 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id BDFF0438CC;
+ Tue,  6 May 2025 11:32:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4D4C4CEE4;
+ Tue,  6 May 2025 11:32:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1746531172;
+ bh=mE1e1B9m9uhzxTNZaDZ3TY+lY86rVvjhSEag8/l7vDc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Q+FElNUNhdG5CYgnApQsUFYFp+lb9D4evnzqSTmmE3FJtKAA5aDKSQq9jDoh1b+uq
+ Qmvb5zCPGb51aJ8iAHF1LRTFA4EdtPTaS7yN3EahbaJHl4AVY3Z3yy2TN5HoAfgZmW
+ WfWzf+kPc5cHicOck1lE7ZB+j+UfmUzzpkximKT9KQmSyixoPaVzM3FlbXzht8aJQC
+ LA3yNCAtSJX1w0hDiUB9QQ1iEhCG9qgFME2SviolTzXq+lEEjA9KRip8/v6JMUlftA
+ anKqkQ+2LIoi1JtBxda8j9cG7AO5KGzAtZP5qML5SV0Es1CK7n/tlFEphi5y07Dewh
+ yAxG4yeV/iD2A==
+Date: Tue, 6 May 2025 12:32:46 +0100
+From: Will Deacon <will@kernel.org>
+To: Connor Abbott <cwabbott0@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v5 1/5] iommu/arm-smmu: Save additional information on
+ context fault
+Message-ID: <20250506113246.GA723@willie-the-truck>
+References: <20250319-msm-gpu-fault-fixes-next-v5-0-97561209dd8c@gmail.com>
+ <20250319-msm-gpu-fault-fixes-next-v5-1-97561209dd8c@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250307-dpu-active-ctl-v3-1-5d20655f10ca@linaro.org>
+In-Reply-To: <20250319-msm-gpu-fault-fixes-next-v5-1-97561209dd8c@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,72 +66,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2025-03-07 08:24:49, Dmitry Baryshkov wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Wed, Mar 19, 2025 at 10:44:00AM -0400, Connor Abbott wrote:
+> This will be used by drm/msm for GPU page faults, replacing the manual
+> register reading it does.
 > 
-> In case of complex pipelines (e.g. the forthcoming quad-pipe) the DPU
-> might use more that one MERGE_3D block for a single output.  Follow the
-> pattern and extend the CTL_MERGE_3D_ACTIVE active register instead of
-> simply writing new value there. Currently at most one MERGE_3D block is
-> being used, so this has no impact on existing targets.
-
-Too late now that this patch has already been merged, but good to
-track for posterity: it'd be nice if the commit message mentions that
-dpu_hw_ctl_reset_intf_cfg_v1() already takes this approach, and only unsets the
-merge_3d bit provided in dpu_hw_intf_cfg, and doesn't clear the whole register
-to zero :)
-
-- Marijn
-
-> 
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+> Reviewed-by: Rob Clark <robdclark@gmail.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> index 411a7cf088eb72f856940c09b0af9e108ccade4b..cef3bfaa4af82ebc55fb8cf76adef3075c7d73e3 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> @@ -563,6 +563,7 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->  	u32 wb_active = 0;
->  	u32 cwb_active = 0;
->  	u32 mode_sel = 0;
-> +	u32 merge_3d_active = 0;
+>  drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c |  6 ++--
+>  drivers/iommu/arm/arm-smmu/arm-smmu.c            | 35 ++++++++++++++----------
+>  drivers/iommu/arm/arm-smmu/arm-smmu.h            |  7 +++--
+>  3 files changed, 29 insertions(+), 19 deletions(-)
+
+[...]
+
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> index ade4684c14c9b2724a71e2457288dbfaf7562c83..a02078eb968b81a35c1c086ed7007ea2a453ef94 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> @@ -405,13 +405,20 @@ static const struct iommu_flush_ops arm_smmu_s2_tlb_ops_v1 = {
+>  };
 >  
->  	/* CTL_TOP[31:28] carries group_id to collate CTL paths
->  	 * per VM. Explicitly disable it until VM support is
-> @@ -578,6 +579,7 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->  	wb_active = DPU_REG_READ(c, CTL_WB_ACTIVE);
->  	cwb_active = DPU_REG_READ(c, CTL_CWB_ACTIVE);
->  	dsc_active = DPU_REG_READ(c, CTL_DSC_ACTIVE);
-> +	merge_3d_active = DPU_REG_READ(c, CTL_MERGE_3D_ACTIVE);
 >  
->  	if (cfg->intf)
->  		intf_active |= BIT(cfg->intf - INTF_0);
-> @@ -591,15 +593,15 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->  	if (cfg->dsc)
->  		dsc_active |= cfg->dsc;
->  
-> +	if (cfg->merge_3d)
-> +		merge_3d_active |= BIT(cfg->merge_3d - MERGE_3D_0);
+> -void arm_smmu_read_context_fault_info(struct arm_smmu_device *smmu, int idx,
+> +void arm_smmu_read_context_fault_info(struct arm_smmu_domain *smmu_domain,
+>  				      struct arm_smmu_context_fault_info *cfi)
+>  {
+> +	struct arm_smmu_device *smmu = smmu_domain->smmu;
+> +	int idx = smmu_domain->cfg.cbndx;
 > +
->  	DPU_REG_WRITE(c, CTL_TOP, mode_sel);
->  	DPU_REG_WRITE(c, CTL_INTF_ACTIVE, intf_active);
->  	DPU_REG_WRITE(c, CTL_WB_ACTIVE, wb_active);
->  	DPU_REG_WRITE(c, CTL_CWB_ACTIVE, cwb_active);
->  	DPU_REG_WRITE(c, CTL_DSC_ACTIVE, dsc_active);
-> -
-> -	if (cfg->merge_3d)
-> -		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
-> -			      BIT(cfg->merge_3d - MERGE_3D_0));
-> +	DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE, merge_3d_active);
->  
->  	if (cfg->cdm)
->  		DPU_REG_WRITE(c, CTL_CDM_ACTIVE, cfg->cdm);
-> 
-> -- 
-> 2.39.5
-> 
+>  	cfi->iova = arm_smmu_cb_readq(smmu, idx, ARM_SMMU_CB_FAR);
+> +	cfi->ttbr0 = arm_smmu_cb_readq(smmu, idx, ARM_SMMU_CB_TTBR0);
+>  	cfi->fsr = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSR);
+> -	cfi->fsynr = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR0);
+> +	cfi->fsynr0 = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR0);
+> +	cfi->fsynr1 = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_FSYNR1);
+>  	cfi->cbfrsynra = arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA(idx));
+> +	if (smmu_domain->stage == ARM_SMMU_DOMAIN_S1)
+> +		cfi->contextidr = arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_CONTEXTIDR);
+
+I think this leaves 'cfi->contextidr' uninitialised for stage-2 domains.
+We should probably either zero it here or just zero-initialise the whole
+'cfi' struct in arm_smmu_context_fault() with a:
+
+	struct arm_smmu_context_fault_info cfi = {};
+
+line.
+
+Will
