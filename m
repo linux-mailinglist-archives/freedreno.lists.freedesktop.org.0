@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E841AAC9DF
-	for <lists+freedreno@lfdr.de>; Tue,  6 May 2025 17:48:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 617EEAAC9E3
+	for <lists+freedreno@lfdr.de>; Tue,  6 May 2025 17:48:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1E2310E6EC;
-	Tue,  6 May 2025 15:48:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DDDA10E6E8;
+	Tue,  6 May 2025 15:48:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WhxNDYFj";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hoDlIQ8S";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5505F10E6EB
- for <freedreno@lists.freedesktop.org>; Tue,  6 May 2025 15:48:23 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-30a93117e1bso963789a91.1
- for <freedreno@lists.freedesktop.org>; Tue, 06 May 2025 08:48:23 -0700 (PDT)
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D1A010E6E8
+ for <freedreno@lists.freedesktop.org>; Tue,  6 May 2025 15:48:34 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-af51596da56so4437789a12.0
+ for <freedreno@lists.freedesktop.org>; Tue, 06 May 2025 08:48:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746546503; x=1747151303; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1746546514; x=1747151314; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=rt8YnN9QqmYqFYc3WnGD82J6Gb61BHncikNZ5zZQ3CM=;
- b=WhxNDYFjvIH/Dg/YivlrOYezHuT4GyfUQIAplBGR4RtS+SGLAxiSABUc+GFkm6Hdna
- jnHyENbW3TF+rfxxrC51oHlgYy5nrxQnzwt6nkpPMV/rpEEYwwaeUBy1uThHiMtixEAP
- iUOb65cQtHbWmZXL0JB65atxeSOU5RKy0u4dtgpucxdSz39y6fvEMzjejBfkS+7aKsmj
- 6cECfCxef9b01Nxf+PZHHTHR0TM+m7IiDBvMAQmq7swyY5WVTsqJLXBMAKhXbYhBhD/V
- SdGKbkrw2b/+vTSxXcq8IuVhu8V2+pVwZGhSasCNAf85aXtqsEXOtgZKL9iW4LJTASKV
- +hsQ==
+ :reply-to; bh=dlKc5OKCjraOL5Xq+zClMPaANGiwyVoqcG5MXUiBedI=;
+ b=hoDlIQ8SK2DLdO6bxMyo2t9xCdepuMaTv6oooCv4nSeytEGjFDj65nhEAy3QagRpvo
+ hz0qs3dcr43SQX1hUXThzMYQpx3tD2aSTeboXMT5fD1tUjeo9bsajGb071aeYM4zY074
+ SsB8l0YW90hKpYtC7VDM8u2dMsXq3DpefXnWxMEAejKo2twZzN/FBqPciMFZU9GlVIwM
+ W4+spyxJw35T8IUSNbDluiJdK+C/lO8jsjRY2sF6hsE+p5fo/OcitTlLjVqjp9OXzgvC
+ Hfh4HQCrCDHYv+7SDshyFT1W57zUd5XMEMtp6x8lPf2Eb2desR0bRHqAJ4SqI0HG0GyA
+ V/Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746546503; x=1747151303;
+ d=1e100.net; s=20230601; t=1746546514; x=1747151314;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rt8YnN9QqmYqFYc3WnGD82J6Gb61BHncikNZ5zZQ3CM=;
- b=PkIDoQFsmX5a3ei8conhKGMnMYo2TNzBm+hKjbsvArcq3shhdqWkc86zj/cNfSCoY3
- nmJnhauI6P7wiD/JyJax3IqwFb4QybLHVjrAVhNERmtOFyYSSmx9HB4njBa0LC49EZjt
- BGFGZTBRJNIG/d+SagWpCC3AUyduVPk9snUQDMJAG4r1nO1dwiq0q4iEU465Aq+PAo6/
- Hjx7+o/qcfKB4TA+/EGicSm+AdObxkzz558QHXbf0655+pf4mmGYyaZMkBAHEKw9/GAS
- 3kn3Xnhq1F6gomN3Lugh3XHY+eL6rsg8yGESi6mxA7lE2h1Dg51o3prIKlBESOB3nUDi
- yDJg==
+ bh=dlKc5OKCjraOL5Xq+zClMPaANGiwyVoqcG5MXUiBedI=;
+ b=timmwrFaeYfjm5FOQ9hxzozd0Zz2Wsju0wIH6DN/JN9iC0m09BkBFM4C4Rdl0iRfXQ
+ aJcJE4P5K9rWtYtebGVY2C6HZ9noIV9HYLYY1bFPDwDivtjVSE3d29/gXhXPSwmYmFhz
+ 2REdQEfUigo9I3vtciadrOaytI27rMcGqzWh1CIB7g/BUjItfKkmNxAAbaTXbUj/n+Eu
+ e8YRnHWQbp7mTB5LYUGMWaJ0scujrU3cyRVya5CY0auig4FyXFalGH7SAWNg7oA+jsrr
+ r3IBD45XzPf5F5cZdKH+u9dTl3ooA+EcuNVP2I68U11Uk9dyIj5bn99EIx+Ta1qcOFVB
+ JbHA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCULNDG8EPcVpsey2/QsyUJ2xSiFiw/pi2WfRo04sMZ9n/7trVyJNNbtyFCKLekBuMIqq9pS8guykyI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZCgaEWR3YCb3oA+yzovrrQCZjJ2B9nL68z4pio+5Ay0iMZBNU
- 8Wz7i1QDKLp+4k2Ze/ncBdm1SXNblzkLAVF0CRo5eXWfvkYTdkUwEGDnpBx3Qs4=
-X-Gm-Gg: ASbGncvrrqksDCLifjhQw8nIWyv+uz1bqf7mwK+bp1GrrsR0uBQT/Gl+hLWhrRqS6Yz
- avE2ezecftByojqzxE7yiXJi9qJO8+iRBLDq69uULsLxVur8rLqsK88VNldYYL4JEzRlmCMZLgV
- Aj/+v9Tll6f7bYZtdbExfmVCTrZ3D3M1q2t8+T2OC0GbxGd+L96I2T9HJ7NP6GoLSYzJ25/Yj4R
- lNNkWSmR2MoRdbclNNoa4/9KaHEV9yka/ghSQ+K4hJIlULV2XFTl0AB66iSpXsr/zYIYdoWrNq2
- qAV9Hh/sosW6EFx4f0KCq52vj5RDwhHM7GMwpw==
-X-Google-Smtp-Source: AGHT+IFq3IHy8I9tBXRjsLakmdCQshZzPku4/NS3tQZMk4s/Veh6/YDLmRsPoGsFRWV8UFwvJW2chw==
-X-Received: by 2002:a17:90b:1e4b:b0:2fe:a614:5cf7 with SMTP id
- 98e67ed59e1d1-30a7dac8819mr4272376a91.3.1746546502959; 
- Tue, 06 May 2025 08:48:22 -0700 (PDT)
+ AJvYcCVSgRHRcC9GDMKXKhHmpl0J9jawFLb6zeRoUgchBqu0YGo1FtP0sNiXavqUNvSucCL2VK+jYEG5o6E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxdrNmt+1MIcD+GxZeGvr8hzydD3bdfke8eSWx9MWVMCtqK/+BE
+ FculxWvh5hncanA7le+N6N3fCi4Fggktgxb2YgxqWzju3gJQIqzCbEemyeROuC8=
+X-Gm-Gg: ASbGnctDDloxaARqq01+ZgI2ignYPokCLRJmZ/NbtlN5/5oq+0DdD7JPGKqdkk46Ds0
+ BdsqqI2aa96CdYnuWnFgn/grYloWBAaereJ6c+o1JILg8N+TNZID/LAXvYtlmCNWI68gUyqvTrh
+ PfDw6GAmM0zNt2BOHHILYv/8MNnWpgt+jN8d3lrxcdY1o+jjTms1PILOrOpTS+4/kLop5CD4rtN
+ fL3Qb3L37fm4D2OIcZUGZ58giAGOIi8KrH2JNM/M5VaC1svCVWqFU4NvSHao4PiPhCU1mpwGmj1
+ 98jgOpyn8/H/ykPaqIJH+3tQL2NcolpptCs1gw==
+X-Google-Smtp-Source: AGHT+IGoJn2EvCDGjtDpBNSI5Ux2FQ5/eerIPyReEspy9plxak4A9pNzUDInz/bSoQf2uKP3NKltmQ==
+X-Received: by 2002:a17:90a:e706:b0:306:b78a:e22d with SMTP id
+ 98e67ed59e1d1-30a619a1979mr16535974a91.20.1746546514126; 
+ Tue, 06 May 2025 08:48:34 -0700 (PDT)
 Received: from [127.0.1.1] ([112.65.12.170]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-30a4748e83bsm11495999a91.22.2025.05.06.08.48.15
+ 98e67ed59e1d1-30a4748e83bsm11495999a91.22.2025.05.06.08.48.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 May 2025 08:48:22 -0700 (PDT)
+ Tue, 06 May 2025 08:48:33 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Tue, 06 May 2025 23:47:35 +0800
-Subject: [PATCH v9 05/14] drm/msm/dpu: fix mixer number counter on allocation
+Date: Tue, 06 May 2025 23:47:36 +0800
+Subject: [PATCH v9 06/14] drm/msm/dpu: bind correct pingpong for quad pipe
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250506-quad-pipe-upstream-v9-5-f7b273a8cc80@linaro.org>
+Message-Id: <20250506-quad-pipe-upstream-v9-6-f7b273a8cc80@linaro.org>
 References: <20250506-quad-pipe-upstream-v9-0-f7b273a8cc80@linaro.org>
 In-Reply-To: <20250506-quad-pipe-upstream-v9-0-f7b273a8cc80@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -80,11 +80,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jun Nie <jun.nie@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1746546456; l=1366;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1746546456; l=1809;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=2zVon4JQp3GbP7LIHy+YThFAabtOIovGb5UEovt+mkU=;
- b=lAl0mGwOz6tvf85lHQs6kYyEJo9BJPPpOgpe5c6z9L3qc10QWWgeFhpzlUK4dFgPK1N/asGtV
- c9hCSlXhwbbCdvoi+ct/btEMdvVH+5MJ9KdWA5BEP12t4l+O/9eNnJJ
+ bh=/Vf7BSjg/MaihhtMFivLw4bpSJ257f4gu0+UsGFzZC4=;
+ b=VB+iiFa0JUzWXa8nR4U0Xk1+uQn3FrT56o24OMqbgG10ZXKL2Je/ktWohVnSjsezBF+tleH6C
+ HFvipTLbJuOBlSSOKgpzp9EPkIEOUPCzdDibIEupyUzU23Yu+/IPIUQ
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -102,37 +102,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Current code only supports usage cases with one pair of mixers at
-most. To support quad-pipe usage case, two pairs of mixers need to
-be reserved. The lm_count for all pairs is cleared if a peer
-allocation fails in current implementation. Reset the current lm_count
-to an even number instead of completely clearing it. This prevents all
-pairs from being cleared in cases where multiple LM pairs are needed.
+There are 2 interfaces and 4 pingpong in quad pipe. Map the 2nd
+interface to 3rd PP instead of the 2nd PP.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-index 2d8ff4b524715c658188fe56bc337e3ffa831c0a..bc7639a46386c6b9457edf3afdf6f747a632651f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-@@ -374,7 +374,11 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
- 		if (!rm->mixer_blks[i])
- 			continue;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 3edfcd7d49c1efb2b7ed2b9f0cc38a4b3073acf6..3e4ff345bd6d9c0e2a08274874fac40690409cf0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1157,7 +1157,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_cwb[MAX_CHANNELS_PER_ENC];
+-	int num_ctl, num_pp, num_dsc;
++	int num_ctl, num_pp, num_dsc, num_pp_per_intf;
+ 	int num_cwb = 0;
+ 	bool is_cwb_encoder;
+ 	unsigned int dsc_mask = 0;
+@@ -1236,10 +1236,16 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 		dpu_enc->cur_master->hw_cdm = hw_cdm ? to_dpu_hw_cdm(hw_cdm) : NULL;
+ 	}
  
--		lm_count = 0;
-+		/*
-+		 * Reset lm_count to an even index. This will drop the previous
-+		 * primary mixer if failed to find its peer.
-+		 */
-+		lm_count &= ~1;
- 		lm_idx[lm_count] = i;
++	/*
++	 * There may be 4 PP and 2 INTF for quad pipe case, so INTF is not
++	 * mapped to PP 1:1. Let's calculate the stride with pipe/INTF
++	 */
++	num_pp_per_intf = num_pp / dpu_enc->num_phys_encs;
++
+ 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+ 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
  
- 		if (!_dpu_rm_check_lm_and_get_connected_blks(rm, global_state,
+-		phys->hw_pp = dpu_enc->hw_pp[i];
++		phys->hw_pp = dpu_enc->hw_pp[num_pp_per_intf * i];
+ 		if (!phys->hw_pp) {
+ 			DPU_ERROR_ENC(dpu_enc,
+ 				"no pp block assigned at idx: %d\n", i);
 
 -- 
 2.34.1
