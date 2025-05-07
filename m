@@ -2,82 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3EE1AAE22C
-	for <lists+freedreno@lfdr.de>; Wed,  7 May 2025 16:13:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAB30AAE2E8
+	for <lists+freedreno@lfdr.de>; Wed,  7 May 2025 16:30:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A964B10E809;
-	Wed,  7 May 2025 14:13:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F57C10E809;
+	Wed,  7 May 2025 14:30:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="adYesO7D";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Urf0EJeS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5779A10E809;
- Wed,  7 May 2025 14:13:19 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id A7A8943A17;
- Wed,  7 May 2025 14:13:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1746627197;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZUkZFmqLpaya2SvixZMFXiK5vMoC/WgZVFpr9qlTBnY=;
- b=adYesO7D1P7ynosW29lwbsjTgJFaCmVyHEon+flnFOa0BvpYbgiRnF+Xmpud0uAtagWCKR
- 3oskQarIGt0LOBcEzJnasoloDFldQLXTPGfiIhzFPFxQ44Bv9OhNB8OfgtRyxM7+9P43cR
- EkU5M3wIV4eMfygkH8Z49lCMg02BGC3HtUgDaN8q7xI8pIpFMVELZovDj9NLGU/agK2QHw
- g3CUt2Har990IGmx7V543phmv8Wv4XvzKKsAS8THOhfgcNBUADs19379Lxd8e7/I43vGMD
- r3WqKePwg6IikvuHOAtVe8FiAWFIlf69nPFcMS8m4pDVEx1m0DuHF1UEztkH0g==
-Date: Wed, 7 May 2025 16:13:11 +0200
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jagan Teki
- <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Douglas Anderson
- <dianders@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, Krzysztof
- Kozlowski <krzk@kernel.org>, Anusha Srivatsa <asrivats@redhat.com>, Paul
- Kocialkowski <paulk@sys-base.io>, Dmitry Baryshkov <lumag@kernel.org>, Hui
- Pu <Hui.Pu@gehealthcare.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
- asahi@lists.linux.dev, linux-kernel@vger.kernel.org,
- chrome-platform@lists.linux.dev, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v2 30/34] drm/bridge: imx8qxp-pixel-combiner: convert to
- devm_drm_bridge_alloc() API
-Message-ID: <20250507161311.6e434f2f@booty>
-In-Reply-To: <430d497d-45a1-436d-91fd-635854f80c9f@nxp.com>
-References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
- <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
- <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
- <20250430112944.1b39caab@booty>
- <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
- <20250506224720.5cbcf3e1@booty>
- <a1abf31a-7a4a-4f8d-bf48-6b826aa01197@nxp.com>
- <20250507091244.32865a71@booty>
- <430d497d-45a1-436d-91fd-635854f80c9f@nxp.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88EEF10E809
+ for <freedreno@lists.freedesktop.org>; Wed,  7 May 2025 14:30:00 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-af548cb1f83so6665936a12.3
+ for <freedreno@lists.freedesktop.org>; Wed, 07 May 2025 07:30:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746628200; x=1747233000; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Tx2+qp5fUFaxyyKDyJusWn86x0QDSb7v4Cx5Hi7px0E=;
+ b=Urf0EJeSDANoHXwfP1Lk30zVNoR6c4KmztUHq3hoRk1Fdhdoa+ap//wkKuvyUdDW70
+ JsktfBQynPdVDox4XhyqRFZT/P4PQxmFNxvXciI1O8Si34S2zEuivWRv89yiBlzO5B6B
+ +6UZ5pk/citnb3NsLkxeTj+1DOiz8usTd+NIM6M++P5HvVzIl7BbcGR9AdbPEBmVlHVF
+ Kq9Z0OB7+6/KCXOKdfsMt88Evrf6+9emBazxl0Md1HZ19RfD7E1oFHj8Ov/PRjEOlMks
+ cOKVA5QXzzi0GA/cR868S/tdJSaZMV5BZh0BLlR2qjSveZBXsBNzbN25C4v4ElPwcVRD
+ /zSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746628200; x=1747233000;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Tx2+qp5fUFaxyyKDyJusWn86x0QDSb7v4Cx5Hi7px0E=;
+ b=s93SgJprW2LcOj55eQqY8YUyGfCfTzsap7qV31g25J4Z1nK+n7GaaO+3uADqMLvybD
+ 47c4rCybzd/XaAOuQP3l8e6bVQJOlvhctLQz7k30pN9M23Cu497Z8QeBZLjMuFfOWTr3
+ YFZiu02h5ogTKYRW0sAkmkVcHHa2YQYeKX01e/yI++U822FI3z+2SGgLxDWN+sIS2Yo6
+ NiTyszKJwYV9ayHTSCYFAcbp7ug6Zj2FPvJlmdxW1W1qjCSxoClz6Gul6wtFXtYNUkQf
+ a00+IyXtdSe1hKE2H1L1RDeDhO1eMF1z+YkOKovAcyF99hNEQZ2vmPCIrvJvROJFTISb
+ sLYQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUgfA2RZjDQ15KIQgVpTVjgNTcE+4YnRJ5cONmbfVS4MfTUn000V3B5m0aDQaWSl1uqYudwkSdie1U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywq9d+BZ0KjwlRvWqbu+ngOyFS5fAa/CdIPdKMQ8isKUh0ax+GF
+ OTHhZRo7YDJAlv8h2aaMF5Zn2/2rOCnFHgdvLn/KI+MP9NDLJuMF
+X-Gm-Gg: ASbGncv2Hei2mwLKZjrUpXyJZQYg/5xsRCB8sEqQ8S7EKb1rnJr23m6mTwtire1yIwf
+ cn00LGiMcLX45/o7eMJEsDImc7wSqrM8nHkkauUv+sDKYFx2KJZWgSG2hLpkHdGqhXj9EYyyW+v
+ 55VAHLib/TNedFoc9TUThjF2WAN7HnJyel2W4t909YVVNoCRVF3JpdR4HuWplRljs+lw9mwS4oC
+ LBTHCNivrGPqta0ZPfDk40d4znsyrKo8RiUkzAHsDyNuKTGcHTil4Is4tNGc7JRZNaRGV295YHe
+ eLdF/GQPRTSAiVd8OcboAyfon+1V9ZcH/GY+HnKQnGBI3HwSm6V4yeUTWNz5LBu3I7IOFuXDCvS
+ 8iVar6YcK+1AqH88=
+X-Google-Smtp-Source: AGHT+IEfTnLrQfaILn2a1qg9FhcKbdkfEWk7UApwdzBZ8svWHw/KZHdECBQt/Ccuap4IqQpbIJLUkg==
+X-Received: by 2002:a05:6a20:3950:b0:20b:a75e:fa32 with SMTP id
+ adf61e73a8af0-2148d42d024mr5379907637.40.1746628199672; 
+ Wed, 07 May 2025 07:29:59 -0700 (PDT)
+Received: from localhost ([2a00:79e0:3e00:2601:3afc:446b:f0df:eadc])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b1fd2f96ec2sm5819027a12.13.2025.05.07.07.29.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 May 2025 07:29:58 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: iommu@lists.linux.dev
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@chromium.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
+ Nicolin Chen <nicolinc@nvidia.com>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ linux-arm-kernel@lists.infradead.org (moderated list:ARM SMMU DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] iommu/io-pgtable-arm: Add quirk to quiet WARN_ON()
+Date: Wed,  7 May 2025 07:29:51 -0700
+Message-ID: <20250507142953.269300-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvkeejtdejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnheptdeljeejuddvudetffdtudelfedugfduledtueffuedufefgudegkeegtdeihedunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghlohepsghoohhthidpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeefledprhgtphhtthhopehvihgtthhorhdrlhhiuhesnhigphdrtghomhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhto
- hepmhhrihhprghrugeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepthiiihhmmhgvrhhmrghnnhesshhushgvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrgh
-X-GND-Sasl: luca.ceresoli@bootlin.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,107 +92,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Liu,
+From: Rob Clark <robdclark@chromium.org>
 
-On Wed, 7 May 2025 18:16:28 +0800
-Liu Ying <victor.liu@nxp.com> wrote:
+In situations where mapping/unmapping sequence can be controlled by
+userspace, attempting to map over a region that has not yet been
+unmapped is an error.  But not something that should spam dmesg.
 
-[...]
+Now that there is a quirk, we can also drop the selftest_running
+flag, and use the quirk instead for selftests.
 
-> >>>> After looking into this patch and patch 31(though I've already provided my A-b)
-> >>>> more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
-> >>>> should have the same life time with the embedded DRM bridges, because for
-> >>>> example the clk_apb clock in struct imx8qxp_pc would be accessed by the
-> >>>> imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
-> >>>> the life time for the embedded channel/bridge structures only, but not for the
-> >>>> main structures.  What do you think ?    
-> >>>
-> >>> I see you concern, but I'm sure the change I'm introducing is not
-> >>> creating the problem you are concerned about.
-> >>>
-> >>> The key aspect is that my patch is merely changing the lifetime of the
-> >>> _allocation_ of the drm_bridge, not its usage. On drm_bridge_remove()
-> >>> the bridge is removed from its encoder chain and it is completely not
-> >>> reachable, both before and after my patch. With my patch it is not
-> >>> freed immediately, but it's just a piece of "wasted" memory that is
-> >>> still allocated until elsewhere in the kernel there are pointers to it,
-> >>> to avoid use-after-free.
-> >>>
-> >>> With this explanation, do you think my patch is correct (after fixing
-> >>> the bug we already discussed of course)?    
-> >>
-> >> I tend to say your patch is not correct because we'll eventually make sure
-> >> that removing a bridge module is safe when doing atomic commit,  
-> > 
-> > I think your sentence can be rephrased as "your patch is correct with
-> > the current code base where bridges are not (yet) removable, but there
-> > will be a problem when they start to actually be removable".
-> > 
-> > Is my understanding correct? If it is, I agree on that sentence.  
-> 
-> Nope, I meant your patch should align the life times of the main structures
-> and the DRM bridges, for the sake of the kinda long term goal - remove bridge
-> driver module safely when doing atomic commit.
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+Sending v2 stand-alone, since I'm not quite ready to send a new
+iteration of the full VM_BIND series.  And with selftest_running
+removed, I think this patch stands on it's own.  (And maybe there
+is still time to sneak this in for v6.16, removing an iommu dep
+for the VM_BIND series in v6.17?)
 
-Again, I don't think there is any bug introduced by this patch (once
-the NULL ptr deref bug we already discussed is fixed). No bridge can be
-removed as of now, with or without this patch.
+v2: Drop selftest_running and use IO_PGTABLE_QUIRK_NO_WARN_ON for
+    the selftests
 
-You concern that this patch would make things more complex in the
-future, when bridges will actually become removable and they could be
-during atomic updates. But about this...
+ drivers/iommu/io-pgtable-arm.c | 27 ++++++++++++++-------------
+ include/linux/io-pgtable.h     |  8 ++++++++
+ 2 files changed, 22 insertions(+), 13 deletions(-)
 
-> > The work to have removable bridges is massive and non-trivial, so it
-> > will need to be tackled in steps. The grand plan [0] is:
-> > 
-> >  1. add refcounting to DRM bridges (struct drm_bridge)
-> >  2. handle gracefully atomic updates during bridge removal
-> >  3. avoid DSI host drivers to have dangling pointers to DSI devices 
-> >  4. finish the hotplug bridge work, removing the "always-disconnected"
-> >     connector, moving code to the core and potentially removing the
-> >     hotplug-bridge itself (this needs to be clarified as points 1-3 are
-> >     developed)  
-> 
-> I'm busy with internal things these days and cannot look into the grand
-> plan and steps closely, sorry about that.
-
-...I'll wait until you have time to look into that more closely. There
-is just no way to understand this whole topic without some dedicated
-attention, which takes time unavoidably.
-
-In the meanwhile I am going to send v3 soon with the known bug fixed,
-so the best version is available to continue this discussion.
-
-> > I am at step 1 right now. Removal during atomic updates is step 2,
-> > ideas about how to implement that are already being discussed [1],
-> > there's a practical plan proposed by Maxime with the goal of reaching
-> > removable bridges without breaking things along the path.
-> > 
-> > [0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/
-> > [1] https://lore.kernel.org/all/20250106-vigorous-talented-viper-fa49d9@houat/
-> >   
-> >> which means
-> >> the main structures should have the same life time with the DRM bridges.  
-> > 
-> > The word "lifetime" mean two things for bridges:
-> > 
-> >  * the time span during which memory is allocated for a struct
-> >    drm_bridge (along with the embedding struct)  
-> 
-> Note that with your patch set the imx8*-ldb drivers and this bridge driver
-> won't allocate the DRM bridge along with the embedding struct.
-
-By "embedding struct" I mean the struct imx8qxp_pc_channel that embeds
-the struct drm_bridge. Sorry, I realize my wording was ambiguous.
-
-> This makes
-> me worry, because maybe these drivers are the only "special" ones in this
-> patch set and I don't want them to be "special" after your patch set is
-> applied.
-
-Luca
-
+diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
+index f27965caf6a1..a535d88f8943 100644
+--- a/drivers/iommu/io-pgtable-arm.c
++++ b/drivers/iommu/io-pgtable-arm.c
+@@ -253,8 +253,6 @@ static inline bool arm_lpae_concat_mandatory(struct io_pgtable_cfg *cfg,
+ 	       (data->start_level == 1) && (oas == 40);
+ }
+ 
+-static bool selftest_running = false;
+-
+ static dma_addr_t __arm_lpae_dma_addr(void *pages)
+ {
+ 	return (dma_addr_t)virt_to_phys(pages);
+@@ -373,7 +371,7 @@ static int arm_lpae_init_pte(struct arm_lpae_io_pgtable *data,
+ 	for (i = 0; i < num_entries; i++)
+ 		if (iopte_leaf(ptep[i], lvl, data->iop.fmt)) {
+ 			/* We require an unmap first */
+-			WARN_ON(!selftest_running);
++			WARN_ON(!(data->iop.cfg.quirks & IO_PGTABLE_QUIRK_NO_WARN_ON));
+ 			return -EEXIST;
+ 		} else if (iopte_type(ptep[i]) == ARM_LPAE_PTE_TYPE_TABLE) {
+ 			/*
+@@ -475,7 +473,7 @@ static int __arm_lpae_map(struct arm_lpae_io_pgtable *data, unsigned long iova,
+ 		cptep = iopte_deref(pte, data);
+ 	} else if (pte) {
+ 		/* We require an unmap first */
+-		WARN_ON(!selftest_running);
++		WARN_ON(!(cfg->quirks & IO_PGTABLE_QUIRK_NO_WARN_ON));
+ 		return -EEXIST;
+ 	}
+ 
+@@ -649,8 +647,10 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
+ 	unmap_idx_start = ARM_LPAE_LVL_IDX(iova, lvl, data);
+ 	ptep += unmap_idx_start;
+ 	pte = READ_ONCE(*ptep);
+-	if (WARN_ON(!pte))
+-		return 0;
++	if (!pte) {
++		WARN_ON(!(data->iop.cfg.quirks & IO_PGTABLE_QUIRK_NO_WARN_ON));
++		return -ENOENT;
++	}
+ 
+ 	/* If the size matches this level, we're in the right place */
+ 	if (size == ARM_LPAE_BLOCK_SIZE(lvl, data)) {
+@@ -660,8 +660,10 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
+ 		/* Find and handle non-leaf entries */
+ 		for (i = 0; i < num_entries; i++) {
+ 			pte = READ_ONCE(ptep[i]);
+-			if (WARN_ON(!pte))
++			if (!pte) {
++				WARN_ON(!(data->iop.cfg.quirks & IO_PGTABLE_QUIRK_NO_WARN_ON));
+ 				break;
++			}
+ 
+ 			if (!iopte_leaf(pte, lvl, iop->fmt)) {
+ 				__arm_lpae_clear_pte(&ptep[i], &iop->cfg, 1);
+@@ -976,7 +978,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg *cfg, void *cookie)
+ 	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
+ 			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
+ 			    IO_PGTABLE_QUIRK_ARM_OUTER_WBWA |
+-			    IO_PGTABLE_QUIRK_ARM_HD))
++			    IO_PGTABLE_QUIRK_ARM_HD |
++			    IO_PGTABLE_QUIRK_NO_WARN_ON))
+ 		return NULL;
+ 
+ 	data = arm_lpae_alloc_pgtable(cfg);
+@@ -1079,7 +1082,8 @@ arm_64_lpae_alloc_pgtable_s2(struct io_pgtable_cfg *cfg, void *cookie)
+ 	struct arm_lpae_io_pgtable *data;
+ 	typeof(&cfg->arm_lpae_s2_cfg.vtcr) vtcr = &cfg->arm_lpae_s2_cfg.vtcr;
+ 
+-	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_S2FWB))
++	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_S2FWB |
++			    IO_PGTABLE_QUIRK_NO_WARN_ON))
+ 		return NULL;
+ 
+ 	data = arm_lpae_alloc_pgtable(cfg);
+@@ -1320,7 +1324,6 @@ static void __init arm_lpae_dump_ops(struct io_pgtable_ops *ops)
+ #define __FAIL(ops, i)	({						\
+ 		WARN(1, "selftest: test failed for fmt idx %d\n", (i));	\
+ 		arm_lpae_dump_ops(ops);					\
+-		selftest_running = false;				\
+ 		-EFAULT;						\
+ })
+ 
+@@ -1336,8 +1339,6 @@ static int __init arm_lpae_run_tests(struct io_pgtable_cfg *cfg)
+ 	size_t size, mapped;
+ 	struct io_pgtable_ops *ops;
+ 
+-	selftest_running = true;
+-
+ 	for (i = 0; i < ARRAY_SIZE(fmts); ++i) {
+ 		cfg_cookie = cfg;
+ 		ops = alloc_io_pgtable_ops(fmts[i], cfg, cfg);
+@@ -1426,7 +1427,6 @@ static int __init arm_lpae_run_tests(struct io_pgtable_cfg *cfg)
+ 		free_io_pgtable_ops(ops);
+ 	}
+ 
+-	selftest_running = false;
+ 	return 0;
+ }
+ 
+@@ -1448,6 +1448,7 @@ static int __init arm_lpae_do_selftests(void)
+ 		.tlb = &dummy_tlb_ops,
+ 		.coherent_walk = true,
+ 		.iommu_dev = &dev,
++		.quirks = IO_PGTABLE_QUIRK_NO_WARN_ON,
+ 	};
+ 
+ 	/* __arm_lpae_alloc_pages() merely needs dev_to_node() to work */
+diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+index bba2a51c87d2..639b8f4fb87d 100644
+--- a/include/linux/io-pgtable.h
++++ b/include/linux/io-pgtable.h
+@@ -88,6 +88,13 @@ struct io_pgtable_cfg {
+ 	 *
+ 	 * IO_PGTABLE_QUIRK_ARM_HD: Enables dirty tracking in stage 1 pagetable.
+ 	 * IO_PGTABLE_QUIRK_ARM_S2FWB: Use the FWB format for the MemAttrs bits
++	 *
++	 * IO_PGTABLE_QUIRK_NO_WARN_ON: Do not WARN_ON() on conflicting
++	 *	mappings, but silently return -EEXISTS.  Normally an attempt
++	 *	to map over an existing mapping would indicate some sort of
++	 *	kernel bug, which would justify the WARN_ON().  But for GPU
++	 *	drivers, this could be under control of userspace.  Which
++	 *	deserves an error return, but not to spam dmesg.
+ 	 */
+ 	#define IO_PGTABLE_QUIRK_ARM_NS			BIT(0)
+ 	#define IO_PGTABLE_QUIRK_NO_PERMS		BIT(1)
+@@ -97,6 +104,7 @@ struct io_pgtable_cfg {
+ 	#define IO_PGTABLE_QUIRK_ARM_OUTER_WBWA		BIT(6)
+ 	#define IO_PGTABLE_QUIRK_ARM_HD			BIT(7)
+ 	#define IO_PGTABLE_QUIRK_ARM_S2FWB		BIT(8)
++	#define IO_PGTABLE_QUIRK_NO_WARN_ON		BIT(9)
+ 	unsigned long			quirks;
+ 	unsigned long			pgsize_bitmap;
+ 	unsigned int			ias;
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.49.0
+
