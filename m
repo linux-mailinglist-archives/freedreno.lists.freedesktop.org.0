@@ -2,41 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1697CAAE506
-	for <lists+freedreno@lfdr.de>; Wed,  7 May 2025 17:39:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DD87AAE543
+	for <lists+freedreno@lfdr.de>; Wed,  7 May 2025 17:47:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4F8010E829;
-	Wed,  7 May 2025 15:39:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 769A510E838;
+	Wed,  7 May 2025 15:47:28 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JxUCwSmY";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id C089810E829
- for <freedreno@lists.freedesktop.org>; Wed,  7 May 2025 15:39:46 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 07344339;
- Wed,  7 May 2025 08:39:36 -0700 (PDT)
-Received: from [10.1.196.40] (e121345-lin.cambridge.arm.com [10.1.196.40])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 76EA33F58B;
- Wed,  7 May 2025 08:39:44 -0700 (PDT)
-Message-ID: <0c5ce93a-c5ff-4b09-bde4-196da505cda2@arm.com>
-Date: Wed, 7 May 2025 16:39:43 +0100
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 231C710E838;
+ Wed,  7 May 2025 15:47:27 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id
+ 41be03b00d2f7-b074d908e56so5147434a12.2; 
+ Wed, 07 May 2025 08:47:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746632846; x=1747237646; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=LmkbRzm6/L2ISgCL3Ow+dZj/hCqoVpb93sMpickKofs=;
+ b=JxUCwSmYx9ZMCyavBaHVGNQMV6ZsPXvWqA2Q3EZID3a935CLR7HZOayPn1ajeGHEhf
+ K8ZMg0grotJOuR/yA1PjM0bjib6LsAVB59BkIHA3asIV1k3RxQeWd2+PV43LR0u1prEj
+ 5lnCA0LMBfxLtqSot6Y0CD8PmDPu2c7zHRrB3VlaxpcgzS0wEjueOHA08ufiIOo9fCZO
+ 5ZKjk5Hvss6OPXDNoPs8kxSgyzHO6c/PMhOVAVf9p8Hmb5sStX1VBT5JbDw5JznPFbZO
+ vT7Onl8PG7gYB/szZQWVDFEmdH2rUtiYj36NZsW+ANcjaZdgOGRrf6iUFe4HhRjsgvP7
+ DjyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746632846; x=1747237646;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LmkbRzm6/L2ISgCL3Ow+dZj/hCqoVpb93sMpickKofs=;
+ b=RdvjtWRwqq6G6ytmidtzh9y11cu4WEqj1Z1lm0xsflUwXD+zttuHYvydmhOcukl68k
+ IvpF4CCGYtnqrKKM7CXgbAe9rJ4EjVsSQwY7TMsYvskaeezOhda8b52esUVq1aeEG5fv
+ QfQbCL3Pfq5KfE7C5LlO2j6ygeK9wbRG6amPYnVQ22uUv4HkB0bQ/kAby/Xm2M54eWh4
+ 8cCIFCQPuYPK4EiwSeHLkHH+DWobJ4INxd7FnVL1dwWricNoC2Vg/URahMTfrbaU0bRc
+ DPAVueJ12dSUNkdF3v+0vr8fQ5zP2wL93KHshtQczlv8xWLs/5eDfSZ6hTDfvODi3qFG
+ zraQ==
+X-Gm-Message-State: AOJu0Yx79U/2O6GfGZOInmKmcai64krvV1QS2SdhaDuE/Gj4pk4isfYF
+ YeMs/m5jL7lot1+f9C+3HfvPIoEyg6ipRlk0nXtZ69fwfLXFqre2qpoBmQ==
+X-Gm-Gg: ASbGncv7zKBCKelxYM+4Z28/qL5HLNYsxZfKkFd63vnBCJjrDFWTupl0VnyNv6e7B6g
+ 7o/Gw8p8GmA3AgT9jbwHZJ/A83/dzLzkMdBu6AORAw4rjGr/TGWN+gtMwvGcorZjwmsc9mcUnOZ
+ sNM+2bFFgcofqJRqfktyhWOJTUW9X18rDRLJllAOdmdkTgzUE49l0sZ/iFTeN96zKVnU7jCYfRn
+ eZdXAbD6SgXXXxVDGVArSmc937msJk8nlYLJeY5QCS/lEPYCcXp6zjdBiEwaH155+mt/V6jkogp
+ mJPG2Gl2InO+1ezJisW1WzJ6S/LhG5YT2uBJqR1s+ITwEyH1OkYZ6MZf8OdJsCaFrTLqy6wv9e5
+ TnKFo2apwyHaLHXg=
+X-Google-Smtp-Source: AGHT+IEjee61+V1bhnajLB99NRDjF86bj6+oLpOJxzBD/kzEvFWRPqLSBK91CgrPhNzavqWjuXF4TA==
+X-Received: by 2002:a05:6a21:3944:b0:201:8a13:f392 with SMTP id
+ adf61e73a8af0-2148c0f634bmr5732814637.20.1746632846056; 
+ Wed, 07 May 2025 08:47:26 -0700 (PDT)
+Received: from localhost ([2a00:79e0:3e00:2601:3afc:446b:f0df:eadc])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74058d7ad7asm11852752b3a.11.2025.05.07.08.47.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 May 2025 08:47:25 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm/adreno: Remove MODULE_FIRMWARE()'s
+Date: Wed,  7 May 2025 08:47:22 -0700
+Message-ID: <20250507154723.275987-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] iommu/io-pgtable-arm: Add quirk to quiet WARN_ON()
-To: Rob Clark <robdclark@gmail.com>, iommu@lists.linux.dev
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@chromium.org>, Will Deacon <will@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, Nicolin Chen <nicolinc@nvidia.com>,
- Joao Martins <joao.m.martins@oracle.com>,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20250507142953.269300-1-robdclark@gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20250507142953.269300-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,165 +90,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/05/2025 3:29 pm, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> In situations where mapping/unmapping sequence can be controlled by
-> userspace, attempting to map over a region that has not yet been
-> unmapped is an error.  But not something that should spam dmesg.
-> 
-> Now that there is a quirk, we can also drop the selftest_running
-> flag, and use the quirk instead for selftests.
+From: Rob Clark <robdclark@chromium.org>
 
-Acked-by: Robin Murphy <robin.murphy@arm.com>
+The driver handles the case where gpu fw is not in the initrd.  OTOH it
+doesn't always handle the case where _some_ fw is in the initrd, but
+others are not.  In particular the zap fw tends to be signed with an OEM
+specific key, so the paths/names differ across devices with the same
+SoC/GPU, so we cannot sanely list them with MODULE_FIRMWARE().
 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
-> Sending v2 stand-alone, since I'm not quite ready to send a new
-> iteration of the full VM_BIND series.  And with selftest_running
-> removed, I think this patch stands on it's own.  (And maybe there
-> is still time to sneak this in for v6.16, removing an iommu dep
-> for the VM_BIND series in v6.17?)
-> 
-> v2: Drop selftest_running and use IO_PGTABLE_QUIRK_NO_WARN_ON for
->      the selftests
-> 
->   drivers/iommu/io-pgtable-arm.c | 27 ++++++++++++++-------------
->   include/linux/io-pgtable.h     |  8 ++++++++
->   2 files changed, 22 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-> index f27965caf6a1..a535d88f8943 100644
-> --- a/drivers/iommu/io-pgtable-arm.c
-> +++ b/drivers/iommu/io-pgtable-arm.c
-> @@ -253,8 +253,6 @@ static inline bool arm_lpae_concat_mandatory(struct io_pgtable_cfg *cfg,
->   	       (data->start_level == 1) && (oas == 40);
->   }
->   
-> -static bool selftest_running = false;
-> -
->   static dma_addr_t __arm_lpae_dma_addr(void *pages)
->   {
->   	return (dma_addr_t)virt_to_phys(pages);
-> @@ -373,7 +371,7 @@ static int arm_lpae_init_pte(struct arm_lpae_io_pgtable *data,
->   	for (i = 0; i < num_entries; i++)
->   		if (iopte_leaf(ptep[i], lvl, data->iop.fmt)) {
->   			/* We require an unmap first */
-> -			WARN_ON(!selftest_running);
-> +			WARN_ON(!(data->iop.cfg.quirks & IO_PGTABLE_QUIRK_NO_WARN_ON));
->   			return -EEXIST;
->   		} else if (iopte_type(ptep[i]) == ARM_LPAE_PTE_TYPE_TABLE) {
->   			/*
-> @@ -475,7 +473,7 @@ static int __arm_lpae_map(struct arm_lpae_io_pgtable *data, unsigned long iova,
->   		cptep = iopte_deref(pte, data);
->   	} else if (pte) {
->   		/* We require an unmap first */
-> -		WARN_ON(!selftest_running);
-> +		WARN_ON(!(cfg->quirks & IO_PGTABLE_QUIRK_NO_WARN_ON));
->   		return -EEXIST;
->   	}
->   
-> @@ -649,8 +647,10 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
->   	unmap_idx_start = ARM_LPAE_LVL_IDX(iova, lvl, data);
->   	ptep += unmap_idx_start;
->   	pte = READ_ONCE(*ptep);
-> -	if (WARN_ON(!pte))
-> -		return 0;
-> +	if (!pte) {
-> +		WARN_ON(!(data->iop.cfg.quirks & IO_PGTABLE_QUIRK_NO_WARN_ON));
-> +		return -ENOENT;
-> +	}
->   
->   	/* If the size matches this level, we're in the right place */
->   	if (size == ARM_LPAE_BLOCK_SIZE(lvl, data)) {
-> @@ -660,8 +660,10 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
->   		/* Find and handle non-leaf entries */
->   		for (i = 0; i < num_entries; i++) {
->   			pte = READ_ONCE(ptep[i]);
-> -			if (WARN_ON(!pte))
-> +			if (!pte) {
-> +				WARN_ON(!(data->iop.cfg.quirks & IO_PGTABLE_QUIRK_NO_WARN_ON));
->   				break;
-> +			}
->   
->   			if (!iopte_leaf(pte, lvl, iop->fmt)) {
->   				__arm_lpae_clear_pte(&ptep[i], &iop->cfg, 1);
-> @@ -976,7 +978,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg *cfg, void *cookie)
->   	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
->   			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
->   			    IO_PGTABLE_QUIRK_ARM_OUTER_WBWA |
-> -			    IO_PGTABLE_QUIRK_ARM_HD))
-> +			    IO_PGTABLE_QUIRK_ARM_HD |
-> +			    IO_PGTABLE_QUIRK_NO_WARN_ON))
->   		return NULL;
->   
->   	data = arm_lpae_alloc_pgtable(cfg);
-> @@ -1079,7 +1082,8 @@ arm_64_lpae_alloc_pgtable_s2(struct io_pgtable_cfg *cfg, void *cookie)
->   	struct arm_lpae_io_pgtable *data;
->   	typeof(&cfg->arm_lpae_s2_cfg.vtcr) vtcr = &cfg->arm_lpae_s2_cfg.vtcr;
->   
-> -	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_S2FWB))
-> +	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_S2FWB |
-> +			    IO_PGTABLE_QUIRK_NO_WARN_ON))
->   		return NULL;
->   
->   	data = arm_lpae_alloc_pgtable(cfg);
-> @@ -1320,7 +1324,6 @@ static void __init arm_lpae_dump_ops(struct io_pgtable_ops *ops)
->   #define __FAIL(ops, i)	({						\
->   		WARN(1, "selftest: test failed for fmt idx %d\n", (i));	\
->   		arm_lpae_dump_ops(ops);					\
-> -		selftest_running = false;				\
->   		-EFAULT;						\
->   })
->   
-> @@ -1336,8 +1339,6 @@ static int __init arm_lpae_run_tests(struct io_pgtable_cfg *cfg)
->   	size_t size, mapped;
->   	struct io_pgtable_ops *ops;
->   
-> -	selftest_running = true;
-> -
->   	for (i = 0; i < ARRAY_SIZE(fmts); ++i) {
->   		cfg_cookie = cfg;
->   		ops = alloc_io_pgtable_ops(fmts[i], cfg, cfg);
-> @@ -1426,7 +1427,6 @@ static int __init arm_lpae_run_tests(struct io_pgtable_cfg *cfg)
->   		free_io_pgtable_ops(ops);
->   	}
->   
-> -	selftest_running = false;
->   	return 0;
->   }
->   
-> @@ -1448,6 +1448,7 @@ static int __init arm_lpae_do_selftests(void)
->   		.tlb = &dummy_tlb_ops,
->   		.coherent_walk = true,
->   		.iommu_dev = &dev,
-> +		.quirks = IO_PGTABLE_QUIRK_NO_WARN_ON,
->   	};
->   
->   	/* __arm_lpae_alloc_pages() merely needs dev_to_node() to work */
-> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
-> index bba2a51c87d2..639b8f4fb87d 100644
-> --- a/include/linux/io-pgtable.h
-> +++ b/include/linux/io-pgtable.h
-> @@ -88,6 +88,13 @@ struct io_pgtable_cfg {
->   	 *
->   	 * IO_PGTABLE_QUIRK_ARM_HD: Enables dirty tracking in stage 1 pagetable.
->   	 * IO_PGTABLE_QUIRK_ARM_S2FWB: Use the FWB format for the MemAttrs bits
-> +	 *
-> +	 * IO_PGTABLE_QUIRK_NO_WARN_ON: Do not WARN_ON() on conflicting
-> +	 *	mappings, but silently return -EEXISTS.  Normally an attempt
-> +	 *	to map over an existing mapping would indicate some sort of
-> +	 *	kernel bug, which would justify the WARN_ON().  But for GPU
-> +	 *	drivers, this could be under control of userspace.  Which
-> +	 *	deserves an error return, but not to spam dmesg.
->   	 */
->   	#define IO_PGTABLE_QUIRK_ARM_NS			BIT(0)
->   	#define IO_PGTABLE_QUIRK_NO_PERMS		BIT(1)
-> @@ -97,6 +104,7 @@ struct io_pgtable_cfg {
->   	#define IO_PGTABLE_QUIRK_ARM_OUTER_WBWA		BIT(6)
->   	#define IO_PGTABLE_QUIRK_ARM_HD			BIT(7)
->   	#define IO_PGTABLE_QUIRK_ARM_S2FWB		BIT(8)
-> +	#define IO_PGTABLE_QUIRK_NO_WARN_ON		BIT(9)
->   	unsigned long			quirks;
->   	unsigned long			pgsize_bitmap;
->   	unsigned int			ias;
+So MODULE_FIRMWARE() just ends up causing problems without actually
+solving anything.  Remove them!
+
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a2xx_catalog.c |  5 -----
+ drivers/gpu/drm/msm/adreno/a3xx_catalog.c |  5 -----
+ drivers/gpu/drm/msm/adreno/a4xx_catalog.c |  3 ---
+ drivers/gpu/drm/msm/adreno/a5xx_catalog.c |  9 ---------
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 11 -----------
+ 5 files changed, 33 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a2xx_catalog.c b/drivers/gpu/drm/msm/adreno/a2xx_catalog.c
+index 9ddb7b31fd98..5ddd015f930d 100644
+--- a/drivers/gpu/drm/msm/adreno/a2xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a2xx_catalog.c
+@@ -45,8 +45,3 @@ static const struct adreno_info a2xx_gpus[] = {
+ 	}
+ };
+ DECLARE_ADRENO_GPULIST(a2xx);
+-
+-MODULE_FIRMWARE("qcom/leia_pfp_470.fw");
+-MODULE_FIRMWARE("qcom/leia_pm4_470.fw");
+-MODULE_FIRMWARE("qcom/yamato_pfp.fw");
+-MODULE_FIRMWARE("qcom/yamato_pm4.fw");
+diff --git a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c b/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
+index 2eb6c3e93748..1498e6532f62 100644
+--- a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
+@@ -85,8 +85,3 @@ static const struct adreno_info a3xx_gpus[] = {
+ 	}
+ };
+ DECLARE_ADRENO_GPULIST(a3xx);
+-
+-MODULE_FIRMWARE("qcom/a300_pm4.fw");
+-MODULE_FIRMWARE("qcom/a300_pfp.fw");
+-MODULE_FIRMWARE("qcom/a330_pm4.fw");
+-MODULE_FIRMWARE("qcom/a330_pfp.fw");
+diff --git a/drivers/gpu/drm/msm/adreno/a4xx_catalog.c b/drivers/gpu/drm/msm/adreno/a4xx_catalog.c
+index 93519f807f87..09f9f228b75e 100644
+--- a/drivers/gpu/drm/msm/adreno/a4xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a4xx_catalog.c
+@@ -45,6 +45,3 @@ static const struct adreno_info a4xx_gpus[] = {
+ 	}
+ };
+ DECLARE_ADRENO_GPULIST(a4xx);
+-
+-MODULE_FIRMWARE("qcom/a420_pm4.fw");
+-MODULE_FIRMWARE("qcom/a420_pfp.fw");
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+index 633f31539162..b48a636d8237 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+@@ -150,12 +150,3 @@ static const struct adreno_info a5xx_gpus[] = {
+ 	}
+ };
+ DECLARE_ADRENO_GPULIST(a5xx);
+-
+-MODULE_FIRMWARE("qcom/a530_pm4.fw");
+-MODULE_FIRMWARE("qcom/a530_pfp.fw");
+-MODULE_FIRMWARE("qcom/a530v3_gpmu.fw2");
+-MODULE_FIRMWARE("qcom/a530_zap.mdt");
+-MODULE_FIRMWARE("qcom/a530_zap.b00");
+-MODULE_FIRMWARE("qcom/a530_zap.b01");
+-MODULE_FIRMWARE("qcom/a530_zap.b02");
+-MODULE_FIRMWARE("qcom/a540_gpmu.fw2");
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 3b996837b178..bc8e6f621b70 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -1092,17 +1092,6 @@ static const struct adreno_info a6xx_gpus[] = {
+ };
+ DECLARE_ADRENO_GPULIST(a6xx);
+ 
+-MODULE_FIRMWARE("qcom/a615_zap.mbn");
+-MODULE_FIRMWARE("qcom/a619_gmu.bin");
+-MODULE_FIRMWARE("qcom/a630_sqe.fw");
+-MODULE_FIRMWARE("qcom/a630_gmu.bin");
+-MODULE_FIRMWARE("qcom/a630_zap.mbn");
+-MODULE_FIRMWARE("qcom/a640_gmu.bin");
+-MODULE_FIRMWARE("qcom/a650_gmu.bin");
+-MODULE_FIRMWARE("qcom/a650_sqe.fw");
+-MODULE_FIRMWARE("qcom/a660_gmu.bin");
+-MODULE_FIRMWARE("qcom/a660_sqe.fw");
+-
+ static const struct adreno_reglist a702_hwcg[] = {
+ 	{ REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222 },
+ 	{ REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220 },
+-- 
+2.49.0
+
