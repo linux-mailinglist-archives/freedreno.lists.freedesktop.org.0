@@ -2,182 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE317AADC4F
-	for <lists+freedreno@lfdr.de>; Wed,  7 May 2025 12:15:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D33DBAADFE7
+	for <lists+freedreno@lfdr.de>; Wed,  7 May 2025 14:58:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C275210E781;
-	Wed,  7 May 2025 10:15:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADA9910E7B0;
+	Wed,  7 May 2025 12:58:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="K4HsFJ55";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="fM4HhE3r";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on2054.outbound.protection.outlook.com [40.107.105.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74D6310E00C;
- Wed,  7 May 2025 10:15:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PKMfry3Q/ax629yNHP0dEQIUXvpYeGe1Dc3CltBIuH4kgkslsNqSSVLQ/+maEhEIBDGfDJz13O2EMudNo/E+5pj9EbS2/HcPmrzNGjlbymM/DWWlSzVCw+82sZ1K9soE3CVao4t0Q3LYlDFj+w7iVyaNo3YH4zA4WkU4tEmmSgj0j0BBjqgSmVzSwA8YHbM8zsIkuDXpSznArAiCbHKlCgPEh/ijb+4N619TSMorHcqoJVSM5ilsQ4jvEjPT+nEm5i6HMqWjoUpyaaTEPnloVmD7Cyd0l+no0xm9LdWieoQogHK4D3hGRSgMHCVoLNMa9XmnMTZkJXPiiZRs1Tdc/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RycThhcPl47BOso6w6PXZNCz38cRrbsQKA/1KF2WhAI=;
- b=ebwi+n1GE4crR2mhNVVGny+CnakhRUbhqrEHOk+MV6EeknSFSD959LG+eCo5363k50eEgWUC9jR4hY/YWCKWSgnfSACq0ijXp/cQsCSMErlpFRtHPZbH0SRP8PfjiQJrtNjgTOerSdPVXl5wqfj5RFj9GwI3F+h85CVHlBp9SXDOCjyBydr2pDrnTbRvHesHt+kCuFIHFAfRvaD1KqEdDhx+kGMyNMaPtnWPGQCizdpHsK+hqyCT53Se6xVeIMyAOnlfa+D+x/3DN/e1WhbqEPRApGT/V792L9K3e+e9qTVf7V9yI8LHnzwrMPW2jNOPFq/4NgHYIc4Xdp55dcuLLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RycThhcPl47BOso6w6PXZNCz38cRrbsQKA/1KF2WhAI=;
- b=K4HsFJ55zIJYoChsi6ALUf9sGxcozqiqPQ2ia4sQAySmuzi/vhOYqAgnRYGjtUbWV0KI9OezC5HpB/iv0EcxL5I6v7ixMl59Gn1A9urpXD0g7DASrlGDGSxGfNRiMFWfy6VntEKu/g2VgjHLUYy/lMfLpfCNgNicL8hU3EhAIMuitAYVlECgcLUuX5kiZilgUZF5sTv2QDILV5fLfawsU0ehElRWzjOa3cl4RnWV5CyKwDU9SQhTDLTkQT7iV/pMDtQrmLQmJky2SusCBoaMLUOfeNhSVRQHicX05EBdKDqrqIGHX4eJaUFnhGGNIRPl5+8+h0l2rHmZqL3fPeJvQg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by AM9PR04MB7634.eurprd04.prod.outlook.com (2603:10a6:20b:2d5::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Wed, 7 May
- 2025 10:15:03 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::d1ce:ea15:6648:6f90]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::d1ce:ea15:6648:6f90%4]) with mapi id 15.20.8699.026; Wed, 7 May 2025
- 10:15:03 +0000
-Message-ID: <430d497d-45a1-436d-91fd-635854f80c9f@nxp.com>
-Date: Wed, 7 May 2025 18:16:28 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 30/34] drm/bridge: imx8qxp-pixel-combiner: convert to
- devm_drm_bridge_alloc() API
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jagan Teki <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Douglas Anderson
- <dianders@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Anusha Srivatsa
- <asrivats@redhat.com>, Paul Kocialkowski <paulk@sys-base.io>,
- Dmitry Baryshkov <lumag@kernel.org>, Hui Pu <Hui.Pu@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, asahi@lists.linux.dev,
- linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
- <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
- <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
- <20250430112944.1b39caab@booty>
- <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
- <20250506224720.5cbcf3e1@booty>
- <a1abf31a-7a4a-4f8d-bf48-6b826aa01197@nxp.com>
- <20250507091244.32865a71@booty>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <20250507091244.32865a71@booty>
-Content-Type: text/plain; charset=UTF-8
-X-ClientProxiedBy: SG2PR04CA0201.apcprd04.prod.outlook.com
- (2603:1096:4:187::23) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2088A10E7AD;
+ Wed,  7 May 2025 12:58:19 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 547A8W4M009112;
+ Wed, 7 May 2025 12:58:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ xF+cHM9YchG/d6uxqOT4xkfIqHaWygeEpG9xNO/SoYg=; b=fM4HhE3rjTI6vgKq
+ RovSRDh2S6OdesGL6BVSkoQzvAzfIxFEi5uqEOqLbbpHAVW5H90b3NM3etVw6tNs
+ cutU5HeqKZI4ARfz7vNoH8E8yB91X6d+m7eHmIGIsA+jTaXaXUWa1vprkBd2dgiN
+ MCT1MDJaUPm0W2ESc/AXek8n4FfV/D6aJSsCBCpT3L2bFAm/h1I0j7iPfg/XtQDA
+ M57dV3O9eBlpHPx4TpqnGNKQEZTEs/JTOUm5upVjYvgxU3c1bF0QCzmfHpHpetoQ
+ eM10kDr7GHnLjSO2zTdUHappNb8sJp6Fcx0ki4X23OnM0N7Z+2fvbbU9sZc1cwrS
+ jCmjpw==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46g5gh8esu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 May 2025 12:58:07 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 547Cw6b7009442
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 7 May 2025 12:58:06 GMT
+Received: from [10.206.97.61] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 7 May 2025
+ 05:57:58 -0700
+Message-ID: <bd136800-8ef5-4597-b918-41b9f97db14f@quicinc.com>
+Date: Wed, 7 May 2025 18:27:54 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|AM9PR04MB7634:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74ae9de8-a71c-4d3a-b33c-08dd8d500822
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cXJ2S0lpa01Ucy9VVVlWMVo4TlpDcTRaazF1emV6VkljU25MUVFiS2lIbHRr?=
- =?utf-8?B?V3R3REo4d01WRkVHYWhMZ0h1WHRRRHFQdW80M3FlVkV3SG9pbWNvZlVKVC9B?=
- =?utf-8?B?b0VzOW9iNWpiUkljNVRtWWNJSkt3aCtoNTJ3bHFRWDl0N2doQ2hod2JnQmRE?=
- =?utf-8?B?Z0lnaXk1QUEvK2N6YU93bUFBZUJVemhOL0tqeFpmMm5ESThpU1JwbVh5NXl1?=
- =?utf-8?B?MEIzVkRrSVY1VFRaL2wrcTcrQ2llMVNGempnanNsem51MWRPbzExN2hKZ1pu?=
- =?utf-8?B?Q3l6bDRXanRJMlBGRlYzQTNsQ2tYWmg4dEhJTDIxVHdVbzZ2TUtwTi9GMVR6?=
- =?utf-8?B?Ukt5Z1MxR1lFYjBCQ2piNXpnL0txRFlyK2lEVlBxVWFJZ0pyNHhOU0JleUl5?=
- =?utf-8?B?WlRzZjVxWkRMRHNNclpvUVZDdm13WitsZHRwYU9OSTVkUlpwWklFNFB5d05l?=
- =?utf-8?B?cmR5VWZ4RzR4eThWRnl5Q3VpeVVIOFNqY05GNVVkM25pcCsyZ01uV21DUGx5?=
- =?utf-8?B?TG11a2haeVlNVTNLNlVVUXUvaWFrdGJ0aklOek5jcGNxNlVyVVhxdmxCdDBX?=
- =?utf-8?B?d3JCS00rUWRObzZDUmJENEcrdDNKL1NTVGF5SytvS21yc3MwRVV4UnRxbHo3?=
- =?utf-8?B?R2x4R2tMTDlySURwR3hmQTlvUXVuRmNWMFZDendETURkWjVkcE5SSEhRckIx?=
- =?utf-8?B?ZlVQNDluWWZOR2paaUxjam9RS2dZTUNmTklsWitZb0hFbDFPdDNGM0pncHht?=
- =?utf-8?B?YVJlNExVbldWRHE1OXJjZmtwNTBPY1g5S3IxZDZCYmNZTUhxTVhzSExuT1VH?=
- =?utf-8?B?VHo2NlVCM3Boc29qdmp0RlQ3VjBoRnBHd0tiZlZocHdDMTJ0dVU2blRRK2dR?=
- =?utf-8?B?a3YwVXdJVDgvdWQ5cUFrRjRLR1RiOVZYbVM5TEZwWlhoUUVudHgzeEljaWxT?=
- =?utf-8?B?YjdKdnAvb1RKWWZzZGpkTDdEUW9oRjBuU2l2ei8vR3R5ZURyQzdRcnNFNzkr?=
- =?utf-8?B?cHlnMU90WkdOeC9GTFRFZ0lZbW4yN0tyQzFoUkZTcUxKMllNdGhFY0tYSDR5?=
- =?utf-8?B?MC9kSVJ6MDc5RDdmWUVZeHloYzh1NHA1QXNGQnYrcjdpSitRK1Z0dU1vbHo1?=
- =?utf-8?B?cGxmNnMzU3FYYUxJRUJpdFZNRnQ0Z3czcjQvRUNUSUhBVUN1YVBabkcvRno1?=
- =?utf-8?B?UVFtSmFFM0NBeUNyRTYxdHNMOXRrdUZpMjN4ajByZVFGVm5FalAvZ1E2VVJS?=
- =?utf-8?B?aFJVNlR1dytRNy9XRDFkNERlSkE3UEZNYkJrWEZhZ2NBZHlMUTVucFNXSkVJ?=
- =?utf-8?B?YnhKM1VrdElaRHVkVGpzYVE0OTRkZWNDSXNTTnBUN1piaVVQZFhOS2RtNWw0?=
- =?utf-8?B?T0lHNFBtbUlSRVBzRUZDcEY3QlkzUlpyNmw3dUJXNE1LU1pGZkJxZEl1Q25E?=
- =?utf-8?B?aEF3enYxUEU4RlhKYWJ2RHd3U2dNTVlKdVhlYXdXczNyUXZuTXdxTDNRbU93?=
- =?utf-8?B?T3U1azhRT09XamhqeUp2QktNbkFMdTZPMkdZVFRmaWFvMWZHS0IzaURtemp4?=
- =?utf-8?B?WEVUaUZsbHVPTFBoMG9OTmRldTNmbFBXci9lRTZMeURvbXhNT0M3WVV2UzVm?=
- =?utf-8?B?b2Vrckg2aldSYi9yRENOaGQ1MWp2STVCSi9mREpDek9meG05ZDUydkpETjlK?=
- =?utf-8?B?NFQyaXdGQlNzbHFUNCtNQVA4SHE5V2k3RVNtVkRMdjZ1ZG9GSC9tdEhCZGpn?=
- =?utf-8?B?VUU4M0dhMHYyaDhZbXY4NTlmd2I3OVBwQXJMb3dsVWhHRi91TXhpSnQ0Sk9x?=
- =?utf-8?B?TGJVN3dBOUxRbkRVeEo3R3FPTTlNaEhyMWdKcUt1NFJJQWJQY29mWjlaaktH?=
- =?utf-8?B?anBkRWE2Nit3QVYrcmQrcWdtREtPbk5EVTJSSGc4NUU0dFVtVnVqL1h6SUM4?=
- =?utf-8?Q?VzrlEBak8XY=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnJaYy85dWNOTTdEU1NyT0U4aEJOV0pCaVZoa0hJQmwyOWlZSzB0N0dCcVZJ?=
- =?utf-8?B?SGdVNVpvT3pCVngzTTRqMXIwdlVHZGxmb3BZZy9UekdsbUF6UXc4TTMzVnRP?=
- =?utf-8?B?SVJoSzhzamdYLy9paHZuOTZncjQxSjBDL2tLNGJSeWJYT29pTWsyRk1VTURa?=
- =?utf-8?B?N2RNVmxXSzRYd0Exek9nd2ZYMk92MnRYMWpMWkhBUmJtU1gzS3Y3WWhoRkU5?=
- =?utf-8?B?ampIdWlNZGNMS0FZNmdHa2hWSnBZaFpUa1hBd3ErMlJwSlpmd0JsRnBIODVr?=
- =?utf-8?B?eko2ZGxlNmlGMWk4cEtBNnJ3SUpZcG54UjV0S0k3YXlMWFdTQjNkNTdXZHhI?=
- =?utf-8?B?b3dtNlpUQnVHb3NDVW9JTW5ENGFaQnlHdnU5WjRSZ0J6ckV2MkdaTDRyNUpr?=
- =?utf-8?B?N0k0MHhlcWd0ZTJ6N1JxbkFGV2dVMXA0QkVkWkFXMnMzV1VTbDNnTkpSM1Az?=
- =?utf-8?B?cUg3bHJDVDhKWDIrQUljVDRXSERFUitPRTFxbDVDTUowVDVoTmJRL09jQ0NP?=
- =?utf-8?B?TlYrQXN4aTN6Z0xHeDB1ZHdJUy85emh6dTRTZzRJRkRhUTdxWmxVNmhNN0xm?=
- =?utf-8?B?OTNmVkwwUlJVcThnT0Y0MU1mRDZ4WnpyUGtXbEJTNFl0YzlLTnVMaGdkZ0NL?=
- =?utf-8?B?U1NNOHpqTDRPS3VRQWxwRWhjSEx0a2dWdUg4cEdhQUNkK0Q5SVpJYS9SUDAw?=
- =?utf-8?B?WEJ0S2l4eElpMTNpZ2w0MWh2RDdrd04vajZzbHAyU09EWEhPVGs1bjJPQWVt?=
- =?utf-8?B?OWdXajVIaG1vc05paUFNYzJuWlBCUGhNNEFGaEFqYnhlSmNiam5ZS0xzeith?=
- =?utf-8?B?eXlqYTBwRVRMQTBFbVZ0cmpOeEFybzVWUFoxMWo2Tk1qWThFOFFqeTN0ZDlQ?=
- =?utf-8?B?ZlhpSnJ3WkpjZlVUNDc3YXlzY0JUc2EvTWxqcldubzVIZkloNTR3NnFCSWNE?=
- =?utf-8?B?THhyWFdaL3VWdUY5bnVqcU5xbUl6ZDBXcGNucG9PN3VvY1pVZUhrSkNTa0to?=
- =?utf-8?B?V2R6UzE5WXFrMllsT1VvSG5iZzRZZE1qQU9sbXFzVU9yVW9TNUNhdXRmYjN2?=
- =?utf-8?B?M0o1NkU4YlJNK0J5YU5PVDVsNnQ3ditQY1laeVp4bTZKeGdLTjF3eVR2RW5S?=
- =?utf-8?B?NUNpblQ1QktLcy9TeWFiOElPVWJkWDR5UE5hMzhmbW1qdzhUOEY2SC9pLzA1?=
- =?utf-8?B?VTYzeFI3VzNDZ2JqdFptYkI0UzNlTlhPUkR0M3NjakxEM0xmWjZFNEVCZ3lQ?=
- =?utf-8?B?SXNaR1ZhTy94cHFKdHc1VVB4SFB2ZGFXZG1ZdU16TnFremdjZVE2SkR5Rngv?=
- =?utf-8?B?N2NRYWx4MzdnOXQ1aDZGQW4wRk1hVGxUTGcza2VDeGlFYlZDa3B2cVBLK3Bp?=
- =?utf-8?B?L0NldTd0NnNBQkVOWkw3OWYzSWkxRURBSU5hRUhrWUdiK1VZMllGeDg1b0Zh?=
- =?utf-8?B?bm9wYmJuSjRsRmhRSllwWmhvRFBYSk82UGRuWHEyNkJJK1FrY3pueldLYjVh?=
- =?utf-8?B?cTNnbFVJNUg4aWlKa1F1dXVCaWQrS3poYzR1QldFY3c5T1poTVYzSkRqUUxH?=
- =?utf-8?B?ekFrcEhyME1yUVNKREYwWC95UTIwY3o5TXVBUXFrSmJNRk5NM2xRbWhjM0NQ?=
- =?utf-8?B?MTlzS2VaRDJpTWZQNXZLejIyQllxaGJlSDZ6TlFpUGk3aU1CcHhWWk5QT0ly?=
- =?utf-8?B?RlM3Nk5WdHRPeHZxUXY0TGNjWlp2T0tNb1pNSTF0WHN3L1duRzd3b0xsN3pq?=
- =?utf-8?B?WDllVFNqWlZFTmRHQ3JyQ0N5dTBwYldXcmlwZXhPWUIrRy90T0d5d1o4a28r?=
- =?utf-8?B?WW9FM3V2bDRoWFZId0Q2Ujl5d3pDMlA5NytjQ3VQdmJKV09DS0RtaDVMQmZG?=
- =?utf-8?B?cFJKcmF6cjdGa1VTaWJtQk5kVVAwMWJQQmRMRTI4NEJzeCtGQU1qa3lEeHdV?=
- =?utf-8?B?UTJSN0FHaU9PRWJMYUhHbExiZ2pWVyt3M3JrajA3Ym1tMUpwbUVVSHpjQm5z?=
- =?utf-8?B?cEsveHhUc2I0ejlZS3FOa2I0eVpXaXI2UXU2N1dScXJpMXVoNjFtS1lmU0dv?=
- =?utf-8?B?bU9Yd0h5UlRJTER3QmxSR1kyc0k3cnIzcERFWkJhLzdBYnJDWmVlNXVlZmpE?=
- =?utf-8?Q?tfYRDqTgbHFH6oHV2i2OKZ8Q1?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74ae9de8-a71c-4d3a-b33c-08dd8d500822
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 10:15:03.2451 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cMBpLlcOwGcOcHLKRTQ9EsUf9nAB5gzqsPm6Hb3XTxt1/8ZCrJpGm7iOR2XMbKjSCsAYIhSJ4OtscFf0VCKVhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7634
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 07/11] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
+ to DP bridge nodes
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <marijn.suijten@somainline.org>,
+ <andersson@kernel.org>, <robh@kernel.org>, <robh+dt@kernel.org>,
+ <krzk+dt@kernel.org>, <konradybcio@kernel.org>, <conor+dt@kernel.org>,
+ <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
+ <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
+ <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
+ <quic_abhinavk@quicinc.com>, <quic_rajeevny@quicinc.com>,
+ <quic_vproddut@quicinc.com>, <quic_jesszhan@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20250505094245.2660750-1-quic_amakhija@quicinc.com>
+ <20250505094245.2660750-3-quic_amakhija@quicinc.com>
+ <grwlmrgi5cfv3jtuki57ug7gsqykpwdf2to2l7di6glfxtb7vz@6id6cpfkrbuh>
+ <88b139c4-0a35-4c9e-9993-573fede29b71@quicinc.com>
+ <ip2phi56u4yof376t5a5mqhvo3x4oo4blcnirwc6w7eancpm7i@ofcgyfcxdmre>
+Content-Language: en-US
+From: Ayushi Makhija <quic_amakhija@quicinc.com>
+In-Reply-To: <ip2phi56u4yof376t5a5mqhvo3x4oo4blcnirwc6w7eancpm7i@ofcgyfcxdmre>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: OPbtRutEhhwqmylcl9sGmNFyMmVkwavI
+X-Authority-Analysis: v=2.4 cv=TqPmhCXh c=1 sm=1 tr=0 ts=681b58df cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=NEAV23lmAAAA:8
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=G6BfOUuto9JBWjMmyeYA:9 a=QEXdDO2ut3YA:10
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA3MDEyMiBTYWx0ZWRfX/V6kIFbeakdJ
+ aDRFF9zCSxC1ASGhT+a8JlCqcMoDMvkPxNNmITI5KPisfu6lx02d936s78YEeA+VEfJaM8VBZwf
+ jSavOARuAqzQ3MNltqfYDBrA0GI8zLFfWhK8rwOfIuik0rP1nIBLj7OxYkDy2cO53VRS8kDIGTS
+ MEB69tgPOxsnkbIE4WcaQi0MOwYPoaAxWcJF8k0VwQisLKcPdpbnG64L12bfG1n7Y2FLyR9W8f4
+ 9M7N1h2HO7x9DYR5NoCGO60lkYdJqSB02ZASyU4cTwctMd02gq+W1ilfz+nD4BVoN73GKt2ovDy
+ 8LKcnl3Aqdj4lVajnV5rMxaVeUye/Aq0FKke4DKmbDKiAvAthOVKaN/XN68C3vU7viF4XL1BPyO
+ KJ9thIrF3oKwak0zo/e1rfrFKViYnWNxQLv7lw3lXqtN3xBFizLL73NSAQ923jlOblYgJYVU
+X-Proofpoint-ORIG-GUID: OPbtRutEhhwqmylcl9sGmNFyMmVkwavI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-07_04,2025-05-06_01,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 mlxscore=0 mlxlogscore=999 spamscore=0
+ priorityscore=1501 phishscore=0 suspectscore=0 impostorscore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2505070122
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -193,284 +116,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 05/07/2025, Luca Ceresoli wrote:
-> Hello Liu,
-> 
-> On Wed, 7 May 2025 10:10:53 +0800
-> Liu Ying <victor.liu@nxp.com> wrote:
-> 
->> On 05/07/2025, Luca Ceresoli wrote:
->>> Hello Liu,  
+On 5/6/2025 5:58 PM, Dmitry Baryshkov wrote:
+> On Tue, May 06, 2025 at 05:42:50PM +0530, Ayushi Makhija wrote:
+>> Hi Dmitry,
 >>
->> Hi Luca,
->>
->>>
->>> thanks for your further feedback.
->>>
->>> On Tue, 6 May 2025 10:24:18 +0800
->>> Liu Ying <victor.liu@nxp.com> wrote:
->>>   
->>>> On 04/30/2025, Luca Ceresoli wrote:  
->>>>> Hello Liu,    
+>> On 5/5/2025 3:32 PM, Dmitry Baryshkov wrote:
+>>> On Mon, May 05, 2025 at 03:12:41PM +0530, Ayushi Makhija wrote:
+>>>> Add anx7625 DSI to DP bridge device nodes.
 >>>>
->>>> Hi Luca,
+>>>> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+>>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>> ---
+>>>>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 183 +++++++++++++++++++++
+>>>>  1 file changed, 183 insertions(+)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>>>> index 175f8b1e3b2d..de14f3ea8835 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>>>> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
+>>>> @@ -28,6 +28,15 @@ chosen {
+>>>>  		stdout-path = "serial0:115200n8";
+>>>>  	};
 >>>>  
->>>>>
->>>>> On Tue, 29 Apr 2025 10:10:55 +0800
->>>>> Liu Ying <victor.liu@nxp.com> wrote:
->>>>>     
->>>>>> Hi,
->>>>>>
->>>>>> On 04/25/2025, Luca Ceresoli wrote:    
->>>>>>> This is the new API for allocating DRM bridges.
->>>>>>>
->>>>>>> This driver embeds an array of channels in the main struct, and each
->>>>>>> channel embeds a drm_bridge. This prevents dynamic, refcount-based
->>>>>>> deallocation of the bridges.
->>>>>>>
->>>>>>> To make the new, dynamic bridge allocation possible:
->>>>>>>
->>>>>>>  * change the array of channels into an array of channel pointers
->>>>>>>  * allocate each channel using devm_drm_bridge_alloc()
->>>>>>>  * adapt the code wherever using the channels
->>>>>>>
->>>>>>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>    
->>>>>
->>>>> [...]
->>>>>     
->>>>>>> @@ -345,8 +351,8 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
->>>>>>>  free_child:
->>>>>>>  	of_node_put(child);
->>>>>>>  
->>>>>>> -	if (i == 1 && pc->ch[0].next_bridge)
->>>>>>> -		drm_bridge_remove(&pc->ch[0].bridge);
->>>>>>> +	if (i == 1 && pc->ch[0]->next_bridge)      
->>>>>>
->>>>>> Since this patch makes pc->ch[0] and pc->ch[1] be allocated separately,
->>>>>> pc->ch[0] could be NULL if channel0 is not available, hence a NULL pointer
->>>>>> dereference here...    
->>>>>
->>>>> See below for this.
->>>>>     
->>>>>>> +		drm_bridge_remove(&pc->ch[0]->bridge);
->>>>>>>  
->>>>>>>  	pm_runtime_disable(dev);
->>>>>>>  	return ret;
->>>>>>> @@ -359,7 +365,7 @@ static void imx8qxp_pc_bridge_remove(struct platform_device *pdev)
->>>>>>>  	int i;
->>>>>>>  
->>>>>>>  	for (i = 0; i < 2; i++) {
->>>>>>> -		ch = &pc->ch[i];
->>>>>>> +		ch = pc->ch[i];
->>>>>>>  
->>>>>>>  		if (!ch->is_available)      
->>>>>>
->>>>>> ...and here too.    
->>>>>
->>>>> This is indeed a bug, I should have checked the pointer for being
->>>>> non-NULL.
->>>>>
->>>>> Looking at that more closely, I think the is_available flag can be
->>>>> entirely removed now. The allocation itself (ch != NULL) now is
->>>>> equivalent. Do you think my reasoning is correct?
->>>>>
->>>>> Ouch! After writing the previous paragraph I realized you proposed this
->>>>> a few lines below! OK, removing is_available. :)
->>>>>
->>>>> [...]
->>>>>     
->>>>>> On top of this patch series, this issue doesn't happen if I apply the below
->>>>>> change:    
->>>>>
->>>>> [...]
->>>>>     
->>>>>> @@ -351,7 +349,7 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
->>>>>>  free_child:
->>>>>>         of_node_put(child);
->>>>>>  
->>>>>> -       if (i == 1 && pc->ch[0]->next_bridge)
->>>>>> +       if (i == 1 && pc->ch[0])
->>>>>>                 drm_bridge_remove(&pc->ch[0]->bridge);    
->>>>>
->>>>> Unrelated to this patch, but as I looked at it more in depth now, I'm
->>>>> not sure this whole logic is robust, even in the original code.
->>>>>
->>>>> The 'i == 1' check here seems to mean "if some error happened when
->>>>> handling channel@1, that means channel@0 was successfully initialized,
->>>>> so let's clean up channel 0".
->>>>>
->>>>> However my understanding of the bindings is that device tree is allowed
->>>>> to have the channel@1 node before the channel@0 node (or even channel@1
->>>>> without channel@0, but that's less problematic here).
->>>>>
->>>>> In such case (channel@1 before channel@0), this would happen:
->>>>>
->>>>>  1. alloc and init ch[1], all OK
->>>>>  2. alloc and init ch[0], an error happens
->>>>>     (e.g. of_graph_get_remote_node() fails)
->>>>>
->>>>> So we'd reach the free_child: label, and we should call
->>>>> drm_bridge_remove() for ch[1]->bridge, but there's no code to do that.
->>>>>
->>>>> To be robust in such a case, I think both channels need to be checked
->>>>> independently, as the status of one does not imply the status of the
->>>>> other. E.g.:
->>>>>
->>>>>   for (i = 0; i < 2; i++)
->>>>>       if (pc->ch[i] && pc->ch[i]->next_bridge)
->>>>>           drm_bridge_remove(&pc->ch[i]->bridge);
->>>>>
->>>>> (which is similar to what .remove() does after the changes discussed in
->>>>> this thread, and which I have queued for v3)
->>>>>
->>>>> What's your opinion? Do you think I missed anything?    
->>>>
->>>> The pixel combiner DT node would be added in imx8-ss-dc{0,1}.dtsi, please
->>>> see the case for imx8-ss-dc0.dtsi introduced by an in-flight patch[1].  As
->>>> channel@{0,1} child nodes always exist(DT overlay cannot effectively delete
->>>> any of them) and channel@0 always comes first, there is no problematic case.  
+>>>> +	vph_pwr: vph-pwr-regulator {
+>>>> +		compatible = "regulator-fixed";
+>>>> +		regulator-name = "vph_pwr";
+>>>> +		regulator-min-microvolt = <12000000>;
+>>>> +		regulator-max-microvolt = <12000000>;
 >>>
->>> I'm not questioning what existing and future dts files (will) contain,
->>> and surely I don't see a good reason someone would write channel@1
->>> before channel@0.
->>>
->>> My point is:
->>>
->>>  - the bindings _allow_ channel1 before channel@0
->>>  - the error management code after the free_child label won't work
->>>    correctly if channel1 is before channel@0 in the device tree
->>>
->>> IOW the driver is not robust against all legal device tree descriptions,
->>> and it could be easily made robust using the example code in my
->>> previous e-mail (quoted a few lines above).
->>>
->>> If you agree about this I'll be happy to send a patch doing that change.
->>> If you think I'm wrong, I won't fight a battle. This topic is
->>> orthogonal to the change I'm introducing in this patch, and I can
->>> continue the conversion independently from this discussion.  
+>>> 12 V, if my eyes don't deceive me.
 >>
->> I don't think it is necessary to do that change for now.  When someone
->> really comes across this issue, we may make the error management code
->> robust.
+>> Yes, it's 12V. According to the chipset's power grid, the VPH rail is rated at 12 volts.
+>> That's significantly higher than what we typically see on mobile platforms. I guess,
+>> this is due to the SA8775P Ride SX being designed for automotive applications, where higher voltage levels are required.
 >>
->>>   
->>>>> Thanks for taking the time to dig into this!    
->>>>
->>>> After looking into this patch and patch 31(though I've already provided my A-b)
->>>> more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
->>>> should have the same life time with the embedded DRM bridges, because for
->>>> example the clk_apb clock in struct imx8qxp_pc would be accessed by the
->>>> imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
->>>> the life time for the embedded channel/bridge structures only, but not for the
->>>> main structures.  What do you think ?  
 >>>
->>> I see you concern, but I'm sure the change I'm introducing is not
->>> creating the problem you are concerned about.
+>>>> +		regulator-always-on;
+>>>> +		regulator-boot-on;
+>>>> +	};
+>>>> +
 >>>
->>> The key aspect is that my patch is merely changing the lifetime of the
->>> _allocation_ of the drm_bridge, not its usage. On drm_bridge_remove()
->>> the bridge is removed from its encoder chain and it is completely not
->>> reachable, both before and after my patch. With my patch it is not
->>> freed immediately, but it's just a piece of "wasted" memory that is
->>> still allocated until elsewhere in the kernel there are pointers to it,
->>> to avoid use-after-free.
+>>> [...]
 >>>
->>> With this explanation, do you think my patch is correct (after fixing
->>> the bug we already discussed of course)?  
+>>>> +
+>>>> +			bridge@58 {
+>>>> +				compatible = "analogix,anx7625";
+>>>> +				reg = <0x58>;
+>>>> +				interrupts-extended = <&io_expander 2 IRQ_TYPE_EDGE_FALLING>;
+>>>> +				enable-gpios = <&io_expander 1 GPIO_ACTIVE_HIGH>;
+>>>> +				reset-gpios = <&io_expander 0 GPIO_ACTIVE_HIGH>;
+>>>> +				vdd10-supply = <&vph_pwr>;
+>>>> +				vdd18-supply = <&vph_pwr>;
+>>>> +				vdd33-supply = <&vph_pwr>;
+>>>
+>>> Here you are saying that 1.0V, 1.8V and 3.3V pins are powered on by 12V
+>>> supply. I wonder how the board doesn't trigger all fire alarms in the
+>>> building.
+>>>
 >>
->> I tend to say your patch is not correct because we'll eventually make sure
->> that removing a bridge module is safe when doing atomic commit,
+>> Let me try to explain the connections from the schematics.
+>>
+>> In the SA8775P RIDE SX platform, the ANX bridge supplies are connected from the below sources:
+>>
+>> 1) AVDD1P8 is sourced from the `VREG_1P8` of the backplane card.
+>> 2) AVDD3P0 is sourced from the `VREG_3P0` of the backplane card.
+>> 3) AVDD1P0 is sourced from the TPS74801 LDO voltage regulator that has `VREG_1P8` connected to
+>>    VIN & EN lines, and `VREG_3P0` connected to BIAS line.
+>>  
+>> The `VREG_1P8` is sourced from a buck converter TPS54618CQRTERQ1 that is using 
+>> `VREG_5P0` as VIN and EN_VR1P8_M3P3 as EN signal. 
+>> Where the `EN_VR1P8_M3P3` is an output signal from SAK-TC397XX-256F300S BD micro-controller.
+>>  
+>> Similarly, the `VREG_1P3` and `VREG_5P0` are sourced from another buck converter LM5143QRWGRQ1
+>> that is using `VREG_12P0` as VIN and `EN_VR5P0_M3P3` as EN signal.
+>> Where the EN_VR5P0_M3P3 is an output from the same micro-controller.
+>>  
+>> Combining above details, all three ANX bridge supplies are getting enabled by `VREG_12P0` supply,
+>> `EN_VR1P8_M3P3` and `EN_VR5P0_M3P3` signals once the SOC is out of reset.
+>>  
+>> The `VREG_12P0` is directly sourced from `VBATT_IN`.
+>>  
+>> Since, there is no SW control for ANX bridge supplies and they are getting enabled
+>> once the SOC is out of reset, I have used vph-pwr-regulator dummy regulator.
+>> I am not sure if it's the right way to handle above scenario. Please let me know if there is other way to do the same.
 > 
-> I think your sentence can be rephrased as "your patch is correct with
-> the current code base where bridges are not (yet) removable, but there
-> will be a problem when they start to actually be removable".
-> 
-> Is my understanding correct? If it is, I agree on that sentence.
-
-Nope, I meant your patch should align the life times of the main structures
-and the DRM bridges, for the sake of the kinda long term goal - remove bridge
-driver module safely when doing atomic commit.
-
-> 
-> The work to have removable bridges is massive and non-trivial, so it
-> will need to be tackled in steps. The grand plan [0] is:
-> 
->  1. add refcounting to DRM bridges (struct drm_bridge)
->  2. handle gracefully atomic updates during bridge removal
->  3. avoid DSI host drivers to have dangling pointers to DSI devices 
->  4. finish the hotplug bridge work, removing the "always-disconnected"
->     connector, moving code to the core and potentially removing the
->     hotplug-bridge itself (this needs to be clarified as points 1-3 are
->     developed)
-
-I'm busy with internal things these days and cannot look into the grand
-plan and steps closely, sorry about that.
-
-> 
-> I am at step 1 right now. Removal during atomic updates is step 2,
-> ideas about how to implement that are already being discussed [1],
-> there's a practical plan proposed by Maxime with the goal of reaching
-> removable bridges without breaking things along the path.
-> 
-> [0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/
-> [1] https://lore.kernel.org/all/20250106-vigorous-talented-viper-fa49d9@houat/
-> 
->> which means
->> the main structures should have the same life time with the DRM bridges.
-> 
-> The word "lifetime" mean two things for bridges:
-> 
->  * the time span during which memory is allocated for a struct
->    drm_bridge (along with the embedding struct)
-
-Note that with your patch set the imx8*-ldb drivers and this bridge driver
-won't allocate the DRM bridge along with the embedding struct. This makes
-me worry, because maybe these drivers are the only "special" ones in this
-patch set and I don't want them to be "special" after your patch set is
-applied.
-
->  * the time span during which a DRM bridge is active/used/usable as
->    part of a card
->    - i.e. when it is part of an encoder chain
->    - i.e. when drm_bridge_funcs callbacks can be called
->    - i.e. from drm_bridge_add() to drm_bridge_remove()
-> 
-> These two lifetimes used to be nearly the same. Now the "memory
-> allocation lifetime" is extended, but the "bridge existence" is
-> unchanged: drm_bridge_add() to drm_bridge_remove() are called in the
-> same place and do the same things, so the bridge will stop being in any
-> encoder chain at the exact same time. now we are just keeping a piece of
-> memory allocated for a longer time.
-> 
-> Seen in another way, the events used to be:
-> 
->  * probe:
->    - allocate bridge
->    - drm_bridge_add()
-> 
->  * remove
->    - drm_bridge_remove()
->    - now the bridge is not used, it's just some dead memory [*]
->    - kfree bridge (either in .remove() or just after by devm)
-> 
-> Now it becomes:
-> 
->  * probe:
->    - allocate bridge
->    - drm_bridge_add()
-> 
->  * remove
->    - drm_bridge_remove()
->    - now the bridge is not used, it's just some dead memory [*]
->    - maybe some more time, possibly long, until the last put [*]
->    - kfree bridge (by devm)
-> 
-> The duration of the [*] steps changes, but it's harmless because the
-> bridge is not used at all. No change except for memory allocation.
-> 
-> Luca
+> Add these regulators as fixed ones, describing the power grid. Consult
+> other board files if you are unsure. RB3, RB5, HDKs - all these boards
+> have fixed-regulators for the grid.
 > 
 
--- 
-Regards,
-Liu Ying
+Hi Dmirty,
+
+After referring the RB3, RB5, HDKs boards example for fixed regulator.
+
+1) Reference 1 (qrb5165-rb5.dts file) (https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts)
+
+In qrb5165-rb5.dts file, If we refer the fixed regulator of lt9611_1v2
+
+lt9611_1v2: lt9611-vdd12-regulator {
+                compatible = "regulator-fixed";
+                regulator-name = "LT9611_1V2";
+                vin-supply = <&vdc_3v3>;
+                regulator-min-microvolt = <1200000>;
+                regulator-max-microvolt = <1200000>;
+        };
+
+Here we can see the vin-supply is vdc_3v3, which is itself is a fixed-regulator.
+
+vdc_3v3: vdc-3v3-regulator {
+                compatible = "regulator-fixed";
+                regulator-name = "VDC_3V3";
+                vin-supply = <&vreg_l11c_3p3>;
+                regulator-min-microvolt = <3300000>;
+                regulator-max-microvolt = <3300000>;
+                regulator-always-on;
+        };
+
+Then vin-supply for vdc_3v3 is vreg_l11c_3p3, Which is a RPMH regulator.
+
+ vreg_l11c_3p3: ldo11 {
+                        regulator-name = "vreg_l11c_3p3";
+                        regulator-min-microvolt = <3296000>;
+                        regulator-max-microvolt = <3296000>;
+                        regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+                        regulator-always-on;
+                };
+
+Do we need to do the same for our vdd10-supply , vdd18-supply and vdd33-supply of anx7625 bridge supplies ?
+
+Example for vdd18-supply (AVDD1P8) (Anx7625 vdd18-supply)
+
+vreg_1p8 : vreg-vdd18-regulator {
+	 compatible = "regulator-fixed";
+	 regulator-name = "vreg_1p8";
+	 vin-supply = <&vreg_5p0>;
+	 regulator-min-microvolt = <1800000>;
+	 regulator-max-microvolt = <1800000>;
+};
+
+Here vreg_1p8 is using vreg_5p0 as vin-supply.
+
+vreg_5p0 : vreg-5p0-regulator {
+	 compatible = "regulator-fixed";
+	 regulator-name = "vreg_5p0";
+	 vin-supply = <&vreg_12p0>;
+	 regulator-min-microvolt = <5000000>;
+	 regulator-max-microvolt = <5000000>;
+};
+
+Here vreg_5p0 is using vreg_12p0 as vin-supply.
+
+vreg_12p0: vreg-12p0-regulator {
+	 compatible = "regulator-fixed";
+	 regulator-name = "vreg_12p0";
+	 regulator-min-microvolt = <12000000>;
+	 regulator-max-microvolt = <12000000>;
+};
+
+2) Reference 2 (qcs6490-rb3gen2.dts) (https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts)
+
+Or In qcs6490-rb3gen2.dts file, If we refer the fixed regulator of lt9611_1v2
+
+lt9611_1v2: lt9611-vdd12-regulator {
+                compatible = "regulator-fixed";
+                regulator-name = "LT9611_1V2";
+
+                regulator-min-microvolt = <1200000>;
+                regulator-max-microvolt = <1200000>;
+ };
+
+There is not any vin-supply here.
+
+Example for vdd18-supply (AVDD1P8) (Anx7625 vdd18-supply)
+
+vreg_1p8 : vreg-vdd18-regulator {
+	 compatible = "regulator-fixed";
+	 regulator-name = "vreg_1p8";
+	 regulator-min-microvolt = <1800000>;
+	 regulator-max-microvolt = <1800000>;
+};
+
+Let me know, Which way we need to define the our anx7625 bridge supplies.
+
+Thanks,
+Ayushi
