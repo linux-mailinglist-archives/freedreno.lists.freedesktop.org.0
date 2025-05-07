@@ -2,105 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D33DBAADFE7
-	for <lists+freedreno@lfdr.de>; Wed,  7 May 2025 14:58:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3EE1AAE22C
+	for <lists+freedreno@lfdr.de>; Wed,  7 May 2025 16:13:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADA9910E7B0;
-	Wed,  7 May 2025 12:58:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A964B10E809;
+	Wed,  7 May 2025 14:13:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="fM4HhE3r";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="adYesO7D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2088A10E7AD;
- Wed,  7 May 2025 12:58:19 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 547A8W4M009112;
- Wed, 7 May 2025 12:58:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- xF+cHM9YchG/d6uxqOT4xkfIqHaWygeEpG9xNO/SoYg=; b=fM4HhE3rjTI6vgKq
- RovSRDh2S6OdesGL6BVSkoQzvAzfIxFEi5uqEOqLbbpHAVW5H90b3NM3etVw6tNs
- cutU5HeqKZI4ARfz7vNoH8E8yB91X6d+m7eHmIGIsA+jTaXaXUWa1vprkBd2dgiN
- MCT1MDJaUPm0W2ESc/AXek8n4FfV/D6aJSsCBCpT3L2bFAm/h1I0j7iPfg/XtQDA
- M57dV3O9eBlpHPx4TpqnGNKQEZTEs/JTOUm5upVjYvgxU3c1bF0QCzmfHpHpetoQ
- eM10kDr7GHnLjSO2zTdUHappNb8sJp6Fcx0ki4X23OnM0N7Z+2fvbbU9sZc1cwrS
- jCmjpw==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46g5gh8esu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 07 May 2025 12:58:07 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 547Cw6b7009442
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 7 May 2025 12:58:06 GMT
-Received: from [10.206.97.61] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 7 May 2025
- 05:57:58 -0700
-Message-ID: <bd136800-8ef5-4597-b918-41b9f97db14f@quicinc.com>
-Date: Wed, 7 May 2025 18:27:54 +0530
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5779A10E809;
+ Wed,  7 May 2025 14:13:19 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A7A8943A17;
+ Wed,  7 May 2025 14:13:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1746627197;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZUkZFmqLpaya2SvixZMFXiK5vMoC/WgZVFpr9qlTBnY=;
+ b=adYesO7D1P7ynosW29lwbsjTgJFaCmVyHEon+flnFOa0BvpYbgiRnF+Xmpud0uAtagWCKR
+ 3oskQarIGt0LOBcEzJnasoloDFldQLXTPGfiIhzFPFxQ44Bv9OhNB8OfgtRyxM7+9P43cR
+ EkU5M3wIV4eMfygkH8Z49lCMg02BGC3HtUgDaN8q7xI8pIpFMVELZovDj9NLGU/agK2QHw
+ g3CUt2Har990IGmx7V543phmv8Wv4XvzKKsAS8THOhfgcNBUADs19379Lxd8e7/I43vGMD
+ r3WqKePwg6IikvuHOAtVe8FiAWFIlf69nPFcMS8m4pDVEx1m0DuHF1UEztkH0g==
+Date: Wed, 7 May 2025 16:13:11 +0200
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jagan Teki
+ <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Douglas Anderson
+ <dianders@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, Krzysztof
+ Kozlowski <krzk@kernel.org>, Anusha Srivatsa <asrivats@redhat.com>, Paul
+ Kocialkowski <paulk@sys-base.io>, Dmitry Baryshkov <lumag@kernel.org>, Hui
+ Pu <Hui.Pu@gehealthcare.com>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
+ asahi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ chrome-platform@lists.linux.dev, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v2 30/34] drm/bridge: imx8qxp-pixel-combiner: convert to
+ devm_drm_bridge_alloc() API
+Message-ID: <20250507161311.6e434f2f@booty>
+In-Reply-To: <430d497d-45a1-436d-91fd-635854f80c9f@nxp.com>
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
+ <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
+ <20250430112944.1b39caab@booty>
+ <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
+ <20250506224720.5cbcf3e1@booty>
+ <a1abf31a-7a4a-4f8d-bf48-6b826aa01197@nxp.com>
+ <20250507091244.32865a71@booty>
+ <430d497d-45a1-436d-91fd-635854f80c9f@nxp.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/11] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
- to DP bridge nodes
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <marijn.suijten@somainline.org>,
- <andersson@kernel.org>, <robh@kernel.org>, <robh+dt@kernel.org>,
- <krzk+dt@kernel.org>, <konradybcio@kernel.org>, <conor+dt@kernel.org>,
- <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
- <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
- <quic_abhinavk@quicinc.com>, <quic_rajeevny@quicinc.com>,
- <quic_vproddut@quicinc.com>, <quic_jesszhan@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20250505094245.2660750-1-quic_amakhija@quicinc.com>
- <20250505094245.2660750-3-quic_amakhija@quicinc.com>
- <grwlmrgi5cfv3jtuki57ug7gsqykpwdf2to2l7di6glfxtb7vz@6id6cpfkrbuh>
- <88b139c4-0a35-4c9e-9993-573fede29b71@quicinc.com>
- <ip2phi56u4yof376t5a5mqhvo3x4oo4blcnirwc6w7eancpm7i@ofcgyfcxdmre>
-Content-Language: en-US
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-In-Reply-To: <ip2phi56u4yof376t5a5mqhvo3x4oo4blcnirwc6w7eancpm7i@ofcgyfcxdmre>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: OPbtRutEhhwqmylcl9sGmNFyMmVkwavI
-X-Authority-Analysis: v=2.4 cv=TqPmhCXh c=1 sm=1 tr=0 ts=681b58df cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=NEAV23lmAAAA:8
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=G6BfOUuto9JBWjMmyeYA:9 a=QEXdDO2ut3YA:10
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA3MDEyMiBTYWx0ZWRfX/V6kIFbeakdJ
- aDRFF9zCSxC1ASGhT+a8JlCqcMoDMvkPxNNmITI5KPisfu6lx02d936s78YEeA+VEfJaM8VBZwf
- jSavOARuAqzQ3MNltqfYDBrA0GI8zLFfWhK8rwOfIuik0rP1nIBLj7OxYkDy2cO53VRS8kDIGTS
- MEB69tgPOxsnkbIE4WcaQi0MOwYPoaAxWcJF8k0VwQisLKcPdpbnG64L12bfG1n7Y2FLyR9W8f4
- 9M7N1h2HO7x9DYR5NoCGO60lkYdJqSB02ZASyU4cTwctMd02gq+W1ilfz+nD4BVoN73GKt2ovDy
- 8LKcnl3Aqdj4lVajnV5rMxaVeUye/Aq0FKke4DKmbDKiAvAthOVKaN/XN68C3vU7viF4XL1BPyO
- KJ9thIrF3oKwak0zo/e1rfrFKViYnWNxQLv7lw3lXqtN3xBFizLL73NSAQ923jlOblYgJYVU
-X-Proofpoint-ORIG-GUID: OPbtRutEhhwqmylcl9sGmNFyMmVkwavI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-07_04,2025-05-06_01,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 mlxscore=0 mlxlogscore=999 spamscore=0
- priorityscore=1501 phishscore=0 suspectscore=0 impostorscore=0 clxscore=1015
- lowpriorityscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2505070122
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvkeejtdejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnheptdeljeejuddvudetffdtudelfedugfduledtueffuedufefgudegkeegtdeihedunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghlohepsghoohhthidpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeefledprhgtphhtthhopehvihgtthhorhdrlhhiuhesnhigphdrtghomhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhto
+ hepmhhrihhprghrugeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepthiiihhmmhgvrhhmrghnnhesshhushgvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrgh
+X-GND-Sasl: luca.ceresoli@bootlin.com
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,187 +93,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 5/6/2025 5:58 PM, Dmitry Baryshkov wrote:
-> On Tue, May 06, 2025 at 05:42:50PM +0530, Ayushi Makhija wrote:
->> Hi Dmitry,
->>
->> On 5/5/2025 3:32 PM, Dmitry Baryshkov wrote:
->>> On Mon, May 05, 2025 at 03:12:41PM +0530, Ayushi Makhija wrote:
->>>> Add anx7625 DSI to DP bridge device nodes.
->>>>
->>>> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
->>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>> ---
->>>>  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 183 +++++++++++++++++++++
->>>>  1 file changed, 183 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>>> index 175f8b1e3b2d..de14f3ea8835 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
->>>> @@ -28,6 +28,15 @@ chosen {
->>>>  		stdout-path = "serial0:115200n8";
->>>>  	};
->>>>  
->>>> +	vph_pwr: vph-pwr-regulator {
->>>> +		compatible = "regulator-fixed";
->>>> +		regulator-name = "vph_pwr";
->>>> +		regulator-min-microvolt = <12000000>;
->>>> +		regulator-max-microvolt = <12000000>;
->>>
->>> 12 V, if my eyes don't deceive me.
->>
->> Yes, it's 12V. According to the chipset's power grid, the VPH rail is rated at 12 volts.
->> That's significantly higher than what we typically see on mobile platforms. I guess,
->> this is due to the SA8775P Ride SX being designed for automotive applications, where higher voltage levels are required.
->>
->>>
->>>> +		regulator-always-on;
->>>> +		regulator-boot-on;
->>>> +	};
->>>> +
->>>
->>> [...]
->>>
->>>> +
->>>> +			bridge@58 {
->>>> +				compatible = "analogix,anx7625";
->>>> +				reg = <0x58>;
->>>> +				interrupts-extended = <&io_expander 2 IRQ_TYPE_EDGE_FALLING>;
->>>> +				enable-gpios = <&io_expander 1 GPIO_ACTIVE_HIGH>;
->>>> +				reset-gpios = <&io_expander 0 GPIO_ACTIVE_HIGH>;
->>>> +				vdd10-supply = <&vph_pwr>;
->>>> +				vdd18-supply = <&vph_pwr>;
->>>> +				vdd33-supply = <&vph_pwr>;
->>>
->>> Here you are saying that 1.0V, 1.8V and 3.3V pins are powered on by 12V
->>> supply. I wonder how the board doesn't trigger all fire alarms in the
->>> building.
->>>
->>
->> Let me try to explain the connections from the schematics.
->>
->> In the SA8775P RIDE SX platform, the ANX bridge supplies are connected from the below sources:
->>
->> 1) AVDD1P8 is sourced from the `VREG_1P8` of the backplane card.
->> 2) AVDD3P0 is sourced from the `VREG_3P0` of the backplane card.
->> 3) AVDD1P0 is sourced from the TPS74801 LDO voltage regulator that has `VREG_1P8` connected to
->>    VIN & EN lines, and `VREG_3P0` connected to BIAS line.
->>  
->> The `VREG_1P8` is sourced from a buck converter TPS54618CQRTERQ1 that is using 
->> `VREG_5P0` as VIN and EN_VR1P8_M3P3 as EN signal. 
->> Where the `EN_VR1P8_M3P3` is an output signal from SAK-TC397XX-256F300S BD micro-controller.
->>  
->> Similarly, the `VREG_1P3` and `VREG_5P0` are sourced from another buck converter LM5143QRWGRQ1
->> that is using `VREG_12P0` as VIN and `EN_VR5P0_M3P3` as EN signal.
->> Where the EN_VR5P0_M3P3 is an output from the same micro-controller.
->>  
->> Combining above details, all three ANX bridge supplies are getting enabled by `VREG_12P0` supply,
->> `EN_VR1P8_M3P3` and `EN_VR5P0_M3P3` signals once the SOC is out of reset.
->>  
->> The `VREG_12P0` is directly sourced from `VBATT_IN`.
->>  
->> Since, there is no SW control for ANX bridge supplies and they are getting enabled
->> once the SOC is out of reset, I have used vph-pwr-regulator dummy regulator.
->> I am not sure if it's the right way to handle above scenario. Please let me know if there is other way to do the same.
+Hello Liu,
+
+On Wed, 7 May 2025 18:16:28 +0800
+Liu Ying <victor.liu@nxp.com> wrote:
+
+[...]
+
+> >>>> After looking into this patch and patch 31(though I've already provided my A-b)
+> >>>> more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
+> >>>> should have the same life time with the embedded DRM bridges, because for
+> >>>> example the clk_apb clock in struct imx8qxp_pc would be accessed by the
+> >>>> imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
+> >>>> the life time for the embedded channel/bridge structures only, but not for the
+> >>>> main structures.  What do you think ?    
+> >>>
+> >>> I see you concern, but I'm sure the change I'm introducing is not
+> >>> creating the problem you are concerned about.
+> >>>
+> >>> The key aspect is that my patch is merely changing the lifetime of the
+> >>> _allocation_ of the drm_bridge, not its usage. On drm_bridge_remove()
+> >>> the bridge is removed from its encoder chain and it is completely not
+> >>> reachable, both before and after my patch. With my patch it is not
+> >>> freed immediately, but it's just a piece of "wasted" memory that is
+> >>> still allocated until elsewhere in the kernel there are pointers to it,
+> >>> to avoid use-after-free.
+> >>>
+> >>> With this explanation, do you think my patch is correct (after fixing
+> >>> the bug we already discussed of course)?    
+> >>
+> >> I tend to say your patch is not correct because we'll eventually make sure
+> >> that removing a bridge module is safe when doing atomic commit,  
+> > 
+> > I think your sentence can be rephrased as "your patch is correct with
+> > the current code base where bridges are not (yet) removable, but there
+> > will be a problem when they start to actually be removable".
+> > 
+> > Is my understanding correct? If it is, I agree on that sentence.  
 > 
-> Add these regulators as fixed ones, describing the power grid. Consult
-> other board files if you are unsure. RB3, RB5, HDKs - all these boards
-> have fixed-regulators for the grid.
+> Nope, I meant your patch should align the life times of the main structures
+> and the DRM bridges, for the sake of the kinda long term goal - remove bridge
+> driver module safely when doing atomic commit.
+
+Again, I don't think there is any bug introduced by this patch (once
+the NULL ptr deref bug we already discussed is fixed). No bridge can be
+removed as of now, with or without this patch.
+
+You concern that this patch would make things more complex in the
+future, when bridges will actually become removable and they could be
+during atomic updates. But about this...
+
+> > The work to have removable bridges is massive and non-trivial, so it
+> > will need to be tackled in steps. The grand plan [0] is:
+> > 
+> >  1. add refcounting to DRM bridges (struct drm_bridge)
+> >  2. handle gracefully atomic updates during bridge removal
+> >  3. avoid DSI host drivers to have dangling pointers to DSI devices 
+> >  4. finish the hotplug bridge work, removing the "always-disconnected"
+> >     connector, moving code to the core and potentially removing the
+> >     hotplug-bridge itself (this needs to be clarified as points 1-3 are
+> >     developed)  
 > 
+> I'm busy with internal things these days and cannot look into the grand
+> plan and steps closely, sorry about that.
 
-Hi Dmirty,
+...I'll wait until you have time to look into that more closely. There
+is just no way to understand this whole topic without some dedicated
+attention, which takes time unavoidably.
 
-After referring the RB3, RB5, HDKs boards example for fixed regulator.
+In the meanwhile I am going to send v3 soon with the known bug fixed,
+so the best version is available to continue this discussion.
 
-1) Reference 1 (qrb5165-rb5.dts file) (https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts)
+> > I am at step 1 right now. Removal during atomic updates is step 2,
+> > ideas about how to implement that are already being discussed [1],
+> > there's a practical plan proposed by Maxime with the goal of reaching
+> > removable bridges without breaking things along the path.
+> > 
+> > [0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/
+> > [1] https://lore.kernel.org/all/20250106-vigorous-talented-viper-fa49d9@houat/
+> >   
+> >> which means
+> >> the main structures should have the same life time with the DRM bridges.  
+> > 
+> > The word "lifetime" mean two things for bridges:
+> > 
+> >  * the time span during which memory is allocated for a struct
+> >    drm_bridge (along with the embedding struct)  
+> 
+> Note that with your patch set the imx8*-ldb drivers and this bridge driver
+> won't allocate the DRM bridge along with the embedding struct.
 
-In qrb5165-rb5.dts file, If we refer the fixed regulator of lt9611_1v2
+By "embedding struct" I mean the struct imx8qxp_pc_channel that embeds
+the struct drm_bridge. Sorry, I realize my wording was ambiguous.
 
-lt9611_1v2: lt9611-vdd12-regulator {
-                compatible = "regulator-fixed";
-                regulator-name = "LT9611_1V2";
-                vin-supply = <&vdc_3v3>;
-                regulator-min-microvolt = <1200000>;
-                regulator-max-microvolt = <1200000>;
-        };
+> This makes
+> me worry, because maybe these drivers are the only "special" ones in this
+> patch set and I don't want them to be "special" after your patch set is
+> applied.
 
-Here we can see the vin-supply is vdc_3v3, which is itself is a fixed-regulator.
+Luca
 
-vdc_3v3: vdc-3v3-regulator {
-                compatible = "regulator-fixed";
-                regulator-name = "VDC_3V3";
-                vin-supply = <&vreg_l11c_3p3>;
-                regulator-min-microvolt = <3300000>;
-                regulator-max-microvolt = <3300000>;
-                regulator-always-on;
-        };
-
-Then vin-supply for vdc_3v3 is vreg_l11c_3p3, Which is a RPMH regulator.
-
- vreg_l11c_3p3: ldo11 {
-                        regulator-name = "vreg_l11c_3p3";
-                        regulator-min-microvolt = <3296000>;
-                        regulator-max-microvolt = <3296000>;
-                        regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-                        regulator-always-on;
-                };
-
-Do we need to do the same for our vdd10-supply , vdd18-supply and vdd33-supply of anx7625 bridge supplies ?
-
-Example for vdd18-supply (AVDD1P8) (Anx7625 vdd18-supply)
-
-vreg_1p8 : vreg-vdd18-regulator {
-	 compatible = "regulator-fixed";
-	 regulator-name = "vreg_1p8";
-	 vin-supply = <&vreg_5p0>;
-	 regulator-min-microvolt = <1800000>;
-	 regulator-max-microvolt = <1800000>;
-};
-
-Here vreg_1p8 is using vreg_5p0 as vin-supply.
-
-vreg_5p0 : vreg-5p0-regulator {
-	 compatible = "regulator-fixed";
-	 regulator-name = "vreg_5p0";
-	 vin-supply = <&vreg_12p0>;
-	 regulator-min-microvolt = <5000000>;
-	 regulator-max-microvolt = <5000000>;
-};
-
-Here vreg_5p0 is using vreg_12p0 as vin-supply.
-
-vreg_12p0: vreg-12p0-regulator {
-	 compatible = "regulator-fixed";
-	 regulator-name = "vreg_12p0";
-	 regulator-min-microvolt = <12000000>;
-	 regulator-max-microvolt = <12000000>;
-};
-
-2) Reference 2 (qcs6490-rb3gen2.dts) (https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts)
-
-Or In qcs6490-rb3gen2.dts file, If we refer the fixed regulator of lt9611_1v2
-
-lt9611_1v2: lt9611-vdd12-regulator {
-                compatible = "regulator-fixed";
-                regulator-name = "LT9611_1V2";
-
-                regulator-min-microvolt = <1200000>;
-                regulator-max-microvolt = <1200000>;
- };
-
-There is not any vin-supply here.
-
-Example for vdd18-supply (AVDD1P8) (Anx7625 vdd18-supply)
-
-vreg_1p8 : vreg-vdd18-regulator {
-	 compatible = "regulator-fixed";
-	 regulator-name = "vreg_1p8";
-	 regulator-min-microvolt = <1800000>;
-	 regulator-max-microvolt = <1800000>;
-};
-
-Let me know, Which way we need to define the our anx7625 bridge supplies.
-
-Thanks,
-Ayushi
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
