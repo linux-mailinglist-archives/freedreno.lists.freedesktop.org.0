@@ -2,104 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C87BAAAF391
-	for <lists+freedreno@lfdr.de>; Thu,  8 May 2025 08:18:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3400AAF854
+	for <lists+freedreno@lfdr.de>; Thu,  8 May 2025 12:47:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4CD510E32E;
-	Thu,  8 May 2025 06:18:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C8A710E37A;
+	Thu,  8 May 2025 10:47:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UiFEZStG";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gv/Kb+64";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 028DE10E32E;
- Thu,  8 May 2025 06:18:38 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A740E629EC;
- Thu,  8 May 2025 06:18:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A936C4CEEE;
- Thu,  8 May 2025 06:18:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746685116;
- bh=4qi/P67+uIyVReLfU5vjCz6ajupbpcjoxwPILqTAti4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=UiFEZStGiIcWzwH57Q4Z5xVbDrbOdjIpEJB0bMIQyEOzawyELYmi7tHEErn0dPQv2
- dlxony58CRNFXVyO5ZIFM4SQZjbPjynGDXkkbEXNE3XtBUKHuXHWWL/Tt05g480fUf
- g5DBy8B89p+nZbYj/mYy5tgePS2f5xhK9mwgrjDwtVu0gZpMNdwJJ5BQKMr4Kn/lyN
- JDABKLlcdp/UFIAwuB0oSy988GOu0AH7tc5LKP/kwT8dTHQS2G0lGorZfvAU3Ipg6p
- edQZrzz5WVop/J/j+yeQwHU00KKuMpLZO0LktdaEMV+4iZn7uEcA5QId3hxEUmusDM
- UyVtnT8ZBmw0A==
-Message-ID: <f7941d74-3856-4bd9-95db-0b7f09eb07fd@kernel.org>
-Date: Thu, 8 May 2025 08:18:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] dt-bindings: display/msm: add stream 1 pixel clock
- binding
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D656E10E36B
+ for <freedreno@lists.freedesktop.org>; Thu,  8 May 2025 10:47:37 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5484XJHa009505
+ for <freedreno@lists.freedesktop.org>; Thu, 8 May 2025 10:47:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=DJLcczpvmaxUKxKji1M3aDjS
+ LMp22wqvdaaWQcNcABU=; b=Gv/Kb+648EnqCkbT8oiSS/nnHx4/i6ee1pUgaNmQ
+ FnUjCk/UAGVjGYH+VGq/D25g+DQq0qKGlcFyPwANejgQf8y2UpnO8/UgdIKBKLS1
+ aNytjGviDAntLa98J128KzbAgX0nDDcuJKdVacTi4UbTMa+c9gYx8ac6c43JnapP
+ KozT/27PhRry8eHLRrBG2B90VDf1lG0SvYLz2qY+R8mAQBuFFBu/Uhoxlh20tF3s
+ dWlzP2EdfoLOwoF7dLiuIQM/wLZ51WSrniBRSogGH/tKt3XWmyTbJOAaocLoJYIt
+ NwWM4ZCfcXW1BbLRm//hlmW5SyCgvTk2Pu2lMwPzxU+VdQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46gnpes09k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 08 May 2025 10:47:31 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c5e28d0cc0so143539785a.3
+ for <freedreno@lists.freedesktop.org>; Thu, 08 May 2025 03:47:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746701251; x=1747306051;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DJLcczpvmaxUKxKji1M3aDjSLMp22wqvdaaWQcNcABU=;
+ b=SuPA3DzSzPpgjmAQFMlxytNULbJN/zfYnGJA38Ji9MbcMq3WO1MlBxH7IaYO5Ibsh7
+ nkjjar8AUshdhkhvABkudwaWzx1s7+mLQLxQbbea9T2zhh7VaLU/i/nrDExEWc5BMLvZ
+ kzZy+egsOuryx451y789xOJCcyMZsmQLQr101v3Ldps3mX9KjmSLE8EL7ClbzKTuSQsi
+ QCOBrZZQbw7OCl1lRTe2OTdguNmU1iPqtt4yZq6aaxm75QhVdE7dQOH1Fbb9x28zjHEJ
+ KB4ebXjiAazL49zqC+on4pcOTNzVPCozFJ/uLkVaAsVvKQ1ZT6cz2KUxOgYuMhMCee7J
+ UHLA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVMPIvcoU5iYW2gr1WKinYYTw1wFWy1Vgj1TTyWtTGfpq7RRR6LDoJzIQ2KN3Db5wqzp8xGccG0ZjI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrPwn/dQs1zzGt72H/eZrPvRTfYzWimAgA6MLXVVC8PoV0vfzh
+ aOxS631KRInqq6Gq0iUduoiadthzLl2eUXndGg0gYNbA6eeigvmBE8oZJ0nlScletaYsULcF1dq
+ 86VLgPqZlPR9bhJPHI1c45hvXnRHTM/PMRNpAiMclC0V7Jw4t4rCuFKDWpZut0Hv4Dxg=
+X-Gm-Gg: ASbGncu1aePbndd2TNMXcjJSoYOKVIL6B7To1AVnilenDCCNAFedRCm8pfdVVrU3p7a
+ mlNq7UpmRY8M0+3C+CUO2s3W3Yo49Mf2Wxq1XTqe+53nZcUErdnCIgzQaWAqmP/u765kdrV1cP7
+ wNNqmQNvl86xXIsHMOBwhk4kSJCjnE8wkbY5V2ebxmS+xGIcPtKideeDX7oNkL8RIS80OZ1El09
+ gzlLudFY90R5tn2zd1RbR5GtcuMMuGzSo2CoHepA8XfK9LSvQI9JFDHrmNo8VWC5Smo163AEh2z
+ CvsP8DvKS2gpwTZiR/lTterHrhnFbSAZcl+jKnWFTFtrMLyJl5zWaQ0TVcuQW0YaipiptO9Csek
+ =
+X-Received: by 2002:a05:6214:2405:b0:6e8:9bcd:bba6 with SMTP id
+ 6a1803df08f44-6f5429e1f20mr112740456d6.7.1746701251154; 
+ Thu, 08 May 2025 03:47:31 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEHl4JUcuFrO/9rVeQzXi9JZCdORJB3CJB1i85DoLPVXTX/Y5q6n8b+WwBx6so7vshDBnZtiA==
+X-Received: by 2002:a05:6214:2405:b0:6e8:9bcd:bba6 with SMTP id
+ 6a1803df08f44-6f5429e1f20mr112740036d6.7.1746701250806; 
+ Thu, 08 May 2025 03:47:30 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54ea94f21a8sm2573813e87.197.2025.05.08.03.47.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 May 2025 03:47:29 -0700 (PDT)
+Date: Thu, 8 May 2025 13:47:28 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Mahadevan <quic_mahap@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-References: <20241202-dp_mst_bindings-v1-0-9a9a43b0624a@quicinc.com>
- <20241202-dp_mst_bindings-v1-3-9a9a43b0624a@quicinc.com>
- <39f8e20a-e8c3-4625-abb1-9f35f416705d@kernel.org>
- <50820e7b-b302-4f7f-baf9-778f3db6cfff@quicinc.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <50820e7b-b302-4f7f-baf9-778f3db6cfff@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v9 01/14] drm/atomic-helper: Add crtc check before
+ checking plane
+Message-ID: <b5kl5whmagpxn4saimkj4qloowh73xggehdh5rnl6lmjvqf65j@esycoi7w2nmp>
+References: <20250506-quad-pipe-upstream-v9-0-f7b273a8cc80@linaro.org>
+ <20250506-quad-pipe-upstream-v9-1-f7b273a8cc80@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250506-quad-pipe-upstream-v9-1-f7b273a8cc80@linaro.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA4MDA5MyBTYWx0ZWRfX7aYhtJEonVVw
+ kVmYT9x9RsQn1/+uDIWr2EBW087j13Ds4UU+U8hlDFqhji44Qs5kf8UDBkF6rl8WyDNLO0pTjD8
+ GRSzEZWaQC9JseRw6ZGbKtua3XcVEPZu8ZuKTvzgdgx2bFHN/ADDRvHgeZkYExV4StwlyE/Dpd8
+ 9D6PX6DpRtnZGCrJsaVgzc3gIAK15dREmVOS/yoF0ycNwZ0/OhM2RDrdTnoMIZRosfQFlCnvMSG
+ OXZMh34CJBQ1xaJxY12jRo30NL0iLhYHDRBKi5dmZPVArfcdy3wX5Gd4YLk4u/+DQHppoZ5ALo0
+ fTes6yuNUVAkNhS1QxjR15Lw9V7IieOAZSboGxVoG9e+ONyhkOMxDmKiJK9+Fod+BOzbfmTb8Vf
+ Z4ge6gWiwhMl7PZG7P0jIsEerxrEW/ZevUBmW4hPNxxRkcj/7QjF5V4eaNzeYjLkLwKPy84S
+X-Proofpoint-ORIG-GUID: bS6KnAJV5LLLSothitbyf9iVXbtrYROI
+X-Proofpoint-GUID: bS6KnAJV5LLLSothitbyf9iVXbtrYROI
+X-Authority-Analysis: v=2.4 cv=Yt4PR5YX c=1 sm=1 tr=0 ts=681c8bc4 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=dt9VzEwgFbYA:10 a=KKAkSRfTAAAA:8 a=EgBjQOAtpNY6-goZWe0A:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-08_03,2025-05-07_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 mlxscore=0 adultscore=0 spamscore=0 impostorscore=0
+ phishscore=0 lowpriorityscore=0 mlxlogscore=999 suspectscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 classifier=spam authscore=0
+ authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2504070000 definitions=main-2505080093
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,144 +131,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/04/2025 04:46, Abhinav Kumar wrote:
-> Hi Krzysztof
+On Tue, May 06, 2025 at 11:47:31PM +0800, Jun Nie wrote:
+> Some display controller support flexible CRTC and DMA, such as the display
+> controllers in snapdragon SoCs. CRTC can be implemented with several mixers
+> in parallel, and plane fetching can be implemented with several DMA under
+> umberala of a virtual drm plane.
 > 
-> On 12/3/2024 12:04 AM, Krzysztof Kozlowski wrote:
->> On 03/12/2024 04:31, Abhinav Kumar wrote:
->>> On some chipsets the display port controller can support more
->>
->> Which chipsets?
->>
-> 
->  From the current list of chipsets which support DP, the following can 
-> support more than one stream.
-> 
-> qcom,sa8775p-dp
-> qcom,sc7280-dp
-> qcom,sc8180x-dp
-> qcom,sc8280xp-dp
-> qcom,sm8350-dp
-> qcom,sm8650-dp
-> qcom,sm8550-dp
-> qcom,sm8450-dp
-> qcom,sm8250-dp
-> qcom,sm8150-dp
-> 
-> So do you also want all of these to be added in the same if block as
-> qcom,sa8775p-dp?
+> The mixer number is decided per panel resolution and clock rate constrain
+> first, which happens in CRTC side. Then plane is split per mixer number
+> and configure DMA accordingly.
 
-That was talk in 2024. Entire context is gone if you reply after three
-months. I do not have even that emails in my inbox anymore.
-
-Probably I expected commit msg to mention at least some, so everyone
-knows which chipsets are affected here and one can verify the statements
-from commit msg.
+Here you are describing a behaviour of one particular driver as a reason
+to change the framework.
 
 > 
->>> than one pixel stream (multi-stream transport). To support MST
->>> on such chipsets, add the binding for stream 1 pixel clock for
->>> display port controller. Since this mode is not supported on all
->>> chipsets, add exception rules and min/max items to clearly mark
->>> which chipsets support only SST mode (single stream) and which ones
->>> support MST.
->>>
->>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>> ---
->>>   .../bindings/display/msm/dp-controller.yaml        | 32 ++++++++++++++++++++++
->>>   .../bindings/display/msm/qcom,sa8775p-mdss.yaml    |  9 ++++--
->>>   2 files changed, 38 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>> index 9fe2bf0484d8..650d19e58277 100644
->>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>> @@ -50,30 +50,38 @@ properties:
->>>       maxItems: 1
->>>   
->>>     clocks:
->>> +    minItems: 5
->>>       items:
->>>         - description: AHB clock to enable register access
->>>         - description: Display Port AUX clock
->>>         - description: Display Port Link clock
->>>         - description: Link interface clock between DP and PHY
->>>         - description: Display Port stream 0 Pixel clock
->>> +      - description: Display Port stream 1 Pixel clock
->>>   
->>>     clock-names:
->>> +    minItems: 5
->>>       items:
->>>         - const: core_iface
->>>         - const: core_aux
->>>         - const: ctrl_link
->>>         - const: ctrl_link_iface
->>>         - const: stream_pixel
->>> +      - const: stream_1_pixel
->>>   
->>>     assigned-clocks:
->>> +    minItems: 2
->>>       items:
->>>         - description: link clock source
->>>         - description: stream 0 pixel clock source
->>> +      - description: stream 1 pixel clock source
->>>   
->>>     assigned-clock-parents:
->>> +    minItems: 2
->>>       items:
->>>         - description: Link clock PLL output provided by PHY block
->>>         - description: Stream 0 pixel clock PLL output provided by PHY block
->>> +      - description: Stream 1 pixel clock PLL output provided by PHY block
->>>   
->>>     phys:
->>>       maxItems: 1
->>> @@ -175,6 +183,30 @@ allOf:
->>>         required:
->>>           - "#sound-dai-cells"
->>>   
->>
->> Missing if: narrowing this to 5 items for other devices.
->>
-> 
-> OR would an else be better?
+> To support such forthcoming usage case, CRTC checking shall happen before
+> checking plane. Add the checking in the drm_atomic_helper_check_modeset().
 
-Usually not, although depends how this binding is written.
-
+So, now drivers will get two calls to atomic_check(), one coming in
+circumstances which were not expected by the drivers before. Are you
+sure that this won't break anything?
 
 > 
-> +    else:
-> +      properties:
-> +        clocks:
-> +          maxItems: 5
-> +        clock-names:
-> +          items:
-> +            - const: core_iface
-> +            - const: core_aux
-> +            - const: ctrl_link
-> +            - const: ctrl_link_iface
-> +            - const: stream_pixel
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
 > 
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            enum:
->>> +              - qcom,sa8775p-dp
->>> +
->>> +    then:
->>> +      properties:
->>> +        clocks:
->>
->> Missing minItems, otherwise it is pointless.
->>
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index 5302ab3248985d3e0a47e40fd3deb7ad0d9f775b..5bca4c9683838c38574c8cb7c0bc9d57960314fe 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -816,6 +816,25 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+>  			return ret;
+>  	}
+>  
+> +	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+> +		const struct drm_crtc_helper_funcs *funcs;
+> +
+> +		funcs = crtc->helper_private;
+> +
+> +		if (!funcs || !funcs->atomic_check)
+> +			continue;
+> +
+> +		ret = funcs->atomic_check(crtc, state);
+> +		if (ret) {
+> +			drm_dbg_atomic(crtc->dev,
+> +				       "[CRTC:%d:%s] atomic driver check failed\n",
+> +				       crtc->base.id, crtc->name);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +
+> +
+
+Too many empty lines. But the main quesiton is: why are you calling it
+before mode_valid()? According to your description a better place would
+be in drm_atomic_helper_check_planes().
+
+>  	ret = mode_valid(state);
+>  	if (ret)
+>  		return ret;
 > 
-> I thought that since I have already specified the minItems as 5
-> in the clocks in the section above, I need to specify only the maxItems 
-> here?
+> -- 
+> 2.34.1
+> 
 
-No, you need explicit constraints here.
-
-
-
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
