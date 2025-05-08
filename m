@@ -2,69 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61251AB02A4
-	for <lists+freedreno@lfdr.de>; Thu,  8 May 2025 20:25:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E011AAB02E2
+	for <lists+freedreno@lfdr.de>; Thu,  8 May 2025 20:33:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DB1C10E954;
-	Thu,  8 May 2025 18:25:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBFD310E957;
+	Thu,  8 May 2025 18:33:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dyej77jL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iagkchts";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2884A10E954;
- Thu,  8 May 2025 18:25:30 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-309e54e469cso169883a91.1; 
- Thu, 08 May 2025 11:25:30 -0700 (PDT)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A725010E957;
+ Thu,  8 May 2025 18:33:19 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-308218fed40so121046a91.0; 
+ Thu, 08 May 2025 11:33:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746728729; x=1747333529; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1746729199; x=1747333999; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=waEbCrslf02j0euz1Hyel1xKxpuwwD71wy+gaLfyWXA=;
- b=Dyej77jLtR+ZBhPWBEgO5Ut2u4TzrV7s8N+mw/3f40a+tbBYL4FXhEOlWXsIXIAWS2
- VK/xXwY9dq0Lqa58ezammpf+yoWj6pbWz/jyqU0RFlJMWu+eGSX+i0geZfAISK3j7rsI
- 8XPEQ5NLtpEixiezb8pNFdR24VJM9Jfj/49NIxNLENZWIZzv/tHHwILCUmGS0RC+mLcG
- RO+a4J7nWC8GjBg1SbVnbFtKY4bmPNvHocLGSvGfBvcAnDfjzKmJUz5FrDDwCgGPL9Wt
- ddwxfrbyJxpHJFlyIE77LKG057SpaHcXtpDgofxvtI0fl7CWqjD5VnenVdYGAU/pJeA+
- fHew==
+ bh=8FQJhUt0Xs5KmiFJABZgU0fKzpM3sDlbu/it07qeVBQ=;
+ b=iagkchtsenZMtmbQAR1sKxSfmJZAFNY1Pprap39KJBzusWkLoqPULU8AtYClou0Qwv
+ t13A+jvt9sckK2xqXJBL04vtJd73vf5ZcVZbXy4ES+EHfxMjvIcnblIJ+QR8IjXzHRR6
+ AZogRwpKoE5xn5oMwO88ei0lubohcC5jJC50qPOCB9tazDRfDrH4VB0NEaBQVrKyrz1d
+ /UhQQqYCwpmVb63gwTw5rMwFTrOWebNdduawn3fmBOZpdThyfBf7PFJ/yJIS6G1WTkrx
+ u1FU3CHyhqQFe8HkMdsISjPzK+QGQOfCmXI+2h0tWVmmENuto759QsVyoSAPeGG0tPl1
+ ytYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746728729; x=1747333529;
+ d=1e100.net; s=20230601; t=1746729199; x=1747333999;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=waEbCrslf02j0euz1Hyel1xKxpuwwD71wy+gaLfyWXA=;
- b=GhQkCDbFGIlJnmEnHxQcrGcSh+fZg0EUm2vxcRDhNZLVpVnWDGYKsoJfe5kJf/FN+Y
- 5hsV3S3yS2mzJEbtRrrjKSv8mOE9T+rBxe4FvMRvwix30c3NfBOWYDtuE56gYwS2XS+l
- YdvPolNi79JcEzZaV6e4400yaaVSFXpPvRG14kNsBeW+QE9b7ka6x+/dd4A6zrNOeIC2
- oVJaKUZtN3FSdwLnWgrUupEXueqMLgCvBzlgXbkj86Mpdnt5oTVnOow5cFVw8filc/3h
- 0yQ8iHsMhHIAtSsyIkNFytoQt2v7rXN2P14gAO6mfQm8tr5eo48W0GtWwFaPllVeWJXH
- /PyQ==
+ bh=8FQJhUt0Xs5KmiFJABZgU0fKzpM3sDlbu/it07qeVBQ=;
+ b=Kns7YYNJgHI0uwOTSTkfLXxxgHtBxGRkpUuvmsG6phZVzqTAMpCrvugtJGqbuWxkF3
+ bSXqJInggW9QYvjro0oGXp99toabN46pfXrKB3J9gLxAKkYe9p9/9jgR3hBv9OQf/ofc
+ lwljVNIPSxU8xymX7nJ6brd7PsZJjBR8EbPUf4OgNWB48c66W+t56tQi5RW3WZ2vBdXN
+ BIGM8XhMRuS9wkW2857NHkbWLyAqFYwh/MKdlAzSApsa6lepZL2ESnT6pxrc1SY1NM1Y
+ DqaezrfoYiyPzUJDTJ4+2eTJWzTPGTt8kGxajMjuISGxo10LMHg1UFTC54wJLKayS+7u
+ BOTg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWhtvEqCFqyUasMGOTlrGD8lW5ehevQcYx/Rp0/nBlbBDaxxs6yYlyKcjzj5E5tGIhvbmMTQc9vH6YN@lists.freedesktop.org,
- AJvYcCXMlkFyxqyNPnfrW8Q1MjZsX7vLrs1YQL6xFM33jYOuEOSqgi0cv/Id94jEJsJfk2VpPmMrcSsuU50=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz3w199KDz1ZGuttfL9/s8YvoaTl1s8gCIUSVl5DhGaAg2hdBJ+
- ecKEL4C+QpLEgZH9CzdXuT56wV64Myp+nP4WmEEYQAhlFjm+PdH7sdwXvmcs9RprY0tzpsH9xvV
- L4aAta2GOfYCJ71hjj7nwxxs8+0Y=
-X-Gm-Gg: ASbGncvxJmVxzQVF7P0k2yaR8eO3g5awARVAbOOZD7a73JfZsy2q4MyWcyCgLk437nX
- vub14rCCv5oRWr86uB0MzHsBgFh90QpR6fkbDGVuNbDiG5LWvKm3OZ89PbpQaQsNCPyAbahqRpU
- r2OTqWUY5a9lnHPp1bi606dA==
-X-Google-Smtp-Source: AGHT+IHm+1k+jR7TnUT8ZSpFd7U5tcrz5KJivMD+5bDfj/leop0E5igVUwVXpDEwEgoS20vzCAfVm+cD5wr/rcq2wGs=
-X-Received: by 2002:a17:90b:3812:b0:2ff:4be6:c5e2 with SMTP id
- 98e67ed59e1d1-30c3d669070mr276315a91.7.1746728729571; Thu, 08 May 2025
- 11:25:29 -0700 (PDT)
+ AJvYcCU+ndcumqKn14FsF1bwjSASFebIr7dLH5I5GC2oPGjjuzxg8AR1oEHGpyF36i5akrtqnlFgpFuQlIs=@lists.freedesktop.org,
+ AJvYcCUFy4k/jYNSFbzjq+RtCgdLZ+wngN+mqFAe2DY3KMfgRaPJ2OYa9Z782tISE8qJpdz4twXTdN4PB+Yd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzWe1ZzFOHGzmGZ3wXtkiFT/1ufAb8gRJIRrpe8uMJl9O9LXzA1
+ MY2u39qk1cfo4XV1X/kce6LGmrBKsPZSh/FyEaq2wZD+x0pBZ9P8p0KDoGmr8qrVH/h4ZMFLXQK
+ TGsgGP06sWgLjVvFC/e2gvDEwBkE=
+X-Gm-Gg: ASbGncvuNACDskZGGrsZTxJdFw2M6bZW06VZ/T54JgwiFQV5bkWb4kQHTUjviZgMsW+
+ sS9bTwM0dpaVkNfgaoLVZhYXFqOqaxWiRpIEE5HFPO5T5dM9pwlSnGwGFHU0hUUJhd8TOUXBMpW
+ z2Zzcy6MofwddyOm4xaJ1huw==
+X-Google-Smtp-Source: AGHT+IHpUe5YqkWw0UFJtqeULReAr+4JR57SpZTyi/DJlRlRiBws1wPRXwVJgzIDpy8odTqgv5arRpEHmEIb9VOXibA=
+X-Received: by 2002:a17:90a:e7d2:b0:2fe:b972:a2c3 with SMTP id
+ 98e67ed59e1d1-30c3b909b29mr304390a91.0.1746729199120; Thu, 08 May 2025
+ 11:33:19 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250508-topic-ubwc_central-v1-0-035c4c5cbe50@oss.qualcomm.com>
- <20250508-topic-ubwc_central-v1-7-035c4c5cbe50@oss.qualcomm.com>
-In-Reply-To: <20250508-topic-ubwc_central-v1-7-035c4c5cbe50@oss.qualcomm.com>
+ <20250508-topic-ubwc_central-v1-10-035c4c5cbe50@oss.qualcomm.com>
+In-Reply-To: <20250508-topic-ubwc_central-v1-10-035c4c5cbe50@oss.qualcomm.com>
 From: Connor Abbott <cwabbott0@gmail.com>
-Date: Thu, 8 May 2025 14:25:18 -0400
-X-Gm-Features: ATxdqUGGKzILlDDNdGb-69ow4qakqzEaJcVTZgzzDN8Bbo3FXuGdXfNDVeMIZAU
-Message-ID: <CACu1E7H9_EkGFkjL1MRU9M-_YFHnPb5v9SxDg6fXm0m-imzC2Q@mail.gmail.com>
-Subject: Re: [PATCH RFT 07/14] drm/msm/a6xx: Resolve the meaning of UBWC_MODE
+Date: Thu, 8 May 2025 14:33:08 -0400
+X-Gm-Features: ATxdqUE2vLeH_1fBevqnXZeORD_v0wWgDms-Rnd2Lz_3k2tRIEmXBn1VABvu08w
+Message-ID: <CACu1E7EFK7dzR=hm-J58jz77pMxn2SoJVrfQvV0RHiESi1mkzA@mail.gmail.com>
+Subject: Re: [PATCH RFT 10/14] drm/msm/a6xx: Stop tracking macrotile_mode
+ (again)
 To: Konrad Dybcio <konradybcio@kernel.org>
 Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -97,44 +98,103 @@ g> wrote:
 >
 > From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 >
-> This bit is set iff the UBWC version is 1.0. That notably does not
-> include QCM2290's "no UBWC".
+> SC8180X (A680) and SA8775P (A663) require a write to that register,
+> while other SKUs are fine with the default value. Don't overwrite it
+> needlessly, requiring the developer to read the value back from
+> hardware just to put it in the driver again, introducing much more room
+> for error.
 
-While this is technically true, AFAIK the only difference between UBWC
-1.0 and 2.0 is that newer UBWC disables level 1 bank swizzling, which
-is why I originally wrote it this way. There's a bit of redundancy
-between the UBWC version and ubwc_swizzle bit 0.
+I'm not sure I understand that last sentence. The original reason I
+always wrote it was that for host image copy we need to know the value
+of macrotile_mode, so again the value exposed to userspace must match
+what's set in the HW. We can't read the value from the HW and send it
+to userspace, because userspace queries this when creating the
+physical device during device enumeration and we really don't want to
+spuriously turn on the device then. That means the safest thing is to
+always program it, guaranteeing that it always matches. Otherwise we
+just have to hope that the default value matches what we expect it to
+be.
+
+I know you're copying this from kgsl, but kgsl doesn't expose the
+macrotile_mode to userspace. I expect that HIC was added afterwards
+and only works via hacks there (if it's even supported at all on the
+relevant SoCs).
 
 Connor
 
 >
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 19 +++++--------------
+>  1 file changed, 5 insertions(+), 14 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
 adreno/a6xx_gpu.c
-> index e1eab0906b6c460528da82a94a285ef181e0b479..d47726ea8818a9660eadd52d9=
-7dde1489a884684 100644
+> index 60f89a2d851a5c383fc14cce4c483f630132a9a6..bee7e9685aa3ea282fb20ef47=
+9e4d243d28418f7 100644
 > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -663,10 +663,10 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gp=
-u)
->         u8 uavflagprd_inv =3D adreno_is_a650_family(adreno_gpu) || adreno=
-_is_a7xx(adreno_gpu) ? 2 : 0;
->         const struct qcom_ubwc_cfg_data *cfg =3D adreno_gpu->common_ubwc_=
-cfg;
->         u32 hbb =3D adreno_gpu->ubwc_config.highest_bank_bit;
-> +       bool ubwc_mode =3D cfg->ubwc_enc_version =3D=3D UBWC_1_0;
->         bool amsbc =3D cfg->ubwc_enc_version >=3D UBWC_3_0;
->         u32 hbb_hi =3D hbb >> 2;
->         u32 hbb_lo =3D hbb & 3;
-> -       u32 ubwc_mode =3D adreno_gpu->ubwc_config.ubwc_swizzle & 1;
->         u32 level2_swizzling_dis =3D !(adreno_gpu->ubwc_config.ubwc_swizz=
-le & 2);
+> @@ -594,7 +594,6 @@ static int a6xx_calc_ubwc_config(struct adreno_gpu *g=
+pu)
 >
->         gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
+>         gpu->ubwc_config.min_acc_len =3D 0;
+>         gpu->ubwc_config.ubwc_swizzle =3D 0x6;
+> -       gpu->ubwc_config.macrotile_mode =3D 0;
+>         gpu->ubwc_config.highest_bank_bit =3D 2;
+>
+>         if (adreno_is_a610(gpu)) {
+> @@ -616,13 +615,8 @@ static int a6xx_calc_ubwc_config(struct adreno_gpu *=
+gpu)
+>         if (adreno_is_a621(gpu))
+>                 gpu->ubwc_config.highest_bank_bit =3D 0;
+>
+> -       if (adreno_is_a623(gpu)) {
+> +       if (adreno_is_a623(gpu))
+>                 gpu->ubwc_config.highest_bank_bit =3D 3;
+> -               gpu->ubwc_config.macrotile_mode =3D 1;
+> -       }
+> -
+> -       if (adreno_is_a680(gpu))
+> -               gpu->ubwc_config.macrotile_mode =3D 1;
+>
+>         if (adreno_is_a650(gpu) ||
+>             adreno_is_a660(gpu) ||
+> @@ -631,19 +625,15 @@ static int a6xx_calc_ubwc_config(struct adreno_gpu =
+*gpu)
+>             adreno_is_a740_family(gpu)) {
+>                 /* TODO: get ddr type from bootloader and use 2 for LPDDR=
+4 */
+>                 gpu->ubwc_config.highest_bank_bit =3D 3;
+> -               gpu->ubwc_config.macrotile_mode =3D 1;
+>         }
+>
+>         if (adreno_is_a663(gpu)) {
+>                 gpu->ubwc_config.highest_bank_bit =3D 0;
+> -               gpu->ubwc_config.macrotile_mode =3D 1;
+>                 gpu->ubwc_config.ubwc_swizzle =3D 0x4;
+>         }
+>
+> -       if (adreno_is_7c3(gpu)) {
+> +       if (adreno_is_7c3(gpu))
+>                 gpu->ubwc_config.highest_bank_bit =3D 1;
+> -               gpu->ubwc_config.macrotile_mode =3D 1;
+> -       }
+>
+>         if (adreno_is_a702(gpu)) {
+>                 gpu->ubwc_config.highest_bank_bit =3D 1;
+> @@ -691,8 +681,9 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+>         gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL,
+>                   adreno_gpu->ubwc_config.min_acc_len << 23 | hbb_lo << 2=
+1);
+>
+> -       gpu_write(gpu, REG_A6XX_RBBM_NC_MODE_CNTL,
+> -                 adreno_gpu->ubwc_config.macrotile_mode);
+> +       /* The reset value only needs altering in some cases */
+> +       if (adreno_is_a680(adreno_gpu) || adreno_is_a663(adreno_gpu))
+> +               gpu_write(gpu, REG_A6XX_RBBM_NC_MODE_CNTL, BIT(0));
+>  }
+>
+>  static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
 >
 > --
 > 2.49.0
