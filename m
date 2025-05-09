@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2529FAB2411
-	for <lists+freedreno@lfdr.de>; Sat, 10 May 2025 16:00:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B54DAB2414
+	for <lists+freedreno@lfdr.de>; Sat, 10 May 2025 16:00:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C7310E094;
-	Sat, 10 May 2025 14:00:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6066010E0F8;
+	Sat, 10 May 2025 14:00:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="estSu0pQ";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GzJOBbut";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C97B810E047
- for <freedreno@lists.freedesktop.org>; Fri,  9 May 2025 21:29:34 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78B1C10EAFB
+ for <freedreno@lists.freedesktop.org>; Fri,  9 May 2025 21:35:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1746826173;
+ s=mimecast20190719; t=1746826547;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=i/De0Jx5IFgD0sNFNUS/wwyJRmwsMymS62uY6uZUpus=;
- b=estSu0pQOv5ADULFd0//BkiPpJgtKZS/oowmf9OYvmND2WJxU1IPG4rdYagG989750MSG9
- lSSXF3GybYHfzJpOf+EiIlyP3N7Z9S35zu7u7WQwTprPffBe9dZIeEOtdBEuuapzofQiVH
- oe8O0zPsxvzW6IUWrQGjDSkE2+0H1gw=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=hYtlWhIfE8/FY/jKJnyYsZe7MxS7wLs6dmHJZajZruE=;
+ b=GzJOBbutdihyyaQd66/naWcif9L6rFLXZNyR8UAmb3a3yeQZ6aMZ1XDxKBf+XPPeDz5TTC
+ SKN8Lbma/rih7+g6AZAUC1nV4FTS8Z9OcKDmJv99a95A/LEfmV/gmVW4Wfo8EVutARna2A
+ n+3pukhfgL7fYCGGHB4ASRQjgGqtUpE=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-610-ZQH6wMsdOHat-bXoQ0oYFg-1; Fri, 09 May 2025 17:29:30 -0400
-X-MC-Unique: ZQH6wMsdOHat-bXoQ0oYFg-1
-X-Mimecast-MFC-AGG-ID: ZQH6wMsdOHat-bXoQ0oYFg_1746826170
-Received: by mail-yw1-f200.google.com with SMTP id
- 00721157ae682-7082ffc17c0so41890627b3.3
- for <freedreno@lists.freedesktop.org>; Fri, 09 May 2025 14:29:30 -0700 (PDT)
+ us-mta-7-w9-odU2vNLCb79pzzntCWQ-1; Fri, 09 May 2025 17:35:44 -0400
+X-MC-Unique: w9-odU2vNLCb79pzzntCWQ-1
+X-Mimecast-MFC-AGG-ID: w9-odU2vNLCb79pzzntCWQ_1746826543
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-70a4be14d80so10110937b3.3
+ for <freedreno@lists.freedesktop.org>; Fri, 09 May 2025 14:35:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746826170; x=1747430970;
+ d=1e100.net; s=20230601; t=1746826543; x=1747431343;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=i/De0Jx5IFgD0sNFNUS/wwyJRmwsMymS62uY6uZUpus=;
- b=ufCjZ7IwZgv7jnKyswwaDtmMLlfOGR6rPxSxTdtIfLusN1WXptSYJwIXGtpJNF4PI7
- 5UzOVXRPJUk60LMp7HxzbGebORYN2nSTgr5pScwZ9OniIbGqM76no6IdjEO/klowOJaD
- IpzW2lPY0ihMR4fANajNL5PGlwNx86IVBlKJxQDzCv6LCxbK3Gt/K6Gm6r8LAlEiwxUy
- 2O94Fu1XDNR5xo9FLhG3Q15K57OWNztJ6N5sEGZCWRl0HW3KHtw+KXNEa2EytfW+iIdS
- PMcgkFPt32mgkoOYGvL8xcztpKblYZslH15Zon9h0WjaTNWc6r8pEquNFElWXHb9Lq5P
- BW8Q==
+ bh=hYtlWhIfE8/FY/jKJnyYsZe7MxS7wLs6dmHJZajZruE=;
+ b=uT/TNigDwhjQkLjEOI84TCMh4FwPol1J010cjkK4I8+i0qnAVtD4wX0+5ngSxUFQ/s
+ F7hmlJZeW13A3SZXfYekFeEGlSMlls6eIOETNuLAZmX9CqaUO2PiqALwIoIAAyGiOkxu
+ Ht60zsnUinH1j6vxcNg0ZgUlsPpPQgrqpsoaqtdxeTCgLm/f92WWfMD4otG7ZFn2XU1l
+ b+pD0xm8zoLF5yhvZpTbzpc8kgInaL4h6uDt7oD/YHq5PDRz5kNSUpHP0BU5xzQSJFrT
+ d6bzTkVCZSJDcM7c+GsUdVVYSE77CJ7v2GBk8noaDCYNfDfmcxhadnnNGTPOnqYYGwx6
+ 2KBA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCULE/tasRDAlQwMt5mfk7E4xUf4v1ZrCTCE3nAWNe47FXKK2hTuu8lkfRtKnD4avFduHQA+4ddhAqg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwHwloxciLUfhoDY9YYlO1JR7cldvMrLNPGk69X2YYH1VmHuglM
- Rd68lbic2skLl5eXGwSU8H5etZGBS6V2PHG3rheQLOAyT619Ig5swre2gqkPd2Qz6NV/W+OitSH
- OwvoqCq1laklA430nN5e+eZGP95MjCPU5GB/kH8JAYXQG7wDghG6I+WDK6FDmEv8R2+dhQ2Om7k
- jzAb/kEiI+TQMxrMbo0S3uxdxH4Tm6MqDKDSEC/EN4
-X-Gm-Gg: ASbGncu7TgU0JKLeLCf9CTGdzySqFjUF668PcdIjnE4yCatVDfTFsGeRSckaK6oIChu
- RtrxMyjaWD0yPvJSZvKXAXJoYDRKSIqx6xeWLYEI459Ocj1fjHZgjE/et7ocwukgccrE=
-X-Received: by 2002:a05:690c:7487:b0:6fb:1f78:d9ee with SMTP id
- 00721157ae682-70a3fa17f4amr73695937b3.15.1746826170060; 
- Fri, 09 May 2025 14:29:30 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHp5EYYBrzU8/Gu19+QwyTIwBBoQnmr+XyBQWTJlN0PUivEqtKCpv1AmF6wAke9HmH9CtUVPC+jCWOQsyUY2qo=
-X-Received: by 2002:a05:690c:7487:b0:6fb:1f78:d9ee with SMTP id
- 00721157ae682-70a3fa17f4amr73695657b3.15.1746826169759; Fri, 09 May 2025
- 14:29:29 -0700 (PDT)
+ AJvYcCU9NSBt69rIUOpAkFwQ+rmMnW/X2hswulmcIez9jxIoDysAOLcxtFVZXIfoP3GZvvWMtBv1dMnF6Ks=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwcMwXlwpus8hLMXrHtJmEM/uhaUHUE6bpoQXKbt0PbLS/xR9Wq
+ R1WtVUYSCvzO1AUy3mf10QXew9PktCXYgSTYD6LYffsE/ktf+/R+cLXNEt3ie3noHfJ7UhKR+Si
+ DtOSH27qWoko5yk/vL+2kTlAZSLPPcSKSY6nBMgsN/8T6EHp06WuLefbwfxY1WaoSbWOh+D5zvD
+ 9oAk6Kzhca/+KsEfu9AZqoIpzswoA5nNb1/vd8/tcE
+X-Gm-Gg: ASbGncunqpsmtKybwpGOUfhWOATfiPSpFcvBlUhujG6kXCLyz7MPNzn+ciD+1Yc8AAx
+ RVd1KIwfUpwU2OgXms1SZWT5FKXvN+lh9A2TcHf5Q8bWWG1ahN2xL4Zbqvh852RaK/f8=
+X-Received: by 2002:a05:690c:6012:b0:703:b930:97c7 with SMTP id
+ 00721157ae682-70a3fa2453bmr65777657b3.9.1746826543551; 
+ Fri, 09 May 2025 14:35:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGOX4g2wzfw7tGF0msoIwu89ObZWLx7H+gBPBCTd54o0YgB37bfihWxt4pX1/XHw0ycvt7E0xMq+56TtD2VrVc=
+X-Received: by 2002:a05:690c:6012:b0:703:b930:97c7 with SMTP id
+ 00721157ae682-70a3fa2453bmr65777427b3.9.1746826543279; Fri, 09 May 2025
+ 14:35:43 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
- <20250509-drm-bridge-convert-to-alloc-api-v3-14-b8bc1f16d7aa@bootlin.com>
-In-Reply-To: <20250509-drm-bridge-convert-to-alloc-api-v3-14-b8bc1f16d7aa@bootlin.com>
+ <20250509-drm-bridge-convert-to-alloc-api-v3-15-b8bc1f16d7aa@bootlin.com>
+In-Reply-To: <20250509-drm-bridge-convert-to-alloc-api-v3-15-b8bc1f16d7aa@bootlin.com>
 From: Anusha Srivatsa <asrivats@redhat.com>
-Date: Fri, 9 May 2025 16:26:09 -0400
-X-Gm-Features: AX0GCFvRKuZCV8LHJEx8lT3s7zZ8NAFBTY2KWfQvQ2udmU7ulTzeD9WDaNkWM5c
-Message-ID: <CAN9Xe3R+DUnUZiYxdgR7sMBuDZew2ZG0+b+_c4OzdKMVk+A4Gw@mail.gmail.com>
-Subject: Re: [PATCH v3 14/22] drm/rcar-du: dsi: convert to
+Date: Fri, 9 May 2025 16:32:22 -0400
+X-Gm-Features: AX0GCFvgBDQPXfbsBXhpXssR6nd8_D6uWav2HkZaIC88ZkIzUSgFh2O4RCwzLCA
+Message-ID: <CAN9Xe3TX+zGNjQOANzv8tqUD79zVniruG3yBDiQY=Cd6Jr6p9A@mail.gmail.com>
+Subject: Re: [PATCH v3 15/22] drm/bridge: stm_lvds: convert to
  devm_drm_bridge_alloc() API
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -96,13 +96,15 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  platform-driver-x86@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  linux-stm32@st-md-mailman.stormreply.com, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: _QceV8HzyTn-Dmn7H7VYfrvtisJ8idemqiveHTsoM54_1746826170
+X-Mimecast-MFC-PROC-ID: PKLEwsRGpbZnz33W9WTfwkd1r5ADc0-JqQUILaUm1A4_1746826543
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000554e370634baa92b"
+Content-Type: multipart/alternative; boundary="00000000000098c5590634babf2d"
 X-Mailman-Approved-At: Sat, 10 May 2025 14:00:19 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,7 +121,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---000000000000554e370634baa92b
+--00000000000098c5590634babf2d
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -133,43 +135,44 @@ wrote:
 >
 > ---
 >
-> Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Philippe Cornu <philippe.cornu@foss.st.com>
+> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
 > ---
->  drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/stm/lvds.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> diff --git a/drivers/gpu/drm/stm/lvds.c b/drivers/gpu/drm/stm/lvds.c
 > index
-> 7ab8be46c7f6547f29b4d45af7ac704283da9dcd..1af4c73f7a887712aef8c8176b0d033=
-8d9ca9727
+> a3ae9a93ce6670eb2c4dd36b3e572fcbca791a1c..07788e8d3d8302a3951e97d64736b72=
+1033998d3
 > 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> @@ -918,7 +918,6 @@ static int rcar_mipi_dsi_host_attach(struct
-> mipi_dsi_host *host,
+> --- a/drivers/gpu/drm/stm/lvds.c
+> +++ b/drivers/gpu/drm/stm/lvds.c
+> @@ -1049,9 +1049,9 @@ static int lvds_probe(struct platform_device *pdev)
+>
+>         dev_dbg(dev, "Probing LVDS driver...\n");
+>
+> -       lvds =3D devm_kzalloc(dev, sizeof(*lvds), GFP_KERNEL);
+> -       if (!lvds)
+> -               return -ENOMEM;
+> +       lvds =3D devm_drm_bridge_alloc(dev, struct stm_lvds, lvds_bridge,
+> &lvds_bridge_funcs);
+> +       if (IS_ERR(lvds))
+> +               return PTR_ERR(lvds);
+>
+>         lvds->dev =3D dev;
+>
+> @@ -1164,7 +1164,6 @@ static int lvds_probe(struct platform_device *pdev)
+>                 goto err_lvds_probe;
 >         }
 >
->         /* Initialize the DRM bridge. */
-> -       dsi->bridge.funcs =3D &rcar_mipi_dsi_bridge_ops;
->         dsi->bridge.of_node =3D dsi->dev->of_node;
->         drm_bridge_add(&dsi->bridge);
+> -       lvds->lvds_bridge.funcs =3D &lvds_bridge_funcs;
+>         lvds->lvds_bridge.of_node =3D dev->of_node;
+>         lvds->hw_version =3D lvds_read(lvds, LVDS_VERR);
 >
-> @@ -1004,9 +1003,10 @@ static int rcar_mipi_dsi_probe(struct
-> platform_device *pdev)
->         struct rcar_mipi_dsi *dsi;
->         int ret;
->
-> -       dsi =3D devm_kzalloc(&pdev->dev, sizeof(*dsi), GFP_KERNEL);
-> -       if (dsi =3D=3D NULL)
-> -               return -ENOMEM;
-> +       dsi =3D devm_drm_bridge_alloc(&pdev->dev, struct rcar_mipi_dsi,
-> bridge,
-> +                                   &rcar_mipi_dsi_bridge_ops);
-> +       if (IS_ERR(dsi))
-> +               return PTR_ERR(dsi);
 >
 >
 Reviewed-by: Anusha Srivatsa <asrivats@redhat.com>
@@ -177,15 +180,12 @@ Reviewed-by: Anusha Srivatsa <asrivats@redhat.com>
 Thanks,
 Anusha
 
->         platform_set_drvdata(pdev, dsi);
->
->
 > --
 > 2.49.0
 >
 >
 
---000000000000554e370634baa92b
+--00000000000098c5590634babf2d
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -202,65 +202,65 @@ m" target=3D"_blank">luca.ceresoli@bootlin.com</a>&gt;<br>
 <br>
 ---<br>
 <br>
-Cc: Kieran Bingham &lt;<a href=3D"mailto:kieran.bingham%2Brenesas@ideasonbo=
-ard.com" target=3D"_blank">kieran.bingham+renesas@ideasonboard.com</a>&gt;<=
-br>
-Cc: Laurent Pinchart &lt;<a href=3D"mailto:laurent.pinchart%2Brenesas@ideas=
-onboard.com" target=3D"_blank">laurent.pinchart+renesas@ideasonboard.com</a=
->&gt;<br>
-Cc: Tomi Valkeinen &lt;<a href=3D"mailto:tomi.valkeinen%2Brenesas@ideasonbo=
-ard.com" target=3D"_blank">tomi.valkeinen+renesas@ideasonboard.com</a>&gt;<=
-br>
+Cc: Alexandre Torgue &lt;<a href=3D"mailto:alexandre.torgue@foss.st.com" ta=
+rget=3D"_blank">alexandre.torgue@foss.st.com</a>&gt;<br>
+Cc: Maxime Coquelin &lt;<a href=3D"mailto:mcoquelin.stm32@gmail.com" target=
+=3D"_blank">mcoquelin.stm32@gmail.com</a>&gt;<br>
+Cc: Philippe Cornu &lt;<a href=3D"mailto:philippe.cornu@foss.st.com" target=
+=3D"_blank">philippe.cornu@foss.st.com</a>&gt;<br>
+Cc: Raphael Gallais-Pou &lt;<a href=3D"mailto:raphael.gallais-pou@foss.st.c=
+om" target=3D"_blank">raphael.gallais-pou@foss.st.com</a>&gt;<br>
+Cc: Yannick Fertre &lt;<a href=3D"mailto:yannick.fertre@foss.st.com" target=
+=3D"_blank">yannick.fertre@foss.st.com</a>&gt;<br>
 ---<br>
-=C2=A0drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 8 ++++----<br>
-=C2=A01 file changed, 4 insertions(+), 4 deletions(-)<br>
+=C2=A0drivers/gpu/drm/stm/lvds.c | 7 +++----<br>
+=C2=A01 file changed, 3 insertions(+), 4 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/=
-drm/renesas/rcar-du/rcar_mipi_dsi.c<br>
-index 7ab8be46c7f6547f29b4d45af7ac704283da9dcd..1af4c73f7a887712aef8c8176b0=
-d0338d9ca9727 100644<br>
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c<br>
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c<br>
-@@ -918,7 +918,6 @@ static int rcar_mipi_dsi_host_attach(struct mipi_dsi_ho=
-st *host,<br>
+diff --git a/drivers/gpu/drm/stm/lvds.c b/drivers/gpu/drm/stm/lvds.c<br>
+index a3ae9a93ce6670eb2c4dd36b3e572fcbca791a1c..07788e8d3d8302a3951e97d6473=
+6b721033998d3 100644<br>
+--- a/drivers/gpu/drm/stm/lvds.c<br>
++++ b/drivers/gpu/drm/stm/lvds.c<br>
+@@ -1049,9 +1049,9 @@ static int lvds_probe(struct platform_device *pdev)<b=
+r>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 dev_dbg(dev, &quot;Probing LVDS driver...\n&quo=
+t;);<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0lvds =3D devm_kzalloc(dev, sizeof(*lvds), GFP_K=
+ERNEL);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!lvds)<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0lvds =3D devm_drm_bridge_alloc(dev, struct stm_=
+lvds, lvds_bridge, &amp;lvds_bridge_funcs);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(lvds))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(lvds=
+);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 lvds-&gt;dev =3D dev;<br>
+<br>
+@@ -1164,7 +1164,6 @@ static int lvds_probe(struct platform_device *pdev)<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto err_lvds_probe=
+;<br>
 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
 <br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Initialize the DRM bridge. */<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0dsi-&gt;bridge.funcs =3D &amp;rcar_mipi_dsi_bri=
-dge_ops;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 dsi-&gt;bridge.of_node =3D dsi-&gt;dev-&gt;of_n=
-ode;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 drm_bridge_add(&amp;dsi-&gt;bridge);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0lvds-&gt;lvds_bridge.funcs =3D &amp;lvds_bridge=
+_funcs;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 lvds-&gt;lvds_bridge.of_node =3D dev-&gt;of_nod=
+e;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 lvds-&gt;hw_version =3D lvds_read(lvds, LVDS_VE=
+RR);<br>
 <br>
-@@ -1004,9 +1003,10 @@ static int rcar_mipi_dsi_probe(struct platform_devic=
-e *pdev)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct rcar_mipi_dsi *dsi;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int ret;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0dsi =3D devm_kzalloc(&amp;pdev-&gt;dev, sizeof(=
-*dsi), GFP_KERNEL);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (dsi =3D=3D NULL)<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0dsi =3D devm_drm_bridge_alloc(&amp;pdev-&gt;dev=
-, struct rcar_mipi_dsi, bridge,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;rcar_mipi_dsi_brid=
-ge_ops);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(dsi))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(dsi)=
-;<br>
 <br></blockquote><div><br></div><div>Reviewed-by: Anusha Srivatsa &lt;<a hr=
 ef=3D"mailto:asrivats@redhat.com">asrivats@redhat.com</a>&gt;</div><div><br=
 ></div><div>Thanks,</div><div>Anusha=C2=A0</div><blockquote class=3D"gmail_=
 quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
 204);padding-left:1ex">
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 platform_set_drvdata(pdev, dsi);<br>
-<br>
-<br>
 -- <br>
 2.49.0<br>
 <br>
 </blockquote></div></div>
 
---000000000000554e370634baa92b--
+--00000000000098c5590634babf2d--
 
