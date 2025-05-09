@@ -2,75 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3607AB241A
-	for <lists+freedreno@lfdr.de>; Sat, 10 May 2025 16:00:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A953CAB2412
+	for <lists+freedreno@lfdr.de>; Sat, 10 May 2025 16:00:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB57F10E268;
-	Sat, 10 May 2025 14:00:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9EB710E0C9;
+	Sat, 10 May 2025 14:00:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="P4R+L1lO";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WcOzVVez";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 641A110EACC
- for <freedreno@lists.freedesktop.org>; Fri,  9 May 2025 19:35:15 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D131710E105
+ for <freedreno@lists.freedesktop.org>; Fri,  9 May 2025 19:52:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1746819314;
+ s=mimecast20190719; t=1746820344;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8LkGhyvM5ULGVgnYgzQpkCzO/x50SWndRmWv8pvECYE=;
- b=P4R+L1lORouJhMSK2M34aX9ayMrJOrK4hCvfSxUaG7vNtK0W2t48Zx2s93Qi8yboS5/Pt6
- vSjLzgyAd9hPnQ2oVpkHbEijpTTJYBjWIj3gWddI5+K/0mJDgr46PZJXkaq7pR00adL3zI
- l5ak1KIq+Qme53cHqQeYeY+kRw7OhgY=
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
- [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=3vE0/6Pj+61VPlyLz7h5R/qWMMebiHV585td+IpLLBg=;
+ b=WcOzVVezaCM4hkCnN3BMD0P9/JfF/wlpaaBxJkIdcZaXTr+R6FbaUHuMomfe8HNYnqAOLL
+ Lqt6F+mmU84HuTLNK1/FypS8Bkt0NE3TAavqPqEQiuoOp29uQK3RbO+3CJm6N8HZnLZXYz
+ /0QeVOoDJFPh+lLxaxDZ5m8OKFdMmow=
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-124--8mfyuDDOn26in45rxVE7g-1; Fri, 09 May 2025 15:35:13 -0400
-X-MC-Unique: -8mfyuDDOn26in45rxVE7g-1
-X-Mimecast-MFC-AGG-ID: -8mfyuDDOn26in45rxVE7g_1746819312
-Received: by mail-yw1-f197.google.com with SMTP id
- 00721157ae682-70a520cbadcso2333387b3.2
- for <freedreno@lists.freedesktop.org>; Fri, 09 May 2025 12:35:12 -0700 (PDT)
+ us-mta-45-XoKSou_3Pq-lMJhyTDxqtg-1; Fri, 09 May 2025 15:52:21 -0400
+X-MC-Unique: XoKSou_3Pq-lMJhyTDxqtg-1
+X-Mimecast-MFC-AGG-ID: XoKSou_3Pq-lMJhyTDxqtg_1746820341
+Received: by mail-yw1-f199.google.com with SMTP id
+ 00721157ae682-70a51a20a1fso3015307b3.1
+ for <freedreno@lists.freedesktop.org>; Fri, 09 May 2025 12:52:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746819312; x=1747424112;
+ d=1e100.net; s=20230601; t=1746820341; x=1747425141;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=8LkGhyvM5ULGVgnYgzQpkCzO/x50SWndRmWv8pvECYE=;
- b=uAd52vtWuxur4NQzqyBaQOKmmYcFDOy65e+Adw6WaRB/Ro2p9OT6P5/q5BloDWPxrA
- nIMUnKIlhzkR/RS1+ebzPDrXeberyktIRONGqewxNKnlSp6tsjrNZSFRzTdDhcqo3R0m
- +5zaB5F5rP8EAA6AbHgdHv1f0W5UMeJP+jsQqdircBW8kI3NlMQWDE2XkaQGDMeDjVq2
- bZ+1Kgp1nR2OBFKstBLhSsUGOCHQKYB49bxPOXjm84I1BWxL4mYA3GM76U/L2jcXBP7C
- O1UUXbYrRI0JmKePIPNywcGFaFAlkCpfKPcQwyMUdfU+ePrQ2poFckpaCYnOVN6KkoQ2
- q9dA==
+ bh=3vE0/6Pj+61VPlyLz7h5R/qWMMebiHV585td+IpLLBg=;
+ b=Jf+ZiDySIM3iF9S4czAsKpzE3IbjuNTkAUj4lKx7JzlC2F4FzsyuOlCAnOdDxMGvXG
+ 39qfhkSI5ZL0hS6a4AcrbBUhTdpWkZ4Bw6GQbgn8u6EF/HcickcTkD0gp5hAp2j9LRBu
+ rxvVGO0CDGJBw2m6UIdICwIq/PB73UiXfv2dLMAOKz5vvA0+eyimgsKx5ZlB0KgBzYEV
+ l2APRFrXp1vn1fLsOfGv0pAt7UlXe6ajq8ajygq3e8vMWcbmIFvJLkbifuG8MqY1wy/F
+ s9wbKNSAEdcGCiD2wH/tc2Y8BB8hLZvw0Q0mGybPXLYznAZyPEDADFzJlAkUM+g8jHFW
+ 8oJw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVEsh2udBkgKVvWhXxbZlUD62QI83uGc5eI6JWkCbtIvqTgMB2ewn3uXpyhQlwth/htkB0LECvwrkw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYcoY+zMFI4Jyr94j7TwfPqGi7wZuYrU/deHL11PEaZoO3Idd/
- xHfKtiMzwYU9QuJ30YMuu1Btn+JrGyRSC4qtaUhT5I3k9BkTrofWttnh10p+MbBKsM8nmW6Akal
- n1q8EdLarBqsshXhoQo7yTteUt4r/Uyx0SlN8lb+iuYU7i3YOiezdJHY7/5U+Q6hV84g9jtJupW
- 7+BEZ7GvDleb1sDyjYFlbm7T52IFjABs9VQC/AzpSc
-X-Gm-Gg: ASbGncv47i37fOsbyJwvgdFQZYgNdQQwZvAjetfLUqix9bPqcrEd2izWr+dvJVbUkhW
- hbTgqjezVoRK/6kPuyPK92rtYM/hVu25Ee3MUCVGGkcLop+KQ1teHhoQ3+8e3/81Z9NA=
-X-Received: by 2002:a05:690c:7487:b0:6fb:1f78:d9ee with SMTP id
- 00721157ae682-70a3fa17f4amr68605377b3.15.1746819312148; 
- Fri, 09 May 2025 12:35:12 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHt3PV5p9bgu7MwlRMnZkjDv9NjPEf3FqRtxZGYBPTrniTX6M6KWZ/kD+66XnLMxfTiUE1YPOACytjtNGlpEjA=
-X-Received: by 2002:a05:690c:7487:b0:6fb:1f78:d9ee with SMTP id
- 00721157ae682-70a3fa17f4amr68604677b3.15.1746819311690; Fri, 09 May 2025
- 12:35:11 -0700 (PDT)
+ AJvYcCUJRvvbtCdZlLuY/dd6BR5lecnPx/fy0+5+zgLc+DZaAcEQHeIL4AKAbyqkobcZzqihEEXbtk3Yj3o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRvWdclecq5Ofj8aThijOWUhibHTIDNC9vli/zLKAjruGpokyF
+ NhbdDUnM5YuK7vsC7H6I6nWUXmq1JHk1kJYetpWD+WCQdPYGR4Jbl40K2HTDXq0cKZGzqutFWY6
+ SCPsdesD0nivZy/6Qfpg+iDrUH+o4Dn8rF8wJvEHrjJcuBNa9SOjR7qZTylLxjJr1SoYO0Z9J6N
+ yr5yKrNrD5Tth+gWSsPionnHoHK316R9izjg1XgQ/l
+X-Gm-Gg: ASbGncu5CaonqRLHomfIrtLWscoP4qdcg95/AmHNd05wciSyddD24YNQdmWZOFRdatY
+ y7IwU1MFysyoSw/R+iRfgdtIbEn8tfls/V2PtwZgJ3y4osdaHW+QBjjHYo38grzSt47I=
+X-Received: by 2002:a05:690c:3703:b0:700:b007:a33e with SMTP id
+ 00721157ae682-70a3fa35c34mr70580387b3.16.1746820340988; 
+ Fri, 09 May 2025 12:52:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGC0DQtfZer1s8WwuAvy5jnVdxcwwQL/obDFoxp/4pNvDHhS41o78nZLGWDEe5iMAgCmeGcNcnilGM5zXpvfJI=
+X-Received: by 2002:a05:690c:3703:b0:700:b007:a33e with SMTP id
+ 00721157ae682-70a3fa35c34mr70579597b3.16.1746820340021; Fri, 09 May 2025
+ 12:52:20 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
- <20250509-drm-bridge-convert-to-alloc-api-v3-4-b8bc1f16d7aa@bootlin.com>
-In-Reply-To: <20250509-drm-bridge-convert-to-alloc-api-v3-4-b8bc1f16d7aa@bootlin.com>
+ <20250509-drm-bridge-convert-to-alloc-api-v3-5-b8bc1f16d7aa@bootlin.com>
+In-Reply-To: <20250509-drm-bridge-convert-to-alloc-api-v3-5-b8bc1f16d7aa@bootlin.com>
 From: Anusha Srivatsa <asrivats@redhat.com>
-Date: Fri, 9 May 2025 14:31:51 -0400
-X-Gm-Features: AX0GCFvyosW1qSESkn4iHuCP9lrHnLnwOX6jMB7LV077XCjLfpAksJn92WhqF7U
-Message-ID: <CAN9Xe3Tco_FuoSwhReP=ZyiXmbUiOtLnmY_weVx7ZhZpw8d8HA@mail.gmail.com>
-Subject: Re: [PATCH v3 04/22] drm/bridge: cdns-dsi: convert to
- devm_drm_bridge_alloc() API
+Date: Fri, 9 May 2025 14:48:59 -0400
+X-Gm-Features: AX0GCFsJF80p2L07AVq8o4PxcvpfTfJkchc-7guLHKrPsZV_s9GdXIanRE7r2lY
+Message-ID: <CAN9Xe3SQbH4gnKdDJvOiZ82+5t+L+d_Srxd=p=aYAH5vY7F4Dw@mail.gmail.com>
+Subject: Re: [PATCH v3 05/22] drm/bridge: megachips-stdpxxxx-ge-b850v3-fw:
+ convert to devm_drm_bridge_alloc() API
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
@@ -95,12 +95,13 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-amlogic@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
  platform-driver-x86@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-stm32@st-md-mailman.stormreply.com, Aradhya Bhatia <a-bhatia1@ti.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+ linux-stm32@st-md-mailman.stormreply.com, Ian Ray <ian.ray@gehealthcare.com>, 
+ Martyn Welch <martyn.welch@collabora.co.uk>,
+ Peter Senna Tschudin <peter.senna@gmail.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: EyZR_8K3gI3GH_jmponBTUjY73uu7S5Dg39RawgbKuk_1746819312
+X-Mimecast-MFC-PROC-ID: AGtI4JTgsUUAWeMLaVhYgiL_Frn-szW2IrOt-Ju9ERo_1746820341
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000008f8be00634b910c9"
+Content-Type: multipart/alternative; boundary="000000000000da95ab0634b94dcc"
 X-Mailman-Approved-At: Sat, 10 May 2025 14:00:19 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,7 +118,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---0000000000008f8be00634b910c9
+--000000000000da95ab0634b94dcc
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -131,59 +132,72 @@ wrote:
 >
 > ---
 >
-> Cc: Aradhya Bhatia <a-bhatia1@ti.com>
-> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
->  drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+> Cc: Ian Ray <ian.ray@gehealthcare.com>
+> Cc: Martyn Welch <martyn.welch@collabora.co.uk>
+> Cc: Peter Senna Tschudin <peter.senna@gmail.com>
 >
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-> b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-> index
-> b022dd6e6b6e9e43bf11583806e1a8d1e7431ae8..7604574da66606c103cc035dd94b0e2=
-11b64ebdc
-> 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-> @@ -1289,9 +1289,10 @@ static int cdns_dsi_drm_probe(struct
-> platform_device *pdev)
->         int ret, irq;
->         u32 val;
->
-> -       dsi =3D devm_kzalloc(&pdev->dev, sizeof(*dsi), GFP_KERNEL);
-> -       if (!dsi)
-> -               return -ENOMEM;
-> +       dsi =3D devm_drm_bridge_alloc(&pdev->dev, struct cdns_dsi,
-> input.bridge,
-> +                                   &cdns_dsi_bridge_funcs);
-> +       if (IS_ERR(dsi))
-> +               return PTR_ERR(dsi);
->
->         platform_set_drvdata(pdev, dsi);
->
-> @@ -1349,7 +1350,6 @@ static int cdns_dsi_drm_probe(struct platform_devic=
-e
-> *pdev)
->          * CDNS_DPI_INPUT.
->          */
->         input->id =3D CDNS_DPI_INPUT;
-> -       input->bridge.funcs =3D &cdns_dsi_bridge_funcs;
->         input->bridge.of_node =3D pdev->dev.of_node;
->
->         /* Mask all interrupts before registering the IRQ handler. */
->
-> --
+> Changed in v3:
+> - updated Ian Ray's e-mail (old one is bouncing
 
+
+ ^^^^^^ you missed closing the breaces here.
+
+Code changes look good.
 
 Reviewed-by: Anusha Srivatsa <asrivats@redhat.com>
 
 
+> Changed in v2: none
+> ---
+>  drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c | 11 ++++------=
+-
+>  1 file changed, 4 insertions(+), 7 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
+> b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
+> index
+> 15a5a1f644fc10182c55bc9e489ccb81d4f924f9..81dde9ed7bcf7cacae000d9da31a3a5=
+c347ce037
+> 100644
+> --- a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
+> +++ b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
+> @@ -225,13 +225,11 @@ static int ge_b850v3_lvds_init(struct device *dev)
+>         if (ge_b850v3_lvds_ptr)
+>                 goto success;
+>
+> -       ge_b850v3_lvds_ptr =3D devm_kzalloc(dev,
+> -                                         sizeof(*ge_b850v3_lvds_ptr),
+> -                                         GFP_KERNEL);
+> -
+> -       if (!ge_b850v3_lvds_ptr) {
+> +       ge_b850v3_lvds_ptr =3D devm_drm_bridge_alloc(dev, struct
+> ge_b850v3_lvds, bridge,
+> +                                                  &ge_b850v3_lvds_funcs)=
+;
+> +       if (IS_ERR(ge_b850v3_lvds_ptr)) {
+>                 mutex_unlock(&ge_b850v3_lvds_dev_mutex);
+> -               return -ENOMEM;
+> +               return PTR_ERR(ge_b850v3_lvds_ptr);
+>         }
+>
+>  success:
+> @@ -264,7 +262,6 @@ static int ge_b850v3_register(void)
+>         struct device *dev =3D &stdp4028_i2c->dev;
+>
+>         /* drm bridge initialization */
+> -       ge_b850v3_lvds_ptr->bridge.funcs =3D &ge_b850v3_lvds_funcs;
+>         ge_b850v3_lvds_ptr->bridge.ops =3D DRM_BRIDGE_OP_DETECT |
+>                                          DRM_BRIDGE_OP_EDID;
+>         ge_b850v3_lvds_ptr->bridge.type =3D DRM_MODE_CONNECTOR_DisplayPor=
+t;
+>
+> --
 > 2.49.0
 >
->
+> thanks,
+Anusha
 
---0000000000008f8be00634b910c9
+--000000000000da95ab0634b94dcc
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -200,60 +214,82 @@ m" target=3D"_blank">luca.ceresoli@bootlin.com</a>&gt;<br>
 <br>
 ---<br>
 <br>
-Cc: Aradhya Bhatia &lt;<a href=3D"mailto:a-bhatia1@ti.com" target=3D"_blank=
-">a-bhatia1@ti.com</a>&gt;<br>
-Cc: Tomi Valkeinen &lt;<a href=3D"mailto:tomi.valkeinen@ideasonboard.com" t=
-arget=3D"_blank">tomi.valkeinen@ideasonboard.com</a>&gt;<br>
+Cc: Ian Ray &lt;<a href=3D"mailto:ian.ray@gehealthcare.com" target=3D"_blan=
+k">ian.ray@gehealthcare.com</a>&gt;<br>
+Cc: Martyn Welch &lt;<a href=3D"mailto:martyn.welch@collabora.co.uk" target=
+=3D"_blank">martyn.welch@collabora.co.uk</a>&gt;<br>
+Cc: Peter Senna Tschudin &lt;<a href=3D"mailto:peter.senna@gmail.com" targe=
+t=3D"_blank">peter.senna@gmail.com</a>&gt;<br>
+<br>
+Changed in v3:<br>
+- updated Ian Ray&#39;s e-mail (old one is bouncing</blockquote><div>=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0^^^^^^ you missed closing the breaces here.</div><d=
+iv>=C2=A0</div><div>Code changes look good.</div><div><br></div><div>Review=
+ed-by: Anusha Srivatsa &lt;<a href=3D"mailto:asrivats@redhat.com">asrivats@=
+redhat.com</a>&gt;</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" =
+style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
+dding-left:1ex">
+Changed in v2: none<br>
 ---<br>
-=C2=A0drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c | 8 ++++----<br>
-=C2=A01 file changed, 4 insertions(+), 4 deletions(-)<br>
+=C2=A0drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c | 11 ++++---=
+----<br>
+=C2=A01 file changed, 4 insertions(+), 7 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu/d=
-rm/bridge/cadence/cdns-dsi-core.c<br>
-index b022dd6e6b6e9e43bf11583806e1a8d1e7431ae8..7604574da66606c103cc035dd94=
-b0e211b64ebdc 100644<br>
---- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c<br>
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c<br>
-@@ -1289,9 +1289,10 @@ static int cdns_dsi_drm_probe(struct platform_device=
- *pdev)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int ret, irq;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 val;<br>
+diff --git a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c b/dri=
+vers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c<br>
+index 15a5a1f644fc10182c55bc9e489ccb81d4f924f9..81dde9ed7bcf7cacae000d9da31=
+a3a5c347ce037 100644<br>
+--- a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c<br>
++++ b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c<br>
+@@ -225,13 +225,11 @@ static int ge_b850v3_lvds_init(struct device *dev)<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ge_b850v3_lvds_ptr)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto success;<br>
 <br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0dsi =3D devm_kzalloc(&amp;pdev-&gt;dev, sizeof(=
-*dsi), GFP_KERNEL);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!dsi)<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0dsi =3D devm_drm_bridge_alloc(&amp;pdev-&gt;dev=
-, struct cdns_dsi, input.bridge,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0ge_b850v3_lvds_ptr =3D devm_kzalloc(dev,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0si=
+zeof(*ge_b850v3_lvds_ptr),<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GF=
+P_KERNEL);<br>
+-<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!ge_b850v3_lvds_ptr) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ge_b850v3_lvds_ptr =3D devm_drm_bridge_alloc(de=
+v, struct ge_b850v3_lvds, bridge,<br>
 +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;cdns_dsi_bridge_fu=
-ncs);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(dsi))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(dsi)=
-;<br>
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;ge_b850v3_lvds_funcs);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(ge_b850v3_lvds_ptr)) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_unlock(&amp;g=
+e_b850v3_lvds_dev_mutex);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(ge_b=
+850v3_lvds_ptr);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
 <br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 platform_set_drvdata(pdev, dsi);<br>
+=C2=A0success:<br>
+@@ -264,7 +262,6 @@ static int ge_b850v3_register(void)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct device *dev =3D &amp;stdp4028_i2c-&gt;de=
+v;<br>
 <br>
-@@ -1349,7 +1350,6 @@ static int cdns_dsi_drm_probe(struct platform_device =
-*pdev)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* CDNS_DPI_INPUT.<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 input-&gt;id =3D CDNS_DPI_INPUT;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0input-&gt;bridge.funcs =3D &amp;cdns_dsi_bridge=
-_funcs;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 input-&gt;bridge.of_node =3D pdev-&gt;dev.of_no=
-de;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* drm bridge initialization */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0ge_b850v3_lvds_ptr-&gt;bridge.funcs =3D &amp;ge=
+_b850v3_lvds_funcs;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 ge_b850v3_lvds_ptr-&gt;bridge.ops =3D DRM_BRIDG=
+E_OP_DETECT |<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DR=
+M_BRIDGE_OP_EDID;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 ge_b850v3_lvds_ptr-&gt;bridge.type =3D DRM_MODE=
+_CONNECTOR_DisplayPort;<br>
 <br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Mask all interrupts before registering the I=
-RQ handler. */<br>
-<br>
---</blockquote><div><br></div><div>Reviewed-by: Anusha Srivatsa &lt;<a href=
-=3D"mailto:asrivats@redhat.com">asrivats@redhat.com</a>&gt;</div><div>=C2=
-=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex"> <br>
+-- <br>
 2.49.0<br>
-<br>
-</blockquote></div></div>
+<br></blockquote><div>thanks,</div><div>Anusha=C2=A0</div></div></div>
 
---0000000000008f8be00634b910c9--
+--000000000000da95ab0634b94dcc--
 
