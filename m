@@ -2,122 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D82AB155E
-	for <lists+freedreno@lfdr.de>; Fri,  9 May 2025 15:37:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C652EAB15D1
+	for <lists+freedreno@lfdr.de>; Fri,  9 May 2025 15:52:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E65810EA42;
-	Fri,  9 May 2025 13:37:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0F3510EA49;
+	Fri,  9 May 2025 13:52:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EXmS5b2n";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lTzSDYaP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 051AF10EA42
- for <freedreno@lists.freedesktop.org>; Fri,  9 May 2025 13:37:21 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5497EjnQ019189
- for <freedreno@lists.freedesktop.org>; Fri, 9 May 2025 13:37:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- iOOyMJiEKwo0E2wR4rThFjXKnQmgdnx4JZVsMPqv+MI=; b=EXmS5b2n/lmS2bQ4
- CW2Vr9rM/WGS5/AkIlhPpJWUy0r1vsBGPIco4kOoiAKRUcJt3Xuuogh9cSa03eBk
- jkoSun1dkKF94Y893RF9AX/sDMbhjToeY1r1EgLQU93dMeCYihv0wk+8dD06HooW
- BEkL4P4spVMQtYwGdVETFGPNtMMTmkl8hXaI5uZruaH9rhmoT6dgsjvCh1MxCWmJ
- 13I+duS7m5+nslS5MJAvGx1volYuoG3PW6TUrecMMYqAXIPHcPOF/fc9DmDRBfX+
- tyPiUl/68csQvb2Z6kFb1lZBbVdF5s31Sl0Z4TKP1a97Ewys3tFgxgsWaXBCRZNu
- 2w3BlA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46gsdj48mg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 09 May 2025 13:37:21 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c5466ca3e9so38435085a.2
- for <freedreno@lists.freedesktop.org>; Fri, 09 May 2025 06:37:21 -0700 (PDT)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F06010EA48;
+ Fri,  9 May 2025 13:52:38 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-86135ad7b4cso87554539f.1; 
+ Fri, 09 May 2025 06:52:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746798755; x=1747403555; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PtSH5nI+hYw4K91qiMTbyWnP4++Yt+hkpqevJyQzufo=;
+ b=lTzSDYaP0nqQwpGAv9TU8t2vdDlFlGZAsazcYnATLvvUKXLwakQ9O84pV11cQnZefs
+ 8qsnAsm3Yql0ODC7Z4uG02rIHptK9K1NnqYEPBv+PaKjG1vtNKeyaF+QpZilvJQcL+YU
+ qFujffcrRS3FWQK3NrOLCGo1H8kYtLm28wi2RW9xvi030wqSijhf900AKLOht6xRN8lq
+ aamdVKXneiDjAeUppsK+O/zC9adQecjEmt0ZdZ/OhcFee46kKbq+6GmkYRa5P2DakxJY
+ 2D4yZv0bZNBgP5ZYxFh6WgDiPoZVyNLBKkeNeuxnrY+8TEI50mTPD1AmVNS3I/Ugjou2
+ qJ/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746797840; x=1747402640;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iOOyMJiEKwo0E2wR4rThFjXKnQmgdnx4JZVsMPqv+MI=;
- b=Cr4/ZPBtqFavR0D2XOdCQk4WxxTLTrW1VCLHDuJlWN+FrXU/g/2K21nQSxvteE7V3Q
- O6uJotjtUI8W/hd62ZsSD6mnJE3i7tlx9uLo/uGIs9mIJQFqaQ8pQz8h0++YGDThbvbQ
- iJz4V7tuvQYBS+oj5MGwiDqtjThTvugqhA+y0Xpt5klOQI1/YtLTBjELZZp5AMHgBMEW
- ODUHK2MmxAcAUNUoYhjm7jwiaTH2xzzgVvrJ/WsL9nTTbQxUY+abFugXpvZsyPwclIg5
- /a9xvgh3rfmjxe02i9QElxiVxDHAroVihWtUJRfFTLYXzgKgwbQh+zNmgbZSTPY+74/i
- nayA==
+ d=1e100.net; s=20230601; t=1746798755; x=1747403555;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PtSH5nI+hYw4K91qiMTbyWnP4++Yt+hkpqevJyQzufo=;
+ b=EoDe3eSHcF8JficL9sJqU23m3Em2HBDiJ4ekH7KCvIroMbwJwB55XLRwz6ADyDYOY0
+ f2MM/meuYo/NAW0rx1HBIxlMFddHes3HSMUbTcZRCZoX4QIpH/9dhK7mBvSpX76++v/k
+ FLtlCrAoYe5fGrr0fho8F3ARYGNb4q9hSJFckOPVcd0UB/I1T3HyoYhoJljZw0dnbfOl
+ XIG3i31RHgzMk6x+HspgaitZik8xOZIpt0Y24va4AwWhvfCfO+t8Vt5R8X9fmUwY7DDq
+ 5gx/7CF0TSdtAGTbboQCZMvg1k6Mk9Lt4x9zrZlMCR2g39ei1Qayx5v7B8DJjzZAkYOi
+ b05w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU8TZHGws7L8ig1n7osdALnm+Nl8aTaO74XtbAIgHVph+i67X3cnjC7QQMpKpaxJXFjK7MneunSJHo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0+9+J3wAIRS9ZLwSi/cQ696rgK3JpoEI63OGoOFbCfrOIAZZB
- XhBiHydcXoakb8oX/Vcy7aUT8/rLNPoZ2SIsWVC0moJe5yonuTM9VGNo9IJBBLtFv3RWsRhvlcc
- hvTIWBiySDBnAS2XQ4th8k2s1ZkAaby4qlivKqOYRNhmeBfYC0XPWKSlVm/arF5X9Uvc=
-X-Gm-Gg: ASbGncuvlHoN2qshOZ6U7pNTzNLrb06Q2iWFRI1Y2YjxGw6CG24Nrktx0ay2dXuAKYy
- 2O+mEA3hdn72xBqsNK4XwyycD+YxGrOiZrKLRhJWeQ6T3/VbU8Q9ojuiTdKtpxJUjXy6RQiGweR
- 7JGyWJVYQAvFDEiDb1YlZq/yxJbf2FJm5DtoJOlc1zbJkFIOyxsM8N4cBRvO1OamGn/ijKHx5Oz
- xsDr+4BFk+HG4M2LLBYWLXXazK7lhLqUTJISadYWoq1HKZBL5d3vhg9VenPAXmnX22CTC8pjegD
- 6K/3KTaoHDUyf4kccIElCv9TcvOqCwVqCYIQJWoM3lpGbpL18Jh8DpOxHvUcAc8+JEo=
-X-Received: by 2002:a05:620a:bcc:b0:7ca:d396:11af with SMTP id
- af79cd13be357-7cd011520edmr199007885a.15.1746797840075; 
- Fri, 09 May 2025 06:37:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEuHC/kx6/TH6m3sFD70X3TGhAwdHUaPhxaRjn4iosPvYhb5stgDjoSjqTnyk/F9Gh1p1qG5g==
-X-Received: by 2002:a05:620a:bcc:b0:7ca:d396:11af with SMTP id
- af79cd13be357-7cd011520edmr199005285a.15.1746797839676; 
- Fri, 09 May 2025 06:37:19 -0700 (PDT)
-Received: from [192.168.65.105] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2197c5b9csm150979366b.159.2025.05.09.06.37.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 May 2025 06:37:19 -0700 (PDT)
-Message-ID: <dedbfb2f-012a-404f-87d1-2f3cd04b0e74@oss.qualcomm.com>
-Date: Fri, 9 May 2025 15:37:16 +0200
+ AJvYcCVxtLb0Eam2C8Zik/jrLZhnUzL5RI+4CVkEIlBMzpvBcQnYH3SKjLS2ufxAUt554eb2L5NFHB4P6do=@lists.freedesktop.org,
+ AJvYcCWvwc0Qhe3+glEX60kdoLCjV4V9nYhVoWwfA3EoHNfpRol4GV9w6pLF9jekIG95/YwofJSP6eQ0+g3z@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyw7JzF6vDTyjqKiwEjkJ3VoEWS4TxnHZdOMsnnnHwZ37W2kOM/
+ Bddnj4K06ehDP/nfQe2ILXktzz6nTlWlbVAn0ZXR/eSDwnvVuOLu66MB/yaXwqjnPXMnIGHDScf
+ u/lyTp0JDnqQAYLsbI7SHa3+8TpQ=
+X-Gm-Gg: ASbGncs+iFeSbu2ZigSsAb7fa1Ugpg1NcLCkmSNhw9fXwyaGySbHFs79WKdhyTyeyan
+ aPyeOKIleBEEnE1qvzu4F8nSktr9MCyptwQP6rEpbqjH+YVcatux91FLv5rdfykwz0EGRFZEvRA
+ vBpgGeLA9MCt32kv1jxYC8Xg==
+X-Google-Smtp-Source: AGHT+IEtyWkvkWlkFB/0B7z7ZFqlkBdmXeZzAPAxswbI80SdN2p9eTapIvhC18am+K6cf2EQIuo8FKBK2WLzBA1V15k=
+X-Received: by 2002:a05:6e02:1689:b0:3d0:4b3d:75ba with SMTP id
+ e9e14a558f8ab-3da7e1e1b24mr43129255ab.4.1746798755408; Fri, 09 May 2025
+ 06:52:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT 13/14] drm/msm/a6xx: Drop cfg->ubwc_swizzle override
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Connor Abbott <cwabbott0@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 References: <20250508-topic-ubwc_central-v1-0-035c4c5cbe50@oss.qualcomm.com>
- <20250508-topic-ubwc_central-v1-13-035c4c5cbe50@oss.qualcomm.com>
- <CACu1E7E9yU-cygZxBqVypP7aFkXJCNTfXA2uqdvU84mi9T51Xg@mail.gmail.com>
- <5f5e512c-ae0e-43aa-856f-06820ac4b147@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <5f5e512c-ae0e-43aa-856f-06820ac4b147@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=PMAP+eqC c=1 sm=1 tr=0 ts=681e0511 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=sEJkFV_Ntms1zBwlKkIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA5MDEzMiBTYWx0ZWRfX3IGUAbdLxkhg
- 1i9VRx8KdYvsb4t4a7B72Ag0Sz3ZkeifDo7OBnN9g1nR6OGibJ1DU5cCiyq9f69Y9B+0j8wlm9k
- /fH6V6vCzxYS2us1ulR0ZUSkVh23pxrPNfVj83/1iHckIJigta4O/Q8f5top9zdkPkcGkR8BGeQ
- +4DL/XQbtNMclCkbisDn75GYH5rEP0IZrgwZmq7wF46bby7va28riiCDbQVljbuzBU8bLCd+O4b
- P3zZeEySAEiFlwyZSGfsZQRM1JKoYmT+l25s2e4io5bJYdzProGxyaLgbiYbR0X4roF4M8116vB
- sma192QzZSOBLrfIPWlF0BHd4fwpPLoKDl/jED/KOJ4gwgZ0YM4UTZdYL7QmwoSfqlHBF424eio
- XxnbMd5fN4Et/Bnmz7D543xwKFJkZJ/nRJguOxpbQgl4U0Rw0kek90BEV/6ozPAqnES4toW+
-X-Proofpoint-GUID: dthAVA_gY9LTNRgSkKrz47-0iFwe9O6-
-X-Proofpoint-ORIG-GUID: dthAVA_gY9LTNRgSkKrz47-0iFwe9O6-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-09_05,2025-05-08_04,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 mlxscore=0 suspectscore=0 spamscore=0
- bulkscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
- mlxlogscore=915 adultscore=0 malwarescore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2504070000 definitions=main-2505090132
+ <20250508-topic-ubwc_central-v1-4-035c4c5cbe50@oss.qualcomm.com>
+ <CAF6AEGtcoMZ+WiW5_BA4NFpLZsoOrDbkY4xyvENGoS2FQVwQxw@mail.gmail.com>
+ <5c3d3682-8378-486d-8af1-4b884b81f3d0@oss.qualcomm.com>
+In-Reply-To: <5c3d3682-8378-486d-8af1-4b884b81f3d0@oss.qualcomm.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 9 May 2025 06:52:23 -0700
+X-Gm-Features: AX0GCFtkuS-MqVFGx1kw13xZjuTaKSplnt5h27l8JKKLHrytJs4ZlOcxEKTw1KU
+Message-ID: <CAF6AEGvmEP4oGytfsCHYDCtOUDYq68y=vS7fu0jzP+=oajeq9g@mail.gmail.com>
+Subject: Re: [PATCH RFT 04/14] drm/msm/a6xx: Get a handle to the common UBWC
+ config
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,27 +94,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 5/9/25 3:17 PM, Konrad Dybcio wrote:
-> On 5/8/25 9:26 PM, Connor Abbott wrote:
->> On Thu, May 8, 2025 at 2:14 PM Konrad Dybcio <konradybcio@kernel.org> wrote:
->>>
->>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>
->>> On A663 (SA8775P) the value matches exactly.
->>>
->>> On A610, the value matches on SM6115, but is different on SM6125. That
->>> turns out not to be a problem, as the bits that differ aren't even
->>> interpreted.
->>
->> This is definitely going to break userspace, because the kernel
->> doesn't expose the UBWC version, instead exposing just the swizzle and
->> userspace expects that it sets the right value for older UBWC versions
->> before it became configurable (0x7 for UBWC 1.0 and 0x6 for 2.0-3.0).
->> It looks like the data for SM6125 is just wrong.
-> 
-> Oh that's sad.. I'll drop this commit
+On Fri, May 9, 2025 at 5:31=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 5/8/25 8:41 PM, Rob Clark wrote:
+> > On Thu, May 8, 2025 at 11:13=E2=80=AFAM Konrad Dybcio <konradybcio@kern=
+el.org> wrote:
+> >>
+> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>
+> >> Start the great despaghettification by getting a pointer to the common
+> >> UBWC configuration, which houses e.g. UBWC versions that we need to
+> >> make decisions.
+> >>
+> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >> ---
+> >>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 16 ++++++++++++++--
+> >>  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  6 ++++++
+> >>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  3 +++
+> >>  3 files changed, 23 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/m=
+sm/adreno/a6xx_gpu.c
+> >> index b161b5cd991fc645dfcd69754b82be9691775ffe..89eb725f0950f3679d6214=
+366cfbd22d5bcf4bc7 100644
+> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >> @@ -585,8 +585,13 @@ static void a6xx_set_cp_protect(struct msm_gpu *g=
+pu)
+> >>         gpu_write(gpu, REG_A6XX_CP_PROTECT(protect->count_max - 1), pr=
+otect->regs[i]);
+> >>  }
+> >>
+> >> -static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+> >> +static int a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+> >>  {
+> >> +       /* Inherit the common config and make some necessary fixups */
+> >> +       gpu->common_ubwc_cfg =3D qcom_ubwc_config_get_data();
+> >
+> > This does look a bit funny given the devm_kzalloc() below.. I guess
+> > just so that the ptr is never NULL?
+>
+> Yeah, would you prefer this is changed?
 
-Wait uh, we have this data in the common config.. why would it break
-userspace?
+I think having an all zeros ubwc cfg isn't really going to work
+anyways, so probably drop the kzalloc().  Or if there is a case that
+I'm not thinking of offhand where it makes sense to have an all 0's
+cfg, then add a comment to avoid future head scratching, since
+otherwise it looks like a bug to be fixed.
 
-Konrad
+BR,
+-R
