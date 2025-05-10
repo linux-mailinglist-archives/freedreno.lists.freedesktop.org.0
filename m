@@ -2,109 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B54DAB2414
-	for <lists+freedreno@lfdr.de>; Sat, 10 May 2025 16:00:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8470AB2419
+	for <lists+freedreno@lfdr.de>; Sat, 10 May 2025 16:00:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6066010E0F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96F0810E255;
 	Sat, 10 May 2025 14:00:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GzJOBbut";
-	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78B1C10EAFB
- for <freedreno@lists.freedesktop.org>; Fri,  9 May 2025 21:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1746826547;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=hYtlWhIfE8/FY/jKJnyYsZe7MxS7wLs6dmHJZajZruE=;
- b=GzJOBbutdihyyaQd66/naWcif9L6rFLXZNyR8UAmb3a3yeQZ6aMZ1XDxKBf+XPPeDz5TTC
- SKN8Lbma/rih7+g6AZAUC1nV4FTS8Z9OcKDmJv99a95A/LEfmV/gmVW4Wfo8EVutARna2A
- n+3pukhfgL7fYCGGHB4ASRQjgGqtUpE=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-7-w9-odU2vNLCb79pzzntCWQ-1; Fri, 09 May 2025 17:35:44 -0400
-X-MC-Unique: w9-odU2vNLCb79pzzntCWQ-1
-X-Mimecast-MFC-AGG-ID: w9-odU2vNLCb79pzzntCWQ_1746826543
-Received: by mail-yw1-f198.google.com with SMTP id
- 00721157ae682-70a4be14d80so10110937b3.3
- for <freedreno@lists.freedesktop.org>; Fri, 09 May 2025 14:35:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746826543; x=1747431343;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=hYtlWhIfE8/FY/jKJnyYsZe7MxS7wLs6dmHJZajZruE=;
- b=uT/TNigDwhjQkLjEOI84TCMh4FwPol1J010cjkK4I8+i0qnAVtD4wX0+5ngSxUFQ/s
- F7hmlJZeW13A3SZXfYekFeEGlSMlls6eIOETNuLAZmX9CqaUO2PiqALwIoIAAyGiOkxu
- Ht60zsnUinH1j6vxcNg0ZgUlsPpPQgrqpsoaqtdxeTCgLm/f92WWfMD4otG7ZFn2XU1l
- b+pD0xm8zoLF5yhvZpTbzpc8kgInaL4h6uDt7oD/YHq5PDRz5kNSUpHP0BU5xzQSJFrT
- d6bzTkVCZSJDcM7c+GsUdVVYSE77CJ7v2GBk8noaDCYNfDfmcxhadnnNGTPOnqYYGwx6
- 2KBA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU9NSBt69rIUOpAkFwQ+rmMnW/X2hswulmcIez9jxIoDysAOLcxtFVZXIfoP3GZvvWMtBv1dMnF6Ks=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwcMwXlwpus8hLMXrHtJmEM/uhaUHUE6bpoQXKbt0PbLS/xR9Wq
- R1WtVUYSCvzO1AUy3mf10QXew9PktCXYgSTYD6LYffsE/ktf+/R+cLXNEt3ie3noHfJ7UhKR+Si
- DtOSH27qWoko5yk/vL+2kTlAZSLPPcSKSY6nBMgsN/8T6EHp06WuLefbwfxY1WaoSbWOh+D5zvD
- 9oAk6Kzhca/+KsEfu9AZqoIpzswoA5nNb1/vd8/tcE
-X-Gm-Gg: ASbGncunqpsmtKybwpGOUfhWOATfiPSpFcvBlUhujG6kXCLyz7MPNzn+ciD+1Yc8AAx
- RVd1KIwfUpwU2OgXms1SZWT5FKXvN+lh9A2TcHf5Q8bWWG1ahN2xL4Zbqvh852RaK/f8=
-X-Received: by 2002:a05:690c:6012:b0:703:b930:97c7 with SMTP id
- 00721157ae682-70a3fa2453bmr65777657b3.9.1746826543551; 
- Fri, 09 May 2025 14:35:43 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGOX4g2wzfw7tGF0msoIwu89ObZWLx7H+gBPBCTd54o0YgB37bfihWxt4pX1/XHw0ycvt7E0xMq+56TtD2VrVc=
-X-Received: by 2002:a05:690c:6012:b0:703:b930:97c7 with SMTP id
- 00721157ae682-70a3fa2453bmr65777427b3.9.1746826543279; Fri, 09 May 2025
- 14:35:43 -0700 (PDT)
+X-Greylist: delayed 406 seconds by postgrey-1.36 at gabe;
+ Sat, 10 May 2025 12:10:21 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F192A10E010;
+ Sat, 10 May 2025 12:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oldschoolsolutions.biz; s=s1-ionos; t=1746879019; x=1747483819;
+ i=jens.glathe@oldschoolsolutions.biz;
+ bh=OwyZeqxclZuiANkoRb9+rhejJTcrD9vErRrbOtX25YM=;
+ h=X-UI-Sender-Class:Content-Type:Message-ID:Date:MIME-Version:
+ Subject:To:Cc:References:From:In-Reply-To:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=oN4uec/+hPnYgjc2aR5TRstZ+nIt6WSK8ME1wf03X+V3r+IWK/CISgV6DFM2C4hj
+ KBYKhmoIoK9zqCMg7Mu/Pm5CQ1AFco5URmNc2BqA2sw/Nv/r01nbgxqHtwVQe81zh
+ xhVEE0I3kV/7CR1GSKJGbRc1CMjj7Se47VpkRaQoqIMpJBI1fUu+UpjWBHsiB1ROL
+ LzWmdpBpGOwC3a6P5GdpCkHu2FeYsR62lUuRVZZnSicV2OPnXQ7JHlDxY0DmYKNg7
+ Hk7fDZRuoPxhlgQCYMTNrpNJ2gJQSv54uTS4a+tWncBYmAuhSiM6otmAO4OgNz6zz
+ F8WmLf6IdkYSNsiLDg==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from [192.168.0.174] ([91.64.235.193]) by mrelayeu.kundenserver.de
+ (mreue107 [212.227.15.183]) with ESMTPSA (Nemesis) id
+ 1MS4WT-1ub4hq1rAp-00VsaB; Sat, 10 May 2025 14:03:25 +0200
+Content-Type: multipart/alternative;
+ boundary="------------MfVJlgetY58PZTM6eedPaseE"
+Message-ID: <9cfba854-24f8-41bc-9f78-44852bed7c3d@oldschoolsolutions.biz>
+Date: Sat, 10 May 2025 14:03:22 +0200
 MIME-Version: 1.0
-References: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
- <20250509-drm-bridge-convert-to-alloc-api-v3-15-b8bc1f16d7aa@bootlin.com>
-In-Reply-To: <20250509-drm-bridge-convert-to-alloc-api-v3-15-b8bc1f16d7aa@bootlin.com>
-From: Anusha Srivatsa <asrivats@redhat.com>
-Date: Fri, 9 May 2025 16:32:22 -0400
-X-Gm-Features: AX0GCFvgBDQPXfbsBXhpXssR6nd8_D6uWav2HkZaIC88ZkIzUSgFh2O4RCwzLCA
-Message-ID: <CAN9Xe3TX+zGNjQOANzv8tqUD79zVniruG3yBDiQY=Cd6Jr6p9A@mail.gmail.com>
-Subject: Re: [PATCH v3 15/22] drm/bridge: stm_lvds: convert to
- devm_drm_bridge_alloc() API
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Douglas Anderson <dianders@chromium.org>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Paul Kocialkowski <paulk@sys-base.io>, Dmitry Baryshkov <lumag@kernel.org>,
- Hui Pu <Hui.Pu@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, 
- asahi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- chrome-platform@lists.linux.dev, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
- platform-driver-x86@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: PKLEwsRGpbZnz33W9WTfwkd1r5ADc0-JqQUILaUm1A4_1746826543
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="00000000000098c5590634babf2d"
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 00/45] drm/msm/dp: Add MST support for MSM chipsets
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ Guenter Roeck <groeck@chromium.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Vara Reddy <quic_varar@quicinc.com>, Rob Clark <robdclark@chromium.org>,
+ Tanmay Shah <tanmay@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Yongxing Mou <quic_yongmou@quicinc.com>
+References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
+Content-Language: en-US
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
+X-Provags-ID: V03:K1:QleC2uSmYuR5CojDBquY1PeogUOZW64rzhcBqtnW4bINLAwGaxu
+ XrbY6ZqRxCx0hxCBVdtWW12+vdam8DlDR7yMVx5HgzivIuHtvc8qU/UuLK97bnK7kegG1bm
+ u2zzWEpmGCMToJuXvfdGgg4ZyFIBHg2UVVhJKeU40t2vOTDDwl0HRpJtQa4YxIA7iM9G173
+ 0asLuKhcXoaO35xOsDlIA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:MlD3gKthU6Y=;2yODLyHpW7DYB+49NfQ87pImbxG
+ aXhCbUEfJJ/bkUaO7FaeJiF2egIJs2hW3/yC/5IrCAG5MwAT+kLoZpoQiSJBSY6HQFmY00GPA
+ GRqs69iHBZ31zslBmDnr5LgT2MoVpwL2FZuRo6vtnoTD15TOG/MebctN2x05czf/0+ppcvXkd
+ /FLfbcBYRR1OSNpofMVWvq5MoZumKf8j9j7Aen9JIbwyrZdTF83/dVETPTu89RvrVMboZpIvw
+ AGFdpW+zTK0lypEYBI2l2cXMDkKGC3ONFGqpWwRjnF9lhcHTfaVsb+rof4C0airJpbZ540M06
+ bOfFGJOOeQrrNGDYLY4SmPjjCKKYUwERyqa4XiFxg3AXcEb4Ot2XIw6WCh4BPFaDy32PrdCzH
+ VkEkWIx5jgTMDJm4cUr60ET/l6TMYiiHPO2rMfNbOljTUGmVJ2yKFMgArIgsN5+K6UKWdkQ2L
+ CSOQdGDIHIT2eJeucNQ9otye8buVv4FwUpiPC7oJxq+IuK2EBjm7l8XYpvB3istsqzs+2ZyGs
+ NKvu65+mFoAzWxoPafbTF1G5yZyvLIUPrZLkGc3+bdtRjHK+qY+DGDIXZvPmOjxQ4bMk3jIxo
+ Arie8d2BC4eeENaJerd9Wbv00PBVgHaNpVab/VtR4D/h7S9Mwl1fP9AKTpMb2YgE5G7v+QYpG
+ 0eEuyBd8DNlIHs2Qy8mG9bb9uPjB2boBAjiHqNa7ttCCSvDmiA+duRvVXAIXiRfF5qV0Qjs4v
+ VkCyy18B3Zx4g1fqXyFmF+dxAwQuWE/V0r/u7SVbCDX+d3/+S8B/V0t+mXexX5jbQFNVELasb
+ I0OkGwTzHEK3CT38a2+95KfDtqpVkjLcnNdQE0Xnx4cAYqOHR/F6DSzHbQ6z0IlpAmLMzuKJz
+ YVhytSTfwQJyXna25lYVeeniK3FxY38wZqM4i1dWZsBJmNpmWv2ZbPl4QjwJ9uwE9qCIfkSJ/
+ 01J/WUWztKRNXd2WgFSGotuahmJ1sQAmo7zpjOUaSBwJKdECPVc8fvhFTkoqC70Fdy0G0b+ny
+ lz4Vyb4f8wGnmtwFn18hGYjX7tshuS5IYlW8zFK+x/sVW//MH0X1NOPUgkRQh5qKjZ2xBQ9iT
+ TbuExWgdk2ZhqiYH87bIzr5B8IXEJ8KFweA+01YVVGMrYWyWSA9vmz6JrZBaRnwD4uIkzTzau
+ I4Z6eSouf6H31PaeR2GmOVk7kRHoSFd/ZlTnEH5LDKsEKzDaQZdNfjaZeuF203J6SKNcK3n0L
+ U/887awk03s8LeFIdrv6y7NmFan76Q26RCEq14wru9PVSXX8iQdqCRgdyQXTGqpNi17phriVI
+ JB+wFBK78oGFH3qDPAlcNJNMHCXzU6+/NDyTo3BnnXPNBmBvMcdHw+LAWmZ6j/qNke8RyHrGk
+ vJYxpf4DUG5nZ6deMzhlGHIBbCo0blM4bywWRaH+IcvWw1/tCxCO6ZpnPw
 X-Mailman-Approved-At: Sat, 10 May 2025 14:00:19 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,146 +102,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---00000000000098c5590634babf2d
-Content-Type: text/plain; charset="UTF-8"
+This is a multi-part message in MIME format.
+--------------MfVJlgetY58PZTM6eedPaseE
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 9, 2025 at 9:57=E2=80=AFAM Luca Ceresoli <luca.ceresoli@bootlin=
-.com>
-wrote:
+On 06.12.24 05:31, Abhinav Kumar wrote:
+> base-commit: b166256c1e6ce356fa1404d4c8531830e6f100a8
 
-> This is the new API for allocating DRM bridges.
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->
-> ---
->
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-> ---
->  drivers/gpu/drm/stm/lvds.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/stm/lvds.c b/drivers/gpu/drm/stm/lvds.c
-> index
-> a3ae9a93ce6670eb2c4dd36b3e572fcbca791a1c..07788e8d3d8302a3951e97d64736b72=
-1033998d3
-> 100644
-> --- a/drivers/gpu/drm/stm/lvds.c
-> +++ b/drivers/gpu/drm/stm/lvds.c
-> @@ -1049,9 +1049,9 @@ static int lvds_probe(struct platform_device *pdev)
->
->         dev_dbg(dev, "Probing LVDS driver...\n");
->
-> -       lvds =3D devm_kzalloc(dev, sizeof(*lvds), GFP_KERNEL);
-> -       if (!lvds)
-> -               return -ENOMEM;
-> +       lvds =3D devm_drm_bridge_alloc(dev, struct stm_lvds, lvds_bridge,
-> &lvds_bridge_funcs);
-> +       if (IS_ERR(lvds))
-> +               return PTR_ERR(lvds);
->
->         lvds->dev =3D dev;
->
-> @@ -1164,7 +1164,6 @@ static int lvds_probe(struct platform_device *pdev)
->                 goto err_lvds_probe;
->         }
->
-> -       lvds->lvds_bridge.funcs =3D &lvds_bridge_funcs;
->         lvds->lvds_bridge.of_node =3D dev->of_node;
->         lvds->hw_version =3D lvds_read(lvds, LVDS_VERR);
->
->
->
-Reviewed-by: Anusha Srivatsa <asrivats@redhat.com>
+Hi Abhinav,
 
-Thanks,
-Anusha
+I would like to test / play around with this patchset, unfortunately=20
+this base commit is not easy to find. Trying to apply without gives lots=
+=20
+of conflicts. Can you please rebase?
 
-> --
-> 2.49.0
->
->
+with best regards
 
---00000000000098c5590634babf2d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Jens
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, May 9, =
-2025 at 9:57=E2=80=AFAM Luca Ceresoli &lt;<a href=3D"mailto:luca.ceresoli@b=
-ootlin.com">luca.ceresoli@bootlin.com</a>&gt; wrote:<br></div><blockquote c=
-lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
-d rgb(204,204,204);padding-left:1ex">This is the new API for allocating DRM=
- bridges.<br>
-<br>
-Signed-off-by: Luca Ceresoli &lt;<a href=3D"mailto:luca.ceresoli@bootlin.co=
-m" target=3D"_blank">luca.ceresoli@bootlin.com</a>&gt;<br>
-<br>
----<br>
-<br>
-Cc: Alexandre Torgue &lt;<a href=3D"mailto:alexandre.torgue@foss.st.com" ta=
-rget=3D"_blank">alexandre.torgue@foss.st.com</a>&gt;<br>
-Cc: Maxime Coquelin &lt;<a href=3D"mailto:mcoquelin.stm32@gmail.com" target=
-=3D"_blank">mcoquelin.stm32@gmail.com</a>&gt;<br>
-Cc: Philippe Cornu &lt;<a href=3D"mailto:philippe.cornu@foss.st.com" target=
-=3D"_blank">philippe.cornu@foss.st.com</a>&gt;<br>
-Cc: Raphael Gallais-Pou &lt;<a href=3D"mailto:raphael.gallais-pou@foss.st.c=
-om" target=3D"_blank">raphael.gallais-pou@foss.st.com</a>&gt;<br>
-Cc: Yannick Fertre &lt;<a href=3D"mailto:yannick.fertre@foss.st.com" target=
-=3D"_blank">yannick.fertre@foss.st.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/stm/lvds.c | 7 +++----<br>
-=C2=A01 file changed, 3 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/stm/lvds.c b/drivers/gpu/drm/stm/lvds.c<br>
-index a3ae9a93ce6670eb2c4dd36b3e572fcbca791a1c..07788e8d3d8302a3951e97d6473=
-6b721033998d3 100644<br>
---- a/drivers/gpu/drm/stm/lvds.c<br>
-+++ b/drivers/gpu/drm/stm/lvds.c<br>
-@@ -1049,9 +1049,9 @@ static int lvds_probe(struct platform_device *pdev)<b=
-r>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 dev_dbg(dev, &quot;Probing LVDS driver...\n&quo=
-t;);<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0lvds =3D devm_kzalloc(dev, sizeof(*lvds), GFP_K=
-ERNEL);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!lvds)<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0lvds =3D devm_drm_bridge_alloc(dev, struct stm_=
-lvds, lvds_bridge, &amp;lvds_bridge_funcs);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(lvds))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(lvds=
-);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 lvds-&gt;dev =3D dev;<br>
-<br>
-@@ -1164,7 +1164,6 @@ static int lvds_probe(struct platform_device *pdev)<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto err_lvds_probe=
-;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0lvds-&gt;lvds_bridge.funcs =3D &amp;lvds_bridge=
-_funcs;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 lvds-&gt;lvds_bridge.of_node =3D dev-&gt;of_nod=
-e;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 lvds-&gt;hw_version =3D lvds_read(lvds, LVDS_VE=
-RR);<br>
-<br>
-<br></blockquote><div><br></div><div>Reviewed-by: Anusha Srivatsa &lt;<a hr=
-ef=3D"mailto:asrivats@redhat.com">asrivats@redhat.com</a>&gt;</div><div><br=
-></div><div>Thanks,</div><div>Anusha=C2=A0</div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">
--- <br>
-2.49.0<br>
-<br>
-</blockquote></div></div>
+--------------MfVJlgetY58PZTM6eedPaseE
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---00000000000098c5590634babf2d--
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 06.12.24 05:31, Abhinav Kumar wrote:<span
+      style="white-space: pre-wrap">
+</span></div>
+    <blockquote type="cite"
+      cite="mid:20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com">
+      <pre wrap="" class="moz-quote-pre">base-commit: b166256c1e6ce356fa1404d4c8531830e6f100a8
+</pre>
+    </blockquote>
+    <p>Hi Abhinav,</p>
+    <p>I would like to test / play around with this patchset,
+      unfortunately this base commit is not easy to find. Trying to
+      apply without gives lots of conflicts. Can you please rebase?</p>
+    <p>with best regards</p>
+    <p>Jens</p>
+  </body>
+</html>
 
+--------------MfVJlgetY58PZTM6eedPaseE--
