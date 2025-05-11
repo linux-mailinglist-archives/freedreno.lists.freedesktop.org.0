@@ -2,89 +2,111 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7989AB2418
-	for <lists+freedreno@lfdr.de>; Sat, 10 May 2025 16:00:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D54D8AB2782
+	for <lists+freedreno@lfdr.de>; Sun, 11 May 2025 11:52:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 915F510E253;
-	Sat, 10 May 2025 14:00:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6E3510E042;
+	Sun, 11 May 2025 09:52:23 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="elvRyCML";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0940610E010;
- Sat, 10 May 2025 12:13:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oldschoolsolutions.biz; s=s1-ionos; t=1746879138; x=1747483938;
- i=jens.glathe@oldschoolsolutions.biz;
- bh=bSuxazXqfTP5iuFomTlnu0dGI378IJ8AaIuRLhfJe8Q=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:From:Subject:To:
- Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=MzgQTMJmJdkFH00SKVzesJx6/clB7s7AN4pLJeBSmL/8WxVIeDYFjkR2+4lo0/ZE
- Xk42eV878EVYOEJaa4lWie7WatK9lgZXvCXfmbYMl0hYsM60ArZscOKOl62l3aqyu
- U7hzaKVwTRzv5/KWqKd/lGztMH7XMJRCZQdZ2JaG0m0SB1GdFEDsnKlmDj0UlrSEM
- OrV2xlAhALW/xy0ZtU5FhnLHOZ/9YdSnPQOesLgKzSxxk6G6Oqj/ct/v9t4PXnCRM
- Kgd03x/YLAKRwBknGqzJAyMwxPYde2gK5ujWPDQKL3MoyrT+uoGoQnaPrmvPQwwre
- 6PENcjgULFbLULjr8A==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from [192.168.0.174] ([62.226.32.213]) by mrelayeu.kundenserver.de
- (mreue109 [212.227.15.183]) with ESMTPSA (Nemesis) id
- 1MFbeC-1uEL1Q1R7e-00D8h7; Sat, 10 May 2025 14:12:18 +0200
-Message-ID: <aeb8c8d5-9ce5-410d-8021-df30081697af@oldschoolsolutions.biz>
-Date: Sat, 10 May 2025 14:12:16 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 384AD10E042;
+ Sun, 11 May 2025 09:52:21 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54B5DBRF022791;
+ Sun, 11 May 2025 09:52:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Q2BsqUJ5qs8sClJC0RBmiR2OPzrS2wHqFWx0KothqIg=; b=elvRyCML7Yv1MhEA
+ 2WaJOPLHdMD1PTT20TF1SQE+ZQiuswtcTDERA10Xrq5p+8BUB6Bkbk3Cipues0G/
+ 4eetcXb2K6NkE/0hJC58BkBvXAeHO+Ouoes1f7jsjOg4kyKOdf3RCdOPkP+5YHDn
+ hHZvs7blT5HYCJ+9llCV87g1vV24ldYc2Pqiachq3buETJCsQ5TzLJerMenyGXwS
+ N1/uzgNXeN5h9Kazg0+5VM3PnqoBpdfRWM/YF5uNW2vOg+Kqc1PaZ0woafOVhjof
+ V84/TZsLZxY4tZzppb4s9mM8QF3tRprH1GWrORhLFeiMIXXjiXIadNBSGpPONx8J
+ v9k/ag==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46hyjjhrb8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 11 May 2025 09:52:07 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 54B9q65k028030
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 11 May 2025 09:52:06 GMT
+Received: from [10.216.59.153] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 11 May
+ 2025 02:52:01 -0700
+Message-ID: <1903ee8a-f819-4a4d-baee-90f35e0da290@quicinc.com>
+Date: Sun, 11 May 2025 15:21:57 +0530
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Subject: Re: [PATCH 00/45] drm/msm/dp: Add MST support for MSM chipsets
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Guenter Roeck <groeck@chromium.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Vara Reddy <quic_varar@quicinc.com>, Rob Clark <robdclark@chromium.org>,
- Tanmay Shah <tanmay@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Yongxing Mou <quic_yongmou@quicinc.com>
-References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFT v6 2/5] drm/msm/adreno: Add speedbin data for SM8550 /
+ A740
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, <neil.armstrong@linaro.org>
+CC: Konrad Dybcio <konradybcio@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>
+References: <20250430-topic-smem_speedbin_respin-v6-0-954ff66061cf@oss.qualcomm.com>
+ <20250430-topic-smem_speedbin_respin-v6-2-954ff66061cf@oss.qualcomm.com>
+ <13cd20c6-f758-45ff-82d1-4fd663d1698c@linaro.org>
+ <886d979d-c513-4ab8-829e-4a885953079a@oss.qualcomm.com>
+ <b838f9bd-0537-4f8d-b24b-d96700d566c8@linaro.org>
+ <98a4ad20-c141-4280-801e-015dafd1fb39@oss.qualcomm.com>
+ <a26213ec-808f-4edf-bb0d-ab469ee0a884@linaro.org>
+ <281ab1b6-498e-4b29-9e15-19b5aae25342@oss.qualcomm.com>
+ <63105bce-6b8e-4b99-bca1-3741f27ea25a@linaro.org>
+ <892fc1eb-efd3-4fb6-9110-2df3349960a6@oss.qualcomm.com>
+ <b989522d-bd41-4d76-91a9-3cf680214003@linaro.org>
+ <f5734944-1ed2-4acc-a015-0c638c331bbe@quicinc.com>
+ <d73c6151-91bb-4c96-ad2a-972ad392624b@oss.qualcomm.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
 Content-Language: en-US
-In-Reply-To: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:GPqBAj8RWg+DoYyx8R1t6lIg4jvgYMTPH65CKeMaHkASHF0q/Da
- P4D1Yq8g10a4k39exwebeDK8fOwEJCKs/0TprlBbQ1kYuO3MnCr1DmalXK94nN5i7Nk43CP
- UR9gzuCZB7v5cF8dJ5+1ytQ0WsypvgUy2koy49Zfn4SgUruamViG603FablrI36oQl4sZ8n
- /0sqtGAasEj5JlTq6NHNg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:VQ+43owoB/g=;mRNw1K7JuvcW0TwZvDEm7vK1TW7
- 6czjMLG4epiCnvlVPSGmyxL1qqzkB37YEhfjV91e0ZiYOf+avLBiFKjfey0XXQ+A0a/xB1LXF
- h1YFcNMjP3isIwcDdogBhsQCl2gKWkd3rWYqEIeWd82WTcMJ8VfwqfwpMiXdzJ9mPaQ4KUBhf
- Eg3WIWMyxrKWSvcNG2lsT+hJoWGEk2ZcDF2FXfxVbaw02+zoAc3ndLp7y9XdytE9FV1hcPk54
- QqcqmkmCayAShjmFZrqGacfkCEVtU9GFXcN02CIj9uWdMvb2BCp2ZzIX/27gPi6cYcPn+a38Z
- 3qI2kT9jcenOcIhqTC7czAoMzYVd41xH7FoR4LiSdTnVaedqFj/fVB+dFrXqTAR+c2EqutAhB
- YG6/4arcsvFMtbc6V77xcQCcOkOd8kgq69uNPt7v2u/5SPl10GBcPjxFrom8DPvjYw75aSy6i
- hzT97KL/XolQFLgRTkojqoCnFPfTAs9GdudgUXXJoRjRf+p3Ijt/PF4lFaLWdxJd+tqms5jQM
- Mdv+Sw3tvP/bbQtCjPxkO0TZuUG1rs70917XpCRelRJh7PjhM7bJyVeW5xUCdb7bR07mLN/6c
- JHpKFhfdru9zXMLE5/+uCgXoW7XocArIetL+IagOHdjgB6T1i9FVUtR5kXw8bv3yLRK9glnJZ
- VNduvjA04gTkd8ZxF2eN1cdyL21AW725Yg4UyDkrhzQ33cgugtptM7saO11zGwDyjadxs3ASq
- tfXN1S0Hj1+3oIii3266uxOMimuTY0vGiBnZo8g3tI/wIraOyXt0cr8go8tgWOn33byGjxJ3J
- J0twunaljKCzpxIgH00gNV6w5V8oEatLCB8xvsRJvQL8mcEgFr+qgBEYhaIFKN0Hzq6PuaA6m
- eV8DNEYbNi2AEXjRK8PGWKdyvE4wtO2Ujr4t3/in5gAA7CU9NfWZ5aq476BiA0OQUFD5sfCgG
- 72SOxdhsHn+euZcrRHXOmPHs4JagtNd55X8vj7eUUXPoVXKZUcGYrtVRd+QL9fDEDnfv3bUIT
- Y//CH0j/UTGyok5n70pt6A7wzYnlNsAUkYI02YaNT+SMiKr+4WnGj6v6MIrp/AdEYF4Da1Mym
- GsGB3Gkbv4fe2yLMXmZGR05AICJWlhri4JP4AUaKhDHWJq+X8DD/x3NqmX3tqDUuXXFYXPsI1
- huEod3ATUE677aYeY+3UyM3fT6UdkIqEHOMUQZs6M+m+92Cd+VimHd3r5VR8CcWxBCtErAYFF
- fcUEPkMqrwR0jjmMK2u9qX9TJ0bANdVC3HPbUyQbNNMVdtnTbqbQDHuhvKnkhCdhUYjNfWajz
- 6mqZPm9PwuC4BwhjOXhM19D5VILMwpvbXtk0hWJngLCupArUCsMwrSNKdvz57mIZpCsWYETin
- ECovF04p6QiaW3Kun4m2hj/Qrzx/+LYXi/X/AUjlzWIxtfv7zT/8GRIAPv
-X-Mailman-Approved-At: Sat, 10 May 2025 14:00:19 +0000
+In-Reply-To: <d73c6151-91bb-4c96-ad2a-972ad392624b@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTExMDA5OSBTYWx0ZWRfXy0iWnmVfZ948
+ W8G3FTxfcJhMR1S4OQgzgXn02ZhoFwpZnM6bzzSyQZKzaj2D/xjfaof8jxY20M37m/dna7vF53D
+ QVhIYrD+cF4cwCFlhO/ag9hb7iKbEuCr11re/g6MGXYUG2yLxhCM9pVSoRS3AE6zQTUn74/08ae
+ JdV5244rcnHWef0OTdQcQhOVxfzLYithB0I6FEu0CYA64bqlMlyXERuIJo3sWdeL/0uxmkxxXtw
+ bBscXeLtZBcBQW5MfwrlX9/LWpPdIaassjkWWoOJ9/WArOtTJQ9WHj1nr95bJfSXYikRVty23PJ
+ 6ywHLBBdE4Y+ivmSG3u2DEBUIxpndEZFab09DNlSYMAB7b2C7fEK4UXo6OWHknGDHwO1qUQrBu1
+ aLwcYyqK/nMC//U4PUJLYDzXeI0RbJ4egFJK++PqQ4cHBjhu7N18fXQm/anVm7wuAX8J7KpG
+X-Proofpoint-GUID: Pxr5qnV33ichnL7CgcdknTCUznFW9JTU
+X-Authority-Analysis: v=2.4 cv=QuVe3Uyd c=1 sm=1 tr=0 ts=68207347 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=KKAkSRfTAAAA:8
+ a=90UGo0xaWWtCiJOOztUA:9 a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: Pxr5qnV33ichnL7CgcdknTCUznFW9JTU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-11_03,2025-05-09_01,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 clxscore=1015 spamscore=0 phishscore=0
+ mlxlogscore=833 impostorscore=0 adultscore=0 priorityscore=1501
+ lowpriorityscore=0 mlxscore=0 bulkscore=0 classifier=spam authscore=0
+ authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2504070000 definitions=main-2505110099
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,17 +122,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06.12.24 05:31, Abhinav Kumar wrote:
-> base-commit: b166256c1e6ce356fa1404d4c8531830e6f100a8
+On 5/1/2025 9:23 PM, Konrad Dybcio wrote:
+> On 5/1/25 11:29 AM, Akhil P Oommen wrote:
+>> On 4/30/2025 10:26 PM, neil.armstrong@linaro.org wrote:
+>>> On 30/04/2025 18:39, Konrad Dybcio wrote:
+>>>> On 4/30/25 6:19 PM, neil.armstrong@linaro.org wrote:
+>>>>> On 30/04/2025 17:36, Konrad Dybcio wrote:
+>>>>>> On 4/30/25 4:49 PM, neil.armstrong@linaro.org wrote:
+>>>>>>> On 30/04/2025 15:09, Konrad Dybcio wrote:
+>>>>>>>> On 4/30/25 2:49 PM, neil.armstrong@linaro.org wrote:
+>>>>>>>>> On 30/04/2025 14:35, Konrad Dybcio wrote:
+>>>>>>>>>> On 4/30/25 2:26 PM, neil.armstrong@linaro.org wrote:
+> 
+> [...]
+> 
+>>> This behaves exactly as I said, so please fix it.
+> 
+> Eh, I was so sure I tested things correctly..
+> 
+>>
+>> Konrad,
+>>
+>> iirc, we discussed this in one of the earlier revision. There is a
+>> circular dependency between the driver change for SKU support and the dt
+>> change that adds supported_hw bitmask in opp-table. Only scenario it
+>> works is when you add these to the initial patches series of a new GPU.
+>>
+>> It will be very useful if we can break this circular dependency.
+> 
+> Right. Let's start with getting that in order
 
-Hi Abhinav,
+Another complication with the socinfo is that the value is unique for a
+chipset, not for a GPU. So, it won't work if we keep this data in GPU
+list in the driver.
 
-I would like to test / play around with this patchset, unfortunately=20
-this base commit is not easy to find. Trying to apply without gives lots=
-=20
-of conflicts. Can you please rebase?
+Downstream solved this problem by keeping the PCODE/FCODE mappings in
+the devicetree.
 
-with best regards
+-Akhil.
 
-Jens
+> 
+> Konrad
 
