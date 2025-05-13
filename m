@@ -2,79 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D403CAB5D70
-	for <lists+freedreno@lfdr.de>; Tue, 13 May 2025 21:54:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0A99AB5F01
+	for <lists+freedreno@lfdr.de>; Wed, 14 May 2025 00:06:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF24210E5E4;
-	Tue, 13 May 2025 19:54:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45E0F10E21D;
+	Tue, 13 May 2025 22:06:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YpnfC9Ke";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jPcYWrQ2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
- [209.85.166.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D79A210E5E4;
- Tue, 13 May 2025 19:54:33 +0000 (UTC)
-Received: by mail-il1-f173.google.com with SMTP id
- e9e14a558f8ab-3d93deba52fso17784165ab.0; 
- Tue, 13 May 2025 12:54:33 -0700 (PDT)
+Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
+ [209.85.166.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B833110E21D;
+ Tue, 13 May 2025 22:06:42 +0000 (UTC)
+Received: by mail-il1-f174.google.com with SMTP id
+ e9e14a558f8ab-3d96d16b369so56687775ab.0; 
+ Tue, 13 May 2025 15:06:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747166072; x=1747770872; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747174002; x=1747778802; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Q/t/gHhhMRzRsZJHJonG5aB+f1lyT45c1amcNji7Dww=;
- b=YpnfC9KeavYP2hoXkdwjHlRgcjhzEC9QtcKLy1jdCxjtKzYhPNnQPbgcJbj1gvajwk
- XxXiGkV7polnYcvQk9lTEdqJYt1N1fSYgQyl9c53nIeETUYEza4QXBKQJ61V9eriNlvx
- FC2NQpuLD+3skJHN2co5bH1OHN+XU0FfttnQyzUH5k+AxzVsHkSB3iw8QHrVJLKr1jGw
- pwFaKrv8LC6HjEfEuURX5i4rtr3v30nUpn5b6xz0trHlwTA28z5oere4OUyDIZACDECY
- c4F0g36eafz4fBNX0TOy+pkTdRFV4o1734xKX32YG3rw7rK20l10LwkC7pHg/CPveZRk
- n0sg==
+ bh=3NSr3zCVYmv0aPTkXL+9a8Y73rmWDloOCZ1MASrXE/Q=;
+ b=jPcYWrQ2zjH7qj9OOgHETc4w+K1C9oL520czEgqWwMtSdNTdHwIRI2eWPDJbVOpAtt
+ nNS/3U7D4r77mnPc3yPy9BhVgJkjt/ty63WqWoEfWgQOE/jHuPdAEGqgdMh0Eo6FLZxV
+ bQRF1czHfxlDZPJ5gfhnynef/xpDoZX9o2ofVNFKOwdwjIHHKHhbe/YzioFZCD0nU0cu
+ PVdGMCttR7dO4VXc3TSpk6ItAibBRYYTE6Q10l0UBI8oOlb+uIfriuTblDcanQAiQ6Wq
+ xdaVQBbBoP8W6OhVX9G6TCn9d1MJHySihB6WmoBPxbAsDv4R9NNN4sMtWLyOl+/ApBih
+ E5lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747166072; x=1747770872;
+ d=1e100.net; s=20230601; t=1747174002; x=1747778802;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Q/t/gHhhMRzRsZJHJonG5aB+f1lyT45c1amcNji7Dww=;
- b=uf/SttyQq9M9RmGodHbVH3iZgbqpSNhUWVv1rE4KwNRETgyfAJqRv7ugJGftJsR1J4
- z89zxlh+buHO6DZFVPLu6WNTEYAPRnd/owl3fPe9jDZ8BhfzJWBBNppXftYpn02TSxce
- jqS4gUQE6rFiqyE/K9RdPezfuOcpDXBH4hZ//frSybe+BCSaKcWkt83/Zg/NF2mEAtZu
- iWvaCzPP7bwjbpqf9CkCjIUiTcclgVQKiICEmENGCXJzoc9p5OZRiwHXZ4Z4l5tvMD2c
- OyGghqEZR0UiFScREBSehmxmlsoqwmolUQ9Mbu2aRbBSEZOtvBChpSuYXVr/7l/yAe/3
- f7fA==
+ bh=3NSr3zCVYmv0aPTkXL+9a8Y73rmWDloOCZ1MASrXE/Q=;
+ b=saskZlv9QLfh6EH6fKCx4t4a0j/8i1WQZXuvXnyzJAyLjtEsqQyZQ4EYQz+m0yfdZT
+ E+LQblXKzTs+0e035ao6AnpKGpgpnt+bQr9coRu7bVMzwyFlvEpV/AbfRAGid6qMJvIj
+ tyhJX5LAhnnuNCdkoBcpyEtXmCUt5dT3dd2fFb5FfCOSC37u8DJLLI4p6G1OOxQRy50Q
+ sTr7+ciSql7KoDjkIAfqFmlArH0l7T3/BytMOLdz5H7AHZtFyDQEBv60NYtvvWwEWBN6
+ YBtDJpptqpng9K9hWMY8kOHebQXnMcDJi0DxB/FycrxHP4vhTUEog+2hVL8MDE2eylhH
+ x6ZA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/9LlGYtd/sylkPGfq9nTmOxWqTlmTs+mB8W3yaPXDqcyMaFbAgDcgd5dzG8A3nb6IKSWrCs4SG1A=@lists.freedesktop.org,
- AJvYcCXm06e0CyKHkERX6+f+tZWK/k/ZUgkztMg+sh/gAP994Teg8W5BiuXziTByHyAF1lYqkr85Pzat7TZw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwWZ3XyxKvTmNPKi9pkK0j99AFyQMf+r70iK6QbSOWjwuGaNesI
- vnDSoWsZoxpQQgc8xqr44vK+N5Obkyqp/r0SKPc+SxBTMyVtCPO259D1aCrVICzVgeLpA845tyF
- clwxZ3tvQuEhMQDp0IF5RDnClx+c=
-X-Gm-Gg: ASbGncuOAJUj/Rj7dWfWg44+epsaUSHB/JpDON1hIJG06AJv/JfUo50FvbbWJsTPdM9
- 4T/fy9Eo7TfcfgMm9Uhd1aFAXt/oZB0fROD0HUvMh2ZyXy8UQTg3gm0MbLswgmsDuymljHOm19n
- yd+buRVTO9axHxogJoZHIa3z8s5tUyf9ZlpJEWsolnm0WFV2AIJCshXp45X6bkXSU=
-X-Google-Smtp-Source: AGHT+IEVFIiwgENc7UkbS77UjLlFAdiO1rH+CkYa4UauxVyc8UQRPx2oUuCyvt1y5p4MXBN6IR7VjiMR9ik/DGcAcLw=
-X-Received: by 2002:a05:6e02:1487:b0:3d4:276:9a1b with SMTP id
- e9e14a558f8ab-3db6f7ecf4dmr9598155ab.16.1747166072138; Tue, 13 May 2025
- 12:54:32 -0700 (PDT)
+ AJvYcCVARH6bZI8cvn5lG/FKqNIdzeOKP8YAKHHOuMwWNGzT43U2Vg6S3lLlwqveqSuEefsykPAMpiV9+Dg=@lists.freedesktop.org,
+ AJvYcCXl8xzPFkueXEwmQCv4xSyk1QeNvF24fi36HPdVLAsr0UMDHbgCxxjpykApsDS7H95cxG4iyNTgGwLM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzsK3yABFJa/8Sv/Np02IwSjoSiEPsOrL7NrZW6i66fJtFnPkHa
+ j6c5OOKuMaJdxmvs3kkVA/FGNSo8guDnRRi5l15KHUdTE4BncPyznDJKR3v1auhe1OMVuyNrXYM
+ AcrXgVJfCt13+c1TaLKjpQyVak7o=
+X-Gm-Gg: ASbGncvcLpPi/GhF8bo5XNkc0VmusYfdX92OvLAnYtvNvEw0oqxGro1Kr0zf4xgTljd
+ TMFc8FbVcNfA0m/ubq0+fLSxtP+vO6onqh7WXvPFtQzCLgSKfZMpofqhzE/uBVyI9bj3sEhS1bE
+ 8sfHLTE57SloI7Zf+RDM8cL/2U4LJ32IEgp9Y18xJxe3g6Imxqhb48FXI96cjDG9w=
+X-Google-Smtp-Source: AGHT+IHH8XMbXywE7+ILVKsYc3F5InxyGAMPOhQYjsvCcY4gyCKCsqusIh3q+72eHNXy24eHEUamlkcX0NT6vD5p55w=
+X-Received: by 2002:a05:6e02:17cc:b0:3d9:43fe:8e49 with SMTP id
+ e9e14a558f8ab-3db6f7a54bfmr16529165ab.8.1747174001762; Tue, 13 May 2025
+ 15:06:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250513-ci-disable-sdm845-v1-1-9c3ca7d0f24b@oss.qualcomm.com>
-In-Reply-To: <20250513-ci-disable-sdm845-v1-1-9c3ca7d0f24b@oss.qualcomm.com>
+References: <20250508-topic-ubwc_central-v1-0-035c4c5cbe50@oss.qualcomm.com>
+ <20250508-topic-ubwc_central-v1-4-035c4c5cbe50@oss.qualcomm.com>
+ <CAF6AEGtcoMZ+WiW5_BA4NFpLZsoOrDbkY4xyvENGoS2FQVwQxw@mail.gmail.com>
+ <5c3d3682-8378-486d-8af1-4b884b81f3d0@oss.qualcomm.com>
+ <CAF6AEGvmEP4oGytfsCHYDCtOUDYq68y=vS7fu0jzP+=oajeq9g@mail.gmail.com>
+ <b7bd0f7a-854b-4464-abd6-51f932ee2998@oss.qualcomm.com>
+In-Reply-To: <b7bd0f7a-854b-4464-abd6-51f932ee2998@oss.qualcomm.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 13 May 2025 12:54:20 -0700
-X-Gm-Features: AX0GCFt0d3XbdcQmZrgMu4T2VTxsDC9QLhRzGl8nbsgyaF66JVYaMmdLJZ_-FOY
-Message-ID: <CAF6AEGtoKsB7waADtCWz7q=fTpfXJ+yqoEeCNvbvschegHT4Qg@mail.gmail.com>
-Subject: Re: [PATCH] drm/ci: disable sdm845 devices
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Helen Koike <helen.fornazier@gmail.com>,
- Vignesh Raman <vignesh.raman@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
+Date: Tue, 13 May 2025 15:06:18 -0700
+X-Gm-Features: AX0GCFsyH0dODUBB_8dHA6zkgfgnHu6B6D4Rxp3wAqz4e7AWlwmSCMHzcPSjotw
+Message-ID: <CAF6AEGuDBdmyS+N4pR3gEYz0mSLkKqYZjCASk8am2atdGKq5UA@mail.gmail.com>
+Subject: Re: [PATCH RFT 04/14] drm/msm/a6xx: Get a handle to the common UBWC
+ config
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -92,69 +96,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 13, 2025 at 11:51=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
+On Fri, May 9, 2025 at 10:00=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
 >
-> The SDM845 Cheeza runners are currently offline. Disable them until they
-> come back again.
+> On 5/9/25 3:52 PM, Rob Clark wrote:
+> > On Fri, May 9, 2025 at 5:31=E2=80=AFAM Konrad Dybcio
+> > <konrad.dybcio@oss.qualcomm.com> wrote:
+> >>
+> >> On 5/8/25 8:41 PM, Rob Clark wrote:
+> >>> On Thu, May 8, 2025 at 11:13=E2=80=AFAM Konrad Dybcio <konradybcio@ke=
+rnel.org> wrote:
+> >>>>
+> >>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>>>
+> >>>> Start the great despaghettification by getting a pointer to the comm=
+on
+> >>>> UBWC configuration, which houses e.g. UBWC versions that we need to
+> >>>> make decisions.
+> >>>>
+> >>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>>> ---
+> >>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 16 ++++++++++++++--
+> >>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  6 ++++++
+> >>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  3 +++
+> >>>>  3 files changed, 23 insertions(+), 2 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm=
+/msm/adreno/a6xx_gpu.c
+> >>>> index b161b5cd991fc645dfcd69754b82be9691775ffe..89eb725f0950f3679d62=
+14366cfbd22d5bcf4bc7 100644
+> >>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >>>> @@ -585,8 +585,13 @@ static void a6xx_set_cp_protect(struct msm_gpu =
+*gpu)
+> >>>>         gpu_write(gpu, REG_A6XX_CP_PROTECT(protect->count_max - 1), =
+protect->regs[i]);
+> >>>>  }
+> >>>>
+> >>>> -static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+> >>>> +static int a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+> >>>>  {
+> >>>> +       /* Inherit the common config and make some necessary fixups =
+*/
+> >>>> +       gpu->common_ubwc_cfg =3D qcom_ubwc_config_get_data();
+> >>>
+> >>> This does look a bit funny given the devm_kzalloc() below.. I guess
+> >>> just so that the ptr is never NULL?
+> >>
+> >> Yeah, would you prefer this is changed?
+> >
+> > I think having an all zeros ubwc cfg isn't really going to work
+> > anyways, so probably drop the kzalloc().  Or if there is a case that
+> > I'm not thinking of offhand where it makes sense to have an all 0's
+> > cfg, then add a comment to avoid future head scratching, since
+> > otherwise it looks like a bug to be fixed.
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/ci/test.yml | 26 +++++++++++++-------------
->  1 file changed, 13 insertions(+), 13 deletions(-)
+> So my own lack of comments bit me.
 >
-> diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-> index 84a25f0e783b6ca7f8a993c709d5a0fc86bf18d3..cc685833e8d2747dd21dc9a54=
-9c3d405431de8d0 100644
-> --- a/drivers/gpu/drm/ci/test.yml
-> +++ b/drivers/gpu/drm/ci/test.yml
-> @@ -180,19 +180,19 @@ msm:apq8096:
->    script:
->      - ./install/bare-metal/fastboot.sh || exit $?
+> Without the allocation this will fall apart badly..
+> I added this hunk:
 >
-> -msm:sdm845:
-> -  extends:
-> -    - .baremetal-igt-arm64
-> -  stage: msm
-> -  parallel: 6
-> -  variables:
-> -    DEVICE_TYPE: sdm845-cheza-r3
-> -    DRIVER_NAME: msm
-> -    BM_KERNEL: https://${PIPELINE_ARTIFACTS_BASE}/arm64/cheza-kernel
-> -    GPU_VERSION: sdm845
-> -    RUNNER_TAG: google-freedreno-cheza
-> -  script:
-> -    - ./install/bare-metal/cros-servo.sh || exit $?
-> +#msm:sdm845:
+> ---------------------
+> /* Inherit the common config and make some necessary fixups */
+> common_cfg =3D if (IS_ERR(common_cfg))
+>         return ERR_PTR(-EINVAL);
+>
+> *adreno_gpu->ubwc_config =3D *common_cfg;
+> ---------------------
+>
+> to get the common data but take away the const qualifier.. because
+> we still override some HBB values and we can't yet fully trust the
+> common config, as the smem getter is not yet plumbed up.
 
-Jfyi you could just rename the job to start with a period.. (with the
-caveat that for a job that is extended elsewhere, you need to rename
-it everywhere... but that doesn't seem to be the case here)
+So I get that common_ubwc_cfg is the const thing without fixups (and
+agree that it should say const), and ubwc_config is the fixed up
+thing.  But don't see how that necessitates the zeroalloc.  Couldn't
+you just:
+
+
+  if (!IS_ERR_OR_NULL(adreno_gpu->common_ubwc_cfg)
+    adreno_gpu->ubwc_config =3D *adreno_gpu->common_ubwc_cfg;
+
+> I can add a commit discarding all the HBB overrides (matching or not)
+> or we can keep the zeroalloc around for some time (i'd rather keep
+> the function returning const so that when things are ready nobody gets
+> to poke at the source of *truth*)
+
+We can keep the overrides to start (although the goal should be to
+remove them).. but qcom_ubwc_config_get_data() not finding anything
+seems like more or less a fatal condition.
 
 BR,
 -R
-
-> +#  extends:
-> +#    - .baremetal-igt-arm64
-> +#  stage: msm
-> +#  parallel: 6
-> +#  variables:
-> +#    DEVICE_TYPE: sdm845-cheza-r3
-> +#    DRIVER_NAME: msm
-> +#    BM_KERNEL: https://${PIPELINE_ARTIFACTS_BASE}/arm64/cheza-kernel
-> +#    GPU_VERSION: sdm845
-> +#    RUNNER_TAG: google-freedreno-cheza
-> +#  script:
-> +#    - ./install/bare-metal/cros-servo.sh || exit $?
->
->  msm:sm8350-hdk:
->    extends:
->
-> ---
-> base-commit: 8f5264d302e803e7ef82a61f9632a0d2ef67413f
-> change-id: 20250513-ci-disable-sdm845-fca26359229a
->
-> Best regards,
-> --
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->
