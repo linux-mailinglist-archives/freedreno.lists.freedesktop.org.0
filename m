@@ -2,129 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B985AB8E53
-	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 19:58:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A613AB8F7C
+	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 20:56:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43ADB10E936;
-	Thu, 15 May 2025 17:58:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC2FB10E0D8;
+	Thu, 15 May 2025 18:56:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CXMWZGNP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R+bgmgrr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9444510E936
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 17:58:29 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54FEF9AK016622
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 17:58:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 3vCMFGmwTleTheZqkW0G39yLmvjFdm3qxDc0K4mQmoM=; b=CXMWZGNPcwHSMZ9k
- ir4W8Ug9lzwxl9RFKmxDGQazm8ncyDNmQjalDV1gKzBY6YvWD3d5Zxs01JlBicLa
- e2S3oAI3fRZ2+eja+IBJICv5Dxt/AK+mfFGYGWiI1HsPUwQdNHy8xZuSsi/5GpS3
- FkoDD6DWna+tFXVHpvfvPrKw6y/wWM/4MPuc6E0wxUruBz9okLGZLh2RRF1goJ4K
- j8Od1KqlgdmSpWMs2HohNLzhcGTVF0wuTAZ5Ef8eyo4u0EFFkyardJDPX0smRiMd
- hCjJoOcL05fwUxDEqvTq29UjfVQHRgPl1UPB3al9BDCx7lKgIrL7uejs2dEQyurW
- gbrMCQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46mbcmqa8p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 17:58:28 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6f54244bc32so23783976d6.1
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 10:58:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747331907; x=1747936707;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3vCMFGmwTleTheZqkW0G39yLmvjFdm3qxDc0K4mQmoM=;
- b=tmSQHddc3ygytOjvF+DU0Dq+kf3Ut7j5ogsykkNcGcuMHLVL6/dMr5kofsU2Tgebi7
- B6TuKpMx5RgEWwJsEXHN8eE4afeUDZpJPzEThyqqLz1aDb4EB+SJG44p/OjG+eDp/pm8
- lKN4xCUxnZvmZLCTZsH5+Fzug2+Fefs0Sxm4IoyKF8NLSJ4d95UcSGNmopzl7+ZmyPKx
- vrSHEbh903Sg0WuTVTD9R2shFO2OHYk4Vpj7/KPzv5ufVwlgpdRhiAkMpZWWWZmWdlnz
- jy+r9usIVy0Kx+FSDOg6nN8edCdfNvmU3fdOYHTZCCEANDABWLTW+L8agDNuVAsRJkCE
- T/pg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWs97kmFDy0T+pNcGDfFqO/7tZVeqXxKKfxY6Boh45WiGDw5irAxuioWareVkJakZ8iyA942SB0B1Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyfZLXemZwBN6d7jp1jT2BQE4KfXW4xrZkkA21nKC1Z43l46yUG
- deXG6WnZ9CdCkvurYk5IIbm7tHI0LtQ1cjLoQCgqxJjOuuUvDbRxx4TVOjC3116YVrRH1q5xfJb
- 7UPjT+Em9MO31p1Mq8DEY5JL81aanxFCH0q8HDeV+cxNPnwo1W7BXbZtrkhufInZ+sauCVzM=
-X-Gm-Gg: ASbGncu+IttaavYCZg7BUpkSRn/diDWyld3NeGqBcVyl+1vYz+lhN2WwTwZhZ2pyy/H
- Zsb33iVnQZ4el3BY1S7gOzipI33PNAkTwb2yPKFZW952FM3HT456gzQvP4En7HnKv3IvR0ivcAv
- 3bbdQZrwgKQNJu81NbDCvHSE1Y/5S+Zr9XbEzP6gj0QU7jHTvaqxpAUaBgyd0KeC+vaw7r2uWDH
- rOcXUZMsilJUFCyLYllbQuYQEhs3Yl0UBWf8vaLIS1LDzvizdmZjf8pNZ6u7NYckxC2lVvwBRyW
- gzKPAA4rPM1k/ErYSydJQ9O35mJwLLWjNfAwYT/PUVNEAOX4Noa8Sz3U1KZ7JQqjGgPYBf/PekS
- 0Ofj4XOWk7hDpPw==
-X-Received: by 2002:a05:6214:f23:b0:6f8:aa6f:438b with SMTP id
- 6a1803df08f44-6f8b08352f5mr12431946d6.3.1747331907589; 
- Thu, 15 May 2025 10:58:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG3V9qZSnGxsnRyLDYMo3pHnOqJ9QpCV03/pBIinMn3/xs6ruVL1Dp6RhU3IOueCwwwetRN/Q==
-X-Received: by 2002:a05:6214:f23:b0:6f8:aa6f:438b with SMTP id
- 6a1803df08f44-6f8b08352f5mr12431416d6.3.1747331906935; 
- Thu, 15 May 2025 10:58:26 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0c3:3a00::4c9?
- (2001-14ba-a0c3-3a00--4c9.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::4c9])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-550e7018073sm44037e87.129.2025.05.15.10.58.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 May 2025 10:58:26 -0700 (PDT)
-Message-ID: <73b8087a-6bf2-4f59-a9df-2a439a04fe1c@oss.qualcomm.com>
-Date: Thu, 15 May 2025 20:58:24 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT v2 13/15] soc: qcom: ubwc: Fix SM6125's ubwc_swizzle
- value
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73E5710E0C3;
+ Thu, 15 May 2025 18:56:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8FB9A5C5B20;
+ Thu, 15 May 2025 18:54:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D099C4CEE7;
+ Thu, 15 May 2025 18:56:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1747335392;
+ bh=0oMo3ObWhyjpLagy7Im7orZnu51xGp0zGqFOXr+BZHE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=R+bgmgrrOYecNejZjRwiv/OI1ZxGUPNzJxqa6j1WWwoWgFA7KKa+TFHCaFef/ltwi
+ Ugn1RM2M1Isa2kgTMFIG22v0VNKj3LSiC9drfrFaDv6ieWx0wKo8uMwNlnTl1XvU/1
+ imAmTHWXmU8kT02BcY4Q2ER79/ib+FJQFU+jcev21fCBTKANtX1l2R78SbO406sF7n
+ RVrCx+JbwnacJCUSgEAFA8JQHtwpzzz+1k4cpQfny1yWORlC/gtl2GTbsG6hmvBsMB
+ GHSWslcfLua56msJsaaTpYRylU8ll9beO3lUZ/Gm8BpGPu+11gPoi59FtnHSSMxurk
+ 5MXkgzTk6mLwg==
+Date: Thu, 15 May 2025 20:56:26 +0200
+From: Danilo Krummrich <dakr@kernel.org>
+To: Rob Clark <robdclark@gmail.com>
+Cc: Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@chromium.org>,
+ phasta@kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-References: <20250514-topic-ubwc_central-v2-0-09ecbc0a05ce@oss.qualcomm.com>
- <20250514-topic-ubwc_central-v2-13-09ecbc0a05ce@oss.qualcomm.com>
- <lkkwnmnk32igcev3gykmtxsohyskj6ehylaypg2dyxbedvksee@lnuc4lfmzrkm>
- <9a05d545-1bf2-4f66-8838-b6969ba37baa@oss.qualcomm.com>
- <d7417290-a245-422c-ba00-3532661ea02d@oss.qualcomm.com>
- <466148c9-2461-4140-9ba9-5a3427ec6461@oss.qualcomm.com>
- <4ec678b4-9e69-4ba0-a59d-f2e0948a73ce@oss.qualcomm.com>
- <d0a036e7-605b-4475-8ddc-69482e16f0b3@oss.qualcomm.com>
- <CAO9ioeWHMUf66Vb0XPw9eHRoAXzroSSqQRzW1o+e509-BK+Y7Q@mail.gmail.com>
- <6d7b30b1-60ac-45bf-9ff8-72461f1b21c3@oss.qualcomm.com>
-Content-Language: en-US
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <6d7b30b1-60ac-45bf-9ff8-72461f1b21c3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTE1MDE3NyBTYWx0ZWRfX5wNkpoUN4GtU
- CamrW+usZZ41yABTLF/HadI/zqIn1Ke+fzSM+m5QZAEfbhta9lP/pGk2pJLzPtFAxfo3rZkHsNN
- ZrfPX3fiUCQxjag+Z1sPDAkVgZ4347DR9tviCRVKjwasviT4au7ztFZYeM+lN1Ic160Z9hUZtWX
- uK36gePtecPiQ/JWlaWDtRdrHa9bSCQU5v+fzQpacw+Gfb3O6PT21BGQG52kzk0cZ5P/57mPB30
- NjTrinTQkyGbBKMNWvYKi8L+Yh2yBAwNTCMuJilfOXws3hEJ3HnpFDcJIOQktOM54iA63jKVcNi
- 7JcseTCjdstzU5n/4wOwIhMyJW4GUgn6Kg17hoZjs+WSRNDcKtMyTPwHi5GjfvCYcmSOl2UhBg/
- hdBNOo+s/e5utiFOn1OLBptY3/0/aynsr5Qfcawak2Ak1EM0SMkQ6avWmkI89FifgUe7Wr9h
-X-Authority-Analysis: v=2.4 cv=G5scE8k5 c=1 sm=1 tr=0 ts=68262b45 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=dt9VzEwgFbYA:10 a=EUspDBNiAAAA:8 a=PtrESY3dGf2tItbbhh4A:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-GUID: UnWdc6LUbfFwTQVbS23pXiLmh1idpvNX
-X-Proofpoint-ORIG-GUID: UnWdc6LUbfFwTQVbS23pXiLmh1idpvNX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-15_08,2025-05-15_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxlogscore=999 clxscore=1015 phishscore=0 bulkscore=0
- suspectscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0 mlxscore=0
- malwarescore=0 adultscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505070000
- definitions=main-2505150177
+ open list <linux-kernel@vger.kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Subject: Re: [PATCH v4 04/40] drm/sched: Add enqueue credit limit
+Message-ID: <aCY42rgJC4sQ4tp4@pollux>
+References: <20250514170118.40555-1-robdclark@gmail.com>
+ <20250514170118.40555-5-robdclark@gmail.com>
+ <51f87f358fa1b7ef8db8b67ee6cde38ae071fbe8.camel@mailbox.org>
+ <CAJs_Fx771FFVDVFMn8YJkR9f9Ad-UQspJ9KKQw4u6Cu4TA7YPA@mail.gmail.com>
+ <CACu1E7EL+E-M0N-EAN9Bx7u9O6_pECQQdPE2ph575idhVb2Szg@mail.gmail.com>
+ <aCYkk4Y7feltfp79@pollux>
+ <CAF6AEGsoG_W3A3+BHV4n5EKZQazFubrCyfrtxVUH7+H4-j7i5A@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAF6AEGsoG_W3A3+BHV4n5EKZQazFubrCyfrtxVUH7+H4-j7i5A@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,104 +73,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/05/2025 20:56, Konrad Dybcio wrote:
-> On 5/15/25 7:15 PM, Dmitry Baryshkov wrote:
->> On Thu, 15 May 2025 at 19:36, Konrad Dybcio
->> <konrad.dybcio@oss.qualcomm.com> wrote:
->>>
->>> On 5/15/25 6:21 PM, Dmitry Baryshkov wrote:
->>>> On 15/05/2025 19:18, Konrad Dybcio wrote:
->>>>> On 5/14/25 10:33 PM, Dmitry Baryshkov wrote:
->>>>>> On 14/05/2025 23:05, Konrad Dybcio wrote:
->>>>>>> On 5/14/25 9:23 PM, Dmitry Baryshkov wrote:
->>>>>>>> On Wed, May 14, 2025 at 05:10:33PM +0200, Konrad Dybcio wrote:
->>>>>>>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>>>>>>>
->>>>>>>>> The value of 7 (a.k.a. GENMASK(2, 0), a.k.a. disabling levels 1-3 of
->>>>>>>>> swizzling) is what we want on this platform (and others with a UBWC
->>>>>>>>> 1.0 encoder).
->>>>>>>>>
->>>>>>>>> Fix it to make mesa happy (the hardware doesn't care about the 2 higher
->>>>>>>>> bits, as they weren't consumed on this platform).
->>>>>>>>>
->>>>>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>>>>>>> ---
->>>>>>>>>     drivers/soc/qcom/ubwc_config.c | 2 +-
->>>>>>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_config.c
->>>>>>>>> index 9caecd071035ccb03f14464e9b7129ba34a7f862..96b94cf01218cce2dacdba22c7573ba6148fcdd1 100644
->>>>>>>>> --- a/drivers/soc/qcom/ubwc_config.c
->>>>>>>>> +++ b/drivers/soc/qcom/ubwc_config.c
->>>>>>>>> @@ -103,7 +103,7 @@ static const struct qcom_ubwc_cfg_data sm6115_data = {
->>>>>>>>>     static const struct qcom_ubwc_cfg_data sm6125_data = {
->>>>>>>>>         .ubwc_enc_version = UBWC_1_0,
->>>>>>>>>         .ubwc_dec_version = UBWC_3_0,
->>>>>>>>> -    .ubwc_swizzle = 1,
->>>>>>>>> +    .ubwc_swizzle = 7,
->>>>>>>>>         .highest_bank_bit = 14,
->>>>>>>>>     };
->>>>>>>>
->>>>>>>> Add a comment and squash into the patch 1.
->>>>>>>
->>>>>>> I don't think that's a good idea, plus this series should be merged
->>>>>>> together anyway
->>>>>>
->>>>>> Well... Granted Rob's comment, I really think the patches should be reordered a bit:
->>>>>>
->>>>>> - MDSS: offset HBB by 13 (patch 2)
->>>>>> - switch drm/msm/mdss and display to common DB (patches 1+3 squashed)
->>>>>> - get a handle (patch 4)
->>>>>> - resolve / simplify (patches 5-10, not squashed)
->>>>>> - fix sm6125 (patch 13)
->>>>>> - WARN_ON (swizzle != swizzle) or (HBB != HBB)
->>>>>> - switch to common R/O config, keeping WARN_ON for the calculated values (with the hope to drop them after testing)
->>>>>
->>>>> Does this bring any functional benefit? This series is unfun to remix
->>>>
->>>> I know the pain.
->>>>
->>>> The functional benefit is to have the WARN_ON and side-by-side comparison of common_ubwc_config vs computed ubwc_config for HBB and swizzle.
->>>
->>> HBB I agree, since we'll be outsourcing it to yet another driver, swizzle
->>> should be good enough (tm) - I scanned through the values in the driver
->>> and couldn't find anything wrong just by eye
->>
->> Well. What is the ubwc_swizzle value used for SDM845? I think it
->> should be 6 according to a6xx_gpu.c and 0 according to msm_mdss.c.
->> Yes, higher bits are most likely ignored. Still, we'd better have one
->> correct value.
+On Thu, May 15, 2025 at 10:40:15AM -0700, Rob Clark wrote:
+> On Thu, May 15, 2025 at 10:30 AM Danilo Krummrich <dakr@kernel.org> wrote:
+> >
+> > (Cc: Boris)
+> >
+> > On Thu, May 15, 2025 at 12:22:18PM -0400, Connor Abbott wrote:
+> > > For some context, other drivers have the concept of a "synchronous"
+> > > VM_BIND ioctl which completes immediately, and drivers implement it by
+> > > waiting for the whole thing to finish before returning.
+> >
+> > Nouveau implements sync by issuing a normal async VM_BIND and subsequently
+> > waits for the out-fence synchronously.
 > 
-> Ehh, so laziness bites after all..
+> As Connor mentioned, we'd prefer it to be async rather than blocking,
+> in normal cases, otherwise with drm native context for using native
+> UMD in guest VM, you'd be blocking the single host/VMM virglrender
+> thread.
 > 
-> Unfortunately it seems like I don't have a good answer for you
-> - although I can infer a technically valid config for these
-> at the very least:
+> The key is we want to keep it async in the normal cases, and not have
+> weird edge case CTS tests blow up from being _too_ async ;-)
+
+I really wonder why they don't blow up in Nouveau, which also support full
+asynchronous VM_BIND. Mind sharing which tests blow up? :)
+
+> > > But this
+> > > doesn't work for native context, where everything has to be
+> > > asynchronous, so we're trying a new approach where we instead submit
+> > > an asynchronous bind for "normal" (non-sparse/driver internal)
+> > > allocations and only attach its out-fence to the in-fence of
+> > > subsequent submits to other queues.
+> >
+> > This is what nouveau does and I think other drivers like Xe and panthor do this
+> > as well.
 > 
-> msm8937
-> msm8998
-> sc8180x
-> sdm670
-> sdm845
-> sm6150
-> sm7150
-> sm8150
+> No one has added native context support for these drivers yet
 
-WARN_ON would be a good thing in the end
+Huh? What exactly do you mean with "native context" then?
 
+> > > Once you do this then you need a
+> > > limit like this to prevent memory usage from pending page table
+> > > updates from getting out of control. Other drivers haven't needed this
+> > > yet, but they will when they get native context support.
+> >
+> > What are the cases where you did run into this, i.e. which application in
+> > userspace hit this? Was it the CTS, some game, something else?
 > 
-> with the ubwc1.0 platforms receiving all 3 levels and ubwc 2.0/
-> 3.0 enabling 2/3
-> 
-> this however I'm not sure matches what downstream does..
+> CTS tests that do weird things with massive # of small bind/unbind.  I
+> wouldn't expect to hit the blocking case in the real world.
 
-Well, let's match previous GPU config, so 6 whenever we don't define 
-anything special.
+As mentioned above, can you please share them? I'd like to play around a bit. :)
 
-> 
-> Konrad
-
-
--- 
-With best wishes
-Dmitry
+- Danilo
