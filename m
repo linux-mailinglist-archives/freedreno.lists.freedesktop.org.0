@@ -2,85 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73D75AB8D4D
-	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 19:13:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32B9FAB8D66
+	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 19:15:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34D5C10E313;
-	Thu, 15 May 2025 17:13:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B80DA10E91C;
+	Thu, 15 May 2025 17:15:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aFzD8gXR";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SvgXaPuC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E21DE10E313
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 17:13:54 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-30c5a5839e3so268121a91.1
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 10:13:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747329233; x=1747934033; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dsfBOdqnpEgpdpgAJrzH2XaH6ygppwa1vT1EnnHCi70=;
- b=aFzD8gXRRIUHlLNtVNriQ+hHt+Rn7Wyx9QirW3iea9pR6uYsciR/NeYsa7Ccy7qP5K
- V4/wrswOWYw8o0+EHjPFwaS4vAYJ/yjjWERT+25AzaD+hQXejp27jjDlnjr8tPNdLsSJ
- hYKt33idJffnJryXBR6i97Cv9PCwaIQGNxO9ym6RjCK0OZ9UEwReT0ziRB3ZyYUX02BZ
- 3aMFnzD3ik536iZKsnSJy9mA4rfTGTcJsJRLe9LUPZsp6RokWmIXPZ1HF23/4oMstUIj
- l9AWDpS7fUjz2xdRqqVZFudX1E8DbTj0zO2jwFU+SUyN4W3rBXXIVSXqKJaiLidei2tH
- IFWw==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3E7510E91C
+ for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 17:15:41 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54FEFNq0032701
+ for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 17:15:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=5fr5L04Jvh0L/+a57XtjIN1m
+ EM6WQNUjAaFjioBMZNo=; b=SvgXaPuCTs3wDo9dlvBivEkH1Y+z1XI1YdbwV5CA
+ vNKugsrGqNDqaFLpNYiwe0c6Xweww5MgON8Gw/LXV5XEkFDM/GM54ofNSrJw7zu3
+ HufKmIYJNR+MOCVhF/R+CT+xMNvDuEamtcDkLc9TKneC6JvGtfbjR0stUPatw4sL
+ SJ/dpJrOtJ54W9QshS1H3yobMaaxl9RBWrcMCfIp3sC+BoHNQ8lCSkytbYlE6hEu
+ 4U7SWezwFm9KfcozgU06KHkkjRFssaHL9o3fx7pNltiC8QvusFki3PHFExG82wk0
+ PnrfGl71gQmrW+AbnMpTv3f1Ic1g5G+XHTwWp7z2AfAUBA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46mbcnxysf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 17:15:40 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-22de54b0b97so11946665ad.2
+ for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 10:15:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747329233; x=1747934033;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dsfBOdqnpEgpdpgAJrzH2XaH6ygppwa1vT1EnnHCi70=;
- b=d3ZZfDMhDv7c+jkEOy2fyKaI99qFEXsvOqt1VZe5mVFM4dgMGwdLwgFRyDNSCbIiFt
- Z1U3hHXPuCVydE/0zRWMC3ApF8GVqveh7iyZ+MP9ix5yXOkStKz6bSe2Qa3PJe1LTWEE
- UjPEqP1Yio6AnYA0ufH31pzGn2pmrs3Hqlpt0oWkHZVY2SBJbLRNH9kErcjAhAd3YSpQ
- rwMQK7l5ZpdQfQ8z/xPZLaio2zjKn+KT05hp7nSG7Sb92gtxYWFOA9nwmEznZU+MguQg
- Ly1r83iE/Nm4nsR453nW7lC6dY3oIFBQaXr+j+IC9HSN04BcUQpK+IJzKDVRqv/BnUAS
- VSAg==
+ d=1e100.net; s=20230601; t=1747329339; x=1747934139;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5fr5L04Jvh0L/+a57XtjIN1mEM6WQNUjAaFjioBMZNo=;
+ b=JjKuU16faGuoK7sNt0wMS7tnx4RHTjjwnh06gXgkfQRYa7jvEBeXXgUMzOSLEYgls/
+ mcUQrBgfJy+fXuYDZvekgSEYwVPcN0s+OU0K7jvHcswJdKXDTMgKcqhEk1HdJnei3ATh
+ opz/Op9Tu5RZEUbMzOWqwz5d9K3VJBGkTRcoPPcdmgk058JvXZLDF4YXxtkkieBY/vZF
+ T3Bhe1cPAxgbaVxoKLMU7WAiIHPx4iPFd7cZitJEzPIUTb98rMo7a57aF5Zbr/8+hfwN
+ YbAogKNh1r7muaPxw8z2nef4nVH8uwOLzeJYNtraBk5hRPhgkgskYuF7E0bjo2ebSM2G
+ 9o0A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU3uUBgO75yIEZVbIqBYazJm2/XvGseeHyBXnjiZFXIceM8iDtvGWQKKdgQrmqwGa/878uoS8nXH10=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9WlNbnMt80it8FGoFb3dp1BbHRuindqJRqIbNuBj8BKjqHlln
- 0Gfm4+qk3ngDzC9mMNmNKY8wDhNwtBJ1sFjJGZ26Q+1twsJmTRa/5PI0qJNcUd2nisSNMDwLaW+
- shuic2iJL7pDwMnTW5mchCMWIxVkiKtQ=
-X-Gm-Gg: ASbGncuRCwKhns9J87/1zsnLFGag5kcglfnO/VXL8RtYV6dWl7LyzYRLr+l2461ig0b
- 87RCyNbiFLil00zZA3nEQhY4ZNJon+WV2O77XwHt8qO0XKE4LY5wWw+1UYS8UZ/aZaLtqMg2QrR
- 9cG+jEfZ9wHcOTdV/aHYRhQlt0NH/BoGSn
-X-Google-Smtp-Source: AGHT+IGCIUW0dsKa/ihtbOAHQVJV2lxTI8vBLZn5qcHLkXGbGsiY14r4IvJ+r7XjrnLMar2wvcpVQz33dDkzERkk2C4=
-X-Received: by 2002:a17:90b:3142:b0:30e:6ac1:372a with SMTP id
- 98e67ed59e1d1-30e7d691099mr71651a91.7.1747329233394; Thu, 15 May 2025
- 10:13:53 -0700 (PDT)
+ AJvYcCU+nBbfOu4PYBLQDrqbTIGBUYAO9dkNdHnHXEzOXoiJJNkII9OyaRojatdRXaGD2DLGZFnKrnyDwmA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyIQNSSmjFfC3XWVYETFpM2YRpwrL0AOt+Rz5LTKgVaNnCEHz0Y
+ 1HMP3OTPG9vlXNLw3lPX5pHLG4RczjaCkY5htkAHGNvWgzGSQCT5n1dT+QQ2pCpTS6V5Gk4ec2/
+ MvL1hYBwfZfpZp3kB0tbANDHawgHWmfKteHiLVMr9Iq+1DwdL/VVJEmlRn7hP3LZgNPwpNPh7Xl
+ TYzjNvdwsfE+iiwS5H3UECLnpS4W3inmR7Id3aUq+UUHouNA==
+X-Gm-Gg: ASbGncvSg7SiGjoN4uNBmS9KYfsw6805Ke724pE+9oPOwjxRjInDnf467FVD8jDRBxC
+ TcRwEqd33420gmff6YXwW09ity3v+Kmmc6aVnk2oJGS/u6bUOOSaMIm/lyS7m9oEYa63Tl4cvHO
+ 2fhlBGi+E=
+X-Received: by 2002:a17:902:c40f:b0:22f:c568:e691 with SMTP id
+ d9443c01a7336-231d43b5ed7mr3651705ad.21.1747329339289; 
+ Thu, 15 May 2025 10:15:39 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFyQ1lJRTrt0ixFwqDSorfu+vOM+xntr4u295e30D5QXpP221Ji0k3vGu3cCZvb1L1HAwi1LOMYcxCv1yN+h2Q=
+X-Received: by 2002:a17:902:c40f:b0:22f:c568:e691 with SMTP id
+ d9443c01a7336-231d43b5ed7mr3651465ad.21.1747329338912; Thu, 15 May 2025
+ 10:15:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250319-msm-gpu-fault-fixes-next-v5-0-97561209dd8c@gmail.com>
- <20250319-msm-gpu-fault-fixes-next-v5-3-97561209dd8c@gmail.com>
- <20250506122449.GB723@willie-the-truck>
- <CACu1E7FA0M_0Un3qPRNtqy4R_NbaMks6FSkpQZBuyqJpuT-p7w@mail.gmail.com>
- <20250506145324.GA1246@willie-the-truck>
- <CACu1E7FcQU3NXro8uYxzEJ1pvfYG5WLvY8BscbF9Sj+P3Wh_2A@mail.gmail.com>
- <20250515144653.GC12165@willie-the-truck>
-In-Reply-To: <20250515144653.GC12165@willie-the-truck>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Thu, 15 May 2025 13:13:42 -0400
-X-Gm-Features: AX0GCFvD2R3Bj1I8omfFJkgKEUlYMIBkFZDKNasEPm1_T3W9qymeV4VLYjJsORg
-Message-ID: <CACu1E7Ha5=q4mnnr5wZLk4407LJ6TBnjpxtAm4ve9i-ARgQqJA@mail.gmail.com>
-Subject: Re: [PATCH v5 3/5] iommu/arm-smmu: Fix spurious interrupts with
- stall-on-fault
-To: Will Deacon <will@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
- Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- freedreno@lists.freedesktop.org, quic_c_gdjako@quicinc.com
+References: <20250514-topic-ubwc_central-v2-0-09ecbc0a05ce@oss.qualcomm.com>
+ <20250514-topic-ubwc_central-v2-13-09ecbc0a05ce@oss.qualcomm.com>
+ <lkkwnmnk32igcev3gykmtxsohyskj6ehylaypg2dyxbedvksee@lnuc4lfmzrkm>
+ <9a05d545-1bf2-4f66-8838-b6969ba37baa@oss.qualcomm.com>
+ <d7417290-a245-422c-ba00-3532661ea02d@oss.qualcomm.com>
+ <466148c9-2461-4140-9ba9-5a3427ec6461@oss.qualcomm.com>
+ <4ec678b4-9e69-4ba0-a59d-f2e0948a73ce@oss.qualcomm.com>
+ <d0a036e7-605b-4475-8ddc-69482e16f0b3@oss.qualcomm.com>
+In-Reply-To: <d0a036e7-605b-4475-8ddc-69482e16f0b3@oss.qualcomm.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Thu, 15 May 2025 20:15:27 +0300
+X-Gm-Features: AX0GCFt-coIgQ4I7VsKEP66vB_wjYiKvOLkHEJKM4dcQPFJlqXqrj14tgrxzUJg
+Message-ID: <CAO9ioeWHMUf66Vb0XPw9eHRoAXzroSSqQRzW1o+e509-BK+Y7Q@mail.gmail.com>
+Subject: Re: [PATCH RFT v2 13/15] soc: qcom: ubwc: Fix SM6125's ubwc_swizzle
+ value
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: 0-h-I6aGAkN4jk1OJtdJ8fWowD0A7aAh
+X-Proofpoint-ORIG-GUID: 0-h-I6aGAkN4jk1OJtdJ8fWowD0A7aAh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTE1MDE3MCBTYWx0ZWRfX//BLqU8F+HZ7
+ 1b80UqRdEo9EUj9MfD2pf6Rfmu/KKpaujE3HyHTWILNOuuoXf+g0Ag8fOdRwX6wqicWo0kaL80v
+ A0qpDRky3uckje/BW3QzTtmSf+k1z/y4CnQ000uH0rrGYCyQ3mf4fajbJkpIGGp9f6XQk0L8vmZ
+ Jt7XSUIpqqgrjh2svBUhAxUzxDlYqOUD9oJxJBwgHqdfxUjMyPMdNXum5Nv+Mi841dNTZmh9/xf
+ RzkurJUMGUiNoTjL1JSwrqi8AWOY/QelNnhNceV8gPgYgOsCFohqdJl9nAMBrfjlv5H/lQMYRwI
+ CYcse+ItFISV9599FEOP6FR2gNs6riDs4GY8tZ4V+OeB30KWXRZIw0ilbdxA50MO1DaNa5eoaMo
+ 12l7daFu1uTnZht9fQ9hV3S+hcHzbpaFM5spm9894HD9kzp3oEs+jF2o0ima1qUexlSXz8Qi
+X-Authority-Analysis: v=2.4 cv=Gp9C+l1C c=1 sm=1 tr=0 ts=6826213c cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10
+ a=EUspDBNiAAAA:8 a=2fJ-P6yaMz0-y6Gko3wA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-15_07,2025-05-15_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501 mlxscore=0
+ malwarescore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505070000
+ definitions=main-2505150170
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,163 +127,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 15, 2025 at 10:47=E2=80=AFAM Will Deacon <will@kernel.org> wrot=
-e:
+On Thu, 15 May 2025 at 19:36, Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
 >
-> On Tue, May 06, 2025 at 11:18:44AM -0400, Connor Abbott wrote:
-> > On Tue, May 6, 2025 at 10:53=E2=80=AFAM Will Deacon <will@kernel.org> w=
-rote:
-> > >
-> > > On Tue, May 06, 2025 at 10:08:05AM -0400, Connor Abbott wrote:
-> > > > On Tue, May 6, 2025 at 8:24=E2=80=AFAM Will Deacon <will@kernel.org=
-> wrote:
-> > > > > On Wed, Mar 19, 2025 at 10:44:02AM -0400, Connor Abbott wrote:
-> > > > > > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/io=
-mmu/arm/arm-smmu/arm-smmu.c
-> > > > > > index c7b5d7c093e71050d29a834c8d33125e96b04d81..9927f3431a2eab9=
-13750e6079edc6393d1938c98 100644
-> > > > > > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> > > > > > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> > > > > > @@ -470,13 +470,52 @@ static irqreturn_t arm_smmu_context_fault=
-(int irq, void *dev)
-> > > > > >       if (!(cfi->fsr & ARM_SMMU_CB_FSR_FAULT))
-> > > > > >               return IRQ_NONE;
-> > > > > >
-> > > > > > +     /*
-> > > > > > +      * On some implementations FSR.SS asserts a context fault
-> > > > > > +      * interrupt. We do not want this behavior, because resol=
-ving the
-> > > > > > +      * original context fault typically requires operations t=
-hat cannot be
-> > > > > > +      * performed in IRQ context but leaving the stall unackno=
-wledged will
-> > > > > > +      * immediately lead to another spurious interrupt as FSR.=
-SS is still
-> > > > > > +      * set. Work around this by disabling interrupts for this=
- context bank.
-> > > > > > +      * It's expected that interrupts are re-enabled after res=
-uming the
-> > > > > > +      * translation.
-> > > > >
-> > > > > s/translation/transaction/
-> > > > >
-> > > > > > +      *
-> > > > > > +      * We have to do this before report_iommu_fault() so that=
- we don't
-> > > > > > +      * leave interrupts disabled in case the downstream user =
-decides the
-> > > > > > +      * fault can be resolved inside its fault handler.
-> > > > > > +      *
-> > > > > > +      * There is a possible race if there are multiple context=
- banks sharing
-> > > > > > +      * the same interrupt and both signal an interrupt in bet=
-ween writing
-> > > > > > +      * RESUME and SCTLR. We could disable interrupts here bef=
-ore we
-> > > > > > +      * re-enable them in the resume handler, leaving interrup=
-ts enabled.
-> > > > > > +      * Lock the write to serialize it with the resume handler=
-.
-> > > > > > +      */
-> > > > >
-> > > > > I'm struggling to understand this last part. If the resume handle=
-r runs
-> > > > > synchronously from report_iommu_fault(), then there's no need for
-> > > > > locking because we're in interrupt context. If the resume handler=
- can
-> > > > > run asynchronously from report_iommu_fault(), then the locking do=
-esn't
-> > > > > help because the code below could clear CFIE right after the resu=
-me
-> > > > > handler has set it.
-> > > >
-> > > > The problem is indeed when the resume handler runs asynchronously.
-> > > > Clearing CFIE right after the resume handler has set it is normal a=
-nd
-> > > > expected. The issue is the opposite, i.e. something like:
-> > > >
-> > > > - Resume handler writes RESUME and stalls for some reason
-> > > > - The interrupt handler runs through and clears CFIE while it's alr=
-eady cleared
-> > > > - Resume handler sets CFIE, assuming that the handler hasn't run ye=
-t
-> > > > but it actually has
-> > > >
-> > > > This wouldn't happen with only one context bank, because we wouldn'=
-t
-> > > > get an interrupt until the resume handler sets CFIE, but with multi=
-ple
-> > > > context banks and a shared interrupt line we could get a "spurious"
-> > > > interrupt due to a fault in an earlier context bank that becomes no=
-t
-> > > > spurious if the resume handler writes RESUME before the context fau=
-lt
-> > > > handler for this bank reads FSR above.
-> > >
-> > > Ah, gotcha. Thanks for the explanation.
-> > >
-> > > If we moved the RESUME+CFIE into the interrupt handler after the call
-> > > to report_iommu_fault(), would it be possible to run the handler as a
-> > > threaded irq (see 'context_fault_needs_threaded_irq') and handle the
-> > > callback synchronously? In that case, I think we could avoid taking t=
-he
-> > > lock if we wrote CFIE _before_ RESUME.
-> > >
+> On 5/15/25 6:21 PM, Dmitry Baryshkov wrote:
+> > On 15/05/2025 19:18, Konrad Dybcio wrote:
+> >> On 5/14/25 10:33 PM, Dmitry Baryshkov wrote:
+> >>> On 14/05/2025 23:05, Konrad Dybcio wrote:
+> >>>> On 5/14/25 9:23 PM, Dmitry Baryshkov wrote:
+> >>>>> On Wed, May 14, 2025 at 05:10:33PM +0200, Konrad Dybcio wrote:
+> >>>>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>>>>>
+> >>>>>> The value of 7 (a.k.a. GENMASK(2, 0), a.k.a. disabling levels 1-3 of
+> >>>>>> swizzling) is what we want on this platform (and others with a UBWC
+> >>>>>> 1.0 encoder).
+> >>>>>>
+> >>>>>> Fix it to make mesa happy (the hardware doesn't care about the 2 higher
+> >>>>>> bits, as they weren't consumed on this platform).
+> >>>>>>
+> >>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>>>>> ---
+> >>>>>>    drivers/soc/qcom/ubwc_config.c | 2 +-
+> >>>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+> >>>>>>
+> >>>>>> diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_config.c
+> >>>>>> index 9caecd071035ccb03f14464e9b7129ba34a7f862..96b94cf01218cce2dacdba22c7573ba6148fcdd1 100644
+> >>>>>> --- a/drivers/soc/qcom/ubwc_config.c
+> >>>>>> +++ b/drivers/soc/qcom/ubwc_config.c
+> >>>>>> @@ -103,7 +103,7 @@ static const struct qcom_ubwc_cfg_data sm6115_data = {
+> >>>>>>    static const struct qcom_ubwc_cfg_data sm6125_data = {
+> >>>>>>        .ubwc_enc_version = UBWC_1_0,
+> >>>>>>        .ubwc_dec_version = UBWC_3_0,
+> >>>>>> -    .ubwc_swizzle = 1,
+> >>>>>> +    .ubwc_swizzle = 7,
+> >>>>>>        .highest_bank_bit = 14,
+> >>>>>>    };
+> >>>>>
+> >>>>> Add a comment and squash into the patch 1.
+> >>>>
+> >>>> I don't think that's a good idea, plus this series should be merged
+> >>>> together anyway
+> >>>
+> >>> Well... Granted Rob's comment, I really think the patches should be reordered a bit:
+> >>>
+> >>> - MDSS: offset HBB by 13 (patch 2)
+> >>> - switch drm/msm/mdss and display to common DB (patches 1+3 squashed)
+> >>> - get a handle (patch 4)
+> >>> - resolve / simplify (patches 5-10, not squashed)
+> >>> - fix sm6125 (patch 13)
+> >>> - WARN_ON (swizzle != swizzle) or (HBB != HBB)
+> >>> - switch to common R/O config, keeping WARN_ON for the calculated values (with the hope to drop them after testing)
+> >>
+> >> Does this bring any functional benefit? This series is unfun to remix
 > >
-> > We need the lock anyway due to the parallel manipulation of CFCFG in
-> > the same register introduced in the next patch. Expanding it to also
-> > cover the write to RESUME is not a huge deal. Also, doing it
-> > synchronously would require rewriting the fault handling in drm/msm
-> > and again I'm trying to fix this serious stability problem now as soon
-> > as possible without getting dragged into rewriting the whole thing.
+> > I know the pain.
+> >
+> > The functional benefit is to have the WARN_ON and side-by-side comparison of common_ubwc_config vs computed ubwc_config for HBB and swizzle.
 >
-> This has never worked though, right? In which case, we should fix it
-> properly rather than papering over the mess.
+> HBB I agree, since we'll be outsourcing it to yet another driver, swizzle
+> should be good enough (tm) - I scanned through the values in the driver
+> and couldn't find anything wrong just by eye
 
-It has never worked upstream. Which means that everyone is either
-carrying this series downstream, or blowing up sometimes. The number
-of places carrying this series is quickly multiplying, so it's
-becoming more and more painful that this isn't upstream. Not to
-mention the downstreams that still aren't aware of this and hang the
-whole system sometimes.
+Well. What is the ubwc_swizzle value used for SDM845? I think it
+should be 6 according to a6xx_gpu.c and 0 according to msm_mdss.c.
+Yes, higher bits are most likely ignored. Still, we'd better have one
+correct value.
 
 >
-> Georgi (CC'd) added support for threaded interrupts specifically to
-> permit sleeping operations in the fault handler. You should be able to
-> use that and I don't understand why that would require "rewriting the
-> whole thing". You can kick the async work and then wait for it to
-> complete, no?
-
-It would certainly require rewriting the iommu side of it, although it
-does get simpler.
-
-Properly handling the drm/msm side of it would also require getting
-rid of the fault worker, although I suppose we could just wait on it
-as a hack.
-
-I've started trying to see how it would look, but the biggest problem
-is that it's going to introduce a lot of complicated cross-tree
-dependencies. To fully follow the recommended sequence, we'd have to
-do something like:
-
-1. Enable threaded IRQ on Adreno SMMU.
-2. Make drm/msm do its devcoredump business immediately.
-3. Make iommu in charge of writing RESUME and do it after writing FSR.
-
-The problem is that if we only do 1 and 2, things will be way worse
-than before. Instead of some duplicate faults while the devcoredump is
-pending (that sometimes, but not always, results in a full system hang
-if devcoredump is scheduled on the same core) the interrupt will never
-be cleared, due to the MMU-500 behavior of ignoring writes to RESUME
-if FSR isn't cleared, and the entire system will hang every time
-there's a context fault.
-
-I suppose I could put 3 before 2, and temporarily break devcoredumps?
-
+> I realize this sounds funny, but all in all I don't think it's worth the
+> effort just for that one
 >
-> That would then open the door to handling the RESUME in the core driver
-> in future based on the return value from report_iommu_fault().
->
-> You also need to fix qcom_tbu_halt() as I mentioned before.
->
-> Will
+> Konrad
+
+
+
+-- 
+With best wishes
+Dmitry
