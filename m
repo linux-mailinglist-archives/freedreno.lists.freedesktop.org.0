@@ -2,120 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C52AB8B7F
-	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 17:52:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C3F8AB8C0C
+	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 18:15:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B78C10E903;
-	Thu, 15 May 2025 15:52:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63C2810E085;
+	Thu, 15 May 2025 16:15:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lrxfj1VC";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="UK6iTSbj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB08C10E8FF
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 15:52:37 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54FEFrL6027175
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 15:52:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- PWMmFCrAfuYggrwFp3r2207gsXdzwcTP1brIqToPnVo=; b=Lrxfj1VCnnKJH6aB
- LQGvZdV0KHsUgasZWpTn7gqQwlr2iEZ2lQ6Wn3SKdE2Ffmnf0t3voK4DOXDjzbmW
- /G4EcgS6MYXs9xZWLY+Uu+SBzNgolAILHYuO2F9QkH0ZUYxP2PP77ZiLgy6wbrpl
- 2DzLo7aWfWIuFnJoD5eUXUQUhTq9x1rN6gmrVBeoovEqLV5elpQmp2PpE20eWru0
- xgE/ItC1QDhn4MvwMlFeMDSMQR/w+4dzXaW7tYT+Kb97dkznYYnnDvgEYsY0YnzQ
- PyFjYiT2SJE/2lbo0HbOUWODfIw3SXofdDDYwRIJ2hgGMKLFefCyvekAIJiQgHHj
- 4DEV/A==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46mbcyputf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 15:52:37 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7c5466ca3e9so24803785a.2
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 08:52:37 -0700 (PDT)
+Received: from mail-io1-f42.google.com (mail-io1-f42.google.com
+ [209.85.166.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9B910E90E
+ for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 16:15:20 +0000 (UTC)
+Received: by mail-io1-f42.google.com with SMTP id
+ ca18e2360f4ac-85e15dc8035so34174339f.0
+ for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 09:15:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1747325720; x=1747930520;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=prsqP4nD217ZbIH9QBiPBpSKysXGw5zY0pcLHNKvFfo=;
+ b=UK6iTSbj239+sg7xpcfoPA8piZ2Np474/Qc5LTiKKxNG6fIrljo0yAcYJSUwPAm8Cr
+ nR7hkiw6yaP/sHG/47dJmQp+2wshVjFRwgcvbkuRQPCEKCj81hBDo1Df7ruk2sxbdhyW
+ sj/blGWSzoCPl4954fwAejbx9diPeZ2DQQ0Ic=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747324356; x=1747929156;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PWMmFCrAfuYggrwFp3r2207gsXdzwcTP1brIqToPnVo=;
- b=KkkRJBu5N+uYGftTHYySuBpnFLqurzV9ptanpLaopH4DeQbMQXxR+TixNSsUuGatyr
- pyrIbUBNX3MuezpbXyyf9dxp/TBNW3a1CRAJDpy/NhZ7Hgywnyn0f9qsaBK7NCuGac9P
- MBGltuOx/7CIMf93cZk6k+Vwv8bOR28o9iOaVCEcC7EsC4YGZ7lyWQUza0Mba7/uATnA
- o9FfiheiXpEbBqxIbl8Cd4cyShdGN7a+/syX0I3RBHztAUZkgRUJZSEDAq418c7mHgYU
- Oc61LzenrTEeRh3ko+k6w7YqZJbScb16f3CB6lgz+0aO/h3SENZ2rrjYneT+BEnnAveL
- 3dsw==
+ d=1e100.net; s=20230601; t=1747325720; x=1747930520;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=prsqP4nD217ZbIH9QBiPBpSKysXGw5zY0pcLHNKvFfo=;
+ b=PLuik4/8mmqklxTryTprCkCWanBaxGQI7gZT7R+7GtojlANaovKUR9ECP+id1KHk55
+ qrh0QBZQTrfFmtX6vTkST8ePzJkLoiVbcUTMEG2rgzg77QbN3xWpdzslhSG85BKI8vVp
+ N1dtVSN7+aPJf+HRnJ4w5sLWQRORt4Ts93bojl1JE60zYMhgZlRnB8oIPJ4KnUu0b+HD
+ JBylAjpVSIG1kjg5znB/VmFTdiGGg7EzsMvcfr9rOqDBtNpx08HDSRrYGzdC/gvYgUr3
+ lLO0466A0n7nX7cHaG+tceryveS1tx+5BsXiEdr9ErQKY1mrWDiDAZSSF6B4PT4cEVda
+ k58Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpOwlB7iTbHE+0kvoFB1ji7cBWJ4SiiKusyJvzTnWh7H5Av/bexhvXvlphDqv20dAegS3RmgHJ3qQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzB/H62D9aa+lq3akEp6j/o4upaGI2Z34rsHPaIpdgbtGBQSp/V
- MuczJokdihSaXX6RJ/djoAL25M1zbfbUrZRUj9r0gtvPmV8TxPsHo0Lfxq/Ca9HIYFYrvEIJBtW
- nRMY9K9rLiaJGNbDkzA+YnRRIV7MH9/LTiAeo9eMx9WJujumgYNzaG5kT7w1fZ5+QNMbgca4=
-X-Gm-Gg: ASbGncsbr4BJxncLDUnrFeemLYGZ2FRVDt273wG+rrICOp39UOoInTMVPWimn/Y87QJ
- Kj6f+3/s/CA74pYcLPpx06agleLdc1RfW3XmfKI/xbMvOZtT5HCo3MMcLp0MaFbN61C60pqeBGZ
- 766hXkLkvoju1jhcWySAxgjCeuv8ysdpvaf78ljhdJcGNh5Ls+y2RHaoHprq2mDYYGI0F9IEqS4
- Ag1zIEdm5ep9WZeklm2r+vHYHWqlDt2PBIOXTQg865a3Ua90+h5iElDAqXZu5oJr8auKgBK5OZk
- 5L1d0OiPLJG3KJ4UAKzReg5T3u0/WsSwvJ47jbo3VZYotMQqdHZxelrNohTrWkFzsQ==
-X-Received: by 2002:a05:620a:26a9:b0:7c0:bb63:5375 with SMTP id
- af79cd13be357-7cd4673b3f0mr1354085a.4.1747324356126; 
- Thu, 15 May 2025 08:52:36 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHrFV/2EQXmPxJircJAV7XiXDHBdvEj6UPYt6UTWF/ixiBBQlETA2RLAhwfWdEO68zo3VBYbQ==
-X-Received: by 2002:a05:620a:26a9:b0:7c0:bb63:5375 with SMTP id
- af79cd13be357-7cd4673b3f0mr1351285a.4.1747324355750; 
- Thu, 15 May 2025 08:52:35 -0700 (PDT)
-Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6005a6e637dsm27454a12.43.2025.05.15.08.52.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 May 2025 08:52:35 -0700 (PDT)
-Message-ID: <a068ae00-fca0-4c53-9b59-a855caca12a9@oss.qualcomm.com>
-Date: Thu, 15 May 2025 17:52:33 +0200
+ AJvYcCXP3212J7XhqPNMGBkQqotYJIG+XsS5re+dAPaj5xhK54leLr8WJ38gQPfBxa6VIG1IAZcHrj1ywhk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBeFr6+EL2eeIkg5tEbMOYqRnyGeOb2fWnuXh7TPtw/jKyugmP
+ urd3TN8zrvPgtKEDz1t7Z/sZ1mwPPAxbxQn1j6mc90rrY138opYx6JbUYIznAuURzjJq0Mp4wlm
+ PXWDJcYFgv2ACtqfS+/NsOKo+dTpgXZAUSf9GjAcT
+X-Gm-Gg: ASbGncu//gYrXI51uXYxiYcCENLV8OJmy1hygb5R4MVdMp/rTmWBXsUH4QlLPYqSBx1
+ x2orKK3pUhfJ/UXKp+bLkAnGDkUgeEiNmOaqpqGE5xbNyxiauorWxpKp/WI2KwLXNf+n3FWc3Ns
+ w/ZADQU5LFEkP6p5SCoVQuC6HWfnNgfvmXfvZ0FLmcdYAN5pRb5w/ktG376TVxArs62U4=
+X-Google-Smtp-Source: AGHT+IFkg4IcMTLJxZT2Ip8DIdDTDuTHvjElsNxFmWMgla8933AUxoHLWahuhWUOpQ9EN6P27inOKdRo2eE+a34iAwI=
+X-Received: by 2002:a05:6e02:1745:b0:3d0:47cf:869c with SMTP id
+ e9e14a558f8ab-3db843383f3mr3428435ab.19.1747325719826; Thu, 15 May 2025
+ 09:15:19 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT v2 12/15] drm/msm/a6xx: Drop cfg->ubwc_swizzle override
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20250514-topic-ubwc_central-v2-0-09ecbc0a05ce@oss.qualcomm.com>
- <20250514-topic-ubwc_central-v2-12-09ecbc0a05ce@oss.qualcomm.com>
- <3uflij5hthurgt67rdnfhqtcoconybsnykirrwnk7idtz6672n@26qdq2e2ehtz>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <3uflij5hthurgt67rdnfhqtcoconybsnykirrwnk7idtz6672n@26qdq2e2ehtz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ecfO7LiAmOjhqs_4diXt7YMlK5VfezXx
-X-Proofpoint-ORIG-GUID: ecfO7LiAmOjhqs_4diXt7YMlK5VfezXx
-X-Authority-Analysis: v=2.4 cv=JszxrN4C c=1 sm=1 tr=0 ts=68260dc5 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=EUspDBNiAAAA:8 a=jslb4AC7pnrZMK7c9NUA:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTE1MDE1OCBTYWx0ZWRfXxZn2yQPsqxni
- KOj7qLsHN/laaJaxUsfgYTCYbMAz/Nn6mcXlsqc5iKBwg00ngQCtreDsQi2rNzSDGOBKuIFNFyR
- SYbObFf2mpqbz2ZvL7bZRj+z0EEMMbTxcZsQE4f4wBhWUy8kZ61G3xadDaxABiDVD+wMq7hu1RS
- J7P7j8axMckdlRyOPjmK4REuSc3MWotIQu2nN1VP9fO/hW6HbTF1LpYrcgznk1awU7+dj4eVieE
- Ulyfna9WckVwRW6rRqWUzOc0wrOQL2VNuytxOICjaEWAY8+Wo1FB63wi7WP1xmKWw2D76/onxmj
- opEJZ7nTbyNboEflsogfUKp+X+ouMl9hFB7YJTWPlAs5eVhTeBhLAvv9HXHIdsFK6g9RKNY1Gn2
- J7y7Hxwe5hXb1pk9sdF1DOqhDa6F8Rg6vUNQUPfibsuryaP7s0Iez6IU7sHSzxa/1dRK+mfz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-15_07,2025-05-15_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 suspectscore=0 mlxlogscore=755 bulkscore=0
- malwarescore=0 mlxscore=0 adultscore=0 phishscore=0 spamscore=0
- lowpriorityscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505070000 definitions=main-2505150158
+References: <20250514170118.40555-1-robdclark@gmail.com>
+ <20250514170118.40555-5-robdclark@gmail.com>
+ <51f87f358fa1b7ef8db8b67ee6cde38ae071fbe8.camel@mailbox.org>
+In-Reply-To: <51f87f358fa1b7ef8db8b67ee6cde38ae071fbe8.camel@mailbox.org>
+From: Rob Clark <robdclark@chromium.org>
+Date: Thu, 15 May 2025 09:15:08 -0700
+X-Gm-Features: AX0GCFtFODqrTO3H3dBowcUSsEdz5qQZdMlabkP_W3dElVRS6DjZ3druTsaG-j8
+Message-ID: <CAJs_Fx771FFVDVFMn8YJkR9f9Ad-UQspJ9KKQw4u6Cu4TA7YPA@mail.gmail.com>
+Subject: Re: [PATCH v4 04/40] drm/sched: Add enqueue credit limit
+To: phasta@kernel.org
+Cc: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ Connor Abbott <cwabbott0@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,21 +90,275 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 5/14/25 10:32 PM, Dmitry Baryshkov wrote:
-> On Wed, May 14, 2025 at 05:10:32PM +0200, Konrad Dybcio wrote:
->> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>
->> On A663 (SA8775P) the value matches exactly.
->>
->> On A610, the value matches on SM6115, but is different on SM6125. That
->> turns out not to be a problem, as the bits that differ aren't even
->> interpreted.
-> 
-> We also don't set swizzle for a lot of UBWC 1.0 targets (as MDSS wasn't
-> programming those). Should we fix all of them to use 6 by default? Or 7?
+On Thu, May 15, 2025 at 2:28=E2=80=AFAM Philipp Stanner <phasta@mailbox.org=
+> wrote:
+>
+> Hello,
+>
+> On Wed, 2025-05-14 at 09:59 -0700, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Similar to the existing credit limit mechanism, but applying to jobs
+> > enqueued to the scheduler but not yet run.
+> >
+> > The use case is to put an upper bound on preallocated, and
+> > potentially
+> > unneeded, pgtable pages.  When this limit is exceeded, pushing new
+> > jobs
+> > will block until the count drops below the limit.
+>
+> the commit message doesn't make clear why that's needed within the
+> scheduler.
+>
+> From what I understand from the cover letter, this is a (rare?) Vulkan
+> feature. And as important as Vulkan is, it's the drivers that implement
+> support for it. I don't see why the scheduler is a blocker.
 
-I don't think any default value is a good idea - this is the sort of
-programming error you track down 4 years after you go bald looking
-for it
+Maybe not rare, or at least it comes up with a group of deqp-vk tests ;-)
 
-Konrad
+Basically it is a way to throttle userspace to prevent it from OoM'ing
+itself.  (I suppose userspace could throttle itself, but it doesn't
+really know how much pre-allocation will need to be done for pgtable
+updates.)
+
+> All the knowledge about when to stop pushing into the entity is in the
+> driver, and the scheduler obtains all the knowledge about that from the
+> driver anyways.
+>
+> So you could do
+>
+> if (my_vulkan_condition())
+>    drm_sched_entity_push_job();
+>
+> couldn't you?
+
+It would need to reach in and use the sched's job_scheduled
+wait_queue_head_t...  if that isn't too ugly, maybe the rest could be
+implemented on top of sched.  But it seemed like a reasonable thing
+for the scheduler to support directly.
+
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/scheduler/sched_entity.c | 16 ++++++++++++++--
+> >  drivers/gpu/drm/scheduler/sched_main.c   |  3 +++
+> >  include/drm/gpu_scheduler.h              | 13 ++++++++++++-
+> >  3 files changed, 29 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
+> > b/drivers/gpu/drm/scheduler/sched_entity.c
+> > index dc0e60d2c14b..c5f688362a34 100644
+> > --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> > @@ -580,11 +580,21 @@ void drm_sched_entity_select_rq(struct
+> > drm_sched_entity *entity)
+> >   * under common lock for the struct drm_sched_entity that was set up
+> > for
+> >   * @sched_job in drm_sched_job_init().
+> >   */
+> > -void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+> > +int drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>
+> Return code would need to be documented in the docstring, too. If we'd
+> go for that solution.
+>
+> >  {
+> >       struct drm_sched_entity *entity =3D sched_job->entity;
+> > +     struct drm_gpu_scheduler *sched =3D sched_job->sched;
+> >       bool first;
+> >       ktime_t submit_ts;
+> > +     int ret;
+> > +
+> > +     ret =3D wait_event_interruptible(
+> > +                     sched->job_scheduled,
+> > +                     atomic_read(&sched->enqueue_credit_count) <=3D
+> > +                     sched->enqueue_credit_limit);
+>
+> This very significantly changes the function's semantics. This function
+> is used in a great many drivers, and here it would be transformed into
+> a function that can block.
+>
+> From what I see below those credits are to be optional. But even if, it
+> needs to be clearly documented when a function can block.
+
+Sure.  The behavior changes only for drivers that use the
+enqueue_credit_limit, so other drivers should be unaffected.
+
+I can improve the docs.
+
+(Maybe push_credit or something else would be a better name than
+enqueue_credit?)
+
+>
+> > +     if (ret)
+> > +             return ret;
+> > +     atomic_add(sched_job->enqueue_credits, &sched-
+> > >enqueue_credit_count);
+> >
+> >       trace_drm_sched_job(sched_job, entity);
+> >       atomic_inc(entity->rq->sched->score);
+> > @@ -609,7 +619,7 @@ void drm_sched_entity_push_job(struct
+> > drm_sched_job *sched_job)
+> >                       spin_unlock(&entity->lock);
+> >
+> >                       DRM_ERROR("Trying to push to a killed
+> > entity\n");
+> > -                     return;
+> > +                     return -EINVAL;
+> >               }
+> >
+> >               rq =3D entity->rq;
+> > @@ -626,5 +636,7 @@ void drm_sched_entity_push_job(struct
+> > drm_sched_job *sched_job)
+> >
+> >               drm_sched_wakeup(sched);
+> >       }
+> > +
+> > +     return 0;
+> >  }
+> >  EXPORT_SYMBOL(drm_sched_entity_push_job);
+> > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > b/drivers/gpu/drm/scheduler/sched_main.c
+> > index 9412bffa8c74..1102cca69cb4 100644
+> > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > @@ -1217,6 +1217,7 @@ static void drm_sched_run_job_work(struct
+> > work_struct *w)
+> >
+> >       trace_drm_run_job(sched_job, entity);
+> >       fence =3D sched->ops->run_job(sched_job);
+> > +     atomic_sub(sched_job->enqueue_credits, &sched-
+> > >enqueue_credit_count);
+> >       complete_all(&entity->entity_idle);
+> >       drm_sched_fence_scheduled(s_fence, fence);
+> >
+> > @@ -1253,6 +1254,7 @@ int drm_sched_init(struct drm_gpu_scheduler
+> > *sched, const struct drm_sched_init_
+> >
+> >       sched->ops =3D args->ops;
+> >       sched->credit_limit =3D args->credit_limit;
+> > +     sched->enqueue_credit_limit =3D args->enqueue_credit_limit;
+> >       sched->name =3D args->name;
+> >       sched->timeout =3D args->timeout;
+> >       sched->hang_limit =3D args->hang_limit;
+> > @@ -1308,6 +1310,7 @@ int drm_sched_init(struct drm_gpu_scheduler
+> > *sched, const struct drm_sched_init_
+> >       INIT_LIST_HEAD(&sched->pending_list);
+> >       spin_lock_init(&sched->job_list_lock);
+> >       atomic_set(&sched->credit_count, 0);
+> > +     atomic_set(&sched->enqueue_credit_count, 0);
+> >       INIT_DELAYED_WORK(&sched->work_tdr, drm_sched_job_timedout);
+> >       INIT_WORK(&sched->work_run_job, drm_sched_run_job_work);
+> >       INIT_WORK(&sched->work_free_job, drm_sched_free_job_work);
+> > diff --git a/include/drm/gpu_scheduler.h
+> > b/include/drm/gpu_scheduler.h
+> > index da64232c989d..d830ffe083f1 100644
+> > --- a/include/drm/gpu_scheduler.h
+> > +++ b/include/drm/gpu_scheduler.h
+> > @@ -329,6 +329,7 @@ struct drm_sched_fence *to_drm_sched_fence(struct
+> > dma_fence *f);
+> >   * @s_fence: contains the fences for the scheduling of job.
+> >   * @finish_cb: the callback for the finished fence.
+> >   * @credits: the number of credits this job contributes to the
+> > scheduler
+> > + * @enqueue_credits: the number of enqueue credits this job
+> > contributes
+> >   * @work: Helper to reschedule job kill to different context.
+> >   * @id: a unique id assigned to each job scheduled on the scheduler.
+> >   * @karma: increment on every hang caused by this job. If this
+> > exceeds the hang
+> > @@ -366,6 +367,7 @@ struct drm_sched_job {
+> >
+> >       enum drm_sched_priority         s_priority;
+> >       u32                             credits;
+> > +     u32                             enqueue_credits;
+>
+> What's the policy of setting this?
+>
+> drm_sched_job_init() and drm_sched_job_arm() are responsible for
+> initializing jobs.
+
+It should be set before drm_sched_entity_push_job().  I wouldn't
+really expect drivers to know the value at drm_sched_job_init() time.
+But they would by the time drm_sched_entity_push_job() is called.
+
+> >       /** @last_dependency: tracks @dependencies as they signal */
+> >       unsigned int                    last_dependency;
+> >       atomic_t                        karma;
+> > @@ -485,6 +487,10 @@ struct drm_sched_backend_ops {
+> >   * @ops: backend operations provided by the driver.
+> >   * @credit_limit: the credit limit of this scheduler
+> >   * @credit_count: the current credit count of this scheduler
+> > + * @enqueue_credit_limit: the credit limit of jobs pushed to
+> > scheduler and not
+> > + *                        yet run
+> > + * @enqueue_credit_count: the current crdit count of jobs pushed to
+> > scheduler
+> > + *                        but not yet run
+> >   * @timeout: the time after which a job is removed from the
+> > scheduler.
+> >   * @name: name of the ring for which this scheduler is being used.
+> >   * @num_rqs: Number of run-queues. This is at most
+> > DRM_SCHED_PRIORITY_COUNT,
+> > @@ -518,6 +524,8 @@ struct drm_gpu_scheduler {
+> >       const struct drm_sched_backend_ops      *ops;
+> >       u32                             credit_limit;
+> >       atomic_t                        credit_count;
+> > +     u32                             enqueue_credit_limit;
+> > +     atomic_t                        enqueue_credit_count;
+> >       long                            timeout;
+> >       const char                      *name;
+> >       u32                             num_rqs;
+> > @@ -550,6 +558,8 @@ struct drm_gpu_scheduler {
+> >   * @num_rqs: Number of run-queues. This may be at most
+> > DRM_SCHED_PRIORITY_COUNT,
+> >   *        as there's usually one run-queue per priority, but may
+> > be less.
+> >   * @credit_limit: the number of credits this scheduler can hold from
+> > all jobs
+> > + * @enqueue_credit_limit: the number of credits that can be enqueued
+> > before
+> > + *                        drm_sched_entity_push_job() blocks
+>
+> Is it optional or not? Can it be deactivated?
+>
+> It seems to me that it is optional, and so far only used in msm. If
+> there are no other parties in need for that mechanism, the right place
+> to have this feature probably is msm, which has all the knowledge about
+> when to block already.
+>
+
+As with the existing credit_limit, it is optional.  Although I think
+it would be also useful for other drivers that use drm sched for
+VM_BIND queues, for the same reason.
+
+BR,
+-R
+
+>
+> Regards
+> P.
+>
+>
+> >   * @hang_limit: number of times to allow a job to hang before
+> > dropping it.
+> >   *           This mechanism is DEPRECATED. Set it to 0.
+> >   * @timeout: timeout value in jiffies for submitted jobs.
+> > @@ -564,6 +574,7 @@ struct drm_sched_init_args {
+> >       struct workqueue_struct *timeout_wq;
+> >       u32 num_rqs;
+> >       u32 credit_limit;
+> > +     u32 enqueue_credit_limit;
+> >       unsigned int hang_limit;
+> >       long timeout;
+> >       atomic_t *score;
+> > @@ -600,7 +611,7 @@ int drm_sched_job_init(struct drm_sched_job *job,
+> >                      struct drm_sched_entity *entity,
+> >                      u32 credits, void *owner);
+> >  void drm_sched_job_arm(struct drm_sched_job *job);
+> > -void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
+> > +int drm_sched_entity_push_job(struct drm_sched_job *sched_job);
+> >  int drm_sched_job_add_dependency(struct drm_sched_job *job,
+> >                                struct dma_fence *fence);
+> >  int drm_sched_job_add_syncobj_dependency(struct drm_sched_job *job,
+>
