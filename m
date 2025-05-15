@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91B6AAB81C2
-	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 11:00:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29F4AAB81F9
+	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 11:06:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69C4A10E7CE;
-	Thu, 15 May 2025 09:00:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0559410E7D8;
+	Thu, 15 May 2025 09:06:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gY5ja/xX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OND4TY4x";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 665ED10E7CE;
- Thu, 15 May 2025 09:00:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9EC410E7D5;
+ Thu, 15 May 2025 09:06:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A7EAF614BC;
- Thu, 15 May 2025 09:00:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA548C4CEE7;
- Thu, 15 May 2025 09:00:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 512584477B;
+ Thu, 15 May 2025 09:06:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A383EC4CEE7;
+ Thu, 15 May 2025 09:06:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747299621;
- bh=P1m0+sTWHkC72E4lMEa+YpX9d051+utwMYEb3wj5BLo=;
+ s=k20201202; t=1747299966;
+ bh=KVY2YR7khCYNOCGLba4NVihio2a5hTYB8gCPwnroNdo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gY5ja/xXRSOUSOsykU5WDfq0Rwv9FETxU+qGxCPJvIOqIi5P3xwjTiKZ6MmJ2+3tn
- 8yylaUdYb7S6589CGpUP+1NtDHutEY5Bpu6wsGKA1fhwP6BfjP/TMvKQjmN3YfxtgV
- eQ0Th4ZaXd78cMidIspyBZxn7EuDehh8Q2Kd+7lqEOC/QalolUpIyV7lduNRU+VtDv
- vxi8kAtYC8DAUZTJHGFnRvyMMTY9w+BzWfCv6odzFPAz2jnQqyAvIm2nnUrLxw7wsB
- g8IlqX2LQg+rlsLTOnUoPEHxQ3zWL7E4OXgSzik5nc+VdpLngQMxA7Jp2m3PrKAZTM
- 7PIbCsOYexHIA==
-Date: Thu, 15 May 2025 11:00:16 +0200
+ b=OND4TY4xJq4Hnv4qPFKzx89EsiDAYuzN/vQh+XCTq1XkESWagGO7QkZWuyq6aH06x
+ 0nfBBBBAQoV9ELVRL60bJoCLtuj+W5tucWLqRMarMn8pXSkc08c4f0LSmKU5wwqwQM
+ 6KrtbXvA6YxpgjnOtDcqP50HnMkk3MFBdDfIg8WZTFxZmYjtUyz93jDpTjaFH5SCRW
+ XmkZgcIHjdCD6K3RffNQSUED2duOj/IuG5bxjFKswmvsNIXwsEEY/t5JtwKoRjURb1
+ 1C9xR5VrKixOOnwk91no+2nJ+/e4MlX10zDAQZGEifuttyKzsUTjNP/0GyxbiRkv2W
+ NgMEwTOey4Slw==
+Date: Thu, 15 May 2025 11:06:00 +0200
 From: Danilo Krummrich <dakr@kernel.org>
 To: Rob Clark <robdclark@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
@@ -41,15 +41,16 @@ Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 02/40] drm/gpuvm: Allow VAs to hold soft reference to
- BOs
-Message-ID: <aCWtINcOUWciwx8L@pollux>
+Subject: Re: [PATCH v4 01/40] drm/gpuvm: Don't require obj lock in destructor
+ path
+Message-ID: <aCWueFzx2QzF7LVg@pollux>
 References: <20250514175527.42488-1-robdclark@gmail.com>
- <20250514175527.42488-3-robdclark@gmail.com>
+ <20250514175527.42488-2-robdclark@gmail.com>
+ <aCWrwz2IF6VBUi4e@pollux>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250514175527.42488-3-robdclark@gmail.com>
+In-Reply-To: <aCWrwz2IF6VBUi4e@pollux>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,19 +66,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 14, 2025 at 10:53:16AM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On Thu, May 15, 2025 at 10:54:27AM +0200, Danilo Krummrich wrote:
+> Hi Rob,
 > 
-> Eases migration for drivers where VAs don't hold hard references to
-> their associated BO, avoiding reference loops.
+> Can you please CC me on patches for GPUVM?
 > 
-> In particular, msm uses soft references to optimistically keep around
-> mappings until the BO is distroyed.  Which obviously won't work if the
-> VA (the mapping) is holding a reference to the BO.
+> On Wed, May 14, 2025 at 10:53:15AM -0700, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> > 
+> > See commit a414fe3a2129 ("drm/msm/gem: Drop obj lock in
+> > msm_gem_free_object()") for justification.
+> 
+> Please write a proper commit message that explains the problem and the solution.
+> Please don't just refer to another commit and leave it to the reviewer of the
+> patch to figure this out.
+> 
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/drm_gpuvm.c | 7 +++++--
+> >  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> 
+> > diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+> > index f9eb56f24bef..1e89a98caad4 100644
+> > --- a/drivers/gpu/drm/drm_gpuvm.c
+> > +++ b/drivers/gpu/drm/drm_gpuvm.c
+> > @@ -1511,7 +1511,9 @@ drm_gpuvm_bo_destroy(struct kref *kref)
+> >  	drm_gpuvm_bo_list_del(vm_bo, extobj, lock);
+> >  	drm_gpuvm_bo_list_del(vm_bo, evict, lock);
+> >  
+> > -	drm_gem_gpuva_assert_lock_held(obj);
+> > +	if (kref_read(&obj->refcount) > 0)
+> > +		drm_gem_gpuva_assert_lock_held(obj);
+> > +
+> >  	list_del(&vm_bo->list.entry.gem);
+> 
+> This seems wrong.
+> 
+> A VM_BO object keeps a reference of the underlying GEM object, so this should
+> never happen.
+> 
+> This function calls drm_gem_object_put() before it returns.
 
-Ick! This is all complicated enough. Allow drivers to bypass the proper
-reference counting for GEM objects in the context of VM_BO structures seems like
-an insane footgun.
+I noticed your subsequent patch that allows VM_BO structures to have weak
+references to GEM objects.
 
-I don't understand why MSM would need weak references here. Why does msm need
-that, but nouveau, Xe, panthor, PowerVR do not?
+However, even with that this seems wrong. If the reference count of the GEM
+object is zero when drm_gpuvm_bo_destroy() is called it means that the GEM
+object is dead. However, until drm_gpuvm_bo_destroy() is called the GEM object
+potentially remains to be on the extobj and eviced list, which means that other
+code paths might fetch it from those lists and consider it to be a valid GEM
+object.
