@@ -2,91 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59514AB9064
-	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 21:59:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D2F5AB908F
+	for <lists+freedreno@lfdr.de>; Thu, 15 May 2025 22:10:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF0010E963;
-	Thu, 15 May 2025 19:59:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B102710E958;
+	Thu, 15 May 2025 20:10:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jQ+UYZOU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZF50NSpr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
- [209.85.222.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5555210E961
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 19:59:46 +0000 (UTC)
-Received: by mail-qk1-f169.google.com with SMTP id
- af79cd13be357-7c5a55bf777so16474285a.0
- for <freedreno@lists.freedesktop.org>; Thu, 15 May 2025 12:59:46 -0700 (PDT)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8F6010E958;
+ Thu, 15 May 2025 20:10:47 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-85b4170f1f5so42986439f.3; 
+ Thu, 15 May 2025 13:10:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747339185; x=1747943985; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=W9GO00zbxnFbKyoYKR1MGg1EYQGaCXyOc2lNqTvdH6I=;
- b=jQ+UYZOU1Yx/egWboPjRQoQqsStsQlCDSTqKgrTwhVcf8FbiMbNNixTKKhQL8d8vz2
- I2Y2CexWPz3mANbAWqhRdT/s2DHtNk7/RIuP7AIJhWzEkt05NH0LMNc8dPf7Z35xy4hm
- VWLWlxEqG5KEkrApX5GSB/MYyzZz9sV9m90BsWzQZ6+4bhJqbrahFasm54LXXExD/fIz
- Hp1hU30f0mum4xrDEYqvBvug/jP7mdeerO+B3uvV21evbepRVf/Vr76BQG0Fj5NWIgoS
- nhEyKe11YegiujiLWg3esnLpICSh1SqYv35z61TKD/4k2+T5xtD2CMZTbgjGpmTM5+x+
- WH4g==
+ d=gmail.com; s=20230601; t=1747339847; x=1747944647; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9fSgK7ssf2dm8Q7yOhdTUyMWZzsPLlNnfjUB0IW4r/o=;
+ b=ZF50NSprlVcQBdVIhsmV5TkGJ8Q92b4y9DZi8GZe3UMKgCkBAS12KDYSuRc5lnsCmi
+ ZopRbKArYkfLSv7daUBgvgqH2CKCpw9OE6Zs4kB5YmYPPAnvb9tBez03jl6nSteE0C+U
+ 2hNRGfcDghgtrHGw8alSwo17gpfckMiKUzxFOvOMRPP2oVKIY78MLXLMtOBUHERBdDzk
+ LxEdItO7fylZblj5kirURFVfNRItjeXSCqqQrJjEj4NBQw1r8LcJ6xwWjow1ZEuxQIRr
+ lVxIwWKILSVArPDcm1vBpJHKbTn9dXeUxWOjeqG5ceXp0ty3bXn0D/FKAB3g36f0Wtow
+ qcDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747339185; x=1747943985;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1747339847; x=1747944647;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=W9GO00zbxnFbKyoYKR1MGg1EYQGaCXyOc2lNqTvdH6I=;
- b=KKFf3Nm10wqUM3zy2tjO2dvQZikyaPNlT6Tmm62wWC7wV4Gm5x98+ajNHBxVwREikd
- HLZouCI6OPOVaKQZYu2dfbwZYpStOLfo0RMKpgHN+CtdpzLAi8GhQ3L7zkxrO2Gs6f+z
- PF19ubmqywjPnkMcC6xt692E9zxoCkUabTD6wzCS4gR3zlmdqG1kvUnNsyyDHMyiKAb2
- XtrJVvom5cR744KXFugwZe8HIdUSXmT3+N319bB1CMs7lblMKqx9CeYBfhp+tDtHdy73
- kOIiiUUpsKUehQjmTwP+9DL3+bI+mL0Ja7E/93OqCL5MogyegDX6JmeIX+xqfwtssgZP
- E57w==
+ bh=9fSgK7ssf2dm8Q7yOhdTUyMWZzsPLlNnfjUB0IW4r/o=;
+ b=EcLafTbdwREB7TOccHnBRnzPfGuO8n6GWCniyUWRd+yPZj0nRzLcQf8krc7uBykO+O
+ UW7UMQevDvA8mzP+0mvi6gdhPe8eFI9TWWKdCO2g5BE3vlB+Cq9+MpHa6Xza2NGgqRiy
+ pu2teMbXM6RLaTP/EYcNbGwRrQW3B6JQ1LDzh/BYE8YqEPtICe9/wwHf/wNGlkLGTbbX
+ 8onSbzPKS/oCyIu8Urf1j2OYDXjcieW2u02jOw88p0NKqysfVNkcgkiJwr4tMkbHTLWR
+ 0M4pXgGUIZ6qbbM6gGAEZ5vjUPqKsZA4NNuYXR1b+3wo7yN4/dYPvUQBssskkTv++1z6
+ MWOA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUd3i7yZbtTxbcLOaV9pqRbvMsDHGE1zw1qsVKL3JsrnVRX2RbDWWen3deB+jEPUtAA933nxzYOEuA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwfMFrM/0hXK96Ctyx0BpWVRLddUDM2HJZj098OLRuXYhpUk52Y
- p2oOnCxBQPLCWVB3OnYK4kFN4I7SgUkDmp3ZXuyfwGNtADi3fcLfbMb8
-X-Gm-Gg: ASbGnct84QtlKZTyO1TBSYfun0RO8nSuX/T+cyC0Yv2qmqcXA1mqnqLhgyw3pRiP7ao
- QFB+UPvqdYi0W6FMkMFBD13qzTb0cy/W3/V8M8a0xaGC8DRxx2eF3rFVHm/pc9v6z/d5jNYDdGr
- h6mgzDV2KJs4uucxDxPBImnPESEmtj6bZsnMfK30l8IBQkx4vDzIg8KLNJYXESGjXnz4TFFjs2y
- pn5X1q/twB3zBcsdmnXNXpFCfSuhaJXsyeKEVGu5HfspFmC4+t/TYZ3Fkm+wyFkNKV+QEimMurB
- U7i+hlZy0pcyexMVI7EYBCt2Cc/wQHTzNoZi+APXLWL4HLKjWGOqs1xJVxlOKhl0ezFdBPdk+6J
- PZ1TsVd4GSXm2NExESQw=
-X-Google-Smtp-Source: AGHT+IG6CqnqToKilBZg3d95WbqLz8tctrzr994PFqGigAXmx649QoHO+YFYQoHsNTC0rhdZ3luaSQ==
-X-Received: by 2002:a05:620a:2803:b0:7c3:d1b9:e667 with SMTP id
- af79cd13be357-7cd4671faaemr58332985a.5.1747339185205; 
- Thu, 15 May 2025 12:59:45 -0700 (PDT)
-Received: from [192.168.124.1] (syn-067-243-142-039.res.spectrum.com.
- [67.243.142.39]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-494ae4fd80bsm1957231cf.56.2025.05.15.12.59.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 12:59:44 -0700 (PDT)
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Thu, 15 May 2025 15:58:49 -0400
-Subject: [PATCH v6 7/7] iommu/smmu-arm-qcom: Delete resume_translation()
+ AJvYcCVU2vh1PHbeuK33VYggLBP9JU8ncAz3fa27dGTj0djgzCdlA6OZM2kDV7SHNu9WFXondI0pfYy0N9w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwdwISEEtNbVDmc9LnuzrUyibjqY5L2K1odbSAcehd0MlgrOb/P
+ 2aElz3wyKcmHlr6utzW5UjG8vZJ+Jigv0Lhg0LfBDDkR7kPwMCCm2yFnZ2gEQ7GnnWoBS+xvijo
+ Uex+CPCUVtxMfAGK7ENdDQMcTXrT+sKw=
+X-Gm-Gg: ASbGncv7LMzTzEaZpxJFsksFn9V1Wbt1BCe10o9VB1w2T9DCP1WfNmFr3495owWWGgt
+ 2hIu2eX/CSxhdtDKjgGzl0uF69aU41jKY1a2oy5k6N9fxmoaUukHYWgW3Jy969G2aBPSrysCwTk
+ /otbQ/pcojVjkYhyH63XDqUsN3pcdDcBz1GRTB5n/ejdLtsciNfwPekSQR09Z9JIsCeLEDFeTeH
+ g==
+X-Google-Smtp-Source: AGHT+IElYN1Rh6xvHEcxS29AOpeVEBIl+G958Hitti5xJMV3ss/DOnUlfOXj5cBcRSPr0KcHm1EawDhax9vJdzWBanE=
+X-Received: by 2002:a05:6602:2744:b0:861:c238:bf03 with SMTP id
+ ca18e2360f4ac-86a231ce6cbmr170432639f.8.1747339847033; Thu, 15 May 2025
+ 13:10:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250515-msm-gpu-fault-fixes-next-v6-7-4fe2a583a878@gmail.com>
-References: <20250515-msm-gpu-fault-fixes-next-v6-0-4fe2a583a878@gmail.com>
-In-Reply-To: <20250515-msm-gpu-fault-fixes-next-v6-0-4fe2a583a878@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org, 
- Connor Abbott <cwabbott0@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1747339176; l=1531;
- i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
- bh=aRsZmjoGo/cSFHXwutiwXX9pdz9qjGh+q+3C5UDfQvg=;
- b=+pdVVw82/z0eIgzgC6o+AzTuVq7FlJ1dneFaBpTdAtknFxz/eSWyUdXaQGcHd4MoAd4oA8kti
- e6nMCOZKmtuBM8tRS1ISKqELZJCTLF3R76A1EnTAP8F/VIbPZJpnnUk
-X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
- pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
+References: <20250514175527.42488-1-robdclark@gmail.com>
+ <20250514175527.42488-3-robdclark@gmail.com>
+ <aCWtINcOUWciwx8L@pollux>
+ <CAF6AEGsm6JgK6QQe7se6bzv6QLnm-sxsJRmv=r3OWKhf6rfOSA@mail.gmail.com>
+ <aCYIiJpMe1ljGxqz@pollux>
+ <CAF6AEGvLpekBNLxVOavkXJtcZZQBH6WznKA=F0Jn9idxBMypkA@mail.gmail.com>
+ <aCYpjJPvSOf2RzbU@pollux>
+In-Reply-To: <aCYpjJPvSOf2RzbU@pollux>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 15 May 2025 13:10:34 -0700
+X-Gm-Features: AX0GCFs_RUOGNUoophfLe_ZVT4ojoR2aoDzR_PRqcC6i1DAbUuDOdWeHDIPx-Z0
+Message-ID: <CAF6AEGuUH6nZCvb3Qayh7Z9ydOmPhTn6rqMifPyagLknbjerng@mail.gmail.com>
+Subject: Re: [PATCH v4 02/40] drm/gpuvm: Allow VAs to hold soft reference to
+ BOs
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>, 
+ Rob Clark <robdclark@chromium.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,38 +96,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Unused since "drm/msm: Delete resume_translation()".
+On Thu, May 15, 2025 at 10:51=E2=80=AFAM Danilo Krummrich <dakr@kernel.org>=
+ wrote:
+>
+> On Thu, May 15, 2025 at 10:34:07AM -0700, Rob Clark wrote:
+> > On Thu, May 15, 2025 at 8:30=E2=80=AFAM Danilo Krummrich <dakr@kernel.o=
+rg> wrote:
+> > >
+> > > On Thu, May 15, 2025 at 07:59:16AM -0700, Rob Clark wrote:
+> > >
+> > > Thanks for the detailed explanation!
+> > >
+> > > > On Thu, May 15, 2025 at 2:00=E2=80=AFAM Danilo Krummrich <dakr@kern=
+el.org> wrote:
+> > > > >
+> > > > > On Wed, May 14, 2025 at 10:53:16AM -0700, Rob Clark wrote:
+> > > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > > >
+> > > > > > Eases migration for drivers where VAs don't hold hard reference=
+s to
+> > > > > > their associated BO, avoiding reference loops.
+> > > > > >
+> > > > > > In particular, msm uses soft references to optimistically keep =
+around
+> > > > > > mappings until the BO is distroyed.  Which obviously won't work=
+ if the
+> > > > > > VA (the mapping) is holding a reference to the BO.
+> > > > >
+> > > > > Ick! This is all complicated enough. Allow drivers to bypass the =
+proper
+> > > > > reference counting for GEM objects in the context of VM_BO struct=
+ures seems like
+> > > > > an insane footgun.
+> > > > >
+> > > > > I don't understand why MSM would need weak references here. Why d=
+oes msm need
+> > > > > that, but nouveau, Xe, panthor, PowerVR do not?
+> > > >
+> > > > Most of those drivers were designed (and had their UABI designed) w=
+ith
+> > > > gpuvm, or at least sparse, in mind from the get go.  I'm not sure
+> > > > about nouveau, but I guess it just got lucky that it's UABI semanti=
+cs
+> > > > fit having the VMA hold a reference to the BO.
+> > > >
+> > > > Unfortunately, msm pre-dates sparse.. and in the beginning there wa=
+s
+> > > > only a single global VM, multiple VMs was something retrofitted ~6y=
+rs
+> > > > (?) back.  For existing msm, the VMA(s) are implicitly torn down wh=
+en
+> > > > the GEM obj is freed.  This won't work with the VMA(s) holding hard
+> > > > references to the BO.
+> > >
+> > > Ok, that makes sense to me, but why can't this be changed? I don't se=
+e how the
+> > > uAPI would be affected, this is just an implementation detail, no?
+> >
+> > It's about the behaviour of the API, there is no explicit VMA
+> > creation/destruction in the uAPI.
+>
+> But that shouldn't matter? Userspace gives you a BO, the driver creates V=
+MAs
+> itself, which can have a reference on the VM_BO, which references the ori=
+ginal
+> BO. At this point you can drop the original reference of the BO and just =
+destroy
+> all corresponding VMAs once the driver fulfilled the request from userspa=
+ce?
 
-Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
----
- include/linux/adreno-smmu-priv.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Having the submit hold a reference to the VM_BO, and then this funny
+looking bit of code in gem_close() gets us part way there:
 
-diff --git a/include/linux/adreno-smmu-priv.h b/include/linux/adreno-smmu-priv.h
-index 8ed94fb39e6ec6a3d8e6fabe61ff142682f1764c..80bb36e09f07901fd73c522ec077b0b3211adc50 100644
---- a/include/linux/adreno-smmu-priv.h
-+++ b/include/linux/adreno-smmu-priv.h
-@@ -46,9 +46,8 @@ struct adreno_smmu_fault_info {
-  * @get_fault_info: Called by the GPU fault handler to get information about
-  *                  the fault
-  * @set_stall:     Configure whether stall on fault (CFCFG) is enabled. If
-- *                 stalling on fault is enabled, the GPU driver must call
-- *                 resume_translation()
-- * @resume_translation: Resume translation after a fault
-+ *                 stalling on fault is enabled, the GPU driver should return
-+ *                 -EAGAIN from the fault handler if retrying is required.
-  *
-  *
-  * The GPU driver (drm/msm) and adreno-smmu work together for controlling
-@@ -66,7 +65,6 @@ struct adreno_smmu_priv {
-     int (*set_ttbr0_cfg)(const void *cookie, const struct io_pgtable_cfg *cfg);
-     void (*get_fault_info)(const void *cookie, struct adreno_smmu_fault_info *info);
-     void (*set_stall)(const void *cookie, bool enabled);
--    void (*resume_translation)(const void *cookie, bool terminate);
- };
- 
- #endif /* __ADRENO_SMMU_PRIV_H */
+   vm_bo =3D drm_gpuvm_bo_find(ctx->vm, obj);
+   if (vm_bo) {
+      drm_gpuvm_bo_put(vm_bo);
+      drm_gpuvm_bo_put(vm_bo);
+  }
 
--- 
-2.47.1
+But we still leak BO's used in other VMs.. scanout, and various other
+fw and other internal BOs... those would all have to be tracked down
+and to find _someplace_ to break the VM_BO  circular reference loop.
 
+> > > > When userspace opts-in to "VM_BIND" mode, which it has to do before
+> > > > the VM is created, then we don't set this flag, the VMA holds a har=
+d
+> > > > reference to the BO as it does with other drivers.  But consider th=
+is
+> > > > use-case, which is perfectly valid for old (existing) userspace:
+> > > >
+> > > > 1) Userspace creates a BO
+> > > > 2) Submits rendering referencing the BO
+> > > > 3) Immediately closes the BO handle, without waiting for the submit=
+ to complete
+> > > >
+> > > > In this case, the submit holds a reference to the BO which holds a
+> > > > reference to the VMA.
+> > >
+> > > Can't you just instead create the VMAs, which hold a reference to the=
+ VM_BO,
+> > > which holds a reference to the BO, then drop the drop the original BO=
+ reference
+> > > and finally, when everything is completed, remove all VMAs of the VM_=
+BO?
+> >
+> > Perhaps the submit could hold a ref to the VM_BO instead of the BO to
+> > cover that particular case.
+> >
+> > But for the legacy world, the VMA is implicitly torn down when the BO
+> > is freed.  Which will never happen if the VM_BO holds a reference to
+> > the BO.
+>
+> Sure, I get that; what I do not get is why it can't be changed, e.g. in t=
+he way
+> described above.
+>
+> > > This should do exactly the same *and* be conformant with GPUVM design=
+.
+> > >
+> > > > Everything is torn down gracefully when the
+> > > > submit completes.  But if the VMA held a hard reference to the BO t=
+hen
+> > > > you'd have a reference loop.
+> > > >
+> > > > So there really is no other way to use gpuvm _and_ maintain backwar=
+ds
+> > > > compatibility with the semantics of the pre-VM_BIND UAPI without th=
+is
+> > > > flag.
+> > >
+> > > Again, how is this important for maintaining backwards compatibility =
+with the
+> > > uAPI? This all seems like a driver internal implementation detail to =
+me.
+> > >
+> > > So, is there a technical reason, or is it more that it would be more =
+effort on
+> > > the driver end to rework things accordingly?
+> >
+> > If there were a way to work without WEAK_REF, it seems like it would
+> > be harder and much less of a drop in change.
+>
+> So, you're saying there is no technical blocker to rework it?
+
+Not clear.. it would certainly make conversion to gpuvm a much bigger
+flag-day, because without WEAK_REF the way gpuvm works is exactly
+backwards from how the thing it is replacing works.
+
+BR,
+-R
