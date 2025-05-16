@@ -2,71 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2079ABA508
-	for <lists+freedreno@lfdr.de>; Fri, 16 May 2025 23:24:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4E7BABA563
+	for <lists+freedreno@lfdr.de>; Fri, 16 May 2025 23:40:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7618F10EB94;
-	Fri, 16 May 2025 21:24:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83BC110EB9E;
+	Fri, 16 May 2025 21:40:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C9RaaFJn";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FZxCk93D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f42.google.com (mail-io1-f42.google.com
- [209.85.166.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE2F10E060;
- Fri, 16 May 2025 21:24:23 +0000 (UTC)
-Received: by mail-io1-f42.google.com with SMTP id
- ca18e2360f4ac-86142446f3fso66658839f.2; 
- Fri, 16 May 2025 14:24:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747430662; x=1748035462; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=hunQ4H8lTiSGjqzJkC/Ab+nMJU3/VnMxmp9TrDpedc8=;
- b=C9RaaFJnwf/QWBL9CXT1t3lETnpH+Afgmi2othY56Uz2p3NK/UCGCix21aMkhOiFTb
- L5T1uWD21tOkwqdyO+V5IHKUIqHBmNw/I4HkLxSjpQfVPVdoBUti5F+SKmvkd389kpwc
- v9LYY6otDx3xitfVPPB4gYRJTYl7wNR6UgIxTCBcosdoGTsTD9TQJvpIGj8WrnQMjMsE
- SI2XerCeEXsOJ/DUcw0r26ZieowkAQVU9FerBD3qbBRCZjT2fILVov/j0amriL89Bn5k
- WSUu447VWopNtR4Ek/PhpfeI25ZODc0qXk5r3cu3hjmnoDPwnztb6DWPFMRyodz/iE87
- +MJA==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14ECE10EB9E
+ for <freedreno@lists.freedesktop.org>; Fri, 16 May 2025 21:40:13 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54GBRxhJ023734
+ for <freedreno@lists.freedesktop.org>; Fri, 16 May 2025 21:40:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=WLyt+5Z0AOIejFDuTl8oaCpz
+ mlN3FLZTqlnnQr41U2I=; b=FZxCk93DJkNcuvKAn8NQGI5E3U1ByqkuzIlIXHwl
+ iS8RWtkTnRKnLl24gpFtA246E5VseX+zuE8I757cgPLvv+mBYyn2IXNBe98hKHP/
+ d6VJybk+eyFFuYmNh2tPNuO/t4ibS0r6hxAf2MEduKGtJOuqd3gyFruTFnmJVevW
+ feci+RPVlYx9FPqICCUEvrElyV/A9TiY1pWYM8abiQLE6piykZhs86Z2YArc/kSb
+ 0A7ez0t6JH8/3hJIyXskqiKrFpi7fDEsvDUcOzig0n+8+9pgvJOehdb/z0w0RrUr
+ EpMezCOrEcuDmmMkfmIfuhWr9Bs4/p/utgw95xTeoo8PdA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46p4gq9gq8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 16 May 2025 21:40:12 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6f6f2c41eddso55022256d6.2
+ for <freedreno@lists.freedesktop.org>; Fri, 16 May 2025 14:40:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747430662; x=1748035462;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=hunQ4H8lTiSGjqzJkC/Ab+nMJU3/VnMxmp9TrDpedc8=;
- b=nf/BqDR+aJNJCHB5FsYEQYkxIhuCOCdlWbHQQZaQ9zTDYRpUJceqKT0XP6bRjYXLb1
- ifAS3CcYIG9tE10brzUaYu7oCQm1L5e7GbY8DaQA793dWWkWHzItASUjYEHM+kIN4X4d
- fTn1595hWOcPV9wtxG+ly3k/QcWf+SLZMUZj09Ilz2wbflTR2Px6e3muz5Q/AL/GDz9j
- RhGxwzh8iUha8YtX0O8KT50f2xaiLVtbAT3p+RKDIimxvaV95/dF1QehW9ZnN56fCtCH
- xzC7USpIYBucv/RT+5LuGZ3ZZ1UG95/phJESb4B6SGbZtf9043RIWj7pWU/bkg54aw9S
- GpMA==
+ d=1e100.net; s=20230601; t=1747431611; x=1748036411;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WLyt+5Z0AOIejFDuTl8oaCpzmlN3FLZTqlnnQr41U2I=;
+ b=lMWej3rGuEU10fyW+IZw3mwkxowUz/ucFQJvJdVznTkfMvrj5DwlqsD7zHbQ36C90F
+ NWXl9TF3PJ7U7MpBuyikZpHAuMySijG0ApPvd8uXFazVzGigm3/WOaM/Gdy1Q6YrtjTK
+ R5BpJhdEsNvs5L/LgKnMAqTdiCSCwmajSZ+MQ7z1ekit+5ZC1Z4kQOq6iMgohseIM+Ue
+ AMujysddZ9sBLItSdrct4CH+BDIWX1NZm6hehifWseOcxHlHQP4aZWZxXvh/FX6mgq1T
+ dxaZQz7nntfi2kkpliXp96bFG6El4LrojMQZKzDWQFS65FaaFi4Y7vxHA68Bz+K7cHrR
+ pslw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUoGUWIV3bmxBExzS8B6Ygt7k0Z0xJ2Lmh2NfSvO/EF0Yw8A7NFVYVZYtpRgCfOCl+IZYKDtpIMMbM=@lists.freedesktop.org,
- AJvYcCVvZFnjNNmSXNYANgtIfTWRymaA4Rq+3XC7qP3xRVPWu1o4WEZaLjXa9QBwq7czgnfdRNYHC6408eSD@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmRFe1mRg7TD8ubCebXns6m2uOLx+Z11llhCzTA2zRUN7m2kYs
- LfNiGGKUDBnuJvvqTejPr/DytCyBUGrt9KYbZXukFUt7ziEr4UF0snNbW1LyO6lSitGLrb1mKAb
- KsY6KNwQUyuXAk9K49ulByLHKJPI4ZDk=
-X-Gm-Gg: ASbGncshjrRrTCP+fyN68IZGU/j89tpiWcgT8QrF2pw7b0bZC/CpmFjOdm7XdeMKe1z
- Biul4lFQunhSz4Vqow+onV0m7so25nhwX5641ljUZ7JfVs6b7CmN7vCrpzh1CEXAbswDM9CZaYK
- 5TpY10BLeTNA/XzJsihX2RgCSTtyNqsEvi//KAcEBgs7lCfWY+N6qOF1D9vcgavQT2nmg=
-X-Google-Smtp-Source: AGHT+IGjdEO/w3gIhDVBeeFTdrysqgOxyuo+RYwDrAXCZDpJPU96mUtcQdg57oSVoKaM/mKy1IloXCJ4GHTlv4pID58=
-X-Received: by 2002:a05:6602:371b:b0:85b:3f1a:30aa with SMTP id
- ca18e2360f4ac-86a23229aabmr680256739f.9.1747430662007; Fri, 16 May 2025
- 14:24:22 -0700 (PDT)
+ AJvYcCXuhTw3sMpliWU3152NXwh9gUrT74pdVvPstZtIgABNshZncRUkvCQI+hI5rnOk4E8qAFY4ogO7zQ0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+3Cueiep+OH2IOEa1pyiXaiB1eVLSWjfbujlhYGmfVx7tpUgA
+ 8Kd1Z7112d68JK8fKMf2ZxGowG7c+lXDdv4C62rnvxtIXg2ovMJNFo4yjBS3Uh8UgNswg3pDu3P
+ U2Vu0U8wcXevuLxXaDna1FgPObCwSrHha2tB5+jNbBPI5y2pj9OJZwmOgmT+Kx2l5BFfMnlA=
+X-Gm-Gg: ASbGnctFFcC9ZZmXOMoTxL0dAKydPvAftg3cyisiu5e7wS09lQxDRttqAi+RBPgKmM9
+ ig/+IWgbv0V3XcMXadU2ViarV7H1r8NGoGOBhwmjQqX6ZPB3urQtt8ECYNtboD6h5gHuUFG4nAR
+ feTFxwmnVpeygW1JeZukyAs3Kjqt1IPvVVVkc5sw0wKydIMNjs+OCC/dhNfRxCnovAhdwxbH4k/
+ OiqR1EbChmVmi08PwXCEblEyZyf/3alKpmH+zPmvdx2FFu9moPBgUNpbXhtos3IQbxTEkPb/kIs
+ B53GmSvfoWUievnsvVib21i5hXRrCpAiNd1hd07axEYe4IbU1J2KfNLvC0ABfjA28F0XJRPAXVQ
+ =
+X-Received: by 2002:a05:6214:2341:b0:6f2:b7cd:7cac with SMTP id
+ 6a1803df08f44-6f8b08aad53mr84737166d6.31.1747431611237; 
+ Fri, 16 May 2025 14:40:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFlSkHU/95FW0SPZKEO3RfhsXaoQpKMCqmBdWYPgcm4PwTrfg++Ymk08ToHgTYtlLPYBsZyPQ==
+X-Received: by 2002:a05:6214:2341:b0:6f2:b7cd:7cac with SMTP id
+ 6a1803df08f44-6f8b08aad53mr84736776d6.31.1747431610813; 
+ Fri, 16 May 2025 14:40:10 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-550e7038518sm595002e87.210.2025.05.16.14.40.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 May 2025 14:40:09 -0700 (PDT)
+Date: Sat, 17 May 2025 00:40:06 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Abhinav Kumar <abhinav.kumar@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] drm/msm/dpu: Filter writeback modes using writeback
+ maxlinewidth
+Message-ID: <62vhglzixy2hl7uhl3queml5z3vvvqw6kefhaboip3iql6ep4e@kbl4yihvj65g>
+References: <20250514-max-mixer-width-v1-0-c8ba0d9bb858@oss.qualcomm.com>
+ <20250514-max-mixer-width-v1-4-c8ba0d9bb858@oss.qualcomm.com>
+ <CALT56yPxcsLhA2eigirjvNiWR5JBFW4jsOAi7QWkgmJgbMnKXw@mail.gmail.com>
+ <65cb9653-e315-4b8c-ad21-14cabb7d2ac0@oss.qualcomm.com>
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 16 May 2025 14:24:10 -0700
-X-Gm-Features: AX0GCFtP7DvImGIA2Ku6TTPV3B-2Yia4D2Tnclm3a819MTvBpglGhA8TuDsVtaw
-Message-ID: <CAF6AEGv2Go+nseaEwRgeZbecet-h+Pf2oBKw1CobCF01xu2XVg@mail.gmail.com>
-Subject: [pull] drm/msm: drm-msm-next-2025-05-16 for v6.16
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <65cb9653-e315-4b8c-ad21-14cabb7d2ac0@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: Kq6CqbNPRjsHYoq3RuJmhi59xsVcj59y
+X-Authority-Analysis: v=2.4 cv=KulN2XWN c=1 sm=1 tr=0 ts=6827b0bc cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=dt9VzEwgFbYA:10 a=EUspDBNiAAAA:8 a=Ey3AjrcxibMDRGd7HuQA:9 a=CjuIK1q_8ugA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTE2MDIxMiBTYWx0ZWRfX2kM0JE8w2krI
+ YnIKtWKXaQkVOzg6QlYM1Uvjalg/BkLQzGVs5LdGcTbzNVqeCR2nnH1znbEvItIjfsNI9s2drXu
+ ayLN/04d24bcpKXlyf0wsE0UGSofcs4RYIyNRNR2LbBtb34qMvkwIqVyXWXmldMnjepQ4brWsyi
+ tIAO3KTWo8qM+EWgzzwK+egOtyRE5rYyCAWa8J+DHjWiImh2LaRi5VQxRvPtn70iKQCbeTfloNz
+ cbqCp5qmM6TRs2amiS4zYgXgO3TvF3G0IlVjjLqkpkYud+1/CY7NLkzpERwtdptxRYZ5QrKlFGq
+ ogW7uAI+NAVnFTWSKfE82aLxEqNa61g0z1KAJupB11jJr+S6mXlpWXoRWMbc80O42BliU1seYYH
+ B5etL9oyJAkGicoWNPk0uLXUcX+bpBrK2yaDSlIq3SZXIFP8oWI+vtJRaE5IkN2Ewyu95qjb
+X-Proofpoint-GUID: Kq6CqbNPRjsHYoq3RuJmhi59xsVcj59y
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-16_07,2025-05-16_03,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 mlxscore=0 suspectscore=0 adultscore=0 priorityscore=1501
+ mlxlogscore=999 clxscore=1015 bulkscore=0 lowpriorityscore=0 phishscore=0
+ impostorscore=0 malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505070000
+ definitions=main-2505160212
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,291 +130,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+On Thu, May 15, 2025 at 05:48:09PM -0700, Jessica Zhang wrote:
+> 
+> 
+> On 5/14/2025 5:17 PM, Dmitry Baryshkov wrote:
+> > On Thu, 15 May 2025 at 02:52, Jessica Zhang
+> > <jessica.zhang@oss.qualcomm.com> wrote:
+> > > 
+> > > Since the max mixer width is not a strict hardware limit, use the actual
+> > 
+> > Is it? What is the actual max width that the mixer can support?
+> 
+> Hi Dmitry,
+> 
+> By hardware limit, I mean restrictions based on the size of buffers within
+> the hardware block itself.
+> 
+> PINGPONG, DSC encoder, and WB blocks all have buffers, so they do have a max
+> supported width based on the size of their hardware buffers. On the other
+> hand, LM doesn't so it isn't necessarily restricted by a max width.
+> 
+> I can clarify this in the commit message and cover letter.
 
-Pull for v6.16 as described below.  There are a pair of x1e80100 dts
-patches, ack'd by Bjorn, to preserve ordering (the driver part needs
-to land before the dts part).  These should not conflict with any
-other dts patches in flight this cycle.
+Yes, please. The text above is perfect for the commit message.
 
-The following changes since commit 0d607a59a0f6593e72630854a8bcb8b01b8dce40:
+> 
+> Thanks,
+> 
+> Jessica Zhang
+> 
+> > 
+> > > hardware limit (the writeback maxlinewidth) to filter modes.
+> > > 
+> > > Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> > > ---
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 9 +--------
+> > >   1 file changed, 1 insertion(+), 8 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> > > index 8ff496082902..0a198896f656 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> > > @@ -14,14 +14,7 @@ static int dpu_wb_conn_get_modes(struct drm_connector *connector)
+> > >          struct msm_drm_private *priv = dev->dev_private;
+> > >          struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+> > > 
+> > > -       /*
+> > > -        * We should ideally be limiting the modes only to the maxlinewidth but
+> > > -        * on some chipsets this will allow even 4k modes to be added which will
+> > > -        * fail the per SSPP bandwidth checks. So, till we have dual-SSPP support
+> > > -        * and source split support added lets limit the modes based on max_mixer_width
+> > > -        * as 4K modes can then be supported.
+> > > -        */
+> > > -       return drm_add_modes_noedid(connector, dpu_kms->catalog->caps->max_mixer_width,
+> > > +       return drm_add_modes_noedid(connector, dpu_kms->catalog->wb->maxlinewidth,
+> > >                          dev->mode_config.max_height);
+> > >   }
+> > > 
+> > > 
+> > > --
+> > > 2.49.0
+> > > 
+> 
 
-  drm/panel-edp: Add support for CSW MNE007QS3-8 panel (2025-04-29
-09:20:32 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2025-05-16
-
-for you to fetch changes up to fc5c669c902c3039aa41731b6c58c0960d0b1bbf:
-
-  dt-bindings: display: msm: correct example in SM8350 MDSS schema
-(2025-05-13 21:53:34 +0300)
-
-----------------------------------------------------------------
-Updates for v6.16
-
-CI:
-- uprev mesa
-
-GPU:
-- ACD (Adaptive Clock Distribution) support for X1-85.  This is required
-  enable the higher frequencies.
-- Drop fictional `address_space_size`.  For some older devices, the address
-  space size is limited to 4GB to avoid potential 64b rollover math problems
-  in the fw.  For these, an `ADRENO_QUIRK_4GB_VA` quirk is added.  For
-  everyone else we get the address space size from the SMMU `ias` (input
-  address sizes), which is usually 48b.
-- Improve robustness when GMU HFI responses time out
-- Fix crash when throttling GPU immediately during boot
-- Fix for rgb565_predicator on Adreno 7c3
-- Remove `MODULE_FIRMWARE()`s for GPU, the GPU can load the firmware after
-  probe and having partial set of fw (ie. sqe+gmu but not zap) causes problems
-
-MDSS:
-- Added SAR2130P support to MDSS driver
-
-DPU:
-- Changed to use single CTL path for flushing on DPU 5.x+
-- Improved SSPP allocation code to allow sharing of SSPP between planes
-- Enabled SmartDMA on SM8150, SC8180X, SC8280XP, SM8550
-- Added SAR2130P support
-- Disabled DSC support on MSM8937, MSM8917, MSM8953, SDM660
-- Misc fixes
-
-DP:
-- Switch to use new helpers for DP Audio / HDMI codec handling
-- Fixed LTTPR handling
-
-DSI:
-- Added support for SA8775P
-- Added SAR2130P support
-
-MDP4:
-- Fixed LCDC / LVDS controller on
-
-HDMI:
-- Switched to use new helpers for ACR data
-- Fixed old standing issue of HPD not working in some cases
-
-----------------------------------------------------------------
-Akhil P Oommen (7):
-      drm/msm/adreno: Add support for ACD
-      drm/msm/a6xx: Increase HFI response timeout
-      drm/msm: a6x: Rework qmp_get() error handling
-      drm/msm/adreno: Add module param to disable ACD
-      dt-bindings: opp: Add v2-qcom-adreno vendor bindings
-      arm64: dts: qcom: x1e80100: Add ACD levels for GPU
-      arm64: dts: qcom: x1e80100: Add OPPs up to Turbo L3 for GPU
-
-Aleksandrs Vinarskis (4):
-      drm/msm/dp: Fix support of LTTPR initialization
-      drm/msm/dp: Account for LTTPRs capabilities
-      drm/msm/dp: Prepare for link training per-segment for LTTPRs
-      drm/msm/dp: Introduce link training per-segment for LTTPRs
-
-Ayushi Makhija (5):
-      dt-bindings: display: msm-dsi-phy-7nm: document the SA8775P DSI PHY
-      dt-bindings: msm: dsi-controller-main: document the SA8775P DSI CTRL
-      dt-bindings: display: msm: document DSI controller and phy on SA8775P
-      drm/msm/dsi: add DSI PHY configuration on SA8775P
-      drm/msm/dsi: add DSI support for SA8775P
-
-Chen Ni (1):
-      drm/msm: Convert comma to semicolon
-
-Connor Abbott (1):
-      drm/msm: Be more robust when HFI response times out
-
-Dmitry Baryshkov (51):
-      drm/msm/dpu: don't overwrite CTL_MERGE_3D_ACTIVE register
-      drm/msm/dpu: program master INTF value
-      drm/msm/dpu: pass master interface to CTL configuration
-      drm/msm/dpu: use single CTL if it is the only CTL returned by RM
-      drm/msm/dpu: don't select single flush for active CTL blocks
-      drm/msm/dpu: allocate single CTL for DPU >= 5.0
-      drm/msm/dpu: remove DPU_CTL_SPLIT_DISPLAY from CTL blocks on DPU >= 5.0
-      drm/msm/dpu: drop now-unused condition for has_legacy_ctls
-      dt-bindings: display: msm: mdp4: add LCDC clock and PLL source
-      drm/msm/mdp4: drop mpd4_lvds_pll_init stub
-      drm/msm/mdp4: register the LVDS PLL as a clock provider
-      drm/msm/mdp4: use parent_data for LVDS PLL
-      drm/msm/mdp4: move move_valid callback to lcdc_encoder
-      drm/msm/mdp4: switch LVDS to use drm_bridge/_connector
-      drm/msm/dpu: allow sharing SSPP between planes
-      drm/msm/dpu: enable SmartDMA on SM8150
-      drm/msm/dpu: enable SmartDMA on SC8180X
-      drm/msm/dpu: enable SmartDMA on SC8280XP
-      drm/msm/dpu: enable SmartDMA on SM8550
-      drm/msm/dpu: rename non-SmartDMA feature masks to be more explicit
-      dt-bindings: display/msm: dp-controller: describe SAR2130P
-      dt-bindings: display/msm: dsi-controller-main: describe SAR2130P
-      dt-bindings: display/msm: dsi-phy-7nm: describe SAR2130P
-      dt-bindings: display/msm: qcom,sc7280-dpu: describe SAR2130P
-      dt-bindings: display/msm: Add Qualcomm SAR2130P
-      drm/msm/mdss: add SAR2130P device configuration
-      drm/msm/dsi/phy: add configuration for SAR2130P
-      drm/msm/dpu: add catalog entry for SAR2130P
-      drm/msm/hdmi: move msm_hdmi_audio_update() out of msm_hdmi_set_timings()
-      drm/msm/hdmi: use new helper for ACR tables
-      drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8937
-      drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8917
-      drm/msm/dpu: remove DSC feature bit for PINGPONG on MSM8953
-      drm/msm/dpu: drop TE2 definitions
-      drm/msm/dpu: remove DSC feature bit for PINGPONG on SDM630
-      drm/msm/dp: reuse generic HDMI codec implementation
-      dt-bindings: display/msm/hdmi: drop obsolete GPIOs from schema
-      drm/msm/hdmi: convert clock and regulator arrays to const arrays
-      drm/msm/hdmi: move the alt_iface clock to the hpd list
-      drm/msm/hdmi: simplify extp clock handling
-      drm/msm/hdmi: drop clock frequency assignment
-      drm/msm/hdmi: switch to clk_bulk API
-      drm/msm/hdmi: switch to pm_runtime_resume_and_get()
-      drm/msm/hdmi: add runtime PM calls to DDC transfer function
-      drm/msm/hdmi: implement proper runtime PM handling
-      drm/msm/hdmi: rename hpd_clks to pwr_clks
-      drm/msm/hdmi: expand the HDMI_CFG macro
-      drm/msm/hdmi: ensure that HDMI is up if HPD is requested
-      drm/msm/hdmi: wire in hpd_enable/hpd_disable bridge ops
-      drm/msm/dpu: remove DPU_CTL_SPLIT_DISPLAY from SAR2130P CTL blocks
-      dt-bindings: display: msm: correct example in SM8350 MDSS schema
-
-Konrad Dybcio (2):
-      dt-bindings: display: msm: sm8350-mdss: Describe the CPU-CFG icc path
-      drm/msm/a6xx: Disable rgb565_predicator on Adreno 7c3
-
-Krzysztof Kozlowski (7):
-      drm/msm/dpu: Add missing "fetch" name to set_active_pipes()
-      drm/msm/dpu: Clear CTL_FETCH_PIPE_ACTIVE on mixer reset
-      drm/msm/dpu: Clear CTL_FETCH_PIPE_ACTIVE on ctl_path reset
-      drm/msm/dpu: Clear CTL_FETCH_PIPE_ACTIVE before blend setup
-      drm/msm/dpu: Drop useless comments
-      drm/msm/dpu: Add LM_7, DSC_[67], PP_[67] and MERGE_3D_5
-      drm/msm/dpu: Add handling of LM_6 and LM_7 bits in pending flush mask
-
-Luca Weiss (1):
-      dt-bindings: msm: qcom,mdss: Document interconnect paths
-
-Rob Clark (3):
-      Merge remote-tracking branch 'drm-misc/drm-misc-next' into msm-next
-      drm/msm/adreno: Drop fictional address_space_size
-      drm/msm/adreno: Remove MODULE_FIRMWARE()'s
-
-Rob Herring (Arm) (1):
-      dt-bindings: display/msm: hdmi: Fix constraints on additional
-'port' properties
-
-Stephan Gerhold (1):
-      drm/msm/gpu: Fix crash when throttling GPU immediately during boot
-
-Vignesh Raman (1):
-      drm/ci: uprev mesa
-
- .../bindings/display/msm/dp-controller.yaml        |   1 +
- .../bindings/display/msm/dsi-controller-main.yaml  |   4 +
- .../bindings/display/msm/dsi-phy-7nm.yaml          |   2 +
- .../devicetree/bindings/display/msm/hdmi.yaml      |  19 +-
- .../devicetree/bindings/display/msm/mdp4.yaml      |   9 +-
- .../devicetree/bindings/display/msm/qcom,mdss.yaml |  12 +
- .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 181 ++++++++-
- .../bindings/display/msm/qcom,sar2130p-mdss.yaml   | 439 +++++++++++++++++++++
- .../bindings/display/msm/qcom,sc7280-dpu.yaml      |   1 +
- .../bindings/display/msm/qcom,sm8350-mdss.yaml     |  13 +-
- .../bindings/opp/opp-v2-qcom-adreno.yaml           |  96 +++++
- MAINTAINERS                                        |   1 +
- arch/arm64/boot/dts/qcom/x1e80100.dtsi             |  27 +-
- drivers/gpu/drm/ci/build-igt.sh                    |   2 +-
- drivers/gpu/drm/ci/build.sh                        |   6 +-
- drivers/gpu/drm/ci/gitlab-ci.yml                   |   6 +-
- drivers/gpu/drm/ci/image-tags.yml                  |   2 +-
- drivers/gpu/drm/ci/lava-submit.sh                  |   2 +-
- drivers/gpu/drm/msm/Kconfig                        |   1 +
- drivers/gpu/drm/msm/Makefile                       |   1 -
- drivers/gpu/drm/msm/adreno/a2xx_catalog.c          |   5 -
- drivers/gpu/drm/msm/adreno/a3xx_catalog.c          |   5 -
- drivers/gpu/drm/msm/adreno/a4xx_catalog.c          |   3 -
- drivers/gpu/drm/msm/adreno/a5xx_catalog.c          |   9 -
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |  44 +--
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  96 ++++-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   1 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  11 +-
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |  73 +++-
- drivers/gpu/drm/msm/adreno/a6xx_hfi.h              |  21 +
- drivers/gpu/drm/msm/adreno/adreno_device.c         |   4 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.c            |  19 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   4 +-
- .../drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h    |   5 +-
- .../drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h   |   4 -
- .../drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h   |   2 -
- .../drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h   |   5 -
- .../drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h    |  12 +-
- .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |   8 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h |  11 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h |   8 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h |   8 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  21 +-
- .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  20 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h |  14 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |   6 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h |   5 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h |   8 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h |   4 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h |   8 +-
- .../drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h    |   2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h |   4 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h |   5 +-
- .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   |  21 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |   5 +-
- .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    |   5 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |  25 +-
- .../drm/msm/disp/dpu1/catalog/dpu_9_1_sar2130p.h   | 433 ++++++++++++++++++++
- .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   |   5 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  14 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  13 +-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   2 +
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   5 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  43 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   7 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  35 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |   4 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   6 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          | 230 ++++++++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  25 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |   2 +
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c           |  34 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h           |  16 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c  |  50 ++-
- .../gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c    | 121 ------
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c      |  51 ++-
- drivers/gpu/drm/msm/dp/dp_audio.c                  | 131 +-----
- drivers/gpu/drm/msm/dp/dp_audio.h                  |  27 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 126 ++++--
- drivers/gpu/drm/msm/dp/dp_display.c                |  55 ++-
- drivers/gpu/drm/msm/dp/dp_display.h                |   6 -
- drivers/gpu/drm/msm/dp/dp_drm.c                    |   8 +
- drivers/gpu/drm/msm/dp/dp_link.h                   |   4 +
- drivers/gpu/drm/msm/dp/dp_panel.c                  |  12 +-
- drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |  18 +
- drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   4 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   2 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |  50 +++
- drivers/gpu/drm/msm/hdmi/hdmi.c                    | 133 ++++---
- drivers/gpu/drm/msm/hdmi/hdmi.h                    |  26 +-
- drivers/gpu/drm/msm/hdmi/hdmi_audio.c              | 107 +----
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c             |  63 ++-
- drivers/gpu/drm/msm/hdmi/hdmi_hpd.c                |  89 +----
- drivers/gpu/drm/msm/hdmi/hdmi_i2c.c                |  14 +-
- drivers/gpu/drm/msm/hdmi/hdmi_phy.c                |   6 +-
- drivers/gpu/drm/msm/msm_gpu_devfreq.c              |   1 +
- drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
- drivers/gpu/drm/msm/msm_ringbuffer.c               |   2 +-
- .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |   7 +
- 101 files changed, 2272 insertions(+), 1064 deletions(-)
- create mode 100644
-Documentation/devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml
- create mode 100644
-Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
- create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_1_sar2130p.h
- delete mode 100644 drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+-- 
+With best wishes
+Dmitry
