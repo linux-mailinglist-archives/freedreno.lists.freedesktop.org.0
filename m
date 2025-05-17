@@ -2,119 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4E7BABA563
-	for <lists+freedreno@lfdr.de>; Fri, 16 May 2025 23:40:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C2FABA758
+	for <lists+freedreno@lfdr.de>; Sat, 17 May 2025 02:17:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83BC110EB9E;
-	Fri, 16 May 2025 21:40:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABAEE10EBFA;
+	Sat, 17 May 2025 00:17:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FZxCk93D";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="UYJSOIm9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14ECE10EB9E
- for <freedreno@lists.freedesktop.org>; Fri, 16 May 2025 21:40:13 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54GBRxhJ023734
- for <freedreno@lists.freedesktop.org>; Fri, 16 May 2025 21:40:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=WLyt+5Z0AOIejFDuTl8oaCpz
- mlN3FLZTqlnnQr41U2I=; b=FZxCk93DJkNcuvKAn8NQGI5E3U1ByqkuzIlIXHwl
- iS8RWtkTnRKnLl24gpFtA246E5VseX+zuE8I757cgPLvv+mBYyn2IXNBe98hKHP/
- d6VJybk+eyFFuYmNh2tPNuO/t4ibS0r6hxAf2MEduKGtJOuqd3gyFruTFnmJVevW
- feci+RPVlYx9FPqICCUEvrElyV/A9TiY1pWYM8abiQLE6piykZhs86Z2YArc/kSb
- 0A7ez0t6JH8/3hJIyXskqiKrFpi7fDEsvDUcOzig0n+8+9pgvJOehdb/z0w0RrUr
- EpMezCOrEcuDmmMkfmIfuhWr9Bs4/p/utgw95xTeoo8PdA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46p4gq9gq8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 16 May 2025 21:40:12 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-6f6f2c41eddso55022256d6.2
- for <freedreno@lists.freedesktop.org>; Fri, 16 May 2025 14:40:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747431611; x=1748036411;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WLyt+5Z0AOIejFDuTl8oaCpzmlN3FLZTqlnnQr41U2I=;
- b=lMWej3rGuEU10fyW+IZw3mwkxowUz/ucFQJvJdVznTkfMvrj5DwlqsD7zHbQ36C90F
- NWXl9TF3PJ7U7MpBuyikZpHAuMySijG0ApPvd8uXFazVzGigm3/WOaM/Gdy1Q6YrtjTK
- R5BpJhdEsNvs5L/LgKnMAqTdiCSCwmajSZ+MQ7z1ekit+5ZC1Z4kQOq6iMgohseIM+Ue
- AMujysddZ9sBLItSdrct4CH+BDIWX1NZm6hehifWseOcxHlHQP4aZWZxXvh/FX6mgq1T
- dxaZQz7nntfi2kkpliXp96bFG6El4LrojMQZKzDWQFS65FaaFi4Y7vxHA68Bz+K7cHrR
- pslw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXuhTw3sMpliWU3152NXwh9gUrT74pdVvPstZtIgABNshZncRUkvCQI+hI5rnOk4E8qAFY4ogO7zQ0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+3Cueiep+OH2IOEa1pyiXaiB1eVLSWjfbujlhYGmfVx7tpUgA
- 8Kd1Z7112d68JK8fKMf2ZxGowG7c+lXDdv4C62rnvxtIXg2ovMJNFo4yjBS3Uh8UgNswg3pDu3P
- U2Vu0U8wcXevuLxXaDna1FgPObCwSrHha2tB5+jNbBPI5y2pj9OJZwmOgmT+Kx2l5BFfMnlA=
-X-Gm-Gg: ASbGnctFFcC9ZZmXOMoTxL0dAKydPvAftg3cyisiu5e7wS09lQxDRttqAi+RBPgKmM9
- ig/+IWgbv0V3XcMXadU2ViarV7H1r8NGoGOBhwmjQqX6ZPB3urQtt8ECYNtboD6h5gHuUFG4nAR
- feTFxwmnVpeygW1JeZukyAs3Kjqt1IPvVVVkc5sw0wKydIMNjs+OCC/dhNfRxCnovAhdwxbH4k/
- OiqR1EbChmVmi08PwXCEblEyZyf/3alKpmH+zPmvdx2FFu9moPBgUNpbXhtos3IQbxTEkPb/kIs
- B53GmSvfoWUievnsvVib21i5hXRrCpAiNd1hd07axEYe4IbU1J2KfNLvC0ABfjA28F0XJRPAXVQ
- =
-X-Received: by 2002:a05:6214:2341:b0:6f2:b7cd:7cac with SMTP id
- 6a1803df08f44-6f8b08aad53mr84737166d6.31.1747431611237; 
- Fri, 16 May 2025 14:40:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFlSkHU/95FW0SPZKEO3RfhsXaoQpKMCqmBdWYPgcm4PwTrfg++Ymk08ToHgTYtlLPYBsZyPQ==
-X-Received: by 2002:a05:6214:2341:b0:6f2:b7cd:7cac with SMTP id
- 6a1803df08f44-6f8b08aad53mr84736776d6.31.1747431610813; 
- Fri, 16 May 2025 14:40:10 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-550e7038518sm595002e87.210.2025.05.16.14.40.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 May 2025 14:40:09 -0700 (PDT)
-Date: Sat, 17 May 2025 00:40:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Abhinav Kumar <abhinav.kumar@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/5] drm/msm/dpu: Filter writeback modes using writeback
- maxlinewidth
-Message-ID: <62vhglzixy2hl7uhl3queml5z3vvvqw6kefhaboip3iql6ep4e@kbl4yihvj65g>
-References: <20250514-max-mixer-width-v1-0-c8ba0d9bb858@oss.qualcomm.com>
- <20250514-max-mixer-width-v1-4-c8ba0d9bb858@oss.qualcomm.com>
- <CALT56yPxcsLhA2eigirjvNiWR5JBFW4jsOAi7QWkgmJgbMnKXw@mail.gmail.com>
- <65cb9653-e315-4b8c-ad21-14cabb7d2ac0@oss.qualcomm.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B303C10E1B9;
+ Sat, 17 May 2025 00:17:22 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54GCHouU002120;
+ Sat, 17 May 2025 00:08:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ kTk7xRffMswbzTXuCCq8zid0YNK/PoGynlrIilTSHtQ=; b=UYJSOIm9XrMznxGv
+ PKX5+m2/91QCG52MSgmxGrifK2NCdeqGD9rDMyIhxvccV80N442w39RfVsbaoG5a
+ K5K+xX2MwGmblyN4zAIQZwuaui5+hagJ1N82o0fFLDDzqUnMxKH1P/xS5ZEW+Tqz
+ 79YWjwgo+vBsn7N6ORkpTCAMZL9I/VRR9zVDIQi+xl69YnjFgLevQzr1iRNGw6q7
+ +GffuUqQfHPxoY+stGEhzwchYXpoXBsenBz/QOw6QxURwV3TqTK78hWvJYI+y8Jo
+ A0mNH18wxnvinCxGZ4q2AJUuBo1liaFyiB3euOKiZvXCgyJbS+ZWAV3scSACL4E/
+ Obss8g==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46mbcrk93c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 17 May 2025 00:08:30 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 54H08TBm016475
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 17 May 2025 00:08:29 GMT
+Received: from [10.134.71.99] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 16 May
+ 2025 17:08:28 -0700
+Message-ID: <75f503ea-e8cf-48f3-b39e-388ac456821f@quicinc.com>
+Date: Fri, 16 May 2025 17:08:28 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <65cb9653-e315-4b8c-ad21-14cabb7d2ac0@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: Kq6CqbNPRjsHYoq3RuJmhi59xsVcj59y
-X-Authority-Analysis: v=2.4 cv=KulN2XWN c=1 sm=1 tr=0 ts=6827b0bc cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=dt9VzEwgFbYA:10 a=EUspDBNiAAAA:8 a=Ey3AjrcxibMDRGd7HuQA:9 a=CjuIK1q_8ugA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTE2MDIxMiBTYWx0ZWRfX2kM0JE8w2krI
- YnIKtWKXaQkVOzg6QlYM1Uvjalg/BkLQzGVs5LdGcTbzNVqeCR2nnH1znbEvItIjfsNI9s2drXu
- ayLN/04d24bcpKXlyf0wsE0UGSofcs4RYIyNRNR2LbBtb34qMvkwIqVyXWXmldMnjepQ4brWsyi
- tIAO3KTWo8qM+EWgzzwK+egOtyRE5rYyCAWa8J+DHjWiImh2LaRi5VQxRvPtn70iKQCbeTfloNz
- cbqCp5qmM6TRs2amiS4zYgXgO3TvF3G0IlVjjLqkpkYud+1/CY7NLkzpERwtdptxRYZ5QrKlFGq
- ogW7uAI+NAVnFTWSKfE82aLxEqNa61g0z1KAJupB11jJr+S6mXlpWXoRWMbc80O42BliU1seYYH
- B5etL9oyJAkGicoWNPk0uLXUcX+bpBrK2yaDSlIq3SZXIFP8oWI+vtJRaE5IkN2Ewyu95qjb
-X-Proofpoint-GUID: Kq6CqbNPRjsHYoq3RuJmhi59xsVcj59y
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/24] drm/msm: Add support for SM8750
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Jonathan Marek
+ <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Dmitry Baryshkov <lumag@kernel.org>, Rob Clark
+ <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>, "Michael
+ Turquette" <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@chromium.org>,
+ <linux-clk@vger.kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+References: <20250430-b4-sm8750-display-v5-0-8cab30c3e4df@linaro.org>
+Content-Language: en-US
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20250430-b4-sm8750-display-v5-0-8cab30c3e4df@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: qHZxSWgUZHAJEnbr4A_2uY0OfozDuEx9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTE2MDIzNSBTYWx0ZWRfX8++ol42qIIV8
+ PXzgLMQuPf6306r81xIAqfBTAdYXO6UmdhZQxPc7oSOu9WeisyuCQJsE1gvbWLz8G4HxuYqYjv1
+ a2otz8Ay1NjWTyGXtHpHUZE71o2N58r8vzFRdAnoI9zchrIFfFxqmeCTKTj3/QtyVXzM1OG9Abc
+ 6+SQ/q0jWmKperUPLbFid3uG/J9VZ3VHlroFg3eIt1S8IzmqAKHUaig6nTu5ywWR1KWiANMTQEc
+ qRNimJVIWXA+ml0Mu8eFjCVpt9Mu8h84x9Wvlr59QOY/OC10NyfgYEycYTcpsMPoVgLspe1+l2x
+ HJBmX4ErHh/2U8jeymUnkf1Kvl2azfdCPWiO8qs2GJIf3XxcEcpB09R8L8Z+MqZAwc76zfiVw04
+ FGbw44RN7dMklaQwPWNklJCkTByt6O2DQXx7qoWq3+CbW9yN+tCTK/Jfrgk2Vysn7G7/iBIj
+X-Authority-Analysis: v=2.4 cv=K7UiHzWI c=1 sm=1 tr=0 ts=6827d37e cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=VwQbUJbxAAAA:8
+ a=KKAkSRfTAAAA:8 a=e5mUnYsNAAAA:8 a=k5wYIqEnLEkAo4cnzkIA:9 a=QEXdDO2ut3YA:10
+ a=cvBusfyB2V15izCimMoJ:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: qHZxSWgUZHAJEnbr4A_2uY0OfozDuEx9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-16_07,2025-05-16_03,2025-03-28_01
+ definitions=2025-05-16_08,2025-05-16_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxscore=0 suspectscore=0 adultscore=0 priorityscore=1501
- mlxlogscore=999 clxscore=1015 bulkscore=0 lowpriorityscore=0 phishscore=0
- impostorscore=0 malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ adultscore=0 priorityscore=1501 mlxscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 mlxlogscore=999 clxscore=1011 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 spamscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505070000
- definitions=main-2505160212
+ definitions=main-2505160235
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,69 +116,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 15, 2025 at 05:48:09PM -0700, Jessica Zhang wrote:
-> 
-> 
-> On 5/14/2025 5:17 PM, Dmitry Baryshkov wrote:
-> > On Thu, 15 May 2025 at 02:52, Jessica Zhang
-> > <jessica.zhang@oss.qualcomm.com> wrote:
-> > > 
-> > > Since the max mixer width is not a strict hardware limit, use the actual
-> > 
-> > Is it? What is the actual max width that the mixer can support?
-> 
-> Hi Dmitry,
-> 
-> By hardware limit, I mean restrictions based on the size of buffers within
-> the hardware block itself.
-> 
-> PINGPONG, DSC encoder, and WB blocks all have buffers, so they do have a max
-> supported width based on the size of their hardware buffers. On the other
-> hand, LM doesn't so it isn't necessarily restricted by a max width.
-> 
-> I can clarify this in the commit message and cover letter.
 
-Yes, please. The text above is perfect for the commit message.
+
+On 4/30/2025 6:00 AM, Krzysztof Kozlowski wrote:
+> Hi,
+> 
+> Dependency / Rabased on top of
+> ==============================
+> https://lore.kernel.org/all/20241214-dpu-drop-features-v1-0-988f0662cb7e@linaro.org/
+
+Hey Krzysztof,
+
+JFYI, I think there was some discussion on IRC (specifically #linux-msm) 
+about having the feature bit dependency back in February.
+
+I believe both Abhinav and Dmitry agreed that you can keep the changes 
+to do version checks and drop this dependency.
+
+There are still some ongoing discussions regarding the feature bit 
+series, so this way your series isn't blocked by that.
+
+Thanks,
+
+Jessica Zhang
 
 > 
-> Thanks,
+> Merging
+> =======
+> DSI works! With the fixes here and debugging help from Jessica and
+> Abhinav, the DSI panel works properly.
 > 
-> Jessica Zhang
+> The display clock controller patch can go separately.
 > 
-> > 
-> > > hardware limit (the writeback maxlinewidth) to filter modes.
-> > > 
-> > > Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> > > ---
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 9 +--------
-> > >   1 file changed, 1 insertion(+), 8 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-> > > index 8ff496082902..0a198896f656 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-> > > @@ -14,14 +14,7 @@ static int dpu_wb_conn_get_modes(struct drm_connector *connector)
-> > >          struct msm_drm_private *priv = dev->dev_private;
-> > >          struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
-> > > 
-> > > -       /*
-> > > -        * We should ideally be limiting the modes only to the maxlinewidth but
-> > > -        * on some chipsets this will allow even 4k modes to be added which will
-> > > -        * fail the per SSPP bandwidth checks. So, till we have dual-SSPP support
-> > > -        * and source split support added lets limit the modes based on max_mixer_width
-> > > -        * as 4K modes can then be supported.
-> > > -        */
-> > > -       return drm_add_modes_noedid(connector, dpu_kms->catalog->caps->max_mixer_width,
-> > > +       return drm_add_modes_noedid(connector, dpu_kms->catalog->wb->maxlinewidth,
-> > >                          dev->mode_config.max_height);
-> > >   }
-> > > 
-> > > 
-> > > --
-> > > 2.49.0
-> > > 
+> Changes in v5:
+> =============
+> - Add ack/rb tags
+> - New patches:
+>    #6: clk: qcom: dispcc-sm8750: Fix setting rate byte and pixel clocks
+>    #14: drm/msm/dsi/phy: Toggle back buffer resync after preparing PLL
+>    #15: drm/msm/dsi/phy: Define PHY_CMN_CTRL_0 bitfields
+>    #16: drm/msm/dsi/phy: Fix reading zero as PLL rates when unprepared
+>    #17: drm/msm/dsi/phy: Fix missing initial VCO rate
 > 
+> - Patch drm/msm/dsi: Add support for SM8750:
+>    - Only reparent byte and pixel clocks while PLLs is prepared. Setting
+>      rate works fine with earlier DISP CC patch for enabling their parents
+>      during rate change.
+> 
+> - Link to v4: https://lore.kernel.org/r/20250311-b4-sm8750-display-v4-0-da6b3e959c76@linaro.org
+> 
+> Changes in v4
+> =============
+> - Add ack/rb tags
+> - Implement Dmitry's feedback (lower-case hex, indentation, pass
+>    mdss_ver instead of ctl), patches:
+>    drm/msm/dpu: Implement 10-bit color alpha for v12.0 DPU
+>    drm/msm/dpu: Implement CTL_PIPE_ACTIVE for v12.0 DPU
+> 
+> - Rebase on latest next
+> - Drop applied two first patches
+> - Link to v3: https://lore.kernel.org/r/20250221-b4-sm8750-display-v3-0-3ea95b1630ea@linaro.org
+> 
+> Changes in v3
+> =============
+> - Add ack/rb tags
+> - #5: dt-bindings: display/msm: dp-controller: Add SM8750:
+>    Extend commit msg
+> 
+> - #7: dt-bindings: display/msm: qcom,sm8750-mdss: Add SM8750:
+>    - Properly described interconnects
+>    - Use only one compatible and contains for the sub-blocks (Rob)
+> 
+> - #12: drm/msm/dsi: Add support for SM8750:
+>    Drop 'struct msm_dsi_config sm8750_dsi_cfg' and use sm8650 one.
+> - drm/msm/dpu: Implement new v12.0 DPU differences
+>    Split into several patches
+> - Link to v2: https://lore.kernel.org/r/20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org
+> 
+> Changes in v2
+> =============
+> - Implement LM crossbar, 10-bit alpha and active layer changes:
+>    New patch: drm/msm/dpu: Implement new v12.0 DPU differences
+> - New patch: drm/msm/dpu: Add missing "fetch" name to set_active_pipes()
+> - Add CDM
+> - Split some DPU patch pieces into separate patches:
+>    drm/msm/dpu: Drop useless comments
+>    drm/msm/dpu: Add LM_7, DSC_[67], PP_[67] and MERGE_3D_5
+>    drm/msm/dpu: Add handling of LM_6 and LM_7 bits in pending flush mask
+> - Split DSI and DSI PHY patches
+> - Mention CLK_OPS_PARENT_ENABLE in DSI commit
+> - Mention DSI PHY PLL work:
+>    https://patchwork.freedesktop.org/patch/542000/?series=119177&rev=1
+> - DPU: Drop SSPP_VIG4 comments
+> - DPU: Add CDM
+> - Link to v1: https://lore.kernel.org/r/20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org
+> 
+> Best regards,
+> Krzysztof
+> 
+> ---
+> Krzysztof Kozlowski (24):
+>        dt-bindings: display/msm: dsi-phy-7nm: Add SM8750
+>        dt-bindings: display/msm: dsi-controller-main: Add SM8750
+>        dt-bindings: display/msm: dp-controller: Add SM8750
+>        dt-bindings: display/msm: qcom,sm8650-dpu: Add SM8750
+>        dt-bindings: display/msm: qcom,sm8750-mdss: Add SM8750
+>        clk: qcom: dispcc-sm8750: Fix setting rate byte and pixel clocks
+>        drm/msm/dpu: Add missing "fetch" name to set_active_pipes()
+>        drm/msm/dpu: Clear CTL_FETCH_PIPE_ACTIVE on mixer reset
+>        drm/msm/dpu: Clear CTL_FETCH_PIPE_ACTIVE on ctl_path reset
+>        drm/msm/dpu: Clear CTL_FETCH_PIPE_ACTIVE before blend setup
+>        drm/msm/dpu: Drop useless comments
+>        drm/msm/dpu: Add LM_7, DSC_[67], PP_[67] and MERGE_3D_5
+>        drm/msm/dpu: Add handling of LM_6 and LM_7 bits in pending flush mask
+>        drm/msm/dsi/phy: Toggle back buffer resync after preparing PLL
+>        drm/msm/dsi/phy: Define PHY_CMN_CTRL_0 bitfields
+>        drm/msm/dsi/phy: Fix reading zero as PLL rates when unprepared
+>        drm/msm/dsi/phy: Fix missing initial VCO rate
+>        drm/msm/dsi/phy: Add support for SM8750
+>        drm/msm/dsi: Add support for SM8750
+>        drm/msm/dpu: Add support for SM8750
+>        drm/msm/dpu: Implement 10-bit color alpha for v12.0 DPU
+>        drm/msm/dpu: Implement CTL_PIPE_ACTIVE for v12.0 DPU
+>        drm/msm/dpu: Implement LM crossbar for v12.0 DPU
+>        drm/msm/mdss: Add support for SM8750
+> 
+>   .../bindings/display/msm/dp-controller.yaml        |   4 +
+>   .../bindings/display/msm/dsi-controller-main.yaml  |  54 ++-
+>   .../bindings/display/msm/dsi-phy-7nm.yaml          |   1 +
+>   .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+>   .../bindings/display/msm/qcom,sm8750-mdss.yaml     | 470 +++++++++++++++++++
+>   drivers/clk/qcom/dispcc-sm8750.c                   |   4 +-
+>   .../drm/msm/disp/dpu1/catalog/dpu_12_0_sm8750.h    | 496 +++++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  58 ++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  12 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  35 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  71 ++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  19 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          | 210 ++++++++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.h          |  18 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   6 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>   drivers/gpu/drm/msm/dsi/dsi.h                      |   2 +
+>   drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |  14 +
+>   drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
+>   drivers/gpu/drm/msm/dsi/dsi_host.c                 |  81 ++++
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   2 +
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          | 157 ++++++-
+>   drivers/gpu/drm/msm/msm_mdss.c                     |  33 ++
+>   drivers/gpu/drm/msm/msm_mdss.h                     |   1 +
+>   .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  |  25 +-
+>   27 files changed, 1730 insertions(+), 49 deletions(-)
+> ---
+> base-commit: 4ec6605d1f7e5df173ffa871cce72567f820a9c2
+> change-id: 20250109-b4-sm8750-display-6ea537754af1
+> 
+> Best regards,
 
--- 
-With best wishes
-Dmitry
