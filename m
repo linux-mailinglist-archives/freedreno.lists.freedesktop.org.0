@@ -2,124 +2,141 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9E27ABBF15
-	for <lists+freedreno@lfdr.de>; Mon, 19 May 2025 15:26:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB66ABC152
+	for <lists+freedreno@lfdr.de>; Mon, 19 May 2025 16:52:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C02FA10E235;
-	Mon, 19 May 2025 13:26:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6624A10E254;
+	Mon, 19 May 2025 14:52:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="I7VCfql2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="N7bOaft/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16BA710E235
- for <freedreno@lists.freedesktop.org>; Mon, 19 May 2025 13:26:49 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54J9ZuYD020271
- for <freedreno@lists.freedesktop.org>; Mon, 19 May 2025 13:26:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=oGkk5uPJENlcrR8ExGnK93Az
- 4FZA48X1UVpf5g9eL1k=; b=I7VCfql2kc7qjAhj9U4Ib2pC2SRvhWpc50xCFtgB
- FZEbxxfJw7SgxZZY3MV/GJ6hS0Qfq8uC388znSM6gF+ciCv++FeiWFZP6H+axZbP
- sHQCInrP5gs8hJBIK0M7tgN4GgofOSI8Q5fXWFIgA6P4cbNCRkRTPLGXH3cJbjrA
- 8X47iE7CVVWug/XC7DOs8I7+cJfDrZH53KkwJHstRaMHM2r0O1Hefo2N9ou+OmPG
- zE69BHQp7mLZbOP9pcQxWsQos+tybqsG0Neot7lgA09Fs2Wln2+yi1jpxAtYB5sS
- vggNG1t/KHaPtgc8vQZcAjXL5qahu+8DEa7CmRzoU6UzIQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46pkr9vfak-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 19 May 2025 13:26:48 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-6f8ae49fd37so69589206d6.1
- for <freedreno@lists.freedesktop.org>; Mon, 19 May 2025 06:26:48 -0700 (PDT)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9232B10E254
+ for <freedreno@lists.freedesktop.org>; Mon, 19 May 2025 14:52:19 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-ad538578668so30887966b.1
+ for <freedreno@lists.freedesktop.org>; Mon, 19 May 2025 07:52:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1747666338; x=1748271138; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=U2o8j34NI0bciQQu5STnjspj3R64g/tb5wC3dEqkg1s=;
+ b=N7bOaft/01+qM4kGnBmAhpnj+zsL5DvEeuB3C8+yIEEDoJvpo0l9cU0B97AWfxkqBp
+ GuHaZRYn3lXy7A5RGdGGcKLseUPU4K+j6SngrVgLbbngXaw3llB/DrJDe9yHF6WfrPHA
+ Yhmb9sMA7m5jDr2AAXx7Oefh7gsC+ObRlEHiWqGgulHzMN5L12u7lKbKbl0u9b+YxQ48
+ WVUU7V+tlpgHoDvQPY2ddsVaZJHdmdncbWwQ7tmWGVgID495QDkl6jhqkuoFFMmzN+da
+ vFuUg9jrw7d0ZSW9bh8UJTaslL8lupxAn9jrYLBiOS10jL2AxnfWUkPcMWckqcOYy4A/
+ iG+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747661207; x=1748266007;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oGkk5uPJENlcrR8ExGnK93Az4FZA48X1UVpf5g9eL1k=;
- b=LREz+v8LehdFbL5i0CsDIwIcXjEJdyGmrrcI/RCS3oMEQ3M2ceoYtW2HS/IVUnW6WX
- tUxUEcMlY+Yy5Pntj2nF9asyEpFNlZbgwIDZDUbOMK9/YbOsOzAVf5F9US14nvZdYzF3
- JNH/ZprCx+oWFNCfbuRyFrMj5Lu7kjU/wr3zNk3WRtWTN7raXS0Wze+lkQwJGi1LhfFq
- wThgboDEK3bch59ry1m4gAIBZ6UVrvesgggDiIWVwpMUaczDsp5wH4PHVyxutHUXRp3G
- Stu+3hES6PjuV7YD0Q9bVp0wGpDSX7l8ggecjEPrcSjBQVDL23MmBs5bHw86WX9XqYkV
- kvKA==
+ d=1e100.net; s=20230601; t=1747666338; x=1748271138;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=U2o8j34NI0bciQQu5STnjspj3R64g/tb5wC3dEqkg1s=;
+ b=JYEV+SJenH0Dj/RGhazVRnFsiUR2XaicIimCB+/n5Nejz5+24uqdSViah4aDcqXpKC
+ ICX5ve77Zm9X8C0aEBS2Uu1ztmUMbojSKIx04oS425aPDVH9I0cCvij8atSDaXbChhAC
+ ATqD00WaX1bwtDUmZXEwmvgDlH1KKOdWFUOmXBeb5LUhwoct0sNhIGa+EhQVfkRH15Gv
+ 1Z10Wairz6ssUGtFkifrxRtFzNMYr6A0gmd3h0vJoZwa6im4HqViAPbyezeUYc7wIkym
+ o7IhGhtWme0J+PGPofCSkuUPUNm2fe93HOfcKtH6mCYAjxnUtJVNgNtEHDXKgzJ3ageu
+ LSFw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUwu7W7R7Pf5E/J4zM40L66MkzrtlvMe8KVf2lK8TT7DMbyMQtppBlvaF+xAI7ImoFegMV8J6MCAI0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQBQRfD6waXmB+7FJhco3oD61LS2eFOubcWUN6ABc7cKd4QW8o
- 8EqvmvM0CNSMCYrsjVtRhQWW0lSw6gFGSTdtuZjIeuQ5FUMqsf2En+2HYMiLIV2052scbojDaML
- SFqp35LENb5vv4riMxZmr9vLrk4GLc262XCMLd5puX/0sRU9cNOKMl4Pxb02tFF9Dh2CCIRw=
-X-Gm-Gg: ASbGncs+24q5rBAe2v33YXFOlIIvuWrTzHsWX7i8V+9oMmHuUkWRr6LF+N3nXh9CJr2
- AHK0h5tUF+nB+GEJsmUyKrFWlUDUt5zhIWvhGS0pZvWqucqjfgbEsDOSFwcbH8sLKCcmSdQlgZq
- k6VbEYXoFgtoO8HozsH9VBXsoGB6oWe0gK3LqaZwKrTmgWUeokU5QwjPtt93DJGw49mMvPXFGmi
- +qn2znpND2/V1NttFetwRvOfYIp49rJjwES/384gjRkxDiOzkCRNabUnk2e6eb/Di8ZD9wav/QF
- YTNnde2J7JHBwq4y8UD0oy/xDE91ySLXGOeQav0yGQSNDFjmJUJ48CQZUK6iSnx7C4BM2TN/KMU
- =
-X-Received: by 2002:ad4:4ee6:0:b0:6f8:c53f:48e with SMTP id
- 6a1803df08f44-6f8c53f0bc2mr146769586d6.0.1747661206770; 
- Mon, 19 May 2025 06:26:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE0aOVnc3nCtR9lGsacqR42oc4D8WjdNAyfE+YftMATKn0uQn4ucAG7wCIoSsvdjD5bfEC09w==
-X-Received: by 2002:ad4:4ee6:0:b0:6f8:c53f:48e with SMTP id
- 6a1803df08f44-6f8c53f0bc2mr146769056d6.0.1747661206344; 
- Mon, 19 May 2025 06:26:46 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ AJvYcCXPJWHJfFSnvVQTM5a0yPn8Uke/qWjNwwTNYA11Z6Fp7Ieia7rDEhTrZ6KMxdZ59fhlW3DMeKsQSLU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxf3N6jCe5r2ee5e23vnazXX0BmTclxbjmOiYXQhIQWTszF7407
+ RJC0Jd45egRNqxGqTOUriM8RacaVZzkMAelfsY/RsFsUoFLvPzQVUvLAkjANJeeaB8k=
+X-Gm-Gg: ASbGncv0fh+Q4mTXbKwBaUtGTJzQaU4/EWOLHWSExlvrlcDeLfTl6E70LHgmm8ArDoB
+ Js5VODTYIVyPRfhcBUax0wgjdcdkTQk/xyQNQH21VvCDuPwlnxavwyPHgpnACzTtCjjfBhX5RGI
+ HGwBfc3YK07eK0mtnt0g/IKQvTQVoIr9kozu6E0EQaZjDat8WBBDIIFJXb/bytQLwm+rv2AWdCp
+ w2wNfZWxei3CP4QrKjTggGt0EmDn+B6obGZKWT6Vab07BKCEeQKOTBh6tQum7eEyTQ7XN6ug/Ef
+ +GLnJs1rsRTFG4OA2f3TG3AOkCyPNj3lmsrAgAAvXokHIjFgh59aNoaOQFxtcZAmfDWSDAs=
+X-Google-Smtp-Source: AGHT+IH9zgdaGWKJVCnRy31O8Lk1rIV72hWBjTwmWf6vCm9kAw5B7k9GjdC0BT3/VJRY7bOIdp8X5A==
+X-Received: by 2002:a17:907:ab5:b0:abf:6c88:df53 with SMTP id
+ a640c23a62f3a-ad52d5256f3mr363732966b.4.1747666337974; 
+ Mon, 19 May 2025 07:52:17 -0700 (PDT)
+Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-328084dd21esm18791861fa.63.2025.05.19.06.26.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 May 2025 06:26:45 -0700 (PDT)
-Date: Mon, 19 May 2025 16:26:43 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ayushi Makhija <quic_amakhija@quicinc.com>
-Cc: Ayushi Makhija <amakhija@qti.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- andersson@kernel.org, robh@kernel.org, robh+dt@kernel.org,
- krzk+dt@kernel.org, konradybcio@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_jesszhan@quicinc.com, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v7 1/2] arm64: dts: qcom: sa8775p: add Display Serial
- Interface device nodes
-Message-ID: <4cjz3wu3osafi7sffluslxea3e6vkdw45usg3djpclw5lv4fvg@ofoqbmwjdmjh>
-References: <20250513102611.1456868-1-amakhija@qti.qualcomm.com>
- <20250513102611.1456868-2-amakhija@qti.qualcomm.com>
- <tjp2pfescczqikbu2tzylx4ecb3n6trixvhbdwbpz6y4jc52wk@fmkdxrelun3i>
- <38a94e78-9793-455b-a5ab-6283d397b759@quicinc.com>
+ a640c23a62f3a-ad52d04e816sm593323766b.23.2025.05.19.07.52.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 May 2025 07:52:17 -0700 (PDT)
+Message-ID: <24e49307-7d75-4736-9b5c-2e6286fe57a3@linaro.org>
+Date: Mon, 19 May 2025 16:52:15 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <38a94e78-9793-455b-a5ab-6283d397b759@quicinc.com>
-X-Proofpoint-GUID: DECIqTB-jTrJ1LYaPV-J3sVjso6VTt4o
-X-Proofpoint-ORIG-GUID: DECIqTB-jTrJ1LYaPV-J3sVjso6VTt4o
-X-Authority-Analysis: v=2.4 cv=DdAXqutW c=1 sm=1 tr=0 ts=682b3198 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=vtArrIq1twOU848iWwIA:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTE5MDEyNSBTYWx0ZWRfX6mB+edy68nWi
- Bwj81w7BLGf77xqc57fJPDXxPWv0UQ1wAlaeb+iLdB1iZS0sKA35GJL1tNHBYoM/AjtM7o1b9HQ
- Q0iz+UTjNJNsMySh3fj25c/OfKb8/oE5n6VqnLN07zkVKQqG6CcMF6DeLBnzIWAu+s7wKrsw2iZ
- rpWEuyDd1EEHsLcRbAmlVhkaIPbtGaL4Hlj5v0KSJXVlNrSnSjZqTFS+ZlrgqTxaiBbc0JVD9Zo
- NTei6KHkGGS8fMXoG85MH0c5Jt/OIvLKijsIeby2BHW6wjkzZ4qO+mnRDqzInBabrq6LgfgWLQP
- Ne4Ql89P2EkBjxyi1fkau9QMNvBTk2gKvhPvd/g6iML+pd3uMap1qEP1rZ55pFh/RRj+v5JxMMI
- G1kCzIGLDsuyUc0rPOWSg927x1ZM6aHqwIFq/ewv4gGIP63B8MHoG2UDIsM1kxDWoW4i/WHa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-19_05,2025-05-16_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 clxscore=1015 phishscore=0 adultscore=0 mlxscore=0
- spamscore=0 malwarescore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- impostorscore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505070000 definitions=main-2505190125
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/24] drm/msm: Add support for SM8750
+To: Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
+ linux-clk@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20250430-b4-sm8750-display-v5-0-8cab30c3e4df@linaro.org>
+ <75f503ea-e8cf-48f3-b39e-388ac456821f@quicinc.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ 2+47PN9NZAOyb771QoVr8A==
+In-Reply-To: <75f503ea-e8cf-48f3-b39e-388ac456821f@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,45 +152,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 19, 2025 at 04:30:55PM +0530, Ayushi Makhija wrote:
-> On 5/19/2025 6:31 AM, Dmitry Baryshkov wrote:
-> > On Tue, May 13, 2025 at 03:56:10PM +0530, Ayushi Makhija wrote:
-> >> From: Ayushi Makhija <quic_amakhija@quicinc.com>
-> >>
-> >> Add device tree nodes for the DSI0 and DSI1 controllers
-> >> with their corresponding PHYs found on Qualcomm SA8775P SoC.
-> >>
-> >> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-> >> Reviewed-by: Dmitry Baryshkov <lumag@kernel.org>
-> >> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >> ---
-> >>  arch/arm64/boot/dts/qcom/sa8775p.dtsi | 186 +++++++++++++++++++++++++-
-> >>  1 file changed, 185 insertions(+), 1 deletion(-)
-
-> >> +
-> >> +				dsi0_opp_table: opp-table {
-> > 
-> > mdss_dsi_opp_table: opp-table {}
-> > 
-> >> +					compatible = "operating-points-v2";
-> >> +
-> >> +					opp-358000000 {
-> > 
-> > Is there only one entry? Usually there are several.
-> > 
+On 17/05/2025 02:08, Jessica Zhang wrote:
 > 
-> Hi Dmitry,
 > 
-> Thanks, for the review.
+> On 4/30/2025 6:00 AM, Krzysztof Kozlowski wrote:
+>> Hi,
+>>
+>> Dependency / Rabased on top of
+>> ==============================
+>> https://lore.kernel.org/all/20241214-dpu-drop-features-v1-0-988f0662cb7e@linaro.org/
 > 
-> In the IP catalog Clock documentation of SA8775P, the same DSI clock frequency (358Mhz)
-> is mentioned for all the voltage corners (svs_l1, nom, turbo and turbo_l1).
-> That's why I kept the single entry opp-358000000 for 358Mhz and selected lowest voltage corner svs_l1.
->  
-> I will address rest of the comments in next version of series.
+> Hey Krzysztof,
+> 
+> JFYI, I think there was some discussion on IRC (specifically #linux-msm) 
+> about having the feature bit dependency back in February.
+> 
+> I believe both Abhinav and Dmitry agreed that you can keep the changes 
+> to do version checks and drop this dependency.
+> 
+> There are still some ongoing discussions regarding the feature bit 
+> series, so this way your series isn't blocked by that.
 
-Ack, thanks for the confirmation.
+I was asked by Dmitry to rebase this on his rework. That was quite an
+effort. Now I hear the dependency - Dmitry's rework - won't come in and
+I need to rebase back, which will be more effort. Can you all ack this
+so I won't be needing third rebase?
 
--- 
-With best wishes
-Dmitry
+Best regards,
+Krzysztof
