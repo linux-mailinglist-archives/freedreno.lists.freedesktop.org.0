@@ -2,113 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8214BABC7C3
-	for <lists+freedreno@lfdr.de>; Mon, 19 May 2025 21:27:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4818EABC8F3
+	for <lists+freedreno@lfdr.de>; Mon, 19 May 2025 23:15:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5782910E22B;
-	Mon, 19 May 2025 19:27:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0A9310E2BE;
+	Mon, 19 May 2025 21:15:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fD54OPvx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LXMrWx3B";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1ABF10E2BD
- for <freedreno@lists.freedesktop.org>; Mon, 19 May 2025 19:27:10 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso35420065e9.2
- for <freedreno@lists.freedesktop.org>; Mon, 19 May 2025 12:27:10 -0700 (PDT)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E6F710E105;
+ Mon, 19 May 2025 21:15:51 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-ace333d5f7bso795008866b.3; 
+ Mon, 19 May 2025 14:15:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747682829; x=1748287629; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=zUIbMIX0qpjZAfI2726nQo87F32yjlrtrT1+wU7Wsio=;
- b=fD54OPvx4YJi7DV7aL2ZcmttWkznyH6DdMtF2fGn7v/tYFCyryWiQjuLTXE3qGraSj
- W3iHyr5S0B2M3a9pvg53wOx1rNb8VMuHkPrwAKC+Sj3zX7Wb8xDIla3cNu0BmefjaoEL
- tkNh43P4R93g2Ffid5to8I4OYOcEKyRhLzjKvvJzZRQiKYzcXAdqpX72sacRJKUUTfuh
- ffDjLYuRuvuvfcwLG2sy+cNRaHpE8ppAoFJv/SQQQ/IC6uCGgn4m3411tZU3RzgqCoZa
- 3P2uHCN0uvI9vBCHiH77p7jh9Kf8f4rhMga4uP4ybYN4ezhVh4baYxW9QF+e6HcWSYQo
- iQMA==
+ d=gmail.com; s=20230601; t=1747689345; x=1748294145; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=xfCxvNrNXH6YMvxiBWl55URv30Vk5ImyK9KqXeiCoPg=;
+ b=LXMrWx3BlUyVLL11cXxLjg/mewvFbizQ0ViV55k9/ZYE94pmJzNRj9TFYp4ciLj+5m
+ hWGAB9wlcJVQHY7SemWjiqo8CgWBQ/8lJhirJ4F6gYiMqt6QOnAF+KRWCb3AVWProhv9
+ ui/TbnjS1nF+DxKHPr3owt+j2eCU2/RjAgGas1Ny0rI1RP/FdqhbraA93B4So3d7ab3M
+ beaFQ7nt5WBlAqnTmeoFCjVM5O7Q5HSbBc/F5cNsnNVRabxvE0Rb3VTPE0kdVk4e0V0d
+ XldchAIrzu1LYy+1mj/BYT4vAipMTgtAOQoe2xsYEg6NhleCYdBkRRkvHHsrKZfD4WkH
+ WJQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747682829; x=1748287629;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=zUIbMIX0qpjZAfI2726nQo87F32yjlrtrT1+wU7Wsio=;
- b=Y5NfBh1GtUvri6jf1/hdeI8zkoRxUbB88FzE0u5GIXkzVJswIoXyBvhyiJp6Cz7SDd
- 2hjgSjn0EGxhewA0H34skGR6Xy+jMkkOkTeudEaiKx9Zy9czmozhKbhZqAi9LMGSB49c
- izFChTv2UIdM1OyktHvbt3uGPPO1Dme8+pfZh52gFf6Ya0pj3SX1IH73GB7YWQoVhyt1
- diK2u/8u+Eoo1e/Vq7R7G99vPwciZkSSBUzRiRzKWA0U3l6aHeT7xDLYn+X7Ak+/i790
- azGeBPL/Alwl4emWFMusjCkoKR1tJZPzlT3IGG6NP6/799B1+Oxf9f0yh+jREHM1Is58
- LO+A==
+ d=1e100.net; s=20230601; t=1747689345; x=1748294145;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xfCxvNrNXH6YMvxiBWl55URv30Vk5ImyK9KqXeiCoPg=;
+ b=L686qWzmvO5KWw3xZnU1RuqWIbiJ8VxRfdQUKV9HEHHygGiULZulx+JOgKAmj3BLEO
+ gseWIwg5OYBWiH0aozA4K60iT9pNPbcEnwqvUuQbFKLTEBWdSOZd6WEZL0ijcrIEdSf8
+ AkXspHlrX4vrkvu7Y4LcN/XiJmcV0hKX6gSkq1gw3anRPhdjhved+IcIqLgb9AxAB2Rm
+ 586p8uqEAqWuvv7AMWyWRy7KRAd1bZqGdLFss6MTXmvG5D34jDzLMJ41DS/4uDeYJCxf
+ MNVJlQcNlGNO6ytmGJXGgAhjoZ+gjhqLCCj/ragv9HdT9A1vBCa2bWjDUCMyjCqfr6VP
+ 9JRw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXlE/UQwxpqsUi0yTz+5YyG/eLkVflFzBSo1AhhSzPinpv8nrPPmDCWcF78IYSZvCDmvPuBvmp8Ink=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzaFB/kAMRh1PZ2HdyuUfmOnrHtbf/crkToL2uRLgvrvgUmC+4Q
- 5y3y1ehPYMAgnlYVZMENJnmRmk/xae92GX2sbvAL/BIS7Vb5eanDROXD2HpVtc0F3I4=
-X-Gm-Gg: ASbGncv70bIHcSw7YWuuNDEP+k5dcIUEF6BjJColY2/WM6jE7gLFTsme40Z8sI80dn/
- dFZIutIaBMFjLyj9vhzz1YrmggiIvnp5eAko42rTKVKW/iV2Nt8chxt10bL56ElLAGZjqoKMxvo
- Em7MNJZT/ytE14X8QT70cGmSfb71QObqsDFZMIc7K20g87ArV32JBTNd0x7mpryaW1et4AMpByS
- 32VWvTBKUssi7VCuwRvIxGabXumpFcCdjkqUxfuT71nFxed50/QNNPQRqtNuGuQGh6/GcfGGI+P
- rQyXXDWOBCM0XWRQndXWmb35NrY5mtubVGTNreNIXy1GnIrmPSi/rTchCuIgPAbmsRpXyqhZ9zF
- T83CfclxqK1G+gP4fD0SK+SdGAYxXyIjJmGc+nnQ=
-X-Google-Smtp-Source: AGHT+IGsfWglEaW0FESElW+HxWiqJEQe+UHwGwKsQ751zC2k/504E1anuJnCDgJIM+AhaqlWgfCb6Q==
-X-Received: by 2002:a05:600c:64c5:b0:43c:ea1a:720a with SMTP id
- 5b1f17b1804b1-442fefdad81mr123501575e9.1.1747682829460; 
- Mon, 19 May 2025 12:27:09 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:3d9:2080:ce80:58bb:54b7:ad18?
- ([2a01:e0a:3d9:2080:ce80:58bb:54b7:ad18])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca5a79asm13616611f8f.25.2025.05.19.12.27.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 May 2025 12:27:08 -0700 (PDT)
-Message-ID: <4fb3b14d-e20b-4e0d-9b1f-a0a714240c42@linaro.org>
-Date: Mon, 19 May 2025 21:27:07 +0200
+ AJvYcCXlutNEizLq+uTm+UtJ7HnLPXI/1I+4qW7C0q/f1px6QH4pJ8C3MT+5ZAQMZ8oLVTt9BsV2GxEXyBQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzTBqpwdNzdUwJ2LptE3cnjnRhS2r3tm/s/e66hXx1VveDCqIFh
+ j7Yljn5sJu7QkKRpO2BSyTJXX51gWDuGZkfCFWsK0hnk4oDORiacc01AAwMXr6g0brGQEnxiIla
+ 77cZX7lpx18RJyboSNfZI7c9+LS0lnsw=
+X-Gm-Gg: ASbGnctxXHscA+tijLlSPfg50RzuXUsN/bWs/J4s89wsyRkqpjN7axvQw6tDXJsAwyu
+ g+4v+7FpuElpqko0HfPR27Xe5hb2X/JFHQjjpYnuqb9fAt+/YYaRPOyybcD3/4NCVc4Bx3GVCFw
+ HCPSsTddLvaEpAFs7ft5yJmdbzydcbu00=
+X-Google-Smtp-Source: AGHT+IEdHJ5TsiYJUOSilPNO+z3JABvgvB65Ct1aB4PjJ2fABaDgZlQuvx2XmPkklIghfrLSC+0u0HMeQGgesMbdSWY=
+X-Received: by 2002:a17:907:94d0:b0:ad2:2949:bdfc with SMTP id
+ a640c23a62f3a-ad536b7ca51mr1349013266b.3.1747689344467; Mon, 19 May 2025
+ 14:15:44 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v4 04/30] drm/msm/dpu: inline _setup_dsc_ops()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20250519-dpu-drop-features-v4-0-6c5e88e31383@oss.qualcomm.com>
- <20250519-dpu-drop-features-v4-4-6c5e88e31383@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20250519-dpu-drop-features-v4-4-6c5e88e31383@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20250519175348.11924-1-robdclark@gmail.com>
+In-Reply-To: <20250519175348.11924-1-robdclark@gmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Tue, 20 May 2025 07:15:32 +1000
+X-Gm-Features: AX0GCFs4JnXwsJdajW1l7s7toaeaNTWjF5f0e497pSZ8wodPL0eA75PFrE0O5i4
+Message-ID: <CAPM=9tw183FMOT8uUacqegnb5CREAyr8KbXxO2mCuFK-SmUB1A@mail.gmail.com>
+Subject: Re: [Linaro-mm-sig] [PATCH v5 00/40] drm/msm: sparse / "VM_BIND"
+ support
+To: Rob Clark <robdclark@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>, 
+ Rob Clark <robdclark@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
+ Arnd Bergmann <arnd@arndb.de>,
+ =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>, 
+ Christopher Snowhill <chris@kode54.net>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Eugene Lepshy <fekz115@gmail.com>, 
+ "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Joao Martins <joao.m.martins@oracle.com>, 
+ Jonathan Marek <jonathan@marek.ca>, Jun Nie <jun.nie@linaro.org>, 
+ Kevin Tian <kevin.tian@intel.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ "moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_?:buf|fence|resvb"
+ <linaro-mm-sig@lists.linaro.org>, 
+ "m oderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>, 
+ open list <linux-kernel@vger.kernel.org>, 
+ "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_?:buf|fence|resvb"
+ <linux-media@vger.kernel.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Nicolin Chen <nicolinc@nvidia.com>, 
+ "Rob Herring (Arm)" <robh@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Sean Paul <sean@poorly.run>, Will Deacon <will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,57 +102,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/05/2025 18:04, Dmitry Baryshkov wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> Inline the _setup_dsc_ops() function, it makes it easier to handle
-> different conditions involving DSC configuration.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c | 17 ++++++-----------
->   1 file changed, 6 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> index cec6d4e8baec4d00282465cfd2885d365f835976..c7db917afd27e3daf1e8aad2ad671246bf6c8fbf 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> @@ -181,16 +181,6 @@ static void dpu_hw_dsc_bind_pingpong_blk(
->   	DPU_REG_WRITE(c, dsc_ctl_offset, mux_cfg);
->   }
->   
-> -static void _setup_dsc_ops(struct dpu_hw_dsc_ops *ops,
-> -			   unsigned long cap)
-> -{
-> -	ops->dsc_disable = dpu_hw_dsc_disable;
-> -	ops->dsc_config = dpu_hw_dsc_config;
-> -	ops->dsc_config_thresh = dpu_hw_dsc_config_thresh;
-> -	if (cap & BIT(DPU_DSC_OUTPUT_CTRL))
-> -		ops->dsc_bind_pingpong_blk = dpu_hw_dsc_bind_pingpong_blk;
-> -};
-> -
->   /**
->    * dpu_hw_dsc_init() - Initializes the DSC hw driver object.
->    * @dev:  Corresponding device for devres management
-> @@ -213,7 +203,12 @@ struct dpu_hw_dsc *dpu_hw_dsc_init(struct drm_device *dev,
->   
->   	c->idx = cfg->id;
->   	c->caps = cfg;
-> -	_setup_dsc_ops(&c->ops, c->caps->features);
-> +
-> +	c->ops.dsc_disable = dpu_hw_dsc_disable;
-> +	c->ops.dsc_config = dpu_hw_dsc_config;
-> +	c->ops.dsc_config_thresh = dpu_hw_dsc_config_thresh;
-> +	if (c->caps->features & BIT(DPU_DSC_OUTPUT_CTRL))
-> +		c->ops.dsc_bind_pingpong_blk = dpu_hw_dsc_bind_pingpong_blk;
->   
->   	return c;
->   }
-> 
+On Tue, 20 May 2025 at 03:54, Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> Conversion to DRM GPU VA Manager[1], and adding support for Vulkan Sparse
+> Memory[2] in the form of:
+>
+> 1. A new VM_BIND submitqueue type for executing VM MSM_SUBMIT_BO_OP_MAP/
+>    MAP_NULL/UNMAP commands
+>
+> 2. A new VM_BIND ioctl to allow submitting batches of one or more
+>    MAP/MAP_NULL/UNMAP commands to a VM_BIND submitqueue
+>
+> I did not implement support for synchronous VM_BIND commands.  Since
+> userspace could just immediately wait for the `SUBMIT` to complete, I don't
+> think we need this extra complexity in the kernel.  Synchronous/immediate
+> VM_BIND operations could be implemented with a 2nd VM_BIND submitqueue.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+This seems suboptimal for Vulkan userspaces. non-sparse binds are all
+synchronous, you are adding an extra ioctl to wait, or do you manage
+these via a different mechanism?
+
+Dave.
