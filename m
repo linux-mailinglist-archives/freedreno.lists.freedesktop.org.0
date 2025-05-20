@@ -2,60 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 479D9ABE17E
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 19:06:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A4A9ABE1BF
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 19:23:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23FC710E56E;
-	Tue, 20 May 2025 17:06:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3596F10E59E;
+	Tue, 20 May 2025 17:23:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="env/lqdn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XKorYT9s";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3F0510E563;
- Tue, 20 May 2025 17:06:01 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-30e7ee5fe74so920160a91.3; 
- Tue, 20 May 2025 10:06:01 -0700 (PDT)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8043410E59E;
+ Tue, 20 May 2025 17:23:07 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-86a052d7897so393788439f.0; 
+ Tue, 20 May 2025 10:23:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747760760; x=1748365560; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747761786; x=1748366586; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BSxEkDXbJDIhMR3kFQKAYgsi/4CQTU4cPfem70BSEkY=;
- b=env/lqdnL/8558Ob0GSrjyDvbf59zehGz1YQ4n6BOK1vrOXNCSpd3+RMesmCHBs9i7
- xxLeP232KpZPHluSpJqUtixd1kEz9Pn4NH8u8/ysZOPQuDRlrejKm4EAjGVqwt7mB9H3
- j+IC3PhXFwKTM5+0jP1S1NaB+oMnEelgwW74mp+aiPSuofmdvluapOP7xwD9x+7bk0FY
- 9X7EUzmeIQQuRS7XoDRao3nnoYP0K8uqEYbSetY3+PJdaPtEQK/XDNmd4eJ/dAjDZFmD
- zvkZSS91Gi3G5NlJ+YkLJu97u80fWZy/wTSXbHckX20w8K/0H3X9ANP86wh4ANw+K68q
- /q1A==
+ bh=v/1eH7FjHnXuwS8GNeCtTiHpwIYDozegXN0D5gLrtdM=;
+ b=XKorYT9sFJsxo357Ot3nl8hU+HB5TYmKvLzXCWVCjyYorq+W9SNZQ4DtXmaKVvAmgD
+ IVbh95qKObuqOm4aWU6iW/vNHkEoVRdwUI94Rcl+T4UBjlk6Qgt/033DSiXTN1P3NbV9
+ D8hND40oVfn26CIAG+utijKo0vyE9s02u+LNZW8MwCFTbONEp5IwBBQf+ZGUAOh0sWh8
+ wjc81/xhc8aRmNId4lkWgUqXyvMSOeF9qXgGLLGgYm+M9t9de1T/nAL4wVsO4y0XwQCO
+ f38rszCLQN+7adAsAAgbmAfU7E9SBF2wxP2304f0/maWztTxRuIR+aV35614P+rv0RPF
+ n9bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747760760; x=1748365560;
+ d=1e100.net; s=20230601; t=1747761786; x=1748366586;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BSxEkDXbJDIhMR3kFQKAYgsi/4CQTU4cPfem70BSEkY=;
- b=uWcOCvwyqtVP9HGVG45E2vLW8RkaSUXCg2vj18Ufaj/7WdG/hd/4gIPs6hn6GIa4Bj
- /Xb9GXU9ZLg86RB7Y40LpHFaAFzFLepPw1mxQ3+Iahg/b7FoCGT21zNZgKQjkRWR4nTf
- uuU0lPRMFLPIj7dYCCx0VWtub3hNRHr5O2S+eXznXEaYcT+yXKjMKYJnM62LbdHV7tUd
- FSCfv8SYqUjLPTMFLJGVLsVcTq0DQPXkonEzcw9i9Cfb3X9/sW0dWuByg1vCcS3ZUMHn
- ckvOjR28gLL9CXjAibRvIQbzsfUTM5cpXDyvZuFTCphWZQ4WN8TNUxeW0MHV5/jdxhTK
- HL8A==
+ bh=v/1eH7FjHnXuwS8GNeCtTiHpwIYDozegXN0D5gLrtdM=;
+ b=OdhZVMRi3qeV6WtWo9jE2cOkNsfmHsGvtW+Q1Dow4Z6rHUJqu86caMkgjqIcV1qo4o
+ J5J7n7NaUHNqp2zgi0PVNaCqIW59QkevCDr0GsuULO4CtH/c//pEMvoeTCRVcr0HJ1kf
+ uz18ItzN3YTKp+HbyYPeGUAm6lXptHKsZauHUGIaXUAdJgB4saAqIg03CAh9MZQ5ExXi
+ tcFYhh1I246Snn3UL/NmQImNcnkSJe80x6tElj8EuMUglwaM57VdXWoE5FuF9Ro2RDbv
+ KQaAKqtEAYLx21DZ5Goj6rxyJWL1pC4SrEd8V+GRC0ZNmHZig8m0c3g3SaYnvAd6vECY
+ 22aw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWtkc4XIMFVVhzDlEQ3zdUcKVBLSqxH9iSK+oqw2gAviHvhHfAsOEBrFs5RHErUCT+KNizfCSq3BMI=@lists.freedesktop.org,
- AJvYcCXtZz9oLbgVUSEcrtFHzUUwNBu0wyUXx8OGjO6yZAZnrO4e38XoaURBYPm5lq+D0fsdCVhEns24eXJ1@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx18iJ5tlPuRXv7bCAwYh1Bj8t40avqQxV7cutHnxKOUI9kjsVO
- yvWySopt3PHwpA+CXyZ8aIS+huCQUS3DhQqUnuAvnPzaPP90vB9BX5KlhU4lcUwiVGIimZroNqg
- lfSCiKc+scq/nrxr4FV6OJTJe3gGSMTo=
-X-Gm-Gg: ASbGncuIF+Jhg9nN7VvFIDIM/VsrqdmP0ImN2hScOS3ABM8yAXb/Fx77pDivP/3Idc0
- D1Vy2mybes6rCLWvu8/NiAToO9YijfQnZU5PoAtxVaXEokTbAZgBMmjYL6moESh5X8yKTCLnGD2
- m51ieTCvCf6csng++Z0t+5sCYqPvz6ud2QvGO/l/iWZW8=
-X-Google-Smtp-Source: AGHT+IHsOqBineUHxLJx9akQIdSVlbC4CtdZpwW/0uzDJXEMDO7/CjK53KJcvCLjE7LdutD2WX0uucRok2QjsWFIgmI=
-X-Received: by 2002:a17:90b:4ac1:b0:30a:80bc:ad4 with SMTP id
- 98e67ed59e1d1-30e7d2fd72emr10302244a91.0.1747760760170; Tue, 20 May 2025
- 10:06:00 -0700 (PDT)
+ AJvYcCVAFOQLAlwr3R9T1rQLyTBYWPBQqyoinQi73Z4qSa/dOHE9mGmUdEO5tae4pOfF/VxXYX/ylZi6hDlJ@lists.freedesktop.org,
+ AJvYcCVHHkrY1SxFA2ZHAvo00ZSSNIm76v6RrO/+Dssr376QHr2ZLVtmdEF4NEuQq1pP0wHZTms00na9hD4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxnozEOJ4ViIBe7S+ZAV7NAi5p0LGNqHPTj9Tqp1ZT7IqX41mee
+ UxQVpKapEB/aOB+daJHzxrbr59TamVGqmBwYCcXabeAlDsweUQhYIbrPmezChOGNHpbNMTdJD5Q
+ ZujqcP1ntwkHkukEmCwTnOWoOuM1zmws=
+X-Gm-Gg: ASbGnct3AJdEz6B91WAtur1kk5GaEE39b/EFOej7gJ6Z6Z5S0m3KskqZs1qLNsT3yXN
+ Insa8UYFdqSe3oohqbgWLRwZyDf7AVxB2geESG+2d/vxf7ELouO/92+4gRDCyeT9WzPtOdGEuvI
+ jfV2xlOfvNX8PPgNtrdREXqVGQHs5NZHBStM1+Z68+Aihkf2Sb/Um/t5jvCJXTeBOsiQNz0Iu/Q
+ A==
+X-Google-Smtp-Source: AGHT+IHpQA08tYTT02U2iTROdpr5ReReyZy/jVFOO0KEV8Wa4oUzzDHXqMwq9idWIskV4i26glWc97QtN/cPQ9E+S6o=
+X-Received: by 2002:a05:6e02:23c8:b0:3dc:76ad:e3a8 with SMTP id
+ e9e14a558f8ab-3dc76ade94dmr62670085ab.11.1747761786345; Tue, 20 May 2025
+ 10:23:06 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250514170118.40555-5-robdclark@gmail.com>
  <51f87f358fa1b7ef8db8b67ee6cde38ae071fbe8.camel@mailbox.org>
@@ -69,13 +70,13 @@ References: <20250514170118.40555-5-robdclark@gmail.com>
  <CAF6AEGspvuTHU0t9z__p_HkdRNi=cXir3t453AbR6DFNzDpgvw@mail.gmail.com>
  <aCyzyAPbQ1SYbo4q@pollux>
 In-Reply-To: <aCyzyAPbQ1SYbo4q@pollux>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Tue, 20 May 2025 13:05:49 -0400
-X-Gm-Features: AX0GCFudq4Uk9hVggM5__uGXxd07kkOoRDiLKGh7USy4Eu6RGR5O4yyQhzMT2o8
-Message-ID: <CACu1E7GEqm+5pmz8rOeCp0FP-7Q3UrEqkkvG3ZbbkPJzjqRhyw@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 20 May 2025 10:22:54 -0700
+X-Gm-Features: AX0GCFssom0OIu9t5oGBdb8b5O6J5LNG6iWic-G7BUb-iO0A4ra9weO2FuUipaU
+Message-ID: <CAF6AEGs+WmTO_624A3Pek-1-SD6B4PFu4sDv3htko0ABhfHFzw@mail.gmail.com>
 Subject: Re: [PATCH v4 04/40] drm/sched: Add enqueue credit limit
 To: Danilo Krummrich <dakr@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Rob Clark <robdclark@chromium.org>,
+Cc: Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@chromium.org>,
  phasta@kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  linux-arm-msm@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>, 
@@ -103,7 +104,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-n Tue, May 20, 2025 at 12:54=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
+On Tue, May 20, 2025 at 9:54=E2=80=AFAM Danilo Krummrich <dakr@kernel.org> =
 wrote:
 >
 > On Tue, May 20, 2025 at 09:07:05AM -0700, Rob Clark wrote:
@@ -187,23 +188,6 @@ at's
 > understand what test causes the issue and why other drivers are not affec=
 ted
 > (yet).
-
-Once again, it's well understood why other drivers aren't affected.
-They have both synchronous and asynchronous VM_BINDs in the uabi, and
-the userspace driver uses synchronous VM_BIND for everything except
-sparse mappings. For freedreno we tried to change that because async
-works better for native context, which exposed the pre-existing issue
-with async VM_BINDs causing the whole system to hang when we run out
-of memory since more mappings started being async.
-
-I think it would be possible in theory for other drivers to forward
-synchronous VM_BINDs asynchronously to the host as long as the host
-kernel executes them synchronously, so maybe other drivers won't have
-a problem with native context support. But it will still be possible
-to make them fall over if you poke them the right way.
-
-Connor
-
 >
 > > > > There definitely was one where I was seeing >5k VM_BIND jobs pile u=
 p,
@@ -231,7 +215,9 @@ f
 > addressing this, rather than trying to work around it in the scheduler, w=
 here we
 > can only set an arbitrary credit limit.
->
+
+Perhaps.. but that seems like a bigger can of worms
+
 > > > But let's assume we agree that we want to avoid that userspace can ev=
 er OOM itself
 > > > through async VM_BIND, then the proposed solution seems wrong:
@@ -266,3 +252,15 @@ rspace
 > for no reason, no?
 >
 > If the machine has very limited resources, it might already be too much?
+
+It may be a bit arbitrary, but then again I'm not sure that userspace
+is in any better position to pick an appropriate limit.
+
+4MB of in-flight pages isn't going to be too much for anything that is
+capable enough to run vk, but still allows for a lot of in-flight
+maps.  As I mentioned before, I don't expect anyone to hit this case
+normally, unless they are just trying to poke the driver in weird
+ways.  Having the kernel guard against that doesn't seem unreasonable.
+
+BR,
+-R
