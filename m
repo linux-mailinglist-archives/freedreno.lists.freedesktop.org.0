@@ -2,77 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D454ABDD89
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 16:43:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FD8BABDDFA
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 16:57:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B83410E619;
-	Tue, 20 May 2025 14:43:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D49810E506;
+	Tue, 20 May 2025 14:57:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="amAIUs52";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LJ8rbh3F";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC36D10E5B6
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 14:43:01 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-30eccc61eacso369616a91.3
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 07:43:01 -0700 (PDT)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 569C710E4FC;
+ Tue, 20 May 2025 14:57:49 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-86a55400875so74259839f.3; 
+ Tue, 20 May 2025 07:57:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747752181; x=1748356981; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747753068; x=1748357868; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NL9VnS5cf/6NW/p94tIKHT/4gGzvfJ3RyyiZ0fUNEek=;
- b=amAIUs52OiXxuPgUkoqOH898qL8wnqoItND4wYBgfwyOZag94xppq/0zQmE8wu7cIg
- Gxe2GmX5l/2xzIEZLJFhnxNjCl/ucPw/DRXTW5Onrj131IM/oqzTh9StOltkBlj3xexA
- vqcmMjJ0V7BmM3eCGwDymDjQibayd0P57vRRElT9MSb+6SW3hHLCuaniWu5L/sUdPNos
- fdD3LL6YAzRRvCmZhHrb7ywoyaGY6FjCBqd0iQWmihu8xztzRHrqO/OhJAkzinuYc5uP
- N22mov8OR8JHBhFmJ79NSkhYTXEkTY2F10nxiiehrCJ4t9HqOTjQF9TyOamb+tKbpwr6
- YhbQ==
+ bh=ei0ZtzeEerH4n95EU2nYvZiHQHmnnzxXV15jRRTIMlc=;
+ b=LJ8rbh3F9LQ4mNCmz+WZK1zRzCgIXb7zb2ouotnRQg/cp2EoUOIL8XB7+BdCO6Y5KW
+ xq3yi/2l4PFH7skSz05G338YU0yjmt9Oky0SLaWKLOAn3OFQiHo7G5gQhNPbh+/uoAiw
+ rGHBWvYjQE96nmeMLeeQo1ZLANESZqhDHEC7UtKOiWFOPWJvcvPEmQVfS6yRfbxr7mMn
+ T/kULmQJlFGyWd8+TmW4GmP+wlCJKBBreCSCELGqVQWyveO1feqL+3hAvbyCP1o1m5fY
+ x4FV7x1xL+jWfIrk09AYGLL3BLgloPqamZghwN75YwofKn79HdFezDdrEggMcclPG3+l
+ Vpqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747752181; x=1748356981;
+ d=1e100.net; s=20230601; t=1747753068; x=1748357868;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NL9VnS5cf/6NW/p94tIKHT/4gGzvfJ3RyyiZ0fUNEek=;
- b=hmUdO0eSRbLyxty//LzcA8oSLCyNS83Kxc6DwmIbp7cL5r4aOXLoFz5uNdoJVpC9fZ
- XV2LROQPwfPqR/1BXybIJN7Y1Na1qyhZTCFrTqB0BUkE52JU7o9sshRZYJ7SRRJPSKr1
- 3yQ1fzNUUzS9YF1v/Ff3Ipecv7GmvWtGoQ/YqXNv624MA31X6k6v4H10IDh/z68J3Lm5
- oTcRpmFwUOQH7nTtkL+cGWPUZJrOTi+8DjmUcy7TL0+ZyszdSe9Cy4kLjLdrpqNFpEIh
- sSFuAkl7cXceedJ44shGcMOgzc9xc2y0KPh2hY9+/9s9QsmCMguR+BA6QEdFCeVp043x
- 4swA==
+ bh=ei0ZtzeEerH4n95EU2nYvZiHQHmnnzxXV15jRRTIMlc=;
+ b=BfT5xKu59i29eU1YivlMcu69D1NS05yXIV+Jybn670huHX7unb0hhCP0VL1nBtpaw/
+ gUSp0aBS9HCa7pUmfKKCTM4iemooeulq3VU4d67yuobWV2TcXHnT1tk70wwtrsfgfczH
+ vEw7BysuRp/t4POfPO1uC6GDP5LmlncYngTwU1Rg064BmI9LTZDz0ZXkDFHBuGvGO/x9
+ fnwoeBfh8AVCjJ5a6jD69doRW2mdNRfxbTU13xb5j49ICrWcmjW1FOTTd9E9Z7fbX2at
+ ylKjbm0x1/f3IxMrqWqz9Z771BS2gKrwU4mVaH5Om/umo+NAafyGNqPKsKWEo7hLuDml
+ kElw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBe+3TXrX6mR09AHNpTJ3ZdtJ8NSKunztR5d1OLkeLWgK3AXMI3l0uZWq/mV/ZALWEvjQg/BOfrhw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxroILEstwxUzc+3ozl8V+kPiMoV39v3ZLvNeBYiD/CR9PJDuXX
- DVKRw3s0F00w/nzlYkLxNqcuHwlkn+wWDfou2fVRmdfUTGGJMxBjpIgEcwfCslxeE9dxkdglNdP
- AKfzZ6rs+BebGMJLw3UPEXr6WHFo6MY0=
-X-Gm-Gg: ASbGncsRhuHt5fBc3rd3NcIHFHEBxrKPcykrhOP/A29wthDUmAmskOUkE29qqi2GFeO
- lQRINypczr3EjBv8bXoOJSb/FhRIk4GyPs9AB/VlOHyG0siAWErEnJFeAbeTbV1Cyf0yVuzXHrq
- wdU1p0Ol8mbeYtSOhnTdHDMm+mk0bW2IEr
-X-Google-Smtp-Source: AGHT+IF/aCn3KuIR/kknx0aBZr7IzoK3GvwOK/L+4l4anpA0Ks1VE8JmQjWR6x3bz5ayRXEdRHZ1M4ocBueOSYEkMnU=
-X-Received: by 2002:a17:90b:3b48:b0:30c:4b09:5f3d with SMTP id
- 98e67ed59e1d1-30e7d61316bmr10052600a91.8.1747752181324; Tue, 20 May 2025
- 07:43:01 -0700 (PDT)
+ AJvYcCUvZNG1MC48i1vMpY74qp9XZnlev4mlb6+65xTDafGe544mGqsPpSyZQ/9Ad5ZbgIwxhZ4h0ls4VPY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzbjPn7FogFWUyZ91pLb+KQBLwfx+BT8kpcmv8bFXClvCeVOwTT
+ 6MsKRmtBzPtK3avt+T4z83a7REzyXq47scnsjUn7PIvm8oN3FE5E3E39I8M00INCuOiR/Apj2IW
+ mCwZ0yglWfTvHyeZ2tUeG9eag1thEcsY=
+X-Gm-Gg: ASbGnct5+bO+6frMo/ompxWwMRjSZtHsH1ci588PMe4BNQD61o3rByYFijrp6dO5GZO
+ DrYy9ry+uA3Q6bd0bvZ+7b5r+3bvArbEfeaGUTybCqJZdVnH4SJMVbfimBo7W2qwHPa0PgBoB2a
+ e8oaK2eRZjcC6mhlofB5XQcXmDQzy1+vXdzxiGpdmd10Ar7mgquFWFzixqd0Y5efqRcwk=
+X-Google-Smtp-Source: AGHT+IGo54Ph3lgCr2HThw2nynX0CfUtauGHA+UWZQjPIR4SenpHhKIQf4v2aZNtBDgA8aoC9oBCpwohCLzgA971GNc=
+X-Received: by 2002:a05:6602:7284:b0:86a:26c8:4ba0 with SMTP id
+ ca18e2360f4ac-86a26c84ca2mr1970379239f.8.1747753068536; Tue, 20 May 2025
+ 07:57:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250515-msm-gpu-fault-fixes-next-v6-0-4fe2a583a878@gmail.com>
- <20250520141857.GC18711@willie-the-truck>
-In-Reply-To: <20250520141857.GC18711@willie-the-truck>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Tue, 20 May 2025 10:42:49 -0400
-X-Gm-Features: AX0GCFsH2VOZ8YMhHMV3BqM8wqyCOVzoUFywTVBwakEJMPVYAMwwsNIEoTGSpRU
-Message-ID: <CACu1E7HdJvbx_6L9KvX3n78_cbkrey8npo=O=AkEzg335wJC=g@mail.gmail.com>
-Subject: Re: [PATCH v6 0/7] iommu/arm-smmu, drm/msm: Fixes for stall-on-fault
-To: Will Deacon <will@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
- Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, iommu@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- freedreno@lists.freedesktop.org
+References: <20250519175348.11924-1-robdclark@gmail.com>
+ <20250519175348.11924-2-robdclark@gmail.com>
+ <aCwt20O7SH1zQLlV@pollux>
+In-Reply-To: <aCwt20O7SH1zQLlV@pollux>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 20 May 2025 07:57:36 -0700
+X-Gm-Features: AX0GCFv7Ss4yKUe43JHrMItzf4ycbR76G6yDyHTTaHf43qdoHHxEMm7hFngKuk8
+Message-ID: <CAF6AEGvhxeCAz41F72hq=V3aD38jm+aUQqX3GwaOR4uzZGn6hg@mail.gmail.com>
+Subject: Re: [PATCH v5 01/40] drm/gpuvm: Don't require obj lock in destructor
+ path
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>, 
+ Rob Clark <robdclark@chromium.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -90,52 +91,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 20, 2025 at 10:19=E2=80=AFAM Will Deacon <will@kernel.org> wrot=
-e:
+On Tue, May 20, 2025 at 12:23=E2=80=AFAM Danilo Krummrich <dakr@kernel.org>=
+ wrote:
 >
-> Hi Connor,
->
-> On Thu, May 15, 2025 at 03:58:42PM -0400, Connor Abbott wrote:
-> > drm/msm uses the stall-on-fault model to record the GPU state on the
-> > first GPU page fault to help debugging. On systems where the GPU is
-> > paired with a MMU-500, there were two problems:
+> On Mon, May 19, 2025 at 10:51:24AM -0700, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
 > >
-> > 1. The MMU-500 doesn't de-assert its interrupt line until the fault is
-> >    resumed, which led to a storm of interrupts until the fault handler
-> >    was called. If we got unlucky and the fault handler was on the same
-> >    CPU as the interrupt, there was a deadlock.
-> > 2. The GPU is capable of generating page faults much faster than we can
-> >    resume them. GMU (GPU Management Unit) shares the same context bank
-> >    as the GPU, so if there was a sudden spurt of page faults it would b=
-e
-> >    effectively starved and would trigger a watchdog reset, made even
-> >    worse because the GPU cannot be reset while there's a pending
-> >    transaction leaving the GPU permanently wedged.
-> >
-> > Patches 1-2 and 4 fix the first problem by switching the IRQ to be a
-> > threaded IRQ and then making drm/msm do its devcoredump work
-> > synchronously in the threaded IRQ. Patch 4 is dependent on patches 1-2.
-> > Patch 6 fixes the second problem and is dependent on patch 3. Patch 5 i=
-s
-> > a cleanup for patch 4 and patch 7 is a subsequent further cleanup to ge=
-t
-> > rid of the resume_fault() callback once we switch resuming to being don=
-e
-> > by the SMMU's fault handler.
+> > See commit a414fe3a2129 ("drm/msm/gem: Drop obj lock in
+> > msm_gem_free_object()") for justification.
 >
-> Thanks for reworking this; I think it looks much better now from the
-> SMMU standpoint.
->
-> > I've organized the series in the order that it should be picked up:
-> >
-> > - Patches 1-3 need to be applied to the iommu tree first.
->
-> Which kernel version did you base these on? I can't see to apply the
-> second patch, as you seem to have a stale copy of arm-smmu-qcom.c?
->
-> Will
+> I asked for a proper commit message in v4.
 
-Sorry about that, for the next version I'll rebase on linux-next. I
-was using an older version of msm-next for a while now.
+Sorry, I forgot that, here is what I am adding:
 
-Connor
+Destroying a GEM object is a special case.  Acquiring the resv lock
+when the object is being freed can cause a locking order inversion
+between reservation_ww_class_mutex and fs_reclaim.
+
+This deadlock is not actually possible, because no one should be
+already holding the lock when free_object() is called.
+Unfortunately lockdep is not aware of this detail.  So when the
+refcount drops to zero, we pretend it is already locked.
+
+> Only referring to a driver commit and let the people figure out how the d=
+river
+> works and what it does in order to motivate a change in the generic
+> infrastructure is simply unreasonable.
+>
+> > Cc: Danilo Krummrich <dakr@kernel.org>
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/drm_gpuvm.c | 7 +++++--
+> >  1 file changed, 5 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+> > index f9eb56f24bef..1e89a98caad4 100644
+> > --- a/drivers/gpu/drm/drm_gpuvm.c
+> > +++ b/drivers/gpu/drm/drm_gpuvm.c
+> > @@ -1511,7 +1511,9 @@ drm_gpuvm_bo_destroy(struct kref *kref)
+> >       drm_gpuvm_bo_list_del(vm_bo, extobj, lock);
+> >       drm_gpuvm_bo_list_del(vm_bo, evict, lock);
+> >
+> > -     drm_gem_gpuva_assert_lock_held(obj);
+> > +     if (kref_read(&obj->refcount) > 0)
+> > +             drm_gem_gpuva_assert_lock_held(obj);
+>
+> Again, this is broken. What if the reference count drops to zero right af=
+ter
+> the kref_read() check, but before drm_gem_gpuva_assert_lock_held() is cal=
+led?
+
+No, it is not.  If you find yourself having this race condition, then
+you already have bigger problems.  There are only two valid cases when
+drm_gpuvm_bo_destroy() is called.  Either:
+
+1) You somehow hold a reference to the GEM object, in which case the
+refcount will be a positive integer.  Maybe you race but on either
+side of the race you have a value that is greater than zero.
+2) Or, you are calling this in the GEM object destructor path, in
+which case no one else should have a reference to the object, so it
+isn't possible to race
+
+If the refcount drops to zero after the check, you are about to blow
+up regardless.
+
+BR,
+-R
+
+> Putting conditionals on a refcount is always suspicious.
+>
+> If you still really want this, please guard it with
+>
+>         if (unlikely(gpuvm->flags & DRM_GPUVM_MSM_LEGACY_QUIRK))
+>
+> and get an explicit waiver from Dave / Sima.
+>
