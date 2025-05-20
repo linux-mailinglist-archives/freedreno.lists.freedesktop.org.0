@@ -2,113 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8718DABD172
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 10:06:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D74FABD4FA
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 12:32:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFFA310E40C;
-	Tue, 20 May 2025 08:06:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9342310E419;
+	Tue, 20 May 2025 10:32:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Y4KXpCcI";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tjX2seFj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A83510E41B
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 08:06:12 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-3a367ec7840so1858482f8f.2
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 01:06:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747728371; x=1748333171; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=f53RxOyUNbfIYGKYJrh6m3a+cJ+2EHowRMXuSk1JA5w=;
- b=Y4KXpCcI47SX0fMBPRdWFFXxu9Q1iVr6YsQTZ+mtEbKZZUp6zQPJIWzmAvRAVCtbsS
- pyJAgzhRAzWMsjctoCmFq7ycotnXxob8aQOd1w5ny1DVA/WBrfkjD9v8cD8SHN6lYd5d
- qIse7LD2GrYHpr+UcujppT8R6Cp7O/rMc64Lc9CfqNMLUCuqYAqPsaIN36TB4Ou9aOWz
- XBRgCdhMcAoIuRnn57BsIN1fKX2YihtBkqJtHd15fUOWW41YD4q9r4IXqIhpeHWBem0X
- 5yRJbrweoX8tyy0Z3LHPX8er0pwgZVzT83s6uEGDSZfDpvK8GScAk9ytgF0hp08V+fvn
- dS2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747728371; x=1748333171;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=f53RxOyUNbfIYGKYJrh6m3a+cJ+2EHowRMXuSk1JA5w=;
- b=KcK9pSmlrh52lurzho8DJcNEJmJyZRWVnxDlkCCirXR7jFDLQfBEpyNQ9do1xRdNGu
- FqumtDkxsDDjkOQQz8ICdRgzojsTlWaAur/jKQ55UN7oqwHLJ4y+yfDKJ2LyFmHaF/jo
- ispwVSJsP1q9j07oDnk10BjOXar/JEtHGOG+Oaij3x2rmljQptT8Fu457NCnVvW9QnEP
- DI34CkgxriDutYyaet1WQXazgsilC94hnuXeWWnsadSHbwxk2j7dtxVsF9iX+7LbD/d3
- 5mbiBr8QK+AlnmBAEsk8YmpKGl3xR+ym0QlD/GmBZ9R+Db7juU9I6/qwev8zX3grw3nG
- aMxA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVGinYdq3x9axhlHATX8DN8ralYpbEqiOB8RSED6TdhX6fFn7X6lr2Rl0jQx/T324yz1fkkCRyBD28=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmY7sDXYjd39AfIgncsldUwopKyGA3zFEI0iWAMDaTTmq3ZEau
- kIgYQ0QPG7QXMzKPljmExTHoqQkSwdQtg7MAdNM/dqt84HptXfIbxK4TN6kn40MNNmY=
-X-Gm-Gg: ASbGncshFzFSR0D+KbQhMpDNzB/yNv1cDr5W3vB2B7XbvR3AaF+6j8MoAGdci/MK1c6
- 5XT/209iLLdn1KCauEBmHPB9bfkIsSJ9ARkpQpEVoPw7Gmvsb7KlZkNUQfYmdQ7RhekkdgCiZ7B
- qWkM45Rff6xp/GggJfgPlKwGbdwZpyXBw6LNDhfqSSuFE5lbs5LMBHBrPwPAPqEkZdQZoUgxuYy
- CXH9eyMlPUgxICamjBpRZznegB7cykbrMxe3FlqIB+UUwKNjLTdp9F2JAzG2y0XaV8dS4FDH1TK
- uZB0mcQ/tv47IRGhBG9aRzoAwaXJo5s04Hqg3OxRjGjKUm4FF4mJWkPgsncwgaYv+YN7ki75Slc
- 1yEI3voIQHj+qNPCaV6QvpphBag+W
-X-Google-Smtp-Source: AGHT+IFU/KqkjaZqWA96xVqbCJbAg44BaTwi9c9qATMvcmY51YXkMbr1hDQrWO7pjZhFY+VTnRD6RQ==
-X-Received: by 2002:a05:6000:4284:b0:3a3:5da4:d80b with SMTP id
- ffacd0b85a97d-3a3601db731mr12950882f8f.49.1747728370901; 
- Tue, 20 May 2025 01:06:10 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:3d9:2080:fb2e:6266:4e39:ce68?
- ([2a01:e0a:3d9:2080:fb2e:6266:4e39:ce68])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f23bfdd9sm20643995e9.18.2025.05.20.01.06.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 May 2025 01:06:10 -0700 (PDT)
-Message-ID: <193195a8-1e84-4ec6-aa3e-a02d00bd142c@linaro.org>
-Date: Tue, 20 May 2025 10:06:10 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0906010E207;
+ Tue, 20 May 2025 10:32:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 38DF149EC5;
+ Tue, 20 May 2025 10:32:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692E5C4CEE9;
+ Tue, 20 May 2025 10:32:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1747737157;
+ bh=zDpmgNIk0KgV9mLpwYhAEJqLphnW13jDgqbiqxHvUZM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tjX2seFj28kVM1MCXRY+f4rM7a6JeGQTg5sZWiT7PoHTMpa7d71V2Vyq6JSvj9t8a
+ E5o3GukKw7ov8CeHsC+2FgCmGihirW/DYnQRdJxylygaMBXon3pi+ttHqJWjCT5fCY
+ SBHmeb4L7oIBVDXPiE2VyuQ3avQck5Tm14PYsAWs=
+Date: Tue, 20 May 2025 12:32:34 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: jianqi.ren.cn@windriver.com
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
+ sean@poorly.run, airlied@gmail.com, daniel@ffwll.ch,
+ sashal@kernel.org, quic_vpolimer@quicinc.com,
+ quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ quic_kalyant@quicinc.com
+Subject: Re: [PATCH 6.1.y 1/2] drm/msm/disp/dpu: use atomic enable/disable
+ callbacks for encoder functions
+Message-ID: <2025052007-penalize-gummy-61e2@gregkh>
+References: <20250512033116.3331668-1-jianqi.ren.cn@windriver.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v4 05/30] drm/msm/dpu: inline _setup_dspp_ops()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20250519-dpu-drop-features-v4-0-6c5e88e31383@oss.qualcomm.com>
- <20250519-dpu-drop-features-v4-5-6c5e88e31383@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20250519-dpu-drop-features-v4-5-6c5e88e31383@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250512033116.3331668-1-jianqi.ren.cn@windriver.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,50 +58,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/05/2025 18:04, Dmitry Baryshkov wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Mon, May 12, 2025 at 11:31:16AM +0800, jianqi.ren.cn@windriver.com wrote:
+> From: Vinod Polimera <quic_vpolimer@quicinc.com>
 > 
-> Inline the _setup_dspp_ops() function, it makes it easier to handle
-> different conditions involving DSPP configuration.
+> [ Upstream commit c0cd12a5d29fa36a8e2ebac7b8bec50c1a41fb57 ]
 > 
+> Use atomic variants for encoder callback functions such that
+> certain states like self-refresh can be accessed as part of
+> enable/disable sequence.
+> 
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Patchwork: https://patchwork.freedesktop.org/patch/524738/
+> Link: https://lore.kernel.org/r/1677774797-31063-12-git-send-email-quic_vpolimer@quicinc.com
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
+> Signed-off-by: He Zhe <zhe.he@windriver.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c | 10 ++--------
->   1 file changed, 2 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-> index 829ca272873e45b122c04bea7da22dc569732e10..0f5a74398e66642fba48c112db41ffc75ae2a79f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-> @@ -63,13 +63,6 @@ static void dpu_setup_dspp_pcc(struct dpu_hw_dspp *ctx,
->   	DPU_REG_WRITE(&ctx->hw, base, PCC_EN);
->   }
->   
-> -static void _setup_dspp_ops(struct dpu_hw_dspp *c,
-> -		unsigned long features)
-> -{
-> -	if (test_bit(DPU_DSPP_PCC, &features))
-> -		c->ops.setup_pcc = dpu_setup_dspp_pcc;
-> -}
-> -
->   /**
->    * dpu_hw_dspp_init() - Initializes the DSPP hw driver object.
->    * should be called once before accessing every DSPP.
-> @@ -97,7 +90,8 @@ struct dpu_hw_dspp *dpu_hw_dspp_init(struct drm_device *dev,
->   	/* Assign ops */
->   	c->idx = cfg->id;
->   	c->cap = cfg;
-> -	_setup_dspp_ops(c, c->cap->features);
-> +	if (test_bit(DPU_DSPP_PCC, &c->cap->features))
-> +		c->ops.setup_pcc = dpu_setup_dspp_pcc;
->   
->   	return c;
->   }
-> 
+> Verified the build test
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+If patches are ment to be in a series, please properly send them as a
+series, not as individual emails like you did here :(
+
+Please fix up and resend.
+
+thanks,
+
+greg k-h
