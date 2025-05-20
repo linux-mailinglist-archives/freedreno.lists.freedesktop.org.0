@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AD7FABD058
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 09:23:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 188CAABD0A0
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 09:40:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BECB10E143;
-	Tue, 20 May 2025 07:23:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF40110E46E;
+	Tue, 20 May 2025 07:40:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="utsHWFdp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="duhG9Y/r";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF55D10E128;
- Tue, 20 May 2025 07:23:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C008A10E3DB;
+ Tue, 20 May 2025 07:40:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1C73D6113B;
- Tue, 20 May 2025 07:23:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFF2C4CEE9;
- Tue, 20 May 2025 07:23:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F22F761155;
+ Tue, 20 May 2025 07:40:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45C58C4CEE9;
+ Tue, 20 May 2025 07:40:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747725792;
- bh=axV148epcCnH8V4IUGh3tEhgUD1SmtDSAbyYQaGyLUY=;
+ s=k20201202; t=1747726852;
+ bh=du74CvAlwH4+uIAs8YMtDE8dudviPCVlSuJEObPE4mI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=utsHWFdp+aNZIybpy2w2/kulETWFThZUUGtwqTkkH59zikOi3fzIgH20T0ExBzDS/
- vbe5Wq5brUWmJCyNOtMSIH8TkgPKhDRaaU1h/IivjV8dTKTv/Mg1thBbqJ/qr2s2Uk
- I07KmNQokCcfH2NFUAc5Qu2Y4lRhMjNIe4SdDid1tgbmDxWMRZkvsbpdsVicBS4TY/
- G2Rq8A3zbns2w7FQkSiIH6g07DY7ESqpATWYJOWfD6hXH8uZBgaerRvq1TyxYvOk/T
- iupLImO3zK8kHdu66CVFNOI1hTVGN4kTB8CICzhVdgqXOzfKX0XxntGQ/LTwTtjOQN
- NlSai1pVNunDw==
-Date: Tue, 20 May 2025 09:23:07 +0200
+ b=duhG9Y/rUhQTeP5uq0AvsyPyA05wrS1p6pnd3HTUHErD22cXzXEUD74P0Muc5lzgr
+ pSi6kcm8M6ZmvksEV66bQsu0jMdZLz88XzZ4re6wYkRztJZ2tfnLCI/yzgS5PdteQk
+ xD5zp7EmiwEvIDrXYf/2uUJKV3DkyrUgY64DEYlDme4ovUJrNHVKHZ33zpDTYLBq06
+ 16nJ6VpllazGgcoTYBQhc056TzooRD1c3BJ8dph1i8z8VNFhPnQ8/ZW8X24loc2W5y
+ quMPl+RljKtPnzw9Oih2EBowcIPHlu306jTqXVths11vKrLunhSStzKPx8X6gSBMve
+ /dwEblfQ0YSaw==
+Date: Tue, 20 May 2025 09:40:47 +0200
 From: Danilo Krummrich <dakr@kernel.org>
 To: Rob Clark <robdclark@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
@@ -41,15 +41,15 @@ Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 01/40] drm/gpuvm: Don't require obj lock in destructor
- path
-Message-ID: <aCwt20O7SH1zQLlV@pollux>
+Subject: Re: [PATCH v5 02/40] drm/gpuvm: Allow VAs to hold soft reference to
+ BOs
+Message-ID: <aCwx_9KIc9QBd7_0@pollux>
 References: <20250519175348.11924-1-robdclark@gmail.com>
- <20250519175348.11924-2-robdclark@gmail.com>
+ <20250519175348.11924-3-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250519175348.11924-2-robdclark@gmail.com>
+In-Reply-To: <20250519175348.11924-3-robdclark@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,43 +65,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 19, 2025 at 10:51:24AM -0700, Rob Clark wrote:
+On Mon, May 19, 2025 at 10:51:25AM -0700, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
-> See commit a414fe3a2129 ("drm/msm/gem: Drop obj lock in
-> msm_gem_free_object()") for justification.
-
-I asked for a proper commit message in v4.
-
-Only referring to a driver commit and let the people figure out how the driver
-works and what it does in order to motivate a change in the generic
-infrastructure is simply unreasonable.
-
+> Eases migration for drivers where VAs don't hold hard references to
+> their associated BO, avoiding reference loops.
+> 
+> In particular, msm uses soft references to optimistically keep around
+> mappings until the BO is distroyed.  Which obviously won't work if the
+> VA (the mapping) is holding a reference to the BO.
+> 
+> By making this a per-VM flag, we can use normal hard-references for
+> mappings in a "VM_BIND" managed VM, but soft references in other cases,
+> such as kernel-internal VMs (for display scanout, etc).
+> 
 > Cc: Danilo Krummrich <dakr@kernel.org>
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/drm_gpuvm.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/drm_gpuvm.c | 37 ++++++++++++++++++++++++++++++++-----
+>  include/drm/drm_gpuvm.h     | 19 +++++++++++++++++--
+>  2 files changed, 49 insertions(+), 7 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-> index f9eb56f24bef..1e89a98caad4 100644
+> index 1e89a98caad4..892b62130ff8 100644
 > --- a/drivers/gpu/drm/drm_gpuvm.c
 > +++ b/drivers/gpu/drm/drm_gpuvm.c
-> @@ -1511,7 +1511,9 @@ drm_gpuvm_bo_destroy(struct kref *kref)
->  	drm_gpuvm_bo_list_del(vm_bo, extobj, lock);
->  	drm_gpuvm_bo_list_del(vm_bo, evict, lock);
+> @@ -1125,6 +1125,8 @@ __drm_gpuvm_prepare_objects(struct drm_gpuvm *gpuvm,
+>  	LIST_HEAD(extobjs);
+>  	int ret = 0;
 >  
-> -	drm_gem_gpuva_assert_lock_held(obj);
-> +	if (kref_read(&obj->refcount) > 0)
-> +		drm_gem_gpuva_assert_lock_held(obj);
+> +	WARN_ON(gpuvm->flags & DRM_GPUVM_VA_WEAK_REF);
 
-Again, this is broken. What if the reference count drops to zero right after
-the kref_read() check, but before drm_gem_gpuva_assert_lock_held() is called?
+No, here and below, please don't scatter WARN_ON() calls in various code paths
+for this hack.
 
-Putting conditionals on a refcount is always suspicious.
+This won't ever be a valid and supported mode, please keep the diff as small as
+possible.
 
-If you still really want this, please guard it with
+<snip>
 
-	if (unlikely(gpuvm->flags & DRM_GPUVM_MSM_LEGACY_QUIRK))
+> diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
+> index 2a9629377633..652e0fb66413 100644
+> --- a/include/drm/drm_gpuvm.h
+> +++ b/include/drm/drm_gpuvm.h
+> @@ -205,10 +205,25 @@ enum drm_gpuvm_flags {
+>  	 */
+>  	DRM_GPUVM_RESV_PROTECTED = BIT(0),
+>  
+> +	/**
+> +	 * @DRM_GPUVM_VA_WEAK_REF:
+> +	 *
+> +	 * Flag indicating that the &drm_gpuva (or more correctly, the
+> +	 * &drm_gpuvm_bo) only holds a weak reference to the &drm_gem_object.
+> +	 * This mode is intended to ease migration to drm_gpuvm for drivers
+> +	 * where the GEM object holds a referece to the VA, rather than the
+> +	 * other way around.
+> +	 *
+> +	 * In this mode, drm_gpuvm does not track evicted or external objects.
+> +	 * It is intended for legacy mode, where the needed objects are attached
+> +	 * to the command submission ioctl, therefore this tracking is unneeded.
+> +	 */
+> +	DRM_GPUVM_VA_WEAK_REF = BIT(1),
 
-and get an explicit waiver from Dave / Sima.
+As mentioned in v4, I do *not* agree with making this a valid and supported
+mode. If at all, it should be an exception for MSM, i.e.
+DRM_GPUVM_MSM_LEGACY_QUIRK with an explicit approval from Dave / Sima [1].
+
+It invalidates the whole design and makes a lot of functions fundamentally
+invalid to call, which is well demonstrated by all the WARN_ON() calls this
+patch attempts to add.
+
+> +
+>  	/**
+>  	 * @DRM_GPUVM_USERBITS: user defined bits
+>  	 */
+> -	DRM_GPUVM_USERBITS = BIT(1),
+> +	DRM_GPUVM_USERBITS = BIT(2),
+>  };
+
+[1] https://lore.kernel.org/dri-devel/aCb-72KH-NrzvGXy@pollux/
