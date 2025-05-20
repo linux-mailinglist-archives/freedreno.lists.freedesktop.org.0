@@ -2,57 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45584ABDEBD
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 17:21:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3087DABDF46
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 17:39:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B8E210E58F;
-	Tue, 20 May 2025 15:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1DE010E4F5;
+	Tue, 20 May 2025 15:39:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eCM8v5H/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pa3eJuRk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 310F010E569;
- Tue, 20 May 2025 15:21:47 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D5F110E4F5
+ for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 15:39:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1A8BB5C3C42;
- Tue, 20 May 2025 15:19:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F08EC4CEEA;
- Tue, 20 May 2025 15:21:40 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id C5CEBA4EC32;
+ Tue, 20 May 2025 15:39:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7D9C4CEE9;
+ Tue, 20 May 2025 15:38:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747754502;
- bh=2I2RLcNJVt/tlKlu1Lp5Cs9pa3vOTjYe6mYV0vz+MNc=;
+ s=k20201202; t=1747755541;
+ bh=sKOxL3UnucR2I5+tf+DEeVyHpzBBe8EpNpF/XVuowao=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=eCM8v5H/xpVdc2gVJZlOwPG+UMmK+4RJnJxxC34EGCueMramyU65Fyrzi0aEUGRlK
- 3EgKIf8lYiDo7exi9dWoDkpeTsbQbKwgWL01yRvMv9vOHoXpv0s065EPa2kTgKEK2w
- u/YjO+nOJUNr1xaUjQOOfuUVN3cFPL1v7F/EwxnbQ+HvFNkQ+zBA7Do4Ip/anjkqW6
- /1IzPhnxCZMIrOcq1FN7m8Lmq3c4TTkGS8aJfTMDABODrsgKBpfaiIoWHJzlT2XlyA
- NRL3B7FLW4vO9Cfxq9Q4F200jKL+CSSu1ltjUB8B4Q3gxX8MBaCOOjw6YVxWmf3C7l
- 2hmPhx2oStpGw==
-Date: Tue, 20 May 2025 17:21:37 +0200
-From: Danilo Krummrich <dakr@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>,
- Rob Clark <robdclark@chromium.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 01/40] drm/gpuvm: Don't require obj lock in destructor
- path
-Message-ID: <aCyeAb0vnQqPVbiz@cassiopeiae>
-References: <20250519175348.11924-1-robdclark@gmail.com>
- <20250519175348.11924-2-robdclark@gmail.com>
- <aCwt20O7SH1zQLlV@pollux>
- <CAF6AEGvhxeCAz41F72hq=V3aD38jm+aUQqX3GwaOR4uzZGn6hg@mail.gmail.com>
+ b=pa3eJuRkABExyc48wkNOyqxvROSQjsTHTAdMuwIk+15FOgq/3pRi4Soy7iI5Vtmay
+ ZxWcl+S50aSiv4CGGtltlQ585kbP+caRFc18ASkIRVC/83q6EyzkrO8iOIEo7l0oPU
+ /3xzCGc6ohaNcj9ibX7QR5DOX2/7H6dOVoeySpjjt8dknoCgeIdRhPz8CTYVjvBVUv
+ A7S3X/VK8JdkY9FEbULEsrI7yWSIgyxvMa0FMcK0zdCj5yf+HmsPsih8S8o5z+QlAW
+ sPY2ID2lOVhLlhbkcNfvEJ+0HpuVW8AoEJ5RAdMtXFXJGEky4E7d6w2fMmQAZ5466Q
+ nnMTyVrtMIA4Q==
+Date: Tue, 20 May 2025 16:38:56 +0100
+From: Will Deacon <will@kernel.org>
+To: Connor Abbott <cwabbott0@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v6 0/7] iommu/arm-smmu, drm/msm: Fixes for stall-on-fault
+Message-ID: <20250520153855.GG18901@willie-the-truck>
+References: <20250515-msm-gpu-fault-fixes-next-v6-0-4fe2a583a878@gmail.com>
+ <20250520141857.GC18711@willie-the-truck>
+ <CACu1E7HdJvbx_6L9KvX3n78_cbkrey8npo=O=AkEzg335wJC=g@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGvhxeCAz41F72hq=V3aD38jm+aUQqX3GwaOR4uzZGn6hg@mail.gmail.com>
+In-Reply-To: <CACu1E7HdJvbx_6L9KvX3n78_cbkrey8npo=O=AkEzg335wJC=g@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,54 +67,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 20, 2025 at 07:57:36AM -0700, Rob Clark wrote:
-> On Tue, May 20, 2025 at 12:23 AM Danilo Krummrich <dakr@kernel.org> wrote:
-> > On Mon, May 19, 2025 at 10:51:24AM -0700, Rob Clark wrote:
-> > > diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-> > > index f9eb56f24bef..1e89a98caad4 100644
-> > > --- a/drivers/gpu/drm/drm_gpuvm.c
-> > > +++ b/drivers/gpu/drm/drm_gpuvm.c
-> > > @@ -1511,7 +1511,9 @@ drm_gpuvm_bo_destroy(struct kref *kref)
-> > >       drm_gpuvm_bo_list_del(vm_bo, extobj, lock);
-> > >       drm_gpuvm_bo_list_del(vm_bo, evict, lock);
+On Tue, May 20, 2025 at 10:42:49AM -0400, Connor Abbott wrote:
+> On Tue, May 20, 2025 at 10:19 AM Will Deacon <will@kernel.org> wrote:
+> > On Thu, May 15, 2025 at 03:58:42PM -0400, Connor Abbott wrote:
+> > > drm/msm uses the stall-on-fault model to record the GPU state on the
+> > > first GPU page fault to help debugging. On systems where the GPU is
+> > > paired with a MMU-500, there were two problems:
 > > >
-> > > -     drm_gem_gpuva_assert_lock_held(obj);
-> > > +     if (kref_read(&obj->refcount) > 0)
-> > > +             drm_gem_gpuva_assert_lock_held(obj);
+> > > 1. The MMU-500 doesn't de-assert its interrupt line until the fault is
+> > >    resumed, which led to a storm of interrupts until the fault handler
+> > >    was called. If we got unlucky and the fault handler was on the same
+> > >    CPU as the interrupt, there was a deadlock.
+> > > 2. The GPU is capable of generating page faults much faster than we can
+> > >    resume them. GMU (GPU Management Unit) shares the same context bank
+> > >    as the GPU, so if there was a sudden spurt of page faults it would be
+> > >    effectively starved and would trigger a watchdog reset, made even
+> > >    worse because the GPU cannot be reset while there's a pending
+> > >    transaction leaving the GPU permanently wedged.
+> > >
+> > > Patches 1-2 and 4 fix the first problem by switching the IRQ to be a
+> > > threaded IRQ and then making drm/msm do its devcoredump work
+> > > synchronously in the threaded IRQ. Patch 4 is dependent on patches 1-2.
+> > > Patch 6 fixes the second problem and is dependent on patch 3. Patch 5 is
+> > > a cleanup for patch 4 and patch 7 is a subsequent further cleanup to get
+> > > rid of the resume_fault() callback once we switch resuming to being done
+> > > by the SMMU's fault handler.
 > >
-> > Again, this is broken. What if the reference count drops to zero right after
-> > the kref_read() check, but before drm_gem_gpuva_assert_lock_held() is called?
-> 
-> No, it is not.  If you find yourself having this race condition, then
-> you already have bigger problems.  There are only two valid cases when
-> drm_gpuvm_bo_destroy() is called.  Either:
-> 
-> 1) You somehow hold a reference to the GEM object, in which case the
-> refcount will be a positive integer.  Maybe you race but on either
-> side of the race you have a value that is greater than zero.
-> 2) Or, you are calling this in the GEM object destructor path, in
-> which case no one else should have a reference to the object, so it
-> isn't possible to race
+> > Thanks for reworking this; I think it looks much better now from the
+> > SMMU standpoint.
+> >
+> > > I've organized the series in the order that it should be picked up:
+> > >
+> > > - Patches 1-3 need to be applied to the iommu tree first.
+> >
+> > Which kernel version did you base these on? I can't see to apply the
+> > second patch, as you seem to have a stale copy of arm-smmu-qcom.c?
+> >
+> Sorry about that, for the next version I'll rebase on linux-next. I
+> was using an older version of msm-next for a while now.
 
-What about:
+Can you base on v6.15-rc2 instead, please? linux-next is a moving
+target so it's not massively helpful to use that.
 
-3) You destroy the VM_BO, because the VM is destroyed, but someone else (e.g.
-   another VM) holds a reference of this BO, which is dropped concurrently?
+Cheers,
 
-Please don't tell me "but MSM doesn't do that". This is generic infrastructure,
-it is perfectly valid for drivers to do that.
-
-> If the refcount drops to zero after the check, you are about to blow
-> up regardless.
-
-Exactly, that's why the whole approach of removing the reference count a VM_BO
-has on the BO, i.e. the proposed DRM_GPUVM_VA_WEAK_REF is broken.
-
-As mentioned, make it DRM_GPUVM_MSM_LEGACY_QUIRK and get an approval from Dave /
-Sima for it.
-
-You can't make DRM_GPUVM_VA_WEAK_REF work as a generic thing without breaking
-the whole design and lifetimes of GPUVM.
-
-We'd just end up with tons of traps for drivers with lots of WARN_ON() paths and
-footguns like the one above if a driver works slightly different than MSM.
+Will
