@@ -2,56 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3087DABDF46
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 17:39:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BDD5ABDF55
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 17:41:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1DE010E4F5;
-	Tue, 20 May 2025 15:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 545B110E5A4;
+	Tue, 20 May 2025 15:41:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pa3eJuRk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t27D2+vi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D5F110E4F5
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 15:39:02 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0ECB10E5A4;
+ Tue, 20 May 2025 15:41:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id C5CEBA4EC32;
- Tue, 20 May 2025 15:39:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7D9C4CEE9;
- Tue, 20 May 2025 15:38:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3429B5C56C3;
+ Tue, 20 May 2025 15:39:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28519C4CEE9;
+ Tue, 20 May 2025 15:41:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747755541;
- bh=sKOxL3UnucR2I5+tf+DEeVyHpzBBe8EpNpF/XVuowao=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pa3eJuRkABExyc48wkNOyqxvROSQjsTHTAdMuwIk+15FOgq/3pRi4Soy7iI5Vtmay
- ZxWcl+S50aSiv4CGGtltlQ585kbP+caRFc18ASkIRVC/83q6EyzkrO8iOIEo7l0oPU
- /3xzCGc6ohaNcj9ibX7QR5DOX2/7H6dOVoeySpjjt8dknoCgeIdRhPz8CTYVjvBVUv
- A7S3X/VK8JdkY9FEbULEsrI7yWSIgyxvMa0FMcK0zdCj5yf+HmsPsih8S8o5z+QlAW
- sPY2ID2lOVhLlhbkcNfvEJ+0HpuVW8AoEJ5RAdMtXFXJGEky4E7d6w2fMmQAZ5466Q
- nnMTyVrtMIA4Q==
-Date: Tue, 20 May 2025 16:38:56 +0100
+ s=k20201202; t=1747755717;
+ bh=iM0kAw4/nWyGDWNAeRKHD+BaGigBrgJDfwS7US+j1/o=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=t27D2+viqHtztdjdMHjpCAUF8Lu+Bh7vLVPgZNSS1odAFu1XXczgWH7kHbfpaBEGr
+ HEgBUnBfyhAlQkRsvW0C1tYawmvIA2hhoWpcy/PRroqBUwvn/C+VhepxJ5F3DgVnk7
+ 1ZgMlfNhmBf5urqytVfLAomqHfodvYUYiRraCDn+hSn2x4zPupzSmDhaAXxKomruqa
+ bI/OVbbtIx/+vBz5qyGqCRXiZmCcGflHovDOa/EhQt+4pZ1p8jYO/qh2UHJe8qMBk7
+ mIG95JCsWo4nvdkFHHIHx9aLAvsD2D+vH5hbprSknGWT0DJ1oCdco1SCgGuSqjDRbz
+ kdqVr+fGe9V7w==
 From: Will Deacon <will@kernel.org>
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+To: dri-devel@lists.freedesktop.org,
+	Rob Clark <robdclark@gmail.com>
+Cc: catalin.marinas@arm.com, kernel-team@android.com,
+ Will Deacon <will@kernel.org>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>,
+ Rob Clark <robdclark@chromium.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Christopher Snowhill <chris@kode54.net>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
+ iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ Jonathan Marek <jonathan@marek.ca>, Jun Nie <jun.nie@linaro.org>,
+ Kevin Tian <kevin.tian@intel.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
- iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v6 0/7] iommu/arm-smmu, drm/msm: Fixes for stall-on-fault
-Message-ID: <20250520153855.GG18901@willie-the-truck>
-References: <20250515-msm-gpu-fault-fixes-next-v6-0-4fe2a583a878@gmail.com>
- <20250520141857.GC18711@willie-the-truck>
- <CACu1E7HdJvbx_6L9KvX3n78_cbkrey8npo=O=AkEzg335wJC=g@mail.gmail.com>
+ Nicolin Chen <nicolinc@nvidia.com>, "Rob Herring (Arm)" <robh@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Sean Paul <sean@poorly.run>
+Subject: Re: [PATCH v5 00/40] drm/msm: sparse / "VM_BIND" support
+Date: Tue, 20 May 2025 16:41:47 +0100
+Message-Id: <174774086363.2165484.11245120942986308301.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20250519175348.11924-1-robdclark@gmail.com>
+References: <20250519175348.11924-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACu1E7HdJvbx_6L9KvX3n78_cbkrey8npo=O=AkEzg335wJC=g@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,48 +80,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 20, 2025 at 10:42:49AM -0400, Connor Abbott wrote:
-> On Tue, May 20, 2025 at 10:19 AM Will Deacon <will@kernel.org> wrote:
-> > On Thu, May 15, 2025 at 03:58:42PM -0400, Connor Abbott wrote:
-> > > drm/msm uses the stall-on-fault model to record the GPU state on the
-> > > first GPU page fault to help debugging. On systems where the GPU is
-> > > paired with a MMU-500, there were two problems:
-> > >
-> > > 1. The MMU-500 doesn't de-assert its interrupt line until the fault is
-> > >    resumed, which led to a storm of interrupts until the fault handler
-> > >    was called. If we got unlucky and the fault handler was on the same
-> > >    CPU as the interrupt, there was a deadlock.
-> > > 2. The GPU is capable of generating page faults much faster than we can
-> > >    resume them. GMU (GPU Management Unit) shares the same context bank
-> > >    as the GPU, so if there was a sudden spurt of page faults it would be
-> > >    effectively starved and would trigger a watchdog reset, made even
-> > >    worse because the GPU cannot be reset while there's a pending
-> > >    transaction leaving the GPU permanently wedged.
-> > >
-> > > Patches 1-2 and 4 fix the first problem by switching the IRQ to be a
-> > > threaded IRQ and then making drm/msm do its devcoredump work
-> > > synchronously in the threaded IRQ. Patch 4 is dependent on patches 1-2.
-> > > Patch 6 fixes the second problem and is dependent on patch 3. Patch 5 is
-> > > a cleanup for patch 4 and patch 7 is a subsequent further cleanup to get
-> > > rid of the resume_fault() callback once we switch resuming to being done
-> > > by the SMMU's fault handler.
-> >
-> > Thanks for reworking this; I think it looks much better now from the
-> > SMMU standpoint.
-> >
-> > > I've organized the series in the order that it should be picked up:
-> > >
-> > > - Patches 1-3 need to be applied to the iommu tree first.
-> >
-> > Which kernel version did you base these on? I can't see to apply the
-> > second patch, as you seem to have a stale copy of arm-smmu-qcom.c?
-> >
-> Sorry about that, for the next version I'll rebase on linux-next. I
-> was using an older version of msm-next for a while now.
+On Mon, 19 May 2025 10:51:23 -0700, Rob Clark wrote:
+> Conversion to DRM GPU VA Manager[1], and adding support for Vulkan Sparse
+> Memory[2] in the form of:
+> 
+> 1. A new VM_BIND submitqueue type for executing VM MSM_SUBMIT_BO_OP_MAP/
+>    MAP_NULL/UNMAP commands
+> 
+> 2. A new VM_BIND ioctl to allow submitting batches of one or more
+>    MAP/MAP_NULL/UNMAP commands to a VM_BIND submitqueue
+> 
+> [...]
 
-Can you base on v6.15-rc2 instead, please? linux-next is a moving
-target so it's not massively helpful to use that.
+Applied io-pgtable change to iommu (arm/smmu/updates), thanks!
+
+[05/40] iommu/io-pgtable-arm: Add quirk to quiet WARN_ON()
+        https://git.kernel.org/iommu/c/3318f7b5cefb
 
 Cheers,
-
+-- 
 Will
+
+https://fixes.arm64.dev
+https://next.arm64.dev
+https://will.arm64.dev
