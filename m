@@ -2,95 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1B8AABD667
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 13:13:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C837ABD6D4
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 13:31:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1571710E49B;
-	Tue, 20 May 2025 11:13:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1768510E4E5;
+	Tue, 20 May 2025 11:31:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AUjkvzBq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ofdYLbVw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C58110E493
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 11:13:35 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-6006cf5000aso754052a12.0
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 04:13:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747739614; x=1748344414; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=RRlboOLx+lZB7I+Un/8mETz9yhVxKhkELAyD1TFnFzc=;
- b=AUjkvzBqLsqllY7+md8ew8k9sCPoHSxVIXF6LEazrdaD6h0JQKEoHY4nbQFO3rRzES
- oY7jpEeabjkW+8Y1nYN091T3FcmjtrwzWqZaPa5aWR3r57NiW3t7Kt37OVg+QKKy43RT
- GRbbGCV5yn9X8jjFCMWTCwJN3Si0/mwKijpUEsQzFw/Jj4WEVJZJuDSIhYA4q9u4VwA2
- r9tHsmjif0KIqG8FXCJHCEaVapWq1rSS3uQ50k1shvhoDUQaGvxdcq7VGXntkYpUQbP6
- YOR0zqTVOrnz7qvKDpy0fz6n1D4JxsXCnE096MVqJjrkiTjrBXPp/J6vOL78j0IGRr+/
- sqOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747739614; x=1748344414;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=RRlboOLx+lZB7I+Un/8mETz9yhVxKhkELAyD1TFnFzc=;
- b=OmPXGe5k8WfWK2+bsgOnFLlvy7MCqMLmrfyywUIQ4HS04o1JmvJ6O2DLmraBr79ERw
- TpjZxze7h7FpJft9rygiJSxNbuQ1GyWKJ3kAalpu7zLhtr+BzTH5sv5cgJ8SrrLXdNVu
- xohGzjyz4n+dVAglvUrNwrdRA1+61kJeCNXB0DpGSGHHp1K5hefXZf1rHiFgCfwGw0+0
- 5wQ+GLJWQ9szJDcZM6xSQBqZjPwGYDYa3Q11QLeZxkPsV5ZwNo45+nCpYr8vqyV1pOvz
- wBQzUoUBC2Dumj+KAf7qCYBtGlDbU1VS8VqA3tH18L0FKYgip1D/3C4BvcUATISlw4On
- mJ7A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUnP1cQa06aeEEP3Mnix81QLhgsN6dzeCVCH5jR7BSQ0Lw1mifgzVeCfJAxgDCwY3gAMB4xnqc74Zc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0HxjmpDI4gSsQ/rMGgQJfHp4EsDQk7OZNYfpqbh/sU/7CKMru
- bfwUmZtJt1htD05rn3LnKOMv4j58cB6Pj5kXiEPFw99pmBfOdngCQ2OoXARckE7qVqo=
-X-Gm-Gg: ASbGncu3JWaRsbwVNhrjM9m9OA6vulxKqrPh6tg+qml0az045cxxIZdkxCSJHp6EAF4
- GB0tbcT3DdYpgeAVK3Q6+UnbZ2Z4DX0nSdo6a99KyT0fGp3QrUcS2/Jaihj7fsPlalmmKdSLclQ
- nQXZk5UX3Wcz4AagC5FWIhU4icFQT8K2VwOA1MPTI5Y8IZvjux5pm+UKAi5SGnPUUUGHkhVnwhE
- zkSqPFLxVslAzoBWD1EIse7/NTa/3uNmNek48cz0k4EeQFCPht34N19EbhFo/iF8WwC7RVQ1ZZr
- D20dA6OboZvIWVRqVno1bmJwx+ZmJx7gaCLyFpU3yYvcDwPR2wqn+dBnhCl9Jg==
-X-Google-Smtp-Source: AGHT+IFFcBDcparokAPL5zf+2MVmyXm6MMa40X1yEJQwnjwLJ2/1hy2g6L0BYpZ3G9y+lJt2xMiYYg==
-X-Received: by 2002:a17:907:2ce7:b0:ad5:28f5:fe2b with SMTP id
- a640c23a62f3a-ad52d4ce281mr470163266b.8.1747739614072; 
- Tue, 20 May 2025 04:13:34 -0700 (PDT)
-Received: from kuoka.. ([178.197.223.125]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d06dcafsm729676766b.54.2025.05.20.04.13.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 May 2025 04:13:33 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH] drm/msm/dsi/dsi_phy_10nm: Fix missing initial VCO rate
-Date: Tue, 20 May 2025 13:13:26 +0200
-Message-ID: <20250520111325.92352-2-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.45.2
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1D3510E4E5;
+ Tue, 20 May 2025 11:31:53 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 483AF5C4A0E;
+ Tue, 20 May 2025 11:29:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9268CC4CEEB;
+ Tue, 20 May 2025 11:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1747740713;
+ bh=CvDybhlQLGgsaauWyvnvy0fUfy35kQUTWzKrr9rQm+w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ofdYLbVw9naWOMB+EzGo9kBZvwW4kLEAFulhRj7U1+SNOP7XzubmjaDjq3xXD81HE
+ asVMbkGWrhZ02beHdrEgtHSSE9HSvsdrEJbtnnivmJKg77MuwnIMOFtxW0CgeSVNmf
+ EqKNtxziB0IwrCIK/8elCyKsALdB9DCl+ciWml5O6Uh2Dm1ucCGNJVn2++eMOpAQLr
+ yJeOi8layAs/ZP0wKWsmnlJiJS9PTXienZtRWaYPw2Whbu1eOKsSbLKLE69kPDiTZi
+ DBZexSPA57nr7OzlVuH3WE/qc0XzVc3H6bg35HEBDqxL3dGvQ+qZhssW/A47l2JlYh
+ DhtXNITYVLfkw==
+Date: Tue, 20 May 2025 12:31:47 +0100
+From: Will Deacon <will@kernel.org>
+To: Rob Clark <robdclark@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>,
+ Rob Clark <robdclark@chromium.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 05/40] iommu/io-pgtable-arm: Add quirk to quiet
+ WARN_ON()
+Message-ID: <20250520113146.GA18435@willie-the-truck>
+References: <20250514175527.42488-1-robdclark@gmail.com>
+ <20250514175527.42488-6-robdclark@gmail.com>
+ <20250515143309.GA12165@willie-the-truck>
+ <CAF6AEGsnOD8fZmTXAEZZNrdK-NXdUJF51s51EhYQ6Ed7dCFM0A@mail.gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1818;
- i=krzysztof.kozlowski@linaro.org; 
- h=from:subject; bh=exVZFWCvYTW3X5Aq8gygTLrHXFVVVXwyjtGZsGCFRu4=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoLGPVUPKROx0QJfCbeV9e4WfBu8DXgXuh8g72/
- jKif7Qo68CJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaCxj1QAKCRDBN2bmhouD
- 10/kD/9jtNDXdVvPG/epppsydCeNKKYkfy5GiosLMLkTw2AlTI+faS7MwaR/KH12qRYSn9JpZ3S
- vhFnGpBmA0ZAKfCYKRFc6pCmbdvAVp4oc9I3PQSbUrgUJDMbVclf9wZu8QC7QdrYJaJjhhI6Fyy
- 95I96JTEEIlHZ++cJCGIm3N3rCw45GJaUlaIIIvfV7mzU0906I2WR+vJPpJ/5V9LhufwDtdMAJG
- rZdiO976aT+nt5kaN5gkaux274MOL9WVK2wNfHpVd3BmoE9f7ktSQgcuX1dzcDcNu0bMLvcDuki
- DjS4XAwZcVRH86XSeoLxEKwySguj5fZeSvMtlk9ZqfPXWzgr/Q4RTRlwI5/q9pPL/bNK2b8Glp+
- O22ndNnkmA6wfpyCKxkliWxS+RBI8RBF8M1Wtu0Qu+BP6P2+GhVKsODGFPFPTX7+PXFi25vvxWU
- lnFxnZ4D1+5E/1UPmEiZcx001aLXa6e48MwkWCVGB8C9yuHEONKd19pyRv4ytTqnpS1RPe4awgR
- 9+k5aNcBvgDyc8rnjaXWfUV3sqVIeM7NYHOt1q+03j4FNY0f9yjoGVnDWk4IymXQAtTcXVEsoff
- W3QVUZk9QlqM05zZyWOlsR2Sgt8cf36zRZpq4Hz8s9/IMk5x+QjW7dk8KVB5igadGjjLJXRQPZS
- 2T9qrqXbYy3b7SA==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAF6AEGsnOD8fZmTXAEZZNrdK-NXdUJF51s51EhYQ6Ed7dCFM0A@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,50 +71,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Driver unconditionally saves current state on first init in
-dsi_pll_10nm_init(), but does not save the VCO rate, only some of the
-divider registers.  The state is then restored during probe/enable via
-msm_dsi_phy_enable() -> msm_dsi_phy_pll_restore_state() ->
-dsi_10nm_pll_restore_state().
+On Thu, May 15, 2025 at 07:48:39AM -0700, Rob Clark wrote:
+> On Thu, May 15, 2025 at 7:33 AM Will Deacon <will@kernel.org> wrote:
+> >
+> > On Wed, May 14, 2025 at 10:53:19AM -0700, Rob Clark wrote:
+> > > From: Rob Clark <robdclark@chromium.org>
+> > >
+> > > In situations where mapping/unmapping sequence can be controlled by
+> > > userspace, attempting to map over a region that has not yet been
+> > > unmapped is an error.  But not something that should spam dmesg.
+> > >
+> > > Now that there is a quirk, we can also drop the selftest_running
+> > > flag, and use the quirk instead for selftests.
+> > >
+> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > Acked-by: Robin Murphy <robin.murphy@arm.com>
+> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > ---
+> > >  drivers/iommu/io-pgtable-arm.c | 27 ++++++++++++++-------------
+> > >  include/linux/io-pgtable.h     |  8 ++++++++
+> > >  2 files changed, 22 insertions(+), 13 deletions(-)
+> >
+> > [...]
+> >
+> > > diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+> > > index bba2a51c87d2..639b8f4fb87d 100644
+> > > --- a/include/linux/io-pgtable.h
+> > > +++ b/include/linux/io-pgtable.h
+> > > @@ -88,6 +88,13 @@ struct io_pgtable_cfg {
+> > >        *
+> > >        * IO_PGTABLE_QUIRK_ARM_HD: Enables dirty tracking in stage 1 pagetable.
+> > >        * IO_PGTABLE_QUIRK_ARM_S2FWB: Use the FWB format for the MemAttrs bits
+> > > +      *
+> > > +      * IO_PGTABLE_QUIRK_NO_WARN_ON: Do not WARN_ON() on conflicting
+> > > +      *      mappings, but silently return -EEXISTS.  Normally an attempt
+> > > +      *      to map over an existing mapping would indicate some sort of
+> > > +      *      kernel bug, which would justify the WARN_ON().  But for GPU
+> > > +      *      drivers, this could be under control of userspace.  Which
+> > > +      *      deserves an error return, but not to spam dmesg.
+> > >        */
+> > >       #define IO_PGTABLE_QUIRK_ARM_NS                 BIT(0)
+> > >       #define IO_PGTABLE_QUIRK_NO_PERMS               BIT(1)
+> > > @@ -97,6 +104,7 @@ struct io_pgtable_cfg {
+> > >       #define IO_PGTABLE_QUIRK_ARM_OUTER_WBWA         BIT(6)
+> > >       #define IO_PGTABLE_QUIRK_ARM_HD                 BIT(7)
+> > >       #define IO_PGTABLE_QUIRK_ARM_S2FWB              BIT(8)
+> > > +     #define IO_PGTABLE_QUIRK_NO_WARN_ON             BIT(9)
+> >
+> > This feels a bit fragile to me:
+> >   * IOMMU-API users of io-pgtable shouldn't be passing this quirk
+> >     but might end up doing so to paper over driver bugs.
+> >
+> >   * Low-level users of io-pgtable who expose page-table operations to
+> >     userspace need to pass the quirk, but might well not bother because
+> >     well-behaved userspace doesn't trigger the warning.
+> >
+> > So overall, it's all a bit unsatisfactory. Is there a way we could have
+> > the warnings only when invoked via the IOMMU API?
+> 
+> iommu drivers _not_ setting this flag seems like a good way to achieve that ;-)
+> 
+> The alternative is to move the warns to the iommu driver... but they
+> could just as easily remove the WARN_ON()s as they could set the
+> NO_WARN_ON quirk, so :shrug:?
 
-Restoring calls dsi_pll_10nm_vco_set_rate() with
-pll_10nm->vco_current_rate=0, which basically overwrites existing rate of
-VCO and messes with clock hierarchy, by setting frequency to 0 to clock
-tree.  This makes anyway little sense - VCO rate was not saved, so
-should not be restored.
+Bah, I also don't have a good idea to improve this, so I guess I'll take
+what you have for now.
 
-If PLL was not configured configure it to minimum rate to avoid glitches
-and configuring entire in clock hierarchy to 0 Hz.
-
-Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/sz4kbwy5nwsebgf64ia7uq4ee7wbsa5uy3xmlqwcstsbntzcov@ew3dcyjdzmi2/
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
----
-
-Not tested on hardware.
----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-index 9812b4d69197..af2e30f3f842 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-@@ -704,6 +704,13 @@ static int dsi_pll_10nm_init(struct msm_dsi_phy *phy)
- 	/* TODO: Remove this when we have proper display handover support */
- 	msm_dsi_phy_pll_save_state(phy);
- 
-+	/*
-+	 * Store also proper vco_current_rate, because its value will be used in
-+	 * dsi_10nm_pll_restore_state().
-+	 */
-+	if (!dsi_pll_10nm_vco_recalc_rate(&pll_10nm->clk_hw, VCO_REF_CLK_RATE))
-+		pll_10nm->vco_current_rate = pll_10nm->phy->cfg->min_pll_rate;
-+
- 	return 0;
- }
- 
--- 
-2.45.2
-
+Will
