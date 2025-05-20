@@ -2,91 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6831FABE364
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 21:09:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44889ABE476
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 22:07:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49AFC10E64C;
-	Tue, 20 May 2025 19:09:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF9510E5C5;
+	Tue, 20 May 2025 20:07:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kMfhJoQQ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zo+n/FMs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFE4B10E647
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 19:09:09 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id
- d75a77b69052e-476c35637aeso1016901cf.2
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 12:09:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747768149; x=1748372949; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=k/0lqXBgLimY0A+nlogIvRC91H4XJPyHb2uLAtGHc+4=;
- b=kMfhJoQQxWLvEnD1o+FyV42/fHLiwHx9jMo0wI5BiyfeijrJnTzySPIu/s9qtZSQZz
- ugpPbQaBAGeJRhaGsJAOVTgNbF59V3F8BAmOSSVmS2vLxb9Jw2+jtDNqUCJT6q1vQrH+
- eCtPAhzlZUSTTu5E7+kU0PCV8mNmt0wF0NV6DH6uKwq1jm2SG3TDiABvx9f6KE/pnOHY
- uGwbzlOytX+hD6d6Pi0RhcVBSo8fhDYC+K1H1yaGQ0OGnAZlWXyKpAktPfOAwhFK72pK
- dQ9Cysm0SFIwAtogXdzzz2PsB7SPtHceqBNvlsHEuAM/W5ZVPSi/TaOljOgmmXL3yPf6
- ec1Q==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B808110E5C7
+ for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 20:07:17 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54KGe3bd001359
+ for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 20:07:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=4+TilPmXDGw/Gtk0BqOASle1
+ /UOmT/X4bq+tNDck6q8=; b=Zo+n/FMszjKFBUWpEfP52eZJPyhg4y7h1VjyQptn
+ 9X1oEHTRtb/0U2ZF5HaCpX3xq4i0JAX1yB5ZmxqXyKSBliCiigqjulOhXff3qJcc
+ /JdtG9DuzWUM2DYKZR5aRquMgfE+Rzow5zwtpHbN8llRmKPpqJ4INUe6k+CmWabu
+ YEkNKSuTQsIp7oLRHDO3DBSS5kPpQTAP2gLg8K6avYEhLg86cQQc0jddhdm+vL0o
+ qz4L76TeOq9SjQ6V/NsS5wiGmqHuHCvc24JhdSEHwIYWEc8jc19EeM5zFj9+dHnh
+ WevVPQU6n/7qtHLVAryGlXgb4E2z5572+nZcaEzo6x+izQ==
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46rwf18hje-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 20:07:17 +0000 (GMT)
+Received: by mail-oi1-f197.google.com with SMTP id
+ 5614622812f47-3feb24cea56so4862449b6e.0
+ for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 13:07:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747768149; x=1748372949;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=k/0lqXBgLimY0A+nlogIvRC91H4XJPyHb2uLAtGHc+4=;
- b=ewNyEKrReTjpiWJstNG3uNM8FUgzOWyX0qvRT7Ec4EKAJvwzpZafu5nif2E7TzoeDQ
- V15U35SOSCHWwNMw7ZvUdPxrSfJDJ0NrFo2P1K5qbfMjnNfjdpUDBTnSdxFXSuINWh/T
- 4+RDwKjwX5sQ/y4/fjMyWWcofL+LWajPN6+TU1P4xLRwvwoRdvhhFqAMycs5bWa1Lj9l
- 8MxFrX6X/0VhHAWhXe1vWgTu0inR9s+q8ioBfA0418TWSmA54j81yGBPpv8EDJRgTIC8
- psIf/k7JVmoNw1amaBDXWbuJ2BM0EY3Kj88XeI9aXXFYosJYHE203sKSfoxeH2MSqkAd
- J57g==
+ d=1e100.net; s=20230601; t=1747771636; x=1748376436;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4+TilPmXDGw/Gtk0BqOASle1/UOmT/X4bq+tNDck6q8=;
+ b=AB5zUrI7PreqnhPmkUkGajyYxb95uTuDhNn5+5NXDsitWAaE5iW1HIgUJvB897zGdA
+ sNjWntVHEi5Pz8OqaJt9Q+8CPJVw3qADqivWrfWWHq/wOSIzTKqPjN65Fw9PteS2FlJe
+ ns4BHDgi5BDK63Nj9zaC5MAZUXkZEG2daGjqi4/i77y3B86IvucJNxm9tQBHJ5JPsEI6
+ uOi7cnj9zTpxZdGUOzzLKk0Xv5MVLT7Z/PwQQe4Lgsnn3VpN5bjXGiWQl5awt+4S3Es9
+ des3p+GPBgJxA9vRlUUVgG54ZW7fDi2Z/uNNz4UnwmfW4+CQvGEVTawo9EpNty/2ZZax
+ RxwA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQDjW80V+iAp1c5YuayBK3UvHlZUyuFJkOXFKtr7CZTI/1pfDcDjhg8RwAKfN0AvmP5AQ4ROEezsY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjtsO4ssTRF8VPaW/C8hlZnEFgWKXsoFZWpUwgyYXfnHFXrlH6
- rtBAHvixNm4gkHW02rVD2u/XMURSrXxoM6I8/+V+mULNRV03iwlhSlZa
-X-Gm-Gg: ASbGncuGut7UI19fU+EwYlcANPuzVOYtq5tvHU1s61lyIKC2gEQEL649cjx7qckuPaZ
- N3NIUkjmdEKt3mbsNXyxtF2qIEXv5aqRRt4x2+//hh2fWKSP0ZON+jlQEbnUoRuYIZtL73FvePZ
- wmnts874dTHAO2FEIYu2bDDIrNZlXoJXLyRxQqNHCsgGFzIt7SP/Sx/HhkfZa2jmtx2pKJcIuC5
- mankHOheaHd7FiFUnyQYLPqsEPmcjfGMe9+tyIz8MPJTaM4a6q8qcf9G+jYVH4u5H+lByxmkGXl
- FqM7kf8Xbsh0KerVEOemm9BZ4nnFZYSLmGuD68GU67DqAO/Gy2hR9E4xlWU6Q/CMZX/739zRSau
- 1DsosHAzCw5nFVefgNSloGnVrHwypEg==
-X-Google-Smtp-Source: AGHT+IFR5pt9/GVP1EPATJ5cgZRIzs6LVruq0q5vYeQ0eAM0wqovWxYcOeeO8H0l7rzEaFl4O0FbJQ==
-X-Received: by 2002:ac8:5893:0:b0:47a:e5b6:50d4 with SMTP id
- d75a77b69052e-494ae3f7e46mr90403491cf.10.1747768148499; 
- Tue, 20 May 2025 12:09:08 -0700 (PDT)
-Received: from [192.168.124.1] (syn-067-243-142-039.res.spectrum.com.
- [67.243.142.39]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-494ae445b99sm76554051cf.48.2025.05.20.12.09.07
+ AJvYcCVXa9RHwXUaWmPRGQkxFKd/liEZAail6MTufgEwlVJmfnp3w9kKMsqeLIecWqfbHnNKkqalkNXq+WI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxapXgfPqI6OQ+/xSBpLnSCWZasBB5v9XV+7Jrv8uEZCxQXMBmb
+ Qm7mSexM2wVqD7tPeIM6EjONYpcNa3mPqKMPmrptdu6aQgpgvgmZMiq3NoFk5Ofyegb9pbT/aeJ
+ JirYYxMI0CAZNcm0bUofVkknemE321G2zgZJN0SFxmnV6qqE+4Cf96guDy3UtB/KLSZA7ty8IBc
+ TBy0YnYw==
+X-Gm-Gg: ASbGncs6/YJOyBkf8QCTAvekgJdvq3A2kTPbhl3B79HtEgPBo7w5/7e5+OAOiaeYoiA
+ 7Aq9UUO5sCiaO/btQz3hsTfHp6s8jO33Qur31fJhM0FQ5sPZzqnFougzTkoKJK07gnyMpnACW1W
+ ZGSUJcX7Ods4/1KHDXRSenfmCpMuvX6ydHoixvek30bVJvdxioLDLn2FZade1K0F5lAb4yf/GB4
+ RfHrf+aXehungBfSo0+5R7sX0npDpUaZdz2iePfwXVXPf1V0SO5kYMVBs7nOjIUAgCqpe2v6xj2
+ 2LqDECDwgvMFRvqo7NSu/SBU2bf6zyLjcW47f0Zd24YQ0K/u+kWr8IekRYQFgMR1su9NcwP1H50
+ =
+X-Received: by 2002:a05:6214:410:b0:6f8:ad68:7cf1 with SMTP id
+ 6a1803df08f44-6f8b084afcemr282827276d6.2.1747771625298; 
+ Tue, 20 May 2025 13:07:05 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHZ0ooob77YB33x3sc9TZXU71R5l2H/nFxJ6YO2AEHokNTU7hQE0QXzh10z0MZ3u3nyRxcaMg==
+X-Received: by 2002:a05:6214:1251:b0:6e6:6964:ca77 with SMTP id
+ 6a1803df08f44-6f8b09023b4mr282754806d6.28.1747771614002; 
+ Tue, 20 May 2025 13:06:54 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-550e7017f18sm2485042e87.158.2025.05.20.13.06.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 May 2025 12:09:07 -0700 (PDT)
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Tue, 20 May 2025 15:09:00 -0400
-Subject: [PATCH v8 7/7] iommu/smmu-arm-qcom: Delete resume_translation()
+ Tue, 20 May 2025 13:06:53 -0700 (PDT)
+Date: Tue, 20 May 2025 23:06:51 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi/dsi_phy_10nm: Fix missing initial VCO rate
+Message-ID: <3ywacd4x23zadvwikw4hdprgbgxxdmbcar3lyayy4ezmd5lcyw@3h2oosmbk6yb>
+References: <20250520111325.92352-2-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250520-msm-gpu-fault-fixes-next-v8-7-fce6ee218787@gmail.com>
-References: <20250520-msm-gpu-fault-fixes-next-v8-0-fce6ee218787@gmail.com>
-In-Reply-To: <20250520-msm-gpu-fault-fixes-next-v8-0-fce6ee218787@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org, 
- Connor Abbott <cwabbott0@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1747768138; l=1671;
- i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
- bh=T92V8eX3Vz4beQQo+V6nyo4FyO6B+nwmyPWJT1oO+Pk=;
- b=V6LelLjLszEjGIEg7Z7nBX+1w5ysEhFN0tIa8dRMNROYBzA6VMJ+NwDe2jnJAGKdUiJCz18nz
- McgNjrJt/A6BgWCGL2r/nQUpmNIJeHTCHHVFZazeqlf0zl9zY1lh5XO
-X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
- pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250520111325.92352-2-krzysztof.kozlowski@linaro.org>
+X-Proofpoint-GUID: NiFniufibnpO4WMdXMWUNr8MLOMa-njK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIwMDE2MiBTYWx0ZWRfX8r+PRjxIh/qd
+ kZKDLqdu353wZSKo+2lmqYppXHfV69asSt4lLw/lhQW4/PX5xv48CgOYneWS2TAqhFJGkoifPNs
+ wrHsdASGohTfg57/DXfnDLq++rAttmq/9U4/HSs0iGXqiu1xo/Jfj4ymcuRkiMneYH4IorLS3h6
+ IyUxrSOG3bTC9lrXtCzuVuENPzJyUc/MFCqApqQKZaLJyb6OQ4URfssiRt/4Wz1H/DL1i2X04Sv
+ zI0Pne0z+xKNFp9HF7ntsRB4ZzmVht+cfJLgA/vkZBkHX4gnmqNlRHIdMZ17ZtdWkAgn8XJc5XA
+ xaV7gQGFie9eEaXeXZekSIGrRHhMlwcQkNxMwOJseG5YhAYPtu0YOtt9DmUZ8PGgHjSf64pw8x4
+ vPn1Awoo84vngSfrMJBevs3IRwKDkfuSSOcs2/l/6/jPcEMWUQlFNJQJf00Xg1UFkmknRAxw
+X-Authority-Analysis: v=2.4 cv=F6JXdrhN c=1 sm=1 tr=0 ts=682ce0f5 cx=c_pps
+ a=WJcna6AvsNCxL/DJwPP1KA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=dt9VzEwgFbYA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=qeqVY09uaiYIOShEJ-EA:9 a=CjuIK1q_8ugA:10 a=_Y9Zt4tPzoBS9L09Snn2:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: NiFniufibnpO4WMdXMWUNr8MLOMa-njK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-20_09,2025-05-20_03,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 mlxscore=0 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 adultscore=0 mlxlogscore=999 classifier=spam authscore=0
+ authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505160000 definitions=main-2505200162
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,38 +127,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Unused since "drm/msm: Delete resume_translation()".
+On Tue, May 20, 2025 at 01:13:26PM +0200, Krzysztof Kozlowski wrote:
+> Driver unconditionally saves current state on first init in
+> dsi_pll_10nm_init(), but does not save the VCO rate, only some of the
+> divider registers.  The state is then restored during probe/enable via
+> msm_dsi_phy_enable() -> msm_dsi_phy_pll_restore_state() ->
+> dsi_10nm_pll_restore_state().
+> 
+> Restoring calls dsi_pll_10nm_vco_set_rate() with
+> pll_10nm->vco_current_rate=0, which basically overwrites existing rate of
+> VCO and messes with clock hierarchy, by setting frequency to 0 to clock
+> tree.  This makes anyway little sense - VCO rate was not saved, so
+> should not be restored.
+> 
+> If PLL was not configured configure it to minimum rate to avoid glitches
+> and configuring entire in clock hierarchy to 0 Hz.
+> 
+> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Link: https://lore.kernel.org/r/sz4kbwy5nwsebgf64ia7uq4ee7wbsa5uy3xmlqwcstsbntzcov@ew3dcyjdzmi2/
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
----
- include/linux/adreno-smmu-priv.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Fixes?
 
-diff --git a/include/linux/adreno-smmu-priv.h b/include/linux/adreno-smmu-priv.h
-index d83c9175828f792f1f43bcc8056102a43d822c96..4106b6b372117119bbebe67896de18fc6286fb44 100644
---- a/include/linux/adreno-smmu-priv.h
-+++ b/include/linux/adreno-smmu-priv.h
-@@ -46,9 +46,8 @@ struct adreno_smmu_fault_info {
-  * @get_fault_info: Called by the GPU fault handler to get information about
-  *                  the fault
-  * @set_stall:     Configure whether stall on fault (CFCFG) is enabled. If
-- *                 stalling on fault is enabled, the GPU driver must call
-- *                 resume_translation()
-- * @resume_translation: Resume translation after a fault
-+ *                 stalling on fault is enabled, the GPU driver should return
-+ *                 -EAGAIN from the fault handler if retrying is required.
-  *
-  * @set_prr_bit:   [optional] Configure the GPU's Partially Resident
-  *                 Region (PRR) bit in the ACTLR register.
-@@ -71,7 +70,6 @@ struct adreno_smmu_priv {
-     int (*set_ttbr0_cfg)(const void *cookie, const struct io_pgtable_cfg *cfg);
-     void (*get_fault_info)(const void *cookie, struct adreno_smmu_fault_info *info);
-     void (*set_stall)(const void *cookie, bool enabled);
--    void (*resume_translation)(const void *cookie, bool terminate);
-     void (*set_prr_bit)(const void *cookie, bool set);
-     void (*set_prr_addr)(const void *cookie, phys_addr_t page_addr);
- };
+> 
+> ---
+> 
+> Not tested on hardware.
+> ---
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+> index 9812b4d69197..af2e30f3f842 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+> @@ -704,6 +704,13 @@ static int dsi_pll_10nm_init(struct msm_dsi_phy *phy)
+>  	/* TODO: Remove this when we have proper display handover support */
+>  	msm_dsi_phy_pll_save_state(phy);
+>  
+> +	/*
+> +	 * Store also proper vco_current_rate, because its value will be used in
+> +	 * dsi_10nm_pll_restore_state().
+> +	 */
+> +	if (!dsi_pll_10nm_vco_recalc_rate(&pll_10nm->clk_hw, VCO_REF_CLK_RATE))
+> +		pll_10nm->vco_current_rate = pll_10nm->phy->cfg->min_pll_rate;
+> +
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.45.2
+> 
 
 -- 
-2.47.1
-
+With best wishes
+Dmitry
