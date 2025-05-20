@@ -2,61 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88565ABDB18
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 16:06:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA04ABDC04
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 16:19:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 623F710E647;
-	Tue, 20 May 2025 14:06:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A6B10E4D3;
+	Tue, 20 May 2025 14:19:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CMWSAyXu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xoe6kfQR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88DEF10E5BA;
- Tue, 20 May 2025 14:06:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80E9D10E51C
+ for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 14:19:04 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0D8EE4376D;
- Tue, 20 May 2025 14:06:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55123C4CEEA;
- Tue, 20 May 2025 14:06:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9B37D62A23;
+ Tue, 20 May 2025 14:19:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A241C4CEE9;
+ Tue, 20 May 2025 14:19:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747749975;
- bh=FUqSs96axAp0W6GBkmXg9C3eBD616pCiipr3QPKpK+Y=;
+ s=k20201202; t=1747750743;
+ bh=PImC0z23eYKw/vXRVR7ONqgOkNS50/feSR50iDqb2S4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CMWSAyXuMbLx1/hbp6qcHRyhEmrh+SwjzHgggk6nisBANRAgI0i2pSTllwRw20cOO
- 4A4Oxub/EL3+D9pSsqqSiyc5uZupxkGtEnvqvT1Ke5BlHfmfJSMU627RwkoS5Txqfe
- YTXqS/bp+ydnNVd4pr2lPAKgC69XUrspKcOqi7sYJoaiSUWIcUIOW5D7q5k9y0SMgd
- qGnGkmP//B2jNxvIw6zidR5e7qDCX4kaEgzkbNP3zWYjZzikqMPSNJNFk16pAtyD0g
- c1V0am5JaXH8EZDohQWKaZa7ba4ir0qmi1nz7/IuD+8tqOKskzTtyNYlOINeVPNOCv
- dTHtLvUkValbw==
-Date: Tue, 20 May 2025 15:06:10 +0100
+ b=Xoe6kfQRYp0a+bxJMj2n383/MzThfYUb+3NqLxYyAjpZq9cZvg/58X4ngv99tjHBm
+ bFdRgVblrYVt8pKtJhcgSce+lxTAB1Ru4DzEB1lZdHx2WHK80U9fN0QIkgLk/yIhNF
+ 1ieIXJMQpqJnmeaA1EUp/mKxFNzpWI392lagsxqeogfTRGiglGCFXiOprBznAfSIEx
+ 2bJRBXCbD7K4uEBg+5MGLr/QuosEz2jqoX4MB/JR171XwQkFtDmiZMm3LZPvKn8paM
+ HZEHxRDWn0gBgeCAPgdLu++7AhmEtC3xpOIv5n+2zCFUQy6Di/NwF49W65rk6gPvbb
+ 9gLnVcGm3Nl4w==
+Date: Tue, 20 May 2025 15:18:57 +0100
 From: Will Deacon <will@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Connor Abbott <cwabbott0@gmail.com>,
- Rob Clark <robdclark@chromium.org>, Joerg Roedel <joro@8bytes.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>,
- Joao Martins <joao.m.martins@oracle.com>,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 05/40] iommu/io-pgtable-arm: Add quirk to quiet
- WARN_ON()
-Message-ID: <20250520140609.GB18711@willie-the-truck>
-References: <20250514175527.42488-1-robdclark@gmail.com>
- <20250514175527.42488-6-robdclark@gmail.com>
- <20250515143309.GA12165@willie-the-truck>
- <CAF6AEGsnOD8fZmTXAEZZNrdK-NXdUJF51s51EhYQ6Ed7dCFM0A@mail.gmail.com>
- <20250520113146.GA18435@willie-the-truck>
- <def13dd2-3a23-4091-a732-e4c079df7f41@arm.com>
+To: Connor Abbott <cwabbott0@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v6 0/7] iommu/arm-smmu, drm/msm: Fixes for stall-on-fault
+Message-ID: <20250520141857.GC18711@willie-the-truck>
+References: <20250515-msm-gpu-fault-fixes-next-v6-0-4fe2a583a878@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <def13dd2-3a23-4091-a732-e4c079df7f41@arm.com>
+In-Reply-To: <20250515-msm-gpu-fault-fixes-next-v6-0-4fe2a583a878@gmail.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,60 +64,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 20, 2025 at 02:06:09PM +0100, Robin Murphy wrote:
-> On 2025-05-20 12:31 pm, Will Deacon wrote:
-> > On Thu, May 15, 2025 at 07:48:39AM -0700, Rob Clark wrote:
-> > > On Thu, May 15, 2025 at 7:33 AM Will Deacon <will@kernel.org> wrote:
-> > > > On Wed, May 14, 2025 at 10:53:19AM -0700, Rob Clark wrote:
-> > > > > diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
-> > > > > index bba2a51c87d2..639b8f4fb87d 100644
-> > > > > --- a/include/linux/io-pgtable.h
-> > > > > +++ b/include/linux/io-pgtable.h
-> > > > > @@ -88,6 +88,13 @@ struct io_pgtable_cfg {
-> > > > >         *
-> > > > >         * IO_PGTABLE_QUIRK_ARM_HD: Enables dirty tracking in stage 1 pagetable.
-> > > > >         * IO_PGTABLE_QUIRK_ARM_S2FWB: Use the FWB format for the MemAttrs bits
-> > > > > +      *
-> > > > > +      * IO_PGTABLE_QUIRK_NO_WARN_ON: Do not WARN_ON() on conflicting
-> > > > > +      *      mappings, but silently return -EEXISTS.  Normally an attempt
-> > > > > +      *      to map over an existing mapping would indicate some sort of
-> > > > > +      *      kernel bug, which would justify the WARN_ON().  But for GPU
-> > > > > +      *      drivers, this could be under control of userspace.  Which
-> > > > > +      *      deserves an error return, but not to spam dmesg.
-> > > > >         */
-> > > > >        #define IO_PGTABLE_QUIRK_ARM_NS                 BIT(0)
-> > > > >        #define IO_PGTABLE_QUIRK_NO_PERMS               BIT(1)
-> > > > > @@ -97,6 +104,7 @@ struct io_pgtable_cfg {
-> > > > >        #define IO_PGTABLE_QUIRK_ARM_OUTER_WBWA         BIT(6)
-> > > > >        #define IO_PGTABLE_QUIRK_ARM_HD                 BIT(7)
-> > > > >        #define IO_PGTABLE_QUIRK_ARM_S2FWB              BIT(8)
-> > > > > +     #define IO_PGTABLE_QUIRK_NO_WARN_ON             BIT(9)
-> > > > 
-> > > > This feels a bit fragile to me:
-> > > >    * IOMMU-API users of io-pgtable shouldn't be passing this quirk
-> > > >      but might end up doing so to paper over driver bugs.
-> > > > 
-> > > >    * Low-level users of io-pgtable who expose page-table operations to
-> > > >      userspace need to pass the quirk, but might well not bother because
-> > > >      well-behaved userspace doesn't trigger the warning.
-> > > > 
-> > > > So overall, it's all a bit unsatisfactory. Is there a way we could have
-> > > > the warnings only when invoked via the IOMMU API?
-> > > 
-> > > iommu drivers _not_ setting this flag seems like a good way to achieve that ;-)
-> > > 
-> > > The alternative is to move the warns to the iommu driver... but they
-> > > could just as easily remove the WARN_ON()s as they could set the
-> > > NO_WARN_ON quirk, so :shrug:?
-> > 
-> > Bah, I also don't have a good idea to improve this, so I guess I'll take
-> > what you have for now.
-> 
-> Hmm, just a nit on reflection, how about fixing up the name to just
-> IO_PGTABLE_QUIRK_NO_WARN? Given that it's already quite long, and we have a
-> well-established DMA_ATTR_NO_WARN with equivalent semantics over in the DMA
-> API.
+Hi Connor,
 
-Sure, I'll do that now...
+On Thu, May 15, 2025 at 03:58:42PM -0400, Connor Abbott wrote:
+> drm/msm uses the stall-on-fault model to record the GPU state on the
+> first GPU page fault to help debugging. On systems where the GPU is
+> paired with a MMU-500, there were two problems:
+> 
+> 1. The MMU-500 doesn't de-assert its interrupt line until the fault is
+>    resumed, which led to a storm of interrupts until the fault handler
+>    was called. If we got unlucky and the fault handler was on the same
+>    CPU as the interrupt, there was a deadlock.
+> 2. The GPU is capable of generating page faults much faster than we can
+>    resume them. GMU (GPU Management Unit) shares the same context bank
+>    as the GPU, so if there was a sudden spurt of page faults it would be
+>    effectively starved and would trigger a watchdog reset, made even
+>    worse because the GPU cannot be reset while there's a pending
+>    transaction leaving the GPU permanently wedged.
+> 
+> Patches 1-2 and 4 fix the first problem by switching the IRQ to be a
+> threaded IRQ and then making drm/msm do its devcoredump work
+> synchronously in the threaded IRQ. Patch 4 is dependent on patches 1-2.
+> Patch 6 fixes the second problem and is dependent on patch 3. Patch 5 is
+> a cleanup for patch 4 and patch 7 is a subsequent further cleanup to get
+> rid of the resume_fault() callback once we switch resuming to being done
+> by the SMMU's fault handler.
+
+Thanks for reworking this; I think it looks much better now from the
+SMMU standpoint.
+
+> I've organized the series in the order that it should be picked up:
+> 
+> - Patches 1-3 need to be applied to the iommu tree first.
+
+Which kernel version did you base these on? I can't see to apply the
+second patch, as you seem to have a stale copy of arm-smmu-qcom.c?
 
 Will
