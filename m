@@ -2,78 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D159ABDFA1
-	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 17:55:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EFCAABDFF8
+	for <lists+freedreno@lfdr.de>; Tue, 20 May 2025 18:07:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAD9810E518;
-	Tue, 20 May 2025 15:55:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B190F10E523;
+	Tue, 20 May 2025 16:07:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NWQ2+hZt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GZMOJ1kd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f177.google.com (mail-il1-f177.google.com
- [209.85.166.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F230110E518;
- Tue, 20 May 2025 15:55:09 +0000 (UTC)
-Received: by mail-il1-f177.google.com with SMTP id
- e9e14a558f8ab-3db6ddcef4eso51753405ab.2; 
- Tue, 20 May 2025 08:55:09 -0700 (PDT)
+Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
+ [209.85.166.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C3210E011;
+ Tue, 20 May 2025 16:07:18 +0000 (UTC)
+Received: by mail-io1-f49.google.com with SMTP id
+ ca18e2360f4ac-85b3f92c8f8so559037139f.1; 
+ Tue, 20 May 2025 09:07:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747756507; x=1748361307; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747757238; x=1748362038; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QsfE5Ws7A5y4XkBVdsDW8KUKRVAk9/PTVUELtxrBWGA=;
- b=NWQ2+hZt8uWAmUHPTnuswJx88xG9eAWT/ld0Bqbx5h1YMHvVco1jqgSOSXmPPkgylp
- gapARpkq19yblWiFK3sgJwrvZm1+2HRS/ZvVNFctBKfGfjDNVBc5HspLBNuWvzHikeOa
- ocFyLHMAKcwAPm/zVQCs11h08PFFL4wT4kU9ty8Q7Mk5NUMnnpyjbgVtaBeekVYC2Gb+
- IwlDpjoRnrAw3AriwwFtR823HUBOzHO3Qrp2juJs2s7BRsH4RYOK97HJjbBZ4NAySt2/
- /2c3hzwK9T9YAnXc+KS7ylIy+9fnUTbd/3sUpnsdouZbQUF/c3+/TM6yvVHXbtOAGgmR
- DcLg==
+ bh=lIlNhHqv93GvQWrqGB3ZPQbb3QiLFh5pTwSkFYPcNvg=;
+ b=GZMOJ1kdF6ETlWZMba42S/KqGO8cnCsMkEpXBF4Tf0UAXQQ4IyOLVsVvyvK+rNs9rm
+ MkJ1Ea592U4SgAqZOaPEhOUl1WKOfIaviuxe1Z59i+nETrQdZugh/dMx7n4FZiPUCzeZ
+ MN4QGj+VnJ8lVM5QC51/0MBEnFohKS1xiHPH9+qkOhlnMNdmpCV/vvA4HJluvMgaYPNZ
+ yI2NTH9JkFtZlxXenTU5TmoLbnXJxEByCe5SWSY/vthqfaPvPhDznO+X2LyqsU1tNBxC
+ +MZ9+tpcCUxxPHcBaniRnzyNdHM+B4DHyRElVvUgnKBapIq5+mU1NTh1+za4396rSQBM
+ SJfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747756507; x=1748361307;
+ d=1e100.net; s=20230601; t=1747757238; x=1748362038;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QsfE5Ws7A5y4XkBVdsDW8KUKRVAk9/PTVUELtxrBWGA=;
- b=W3+8WtAfmG9R66aPhPYDU9K5BbQwmXhBWrN3nAnNqX457lQLTQs6woVlJ8CnvmCXsf
- TlOSUBr/RGrWLsO+6N9FhZuoyonKklgAe3dVOVEDjJBsR3GgWymxi8x8Sq9d+3I3rbIx
- FAtiVauCALpkYv5y3lBk8Ccw8jXtTSFBruCXnqAeeqWTIF0RLSWwgOVavk9Y2cdPgIGu
- wXlHd1HP1Zkfdm9XFH6D92iFVnjrRALhjPtNS/AbNoCp57AKLlVbnQGgk24482coCKQz
- dNSq7Qf6PdmyXHGLryayLPSP/W4P3ZWmDlKb+VjLOLGZrz2zgqOJB3OkV3V9tM6WTV89
- zwqw==
+ bh=lIlNhHqv93GvQWrqGB3ZPQbb3QiLFh5pTwSkFYPcNvg=;
+ b=O7zjBH2qho1TLUTT2PqPYWTEsuYRBgbS+XHlHUPVSUtxT8q6QuDD7qxIqniMubs3/A
+ ZGNtJvUaaArUwhFGA2qJfu7M1RnyaflX2BvdWRLvsV4GaMaIQBU7jG3HPC9ZYFZ1E766
+ 0FuBRrrnk12sSfM6LLfahsdwey2CU6lLEp/Hv2zyf3II8HbvoM1QT4C5OHnvrPQg9UMW
+ z6xWT3FXAsm1ToF7nm+zTVL7Kdpl01GgzoXuiSMSoYzJvdILSDd+WD1Fdd622TIr0C4B
+ u7Yy1xSqWjrj/9/Fxu/QlbYyUW18QuZ1f3VpKdPHeJf3yKYc8PRJCyKrVi2kRrncEF7/
+ 8fhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUIDCncvN9pxmksUfhpvkql6SWcCyQsvHiUrqi0PIZiC+82FTvzWBbhd6HtxoJKBZFto/eXoisBRrM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyA7UjyJgGsF3MfCEJRtDghC3hmJ9IDRH892bhmKW9GC2cMfn5X
- TTQxQJu/kS00KIQYsXtXlaqxCioYkuhYrUzdRU6w0kqsFbCYZCvwjgMz+ungDnKXUVY2hycFcgG
- ItI9yOFGxRQI0tNvYGyi2v4Ndf3QXROQ=
-X-Gm-Gg: ASbGncuaYncAs3tAo7IURC27Wik6KO9XKkf5MMidybTXfNWbXB5n7/ZShzDUQy7jDcg
- ISCBbdm1lzslYMKB/vas3XGZTkgRWNfNPnxcPm4EufcxwVFIQ4oF7oX+7CYFEtzV1yWwdzAFurT
- Ac7YB72RgDwUxDa26sx064gONtMNCAOL9qH/LStmYnbmqClPsHvZL7bfmrY6HNBcU=
-X-Google-Smtp-Source: AGHT+IFhLr1++r1gjYcEo/FgI0W3OZZ8mTrCTZfvNmuvRbd7YcTCPIl0/iL0jILe3yB2gSChaKoPV9tO234fgVqUVIQ=
-X-Received: by 2002:a05:6e02:1745:b0:3d9:36a8:3d98 with SMTP id
- e9e14a558f8ab-3db84296deemr208995435ab.2.1747756505533; Tue, 20 May 2025
- 08:55:05 -0700 (PDT)
+ AJvYcCUkSBf/ZF8mCIVCL6dVxATsQ2rEkirRZawesJYrx8DKSvSpA6dzEMu4yWEx+FmiwTEy3yFQax0hMlM=@lists.freedesktop.org,
+ AJvYcCWxgjENP1BZUtM5F8RPwWBpY/Om3DGXhF6/hrQNdEQ0iBWesIu7wiS7p2A1cyE3Rdxji/c3za03ASDG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRPI6qE40PcF+uIoZtqjfodR6awT6IhwXm8WoX+HFx1MtRjJDC
+ v+YIKYMBbUgf6iZ9YvylhrhDWzxLB1PBkGZGwXgPNQbbx8Q8zZhY8Kf4Dr++4dPIjjeG8AjoA+w
+ 19tWn0PmOnvtE4WxZA5OyIfVViGlhxsQ=
+X-Gm-Gg: ASbGncsdG+8s5fUPaluNapwFGlHEgW25LGgIJabnpyNACdt8IdW4QsI6oRcgTyq7y9o
+ T+ZS+xyAaP3gS0so2Sw0MGo1BB+j/MLFFgc9kKw/m4o10d+5PbwO1xcJzdFi012DLpGv0zLxnA0
+ rHVoqYKJiaQUtqQ95V9J2idsJJGifkf4orevpUJxdmvjDxtPXvNqPJcBJ2N6EiMlA=
+X-Google-Smtp-Source: AGHT+IFKjqLjdxKN137jXayMzSnHUHC3u3SlHWSxPDUnqzAx/6aHZ9mgDTFP7BV1sTPkWNww7XgabgYxTfCrrozjj6s=
+X-Received: by 2002:a05:6602:4186:b0:85c:c7f9:9a1c with SMTP id
+ ca18e2360f4ac-86a23283c78mr2385708639f.13.1747757237853; Tue, 20 May 2025
+ 09:07:17 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250519175348.11924-1-robdclark@gmail.com>
- <20250519175348.11924-3-robdclark@gmail.com>
- <aCwx_9KIc9QBd7_0@pollux>
-In-Reply-To: <aCwx_9KIc9QBd7_0@pollux>
+References: <20250514170118.40555-1-robdclark@gmail.com>
+ <20250514170118.40555-5-robdclark@gmail.com>
+ <51f87f358fa1b7ef8db8b67ee6cde38ae071fbe8.camel@mailbox.org>
+ <CAJs_Fx771FFVDVFMn8YJkR9f9Ad-UQspJ9KKQw4u6Cu4TA7YPA@mail.gmail.com>
+ <CACu1E7EL+E-M0N-EAN9Bx7u9O6_pECQQdPE2ph575idhVb2Szg@mail.gmail.com>
+ <aCYkk4Y7feltfp79@pollux>
+ <CAF6AEGsoG_W3A3+BHV4n5EKZQazFubrCyfrtxVUH7+H4-j7i5A@mail.gmail.com>
+ <aCY42rgJC4sQ4tp4@pollux>
+ <CAF6AEGubHkdhfJz=bAZvctO1aTKDLwRsRyPzkoVrQ7tA6dRbKw@mail.gmail.com>
+ <aCwqAGLLCC2ZLSBK@pollux>
+In-Reply-To: <aCwqAGLLCC2ZLSBK@pollux>
 From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 20 May 2025 08:54:53 -0700
-X-Gm-Features: AX0GCFstOcmcGHOhFOrI3CrX7srdksd9YcxyBYxwwonSJJrqAmG4Xy5DWrOKG6Y
-Message-ID: <CAF6AEGs6_ZgBpKwe7weZWUppCZ87Y6wOt9RsF68hsJO-VpeiJA@mail.gmail.com>
-Subject: Re: [PATCH v5 02/40] drm/gpuvm: Allow VAs to hold soft reference to
- BOs
+Date: Tue, 20 May 2025 09:07:05 -0700
+X-Gm-Features: AX0GCFuJB8HyZPWl9Jg_jf4wMyFY6rVV8-Xlv-hqm4CZrVysg_4nnA4WGO4qoKc
+Message-ID: <CAF6AEGspvuTHU0t9z__p_HkdRNi=cXir3t453AbR6DFNzDpgvw@mail.gmail.com>
+Subject: Re: [PATCH v4 04/40] drm/sched: Add enqueue credit limit
 To: Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>, 
- Rob Clark <robdclark@chromium.org>, 
+Cc: Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@chromium.org>,
+ phasta@kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
+ Simona Vetter <simona@ffwll.ch>, 
+ open list <linux-kernel@vger.kernel.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -91,119 +102,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 20, 2025 at 12:40=E2=80=AFAM Danilo Krummrich <dakr@kernel.org>=
+On Tue, May 20, 2025 at 12:06=E2=80=AFAM Danilo Krummrich <dakr@kernel.org>=
  wrote:
 >
-> On Mon, May 19, 2025 at 10:51:25AM -0700, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
+> On Thu, May 15, 2025 at 12:56:38PM -0700, Rob Clark wrote:
+> > On Thu, May 15, 2025 at 11:56=E2=80=AFAM Danilo Krummrich <dakr@kernel.=
+org> wrote:
+> > >
+> > > On Thu, May 15, 2025 at 10:40:15AM -0700, Rob Clark wrote:
+> > > > On Thu, May 15, 2025 at 10:30=E2=80=AFAM Danilo Krummrich <dakr@ker=
+nel.org> wrote:
+> > > > >
+> > > > > (Cc: Boris)
+> > > > >
+> > > > > On Thu, May 15, 2025 at 12:22:18PM -0400, Connor Abbott wrote:
+> > > > > > For some context, other drivers have the concept of a "synchron=
+ous"
+> > > > > > VM_BIND ioctl which completes immediately, and drivers implemen=
+t it by
+> > > > > > waiting for the whole thing to finish before returning.
+> > > > >
+> > > > > Nouveau implements sync by issuing a normal async VM_BIND and sub=
+sequently
+> > > > > waits for the out-fence synchronously.
+> > > >
+> > > > As Connor mentioned, we'd prefer it to be async rather than blockin=
+g,
+> > > > in normal cases, otherwise with drm native context for using native
+> > > > UMD in guest VM, you'd be blocking the single host/VMM virglrender
+> > > > thread.
+> > > >
+> > > > The key is we want to keep it async in the normal cases, and not ha=
+ve
+> > > > weird edge case CTS tests blow up from being _too_ async ;-)
+> > >
+> > > I really wonder why they don't blow up in Nouveau, which also support=
+ full
+> > > asynchronous VM_BIND. Mind sharing which tests blow up? :)
 > >
-> > Eases migration for drivers where VAs don't hold hard references to
-> > their associated BO, avoiding reference loops.
-> >
-> > In particular, msm uses soft references to optimistically keep around
-> > mappings until the BO is distroyed.  Which obviously won't work if the
-> > VA (the mapping) is holding a reference to the BO.
-> >
-> > By making this a per-VM flag, we can use normal hard-references for
-> > mappings in a "VM_BIND" managed VM, but soft references in other cases,
-> > such as kernel-internal VMs (for display scanout, etc).
-> >
-> > Cc: Danilo Krummrich <dakr@kernel.org>
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/drm_gpuvm.c | 37 ++++++++++++++++++++++++++++++++-----
-> >  include/drm/drm_gpuvm.h     | 19 +++++++++++++++++--
-> >  2 files changed, 49 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-> > index 1e89a98caad4..892b62130ff8 100644
-> > --- a/drivers/gpu/drm/drm_gpuvm.c
-> > +++ b/drivers/gpu/drm/drm_gpuvm.c
-> > @@ -1125,6 +1125,8 @@ __drm_gpuvm_prepare_objects(struct drm_gpuvm *gpu=
-vm,
-> >       LIST_HEAD(extobjs);
-> >       int ret =3D 0;
-> >
-> > +     WARN_ON(gpuvm->flags & DRM_GPUVM_VA_WEAK_REF);
+> > Maybe it was dEQP-VK.sparse_resources.buffer.ssbo.sparse_residency.buff=
+er_size_2_24,
 >
-> No, here and below, please don't scatter WARN_ON() calls in various code =
-paths
-> for this hack.
+> The test above is part of the smoke testing I do for nouveau, but I haven=
+'t seen
+> such issues yet for nouveau.
 
-I do prefer WARN_ON()s to make it clear what is or is not proper
-usage, but if you really don't want them I can remove them.
+nouveau is probably not using async binds for everything?  Or maybe
+I'm just pointing to the wrong test.
 
-> This won't ever be a valid and supported mode, please keep the diff as sm=
-all as
-> possible.
+> > but I might be mixing that up, I'd have to back out this patch and see
+> > where things blow up, which would take many hours.
 >
-> <snip>
+> Well, you said that you never had this issue with "real" workloads, but o=
+nly
+> with VK CTS, so I really think we should know what we are trying to fix h=
+ere.
 >
-> > diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
-> > index 2a9629377633..652e0fb66413 100644
-> > --- a/include/drm/drm_gpuvm.h
-> > +++ b/include/drm/drm_gpuvm.h
-> > @@ -205,10 +205,25 @@ enum drm_gpuvm_flags {
-> >        */
-> >       DRM_GPUVM_RESV_PROTECTED =3D BIT(0),
+> We can't just add new generic infrastructure without reasonable and *well
+> understood* justification.
+
+What is not well understood about this?  We need to pre-allocate
+memory that we likely don't need for pagetables.
+
+In the worst case, a large # of async PAGE_SIZE binds, you end up
+needing to pre-allocate 3 pgtable pages (4 lvl pgtable) per one page
+of mapping.  Queue up enough of those and you can explode your memory
+usage.
+
+> > There definitely was one where I was seeing >5k VM_BIND jobs pile up,
+> > so absolutely throttling like this is needed.
+>
+> I still don't understand why the kernel must throttle this? If userspace =
+uses
+> async VM_BIND, it obviously can't spam the kernel infinitely without runn=
+ing
+> into an OOM case.
+
+It is a valid question about whether the kernel or userspace should be
+the one to do the throttling.
+
+I went for doing it in the kernel because the kernel has better
+knowledge of how much it needs to pre-allocate.
+
+(There is also the side point, that this pre-allocated memory is not
+charged to the calling process from a PoV of memory accounting.  So
+with that in mind it seems like a good idea for the kernel to throttle
+memory usage.)
+
+> But let's assume we agree that we want to avoid that userspace can ever O=
+OM itself
+> through async VM_BIND, then the proposed solution seems wrong:
+>
+> Do we really want the driver developer to set an arbitrary boundary of a =
+number
+> of jobs that can be submitted before *async* VM_BIND blocks and becomes
+> semi-sync?
+>
+> How do we choose this number of jobs? A very small number to be safe, whi=
+ch
+> scales badly on powerful machines? A large number that scales well on pow=
+erful
+> machines, but OOMs on weaker ones?
+
+The way I am using it in msm, the credit amount and limit are in units
+of pre-allocated pages in-flight.  I set the enqueue_credit_limit to
+1024 pages, once there are jobs queued up exceeding that limit, they
+start blocking.
+
+The number of _jobs_ is irrelevant, it is # of pre-alloc'd pages in flight.
+
+> I really think, this isn't the correct solution, but more a workaround.
+>
+> > Part of the VM_BIND for msm series adds some tracepoints for amount of
+> > memory preallocated vs used for each job.  That plus scheduler
+> > tracepoints should let you see how much memory is tied up in
+> > prealloc'd pgtables.  You might not be noticing only because you are
+> > running on a big desktop with lots of RAM ;-)
 > >
-> > +     /**
-> > +      * @DRM_GPUVM_VA_WEAK_REF:
-> > +      *
-> > +      * Flag indicating that the &drm_gpuva (or more correctly, the
-> > +      * &drm_gpuvm_bo) only holds a weak reference to the &drm_gem_obj=
-ect.
-> > +      * This mode is intended to ease migration to drm_gpuvm for drive=
-rs
-> > +      * where the GEM object holds a referece to the VA, rather than t=
-he
-> > +      * other way around.
-> > +      *
-> > +      * In this mode, drm_gpuvm does not track evicted or external obj=
-ects.
-> > +      * It is intended for legacy mode, where the needed objects are a=
-ttached
-> > +      * to the command submission ioctl, therefore this tracking is un=
-needed.
-> > +      */
-> > +     DRM_GPUVM_VA_WEAK_REF =3D BIT(1),
+> > > > > > But this
+> > > > > > doesn't work for native context, where everything has to be
+> > > > > > asynchronous, so we're trying a new approach where we instead s=
+ubmit
+> > > > > > an asynchronous bind for "normal" (non-sparse/driver internal)
+> > > > > > allocations and only attach its out-fence to the in-fence of
+> > > > > > subsequent submits to other queues.
+> > > > >
+> > > > > This is what nouveau does and I think other drivers like Xe and p=
+anthor do this
+> > > > > as well.
+> > > >
+> > > > No one has added native context support for these drivers yet
+> > >
+> > > Huh? What exactly do you mean with "native context" then?
+> >
+> > It is a way to use native usermode driver in a guest VM, by remoting
+> > at the UAPI level, as opposed to the vk or gl API level.  You can
+> > generally get equal to native performance, but the guest/host boundary
+> > strongly encourages asynchronous to hide the guest->host latency.
 >
-> As mentioned in v4, I do *not* agree with making this a valid and support=
-ed
-> mode. If at all, it should be an exception for MSM, i.e.
-> DRM_GPUVM_MSM_LEGACY_QUIRK with an explicit approval from Dave / Sima [1]=
-.
+> For the context we're discussing this isn't different to other drivers su=
+pporing
+> async VM_BIND utilizing it from the host, rather than from a guest.
+>
+> So, my original statement about nouveau, Xe, panthor doing the same thing
+> without running into trouble should be valid.
 
-I can rename it if you really insist, but "legacy" implies it is
-something that will go away.
-
-Unfortunately there is too much map/unmap cost for things like
-pageflip, so the VM related to scanout will continue to use this mode
-forever, even if all of the userspace related VMs are not using this
-flag.  If I could opportunistically keep around a mapping while using
-gpuvm as it is "intended", I would.  But I don't see how that can work
-when the VMA/VM_BO holds a reference to the GEM object.
-
-> It invalidates the whole design and makes a lot of functions fundamentall=
-y
-> invalid to call, which is well demonstrated by all the WARN_ON() calls th=
-is
-> patch attempts to add.
-
-I think of it more as adding a different mode of operation.  One
-where, perhaps some functions of gpuvm are not available, but that is
-fine because they are also unneeded in that mode of operation.  Hence
-the WARN_ON()s to make that clear.
+Probably the difference is that we don't do any _synchronous_ binds.
+And that is partially motivated by the virtual machine case.
 
 BR,
 -R
-
-> > +
-> >       /**
-> >        * @DRM_GPUVM_USERBITS: user defined bits
-> >        */
-> > -     DRM_GPUVM_USERBITS =3D BIT(1),
-> > +     DRM_GPUVM_USERBITS =3D BIT(2),
-> >  };
->
-> [1] https://lore.kernel.org/dri-devel/aCb-72KH-NrzvGXy@pollux/
