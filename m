@@ -2,75 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BFBFABE8F6
-	for <lists+freedreno@lfdr.de>; Wed, 21 May 2025 03:21:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C391CABEAEA
+	for <lists+freedreno@lfdr.de>; Wed, 21 May 2025 06:18:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1886D10E5A3;
-	Wed, 21 May 2025 01:21:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D66B10E5DC;
+	Wed, 21 May 2025 04:18:21 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UqLAT7GQ";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
- [205.220.178.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2244D10E5A3;
- Wed, 21 May 2025 01:21:36 +0000 (UTC)
-Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54L0VDx9014151;
- Wed, 21 May 2025 01:21:29 GMT
-Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.wrs.com
- [147.11.82.252])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 46rwfx0ka6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 21 May 2025 01:21:29 +0000 (GMT)
-Received: from ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.43; Tue, 20 May 2025 18:21:10 -0700
-Received: from pek-lpg-core1.wrs.com (147.11.136.210) by
- ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) with Microsoft SMTP Server id
- 15.1.2507.43 via Frontend Transport; Tue, 20 May 2025 18:21:05 -0700
-From: <jianqi.ren.cn@windriver.com>
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>
-CC: <patches@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <jianqi.ren.cn@windriver.com>, <robdclark@gmail.com>,
- <quic_abhinavk@quicinc.com>, <dmitry.baryshkov@linaro.org>,
- <sean@poorly.run>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <sashal@kernel.org>, <quic_vpolimer@quicinc.com>,
- <quic_jesszhan@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <quic_kalyant@quicinc.com>
-Subject: [PATCH 6.1.y v2 2/2] drm/msm/dpu: move dpu_encoder's connector
- assignment to atomic_enable()
-Date: Wed, 21 May 2025 09:21:23 +0800
-Message-ID: <20250521012123.1977793-1-jianqi.ren.cn@windriver.com>
-X-Mailer: git-send-email 2.34.1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BEB510E0FD;
+ Wed, 21 May 2025 04:18:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id DDBBA44966;
+ Wed, 21 May 2025 04:18:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16311C4CEE4;
+ Wed, 21 May 2025 04:18:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1747801092;
+ bh=DB6VT8aKMtNP9KOm3UMQ4Jm/jRsL35dYO+8TqZEQAqQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=UqLAT7GQEac+NN8TnTVMZpwpLPeKu9UYJ/HbKyFwY/STWKIzH/drSnuedbW5WxkJh
+ 2SdbnbXyx+xJPzwNHCLITv6jrtwWt+OAffvzXpHEEXR48AdMZd2GwNvuWvg11Ntb54
+ wYsf6IXJpOSFtX+EtThYAy9SIsIX+fl/IHEeP1hM=
+Date: Wed, 21 May 2025 06:18:09 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: jianqi.ren.cn@windriver.com
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
+ sean@poorly.run, airlied@gmail.com, daniel@ffwll.ch,
+ sashal@kernel.org, quic_vpolimer@quicinc.com,
+ quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ quic_kalyant@quicinc.com
+Subject: Re: [PATCH 6.1.y v2 1/2] drm/msm/disp/dpu: use atomic enable/disable
+ callbacks for encoder functions
+Message-ID: <2025052142-wind-chatty-63e5@gregkh>
+References: <20250521012109.1977775-1-jianqi.ren.cn@windriver.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=ObSYDgTY c=1 sm=1 tr=0 ts=682d2a99 cx=c_pps
- a=/ZJR302f846pc/tyiSlYyQ==:117 a=/ZJR302f846pc/tyiSlYyQ==:17
- a=dt9VzEwgFbYA:10 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8
- a=KKAkSRfTAAAA:8 a=t7CeM3EgAAAA:8
- a=Il65ExNKTjwmHhc7HzsA:9 a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
- a=cvBusfyB2V15izCimMoJ:22 a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIxMDAxMSBTYWx0ZWRfX2iVILvKWn5IQ
- 9jKTYADda3XzJTTlmc5FWJ/utr0h6TWpMbcqM+17kuqrW96sgV4/P/Ayi/p6WZLaA2K6Pf5oAka
- uMrQF70UoNROIymqV8OM0YND5WLP/4HQyc2DQQpCyUpvlwz8dGU4rL/JEn+lNyIneRpnTtgC9Eg
- 6ill9T8r2agg1n0mcRN+TD5D6lBLzcqB15y91ezU7W7cRa9Pxk9hj1aoQV/6OFhhDmsE8x2hs3D
- d6MrZoLe1Goy1gJF+cJ36j4hq3V/GjWpE5EY6zbb8WBfgvX6+aniUTN2KK9Z+T9e+Ar2D50EdA0
- T5kNWzW3ChgcLoSJaozowM34KsAVdVtNrdn95VM2A7wd4iq2TcgnL2a02cEpychLCQunVpsHBdv
- W+qbODwNgYc0Trc5YfxWDIrtWUy0+uNCfiddCla6qXbI3PusSCgPszrlC9hTgjgnPoAkSniT
-X-Proofpoint-GUID: CvB6XweGdALzlTS_J06AkR2aQF6OlC55
-X-Proofpoint-ORIG-GUID: CvB6XweGdALzlTS_J06AkR2aQF6OlC55
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-21_01,2025-05-20_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 lowpriorityscore=0
- bulkscore=0 spamscore=0 mlxlogscore=999 phishscore=0 malwarescore=0
- adultscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
- impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.21.0-2505160000
- definitions=main-2505210011
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250521012109.1977775-1-jianqi.ren.cn@windriver.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,63 +61,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On Wed, May 21, 2025 at 09:21:09AM +0800, jianqi.ren.cn@windriver.com wrote:
+> From: Vinod Polimera <quic_vpolimer@quicinc.com>
+> 
+> [ Upstream commit c0cd12a5d29fa36a8e2ebac7b8bec50c1a41fb57 ]
+> 
+> Use atomic variants for encoder callback functions such that
+> certain states like self-refresh can be accessed as part of
+> enable/disable sequence.
+> 
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Patchwork: https://patchwork.freedesktop.org/patch/524738/
+> Link: https://lore.kernel.org/r/1677774797-31063-12-git-send-email-quic_vpolimer@quicinc.com
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
+> Signed-off-by: He Zhe <zhe.he@windriver.com>
+> ---
+> Verified the build test
 
-[ Upstream commit aedf02e46eb549dac8db4821a6b9f0c6bf6e3990 ]
+Please see:
+	https://lore.kernel.org/r/2025052021-freebee-clever-8fef@gregkh
 
-For cases where the crtc's connectors_changed was set without enable/active
-getting toggled , there is an atomic_enable() call followed by an
-atomic_disable() but without an atomic_mode_set().
+for why I am not taking any windriver backports until you fix your
+development process.  Again.
 
-This results in a NULL ptr access for the dpu_encoder_get_drm_fmt() call in
-the atomic_enable() as the dpu_encoder's connector was cleared in the
-atomic_disable() but not re-assigned as there was no atomic_mode_set() call.
+{sigh}
 
-Fix the NULL ptr access by moving the assignment for atomic_enable() and also
-use drm_atomic_get_new_connector_for_encoder() to get the connector from
-the atomic_state.
-
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/59
-Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # SM8350-HDK
-Patchwork: https://patchwork.freedesktop.org/patch/606729/
-Link: https://lore.kernel.org/r/20240731191723.3050932-1-quic_abhinavk@quicinc.com
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-[Minor conflict resolved due to code context change.]
-Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
-Signed-off-by: He Zhe <zhe.he@windriver.com>
----
-Verified the build test
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index c7fcd617b48c..94f352253c74 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1101,8 +1101,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 
- 	cstate->num_mixers = num_lm;
- 
--	dpu_enc->connector = conn_state->connector;
--
- 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
- 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
- 
-@@ -1192,6 +1190,9 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
- 	dpu_enc = to_dpu_encoder_virt(drm_enc);
- 
- 	mutex_lock(&dpu_enc->enc_lock);
-+
-+	dpu_enc->connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
-+
- 	cur_mode = &dpu_enc->base.crtc->state->adjusted_mode;
- 
- 	trace_dpu_enc_enable(DRMID(drm_enc), cur_mode->hdisplay,
--- 
-2.34.1
-
+greg k-h
