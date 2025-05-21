@@ -2,81 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A982ABEBB3
-	for <lists+freedreno@lfdr.de>; Wed, 21 May 2025 08:09:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19FFDABEBC5
+	for <lists+freedreno@lfdr.de>; Wed, 21 May 2025 08:11:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C404910E10A;
-	Wed, 21 May 2025 06:09:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB63010E62E;
+	Wed, 21 May 2025 06:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Cz1fGQXd";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ztWatsbx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCEDC10E10A
- for <freedreno@lists.freedesktop.org>; Wed, 21 May 2025 06:09:18 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-442e9c7cf0eso3612905e9.2
- for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 23:09:18 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AED5D10E62E
+ for <freedreno@lists.freedesktop.org>; Wed, 21 May 2025 06:11:08 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-3a35ae46214so578442f8f.2
+ for <freedreno@lists.freedesktop.org>; Tue, 20 May 2025 23:11:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747807757; x=1748412557; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1747807867; x=1748412667; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=ZEUbi3Q05HXkxlWwhqCkqBQxo/YQlWetyK+KN6/4iB4=;
- b=Cz1fGQXdl6qr9ev8S9ThSAiYKjTAGcweBa8D2mzW5VaLwHcxgPKKoSLjEHJzfGEWTZ
- HNmvEv9eUXmgu/yPTREvhNj5T8rflLuLD9F+lehPhShycfJdbsFEu6k6mH0T+IzTXM9C
- SIdyCrm5PSru1+r2MakJpFBSfq6lUNu/wRjjvdvrR5OE0Ot7/dhkju2OVJk/TP3mABr4
- MF8hUMIkON1IDtGYx+4DZoW7buSR5+rUAEhi2CRtuf97e1orsO5YrCa1o9p9d25Q/2Hf
- KDJyTGVfatdjZHXDiWfBFUP57+Aa0eHtvu1qxYR1NHjbjVC5UyGHHfnyfg4QMDVaMBjO
- 9dQQ==
+ bh=qVCQxmIBPGpkmC3SOMAigSq4dFVhiNnLk8ZvthJ04qE=;
+ b=ztWatsbxPYFgdm01rJ2o4PeUg7NCncbbQqsq4Wlhrt45oyfJ37YchWgjiT54Pyhjy0
+ ThGIy7tup3JDLUYkCFE+2a7vLw93P5EZzxV48x68MY8zLd1zR98p5bQR5DjJpLNv90UM
+ mWCYTR38nCw871A2bBJvebiTr+Izw6m7RfgYshOb1c6wOI7sVQYUxqH8LLKiA5DqNwJs
+ UpqTRlUvXJG6fA56+y98LdO0tLfYbjqBW/jRmBQUoGF0wfrhTFVqxFjsIsptFYXTDoy+
+ HfNSduws8Fo2TXGkvywOvkDTIn5jrKe/Bp3IaMJ9Qw+UCaAo2uLtADGXl599iTSeLgbk
+ h0Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747807757; x=1748412557;
+ d=1e100.net; s=20230601; t=1747807867; x=1748412667;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ZEUbi3Q05HXkxlWwhqCkqBQxo/YQlWetyK+KN6/4iB4=;
- b=u8v3nbeCfJOSwx0ne1tAhoaRmXM31xdTmKAWPGW7AGozQs8XXXkUngupJgJ/MBpulx
- ex6B8cKM98DvAO0Vtf/fhkiwWENE2GxR0/Ofb1TqkzS6PB+tptYXPhlnyEttrfy5vPAy
- HAO/I41DcQltydwjje67yTzYhf5O3EU4i4vcQpwoTmkq0iSzlg+Pd6chakL+jNQOIX2b
- Kqbw+yQQ7lDy23tANHuXrUNwM0aHetdn4/l3aiSUGg8EmDbgBh+XVB8WoqjSm+OLm84y
- x9KfTarIJJ8b7DKPROrN5DoJid+ARGIjn+1e1jltcqUnEKCKs2SxA3xjToyBRE/V0qkG
- ha4g==
+ bh=qVCQxmIBPGpkmC3SOMAigSq4dFVhiNnLk8ZvthJ04qE=;
+ b=SxAYx4vXaGIFQAb10BIBw64pOUZ9vGJoH+8abvop2u9YNTleA6qa9NQLUJqNa47vb4
+ MnCQIyV8Qkjh+FrHTntqCAqH/kb//8NSXE0POFl63o7+fD0uKKzbU4YN6uNUBaBCZ66c
+ HxwJ604fmJKeOXGyVaio8w97ugTNHpv2g6WMcxhBFuo8CRHIJV3pkoRrMzDwqi71rUL3
+ UxkaRseoePUG6/CHSTwF+JM/hd1sXh59HQ1Z0iS4y/a66CDRy1dgzyBFev+yOM0EXatH
+ /LcKMnj4Tk7Yi6QJ96n9yzW2YymsAISH2Q9Tuxa3UeMcSQKM0I79PfcCOX7AGCpPRyFg
+ VzLA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV0kQjzIVJHyRa23F00ulwroy4pd2bY8O+9mLbS404fQrdZ5HkCKln0ONmJv5Ljl/yPlhX5+9jxZ84=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxsZ7MHC/OxfgIjMVuXWyVymsfsu0woKpz0EhzlaFjRuPppspIp
- kaQ4llZmWGSIEzxglPOwOI3ws66zeowAtG7abZhU8E7qkJIeY8Gr77QqeV3xM8zllxE=
-X-Gm-Gg: ASbGncuxq42WN+cjvTn7uG1rcDo2NCYyPA/mJcTyJ1QCEwJ0PeLHorLPi9D/iHZPSzE
- ycrYRKNYmtmWYWTNVQAPcZVZ/4qPJzJaAA6Jecog0XFfq61kmW4tr7j7uyUK8QLBQeMPe8cWR2v
- Vdvr5cCQP95bAQHagyrTVtw2waL0QaDKe8b0JmP6SUYOEfeezAxMpsBjbnctPctE1oGymFbEoYB
- 29YCafUrapS7Sa+hTeEHDsvKYROg7FPEk6z2qOjP0cV6E0eDNXhfvDf7WM+kC8EY5T+AmvqPvgK
- fYnj9TTrsOdLD5CdeGuXoBmyf5NniV2+bykZ4tuv2ZSlIjQxPBFu8lh4+ZuD9Fi+D/WAduL217L
- N15de0g==
-X-Google-Smtp-Source: AGHT+IF+1B2jv5MQsNyTXXrHvnGqFgZWabS6OWBTZnJ1wkFfzcgIBoXkTS8I6Fg4OWkmktx/hyVW4g==
-X-Received: by 2002:a05:600c:a41:b0:441:c5ee:cdb4 with SMTP id
- 5b1f17b1804b1-442fd66ded5mr61457855e9.4.1747807756996; 
- Tue, 20 May 2025 23:09:16 -0700 (PDT)
+ AJvYcCUXXuWcdCMqXEv+preVSerRPO4nGwzI6uJp12PGxapRGG2TL+0uf9IwskipPTSdJYh87mFSldUrlng=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzdmoj0mcIlTh14E7LssDFN254Lsqj2gA+ADrVfQqdLyGcS5u/O
+ LbZVXZ15m/ex+ic0d3lSRHCOQl2yD6PqM/c1L4OKNeLjlfODk4QsxfcWSIQ3MS4IVPc=
+X-Gm-Gg: ASbGncvJV+ilVm1MX0JOQEJBdECea5m1kfR0QGLmreEKRqFcg3P5Drw9gpZWTgZPhEb
+ lRxdVfHEYdlCy0OZtQZH6cHLen6PATc0JHeKZoYSVTy1RwT13XH3eCeJ8BmEyO4g1QYggHPvApg
+ BJBVvhsg4HVeJ/4XPekyg+heFlKUZnV+XtJD/ZHfG5v9XH34l2IV+oZGP5SDZC36EFj19Nzv2tx
+ xenkVJgYTwJsWSIpE86HaEgSqRIagGM9cJp+PBNnp8INGm3ZT3uiNT2dzDrdoFLFB4WexigZk2G
+ rS/fUUnFHaqpzXRX8KEU43w/0Aq0H0AAkX9ugZ8py3asmaWfxTPfWVlBJBlb7s8MHDhmXsE=
+X-Google-Smtp-Source: AGHT+IG/Vu/91YjmlBWgvPSmMlmSsw0ONgg+leAfY8UfWAa7kSP5roUhJkzMOVZb64MQAmXuNtn6/Q==
+X-Received: by 2002:a5d:4044:0:b0:3a3:5c94:c287 with SMTP id
+ ffacd0b85a97d-3a35c94c2a3mr5179290f8f.2.1747807867231; 
+ Tue, 20 May 2025 23:11:07 -0700 (PDT)
 Received: from [192.168.1.28] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f1ef01besm55860565e9.10.2025.05.20.23.09.15
+ ffacd0b85a97d-3a35ca9417dsm18309048f8f.101.2025.05.20.23.11.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 May 2025 23:09:16 -0700 (PDT)
-Message-ID: <87af51dd-a35c-460a-af4c-813427cdaf84@linaro.org>
-Date: Wed, 21 May 2025 08:09:14 +0200
+ Tue, 20 May 2025 23:11:06 -0700 (PDT)
+Message-ID: <0c6c6f0b-02f3-4220-aba4-caeafedc7ff0@linaro.org>
+Date: Wed, 21 May 2025 08:11:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dsi/dsi_phy_10nm: Fix missing initial VCO rate
+Subject: Re: [PATCH v5 15/24] drm/msm/dsi/phy: Define PHY_CMN_CTRL_0 bitfields
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250520111325.92352-2-krzysztof.kozlowski@linaro.org>
- <3ywacd4x23zadvwikw4hdprgbgxxdmbcar3lyayy4ezmd5lcyw@3h2oosmbk6yb>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, linux-clk@vger.kernel.org,
+ Srinivas Kandagatla <srini@kernel.org>
+References: <20250430-b4-sm8750-display-v5-0-8cab30c3e4df@linaro.org>
+ <20250430-b4-sm8750-display-v5-15-8cab30c3e4df@linaro.org>
+ <j47udhqq3ldsza3cr6a6rd5dq7uxjgpolbmdhmpzvzt7glpuva@v5tgkydlywag>
+ <b4f68273-6c3d-4ca5-8b8d-8837f3f03683@linaro.org>
+ <f4ciopex6fo6u77shetfa3hjb3ehvy3brkocyjcbd6xchkmgxs@v6xfxhye24hg>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -123,7 +136,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  h0At/TN/618e/QVlZPbMeNSp3S3ieMP9Q6y4gw5CfgiDRJ2K9g99m6Rvlx1qwom6QbU06ltb
  vJE2K9oKd9nPp1NrBfBdEhX8oOwdCLJXEq83vdtOEqE42RxfYta4P3by0BHpcwzYbmi/Et7T
  2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <3ywacd4x23zadvwikw4hdprgbgxxdmbcar3lyayy4ezmd5lcyw@3h2oosmbk6yb>
+In-Reply-To: <f4ciopex6fo6u77shetfa3hjb3ehvy3brkocyjcbd6xchkmgxs@v6xfxhye24hg>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -141,36 +154,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/05/2025 22:06, Dmitry Baryshkov wrote:
-> On Tue, May 20, 2025 at 01:13:26PM +0200, Krzysztof Kozlowski wrote:
->> Driver unconditionally saves current state on first init in
->> dsi_pll_10nm_init(), but does not save the VCO rate, only some of the
->> divider registers.  The state is then restored during probe/enable via
->> msm_dsi_phy_enable() -> msm_dsi_phy_pll_restore_state() ->
->> dsi_10nm_pll_restore_state().
+On 20/05/2025 23:23, Dmitry Baryshkov wrote:
 >>
->> Restoring calls dsi_pll_10nm_vco_set_rate() with
->> pll_10nm->vco_current_rate=0, which basically overwrites existing rate of
->> VCO and messes with clock hierarchy, by setting frequency to 0 to clock
->> tree.  This makes anyway little sense - VCO rate was not saved, so
->> should not be restored.
->>
->> If PLL was not configured configure it to minimum rate to avoid glitches
->> and configuring entire in clock hierarchy to 0 Hz.
->>
->> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> Link: https://lore.kernel.org/r/sz4kbwy5nwsebgf64ia7uq4ee7wbsa5uy3xmlqwcstsbntzcov@ew3dcyjdzmi2/
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> There is no checkpatch --strict warning here exactly for the reason I
+>> was saying. For readability there should be no empty line after because
+>> such statements are expected to be together. I don't mind of course
+>> adding one, so I will implement the change.
 > 
-> Fixes?
+> I'd prefer this:
+> 
+> u32 data;
+> 
+> data = readl();
+> data &= foo;;
 
-Probably:
-Fixes: a4ccc37693a2 ("drm/msm/dsi_pll_10nm: restore VCO rate during
-restore_state")
-
-But CC stable would not be appropriate, since this was never reproduced
-on this PHY/hardware and we only guess a visible issue being fixed here.
-
+Ah, ok, I understand now.
 
 Best regards,
 Krzysztof
