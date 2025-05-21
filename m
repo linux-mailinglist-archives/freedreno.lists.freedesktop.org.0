@@ -2,117 +2,109 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9035EABF641
-	for <lists+freedreno@lfdr.de>; Wed, 21 May 2025 15:37:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7634ABF7AD
+	for <lists+freedreno@lfdr.de>; Wed, 21 May 2025 16:22:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 896D010E973;
-	Wed, 21 May 2025 13:16:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3542210E944;
+	Wed, 21 May 2025 14:22:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OHLUsocq";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="fYSLMVVs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 652CC14B4D6
- for <freedreno@lists.freedesktop.org>; Wed, 21 May 2025 12:59:45 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54L9XMJw000868
- for <freedreno@lists.freedesktop.org>; Wed, 21 May 2025 12:59:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=PQ8FelBJqVusuKqI01bafP6p
- gE/hxiJzISLHy0HpwSk=; b=OHLUsocqu+9QxrOtGR5b1KSyVIms2jesL2go7drl
- 2ooIQ74FhKamY66Q2+4rbF/CcVtFhncW+d7IjQGlfS/6WxyhWco7BJM/fZfSbJSQ
- /jtP+SKQFdAmBjeaHs4qKhYeafhEr8G0H0NOpSco7EhBK61YtcRHRiy6zORt3dFA
- R9jpsIOb9YKPn99a/MzAs5bTku9R5dGOMcCVGZxnRFu/ajVq87JZRvC8SmJaygPo
- TturjWUKQhInUc8Xt0Jqc29IZc4VAv/Iq++KpDV7DW0hmSWfAULknkUOFReShf3y
- 1wbqL4KTNLWE2IJXFHKjvMkZuXuJTuF077AiM2JOiy1cwg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46rwf6tycx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 21 May 2025 12:59:44 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6f8bdefcb39so86422766d6.0
- for <freedreno@lists.freedesktop.org>; Wed, 21 May 2025 05:59:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747832384; x=1748437184;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PQ8FelBJqVusuKqI01bafP6pgE/hxiJzISLHy0HpwSk=;
- b=GwSWEhqhX39RplkRlW9/GtW/qMWztwQWiS37RIeaZZwo6Ga7XV74FOADunOEFcmrud
- WKTLw4yCWTv6GkuRB1jkbMmTzL75cyqFflIfyEogJTM0H8PF8YCbNAP8Xmh4TBZuWJgD
- WwCArJAweh1lkjgdpsBNsP1XKuFeomjG23r+giYE+GsEf3d+A8JUcwcjlUaKGUx1Ejv2
- ehQmDEGr5esI3X7IXf0ylqEtQJvY0CMrjRrhyostxjhfegtqoj4fDEeZuRoSCkC1NWWY
- TKikXwdNif8ADAIaz+/W0Qtm5aHwPHtHifhCb3CRsBy7d/TGEEjx0eAv3uYhBM6UpYNl
- 3XFw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWwXehd+QMpn0KzxGO4zCimSXhP8hl9wDaecjZP2INHN98C1Q98TlaL1ejrgRJKdlha1xH+ATl2qSA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCAyX8vW7GAcQ7WfM0KQaC5XR5MvgKpuRnJfK89gANM7LJxS0Z
- JCSlmzbdh+nuBg4oAyjwPUHGCvV+MyFERSlt/ZiV66VvgFQihusNIF6H0pulAd+A9WN1HS1ZkOL
- 4Qjya6vXLkDwvSxhGvEUaOv0BomNgLV30YLzVERjftrlu9qrzVMyP81xmi5cqEqro+uTf158=
-X-Gm-Gg: ASbGnctPEORDCaz7y0hH90+Uu0jxuHMgysWGgVlLBKV3EmFImICsWVdfvTVUpMu4g91
- 5IPW3G8y7mO7zA0FmtZJNfnlIYWT4nveIAoKbLeNZkaZrdOdkMY6gt2SMrGxd2YenrZG9m/H2Pd
- +5ftd/yIiL3/MyAR8FDVwmXDyIrdAmV8Jcd8HWtDAj3HGgSRZH7V4d3WLp+ba7ygZr8cmIBHfeN
- h8YG2To+niCqfP0dwneVADEWWcFN1JaxHxTZ8fN1nys6lenonFwyeSqAPf+d12pIwwhOMyiwh75
- z5cbhcr0IinQ6a15JB0grrzMLTftU4tkbfUnJ/uYwnCV1z2+o1yy+YUAVCURTSiKSQz/BAcf/JM
- =
-X-Received: by 2002:a05:6214:226d:b0:6f8:d035:7222 with SMTP id
- 6a1803df08f44-6f8d03572a0mr205090306d6.15.1747832383546; 
- Wed, 21 May 2025 05:59:43 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHUhnGy4gCGjXLtSemtXuIIR5DTpA42yEm9njhcNzOkanHSgLeUZ3VEd2gBEl+hjJ8sTmWA7w==
-X-Received: by 2002:a05:6214:226d:b0:6f8:d035:7222 with SMTP id
- 6a1803df08f44-6f8d03572a0mr205090066d6.15.1747832383172; 
- Wed, 21 May 2025 05:59:43 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-550e702c9d8sm2856946e87.181.2025.05.21.05.59.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 May 2025 05:59:42 -0700 (PDT)
-Date: Wed, 21 May 2025 15:59:40 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dsi/dsi_phy_10nm: Fix missing initial VCO rate
-Message-ID: <ybbyhri7vydiyowr3iqrizefblrfpedk5it723o254vyklcd5c@cdx7rhx2f3rn>
-References: <20250520111325.92352-2-krzysztof.kozlowski@linaro.org>
- <3ywacd4x23zadvwikw4hdprgbgxxdmbcar3lyayy4ezmd5lcyw@3h2oosmbk6yb>
- <87af51dd-a35c-460a-af4c-813427cdaf84@linaro.org>
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A43210E98A;
+ Wed, 21 May 2025 14:22:32 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 8FD7443B3F;
+ Wed, 21 May 2025 14:22:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1747837350;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vyPpXbcuqSIPDBMFEqspo4iXigHvW7uXfydpRN7Xbhk=;
+ b=fYSLMVVsQYfpq0UfcQjtXHhEeq5bfCS6ZfFtSy9WALjrRzfOI1oCmQiRh9/p/2Tov1lqL6
+ 6hd7ysvk/ltTNuZ3CAlJ8hxNJb1U4hh9oDe0vFEV7Qmtyyl2jnGS6vHAh+CJjT02k5hPnx
+ /8mrP78Ua2u8o332sEOuGFEL01a6KTHTgbKtJYOaO92+nm28+YzX+fKLT5azjlVWA6wd7P
+ QGZK2iH33WbGHOFi2Bk+4Ix+bA6ASPEQH4bi0kJlvRry4ViIVwFyHbkOYow1fiiPEcPty3
+ 9UYIHe6MjbBN6AI7Wu+J/2jCVZHKny42qJOnl6aqWr/VeHDBSzrL8xxwzk+UAA==
+Date: Wed, 21 May 2025 16:22:16 +0200
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jagan Teki
+ <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Douglas Anderson
+ <dianders@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, Krzysztof
+ Kozlowski <krzk@kernel.org>, Liu Ying <victor.liu@nxp.com>
+Cc: Anusha Srivatsa <asrivats@redhat.com>, Paul Kocialkowski
+ <paulk@sys-base.io>, Dmitry Baryshkov <lumag@kernel.org>, Hui Pu
+ <Hui.Pu@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, asahi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-renesas-soc@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Alim Akhtar
+ <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>, Kyungmin Park
+ <kyungmin.park@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>, Adam Ford
+ <aford173@gmail.com>, Adrien Grassein <adrien.grassein@gmail.com>,
+ Aleksandr Mishin <amishin@t-argos.ru>, Andy Yan <andy.yan@rock-chips.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Benson Leung <bleung@chromium.org>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Christoph Fritz <chf.fritz@googlemail.com>, Cristian Ciocaltea
+ <cristian.ciocaltea@collabora.com>, Detlev Casanova
+ <detlev.casanova@collabora.com>, Dharma Balasubiramani
+ <dharma.b@microchip.com>, Guenter Roeck <groeck@chromium.org>, Heiko
+ Stuebner <heiko@sntech.de>, Jani Nikula <jani.nikula@intel.com>, Janne
+ Grunau <j@jannau.net>, Jerome Brunet <jbrunet@baylibre.com>, Jesse Van
+ Gavere <jesseevg@gmail.com>, Kevin Hilman <khilman@baylibre.com>, Kieran
+ Bingham <kieran.bingham+renesas@ideasonboard.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, Phong LE
+ <ple@baylibre.com>, Sasha Finkelstein <fnkl.kernel@gmail.com>, Sugar Zhang
+ <sugar.zhang@rock-chips.com>, Sui Jingfeng <sui.jingfeng@linux.dev>, Tomi
+ Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, Vitalii Mordan
+ <mordan@ispras.ru>, "Rob Herring (Arm)" <robh@kernel.org>, Hsin-Te Yuan
+ <yuanhsinte@chromium.org>, Pin-yen Lin <treapking@chromium.org>, Xin Ji
+ <xji@analogixsemi.com>, Aradhya Bhatia <a-bhatia1@ti.com>, Tomi Valkeinen
+ <tomi.valkeinen@ideasonboard.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Martyn Welch <martyn.welch@collabora.co.uk>, Peter Senna Tschudin
+ <peter.senna@gmail.com>, Helge Deller <deller@gmx.de>, Kuninori Morimoto
+ <kuninori.morimoto.gx@renesas.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, Yannick Fertre
+ <yannick.fertre@foss.st.com>, Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Michal Simek
+ <michal.simek@amd.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v3 00/22] drm: convert all bridges to
+ devm_drm_bridge_alloc()
+Message-ID: <20250521162216.79dd3290@booty>
+In-Reply-To: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
+References: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87af51dd-a35c-460a-af4c-813427cdaf84@linaro.org>
-X-Proofpoint-GUID: _jXO5h5KMFMh39EZ2VZYpzaK14fALwmL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIxMDEyNiBTYWx0ZWRfXwSHJ3OA1yk49
- lg8bsGIs5GqFFA8bWz9gLnAbcSH152C5IelmEeY47ZnHaaHVGdfmMz2PWBx2RasUTpBu4eyML6Y
- eI9q4bHPfmEEmhRied7wmm+HC6yK7UmdOdFbhaFJ2bDn7bvUViR/BIS4n08pnAgx2sLedX5/FNu
- r3Ts+TRshwVkcUBEDwuuGbugkvWvQVtSVaBzHY1vLR2pL0sZLxs6W7A2naVuy48KeyqKQPm8USs
- oZ5ZSlZSFCv0FUn31tn96ri5j25spdQVV596myH3Y8UYh1vYI58ol11dQp/ILEk9aMP9+IN98Ra
- nnAEyGtzsy5NVQgYIn1XPixySpBLMu9QHjDfbB7Cj6gVFxe33b9IzOxTRYfgwyDXmo0WLlErbTu
- Ia3+TvSrCVU2LtDNpOOLUBD2pAQMp+WshbBX2qhlSYpSmmwI94b6xnw7CjWX836dTf9ZOfFz
-X-Authority-Analysis: v=2.4 cv=fZOty1QF c=1 sm=1 tr=0 ts=682dce40 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=dt9VzEwgFbYA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
- a=afxxqWxysUDinfw8BOsA:9 a=CjuIK1q_8ugA:10 a=iYH6xdkBrDN1Jqds4HTS:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: _jXO5h5KMFMh39EZ2VZYpzaK14fALwmL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-21_04,2025-05-20_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
- malwarescore=0 priorityscore=1501 impostorscore=0 mlxlogscore=680
- lowpriorityscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505160000 definitions=main-2505210126
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgdeffedtucdltddurdegfedvrddttddmucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepheelfeevlefgkeekvdffveehudeihfdtjefhieehgfejveduieffgffhjeejleevnecuffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgpdhkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghlohepsghoohhthidpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeelhedprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhto
+ hepmhhrihhprghrugeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepthiiihhmmhgvrhhmrghnnhesshhushgvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrghdprhgtphhtthhopehrfhhoshhssehkvghrnhgvlhdrohhrgh
+X-GND-Sasl: luca.ceresoli@bootlin.com
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,41 +120,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 21, 2025 at 08:09:14AM +0200, Krzysztof Kozlowski wrote:
-> On 20/05/2025 22:06, Dmitry Baryshkov wrote:
-> > On Tue, May 20, 2025 at 01:13:26PM +0200, Krzysztof Kozlowski wrote:
-> >> Driver unconditionally saves current state on first init in
-> >> dsi_pll_10nm_init(), but does not save the VCO rate, only some of the
-> >> divider registers.  The state is then restored during probe/enable via
-> >> msm_dsi_phy_enable() -> msm_dsi_phy_pll_restore_state() ->
-> >> dsi_10nm_pll_restore_state().
-> >>
-> >> Restoring calls dsi_pll_10nm_vco_set_rate() with
-> >> pll_10nm->vco_current_rate=0, which basically overwrites existing rate of
-> >> VCO and messes with clock hierarchy, by setting frequency to 0 to clock
-> >> tree.  This makes anyway little sense - VCO rate was not saved, so
-> >> should not be restored.
-> >>
-> >> If PLL was not configured configure it to minimum rate to avoid glitches
-> >> and configuring entire in clock hierarchy to 0 Hz.
-> >>
-> >> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> >> Link: https://lore.kernel.org/r/sz4kbwy5nwsebgf64ia7uq4ee7wbsa5uy3xmlqwcstsbntzcov@ew3dcyjdzmi2/
-> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > 
-> > Fixes?
-> 
-> Probably:
-> Fixes: a4ccc37693a2 ("drm/msm/dsi_pll_10nm: restore VCO rate during
-> restore_state")
+Hello Maxime, Shawn, Liu, all,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Fri, 09 May 2025 15:53:26 +0200
+Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
 
-> But CC stable would not be appropriate, since this was never reproduced
-> on this PHY/hardware and we only guess a visible issue being fixed here.
+> devm_drm_bridge_alloc() [0] is the new API to allocate and initialize a DRM
+> bridge, and the only one supported from now on. It is the first milestone
+> towards removal of bridges from a still existing DRM pipeline without
+> use-after-free.
 
-Agreed.
+I applied on drm-misc-next patches 3-17,20-21 as they match all the
+criteria:
+ - At least a Acked-by (or R-by maintainers)
+ - patch is for drm-misc
+
+Being my very first commits to drm-misc, I tried to be careful, and
+double checked all the patches with Louis (thanks!).
+
+Here are the pending questions and plan for the remaining patches.
+
+>       Revert "drm/exynos: mic: convert to devm_drm_bridge_alloc() API"
+
+This reverts the commit applied my mistake:
+https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/91c5c7b5bb2dd09b43b025bce6d790d3c79f4518
+
+Neither the  original patch nor the revert has been reviewed/acked.
+
+As the commit was a mistake, I'm applying the revert by the end of this
+week (i.e. on Friday) unless there are better instructions.
+
+>       drm: convert many bridge drivers from devm_kzalloc() to devm_drm_bridge_alloc() API
+
+This patch affects multiple drivers. Running get_maintainers.pl
+points at Shawn Guo's repository. After reviewing the MAINTAINERS file,
+this looks like due to the 'N:' line in:
+
+ARM/FREESCALE IMX / MXC ARM ARCHITECTURE
+M:	Shawn Guo <shawnguo@kernel.org>
+M:	Sascha Hauer <s.hauer@pengutronix.de>
+R:	Pengutronix Kernel Team <kernel@pengutronix.de>
+...
+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/shawnguo/linux.git
+N:	imx
+...
+
+(https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/MAINTAINERS?ref_type=heads#L2511-2528)
+
+Here 'imx' matches the 'drivers/gpu/drm/bridge/imx/imx-legacy-bridge.c'
+file that is touched by the patch. That regexp appears overly generic to me.
+
+Shawn, can it be fixed by making it less generic?
+
+If not, can we at least add a band-aid 'X:' entry for
+drivers/gpu/drm/bridge/imx?
+
+I think the other matching entry is the one to consider:
+
+DRM DRIVERS FOR FREESCALE IMX BRIDGE
+M:	Liu Ying <victor.liu@nxp.com>
+L:	dri-devel@lists.freedesktop.org
+S:	Maintained
+F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-ldb.yaml
+F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pixel-combiner.yaml
+F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pixel-link.yaml
+F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pxl2dpi.yaml
+F:	drivers/gpu/drm/bridge/imx/
+
+(https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/MAINTAINERS?ref_type=heads#L7940-7948)
+
+However it does not list any trees. I _guess_ drm-misc applies here as
+a fallback as well as common sense.
+
+Liu, should this entry have a 'T:' line for drm/misc?
+
+>       drm/bridge: imx8qxp-pixel-combiner: convert to devm_drm_bridge_alloc() API
+
+Not acked/reviewed, some discussion happened. I am resending it in v4,
+possibly with updates based on the discussion.
+
+But it has the same issue discussed above, with get_maintiners.pl
+pointing at Shawn Guo's tree, so in the future I'm assuming this goes
+to drm-misc unless there are news about that.
+
+>       drm/bridge: tc358767: convert to devm_drm_bridge_alloc() API
+
+No feedback, resending in v4.
+
+>       drm/todo: add entry to remove devm_drm_put_bridge()
+
+This involves documentation maintained on another tree. Where should it
+be applied? There are two matching entries in MAINTAINERS:
+
+ * DRM DRIVERS -> the drm tree
+ * DRM DRIVERS AND MISC GPU PATCHES -> the drm-misc tree
+
+To me it looks like the second is obviously the closest match as we are
+dealing with DRM bridges, so I'm applying this as well on Friday unless
+there are better instructions.
+
+Best regards,
+Luca
 
 -- 
-With best wishes
-Dmitry
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
