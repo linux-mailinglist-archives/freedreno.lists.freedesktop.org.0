@@ -2,94 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A29FAC10A4
-	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 18:03:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A598DAC1224
+	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 19:33:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F087610E169;
-	Thu, 22 May 2025 16:03:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71EC510E8E9;
+	Thu, 22 May 2025 17:33:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZIoV1Re9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V1PJlNUc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25DEA10E169
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 16:03:05 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54M7xxQ7001325
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 16:03:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- W/vcwc9zHxnC8lxAII31VESCFwSbumzwlKQ3H+NmCM4=; b=ZIoV1Re9InFoPkGn
- unWZkXEHp+cAsdCU/yRNZ4KUbU9IPVBmf+OY55pplR/B24jbzqzsiyGLidaex1JU
- unmr5sdSGUNYlNQuTzLNmRUEu6mHLX0gWoOYyYYyUNGmUC/fGomSTnCTv0tF0QK/
- 7MG2IO0mR1pU/d6ex5kkHW4+CHFGFdTRZ9GNdqSGnHZODwUZo/sFU7QITbUw61l6
- bcMacCt6UUUOBKCADoY9qyEe9NPkSzcgDLAxtu2ha+UDkWBpzAeIDddD+d5NS+eU
- 2d09f5xpfM+pXAfCWC7IA5y2DyLnjuFIDNLixB1YxcT1QlAEoGL+W9Dc7v9+ToMH
- TQ+BDQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46s95tn946-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 16:03:04 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7c5466ca3e9so167835785a.2
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 09:03:04 -0700 (PDT)
+Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
+ [209.85.166.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B37610E742;
+ Thu, 22 May 2025 17:33:19 +0000 (UTC)
+Received: by mail-il1-f171.google.com with SMTP id
+ e9e14a558f8ab-3da73df6b6bso25698665ab.3; 
+ Thu, 22 May 2025 10:33:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747935198; x=1748539998; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yZCuz5KOY1Rb1fNXfa6wWyj8KY6lp+00rvWft2KvMXY=;
+ b=V1PJlNUcitkvyUWSd21jsg4i8Oke22fdkxBtpAt9DW6U5DlBvfBhrpEU1trBbtpY6R
+ CatepA/Olb3KRysmDPb49+xJxr22MMBvNYXdeRWRE2qARJYJnPF3zGhsnqCkBhixVlrw
+ 9HcrEtEIxyQacN8/1shRx+s7SVWy+5RNZuvRzdt1qOZykhyBpqdEZRQAm5w/48frk38r
+ LTIZf1Y08RrcSY5T2mb/w1E4kZjgHcJjXnGeuIbAu4Md1le+vD4tQv5AcUd+kBBT7w72
+ zfwxbhdE8HjdM05nJKEpZksKV0qFcFcCEpTocugnpM1GAtnWuAFgvCnbsD/ftnU/4OXX
+ ZvqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747929783; x=1748534583;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=W/vcwc9zHxnC8lxAII31VESCFwSbumzwlKQ3H+NmCM4=;
- b=Qr+hW//PzpFlm3RGnJgzvj0IgytgVnRLmvMPs+YkjK2Ohohw4Q6CJqk82rKAzIS3KB
- NemHidadjfn4j3SnG/ROZ2HNid898kDMO6xzPS1WKfqWICpWK1QV9wa9O+Hp37w5rknq
- r/oZ2e8Lw5HUFY7Gfmc+G7TcXwxl3nQciSDEiug/8Xz7Rt6RlxjKfmgiPp3uaHtkqnQD
- WNkXH7WuVYT8hgRFkaHAYnpDpDSEcxxtAjHRF8irqC3lw4+RdJmKMWlcEQeWVt7l+Fa4
- vJCBlOaUAHEmByTLRjhW/rBPlo8n7XQm2jMTTM/9xWMaAbrtJZWG0/UePw2CNpTUX5o7
- z3Ow==
+ d=1e100.net; s=20230601; t=1747935198; x=1748539998;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yZCuz5KOY1Rb1fNXfa6wWyj8KY6lp+00rvWft2KvMXY=;
+ b=mF/ko+gqTBY9Pv50UJZ6z1qNWXaIra8JA2XezoDP4z/F4JRW9yO64JI/2nw8QF8kYo
+ 9XJ/pRqtG3MaW0MifIFt2yDVqMMVC/1uKCBIAwMveeXomJZShmRAFPaN5d10PG/gB2VH
+ fcgi1M4eFbGdignTP74uzckygDkM6mtYUafOO86JW4ZQuzrUiqK2WOd78Fo2LdD6vDYg
+ xiw+S+JKiJzkiHNQKQhvp8YI6V/SEiTWiQi5nl+xb0kzhKToSDe8vwjYIa/mSEftg7hK
+ onD5ofa/SqwEUKdiWmfvSMx6o14FgNoATteYmJmIaBvVyKZl0jE9N3c/3qG61RESIqu5
+ YUxw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXuSh99njQHF8912RZv3Xt5hMEUCaSKaykWior/wmZpCEyJcQlRZ/rQdN1R2d1mna0qo8WCVmub5kI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzAThv7wo+REROIDRIhWWWr0587c7DQ0FbkAm2RBq30luRvm1Tv
- cwpl/hGqP4ATLHZYcspOaw1iy9/kV49PchBkOXZGfn50178OmBTKge3aeH9B9Mwis5fI5KjQnhi
- jj1dLonztasWxugYKeNLXnjriK7/jwRN4/2DDhAbf2jNpA/CyOhcdj+1no0401iZJaJPhKGI=
-X-Gm-Gg: ASbGncsORdRVYxnbW+x14KPThqxddH+LK4P2wFnG1Mx53BF3mzXwcwL85g4rU/O1bd+
- girjKJfa7RKT6vYpvyr47mi+6bxToulk7iLAByD0hSyP//kkaV+qVLdxrnOpY6MSFvmo8N1b83Z
- a5iFTwGv3SDMvNBlj/Zk4OVIMgQYA6kD3chV9omtkeRYFrHvoyhF+UNqqoLP+fOyvgKD+eMq4Dy
- G60aICiRnLs8Kr7GMOpZxKgTkiO+tEE28Sh0wJ4JbxENCagCB4yXT9Pq3oMRQEDBnJoMmg1/2ea
- LIZZqNPEZmAVQSNR18AV97Z8UIXaTs+E9zKa/mqDLy/UsiBM2E8CDxm+q7iHKGdekw==
-X-Received: by 2002:a05:620a:2608:b0:7cb:69f:1b8f with SMTP id
- af79cd13be357-7cd4672d9c0mr1640476185a.1.1747929783558; 
- Thu, 22 May 2025 09:03:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF74ucAG9qupScVCcKfwIh6+iKHIXeCAupa1Hr2xyI61Rn4StPKHE/HIp9RIHOkgPlYgCGvLA==
-X-Received: by 2002:a05:620a:2608:b0:7cb:69f:1b8f with SMTP id
- af79cd13be357-7cd4672d9c0mr1640475085a.1.1747929783187; 
- Thu, 22 May 2025 09:03:03 -0700 (PDT)
-Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d4d2323sm1104226066b.175.2025.05.22.09.03.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 May 2025 09:03:02 -0700 (PDT)
-Message-ID: <584a9e49-5106-4053-9f42-e1e176618eea@oss.qualcomm.com>
-Date: Thu, 22 May 2025 18:02:59 +0200
+ AJvYcCW098/6xMo4ftwiNEY6hYT5vFJWOkBv6yp/nOJRXOk5R+//8EJ1GcnVGDIY+JjahtprY4YgmMbZSVft@lists.freedesktop.org,
+ AJvYcCX0sPzhe7X64IVgQiILHkPbgjO4HEiPrjCprGqlJuSx3dnKnxHtCVi1G0dsQCHZUrlJRcgizqZnusA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBQ4zWgIweibk8bhQU6Qlajmbqv/JuSIy9B3M98y3LCfiwze5T
+ +t3RPx9dr0RhBLD3qamPBq+8JDiDs7rTIjMawaEAr18zzld24RtIpyleJS1IjyBLEUnyMasvlIo
+ iBl5QvAas4SPFNY+cbbZm4O/8NAT9rtQ=
+X-Gm-Gg: ASbGncthWatsmbX/Xt5gwo7ivTwWfGOic2pz8KE3ojOywVQyZrbz028mEr+BIrjEMFS
+ 4w0F5WOCairtdIM4PK+5wfoCLInzksHVn3LjYG+Tm/kLmU2Ho30FIlyeky8pQyM6PXpeyOVkiFE
+ Vwitu4NAchpXASaFchQV2z+d8zD+TZpXK2qM3VGmuwe1+ibvS4dBBDgrmNP2xHjJc=
+X-Google-Smtp-Source: AGHT+IGLp6jF0fhMnnPkzroRSH4KvzmG+rg6/iwrv7HqLvxi39A0Z4DM4iu66szWb0Bixn5K8nL7y4V/mVjNTnq5TMk=
+X-Received: by 2002:a05:6e02:349c:b0:3da:7176:81bf with SMTP id
+ e9e14a558f8ab-3db8434a2afmr267633515ab.21.1747935197989; Thu, 22 May 2025
+ 10:33:17 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT v6 2/5] drm/msm/adreno: Add speedbin data for SM8550 /
- A740
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, neil.armstrong@linaro.org
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>
 References: <20250430-topic-smem_speedbin_respin-v6-0-954ff66061cf@oss.qualcomm.com>
  <20250430-topic-smem_speedbin_respin-v6-2-954ff66061cf@oss.qualcomm.com>
  <13cd20c6-f758-45ff-82d1-4fd663d1698c@linaro.org>
@@ -104,33 +71,27 @@ References: <20250430-topic-smem_speedbin_respin-v6-0-954ff66061cf@oss.qualcomm.
  <f5734944-1ed2-4acc-a015-0c638c331bbe@quicinc.com>
  <d73c6151-91bb-4c96-ad2a-972ad392624b@oss.qualcomm.com>
  <1903ee8a-f819-4a4d-baee-90f35e0da290@quicinc.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <1903ee8a-f819-4a4d-baee-90f35e0da290@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=QKBoRhLL c=1 sm=1 tr=0 ts=682f4ab8 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=KKAkSRfTAAAA:8 a=nGS3afnEe7IiRhMdywQA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: FqhddwSOwkcOqlRIdNKnWm0hwWPGsENh
-X-Proofpoint-GUID: FqhddwSOwkcOqlRIdNKnWm0hwWPGsENh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIyMDE2MyBTYWx0ZWRfX1i8K7uKUlxAm
- +rwnQOYDM1Uo3LDe+1qIZ9Q3q6s6Vd3n8crSwiVAXJvMmBlybuh1yNy4RH12iLw4twDlixJgo41
- qi/DObXu811HTAv6wQrLoSjllfnV4KkH7zwGkr/N7DRjLLRsqGiLgPB4q9XbbaCabf3h+rM2Oya
- WWb/jQ+Z9SfL+hRuvT2bXxCWsm0CuH9Hg7Mtvv7T1EPZZ75vq1MRuzFWgbtb7zZUW4xqdZsdnSB
- g6ajFa96l+zYjdkD+iBgMjk1JGckZCBAmmZAKHtl7pN3QRoU7Lss1dz2BkwsOjHYYqozh4p2D0B
- JhUZR7ugDmmMPj4nbRTJ6oUXqateMjRsY40lI+Z9buYgoYwqUefu1Q/eclDUEjTh9j4MhYKc+yX
- 54SGo+8jbaV2/Dr5PZmJS4ZipQ8rcBiGDAUxRuMzjMT6MyJ8sjkFrpHdj4fixlKtVDnSQFPr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-22_07,2025-05-22_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 spamscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- adultscore=0 mlxlogscore=892 suspectscore=0 bulkscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505160000 definitions=main-2505220163
+ <584a9e49-5106-4053-9f42-e1e176618eea@oss.qualcomm.com>
+In-Reply-To: <584a9e49-5106-4053-9f42-e1e176618eea@oss.qualcomm.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 22 May 2025 10:33:04 -0700
+X-Gm-Features: AX0GCFu7DKioivEGx1jU548joNSO1hiW2h8Q7AIKCB6hRmaGrivAyhudL8VYukI
+Message-ID: <CAF6AEGs0sUfdER+GuygnupituPpVygms-Sc4hw1nYUFwCXC_=Q@mail.gmail.com>
+Subject: Re: [PATCH RFT v6 2/5] drm/msm/adreno: Add speedbin data for SM8550 /
+ A740
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, neil.armstrong@linaro.org, 
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,48 +107,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 5/11/25 11:51 AM, Akhil P Oommen wrote:
-> On 5/1/2025 9:23 PM, Konrad Dybcio wrote:
->> On 5/1/25 11:29 AM, Akhil P Oommen wrote:
->>> On 4/30/2025 10:26 PM, neil.armstrong@linaro.org wrote:
->>>> On 30/04/2025 18:39, Konrad Dybcio wrote:
->>>>> On 4/30/25 6:19 PM, neil.armstrong@linaro.org wrote:
->>>>>> On 30/04/2025 17:36, Konrad Dybcio wrote:
->>>>>>> On 4/30/25 4:49 PM, neil.armstrong@linaro.org wrote:
->>>>>>>> On 30/04/2025 15:09, Konrad Dybcio wrote:
->>>>>>>>> On 4/30/25 2:49 PM, neil.armstrong@linaro.org wrote:
->>>>>>>>>> On 30/04/2025 14:35, Konrad Dybcio wrote:
->>>>>>>>>>> On 4/30/25 2:26 PM, neil.armstrong@linaro.org wrote:
->>
->> [...]
->>
->>>> This behaves exactly as I said, so please fix it.
->>
->> Eh, I was so sure I tested things correctly..
->>
->>>
->>> Konrad,
->>>
->>> iirc, we discussed this in one of the earlier revision. There is a
->>> circular dependency between the driver change for SKU support and the dt
->>> change that adds supported_hw bitmask in opp-table. Only scenario it
->>> works is when you add these to the initial patches series of a new GPU.
->>>
->>> It will be very useful if we can break this circular dependency.
->>
->> Right. Let's start with getting that in order
-> 
-> Another complication with the socinfo is that the value is unique for a
-> chipset, not for a GPU. So, it won't work if we keep this data in GPU
-> list in the driver.
-> 
-> Downstream solved this problem by keeping the PCODE/FCODE mappings in
-> the devicetree.
+On Thu, May 22, 2025 at 9:03=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 5/11/25 11:51 AM, Akhil P Oommen wrote:
+> > On 5/1/2025 9:23 PM, Konrad Dybcio wrote:
+> >> On 5/1/25 11:29 AM, Akhil P Oommen wrote:
+> >>> On 4/30/2025 10:26 PM, neil.armstrong@linaro.org wrote:
+> >>>> On 30/04/2025 18:39, Konrad Dybcio wrote:
+> >>>>> On 4/30/25 6:19 PM, neil.armstrong@linaro.org wrote:
+> >>>>>> On 30/04/2025 17:36, Konrad Dybcio wrote:
+> >>>>>>> On 4/30/25 4:49 PM, neil.armstrong@linaro.org wrote:
+> >>>>>>>> On 30/04/2025 15:09, Konrad Dybcio wrote:
+> >>>>>>>>> On 4/30/25 2:49 PM, neil.armstrong@linaro.org wrote:
+> >>>>>>>>>> On 30/04/2025 14:35, Konrad Dybcio wrote:
+> >>>>>>>>>>> On 4/30/25 2:26 PM, neil.armstrong@linaro.org wrote:
+> >>
+> >> [...]
+> >>
+> >>>> This behaves exactly as I said, so please fix it.
+> >>
+> >> Eh, I was so sure I tested things correctly..
+> >>
+> >>>
+> >>> Konrad,
+> >>>
+> >>> iirc, we discussed this in one of the earlier revision. There is a
+> >>> circular dependency between the driver change for SKU support and the=
+ dt
+> >>> change that adds supported_hw bitmask in opp-table. Only scenario it
+> >>> works is when you add these to the initial patches series of a new GP=
+U.
+> >>>
+> >>> It will be very useful if we can break this circular dependency.
+> >>
+> >> Right. Let's start with getting that in order
+> >
+> > Another complication with the socinfo is that the value is unique for a
+> > chipset, not for a GPU. So, it won't work if we keep this data in GPU
+> > list in the driver.
+> >
+> > Downstream solved this problem by keeping the PCODE/FCODE mappings in
+> > the devicetree.
+>
+> Hmm.. that actually does not sound very bad.. it would allow for e.g.
+> new bins to appear without having to replace the kernel.. great for
+> backwards/forwards compat
+>
+> Rob, WDYT?
 
-Hmm.. that actually does not sound very bad.. it would allow for e.g.
-new bins to appear without having to replace the kernel.. great for
-backwards/forwards compat
+Not against having it in dt if the dt maintainers can be convinced..
 
-Rob, WDYT?
+Alternatively, there is the optional machine string in adreno_info.
+We've used that in a few other places where speedbin mappings are
+different for multiple SoCs using the same gpu.
 
-Konrad
+BR,
+-R
