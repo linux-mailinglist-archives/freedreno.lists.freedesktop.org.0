@@ -2,104 +2,179 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1A52AC0183
-	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 02:49:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F042AAC0373
+	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 06:45:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB0110EA7D;
-	Thu, 22 May 2025 00:49:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38EAC94992;
+	Thu, 22 May 2025 03:52:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pX7qLKNi";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="FE2AvsRx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C93B10EA7A;
- Thu, 22 May 2025 00:49:31 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54LI33N0020978;
- Thu, 22 May 2025 00:49:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- E4n+yY9G+hpZCjGSQSEoCecbGc77mPtuOUGmJCXO2Yk=; b=pX7qLKNifY6+G2Af
- 9cJLPyPuJuA9oMBaBn/uKLlV3li8b1Y/cfjtueJymGwJRJKSCHMGly3YoZHbsSQW
- SKQoVkNqOA5hrz+f4p4DG4dM3F6FgDM/opkgkbPU8Ps9FUmjp5uN4UJmcC7TbXC9
- EdVgFdJ5RrMFP0h/p+gwI0ZblvIqZT/BTMCpSwJg/XdMVOS3NFGZ3P7F9PzJg+IQ
- wPqmHY6BsgEXFmCaJjgS+2+GSfAUD8O2P7iYHrAbEXu2ZtwqdupQ9t2I2JsJE1Do
- Ag9pYyvVg8I1NPYMo/KIgEWS5odmI2K6DyJhHs39S4fEmnHPc+X0C9aIiJL5IhMf
- uKa3SA==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46rwf04pjx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 May 2025 00:49:26 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 54M0nPLI003984
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 May 2025 00:49:25 GMT
-Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 21 May
- 2025 17:49:24 -0700
-Message-ID: <049d9ccd-f313-4eef-9694-5e805982a754@quicinc.com>
-Date: Wed, 21 May 2025 17:49:24 -0700
-MIME-Version: 1.0
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2069.outbound.protection.outlook.com [40.107.21.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C21BC8D552;
+ Thu, 22 May 2025 02:59:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l+2o9EjMpd3/lEbjFSffm/79OspB3wLd/nUuVutKvVMeel/UWZGz5Y3A7NWe5l89jOnsIcZ4bmI07FsT3H0C331uCpPhBXB70CuAdHmHT/SSHJFtF9hmeJzBKVWqAItFXQ+hv5RAIPgkHtXb8ZncqOhf6fjOEqOQZi51p1716Hd61G6PHqc4Sg+U5TX2/Uesu1py5VNEqiwXKOj+uJcAI9ZzH7JoY0wmJ3ih/mbLY2Yxv1n4+kK4eeLau6xMjCwr9a+wzDsPykaJl7nuxXbYitTi0/PG52C99Tbj8zlHy6rO9GHVO1oIpFgLskI5cCZewYQS2upZIn7wa41w4cUPEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lRhdB+p/PFB3mSvLMpBcs1TLFWsemknoxqCqF68Kod0=;
+ b=r4p8KYzwSU129f4QHD6TJBwfnIcS4XBIlgd8bDcynC6RVVfTr6Idz/G76jjLadkSO5s+LV4Sk2gHFBFitEFHQs5l0v3WQKUMqBLuPI+AOFWyYCajGvhDfCn92rrpB+o827fiPdhHuFWeGsU/5v90nJCrLRiJHJxqbxHQMwJZA8T24u/UhyJXpJvpcaKEM/eDy1dj7m5pR/9BlTuwl3SlMX2hNtzmeJbvEYhx3Xf4UXXleosTPo/gfSxGTivocQP+Q+UUavSV0ifrWsiYg+cZJwBuP2h9G6gqQikpF3tS8VaJFL+qrN8fHAU/8ZkEF0Ah2XI2IJAcQKLxPFjCoLF5Yg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lRhdB+p/PFB3mSvLMpBcs1TLFWsemknoxqCqF68Kod0=;
+ b=FE2AvsRx80CEhk5z4qtWdXzr2YVUOPJYW/B/eqPvtpuzR/cT9QeDjGcVFUHeBuDqgfmFi2+gOGbhp4YI5GANysClqfjRqUtFXqAkLMcHy0FmLnn1TXVTN1P2unsTHFrJ32TQxmTSFXfVbCyvcgsldfMz0/upPmyLzKZWb/FNWqs4SyRs3zKUYOYjDxKMidp1S3k+ryIszDcLCJVnImfHfQwIN55RbkQBCF4L/fihwCu2Fm9BfWtLSlCWHXdKCu47wmjm1ipB103W1xzTM+L0PEVU2zb4+ByprJo6TssjmE1wQfu5Q3Ha1W/wLI5p6PoG+JzKfVSwTr2iLIl3nc0guQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by GVXPR04MB10899.eurprd04.prod.outlook.com (2603:10a6:150:225::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.30; Thu, 22 May
+ 2025 02:59:45 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::d1ce:ea15:6648:6f90]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::d1ce:ea15:6648:6f90%5]) with mapi id 15.20.8769.019; Thu, 22 May 2025
+ 02:59:45 +0000
+Message-ID: <67252c36-8b31-4c40-9d89-4f502da4a087@nxp.com>
+Date: Thu, 22 May 2025 11:01:13 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] dt-bindings: display/msm: add stream 1 pixel clock
- binding
-To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Mahadevan <quic_mahap@quicinc.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-References: <20241202-dp_mst_bindings-v1-0-9a9a43b0624a@quicinc.com>
- <20241202-dp_mst_bindings-v1-3-9a9a43b0624a@quicinc.com>
- <39f8e20a-e8c3-4625-abb1-9f35f416705d@kernel.org>
- <50820e7b-b302-4f7f-baf9-778f3db6cfff@quicinc.com>
- <f7941d74-3856-4bd9-95db-0b7f09eb07fd@kernel.org>
+Subject: Re: [PATCH v2 30/34] drm/bridge: imx8qxp-pixel-combiner: convert to
+ devm_drm_bridge_alloc() API
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Douglas Anderson
+ <dianders@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Anusha Srivatsa
+ <asrivats@redhat.com>, Paul Kocialkowski <paulk@sys-base.io>,
+ Dmitry Baryshkov <lumag@kernel.org>, Hui Pu <Hui.Pu@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, asahi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-renesas-soc@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
+ <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
+ <20250430112944.1b39caab@booty>
+ <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
+ <20250506224720.5cbcf3e1@booty>
+From: Liu Ying <victor.liu@nxp.com>
 Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <f7941d74-3856-4bd9-95db-0b7f09eb07fd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+In-Reply-To: <20250506224720.5cbcf3e1@booty>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 9nMS-tCBBYXoXO0ddtveeosOItY_9TEN
-X-Proofpoint-ORIG-GUID: 9nMS-tCBBYXoXO0ddtveeosOItY_9TEN
-X-Authority-Analysis: v=2.4 cv=ZP3XmW7b c=1 sm=1 tr=0 ts=682e7496 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8
- a=fVyq4P6jECAiOkGLdwwA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIyMDAwNSBTYWx0ZWRfXwR4Ez9KSzpaB
- YxtfghaQgahK+jJ+N3iLl/bnkBqGj+zjBFqoz7I7eCjfn8LODngJAvREyKluu5lRKNvxeqqevrx
- ba7wPMVBZ165n+zgiCdeOSV5t8sQLeF3aEa3GF5zW6hH3dFrrrJljhTfbqE1QBmQav1qE27UJh4
- MK3P5GCwRoQqbBOoB9bYTrkMi+O+yij7Uir444B2YTzOmQVv73F48rdE2LWBuk83ZIh9kbEY0qv
- l7IHU6Bgis8MBQEaofvdKoFsNLJ+or98OWTDhvWv5mpd32dw5rMuQdhdFdjgIcKb2ixwqJ3lqI3
- GggHgoReyP4glIQqElzhnBxdc1PBLegush+pYf9l0acy+BMCLbYGXEELeZSJ8rwW4/uuQuYnJ42
- r9D2WUQFNHttcDFL1uqSXsnGcmiYKIf8FRNxYtA48jC1uEs3NWzWWYYZyC0R6onaK1JO8kTW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-22_01,2025-05-20_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 mlxlogscore=999 suspectscore=0 bulkscore=0
- impostorscore=0 phishscore=0 spamscore=0 mlxscore=0 lowpriorityscore=0
- clxscore=1015 malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505160000
- definitions=main-2505220005
+X-ClientProxiedBy: SI2P153CA0003.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:140::20) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|GVXPR04MB10899:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc020111-7e3a-4b19-bcc6-08dd98dcb4a2
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QVVrN0hRN3owNHZhNmRhS1BTUVZhVzR3VkRubG9wSHZxK1lFS3p2RUhNSEs2?=
+ =?utf-8?B?TGFUaDBvdUxmQ3h4MWt2czZDOVhzeFMyam9ScnZxVGNUQkRFYWZDd3hJaTc1?=
+ =?utf-8?B?bUlRT0xLdEpKVk9WOUtqcklyb1RqZ3dTWk1YZ2hTaVlrNUJjN09Ialc5ZUZp?=
+ =?utf-8?B?N2FyTkZHYjB3VzE4d1JHR0VPTEh6TzdpM0J4NGJPNGRsVEZ3RklMdVJ3NnBW?=
+ =?utf-8?B?OFIwaW5qbHlWQklPcnZXZGxra2NkUVpRWnQvbjBBV01ncTd5ZXdGOEdRTnFq?=
+ =?utf-8?B?d3dpbWNmZEZhRHJFeU1mRlRxNUcyTTlrUXZGRVhxVjhYNHJyaDRSTm1TbzJS?=
+ =?utf-8?B?V0RyQUgva2I1WW9OSytMNUQzdUxRWkRmYVdiWE5hZXp2bkJvWi95bjJtZkhx?=
+ =?utf-8?B?N29hSGxxMGlZaGU4MzZjemo0a25PNUtWdmR4WjMwOTZBZlg0N3FMNHNHWEk4?=
+ =?utf-8?B?MnhNRElzTHF3YjgvbjlhRExEZ2VQYy9SZVlzMnRTLzJPMDJlUFV6K3lmYkJo?=
+ =?utf-8?B?YjhSTHgrYW1QUE1mQlk4L3JsMkMwa09DNzd4QksyL1IrME5rLzlLYkJPZXdh?=
+ =?utf-8?B?NllYRVlpaUF6WmloSitzZ0l5YllrV2hma3gxZmdGcDgwQk5rQlFySzJPMmdh?=
+ =?utf-8?B?MHVjTTY1a1RoSFpiVDdobTMwWG1qOGQyanFudVJERmo2TGFEeVlNVnNTc3Fl?=
+ =?utf-8?B?ZjI1YzlwRVY2dVpjbjMwVmNaejZ5VWxMdGVYNVFUd0EvbmVrcVhHQkZ5VlNq?=
+ =?utf-8?B?TEpnWGZiNmVmNWV5TjVJZkpDSklDc2JJWnNDL1ptSnpMeVIxVXdTWG9ld2Nw?=
+ =?utf-8?B?dlhPemlCRTZ6T1hzbVlvZXNzcGZrakc3V2hzY0hTTWY5YiszMUEwMjlMMDE5?=
+ =?utf-8?B?dE5BTlhYWWZ3V1JJa0hKUFBsU1ZaZDE1MlVOMEhqNnA2UEFuUzBCNWdSek1h?=
+ =?utf-8?B?UFU2SlpDNkk5UzdRZWFMb0RyQ0tOWnE0OG9mR0V1YTkrWjEwbHRlQWNLdE8y?=
+ =?utf-8?B?dnI3YUY1empJZkQrY2VjV21ISndjMlBzZmRXWkhoeVVzY3dTb2xUM2tHbXdx?=
+ =?utf-8?B?UVJxNHY1VW1WK1VRVDlGd3QrZUgvNlR3MVMxUEkwNEc0bHY0REpQWUhBOTkw?=
+ =?utf-8?B?dWRzcmdXRjZtK3kxOGcyclBQTkNGSU5IdW04OE9hSFA4cE5MbU9XY3ZwcEt2?=
+ =?utf-8?B?SkV2MWVycU5MUGoxZEN4TTRhSVVTbVI1WjlSZXB1RUJOb2xMNlB0L21HbFlk?=
+ =?utf-8?B?YWxWWjQ1TUFjQy9DMnlKTm12amNqM2VSYkFJOTFESXFKRy9uM1UzV2diOVAv?=
+ =?utf-8?B?VmhLT0ZRVlF5VVFFcnM2b2MvQkxtNWxkRVlzeEhrNlBEbENLY0pISkJQN1lJ?=
+ =?utf-8?B?ZTBSYmVnWlJtNnd5dWxqWGtSMURtaTZxWnBreDZpZ0xLZkhaNjhlRnRaWTBM?=
+ =?utf-8?B?SHZBTDZKbFBxZXRmS01tRWJESExuRVBNU0ZHcUY3UnMwMG1qYVJxSXZPWXFP?=
+ =?utf-8?B?dWwrRkV0eEpYVDBwdkd1dkxQMGZZVTVmZElNb1U3SjIyTkVnelRsVjNaVSt2?=
+ =?utf-8?B?TU85enF2cWpDQmNLSEJiS3Q4UVYzenV0SUpIMmdPbGdDM0dRODdvYVAxVFZk?=
+ =?utf-8?B?TGJLVFl6UnBXcU8wSHJOY08rM2wvVndKNEZqYUV4K0lNbThoaXFoZ3NXdVdJ?=
+ =?utf-8?B?cHJETXVDemlzbzVaWTlvbW9Ld1VsS0NycXVFbnJQV1NudE1TQWVkS0FGVWpz?=
+ =?utf-8?B?OVhxQmI5bFA5RTZERzlsQ2xTYmVRQWhWKzlQSHJpSk1nTFR1ZFo5N3lkWVhs?=
+ =?utf-8?B?cFhmR2ZVazRJOVVHRWIyNjhENkdvWTNFSXBKcDFTOVlkMGUyd1A4Z0t5UDdB?=
+ =?utf-8?B?eVBFbE1DcThrN28wRllTdU10ZG8wV21Kd2FFeVRWOWZReGttTHVYbDM1Z1I1?=
+ =?utf-8?Q?eN7Mh6S5LVc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MU9UaVR5T2Fwd3czNzRidVlyYVg2MXF0eFJOTmZCMUtOZWVKa3NkcS9JRS9r?=
+ =?utf-8?B?TTV0cFV3MFRDcmNudGFaWG1Ydll0WlhZVEl4TzJMSnBkN0J0SC9SME0yNGhQ?=
+ =?utf-8?B?VDVLYjJoK1RieWxZVFNTN1lSaEpjRmdycW9WQXRoOVg0SkNna1VUTkR0aWNP?=
+ =?utf-8?B?RnRrbTE2THRNcUZqTTFlQ3JKZDVLdmE0NVVPRlg3QXl0MTMzN1JaalFmRnlq?=
+ =?utf-8?B?T3F4UWpDcDEza1dCOU53cU9HbVgvWjFUTGJtTGM2bXlQSXcyenJ0dEJmR2ZX?=
+ =?utf-8?B?cUlQc3UrWVo2OVJ4VjVtY0ttSFRybHVUbzBaNlJrK0xzRGV5Smcva0VHRVRn?=
+ =?utf-8?B?bW55elVLTVprZXpNTkY4K0hqaG50TmthMG90eGlDcktQd2d2bjVNTFFwc1Zk?=
+ =?utf-8?B?U3ZBTFhHUzRvd0VXdGxrcFpodksySmxWbk40dmZXL1Q5L3BNQkF1OEUzdVlO?=
+ =?utf-8?B?ZFBiVHp6cGlhSG5hTEJJQWhyNXg5bmV4bnRoWWI2cjBueDVndzV0bURDOWRo?=
+ =?utf-8?B?RHBhU2xReDJrUUhMR1A1dGlJSFllQVhDMjM1OGlBY1BiZDRFeXVaRXJCeE5H?=
+ =?utf-8?B?RTR6NXkwQkRCSXcxZERPMHEwUlFqOWMxdmlzZlRNY1ZKS0p4UkQ1cExLQnF6?=
+ =?utf-8?B?ZWFOMkNWR1JZZU9LaVBhTHVHczBWR3RxSnBqR09vVmNFRnlRUzl3VXNLSVdo?=
+ =?utf-8?B?cWpDM3FLKzBVbDVEcDdrU3g4M1drd2RwNSsvaFppM0NyK0VtdHpkazZYUkNw?=
+ =?utf-8?B?NUdYVmhsbXRTYk4vaGRyZDJmeHlkMkNma3FMYlZQcCsvUWoxdkVHNWdlM2Fr?=
+ =?utf-8?B?eVFiL204V2w2SDF0OE1hd3h4RzZ1TlJlWjR6TzNXWEoxVk5FNTR2WnNSVytJ?=
+ =?utf-8?B?ZEJiWXZQWnVha0pYUU5oZUxIMk0zdUt6THpCVkNTUmJHeFZ0YzF4MjkvM3ZD?=
+ =?utf-8?B?emFuMjFHNHdUREU0NWtUR01vak1XaVZIZTNSUUlSV0U4eVM2OGt4Z0FVV1Uv?=
+ =?utf-8?B?QkhqMmFsMkJ0WHZQRlRsQ25oS25PdHYwRHFHbzJFbFV0MTViOTh1ekYvUmd1?=
+ =?utf-8?B?a29waVJvOGt6VHZkZWRza1pLdVBXc05nSkNqQ2NUbGRxaXltRDN2UEJOWlNw?=
+ =?utf-8?B?cGRZckxTSnVYNUhXbG9ZWDlnZFp5OTRId3I2NEZFMnEzeUdYQUNlU0V3SE9v?=
+ =?utf-8?B?UU92SGRnM0laSERxRTVjS1I5Q21kREhLdERZajNJTEJVOUhqOUNVTEloRDA4?=
+ =?utf-8?B?SkwyUWlpZmhOU2w3WWgxeWVhZlBzNGtSblhNaTF3Vy9pK3llME5DdmM1Y0F3?=
+ =?utf-8?B?U2NLK1F2cUJNVzJ6OWpweTlsdkJNOHVRMVB1eVVGN1ByVWY0YmEvbjFzTVJp?=
+ =?utf-8?B?alNXYUkwclhVdDBWOFFGaEljTXUyb3Fzelh6Sk9Ta3c5bmdJTkN4QjFvQStu?=
+ =?utf-8?B?UUd3bFQ1aWFXYjMxY2dPVWdkRmFYdGNzV05NeFRjbHp4cnMzUkF0ajB4aCtq?=
+ =?utf-8?B?enYzSzRXUUQ0UXJiWWJyNExjTktZdG53THZMalpiV1o1bStuTytoWVRXWVNM?=
+ =?utf-8?B?V3lkdWdEcGYzc2dRYnQrNi9maERWWjFMR0c1L1VGODk1NW1DMGFCZ2dNVkVv?=
+ =?utf-8?B?MWpwWXIxdHJTUEwxQndYNXZQNytpSS93T3p6cCtRL3F0M3FnbEtZY2VBWlRl?=
+ =?utf-8?B?UFZhSW5yMk10VVNyRGlKdDN3RUtPT3RxWUxaSWttczRqRDVkZDlIRERGMWJY?=
+ =?utf-8?B?V3gwVGpldjBJOFdoa0hrMmhJM2xnZXhVRjdLRWxPUVVXcEZPYU1IZ0V4RDRB?=
+ =?utf-8?B?cjF0Z0NOYUNiYjFiRTk4U2dHS3VlVVFKNG5KMHlxTm8vRTRTVFZuOWE2Q1ZE?=
+ =?utf-8?B?d0RiM1hTZWwrMlpyVGRLSFE1VXNEMEpiYlhmUUV5QXhuUFFlaXBULzlqLytX?=
+ =?utf-8?B?amVYTTlTamdRTmFqRlZUSW8wdEhVM0syZlpwbFVvY0pxSjQ1OGpxampmYlo2?=
+ =?utf-8?B?a2VaTERxdXhlamJHS1k2dlNvQm5ITlV2c0prcHFoUFVqNUk0L3dlM09sM2FT?=
+ =?utf-8?B?alRuSlRHaGc1WXFINDRvUEVjMkRlenlhMnB2YjJ1WHlLOE9SUmJvdVRWamhw?=
+ =?utf-8?Q?+Tu4RGMePQ/0U0pmBcAJpIIeb?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc020111-7e3a-4b19-bcc6-08dd98dcb4a2
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2025 02:59:45.1266 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v0gHnvJ2YeyLuPQQQ8mcski1SO2z9xfCS02HFJP96rKtJrCx/3P+cSaeO5gPB65j0Dcdva//2HXAEu0BqnX4wA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10899
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,157 +190,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 05/07/2025, Luca Ceresoli wrote:
 
+[...]
 
-On 5/7/2025 11:18 PM, Krzysztof Kozlowski wrote:
-> On 23/04/2025 04:46, Abhinav Kumar wrote:
->> Hi Krzysztof
->>
->> On 12/3/2024 12:04 AM, Krzysztof Kozlowski wrote:
->>> On 03/12/2024 04:31, Abhinav Kumar wrote:
->>>> On some chipsets the display port controller can support more
->>>
->>> Which chipsets?
->>>
->>
->>   From the current list of chipsets which support DP, the following can
->> support more than one stream.
->>
->> qcom,sa8775p-dp
->> qcom,sc7280-dp
->> qcom,sc8180x-dp
->> qcom,sc8280xp-dp
->> qcom,sm8350-dp
->> qcom,sm8650-dp
->> qcom,sm8550-dp
->> qcom,sm8450-dp
->> qcom,sm8250-dp
->> qcom,sm8150-dp
->>
->> So do you also want all of these to be added in the same if block as
->> qcom,sa8775p-dp?
+>> After looking into this patch and patch 31(though I've already provided my A-b)
+>> more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
+>> should have the same life time with the embedded DRM bridges, because for
+>> example the clk_apb clock in struct imx8qxp_pc would be accessed by the
+>> imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
+>> the life time for the embedded channel/bridge structures only, but not for the
+>> main structures.  What do you think ?
 > 
-> That was talk in 2024. Entire context is gone if you reply after three
-> months. I do not have even that emails in my inbox anymore.
+> I see you concern, but I'm sure the change I'm introducing is not
+> creating the problem you are concerned about.
 > 
-> Probably I expected commit msg to mention at least some, so everyone
-> knows which chipsets are affected here and one can verify the statements
-> from commit msg.
-> 
+> The key aspect is that my patch is merely changing the lifetime of the
+> _allocation_ of the drm_bridge, not its usage. On drm_bridge_remove()
+> the bridge is removed from its encoder chain and it is completely not
+> reachable, both before and after my patch. With my patch it is not
 
-Sure will do.
+drm_bridge_remove() only removes a bridge from the global bridge_list defined
+in drm_bridge.c.  drm_bridge_detach() is the one which removes a bridge from
+it's encoder chain.  It looks like you wrongly thought drm_bridge_remove()
+is drm_bridge_detach().  So, even if drm_bridge_remove() is called, the removed
+bridge could still be in it's encoder chain, hence an atomic commit could still
+access the allocated bridge(with lifetime extended) and the clock_apb clock
+for example in struct imx8qxp_pc could also be accessed.  That's why I think
+the main structures should have the same lifetime with the allocated bridge.
 
->>
->>>> than one pixel stream (multi-stream transport). To support MST
->>>> on such chipsets, add the binding for stream 1 pixel clock for
->>>> display port controller. Since this mode is not supported on all
->>>> chipsets, add exception rules and min/max items to clearly mark
->>>> which chipsets support only SST mode (single stream) and which ones
->>>> support MST.
->>>>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> ---
->>>>    .../bindings/display/msm/dp-controller.yaml        | 32 ++++++++++++++++++++++
->>>>    .../bindings/display/msm/qcom,sa8775p-mdss.yaml    |  9 ++++--
->>>>    2 files changed, 38 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>> index 9fe2bf0484d8..650d19e58277 100644
->>>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>> @@ -50,30 +50,38 @@ properties:
->>>>        maxItems: 1
->>>>    
->>>>      clocks:
->>>> +    minItems: 5
->>>>        items:
->>>>          - description: AHB clock to enable register access
->>>>          - description: Display Port AUX clock
->>>>          - description: Display Port Link clock
->>>>          - description: Link interface clock between DP and PHY
->>>>          - description: Display Port stream 0 Pixel clock
->>>> +      - description: Display Port stream 1 Pixel clock
->>>>    
->>>>      clock-names:
->>>> +    minItems: 5
->>>>        items:
->>>>          - const: core_iface
->>>>          - const: core_aux
->>>>          - const: ctrl_link
->>>>          - const: ctrl_link_iface
->>>>          - const: stream_pixel
->>>> +      - const: stream_1_pixel
->>>>    
->>>>      assigned-clocks:
->>>> +    minItems: 2
->>>>        items:
->>>>          - description: link clock source
->>>>          - description: stream 0 pixel clock source
->>>> +      - description: stream 1 pixel clock source
->>>>    
->>>>      assigned-clock-parents:
->>>> +    minItems: 2
->>>>        items:
->>>>          - description: Link clock PLL output provided by PHY block
->>>>          - description: Stream 0 pixel clock PLL output provided by PHY block
->>>> +      - description: Stream 1 pixel clock PLL output provided by PHY block
->>>>    
->>>>      phys:
->>>>        maxItems: 1
->>>> @@ -175,6 +183,30 @@ allOf:
->>>>          required:
->>>>            - "#sound-dai-cells"
->>>>    
->>>
->>> Missing if: narrowing this to 5 items for other devices.
->>>
->>
->> OR would an else be better?
+> freed immediately, but it's just a piece of "wasted" memory that is
+> still allocated until elsewhere in the kernel there are pointers to it,
+> to avoid use-after-free.
 > 
-> Usually not, although depends how this binding is written.
-> 
-
-Ok, let me try it.
-
-> 
->>
->> +    else:
->> +      properties:
->> +        clocks:
->> +          maxItems: 5
->> +        clock-names:
->> +          items:
->> +            - const: core_iface
->> +            - const: core_aux
->> +            - const: ctrl_link
->> +            - const: ctrl_link_iface
->> +            - const: stream_pixel
->>
->>>> +  - if:
->>>> +      properties:
->>>> +        compatible:
->>>> +          contains:
->>>> +            enum:
->>>> +              - qcom,sa8775p-dp
->>>> +
->>>> +    then:
->>>> +      properties:
->>>> +        clocks:
->>>
->>> Missing minItems, otherwise it is pointless.
->>>
->>
->> I thought that since I have already specified the minItems as 5
->> in the clocks in the section above, I need to specify only the maxItems
->> here?
-> 
-> No, you need explicit constraints here.
-> 
-
-Ack
-
-> 
+> With this explanation, do you think my patch is correct (after fixing
+> the bug we already discussed of course)?
 > 
 > Best regards,
-> Krzysztof
+> Luca
+> 
 
+-- 
+Regards,
+Liu Ying
