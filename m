@@ -2,75 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F769AC05C7
-	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 09:32:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 444A8AC05C8
+	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 09:33:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14E209BF79;
-	Thu, 22 May 2025 07:27:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0788E9B21C;
+	Thu, 22 May 2025 07:24:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bnAkY0oz";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hBIX0Hx1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 302A79A094
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 07:23:13 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso58401835e9.2
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 00:23:13 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96E939A18E
+ for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 07:23:24 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-43ce71582e9so63445975e9.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 00:23:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747898592; x=1748503392; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1747898603; x=1748503403; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=DKcV9YJnik1heDPbiDZhe+461Bkk9PUXYS1vSVg0MNo=;
- b=bnAkY0ozx2JD7KKOiwdOjPS8CSz+CdFAAwAa68PfTbTr7F/H2a2SLC0geoIH7wtgRG
- ey7o7YqCa8+WmzkIj1u8ZXPFUt9Hejzd/IDj9UODGNk1T6SoWH+TuO51QKWkTGd6iN3g
- j0/BWXzWWYshtPHq87XUrLKTPcNdKh+VPlntz9zCchQL6H3AVVGIRzfHHqceK5xIeN6U
- 68nWAPKSeNixMIpjxsc5sbb2tz8HbfpDrArl14e0Uoou2tMqeCzyITOK+RM4SXSxiLo0
- cWg0yLUQDUtiRqNrC+qmcSXVLbMTSILOFvkNh1OLsxRE+QDtOOk+oEArnw034MMMOA/m
- eyLQ==
+ :reply-to; bh=QZR2UmwyvYbkG1MeoeRYmbzrVJKOcssJezkUQpLtb9g=;
+ b=hBIX0Hx1r4LpqkZ9qdxTJ8vfSaZ5P6GqdiFYQ+X6hZj+2Zzt9T8iM2ttoS6jrplUie
+ 5wHFqDwKnsFoF5QFoROCn+kRYnGDNc+jPvwUrcK5QjYoW26n9qhiMUhMWPumhuM1rwpn
+ UdLz1jUZcDwycEFSF6/4INloOZYiO9QQE4JNd1/9ZRIyktEfTkwD/3jOO62roE+aXYVC
+ mgtHZJbStA7zBdL7WG8nZIn7rQQ4ItknBhgwXqc7uGBpdwuyGIFcXAuu6FG172NcmHAt
+ MbDyhF36azZ0jS3tYxw+8SIzqTS5cRnpyQBM9b3I97VIiyL4WN29HxTdNNuxzloua/Fs
+ zIEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747898592; x=1748503392;
+ d=1e100.net; s=20230601; t=1747898603; x=1748503403;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=DKcV9YJnik1heDPbiDZhe+461Bkk9PUXYS1vSVg0MNo=;
- b=upU/bU7m8MmJDKMNVELn708fnekSsLN1KSIcefzrrFuuNv7y3IDP6b83eIP/sKDsUB
- ku97bxt+Je4X4kHxHzmbqR82kkPx67XCBP3ExgoSrX4PSCSeck6Pn5DIBEbuAXF4L0Gk
- 9a+HtLCXri3ufvhDIrJsI/VrBeim2L/KDkE6VqzO1+debsscWQ9FZcAT9B9OxyGWDl7d
- 6sGiIeWZUU8AEe9/m7YSuFk2MP49CrOObexYXp9z5mF2V2hVHxfF4pPil+HeVj9M6Gjw
- irHM42Msp9toQjq6slWrUiOw3WHDEu9IuSHXwCoek3bbCk7xk+xXuql4A1yXkOmL6HEG
- rhlw==
+ bh=QZR2UmwyvYbkG1MeoeRYmbzrVJKOcssJezkUQpLtb9g=;
+ b=D4u8g5SR+wH3qHAyzpqE8+0jQleZFioKKzybMnok/WNYdHuY4q8SHyr1M1abbuNmpi
+ 5KRvz9OAfo26GAbL0pH8vdp3gGmV/u/DUAqn/BVoFT4IWyI/klhH3OLMB33wEmwf9ZTh
+ pZF/gJUvMg6os3/QHbTqrsulgcUJaMx4gkdVXg75g+HD9+Zf4NQ5X9rneddhXMeVR9Hc
+ wMkq+xwkev5lrnwaJscXeCM7gDqGsr2tHSMfH4KVdnnVkIipJ0/iG905NBEAIMIHouKl
+ XGrcpOg/mVlAopjbg9IocLmBgkXcgXcsNkeCcD1da4JQcfgHmj+nUI0Sa1edZWpUUld6
+ 97jA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUNF7O+Q5BVqlrRIwR3Ta9YmM+2LNGRSrBxxoxbz6qY4QxXda9snUAQ/pg9mGocsJ2bRY6dza0yKMs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDT3YXE+2HX/CD2pvQcGex+QwMZhfYQhU1kHqkoHtNVZ+qApWK
- 5ZKj70LpMZvMVLVnUI3SUFjJLtFkOJeXfUuBkgF4rIoa3zgJLA7ryxvdfWym/87p7/M=
-X-Gm-Gg: ASbGnctxy8eSKoCaV/5pzbS8mc+ir1F91+RYu+kTGmP/5QkPaPDo5U8q0dFZ16gDVd4
- zr/oEM4lnLwS/6m2GqKxNPRh+KxZutXxxyZwBz8amJU/AqpTRwaTYxwk6ioT1g50QTDPx68ewcP
- Pk5kTDSNtjrb4brh9C+Geja3JzCJwRK9LosL2+MHF0QV8eg9LWptg9IYtwfBji/NbmDjqYznIJM
- odnJ9Wxl+nDqphr9fv4R4yfMdtrGq61Tf96HByRoVHs9Fo9fBzDE0s/PCALasytP1myqKX3o6p+
- /QOv7yjOzAnGFoX+7wqDbsmCJRhLQCjmk4wt5ko+aSJ6O/o5z8Jofjr2n1WR/WHynTYo9XHAN6Z
- 5bdiFLW1Y+UXo8gXq/WDvGFKgmhW+
-X-Google-Smtp-Source: AGHT+IHts0eteY4PlR1SQN/PyYMswWNwfgjzZcpYKjCK25ZDntVHx3kCGx8YLO7OAaDj+8ppdM5vmg==
-X-Received: by 2002:a05:600c:548d:b0:442:f44f:678 with SMTP id
- 5b1f17b1804b1-442ff03c63emr240517275e9.31.1747898591652; 
- Thu, 22 May 2025 00:23:11 -0700 (PDT)
+ AJvYcCUCIqHwxlxcFoYXcr8BtKGOETOApTZ73QGx5ncaSUWnjhn7b69hWMrWs/oandjJCK1qeai+i9W/QCw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywmv7VOfX7sVGoiRYpnhKVFq7S4kysgDzUFogWbgmzJg0OSQtPl
+ A/2inWcT6+SBs2ZSAaZRm0Tr6vFAjU8hyG6/wBATP3smJ0kTtIjh1OTvreQO8OARO2w=
+X-Gm-Gg: ASbGncsotdBNKaURIbCWR5PY3VWlXVaQUdspq/2mcCaBD655N2y7NUrYkJJz6jaBuHZ
+ Ancnw34nu9ywEIdIehArBJ0AQXvroj5WcjmIm/jlZfGgH2bEADBNMf5GLbosUnKL4uNKC+6vx1V
+ 56pDt8TJ1iIwRHEzqOOBGbMCwl6KdPGSQXRImKDtxqsxkSoix5xxZW3sh5wGI5oAte38SBfmMF+
+ 0ajBvDHIeSM6SRi84CaArnnKH/95UC2KhLCgnWbBZgFc4E1HohdSiogYrzuBSSkgO3cDcPkegrF
+ 5Bd4aMZl3ttZwITFs2TNIKOEcTRW8k+g6S1R2PSF4YhvnIaaltV+WBteOUTeovjviCTKVKuAyJA
+ Su4JWglV0FU+SdClqpkjLW263/VcuuOqaFRty4x8=
+X-Google-Smtp-Source: AGHT+IHIvSY7+qwnZ/QQdNvPjKupe5qhn5r92x/K597uQ+Eo6bTe2yY6F9VCdwYcPSbvThPcoAaNew==
+X-Received: by 2002:a05:600c:3f07:b0:43d:77c5:9c1a with SMTP id
+ 5b1f17b1804b1-442fd60b516mr239629295e9.4.1747898603150; 
+ Thu, 22 May 2025 00:23:23 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:3d9:2080:ca6a:4d93:cd32:83a5?
  ([2a01:e0a:3d9:2080:ca6a:4d93:cd32:83a5])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f3dd94f1sm97174725e9.35.2025.05.22.00.23.10
+ 5b1f17b1804b1-447f3dd94f1sm97180205e9.35.2025.05.22.00.23.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 May 2025 00:23:11 -0700 (PDT)
-Message-ID: <fa65b2bf-b76e-428a-8110-325a6191752e@linaro.org>
-Date: Thu, 22 May 2025 09:23:09 +0200
+ Thu, 22 May 2025 00:23:22 -0700 (PDT)
+Message-ID: <86f5b662-db35-4a2b-83bf-841977d183dd@linaro.org>
+Date: Thu, 22 May 2025 09:23:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v4 2/5] phy: qcom: apq8064-sata: extract UNI PLL register
- defines
+Subject: Re: [PATCH v4 3/5] phy: qcom-uniphy: add more registers from display
+ PHYs
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
@@ -81,7 +81,7 @@ Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-phy@lists.infradead.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20250520-fd-hdmi-phy-v4-0-fcbaa652ad75@oss.qualcomm.com>
- <20250520-fd-hdmi-phy-v4-2-fcbaa652ad75@oss.qualcomm.com>
+ <20250520-fd-hdmi-phy-v4-3-fcbaa652ad75@oss.qualcomm.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -108,7 +108,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20250520-fd-hdmi-phy-v4-2-fcbaa652ad75@oss.qualcomm.com>
+In-Reply-To: <20250520-fd-hdmi-phy-v4-3-fcbaa652ad75@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -130,88 +130,73 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On 20/05/2025 22:44, Dmitry Baryshkov wrote:
 > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> The "uni" PLL is shared between several PHYS: APQ8064's SATA,
-> MSM8974/APQ8084 HDMI, MSM8916 DSI, MSM8974/APQ8084 DSI.
+> Import register definitions from 28nm DSI and HDMI PHYs, adding more UNI
+> PHY registers.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->   drivers/phy/qualcomm/phy-qcom-apq8064-sata.c | 23 +-------------------
->   drivers/phy/qualcomm/phy-qcom-uniphy.h       | 32 ++++++++++++++++++++++++++++
->   2 files changed, 33 insertions(+), 22 deletions(-)
+>   drivers/phy/qualcomm/phy-qcom-uniphy.h | 33 +++++++++++++++++++++++++++++++++
+>   1 file changed, 33 insertions(+)
 > 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-apq8064-sata.c b/drivers/phy/qualcomm/phy-qcom-apq8064-sata.c
-> index cae290a6e19fcb7fd68fe6cd0229b9b00d47131c..dd9929429f9a0e2f265180e8d3f390451d91adde 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-apq8064-sata.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-apq8064-sata.c
-> @@ -15,28 +15,7 @@
->   #include <linux/platform_device.h>
->   #include <linux/phy/phy.h>
->   
-> -/* PHY registers */
-> -#define UNIPHY_PLL_REFCLK_CFG		0x000
-> -#define UNIPHY_PLL_PWRGEN_CFG		0x014
-> -#define UNIPHY_PLL_GLB_CFG		0x020
-> -#define UNIPHY_PLL_SDM_CFG0		0x038
-> -#define UNIPHY_PLL_SDM_CFG1		0x03C
-> -#define UNIPHY_PLL_SDM_CFG2		0x040
-> -#define UNIPHY_PLL_SDM_CFG3		0x044
-> -#define UNIPHY_PLL_SDM_CFG4		0x048
-> -#define UNIPHY_PLL_SSC_CFG0		0x04C
-> -#define UNIPHY_PLL_SSC_CFG1		0x050
-> -#define UNIPHY_PLL_SSC_CFG2		0x054
-> -#define UNIPHY_PLL_SSC_CFG3		0x058
-> -#define UNIPHY_PLL_LKDET_CFG0		0x05C
-> -#define UNIPHY_PLL_LKDET_CFG1		0x060
-> -#define UNIPHY_PLL_LKDET_CFG2		0x064
-> -#define UNIPHY_PLL_CAL_CFG0		0x06C
-> -#define UNIPHY_PLL_CAL_CFG8		0x08C
-> -#define UNIPHY_PLL_CAL_CFG9		0x090
-> -#define UNIPHY_PLL_CAL_CFG10		0x094
-> -#define UNIPHY_PLL_CAL_CFG11		0x098
-> -#define UNIPHY_PLL_STATUS		0x0C0
-> +#include "phy-qcom-uniphy.h"
->   
->   #define SATA_PHY_SER_CTRL		0x100
->   #define SATA_PHY_TX_DRIV_CTRL0		0x104
 > diff --git a/drivers/phy/qualcomm/phy-qcom-uniphy.h b/drivers/phy/qualcomm/phy-qcom-uniphy.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..e5b79a4dc270f25d8979f51bf4acd6c76998032e
-> --- /dev/null
+> index e5b79a4dc270f25d8979f51bf4acd6c76998032e..ce782018124b5431ee647575289c963d8fd0de1f 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-uniphy.h
 > +++ b/drivers/phy/qualcomm/phy-qcom-uniphy.h
-> @@ -0,0 +1,32 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2014, The Linux Foundation. All rights reserved.
-> + */
-> +
-> +#ifndef PHY_QCOM_UNIPHY_H
-> +#define PHY_QCOM_UNIPHY_H
-> +
-> +/* PHY registers */
-> +#define UNIPHY_PLL_REFCLK_CFG		0x000
-> +#define UNIPHY_PLL_PWRGEN_CFG		0x014
-> +#define UNIPHY_PLL_GLB_CFG		0x020
-> +#define UNIPHY_PLL_SDM_CFG0		0x038
-> +#define UNIPHY_PLL_SDM_CFG1		0x03c
-> +#define UNIPHY_PLL_SDM_CFG2		0x040
-> +#define UNIPHY_PLL_SDM_CFG3		0x044
-> +#define UNIPHY_PLL_SDM_CFG4		0x048
-> +#define UNIPHY_PLL_SSC_CFG0		0x04c
-> +#define UNIPHY_PLL_SSC_CFG1		0x050
-> +#define UNIPHY_PLL_SSC_CFG2		0x054
-> +#define UNIPHY_PLL_SSC_CFG3		0x058
-> +#define UNIPHY_PLL_LKDET_CFG0		0x05c
-> +#define UNIPHY_PLL_LKDET_CFG1		0x060
-> +#define UNIPHY_PLL_LKDET_CFG2		0x064
-> +#define UNIPHY_PLL_CAL_CFG0		0x06c
-> +#define UNIPHY_PLL_CAL_CFG8		0x08c
-> +#define UNIPHY_PLL_CAL_CFG9		0x090
-> +#define UNIPHY_PLL_CAL_CFG10		0x094
-> +#define UNIPHY_PLL_CAL_CFG11		0x098
-> +#define UNIPHY_PLL_STATUS		0x0c0
-> +
-> +#endif
+> @@ -8,8 +8,19 @@
+>   
+>   /* PHY registers */
+>   #define UNIPHY_PLL_REFCLK_CFG		0x000
+> +#define UNIPHY_PLL_POSTDIV1_CFG		0x004
+> +#define UNIPHY_PLL_CHGPUMP_CFG		0x008
+> +#define UNIPHY_PLL_VCOLPF_CFG		0x00c
+> +#define UNIPHY_PLL_VREG_CFG		0x010
+>   #define UNIPHY_PLL_PWRGEN_CFG		0x014
+> +#define UNIPHY_PLL_DMUX_CFG		0x018
+> +#define UNIPHY_PLL_AMUX_CFG		0x01c
+>   #define UNIPHY_PLL_GLB_CFG		0x020
+> +#define UNIPHY_PLL_POSTDIV2_CFG		0x024
+> +#define UNIPHY_PLL_POSTDIV3_CFG		0x028
+> +#define UNIPHY_PLL_LPFR_CFG		0x02c
+> +#define UNIPHY_PLL_LPFC1_CFG		0x030
+> +#define UNIPHY_PLL_LPFC2_CFG		0x034
+>   #define UNIPHY_PLL_SDM_CFG0		0x038
+>   #define UNIPHY_PLL_SDM_CFG1		0x03c
+>   #define UNIPHY_PLL_SDM_CFG2		0x040
+> @@ -22,11 +33,33 @@
+>   #define UNIPHY_PLL_LKDET_CFG0		0x05c
+>   #define UNIPHY_PLL_LKDET_CFG1		0x060
+>   #define UNIPHY_PLL_LKDET_CFG2		0x064
+> +#define UNIPHY_PLL_TEST_CFG		0x068
+>   #define UNIPHY_PLL_CAL_CFG0		0x06c
+> +#define UNIPHY_PLL_CAL_CFG1		0x070
+> +#define UNIPHY_PLL_CAL_CFG2		0x074
+> +#define UNIPHY_PLL_CAL_CFG3		0x078
+> +#define UNIPHY_PLL_CAL_CFG4		0x07c
+> +#define UNIPHY_PLL_CAL_CFG5		0x080
+> +#define UNIPHY_PLL_CAL_CFG6		0x084
+> +#define UNIPHY_PLL_CAL_CFG7		0x088
+>   #define UNIPHY_PLL_CAL_CFG8		0x08c
+>   #define UNIPHY_PLL_CAL_CFG9		0x090
+>   #define UNIPHY_PLL_CAL_CFG10		0x094
+>   #define UNIPHY_PLL_CAL_CFG11		0x098
+> +#define UNIPHY_PLL_EFUSE_CFG		0x09c
+> +#define UNIPHY_PLL_DEBUG_BUS_SEL	0x0a0
+> +#define UNIPHY_PLL_CTRL_42		0x0a4
+> +#define UNIPHY_PLL_CTRL_43		0x0a8
+> +#define UNIPHY_PLL_CTRL_44		0x0ac
+> +#define UNIPHY_PLL_CTRL_45		0x0b0
+> +#define UNIPHY_PLL_CTRL_46		0x0b4
+> +#define UNIPHY_PLL_CTRL_47		0x0b8
+> +#define UNIPHY_PLL_CTRL_48		0x0bc
+>   #define UNIPHY_PLL_STATUS		0x0c0
+> +#define UNIPHY_PLL_DEBUG_BUS0		0x0c4
+> +#define UNIPHY_PLL_DEBUG_BUS1		0x0c8
+> +#define UNIPHY_PLL_DEBUG_BUS2		0x0cc
+> +#define UNIPHY_PLL_DEBUG_BUS3		0x0d0
+> +#define UNIPHY_PLL_CTRL_54		0x0d4
+>   
+>   #endif
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
