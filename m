@@ -2,92 +2,117 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4761AC0EA3
-	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 16:47:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1E7EAC0F07
+	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 16:57:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8242810EB3A;
-	Thu, 22 May 2025 14:47:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2869F10E9A9;
+	Thu, 22 May 2025 14:57:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e14xcmIw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s3wma8Dg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
- [209.85.166.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 583A610EE0C;
- Thu, 22 May 2025 14:47:30 +0000 (UTC)
-Received: by mail-il1-f173.google.com with SMTP id
- e9e14a558f8ab-3db6ddcef4eso69835735ab.2; 
- Thu, 22 May 2025 07:47:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747925249; x=1748530049; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PPbDH3f6x3vtoaDskORYKv70NDHQV/hQjQjyBt3PCHg=;
- b=e14xcmIwUzl1MwY6W9r6JtcIWt/wcSRSkb+mo4TlbKFQYxPVXf9BsqAGvs+krfqcQ2
- xjVJ93D9CbwWXD0obi7bPyZ+nSP74BYaoRsuZXpIi5B4XgAnu1LJptI8POG5KWz8s+WW
- Y7aV8RVaZ6QhYjdZtQZtEMME71N2i/KPh1ohgbLj26p9bk8zwJ1Li++Y8G3no5pkMU0z
- GFC1MdpItINB58fH8/R3HNpxOp/IlqOH/QMtQpFRna1LEKBZBdyRsLB96MJ543ussutN
- jswR975zsdxeHvV5JCXEYWPLJy7udZkxo8m+acislJBkLHxhR6J/UApwTHeiyxjF2iOX
- zt6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747925249; x=1748530049;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PPbDH3f6x3vtoaDskORYKv70NDHQV/hQjQjyBt3PCHg=;
- b=XRy0urgmlzjj8HmOqXAY8KpfGCaXRNQ42ja+54bcBBjcOBirJNazRKPzK8e5gwHwp1
- Hu1ii5IeTLfPShwvBSJntfuX/nIaafD5P4nDhiFkJt+t5HMXeRp7FTEjp4013r53zFpU
- csvPZJuSO9ETZFXAYUwV9rxXRqz9aQKa6CvrH+ojwuA5hdPJQ09l0+BGFdBj3lchI99O
- Luc3z4OrN7EBJ2V8CVZVYkqHJS61MF7Xc1xW8TzeKrVwufhZmvT4JsUWndw6daaxh+wR
- p1HLKLL93cMIM9RAJ7n0awyrohepTppIhmF4xWXdN0L4o/t+TXMjEB17pb8MEFyrC4Zy
- 292g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU0LgevhZqYsDhlXve3Hd3/6n0MOAogl4gXUk34mAZ4y2hn1bcW9tqToPZT0znloBBPql/tkDbOLVAt@lists.freedesktop.org,
- AJvYcCVYksEIk1GWPvgNP4VZFQLQptaU1wgtG6uQ/UEgUhX4cPfYzG7LhLsHelcz/s1s4jKot1cvNV6EP3I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwWkIWNkf+BPQ6kZqxrIpfNJbzlJr8LtHpMyPzn3n1hbj+TssZE
- 1h7akpuX7clD6Y3ElYmoUMD46n6tqaZkijQxrQSP+Kmtg2gUZzFX57BR2gi72YZka62CO9dBF+P
- TLv+VL96xE/Ral1ZkLb/oJbqxEokd/80=
-X-Gm-Gg: ASbGncsC9FFeRljlo8L4SVWi3hj2wYUDS4Xd64nebL1sD9A+YMHY80fAa6p4AJfqp9a
- 7Yea7n/TtVtmbYmNamEa/pSZftfIq6F2cbRsmqFmJhSVEN1a0OetRFFvdmbfSrpCN1F9Yky6jpa
- hcHzgUt+QaYGg6hYRO5Yqc3EWiAA7hmvnIxCch/IzxgTt/2NNwyhoNxsnLFPtxOYQ=
-X-Google-Smtp-Source: AGHT+IEarmDYe4t8X7TSNIy1n4puTKWpnIYwdtvdbi84YGnpxT6zLK1A0SzYuTIp9sqHj9wsknEjHcHutbq3FYUqlv4=
-X-Received: by 2002:a05:6e02:2501:b0:3dc:8423:543e with SMTP id
- e9e14a558f8ab-3dc842356c2mr71268665ab.17.1747925249377; Thu, 22 May 2025
- 07:47:29 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B077610E176;
+ Thu, 22 May 2025 14:57:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8BA2C5C5D5C;
+ Thu, 22 May 2025 14:55:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3816C4CEEA;
+ Thu, 22 May 2025 14:57:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1747925853;
+ bh=5G+CU34zmKz9PE5a5J7jN90cu5Gxk5UtkArIIi8NlfY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=s3wma8DglmgLQ+hMVFjvtfjc4AGN1CkhvK3aJgPdEeop7ZdSKHWrh+jFnDK9fS1Bt
+ k4DPjLZirixi4RiNSCPaqTeQgbbYCGh34naxvV1r976lLS74g+aZn2NIJWPxU9Bk2h
+ 5lhBFpwnMYqpXLlbfQyJNLBIPkBOwrbgXjydFtJry7hB5vIcXzHiBLTIOBsTw60ofP
+ Sbe3oHlRv+SrSkLUAyO4OvF2SWUXfIQoAWSdBVx6gLBXEtHN69lIJ+ngwI0pTb/j5i
+ 982RPFTGUmNJf2N7qI0n6pT07RfEnvluDICTfTYoG8Smrgr1WlqJE6p9LO4kvWBltm
+ OmAchw1yswU2w==
+Date: Thu, 22 May 2025 16:57:30 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Douglas Anderson <dianders@chromium.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Liu Ying <victor.liu@nxp.com>, 
+ Anusha Srivatsa <asrivats@redhat.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, asahi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+ imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+ platform-driver-x86@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com, 
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Inki Dae <inki.dae@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>, 
+ Adam Ford <aford173@gmail.com>, Adrien Grassein <adrien.grassein@gmail.com>, 
+ Aleksandr Mishin <amishin@t-argos.ru>, Andy Yan <andy.yan@rock-chips.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Benson Leung <bleung@chromium.org>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Christoph Fritz <chf.fritz@googlemail.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Detlev Casanova <detlev.casanova@collabora.com>, 
+ Dharma Balasubiramani <dharma.b@microchip.com>,
+ Guenter Roeck <groeck@chromium.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Jani Nikula <jani.nikula@intel.com>,
+ Janne Grunau <j@jannau.net>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Jesse Van Gavere <jesseevg@gmail.com>, 
+ Kevin Hilman <khilman@baylibre.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Phong LE <ple@baylibre.com>, 
+ Sasha Finkelstein <fnkl.kernel@gmail.com>,
+ Sugar Zhang <sugar.zhang@rock-chips.com>, 
+ Sui Jingfeng <sui.jingfeng@linux.dev>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Vitalii Mordan <mordan@ispras.ru>, "Rob Herring (Arm)" <robh@kernel.org>, 
+ Hsin-Te Yuan <yuanhsinte@chromium.org>, Pin-yen Lin <treapking@chromium.org>, 
+ Xin Ji <xji@analogixsemi.com>, Aradhya Bhatia <a-bhatia1@ti.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Ian Ray <ian.ray@gehealthcare.com>, 
+ Martyn Welch <martyn.welch@collabora.co.uk>,
+ Peter Senna Tschudin <peter.senna@gmail.com>, 
+ Helge Deller <deller@gmx.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Michal Simek <michal.simek@amd.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v3 00/22] drm: convert all bridges to
+ devm_drm_bridge_alloc()
+Message-ID: <20250522-amphibian-shiny-chachalaca-cf05ba@houat>
+References: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
+ <20250521162216.79dd3290@booty>
 MIME-Version: 1.0
-References: <CAJs_Fx771FFVDVFMn8YJkR9f9Ad-UQspJ9KKQw4u6Cu4TA7YPA@mail.gmail.com>
- <CACu1E7EL+E-M0N-EAN9Bx7u9O6_pECQQdPE2ph575idhVb2Szg@mail.gmail.com>
- <aCYkk4Y7feltfp79@pollux>
- <CAF6AEGsoG_W3A3+BHV4n5EKZQazFubrCyfrtxVUH7+H4-j7i5A@mail.gmail.com>
- <aCY42rgJC4sQ4tp4@pollux>
- <CAF6AEGubHkdhfJz=bAZvctO1aTKDLwRsRyPzkoVrQ7tA6dRbKw@mail.gmail.com>
- <aCwqAGLLCC2ZLSBK@pollux>
- <CAF6AEGspvuTHU0t9z__p_HkdRNi=cXir3t453AbR6DFNzDpgvw@mail.gmail.com>
- <aCyzyAPbQ1SYbo4q@pollux>
- <CAF6AEGs+WmTO_624A3Pek-1-SD6B4PFu4sDv3htko0ABhfHFzw@mail.gmail.com>
- <aC8Dzgufa9E2MD6t@pollux>
-In-Reply-To: <aC8Dzgufa9E2MD6t@pollux>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 22 May 2025 07:47:17 -0700
-X-Gm-Features: AX0GCFtxJW9BGpIGgy7w8A5mMXB_NlWAv7wuxAT1kInixMl7peXcsXdNONmduSE
-Message-ID: <CAF6AEGvkrN8H1ZPzrCQF+d_Y_Y5kRdeQjohDqcgpNd-uDKo9yQ@mail.gmail.com>
-Subject: Re: [PATCH v4 04/40] drm/sched: Add enqueue credit limit
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@chromium.org>,
- phasta@kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- open list <linux-kernel@vger.kernel.org>, 
- Boris Brezillon <boris.brezillon@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="fe7madz4h5tk5u3n"
+Content-Disposition: inline
+In-Reply-To: <20250521162216.79dd3290@booty>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,117 +128,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 22, 2025 at 4:00=E2=80=AFAM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> On Tue, May 20, 2025 at 10:22:54AM -0700, Rob Clark wrote:
-> > On Tue, May 20, 2025 at 9:54=E2=80=AFAM Danilo Krummrich <dakr@kernel.o=
-rg> wrote:
-> > > On Tue, May 20, 2025 at 09:07:05AM -0700, Rob Clark wrote:
-> > > > On Tue, May 20, 2025 at 12:06=E2=80=AFAM Danilo Krummrich <dakr@ker=
-nel.org> wrote:
-> > > > > But let's assume we agree that we want to avoid that userspace ca=
-n ever OOM itself
-> > > > > through async VM_BIND, then the proposed solution seems wrong:
-> > > > >
-> > > > > Do we really want the driver developer to set an arbitrary bounda=
-ry of a number
-> > > > > of jobs that can be submitted before *async* VM_BIND blocks and b=
-ecomes
-> > > > > semi-sync?
-> > > > >
-> > > > > How do we choose this number of jobs? A very small number to be s=
-afe, which
-> > > > > scales badly on powerful machines? A large number that scales wel=
-l on powerful
-> > > > > machines, but OOMs on weaker ones?
-> > > >
-> > > > The way I am using it in msm, the credit amount and limit are in un=
-its
-> > > > of pre-allocated pages in-flight.  I set the enqueue_credit_limit t=
-o
-> > > > 1024 pages, once there are jobs queued up exceeding that limit, the=
-y
-> > > > start blocking.
-> > > >
-> > > > The number of _jobs_ is irrelevant, it is # of pre-alloc'd pages in=
- flight.
-> > >
-> > > That doesn't make a difference for my question. How do you know 1024 =
-pages is a
-> > > good value? How do we scale for different machines with different cap=
-abilities?
-> > >
-> > > If you have a powerful machine with lots of memory, we might throttle=
- userspace
-> > > for no reason, no?
-> > >
-> > > If the machine has very limited resources, it might already be too mu=
-ch?
-> >
-> > It may be a bit arbitrary, but then again I'm not sure that userspace
-> > is in any better position to pick an appropriate limit.
-> >
-> > 4MB of in-flight pages isn't going to be too much for anything that is
-> > capable enough to run vk, but still allows for a lot of in-flight
-> > maps.
->
-> Ok, but what about the other way around? What's the performance impact if=
- the
-> limit is chosen rather small, but we're running on a very powerful machin=
-e?
->
-> Since you already have the implementation for hardware you have access to=
-, can
-> you please check if and how performance degrades when you use a very smal=
-l
-> threshold?
 
-I mean, considering that some drivers (asahi, at least), _only_
-implement synchronous VM_BIND, I guess blocking in extreme cases isn't
-so bad.  But I think you are overthinking this.  4MB of pagetables is
-enough to map ~8GB of buffers.
+--fe7madz4h5tk5u3n
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 00/22] drm: convert all bridges to
+ devm_drm_bridge_alloc()
+MIME-Version: 1.0
 
-Perhaps drivers would want to set their limit based on the amount of
-memory the GPU could map, which might land them on a # larger than
-1024, but still not an order of magnitude more.
+On Wed, May 21, 2025 at 04:22:16PM +0200, Luca Ceresoli wrote:
+> Hello Maxime, Shawn, Liu, all,
+>=20
+> On Fri, 09 May 2025 15:53:26 +0200
+> Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
+>=20
+> > devm_drm_bridge_alloc() [0] is the new API to allocate and initialize a=
+ DRM
+> > bridge, and the only one supported from now on. It is the first milesto=
+ne
+> > towards removal of bridges from a still existing DRM pipeline without
+> > use-after-free.
+>=20
+> I applied on drm-misc-next patches 3-17,20-21 as they match all the
+> criteria:
+>  - At least a Acked-by (or R-by maintainers)
+>  - patch is for drm-misc
+>=20
+> Being my very first commits to drm-misc, I tried to be careful, and
+> double checked all the patches with Louis (thanks!).
+>=20
+> Here are the pending questions and plan for the remaining patches.
+>=20
+> >       Revert "drm/exynos: mic: convert to devm_drm_bridge_alloc() API"
+>=20
+> This reverts the commit applied my mistake:
+> https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/91c5c7b5bb2dd09b4=
+3b025bce6d790d3c79f4518
+>=20
+> Neither the  original patch nor the revert has been reviewed/acked.
+>=20
+> As the commit was a mistake, I'm applying the revert by the end of this
+> week (i.e. on Friday) unless there are better instructions.
 
-I don't really have a good setup for testing games that use this, atm,
-fex-emu isn't working for me atm.  But I think Connor has a setup with
-proton working?
+Given the lack of answers, and that it looks correct to me, just leave
+it there. We can always revert later on if things turned out to be
+broken.
 
-But, flip it around.  It is pretty simple to create a test program
-that submits a flood of 4k (or whatever your min page size is)
-VM_BINDs, and see how prealloc memory usage blows up.  This is really
-the thing this patch is trying to protect against.
+> >       drm: convert many bridge drivers from devm_kzalloc() to devm_drm_=
+bridge_alloc() API
+>=20
+> This patch affects multiple drivers. Running get_maintainers.pl
+> points at Shawn Guo's repository. After reviewing the MAINTAINERS file,
+> this looks like due to the 'N:' line in:
+>=20
+> ARM/FREESCALE IMX / MXC ARM ARCHITECTURE
+> M:	Shawn Guo <shawnguo@kernel.org>
+> M:	Sascha Hauer <s.hauer@pengutronix.de>
+> R:	Pengutronix Kernel Team <kernel@pengutronix.de>
+> ...
+> T:	git git://git.kernel.org/pub/scm/linux/kernel/git/shawnguo/linux.git
+> N:	imx
+> ...
+>=20
+> (https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/MAIN=
+TAINERS?ref_type=3Dheads#L2511-2528)
+>=20
+> Here 'imx' matches the 'drivers/gpu/drm/bridge/imx/imx-legacy-bridge.c'
+> file that is touched by the patch. That regexp appears overly generic to =
+me.
 
-> Also, I think we should probably put this throttle mechanism in a separat=
-e
-> component, that just wraps a counter of bytes or rather pages that can be
-> increased and decreased through an API and the increase just blocks at a =
-certain
-> threshold.
+I agree, or at least, we shouldn't wait for Shawn or Sasha...
 
-Maybe?  I don't see why we need to explicitly define the units for the
-credit.  This wasn't done for the existing credit mechanism.. which,
-seems like if you used some extra fences could also have been
-implemented externally.
+> Shawn, can it be fixed by making it less generic?
+>=20
+> If not, can we at least add a band-aid 'X:' entry for
+> drivers/gpu/drm/bridge/imx?
+>=20
+> I think the other matching entry is the one to consider:
+>=20
+> DRM DRIVERS FOR FREESCALE IMX BRIDGE
+> M:	Liu Ying <victor.liu@nxp.com>
+> L:	dri-devel@lists.freedesktop.org
+> S:	Maintained
+> F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-ldb.yaml
+> F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pixel-com=
+biner.yaml
+> F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pixel-lin=
+k.yaml
+> F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pxl2dpi.y=
+aml
+> F:	drivers/gpu/drm/bridge/imx/
+>=20
+> (https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/MAIN=
+TAINERS?ref_type=3Dheads#L7940-7948)
 
-> This component can then be called by a driver from the job submit IOCTL a=
-nd the
-> corresponding place where the pre-allocated memory is actually used / fre=
-ed.
->
-> Depending on the driver, this might not necessarily be in the scheduler's
-> run_job() callback.
->
-> We could call the component something like drm_throttle or drm_submit_thr=
-ottle.
+=2E.. As long as Ying is fine with it, because it does look like they are
+the actual maintainer.
 
-Maybe?  This still has the same complaint I had about just
-implementing this in msm.. it would have to reach in and use the
-scheduler's job_scheduled wait-queue.  Which, to me at least, seems
-like more of an internal detail about how the scheduler works.
+> However it does not list any trees. I _guess_ drm-misc applies here as
+> a fallback as well as common sense.
+>=20
+> Liu, should this entry have a 'T:' line for drm/misc?
+>=20
+> >       drm/bridge: imx8qxp-pixel-combiner: convert to devm_drm_bridge_al=
+loc() API
+>=20
+> Not acked/reviewed, some discussion happened. I am resending it in v4,
+> possibly with updates based on the discussion.
+>=20
+> But it has the same issue discussed above, with get_maintiners.pl
+> pointing at Shawn Guo's tree, so in the future I'm assuming this goes
+> to drm-misc unless there are news about that.
+>=20
+> >       drm/bridge: tc358767: convert to devm_drm_bridge_alloc() API
+>=20
+> No feedback, resending in v4.
+>=20
+> >       drm/todo: add entry to remove devm_drm_put_bridge()
+>=20
+> This involves documentation maintained on another tree. Where should it
+> be applied? There are two matching entries in MAINTAINERS:
+>=20
+>  * DRM DRIVERS -> the drm tree
+>  * DRM DRIVERS AND MISC GPU PATCHES -> the drm-misc tree
+>=20
+> To me it looks like the second is obviously the closest match as we are
+> dealing with DRM bridges, so I'm applying this as well on Friday unless
+> there are better instructions.
 
-BR,
--R
+Yes, they should be applied to drm-misc.
+
+That being said, putting a two days timeout on *any* email is really
+over-the-top. I doubt you reply to any of your mail in such a short
+timeframe. We have rules for a reason, I'd expect you to follow them, no
+matter how frustrating the lack of answers can be.
+
+Maxime
+
+--fe7madz4h5tk5u3n
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaC87WgAKCRAnX84Zoj2+
+do0iAYDmirWaXC3jRPAWe+k6egrSRuRKSb9T+TBMm48WnW6SNhJrwyOYhX8DpsOL
+IHaDlR4BfiFZ6a345YL/OKfebcrONxA8UY50Y3/kmzH9OdWsvkfvJSWcHiCEeu26
+nklxCgQuzA==
+=mXOq
+-----END PGP SIGNATURE-----
+
+--fe7madz4h5tk5u3n--
