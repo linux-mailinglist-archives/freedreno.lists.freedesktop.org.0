@@ -2,119 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8BC4AC0BC4
-	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 14:40:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4761AC0EA3
+	for <lists+freedreno@lfdr.de>; Thu, 22 May 2025 16:47:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96A9C10E706;
-	Thu, 22 May 2025 12:40:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8242810EB3A;
+	Thu, 22 May 2025 14:47:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VgQalo+0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e14xcmIw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 399CA10E846
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 12:40:15 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54M7OxmD021020
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 12:40:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=+EqEHGQsGLV7fMWgFHiDCICo
- 9owZC5//Pie9xhLsJeQ=; b=VgQalo+0oOyORAiuezYHZYJqlNe7dZ4MnpprEVb9
- vwU8lKz3Z6m6Rli/ceqcyMqHNWDZTKZrwrQDJwEjJB9n+fQ46sFrHMYJy6UkK2oK
- Ic1SkaBhS3pPYcbwBAFu0JcGLJPjaIdpZdtUMH6kbvPKNcsvLCTCQXf+lal7bZ3N
- cWPNJJAgtyuEFAx4YeQ4+APzW/Gx9udZfw2ceEMM1W+v4rd2pz2qDK5tDkjtbBDK
- OuNfLY0VCMBLzk27BTvpEZFCX+YMR6tg21W1/OTTQ0HHCxHl0ZuKyCoMyJnTfEl3
- x0M0JcYU9q+VzC+xAp4bwjtdW7eHUWWOoG3bGigQivs1zg==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46s9pb4p03-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 12:40:14 +0000 (GMT)
-Received: by mail-ot1-f72.google.com with SMTP id
- 46e09a7af769-72ecb7f4b42so7735270a34.0
- for <freedreno@lists.freedesktop.org>; Thu, 22 May 2025 05:40:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747917611; x=1748522411;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 583A610EE0C;
+ Thu, 22 May 2025 14:47:30 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3db6ddcef4eso69835735ab.2; 
+ Thu, 22 May 2025 07:47:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747925249; x=1748530049; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+EqEHGQsGLV7fMWgFHiDCICo9owZC5//Pie9xhLsJeQ=;
- b=EQpvA8vnnHxqXnia0DPxv51XKCAsvCZ6iw9lwTzUuG4PoLyVK9MnA53hvbcqqY8lPc
- 2yRHnN3RMQ2q01lwT/TJiiWwrWsa/NfBzGXEJu7pk0DJXHQoE/LvsMFPm503TihOvMX1
- 4mN7XswvnayH4wfGoCP569upRQGpu0Dx43pb7Pc41RzDEHgr4uzNEX9hEe/Eqx+APmml
- LHN79aBKMBtkPir3AjOMk34QowRmv1/34GzTkMkaFCATbdVBxUBYS6uEpR7bNx0LjCld
- 0xDhzSXJCFUjQ48CZ9Munh/O0nK8F0kFu7lMnE5FvfMrT60x7bnFWbC5FHhUGTsO2GKM
- 26sw==
+ bh=PPbDH3f6x3vtoaDskORYKv70NDHQV/hQjQjyBt3PCHg=;
+ b=e14xcmIwUzl1MwY6W9r6JtcIWt/wcSRSkb+mo4TlbKFQYxPVXf9BsqAGvs+krfqcQ2
+ xjVJ93D9CbwWXD0obi7bPyZ+nSP74BYaoRsuZXpIi5B4XgAnu1LJptI8POG5KWz8s+WW
+ Y7aV8RVaZ6QhYjdZtQZtEMME71N2i/KPh1ohgbLj26p9bk8zwJ1Li++Y8G3no5pkMU0z
+ GFC1MdpItINB58fH8/R3HNpxOp/IlqOH/QMtQpFRna1LEKBZBdyRsLB96MJ543ussutN
+ jswR975zsdxeHvV5JCXEYWPLJy7udZkxo8m+acislJBkLHxhR6J/UApwTHeiyxjF2iOX
+ zt6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747925249; x=1748530049;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PPbDH3f6x3vtoaDskORYKv70NDHQV/hQjQjyBt3PCHg=;
+ b=XRy0urgmlzjj8HmOqXAY8KpfGCaXRNQ42ja+54bcBBjcOBirJNazRKPzK8e5gwHwp1
+ Hu1ii5IeTLfPShwvBSJntfuX/nIaafD5P4nDhiFkJt+t5HMXeRp7FTEjp4013r53zFpU
+ csvPZJuSO9ETZFXAYUwV9rxXRqz9aQKa6CvrH+ojwuA5hdPJQ09l0+BGFdBj3lchI99O
+ Luc3z4OrN7EBJ2V8CVZVYkqHJS61MF7Xc1xW8TzeKrVwufhZmvT4JsUWndw6daaxh+wR
+ p1HLKLL93cMIM9RAJ7n0awyrohepTppIhmF4xWXdN0L4o/t+TXMjEB17pb8MEFyrC4Zy
+ 292g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXHEX2O/WRsni3JvSF/MBEzY34qRG0kM2XzxtRXuGaUq6J7xeqRrEgvipnFe72WsnCbd8sKt+j6Vu0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyF6I6cOX35LsQJxmqJyiJwbdJjQrNuU7IuFBS17I81+1wywrOj
- NKYlUmvlEryUaJnopv1R4ae9i1KFLj5eZDaZiCr25d2RVzM7/hGN9cpEbLBWxm8FZVWb+j09e6s
- 7rKAOgmN2vc9tfyZyILGmHSR599HoAjcLcJgr0R+iY6nnOXJ5IvbxpjhaQqHbqGq6RKr8ITvizX
- h8IbE=
-X-Gm-Gg: ASbGnctUSZFVHTnfj18ecCU26VfZZHi0yRmgM/BbxuMQXav3oCZdJ5Y/XetYnXf4PqC
- ordTmiteVMbEpNe446pQXuUo0BCf2uMDAc9Qiu4g+X7ElHTmqKi3r5SK58pw9cG3VD6dreEpAhq
- JugsySrCk/832ZEX8lziPTplAf/ttfXSSt/eHueXDwJgiaxWeESaQ0I+tmfC29eefWGi8P84Nu3
- 53pqIXlyo/DYTziFRwOcCrKOAtQWefspF6WVRuSEV8ekAFiUZMTcsxzmWjqz2wP78fVmnxXjMB2
- zdMl2WPAK0cj6udaqr5zl8v1qs8V0aAWz0wm7TfC9hFigkF+mMIJzxo5axZOngAc6G/CbdOHfcw
- =
-X-Received: by 2002:a05:6830:6118:b0:72b:9674:93e7 with SMTP id
- 46e09a7af769-734f994c4eamr14759867a34.17.1747917611359; 
- Thu, 22 May 2025 05:40:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFve+8mofNSpVKLWwuMYBvia/xh0sTk8FAf6wyF/tDiY8jaMMruPUXYmConthQlvyqWvXyIXA==
-X-Received: by 2002:ad4:5caa:0:b0:6f5:dd5:a594 with SMTP id
- 6a1803df08f44-6f8b2cb94cemr428744686d6.5.1747917599863; 
- Thu, 22 May 2025 05:39:59 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-550e7017e6esm3376695e87.136.2025.05.22.05.39.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 May 2025 05:39:58 -0700 (PDT)
-Date: Thu, 22 May 2025 15:39:57 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-phy@lists.infradead.org
-Subject: Re: [PATCH v4 1/5] drm/msm/hdmi: switch to generic PHY subsystem
-Message-ID: <tm2ogebkaxu3g6xdmrjkx3u6veac45qd7mtiruan4rcevs75xn@apubmfvg74nt>
-References: <20250520-fd-hdmi-phy-v4-0-fcbaa652ad75@oss.qualcomm.com>
- <20250520-fd-hdmi-phy-v4-1-fcbaa652ad75@oss.qualcomm.com>
- <a42b9cbb-2f85-40c4-8b40-6f84970aba86@linaro.org>
+ AJvYcCU0LgevhZqYsDhlXve3Hd3/6n0MOAogl4gXUk34mAZ4y2hn1bcW9tqToPZT0znloBBPql/tkDbOLVAt@lists.freedesktop.org,
+ AJvYcCVYksEIk1GWPvgNP4VZFQLQptaU1wgtG6uQ/UEgUhX4cPfYzG7LhLsHelcz/s1s4jKot1cvNV6EP3I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWkIWNkf+BPQ6kZqxrIpfNJbzlJr8LtHpMyPzn3n1hbj+TssZE
+ 1h7akpuX7clD6Y3ElYmoUMD46n6tqaZkijQxrQSP+Kmtg2gUZzFX57BR2gi72YZka62CO9dBF+P
+ TLv+VL96xE/Ral1ZkLb/oJbqxEokd/80=
+X-Gm-Gg: ASbGncsC9FFeRljlo8L4SVWi3hj2wYUDS4Xd64nebL1sD9A+YMHY80fAa6p4AJfqp9a
+ 7Yea7n/TtVtmbYmNamEa/pSZftfIq6F2cbRsmqFmJhSVEN1a0OetRFFvdmbfSrpCN1F9Yky6jpa
+ hcHzgUt+QaYGg6hYRO5Yqc3EWiAA7hmvnIxCch/IzxgTt/2NNwyhoNxsnLFPtxOYQ=
+X-Google-Smtp-Source: AGHT+IEarmDYe4t8X7TSNIy1n4puTKWpnIYwdtvdbi84YGnpxT6zLK1A0SzYuTIp9sqHj9wsknEjHcHutbq3FYUqlv4=
+X-Received: by 2002:a05:6e02:2501:b0:3dc:8423:543e with SMTP id
+ e9e14a558f8ab-3dc842356c2mr71268665ab.17.1747925249377; Thu, 22 May 2025
+ 07:47:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a42b9cbb-2f85-40c4-8b40-6f84970aba86@linaro.org>
-X-Authority-Analysis: v=2.4 cv=WJl/XmsR c=1 sm=1 tr=0 ts=682f1b2e cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=dt9VzEwgFbYA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=kkxXnT2X172yt9C4ahEA:9
- a=CjuIK1q_8ugA:10 a=eYe2g0i6gJ5uXG_o6N4q:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: ZXG_8EMEOFsMbRFIX3lCr9KtA-UDqebx
-X-Proofpoint-GUID: ZXG_8EMEOFsMbRFIX3lCr9KtA-UDqebx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIyMDEyOCBTYWx0ZWRfXxbgNPlH9oV3+
- 2VgOAy3Yw6CJaXE5QbUlR3hNRK/kZAecgMEkBeMcQ2CajObVP+HsYMzCFP9DTPXjl8Xnaw/WL31
- pkF3tf/eCyOn3TBugRjkS9pFlkCmSKYV0OZqsMMLuBSL6/czLC2CcbfKEsWTAfh1L+rWu/Dn0FT
- 6FS5bSPCgjnaFvXok8XbgHhfieBUG3SLVKJvH1t5psXW/8yKlTSXhWc62lKbGQJtCbjYoEpRMFL
- NHZm/nBJQmv26qUOfQUMjsLwLH43C7f49SSao2ur4TPv2MNkNTftKgY/fWicmUEjEkCCUtkL4A7
- q6+JHZuBmHtwrA593q1SH6K1hXzH9qQDUSx8CNv5+XtRDdQXD9lc6HU5Yfl0uaY7ucGBgQcLe81
- R7c26yzjdNZy3FeQOiE9ar1U6y/2lY+3Bg4q1NA8UkuG8LmWVB0zzpPJNzsfzkuZS/+mqR7O
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-22_06,2025-05-22_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0 bulkscore=0
- malwarescore=0 impostorscore=0 mlxscore=0 adultscore=0 phishscore=0
- mlxlogscore=999 priorityscore=1501 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505160000 definitions=main-2505220128
+References: <CAJs_Fx771FFVDVFMn8YJkR9f9Ad-UQspJ9KKQw4u6Cu4TA7YPA@mail.gmail.com>
+ <CACu1E7EL+E-M0N-EAN9Bx7u9O6_pECQQdPE2ph575idhVb2Szg@mail.gmail.com>
+ <aCYkk4Y7feltfp79@pollux>
+ <CAF6AEGsoG_W3A3+BHV4n5EKZQazFubrCyfrtxVUH7+H4-j7i5A@mail.gmail.com>
+ <aCY42rgJC4sQ4tp4@pollux>
+ <CAF6AEGubHkdhfJz=bAZvctO1aTKDLwRsRyPzkoVrQ7tA6dRbKw@mail.gmail.com>
+ <aCwqAGLLCC2ZLSBK@pollux>
+ <CAF6AEGspvuTHU0t9z__p_HkdRNi=cXir3t453AbR6DFNzDpgvw@mail.gmail.com>
+ <aCyzyAPbQ1SYbo4q@pollux>
+ <CAF6AEGs+WmTO_624A3Pek-1-SD6B4PFu4sDv3htko0ABhfHFzw@mail.gmail.com>
+ <aC8Dzgufa9E2MD6t@pollux>
+In-Reply-To: <aC8Dzgufa9E2MD6t@pollux>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 22 May 2025 07:47:17 -0700
+X-Gm-Features: AX0GCFtxJW9BGpIGgy7w8A5mMXB_NlWAv7wuxAT1kInixMl7peXcsXdNONmduSE
+Message-ID: <CAF6AEGvkrN8H1ZPzrCQF+d_Y_Y5kRdeQjohDqcgpNd-uDKo9yQ@mail.gmail.com>
+Subject: Re: [PATCH v4 04/40] drm/sched: Add enqueue credit limit
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@chromium.org>,
+ phasta@kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ open list <linux-kernel@vger.kernel.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,137 +103,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 22, 2025 at 09:38:34AM +0200, neil.armstrong@linaro.org wrote:
-> On 20/05/2025 22:44, Dmitry Baryshkov wrote:
-> > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > 
-> > Change the MSM HDMI driver to use generic PHY subsystem. Moving PHY
-> > drivers allows better code sharing with the rest of the PHY system.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >   drivers/gpu/drm/msm/Makefile                     |   7 -
-> >   drivers/gpu/drm/msm/hdmi/hdmi.c                  |  58 +-
-> >   drivers/gpu/drm/msm/hdmi/hdmi.h                  |  80 +--
-> >   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c           |  32 +-
-> >   drivers/gpu/drm/msm/hdmi/hdmi_phy.c              | 225 -------
-> >   drivers/gpu/drm/msm/hdmi/hdmi_phy_8960.c         |  51 --
-> >   drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c         | 765 ----------------------
-> >   drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c         | 769 -----------------------
-> >   drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c         | 141 -----
-> >   drivers/gpu/drm/msm/hdmi/hdmi_phy_8x74.c         |  44 --
-> >   drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c         | 458 --------------
-> >   drivers/phy/qualcomm/Kconfig                     |  21 +
-> >   drivers/phy/qualcomm/Makefile                    |  14 +
-> >   drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c       |  71 +++
-> >   drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c       | 441 +++++++++++++
-> >   drivers/phy/qualcomm/phy-qcom-hdmi-45nm.c        | 186 ++++++
-> >   drivers/phy/qualcomm/phy-qcom-hdmi-preqmp.c      | 212 +++++++
-> >   drivers/phy/qualcomm/phy-qcom-hdmi-preqmp.h      |  81 +++
-> >   drivers/phy/qualcomm/phy-qcom-qmp-hdmi-base.c    | 185 ++++++
-> >   drivers/phy/qualcomm/phy-qcom-qmp-hdmi-msm8996.c | 442 +++++++++++++
-> >   drivers/phy/qualcomm/phy-qcom-qmp-hdmi-msm8998.c | 495 +++++++++++++++
-> >   drivers/phy/qualcomm/phy-qcom-qmp-hdmi.h         |  77 +++
-> >   22 files changed, 2259 insertions(+), 2596 deletions(-)
-> > 
-> 
-> <snip>
-> 
-> > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> > index 53a7ce8cc7bc7b6278eae2cbc42c3fda8d697f6d..1a00c26c1b40fc81623c9fb22ba25f448c27bffb 100644
-> > --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> > @@ -5,6 +5,7 @@
-> >    */
-> >   #include <linux/delay.h>
-> > +#include <linux/phy/phy.h>
-> >   #include <drm/drm_bridge_connector.h>
-> >   #include <drm/drm_edid.h>
-> >   #include <drm/display/drm_hdmi_helper.h>
-> > @@ -286,11 +287,12 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-> >   {
-> >   	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
-> >   	struct hdmi *hdmi = hdmi_bridge->hdmi;
-> > -	struct hdmi_phy *phy = hdmi->phy;
-> >   	struct drm_encoder *encoder = bridge->encoder;
-> >   	struct drm_connector *connector;
-> >   	struct drm_connector_state *conn_state;
-> >   	struct drm_crtc_state *crtc_state;
-> > +	union phy_configure_opts phy_opts;
-> > +	int ret;
-> >   	DBG("power up");
-> > @@ -304,7 +306,7 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-> >   	mutex_lock(&hdmi->state_mutex);
-> >   	if (!hdmi->power_on) {
-> > -		msm_hdmi_phy_resource_enable(phy);
-> > +		phy_init(hdmi->phy);
-> >   		msm_hdmi_power_on(bridge);
-> >   		hdmi->power_on = true;
-> >   	}
-> > @@ -315,7 +317,23 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-> >   	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
-> > -	msm_hdmi_phy_powerup(phy, hdmi->pixclock);
-> > +	phy_opts.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
-> > +	phy_opts.hdmi.bpc = 8;
-> > +	phy_configure(hdmi->phy, &phy_opts);
-> > +
-> > +	ret = phy_power_on(hdmi->phy);
-> > +	if (WARN_ON(ret))
-> > +		return;
-> > +
-> > +	if (hdmi->extp_clk) {
-> > +		ret = clk_set_rate(hdmi->extp_clk, hdmi->pixclock);
-> > +		if (ret)
-> > +			DRM_DEV_ERROR(bridge->dev->dev, "failed to set extp clk rate: %d\n", ret);
-> > +
-> > +		ret = clk_prepare_enable(hdmi->extp_clk);
-> > +		if (ret)
-> > +			DRM_DEV_ERROR(bridge->dev->dev, "failed to enable extp clk: %d\n", ret);
-> > +	}
-> 
-> Why do you again set the extp_clk since it's already set & enabled in msm_hdmi_power_on() ?
-> 
-> Perhaps I missed a change but it's like that on next-20250521
+On Thu, May 22, 2025 at 4:00=E2=80=AFAM Danilo Krummrich <dakr@kernel.org> =
+wrote:
+>
+> On Tue, May 20, 2025 at 10:22:54AM -0700, Rob Clark wrote:
+> > On Tue, May 20, 2025 at 9:54=E2=80=AFAM Danilo Krummrich <dakr@kernel.o=
+rg> wrote:
+> > > On Tue, May 20, 2025 at 09:07:05AM -0700, Rob Clark wrote:
+> > > > On Tue, May 20, 2025 at 12:06=E2=80=AFAM Danilo Krummrich <dakr@ker=
+nel.org> wrote:
+> > > > > But let's assume we agree that we want to avoid that userspace ca=
+n ever OOM itself
+> > > > > through async VM_BIND, then the proposed solution seems wrong:
+> > > > >
+> > > > > Do we really want the driver developer to set an arbitrary bounda=
+ry of a number
+> > > > > of jobs that can be submitted before *async* VM_BIND blocks and b=
+ecomes
+> > > > > semi-sync?
+> > > > >
+> > > > > How do we choose this number of jobs? A very small number to be s=
+afe, which
+> > > > > scales badly on powerful machines? A large number that scales wel=
+l on powerful
+> > > > > machines, but OOMs on weaker ones?
+> > > >
+> > > > The way I am using it in msm, the credit amount and limit are in un=
+its
+> > > > of pre-allocated pages in-flight.  I set the enqueue_credit_limit t=
+o
+> > > > 1024 pages, once there are jobs queued up exceeding that limit, the=
+y
+> > > > start blocking.
+> > > >
+> > > > The number of _jobs_ is irrelevant, it is # of pre-alloc'd pages in=
+ flight.
+> > >
+> > > That doesn't make a difference for my question. How do you know 1024 =
+pages is a
+> > > good value? How do we scale for different machines with different cap=
+abilities?
+> > >
+> > > If you have a powerful machine with lots of memory, we might throttle=
+ userspace
+> > > for no reason, no?
+> > >
+> > > If the machine has very limited resources, it might already be too mu=
+ch?
+> >
+> > It may be a bit arbitrary, but then again I'm not sure that userspace
+> > is in any better position to pick an appropriate limit.
+> >
+> > 4MB of in-flight pages isn't going to be too much for anything that is
+> > capable enough to run vk, but still allows for a lot of in-flight
+> > maps.
+>
+> Ok, but what about the other way around? What's the performance impact if=
+ the
+> limit is chosen rather small, but we're running on a very powerful machin=
+e?
+>
+> Since you already have the implementation for hardware you have access to=
+, can
+> you please check if and how performance degrades when you use a very smal=
+l
+> threshold?
 
-Yes. And it was a part of the series beforehand. I will check, why it
-was required or I will drop it.
+I mean, considering that some drivers (asahi, at least), _only_
+implement synchronous VM_BIND, I guess blocking in extreme cases isn't
+so bad.  But I think you are overthinking this.  4MB of pagetables is
+enough to map ~8GB of buffers.
 
-> 
-> >   	msm_hdmi_set_mode(hdmi, true);
-> > @@ -328,7 +346,6 @@ static void msm_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
-> >   {
-> >   	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
-> >   	struct hdmi *hdmi = hdmi_bridge->hdmi;
-> > -	struct hdmi_phy *phy = hdmi->phy;
-> >   	if (hdmi->hdcp_ctrl)
-> >   		msm_hdmi_hdcp_off(hdmi->hdcp_ctrl);
-> > @@ -339,14 +356,17 @@ static void msm_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
-> >   	mutex_lock(&hdmi->state_mutex);
-> >   	msm_hdmi_set_mode(hdmi, hdmi->hpd_enabled);
-> > -	msm_hdmi_phy_powerdown(phy);
-> > +	if (hdmi->extp_clk)
-> > +		clk_disable_unprepare(hdmi->extp_clk);
-> > +
-> > +	phy_power_off(hdmi->phy);
-> >   	if (hdmi->power_on) {
-> >   		power_off(bridge);
-> >   		hdmi->power_on = false;
-> >   		if (hdmi->connector->display_info.is_hdmi)
-> >   			msm_hdmi_audio_update(hdmi);
-> > -		msm_hdmi_phy_resource_disable(phy);
-> > +		phy_exit(hdmi->phy);
-> >   	}
-> >   	mutex_unlock(&hdmi->state_mutex);
-> >   }
-> <snip>
-> 
-> Otherwise it looks fine even there's a lot to digest and hard to figure out
-> the exact changes done to the PHY drivers.
+Perhaps drivers would want to set their limit based on the amount of
+memory the GPU could map, which might land them on a # larger than
+1024, but still not an order of magnitude more.
 
-Yes. I have been trying to find other ways to handle such move, but I
-couldn't find any.
+I don't really have a good setup for testing games that use this, atm,
+fex-emu isn't working for me atm.  But I think Connor has a setup with
+proton working?
 
--- 
-With best wishes
-Dmitry
+But, flip it around.  It is pretty simple to create a test program
+that submits a flood of 4k (or whatever your min page size is)
+VM_BINDs, and see how prealloc memory usage blows up.  This is really
+the thing this patch is trying to protect against.
+
+> Also, I think we should probably put this throttle mechanism in a separat=
+e
+> component, that just wraps a counter of bytes or rather pages that can be
+> increased and decreased through an API and the increase just blocks at a =
+certain
+> threshold.
+
+Maybe?  I don't see why we need to explicitly define the units for the
+credit.  This wasn't done for the existing credit mechanism.. which,
+seems like if you used some extra fences could also have been
+implemented externally.
+
+> This component can then be called by a driver from the job submit IOCTL a=
+nd the
+> corresponding place where the pre-allocated memory is actually used / fre=
+ed.
+>
+> Depending on the driver, this might not necessarily be in the scheduler's
+> run_job() callback.
+>
+> We could call the component something like drm_throttle or drm_submit_thr=
+ottle.
+
+Maybe?  This still has the same complaint I had about just
+implementing this in msm.. it would have to reach in and use the
+scheduler's job_scheduled wait-queue.  Which, to me at least, seems
+like more of an internal detail about how the scheduler works.
+
+BR,
+-R
