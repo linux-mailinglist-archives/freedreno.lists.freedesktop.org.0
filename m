@@ -2,90 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C30FAC1A11
-	for <lists+freedreno@lfdr.de>; Fri, 23 May 2025 04:31:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E62F3AC1A3E
+	for <lists+freedreno@lfdr.de>; Fri, 23 May 2025 04:52:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C6CD10E152;
-	Fri, 23 May 2025 02:31:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA0B810E07E;
+	Fri, 23 May 2025 02:52:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zq+xA9U6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H+NPtY+k";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
- [209.85.166.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D5B510E139;
- Fri, 23 May 2025 02:31:41 +0000 (UTC)
-Received: by mail-io1-f44.google.com with SMTP id
- ca18e2360f4ac-86135d11760so669987739f.2; 
- Thu, 22 May 2025 19:31:41 -0700 (PDT)
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC0510E07E;
+ Fri, 23 May 2025 02:52:02 +0000 (UTC)
+Received: by mail-io1-f41.google.com with SMTP id
+ ca18e2360f4ac-8647a81e683so213071339f.1; 
+ Thu, 22 May 2025 19:52:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747967500; x=1748572300; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1747968722; x=1748573522; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=v50Axd90kyfqH9mwJmj3TPd2cL5HaAzM6IzM1l9YKSU=;
- b=Zq+xA9U6eNSa+kLoMOhfzw6x353g+NeauOevl2oAs3u66fSF0B+4MZtHfsmJt01Q+W
- sG4M+uMMfG4/3ki4Ty4L7BUkzmP6ScYtb+i8rzJS0aJVCyzzIe6oUW36eh5Cn7QWBFj4
- p5T7x3GWV0DUBKpsFkEyax7djOQam7fm/xl+PQG6fbwF0Ilg6BTpAyzyzghrCSZFPRJA
- R0q19gfU+wmbV01tcXVhS9wHa6bYLReuMUgqQbsyBHiVvEy+QGHmViq3iZSm6dASKCOH
- 4K3dGBLaF3UTdh+ndo9HEjK3xYA48TxZteRCkrHc77Tz9Z5UqcK7cxxWso61JaPkLaih
- N4rQ==
+ bh=xTSB0zI8EV3WEUJwB1OwJBkD3PikZdbJJrajz68TKpU=;
+ b=H+NPtY+kSthDeMxIOjwz3WK2hgQJcZDM60UjqnNOJ9gpRPBlW2pmcjmj/WtKPTT18F
+ gsAIxxFx9/+YJFWJWkrCvONYcAhFxsd8rCiBpj5/Y5LjzMhsbCgIhBI+UMWNMuu7UKgs
+ PvZa42Vr194biQRTKxiDt6yB4ykxk2BDxuy/Dx3OTlOmFZDgPUuF0XkKxza9aGPjhtMg
+ ZBbN6JfrrhzUDbTn380J6pVizud1fIYT0fOZgOrO0RmZ2bYJUC6gKJTWFkxg6VhGQXT0
+ Trlaog0/7kVJdsh/dpWzW4rFxDQrI3LYJ2iG67Or+2oB1YS30oTP4eHEtlfEOYmMZGgb
+ Xx4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747967500; x=1748572300;
+ d=1e100.net; s=20230601; t=1747968722; x=1748573522;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=v50Axd90kyfqH9mwJmj3TPd2cL5HaAzM6IzM1l9YKSU=;
- b=Tyt8fRzWH/NJ1pX3dHYC+ots9eyjveXlX1HdJpTzxxZMXd9s13jFCb6X/dwv1SKx6T
- igSncS+iI+qmuSZGoXU+Dyg/iOBkwYNh0bY3unGYuEHUVguwjlxvyFw5NkfwdgwHj5f/
- nFM11T9yNvcLZ2uOwcgGIoMWpjUme5vzhs79FbdoJ3qwIdA3QjgFz/+GqffTivcSldPT
- YVzkuf+YD/fVybglYZA8td/VUw32GWZ1f2vxJI/XFBd0+1D51njau6clQae8osEMaxOI
- m/Ux62xPITlbVDVmPQ8JTthXI4CoScwK0SGu1dA0jcEv/+meAq7M5FBj+uz5GTSs7xR9
- fjTQ==
+ bh=xTSB0zI8EV3WEUJwB1OwJBkD3PikZdbJJrajz68TKpU=;
+ b=M+sVM8zO1OyCaQapLrDnTXs3TMK1uOZiR9axCLDCpEUsU7uvjJQKlsyH/qpk8Jj66d
+ g9JO9Sv19q2VNQOD3dU2/drM+PWjtSpF1N9y4NtJ7E7MiAOKYAMDa0O3sKBD9Qb15se/
+ RoH+tqNIeYxpiSVG98Baa/kI+W7A9ZwVl51/hmG81fnt9vhX7I2j57un0DeTA7h8s0rH
+ tatlrORexuxJKFBEn2ytCDHgEFoHppKpmvbQD5FeTRnyHpmA/YZYs3wiV0SPFUjCsNSL
+ qFu4707qve3E73M/qZAXJMa8YGNV7T8CTfErfKNltCLL0BSerFxvlN/bKRMgyvUUKUul
+ Md5A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWKT3FSc6TiT73mp11Twjsmv7+VbM2+GvJombcGWAvkCHjNEF3XTDdrcoynjbo50qqc6Ips1/weuXmW@lists.freedesktop.org,
- AJvYcCX4/HQ2iigoMe8AB+GX5ZN/qg4Q9D8i0uyFqpu9dcKsA+PQPLzby3eedrjxh1y3Ou+5HreWuaxzRmw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzhFPXu6g0k7pxkkjxToM5t9SuEvpU++qEBcKi9Hud5riy1fGbP
- GiYg3ehvNPe1mtQURTx5v20fkiJ+3OPhQzK4ETxjBxVClGL9q4SFgcP6QPPr9JshzIZimrlLqRD
- nDq3/HKB6jLBPSX/3v1pZvvQjU+f3M9Q=
-X-Gm-Gg: ASbGncuMowO1OY59yzxGEHH/euwgjk0AWntKnZllYaP1KQcChCu1vmvmhFqH47WTxdM
- 7/wUSynnDFia/OZOr0QhgFy7hKPc6BuiWLM8JOOhxQD7xFYpauRhortTs1FhZQwm7xpSpWnxJgw
- 3vJr0mu/fUEF9zp3oyxqvOfDudajclYN+ZNVqAYajilqAk5LsNlnBGu9gxkTiNpekN
-X-Google-Smtp-Source: AGHT+IEaJK0kE9SEAYYnpJd6uzCGrAqsmkLSUrMUnq8m5hUhwbfMok+9DiOmcNxk+puC6/eGlHTtg9rkqjOTtXuzEd4=
-X-Received: by 2002:a05:6602:6a87:b0:86a:24fe:c51f with SMTP id
- ca18e2360f4ac-86caf092e03mr197060839f.7.1747967500384; Thu, 22 May 2025
- 19:31:40 -0700 (PDT)
+ AJvYcCU5bv4gLKnB/a3P8ecUW+G4d3eNIzG6/E3STcfVwWWlHcxIXyRHau73gNpKpEpiE5yrbmMmO/DxYvDx@lists.freedesktop.org,
+ AJvYcCUR2nY0+Hi9Hr2jGJpL4Vv6C3P2cRaSuScr9uVrcVXS+S4RBm90klQQ8vIHPqCfY+brDBJki6xYpi8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuT2uXg9r4N4z8y3aecwnvczqyEe/I/NPcXKjb+4D8xWmhKuwy
+ xLUlIPTeseZS8vRBOvxLmmlAvQ5gpYv/oYKksJfpKRSLUbrSlB9Epz6LQPJrJr425MnYbqK1fkD
+ dqrJ4xfGrN1bzXGkB5Is968YAS0gyMsY=
+X-Gm-Gg: ASbGncs3LW0a4N0lmPILpbgTtpJFqVOn+tq4JJ58hVE1vL1j+fHHOdefmcpB8C3G+EV
+ fhKZ+XTrWqpHSVn9YNjc5W+tDO42l92tSTwQgFeMe8c16+zUVhoVzY1QGpFsZZlwmTBdHeXJRil
+ U2/xitjt4CUOhhpLAat7H05oPA+dRXDEFWJ5PkifpKLKH5hZtRmT4zah2hrAETHCJ2
+X-Google-Smtp-Source: AGHT+IGekz0rAdSPy6Esyn61QabmWg59bnZX7oGPMZFq1CRW47PXVM8Ji2t7L5VbUHV5PXKnuAfwbKUUuHc/BlAt9Z0=
+X-Received: by 2002:a05:6602:6cc6:b0:861:7237:9021 with SMTP id
+ ca18e2360f4ac-86caf0c1576mr176258739f.3.1747968721680; Thu, 22 May 2025
+ 19:52:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <aCYkk4Y7feltfp79@pollux>
- <CAF6AEGsoG_W3A3+BHV4n5EKZQazFubrCyfrtxVUH7+H4-j7i5A@mail.gmail.com>
- <aCY42rgJC4sQ4tp4@pollux>
- <CAF6AEGubHkdhfJz=bAZvctO1aTKDLwRsRyPzkoVrQ7tA6dRbKw@mail.gmail.com>
- <aCwqAGLLCC2ZLSBK@pollux>
- <CAF6AEGspvuTHU0t9z__p_HkdRNi=cXir3t453AbR6DFNzDpgvw@mail.gmail.com>
- <aCyzyAPbQ1SYbo4q@pollux>
- <CAF6AEGs+WmTO_624A3Pek-1-SD6B4PFu4sDv3htko0ABhfHFzw@mail.gmail.com>
- <aC8Dzgufa9E2MD6t@pollux>
- <CAF6AEGvkrN8H1ZPzrCQF+d_Y_Y5kRdeQjohDqcgpNd-uDKo9yQ@mail.gmail.com>
- <aC9Iih1KN6xb9LrK@cassiopeiae>
-In-Reply-To: <aC9Iih1KN6xb9LrK@cassiopeiae>
+References: <20250514175527.42488-1-robdclark@gmail.com>
+ <20250514175527.42488-2-robdclark@gmail.com>
+ <aCWrwz2IF6VBUi4e@pollux> <aCWueFzx2QzF7LVg@pollux>
+ <CAF6AEGu9MPxKnkHo45gSRxaCP+CTzqsKZjiLuy4Ne4GbrsStGA@mail.gmail.com>
+ <aCYqlvp_T77LyuMa@pollux>
+ <CAF6AEGsOTNedZhuBzipSQgNpG0SyVObaeq+g5U1hGUFfRYjw8w@mail.gmail.com>
+ <aCb-72KH-NrzvGXy@pollux>
+ <CAF6AEGu=KzCnkxuUsYvCHBGwo-e2W16u_cRT1NFAXLphty1_ig@mail.gmail.com>
+ <CAPM=9tzcvDVDOM88O8oqDHURR1nbR7KsFStavNnT1CN6C6kGgg@mail.gmail.com>
+ <CAF6AEGuv3GXTBcU99sBjAa5gPOSNoxwY+eiPy=Q--cLYHVn+cw@mail.gmail.com>
+ <CAPM=9tykCXSKOH0BcMkNLKyCWfEN-kCjs0U7UA+C1pPqFr1jLA@mail.gmail.com>
+In-Reply-To: <CAPM=9tykCXSKOH0BcMkNLKyCWfEN-kCjs0U7UA+C1pPqFr1jLA@mail.gmail.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 22 May 2025 19:31:28 -0700
-X-Gm-Features: AX0GCFun40Rc8pO0Ej4MXUSPpbpJxcZFCAbQh8QNhOuG0dSQLURQ6RgXeZ6gFMg
-Message-ID: <CAF6AEGvp6BCN14_n+Ot5KQrPbnDprKXcHT0s0ZLC2-JDV7D3TQ@mail.gmail.com>
-Subject: Re: [PATCH v4 04/40] drm/sched: Add enqueue credit limit
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@chromium.org>,
- phasta@kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+Date: Thu, 22 May 2025 19:51:50 -0700
+X-Gm-Features: AX0GCFv84KCQV61BbxGSWUJ9Yyr5yOTqzENnybuQuOJ009enSSfsiTbWai8yKfg
+Message-ID: <CAF6AEGuK+X4Q=Z-anjQuUBi952eYSs3u9HxVz0GSQM8fokdiiw@mail.gmail.com>
+Subject: Re: [PATCH v4 01/40] drm/gpuvm: Don't require obj lock in destructor
+ path
+To: Dave Airlie <airlied@gmail.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@chromium.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- open list <linux-kernel@vger.kernel.org>, 
- Boris Brezillon <boris.brezillon@collabora.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -103,214 +100,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 22, 2025 at 8:53=E2=80=AFAM Danilo Krummrich <dakr@kernel.org> =
-wrote:
+On Tue, May 20, 2025 at 3:31=E2=80=AFPM Dave Airlie <airlied@gmail.com> wro=
+te:
 >
-> On Thu, May 22, 2025 at 07:47:17AM -0700, Rob Clark wrote:
-> > On Thu, May 22, 2025 at 4:00=E2=80=AFAM Danilo Krummrich <dakr@kernel.o=
-rg> wrote:
-> > > On Tue, May 20, 2025 at 10:22:54AM -0700, Rob Clark wrote:
-> > > > On Tue, May 20, 2025 at 9:54=E2=80=AFAM Danilo Krummrich <dakr@kern=
+> On Wed, 21 May 2025 at 07:53, Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > On Tue, May 20, 2025 at 2:25=E2=80=AFPM Dave Airlie <airlied@gmail.com>=
+ wrote:
+> > >
+> > > On Sat, 17 May 2025 at 02:20, Rob Clark <robdclark@gmail.com> wrote:
+> > > >
+> > > > On Fri, May 16, 2025 at 2:01=E2=80=AFAM Danilo Krummrich <dakr@kern=
 el.org> wrote:
-> > > > > On Tue, May 20, 2025 at 09:07:05AM -0700, Rob Clark wrote:
-> > > > > > On Tue, May 20, 2025 at 12:06=E2=80=AFAM Danilo Krummrich <dakr=
+> > > > >
+> > > > > On Thu, May 15, 2025 at 02:57:46PM -0700, Rob Clark wrote:
+> > > > > > On Thu, May 15, 2025 at 10:55=E2=80=AFAM Danilo Krummrich <dakr=
 @kernel.org> wrote:
-> > > > > > > But let's assume we agree that we want to avoid that userspac=
-e can ever OOM itself
-> > > > > > > through async VM_BIND, then the proposed solution seems wrong=
-:
+> > > > > > > Anyways, I don't agree with that. Even if you can tweak your =
+driver to not run
+> > > > > > > into trouble with this, we can't introduce a mode that violat=
+es GOUVM's internal
+> > > > > > > lifetimes and subsequently fix it up with WARN_ON() or BUG_ON=
+().
 > > > > > > >
-> > > > > > > Do we really want the driver developer to set an arbitrary bo=
-undary of a number
-> > > > > > > of jobs that can be submitted before *async* VM_BIND blocks a=
-nd becomes
-> > > > > > > semi-sync?
-> > > > > > >
-> > > > > > > How do we choose this number of jobs? A very small number to =
-be safe, which
-> > > > > > > scales badly on powerful machines? A large number that scales=
- well on powerful
-> > > > > > > machines, but OOMs on weaker ones?
+> > > > > > > I still don't see a real technical reason why msm can't be re=
+worked to follow
+> > > > > > > those lifetime rules.
 > > > > > >
-> > > > > > The way I am using it in msm, the credit amount and limit are i=
-n units
-> > > > > > of pre-allocated pages in-flight.  I set the enqueue_credit_lim=
-it to
-> > > > > > 1024 pages, once there are jobs queued up exceeding that limit,=
- they
-> > > > > > start blocking.
-> > > > > >
-> > > > > > The number of _jobs_ is irrelevant, it is # of pre-alloc'd page=
-s in flight.
+> > > > > > The basic issue is that (a) it would be really awkward to have =
+two
+> > > > > > side-by-side VM/VMA management/tracking systems.  But in legacy=
+ mode,
+> > > > > > we have the opposite direction of reference holding.  (But at t=
+he same
+> > > > > > time, don't need/use most of the features of gpuvm.)
 > > > > >
-> > > > > That doesn't make a difference for my question. How do you know 1=
-024 pages is a
-> > > > > good value? How do we scale for different machines with different=
- capabilities?
+> > > > > Ok, let's try to move this forward; I see three options (in order=
+ of descending
+> > > > > preference):
 > > > > >
-> > > > > If you have a powerful machine with lots of memory, we might thro=
-ttle userspace
-> > > > > for no reason, no?
+> > > > >   1) Rework the legacy code to properly work with GPUVM.
+> > > > >   2) Don't use GPUVM for the legacy mode.
+> > > > >   .
+> > > > >   .
+> > > > >   .
+> > > > >   3) Get an ACK from Dave / Sima to implement those workarounds f=
+or MSM in
+> > > > >      GPUVM.
 > > > > >
-> > > > > If the machine has very limited resources, it might already be to=
-o much?
+> > > > > If you go for 3), the code introduced by those two patches should=
+ be guarded
+> > > > > with a flag that makes it very clear that this is a workaround sp=
+ecifically
+> > > > > for MSM legacy mode and does not give any guarantees in terms of =
+correctness
+> > > > > regarding lifetimes etc., e.g. DRM_GPUVM_MSM_LEGACY_QUIRK.
 > > > >
-> > > > It may be a bit arbitrary, but then again I'm not sure that userspa=
-ce
-> > > > is in any better position to pick an appropriate limit.
+> > > > I'm not even sure how #2 would work, other than just copy/pasta all=
+ of
+> > > > drm_gpuvm into msm, which doesn't really seem great.
 > > > >
-> > > > 4MB of in-flight pages isn't going to be too much for anything that=
- is
-> > > > capable enough to run vk, but still allows for a lot of in-flight
-> > > > maps.
+> > > > As for #1, even if I could get it to work, it would still be a lot
+> > > > more mmu map/unmap (like on every pageflip, vs the current state th=
+at
+> > > > the vma is kept around until the object is freed).  For the
+> > > > non-VM_BIND world, there are advantages to the BO holding the ref t=
+o
+> > > > the VMA, rather than the other way around.  Even at just a modest
+> > > > single layer 1080p the map takes ~.2ms and unmap ~.3ms (plus the un=
+map
+> > > > costs a tlbinv).  So from that standpoint, #3 is the superior optio=
+n.
+> > > >
 > > >
-> > > Ok, but what about the other way around? What's the performance impac=
-t if the
-> > > limit is chosen rather small, but we're running on a very powerful ma=
-chine?
+> > > Before we get to #3, I'll need a bit more info here on why you have t=
+o
+> > > map/unmap the VMA on every pageflip.
+> >
+> > Previously we'd keep the VMA hanging around until the GEM obj is
+> > freed.  But that can't work if the VMA (via the VM_BO) is holding a
+> > reference to the GEM obj.
+> >
+> > I was kinda thinking about keeping the VMA around until the handle is
+> > closed.. but that doesn't cover the dma-buf case (ie. when you
+> > re-import the dma-buf fd each frame.. I know android does this, unsure
+> > about other wsi's).
+> >
+> > > But actually I think 2 is the best option, I think in nouveau this is
+> > > where we ended up, we didn't modify the old submission paths at all
+> > > and kept the old bo/vm lifetimes.
 > > >
-> > > Since you already have the implementation for hardware you have acces=
-s to, can
-> > > you please check if and how performance degrades when you use a very =
-small
-> > > threshold?
+> > > We just added completely new bind/exec ioctls and you can only use on=
+e
+> > > method once you've opened an fd.
 > >
-> > I mean, considering that some drivers (asahi, at least), _only_
-> > implement synchronous VM_BIND, I guess blocking in extreme cases isn't
-> > so bad.
+> > hmm, but that means tracking VMAs against a single BO differently..
+> > which.. at least seems ugly..
 >
-> Which is not even upstream yet and eventually will support async VM_BIND =
-too,
-> AFAIK.
+> I don't think it is if you already have the code to do that, and just
+> add gpuvm support in parallel.
+>
+> You also have to figure out that the world is moving towards Vulkan
+> for everything so any optimisations you've made for particular legacy
+> paths will need to be dealt with in the future picture anyways.
+>
+> But I'd rather not hack gpuvm into being something it isn't, if there
+> is a meaningful commonality in legacy bo/vm bindings across drivers,
+> we could create something new, but the ref counting and handling is
+> pretty fundamental to gpuvm architecture.
+>
+> There should only be two paths, legacy and gpuvm, and you shouldn't
+> ever be mixing them on a particular exec path, since you should only
+> have a vm per userspace fd, and can pick which way to use it the first
+> time someone calls it.
 
-the uapi is upstream
+It's not as much about the exec path, as it is about making all the
+non-exec paths (like shrinker/residency) have to deal with two
+completely different things..
 
-> > But I think you are overthinking this.  4MB of pagetables is
-> > enough to map ~8GB of buffers.
-> >
-> > Perhaps drivers would want to set their limit based on the amount of
-> > memory the GPU could map, which might land them on a # larger than
-> > 1024, but still not an order of magnitude more.
->
-> Nouveau currently supports an address space width of 128TiB.
->
-> In general, we have to cover the range of some small laptop or handheld d=
-evices
-> to huge datacenter machines.
+But I think I have figured out something workable.  I add an extra
+refcnt per BO for the vma, incremented by userspace holding a gem
+handle, userspace holding a dma-buf fd, or (ofc) actual pin for
+scanout.  When the refcount is above zero I defer teardown in the
+kms->vm until it drops to zero.  It isn't _exactly_ the same as lazy
+VMA teardown when the BO is freed, but it is effectively the same
+thing.  And whenever the vma_ref is greater than zero, the BO has
+something else holding a ref so the ref loop doesn't matter.  If there
+is no userspace process holding a reference to the BO via handle or
+dma-buf fd, then it isn't going to be used again in a swapchain, so
+the difference btwn tearing down the VMA when the vma_ref drops to
+zero vs when the BO is freed doesn't amount to anything.
 
-sure.. and?  It is still up to the user of sched to set their own
-limits, I'm not proposing that sched takes charge of that policy
-
-Maybe msm doesn't have to scale up quite as much (yet).. but it has to
-scale quite a bit further down (like watches).  In the end it is the
-same.  And also not really the point here.
-
-> > I don't really have a good setup for testing games that use this, atm,
-> > fex-emu isn't working for me atm.  But I think Connor has a setup with
-> > proton working?
->
-> I just want to be sure that an arbitrary small limit doing the job for a =
-small
-> device to not fail VK CTS can't regress the performance on large machines=
-.
-
-why are we debating the limit I set outside of sched.. even that might
-be subject to some tuning for devices that have more memory, but that
-really outside the scope of this patch
-
-> So, kindly try to prove that we're not prone to extreme performance regre=
-ssion
-> with a static value as you propose.
->
-> > > Also, I think we should probably put this throttle mechanism in a sep=
-arate
-> > > component, that just wraps a counter of bytes or rather pages that ca=
-n be
-> > > increased and decreased through an API and the increase just blocks a=
-t a certain
-> > > threshold.
-> >
-> > Maybe?  I don't see why we need to explicitly define the units for the
-> > credit.  This wasn't done for the existing credit mechanism.. which,
-> > seems like if you used some extra fences could also have been
-> > implemented externally.
->
-> If you are referring to the credit mechanism in the scheduler for ring bu=
-ffers,
-> that's a different case. Drivers know the size of their ring buffers exac=
-tly and
-> the scheduler has the responsibility of when to submit tasks to the ring =
-buffer.
-> So the scheduler kind of owns the resource.
->
-> However, the throttle mechanism you propose is independent from the sched=
-uler,
-> it depends on the available system memory, a resource the scheduler doesn=
-'t own.
-
-it is a distinction that is perhaps a matter of opinion.  I don't see
-such a big difference, it is all just a matter of managing physical
-resource usage in different stages of a scheduled job's lifetime.
-
-> I'm fine to make the unit credits as well, but in this case we really car=
-e about
-> the consumption of system memory, so we could just use an applicable unit=
-.
->
-> > > This component can then be called by a driver from the job submit IOC=
-TL and the
-> > > corresponding place where the pre-allocated memory is actually used /=
- freed.
-> > >
-> > > Depending on the driver, this might not necessarily be in the schedul=
-er's
-> > > run_job() callback.
-> > >
-> > > We could call the component something like drm_throttle or drm_submit=
-_throttle.
-> >
-> > Maybe?  This still has the same complaint I had about just
-> > implementing this in msm.. it would have to reach in and use the
-> > scheduler's job_scheduled wait-queue.  Which, to me at least, seems
-> > like more of an internal detail about how the scheduler works.
->
-> Why? The component should use its own waitqueue. Subsequently, from your =
-code
-> that releases the pre-allocated memory, you can decrement the counter thr=
-ough
-> the drm_throttle API, which automatically kicks its the waitqueue.
->
-> For instance from your VM_BIND IOCTL you can call
->
->         drm_throttle_inc(value)
->
-> which blocks if the increment goes above the threshold. And when you rele=
-ase the
-> pre-allocated memory you call
->
->         drm_throttle_dec(value)
->
-> which wakes the waitqueue and unblocks the drm_throttle_inc() call from y=
-our
-> VM_BIND IOCTL.
-
-ok, sure, we could introduce another waitqueue, but with my proposal
-that is not needed.  And like I said, the existing throttling could
-also be implemented externally to the scheduler..  so I'm not seeing
-any fundamental difference.
-
-> Another advantage is that, if necessary, we can make drm_throttle
-> (automatically) scale for the machines resources, which otherwise we'd ne=
-ed to
-> pollute the scheduler with.
-
-How is this different from drivers being more sophisticated about
-picking the limit we configure the scheduler with?
-
-Sure, maybe just setting a hard coded limit of 1024 might not be the
-final solution.. maybe we should take into consideration the size of
-the device.  But this is also entirely outside of the scheduler and I
-fail to understand why we are discussing this here?
+It's a bit weird adding some extra mechanism specifically for the
+scanout vm, and maybe a bit uglier (depending on eye-of-beholder) than
+making gpuvm work in either way (since the latter was a pretty
+straightforward patch), but less ugly than having to parallel
+mechanisms.  So if you _really_ don't like the WEAK_REF flag, I have a
+workable alternative that addresses the performance problems.
 
 BR,
 -R
