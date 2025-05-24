@@ -2,117 +2,109 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3114AC3058
-	for <lists+freedreno@lfdr.de>; Sat, 24 May 2025 17:55:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37A69AC3063
+	for <lists+freedreno@lfdr.de>; Sat, 24 May 2025 18:06:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A36E10E0E5;
-	Sat, 24 May 2025 15:55:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 150C910E0E5;
+	Sat, 24 May 2025 16:06:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LhcYwmwU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YiHZ9HNV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8667B10E090
- for <freedreno@lists.freedesktop.org>; Sat, 24 May 2025 15:55:50 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54OFn4E0001895
- for <freedreno@lists.freedesktop.org>; Sat, 24 May 2025 15:55:49 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6D8210E109
+ for <freedreno@lists.freedesktop.org>; Sat, 24 May 2025 16:06:21 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54OCZHC2003801
+ for <freedreno@lists.freedesktop.org>; Sat, 24 May 2025 16:06:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=ENaXaAptX7hV0LnSeomxQb
- fTAaRBDEz7YM383T9ESwA=; b=LhcYwmwULS5KfUeqGBzXGcoruxONco/eBptlY/
- nM1vtfzRk5rUckwf11bl6c8rdzYN8frmxC8Az0cbDkZRSZK3FcSEJIrFqIrIyiEB
- MKTJw3/ehE7aHXwNeS/cIzqi0PW3nTF50HalXOvQC83Pf75UWiKOYzfigigLv38I
- weXKpwY8VkZgKz7K1OkE3kCAEWLBZN9O+mwSn19m14dhC92kGZN87opWCDpK2kWU
- lwtVj/mQITdmtbukbCtD87LgnriAef/AaZC44X5p5oW/+k+jmyLuXXTOzz52FGA3
- oPWHvbEtDf1YFGd5WTyFsjfjfzfhioH7+2ljeC37eOuffw5A==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46u66w8tnv-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ qvWre4NwLlEhheV6UhBdS9zth/I+k8wEV1eM6J753YQ=; b=YiHZ9HNVNtH2gNwj
+ 7WHHK0+apf+0Cv5/v/qmyCUN9D+064lld3QxPE+Vwa9CQJuMA/BuTVpWk2+zYm2T
+ HnD5pBh+zjGNoP0+roqajSH6MavQ7foATxv/NO/n23QsXAR82cNrrGADNZROVztX
+ XNg2DlY9JxD7phtbjJvIyA2FnVN4EecmdvIzC+cEGOxIvOB0jsIGjnrX+Ejg0KZw
+ u1/FeogRIr8p2j9shvPtcM1g9637N5/IIadz6nRtGhu/gaE1DVcinUD32PDEYBxm
+ 3AMRU1Wmuiik5VWibR25IHW1SIOlgMFwEqUIpeb9f3S8cnOErmNwoxutD2QsUiq/
+ eEp2dw==
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46u6vjgth5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 24 May 2025 15:55:48 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2341e468d02so2106335ad.1
- for <freedreno@lists.freedesktop.org>; Sat, 24 May 2025 08:55:48 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sat, 24 May 2025 16:06:20 +0000 (GMT)
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-708b13627abso14839587b3.2
+ for <freedreno@lists.freedesktop.org>; Sat, 24 May 2025 09:06:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748102147; x=1748706947;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ENaXaAptX7hV0LnSeomxQbfTAaRBDEz7YM383T9ESwA=;
- b=v+IFxpD1ftC2vF8GWJl4KWo6sVtum//R8dRlJ5Bnze5lWKbQQG8lDDoyc6v2hEvXZc
- OipTktaoA01l87W4jokwQ5Q4APZD6AttcL8MrSYKMAgDWf3i03wA/QFBL4a8LVv63KVh
- nzTH4PPkosdkJvTa7+XuWJMwkQIzXShPoC/ukJX/elTxjq6LltXDhes2zmQsRbSsnsW+
- 6BlT9pL3dUKVW5RzCXf6q4dphB0Xf2m2N3xowaJaMI1UOmIYyTwqEahLeftbmUaUMDkL
- 2hXhfOKCiKGzMqDPIfh8a76Tm0Avb09Xm4mOh+33mRZbeY25SkV50fL/wLlESyNAd2SL
- jdFQ==
+ d=1e100.net; s=20230601; t=1748102779; x=1748707579;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qvWre4NwLlEhheV6UhBdS9zth/I+k8wEV1eM6J753YQ=;
+ b=BCKiTAiHymVfIPq9MILRZBhL5awbC8073jUUyCFWyz6+An5NqvFYSjhGxThbRdrgmP
+ WR4at/7LCn09wHA2zvN8Sjztd5PAdBlNtACzwAbtJu3lJnGDvgu7EU3Jfngx2KNJ/dOg
+ wqlPef7hAOW4nCaS6lXpQv9PoakslGwS7IFfXSjpvES6ngVMyN40Sg4ntKkrd5R+U/Sy
+ QfPcA3M/XpD/1PdCZ6MsHrfCuecRe5lIClvrFOaHcJeahRlbAwEkJFFAIsf80z3YbG6F
+ Q1lFVG+xNIUBKy04+yaqC5ups2BHGpjjsd+MysnUiN+SIH9CQW2/RawoCnS3K9cr6LCw
+ jT/g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWttMqwRhCDzK5N1Os3Mf3j0KIiuuTvv+64KBKH6uG1y9xD2YHokeUdKqJNNsoWKVAhDIulARg0fpo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyz1FmTS2X4DtGL/N/konQzDHE9ODQ18gQyXKCzK2YnbL46YyXA
- /uvlRXoq54zvS86a+EHWN5emUZPU7tSJAp16PF7o65gzKipJ6B1QI0syv4ZRMbauwJM90nzem6+
- 9pUiKtas0TNdvltwZVuhw+rwg+cPuqfLCBZfn3YVgmCxqm3IFfl1JdhttSckAWoL/gDxYxos=
-X-Gm-Gg: ASbGncucEmxNy7KdfySey2TD7xJXJ/oFsNOOT82axhzRZu6U73Rlxz7uxvPE2mt2Veo
- FIZdZ/kOYewzGOluIu9uP+xBeZFFNxrhn9oPzpksFbgqyOByS6R2laT57Xh0vokdw9QYF7iIC0E
- ErtEXGH3BfTOX0ywTVHw9HFmF4UORE5SxOMKXX5BE3u/tKaIifcuQPywc7G0wLvChIopsQOsRSb
- 1DBzUWVkbChqh+9hy5STlXmwXX0qEVlWp/F9+gps4+RlScOhdBmXq24EDIXtXOXYj4HhmRa3aDY
- zLSoMUf/LiCUwgoa6O9Q5fTILyr5uPPPiBqs5Peuqd4WkFrB0dE=
-X-Received: by 2002:a17:902:e544:b0:22f:a4aa:b82b with SMTP id
- d9443c01a7336-23414f62af9mr58433785ad.21.1748102147396; 
- Sat, 24 May 2025 08:55:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH6qiynLRSJOmSDekV7ueADk6ZcUv9RFrAPGuFI8AxKbhuiTjsCzxUbRLDcJyHbQbuDV90JCQ==
-X-Received: by 2002:a17:902:e544:b0:22f:a4aa:b82b with SMTP id
- d9443c01a7336-23414f62af9mr58433375ad.21.1748102146905; 
- Sat, 24 May 2025 08:55:46 -0700 (PDT)
-Received: from hu-vkraleti-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2341ccad6fcsm12090755ad.170.2025.05.24.08.55.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 May 2025 08:55:46 -0700 (PDT)
-From: Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
-Date: Sat, 24 May 2025 21:25:37 +0530
-Subject: [PATCH v2] drivers: gpu: drm: msm: registers: improve reproducibility
+ AJvYcCU5wtl7NlYOnjSkMGoZe7BvP6cLbOu3mO/Z2rOzVWkPfMNJ9VVJPlu3T6bG+LY71VLzF9SgyyVErWE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxXl8Bn8ZKIZUiR5A4j/iMMeVUEdRJyX9nckwjVnjU3OItVzd8Z
+ BOpmdJvXI2nK0KPcrcJvnR80YL+C42o28qrAIlOcsUQlXoed+iK+ou+JggmSrRjqYELhrSkBYQT
+ rDLARn55eo4J0PjRadtasJnVduIryCYnK6z1KF1KMX7VttOuzjaoBWOxRC7Nik1SVnkSN9nG6wl
+ /2IXlwv5VPH0iO1Dvm3KqFPwTtqEDR4aZkAyyyyXLOfo461g==
+X-Gm-Gg: ASbGncu1r4CzbRb9fkL+82cEqhv8rm7s+RpuxCS9rs9TWGM1U2UtsT7QM8td8lDpDDA
+ 7LBor1zlyI/0zACuE8CKEmT7+wfd09OS/sIrBRbl0BYf7IrTm8jS8lUhYnc9VYHlIx31PPcI=
+X-Received: by 2002:a05:690c:6710:b0:70d:f53d:dd34 with SMTP id
+ 00721157ae682-70e2d9d50c6mr27825877b3.20.1748102779173; 
+ Sat, 24 May 2025 09:06:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH4tL39voPqdTiKIP3IIIX1ysehsTY0iOqhgM4UabaxxGpMrBca877TkCTIF4JkmyrzRULHgkdJPd2B9DdtaSI=
+X-Received: by 2002:a05:690c:6710:b0:70d:f53d:dd34 with SMTP id
+ 00721157ae682-70e2d9d50c6mr27825507b3.20.1748102778853; Sat, 24 May 2025
+ 09:06:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250524-binrep-v2-1-09040177218e@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAPjrMWgC/2WMywrCMBQFf6XctSl5anDlf0gXMQ97wTZtokEp+
- Xdjt24OzGGYDbJP6DOcuw2SL5gxzg34oQM7mvnuCbrGwClXVHFBbjgnv5CgrWbBUCeYgyYvyQd
- 876Hr0HjE/Izps3cL+71/icIII1YYKY+KaS1Pl5hzv77Mw8Zp6tvAUGv9ApwpD82jAAAA
-X-Change-ID: 20250523-binrep-f8c81fa0d31d
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+References: <20250523-binrep-v1-1-c3a446518847@oss.qualcomm.com>
+ <76xrcy5lvic7mucwuph7a5mgq47atuoocukanjf2q7g5ov6ffa@wbfks6f4hvpk>
+In-Reply-To: <76xrcy5lvic7mucwuph7a5mgq47atuoocukanjf2q7g5ov6ffa@wbfks6f4hvpk>
+From: Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
+Date: Sat, 24 May 2025 21:36:08 +0530
+X-Gm-Features: AX0GCFtYDaH1Ic7QEuPAQQ8ozFwzgT7xoanbWmVWsm-9FahKFxoR6k6aeF5-CQ0
+Message-ID: <CAHyS93o+zgBK=zP6N9O+qvKDgPTe+OWtpp70D5ciYUfQyqAf7Q@mail.gmail.com>
+Subject: Re: [PATCH] drivers: gpu: drm: msm: registers: improve reproducibility
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Ryan Eatmon <reatmon@ti.com>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Ryan Eatmon <reatmon@ti.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Bruce Ashfield <bruce.ashfield@gmail.com>,
- Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=aYJhnQot c=1 sm=1 tr=0 ts=6831ec04 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=iGHA9ds3AAAA:8 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=sozttTNsAAAA:8 a=pGLkceISAAAA:8 a=k2a8_r_j4jiI5Xvw-VoA:9
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22 a=nM-MV4yxpKKO9kiQg6Ot:22
-X-Proofpoint-ORIG-GUID: F7_lUtkzTIwVvoOdNzl_WPYQHEuHanx4
-X-Proofpoint-GUID: F7_lUtkzTIwVvoOdNzl_WPYQHEuHanx4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTI0MDE0NSBTYWx0ZWRfXyXXTbRm57QPL
- bEMQkZDGk+9gQ8P2g4d1Kx6FiUrx3tWLM0MTivwh/QltSWBa2URcBhEOMrZyhpy5rnQU2cp6kKC
- VuDyNwknlNlwvGJvGfk5dT2FqnBVAp02ZM/nGiYbXaAogUsT0UmBdjRYlvMAi9XUBop8p5MbHCH
- Lw3TC4bOlacMqfbDbjWxHz7vkVgQkazUfkLFknVGZQXCpFa4kuEdRe+kjRMHRyQwAd6/E8+tYLU
- 9RJEat3u0OQ3CqNYA5DkKmSohsNbcN2NPEew22wfOL8idrmxutuRc3IBpqoZpUyrgYRHGSHxylq
- 1KVY58/y/hpmraiD+EklEVamssFzMJ98Jp0OqtwrBfauHJXGJy7qyDVsNG77AFHkClv9VuTJtN4
- ZRg0YAFuF6wHWrWiWOYo4Qy8dnbeQOOQxF4Y5CKSps4k69xI1vj0NWAxRBAqnwP7yVPFf+TR
+ linux-kernel@vger.kernel.org, Bruce Ashfield <bruce.ashfield@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=UOXdHDfy c=1 sm=1 tr=0 ts=6831ee7c cx=c_pps
+ a=g1v0Z557R90hA0UpD/5Yag==:117 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10
+ a=EUspDBNiAAAA:8 a=sozttTNsAAAA:8 a=pGLkceISAAAA:8 a=DbLYaGFL_cwN43_H1DIA:9
+ a=QEXdDO2ut3YA:10 a=MFSWADHSvvjO3QEy5MdX:22
+X-Proofpoint-ORIG-GUID: Ja4iBxZZI4WgqIwolcOFBm8uTTcv54yD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTI0MDE0NyBTYWx0ZWRfX+yYns/OuVUj4
+ xu/Tpfqp6O4BHlnaWfGSrctTQcix9mEtkEfGk7tV34GgoTd8c7ETv1hl3XBYaUQaa7JmCBSYFCE
+ +4R6FAEMo8nUBwhiYIripKGQgFfT3jPtb+z86sNMoIOVLnFmGtre5lWTlanhexaLfJE8RZnTRkJ
+ iI5jQOmyAijGT96fIveQ+LW+Pq3fnW5sUqpq+0FA4EsDd/wH90YFp8mI4k+G62VbE+2MO13gn1W
+ sXAxudScgpnRd/WLaHCYyzWDD9IuNZAe1B6EDVYa17tJuUCoTkx4r+hpghIJ7XSh39395JK0Kx5
+ XZvJlFTB31uZNS3tCVwEQIbbrZExfsM6OjGa20ZZK+8mxQIJ+qjtbp6OGGILQAf5SubOtOwy4Vj
+ VpfO1vGw+u0PevjZgYEX04gHVG6yJyuqHqrEqqY29D7Dz8HdB1SHrmSGLjgrONoJxHG9hmvI
+X-Proofpoint-GUID: Ja4iBxZZI4WgqIwolcOFBm8uTTcv54yD
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-05-24_06,2025-05-22_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0
- mlxlogscore=874 lowpriorityscore=0 malwarescore=0 mlxscore=0 spamscore=0
- clxscore=1015 bulkscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a
+ clxscore=1015 phishscore=0 mlxscore=0 adultscore=0 priorityscore=1501
+ mlxlogscore=424 bulkscore=0 malwarescore=0 impostorscore=0 spamscore=0
+ suspectscore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505160000 definitions=main-2505240145
+ engine=8.19.0-2505160000 definitions=main-2505240147
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,77 +120,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Ryan Eatmon <reatmon@ti.com>
-
-The files generated by gen_header.py capture the source path to the
-input files and the date.  While that can be informative, it varies
-based on where and when the kernel was built as the full path is
-captured.
-
-Since all of the files that this tool is run on is under the drivers
-directory, this modifies the application to strip all of the path before
-drivers.  Additionally it prints <stripped> instead of the date.
-
-Signed-off-by: Ryan Eatmon <reatmon@ti.com>
-Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
-Signed-off-by: Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
----
-The files generated by gen_header.py include the source path to the
-input files and the build date. While this information can be useful,
-it inadvertently exposes build system configuration details in the
-binaries. This hinders binary reproducibility, as the output will
-vary if the build environment changes.
-
-This change was originally submitted to the linux-yocto-dev kernel [1]
-to address binary reproducibility QA errors. However, the fix is generic 
-enough to be applicable to the mainline kernel and would benefit other 
-distributions as well. So proposing it here for broader inclusion.
-
-[1] https://git.yoctoproject.org/linux-yocto-dev/commit/?id=f36faf0f9f8d8f5b4c43a68e5c6bd83a62253140
----
-Changes in v2:
-- Corrected author id
-- Link to v1: https://lore.kernel.org/r/20250523-binrep-v1-1-c3a446518847@oss.qualcomm.com
----
- drivers/gpu/drm/msm/registers/gen_header.py | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
-index 3926485bb197b0992232447cb71bf1c1ebd0968c..a409404627c7180d5b0626f0ce6255d7d0df5113 100644
---- a/drivers/gpu/drm/msm/registers/gen_header.py
-+++ b/drivers/gpu/drm/msm/registers/gen_header.py
-@@ -11,6 +11,7 @@ import collections
- import argparse
- import time
- import datetime
-+import re
- 
- class Error(Exception):
- 	def __init__(self, message):
-@@ -877,13 +878,14 @@ The rules-ng-ng source files this header was generated from are:
- """)
- 	maxlen = 0
- 	for filepath in p.xml_files:
--		maxlen = max(maxlen, len(filepath))
-+		new_filepath = re.sub("^.+drivers","drivers",filepath)
-+		maxlen = max(maxlen, len(new_filepath))
- 	for filepath in p.xml_files:
--		pad = " " * (maxlen - len(filepath))
-+		pad = " " * (maxlen - len(new_filepath))
- 		filesize = str(os.path.getsize(filepath))
- 		filesize = " " * (7 - len(filesize)) + filesize
- 		filetime = time.ctime(os.path.getmtime(filepath))
--		print("- " + filepath + pad + " (" + filesize + " bytes, from " + filetime + ")")
-+		print("- " + new_filepath + pad + " (" + filesize + " bytes, from <stripped>)")
- 	if p.copyright_year:
- 		current_year = str(datetime.date.today().year)
- 		print()
-
----
-base-commit: fc5c669c902c3039aa41731b6c58c0960d0b1bbf
-change-id: 20250523-binrep-f8c81fa0d31d
-
-Best regards,
--- 
-Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
-
+On Fri, May 23, 2025 at 10:30=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Fri, May 23, 2025 at 06:36:16PM +0530, Viswanath Kraleti wrote:
+> > The files generated by gen_header.py capture the source path to the
+> > input files and the date.  While that can be informative, it varies
+>
+> You are not the author of this patch. Why did you drop authorshop
+> information when picking it up and resending?
+>
+Apologies for the oversight. I've corrected the author ID in the v2 posting=
+.
+> > based on where and when the kernel was built as the full path is
+> > captured.
+> >
+> > Since all of the files that this tool is run on is under the drivers
+> > directory, this modifies the application to strip all of the path befor=
+e
+> > drivers.  Additionally it prints <stripped> instead of the date.
+> >
+> > Signed-off-by: Ryan Eatmon <reatmon@ti.com>
+> > Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+> > Signed-off-by: Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
+>
+> --
+> With best wishes
+> Dmitry
