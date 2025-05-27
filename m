@@ -2,106 +2,179 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D9E7AC3FE6
-	for <lists+freedreno@lfdr.de>; Mon, 26 May 2025 14:58:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A89BFAC45FD
+	for <lists+freedreno@lfdr.de>; Tue, 27 May 2025 03:40:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8DE210E22F;
-	Mon, 26 May 2025 12:58:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7578010E156;
+	Tue, 27 May 2025 01:40:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="mbdof1iD";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="cxpbfoWO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70E7010E374;
- Mon, 26 May 2025 12:58:22 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54Q9qPkR015219;
- Mon, 26 May 2025 12:57:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9L65B9cAXkrXNycFsx+oz14Vk89MX3SAUsF1qlfrcMM=; b=mbdof1iD0bvrWDN+
- 49CWUOA+Qj6NQ0x09L6JfrZDcG9r0aaVuPjMYCVF6z8xSUZU0nr1rsDahjMfJqP1
- jBgQcyDnGqFc/8JmpqoWpGjkGyvIBRRcDQb+wj5bGZqYKiq1xMnHgMWfFYiRbReL
- 9TTbOyt/DN1V7FyCMfbeuniUvdKxspYK0gs1JWn/1bgYitAgLjPnAcPxeWVDSnKn
- ejtsB1qEwZHjJZf1uB7wR/FOrte81mLDU58vMcdV+EiQgKTSPM5aFqurYBnZLnsr
- 1vFWoeWV4PpQfE6Cl+64xNo7+HdMH4TTmjE7IUpPA49COdYTvn9tsOsSy69FNY8R
- Vmu9Sw==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46u66wccc6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 May 2025 12:57:45 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 54QCvibr027574
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 May 2025 12:57:44 GMT
-Received: from [10.64.68.119] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 26 May
- 2025 05:57:38 -0700
-Message-ID: <187d55f0-f4ec-4d5e-a449-708ebed1ab45@quicinc.com>
-Date: Mon, 26 May 2025 20:57:35 +0800
-MIME-Version: 1.0
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2045.outbound.protection.outlook.com [40.107.20.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 388B810E122;
+ Tue, 27 May 2025 01:40:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JlwBcM4NPz7dr7UzVE+ioh65Fkab53TTQB1zzWLma+8DGESMUPg7Fgomiul6qSU5GE59/ce0sh0dXHwPCC0p72Xekl0AraeO7ylAiPUQ8Qew9VCqB6ycB5J9+pbzzLh/PBtLka8V8Wa4hxSQpvWp+TecUoM8l3WOdVCI78SBzyCJl+NJPyprvIwA34CfvfLTXUL20pXVMAM5Eix0Us07hqXHmLOuRHczwrdn+Lhg37XKYG4AkP2YZdXy1BvbBcfU8PFoYKFtsPzTAkhG4oCK6tFxw0D/duKJni/zF+4Kdt49Txk3wj1jcynhKN3ycV7dPSTEmTrgp7WUI+pljrpuAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SJNPOBYkA332Gm1n/RNP4l4xJ5l6gwQXPoUdntxwna8=;
+ b=gWmCa25q1AgXlQA22VGrzsw+9khc6fMXQOc+epOYMhu/1GfkIt5ANA0SgL+SuH6BVbUcZldjFkS/Y4zF/P7i46xm5MfeViB3RPhJHC6ItjlPo4h0hElNkL91m0YMBCOkZGjvQjT9FLCYA9pMwf8LUW6X6PxIJ9aB2/71VjIrSIEo39GwATHpLAN4gEa5g2D97rapqJDoIk+cDQKjp0EmbkqOos4HmeQKvC+tlXT/4lqdClM6mV618LuY7cXQ/7GlVb/UOo+FUNPdWEy/kgYXsitJ//6MkIv6VfJtKdQgFY3xmS9rV9txLaV/YnMLDJ3vy6Hb2gahLez7EzByUCv3ZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SJNPOBYkA332Gm1n/RNP4l4xJ5l6gwQXPoUdntxwna8=;
+ b=cxpbfoWOWc1bXO621JZrT3J/AIJl5xvBPCgkeFEqzcU4kzd/79lndwfw+2D3u7JLmVkWKJVXhVPDzcYwl02Ywx8xSeAyxPsyOqIfkiSdFWPL8qfhufh6jIWlmC9AWMnSYnylOkc4XriwBqmo8p5FfwVcbYta1wdNYnDArhsvg1eJ/ar3nRu6K1uaHjk4ryvaZ1VyaAKGgLtjUqnWePHLwt0yNXwGug3Z3A6F/BBdpy5pTxr3J+iOMgXqzBftzRsbK4ccTvOCrco1OsxreCX/0b9CxppdQcYkgXplhB76/rTeW7xjnowmGRlS2x9muEq14Tn+06VhnKkJmjIswJCfwQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by VI2PR04MB11241.eurprd04.prod.outlook.com (2603:10a6:800:29a::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.21; Tue, 27 May
+ 2025 01:40:43 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::d1ce:ea15:6648:6f90]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::d1ce:ea15:6648:6f90%4]) with mapi id 15.20.8769.025; Tue, 27 May 2025
+ 01:40:43 +0000
+Message-ID: <0a88178f-a3f1-4aa1-94e9-6050330ff168@nxp.com>
+Date: Tue, 27 May 2025 09:42:11 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 17/45] drm/msm/dp: use stream_id to change offsets in
- dp_catalog
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH v2 30/34] drm/bridge: imx8qxp-pixel-combiner: convert to
+ devm_drm_bridge_alloc() API
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, "Chandan
- Uddaraju" <chandanu@codeaurora.org>, Guenter Roeck <groeck@chromium.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vara Reddy <quic_varar@quicinc.com>, Rob Clark
- <robdclark@chromium.org>,
- Tanmay Shah <tanmay@codeaurora.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
- <20241205-dp_mst-v1-17-f8618d42a99a@quicinc.com>
- <45awcx2az5m5v4etpuaycqx2dolzjkrcjg6ehmooivwuqb6ac3@euo7rsoccqup>
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Douglas Anderson
+ <dianders@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Anusha Srivatsa
+ <asrivats@redhat.com>, Paul Kocialkowski <paulk@sys-base.io>,
+ Dmitry Baryshkov <lumag@kernel.org>, Hui Pu <Hui.Pu@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, asahi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-renesas-soc@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
+ <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
+ <20250430112944.1b39caab@booty>
+ <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
+ <20250506224720.5cbcf3e1@booty>
+ <67252c36-8b31-4c40-9d89-4f502da4a087@nxp.com>
+ <20250526092024.48cae4ae@booty>
+From: Liu Ying <victor.liu@nxp.com>
 Content-Language: en-US
-From: Yongxing Mou <quic_yongmou@quicinc.com>
-In-Reply-To: <45awcx2az5m5v4etpuaycqx2dolzjkrcjg6ehmooivwuqb6ac3@euo7rsoccqup>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Authority-Analysis: v=2.4 cv=aYJhnQot c=1 sm=1 tr=0 ts=68346549 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8
- a=ZPSvpmQREfRDJfDRKNsA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: h2q3X7BekGhI8uLZbgim2OODXENxQ2ga
-X-Proofpoint-GUID: h2q3X7BekGhI8uLZbgim2OODXENxQ2ga
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTI2MDExMCBTYWx0ZWRfX4fy0ACFsqfFa
- CmRlcA3HmBA/tY5s8eMkilEqppUUoPmyOxzywgM8bzfhTenbu/DoK2zLoTuzWNk8BsnwqsztK4u
- 0vhAhYVmm6XrpR07rWWbBLGWig7QPNfD9ajT4pXsJnGGuvoj0OAAgMGLhTnHaGhGcD8hCS9du+G
- RTfQucp0jmePrT/xNNJrsW5CgLo36PxIC4EA588jgrJKY5Ye8MlYeWmImRZShR3PqpMshYPLGnU
- mTG+CsLF/vsJSDHYmqFY+CPcJvD+oZAr3iFVkDmzrjGC/Bto0Y2NwCdo0MxSKHFMkGYmA+EsPiH
- BL/ac0rYhnaWjCvE/123fJjgfktTuQ30ndsRDc+Lr/9xayW0YOeOGGVDOZgnD6gkLRzHtK4IIfo
- Ei560KFcgkZF90Xw0mLYVumgD+NbXLCjBJW/67txi58mX1w1D2n2AAlLmiKs+qMtkMFwg/Hn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-26_06,2025-05-26_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0
- mlxlogscore=999 lowpriorityscore=0 malwarescore=0 mlxscore=0 spamscore=0
- clxscore=1015 bulkscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505160000 definitions=main-2505260110
+In-Reply-To: <20250526092024.48cae4ae@booty>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA1PR01CA0156.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:71::26) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|VI2PR04MB11241:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce86e609-e697-4ec3-b533-08dd9cbf7e8e
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|7416014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?U3pjQzhjckUxaHBDbkpIQWIxYlJqRSt2bnVaTjk0OFRoaHRzYjZpMndvY01k?=
+ =?utf-8?B?QWxjaHdHVDcyaTNCamorSWFERE1BdkJSTjUzemUxQ1luMEVKbmMzbW9zQnB3?=
+ =?utf-8?B?ZEc0LzZZcG1xZFBZbUNDMlJndzg3eG9oTU9FNml0eVJDMFg1SXhnUzN1LzBa?=
+ =?utf-8?B?bWhDZnIybnk0ODNQejlaTmlaeXlwa3lLcDByT0IzVjhKT0taajd4ZGpTNlRx?=
+ =?utf-8?B?Ykl4amVNYmNTZUtwcWg0WmNVWU1paFFLVHB5TXlSczhQa0Yva0NWNW5lMTVM?=
+ =?utf-8?B?VVNnQnI4aEVBUjBBSHpjTklLaiszOFBMT0Z3ejNyVXRQSFZERi9xZnF2OTM1?=
+ =?utf-8?B?d1RyblFsZGcwR0dTYjJ5bWlMRVY1dEUyZlJtZi9jUWM0L0lVUlZFdm1OVnFP?=
+ =?utf-8?B?cWdqcThidmNNNFBqditKa2pid3NnWHB3a2g4Qm9mKzFDWlk5V3RydHQ0ZS9w?=
+ =?utf-8?B?OGtpcEZrbUh5T0VnU1ZHYldka1Y3VHdOL084SVViTm5vQ2V5SDVKSFZvL3hm?=
+ =?utf-8?B?KytPQVFSSlJ5MjBhVy9FQ0Fxek5VQTlOZmZlYUQxc0hMNldDb2VlU3FORjZW?=
+ =?utf-8?B?c3JucHZRRlVmRnBRV3g2Z0NHNHp4WEx2ZEg0K1BrblFYR0pVMUdRakF1eFlq?=
+ =?utf-8?B?SmFzWVJSMkdsYWNGblUrWG9oMlFGdlR2SGx6TXdtNkc2UVAxU1VIVC9hRW8z?=
+ =?utf-8?B?a290WExza2l3cUtUTUNDTmNsek5wUytiN1JramVObHRVMG11N1REM0EwTEth?=
+ =?utf-8?B?Z25SZDdHMzFxcm5wd0toUXA1WVpha1pCOHJwM2JWTFErVDNkT2ZaSW83ck4z?=
+ =?utf-8?B?bytwVm16Y3Vjc0t6b0lYN2o0V2xSVjZTc1hVdnZjRndBaWRMVGZOeXpvWkVE?=
+ =?utf-8?B?dnRNdlpQMDBYZGRIRzc5SnYvNVVQc1ZsYXhxcWVYYTlYdVdHRzlVM0hTTCtN?=
+ =?utf-8?B?NW5lcmtQMGFqT3JBbkFUZUg0ZTNFZmpvczdPNk9sNXFoemNQQjU5REZLMWc0?=
+ =?utf-8?B?V2xjSVFsS0pvbnJDRzRCTWZ0b0ZoK2xsclhHYU55OVVUdm1udG9tdE1ZR0h3?=
+ =?utf-8?B?ZTNBVnNJdTdFQ08yZWptNE9sMWVmS21tQ0ZMZzROdHk0QUhCV1hqSVRRbDg1?=
+ =?utf-8?B?NWR0aTR3RHVCL29XaTA4SUY1bDZUNVRvS1FLV1VIeDdUZ1FhRk93dWd2S0hy?=
+ =?utf-8?B?T1RFdysyTkphUmE3VzhoNCtZMDBmejhxUDRoZ1lsZmRPejB5dFhPZ0JIaWx6?=
+ =?utf-8?B?c1U0Q05URmhxQU95RlVlenIxWEs1R0pPOTc4THhhQWxuQkt3eUxkR2ZRdG84?=
+ =?utf-8?B?VngwazZEM0p6Nnc4T2ZlbDBERGxBdXBQektLMWhIdnQ3amNqZ0oyU0gzWEht?=
+ =?utf-8?B?QjdLeVNWdVhSckVTRGxaMWVmWFhvT1NkaHUremJMV2haeWZpQVZqaEJVTkpY?=
+ =?utf-8?B?WjlTaEpIRTJMck8xVlIxdG1UQzdkSC9sOFpuSHhxcTVlSGhibjBKTG1UYjNB?=
+ =?utf-8?B?enB2SDRTNDArVkR1VTZJS2JuNHhXVlFiYWdJblF6eDZRN096Kzl3NzVLM09s?=
+ =?utf-8?B?TlhiUEJmMXhRbHhkVDV6M0FFTTBUVFQ2RDIwQ21sWHdnNHl6bEs4ZEtwcTFn?=
+ =?utf-8?B?dWdKZGZCZGhjd2FjYUVON0Z0dkppSjA0NWI3NG43RE9pMm5BUitEM3l1QWxs?=
+ =?utf-8?B?Q3NBUytqNUdSZzV6bWI4SFpkaVRBb2pHL3hxODRRVFZxUjB3N0ZFTE1WL2dF?=
+ =?utf-8?B?NkZqYmFYOERYcTZZOTg4ODIwN3ZveFR5WEJsMlNOM2cvWVh3RThMRUZJWWRW?=
+ =?utf-8?Q?32VE72z/cAsSvy87VlBcqoS2BcASl9ZarqYQ4=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dkZPWHVneFV6TFdvcUJ2d0N3ck5HZk5WVHU1b0xOYWNQQUw3bkJicTlabytq?=
+ =?utf-8?B?UmREdmFKRjlDdHk0QUcybTREa0dCSDZKdnJVc2dKUFY5citSTnBlT1M0MUJM?=
+ =?utf-8?B?enlzMTVnOXE1UjdQVWR0dlR2cHVEbHBmM2NiS2s5RHFsMks3d3FZZmMzbU1P?=
+ =?utf-8?B?cjQ4ZEw5L215ZmtyRWxQSTIzYlZLd1VKTmZWUVZUQUd1bFJOaDFuWkcrRDZq?=
+ =?utf-8?B?YWs4YnFvY05wdlVRbElVZEFCZEZ0U0hCUkFOWjlBcXhlYXlKckpMRVd3dU9G?=
+ =?utf-8?B?NkJXWGhsRTVwYlpqREY4WnpDRENxTVA0TFlBWjBXQUtTSGtQaU9WQXFtZzEw?=
+ =?utf-8?B?YXh1bzkydmdSbCs0cEhuRUF2ZVZnWGdpY0lJU0dZKzd0NnlndmwrNkxsbEZS?=
+ =?utf-8?B?VEpJNmJyL0lHdTV0WndFaXhLdHRZamI3Y0VkbjVMOUtDallrTk50THA0a294?=
+ =?utf-8?B?K3AwcndPTTNNYzR5TWRKbndEL0JZbVkxelE2STdTZlBoUkpzWFBGc3hUb3pD?=
+ =?utf-8?B?Z3BrTFpEUVowYS9IZnFjb2VPLzZvQTJlaDc4VUNRc3Z3aWhOazNPUTAzSUo3?=
+ =?utf-8?B?aVJmOUoyTktSOEEvSVJub2E3SllWUjlnTEkraWt5MU92SGZMZVR3S1RrYUZp?=
+ =?utf-8?B?YnU3c0RoeEptSE5CNU1pb2FZRmxVcXUrWWdqb1JBMTc0cENnTHVROGNEUkJL?=
+ =?utf-8?B?ZkFSWXMvbEFoWHRyZmFRVzhERCtlMG9JL0RrQWp6Y0hCZGgzTVEwMmVIWWxX?=
+ =?utf-8?B?dDg4Q1VkTFpQeEVaZ0xzZXBCYzJSZis4VWdrUU9CU2l0TTdjMVdRUU9FOGFE?=
+ =?utf-8?B?cTJ4eitaVVIzdHplZFdXU2NVcFNsbmZ5WEo2VmwxaTk1U3F4Yk12NlRSV1dZ?=
+ =?utf-8?B?Z29IbE5tbEtIanRoUTBDbXZQYkpiOUVYWVBLRi9iaDRaMCtCbjRSeC95OGk1?=
+ =?utf-8?B?eUdkVzVPb05TMjYwL0I4SHJOcHJ4V1lqVUlNUVhxWDZ2ejl5bFBYQ3RSMWp0?=
+ =?utf-8?B?aHFYQStxUDFrT093c1ZKcGtBM2gxUFZXS3ArajZOWjZxQWRzNzByRStoK1Ey?=
+ =?utf-8?B?YjVJZ2cwSVFaWVZtM1VSa1R2NzFKM0g2b0xPL0dCM080Rk1FM3pqaU1hZk5x?=
+ =?utf-8?B?V0l2UWZTZmlGV1cxQVhvQjdmVUtRVTVtY3R1U3ZCVjR0UzRPaXNSZ1F5L2lV?=
+ =?utf-8?B?elVYVXJkZ0VTbHV1QytxL0drbU53UlJLRkZqL0JaSEJuY2NXcWU2emR1ZVpC?=
+ =?utf-8?B?clRlVHpvOWhqV2ZMYUpTbUNQcWU2dnZaeEFldUZLME56d0loQ0JESTFxUGlw?=
+ =?utf-8?B?ZGZsbVZGdHAwaGkzdkFGWmlCbFEyZFlZcTV6Vm42cGZYemxRKzhKeDJrQmZs?=
+ =?utf-8?B?Uk5ZK0p3RHd4NDlkdkpwZHROSGVTOVN1cDZESjNqRGUwN0NydzBPbmRhVTZD?=
+ =?utf-8?B?TXRHcXNrSXVSSEJrKzUrRkd2M2NPbzZiSWk1Zmh5eGNmTGsxOGVRSEZTN3ZT?=
+ =?utf-8?B?NjVZejVOZWZXb2prSUQzYURQN1lPckdGMloxRXk4a2xsamdRRjIxNUU5SUdW?=
+ =?utf-8?B?YS9qZCtFZmsxcEFrbFNEV3kwRVl5dWtyVmVSdGxGaWMwRjhJMDBXOStNOGZ3?=
+ =?utf-8?B?S25MZmMxd2pxa3lIMGduV3g2M3o1VncydUtselpJT05RU2dTTkRIbHc1eW1q?=
+ =?utf-8?B?S3V5bm81VEE3M1pFTEZXUlZTQjNGc2RPL2xCbUZBNXFVZG5GR1ljUUpPMkMw?=
+ =?utf-8?B?bXBzQTA0T3lGTVA0aVhRRjROOEh3eE81OHdTUWdyTk82YmNNeHVPUDFzRmtS?=
+ =?utf-8?B?Y1lLUWsycUlRUVBsekNlam5mamRzQjNORHlPbnJhbEJmd1p4TjhjcEZ1aUQz?=
+ =?utf-8?B?ZVNrbFgyOW5Fa091N0JPUjJBeXZnenM2MWthSktMQWUxeHhmM1ZzYlFHSnNw?=
+ =?utf-8?B?VXJFNmg5aysxemYxM0g2UXRnRzJFcEtpcEgwTUpVUnp3SHdaWWlGVUpuOE5r?=
+ =?utf-8?B?SGZuYmE5RmZiVTJlVm1uSjBUYmFGaU85OU1uaUEwT3h1L0p2ZzZJY3BLd2Ry?=
+ =?utf-8?B?Y1ZMckUwdkF6bWVobTk0N0t2N2NJT1dIMXMxb0lPNkNiRDh5ZlVsdnIzaTdC?=
+ =?utf-8?Q?/Qljje3UiZVhQWFhYxAQVfvQ4?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce86e609-e697-4ec3-b533-08dd9cbf7e8e
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2025 01:40:43.4749 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VsxOlVlJu8fTmopTgTzxSFjqZ+d2D+NcjUsxR+KN7vgpQoqodpNSgM5bjldTfFsDl0h+Pg6fj8XT4tl3yYY+Ng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB11241
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,363 +190,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 05/26/2025, Luca Ceresoli wrote:
+> Hello Liu,
 
-
-On 2024/12/8 13:42, Dmitry Baryshkov wrote:
-> On Thu, Dec 05, 2024 at 08:31:48PM -0800, Abhinav Kumar wrote:
->> Use the dp_panel's stream_id to adjust the offsets for stream 1
->> which will be used for MST in the dp_catalog. Also add additional
->> register defines for stream 1.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_catalog.c | 99 ++++++++++++++++++++++++++++---------
->>   drivers/gpu/drm/msm/dp/dp_catalog.h |  9 ++--
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c    |  3 ++
->>   drivers/gpu/drm/msm/dp/dp_panel.c   |  2 +
->>   drivers/gpu/drm/msm/dp/dp_reg.h     | 13 ++++-
->>   5 files changed, 99 insertions(+), 27 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
->> index ee7f2d0b23aa034428a01ef2c9752f51013c5e01..e6f6edf617898241c74580eb0ae6bc58f06a154f 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
->> @@ -457,10 +457,20 @@ void msm_dp_catalog_ctrl_config_misc(struct msm_dp_catalog *msm_dp_catalog,
->>   					u32 test_bits_depth)
->>   {
->>   	u32 misc_val;
->> +	u32 reg_offset = 0;
->> +
->>   	struct msm_dp_catalog_private *catalog = container_of(msm_dp_catalog,
->>   				struct msm_dp_catalog_private, msm_dp_catalog);
->>   
->> -	misc_val = msm_dp_read_link(catalog, REG_DP_MISC1_MISC0);
->> +	if (msm_dp_catalog->stream_id >= DP_STREAM_MAX) {
->> +		DRM_ERROR("invalid stream_id:%d\n", msm_dp_catalog->stream_id);
->> +		return;
->> +	}
-> 
-> Please drop extra-protective handling. How can stream_id become invalid?
-> 
->> +
->> +	if (msm_dp_catalog->stream_id == DP_STREAM_1)
->> +		reg_offset = REG_DP1_MISC1_MISC0 - REG_DP_MISC1_MISC0;
->> +
->> +	misc_val = msm_dp_read_link(catalog, REG_DP_MISC1_MISC0 + reg_offset);
->>   
->>   	/* clear bpp bits */
->>   	misc_val &= ~(0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT);
->> @@ -470,7 +480,7 @@ void msm_dp_catalog_ctrl_config_misc(struct msm_dp_catalog *msm_dp_catalog,
->>   	misc_val |= DP_MISC0_SYNCHRONOUS_CLK;
->>   
->>   	drm_dbg_dp(catalog->drm_dev, "misc settings = 0x%x\n", misc_val);
->> -	msm_dp_write_link(catalog, REG_DP_MISC1_MISC0, misc_val);
->> +	msm_dp_write_link(catalog, REG_DP_MISC1_MISC0 + reg_offset, misc_val);
->>   }
->>   
->>   void msm_dp_catalog_setup_peripheral_flush(struct msm_dp_catalog *msm_dp_catalog)
->> @@ -500,10 +510,21 @@ void msm_dp_catalog_ctrl_config_msa(struct msm_dp_catalog *msm_dp_catalog,
->>   	u32 const link_rate_hbr2 = 540000;
->>   	u32 const link_rate_hbr3 = 810000;
->>   	unsigned long den, num;
->> +	u32 mvid_reg_off = 0, nvid_reg_off = 0;
->>   
->>   	struct msm_dp_catalog_private *catalog = container_of(msm_dp_catalog,
->>   				struct msm_dp_catalog_private, msm_dp_catalog);
->>   
->> +	if (msm_dp_catalog->stream_id >= DP_STREAM_MAX) {
->> +		DRM_ERROR("invalid stream_id:%d\n", msm_dp_catalog->stream_id);
->> +		return;
->> +	}
->> +
->> +	if (msm_dp_catalog->stream_id == DP_STREAM_1) {
->> +		mvid_reg_off = REG_DP1_SOFTWARE_MVID - REG_DP_SOFTWARE_MVID;
->> +		nvid_reg_off = REG_DP1_SOFTWARE_NVID - REG_DP_SOFTWARE_NVID;
->> +	}
->> +
->>   	if (rate == link_rate_hbr3)
->>   		pixel_div = 6;
->>   	else if (rate == 162000 || rate == 270000)
->> @@ -545,9 +566,14 @@ void msm_dp_catalog_ctrl_config_msa(struct msm_dp_catalog *msm_dp_catalog,
->>   		nvid *= 3;
->>   
->>   	drm_dbg_dp(catalog->drm_dev, "mvid=0x%x, nvid=0x%x\n", mvid, nvid);
->> -	msm_dp_write_link(catalog, REG_DP_SOFTWARE_MVID, mvid);
->> -	msm_dp_write_link(catalog, REG_DP_SOFTWARE_NVID, nvid);
->> -	msm_dp_write_p0(catalog, MMSS_DP_DSC_DTO, 0x0);
->> +
->> +	msm_dp_write_link(catalog, REG_DP_SOFTWARE_MVID + mvid_reg_off, mvid);
->> +	msm_dp_write_link(catalog, REG_DP_SOFTWARE_NVID + nvid_reg_off, nvid);
->> +
->> +	if (msm_dp_catalog->stream_id == DP_STREAM_0)
->> +		msm_dp_write_p0(catalog, MMSS_DP_DSC_DTO, 0x0);
->> +	else
->> +		msm_dp_write_p1(catalog, MMSS_DP_DSC_DTO, 0x0);
->>   }
->>   
->>   int msm_dp_catalog_ctrl_set_pattern_state_bit(struct msm_dp_catalog *msm_dp_catalog,
->> @@ -910,13 +936,20 @@ int msm_dp_catalog_panel_timing_cfg(struct msm_dp_catalog *msm_dp_catalog, u32 t
->>   	struct msm_dp_catalog_private *catalog = container_of(msm_dp_catalog,
->>   				struct msm_dp_catalog_private, msm_dp_catalog);
->>   	u32 reg;
->> +	u32 offset = 0;
->> +
->> +	if (msm_dp_catalog->stream_id == DP_STREAM_1)
->> +		offset = REG_DP1_TOTAL_HOR_VER - REG_DP_TOTAL_HOR_VER;
->>   
->> -	msm_dp_write_link(catalog, REG_DP_TOTAL_HOR_VER, total);
->> -	msm_dp_write_link(catalog, REG_DP_START_HOR_VER_FROM_SYNC, sync_start);
->> -	msm_dp_write_link(catalog, REG_DP_HSYNC_VSYNC_WIDTH_POLARITY, width_blanking);
->> -	msm_dp_write_link(catalog, REG_DP_ACTIVE_HOR_VER, msm_dp_active);
->> +	msm_dp_write_link(catalog, REG_DP_TOTAL_HOR_VER + offset, total);
->> +	msm_dp_write_link(catalog, REG_DP_START_HOR_VER_FROM_SYNC + offset, sync_start);
->> +	msm_dp_write_link(catalog, REG_DP_HSYNC_VSYNC_WIDTH_POLARITY + offset, width_blanking);
->> +	msm_dp_write_link(catalog, REG_DP_ACTIVE_HOR_VER + offset, msm_dp_active);
->>   
->> -	reg = msm_dp_read_p0(catalog, MMSS_DP_INTF_CONFIG);
->> +	if (msm_dp_catalog->stream_id == DP_STREAM_0)
->> +		reg = msm_dp_read_p0(catalog, MMSS_DP_INTF_CONFIG);
->> +	else
->> +		reg = msm_dp_read_p1(catalog, MMSS_DP_INTF_CONFIG);
->>   
->>   	if (msm_dp_catalog->wide_bus_en)
->>   		reg |= DP_INTF_CONFIG_DATABUS_WIDEN;
->> @@ -926,7 +959,11 @@ int msm_dp_catalog_panel_timing_cfg(struct msm_dp_catalog *msm_dp_catalog, u32 t
->>   
->>   	DRM_DEBUG_DP("wide_bus_en=%d reg=%#x\n", msm_dp_catalog->wide_bus_en, reg);
->>   
->> -	msm_dp_write_p0(catalog, MMSS_DP_INTF_CONFIG, reg);
->> +	if (msm_dp_catalog->stream_id == DP_STREAM_0)
->> +		msm_dp_write_p0(catalog, MMSS_DP_INTF_CONFIG, reg);
->> +	else
->> +		msm_dp_write_p1(catalog, MMSS_DP_INTF_CONFIG, reg);
->> +
->>   	return 0;
->>   }
->>   
->> @@ -936,18 +973,22 @@ static void msm_dp_catalog_panel_send_vsc_sdp(struct msm_dp_catalog *msm_dp_cata
->>   	u32 header[2];
->>   	u32 val;
->>   	int i;
->> +	u32 msm_dp_generic_offset = 0;
->>   
->>   	catalog = container_of(msm_dp_catalog, struct msm_dp_catalog_private, msm_dp_catalog);
->>   
->> +	if (msm_dp_catalog->stream_id == DP_STREAM_1)
->> +		msm_dp_generic_offset = MMSS_DP1_GENERIC0_0 - MMSS_DP_GENERIC0_0;
->> +
->>   	msm_dp_utils_pack_sdp_header(&vsc_sdp->sdp_header, header);
->>   
->> -	msm_dp_write_link(catalog, MMSS_DP_GENERIC0_0, header[0]);
->> -	msm_dp_write_link(catalog, MMSS_DP_GENERIC0_1, header[1]);
->> +	msm_dp_write_link(catalog, MMSS_DP_GENERIC0_0 + msm_dp_generic_offset, header[0]);
->> +	msm_dp_write_link(catalog, MMSS_DP_GENERIC0_1 + msm_dp_generic_offset, header[1]);
->>   
->>   	for (i = 0; i < sizeof(vsc_sdp->db); i += 4) {
->>   		val = ((vsc_sdp->db[i]) | (vsc_sdp->db[i + 1] << 8) | (vsc_sdp->db[i + 2] << 16) |
->>   		       (vsc_sdp->db[i + 3] << 24));
->> -		msm_dp_write_link(catalog, MMSS_DP_GENERIC0_2 + i, val);
->> +		msm_dp_write_link(catalog, MMSS_DP_GENERIC0_2 + i + msm_dp_generic_offset, val);
->>   	}
->>   }
->>   
->> @@ -955,13 +996,17 @@ static void msm_dp_catalog_panel_update_sdp(struct msm_dp_catalog *msm_dp_catalo
->>   {
->>   	struct msm_dp_catalog_private *catalog;
->>   	u32 hw_revision;
->> +	u32 sdp_cfg3_offset = 0;
->>   
->>   	catalog = container_of(msm_dp_catalog, struct msm_dp_catalog_private, msm_dp_catalog);
->>   
->> +	if (msm_dp_catalog->stream_id == DP_STREAM_1)
->> +		sdp_cfg3_offset = MMSS_DP1_SDP_CFG3 - MMSS_DP_SDP_CFG3;
->> +
->>   	hw_revision = msm_dp_catalog_hw_revision(msm_dp_catalog);
->>   	if (hw_revision < DP_HW_VERSION_1_2 && hw_revision >= DP_HW_VERSION_1_0) {
->> -		msm_dp_write_link(catalog, MMSS_DP_SDP_CFG3, 0x01);
->> -		msm_dp_write_link(catalog, MMSS_DP_SDP_CFG3, 0x00);
->> +		msm_dp_write_link(catalog, MMSS_DP_SDP_CFG3 + sdp_cfg3_offset, 0x01);
->> +		msm_dp_write_link(catalog, MMSS_DP_SDP_CFG3 + sdp_cfg3_offset, 0x00);
->>   	}
->>   }
->>   
->> @@ -969,18 +1014,27 @@ void msm_dp_catalog_panel_enable_vsc_sdp(struct msm_dp_catalog *msm_dp_catalog,
->>   {
->>   	struct msm_dp_catalog_private *catalog;
->>   	u32 cfg, cfg2, misc;
->> +	u32 misc_reg_offset = 0;
->> +	u32 sdp_cfg_offset = 0;
->> +	u32 sdp_cfg2_offset = 0;
->>   
->>   	catalog = container_of(msm_dp_catalog, struct msm_dp_catalog_private, msm_dp_catalog);
->>   
->> -	cfg = msm_dp_read_link(catalog, MMSS_DP_SDP_CFG);
->> -	cfg2 = msm_dp_read_link(catalog, MMSS_DP_SDP_CFG2);
->> -	misc = msm_dp_read_link(catalog, REG_DP_MISC1_MISC0);
->> +	if (msm_dp_catalog->stream_id == DP_STREAM_1) {
->> +		misc_reg_offset = REG_DP1_MISC1_MISC0 - REG_DP_MISC1_MISC0;
->> +		sdp_cfg_offset = MMSS_DP1_SDP_CFG - MMSS_DP_SDP_CFG;
->> +		sdp_cfg2_offset = MMSS_DP1_SDP_CFG2 - MMSS_DP_SDP_CFG2;
->> +	}
->> +
->> +	cfg = msm_dp_read_link(catalog, MMSS_DP_SDP_CFG + sdp_cfg_offset);
->> +	cfg2 = msm_dp_read_link(catalog, MMSS_DP_SDP_CFG2 + sdp_cfg2_offset);
->> +	misc = msm_dp_read_link(catalog, REG_DP_MISC1_MISC0 + misc_reg_offset);
->>   
->>   	cfg |= GEN0_SDP_EN;
->> -	msm_dp_write_link(catalog, MMSS_DP_SDP_CFG, cfg);
->> +	msm_dp_write_link(catalog, MMSS_DP_SDP_CFG + sdp_cfg_offset, cfg);
->>   
->>   	cfg2 |= GENERIC0_SDPSIZE_VALID;
->> -	msm_dp_write_link(catalog, MMSS_DP_SDP_CFG2, cfg2);
->> +	msm_dp_write_link(catalog, MMSS_DP_SDP_CFG2 + sdp_cfg2_offset, cfg2);
->>   
->>   	msm_dp_catalog_panel_send_vsc_sdp(msm_dp_catalog, vsc_sdp);
->>   
->> @@ -990,7 +1044,8 @@ void msm_dp_catalog_panel_enable_vsc_sdp(struct msm_dp_catalog *msm_dp_catalog,
->>   	drm_dbg_dp(catalog->drm_dev, "vsc sdp enable=1\n");
->>   
->>   	pr_debug("misc settings = 0x%x\n", misc);
->> -	msm_dp_write_link(catalog, REG_DP_MISC1_MISC0, misc);
->> +
->> +	msm_dp_write_link(catalog, REG_DP_MISC1_MISC0 + misc_reg_offset, misc);
->>   
->>   	msm_dp_catalog_panel_update_sdp(msm_dp_catalog);
->>   }
->> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
->> index edeebf1f313f50e9c54feee1e5aa6aa2dbba3058..c020b7cfa008241e937f6a53764b136431f1dbd9 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
->> @@ -47,10 +47,6 @@ enum msm_dp_catalog_audio_header_type {
->>   	DP_AUDIO_SDP_HEADER_MAX,
->>   };
->>   
->> -struct msm_dp_catalog {
->> -	bool wide_bus_en;
->> -};
->> -
->>   /* stream id */
->>   enum msm_dp_stream_id {
->>   	DP_STREAM_0,
->> @@ -60,6 +56,11 @@ enum msm_dp_stream_id {
->>   	DP_STREAM_MAX,
->>   };
->>   
->> +struct msm_dp_catalog {
->> +	bool wide_bus_en;
->> +	enum msm_dp_stream_id stream_id;
->> +};
->> +
-> 
-> The same can be achieved by moving enum msm_dp_stream_id up in one of
-> the earlier patches.
-> 
->>   /* Debug module */
->>   void msm_dp_catalog_snapshot(struct msm_dp_catalog *msm_dp_catalog, struct msm_disp_state *disp_state);
->>   
->> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> index 0648831df956dfc7afa1cbfb0dea2c32b02ff74e..ba39b009032dd6f5cb708988963cd6acb6838e4a 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> @@ -179,6 +179,7 @@ static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl
->>   						struct msm_dp_panel *msm_dp_panel)
->>   {
->>   	u32 cc, tb;
->> +	ctrl->catalog->stream_id = msm_dp_panel->stream_id;
->>   
->>   	msm_dp_catalog_ctrl_lane_mapping(ctrl->catalog);
->>   	msm_dp_catalog_setup_peripheral_flush(ctrl->catalog);
->> @@ -2062,7 +2063,9 @@ void msm_dp_ctrl_clear_vsc_sdp_pkt(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_d
->>   	struct msm_dp_ctrl_private *ctrl;
->>   
->>   	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
->> +	ctrl->catalog->stream_id = dp_panel->stream_id;
->>   	msm_dp_catalog_panel_disable_vsc_sdp(ctrl->catalog);
->> +
->>   }
->>   
->>   void msm_dp_ctrl_psm_config(struct msm_dp_ctrl *msm_dp_ctrl)
->> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
->> index 172de804dec445cb08ad8e3f058407f483cd6684..662bf02b8b1a5165f927835bef3c11ac091ddce6 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
->> @@ -309,7 +309,9 @@ static int msm_dp_panel_setup_vsc_sdp_yuv_420(struct msm_dp_panel *msm_dp_panel)
->>   
->>   	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
->>   	catalog = panel->catalog;
->> +
->>   	msm_dp_mode = &msm_dp_panel->msm_dp_mode;
->> +	catalog->stream_id = msm_dp_panel->stream_id;
-> 
-> Why is it a proper place to set catalog->stream_id? It doesn't looks
-> like it to me.
-Ok, maybe msm_dp_display_set_stream_id is more proper place. Or can we 
-drop stream_id in catalog totally, and f the stream_id is needed in the 
-catalog function, pass it as a parameter to the catalog function. just 
-like that:
-int msm_dp_ctrl_***(struct msm_dp_ctrl *ctrl, enum msm_dp_stream_id 
-stream_id,***);
+Hi Luca,
 
 > 
->>   
->>   	memset(&vsc_sdp_data, 0, sizeof(vsc_sdp_data));
->>   
->> diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
->> index 3835c7f5cb984406f8fc52ea765ef2315e0d175b..6c534fde6034fced2cb428e9a29de31ed5c5fcc4 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_reg.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_reg.h
->> @@ -138,13 +138,17 @@
->>   #define DP_CONFIGURATION_CTRL_LSCLK_DIV_SHIFT	(0x0D)
->>   
->>   #define REG_DP_SOFTWARE_MVID			(0x00000010)
->> +#define REG_DP1_SOFTWARE_MVID			(0x00000414)
->>   #define REG_DP_SOFTWARE_NVID			(0x00000018)
->> +#define REG_DP1_SOFTWARE_NVID			(0x00000418)
->>   #define REG_DP_TOTAL_HOR_VER			(0x0000001C)
->> +#define REG_DP1_TOTAL_HOR_VER			(0x0000041C)
->>   #define REG_DP_START_HOR_VER_FROM_SYNC		(0x00000020)
->>   #define REG_DP_HSYNC_VSYNC_WIDTH_POLARITY	(0x00000024)
->>   #define REG_DP_ACTIVE_HOR_VER			(0x00000028)
->> -
->>   #define REG_DP_MISC1_MISC0			(0x0000002C)
->> +#define REG_DP1_MISC1_MISC0			(0x0000042C)
->> +
->>   #define DP_MISC0_SYNCHRONOUS_CLK		(0x00000001)
->>   #define DP_MISC0_COLORIMETRY_CFG_SHIFT		(0x00000001)
->>   #define DP_MISC0_TEST_BITS_DEPTH_SHIFT		(0x00000005)
->> @@ -211,8 +215,11 @@
->>   #define MMSS_DP_AUDIO_CTRL_RESET		(0x00000214)
->>   
->>   #define MMSS_DP_SDP_CFG				(0x00000228)
->> +#define MMSS_DP1_SDP_CFG			(0x000004E0)
->>   #define GEN0_SDP_EN				(0x00020000)
->>   #define MMSS_DP_SDP_CFG2			(0x0000022C)
->> +#define MMSS_DP1_SDP_CFG2			(0x000004E4)
->> +
->>   #define MMSS_DP_AUDIO_TIMESTAMP_0		(0x00000230)
->>   #define MMSS_DP_AUDIO_TIMESTAMP_1		(0x00000234)
->>   #define GENERIC0_SDPSIZE_VALID			(0x00010000)
->> @@ -221,6 +228,8 @@
->>   #define MMSS_DP_AUDIO_STREAM_1			(0x00000244)
->>   
->>   #define MMSS_DP_SDP_CFG3			(0x0000024c)
->> +#define MMSS_DP1_SDP_CFG3			(0x000004E8)
->> +
->>   #define UPDATE_SDP				(0x00000001)
->>   
->>   #define MMSS_DP_EXTENSION_0			(0x00000250)
->> @@ -270,6 +279,8 @@
->>   #define MMSS_DP_GENERIC1_8			(0x00000348)
->>   #define MMSS_DP_GENERIC1_9			(0x0000034C)
->>   
->> +#define MMSS_DP1_GENERIC0_0			(0x00000490)
->> +
->>   #define MMSS_DP_VSCEXT_0			(0x000002D0)
->>   #define MMSS_DP_VSCEXT_1			(0x000002D4)
->>   #define MMSS_DP_VSCEXT_2			(0x000002D8)
+> On Thu, 22 May 2025 11:01:13 +0800
+> Liu Ying <victor.liu@nxp.com> wrote:
+> 
+>> On 05/07/2025, Luca Ceresoli wrote:
 >>
->> -- 
->> 2.34.1
+>> [...]
 >>
+>>>> After looking into this patch and patch 31(though I've already provided my A-b)
+>>>> more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
+>>>> should have the same life time with the embedded DRM bridges, because for
+>>>> example the clk_apb clock in struct imx8qxp_pc would be accessed by the
+>>>> imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
+>>>> the life time for the embedded channel/bridge structures only, but not for the
+>>>> main structures.  What do you think ?  
+>>>
+>>> I see you concern, but I'm sure the change I'm introducing is not
+>>> creating the problem you are concerned about.
+>>>
+>>> The key aspect is that my patch is merely changing the lifetime of the
+>>> _allocation_ of the drm_bridge, not its usage. On drm_bridge_remove()
+>>> the bridge is removed from its encoder chain and it is completely not
+>>> reachable, both before and after my patch. With my patch it is not  
+>>
+>> drm_bridge_remove() only removes a bridge from the global bridge_list defined
+>> in drm_bridge.c.  drm_bridge_detach() is the one which removes a bridge from
+>> it's encoder chain.  It looks like you wrongly thought drm_bridge_remove()
+>> is drm_bridge_detach().
+> 
+> Indeed my sentence was inaccurate, sorry about that.
+> 
+>> So, even if drm_bridge_remove() is called, the removed
+>> bridge could still be in it's encoder chain, hence an atomic commit could still
+>> access the allocated bridge(with lifetime extended) and the clock_apb clock
+>> for example in struct imx8qxp_pc could also be accessed.  That's why I think
+>> the main structures should have the same lifetime with the allocated bridge.
+> 
+> As the long-term goal is to allow bridges to be hot-removable,
+> decoupling the lifetime of the various components is a necessary step.
+> Definitely it will open other issues, and especially the removal during
+> atomic updates. This has been discussed already, and there is a
+> proposed plan to handle it.
+> 
+> First, here is the grand plan (mentioned in the v3 cover letter):
+> 
+>  1. ➜ add refcounting to DRM bridges (struct drm_bridge)
+>  2. handle gracefully atomic updates during bridge removal
+>  3. avoid DSI host drivers to have dangling pointers to DSI devices
+>  4. finally, let bridges be removable (depends on 1+2+3)
+> 
+> We are now at step 1. Your concern, as I understand it, will be
+> addressed at step 2. Bridges won't be removable until step 4, so the
+> current changes are not introducing a misbehavior but rather preparing
+> the ground with all the necessary infrastructure changes.
+> 
+> Step 2 was discussed in the past [0], and the idea proposed by Maxime
+> is to introduce a "gone" or "unplugged" flag and drm_bridge_enter() /
+> drm_bridge_exit() functions. The principle is the same as struct
+> drm_device.unplugged and drm_dev_enter/exit().
+> 
+> In a nutshell the idea is:
+> 
+>  - drm_bridge.unplugged is initialized to false
+>  - drm_bridge_enter() returns false if drm_bridge.unplugged == true
+>  - any code holding a pointer to the bridge (including the bridge driver
+>    itself) and operating on the bridge (including removal) needs to do:
+>      if (drm_bridge_enter()) {
+>          do something;
+>          drm_bridge_exit();
+>      }
+>  - when the bridge is removed, the driver removal function sets
+>    dev_bridge.unplugged = true
+> 
+> The "do something" above includes any access to device resources,
+> including clocks (and clk_apb).
+> 
+> In other words, two pieces of code can not access the bridge structure
+> at the same time. This includes bridge removal VS any atomic operations.
+> 
+> Do you think this addresses your concern?
+
+Yes, drm_bridge_{enter,exit} address it.
+
+> 
+> 
+> For you to have a better picture of the path, here's an additional
+> clarification about drm_bridge_attach/detach() and
+> drm_bridge_add/remove(). As part of step 1 of the grand plan, both of
+> them will drm_bridge_get/put() the bridge, so that no bridge is freed
+> if it is either in the global bridge_list or in any encoder chain.
+> 
+> Patches for this are already approved by Maxime [1][2]. They cannot be
+> applied until all bridge drivers have been converted to the new
+> devm_drm_bridge_alloc() API, so they depend on this series to be
+> completely applied. We are getting pretty close: as of now the entire
+> series has been applied except for this and another driver.
+> 
+> [0] https://lore.kernel.org/all/20250129125153.35d0487a@booty/t/#u
+> [1] https://patchwork.freedesktop.org/patch/643095/
+> [2] https://patchwork.freedesktop.org/patch/643096/
+> 
+> Best regards,
+> Luca
 > 
 
+-- 
+Regards,
+Liu Ying
