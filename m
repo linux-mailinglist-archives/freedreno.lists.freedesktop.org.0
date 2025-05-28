@@ -2,77 +2,130 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4463EAC6B91
-	for <lists+freedreno@lfdr.de>; Wed, 28 May 2025 16:18:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95DBDAC6D9D
+	for <lists+freedreno@lfdr.de>; Wed, 28 May 2025 18:13:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76BF310E69D;
-	Wed, 28 May 2025 14:18:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB2310E677;
+	Wed, 28 May 2025 16:13:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="TJnJr1yD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UwxdCW0X";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE4EF10E696;
- Wed, 28 May 2025 14:18:50 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4b6s792zx3z9swD;
- Wed, 28 May 2025 16:18:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1748441925; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zJx6vFfwz0MYTEHthiU61dRG76ot+J1AonqUVhsuUz0=;
- b=TJnJr1yDLKr7T7cAmicStZcRlA8JXH9j13Oh8esWSeeepjouJBcnEQdg5nD8+CN6fFcVRD
- nyrSXhLPlMvsOWb5dmXyV57DQWLs4lCg8h21dj0UV1gLhSQ+PqoHzrs0MktM3kcTQOv3Tz
- VBqJRrdR/oGhIs7WY3mzAjxbRQUhpSTKVqH+6d5h7HpRjGCQIeCsy3PugkdN2ZlS2D8x5G
- Ft+kRUI2xzuE9c13mTzMYRXoC4wd517ZaJxnNNCcHX1K9j00VDmjGPj748+hdBLFjt/1kN
- JiF1Ken79t+9APOBjhHOqbJPNBQOCon9xR24tXyu9T4k9QG4wIkinlKw8bWbog==
-Message-ID: <f46f73db6594c7cd40149e35da9f188baa5961a2.camel@mailbox.org>
-Subject: Re: [PATCH v11 00/10] Improve gpu_scheduler trace events + UAPI
-From: Philipp Stanner <phasta@mailbox.org>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Thomas
- =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, Abhinav
- Kumar <quic_abhinavk@quicinc.com>,  Alex Deucher
- <alexander.deucher@amd.com>, Boris Brezillon
- <boris.brezillon@collabora.com>, Danilo Krummrich <dakr@kernel.org>, David
- Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>, Felix
- Kuehling <Felix.Kuehling@amd.com>, Frank Binns <frank.binns@imgtec.com>,
- Jonathan Corbet <corbet@lwn.net>, Liviu Dudau <liviu.dudau@arm.com>, Lizhi
- Hou <lizhi.hou@amd.com>, Lucas De Marchi <lucas.demarchi@intel.com>, Lucas
- Stach <l.stach@pengutronix.de>, Lyude Paul <lyude@redhat.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>,  Matt Coster
- <matt.coster@imgtec.com>, Matthew Brost <matthew.brost@intel.com>, Maxime
- Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>, Min Ma
- <min.ma@amd.com>,  Oded Gabbay <ogabbay@kernel.org>, Philipp Stanner
- <phasta@kernel.org>, Qiang Yu <yuq825@gmail.com>, Rob Clark
- <robdclark@gmail.com>, Rob Herring <robh@kernel.org>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, Steven Price
- <steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, Thomas
- Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,  etnaviv@lists.freedesktop.org,
- freedreno@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,
- lima@lists.freedesktop.org,  linaro-mm-sig@lists.linaro.org,
- linux-arm-msm@vger.kernel.org,  linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org,  linux-media@vger.kernel.org,
- nouveau@lists.freedesktop.org
-Date: Wed, 28 May 2025 16:18:30 +0200
-In-Reply-To: <20250526125505.2360-1-pierre-eric.pelloux-prayer@amd.com>
-References: <20250526125505.2360-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE2810E65E
+ for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 16:13:19 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54S9gxwV009136
+ for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 16:13:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=9+Mg2L1QBDl92rjfoNAlCPsR
+ ORQMv0jh6Aoaq4vKOlQ=; b=UwxdCW0XgvFtVccaGS3wRZ6akRXte2qSsXmoqoS3
+ CltOgng+fdZ+KZBEyB+3rwrxvI1kx9hWfzVucFNG0jG+1P/3/YfAgBNOnsCuwPAn
+ NoircCYqIk/Ho9mJ4V0Bnjb1lJO8uKPUjGEc/a5LA6G34uJOEzzPbjIYN0bS05EH
+ acwSqBHb9nbin9wykrzk8bQWysYBmn77CnJlsHDrhZsFPKs2i1GSu+CWt1EzV67X
+ gzSBuCrpzSgH2GSGfNirvmfCSqVWv3b7n6XhfRM9IfU4Nb7zkXTAnKyswsnjTLSB
+ 1hwh1gzQeW1oWJaL9oVceakOvOdG/hZCIfNDITan6IAs6w==
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
+ [209.85.161.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46x03ms13v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 16:13:18 +0000 (GMT)
+Received: by mail-oo1-f69.google.com with SMTP id
+ 006d021491bc7-60bad575560so2733575eaf.3
+ for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 09:13:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748448797; x=1749053597;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9+Mg2L1QBDl92rjfoNAlCPsRORQMv0jh6Aoaq4vKOlQ=;
+ b=uPVKGPnaOoSm+3r5D+IyfB+aNEKGev4FnlaWLd+JzEQQA/39vVEi9fTlTxqpDRk2wA
+ Qt59JeKoYOZ5hxgsTiImdeNk5ld92CV/vN6aezcOnRcwJaus7SB8Ff+8HfmvpyJj/drq
+ mO/Nxp8xF9UDgZHMUbu9PnslDzUT2gQ55oaXlGwiGKkABlzquyCpW65sS8inruW/ihb4
+ GbdwTDbNp4BgawntEANGI9g9fRwYa8H1N1G0spvCef8v7A2okf+BStzCkZK5pyaGEHk1
+ RUMGkJ+mVml8UOltI6AJjJ/tEBYab0ePygfjKZ2itY248N7c1PfS254X1pxPRCDRar9h
+ ovWQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWpG0PIP/1bf0F2m+z+YQkcAl1LygYlcxwwh8aIxdgSJKIXVFMuYDfYopF59IIZFi2UnJ4pjSiLW68=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyzeu5EySrLu6p31oxQfSnpruP/asfdPQNQt1m7Nn9A/HnT5Mwp
+ KkVUIEWbCST3nLlYNx+r3s+Ab3Jaiyt7avdzsQjd+PkaAmMXFTHUGjM52lCCf0TX04SttCJ4T2o
+ DhsQlaWGXE2CGatyT2H2AxPegcIFJAo7r8rwUuUk2xl/7YhR80qrDIaEfwTBDUybIju8Y79w=
+X-Gm-Gg: ASbGnctRZrvk1aZiMd0Qfm0Jc8TdubmlS6BR2RSHUoE/3PsKjA8RS98E9Hi21Hagc/Z
+ buBkEe8um3h5wUoBO3IQ8ekrW8U647Crk6qE37fx9V97TXjQ9ai4O9zwzEaiLjGm9OuKnjj0I4R
+ Ec/WGQI5kqcKAgpRz405nyfPt1awfNVWFhmyQt2c/urka6OwH0TP4Xz8LPWNIfB2cZMN+PHG4IB
+ bAO/l/wrHgLW+84cgBlUhVDbCra08g3sZnimWPjBWMvYbEHIcFgUzKf1ion83O96y4FtTWprxXU
+ BQdsqu5OD1on2o0955SlMnraw1ygCgCwaiQwFlt27+4ytJOzHCJrE32jaRl0CG2ZNvwR3chmMqA
+ =
+X-Received: by 2002:a05:6808:11d1:b0:406:67b7:8b62 with SMTP id
+ 5614622812f47-40667b79907mr1137216b6e.38.1748448797375; 
+ Wed, 28 May 2025 09:13:17 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH7kOaXTktpHw46oOtWRKpilwDLDgGTq8IbcVMN13DgegxQWs9io4EyuZpQO8J6P6zyCxUueg==
+X-Received: by 2002:a05:6808:11d1:b0:406:67b7:8b62 with SMTP id
+ 5614622812f47-40667b79907mr1137186b6e.38.1748448796931; 
+ Wed, 28 May 2025 09:13:16 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-32a79e9a765sm3031921fa.10.2025.05.28.09.13.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 May 2025 09:13:16 -0700 (PDT)
+Date: Wed, 28 May 2025 19:13:14 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <quic_yongmou@quicinc.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ Guenter Roeck <groeck@chromium.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vara Reddy <quic_varar@quicinc.com>,
+ Rob Clark <robdclark@chromium.org>,
+ Tanmay Shah <tanmay@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH 05/45] drm/msm/dp: add a helper to read mst caps for
+ dp_panel
+Message-ID: <abxm6ppegxbesl6wztyxg46elhanh2mo5kxn43olbucw37cyon@aeqikyr4ord5>
+References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
+ <20241205-dp_mst-v1-5-f8618d42a99a@quicinc.com>
+ <aksnudxy2oyojjzwm73i4mulftcxccdsnddcdamypmscn6skpq@ijtp7x76m3pt>
+ <df3807e5-c381-4440-be64-9bd49a2ecd9d@quicinc.com>
 MIME-Version: 1.0
-X-MBO-RS-ID: 71bbfe2918ed815d7c0
-X-MBO-RS-META: 1d87cwrtfwt5qgx3mzet88gb4nq4xi15
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <df3807e5-c381-4440-be64-9bd49a2ecd9d@quicinc.com>
+X-Proofpoint-GUID: febv2kyEgeGQcaSfs5j17nqoM6zTtCBA
+X-Authority-Analysis: v=2.4 cv=FuAF/3rq c=1 sm=1 tr=0 ts=6837361e cx=c_pps
+ a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8 a=_S4K8tOYiQSLrvZx2BEA:9 a=CjuIK1q_8ugA:10
+ a=rBiNkAWo9uy_4UTK5NWh:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: febv2kyEgeGQcaSfs5j17nqoM6zTtCBA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTI4MDE0MSBTYWx0ZWRfXxocNe0SXKsKu
+ 0MbY5zTLeziJG5tGnwTZAGqTL1VKOpg8MMNgnkHcse2+TA3XncLyPxRtpYxao94ynULvfur6qlg
+ vXhA9MBOBzTrGBMrY2l3ivz5rmSPJkM9CYyQ1TDDHuYfpZ3u8lLh7b1O+iAs9UJ7WUtNNKxg9pz
+ bh0bvuKjFEB3pvL7LNM6Rw1ygYngKJOc9BlrzKXbX/MGbERGqSWsizwtXLpwu9PtF103Q7hKEsu
+ loe6vGo+ZC4d8M0lbvcLNpRrM6KCx45qhn/yGlQrVgklav39OoMZC5oCHv0KjSc+EAsadPllrnz
+ +JG/PT60AWjvV+PNpaBKmT0SqopBrJupEz15V6sjK/lNsd6x21dpUJI2n+k1n/8NRLJHMdjlJ6i
+ Xp2Ln1h59JiOxcANrAMj1Y2AQVIkdHXMn3J7MnBqltf9My8KR5LpPOmkMoP47kB1wqUNTkNj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-28_08,2025-05-27_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 mlxlogscore=999 mlxscore=0 impostorscore=0
+ bulkscore=0 spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505160000
+ definitions=main-2505280141
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,147 +138,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 2025-05-26 at 14:54 +0200, Pierre-Eric Pelloux-Prayer wrote:
-> Hi,
->=20
-> The initial goal of this series was to improve the drm and amdgpu
-> trace events to be able to expose more of the inner workings of
-> the scheduler and drivers to developers via tools.
->=20
-> Then, the series evolved to become focused only on gpu_scheduler.
-> The changes around vblank events will be part of a different
-> series, as well as the amdgpu ones.
->=20
-> Moreover Sima suggested to make some trace events stable uAPI,
-> so tools can rely on them long term.
->=20
-> The first patches extend and cleanup the gpu scheduler events,
-> then add a documentation entry in drm-uapi.rst.
->=20
-> The last 2 patches are new in v8. One is based on a suggestion
-> from Tvrtko and gets rid of drm_sched_job::id. The other is a
-> cleanup of amdgpu trace events to use the fence=3D%llu:%llu format.
->=20
-> The drm_sched_job patches don't affect gpuvis which has code to parse
-> the gpu_scheduler events but these events are not enabled.
->=20
-> Changes since v10:
-> * fixed 2 errors reported by kernel test robot
-> * rebased on drm-misc-next
->=20
-> Changes since v9:
-> * fixed documentation link syntax
-> * fixed typos in commit messages
-> * spelled out that these events cannot be used before
-> =C2=A0 drm_sched_job_arm has been called
->=20
-> Changes since v8:
-> * swapped patches 8 & 9
-> * rebased on drm-next
->=20
-> Changes since v7:
-> * uint64_t -> u64
-> * reworked dependencies tracing (Tvrtko)
-> * use common name prefix for all events (Tvrtko)
-> * dropped drm_sched_job::id (Tvrtko)
->=20
-> Useful links:
-> - userspace tool using the updated events:
-> https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/37
-> - v8:
-> https://lists.freedesktop.org/archives/dri-devel/2025-March/496781.html
->=20
-> Pierre-Eric Pelloux-Prayer (10):
-> =C2=A0 drm/debugfs: Output client_id in in drm_clients_info
-> =C2=A0 drm/sched: Store the drm client_id in drm_sched_fence
-> =C2=A0 drm/sched: Add device name to the drm_sched_process_job event
-> =C2=A0 drm/sched: Cleanup gpu_scheduler trace events
-> =C2=A0 drm/sched: Trace dependencies for GPU jobs
-> =C2=A0 drm/sched: Add the drm_client_id to the drm_sched_run/exec_job
-> events
-> =C2=A0 drm/sched: Cleanup event names
-> =C2=A0 drm: Get rid of drm_sched_job.id
-> =C2=A0 drm/doc: Document some tracepoints as uAPI
-> =C2=A0 drm/amdgpu: update trace format to match gpu_scheduler_trace
+On Mon, May 26, 2025 at 08:26:47PM +0800, Yongxing Mou wrote:
+> 
+> 
+> On 2024/12/6 16:52, Dmitry Baryshkov wrote:
+> > On Thu, Dec 05, 2024 at 08:31:36PM -0800, Abhinav Kumar wrote:
+> > > Add a helper to check whether a dp_panel is mst capable.
+> > > 
+> > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > ---
+> > >   drivers/gpu/drm/msm/dp/dp_aux.h   |  1 +
+> > >   drivers/gpu/drm/msm/dp/dp_panel.c | 14 ++++++++++++++
+> > >   drivers/gpu/drm/msm/dp/dp_panel.h |  1 +
+> > >   3 files changed, 16 insertions(+)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/dp/dp_aux.h b/drivers/gpu/drm/msm/dp/dp_aux.h
+> > > index 39c5b4c8596ab28d822493a6b4d479f5f786cdee..cb97a73cdd6ea74b612053bec578247a42214f23 100644
+> > > --- a/drivers/gpu/drm/msm/dp/dp_aux.h
+> > > +++ b/drivers/gpu/drm/msm/dp/dp_aux.h
+> > > @@ -8,6 +8,7 @@
+> > >   #include "dp_catalog.h"
+> > >   #include <drm/display/drm_dp_helper.h>
+> > > +#include <drm/display/drm_dp_mst_helper.h>
+> > >   int msm_dp_aux_register(struct drm_dp_aux *msm_dp_aux);
+> > >   void msm_dp_aux_unregister(struct drm_dp_aux *msm_dp_aux);
+> > > diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> > > index d277e9b2cbc03688976b6aa481ee724b186bab51..172de804dec445cb08ad8e3f058407f483cd6684 100644
+> > > --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> > > +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> > > @@ -108,6 +108,20 @@ static u32 msm_dp_panel_get_supported_bpp(struct msm_dp_panel *msm_dp_panel,
+> > >   	return min_supported_bpp;
+> > >   }
+> > > +bool msm_dp_panel_read_mst_cap(struct msm_dp_panel *msm_dp_panel)
+> > > +{
+> > > +	struct msm_dp_panel_private *panel;
+> > > +
+> > > +	if (!msm_dp_panel) {
+> > > +		DRM_ERROR("invalid input\n");
+> > > +		return 0;
+> > > +	}
+> > > +
+> > > +	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
+> > > +
+> > > +	return drm_dp_read_mst_cap(panel->aux, msm_dp_panel->dpcd);
+> > 
+> > So, it's a one-line wrapper. Do we actually need it?
+> It beacuse the point of aux is in msm_dp_panel_private, so if we want to
+> call drm_dp_read_mst_cap in other file, we need this wrapper.
 
+It is being used from dp_display, which also ->aux pointer.
 
-Applied to drm-misc-next
+> > 
+> > > +}
+> > > +
+> > >   int msm_dp_panel_read_link_caps(struct msm_dp_panel *msm_dp_panel,
+> > >   				struct drm_connector *connector)
+> > >   {
+> > > diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
+> > > index 7a38655c443af597c84fb78c6702b2a3ef9822ed..363b416e4cbe290f9c0e6171d6c0c5170f9fea62 100644
+> > > --- a/drivers/gpu/drm/msm/dp/dp_panel.h
+> > > +++ b/drivers/gpu/drm/msm/dp/dp_panel.h
+> > > @@ -67,6 +67,7 @@ int msm_dp_panel_get_modes(struct msm_dp_panel *msm_dp_panel,
+> > >   		struct drm_connector *connector);
+> > >   void msm_dp_panel_handle_sink_request(struct msm_dp_panel *msm_dp_panel);
+> > >   void msm_dp_panel_tpg_config(struct msm_dp_panel *msm_dp_panel, bool enable);
+> > > +bool msm_dp_panel_read_mst_cap(struct msm_dp_panel *dp_panel);
+> > >   /**
+> > >    * is_link_rate_valid() - validates the link rate
+> > > 
+> > > -- 
+> > > 2.34.1
+> > > 
+> > 
+> 
 
-
-Thanks
-P.
-
->=20
-> =C2=A0Documentation/gpu/drm-uapi.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 19 ++++
-> =C2=A0drivers/accel/amdxdna/aie2_ctx.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 8 +-
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 32 ++----
-> =C2=A0drivers/gpu/drm/drm_debugfs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 10 +-
-> =C2=A0drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c=C2=A0 |=C2=A0=C2=A0 2 =
-+-
-> =C2=A0drivers/gpu/drm/imagination/pvr_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/imagination/pvr_queue.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 5 +-
-> =C2=A0drivers/gpu/drm/imagination/pvr_queue.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/lima/lima_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/lima/lima_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
-> =C2=A0drivers/gpu/drm/lima/lima_sched.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> =C2=A0drivers/gpu/drm/lima/lima_trace.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
-> =C2=A0drivers/gpu/drm/msm/msm_gem_submit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 8 +-
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> =C2=A0drivers/gpu/drm/panfrost/panfrost_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/panthor/panthor_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> =C2=A0drivers/gpu/drm/panthor/panthor_mmu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/panthor/panthor_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 5 +-
-> =C2=A0drivers/gpu/drm/panthor/panthor_sched.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> =C2=A0.../gpu/drm/scheduler/gpu_scheduler_trace.h=C2=A0=C2=A0 | 103 +++++=
-++++++++---
-> --
-> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 16 ++-
-> =C2=A0drivers/gpu/drm/scheduler/sched_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 4 +-
-> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 12 +-
-> =C2=A0.../gpu/drm/scheduler/tests/mock_scheduler.c=C2=A0 |=C2=A0=C2=A0 3 =
-+-
-> =C2=A0drivers/gpu/drm/v3d/v3d_submit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/xe/xe_sched_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 13 ++-
-> =C2=A032 files changed, 191 insertions(+), 101 deletions(-)
->=20
-
+-- 
+With best wishes
+Dmitry
