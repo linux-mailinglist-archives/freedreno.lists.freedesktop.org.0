@@ -2,77 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFD70AC6DB9
-	for <lists+freedreno@lfdr.de>; Wed, 28 May 2025 18:17:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38878AC70A7
+	for <lists+freedreno@lfdr.de>; Wed, 28 May 2025 20:03:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6CAC10E689;
-	Wed, 28 May 2025 16:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78E2210E66B;
+	Wed, 28 May 2025 18:02:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HQG8jL2K";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MaeStp27";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C6A510E686
- for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 16:17:20 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54SE5bt6028239
- for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 16:17:20 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC33510E66B
+ for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 18:02:56 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54SGAQke001765
+ for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 18:02:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=VxpVLFBQGSAU+ebxYoQdGVlC
- qZnUme8PP63pkL+w6mw=; b=HQG8jL2KEaz3iRI7+/X70BOGq0pySi6cBM+txh6p
- wwfS2VZ87Whfg9qHLepHGDouRDd+QwZHiq2TCtS3T5HrXpxyPZ4/QUEwG1Qq0fTy
- qcwoRgB2BVUHGd1rP6AjofhexVwRmoH7LbceKGqCzOdnpXm4PGvlkanS/+sB/21l
- axt1rK1+T7z6M6WJy+zTGfImJxTbM9Zpgoh/siYhtXDu0qbQdbOslqAp7G76ml6j
- rDYYX8YwkfBsRCS90CxTlvEEhsz+yeiw4L+z0UiAOa12GFDZdpmpBLl2LvL3snPu
- yQUgCx/hRIHs2NMtJdRMO9qC3SM5ZBbcgDo7iq6hVtIgHg==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46w992mw5f-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ mt94scoMpGBlHkRfDjr/0ZaH4cqB4nVNpigo9K1BPzI=; b=MaeStp27orB5w35D
+ QO0Llp38kkYe1PnLLuvWzuBuw66WDoKqFgD55Yq/aekHqZHhYWfzcRQ6lYA9X2cg
+ AxRvFj12qWO8JB0OpQgqkjemz3G1CA3UUmn7g0juiro4iGYjy9Q3l+snjC3avDUW
+ 9dPLzjqaiYu1nIMS43JD+YhbKTHIa4DYlta/S2f2vp2SA6XLK5TYQeFSkcuisWnL
+ 6XLBHR5V98f6WW29lGtZLQ7zdfPshXgnsYco86XnAtO+kYhGBUzR775ofwpz3rA0
+ NBsr/wFAA/FP6ltO8JhyJgGAAprGF2r/EVg5YP+eixt1vU0U2CINetYK+CfQeGA7
+ R/w9Hg==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46wavkvxh2-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 16:17:19 +0000 (GMT)
-Received: by mail-ot1-f72.google.com with SMTP id
- 46e09a7af769-7351a0abd12so2104073a34.3
- for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 09:17:19 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 18:02:50 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id
+ 00721157ae682-703d7a66d77so3074197b3.0
+ for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 11:02:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748449039; x=1749053839;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VxpVLFBQGSAU+ebxYoQdGVlCqZnUme8PP63pkL+w6mw=;
- b=Kl+GWWPNZGepWD2yEBhItG+Lc+MA48khavmF0y0TXMcW+s+8eAF+xNgFXzXjCYGn1w
- uVkd1y0OKDWNpIyQvUEP1go4en4kuiuXcL3Lwx8sgTugb3bpdMSBFMONc2NkrSYWRufM
- CyMYWPCzQZg42O40J31xSCt0SMb4R1vEHRKgmequCY/Y5/l3CIbDo8JOe5tSsdOPHNMO
- B2He6zD/G92qcfNEln0oXa1huqXIcgL5RDxC9GrfH7iAsNqX9BFwtcN6eGNyAKjoMosd
- jBroihKkf3KVaka42+D+svfB9aR5JBWh/6xC4RtD3EfKJb/ptYtT5DySspV+2s12KVcX
- WeZg==
+ d=1e100.net; s=20230601; t=1748455369; x=1749060169;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=mt94scoMpGBlHkRfDjr/0ZaH4cqB4nVNpigo9K1BPzI=;
+ b=pQXS0g4T7Sp7+RemT+ZVj+jhgbTec6wwzmyRo6FfAkorFPQYMPleevB3wGasujRqBZ
+ uc+THOQUJq6c+ZnOmnBo5NzOj/2k0Cq5HgrYKtwsfVIDwms4CnBzdA5kBfz84SeERExq
+ eqAeacpo76fvx1PVg+3RfqdpYctbnTXvoKB7hrljGWTi/Oa/0rVxpau5iMJM79kN4LfX
+ KxlIsEmZGn+2qKubQhZNHdcBpS6X4Lb9n76/QTmOdp0444Skb5T1Ld5oa7iLEKvBJqSr
+ Ege3kXPXyCxFCd2Cj3xjTnZtc49AWMqayLsc1qbjXH/W8aGNrviSJ36pX/On8jvcxUcu
+ 9QFg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVA+NAL81to2nDsYhWCo1XHmWZiZKn1Ngebg1s0khngJULYn113lT86vTGRkQyM4pj/eRAx+9wuOjM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwDYby4BvU7wz03nBlA97xMuSFG6BRKPsz3aWGzyPh7lF5dxxGp
- OaNe0Ve6hHPODlRbTNUlod7Vgx8wE1Bc8L41RvteiatdpjEDn3XiwvWxDgyRIG3PWg1p3VUeZyE
- ghYDXRRIM8n8Kpjzt98FjMOLdM8i93mVvcJ4h9GIuRbsubh5syLnJ0UDr0szIKp3boqNEv3Q=
-X-Gm-Gg: ASbGnct9sL3xHWXmbPjRADmKT325CjtSrsXNKQCY9Ry9xLcSRzE+h8ERTiR2QBu116Y
- ljlfJLqq7DZpqyEMcxG4VkdtG7WBfGg7D0166k+hZ+4cgOgWUQ0lxF6QaYWe8O6guO6N1yMrLAV
- 1JbE7iCgMieE7uX9StgReWk49vbvFjr6mLrq10zbWejpZheqMukpTaLFCkq/UKdU5/WwlIZbbBF
- VBNT+5RZBdrqW33bXRD7eucIUHwTpjdYhB6EDqQ5av5dWhr4/fr1CDtHYOdDPuJ0o1JYP7U88nt
- R0OSMKogc7d02J8u0kzxG6Iq8IVABUQgQyZsVPn4bOfBsg/C8T5o9jOtT8cdx9m/ybGxH+tjNdc
+ AJvYcCU/CVTBPcUhlmDZNF0+5Ut+EfEqSDWGkyVrBKr33rjlZl72BJaP/rlzLadXjfkQzUYfssHc0i8OVk4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNHMSS/GvEqB2Ja5AMUsqguFslwWbZ1NZeLb6ZgDjkqHKrI1tf
+ J6mdWw7AXTgnvnP/c05FM2dxz0Dg/LxiCX4ajukLU1JLjGK95UWd3y8wf7eIQufGYELahXGMq2T
+ YIji4mgj4bRqFgdDboQiCzGIH7u8TkK1azMB+jftlNnJI6ZnBx1Rw2G1mUxvlizp20TlPW66h14
+ +oJjw=
+X-Gm-Gg: ASbGnctUOEoJMreBFzxlfFKrM0es/I9Ewu+0uL7f9hD3HQHb1obhuVZ/CSEq4+c7oR/
+ QassqmebVTaG1+rlWoYhTy1zI9btfmYKtZmQq356NxtkHdzrZiX474ZhhrWiaVdZGNqIkiRRcCx
+ +CCmbHX1q2cnAorcCnc7U5GsXZsbAebxyKJSUO2SlxVvMK7UI+EczxZcIEtBJx8LoGmbpxgUxJ6
+ BipSBL+BPA3ys7X4wbTeetMczRla85ZTtL1vn9RWJZ35zMNsIleudO4i6cqv0n/p2q4IygT7BRT
+ qqlLJ8PFL3A+pEPcZCgs+eqKLtUnjP0NK5gUOdYe16mvJ4D3n8/eRM5WWOVLCcozvTuLoXWy9Uk
  =
-X-Received: by 2002:a05:6830:7010:b0:72b:8326:f0c7 with SMTP id
- 46e09a7af769-7355d1ca50emr11492070a34.28.1748449038856; 
- Wed, 28 May 2025 09:17:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHymD5QPdG3sq4BRZVWcnUYrodeFvRGV9A9NykcrdI34F0kJ6xyyBvUoKiYlRqJdH2mRLZZDA==
-X-Received: by 2002:a05:6830:7010:b0:72b:8326:f0c7 with SMTP id
- 46e09a7af769-7355d1ca50emr11492023a34.28.1748449038359; 
- Wed, 28 May 2025 09:17:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:4554:b0:7ce:e29f:2b9b with SMTP id
+ af79cd13be357-7d0987628d7mr77024385a.2.1748455358208; 
+ Wed, 28 May 2025 11:02:38 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IELc/vRTL5HOf4+VrKbUzHnWp0OBTAbQJHqlFy1eblVpmeIMAnJvUcYCEHijRPc3YXDAGhdqg==
+X-Received: by 2002:a9d:6c98:0:b0:735:a98d:a4c9 with SMTP id
+ 46e09a7af769-735acea2225mr244432a34.7.1748455347211; 
+ Wed, 28 May 2025 11:02:27 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5532f6b39dcsm340216e87.215.2025.05.28.09.17.17
+ 2adb3069b0e04-5532f61ca28sm379055e87.50.2025.05.28.11.02.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 May 2025 09:17:17 -0700 (PDT)
-Date: Wed, 28 May 2025 19:17:15 +0300
+ Wed, 28 May 2025 11:02:25 -0700 (PDT)
+Date: Wed, 28 May 2025 21:02:22 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Yongxing Mou <quic_yongmou@quicinc.com>
 Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
@@ -93,39 +95,40 @@ Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  Jessica Zhang <quic_jesszhan@quicinc.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH 17/45] drm/msm/dp: use stream_id to change offsets in
- dp_catalog
-Message-ID: <ujrlphqfh6j6n2qz7wslapidmwacnj32cgdhwahmqpjpylmmk4@daraslg4fdk3>
+Subject: Re: [PATCH 31/45] drm/msm/dp: add dp_mst_drm to manage DP MST bridge
+ operations
+Message-ID: <n5g44odmls5yg4vwb6rfvdxeyy43d4ba4cahanwxe7f5scw7dv@btvb2crhjlbp>
 References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
- <20241205-dp_mst-v1-17-f8618d42a99a@quicinc.com>
- <45awcx2az5m5v4etpuaycqx2dolzjkrcjg6ehmooivwuqb6ac3@euo7rsoccqup>
- <187d55f0-f4ec-4d5e-a449-708ebed1ab45@quicinc.com>
+ <20241205-dp_mst-v1-31-f8618d42a99a@quicinc.com>
+ <4unizv5vi7ve7qdpzmcxj6vvxwxrpcppg3y72csi7ga2jqwhrm@5eu74nuopyqf>
+ <318ee4bc-b39a-43d3-abcb-22588a9a765c@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <187d55f0-f4ec-4d5e-a449-708ebed1ab45@quicinc.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTI4MDE0MSBTYWx0ZWRfXxmNPw7L57Rbr
- haK+6qmAsec/Vhr4ZzjLJODMVxljaezmlMoKjabnbqfXCQCumuleLv4T0I3kzw3VnQElJOQwA2A
- D22O4sSrFHNQGGNOPvurmoP70UPkT4pfPKOhcroUDhR1+rTzwmIqb7GRB02tzE1Ynw+T1TE0sgj
- VsP4c+7F1hQwwMHPsJLlZP8F31MMFGAYKwQF0Fj8HtspOjEKtt5bhgCU43LM4wbbGOTAd/kQ32/
- tioTV1+xVJT2eKihYbxiBcU/xGLwbjazZYsD3QVj2eTcenTOxMnYzSAlMUmffLB2dHLZ3K8WlIA
- uKTTy+8WwxmqRxmJJ6gElLfV5TCmWnAHFrNsk5BFpO7g8NFdbl2xO1E0v6oNTZWybDuDSHFbOzo
- UBTciquBFpGe4pJKoDK3XdhLDM6BmaTmwmUR8SOhMTHBwWzEL3DT2AnlUxS/DfjhgrYmjeLH
-X-Authority-Analysis: v=2.4 cv=Fes3xI+6 c=1 sm=1 tr=0 ts=6837370f cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8 a=aWFAwB44HXOIBnsjnyQA:9 a=CjuIK1q_8ugA:10
- a=eYe2g0i6gJ5uXG_o6N4q:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: JJsrDY9IIoL-A_-a3UD5r7XfwUHAuS4d
-X-Proofpoint-ORIG-GUID: JJsrDY9IIoL-A_-a3UD5r7XfwUHAuS4d
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <318ee4bc-b39a-43d3-abcb-22588a9a765c@quicinc.com>
+X-Proofpoint-GUID: m-TyLG0plQaIj-PO7r31NwtJC9hRk92H
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTI4MDE1NyBTYWx0ZWRfXxq7EmfyJie97
+ ChsPE7gedcHj/pANl54CxxMMzEJmHVq60TKMKIiGQWTZXoU94eZ28pXFseXda/LR6bHoCKZb6Vb
+ 5GK8x7DnoGc6I4GkmfYK26QGhVbnoqX8HFGDQ4DBuNPpqSxIa51sPij8ex1l82sO++qtj81niJx
+ uBZ4z0RouE6hsbHJe+LxvsuAG/jnh4HuzSv83I+1f+jhZMN/6q54XejaML9BnnNmdswX1MHrVeo
+ gNNlL6S6xCmBNC6zNAWh9OdHkuzzMSumUxy0iJX8JqHdhk/dHlmtfVw1ofo8M955YbWh3gYqf0Z
+ /zR/TOnegaTft31+r7w9c7GmXnWIKYxY0E9UQSr1pJ6PToU1Idw/swl4ovrt19wzctki2sZo6DV
+ g0fzxvF2RwxmgmU6GA51Ca7VY9aunPjevwbd5AL47mjB1ScC1ugSLU4YFLI6/Tr6Pxfz6BWi
+X-Authority-Analysis: v=2.4 cv=fMk53Yae c=1 sm=1 tr=0 ts=68374fca cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8 a=AkxkYSyKjySzLiMMLVoA:9 a=3ZKOabzyN94A:10
+ a=wPNLvfGTeEIA:10 a=kA6IBgd4cpdPkAWqgNAz:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: m-TyLG0plQaIj-PO7r31NwtJC9hRk92H
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-28_08,2025-05-27_01,2025-03-28_01
+ definitions=2025-05-28_09,2025-05-27_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0 impostorscore=0 phishscore=0 clxscore=1015
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 mlxlogscore=999 spamscore=0
- adultscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ malwarescore=0 adultscore=0 impostorscore=0 phishscore=0 suspectscore=0
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015 mlxscore=0
+ mlxlogscore=999 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505160000
- definitions=main-2505280141
+ definitions=main-2505280157
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,46 +144,298 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 26, 2025 at 08:57:35PM +0800, Yongxing Mou wrote:
+On Tue, May 27, 2025 at 06:29:49PM +0800, Yongxing Mou wrote:
 > 
 > 
-> On 2024/12/8 13:42, Dmitry Baryshkov wrote:
-> > On Thu, Dec 05, 2024 at 08:31:48PM -0800, Abhinav Kumar wrote:
-> > > Use the dp_panel's stream_id to adjust the offsets for stream 1
-> > > which will be used for MST in the dp_catalog. Also add additional
-> > > register defines for stream 1.
+> On 2024/12/6 18:12, Dmitry Baryshkov wrote:
+> > On Thu, Dec 05, 2024 at 08:32:02PM -0800, Abhinav Kumar wrote:
+> > > Add a new file dp_mst_drm to manage the DP MST bridge operations
+> > > similar to the dp_drm file which manages the SST bridge operations.
+> > > Each MST encoder creates one bridge and each bridge is bound to its
+> > > own dp_panel abstraction to manage the operations of its pipeline.
 > > > 
 > > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > > > ---
-> > >   drivers/gpu/drm/msm/dp/dp_catalog.c | 99 ++++++++++++++++++++++++++++---------
-> > >   drivers/gpu/drm/msm/dp/dp_catalog.h |  9 ++--
-> > >   drivers/gpu/drm/msm/dp/dp_ctrl.c    |  3 ++
-> > >   drivers/gpu/drm/msm/dp/dp_panel.c   |  2 +
-> > >   drivers/gpu/drm/msm/dp/dp_reg.h     | 13 ++++-
-> > >   5 files changed, 99 insertions(+), 27 deletions(-)
+> > >   drivers/gpu/drm/msm/Makefile        |   3 +-
+> > >   drivers/gpu/drm/msm/dp/dp_display.h |   2 +
+> > >   drivers/gpu/drm/msm/dp/dp_mst_drm.c | 490 ++++++++++++++++++++++++++++++++++++
+> > >   drivers/gpu/drm/msm/dp/dp_mst_drm.h | 102 ++++++++
+> > >   4 files changed, 596 insertions(+), 1 deletion(-)
 > > > 
-> > > diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-> > > index 172de804dec445cb08ad8e3f058407f483cd6684..662bf02b8b1a5165f927835bef3c11ac091ddce6 100644
-> > > --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> > > +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> > > @@ -309,7 +309,9 @@ static int msm_dp_panel_setup_vsc_sdp_yuv_420(struct msm_dp_panel *msm_dp_panel)
-> > >   	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
-> > >   	catalog = panel->catalog;
+> > > diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> > > index f274d9430cc311405f890074c1466ffe2ec45ac9..b1e01b3123d9afc4818f059c5d4e7ca70dca3754 100644
+> > > --- a/drivers/gpu/drm/msm/Makefile
+> > > +++ b/drivers/gpu/drm/msm/Makefile
+> > > @@ -142,7 +142,8 @@ msm-display-$(CONFIG_DRM_MSM_DP)+= dp/dp_aux.o \
+> > >   	dp/dp_link.o \
+> > >   	dp/dp_panel.o \
+> > >   	dp/dp_audio.o \
+> > > -	dp/dp_utils.o
+> > > +	dp/dp_utils.o \
+> > > +	dp/dp_mst_drm.o
+> > >   msm-display-$(CONFIG_DRM_MSM_HDMI_HDCP) += hdmi/hdmi_hdcp.o
+> > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+> > > index 6ab14e969bce0fd07b3a550bae17e99652479232..a5d4893f689c6afbbe622c9b7dfa98d23d754831 100644
+> > > --- a/drivers/gpu/drm/msm/dp/dp_display.h
+> > > +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+> > > @@ -7,6 +7,7 @@
+> > >   #define _DP_DISPLAY_H_
+> > >   #include "dp_panel.h"
+> > > +#include "dp_mst_drm.h"
+> > >   #include <sound/hdmi-codec.h>
+> > >   #include "disp/msm_disp_snapshot.h"
+> > > @@ -26,6 +27,7 @@ struct msm_dp {
+> > >   	bool is_edp;
+> > >   	bool internal_hpd;
+> > > +	struct msm_dp_mst *msm_dp_mst;
+> > >   	hdmi_codec_plugged_cb plugged_cb;
+> > >   	struct msm_dp_audio *msm_dp_audio;
+> > > diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+> > > new file mode 100644
+> > > index 0000000000000000000000000000000000000000..e66bd1e565aeb4da3d636eb5f4aa75504d60fd40
+> > > --- /dev/null
+> > > +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+> > > @@ -0,0 +1,490 @@
+> > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > +/*
+> > > + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> > > + * Copyright (c) 2018-2021, The Linux Foundation. All rights reserved.
+> > > + */
 > > > +
-> > >   	msm_dp_mode = &msm_dp_panel->msm_dp_mode;
-> > > +	catalog->stream_id = msm_dp_panel->stream_id;
+> > > +/*
+> > > + * Copyright © 2014 Red Hat.
+> > > + *
+> > > + * Permission to use, copy, modify, distribute, and sell this software and its
+> > > + * documentation for any purpose is hereby granted without fee, provided that
+> > > + * the above copyright notice appear in all copies and that both that copyright
+> > > + * notice and this permission notice appear in supporting documentation, and
+> > > + * that the name of the copyright holders not be used in advertising or
+> > > + * publicity pertaining to distribution of the software without specific,
+> > > + * written prior permission.  The copyright holders make no representations
+> > > + * about the suitability of this software for any purpose.  It is provided "as
+> > > + * is" without express or implied warranty.
+> > > + *
+> > > + * THE COPYRIGHT HOLDERS DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+> > > + * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
+> > > + * EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+> > > + * CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+> > > + * DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+> > > + * TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+> > > + * OF THIS SOFTWARE.
+> > > + */
+> > > +
+> > > +#include "dp_mst_drm.h"
+> > > +
+> > > +static struct drm_private_state *msm_dp_mst_duplicate_bridge_state(struct drm_private_obj *obj)
+> > > +{
+> > > +	struct msm_dp_mst_bridge_state *state;
+> > > +
+> > > +	state = kmemdup(obj->state, sizeof(*state), GFP_KERNEL);
+> > > +	if (!state)
+> > > +		return NULL;
+> > > +
+> > > +	__drm_atomic_helper_private_obj_duplicate_state(obj, &state->base);
+> > > +
+> > > +	return &state->base;
+> > > +}
+> > > +
+> > > +static void msm_dp_mst_destroy_bridge_state(struct drm_private_obj *obj,
+> > > +					    struct drm_private_state *state)
+> > > +{
+> > > +	struct msm_dp_mst_bridge_state *priv_state =
+> > > +		to_msm_dp_mst_bridge_priv_state(state);
+> > > +
+> > > +	kfree(priv_state);
+> > > +}
+> > > +
+> > > +static const struct drm_private_state_funcs msm_dp_mst_bridge_state_funcs = {
+> > > +	.atomic_duplicate_state = msm_dp_mst_duplicate_bridge_state,
+> > > +	.atomic_destroy_state = msm_dp_mst_destroy_bridge_state,
+> > > +};
+> > > +
+> > > +/**
+> > > + * dp_mst_find_vcpi_slots() - Find VCPI slots for this PBN value
+> > > + * @mgr: manager to use
+> > > + * @pbn: payload bandwidth to convert into slots.
+> > > + *
+> > > + * Calculate the number of VCPI slots that will be required for the given PBN
+> > > + * value.
+> > > + *
+> > > + * RETURNS:
+> > > + * The total slots required for this port, or error.
+> > > + */
+> > > +static int msm_dp_mst_find_vcpi_slots(struct drm_dp_mst_topology_mgr *mgr, int pbn)
+> > > +{
+> > > +	int num_slots;
+> > > +	struct drm_dp_mst_topology_state *state;
+> > > +
+> > > +	state = to_drm_dp_mst_topology_state(mgr->base.state);
+> > > +	num_slots = DIV_ROUND_UP(pbn, dfixed_trunc(state->pbn_div));
 > > 
-> > Why is it a proper place to set catalog->stream_id? It doesn't looks
-> > like it to me.
-> Ok, maybe msm_dp_display_set_stream_id is more proper place. Or can we drop
-> stream_id in catalog totally, and f the stream_id is needed in the catalog
-> function, pass it as a parameter to the catalog function. just like that:
-> int msm_dp_ctrl_***(struct msm_dp_ctrl *ctrl, enum msm_dp_stream_id
-> stream_id,***);
+> > drm_dp_atomic_find_time_slots() uses slightly different maths here, with
+> > the different precision. Can we use the data that is set by that function
+> > instead (payload->time_slots)?
+> > 
+> Note that drm_dp_atomic_find_time_slots all call in atomic_check func, not
+> in other place.So can we call this func in atomic_pre_enable? Also, amg
+> driver also have similar usage pattern.
 
+Well, granted that this function can return ENOSPC, it is an error to
+call it in atomic_pre_enable(). Nothing in atomic_pre_enable() /
+atomic_enable() is allowed to fail.
 
-LGTM.
+I think this answers my question: drm_dp_atomic_find_time_slots()
+should be called from atomic_check(), this function must be dropped.
 
+> > > +
+> > > +	/* max. time slots - one slot for MTP header */
+> > > +	if (num_slots > 63)
+> > > +		return -ENOSPC;
+> > > +	return num_slots;
+> > > +}
+> > > +
+> > > +static void _msm_dp_mst_update_timeslots(struct msm_dp_mst *mst,
+> > > +					 struct msm_dp_mst_bridge *mst_bridge,
+> > > +					 struct drm_dp_mst_port *port)
+> > > +{
+> > > +	int i;
+> > > +	struct msm_dp_mst_bridge *msm_dp_bridge;
+> > > +	struct drm_dp_mst_topology_state *mst_state;
+> > > +	struct drm_dp_mst_atomic_payload *payload;
+> > > +	int prev_start = 0;
+> > > +	int prev_slots = 0;
+> > > +
+> > > +	mst_state = to_drm_dp_mst_topology_state(mst->mst_mgr.base.state);
+> > > +	payload = drm_atomic_get_mst_payload_state(mst_state, port);
+> > > +
+> > > +	if (!payload) {
+> > > +		DRM_ERROR("mst bridge [%d] update_timeslots failed, null payload\n",
+> > > +			  mst_bridge->id);
+> > > +		return;
+> > > +	}
+> > > +
+> > > +	for (i = 0; i < mst->max_streams; i++) {
+> > > +		msm_dp_bridge = &mst->mst_bridge[i];
+> > > +		if (mst_bridge == msm_dp_bridge) {
+> > > +			/*
+> > > +			 * When a payload was removed make sure to move any payloads after it
+> > > +			 * to the left so all payloads are aligned to the left.
+> > > +			 */
+> > 
+> > Please don't. drm_dp_remove_payload_part2() should take care of that for
+> > us. What is the reason for caching the data if we have to manually
+> > handle the cache?
+> > 
+> MST framework is managing the port's bandwidth, but we have a bridhge for
+> each stream, so we need to keep track of the payload allcation status for
+> each bridge, how much we used and how much we left. So maybe they are manage
+> two different part.
+
+Well, still no. MST topology master should handle all payload
+allocation. If you need any data, enhance its API instead of duplicating
+its functionality.
+
+> > > +			if (payload->vc_start_slot < 0) {
+> > > +				// cache the payload
+> > > +				prev_start = msm_dp_bridge->start_slot;
+> > > +				prev_slots = msm_dp_bridge->num_slots;
+> > > +				msm_dp_bridge->pbn = 0;
+> > > +				msm_dp_bridge->start_slot = 1;
+> > > +				msm_dp_bridge->num_slots = 0;
+> > > +				msm_dp_bridge->vcpi = 0;
+> > > +			} else { //add payload
+> > > +				msm_dp_bridge->pbn = payload->pbn;
+> > > +				msm_dp_bridge->start_slot = payload->vc_start_slot;
+> > > +				msm_dp_bridge->num_slots = payload->time_slots;
+> > > +				msm_dp_bridge->vcpi = payload->vcpi;
+> > > +			}
+> > > +		}
+> > > +	}
+> > > +
+> > > +	// Now commit all the updated payloads
+> > > +	for (i = 0; i < mst->max_streams; i++) {
+> > > +		msm_dp_bridge = &mst->mst_bridge[i];
+> > > +
+> > > +		//Shift payloads to the left if there was a removed payload.
+> > > +		if (payload->vc_start_slot < 0 && msm_dp_bridge->start_slot > prev_start)
+> > > +			msm_dp_bridge->start_slot -= prev_slots;
+> > > +
+> > > +		msm_dp_display_set_stream_info(mst->msm_dp, msm_dp_bridge->msm_dp_panel,
+> > > +					       msm_dp_bridge->id, msm_dp_bridge->start_slot,
+> > > +					       msm_dp_bridge->num_slots,
+> > > +					       msm_dp_bridge->pbn, msm_dp_bridge->vcpi);
+> > > +		drm_dbg_dp(mst->msm_dp->drm_dev,
+> > > +			   "conn:%d vcpi:%d start_slot:%d num_slots:%d, pbn:%d\n",
+> > > +			   DP_MST_CONN_ID(msm_dp_bridge), msm_dp_bridge->vcpi,
+> > > +			   msm_dp_bridge->start_slot,
+> > > +			   msm_dp_bridge->num_slots, msm_dp_bridge->pbn);
+> > > +	}
+> > > +}
+> > > +
+
+[...]
+
+> > > +	struct msm_dp_panel *msm_dp_panel;
+> > > +
+> > > +	int vcpi;
+> > > +	int pbn;
+> > > +	int num_slots;
+> > > +	int start_slot;
+> > 
+> > Which of the fields (including in_use) are long-lived and which are a
+> > part of the current state? Can we move all state ones to bridge's state?
+> > 
+> in_use only used in bridge_init, so it is long-lived. Looking at it together
+> with the next patch, only num_slots changes during atomic_check, so it is in
+> bridge_state. pbn/vcpi/start_slots only change during bridge enable/disable,
+> so they are placed in the bridge.
+
+Let's look how it will look after refactoring. I'd still push all
+changing fields to state. It make a lot of things much easier.
+
+> > > +};
+> > > +
+> > > +struct msm_dp_mst_bridge_state {
+> > > +	struct drm_private_state base;
+> > > +	struct drm_connector *connector;
+> > > +	struct msm_dp_panel *msm_dp_panel;
+> > > +	int num_slots;
+> > > +};
+> > > +
+> > > +struct msm_dp_mst {
+> > > +	bool mst_initialized;
+> > > +	struct drm_dp_mst_topology_mgr mst_mgr;
+> > > +	struct msm_dp_mst_bridge *mst_bridge;
+> > > +	struct msm_dp *msm_dp;
+> > > +	bool mst_session_hpd_state;
+> > > +	u32 max_streams;
+> > > +};
+> > > +
+> > > +struct msm_dp_mst_connector {
+> > > +	struct drm_connector connector;
+> > > +	struct drm_dp_mst_port *mst_port;
+> > > +	struct msm_dp *msm_dp;
+> > > +	struct msm_dp_panel *dp_panel;
+> > > +};
+> > > +
+> > > +#define to_msm_dp_mst_bridge(x)     container_of((x), struct msm_dp_mst_bridge, base)
+> > > +#define to_msm_dp_mst_bridge_priv(x) \
+> > > +		container_of((x), struct msm_dp_mst_bridge, obj)
+> > > +#define to_msm_dp_mst_bridge_priv_state(x) \
+> > > +		container_of((x), struct msm_dp_mst_bridge_state, base)
+> > > +#define to_msm_dp_mst_bridge_state(x) \
+> > > +		to_msm_dp_mst_bridge_priv_state((x)->obj.state)
+> > > +#define to_msm_dp_mst_connector(x) \
+> > > +		container_of((x), struct msm_dp_mst_connector, connector)
+> > > +int msm_dp_mst_drm_bridge_init(struct msm_dp *dp, struct drm_encoder *encoder);
+> > > +
+> > > +#endif /* _DP_MST_DRM_H_ */
+> > > 
+> > > -- 
+> > > 2.34.1
+> > > 
+> > 
+> 
 
 -- 
 With best wishes
