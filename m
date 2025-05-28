@@ -2,137 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37B10AC67D3
-	for <lists+freedreno@lfdr.de>; Wed, 28 May 2025 12:55:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4463EAC6B91
+	for <lists+freedreno@lfdr.de>; Wed, 28 May 2025 16:18:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14C3910E5EE;
-	Wed, 28 May 2025 10:55:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76BF310E69D;
+	Wed, 28 May 2025 14:18:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WLqBDXLa";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="TJnJr1yD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD82710E5EE
- for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 10:55:39 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54S6vhuQ002142
- for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 10:55:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 2GBHIa4UJXy3kvJwaMsOIp36AT4ZgsNjCHuBmMnsGGw=; b=WLqBDXLaETrREYPP
- k3bqTgo4rPOev8L1bg2YP3zUKL3ZKb/ZbYk2aOckQdMkBvCDvDHTPbAK0IhR7Wjv
- 12r5wFXgoAWjAYkw74SbYE+gmbpqy29x+7rpmMgEm8WCZyASVPYsO6vxBdYVsYsg
- P4+BgsYx9M5+a/I/xK+XplgbelC1Jxf365V3AIK6OTFyZpKSRusIKbJ4S4HmWsTt
- 0gtsHWF3imOnvSr9sHhysmwT4MkLWmAvXSE2jGkGzbBBkuXpKVh9qjJXwo3/r3s7
- 5uLyOjv1bGFclk/VO6rcG/LGayxuaz3O1JC4IIzV+UlafMX9BvVP/6bYQqL4mxuj
- X3b5uQ==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46wavkur36-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 10:55:39 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-6fabb9286f9so17208476d6.1
- for <freedreno@lists.freedesktop.org>; Wed, 28 May 2025 03:55:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748429738; x=1749034538;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2GBHIa4UJXy3kvJwaMsOIp36AT4ZgsNjCHuBmMnsGGw=;
- b=D5vKGA8ovNw2VPIj2KZ2pSPwmG2v+q5eIrgA1t57O1RtGMfdiWHYzM2nup/GG3AUPu
- 7RayZ96y3Jy6WDxFdbvX6D8ZpI94qkuEpsPQGExUud6l1Msw/+51lBgM6O7Ht0nA1rH8
- 4qK9Zc3n9Ijko8wl8tntnlP/btW9p+8iuVSmSaqSDk1VDbELcrG+/Qiw2WBPW3KlogX/
- PLebpCxo4rAqwbtH1ti0ripppEVW4vLxCCD4hbt43EM+QK5G8Vk497wa/hVDpn6bh9xs
- +OI7L13+5PpAHbL+1A2hdkkNkivAEAwdHOIlxsVlc7Lrd9Nz2uupGMlkqLTy6Dw4OMyG
- xidQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVQ3SdZPi5jOM7yFwb5CSPywe2syGguV8ElCs42rFWNWXchR+RnpXyGldgoBnRoTFanJ6ieTcfn5Dg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy4LYbu6I+oE0HYfHGSzStqlSgEzuRUIOQH5gDISyI0U3FhuLt4
- wbokUtiL+KAg4NLpniXCD/WbEqdTt5rlaY4XKijnrZl75igphtH+Ky6SZuAAejWD/ayFyzcIxXC
- zB0T/zQfoVC3opghnYNC5s+kHnuG0GZKyMqiUlPcbaOp8LnxrcikilyagHPYbATxZMWVf6co=
-X-Gm-Gg: ASbGncv62jqWHVYHnHUNODZ8SFQGPy32jsfbsKHYo4jL3T8HP2VyCi8pgEWOADU19w5
- ogLp7cPbmcL0fcccU383vw0ZmwZF8Fb6kBx3Oaf7eNp3Q2nUkQdxVbrOCaGUTs1QbfyjlssP5Wo
- KSweTA6e6urbh2sq+aFn1ZlTTLPJja7h5b+XsTVfQ5iPGPnTIHrr/APxjqOz2r6JBg2ts25u7wO
- ci+U467iJM1A3PUcd4tKILyo64wB5PVXe+SQ9FnrR30GJ8RTv6uFXMO7NaXJ9xTxBvQWQ7x2LKQ
- ph+bRW1kTw39Th7vJFqkmBqrjbMLi3Lhn9TvM7f557gUWZ4EDACNHNxqxJ1yObWG0nErCx+S3KU
- =
-X-Received: by 2002:a05:6214:f04:b0:6f9:51b5:45b4 with SMTP id
- 6a1803df08f44-6fa9d01b876mr219768136d6.12.1748429737712; 
- Wed, 28 May 2025 03:55:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHHTeW9Oym5KrU5w2CrN6TuqbEYXZSVkhfiP2M2uzBIJxVS46ac7MVbRXMxqQkY4kvIlFReMQ==
-X-Received: by 2002:a05:6214:f04:b0:6f9:51b5:45b4 with SMTP id
- 6a1803df08f44-6fa9d01b876mr219767476d6.12.1748429737194; 
- Wed, 28 May 2025 03:55:37 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5532f62b2e8sm233345e87.96.2025.05.28.03.55.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 May 2025 03:55:36 -0700 (PDT)
-Date: Wed, 28 May 2025 13:55:34 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jagan Teki <jagan@amarulasolutions.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Anusha Srivatsa <asrivats@redhat.com>,
- Paul Kocialkowski <paulk@sys-base.io>, Hui Pu <Hui.Pu@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, asahi@lists.linux.dev,
- linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v4] drm/bridge: tc358767: convert to
- devm_drm_bridge_alloc() API
-Message-ID: <y262e67gi5f53objugljkpyc3lzdaqtw3b7qr4546btqo7ehu4@qp2orsf6xd7t>
-References: <20250528-drm-bridge-convert-to-alloc-api-v4-1-f04e698c9a77@bootlin.com>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE4EF10E696;
+ Wed, 28 May 2025 14:18:50 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4b6s792zx3z9swD;
+ Wed, 28 May 2025 16:18:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1748441925; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zJx6vFfwz0MYTEHthiU61dRG76ot+J1AonqUVhsuUz0=;
+ b=TJnJr1yDLKr7T7cAmicStZcRlA8JXH9j13Oh8esWSeeepjouJBcnEQdg5nD8+CN6fFcVRD
+ nyrSXhLPlMvsOWb5dmXyV57DQWLs4lCg8h21dj0UV1gLhSQ+PqoHzrs0MktM3kcTQOv3Tz
+ VBqJRrdR/oGhIs7WY3mzAjxbRQUhpSTKVqH+6d5h7HpRjGCQIeCsy3PugkdN2ZlS2D8x5G
+ Ft+kRUI2xzuE9c13mTzMYRXoC4wd517ZaJxnNNCcHX1K9j00VDmjGPj748+hdBLFjt/1kN
+ JiF1Ken79t+9APOBjhHOqbJPNBQOCon9xR24tXyu9T4k9QG4wIkinlKw8bWbog==
+Message-ID: <f46f73db6594c7cd40149e35da9f188baa5961a2.camel@mailbox.org>
+Subject: Re: [PATCH v11 00/10] Improve gpu_scheduler trace events + UAPI
+From: Philipp Stanner <phasta@mailbox.org>
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Thomas
+ =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, Abhinav
+ Kumar <quic_abhinavk@quicinc.com>,  Alex Deucher
+ <alexander.deucher@amd.com>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Danilo Krummrich <dakr@kernel.org>, David
+ Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>, Felix
+ Kuehling <Felix.Kuehling@amd.com>, Frank Binns <frank.binns@imgtec.com>,
+ Jonathan Corbet <corbet@lwn.net>, Liviu Dudau <liviu.dudau@arm.com>, Lizhi
+ Hou <lizhi.hou@amd.com>, Lucas De Marchi <lucas.demarchi@intel.com>, Lucas
+ Stach <l.stach@pengutronix.de>, Lyude Paul <lyude@redhat.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Matt Coster
+ <matt.coster@imgtec.com>, Matthew Brost <matthew.brost@intel.com>, Maxime
+ Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>, Min Ma
+ <min.ma@amd.com>,  Oded Gabbay <ogabbay@kernel.org>, Philipp Stanner
+ <phasta@kernel.org>, Qiang Yu <yuq825@gmail.com>, Rob Clark
+ <robdclark@gmail.com>, Rob Herring <robh@kernel.org>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, Steven Price
+ <steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, Thomas
+ Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,  etnaviv@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,
+ lima@lists.freedesktop.org,  linaro-mm-sig@lists.linaro.org,
+ linux-arm-msm@vger.kernel.org,  linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,  linux-media@vger.kernel.org,
+ nouveau@lists.freedesktop.org
+Date: Wed, 28 May 2025 16:18:30 +0200
+In-Reply-To: <20250526125505.2360-1-pierre-eric.pelloux-prayer@amd.com>
+References: <20250526125505.2360-1-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250528-drm-bridge-convert-to-alloc-api-v4-1-f04e698c9a77@bootlin.com>
-X-Proofpoint-GUID: Es1cPlsz1HmYbvZXAxj2JoT3MdOHcqzf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTI4MDA5NSBTYWx0ZWRfX/td32VaFJ6GN
- WPjE8dG4EZypXHpaFXqoNxeds1TLLDmo7nIIeDr06tH8jFaXw4FM9ZeyGGTVNaxWLZZJxJ6JHks
- OXx4P1wX7Hu2BDlv9quTJ8oEiDLMhPZikqRo1kKCy8IqXaV8c0VahGA5iUhZ//Il3ZVEn/6TH9P
- gp2pxj1nSoUAX71YZcBN3BjKi4rkufuWlxGBZm1Z/n2Tzbvm3dskP/dS2wKWGjLjm6Ph3VlYOnG
- X+pfZA7j+eE0EUPFpN5MuBszcMox8VwJt678Fs/G/iCGW5DD1p9hdo0EOXSDmPHOjrQp5x7dHIY
- O+1JtghKzUxNenJc41hvnqiLVSD7/mXV6dvielFCv/ygPH34aUgxfgaN9kLPQc7A9w7A2l0+pvY
- zNgiZlgXJva632JBv2bSHJhVDV5eQEKK/KwS6eTfuDWR57MHnaJQmw9kAzNINbVCG/km0PmS
-X-Authority-Analysis: v=2.4 cv=fMk53Yae c=1 sm=1 tr=0 ts=6836ebab cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=dt9VzEwgFbYA:10 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=P-IC7800AAAA:8
- a=EUspDBNiAAAA:8 a=Xa5mcPTA7YjQpW6brCsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22 a=Vxmtnl_E_bksehYqCbjh:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: Es1cPlsz1HmYbvZXAxj2JoT3MdOHcqzf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-28_05,2025-05-27_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 impostorscore=0 phishscore=0 suspectscore=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015 mlxscore=0
- mlxlogscore=999 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505160000
- definitions=main-2505280095
+X-MBO-RS-ID: 71bbfe2918ed815d7c0
+X-MBO-RS-META: 1d87cwrtfwt5qgx3mzet88gb4nq4xi15
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,113 +85,147 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 28, 2025 at 11:29:36AM +0200, Luca Ceresoli wrote:
-> This is the new API for allocating DRM bridges.
-> 
-> Converting this driver is a bit complex because the drm_bridge funcs
-> pointer differs based on the bridge mode. So the current code does:
-> 
->  * tc_probe()
->    * devm_kzalloc() private struct embedding drm_bridge
->    * call tc_probe_bridge_endpoint() which
->      * parses DT description into struct fields
->      * computes the mode
->      * calls different bridge init functions based on the mode
->        * each sets a different bridge.funcs pointer
-> 
-> The new API expects the funcs pointer to be known at alloc time, which does
-> not fit in the current code structure.
-> 
-> Solve this by splitting tc_probe_bridge_endpoint() in two functions:
-> 
->  * tc_probe_get_mode(), computing the mode without needing the private
->    driver structure
->  * tc_probe_bridge_endpoint(), only initializing the endpoints
-> 
-> So now the mode is known before allocation and so
-> is the funcs pointer, while all other operations are still happening after
-> allocation, directly into the private struct data, as they used to.
-> 
-> The new code flow is:
-> 
->  * tc_probe()
->    * tc_probe_get_mode()
->      * parses DT description
->      * computes and returns the mode
->    * based onf the mode, pick the funcs pointer
->    * devm_drm_bridfge_alloc(..., funcs)
->    * call tc_probe_bridge_endpoint() which
->      * calls different bridge init functions based on the mode
->        * these don't set the funcs pointer, it was done by _alloc
-> 
-> This solution is chosen to minimize the changes in the driver logical code
-> flow. The drawback is we now iterate twice over the endpoints during probe.
-> 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
-> devm_drm_bridge_alloc() [0] is the new API to allocate and initialize a DRM
-> bridge, and the only one supported from now on. It is the first milestone
-> towards removal of bridges from a still existing DRM pipeline without
-> use-after-free.
-> 
-> The steps in the grand plan [1] are:
-> 
->  1. ➜ add refcounting to DRM bridges (struct drm_bridge)
->  2. handle gracefully atomic updates during bridge removal
->  3. avoid DSI host drivers to have dangling pointers to DSI devices
->  4. finish the hotplug bridge work, removing the "always-disconnected"
->     connector, moving code to the core and potentially removing the
->     hotplug-bridge itself (this needs to be clarified as points 1-3 are
->     developed)
-> 
-> This series is part of step 1 of the grand plan.
-> 
-> Current tasks in step 1 of the grand plan:
-> 
->  A. ✔ add new alloc API and refcounting -> (now in drm-misc-next)
->  B. ➜ convert all bridge drivers to new API (this series)
->  C. … documentation, kunit tests (v1 under discussion)
->  D. after (B), add get/put to drm_bridge_add/remove() + attach/detech()
->  E. after (B), convert accessors; this is a large work and can be done
->     in chunks
->  F. debugfs improvements
-> 
-> More info about this series in the v2 cover [2].
-> 
-> Luca
-> 
-> [0] https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/0cc6aadd7fc1e629b715ea3d1ba537ef2da95eec
-> [1] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/t/#u
-> [2] https://lore.kernel.org/lkml/20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com/
-> ---
-> Changes in v4:
-> - Removed patches already in drm-misc-next -> only 1 left
-> - Improve commit message of patch 1
-> - Link to v3: https://lore.kernel.org/all/20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com/
-> 
-> Changes in v3:
-> - Fixed issues reported for some patches
-> - Added review tags
-> - Removed patches that have been applied
-> - Added revert for the exynos patch, applied by mistake
-> - Update cover with grand plan info and trim some of it
-> - Updated bouncing e-mail address in Cc list
-> - Link to v2: https://lore.kernel.org/lkml/20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com/
-> 
-> Changes in v2:
-> - Improved cover letter with link to commit adding devm_drm_bridge_alloc()
-> - add review tags
-> - fix bugs in zynqmp, vc4 patches
-> - fix patch 1 error code checking
-> - Link to v1: https://lore.kernel.org/r/20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com
-> ---
-> 
+On Mon, 2025-05-26 at 14:54 +0200, Pierre-Eric Pelloux-Prayer wrote:
+> Hi,
+>=20
+> The initial goal of this series was to improve the drm and amdgpu
+> trace events to be able to expose more of the inner workings of
+> the scheduler and drivers to developers via tools.
+>=20
+> Then, the series evolved to become focused only on gpu_scheduler.
+> The changes around vblank events will be part of a different
+> series, as well as the amdgpu ones.
+>=20
+> Moreover Sima suggested to make some trace events stable uAPI,
+> so tools can rely on them long term.
+>=20
+> The first patches extend and cleanup the gpu scheduler events,
+> then add a documentation entry in drm-uapi.rst.
+>=20
+> The last 2 patches are new in v8. One is based on a suggestion
+> from Tvrtko and gets rid of drm_sched_job::id. The other is a
+> cleanup of amdgpu trace events to use the fence=3D%llu:%llu format.
+>=20
+> The drm_sched_job patches don't affect gpuvis which has code to parse
+> the gpu_scheduler events but these events are not enabled.
+>=20
+> Changes since v10:
+> * fixed 2 errors reported by kernel test robot
+> * rebased on drm-misc-next
+>=20
+> Changes since v9:
+> * fixed documentation link syntax
+> * fixed typos in commit messages
+> * spelled out that these events cannot be used before
+> =C2=A0 drm_sched_job_arm has been called
+>=20
+> Changes since v8:
+> * swapped patches 8 & 9
+> * rebased on drm-next
+>=20
+> Changes since v7:
+> * uint64_t -> u64
+> * reworked dependencies tracing (Tvrtko)
+> * use common name prefix for all events (Tvrtko)
+> * dropped drm_sched_job::id (Tvrtko)
+>=20
+> Useful links:
+> - userspace tool using the updated events:
+> https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/37
+> - v8:
+> https://lists.freedesktop.org/archives/dri-devel/2025-March/496781.html
+>=20
+> Pierre-Eric Pelloux-Prayer (10):
+> =C2=A0 drm/debugfs: Output client_id in in drm_clients_info
+> =C2=A0 drm/sched: Store the drm client_id in drm_sched_fence
+> =C2=A0 drm/sched: Add device name to the drm_sched_process_job event
+> =C2=A0 drm/sched: Cleanup gpu_scheduler trace events
+> =C2=A0 drm/sched: Trace dependencies for GPU jobs
+> =C2=A0 drm/sched: Add the drm_client_id to the drm_sched_run/exec_job
+> events
+> =C2=A0 drm/sched: Cleanup event names
+> =C2=A0 drm: Get rid of drm_sched_job.id
+> =C2=A0 drm/doc: Document some tracepoints as uAPI
+> =C2=A0 drm/amdgpu: update trace format to match gpu_scheduler_trace
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
--- 
-With best wishes
-Dmitry
+Applied to drm-misc-next
+
+
+Thanks
+P.
+
+>=20
+> =C2=A0Documentation/gpu/drm-uapi.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 19 ++++
+> =C2=A0drivers/accel/amdxdna/aie2_ctx.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 8 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 32 ++----
+> =C2=A0drivers/gpu/drm/drm_debugfs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 10 +-
+> =C2=A0drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c=C2=A0 |=C2=A0=C2=A0 2 =
++-
+> =C2=A0drivers/gpu/drm/imagination/pvr_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/imagination/pvr_queue.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 5 +-
+> =C2=A0drivers/gpu/drm/imagination/pvr_queue.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/lima/lima_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/lima/lima_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
+> =C2=A0drivers/gpu/drm/lima/lima_sched.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0drivers/gpu/drm/lima/lima_trace.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
+> =C2=A0drivers/gpu/drm/msm/msm_gem_submit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 8 +-
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0drivers/gpu/drm/panfrost/panfrost_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/panthor/panthor_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0drivers/gpu/drm/panthor/panthor_mmu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/panthor/panthor_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 5 +-
+> =C2=A0drivers/gpu/drm/panthor/panthor_sched.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0.../gpu/drm/scheduler/gpu_scheduler_trace.h=C2=A0=C2=A0 | 103 +++++=
+++++++++---
+> --
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 16 ++-
+> =C2=A0drivers/gpu/drm/scheduler/sched_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 4 +-
+> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 12 +-
+> =C2=A0.../gpu/drm/scheduler/tests/mock_scheduler.c=C2=A0 |=C2=A0=C2=A0 3 =
++-
+> =C2=A0drivers/gpu/drm/v3d/v3d_submit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/xe/xe_sched_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 13 ++-
+> =C2=A032 files changed, 191 insertions(+), 101 deletions(-)
+>=20
+
