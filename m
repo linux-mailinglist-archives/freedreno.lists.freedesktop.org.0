@@ -2,123 +2,128 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D44F2AC953A
-	for <lists+freedreno@lfdr.de>; Fri, 30 May 2025 19:51:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 129D8AC965C
+	for <lists+freedreno@lfdr.de>; Fri, 30 May 2025 22:09:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A86F510E883;
-	Fri, 30 May 2025 17:51:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA9A10E22C;
+	Fri, 30 May 2025 20:09:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="W7lEtrD/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZPEUiZLX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A15F910E87A
- for <freedreno@lists.freedesktop.org>; Fri, 30 May 2025 17:51:03 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54UB0Yfi006929
- for <freedreno@lists.freedesktop.org>; Fri, 30 May 2025 17:51:03 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4404810E22C
+ for <freedreno@lists.freedesktop.org>; Fri, 30 May 2025 20:09:12 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54UJpunD009553
+ for <freedreno@lists.freedesktop.org>; Fri, 30 May 2025 20:09:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- iQNFg2RO+LuLXzx8pk9NGhNaS/HpbKAbCtu9O+9m2sY=; b=W7lEtrD/CG96Vxv3
- GiGPxu0NcoUR+0qAucrXHsDZLUtNGOWZI5hvunacTBqazvCX6E7EZ3qZFyl9FgFh
- nIr7efHmJKJU0Yz3ZxlofhBdxURc/wCcyEL74ST+mY7qQLAFm50RGfzsf43gqZJQ
- QgCLTo8SXpOxjARtnRrEYSd4LJO3dxVm2yIK8A0lrC3aa6WvVE59F0PNVprr4ZTi
- MHhaXpz7lRNni9UXYOUngJW05NddlRJxe8J31JLv0x5+QfGgjSaLbr5++SmzWLVw
- aujBuH69n+w/zjOOqv9PWxXwTtXQGVl3uO2tngANh4NUW/U5zzD07TX3tQbIObPg
- NlaejA==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46u3fqj5us-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Lr5s1xj96hvEFSJoflxlO+2R
+ 6/H8h+Vs7x/BcGRAh5w=; b=ZPEUiZLX0xEsu7cUxMGrgpsmKWPYkQKTrf6Gat7j
+ YmbnegfBHv6QaLORxcFpIpyRcT6nZ5MJoycaIyecuZpHrfEoe+VU0QOTmR4wbDBd
+ 7vQPESwRM2cTMbdrIUUpwjMyorH35adtmZqSrKsWTNLN3Q8pAV3d5JLOsHuN3I2n
+ imKgrL7VgGZva380fFwysHidSFwi+UgBVtPuTeHhTUYcKk/BtI0L8GZYTXeA9UKV
+ Wf0Q17X/UKHT7S6SM2DkB7Q+IFHA9Bcm4XLBQqeo8ouDHxkm1/KE7jnrTWOVL8ju
+ BVXPwK4YDCykilNmxlcI5EUXISLc3kLCJBFLiUw6VX5OfA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46w691n0rq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 30 May 2025 17:51:02 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-742cc20e11eso1645882b3a.1
- for <freedreno@lists.freedesktop.org>; Fri, 30 May 2025 10:51:02 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 30 May 2025 20:09:11 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-7c5d608e703so428544185a.3
+ for <freedreno@lists.freedesktop.org>; Fri, 30 May 2025 13:09:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748627461; x=1749232261;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iQNFg2RO+LuLXzx8pk9NGhNaS/HpbKAbCtu9O+9m2sY=;
- b=dvQh/rdYATZZL0LQUxG2Bp+ur8GZiNE2JBOltXzfvDT7I9+AAI+pCx8iKsCVpTpoic
- TKVAzSV2A5yM6dlWRQceWU4sjfigll2mNpUenX07gtbm43BRy3X862+uDRwdNE1ib1hE
- RLzzuE7GFCehF+P3pGZrPq60KYwDlndQ9r612winkGhdVXUR+eBWMvud7LUR02y8yiV6
- mk5ojJ5xvBBsyR7nZyTm8ZfK/EXSZ2ufR5etHrhsG9MMja5N/7KzObQDFFKM2Nv+Rei8
- EqdiETdJdPaivdZ5Ys/OLxA/9tInezy0GNlgmLw2geaW0alrxWDgVJzc0q7Q+3z7XTI/
- WTeQ==
+ d=1e100.net; s=20230601; t=1748635750; x=1749240550;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Lr5s1xj96hvEFSJoflxlO+2R6/H8h+Vs7x/BcGRAh5w=;
+ b=I+IyJTKX66ArYS8j8ycTV+4u3ik8O1rhAlQMb22ElRds47FSVfGkLvYG9dhMmci5KH
+ 6VYDu4szlbozbKKNcc/iL6GQv/mVJJN9TH+wJk/Oawr08O17sHSP3skQ00yC/o6ksGDC
+ j3Z6U5Nb02E2pxpesfmCBsPEZZUa+yJzkhQKq4K+Sllc4Nn5A7c8Zb4iMvRqlp4PbwTN
+ wPWqC8g2qUn1nPjenMrvJbcbBd+4QzW+PqRE6rFa0psf0WhKeE/1d1dfnGh66y1e6CLY
+ VAlnLPp9Mk4FUNbHkc6HZuteCMFXjefuaCfEX/b/HsdS7yYRJsjmD3X2ug94m3+ozgvk
+ FTbQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV1rrervKWz8Whr/P8PF//zD8BIrWSpW7ztCuJts0HEjX+xAD0WcfgvMjFHRWOrCXj9icCrUO88SpQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy5g4hKjjcL3U3zBMfzO6gP9EUvqw7q037wGGB5gRDRKafUPaNE
- QdaNauqOQneNNkvXGCU6R4KvPD1Vx6eLYAy5+MR7+YtW7e2PZ5vueMlNjFQV9ZyEFE4yfYB+xUi
- gy0/Q+dWT6yBqIYPwgtc/9JUCS8iwWLwsm774vrk5TVOwOGl9mjDJrhuwcvTOVvaIM21wzCw=
-X-Gm-Gg: ASbGnctYiqJHe2/DY4GLQ+MN7snfQcKIAc2KQ16WX6b/kCD2mlIl/piwX2CdGf4cnLE
- QWObYGqWN51J2mMEiLcvI0+eF5kjiNWL3ZIuIk1VsAj51+O0WZ8cNcEACuGSZYD1tPrxjsZxFNJ
- HIZD/4oolRkPWaqWUL/7Y2+hSokIHNWPSWdSoDjVE1KqBu/JEEyC+S6Hzgg4C0bh+MoqIqYFzj4
- SSJw6nuY2wFh/0cFJVUTMs8yaLCSGJQtDT9AKnBsFZbJItXOvsy+w5gn+oGhgBsx529KRh0sEsr
- TCadUPLIYoGziqvI/nY6zwTUVWz9azM70TpkUSQmJtkmtYj8s91+2ts18VQ/FD7Lw7CYKqdKc3c
- 0JSfs
-X-Received: by 2002:a05:6a00:2e04:b0:73f:e8c:1aac with SMTP id
- d2e1a72fcca58-747c1a48890mr4146207b3a.2.1748627461439; 
- Fri, 30 May 2025 10:51:01 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH0/DxhVchUsP3GUuQR+rz8hEa1EHtonG4n9LVY8g10f4TVSCbT7ApT+IY723JWbTdA27KRXA==
-X-Received: by 2002:a05:6a00:2e04:b0:73f:e8c:1aac with SMTP id
- d2e1a72fcca58-747c1a48890mr4146178b3a.2.1748627461002; 
- Fri, 30 May 2025 10:51:01 -0700 (PDT)
-Received: from [10.134.71.99] (i-global254.qualcomm.com. [199.106.103.254])
+ AJvYcCW7J4Snki7gg+9phgBKxcxACpXRfA3GQ3iztG98ynN4KY3r24inBP4Aa8FHrtA7R4o8wd42QnybDnE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxh+JD09ngg2Px0ZU4q5jBsplPlugK8BnAjfo7A1kkl0jEhZsDq
+ /COWQejLtpBAH3lCg0jQAUAn222ieB75IJqmHyyXXhPzrkl8hLOtk1LEPelMolMv6qjk8aOiMhA
+ kpDzXbmAQWgWfxwNUgMaRYBDh2q0U3tAUnPiREwmBkQjb3xuIbgjTp5fwt3rH+xGBBPInSbc=
+X-Gm-Gg: ASbGncs9tVDpsNZqf1iqM6ne+WIiDBI/IkgJ/F/+zJHeUzxs4V6k8b2Q+Up91IXMcBs
+ 59fKJZYSalpHG9r6uZcIVMUU1m3anxZL+ucntWIDXBuFXOp5YdB35gRKN6GxwntZK1jp/SK8zlY
+ oaHXBVsDKCcYChp/2hXP3dkwD9XoZSR1DxuVBxZ0GrHk63iwLlgNFXLIbz/y+7Z/Uh9kXfxCi0h
+ NqbR3rn3Lq0xPjrEKvaLnOK8yej3ghNlFd6F6bFLoEttntGeWDPVQOWA9O0i5W5//qTjTmVc+aQ
+ OfGFgtXW7u6hiF/nVYy9A9iuUF/mrz09sHIOeDvvn9ytaAaFlv+L25JCsw2SkDZEuaw+usGCZ5k
+ =
+X-Received: by 2002:a05:620a:31a2:b0:7ca:dac1:a2d9 with SMTP id
+ af79cd13be357-7d0a4c457cemr505535385a.28.1748635750278; 
+ Fri, 30 May 2025 13:09:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGxr8DtUZE4WLzMYtnDXmRGwCGjTFx8RDkihvU7FdNCuG8qkr/d30/DYFr7JUuCHRCg7VWeAQ==
+X-Received: by 2002:a05:620a:31a2:b0:7ca:dac1:a2d9 with SMTP id
+ af79cd13be357-7d0a4c457cemr505529485a.28.1748635749833; 
+ Fri, 30 May 2025 13:09:09 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747affafbedsm3439014b3a.102.2025.05.30.10.50.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 May 2025 10:51:00 -0700 (PDT)
-Message-ID: <3b5fa433-e3a3-4c77-b502-096576ecc2e3@oss.qualcomm.com>
-Date: Fri, 30 May 2025 10:50:58 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] drm/msm/dp: ST_DISPLAY_OFF hpd cleanup
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ 2adb3069b0e04-55337910df8sm812496e87.139.2025.05.30.13.09.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 May 2025 13:09:08 -0700 (PDT)
+Date: Fri, 30 May 2025 23:09:05 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Abel Vesa <abel.vesa@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Mahadevan <quic_mahap@quicinc.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Danila Tikhonov <danila@jiaxyga.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>,
- Doug Anderson <dianders@chromium.org>, Johan Hovold <johan@kernel.org>,
- Bjorn Andersson <quic_bjorande@quicinc.com>,
- Abhinav Kumar <abhinav.kumar@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org, Yongxing Mou <quic_yongmou@quicinc.com>
-References: <20250529-hpd_display_off-v1-0-ce33bac2987c@oss.qualcomm.com>
- <CAO9ioeUi59PNmRSYzyVbxcifhPKxYbtW9EuouOVXkT84SPOuwQ@mail.gmail.com>
-Content-Language: en-US
-From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-In-Reply-To: <CAO9ioeUi59PNmRSYzyVbxcifhPKxYbtW9EuouOVXkT84SPOuwQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Dl-0qfZs5F4r7iPV6OgG9ZjgpDoUdlWZ
-X-Proofpoint-ORIG-GUID: Dl-0qfZs5F4r7iPV6OgG9ZjgpDoUdlWZ
-X-Authority-Analysis: v=2.4 cv=X8FSKHTe c=1 sm=1 tr=0 ts=6839f006 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8
- a=ryANHwUXtzQLBLkujfsA:9 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTMwMDE1NyBTYWx0ZWRfXwRlgmD0YMZSd
- Y/aUc3gTFdosT94niRWz1VFSlA4/3ARzAdN0lbQYyeRRgMykh/7Fe+rqW6aOafgmPgoorZny3W0
- QuoLsKkVqecTC0E8nrAGrw0r2uDAYnaOSfUuwcFcnXfJB7d8U2SKv1dJjs9vFGi2BcMxCCzP3g+
- 28V4A7w6POZVBofPQcIHZLK1ErpmtMQSyWWYAukvU1aErXQ0UQcbQoOl5g98M6Oh6v5UNoiOH2J
- AQMu7/9bTdRDkx4CMI+94YFIw5FR1Lpo2bnK8c5rsBxsRJdyTJ0OhaNUpd1o2vFPsMvCEIrMG1Z
- DzjC5bYhJNbXdK1q7P/mUkCqOexHJVVr+J5UdYyqsWG/gKdSL8ABrgVP9GLJb1ErONhucRRR9e0
- +RM/DjoWMaXouxLUmAJD4owuNNbdrCeUe9pOPWHBDKBvT5ElEyOGJQcLgMdEqmv6AqwR084l
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, Yongxing Mou <quic_yongmou@quicinc.com>
+Subject: Re: [PATCH v2 3/5] dt-bindings: display/msm: drop
+ assigned-clock-parents for dp controller
+Message-ID: <pxo635637l45rxb5fgnmopq5jbs7lp2hd736mwrqt6jfgvw75g@kmc7rqxu6oyh>
+References: <20250530-dp_mst_bindings-v2-0-f925464d32a8@oss.qualcomm.com>
+ <20250530-dp_mst_bindings-v2-3-f925464d32a8@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250530-dp_mst_bindings-v2-3-f925464d32a8@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=WfoMa1hX c=1 sm=1 tr=0 ts=683a1067 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=MHIm7bi-knHlpQ7IpJwA:9
+ a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: iI7Zg003xLAf2OxRr7kFbfuAQN8_e0TO
+X-Proofpoint-ORIG-GUID: iI7Zg003xLAf2OxRr7kFbfuAQN8_e0TO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTMwMDE4MCBTYWx0ZWRfXy6tpbLFrPHW1
+ UiRzYSVETNpSGE82K9l+xZQEVL58x9jWcBuOMlNf8wBDDnE6dBfBl/YolPM04eWxRpA5guZ7EjE
+ nAlY3dj8VaUUV28UtTLwgLat/iGCNKjbfGqy31pJuFyRDUneOnLDmZ5Yt+saIDm+2ShafLCeo78
+ DSUHpx2AEszYGnD1INPNXjOWA9BDzj1qBohjsZjSR4VxxeGyqeXq5lcC5X1P9brdvKVVmfEVr5p
+ RSXLVh2trmK4BPdlVXfCI1CQBQnuE3EzmDQsBRqf21lNSAHpi3dym/FIAS4nV/XGb4jKzQu1X/9
+ A/L3vB+k5uwTxvCgUVB//E9WNqUmI4R23plMu+XwI2q52+2zaJwxfMPq0B9H4S5r7CtFF3kgdAi
+ 6sOYfwqyBv+5XC/TWJOAYfcFBc6h1JQYYjMvyL5Kpy2IYXule8FPQC8Yu/KzgNk6exVRsbZc
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-30_08,2025-05-30_01,2025-03-28_01
+ definitions=2025-05-30_09,2025-05-30_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 bulkscore=0 mlxlogscore=999
- mlxscore=0 clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0
- malwarescore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505160000 definitions=main-2505300157
+ lowpriorityscore=0 phishscore=0 mlxlogscore=885 priorityscore=1501 mlxscore=0
+ bulkscore=0 adultscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ clxscore=1015 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505160000
+ definitions=main-2505300180
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,80 +139,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 5/30/2025 9:05 AM, Dmitry Baryshkov wrote:
-> On Fri, 30 May 2025 at 02:15, Jessica Zhang
-> <jessica.zhang@oss.qualcomm.com> wrote:
->>
->> HPD state machine in msm dp display driver manages the state transitions
->> between various HPD events and the expected state of driver to make sure
->> both match up.
->>
->> Although originally done with the intent of managing userspace interactions
->> and interactions with compliance equipment, over period of time,
->> changes to this piece of code has become quite difficult to manage.
->>
->> Although, unwinding this logic will take some time and will be spread over
->> various changes, to start things, this series tries to get rid of the
->> ST_DISPLAY_OFF state as firstly, its really not an hpd state but a state
->> of the display overall. Coupled with this, there are quite a few checks
->> in the current code, the origins of which need to be re-visited OR are unclear
->> which seem unlikely or redundant. With DP controller on newer chipsets supporting
->> multiple streams, this has become increasingly difficult to work with.
->>
->> This series removes the redundant state checks and simplifies the logic as an
->> attempt to get rid of this ST_DISPLAY_OFF state.
->>
->> Note: This series has been tested with sa8775p and sc7180 devices with multiple
->> monitors and also multiple dongles with no noticeable regressions.
->> Both of these devices use native DP PHY though. Hence, if this series can
->> be verified on some devices with USBC-DP combo PHY with the help of the other
->> developers, that will be great.
->>
->> ---
->> Changes in v2:
+On Fri, May 30, 2025 at 10:47:26AM -0700, Jessica Zhang wrote:
+> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > 
-> The series is not marked as v2 though.
+> Current documentation of assigned-clock-parents for dp controller does not
+> describe its functionality correctly making it harder to extend it for
+> adding multiple streams.
+> 
+> Instead of fixing up the documentation, drop the assigned-clock-parents
+> along with the usages in the chipset specific MDSS yaml files.
 
-Hi Dmitry,
-
-Sorry for the confusion -- had pulled the v1 [1] using `b4 prep -F` but 
-forgot to force the revision number to v2.
-
-[1] https://patchwork.freedesktop.org/series/142010/#rev1
-
-Thanks,
-
-Jessica Zhang
+Don't we need to drop assigned-clocks too? One doesn't really make sense
+without another.
 
 > 
->> - Rebased on top of next-20250523
->> - Change atomic_enable() to return early if ST_DISCONENCT_PENDING
->>    instead of completely dropping the
->>    if (state != ST_DISPLAY_OFF && state != ST_MAINLINK_READY) check (Dmitry)
->>
->> ---
->> Abhinav Kumar (4):
->>        drm/msm/dp: remove redundant checks related to ST_DISPLAY_OFF in plug/irq_ipd handlers
->>        drm/msm/dp: Return early from atomic_enable() if ST_DISCONNECT_PENDING
->>        drm/msm/dp: replace ST_DISPLAY_OFF with power_on in msm_dp_hpd_unplug_handle()
->>        drm/msm/dp: remove ST_DISPLAY_OFF as a hpd_state
->>
->>   drivers/gpu/drm/msm/dp/dp_display.c | 19 +++----------------
->>   1 file changed, 3 insertions(+), 16 deletions(-)
->> ---
->> base-commit: daf70030586cf0279a57b58a94c32cfe901df23d
->> change-id: 20241202-hpd_display_off-6051aa510f23
->>
->> Best regards,
->> --
->> Jessica Zhang <jessica.zhang@oss.qualcomm.com>
->>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/display/msm/dp-controller.yaml   | 7 -------
+>  .../devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml         | 1 -
+>  .../devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml        | 2 --
+>  .../devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml          | 1 -
+>  .../devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml          | 2 --
+>  .../devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml          | 2 --
+>  6 files changed, 15 deletions(-)
 > 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 46a50ca4a986..a63efd8de42c 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -74,11 +74,6 @@ properties:
+>        - description: link clock source
+>        - description: pixel clock source
+>  
+> -  assigned-clock-parents:
+> -    items:
+> -      - description: phy 0 parent
+> -      - description: phy 1 parent
+> -
+>    phys:
+>      maxItems: 1
+>  
+> @@ -208,8 +203,6 @@ examples:
+>          assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+>                            <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+>  
+> -        assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
+> -
+>          phys = <&dp_phy>;
+>          phy-names = "dp";
+>  
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> index 1053b3bc4908..951e446dc828 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> @@ -393,7 +393,6 @@ examples:
+>  
+>              assigned-clocks = <&dispcc_mdss_dptx0_link_clk_src>,
+>                                <&dispcc_mdss_dptx0_pixel0_clk_src>;
+> -            assigned-clock-parents = <&mdss0_dp0_phy 0>, <&mdss0_dp0_phy 1>;
+>  
+>              phys = <&mdss0_dp0_phy>;
+>              phy-names = "dp";
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml
+> index 870144b53cec..a1f5a6bd328e 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml
+> @@ -216,8 +216,6 @@ examples:
+>  
+>              assigned-clocks = <&dispcc_disp_cc_mdss_dptx0_link_clk_src>,
+>                                <&dispcc_disp_cc_mdss_dptx0_pixel0_clk_src>;
+> -            assigned-clock-parents = <&usb_dp_qmpphy_QMP_USB43DP_DP_LINK_CLK>,
+> -                                     <&usb_dp_qmpphy_QMP_USB43DP_DP_VCO_DIV_CLK>;
+>  
+>              phys = <&usb_dp_qmpphy QMP_USB43DP_DP_PHY>;
+>              phy-names = "dp";
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
+> index 7a0555b15ddf..f737a8481acb 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
+> @@ -269,7 +269,6 @@ examples:
+>                            "ctrl_link_iface", "stream_pixel";
+>              assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+>                                <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+> -            assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
+>              phys = <&dp_phy>;
+>              phy-names = "dp";
+>  
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
+> index 2947f27e0585..7842ef274258 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
+> @@ -298,7 +298,6 @@ examples:
+>                            "stream_pixel";
+>              assigned-clocks = <&dispcc DISP_CC_MDSS_EDP_LINK_CLK_SRC>,
+>                                <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK_SRC>;
+> -            assigned-clock-parents = <&mdss_edp_phy 0>, <&mdss_edp_phy 1>;
+>  
+>              phys = <&mdss_edp_phy>;
+>              phy-names = "dp";
+> @@ -389,7 +388,6 @@ examples:
+>                            "stream_pixel";
+>              assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+>                                <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+> -            assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
+>              phys = <&dp_phy>;
+>              phy-names = "dp";
+>  
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml
+> index 13c5d5ffabde..3cea87def9f8 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml
+> @@ -401,8 +401,6 @@ examples:
+>  
+>              assigned-clocks = <&dispcc_mdss_dp_link_clk_src>,
+>                                <&dispcc_mdss_dp_pixel_clk_src>;
+> -            assigned-clock-parents = <&dp_phy 0>,
+> -                                     <&dp_phy 1>;
+>  
+>              operating-points-v2 = <&dp_opp_table>;
+>              power-domains = <&rpmhpd RPMHPD_CX>;
 > 
-> --
-> With best wishes
+> -- 
+> 2.49.0
 > 
-> Dmitry
 
+-- 
+With best wishes
+Dmitry
