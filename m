@@ -2,57 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10B24ACA321
-	for <lists+freedreno@lfdr.de>; Mon,  2 Jun 2025 01:43:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F0FBACA333
+	for <lists+freedreno@lfdr.de>; Mon,  2 Jun 2025 01:44:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C73B10E497;
-	Sun,  1 Jun 2025 23:43:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6820B10E49E;
+	Sun,  1 Jun 2025 23:44:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="njxgMLOb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b/X/6KgR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F1C310E496;
- Sun,  1 Jun 2025 23:43:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CCE610E49C;
+ Sun,  1 Jun 2025 23:44:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 9AACDA4FD0E;
- Sun,  1 Jun 2025 23:43:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 529DAC4CEE7;
- Sun,  1 Jun 2025 23:43:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6AEC54435A;
+ Sun,  1 Jun 2025 23:44:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B028FC4CEE7;
+ Sun,  1 Jun 2025 23:44:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748821409;
- bh=ZxSPVteq7ACn+gg72uhJIrZaWwBTeDdrS4czSTlyTbw=;
+ s=k20201202; t=1748821454;
+ bh=vWueuddw2ydzxwjiDWJvrd/T8za+hvHT6C4L+PEDBFo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=njxgMLOb3d0wMTSoDExHfPC31cgqF/1yt0PueGdy60HZVQgdfrVBvXmi1rtQ5g02C
- PpsD+L51pRXs+KwrJUR6zWhEQZLvAAxD1zIyyT0MnBpRcq/1+qxyHeHisJj68yMxZF
- 4riHwjH4R28/ZRaWhSMAM5BVTvHS8AOxCDiZy9RlSyl8g82eSR5fmS982+rx6JyqJl
- zZcOreJ5V0vlGXb+e+mRfiN9WzQ6H0/BA+L9vqwpSUGHPribe/GNhjrYemb4JejxhH
- UO1lpRL7S4tna2OCXL2JG2r1kTDDwZoFE0dTJZJRHIncspbvd4RtwzQfmGId9NfGhq
- vJX2+syBYWyGw==
+ b=b/X/6KgRuN0Y6HRwhlahVuBTOLEFShjIsqHBapwqd4f9bDx7k0o692pAiYG3RkRKZ
+ n9zu/eKWDnmA6pdwp3NLql33l9hKmO45g7wphUxCpzL/VP7JGsP151/x+OPfejHA+F
+ c8IOofpgeVfSpV9hCm0GAOx1hfzRSj1S1GIFr3HTuG7fSFFLhUpbnX4H6JclxxwqzS
+ OsFKcYuQFY0YTV5WTkhRwKJRoWSAchry6dmDWh67mrGM3w3+nRxL+q3sxZiOo+WXfN
+ VDBVNEQQbYsH0zPmXJDAlwCtKsvM1uBn1hoLHpvK6ydE6An8OvwMMtIoQ0fywebaau
+ ZBDH2B+4Y25vg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
 Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Sasha Levin <sashal@kernel.org>, robdclark@gmail.com,
  quic_abhinavk@quicinc.com, lumag@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, quic_jesszhan@quicinc.com, jun.nie@linaro.org,
- marijn.suijten@somainline.org, jonathan@marek.ca,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 27/43] drm/msm/dpu: don't select single flush for
- active CTL blocks
-Date: Sun,  1 Jun 2025 19:42:07 -0400
-Message-Id: <20250601234224.3517599-27-sashal@kernel.org>
+ simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.10 06/34] drm/msm/hdmi: add runtime PM calls to DDC
+ transfer function
+Date: Sun,  1 Jun 2025 19:43:30 -0400
+Message-Id: <20250601234359.3518595-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250601234224.3517599-1-sashal@kernel.org>
-References: <20250601234224.3517599-1-sashal@kernel.org>
+In-Reply-To: <20250601234359.3518595-1-sashal@kernel.org>
+References: <20250601234359.3518595-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.184
+X-stable-base: Linux 5.10.237
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,70 +70,104 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-[ Upstream commit e93eee524bb78f3ee4b78654d0083382f98b3d23 ]
+[ Upstream commit 531b4e2c206e5f7dead04d9da84dfa693ac57481 ]
 
-In case of ACTIVE CTLs, a single CTL is being used for flushing all INTF
-blocks. Don't skip programming the CTL on those targets.
+We must be sure that the HDMI controller is powered on, while performing
+the DDC transfer. Add corresponding runtime PM calls to
+msm_hdmi_i2c_xfer().
 
-Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Patchwork: https://patchwork.freedesktop.org/patch/641585/
-Link: https://lore.kernel.org/r/20250307-dpu-active-ctl-v3-5-5d20655f10ca@linaro.org
+Patchwork: https://patchwork.freedesktop.org/patch/651727/
+Link: https://lore.kernel.org/r/20250505-fd-hdmi-hpd-v5-8-48541f76318c@oss.qualcomm.com
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-**YES** This commit should be backported to stable kernel trees. ##
-Analysis: **1. Clear Bug Fix Nature:** The commit fixes a functional bug
-where CTL programming was being incorrectly skipped on ACTIVE CTL
-configurations. The commit message explicitly states "Don't skip
-programming the CTL on those targets" indicating incorrect behavior was
-occurring. **2. Small and Contained Change:** The change is minimal - it
-modifies only the `dpu_encoder_phys_vid_needs_single_flush()` function
-by adding a single condition check: ```c - return phys_enc->split_role
-!= ENC_ROLE_SOLO; + return !(phys_enc->hw_ctl->caps->features &
-BIT(DPU_CTL_ACTIVE_CFG)) && + phys_enc->split_role != ENC_ROLE_SOLO; ```
-**3. Hardware-Specific Fix:** The fix addresses a specific hardware
-configuration issue for devices with `DPU_CTL_ACTIVE_CFG` feature. From
-examining the kernel code, this affects multiple SoCs including SM8150,
-SM8250, SM6150, SC7180, and others - making it a widely impacting fix.
-**4. Clear Functional Impact:** - **Before**: On ACTIVE CTL targets, the
-function incorrectly returned true for split configurations, causing CTL
-programming to be skipped - **After**: On ACTIVE CTL targets, it returns
-false, ensuring proper CTL programming occurs - **Effect**: Ensures
-display pipeline functions correctly on affected hardware **5. Tested
-Change:** The commit includes "Tested-by: Neil Armstrong
-<neil.armstrong@linaro.org> # on SM8550-QRD" indicating real hardware
-testing was performed. **6. Matches Successful Backport Pattern:** This
-commit closely matches the pattern of Similar Commits #1, #2, and #4
-(all marked YES): - Small, targeted fix (line 377 in
-`dpu_encoder_phys_vid.c:377`) - Addresses incorrect hardware behavior -
-Has clear before/after functional difference - Affects critical graphics
-subsystem functionality **7. Risk Assessment:** - **Low regression
-risk**: The change only affects the specific condition logic -
-**Targeted scope**: Only impacts ACTIVE CTL configurations -
-**Conservative fix**: Makes the logic more restrictive (requires both
-conditions to skip programming) This is a clear hardware bug fix that
-prevents display issues on affected SoCs and follows the stable tree
-criteria for important bugfixes with minimal regression risk.
+**YES** This commit should be backported to stable kernel trees. Here's
+my detailed analysis: ## Bug Fix Analysis This commit addresses a
+**critical power management bug** in the MSM HDMI DDC (Display Data
+Channel) implementation. The issue is that DDC transfers can occur when
+the HDMI controller is not properly powered, leading to potential
+hardware access failures or system instability. ## Code Changes Analysis
+The changes in `drivers/gpu/drm/msm/hdmi/hdmi_i2c.c` are **minimal and
+well-contained**: 1. **Added runtime PM calls around DDC operations**: -
+`pm_runtime_resume_and_get()` at function start (line ~110) -
+`pm_runtime_put()` in success path (line ~206) - `pm_runtime_put()` in
+error path (line ~224) 2. **Fixed error handling flow**: - Changed
+direct returns to proper `goto fail` to ensure PM put operations - Lines
+113-114 and 172 now use `goto fail` instead of direct returns ## Risk
+Assessment - LOW RISK **Minimal scope**: Only affects the
+`msm_hdmi_i2c_xfer()` function, which is the DDC transfer entry point.
+**Consistent with existing patterns**: The kernel tree analysis shows
+runtime PM is already used extensively in this driver: -
+`hdmi_bridge.c`: Uses `pm_runtime_get_sync()` and `pm_runtime_put()` -
+`hdmi_hpd.c`: Uses runtime PM in 4 locations for HPD operations **No
+architectural changes**: This follows the existing runtime PM pattern
+established in commit 6ed9ed484d04 from 2017. ## Comparison with Similar
+Commits This matches the characteristics of **Similar Commit #1**
+(marked YES for backport): - Fixes a resource management bug (runtime PM
+vs devres helper) - Small, contained change - Improves driver robustness
+- Follows existing patterns The commit is **unlike** the rejected
+commits (#2-#5) which were: - Code cleanups/refactoring - API
+modernization - Feature additions - Non-critical improvements ##
+Critical System Impact DDC is essential for HDMI functionality - it's
+used for: - Reading display EDID data - Monitor detection - Display
+capability negotiation Without proper power management, DDC operations
+could fail intermittently, causing display detection issues or system
+hangs when accessing unpowered hardware. ## Conclusion This is a **low-
+risk, high-value bugfix** that ensures hardware is properly powered
+during DDC operations. It follows established driver patterns, has
+minimal scope, and fixes a potentially serious power management issue
+that could affect display functionality.
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/hdmi/hdmi_i2c.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index 7c58e9ba71b77..7ddb4df885b0f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -360,7 +360,8 @@ static void dpu_encoder_phys_vid_underrun_irq(void *arg, int irq_idx)
- static bool dpu_encoder_phys_vid_needs_single_flush(
- 		struct dpu_encoder_phys *phys_enc)
- {
--	return phys_enc->split_role != ENC_ROLE_SOLO;
-+	return !(phys_enc->hw_ctl->caps->features & BIT(DPU_CTL_ACTIVE_CFG)) &&
-+		phys_enc->split_role != ENC_ROLE_SOLO;
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
+index de182c0048434..9c78c6c528bea 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
+@@ -107,11 +107,15 @@ static int msm_hdmi_i2c_xfer(struct i2c_adapter *i2c,
+ 	if (num == 0)
+ 		return num;
+ 
++	ret = pm_runtime_resume_and_get(&hdmi->pdev->dev);
++	if (ret)
++		return ret;
++
+ 	init_ddc(hdmi_i2c);
+ 
+ 	ret = ddc_clear_irq(hdmi_i2c);
+ 	if (ret)
+-		return ret;
++		goto fail;
+ 
+ 	for (i = 0; i < num; i++) {
+ 		struct i2c_msg *p = &msgs[i];
+@@ -169,7 +173,7 @@ static int msm_hdmi_i2c_xfer(struct i2c_adapter *i2c,
+ 				hdmi_read(hdmi, REG_HDMI_DDC_SW_STATUS),
+ 				hdmi_read(hdmi, REG_HDMI_DDC_HW_STATUS),
+ 				hdmi_read(hdmi, REG_HDMI_DDC_INT_CTRL));
+-		return ret;
++		goto fail;
+ 	}
+ 
+ 	ddc_status = hdmi_read(hdmi, REG_HDMI_DDC_SW_STATUS);
+@@ -202,7 +206,13 @@ static int msm_hdmi_i2c_xfer(struct i2c_adapter *i2c,
+ 		}
+ 	}
+ 
++	pm_runtime_put(&hdmi->pdev->dev);
++
+ 	return i;
++
++fail:
++	pm_runtime_put(&hdmi->pdev->dev);
++	return ret;
  }
  
- static void dpu_encoder_phys_vid_mode_set(
+ static u32 msm_hdmi_i2c_func(struct i2c_adapter *adapter)
 -- 
 2.39.5
 
