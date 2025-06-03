@@ -2,125 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84562ACBBEC
-	for <lists+freedreno@lfdr.de>; Mon,  2 Jun 2025 21:47:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59CD4ACC0CC
+	for <lists+freedreno@lfdr.de>; Tue,  3 Jun 2025 09:10:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA01C10E0B4;
-	Mon,  2 Jun 2025 19:47:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3721310E692;
+	Tue,  3 Jun 2025 07:10:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HBdzeICx";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mhVj05ZE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CCD310E0B4
- for <freedreno@lists.freedesktop.org>; Mon,  2 Jun 2025 19:47:12 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 552HJeDe011756
- for <freedreno@lists.freedesktop.org>; Mon, 2 Jun 2025 19:47:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- pv4Gvylo8FY7mjR4b9XsVtGARKI/SKacbF8jlSXtk5Q=; b=HBdzeICxNFwLE18Y
- C2Dg/v1rBYEUP65eqI6/FaYeqN/Ct0cinNTX1DiNk8746RkYf3qwc60F1L6Xq6FN
- Sc27EgduGLIQUcF6RuWGpDGKtwOw1s7MyxyXLKjGDJ1uz24utW+u9Ym0PXDgZMGo
- hNsvdLm8kWcDYwShwLPTsiSFKllzyssaU8CZO2r7oVXPCMZbDibSngGPL72Gnw8m
- qRPc1tg2Dy8LaS/2yQOQUYSTdCfdoorX8Pj8h9je9YWc1zJxRp7yFAam/6Ayn4ra
- LFMx8ZbsePRhPg73AIC17G4G+ZMMy8uv94974YqwHVAP/27uD4KOYbi4EkfJCfgj
- QOGmpg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 471g8t0ccv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 02 Jun 2025 19:47:11 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7c791987cf6so932874585a.0
- for <freedreno@lists.freedesktop.org>; Mon, 02 Jun 2025 12:47:11 -0700 (PDT)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12A4510E676
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Jun 2025 07:10:27 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-74267c68c11so4047890b3a.0
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Jun 2025 00:10:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1748934627; x=1749539427; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0m54R8IX+y6quCUR+mEbhH4CuXoT//OoarEhcq2jl1Q=;
+ b=mhVj05ZE+1UHNYAFI4bWCVTCeapN8yVXf+zkNmFxXH7DOyrqHB8gLb3ZTRlEYxmts0
+ pOEE/MSu660D4ZlYZ/aifW/fS7+z3SHa+azc1+v0pKtNrNEIq+gwDUtbBcYcjko8s5Q0
+ U4KmEuwF3Z/YDX0jX036BXOwuE31L9ydSQBMBLQWmSm1EfGZ6CadP/6oIv9lsYtaMWFn
+ 211N7EQ5GepJ0pcLVRAKUnDbAet/KPGz3gd2OgyNXr9gKCcgYLCh8tsUmidjaMrQgZCR
+ spL+kFLAQ/7E/pWAxMuHPDmexBkZb0lJ2YgMDe8adPHkq3pe147QAiTNDP4fVSiTRO3d
+ 9Vzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748893630; x=1749498430;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pv4Gvylo8FY7mjR4b9XsVtGARKI/SKacbF8jlSXtk5Q=;
- b=dqG0awaqKsnXW7SPD6w9ejSFk6aw3a6eOnoqgy4WQk8dYaWjvYYnv0M4V6RFwrpKFa
- XxJZAbBIPPvWpa6AGG/xRYSDHaUByJyr/YN2tjqrLYiEeUliVRmcbS7cuJuHPjs3z11Q
- 3hehvOLwyEH3ffsH2x9EM+XSyNQi/GjKkmKe1q/oTXwPJq6lA+UnKP/OzH6oWu1Y2Aq5
- iEVxBdlZR5lBLKswAMYGgESxHEmsj1eorGEWCVw+SYQN29YanaUA4vo2W/7pNGFFQ9cP
- 5spiGaSdjxwLuDM1cQ4uMuTHmpMFLg3ypECZen5md65nko2relrT/lq6dSppMv6YcmTQ
- Oobg==
+ d=1e100.net; s=20230601; t=1748934627; x=1749539427;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0m54R8IX+y6quCUR+mEbhH4CuXoT//OoarEhcq2jl1Q=;
+ b=rZJZFbfeQvbw4I0JEXK33ok467/0AM38FhbvJszZw2Ftcifd8eQdb0hq4+KvVDMXGK
+ RytfHaIDkE0eClq0KFV4DXikjBwItr6EWAXwTwjrEELw8u4J58yfTrRo+jHsgA93TIk0
+ hasCeHy0wzmMuM3aFhfnp95km7S03BgnDe80DI9tFJ+d0x0APT0fVUEwOc81FrTUqJ5i
+ 5NQfCwNIER3v1cOca/9G56ZBIFKkWrlgLjEBQsnesP9T7rSMog2iIVcDhfltP8KaxLvR
+ 378QeXc5igBD2gqimCBImHdA70EGfbLJWbYU1Q+VlWCja4h90SIKT+mdyjBXBacjfNur
+ Df7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWg7QH0XJcDPeCM0/YjnFMzBHCxuIafSDb7h5LSgDcD2MXtGluwRCjzDhXk9LoB6IMlOR4pFuNQ5gM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwBcxG/LNUAv5V4MehlUagMuleAfypTfXfW99Wx96oJvAv242Op
- Wv8gttR9nz+B0YOe5Wi0vVSI/UkpJU0Km/uuFZfW54Tih2vnHQ+4Gcrs3haSkR0EWGmLPcZPQEb
- d4tzAvL8WZFWv7gjBNHUjSpxNiE+5hP79NHtNvLAD6NEGQZhjm0PlU1fbZORXWUo9M7Y37NM=
-X-Gm-Gg: ASbGncvL8/6R/wBwnzlV4TDx691huR2a66BPAwu5b+VW+L0xdf1A79t4F3+RPLT+t53
- 0UIYVE6wehPbB5PouKAdgEqycg6m28166yN+nOzAncfskD2SNq8UveM+xMu0kwZPkyMkeucjb2x
- cPQb4PiT3YtAZ6kkSMVIqAF5x+Rer3og51Qre5DeSyGQwGmAgJZMDI+FR3eCXeLAD9R3o/uYacR
- MDHBexBVFA4M2+w068yV3OEuLwmWayfnpOSIR9geMx47T2XaxBzIwRF49yrezGKaGEpQflUnCsZ
- /9wEleaNG0DIMo3NZFD3v77e4IfGnQNWN0ax8N2hpDt0lk/OamFhHJXcR1q6
-X-Received: by 2002:a05:620a:600c:b0:7ce:be04:f838 with SMTP id
- af79cd13be357-7d0eac6350amr1384506185a.18.1748893630135; 
- Mon, 02 Jun 2025 12:47:10 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEny2RN/ronKKFErzwQjb5Z23+FdZnMifLiGPoWjy39vEUqYNoTBvVufGWzNLvyNJaCwLvblw==
-X-Received: by 2002:a05:620a:600c:b0:7ce:be04:f838 with SMTP id
- af79cd13be357-7d0eac6350amr1384503185a.18.1748893629760; 
- Mon, 02 Jun 2025 12:47:09 -0700 (PDT)
-Received: from [127.0.0.1] (85-76-98-209-nat.elisa-mobile.fi. [85.76.98.209])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-32a85bd2790sm15451371fa.102.2025.06.02.12.47.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 12:47:08 -0700 (PDT)
-Date: Mon, 02 Jun 2025 20:47:05 +0100
-From: OSS <dmitry.baryshkov@oss.qualcomm.com>
-To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>,
- Doug Anderson <dianders@chromium.org>, Johan Hovold <johan@kernel.org>,
- Bjorn Andersson <quic_bjorande@quicinc.com>,
- Abhinav Kumar <abhinav.kumar@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org, Yongxing Mou <quic_yongmou@quicinc.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_2/4=5D_drm/msm/dp=3A_Return_early_fr?=
- =?US-ASCII?Q?om_atomic=5Fenable=28=29_if_ST=5FDISCONNECT=5FPENDING?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <3f386e7f-5e22-4c67-bb3c-202f13c94d56@oss.qualcomm.com>
-References: <20250529-hpd_display_off-v1-0-ce33bac2987c@oss.qualcomm.com>
- <20250529-hpd_display_off-v1-2-ce33bac2987c@oss.qualcomm.com>
- <CAO9ioeUPJm1MbqAVJfcQSTAmvY3-TmvtZ+=Js1mZ53JFYHoUhw@mail.gmail.com>
- <3f386e7f-5e22-4c67-bb3c-202f13c94d56@oss.qualcomm.com>
-Message-ID: <41C69F0A-605F-4B87-89EE-FE86A8DC71F0@oss.qualcomm.com>
+ AJvYcCV75edpOeouiEha17Xiq2aXVy43rno2UkBKprZ4/yIzrE9gG6uhAYT5Mp0vwDC/Ptb79KF+SDKX0l8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwXhbKs22ztw0haed2oKExltQlpwHMbj/SZwSGVyBlcM4J/BiZd
+ PMCvEkzGneSp2d6Oo+I2ARIpJOUNLEgMWs5c/bIBXH9DaBv9zEPfjGOdoVH1moB7ZSA=
+X-Gm-Gg: ASbGncuhHwozlEnrTflU5g+G7kP5QMFxj2M/4c6hFXl1B46dgam3qKkcucFfHVNZJPR
+ JUouOYqCFIyr/OqijqZ7m9sDNNiexfitT4Duf5E10Z8mmGWzXw+OoTcEd3/1Nmi0I4zIrcYFpSN
+ clMWJqG2YkWL7ej9X5pDk6Jss4o6oM8lB/kwIkMzWaNKpMZ9eY2wNGZ72m5O7e1JIiLtj8c074j
+ rj2zIcWf2FfbFR286fdo7rJSIDqUciJxb7w2wcdKGl6gpD7wIRaHM0GZtCUK/OcprA6A9yideTH
+ hDhVFOXeotmxDZZvDDgBmwj/Yc2HA8EJn8aG++R5Xz5XhgglGW2G5b0RnO+2
+X-Google-Smtp-Source: AGHT+IHr0rlqgTTJOkO93eB9Nmg3a6zrIXONqESRb9M+N3XsHMe2tT0pO0huZ3VhsibRyAZPY6bdOQ==
+X-Received: by 2002:a05:6a00:3a28:b0:746:2591:e531 with SMTP id
+ d2e1a72fcca58-747c1bc8c33mr20934583b3a.12.1748934626983; 
+ Tue, 03 Jun 2025 00:10:26 -0700 (PDT)
+Received: from [127.0.1.1] ([104.234.225.11]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-747afed360fsm8746481b3a.81.2025.06.03.00.10.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Jun 2025 00:10:26 -0700 (PDT)
+From: Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH v11 00/12] drm/msm/dpu: Support quad pipe with dual-interface
+Date: Tue, 03 Jun 2025 15:09:59 +0800
+Message-Id: <20250603-v6-15-quad-pipe-upstream-v11-0-c3af7190613d@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=eJQTjGp1 c=1 sm=1 tr=0 ts=683dffbf cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=kLrF3Jeiykx/AYV6VMbcyQ==:17
- a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=puQWGBksFvoA:10 a=EUspDBNiAAAA:8
- a=COk6AnOGAAAA:8 a=WDWld9wBFKh9IeGoHG4A:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: dUwOwF8YkNWPLFZ2igMD3aAYPlmlMjkx
-X-Proofpoint-GUID: dUwOwF8YkNWPLFZ2igMD3aAYPlmlMjkx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjAyMDE2MiBTYWx0ZWRfX4vuQ7+IBKJUy
- 9e6M7raHdIJH8B+7I9zUGZojksBKXFvEqbhR5lBS7V8rjm+ZAGGO+CfKJUifA2KQR2GdYusfe8B
- g6kSatjJB/jQZqbJ1Q2tC1ewILsn5g4nrisxqJgN3qQ26ftUJ7XFLA+mOKfhs219dliAp18QVWE
- IPDr8I4h4lxKain42v33Z0z7PBH0HGY9k9QOd2u4l1Mn0Fmj9ek2mpM510EMJ2UM8dvkVItYqZF
- e7zI2ohhMmE1knk+xyzIJ3BuTI6pYx4aCXLRe0I9ZAxXrZ6hWRGkN52rPptvphM7tfAUKo6TX09
- OV6K9hpcIvYOeisQiqZ2vOi78tZApLlqkgL89Vv/xi8r2tToVKFtxPn5E5kvAYBqL/7vro63TXM
- f5Khv7bSDuAqz4stzBg0L3JcsjvuSTQX8TXzhZtj8xmo1An6RXGjmBD1NdA3+LPQBm9AoR5n
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-02_07,2025-06-02_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 bulkscore=0 mlxlogscore=999 impostorscore=0 spamscore=0
- phishscore=0 mlxscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506020162
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMefPmgC/42NQQ6CMBBFr0K6dkzbUEBX3sOwaOgUJlFap0A0p
+ He3cgKX/+X/93eRkAmTuFa7YNwoUZhLUOpUiWGy84hArgChpTbS6Aa2BpSB12odRIoIa0wLo32
+ Cbxun5eAu7WBFmUdGT+/Dfe9LnigtgT/H1abkD/9hLU2QYDy62nddcde3B82WwznwKPqc8xcIj
+ b+8xAAAAA==
+X-Change-ID: 20250526-v6-15-quad-pipe-upstream-f76d20cd97ca
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jun Nie <jun.nie@linaro.org>, Dmitry Baryshkov <lumag@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1748934620; l=6722;
+ i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
+ bh=MhsHVwN8mmWld6SnMRl8WxdB0DJsEvyajCwsSx8ffxg=;
+ b=c5EaIzqDJHdjNADFKTky5ful3B10LAmR8ZrYkpWk7kPp6qBGanr4pul1GqPhX9dnpN/VqQvbQ
+ SuzhouUw32gDmEEpzbvO4uMeTQglKz1puTqXBJQJTqb1A9dnwe2aDsp
+X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
+ pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,99 +105,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+2 or more SSPPs and dual-DSI interface are need for super wide panel.
+And 4 DSC are preferred for power optimal in this case due to width
+limitation of SSPP and MDP clock rate constrain. This patch set
+extends number of pipes to 4 and revise related mixer blending logic
+to support quad pipe. All these changes depends on the virtual plane
+feature to split a super wide drm plane horizontally into 2 or more sub
+clip. Thus DMA of multiple SSPPs can share the effort of fetching the
+whole drm plane.
 
+The first pipe pair co-work with the first mixer pair to cover the left
+half of screen and 2nd pair of pipes and mixers are for the right half
+of screen. If a plane is only for the right half of screen, only one
+or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
+assinged for invalid pipe.
 
-On 2 June 2025 18:54:12 BST, Jessica Zhang <jessica=2Ezhang@oss=2Equalcomm=
-=2Ecom> wrote:
->
->
->On 5/30/2025 9:04 AM, Dmitry Baryshkov wrote:
->> On Fri, 30 May 2025 at 02:15, Jessica Zhang
->> <jessica=2Ezhang@oss=2Equalcomm=2Ecom> wrote:
->>>=20
->>> From: Abhinav Kumar <quic_abhinavk@quicinc=2Ecom>
->>>=20
->>> The checks in msm_dp_bridge_atomic_enable() for making sure that we ar=
-e in
->>> ST_DISPLAY_OFF OR ST_MAINLINK_READY seem redundant=2E
->>>=20
->>> DRM fwk shall not issue any commits if state is not ST_MAINLINK_READY =
-as
->>> msm_dp's atomic_check callback returns a failure if state is not
->>> ST_MAINLINK_READY=2E
->>=20
->> What if the state changes between atomic_check() and atomic_enable()?
->> There are no locks, cable unplugging is async, so it's perfectly
->> possible=2E
->>=20
->>>=20
->>> For the ST_DISPLAY_OFF check, its mainly to guard against a scenario t=
-hat
->>> there is an atomic_enable() without a prior atomic_disable() which onc=
-e
->>> again should not really happen=2E
->>>=20
->>> Since it's still possible for the state machine to transition to
->>> ST_DISCONNECT_PENDING between atomic_check() and atomic_commit(), chan=
-ge
->>> this check to return early if hpd_state is ST_DISCONNECT_PENDING=2E
->>=20
->> Can we really, please, drop the state machine? I had other plans for
->> the next week, but maybe I should just do it, so that by the end of
->> 6=2E17 cycle we can have a merged, stable and working solution? This
->> topic has been lingering for months without any actual change=2E
->
->FWIW, I'm currently working on the state machine rework by the middle of =
-next week=2E
->
->I'm anticipating that the rework itself will take some time to get merged=
-, so didn't want MST to get delayed more by this series=2E
+For those panel that does not require quad-pipe, only 1 or 2 pipes in
+the 1st pipe pair will be used. There is no concept of right half of
+screen.
 
-Yes, that's fine=2E I really want HPD to be merged before MST=2E And if I =
-wasn't explicit, the state machine must be gone=2E Link training should hap=
-pen from atomic_enable, detect should be reporting whether there is an actu=
-al display plugged, etc=2E  Current code must be dropped=2E
+For legacy non virtual plane mode, the first 1 or 2 pipes are used for
+the single SSPP and its multi-rect mode.
 
+Changes in v11:
+- Change function name from dpu_plane_check_single_pipe to
+  dpu_plane_get_single_pipe.
+- Abstract SSPP assignment in stage into a function.
+- Link to v10: https://lore.kernel.org/r/20250526-v6-15-quad-pipe-upstream-v10-0-5fed4f8897c4@linaro.org
 
->
->Thanks,
->
->Jessica Zhang
->
->>=20
->>>=20
->>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc=2Ecom>
->>> Signed-off-by: Jessica Zhang <jessica=2Ezhang@oss=2Equalcomm=2Ecom>
->>> ---
->>>   drivers/gpu/drm/msm/dp/dp_display=2Ec | 2 +-
->>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>=20
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_display=2Ec b/drivers/gpu/drm/m=
-sm/dp/dp_display=2Ec
->>> index 1d7cda62d5fb=2E=2Ef2820f06f5dc 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_display=2Ec
->>> +++ b/drivers/gpu/drm/msm/dp/dp_display=2Ec
->>> @@ -1512,7 +1512,7 @@ void msm_dp_bridge_atomic_enable(struct drm_brid=
-ge *drm_bridge,
->>>          }
->>>=20
->>>          hpd_state =3D msm_dp_display->hpd_state;
->>> -       if (hpd_state !=3D ST_DISPLAY_OFF && hpd_state !=3D ST_MAINLIN=
-K_READY) {
->>> +       if (hpd_state =3D=3D ST_DISCONNECT_PENDING) {
->>=20
->>=20
->>=20
->>>                  mutex_unlock(&msm_dp_display->event_mutex);
->>>                  return;
->>>          }
->>>=20
->>> --
->>> 2=2E49=2E0
->>>=20
->>=20
->>=20
->
+Changes in v10:
+- Drop changes in drm helper side, because num_lm == 0 does not lead to
+  any issue in the first call to dpu_plane_atomic_check_nosspp() with
+  latest repo. It is initialized properly right after the call in
+  drm_atomic_helper_check_planes(), thus the later plane splitting works
+  as expected.
+- Rebase to latest msm-next branch.
+- Fix PIPES_PER_STAGE to PIPES_PER_PLANE where handling all pipes, instead
+  of stages.
+- Link to v9: https://lore.kernel.org/r/20250506-quad-pipe-upstream-v9-0-f7b273a8cc80@linaro.org
 
-With best wishes,=20
-Dmitry
+Changes in v9:
+- Rebase to latest mainline and drop 3 patches as mainline already cover
+  the logic.
+  "Do not fix number of DSC"
+  "configure DSC per number in use"
+  "switch RM to use crtc_id rather than enc_id for allocation"
+- Add a patch to check crtc before checking plane in drm framework.
+- Add a patch to use dedicated WB number in an encoder to avoid regression.
+- Revise the condition to decide quad-pipe topology.
+- Link to v8: https://lore.kernel.org/r/20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org
+
+Changes in v8:
+- Fix looping pipes of a plane in _dpu_plane_color_fill()
+- Improve pipe assignment with deleting pipes loop in stage.
+- Define PIPES_PER_PLANE properly when it appears fisrt.
+- rename lms_in_pair to lms_in_stage to avoid confusion.
+- Add review tags.
+- Link to v7: https://lore.kernel.org/r/20250226-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v7-0-8d5f5f426eb2@linaro.org
+
+Changes in v7:
+- Improve pipe assignment to avoid point to invalid memory.
+- Define STAGES_PER_PLANE as 2 only when quad-pipe is introduced.
+- Polish LM number when blending pipes with min() and pull up to caller func.
+- Add review tags.
+- Link to v6: https://lore.kernel.org/r/20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org
+
+Changes in v6:
+- Replace LM number with PP number to calculate PP number per encoder.
+- Rebase to Linux v6.14-rc2.
+- Add review tags.
+- Link to v5: https://lore.kernel.org/r/20250118-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v5-0-9701a16340da@linaro.org
+
+Changes in v5:
+- Iterate SSPP flushing within the required mixer pair, instead of all
+  active mixers or specific mixer.
+- Limit qaud-pipe usage case to SoC with 4 or more DSC engines and 2
+  interfaces case.
+- Remove valid flag and use width for pipe validation.
+- Polish commit messages and code comments.
+- Link to v4: https://lore.kernel.org/r/20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org
+
+Changes in v4:
+- Restrict SSPP flushing to the required mixer, instead of all active mixers.
+- Polish commit messages and code comments.
+- Rebase to latest msm/drm-next branch.
+- Move pipe checking patch to the top of patch set.
+- Link to v3: https://lore.kernel.org/dri-devel/20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org
+
+Changes in v3:
+- Split change in trace into a separate patch.
+- Rebase to latest msm-next branch.
+- Reorder patch sequence to make sure valid flag is set in earlier patch
+- Rectify rewrite patch to move logic change into other patch
+- Polish commit messages and code comments.
+- Link to v2: https://lore.kernel.org/dri-devel/20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org
+
+Changes in v2:
+- Revise the patch sequence with changing to 2 pipes topology first. Then
+  prepare for quad-pipe setup, then enable quad-pipe at last.
+- Split DSI patches into other patch set.
+- Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org
+
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+Jun Nie (12):
+      drm/msm/dpu: polish log for resource allocation
+      drm/msm/dpu: decide right side per last bit
+      drm/msm/dpu: fix mixer number counter on allocation
+      drm/msm/dpu: bind correct pingpong for quad pipe
+      drm/msm/dpu: Add pipe as trace argument
+      drm/msm/dpu: handle pipes as array
+      drm/msm/dpu: split PIPES_PER_STAGE definition per plane and mixer
+      drm/msm/dpu: Use dedicated WB number definition
+      drm/msm/dpu: blend pipes per mixer pairs config
+      drm/msm/dpu: support SSPP assignment for quad-pipe case
+      drm/msm/dpu: support plane splitting in quad-pipe case
+      drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI case
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 115 +++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      |  43 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c        | 428 ++++++++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h        |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c           |  29 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h        |  10 +-
+ 10 files changed, 407 insertions(+), 244 deletions(-)
+---
+base-commit: a9a5d1e329d508972cd86b6f76866d7ecb45a5f6
+change-id: 20250526-v6-15-quad-pipe-upstream-f76d20cd97ca
+
+Best regards,
+-- 
+Jun Nie <jun.nie@linaro.org>
+
