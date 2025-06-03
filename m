@@ -2,120 +2,124 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABEBAACC443
-	for <lists+freedreno@lfdr.de>; Tue,  3 Jun 2025 12:24:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78F68ACC8B5
+	for <lists+freedreno@lfdr.de>; Tue,  3 Jun 2025 16:06:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF7810E5D4;
-	Tue,  3 Jun 2025 10:24:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50D1A10E1F8;
+	Tue,  3 Jun 2025 14:06:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HQ5oROgZ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="g0IupHWi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0415110E5B7
- for <freedreno@lists.freedesktop.org>; Tue,  3 Jun 2025 10:24:45 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5539JHPj013495
- for <freedreno@lists.freedesktop.org>; Tue, 3 Jun 2025 10:24:45 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F66A10E607
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Jun 2025 14:06:41 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5539KTmU002521
+ for <freedreno@lists.freedesktop.org>; Tue, 3 Jun 2025 14:06:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=8X/sdHFYG4xEls9KgUDjyGuo
- Kkp1AX+QACpgspI0LJs=; b=HQ5oROgZMVVuu3tSigG8HkTg7bnK44pS11ajrjga
- ty5ORBWMri/ln0RysVOeAa5/dFvdLbsxAVZWFhcLpYvlaCUrXBK9BlK3W6pIUkjs
- EBToKoh9MrCD5kFUJ48yxY8Y3isvkwMWU3q1hK6nJOUMTcezSukoadf5IdOLqV6w
- sr1BYbyMft6j2Rpc4EgvMdqy9ykGqb5CCcy4RWceHLwH191LJ+uKv6oXinr/UqUq
- spTBif9cEg414zA/w9D8+XihOXRxf9lvwPv3xS/Nvu/S9v1ROhiBdIU585rR45yP
- SQzkhSyp75PMm0Y/siaT+qzGl5LU1mMWvil2W85x/1SXHg==
+ :references:subject:to; s=qcppdkim1; bh=P79HZCGGzpLszEZA+F4RiB1q
+ d+qJD3xGy88FeOcJCl4=; b=g0IupHWiqVe2u0vwirrZQWTBFNl6UUPIqtkr+FHk
+ xaoPCLAmD1+DLbl1nfgZkTpLbaTEY4nExBZ66IZVvVHrEzYthyF0aVUBwCznJPu4
+ ZUyU/RrRXHXr52358YVxqqzPmD5i5RaLd1IL6puF/nuENMWR8CpCwffvfYmiSaQt
+ 9DHa2X0oA9I2QpHK3la8dAShSdKuSkze4Tw1LE2MFZkjFbUgEktRutpvxQ8y9Wj3
+ 8zi7pHtHeNPiZTGiVIwFf5NxJNMmsLOW4X4DYxswVIwPpN9c2cKXE3m33d2NQZJX
+ pBqpf4WYctbE4EKOZfYb9BgNzYwRMumZaBJYiVFX5Mndng==
 Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
  [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 471g8nj6nv-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 471g8tat5k-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 03 Jun 2025 10:24:45 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Jun 2025 14:06:40 +0000 (GMT)
 Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7d09bc05b77so794947385a.1
- for <freedreno@lists.freedesktop.org>; Tue, 03 Jun 2025 03:24:45 -0700 (PDT)
+ af79cd13be357-7c790dc38b4so978505785a.0
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Jun 2025 07:06:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748946284; x=1749551084;
+ d=1e100.net; s=20230601; t=1748959600; x=1749564400;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8X/sdHFYG4xEls9KgUDjyGuoKkp1AX+QACpgspI0LJs=;
- b=aceBpNFS5s+XK601xRPwq7sIjoqGTBlIObepBdTHipHQwV4JooEYWvbGaiQ44linKt
- KAf5QjC/Aypl6bA8KSMLoFybsJeRQgFVOEo4Vz+phOielGEggFtvXU2GlP1IASSCUoKi
- vOuYWlNL/abNByZ1xg6Kb8pI6EXeu45mapp0079csMcEoWxdbkuFADZzwmb1rFh75WZv
- Nwh55YkrNAFO9DwGQetZ+lMp+nbLOwzrF9jR6oBEse4DwcQNRpwt5skklv2+sZGzzAsm
- HIjZEVZGtsjKYS27LXFFOLtVPxE4ugo9HI2s5TtZoTDKtfvFBLJetFo2bG+27sTHvVwj
- d69Q==
+ bh=P79HZCGGzpLszEZA+F4RiB1qd+qJD3xGy88FeOcJCl4=;
+ b=NuajGaa0fEaJKbjLpa09cBcxBWEHAon04OGmnN8aKVURXXRanU3S0HQF/6fcYt/7SN
+ LP/IuX7PekhcT5TRKMs2hR2DB5/nAw4st3r7GuY4EYLtcKeFOdawDHEN1h3YmsvwZCMQ
+ GJach1jMvpqu3W1Nr4TIkEUklC3u9kxwblV/LkP/EmPVb8hbuYQg+ikyjrtGU15FSWpN
+ 8O8B/8SqWUhC3Q0kmYq0Kh+ldqHJurcvOsxR+/lK4p9Tv1ohavEzV2MIncV2rQ4XIjLx
+ wMfjZ72RjSfsVXhZn1lL2WeV4rFHtle/gZrwYNB2snyFZxnkb/DvxSlGAssr1qKIVJPi
+ 3QNw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWv4TlbX6YjBt1wkaoMYKokPx/O10ehWe4riwwgVH9xTav0pXDbHgcYtVIvDZL79ORa9I6YyCrpPtk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8NEiQ7Nn2pHQTE6DeTEceizj4eZjuV6fR1RPz8ctF25UCj5Ip
- DhrcjP/UYwAjd9ZN9HWnNkPrrV259b/CIZc0EwS4iKScWmJiJi8Wjei12cONp/nh3GJ3QqCo25x
- rfQVUQwclmolUib9u9ULUUd/9OiKR1FzlnTJ9vKOeS7sYn8VmQPN6O0a//BS4x7lnAXRyduM=
-X-Gm-Gg: ASbGncsnGk9H5CCwcY2Ypk2UBFgACsPVSJuz/f8PUsaJ8mFLMPMTZUFOAy3Chl1Ii0w
- QpzUGsmSL8x+9nRnqXSsYhiH54AZXJbEIQrOYSCqQ+oxVsQsf1kuysedWZkXDKVDHQJbXoq3LoL
- Nf1ea7zfnfmqU7LuS+ndj/V4FQMEndtJJ2WI0TGxK/5Mr9xkzevdAXAt1QwTgy3YwWBfqfV/lzY
- GDP8PdJgmfogQPZa+sZJPacVjTake3hdsEFfY/1oK9kywdH5hIFhabRKfMPVptRg6pFYZ/llkLn
- kSSHSz7a0P0EVX12HSreFbTDe3sHX4mkoJhpm6CdpOc+CjlQiV66bPa5R3jbKaVaDOgww23FZ4g
+ AJvYcCWbGST77qwMrdQr8s33EOLrwDGP2UuDiJIxh41yrDgJqZyvsa5ABZ5r/PkJ5Be1lXbob/tuarU8Tq4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywv3/RAxgCGE6lzJhKNqEPR7br6O0sUoyzsAuC3v+8S6Ub23JGX
+ Wrb0WKxTqUlsHLzZhaSbVaszPZbBkFlywju3Z6T/hdFqXqHPNBUhJnl9wh654NNtyZZDd6K9nRD
+ CLoz4fdGBTJZ9wu2ok81/QLSqXvmSM/4UvwXIHxuWu5twx+hY/kIUsgSzlmnJFI1O8W3gYPI=
+X-Gm-Gg: ASbGncsXTxv+Fj2aKwAbhQlNLmFQxjnOydDWHUznh2zOo0OQ1jWQrwGI1PsJLhm4X01
+ 76NTGfVJIip0x0j7wIn/YaU5+TWQYbxmkf9heVtyrffX6vZfV5wlJm2kNwuatQTRRIxI4npSNOR
+ m5UYkVpqyBDnngkADnyyI3O/X6eyYdltv7siuw45Qm5wnE+gKxxma+8SGOaF2x/j/64lxePseVR
+ DZHxn+soVJ2mZjpaB8aViPc4BthzDPcLnAGJjo1rcvQHiXIYZmoqrGlg9Cawg0Fn65D1mv/WvMh
+ n+n7liwtrcrcK2FbbrT3yFciAqSCv3eLhcKwgZaJZ8g5cHUgsymga7yXZ83BTXIGBXtWyiaaeWo
  =
-X-Received: by 2002:a05:620a:2a05:b0:7cd:565b:dbc9 with SMTP id
- af79cd13be357-7d0eacaff1emr1546419985a.26.1748946283776; 
- Tue, 03 Jun 2025 03:24:43 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEIHzhH2SJMVGYPwtzq1agpq1FHt0yACqP7MZbotmEP0Z6ueg0f6IDu07/7/Dr+I9bfBtdGsA==
-X-Received: by 2002:a05:620a:2a05:b0:7cd:565b:dbc9 with SMTP id
- af79cd13be357-7d0eacaff1emr1546416385a.26.1748946283327; 
- Tue, 03 Jun 2025 03:24:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:a00b:b0:7d2:18ba:8700 with SMTP id
+ af79cd13be357-7d218ba871emr13867485a.7.1748959600015; 
+ Tue, 03 Jun 2025 07:06:40 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGCFH6zwlFkK+QWD7PKj+40nA0Wy3DB5UxfoqOZyIIpf1wDqJqvJzHMX7eoemJHigQulmJrkw==
+X-Received: by 2002:a05:620a:a00b:b0:7d2:18ba:8700 with SMTP id
+ af79cd13be357-7d218ba871emr13859085a.7.1748959599447; 
+ Tue, 03 Jun 2025 07:06:39 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55337913421sm1880194e87.117.2025.06.03.03.24.42
+ 2adb3069b0e04-55337937837sm1914464e87.230.2025.06.03.07.06.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Jun 2025 03:24:42 -0700 (PDT)
-Date: Tue, 3 Jun 2025 13:24:40 +0300
+ Tue, 03 Jun 2025 07:06:38 -0700 (PDT)
+Date: Tue, 3 Jun 2025 17:06:36 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
+To: Xilin Wu <sophon@radxa.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 11/12] drm/msm/dpu: support plane splitting in
- quad-pipe case
-Message-ID: <5hmgt4v4nop3xpqt34wq4yyfjnypkrnlrr5fnt6r72k5c6r4vn@ykmg5ni6hjyt>
-References: <20250603-v6-15-quad-pipe-upstream-v11-0-c3af7190613d@linaro.org>
- <20250603-v6-15-quad-pipe-upstream-v11-11-c3af7190613d@linaro.org>
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Hermes Wu <Hermes.wu@ite.com.tw>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v7] drm/msm/dp: reuse generic HDMI codec implementation
+Message-ID: <os3cmusf2nrdf3zq45s52a72x4osnd4thlgcgykcalyiuitcha@tnb576gj4m27>
+References: <20250423-dp-hdmi-audio-v7-1-8407a23e55b2@oss.qualcomm.com>
+ <4E62D52FC6135E5B+a6b1634e-5c66-4db5-bb1e-bf64e2e8d8a2@radxa.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250603-v6-15-quad-pipe-upstream-v11-11-c3af7190613d@linaro.org>
-X-Proofpoint-GUID: Cx4v2dWk_UHgoCJoRsvJHHUZtR6iO9bY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjAzMDA5MCBTYWx0ZWRfX9DPdM9u3pSvn
- D4B+9Jz/hcI2/N0xRWWBmxmJtE9YfTmXbD0iP/6M9TFcScLOD2J0iWqNQrrMWrDVhn81zxDw5Zf
- BESfhtYtnL7JzM+Dba/Hy+CzyFr4crY/oiMRQGu8v6OTHC7X2ueXIXto2PQhB+7RwklHSkLAMDT
- NyTue0nSAsdZREHo0ay1C49qdMbHs+Z2xbS6V4Gym4cUB3IaPMNttgeORN6xMcTiCZZ9VbHCr2v
- 0XKV9qGpBTtACs7D7H0q33DfPTTfR6EZ3ykP+hjmH1Kw3oTiWb5MC12YI1Omp/72ZJIUuCFL60g
- avlj2P81vZww0So1JbEzF09AIGEtCDZbVEJxeARQcmdMoAOvS7ze1qTp9IkxA72aC9UcUwN/5Ql
- WR32OPuoiJhYsESi0br+KNpazZ/zsZyx2q+ZJc31M/R/PsieSZkBa5sXPgUzTn3RhNuZ3w0R
-X-Proofpoint-ORIG-GUID: Cx4v2dWk_UHgoCJoRsvJHHUZtR6iO9bY
-X-Authority-Analysis: v=2.4 cv=UphjN/wB c=1 sm=1 tr=0 ts=683ecd6d cx=c_pps
+In-Reply-To: <4E62D52FC6135E5B+a6b1634e-5c66-4db5-bb1e-bf64e2e8d8a2@radxa.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjAzMDEyMSBTYWx0ZWRfX8kvborCn115j
+ tHhEghTtAoW+CbK9VFeKuSU65bj2Gi17hYGaVM0aF+D9V/QtWxG27HTEzaf3ZMwfQMubp5Amlmb
+ AzbXhaQP0lOJ5LOb6UXRGO9AWjRw9je2KdX6nAGDzX1DzW1F8ChiWD1SVu02EaphIju6I/gaRtU
+ vdx7pAS1umia57qCY4mz7PAxCxXz25NrGqiQeU8rnB2g24aBWP6uCwsP2Yl4n4v6h/LCl8xzaJc
+ MM6Vi/1WJy1z96MSL5wHvW8T075sgSHOn08BMhLNoSUbP+ant+MQczmc8hEAr9/V/iFaIiQhFzC
+ /U9++njkUxT0P9pzS3VsoIYZHumqheI0AA2WBivrVGpOnZgQcEaiRjo4VOS8DNBqXCtJ0lbzor0
+ kbgVXKw+MgnRd4cLYHjvd/FgmA+hcokwJAp1Re3DdpXiDxkQ40MXKPnHXGejACQYrVbz9Yjo
+X-Proofpoint-ORIG-GUID: 39ZsHPeiiJQ7EiZD5wScW2KMPrJW4Nb9
+X-Authority-Analysis: v=2.4 cv=OuxPyz/t c=1 sm=1 tr=0 ts=683f0170 cx=c_pps
  a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=6IFa9wvqVegA:10 a=sWKEhP36mHoA:10 a=KKAkSRfTAAAA:8 a=OoP3oNsDoWyiozS0VdIA:9
- a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
+ a=6IFa9wvqVegA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=ksxQWNrZAAAA:8 a=_j8PdYOvoN43mqFH8V4A:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22 a=l7WU34MJF0Z5EO9KEJC3:22
+X-Proofpoint-GUID: 39ZsHPeiiJQ7EiZD5wScW2KMPrJW4Nb9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-03_01,2025-06-02_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 impostorscore=0 lowpriorityscore=0
- phishscore=0 mlxlogscore=999 clxscore=1015 malwarescore=0 adultscore=0
- bulkscore=0 mlxscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506030090
+ phishscore=0 bulkscore=0 malwarescore=0 impostorscore=0 mlxlogscore=999
+ lowpriorityscore=0 spamscore=0 mlxscore=0 suspectscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2506030121
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,179 +135,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 03, 2025 at 03:10:10PM +0800, Jun Nie wrote:
-> The content of every half of screen is sent out via one interface in
-> dual-DSI case. The content for every interface is blended by a LM
-> pair in quad-pipe case, thus a LM pair should not blend any content
-> that cross the half of screen in this case. Clip plane into pipes per
-> left and right half screen ROI if topology is quad pipe case.
+On Thu, May 29, 2025 at 10:40:12AM +0800, Xilin Wu wrote:
+> On 2025/4/24 01:52:45, Dmitry Baryshkov wrote:
+> > From: Dmitry Baryshkov <lumag@kernel.org>
+> > 
+> > The MSM DisplayPort driver implements several HDMI codec functions
+> > in the driver, e.g. it manually manages HDMI codec device registration,
+> > returning ELD and plugged_cb support. In order to reduce code
+> > duplication reuse drm_hdmi_audio_* helpers and drm_bridge_connector
+> > integration.
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> > A lot of DisplayPort bridges use HDMI Codec in order to provide audio
+> > support. Present DRM HDMI Audio support has been written with the HDMI
+> > and in particular DRM HDMI Connector framework support, however those
+> > audio helpers can be easily reused for DisplayPort drivers too.
+> > 
+> > Patches by Hermes Wu that targeted implementing HDMI Audio support in
+> > the iTE IT6506 driver pointed out the necessity of allowing one to use
+> > generic audio helpers for DisplayPort drivers, as otherwise each driver
+> > has to manually (and correctly) implement the get_eld() and plugged_cb
+> > support.
+> > 
+> > Implement necessary integration in drm_bridge_connector and provide an
+> > example implementation in the msm/dp driver.
+> > ---
+> > Changes in v7:
+> > - Dropped applied patches
+> > - Link to v6: https://lore.kernel.org/r/20250314-dp-hdmi-audio-v6-0-dbd228fa73d7@oss.qualcomm.com
+> > 
+> > Changes in v6:
+> > - Added DRM_BRIDGE_OP_DP_AUDIO and separate set of DisplayPort audio
+> >    callbacks to the drm_bridge interface (Maxime)
+> > - Link to v5: https://lore.kernel.org/r/20250307-dp-hdmi-audio-v5-0-f3be215fdb78@linaro.org
+> > 
+> > Changes in v5:
+> > - Rebased on top of linux-next, also handling HDMI audio piece of the
+> >    MSM HDMI driver.
+> > - Link to v4: https://lore.kernel.org/r/20250301-dp-hdmi-audio-v4-0-82739daf28cc@linaro.org
+> > 
+> > Changes in v4:
+> > - Rebased on linux-next, adding DRM_BRIDGE_OP_HDMI_AUDIO to Synopsys QP
+> >    HDMI driver.
+> > - Drop outdated comment regarding subconnector from the commit message.
+> > - Link to v3: https://lore.kernel.org/r/20250219-dp-hdmi-audio-v3-0-42900f034b40@linaro.org
+> > 
+> > Changes in v3:
+> > - Dropped DRM_BRIDGE_OP_DisplayPort, added DRM_BRIDGE_OP_HDMI_AUDIO
+> >    (Laurent, Maxime)
+> > - Dropped the subconnector patch (again)
+> > - Link to v2: https://lore.kernel.org/r/20250209-dp-hdmi-audio-v2-0-16db6ebf22ff@linaro.org
+> > 
+> > Changes in v2:
+> > - Added drm_connector_attach_dp_subconnector_property() patches
+> > - Link to v1: https://lore.kernel.org/r/20250206-dp-hdmi-audio-v1-0-8aa14a8c0d4d@linaro.org
+> > ---
+> >   drivers/gpu/drm/msm/Kconfig         |   1 +
+> >   drivers/gpu/drm/msm/dp/dp_audio.c   | 131 ++++--------------------------------
+> >   drivers/gpu/drm/msm/dp/dp_audio.h   |  27 ++------
+> >   drivers/gpu/drm/msm/dp/dp_display.c |  28 ++------
+> >   drivers/gpu/drm/msm/dp/dp_display.h |   6 --
+> >   drivers/gpu/drm/msm/dp/dp_drm.c     |   8 +++
+> >   6 files changed, 31 insertions(+), 170 deletions(-)
+> > 
 > 
-> The clipped rectangle on every half of screen is futher handled by two
-> pipes if its width exceeds a limit for a single pipe.
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  11 +++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h  |   2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 137 +++++++++++++++++++++---------
->  3 files changed, 110 insertions(+), 40 deletions(-)
-> 
-> @@ -886,35 +887,94 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
->  
->  	max_linewidth = pdpu->catalog->caps->max_linewidth;
->  
-> -	drm_rect_rotate(&pipe_cfg->src_rect,
-> +	drm_rect_rotate(&init_pipe_cfg.src_rect,
->  			new_plane_state->fb->width, new_plane_state->fb->height,
->  			new_plane_state->rotation);
->  
-> -	if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
-> -	     _dpu_plane_calc_clk(&crtc_state->adjusted_mode, pipe_cfg) > max_mdp_clk_rate) {
-> -		if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewidth) {
-> -			DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
-> -					DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
-> -			return -E2BIG;
-> +	/*
-> +	 * We have 1 mixer pair cfg for 1:1:1 and 2:2:1 topology, 2 mixer pair
-> +	 * configs for left and right half screen in case of 4:4:2 topology.
-> +	 * But we may have 2 rect to split wide plane that exceeds limit with 1
-> +	 * config for 2:2:1. So need to handle both wide plane splitting, and
-> +	 * two halves of screen splitting for quad-pipe case. Check dest
-> +	 * rectangle left/right clipping first, then check wide rectangle
-> +	 * splitting in every half next.
-> +	 */
-> +	num_stages = (num_lm + 1) / 2;
+> This change breaks DP audio on the qcs6490 platform, tested on kernel
+> next-20250528.
 
-I thought we agreed to loop over all stages, dropping the need for
-num_lm.
+I can not confirm this issue here (though I tested it on a different
+hardware). Do you have any patches on top of linux-next?
 
-> +	/* iterate mixer configs for this plane, to separate left/right with the id */
-> +	for (stage_id = 0; stage_id < num_stages; stage_id++) {
-> +		struct drm_rect mixer_rect = {
-> +			.x1 = stage_id * mode->hdisplay / num_stages,
-> +			.y1 = 0,
-> +			.x2 = (stage_id + 1) * mode->hdisplay / num_stages,
-> +			.y2 = mode->vdisplay
-> +			};
-> +		int cfg_idx = stage_id * PIPES_PER_STAGE;
-> +
-> +		pipe_cfg = &pstate->pipe_cfg[cfg_idx];
-> +		r_pipe_cfg = &pstate->pipe_cfg[cfg_idx + 1];
-> +
-> +		drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
-> +		pipe_cfg->dst_rect = new_plane_state->dst;
-> +
-> +		DPU_DEBUG_PLANE(pdpu, "checking src " DRM_RECT_FMT
-> +				" vs clip window " DRM_RECT_FMT "\n",
-> +				DRM_RECT_ARG(&pipe_cfg->src_rect),
-> +				DRM_RECT_ARG(&mixer_rect));
-> +
-> +		/*
-> +		 * If this plane does not fall into mixer rect, check next
-> +		 * mixer rect.
-> +		 */
-> +		if (!drm_rect_clip_scaled(&pipe_cfg->src_rect,
-> +					  &pipe_cfg->dst_rect,
-> +					  &mixer_rect)) {
-> +			memset(pipe_cfg, 0, 2 * sizeof(struct dpu_sw_pipe_cfg));
-> +
-> +			continue;
->  		}
->  
-> -		*r_pipe_cfg = *pipe_cfg;
-> -		pipe_cfg->src_rect.x2 = (pipe_cfg->src_rect.x1 + pipe_cfg->src_rect.x2) >> 1;
-> -		pipe_cfg->dst_rect.x2 = (pipe_cfg->dst_rect.x1 + pipe_cfg->dst_rect.x2) >> 1;
-> -		r_pipe_cfg->src_rect.x1 = pipe_cfg->src_rect.x2;
-> -		r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
-> -	} else {
-> -		memset(r_pipe_cfg, 0, sizeof(*r_pipe_cfg));
-> -	}
-> +		pipe_cfg->dst_rect.x1 -= mixer_rect.x1;
-> +		pipe_cfg->dst_rect.x2 -= mixer_rect.x1;
-> +
-> +		DPU_DEBUG_PLANE(pdpu, "Got clip src:" DRM_RECT_FMT " dst: " DRM_RECT_FMT "\n",
-> +				DRM_RECT_ARG(&pipe_cfg->src_rect), DRM_RECT_ARG(&pipe_cfg->dst_rect));
-> +
-> +		/* Split wide rect into 2 rect */
-> +		if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
-> +		     _dpu_plane_calc_clk(mode, pipe_cfg) > max_mdp_clk_rate) {
-> +
-> +			if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewidth) {
-> +				DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
-> +						DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
-> +				return -E2BIG;
-> +			}
-> +
-> +			memcpy(r_pipe_cfg, pipe_cfg, sizeof(struct dpu_sw_pipe_cfg));
-> +			pipe_cfg->src_rect.x2 = (pipe_cfg->src_rect.x1 + pipe_cfg->src_rect.x2) >> 1;
-> +			pipe_cfg->dst_rect.x2 = (pipe_cfg->dst_rect.x1 + pipe_cfg->dst_rect.x2) >> 1;
-> +			r_pipe_cfg->src_rect.x1 = pipe_cfg->src_rect.x2;
-> +			r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
-> +			DPU_DEBUG_PLANE(pdpu, "Split wide plane into:"
-> +					DRM_RECT_FMT " and " DRM_RECT_FMT "\n",
-> +					DRM_RECT_ARG(&pipe_cfg->src_rect),
-> +					DRM_RECT_ARG(&r_pipe_cfg->src_rect));
-> +		} else {
-> +			memset(r_pipe_cfg, 0, sizeof(struct dpu_sw_pipe_cfg));
-> +		}
->  
-> -	drm_rect_rotate_inv(&pipe_cfg->src_rect,
-> -			    new_plane_state->fb->width, new_plane_state->fb->height,
-> -			    new_plane_state->rotation);
-> -	if (drm_rect_width(&r_pipe_cfg->src_rect) != 0)
-> -		drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
-> -				    new_plane_state->fb->width, new_plane_state->fb->height,
-> +		drm_rect_rotate_inv(&pipe_cfg->src_rect,
-> +				    new_plane_state->fb->width,
-> +				    new_plane_state->fb->height,
->  				    new_plane_state->rotation);
->  
-> +		if (drm_rect_width(&r_pipe_cfg->src_rect) != 0)
-> +			drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
-> +					    new_plane_state->fb->width,
-> +					    new_plane_state->fb->height,
-> +					    new_plane_state->rotation);
-> +	}
-> +
->  	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
->  
->  	return 0;
-> @@ -997,20 +1057,17 @@ static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
->  		drm_atomic_get_new_plane_state(state, plane);
->  	struct dpu_plane *pdpu = to_dpu_plane(plane);
->  	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
-> -	struct dpu_sw_pipe *pipe = &pstate->pipe[0];
-> -	struct dpu_sw_pipe *r_pipe = &pstate->pipe[1];
-> -	struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg[0];
-> -	struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->pipe_cfg[1];
-> -	int ret = 0;
-> -
-> -	ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg,
-> -					  &crtc_state->adjusted_mode,
-> -					  new_plane_state);
-> -	if (ret)
-> -		return ret;
-> +	struct dpu_sw_pipe *pipe;
-> +	struct dpu_sw_pipe_cfg *pipe_cfg;
-> +	int ret = 0, i;
->  
-> -	if (drm_rect_width(&r_pipe_cfg->src_rect) != 0) {
-> -		ret = dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_cfg,
-> +	for (i = 0; i < PIPES_PER_PLANE; i++) {
-> +		pipe = &pstate->pipe[i];
-> +		pipe_cfg = &pstate->pipe_cfg[i];
-> +		if (!pipe->sspp)
-> +			continue;
-> +		DPU_DEBUG_PLANE(pdpu, "pipe %d is in use, validate it\n", i);
-> +		ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg,
->  						  &crtc_state->adjusted_mode,
->  						  new_plane_state);
->  		if (ret)
+> 
+> [    0.368035] [drm:dpu_kms_hw_init:1173] dpu hardware revision:0x70020000
+> [    0.369359] hdmi-audio-codec hdmi-audio-codec.0.auto: hdmi_codec_probe:
+> dai_count 0
+> [    0.369362] hdmi-audio-codec hdmi-audio-codec.0.auto: hdmi_codec_probe:
+> Missing hw_params
+> [    0.369364] hdmi-audio-codec hdmi-audio-codec.0.auto: hdmi_codec_probe:
+> Invalid parameters
+> [    0.369366] hdmi-audio-codec hdmi-audio-codec.0.auto: probe with driver
+> hdmi-audio-codec failed with error -22
+> [    0.370536] [drm] Initialized msm 1.12.0 for ae01000.display-controller
+> on minor 0
+> 
+> Manually reverting this change solves the problem.
+
+It is suspicious, since dai_count can not be 0. We set
+hdmi_audio_max_i2s_playback_channels to 8, which in turn should set the
+hdmi_codec_pdata.i2s to 1.
+
 > 
 > -- 
-> 2.34.1
-> 
+> Best regards,
+> Xilin Wu <sophon@radxa.com>
 
 -- 
 With best wishes
