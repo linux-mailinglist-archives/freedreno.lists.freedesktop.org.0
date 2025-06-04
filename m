@@ -2,83 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64BE1ACC93E
-	for <lists+freedreno@lfdr.de>; Tue,  3 Jun 2025 16:37:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6992ACD860
+	for <lists+freedreno@lfdr.de>; Wed,  4 Jun 2025 09:19:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0195510E212;
-	Tue,  3 Jun 2025 14:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6498110E600;
+	Wed,  4 Jun 2025 07:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cHgOQZP8";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="boNl7EMo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DA4210E04B
- for <freedreno@lists.freedesktop.org>; Tue,  3 Jun 2025 14:37:50 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-70a57a8ffc3so57871647b3.0
- for <freedreno@lists.freedesktop.org>; Tue, 03 Jun 2025 07:37:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1748961469; x=1749566269; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rzeESyUaIBZBqYNDo6SFtnpaNhypT6hjENGewoqN1qg=;
- b=cHgOQZP8RyqbOK0CumkhhDfm/qNpyHrtsKRZ6iQbQ4Vn9/UzVNd/zbYwPyYVfxksK8
- XUO6Elnx9mXCtYDG/jaMzi8bqttRpCKSCdweuZap/0t722/YX6dxU9KAeZwsvcOkJX1C
- VXuaxxlpxoFvO5z4Z9VAIPujxs5nysFQYp74ujLo5PWHI+bkJfJ/PqL0vBJzxjfJ8shM
- u7TB0c9UemPMdKfDI8xc8UxvYpzYELTlF/13x19xpdE67UJ7fMn24kSIhlCh+KpYXPtD
- a1KCSd4siNZwbdWuPb+uRzno9ZPzaXu4owUyqwq+IlIsO2d28OJo/PumJZpEDCEzwyIX
- upPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748961469; x=1749566269;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rzeESyUaIBZBqYNDo6SFtnpaNhypT6hjENGewoqN1qg=;
- b=iX1BbXzbgVFVhB89l2Nq8+35l5zL1p5i/ild/F/mUnOBsViywtfJ9jO9yLWhGLDdY2
- EVoFmXh6DkshroTM17HxX/4cpZq80/Ud6C1gnR5cZ62d/Y8SLue06pSeS5NWU/dGJyON
- NCwMaqYDvRUwetLGlW1FuaM4Y+cIasmb4fjmS4bLkO0neEUAfgL8H8fPZxX/LK8I6NNB
- fV284fUUmKb6Y+qGVJYUrgwfb5Mht/E/C4dcTool/W48XlTArqM9GJ5i74Y4DHCXxAvn
- sqWecjOHFphSCDVL85d1Pfqm2bxD4DYlKwa2sqUX79g9SoZVz/Ef4Mfp9vM3nA+6Q0iA
- Tv+Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW43IurwkY7o5G1E1H57rbBXsqeBZoTCTd+6XYuUiL5d+BSrClN7XtzfEeJEQzxvBKxPmUQ6ZxQLN4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUDqe9rNKbRNyaOUgWkt5yWsekTFhJxitkXKk4J+dA30nblozF
- +5cXsJBZQTsboCfPx/aHZUX2YFtNQ0LN+nWbChI17j1gMCo2U2u8N1RRgY15JisN/u8fK8nCJdM
- IPPd6jD8NpGkbqojZo81XtVoxmUWoCz8/RRCZZN+qvw==
-X-Gm-Gg: ASbGnctGI/X35+DdkSpAnpuoqqdsHmldiLQ/34Xrs81G9ei5H4b+FYlQaVxsnjoBN4J
- lxnVSXI8lV4Zz2IXWt4tBOE+Czrl3Q7o+DdHCBlwyautDJpzYDtkSDaoaGXIA40TJGwYH5JdWNR
- ArqoFf8wNJyB6tPoOPYTaPU21eT4y2firi7wppbLTHMLJkJ99ELL38ExMBqApRhXp6jlvmuF2zB
- t9Y6g==
-X-Google-Smtp-Source: AGHT+IGbJbyfySz4oyx64rgd6YpgRxhrjburjJOx4K3Q2scX/+jXbjO0mZVAbxTq/9BfA3cSSujjvsCXxL1o6IW6tsk=
-X-Received: by 2002:a05:690c:46ca:b0:70e:142d:9c6e with SMTP id
- 00721157ae682-71057d22a1dmr229834307b3.32.1748961469084; Tue, 03 Jun 2025
- 07:37:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250603-v6-15-quad-pipe-upstream-v11-0-c3af7190613d@linaro.org>
- <20250603-v6-15-quad-pipe-upstream-v11-10-c3af7190613d@linaro.org>
- <dsgnmzswhpht4bewf5wld774riqxffojboujxdf4smutuzmuye@ugyhzv6m7mve>
-In-Reply-To: <dsgnmzswhpht4bewf5wld774riqxffojboujxdf4smutuzmuye@ugyhzv6m7mve>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Tue, 3 Jun 2025 22:37:37 +0800
-X-Gm-Features: AX0GCFvT9Z3YKQ7OkM4UVgq33vsp0wDpZsLMqF2k69pPCR2HlGMAc5C5t9chGDg
-Message-ID: <CABymUCPqypTPh=Ao9PN44eq2_TXODhHd3EtSDeG+J0DcXQN6Eg@mail.gmail.com>
-Subject: Re: [PATCH v11 10/12] drm/msm/dpu: support SSPP assignment for
- quad-pipe case
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C74C310E1AE;
+ Wed,  4 Jun 2025 07:19:13 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 553Jrs8j024416;
+ Wed, 4 Jun 2025 07:19:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=godeQjSfZ3mm7u5AuFZu4jej25Ii63iNVRL
+ q0zaKXwg=; b=boNl7EMoSwyb0wc3PiCBBjZ5ToxAZQo+umgpb1Y5vmg9fOgMnHj
+ CFVhTTHaW3ePapvqMvXr7+TLWjRh0m+XOb6b9ZHHwCik/PYkGmwqAmig/wKWRew1
+ cJk1W+111l5tUF9JHuewnHWqRJMiWl+Htb9wUnQV2OChnjkXwa4YYPGZMLOIykpg
+ TAPUguFXJMJApjA1BLOeZr6AjnKDe9+p8jZxAu10QPy+IQbd5DfgUpNBNii5CrdK
+ upBWqT4Kjxu4fBdSTWSiwBCV1vmKx57Joah3k8VIb07i+wyjqAAdstGkZyD33k/F
+ H6HRgoaelk3l+MacsFkbUlEfraVYEFvwmuQ==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 471g8rw755-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Jun 2025 07:19:02 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 5547Ix6J017262; 
+ Wed, 4 Jun 2025 07:18:59 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 46ytum3902-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Jun 2025 07:18:59 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 5547IwZN017244;
+ Wed, 4 Jun 2025 07:18:58 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com
+ [10.213.99.91])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 5547IwGM017237
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Jun 2025 07:18:58 +0000
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
+ id 9CD52515; Wed,  4 Jun 2025 12:48:57 +0530 (+0530)
+From: Ayushi Makhija <quic_amakhija@quicinc.com>
+To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, robdclark@gmail.com,
+ dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+ quic_jesszhan@quicinc.com
+Subject: [PATCH v8 RESEND 0/2] Add DSI display support for SA8775P target
+Date: Wed,  4 Jun 2025 12:48:49 +0530
+Message-Id: <20250604071851.1438612-1-quic_amakhija@quicinc.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Gdzg4kuak1e3iopW_JgC5QvGfG8CHMw5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA0MDA2MCBTYWx0ZWRfXyO4De0jAyO9o
+ /9QAIXqrHnDxF+Nz92dMgOdH9k0olQs6Ko3Fh3WrizWhRjkksGcHBdrM5TihArTyeagDuqah/cr
+ urIbn8FA1LGJwMS7VW1JkzLbZ0Q4TYJEJqJiKlnXRToqba5/uNFV9HMdifpiYF7FSx4zutjV37A
+ SzL8CXJ4MW8XIK/jgvFQvNg/HXzBJ29NbFZrP3g6WqqfyLU8qzbrMdYaG/WBzq2U46g3Ehbvt0y
+ 6ZGhQxLa78OrakmGpObyMw6b/2M9zYsQOF3w5jQUbC5k9eGszulHe/imaXZll2oW3m4i1KzT453
+ g2EsR2xTcK1OY2hbEOI8yun7ChOUZNFpwkpQj7okSjAqS+mu+IddgckXRe3Q3CGUWGpV9xPqHdD
+ +ir1By2WYeWwR+xrMbI6cN5d/9C6mLK1mDjNcFh5tUX+NpLS8G4GrKDgPKuASOio0H5TABk/
+X-Authority-Analysis: v=2.4 cv=RdWQC0tv c=1 sm=1 tr=0 ts=683ff367 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=6IFa9wvqVegA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8
+ a=QlWjpmH-yOSsLRRY6RUA:9 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: Gdzg4kuak1e3iopW_JgC5QvGfG8CHMw5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-06-04_02,2025-06-03_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 mlxscore=0 priorityscore=1501 phishscore=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ impostorscore=0 spamscore=0 mlxlogscore=999 classifier=spam authscore=0
+ authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2506040060
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,312 +114,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=B4=
-6=E6=9C=883=E6=97=A5=E5=91=A8=E4=BA=8C 18:21=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Tue, Jun 03, 2025 at 03:10:09PM +0800, Jun Nie wrote:
-> > Currently, SSPPs are assigned to a maximum of two pipes. However,
-> > quad-pipe usage scenarios require four pipes and involve configuring
-> > two stages. In quad-pipe case, the first two pipes share a set of
-> > mixer configurations and enable multi-rect mode when certain
-> > conditions are met. The same applies to the subsequent two pipes.
-> >
-> > Assign SSPPs to the pipes in each stage using a unified method and
-> > to loop the stages accordingly.
-> >
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 148 +++++++++++++++++++---=
---------
-> >  1 file changed, 94 insertions(+), 54 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_plane.c
-> > index 0bb153a71353ca9eaca138ebbee4cd699414771d..501b6a1bad4a1fee832f15e=
-fa7caec136a669da5 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > @@ -961,6 +961,33 @@ static int dpu_plane_is_multirect_parallel_capable=
-(struct dpu_hw_sspp *sspp,
-> >               dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidt=
-h);
-> >  }
-> >
-> > +static bool dpu_plane_get_single_pipe(struct dpu_plane_state *pstate,
-> > +                                   struct dpu_sw_pipe **single_pipe,
-> > +                                   struct dpu_sw_pipe_cfg **single_pip=
-e_cfg,
-> > +                                   bool config_pipe)
->
-> Could you please describe, what does this function do? Why is it
-> returning the pipe or configuring a pipe?
+This series enables the support for DSI to DP bridge ports
+(labled as DSI0 and DSI1) of the Qualcomm's SA8775P Ride platform.
 
-It search all pipes. If there is only one valid pipe, return it via
-pointer and function returns true.
-If the config_pipe flag is set, multirect_index and multirect_mode are
-also initialized. See below.
->
-> > +{
-> > +     int i, valid_pipe =3D 0;
-> > +     struct dpu_sw_pipe *pipe;
-> > +
-> > +     for (i =3D 0; i < PIPES_PER_PLANE; i++) {
-> > +             if (drm_rect_width(&pstate->pipe_cfg[i].src_rect) !=3D 0)=
- {
-> > +                     valid_pipe++;
-> > +                     if (valid_pipe > 1)
-> > +                             return false;
-> > +                     *single_pipe =3D &pstate->pipe[i];
-> > +                     *single_pipe_cfg =3D &pstate->pipe_cfg[i];
-> > +             } else {
-> > +                     if (!config_pipe)
-> > +                             continue;
-> > +                     pipe =3D &pstate->pipe[i];
-> > +                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
-> > +                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
-> > +                     pipe->sspp =3D NULL;
-> > +             }
-> > +     }
-> > +
-> > +     return true;
-> > +}
-> >
-> >  static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
-> >                                      struct drm_atomic_state *state,
-> > @@ -1028,15 +1055,15 @@ static int dpu_plane_try_multirect_shared(struc=
-t dpu_plane_state *pstate,
-> >                                         const struct msm_format *fmt,
-> >                                         uint32_t max_linewidth)
-> >  {
-> > -     struct dpu_sw_pipe *pipe =3D &pstate->pipe[0];
-> > -     struct dpu_sw_pipe *r_pipe =3D &pstate->pipe[1];
-> > -     struct dpu_sw_pipe_cfg *pipe_cfg =3D &pstate->pipe_cfg[0];
-> > -     struct dpu_sw_pipe *prev_pipe =3D &prev_adjacent_pstate->pipe[0];
-> > -     struct dpu_sw_pipe_cfg *prev_pipe_cfg =3D &prev_adjacent_pstate->=
-pipe_cfg[0];
-> > +     struct dpu_sw_pipe *pipe, *prev_pipe;
-> > +     struct dpu_sw_pipe_cfg *pipe_cfg, *prev_pipe_cfg;
-> >       const struct msm_format *prev_fmt =3D msm_framebuffer_format(prev=
-_adjacent_pstate->base.fb);
-> >       u16 max_tile_height =3D 1;
-> >
-> > -     if (prev_adjacent_pstate->pipe[1].sspp !=3D NULL ||
-> > +     if (!dpu_plane_get_single_pipe(pstate, &pipe, &pipe_cfg, true))
-> > +             return false;
-> > +
-> > +     if (!dpu_plane_get_single_pipe(prev_adjacent_pstate, &prev_pipe, =
-&prev_pipe_cfg, false) ||
-> >           prev_pipe->multirect_mode !=3D DPU_SSPP_MULTIRECT_NONE)
-> >               return false;
-> >
-> > @@ -1050,11 +1077,6 @@ static int dpu_plane_try_multirect_shared(struct=
- dpu_plane_state *pstate,
-> >       if (MSM_FORMAT_IS_UBWC(prev_fmt))
-> >               max_tile_height =3D max(max_tile_height, prev_fmt->tile_h=
-eight);
-> >
-> > -     r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
-> > -     r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
-> > -
-> > -     r_pipe->sspp =3D NULL;
-> > -
+SA8775P SoC has DSI controller v2.5.1 and DSI PHY v4.2.
+The Ride platform is having ANX7625 DSI to DP bridge chip from Analogix.
 
-Flag in dpu_plane_get_single_pipe() replace the initialization here.
+---
+Changes in  v8: Fixed the review comments from Dmirty
+    - Renamed the opp table from dsi0_opp_table to mdss_dsi_opp_table in patch 1. [Dmitry]
+    - Referred the same mdss_dsi_opp_table opp table in mdss0_dsi1 node in patch 1. [Dmitry]
+    - Link to v7 : https://lore.kernel.org/all/20250513102611.1456868-1-amakhija@qti.qualcomm.com/ 
 
-> >       if (dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth) &=
-&
-> >           dpu_plane_is_parallel_capable(prev_pipe_cfg, prev_fmt, max_li=
-newidth) &&
-> >           (pipe_cfg->dst_rect.x1 >=3D prev_pipe_cfg->dst_rect.x2 ||
-> > @@ -1183,6 +1205,51 @@ static int dpu_plane_virtual_atomic_check(struct=
- drm_plane *plane,
-> >       return 0;
-> >  }
-> >
-> > +static int dpu_plane_try_multirect_in_stage(struct dpu_sw_pipe *pipe,
-> > +                                         struct dpu_sw_pipe_cfg *pipe_=
-cfg,
-> > +                                         struct drm_plane_state *plane=
-_state,
-> > +                                         struct dpu_global_state *glob=
-al_state,
-> > +                                         struct drm_crtc *crtc,
-> > +                                         struct dpu_rm_sspp_requiremen=
-ts *reqs)
-> > +{
-> > +     struct drm_plane *plane =3D plane_state->plane;
-> > +     struct dpu_kms *dpu_kms =3D _dpu_plane_get_kms(plane);
-> > +     struct dpu_plane *pdpu =3D to_dpu_plane(plane);
-> > +     struct dpu_sw_pipe *r_pipe =3D pipe + 1;
-> > +     struct dpu_sw_pipe_cfg *r_pipe_cfg =3D pipe_cfg + 1;
-> > +     int i;
-> > +
-> > +     for (i =3D 0; i < PIPES_PER_STAGE; i++, pipe++, pipe_cfg++) {
-> > +             if (drm_rect_width(&pipe_cfg->src_rect) =3D=3D 0)
-> > +                     continue;
-> > +
-> > +             pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, global_s=
-tate, crtc, reqs);
-> > +             if (!pipe->sspp)
-> > +                     return -ENODEV;
-> > +
-> > +             /*
-> > +              * If current pipe is the first pipe in a stage, check
-> > +              * multi-rect opportunity for the 2nd pipe in the stage.
-> > +              * SSPP multi-rect mode cross stage is not supported.
-> > +              */
-> > +             if (!i &&
->
-> Unroll the loop. I think I've asked a similar change in the review of
-> the previous patch.
+Changes in v7: Rebased and fixed the review comments from Dmitry
+    - Below four patches of v6 are merged. Removed them from this version.
+        - [08/11] drm/bridge: anx7625: enable HPD interrupts
+        - [09/11] drm/bridge: anx7625: fix drm_bridge ops flags to
+          support hot-plugging
+        - [10/11] drm/bridge: anx7625: fix anx7625_sink_detect() to
+          return correct hpd status
+        - [11/11] drm/bridge: anx7625: change the gpiod_set_value API
+    - Rebased the remaining two patches of the series. 
+    - Added anx7625 bridge supplies as fixed reulators, according to the power grid. [Dmitry]
+    - Link to v6 : https://lore.kernel.org/all/20250505094245.2660750-1-quic_amakhija@quicinc.com/
 
-I had thought you want to abstract handling to stage into a dedicated funct=
-ion,
-not aware you want to remove loop. Will do that in next version.
->
-> > +                 drm_rect_width(&r_pipe_cfg->src_rect) !=3D 0 &&
-> > +                 dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pi=
-pe, r_pipe_cfg,
-> > +                                                   pipe->sspp,
-> > +                                                   msm_framebuffer_for=
-mat(plane_state->fb),
-> > +                                                   dpu_kms->catalog->c=
-aps->max_linewidth)) {
-> > +                     goto stage_assinged;
-> > +             } else {
-> > +                     /* multirect is not possible, use dedicated SSPP =
-*/
-> > +                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
-> > +                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
-> > +             }
-> > +     }
-> > +
-> > +stage_assinged:
-> > +     return 0;
-> > +}
-> > +
-> >  static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
-> >                                             struct dpu_global_state *gl=
-obal_state,
-> >                                             struct drm_atomic_state *st=
-ate,
-> > @@ -1195,11 +1262,9 @@ static int dpu_plane_virtual_assign_resources(st=
-ruct drm_crtc *crtc,
-> >       struct dpu_rm_sspp_requirements reqs;
-> >       struct dpu_plane_state *pstate, *prev_adjacent_pstate;
-> >       struct dpu_sw_pipe *pipe;
-> > -     struct dpu_sw_pipe *r_pipe;
-> >       struct dpu_sw_pipe_cfg *pipe_cfg;
-> > -     struct dpu_sw_pipe_cfg *r_pipe_cfg;
-> >       const struct msm_format *fmt;
-> > -     int i;
-> > +     int i, stage_id, ret;
-> >
-> >       if (plane_state->crtc)
-> >               crtc_state =3D drm_atomic_get_new_crtc_state(state,
-> > @@ -1209,11 +1274,6 @@ static int dpu_plane_virtual_assign_resources(st=
-ruct drm_crtc *crtc,
-> >       prev_adjacent_pstate =3D prev_adjacent_plane_state ?
-> >               to_dpu_plane_state(prev_adjacent_plane_state) : NULL;
-> >
-> > -     pipe =3D &pstate->pipe[0];
-> > -     r_pipe =3D &pstate->pipe[1];
-> > -     pipe_cfg =3D &pstate->pipe_cfg[0];
-> > -     r_pipe_cfg =3D &pstate->pipe_cfg[1];
-> > -
-> >       for (i =3D 0; i < PIPES_PER_PLANE; i++)
-> >               pstate->pipe[i].sspp =3D NULL;
-> >
-> > @@ -1227,44 +1287,24 @@ static int dpu_plane_virtual_assign_resources(s=
-truct drm_crtc *crtc,
-> >
-> >       reqs.rot90 =3D drm_rotation_90_or_270(plane_state->rotation);
-> >
-> > -     if (drm_rect_width(&r_pipe_cfg->src_rect) =3D=3D 0) {
-> > -             if (!prev_adjacent_pstate ||
-> > -                 !dpu_plane_try_multirect_shared(pstate, prev_adjacent=
-_pstate, fmt,
-> > -                                                 dpu_kms->catalog->cap=
-s->max_linewidth)) {
-> > -                     pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, =
-global_state, crtc, &reqs);
-> > -                     if (!pipe->sspp)
-> > -                             return -ENODEV;
-> > -
-> > -                     r_pipe->sspp =3D NULL;
-> > -
-> > -                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
-> > -                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
-> > -
-> > -                     r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
-> > -                     r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NON=
-E;
-> > -             }
-> > -     } else {
-> > -             pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, global_s=
-tate, crtc, &reqs);
-> > -             if (!pipe->sspp)
-> > -                     return -ENODEV;
-> > -
-> > -             if (!dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_p=
-ipe, r_pipe_cfg,
-> > -                                                   pipe->sspp,
-> > -                                                   msm_framebuffer_for=
-mat(plane_state->fb),
-> > -                                                   dpu_kms->catalog->c=
-aps->max_linewidth)) {
-> > -                     /* multirect is not possible, use two SSPP blocks=
- */
-> > -                     r_pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm=
-, global_state, crtc, &reqs);
-> > -                     if (!r_pipe->sspp)
-> > -                             return -ENODEV;
-> > -
-> > -                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
-> > -                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
-> > +     if (prev_adjacent_pstate &&
-> > +         dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate, =
-fmt,
-> > +                                         dpu_kms->catalog->caps->max_l=
-inewidth)) {
->
-> And this needs to take care of LMs. prev_adjacent_pstate should be
-> per-stage, otherwise you can end up sharing the SSPPs between stages
-> (which is not allowed).
+Changes in v6: Fixed the review comments from konard.
+    - Added the reference voltage in patch 7 for vph-pwr. [Konard]
+    - Patches from 1 to 5 of version 5 of the series are accepted.
+      So removed from here.
+    - Link to v5 : https://lore.kernel.org/all/20250424062431.2040692-1-quic_amakhija@quicinc.com/ 
 
-Thanks for the reminder! I do miss the case here. Will get stage_id of 2
-single pipes of 2 plane and check them to confirm whether SSPP can be share=
-d.
+Changes in v5: Fixed review comments from Dmitry
+    - Added reset gpio for io_expander(tca9539) in patch 7. [Dmitry]
+    - Updated the commit text of patch 10 for eDP configuration. [Dmitry]
+    - Link to v4 : https://lore.kernel.org/all/20250417053909.1051416-1-amakhija@qti.qualcomm.com/
 
->
-> > +             goto assigned;
-> > +     }
-> >
-> > -                     r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
-> > -                     r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NON=
-E;
-> > -             }
-> > +     for (stage_id =3D 0; stage_id < STAGES_PER_PLANE; stage_id++) {
-> > +             pipe =3D &pstate->pipe[stage_id * PIPES_PER_STAGE];
-> > +             pipe_cfg =3D &pstate->pipe_cfg[stage_id * PIPES_PER_STAGE=
-];
-> > +             ret =3D dpu_plane_try_multirect_in_stage(pipe, pipe_cfg,
-> > +                                                    plane_state,
-> > +                                                    global_state,
-> > +                                                    crtc, &reqs);
-> > +             if (ret)
-> > +                     return ret;
-> >       }
-> >
-> > +assigned:
-> >       return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
-> >  }
-> >
-> >
-> > --
-> > 2.34.1
-> >
->
-> --
-> With best wishes
-> Dmitry
+Changes in v4: Fixed review comments from Dmirty, Krzysztof and konard
+    - Add only single compatible string in dsi ctrl pattern properties
+      in patch 3. [Krzysztof/Dmitry]
+    - Move the io_expander RESET and INTR pinctrls from i2c18 node to
+      io_expander node in patch 7. [Dmitry]
+    - Remove the gpio-hogs from io_expander node, as we are already
+      configuring them under anx7625 bridge nodes. [Dmitry/Konard]
+    - Updated the commit message based on hpd_enable() and
+      hpd_disabled() recommendation in patch 8. [Dmitry]
+    - Split the patch 9 of vesrion 3 into two separate patches. [Dmirty]
+    - Updated the commit message and commit text in patch 9 and 
+      patch 10.
+    - Link to v3 : https://lore.kernel.org/all/20250404115539.1151201-1-quic_amakhija@quicinc.com/
+
+Changes in v3: Fixed review comments from Dmitry and Krzysztof
+    - Added qcom,sa8775p-dsi-ctrl compatible based on the set of clocks
+      which are associated with it in patch 2. [Krzysztof]
+    - Drop the blank line and add contains instead of items in pattern
+      properties of dsi ctrl and phy in patch 3. [Krzysztof]
+    - Updated the node name from anx7625@58 to bridge@58 for anx7625
+      dsi-dp bridge in patch 7. [Dmitry/Krzysztof]
+    - Updated endpoint label name for input output ports of analogix bridge chip in patch 7. 
+    - Check the DP or eDP confiuration based on the aux node in patch 9. [Dmitry]
+    - Link to v2 : https://lore.kernel.org/all/20250311122445.3597100-1-quic_amakhija@quicinc.com/
+
+Changes in v2: Fixed review comments from Rob, konard, Dmitry and Krzysztof
+    - Added additionalProperities in dsi and phy patternProperties in patch 3. [Rob's bot]
+    - Updated example in qcom,sa8775p-mdss.yaml of patch 3:
+        - Added port1 and port2 inside mdss0 ports.
+        - Renamed dsi ports from mdss_dsi0_in to mdss0_dsi0_in and mdss_dsi1_in to mdss0_dsi1_in.
+    - Updated the init load value for vdds supply of DSI PHY from
+      150000uA to 48000uA as per chipset power grid in patch 4. [Dmitry]
+    - Updated the init load value for vdda supply for DSI ctrl
+      from 30100uA to 8300uA as per chipset power grid in patch 5.[Dmitry]
+    - Rebase the series to use the header with DSI phy clock IDs to make code more
+      readable in patch 6. [konard]
+    - Added the interrupts-extended in patch 7. [konard]
+    - Fixed the warning from DT checker against DT binding in patch 7. [Krzysztof]
+    - Changed the connector node name from dsi0-connector to dp-dsi0-connector and dsi1-connector to dp-dsi1-connector
+      respectively in patch 7. [Dmitry]
+    - Added the vph_pwr for anx7625 vdda10, vdds18 and vdda33 supply to fix the warnings from DT checker in
+      patch 7. [Rob's bot]
+    - Addressed device tree comments in patch 7. [Konard]
+    - Squash the DT patch 8 into DT patch 7. [Dmitry]
+    - Added hpd_enable() and hpd_disable() bridge funcs in patch 9. [Dmitry]
+    - Update hpd detection bridge op flags logic based on eDP connector in patch 10. [Dmitry]
+    - Link to v1 : https://lore.kernel.org/linux-arm-msm/20250225121824.3869719-1-quic_amakhija@quicinc.com/
+
+Ayushi Makhija (2):
+  arm64: dts: qcom: sa8775p: add Display Serial Interface device nodes
+  arm64: dts: qcom: sa8775p-ride: add anx7625 DSI to DP bridge nodes
+
+ arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 232 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sa8775p.dtsi      | 177 +++++++++++++++-
+ 2 files changed, 408 insertions(+), 1 deletion(-)
+
+-- 
+2.34.1
+
