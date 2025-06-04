@@ -2,127 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 995A1ACDEA5
-	for <lists+freedreno@lfdr.de>; Wed,  4 Jun 2025 15:11:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B57ACE3FE
+	for <lists+freedreno@lfdr.de>; Wed,  4 Jun 2025 19:56:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D99910E740;
-	Wed,  4 Jun 2025 13:11:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E16C910E011;
+	Wed,  4 Jun 2025 17:56:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LY0q+1IQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YrdmOJW+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23EC510E740
- for <freedreno@lists.freedesktop.org>; Wed,  4 Jun 2025 13:11:51 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5548K9U2027289
- for <freedreno@lists.freedesktop.org>; Wed, 4 Jun 2025 13:11:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=XQvsxDPGz+N4nZmV7ksKBXsD
- n1FjHMoRZnCtDTtfld8=; b=LY0q+1IQAxk4WK8T0Neho23c3g1xaCJAGYo2Ma0D
- ZuBYCbNpeTYdqVof2VF1lmWc+EpctiqGqg2g/J6udDys6cdvvuVXSscc3aM6HOJn
- 0gwlcwzKjf6dVeDq45YHDv9l8WYWlYc9Mcz8MspkCkDSy7OP6nPSSn+ZM0NZx0DJ
- rFgiOteNADm/K6KoQSItmwi0SDrLwPlEMeMQcchC8uknQvUE4bzTx0KmeJfQAfAK
- JH09+Hjc+dz+Gq+9HgkEbp04gGFxPtCYjAkOdzzy/ghOz8ctWuZGZvvnxLC25Au7
- Zd0kV2tbCEZRCx8dPKR5SCqJNpwlLt/wvj1bbL0h0ojK3g==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 471g8sx3nm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 04 Jun 2025 13:11:50 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7c5f3b8b1a1so1175214885a.3
- for <freedreno@lists.freedesktop.org>; Wed, 04 Jun 2025 06:11:50 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2094D10E011;
+ Wed,  4 Jun 2025 17:56:19 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-309fac646adso1274787a91.1; 
+ Wed, 04 Jun 2025 10:56:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1749059778; x=1749664578; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/Euwi8cH8s0mdwA2LRTqEh1pB7vpHN6OEAf9ObZHDik=;
+ b=YrdmOJW+9c81bCReUt/gB6S81crV3drm9qBupg6uvzXj+My++5oa7mehWghEDG1gsS
+ FPU/QPEYGV0/mz3O5xC2b+XVjvr9PeF2dLNAe9G6RNeeiUSzoUbT9Z+mXADeGXpuatJ+
+ X+JfqSAWeLDKhBI7FOqAr4rjFJCDN1HdKmD+T9cCVu50sJep4VJfhe+96sg0F2+kHF3a
+ jsclahRqJsygsVFwH696p34MTx/ai/V92W4MzxzdT5gCN+D1Eupfvm7WI/2iIVoZkSoK
+ eGENpSqBcNqgBHQJJoooNcMg7Kr+czBkqnibkWxbZdDRkJkq3GEr3wTfjbc2uYksiwTt
+ Wt9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749042708; x=1749647508;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XQvsxDPGz+N4nZmV7ksKBXsDn1FjHMoRZnCtDTtfld8=;
- b=wwhfykoCYmaYtpy86urBtxoGHlWq2pDi9i7Yq5tcUci3sSN/e0PYwYA4ivEUO6JMKt
- 6lTYEjbmI4Z6qYURL62wiuJ6LzQ4NLReRuTTX21zIKjZ/gQiL0oTU76DhDorzRCvmFkm
- wxkCuGXCnNPBUvcs92CN6DZnuSpPEyCvKhU3Zm8UVXdv4Dqk+BMEJpd1jkpcJquqrzmx
- n3DiI8TNEjrnnkKPXo3ix7RvVyDZGoDhfvhhNYoEfb++/3RvZ3yOMTVf4wgoSIgw5cNw
- YeGuzRNkK8W2N32lwc0AoOTLbkz2HpW3vdYFYh7NihLtdtzmsXl2nKWHY4Q3if8t3fZK
- Lhxw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXEergp0XP1scjNMQUZSX7OPeDhGbk++RtWNyZ4N5DpGcyHEOeUdmh+PvhOnQbzDjJAdkL0uzG6r40=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzgY6MtJKXpb3V3f6WY4i+uEEpQ8glfPRQSKdhkN94sXngCXMTb
- PXd67edRV8L9K18IqSuyqcBPesxsQ72fb5ujcLXgnGhnVDOFtVU2OYXv9A+u2Z8SIFaHrjFwxXG
- MJqIKKYv7rjVUjrpdYCRHw7FR18iqK2lqLzuSjYIrAe0F70VGqb6ZY2L/+4P3FbR7uqbzazeadJ
- m5mIUARQ==
-X-Gm-Gg: ASbGncu/cFKEG8EVI73tZxQMpXdNrphC7I9TJ7Acs8Ptt6WluoKsep8ZidNZGZrq6sS
- MOQN5Xrm0TT15bHD/M3RlRPkDy2ovulSpNwAqj4EqD2AFp0uotqarhnxRuK8/rJLJ4OZzZksMRG
- CnBVQtwSzGUYLbsoKVMTIWuqPiH+UVTkuEYQ7z7bFcJZusnt1qMRsSDUGhtFc+q9SK1cQbDvdBH
- FekV2PsjR2keGG2mvDRea1JYlzKBIXrBaWnsKk+hHqJz5X6xcLpWOg872jsiyQy0jZccWAW6fnh
- gVYxEB+9thvSVz470Vsfto+gYVCOcMx2iKMZmgep6KprBkbb4GRVLN4UTpQsRaXgbkzzd4D9/j8
- =
-X-Received: by 2002:a05:620a:28d6:b0:7d0:97a6:4539 with SMTP id
- af79cd13be357-7d21986ac2emr456009885a.4.1749042708427; 
- Wed, 04 Jun 2025 06:11:48 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFTQa9wd7fIpEVhtGaVsz15AkiRD0CT3Fr8ffve1pc6iUT2fQdSSm5Tp2fkdgwlgyGIAfpLLw==
-X-Received: by 2002:a05:620a:3710:b0:7cd:31ca:d81 with SMTP id
- af79cd13be357-7d2198e92cdmr491537685a.27.1749042697421; 
- Wed, 04 Jun 2025 06:11:37 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ d=1e100.net; s=20230601; t=1749059778; x=1749664578;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/Euwi8cH8s0mdwA2LRTqEh1pB7vpHN6OEAf9ObZHDik=;
+ b=eVMyL4qnrJQsnq1GM0sRKW9H0KNBMQTptGe4SbRV2WqDCb6/aWTWeT+Vl3cpXWqacR
+ RUso1OWDggLzAeT4d+/p4wpIXXp5kBWQV8rCe6CAQNsSZcm4J1i+xGfyG0MfiCTS0Ukk
+ 1lawPgCJLFgZSCtg026kRlQuM9uJ19RYplGROO2BLF9utSruZYUeFASgJARDDCqj1+Vf
+ Kj+nELCR5Qg30FI4wgq6iqjaHBfcE6Zxa6sQobVzdobKuuQkyDdPCacseu6MzsnmB+4l
+ A87D7xxyqmFgNEnnzt3ZsBRROaCbeaoJ/zu6WVSlI3q18a5gmbC+p42sxzZFF8MZtXpU
+ VhwA==
+X-Gm-Message-State: AOJu0YwCoN3KP3yIIbFAlDO0mNeJJ0veU4TZ+QK+u+okcsGZBQjd+0pw
+ QkMjSL1EJR5IEcgdC8xAzqrofWzYY/DB2mCxNLTcvaV457JI+8+m6mtgZXSd9A==
+X-Gm-Gg: ASbGncvPxN3+8vvaA6iWHW6KL/INptXnyWmAtBW3/ywmRptHsXvx5m1kSvoHOQLhGaZ
+ s8R8UzyvEBioIabfl52d+2fJd6C0G5moHOrhMtE2c3gwZU8vImt+P4EaLZLszIhjZpx7VgCgLg2
+ UEVbXC9w6xmpi19DLWNYvCEXtbJf6SuwYOEVfNaXW9Hr76zyEpKhvpq3zWLuUs7zCGv+jE8Nao+
+ fkVsyzLp+sVSB9tICIju/GJx6wb8kCo5+qkyYuJNOl8rpXVP0VUQ5T9bUAoXs7v7ADHV/KS/+MS
+ MrUamu2S34QjXSkK3YLQ8aL6GRtSnv7NZZEyDkFBeXtAvnSleA==
+X-Google-Smtp-Source: AGHT+IHblasMKmm6BcsNSe9ySzE24cboKqnKZUZq5n3QdEBR7VgbwEyc17E0jOQpdWgdihRXEusRnA==
+X-Received: by 2002:a17:90b:55c7:b0:311:be43:f09a with SMTP id
+ 98e67ed59e1d1-31328fa028emr519168a91.9.1749059778060; 
+ Wed, 04 Jun 2025 10:56:18 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:89fa:e299:1a34:c1f5])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-32a85bd2a5dsm21439851fa.103.2025.06.04.06.11.36
+ 98e67ed59e1d1-3124e2b67f4sm9232208a91.3.2025.06.04.10.56.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Jun 2025 06:11:36 -0700 (PDT)
-Date: Wed, 4 Jun 2025 16:11:34 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Hermes Wu <Hermes.wu@ite.com.tw>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v7] drm/msm/dp: reuse generic HDMI codec implementation
-Message-ID: <ifj3ipdlxxv6dnste76q2wwmy4dcvshnfkqekdndg674rgsrdw@vgj2aahqqsdx>
-References: <20250423-dp-hdmi-audio-v7-1-8407a23e55b2@oss.qualcomm.com>
- <4E62D52FC6135E5B+a6b1634e-5c66-4db5-bb1e-bf64e2e8d8a2@radxa.com>
- <os3cmusf2nrdf3zq45s52a72x4osnd4thlgcgykcalyiuitcha@tnb576gj4m27>
- <712A2410D11E9A7E+27a43d64-1116-41ba-addc-83aa5f761a28@radxa.com>
+ Wed, 04 Jun 2025 10:56:17 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] MAINTAINERS: .mailmap: update Rob Clark's email address
+Date: Wed,  4 Jun 2025 10:55:58 -0700
+Message-ID: <20250604175600.89902-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <712A2410D11E9A7E+27a43d64-1116-41ba-addc-83aa5f761a28@radxa.com>
-X-Authority-Analysis: v=2.4 cv=RMizH5i+ c=1 sm=1 tr=0 ts=68404616 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=6IFa9wvqVegA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
- a=COk6AnOGAAAA:8 a=pUtLPF_adMnqGKIR7MYA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA0MDEwMCBTYWx0ZWRfX/gaZmbh0NZOR
- goh3o7bC4CU1TDsPvOpduNY7wv5/0ySLwJqBtEmcuJybm2OnIhhs6KWYpzCqmtSm+qpZm07GSka
- pu2toOCB2RwJyg2Qt6yVd5GgTWZDWIA32u9ICxevrRlu2ZVzW0SDt/HkzvDm270JQNv/Y8dXWN0
- aDTNrUynNFhhViyp/SOpWDLtmMNuLZP7sgM/NfwZBcEU36zjqZMOIIGtxIIohnzwEfzO8lCaTaH
- 4RsgWLihCogd68chdfGczB1026k9xxmZjS13L+hAGDr/LMYFyr4qqFiQyl4D08qzMlvJa5kblQd
- i52lHqb/d5kVfEvXiUBsQSpqaBo7e5tKe3XoNdHlycTemxR/AZlfH3kXPhBTSourv3IOfdvyGYS
- YJucXETk8YlNXQMT2qS298SLfSwL4TIZrbvmcAsSa3/7oxKHKMTqhjwhvRcorq1xPV6/mOYF
-X-Proofpoint-GUID: kQL5ZyQ2B6b9VgMxyp43oIwxD2I6Mt5X
-X-Proofpoint-ORIG-GUID: kQL5ZyQ2B6b9VgMxyp43oIwxD2I6Mt5X
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-04_03,2025-06-03_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
- bulkscore=0 suspectscore=0 adultscore=0 mlxlogscore=999 mlxscore=0
- clxscore=1015 priorityscore=1501 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506040100
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,117 +84,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 03, 2025 at 10:16:14PM +0800, Xilin Wu wrote:
-> On 2025/6/3 22:06:36, Dmitry Baryshkov wrote:
-> > On Thu, May 29, 2025 at 10:40:12AM +0800, Xilin Wu wrote:
-> > > On 2025/4/24 01:52:45, Dmitry Baryshkov wrote:
-> > > > From: Dmitry Baryshkov <lumag@kernel.org>
-> > > > 
-> > > > The MSM DisplayPort driver implements several HDMI codec functions
-> > > > in the driver, e.g. it manually manages HDMI codec device registration,
-> > > > returning ELD and plugged_cb support. In order to reduce code
-> > > > duplication reuse drm_hdmi_audio_* helpers and drm_bridge_connector
-> > > > integration.
-> > > > 
-> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > ---
-> > > > A lot of DisplayPort bridges use HDMI Codec in order to provide audio
-> > > > support. Present DRM HDMI Audio support has been written with the HDMI
-> > > > and in particular DRM HDMI Connector framework support, however those
-> > > > audio helpers can be easily reused for DisplayPort drivers too.
-> > > > 
-> > > > Patches by Hermes Wu that targeted implementing HDMI Audio support in
-> > > > the iTE IT6506 driver pointed out the necessity of allowing one to use
-> > > > generic audio helpers for DisplayPort drivers, as otherwise each driver
-> > > > has to manually (and correctly) implement the get_eld() and plugged_cb
-> > > > support.
-> > > > 
-> > > > Implement necessary integration in drm_bridge_connector and provide an
-> > > > example implementation in the msm/dp driver.
-> > > > ---
-> > > > Changes in v7:
-> > > > - Dropped applied patches
-> > > > - Link to v6: https://lore.kernel.org/r/20250314-dp-hdmi-audio-v6-0-dbd228fa73d7@oss.qualcomm.com
-> > > > 
-> > > > Changes in v6:
-> > > > - Added DRM_BRIDGE_OP_DP_AUDIO and separate set of DisplayPort audio
-> > > >     callbacks to the drm_bridge interface (Maxime)
-> > > > - Link to v5: https://lore.kernel.org/r/20250307-dp-hdmi-audio-v5-0-f3be215fdb78@linaro.org
-> > > > 
-> > > > Changes in v5:
-> > > > - Rebased on top of linux-next, also handling HDMI audio piece of the
-> > > >     MSM HDMI driver.
-> > > > - Link to v4: https://lore.kernel.org/r/20250301-dp-hdmi-audio-v4-0-82739daf28cc@linaro.org
-> > > > 
-> > > > Changes in v4:
-> > > > - Rebased on linux-next, adding DRM_BRIDGE_OP_HDMI_AUDIO to Synopsys QP
-> > > >     HDMI driver.
-> > > > - Drop outdated comment regarding subconnector from the commit message.
-> > > > - Link to v3: https://lore.kernel.org/r/20250219-dp-hdmi-audio-v3-0-42900f034b40@linaro.org
-> > > > 
-> > > > Changes in v3:
-> > > > - Dropped DRM_BRIDGE_OP_DisplayPort, added DRM_BRIDGE_OP_HDMI_AUDIO
-> > > >     (Laurent, Maxime)
-> > > > - Dropped the subconnector patch (again)
-> > > > - Link to v2: https://lore.kernel.org/r/20250209-dp-hdmi-audio-v2-0-16db6ebf22ff@linaro.org
-> > > > 
-> > > > Changes in v2:
-> > > > - Added drm_connector_attach_dp_subconnector_property() patches
-> > > > - Link to v1: https://lore.kernel.org/r/20250206-dp-hdmi-audio-v1-0-8aa14a8c0d4d@linaro.org
-> > > > ---
-> > > >    drivers/gpu/drm/msm/Kconfig         |   1 +
-> > > >    drivers/gpu/drm/msm/dp/dp_audio.c   | 131 ++++--------------------------------
-> > > >    drivers/gpu/drm/msm/dp/dp_audio.h   |  27 ++------
-> > > >    drivers/gpu/drm/msm/dp/dp_display.c |  28 ++------
-> > > >    drivers/gpu/drm/msm/dp/dp_display.h |   6 --
-> > > >    drivers/gpu/drm/msm/dp/dp_drm.c     |   8 +++
-> > > >    6 files changed, 31 insertions(+), 170 deletions(-)
-> > > > 
-> > > 
-> > > This change breaks DP audio on the qcs6490 platform, tested on kernel
-> > > next-20250528.
-> > 
-> > I can not confirm this issue here (though I tested it on a different
-> > hardware). Do you have any patches on top of linux-next?
-> > 
-> 
-> I have this patch series applied, but I don't think it could be relevant:
-> 
-> [PATCH v4 0/8] Enable audio on qcs6490-RB3Gen2 and qcm6490-idp boards
-> https://lore.kernel.org/all/20250527111227.2318021-1-quic_pkumpatl@quicinc.com/
-> 
-> > > 
-> > > [    0.368035] [drm:dpu_kms_hw_init:1173] dpu hardware revision:0x70020000
-> > > [    0.369359] hdmi-audio-codec hdmi-audio-codec.0.auto: hdmi_codec_probe:
-> > > dai_count 0
-> > > [    0.369362] hdmi-audio-codec hdmi-audio-codec.0.auto: hdmi_codec_probe:
-> > > Missing hw_params
-> > > [    0.369364] hdmi-audio-codec hdmi-audio-codec.0.auto: hdmi_codec_probe:
-> > > Invalid parameters
-> > > [    0.369366] hdmi-audio-codec hdmi-audio-codec.0.auto: probe with driver
-> > > hdmi-audio-codec failed with error -22
-> > > [    0.370536] [drm] Initialized msm 1.12.0 for ae01000.display-controller
-> > > on minor 0
-> > > 
-> > > Manually reverting this change solves the problem.
-> > 
-> > It is suspicious, since dai_count can not be 0. We set
-> > hdmi_audio_max_i2s_playback_channels to 8, which in turn should set the
-> > hdmi_codec_pdata.i2s to 1.
-> > 
-> 
-> It suddenly comes to my mind that I'm using a kernel with everything
-> compiled as builtin. Could that be a possible issue?
+From: Rob Clark <robin.clark@oss.qualcomm.com>
 
-What kernel args are you using? Do you have any kernel debug options
-enabled in the .config? I've tested the kernel on RB3 Gen2 and I still
-can not confirm the issue (I'm also using an all-in kernel)
+Remap historical email addresses to @oss.qualcomm.com.
 
-I've verified that on a running system I'm getting three HDMI audio
-codecs (one from LT9611UXC and two from DP controllers). Each of them
-binds immediately to the driver with no issues observed.
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ .mailmap    | 2 ++
+ MAINTAINERS | 6 +++---
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
+diff --git a/.mailmap b/.mailmap
+index 6a6aa09e244b..b72a164280ea 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -633,6 +633,8 @@ Richard Genoud <richard.genoud@bootlin.com> <richard.genoud@gmail.com>
+ Richard Leitner <richard.leitner@linux.dev> <dev@g0hl1n.net>
+ Richard Leitner <richard.leitner@linux.dev> <me@g0hl1n.net>
+ Richard Leitner <richard.leitner@linux.dev> <richard.leitner@skidata.com>
++Rob Clark <robin.clark@oss.qualcomm.com> <robdclark@chromium.org>
++Rob Clark <robin.clark@oss.qualcomm.com> <robdclark@gmail.com>
+ Robert Foss <rfoss@kernel.org> <robert.foss@linaro.org>
+ Rocky Liao <quic_rjliao@quicinc.com> <rjliao@codeaurora.org>
+ Rodrigo Siqueira <siqueira@igalia.com> <rodrigosiqueiramelo@gmail.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ee57fc5d48f8..5dd1a3234cc5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7567,7 +7567,7 @@ F:	Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
+ F:	drivers/gpu/drm/tiny/panel-mipi-dbi.c
+ 
+ DRM DRIVER for Qualcomm Adreno GPUs
+-M:	Rob Clark <robdclark@gmail.com>
++M:	Rob Clark <robin.clark@oss.qualcomm.com>
+ R:	Sean Paul <sean@poorly.run>
+ R:	Konrad Dybcio <konradybcio@kernel.org>
+ L:	linux-arm-msm@vger.kernel.org
+@@ -7586,7 +7586,7 @@ F:	drivers/gpu/drm/msm/registers/adreno/
+ F:	include/uapi/drm/msm_drm.h
+ 
+ DRM DRIVER for Qualcomm display hardware
+-M:	Rob Clark <robdclark@gmail.com>
++M:	Rob Clark <robin.clark@oss.qualcomm.com>
+ M:	Abhinav Kumar <quic_abhinavk@quicinc.com>
+ M:	Dmitry Baryshkov <lumag@kernel.org>
+ R:	Sean Paul <sean@poorly.run>
+@@ -20287,7 +20287,7 @@ F:	drivers/soc/qcom/icc-bwmon.c
+ F:	drivers/soc/qcom/trace_icc-bwmon.h
+ 
+ QUALCOMM IOMMU
+-M:	Rob Clark <robdclark@gmail.com>
++M:	Rob Clark <robin.clark@oss.qualcomm.com>
+ L:	iommu@lists.linux.dev
+ L:	linux-arm-msm@vger.kernel.org
+ S:	Maintained
 -- 
-With best wishes
-Dmitry
+2.49.0
+
