@@ -2,106 +2,127 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A819BACD85E
-	for <lists+freedreno@lfdr.de>; Wed,  4 Jun 2025 09:19:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 995A1ACDEA5
+	for <lists+freedreno@lfdr.de>; Wed,  4 Jun 2025 15:11:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 496B710E251;
-	Wed,  4 Jun 2025 07:19:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D99910E740;
+	Wed,  4 Jun 2025 13:11:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="PPbgIrN9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LY0q+1IQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C754810E238;
- Wed,  4 Jun 2025 07:19:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23EC510E740
+ for <freedreno@lists.freedesktop.org>; Wed,  4 Jun 2025 13:11:51 +0000 (UTC)
 Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 553NFgu0013814;
- Wed, 4 Jun 2025 07:19:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=ne/DRGIyKNE
- VWK8VpatIEjAtrIvy+aNgd7lx7Ccrnyo=; b=PPbgIrN9BYJguQFX4CXBemKWYVW
- 7DqYlea0829Ih5knlshmgOz0CfLxjkaWRiabnC7lFUj21kjwD1gp65RQ3OMB56mb
- 7jB4ATetZbpxvqgZU42JY2txjHjWDs11ERqke6v/GvqewRyA7amkWLc2nYiy5cjM
- 3mqT0r177wWXnjTGBvwIlXdffcaN6CdmJGSBF9c9QL6aePlcSzgCff3R2aHZ6SxL
- NisE/ltICnp0OgyQcrwPxk97sFKMn0S966r86khTSUsfvGyPGz5alN/QrR4+PUZf
- ULyJZC6YjiSOY7Co6EVr0XZO4df7HS1F6yEO1FByB4am6T8VfwHdG8CKWIw==
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 471g8sw5gt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Jun 2025 07:19:02 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 5547IwAM017260; 
- Wed, 4 Jun 2025 07:18:58 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 46ytum3903-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Jun 2025 07:18:58 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 5547Iwop017245;
- Wed, 4 Jun 2025 07:18:58 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com
- [10.213.99.91])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 5547Iwgo017238
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Jun 2025 07:18:58 +0000
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
- id A5CB0592; Wed,  4 Jun 2025 12:48:57 +0530 (+0530)
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, robdclark@gmail.com,
- dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_abhinavk@quicinc.com,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_jesszhan@quicinc.com, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v8 RESEND 2/2] arm64: dts: qcom: sa8775p-ride: add anx7625 DSI
- to DP bridge nodes
-Date: Wed,  4 Jun 2025 12:48:51 +0530
-Message-Id: <20250604071851.1438612-3-quic_amakhija@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250604071851.1438612-1-quic_amakhija@quicinc.com>
-References: <20250604071851.1438612-1-quic_amakhija@quicinc.com>
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5548K9U2027289
+ for <freedreno@lists.freedesktop.org>; Wed, 4 Jun 2025 13:11:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=XQvsxDPGz+N4nZmV7ksKBXsD
+ n1FjHMoRZnCtDTtfld8=; b=LY0q+1IQAxk4WK8T0Neho23c3g1xaCJAGYo2Ma0D
+ ZuBYCbNpeTYdqVof2VF1lmWc+EpctiqGqg2g/J6udDys6cdvvuVXSscc3aM6HOJn
+ 0gwlcwzKjf6dVeDq45YHDv9l8WYWlYc9Mcz8MspkCkDSy7OP6nPSSn+ZM0NZx0DJ
+ rFgiOteNADm/K6KoQSItmwi0SDrLwPlEMeMQcchC8uknQvUE4bzTx0KmeJfQAfAK
+ JH09+Hjc+dz+Gq+9HgkEbp04gGFxPtCYjAkOdzzy/ghOz8ctWuZGZvvnxLC25Au7
+ Zd0kV2tbCEZRCx8dPKR5SCqJNpwlLt/wvj1bbL0h0ojK3g==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 471g8sx3nm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 04 Jun 2025 13:11:50 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c5f3b8b1a1so1175214885a.3
+ for <freedreno@lists.freedesktop.org>; Wed, 04 Jun 2025 06:11:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749042708; x=1749647508;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XQvsxDPGz+N4nZmV7ksKBXsDn1FjHMoRZnCtDTtfld8=;
+ b=wwhfykoCYmaYtpy86urBtxoGHlWq2pDi9i7Yq5tcUci3sSN/e0PYwYA4ivEUO6JMKt
+ 6lTYEjbmI4Z6qYURL62wiuJ6LzQ4NLReRuTTX21zIKjZ/gQiL0oTU76DhDorzRCvmFkm
+ wxkCuGXCnNPBUvcs92CN6DZnuSpPEyCvKhU3Zm8UVXdv4Dqk+BMEJpd1jkpcJquqrzmx
+ n3DiI8TNEjrnnkKPXo3ix7RvVyDZGoDhfvhhNYoEfb++/3RvZ3yOMTVf4wgoSIgw5cNw
+ YeGuzRNkK8W2N32lwc0AoOTLbkz2HpW3vdYFYh7NihLtdtzmsXl2nKWHY4Q3if8t3fZK
+ Lhxw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXEergp0XP1scjNMQUZSX7OPeDhGbk++RtWNyZ4N5DpGcyHEOeUdmh+PvhOnQbzDjJAdkL0uzG6r40=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzgY6MtJKXpb3V3f6WY4i+uEEpQ8glfPRQSKdhkN94sXngCXMTb
+ PXd67edRV8L9K18IqSuyqcBPesxsQ72fb5ujcLXgnGhnVDOFtVU2OYXv9A+u2Z8SIFaHrjFwxXG
+ MJqIKKYv7rjVUjrpdYCRHw7FR18iqK2lqLzuSjYIrAe0F70VGqb6ZY2L/+4P3FbR7uqbzazeadJ
+ m5mIUARQ==
+X-Gm-Gg: ASbGncu/cFKEG8EVI73tZxQMpXdNrphC7I9TJ7Acs8Ptt6WluoKsep8ZidNZGZrq6sS
+ MOQN5Xrm0TT15bHD/M3RlRPkDy2ovulSpNwAqj4EqD2AFp0uotqarhnxRuK8/rJLJ4OZzZksMRG
+ CnBVQtwSzGUYLbsoKVMTIWuqPiH+UVTkuEYQ7z7bFcJZusnt1qMRsSDUGhtFc+q9SK1cQbDvdBH
+ FekV2PsjR2keGG2mvDRea1JYlzKBIXrBaWnsKk+hHqJz5X6xcLpWOg872jsiyQy0jZccWAW6fnh
+ gVYxEB+9thvSVz470Vsfto+gYVCOcMx2iKMZmgep6KprBkbb4GRVLN4UTpQsRaXgbkzzd4D9/j8
+ =
+X-Received: by 2002:a05:620a:28d6:b0:7d0:97a6:4539 with SMTP id
+ af79cd13be357-7d21986ac2emr456009885a.4.1749042708427; 
+ Wed, 04 Jun 2025 06:11:48 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFTQa9wd7fIpEVhtGaVsz15AkiRD0CT3Fr8ffve1pc6iUT2fQdSSm5Tp2fkdgwlgyGIAfpLLw==
+X-Received: by 2002:a05:620a:3710:b0:7cd:31ca:d81 with SMTP id
+ af79cd13be357-7d2198e92cdmr491537685a.27.1749042697421; 
+ Wed, 04 Jun 2025 06:11:37 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-32a85bd2a5dsm21439851fa.103.2025.06.04.06.11.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Jun 2025 06:11:36 -0700 (PDT)
+Date: Wed, 4 Jun 2025 16:11:34 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Xilin Wu <sophon@radxa.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Hermes Wu <Hermes.wu@ite.com.tw>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v7] drm/msm/dp: reuse generic HDMI codec implementation
+Message-ID: <ifj3ipdlxxv6dnste76q2wwmy4dcvshnfkqekdndg674rgsrdw@vgj2aahqqsdx>
+References: <20250423-dp-hdmi-audio-v7-1-8407a23e55b2@oss.qualcomm.com>
+ <4E62D52FC6135E5B+a6b1634e-5c66-4db5-bb1e-bf64e2e8d8a2@radxa.com>
+ <os3cmusf2nrdf3zq45s52a72x4osnd4thlgcgykcalyiuitcha@tnb576gj4m27>
+ <712A2410D11E9A7E+27a43d64-1116-41ba-addc-83aa5f761a28@radxa.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Authority-Analysis: v=2.4 cv=RMizH5i+ c=1 sm=1 tr=0 ts=683ff367 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=6IFa9wvqVegA:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=LchG5PTgKyYevX63dD8A:9
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA0MDA2MCBTYWx0ZWRfX7gdzZzK8w2W0
- Rr4GuE9VtCGPJqkJKC3G8S8r908HO86xyB5VmzHK/QyyYzUtxm+Bx2Gpj2hzF41s1rHDZF/lctX
- QS/yeD+XintjkrTJ1wR2Y9PbontoXlTL95wvAt7iYw+yk6WX5xArx2bW6JDdqt6RncG69tjAZGo
- 37/PR/mw0Cw8X+1U8BK0uUIUKXaOgCG+exYTeZCjXa1HaZAPPBjzgFKWvgLfNxr5yzj1uzGoulg
- yAAx4SbUUmrBUXQbQ5q8AH2X+O0UzgZjQG0DkYxZM6fVC7REcHnRJ8ITqb/EOhufyhBWXx6ovYO
- dL9Fylmlo19x1ShJoo/kG06qF4vv5kJgMPiT2Cqd5UYzAUlHnQ5eTo4I036RelDRiGBU2SHG8Nd
- EqCMc+d6pYgt6f3ehY9kfYp6IPDKUm0b7pyf7DINt1B97K2l2Akk9F4yniwbyitcUiDloA6S
-X-Proofpoint-GUID: aLgg1b2S9ZYdlLrqrAfnxomoH4n-huoV
-X-Proofpoint-ORIG-GUID: aLgg1b2S9ZYdlLrqrAfnxomoH4n-huoV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <712A2410D11E9A7E+27a43d64-1116-41ba-addc-83aa5f761a28@radxa.com>
+X-Authority-Analysis: v=2.4 cv=RMizH5i+ c=1 sm=1 tr=0 ts=68404616 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=6IFa9wvqVegA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=COk6AnOGAAAA:8 a=pUtLPF_adMnqGKIR7MYA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA0MDEwMCBTYWx0ZWRfX/gaZmbh0NZOR
+ goh3o7bC4CU1TDsPvOpduNY7wv5/0ySLwJqBtEmcuJybm2OnIhhs6KWYpzCqmtSm+qpZm07GSka
+ pu2toOCB2RwJyg2Qt6yVd5GgTWZDWIA32u9ICxevrRlu2ZVzW0SDt/HkzvDm270JQNv/Y8dXWN0
+ aDTNrUynNFhhViyp/SOpWDLtmMNuLZP7sgM/NfwZBcEU36zjqZMOIIGtxIIohnzwEfzO8lCaTaH
+ 4RsgWLihCogd68chdfGczB1026k9xxmZjS13L+hAGDr/LMYFyr4qqFiQyl4D08qzMlvJa5kblQd
+ i52lHqb/d5kVfEvXiUBsQSpqaBo7e5tKe3XoNdHlycTemxR/AZlfH3kXPhBTSourv3IOfdvyGYS
+ YJucXETk8YlNXQMT2qS298SLfSwL4TIZrbvmcAsSa3/7oxKHKMTqhjwhvRcorq1xPV6/mOYF
+X-Proofpoint-GUID: kQL5ZyQ2B6b9VgMxyp43oIwxD2I6Mt5X
+X-Proofpoint-ORIG-GUID: kQL5ZyQ2B6b9VgMxyp43oIwxD2I6Mt5X
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-04_02,2025-06-03_02,2025-03-28_01
+ definitions=2025-06-04_03,2025-06-03_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  impostorscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
  bulkscore=0 suspectscore=0 adultscore=0 mlxlogscore=999 mlxscore=0
  clxscore=1015 priorityscore=1501 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506040060
+ engine=8.19.0-2505280000 definitions=main-2506040100
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,287 +138,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add anx7625 DSI to DP bridge device nodes.
+On Tue, Jun 03, 2025 at 10:16:14PM +0800, Xilin Wu wrote:
+> On 2025/6/3 22:06:36, Dmitry Baryshkov wrote:
+> > On Thu, May 29, 2025 at 10:40:12AM +0800, Xilin Wu wrote:
+> > > On 2025/4/24 01:52:45, Dmitry Baryshkov wrote:
+> > > > From: Dmitry Baryshkov <lumag@kernel.org>
+> > > > 
+> > > > The MSM DisplayPort driver implements several HDMI codec functions
+> > > > in the driver, e.g. it manually manages HDMI codec device registration,
+> > > > returning ELD and plugged_cb support. In order to reduce code
+> > > > duplication reuse drm_hdmi_audio_* helpers and drm_bridge_connector
+> > > > integration.
+> > > > 
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > > > ---
+> > > > A lot of DisplayPort bridges use HDMI Codec in order to provide audio
+> > > > support. Present DRM HDMI Audio support has been written with the HDMI
+> > > > and in particular DRM HDMI Connector framework support, however those
+> > > > audio helpers can be easily reused for DisplayPort drivers too.
+> > > > 
+> > > > Patches by Hermes Wu that targeted implementing HDMI Audio support in
+> > > > the iTE IT6506 driver pointed out the necessity of allowing one to use
+> > > > generic audio helpers for DisplayPort drivers, as otherwise each driver
+> > > > has to manually (and correctly) implement the get_eld() and plugged_cb
+> > > > support.
+> > > > 
+> > > > Implement necessary integration in drm_bridge_connector and provide an
+> > > > example implementation in the msm/dp driver.
+> > > > ---
+> > > > Changes in v7:
+> > > > - Dropped applied patches
+> > > > - Link to v6: https://lore.kernel.org/r/20250314-dp-hdmi-audio-v6-0-dbd228fa73d7@oss.qualcomm.com
+> > > > 
+> > > > Changes in v6:
+> > > > - Added DRM_BRIDGE_OP_DP_AUDIO and separate set of DisplayPort audio
+> > > >     callbacks to the drm_bridge interface (Maxime)
+> > > > - Link to v5: https://lore.kernel.org/r/20250307-dp-hdmi-audio-v5-0-f3be215fdb78@linaro.org
+> > > > 
+> > > > Changes in v5:
+> > > > - Rebased on top of linux-next, also handling HDMI audio piece of the
+> > > >     MSM HDMI driver.
+> > > > - Link to v4: https://lore.kernel.org/r/20250301-dp-hdmi-audio-v4-0-82739daf28cc@linaro.org
+> > > > 
+> > > > Changes in v4:
+> > > > - Rebased on linux-next, adding DRM_BRIDGE_OP_HDMI_AUDIO to Synopsys QP
+> > > >     HDMI driver.
+> > > > - Drop outdated comment regarding subconnector from the commit message.
+> > > > - Link to v3: https://lore.kernel.org/r/20250219-dp-hdmi-audio-v3-0-42900f034b40@linaro.org
+> > > > 
+> > > > Changes in v3:
+> > > > - Dropped DRM_BRIDGE_OP_DisplayPort, added DRM_BRIDGE_OP_HDMI_AUDIO
+> > > >     (Laurent, Maxime)
+> > > > - Dropped the subconnector patch (again)
+> > > > - Link to v2: https://lore.kernel.org/r/20250209-dp-hdmi-audio-v2-0-16db6ebf22ff@linaro.org
+> > > > 
+> > > > Changes in v2:
+> > > > - Added drm_connector_attach_dp_subconnector_property() patches
+> > > > - Link to v1: https://lore.kernel.org/r/20250206-dp-hdmi-audio-v1-0-8aa14a8c0d4d@linaro.org
+> > > > ---
+> > > >    drivers/gpu/drm/msm/Kconfig         |   1 +
+> > > >    drivers/gpu/drm/msm/dp/dp_audio.c   | 131 ++++--------------------------------
+> > > >    drivers/gpu/drm/msm/dp/dp_audio.h   |  27 ++------
+> > > >    drivers/gpu/drm/msm/dp/dp_display.c |  28 ++------
+> > > >    drivers/gpu/drm/msm/dp/dp_display.h |   6 --
+> > > >    drivers/gpu/drm/msm/dp/dp_drm.c     |   8 +++
+> > > >    6 files changed, 31 insertions(+), 170 deletions(-)
+> > > > 
+> > > 
+> > > This change breaks DP audio on the qcs6490 platform, tested on kernel
+> > > next-20250528.
+> > 
+> > I can not confirm this issue here (though I tested it on a different
+> > hardware). Do you have any patches on top of linux-next?
+> > 
+> 
+> I have this patch series applied, but I don't think it could be relevant:
+> 
+> [PATCH v4 0/8] Enable audio on qcs6490-RB3Gen2 and qcm6490-idp boards
+> https://lore.kernel.org/all/20250527111227.2318021-1-quic_pkumpatl@quicinc.com/
+> 
+> > > 
+> > > [    0.368035] [drm:dpu_kms_hw_init:1173] dpu hardware revision:0x70020000
+> > > [    0.369359] hdmi-audio-codec hdmi-audio-codec.0.auto: hdmi_codec_probe:
+> > > dai_count 0
+> > > [    0.369362] hdmi-audio-codec hdmi-audio-codec.0.auto: hdmi_codec_probe:
+> > > Missing hw_params
+> > > [    0.369364] hdmi-audio-codec hdmi-audio-codec.0.auto: hdmi_codec_probe:
+> > > Invalid parameters
+> > > [    0.369366] hdmi-audio-codec hdmi-audio-codec.0.auto: probe with driver
+> > > hdmi-audio-codec failed with error -22
+> > > [    0.370536] [drm] Initialized msm 1.12.0 for ae01000.display-controller
+> > > on minor 0
+> > > 
+> > > Manually reverting this change solves the problem.
+> > 
+> > It is suspicious, since dai_count can not be 0. We set
+> > hdmi_audio_max_i2s_playback_channels to 8, which in turn should set the
+> > hdmi_codec_pdata.i2s to 1.
+> > 
+> 
+> It suddenly comes to my mind that I'm using a kernel with everything
+> compiled as builtin. Could that be a possible issue?
 
-Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 232 +++++++++++++++++++++
- 1 file changed, 232 insertions(+)
+What kernel args are you using? Do you have any kernel debug options
+enabled in the .config? I've tested the kernel on RB3 Gen2 and I still
+can not confirm the issue (I'm also using an all-in kernel)
 
-diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-index 3ae416ab66e8..6af7d1db81a1 100644
---- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-@@ -28,6 +28,64 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	vreg_12p0: vreg-12p0-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_12P0";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+	};
-+
-+	vreg_5p0: vreg-5p0-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_5P0";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+
-+		vin-supply = <&vreg_12p0>;
-+	};
-+
-+	vreg_1p8: vreg-1p8-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_1P8";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		vin-supply = <&vreg_5p0>;
-+	};
-+
-+	vreg_1p0: vreg-1p0-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_1P0";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1000000>;
-+		regulator-max-microvolt = <1000000>;
-+
-+		vin-supply = <&vreg_1p8>;
-+	};
-+
-+	vreg_3p0: vreg-3p0-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_3P0";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3000000>;
-+		regulator-max-microvolt = <3000000>;
-+
-+		vin-supply = <&vreg_12p0>;
-+	};
-+
- 	vreg_conn_1p8: vreg_conn_1p8 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vreg_conn_1p8";
-@@ -128,6 +186,30 @@ dp1_connector_in: endpoint {
- 			};
- 		};
- 	};
-+
-+	dp-dsi0-connector {
-+		compatible = "dp-connector";
-+		label = "DSI0";
-+		type = "full-size";
-+
-+		port {
-+			dp_dsi0_connector_in: endpoint {
-+				remote-endpoint = <&dsi2dp_bridge0_out>;
-+			};
-+		};
-+	};
-+
-+	dp-dsi1-connector {
-+		compatible = "dp-connector";
-+		label = "DSI1";
-+		type = "full-size";
-+
-+		port {
-+			dp_dsi1_connector_in: endpoint {
-+				remote-endpoint = <&dsi2dp_bridge1_out>;
-+			};
-+		};
-+	};
- };
- 
- &apps_rsc {
-@@ -513,7 +595,108 @@ &i2c11 {
- 
- &i2c18 {
- 	clock-frequency = <400000>;
-+
- 	status = "okay";
-+
-+	io_expander: gpio@74 {
-+		compatible = "ti,tca9539";
-+		reg = <0x74>;
-+		interrupts-extended = <&tlmm 98 IRQ_TYPE_EDGE_BOTH>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+
-+		pinctrl-0 = <&io_expander_intr_active>,
-+			    <&io_expander_reset_active>;
-+		pinctrl-names = "default";
-+	};
-+
-+	i2c-mux@70 {
-+		compatible = "nxp,pca9543";
-+		#address-cells = <1>;
-+
-+		#size-cells = <0>;
-+		reg = <0x70>;
-+
-+		i2c@0 {
-+			reg = <0>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			bridge@58 {
-+				compatible = "analogix,anx7625";
-+				reg = <0x58>;
-+				interrupts-extended = <&io_expander 2 IRQ_TYPE_EDGE_FALLING>;
-+				enable-gpios = <&io_expander 1 GPIO_ACTIVE_HIGH>;
-+				reset-gpios = <&io_expander 0 GPIO_ACTIVE_HIGH>;
-+				vdd10-supply = <&vreg_1p0>;
-+				vdd18-supply = <&vreg_1p8>;
-+				vdd33-supply = <&vreg_3p0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+
-+						dsi2dp_bridge0_in: endpoint {
-+							remote-endpoint = <&mdss0_dsi0_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+
-+						dsi2dp_bridge0_out: endpoint {
-+							remote-endpoint = <&dp_dsi0_connector_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+
-+		i2c@1 {
-+			reg = <1>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			bridge@58 {
-+				compatible = "analogix,anx7625";
-+				reg = <0x58>;
-+				interrupts-extended = <&io_expander 10 IRQ_TYPE_EDGE_FALLING>;
-+				enable-gpios = <&io_expander 9 GPIO_ACTIVE_HIGH>;
-+				reset-gpios = <&io_expander 8 GPIO_ACTIVE_HIGH>;
-+				vdd10-supply = <&vreg_1p0>;
-+				vdd18-supply = <&vreg_1p8>;
-+				vdd33-supply = <&vreg_3p0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+
-+						dsi2dp_bridge1_in: endpoint {
-+							remote-endpoint = <&mdss0_dsi1_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+
-+						dsi2dp_bridge1_out: endpoint {
-+							remote-endpoint = <&dp_dsi1_connector_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+
- };
- 
- &mdss0 {
-@@ -560,6 +743,40 @@ &mdss0_dp1_phy {
- 	status = "okay";
- };
- 
-+&mdss0_dsi0 {
-+	vdda-supply = <&vreg_l1c>;
-+
-+	status = "okay";
-+};
-+
-+&mdss0_dsi0_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&dsi2dp_bridge0_in>;
-+};
-+
-+&mdss0_dsi0_phy {
-+	vdds-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
-+&mdss0_dsi1 {
-+	vdda-supply = <&vreg_l1c>;
-+
-+	status = "okay";
-+};
-+
-+&mdss0_dsi1_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&dsi2dp_bridge1_in>;
-+};
-+
-+&mdss0_dsi1_phy {
-+	vdds-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
- &pmm8654au_0_gpios {
- 	gpio-line-names = "DS_EN",
- 			  "POFF_COMPLETE",
-@@ -753,6 +970,21 @@ ethernet0_mdio: ethernet0-mdio-pins {
- 		};
- 	};
- 
-+	io_expander_intr_active: io-expander-intr-active-state {
-+		pins = "gpio98";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	io_expander_reset_active: io-expander-reset-active-state {
-+		pins = "gpio97";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+		output-high;
-+	};
-+
- 	pcie0_default_state: pcie0-default-state {
- 		perst-pins {
- 			pins = "gpio2";
+I've verified that on a running system I'm getting three HDMI audio
+codecs (one from LT9611UXC and two from DP controllers). Each of them
+binds immediately to the driver with no issues observed.
+
 -- 
-2.34.1
-
+With best wishes
+Dmitry
