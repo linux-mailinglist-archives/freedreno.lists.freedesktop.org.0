@@ -2,127 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4C58ACF69C
-	for <lists+freedreno@lfdr.de>; Thu,  5 Jun 2025 20:32:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFE4AACF69A
+	for <lists+freedreno@lfdr.de>; Thu,  5 Jun 2025 20:32:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5BD810E86B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9342910E2F9;
 	Thu,  5 Jun 2025 18:32:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HuFgLxs4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zm/ofcbn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFC2C10E2D7
- for <freedreno@lists.freedesktop.org>; Thu,  5 Jun 2025 18:32:09 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 555GNxwh006378
- for <freedreno@lists.freedesktop.org>; Thu, 5 Jun 2025 18:32:09 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0130B10E2EC
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Jun 2025 18:32:10 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5558hv88007388
+ for <freedreno@lists.freedesktop.org>; Thu, 5 Jun 2025 18:32:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=EbkEQB58Ld4nL18JV6VryQl6iNajcUl8L84
- E7nzQctY=; b=HuFgLxs45bFXN3TASiM9MayDYeBJFMD7eulzvKG59uiguFE40JL
- MhXF/4ZIC6N/cni+NUmuZJhkLglT/+HBz0Ze9oY7cFfT7oEvOLdFrFGx+dHfA4qC
- Bb5fnlk7ab15bsDpIzWzMeSFliDQNfa4yQk5cEeoU6kmUqXHsLxGvU147LDqe6Vl
- PHyZiZh7agujSbk3uO3bxKHM7uezWPBwJxtbmB6Qq9WaxMfWwdkXes/pETisIxTu
- jnwONT7KI+d01Hy+zFGf4LwbqFIZNlfOtk8zLvRNA01FA2z+EfVq3cnlMZrkh39f
- cAuxx6hILAe2jY1rVajzZfDJs19zxlWaa/Q==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 471g8t2a7m-1
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=tgiGXs8Fmtg
+ Byi6+4YZ4IRUEBBgzjqr+lD/A8pUTVaQ=; b=Zm/ofcbnD1VZQDOavBBxUSU3b4o
+ oRFCLbynsakKodEStLUnV11nCCPtyeTkcc5APS7EBlGjyGMQlCNokAEeD5ARkY12
+ p7WTJDskcEqc6O/IhFn2e6JsW9tjbnQdFEmtBokpeTyCVjjGKP5PI9AqRP65tvyv
+ ZE+GyND+rO+pj+uGD+UVK0lyNWAI2myLXv8/eD8kZclNsgrqnu3TWArZqWgcOGx2
+ +jwJ9Sgb6KbXwY4hqrr5l/jWkA1mxX+tG2BK9yNJY5k8HZjK9gCzs2OUK4Hf4sgr
+ a9I947nzzO3ZQvLwwJUttyUklgFCayV6aEU4tKWHX8/Ic84pbE5tTH0Gf8g==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 471g8t29jj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 05 Jun 2025 18:32:09 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-234a102faa3so8603345ad.0
- for <freedreno@lists.freedesktop.org>; Thu, 05 Jun 2025 11:32:08 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Jun 2025 18:32:10 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-747cebffd4eso1084843b3a.2
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Jun 2025 11:32:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749148328; x=1749753128;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=EbkEQB58Ld4nL18JV6VryQl6iNajcUl8L84E7nzQctY=;
- b=Dr+d/wW2h1FOg9U5PXX/tQVuu4AKzWfjo6H5iaxn8wcN4/eDq3GYYeLeE5oeF9xsKl
- uITMGS5E/g37lCZ5rYVEJ335PQBBNF8WAyy8UjJzXkBPjCOgD9QFKWca0S8ojgNryexl
- AJ9Ymu2gbW38AcBMPVeDWW9rzK6V6SJmOPbAvKFfeFyRx8LRb8Ha1J3C7ZjVLkJCnRaQ
- 03TGlJz9KTz57eJjrTRkoCdBwYgD9bB9DuqYr6h0XyNNCen8KGS8k48UhnXJezRkjKrG
- gknOY9hX5q9K29w9fnvY2muDMTH867bsOYktcT+tcU7TFvsYhd95zqH2E12emsX4Qtsk
- YOIg==
-X-Gm-Message-State: AOJu0YxCZzOacJ4pT/updHpXpkTncuUePDEdrlxwNDNDPFQkljY+7tAF
- ZpMku1YMsmA7+JHmi6iYC2E/VSAdm8W5SGxN00fyv7YvyR3S3a33Cxb4BgPhuW7GptdM8sSkpO4
- hT8Wb5AJEt8zudZ0Cyze0q3F32vx6VaNFUz2avDAnrCS7pjW9M/Y0vhEiWCAI9qSN9GsqDr/Rmv
- 925Wg=
-X-Gm-Gg: ASbGncssq8aiYCEuF9IQM8cwZ18R62wp3ZjNyfHmHAQlp53tBS9vMA01PEGA9NQt6Kp
- RuC33km6AeVabjthK8TBBtenxhzMUMdJkI34ui1m/SrGxF0nuRPeWf514Bb2D+GMl2lDMz4i6Ja
- ziTfdMh5coONFSW483rse/Zb0HbaTGTKqan0ePGmcxKJbuUU+JyhEJ9dG+wMsIkZ/muhWmSCmn1
- BFacQRQoQbR8CalgqrU/zORzcjy/rQkMiVfFpcs28/yGANK2ZNmfJn7cixGJgYE7c/J2MD5UIwW
- xDqIKQZD+zzycV+zvPv0Jyi6tB6x+ABU
-X-Received: by 2002:a17:902:d54e:b0:235:6aa:1675 with SMTP id
- d9443c01a7336-23601ee0108mr4448615ad.52.1749148327881; 
- Thu, 05 Jun 2025 11:32:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE8anFpbUiAtQTPh5i+Y3L4P6zV7H6CR2FiWWEvnWMcwq9/7jX7gsE9Cmpi8vb0MAgBmCT3fw==
-X-Received: by 2002:a17:902:d54e:b0:235:6aa:1675 with SMTP id
- d9443c01a7336-23601ee0108mr4448185ad.52.1749148327473; 
- Thu, 05 Jun 2025 11:32:07 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1749148329; x=1749753129;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tgiGXs8FmtgByi6+4YZ4IRUEBBgzjqr+lD/A8pUTVaQ=;
+ b=Y+X0kf3JcHeZ3ZhRcNTts/E1hQAKcSppzoEIQ3fKDiAjnU24Y+Wl+Vi+r/+M3S3J/z
+ gVsau8w/CFaYqeqKHD7KjidR1nsuklmVgEpeCs3xUvkffAxvoHd6bq+arEB0HhL07rm1
+ 3kXTlsDK4gnezp50yc3+4kDxSMXFxtIRtQwauAzP8xQKC/7FPUf+qlnvRr/Ei/SLM7dq
+ 5+KYjQIKNesjxWeUCnAxnW1vCy1DA+2TzhS3r+wJN3zVTUoWcy7d1Li2xcFyMXqZU1ji
+ WAR4bjUB48vwze5ZzmfxA3lZ/L/z8SuuxtPW3efXD+Rxn4pi+8y5kcrWSrz98TIqN+eH
+ oxTA==
+X-Gm-Message-State: AOJu0Yy+p86xaADFBTCM+SAycL8oAbJUuYkkN82tC2DTo/qFanN3L7dE
+ QWKxFdKus39S5OdIj3Phv/RZ2QdtkL4vMYYX1/wTbOVS8UW8WWPGh+mZBvHi4RimlUP7Ekmw1Cm
+ pIJJyL81P48CshhKJl+7vgFY57AGIisGGhWeBfoAhIuAHhvHeu8ZhKvTbTHjxdUJVtzJGmMA=
+X-Gm-Gg: ASbGncsXAKGLHHc9pJlNHjzCispfiahW5+vSyvilhTH+dJUWzHoE7T+rVGcZgyRljMa
+ QKRkZI1a2pTfS0HeUnWRa4Py+op9Tqp7Mb/QE/ljedg+IfN2hAbUj9WML+jPlKmExcQRW/7XxgS
+ brZZSv8nUSxUK7gp1M/5nwGRKfYmTZ2bJNLFPVEBJgIVp/xj/8HbV/WRjySRxGJXFUVxTLIx2yC
+ 05QsDd2q3esq42R1qDjwuCIgiuG9pohCloI9Vx/vYrGkpB73L5fqHwuvdqqolCa9aoknzQ4PqsK
+ HxhojDtnLf7BJzuT+6lLMg==
+X-Received: by 2002:a05:6a20:1585:b0:21c:f5eb:ede1 with SMTP id
+ adf61e73a8af0-21ee257726cmr346318637.24.1749148329213; 
+ Thu, 05 Jun 2025 11:32:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE6yEyRAo6qHQu3LjusRo5WiuixIyyerG+CXnhIKpPAvFwR7mK8AVmwqDRnbddTUCiGjf/KQA==
+X-Received: by 2002:a05:6a20:1585:b0:21c:f5eb:ede1 with SMTP id
+ adf61e73a8af0-21ee257726cmr346258637.24.1749148328731; 
+ Thu, 05 Jun 2025 11:32:08 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:89fa:e299:1a34:c1f5])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23506cd75e1sm122853425ad.112.2025.06.05.11.32.06
+ 41be03b00d2f7-b2f5f6683a5sm4687a12.37.2025.06.05.11.32.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jun 2025 11:32:07 -0700 (PDT)
+ Thu, 05 Jun 2025 11:32:08 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Connor Abbott <cwabbott0@gmail.com>,
+ Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@chromium.org>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Arnd Bergmann <arnd@arndb.de>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Eugene Lepshy <fekz115@gmail.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Jun Nie <jun.nie@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linaro-mm-sig@lists.linaro.org (moderated list:DMA BUFFER SHARING
- FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b), 
- linux-kernel@vger.kernel.org (open list),
- linux-media@vger.kernel.org (open list:DMA BUFFER SHARING
- FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b), 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Maxime Ripard <mripard@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v6 00/40] drm/msm: sparse / "VM_BIND" support
-Date: Thu,  5 Jun 2025 11:28:45 -0700
-Message-ID: <20250605183111.163594-1-robin.clark@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v6 01/40] drm/gem: Add ww_acquire_ctx support to
+ drm_gem_lru_scan()
+Date: Thu,  5 Jun 2025 11:28:46 -0700
+Message-ID: <20250605183111.163594-2-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250605183111.163594-1-robin.clark@oss.qualcomm.com>
+References: <20250605183111.163594-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 4_usHedQR7KL6RSi90XASevMUNd7eJsi
-X-Authority-Analysis: v=2.4 cv=EPcG00ZC c=1 sm=1 tr=0 ts=6841e2a9 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=zBYVM8QCAAAA:8
- a=ajksXRGWIgAGF9WJ9h0A:9 a=eVM1_HBmYRkA:10 a=YgSuLXRpIuYA:10
- a=te1wHPZ5H10A:10 a=GvdueXVYPmCkWapjIL-Q:22 a=Vxmtnl_E_bksehYqCbjh:22
- a=ArXkYGXkE6hBHcUMFODu:22
-X-Proofpoint-GUID: 4_usHedQR7KL6RSi90XASevMUNd7eJsi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA1MDE2NSBTYWx0ZWRfX+77wFCgZKwPU
- m0g0I5xkHg51Dm7nbmXiHvfWIz9AtIDOF6Bo9knVugMN+dxqbivzYwPQm7FupffcVosIaBUApHu
- M3Neg5Dbiiilo8uHhey5MtZdrETVnX1e8aL0tjGB+Duuq4QiW9I05UdF3UsfDeULasYR/nbhN/J
- ZeLC5KHJYcHOk6Jk6aFCkC8tMaqWfBQBKMRBau2Q6oSqRivzJyc0k45FMqZom7SoBz4rv/ni8Px
- jr4n1d2RNN2lxDQStW0puigVKKow2yD1WrLpx7DMgHDPIRVdLI8PvvuejgZ6noqzNP0WuOqDFAw
- zPRrIjqeVElgbRlbC6+6JbCnHsf6qZjTTybqcsj+0G5A2XW05eYUSUdEeK2f27ydk7rAHnztDaL
- cHwjw1tzxaqhher3jEcP4VXm5me9r2BLzWHpiwKvv/tnd+Y12pQtaXiwbnIVza7miTX705RZ
+X-Authority-Analysis: v=2.4 cv=RMizH5i+ c=1 sm=1 tr=0 ts=6841e2aa cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
+ a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=Xs8HUT0FnXyYc1zbtowA:9
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA1MDE2NCBTYWx0ZWRfX1B9Wm3Lej9GU
+ WW7FYSuynlq+rOmT3TO1hPV6Av0fJSX1NPF2pUM+oZeP9X4dV6mZc2jkLMYZei7+BxHc3HxCfPG
+ ap7AyG3BxhVmb/C36CkOh60+amax35HHD860960Hr9wue0doB5BL4esnH/UeVy5qsC+jcA74qSs
+ r7+SRNxwKmJUxLkW2H4e9J2ZKb2kTNjYjbQWu65lgiwP3aDHoCvfNV0rx6ixdQUsXLA/XbP/1Vf
+ 0chAqCGWLdmZATZC8iij3OXqx3mmMYqJLW3TzUYbfDMnc4eJZaqEQSg68tSgkM7oxjg0VaPGnTB
+ 99+2CP+o6z6pc5Fo1qWaguKM3L3KBPjYW0LemrCAHZchJTPNyFOVCCtMAGqofLBsLB80zmqGvuD
+ +NmDR2bSCxZRMQbcy1ZoYe9NxfsZ+G9tz/fe6kDYXAwbiesL68A8ZQU2nrnagUxUjmwoaGMI
+X-Proofpoint-GUID: _K2Hu2UuMmwFARsKTTXAw139eH7AjmSX
+X-Proofpoint-ORIG-GUID: _K2Hu2UuMmwFARsKTTXAw139eH7AjmSX
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-05_05,2025-06-05_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 bulkscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 mlxscore=0
- clxscore=1015 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506050165
+ impostorscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
+ bulkscore=0 suspectscore=0 adultscore=0 mlxlogscore=999 mlxscore=0
+ clxscore=1015 priorityscore=1501 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2506050164
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,194 +127,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Conversion to DRM GPU VA Manager[1], and adding support for Vulkan Sparse
-Memory[2] in the form of:
+From: Rob Clark <robdclark@chromium.org>
 
-1. A new VM_BIND submitqueue type for executing VM MSM_SUBMIT_BO_OP_MAP/
-   MAP_NULL/UNMAP commands
+If the callback is going to have to attempt to grab more locks, it is
+useful to have an ww_acquire_ctx to avoid locking order problems.
 
-2. A new VM_BIND ioctl to allow submitting batches of one or more
-   MAP/MAP_NULL/UNMAP commands to a VM_BIND submitqueue
+Why not use the drm_exec helper instead?  Mainly because (a) where
+ww_acquire_init() is called is awkward, and (b) we don't really
+need to retry after backoff, we can just move on to the next object.
 
-I did not implement support for synchronous VM_BIND commands.  Since
-userspace could just immediately wait for the `SUBMIT` to complete, I don't
-think we need this extra complexity in the kernel.  Synchronous/immediate
-VM_BIND operations could be implemented with a 2nd VM_BIND submitqueue.
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ drivers/gpu/drm/drm_gem.c              | 14 +++++++++++---
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 24 +++++++++++++-----------
+ include/drm/drm_gem.h                  | 10 ++++++----
+ 3 files changed, 30 insertions(+), 18 deletions(-)
 
-The corresponding mesa MR: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/32533
-
-Changes in v6:
-- Drop io-pgtable-arm patch as it has already been picked up in the
-  iommu tree.
-- Rework to drop gpuvm changes.  To mitigate the limitation of gpuvm
-  when it comes to lazy unmap (and to avoid ~5ms of unmap per pageflip!)
-  a vma_ref refcount is added.  This refcount is incremented when a BO
-  is pinned for scanout, and for userspace handles and dma-bufs.  The
-  VMA is torn down when this count drops to zero, breaking the reference
-  loop between the VM_BO and BO.  But as long as a pin or userspace
-  handle is keeping a reference to the BO live, we allow the harmless
-  reference loop to live.  (This is only for kernel managed VMs, which
-  includes the kms VM.)  If no userspace process has some sort of
-  handle to the BO, it is unlikely to be reused again.  (The exception
-  is GET_FB, but in that case the vma_ref >= 1 due to pin for scan-
-  out.)
-- Drop gpu sched changes for throttling and move this into the driver.
-  We can re-visit a more generic solution when some other driver
-  realizes they need the same thing.
-- Link to v5: https://lore.kernel.org/all/20250519175348.11924-1-robdclark@gmail.com/
-
-Changes in v5:
-- Improved drm/sched enqueue_credit comments, and better define the
-  return from drm_sched_entity_push_job()
-- Improve DRM_GPUVM_VA_WEAK_REF comments, and additional WARN_ON()s to
-  make it clear that some of the gpuvm functionality is not available
-  in this mode.
-- Link to v4: https://lore.kernel.org/all/20250514175527.42488-1-robdclark@gmail.com/
-
-Changes in v4:
-- Various locking/etc fixes
-- Optimize the pgtable preallocation.  If userspace sorts the VM_BIND ops
-  then the kernel detects ops that fall into the same 2MB last level PTD
-  to avoid duplicate page preallocation.
-- Add way to throttle pushing jobs to the scheduler, to cap the amount of
-  potentially temporary prealloc'd pgtable pages.
-- Add vm_log to devcoredump for debugging.  If the vm_log_shift module
-  param is set, keep a log of the last 1<<vm_log_shift VM updates for
-  easier debugging of faults/crashes.
-- Link to v3: https://lore.kernel.org/all/20250428205619.227835-1-robdclark@gmail.com/
-
-Changes in v3:
-- Switched to seperate VM_BIND ioctl.  This makes the UABI a bit
-  cleaner, but OTOH the userspace code was cleaner when the end result
-  of either type of VkQueue lead to the same ioctl.  So I'm a bit on
-  the fence.
-- Switched to doing the gpuvm bookkeeping synchronously, and only
-  deferring the pgtable updates.  This avoids needing to hold any resv
-  locks in the fence signaling path, resolving the last shrinker related
-  lockdep complaints.  OTOH it means userspace can trigger invalid
-  pgtable updates with multiple VM_BIND queues.  In this case, we ensure
-  that unmaps happen completely (to prevent userspace from using this to
-  access free'd pages), mark the context as unusable, and move on with
-  life.
-- Link to v2: https://lore.kernel.org/all/20250319145425.51935-1-robdclark@gmail.com/
-
-Changes in v2:
-- Dropped Bibek Kumar Patro's arm-smmu patches[3], which have since been
-  merged.
-- Pre-allocate all the things, and drop HACK patch which disabled shrinker.
-  This includes ensuring that vm_bo objects are allocated up front, pre-
-  allocating VMA objects, and pre-allocating pages used for pgtable updates.
-  The latter utilizes io_pgtable_cfg callbacks for pgtable alloc/free, that
-  were initially added for panthor.
-- Add back support for BO dumping for devcoredump.
-- Link to v1 (RFC): https://lore.kernel.org/dri-devel/20241207161651.410556-1-robdclark@gmail.com/T/#t
-
-[1] https://www.kernel.org/doc/html/next/gpu/drm-mm.html#drm-gpuvm
-[2] https://docs.vulkan.org/spec/latest/chapters/sparsemem.html
-[3] https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=909700
-
-Rob Clark (40):
-  drm/gem: Add ww_acquire_ctx support to drm_gem_lru_scan()
-  drm/msm: Rename msm_file_private -> msm_context
-  drm/msm: Improve msm_context comments
-  drm/msm: Rename msm_gem_address_space -> msm_gem_vm
-  drm/msm: Remove vram carveout support
-  drm/msm: Collapse vma allocation and initialization
-  drm/msm: Collapse vma close and delete
-  drm/msm: Don't close VMAs on purge
-  drm/msm: Stop passing vm to msm_framebuffer
-  drm/msm: Refcount framebuffer pins
-  drm/msm: drm_gpuvm conversion
-  drm/msm: Convert vm locking
-  drm/msm: Use drm_gpuvm types more
-  drm/msm: Split out helper to get iommu prot flags
-  drm/msm: Add mmu support for non-zero offset
-  drm/msm: Add PRR support
-  drm/msm: Rename msm_gem_vma_purge() -> _unmap()
-  drm/msm: Drop queued submits on lastclose()
-  drm/msm: Lazily create context VM
-  drm/msm: Add opt-in for VM_BIND
-  drm/msm: Mark VM as unusable on GPU hangs
-  drm/msm: Add _NO_SHARE flag
-  drm/msm: Crashdump prep for sparse mappings
-  drm/msm: rd dumping prep for sparse mappings
-  drm/msm: Crashdump support for sparse
-  drm/msm: rd dumping support for sparse
-  drm/msm: Extract out syncobj helpers
-  drm/msm: Use DMA_RESV_USAGE_BOOKKEEP/KERNEL
-  drm/msm: Add VM_BIND submitqueue
-  drm/msm: Support IO_PGTABLE_QUIRK_NO_WARN_ON
-  drm/msm: Support pgtable preallocation
-  drm/msm: Split out map/unmap ops
-  drm/msm: Add VM_BIND ioctl
-  drm/msm: Add VM logging for VM_BIND updates
-  drm/msm: Add VMA unmap reason
-  drm/msm: Add mmu prealloc tracepoint
-  drm/msm: use trylock for debugfs
-  drm/msm: Bump UAPI version
-  drm/msm: Defer VMA unmap for fb unpins
-  drm/msm: Add VM_BIND throttling
-
- drivers/gpu/drm/drm_gem.c                     |   14 +-
- drivers/gpu/drm/msm/Kconfig                   |    1 +
- drivers/gpu/drm/msm/Makefile                  |    1 +
- drivers/gpu/drm/msm/adreno/a2xx_gpu.c         |   25 +-
- drivers/gpu/drm/msm/adreno/a2xx_gpummu.c      |    5 +-
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c         |   17 +-
- drivers/gpu/drm/msm/adreno/a4xx_gpu.c         |   17 +-
- drivers/gpu/drm/msm/adreno/a5xx_debugfs.c     |    4 +-
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   22 +-
- drivers/gpu/drm/msm/adreno/a5xx_power.c       |    2 +-
- drivers/gpu/drm/msm/adreno/a5xx_preempt.c     |   10 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   32 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h         |    2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |   49 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c   |    6 +-
- drivers/gpu/drm/msm/adreno/a6xx_preempt.c     |   10 +-
- drivers/gpu/drm/msm/adreno/adreno_device.c    |    4 -
- drivers/gpu/drm/msm/adreno/adreno_gpu.c       |   99 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h       |   23 +-
- .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |   11 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   |   20 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h   |    3 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   18 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |   22 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h     |    2 -
- drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c     |    6 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c      |   28 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c    |   18 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |    4 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c      |   19 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c    |   18 +-
- drivers/gpu/drm/msm/dsi/dsi_host.c            |   14 +-
- drivers/gpu/drm/msm/msm_drv.c                 |  184 +-
- drivers/gpu/drm/msm/msm_drv.h                 |   29 +-
- drivers/gpu/drm/msm/msm_fb.c                  |   30 +-
- drivers/gpu/drm/msm/msm_fbdev.c               |    2 +-
- drivers/gpu/drm/msm/msm_gem.c                 |  553 +++---
- drivers/gpu/drm/msm/msm_gem.h                 |  277 ++-
- drivers/gpu/drm/msm/msm_gem_prime.c           |   48 +
- drivers/gpu/drm/msm/msm_gem_shrinker.c        |  104 +-
- drivers/gpu/drm/msm/msm_gem_submit.c          |  306 ++--
- drivers/gpu/drm/msm/msm_gem_vma.c             | 1486 ++++++++++++++++-
- drivers/gpu/drm/msm/msm_gpu.c                 |  211 ++-
- drivers/gpu/drm/msm/msm_gpu.h                 |  147 +-
- drivers/gpu/drm/msm/msm_gpu_trace.h           |   14 +
- drivers/gpu/drm/msm/msm_iommu.c               |  302 +++-
- drivers/gpu/drm/msm/msm_kms.c                 |   18 +-
- drivers/gpu/drm/msm/msm_kms.h                 |    2 +-
- drivers/gpu/drm/msm/msm_mmu.h                 |   38 +-
- drivers/gpu/drm/msm/msm_rd.c                  |   62 +-
- drivers/gpu/drm/msm/msm_ringbuffer.c          |   10 +-
- drivers/gpu/drm/msm/msm_submitqueue.c         |   96 +-
- drivers/gpu/drm/msm/msm_syncobj.c             |  172 ++
- drivers/gpu/drm/msm/msm_syncobj.h             |   37 +
- include/drm/drm_gem.h                         |   10 +-
- include/uapi/drm/msm_drm.h                    |  149 +-
- 56 files changed, 3553 insertions(+), 1260 deletions(-)
- create mode 100644 drivers/gpu/drm/msm/msm_syncobj.c
- create mode 100644 drivers/gpu/drm/msm/msm_syncobj.h
-
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index c6240bab3fa5..c8f983571c70 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1460,12 +1460,14 @@ EXPORT_SYMBOL(drm_gem_lru_move_tail);
+  * @nr_to_scan: The number of pages to try to reclaim
+  * @remaining: The number of pages left to reclaim, should be initialized by caller
+  * @shrink: Callback to try to shrink/reclaim the object.
++ * @ticket: Optional ww_acquire_ctx context to use for locking
+  */
+ unsigned long
+ drm_gem_lru_scan(struct drm_gem_lru *lru,
+ 		 unsigned int nr_to_scan,
+ 		 unsigned long *remaining,
+-		 bool (*shrink)(struct drm_gem_object *obj))
++		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
++		 struct ww_acquire_ctx *ticket)
+ {
+ 	struct drm_gem_lru still_in_lru;
+ 	struct drm_gem_object *obj;
+@@ -1498,17 +1500,20 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
+ 		 */
+ 		mutex_unlock(lru->lock);
+ 
++		if (ticket)
++			ww_acquire_init(ticket, &reservation_ww_class);
++
+ 		/*
+ 		 * Note that this still needs to be trylock, since we can
+ 		 * hit shrinker in response to trying to get backing pages
+ 		 * for this obj (ie. while it's lock is already held)
+ 		 */
+-		if (!dma_resv_trylock(obj->resv)) {
++		if (!ww_mutex_trylock(&obj->resv->lock, ticket)) {
+ 			*remaining += obj->size >> PAGE_SHIFT;
+ 			goto tail;
+ 		}
+ 
+-		if (shrink(obj)) {
++		if (shrink(obj, ticket)) {
+ 			freed += obj->size >> PAGE_SHIFT;
+ 
+ 			/*
+@@ -1522,6 +1527,9 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
+ 
+ 		dma_resv_unlock(obj->resv);
+ 
++		if (ticket)
++			ww_acquire_fini(ticket);
++
+ tail:
+ 		drm_gem_object_put(obj);
+ 		mutex_lock(lru->lock);
+diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+index 07ca4ddfe4e3..de185fc34084 100644
+--- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
++++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+@@ -44,7 +44,7 @@ msm_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+ }
+ 
+ static bool
+-purge(struct drm_gem_object *obj)
++purge(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+ {
+ 	if (!is_purgeable(to_msm_bo(obj)))
+ 		return false;
+@@ -58,7 +58,7 @@ purge(struct drm_gem_object *obj)
+ }
+ 
+ static bool
+-evict(struct drm_gem_object *obj)
++evict(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+ {
+ 	if (is_unevictable(to_msm_bo(obj)))
+ 		return false;
+@@ -79,21 +79,21 @@ wait_for_idle(struct drm_gem_object *obj)
+ }
+ 
+ static bool
+-active_purge(struct drm_gem_object *obj)
++active_purge(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+ {
+ 	if (!wait_for_idle(obj))
+ 		return false;
+ 
+-	return purge(obj);
++	return purge(obj, ticket);
+ }
+ 
+ static bool
+-active_evict(struct drm_gem_object *obj)
++active_evict(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+ {
+ 	if (!wait_for_idle(obj))
+ 		return false;
+ 
+-	return evict(obj);
++	return evict(obj, ticket);
+ }
+ 
+ static unsigned long
+@@ -102,7 +102,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+ 	struct msm_drm_private *priv = shrinker->private_data;
+ 	struct {
+ 		struct drm_gem_lru *lru;
+-		bool (*shrink)(struct drm_gem_object *obj);
++		bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket);
+ 		bool cond;
+ 		unsigned long freed;
+ 		unsigned long remaining;
+@@ -122,8 +122,9 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+ 			continue;
+ 		stages[i].freed =
+ 			drm_gem_lru_scan(stages[i].lru, nr,
+-					&stages[i].remaining,
+-					 stages[i].shrink);
++					 &stages[i].remaining,
++					 stages[i].shrink,
++					 NULL);
+ 		nr -= stages[i].freed;
+ 		freed += stages[i].freed;
+ 		remaining += stages[i].remaining;
+@@ -164,7 +165,7 @@ msm_gem_shrinker_shrink(struct drm_device *dev, unsigned long nr_to_scan)
+ static const int vmap_shrink_limit = 15;
+ 
+ static bool
+-vmap_shrink(struct drm_gem_object *obj)
++vmap_shrink(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+ {
+ 	if (!is_vunmapable(to_msm_bo(obj)))
+ 		return false;
+@@ -192,7 +193,8 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr)
+ 		unmapped += drm_gem_lru_scan(lrus[idx],
+ 					     vmap_shrink_limit - unmapped,
+ 					     &remaining,
+-					     vmap_shrink);
++					     vmap_shrink,
++					     NULL);
+ 	}
+ 
+ 	*(unsigned long *)ptr += unmapped;
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index bcd54020d6ba..b611a9482abf 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -556,10 +556,12 @@ void drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock);
+ void drm_gem_lru_remove(struct drm_gem_object *obj);
+ void drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_gem_object *obj);
+ void drm_gem_lru_move_tail(struct drm_gem_lru *lru, struct drm_gem_object *obj);
+-unsigned long drm_gem_lru_scan(struct drm_gem_lru *lru,
+-			       unsigned int nr_to_scan,
+-			       unsigned long *remaining,
+-			       bool (*shrink)(struct drm_gem_object *obj));
++unsigned long
++drm_gem_lru_scan(struct drm_gem_lru *lru,
++		 unsigned int nr_to_scan,
++		 unsigned long *remaining,
++		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
++		 struct ww_acquire_ctx *ticket);
+ 
+ int drm_gem_evict(struct drm_gem_object *obj);
+ 
 -- 
 2.49.0
 
