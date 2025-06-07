@@ -2,60 +2,122 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 902EBACFC41
-	for <lists+freedreno@lfdr.de>; Fri,  6 Jun 2025 07:35:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09FFCAD0FA6
+	for <lists+freedreno@lfdr.de>; Sat,  7 Jun 2025 22:11:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7005710E042;
-	Fri,  6 Jun 2025 05:35:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2DD910E40A;
+	Sat,  7 Jun 2025 20:11:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aiLmEOCm";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAF5F10E042;
- Fri,  6 Jun 2025 05:35:22 +0000 (UTC)
-X-QQ-mid: zesmtpgz4t1749188049t95d02e75
-X-QQ-Originating-IP: 8itqSUwG57Xz1wRjpsBQU4erKIvz2MIRDy9i7XkRA/k=
-Received: from [127.0.0.1] ( [116.237.87.75]) by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 06 Jun 2025 13:34:07 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5191052925718409957
-Message-ID: <EF0467E1FD371A7E+f68ef9be-76d3-4e6a-8c8c-48f07c4228b8@radxa.com>
-Date: Fri, 6 Jun 2025 13:34:06 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT] drm/msm/dpu: enable virtual planes by default
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16C5710E42F
+ for <freedreno@lists.freedesktop.org>; Sat,  7 Jun 2025 20:11:32 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 557Ja2iq005224
+ for <freedreno@lists.freedesktop.org>; Sat, 7 Jun 2025 20:11:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=XYyaI0FB+UTRojumzU3j18br
+ P22Fad9SfaLy766ifSo=; b=aiLmEOCmVGDPKjvXK+/1dU5cgp8O05uABTCqjmCr
+ iN3xVVrMQXKDweoHyj+5MJWQZb0fXhfvHhQR1zUg+o5zBI8N2e7ux48AtKrsXMjx
+ FVnPNjXMLdnfM2v3el/IjTA3i+kqMwZU6XqSX7dgfeYkl/psWg9lC+AI3IVrKTM6
+ 94U6E2K5dNjf5UaZ6OhyuzwFUZh39puxtImAFyEfrDtNF81kuACTe/s3wNtRG+ZK
+ ru1VF6EvfEe+rNkEPueODeM5s/vOoH+NjlXT69DJF9rSpIG6RiF3XIG4uFM+SQZP
+ 0XlMO34Q1DYqpdg96aIx+pMDEOF38/a2BSw8Ddh46Ca1CQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 474ce9h331-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Sat, 07 Jun 2025 20:11:30 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7caee990721so769801585a.1
+ for <freedreno@lists.freedesktop.org>; Sat, 07 Jun 2025 13:11:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749327089; x=1749931889;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XYyaI0FB+UTRojumzU3j18brP22Fad9SfaLy766ifSo=;
+ b=IVGSeoyLB5cjoLkmsCflx0I903s0BKTgYZC6Aq+dI1abDbxzUvDEPEe3IQt0J/eHR9
+ CPFGGlcziFfGhFIfJUxwzAu9m3atTNfmguvyV+T9ZDop0lf7gTCz3YndZdPGcXjVWCIY
+ CgW67uHHQOwVeDCi0FDeQpIVgjt5aHjhoFm+w7I84skwcu80EN7xxd+SlqLwLHo5Ap/L
+ dqJ5v/866kg49DXqbgbz+RwzLOGXlUVvxNwp04sInofwDp+djpuhsM52h6lyYKMY7dsA
+ fYDX5qhLgLLQ42fQ0uk+u9R/aqLnenOuL30OqnbUWyjQ8Ld+PeojCYBPQCOrJ1Cdn4Bd
+ TomA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUdHhDYXqRVhOePO8uLcmbemGO3uiCib8hHAIJjI4PwUEWkzt9xXEvpqNvjcxwPsV5mvzvyHIqc0bk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhJJvmReCsGrUbnuO/jN6SP/5cn5RQdTiclKX19gszwckHiRNV
+ G1yLqQSVNIN7O3mVtnhqjVdOzyp4CkZ9jjdNdSGJsEYzYekf8tn82n3rC6f6LNe+gWzIcdOcj9R
+ mq8ahWf7vGt+lV4prdu7Dv49Pr0zv05JyfHUaTZvVLshvaqC8cfzjhaE/dQO3jzHKmX0sugk=
+X-Gm-Gg: ASbGnctIa7EvRtBHHZ7UqelkHwHBMrUK0zzfiqOsIzhebaPya0X0oam7Vi8dFbJgGgP
+ FmYKZDp8c1ELnovIM0xlrTEmV//lT3wOQ0fxFMODJtbPf//2xh2vWxk6j5triHLXkulj4/y8x/f
+ xh7BZDqgidHndNiLiRAB/mwTwBgcTyk9rk432eRw7FVB2T9R6eNP6zkvtMQD1Km85TM8V65Ylc/
+ zNpLr9C+IwOW2vWQhd3dMmwCs55LXPMj4nA4l85Hr4bwxP6UurSp6QQ24HeDwtKqMggTnwXAve7
+ xtXKE1o5Tg0qG1JjtUF/sYBCHbpJXsxuqaQHa5t0ioqhlMoJvR4B/34AdcRsKIgPZd0x5AcbHTI
+ =
+X-Received: by 2002:a05:620a:199d:b0:7d2:1684:2429 with SMTP id
+ af79cd13be357-7d229896449mr1172215785a.31.1749327089216; 
+ Sat, 07 Jun 2025 13:11:29 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEa4olC6W9osviXHPQUeq/X1/7+Ru45fu+N79/NuD7ijwXEkSq5aoqXEsc9qfndAHioC3BiSg==
+X-Received: by 2002:a05:620a:199d:b0:7d2:1684:2429 with SMTP id
+ af79cd13be357-7d229896449mr1172211185a.31.1749327088811; 
+ Sat, 07 Jun 2025 13:11:28 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-32ae1ccdd53sm5543701fa.88.2025.06.07.13.11.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 07 Jun 2025 13:11:27 -0700 (PDT)
+Date: Sat, 7 Jun 2025 23:11:26 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250514-dpu-enable-virt-planes-v1-1-bf5ba0088007@oss.qualcomm.com>
-From: Xilin Wu <sophon@radxa.com>
-Content-Language: en-US
-In-Reply-To: <20250514-dpu-enable-virt-planes-v1-1-bf5ba0088007@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrgz:qybglogicsvrgz8a-1
-X-QQ-XMAILINFO: NOnalZjVTVf0rIl44+6B8tRQEbE4pxa/de/G2PtZzkl3Xjq4kkt7OCc0
- FmhHX2JhB4Yfsu7kl9I/thBYW/JWqtgUkOdfnEbLzKR7m/jnZNg4wRVtixkxQDpzize0YEj
- OlmBJF0A+IKs2QSpGr4NbWNsMAfk+fNA/gu3OEJGW1eUM1KIqgJAsCC/0lbnsfpWtrQRR2J
- L074ZoAN0jTLOgmXeambsU8mJjIc2lTkWvM6e3evMmIRSzHxxoOXFeaV+V+j4eIaGxmUD1j
- SSu+lEZI10gILUHQSrx6ui+QPFvaN4H79vpDoKLORlsZ17gd+5W5zxqNZgmiIgNB9pwkaMN
- +zsoS9y2JGcE0+JM4vNJIgzB9uxFJ1uEZ1Z+1uS30LRyI4K3Xo8W1HbkO1waFGjYJPxLwuu
- AwnX5ywploIE192N0fjkaN+OBgo/eZv4EzOHpAS6BqnwlV2xIy2+iBdYYV6oRb1P2Vgyvzs
- vNjYcGabjXzsRmnYYyuE3moveTIjPXcvrh6hJYSLx6cikZoRwdonksyrSi9jAWrySPc8XAq
- a+dbYyXkS5UsI2q03pEGFul/H+u9hyRrQg/U3gIkShhAglWvsqETbIWHCPX9YEBLPz2Oq8W
- EsW0kuptATiCshQqrmEBWDqawIeECpWHkKLiFETYhAu+eJVuEAPQj1hHStecBGkSXspoMSS
- h2xDaFzrHYqyDwK8KCxThpoLA9VushUthZB8+cYnDWywLYXLrDJ9tu3SJGTa3WL3sFP3YfZ
- 16pBJ0AYzKMJ5qLXy4HnMoUV9YyyOZX6Nv5Nxr8VZ1bpDOtgBtbxpx9nAUqLAX8QAkDEjUR
- famdDMPhurN0RcG1HUhvp3bmJZEG8tcReR5b4oJ8GQqQ8tnbo+XinUmEAPGakAbYpXliUfc
- Tow3q1xi1DSlYY8uUCIuP1+TFtAtbanmV3rQrgVpcaZoAzpJembOYJFPRfU52Z6zFQ3mRVp
- 4MK5jW+UkIG/jMQ==
-X-QQ-XMRINFO: OWPUhxQsoeAVDbp3OJHYyFg=
-X-QQ-RECHKSPAM: 0
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/3] arm64: defconfig: Enable X1P42100_GPUCC driver
+Message-ID: <hpnrky4frqjr2a4rdinbsizm3mwdognx2qmx76u7k6g5ocgeab@4vtgu5qqsquv>
+References: <20250607-x1p-adreno-v1-0-a8ea80f3b18b@oss.qualcomm.com>
+ <20250607-x1p-adreno-v1-1-a8ea80f3b18b@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250607-x1p-adreno-v1-1-a8ea80f3b18b@oss.qualcomm.com>
+X-Proofpoint-GUID: Ge6rCRgcn4mjA4f2JqebP-llA2w0r46O
+X-Authority-Analysis: v=2.4 cv=drjbC0g4 c=1 sm=1 tr=0 ts=68449cf2 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=6IFa9wvqVegA:10 a=EUspDBNiAAAA:8 a=ei04IxUCSHfnpyqhzYsA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: Ge6rCRgcn4mjA4f2JqebP-llA2w0r46O
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA3MDE0NyBTYWx0ZWRfX5qg+doA3VxFg
+ +pkRRQGoWcCMrT7RpTNac41YtgGVeaklPTVhqoOKkUBWAtxDLSsblACAzak7gchBJSaVgt5tNrn
+ XMJlJ0UrK9aNnBBJUtqgUn548xqrtjq1xzRfRoQszPfS+1sOkcCPQ4H/eXGRYw8xTvuoENVOl+h
+ miHNcyODwWZN3VEkOsjZjRfHfMRSRwz/T9Ln3cgrmHAWlBd8qPSAt2vPw6kvlaDIJ07DZcQZTk9
+ 2ckRj8E4uDelHaoJJTUWw7c0+ncWhtvlgAeIVYyy8kByFwKJJLCBei5TQDbh/owK1dHBcHsx2Gn
+ qQ57znhdmh3bOg3fqhuc18xom1rSFgRTuBHEDEudBIoUWjKRXTqVDaHUoVGFrY27feKW0RY0gcz
+ ocAGYElHHSr0semyHHw0tsCvStVKe1+6DPSUdsPs5OG8IigUlBxzTsmyTtNMGjvr57aJ/G6l
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-06-07_09,2025-06-05_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 bulkscore=0 mlxlogscore=810 adultscore=0
+ phishscore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2506070147
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,104 +133,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2025/5/14 07:30:00, Dmitry Baryshkov wrote:
-> Turn on the switch and use virtual planes by default, enhancing
-> utilisation of the display pipelines. It is still possible to use legacy
-> implementation by using `msm.dpu_use_virtual_planes=false` kernel boot
-> parameter.
+On Sat, Jun 07, 2025 at 07:44:59PM +0530, Akhil P Oommen wrote:
+> In order to enable GPU support in Snapdragon X1P42100
+> (8 CPU core version), enable X1P42100 GPUCC driver as a module.
+
+... it is used on Asus Zenbook A14 and other similar laptops.
+
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
-> This is being sent as an RFT for now. Please give it a test with your
-> compositor of choice. X11. Weston. Sway. Wlroot. CrOS. I plan to turn
-> the switch for 6.17.
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>  arch/arm64/configs/defconfig | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-
-With virtual planes enabled on qcs6490, I get a kernel Oops every time I 
-plug in a mouse.
-
-Steps to reproduce:
-
-1. Set DisplayPort resolution to 1920x1080 (does not happen with 2560x1440)
-2. Boot into plasma wayland desktop (v6.3.5) without usb mouse plugged in
-3. Plug in the usb mouse
-
-[   53.594217] hid-generic 0003:3554:F55D.0003: input: USB HID v1.11 
-Mouse [Compx 2.4G Wireless Receiver] on usb-xhci-hcd.1.auto-1.3/input2
-[   53.737874] Unable to handle kernel NULL pointer dereference at 
-virtual address 0000000000000020
-[   53.746931] Mem abort info:
-[   53.749827]   ESR = 0x0000000096000004
-[   53.753690]   EC = 0x25: DABT (current EL), IL = 32 bits
-[   53.759159]   SET = 0, FnV = 0
-[   53.762309]   EA = 0, S1PTW = 0
-[   53.765556]   FSC = 0x04: level 0 translation fault
-[   53.770584] Data abort info:
-[   53.773564]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-[   53.779205]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-[   53.784411]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-[   53.789880] user pgtable: 4k pages, 48-bit VAs, pgdp=000000010f4fd000
-[   53.796511] [0000000000000020] pgd=0000000000000000, p4d=0000000000000000
-[   53.803493] Internal error: Oops: 0000000096000004 [#1]  SMP
-[   53.809309] Modules linked in:
-[   53.812465] CPU: 6 UID: 1000 PID: 677 Comm: kwin_wayland Tainted: G 
-      W           6.15.0-next-20250528-00020-gc20b5cd31b70-dirty #16 
-PREEMPTLAZY
-[   53.826292] Tainted: [W]=WARN
-[   53.829356] Hardware name: Radxa Dragon Q6A (DT)
-[   53.834108] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS 
-BTYPE=--)
-[   53.841261] pc : dpu_plane_is_multirect_capable+0x60/0x80
-[   53.846818] lr : dpu_assign_plane_resources+0x26c/0x3d0
-[   53.852192] sp : ffff800085bf3880
-[   53.855610] x29: ffff800085bf38b0 x28: 0000000000000960 x27: 
-ffff000090878800
-[   53.862946] x26: ffff0000c407d948 x25: ffff00009087a200 x24: 
-ffff0000b9a79a80
-[   53.870284] x23: ffff0000c407d960 x22: ffff00008006a080 x21: 
-ffff000084153880
-[   53.877623] x20: ffff800085bf38a5 x19: ffff00009087a000 x18: 
-0000000000000000
-[   53.884960] x17: 0000000000000000 x16: 0000000000000000 x15: 
-0000004200000000
-[   53.892297] x14: ffff00009087a400 x13: ffff00008006a718 x12: 
-ffff000080dca080
-[   53.899632] x11: ffff800085bf38a5 x10: ffff00009087a4b8 x9 : 
-0000000000000000
-[   53.906970] x8 : ffffd8d2d59a09c0 x7 : 0000000000000000 x6 : 
-0000000000000217
-[   53.914301] x5 : 0000000000000000 x4 : 0000000000000200 x3 : 
-0000000000000200
-[   53.921639] x2 : ffffd8d2d59a03c0 x1 : 000000000000000a x0 : 
-0000000000000000
-[   53.928977] Call trace:
-[   53.931505]  dpu_plane_is_multirect_capable+0x60/0x80 (P)
-[   53.937055]  dpu_crtc_atomic_check+0x5d0/0x680
-[   53.941639]  drm_atomic_helper_check_planes+0x144/0x224
-[   53.947014]  drm_atomic_helper_check+0x50/0xa4
-[   53.951594]  msm_atomic_check+0xd0/0xe0
-[   53.955554]  drm_atomic_check_only+0x4d0/0x910
-[   53.960134]  drm_mode_atomic_ioctl+0xa14/0xdf8
-[   53.964712]  drm_ioctl_kernel+0xc0/0x130
-[   53.968750]  drm_ioctl+0x360/0x4e0
-[   53.972259]  __arm64_sys_ioctl+0xac/0x104
-[   53.976390]  invoke_syscall+0x48/0x104
-[   53.980261]  el0_svc_common.constprop.0+0x40/0xe0
-[   53.985109]  do_el0_svc+0x1c/0x28
-[   53.988533]  el0_svc+0x34/0x104
-[   53.991780]  el0t_64_sync_handler+0x10c/0x138
-[   53.996265]  el0t_64_sync+0x198/0x19c
-[   54.000038] Code: b9402021 370fffc1 f9401441 3707ff81 (f94010a1)
-[   54.006301] ---[ end trace 0000000000000000 ]---
-
-$ aarch64-linux-gnu-addr2line -e ~/build_cache/kernel/dragon-q6a/vmlinux 
-dpu_plane_is_multirect_capable+0x60/0x80
-/home/strongtz/git/linux-super/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:932
-
+> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+> index 62d3c87858e1817bac291780dff3823dacd72510..9cc473fd0d3308f7869d00425e17b114c87093b2 100644
+> --- a/arch/arm64/configs/defconfig
+> +++ b/arch/arm64/configs/defconfig
+> @@ -1350,6 +1350,7 @@ CONFIG_CLK_X1E80100_CAMCC=m
+>  CONFIG_CLK_X1E80100_DISPCC=m
+>  CONFIG_CLK_X1E80100_GCC=y
+>  CONFIG_CLK_X1E80100_GPUCC=m
+> +CONFIG_CLK_X1P42100_GPUCC=m
+>  CONFIG_CLK_X1E80100_TCSRCC=y
+>  CONFIG_CLK_QCM2290_GPUCC=m
+>  CONFIG_QCOM_A53PLL=y
+> 
+> -- 
+> 2.48.1
+> 
 
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+With best wishes
+Dmitry
