@@ -2,78 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8660FAD2135
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jun 2025 16:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 541A4AD213B
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jun 2025 16:45:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E94B10E3CE;
-	Mon,  9 Jun 2025 14:44:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DC8210E3CB;
+	Mon,  9 Jun 2025 14:45:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FxgdwTJ9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="diua22Nr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C07310E3CE
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jun 2025 14:44:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E72E10E3CB
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Jun 2025 14:45:47 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5598Oxsc000796
- for <freedreno@lists.freedesktop.org>; Mon, 9 Jun 2025 14:44:09 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5598Ow4m000792
+ for <freedreno@lists.freedesktop.org>; Mon, 9 Jun 2025 14:45:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6lk4qXVb6U7k62eOjUPKQPHc5tHe5IFjj55NY1+eMTE=; b=FxgdwTJ9vXIkOJKe
- uQSbiulWmFuqiuc24Ppr0U7TQiW+TWXnvCL07zOWelsZJO6W4/IV7Po+y4jmy14P
- CqRPEKs0zKgKLCSxNN65xg73JQwLEZQ3wc1TXQAlxgFqNNzrxH4eOUFEq5+vXak5
- 2sdwgck43qG1KM+aiqqT3QqSJf8Z+fQW2kAXgzj9Hqsf+65+7vRcdE8DGOW2WzF4
- LDIN/iC3HveZtQBkGiEd2I7solFO6m9gojSvzPfmpdmJkEO1r/P7kUlVb1GwTRMO
- tCCvq+wYoq/LLyHU9zpuYUG9hfSnGiIG4iSicL8AIGLwNL78kbqgnZ04U3BRr5Fw
- pl81cA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 475v2t93b4-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=NBT6vmPj+KP/UP2fTnvuSaVe
+ UdJIIkjYpa/Jy0VgFCY=; b=diua22Nrrjz2KtZChNi3CJHaoZfxHmKMpnF2/8ac
+ 6Rw6LhOiZVXiF/TSccUgnd+psfzrBGQbNoNcgoHQRClthbOfTZxU6uvHmZz8rSJ9
+ S/37AYyD+P5ek5YVCw6K2UlOVIOS1UXWFYpnqFI4JKa+3Ntoiv9NS4wmW7g1N1kC
+ wcQ1ZQFv7ShlfzRhhAL3ycdOJSZfYrkCcvLEOR6liAoNl2c8+DOtkOTs1+rJWTXb
+ gNVyWXs2WRvYEekh+J9DDYAvsD1E7JGAo8kVJw81IdTdOuBR8P7xhmqXNM96hMID
+ ufegKKs28t7faSitGANf6SQy9Fb8+vSM1Mpk6LonITL1Hw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 475v2t93f1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 14:44:09 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c955be751aso705968385a.2
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 07:44:09 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 14:45:46 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7d3901ff832so323005785a.3
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 07:45:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749480248; x=1750085048;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6lk4qXVb6U7k62eOjUPKQPHc5tHe5IFjj55NY1+eMTE=;
- b=tQ5vZH7KRfWxng8CbwubxvGeXGnDXhhqbQcOt3joB3uf+uv/tv6Jk90nQnwy9ZE1YV
- e+mLESwWF1w6oKVXco0+bn78nD7ja4T+3iRl4OhIMxL8XyHEcbg1D3meA8AT4IaBbLGm
- xPJu2WLEndAdrlVDuG0hVK2H7YwWFY1skxY+hrwoJlp5yr08rFVwCzgoOCwIPUPXQXiz
- uv7uB6r70zrMKdu/uTulJ3YPG2NWkoUz0d91sSbkyb5ErWztWIk5uN5bIHDFmrqnuM3V
- lTbk3hHjE0bIfUHCA2JGWlfU6O9sBgV0tAWPTh9UvNYj/3HTsUT3VQmnDyrLs0DT9gm4
- 8t4w==
+ d=1e100.net; s=20230601; t=1749480345; x=1750085145;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NBT6vmPj+KP/UP2fTnvuSaVeUdJIIkjYpa/Jy0VgFCY=;
+ b=GC9/04i6wuUC9hhjfrwyAeRBBBL5PP/kHDvnmEAv/wbM6gUsx/fs9PxHv9WYrjFtrA
+ Qx8vwPqp3IfZzl1sdySnZyNVxQq0N1UhPw/I+xW7VTcbTG+1EqZ8VGTXVt+FcsUWt3sp
+ 527i3ve/qbdAuG6GNaQ/udB5kEGKY8PaNZPZ5nyYJQAkf7sys3U5zs8EH2XfS1VJWrIX
+ Mtp9QIQWdFooPVFuVTG+88klu22Gz4AnPFi+99t4KC9xkVMCZNTKPPepcJ7UwRrSDwUh
+ 5feLcL5fJ/wXvJpAX03QVMdiey/5rzKFXiveUcWiiORmG/4FXHhVI5W6fEyaCt5R9F9i
+ hZaw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU2Nv50CByDVWlcirMecxIE2pHMvnDdbYKwsXG+ltC51BhS+rppVfg4no6gBz0WcQkYqTJ3psfA4bs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxbig4EmAXqAWOniNUjr1KsQHiA6vsrYbq8ZhDJG9AcQ6YPTZ2I
- FmyvEGTm+Sdo96temWAbn9Uish0BtS2U53Fdv1MiM23WC3snSjZlqt4D2Qo8w+Fp2bGvCMbA4u8
- aIcyFYEYObj8lmAeQ7DWEOzCAnffO3TNw5cSczBLSauRl1obM0PCQZ/89BkImn9XO/PwRADU=
-X-Gm-Gg: ASbGncsr4tX3MNSZMxlVnkSrOXhsVEo3c0KwAEaOu/QK+7IF78yA77RPVVvyDDGKqt6
- vAhRV5MRe1EQryHIKJEj7MBxp53wj1WTQJx5kT714uIkXx9Zz1FgTctGfVx47gIEI09g24pUwHi
- AE+CJlV/VPz8Q+FWWjbww8UgRFlGPaUBaLYO+5F1xr9z6OG9hQ08eWddCdG0TzBEk2dLNT1jZjc
- y9ytsadMK952HMHLmFCvolnZPmbHnYK+QkzEAsnm7Po+QqdZEp674mg2McNpesiKfAIDbM6VnrO
- UqeX4gaYKHHxx7lWIbuEPgCOfjkjmFeJjXX+jVkseWlFlhsqA1Ymy0JATD5clTpVmPFSqKWqvrj
- 9AEFJyXWSUA==
-X-Received: by 2002:a05:620a:2a03:b0:7cd:3f01:7c83 with SMTP id
- af79cd13be357-7d2298d6eaemr1815631685a.39.1749480247838; 
- Mon, 09 Jun 2025 07:44:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHgsEWFGVkDlPTwmsMHbybN20i8t3PV7oDWgFQp0aJTKLiHA9vwJmMx+0ImeLu5tsgrrcimiw==
-X-Received: by 2002:a05:620a:2a03:b0:7cd:3f01:7c83 with SMTP id
- af79cd13be357-7d2298d6eaemr1815628285a.39.1749480247414; 
- Mon, 09 Jun 2025 07:44:07 -0700 (PDT)
+ AJvYcCVju1hKcHkM8DuCwa56bt07XuaMTvd5OSEbOwYXkYpn5XeaARCLqVGMOoanKbxY2Z/eLH4lGpACFWg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzeMYAvLyQ67YUZTLOPKoLbUA3sfXUd6xYair6x19Gom2vacsXF
+ pKtAMwJMe5aakhwuNQFP6nH2jF+Xg8I6Hn9ldbkRKX8SV+C5e9WP9+44mUxL17CASSbyb3LJ8Bp
+ uL3otAhFl+sqcYCweWhdFMNLnpfvUnpxKw1jP9oZAtK+RADRulg5z8aG+EKQWWv1B3utWsS4=
+X-Gm-Gg: ASbGncsdMvJU7HYw4GU5x/MZvRzyvHyNhzZMlRpDw+NB35PLxAkagh+DLQNpUTvb8H9
+ pze156ZG8ebtxmccu9TKfGjST71Bb4Q6JsSXRmV2ff+OFWLkvOuWnmpZT2gVa3P3Q/TNMJsLkFm
+ m9+m+U1C601atqCXb37tKBBb+GOLkD/NlxcBgrv2dSFuUAHStfTbl/McxnXfp/Q4hcc57JiQM8v
+ kJVxPQPog5Pb34gB0D77RCD8LnqvGOozID0uZSdqKObe5Eubd0+vxMFL+mI0/f8XslGLF7LxI+/
+ un+yrtj72OciCSvzYe5NqN2ONnOyzPCVHNu74ZXiLHEOyAY0XhNu/yDHOb1kN9DwfptPo6yRFBN
+ loc0quTEJWA==
+X-Received: by 2002:a05:620a:1921:b0:7d0:98a1:7aba with SMTP id
+ af79cd13be357-7d22987fa6emr1692497785a.17.1749480345313; 
+ Mon, 09 Jun 2025 07:45:45 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFGd4u+n8gacssqQ0c7Zyx/dCkKu8dSHgSYT8DFdFzuA7K5Hkq7N50B9znPiIOhz5RFhpAO/w==
+X-Received: by 2002:a05:620a:1921:b0:7d0:98a1:7aba with SMTP id
+ af79cd13be357-7d22987fa6emr1692494085a.17.1749480344848; 
+ Mon, 09 Jun 2025 07:45:44 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55367722445sm1170794e87.130.2025.06.09.07.44.06
+ 2adb3069b0e04-553676d7796sm1188959e87.81.2025.06.09.07.45.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jun 2025 07:44:06 -0700 (PDT)
-Date: Mon, 9 Jun 2025 17:44:04 +0300
+ Mon, 09 Jun 2025 07:45:44 -0700 (PDT)
+Date: Mon, 9 Jun 2025 17:45:42 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Yongxing Mou <quic_yongmou@quicinc.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -85,34 +84,32 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v2 35/38] drm/msm/dpu: use msm_dp_get_mst_intf_id() to
- get the intf id
-Message-ID: <75k7tekvps6227tagfn6z5medhqn7zzkhii525aao46hndk4iw@6bto2vrqkgih>
+Subject: Re: [PATCH v2 37/38] drm/msm/dp: fix the intf_type of MST interfaces
+Message-ID: <kbpq6edonoorgukf5mybnvz4sm7aiefqhogp7k5cmyhy454wii@bk3nw7ivssjx>
 References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
- <20250609-msm-dp-mst-v2-35-a54d8902a23d@quicinc.com>
+ <20250609-msm-dp-mst-v2-37-a54d8902a23d@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250609-msm-dp-mst-v2-35-a54d8902a23d@quicinc.com>
-X-Proofpoint-GUID: _d6GcuJJR76DyX-b8vxD08FQD5zugmE1
-X-Authority-Analysis: v=2.4 cv=GoxC+l1C c=1 sm=1 tr=0 ts=6846f339 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=6IFa9wvqVegA:10 a=COk6AnOGAAAA:8 a=ax9iHmw9lJn8B8Mg6a4A:9 a=3ZKOabzyN94A:10
- a=wPNLvfGTeEIA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: _d6GcuJJR76DyX-b8vxD08FQD5zugmE1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA5MDEwOCBTYWx0ZWRfX05GmAft1FszF
- dsrr0tq7LEznNfw5qFqa6uxNIshOC+tbB2UgAqDjWfkHxUzrKsdHdO4LlrMvbs9LjmXBwZM55oM
- zHgGQ9x9wh7tIdlwEf0TDP8c0LYbVdqo2QjuzuwQfSLfTx4KXkKc2YE2Bu6CuBgn8o4sQO6eeew
- NpxAAEdx0qRvoPYC0AAe5t9iE1c0RzeadAtPPbo88EKUom4JyfY44W6SNZRcA0gxsvAXJH9YGCp
- pcpu7ziZkQKbTg+jbubGTr+xZy5JJ/wT0WVdgHT/TSef2HpzpB4NYc05SFsKl31j0K+Ik0G0aoh
- G2kJ13BsbARHUi9Q5XpvUIZs42mRbbxr94XFj1bL4c68Tuan4g1dGh9EyJrEXjknjkXnba66VKK
- snAngyZNh2FXzns13w7g6yTOEAQmJBo8V4xP1YKUvUXJ9FRM6VWa2zjdemvVO1tzsPBKQXxc
+In-Reply-To: <20250609-msm-dp-mst-v2-37-a54d8902a23d@quicinc.com>
+X-Proofpoint-GUID: Z-LpfzS-5QhKGXB9pHHVj1b0m9nJCtBv
+X-Authority-Analysis: v=2.4 cv=GoxC+l1C c=1 sm=1 tr=0 ts=6846f39a cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=6IFa9wvqVegA:10 a=COk6AnOGAAAA:8 a=mIDvE2fUgOR8az-e3JcA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: Z-LpfzS-5QhKGXB9pHHVj1b0m9nJCtBv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA5MDEwOCBTYWx0ZWRfX7E1Uvuip3/oi
+ 00GNc3PqwShQ8VHe7ZcgQBZcFTyJKhqXDCxXv6MaCj8ef+fWboZQ97BLcYQ0t/3qJ+8rkNy1X5o
+ yrrSEIWJH9+PdZwWZa1L0Z+lFUJ+B4o7xJ1x8M2r+wIRqtyOUWAiZstMXblS8GovT5Q4F/8zxCU
+ qSqI9XnmZWm+rDFZaMKNgvJ9/COA0I8HsHz38VLgr7Nnb0G0TdyDp4kl89/dBbUTCun6hDrt6ye
+ NVJc1Waye/wdY3MGd21AxwFEa9H7es7A0PnR/3ZWMtxCP9d3yL8zWMYsh09HDkrsixUF9V0wiyc
+ zqIf89uw3gsZWDByfaiqVTuUQexp6dNYke4rTCkSf3wfnvoMd9snmiokK3kGuWWhQHe1g04QQS4
+ cJP7VBNWEqcFGkCY5RJMGSwDClHoSxDa25B+/HMvmwR7Tay6wexukAhpkozqpSMnaX8KqqKq
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-09_05,2025-06-09_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 adultscore=0 impostorscore=0 malwarescore=0 mlxscore=0
+ mlxlogscore=813 adultscore=0 impostorscore=0 malwarescore=0 mlxscore=0
  suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 spamscore=0
  clxscore=1015 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
@@ -132,153 +129,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jun 09, 2025 at 08:21:54PM +0800, Yongxing Mou wrote:
+On Mon, Jun 09, 2025 at 08:21:56PM +0800, Yongxing Mou wrote:
 > From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > 
-> Use msm_dp_get_mst_intf_id() to get the intf id for the DP MST
-> controller as the intf_id is unique for each MST stream of each
-> DP controller.
+> Interface type of MST interfaces is currently INTF_NONE.
+> Fix this to INTF_DP.
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 21 ++++++++++----
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 43 +++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  2 +-
->  3 files changed, 60 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 7020098360e474ee149824a488d912a7ad8ed06a..75cc2d475440fcdc941aa9eb19e78a87e83b5f5f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -2611,11 +2611,13 @@ uint32_t dpu_encoder_get_clones(struct drm_encoder *drm_enc)
->  
->  static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
->  				 struct dpu_kms *dpu_kms,
-> -				 struct msm_display_info *disp_info)
-> +				 struct msm_display_info *disp_info,
-> +				 int drm_enc_mode)
+>  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 
-Rather than passing additional argument with very special case, I'd
-prefer if you expanded dpu_intf_type enum.
+Please fix through the whole catalog rather than just touching one
+machine.
 
->  {
->  	int ret = 0;
->  	int i = 0;
->  	struct dpu_enc_phys_init_params phys_params;
-> +	u32 intf_id;
->  
->  	if (!dpu_enc) {
->  		DPU_ERROR("invalid arg(s), enc %d\n", dpu_enc != NULL);
-> @@ -2658,9 +2660,18 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
->  		DPU_DEBUG("h_tile_instance %d = %d, split_role %d\n",
->  				i, controller_id, phys_params.split_role);
->  
-> -		phys_params.hw_intf = dpu_encoder_get_intf(dpu_kms->catalog, &dpu_kms->rm,
-> -							   disp_info->intf_type,
-> -							   controller_id);
-> +		if (drm_enc_mode == DRM_MODE_ENCODER_DPMST) {
-> +			intf_id = dpu_kms_get_mst_intf_id(dpu_kms, controller_id,
-> +							     disp_info->stream_id);
-> +			DPU_DEBUG("intf_id %d for disp_info->stream_id = %d\n", intf_id,
-> +				  disp_info->stream_id);
-
-If stream_id was a part of the h_tile_instance[] (e.g. by using high
-bits of the ID), then there is no need to patch this function at all:
-pass DP_CONTROLLER_n | DP_MST_STREAM(m) through h_tile_instance, then
-parse it in dpu_encoder_get_intf().
-
-> +			phys_params.hw_intf = dpu_rm_get_intf(&dpu_kms->rm, intf_id);
-> +
-> +		} else {
-> +			phys_params.hw_intf = dpu_encoder_get_intf(dpu_kms->catalog, &dpu_kms->rm,
-> +								   disp_info->intf_type,
-> +								   controller_id);
-> +		}
->  
->  		if (disp_info->intf_type == INTF_WB && controller_id < WB_MAX)
->  			phys_params.hw_wb = dpu_rm_get_wb(&dpu_kms->rm, controller_id);
-> @@ -2760,7 +2771,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
->  	mutex_init(&dpu_enc->enc_lock);
->  	mutex_init(&dpu_enc->rc_lock);
->  
-> -	ret = dpu_encoder_setup_display(dpu_enc, dpu_kms, disp_info);
-> +	ret = dpu_encoder_setup_display(dpu_enc, dpu_kms, disp_info, drm_enc_mode);
->  	if (ret) {
->  		DPU_ERROR("failed to setup encoder\n");
->  		return ERR_PTR(-ENOMEM);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index e030476dc4c69448886c29bcfe8ff3105949b129..f82dcf7c6dd31f078bbe4afe55d4667a4867f0b7 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -574,6 +574,49 @@ static int dpu_kms_dsi_set_te_source(struct msm_display_info *info,
->  	return -EINVAL;
->  }
->  
-> +u32 dpu_kms_get_mst_intf_id(struct dpu_kms *dpu_kms, int controller_id, int stream_id)
-> +{
-
-This goes logically next to dpu_encoder_get_intf().
-
-> +	const struct dpu_mdss_cfg *catalog = dpu_kms->catalog;
-> +	int i;
-> +	int cnt = 0;
-> +	u32 intf_id = INTF_0;
-> +
-> +	/* The intf order in dpu_intf_cfg matches the mapping in the DP HPG.
-> +	 * DPU_8_4_0 - DP Controller intf to stream Mapping
-> +	 *
-> +	 * +-------------+----------+----------+----------+----------+
-> +	 * | stream_id   |    0     |    1     |    2     |    3     |
-> +	 * +-------------+----------+----------+----------+----------+
-> +	 * | DP0         | INTF_0   | INTF_3   | INTF_6   | INTF_7   |
-> +	 * | DP1         | INTF_4   | INTF_8   |          |          |
-> +	 * +-------------+----------+----------+----------+----------+
-> +	 *
-> +	 * DPU_9_2_0 - DP Controller intf to stream Mapping
-> +	 *
-> +	 * +-------------+----------+----------+
-> +	 * | Controller  |    0     |    1     |
-> +	 * +-------------+----------+----------+
-> +	 * | DP0         | INTF_0   | INTF_3   |
-> +	 * | DP1         | INTF_4   | INTF_8   |
-> +	 * | DP2         | INTF_6   | INTF_7   |
-> +	 * +-------------+----------+----------+
-> +	 */
-> +	for (i = 0; i < catalog->intf_count; i++) {
-> +		const struct dpu_intf_cfg *intf = &catalog->intf[i];
-> +
-> +		if (intf->type == INTF_DP && controller_id == intf->controller_id) {
-> +			if (cnt == stream_id) {
-> +				intf_id = intf->id;
-> +				break;
-> +			}
-> +
-> +			cnt++;
-> +		}
-> +	}
-> +
-> +	return intf_id;
-> +}
-> +
->  static int _dpu_kms_initialize_dsi(struct drm_device *dev,
->  				    struct msm_drm_private *priv,
->  				    struct dpu_kms *dpu_kms)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> index a57ec2ec106083e8f93578e4307e8b13ae549c08..388cd8f84fd579ce30a69989be5ac116bb727878 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> @@ -168,5 +168,5 @@ int dpu_enable_vblank(struct msm_kms *kms, struct drm_crtc *crtc);
->  void dpu_disable_vblank(struct msm_kms *kms, struct drm_crtc *crtc);
->  
->  unsigned long dpu_kms_get_clk_rate(struct dpu_kms *dpu_kms, char *clock_name);
-> -
-> +u32 dpu_kms_get_mst_intf_id(struct dpu_kms *dpu_kms, int controller_id, int stream_id);
->  #endif /* __dpu_kms_H__ */
-> 
-> -- 
-> 2.34.1
-> 
+Also, wrong subject. This is not a DP patch. Please fix subjects for all
+your patches.
 
 -- 
 With best wishes
