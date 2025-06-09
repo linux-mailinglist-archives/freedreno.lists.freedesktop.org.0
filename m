@@ -2,119 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ADBCAD1544
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jun 2025 00:36:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1670AD1D1C
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jun 2025 14:23:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E290310E35D;
-	Sun,  8 Jun 2025 22:36:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEC2110E0C2;
+	Mon,  9 Jun 2025 12:23:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BujmzGng";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="TGjlwwm1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CFDB10E35D
- for <freedreno@lists.freedesktop.org>; Sun,  8 Jun 2025 22:36:04 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 558MPGck029940
- for <freedreno@lists.freedesktop.org>; Sun, 8 Jun 2025 22:36:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=5UMciADcDBohw7l3Afqy21k4
- B5zDCEQKS7YSGnXaHgg=; b=BujmzGngVGPBb8uj3Mj5Gt7f1sKcye6En4vb5nnW
- 5LTynp70edvk8QYYqK0naItmgF6aDsUQETuMaFYFa6HTLQm/sdCJIzlKs+NPW7IB
- K0UHG5oWKcP7R9RP1CnAh3An7oPjEhMa175nhsu7LHLAbKnPcTM9BPBcZPZhTxSY
- nOUzr+s3+Z7f3KjJDqJV+S+3pmwtowJG7yCIdR+FpvqAqlgFtNdEWwpkHtsy1+rF
- 9jH5DB/mCetSuSuZI6PA5otnNaSk+tCmlMYWBkENEmxblRqTyLZ7vmLlrlTlIBS/
- 71O+fiYLKqBIDxoKq9PWu5IlJ+PrlIAwBTC+17hUinOUcA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 474ekpktyh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 08 Jun 2025 22:36:03 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c92425a8b1so608431485a.1
- for <freedreno@lists.freedesktop.org>; Sun, 08 Jun 2025 15:36:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749422162; x=1750026962;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5UMciADcDBohw7l3Afqy21k4B5zDCEQKS7YSGnXaHgg=;
- b=jApFLpk634kHyZ7lnY2VUWmG9tnqObOuULq2u57Z37qps2n2QelXpFbueH88bN9J7U
- gKMNVD7BeMMr50JbwF+Siqf4HKt8oWTqZL22R5W7KilPF5iuQuatnTQ+fIUUowOVgodf
- YcrN5AOCV2L2A+wgpAVb51H893C7vEIdLumzwVcmhnXsA74iJSOpXwN3sBeYrPpAbE4+
- c8sWyAqoCT8D8484d/vOZ97tV+MQH/aFgFRaXcvQ7nvPuofWsT7thIp1g34wau+kNZTH
- UlijqSThrBYttQehCSVU/HTOWB5yyI4XoSz1tjVZH0J+O/MTf04DuyqZd5Llm2abaEtF
- RCWw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUiIYwrweY2IuwTrgdyXOOpRHywT6Nvz7/TnW9p79ZDh5SVTwZNotnQ53jjwrTuVo4gh33+dnIMhwE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPhMn79jaKC8hHDaYwwcNGTk4RL++SL0wFQWxFpJztsDwzXthD
- fCNC5m2gCV/F4uX2ik3LeKAWDEBe+9WriDUuMB1jWnJADnENQiQRE/4j1CeqFnk3wWIIYf3erNq
- NCC51vAu7TQ6wXDChIaSMGllhftPtT1a1N6/lLkJTXALm6wOJYe8i87uLNU6OCJJ28P+H5Zk=
-X-Gm-Gg: ASbGncvaZYWnUJquibAspXLjnPjyUaJ7+ERrMsjtxMoBN3lxvva1FPtIC7HD4BehC0W
- 7cQosRNBFaaOCE3ZAu9BAyW/CvBlwlMKC6PqcxQYyg46KQggbswSaEAmmOIfyHzCVGiMxB28Tly
- 2G+9XD/CXwv8Ma9KwQ6mMqEdDe9B8cHVgTav3YnlPjF+Ur5riiuNDtFZFwYbcaWj+5DJBbho++b
- Xbrzyw2Z7+nf/jqsHgfWFXJT7f8tXp308HSpYNT2nWh+2+OozYRoTaLASivuWw0Ngll5CImNFNV
- K6cmvdJcnYxTKCkzOBBbSNjOQq9ZfMa+hhGCsG21Akv3bLCCoEqmW30+j3TxhHgKnGMpLIWGJLp
- ZJjd6kPR3pw==
-X-Received: by 2002:a05:620a:3912:b0:7d0:9a17:7b93 with SMTP id
- af79cd13be357-7d38726d9f7mr1026517985a.25.1749422162516; 
- Sun, 08 Jun 2025 15:36:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGXlQeV3tbfCn8ZNJPWj35kb5AP7pQ1oBAPDaVCFROWwmvnWZ9k6Uz3+DKk6ZgzIutglpKe9w==
-X-Received: by 2002:a05:620a:3912:b0:7d0:9a17:7b93 with SMTP id
- af79cd13be357-7d38726d9f7mr1026516185a.25.1749422162205; 
- Sun, 08 Jun 2025 15:36:02 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-553676d0183sm899166e87.49.2025.06.08.15.35.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Jun 2025 15:36:00 -0700 (PDT)
-Date: Mon, 9 Jun 2025 01:35:57 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: "James A. MacInnes" <james.a.macinnes@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Stephen Boyd <swboyd@chromium.org>, Vara Reddy <quic_varar@quicinc.com>,
- Tanmay Shah <tanmay@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Guenter Roeck <groeck@chromium.org>,
- Rob Clark <robdclark@chromium.org>
-Subject: Re: [PATCH v2 2/2] drm/msm/disp: Correct porch timing for SDM845
-Message-ID: <3tmpywm2ipqbdhbu6qga7eb64jk6lcqpqvatmkgwwd36qcqkip@7yazfvwlvwit>
-References: <20250212-sdm845_dp-v2-0-4954e51458f4@gmail.com>
- <20250212-sdm845_dp-v2-2-4954e51458f4@gmail.com>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DA0010E06E;
+ Mon,  9 Jun 2025 12:22:58 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55995Y2b007016;
+ Mon, 9 Jun 2025 12:22:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=+M3zDYod/I0/cVrEUO3FpZ
+ mCIltzgKKZxFM19UJBOq4=; b=TGjlwwm1YMdrZF0XS96uDc9gwd0Al9D0VISsHk
+ gFW3mNPcJavgHAXAOTqqgjWSf0IPe/Hv5+lEmm3/CBrLx2mJHGtxQXQacLde6y/o
+ 3kR+Cz7eFrPFIDf82euYtyiX5lUVLygG/ibVgo/53sAwvw7qz9OWBM2KLhTMB2vR
+ XiJ/fXON4dENQ+cOb/NwKOtlYZGzbkruITUWTZYmFXtlja19xEE4P0Wux8YXIFR0
+ ohRBdYeXuRYmqnFqufaqQTlqGLClDQ9u3lOTZs4cxfeKLjtFxnPcNfEU0Uf8+/2k
+ qKuraWvoMBx/0+I+lXI+CTMnF634bdJ0Ok5/uzM//K05QRbA==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 474dn65vqy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Jun 2025 12:22:50 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 559CMoeT014949
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 9 Jun 2025 12:22:50 GMT
+Received: from cse-cd01-lnx.ap.qualcomm.com (10.80.80.8) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Mon, 9 Jun 2025 05:22:46 -0700
+From: Yongxing Mou <quic_yongmou@quicinc.com>
+Subject: [PATCH v2 00/38] drm/msm/dp: Add MST support for MSM chipsets
+Date: Mon, 9 Jun 2025 20:21:19 +0800
+Message-ID: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250212-sdm845_dp-v2-2-4954e51458f4@gmail.com>
-X-Authority-Analysis: v=2.4 cv=JcO8rVKV c=1 sm=1 tr=0 ts=68461053 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=6IFa9wvqVegA:10 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=OnwjkJn3o8bp6UkAWykA:9
- a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA4MDE4NCBTYWx0ZWRfX90wq2TC2Z62T
- VcagPIUUwowVj0gjGnScA4wKTPLKvyHwLFn0Qyjk3JA54Ha5OVsFR+vr/Y6fu2xEUXw5UDg/Fqu
- d5fph6F+R5zP9+oLL8xU8Ltt4izYDgoRpdZCof0EtoWYUhm5ER/ULr0Ia3JfFJp1EGXtMXdeMh8
- vaJcMYtFFznPqMEwf7tO11ZMszXlzpROTLFM6x6/qOLlEfhoMnGfPtoPmAUPgIJLKP96KUi7X8M
- mr6C+DeBDqpCBaUhYRlOejV/JCCcy726wJzygTxmgg/7ZdTBqRtA/UdtbFtHX48dzbQKRp5SSKN
- FL85hvFw+RZdPOfmdmiUB3PRmwOuZ4f8dUBlbJLVIQeiV4HZUqMBXqtsFgNUysP01i1w5em6ndY
- rcWssZYKnNDs5qygxTRx98RWfMQArEXZwxcn7BrvbFOXn/5M+0sJ7ivQbBfjk6egpuIE3/rz
-X-Proofpoint-GUID: YFjanKJJIqj_PEBHaW0Zm0jcLtPC5s85
-X-Proofpoint-ORIG-GUID: YFjanKJJIqj_PEBHaW0Zm0jcLtPC5s85
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAN7RRmgC/22O3WrDMAxGXyX4ei6OEjt2GGPvMUpwLLk1ND+N0
+ rBR+u5z09veSJwPdPTdBdOSiEVb3MVCW+I0jRngoxDh7McTyYSZBSjQyignBx4kznmtMiAGiKZ
+ ETyTywbxQTL+77Of44oWut+xcX6EYiNnvzrb43JUanDzP2GHi+eL/uilGuZVSyUBV1fsAzjbhe
+ 2I+XG/+EqZhOOTx9Xz3Rlap3K3L3bo+jZjGE8sNsiw60LWpsQJv38t6zySfSVrbom50sFr5JiI
+ qV+realM2VWkNagdgnUOjjTXi+Hj8A67FbPZCAQAA
+X-Change-ID: 20250609-msm-dp-mst-cddc2f61daee
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ "Yongxing Mou" <quic_yongmou@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1749471752; l=7498;
+ i=quic_yongmou@quicinc.com; s=20241121; h=from:subject:message-id;
+ bh=A5qRACEaDI3+dHgRmevQrg1z9WAxcwVDEjJ4ASjh5PY=;
+ b=7v9zJgSmgQu3fwWYhshgA7aU73DmzOZur3MgJhSvRJA0EzW8LVU1yfoGTT53nvHGrCdU/5eN5
+ Y1O44Vdf30QDUIiEaBoB+ceYwP/KQVmMufmNuCOjHn6LO5or9AYsou+
+X-Developer-Key: i=quic_yongmou@quicinc.com; a=ed25519;
+ pk=zeCnFRUqtOQMeFvdwex2M5o0Yf67UHYfwCyBRQ3kFbU=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA5MDA5MiBTYWx0ZWRfXyjlBysWNjbCD
+ mI6KlqPtVG1dnc3K416f65yQhidjSB+yy5Fd8Rn3TvQ/SyEIFJK2trMRH1O+kzFoW8N0thzMnHb
+ 70pOr8zoahhaObybFGzHP+MkkGTMm4iE5KI3NxyuFWPop5sh/fHCDJnfnswVr0BJAQcvSuws2yE
+ YRb3ZEzrHoSwrM8z6YgrJxwZm8nzcNmTPFTnIIMByOfu4tSz6qndJYQGQo86jgDvqzs6J1oRBcg
+ vTSKv34kJcfY82K8ZjwnedgGHtp2opbjUX1Vn7XPW3tlT+KT5XweSVPpMTCJbt4sV9waEjCqTzE
+ K0Av88uSBwdYH4ZqQJC7BaDmDDuL63zdR/D2DcnukraNUX42R6u0Fd6EhP7yb4TzLszCS+7u6Ek
+ J2THzqFe8JDdf+donRXVm+JCvXFVu3lbGbcC15M7rk5ftV1k+m3D0R3Q5JCGAsaf8IQP7rRg
+X-Proofpoint-GUID: pQM50mLLGdNJCYKHzyO2PTrnuHcHD5dK
+X-Authority-Analysis: v=2.4 cv=FaQ3xI+6 c=1 sm=1 tr=0 ts=6846d21a cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=e5mUnYsNAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tVI0ZWmoAAAA:8 a=pGLkceISAAAA:8
+ a=COk6AnOGAAAA:8 a=YMXe98Iws-CsfG9zhHUA:9 a=QEXdDO2ut3YA:10
+ a=Vxmtnl_E_bksehYqCbjh:22 a=-BPWgnxRz2uhmvdm1NTO:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: pQM50mLLGdNJCYKHzyO2PTrnuHcHD5dK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-08_05,2025-06-05_01,2025-03-28_01
+ definitions=2025-06-09_05,2025-06-05_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
- priorityscore=1501 mlxscore=0 adultscore=0 clxscore=1015 malwarescore=0
- suspectscore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 adultscore=0
+ mlxlogscore=999 mlxscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ priorityscore=1501 clxscore=1011 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506080184
+ engine=8.19.0-2505280000 definitions=main-2506090092
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,19 +117,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 12, 2025 at 03:03:47PM -0800, James A. MacInnes wrote:
-> Type-C DisplayPort inoperable due to incorrect porch settings.
-> - Re-used wide_bus_en as flag to prevent porch shifting
-> 
-> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> Signed-off-by: James A. MacInnes <james.a.macinnes@gmail.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
-> 
+Add support for Multi-stream transport for MSM chipsets that allow
+a single instance of DP controller to send multiple streams. 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+This series has been validated on sa8775p ride platform using multiple
+MST dongles and also daisy chain method on both DP0 and DP1 upto 1080P.
 
+With 4x4K monitors, due to lack of layer mixers that combination will not
+work but this can be supported as well after some rework on the DPU side.
+
+In addition, SST was re-validated with all these changes to ensure there
+were no regressions.
+
+This patch series was made on top of:
+
+[1] : https://patchwork.freedesktop.org/seriedds/142010/ (v2 to fix up HPD)
+
+Bindings for the pixel clock for additional stream is available at :
+
+[2] : https://patchwork.freedesktop.org/series/142016/
+
+Overall, the patch series has been organized in the following way:
+
+1) First set are a couple of fixes made while debugging MST but applicable
+to SST as well so go ahead of everything else
+2) Prepare the DP driver to get ready to handle multiple streams. This is the bulk
+of the work as current DP driver design had to be adjusted to make this happen.
+3) Finally, new files to handle MST related operations
+
+Validation was done on the latest linux-next on top of above changes and
+both FB console and weston compositors were validated with these changes.
+
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+To: Sean Paul <sean@poorly.run>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+---
+Changes in v2: Fixed review comments from Dmitry
+- Rebase on top of next-20250606
+- Add all 4 streams pixel clks support and MST2/MST3 Link clk support
+- Address the formatting issues mentioned in the review comments
+- Drop the cache of msm_dp_panel->drm_edid cached
+- Remove the one-line wrapper funtion and redundant conditional check
+- Fixed the commit messgae descriptions of some patches
+- Reordered the patches and renamed some functions and variables
+- Link to v1: https://lore.kernel.org/all/20241205-dp_mst-v1-0-f
+8618d42a99a@quicinc.com/
+
+---
+Abhinav Kumar (35):
+      drm/msm/dp: split msm_dp_panel_read_sink_caps() into two parts and drop panel drm_edid
+      drm/msm/dp: remove dp_display's dp_mode and use dp_panel's instead
+      drm/msm/dp: break up dp_display_enable into two parts
+      drm/msm/dp: re-arrange dp_display_disable() into functional parts
+      drm/msm/dp: allow dp_ctrl stream APIs to use any panel passed to it
+      drm/msm/dp: move the pixel clock control to its own API
+      drm/msm/dp: split dp_ctrl_off() into stream and link parts
+      drm/msm/dp: make bridge helpers use dp_display to allow re-use
+      drm/msm/dp: separate dp_display_prepare() into its own API
+      drm/msm/dp: introduce the max_streams for dp controller
+      drm/msm/dp: introduce stream_id for each DP panel
+      drm/msm/dp: add support for programming p1/p2/p3 register block
+      drm/msm/dp: use stream_id to change offsets in dp_catalog
+      drm/msm/dp: add support to send ACT packets for MST
+      drm/msm/dp: add support to program mst support in mainlink
+      drm/msm/dp: no need to update tu calculation for mst
+      drm/msm/dp: add support for mst channel slot allocation
+      drm/msm/dp: add support to send vcpf packets in dp controller
+      drm/msm/dp: always program MST_FIFO_CONSTANT_FILL for MST
+      drm/msm/dp: abstract out the dp_display stream helpers to accept a panel
+      drm/msm/dp: move link related operations to dp_display_unprepare()
+      drm/msm/dp: replace power_on with active_stream_cnt for dp_display
+      drm/msm/dp: make the SST bridge disconnected when mst is active
+      drm/msm/dp: add an API to initialize MST on sink side
+      drm/msm/dp: skip reading the EDID for MST cases
+      drm/msm/dp: add dp_display_get_panel() to initialize DP panel
+      drm/msm/dp: add dp_mst_drm to manage DP MST bridge operations
+      drm/msm/dp: add connector abstraction for DP MST
+      drm/msm/dp: add HPD callback for dp MST
+      drm/msm: add support for non-blocking commits
+      drm/msm: initialize DRM MST encoders for DP controllers
+      drm/msm/dp: initialize dp_mst module for each DP MST controller
+      drm/msm/dpu: use msm_dp_get_mst_intf_id() to get the intf id
+      drm/msm/dp: mark ST_DISCONNECTED only if all streams are disabled
+      drm/msm/dp: fix the intf_type of MST interfaces
+
+Yongxing Mou (3):
+      drm/msm/dp: Add catalog support for 3rd/4th stream MST
+      drm/msm/dp: propagate MST state changes to dp mst module
+      drm/msm/dp: Add MST stream support for SA8775P DP controller 0 and 1
+
+ drivers/gpu/drm/msm/Makefile                       |    3 +-
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    |    8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |   21 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |    2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   72 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |    2 +-
+ drivers/gpu/drm/msm/dp/dp_audio.c                  |    2 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |  558 ++++++++--
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |   64 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  474 ++++++---
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   22 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |  510 +++++++---
+ drivers/gpu/drm/msm/dp/dp_display.h                |   33 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c                    |   53 +-
+ drivers/gpu/drm/msm/dp/dp_drm.h                    |   12 -
+ drivers/gpu/drm/msm/dp/dp_mst_drm.c                | 1065 ++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.h                |  106 ++
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |   66 +-
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |   10 +-
+ drivers/gpu/drm/msm/dp/dp_reg.h                    |   46 +-
+ drivers/gpu/drm/msm/msm_atomic.c                   |    3 +
+ drivers/gpu/drm/msm/msm_drv.h                      |   19 +
+ drivers/gpu/drm/msm/msm_kms.c                      |    2 +
+ 23 files changed, 2725 insertions(+), 428 deletions(-)
+---
+base-commit: 475c850a7fdd0915b856173186d5922899d65686
+change-id: 20250609-msm-dp-mst-cddc2f61daee
+prerequisite-message-id: <20250529-hpd_display_off-v1-0-ce33bac2987c@oss.qualcomm.com>
+prerequisite-patch-id: a1f426b99b4a99d63daa9902cde9ee38ae1128d1
+prerequisite-patch-id: ae9e0a0db8edd05da06f9673e9de56761654ed3c
+prerequisite-patch-id: 7cb84491c6c3cf73480343218c543d090f8cb5e2
+prerequisite-patch-id: f32638e79dd498db2075735392e85729b1b691fc
+prerequisite-message-id: <20250530-dp_mst_bindings-v2-0-f925464d32a8@oss.qualcomm.com>
+prerequisite-patch-id: e505c21f653c8e18ce83cad1fc787c13a6c8ed12
+prerequisite-patch-id: cfdd5c37d38b2a4f1386af4021ba3920c6d8dcf8
+prerequisite-patch-id: f4abdddcb90c8203044395f4768d794214fe3225
+prerequisite-patch-id: 45013dfaf34856422b7b6b3d2ee42d81a917177b
+prerequisite-patch-id: 2f35bedb0410bead1b66cbfaf51984fc7016828f
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Yongxing Mou <quic_yongmou@quicinc.com>
+
