@@ -2,77 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DB04AD1DEA
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jun 2025 14:36:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA56AD1E1F
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jun 2025 14:51:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEA6010E0A9;
-	Mon,  9 Jun 2025 12:36:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32B6C10E1C1;
+	Mon,  9 Jun 2025 12:41:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EIE3dUgM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mhtIJ5ND";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7A910E0A9
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jun 2025 12:36:50 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5599fLRv022679
- for <freedreno@lists.freedesktop.org>; Mon, 9 Jun 2025 12:36:49 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C1A810E1A4
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Jun 2025 12:41:53 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5598PHPX001104
+ for <freedreno@lists.freedesktop.org>; Mon, 9 Jun 2025 12:41:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=5bgSmE1gETbODHnJ5BZMPbqS
- KODgTBn121BVFTvpvjg=; b=EIE3dUgMppVZFJosxdWu0iIvkxuixn7d0u/fBubD
- UQI956cU6Djsf+j6BxpQrotuHkThQrAOFNL7KQeHPmnWqQR8qwaCB/Z4NkwalWnn
- ufApoBNpShFWu5ukAZ9HTbLjEPa7upEMRBqjbBcqW55OXdRy1nGGUcPiZu9yuSYv
- KNC9osAuT06K6iQ9dma2AIorgWMuZBWggTuM/QaE7ukAAmBy/SYI+R+/kEN3lZUx
- XGPnv/MepuZJHq8Kcwnjs9nRajmBhKWfxbt5femxPS7DrT0tXYfrKMAYZd99hze8
- eek9uL/+51xrRUDyIJWgvvhmg3rdSDty7UxUwLtE12dVHA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 474ekpnr10-1
+ :references:subject:to; s=qcppdkim1; bh=TFd/ZD//i6s5v7Vc3GowR/yA
+ OLuzDoIe0lQqnp2Albc=; b=mhtIJ5NDGsN29fCI021CetegU6LuUwPgUwMV7OOb
+ 2JHy0ocVoiayNkIvIMNn+sTo+WCwy3e7wuWWSHFoD0pgudgiJUc7uhQyOKk1udbm
+ 2YNwi1BItGhHh5qp0f+GAvU1ZyGy1fuJMFojCdZexX2tuvhyMC2KJzTWLmWRTLXO
+ /qq/rqI4oagLwnDd5rh4swfzsEl9/SzygA3+yzO2ddcnZWfh+kTSs1br/iRjDQlw
+ Jxhpm6DNXaPOKGLozxJw3H9fw2xTcN8pmWHXzwsazTkVweNHLJOhuipwxyqH9GES
+ tnCJZMgZvnl1IAjWpUxDlhVI4R257Erm5pMaR2H/PsaxiQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 475v2t8ruq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 12:36:49 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4a57fea76beso102340521cf.0
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 05:36:49 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 12:41:52 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-7d15c975968so768504785a.2
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 05:41:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749472606; x=1750077406;
+ d=1e100.net; s=20230601; t=1749472911; x=1750077711;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5bgSmE1gETbODHnJ5BZMPbqSKODgTBn121BVFTvpvjg=;
- b=NRoW4BdShOKLUTe2J52P7A8loaiYESKn8WCHSmx4PbZoGFFGgij6TuS6vXi1Z5fVEa
- Wws7OOmSUee01TsXNElngz4EWdBfTJN3QxnAHTl860RSuA1/FJj0k8gNESVmiQmXD2Sg
- hwUcm9jpqRxKSNIJ6hXKqzrkxk5rY1B2AIqfbdBGStS6Parny8F1cuZff8WlTbOkJbDN
- zWt9ROJZD2x4VU24Y/1NZ+EAUna3iOCWAz1VHIF1b9SUHc7hqrtDiyCZf4dI3c5VSHCm
- zTKHWdMdx4vdKhNbqWxaC85J39yu8MzIvJSI5FK20Gdo8AIA7VaWiIIf7Ilnt1+Y3/Bh
- WWVg==
+ bh=TFd/ZD//i6s5v7Vc3GowR/yAOLuzDoIe0lQqnp2Albc=;
+ b=npYW2+QrYtQcXiNpu4C4KrG56n2sZz3G8A8lsN7aJAVX15lXwZEg02lMVDwilE5/eI
+ TdyVF3Ve+m3Ame9hH0iEbUqYguCvHrL2PmJhefQRvH40/G7sEolt23BZsm+v+4DwbNEj
+ TWJI5IMvKEyrih3MK41lJlqpTfdFXCNcyZtL587fFT7pcMpbPX2stRkvE3V1l0ZmZNrO
+ x2zvvIcgeTMxH5QBUr+x4ILTyRoep7HXOLiYoKhIPSN8ScIDS3qUuZyypvt0gKQgl3g9
+ U0RQLVCILIsnrDK3LptFtvS62MDTgQ7r0+SC7SUf55EGxuvFAJfhQM6Ikx6fEtCIoC1+
+ Y3ig==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVpDdAqc6ShoZwz5UEyL1DLVlT7lP6t4jOmJQ2dN6oUnbTcuJ/7zZ2UU5qQess+rUm7IycnjpX2wLQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyudJY6qEhYWDeB1oqHO8AK/S3ByG5TIhqvS4ln48BhT+eNcl4U
- SM8DRa3lf1nm+tIKSm34ESA3yj9Z2NLZSrQ52rNxd4FqYi0g01S08EhmB2eRtEbf+38ki1JEHBq
- 9cAFWN2zuM68oPcIZTOJWu5jbuL+yPIjiscoFmHZoLwuKNx4wtcZiWd/hLoMKpHNOvZ6s58I=
-X-Gm-Gg: ASbGncsFAGDuNJEul73uBV29/K6OvgQutFebK5rZgTQyWgMPIzu1tGvIPXCfmnIEw2M
- WxBxtsdiv3c12qRTDAfhZ9zp/nS+MTlaX5CzPccp+YBilbwyawTH3o8AzGiGqQbngaozWb3fOUU
- KataNbYjp6QbWO9CaBZZI3gqJS35P0v89CDXS7QyXnMbzHLDZ6WXNM3XSlUIfiu9yPxeY3HDyiE
- tJm7+FmVnkquyOmQ+9/eixvUdoEsBAhihx3jGkMu0FgWTbrb9jpNczfouxQqLNEOmvwB3PMF4WR
- 7HA0n1HmJS5dvFhQriKzioHNm4VSkyy9bI1LCGwP5YMAkZGLTMK+8Spd3b+JcF06JSRjfAKv0LP
- vjjUlOSMszA==
-X-Received: by 2002:a05:622a:1c0b:b0:4a4:419f:41c9 with SMTP id
- d75a77b69052e-4a5b9a04ec5mr202150911cf.6.1749472606225; 
- Mon, 09 Jun 2025 05:36:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGa0EFlbX+swt3Whvvh9SQRpJeiWLNgC8eXzt9kFgch/alpSb6W0nfeVusMYnFuNc73rkUjKQ==
-X-Received: by 2002:a05:622a:1c0b:b0:4a4:419f:41c9 with SMTP id
- d75a77b69052e-4a5b9a04ec5mr202150491cf.6.1749472605759; 
- Mon, 09 Jun 2025 05:36:45 -0700 (PDT)
+ AJvYcCV6eSbVg4h8gUTWDl08CjKZ5gbjHg1GDUWTc4dDfD74DMR3bjMHU6QHAPs0pI27kP74Ht8USLF1uZs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxojsft9f6jWxMa3SICDR0c5hG19auDwUH9tl0O0Ct2op9SWZyd
+ 6DwOHDgXHZ7wVtuptzN1C3dFtQDVtwcLBWu3tc4lioBlMPl3AjZI1k5uIpdzbpF7YZVpF1y9bpj
+ h+NcCfcAVH24rMaB5pBZ6hjGrZzCdzR2dY1NW/AUX+uESt8UP4VRB4KCSBotbjsGmLVHIYgU=
+X-Gm-Gg: ASbGncs8lXVWxLmGuilyKoHquRoHxN9Kinq1JqZIM7ZqPoLlwB9U1PPCAVSDH3UhkE/
+ fpwp9AA3cDDP1JV0Igi78e6YJ4J/5rTKXNb1sgVw8rFuVqQfUOJj9iaw/4PrZPbqpT6SNHKM4/+
+ Bcpy6/FH7aKClg3t2+XElcX/B00Y8vyiOowX7PhGPo2QVCU8eU/1UZc2sQNlv3F4ip1SxNgfY8h
+ rW68kqiqCK3SoAD411rpEDTHk6anSTupwFbSsmoD1ea9p8PtUgmLFOu3ApYrJc8t4Qt+EHssrH9
+ urO6Aj7u5tElMIj0zzuSDnTaKNEseJJ04gUChTr4iAIq6QhnpqER9J8NxstdcytccpsJy91Otwc
+ =
+X-Received: by 2002:a05:620a:240b:b0:7d3:9042:1092 with SMTP id
+ af79cd13be357-7d390421272mr906609985a.40.1749472911556; 
+ Mon, 09 Jun 2025 05:41:51 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHHNgYZ/3CizvC9kMbujPb3JLe/UwcdAD4e5NZpxhvnGIPY44cJ/jZIFCJw+2xLOIYUG/cE+A==
+X-Received: by 2002:a05:620a:240b:b0:7d3:9042:1092 with SMTP id
+ af79cd13be357-7d390421272mr906605085a.40.1749472911098; 
+ Mon, 09 Jun 2025 05:41:51 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-553676d7651sm1126332e87.72.2025.06.09.05.36.43
+ 2adb3069b0e04-553676d0e36sm1133557e87.1.2025.06.09.05.41.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jun 2025 05:36:44 -0700 (PDT)
-Date: Mon, 9 Jun 2025 15:36:42 +0300
+ Mon, 09 Jun 2025 05:41:50 -0700 (PDT)
+Date: Mon, 9 Jun 2025 15:41:48 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Yongxing Mou <quic_yongmou@quicinc.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -84,35 +84,35 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v2 00/38] drm/msm/dp: Add MST support for MSM chipsets
-Message-ID: <chbsxsy3vltr4752uutnu77a6mt5jbsjixfsgb7dqqdcgypkhq@vuldhcnkksy6>
+Subject: Re: [PATCH v2 01/38] drm/msm/dp: split msm_dp_panel_read_sink_caps()
+ into two parts and drop panel drm_edid
+Message-ID: <g6wqvbszbrw6gnvxz7cjmhx4rc53kyulcr5wjekfjaisontikl@723odzngtlnd>
 References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
+ <20250609-msm-dp-mst-v2-1-a54d8902a23d@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
-X-Authority-Analysis: v=2.4 cv=JcO8rVKV c=1 sm=1 tr=0 ts=6846d561 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=6IFa9wvqVegA:10 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=tVI0ZWmoAAAA:8 a=pGLkceISAAAA:8 a=COk6AnOGAAAA:8 a=krH1jXqBnkHquvztPCAA:9
- a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=Vxmtnl_E_bksehYqCbjh:22
- a=-BPWgnxRz2uhmvdm1NTO:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA5MDA5NCBTYWx0ZWRfX2QlKtvrPq2RU
- KhcV1cjXEMc+INgBPe3KtzYcW7N51ubWQLacPH3oS7SxxHiFPNkkYLE7W8djeUgE5jAmdco+lYi
- thHyqsb5yT51xv9DknhVcdByEfGMcbG5GGl94KH5B5dNT5dEH3XX7CDJRKek5ZN7Ku/Bf5N0h2a
- fNsWrZOatMTBwD/PAOcXJjYIphI97hIjuecGH487jDP3QCr4ApViR77D90d/Bta/PYnCVE3ACcB
- MYSIHhIVlCwsjLBCH1wyluDpuaKLQsebNJwj5mHiAxdkHjjnPtmKYK4glwHQXcT1O/YCo+GPqBw
- vpjACAf/oz6eDDjm5kIW8sgVb+oCVFf29iwbDxGJe+smp8l5XGrxIAZpGyPsgh6aqpQCYzM7dak
- 3kzLmn21UyaWrCGpVyXCsqDqM42IH9RdKqRv0DMgPs/QPod9Ig3uxvL13CEy9d7E6y/2A2l/
-X-Proofpoint-GUID: A0WJIgvwfSC8uqu9hsLaYTgROjxl6xem
-X-Proofpoint-ORIG-GUID: A0WJIgvwfSC8uqu9hsLaYTgROjxl6xem
+In-Reply-To: <20250609-msm-dp-mst-v2-1-a54d8902a23d@quicinc.com>
+X-Proofpoint-GUID: v1f1dDPN-pNTpcMZX3bshV-YXZKsGaMp
+X-Authority-Analysis: v=2.4 cv=GoxC+l1C c=1 sm=1 tr=0 ts=6846d690 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=6IFa9wvqVegA:10 a=COk6AnOGAAAA:8 a=HhoKpUjQ_SR5QyaspAAA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: v1f1dDPN-pNTpcMZX3bshV-YXZKsGaMp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA5MDA5NCBTYWx0ZWRfXxdpksoLjjPKi
+ q5VG9s7pYWO5iOlAToJiCcRGuMb/SMHz6jfvZ1q5pKdU00T+Mqi432+Xzqh3VkRe9gSaSCORbBP
+ TOVmuB6CzZq06laVYqgvWLkmAFLv9qLUAOegCYo+83gssYwYrQD2Yra7FDel91H79Gwo2UMuaCc
+ 1IBq2zRdzGH3lVb44Nk/sBVcKs3HYeW0nOlb2TpkWNF00G1HmS8MdWwrL0zzJNN+zcYQXggcD68
+ 9G+rpfz+wtlcZI9RlGwwZa2IgwOdsLBasIcSuZG8Pt0ghUDrfvgDO7rFdTg4vlJCqjb209A717r
+ L8Diqm66Sc0PVZyHVlmvurU4nxCDfTYJV9pSuiWBGDchKKbmAoqll1Sh8JX7LSLZexGYSmhTjn+
+ nsl74NQHr4oG8RR0ujgdZyA+FE4PwOunXeQQtkSGHtl79y2At6lSwZVF0pCrDqpKgeHd1c8G
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-09_05,2025-06-05_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
- priorityscore=1501 mlxscore=0 adultscore=0 clxscore=1015 malwarescore=0
- suspectscore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
+ mlxlogscore=999 adultscore=0 impostorscore=0 malwarescore=0 mlxscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
  engine=8.19.0-2505280000 definitions=main-2506090094
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -130,168 +130,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jun 09, 2025 at 08:21:19PM +0800, Yongxing Mou wrote:
-> Add support for Multi-stream transport for MSM chipsets that allow
-> a single instance of DP controller to send multiple streams. 
+On Mon, Jun 09, 2025 at 08:21:20PM +0800, Yongxing Mou wrote:
+> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > 
-> This series has been validated on sa8775p ride platform using multiple
-> MST dongles and also daisy chain method on both DP0 and DP1 upto 1080P.
+> In preparation of DP MST where link caps are read for the
+> immediate downstream device and the edid is read through
 
-Which means that you didn't validate the MST interaction with the USB-C
-stack (there is a significant difference in the way HPD event is handled
-in the Linux kernel).
+EDID, not edid. Please review all your patches for up/down case.
 
-> With 4x4K monitors, due to lack of layer mixers that combination will not
-> work but this can be supported as well after some rework on the DPU side.
-> 
-> In addition, SST was re-validated with all these changes to ensure there
-> were no regressions.
-> 
-> This patch series was made on top of:
-> 
-> [1] : https://patchwork.freedesktop.org/seriedds/142010/ (v2 to fix up HPD)
+> sideband messaging, split the msm_dp_panel_read_sink_caps() into
+> two parts which read the link parameters and the edid parts
+> respectively. Also drop the panel drm_edid cached as we actually
+> don't need it.
 
-This series has serious concerns and most likely will not be merged. Not
-to mention that the URL is invalid.
+Also => separate change. 
 
 > 
-> Bindings for the pixel clock for additional stream is available at :
-> 
-> [2] : https://patchwork.freedesktop.org/series/142016/
-
-This series needs another revision.
-
-Not to mention that I plan to land [3] this cycle
-
-[3] http://lore.kernel.org/dri-devel/20250518-fd-dp-audio-fixup-v6-0-2f0ec3ec000d@oss.qualcomm.com
-
-
-> Overall, the patch series has been organized in the following way:
-> 
-> 1) First set are a couple of fixes made while debugging MST but applicable
-> to SST as well so go ahead of everything else
-> 2) Prepare the DP driver to get ready to handle multiple streams. This is the bulk
-> of the work as current DP driver design had to be adjusted to make this happen.
-> 3) Finally, new files to handle MST related operations
-> 
-> Validation was done on the latest linux-next on top of above changes and
-> both FB console and weston compositors were validated with these changes.
-
-Validation should be using IGT for testing. Please ensure that there are
-no regressions.
-
-> 
-> To: Rob Clark <robin.clark@oss.qualcomm.com>
-> To: Dmitry Baryshkov <lumag@kernel.org>
-> To: Abhinav Kumar <abhinav.kumar@linux.dev>
-> To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> To: Sean Paul <sean@poorly.run>
-> To: Marijn Suijten <marijn.suijten@somainline.org>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
 > ---
-> Changes in v2: Fixed review comments from Dmitry
-> - Rebase on top of next-20250606
-> - Add all 4 streams pixel clks support and MST2/MST3 Link clk support
-> - Address the formatting issues mentioned in the review comments
-> - Drop the cache of msm_dp_panel->drm_edid cached
-> - Remove the one-line wrapper funtion and redundant conditional check
-> - Fixed the commit messgae descriptions of some patches
-> - Reordered the patches and renamed some functions and variables
-> - Link to v1: https://lore.kernel.org/all/20241205-dp_mst-v1-0-f
-> 8618d42a99a@quicinc.com/
+>  drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++----
+>  drivers/gpu/drm/msm/dp/dp_panel.c   | 55 ++++++++++++++++++++-----------------
+>  drivers/gpu/drm/msm/dp/dp_panel.h   |  6 ++--
+>  3 files changed, 40 insertions(+), 34 deletions(-)
 > 
-> ---
-> Abhinav Kumar (35):
->       drm/msm/dp: split msm_dp_panel_read_sink_caps() into two parts and drop panel drm_edid
->       drm/msm/dp: remove dp_display's dp_mode and use dp_panel's instead
->       drm/msm/dp: break up dp_display_enable into two parts
->       drm/msm/dp: re-arrange dp_display_disable() into functional parts
->       drm/msm/dp: allow dp_ctrl stream APIs to use any panel passed to it
->       drm/msm/dp: move the pixel clock control to its own API
->       drm/msm/dp: split dp_ctrl_off() into stream and link parts
->       drm/msm/dp: make bridge helpers use dp_display to allow re-use
->       drm/msm/dp: separate dp_display_prepare() into its own API
->       drm/msm/dp: introduce the max_streams for dp controller
->       drm/msm/dp: introduce stream_id for each DP panel
->       drm/msm/dp: add support for programming p1/p2/p3 register block
->       drm/msm/dp: use stream_id to change offsets in dp_catalog
->       drm/msm/dp: add support to send ACT packets for MST
->       drm/msm/dp: add support to program mst support in mainlink
->       drm/msm/dp: no need to update tu calculation for mst
->       drm/msm/dp: add support for mst channel slot allocation
->       drm/msm/dp: add support to send vcpf packets in dp controller
->       drm/msm/dp: always program MST_FIFO_CONSTANT_FILL for MST
->       drm/msm/dp: abstract out the dp_display stream helpers to accept a panel
->       drm/msm/dp: move link related operations to dp_display_unprepare()
->       drm/msm/dp: replace power_on with active_stream_cnt for dp_display
->       drm/msm/dp: make the SST bridge disconnected when mst is active
->       drm/msm/dp: add an API to initialize MST on sink side
->       drm/msm/dp: skip reading the EDID for MST cases
->       drm/msm/dp: add dp_display_get_panel() to initialize DP panel
->       drm/msm/dp: add dp_mst_drm to manage DP MST bridge operations
->       drm/msm/dp: add connector abstraction for DP MST
->       drm/msm/dp: add HPD callback for dp MST
->       drm/msm: add support for non-blocking commits
->       drm/msm: initialize DRM MST encoders for DP controllers
->       drm/msm/dp: initialize dp_mst module for each DP MST controller
->       drm/msm/dpu: use msm_dp_get_mst_intf_id() to get the intf id
->       drm/msm/dp: mark ST_DISCONNECTED only if all streams are disabled
->       drm/msm/dp: fix the intf_type of MST interfaces
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 6f05a939ce9e648e9601597155999b6f85adfcff..4a9b65647cdef1ed6c3bb851f93df0db8be977af 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -389,7 +389,11 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+>  
+>  	dp->link->lttpr_count = msm_dp_display_lttpr_init(dp, dpcd);
+>  
+> -	rc = msm_dp_panel_read_sink_caps(dp->panel, connector);
+> +	rc = msm_dp_panel_read_link_caps(dp->panel);
+> +	if (rc)
+> +		goto end;
+> +
+> +	rc = msm_dp_panel_read_edid(dp->panel, connector);
+>  	if (rc)
+>  		goto end;
+>  
+> @@ -720,7 +724,6 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_display_private *dp, u32 data)
+>  static void msm_dp_display_deinit_sub_modules(struct msm_dp_display_private *dp)
+>  {
+>  	msm_dp_audio_put(dp->audio);
+> -	msm_dp_panel_put(dp->panel);
+>  	msm_dp_aux_put(dp->aux);
+>  }
+>  
+> @@ -783,7 +786,7 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+>  		rc = PTR_ERR(dp->ctrl);
+>  		DRM_ERROR("failed to initialize ctrl, rc = %d\n", rc);
+>  		dp->ctrl = NULL;
+> -		goto error_ctrl;
+> +		goto error_link;
+>  	}
+>  
+>  	dp->audio = msm_dp_audio_get(dp->msm_dp_display.pdev, dp->catalog);
+> @@ -791,13 +794,11 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+>  		rc = PTR_ERR(dp->audio);
+>  		pr_err("failed to initialize audio, rc = %d\n", rc);
+>  		dp->audio = NULL;
+> -		goto error_ctrl;
+> +		goto error_link;
+>  	}
+>  
+>  	return rc;
+>  
+> -error_ctrl:
+> -	msm_dp_panel_put(dp->panel);
+>  error_link:
+>  	msm_dp_aux_put(dp->aux);
+>  error:
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> index 4e8ab75c771b1e3a2d62f75e9993e1062118482b..d9041e235104a74b3cc50ff2e307eae0c4301ef3 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> @@ -118,14 +118,13 @@ static u32 msm_dp_panel_get_supported_bpp(struct msm_dp_panel *msm_dp_panel,
+>  	return min_supported_bpp;
+>  }
+>  
+> -int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
+> -	struct drm_connector *connector)
+> +int msm_dp_panel_read_link_caps(struct msm_dp_panel *msm_dp_panel)
+>  {
+>  	int rc, bw_code;
+>  	int count;
+>  	struct msm_dp_panel_private *panel;
+>  
+> -	if (!msm_dp_panel || !connector) {
+> +	if (!msm_dp_panel) {
+>  		DRM_ERROR("invalid input\n");
+>  		return -EINVAL;
+>  	}
+> @@ -160,26 +159,29 @@ int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
+>  
+>  	rc = drm_dp_read_downstream_info(panel->aux, msm_dp_panel->dpcd,
+>  					 msm_dp_panel->downstream_ports);
+> -	if (rc)
+> -		return rc;
+> +	return rc;
+> +}
+>  
+> -	drm_edid_free(msm_dp_panel->drm_edid);
+> +int msm_dp_panel_read_edid(struct msm_dp_panel *msm_dp_panel, struct drm_connector *connector)
+> +{
+> +	struct msm_dp_panel_private *panel;
+> +	const struct drm_edid *drm_edid;
+> +
+> +	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
+>  
+> -	msm_dp_panel->drm_edid = drm_edid_read_ddc(connector, &panel->aux->ddc);
+> +	drm_edid = drm_edid_read_ddc(connector, &panel->aux->ddc);
+>  
+> -	drm_edid_connector_update(connector, msm_dp_panel->drm_edid);
+> +	drm_edid_connector_update(connector, drm_edid);
+>  
+> -	if (!msm_dp_panel->drm_edid) {
+> +	if (!drm_edid) {
+>  		DRM_ERROR("panel edid read failed\n");
+>  		/* check edid read fail is due to unplug */
+>  		if (!msm_dp_catalog_link_is_connected(panel->catalog)) {
+> -			rc = -ETIMEDOUT;
+> -			goto end;
+> +			return -ETIMEDOUT;
+>  		}
+>  	}
+>  
+> -end:
+> -	return rc;
+> +	return 0;
+>  }
+>  
+>  u32 msm_dp_panel_get_mode_bpp(struct msm_dp_panel *msm_dp_panel,
+> @@ -208,15 +210,20 @@ u32 msm_dp_panel_get_mode_bpp(struct msm_dp_panel *msm_dp_panel,
+>  int msm_dp_panel_get_modes(struct msm_dp_panel *msm_dp_panel,
+>  	struct drm_connector *connector)
+>  {
+> +	struct msm_dp_panel_private *panel;
+> +	const struct drm_edid *drm_edid;
+> +
+>  	if (!msm_dp_panel) {
+>  		DRM_ERROR("invalid input\n");
+>  		return -EINVAL;
+>  	}
+>  
+> -	if (msm_dp_panel->drm_edid)
+> -		return drm_edid_connector_add_modes(connector);
+> +	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
+> +
+> +	drm_edid = drm_edid_read_ddc(connector, &panel->aux->ddc);
+> +	drm_edid_connector_update(connector, drm_edid);
+
+If EDID has been read and processed after HPD high event, why do we need
+to re-read it again? Are we expecting that EDID will change?
+
+>  
+> -	return 0;
+> +	return drm_edid_connector_add_modes(connector);
+>  }
+>  
+>  static u8 msm_dp_panel_get_edid_checksum(const struct edid *edid)
+> @@ -229,6 +236,7 @@ static u8 msm_dp_panel_get_edid_checksum(const struct edid *edid)
+>  void msm_dp_panel_handle_sink_request(struct msm_dp_panel *msm_dp_panel)
+>  {
+>  	struct msm_dp_panel_private *panel;
+> +	const struct drm_edid *drm_edid;
+>  
+>  	if (!msm_dp_panel) {
+>  		DRM_ERROR("invalid input\n");
+> @@ -238,8 +246,13 @@ void msm_dp_panel_handle_sink_request(struct msm_dp_panel *msm_dp_panel)
+>  	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
+>  
+>  	if (panel->link->sink_request & DP_TEST_LINK_EDID_READ) {
+> +		drm_edid = drm_edid_read_ddc(msm_dp_panel->connector, &panel->aux->ddc);
+
+And again....
+
+> +
+> +		if (!drm_edid)
+> +			return;
+> +
+>  		/* FIXME: get rid of drm_edid_raw() */
+> -		const struct edid *edid = drm_edid_raw(msm_dp_panel->drm_edid);
+> +		const struct edid *edid = drm_edid_raw(drm_edid);
+>  		u8 checksum;
+>  
+>  		if (edid)
+> @@ -515,11 +528,3 @@ struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux
+>  
+>  	return msm_dp_panel;
+>  }
+> -
+> -void msm_dp_panel_put(struct msm_dp_panel *msm_dp_panel)
+> -{
+> -	if (!msm_dp_panel)
+> -		return;
+> -
+> -	drm_edid_free(msm_dp_panel->drm_edid);
+> -}
+
+Too many changes to be stuffed under the hood of "Also perform foo"
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
+> index 4906f4f09f2451cfed3c1007f38b4db7dfdb1d90..7f139478e1012d5b8f1f745f0de5fc3943745428 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.h
+> @@ -32,7 +32,6 @@ struct msm_dp_panel {
+>  	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
+>  
+>  	struct msm_dp_link_info link_info;
+> -	const struct drm_edid *drm_edid;
+>  	struct drm_connector *connector;
+>  	struct msm_dp_display_mode msm_dp_mode;
+>  	struct msm_dp_panel_psr psr_cap;
+> @@ -51,7 +50,9 @@ int msm_dp_panel_timing_cfg(struct msm_dp_panel *msm_dp_panel);
+>  int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
+>  		struct drm_connector *connector);
+>  u32 msm_dp_panel_get_mode_bpp(struct msm_dp_panel *msm_dp_panel, u32 mode_max_bpp,
+> -			u32 mode_pclk_khz);
+> +			      u32 mode_pclk_khz);
+> +int msm_dp_panel_read_link_caps(struct msm_dp_panel *dp_panel);
+> +int msm_dp_panel_read_edid(struct msm_dp_panel *dp_panel, struct drm_connector *connector);
+>  int msm_dp_panel_get_modes(struct msm_dp_panel *msm_dp_panel,
+>  		struct drm_connector *connector);
+>  void msm_dp_panel_handle_sink_request(struct msm_dp_panel *msm_dp_panel);
+> @@ -86,5 +87,4 @@ static inline bool is_lane_count_valid(u32 lane_count)
+>  
+>  struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux,
+>  			      struct msm_dp_link *link, struct msm_dp_catalog *catalog);
+> -void msm_dp_panel_put(struct msm_dp_panel *msm_dp_panel);
+>  #endif /* _DP_PANEL_H_ */
 > 
-> Yongxing Mou (3):
->       drm/msm/dp: Add catalog support for 3rd/4th stream MST
->       drm/msm/dp: propagate MST state changes to dp mst module
->       drm/msm/dp: Add MST stream support for SA8775P DP controller 0 and 1
-> 
->  drivers/gpu/drm/msm/Makefile                       |    3 +-
->  .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    |    8 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |   21 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |    2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   72 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |    2 +-
->  drivers/gpu/drm/msm/dp/dp_audio.c                  |    2 +-
->  drivers/gpu/drm/msm/dp/dp_catalog.c                |  558 ++++++++--
->  drivers/gpu/drm/msm/dp/dp_catalog.h                |   64 +-
->  drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  474 ++++++---
->  drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   22 +-
->  drivers/gpu/drm/msm/dp/dp_display.c                |  510 +++++++---
->  drivers/gpu/drm/msm/dp/dp_display.h                |   33 +-
->  drivers/gpu/drm/msm/dp/dp_drm.c                    |   53 +-
->  drivers/gpu/drm/msm/dp/dp_drm.h                    |   12 -
->  drivers/gpu/drm/msm/dp/dp_mst_drm.c                | 1065 ++++++++++++++++++++
->  drivers/gpu/drm/msm/dp/dp_mst_drm.h                |  106 ++
->  drivers/gpu/drm/msm/dp/dp_panel.c                  |   66 +-
->  drivers/gpu/drm/msm/dp/dp_panel.h                  |   10 +-
->  drivers/gpu/drm/msm/dp/dp_reg.h                    |   46 +-
->  drivers/gpu/drm/msm/msm_atomic.c                   |    3 +
->  drivers/gpu/drm/msm/msm_drv.h                      |   19 +
->  drivers/gpu/drm/msm/msm_kms.c                      |    2 +
->  23 files changed, 2725 insertions(+), 428 deletions(-)
-> ---
-> base-commit: 475c850a7fdd0915b856173186d5922899d65686
-> change-id: 20250609-msm-dp-mst-cddc2f61daee
-> prerequisite-message-id: <20250529-hpd_display_off-v1-0-ce33bac2987c@oss.qualcomm.com>
-> prerequisite-patch-id: a1f426b99b4a99d63daa9902cde9ee38ae1128d1
-> prerequisite-patch-id: ae9e0a0db8edd05da06f9673e9de56761654ed3c
-> prerequisite-patch-id: 7cb84491c6c3cf73480343218c543d090f8cb5e2
-> prerequisite-patch-id: f32638e79dd498db2075735392e85729b1b691fc
-> prerequisite-message-id: <20250530-dp_mst_bindings-v2-0-f925464d32a8@oss.qualcomm.com>
-> prerequisite-patch-id: e505c21f653c8e18ce83cad1fc787c13a6c8ed12
-> prerequisite-patch-id: cfdd5c37d38b2a4f1386af4021ba3920c6d8dcf8
-> prerequisite-patch-id: f4abdddcb90c8203044395f4768d794214fe3225
-> prerequisite-patch-id: 45013dfaf34856422b7b6b3d2ee42d81a917177b
-> prerequisite-patch-id: 2f35bedb0410bead1b66cbfaf51984fc7016828f
-> 
-> Best regards,
 > -- 
-> Yongxing Mou <quic_yongmou@quicinc.com>
+> 2.34.1
 > 
 
 -- 
