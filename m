@@ -2,75 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A996AD2582
+	by mail.lfdr.de (Postfix) with ESMTPS id C73B7AD2583
 	for <lists+freedreno@lfdr.de>; Mon,  9 Jun 2025 20:24:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA5410E435;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5701B10E438;
 	Mon,  9 Jun 2025 18:24:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="camXxapc";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fMl/ATCo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E13410E42F
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jun 2025 18:24:47 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5599BYV5012736
- for <freedreno@lists.freedesktop.org>; Mon, 9 Jun 2025 18:24:46 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D14E10E430
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Jun 2025 18:24:48 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 559G2VfN002439
+ for <freedreno@lists.freedesktop.org>; Mon, 9 Jun 2025 18:24:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=wDKSo0B4Owx
- KLMBW6S+ptTFSRqNPn23bmUpGk8ww0sU=; b=camXxapca/C/5sga8qhF50Bxhjt
- SNi9SsTxyiRTTSRo4DiMOYHTmJIyznRy+nIm4KDSepuTlI9zI2V/Nv1SVFme4ppy
- xGz6ND1y8MjBFX+E/YWoQVeYv9Yi5jrzitoEX5XnxIzhA2bzI20f5oaJTpcNC9rK
- x3pdqu65IFoqIuQHNc9Dfmb7+el7sREE6HY/Fevb5kpdPwJCPmCqDcpK0g6M1EIu
- Lzbtj/pE5qH640sgzDdUEBAAKrudRZOEwJagqickt5+q4D0xvUALIPxwVtFBWkWq
- cx12eOXdsfHOly3DJmTLE1pBUmZj94gUou5T9GEEcRgQg5nxkI683CZ9GPA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 474ccv6tfa-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=ecf/gs5q5Dw
+ zFWtmUtIrh+h+5TTwNY0t6ORkyO3PRW0=; b=fMl/ATCopv81RuOcttIfLT3RGCV
+ f2aFpC33dDon0kLyS+40JQ4W5Pm2bdSaCyaSfeO9ej6Q5a/5VZIxHJuEVE2pZAHx
+ 7fOEASnEIUe4EYRLaPVXWGZB2Nauq9gBZBfCoVlbceuikUOLy6EkajeRQmeXwXue
+ qLnoGqBfkKECKtUtakL//L6/ak2etxDOwEPtxJhUDc2Poi9/Y6CvkSk60tq0rrnx
+ c3bJ9JoRKMgsUss2RGWYKm/eLDxF6B3PoeJg1owl1ALvplNrQXnYIMmXLRlR90JQ
+ ZDYoGJVWI6Tzvp23vkPEXxQpD0UJzxEs3HlxlTZyWKH91YENvDWwykoKyDw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 475v2y1n10-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 18:24:46 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2358de17665so43541865ad.3
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 11:24:46 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 18:24:47 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-3132c1942a1so6533541a91.2
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jun 2025 11:24:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749493485; x=1750098285;
+ d=1e100.net; s=20230601; t=1749493486; x=1750098286;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wDKSo0B4OwxKLMBW6S+ptTFSRqNPn23bmUpGk8ww0sU=;
- b=th9GO0Z9GEvG3lem3HgpnbBToGWKkd7/99VKwPH6O4ssYLb+L2MLSwYMfCI8pwMMJG
- mkUdPb0+yYVodH9EQVHE4kDMBKWTimV/SCgc8CeX6rdgeHbcFEbWbTVnfBsmgp1XXdBS
- QaF2hoSE3ko09XBv4BLZz56sXR4NGaQ0X3jUv9htRmh+CLMJbT1jFz7EnM9ovUDke2I7
- iZdNY4INjNWvD3irGYmnBDpnbDOrKgm7jePTNA/D/S4+z0wWypAx3P51lV7zZ9jg22mU
- h2ojCzBd3YITPNFy9ctnIXdophLn3dXPev7d0kIijiCBhT6R+BFLuE6gr1/9C8L3k/R1
- wpxw==
+ bh=ecf/gs5q5DwzFWtmUtIrh+h+5TTwNY0t6ORkyO3PRW0=;
+ b=eGvISWulX32sktkgSak4C988bZKew3w7l5FeQWym0jPSq82zMnm5HrmtlGP60lRwJQ
+ e4vq8vQKIfyRtwPMwnxAbhoarTWqec2wYtstL6TOKWAOHUbhmAd9Rd8DYpGc9RKhN9pB
+ sC+XOMY1yByYPr0f5q+nIPHQZOz+dV4qMLAk/CKQfHzrl5/Msp66pciZpHpkrAzOybY9
+ 28TsYNQiZLl8t+VPan7/4MSxxxZ3CqKF9nZm8cwFi1CqkLbkUjOSvl/GrYq88l4Tl/hX
+ IA2/L9dRb7aLAd3OU3JlkxHQfFJTUODMYjj7EMPqmxg42kBRNeKMeKKFzEF50wNG8tyr
+ IQxg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUmOQzH+cg0r8WVFBZvNl1mhvqLQRR/uN17EKZL5L7d+Q1DCSACdY8Vg+Wrf31Lbd0et1ZcivyEMyE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNoGFmXJGCFtLZqJfrtDDwpsK9s4iZYhVofKFTQ3R8jr+F3GyT
- x2+gPuW8SreiCaEhrmsXp7o3bUxHlkJdxphdYq7R6zSXpxvyaoshBXDli1PvfXAIsSp4vwRXuLF
- FklD3q8rM3q5DwYZpxppyHAqzENM4iL/m1IGcNRQk5qkg0Uix1A91cvGvZ9RysL594gZDari2aB
- 9nhG4=
-X-Gm-Gg: ASbGncsIt2OW7rtDPHfwoD47cP36a+F/ifhUrV+S9Lt+CjL4pt7cUbhAwSyr/VGxzAf
- rJd1qL6yhZQ/MVrAMt7iPt1ubVMUPtT3e3C8r2c9+GC9WaWTRNZkfBTDcquro5CgPsnDp9/I/5t
- AZizIt9rlokNUnrd/WcWKTl2R3jymg/2ye8PUp3+sGbrGB2fMyBM/53rQIRsWi+jkVVkvwh4UNc
- FDAr7hEJNfVATAI3jXhv25yqOTeRYckZDGHKVQ0VvNgvPUCgXx0/Q/MORkXwvVmUxk7EXLr6mvt
- ey5Bbxndwc/PQyWhKJoGu5pXuXRJSaxw
-X-Received: by 2002:a17:902:e891:b0:235:f55d:99cc with SMTP id
- d9443c01a7336-23601cf68cemr203519975ad.2.1749493485371; 
- Mon, 09 Jun 2025 11:24:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE2xRWfunGxYuE2OM2dbnnHB5b46Yn438TRpEDL3+xKAueWZPA4Xlpunoydd121jW5MCcyDKQ==
-X-Received: by 2002:a17:902:e891:b0:235:f55d:99cc with SMTP id
- d9443c01a7336-23601cf68cemr203519705ad.2.1749493484921; 
- Mon, 09 Jun 2025 11:24:44 -0700 (PDT)
+ AJvYcCWC2B/tM9JrZKi1ZAtK88i9QpW3z3ozgbmTEjdTlNm4hZcpC/0hhkO0BQPZ68oY2ecAxOluCsIS92w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyLjyZl4fQpnMxwD1Z8LlRfZ9nlNbHzhB1VPN3WczXOMfWY2gnH
+ JnnE7yD1zK/ARI+mlRECFEwezeym2xcVX4jtd0pyMkB7tzcfQNgRtiJw2GUZFjydlX3TSMU26gt
+ mJMuFWZ7HJorTkZLs31qHHq627yCWsZVJlaeDnwngOL0KspiSetQGsdgqXBVWdwO4b3vnDNw0ca
+ a2yhI=
+X-Gm-Gg: ASbGncvEWqgmv/BSK5PsCbWjYjofeEQX4C6qXevb3XyXzknAYKF2C7f4mV2xar0t/Ef
+ jjLTPsU37QhLKu5CTtxvU4MVKc1OaUCZZQOTD+TqX5sVDSlDMIf4oG7Hb+uy/PIKT+5NEAyVAur
+ HgL56C1XlvQ040jydhLPoxSmAvMbnMeMGCl3ozUBU4wugllwOfxsfGbiIYtMXsz9geYVnwB3sK+
+ 1LYHYhYRntklD8KiUIJhKtPIvM/iPgQezQTIElc8iV5UZygKPryboWJwqhq8Z5zJvHmA34Z9nIi
+ yaYeBn+TLS4/zHe9LMfkSsoq11gbVIDE
+X-Received: by 2002:a17:90b:3c52:b0:311:ffe8:20e2 with SMTP id
+ 98e67ed59e1d1-313472d4297mr20221933a91.4.1749493486591; 
+ Mon, 09 Jun 2025 11:24:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEigB0QkFd2i+DltDS7spF4Aiz+S0w1cLE1zE97QoFV7hOhFnk6CT2wbS3XvV3KokxiU/HvdA==
+X-Received: by 2002:a17:90b:3c52:b0:311:ffe8:20e2 with SMTP id
+ 98e67ed59e1d1-313472d4297mr20221906a91.4.1749493486236; 
+ Mon, 09 Jun 2025 11:24:46 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-236032fcea0sm58136435ad.103.2025.06.09.11.24.44
+ 98e67ed59e1d1-31349f32c96sm6630688a91.12.2025.06.09.11.24.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jun 2025 11:24:44 -0700 (PDT)
+ Mon, 09 Jun 2025 11:24:45 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -83,35 +83,36 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 2/3] drm/msm/adreno: Pass device_node to find_chipid()
-Date: Mon,  9 Jun 2025 11:24:36 -0700
-Message-ID: <20250609182439.28432-3-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v2 3/3] drm/msm/adreno: Check for recognized GPU before bind
+Date: Mon,  9 Jun 2025 11:24:37 -0700
+Message-ID: <20250609182439.28432-4-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250609182439.28432-1-robin.clark@oss.qualcomm.com>
 References: <20250609182439.28432-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: Ta0J_sxP6VsJVMG_nFAyC370SC-Buv3t
-X-Authority-Analysis: v=2.4 cv=TsLmhCXh c=1 sm=1 tr=0 ts=684726ee cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=EUspDBNiAAAA:8 a=DSfSXdSXGXaEfb08ihoA:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: Ta0J_sxP6VsJVMG_nFAyC370SC-Buv3t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA5MDE0MCBTYWx0ZWRfXwlaC+apEEu9l
- OdjlGRvBYPbUeD5LcYfMu5O92qip/SXd/YtCUOTYIYpGNh4xx0UgcHkirdxiapFDhbE6aBON0Vx
- rohIU0SrAgbP3+M0oxFRefzO6KQ5M0+gQqvuauqRxIiC8qxxQErJromCXLhDxGHcdI+kaTCiJ7b
- 2c3oP47wDs6TOF82vMhkJC0j0OzDfFEkYF0o729E0Ha0p0JFZeAi8LMYqhZaasNQ74g0EGO67Qn
- KAlg0+GuFInBVA7WFULvKV+LsET2HJ75goIBCoQVAG+V3cbPeS8M5Ag61YgpaePEa+Mc1hmiTp5
- B8S9Y3Tbs/YEuPfW2C8NHspQvFz/BpSKGK909rBWPW8RdJJqwL3GVJiW0fcMB7NeDlqVWVkcLgo
- KthT+2R4b1e+ktq3pf22QyOpjrcqUS+Lf5A7BQYdM5wdp5cfj4ELCGIWGTOsuzoXh7uaoMht
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjA5MDE0MCBTYWx0ZWRfXyfPgBkIT+wUz
+ 9exS8MG8wGytJ05tQZZm2ZcFLcnIH322QccIU9BQ8FxFyrBVlnYA2EbMPuOpBUHnpPbOHHDikZG
+ A7uvoHdzSbx4nKM0KhHm7cPjrdRGl/DPFii1TTy9xUxxo3htGQHA6b2IZBJlfoFUthSoj5eq9a/
+ dmwFTBzqol8M62gNOoSf1AR3c+9+D/CpSf6UgEoouqHk0B2Spu6BJ8szZ8pJGxwD5UdDU1skkNR
+ 1SN4jJpBviYv5pERUyFTiRHr1WThvLkVVGtKeMsYOYielpCnAWGKNTHgHytitcp1gVx6qGg7hYJ
+ PRQdinOZT0OWMnDtmCoynCEB9KYeUP6OMg0wu3+m35hIVOmq8BhfLwbU2g7hXAfMmfpJwC2epEI
+ 0+YH2axhhjTH14axy0CtklQQUSEzBbqHexy2ekUG5WWd6Ac78RGtuVmSfQ9s9Uj6K0X3JKtq
+X-Proofpoint-GUID: cSLAdNOeXrgCy6RBwvvOZANaMnKLD3zc
+X-Proofpoint-ORIG-GUID: cSLAdNOeXrgCy6RBwvvOZANaMnKLD3zc
+X-Authority-Analysis: v=2.4 cv=f+BIBPyM c=1 sm=1 tr=0 ts=684726ef cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
+ a=EUspDBNiAAAA:8 a=4MAclHcQAAAA:8 a=KW-EWzdukDj2kg_Rd5wA:9
+ a=rl5im9kqc5Lf4LNbBjHf:22 a=6vtlOZhwcO7ZS_iRoh4Z:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-09_07,2025-06-09_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 spamscore=0 mlxlogscore=999 impostorscore=0
- priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015 mlxscore=0
- malwarescore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506090140
+ suspectscore=0 spamscore=0 mlxlogscore=999 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 priorityscore=1501 adultscore=0 phishscore=0 mlxscore=0
+ malwarescore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2506090140
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,54 +128,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We are going to want to re-use this before the component is bound, when
-we don't yet have the device pointer (but we do have the of node).
+If we have a newer dtb than kernel, we could end up in a situation where
+the GPU device is present in the dtb, but not in the drivers device
+table.  We don't want this to prevent the display from probing.  So
+check that we recognize the GPU before adding the GPU component.
 
 v2: use %pOF
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/adreno_device.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 29 ++++++++++++++++++----
+ drivers/gpu/drm/msm/msm_drv.c              |  2 +-
+ drivers/gpu/drm/msm/msm_gpu.h              |  1 +
+ 3 files changed, 26 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 6b0390c38bff..778e6ae7f137 100644
+index 778e6ae7f137..0d12454b1f2e 100644
 --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
 +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -133,9 +133,8 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
- 	return NULL;
- }
- 
--static int find_chipid(struct device *dev, uint32_t *chipid)
-+static int find_chipid(struct device_node *node, uint32_t *chipid)
- {
--	struct device_node *node = dev->of_node;
- 	const char *compat;
- 	int ret;
- 
-@@ -169,11 +168,12 @@ static int find_chipid(struct device *dev, uint32_t *chipid)
- 	/* and if that fails, fall back to legacy "qcom,chipid" property: */
- 	ret = of_property_read_u32(node, "qcom,chipid", chipid);
- 	if (ret) {
--		DRM_DEV_ERROR(dev, "could not parse qcom,chipid: %d\n", ret);
-+		DRM_ERROR("%pOF: could not parse qcom,chipid: %d\n",
-+			  node, ret);
- 		return ret;
- 	}
- 
--	dev_warn(dev, "Using legacy qcom,chipid binding!\n");
-+	pr_warn("%pOF: Using legacy qcom,chipid binding!\n", node);
- 
+@@ -178,6 +178,26 @@ static int find_chipid(struct device_node *node, uint32_t *chipid)
  	return 0;
  }
-@@ -187,7 +187,7 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
- 	struct msm_gpu *gpu;
+ 
++bool adreno_has_gpu(struct device_node *node)
++{
++	const struct adreno_info *info;
++	uint32_t chip_id;
++	int ret;
++
++	ret = find_chipid(node, &chip_id);
++	if (ret)
++		return false;
++
++	info = adreno_info(chip_id);
++	if (!info) {
++		pr_warn("%pOF: Unknown GPU revision: %"ADRENO_CHIPID_FMT"\n",
++			node, ADRENO_CHIPID_ARGS(chip_id));
++		return false;
++	}
++
++	return true;
++}
++
+ static int adreno_bind(struct device *dev, struct device *master, void *data)
+ {
+ 	static struct adreno_platform_config config = {};
+@@ -188,18 +208,17 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
  	int ret;
  
--	ret = find_chipid(dev, &config.chip_id);
-+	ret = find_chipid(dev->of_node, &config.chip_id);
- 	if (ret)
+ 	ret = find_chipid(dev->of_node, &config.chip_id);
+-	if (ret)
++	/* We shouldn't have gotten this far if we can't parse the chip_id */
++	if (WARN_ON(ret))
  		return ret;
+ 
+ 	dev->platform_data = &config;
+ 	priv->gpu_pdev = to_platform_device(dev);
+ 
+ 	info = adreno_info(config.chip_id);
+-	if (!info) {
+-		dev_warn(drm->dev, "Unknown GPU revision: %"ADRENO_CHIPID_FMT"\n",
+-			ADRENO_CHIPID_ARGS(config.chip_id));
++	/* We shouldn't have gotten this far if we don't recognize the GPU: */
++	if (!WARN_ON(info))
+ 		return -ENXIO;
+-	}
+ 
+ 	config.info = info;
+ 
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 87ee9839ca4a..40eb04bab35e 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -956,7 +956,7 @@ static int add_gpu_components(struct device *dev,
+ 	if (!np)
+ 		return 0;
+ 
+-	if (of_device_is_available(np))
++	if (of_device_is_available(np) && adreno_has_gpu(np))
+ 		drm_of_component_match_add(dev, matchptr, component_compare_of, np);
+ 
+ 	of_node_put(np);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 5508885d865f..56bd1a646b83 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -729,6 +729,7 @@ msm_gpu_create_private_vm(struct msm_gpu *gpu, struct task_struct *task,
+ void msm_gpu_cleanup(struct msm_gpu *gpu);
+ 
+ struct msm_gpu *adreno_load_gpu(struct drm_device *dev);
++bool adreno_has_gpu(struct device_node *node);
+ void __init adreno_register(void);
+ void __exit adreno_unregister(void);
  
 -- 
 2.49.0
