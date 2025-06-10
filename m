@@ -2,121 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0E77AD3599
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jun 2025 14:08:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3E69AD3737
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jun 2025 14:50:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA4E510E51A;
-	Tue, 10 Jun 2025 12:07:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E117510E53F;
+	Tue, 10 Jun 2025 12:50:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="amO1V1gH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F7GQc7RQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA6D10E51A
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 12:07:58 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55A8pKH2017182
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 12:07:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- fat5e0IB0SoYGIG/MkkVnFLpug9hfHZGf2qLnhATUsk=; b=amO1V1gH7PFHuoCg
- PIy261N1nNVAI06xgD6lL904AfXn2z8t98itSVilp3ZUAcLgd+4U8iBsvUWUWTRw
- vFrrq7Xs8k/p35IInSLr95jGmMqV8tLhlsy1pc9s+QlxlkoEU8R1TJyDyoypjKys
- N4WkjSoRjTEY1x939wiq7MmqoRTL1dd6Oq7vHLHmtt/N/rAy7vz+Tnp9CghF/sdI
- EAnLr+NYis2DZRmUTF8/vIWX70DYgdeO3YCv7R23Xr0ztmpXhXGDCEcrnDieeqlP
- LFzyqaigIeJMVVl/A+LCO/Onz4YieDZQp+fXgWSjnsCz91e0AbGd9JdtVTRwaDPc
- NM5Xxw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4766mcj3ft-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 12:07:57 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7c5ad42d6bcso107138285a.2
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 05:07:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749557277; x=1750162077;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fat5e0IB0SoYGIG/MkkVnFLpug9hfHZGf2qLnhATUsk=;
- b=Z02qD0m738Ynse3OdaIz4uEHAchr9MaIW3Gg6JCDVLjNtazbfdNyD9vsYKT/960t2O
- YEj3+TkQcL05KsUQLksYnSJjsW9pCd8xciy8E3lVnnCmsoB5WW4wg0X2k6UzEtF9uihW
- IBgVOS5gYuESRxL0Z6SKY2NFb8XHlBLGYZg63qFMGaL3mW+Mfc3UwN/ajTjcnjSq657p
- xvAyQi2KEDxjctPaIfk0i0w7wNEj8BThjaHrgCjc4PmL/TB4J2olZE/7pQrUn2paqC/k
- lkbbt1/zPpZ1rjVVURF5OdYh+WKGKTQF1xT6COcIkW8JMKB72WX7ucMpst7fNPtVep7K
- 7uCQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWqvOgu3yXRu0kEQhtyT5vttEdhgnBLVqvOoX0cTNa3dkxFraKyp0bYIAmA2e8ZCTxZQ3X2oRorYT0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhGoQl1eTo5dquBEWaJhbP+CmgkvA/w5wR5qe4Gykowm4Hfnvv
- 0I5zN4wtDB7UyJDqCe7+0pSjeW3k8NZL17Tb5YGsmFob0u5UVEpCO2aoihSAfcXf06sUPou5TpL
- Ildd4Vr4qqfXC8igy0KZxW//Tm6zkGwbD+3ptBCnIwiqCxertCRGY1xqnVjmISIpOmiJV6ZM=
-X-Gm-Gg: ASbGncvM68p5/MNtUPyMOw8ulLH2HdS87ngd7qebyaS1yTztBxy/up+MJsLUiYJtMQe
- ++h0abaAAH4WHzECvKAZ7OOKk08P5PvO7ZfB61rV97F44xTdBPTQXg+sflF9T+soS/ZFdnbygKP
- emGdQaCRtcP1KNXbSEYSGF6cJ3DG9mrRuXLgbDSQm7R6B2BxBJyjomSgmXlo7RCD/K6d/SBg6aU
- 8cvIap5dZiyHgIIv4BH9JTHPm4zZzTovinmILWpWkVhuGsBQ5knMDiEm1AWvJ8t6UNLgM52TnJk
- rN5ubnK1s7XL6v3DbR8zENFiJ88ruaoatYZIn3RetZF710Ilrcj2TUH6zakEzhBDB95XpgWNd/g
- h
-X-Received: by 2002:a05:620a:27c6:b0:7c7:9d87:9e2 with SMTP id
- af79cd13be357-7d2299a7832mr858807285a.12.1749557276908; 
- Tue, 10 Jun 2025 05:07:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEj+6dwkCJ6DlfdzxdyTh4b2DegATq5bsF0PNFjB/y/RVLucqtJq25z1WxISrL3LqrFBiMsyA==
-X-Received: by 2002:a05:620a:27c6:b0:7c7:9d87:9e2 with SMTP id
- af79cd13be357-7d2299a7832mr858805285a.12.1749557276405; 
- Tue, 10 Jun 2025 05:07:56 -0700 (PDT)
-Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ade1db55ccdsm704778066b.44.2025.06.10.05.07.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 05:07:55 -0700 (PDT)
-Message-ID: <c404b9e7-c942-4e3f-8dc6-f834f84b3160@oss.qualcomm.com>
-Date: Tue, 10 Jun 2025 14:07:53 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4FA710E054;
+ Tue, 10 Jun 2025 12:50:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8CECF4A6E1;
+ Tue, 10 Jun 2025 12:50:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35285C4CEF1;
+ Tue, 10 Jun 2025 12:50:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1749559817;
+ bh=7QpkMQMXtn6bcXn+GLCixu8zGcxbjjq8un/lPEBMnVI=;
+ h=From:Date:Subject:To:Cc:From;
+ b=F7GQc7RQ+F0IJCdqY94Kv4ovWFYpciWBNBN3n3ToM1BxxreW8XTNXdwe+ckHm8Xww
+ T7IJkYouR8gd+16bN9SOt+mFg/BBfT4RiDAhEeJrtuCeRc7/QUiourBnp4xWvFn4mj
+ QE0VQ1vxJq9lezeoj3KXQEC4HzFlX1vK6wFKOX4Z6nIpURA5lILlEYUc1WN/r08hn8
+ 6d4ha6j40uuJhkS7zG0Z+7s77vuR+Cyd33mjYGPIV2Hs1Vfq8pnvtngi6IVPcxXIVu
+ ZJ54mptB0ckWWz9y9wvnbFmXxlFB0kLmjqkBcwNlcZQEsULOX8+CtPH/FQ+vUaEJqV
+ /WzEIkVzWTOvg==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Tue, 10 Jun 2025 14:50:03 +0200
+Subject: [PATCH] drm/msm/dpu: Fill in min_prefill_lines for SC8180X
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/msm/adreno: Check for recognized GPU before
- bind
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20250609182439.28432-1-robin.clark@oss.qualcomm.com>
- <20250609182439.28432-4-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250609182439.28432-4-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=T8KMT+KQ c=1 sm=1 tr=0 ts=6848201d cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=EUspDBNiAAAA:8 a=X8FaSnKV0AetLU2DVmwA:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: 5MLFWNYx6_RBZuRIfkQUfcippPbdL4qi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjEwMDA5NCBTYWx0ZWRfXznTEwPducIuH
- 3e5RsW2dl9tNnCcyBoxu7T7RCoHln1RhzHBibLTk4xUSBM+x8idNJfKlZg1OWKRYPB/VfJsO9FK
- y33rCZkePmtyQ/HMx7LNIBvdpCOvpqGHh1v43kIkY70/AM125G0R3y9OC+7nFrmaRcq/RH4MwL0
- jVvVoucFeZvImQzmogshrg8CMNS/v8gbAm6r6aSr6cFIZVRUeN6Zhr2uy0FB8Erv6dZ6lm9BA2o
- KQRJpURThW00DhExP24eQN1IWWaxUEQ6D9SFeIsYAlgV+azCPnus7lVFR+fefEG2VECKlst0l5S
- AGsV/dwZlUUa5fFHSO6pDr9RixCgY9aCsvM2IcIgJlOyxdPUvEwesGWumeajp7IWc7uICFtC21V
- IrwJXsVS3M8+Oxl3U3+XzUUn97zH2ic5BSlMVWo7FmDzCtYpX9yY7cPZkDi7Ly9dB6eNd5P/
-X-Proofpoint-GUID: 5MLFWNYx6_RBZuRIfkQUfcippPbdL4qi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-10_04,2025-06-10_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 mlxscore=0 phishscore=0
- mlxlogscore=793 suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506100094
+Message-Id: <20250610-topic-dpu_8180_mpl-v1-1-f480cd22f11c@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAPopSGgC/x3M3QpAQBBA4VfRXNuatdHyKpIwgyk/2y5S8u42l
+ 9/FOQ8E9sIBquQBz5cE2bcInSYwzN02sRKKhgyzHAuN6tidDIrc2VptsV3dokpjjLXcIxFBDJ3
+ nUe5/Wjfv+wEw8pW8ZAAAAA==
+X-Change-ID: 20250610-topic-dpu_8180_mpl-933388eb0ddd
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1749559812; l=1066;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=iE/yOryfr8u/J14k5vdj37MOoWRLYDlk7LCl9lLaqKE=;
+ b=/3ym+TuMMf6qgrZEIiGeqXTPB8s739mqTCyW2nxcn3cXJjZHUCFEee6La/zDxv7RuGt7gJz63
+ 8iBtDMZZ6PEADjErF4GBzqzz8j7nVQW1dwSyHNPfIOEMYE/ncI4qhkn
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,17 +73,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 6/9/25 8:24 PM, Rob Clark wrote:
-> If we have a newer dtb than kernel, we could end up in a situation where
-> the GPU device is present in the dtb, but not in the drivers device
-> table.  We don't want this to prevent the display from probing.  So
-> check that we recognize the GPU before adding the GPU component.
-> 
-> v2: use %pOF
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Based on the downstream release, predictably same value as for SM8150.
 
-Konrad
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+index d6f8b1030c68a428a144428b422b63b960c2fdba..6c04f41f9bacc3be2d2259d3b3e2099934f473f7 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+@@ -383,6 +383,7 @@ static const struct dpu_perf_cfg sc8180x_perf_data = {
+ 	.min_core_ib = 2400000,
+ 	.min_llcc_ib = 800000,
+ 	.min_dram_ib = 800000,
++	.min_prefill_lines = 24,
+ 	.danger_lut_tbl = {0xf, 0xffff, 0x0},
+ 	.safe_lut_tbl = {0xfff0, 0xf000, 0xffff},
+ 	.qos_lut_tbl = {
+
+---
+base-commit: b27cc623e01be9de1580eaa913508b237a7a9673
+change-id: 20250610-topic-dpu_8180_mpl-933388eb0ddd
+
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
