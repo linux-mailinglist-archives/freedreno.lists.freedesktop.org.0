@@ -2,72 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E75AAD3A4E
+	by mail.lfdr.de (Postfix) with ESMTPS id 806E8AD3A4D
 	for <lists+freedreno@lfdr.de>; Tue, 10 Jun 2025 16:06:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DD0C10E57B;
-	Tue, 10 Jun 2025 14:06:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2197310E57C;
+	Tue, 10 Jun 2025 14:06:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cEqpKrse";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bsX8ENp1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4865E10E588
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 14:06:26 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-450d08e662fso2098105e9.0
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 07:06:26 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D563610E57B
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 14:06:27 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-3a4e57d018cso837157f8f.1
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 07:06:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1749564385; x=1750169185; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1749564386; x=1750169186; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=rpOiO+FEaa+w4A+7D6YhlJmVtA2pagPAEL+dLTD4VlY=;
- b=cEqpKrseG+QV1sMhmhcVtnQXMU2nsYn8RLUOPdDOUOFLASSOPkAKVcVjB0lP59tAiP
- QXcTkIxmj7zgsb22mCAbC6WpH8zm5DTZA9cUFw+7qXVBJttzcdn4DX2wkdMkpTOIv6iL
- tS7Gdvn45m5065FU5yI10bbsDFrnYFhy4whTjZ5+i1Iaay11aRhDjMxM5I/jf++LmYCa
- ynllrLXJBzRbXXfqrn1ArY7j+W5s6cdIzeHdTjEFuvGIKcqimzc2MQPP9pnUlAUnaF7N
- XmhfID8zMnzHvmbVWGdcMUFuzSKZviCe3GdPloULSgosX4L/AzOeulNnZn89sf+vivR+
- fPHw==
+ :reply-to; bh=c1KnLM1NPxNXZz/8JZFIjv2R+0TiPb/2BYtiypsnLxI=;
+ b=bsX8ENp1B/i6HSoouOhbF6uIUppAJFIxWX95sk4Y8OyUTrpPosjvetoSTocjFFliY5
+ jvBm/YZC6OEpPWGqEs9ILznkw3yYrvzOQYZVRJqmyrjW9wBSuxe5pPJczX7dbaq1XpOx
+ LclTETIQqS9IEO0VERMuLSlToHtIWUxC4mAKApune8FZU+t/Ex39LPb8Y+HWcuHzLo7I
+ usHx3cuKP1uujypY7pej9jPnjcVKiV3I72czefaJuTfatlkAHKHWvIW5hLL9GVWTbx3/
+ SQ+13OLXTkybgn9jY1zFU2qHLlnOw7cAtj7IQTwfNOaJ/91FIJPJ8rwtqHWAxm8xGrsG
+ Y4hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749564385; x=1750169185;
+ d=1e100.net; s=20230601; t=1749564386; x=1750169186;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rpOiO+FEaa+w4A+7D6YhlJmVtA2pagPAEL+dLTD4VlY=;
- b=O827wI6UHKTsiEoIMehIIO7oO12jyF3yDbtD4RtHraeRF9xjLU8QiXZwuiuFfgZiLm
- lAwqHC/LuAw+XvqdXVpfY4hTgxDB3IUbY6VEwasQK6cc8pFy0oTXkf/40dF2TbHogDER
- AWNcoXU9rRY6NUlZfdoTk7OZCVbAKOddpaSWklkZYe5m5tzxwdiwjeiM+kHn76vigPIl
- fHxCjlHIQYhzCLMpi/1zSX2umVgRvs+SqWpePR7/A2D6moy6Y3lZi/vZdio8YIDKkjIR
- FSIY6fUXSJS/fkAg/9TK5DBZFAHsEVkd6gJ0NcEi7mLGEelCS1TfagTIizZYMWUE8hSd
- 4Z0Q==
+ bh=c1KnLM1NPxNXZz/8JZFIjv2R+0TiPb/2BYtiypsnLxI=;
+ b=l19OBfvv9Q1YOVSkejeCMsZETsSS1e9JtMJGnUlCWJSkocFt3Cu9k6KPr1ffYAOuqY
+ Q2usM0BKuxYFbnUvrKbPlJL4vYiFupUR7G+ouCNoZo67NMJh4LTg90Z7I5xJK2YnPkJC
+ mXwWeqrIVx696apX8C97Fpmr2HE0PYTQdnjrJHbCj5xPi2MsUkvQf8Lh0Ld7X0Ho7abR
+ fNWOKIFq5wEzyPFIvuPyRtiG9hPdtpAt57SRYRKX4RhSLE6g71oZ/zru5yaAv5apZNWp
+ t8thhoNjec89epKc3gmqd3lX37tO31QKSxIisMZhUDOhAC6IEMqgdnV7bSDZm2i1jAcU
+ qP5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW+PzKbL4zDRbvEOa1/fH2bS+o1WlVnMyGoEOaYuE8iAX+3Qg8gscDf+xAnnX3yr1Za22MBwRND2Wc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrsrHc4tkEbLYcLAmVQe1VMzce0PiHGnLUg2V8s7uPbuKz+5u6
- 3egYqdu0Nf0PJB/q62/6PuQ+/ubD2NcylIXq7yGmHh6Wr3zIm+UTPcFdaKANSI6EO8M=
-X-Gm-Gg: ASbGncuOqDK9LJ6gROuUklPdCevlUSQ/iQEAqIt5r/TYE6S5QEbDzy6RKomBo28HYOE
- j/nGopoByPQd4hPAByV6YlwEh4Wt1sQC5fbE8WlhuiogqzAWhujv2tzL+C0yqbPd3mPGrKC+yVY
- ECXBUvebIAt1UjBGuoHKL4ijIsDMq0UewRTM2pOjdNaqiKHCv81GWGkpFTgUooWoPbJlWTPYOmb
- mW0bdUp1j73s6ThTI9BTBAwfNS/n3KErevClSpvF/1834uL9Cu5suk98zp31zE30tVruxSVFU14
- CftQpNL9SW84c/xThQvLYig6cKNW0PjqwdRhb73Zz3448PhNnhd3zIA7n3vf8IVZpPlZuFxE2ln
- sV+bbkA==
-X-Google-Smtp-Source: AGHT+IFMhckmXcGnjChqtVdaAAq6SLAgWxkzv2bzSAaK4VvB5QeKCr7BJgtMZofJPhIMMyh+0XvSKg==
-X-Received: by 2002:a05:6000:18ab:b0:3a5:324a:89b5 with SMTP id
- ffacd0b85a97d-3a53316bea1mr4327656f8f.8.1749564384148; 
- Tue, 10 Jun 2025 07:06:24 -0700 (PDT)
+ AJvYcCUE5buewzbsh8UDBcngpgg9G9+MSZ0bnfgVW+egp1UrWwpv98AldP16D+Bz5aTOIC9x9SocBFZTwR4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzli6llMJPR0GopBJqlDK5YzWsSoCy/w/CA9w2qEF72iPBAFdQV
+ N9Ptb8kW7ZRwyZY5CSdVKsdHkwWIIu4c72dqUuwmiCUYRQ+giuN2DHnD7XwJcKHsSFE=
+X-Gm-Gg: ASbGncvfOJdxPGWWWA/7dLxT3LDJPtG8X4u30Anv1QnaIO+rJR7msxY4+rgHdTh64W6
+ mx+pRffLfm1KSy1BH7G50qSjWLs0OW/5dt/auJHG3fOk5MYk75DQ9bDCfcvGOu2/DwHNky/SYxT
+ qq3t17WCM72WGUerhLST2sV47ba+wOJ4TOUZnqU4z6A6Ly0Ae/Sat/dShMikpZ5jKfxmEpIQ0vU
+ bPT8h4upEZoYBWJGsD20fyC/2a8O0dKPtz7TdIIlFlPjKotbTLXc9xJu8a9TcKLb/ICgzmGceOw
+ JZcuxHhkl20vxtU6cIc3IHx8pTZ8qTnk8hRSz6smDgKeltbXC3syPArlJIcD771HTEHiHOJY0BW
+ ADgouBQ==
+X-Google-Smtp-Source: AGHT+IEwWcvYaimoww5hM1GBZ3AEqmQUQ5RJD+K72W8jKVRT3hyLsep9VyFM47tqr7v/rXlXGRe5sg==
+X-Received: by 2002:a05:600c:350f:b0:451:eed7:6d76 with SMTP id
+ 5b1f17b1804b1-4530538bc36mr37681375e9.8.1749564386213; 
+ Tue, 10 Jun 2025 07:06:26 -0700 (PDT)
 Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a53244df06sm12734469f8f.69.2025.06.10.07.06.22
+ ffacd0b85a97d-3a53244df06sm12734469f8f.69.2025.06.10.07.06.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jun 2025 07:06:23 -0700 (PDT)
+ Tue, 10 Jun 2025 07:06:25 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 10 Jun 2025 16:05:45 +0200
-Subject: [PATCH v6 07/17] drm/msm/dsi/phy: Define PHY_CMN_CTRL_0 bitfields
+Date: Tue, 10 Jun 2025 16:05:46 +0200
+Subject: [PATCH v6 08/17] drm/msm/dsi/phy: Fix reading zero as PLL rates
+ when unprepared
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250610-b4-sm8750-display-v6-7-ee633e3ddbff@linaro.org>
+Message-Id: <20250610-b4-sm8750-display-v6-8-ee633e3ddbff@linaro.org>
 References: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
 In-Reply-To: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
@@ -91,21 +92,21 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Srinivas Kandagatla <srini@kernel.org>, 
  Rob Clark <robin.clark@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3534;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8466;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=RNboVNFWutHKxxSCJ7Ad+xBqpxMQb2M+r4Es9Fz+OXY=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoSDvFX0W+WTwJ4w1LSGespVXTP1AzgrXMWkFy8
- TE7C6mdXrKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaEg7xQAKCRDBN2bmhouD
- 17NnD/4mMwgXpWRaFzN80tziJN1bGIPXDrhr0vKKLTqKnew/1/UgO2cwOucF397xWD9s37gwisF
- xlibcQo3MGfJXYyZDuLn5/TXMiPelmJuGAZgP8VI6Yu77rAkURXwjixbNTCvC6A5DXGgsbRs6/l
- Juhn+UPvEDD0yc5VgrMjeQNHED1NPV1Z86yU0gB+P7jxLygbrhWO2apN2/r+ohNrz1p2Mo8YvD2
- Q6oT6mkARDuT5hAwp8cT5NVODU17FcLU/rdU1Si5KqN4T5xRYHXypoaCft/SYy3IaLI3QsuM3Eo
- 0OC6/GVtEoTJhVjmSFlQMuQ7j2+MeR1zXOUnG2cyV2viAK1HtRj2jKhakvpxxTyCSDUfmx9GUpo
- oOqHseSgzZJrWwdH4igX6ttQZ/JUX9yD02MMV9noYd20mGPUxoH8+9sWeaGsx8bSzbtJ+88ZQ4X
- tKng722zYkuG6sZPw8gGjFQsl4DXG1YBovz3UNK5ZUS+6YrVdDZQrq9AOawb+bVsH499RAq3pbA
- zBv1vnYAjJzHUOLEFeIiC0xDZeHTXrfx33F4vL7naLp8yx6s6t+lJg6mpNQC5/howyMAeF/aBkP
- QBQJfHfNfBEL6eWtMNRhGXSS/OceJx9A575nEBEGq2zjxcLPKowStveSoCBjnFZBgjw2hLYhCLK
- LnKLQ+LNpwXLafg==
+ bh=JEggE4aGkw0e9clcohgBckgczcMgMJlvG2hLK8vTaTQ=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoSDvGiQKQC/7r4PPleERPmdWoG8uIMN39/Siti
+ IjU1gMyb5CJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaEg7xgAKCRDBN2bmhouD
+ 110hD/4jJB2SuxaT5PB9fySSb4OSXk43iif0GUV+JRpbsLOlXL1dvUFFc+O/gYf2qppQ10L9Nnw
+ ZHnw4E60dYCzRvwyFBDtRZkgBjyZnFgiL10/1R6rrSan27IPiJ6CHRIESiFLHUrv3M+dmMscQLB
+ DM7wfVkopFxOMgFD9fH1Umw8NNYWAjCy2+U6TyLB6nxaTs6eUUGlEEjEGlE3kXpSIrjaJc86Ozw
+ aAHdPqjdeUjDDy4Curi2ymKMnndcbVIxHTf6cK3MbAvCFOyg2rB5GnpRkbbKcvK9ammiZGomvkz
+ 4aHttLnObh2jN0JE58h1Tt1CPzy3Z2kGZtdYW2qLUp7bdYsEvktu7ee7P3tG6PblW6TPb0CFXCb
+ swLjiewCjfsJqkUEFkQ7kQoG1RmTbHmkBLZdP3Y2ejBgDnBr4hLpZeFYn5JTDjYCLHcD1x344rp
+ r5q2PDLBE3/kCISSRAJmFrtCk2VQ8B2LkL4kKG/Bf6qKwiV6GUV84m71NncwGD7d8/5fj/oT8VT
+ suiV+7oOdh4u9KBXKUoNPOupzq1ve+bEuJJtebx4rpdvNC5SV/iA4ju0oIRQpVrJyMJPRbDznBX
+ z9c64HMpEFh9315j52fcSrqX/GV9x+8QrWrVKLszuy5SoASwg2VIp0KGp3QlGmwsaOJLitpB2b5
+ mL0CG2i7a0dpuZw==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -123,87 +124,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add bitfields for PHY_CMN_CTRL_0 registers to avoid hard-coding bit
-masks and shifts and make the code a bit more readable.
+Hardware Programming Guide for DSI PHY says that PLL_SHUTDOWNB and
+DIGTOP_PWRDN_B have to be asserted for any PLL register access.
+Whenever dsi_pll_7nm_vco_recalc_rate() or dsi_pll_7nm_vco_set_rate()
+were called on unprepared PLL, driver read values of zero leading to all
+sort of further troubles, like failing to set pixel and byte clock
+rates.
+
+Asserting the PLL shutdown bit is done by dsi_pll_enable_pll_bias() (and
+corresponding dsi_pll_disable_pll_bias()) which are called through the
+code, including from PLL .prepare() and .unprepare() callbacks.
+
+The .set_rate() and .recalc_rate() can be called almost anytime from
+external users including times when PLL is or is not prepared, thus
+driver should not interfere with the prepare status.
+
+Implement simple reference counting for the PLL bias, so
+set_rate/recalc_rate will not change the status of prepared PLL.
+
+Issue of reading 0 in .recalc_rate() did not show up on existing
+devices, but only after re-ordering the code for SM8750.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 ---
 
 Changes in v6:
-1. Add new line between declarations and actual code (Dmitry)
+1. Print error on pll bias enable/disable imbalance refcnt
 
 Changes in v5:
 1. New patch
 ---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c             | 16 +++++++++++-----
- drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml | 11 ++++++++++-
- 2 files changed, 21 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h     |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 53 +++++++++++++++++++++++++++++++
+ 2 files changed, 54 insertions(+)
 
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+index 7ea608f620fe17ae4ccc41ba9e52ba043af0c022..82baec385b3224c8b3e36742230d806c4fe68cbb 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+@@ -109,6 +109,7 @@ struct msm_dsi_phy {
+ 	struct msm_dsi_dphy_timing timing;
+ 	const struct msm_dsi_phy_cfg *cfg;
+ 	void *tuning_cfg;
++	void *pll_data;
+ 
+ 	enum msm_dsi_phy_usecase usecase;
+ 	bool regulator_ldo_mode;
 diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index f0ff6c9fbc2e6d28c96c08114c0f417708d70b10..4df865dfe6fe111297f0d08199c515d3b5e5a0b6 100644
+index 4df865dfe6fe111297f0d08199c515d3b5e5a0b6..22f80e99a7a7514085ef80ced1cf78876bcc6ba3 100644
 --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
 +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -361,18 +361,23 @@ static int dsi_pll_7nm_lock_status(struct dsi_pll_7nm *pll)
+@@ -88,6 +88,13 @@ struct dsi_pll_7nm {
+ 	/* protects REG_DSI_7nm_PHY_CMN_CLK_CFG1 register */
+ 	spinlock_t pclk_mux_lock;
+ 
++	/*
++	 * protects REG_DSI_7nm_PHY_CMN_CTRL_0 register and pll_enable_cnt
++	 * member
++	 */
++	spinlock_t pll_enable_lock;
++	int pll_enable_cnt;
++
+ 	struct pll_7nm_cached_state cached_state;
+ 
+ 	struct dsi_pll_7nm *slave;
+@@ -101,6 +108,9 @@ struct dsi_pll_7nm {
+  */
+ static struct dsi_pll_7nm *pll_7nm_list[DSI_MAX];
+ 
++static void dsi_pll_enable_pll_bias(struct dsi_pll_7nm *pll);
++static void dsi_pll_disable_pll_bias(struct dsi_pll_7nm *pll);
++
+ static void dsi_pll_setup_config(struct dsi_pll_config *config)
+ {
+ 	config->ssc_freq = 31500;
+@@ -316,6 +326,7 @@ static int dsi_pll_7nm_vco_set_rate(struct clk_hw *hw, unsigned long rate,
+ 	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(hw);
+ 	struct dsi_pll_config config;
+ 
++	dsi_pll_enable_pll_bias(pll_7nm);
+ 	DBG("DSI PLL%d rate=%lu, parent's=%lu", pll_7nm->phy->id, rate,
+ 	    parent_rate);
+ 
+@@ -333,6 +344,7 @@ static int dsi_pll_7nm_vco_set_rate(struct clk_hw *hw, unsigned long rate,
+ 
+ 	dsi_pll_ssc_commit(pll_7nm, &config);
+ 
++	dsi_pll_disable_pll_bias(pll_7nm);
+ 	/* flush, ensure all register writes are done*/
+ 	wmb();
+ 
+@@ -361,24 +373,47 @@ static int dsi_pll_7nm_lock_status(struct dsi_pll_7nm *pll)
  
  static void dsi_pll_disable_pll_bias(struct dsi_pll_7nm *pll)
  {
--	u32 data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
-+	u32 data;
++	unsigned long flags;
+ 	u32 data;
  
-+	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
-+	data &= ~DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
++	spin_lock_irqsave(&pll->pll_enable_lock, flags);
++	--pll->pll_enable_cnt;
++	if (pll->pll_enable_cnt < 0) {
++		spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
++		DRM_DEV_ERROR_RATELIMITED(&pll->phy->pdev->dev,
++					  "bug: imbalance in disabling PLL bias\n");
++		return;
++	} else if (pll->pll_enable_cnt > 0) {
++		spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
++		return;
++	} /* else: == 0 */
++
+ 	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+ 	data &= ~DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
  	writel(0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
--	writel(data & ~BIT(5), pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
-+	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+ 	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
  	ndelay(250);
  }
  
  static void dsi_pll_enable_pll_bias(struct dsi_pll_7nm *pll)
  {
--	u32 data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
-+	u32 data;
-+
-+	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
-+	data |= DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
-+	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	unsigned long flags;
+ 	u32 data;
  
--	writel(data | BIT(5), pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	spin_lock_irqsave(&pll->pll_enable_lock, flags);
++	if (pll->pll_enable_cnt++) {
++		spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
++		WARN_ON(pll->pll_enable_cnt == INT_MAX);
++		return;
++	}
++
+ 	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+ 	data |= DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+ 	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+ 
  	writel(0xc0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
++	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
  	ndelay(250);
  }
-@@ -996,7 +1001,8 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
+ 
+@@ -519,6 +554,7 @@ static unsigned long dsi_pll_7nm_vco_recalc_rate(struct clk_hw *hw,
+ 	u32 dec;
+ 	u64 pll_freq, tmp64;
+ 
++	dsi_pll_enable_pll_bias(pll_7nm);
+ 	dec = readl(base + REG_DSI_7nm_PHY_PLL_DECIMAL_DIV_START_1);
+ 	dec &= 0xff;
+ 
+@@ -543,6 +579,8 @@ static unsigned long dsi_pll_7nm_vco_recalc_rate(struct clk_hw *hw,
+ 	DBG("DSI PLL%d returning vco rate = %lu, dec = %x, frac = %x",
+ 	    pll_7nm->phy->id, (unsigned long)vco_rate, dec, frac);
+ 
++	dsi_pll_disable_pll_bias(pll_7nm);
++
+ 	return (unsigned long)vco_rate;
+ }
+ 
+@@ -578,6 +616,7 @@ static void dsi_7nm_pll_save_state(struct msm_dsi_phy *phy)
+ 	void __iomem *phy_base = pll_7nm->phy->base;
+ 	u32 cmn_clk_cfg0, cmn_clk_cfg1;
+ 
++	dsi_pll_enable_pll_bias(pll_7nm);
+ 	cached->pll_out_div = readl(pll_7nm->phy->pll_base +
+ 			REG_DSI_7nm_PHY_PLL_PLL_OUTDIV_RATE);
+ 	cached->pll_out_div &= 0x3;
+@@ -589,6 +628,7 @@ static void dsi_7nm_pll_save_state(struct msm_dsi_phy *phy)
+ 	cmn_clk_cfg1 = readl(phy_base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
+ 	cached->pll_mux = FIELD_GET(DSI_7nm_PHY_CMN_CLK_CFG1_DSICLK_SEL__MASK, cmn_clk_cfg1);
+ 
++	dsi_pll_disable_pll_bias(pll_7nm);
+ 	DBG("DSI PLL%d outdiv %x bit_clk_div %x pix_clk_div %x pll_mux %x",
+ 	    pll_7nm->phy->id, cached->pll_out_div, cached->bit_clk_div,
+ 	    cached->pix_clk_div, cached->pll_mux);
+@@ -807,8 +847,10 @@ static int dsi_pll_7nm_init(struct msm_dsi_phy *phy)
+ 
+ 	spin_lock_init(&pll_7nm->postdiv_lock);
+ 	spin_lock_init(&pll_7nm->pclk_mux_lock);
++	spin_lock_init(&pll_7nm->pll_enable_lock);
+ 
+ 	pll_7nm->phy = phy;
++	phy->pll_data = pll_7nm;
+ 
+ 	ret = pll_7nm_register(pll_7nm, phy->provided_clocks->hws);
+ 	if (ret) {
+@@ -891,8 +933,10 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
+ 	u32 const delay_us = 5;
+ 	u32 const timeout_us = 1000;
+ 	struct msm_dsi_dphy_timing *timing = &phy->timing;
++	struct dsi_pll_7nm *pll = phy->pll_data;
+ 	void __iomem *base = phy->base;
+ 	bool less_than_1500_mhz;
++	unsigned long flags;
+ 	u32 vreg_ctrl_0, vreg_ctrl_1, lane_ctrl0;
+ 	u32 glbl_pemph_ctrl_0;
+ 	u32 glbl_str_swi_cal_sel_ctrl, glbl_hstx_str_ctrl_0;
+@@ -1000,10 +1044,13 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
+ 		glbl_rescode_bot_ctrl = 0x3c;
  	}
  
++	spin_lock_irqsave(&pll->pll_enable_lock, flags);
++	pll->pll_enable_cnt = 1;
  	/* de-assert digital and pll power down */
--	data = BIT(6) | BIT(5);
-+	data = DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
-+	       DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+ 	data = DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
+ 	       DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
  	writel(data, base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
  
  	/* Assert PLL core reset */
-diff --git a/drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml b/drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml
-index d2c8c46bb04159da6e539bfe80a4b5dc9ffdf367..d49122b88d14896ef3e87b783a1691f85b61aa9c 100644
---- a/drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml
-+++ b/drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml
-@@ -22,7 +22,16 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
- 	<reg32 offset="0x00018" name="GLBL_CTRL"/>
- 	<reg32 offset="0x0001c" name="RBUF_CTRL"/>
- 	<reg32 offset="0x00020" name="VREG_CTRL_0"/>
--	<reg32 offset="0x00024" name="CTRL_0"/>
-+	<reg32 offset="0x00024" name="CTRL_0">
-+		<bitfield name="CLKSL_SHUTDOWNB" pos="7" type="boolean"/>
-+		<bitfield name="DIGTOP_PWRDN_B" pos="6" type="boolean"/>
-+		<bitfield name="PLL_SHUTDOWNB" pos="5" type="boolean"/>
-+		<bitfield name="DLN3_SHUTDOWNB" pos="4" type="boolean"/>
-+		<bitfield name="DLN2_SHUTDOWNB" pos="3" type="boolean"/>
-+		<bitfield name="CLK_SHUTDOWNB" pos="2" type="boolean"/>
-+		<bitfield name="DLN1_SHUTDOWNB" pos="1" type="boolean"/>
-+		<bitfield name="DLN0_SHUTDOWNB" pos="0" type="boolean"/>
-+	</reg32>
- 	<reg32 offset="0x00028" name="CTRL_1"/>
- 	<reg32 offset="0x0002c" name="CTRL_2"/>
- 	<reg32 offset="0x00030" name="CTRL_3"/>
+ 	writel(0x00, base + REG_DSI_7nm_PHY_CMN_PLL_CNTRL);
+@@ -1115,7 +1162,9 @@ static bool dsi_7nm_set_continuous_clock(struct msm_dsi_phy *phy, bool enable)
+ 
+ static void dsi_7nm_phy_disable(struct msm_dsi_phy *phy)
+ {
++	struct dsi_pll_7nm *pll = phy->pll_data;
+ 	void __iomem *base = phy->base;
++	unsigned long flags;
+ 	u32 data;
+ 
+ 	DBG("");
+@@ -1141,8 +1190,12 @@ static void dsi_7nm_phy_disable(struct msm_dsi_phy *phy)
+ 	writel(data, base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+ 	writel(0, base + REG_DSI_7nm_PHY_CMN_LANE_CTRL0);
+ 
++	spin_lock_irqsave(&pll->pll_enable_lock, flags);
++	pll->pll_enable_cnt = 0;
+ 	/* Turn off all PHY blocks */
+ 	writel(0x00, base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
++
+ 	/* make sure phy is turned off */
+ 	wmb();
+ 
 
 -- 
 2.45.2
