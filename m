@@ -2,113 +2,123 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F387AD3A6A
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jun 2025 16:06:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8AA3AD3AA4
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jun 2025 16:10:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C8210E591;
-	Tue, 10 Jun 2025 14:06:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D00510E590;
+	Tue, 10 Jun 2025 14:10:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fdr2Ew08";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xOzxkwqs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30C4210E58A
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 14:06:47 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-3a4eb4acf29so681035f8f.0
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 07:06:47 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE99F10E596
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 14:10:08 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-442fda876a6so49211655e9.0
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 07:10:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1749564406; x=1750169206; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qlA118QQRrQcU4/5ozkHrMeNhT8icrM9d6BUqE0LJLY=;
- b=fdr2Ew08QYsp1TdN6WjiFcyNqmd5lA18d/18BUhOUTtD6P0FkPu9GatSOp/Mx9XR9M
- bRtWRQDsx5YF8utAqBduYcDogZBV3UZAY+W69QSgbyD4oR742EWJ5PIf+/FYluy0LsFi
- 5GtOBMRjkbjAkAJjtqXO5ndPf6Px3CfjMkDkJx8MvvUJ98eNhQ4JhQM4nV3xV+ChCfTd
- qjqjyAMH5zUKn6wkb7OTlXVEsoRmwcQkEBWQG1RrxXcckhxwp2SrCfXJrApd1d9/XknJ
- KClihp5atUM3C8xEYTr04KXPLx4HHmE2y3GXyWpaYcEMQ3ZWlYafWSwjU+KCVxBJAPIA
- inug==
+ d=linaro.org; s=google; t=1749564607; x=1750169407; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=z4OxVv8oJv1GqLYHYzTXE75rIdx5RHpc0k5r0cFg+Cw=;
+ b=xOzxkwqsJqEYuC6D5EaICR74vVjTvR/1qAf5xN8koBjEPjYVqfnt/ZDDdvHp6jPH09
+ fDLKVjN3W0J0yIMEtb+AtWfMPOR8yYVT6sLx0ixup5tI+fwRM//Bs7TleIQjphixLwPT
+ MPGXLds/zyGh79OcunqIQqu+f5npccbNAUyqmIEmHMNR8BQufVj1QiSz0eCD35I2vCf4
+ 5epx8gBg47bUmnI8oMaJc+xlJ2pVjFUfYJTGxhQv9rt0JKMIDp/8DaKNCstU566OUTHd
+ pWge+4yKQyiMVbks7rKpUZ8wKjTSmXU8NOAgkbvMrbiTTYgujJLiefw9CWprdNE056Rc
+ cEtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749564406; x=1750169206;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qlA118QQRrQcU4/5ozkHrMeNhT8icrM9d6BUqE0LJLY=;
- b=dcHB3YGlZohMpkiPMGNjaQxwFHvkDECKHWP+1YnvzCqPmAFdvkLN9zfjv20Jqo3x8J
- WZfzLCRHxCL+Ioa05sNlRndnW7CCgnzJINEirfy5+USpTA2wvRKJTB1gV3CxIyihToqi
- 3jrONkMJnDDKcoAdoqikjL4THwnTpB2eK1KqvLSkynGihx4ApqENzXS5Ijhre5gj7GWs
- +KPO8rmDGGwf0ovHLcOiuZbrPp3e+jF8ftJ0XGnvWdCugvZU0hGjT+VbqG5++kLGMB4D
- 2Wa1Jo1Db4ob5qrjvQ6UYiJXS706FjgNjDWOdmfnv9iw1XVqGEvFzZXzitxhwR6R7ATl
- mYpQ==
+ d=1e100.net; s=20230601; t=1749564607; x=1750169407;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=z4OxVv8oJv1GqLYHYzTXE75rIdx5RHpc0k5r0cFg+Cw=;
+ b=UTvOa1Hsrqsvh9Dg9oy9KWWvVt+GQ6YIUoq4P4iaONMrLrUyGsCL5P+dOLCAjlH6zw
+ 9G2ruXQWRSun9MIwjB3gjhpxaQVFxhFAsM3mNfrgw1U04jnC4vPGkSuQ0YiOdlKY9frp
+ WJvo8lkBi3RCYTMpd26YV+vzcPRv9OCnbPZ1gNzdz/78PeILHui4tqR8mScsSJUhh+g9
+ sHS6hhQ9GYSWyBumg7qCqOMlHPCgtKMXKkU4YRQmBUDtozXZSy0tguJX1/vaT6L8H26Q
+ nfa/H+zHqL5/+AsXUACNE13p4SvVv9JfUraq/Qcmd40KgIXr8Aovmd2cFi4/fyHkNeEP
+ Tekg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXv7Dv9yo6DQf5t/F21V8sBzUVRQv31zLS/K9TCqtaQpEbf7pWgrdGtG0qc2CAh1sTaezEX+2XSnqw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YymkraotC9efRbngkWV1MHxQGhWZLfOS65qZa0+FvbyN7X4TKvt
- I+IvHsHtzboSHjf/S2hrPYqMF/rMOc2LZuTf/pD81Gr/xjA6+xHCGBxvRByb8SPnYLE=
-X-Gm-Gg: ASbGncuRdsuc8M5eAOmqUJF2w1yuKsjzYrYdLvlG7f6pNjX+5DOjNZtHQ8uE2H5X5A+
- ItI+OR01vNLCxDumWb+FskhOCec2/dqr9QGn+SJJvrapv5vlHVhawlWOD84RzgpBohCFbSWSjhQ
- QT9kgaGDhrGfHV0/LwR4k7By2P9zL2g8yEmPG178wOfoUGI+47Zci6O68dTlLAoGh1sc0MTLtLK
- TNy4wf25+LfMYgFR9tLr7iysdt3tre9Np5pawlxrZNRxx63Wq8MQ0nANplFqk6G80feRHNu7Ffz
- mlDJEtIPoIQyugX8pufOHCWOFXleZ/Zb3m6gyHMAcZL9ozBljhlAH9Y6XqDNEMsKaWI3sZPr7WE
- 1vqhuZg==
-X-Google-Smtp-Source: AGHT+IGZufr1wfq+dLRw6f57n5SqOmq2e/nG1YhjXmidlB/YolNYy0WUiexT/5w6foFwU+TjOpZmVg==
-X-Received: by 2002:a05:6000:4025:b0:3a4:eed9:755b with SMTP id
- ffacd0b85a97d-3a53315704amr4817877f8f.4.1749564405478; 
- Tue, 10 Jun 2025 07:06:45 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.223.125])
+ AJvYcCUEYRM+HoyC2Xx2tkdRXKsPNN6zzKKnp37lfK7UBahl1MiakgIkaTyA1De0ccqcZPywyJwhTEJA7jQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+PE36Sd1v7VrGPgVWQNAeW7kozgzv22nv62yvK86/mxi/k0Cd
+ 4R/F5oJiMM91faoN9/5yVnc0nSU3XWiaCbra1FSG9Z0B30BVZSEXDkiqix2A3ddMXpQ=
+X-Gm-Gg: ASbGncvWlvo25BFKBooQqGMbXb7ffV4aajKirDl4i9Bxk9gVh3p7YIk3lxqmGNrfVR/
+ Zc3yZbKGrTSnamCKoGuNNtM6lTG9uedMkcb4Tn2zQmAUhBkNa8lkQW9lBKiLZt/TvZ5sAfPkcrB
+ RTApNKmiylHKCFa+nKeAuVGpAJmYThVlTkif9aHS1n0qBF0iBfvMLWlkX9/eiIeA0ytWAjwFDOA
+ tmkKdfN91qK4aE6cfoZEVSeiHZ+oA4821YrrJ8CFQCYdsNrL6MLg+WlYd/s47fO0vthDBum+4sx
+ CW709dPYOAr0kjkttJzVY23hY6o8qyoA5v5eFZ7EBsqEVuVx6qw9Ovh7aKklIGSTtoX6H37M9wx
+ lD+Cv+qj3Nb7RVtE2Um0fu2VFkdQL07TEC2DR
+X-Google-Smtp-Source: AGHT+IEkqCEXSbEGN2qKWC1bgGuh0Dpru4IMLoe0WkTjzMUjiyMf9422e97D4rL4Jdk8panjohDk+w==
+X-Received: by 2002:a05:600c:4ecf:b0:450:d61f:dd45 with SMTP id
+ 5b1f17b1804b1-4520134088bmr172213265e9.4.1749564607020; 
+ Tue, 10 Jun 2025 07:10:07 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:3d9:2080:f0b:a9b6:d508:9d14?
+ ([2a01:e0a:3d9:2080:f0b:a9b6:d508:9d14])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a53244df06sm12734469f8f.69.2025.06.10.07.06.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jun 2025 07:06:44 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 10 Jun 2025 16:05:55 +0200
-Subject: [PATCH v6 17/17] drm/msm/mdss: Add support for SM8750
+ ffacd0b85a97d-3a5323b3992sm12497663f8f.35.2025.06.10.07.10.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Jun 2025 07:10:06 -0700 (PDT)
+Message-ID: <eb9bd4e4-3032-4f36-94e7-b89ff74bf327@linaro.org>
+Date: Tue, 10 Jun 2025 16:10:05 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250610-b4-sm8750-display-v6-17-ee633e3ddbff@linaro.org>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v6 13/17] drm/msm/dpu: Consistently use u32 instead of
+ uint32_t
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Abel Vesa <abel.vesa@linaro.org>, Srinivas Kandagatla <srini@kernel.org>
 References: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
-In-Reply-To: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
- linux-clk@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>, 
- Srinivas Kandagatla <srini@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3191;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=nJt4ADbxIA14pqN4XsVTOJSsLTO3c7LveRnmHeFCRAk=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoSDvOS1VuxS+qjJR9cY8w+d68w2FoCLMiuaNbl
- Acm4SL6luOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaEg7zgAKCRDBN2bmhouD
- 12VFD/9b4y4SPbBdpJWKma1Ib+xxUjq/d53O3/XX7Zg9z9Q9ZASk2PUqdH4+xyEVg2VvgoI/+kQ
- OGsv/K6u2k0Gs3Ds+3wY3cLt4H9UMtg1w7YXwmrAHQ1OPcV26IVI4ElYdQ4ndTE+L/orPArl6tf
- u9KG9SYyFymRkL56lkp5xCcEAyXW8UMqukmErlYoQmYZTuB0d1iEr9flR3cEajYx7Lq44vHlpy8
- NdRNpMp9Woo6YbVM1/6nUybbGg9+xJHj397RbhyiSBHQwEHEr0Z0MNZisHK1keT0y5vSFRq6G4W
- Qv95WQYzV9GPA6SDPI3ZejcDEEeNiKfD1uCsJ8NghZX1Yg0L4BBkps0pCH/sNMLawYL1c6ocfMN
- xSMsySC3UtQCNUVrjtWaFTJ9ITDsO9QjLtW5dS13faVv0FpLmNAj8jlRkTRaWGhCNNGAXywVMnc
- thjOIpRnaZ9u04+LP+XQoDDtyo1AN8gJC8uDDuGGTbgmSJBDQKkOmQiik2n8esKuLUv4zPQmbRp
- o4mCDNGOOjR7QPO1ZDv6QEzPvOLSJrH9IMnsnypxcwuPk1sLp7iAqvNHehlW/y19sAeHyCGpJGA
- ULlLUL2LR/tOc3jUBQ84mxTYbBWJA8YqYoZO0juqHwhLzpDORNrz99V4RHwSrDkVE91vQ3hj5Ej
- uifo1hwE+1rhi+w==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+ <20250610-b4-sm8750-display-v6-13-ee633e3ddbff@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20250610-b4-sm8750-display-v6-13-ee633e3ddbff@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,96 +131,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for the Qualcomm SM8750 platform.
+On 10/06/2025 16:05, Krzysztof Kozlowski wrote:
+> Linux coding style asks to use kernel types like u32 instead of uint32_t
+> and code already has it in other places, so unify the remaining pieces.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+> 
+> Changes in v6:
+> 1. New patch
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 9 ++++-----
+>   1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index a4b0fe0d9899b32141928f0b6a16503a49b3c27a..92f6c39eee3dc090bd957239e58793e5b0437548 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -323,8 +323,8 @@ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
+>   		struct dpu_plane_state *pstate, const struct msm_format *format)
+>   {
+>   	struct dpu_hw_mixer *lm = mixer->hw_lm;
+> -	uint32_t blend_op;
+> -	uint32_t fg_alpha, bg_alpha;
+> +	u32 blend_op;
+> +	u32 fg_alpha, bg_alpha;
+>   
+>   	fg_alpha = pstate->base.alpha >> 8;
+>   	bg_alpha = 0xff - fg_alpha;
+> @@ -402,7 +402,7 @@ static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
+>   				       struct dpu_hw_stage_cfg *stage_cfg
+>   				      )
+>   {
+> -	uint32_t lm_idx;
+> +	u32 lm_idx;
+>   	enum dpu_sspp sspp_idx;
+>   	struct drm_plane_state *state;
+>   
+> @@ -442,8 +442,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>   	struct dpu_plane_state *pstate = NULL;
+>   	const struct msm_format *format;
+>   	struct dpu_hw_ctl *ctl = mixer->lm_ctl;
+> -
+> -	uint32_t lm_idx;
+> +	u32 lm_idx;
+>   	bool bg_alpha_enable = false;
+>   	DECLARE_BITMAP(active_fetch, SSPP_MAX);
+>   
+> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/gpu/drm/msm/msm_mdss.c | 33 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/msm_mdss.h |  1 +
- 2 files changed, 34 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 709979fcfab6062c0f316f7655823e888638bfea..422da5ebf802676afbfc5f242a5a84e6d488dda1 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -222,6 +222,24 @@ static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
- 	}
- }
- 
-+static void msm_mdss_setup_ubwc_dec_50(struct msm_mdss *msm_mdss)
-+{
-+	const struct msm_mdss_data *data = msm_mdss->mdss_data;
-+	u32 value = MDSS_UBWC_STATIC_UBWC_SWIZZLE(data->ubwc_swizzle) |
-+		    MDSS_UBWC_STATIC_HIGHEST_BANK_BIT(data->highest_bank_bit);
-+
-+	if (data->ubwc_bank_spread)
-+		value |= MDSS_UBWC_STATIC_UBWC_BANK_SPREAD;
-+
-+	if (data->macrotile_mode)
-+		value |= MDSS_UBWC_STATIC_MACROTILE_MODE;
-+
-+	writel_relaxed(value, msm_mdss->mmio + REG_MDSS_UBWC_STATIC);
-+
-+	writel_relaxed(4, msm_mdss->mmio + REG_MDSS_UBWC_CTRL_2);
-+	writel_relaxed(1, msm_mdss->mmio + REG_MDSS_UBWC_PREDICTION_MODE);
-+}
-+
- #define MDSS_HW_MAJ_MIN		\
- 	(MDSS_HW_VERSION_MAJOR__MASK | MDSS_HW_VERSION_MINOR__MASK)
- 
-@@ -339,6 +357,9 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
- 	case UBWC_4_3:
- 		msm_mdss_setup_ubwc_dec_40(msm_mdss);
- 		break;
-+	case UBWC_5_0:
-+		msm_mdss_setup_ubwc_dec_50(msm_mdss);
-+		break;
- 	default:
- 		dev_err(msm_mdss->dev, "Unsupported UBWC decoder version %x\n",
- 			msm_mdss->mdss_data->ubwc_dec_version);
-@@ -732,6 +753,17 @@ static const struct msm_mdss_data sm8550_data = {
- 	.reg_bus_bw = 57000,
- };
- 
-+static const struct msm_mdss_data sm8750_data = {
-+	.ubwc_enc_version = UBWC_5_0,
-+	.ubwc_dec_version = UBWC_5_0,
-+	.ubwc_swizzle = 6,
-+	.ubwc_bank_spread = true,
-+	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
-+	.highest_bank_bit = 3,
-+	.macrotile_mode = true,
-+	.reg_bus_bw = 57000,
-+};
-+
- static const struct msm_mdss_data x1e80100_data = {
- 	.ubwc_enc_version = UBWC_4_0,
- 	.ubwc_dec_version = UBWC_4_3,
-@@ -767,6 +799,7 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,sm8450-mdss", .data = &sm8350_data },
- 	{ .compatible = "qcom,sm8550-mdss", .data = &sm8550_data },
- 	{ .compatible = "qcom,sm8650-mdss", .data = &sm8550_data},
-+	{ .compatible = "qcom,sm8750-mdss", .data = &sm8750_data},
- 	{ .compatible = "qcom,x1e80100-mdss", .data = &x1e80100_data},
- 	{}
- };
-diff --git a/drivers/gpu/drm/msm/msm_mdss.h b/drivers/gpu/drm/msm/msm_mdss.h
-index 14dc53704314558841ee1fe08d93309fd2233812..dd0160c6ba1a297cea5b87cd8b03895b2aa08213 100644
---- a/drivers/gpu/drm/msm/msm_mdss.h
-+++ b/drivers/gpu/drm/msm/msm_mdss.h
-@@ -22,6 +22,7 @@ struct msm_mdss_data {
- #define UBWC_3_0 0x30000000
- #define UBWC_4_0 0x40000000
- #define UBWC_4_3 0x40030000
-+#define UBWC_5_0 0x50000000
- 
- const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev);
- 
-
--- 
-2.45.2
-
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
