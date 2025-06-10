@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5AC4AD45DF
-	for <lists+freedreno@lfdr.de>; Wed, 11 Jun 2025 00:25:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2584AD45E8
+	for <lists+freedreno@lfdr.de>; Wed, 11 Jun 2025 00:25:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED8010E5DA;
-	Tue, 10 Jun 2025 22:25:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAA7D10E5DA;
+	Tue, 10 Jun 2025 22:25:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eGoXBpPC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RrEE2rKO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB5810E5E2
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 22:25:07 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55AIQfl5006681
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 22:25:07 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FE7210E332
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 22:25:36 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55AIQ1bM022380
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 22:25:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=XDHd4ci76N1m7artzB98ac4U
- VLxKbD1UASxKG9cjK+o=; b=eGoXBpPCA8IG4+slW/R1e4StfS4i34M8KB9e9FoQ
- Lv2L/3o+DBHu8wLEii9tu5eomqy3mpHA8gMYHkzplcM0cWMc5zye38Iuv3IW6Lp3
- A0+leM91Up9WgHkVgiDuXdR58QAInOJ+PqE0CRhsN0C+rnoSBq+PunorAt8ekmwd
- /lmsycRnNt36QCNcavTjn4fPo6C4u9YiW2lpOMbgKJh9f0cNSLelpRsFx6tYoLby
- gjNoeTqYa0g8IpHSybMKrlgEcx+GvE1Ea3EeI398mOiRefwfyi/JtsVMku78GXCI
- 3N+JZgLoTBlREVwdNFIO7YopgO8rRsrihBZ2TjpAQSXU2A==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 475v2y5th8-1
+ :references:subject:to; s=qcppdkim1; bh=NIZerdv5856btQLeZiz5wtEr
+ Wi3yo26TMxxYpxr5HC4=; b=RrEE2rKOCsDtipjqNu3tng1rbnolbgehv7+H0EAY
+ FEZ3H6HJXAhgS62zP8ebfAMARG5HvgV9pM3dCS4KYpPB+BbADg18KKaiF23MAviK
+ aWKYFISZQw1nOkOu4S98mILVhI3YL8NvaIbMq+tSvVxm6RH7+mPzzhFd8kcdEiEx
+ CbWXr38/2kLY4ZqvMTtkyibG1i6PTw5lI3XtrE4ZMWb9yKLIWvaiLhoFiQIHGo/w
+ E+U3k3aU54O3uGviqpsf8HqDgVh5HwDx9qqUoI8DI1zZ2HEvyU02MNC4Z6GZ2G6f
+ vwbOSUWzItq5h2m9uqp/dgqun15+RhvbHDPEduLyoYWF4w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 474ekptnks-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 22:25:06 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7c92425a8b1so52100785a.1
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 15:25:06 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 22:25:35 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c760637fe5so1081040885a.0
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 15:25:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749594305; x=1750199105;
+ d=1e100.net; s=20230601; t=1749594335; x=1750199135;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XDHd4ci76N1m7artzB98ac4UVLxKbD1UASxKG9cjK+o=;
- b=E9xJVEZBNB+nKqI0B7qcT6PVThwOB8qCSyu8/b0v/W3tunx/4jyqm2WuYkKF47UWbW
- uBLxoiB0NlQF8Agf9V9GqQclZ45E4TAmNEK2CliG82/rsPGwzu7cD7cxGs7PD2BpDVNU
- JEH0p5k2UrFuRSmwGSbcQZoEt2CN/HHrf6uzml0kVVe8/zBF4SIEHQuODAYrXMfPtKfQ
- 3vbD0jqZN6CHDGC9j1afuNNTGPwRoV+mkhvDEdRNdEUUCdOlPPaem30H1M+wQkisUQuU
- FYSvGyeRu9U7iz7RC8+tmmZ1N7F1QYmWbX1xMUWbZP5QfkCA+1l8yTWPX+QlPlqIlaRp
- Vmkg==
+ bh=NIZerdv5856btQLeZiz5wtErWi3yo26TMxxYpxr5HC4=;
+ b=JHPRRRVO8Qe9ygxlQJow3CoeCUWQsUqLE5Om503G39onQZDTQaHr5vQTr/UrS3EfuE
+ kCMuJLKVkEUiEMxkW4pKBFbMIk7fN730wnZtr5cdaGPr4Eund3rFrFi3xjPI1QkgOw6R
+ eACkt3ymByjmkPVL2hmotsLF1Grzk1//97trs4QAu50tjmMJSKRB8FzHgl1q9Om8JGGw
+ 5Td8CR1lyaRbkgvIXlU3FqI6JTtc5OiXTZCPID61W3Nc0vW8vWVmFYNYbAVTTJTEGRx4
+ mMfrvQZxpgm+gy2H65R7rMufl+MmJh57aKOHJciM1xa6a5vDxgzBNoJzIRnUG7XNyYbM
+ OUMQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXrb1bfRdxcALMry1eqK9SCCo/8gaeVMaDDkPTYbrgqTCF+lWq+n61s2jDC5RD+jFnCO/AK9D4NIAU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLA/OoHXF0EN+4APxfmFp4lx/uPSUuSrRQixF2KI0KCr8A4HOr
- MuOHi4/7/LQilLCC7tw1NrcJE+BVF1bBzMfCmC5D6X/v2Bt8R0FKlE7/qGQ3e/VueqzME6uvB0N
- 4hMZqsjGBTmvngcRTY56YeHCk2RLC4eUYPWFWVEXkhnmnWcT/RMo+YzAL606Ax7V9NjxCa1E=
-X-Gm-Gg: ASbGncvtleoul1pAflggrIDt24rlL9dncNkZdNyLx7vW16Hu1cmXJu7dZJBNITzoj1y
- w1iKh3cp4s4KuF+TWEVJOBUMGVgmU5R3loTrpMDZofmG00wQqOJH2DMVpwZGDpqn32ttrIWblcJ
- XECBM6l/W8eoNd1YewiW+IBKVabULY1hVZZr2dtrii+Vo84WRewgmX7Puvx/BRl83pyaJ5lG/UG
- RjYoQvZQpnIZ6XQJPc1sKX0nhnQq97Vr3AWBMYNfjPHPkAbOS3GexR1jiNWuCS/w6uIFx11m3wF
- tr/951xnT8VwPyLHq0ToGzsLtR88auNIcO3L4Tz6StTEUUqxq97dc8wt+PSEk+ZI44CpenNuOch
- slpdedMbm592AbSCR/zwGqu7qlSMT1qAvYS0=
-X-Received: by 2002:a05:620a:3184:b0:7ce:ea9d:5967 with SMTP id
- af79cd13be357-7d3a888cc40mr175308885a.15.1749594305565; 
- Tue, 10 Jun 2025 15:25:05 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEEvri0NokR0cixmKJM7ugmHZgyYf1QPIBroXgD4LM3M5FEjj8mAWnMIjgTZswFHUeWxkQZCg==
-X-Received: by 2002:a05:620a:3184:b0:7ce:ea9d:5967 with SMTP id
- af79cd13be357-7d3a888cc40mr175303985a.15.1749594305169; 
- Tue, 10 Jun 2025 15:25:05 -0700 (PDT)
+ AJvYcCXpaaYx47V+yShT/bG2IaLtZVqT7fvK8IXO0cIi7dLWQp/O9gfpPXBOUIKVMnitLkHyqWv3WZs83pk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwQJBa4CALShVMyCD3bKIF5y+keta2u/9mNXGImeK0pTyBGkF1/
+ P/kwzkzIbsveXXBmMW1PU4DJY8GEVWlaIaSH5hX0Howk4lWgVv780AEAD7Bf1JW1Y6T62I66bKH
+ bMcJGpxphqVBs8tBtFXLZnmDrDd7y1gMADEwVuiMYFhffN5XtYkkkU95dCZlR0WLts9XRdQE=
+X-Gm-Gg: ASbGncvUh/Eb76b/yewAvIGDW6H5c/Fut+Y4ZYRT3IB+lwgQnV0+egPdLz7VgmENcOK
+ Ol+cL/EygepyofqfINO3pvFGm7JoAceJTpcgx5WWNrpzY1vpEQXwLRlJjPtfHjYD5Ptkzk3oVtz
+ mBru7FzBRl24CXTMx+MpPjyPb2qaU65YpVpFPY8LocceCWAj197gx+ya/YSXSBgp3944CX085BE
+ UveIr+AS2kmPtNWNguAboQ+KDRU3qMqeszl1DxpbCKg6aPm6SvVVd5uQNF+96raSd6jn0bztlvu
+ kcRtd0EzKUc4Z3g4gbpHjP5rEUmAmXIyTlJCzNAxEDEJ269LoS5PDeVFpoiRrOeYIgRd9OOcRDt
+ gF4keszNB7bqTYZyW7v99/DQdYcEXlsiQEoU=
+X-Received: by 2002:a05:620a:1a85:b0:7d0:97b1:bfa with SMTP id
+ af79cd13be357-7d3a8806306mr191675185a.8.1749594334719; 
+ Tue, 10 Jun 2025 15:25:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEvqgKPApzu3rPogEhB0z1OsbrjkQcClCu9eRwx2CiVtQGPtd7+Q1xiMRbqpX3rcwtgL9CA7w==
+X-Received: by 2002:a05:620a:1a85:b0:7d0:97b1:bfa with SMTP id
+ af79cd13be357-7d3a8806306mr191671485a.8.1749594334288; 
+ Tue, 10 Jun 2025 15:25:34 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-32ae1ccdd53sm15739121fa.88.2025.06.10.15.25.02
+ 2adb3069b0e04-5536772a80csm1706310e87.162.2025.06.10.15.25.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jun 2025 15:25:03 -0700 (PDT)
-Date: Wed, 11 Jun 2025 01:25:01 +0300
+ Tue, 10 Jun 2025 15:25:33 -0700 (PDT)
+Date: Wed, 11 Jun 2025 01:25:31 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
@@ -95,36 +95,37 @@ Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
  Abel Vesa <abel.vesa@linaro.org>, Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v6 11/17] drm/msm/dsi: Add support for SM8750
-Message-ID: <shj5i5bjauxfuynrdaw4dysx4ypfr5a4tyhjsweroemt4wcavl@anxzkf23onlm>
+Subject: Re: [PATCH v6 13/17] drm/msm/dpu: Consistently use u32 instead of
+ uint32_t
+Message-ID: <gvxglu5n6esoortifeyeapjlkwks4adxktshj4mcc2iyigq5fj@ztsuritnshkf>
 References: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
- <20250610-b4-sm8750-display-v6-11-ee633e3ddbff@linaro.org>
+ <20250610-b4-sm8750-display-v6-13-ee633e3ddbff@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250610-b4-sm8750-display-v6-11-ee633e3ddbff@linaro.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjEwMDE4NSBTYWx0ZWRfX2mi4MaKKDhnH
- gkJCnJOY75evG6sztOfQQXEcaI7urh5mguDRD+M1WuZyE9Ds7RMmtAEihPoCVF28d/vFzmGWSr5
- KEr5Whx6oWbsPstrS1TTMuDvF8xg/nkapUQ+7mBOvdQKfuqiy3OiF2pHB62gGd0PSaCSre3AmwN
- XzLAqaIFk0qDaTLzCsNCTGRkMwcEqF79iEn1cKshRpBfn+MnqIegOj99CPU8AMGo5yokMzFKp6M
- s/MoulV7TrFnEt6mynNbLFUypt23A5St7ixnEX04BPTGGAzoOTj/ZjCRwQr5yqh+VsPOfI1z+vo
- CsnxcmjS/qzuh/F461UL0GWj3urF+jso6rrIJuKnjE6HmNwNxYJrC4qtuKPRHSaKjrHIlyAVb79
- Tzy4HnKesiqTx24GdnBv4GWXoHhMB4tYY3t6IXDg5vjscJ/WxXkTrQpbzIERLy0npX+x778i
-X-Proofpoint-GUID: Csz8KMgnAxzZgpQJ60x4gvIRHlRqqHoT
-X-Proofpoint-ORIG-GUID: Csz8KMgnAxzZgpQJ60x4gvIRHlRqqHoT
-X-Authority-Analysis: v=2.4 cv=f+BIBPyM c=1 sm=1 tr=0 ts=6848b0c2 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=6IFa9wvqVegA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Fe6Hossnl1h87qNRHPAA:9
- a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
+In-Reply-To: <20250610-b4-sm8750-display-v6-13-ee633e3ddbff@linaro.org>
+X-Authority-Analysis: v=2.4 cv=JcO8rVKV c=1 sm=1 tr=0 ts=6848b0e0 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=6IFa9wvqVegA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Sbni8NmfYZyP3K5nzVUA:9
+ a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjEwMDE4NSBTYWx0ZWRfX1ypI/xY7zwBn
+ WegSbvAbHrgsWuIh0fLdDjmxGTHPY/Iz4BlFjDmwrEFgpXYGDsDU+EY8GpBmPp4xaj+bl/KqdJW
+ 6+bRurVgO8NtfkO3SqxrSQEBdkSCc5nm0rWu9gmcnoogVj3aNsde/xfuYP/+P+n+mWIdBoQyhPV
+ X0Po+j4xLzuPz/1cyeTxP+PyoWRnXEOjkDHgYiUCC7/rg31Y/BcOyLvUgqAFu5PBgsjLUWB4Vh2
+ nV/UyRozMgstt02Gld9078qotX0c3iHrq9zrN53JIqaJxLHx4bAyroARpywJDEMxJAwLONJFiIO
+ a7PaQ9CkMu3oT7EjZuG18vFvKKUcVea7G+gmUSCedP8RDSNJyvaHSwXhzmld671M6DeUz9g+G2r
+ MfkTPlOyrfdt7d+CRy7MSu4xK/Y+o6GomjL17AE/H0n56/pMbmomgT7eFymyvhrqYbIg5CrA
+X-Proofpoint-GUID: ed2xB5ziOvUik1MHtSW1CN62sb4joUso
+X-Proofpoint-ORIG-GUID: ed2xB5ziOvUik1MHtSW1CN62sb4joUso
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-10_10,2025-06-10_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 mlxlogscore=764 bulkscore=0 impostorscore=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 phishscore=0 mlxscore=0
- malwarescore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506100185
+ mlxlogscore=827 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
+ priorityscore=1501 mlxscore=0 adultscore=0 clxscore=1015 malwarescore=0
+ suspectscore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2506100185
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,18 +141,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 10, 2025 at 04:05:49PM +0200, Krzysztof Kozlowski wrote:
-> Add support for DSI on Qualcomm SM8750 SoC with notable difference:
-> 
-> DSI PHY PLLs, the parents of pixel and byte clocks, cannot be used as
-> parents before DSI PHY is configured, the PLLs are prepared and their
-> initial rate is set.  Therefore assigned-clock-parents are not working
-> here and driver is responsible for reparenting clocks with proper
-> procedure: see dsi_clk_init_6g_v2_9().
+On Tue, Jun 10, 2025 at 04:05:51PM +0200, Krzysztof Kozlowski wrote:
+> Linux coding style asks to use kernel types like u32 instead of uint32_t
+> and code already has it in other places, so unify the remaining pieces.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
 > ---
+> 
+> Changes in v6:
+> 1. New patch
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
