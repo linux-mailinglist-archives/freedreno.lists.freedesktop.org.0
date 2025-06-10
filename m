@@ -2,73 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CE61AD3A4C
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E75AAD3A4E
 	for <lists+freedreno@lfdr.de>; Tue, 10 Jun 2025 16:06:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C78910E57D;
-	Tue, 10 Jun 2025 14:06:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DD0C10E57B;
+	Tue, 10 Jun 2025 14:06:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ErSiYJuH";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cEqpKrse";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD33310E57C
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 14:06:23 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-45306976410so630665e9.3
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 07:06:23 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4865E10E588
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 14:06:26 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-450d08e662fso2098105e9.0
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 07:06:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1749564382; x=1750169182; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1749564385; x=1750169185; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=c08nNQiRjpMuZiP/f1jVDn68latr5bwhdLQgcHIbV2Q=;
- b=ErSiYJuHCONjKrrQk2NqgJdTru3VAtozSiUEZd3M1k5e54B6upk8tlnbK2p/Wxwmkc
- XGDhG78hyEoZOopYBs0HWQ3/hLnwCWuIvUETwu9JevrRPLIIdzmD7XToCiACA3HIh7UG
- Obpj1M7DIDi9NIJFrtKbLahIVc+p1d8oLANZotHTwhma7u1bPispOtHaBTNLYZ5hedRn
- QhumD7NsCz88tHCSNiiJiUKAU6XVQAeVX2auA3CNDE4t45OB/Mzqj95zn8jaPiY87+pa
- t8TGx4/zpNAbpOOku5+ChsaNO2nBKNPFxiOHmJL+UQUAcRwKhQC8DOK9FzenCl/Ud+ir
- hy+A==
+ :reply-to; bh=rpOiO+FEaa+w4A+7D6YhlJmVtA2pagPAEL+dLTD4VlY=;
+ b=cEqpKrseG+QV1sMhmhcVtnQXMU2nsYn8RLUOPdDOUOFLASSOPkAKVcVjB0lP59tAiP
+ QXcTkIxmj7zgsb22mCAbC6WpH8zm5DTZA9cUFw+7qXVBJttzcdn4DX2wkdMkpTOIv6iL
+ tS7Gdvn45m5065FU5yI10bbsDFrnYFhy4whTjZ5+i1Iaay11aRhDjMxM5I/jf++LmYCa
+ ynllrLXJBzRbXXfqrn1ArY7j+W5s6cdIzeHdTjEFuvGIKcqimzc2MQPP9pnUlAUnaF7N
+ XmhfID8zMnzHvmbVWGdcMUFuzSKZviCe3GdPloULSgosX4L/AzOeulNnZn89sf+vivR+
+ fPHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749564382; x=1750169182;
+ d=1e100.net; s=20230601; t=1749564385; x=1750169185;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=c08nNQiRjpMuZiP/f1jVDn68latr5bwhdLQgcHIbV2Q=;
- b=igttdt+6I5uv51c51opNqW5YoCLX7JiiRIfkJsdD8A/SkXyAZJ4IAqLpFkvtBeboec
- VHSCZOK4f3kKeEC3pEL3rQoiWNR3k06S5YHJLswoDPY8jTJmbhFnMzeBPJVOByyUygZK
- kIWbcAZd/sXD9WLR5Avip4bu30JUmfblgq5LJPq/Mi/EGs5aXqsMWJTh+ZrzuDwcMWVQ
- Eu5jzdqfIh1z8NnpVtxiWmU4MXJI1oJicsiZ2wSvnQ4BcypI3vrKmwv+e/G8tgB7nRC2
- DRouqy8F43B8f/RKQ+W31G2ypE/pcFW+qB6mjDDanv3Fjhpgh9onKnK5ONuatO6Fs+tc
- Yzfg==
+ bh=rpOiO+FEaa+w4A+7D6YhlJmVtA2pagPAEL+dLTD4VlY=;
+ b=O827wI6UHKTsiEoIMehIIO7oO12jyF3yDbtD4RtHraeRF9xjLU8QiXZwuiuFfgZiLm
+ lAwqHC/LuAw+XvqdXVpfY4hTgxDB3IUbY6VEwasQK6cc8pFy0oTXkf/40dF2TbHogDER
+ AWNcoXU9rRY6NUlZfdoTk7OZCVbAKOddpaSWklkZYe5m5tzxwdiwjeiM+kHn76vigPIl
+ fHxCjlHIQYhzCLMpi/1zSX2umVgRvs+SqWpePR7/A2D6moy6Y3lZi/vZdio8YIDKkjIR
+ FSIY6fUXSJS/fkAg/9TK5DBZFAHsEVkd6gJ0NcEi7mLGEelCS1TfagTIizZYMWUE8hSd
+ 4Z0Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV8BnsFs3Dn/dvnYeXZaIE0W2nXrU5wwqq6YGDVoleV00WMxlUPrMLu89tfSIpkveIjtxdJael7JsE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzhJ6zLgZtn0ZEA6IcQHf2eg5coxc3zmDlQUsYMc3doVcleojrG
- q7qgfw7SPYAoyUGUDyjX9aeYDhSC9wOrc7gzRq7MdEMF2yS9mMnweQs4WId0Sc09+OY=
-X-Gm-Gg: ASbGncv2hIjh550lbekmwElj6yh9tbzf2OvBXGKxHsCeYlCN6B/slzfEe6LDJ3EE10N
- Qi8j6X7PB4SS1bU38rPjzYzbgb0p5dkHUxG4x0VZTYBckMJ/dwITDcLhcP5VF9O5sThEmH/ndMb
- fSqqrbgwMPc6NAZFL8nsRu1cBUIUP/vJ+9r+juu5fmHb1GyvB/g49ws5PGvuw/kFutkj/Djq0NL
- xfPZsM+7Bz+G6Q7Y2Mv7NdSLSR9B1lUgAafkJrC+iNRptxXP+Wu+OddfSr2+n2VzCfyRDSQpuZ3
- YZ8Q0/iun9S+WYQ204AdSdePmFxZmEX+aIZ3xpBq6OYY7t/A06lgtjtHNFzsfuwccPiPp+XQ6i5
- Te/N3vQ==
-X-Google-Smtp-Source: AGHT+IHDxukPheSrxBOvxKpZYaa8h9T+95Gg5jKYThUcUHQbgCqlc/EbIO/Sp6kjBnRf7HNWZ6eJEQ==
-X-Received: by 2002:a05:600c:c04b:20b0:441:c5ee:cdb4 with SMTP id
- 5b1f17b1804b1-452a470122cmr33063215e9.4.1749564381956; 
- Tue, 10 Jun 2025 07:06:21 -0700 (PDT)
+ AJvYcCW+PzKbL4zDRbvEOa1/fH2bS+o1WlVnMyGoEOaYuE8iAX+3Qg8gscDf+xAnnX3yr1Za22MBwRND2Wc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxrsrHc4tkEbLYcLAmVQe1VMzce0PiHGnLUg2V8s7uPbuKz+5u6
+ 3egYqdu0Nf0PJB/q62/6PuQ+/ubD2NcylIXq7yGmHh6Wr3zIm+UTPcFdaKANSI6EO8M=
+X-Gm-Gg: ASbGncuOqDK9LJ6gROuUklPdCevlUSQ/iQEAqIt5r/TYE6S5QEbDzy6RKomBo28HYOE
+ j/nGopoByPQd4hPAByV6YlwEh4Wt1sQC5fbE8WlhuiogqzAWhujv2tzL+C0yqbPd3mPGrKC+yVY
+ ECXBUvebIAt1UjBGuoHKL4ijIsDMq0UewRTM2pOjdNaqiKHCv81GWGkpFTgUooWoPbJlWTPYOmb
+ mW0bdUp1j73s6ThTI9BTBAwfNS/n3KErevClSpvF/1834uL9Cu5suk98zp31zE30tVruxSVFU14
+ CftQpNL9SW84c/xThQvLYig6cKNW0PjqwdRhb73Zz3448PhNnhd3zIA7n3vf8IVZpPlZuFxE2ln
+ sV+bbkA==
+X-Google-Smtp-Source: AGHT+IFMhckmXcGnjChqtVdaAAq6SLAgWxkzv2bzSAaK4VvB5QeKCr7BJgtMZofJPhIMMyh+0XvSKg==
+X-Received: by 2002:a05:6000:18ab:b0:3a5:324a:89b5 with SMTP id
+ ffacd0b85a97d-3a53316bea1mr4327656f8f.8.1749564384148; 
+ Tue, 10 Jun 2025 07:06:24 -0700 (PDT)
 Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a53244df06sm12734469f8f.69.2025.06.10.07.06.19
+ ffacd0b85a97d-3a53244df06sm12734469f8f.69.2025.06.10.07.06.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jun 2025 07:06:21 -0700 (PDT)
+ Tue, 10 Jun 2025 07:06:23 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 10 Jun 2025 16:05:44 +0200
-Subject: [PATCH v6 06/17] drm/msm/dsi/phy: Toggle back buffer resync after
- preparing PLL
+Date: Tue, 10 Jun 2025 16:05:45 +0200
+Subject: [PATCH v6 07/17] drm/msm/dsi/phy: Define PHY_CMN_CTRL_0 bitfields
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250610-b4-sm8750-display-v6-6-ee633e3ddbff@linaro.org>
+Message-Id: <20250610-b4-sm8750-display-v6-7-ee633e3ddbff@linaro.org>
 References: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
 In-Reply-To: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
@@ -90,24 +89,23 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
  linux-clk@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>, 
  Srinivas Kandagatla <srini@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Rob Clark <robin.clark@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1275;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3534;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=hOZPlM1KyWeQGK+fAet9Nxs5Wt17jNDUM1Ff6e36WS0=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoSDvEFaGVfcvc7I+WsKnLa00SN5QPTkSzfiWGJ
- PahrGboSN2JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaEg7xAAKCRDBN2bmhouD
- 1/FCD/996DPQkeSTgHdKYXZwdFyt3uizbqcoRQhLkEEg860tSjn7Kte3DUkvlR7EWtxQc1vwNij
- h6zflWghpo2l50dYyFTsw/N7CR6NRHryv3B7+nv+2r33l7WcaoFYkGM4FsAkCJKMPl6bGpRNQvA
- 9jYFY0BIHeuFg8AXYSEvLhDdZ8R+Zdx37F7ax1PugZeMApDCjDLkq9ba2ok7D7AoApGrHVyuZce
- kRFTFCEytra1l3KwEc4Mn+XdmielljNWWsKSC6JX9ReyWvrwewEpGU7twwfCxB7LwVqmnbhzP/Y
- OpmQ2JKetVRFnfrvaNuaTttsyTjub1lLnKUP5t23B8qKg2BrTwdsdVbvD8j6L0ykRwn9BMAaOAu
- z9dNv2P7/vnLpPNE1JmD8TbtHsmK15kV34zypREhkFVycSF8QAeMOA1Mr2SY5MXginxjTNRkS3H
- DHBBUWus08o+ao5tXURP0ryJuFyaWOJ+omsvAmjClWK2RIWoZLvhOAoPHumWwrZ7c/FLW3Fm3XN
- 7CIJpoOxTfq/cRbfsadOyaALh7+jFh5l6qhA5aFXQionaHY2c+4Nxh680d/6/sTx/hEyXCmoXD6
- wl5tCEHIljBGjnYYUs2fMNCaFMtpUQeNbctmXaAWguGng2Fehbc2OAm4mwDti2rpffedGvjZJix
- lW03btC9avV5Gvg==
+ bh=RNboVNFWutHKxxSCJ7Ad+xBqpxMQb2M+r4Es9Fz+OXY=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoSDvFX0W+WTwJ4w1LSGespVXTP1AzgrXMWkFy8
+ TE7C6mdXrKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaEg7xQAKCRDBN2bmhouD
+ 17NnD/4mMwgXpWRaFzN80tziJN1bGIPXDrhr0vKKLTqKnew/1/UgO2cwOucF397xWD9s37gwisF
+ xlibcQo3MGfJXYyZDuLn5/TXMiPelmJuGAZgP8VI6Yu77rAkURXwjixbNTCvC6A5DXGgsbRs6/l
+ Juhn+UPvEDD0yc5VgrMjeQNHED1NPV1Z86yU0gB+P7jxLygbrhWO2apN2/r+ohNrz1p2Mo8YvD2
+ Q6oT6mkARDuT5hAwp8cT5NVODU17FcLU/rdU1Si5KqN4T5xRYHXypoaCft/SYy3IaLI3QsuM3Eo
+ 0OC6/GVtEoTJhVjmSFlQMuQ7j2+MeR1zXOUnG2cyV2viAK1HtRj2jKhakvpxxTyCSDUfmx9GUpo
+ oOqHseSgzZJrWwdH4igX6ttQZ/JUX9yD02MMV9noYd20mGPUxoH8+9sWeaGsx8bSzbtJ+88ZQ4X
+ tKng722zYkuG6sZPw8gGjFQsl4DXG1YBovz3UNK5ZUS+6YrVdDZQrq9AOawb+bVsH499RAq3pbA
+ zBv1vnYAjJzHUOLEFeIiC0xDZeHTXrfx33F4vL7naLp8yx6s6t+lJg6mpNQC5/howyMAeF/aBkP
+ QBQJfHfNfBEL6eWtMNRhGXSS/OceJx9A575nEBEGq2zjxcLPKowStveSoCBjnFZBgjw2hLYhCLK
+ LnKLQ+LNpwXLafg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -125,41 +123,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-According to Hardware Programming Guide for DSI PHY, the retime buffer
-resync should be done after PLL clock users (byte_clk and intf_byte_clk)
-are enabled.  Downstream also does it as part of configuring the PLL.
+Add bitfields for PHY_CMN_CTRL_0 registers to avoid hard-coding bit
+masks and shifts and make the code a bit more readable.
 
-Driver was only turning off the resync FIFO buffer, but never bringing it
-on again.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
 ---
 
 Changes in v6:
-1. Fix typo in commit msg
+1. Add new line between declarations and actual code (Dmitry)
 
 Changes in v5:
 1. New patch
 ---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c             | 16 +++++++++++-----
+ drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml | 11 ++++++++++-
+ 2 files changed, 21 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index c19890358b7479c85c793aa7470904127c2d0206..f0ff6c9fbc2e6d28c96c08114c0f417708d70b10 100644
+index f0ff6c9fbc2e6d28c96c08114c0f417708d70b10..4df865dfe6fe111297f0d08199c515d3b5e5a0b6 100644
 --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
 +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -467,6 +467,10 @@ static int dsi_pll_7nm_vco_prepare(struct clk_hw *hw)
- 	if (pll_7nm->slave)
- 		dsi_pll_enable_global_clk(pll_7nm->slave);
+@@ -361,18 +361,23 @@ static int dsi_pll_7nm_lock_status(struct dsi_pll_7nm *pll)
  
-+	writel(0x1, pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_RBUF_CTRL);
-+	if (pll_7nm->slave)
-+		writel(0x1, pll_7nm->slave->phy->base + REG_DSI_7nm_PHY_CMN_RBUF_CTRL);
-+
- error:
- 	return rc;
+ static void dsi_pll_disable_pll_bias(struct dsi_pll_7nm *pll)
+ {
+-	u32 data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	u32 data;
+ 
++	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	data &= ~DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+ 	writel(0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
+-	writel(data & ~BIT(5), pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+ 	ndelay(250);
  }
+ 
+ static void dsi_pll_enable_pll_bias(struct dsi_pll_7nm *pll)
+ {
+-	u32 data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	u32 data;
++
++	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	data |= DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
++	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+ 
+-	writel(data | BIT(5), pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+ 	writel(0xc0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
+ 	ndelay(250);
+ }
+@@ -996,7 +1001,8 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
+ 	}
+ 
+ 	/* de-assert digital and pll power down */
+-	data = BIT(6) | BIT(5);
++	data = DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
++	       DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+ 	writel(data, base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+ 
+ 	/* Assert PLL core reset */
+diff --git a/drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml b/drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml
+index d2c8c46bb04159da6e539bfe80a4b5dc9ffdf367..d49122b88d14896ef3e87b783a1691f85b61aa9c 100644
+--- a/drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml
++++ b/drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml
+@@ -22,7 +22,16 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
+ 	<reg32 offset="0x00018" name="GLBL_CTRL"/>
+ 	<reg32 offset="0x0001c" name="RBUF_CTRL"/>
+ 	<reg32 offset="0x00020" name="VREG_CTRL_0"/>
+-	<reg32 offset="0x00024" name="CTRL_0"/>
++	<reg32 offset="0x00024" name="CTRL_0">
++		<bitfield name="CLKSL_SHUTDOWNB" pos="7" type="boolean"/>
++		<bitfield name="DIGTOP_PWRDN_B" pos="6" type="boolean"/>
++		<bitfield name="PLL_SHUTDOWNB" pos="5" type="boolean"/>
++		<bitfield name="DLN3_SHUTDOWNB" pos="4" type="boolean"/>
++		<bitfield name="DLN2_SHUTDOWNB" pos="3" type="boolean"/>
++		<bitfield name="CLK_SHUTDOWNB" pos="2" type="boolean"/>
++		<bitfield name="DLN1_SHUTDOWNB" pos="1" type="boolean"/>
++		<bitfield name="DLN0_SHUTDOWNB" pos="0" type="boolean"/>
++	</reg32>
+ 	<reg32 offset="0x00028" name="CTRL_1"/>
+ 	<reg32 offset="0x0002c" name="CTRL_2"/>
+ 	<reg32 offset="0x00030" name="CTRL_3"/>
 
 -- 
 2.45.2
