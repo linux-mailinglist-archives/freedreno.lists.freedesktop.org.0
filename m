@@ -2,143 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64CA8AD4B5F
-	for <lists+freedreno@lfdr.de>; Wed, 11 Jun 2025 08:21:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 529F3AD5252
+	for <lists+freedreno@lfdr.de>; Wed, 11 Jun 2025 12:44:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ADBD10E5D7;
-	Wed, 11 Jun 2025 06:21:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 183F610E610;
+	Wed, 11 Jun 2025 10:43:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mYrnJ5qn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ixQg2U+2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3608910E3A9
- for <freedreno@lists.freedesktop.org>; Wed, 11 Jun 2025 06:21:10 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-3a4e62619afso23681f8f.1
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 23:21:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1749622868; x=1750227668; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=H49y5YVCCcLC59k0m8v0JycfHHDJlxdG1p1wxeBPnio=;
- b=mYrnJ5qnWr6tbxD4lw7bJMeswdrd0bJIB29uKOgVSP9y8qlNDqPojcDOHvrUSzrZyT
- OA1YmtNpl4Zw61j+TiHqAbY3ky4khGtdoVY2sO2qiZBQUC6EBgk75oKkYS+8XF+EMfuL
- iSP4G0y4AyOBlfrJtioYSIS9OauqGHW5UBalRllS//9+hLhik+B7YfxJoW6ZgxbD5h/K
- xcFZj5WPacEG8inGZUEbC+KSTNelZcHYvvYNL/PwxDIOs7FCURrSjoe4NAWLQ2CP9FiE
- 7fdqipOuVYy4jKY6lj+CuUlmXP2UoK6D/YVdfbpgLDayVMuQbJqC4BIw1IqgQnbC1kCN
- qIaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749622868; x=1750227668;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=H49y5YVCCcLC59k0m8v0JycfHHDJlxdG1p1wxeBPnio=;
- b=Sip0pOAAX8loY0UkN6JxO5wT9FT0GGjHGgw2g0cQ9d0NjmSL/o1TSQpnlIT72Dw08A
- c/6ogCgS45hK3mtu74+HXZcMM+A04XLiTVqNtP1vCuGosJv0vP7N3gll/callxACoMjl
- r/hrK1EFWa+slj2pceyY08bPybJEOp9ItNOtha6hXUvw1t7k8FM4CaKdClc3rjco11Dc
- GasIpMQlZTd6Tnbo4ss9Snh4dcejR1XEM2haCr6kNVV4PE+YVXLAuFDzRHOFuHf32Mn9
- E0b2STEsEM0/TO0W4yg+av/Ukwc7qvtNCu0u4rMTsAA10SHxKFlgILEBOD5L/RjwanCn
- AvOg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUSksmBcj6u9zjjGReQS9yH2aJXEKCIpWOiZux33Avwld1q1mke/6KYE8Ou7lom/XfXTKdzGcCd7ok=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxzGq/G/0woaYuadC+B3Vb9j/6Pa4/vIwfRd4yKof0UROz83YSQ
- vP1mNw/aNAVWqG3ONegCI7sW6g1zAo5sHIbiXuIVnyIlxQjS7/tlYDWyRDXYXFhoA14=
-X-Gm-Gg: ASbGncsa6bC44yudlIDydT3Endmla0OfwoNptlMx94+38jeCf5M32ECeSFNG18354kz
- srC/p5MxV3qjHmUE57GbyX8jTqDk9rXopfws9LPvZv75hiRzQCaPMsQh0tfd9+2rZWSqneV9BtI
- yQ7SzBojKsxa+dknEpYyx8cwQgMeNyaLsWRi5cnr+icqX094pWgGlaJseHlKo24XuFJIlTzIF95
- kOKZCUrQO4m5PM2qXDNc+4UuAG000pmypaIvrw6IcCDqcQcHTZVpRwZNKT/cy0A69yAP5mqZpEQ
- TxHNnXRh3CDbC+S0DsqoEAnmlNjTy7K261Z9K4CSnPHcTzeh00V2CZQCXwOAtPDk+xle1Lk9/gs
- XetlRNZE=
-X-Google-Smtp-Source: AGHT+IEarnczQxYkldyQAgqK7gAPAp5A+If3BCU9tfItzyU2/3kobA5cfdLuXp5ux1yaylvgS8DRSg==
-X-Received: by 2002:a05:600c:c087:b0:451:df07:f41e with SMTP id
- 5b1f17b1804b1-45324871143mr3839615e9.1.1749622868451; 
- Tue, 10 Jun 2025 23:21:08 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.223.125])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a53229de70sm13890748f8f.5.2025.06.10.23.21.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 23:21:06 -0700 (PDT)
-Message-ID: <82733f35-f5d4-4927-b2f3-4d739b388bc3@linaro.org>
-Date: Wed, 11 Jun 2025 08:21:04 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 14/17] drm/msm/dpu: Implement 10-bit color alpha for
- v12.0 DPU
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6162F10E610;
+ Wed, 11 Jun 2025 10:43:58 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 351914A5F7;
+ Wed, 11 Jun 2025 10:43:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CFDCC4CEF2;
+ Wed, 11 Jun 2025 10:43:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1749638638;
+ bh=SxVgloiedDddTuoCzwRU31NMinDlF8gzHdqvxB0Y+0A=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ixQg2U+29+/lnRxdF08lMlWPo4ehb0oLFJRyRMG0Fcn9ALezaO55pnUfGSRXrbK6o
+ KYvWB+fLAJH64xlX/dLoX1WFTSnRw0HYZF2x4t3Z/W4A2uN/FukIf8uAFf9OsX9DJi
+ LOXpLPH7ILsPFvT9V0G1wfX7+ML0D22Nlt7swPZpZi1hblDMmtoVN00pZ0vvEyzU5Q
+ SSAnAzEe4/p0aJvFypqdFuUx6odQMI2dzrJ4WMdcn7qFRptN7ndahRvGvudArxSBzW
+ X4BWbE33XgyvbI2NTp2CgSs8YhJdlBM9bsXDI9Ue53YCeIxhx7boy3F03CaY2UI8wj
+ 5+CzdgU64CGrw==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: tglx@linutronix.de, "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Abel Vesa <abel.vesa@linaro.org>, Srinivas Kandagatla <srini@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
- <20250610-b4-sm8750-display-v6-14-ee633e3ddbff@linaro.org>
- <3d576c19-6f68-4f04-b89a-e269c438b339@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- 2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <3d576c19-6f68-4f04-b89a-e269c438b339@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Subject: [PATCH] drm/msm: use dev_fwnode()
+Date: Wed, 11 Jun 2025 12:43:32 +0200
+Message-ID: <20250611104348.192092-4-jirislaby@kernel.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250611104348.192092-1-jirislaby@kernel.org>
+References: <20250611104348.192092-1-jirislaby@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,21 +62,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/06/2025 16:10, Neil Armstrong wrote:
-> On 10/06/2025 16:05, Krzysztof Kozlowski wrote:
->> v12.0 DPU on SM8750 comes with 10-bit color alpha.  Add register
->> differences and new implementations of setup_alpha_out(),
->> setup_border_color() and setup_blend_config().
->>
->> Notable changes in v6:
->> Correct fg_alpha shift on new DPU, pointed out by Abel Vesas.
-> 
-> -------------------------------------------------------- Vesa
-> 
-> Not sure this should be in the commit message.
+irq_domain_create_simple() takes fwnode as the first argument. It can be
+extracted from the struct device using dev_fwnode() helper instead of
+using of_node with of_fwnode_handle().
 
-DRM, at least multiple DRM-subsystems, adds full changelogs to the
-commit msg, so I think adding notable part is worth.
+So use the dev_fwnode() helper.
 
-Best regards,
-Krzysztof
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+
+---
+
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+---
+ drivers/gpu/drm/msm/msm_mdss.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index 709979fcfab6..5ea2a2241246 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -150,8 +150,7 @@ static int _msm_mdss_irq_domain_add(struct msm_mdss *msm_mdss)
+ 
+ 	dev = msm_mdss->dev;
+ 
+-	domain = irq_domain_create_linear(of_fwnode_handle(dev->of_node), 32,
+-			&msm_mdss_irqdomain_ops, msm_mdss);
++	domain = irq_domain_create_linear(dev_fwnode(dev), 32, &msm_mdss_irqdomain_ops, msm_mdss);
+ 	if (!domain) {
+ 		dev_err(dev, "failed to add irq_domain\n");
+ 		return -EINVAL;
+-- 
+2.49.0
+
