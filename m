@@ -2,130 +2,143 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2584AD45E8
-	for <lists+freedreno@lfdr.de>; Wed, 11 Jun 2025 00:25:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64CA8AD4B5F
+	for <lists+freedreno@lfdr.de>; Wed, 11 Jun 2025 08:21:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAA7D10E5DA;
-	Tue, 10 Jun 2025 22:25:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ADBD10E5D7;
+	Wed, 11 Jun 2025 06:21:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RrEE2rKO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mYrnJ5qn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FE7210E332
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 22:25:36 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55AIQ1bM022380
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 22:25:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=NIZerdv5856btQLeZiz5wtEr
- Wi3yo26TMxxYpxr5HC4=; b=RrEE2rKOCsDtipjqNu3tng1rbnolbgehv7+H0EAY
- FEZ3H6HJXAhgS62zP8ebfAMARG5HvgV9pM3dCS4KYpPB+BbADg18KKaiF23MAviK
- aWKYFISZQw1nOkOu4S98mILVhI3YL8NvaIbMq+tSvVxm6RH7+mPzzhFd8kcdEiEx
- CbWXr38/2kLY4ZqvMTtkyibG1i6PTw5lI3XtrE4ZMWb9yKLIWvaiLhoFiQIHGo/w
- E+U3k3aU54O3uGviqpsf8HqDgVh5HwDx9qqUoI8DI1zZ2HEvyU02MNC4Z6GZ2G6f
- vwbOSUWzItq5h2m9uqp/dgqun15+RhvbHDPEduLyoYWF4w==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 474ekptnks-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 22:25:35 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7c760637fe5so1081040885a.0
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 15:25:35 -0700 (PDT)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3608910E3A9
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Jun 2025 06:21:10 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-3a4e62619afso23681f8f.1
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jun 2025 23:21:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1749622868; x=1750227668; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=H49y5YVCCcLC59k0m8v0JycfHHDJlxdG1p1wxeBPnio=;
+ b=mYrnJ5qnWr6tbxD4lw7bJMeswdrd0bJIB29uKOgVSP9y8qlNDqPojcDOHvrUSzrZyT
+ OA1YmtNpl4Zw61j+TiHqAbY3ky4khGtdoVY2sO2qiZBQUC6EBgk75oKkYS+8XF+EMfuL
+ iSP4G0y4AyOBlfrJtioYSIS9OauqGHW5UBalRllS//9+hLhik+B7YfxJoW6ZgxbD5h/K
+ xcFZj5WPacEG8inGZUEbC+KSTNelZcHYvvYNL/PwxDIOs7FCURrSjoe4NAWLQ2CP9FiE
+ 7fdqipOuVYy4jKY6lj+CuUlmXP2UoK6D/YVdfbpgLDayVMuQbJqC4BIw1IqgQnbC1kCN
+ qIaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749594335; x=1750199135;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NIZerdv5856btQLeZiz5wtErWi3yo26TMxxYpxr5HC4=;
- b=JHPRRRVO8Qe9ygxlQJow3CoeCUWQsUqLE5Om503G39onQZDTQaHr5vQTr/UrS3EfuE
- kCMuJLKVkEUiEMxkW4pKBFbMIk7fN730wnZtr5cdaGPr4Eund3rFrFi3xjPI1QkgOw6R
- eACkt3ymByjmkPVL2hmotsLF1Grzk1//97trs4QAu50tjmMJSKRB8FzHgl1q9Om8JGGw
- 5Td8CR1lyaRbkgvIXlU3FqI6JTtc5OiXTZCPID61W3Nc0vW8vWVmFYNYbAVTTJTEGRx4
- mMfrvQZxpgm+gy2H65R7rMufl+MmJh57aKOHJciM1xa6a5vDxgzBNoJzIRnUG7XNyYbM
- OUMQ==
+ d=1e100.net; s=20230601; t=1749622868; x=1750227668;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=H49y5YVCCcLC59k0m8v0JycfHHDJlxdG1p1wxeBPnio=;
+ b=Sip0pOAAX8loY0UkN6JxO5wT9FT0GGjHGgw2g0cQ9d0NjmSL/o1TSQpnlIT72Dw08A
+ c/6ogCgS45hK3mtu74+HXZcMM+A04XLiTVqNtP1vCuGosJv0vP7N3gll/callxACoMjl
+ r/hrK1EFWa+slj2pceyY08bPybJEOp9ItNOtha6hXUvw1t7k8FM4CaKdClc3rjco11Dc
+ GasIpMQlZTd6Tnbo4ss9Snh4dcejR1XEM2haCr6kNVV4PE+YVXLAuFDzRHOFuHf32Mn9
+ E0b2STEsEM0/TO0W4yg+av/Ukwc7qvtNCu0u4rMTsAA10SHxKFlgILEBOD5L/RjwanCn
+ AvOg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpaaYx47V+yShT/bG2IaLtZVqT7fvK8IXO0cIi7dLWQp/O9gfpPXBOUIKVMnitLkHyqWv3WZs83pk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQJBa4CALShVMyCD3bKIF5y+keta2u/9mNXGImeK0pTyBGkF1/
- P/kwzkzIbsveXXBmMW1PU4DJY8GEVWlaIaSH5hX0Howk4lWgVv780AEAD7Bf1JW1Y6T62I66bKH
- bMcJGpxphqVBs8tBtFXLZnmDrDd7y1gMADEwVuiMYFhffN5XtYkkkU95dCZlR0WLts9XRdQE=
-X-Gm-Gg: ASbGncvUh/Eb76b/yewAvIGDW6H5c/Fut+Y4ZYRT3IB+lwgQnV0+egPdLz7VgmENcOK
- Ol+cL/EygepyofqfINO3pvFGm7JoAceJTpcgx5WWNrpzY1vpEQXwLRlJjPtfHjYD5Ptkzk3oVtz
- mBru7FzBRl24CXTMx+MpPjyPb2qaU65YpVpFPY8LocceCWAj197gx+ya/YSXSBgp3944CX085BE
- UveIr+AS2kmPtNWNguAboQ+KDRU3qMqeszl1DxpbCKg6aPm6SvVVd5uQNF+96raSd6jn0bztlvu
- kcRtd0EzKUc4Z3g4gbpHjP5rEUmAmXIyTlJCzNAxEDEJ269LoS5PDeVFpoiRrOeYIgRd9OOcRDt
- gF4keszNB7bqTYZyW7v99/DQdYcEXlsiQEoU=
-X-Received: by 2002:a05:620a:1a85:b0:7d0:97b1:bfa with SMTP id
- af79cd13be357-7d3a8806306mr191675185a.8.1749594334719; 
- Tue, 10 Jun 2025 15:25:34 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEvqgKPApzu3rPogEhB0z1OsbrjkQcClCu9eRwx2CiVtQGPtd7+Q1xiMRbqpX3rcwtgL9CA7w==
-X-Received: by 2002:a05:620a:1a85:b0:7d0:97b1:bfa with SMTP id
- af79cd13be357-7d3a8806306mr191671485a.8.1749594334288; 
- Tue, 10 Jun 2025 15:25:34 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCUSksmBcj6u9zjjGReQS9yH2aJXEKCIpWOiZux33Avwld1q1mke/6KYE8Ou7lom/XfXTKdzGcCd7ok=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxzGq/G/0woaYuadC+B3Vb9j/6Pa4/vIwfRd4yKof0UROz83YSQ
+ vP1mNw/aNAVWqG3ONegCI7sW6g1zAo5sHIbiXuIVnyIlxQjS7/tlYDWyRDXYXFhoA14=
+X-Gm-Gg: ASbGncsa6bC44yudlIDydT3Endmla0OfwoNptlMx94+38jeCf5M32ECeSFNG18354kz
+ srC/p5MxV3qjHmUE57GbyX8jTqDk9rXopfws9LPvZv75hiRzQCaPMsQh0tfd9+2rZWSqneV9BtI
+ yQ7SzBojKsxa+dknEpYyx8cwQgMeNyaLsWRi5cnr+icqX094pWgGlaJseHlKo24XuFJIlTzIF95
+ kOKZCUrQO4m5PM2qXDNc+4UuAG000pmypaIvrw6IcCDqcQcHTZVpRwZNKT/cy0A69yAP5mqZpEQ
+ TxHNnXRh3CDbC+S0DsqoEAnmlNjTy7K261Z9K4CSnPHcTzeh00V2CZQCXwOAtPDk+xle1Lk9/gs
+ XetlRNZE=
+X-Google-Smtp-Source: AGHT+IEarnczQxYkldyQAgqK7gAPAp5A+If3BCU9tfItzyU2/3kobA5cfdLuXp5ux1yaylvgS8DRSg==
+X-Received: by 2002:a05:600c:c087:b0:451:df07:f41e with SMTP id
+ 5b1f17b1804b1-45324871143mr3839615e9.1.1749622868451; 
+ Tue, 10 Jun 2025 23:21:08 -0700 (PDT)
+Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5536772a80csm1706310e87.162.2025.06.10.15.25.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jun 2025 15:25:33 -0700 (PDT)
-Date: Wed, 11 Jun 2025 01:25:31 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ ffacd0b85a97d-3a53229de70sm13890748f8f.5.2025.06.10.23.21.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Jun 2025 23:21:06 -0700 (PDT)
+Message-ID: <82733f35-f5d4-4927-b2f3-4d739b388bc3@linaro.org>
+Date: Wed, 11 Jun 2025 08:21:04 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 14/17] drm/msm/dpu: Implement 10-bit color alpha for
+ v12.0 DPU
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>,
  Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Dmitry Baryshkov <lumag@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Abel Vesa <abel.vesa@linaro.org>, Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v6 13/17] drm/msm/dpu: Consistently use u32 instead of
- uint32_t
-Message-ID: <gvxglu5n6esoortifeyeapjlkwks4adxktshj4mcc2iyigq5fj@ztsuritnshkf>
+ Abel Vesa <abel.vesa@linaro.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 References: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
- <20250610-b4-sm8750-display-v6-13-ee633e3ddbff@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250610-b4-sm8750-display-v6-13-ee633e3ddbff@linaro.org>
-X-Authority-Analysis: v=2.4 cv=JcO8rVKV c=1 sm=1 tr=0 ts=6848b0e0 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=6IFa9wvqVegA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Sbni8NmfYZyP3K5nzVUA:9
- a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjEwMDE4NSBTYWx0ZWRfX1ypI/xY7zwBn
- WegSbvAbHrgsWuIh0fLdDjmxGTHPY/Iz4BlFjDmwrEFgpXYGDsDU+EY8GpBmPp4xaj+bl/KqdJW
- 6+bRurVgO8NtfkO3SqxrSQEBdkSCc5nm0rWu9gmcnoogVj3aNsde/xfuYP/+P+n+mWIdBoQyhPV
- X0Po+j4xLzuPz/1cyeTxP+PyoWRnXEOjkDHgYiUCC7/rg31Y/BcOyLvUgqAFu5PBgsjLUWB4Vh2
- nV/UyRozMgstt02Gld9078qotX0c3iHrq9zrN53JIqaJxLHx4bAyroARpywJDEMxJAwLONJFiIO
- a7PaQ9CkMu3oT7EjZuG18vFvKKUcVea7G+gmUSCedP8RDSNJyvaHSwXhzmld671M6DeUz9g+G2r
- MfkTPlOyrfdt7d+CRy7MSu4xK/Y+o6GomjL17AE/H0n56/pMbmomgT7eFymyvhrqYbIg5CrA
-X-Proofpoint-GUID: ed2xB5ziOvUik1MHtSW1CN62sb4joUso
-X-Proofpoint-ORIG-GUID: ed2xB5ziOvUik1MHtSW1CN62sb4joUso
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-10_10,2025-06-10_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=827 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
- priorityscore=1501 mlxscore=0 adultscore=0 clxscore=1015 malwarescore=0
- suspectscore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506100185
+ <20250610-b4-sm8750-display-v6-14-ee633e3ddbff@linaro.org>
+ <3d576c19-6f68-4f04-b89a-e269c438b339@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ 2+47PN9NZAOyb771QoVr8A==
+In-Reply-To: <3d576c19-6f68-4f04-b89a-e269c438b339@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,23 +154,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 10, 2025 at 04:05:51PM +0200, Krzysztof Kozlowski wrote:
-> Linux coding style asks to use kernel types like u32 instead of uint32_t
-> and code already has it in other places, so unify the remaining pieces.
+On 10/06/2025 16:10, Neil Armstrong wrote:
+> On 10/06/2025 16:05, Krzysztof Kozlowski wrote:
+>> v12.0 DPU on SM8750 comes with 10-bit color alpha.  Add register
+>> differences and new implementations of setup_alpha_out(),
+>> setup_border_color() and setup_blend_config().
+>>
+>> Notable changes in v6:
+>> Correct fg_alpha shift on new DPU, pointed out by Abel Vesas.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
+> -------------------------------------------------------- Vesa
 > 
-> Changes in v6:
-> 1. New patch
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 9 ++++-----
->  1 file changed, 4 insertions(+), 5 deletions(-)
-> 
+> Not sure this should be in the commit message.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+DRM, at least multiple DRM-subsystems, adds full changelogs to the
+commit msg, so I think adding notable part is worth.
 
-
--- 
-With best wishes
-Dmitry
+Best regards,
+Krzysztof
