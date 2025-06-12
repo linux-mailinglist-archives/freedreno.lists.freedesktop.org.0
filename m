@@ -2,82 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F6E8AD695F
-	for <lists+freedreno@lfdr.de>; Thu, 12 Jun 2025 09:44:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01DC3AD69FF
+	for <lists+freedreno@lfdr.de>; Thu, 12 Jun 2025 10:12:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8A610E044;
-	Thu, 12 Jun 2025 07:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D081210E063;
+	Thu, 12 Jun 2025 08:12:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mKik57tj";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="s1CohyRj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A790010E787
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 07:44:45 +0000 (UTC)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-70f147b5a52so4331717b3.3
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 00:44:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1749714284; x=1750319084; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bey/QopOQhAz9in3qPDYj1tdW3PjSItIhwNmUsRkUcw=;
- b=mKik57tjttgXmKcQA6ZFza7g6pZUwtIlV2LJeVYpsrvvFZCGNDi3bVq4STqUTiXw1m
- X6o8z9nX6nh7VA3KPy+C0QRr2ufXmsiB3hndAfFK32BsZEUNnRFVuQKEscTG7xS9bi2y
- L1i7HoLsyWU7Ox/YiSjPAuopwfBFobHDo//hA3QVhcytg4uRwbHWdfRAqHimtBXcg+W+
- 7DH5aN/me/2OR8IfS/KSyiMgeGr1PFVoCXFedP7lM1cLUe5DGquWFUgfqLK5D13ef19I
- MlDnMyW+QoZNe9f3EeSDxuQ1A5hYf3FzrdD0EhEAaNCMkxzvd0itln36V1CYdXnvXJgI
- THlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749714284; x=1750319084;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bey/QopOQhAz9in3qPDYj1tdW3PjSItIhwNmUsRkUcw=;
- b=tgHxpUZiHG0OAKpnr89HZ4BVld72i8DX/t85LNUyh6dYXcMX0VQ5OLfHIoCsaXUcc5
- owPJ4CZBCP+7tM8ATPDsfd8/xs6vo/7aj7pG151g2ZcaMZw57obEeN01HcMIkUi8b49B
- t1rEWz2dhBck537JrfQ4gu8dJmpQJSr41Yx4ugX9aZk4bfZvO3Q/yMQrPPX3C4YOPGEV
- yj3x2D0nGrvMdFrLm1h2Ubb2+tdEOXxvBzVq+Mc4pG/S+AYmkWVDPA5cFDsTCqLTvOJR
- s3rQNL8wUg8eS2egO+BRFdiu/95d5L0uugAe0Iyix2Bv7Q/fvH9w1KF/NtbRgRjT7zE0
- fW4g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVI8qaqwJqt5b7sXEiv4CMkwkafwODA1iHUtroxybEUztLtno0UbeTSmGyz5nUL9QqELh4mCxm7Rdo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0h21C8DcWIE/Vh1szLRzFxZwvLkS2oWggd2piPv5ITXnc87B7
- i/fjLl7ObeXrddLEb4m0TlwhV+QfP7mcG6utL/OC40pKjkT4Sx34rOEvspORhrMw2PNnnt+xiIq
- T1Oz2T6+FO+PYnAx2OD7PuTw637BwhpNmhia5AmGUQA==
-X-Gm-Gg: ASbGncvnHkjJFJQBAf2qNnbMaM+Cg+orcsFYwZYMl1KwOnong/jjhfORAOyTRfcbwHq
- XNQpDiYeK48chGACNyg+uMVDc2C9lY4B8GnU5JqLT6BHjZJl+VFpEL6BoAbi65eQPL2SLrapKzO
- gMzEIrDuimWqhPvmoDWJ1Ikxa3HhhmSj78MZqoU0BaNQ==
-X-Google-Smtp-Source: AGHT+IFdOybMwmC50Y2TLodQhVkA3vk2OAc6BeWCZeVoRAEn4IDsweFt+dTs+m7K3ehtbUdKRX/l2KQowqE2aoxpNkc=
-X-Received: by 2002:a05:690c:60c6:b0:70c:90af:154 with SMTP id
- 00721157ae682-7114ed6a1c6mr40554667b3.20.1749714283621; Thu, 12 Jun 2025
- 00:44:43 -0700 (PDT)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2153B10E063;
+ Thu, 12 Jun 2025 08:12:03 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 868E8D6;
+ Thu, 12 Jun 2025 10:11:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1749715913;
+ bh=8WwmhFtL9eosA22O6PZS8QonHwy8kOwjvtU9HLAd/Mk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=s1CohyRjx44OEVAmWk98stT2zZMSlbEy73AVELxdX2h5KRmV+rS1QwaBu+QfSA1qN
+ OhCbnI7kO8KcLMT7lrLn06Uhsf9CiF7Vs4jlCz3vlMPk6QDjNsDY5H17EEyIiwIUrs
+ /1X9kTXxoJNFavlSTwvk0QOIm9p0Cnp4fXSH0SQ4=
+Message-ID: <e2545be1-583d-4ad7-8a17-b2ee157f82d7@ideasonboard.com>
+Date: Thu, 12 Jun 2025 11:11:57 +0300
 MIME-Version: 1.0
-References: <20250603-v6-15-quad-pipe-upstream-v11-0-c3af7190613d@linaro.org>
- <20250603-v6-15-quad-pipe-upstream-v11-11-c3af7190613d@linaro.org>
- <5hmgt4v4nop3xpqt34wq4yyfjnypkrnlrr5fnt6r72k5c6r4vn@ykmg5ni6hjyt>
-In-Reply-To: <5hmgt4v4nop3xpqt34wq4yyfjnypkrnlrr5fnt6r72k5c6r4vn@ykmg5ni6hjyt>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 12 Jun 2025 15:44:32 +0800
-X-Gm-Features: AX0GCFsO_nCI8egougDr63n_gTKnTwM5DYwkqcQjLkSyPF363OFA-OnbDdeQldY
-Message-ID: <CABymUCOx-kJ0FpZnvTPAT9i-kvcA8Bs8WxFZZWQXbLZ2Koobpg@mail.gmail.com>
-Subject: Re: [PATCH v11 11/12] drm/msm/dpu: support plane splitting in
- quad-pipe case
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/25] drm/dumb-buffers: Sanitize output on errors
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, geert@linux-m68k.org
+References: <20250311155120.442633-1-tzimmermann@suse.de>
+ <20250311155120.442633-2-tzimmermann@suse.de>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <20250311155120.442633-2-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,235 +107,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=B4=
-6=E6=9C=883=E6=97=A5=E5=91=A8=E4=BA=8C 18:24=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Tue, Jun 03, 2025 at 03:10:10PM +0800, Jun Nie wrote:
-> > The content of every half of screen is sent out via one interface in
-> > dual-DSI case. The content for every interface is blended by a LM
-> > pair in quad-pipe case, thus a LM pair should not blend any content
-> > that cross the half of screen in this case. Clip plane into pipes per
-> > left and right half screen ROI if topology is quad pipe case.
-> >
-> > The clipped rectangle on every half of screen is futher handled by two
-> > pipes if its width exceeds a limit for a single pipe.
-> >
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  11 +++
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h  |   2 +
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 137 +++++++++++++++++++++-=
---------
-> >  3 files changed, 110 insertions(+), 40 deletions(-)
-> >
-> > @@ -886,35 +887,94 @@ static int dpu_plane_atomic_check_nosspp(struct d=
-rm_plane *plane,
-> >
-> >       max_linewidth =3D pdpu->catalog->caps->max_linewidth;
-> >
-> > -     drm_rect_rotate(&pipe_cfg->src_rect,
-> > +     drm_rect_rotate(&init_pipe_cfg.src_rect,
-> >                       new_plane_state->fb->width, new_plane_state->fb->=
-height,
-> >                       new_plane_state->rotation);
-> >
-> > -     if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
-> > -          _dpu_plane_calc_clk(&crtc_state->adjusted_mode, pipe_cfg) > =
-max_mdp_clk_rate) {
-> > -             if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewid=
-th) {
-> > -                     DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT=
- " line:%u\n",
-> > -                                     DRM_RECT_ARG(&pipe_cfg->src_rect)=
-, max_linewidth);
-> > -                     return -E2BIG;
-> > +     /*
-> > +      * We have 1 mixer pair cfg for 1:1:1 and 2:2:1 topology, 2 mixer=
- pair
-> > +      * configs for left and right half screen in case of 4:4:2 topolo=
-gy.
-> > +      * But we may have 2 rect to split wide plane that exceeds limit =
-with 1
-> > +      * config for 2:2:1. So need to handle both wide plane splitting,=
- and
-> > +      * two halves of screen splitting for quad-pipe case. Check dest
-> > +      * rectangle left/right clipping first, then check wide rectangle
-> > +      * splitting in every half next.
-> > +      */
-> > +     num_stages =3D (num_lm + 1) / 2;
->
-> I thought we agreed to loop over all stages, dropping the need for
-> num_lm.
+Hi,
 
-num_stages is needed here, so that the plane can be cropped into left/right
-half of LCD and result pipe will be handled by 2 stages in quadpipe case.
-While only 1 stage is involved in 1 or 2 pipe case and the crop operation
-does not make a real impact. If we do not care num_lm and use 2 stages
-by default, then we are forcing quad-pipe. Do you have any suggestion?
+On 11/03/2025 17:47, Thomas Zimmermann wrote:
+> The ioctls MODE_CREATE_DUMB and MODE_MAP_DUMB return results into a
+> memory buffer supplied by user space. On errors, it is possible that
+> intermediate values are being returned. The exact semantics depends
+> on the DRM driver's implementation of these ioctls. Although this is
+> most-likely not a security problem in practice, avoid any uncertainty
+> by clearing the memory to 0 on errors.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/drm_dumb_buffers.c | 40 ++++++++++++++++++++++--------
+>  1 file changed, 29 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
+> index 70032bba1c97..9916aaf5b3f2 100644
+> --- a/drivers/gpu/drm/drm_dumb_buffers.c
+> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
+> @@ -99,7 +99,30 @@ int drm_mode_create_dumb(struct drm_device *dev,
+>  int drm_mode_create_dumb_ioctl(struct drm_device *dev,
+>  			       void *data, struct drm_file *file_priv)
+>  {
+> -	return drm_mode_create_dumb(dev, data, file_priv);
+> +	struct drm_mode_create_dumb *args = data;
+> +	int err;
+> +
+> +	err = drm_mode_create_dumb(dev, args, file_priv);
+> +	if (err) {
+> +		args->handle = 0;
+> +		args->pitch = 0;
+> +		args->size = 0;
+> +	}
+> +	return err;
+> +}
+> +
+> +static int drm_mode_mmap_dumb(struct drm_device *dev, struct drm_mode_map_dumb *args,
+> +			      struct drm_file *file_priv)
+> +{
+> +	if (!dev->driver->dumb_create)
+> +		return -ENOSYS;
+> +
+> +	if (dev->driver->dumb_map_offset)
+> +		return dev->driver->dumb_map_offset(file_priv, dev, args->handle,
+> +						    &args->offset);
+> +	else
+> +		return drm_gem_dumb_map_offset(file_priv, dev, args->handle,
+> +					       &args->offset);
+>  }
+>  
+>  /**
+> @@ -120,17 +143,12 @@ int drm_mode_mmap_dumb_ioctl(struct drm_device *dev,
+>  			     void *data, struct drm_file *file_priv)
+>  {
+>  	struct drm_mode_map_dumb *args = data;
+> +	int err;
+>  
+> -	if (!dev->driver->dumb_create)
+> -		return -ENOSYS;
+> -
+> -	if (dev->driver->dumb_map_offset)
+> -		return dev->driver->dumb_map_offset(file_priv, dev,
+> -						    args->handle,
+> -						    &args->offset);
+> -	else
+> -		return drm_gem_dumb_map_offset(file_priv, dev, args->handle,
+> -					       &args->offset);
+> +	err = drm_mode_mmap_dumb(dev, args, file_priv);
+> +	if (err)
+> +		args->offset = 0;
+> +	return err;
+>  }
+>  
+>  int drm_mode_destroy_dumb(struct drm_device *dev, u32 handle,
 
->
-> > +     /* iterate mixer configs for this plane, to separate left/right w=
-ith the id */
-> > +     for (stage_id =3D 0; stage_id < num_stages; stage_id++) {
-> > +             struct drm_rect mixer_rect =3D {
-> > +                     .x1 =3D stage_id * mode->hdisplay / num_stages,
-> > +                     .y1 =3D 0,
-> > +                     .x2 =3D (stage_id + 1) * mode->hdisplay / num_sta=
-ges,
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
-The crop window is calculated with num_stages here.
+ Tomi
 
-> > +                     .y2 =3D mode->vdisplay
-> > +                     };
-> > +             int cfg_idx =3D stage_id * PIPES_PER_STAGE;
-> > +
-> > +             pipe_cfg =3D &pstate->pipe_cfg[cfg_idx];
-> > +             r_pipe_cfg =3D &pstate->pipe_cfg[cfg_idx + 1];
-> > +
-> > +             drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state-=
->src);
-> > +             pipe_cfg->dst_rect =3D new_plane_state->dst;
-> > +
-> > +             DPU_DEBUG_PLANE(pdpu, "checking src " DRM_RECT_FMT
-> > +                             " vs clip window " DRM_RECT_FMT "\n",
-> > +                             DRM_RECT_ARG(&pipe_cfg->src_rect),
-> > +                             DRM_RECT_ARG(&mixer_rect));
-> > +
-> > +             /*
-> > +              * If this plane does not fall into mixer rect, check nex=
-t
-> > +              * mixer rect.
-> > +              */
-> > +             if (!drm_rect_clip_scaled(&pipe_cfg->src_rect,
-> > +                                       &pipe_cfg->dst_rect,
-> > +                                       &mixer_rect)) {
-> > +                     memset(pipe_cfg, 0, 2 * sizeof(struct dpu_sw_pipe=
-_cfg));
-> > +
-> > +                     continue;
-> >               }
-> >
-> > -             *r_pipe_cfg =3D *pipe_cfg;
-> > -             pipe_cfg->src_rect.x2 =3D (pipe_cfg->src_rect.x1 + pipe_c=
-fg->src_rect.x2) >> 1;
-> > -             pipe_cfg->dst_rect.x2 =3D (pipe_cfg->dst_rect.x1 + pipe_c=
-fg->dst_rect.x2) >> 1;
-> > -             r_pipe_cfg->src_rect.x1 =3D pipe_cfg->src_rect.x2;
-> > -             r_pipe_cfg->dst_rect.x1 =3D pipe_cfg->dst_rect.x2;
-> > -     } else {
-> > -             memset(r_pipe_cfg, 0, sizeof(*r_pipe_cfg));
-> > -     }
-> > +             pipe_cfg->dst_rect.x1 -=3D mixer_rect.x1;
-> > +             pipe_cfg->dst_rect.x2 -=3D mixer_rect.x1;
-> > +
-> > +             DPU_DEBUG_PLANE(pdpu, "Got clip src:" DRM_RECT_FMT " dst:=
- " DRM_RECT_FMT "\n",
-> > +                             DRM_RECT_ARG(&pipe_cfg->src_rect), DRM_RE=
-CT_ARG(&pipe_cfg->dst_rect));
-> > +
-> > +             /* Split wide rect into 2 rect */
-> > +             if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth)=
- ||
-> > +                  _dpu_plane_calc_clk(mode, pipe_cfg) > max_mdp_clk_ra=
-te) {
-> > +
-> > +                     if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max=
-_linewidth) {
-> > +                             DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_=
-RECT_FMT " line:%u\n",
-> > +                                             DRM_RECT_ARG(&pipe_cfg->s=
-rc_rect), max_linewidth);
-> > +                             return -E2BIG;
-> > +                     }
-> > +
-> > +                     memcpy(r_pipe_cfg, pipe_cfg, sizeof(struct dpu_sw=
-_pipe_cfg));
-> > +                     pipe_cfg->src_rect.x2 =3D (pipe_cfg->src_rect.x1 =
-+ pipe_cfg->src_rect.x2) >> 1;
-> > +                     pipe_cfg->dst_rect.x2 =3D (pipe_cfg->dst_rect.x1 =
-+ pipe_cfg->dst_rect.x2) >> 1;
-> > +                     r_pipe_cfg->src_rect.x1 =3D pipe_cfg->src_rect.x2=
-;
-> > +                     r_pipe_cfg->dst_rect.x1 =3D pipe_cfg->dst_rect.x2=
-;
-> > +                     DPU_DEBUG_PLANE(pdpu, "Split wide plane into:"
-> > +                                     DRM_RECT_FMT " and " DRM_RECT_FMT=
- "\n",
-> > +                                     DRM_RECT_ARG(&pipe_cfg->src_rect)=
-,
-> > +                                     DRM_RECT_ARG(&r_pipe_cfg->src_rec=
-t));
-> > +             } else {
-> > +                     memset(r_pipe_cfg, 0, sizeof(struct dpu_sw_pipe_c=
-fg));
-> > +             }
-> >
-> > -     drm_rect_rotate_inv(&pipe_cfg->src_rect,
-> > -                         new_plane_state->fb->width, new_plane_state->=
-fb->height,
-> > -                         new_plane_state->rotation);
-> > -     if (drm_rect_width(&r_pipe_cfg->src_rect) !=3D 0)
-> > -             drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
-> > -                                 new_plane_state->fb->width, new_plane=
-_state->fb->height,
-> > +             drm_rect_rotate_inv(&pipe_cfg->src_rect,
-> > +                                 new_plane_state->fb->width,
-> > +                                 new_plane_state->fb->height,
-> >                                   new_plane_state->rotation);
-> >
-> > +             if (drm_rect_width(&r_pipe_cfg->src_rect) !=3D 0)
-> > +                     drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
-> > +                                         new_plane_state->fb->width,
-> > +                                         new_plane_state->fb->height,
-> > +                                         new_plane_state->rotation);
-> > +     }
-> > +
-> >       pstate->needs_qos_remap =3D drm_atomic_crtc_needs_modeset(crtc_st=
-ate);
-> >
-> >       return 0;
-> > @@ -997,20 +1057,17 @@ static int dpu_plane_atomic_check_sspp(struct dr=
-m_plane *plane,
-> >               drm_atomic_get_new_plane_state(state, plane);
-> >       struct dpu_plane *pdpu =3D to_dpu_plane(plane);
-> >       struct dpu_plane_state *pstate =3D to_dpu_plane_state(new_plane_s=
-tate);
-> > -     struct dpu_sw_pipe *pipe =3D &pstate->pipe[0];
-> > -     struct dpu_sw_pipe *r_pipe =3D &pstate->pipe[1];
-> > -     struct dpu_sw_pipe_cfg *pipe_cfg =3D &pstate->pipe_cfg[0];
-> > -     struct dpu_sw_pipe_cfg *r_pipe_cfg =3D &pstate->pipe_cfg[1];
-> > -     int ret =3D 0;
-> > -
-> > -     ret =3D dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg,
-> > -                                       &crtc_state->adjusted_mode,
-> > -                                       new_plane_state);
-> > -     if (ret)
-> > -             return ret;
-> > +     struct dpu_sw_pipe *pipe;
-> > +     struct dpu_sw_pipe_cfg *pipe_cfg;
-> > +     int ret =3D 0, i;
-> >
-> > -     if (drm_rect_width(&r_pipe_cfg->src_rect) !=3D 0) {
-> > -             ret =3D dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_=
-cfg,
-> > +     for (i =3D 0; i < PIPES_PER_PLANE; i++) {
-> > +             pipe =3D &pstate->pipe[i];
-> > +             pipe_cfg =3D &pstate->pipe_cfg[i];
-> > +             if (!pipe->sspp)
-> > +                     continue;
-> > +             DPU_DEBUG_PLANE(pdpu, "pipe %d is in use, validate it\n",=
- i);
-> > +             ret =3D dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg,
-> >                                                 &crtc_state->adjusted_m=
-ode,
-> >                                                 new_plane_state);
-> >               if (ret)
-> >
-> > --
-> > 2.34.1
-> >
->
-> --
-> With best wishes
-> Dmitry
