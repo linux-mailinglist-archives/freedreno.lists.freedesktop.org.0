@@ -2,116 +2,127 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B61D9AD7CA0
-	for <lists+freedreno@lfdr.de>; Thu, 12 Jun 2025 22:47:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0657BAD7D4D
+	for <lists+freedreno@lfdr.de>; Thu, 12 Jun 2025 23:20:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8958710E0FE;
-	Thu, 12 Jun 2025 20:47:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD7010E194;
+	Thu, 12 Jun 2025 21:20:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="G6LzZjZ/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EaxjjFpJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E518510E112
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 20:47:35 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55CGfCbo029254
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 20:47:34 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F0E10E194
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 21:20:00 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55CGobjq013456
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 21:20:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=OUQqiN0h+KOF+AItufskcppy5j1/Jr2ZlesKUzp3WRQ=; b=G6
- LzZjZ/n6W6y8ayTp8bsV5O9LWgFCZ5fmjMwfBUAJjzr1eB8/WGsC/oWETj4bZS0f
- Ty53xsV6hIn4hBQAMT61HUVQPRQyd0TBLOkW/bd5Qrwca4Jhw8Ps/Lh0nYBB7T8t
- lRDXSX+cCPTVmEfJOPXI/DUt8KIz6a6Q83aeEgfRlIdbei9UmHGgJrTwPxblX36y
- OzdjcW1Iba1iaWEjCYpNHPOUxU4VbFlSFBzEAQmaljR2F0U6LIu7LRfWaC1aXm6J
- HCiqcIWiPZIVLntKb42/1mGL9Rki0HIb3Rwju/Vht8E18E/qZSVHvFed2fMuWEAO
- BZWRxeDrJ3KvMZhAmILA==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
- [209.85.161.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 474dn6hu38-1
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 3Zmr5+JECjNDrTnuNUMITpmDMpNItBuB/kFf5nbp53s=; b=EaxjjFpJ7wS6WdqT
+ Al1W1Dj40l1WVibjXSMhFBkQf7/kUWFEy7BYQ5Xh1aoIZxivt/1erMUK4pXf9IzK
+ D6GvU6tPk97CzCjDbyjp4RBj9ZR2Q1Hvg6pEjCSoSHTOS3GpK1i0MNQqh6ss9Eg2
+ SsavzA5JlzCtAdLE/i56RtkKXQdF9mkMe7qiHQCpIWSERGU97gZWoXfBPDeAs+Jw
+ GtAZTZSGbvNuZJ46oglDZhV60SoySDp0yIswVG/qv1FuDvK6FXSbAiIjtNYMBxKL
+ RYCYlTJN6LekxjS9R3Ha9R4GwWOjrVcR9JwvsLgw9wJq8Ykq2S9uhRG9dXyOKWIo
+ 0C2X8Q==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 476fmnhgmw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 20:47:33 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id
- 006d021491bc7-60f0ceb968fso1243226eaf.1
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 13:47:33 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 21:19:59 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-31315427249so1469362a91.1
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jun 2025 14:19:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749761252; x=1750366052;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OUQqiN0h+KOF+AItufskcppy5j1/Jr2ZlesKUzp3WRQ=;
- b=PZS1DVSEWBbygYauBEksOpS3UoJhEThU2x/z8mM3NqWtkgQMlCd3IpyHQ+FfX45iZO
- Sco8HZ4vXuPSGKMfLkfzWsAIZzpwHvxb5SeA02x86cofSz+by0Ulab57jjM/KBjdQjvE
- Z9hfYjGcudKXDF5JZ0dzG6rbr7Hw3x7TSMW2lCqLiwP8lThVbQ5D5iV7LLhah1XBd4vz
- h7oNhoDs81Hls48+9jiDcGiLDF3QOJKrELmPGQvJH2ctmEr77SRWgPavuq7ULkjw+iez
- vzNGhAcxrZY2Rgh2eLELHAE7ImnLj3R8TlYAwlPS8sSpAgw+cZ//TcChpCadEzEt5VM6
- 8NSQ==
+ d=1e100.net; s=20230601; t=1749763199; x=1750367999;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=3Zmr5+JECjNDrTnuNUMITpmDMpNItBuB/kFf5nbp53s=;
+ b=lI61V9MSAbiwSMpJ48aq2dUp2WUEdrtp4uPaQwEdlt//jw9JQiJnhQdH5YTx912l5q
+ fWY0b0FuxbmPhE/Y6HycPPreoch2pLABuqhZlFiw52ATpKH2WY0sHPfFCUgSBEDXH4Pj
+ vVGpsOLhwbbug/6HFZmvM8JnLWBq1yte30173pY9X3G48phWwvJwdnvLi4e68fLWaH2G
+ Yz/D3SBrFjrvuGM7LP//i/5SzizEMIfcwcLAqdO0gOq4kfq3jsF3sUgZYwv75EUeNofv
+ YaHxdCTrfvBtoBvt2GNwz8Lf6+by9t98nfLDub0XUY3gJ+1v/5mFV9ImYcxUSoZ0xQIz
+ Y5Dg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVwYq8ZkaMVxcT0+ZvPxjY2AHZUEd5t6VboOQ9aZ5pDdFNtE8sFVymuzcHudW+MCLe0s/jwEAvB3iA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxgkC5uQMrN6Hjws7CpyvBn6EmzathShC2XedkPEMp6HL84a2Zg
- tJv+QwyEOi0c+YPim4dK4XhlwDCp7e8Mrr4+cPeKGm5Yaa4ZY4EbXmuqBECETsaB4i0wWoySD10
- 73I2+Rqku4WfdLL49ZKu2T1N50UqQUnKfeQ7aakS56nX4+6pUrW0GuM2/PltnOUwLilThAXODUW
- OA21XbzHo3u8vz5GeF4/ZZhYJU4j5rJ8XZOXeHLeJ+KaD+SQ==
-X-Gm-Gg: ASbGncu9nsf5AKIF9Ycq938GHTPRUQDuoh/V/KpjSZcZ9C73FPYLxedEVYK5pVRfSiT
- ZBa+qJh5Gsj6VHY7rQm0cAH9RelMe35AD/R4I2PoSjhIlFXJW3cxO2hxVeMx8pRiCtaVo1959JU
- sH6eFfXO1r5dgA0O5Tg3hlnjogRNHjQTsTAwg=
-X-Received: by 2002:a05:6871:4002:b0:2ea:736c:2b08 with SMTP id
- 586e51a60fabf-2ead5178353mr351832fac.29.1749761251995; 
- Thu, 12 Jun 2025 13:47:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFo4t3zZYDyUT3FmlpIHipzv8NT4Dibo+WvhB3zcMygU2qylNFs4x1N+vPpadMlaGiNB2orLt5ziP1Mj7CpG3M=
-X-Received: by 2002:a05:6871:4002:b0:2ea:736c:2b08 with SMTP id
- 586e51a60fabf-2ead5178353mr351812fac.29.1749761251594; Thu, 12 Jun 2025
- 13:47:31 -0700 (PDT)
+ AJvYcCVe8mkqvBi3uIW90zgvhauvomCfv4l8DMWpYttTvxO/kRRMJmJmRIM8PljS2RdW+DnemSb3Gcq+cTA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0URUB1Vrl+7q6bIV2BUCtuVRK6JauGYmf/Izt3FGALVlo2HIu
+ /wjTtgJfe/xRnc2RY9elPOr6ardMcgO6ApyySOTmx15qqlEb7MPNYTi3awWU5RFP0k37bzudry2
+ 8A1Q1jHE9gDTDidzEnXD7zr1Sx2L/EiodCJuPx63WAiNI8mLd6QnTnFHyEALMRLdNfdlQ+Qs=
+X-Gm-Gg: ASbGncsZHy3YD3ZLAMLrBu7H/vn1+TWFZagOe9nrnTap4qZbBknE8b40w1xHm7WlJY8
+ ZK3pdTusgL3Oss49g2rwMPR+wcJ29fv3qrtNHZwgf3kIYbQvVAriLspmYNgQ+BQqVAoio1CpukG
+ VkNN6ZVoU7A27DXvNoCcGyGSaCapJHJunK6+Iyu4p4fwDlbzcsFL0UrKW71/lbWsuv+g2wS1D1n
+ USRVbMRKhONQL9BuF2VshNiwrjsixd+idMKrYYrbBwmcvXchLYJQxh98McsSwND4Go/UE9Esfli
+ 8nBTPUw6XI8tVKH0nmsyfjjV5sftxStZdF0jHEl7CQ==
+X-Received: by 2002:a17:90b:1843:b0:30e:712e:5739 with SMTP id
+ 98e67ed59e1d1-313d9d71383mr1065537a91.14.1749763198848; 
+ Thu, 12 Jun 2025 14:19:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFcEB2oQFFgVMym1bB2VUhhziP7lQFCJfNjFpbKCnIdWSG44vwJc/VtPEHqnpJDg2SoasT6AQ==
+X-Received: by 2002:a17:90b:1843:b0:30e:712e:5739 with SMTP id
+ 98e67ed59e1d1-313d9d71383mr1065512a91.14.1749763198422; 
+ Thu, 12 Jun 2025 14:19:58 -0700 (PDT)
+Received: from [192.168.1.8] ([106.222.228.17])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-313c1b5a882sm1990932a91.40.2025.06.12.14.19.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jun 2025 14:19:57 -0700 (PDT)
+Message-ID: <036e739c-54e4-4252-b6f0-c8eed5557d15@oss.qualcomm.com>
+Date: Fri, 13 Jun 2025 02:49:48 +0530
 MIME-Version: 1.0
-References: <20250609182439.28432-1-robin.clark@oss.qualcomm.com>
- <20250609182439.28432-4-robin.clark@oss.qualcomm.com>
- <DAKOKYU9O323.M7OSA1CFHQWX@linaro.org>
- <1bf920c8-245b-40c3-bce1-ec5194b30fd9@oss.qualcomm.com>
-In-Reply-To: <1bf920c8-245b-40c3-bce1-ec5194b30fd9@oss.qualcomm.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Thu, 12 Jun 2025 13:47:20 -0700
-X-Gm-Features: AX0GCFuxTx9pgxu_i4KrKSjSeKFBX6EzOI1MTSGy4XpCql4QPO4U0LlgB52T-48
-Message-ID: <CACSVV01ZsrLsLZstnwyH89-gM7KGd3dZYR_AieQYmXeqZPossw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] drm/msm/adreno: Check for recognized GPU before
- bind
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Alexey Klimov <alexey.klimov@linaro.org>, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] Support for Adreno X1-45 GPU
+To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjEyMDE2MCBTYWx0ZWRfX6ncRJuiy9cCs
- 3ybFRDGJL68wAkNuIkNCYkv9rKxI/NlL3/m3Mjkd0n1B0EkHAl0PI+tImuLaWZRscsGjfquaFzX
- reokVpUghgHyYew7ezY9fmIwQ53g61wYsKvbn/YbpYj+ZryzOUDFiLO0YDHno/bOLakf+TO2rMR
- WlFt7U8s9qzeFPtnLVfbDnfxMFlqhmz5zyp0mGmyBnKr+kPL8zX4I5hTCrvutGRq02XqYbjvRcu
- AOy+tvJZsTitQpZmbQlTn5ZJQoa8VQbV10MzqVeAbHDO8tyF0pemHuzBesbSeoTbVeSH7WUo6GH
- vEqqSbL+1SsneVJ4s1/nFbZB7RJfbtTX21DH6CKfowC6ebsGdBewvNT4qjLgTu2Hr5/UubJ4AoM
- 8iB/NmRUT3U1sZRGkNDvpau81ar6ajfqUl5W7uQuOcTSEYVIWL6ZuZgoD+U+AYDxeo+3FoyB
-X-Proofpoint-GUID: zZJTtORVrhVZqgQYvlmMs1SqVTsw1tFu
-X-Authority-Analysis: v=2.4 cv=FaQ3xI+6 c=1 sm=1 tr=0 ts=684b3ce5 cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10
- a=EUspDBNiAAAA:8 a=4MAclHcQAAAA:8 a=wlZFfpuQTLNucttZ8HoA:9 a=QEXdDO2ut3YA:10
- a=k4UEASGLJojhI9HsvVT1:22 a=6vtlOZhwcO7ZS_iRoh4Z:22
-X-Proofpoint-ORIG-GUID: zZJTtORVrhVZqgQYvlmMs1SqVTsw1tFu
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Viresh Kumar <vireshk@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20250611-x1p-adreno-v2-0-5074907bebbd@oss.qualcomm.com>
+ <0e6fd97d-9a56-426b-8b98-dc8aa50d02d2@oldschoolsolutions.biz>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <0e6fd97d-9a56-426b-8b98-dc8aa50d02d2@oldschoolsolutions.biz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: lo42GEjNBCAfwHLYHKD5PDLQ9MxqUX68
+X-Proofpoint-GUID: lo42GEjNBCAfwHLYHKD5PDLQ9MxqUX68
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjEyMDE2NCBTYWx0ZWRfX+kZNEX9iIYjT
+ cRZXQFrjZpXoiuKyp22iNXDoPBlM6ThYdOjUV0KJeBLozMS8W/w+yb6ApZG8q7YrOarAPojkXO5
+ DXq4eDGmxa7vYsS+rD+JqnB1Nr5bisuRAXMxmDgV3RA5VECsDZcnYATp5m/0za0W2OGBOCw+OSz
+ 7iq9b3GylpRdfzCrFDGPwTiRccMWTlUnWmpmvD6KPtcUDV889a58VeJfuEVudPkQUe5ybcnCF8i
+ bhnilO5p32Hg5i9Qh8rNEjKaxguzgjIT+Ct3zISA4nHBXGGjOzlaZOPv7Icfi36AWe3OSIhaAbM
+ nHUBArCLs2wECcvK8U+EToz99J1jD9beRrUjR4lZ/xNTePyr25iHbhTfbtLo9MOByrr7TSkVsyC
+ d8eZxkLm4cd8o/qmrqp7Fvvwmj2JQblOY01w9kiveXKEGOpvdjhbnoDUyFCbFpar4BgdCXnr
+X-Authority-Analysis: v=2.4 cv=K8wiHzWI c=1 sm=1 tr=0 ts=684b447f cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=8TKXt+tWyFtBY9WE4KDEmA==:17
+ a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=uKUkM4gl_lyc4tR08vMA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-12_10,2025-06-12_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 adultscore=0
- mlxlogscore=999 mlxscore=0 spamscore=0 suspectscore=0 malwarescore=0
- priorityscore=1501 clxscore=1015 classifier=spam authscore=0 authtc=n/a
+ clxscore=1015 mlxscore=0 mlxlogscore=999 phishscore=0 lowpriorityscore=0
+ malwarescore=0 adultscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ priorityscore=1501 suspectscore=0 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506120160
+ engine=8.19.0-2505280000 definitions=main-2506120164
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,194 +135,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 12, 2025 at 9:08=E2=80=AFAM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 6/12/25 6:04 PM, Alexey Klimov wrote:
-> > On Mon Jun 9, 2025 at 7:24 PM BST, Rob Clark wrote:
-> >> If we have a newer dtb than kernel, we could end up in a situation whe=
-re
-> >> the GPU device is present in the dtb, but not in the drivers device
-> >> table.  We don't want this to prevent the display from probing.  So
-> >> check that we recognize the GPU before adding the GPU component.
-> >>
-> >> v2: use %pOF
-> >>
-> >> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> >> ---
-> >>  drivers/gpu/drm/msm/adreno/adreno_device.c | 29 ++++++++++++++++++---=
--
-> >>  drivers/gpu/drm/msm/msm_drv.c              |  2 +-
-> >>  drivers/gpu/drm/msm/msm_gpu.h              |  1 +
-> >>  3 files changed, 26 insertions(+), 6 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/=
-drm/msm/adreno/adreno_device.c
-> >> index 778e6ae7f137..0d12454b1f2e 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> >> @@ -178,6 +178,26 @@ static int find_chipid(struct device_node *node, =
-uint32_t *chipid)
-> >>      return 0;
-> >>  }
-> >>
-> >> +bool adreno_has_gpu(struct device_node *node)
-> >> +{
-> >> +    const struct adreno_info *info;
-> >> +    uint32_t chip_id;
-> >> +    int ret;
-> >> +
-> >> +    ret =3D find_chipid(node, &chip_id);
-> >> +    if (ret)
-> >> +            return false;
-> >> +
-> >> +    info =3D adreno_info(chip_id);
-> >> +    if (!info) {
-> >> +            pr_warn("%pOF: Unknown GPU revision: %"ADRENO_CHIPID_FMT"=
-\n",
-> >> +                    node, ADRENO_CHIPID_ARGS(chip_id));
-> >> +            return false;
-> >> +    }
-> >> +
-> >> +    return true;
-> >> +}
-> >> +
-> >>  static int adreno_bind(struct device *dev, struct device *master, voi=
-d *data)
-> >>  {
-> >>      static struct adreno_platform_config config =3D {};
-> >> @@ -188,18 +208,17 @@ static int adreno_bind(struct device *dev, struc=
-t device *master, void *data)
-> >>      int ret;
-> >>
-> >>      ret =3D find_chipid(dev->of_node, &config.chip_id);
-> >> -    if (ret)
-> >> +    /* We shouldn't have gotten this far if we can't parse the chip_i=
-d */
-> >> +    if (WARN_ON(ret))
-> >>              return ret;
-> >
-> > I just hit this with linux-next on qrb2210 RB1 [1].
-> >
-> > Is it expected an warning now or do we miss some device tree updates on
-> > linux-next for RB1?
-> >
-> > I don't recall seeing such warnings previously.
-> >
-> > Thanks,
-> > Alexey
-> >
-> > [1]:
-> >
-> >  msm_dpu 5e01000.display-controller: bound 5e94000.dsi (ops dsi_ops [ms=
-m])
-> >  ------------[ cut here ]------------
-> >  WARNING: CPU: 0 PID: 242 at drivers/gpu/drm/msm/adreno/adreno_device.c=
-:224 adreno_bind+0x90/0x120 [msm]
-> >  Modules linked in: q6asm_dai q6routing q6afe_dai q6adm q6asm q6afe_clo=
-cks snd_q6dsp_common q6afe q6core apr pdr_interface qrtr_smd qcom_pd_mapper=
- qcom_pdr_msg mcp251xfd ath10k_snoc snd_soc_wsa881x_i2c snd_soc_wsa881x_com=
-mon can_dev lontium_lt9611uxc(+) ath10k_core ath mac80211 hci_uart btqca bt=
-bcm libarc4 msm snd_soc_sm8250 qrtr bluetooth drm_exec snd_soc_qcom_sdw qco=
-m_q6v5_pas llcc_qcom snd_soc_qcom_common lmh qcom_wdt ocmem cfg80211 ecdh_g=
-eneric qcom_pil_info pinctrl_sm6115_lpass_lpi gpu_sched ecc drm_display_hel=
-per rfkill qcom_q6v5 pinctrl_lpass_lpi qcom_sysmon pwrseq_core lpasscc_sm61=
-15 dispcc_qcm2290 qcom_common snd_soc_lpass_va_macro cec snd_soc_lpass_rx_m=
-acro drm_dp_aux_bus snd_soc_lpass_tx_macro qcom_glink_smem gpucc_qcm2290 sn=
-d_soc_pm4125 mdt_loader snd_soc_lpass_macro_common qmi_helpers snd_soc_pm41=
-25_sdw soundwire_qcom regmap_sdw slimbus qcom_pmic_tcpm qcom_usb_vbus_regul=
-ator drm_client_lib tcpm rtc_pm8xxx snd_soc_wcd_mbhc aux_hpd_bridge qcom_po=
-n qcrypto soundwire_bus sha256 qcom_stats gpi
-> >   spi_geni_qcom i2c_qcom_geni rpmsg_ctrl libsha256_generic libsha256 rp=
-msg_char qcom_rng sha256_arm64 authenc icc_bwmon phy_qcom_qmp_usbc libdes t=
-ypec phy_qcom_qusb2 display_connector i2c_gpio rmtfs_mem drm_kms_helper soc=
-info fuse drm backlight dm_mod ip_tables x_tables ipv6
-> >  CPU: 0 UID: 0 PID: 242 Comm: (udev-worker) Not tainted 6.16.0-rc1-next=
--20250612-00025-g0ce0d3974333-dirty #2 PREEMPT
-> >  Hardware name: Qualcomm Technologies, Inc. Robotics RB1 (DT)
-> >  pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=3D--)
-> >  pc : adreno_bind+0x90/0x120 [msm]
-> >  lr : adreno_bind+0x50/0x120 [msm]
-> >  sp : ffff8000813f3580
-> >  x29: ffff8000813f3580 x28: ffff000008ae8800 x27: ffff000007c63700
-> >  x26: ffffca4a2814b860 x25: ffff000008b26880 x24: ffffca4a24922000
-> >  x23: ffffca4a249229d8 x22: ffff000009838800 x21: ffff000008b26880
-> >  x20: ffff000002ce4410 x19: ffffca4a2495a710 x18: 0000000000000006
-> >  x17: 6f5f697364207370 x16: 6f28206973642e30 x15: 0720072007200720
-> >  x14: 0000000000000000 x13: 0000000000000000 x12: 0101010101010101
-> >  x11: 7f7f7f7f7f7f7f7f x10: ffffca4a2866e1b2 x9 : 0000000000000002
-> >  x8 : 0101010101010101 x7 : 7f7f7f7f7f7f7f7f x6 : fefefeff2f383131
-> >  x5 : ffff00007fc1b968 x4 : 0000000000000000 x3 : 000000000000001e
-> >  x2 : 0000000000000001 x1 : 0000000007000200 x0 : ffffca4a2495a710
-> >  Call trace:
-> >   adreno_bind+0x90/0x120 [msm] (P)
-> >   component_bind_all+0x100/0x23c
-> >   msm_drm_bind+0x148/0x3e0 [msm]
-> >   try_to_bring_up_aggregate_device+0x16c/0x1e0
-> >   __component_add+0xa4/0x174
-> >   component_add+0x14/0x20
-> >   dsi_dev_attach+0x20/0x34 [msm]
-> >   dsi_host_attach+0x58/0x98 [msm]
-> >   devm_mipi_dsi_attach+0x34/0x90
-> >   lt9611uxc_attach_dsi.isra.0+0x94/0x124 [lontium_lt9611uxc]
-> >   lt9611uxc_probe+0x568/0x604 [lontium_lt9611uxc]
-> >   i2c_device_probe+0x158/0x32c
-> >   really_probe+0xbc/0x2b4
-> >   __driver_probe_device+0x78/0x120
-> >   driver_probe_device+0x3c/0x154
-> >   __driver_attach+0x90/0x1a0
-> >   bus_for_each_dev+0x68/0xb8
-> >   driver_attach+0x24/0x30
-> >   bus_add_driver+0xe4/0x208
-> >   driver_register+0x68/0x124
-> >   i2c_register_driver+0x48/0xcc
-> >   lt9611uxc_driver_init+0x20/0x1000 [lontium_lt9611uxc]
-> >   do_one_initcall+0x60/0x1d4
-> >   do_init_module+0x54/0x23c
-> >   load_module+0x1730/0x1cc0
-> >   init_module_from_file+0x74/0xa0
-> >   __arm64_sys_finit_module+0x130/0x2f8
-> >   invoke_syscall+0x48/0x104
-> >   el0_svc_common.constprop.0+0xc0/0xe0
-> >   do_el0_svc+0x1c/0x28
-> >   el0_svc+0x2c/0x80
-> >   el0t_64_sync_handler+0x10c/0x138
-> >   el0t_64_sync+0x198/0x19c
-> >  ---[ end trace 0000000000000000 ]---
-> >  adreno 5900000.gpu: supply vdd not found, using dummy regulator
-> >  adreno 5900000.gpu: supply vddcx not found, using dummy regulator
-> >  msm_dpu 5e01000.display-controller: bound 5900000.gpu (ops a3xx_ops [m=
-sm])
-> >  [drm:dpu_kms_hw_init:1173] dpu hardware revision:0x60050000
-> >  dummy 1-0045: No cache used with register defaults set!
-> >  [drm] Initialized msm 1.12.0 for 5e01000.display-controller on minor 0
-> >  msm_dpu 5e01000.display-controller: [drm:adreno_request_fw [msm]] load=
-ed qcom/a702_sqe.fw from new location
->
-> Looks like we should be doing this instead
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm=
-/msm/adreno/adreno_device.c
-> index 5e7307567239..16e7ac444efd 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -221,7 +221,7 @@ static int adreno_bind(struct device *dev, struct dev=
-ice *master, void *data)
->
->         info =3D adreno_info(config.chip_id);
->         /* We shouldn't have gotten this far if we don't recognize the GP=
-U: */
-> -       if (!WARN_ON(info))
-> +       if (WARN_ON(!info))
->                 return -ENXIO;
->
->         config.info =3D info;
+On 6/12/2025 5:32 PM, Jens Glathe wrote:
+> On 6/11/25 13:15, Akhil P Oommen wrote:
+> 
+>> Add support for X1-45 GPU found in X1P41200 chipset (8 cpu core
+>> version). X1-45 is a smaller version of X1-85 with lower core count and
+>> smaller memories. From UMD perspective, this is similar to "FD735"
+>> present in Mesa.
+>>
+> Hi Akhil,
+> 
+> when loading the driver (still without firmware files) I'm getting a
+> speedbin warning:
+> 
+> [    3.318341] adreno 3d00000.gpu: [drm:a6xx_gpu_init [msm]] *ERROR*
+> missing support for speed-bin: 233. Some OPPs may not be supported by
+> hardware
+> 
+> I've seen that there is a table for speed bins, this one is not there.
+> Tested on a Lenovo ThinkBook 16 G7 QOY.
 
-Oh, yes, indeed
+Hi Jens,
 
-BR,
--R
+Could you please try the below patch?
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 2db748ce7df5..7748f92919b8 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -1510,7 +1510,8 @@ static const struct adreno_info a7xx_gpus[] = {
+                        { 0,   0 },
+                        { 294, 1 },
+                        { 263, 2 },
+-                       { 141, 3 },
++                       { 233, 3 },
++                       { 141, 4 },
+                ),
+        }
+ };
+
+With this, you should see 1107Mhz as the GPU Fmax.
+
+-Akhil.
+
+> 
+> with best regards
+> 
+> Jens
+> 
+
