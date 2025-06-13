@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80D77AD98D1
-	for <lists+freedreno@lfdr.de>; Sat, 14 Jun 2025 01:57:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A80FAD98D0
+	for <lists+freedreno@lfdr.de>; Sat, 14 Jun 2025 01:57:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCF3610E4FA;
-	Fri, 13 Jun 2025 23:57:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDC0C10E9C8;
+	Fri, 13 Jun 2025 23:57:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="M5doqY16";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fo+7wYcc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D96F310E9BB
- for <freedreno@lists.freedesktop.org>; Fri, 13 Jun 2025 23:57:12 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55DJFi0X025261
- for <freedreno@lists.freedesktop.org>; Fri, 13 Jun 2025 23:57:12 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 541DA10E9BF
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Jun 2025 23:57:14 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55DMdK51017607
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Jun 2025 23:57:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=6n4/m7XLpgv
- 1bmn1KU5WILxeVGc6KBK6T1WyY0EI2mI=; b=M5doqY16KyIl5mXiMuUzorHKCki
- boR03cwKH0hqdP4Sm5/JDgyW5hXhN4lcZB1LTzhS/++yFUEGUAxaQ8/49CsYnwrH
- 8OzPTskcDLiSGpUpQHD5hPvS+OvJMZRH1kHkWw4u+8t6Hju7A1is+DJiMLUAnjyi
- nzE92AsQbsC4uM9YIQkTSUyw+lxtACiKRDEvcEihou9dJ3Vdhs4R7XC5eQu29JBC
- zGfrS7fKlLlv+TD0DCXT+0g8huMFwR8RpPxV5l2QhQqVBWgFTHFuidKuGtuqkABk
- NdNq3qLqnH2KmYrtj29faQDvq/E3mmFc4F3rj2YS6WF9Fhd21Rpc77a1tiw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 477y3gv4kb-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=yLq0/X+CD6R
+ T9BCguCxV4sLsi3w1/mhgkTuVhmBkydE=; b=Fo+7wYccuOU6D4fAhl/PvOjGLIP
+ dxpZ8MzY6HuCkuWEoRFn3mDyXtTNJO2gRDA7NknZSidV8idS/A3pDu51LpzcezWe
+ cpvjM7BBflAReKPPZdbY8PS4psN5wD0YLFjFDNUBGqaTLwtpXL5BXKa00cFP1u5p
+ ExFK1iox+1etOzdWynPZyCsOLQFFufxR91lJkmwI23sep+tfdokNVnw0U/E3c/xb
+ /RUxiqte4RXIE3X9QljI5YzK123NvZ4oqZtBfqZ60u0jTXjSnhWC7p4TxctHgcxK
+ r55a5AMp5TFxK9Tg1Ba/AZ9qvZ2ZpYzdOUOAqYeYRPCMZbQfeS7KrXaWFIg==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 474eqcvr0d-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 13 Jun 2025 23:57:12 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-74868e73f4fso2054385b3a.3
- for <freedreno@lists.freedesktop.org>; Fri, 13 Jun 2025 16:57:12 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Jun 2025 23:57:13 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b2c36951518so3085620a12.2
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Jun 2025 16:57:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749859031; x=1750463831;
+ d=1e100.net; s=20230601; t=1749859033; x=1750463833;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6n4/m7XLpgv1bmn1KU5WILxeVGc6KBK6T1WyY0EI2mI=;
- b=RDbwpsC5A4MqSiD68deHi00Mqhdwe/KCBGie2Px1l6j35V3EBuOyXR8/Uk0TVnlKBO
- 4IJQK1oro9xN/uK+s6IqtsOSTRPkhgtSAQ1UBavXdOpi44UsMOaZ3JtGVMvRPtqQh55T
- is3ja6JBiN71EejQkhX6l4YR3ry8XWsZuz1a7w7dWJxu1hOFtLxfedT6aEv1prAwWECJ
- AQj2ZJefbYMSFgfMXEda+wT13j2ALiL/GvbzMBddx0pCYGgqQEVvXV/aALZFkGpwhFSk
- 1pGp5GxncfYluTQEUGN5u59/NMEawTcf4yEiKd559hMXGqJn9D6om85WGlhG7fSL7rhz
- lRsw==
+ bh=yLq0/X+CD6RT9BCguCxV4sLsi3w1/mhgkTuVhmBkydE=;
+ b=c3m7lOaH7OMweOI8tMcfV1QAymYzxJsf+G54Hlu2rwxcayeze2YDErvKjkw0Jer0zX
+ tYXD8rkQXfEaZIGbQ8Z4e//9L7XlFpF4aoheBo7gr1ivujCNVWlUIG888lVLDD3YwFAf
+ fMfilSk7C4xIvEAOUPrs3vLSLFFvwYANergL7vCcnnEe+HHDDC/ydQPW+qHypP0+9l9a
+ eeIAYvBrQVe8qx8QE1orLcUehFEa/t6ixHPkC3Xd41uXDTG41yjhpdaHQUPM1JWTc84p
+ 0EpItuwoCUwRgtzT46YiAA3SesAouhLTispCYeTX0Ckmh4ZTaMVurV5OvvzQQ393kYZL
+ BZ5Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVd3/J4hN6mRx6VKXdOSSKyVICdwFFrHObdzU85lm32aOFmfBRsyY/3gChTZjgPEmUO2HrxL37FcqI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxLe7nHxfUT8vUjrFiQqxnbr9RAP/dfo2yzZvXW4IqSFSFcUgxt
- vlh814NwGOfwW1R2+6DwO09U4rZUgpSxeIjy03DFZXAAMapFMAphf7QIMLGLZnb9ZlXtGDUBNMt
- 8dpwqsHrBUJwW+276O1SCF6dD/BX/3pQ9ufDezog4ldBN6wHExNCZw16VHIcZDq1hSgv4XTk=
-X-Gm-Gg: ASbGncsqo80NGTBF1+wND/ko56UhDyggzT2ZYtmwksfpZHVcSvUZSp1J9mCBXi++rZO
- vYyBr/Vqx3qPCNrO4AYblmEfSbMJJ91rJc6rYNiezsPrTIcSJhVklCHn2CwNC3QDXltuDXwVMSu
- tRWy/4U2xxUidb5yhTbdZA+iVzqbRP6kJsigijxKRugvKD4tz4+I+jG14BEUiEOdZhE4PMsp5V4
- ITvsxCRy9LKEzdT/54V+RuDwVThsFbmimkLWwa3QCvOiZqqyy+JA6p8QBNfFgHt5aorfWYJoQm1
- HGY4P4dxNf6TKpDR/dLF1Z0RFC8PC4Xb
-X-Received: by 2002:aa7:8884:0:b0:736:a6e0:e66d with SMTP id
- d2e1a72fcca58-7489ce0c6cdmr1483740b3a.6.1749859031377; 
- Fri, 13 Jun 2025 16:57:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGCRfklBUOjp5KBQmK/hK6hjxc67A7avI5+sKeqVuyj+UT0qNB0kPJETEj0TxOCbpS0dd+Z8g==
-X-Received: by 2002:aa7:8884:0:b0:736:a6e0:e66d with SMTP id
- d2e1a72fcca58-7489ce0c6cdmr1483714b3a.6.1749859030978; 
- Fri, 13 Jun 2025 16:57:10 -0700 (PDT)
+ AJvYcCUVev4wNLB/U4UUENj4iopjKF/XSDCywRypPwDvQslDzlmPiWIWFJ/1ddLBcn4byHwUeRAbLxhC/Do=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYd8rDXFpr8kQuq9i7acxSt0CU1az4QOkysUlK8bKvhbVXmkFS
+ KqIHqjw++laygwGkvYbzz0wTytmd29S9Xiy+P0VTEZMpQib74a7r01e8Q0NwhvabPlxHAkDFDY3
+ qI6sPcJLfdgxK6BgsHOc6I9lIjaTI5CQaOf84zttWYpH1LB+aH7cu6t5IupJUj/zkZ4zZJP8=
+X-Gm-Gg: ASbGncvXJDfQd7xo0SqJspfltL3V3agV3dOiHpwU/axdbZxI8jDiSRJSartIQxmSDiE
+ ofkjZibXWo78ViWreOTouFxX+R0eg7fjzgj+3rWbj45VYF2M+rqbsf6W8SmjAGgddI5GK5RIgOW
+ gyP/T3n3/nt6siWGiBTJFAzR7Qj0O3xQwzSn8InlwccIR1D7P23e6aQobg3RUl6n0O9+4DjX2fd
+ cXGAAcTTaAuqzkiG7C0ixxBSTFssOCX04tqJ53mRTbYfGDTVuJvJlU/mxSmhcq++xYvGwY8e78U
+ ijs7cpoX79jLAaTD3aJ1vF65JHJs+MqB
+X-Received: by 2002:a05:6a21:9991:b0:21e:feb5:9cb8 with SMTP id
+ adf61e73a8af0-21fbd5d4c35mr1592010637.38.1749859032711; 
+ Fri, 13 Jun 2025 16:57:12 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGEhTcTitEJ4ZlWzhRai8zzxxCScgdvvoA2BJ4VUJEL84zgtN+jTH9QJ8KF6Xuy0gdvRZyX9g==
+X-Received: by 2002:a05:6a21:9991:b0:21e:feb5:9cb8 with SMTP id
+ adf61e73a8af0-21fbd5d4c35mr1591977637.38.1749859032214; 
+ Fri, 13 Jun 2025 16:57:12 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-748900b28b7sm2330672b3a.136.2025.06.13.16.57.10
+ 41be03b00d2f7-b30948eb78asm1767813a12.28.2025.06.13.16.57.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jun 2025 16:57:10 -0700 (PDT)
+ Fri, 13 Jun 2025 16:57:11 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -80,36 +80,35 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 1/2] drm/gpuvm: Fix doc comments
-Date: Fri, 13 Jun 2025 16:57:02 -0700
-Message-ID: <20250613235705.28006-2-robin.clark@oss.qualcomm.com>
+Subject: [PATCH 2/2] drm/gpuvm: Add locking helpers
+Date: Fri, 13 Jun 2025 16:57:03 -0700
+Message-ID: <20250613235705.28006-3-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250613235705.28006-1-robin.clark@oss.qualcomm.com>
 References: <20250613235705.28006-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: C6SUnVz506kGLRN56afoKfHwjfYIes3r
-X-Proofpoint-ORIG-GUID: C6SUnVz506kGLRN56afoKfHwjfYIes3r
-X-Authority-Analysis: v=2.4 cv=DPqP4zNb c=1 sm=1 tr=0 ts=684cbad8 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=EUspDBNiAAAA:8 a=A6x8cpN4-4lAvlAOjyUA:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
- a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjEzMDE3NyBTYWx0ZWRfX9gSz5Wqbej8d
- VKJ+vWidz/vJr+KjnT54JhUgEq41j98zo0u4u9OAfPqH5hujQ4tAAvXVyMr5VHj7D+iEM3mPGfA
- ynFyFLZJ4//DCVbAXUegmeZ1Iirts49iwWHqJmBk80r8M2+xgDqM6zJpNHUK2tahay1mh6QhHlv
- lJDSPh3l76TYEV/gERr2fmn25sY6ZXMcbPRXhRnq5D7JC/yRL3W3o+Kk9dPvfLc2mxpDdVFwm/C
- qijyiObEP31Yd+IEoOLwr6k7Tk2O6m0YTnESX+PKmh+JlywyL0y2dwHyP3TmhfC7wrOw0odZucX
- t/I6nWkxnl9jYCZCXXbc9V9lAHP7yO0qaVVci42hr0sIUMAYc39Sefoy2JdaM9RofiaUtOcdcFo
- B+QhPa2QB9Su4wu6eE4cjCEvWbzAmqGwx8UYMuR3BMM7JX5Hr40TZodxa033XBA73FR2N5NH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjEzMDE3NyBTYWx0ZWRfX7Me2+RXkwJ5m
+ e9Gy8Gn1Q7Mwf/hL6JBFUynI/AxtztgWgCSynHgIEQDAm50Mg9qu6RFQXIWnDN9QES19cVAck61
+ YeEz3QyUz9acLuXi9fSWR+eXA8hPUk5YWMMXexykcpa5lvY8zW1nJfEnGBAfZzeW0GYUBnQwDLo
+ AF7sK2CwbkeJbvrz5eHmLaWL9n+fe3DZ50HntxHnrR1XL1HmXIlCtlREK5hvZkGkRpwqHL530EE
+ VqgpKdn57OtoIC7tSDN4KSrUo6jtlNHiNyRM2IPhtRP1oUBY8LKJhP2gtg+cpYFq1jiXS2rH+CZ
+ TJhMPg4dw/JhbI9kjK5BZeLCW+ri+IeGAARErC0k+j7p2il4RZjROgsoUET995FWjkzgVUmXNPZ
+ ZSKsqNR+v7CgRK+CiJPkT6YsDl/cpbs+KGmBeUxILJe1nmp7Zn6aCP3IYJRXCEFmrherbRAl
+X-Authority-Analysis: v=2.4 cv=Q7TS452a c=1 sm=1 tr=0 ts=684cbad9 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
+ a=EUspDBNiAAAA:8 a=J2tNMqIfyHcHeXEe9QMA:9 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: qFaniuK3TLiMY1gLlcXOwSV1VKnhuI0_
+X-Proofpoint-ORIG-GUID: qFaniuK3TLiMY1gLlcXOwSV1VKnhuI0_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-13_04,2025-06-13_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 mlxscore=0 impostorscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0
- spamscore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506130177
+ suspectscore=0 phishscore=0 mlxscore=0 spamscore=0 mlxlogscore=999
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0 impostorscore=0
+ priorityscore=1501 malwarescore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2506130177
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,63 +124,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Correctly summerize drm_gpuvm_sm_map/unmap, and fix the parameter order
-and names.  Just something I noticed in passing.
+For UNMAP/REMAP steps we could be needing to lock objects that are not
+explicitly listed in the VM_BIND ioctl in order to tear-down unmapped
+VAs.  These helpers handle locking/preparing the needed objects.
+
+Note that these functions do not strictly require the VM changes to be
+applied before the next drm_gpuvm_sm_map_lock()/_unmap_lock() call.  In
+the case that VM changes from an earlier drm_gpuvm_sm_map()/_unmap()
+call result in a differing sequence of steps when the VM changes are
+actually applied, it will be the same set of GEM objects involved, so
+the locking is still correct.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/drm_gpuvm.c | 6 +++---
- include/drm/drm_gpuvm.h     | 6 +++---
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_gpuvm.c | 81 +++++++++++++++++++++++++++++++++++++
+ include/drm/drm_gpuvm.h     |  8 ++++
+ 2 files changed, 89 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-index f9eb56f24bef..0ca717130541 100644
+index 0ca717130541..197066dd390b 100644
 --- a/drivers/gpu/drm/drm_gpuvm.c
 +++ b/drivers/gpu/drm/drm_gpuvm.c
-@@ -2299,13 +2299,13 @@ __drm_gpuvm_sm_unmap(struct drm_gpuvm *gpuvm,
+@@ -2390,6 +2390,87 @@ drm_gpuvm_sm_unmap(struct drm_gpuvm *gpuvm, void *priv,
  }
+ EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap);
  
- /**
-- * drm_gpuvm_sm_map() - creates the &drm_gpuva_op split/merge steps
-+ * drm_gpuvm_sm_map() - calls the &drm_gpuva_op split/merge steps
-  * @gpuvm: the &drm_gpuvm representing the GPU VA space
-+ * @priv: pointer to a driver private data structure
-  * @req_addr: the start address of the new mapping
-  * @req_range: the range of the new mapping
-  * @req_obj: the &drm_gem_object to map
-  * @req_offset: the offset within the &drm_gem_object
-- * @priv: pointer to a driver private data structure
-  *
-  * This function iterates the given range of the GPU VA space. It utilizes the
-  * &drm_gpuvm_ops to call back into the driver providing the split and merge
-@@ -2349,7 +2349,7 @@ drm_gpuvm_sm_map(struct drm_gpuvm *gpuvm, void *priv,
- EXPORT_SYMBOL_GPL(drm_gpuvm_sm_map);
- 
- /**
-- * drm_gpuvm_sm_unmap() - creates the &drm_gpuva_ops to split on unmap
-+ * drm_gpuvm_sm_unmap() - calls the &drm_gpuva_ops to split on unmap
-  * @gpuvm: the &drm_gpuvm representing the GPU VA space
-  * @priv: pointer to a driver private data structure
-  * @req_addr: the start address of the range to unmap
++static int
++drm_gpuva_sm_step_lock(struct drm_gpuva_op *op, void *priv)
++{
++	struct drm_exec *exec = priv;
++
++	switch (op->op) {
++	case DRM_GPUVA_OP_REMAP:
++		if (op->remap.unmap->va->gem.obj)
++			return drm_exec_lock_obj(exec, op->remap.unmap->va->gem.obj);
++		return 0;
++	case DRM_GPUVA_OP_UNMAP:
++		if (op->unmap.va->gem.obj)
++			return drm_exec_lock_obj(exec, op->unmap.va->gem.obj);
++		return 0;
++	default:
++		return 0;
++	}
++}
++
++static const struct drm_gpuvm_ops lock_ops = {
++	.sm_step_map = drm_gpuva_sm_step_lock,
++	.sm_step_remap = drm_gpuva_sm_step_lock,
++	.sm_step_unmap = drm_gpuva_sm_step_lock,
++};
++
++/**
++ * drm_gpuvm_sm_map_lock() - locks the objects touched by a drm_gpuvm_sm_map()
++ * @gpuvm: the &drm_gpuvm representing the GPU VA space
++ * @exec: the &drm_exec locking context
++ * @num_fences: for newly mapped objects, the # of fences to reserve
++ * @req_addr: the start address of the range to unmap
++ * @req_range: the range of the mappings to unmap
++ * @req_obj: the &drm_gem_object to map
++ * @req_offset: the offset within the &drm_gem_object
++ *
++ * This function locks (drm_exec_lock_obj()) objects that will be unmapped/
++ * remapped, and locks+prepares (drm_exec_prepare_object()) objects that
++ * will be newly mapped.
++ *
++ * Returns: 0 on success or a negative error code
++ */
++int
++drm_gpuvm_sm_map_lock(struct drm_gpuvm *gpuvm,
++		      struct drm_exec *exec, unsigned int num_fences,
++		      u64 req_addr, u64 req_range,
++		      struct drm_gem_object *req_obj, u64 req_offset)
++{
++	if (req_obj) {
++		int ret = drm_exec_prepare_obj(exec, req_obj, num_fences);
++		if (ret)
++			return ret;
++	}
++
++	return __drm_gpuvm_sm_map(gpuvm, &lock_ops, exec,
++				  req_addr, req_range,
++				  req_obj, req_offset);
++
++}
++EXPORT_SYMBOL_GPL(drm_gpuvm_sm_map_lock);
++
++/**
++ * drm_gpuvm_sm_unmap_lock() - locks the objects touched by drm_gpuvm_sm_unmap()
++ * @gpuvm: the &drm_gpuvm representing the GPU VA space
++ * @exec: the &drm_exec locking context
++ * @req_addr: the start address of the range to unmap
++ * @req_range: the range of the mappings to unmap
++ *
++ * This function locks (drm_exec_lock_obj()) objects that will be unmapped/
++ * remapped by drm_gpuvm_sm_unmap().
++ *
++ * Returns: 0 on success or a negative error code
++ */
++int
++drm_gpuvm_sm_unmap_lock(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
++			u64 req_addr, u64 req_range)
++{
++	return __drm_gpuvm_sm_unmap(gpuvm, &lock_ops, exec,
++				    req_addr, req_range);
++}
++EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap_lock);
++
+ static struct drm_gpuva_op *
+ gpuva_op_alloc(struct drm_gpuvm *gpuvm)
+ {
 diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
-index 2a9629377633..0ef837a331d6 100644
+index 0ef837a331d6..a769dccfb3ae 100644
 --- a/include/drm/drm_gpuvm.h
 +++ b/include/drm/drm_gpuvm.h
-@@ -1205,11 +1205,11 @@ struct drm_gpuvm_ops {
- };
- 
- int drm_gpuvm_sm_map(struct drm_gpuvm *gpuvm, void *priv,
--		     u64 addr, u64 range,
--		     struct drm_gem_object *obj, u64 offset);
-+		     u64 req_addr, u64 req_range,
-+		     struct drm_gem_object *req_obj, u64 req_offset);
- 
+@@ -1211,6 +1211,14 @@ int drm_gpuvm_sm_map(struct drm_gpuvm *gpuvm, void *priv,
  int drm_gpuvm_sm_unmap(struct drm_gpuvm *gpuvm, void *priv,
--		       u64 addr, u64 range);
-+		       u64 req_addr, u64 req_range);
+ 		       u64 req_addr, u64 req_range);
  
++int drm_gpuvm_sm_map_lock(struct drm_gpuvm *gpuvm,
++			  struct drm_exec *exec, unsigned int num_fences,
++			  u64 req_addr, u64 req_range,
++			  struct drm_gem_object *obj, u64 offset);
++
++int drm_gpuvm_sm_unmap_lock(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
++			    u64 req_addr, u64 req_range);
++
  void drm_gpuva_map(struct drm_gpuvm *gpuvm,
  		   struct drm_gpuva *va,
+ 		   struct drm_gpuva_op_map *op);
 -- 
 2.49.0
 
