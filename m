@@ -2,114 +2,130 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C6B1AD9E01
-	for <lists+freedreno@lfdr.de>; Sat, 14 Jun 2025 17:15:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4667CAD9F1B
+	for <lists+freedreno@lfdr.de>; Sat, 14 Jun 2025 20:43:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFFFF10E00B;
-	Sat, 14 Jun 2025 15:15:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 160B610E011;
+	Sat, 14 Jun 2025 18:43:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q1ul7Tvv";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="E4BOk5zd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3127C10E00B
- for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 15:15:52 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55E7sHKp032547
- for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 15:15:51 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF70810E011
+ for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 18:43:03 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55EHct7i015371
+ for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 18:42:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=d8pysWykzzp5ZSa8D/f7idklhSx+zwqym/FK5UgUh5U=; b=Q1
- ul7Tvvci9pwDP6eqpn0ZWDcQi81QcBBQjKEnCFPg42/fjAQC01+JsgFmESWvMVTH
- OQyzUQFc72gTAmdMvF18jlqocvbFA7YpHHajMeDOqcRjsw+Un0wJlIU4WyVfYFak
- pjM5wqnMzrWp1hPdO7ruHtz+bCnJ/ic/2fd0um7+Yn3ZBmQY8VLmaRwKBsFUx9Uk
- cyIOq3gYuXCreiqThbw86zsqmehfEq0uPuSVfYqlDa9dnH/urjoJRnXydKAoNW7F
- 1eHfEgcd1Mkw59nDfB9c3hkggDSFb427VZbi+NMRXKzq/f9K8G8s19vsZBNkBPrT
- l4HykaVbpkw+Nl94d2MQ==
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4791crgpcn-1
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ iLwHJ8QhRIGYKyF4YaLlo9Wwe+HrqcTZDg4UUvCSfuU=; b=E4BOk5zds0DrD8NF
+ shEEzA0umYdl0+l2QQoDtHcBw3muKjC9CdF0eGWK2JNLFxH+WubblyadPNBhyJDt
+ pdj9Gee4bbCTyNCIlObEgpXkd7ae/0BTqpnVCZO3Lfg+SK3uhS8vvoWziYgusxa+
+ AuIiZnsYaItRG+Bt+CubgkgVNA5IuJUqElDU9TdWnFjjt3Ay5s+kVdp3iQefFfX4
+ NqnCqEKE6ZAA6hwZMQRhN948mAJzLL9KTH6DGyLD3iCANdTsO0kLGUGTATNwArcs
+ AuVbw/3v8ac2hLPzkgBQSO6Z3HDhsqFdkZOOOmUYkmgR13zR9ZbL9JPWArBm5Qjs
+ vN4WOg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4791ug8v4y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 15:15:51 +0000 (GMT)
-Received: by mail-oi1-f199.google.com with SMTP id
- 5614622812f47-4066ff1aab8so2956132b6e.2
- for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 08:15:51 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 18:42:58 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4a5aeebad31so8131501cf.2
+ for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 11:42:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749914150; x=1750518950;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=d8pysWykzzp5ZSa8D/f7idklhSx+zwqym/FK5UgUh5U=;
- b=kkMtfgcfBGuCPe42xRoNTD0gn+Bj8V2gAcytEQnm7XLEGe8RhbKS1G+Cc0sB8idPr9
- XcNeBEek3XIQh4reN28Zc/GseT+EJ+Rs2NJuYxbXUnd3iAIWNSkdr/nbQRkPPwgx6ZcW
- cFXmT14AXspkJZmHdSPa2iluvlvl9D/8awc4QgZyizpqjYW18NT4O+RF5UTUnq9MapyY
- a3M2Wz4apaZT6+p7aPeEncNDVBZQ0bwwtqTeni3ooi+hTuqs/u60OVu1rckyJ4Ts8gRm
- J/AlHOAGaokVpCVg7olo3x/FNB6U0VuYkJCK0rmfqrAbO2zQjy8PjE2tumsHcBOQ/V4N
- iG2Q==
+ d=1e100.net; s=20230601; t=1749926577; x=1750531377;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=iLwHJ8QhRIGYKyF4YaLlo9Wwe+HrqcTZDg4UUvCSfuU=;
+ b=Rns2rYeBPt1WvkwUSCLyEM8f6i43FIXkz+cBROoI21KIG9Kp6rXshsI0vmK3wvw51a
+ mteIGYajkr4fBG00jNFzW++1zYDDyeyHNzMoLvxaM9uOk1RxXA8Rzm9D2qOSnF5gsd2K
+ Lml0+6D4UugnZ5Dg7yMTNIfwwly4CthPfIIfKrIRKYAqe1J5A1HJ+nJgzkq5vcoxOio5
+ DRQ7TF40Yu8EnOBjvmj6s7bLwzFxIHTRv1u7U2J5Wvcs1+P4UNH4LIff+VR8mcFmLpgw
+ +CzxoD+xbNejyIZ4zh5CTHMFeLfKgkeRV/TswWtC6XYD89cpiG+RLAIAYspEHFTv/P+h
+ H+AA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVyrftVJjkAMeH9PTOaFLJlCnDlN/CPUw2PbnhJHUlXQ7+2ibvOKvIKuWXUsX4+m90ZrXBriKGvx24=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbzdmtAt4zrUlPjyiiz/i7roH2tkcHqrTxanX+dvzeCGuAKS1Z
- QlI8RkHMzbOFkf4c+z7+1FTNUUTQ24T4pfy2Zf/BXEzbTQzwvcfH7KZajLhNGNnItVOhzPeVzPU
- egx20/qX7PNzE2p7dTQpz+zAoaeOd3SH0e7wktsveCDItOUd08/ahf1PFbrD2Auw6QB7BxXYI26
- Q3CXz9HvV5jTQopnKGRV8JMHe9kiW9FpJQH1US18O1i8oT1A==
-X-Gm-Gg: ASbGncsof9h47rcREDd7xeLU4T1M5PHR5MTANhlCbCFDbPluZssQ+Y9VG1vbJn7DKJA
- I5biRY5/TbfkPr59RGAjDI/cNZonskUoFl4qc73tWCs5uEYzjyLyPk03hhS7K+h0jzGqsHS9ahU
- p0ZY+d2zp+MDarRjGNuBPnKk/WkRnJUs22Bb0=
-X-Received: by 2002:a05:6808:690b:b0:401:cae9:4dc3 with SMTP id
- 5614622812f47-40a7c13a8b6mr2349827b6e.8.1749914150432; 
- Sat, 14 Jun 2025 08:15:50 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGMbwblJsD/pMG2FwsGL3eZLj5yHznrNfIA7Pmr/sCExEn3egU7d2pTqU9/DLMoErYH02zZS3uNIJzPax6X90w=
-X-Received: by 2002:a05:6808:690b:b0:401:cae9:4dc3 with SMTP id
- 5614622812f47-40a7c13a8b6mr2349807b6e.8.1749914150052; Sat, 14 Jun 2025
- 08:15:50 -0700 (PDT)
+ AJvYcCXsjzZeRFvrMOfN16zxdLvP3CfY1au16yLz3o1SE8xSOGOi104iarYZefxNNdKM6kp+f5we7VtXOEo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvgfURQa96P41+8wfP41MPXpvtz71M9geCzYYGaCZdNnDPqNkv
+ KRMhIbZ23yKdLQWtaB0CPs6T/Sbx6zvxBds/ny+UFA5SfAnPNUpD3COOMsPUs/n3fva8gfQdhFq
+ GomQCRlr9DwJsD+yJ2hXYfst9P7pUyutlyFZLz8+M2m6JRmxSnD/kJPjEcnIEdPCsaxuW3Y0=
+X-Gm-Gg: ASbGnctiHkwEkaGw2wWvrEwII+2dwtza/QIYbDBrzgVYxjDbxRl7Isj1wQmLKVEs8Iy
+ fSxCIra8woIGlfGF0gREq3Tcya4ol+xlSK1jBUf8OByXpxzsZ7O2fnBLLjwSFEo9dJc1OJmbz4O
+ dRGke7bMziOePGVyAKjouwEuVMDskDnFHSLAkneRhzcmVksMpNtBXiE0MIrhM91y4XVPGNFqlTo
+ mz5Rw1UbJwxQJBXfj41dhqVLsb7yKEdJrMbRMw7pNfrSp0TS/WGsAv+WFdZUmzIHqWisp8AW5fD
+ fZ9uOzpoA04uilZ2V2X8C4LNCsgSw5KgOyrmCWGD2gP+nFGIPLqMUEPA94qF4xyvATVaManh/oS
+ cIaM=
+X-Received: by 2002:ac8:5d0f:0:b0:4a6:f809:85d6 with SMTP id
+ d75a77b69052e-4a73c568fd6mr22439121cf.4.1749926577359; 
+ Sat, 14 Jun 2025 11:42:57 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHkYi18BH9yEJbdfQSZZnPYYS236AqGcoTRf5C7tWQLhoDTwPCEtKNQkvCzqxnaF0WVubY/jQ==
+X-Received: by 2002:ac8:5d0f:0:b0:4a6:f809:85d6 with SMTP id
+ d75a77b69052e-4a73c568fd6mr22438731cf.4.1749926576868; 
+ Sat, 14 Jun 2025 11:42:56 -0700 (PDT)
+Received: from [192.168.143.225] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6090063ff9asm293673a12.21.2025.06.14.11.42.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 14 Jun 2025 11:42:56 -0700 (PDT)
+Message-ID: <29f1de05-0e55-42b2-9bf3-894bf4f07808@oss.qualcomm.com>
+Date: Sat, 14 Jun 2025 20:42:52 +0200
 MIME-Version: 1.0
-References: <20250613144144.27945-1-robin.clark@oss.qualcomm.com>
- <DALHS6EU059G.18NCREBNOHJ26@linaro.org>
- <89b7c681-45cb-4729-9684-4d1f13595859@oss.qualcomm.com>
-In-Reply-To: <89b7c681-45cb-4729-9684-4d1f13595859@oss.qualcomm.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Sat, 14 Jun 2025 08:15:39 -0700
-X-Gm-Features: AX0GCFtPk9tPdVg_KDSrMIfi7f7qfSkV0Cof0fPtpyMc67NsnsiF1f7jX-9Eurs
-Message-ID: <CACSVV03_GEuFWHPDB3gGm+Mq9uR8QJ1HabKcKVxnQjagf65v=w@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm: Fix inverted WARN_ON() logic
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Alexey Klimov <alexey.klimov@linaro.org>, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] Support for Adreno X1-45 GPU
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: RVy9WiAC76O2ssiKyPtajesS2FknnaAE
-X-Authority-Analysis: v=2.4 cv=BoedwZX5 c=1 sm=1 tr=0 ts=684d9227 cx=c_pps
- a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10
- a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=uiBUSSwroAowxIVJ74EA:9 a=QEXdDO2ut3YA:10
- a=efpaJB4zofY2dbm2aIRb:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: RVy9WiAC76O2ssiKyPtajesS2FknnaAE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjE0MDEyOCBTYWx0ZWRfX9erOc2mgSBaw
- K+lPVbywzlEFfuezn6N4TjJi3CrVR//X7tLMrwqT4GQyU6dlEeC+d/9Q6RS0fAhnlN8IhaBsGmS
- dDramA7sGUJWoTDbGY3XwfGKBfej1YBln/oiAtYxPKnfTCDMHfM9qr0kpZtyLJ59/gCQyr8GVI2
- SYAh5PuaGprHxuxNjYnBbM6qysYR+cLOKZdEh2ljWGgVKG9kgC1gHSJ18hQDDF+E19MmnBvoAnq
- 7CVhTJDnBLyjQmsrPy8RYdDGTCSYjQ6uIowiX/S/wX2pKpXuoVb3NZ3W6hSUAGvo41qxBBtdShS
- QK7eBLWVQPaYcjjO36G8SYFsrGjIAnIogYdBViOc7nrPlBAiLZmq1rjOPayHRvn1Xkv2xnH0U6E
- 2ce/ZH373wJmBiZ4nqq2qZOa+gVkcvKjT5E4o/do2y0es6UBbDi99e1G7OZTPfREA7fI9hlN
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Viresh Kumar <vireshk@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20250611-x1p-adreno-v2-0-5074907bebbd@oss.qualcomm.com>
+ <0e6fd97d-9a56-426b-8b98-dc8aa50d02d2@oldschoolsolutions.biz>
+ <036e739c-54e4-4252-b6f0-c8eed5557d15@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <036e739c-54e4-4252-b6f0-c8eed5557d15@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjE0MDE1NyBTYWx0ZWRfX6ZA99aufWISq
+ Z6E1BTAXgQl1d+vfqYCFSK/sXyltCUijHS8+EuEb/G7qG+YQjLS3TXY9Sc8Odpsv9Wn1fJ94YQy
+ C/Bx89LndfJd+KRWWd3Qjd21ar7mx43kHyb0E7CUFSyLiKyddlWQMyuKBgG7UJaFnwAIGVWMRji
+ uQALm8rmWSknMHOhlKI5Qnv5x9wK/JoWvlv8L+LnlQiuDCwHr2W7XchYATMOi9QnjGBvXxeE44S
+ 1/Kit2hkMlihP3COmFmZZtxtORizI+GPBN2NsAvEOh28+1SXfH2vtmC6FHR1lG481ltQaSRwpkk
+ OtRpzQSn/5vayaJHw43Zt6tRqP4/qegWOzd1y/1sp/KAfUQuYhPths9CnWm3FMjuGSeB6LK8xVG
+ sw0tufyvNicyq7jig87BfCCk9AWCd737qOL3p4+0JNKEml5JbwcAqXrfBL455dantXCiKjxR
+X-Proofpoint-GUID: Xqcmtb5pKn5P0JRvURVX85PygBXcXTZE
+X-Authority-Analysis: v=2.4 cv=NtnRc9dJ c=1 sm=1 tr=0 ts=684dc2b2 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=phG8Y4mLfM-ETw-KuG4A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: Xqcmtb5pKn5P0JRvURVX85PygBXcXTZE
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-14_05,2025-06-13_01,2025-03-28_01
+ definitions=2025-06-14_07,2025-06-13_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
- mlxlogscore=722 bulkscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
- spamscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015 malwarescore=0
+ impostorscore=0 phishscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ mlxlogscore=999 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506140128
+ definitions=main-2506140157
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,35 +138,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jun 13, 2025 at 12:33=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 6/13/25 4:57 PM, Alexey Klimov wrote:
-> > On Fri Jun 13, 2025 at 3:41 PM BST, Rob Clark wrote:
-> >> We want to WARN_ON() if info is NULL.
-> >>
-> >> Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >> Fixes: 0838fc3e6718 ("drm/msm/adreno: Check for recognized GPU before =
-bind")
-> >> Tested-by: Neil Armstrong <neil.armstrong@linaro.org>
-> >> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> >> ---
-> >>  drivers/gpu/drm/msm/adreno/adreno_device.c | 2 +-
-> >
-> > Apart from tag problem it is usually a good idea to add relevant people=
- in
-> > c/c. Especially when you fix the reported bug.
->
-> with Alexey's concerns addressed:
->
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On 6/12/25 11:19 PM, Akhil P Oommen wrote:
+> On 6/12/2025 5:32 PM, Jens Glathe wrote:
+>> On 6/11/25 13:15, Akhil P Oommen wrote:
+>>
+>>> Add support for X1-45 GPU found in X1P41200 chipset (8 cpu core
+>>> version). X1-45 is a smaller version of X1-85 with lower core count and
+>>> smaller memories. From UMD perspective, this is similar to "FD735"
+>>> present in Mesa.
+>>>
+>> Hi Akhil,
+>>
+>> when loading the driver (still without firmware files) I'm getting a
+>> speedbin warning:
+>>
+>> [    3.318341] adreno 3d00000.gpu: [drm:a6xx_gpu_init [msm]] *ERROR*
+>> missing support for speed-bin: 233. Some OPPs may not be supported by
+>> hardware
+>>
+>> I've seen that there is a table for speed bins, this one is not there.
+>> Tested on a Lenovo ThinkBook 16 G7 QOY.
+> 
+> Hi Jens,
+> 
+> Could you please try the below patch?
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index 2db748ce7df5..7748f92919b8 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1510,7 +1510,8 @@ static const struct adreno_info a7xx_gpus[] = {
+>                         { 0,   0 },
+>                         { 294, 1 },
+>                         { 263, 2 },
+> -                       { 141, 3 },
+> +                       { 233, 3 },
+> +                       { 141, 4 },
+>                 ),
+>         }
+>  };
+> 
+> With this, you should see 1107Mhz as the GPU Fmax.
 
-Oops, forgot the reported-by.. but replying with the tag on list is
-enough, it will be picked up when I apply the patch
+I see your dt entry takes care of bins 0..=4.. this oversight worries
+me a bit - are these values above (post change) all in sync with what
+you entered into DT?
 
-BR,
--R
+I'm not saying they necessarily aren't, but I want to avoid
+inconsistencies
+
+Konrad
