@@ -2,87 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4667CAD9F1B
-	for <lists+freedreno@lfdr.de>; Sat, 14 Jun 2025 20:43:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2BBBADA3B7
+	for <lists+freedreno@lfdr.de>; Sun, 15 Jun 2025 22:49:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 160B610E011;
-	Sat, 14 Jun 2025 18:43:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61DBA10E241;
+	Sun, 15 Jun 2025 20:49:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="E4BOk5zd";
+	dkim=pass (2048-bit key; unprotected) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="y7gQIWZL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF70810E011
- for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 18:43:03 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55EHct7i015371
- for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 18:42:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- iLwHJ8QhRIGYKyF4YaLlo9Wwe+HrqcTZDg4UUvCSfuU=; b=E4BOk5zds0DrD8NF
- shEEzA0umYdl0+l2QQoDtHcBw3muKjC9CdF0eGWK2JNLFxH+WubblyadPNBhyJDt
- pdj9Gee4bbCTyNCIlObEgpXkd7ae/0BTqpnVCZO3Lfg+SK3uhS8vvoWziYgusxa+
- AuIiZnsYaItRG+Bt+CubgkgVNA5IuJUqElDU9TdWnFjjt3Ay5s+kVdp3iQefFfX4
- NqnCqEKE6ZAA6hwZMQRhN948mAJzLL9KTH6DGyLD3iCANdTsO0kLGUGTATNwArcs
- AuVbw/3v8ac2hLPzkgBQSO6Z3HDhsqFdkZOOOmUYkmgR13zR9ZbL9JPWArBm5Qjs
- vN4WOg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4791ug8v4y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 18:42:58 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4a5aeebad31so8131501cf.2
- for <freedreno@lists.freedesktop.org>; Sat, 14 Jun 2025 11:42:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749926577; x=1750531377;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iLwHJ8QhRIGYKyF4YaLlo9Wwe+HrqcTZDg4UUvCSfuU=;
- b=Rns2rYeBPt1WvkwUSCLyEM8f6i43FIXkz+cBROoI21KIG9Kp6rXshsI0vmK3wvw51a
- mteIGYajkr4fBG00jNFzW++1zYDDyeyHNzMoLvxaM9uOk1RxXA8Rzm9D2qOSnF5gsd2K
- Lml0+6D4UugnZ5Dg7yMTNIfwwly4CthPfIIfKrIRKYAqe1J5A1HJ+nJgzkq5vcoxOio5
- DRQ7TF40Yu8EnOBjvmj6s7bLwzFxIHTRv1u7U2J5Wvcs1+P4UNH4LIff+VR8mcFmLpgw
- +CzxoD+xbNejyIZ4zh5CTHMFeLfKgkeRV/TswWtC6XYD89cpiG+RLAIAYspEHFTv/P+h
- H+AA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXsjzZeRFvrMOfN16zxdLvP3CfY1au16yLz3o1SE8xSOGOi104iarYZefxNNdKM6kp+f5we7VtXOEo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzvgfURQa96P41+8wfP41MPXpvtz71M9geCzYYGaCZdNnDPqNkv
- KRMhIbZ23yKdLQWtaB0CPs6T/Sbx6zvxBds/ny+UFA5SfAnPNUpD3COOMsPUs/n3fva8gfQdhFq
- GomQCRlr9DwJsD+yJ2hXYfst9P7pUyutlyFZLz8+M2m6JRmxSnD/kJPjEcnIEdPCsaxuW3Y0=
-X-Gm-Gg: ASbGnctiHkwEkaGw2wWvrEwII+2dwtza/QIYbDBrzgVYxjDbxRl7Isj1wQmLKVEs8Iy
- fSxCIra8woIGlfGF0gREq3Tcya4ol+xlSK1jBUf8OByXpxzsZ7O2fnBLLjwSFEo9dJc1OJmbz4O
- dRGke7bMziOePGVyAKjouwEuVMDskDnFHSLAkneRhzcmVksMpNtBXiE0MIrhM91y4XVPGNFqlTo
- mz5Rw1UbJwxQJBXfj41dhqVLsb7yKEdJrMbRMw7pNfrSp0TS/WGsAv+WFdZUmzIHqWisp8AW5fD
- fZ9uOzpoA04uilZ2V2X8C4LNCsgSw5KgOyrmCWGD2gP+nFGIPLqMUEPA94qF4xyvATVaManh/oS
- cIaM=
-X-Received: by 2002:ac8:5d0f:0:b0:4a6:f809:85d6 with SMTP id
- d75a77b69052e-4a73c568fd6mr22439121cf.4.1749926577359; 
- Sat, 14 Jun 2025 11:42:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHkYi18BH9yEJbdfQSZZnPYYS236AqGcoTRf5C7tWQLhoDTwPCEtKNQkvCzqxnaF0WVubY/jQ==
-X-Received: by 2002:ac8:5d0f:0:b0:4a6:f809:85d6 with SMTP id
- d75a77b69052e-4a73c568fd6mr22438731cf.4.1749926576868; 
- Sat, 14 Jun 2025 11:42:56 -0700 (PDT)
-Received: from [192.168.143.225] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6090063ff9asm293673a12.21.2025.06.14.11.42.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 14 Jun 2025 11:42:56 -0700 (PDT)
-Message-ID: <29f1de05-0e55-42b2-9bf3-894bf4f07808@oss.qualcomm.com>
-Date: Sat, 14 Jun 2025 20:42:52 +0200
+X-Greylist: delayed 368 seconds by postgrey-1.36 at gabe;
+ Sun, 15 Jun 2025 20:49:15 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D572110E23E;
+ Sun, 15 Jun 2025 20:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oldschoolsolutions.biz; s=s1-ionos; t=1750020551; x=1750625351;
+ i=jens.glathe@oldschoolsolutions.biz;
+ bh=onUUPi4Wsm0wWvtRzn7J1Is1tHETTLIUY7qL9YrjcWs=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=y7gQIWZLpu0/YjHqAvPVPFIL+o9QBJOyf3dkhL6T4TWwvwmbVG4JGoXjTIOUdOeK
+ LDG6b3lkaHTua6q0ulId5kja6lFa4bI1HDVqulZKLkmrYg/o3vwzZb4WCAu1qBHZ2
+ e7BaBAt/fS9XFLxR7CKw/uykiEgz6Vuf4dxkb8VAutsKRQQlYVT5ysmE2W4UYNMZ2
+ tpzTLr/zcuHWW0YIA23TsSBt5QvKA25xs+6/rEk+40RcQdDfdaYbwsk7rVe0rWgjZ
+ mPc3zTpSWnSh00cRVKg6ONs11f7V2KXw5FMGArkwZdfupvXsXTYZywkiYOgR/eE+o
+ 5rUZ2SwsmCX34bqbUQ==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from [192.168.0.174] ([62.226.41.128]) by mrelayeu.kundenserver.de
+ (mreue011 [212.227.15.167]) with ESMTPSA (Nemesis) id
+ 1MqsGv-1vD7Bk1UkT-00lJbT; Sun, 15 Jun 2025 22:42:53 +0200
+Message-ID: <df125ce9-c271-4cd2-b9ee-798d7b1c8648@oldschoolsolutions.biz>
+Date: Sun, 15 Jun 2025 22:42:50 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+User-Agent: Mozilla Thunderbird Beta
 Subject: Re: [PATCH v2 0/4] Support for Adreno X1-45 GPU
 To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
  Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
@@ -100,32 +62,36 @@ References: <20250611-x1p-adreno-v2-0-5074907bebbd@oss.qualcomm.com>
  <0e6fd97d-9a56-426b-8b98-dc8aa50d02d2@oldschoolsolutions.biz>
  <036e739c-54e4-4252-b6f0-c8eed5557d15@oss.qualcomm.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 In-Reply-To: <036e739c-54e4-4252-b6f0-c8eed5557d15@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjE0MDE1NyBTYWx0ZWRfX6ZA99aufWISq
- Z6E1BTAXgQl1d+vfqYCFSK/sXyltCUijHS8+EuEb/G7qG+YQjLS3TXY9Sc8Odpsv9Wn1fJ94YQy
- C/Bx89LndfJd+KRWWd3Qjd21ar7mx43kHyb0E7CUFSyLiKyddlWQMyuKBgG7UJaFnwAIGVWMRji
- uQALm8rmWSknMHOhlKI5Qnv5x9wK/JoWvlv8L+LnlQiuDCwHr2W7XchYATMOi9QnjGBvXxeE44S
- 1/Kit2hkMlihP3COmFmZZtxtORizI+GPBN2NsAvEOh28+1SXfH2vtmC6FHR1lG481ltQaSRwpkk
- OtRpzQSn/5vayaJHw43Zt6tRqP4/qegWOzd1y/1sp/KAfUQuYhPths9CnWm3FMjuGSeB6LK8xVG
- sw0tufyvNicyq7jig87BfCCk9AWCd737qOL3p4+0JNKEml5JbwcAqXrfBL455dantXCiKjxR
-X-Proofpoint-GUID: Xqcmtb5pKn5P0JRvURVX85PygBXcXTZE
-X-Authority-Analysis: v=2.4 cv=NtnRc9dJ c=1 sm=1 tr=0 ts=684dc2b2 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=phG8Y4mLfM-ETw-KuG4A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: Xqcmtb5pKn5P0JRvURVX85PygBXcXTZE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-14_07,2025-06-13_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015 malwarescore=0
- impostorscore=0 phishscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- mlxlogscore=999 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506140157
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:NPypNcwQLw4G4JWfH5eQewUs1fAhXA4gnmLwZKj+YXP2JQCVDLw
+ hHHaFiRxV8yKAi8HhsY8i7ZxODi73S6CjKM9nVFccdGkPhfkB5pOrBOyVW9yaBNN4b0H+Ns
+ dg9kfLxx2wyWiBgoyv/B9zEcXS+CPe57RHvxQpv2+5cF8Zfq1sB+eFs/1EV0GqXTBh6gg++
+ +pqFx1RAv2flOXyJR+vlg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:uIJ1F0medxg=;4Jpk9D+KU6zM8oJH2OhyjGCRX00
+ ZLBzbcvmchKoYL3Yvux/9Ztm6mf/1c/6dd/Z+Y6/lWdWkTaNTrb0PbNkujfwJBXg4K5oC8uva
+ laiILTryWn63pLvoQy9qrPelZJ6QSxlWrVUg0XdS8lco8YatTsVMHnQTp7WJf/l6HIRNBPFRo
+ KnK7JheOUUGJu1fVgbJozvzeG2/O4KXyWCSWIYq9Xe14IvKOcDgfgffyH2FDs1jNWw0qd1BXw
+ 3QgiQRPvHTdIXZYxSC0IOK48R4VGotuZAJmL7hK5qL7Hb0TnsUsJQ1anGLdAUI9UgPFxWm9a5
+ NBmNWydte+kwJ5CLpa65m/AaHiYmdiika2VknKjzAV880Y8Ga/V959kXeDHVNQI/kMC8g5/tq
+ AkCQDirNP2gJdrGKUa3W+i9QD3MmW8angHUsjHYOXUicufyAYW5rsGmgfmd99eNpmTmIYW6os
+ zN9yjKhKR+Hu0nQt1gvfs4qOIPghatP2LV0Mj+VlGFvfVkJlPfxNNFi8LZgtwLkPxeU5QMfRi
+ bDvxm/LFr6y1jrXZtRbDVHzQJz7Uf6vi79WQb7vLLybUr5nXve8T8V8sbXaHEZtqdiRnssjMX
+ gl69/icO94eVauqYYNV6zyaJ/ooETGrwexi5WmrGmb/kC+PM1HNJOoUN0wAZwbd74I8pAqBZC
+ z/WkEeoLBQJYnZHx75p2gwjwPzP2GzaQiCyMzDLmOp2YU1ddJZoYsx18B0ZjP0sMWEhESJaPm
+ mQwEjnDgzKDL7scv9bUQ0eWsKMsOqq8JlgrxhBrV36Hhlar9PIgJ2fUG8KUT2SE0k5aWfi14u
+ D8ZVxqwVsJtXVBKq2p3hhCWSHCJ1QjwW4GYziBeEwcnWB4tZ0ooeCROzh6KCuWyfAe6vBfwyA
+ CS4dp6f46e2V4nGZsOOTftQsHkB02irM1pa8WPWWV/5/4P3cjInilRrP00M+hN9ErqrDzEsfN
+ DQ/hWIq2WdM4Ia6A3n6H92IrG/FZxrJdRryj3qBT5ErYbF1srQ5G5k97Slqu5a5UJtAvjvoB+
+ PKR+jmSXMTTx8Vp+jc2eQOLIDF/I/FTB/e54NOX91xj8TXcbJjuyMmvYPL5Wg2G0hfeuf4nqq
+ gkiUQy/16M1/aankbUgvJZ4g1QOjhmCVLsRh+EGcioEbJQZNOY2BzBph012ih1BeuqHNNkFui
+ 8Bz8ymu2xw2Ac/+KWzrjCFATxT0d2Z+5UBUUoHklO0/axhyXtRk0w0WVHv46tb0eWloNbVBtL
+ LUmGv1PwIs+4j9ITQ+6LpsFomDSmHpnOIeIklUMVPA8/tAVfZtHnKyOZ8UwAfCwF6seTtI/uj
+ kLVxuPxvSHaWoZy6lyIwo/jL0hOaxawrS96Tytb9XmX9dXwdmFJI/c7HRJFd7m8Lyz1Y6MKDf
+ nxHp4/YbbGp101G1GrrknMJA9ZTOytY8iRG4VpfCam4aOVCO1x7lhtm3yq
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,54 +107,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 6/12/25 11:19 PM, Akhil P Oommen wrote:
-> On 6/12/2025 5:32 PM, Jens Glathe wrote:
->> On 6/11/25 13:15, Akhil P Oommen wrote:
->>
->>> Add support for X1-45 GPU found in X1P41200 chipset (8 cpu core
->>> version). X1-45 is a smaller version of X1-85 with lower core count and
->>> smaller memories. From UMD perspective, this is similar to "FD735"
->>> present in Mesa.
->>>
->> Hi Akhil,
->>
->> when loading the driver (still without firmware files) I'm getting a
->> speedbin warning:
->>
->> [    3.318341] adreno 3d00000.gpu: [drm:a6xx_gpu_init [msm]] *ERROR*
->> missing support for speed-bin: 233. Some OPPs may not be supported by
->> hardware
->>
->> I've seen that there is a table for speed bins, this one is not there.
->> Tested on a Lenovo ThinkBook 16 G7 QOY.
-> 
+On 12.06.25 23:19, Akhil P Oommen wrote:
 > Hi Jens,
-> 
+>
 > Could you please try the below patch?
-> 
+>
 > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
 > b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
 > index 2db748ce7df5..7748f92919b8 100644
 > --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
 > +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> @@ -1510,7 +1510,8 @@ static const struct adreno_info a7xx_gpus[] = {
->                         { 0,   0 },
->                         { 294, 1 },
->                         { 263, 2 },
+> @@ -1510,7 +1510,8 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>                          { 0,   0 },
+>                          { 294, 1 },
+>                          { 263, 2 },
 > -                       { 141, 3 },
 > +                       { 233, 3 },
 > +                       { 141, 4 },
->                 ),
->         }
->  };
-> 
+>                  ),
+>          }
+>   };
+>
 > With this, you should see 1107Mhz as the GPU Fmax.
+>
+jglathe@tb16-jg:~$ cat /sys/class/devfreq/*gpu*/available_frequencies
+280000000 380000000 550000000 666000000 720000000 825000000 940000000=20
+1014000000 1107000000
 
-I see your dt entry takes care of bins 0..=4.. this oversight worries
-me a bit - are these values above (post change) all in sync with what
-you entered into DT?
+Looking good. Thanks!
 
-I'm not saying they necessarily aren't, but I want to avoid
-inconsistencies
+Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-Konrad
+with best regards
+
+Jens
+
