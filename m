@@ -2,151 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70ABEADEEAB
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jun 2025 16:01:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01600ADEF6D
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jun 2025 16:33:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B96710E85A;
-	Wed, 18 Jun 2025 14:01:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 942DC10E88E;
+	Wed, 18 Jun 2025 14:33:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="R8B22eNr";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZdegnDIr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF61310E85A
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jun 2025 14:01:22 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-607247169c0so1319827a12.0
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jun 2025 07:01:22 -0700 (PDT)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4AE110E88D
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jun 2025 14:33:15 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-ade3ce5a892so89586366b.3
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jun 2025 07:33:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1750255281; x=1750860081; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=yNBX/m708IWteet4DlkrcpHB7CaXDOgqPr9oiiJLqjM=;
- b=R8B22eNrmUQELsjALeSGXgIpVHxYhBia6cvEnNy5Zb5nO7bCLTGHBBa3p3+oj4MMu1
- RuXnzrXIx6hFx2DSLTlAAlbAyWG4uSHE0vLQRiY0KzIlmQt458e+vCgk5HoqJM1qsx/G
- P0tj3vImoCXtpAgC7rjFPqo7IdIdon5hQaRFWjPznaJSc2BLziYVIOZStYGP1lndL1aO
- ayyZt4glTiiqUYebBVPn6bpiBBUqs1UM+4ccFeD7uJ9+hhRFWbzqls0Ei9+NglUcY1sz
- Sm2CXhoiWiVN+iRoX201iBxXBo0JbzlA8HF35CpvQfQT5mC9gHeADjua7qt0JvKjmGBz
- tErg==
+ d=linaro.org; s=google; t=1750257194; x=1750861994; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vF87nlgifvkUBONk2wiu0rHA35U8cIhcMf66IG9ELMk=;
+ b=ZdegnDIrSTDeApzUL6hWlwSTzL2f11puuTu4TXRUZ5gsMXgRsU+B8kqouuYkwSatss
+ aHqahwyezCTImLxVOxG0uR/FOayuE7dI9OPvyWW8HaziZ+tTLqA2kk6sOs5s/2dcWnr2
+ Er21XKoWTWYrMILq36ExOt+REJWlxm0ePk3XZcy3B+ZE5gZwPL+aSlvrHHP24SWN51Vu
+ FwQAOGgTi2SFeX7znPnyROB7t7NWlh0YEsoOJuol6WzgpvYykKKEmbyqmHLrJCAlk+dW
+ Y3JIthQ97ylaj2c39LokZtj3qVCFpGU69yonZ9KrRvof6nr2gt9BYIqk8AyTjCebFGZk
+ ZyCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750255281; x=1750860081;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1750257194; x=1750861994;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=yNBX/m708IWteet4DlkrcpHB7CaXDOgqPr9oiiJLqjM=;
- b=gzRxWFKdwWTyrmVH1A2iCNbkErp+2M7SMj3rGXYAm9yhLan79NlfBgODw43zH70+Je
- /bpWGzWati6g8Au3vQVAQ64ehgANVUi28hHLnc3rHFmFRWOI+eRExl/++mcWfc58kGJ4
- Ty4a3gMb9l+MxZkeYYXynoaMLngHfy75YqRoEtCfIeSlxEA+ADnLYa8fPlum7AwMCbSv
- 5m2l94f4pm7A9N2F5Z+KdL0N877iA96OifyJFXGk0Vxq1edFjfsQVbKtJH+r2PHyPhiP
- ZXQ8Jf0GZaHn51Ydjg7cYpqyBdAvMiNTE9c2bW7eSVIITJS7BIXFYGBQzFkfz3cbBRDl
- GeZA==
+ bh=vF87nlgifvkUBONk2wiu0rHA35U8cIhcMf66IG9ELMk=;
+ b=r1P8XH5/5bYfd4BiKwSfu2kkZBg+oN96R/8mVEJ1aeZYuYtUg7+N/aZ3Abl0K/5aW2
+ IntuJ91eZhEqlxpybmqoWVKHob9cTe+2orWIcxRqsSGiqr3PVl6/GDUtqOU9H2ZN5Iju
+ hORj3rmL4IVRXsR7ANM9Bmho3hwpA96ONvzXoTYPqa5pH418O1io2BH56KW761aJzkID
+ DqnOS9YSWz7Pvfk8MtcXt0nEcWQwmHWTfbjnt7h3a/YNSpGSn7xYXnoPdZEqFcAcV2E8
+ s36bZhRnbV9ib+V+f3igWSLPDn6YSRhX3bgiSGvdD3w/MIIRpEaHRqeubU4Rjsmd90Rs
+ 1cEQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXW+knjvNoK7O8JK2MD69wIwTnxLDRXbv/TIbgxtKxu58SboxqfJZtuVDQKlfBTRtkSI9wP6vxtkFM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywfnyivh2ruyxEdud01VmZGBeoO2JgK43OIRA2dGNC0Caog2TIe
- tz7+orQxlxwHdp5U9J1Oy0MZUDA/r+05VsaJRQd+ojC+f1cBQN0DRd4AlGGiuO3CAMQ=
-X-Gm-Gg: ASbGncuxOpJ249ky7af2sxwKwYwZeGhyG1sY/4iUdIk12bEpb4YtqwDtUt4tCVydp/c
- qpLwCPES+V/Fdhq6TYxzSDBaydv7n2zb9Y1VyvQk5zLyps+ahZ4JyXKIAbvjUbptCgmaDFECBqi
- srGRXiC5sawEbrNEm3qVExkAMT4Whbn2p2Y3Rsdj9Zor/jJAILiv0KZ+Hw6NpETDH/U1UFP1L94
- 1RXcId8incPwQy+SQ08It9D1xwBlZcsDwBuCs13OZF1VwVTuN3YFi93hON7+B/QP0XT9IHGoJPp
- 7kD9orUwx2kXZ5Xj6PLavXQL9JqrEyTKktHROStT9dykHMIk9Lr/P9MSO2A5/z5SvPfbUVEkQY+
- bDofzxk0=
-X-Google-Smtp-Source: AGHT+IHuYoQ3kQ1OLnKnBhyzJNq4b6cK861XY1mac3pE+KRnuI0Lvpb4iIeKA4kLtASLXRV1ukctZw==
-X-Received: by 2002:a17:907:7f15:b0:ad8:9c64:e9ca with SMTP id
- a640c23a62f3a-adffa90a1bbmr265034566b.0.1750255279768; 
- Wed, 18 Jun 2025 07:01:19 -0700 (PDT)
+ AJvYcCUliHD+luSBKQ3uvjR8wkXpnocHkzFy8AlA4H8xCJ3xRB2wPgMK/vPD/5doDeK4QqEpCVgF6ZUJem0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxwMDfQT6CMQv1hEj+TRNhRpzXJu3Bro9fUehVSWqROgq6dhb+V
+ i5lTL4yRzUjR28Xlnscukl1/2+vKFFgcU9Bev4M846XWWD/eKYux2FNb2d10p0s6bSo=
+X-Gm-Gg: ASbGncsNUDsRZMJn2f4oj4Gz5+FSPiTPPesfmXCmMLII/5R0Ppm1ITsRBGOtm4iP2+m
+ WT3HKyi7jOScJBdNlozrxgoBUMuMssFYVdJcaxUc1omCBtbdR5yiRk7zXQMw3BVqB6RYlGAashw
+ Xfg/GJEOVtLpQHRxFeabAu+BKb7eI5Y96Hp/M9BegS8J6+HdgjT0NDagtDAGrWFEH9iLQs4M7qQ
+ obhQS40sulnmHl8z5CC1nCUqAxA1RxHuFN1KewJCzs+K8+NNj6dWjYBJamam+oilEchU1hctzDn
+ dIZNexxrelBleS544GDJTk/tYFvY5MV8pbMUGBjIZTYTLIxxv+KBjzUvHHgyTcSDdUvoTMSWtqf
+ KwbAu0E8=
+X-Google-Smtp-Source: AGHT+IHaH7KxFD4UqLSMUiDVgpxBtPDP6dlDPbCHz9u4DEN6FHLmTRocIXZTCQHdL31T5CjRe8GP+g==
+X-Received: by 2002:a17:907:97ce:b0:ad8:9207:b436 with SMTP id
+ a640c23a62f3a-adffad16db6mr284505666b.5.1750257193778; 
+ Wed, 18 Jun 2025 07:33:13 -0700 (PDT)
 Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-adec88feb23sm1063387766b.96.2025.06.18.07.01.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jun 2025 07:01:18 -0700 (PDT)
-Message-ID: <185f6038-d280-4e6f-9f52-daea3f827f01@linaro.org>
-Date: Wed, 18 Jun 2025 16:01:16 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 08/17] drm/msm/dsi/phy: Fix reading zero as PLL rates
- when unprepared
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Abel Vesa <abel.vesa@linaro.org>, Srinivas Kandagatla <srini@kernel.org>
-References: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
- <20250610-b4-sm8750-display-v6-8-ee633e3ddbff@linaro.org>
- <n5djafe2bm4cofoa3z4urfogchhfacybzou763nelttgfspo25@bywfd5febe6g>
- <dbcfcb3c-0cba-45f6-aaed-b79494d96cde@linaro.org>
- <738a889d-9bd5-40c3-a8f5-f76fcde512f4@oss.qualcomm.com>
- <8a986ebb-5c25-46d9-8a2f-7c0ad7702c15@linaro.org>
- <24xkss4bw6ww43x2gbjchcm4gtmqhdecncmxopnnhf7y2tblc2@iibgqhuix5rm>
- <f2654844-091f-46bf-88c6-6f6d4edc5533@linaro.org>
- <fa8d4af9-e822-4dec-a8dc-f3bbf5dd0100@oss.qualcomm.com>
- <07af3f49-6992-4897-acec-b2d46158fa00@linaro.org>
- <28992d6c-eb98-412e-86d8-d35a96f69fd1@oss.qualcomm.com>
+ a640c23a62f3a-adec81c0135sm1052257566b.47.2025.06.18.07.33.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Jun 2025 07:33:13 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- 2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <28992d6c-eb98-412e-86d8-d35a96f69fd1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH v7 00/13] drm/msm: Add support for SM8750
+Date: Wed, 18 Jun 2025 16:32:29 +0200
+Message-Id: <20250618-b4-sm8750-display-v7-0-a591c609743d@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP3NUmgC/33Ry2rDMBAF0F8xWldF0ugRe9X/KF3oMUoEje1Kj
+ kkI+fcqCcUtNl3eAZ0Zca+kYE5YSNdcScY5lTT0NZiXhviD7fdIU6iZCCYU46ylTtJy3BnFaEh
+ l/LQXqtEqMEZJGzmp78aMMZ0f5vtHzYdUpiFfHitmfp/+p82cMuogchVtlL41b5+pt3l4HfKe3
+ LlZLITgZosQlQiC8eBDsNrKFQG/CMG3CKgEoG2V4xoY2hUhFwL4JiHvV1jtAFvVeqNXhFoICWy
+ LUJXYeeuAeUAZ4orQC6H5JqErgagBEEJw8S9xe9aV8etUm5+enS3Fd02VJRccaBhPNORhpBHtd
+ MpYqNEMQj0L+a7t6l8q5WxB6ofjMU1d0+N5oj+X1VW3b1EC6eNsAgAA
+X-Change-ID: 20250109-b4-sm8750-display-6ea537754af1
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ linux-clk@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8438;
+ i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
+ bh=wl2W413fadjLC8Prj+CLmGouBWzphfFSKKVzE1b+lac=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoUs4WiLcS8JsW/YzidPM6dXpf+zHU2SdX5bzPF
+ 3J3GIhVl3aJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaFLOFgAKCRDBN2bmhouD
+ 1zMgD/4un3JtjNR91InGeDILKQ70J6bxLQNyUGpnu47j5hu+OyPKM9vdCqC1edMtgE61p09jGc3
+ tnY1PPnxeZndp1JYixi3xg9ZEr7fZXKxu6gxfbPsU8eKGuCyRjdOOLjbpOsAHRj6jGbu3SmlgDZ
+ 10wbqutfNgLGVG3eY1uw74Q3rbJcehuq9Syly0q4F3CYhx7mqo/Ek0FvNaUTXhl5NaSfXFCHHA8
+ t1scYI4bpuIYiSC9toygHtNF6k8aUMB8PrxEoX/GTf+D/TgRHQx0o+zZkh37sJ8TaeMfA3zYOi/
+ cl3GhQFRXVfmTz6KZV745gUiaeVpch1yjwCx+PIbogapbcpsQ9ekUtQK0hpwUuKmkbjRq79DpQM
+ cJSKCta73ivpUwjkuRexTqLy1aGdRwgnEyyw06y4562HbvcxgFZc2qlovOaWjTfB84BhrEaH/+D
+ V6JRZbsntq6K3yUAvrAzoQ9srclHNgEExPa7iHaesvy00DApHk5fH7Xc7IO8dlpiIaQKNHtOpj+
+ 5UyDxfyCoduOaGqAY9m2Wuy+NL6mB/iM947TG78VxDpoarMzndztmnGfX9tJIDavinLjrDldBAh
+ yH5WqzNUSahDiPY2lqzrmmmROfcp8Q6pPQ+6WP1Bt1CzOoj6JdA/VLrDrrDhkMrgs6EEXDGXWwT
+ ubRUvzW931DdUHA==
+X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,32 +130,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18/06/2025 15:58, Dmitry Baryshkov wrote:
->>>
->>> In this case you can send a fix for 10nm separately, but please post a
->>> fix for that platform too.
->>>
->>>>
->>>> Or merge this code without this patch if a fix for reading PLL as zero
->>>> anyhow is questionable for you.
->>>
->>> I think I've asked it at some point, to split the generic code parts and
->>> the DSI enablement into two different patch series, so that they could
->>> be picked up separately.
->>>
->>> No, the fix is not questionable. The patch causes questions though.
->>
->> I have no interests in fixing DRM code. This is not my subsystem, this
->> is not part I am responsible for. If it raises questions, why not
->> devoting your time to fix it?
-> 
-> Then why are you submitting patches towards the DRM driver? I think the 
-> usual rules apply, you not having interest doesn't lower the bar for 
-> your submissions.
+Hi,
 
+Dependency / Rabased on top of
+==============================
+https://lore.kernel.org/r/20250522-dpu-drop-features-v5-0-3b2085a07884@oss.qualcomm.com/
 
-I have interest in solving one particular problem, not solving unrelated
-DRM issues. One is not necessary for the other.
+Changes in v7:
+=============
+- Add ack/rb tags
+- Drop unrelated DSI enablement as requested by Dmitry:
+  https://lore.kernel.org/all/fa8d4af9-e822-4dec-a8dc-f3bbf5dd0100@oss.qualcomm.com/
+  These will be sent in separate patchset.
+  Such split allows to have SM8750 patchset fully reviewed, without
+  continuous requests of doing some more fixes in DSI PHY drivers
+  (related and unrelated like 10nm).
+- Link to v6: https://lore.kernel.org/r/20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org
+
+Changes in v6:
+=============
+- Add ack/rb tags
+- Dropped dispcc-sm8750 patch, because I sent it separately.
+- Several changes due to rebasing on updagted Dmitry's "dpu drop
+  features" rework.
+- Drop applied patches.
+- New patch: drm/msm/dpu: Consistently use u32 instead of uint32_t
+- Fix dimmed display issue (thanks Abel Vesa) in patch "Implement 10-bit
+  color alpha for v12.0 DPU".
+- Implement remaining comments from Dmitry like code style (blank line),
+  see also individual changelogs.
+- Link to v5: https://lore.kernel.org/r/20250430-b4-sm8750-display-v5-0-8cab30c3e4df@linaro.org
+
+Changes in v5:
+=============
+- Add ack/rb tags
+- New patches:
+  #6: clk: qcom: dispcc-sm8750: Fix setting rate byte and pixel clocks
+  #14: drm/msm/dsi/phy: Toggle back buffer resync after preparing PLL
+  #15: drm/msm/dsi/phy: Define PHY_CMN_CTRL_0 bitfields
+  #16: drm/msm/dsi/phy: Fix reading zero as PLL rates when unprepared
+  #17: drm/msm/dsi/phy: Fix missing initial VCO rate
+
+- Patch drm/msm/dsi: Add support for SM8750:
+  - Only reparent byte and pixel clocks while PLLs is prepared. Setting
+    rate works fine with earlier DISP CC patch for enabling their parents
+    during rate change.
+
+- Link to v4: https://lore.kernel.org/r/20250311-b4-sm8750-display-v4-0-da6b3e959c76@linaro.org
+
+Changes in v4
+=============
+- Add ack/rb tags
+- Implement Dmitry's feedback (lower-case hex, indentation, pass
+  mdss_ver instead of ctl), patches:
+  drm/msm/dpu: Implement 10-bit color alpha for v12.0 DPU
+  drm/msm/dpu: Implement CTL_PIPE_ACTIVE for v12.0 DPU
+
+- Rebase on latest next
+- Drop applied two first patches
+- Link to v3: https://lore.kernel.org/r/20250221-b4-sm8750-display-v3-0-3ea95b1630ea@linaro.org
+
+Changes in v3
+=============
+- Add ack/rb tags
+- #5: dt-bindings: display/msm: dp-controller: Add SM8750:
+  Extend commit msg
+
+- #7: dt-bindings: display/msm: qcom,sm8750-mdss: Add SM8750:
+  - Properly described interconnects
+  - Use only one compatible and contains for the sub-blocks (Rob)
+
+- #12: drm/msm/dsi: Add support for SM8750:
+  Drop 'struct msm_dsi_config sm8750_dsi_cfg' and use sm8650 one.
+- drm/msm/dpu: Implement new v12.0 DPU differences
+  Split into several patches
+- Link to v2: https://lore.kernel.org/r/20250217-b4-sm8750-display-v2-0-d201dcdda6a4@linaro.org
+
+Changes in v2
+=============
+- Implement LM crossbar, 10-bit alpha and active layer changes:
+  New patch: drm/msm/dpu: Implement new v12.0 DPU differences
+- New patch: drm/msm/dpu: Add missing "fetch" name to set_active_pipes()
+- Add CDM
+- Split some DPU patch pieces into separate patches:
+  drm/msm/dpu: Drop useless comments
+  drm/msm/dpu: Add LM_7, DSC_[67], PP_[67] and MERGE_3D_5
+  drm/msm/dpu: Add handling of LM_6 and LM_7 bits in pending flush mask
+- Split DSI and DSI PHY patches
+- Mention CLK_OPS_PARENT_ENABLE in DSI commit
+- Mention DSI PHY PLL work:
+  https://patchwork.freedesktop.org/patch/542000/?series=119177&rev=1
+- DPU: Drop SSPP_VIG4 comments
+- DPU: Add CDM
+- Link to v1: https://lore.kernel.org/r/20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org
 
 Best regards,
 Krzysztof
+
+---
+Krzysztof Kozlowski (13):
+      dt-bindings: display/msm: dsi-phy-7nm: Add SM8750
+      dt-bindings: display/msm: dsi-controller-main: Add SM8750
+      dt-bindings: display/msm: dp-controller: Add SM8750
+      dt-bindings: display/msm: qcom,sm8650-dpu: Add SM8750
+      dt-bindings: display/msm: qcom,sm8750-mdss: Add SM8750
+      drm/msm/dsi/phy: Add support for SM8750
+      drm/msm/dsi: Add support for SM8750
+      drm/msm/dpu: Add support for SM8750
+      drm/msm/dpu: Consistently use u32 instead of uint32_t
+      drm/msm/dpu: Implement 10-bit color alpha for v12.0 DPU
+      drm/msm/dpu: Implement CTL_PIPE_ACTIVE for v12.0 DPU
+      drm/msm/dpu: Implement LM crossbar for v12.0 DPU
+      drm/msm/mdss: Add support for SM8750
+
+ .../bindings/display/msm/dp-controller.yaml        |   4 +
+ .../bindings/display/msm/dsi-controller-main.yaml  |  54 ++-
+ .../bindings/display/msm/dsi-phy-7nm.yaml          |   1 +
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+ .../bindings/display/msm/qcom,sm8750-mdss.yaml     | 470 ++++++++++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_12_0_sm8750.h    | 494 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  57 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |   9 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  29 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  56 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  17 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          | 210 ++++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.h          |  18 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/dsi/dsi.h                      |   2 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |  14 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  61 +++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |  79 +++-
+ drivers/gpu/drm/msm/msm_mdss.c                     |  33 ++
+ drivers/gpu/drm/msm/msm_mdss.h                     |   1 +
+ .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  |  14 +
+ 25 files changed, 1600 insertions(+), 30 deletions(-)
+---
+base-commit: 9a3b1b1b837c4085ada0e47dc46b399ea4eb80f0
+change-id: 20250109-b4-sm8750-display-6ea537754af1
+prerequisite-change-id: 20241213-dpu-drop-features-7603dc3ee189:v5
+prerequisite-patch-id: 09ea9d7e22f5bc9ff3a4cd7e78be26c5dd154798
+prerequisite-patch-id: 42012ab2eb0a46b5d3818e1b59af93c22020138d
+prerequisite-patch-id: 361f60c8b2eb46b794d64d1eee9ac21644ded7c2
+prerequisite-patch-id: cb6a74cf415236caf49ac6f7fd40bbfcb0bd6778
+prerequisite-patch-id: f412cbfc9f6a50738e9d13493a1b3775f9a91942
+prerequisite-patch-id: ceeb81f111e4dcb4c1fed5b26a3db274272ae59d
+prerequisite-patch-id: d28630601cb7fb106decaab036b6ab400d5e6b6b
+prerequisite-patch-id: 9b6ef3a2d66ab25c0dc0c9e68406ea4d948d2920
+prerequisite-patch-id: 346d20e7cb51fe60058414bc8227a3d49a20806e
+prerequisite-patch-id: 8cfd3ed00998e7713d065b875abeaee40bb1de46
+prerequisite-patch-id: 5bd409601455e655eb253c97e8a45ebdf0351871
+prerequisite-patch-id: a116df9db7a38831b4d99908753f5e747aa86be5
+prerequisite-patch-id: 0e74b407b739f91d338ee328a7bd406cbd1b7d86
+prerequisite-patch-id: 2a4739ced79df9818b8d6fd14f7c37b63524ec00
+prerequisite-patch-id: 24c19cc08357986131b70f93f597bb0406e19c3a
+prerequisite-patch-id: 35143dd7831bbcb3ef78492342683800aaae3f7a
+prerequisite-patch-id: 2b292dabe10b76a444e9c2588422b6b54f9f7dbb
+prerequisite-patch-id: ba31ff07e7f114a5e3b40fd9ea80b1005e481529
+prerequisite-patch-id: 5fa3ca0d70d1efffa702278b6880520e44afa982
+prerequisite-patch-id: ca74335a125aee670fe733df32e4960c9e82a302
+prerequisite-patch-id: d2f4fd210e5ef44f26939548df78017950fdbf97
+prerequisite-patch-id: 47381cd6f4e2044a9a66525c46c4cdcdabcbf9a2
+prerequisite-patch-id: bf483037378a25ecdc8d2d1601a61d9fa3f6903f
+prerequisite-patch-id: 0d4d741ae44545698e0dbc7add62ef52820021d2
+prerequisite-patch-id: 0de4d879d932dc35e5fa50439e6126e3ea560929
+prerequisite-patch-id: 73201d8fe16f7c701b9fa9485e0c362ac49b4abf
+prerequisite-patch-id: 429a252eeb9a0cfa1881e89bf092d32105246ce4
+prerequisite-patch-id: 6e38493372299cfb94a82f060cff0fba3ec45047
+prerequisite-patch-id: 7ca84aededdfd010139aca6ce4053990255a24bc
+prerequisite-patch-id: 2150afe0ffe671a1c608c36c9f7a8374727167f2
+
+Best regards,
+-- 
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
