@@ -2,72 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64D14ADEF81
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jun 2025 16:33:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC43ADEF84
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jun 2025 16:33:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D06210E89A;
-	Wed, 18 Jun 2025 14:33:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3BAD10E882;
+	Wed, 18 Jun 2025 14:33:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="S2bmbzZ1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="c6ThU0Iz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8E3C10E89E
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jun 2025 14:33:35 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-adb2bd27d8bso97604466b.1
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jun 2025 07:33:35 -0700 (PDT)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9D910E8A6
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jun 2025 14:33:37 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-ade33027cbbso100811066b.1
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jun 2025 07:33:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1750257214; x=1750862014; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1750257216; x=1750862016; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=n0D24v4O6UkSmy0rykCGZTdteernnCPVR9bB+rSj3dQ=;
- b=S2bmbzZ1C2ZicUSdDar7+MREOKlrWaOVgSQCs9gzSiOrzSBZ07BaAnzWAZgTCTAOOd
- AWh+cDSKy9inuAD0OIXwEUUG1As2DK9l4yPz14Muw0zSUKQEQ5DaL9i3Nesl1Fn5RG7e
- qYiUj8Tbb9/mrynoG43imDMtK57rao5I4/e09x/sJlGpt1RlFurosgWxVMnARG/8nC4/
- 6oZ413WWvT90yENoyx7G7Hyq5IrXR5QxL1lvJlaL2GOUvmGjDJm2ASKO0l9GZmTuE7kd
- Bq6P4rJUzFjPelKS6tyIZYuWW4KCeeP92gByolBAhtSgCEPXxEoLlKKcD8yn1FqOFg0D
- mbQA==
+ :reply-to; bh=n82J7xKXmpUjRKj7zBCcVyEW4JwAUsZ8BkHyrQ3/GMg=;
+ b=c6ThU0IzkZA7IooTpER1JWYRMaORBlmwqBk9U/8H+h2BdH/9GVI8vOgDKfzT/BJd/o
+ 4HOU1OC6iDst484Acag1AnI7cs/O/DMtwob1kpNmlI3w/8vhj/AxbL+SJo04AgFMnTtT
+ qrj95CXDoiisPkZL3bhfp1DNX7n2lt5OXc7jSPtCpjljyt5hNcF3J50w8rLs+xK+7uxa
+ gaYCI6UwEqx2y7shQQM+cqDP2Ci5VdZ4IvcAOj9e+ExbtGvh9JNE0AWtBHoUFH+z6J8T
+ m0MpCKZCE6lE/46cnPUxlvgp4mVUNrdsWAY2PlkUYLdFVpaaZBgZWhL0Jq5PgFwsno3M
+ tnng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750257214; x=1750862014;
+ d=1e100.net; s=20230601; t=1750257216; x=1750862016;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=n0D24v4O6UkSmy0rykCGZTdteernnCPVR9bB+rSj3dQ=;
- b=dL3Cyd7r5fmelnoZi1o5V77f2ooklfavBiMLOzL/gFuws5DwNY5FDhExjXsEe7+HyD
- Wr/OjHGFav52Rn45w0U49irGFrWKiLePzqef7QD0TJeneZu8cznYYkr/jw2Jge5TjnIb
- DtHlg+ZQXASXGlQ9w/Nn95bvZUmZrPk8YBCgC7iyjIs67Bd1BrQG0JFrfSFwJBnrbuOa
- XOUxtVEdpqdAskwnrtowyQ/SZ0vBuaTycLf5DXDpPCEiqwGAWnIjpjSASZM6pPowjrk6
- KSiNE8De14Ku4o5LONqpCLHkJXuUqlHAt/6yT739FyW1QSHJUa8PJ3JLQ0FZapZebG+p
- jBQA==
+ bh=n82J7xKXmpUjRKj7zBCcVyEW4JwAUsZ8BkHyrQ3/GMg=;
+ b=sWhY5FqCSxXlGCV8BkOH8mUOp3tK3oBBWtfjS7fkqPKZPwtR/9yt9SggBrTAQheQe2
+ PQ5bR5niiWI8ap2Jsa5VWUc+DrGiVkUzAysvzO8cffCZik+tYfPsJdGfS97Y1yYBjJ/U
+ Ve3LI38j2AqZdmn4LxIu1v4EPun+EIkYE8WHPK7/2+aZRhHCQArqXtFZNC/1S5lWkn9S
+ WSCbo5/elh3LYhllot/IJqxsP6GZSgLtnu4oho0i9c3pGgbPlamfjsjk6osQeIIl/108
+ lEErKPkPHrHjNJm9Qoc5OS/AGl5Hbe3A8wI+b9c2c1bN+HwMrcNr8Nx5hheU8FPTmFlS
+ VPXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUZnkc0sRgs0Ufru3DMjQeg6oKuG7lZEJNEoFy27ALMzZ04z6PpQk12UyQDfxaFmNe3dhjM/qqNr4A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0cnTQHo8JPIDtmJ/dvrpnaNhWs7h+B6YDL2WoSAP/8yNK0Rb/
- fPEhnEHN7vm9PqRCsz8fuMmsMOJxAsTGLrPiqXq+Mn8yJ59QFd9cbHhTYNYcrfqyQ5k=
-X-Gm-Gg: ASbGncuwR22MAKZ+pAXT2xQ5i33it/+q/esXGcF71WC26lDo7Ljh/L+M9v6u1fxFyRe
- OEoyexyVThN4OlUl3c+9YwHJOEdIPeXtOuVYqFOS5nCNzPqpagNFd6qHXMPKBbB3Y1N1IlQcMd3
- Q65iUYdv7lQsaflt6GsbI6AAsDtZj1LdJrtSP637uVryqUWu6mW1wXuiZ/aCITO++qyeIq48RPZ
- uihdpNhQ87jS3QxTBStWDYqSdW25FIOFsFI/fP+lluSgYKK0EnLwzfRJxeNezwj1q45tqss41ij
- T/x9vmVdnt2keUAj8wft0htgkLZ+z5KaqT0TrGDLWnw8DxNagnL3CwEY/PymGZIyDepAFspgoak
- daDwZoMA=
-X-Google-Smtp-Source: AGHT+IHgkE2gCR+Ei5NwFzycl9y1lzZWZhUYpRX9nSN6vqpHblczGcqHJFMnk3t0A6ezBgPP6h0riA==
-X-Received: by 2002:a17:907:3ea7:b0:ad8:8e05:e5e9 with SMTP id
- a640c23a62f3a-adfad334a92mr669979666b.2.1750257214181; 
- Wed, 18 Jun 2025 07:33:34 -0700 (PDT)
+ AJvYcCWHZKM9E8Y/uG3viXVHU9j0fQkJ0xxT7Lin2MfxYDF75Y30aDO23zRd+0u/ZPAfwL0RsUFD6B7jPGc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyOKftdQKJPDqGlhWuniZ9/5ULNL4Rk7Syr9bBWP6m3hDSXTXFq
+ IcevrxSGSbOdH8EWxoR6Iz34b9/TGKfl4VfU8RzZ2pGFNAFltSdbFPp9wcvUv1v8ORjF4Uux1BE
+ pX3Lg
+X-Gm-Gg: ASbGnctaNfCdwCxpzzV+5kYTLZ5mQ5Y2YWb5w8IIQ04SqHZF9kUePWr45PCTMO5fCDk
+ uvZckM05jP/GYd5NOTqWqpBupUqAGO9d38E6+p5nnQPQXDwVB4iPWAeUN9dRNKd7tBF9S+CYhzV
+ jjaM4jsWoG5fo0FgjVXxS3O1OZl//pTISEqGPeltdPC48sMQOlUlOaWQDR40vISL6dVF5MTUT0u
+ 3SaaR+9MedN1vFTQfcjEEXN6iNCha014ACiZtqSYM74ilGcTzh3AO3TOaPWFqz5W7xkEU0dkBxw
+ B05+r3h3IC9GaRlW5246JxjtM2LxMp3zNxkVo1jyGNGmFzXEpUkEKvyF7S1ccbSnoMlT9WVxN6x
+ 51LVCd8k=
+X-Google-Smtp-Source: AGHT+IFyH36GRnsiJLc/i7NiTvQDPuVB3LJSBqEkgLZlbpChYlfEfQCsSEAvYEZXEceaQcIDNQWHQA==
+X-Received: by 2002:a17:907:7f89:b0:ad8:9b93:8579 with SMTP id
+ a640c23a62f3a-adfad01eb84mr568241466b.0.1750257216346; 
+ Wed, 18 Jun 2025 07:33:36 -0700 (PDT)
 Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-adec81c0135sm1052257566b.47.2025.06.18.07.33.32
+ a640c23a62f3a-adec81c0135sm1052257566b.47.2025.06.18.07.33.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jun 2025 07:33:33 -0700 (PDT)
+ Wed, 18 Jun 2025 07:33:35 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 18 Jun 2025 16:32:38 +0200
-Subject: [PATCH v7 09/13] drm/msm/dpu: Consistently use u32 instead of uint32_t
+Date: Wed, 18 Jun 2025 16:32:39 +0200
+Subject: [PATCH v7 10/13] drm/msm/dpu: Implement 10-bit color alpha for
+ v12.0 DPU
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250618-b4-sm8750-display-v7-9-a591c609743d@linaro.org>
+Message-Id: <20250618-b4-sm8750-display-v7-10-a591c609743d@linaro.org>
 References: <20250618-b4-sm8750-display-v7-0-a591c609743d@linaro.org>
 In-Reply-To: <20250618-b4-sm8750-display-v7-0-a591c609743d@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
@@ -92,21 +94,21 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1745;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7947;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=vGcKp2M1kIvMMMLRUyUZM1bYwOOlWkeA8i3yzwB9pic=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoUs4h/bvBMDnugxk/SVMrhiTiM0BknFv1O1LbQ
- RDNHLoDJZaJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaFLOIQAKCRDBN2bmhouD
- 102bD/9i8m4leeD6m/31EDYGZK93kQ1HUDdKDpzO3Gkl0CIoovW7mjwvc285U//45J6YfJxIhhX
- kp4DTekcKGmzmM+Tjf2CS38quCErmYBIwg8+m6lNjhZ7F950la1N3IY8Iu783D0O1iOm2SbAas+
- EpJjrHbRL5BD8r6xYoTWckwaS+XenPansOeqjEyFdSaDGRzJk25+w5Dr/n/ens59/LpyAoo93em
- P3YAM019UU6+Q9cqPjrX9m7aiFTwyfS6UXHWaNS5Ki9DXp6qFjQekiySIlFdmCfSWj21HkI9Lud
- uBtO0hDUq7vNTUrtbydsi27/zOoiDhiUPY+JccNmlOTU/P1ulkCYQzdNCfL2zJANw0cGzPus9al
- 1DhksiVKGjKo1M4TCaU+raLUBdtDpBGuX2cLyQHeKyQcMV+u+idkh6TH9aN5Z/b9Oi3KdCeYNYK
- 7240SDWIO+6e+WpEsgGAOGfVP1DThZbvz3rglVKQN+xGOuODQGJEb94Jjg6kq3SPowJY76KeaXc
- cSpwAE9FuMGdAGAYAnrFGgTuhM3o5VcQBWdR4nHoXc6rFIpCyJ++nbuNQDPQwsg+HM3SRpQsIkY
- k7dfSi+i/GXYwIs0CUfYeu54narF17Sc7jspJAkUIsQwhhg2L2l23Bf5xt7cWtrdoXXagfHVBnS
- Jncyo2xxfHElLEQ==
+ bh=B37GRMruOX+ZSyC96p19lfWnZVPySg5VUvTqpflIprM=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoUs4i+dVGR7M/N+gLZcNJgYmbPwkDX/c+Evk7F
+ L1YG0gFBj+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaFLOIgAKCRDBN2bmhouD
+ 11IRD/0R8mcfv5w08dGZck81Xbp3NcSvfkb2ZbkzerJP5savTDGKresTlcRW63SAeYv4Mpy7AP4
+ aSD8N19kvVnCkg8StUlY5VPuRonNl9Z01wWpst2Ji9wL8JG6t7P/okuSQre0DjBvKoZgoiNHZyS
+ qn42WSzLyssH3GYY1ZdvQ3K4Rzswp46eaNTsFVffTpN8YeuS+Vmteihfdn/yV7320U+C0kNXwed
+ 98+ZmX0U1kHoBXuTOiuMfY3jq3AoHGJ34KaVVih0LACCtdop6HyDj5ZKaoUDtptr8fXfXemKS3a
+ huW1+lx5PHoaqspQqU5IETECH0rcw8SlsemANom8W97eZ3sKUil/MAEJzsuTq3++0Bv0SzdD1D3
+ +jJ0naVn6DzpWTzwp0uePwRxQIkSNbstOrLhBPgjfHGB7vGlQg9BwC8qezxeThVeUfVFcVFa5Z0
+ keh61GteFTp3F7jwnLGAn07SQNQKcdmph3EFmL44vvccsYwS8OjcFGV+M+2Ifj/5XlUN8coxkmt
+ 8eyhCYbz+n1Ch/r1ne6dAiZyybruw4KsV+a/yCJEVuv7mARAlINzM+KIiTy0hxPM6feoC9lt7ku
+ WveBLw9bclzCHll3bqVYWJcFHFAd7KWl++VPSJmebndSQcTmXaYr383WbTnkxTRFXilzZKNo5Z1
+ n/sya/q4IcRGkeA==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -124,53 +126,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Linux coding style asks to use kernel types like u32 instead of uint32_t
-and code already has it in other places, so unify the remaining pieces.
+v12.0 DPU on SM8750 comes with 10-bit color alpha.  Add register
+differences and new implementations of setup_alpha_out(),
+setup_border_color() and setup_blend_config().
+
+Notable changes in v6:
+Correct fg_alpha shift on new DPU, pointed out by Abel Vesas.
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
 ---
 
 Changes in v6:
-1. New patch
+1. Checkpatch: CHECK: Prefer kernel type 'u32' over 'uint32_t'
+2. Fix for fg_alpha shift (Abel Vesa).
+
+Changes in v4:
+1. Lowercase hex, use spaces for define indentation
+2. _dpu_crtc_setup_blend_cfg(): pass mdss_ver instead of ctl
+
+Changes in v3:
+1. New patch, split from previous big DPU v12.0.
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 23 ++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c | 84 +++++++++++++++++++++++++++++--
+ 2 files changed, 97 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index a4b0fe0d9899b32141928f0b6a16503a49b3c27a..92f6c39eee3dc090bd957239e58793e5b0437548 100644
+index 92f6c39eee3dc090bd957239e58793e5b0437548..5e986640c8ce5b49d0ce2f91cc47f677a2e3f061 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -323,8 +323,8 @@ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
- 		struct dpu_plane_state *pstate, const struct msm_format *format)
+@@ -320,14 +320,22 @@ static bool dpu_crtc_get_scanout_position(struct drm_crtc *crtc,
+ }
+ 
+ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
+-		struct dpu_plane_state *pstate, const struct msm_format *format)
++				      struct dpu_plane_state *pstate,
++				      const struct msm_format *format,
++				      const struct dpu_mdss_version *mdss_ver)
  {
  	struct dpu_hw_mixer *lm = mixer->hw_lm;
--	uint32_t blend_op;
--	uint32_t fg_alpha, bg_alpha;
-+	u32 blend_op;
-+	u32 fg_alpha, bg_alpha;
+ 	u32 blend_op;
+-	u32 fg_alpha, bg_alpha;
++	u32 fg_alpha, bg_alpha, max_alpha;
  
- 	fg_alpha = pstate->base.alpha >> 8;
- 	bg_alpha = 0xff - fg_alpha;
-@@ -402,7 +402,7 @@ static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
- 				       struct dpu_hw_stage_cfg *stage_cfg
- 				      )
+-	fg_alpha = pstate->base.alpha >> 8;
+-	bg_alpha = 0xff - fg_alpha;
++	if (mdss_ver->core_major_ver < 12) {
++		max_alpha = 0xff;
++		fg_alpha = pstate->base.alpha >> 8;
++	} else {
++		max_alpha = 0x3ff;
++		fg_alpha = pstate->base.alpha >> 6;
++	}
++	bg_alpha = max_alpha - fg_alpha;
+ 
+ 	/* default to opaque blending */
+ 	if (pstate->base.pixel_blend_mode == DRM_MODE_BLEND_PIXEL_NONE ||
+@@ -337,7 +345,7 @@ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
+ 	} else if (pstate->base.pixel_blend_mode == DRM_MODE_BLEND_PREMULTI) {
+ 		blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
+ 			DPU_BLEND_BG_ALPHA_FG_PIXEL;
+-		if (fg_alpha != 0xff) {
++		if (fg_alpha != max_alpha) {
+ 			bg_alpha = fg_alpha;
+ 			blend_op |= DPU_BLEND_BG_MOD_ALPHA |
+ 				    DPU_BLEND_BG_INV_MOD_ALPHA;
+@@ -348,7 +356,7 @@ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
+ 		/* coverage blending */
+ 		blend_op = DPU_BLEND_FG_ALPHA_FG_PIXEL |
+ 			DPU_BLEND_BG_ALPHA_FG_PIXEL;
+-		if (fg_alpha != 0xff) {
++		if (fg_alpha != max_alpha) {
+ 			bg_alpha = fg_alpha;
+ 			blend_op |= DPU_BLEND_FG_MOD_ALPHA |
+ 				    DPU_BLEND_FG_INV_MOD_ALPHA |
+@@ -481,7 +489,8 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+ 
+ 		/* blend config update */
+ 		for (lm_idx = 0; lm_idx < cstate->num_mixers; lm_idx++) {
+-			_dpu_crtc_setup_blend_cfg(mixer + lm_idx, pstate, format);
++			_dpu_crtc_setup_blend_cfg(mixer + lm_idx, pstate, format,
++						  ctl->mdss_ver);
+ 
+ 			if (bg_alpha_enable && !format->alpha_enable)
+ 				mixer[lm_idx].mixer_op_mode = 0;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
+index 3bfb61cb83672dca4236bdbbbfb1e442223576d2..f220a68e138cb9e7c88194e53e47391de7ed04f7 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
+@@ -19,12 +19,20 @@
+ 
+ /* These register are offset to mixer base + stage base */
+ #define LM_BLEND0_OP                     0x00
++
++/* <v12 DPU with offset to mixer base + stage base */
+ #define LM_BLEND0_CONST_ALPHA            0x04
+ #define LM_FG_COLOR_FILL_COLOR_0         0x08
+ #define LM_FG_COLOR_FILL_COLOR_1         0x0C
+ #define LM_FG_COLOR_FILL_SIZE            0x10
+ #define LM_FG_COLOR_FILL_XY              0x14
+ 
++/* >= v12 DPU */
++#define LM_BORDER_COLOR_0_V12            0x1c
++#define LM_BORDER_COLOR_1_V12            0x20
++
++/* >= v12 DPU with offset to mixer base + stage base */
++#define LM_BLEND0_CONST_ALPHA_V12        0x08
+ #define LM_BLEND0_FG_ALPHA               0x04
+ #define LM_BLEND0_BG_ALPHA               0x08
+ 
+@@ -83,6 +91,22 @@ static void dpu_hw_lm_setup_border_color(struct dpu_hw_mixer *ctx,
+ 	}
+ }
+ 
++static void dpu_hw_lm_setup_border_color_v12(struct dpu_hw_mixer *ctx,
++					     struct dpu_mdss_color *color,
++					     u8 border_en)
++{
++	struct dpu_hw_blk_reg_map *c = &ctx->hw;
++
++	if (border_en) {
++		DPU_REG_WRITE(c, LM_BORDER_COLOR_0_V12,
++			      (color->color_0 & 0x3ff) |
++			      ((color->color_1 & 0x3ff) << 16));
++		DPU_REG_WRITE(c, LM_BORDER_COLOR_1_V12,
++			      (color->color_2 & 0x3ff) |
++			      ((color->color_3 & 0x3ff) << 16));
++	}
++}
++
+ static void dpu_hw_lm_setup_misr(struct dpu_hw_mixer *ctx)
  {
--	uint32_t lm_idx;
-+	u32 lm_idx;
- 	enum dpu_sspp sspp_idx;
- 	struct drm_plane_state *state;
+ 	dpu_hw_setup_misr(&ctx->hw, LM_MISR_CTRL, 0x0);
+@@ -112,6 +136,27 @@ static void dpu_hw_lm_setup_blend_config_combined_alpha(struct dpu_hw_mixer *ctx
+ 	DPU_REG_WRITE(c, LM_BLEND0_OP + stage_off, blend_op);
+ }
  
-@@ -442,8 +442,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
- 	struct dpu_plane_state *pstate = NULL;
- 	const struct msm_format *format;
- 	struct dpu_hw_ctl *ctl = mixer->lm_ctl;
--
--	uint32_t lm_idx;
-+	u32 lm_idx;
- 	bool bg_alpha_enable = false;
- 	DECLARE_BITMAP(active_fetch, SSPP_MAX);
++static void
++dpu_hw_lm_setup_blend_config_combined_alpha_v12(struct dpu_hw_mixer *ctx,
++						u32 stage, u32 fg_alpha,
++						u32 bg_alpha, u32 blend_op)
++{
++	struct dpu_hw_blk_reg_map *c = &ctx->hw;
++	int stage_off;
++	u32 const_alpha;
++
++	if (stage == DPU_STAGE_BASE)
++		return;
++
++	stage_off = _stage_offset(ctx, stage);
++	if (WARN_ON(stage_off < 0))
++		return;
++
++	const_alpha = (bg_alpha & 0x3ff) | ((fg_alpha & 0x3ff) << 16);
++	DPU_REG_WRITE(c, LM_BLEND0_CONST_ALPHA_V12 + stage_off, const_alpha);
++	DPU_REG_WRITE(c, LM_BLEND0_OP + stage_off, blend_op);
++}
++
+ static void dpu_hw_lm_setup_blend_config(struct dpu_hw_mixer *ctx,
+ 	u32 stage, u32 fg_alpha, u32 bg_alpha, u32 blend_op)
+ {
+@@ -144,6 +189,32 @@ static void dpu_hw_lm_setup_color3(struct dpu_hw_mixer *ctx,
+ 	DPU_REG_WRITE(c, LM_OP_MODE, op_mode);
+ }
+ 
++static void dpu_hw_lm_setup_color3_v12(struct dpu_hw_mixer *ctx,
++				       uint32_t mixer_op_mode)
++{
++	struct dpu_hw_blk_reg_map *c = &ctx->hw;
++	int op_mode, stages, stage_off, i;
++
++	stages = ctx->cap->sblk->maxblendstages;
++	if (stages <= 0)
++		return;
++
++	for (i = DPU_STAGE_0; i <= stages; i++) {
++		stage_off = _stage_offset(ctx, i);
++		if (WARN_ON(stage_off < 0))
++			return;
++
++		/* set color_out3 bit in blend0_op when enabled in mixer_op_mode */
++		op_mode = DPU_REG_READ(c, LM_BLEND0_OP + stage_off);
++		if (mixer_op_mode & BIT(i))
++			op_mode |= BIT(30);
++		else
++			op_mode &= ~BIT(30);
++
++		DPU_REG_WRITE(c, LM_BLEND0_OP + stage_off, op_mode);
++	}
++}
++
+ /**
+  * dpu_hw_lm_init() - Initializes the mixer hw driver object.
+  * should be called once before accessing every mixer.
+@@ -175,12 +246,19 @@ struct dpu_hw_mixer *dpu_hw_lm_init(struct drm_device *dev,
+ 	c->idx = cfg->id;
+ 	c->cap = cfg;
+ 	c->ops.setup_mixer_out = dpu_hw_lm_setup_out;
+-	if (mdss_ver->core_major_ver >= 4)
++	if (mdss_ver->core_major_ver >= 12)
++		c->ops.setup_blend_config = dpu_hw_lm_setup_blend_config_combined_alpha_v12;
++	else if (mdss_ver->core_major_ver >= 4)
+ 		c->ops.setup_blend_config = dpu_hw_lm_setup_blend_config_combined_alpha;
+ 	else
+ 		c->ops.setup_blend_config = dpu_hw_lm_setup_blend_config;
+-	c->ops.setup_alpha_out = dpu_hw_lm_setup_color3;
+-	c->ops.setup_border_color = dpu_hw_lm_setup_border_color;
++	if (mdss_ver->core_major_ver < 12) {
++		c->ops.setup_alpha_out = dpu_hw_lm_setup_color3;
++		c->ops.setup_border_color = dpu_hw_lm_setup_border_color;
++	} else {
++		c->ops.setup_alpha_out = dpu_hw_lm_setup_color3_v12;
++		c->ops.setup_border_color = dpu_hw_lm_setup_border_color_v12;
++	}
+ 	c->ops.setup_misr = dpu_hw_lm_setup_misr;
+ 	c->ops.collect_misr = dpu_hw_lm_collect_misr;
  
 
 -- 
