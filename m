@@ -2,113 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BEC1AE1F22
-	for <lists+freedreno@lfdr.de>; Fri, 20 Jun 2025 17:45:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD9EAE21D5
+	for <lists+freedreno@lfdr.de>; Fri, 20 Jun 2025 20:14:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D9310E233;
-	Fri, 20 Jun 2025 15:45:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A6EF10E0BF;
+	Fri, 20 Jun 2025 18:14:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AvviTS9f";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UkdN/irB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 641ED10E10B
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 15:45:52 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55KEKBhG031604
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 15:45:50 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CA5610E0BF
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:01 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55KFRVjC024309
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=IBNhqEhlbdF
- Pkj+kCuKLrjIW5Ve2xstiu6VBwj267oo=; b=AvviTS9f6YCfBfqr5RxjM/w0mcB
- ZeBKRk0jNK8bNr6inafZx1LJ/Gy5dAoSpznk/4QKl8qv4lW4Pd1BrEzF+Gny/jCY
- bTxbrjYfu1iS4IqLH3YwwboDiT120HmoAH9sI+mdn6Ow0FkzEzS57cqyvtMpsQ2N
- /QMUMDPCkiY6sCEBWZSe4Q0zDNEniBQwRhnTTj6vQHrxe2aBejhBSUyXcyLBT5ZY
- rUFfc55w9ubPwxaaAyKdsffHZQxdd9JR/YwrOm00vx3yZQOF3rAyx5izkXPllGjG
- xDEKdACYyJSGcLi577870cRSSeQXTDgS18X946FVkuN/V1zFl8or6GV98oA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4791h9kqqk-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ jG+tT6iYc7a6QUyEAhUjHjnsvAkz1ye2EdBIx/ExqFk=; b=UkdN/irB8eMnJ2NO
+ 0jKqzAQYkjVmkjPwzGLnd2yjmhC6ai+LAD0gYtUrCOK8BEwRvqqoZR/ugLxYiVuX
+ 9k9jLWr44aC3OHxETeTlhAm5+i8CiiOz8ZilzWSUj7Q4JnCemiVtWuStq45Huipk
+ A2+GSGi0whhqnkJ4UEP5TzN7Q/5w/1yuxrrFt/OdGIICQ5+CmHrvfC6J0/KF+aSS
+ 0YloyFiwf30ppri10MrRtHrzhqKNyO8yu9zt9UQBThQGIkh4AnV5NWIsl3e7YfQ9
+ MsdHh5fl5Yox+G5VF2uNNL4og0XshRfyaWglpdIwx/PjnaavMahQY9VnybmUaRgI
+ ERE2Ng==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47daa4ren4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 15:45:49 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-b31f4a9f67cso844768a12.1
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 08:45:49 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:00 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-7caee990721so466569685a.1
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 11:14:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750434348; x=1751039148;
+ d=1e100.net; s=20230601; t=1750443240; x=1751048040;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IBNhqEhlbdFPkj+kCuKLrjIW5Ve2xstiu6VBwj267oo=;
- b=bHUDKLie2CDTBtvRLa8z/o8xmwyVzEGPhtSwO9RgPZzkUJe1ztNXQgPol+2KSaxkBS
- q9p5gvsHa1YiYsNyKol8Z/bxLkrx1IVsYgdYPOmrJlSXsMqPOaoRZbf2P2YghgadDBsl
- FVMEgFh7WFw88Qq8B2+I5pmFxxpgvHFXgraGPVru5PC13gKqVGulC9izaBW6q2XLWPHI
- cXFBufKFgRwgRD9PMWrbM1kg2+UidhucPnLLvNrUk0d+e/HGBudB6PpOTJ1dHXa9q/Td
- q3cv7mszgDtUMzHFwCpk98k8B3+/gKpB9jbm3c37gMTemONjxO4Iq/GlNy9683iUpKX/
- d7eA==
+ bh=jG+tT6iYc7a6QUyEAhUjHjnsvAkz1ye2EdBIx/ExqFk=;
+ b=rC6uyISkH+Kj2B31lEFjXs6WfRUboC9V6P77Vegkk5V6cr3z+ICub90zDRRcnuSBRI
+ 9Tb6iGKNXi5/3DED+qWfKuuM0VWHV+PoDrpnxtQ2w8pcGTDchu16MS7TU9R5BBSP4Hhb
+ s8GUSNXoGqGbjwoytcdQLPBEYLykbdVZrqPoQr48AnfMZX10rWuF9Uc2f+Rx5h/3mGYJ
+ oyTBlauBvDPIKs0OT4g1u/nK/6lAgDanAoqg16OtemudTQYAD4xl99XwSk1K0azgtpFh
+ 9h4aETQDnpDIrxuCEa7iCOhUEOgqMr+JY9c3tLmPL8nuwqhhSwdlBC3dRTbaTOmj5aE6
+ 25Rg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWaVYArm4rm6kwLyRGF7Prror0ICDIAgoQZZKWhwn5t1d59WFKR2/BlHthHVxE0j33vJHZRAbmw720=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw/t3f+orMFmD9E2M8apd2ETjmGGH4ZFRAJy3gQhkeo7p3V6rpf
- u91L5PbcauRHhCkhPhOj/rHXtCvf5J4//ReiuoTtoFAlFb8rEwN6cLkZjaZga3FMJGpzOzrJwxb
- XTheKmkdsqeOpc4YWsOrtHCuHhA2tmo+Ce5jcsuKoSlachCg1HkWNoRE0Bb1OvnJPAxSIxqg=
-X-Gm-Gg: ASbGncv0MndV0ccL27YDS6kclo+NHaQRngxO7hOMaB9ZdYcWGyg1apmAgDI4pV0LrgP
- 3RgZSyWvTTIlDTzrnSbFxnPi04Bkj/ESeh/j1dlEXQf8u+nzW2gx50HYoeQmDyXPPFcGhjnzXr3
- 2vh0rFTUkiUBv/FR1znBKZq6i4AQbd2v5+xEtSj9darRN8h3YN+2gi37m1m1KvPL+nDPku8xTFB
- onXpml2Dp0f7cZU7OuyNF059Wl2430M0DaNz6mAWQWvL2/dShtq65XMHZzOXCxmRGpA3j8BHr/8
- EgzJbiFm2oYmuF/ShqdejSEyANm3skdc
-X-Received: by 2002:a17:903:166b:b0:234:b123:b4ff with SMTP id
- d9443c01a7336-237d9870a0amr41976005ad.21.1750434348471; 
- Fri, 20 Jun 2025 08:45:48 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE3uiV9mVqMw9I/3jinpD0YtzGr6J2SplRLMbVB/rccnB3N+Yx+1W+hkGE50i19U8Yzi4Uw5g==
-X-Received: by 2002:a17:903:166b:b0:234:b123:b4ff with SMTP id
- d9443c01a7336-237d9870a0amr41975625ad.21.1750434348053; 
- Fri, 20 Jun 2025 08:45:48 -0700 (PDT)
-Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
+ AJvYcCVibWcRIu2Qe4DeLqb9l+uqyH+RrvLV4s18756J50RIU39McboIm4G9ZRJzkxGRDAnHX5vdB91zSsk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxfr65Ql6BDF7IqkLjJMG/w/2P1SLN+wrlVoMY40dzyEBYFcig1
+ b/IE5etsfBWQMmVRTo6MVwfMbl/k/Hm1kJY4+9ktulglsPHSnXLfDkEdxZxA8y8g+9g4PLcmmSY
+ dOZRkAO8A+VaGjD85UojYJeEiWGlm9xWZWAOtngvQXOtTm/8Tk0hXxCZkOMdRSdwmLVMhMWg=
+X-Gm-Gg: ASbGncvpQqPH/Tzr1QeqzlexyNlBsrQAbyXwmXtf8tHu8tGVOLMI2lGRssr66E3c4Rr
+ YeCE5F6HUgo4LiQnWqliS8mBiibmLyx+QZrsabuzEHiLMa9GDeCqek3o66M0gW7vgF2c3d03xUz
+ uJqE3tckKG4jED7UG4t5JtakH9j6GjNAUMnetm1J2xLC6KMBi7HrdIreBhq0z39vx9Si+t9Bu58
+ dEhS7170XNQGHuxd82e8SNfL/wN+zi0qvi8lyFmPX+0Zxk111lUAkiydeXh5VHVYWAh71SO1kQJ
+ PqURrmGNr8tuspC5lCSXg5P2lFbi0/1h923k3oqu0DBvaf9Ibd/6HhHj0X0eYuU8KchQ6o9agsr
+ tuWCOgQWPyHqLhJc4tv5w255XSEvm/x1VfE4=
+X-Received: by 2002:a05:620a:f12:b0:7d0:a25b:d04c with SMTP id
+ af79cd13be357-7d3f98c5721mr607832985a.9.1750443239579; 
+ Fri, 20 Jun 2025 11:13:59 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGrRvs8vYgSxtHBNL8Gik6EafDnQeb6cUhaJFFn4yZST6SpGSMyqxM73JI0IZzDqbtPeAIlXg==
+X-Received: by 2002:a05:620a:f12:b0:7d0:a25b:d04c with SMTP id
+ af79cd13be357-7d3f98c5721mr607826485a.9.1750443238988; 
+ Fri, 20 Jun 2025 11:13:58 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d8640dc6sm20800765ad.146.2025.06.20.08.45.47
+ 2adb3069b0e04-553e4144306sm363384e87.18.2025.06.20.11.13.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jun 2025 08:45:47 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Danilo Krummrich <dakr@redhat.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ Fri, 20 Jun 2025 11:13:56 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3 2/2] drm/gpuvm: Add locking helpers
-Date: Fri, 20 Jun 2025 08:45:36 -0700
-Message-ID: <20250620154537.89514-3-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250620154537.89514-1-robin.clark@oss.qualcomm.com>
-References: <20250620154537.89514-1-robin.clark@oss.qualcomm.com>
+ Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Dmitry Baryshkov <lumag@kernel.org>
+Subject: Re: [PATCH v5 00/30] drm/msm/dpu: rework HW block feature handling
+Date: Fri, 20 Jun 2025 21:13:51 +0300
+Message-Id: <175044313810.2014621.9717827153141285782.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250522-dpu-drop-features-v5-0-3b2085a07884@oss.qualcomm.com>
+References: <20250522-dpu-drop-features-v5-0-3b2085a07884@oss.qualcomm.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: phpYp04pTrkkdhtGZWYrjdxG28lPzVWl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjIwMDExMiBTYWx0ZWRfX/jsyH4y+ZxQQ
- Dv4fLReBHZt4vyxzjpBmsKCkQT2yiqoi02m0c8wwjc4wBKbzFx3XTr48Jn6cP6HvqnnsOgMcu0f
- +y1IHnVpzHMBx0Dib0WrCZo1F8GDMjXA4QaRlbwTsLZemI4yi0Wa4UKwJ5FA53jFpJv0TuePbqu
- nO82In3Wco+vVEUYL3y9wgZtd+RXm4JIUWx5NGS6s0MCbcdVEM9snll6jQgguKYefKhpjD6fZAt
- tOMfHZFKvRsGRBwiyyuGSCcPBunnFcNF7ERqXUpwE+f3CrRBEKll6Pa9oLtHRRfR/dRhDkPbyhn
- dbJoQBxhQdP1SBzcloS5THaYfGuUuC6IqfGHP90+e90Y/i5EZuvyr5E1uoeW6T6wf3abwQ3lyr3
- elHw8sDaTFQxTlJEOJaHA4juHXynTjhTxfkjVvKNZ0SbGA1LzvyRHHxtlzGvhxzapU9wvisT
-X-Authority-Analysis: v=2.4 cv=UL/dHDfy c=1 sm=1 tr=0 ts=6855822d cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=EUspDBNiAAAA:8 a=gXmLzIc8hE4PcKHQkQgA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: phpYp04pTrkkdhtGZWYrjdxG28lPzVWl
+X-Proofpoint-GUID: uGRx9OXrzeMIiszBfw4veWg2Aqu96PBq
+X-Proofpoint-ORIG-GUID: uGRx9OXrzeMIiszBfw4veWg2Aqu96PBq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjIwMDEyNyBTYWx0ZWRfX0q4VeXhW/vTc
+ LFGQZNJphrXX9t4ZnEiSD5N9rh3AtIPz6ciS+pNSCr8haLbCCGCX/c4zTR0ToUWW3sNOa6saRGD
+ Z90iKsx4HORO0oxOCjIksNaNasyvQtpnDfJPvu6YPm2pie0tAO2qkZAf2o7Za3rIAqf8nLhQL1C
+ MPVslNuq862KMT1yZXmvClKRYqD/DpXD8lOV0Nd7K6V4w/TH70vzp+ukqBzvh+mpED8ca1Nz7zo
+ n3VRcWWYbE8zSItpFZvOA8cSgycpSeuWGQBG2MlicRdwvf4vT3L7zUpmFKZ1Oc+OJBx3ktAGqFT
+ ccCvyI7gLQ+n85TrLN9FrtbbPCjb++2ex1oPACQ9AxeDCqZpxSUjHsaP0ZzxVH1fMQYsMJo3CTA
+ GLJbPR289Rbwgv25Q7Ep5rT/6wHRuz9VYZx/7m5j1jMyUkRX+f7wmaIpPzvD3EmUT6FNpFMT
+X-Authority-Analysis: v=2.4 cv=KphN2XWN c=1 sm=1 tr=0 ts=6855a4e8 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=6IFa9wvqVegA:10 a=e5mUnYsNAAAA:8 a=KLh1uqfzAhr9BImysYoA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-20_06,2025-06-20_01,2025-03-28_01
+ definitions=2025-06-20_07,2025-06-20_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 phishscore=0 mlxlogscore=999
- malwarescore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ malwarescore=0 suspectscore=0 spamscore=0 priorityscore=1501 clxscore=1015
+ mlxlogscore=842 mlxscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
+ impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506200112
+ definitions=main-2506200127
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,183 +130,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-For UNMAP/REMAP steps we could be needing to lock objects that are not
-explicitly listed in the VM_BIND ioctl in order to tear-down unmapped
-VAs.  These helpers handle locking/preparing the needed objects.
 
-Note that these functions do not strictly require the VM changes to be
-applied before the next drm_gpuvm_sm_map_lock()/_unmap_lock() call.  In
-the case that VM changes from an earlier drm_gpuvm_sm_map()/_unmap()
-call result in a differing sequence of steps when the VM changes are
-actually applied, it will be the same set of GEM objects involved, so
-the locking is still correct.
+On Thu, 22 May 2025 22:03:19 +0300, Dmitry Baryshkov wrote:
+> Some time ago we started the process of converting HW blocks to use
+> revision-based checks instead of having feature bits (which are easy to
+> miss or to set incorrectly). Then the process of such a conversion was
+> postponed. (Mostly) finish the conversion. The only blocks which still
+> have feature bits are SSPP, WB and VBIF. In the rare cases where
+> behaviour actually differs from platform to platform (or from block to
+> block) use unsigned long bitfields, they have simpler syntax to be
+> checked and don't involve test_bit() invocation.
+> 
+> [...]
 
-v2: Rename to drm_gpuvm_sm_*_exec_locked() [Danilo]
-v3: Expand comments to show expected usage, and explain how the usage
-    is safe in the case of overlapping driver VM_BIND ops.
+Applied, thanks!
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/drm_gpuvm.c | 126 ++++++++++++++++++++++++++++++++++++
- include/drm/drm_gpuvm.h     |   8 +++
- 2 files changed, 134 insertions(+)
+[01/30] drm/msm/dpu: stop passing mdss_ver to setup_timing_gen()
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/5d25efaaa327
+[02/30] drm/msm/dpu: drop INTF_SC7280_MASK
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/768d87108f24
+[03/30] drm/msm/dpu: inline _setup_ctl_ops()
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/cc34e7f8d8a3
+[04/30] drm/msm/dpu: inline _setup_dsc_ops()
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/155e4d05136b
+[05/30] drm/msm/dpu: inline _setup_dspp_ops()
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/cfc1dbe27f63
+[06/30] drm/msm/dpu: inline _setup_mixer_ops()
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/d01d027a6ae1
+[07/30] drm/msm/dpu: remove DSPP_SC7180_MASK
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/64558d6ec1dc
+[08/30] drm/msm/dpu: get rid of DPU_CTL_HAS_LAYER_EXT4
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/40b7aa8fb641
+[09/30] drm/msm/dpu: get rid of DPU_CTL_ACTIVE_CFG
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/a1c5eafeab9b
+[10/30] drm/msm/dpu: get rid of DPU_CTL_FETCH_ACTIVE
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/a22c33cb4ccc
+[11/30] drm/msm/dpu: get rid of DPU_CTL_DSPP_SUB_BLOCK_FLUSH
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/91003d9f8fb6
+[12/30] drm/msm/dpu: get rid of DPU_CTL_VM_CFG
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/e479fb02dc72
+[13/30] drm/msm/dpu: get rid of DPU_DATA_HCTL_EN
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/39890da06970
+[14/30] drm/msm/dpu: get rid of DPU_INTF_STATUS_SUPPORTED
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/e7da245a3402
+[15/30] drm/msm/dpu: get rid of DPU_INTF_INPUT_CTRL
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/9db68425f24c
+[16/30] drm/msm/dpu: get rid of DPU_PINGPONG_DSC
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/d521c4200c94
+[17/30] drm/msm/dpu: get rid of DPU_PINGPONG_DITHER
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/bbd131f1e095
+[18/30] drm/msm/dpu: get rid of DPU_MDP_VSYNC_SEL
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/5094aa5474a2
+[19/30] drm/msm/dpu: get rid of DPU_MDP_PERIPH_0_REMOVED
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/820405f6e2e6
+[20/30] drm/msm/dpu: get rid of DPU_MDP_AUDIO_SELECT
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/b14f7c55b079
+[21/30] drm/msm/dpu: get rid of DPU_MIXER_COMBINED_ALPHA
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/5b14c003781b
+[22/30] drm/msm/dpu: get rid of DPU_DIM_LAYER
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/36beee41c4c3
+[23/30] drm/msm/dpu: get rid of DPU_DSC_HW_REV_1_2
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/27b1a01fcdb8
+[24/30] drm/msm/dpu: get rid of DPU_DSC_OUTPUT_CTRL
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/a88c80ecb442
+[25/30] drm/msm/dpu: get rid of DPU_WB_INPUT_CTRL
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/fa811f768713
+[26/30] drm/msm/dpu: get rid of DPU_SSPP_QOS_8LVL
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/0709ec21abcf
+[27/30] drm/msm/dpu: drop unused MDP TOP features
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/0ea9f990c352
+[28/30] drm/msm/dpu: drop ununused PINGPONG features
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/a1e42a921dee
+[29/30] drm/msm/dpu: drop ununused MIXER features
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/1f783bf4f8f9
+[30/30] drm/msm/dpu: move features out of the DPU_HW_BLK_INFO
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/c70c860fb00c
 
-diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-index 0ca717130541..a811471b888e 100644
---- a/drivers/gpu/drm/drm_gpuvm.c
-+++ b/drivers/gpu/drm/drm_gpuvm.c
-@@ -2390,6 +2390,132 @@ drm_gpuvm_sm_unmap(struct drm_gpuvm *gpuvm, void *priv,
- }
- EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap);
- 
-+static int
-+drm_gpuva_sm_step_lock(struct drm_gpuva_op *op, void *priv)
-+{
-+	struct drm_exec *exec = priv;
-+
-+	switch (op->op) {
-+	case DRM_GPUVA_OP_REMAP:
-+		if (op->remap.unmap->va->gem.obj)
-+			return drm_exec_lock_obj(exec, op->remap.unmap->va->gem.obj);
-+		return 0;
-+	case DRM_GPUVA_OP_UNMAP:
-+		if (op->unmap.va->gem.obj)
-+			return drm_exec_lock_obj(exec, op->unmap.va->gem.obj);
-+		return 0;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static const struct drm_gpuvm_ops lock_ops = {
-+	.sm_step_map = drm_gpuva_sm_step_lock,
-+	.sm_step_remap = drm_gpuva_sm_step_lock,
-+	.sm_step_unmap = drm_gpuva_sm_step_lock,
-+};
-+
-+/**
-+ * drm_gpuvm_sm_map_exec_lock() - locks the objects touched by a drm_gpuvm_sm_map()
-+ * @gpuvm: the &drm_gpuvm representing the GPU VA space
-+ * @exec: the &drm_exec locking context
-+ * @num_fences: for newly mapped objects, the # of fences to reserve
-+ * @req_addr: the start address of the range to unmap
-+ * @req_range: the range of the mappings to unmap
-+ * @req_obj: the &drm_gem_object to map
-+ * @req_offset: the offset within the &drm_gem_object
-+ *
-+ * This function locks (drm_exec_lock_obj()) objects that will be unmapped/
-+ * remapped, and locks+prepares (drm_exec_prepare_object()) objects that
-+ * will be newly mapped.
-+ *
-+ * The expected usage is:
-+ *
-+ *    vm_bind {
-+ *        struct drm_exec exec;
-+ *
-+ *        // IGNORE_DUPLICATES is required, INTERRUPTIBLE_WAIT is recommended:
-+ *        drm_exec_init(&exec, IGNORE_DUPLICATES | INTERRUPTIBLE_WAIT, 0);
-+ *
-+ *        drm_exec_until_all_locked (&exec) {
-+ *            for_each_vm_bind_operation {
-+ *                switch (op->op) {
-+ *                case DRIVER_OP_UNMAP:
-+ *                    ret = drm_gpuvm_sm_unmap_exec_lock(gpuvm, &exec, op->addr, op->range);
-+ *                    break;
-+ *                case DRIVER_OP_MAP:
-+ *                    ret = drm_gpuvm_sm_map_exec_lock(gpuvm, &exec, num_fences,
-+ *                                                     op->addr, op->range,
-+ *                                                     obj, op->obj_offset);
-+ *                    break;
-+ *                }
-+ *
-+ *                drm_exec_retry_on_contention(&exec);
-+ *                if (ret)
-+ *                    return ret;
-+ *            }
-+ *        }
-+ *    }
-+ *
-+ * This enables all locking to be performed before the driver begins modifying
-+ * the VM.  This is safe to do in the case of overlapping DRIVER_VM_BIND_OPs,
-+ * where an earlier op can alter the sequence of steps generated for a later
-+ * op, because the later altered step will involve the same GEM object(s)
-+ * already seen in the earlier locking step.  For example:
-+ *
-+ * 1) An earlier driver DRIVER_OP_UNMAP op removes the need for a
-+ *    DRM_GPUVA_OP_REMAP/UNMAP step.  This is safe because we've already
-+ *    locked the GEM object in the earlier DRIVER_OP_UNMAP op.
-+ *
-+ * 2) An earlier DRIVER_OP_MAP op overlaps with a later DRIVER_OP_MAP/UNMAP
-+ *    op, introducing a DRM_GPUVA_OP_REMAP/UNMAP that wouldn't have been
-+ *    required without the earlier DRIVER_OP_MAP.  This is safe because we've
-+ *    already locked the GEM object in the earlier DRIVER_OP_MAP step.
-+ *
-+ * Returns: 0 on success or a negative error codec
-+ */
-+int
-+drm_gpuvm_sm_map_exec_lock(struct drm_gpuvm *gpuvm,
-+			   struct drm_exec *exec, unsigned int num_fences,
-+			   u64 req_addr, u64 req_range,
-+			   struct drm_gem_object *req_obj, u64 req_offset)
-+{
-+	if (req_obj) {
-+		int ret = drm_exec_prepare_obj(exec, req_obj, num_fences);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return __drm_gpuvm_sm_map(gpuvm, &lock_ops, exec,
-+				  req_addr, req_range,
-+				  req_obj, req_offset);
-+
-+}
-+EXPORT_SYMBOL_GPL(drm_gpuvm_sm_map_exec_lock);
-+
-+/**
-+ * drm_gpuvm_sm_unmap_exec_lock() - locks the objects touched by drm_gpuvm_sm_unmap()
-+ * @gpuvm: the &drm_gpuvm representing the GPU VA space
-+ * @exec: the &drm_exec locking context
-+ * @req_addr: the start address of the range to unmap
-+ * @req_range: the range of the mappings to unmap
-+ *
-+ * This function locks (drm_exec_lock_obj()) objects that will be unmapped/
-+ * remapped by drm_gpuvm_sm_unmap().
-+ *
-+ * See drm_gpuvm_sm_map_exec_lock() for expected usage.
-+ *
-+ * Returns: 0 on success or a negative error code
-+ */
-+int
-+drm_gpuvm_sm_unmap_exec_lock(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
-+			     u64 req_addr, u64 req_range)
-+{
-+	return __drm_gpuvm_sm_unmap(gpuvm, &lock_ops, exec,
-+				    req_addr, req_range);
-+}
-+EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap_exec_lock);
-+
- static struct drm_gpuva_op *
- gpuva_op_alloc(struct drm_gpuvm *gpuvm)
- {
-diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
-index 2a9629377633..274532facfd6 100644
---- a/include/drm/drm_gpuvm.h
-+++ b/include/drm/drm_gpuvm.h
-@@ -1211,6 +1211,14 @@ int drm_gpuvm_sm_map(struct drm_gpuvm *gpuvm, void *priv,
- int drm_gpuvm_sm_unmap(struct drm_gpuvm *gpuvm, void *priv,
- 		       u64 addr, u64 range);
- 
-+int drm_gpuvm_sm_map_exec_lock(struct drm_gpuvm *gpuvm,
-+			  struct drm_exec *exec, unsigned int num_fences,
-+			  u64 req_addr, u64 req_range,
-+			  struct drm_gem_object *obj, u64 offset);
-+
-+int drm_gpuvm_sm_unmap_exec_lock(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
-+				 u64 req_addr, u64 req_range);
-+
- void drm_gpuva_map(struct drm_gpuvm *gpuvm,
- 		   struct drm_gpuva *va,
- 		   struct drm_gpuva_op_map *op);
+Best regards,
 -- 
-2.49.0
+With best wishes
+Dmitry
 
