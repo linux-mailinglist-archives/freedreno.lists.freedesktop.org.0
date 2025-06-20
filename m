@@ -2,131 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4837AE21DA
-	for <lists+freedreno@lfdr.de>; Fri, 20 Jun 2025 20:14:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA7E0AE21DC
+	for <lists+freedreno@lfdr.de>; Fri, 20 Jun 2025 20:14:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6ADA10EBB8;
-	Fri, 20 Jun 2025 18:14:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34FCC10EBB5;
+	Fri, 20 Jun 2025 18:14:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nbbZblG7";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VxP0bv8W";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51A5B10EBB0
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:08 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55KHcMgE025394
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:07 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6B0810EBB6
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:09 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55KFRUa1024288
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9LhI2Xwe2pXBEvWnMtQOowUyXjOfB/3ScM2SDxNRahE=; b=nbbZblG7kIq7wyu3
- xw+eI9ITeOlHnddSN3xlHIuqi1GvqX9jIW2+o+5cVs3J6MAJTTzQSCP3spNtDM+s
- 8mTI3L9kwB0HooUQ/wXwH6f/OgbGjOzmYbfhUw0Nq9YZK/uRV73+OpIHbj6OEgNK
- lyDG4rwz3I3HOEWBOyZYx+GsL/EwsJZZZLSp0SVuUOKDEAEypOZLVVooLySrRSDN
- /Jj4++tOh/OpKZ5CYGxosN3RTyxVURar7wyjs/t33Z9FZosk2MQvZZvejzlqIkXH
- gnxL705oMEaf3muEC16bjRqupwVtCS2waPuh6B6DUQMZd7a17XmHX7tUBajyS/cr
- 8/dYfQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47dc72r27k-1
+ nO3sfnzlB67rNBuLuCNg6x8OnrGZzYrJhAxTg03f9r0=; b=VxP0bv8WbfY8U4LN
+ fz3P3sNSRtv9aHUEX8uI5HVwpCbuTh2nh57emOwXMLWoqc3NtsQbiJVwXLHmyUuu
+ Sp0abie7Q5dCp7+uBvKijNrod0gUZHqSlKtRskPQh1MvPAESaydqxXZHnOEZ1K4g
+ GDlWzGI011dSdLeOUj52O14zj79MA0QDtRg+HjEk8LGx8c5pcqFG5CGwK0oBGu8y
+ KPrUXZCB/79osM0o8OHQ7kxtPNO7BGRk2uVXDFJXF+l2lgJxsWIUb6i1B80deIyN
+ StatHysBMFiY7KLKP/KuA5vUyf7UGJaEnoPrD5yn8+eK/syrV9560Gs0r9r5+qXL
+ T2BsAQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47daa4rep0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:07 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7d3dcac892bso318983385a.1
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 11:14:07 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:08 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7c5bb68b386so580800085a.3
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 11:14:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750443246; x=1751048046;
+ d=1e100.net; s=20230601; t=1750443248; x=1751048048;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9LhI2Xwe2pXBEvWnMtQOowUyXjOfB/3ScM2SDxNRahE=;
- b=Hty73tpCLKAv9DhlIXSyxOaxhDPmRppdgfH+OKajyz6sBxAhZ4EAksICvdMUbmBiGT
- B95/GOoYeTSAqkw7GCf4C19ty9Nfj5AsiVMNQMl9Wkvyg0N2XYNBcvGT951xu9sro4xb
- 6IH/z4L2bkUNDlbWeKnCu92ldvgwQVqrhalC1SQ/l6SiFAT68g8CK2GzeO9br/lmc92p
- arddnAJEOudYBNLccMA5sZ2SrX/vVy2MfIscfTrn5rDdTmOpH28iL/gf/i1NRCgnRhy5
- RffRenXxKk2VRKznMK7Gb/+eGDHIk3e7QJsAJP7UumKON47i8gozjrZyNNlLy31NPosI
- d39w==
+ bh=nO3sfnzlB67rNBuLuCNg6x8OnrGZzYrJhAxTg03f9r0=;
+ b=hxjCeJDbmf4vguuJ9+gDX1p2lrQn2ghCBwW8ETH5QBrUPESrsmq1K25kZ4zwnS6Ei0
+ QAPkanTDjIkrYl6AaLkeS6+O+Tj2Djk2e2r/g51M5MUegR8X4RByd1PPURWIMYmbWmYl
+ fSbwyDfLr/GMsFlAmtYosf8FdtTooFwnKq28IKhqINKiIE3GsUJWw8l/05AUkqwcKAPn
+ zchjBiVn4F/fncYAEhexx2VQ93X5IDjRfrf9xJs1HjfEc3WpctFpQOJX7vp4Pr4vmJ4w
+ Sn8KUEyCd2BDjxVMCJEsIY8smNe1ab79Q6QLd+0+8kw5D+91DKRldYEdioYxG1//GQzi
+ fSoQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVYlnLrv385r04Oaz4TmySRIZHB7wAUerK+RD3FqpbIhKU23lFmnXdytNBJRivbZrLbdn3lME0R2C8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzu1K98KVW+8f/+HzCQn/62ZDy0mfMKsdVn6NU1V9dUt0AY/YyL
- D2OqIMWUN1APC5Mzr0IYFe1cmY4YOXd06HDLKsEZWq8C54OxxcZ8HS/QZioifRj7vHcWuC4l4qd
- jCnCQux7PuoNwMnFEtVNSqBp9llyRFBxbKqYcIlL+xslozLWue96tLn4bdkpacsGfeDlBeaM=
-X-Gm-Gg: ASbGnctsMm3TNu1ZGoADhxNqGmNW01U+86aoRse0N1gdSupscA3aCfF4vn8Y+xCQI3b
- 6dnGYg+rxTwPY0BGolBRa3vjYrjEcuHwCanZulMr0PfwsPfy7zRsyQ7bBJ0ENgjPVDJS+JSNMG9
- SIIKKWo25hcudDq03Fh7ZwPgXXMl771kECpZkC9xS6LYX+GM10HY5rnDTYiQxK92V6wPaSuu21X
- xbg+x1rJhR3ZI+ee5zIGQp1l1EE59s2namNLZ+lM2N6RnDZEWozo5z71cHOfjVGBYxpix/P/ktY
- wkNcMre2uSH3vujf5lZ6Rhnx+vPFl8uDF/p9FAAi0dYNMc2FI6GgfKR3dYMZQ0pOYVXj80sYiC7
- VjTjY8zBRRUsnJP3J6H6BY91oV+n1xyg4S/0=
-X-Received: by 2002:a05:620a:4115:b0:7d0:9a17:7b93 with SMTP id
- af79cd13be357-7d3fc06d5f4mr385718485a.25.1750443246557; 
- Fri, 20 Jun 2025 11:14:06 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGGF8a5iG3F+DfIN05T64ynCvLmjJR9evM/gfCnKmC2l0p9LUB+rWiOYDNmodaY5O6qyN66eA==
-X-Received: by 2002:a05:620a:4115:b0:7d0:9a17:7b93 with SMTP id
- af79cd13be357-7d3fc06d5f4mr385713285a.25.1750443245901; 
- Fri, 20 Jun 2025 11:14:05 -0700 (PDT)
+ AJvYcCXFV43FiZ2Kbq7529bjOCVcMhZwYkv+J85j70C1kKUtbQJGXb41xlxK5SAcWIg5VgaAtYMGyYi/yzw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyjaPc64m7ULNnuKEIX56Y5EhiWcBzMnEhU1c8jh61OFJtwN0wA
+ yi8Ia3L4w3Tumm7ai94YWiXvstQo3YN29Icwpjp9GNLgJw23vzC8FTyk0aXFAUamZKGx0HMoPg/
+ IbIZ/ewHuiujGYGjYewpD6v2hZBAZkZksq05VKURLwL5qt/c/VlHYvGzRTKBumhCId3FNzARZv+
+ FE25BVJQ==
+X-Gm-Gg: ASbGncv8J4smLFX6m65uRQwsi0MHfnC/DSymvFzuxwaDC4N0Y26wf+NSB8p/Imkw0he
+ 1IEQKawf9Cz61iKTyK3LoieXtcToA4AkqUHHhBDg5CGnGOmX8RdljooC90HdcFKOPc7+KDcPuQJ
+ EzDs3Nmo7+kez5jhd2fJtZnGnM2y5J5mdfc//+vTkZHHcTN261ug5oHhEcHh5wk8RlR7TWQpP77
+ xCapylhN4UISbeICRt75VRwefKNLMLpLNXqrdntRdj8z3OTTgV9xy9AtAeAogGflJlANIuzrsaG
+ jWITe/9hs8UzAUvYH6KisXoALb5gp4/57c4qjdSFzCTqvYofhJgtMMPmFJpyNrqKWKsOXzus82s
+ lwvjfPMU5VKFWaZJEt0GyI605vlBm5UhEv4o=
+X-Received: by 2002:a05:620a:1b90:b0:7d3:8d16:cfb with SMTP id
+ af79cd13be357-7d3f994652dmr464231085a.39.1750443247768; 
+ Fri, 20 Jun 2025 11:14:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE58pSYF6MxuiRzGS1LvzWtsB3m3BexOiTThz68ytr6Mc+HTEwb5RlSh9XRTP66yPct1Sc7bg==
+X-Received: by 2002:a05:620a:1b90:b0:7d3:8d16:cfb with SMTP id
+ af79cd13be357-7d3f994652dmr464229185a.39.1750443247411; 
+ Fri, 20 Jun 2025 11:14:07 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-553e4144306sm363384e87.18.2025.06.20.11.14.04
+ 2adb3069b0e04-553e4144306sm363384e87.18.2025.06.20.11.14.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jun 2025 11:14:04 -0700 (PDT)
+ Fri, 20 Jun 2025 11:14:06 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
+To: dri-devel@lists.freedesktop.org, Randy Dunlap <rdunlap@infradead.org>
+Cc: patches@lists.linux.dev, Stephen Boyd <swboyd@chromium.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Abel Vesa <abel.vesa@linaro.org>, Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v7 00/13] drm/msm: Add support for SM8750
-Date: Fri, 20 Jun 2025 21:13:54 +0300
-Message-Id: <175044313808.2014621.17398212116401078001.b4-ty@oss.qualcomm.com>
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH] drm/msm/dp: add linux/io.h header to fix build errors
+Date: Fri, 20 Jun 2025 21:13:55 +0300
+Message-Id: <175044313807.2014621.18142017999140082135.b4-ty@oss.qualcomm.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250618-b4-sm8750-display-v7-0-a591c609743d@linaro.org>
-References: <20250618-b4-sm8750-display-v7-0-a591c609743d@linaro.org>
+In-Reply-To: <20250617185611.2965223-1-rdunlap@infradead.org>
+References: <20250617185611.2965223-1-rdunlap@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=GNgIEvNK c=1 sm=1 tr=0 ts=6855a4ef cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=6IFa9wvqVegA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
- a=e5mUnYsNAAAA:8 a=edIzf9TL5m76aqoGtVoA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: 1mZfsqvmeiptm0x8qhLwJJcoPr0CYyQd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjIwMDEyNyBTYWx0ZWRfX06uAbSTOsgEQ
- jrfd15FfTA+24haeMNzAhJt10U13FBBUWyOeQBgi7c9B2RrxVjvkBJnSGY0s9CQyOCJHBZPr6OU
- WL3WnCSU2Y6T5/xnIPPqRpt5SOl6fYsEQRvD0KHwEq/42AAXuw8BEolKp/KB5rLaDDuYcFZWvmv
- eZREBdwxDbcTFxAHPAJfk/DGzNnUY0aJNfcXLcSfIyw4ICZ1ZyLt5MpUbtLAsoSVM61zxTWdFH+
- Pzf+ZJA+UcVw6XLBlWaD2KWdPhCymbD/mMN8aji7RGsOdmDGEq+z/0gJqbn54U7kPVZVveS4i3w
- hbeo7LMONrLI+OK0idZwM8iMWLFI0GpQKH9cD32FJlP1geHdU4YPshdAc03MgHNgqudHSWLBTIL
- zH+aCgQxPo94JJ2cIAYBbymRGA5zB8fisVspkxWf5CWjM0Ew2xbbVl4Hlew4v4ETUc/4IFah
-X-Proofpoint-GUID: 1mZfsqvmeiptm0x8qhLwJJcoPr0CYyQd
+X-Proofpoint-GUID: 4soPLtGVNQggq8a7odNH6DXmN_vuf9Zh
+X-Proofpoint-ORIG-GUID: 4soPLtGVNQggq8a7odNH6DXmN_vuf9Zh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjIwMDEyNyBTYWx0ZWRfX2miEDGoKeeAO
+ 4JOeWGj91GY+qprHNknIMfeA3Y4rdeDVQuRaMlgo79nQqUq7egCqibHitkKTNmC5dXYMilyG1Hx
+ dPJRdY9+wm67phcVdgJl/CdAcxbKNjakAEDkgL8nMEWd/nUigL8sWGCYvLu9g41Cszwb5R6tmVX
+ FLjXnLx3h5DNcasTcirBoEIWQ712lf4aO6DEL42amqCvWrPIj3Gd/XNoAZdH2k7/1ymWqWAHoL0
+ 9wlHG+kjb9bFOAxEZKQWSX4vqKWd494LKp7rCzXD/iJwU1kgwppocH5gD7wBUwxDsa78NQXsj0T
+ 5SAIyeBdYyGfvtAeXNTU0B1kXtRdJSCsqPfsEaRhGAQ7fkjbePYytXxz3c386W4P2dZ2RBHztCJ
+ 2cjqm8S2V8qlPBu8KoRbLEVtnlMMOYn9MJ/MU57Csn6rLx2pnWCZtQ7nKb1BT+Yh8Gp3fhI9
+X-Authority-Analysis: v=2.4 cv=KphN2XWN c=1 sm=1 tr=0 ts=6855a4f0 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=6IFa9wvqVegA:10 a=e5mUnYsNAAAA:8 a=QBdSVzX5EUQIqSI3YyQA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-20_07,2025-06-20_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxscore=0 suspectscore=0 spamscore=0 impostorscore=0
- lowpriorityscore=0 mlxlogscore=999 clxscore=1015 malwarescore=0 bulkscore=0
- priorityscore=1501 adultscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506200127
+ malwarescore=0 suspectscore=0 spamscore=0 priorityscore=1501 clxscore=1015
+ mlxlogscore=952 mlxscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
+ impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2506200127
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,52 +130,23 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Wed, 18 Jun 2025 16:32:29 +0200, Krzysztof Kozlowski wrote:
-> Dependency / Rabased on top of
-> ==============================
-> https://lore.kernel.org/r/20250522-dpu-drop-features-v5-0-3b2085a07884@oss.qualcomm.com/
+On Tue, 17 Jun 2025 11:56:11 -0700, Randy Dunlap wrote:
+> Add <linux/io.h> header to pull in readl/writel and friends.
+> This eliminates the following build errors:
 > 
-> Changes in v7:
-> =============
-> - Add ack/rb tags
-> - Drop unrelated DSI enablement as requested by Dmitry:
->   https://lore.kernel.org/all/fa8d4af9-e822-4dec-a8dc-f3bbf5dd0100@oss.qualcomm.com/
->   These will be sent in separate patchset.
->   Such split allows to have SM8750 patchset fully reviewed, without
->   continuous requests of doing some more fixes in DSI PHY drivers
->   (related and unrelated like 10nm).
-> - Link to v6: https://lore.kernel.org/r/20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org
+> drivers/gpu/drm/msm/dp/dp_panel.c: In function 'msm_dp_read_link':
+> drivers/gpu/drm/msm/dp/dp_panel.c:33:16: error: implicit declaration of function 'readl_relaxed' [-Wimplicit-function-declaration]
+>    33 |         return readl_relaxed(panel->link_base + offset);
+> drivers/gpu/drm/msm/dp/dp_panel.c: In function 'msm_dp_write_link':
+> drivers/gpu/drm/msm/dp/dp_panel.c:43:9: error: implicit declaration of function 'writel' [-Wimplicit-function-declaration]
+>    43 |         writel(data, panel->link_base + offset);
 > 
 > [...]
 
 Applied, thanks!
 
-[01/13] dt-bindings: display/msm: dsi-phy-7nm: Add SM8750
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/f8976415b669
-[02/13] dt-bindings: display/msm: dsi-controller-main: Add SM8750
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/65e6647eda4f
-[03/13] dt-bindings: display/msm: dp-controller: Add SM8750
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/0122acd798ba
-[04/13] dt-bindings: display/msm: qcom,sm8650-dpu: Add SM8750
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/12c9c014f83b
-[05/13] dt-bindings: display/msm: qcom,sm8750-mdss: Add SM8750
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/ea982597d19e
-[06/13] drm/msm/dsi/phy: Add support for SM8750
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/714495a41634
-[07/13] drm/msm/dsi: Add support for SM8750
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/f4b6ecb62b7f
-[08/13] drm/msm/dpu: Add support for SM8750
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/9eff92a3ed18
-[09/13] drm/msm/dpu: Consistently use u32 instead of uint32_t
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/f409019fb4e7
-[10/13] drm/msm/dpu: Implement 10-bit color alpha for v12.0 DPU
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/dd968c6e3e85
-[11/13] drm/msm/dpu: Implement CTL_PIPE_ACTIVE for v12.0 DPU
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/82f64dae7f0d
-[12/13] drm/msm/dpu: Implement LM crossbar for v12.0 DPU
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/d96d8ba9a96b
-[13/13] drm/msm/mdss: Add support for SM8750
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/0b385dc8d1b2
+[1/1] drm/msm/dp: add linux/io.h header to fix build errors
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/ee1c98ae63d1
 
 Best regards,
 -- 
