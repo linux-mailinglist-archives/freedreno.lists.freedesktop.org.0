@@ -2,112 +2,127 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C97AE1DAE
-	for <lists+freedreno@lfdr.de>; Fri, 20 Jun 2025 16:43:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88CDCAE1DD8
+	for <lists+freedreno@lfdr.de>; Fri, 20 Jun 2025 16:53:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73B2710EB7E;
-	Fri, 20 Jun 2025 14:43:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13CED10EB77;
+	Fri, 20 Jun 2025 14:52:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NCA1p54R";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZAJtHpAg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 585B610EB79
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 14:43:26 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55K68lKs026662
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 14:43:25 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ED2410EB77
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 14:52:43 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55K8s12d013681
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 14:52:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=J+2lD+C9IWf
- fZ7fGhqdCKCWgMv52ErT3dj8LA8hqs/4=; b=NCA1p54Rd2ZCYrDO02fRdPJ2iGl
- IfVb7zMuZX7p50zl4CiuIno6CGD6xuRSScz6Bw5s+JQGFyS25QIZXVlIK6FMi41h
- lM0uxwQr9j1q8L0COi7Cp8WURrqQ2yuJZXXcoDn3Lo9rKVy6dMe3MbPqe9ROnA77
- hvpzs4nasF0Dne29rH9WCKDlfeDhKOku8Gy4OO8/rpzLLD4uFbd48UgLMI/w5GBK
- QLe4LvLkEMZqyw5kEun/FPE+RQyIoTmXt7N6GZ3OgnATlVqVzQw2FuL2Qt9CQS9W
- aTfNo+O6srT2ffCF+qUPKiLgbnNLZVxCU3RHeuCXc6uTogewTYIRQXWsLzg==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47928mug0j-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ bAvY378g9pdTybx5+IbpDJkH/ia0/TW9evSfILpWJuo=; b=ZAJtHpAg5TytFv3W
+ kvuEP7MlYXk08pMf7BPEgfge3rI6e1pJiKr99ASdea9Wguhu2WqaLVwo/hjsVtL6
+ 3dgUGZpz/CmqkHIg007vyaJ7HlUJ6R/Bo/Df7i0zzmZgjH2LHc8yzNCo+GdNTkny
+ mn0iLXTk5buYeTmE5nZpfKBmadFdmNILbOOEp8XNX3eEEd1w64JjX5vndaZrlLlV
+ UQInlFPbKPV1t+Nc2WT+3Dz7TAjHCoiZpzHzR1tTtT0xetNlcDAPOxVuQG2iJGyk
+ RzcHwfFAGdEqnujpE0OrkBPgJQkxfSCd49PTSZwf0l6ZaXuDRJXwaqGntp6tRXIy
+ igOgSw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 479qp6290x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 14:43:25 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-748764d84feso2627514b3a.2
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 07:43:25 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 14:52:42 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7d0a9d20c2eso34463185a.0
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 07:52:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750430605; x=1751035405;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=J+2lD+C9IWffZ7fGhqdCKCWgMv52ErT3dj8LA8hqs/4=;
- b=g7PtIW+8vxrJS4lAyGr+nPIXDKw/74hgImOTez0xkrI1c+6olkExXZci0YQcLV+/8l
- HWZakBbRh6xtmcK5+tq1YmS5AvgLaDfKhKox+FRl1nGNHvWAR1O5nU4qqk2PfgO0fpJb
- /x2rS0561vsTb0+gqSwdH9750nOUJ6NR4KDZnNmDwRkjTSww+36KC/W0oCY9hGIFr5dl
- WkxRtkFmyKRibnEQkcJd/0Z+JZAyBJGV7ITOM2Frc+K+ivgFyNJ3L8KziA2ThgvZJx7M
- EGUuvuQR7QmzcNH1qDdAIxHNVpxjIG9XfRgLJnUOOBwKGguLyMMsNY3NQVZphdyLYpKc
- u6Kw==
+ d=1e100.net; s=20230601; t=1750431161; x=1751035961;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=bAvY378g9pdTybx5+IbpDJkH/ia0/TW9evSfILpWJuo=;
+ b=czKkYdEg9vI9LixD84RF1hvBcKOzbtCVSESsWn1msvhsjYraZvAxVmUvnXn8PfsRlW
+ EsSrpxOBlGhboUHDGrPT17lzDfRWlL0mcoigqXGQcr4TPZHHcb9iN51jvRQ41DydWnKu
+ Sckl2B1+YsjTkCfE1e8G4y56qN2MB0c8lRnyXg0M7YqTXg69JEQ/htKBRT1bHhmWZHJH
+ jiFxCdrW6KW5JjDMhiGujoDSsY6ryzuMt9fmJu2AVSFMLnbP5Tr/CsDdd8l8sCkUep6H
+ 2ML3m2UvbZ3pYxhlN73TthmqvHWxWUDfuioousCvoYoCp+2csK3HFZlTHCYQu5gYvTNp
+ HgAA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW1dB7XODUhBx3NH5ztZuJEM4KD5mrH4+vxV6DR5mYx0UvRD8NLJOIYZ9W1uSiNVeIX9pJnxsXJaxc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+xF0OHWlA9qX8Kpm5HPj6tFUsvtEEtQ8kzfdbf3PL+yDgk2TR
- uDGTWlps06ulsR8DcN9o3L2Ipzn7GQ3a8kPGp77BZyqVBbQobUkNktO8rUJnB86zYTr3Vd0BmGE
- 0jnTllqeiu+qH5gvKiV3iwpmslRLwnaaDdLwwAWmZKJch8EYZhwlD7TpRMWUf16Bietyv7Kw=
-X-Gm-Gg: ASbGncv3ICXz0ROwVkMLiK5fFz8DJ5t/9GhcvePj2lYtyV0x9xOH6KL065T5Bbq5KPr
- nRiMrKkds+P47s82tWReV6o/wGNTPYixjNBF8czB1nGW+C2OZiVM3JlC4jr5VO61kecIMahKOUD
- fxMwjZ+MgT09a+ZCYLun8wqkVLapiCnpNEfHVt7HSyCy75U90S8Vh1XYj7pRaMmRHaPGMDUvDgT
- cFM/y2xLbDvDGUM5MKSUTvdX4MJdq0SFDHQ4SYt/qU5B1Oyn7jbAId9Sxrq0LGb6m8LQm6c/2t/
- fo7qcmgnsGFWbd+2+14IfQqgb6ZdNAuH
-X-Received: by 2002:a05:6a20:3d83:b0:1f5:9024:324f with SMTP id
- adf61e73a8af0-22026ecb493mr6302524637.31.1750430604718; 
- Fri, 20 Jun 2025 07:43:24 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHH4frWgXICqPFw0JBjaV+WPfDhCyw+89W/qX0OyG987B9ALxAgWvGk3pHM+gFofmw1YVoc3Q==
-X-Received: by 2002:a05:6a20:3d83:b0:1f5:9024:324f with SMTP id
- adf61e73a8af0-22026ecb493mr6302481637.31.1750430604342; 
- Fri, 20 Jun 2025 07:43:24 -0700 (PDT)
-Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b31f118eebdsm1609718a12.6.2025.06.20.07.43.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jun 2025 07:43:23 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Daniel Stone <daniels@collabora.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 2/2] drm/fourcc: Add 32b float formats
-Date: Fri, 20 Jun 2025 07:43:09 -0700
-Message-ID: <20250620144310.82590-3-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250620144310.82590-1-robin.clark@oss.qualcomm.com>
-References: <20250620144310.82590-1-robin.clark@oss.qualcomm.com>
+ AJvYcCVffYYR+xSJ5SeNWXdMvEoeJL5xxh98p04YZjxIfCKk3attswFWPRnPVBAsiPk9Nd/k+pk3pCCnHd0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyI5wvmv91OczxKp7jjYcK0EAqn6S+0vD0/L3EIquM7qGYE/Wjx
+ zPPOEw9oOkyTkmPgBYaEFiONLu0VoJIjXZCpugaEi3Ghirw9u+25YGFOt5gNoGPClUOCiB/tT6l
+ iwL0WLLEI3Tmwz4g+gBGKmEQsjoI4Bamik0gqROgWrQ5wlRwok4MNl3+7AOonmcQb4M0OPmU=
+X-Gm-Gg: ASbGncuxGKE383bBBOFAKhYhMjjvfEmOUuYvbwsEnuWyd9BuEXMztFQjRSKawO+Hc8K
+ uaggs05ud258JxUE7TBqjQD9IloHEFcdgKD15Up6PIIhEaSi0dmRUmZkBpE9VUA3hIkFvfR28W6
+ j8GezgqgbBRSodb0+gxgK3xa+J86x7HEmhDDFmsxe8kn3p7vs0Cg+XUlIbOpVUF/NUr6rMoNwL3
+ vqOi53TZt4+16xwwhBoi2uGPV20vz66K19e8pe4w/MEnuWT5ZojlJEC7EK47yKX3kLgYmEbG0ni
+ X8ap/lJUFV//peA7G6VFPkvqCOy81XOmtjaoGAtCRj1ctMcTs2UVAgvXBmjxOXPhsRrjWIxuVXq
+ rXGg=
+X-Received: by 2002:a05:620a:448a:b0:7d0:aafd:fb7a with SMTP id
+ af79cd13be357-7d3f98d9073mr155714085a.4.1750431161614; 
+ Fri, 20 Jun 2025 07:52:41 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEWSbj3zLVYKtfz8K+lKDPK0MngK/y7uQ3TDDGuLOc5VoymNZIeGKtQmf1ZbkgF7OimM7IZMA==
+X-Received: by 2002:a05:620a:448a:b0:7d0:aafd:fb7a with SMTP id
+ af79cd13be357-7d3f98d9073mr155710185a.4.1750431161098; 
+ Fri, 20 Jun 2025 07:52:41 -0700 (PDT)
+Received: from [192.168.143.225] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ae053ee4ccbsm173800966b.70.2025.06.20.07.52.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 Jun 2025 07:52:40 -0700 (PDT)
+Message-ID: <e1b552c1-de9e-4c6d-9340-232427442620@oss.qualcomm.com>
+Date: Fri, 20 Jun 2025 16:52:37 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjIwMDEwNCBTYWx0ZWRfX1dYZVmPmuYtX
- f2PtkyLDYyFE6L/YFkTOGWHXUkvMkDWaPdQIQbmuUBrbaLR6mOLXp7hDvFuURgE9nki4BTHmDu2
- XQqvpVwrc6R8PwJFt/yrLbcPu3NqGyuuyqaRET2AnLO2T7xkjlPH2XZ07n559Y4uZWnBouGcZV8
- ITaL5p2HpLnuXzX9HWa1WBOeeC/FIj+Bb1F+cAXkecemlUMpYpYB8y2+ZlaWdrSoBHGbNQ/LCkI
- dYpA0cybanMwuQXKxvl6r+zLmzSo+ccSFAQq89u6rRtVmRxJYc13zpG/HlV0TfDYtLwlWVcI9d3
- w09Gsdwy+cP56ctDpmJbAa/06ULBvChqvuzcjXSyF/fFsCfsjR2VEcwWONQfL2glQDaw6sllBwU
- P8IeW9Hu7HQvmAQ/nEMeSuq6IH3idQwTtHlTcFU3MqbOSnea0KayTnurLPH+OI0t88krdPPi
-X-Authority-Analysis: v=2.4 cv=fvbcZE4f c=1 sm=1 tr=0 ts=6855738d cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=EUspDBNiAAAA:8 a=n6CFGpYek-_V9AMlogEA:9 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-GUID: gK66WWm2zVadlheNduTODFZvjuFKt8aT
-X-Proofpoint-ORIG-GUID: gK66WWm2zVadlheNduTODFZvjuFKt8aT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: Add GPU support to X1P42100 SoC
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Viresh Kumar <vireshk@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+References: <20250620-x1p-adreno-v3-0-56398c078c15@oss.qualcomm.com>
+ <20250620-x1p-adreno-v3-4-56398c078c15@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250620-x1p-adreno-v3-4-56398c078c15@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: SsTPY0_JrSbwDlG4S8RPxsrb6k1wGnGo
+X-Proofpoint-ORIG-GUID: SsTPY0_JrSbwDlG4S8RPxsrb6k1wGnGo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjIwMDEwNCBTYWx0ZWRfX6lPgeGtzKnLR
+ bRgIUCXZwVi0ZgMDA54pLO3EaTmPsFDfFI6yl0s64fxqmcNmS2Zlm0R8dAdoACLv4izmUaW63PW
+ tDCy6n8T58LxqfJBCPRTyUwOqp57K5iBYZVmhjeBWpSdKV1aPzq3xk+LBiELfjAuSv8MiarJL0N
+ 9o9EjiW2AEYkE/GqVdca1bh5OJ8AV8Nqx/2W97mVyt9blJ95lyI/Mi49CeElR7WJQMFLNwnQldv
+ WKJKVV5fMCckcQYncavYsYi3DGJTFl4alKVP7Ybtwuy/l6t+MPbyTbouUT8aHbQ6gqCGqORiiI4
+ Jcl5smZyrtLMlv30ILXLoMLyNIgTA7vPwkz7OtZmFvbQ2yVJd0XnqU6NwA+PtbDdnW6GB2kmeHH
+ 6xAx2JUU2Us79mO0viqpnttMV/BxKnM8tuwNHnwzSw013lMK7H2aZLcp3a3evaGSgivuOGdd
+X-Authority-Analysis: v=2.4 cv=fMc53Yae c=1 sm=1 tr=0 ts=685575ba cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=gxl3bz0cAAAA:8 a=EUspDBNiAAAA:8
+ a=5RVeKMBEKdVlAG-YRsMA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+ a=kiRiLd-pWN9FGgpmzFdl:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-20_05,2025-06-20_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- mlxlogscore=965 phishscore=0 clxscore=1015 mlxscore=0 impostorscore=0
- adultscore=0 spamscore=0 suspectscore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
+ phishscore=0 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
+ mlxlogscore=779 spamscore=0 lowpriorityscore=0 impostorscore=0 mlxscore=0
+ priorityscore=1501 suspectscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
  engine=8.19.0-2505280000 definitions=main-2506200104
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,39 +139,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add 1, 2, 3, and 4 component 32b float formats, so that buffers with
-these formats can be imported/exported with fourcc+modifier, and/or
-created by gbm.
+On 6/20/25 8:54 AM, Akhil P Oommen wrote:
+> X1P42100 SoC has a new GPU called Adreno X1-45 which is a smaller
+> version of Adreno X1-85 GPU. Describe this new GPU and also add
+> the secure gpu firmware path that should used for X1P42100 CRD.
+> 
+> Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
 
-These correspond to PIPE_FORMAT_{R32,R32G32,R32G32B32,R32G32B32A32}_FLOAT
-in mesa.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- include/uapi/drm/drm_fourcc.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-index 3560ca1ffb8b..abf47dfcedc3 100644
---- a/include/uapi/drm/drm_fourcc.h
-+++ b/include/uapi/drm/drm_fourcc.h
-@@ -232,6 +232,16 @@ extern "C" {
- #define DRM_FORMAT_GR1616F       fourcc_code('G', 'R', ' ', 'H') /* [31:0] G:R 16:16 little endian */
- #define DRM_FORMAT_BGR161616F    fourcc_code('B', 'G', 'R', 'H') /* [47:0] B:G:R 16:16:16 little endian */
- 
-+/*
-+ * Floating point - 32b/component
-+ * IEEE 754-2008 binary32 float
-+ * [15:0] sign:exponent:mantissa 1:8:23
-+ */
-+#define DRM_FORMAT_R32F          fourcc_code('R', ' ', ' ', 'F') /* [31:0] R 32 little endian */
-+#define DRM_FORMAT_GR3232F       fourcc_code('G', 'R', ' ', 'F') /* [63:0] R:G 32:32 little endian */
-+#define DRM_FORMAT_BGR323232F    fourcc_code('B', 'G', 'R', 'F') /* [95:0] R:G:B 32:32:32 little endian */
-+#define DRM_FORMAT_ABGR32323232F fourcc_code('A', 'B', '8', 'F') /* [127:0] R:G:B:A 32:32:32:32 little endian */
-+
- /*
-  * RGBA format with 10-bit components packed in 64-bit per pixel, with 6 bits
-  * of unused padding per component:
--- 
-2.49.0
-
+Konrad
