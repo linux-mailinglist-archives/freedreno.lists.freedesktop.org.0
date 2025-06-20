@@ -2,118 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA7E0AE21DC
-	for <lists+freedreno@lfdr.de>; Fri, 20 Jun 2025 20:14:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20819AE23E4
+	for <lists+freedreno@lfdr.de>; Fri, 20 Jun 2025 23:16:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34FCC10EBB5;
-	Fri, 20 Jun 2025 18:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE0F310E22F;
+	Fri, 20 Jun 2025 21:16:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VxP0bv8W";
+	dkim=pass (2048-bit key; unprotected) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="dF1kMzth";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6B0810EBB6
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:09 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55KFRUa1024288
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- nO3sfnzlB67rNBuLuCNg6x8OnrGZzYrJhAxTg03f9r0=; b=VxP0bv8WbfY8U4LN
- fz3P3sNSRtv9aHUEX8uI5HVwpCbuTh2nh57emOwXMLWoqc3NtsQbiJVwXLHmyUuu
- Sp0abie7Q5dCp7+uBvKijNrod0gUZHqSlKtRskPQh1MvPAESaydqxXZHnOEZ1K4g
- GDlWzGI011dSdLeOUj52O14zj79MA0QDtRg+HjEk8LGx8c5pcqFG5CGwK0oBGu8y
- KPrUXZCB/79osM0o8OHQ7kxtPNO7BGRk2uVXDFJXF+l2lgJxsWIUb6i1B80deIyN
- StatHysBMFiY7KLKP/KuA5vUyf7UGJaEnoPrD5yn8+eK/syrV9560Gs0r9r5+qXL
- T2BsAQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47daa4rep0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 18:14:08 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c5bb68b386so580800085a.3
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jun 2025 11:14:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750443248; x=1751048048;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nO3sfnzlB67rNBuLuCNg6x8OnrGZzYrJhAxTg03f9r0=;
- b=hxjCeJDbmf4vguuJ9+gDX1p2lrQn2ghCBwW8ETH5QBrUPESrsmq1K25kZ4zwnS6Ei0
- QAPkanTDjIkrYl6AaLkeS6+O+Tj2Djk2e2r/g51M5MUegR8X4RByd1PPURWIMYmbWmYl
- fSbwyDfLr/GMsFlAmtYosf8FdtTooFwnKq28IKhqINKiIE3GsUJWw8l/05AUkqwcKAPn
- zchjBiVn4F/fncYAEhexx2VQ93X5IDjRfrf9xJs1HjfEc3WpctFpQOJX7vp4Pr4vmJ4w
- Sn8KUEyCd2BDjxVMCJEsIY8smNe1ab79Q6QLd+0+8kw5D+91DKRldYEdioYxG1//GQzi
- fSoQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXFV43FiZ2Kbq7529bjOCVcMhZwYkv+J85j70C1kKUtbQJGXb41xlxK5SAcWIg5VgaAtYMGyYi/yzw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyjaPc64m7ULNnuKEIX56Y5EhiWcBzMnEhU1c8jh61OFJtwN0wA
- yi8Ia3L4w3Tumm7ai94YWiXvstQo3YN29Icwpjp9GNLgJw23vzC8FTyk0aXFAUamZKGx0HMoPg/
- IbIZ/ewHuiujGYGjYewpD6v2hZBAZkZksq05VKURLwL5qt/c/VlHYvGzRTKBumhCId3FNzARZv+
- FE25BVJQ==
-X-Gm-Gg: ASbGncv8J4smLFX6m65uRQwsi0MHfnC/DSymvFzuxwaDC4N0Y26wf+NSB8p/Imkw0he
- 1IEQKawf9Cz61iKTyK3LoieXtcToA4AkqUHHhBDg5CGnGOmX8RdljooC90HdcFKOPc7+KDcPuQJ
- EzDs3Nmo7+kez5jhd2fJtZnGnM2y5J5mdfc//+vTkZHHcTN261ug5oHhEcHh5wk8RlR7TWQpP77
- xCapylhN4UISbeICRt75VRwefKNLMLpLNXqrdntRdj8z3OTTgV9xy9AtAeAogGflJlANIuzrsaG
- jWITe/9hs8UzAUvYH6KisXoALb5gp4/57c4qjdSFzCTqvYofhJgtMMPmFJpyNrqKWKsOXzus82s
- lwvjfPMU5VKFWaZJEt0GyI605vlBm5UhEv4o=
-X-Received: by 2002:a05:620a:1b90:b0:7d3:8d16:cfb with SMTP id
- af79cd13be357-7d3f994652dmr464231085a.39.1750443247768; 
- Fri, 20 Jun 2025 11:14:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE58pSYF6MxuiRzGS1LvzWtsB3m3BexOiTThz68ytr6Mc+HTEwb5RlSh9XRTP66yPct1Sc7bg==
-X-Received: by 2002:a05:620a:1b90:b0:7d3:8d16:cfb with SMTP id
- af79cd13be357-7d3f994652dmr464229185a.39.1750443247411; 
- Fri, 20 Jun 2025 11:14:07 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-553e4144306sm363384e87.18.2025.06.20.11.14.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jun 2025 11:14:06 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org, Randy Dunlap <rdunlap@infradead.org>
-Cc: patches@lists.linux.dev, Stephen Boyd <swboyd@chromium.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH] drm/msm/dp: add linux/io.h header to fix build errors
-Date: Fri, 20 Jun 2025 21:13:55 +0300
-Message-Id: <175044313807.2014621.18142017999140082135.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250617185611.2965223-1-rdunlap@infradead.org>
-References: <20250617185611.2965223-1-rdunlap@infradead.org>
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 703F210E07A;
+ Fri, 20 Jun 2025 21:16:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oldschoolsolutions.biz; s=s1-ionos; t=1750454164; x=1751058964;
+ i=jens.glathe@oldschoolsolutions.biz;
+ bh=/pKDq8IkD7Gp3uCohQ5thcPbl5SLnAvtiLxz8LuwTUU=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=dF1kMzth5ZzrBDMTwLFwF9s91xo663A4skSNoKVyqRDDqESW4ecgJa1g5vI5qYlc
+ cQZJQdLb2DExntKg4EP2CdE7XfCXBwXCDTKtwkZxfe7Wsnsb1eO/H9amqq6DFClYV
+ r3mITW3zoRH40uFPwpEYjJhSbEae5oEb0ZMKx8voJZrNOzQFpqiYAouUo/BYRbaIN
+ 8Yv59rC3fxEeDDBZO0vLt0OgUgp01/T40OEjYk5PEkIMAiPnidALYWrtHL9dl9cbb
+ b8XuIPNYzxT07WiQZXdzQUBzQg0+CqpV9LiA1J3oqbRNdEWqsiElOzK5K8e8kOAz1
+ QIoSDaxqvjaNqOvWJw==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from [192.168.0.174] ([91.64.235.193]) by mrelayeu.kundenserver.de
+ (mreue010 [212.227.15.167]) with ESMTPSA (Nemesis) id
+ 1MDyc8-1uaSKl32HM-0003Lx; Fri, 20 Jun 2025 23:16:03 +0200
+Message-ID: <33239018-ea33-49e4-87d2-4d5c399dda9b@oldschoolsolutions.biz>
+Date: Fri, 20 Jun 2025 23:15:59 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 4soPLtGVNQggq8a7odNH6DXmN_vuf9Zh
-X-Proofpoint-ORIG-GUID: 4soPLtGVNQggq8a7odNH6DXmN_vuf9Zh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjIwMDEyNyBTYWx0ZWRfX2miEDGoKeeAO
- 4JOeWGj91GY+qprHNknIMfeA3Y4rdeDVQuRaMlgo79nQqUq7egCqibHitkKTNmC5dXYMilyG1Hx
- dPJRdY9+wm67phcVdgJl/CdAcxbKNjakAEDkgL8nMEWd/nUigL8sWGCYvLu9g41Cszwb5R6tmVX
- FLjXnLx3h5DNcasTcirBoEIWQ712lf4aO6DEL42amqCvWrPIj3Gd/XNoAZdH2k7/1ymWqWAHoL0
- 9wlHG+kjb9bFOAxEZKQWSX4vqKWd494LKp7rCzXD/iJwU1kgwppocH5gD7wBUwxDsa78NQXsj0T
- 5SAIyeBdYyGfvtAeXNTU0B1kXtRdJSCsqPfsEaRhGAQ7fkjbePYytXxz3c386W4P2dZ2RBHztCJ
- 2cjqm8S2V8qlPBu8KoRbLEVtnlMMOYn9MJ/MU57Csn6rLx2pnWCZtQ7nKb1BT+Yh8Gp3fhI9
-X-Authority-Analysis: v=2.4 cv=KphN2XWN c=1 sm=1 tr=0 ts=6855a4f0 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=6IFa9wvqVegA:10 a=e5mUnYsNAAAA:8 a=QBdSVzX5EUQIqSI3YyQA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-20_07,2025-06-20_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 priorityscore=1501 clxscore=1015
- mlxlogscore=952 mlxscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506200127
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 0/4] Support for Adreno X1-45 GPU
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Viresh Kumar <vireshk@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20250620-x1p-adreno-v3-0-56398c078c15@oss.qualcomm.com>
+Content-Language: en-US
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <20250620-x1p-adreno-v3-0-56398c078c15@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:+4YE6MTuUgvgsp65a+V8AX62NWNmLb2aNAbb/aU8gVx1rTyqQ7I
+ jIfDf8NURnQva8qIefL59RrZ8H3hcVKWVwMk0b2yVPyQU9pSAL896sUdq5gsFkQAfFK2t9I
+ roVKD73VNBILh4vVemSmF1OhkuYV9Wf0sVca45PoxpL8F7elWwNR9ftsbQSMgrstwWEF7Cg
+ RNPAfuMCsikU7jgwcPx+A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:L7p3mqP57R0=;Yf+zHyW9R9O3+3Lcv97T4M3IQ7R
+ WMTMefP4P3sEZwafIrNDEyOWOkSf54qAjYd+5JdqK+Kv0TQn4NeDSne4Hh/KcRt6LDWObnGRT
+ 2+Us7JtBAwdT4SvNQ+sYKaUBqKojcV5MoQDB2w1y7V3io5LrVT+2kD8RJLOglrImOofL0KYIh
+ nGm/2ZS+EYUdwITYhMbroaabQ+ULJqwTAjiQBz+XwfunVgILNLSJZG4zwfaceLR6tVIjb1qxv
+ bkMu3H5WbYix6outeyNL+1u5FwXNZZ2j/mtdqJibgf7xAyxvfrcrvqkaozxyNgVw5pqkWoCg9
+ b9DEw72rJTOKW99nRhZhB1pBJwkIhB1iC5V332T2kNBUv8/dPWYTq03YKRx3XjGhaJU33hu8P
+ YFT3G/oTVvUfZwdvDV5x3yv7hfpPOSAmGbdtGBWrnvsjBt2WdRvSqX2eCxvTbt9wodIWqa9wY
+ yiQ820AxMkMCmrYUeUVYrpfYtt/mCRd48cKo4fUfinnSF8MM41fs0oK44m+pvnbVSk2R4147q
+ igaYnf6mKF+AtD5o/ZvNonP4c5khkj11h6P4XrPfcQqB/iI7dITzbqcOx16pDJm9tR2LTusRq
+ gIImiPeM5SQELR8J9l5yZCswbd2oPlbbcAv30O8JL7cbAac6GtdvZyszdTL8uzapaOIeGScmS
+ Zb3kO5D2WeCuos+i/B8F3BNKmkK/JJ9NzPXpJQVhQWnnKFHT73EWHGbAg9vufUnkiWt75nR6k
+ 8w3DZcQmEK+zzryFP5tgrp5DNSZsyrMGWG9KaTmOC17/PtL9WOHhaA7jqB8qwLGRZVNTGnkIa
+ mbmZ66OfTOJYYlrrIfOw982UdI2V/UXqj2aM35aFAO1Avm1DnfXsNyD3O9/Nzj9ZI0a7OEP1j
+ LEeQ/xYjb3+gKPMYLrXC7WB9cqmxyMI1RFJoSoVMOD/EVof/19uqSzVcBda6cElkbfu0xFlRw
+ 3p1wiZ+gndSaP/tuRo1D+ukkyqGuKs0asT3fcUjPiDxyb9IMEznF8Gdz0X3pnCWh4WN7UTDFI
+ sxvOJwc2WZWiqEU0+iP0CLM3o3dlf/N0ed4PtesDJCsW4Afy2l+g5wVysOOleV7ygs6lgxRs5
+ AvJzzj+/ZQnLdf0t4cqkEBqv2jb+CfRS0EI+EKvTP+fP8rlo4U/GIjQrirQr4EG6wSB6LuNi0
+ wjAhQGuPqGlZ2a4Ub9u53vh5Vbpn7QKww+pnrNUOMOMDwXQ3NJCg6xCeSMqh8F2+Zf2NIK+Fy
+ D3wZFXXjHlF7A8Suw4Y6ub1DOr+5dd/XXXFc21xk3oUdiyH2nAKLe0yA3YJrO8BzbHnkUcPlf
+ WNSjKnz0Uk0xpP69q6o8+4LeCsnllrowf6prZR2RQF5TgYqb9YJdO5JQ0QA3MTjhyWkNLFKmv
+ SXASEXucMAXFfBOYmbjiLLsatULsRj1nXi2qbgrbHJ9Lt+vg7thT4DqtMa
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,27 +103,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 20.06.25 08:54, Akhil P Oommen wrote:
+> Add support for X1-45 GPU found in X1P41200 chipset (8 cpu core
+> version). X1-45 is a smaller version of X1-85 with lower core count and
+> smaller memories. From UMD perspective, this is similar to "FD735"
+> present in Mesa.
+>
+> Tested Glmark & Vkmark on Debian Gnome desktop.
+>
+Hi Akhil,
 
-On Tue, 17 Jun 2025 11:56:11 -0700, Randy Dunlap wrote:
-> Add <linux/io.h> header to pull in readl/writel and friends.
-> This eliminates the following build errors:
-> 
-> drivers/gpu/drm/msm/dp/dp_panel.c: In function 'msm_dp_read_link':
-> drivers/gpu/drm/msm/dp/dp_panel.c:33:16: error: implicit declaration of function 'readl_relaxed' [-Wimplicit-function-declaration]
->    33 |         return readl_relaxed(panel->link_base + offset);
-> drivers/gpu/drm/msm/dp/dp_panel.c: In function 'msm_dp_write_link':
-> drivers/gpu/drm/msm/dp/dp_panel.c:43:9: error: implicit declaration of function 'writel' [-Wimplicit-function-declaration]
->    43 |         writel(data, panel->link_base + offset);
-> 
-> [...]
+thank you for the patch set. It works well on the Lenovo ThinkBook 16 G7=
+=20
+QOY, tested on X11 and Wayland on Ubuntu 25.04.
 
-Applied, thanks!
+Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-[1/1] drm/msm/dp: add linux/io.h header to fix build errors
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/ee1c98ae63d1
+with best regards
 
-Best regards,
--- 
-With best wishes
-Dmitry
+Jens
 
