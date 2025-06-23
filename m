@@ -2,82 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17C44AE4629
-	for <lists+freedreno@lfdr.de>; Mon, 23 Jun 2025 16:14:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5732BAE462F
+	for <lists+freedreno@lfdr.de>; Mon, 23 Jun 2025 16:14:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E232A10E3BE;
-	Mon, 23 Jun 2025 14:14:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27ED410E3DE;
+	Mon, 23 Jun 2025 14:14:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qr0/5Lmn";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KzNVGll3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A13010E3BE
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jun 2025 14:14:34 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55N97Sx9024850
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jun 2025 14:14:34 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A85E10E3CF
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Jun 2025 14:14:43 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55NBaXMa028768
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Jun 2025 14:14:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- IDdT8GmCmZBkVRDlqMB/TVH3NvJZR5f0rOeZUeSRtHg=; b=Qr0/5LmndzZH7Vy0
- 9zK1b+MKQSOhlFsqy/SIVY2SW8wRk3lCJJPoRedx8FZgxUr9nRT9mRUdal33qRpD
- SDPDSp74oKrjJfRHJO3BoSK1Js292xtn1hZQ4mAtC5mJ8LuF/9OFKax3y2kPjC4h
- t6QZf0UYD2JkojDiq2Ao7RYqWkiX41bTauRD2ImU/LFnD5w0JZzry+IQH7L/pOxe
- 0Zr+kE1jJeWEGnW/OQaEhU/JjSJ29RSzWfaWfTk/bB41Nitf07qf1Ge2k5/cEXZ8
- QbNnFZm0mTCPILf43q4qVNf2vE5ePBMEUrQOjHHq27WwFKEV5HM5HTpsbkMQ92tI
- 7MBqIw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47emcmjh47-1
+ ZUSYhC6o46Hf8IpyKC2uFmsO01aWBnLrFas76fWv42s=; b=KzNVGll30RWi6Znw
+ rG62oRtxVLFWOJjMUvNQOaqYsewyjci9iHd7ClacY8Yx/yeDaAsJmQclcxneZZCS
+ euqOX3rWADelkrx7LYskaWFG+IJe+xeTNiypoh6J5xcyswo9v85OjhUskVqYxYpL
+ tytnql2AAkNSKyNhfxmivRnIQgiiGth2tYYFDoKtPoPBQptsKsRZsy7bgchr5T3s
+ U2jokWsXNj9BE384tn5M8/7+pM6b/NtfGnpgJgET9HWW2fbRNX7YBcuOhV0iVx6n
+ MTX2G+ZELyhFkb/J9u+x1ohWFqtiCzoMt5e2q6tll8s11PKTREHH3e8pwUtAEZAx
+ jBkMlA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ey7k1p3t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jun 2025 14:14:33 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-313d346dc8dso5803863a91.1
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jun 2025 07:14:33 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Jun 2025 14:14:42 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-b2eb60594e8so2717618a12.1
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Jun 2025 07:14:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750688073; x=1751292873;
+ d=1e100.net; s=20230601; t=1750688081; x=1751292881;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IDdT8GmCmZBkVRDlqMB/TVH3NvJZR5f0rOeZUeSRtHg=;
- b=pvWV6FYiWkdmDkeFuSc9X1rwMAHoagVSFRLe5wBFMbT/gMcTjK71PudaNy2TnvxAHE
- AaTROAm5ou40T+sIS/ej1FFBIA7n24JSFRrwzN7eIqG9fLpvLF0/hzfai8bmNEyx/+/H
- vpIusJIjpVPqZLuH6HFpT6xwBAbnEdx7hIUypIZ9c6iGcr30rhxYvWfolUlBWZDL2IGx
- uFhhVAUBukA5OMhIDQRI2qwUhbhQxDwNB5M7bBggD2DGM8u2Wj+GH5cct0Cp2QHGIYBo
- 7L5dFG5RG365jO6n2xRe7ZdmScd6nm/wNgsT5NAXfUcIOGnUHuD3Cz+BjRfLPN/J5UPn
- y0Dw==
+ bh=ZUSYhC6o46Hf8IpyKC2uFmsO01aWBnLrFas76fWv42s=;
+ b=BO+hiSAfWkD97nl7NfhbwhoMYbZaZ5WEyxdeZOnKHwM9PS0yq3Zzk7NYrjOYB7WigG
+ dqAoUnkD1uRlq6IJMJXdVHaGQ0dSxG5+3ECirQdCoXJLeiCiuqFfTaSCH5PNtRQWJDTa
+ cR40c3e2m137Sa+T9cu0kaF9WItOzCQev2T1JGxjogO8rtVOrCE7GZmjtYqlCnFXwPa/
+ IPqP/VYkPcMR9GFIJY8qcH3TE8RnLuGcOvOO6i/3S1dAwmKnMxhqYCkFbuzS1dwrf2CF
+ +Qo/SsdRx22U/IVz/uhC47nnNE0U5pjRQ3SMzrajr9DFqdb6MA3qsQbyp0FrZgyZGzhv
+ 563w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVlGnZbOhawTsXleXRzATqqi1yeiGuhX/XI96T6GkKoK97gVcMlBftBbQCyWNxtkby64zeGD6HEvcM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwcY2OsezvYP545RkpGZ9lKOig5Tofq3rhbuxht/H//4OTnnUWf
- 5XPaSpo0ImkIx8eZbl1tEi3LI3PGgjXb9lQwqTS9JJNmNua97RMP0mo3hWaTa05DEIJJY4OGu8k
- 3eweYibFrq6FXrtwugxoTO1Em7gR/bDgbwOP0wDLPCle4ILJgvcN2nL9p/O9mFf7qT0MJT8w=
-X-Gm-Gg: ASbGncucWhghImEqBFBpCm6vVLQfhIvxcgugg8EUnLZ4EeyL+tMNbjfuIhamd4gl85h
- 1fKhQfwrxDj5WRL4AQIbSQKT6HY/kR+GrM7YGlKo6Zt5ScUJthWKk4WPiKnuOmYxBb4ZJag8IT1
- NMZ9YQJyxXt7BLjWSTr9Qvm81a9l6cK7AWXFSqAMK3RPNFm88k9AHxi5iVD29vtFt8MN5/rxVvW
- vzvIuwyrrcKmP3UXOieiII/tFdZVt0ZOcQHjf5suxebhmvdveelpSyYNH0q6+8/gCsgknCh+kLd
- HCQRvd93UYmmA7PDEGC/lIqbSOMLxeQk
-X-Received: by 2002:a17:90b:2651:b0:311:ad7f:329c with SMTP id
- 98e67ed59e1d1-3159d7c8f9cmr24187393a91.18.1750688072970; 
- Mon, 23 Jun 2025 07:14:32 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFohlIbDHPnzGFzoVo8IyUWv275ozTxbFgCP3ruQsyFrF9oyTg/DjA45LUYjJ+1geRNvBXBeA==
-X-Received: by 2002:a17:90b:2651:b0:311:ad7f:329c with SMTP id
- 98e67ed59e1d1-3159d7c8f9cmr24187313a91.18.1750688072479; 
- Mon, 23 Jun 2025 07:14:32 -0700 (PDT)
+ AJvYcCU6RIKzXOlRJeUdEIxNHDbEv07fBVX9EZW1d93kTWQdRV8qgFfPcyWYQhtWMZvO5xSJ4hyIczN44XA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxbrXuPe92meSYf20snhgy0ycw8c6p2w1RURZ1/478c1QF3dXdO
+ qAlVA1Yfgj48sZIN2kX8pxeMjxAEEs1rlzPjVSSD50PAxBsje6NQCqupz/wSpLmsSmG1U569RKy
+ ApQqN5aPG/8upja7YN4niUAyMtCWAjMsFyFqptXzTP5an0+S0FoyPAEsj2wuebzbptWFO8bE=
+X-Gm-Gg: ASbGncuYAZTv8nEGzOlGX/1FJ52rPNQu27exxLsId28scsY/Zkx1HrONkzmSznAIV01
+ UtH5x31GQhkRu0ApWBaxxAwkwDRnIvuh8VDAilPyDekyJEDVtYmo3PixhQDJmstpGbiHwWMuQMU
+ NTn2ZZozEdqhMBp4FJUNPlmXMDAW1luQ+Jr/2rgxFg01tiM8mhMDKXDTkLz1pZOom9BGz6cxuxC
+ 5KHDBWaHHE5zDf6Y6rpsu+bqGDxP1IKscCt3Chfqz1DCUsAesM7aas1Znm7lRh7QWaUBZAe8iTq
+ qkUKjNhP5jr1x3/lqq252uR9SBJJOiO6
+X-Received: by 2002:a17:90b:1f8b:b0:311:e8cc:424e with SMTP id
+ 98e67ed59e1d1-3159d8d685dmr23300723a91.24.1750688080627; 
+ Mon, 23 Jun 2025 07:14:40 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEl1qyuN7gQNvPm6W20g4kJcQ/+98rCZ9ZS65bbUUQKpRf+w15+pvrZr59iT4MKwZX3WdgrHQ==
+X-Received: by 2002:a17:90b:1f8b:b0:311:e8cc:424e with SMTP id
+ 98e67ed59e1d1-3159d8d685dmr23300647a91.24.1750688080133; 
+ Mon, 23 Jun 2025 07:14:40 -0700 (PDT)
 Received: from [10.213.111.143] ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3159df71c4bsm8112049a91.2.2025.06.23.07.14.24
+ 98e67ed59e1d1-3159df71c4bsm8112049a91.2.2025.06.23.07.14.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Jun 2025 07:14:32 -0700 (PDT)
+ Mon, 23 Jun 2025 07:14:39 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Mon, 23 Jun 2025 19:42:08 +0530
-Subject: [PATCH v4 3/4] drm/msm/adreno: Add Adreno X1-45 support
+Date: Mon, 23 Jun 2025 19:42:09 +0530
+Subject: [PATCH v4 4/4] arm64: dts: qcom: Add GPU support to X1P42100 SoC
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250623-x1p-adreno-v4-3-d2575c839cbb@oss.qualcomm.com>
+Message-Id: <20250623-x1p-adreno-v4-4-d2575c839cbb@oss.qualcomm.com>
 References: <20250623-x1p-adreno-v4-0-d2575c839cbb@oss.qualcomm.com>
 In-Reply-To: <20250623-x1p-adreno-v4-0-d2575c839cbb@oss.qualcomm.com>
 To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
@@ -96,39 +96,38 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-pm@vger.kernel.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1750688040; l=2172;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1750688040; l=5912;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=xKZ9Xj4qiPD/2Zmj4aELMu3Uy4uODXqfzQQwFPTWu3E=;
- b=nyiUEqvVCW+25SYZKCQtGlM9mIdhtcEW0YGblasDdcsi9vA0hNbTrMnvW29/s2M5+bGhB9XUq
- aFcV0xh4x86AEvTj2u6wD9wWN3yobWDJ/JNXPBpIQzwfyk7yvN++lw5
+ bh=MQN6pHg2XU+7FGCZBrKWg0kNH29zk0vF/Z7d/e3l7a4=;
+ b=cMApY9dMEMtm0TOSSRpoZVVcb0aMMXaCw2trIESEtt7ToKAeFPBno+Kl9hvbWWuWnxoRLFDpd
+ XtgMTQXizmKD99IYT+3MfqIzaFEvS5NyRB4eDKlASetkPWn7K4gWuEd
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-GUID: xuTwWyh-Q52aA_2C92FHYhAQPF6hZk-v
-X-Proofpoint-ORIG-GUID: xuTwWyh-Q52aA_2C92FHYhAQPF6hZk-v
-X-Authority-Analysis: v=2.4 cv=J+eq7BnS c=1 sm=1 tr=0 ts=68596149 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=EUspDBNiAAAA:8 a=gxl3bz0cAAAA:8
- a=pGLkceISAAAA:8 a=xcvD53-FQScLkYWh0o0A:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22 a=kiRiLd-pWN9FGgpmzFdl:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjIzMDA4NCBTYWx0ZWRfX9e9CHMRgjHDh
- ThbJ8lQJ8sA7a7iYkbRl+CO9hpukqxkIXcBtHcvpfczEnYZlwE5/BSLU80d6okjoWjtshHfE/6f
- XBlpRh/Q0U2fOvn4GpJp8DfMjE/lHlASvsuyI6sz5vJOk3bzDR3wWuFYeK0Fzz9hiinHBvpEQ5p
- J9NB6HONmuf4mrKQ3Qf14+0Ikl7/yAxPwtv5QxNhPd5kFlk6LGbgY5g58Cybsnf5p7yc91TfOA1
- +nL00R/6YeBQukcLEfMRdihyuRJEQKTVtGnEMrTWsjusyCjU9AN+Xi9WNXfzcAWD2QPiXtpaqiG
- WgR0myxtY9XGscg1++W7FTpwKqDRyVM12oumv2H1YPIrHL9UxMimoliFEoCnsxPHoN00pNReIrZ
- qCngrZd2rjPDunxBpW3khpoGOy4euS5s8Tt69154rR0l5JiTfSO6K88blLa+g/elvaj+Jjv7
+X-Authority-Analysis: v=2.4 cv=YoEPR5YX c=1 sm=1 tr=0 ts=68596152 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=gxl3bz0cAAAA:8 a=EUspDBNiAAAA:8
+ a=pGLkceISAAAA:8 a=8xAZcMgD8QFAYO27TxYA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22 a=kiRiLd-pWN9FGgpmzFdl:22
+X-Proofpoint-ORIG-GUID: AfmsOn3sJRBSCXVJwNGJkl4aFPNrV74-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjIzMDA4NCBTYWx0ZWRfX0Qh8+QXLaVnY
+ GtTMfx4vlb1jy++boS0FBXQteL5XFpMQqO7uBZW0IXg8GoZpwS2GFfK7U7/GYhuG6zrDpP09wl4
+ iaQlZwXqYetBHtoi+2cYpjK1r6cCzl0y9uMQ0XDjBlBXid1l9J7efgZaAiLNM3AKXZ5xpz0RzkM
+ aXX5E6c/iBICK/zSi/XN5Z/hqgU6vQk4LxpS/mnhgyZOS1Fe3jcundit907j5UWbyx77AxN4quy
+ nMCf1B5qXQEDZLDzyStX33cgkEfTGGt8xpIGzVZ7YXtIGztKuHgIQZ2qbS+XTjRDDuNNnC0ApVc
+ Y44ifcZ+3hQLfaiAkaECzjtXbBrb0Fzb3ZoxCzMUmHdOPy5yic1Becw+K8Mgai+khtBpvcIy1xk
+ AF9q5/QCxQQmWkTuLSAjBoRmPuPQYqPlU+ie71bFxKR7LUacQ9HdRxjAydWx4JCLQ6JcsSLW
+X-Proofpoint-GUID: AfmsOn3sJRBSCXVJwNGJkl4aFPNrV74-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-06-23_04,2025-06-23_05,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 mlxlogscore=999 adultscore=0 impostorscore=0 clxscore=1015
- spamscore=0 malwarescore=0 phishscore=0 priorityscore=1501 suspectscore=0
- mlxscore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ phishscore=0 priorityscore=1501 mlxscore=0 adultscore=0 suspectscore=0
+ malwarescore=0 mlxlogscore=911 spamscore=0 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
  definitions=main-2506230084
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -146,69 +145,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for Adreno X1-45 GPU present Snapdragon X1P42100
-series of compute chipsets. This GPU is a smaller version of
-X1-85 GPU with lower core count and smaller internal memories.
+X1P42100 SoC has a new GPU called Adreno X1-45 which is a smaller
+version of Adreno X1-85 GPU. Describe this new GPU and also add
+the secure gpu firmware path that should used for X1P42100 CRD.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Tested-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com> # x1-26-100
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 39 +++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ arch/arm64/boot/dts/qcom/x1e80100.dtsi    |   7 ++
+ arch/arm64/boot/dts/qcom/x1p42100-crd.dts |   4 +
+ arch/arm64/boot/dts/qcom/x1p42100.dtsi    | 120 +++++++++++++++++++++++++++++-
+ 3 files changed, 129 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index 70f7ad806c34076352d84f32d62c2833422b6e5e..7748f92919b883bbcea839a61158ab52e6e4e79d 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -1474,6 +1474,45 @@ static const struct adreno_info a7xx_gpus[] = {
- 			},
- 		},
- 		.preempt_record_size = 3572 * SZ_1K,
-+	}, {
-+		.chip_ids = ADRENO_CHIP_IDS(0x43030c00),
-+		.family = ADRENO_7XX_GEN2,
-+		.fw = {
-+			[ADRENO_FW_SQE] = "gen71500_sqe.fw",
-+			[ADRENO_FW_GMU] = "gen71500_gmu.bin",
-+		},
-+		.gmem = SZ_1M + SZ_512K,
-+		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_HAS_HW_APRIV |
-+			  ADRENO_QUIRK_PREEMPTION,
-+		.init = a6xx_gpu_init,
-+		.a6xx = &(const struct a6xx_info) {
-+			.hwcg = a740_hwcg,
-+			.protect = &a730_protect,
-+			.pwrup_reglist = &a7xx_pwrup_reglist,
-+			.gmu_chipid = 0x70f0000,
-+			.gmu_cgc_mode = 0x00020222,
-+			.bcms = (const struct a6xx_bcm[]) {
-+				{ .name = "SH0", .buswidth = 16 },
-+				{ .name = "MC0", .buswidth = 4 },
-+				{
-+					.name = "ACV",
-+					.fixed = true,
-+					.perfmode = BIT(3),
-+					.perfmode_bw = 16500000,
-+				},
-+				{ /* sentinel */ },
-+			},
-+		},
-+		.preempt_record_size = 4192 * SZ_1K,
-+		.speedbins = ADRENO_SPEEDBINS(
-+			{ 0,   0 },
-+			{ 294, 1 },
-+			{ 263, 2 },
-+			{ 233, 3 },
-+			{ 141, 4 },
-+		),
- 	}
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100.dtsi b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
+index a8eb4c5fe99fe6dd49af200a738b6476d87279b2..558d7d387d7710770244fcc901f461384dd9b0d4 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
+@@ -8245,6 +8245,13 @@ sbsa_watchdog: watchdog@1c840000 {
+ 			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
+ 
++		qfprom: efuse@221c8000 {
++			compatible = "qcom,x1e80100-qfprom", "qcom,qfprom";
++			reg = <0 0x221c8000 0 0x1000>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++		};
++
+ 		pmu@24091000 {
+ 			compatible = "qcom,x1e80100-llcc-bwmon", "qcom,sc7280-llcc-bwmon";
+ 			reg = <0 0x24091000 0 0x1000>;
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100-crd.dts b/arch/arm64/boot/dts/qcom/x1p42100-crd.dts
+index cf07860a63e97c388909fb5721ae7b9729b6c586..cf999c2cf8d4e0af83078253fd39ece3a0c26a49 100644
+--- a/arch/arm64/boot/dts/qcom/x1p42100-crd.dts
++++ b/arch/arm64/boot/dts/qcom/x1p42100-crd.dts
+@@ -15,3 +15,7 @@ / {
+ 	model = "Qualcomm Technologies, Inc. X1P42100 CRD";
+ 	compatible = "qcom,x1p42100-crd", "qcom,x1p42100";
  };
- DECLARE_ADRENO_GPULIST(a7xx);
++
++&gpu_zap_shader {
++	firmware-name = "qcom/x1p42100/gen71500_zap.mbn";
++};
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100.dtsi b/arch/arm64/boot/dts/qcom/x1p42100.dtsi
+index 27f479010bc330eb6445269a1c46bf78ec6f1bd4..090659b8bb8942cdcc46f8d4a3e7dbcc043a0f78 100644
+--- a/arch/arm64/boot/dts/qcom/x1p42100.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1p42100.dtsi
+@@ -17,15 +17,124 @@
+ /delete-node/ &cpu_pd9;
+ /delete-node/ &cpu_pd10;
+ /delete-node/ &cpu_pd11;
++/delete-node/ &gpu_opp_table;
+ /delete-node/ &pcie3_phy;
+ 
+ &gcc {
+ 	compatible = "qcom,x1p42100-gcc", "qcom,x1e80100-gcc";
+ };
+ 
+-/* The GPU is physically different and will be brought up later */
++&gmu {
++	compatible = "qcom,adreno-gmu-x145.0", "qcom,adreno-gmu";
++};
++
+ &gpu {
+-	/delete-property/ compatible;
++	compatible = "qcom,adreno-43030c00", "qcom,adreno";
++
++	nvmem-cells = <&gpu_speed_bin>;
++	nvmem-cell-names = "speed_bin";
++
++	gpu_opp_table: opp-table {
++		compatible = "operating-points-v2-adreno", "operating-points-v2";
++
++		opp-1400000000 {
++			opp-hz = /bits/ 64 <1400000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L4>;
++			opp-peak-kBps = <16500000>;
++			qcom,opp-acd-level = <0xa8295ffd>;
++			opp-supported-hw = <0x3>;
++		};
++
++		opp-1250000000 {
++			opp-hz = /bits/ 64 <1250000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L3>;
++			opp-peak-kBps = <16500000>;
++			qcom,opp-acd-level = <0x882a5ffd>;
++			opp-supported-hw = <0x7>;
++		};
++
++		opp-1107000000 {
++			opp-hz = /bits/ 64 <1107000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
++			opp-peak-kBps = <16500000>;
++			qcom,opp-acd-level = <0x882a5ffd>;
++			opp-supported-hw = <0xf>;
++		};
++
++		opp-1014000000 {
++			opp-hz = /bits/ 64 <1014000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
++			opp-peak-kBps = <14398438>;
++			qcom,opp-acd-level = <0xa82a5ffd>;
++			opp-supported-hw = <0xf>;
++		};
++
++		opp-940000000 {
++			opp-hz = /bits/ 64 <940000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
++			opp-peak-kBps = <14398438>;
++			qcom,opp-acd-level = <0xa82a5ffd>;
++			opp-supported-hw = <0xf>;
++		};
++
++		opp-825000000 {
++			opp-hz = /bits/ 64 <825000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
++			opp-peak-kBps = <12449219>;
++			qcom,opp-acd-level = <0x882b5ffd>;
++			opp-supported-hw = <0xf>;
++		};
++
++		opp-720000000 {
++			opp-hz = /bits/ 64 <720000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
++			opp-peak-kBps = <10687500>;
++			qcom,opp-acd-level = <0xa82c5ffd>;
++			opp-supported-hw = <0xf>;
++		};
++
++		opp-666000000-0 {
++			opp-hz = /bits/ 64 <666000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++			opp-peak-kBps = <8171875>;
++			qcom,opp-acd-level = <0xa82d5ffd>;
++			opp-supported-hw = <0xf>;
++		};
++
++		/* Only applicable for SKUs which has 666Mhz as Fmax */
++		opp-666000000-1 {
++			opp-hz = /bits/ 64 <666000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++			opp-peak-kBps = <16500000>;
++			qcom,opp-acd-level = <0xa82d5ffd>;
++			opp-supported-hw = <0x10>;
++		};
++
++		opp-550000000 {
++			opp-hz = /bits/ 64 <550000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++			opp-peak-kBps = <6074219>;
++			qcom,opp-acd-level = <0x882e5ffd>;
++			opp-supported-hw = <0x1f>;
++		};
++
++		opp-380000000 {
++			opp-hz = /bits/ 64 <380000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++			opp-peak-kBps = <3000000>;
++			qcom,opp-acd-level = <0xc82f5ffd>;
++			opp-supported-hw = <0x1f>;
++		};
++
++		opp-280000000 {
++			opp-hz = /bits/ 64 <280000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
++			opp-peak-kBps = <2136719>;
++			qcom,opp-acd-level = <0xc82f5ffd>;
++			opp-supported-hw = <0x1f>;
++		};
++	};
++
+ };
+ 
+ &gpucc {
+@@ -41,6 +150,13 @@ &pcie6a_phy {
+ 	compatible = "qcom,x1p42100-qmp-gen4x4-pcie-phy";
+ };
+ 
++&qfprom {
++	gpu_speed_bin: gpu-speed-bin@119 {
++		reg = <0x119 0x2>;
++		bits = <7 9>;
++	};
++};
++
+ &soc {
+ 	/* The PCIe3 PHY on X1P42100 uses a different IP block */
+ 	pcie3_phy: phy@1bd4000 {
 
 -- 
 2.48.1
