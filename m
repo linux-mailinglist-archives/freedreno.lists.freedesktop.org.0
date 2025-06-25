@@ -2,123 +2,107 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B57FAE8583
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jun 2025 16:03:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAB21AE8B93
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jun 2025 19:37:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E84310E739;
-	Wed, 25 Jun 2025 14:03:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7103F10E7AF;
+	Wed, 25 Jun 2025 17:37:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MKaAVv4X";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MgH7mbUO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4618110E72B
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 14:03:36 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55PBLhIF006109
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 14:03:35 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2638D10E7A4
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 17:37:22 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55PD19lN022368
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 17:37:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=URKZePCRRSWNA6m1/d+xkCFp
- jOvfyFXCKN/6BSWCDGU=; b=MKaAVv4XfQR4jf+secKsYKhgLwQdYBMU1onEiPrE
- g3z2kfZXBpAVFDJcGI0foBthQ9pdP/eOY6HApYbBpDpfZ6ddDafCQy1d2KrFLXyM
- x/hVvbCxbIH5xMa62McpKOSHPo6brldDt3CCiqQ/JvaDGa0HoVtko9bDhUxV10Zf
- H1+5lvbTvWVatIj2k0twfZO9L6x6NCtLOY1IesZFNPrOfuboumEe/4AT3M+IgVia
- ti/6hWJvozEZkXrvh7pCB/8veEc7oTD/NSe+w+LrUgAEFN0m1ocwhTlpuGyULJRR
- lZhNUKHvBfeHMBZ4xASb372BviH2LM2CPsCmeSqHTnsBSw==
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
- [209.85.166.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47f3bgg4kh-1
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=YAhoTHSslWHI/eVI5RR5ldeEIDPqTzprLbe
+ uErvpeQ4=; b=MgH7mbUOHHW/lCffajxpilJA4qxUyYlkCLaUuiZVb8aCA7+T6Fk
+ ApFjTacpyfNDUEkCVTD/RUY17c+GfU+k71KWianbgGvyPooE5tUO88cXmtk6iUwP
+ EhMnT9aFRyMss5zu8jaJaIlhKEgnCs/MLtK3Rgxy7R9lCa5HhtSpdfOf1kHkrJXY
+ rrhTb879sZiDhCLQ5bOpdHRFBytz0o7HdwNa3/oPQAY4pEcscwtg6oI579IWj+up
+ lHLYXhcHezStN9vNbPXXe5rwgCXHgYhNbrfaEaKCRQh2TqW+xpnDGZTC45CUK02x
+ rOSInZa4dzgzWZfqmAtAS3p3W5WQ3G6DZVg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47f4b40k4x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 14:03:35 +0000 (GMT)
-Received: by mail-il1-f200.google.com with SMTP id
- e9e14a558f8ab-3ddcb80387dso8812115ab.1
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 07:03:35 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 17:37:20 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-3132c8437ffso81078a91.1
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 10:37:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750860214; x=1751465014;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=URKZePCRRSWNA6m1/d+xkCFpjOvfyFXCKN/6BSWCDGU=;
- b=o3jAd7Dw+7Hvdhyy4zALPgwXGd00piEgklJ627mKU61G3DsEFw5SbOccsr4Vtb3Qog
- uzd4iLl3Qp/KsFRw3gDyTIuduGV89ru8mbdezzW2NeVGHSBk1pwF0UwCXkSg0LtuoZK/
- P4YlbueSHfF036dw0r/A7qDPeD4GqMtkKC5rOSwMymk8vi+NBpDBs1Rg77Oyb7qOA37Y
- ofJrO8DHwnycxzDAY3xbMIHmEFW4XmjoRT0aVfkDkQCeQmm0FUJ/Ga6RKsqAfzTqoNyD
- cnDPq/LhArgKdonL/M9RkKSjsGwcuj3Sn5Ynb3kHeSDQDreuhCCS8IdvchnDmGBnMlne
- 8SaQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUAWEhP6Ltyeua6b1ZbaQG+qeyWg5GS5nHFF5Jhowe6stNoMcgac1k8ql2zN+Axs5FAUBwEbBDkarw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywze/gKC32yxJZUCLShDC+q/qkbPNsC9aP/p+Z8dGK0d9W1vMif
- 94VsC2V06deuvmKphMhcwL0vhRlMDQgwTRjs4arMV/JePyVUvTWLpnknKpaehJPRmOi3ww3CILc
- eiep9ukgzYUQ2m7gn9QKtK2822ys/Mr5Kt6TX1pG3GB8MaHUP/6P2nwu9CkFZHWFOh2NbHKw=
-X-Gm-Gg: ASbGncuimfwqgxXegq2XeCjvHODfGdQajMwvDpsEXsiO2Qhl6a27YBQqaRik3n4mto8
- q/XbjPuIIHIj4s7xXDHoqj5DGihG/DC5YhVfFH0tUzUAadGoStPLQgFtBDUst4NyQBFDSWs24tw
- y9z61N1UfiR+VFbta1BcqDw0BV3sNni+3a29MF/ai82+PHLI26B7pMWoeOTqySm+j3vAghuoEmj
- +F+8QeGwBwIlKMQnlupd5D0yEUcETsCOM+cMemhO3VZh5y7Sio4aK6qivdf1gtveBlH6yBS78q8
- 9xnqkzDsCGNPqyfWThun0vWE/PeKUO01UUVGaVEGvZ2Xn9AdnQcBootNvbpTMZyKTuAFwtzkRNN
- TudHG+1bcHorsewVvi3F35rGPypMBlnHHqpw=
-X-Received: by 2002:a05:6e02:1746:b0:3dd:a0fc:1990 with SMTP id
- e9e14a558f8ab-3df288c489dmr102423655ab.3.1750860214064; 
- Wed, 25 Jun 2025 07:03:34 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGypCwMCHMt534i1XnTY01Nz4JEqoxT4c1vs6MRi3pmgy33qxWXH4LT7FJdUnQhkZO7vUdCPw==
-X-Received: by 2002:a05:6e02:1746:b0:3dd:a0fc:1990 with SMTP id
- e9e14a558f8ab-3df288c489dmr102422645ab.3.1750860213349; 
- Wed, 25 Jun 2025 07:03:33 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ d=1e100.net; s=20230601; t=1750873040; x=1751477840;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YAhoTHSslWHI/eVI5RR5ldeEIDPqTzprLbeuErvpeQ4=;
+ b=PNl4cwg40v2Y4xaAiwcj4od2fpDiWXkc51VJACdRaHbf7CbYStPTIbwBT4hYOyw7ko
+ BgXcP38zYa39fS1iVr1KqdmTcl4Rb2gPr338mUzSjAM8RY3ourSPNmLzezP0i9Ira1Au
+ oOtZExAJvRjZQ2bFtfGPuQVRKS639JDau757hbw22toMj2ESse3+GDV2g+nCAbdOLaQY
+ hLkyzOsc9N3nl2kN5eSRm9EFl7BQLS6q30y0fFgoEmSyo0uw76N4MvyyVv2ilMqOlaY7
+ NUjwUN0dsP7GugLuuYBDdYnKnoGyOvTliRDm2DhZYrEXOStGZatD7YYecLToGB4KXIXX
+ IdgA==
+X-Gm-Message-State: AOJu0Ywc1nizlu9BUZW3DNPuVP9dIYQnvKQgAEQMWJvqrkB5P1NbESru
+ qvc5mXSpWLxRw/rgCYk6Vk+9bup9zLLGLDOMutHuZ33BvoSaP5Q7vDBfzJHBgXJqXAHDtAEgi++
+ 6FqETnCooPxVMEEQf70m+nNSb7ed1sQyjn4/jyqeDZWp1dYF5ddJP/61cQ410OiXH27OLNYY=
+X-Gm-Gg: ASbGncvhMQpqrAIm/1hYc2CDepl3Uqemv66NogCTvSXdK6Qn42CFh69pREPVrISdrc4
+ jNkiQH9+QUZoMwwm8BR9mHhKLZlFOEess+f2KVJohvS2+3Fip3Tg3Wkik4r5rELA0yYwcQlJ3wa
+ oU54hHhhg+BlAY4miOtm28ZqRb/lzXB/ox0xYDJXGO6jxYx7LySSJa/pd+/UCtg7DDk6tPeYq5C
+ 8X/nqSx4SYx+P8Zcl1IqOZ4f1qcMNrx6e1gy0HJQtX8VBPlnShRm/ZxSzG1CsjdX9q/wd32XDN5
+ qz5b4X4qsqzv4z77/ORr41GUR3klts7g
+X-Received: by 2002:a17:90b:17c3:b0:311:da03:3437 with SMTP id
+ 98e67ed59e1d1-315f268d07fmr5817785a91.27.1750873039536; 
+ Wed, 25 Jun 2025 10:37:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEMKQs3mspG8y9JNMpqoIf2y+cWR9YznGJpkP1ouykLoRzvg0upnUv8nTz+gS2rxDvr0WltPg==
+X-Received: by 2002:a17:90b:17c3:b0:311:da03:3437 with SMTP id
+ 98e67ed59e1d1-315f268d07fmr5817746a91.27.1750873039081; 
+ Wed, 25 Jun 2025 10:37:19 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-553e41bbbd9sm2187336e87.124.2025.06.25.07.03.32
+ 98e67ed59e1d1-315f53d9098sm2219224a91.31.2025.06.25.10.37.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jun 2025 07:03:32 -0700 (PDT)
-Date: Wed, 25 Jun 2025 17:03:31 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <quic_yongmou@quicinc.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v2 02/38] drm/msm/dp: remove dp_display's dp_mode and use
- dp_panel's instead
-Message-ID: <4jrpa7iyygciuy2k4ydk7cpm5isdrddclljf6gbyvkiqc645tx@idyds4tkstkx>
-References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
- <20250609-msm-dp-mst-v2-2-a54d8902a23d@quicinc.com>
- <kq6tb2wnte6v5z7uxgzc22kjwcevgvcdluzqbelvnbpbxlkotd@ltlv3u2guj4u>
- <1be2238d-7bb2-4ef9-9c7c-81dab0dcb559@quicinc.com>
+ Wed, 25 Jun 2025 10:37:18 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Simona Vetter <simona@ffwll.ch>, Daniel Stone <daniels@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, David Airlie <airlied@gmail.com>,
+ linux-kernel@vger.kernel.org (open list),
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 0/2] drm/fourcc: Add additional float formats
+Date: Wed, 25 Jun 2025 10:37:09 -0700
+Message-ID: <20250625173712.116446-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1be2238d-7bb2-4ef9-9c7c-81dab0dcb559@quicinc.com>
-X-Proofpoint-ORIG-GUID: sEsX87_yDxKA-rtRk_3-8sXyZWDRYui-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI1MDEwMSBTYWx0ZWRfX+EOY95P9hP8i
- cOCrtugprR5qtdvV6Cc4LsPondhBkQoW6U/gHhP4hT/ce2Hg46dAPFkijuTeh5+SAjAvoOG0vu8
- Ct8GTI4TJumiiHRtTWypUc/AAaQQRTCKzT+dlympRRc+xxlAKsckRl43VQczs8dlfV4BgEJL9kd
- f5Nfjdk1/NMoGJ7rPRHwcpjtKrkOZosa56lsCVIO3i8wIXXfS8dMJM3TtOqVe8YRcIjr9lfV7n4
- M7un8dmYwTY3ScXBrubcgfh3M5Co+KyQVfsixA4G0GNeMGhaEXvNZ9dGUcGoEY6pAEb3muZ6mS/
- H1AeSGBHQNAw/tT7lSriNMCX9nYyalWUY4Inq4TKLjTO9wXgNbhRFwNt2MRpoyXuqOMeCG6cgLV
- ZCoeYVaf7LPVT5K9afjiz37rpxEkjF52KyfrTvQut/CcWROzOefE/cyup3NO3KSE8JIAGoJH
-X-Authority-Analysis: v=2.4 cv=L4kdQ/T8 c=1 sm=1 tr=0 ts=685c01b7 cx=c_pps
- a=i7ujPs/ZFudY1OxzqguLDw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=6IFa9wvqVegA:10 a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8 a=s97EMkLwCKFNuu-rtO0A:9
- a=CjuIK1q_8ugA:10 a=Ti5FldxQo0BAkOmdeC3H:22 a=Vxmtnl_E_bksehYqCbjh:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: sEsX87_yDxKA-rtRk_3-8sXyZWDRYui-
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI1MDEzMSBTYWx0ZWRfX5IItJYiZKH5H
+ 465SfJvcbZnGXN3G8kZk4zCBSNI8heh7lNTrh9iU9N8LxO1TUDww19NNzHRceD6axbRP8DFSJYd
+ yWfEQcFmKaOLQ7djniDyUtvKYLU6FdX7N/Z1+MEkO+LQ38b9CLr3oA/zHDO/OR5Qc0GW4c3T5vB
+ I8yD+BGiwXvyZWk8lTqeRUKLF4gC3Atnru1EBDzPiOqoiNkj/x+1kqlCf4zjv2B2BxjIZ1n2lt8
+ tKPLqnDE+kXSTD4M8eifoUrxonjJfPIeJSPupmILE3ka2m4+HBpNrBoIPpup2Bv/O3o1bETfAEd
+ ybnlywwmutVOB38t9usapZjmvZbzVQ5tEk23MYotpVMqjyx8Iy+7lkMOJ4R1MVjE3SfTnH3xAJS
+ 6XdlVw60UZXj/6thMq/RCdblJfoPjFPChECUr7nlD3bpN5McWx1Jf3QuGSm/TP5J+DO2gdC5
+X-Proofpoint-ORIG-GUID: t1A33hlbfik38Xs0tg8Qeezh5XBnmhLs
+X-Proofpoint-GUID: t1A33hlbfik38Xs0tg8Qeezh5XBnmhLs
+X-Authority-Analysis: v=2.4 cv=A8BsP7WG c=1 sm=1 tr=0 ts=685c33d0 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
+ a=wxOPRAE1bK0FDlpJDKYA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-06-25_04,2025-06-25_01,2025-03-28_01
+ definitions=2025-06-25_05,2025-06-25_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0 bulkscore=0 clxscore=1015 suspectscore=0
- adultscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- spamscore=0 phishscore=0 mlxlogscore=999 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506250101
+ lowpriorityscore=0 mlxlogscore=963 malwarescore=0 spamscore=0 bulkscore=0
+ phishscore=0 adultscore=0 impostorscore=0 suspectscore=0 mlxscore=0
+ clxscore=1015 priorityscore=1501 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2506250131
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,204 +118,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jun 25, 2025 at 08:34:18PM +0800, Yongxing Mou wrote:
-> 
-> 
-> On 2025/6/9 20:48, Dmitry Baryshkov wrote:
-> > On Mon, Jun 09, 2025 at 08:21:21PM +0800, Yongxing Mou wrote:
-> > > From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > 
-> > > dp_display caches the current display mode and then passes it onto
-> > > the panel to be used for programming the panel params. Remove this
-> > > two level passing and directly populated the panel's dp_display_mode
-> > > instead.
-> > 
-> > - Why do we need to cache / copy it anyway? Can't we just pass the
-> >    corresponding drm_atomic_state / drm_crtc_state / drm_display_mode ?
-> > 
-> This part works as follows: .mode_set() copies the adjusted_mode into
-> msm_dp_display_private->msm_dp_display_mode, and also parses and stores
-> variables such as v_active_low/h_active_low/out_fmt_is_yuv_420 and ... When
-> @drm_bridge_funcs.atomic_enable() is called, it copies
-> msm_dp_display->msm_dp_mode into dp_panel->msm_dp_mode and initializes
-> panel_info in msm_dp_display_set_mode(). Then when go to
-> msm_dp_ctrl_on_stream(), the parameters are updated into the corresponding
-> hardware registers.
+GPUs support 1/2/3/4 component f16 and f32 formats.  Define the missing
+fourcc's needed to import/export these formats, and/or create with gbm.
 
-So, if we do everything during .atomic_enable(), there would be no need
-to store and/or copy anything. All the data is available and can be used
-as is.
+Rob Clark (2):
+  drm/fourcc: Add missing half-float formats
+  drm/fourcc: Add 32b float formats
 
-> 
-> This design has been in place since the first version of the DP driver and
-> has remained largely unchanged.
-
-Yes... The point is that you are touching this piece of code anyway,
-let's make it nicer.
-
-> Originally, the drm_mode would be passed in
-> two stages: from msm_dp_display->msm_dp_mode to dp_panel->msm_dp_mode. Since
-> in MST mode each stream requires its own drm_mode and stored in dp_panel, we
-> simplified the two-stage transfer into a single step (.mode_set() do all
-> things and store in msm_dp_panel). Meanwhile we modified the
-> msm_dp_display_set_mode function to accept a msm_dp_panel parameter,
-> allowing the MST bridge funcs' mode_set() to reuse this part code.
-> 
-> The following patches:
-> https://patchwork.freedesktop.org/patch/657573/?series=142207&rev=2 and
-> https://patchwork.freedesktop.org/patch/657593/?series=142207&rev=2,
-> introduce msm_dp_display_*_helper functions to help reuse common code across
-> MST/SST/eDP drm_bridge_funcs.
-> 
-> If we drop msm_dp_mode from dp_panel and use drm_display_mode, it might
-> introduce a large number of changes that are not directly related to MST.
-> Actually i think the presence of msm_dp_display_mode seems to simplify the
-> work in msm_dp_panel_timing_cfg(), this patch series we want to focus on MST
-> parts, so would we consider optimizing them later?
-
-Sure... But then you have to change two places. If you optimize it
-first, you have to touch only place. And it can be even submitted
-separately.
-
-> 
-> Thanks~
-> > > 
-> > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
-> > > ---
-> > >   drivers/gpu/drm/msm/dp/dp_display.c | 76 ++++++++++++++-----------------------
-> > >   1 file changed, 29 insertions(+), 47 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > index 4a9b65647cdef1ed6c3bb851f93df0db8be977af..9d2db9cbd2552470a36a63f70f517c35436f7280 100644
-> > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > @@ -92,7 +92,6 @@ struct msm_dp_display_private {
-> > >   	struct msm_dp_panel   *panel;
-> > >   	struct msm_dp_ctrl    *ctrl;
-> > > -	struct msm_dp_display_mode msm_dp_mode;
-> > >   	struct msm_dp msm_dp_display;
-> > >   	/* wait for audio signaling */
-> > > @@ -806,16 +805,29 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
-> > >   }
-> > >   static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
-> > > -			       struct msm_dp_display_mode *mode)
-> > > +				   const struct drm_display_mode *adjusted_mode,
-> > > +				   struct msm_dp_panel *msm_dp_panel)
-> > >   {
-> > > -	struct msm_dp_display_private *dp;
-> > > +	u32 bpp;
-> > > -	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
-> > > +	drm_mode_copy(&msm_dp_panel->msm_dp_mode.drm_mode, adjusted_mode);
-> > > +
-> > > +	if (msm_dp_display_check_video_test(msm_dp_display))
-> > > +		bpp = msm_dp_display_get_test_bpp(msm_dp_display);
-> > > +	else
-> > > +		bpp = msm_dp_panel->connector->display_info.bpc * 3;
-> > > +
-> > > +	msm_dp_panel->msm_dp_mode.bpp = bpp;
-> > > +
-> > > +	msm_dp_panel->msm_dp_mode.v_active_low =
-> > > +		!!(adjusted_mode->flags & DRM_MODE_FLAG_NVSYNC);
-> > > +	msm_dp_panel->msm_dp_mode.h_active_low =
-> > > +		!!(adjusted_mode->flags & DRM_MODE_FLAG_NHSYNC);
-> > > +	msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420 =
-> > > +		drm_mode_is_420_only(&msm_dp_panel->connector->display_info, adjusted_mode) &&
-> > > +		msm_dp_panel->vsc_sdp_supported;
-> > > -	drm_mode_copy(&dp->panel->msm_dp_mode.drm_mode, &mode->drm_mode);
-> > > -	dp->panel->msm_dp_mode.bpp = mode->bpp;
-> > > -	dp->panel->msm_dp_mode.out_fmt_is_yuv_420 = mode->out_fmt_is_yuv_420;
-> > > -	msm_dp_panel_init_panel_info(dp->panel);
-> > > +	msm_dp_panel_init_panel_info(msm_dp_panel);
-> > >   	return 0;
-> > >   }
-> > > @@ -1431,10 +1443,13 @@ bool msm_dp_needs_periph_flush(const struct msm_dp *msm_dp_display,
-> > >   bool msm_dp_wide_bus_available(const struct msm_dp *msm_dp_display)
-> > >   {
-> > >   	struct msm_dp_display_private *dp;
-> > > +	struct msm_dp_panel *dp_panel;
-> > >   	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
-> > > -	if (dp->msm_dp_mode.out_fmt_is_yuv_420)
-> > > +	dp_panel = dp->panel;
-> > > +
-> > > +	if (dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
-> > >   		return false;
-> > >   	return dp->wide_bus_supported;
-> > > @@ -1496,10 +1511,6 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
-> > >   	bool force_link_train = false;
-> > >   	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
-> > > -	if (!msm_dp_display->msm_dp_mode.drm_mode.clock) {
-> > > -		DRM_ERROR("invalid params\n");
-> > > -		return;
-> > > -	}
-> > >   	if (dp->is_edp)
-> > >   		msm_dp_hpd_plug_handle(msm_dp_display, 0);
-> > > @@ -1517,15 +1528,6 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
-> > >   		return;
-> > >   	}
-> > > -	rc = msm_dp_display_set_mode(dp, &msm_dp_display->msm_dp_mode);
-> > > -	if (rc) {
-> > > -		DRM_ERROR("Failed to perform a mode set, rc=%d\n", rc);
-> > > -		mutex_unlock(&msm_dp_display->event_mutex);
-> > > -		return;
-> > > -	}
-> > 
-> > It should be done other way around: keep this call and drop
-> > msm_dp_bridge_mode_set().
-> > 
-> Emm as reply in last comments..
-
-Yep. Drop .mode_set, the callback is even described as deprecated.
-
-> > > -
-> > > -	hpd_state =  msm_dp_display->hpd_state;
-> > > -
-> > >   	if (hpd_state == ST_CONNECTED && !dp->power_on) {
-> > >   		msm_dp_display_host_phy_init(msm_dp_display);
-> > >   		force_link_train = true;
-> > > @@ -1604,33 +1606,13 @@ void msm_dp_bridge_mode_set(struct drm_bridge *drm_bridge,
-> > >   	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
-> > >   	msm_dp_panel = msm_dp_display->panel;
-> > > -	memset(&msm_dp_display->msm_dp_mode, 0x0, sizeof(struct msm_dp_display_mode));
-> > > -
-> > > -	if (msm_dp_display_check_video_test(dp))
-> > > -		msm_dp_display->msm_dp_mode.bpp = msm_dp_display_get_test_bpp(dp);
-> > > -	else /* Default num_components per pixel = 3 */
-> > > -		msm_dp_display->msm_dp_mode.bpp = dp->connector->display_info.bpc * 3;
-> > > -
-> > > -	if (!msm_dp_display->msm_dp_mode.bpp)
-> > > -		msm_dp_display->msm_dp_mode.bpp = 24; /* Default bpp */
-> > > -
-> > > -	drm_mode_copy(&msm_dp_display->msm_dp_mode.drm_mode, adjusted_mode);
-> > > -
-> > > -	msm_dp_display->msm_dp_mode.v_active_low =
-> > > -		!!(msm_dp_display->msm_dp_mode.drm_mode.flags & DRM_MODE_FLAG_NVSYNC);
-> > > -
-> > > -	msm_dp_display->msm_dp_mode.h_active_low =
-> > > -		!!(msm_dp_display->msm_dp_mode.drm_mode.flags & DRM_MODE_FLAG_NHSYNC);
-> > > -
-> > > -	msm_dp_display->msm_dp_mode.out_fmt_is_yuv_420 =
-> > > -		drm_mode_is_420_only(&dp->connector->display_info, adjusted_mode) &&
-> > > -		msm_dp_panel->vsc_sdp_supported;
-> > > +	msm_dp_display_set_mode(dp, adjusted_mode, msm_dp_panel);
-> > >   	/* populate wide_bus_support to different layers */
-> > > -	msm_dp_display->ctrl->wide_bus_en =
-> > > -		msm_dp_display->msm_dp_mode.out_fmt_is_yuv_420 ? false : msm_dp_display->wide_bus_supported;
-> > > -	msm_dp_display->catalog->wide_bus_en =
-> > > -		msm_dp_display->msm_dp_mode.out_fmt_is_yuv_420 ? false : msm_dp_display->wide_bus_supported;
-> > > +	msm_dp_display->ctrl->wide_bus_en = msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420 ?
-> > > +		false : msm_dp_display->wide_bus_supported;
-> > > +	msm_dp_display->catalog->wide_bus_en = msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420 ?
-> > > +		false : msm_dp_display->wide_bus_supported;
-> > >   }
-> > >   void msm_dp_bridge_hpd_enable(struct drm_bridge *bridge)
-> > > 
-> > > -- 
-> > > 2.34.1
-> > > 
-> > 
-> 
+ include/uapi/drm/drm_fourcc.h | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
 -- 
-With best wishes
-Dmitry
+2.49.0
+
