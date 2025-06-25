@@ -2,118 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9C77AE8D8A
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jun 2025 20:59:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B8ADAE8D82
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jun 2025 20:59:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4069710E7F7;
-	Wed, 25 Jun 2025 18:59:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D48010E7F8;
+	Wed, 25 Jun 2025 18:59:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dCoEpAD7";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZzKlFUqK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C98210E7E5
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB3BD10E7E5
  for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 18:59:20 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55PAV0LO022703
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 18:59:19 GMT
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55PE8AYJ015264
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 18:59:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=9I2+D+NGCoh
- icuIhMIGVY89TGnMrZSKG21yuS94HUEI=; b=dCoEpAD7aJ7BxHTVDUNEjGMohfp
- J3jVuQT0enTKUHmyPqu1xBDW3KzaPPhmtnVsusLfv1nYBSR2usAu7OS0llhxY8ZP
- NIcG29qAZlf/PYS/SezwjInMLqkVZ+VlJjtuuELy4vQTm+rB2ZlQerVQR5b+tO99
- eHNo0+8+MKDuT2wfceVmXJxbC6t2NHuig/ED0YB7aGeQzs5Pan0Ysc0m/eRtlE9z
- +02MtdTPTqYSYiPfkjm/bRv8uE552tFAFuv6kZa5mSYC9ezlFZg2xldZL+4NVZYO
- tdZaoN7EzANkV0itDnJmpPoVn+3DXd0Oqek5bI4RZU4uVVMLLlWHgjsjj4w==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47g88fapqe-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=St2ndJNB5T5
+ qxjvTBi+Qboj7ahOA3a+vNQ3fmIRIIqc=; b=ZzKlFUqKEOVyFXcMOdJUfarENsq
+ O2Eb5I7wLaeCVGo4vVuFEMsHLMiOzr7K1po5u//ATfuu1UzO7AQrZqYX0JFY3u+1
+ 4pONbArdLl0JLXNQw5fuSzeI3/4vNR8wUsI7ZC8iU3HtpjCGX+aPRkBQEae1yB8g
+ Whjw4ki6Shcf3Z/B4kLj8W4Vvawr0+tQkwpnLQ07qj/UWBrs7byXdnzbnqzNqQZn
+ q7TP4eABYaUMzzZJcKUx9fGdpcyezNd2j+qNEEcdrl8Ah4xyA7paoj6QVIFLvoBt
+ ItFgY7A33husmTVHRyCBwiWpADIB++/OUE9NXA8XHXcM2j8yLrDtvlOchYg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47fbhqqdjv-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 18:59:18 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-235eefe6a8fso1205575ad.1
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 11:59:18 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 18:59:19 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2355651d204so1581495ad.2
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 11:59:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750877957; x=1751482757;
+ d=1e100.net; s=20230601; t=1750877958; x=1751482758;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9I2+D+NGCohicuIhMIGVY89TGnMrZSKG21yuS94HUEI=;
- b=G9TiPcYzN82bv0ZuwO7Fa9cqAChGdyrNMk6EqUJcQK0p2m8M79g2NoNRU1ssh1BJBy
- R9d/nhHhDcc1Ec6F85m9vnWccQZZ6kkgHbs4NtS6dfrM4yvE8gf9ktXe2oOkSaELmihz
- w4TF7lFSx/XcMmavkMsiNYtN9ZIVcLzS3mylKncxyLXvLEBOwfKU5QPFF7rG1smo6Dxq
- lD5J5aymv2EvZga3FHWee1YKZhuHYeRf4AeoRw0TMmb/cBuO5QlK19DwGkY/uq8x9qjR
- gvJJu8swkGymLfO4FsNooEUnoejIUklmVT0zzW6rZjzMzj9tUWRRL6ugGH79txPIeSyE
- R+mA==
+ bh=St2ndJNB5T5qxjvTBi+Qboj7ahOA3a+vNQ3fmIRIIqc=;
+ b=DBgQfFkGhSjd9IpOtOW6TjhMbAYBieXD9qjBOBDLMYU6aHf7DtDXLzD+tncecGIIuF
+ +KBT6pMPJr1NeCXTaLqLefw0HRE6taQwk8yTc5JBxWqpMV8gdpbeNUAtQbSl5iEFI/Bt
+ 4BIxV8mZYIpSgvuUPJOnyuQVNxXFYtA6URlpDbd1lKod2lmb5JNeKXcywGdoRSGBUIS7
+ Li+GHlZHYkfhBiOmjvrUpdb9vrkQ0zuimawLr6bLuBUfrYViIFWCGokkXoUnDoY32WxI
+ WOeYUQXKVJcTvILhEmWpKe7GnBgeff1Ryds1AUdOGp1GREWWOnFiM7yv3sPvCwz50aZo
+ eUmQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVw73KrYHMuDEQGIXHBDWHDR1lSTeDbGOII0W6q/0kOe7iPAkuxY4KIdXaUKgC2EMrfUdFEI1zClts=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwJe0YPkOXoWPwXs4mYdXcHb/7eh4HElbZ8ua1Qqmn5cfKPuPmt
- Ywz2LzRYfzt9TNJChW9NBo1tPuJ3jLJooourdibK3ACVptKItUdITDz+sNO0Z9PX++fiWrV7BC1
- 9VkWeyUOoBRDzXg0M33Et/Cx28x3V6jFnpgH1YN8v5A2wArOvadpfq1UyXG4i6RCH2ug26Qg=
-X-Gm-Gg: ASbGncuiws+pYe9gmzhoj3OU/T511k6hsaTfExeEO7qRIkqBFoJrEVkq7Cse9H+mt0l
- J1nCB4iq5jhSIQLJE3+1fM0UgA2cCOdrJi+usY4bGK02RsaIZTRRxJQe92BWWh3773Lgp419KjM
- GwHaXsuVqiD6sYWx6rU2LafnmhvzufjllTq3dR9q7jrnC784bI1C9dVaiJLZ0aT7zO+L0VcV+Y8
- k49ZNckJyi2aG3/flSSsvR0cX+p0O+I/m3VYMKddspEG/hesO8syi5vW+x61zlHoFv7ztt/uo7k
- vMqCndfCk6tPCZTMbbuoNo61lOeunj/Z
-X-Received: by 2002:a17:902:ea06:b0:22f:c19c:810c with SMTP id
- d9443c01a7336-23824385a8bmr77135535ad.51.1750877957214; 
- Wed, 25 Jun 2025 11:59:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEDgIa12KYBHmawAQQa/WWpZRau96PEwqSOKWlZcQvJvcYsT19my7oKMt6QL6vRlqMLYfN0Lw==
-X-Received: by 2002:a17:902:ea06:b0:22f:c19c:810c with SMTP id
- d9443c01a7336-23824385a8bmr77134965ad.51.1750877956657; 
- Wed, 25 Jun 2025 11:59:16 -0700 (PDT)
+ AJvYcCUClxAfFq3IC0w0stD/4CM6whrnS6lFFm1YJDGsQDjN5WwXB8TPdmM2W5StKGNeMQ1GgHnhY0CtBVw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwQh7JcD3VqS7+SMIZisKE5gwrDgKT6x7Onyett0YGGcC1itqeY
+ FJCdqRZwyUXoOtZ6OOGRSc+EyeZFh/63gi0vu0F49ia+7Y4WVkVfzxlMzVWNwfzXV8FdGJPnVfz
+ crP79NpkgYEW1ef/pm+k8TLqPksQiSlWzWPssx/lwDDWUhmCzS1ScsiACuTPFQ9Ve4i8Dez4=
+X-Gm-Gg: ASbGncvQKT0GsKbUocP+kfOWOhmbhdmYAwmRM5WknCRAiLs/8yk7dysXFT8ZNWTYSG7
+ v3vwcAev8wvJvE+RZfWdG4SrG3HAxTitVa0MAwjgw3DSA2L47IOraao+K32lho8OIOlkyJmCbHJ
+ PM3Tv5WAn5itkmgAQEYf4i9aLyur6SLl3TD14zCEbI9CVUuDNo5RRQ40HopZ6MpO1TVGfiBfT87
+ QEMX08rR/uJuCVBlGnz5UhRXAXc1SlUpiUlp7+pX+7kB5aFBHJOtkgl/jpza6676XjDBqzSQqCL
+ DA4ORuHSW04gCq4KMtEWyzlysk/M3I3G
+X-Received: by 2002:a17:902:e890:b0:235:6e1:3edf with SMTP id
+ d9443c01a7336-23824039f7amr77982905ad.34.1750877958528; 
+ Wed, 25 Jun 2025 11:59:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF/Y9lB16IKtQS7RqL3y30IZ+jiD7LUeSPJzyPzPcOjdlpXE/X4dI8MmjryvmUd3anc1LWsJw==
+X-Received: by 2002:a17:902:e890:b0:235:6e1:3edf with SMTP id
+ d9443c01a7336-23824039f7amr77982545ad.34.1750877958122; 
+ Wed, 25 Jun 2025 11:59:18 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d83932dfsm140491125ad.30.2025.06.25.11.59.16
+ d9443c01a7336-2380d1a9d79sm42665515ad.93.2025.06.25.11.59.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jun 2025 11:59:16 -0700 (PDT)
+ Wed, 25 Jun 2025 11:59:17 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Connor Abbott <cwabbott0@gmail.com>,
  Antonino Maniscalco <antomani103@gmail.com>,
  Rob Clark <robdclark@chromium.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v7 36/42] drm/msm: Add VM logging for VM_BIND updates
-Date: Wed, 25 Jun 2025 11:47:29 -0700
-Message-ID: <20250625184918.124608-37-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v7 37/42] drm/msm: Add VMA unmap reason
+Date: Wed, 25 Jun 2025 11:47:30 -0700
+Message-ID: <20250625184918.124608-38-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250625184918.124608-1-robin.clark@oss.qualcomm.com>
 References: <20250625184918.124608-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI1MDE0MiBTYWx0ZWRfX4H0uvNgFesTm
- cVhaPRAuqeWA4qsUkIvXGxtCsy8jdieG8eOL1MjEjoiExPFEPPyYHhqmf+g47lTumJdKnAsRtAc
- DrpBRwfuTrH5X0AQGihtjTfgaoUAtfWiGicJEmOq5JICECKTFIXaOp1xBMPPSgV/A2iCELcZZov
- fdYVGnpQYva59esM9EDvavPbUEbbCo9oamSXY3b91Qep9A9ejEeF58wU+AR+UQFKcPNTsQ0WfO/
- f+EOzLsMAja4iLOO4dPR5eXofnhYj2co96cHP/W3hM4d1ALINlK2jA3O2fwdcgVSw5d17AIAp9m
- +6kuUYFESdpax09uLA6jv0zVkqN0YYcQbbqULtb4rzkFwMjo7ICEpDzk80FnluXfbXW5koHdCGR
- r45z2NLovnrLWQjIIcloZh5i1HZZMqYcCYsZNUTjKPW1ziqQHTkBxT1g7wR9ZpH5DrMXZmvx
-X-Proofpoint-ORIG-GUID: ODRb2bBBST92zcQlcTRZYmJUj7Kvgldy
-X-Proofpoint-GUID: ODRb2bBBST92zcQlcTRZYmJUj7Kvgldy
-X-Authority-Analysis: v=2.4 cv=LNNmQIW9 c=1 sm=1 tr=0 ts=685c4706 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=zDHoyB4d8wgZrPPXejgA:9
- a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: vNNlgoKUzE2BPdjU-vy5B0uawPODnjuL
+X-Authority-Analysis: v=2.4 cv=Id+HWXqa c=1 sm=1 tr=0 ts=685c4707 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
+ a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=S93TA_zjY9FrSvCmoiAA:9
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: vNNlgoKUzE2BPdjU-vy5B0uawPODnjuL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI1MDE0MyBTYWx0ZWRfXyesjXIdSSPsy
+ 8Ys+JLvHtPc1Fvh5JOiH1nlrftR1f5R/gOmkCxShuFQhd913BcXUMdkxTHROUkM1kfU5aq4Gb94
+ im8rmNMGwy2X4NNASDHyCvKCc7THCvolCWnOl64UxLCZVpZs8nGAfpRwYFEndtV6xQj/WSMk5qe
+ BdbR1m95hiLPa0d7tB9k4ErxbeLKTsl5BqGu2oa55FOgsWCgDO3jQymf+JpJeASMP7rOzSzuLNC
+ fULbBNe2VfMl77pXwUlk9pGTMaecVNjMshO350oWG+O5FlguXKXXSDHiyBrHYQnN6h/NinYbgA6
+ Q/uif022CQb6akxgbKfS+vUoc1EuC9h1Qhzoboo54cz5VJolBPmJ+zZgJEATSfFtS7jECgMNNRc
+ rvbW9tbuZHKud9CJUPPPFHpMUAMyieUGl3mtstu91q5biI5sZwzDlFd2wjGyr3P1A1B7Osba
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-06-25_06,2025-06-25_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0 mlxlogscore=999
- impostorscore=0 mlxscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- lowpriorityscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506250142
+ spamscore=0 priorityscore=1501 mlxlogscore=999 phishscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 mlxscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 adultscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2506250143
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,436 +129,171 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-When userspace opts in to VM_BIND, the submit no longer holds references
-keeping the VMA alive.  This makes it difficult to distinguish between
-UMD/KMD/app bugs.  So add a debug option for logging the most recent VM
-updates and capturing these in GPU devcoredumps.
-
-The submitqueue id is also captured, a value of zero means the operation
-did not go via a submitqueue (ie. comes from msm_gem_vm_close() tearing
-down the remaining mappings when the device file is closed.
+Make the VM log a bit more useful by providing a reason for the unmap
+(ie. closing VM vs evict/purge, etc)
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/adreno_gpu.c |  11 +++
- drivers/gpu/drm/msm/msm_gem.h           |  24 +++++
- drivers/gpu/drm/msm/msm_gem_vma.c       | 124 ++++++++++++++++++++++--
- drivers/gpu/drm/msm/msm_gpu.c           |  52 +++++++++-
- drivers/gpu/drm/msm/msm_gpu.h           |   4 +
- 5 files changed, 202 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/msm/msm_gem.c     | 20 +++++++++++---------
+ drivers/gpu/drm/msm/msm_gem.h     |  2 +-
+ drivers/gpu/drm/msm/msm_gem_vma.c | 15 ++++++++++++---
+ 3 files changed, 24 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index efe03f3f42ba..12b42ae2688c 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -837,6 +837,7 @@ void adreno_gpu_state_destroy(struct msm_gpu_state *state)
- 	for (i = 0; state->bos && i < state->nr_bos; i++)
- 		kvfree(state->bos[i].data);
- 
-+	kfree(state->vm_logs);
- 	kfree(state->bos);
- 	kfree(state->comm);
- 	kfree(state->cmd);
-@@ -977,6 +978,16 @@ void adreno_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
- 			   info->ptes[0], info->ptes[1], info->ptes[2], info->ptes[3]);
- 	}
- 
-+	if (state->vm_logs) {
-+		drm_puts(p, "vm-log:\n");
-+		for (i = 0; i < state->nr_vm_logs; i++) {
-+			struct msm_gem_vm_log_entry *e = &state->vm_logs[i];
-+			drm_printf(p, "  - %s:%d: 0x%016llx-0x%016llx\n",
-+				   e->op, e->queue_id, e->iova,
-+				   e->iova + e->range);
-+		}
-+	}
-+
- 	drm_printf(p, "rbbm-status: 0x%08x\n", state->rbbm_status);
- 
- 	drm_puts(p, "ringbuffer:\n");
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index d062722942b5..efbf58594c08 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -24,6 +24,20 @@
- #define MSM_BO_STOLEN        0x10000000    /* try to use stolen/splash memory */
- #define MSM_BO_MAP_PRIV      0x20000000    /* use IOMMU_PRIV when mapping */
- 
-+/**
-+ * struct msm_gem_vm_log_entry - An entry in the VM log
-+ *
-+ * For userspace managed VMs, a log of recent VM updates is tracked and
-+ * captured in GPU devcore dumps, to aid debugging issues caused by (for
-+ * example) incorrectly synchronized VM updates
-+ */
-+struct msm_gem_vm_log_entry {
-+	const char *op;
-+	uint64_t iova;
-+	uint64_t range;
-+	int queue_id;
-+};
-+
- /**
-  * struct msm_gem_vm - VM object
-  *
-@@ -85,6 +99,15 @@ struct msm_gem_vm {
- 	/** @last_fence: Fence for last pending work scheduled on the VM */
- 	struct dma_fence *last_fence;
- 
-+	/** @log: A log of recent VM updates */
-+	struct msm_gem_vm_log_entry *log;
-+
-+	/** @log_shift: length of @log is (1 << @log_shift) */
-+	uint32_t log_shift;
-+
-+	/** @log_idx: index of next @log entry to write */
-+	uint32_t log_idx;
-+
- 	/** @faults: the number of GPU hangs associated with this address space */
- 	int faults;
- 
-@@ -115,6 +138,7 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
- 		  u64 va_start, u64 va_size, bool managed);
- 
- void msm_gem_vm_close(struct drm_gpuvm *gpuvm);
-+void msm_gem_vm_unusable(struct drm_gpuvm *gpuvm);
- 
- struct msm_fence_context;
- 
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 5d4b7e3e9d2c..729027245986 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -17,6 +17,10 @@
- 
- #define vm_dbg(fmt, ...) pr_debug("%s:%d: "fmt"\n", __func__, __LINE__, ##__VA_ARGS__)
- 
-+static uint vm_log_shift = 0;
-+MODULE_PARM_DESC(vm_log_shift, "Length of VM op log");
-+module_param_named(vm_log_shift, vm_log_shift, uint, 0600);
-+
- /**
-  * struct msm_vm_map_op - create new pgtable mapping
-  */
-@@ -31,6 +35,13 @@ struct msm_vm_map_op {
- 	struct sg_table *sgt;
- 	/** @prot: the mapping protection flags */
- 	int prot;
-+
-+	/**
-+	 * @queue_id: The id of the submitqueue the operation is performed
-+	 * on, or zero for (in particular) UNMAP ops triggered outside of
-+	 * a submitqueue (ie. process cleanup)
-+	 */
-+	int queue_id;
- };
- 
- /**
-@@ -41,6 +52,13 @@ struct msm_vm_unmap_op {
- 	uint64_t iova;
- 	/** @range: size of region to unmap */
- 	uint64_t range;
-+
-+	/**
-+	 * @queue_id: The id of the submitqueue the operation is performed
-+	 * on, or zero for (in particular) UNMAP ops triggered outside of
-+	 * a submitqueue (ie. process cleanup)
-+	 */
-+	int queue_id;
- };
- 
- /**
-@@ -144,16 +162,87 @@ msm_gem_vm_free(struct drm_gpuvm *gpuvm)
- 		vm->mmu->funcs->destroy(vm->mmu);
- 	dma_fence_put(vm->last_fence);
- 	put_pid(vm->pid);
-+	kfree(vm->log);
- 	kfree(vm);
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index fea13a993629..e415e6e32a59 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -47,7 +47,8 @@ static int msm_gem_open(struct drm_gem_object *obj, struct drm_file *file)
+ 	return 0;
  }
  
-+/**
-+ * msm_gem_vm_unusable() - Mark a VM as unusable
-+ * @vm: the VM to mark unusable
-+ */
-+void
-+msm_gem_vm_unusable(struct drm_gpuvm *gpuvm)
-+{
-+	struct msm_gem_vm *vm = to_msm_vm(gpuvm);
-+	uint32_t vm_log_len = (1 << vm->log_shift);
-+	uint32_t vm_log_mask = vm_log_len - 1;
-+	uint32_t nr_vm_logs;
-+	int first;
-+
-+	vm->unusable = true;
-+
-+	/* Bail if no log, or empty log: */
-+	if (!vm->log || !vm->log[0].op)
-+		return;
-+
-+	mutex_lock(&vm->mmu_lock);
-+
-+	/*
-+	 * log_idx is the next entry to overwrite, meaning it is the oldest, or
-+	 * first, entry (other than the special case handled below where the
-+	 * log hasn't wrapped around yet)
-+	 */
-+	first = vm->log_idx;
-+
-+	if (!vm->log[first].op) {
-+		/*
-+		 * If the next log entry has not been written yet, then only
-+		 * entries 0 to idx-1 are valid (ie. we haven't wrapped around
-+		 * yet)
-+		 */
-+		nr_vm_logs = MAX(0, first - 1);
-+		first = 0;
-+	} else {
-+		nr_vm_logs = vm_log_len;
-+	}
-+
-+	pr_err("vm-log:\n");
-+	for (int i = 0; i < nr_vm_logs; i++) {
-+		int idx = (i + first) & vm_log_mask;
-+		struct msm_gem_vm_log_entry *e = &vm->log[idx];
-+		pr_err("  - %s:%d: 0x%016llx-0x%016llx\n",
-+		       e->op, e->queue_id, e->iova,
-+		       e->iova + e->range);
-+	}
-+
-+	mutex_unlock(&vm->mmu_lock);
-+}
-+
- static void
--vm_unmap_op(struct msm_gem_vm *vm, const struct msm_vm_unmap_op *op)
-+vm_log(struct msm_gem_vm *vm, const char *op, uint64_t iova, uint64_t range, int queue_id)
- {
-+	int idx;
-+
- 	if (!vm->managed)
- 		lockdep_assert_held(&vm->mmu_lock);
+-static void put_iova_spaces(struct drm_gem_object *obj, struct drm_gpuvm *vm, bool close);
++static void put_iova_spaces(struct drm_gem_object *obj, struct drm_gpuvm *vm,
++			    bool close, const char *reason);
  
--	vm_dbg("%p: %016llx %016llx", vm, op->iova, op->iova + op->range);
-+	vm_dbg("%s:%p:%d: %016llx %016llx", op, vm, queue_id, iova, iova + range);
+ static void detach_vm(struct drm_gem_object *obj, struct drm_gpuvm *vm)
+ {
+@@ -61,7 +62,7 @@ static void detach_vm(struct drm_gem_object *obj, struct drm_gpuvm *vm)
+ 		drm_gpuvm_bo_for_each_va (vma, vm_bo) {
+ 			if (vma->vm != vm)
+ 				continue;
+-			msm_gem_vma_unmap(vma);
++			msm_gem_vma_unmap(vma, "detach");
+ 			msm_gem_vma_close(vma);
+ 			break;
+ 		}
+@@ -101,7 +102,7 @@ static void msm_gem_close(struct drm_gem_object *obj, struct drm_file *file)
+ 			      MAX_SCHEDULE_TIMEOUT);
+ 
+ 	msm_gem_lock_vm_and_obj(&exec, obj, ctx->vm);
+-	put_iova_spaces(obj, ctx->vm, true);
++	put_iova_spaces(obj, ctx->vm, true, "close");
+ 	detach_vm(obj, ctx->vm);
+ 	drm_exec_fini(&exec);     /* drop locks */
+ }
+@@ -429,7 +430,8 @@ static struct drm_gpuva *lookup_vma(struct drm_gem_object *obj,
+  * mapping.
+  */
+ static void
+-put_iova_spaces(struct drm_gem_object *obj, struct drm_gpuvm *vm, bool close)
++put_iova_spaces(struct drm_gem_object *obj, struct drm_gpuvm *vm,
++		bool close, const char *reason)
+ {
+ 	struct drm_gpuvm_bo *vm_bo, *tmp;
+ 
+@@ -444,7 +446,7 @@ put_iova_spaces(struct drm_gem_object *obj, struct drm_gpuvm *vm, bool close)
+ 		drm_gpuvm_bo_get(vm_bo);
+ 
+ 		drm_gpuvm_bo_for_each_va_safe (vma, vmatmp, vm_bo) {
+-			msm_gem_vma_unmap(vma);
++			msm_gem_vma_unmap(vma, reason);
+ 			if (close)
+ 				msm_gem_vma_close(vma);
+ 		}
+@@ -625,7 +627,7 @@ static int clear_iova(struct drm_gem_object *obj,
+ 	if (!vma)
+ 		return 0;
+ 
+-	msm_gem_vma_unmap(vma);
++	msm_gem_vma_unmap(vma, NULL);
+ 	msm_gem_vma_close(vma);
+ 
+ 	return 0;
+@@ -837,7 +839,7 @@ void msm_gem_purge(struct drm_gem_object *obj)
+ 	GEM_WARN_ON(!is_purgeable(msm_obj));
+ 
+ 	/* Get rid of any iommu mapping(s): */
+-	put_iova_spaces(obj, NULL, false);
++	put_iova_spaces(obj, NULL, false, "purge");
+ 
+ 	msm_gem_vunmap(obj);
+ 
+@@ -875,7 +877,7 @@ void msm_gem_evict(struct drm_gem_object *obj)
+ 	GEM_WARN_ON(is_unevictable(msm_obj));
+ 
+ 	/* Get rid of any iommu mapping(s): */
+-	put_iova_spaces(obj, NULL, false);
++	put_iova_spaces(obj, NULL, false, "evict");
+ 
+ 	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
+ 
+@@ -1087,7 +1089,7 @@ static void msm_gem_free_object(struct drm_gem_object *obj)
+ 				drm_exec_retry_on_contention(&exec);
+ 			}
+ 		}
+-		put_iova_spaces(obj, NULL, true);
++		put_iova_spaces(obj, NULL, true, "free");
+ 		drm_exec_fini(&exec);     /* drop locks */
+ 	}
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index efbf58594c08..57252b5e08d0 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -168,7 +168,7 @@ struct msm_gem_vma {
+ struct drm_gpuva *
+ msm_gem_vma_new(struct drm_gpuvm *vm, struct drm_gem_object *obj,
+ 		u64 offset, u64 range_start, u64 range_end);
+-void msm_gem_vma_unmap(struct drm_gpuva *vma);
++void msm_gem_vma_unmap(struct drm_gpuva *vma, const char *reason);
+ int msm_gem_vma_map(struct drm_gpuva *vma, int prot, struct sg_table *sgt);
+ void msm_gem_vma_close(struct drm_gpuva *vma);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 729027245986..907ebf5073e6 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -53,6 +53,9 @@ struct msm_vm_unmap_op {
+ 	/** @range: size of region to unmap */
+ 	uint64_t range;
+ 
++	/** @reason: The reason for the unmap */
++	const char *reason;
 +
-+	if (!vm->log)
-+		return;
+ 	/**
+ 	 * @queue_id: The id of the submitqueue the operation is performed
+ 	 * on, or zero for (in particular) UNMAP ops triggered outside of
+@@ -242,7 +245,12 @@ vm_log(struct msm_gem_vm *vm, const char *op, uint64_t iova, uint64_t range, int
+ static void
+ vm_unmap_op(struct msm_gem_vm *vm, const struct msm_vm_unmap_op *op)
+ {
+-	vm_log(vm, "unmap", op->iova, op->range, op->queue_id);
++	const char *reason = op->reason;
 +
-+	idx = vm->log_idx;
-+	vm->log[idx].op = op;
-+	vm->log[idx].iova = iova;
-+	vm->log[idx].range = range;
-+	vm->log[idx].queue_id = queue_id;
-+	vm->log_idx = (vm->log_idx + 1) & ((1 << vm->log_shift) - 1);
-+}
++	if (!reason)
++		reason = "unmap";
 +
-+static void
-+vm_unmap_op(struct msm_gem_vm *vm, const struct msm_vm_unmap_op *op)
-+{
-+	vm_log(vm, "unmap", op->iova, op->range, op->queue_id);
++	vm_log(vm, reason, op->iova, op->range, op->queue_id);
  
  	vm->mmu->funcs->unmap(vm->mmu, op->iova, op->range);
  }
-@@ -161,10 +250,7 @@ vm_unmap_op(struct msm_gem_vm *vm, const struct msm_vm_unmap_op *op)
- static int
- vm_map_op(struct msm_gem_vm *vm, const struct msm_vm_map_op *op)
- {
--	if (!vm->managed)
--		lockdep_assert_held(&vm->mmu_lock);
--
--	vm_dbg("%p: %016llx %016llx", vm, op->iova, op->iova + op->range);
-+	vm_log(vm, "map", op->iova, op->range, op->queue_id);
- 
- 	return vm->mmu->funcs->map(vm->mmu, op->iova, op->sgt, op->offset,
- 				   op->range, op->prot);
-@@ -382,6 +468,7 @@ vma_from_op(struct op_arg *arg, struct drm_gpuva_op_map *op)
- static int
- msm_gem_vm_sm_step_map(struct drm_gpuva_op *op, void *arg)
- {
-+	struct msm_vm_bind_job *job = ((struct op_arg *)arg)->job;
- 	struct drm_gem_object *obj = op->map.gem.obj;
- 	struct drm_gpuva *vma;
- 	struct sg_table *sgt;
-@@ -412,6 +499,7 @@ msm_gem_vm_sm_step_map(struct drm_gpuva_op *op, void *arg)
- 			.range = vma->va.range,
- 			.offset = vma->gem.offset,
- 			.prot = prot,
-+			.queue_id = job->queue->id,
- 		},
- 		.obj = vma->gem.obj,
- 	});
-@@ -445,6 +533,7 @@ msm_gem_vm_sm_step_remap(struct drm_gpuva_op *op, void *arg)
- 			.unmap = {
- 				.iova = unmap_start,
- 				.range = unmap_range,
-+				.queue_id = job->queue->id,
- 			},
- 			.obj = orig_vma->gem.obj,
- 		});
-@@ -506,6 +595,7 @@ msm_gem_vm_sm_step_remap(struct drm_gpuva_op *op, void *arg)
- static int
- msm_gem_vm_sm_step_unmap(struct drm_gpuva_op *op, void *arg)
- {
-+	struct msm_vm_bind_job *job = ((struct op_arg *)arg)->job;
- 	struct drm_gpuva *vma = op->unmap.va;
- 	struct msm_gem_vma *msm_vma = to_msm_vma(vma);
- 
-@@ -520,6 +610,7 @@ msm_gem_vm_sm_step_unmap(struct drm_gpuva_op *op, void *arg)
- 		.unmap = {
- 			.iova = vma->va.addr,
- 			.range = vma->va.range,
-+			.queue_id = job->queue->id,
- 		},
- 		.obj = vma->gem.obj,
- 	});
-@@ -584,7 +675,7 @@ msm_vma_job_run(struct drm_sched_job *_job)
- 	 * now the VM is in an undefined state.  Game over!
- 	 */
- 	if (ret)
--		vm->unusable = true;
-+		msm_gem_vm_unusable(job->vm);
- 
- 	job_foreach_bo (obj, job) {
- 		msm_gem_lock(obj);
-@@ -695,6 +786,23 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
- 
- 	drm_mm_init(&vm->mm, va_start, va_size);
- 
-+	/*
-+	 * We don't really need vm log for kernel managed VMs, as the kernel
-+	 * is responsible for ensuring that GEM objs are mapped if they are
-+	 * used by a submit.  Furthermore we piggyback on mmu_lock to serialize
-+	 * access to the log.
-+	 *
-+	 * Limit the max log_shift to 8 to prevent userspace from asking us
-+	 * for an unreasonable log size.
-+	 */
-+	if (!managed)
-+		vm->log_shift = MIN(vm_log_shift, 8);
-+
-+	if (vm->log_shift) {
-+		vm->log = kmalloc_array(1 << vm->log_shift, sizeof(vm->log[0]),
-+					GFP_KERNEL | __GFP_ZERO);
-+	}
-+
- 	return &vm->base;
- 
- err_free_dummy:
-@@ -1161,7 +1269,7 @@ vm_bind_job_prepare(struct msm_vm_bind_job *job)
- 			 * state the vm is in.  So throw up our hands!
- 			 */
- 			if (i > 0)
--				vm->unusable = true;
-+				msm_gem_vm_unusable(job->vm);
- 			return ret;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 8178b6499478..e5896c084c8a 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -259,9 +259,6 @@ static void crashstate_get_bos(struct msm_gpu_state *state, struct msm_gem_submi
- {
- 	extern bool rd_full;
- 
--	if (!submit)
--		return;
--
- 	if (msm_context_is_vmbind(submit->queue->ctx)) {
- 		struct drm_exec exec;
- 		struct drm_gpuva *vma;
-@@ -318,6 +315,48 @@ static void crashstate_get_bos(struct msm_gpu_state *state, struct msm_gem_submi
- 	}
+@@ -257,7 +265,7 @@ vm_map_op(struct msm_gem_vm *vm, const struct msm_vm_map_op *op)
  }
  
-+static void crashstate_get_vm_logs(struct msm_gpu_state *state, struct msm_gem_vm *vm)
-+{
-+	uint32_t vm_log_len = (1 << vm->log_shift);
-+	uint32_t vm_log_mask = vm_log_len - 1;
-+	int first;
-+
-+	/* Bail if no log, or empty log: */
-+	if (!vm->log || !vm->log[0].op)
-+		return;
-+
-+	mutex_lock(&vm->mmu_lock);
-+
-+	/*
-+	 * log_idx is the next entry to overwrite, meaning it is the oldest, or
-+	 * first, entry (other than the special case handled below where the
-+	 * log hasn't wrapped around yet)
-+	 */
-+	first = vm->log_idx;
-+
-+	if (!vm->log[first].op) {
-+		/*
-+		 * If the next log entry has not been written yet, then only
-+		 * entries 0 to idx-1 are valid (ie. we haven't wrapped around
-+		 * yet)
-+		 */
-+		state->nr_vm_logs = MAX(0, first - 1);
-+		first = 0;
-+	} else {
-+		state->nr_vm_logs = vm_log_len;
-+	}
-+
-+	state->vm_logs = kmalloc_array(
-+		state->nr_vm_logs, sizeof(vm->log[0]), GFP_KERNEL);
-+	for (int i = 0; i < state->nr_vm_logs; i++) {
-+		int idx = (i + first) & vm_log_mask;
-+
-+		state->vm_logs[i] = vm->log[idx];
-+	}
-+
-+	mutex_unlock(&vm->mmu_lock);
-+}
-+
- static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
- 		struct msm_gem_submit *submit, char *comm, char *cmd)
+ /* Actually unmap memory for the vma */
+-void msm_gem_vma_unmap(struct drm_gpuva *vma)
++void msm_gem_vma_unmap(struct drm_gpuva *vma, const char *reason)
  {
-@@ -349,7 +388,10 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
- 		msm_iommu_pagetable_walk(mmu, info->iova, info->ptes);
- 	}
+ 	struct msm_gem_vm *vm = to_msm_vm(vma->vm);
+ 	struct msm_gem_vma *msm_vma = to_msm_vma(vma);
+@@ -277,6 +285,7 @@ void msm_gem_vma_unmap(struct drm_gpuva *vma)
+ 	vm_unmap_op(vm, &(struct msm_vm_unmap_op){
+ 		.iova = vma->va.addr,
+ 		.range = vma->va.range,
++		.reason = reason,
+ 	});
  
--	crashstate_get_bos(state, submit);
-+	if (submit) {
-+		crashstate_get_vm_logs(state, to_msm_vm(submit->vm));
-+		crashstate_get_bos(state, submit);
-+	}
+ 	if (!vm->managed)
+@@ -863,7 +872,7 @@ msm_gem_vm_close(struct drm_gpuvm *gpuvm)
+ 				drm_exec_retry_on_contention(&exec);
+ 			}
  
- 	/* Set the active crash state to be dumped on failure */
- 	gpu->crashstate = state;
-@@ -449,7 +491,7 @@ static void recover_worker(struct kthread_work *work)
- 		 * VM_BIND)
- 		 */
- 		if (!vm->managed)
--			vm->unusable = true;
-+			msm_gem_vm_unusable(submit->vm);
- 	}
+-			msm_gem_vma_unmap(vma);
++			msm_gem_vma_unmap(vma, "close");
+ 			msm_gem_vma_close(vma);
  
- 	get_comm_cmdline(submit, &comm, &cmd);
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 9cbf155ff222..31b83e9e3673 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -20,6 +20,7 @@
- #include "msm_gem.h"
- 
- struct msm_gem_submit;
-+struct msm_gem_vm_log_entry;
- struct msm_gpu_perfcntr;
- struct msm_gpu_state;
- struct msm_context;
-@@ -609,6 +610,9 @@ struct msm_gpu_state {
- 
- 	struct msm_gpu_fault_info fault_info;
- 
-+	int nr_vm_logs;
-+	struct msm_gem_vm_log_entry *vm_logs;
-+
- 	int nr_bos;
- 	struct msm_gpu_state_bo *bos;
- };
+ 			if (obj) {
 -- 
 2.49.0
 
