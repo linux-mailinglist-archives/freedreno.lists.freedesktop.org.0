@@ -2,115 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73C7FAE8D8F
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jun 2025 20:59:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1431FAE931B
+	for <lists+freedreno@lfdr.de>; Thu, 26 Jun 2025 01:57:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E50610E7DF;
-	Wed, 25 Jun 2025 18:59:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C05810E81A;
+	Wed, 25 Jun 2025 23:57:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="E0kPB7le";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VoFtYRex";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4652A10E7DF
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 18:59:27 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55PCH2lo021092
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 18:59:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=xpH5LnDLqPp
- lqQDe5uMXBSo64o86rKmUu4KIOqTfDTg=; b=E0kPB7ler9H1XBVaItMKmLw/Uiw
- GZPTqVMbhrNYg5mBLE8RcJs1k2duI4GjZrT0T9UxFKB2MkOYVtMXH+UTWjyHuhbK
- eS+60esDczZG8Luu8n1apcCt72moc80lqTvhoQHVxTB2S8t3j7aJX/DkE6y3t94U
- ypIok3jQYHQwZ62nYPKvIe7nNFxbJdwA3eVFNii40nAL4W0me/3JSYPuWRNTQKkv
- pCnXgXEHiwsvc0jwYv7af39KnbAqllxu5WvsuYDJfvz/jvanN/6P40Sg1u0L7xfK
- LHQqK7Ur5sBADG5nflWzM97/OFdyCY8ywTXMhrYhfaHlTgho5kTvM7/m8qQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47fdfwy7vt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 18:59:26 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-235dd77d11fso1804425ad.0
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jun 2025 11:59:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750877965; x=1751482765;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xpH5LnDLqPplqQDe5uMXBSo64o86rKmUu4KIOqTfDTg=;
- b=C4cvvZt0SPy9aRvd0V2nLT88SZTPQfu+Lo6UUkWihh+GNyE08oZ10U2qhbXmg+AuQp
- hcS0t2U79lmPtptfjHOnCMbWqJlne+2dyP/JGy++fjXabGyX4VOweXCMbpCnpjr+Hu9V
- TBhJbYBCq5um90G/AtdqBmXKFJ/s3SxLp7NYLSvRRJkbHuWHcpLN2cC6ASdPutjZ3iR4
- /E9trygyY1edxosoJNztqn9g2EiBoFjhLI3VM/TX29TJf9T613dEehoLnR3U7S4BPW1c
- n1XsWU70kLZ5dnRousNEw/QGuXTJaYCPBy+zzUwnX53eMuBzWJFoAPdLK22hSy+XIYlM
- kNOg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX1rB5UdAM6eJLQxgZ6JJTPTCmEa1hU3cCd2ij2ND8NTsQRuIdqadPePiOTRgByNKQzJBrckEbdDv0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywos5qpbDXqU4P66dXyd3gno842puU8btvXdUswJr6oOnwnXoDa
- U8kFFyEVeXvN6owIw1ORdiKaSjhwijFOyfzJdHObCXp3HXdheDtr2RiYklCDbyf66tWqem62D7k
- ODv1ouS8/qrK7pzl8faVJLJn6laNkKnJ6qlypgBfo4/vCWDjhExkvdPsmx4HZ8bDQ9BTWKUo=
-X-Gm-Gg: ASbGncuxwQp4Zg3NvQM6YzBa8lDZlF7lqfAgI/7jtbP/FyHKiKWm7R8Ah3muDnr5ch6
- afqw9R84hnFNSo+4DuTXMTM0IEkWe+4Wf1c6XvZBbcAWCJGFMk7t5mdq9XqNJapwHMUb/8fD4Zt
- g5O7LuE67UsiEgqI/yhdCOUl4JUfdKIioPVjhzCAnKggxRlcNZh0QSAhIdeH0AzxN3L205FjRK1
- xFK12huWNSd2Ihlg0cVvHe9MjxUnYGlYibg19mBtRoINP/X1ylWhg+gBkEzj9vRX9RB3RvYNQIp
- EEufOYUWa+xltwaUdpuMADd1lR5AcxUD
-X-Received: by 2002:a17:902:e88a:b0:236:9726:7261 with SMTP id
- d9443c01a7336-2382404d970mr68388505ad.39.1750877965192; 
- Wed, 25 Jun 2025 11:59:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGtVUuEZYb41RLKeTVjavf65tKB8NX8TxZxdhFwSQPFNvRi5z1jUVtVE9kmMQW87zfFtvY+yg==
-X-Received: by 2002:a17:902:e88a:b0:236:9726:7261 with SMTP id
- d9443c01a7336-2382404d970mr68388205ad.39.1750877964797; 
- Wed, 25 Jun 2025 11:59:24 -0700 (PDT)
-Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d8680b07sm143765655ad.182.2025.06.25.11.59.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jun 2025 11:59:24 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Connor Abbott <cwabbott0@gmail.com>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Rob Clark <robdclark@gmail.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A17C10E24A;
+ Wed, 25 Jun 2025 23:57:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1750895871; x=1782431871;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=CkcCjk8IzsSvEHOxb9mbqVNqkfQ5haY3GvAwzUt4bxI=;
+ b=VoFtYRexxdqXFyVILOXiQ6elIxwj/yCQukdkz4ccE3/t9RPtfLB1VeP4
+ l2THbI2n3Top8g0kGRwtpHWKcuc8/zOtM/KJYWsravomvQcXNPEL7OwNY
+ l9W0/ZvKi41hgPFzXURff7BZ+fjTfRrOqFquzDzRd0l+LfQr15HoxSURX
+ OMWOZtF+Efp8OSYwZRkJAmpSZpBS+kbuQYEVw5YtB/QJW5ZVmae/yjq6w
+ Kuy3d1blytgzdIDdaNkkIqXT6fezk+MIrhCshZB1UP7o554kx44+5ZZbh
+ ii0+hnXulHMW8ixZl1w7TpAvJXBX6F5lXcAdTLbCQ045Ek90Xio9oJ0W+ g==;
+X-CSE-ConnectionGUID: 9nGabZ3ORSu/5vkl5vMNJA==
+X-CSE-MsgGUID: p11D3qrzTMy4g3AiBS4SMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11475"; a="64616233"
+X-IronPort-AV: E=Sophos;i="6.16,266,1744095600"; d="scan'208";a="64616233"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2025 16:57:49 -0700
+X-CSE-ConnectionGUID: Gy7XcTc0Sc2uOSE6wWY0hg==
+X-CSE-MsgGUID: RulosnoFTIGOmowOtTQoQg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,266,1744095600"; d="scan'208";a="152884623"
+Received: from lkp-server01.sh.intel.com (HELO e8142ee1dce2) ([10.239.97.150])
+ by fmviesa008.fm.intel.com with ESMTP; 25 Jun 2025 16:57:45 -0700
+Received: from kbuild by e8142ee1dce2 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1uUZzr-000TYQ-0F;
+ Wed, 25 Jun 2025 23:57:43 +0000
+Date: Thu, 26 Jun 2025 07:56:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v7 42/42] drm/msm: Add VM_BIND throttling
-Date: Wed, 25 Jun 2025 11:47:35 -0700
-Message-ID: <20250625184918.124608-43-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250625184918.124608-1-robin.clark@oss.qualcomm.com>
-References: <20250625184918.124608-1-robin.clark@oss.qualcomm.com>
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v5 03/14] drm/msm: Use the central UBWC config database
+Message-ID: <202506260718.HOiyc0Mm-lkp@intel.com>
+References: <20250625-topic-ubwc_central-v5-3-e256d18219e2@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: IqlTe0wmLLK5slY8Uatok9DsnI14PHoQ
-X-Proofpoint-ORIG-GUID: IqlTe0wmLLK5slY8Uatok9DsnI14PHoQ
-X-Authority-Analysis: v=2.4 cv=MtZS63ae c=1 sm=1 tr=0 ts=685c470e cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=EUspDBNiAAAA:8 a=9ew1I-5mWBoiHqGEK3IA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI1MDE0MyBTYWx0ZWRfX2Wog6a2oPdRP
- QPkgdWTh1JJNQAMR5kGA7Yl+e8kmffo24NnUeI/9jdfJ7wm53TIXyW7nlsi7rvuB/A6/VVyPF+d
- Li7d6uwRNtBlzDp6PFmLl/gWH/LKEgTajaivxswXgNjNDuH7VJDoB4cdObXG+Sv/nLXuks+b2Gt
- N/bCT9TvYyFy2oLuAVa7f9gd/9K0RXkTUJ6ex/l5Gu9SR5RZEEM7RwUhcuFE/NGXsDauE5GpgRU
- RnheANAngducYwjssDucMnhNN8p0BDirOxFfU52CEmG2BHlEze10G6v+1G4v8XvQr1kqWIREUpV
- 6g4NQx4FtnGwnwSA7eUaleW78WgxVgBTpKKF9p1lUxZnrmWDU7WmMBXCPcz5aoRIPWMcvf3AC5d
- 8PNsjqRx7kTfZG4VzIaMBv1fN0qBV1el1JZmGI+AS1t7JfI50cnf8Htp5a/iATPc6th9aiY9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-06-25_06,2025-06-25_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 suspectscore=0 adultscore=0 phishscore=0
- mlxlogscore=999 spamscore=0 malwarescore=0 priorityscore=1501
- lowpriorityscore=0 clxscore=1015 mlxscore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506250143
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250625-topic-ubwc_central-v5-3-e256d18219e2@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,97 +79,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A large number of (unsorted or separate) small (<2MB) mappings can cause
-a lot of, probably unnecessary, prealloc pages.  Ie. a single 4k page
-size mapping will pre-allocate 3 pages (for levels 2-4) for the
-pagetable.  Which can chew up a large amount of unneeded memory.  So add
-a mechanism to put an upper bound on the # of pre-alloc pages.
+Hi Konrad,
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/msm_gem_vma.c | 23 +++++++++++++++++++++--
- drivers/gpu/drm/msm/msm_gpu.h     |  3 +++
- 2 files changed, 24 insertions(+), 2 deletions(-)
+kernel test robot noticed the following build errors:
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 907ebf5073e6..bb3a6e8320c9 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -705,6 +705,8 @@ msm_vma_job_free(struct drm_sched_job *_job)
- 
- 	mmu->funcs->prealloc_cleanup(mmu, &job->prealloc);
- 
-+	atomic_sub(job->prealloc.count, &job->queue->in_flight_prealloc);
-+
- 	drm_sched_job_cleanup(_job);
- 
- 	job_foreach_bo (obj, job)
-@@ -1089,10 +1091,11 @@ ops_are_same_pte(struct msm_vm_bind_op *first, struct msm_vm_bind_op *next)
-  * them as a single mapping.  Otherwise the prealloc_count() will not realize
-  * they can share pagetable pages and vastly overcount.
-  */
--static void
-+static int
- vm_bind_prealloc_count(struct msm_vm_bind_job *job)
- {
- 	struct msm_vm_bind_op *first = NULL, *last = NULL;
-+	int ret;
- 
- 	for (int i = 0; i < job->nr_ops; i++) {
- 		struct msm_vm_bind_op *op = &job->ops[i];
-@@ -1121,6 +1124,20 @@ vm_bind_prealloc_count(struct msm_vm_bind_job *job)
- 
- 	/* Flush the remaining range: */
- 	prealloc_count(job, first, last);
-+
-+	/*
-+	 * Now that we know the needed amount to pre-alloc, throttle on pending
-+	 * VM_BIND jobs if we already have too much pre-alloc memory in flight
-+	 */
-+	ret = wait_event_interruptible(
-+			to_msm_vm(job->vm)->sched.job_scheduled,
-+			atomic_read(&job->queue->in_flight_prealloc) <= 1024);
-+	if (ret)
-+		return ret;
-+
-+	atomic_add(job->prealloc.count, &job->queue->in_flight_prealloc);
-+
-+	return 0;
- }
- 
- /*
-@@ -1411,7 +1428,9 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *data, struct drm_file *file)
- 	if (ret)
- 		goto out_unlock;
- 
--	vm_bind_prealloc_count(job);
-+	ret = vm_bind_prealloc_count(job);
-+	if (ret)
-+		goto out_unlock;
- 
- 	struct drm_exec exec;
- 	unsigned flags = DRM_EXEC_IGNORE_DUPLICATES | DRM_EXEC_INTERRUPTIBLE_WAIT;
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 31b83e9e3673..5508885d865f 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -555,6 +555,8 @@ static inline int msm_gpu_convert_priority(struct msm_gpu *gpu, int prio,
-  *             seqno, protected by submitqueue lock
-  * @idr_lock:  for serializing access to fence_idr
-  * @lock:      submitqueue lock for serializing submits on a queue
-+ * @in_flight_prealloc: for VM_BIND queue, # of preallocated pgtable pages for
-+ *             queued VM_BIND jobs
-  * @ref:       reference count
-  * @entity:    the submit job-queue
-  */
-@@ -569,6 +571,7 @@ struct msm_gpu_submitqueue {
- 	struct idr fence_idr;
- 	struct spinlock idr_lock;
- 	struct mutex lock;
-+	atomic_t in_flight_prealloc;
- 	struct kref ref;
- 	struct drm_sched_entity *entity;
- 
+[auto build test ERROR on 2ae2aaafb21454f4781c30734959cf223ab486ef]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Konrad-Dybcio/soc-qcom-Add-UBWC-config-provider/20250625-211253
+base:   2ae2aaafb21454f4781c30734959cf223ab486ef
+patch link:    https://lore.kernel.org/r/20250625-topic-ubwc_central-v5-3-e256d18219e2%40oss.qualcomm.com
+patch subject: [PATCH v5 03/14] drm/msm: Use the central UBWC config database
+config: arm-randconfig-002-20250626 (https://download.01.org/0day-ci/archive/20250626/202506260718.HOiyc0Mm-lkp@intel.com/config)
+compiler: clang version 20.1.7 (https://github.com/llvm/llvm-project 6146a88f60492b520a36f8f8f3231e15f3cc6082)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250626/202506260718.HOiyc0Mm-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202506260718.HOiyc0Mm-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/soc/qcom/ubwc_config.c:230:34: error: redefinition of 'qcom_ubwc_config_get_data'
+     230 | const struct qcom_ubwc_cfg_data *qcom_ubwc_config_get_data(void)
+         |                                  ^
+   include/linux/soc/qcom/ubwc.h:59:48: note: previous definition is here
+      59 | static inline const struct qcom_ubwc_cfg_data *qcom_ubwc_config_get_data(void)
+         |                                                ^
+   1 error generated.
+
+
+vim +/qcom_ubwc_config_get_data +230 drivers/soc/qcom/ubwc_config.c
+
+892fee0dfae7022 Konrad Dybcio 2025-06-25  229  
+892fee0dfae7022 Konrad Dybcio 2025-06-25 @230  const struct qcom_ubwc_cfg_data *qcom_ubwc_config_get_data(void)
+
 -- 
-2.49.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
