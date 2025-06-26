@@ -2,67 +2,114 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4841AE9982
-	for <lists+freedreno@lfdr.de>; Thu, 26 Jun 2025 11:03:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D080AEA9E4
+	for <lists+freedreno@lfdr.de>; Fri, 27 Jun 2025 00:47:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18C0310E897;
-	Thu, 26 Jun 2025 09:03:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5239710E921;
+	Thu, 26 Jun 2025 22:47:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UApeCTI8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DmLUJcLS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B24410E8A1;
- Thu, 26 Jun 2025 09:03:47 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 816A049FBC;
- Thu, 26 Jun 2025 09:03:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1870C4CEEB;
- Thu, 26 Jun 2025 09:03:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750928627;
- bh=TmIM0p72O2FZNkhlwbmPcq/u359hmkpIqewYPntpNE4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=UApeCTI8woGSmfFb0lfQ7WjlGpqEGM4OuGKIFujN73TaJ51hoS6TXvdrm8n31uoG7
- 08Tqhy+4wToS6X9sjQeTwa+VttKhHtBdyxhmmLNCDm5CGQHDjB7KtmMYaeolG+HBHd
- sbCRHPjOwjDkJWFXdV/G9OPnVF7nYjn3uizMiyimgrmvRf6DnxJht9J5+1ScKgeIuq
- 5JBaH8sHiQftdkVQ+4WC+OncmC/RgGxmlQ/viDTM8w8nRY7L+HZk7Judv/RVavDy8o
- gNuYhGxGwl404F/dmOnPQwlcRvVuWIuBB8wz/l03HBB8deLLSd5RFZ9qID80XyIKPE
- ML0nyEcvwoD/g==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Thu, 26 Jun 2025 11:02:41 +0200
-Subject: [PATCH v6 14/14] drm/msm/adreno: Switch to the common UBWC config
- struct
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D211210E913
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jun 2025 22:47:09 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55QK5coN000466
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jun 2025 22:47:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ gmoMifDvBvDGBNVMAClJOdl8gLaZitfPh+a35hkvPHI=; b=DmLUJcLS0w+IF4ju
+ mlBGlsPbAW+fReM3XDpVtw5ER/J6uRpK7PbGvyeaQxUPwZtWRpBL/ajsNXUFfbQi
+ aYoZmMoQw82RlY1HVAStmFw7q0ob8oNhYGpa+kBc7dayYbG6KO2J+c+n9TNjQ+TT
+ 5yHJEU5y05QWGaaBLGewI1FdFPDetApInyJuUI7aFmaay4Z/UMsoHU7wkCeT2m7E
+ axP5Ju5NOUDA/woLlcrXbIcxSLoH+MqwU98WdW8tCMO+kG4J3LtBOw3Be/AeHSAw
+ Bi6P/xeVKyW7CZHVpJFN1kHo/t/cxGuLH9hRUthSRM/KTwcjyiFOc5uI0H/SK+0n
+ lWnrTw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47f2rq50hq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jun 2025 22:47:08 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7d3cbf784acso361649385a.0
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jun 2025 15:47:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750978028; x=1751582828;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gmoMifDvBvDGBNVMAClJOdl8gLaZitfPh+a35hkvPHI=;
+ b=tUla7EFXuKjJ3yVZUfuFWiRTnTb5R9dxGZm90k9fz1K/nhlGfYgAu8wTH3Fc9xvOia
+ fUNt4BrVEcMckkkphUWswZ54geevOB0e1HLfQqqOrjauzwsIKskEIeQnKEAidUTGx6aC
+ 8ajhUN/aeERIdJbtZ9yNnzz97l+t106C8CS46zYmSW5Dv4H4CqZbOneM0rfgHEiFM8Qt
+ Xyjq7KQFuuRj/chFK4JpKPkcic2UtMF3xwxchH1at/L3W7fgXxp45Lhv4iSrRCpMoErk
+ wMKciJv/UDGoPhk9yYP8LxtUGw2UrRBG+Nq1oa9ToxkKFA450lDlw9obU/0JkneIfWeT
+ M+fA==
+X-Gm-Message-State: AOJu0YzGBpCOcUe/bIVWBC7qtT4AqHpc5PSh/CM1i3TUBTd/ZSNKYGY4
+ 5OyqaxQVBb4sgIhQrCVtEikMbB0PWYUdLH+m831vK/hnkvZgJDPK44MsPhML+j+j1Uv0hnuFh0c
+ pnN0AUMFBT9Ua82ACdxwM+DYF+dc2wLeWbuhaaHtnQL6wfA6Ekv3ygZmmO/EWhanLp9qslqg=
+X-Gm-Gg: ASbGncvn8LIqnCNNDtK2K2fTZXmDIiaGWID5YqX1Mr6NDWV/RT4zh3OQVKwUBXhLfAG
+ O8FtmG6tJ7dweVSKB3BdqXRHwBcOuRo7MBnKIBjP7PepZSaUY8GmFE5NEgP9x+ABl99858qYhBO
+ nTADOBvGWDeTDIlbBj/C95D3GJJ4V7o30CIQm+i1h2LokWzFDjAejVy2J5rp9KNFywXRq0ArLAA
+ mHyJk6SCiUjjycgzyp5UNrL/m0HRsqiQD0L6uP0yQQ1JeyZv/pRjdY1hFs813PNExKWyrurJSll
+ T9YRvL3vicbh3T6DenY2fBYEFLAgfWe1iYE8Ml7VdwGwx10hlVKi4C4rT4YK3tve/E6VjS43NBx
+ gybwFw6R86cO+scTFIXz75sQJBY0NG302Bas=
+X-Received: by 2002:ae9:e20e:0:b0:7d4:28d9:efbe with SMTP id
+ af79cd13be357-7d443992d51mr155164685a.32.1750978028102; 
+ Thu, 26 Jun 2025 15:47:08 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF7QvvBbuRQht/PX77z92dSw11SIpFRHu9NAfpMGbcKSTVTrTrYOF0CEnsJFm4LXzUIjnqOGg==
+X-Received: by 2002:ae9:e20e:0:b0:7d4:28d9:efbe with SMTP id
+ af79cd13be357-7d443992d51mr155162685a.32.1750978027682; 
+ Thu, 26 Jun 2025 15:47:07 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5550b24e4dasm185172e87.73.2025.06.26.15.47.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Jun 2025 15:47:05 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org, Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Simona Vetter <simona@ffwll.ch>, Daniel Stone <daniels@collabora.com>,
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v2 0/2] drm/fourcc: Add additional float formats
+Date: Fri, 27 Jun 2025 01:47:04 +0300
+Message-Id: <175097802066.519545.3760408226884035937.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250625173712.116446-1-robin.clark@oss.qualcomm.com>
+References: <20250625173712.116446-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250626-topic-ubwc_central-v6-14-c94fa9d12040@oss.qualcomm.com>
-References: <20250626-topic-ubwc_central-v6-0-c94fa9d12040@oss.qualcomm.com>
-In-Reply-To: <20250626-topic-ubwc_central-v6-0-c94fa9d12040@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1750928557; l=10610;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=potIy8Dkkz/1yoAE7J/I600HrUDXJJWdkOC8tivmHWU=;
- b=hT+lJoC6ig2CsSsaTcCEI6KV7fXMTLr3s4QKW1YcBC/y+z3ypGyOIZruQoZw+Ipct+ELz8Uba
- XeBvx6L/IWLCNU+yTvpodCAHAs2y13F6j1UTx1asfGKR3Ui1KESw5+a
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=NdDm13D4 c=1 sm=1 tr=0 ts=685dcdec cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=6IFa9wvqVegA:10 a=yB-vDBVxPvN9sSdsvdIA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI2MDE5NSBTYWx0ZWRfX90Id0oC1ufGF
+ vI1gwxZ7GItu3ZCQYInEAwImiezJQ8tFmnWxbr30hRJfaAANmQRb0xmoGssgB5Znd2pbOlXTiRp
+ mM6z6D9oiu5QQGdlClhpM5OQ3dBu3klrNmrih+yIOFA/4KL4b7AWFXDJGQpih9O4mwOuOIMbeb7
+ hPuFjU8hONsjyiDAAPJ9/X6bznyXJWbgpRxTOElHH941AYeGv4FUuWOSFiXxcuqyGihq5IzE7bj
+ YDhc4z6aMeR5N2MF4uNSAWFiq0jkLZrhoclLmydcScB1X4shIPkbtRmtB8gU9o6U52g0f2w6WCv
+ IvWqkTNkLA52xg4/fTHqlVPNBc+Tkq9QUCR9JPFu1ggD/mr2ci7nyx6cy/hn19HMQ4iQzcl4ZEX
+ C8XEuowRnKKc43PcnOHaP0ZmOPtmfsF84wVOGFZOXgOWAx74+37ODhujgFy7CNP/ms1KseEB
+X-Proofpoint-ORIG-GUID: KV3ihk0mOSGc005pc7CdpqMMJPgDfvJ8
+X-Proofpoint-GUID: KV3ihk0mOSGc005pc7CdpqMMJPgDfvJ8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
+ definitions=2025-06-26_07,2025-06-26_05,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 mlxscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ phishscore=0 priorityscore=1501 suspectscore=0 mlxlogscore=999 adultscore=0
+ clxscore=1015 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2506260195
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,281 +125,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Wed, 25 Jun 2025 10:37:09 -0700, Rob Clark wrote:
+> GPUs support 1/2/3/4 component f16 and f32 formats.  Define the missing
+> fourcc's needed to import/export these formats, and/or create with gbm.
+> 
+> Rob Clark (2):
+>   drm/fourcc: Add missing half-float formats
+>   drm/fourcc: Add 32b float formats
+> 
+> [...]
 
-Now that Adreno specifics are out of the way, use the common config
-(but leave the HBB hardcoding in place until that is wired up on the
-other side).
+Applied to drm-misc-next, thanks!
 
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c   | 20 ++++-----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 76 ++++++++++++++++++---------------
- drivers/gpu/drm/msm/adreno/adreno_gpu.c |  6 +--
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 45 +++----------------
- 4 files changed, 60 insertions(+), 87 deletions(-)
+[1/2] drm/fourcc: Add missing half-float formats
+      commit: e04c3521df073b688b9e9e2213cd3c588e3b6e68
+[2/2] drm/fourcc: Add 32b float formats
+      commit: 3529cb5ab16b4f1f8bbc31dc39a1076a94bd1e38
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 60aef079623606bb1ae44ba59ac45e391595b0ba..6a77d130446218e81ea44330eea284a4abe98d3a 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -835,8 +835,8 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
- 
- 	gpu_write(gpu, REG_A5XX_RBBM_AHB_CNTL2, 0x0000003F);
- 
--	BUG_ON(adreno_gpu->ubwc_config.highest_bank_bit < 13);
--	hbb = adreno_gpu->ubwc_config.highest_bank_bit - 13;
-+	BUG_ON(adreno_gpu->ubwc_config->highest_bank_bit < 13);
-+	hbb = adreno_gpu->ubwc_config->highest_bank_bit - 13;
- 
- 	gpu_write(gpu, REG_A5XX_TPL1_MODE_CNTL, hbb << 7);
- 	gpu_write(gpu, REG_A5XX_RB_MODE_CNTL, hbb << 1);
-@@ -1756,6 +1756,7 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct platform_device *pdev = priv->gpu_pdev;
- 	struct adreno_platform_config *config = pdev->dev.platform_data;
-+	const struct qcom_ubwc_cfg_data *common_cfg;
- 	struct a5xx_gpu *a5xx_gpu = NULL;
- 	struct adreno_gpu *adreno_gpu;
- 	struct msm_gpu *gpu;
-@@ -1792,15 +1793,14 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
- 	/* Set up the preemption specific bits and pieces for each ringbuffer */
- 	a5xx_preempt_init(gpu);
- 
--	/* Set the highest bank bit */
--	if (adreno_is_a540(adreno_gpu) || adreno_is_a530(adreno_gpu))
--		adreno_gpu->ubwc_config.highest_bank_bit = 15;
--	else
--		adreno_gpu->ubwc_config.highest_bank_bit = 14;
-+	/* Inherit the common config and make some necessary fixups */
-+	common_cfg = qcom_ubwc_config_get_data();
-+	if (IS_ERR(common_cfg))
-+		return ERR_CAST(common_cfg);
- 
--	/* a5xx only supports UBWC 1.0, these are not configurable */
--	adreno_gpu->ubwc_config.macrotile_mode = 0;
--	adreno_gpu->ubwc_config.ubwc_swizzle = 0x7;
-+	/* Copy the data into the internal struct to drop the const qualifier (temporarily) */
-+	adreno_gpu->_ubwc_config = *common_cfg;
-+	adreno_gpu->ubwc_config = &adreno_gpu->_ubwc_config;
- 
- 	adreno_gpu->uche_trap_base = 0x0001ffffffff0000ull;
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 6612030621b1b16c8662d39453b609c9c9ff982f..c618cebc5682fbfb21f328ca5756fa0ac34831d9 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -605,64 +605,70 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
- 
- static int a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
- {
--	/* Inherit the common config and make some necessary fixups */
--	gpu->common_ubwc_cfg = qcom_ubwc_config_get_data();
--	if (IS_ERR(gpu->common_ubwc_cfg))
--		return PTR_ERR(gpu->common_ubwc_cfg);
-+	const struct qcom_ubwc_cfg_data *common_cfg;
-+	struct qcom_ubwc_cfg_data *cfg = &gpu->_ubwc_config;
- 
--	gpu->ubwc_config.ubwc_swizzle = 0x6;
--	gpu->ubwc_config.macrotile_mode = 0;
--	gpu->ubwc_config.highest_bank_bit = 15;
-+	/* Inherit the common config and make some necessary fixups */
-+	common_cfg = qcom_ubwc_config_get_data();
-+	if (IS_ERR(common_cfg))
-+		return PTR_ERR(common_cfg);
-+
-+	/* Copy the data into the internal struct to drop the const qualifier (temporarily) */
-+	*cfg = *common_cfg;
-+
-+	cfg->ubwc_swizzle = 0x6;
-+	cfg->highest_bank_bit = 15;
- 
- 	if (adreno_is_a610(gpu)) {
--		gpu->ubwc_config.highest_bank_bit = 13;
--		gpu->ubwc_config.ubwc_swizzle = 0x7;
-+		cfg->highest_bank_bit = 13;
-+		cfg->ubwc_swizzle = 0x7;
- 	}
- 
- 	if (adreno_is_a618(gpu))
--		gpu->ubwc_config.highest_bank_bit = 14;
-+		cfg->highest_bank_bit = 14;
- 
- 	if (adreno_is_a619(gpu))
- 		/* TODO: Should be 14 but causes corruption at e.g. 1920x1200 on DP */
--		gpu->ubwc_config.highest_bank_bit = 13;
-+		cfg->highest_bank_bit = 13;
- 
- 	if (adreno_is_a619_holi(gpu))
--		gpu->ubwc_config.highest_bank_bit = 13;
-+		cfg->highest_bank_bit = 13;
- 
- 	if (adreno_is_a621(gpu))
--		gpu->ubwc_config.highest_bank_bit = 13;
-+		cfg->highest_bank_bit = 13;
- 
--	if (adreno_is_a623(gpu)) {
--		gpu->ubwc_config.highest_bank_bit = 16;
--		gpu->ubwc_config.macrotile_mode = 1;
--	}
--
--	if (adreno_is_a680(gpu))
--		gpu->ubwc_config.macrotile_mode = 1;
-+	if (adreno_is_a623(gpu))
-+		cfg->highest_bank_bit = 16;
- 
- 	if (adreno_is_a650(gpu) ||
- 	    adreno_is_a660(gpu) ||
- 	    adreno_is_a690(gpu) ||
- 	    adreno_is_a730(gpu) ||
- 	    adreno_is_a740_family(gpu)) {
--		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
--		gpu->ubwc_config.highest_bank_bit = 16;
--		gpu->ubwc_config.macrotile_mode = 1;
-+		/* TODO: get ddr type from bootloader and use 15 for LPDDR4 */
-+		cfg->highest_bank_bit = 16;
- 	}
- 
- 	if (adreno_is_a663(gpu)) {
--		gpu->ubwc_config.highest_bank_bit = 13;
--		gpu->ubwc_config.macrotile_mode = 1;
--		gpu->ubwc_config.ubwc_swizzle = 0x4;
-+		cfg->highest_bank_bit = 13;
-+		cfg->ubwc_swizzle = 0x4;
- 	}
- 
--	if (adreno_is_7c3(gpu)) {
--		gpu->ubwc_config.highest_bank_bit = 14;
--		gpu->ubwc_config.macrotile_mode = 1;
--	}
-+	if (adreno_is_7c3(gpu))
-+		cfg->highest_bank_bit = 14;
- 
- 	if (adreno_is_a702(gpu))
--		gpu->ubwc_config.highest_bank_bit = 14;
-+		cfg->highest_bank_bit = 14;
-+
-+	if (cfg->highest_bank_bit != common_cfg->highest_bank_bit)
-+		DRM_WARN_ONCE("Inconclusive highest_bank_bit value: %u (GPU) vs %u (UBWC_CFG)\n",
-+			      cfg->highest_bank_bit, common_cfg->highest_bank_bit);
-+
-+	if (cfg->ubwc_swizzle != common_cfg->ubwc_swizzle)
-+		DRM_WARN_ONCE("Inconclusive ubwc_swizzle value: %u (GPU) vs %u (UBWC_CFG)\n",
-+			      cfg->ubwc_swizzle, common_cfg->ubwc_swizzle);
-+
-+	gpu->ubwc_config = &gpu->_ubwc_config;
- 
- 	return 0;
- }
-@@ -670,14 +676,14 @@ static int a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
- static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
--	const struct qcom_ubwc_cfg_data *cfg = adreno_gpu->common_ubwc_cfg;
-+	const struct qcom_ubwc_cfg_data *cfg = adreno_gpu->ubwc_config;
- 	/*
- 	 * We subtract 13 from the highest bank bit (13 is the minimum value
- 	 * allowed by hw) and write the lowest two bits of the remaining value
- 	 * as hbb_lo and the one above it as hbb_hi to the hardware.
- 	 */
--	BUG_ON(adreno_gpu->ubwc_config.highest_bank_bit < 13);
--	u32 hbb = adreno_gpu->ubwc_config.highest_bank_bit - 13;
-+	BUG_ON(cfg->highest_bank_bit < 13);
-+	u32 hbb = cfg->highest_bank_bit - 13;
- 	bool rgb565_predicator = cfg->ubwc_enc_version >= UBWC_4_0;
- 	u32 level2_swizzling_dis = !(cfg->ubwc_swizzle & UBWC_SWIZZLE_ENABLE_LVL2);
- 	bool ubwc_mode = qcom_ubwc_get_ubwc_mode(cfg);
-@@ -719,7 +725,7 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
- 		  min_acc_len_64b << 23 | hbb_lo << 21);
- 
- 	gpu_write(gpu, REG_A6XX_RBBM_NC_MODE_CNTL,
--		  adreno_gpu->ubwc_config.macrotile_mode);
-+		  cfg->macrotile_mode);
- }
- 
- static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 86bff915c3e793583c81a6414ee89c1f59365c58..1251ff1b4895287340c9f3809d46441aded64cfd 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -420,16 +420,16 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 		*value = ctx->aspace->va_size;
- 		return 0;
- 	case MSM_PARAM_HIGHEST_BANK_BIT:
--		*value = adreno_gpu->ubwc_config.highest_bank_bit;
-+		*value = adreno_gpu->ubwc_config->highest_bank_bit;
- 		return 0;
- 	case MSM_PARAM_RAYTRACING:
- 		*value = adreno_gpu->has_ray_tracing;
- 		return 0;
- 	case MSM_PARAM_UBWC_SWIZZLE:
--		*value = adreno_gpu->ubwc_config.ubwc_swizzle;
-+		*value = adreno_gpu->ubwc_config->ubwc_swizzle;
- 		return 0;
- 	case MSM_PARAM_MACROTILE_MODE:
--		*value = adreno_gpu->ubwc_config.macrotile_mode;
-+		*value = adreno_gpu->ubwc_config->macrotile_mode;
- 		return 0;
- 	case MSM_PARAM_UCHE_TRAP_BASE:
- 		*value = adreno_gpu->uche_trap_base;
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index a2a211cac147cb5bc5befdcab07559b778adc2bb..e56a39df815f100caca945576de7cb55664980bc 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -207,45 +207,12 @@ struct adreno_gpu {
- 	/* firmware: */
- 	const struct firmware *fw[ADRENO_FW_MAX];
- 
--	struct {
--		/**
--		 * @rgb565_predicator: Unknown, introduced with A650 family,
--		 * related to UBWC mode/ver 4
--		 */
--		u32 rgb565_predicator;
--		/** @uavflagprd_inv: Unknown, introduced with A650 family */
--		u32 uavflagprd_inv;
--		/** @min_acc_len: Whether the minimum access length is 64 bits */
--		u32 min_acc_len;
--		/**
--		 * @ubwc_swizzle: Whether to enable level 1, 2 & 3 bank swizzling.
--		 *
--		 * UBWC 1.0 always enables all three levels.
--		 * UBWC 2.0 removes level 1 bank swizzling, leaving levels 2 & 3.
--		 * UBWC 4.0 adds the optional ability to disable levels 2 & 3.
--		 *
--		 * This is a bitmask where BIT(0) enables level 1, BIT(1)
--		 * controls level 2, and BIT(2) enables level 3.
--		 */
--		u32 ubwc_swizzle;
--		/**
--		 * @highest_bank_bit: Highest Bank Bit
--		 *
--		 * The Highest Bank Bit value represents the bit of the highest
--		 * DDR bank.  This should ideally use DRAM type detection.
--		 */
--		u32 highest_bank_bit;
--		u32 amsbc;
--		/**
--		 * @macrotile_mode: Macrotile Mode
--		 *
--		 * Whether to use 4-channel macrotiling mode or the newer
--		 * 8-channel macrotiling mode introduced in UBWC 3.1. 0 is
--		 * 4-channel and 1 is 8-channel.
--		 */
--		u32 macrotile_mode;
--	} ubwc_config;
--	const struct qcom_ubwc_cfg_data *common_ubwc_cfg;
-+	/*
-+	 * The migration to the central UBWC config db is still in flight - keep
-+	 * a copy containing some local fixups until that's done.
-+	 */
-+	const struct qcom_ubwc_cfg_data *ubwc_config;
-+	struct qcom_ubwc_cfg_data _ubwc_config;
- 
- 	/*
- 	 * Register offsets are different between some GPUs.
-
+Best regards,
 -- 
-2.50.0
+With best wishes
+Dmitry
 
