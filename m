@@ -2,125 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C36E1AEB917
-	for <lists+freedreno@lfdr.de>; Fri, 27 Jun 2025 15:38:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59F33AEBE6B
+	for <lists+freedreno@lfdr.de>; Fri, 27 Jun 2025 19:27:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 981A810EA42;
-	Fri, 27 Jun 2025 13:38:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B13E810E1C1;
+	Fri, 27 Jun 2025 17:27:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cQj35XqU";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="LA+83kj0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D849F10EA41
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:38:02 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55RBr7Rb001063
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:38:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 2QtnvQnfluWMwHt5pv65ScEV4CUxIy5BoKzB2wk7FAQ=; b=cQj35XqUQK8xtpDy
- I8pHTQeVJQY2Vx2y2VgUuIR+nA1JnYfaqf++o1KIYpBKe2DvPMXETHXKC4s0LwOj
- q8ak1N7/MYobBNDuH2WZRB859JJ1+GXlxbPbRUSrmPGwWlkwlzPZNuqMfd4X3lNR
- NTw807OvA43MQoyXGbB2+KuubA3Hn23g/swq3BQwWXaaeh3BY9twYoDEwFBID0Ry
- kAU09bA3kPjGadbweSVR4WDvGRKtbNqc6MaWigcVbtsCvbk5CNJ4nDejZPDOPIva
- kIK7jNukqxP0OqoBFnR1IchI1Qq6SXCMDVuNJSoR2POzCc7lhB6aDON3bxR2Kf+M
- VQ89FQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47g7tdh0qu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:38:01 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7d15c975968so367882185a.2
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 06:38:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751031480; x=1751636280;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2QtnvQnfluWMwHt5pv65ScEV4CUxIy5BoKzB2wk7FAQ=;
- b=nyfgdSvqthJd1Qjr4vdghDkz8y0h5TrMKPQsFQskLCiQoImpOYisfRONjFBNzA2ZUa
- FPGDz9uzLCFtg4uz/mhdCuXPkRwdyKrATBbiVYqJWLSMBihZpzDqYjsz5EEyIPGszoO6
- rvFEKByzPC9LiE/kRF6Uo64wd1wu77TolFJ8V6aIXL6cx2fXTrvtzvSymi3uTOV62n7B
- IgaXDKgBwK3NJLg2clMyhqFLZIQAjW5iYPfDYp5KXST6LwjDNWxYjI9W6+Z0ENHQCLGc
- xwwLlyREpz1xyPudzxBpOfIxvlBQIYRGliZkJaGJS+RFTHsmClLyC0BQKuLI5pZ8XBfM
- iG5A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXW6bOUwCyn48gl4Ro64+BdGGJpdKav4P/kUpj+3K3PBCO2Egv9qqPpeWZPtW+AsrM1XvyDUpcnLzc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwESco23d1jIMs6eBPJunI2hJ5THTrXDL2521wEIirr0h61hNUW
- hpZhYTzM2PQXnKNFuma3XZ5cyWHKmcfT0LeekN1ENEV4v/jAy2A3YMXJRUU5DLWHtJbEopfYo6I
- n4W2F+JMlhLemwyqvn5/0V5cbZu5zoi2T/gqjlUHmz+V35//Fjs6sOGGbACBo85bmwdmVgVs=
-X-Gm-Gg: ASbGncvS7MQ3rT95nm7KJaB9Bo8lPA2tccvDjDUdiwDp6AwmQiOR1L2YN0yu+cKJ+O1
- ER0ukhsOAET1DRjPIH1MOd22/PV0aN3rRodsBF/qM278gqxtEd5exBbMWGW5aepCLdJncTe8ElY
- xIJFTvJvrNiAnZugMsNR33JcAf4r3hOJd0jqAtNeiMrWe4fRwdU+s8eiHenMqdTcMqryQ+JJdt5
- pKlWBt6tBlrC+wLelbP6HT37lOhWrhen4FxY4gffzx0iQTrteKavG3ZXPYYjGpjCr++WIiEJ8Og
- xaFUjknh8z5yJUfzdvXkIlocl9lR2vUczQyn/CG3nA==
-X-Received: by 2002:a05:620a:1904:b0:7d3:907f:7544 with SMTP id
- af79cd13be357-7d4439a6584mr493459585a.35.1751031480166; 
- Fri, 27 Jun 2025 06:38:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGvL73yf4sU/gW3mguJ2q0llUda4VgDpvmnaVGMd6K090C/8Loa8JscxVRP4J8tuzbwVKrCvw==
-X-Received: by 2002:a05:620a:1904:b0:7d3:907f:7544 with SMTP id
- af79cd13be357-7d4439a6584mr493455085a.35.1751031479671; 
- Fri, 27 Jun 2025 06:37:59 -0700 (PDT)
-Received: from [10.92.240.160] ([212.136.9.4])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae353c0100fsm125509766b.88.2025.06.27.06.37.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Jun 2025 06:37:58 -0700 (PDT)
-Message-ID: <6dcf88bc-0bdf-4965-b8af-b881a564d762@oss.qualcomm.com>
-Date: Fri, 27 Jun 2025 16:37:56 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/38] drm/msm/dp: remove dp_display's dp_mode and use
- dp_panel's instead
-To: Yongxing Mou <quic_yongmou@quicinc.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+X-Greylist: delayed 523 seconds by postgrey-1.36 at gabe;
+ Fri, 27 Jun 2025 17:27:07 UTC
+Received: from smtp.smtpout.orange.fr (smtp-22.smtpout.orange.fr
+ [80.12.242.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 342F110E1C1
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 17:27:07 +0000 (UTC)
+Received: from fedora.home ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
+ by smtp.orange.fr with ESMTPA
+ id VCiOuiqRroUtIVCiOujFMI; Fri, 27 Jun 2025 19:18:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1751044698;
+ bh=vZ0gXsMEUL07BRPgj8DtIwElSztAZLrFwXzdLM5hlqM=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=LA+83kj0CfW1YPfcqXYO4cgzjLTsPpFen5MEjY/lDm1UN0o4nomUj/DhNkAcW2yyj
+ zi8WiU146Sqk21qOUpTYC58RtWB+ViVQTBFJLF992oO4bMaC6DFIW+p7tTAKGB3rH/
+ Wj0ZXTsJ26OWrIJjElAm806Sf0BbD1A0DsyFI+5zizNV7rZY7EzD6akezIiGoijp0W
+ Dr+C0q/iKnlZUtu7itgXJOqNT7LFBtGsdK5zimb3SW7y4K2pMifiin1hgIaBhX4wAo
+ xsMIfMyw466LRoYpSGoY0Zh/HkzL2h9NonFsMzj2RTV3qXioGikGUVopOVjFDDTudQ
+ gJO25WEyQFHJA==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Fri, 27 Jun 2025 19:18:18 +0200
+X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
- <20250609-msm-dp-mst-v2-2-a54d8902a23d@quicinc.com>
- <kq6tb2wnte6v5z7uxgzc22kjwcevgvcdluzqbelvnbpbxlkotd@ltlv3u2guj4u>
- <1be2238d-7bb2-4ef9-9c7c-81dab0dcb559@quicinc.com>
- <4jrpa7iyygciuy2k4ydk7cpm5isdrddclljf6gbyvkiqc645tx@idyds4tkstkx>
- <9358a017-81ed-4db7-8e35-955922287c76@quicinc.com>
-Content-Language: en-US
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <9358a017-81ed-4db7-8e35-955922287c76@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ freedreno@lists.freedesktop.org
+Subject: [PATCH] drm/msm/mdp4: Consistently use the "mdp4_" namespace
+Date: Fri, 27 Jun 2025 19:18:03 +0200
+Message-ID: <6b9076268548c52ec371e9ed35fee0dd8fcb46ef.1751044672.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.50.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=CPYqXQrD c=1 sm=1 tr=0 ts=685e9eb9 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8
- a=QLF5U8kL1nvtC7vkCdQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI3MDExMyBTYWx0ZWRfXwYP+XrqlM8om
- 9SolUqBvnGvt+vYVy/RZTwIbiCDU9Kc6VRXWXCx/8mEAW3iAtxZj537FdbA0kQrDqUME70tNzQg
- Wf+jXQKF9W9fnFgBFVsGJow8kuXLS3ajqn/v1UiLvK8H+dyxWJQ6LJwHi+W3BCGIFS6hC0psFni
- B126pK1uzBk6GStOgM2CpIH5MxwOvrs+Niv/l1m/TcJJypsZkmGCzoziQJPaCEnOgWAREtroUx2
- nRXQiwqbsncOmvZGsnQgT5gnkiBxyP4+ZJHA1O8DdK+MZwuutjqeQAJbRJQ8Y1Ejp3MZmlSpuhg
- DMjS5ESSjclOzr/Wuo0EMMzY8biudUXZz6rRSEZ7QDnGwvCFj3QzGvZKzfA3QxbGh+N07S1yNTH
- akX703xfYQv5w6X+xKI9+ho7Rtgk2ubmTN0PhUmXp26hVZBI/yiFId8C2ZTrp8ZRtLrA/Gaj
-X-Proofpoint-GUID: u6SQ5dSOWls4WLx5tNjs2l4P4YMCSYGO
-X-Proofpoint-ORIG-GUID: u6SQ5dSOWls4WLx5tNjs2l4P4YMCSYGO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-06-27_04,2025-06-26_05,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 mlxlogscore=999 lowpriorityscore=0 malwarescore=0
- impostorscore=0 suspectscore=0 clxscore=1015 spamscore=0 priorityscore=1501
- adultscore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506270113
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,57 +68,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/06/2025 11:40, Yongxing Mou wrote:
-> 
-> 
-> On 2025/6/25 22:03, Dmitry Baryshkov wrote:
->> On Wed, Jun 25, 2025 at 08:34:18PM +0800, Yongxing Mou wrote:
->>>
->>>
->>> On 2025/6/9 20:48, Dmitry Baryshkov wrote:
->>>> On Mon, Jun 09, 2025 at 08:21:21PM +0800, Yongxing Mou wrote:
->>>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>>
+Functions and other stuff all start with "mdp4_", except a few ones that
+start with "mpd4_" (d and p switched)
 
->>> Originally, the drm_mode would be passed in
->>> two stages: from msm_dp_display->msm_dp_mode to dp_panel- 
->>> >msm_dp_mode. Since
->>> in MST mode each stream requires its own drm_mode and stored in 
->>> dp_panel, we
->>> simplified the two-stage transfer into a single step (.mode_set() do all
->>> things and store in msm_dp_panel). Meanwhile we modified the
->>> msm_dp_display_set_mode function to accept a msm_dp_panel parameter,
->>> allowing the MST bridge funcs' mode_set() to reuse this part code.
->>>
->>> The following patches:
->>> https://patchwork.freedesktop.org/patch/657573/?series=142207&rev=2 and
->>> https://patchwork.freedesktop.org/patch/657593/?series=142207&rev=2,
->>> introduce msm_dp_display_*_helper functions to help reuse common code 
->>> across
->>> MST/SST/eDP drm_bridge_funcs.
->>>
->>> If we drop msm_dp_mode from dp_panel and use drm_display_mode, it might
->>> introduce a large number of changes that are not directly related to 
->>> MST.
->>> Actually i think the presence of msm_dp_display_mode seems to 
->>> simplify the
->>> work in msm_dp_panel_timing_cfg(), this patch series we want to focus 
->>> on MST
->>> parts, so would we consider optimizing them later?
->>
->> Sure... But then you have to change two places. If you optimize it
->> first, you have to touch only place. And it can be even submitted
->> separately.
->>
-> Understood, that’s indeed the case. I just want to prioritize the MST 
-> patch and have it merged first, since it involves changes to lots of 
-> files. Thanks~~
+Make things consistent and use "mdp4_" everywhere.
 
-I'm sorry, I hit enter too quickly. The MST will not be merged until we 
-get DP HPD rework in, that's a prerequisite from my side. So, while that 
-is getting sorted out, we can fix minor issues and perform minor 
-cleanups, like the checksums or drm_mode refactoring.
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+The change has been done with:
+   sed -i s/mpd4/mdp4/g *
+and the modified files have been compile tested.
 
+Maybe the comment "/* TODO: do we need different pll in other cases? */" in
+mpd4_lvds_pll_init() can be removed as well.
+A similar comment was removed in mdp4_lcdc_encoder_init() in commit
+9c2f63da6a70 ("drm/msm/mdp4: register the LVDS PLL as a clock provider")
+
+This has been waiting in my own tree for years, and popped-up recently
+because of other changes in the same area.
+---
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h      |  2 +-
+ .../gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c |  2 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c | 38 +++++++++----------
+ 3 files changed, 21 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+index f9d988076337..9a1e4daa8e8d 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+@@ -202,6 +202,6 @@ static inline struct drm_encoder *mdp4_dsi_encoder_init(struct drm_device *dev)
+ }
+ #endif
+ 
+-struct clk *mpd4_get_lcdc_clock(struct drm_device *dev);
++struct clk *mdp4_get_lcdc_clock(struct drm_device *dev);
+ 
+ #endif /* __MDP4_KMS_H__ */
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+index 06a307c1272d..1051873057f6 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+@@ -375,7 +375,7 @@ struct drm_encoder *mdp4_lcdc_encoder_init(struct drm_device *dev)
+ 
+ 	drm_encoder_helper_add(encoder, &mdp4_lcdc_encoder_helper_funcs);
+ 
+-	mdp4_lcdc_encoder->lcdc_clk = mpd4_get_lcdc_clock(dev);
++	mdp4_lcdc_encoder->lcdc_clk = mdp4_get_lcdc_clock(dev);
+ 	if (IS_ERR(mdp4_lcdc_encoder->lcdc_clk)) {
+ 		DRM_DEV_ERROR(dev->dev, "failed to get lvds_clk\n");
+ 		return ERR_CAST(mdp4_lcdc_encoder->lcdc_clk);
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
+index fa2c29470510..4612886f0e49 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c
+@@ -54,7 +54,7 @@ static const struct pll_rate *find_rate(unsigned long rate)
+ 	return &freqtbl[i-1];
+ }
+ 
+-static int mpd4_lvds_pll_enable(struct clk_hw *hw)
++static int mdp4_lvds_pll_enable(struct clk_hw *hw)
+ {
+ 	struct mdp4_lvds_pll *lvds_pll = to_mdp4_lvds_pll(hw);
+ 	struct mdp4_kms *mdp4_kms = get_kms(lvds_pll);
+@@ -80,7 +80,7 @@ static int mpd4_lvds_pll_enable(struct clk_hw *hw)
+ 	return 0;
+ }
+ 
+-static void mpd4_lvds_pll_disable(struct clk_hw *hw)
++static void mdp4_lvds_pll_disable(struct clk_hw *hw)
+ {
+ 	struct mdp4_lvds_pll *lvds_pll = to_mdp4_lvds_pll(hw);
+ 	struct mdp4_kms *mdp4_kms = get_kms(lvds_pll);
+@@ -91,21 +91,21 @@ static void mpd4_lvds_pll_disable(struct clk_hw *hw)
+ 	mdp4_write(mdp4_kms, REG_MDP4_LVDS_PHY_PLL_CTRL_0, 0x0);
+ }
+ 
+-static unsigned long mpd4_lvds_pll_recalc_rate(struct clk_hw *hw,
++static unsigned long mdp4_lvds_pll_recalc_rate(struct clk_hw *hw,
+ 				unsigned long parent_rate)
+ {
+ 	struct mdp4_lvds_pll *lvds_pll = to_mdp4_lvds_pll(hw);
+ 	return lvds_pll->pixclk;
+ }
+ 
+-static long mpd4_lvds_pll_round_rate(struct clk_hw *hw, unsigned long rate,
++static long mdp4_lvds_pll_round_rate(struct clk_hw *hw, unsigned long rate,
+ 		unsigned long *parent_rate)
+ {
+ 	const struct pll_rate *pll_rate = find_rate(rate);
+ 	return pll_rate->rate;
+ }
+ 
+-static int mpd4_lvds_pll_set_rate(struct clk_hw *hw, unsigned long rate,
++static int mdp4_lvds_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+ 		unsigned long parent_rate)
+ {
+ 	struct mdp4_lvds_pll *lvds_pll = to_mdp4_lvds_pll(hw);
+@@ -114,26 +114,26 @@ static int mpd4_lvds_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+ }
+ 
+ 
+-static const struct clk_ops mpd4_lvds_pll_ops = {
+-	.enable = mpd4_lvds_pll_enable,
+-	.disable = mpd4_lvds_pll_disable,
+-	.recalc_rate = mpd4_lvds_pll_recalc_rate,
+-	.round_rate = mpd4_lvds_pll_round_rate,
+-	.set_rate = mpd4_lvds_pll_set_rate,
++static const struct clk_ops mdp4_lvds_pll_ops = {
++	.enable = mdp4_lvds_pll_enable,
++	.disable = mdp4_lvds_pll_disable,
++	.recalc_rate = mdp4_lvds_pll_recalc_rate,
++	.round_rate = mdp4_lvds_pll_round_rate,
++	.set_rate = mdp4_lvds_pll_set_rate,
+ };
+ 
+-static const struct clk_parent_data mpd4_lvds_pll_parents[] = {
++static const struct clk_parent_data mdp4_lvds_pll_parents[] = {
+ 	{ .fw_name = "pxo", .name = "pxo", },
+ };
+ 
+ static struct clk_init_data pll_init = {
+-	.name = "mpd4_lvds_pll",
+-	.ops = &mpd4_lvds_pll_ops,
+-	.parent_data = mpd4_lvds_pll_parents,
+-	.num_parents = ARRAY_SIZE(mpd4_lvds_pll_parents),
++	.name = "mdp4_lvds_pll",
++	.ops = &mdp4_lvds_pll_ops,
++	.parent_data = mdp4_lvds_pll_parents,
++	.num_parents = ARRAY_SIZE(mdp4_lvds_pll_parents),
+ };
+ 
+-static struct clk_hw *mpd4_lvds_pll_init(struct drm_device *dev)
++static struct clk_hw *mdp4_lvds_pll_init(struct drm_device *dev)
+ {
+ 	struct mdp4_lvds_pll *lvds_pll;
+ 	int ret;
+@@ -156,14 +156,14 @@ static struct clk_hw *mpd4_lvds_pll_init(struct drm_device *dev)
+ 	return &lvds_pll->pll_hw;
+ }
+ 
+-struct clk *mpd4_get_lcdc_clock(struct drm_device *dev)
++struct clk *mdp4_get_lcdc_clock(struct drm_device *dev)
+ {
+ 	struct clk_hw *hw;
+ 	struct clk *clk;
+ 
+ 
+ 	/* TODO: do we need different pll in other cases? */
+-	hw = mpd4_lvds_pll_init(dev);
++	hw = mdp4_lvds_pll_init(dev);
+ 	if (IS_ERR(hw)) {
+ 		DRM_DEV_ERROR(dev->dev, "failed to register LVDS PLL\n");
+ 		return ERR_CAST(hw);
 -- 
-With best wishes
-Dmitry
+2.50.0
+
