@@ -2,116 +2,101 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D574FAEB7F1
-	for <lists+freedreno@lfdr.de>; Fri, 27 Jun 2025 14:44:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85690AEB869
+	for <lists+freedreno@lfdr.de>; Fri, 27 Jun 2025 15:05:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A042710EA0E;
-	Fri, 27 Jun 2025 12:44:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24B1B10EA1A;
+	Fri, 27 Jun 2025 13:05:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="i11h9Hi6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OYCxvv9e";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E919010EA06
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 12:44:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA76810EA1D
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:05:12 +0000 (UTC)
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55RBNrVr027982
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 12:44:31 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55RBNrYG027982
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:05:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- NiGNHk8ZmGuLkSms/e3E52/NCPaXLmYD0fKKiCL3D9A=; b=i11h9Hi60sIE8J9v
- P9eQ0XjA7VAp6IGuEDy4cVfPJXuOirswR4jjqMzEApZDI9fWrot0Ckqk4A31CwcT
- D4msHAOnmwI48e1e6Tmwj1mRpBh758vQRUoA9vKjA5vsr8I8nLSgfodVgR0HBUeW
- w9mbaBgvkwJ39h06BZBI/2r0lbXebdUPgK/iuad1tCvRQA8eSQdTrioZZm7z0h8+
- SGk79fSe9CP+RoVpv1osGGz6KyD+4+MY3xoLgkQ+7reEZHxf1dbQFXInmD/Rzb2r
- XwV8UsOBGnMfwpbWNyQnow/3s+p3q6ogEQL4c3qgG70yIDL9eKH0X0bn+wg/jqfM
- TfhlgQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ec26h8gn-1
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=Mj2LcX/wfNnzEoznRxiF/Vekbx0t7G9NztY2MpuYpkg=; b=OY
+ Cxvv9eu2hCpM9YnTikkajsDO+FaI9akcFuAfXIvxWEFJDNzCR4Ul/mSfhTWiYwxV
+ LqXRR+cbclMuxspdmsjN5rCT4kQgnE/Nl67X8xrBLC5fGAeeYprUvXbtV9/fnsg6
+ fMmteFZmwrOxJVFP8AOMbdx/kZ7l3M9uwKcFeYEthR1aebbXIh9RNqHvpvtHWtrR
+ qJ8GIsS0FdcCdYXXDqFcgT/Zfu1DUKW/5Z5kCILsudHk6lmRmx9/IuMKGlJ3uF33
+ n/ckbR2o5Or/CgNz86mOyqsVmXrvP1sd5eVctTpRV69tLxaPDHAXxX9IddsVIC/T
+ sYfeib+RNsYh2M3S4x6Q==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
+ [209.85.161.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ec26ha8t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 12:44:31 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7c5e2a31f75so614995285a.1
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 05:44:31 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:05:11 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id
+ 006d021491bc7-6114cffd99cso2082915eaf.3
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 06:05:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751028270; x=1751633070;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NiGNHk8ZmGuLkSms/e3E52/NCPaXLmYD0fKKiCL3D9A=;
- b=lUPBcXteGe+MC7ynJ+nxZIfPEZtObmphSFCCiWM8IRJH2NltPOoxwC3RMZmO0U6zd3
- E7N/pj99hNf5KLkhSkbkD7ui5ZmT5G03n3/NFWwztWjehk3WyMPQnAfklOyCsJVNP/GK
- yDvKwGf4iqTsKNfF0PvAbcU4KTGWp6DzOnsCEvr+bj7j3elcLGcjm7D6xFElg1KIZzVQ
- NNPynO/2gNkY1N8cQAIIkbScCq6pDP2HkSqVnzwFjexEdqeBMw/emBYmfLZx4TO/9jyO
- RVPxI09U5QhAW4Jzska4cfSOHS/g9nzF8jFgQTWx4q5nJypLoDUYnDCC1H05IgKA3d9E
- muIA==
+ d=1e100.net; s=20230601; t=1751029511; x=1751634311;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Mj2LcX/wfNnzEoznRxiF/Vekbx0t7G9NztY2MpuYpkg=;
+ b=iG1tAQ8xevSP6uguT1lH1Y4fITs/olSlNL/LYkjza0ryETlFM38XuvU7dn6RcJQ3EU
+ 56W77NmBTd+ReEyERbpSJ8giKpVp2G+Nh5KWQw7vVMB6TJ+4OMwmgMeWc11g6OuMllgu
+ QRS7kIHpHwJKujO32erpetviEOoXEYreDg97jl/9n3bgnPdq5LEj/l3mKdEJ7dMeuH91
+ 9eJzblbdBtWej2d0PtnG+1WRTrlhFpKmLOPdfvTrDTKuYLXW3nez9RCrAIOfJ2XArduH
+ rTH2ZnUcSZTxvgPrMMPFW2VU39IMMUj2noDuGiManRV6XpjFvqUL50TT/aSdzmCe7ibr
+ sqNg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXNOhSJTFHjkJbhYkn+NxXum7XikyGWb72FG2ZZTRo0rGQ/mj0ihxiO/aGPaRLJqVxAFW+1pxDqcj0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvXxAEsEKZXasVM/tT0f05o+A2eqEyXSFj6g1/z4bKVpO+sfih
- A1WlzOELw585/MhdhmdFm/9kKD+Nc+feAVsBHPSQDFbq8tpeawTe2ern7YVHsG9qR7QlSQrd14b
- jJ3F0Ir3Pxr/M8vFpwVe/KZLjfyRFmtJGPLMyYMo/1U3pJ6EeI9AOA59X2/kuiBGkfa7UU6c=
-X-Gm-Gg: ASbGncuG7uhGHl2zcKfteNWdEXmSoyiD5YgDm7/bpQGzO3N6J+gLcdRF3A9VXjnrDRB
- MoDaZ1KiT4tHxQRFNtfWprpiPi4hdvYq1hqmdKgP3oOc5MSmP1utpLzHcOY2NDX0uEm7w4P4R2V
- ZYfN4Nv3/86EJak11/67eGgkd0qYvfq5XdaYdmix8vlY/JTcODzGh3FxQxqXIeNQ9fA8ZDmcU6w
- DEKovGXRvS8inAJfdT4GUAZABR2k4en4Afib7JqseZXSxaT9nq6laJ0EjA3Lpn+szDp/VizN3LR
- 65+cBUF5sqICKXzMKpEkKVUyE9bxIXcz+9m4H3oUcQ83IvPhnU7kGvNjX8IzKi0BJOyJlfcP
-X-Received: by 2002:a05:620a:2712:b0:7d3:f99b:96ea with SMTP id
- af79cd13be357-7d4439a678dmr494893985a.40.1751028269533; 
- Fri, 27 Jun 2025 05:44:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFP9ck85sFk8WjIf/d2svxkt1Wd1bdX5L/bBOQhBn5YE9w86XYX/MhBRWyTqY3mZI9Wf+Lxmw==
-X-Received: by 2002:a05:620a:2712:b0:7d3:f99b:96ea with SMTP id
- af79cd13be357-7d4439a678dmr494887785a.40.1751028268930; 
- Fri, 27 Jun 2025 05:44:28 -0700 (PDT)
-Received: from [10.185.26.70] (37-33-181-83.bb.dnainternet.fi. [37.33.181.83])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5550b24d53esm438250e87.55.2025.06.27.05.44.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Jun 2025 05:44:28 -0700 (PDT)
-Message-ID: <26f21464-022b-460a-92f2-0ea626cfd262@oss.qualcomm.com>
-Date: Fri, 27 Jun 2025 15:44:32 +0300
+ AJvYcCXYXla+1dTvQEt/AIEL1p1nSigoGJVIRwxuLlDRiiNnSnAbNmwYlCaz5xM5Ka4tLeeEBCF1Q+jV9xo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzbLROUoxcP1o1EX2ou+6QgohH4rDagUc1MplHHqwTC67nDBSb
+ 0kfZr1baiBo+4Yapck47SIUIO2T9zdyx6F9UatnfEePvUZPc/9kjSjX4BYvGtkxxrUun19af9+q
+ NbbvdXh0rNaYMiPMiv9KJrkTWcOIF9wYzSAAbiM5PiyYzkaOv9ZK33QwFjYwuYgMh+90SQre8Ef
+ JlPTSZomft3zeRll8ZYa++ZFwG/64ts9NcmXyJ7BaYUht5Jg==
+X-Gm-Gg: ASbGncsUFOLKdob0Yw0R2ZyQcRkZm6aWdywCIDTwjwM/F0X0KLMH7N6QLIOeHF+ay6h
+ uEmHelyhKmQpdaiKd9BKMs9EeMIX1U8OsV5aajoxCy/h56EMhV/vptSi99RRhfN+KIkarAsZHla
+ Ivq9pkYAEk90+A/5k0/wTuwO7kWzi7Mu5oXFw=
+X-Received: by 2002:a05:6870:178e:b0:2c2:3e24:9b54 with SMTP id
+ 586e51a60fabf-2efed4b16bbmr1775191fac.11.1751029510786; 
+ Fri, 27 Jun 2025 06:05:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IESX69QJe1uekZFWjeHdkSgJnjoP36VXXoHS+Nz/76pjCAnZNKmYaHKOmH3q6HBqH9fqrkTn18b791wGsOGMf8=
+X-Received: by 2002:a05:6870:178e:b0:2c2:3e24:9b54 with SMTP id
+ 586e51a60fabf-2efed4b16bbmr1775160fac.11.1751029510306; Fri, 27 Jun 2025
+ 06:05:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/38] drm/msm/dp: remove dp_display's dp_mode and use
- dp_panel's instead
-To: Yongxing Mou <quic_yongmou@quicinc.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+References: <20250620154537.89514-1-robin.clark@oss.qualcomm.com>
+ <20250620154537.89514-3-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20250620154537.89514-3-robin.clark@oss.qualcomm.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Fri, 27 Jun 2025 06:04:58 -0700
+X-Gm-Features: Ac12FXz4HuRCQCqIgAwuSyAn2p3FTUW3xCVysI5avKQdPvQayJzO9voPeQsIo4E
+Message-ID: <CACSVV03d-3J2SxSnm3oS2OG9LHEJzLKpmgWF=Cx8_Qgw3PZPVQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/gpuvm: Add locking helpers
+To: Danilo Krummrich <dakr@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
- <20250609-msm-dp-mst-v2-2-a54d8902a23d@quicinc.com>
- <kq6tb2wnte6v5z7uxgzc22kjwcevgvcdluzqbelvnbpbxlkotd@ltlv3u2guj4u>
- <1be2238d-7bb2-4ef9-9c7c-81dab0dcb559@quicinc.com>
- <4jrpa7iyygciuy2k4ydk7cpm5isdrddclljf6gbyvkiqc645tx@idyds4tkstkx>
- <9358a017-81ed-4db7-8e35-955922287c76@quicinc.com>
-Content-Language: en-US
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <9358a017-81ed-4db7-8e35-955922287c76@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI3MDEwNSBTYWx0ZWRfXyJQPRSTVOF88
- WwZgiJBp7yHGMWaCfZlnayhw1FCBll/jbRE0CtGTgmj1n6Q+rkEsHULP3WwWxCYb5F1ulPBJ0cy
- 8Hx6MAXZl4eNuslW4dw+Mj3WWdZA1iq7/0T425200WrcHFF/xgZkmQT5FQv7ygzTBCmsYDxolSl
- uMEnLWGR7zQXGRzeNwcRDC2oHnhRhO7QxzHEOZfzTkVvdFNryuHfKCx3PvWdGEtLFK4Jl39v5k7
- 4RS2pl5NzcJwS9u568jf0lUBeNg1faoVe8S39zzDyFTWXM4BWTKTg++fXiH5cropu3mWGSXlvBH
- 92UiPW2gny9x6bGdfUSfAw123KGf55qxgMrDnS+2l1FCTnVbOEC2kckJHDX+FXnDVjkTtn62H8j
- eWeTaZc+KxnLwF6bPKifXhd0B/lrV8AuZa2kJ3fV7qCstVCuNvSArnjEG+S6J9kW75HOSrBS
-X-Authority-Analysis: v=2.4 cv=XPQwSRhE c=1 sm=1 tr=0 ts=685e922f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=a09MB1VsJqAZHPW3esczKA==:17
- a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8
- a=oBoqDFdXD1tkhslXpxIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: hsOXKmjq9rrtuEHiv-1c-5sw86alqfvj
-X-Proofpoint-ORIG-GUID: hsOXKmjq9rrtuEHiv-1c-5sw86alqfvj
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI3MDEwNyBTYWx0ZWRfXyLFRMfE7s+Au
+ 8c7gQkyI0Mt3begIcez6Z49K9dPfvT+/zQCmlgb0ViMGu8/AEr773ZG0cCD1w1cukeNaVwRFh2M
+ sGomTUkKlVI2gg7wXtZl5es0dWMu0VdjDFmVCUreir+trTxiFWW/8J23az+RzSvMYVrlPntRwOt
+ FWFQVkmBJM/FM1RllH47ic8IzqlZVH3aBuAiZe5vIfeLqlGfJfJ63ht9vv9EeORf/jdN/OO+4z/
+ X7c8nfsSdefHzzRlzi5KyOuyL8qDRW9vlqEl+CqoPuKVNYeH3izvQOjDYYCFnIts0I1xGWcUYrI
+ Mf6dgqu69h5wbhO4de9lCH9I1rXsUdTdM/nVvUQHGGvO7SGjHgNtNDKovpk9IgD8iNh07tMFAc2
+ XYqhlC+k6Cuj2e+JJ2UNEj489I21c5Zn2FJ2dL4GhI5Zhy1jJ0nFdlTuM3eijn6ctoZrt5Vo
+X-Authority-Analysis: v=2.4 cv=XPQwSRhE c=1 sm=1 tr=0 ts=685e9708 cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10
+ a=EUspDBNiAAAA:8 a=MIFqPDLa7Y6Tg69WKSUA:9 a=QEXdDO2ut3YA:10
+ a=WZGXeFmKUf7gPmL3hEjn:22
+X-Proofpoint-GUID: YORUBP7sfTXyh9tItbcc6tJxyOAKo2DV
+X-Proofpoint-ORIG-GUID: YORUBP7sfTXyh9tItbcc6tJxyOAKo2DV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-06-27_04,2025-06-26_05,2025-03-28_01
@@ -120,7 +105,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 phishscore=0 malwarescore=0 mlxlogscore=999 bulkscore=0
  priorityscore=1501 adultscore=0 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506270105
+ engine=8.19.0-2505280000 definitions=main-2506270107
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,265 +118,220 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/06/2025 11:40, Yongxing Mou wrote:
-> 
-> 
-> On 2025/6/25 22:03, Dmitry Baryshkov wrote:
->> On Wed, Jun 25, 2025 at 08:34:18PM +0800, Yongxing Mou wrote:
->>>
->>>
->>> On 2025/6/9 20:48, Dmitry Baryshkov wrote:
->>>> On Mon, Jun 09, 2025 at 08:21:21PM +0800, Yongxing Mou wrote:
->>>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>>
->>>>> dp_display caches the current display mode and then passes it onto
->>>>> the panel to be used for programming the panel params. Remove this
->>>>> two level passing and directly populated the panel's dp_display_mode
->>>>> instead.
->>>>
->>>> - Why do we need to cache / copy it anyway? Can't we just pass the
->>>>     corresponding drm_atomic_state / drm_crtc_state / 
->>>> drm_display_mode ?
->>>>
->>> This part works as follows: .mode_set() copies the adjusted_mode into
->>> msm_dp_display_private->msm_dp_display_mode, and also parses and stores
->>> variables such as v_active_low/h_active_low/out_fmt_is_yuv_420 
->>> and ... When
->>> @drm_bridge_funcs.atomic_enable() is called, it copies
->>> msm_dp_display->msm_dp_mode into dp_panel->msm_dp_mode and initializes
->>> panel_info in msm_dp_display_set_mode(). Then when go to
->>> msm_dp_ctrl_on_stream(), the parameters are updated into the 
->>> corresponding
->>> hardware registers.
->>
->> So, if we do everything during .atomic_enable(), there would be no need
->> to store and/or copy anything. All the data is available and can be used
->> as is.
->>
-> Got it. Let me confirm—can we keep msm_dp_mode or drm_display_mode in 
-> msm_dp_panel? Mabey debug node will use this ..
+On Fri, Jun 20, 2025 at 8:45=E2=80=AFAM Rob Clark <robin.clark@oss.qualcomm=
+.com> wrote:
+>
+> For UNMAP/REMAP steps we could be needing to lock objects that are not
+> explicitly listed in the VM_BIND ioctl in order to tear-down unmapped
+> VAs.  These helpers handle locking/preparing the needed objects.
+>
+> Note that these functions do not strictly require the VM changes to be
+> applied before the next drm_gpuvm_sm_map_lock()/_unmap_lock() call.  In
+> the case that VM changes from an earlier drm_gpuvm_sm_map()/_unmap()
+> call result in a differing sequence of steps when the VM changes are
+> actually applied, it will be the same set of GEM objects involved, so
+> the locking is still correct.
+>
+> v2: Rename to drm_gpuvm_sm_*_exec_locked() [Danilo]
+> v3: Expand comments to show expected usage, and explain how the usage
+>     is safe in the case of overlapping driver VM_BIND ops.
 
-Please don't. I really dislike storing drm_atomic_state-related 
-variables in a non-state structure. I think it makes it easier to 
-mistakenly update or to use a stale value.
+Danilo, did you have any remaining comments on this?
 
-Debug code already prints modes in debugfs/dri/N/state. If we need any 
-other state-related prints, they should go to the same file.
+BR,
+-R
 
->>>
->>> This design has been in place since the first version of the DP 
->>> driver and
->>> has remained largely unchanged.
->>
->> Yes... The point is that you are touching this piece of code anyway,
->> let's make it nicer.
->>
-> Agree with this point.
->>> Originally, the drm_mode would be passed in
->>> two stages: from msm_dp_display->msm_dp_mode to dp_panel- 
->>> >msm_dp_mode. Since
->>> in MST mode each stream requires its own drm_mode and stored in 
->>> dp_panel, we
->>> simplified the two-stage transfer into a single step (.mode_set() do all
->>> things and store in msm_dp_panel). Meanwhile we modified the
->>> msm_dp_display_set_mode function to accept a msm_dp_panel parameter,
->>> allowing the MST bridge funcs' mode_set() to reuse this part code.
->>>
->>> The following patches:
->>> https://patchwork.freedesktop.org/patch/657573/?series=142207&rev=2 and
->>> https://patchwork.freedesktop.org/patch/657593/?series=142207&rev=2,
->>> introduce msm_dp_display_*_helper functions to help reuse common code 
->>> across
->>> MST/SST/eDP drm_bridge_funcs.
->>>
->>> If we drop msm_dp_mode from dp_panel and use drm_display_mode, it might
->>> introduce a large number of changes that are not directly related to 
->>> MST.
->>> Actually i think the presence of msm_dp_display_mode seems to 
->>> simplify the
->>> work in msm_dp_panel_timing_cfg(), this patch series we want to focus 
->>> on MST
->>> parts, so would we consider optimizing them later?
->>
->> Sure... But then you have to change two places. If you optimize it
->> first, you have to touch only place. And it can be even submitted
->> separately.
->>
-> Understood, that’s indeed the case. I just want to prioritize the MST 
-> patch and have it merged first, since it involves changes to lots of 
-> files. Thanks~~
->>>
->>> Thanks~
->>>>>
->>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
->>>>> ---
->>>>>    drivers/gpu/drm/msm/dp/dp_display.c | 76 +++++++++++++ 
->>>>> +-----------------------
->>>>>    1 file changed, 29 insertions(+), 47 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/ 
->>>>> msm/dp/dp_display.c
->>>>> index 
->>>>> 4a9b65647cdef1ed6c3bb851f93df0db8be977af..9d2db9cbd2552470a36a63f70f517c35436f7280 100644
->>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>>> @@ -92,7 +92,6 @@ struct msm_dp_display_private {
->>>>>        struct msm_dp_panel   *panel;
->>>>>        struct msm_dp_ctrl    *ctrl;
->>>>> -    struct msm_dp_display_mode msm_dp_mode;
->>>>>        struct msm_dp msm_dp_display;
->>>>>        /* wait for audio signaling */
->>>>> @@ -806,16 +805,29 @@ static int msm_dp_init_sub_modules(struct 
->>>>> msm_dp_display_private *dp)
->>>>>    }
->>>>>    static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
->>>>> -                   struct msm_dp_display_mode *mode)
->>>>> +                   const struct drm_display_mode *adjusted_mode,
->>>>> +                   struct msm_dp_panel *msm_dp_panel)
->>>>>    {
->>>>> -    struct msm_dp_display_private *dp;
->>>>> +    u32 bpp;
->>>>> -    dp = container_of(msm_dp_display, struct 
->>>>> msm_dp_display_private, msm_dp_display);
->>>>> +    drm_mode_copy(&msm_dp_panel->msm_dp_mode.drm_mode, 
->>>>> adjusted_mode);
->>>>> +
->>>>> +    if (msm_dp_display_check_video_test(msm_dp_display))
->>>>> +        bpp = msm_dp_display_get_test_bpp(msm_dp_display);
->>>>> +    else
->>>>> +        bpp = msm_dp_panel->connector->display_info.bpc * 3;
->>>>> +
->>>>> +    msm_dp_panel->msm_dp_mode.bpp = bpp;
->>>>> +
->>>>> +    msm_dp_panel->msm_dp_mode.v_active_low =
->>>>> +        !!(adjusted_mode->flags & DRM_MODE_FLAG_NVSYNC);
->>>>> +    msm_dp_panel->msm_dp_mode.h_active_low =
->>>>> +        !!(adjusted_mode->flags & DRM_MODE_FLAG_NHSYNC);
->>>>> +    msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420 =
->>>>> +        drm_mode_is_420_only(&msm_dp_panel->connector- 
->>>>> >display_info, adjusted_mode) &&
->>>>> +        msm_dp_panel->vsc_sdp_supported;
->>>>> -    drm_mode_copy(&dp->panel->msm_dp_mode.drm_mode, &mode->drm_mode);
->>>>> -    dp->panel->msm_dp_mode.bpp = mode->bpp;
->>>>> -    dp->panel->msm_dp_mode.out_fmt_is_yuv_420 = mode- 
->>>>> >out_fmt_is_yuv_420;
->>>>> -    msm_dp_panel_init_panel_info(dp->panel);
->>>>> +    msm_dp_panel_init_panel_info(msm_dp_panel);
->>>>>        return 0;
->>>>>    }
->>>>> @@ -1431,10 +1443,13 @@ bool msm_dp_needs_periph_flush(const struct 
->>>>> msm_dp *msm_dp_display,
->>>>>    bool msm_dp_wide_bus_available(const struct msm_dp *msm_dp_display)
->>>>>    {
->>>>>        struct msm_dp_display_private *dp;
->>>>> +    struct msm_dp_panel *dp_panel;
->>>>>        dp = container_of(msm_dp_display, struct 
->>>>> msm_dp_display_private, msm_dp_display);
->>>>> -    if (dp->msm_dp_mode.out_fmt_is_yuv_420)
->>>>> +    dp_panel = dp->panel;
->>>>> +
->>>>> +    if (dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
->>>>>            return false;
->>>>>        return dp->wide_bus_supported;
->>>>> @@ -1496,10 +1511,6 @@ void msm_dp_bridge_atomic_enable(struct 
->>>>> drm_bridge *drm_bridge,
->>>>>        bool force_link_train = false;
->>>>>        msm_dp_display = container_of(dp, struct 
->>>>> msm_dp_display_private, msm_dp_display);
->>>>> -    if (!msm_dp_display->msm_dp_mode.drm_mode.clock) {
->>>>> -        DRM_ERROR("invalid params\n");
->>>>> -        return;
->>>>> -    }
->>>>>        if (dp->is_edp)
->>>>>            msm_dp_hpd_plug_handle(msm_dp_display, 0);
->>>>> @@ -1517,15 +1528,6 @@ void msm_dp_bridge_atomic_enable(struct 
->>>>> drm_bridge *drm_bridge,
->>>>>            return;
->>>>>        }
->>>>> -    rc = msm_dp_display_set_mode(dp, &msm_dp_display->msm_dp_mode);
->>>>> -    if (rc) {
->>>>> -        DRM_ERROR("Failed to perform a mode set, rc=%d\n", rc);
->>>>> -        mutex_unlock(&msm_dp_display->event_mutex);
->>>>> -        return;
->>>>> -    }
->>>>
->>>> It should be done other way around: keep this call and drop
->>>> msm_dp_bridge_mode_set().
->>>>
->>> Emm as reply in last comments..
->>
->> Yep. Drop .mode_set, the callback is even described as deprecated.
->>
-> Thanks, the documentation does state that.
->>>>> -
->>>>> -    hpd_state =  msm_dp_display->hpd_state;
->>>>> -
->>>>>        if (hpd_state == ST_CONNECTED && !dp->power_on) {
->>>>>            msm_dp_display_host_phy_init(msm_dp_display);
->>>>>            force_link_train = true;
->>>>> @@ -1604,33 +1606,13 @@ void msm_dp_bridge_mode_set(struct 
->>>>> drm_bridge *drm_bridge,
->>>>>        msm_dp_display = container_of(dp, struct 
->>>>> msm_dp_display_private, msm_dp_display);
->>>>>        msm_dp_panel = msm_dp_display->panel;
->>>>> -    memset(&msm_dp_display->msm_dp_mode, 0x0, sizeof(struct 
->>>>> msm_dp_display_mode));
->>>>> -
->>>>> -    if (msm_dp_display_check_video_test(dp))
->>>>> -        msm_dp_display->msm_dp_mode.bpp = 
->>>>> msm_dp_display_get_test_bpp(dp);
->>>>> -    else /* Default num_components per pixel = 3 */
->>>>> -        msm_dp_display->msm_dp_mode.bpp = dp->connector- 
->>>>> >display_info.bpc * 3;
->>>>> -
->>>>> -    if (!msm_dp_display->msm_dp_mode.bpp)
->>>>> -        msm_dp_display->msm_dp_mode.bpp = 24; /* Default bpp */
->>>>> -
->>>>> -    drm_mode_copy(&msm_dp_display->msm_dp_mode.drm_mode, 
->>>>> adjusted_mode);
->>>>> -
->>>>> -    msm_dp_display->msm_dp_mode.v_active_low =
->>>>> -        !!(msm_dp_display->msm_dp_mode.drm_mode.flags & 
->>>>> DRM_MODE_FLAG_NVSYNC);
->>>>> -
->>>>> -    msm_dp_display->msm_dp_mode.h_active_low =
->>>>> -        !!(msm_dp_display->msm_dp_mode.drm_mode.flags & 
->>>>> DRM_MODE_FLAG_NHSYNC);
->>>>> -
->>>>> -    msm_dp_display->msm_dp_mode.out_fmt_is_yuv_420 =
->>>>> -        drm_mode_is_420_only(&dp->connector->display_info, 
->>>>> adjusted_mode) &&
->>>>> -        msm_dp_panel->vsc_sdp_supported;
->>>>> +    msm_dp_display_set_mode(dp, adjusted_mode, msm_dp_panel);
->>>>>        /* populate wide_bus_support to different layers */
->>>>> -    msm_dp_display->ctrl->wide_bus_en =
->>>>> -        msm_dp_display->msm_dp_mode.out_fmt_is_yuv_420 ? false : 
->>>>> msm_dp_display->wide_bus_supported;
->>>>> -    msm_dp_display->catalog->wide_bus_en =
->>>>> -        msm_dp_display->msm_dp_mode.out_fmt_is_yuv_420 ? false : 
->>>>> msm_dp_display->wide_bus_supported;
->>>>> +    msm_dp_display->ctrl->wide_bus_en = msm_dp_panel- 
->>>>> >msm_dp_mode.out_fmt_is_yuv_420 ?
->>>>> +        false : msm_dp_display->wide_bus_supported;
->>>>> +    msm_dp_display->catalog->wide_bus_en = msm_dp_panel- 
->>>>> >msm_dp_mode.out_fmt_is_yuv_420 ?
->>>>> +        false : msm_dp_display->wide_bus_supported;
->>>>>    }
->>>>>    void msm_dp_bridge_hpd_enable(struct drm_bridge *bridge)
->>>>>
->>>>> -- 
->>>>> 2.34.1
->>>>>
->>>>
->>>
->>
-> 
-
-
--- 
-With best wishes
-Dmitry
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/drm_gpuvm.c | 126 ++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_gpuvm.h     |   8 +++
+>  2 files changed, 134 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+> index 0ca717130541..a811471b888e 100644
+> --- a/drivers/gpu/drm/drm_gpuvm.c
+> +++ b/drivers/gpu/drm/drm_gpuvm.c
+> @@ -2390,6 +2390,132 @@ drm_gpuvm_sm_unmap(struct drm_gpuvm *gpuvm, void =
+*priv,
+>  }
+>  EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap);
+>
+> +static int
+> +drm_gpuva_sm_step_lock(struct drm_gpuva_op *op, void *priv)
+> +{
+> +       struct drm_exec *exec =3D priv;
+> +
+> +       switch (op->op) {
+> +       case DRM_GPUVA_OP_REMAP:
+> +               if (op->remap.unmap->va->gem.obj)
+> +                       return drm_exec_lock_obj(exec, op->remap.unmap->v=
+a->gem.obj);
+> +               return 0;
+> +       case DRM_GPUVA_OP_UNMAP:
+> +               if (op->unmap.va->gem.obj)
+> +                       return drm_exec_lock_obj(exec, op->unmap.va->gem.=
+obj);
+> +               return 0;
+> +       default:
+> +               return 0;
+> +       }
+> +}
+> +
+> +static const struct drm_gpuvm_ops lock_ops =3D {
+> +       .sm_step_map =3D drm_gpuva_sm_step_lock,
+> +       .sm_step_remap =3D drm_gpuva_sm_step_lock,
+> +       .sm_step_unmap =3D drm_gpuva_sm_step_lock,
+> +};
+> +
+> +/**
+> + * drm_gpuvm_sm_map_exec_lock() - locks the objects touched by a drm_gpu=
+vm_sm_map()
+> + * @gpuvm: the &drm_gpuvm representing the GPU VA space
+> + * @exec: the &drm_exec locking context
+> + * @num_fences: for newly mapped objects, the # of fences to reserve
+> + * @req_addr: the start address of the range to unmap
+> + * @req_range: the range of the mappings to unmap
+> + * @req_obj: the &drm_gem_object to map
+> + * @req_offset: the offset within the &drm_gem_object
+> + *
+> + * This function locks (drm_exec_lock_obj()) objects that will be unmapp=
+ed/
+> + * remapped, and locks+prepares (drm_exec_prepare_object()) objects that
+> + * will be newly mapped.
+> + *
+> + * The expected usage is:
+> + *
+> + *    vm_bind {
+> + *        struct drm_exec exec;
+> + *
+> + *        // IGNORE_DUPLICATES is required, INTERRUPTIBLE_WAIT is recomm=
+ended:
+> + *        drm_exec_init(&exec, IGNORE_DUPLICATES | INTERRUPTIBLE_WAIT, 0=
+);
+> + *
+> + *        drm_exec_until_all_locked (&exec) {
+> + *            for_each_vm_bind_operation {
+> + *                switch (op->op) {
+> + *                case DRIVER_OP_UNMAP:
+> + *                    ret =3D drm_gpuvm_sm_unmap_exec_lock(gpuvm, &exec,=
+ op->addr, op->range);
+> + *                    break;
+> + *                case DRIVER_OP_MAP:
+> + *                    ret =3D drm_gpuvm_sm_map_exec_lock(gpuvm, &exec, n=
+um_fences,
+> + *                                                     op->addr, op->ran=
+ge,
+> + *                                                     obj, op->obj_offs=
+et);
+> + *                    break;
+> + *                }
+> + *
+> + *                drm_exec_retry_on_contention(&exec);
+> + *                if (ret)
+> + *                    return ret;
+> + *            }
+> + *        }
+> + *    }
+> + *
+> + * This enables all locking to be performed before the driver begins mod=
+ifying
+> + * the VM.  This is safe to do in the case of overlapping DRIVER_VM_BIND=
+_OPs,
+> + * where an earlier op can alter the sequence of steps generated for a l=
+ater
+> + * op, because the later altered step will involve the same GEM object(s=
+)
+> + * already seen in the earlier locking step.  For example:
+> + *
+> + * 1) An earlier driver DRIVER_OP_UNMAP op removes the need for a
+> + *    DRM_GPUVA_OP_REMAP/UNMAP step.  This is safe because we've already
+> + *    locked the GEM object in the earlier DRIVER_OP_UNMAP op.
+> + *
+> + * 2) An earlier DRIVER_OP_MAP op overlaps with a later DRIVER_OP_MAP/UN=
+MAP
+> + *    op, introducing a DRM_GPUVA_OP_REMAP/UNMAP that wouldn't have been
+> + *    required without the earlier DRIVER_OP_MAP.  This is safe because =
+we've
+> + *    already locked the GEM object in the earlier DRIVER_OP_MAP step.
+> + *
+> + * Returns: 0 on success or a negative error codec
+> + */
+> +int
+> +drm_gpuvm_sm_map_exec_lock(struct drm_gpuvm *gpuvm,
+> +                          struct drm_exec *exec, unsigned int num_fences=
+,
+> +                          u64 req_addr, u64 req_range,
+> +                          struct drm_gem_object *req_obj, u64 req_offset=
+)
+> +{
+> +       if (req_obj) {
+> +               int ret =3D drm_exec_prepare_obj(exec, req_obj, num_fence=
+s);
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+> +       return __drm_gpuvm_sm_map(gpuvm, &lock_ops, exec,
+> +                                 req_addr, req_range,
+> +                                 req_obj, req_offset);
+> +
+> +}
+> +EXPORT_SYMBOL_GPL(drm_gpuvm_sm_map_exec_lock);
+> +
+> +/**
+> + * drm_gpuvm_sm_unmap_exec_lock() - locks the objects touched by drm_gpu=
+vm_sm_unmap()
+> + * @gpuvm: the &drm_gpuvm representing the GPU VA space
+> + * @exec: the &drm_exec locking context
+> + * @req_addr: the start address of the range to unmap
+> + * @req_range: the range of the mappings to unmap
+> + *
+> + * This function locks (drm_exec_lock_obj()) objects that will be unmapp=
+ed/
+> + * remapped by drm_gpuvm_sm_unmap().
+> + *
+> + * See drm_gpuvm_sm_map_exec_lock() for expected usage.
+> + *
+> + * Returns: 0 on success or a negative error code
+> + */
+> +int
+> +drm_gpuvm_sm_unmap_exec_lock(struct drm_gpuvm *gpuvm, struct drm_exec *e=
+xec,
+> +                            u64 req_addr, u64 req_range)
+> +{
+> +       return __drm_gpuvm_sm_unmap(gpuvm, &lock_ops, exec,
+> +                                   req_addr, req_range);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap_exec_lock);
+> +
+>  static struct drm_gpuva_op *
+>  gpuva_op_alloc(struct drm_gpuvm *gpuvm)
+>  {
+> diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
+> index 2a9629377633..274532facfd6 100644
+> --- a/include/drm/drm_gpuvm.h
+> +++ b/include/drm/drm_gpuvm.h
+> @@ -1211,6 +1211,14 @@ int drm_gpuvm_sm_map(struct drm_gpuvm *gpuvm, void=
+ *priv,
+>  int drm_gpuvm_sm_unmap(struct drm_gpuvm *gpuvm, void *priv,
+>                        u64 addr, u64 range);
+>
+> +int drm_gpuvm_sm_map_exec_lock(struct drm_gpuvm *gpuvm,
+> +                         struct drm_exec *exec, unsigned int num_fences,
+> +                         u64 req_addr, u64 req_range,
+> +                         struct drm_gem_object *obj, u64 offset);
+> +
+> +int drm_gpuvm_sm_unmap_exec_lock(struct drm_gpuvm *gpuvm, struct drm_exe=
+c *exec,
+> +                                u64 req_addr, u64 req_range);
+> +
+>  void drm_gpuva_map(struct drm_gpuvm *gpuvm,
+>                    struct drm_gpuva *va,
+>                    struct drm_gpuva_op_map *op);
+> --
+> 2.49.0
+>
