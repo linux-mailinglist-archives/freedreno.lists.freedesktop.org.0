@@ -2,50 +2,125 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D6E0AEB7AE
-	for <lists+freedreno@lfdr.de>; Fri, 27 Jun 2025 14:29:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B1EDAEB7E8
+	for <lists+freedreno@lfdr.de>; Fri, 27 Jun 2025 14:40:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 889EA10E9E8;
-	Fri, 27 Jun 2025 12:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 094BA10E9FF;
+	Fri, 27 Jun 2025 12:40:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ArVd+/YJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PnXVXbvL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 917 seconds by postgrey-1.36 at gabe;
- Fri, 27 Jun 2025 02:32:18 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3FFA410E310;
- Fri, 27 Jun 2025 02:32:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=tc
- /BQSujfSpTkh1XCLZ71AAIXQedB9w+B7U5bWFPNho=; b=ArVd+/YJjqOEl66hJG
- eLqr/NhAjPpoMnBVbPy7zUY/D2/tgh9Rqy0NZ/Ay5INPWCn0b5GFR/2819UYOXls
- M9xtp6ZYb0qWku2buk8ocLTfrdIx/Ap6IIgc+Pp4ckf5XmXPs+bMzJXPmwvX5LvU
- P7LsG8zERshCtfvqRcSLT6tdc=
-Received: from 163.com (unknown [])
- by gzsmtp1 (Coremail) with SMTP id PCgvCgCH50IR_11oSw1RAQ--.45226S2;
- Fri, 27 Jun 2025 10:16:51 +0800 (CST)
-From: Yuan Chen <chenyuan_fl@163.com>
-To: robdclark@gmail.com,
-	quic_abhinavk@quicinc.com
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- chenyuan_fl@163.com, Yuan Chen <chenyuan@kylinos.cn>
-Subject: [PATCH] drm/msm: Add error handling for krealloc in metadata setup
-Date: Fri, 27 Jun 2025 10:16:43 +0800
-Message-Id: <20250627021643.58426-1-chenyuan_fl@163.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D38810EA03
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 12:40:52 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55RCBCMD009538
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 12:40:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ iHlNGw65/NyPXrUrl04t6D1qYWyjgSpHMuXvzrQ6OaI=; b=PnXVXbvL9qq9IFjQ
+ oM2ccLOCXSvwoBWg4NKNTOJsWpiMAnmuVMtPr6wzg7dE/7EgyLHMRIFouu0qSkmM
+ y2LAvEGMKTaHjdM4Ll6o/3Y3+6K9T+5XNVUzbnBpz059R+OT4wRihnOcvEtUCOLv
+ Rz3ULETE2Wrd0z4tgsOnaL5CgDpCZjaugaDP5v7k5G/AA9HzNdQQp00Emwsj2Dhx
+ XebTfMka6XTFBPxgrrfh7l5tVbxYKNRz2MQ+4Msree68f9tGRSMSJseFcWUgbbGH
+ OzW/pmSB5Q4O4hvoMMhhbZzbTmOxrkBKhL+oGmP4Zl/1dxU9DVAb324l1h8OpxV4
+ LsU3dQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47f4b46rva-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 12:40:51 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7d446ce0548so81333685a.3
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 05:40:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751028050; x=1751632850;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=iHlNGw65/NyPXrUrl04t6D1qYWyjgSpHMuXvzrQ6OaI=;
+ b=p1jFTAoDf+YgYzMGapjAm/zJ7kTPDH2t6WI60LOk9u9xIDhGi9kK2W9BGWc19Zb5E3
+ d6m816ze0hwOr4234jJvKm+OEb+P/NJcSTY/XJ+upenKHuG49UuikWAiIySWLx4S28gC
+ WE0G5BxFnvIZHvzVAPLkFpzS9xsEJ5hz70PXX91DExKvNC0scwggTM1v9jPIGXg+WBbB
+ x30u7FJ5mBzSpijRmwgcdBYTToe+RdVdPqAVeR2Fpw2f64MJy66rNNUooXs4xws57/Vu
+ TPsWe27qVdVkfdNepaoniVDJ+S4Ci+MwnlkashVWx/Ck/6U5Iwm7+BnDI91eSsGNLcvh
+ qy0g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU412XcsIaXvJNzsYUmIGHhPQA80gfMUw5Fv/C2DviF962c1Th6l+lWNPSRb3jeTHcsm9sHCVXXmDk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxumMgCZaq9jcxbDFBLqKlIwqHBmj0J6T3vuLgDsTtC3Adwtx3Y
+ HqBGhKIkiKJf1Bmtfc/h/MSaWTu+8CRlQkv8InjldN1T+vKRzQtOVjYONQZTNS25j2peJmklU9I
+ XhmLbZ8hGrBM+MyTGt4B5dhr/LQ6ve+hsJrfR4m2tpEQ/J0A8rwri3UyIxbOyLZZ1o6IeFVg=
+X-Gm-Gg: ASbGncs3xStQrFK649BGJZIZ/n6qrrxZYphIrX/0e7aTsbJ9IBZTqFSLbjvJR9jszlk
+ rlpbP/BbwZf1vzj9TqJlNsJJh3SSsaAp5Fl4vlBEmmNmjiXeBvG3uhvoAP8hje61dN+EfUv1ozT
+ xl93cVELx9bxWe5BAG8bUoDqZoEENwrSN4EdtVB+WX+wfLiSUNxF3NpmFeLBol/GHRxjE5SRTM5
+ v04+SdeVh2JxK2R3FLseAD5lxqVseBTOQmdN1QkGRAM4Hu4L9BDHnyDWmU+Wio6ujil9eqkmaQf
+ +u9ppCTkhwQ40pU58TUprqxMBFzoovKgpgziPSxzCbkRFu0y4hfIALUaoyRuULz1nRoRdT6N
+X-Received: by 2002:a05:620a:4492:b0:7c9:3085:f848 with SMTP id
+ af79cd13be357-7d443944496mr405476585a.13.1751028050339; 
+ Fri, 27 Jun 2025 05:40:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFGYrhNi8hnOY1cH9dyXDnGqvZDsqwNKN/AW+njjW6jkmrRMGgW9N8CNDZRf1v02A+GskMFFg==
+X-Received: by 2002:a05:620a:4492:b0:7c9:3085:f848 with SMTP id
+ af79cd13be357-7d443944496mr405472085a.13.1751028049780; 
+ Fri, 27 Jun 2025 05:40:49 -0700 (PDT)
+Received: from [10.185.26.70] (37-33-181-83.bb.dnainternet.fi. [37.33.181.83])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5550b255a51sm441777e87.88.2025.06.27.05.40.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Jun 2025 05:40:48 -0700 (PDT)
+Message-ID: <521402f9-06c7-4d49-b78a-080b06378fd8@oss.qualcomm.com>
+Date: Fri, 27 Jun 2025 15:40:53 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/38] drm/msm/dp: split msm_dp_panel_read_sink_caps()
+ into two parts and drop panel drm_edid
+To: Yongxing Mou <quic_yongmou@quicinc.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
+ <20250609-msm-dp-mst-v2-1-a54d8902a23d@quicinc.com>
+ <g6wqvbszbrw6gnvxz7cjmhx4rc53kyulcr5wjekfjaisontikl@723odzngtlnd>
+ <326bbd02-f414-48e3-a396-4b94f19054f7@quicinc.com>
+ <buvgxzf5u5wkj2nxd6rquvcktjmxoclwrkkmxeih6pnikubqe3@yoytvnayvxtv>
+ <014d535e-ca9c-4707-9ff4-7afdd489b780@quicinc.com>
+Content-Language: en-US
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+In-Reply-To: <014d535e-ca9c-4707-9ff4-7afdd489b780@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PCgvCgCH50IR_11oSw1RAQ--.45226S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CrWxWrW7CFWftr18AF43ZFb_yoW8JFy8pF
- W7Gr1SqrWqvwnrWw47Aa1fCFy5G3W8Ww45CrZFvw17Zw18KF1UXFWqyw40yFy2vFy8J3Z2
- van2kFyfXr1qyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEWE_ZUUUUU=
-X-Originating-IP: [116.128.244.171]
-X-CM-SenderInfo: xfkh05pxdqswro6rljoofrz/1tbiNxB4vWhc+8Rt6wABsu
-X-Mailman-Approved-At: Fri, 27 Jun 2025 12:28:57 +0000
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI3MDEwNSBTYWx0ZWRfX0OD3Q+kLm7rG
+ /0AlpPnbWax71cGS8Hlr4dNt9OPfTRtgHL1tefJHQ6m2441DhAgPwicXOVglX+esRCaWi3v3EvF
+ 3SdQGkvyxa2LM6W5Yxq2neNEQzWVAMqweiv7d6LTkwVosLpMRDSJ6lp94bFITreiaL2fYsw9cVc
+ gWbGoA08/8ZcB2V9n3Cf1AXgZUw80YtHO9XsHpKX3yvTSQpRYzEdx3uJuki3cY9+3aop0Zstadg
+ fBMRqTxERPfhuG6x8R5u1jeQzr5ROLyH+fc4pAdiQEqabzZ6IkOfBdSXAC7lhWFhcw67vFcAmB3
+ a0FzRUY8vb50ql7eIy2Wl7IVtDI8YML/YXVIn14pnf0DV2nYJhd6TAAcZJ5AuCXBupQeQ362/VW
+ yqZ7HwkoYlxxbxkyv1xa/veRLU9t6DzwvNtG3HW/szW5s/yfeuDqMMjdDwL2LWyw5ZHfDTI8
+X-Proofpoint-ORIG-GUID: JsyAHwiYqlvMcWt6Mat9T-YinSCemP4g
+X-Proofpoint-GUID: JsyAHwiYqlvMcWt6Mat9T-YinSCemP4g
+X-Authority-Analysis: v=2.4 cv=A8BsP7WG c=1 sm=1 tr=0 ts=685e9153 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=a09MB1VsJqAZHPW3esczKA==:17
+ a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8
+ a=II6myPHIT8NnAhXeErMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
+ definitions=2025-06-27_04,2025-06-26_05,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 mlxlogscore=999 malwarescore=0 spamscore=0 bulkscore=0
+ phishscore=0 adultscore=0 impostorscore=0 suspectscore=0 mlxscore=0
+ clxscore=1015 priorityscore=1501 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2506270105
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,45 +136,232 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Yuan Chen <chenyuan@kylinos.cn>
+On 27/06/2025 10:49, Yongxing Mou wrote:
+> 
+> 
+> On 2025/6/25 21:32, Dmitry Baryshkov wrote:
+>> On Wed, Jun 25, 2025 at 04:43:55PM +0800, Yongxing Mou wrote:
+>>>
+>>>
+>>> On 2025/6/9 20:41, Dmitry Baryshkov wrote:
+>>>> On Mon, Jun 09, 2025 at 08:21:20PM +0800, Yongxing Mou wrote:
+>>>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>>>
+>>>>> In preparation of DP MST where link caps are read for the
+>>>>> immediate downstream device and the edid is read through
+>>>>
+>>>> EDID, not edid. Please review all your patches for up/down case.
+>>>>
+>>> Got it. Thanks~
+>>>>> sideband messaging, split the msm_dp_panel_read_sink_caps() into
+>>>>> two parts which read the link parameters and the edid parts
+>>>>> respectively. Also drop the panel drm_edid cached as we actually
+>>>>> don't need it.
+>>>>
+>>>> Also => separate change.
+>>>>
+>>> Got it.
+>>>>>
+>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>>> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+>>>>> ---
+>>>>>    drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++----
+>>>>>    drivers/gpu/drm/msm/dp/dp_panel.c   | 55 +++++++++++++++++++ 
+>>>>> +-----------------
+>>>>>    drivers/gpu/drm/msm/dp/dp_panel.h   |  6 ++--
+>>>>>    3 files changed, 40 insertions(+), 34 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/ 
+>>>>> msm/dp/dp_display.c
+>>>>> index 
+>>>>> 6f05a939ce9e648e9601597155999b6f85adfcff..4a9b65647cdef1ed6c3bb851f93df0db8be977af 100644
+>>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>>> @@ -389,7 +389,11 @@ static int 
+>>>>> msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+>>>>>        dp->link->lttpr_count = msm_dp_display_lttpr_init(dp, dpcd);
+>>>>> -    rc = msm_dp_panel_read_sink_caps(dp->panel, connector);
+>>>>> +    rc = msm_dp_panel_read_link_caps(dp->panel);
+>>>>> +    if (rc)
+>>>>> +        goto end;
+>>>>> +
+>>>>> +    rc = msm_dp_panel_read_edid(dp->panel, connector);
+>>>>>        if (rc)
+>>>>>            goto end;
+>>>>> @@ -720,7 +724,6 @@ static int msm_dp_irq_hpd_handle(struct 
+>>>>> msm_dp_display_private *dp, u32 data)
+>>>>>    static void msm_dp_display_deinit_sub_modules(struct 
+>>>>> msm_dp_display_private *dp)
+>>>>>    {
+>>>>>        msm_dp_audio_put(dp->audio);
+>>>>> -    msm_dp_panel_put(dp->panel);
+>>>>>        msm_dp_aux_put(dp->aux);
+>>>>>    }
+>>>>> @@ -783,7 +786,7 @@ static int msm_dp_init_sub_modules(struct 
+>>>>> msm_dp_display_private *dp)
+>>>>>            rc = PTR_ERR(dp->ctrl);
+>>>>>            DRM_ERROR("failed to initialize ctrl, rc = %d\n", rc);
+>>>>>            dp->ctrl = NULL;
+>>>>> -        goto error_ctrl;
+>>>>> +        goto error_link;
+>>>>>        }
+>>>>>        dp->audio = msm_dp_audio_get(dp->msm_dp_display.pdev, dp- 
+>>>>> >catalog);
+>>>>> @@ -791,13 +794,11 @@ static int msm_dp_init_sub_modules(struct 
+>>>>> msm_dp_display_private *dp)
+>>>>>            rc = PTR_ERR(dp->audio);
+>>>>>            pr_err("failed to initialize audio, rc = %d\n", rc);
+>>>>>            dp->audio = NULL;
+>>>>> -        goto error_ctrl;
+>>>>> +        goto error_link;
+>>>>>        }
+>>>>>        return rc;
+>>>>> -error_ctrl:
+>>>>> -    msm_dp_panel_put(dp->panel);
+>>>>>    error_link:
+>>>>>        msm_dp_aux_put(dp->aux);
+>>>>>    error:
+>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/ 
+>>>>> msm/dp/dp_panel.c
+>>>>> index 
+>>>>> 4e8ab75c771b1e3a2d62f75e9993e1062118482b..d9041e235104a74b3cc50ff2e307eae0c4301ef3 100644
+>>>>> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>> @@ -118,14 +118,13 @@ static u32 
+>>>>> msm_dp_panel_get_supported_bpp(struct msm_dp_panel *msm_dp_panel,
+>>>>>        return min_supported_bpp;
+>>>>>    }
+>>>>> -int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
+>>>>> -    struct drm_connector *connector)
+>>>>> +int msm_dp_panel_read_link_caps(struct msm_dp_panel *msm_dp_panel)
+>>>>>    {
+>>>>>        int rc, bw_code;
+>>>>>        int count;
+>>>>>        struct msm_dp_panel_private *panel;
+>>>>> -    if (!msm_dp_panel || !connector) {
+>>>>> +    if (!msm_dp_panel) {
+>>>>>            DRM_ERROR("invalid input\n");
+>>>>>            return -EINVAL;
+>>>>>        }
+>>>>> @@ -160,26 +159,29 @@ int msm_dp_panel_read_sink_caps(struct 
+>>>>> msm_dp_panel *msm_dp_panel,
+>>>>>        rc = drm_dp_read_downstream_info(panel->aux, msm_dp_panel- 
+>>>>> >dpcd,
+>>>>>                         msm_dp_panel->downstream_ports);
+>>>>> -    if (rc)
+>>>>> -        return rc;
+>>>>> +    return rc;
+>>>>> +}
+>>>>> -    drm_edid_free(msm_dp_panel->drm_edid);
+>>>>> +int msm_dp_panel_read_edid(struct msm_dp_panel *msm_dp_panel, 
+>>>>> struct drm_connector *connector)
+>>>>> +{
+>>>>> +    struct msm_dp_panel_private *panel;
+>>>>> +    const struct drm_edid *drm_edid;
+>>>>> +
+>>>>> +    panel = container_of(msm_dp_panel, struct 
+>>>>> msm_dp_panel_private, msm_dp_panel);
+>>>>> -    msm_dp_panel->drm_edid = drm_edid_read_ddc(connector, &panel- 
+>>>>> >aux->ddc);
+>>>>> +    drm_edid = drm_edid_read_ddc(connector, &panel->aux->ddc);
+>>>>> -    drm_edid_connector_update(connector, msm_dp_panel->drm_edid);
+>>>>> +    drm_edid_connector_update(connector, drm_edid);
+>>>>> -    if (!msm_dp_panel->drm_edid) {
+>>>>> +    if (!drm_edid) {
+>>>>>            DRM_ERROR("panel edid read failed\n");
+>>>>>            /* check edid read fail is due to unplug */
+>>>>>            if (!msm_dp_catalog_link_is_connected(panel->catalog)) {
+>>>>> -            rc = -ETIMEDOUT;
+>>>>> -            goto end;
+>>>>> +            return -ETIMEDOUT;
+>>>>>            }
+>>>>>        }
+>>>>> -end:
+>>>>> -    return rc;
+>>>>> +    return 0;
+>>>>>    }
+>>>>>    u32 msm_dp_panel_get_mode_bpp(struct msm_dp_panel *msm_dp_panel,
+>>>>> @@ -208,15 +210,20 @@ u32 msm_dp_panel_get_mode_bpp(struct 
+>>>>> msm_dp_panel *msm_dp_panel,
+>>>>>    int msm_dp_panel_get_modes(struct msm_dp_panel *msm_dp_panel,
+>>>>>        struct drm_connector *connector)
+>>>>>    {
+>>>>> +    struct msm_dp_panel_private *panel;
+>>>>> +    const struct drm_edid *drm_edid;
+>>>>> +
+>>>>>        if (!msm_dp_panel) {
+>>>>>            DRM_ERROR("invalid input\n");
+>>>>>            return -EINVAL;
+>>>>>        }
+>>>>> -    if (msm_dp_panel->drm_edid)
+>>>>> -        return drm_edid_connector_add_modes(connector);
+>>>>> +    panel = container_of(msm_dp_panel, struct 
+>>>>> msm_dp_panel_private, msm_dp_panel);
+>>>>> +
+>>>>> +    drm_edid = drm_edid_read_ddc(connector, &panel->aux->ddc);
+>>>>> +    drm_edid_connector_update(connector, drm_edid);
+>>>>
+>>>> If EDID has been read and processed after HPD high event, why do we 
+>>>> need
+>>>> to re-read it again? Are we expecting that EDID will change?
+>>>>
+>>> Here we indeed don't need to read the EDID again, so we can directly 
+>>> call
+>>> drm_edid_connector_add_modes. Thanks.
+>>>>> -    return 0;
+>>>>> +    return drm_edid_connector_add_modes(connector);
+>>>>>    }
+>>>>>    static u8 msm_dp_panel_get_edid_checksum(const struct edid *edid)
+>>>>> @@ -229,6 +236,7 @@ static u8 msm_dp_panel_get_edid_checksum(const 
+>>>>> struct edid *edid)
+>>>>>    void msm_dp_panel_handle_sink_request(struct msm_dp_panel 
+>>>>> *msm_dp_panel)
+>>>>>    {
+>>>>>        struct msm_dp_panel_private *panel;
+>>>>> +    const struct drm_edid *drm_edid;
+>>>>>        if (!msm_dp_panel) {
+>>>>>            DRM_ERROR("invalid input\n");
+>>>>> @@ -238,8 +246,13 @@ void msm_dp_panel_handle_sink_request(struct 
+>>>>> msm_dp_panel *msm_dp_panel)
+>>>>>        panel = container_of(msm_dp_panel, struct 
+>>>>> msm_dp_panel_private, msm_dp_panel);
+>>>>>        if (panel->link->sink_request & DP_TEST_LINK_EDID_READ) {
+>>>>> +        drm_edid = drm_edid_read_ddc(msm_dp_panel->connector, 
+>>>>> &panel->aux->ddc);
+>>>>
+>>>> And again....
+>>>>
+>>> Here we need the struct edid,since we drop the cached drm_edid, so we 
+>>> need
+>>> to read it again. Or we can return the drm_edid from 
+>>> msm_dp_panel_read_edid
+>>> and pass it to msm_dp_panel_handle_sink_request, then we don't need 
+>>> to read
+>>> drm_edid here. Emm, I'm still a bit curious why we can't cache the 
+>>> drm_edid?
+>>> It would help us to access it when needed. Emm, i see other drivers also
+>>> cache it.
+>>
+>> Yes, they can cache EDID. However, in this case we don't even need it at
+>> all. This piece needs to be rewritten to use
+>> drm_dp_send_real_edid_checksum(), connector->real_edid_checksum.
+>>
+>> Corresponding changes can be submitted separately.
+>>
+> Got it, thanks, will separate this patch from MST patches..  Even if we 
+> use drm_dp_send_real_edid_checksum to send connector- 
+>  >real_edid_checksum, that’s only when the EDID state is incorrect.
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/ 
+> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c?h=v6.16-rc3#n1020
+>   When the EDID is read correctly, it should send edid->checksum instead.
 
-Function msm_ioctl_gem_info_set_metadata() now checks for krealloc
-failure and returns -ENOMEM, avoiding potential NULL pointer dereference.
-Explicitly avoids __GFP_NOFAIL due to deadlock risks and allocation constraints.
+I wonder if we should fix the drm_edid to always set real_edid_checksum 
+instead.
 
-Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
----
- drivers/gpu/drm/msm/msm_drv.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+>>
+> 
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index f316e6776f67..993502a86d0a 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -551,6 +551,7 @@ static int msm_ioctl_gem_info_set_metadata(struct drm_gem_object *obj,
- 					   u32 metadata_size)
- {
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+	void *new_metadata;
- 	void *buf;
- 	int ret;
- 
-@@ -568,8 +569,14 @@ static int msm_ioctl_gem_info_set_metadata(struct drm_gem_object *obj,
- 	if (ret)
- 		goto out;
- 
--	msm_obj->metadata =
-+	new_metadata =
- 		krealloc(msm_obj->metadata, metadata_size, GFP_KERNEL);
-+	if (!new_metadata) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
-+
-+	msm_obj->metadata = new_metadata;
- 	msm_obj->metadata_size = metadata_size;
- 	memcpy(msm_obj->metadata, buf, metadata_size);
- 
+
 -- 
-2.25.1
-
+With best wishes
+Dmitry
