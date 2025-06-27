@@ -2,110 +2,125 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85690AEB869
-	for <lists+freedreno@lfdr.de>; Fri, 27 Jun 2025 15:05:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C36E1AEB917
+	for <lists+freedreno@lfdr.de>; Fri, 27 Jun 2025 15:38:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24B1B10EA1A;
-	Fri, 27 Jun 2025 13:05:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 981A810EA42;
+	Fri, 27 Jun 2025 13:38:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OYCxvv9e";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cQj35XqU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA76810EA1D
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:05:12 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55RBNrYG027982
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:05:12 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D849F10EA41
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:38:02 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55RBr7Rb001063
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:38:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=Mj2LcX/wfNnzEoznRxiF/Vekbx0t7G9NztY2MpuYpkg=; b=OY
- Cxvv9eu2hCpM9YnTikkajsDO+FaI9akcFuAfXIvxWEFJDNzCR4Ul/mSfhTWiYwxV
- LqXRR+cbclMuxspdmsjN5rCT4kQgnE/Nl67X8xrBLC5fGAeeYprUvXbtV9/fnsg6
- fMmteFZmwrOxJVFP8AOMbdx/kZ7l3M9uwKcFeYEthR1aebbXIh9RNqHvpvtHWtrR
- qJ8GIsS0FdcCdYXXDqFcgT/Zfu1DUKW/5Z5kCILsudHk6lmRmx9/IuMKGlJ3uF33
- n/ckbR2o5Or/CgNz86mOyqsVmXrvP1sd5eVctTpRV69tLxaPDHAXxX9IddsVIC/T
- sYfeib+RNsYh2M3S4x6Q==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
- [209.85.161.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ec26ha8t-1
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 2QtnvQnfluWMwHt5pv65ScEV4CUxIy5BoKzB2wk7FAQ=; b=cQj35XqUQK8xtpDy
+ I8pHTQeVJQY2Vx2y2VgUuIR+nA1JnYfaqf++o1KIYpBKe2DvPMXETHXKC4s0LwOj
+ q8ak1N7/MYobBNDuH2WZRB859JJ1+GXlxbPbRUSrmPGwWlkwlzPZNuqMfd4X3lNR
+ NTw807OvA43MQoyXGbB2+KuubA3Hn23g/swq3BQwWXaaeh3BY9twYoDEwFBID0Ry
+ kAU09bA3kPjGadbweSVR4WDvGRKtbNqc6MaWigcVbtsCvbk5CNJ4nDejZPDOPIva
+ kIK7jNukqxP0OqoBFnR1IchI1Qq6SXCMDVuNJSoR2POzCc7lhB6aDON3bxR2Kf+M
+ VQ89FQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47g7tdh0qu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:05:11 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id
- 006d021491bc7-6114cffd99cso2082915eaf.3
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 06:05:11 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 13:38:01 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7d15c975968so367882185a.2
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jun 2025 06:38:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751029511; x=1751634311;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Mj2LcX/wfNnzEoznRxiF/Vekbx0t7G9NztY2MpuYpkg=;
- b=iG1tAQ8xevSP6uguT1lH1Y4fITs/olSlNL/LYkjza0ryETlFM38XuvU7dn6RcJQ3EU
- 56W77NmBTd+ReEyERbpSJ8giKpVp2G+Nh5KWQw7vVMB6TJ+4OMwmgMeWc11g6OuMllgu
- QRS7kIHpHwJKujO32erpetviEOoXEYreDg97jl/9n3bgnPdq5LEj/l3mKdEJ7dMeuH91
- 9eJzblbdBtWej2d0PtnG+1WRTrlhFpKmLOPdfvTrDTKuYLXW3nez9RCrAIOfJ2XArduH
- rTH2ZnUcSZTxvgPrMMPFW2VU39IMMUj2noDuGiManRV6XpjFvqUL50TT/aSdzmCe7ibr
- sqNg==
+ d=1e100.net; s=20230601; t=1751031480; x=1751636280;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2QtnvQnfluWMwHt5pv65ScEV4CUxIy5BoKzB2wk7FAQ=;
+ b=nyfgdSvqthJd1Qjr4vdghDkz8y0h5TrMKPQsFQskLCiQoImpOYisfRONjFBNzA2ZUa
+ FPGDz9uzLCFtg4uz/mhdCuXPkRwdyKrATBbiVYqJWLSMBihZpzDqYjsz5EEyIPGszoO6
+ rvFEKByzPC9LiE/kRF6Uo64wd1wu77TolFJ8V6aIXL6cx2fXTrvtzvSymi3uTOV62n7B
+ IgaXDKgBwK3NJLg2clMyhqFLZIQAjW5iYPfDYp5KXST6LwjDNWxYjI9W6+Z0ENHQCLGc
+ xwwLlyREpz1xyPudzxBpOfIxvlBQIYRGliZkJaGJS+RFTHsmClLyC0BQKuLI5pZ8XBfM
+ iG5A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXYXla+1dTvQEt/AIEL1p1nSigoGJVIRwxuLlDRiiNnSnAbNmwYlCaz5xM5Ka4tLeeEBCF1Q+jV9xo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwzbLROUoxcP1o1EX2ou+6QgohH4rDagUc1MplHHqwTC67nDBSb
- 0kfZr1baiBo+4Yapck47SIUIO2T9zdyx6F9UatnfEePvUZPc/9kjSjX4BYvGtkxxrUun19af9+q
- NbbvdXh0rNaYMiPMiv9KJrkTWcOIF9wYzSAAbiM5PiyYzkaOv9ZK33QwFjYwuYgMh+90SQre8Ef
- JlPTSZomft3zeRll8ZYa++ZFwG/64ts9NcmXyJ7BaYUht5Jg==
-X-Gm-Gg: ASbGncsUFOLKdob0Yw0R2ZyQcRkZm6aWdywCIDTwjwM/F0X0KLMH7N6QLIOeHF+ay6h
- uEmHelyhKmQpdaiKd9BKMs9EeMIX1U8OsV5aajoxCy/h56EMhV/vptSi99RRhfN+KIkarAsZHla
- Ivq9pkYAEk90+A/5k0/wTuwO7kWzi7Mu5oXFw=
-X-Received: by 2002:a05:6870:178e:b0:2c2:3e24:9b54 with SMTP id
- 586e51a60fabf-2efed4b16bbmr1775191fac.11.1751029510786; 
- Fri, 27 Jun 2025 06:05:10 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IESX69QJe1uekZFWjeHdkSgJnjoP36VXXoHS+Nz/76pjCAnZNKmYaHKOmH3q6HBqH9fqrkTn18b791wGsOGMf8=
-X-Received: by 2002:a05:6870:178e:b0:2c2:3e24:9b54 with SMTP id
- 586e51a60fabf-2efed4b16bbmr1775160fac.11.1751029510306; Fri, 27 Jun 2025
- 06:05:10 -0700 (PDT)
+ AJvYcCXW6bOUwCyn48gl4Ro64+BdGGJpdKav4P/kUpj+3K3PBCO2Egv9qqPpeWZPtW+AsrM1XvyDUpcnLzc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwESco23d1jIMs6eBPJunI2hJ5THTrXDL2521wEIirr0h61hNUW
+ hpZhYTzM2PQXnKNFuma3XZ5cyWHKmcfT0LeekN1ENEV4v/jAy2A3YMXJRUU5DLWHtJbEopfYo6I
+ n4W2F+JMlhLemwyqvn5/0V5cbZu5zoi2T/gqjlUHmz+V35//Fjs6sOGGbACBo85bmwdmVgVs=
+X-Gm-Gg: ASbGncvS7MQ3rT95nm7KJaB9Bo8lPA2tccvDjDUdiwDp6AwmQiOR1L2YN0yu+cKJ+O1
+ ER0ukhsOAET1DRjPIH1MOd22/PV0aN3rRodsBF/qM278gqxtEd5exBbMWGW5aepCLdJncTe8ElY
+ xIJFTvJvrNiAnZugMsNR33JcAf4r3hOJd0jqAtNeiMrWe4fRwdU+s8eiHenMqdTcMqryQ+JJdt5
+ pKlWBt6tBlrC+wLelbP6HT37lOhWrhen4FxY4gffzx0iQTrteKavG3ZXPYYjGpjCr++WIiEJ8Og
+ xaFUjknh8z5yJUfzdvXkIlocl9lR2vUczQyn/CG3nA==
+X-Received: by 2002:a05:620a:1904:b0:7d3:907f:7544 with SMTP id
+ af79cd13be357-7d4439a6584mr493459585a.35.1751031480166; 
+ Fri, 27 Jun 2025 06:38:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGvL73yf4sU/gW3mguJ2q0llUda4VgDpvmnaVGMd6K090C/8Loa8JscxVRP4J8tuzbwVKrCvw==
+X-Received: by 2002:a05:620a:1904:b0:7d3:907f:7544 with SMTP id
+ af79cd13be357-7d4439a6584mr493455085a.35.1751031479671; 
+ Fri, 27 Jun 2025 06:37:59 -0700 (PDT)
+Received: from [10.92.240.160] ([212.136.9.4])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ae353c0100fsm125509766b.88.2025.06.27.06.37.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Jun 2025 06:37:58 -0700 (PDT)
+Message-ID: <6dcf88bc-0bdf-4965-b8af-b881a564d762@oss.qualcomm.com>
+Date: Fri, 27 Jun 2025 16:37:56 +0300
 MIME-Version: 1.0
-References: <20250620154537.89514-1-robin.clark@oss.qualcomm.com>
- <20250620154537.89514-3-robin.clark@oss.qualcomm.com>
-In-Reply-To: <20250620154537.89514-3-robin.clark@oss.qualcomm.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Fri, 27 Jun 2025 06:04:58 -0700
-X-Gm-Features: Ac12FXz4HuRCQCqIgAwuSyAn2p3FTUW3xCVysI5avKQdPvQayJzO9voPeQsIo4E
-Message-ID: <CACSVV03d-3J2SxSnm3oS2OG9LHEJzLKpmgWF=Cx8_Qgw3PZPVQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/gpuvm: Add locking helpers
-To: Danilo Krummrich <dakr@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/38] drm/msm/dp: remove dp_display's dp_mode and use
+ dp_panel's instead
+To: Yongxing Mou <quic_yongmou@quicinc.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI3MDEwNyBTYWx0ZWRfXyLFRMfE7s+Au
- 8c7gQkyI0Mt3begIcez6Z49K9dPfvT+/zQCmlgb0ViMGu8/AEr773ZG0cCD1w1cukeNaVwRFh2M
- sGomTUkKlVI2gg7wXtZl5es0dWMu0VdjDFmVCUreir+trTxiFWW/8J23az+RzSvMYVrlPntRwOt
- FWFQVkmBJM/FM1RllH47ic8IzqlZVH3aBuAiZe5vIfeLqlGfJfJ63ht9vv9EeORf/jdN/OO+4z/
- X7c8nfsSdefHzzRlzi5KyOuyL8qDRW9vlqEl+CqoPuKVNYeH3izvQOjDYYCFnIts0I1xGWcUYrI
- Mf6dgqu69h5wbhO4de9lCH9I1rXsUdTdM/nVvUQHGGvO7SGjHgNtNDKovpk9IgD8iNh07tMFAc2
- XYqhlC+k6Cuj2e+JJ2UNEj489I21c5Zn2FJ2dL4GhI5Zhy1jJ0nFdlTuM3eijn6ctoZrt5Vo
-X-Authority-Analysis: v=2.4 cv=XPQwSRhE c=1 sm=1 tr=0 ts=685e9708 cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10
- a=EUspDBNiAAAA:8 a=MIFqPDLa7Y6Tg69WKSUA:9 a=QEXdDO2ut3YA:10
- a=WZGXeFmKUf7gPmL3hEjn:22
-X-Proofpoint-GUID: YORUBP7sfTXyh9tItbcc6tJxyOAKo2DV
-X-Proofpoint-ORIG-GUID: YORUBP7sfTXyh9tItbcc6tJxyOAKo2DV
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
+ <20250609-msm-dp-mst-v2-2-a54d8902a23d@quicinc.com>
+ <kq6tb2wnte6v5z7uxgzc22kjwcevgvcdluzqbelvnbpbxlkotd@ltlv3u2guj4u>
+ <1be2238d-7bb2-4ef9-9c7c-81dab0dcb559@quicinc.com>
+ <4jrpa7iyygciuy2k4ydk7cpm5isdrddclljf6gbyvkiqc645tx@idyds4tkstkx>
+ <9358a017-81ed-4db7-8e35-955922287c76@quicinc.com>
+Content-Language: en-US
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+In-Reply-To: <9358a017-81ed-4db7-8e35-955922287c76@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=CPYqXQrD c=1 sm=1 tr=0 ts=685e9eb9 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8
+ a=QLF5U8kL1nvtC7vkCdQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI3MDExMyBTYWx0ZWRfXwYP+XrqlM8om
+ 9SolUqBvnGvt+vYVy/RZTwIbiCDU9Kc6VRXWXCx/8mEAW3iAtxZj537FdbA0kQrDqUME70tNzQg
+ Wf+jXQKF9W9fnFgBFVsGJow8kuXLS3ajqn/v1UiLvK8H+dyxWJQ6LJwHi+W3BCGIFS6hC0psFni
+ B126pK1uzBk6GStOgM2CpIH5MxwOvrs+Niv/l1m/TcJJypsZkmGCzoziQJPaCEnOgWAREtroUx2
+ nRXQiwqbsncOmvZGsnQgT5gnkiBxyP4+ZJHA1O8DdK+MZwuutjqeQAJbRJQ8Y1Ejp3MZmlSpuhg
+ DMjS5ESSjclOzr/Wuo0EMMzY8biudUXZz6rRSEZ7QDnGwvCFj3QzGvZKzfA3QxbGh+N07S1yNTH
+ akX703xfYQv5w6X+xKI9+ho7Rtgk2ubmTN0PhUmXp26hVZBI/yiFId8C2ZTrp8ZRtLrA/Gaj
+X-Proofpoint-GUID: u6SQ5dSOWls4WLx5tNjs2l4P4YMCSYGO
+X-Proofpoint-ORIG-GUID: u6SQ5dSOWls4WLx5tNjs2l4P4YMCSYGO
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-06-27_04,2025-06-26_05,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 clxscore=1015 suspectscore=0 mlxscore=0
- spamscore=0 phishscore=0 malwarescore=0 mlxlogscore=999 bulkscore=0
- priorityscore=1501 adultscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506270107
+ bulkscore=0 phishscore=0 mlxlogscore=999 lowpriorityscore=0 malwarescore=0
+ impostorscore=0 suspectscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ adultscore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2506270113
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,220 +133,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jun 20, 2025 at 8:45=E2=80=AFAM Rob Clark <robin.clark@oss.qualcomm=
-.com> wrote:
->
-> For UNMAP/REMAP steps we could be needing to lock objects that are not
-> explicitly listed in the VM_BIND ioctl in order to tear-down unmapped
-> VAs.  These helpers handle locking/preparing the needed objects.
->
-> Note that these functions do not strictly require the VM changes to be
-> applied before the next drm_gpuvm_sm_map_lock()/_unmap_lock() call.  In
-> the case that VM changes from an earlier drm_gpuvm_sm_map()/_unmap()
-> call result in a differing sequence of steps when the VM changes are
-> actually applied, it will be the same set of GEM objects involved, so
-> the locking is still correct.
->
-> v2: Rename to drm_gpuvm_sm_*_exec_locked() [Danilo]
-> v3: Expand comments to show expected usage, and explain how the usage
->     is safe in the case of overlapping driver VM_BIND ops.
+On 27/06/2025 11:40, Yongxing Mou wrote:
+> 
+> 
+> On 2025/6/25 22:03, Dmitry Baryshkov wrote:
+>> On Wed, Jun 25, 2025 at 08:34:18PM +0800, Yongxing Mou wrote:
+>>>
+>>>
+>>> On 2025/6/9 20:48, Dmitry Baryshkov wrote:
+>>>> On Mon, Jun 09, 2025 at 08:21:21PM +0800, Yongxing Mou wrote:
+>>>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>>>
 
-Danilo, did you have any remaining comments on this?
+>>> Originally, the drm_mode would be passed in
+>>> two stages: from msm_dp_display->msm_dp_mode to dp_panel- 
+>>> >msm_dp_mode. Since
+>>> in MST mode each stream requires its own drm_mode and stored in 
+>>> dp_panel, we
+>>> simplified the two-stage transfer into a single step (.mode_set() do all
+>>> things and store in msm_dp_panel). Meanwhile we modified the
+>>> msm_dp_display_set_mode function to accept a msm_dp_panel parameter,
+>>> allowing the MST bridge funcs' mode_set() to reuse this part code.
+>>>
+>>> The following patches:
+>>> https://patchwork.freedesktop.org/patch/657573/?series=142207&rev=2 and
+>>> https://patchwork.freedesktop.org/patch/657593/?series=142207&rev=2,
+>>> introduce msm_dp_display_*_helper functions to help reuse common code 
+>>> across
+>>> MST/SST/eDP drm_bridge_funcs.
+>>>
+>>> If we drop msm_dp_mode from dp_panel and use drm_display_mode, it might
+>>> introduce a large number of changes that are not directly related to 
+>>> MST.
+>>> Actually i think the presence of msm_dp_display_mode seems to 
+>>> simplify the
+>>> work in msm_dp_panel_timing_cfg(), this patch series we want to focus 
+>>> on MST
+>>> parts, so would we consider optimizing them later?
+>>
+>> Sure... But then you have to change two places. If you optimize it
+>> first, you have to touch only place. And it can be even submitted
+>> separately.
+>>
+> Understood, that’s indeed the case. I just want to prioritize the MST 
+> patch and have it merged first, since it involves changes to lots of 
+> files. Thanks~~
 
-BR,
--R
+I'm sorry, I hit enter too quickly. The MST will not be merged until we 
+get DP HPD rework in, that's a prerequisite from my side. So, while that 
+is getting sorted out, we can fix minor issues and perform minor 
+cleanups, like the checksums or drm_mode refactoring.
 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/drm_gpuvm.c | 126 ++++++++++++++++++++++++++++++++++++
->  include/drm/drm_gpuvm.h     |   8 +++
->  2 files changed, 134 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-> index 0ca717130541..a811471b888e 100644
-> --- a/drivers/gpu/drm/drm_gpuvm.c
-> +++ b/drivers/gpu/drm/drm_gpuvm.c
-> @@ -2390,6 +2390,132 @@ drm_gpuvm_sm_unmap(struct drm_gpuvm *gpuvm, void =
-*priv,
->  }
->  EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap);
->
-> +static int
-> +drm_gpuva_sm_step_lock(struct drm_gpuva_op *op, void *priv)
-> +{
-> +       struct drm_exec *exec =3D priv;
-> +
-> +       switch (op->op) {
-> +       case DRM_GPUVA_OP_REMAP:
-> +               if (op->remap.unmap->va->gem.obj)
-> +                       return drm_exec_lock_obj(exec, op->remap.unmap->v=
-a->gem.obj);
-> +               return 0;
-> +       case DRM_GPUVA_OP_UNMAP:
-> +               if (op->unmap.va->gem.obj)
-> +                       return drm_exec_lock_obj(exec, op->unmap.va->gem.=
-obj);
-> +               return 0;
-> +       default:
-> +               return 0;
-> +       }
-> +}
-> +
-> +static const struct drm_gpuvm_ops lock_ops =3D {
-> +       .sm_step_map =3D drm_gpuva_sm_step_lock,
-> +       .sm_step_remap =3D drm_gpuva_sm_step_lock,
-> +       .sm_step_unmap =3D drm_gpuva_sm_step_lock,
-> +};
-> +
-> +/**
-> + * drm_gpuvm_sm_map_exec_lock() - locks the objects touched by a drm_gpu=
-vm_sm_map()
-> + * @gpuvm: the &drm_gpuvm representing the GPU VA space
-> + * @exec: the &drm_exec locking context
-> + * @num_fences: for newly mapped objects, the # of fences to reserve
-> + * @req_addr: the start address of the range to unmap
-> + * @req_range: the range of the mappings to unmap
-> + * @req_obj: the &drm_gem_object to map
-> + * @req_offset: the offset within the &drm_gem_object
-> + *
-> + * This function locks (drm_exec_lock_obj()) objects that will be unmapp=
-ed/
-> + * remapped, and locks+prepares (drm_exec_prepare_object()) objects that
-> + * will be newly mapped.
-> + *
-> + * The expected usage is:
-> + *
-> + *    vm_bind {
-> + *        struct drm_exec exec;
-> + *
-> + *        // IGNORE_DUPLICATES is required, INTERRUPTIBLE_WAIT is recomm=
-ended:
-> + *        drm_exec_init(&exec, IGNORE_DUPLICATES | INTERRUPTIBLE_WAIT, 0=
-);
-> + *
-> + *        drm_exec_until_all_locked (&exec) {
-> + *            for_each_vm_bind_operation {
-> + *                switch (op->op) {
-> + *                case DRIVER_OP_UNMAP:
-> + *                    ret =3D drm_gpuvm_sm_unmap_exec_lock(gpuvm, &exec,=
- op->addr, op->range);
-> + *                    break;
-> + *                case DRIVER_OP_MAP:
-> + *                    ret =3D drm_gpuvm_sm_map_exec_lock(gpuvm, &exec, n=
-um_fences,
-> + *                                                     op->addr, op->ran=
-ge,
-> + *                                                     obj, op->obj_offs=
-et);
-> + *                    break;
-> + *                }
-> + *
-> + *                drm_exec_retry_on_contention(&exec);
-> + *                if (ret)
-> + *                    return ret;
-> + *            }
-> + *        }
-> + *    }
-> + *
-> + * This enables all locking to be performed before the driver begins mod=
-ifying
-> + * the VM.  This is safe to do in the case of overlapping DRIVER_VM_BIND=
-_OPs,
-> + * where an earlier op can alter the sequence of steps generated for a l=
-ater
-> + * op, because the later altered step will involve the same GEM object(s=
-)
-> + * already seen in the earlier locking step.  For example:
-> + *
-> + * 1) An earlier driver DRIVER_OP_UNMAP op removes the need for a
-> + *    DRM_GPUVA_OP_REMAP/UNMAP step.  This is safe because we've already
-> + *    locked the GEM object in the earlier DRIVER_OP_UNMAP op.
-> + *
-> + * 2) An earlier DRIVER_OP_MAP op overlaps with a later DRIVER_OP_MAP/UN=
-MAP
-> + *    op, introducing a DRM_GPUVA_OP_REMAP/UNMAP that wouldn't have been
-> + *    required without the earlier DRIVER_OP_MAP.  This is safe because =
-we've
-> + *    already locked the GEM object in the earlier DRIVER_OP_MAP step.
-> + *
-> + * Returns: 0 on success or a negative error codec
-> + */
-> +int
-> +drm_gpuvm_sm_map_exec_lock(struct drm_gpuvm *gpuvm,
-> +                          struct drm_exec *exec, unsigned int num_fences=
-,
-> +                          u64 req_addr, u64 req_range,
-> +                          struct drm_gem_object *req_obj, u64 req_offset=
-)
-> +{
-> +       if (req_obj) {
-> +               int ret =3D drm_exec_prepare_obj(exec, req_obj, num_fence=
-s);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
-> +       return __drm_gpuvm_sm_map(gpuvm, &lock_ops, exec,
-> +                                 req_addr, req_range,
-> +                                 req_obj, req_offset);
-> +
-> +}
-> +EXPORT_SYMBOL_GPL(drm_gpuvm_sm_map_exec_lock);
-> +
-> +/**
-> + * drm_gpuvm_sm_unmap_exec_lock() - locks the objects touched by drm_gpu=
-vm_sm_unmap()
-> + * @gpuvm: the &drm_gpuvm representing the GPU VA space
-> + * @exec: the &drm_exec locking context
-> + * @req_addr: the start address of the range to unmap
-> + * @req_range: the range of the mappings to unmap
-> + *
-> + * This function locks (drm_exec_lock_obj()) objects that will be unmapp=
-ed/
-> + * remapped by drm_gpuvm_sm_unmap().
-> + *
-> + * See drm_gpuvm_sm_map_exec_lock() for expected usage.
-> + *
-> + * Returns: 0 on success or a negative error code
-> + */
-> +int
-> +drm_gpuvm_sm_unmap_exec_lock(struct drm_gpuvm *gpuvm, struct drm_exec *e=
-xec,
-> +                            u64 req_addr, u64 req_range)
-> +{
-> +       return __drm_gpuvm_sm_unmap(gpuvm, &lock_ops, exec,
-> +                                   req_addr, req_range);
-> +}
-> +EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap_exec_lock);
-> +
->  static struct drm_gpuva_op *
->  gpuva_op_alloc(struct drm_gpuvm *gpuvm)
->  {
-> diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
-> index 2a9629377633..274532facfd6 100644
-> --- a/include/drm/drm_gpuvm.h
-> +++ b/include/drm/drm_gpuvm.h
-> @@ -1211,6 +1211,14 @@ int drm_gpuvm_sm_map(struct drm_gpuvm *gpuvm, void=
- *priv,
->  int drm_gpuvm_sm_unmap(struct drm_gpuvm *gpuvm, void *priv,
->                        u64 addr, u64 range);
->
-> +int drm_gpuvm_sm_map_exec_lock(struct drm_gpuvm *gpuvm,
-> +                         struct drm_exec *exec, unsigned int num_fences,
-> +                         u64 req_addr, u64 req_range,
-> +                         struct drm_gem_object *obj, u64 offset);
-> +
-> +int drm_gpuvm_sm_unmap_exec_lock(struct drm_gpuvm *gpuvm, struct drm_exe=
-c *exec,
-> +                                u64 req_addr, u64 req_range);
-> +
->  void drm_gpuva_map(struct drm_gpuvm *gpuvm,
->                    struct drm_gpuva *va,
->                    struct drm_gpuva_op_map *op);
-> --
-> 2.49.0
->
+-- 
+With best wishes
+Dmitry
