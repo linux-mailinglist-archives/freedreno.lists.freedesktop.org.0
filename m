@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73B35AECD18
-	for <lists+freedreno@lfdr.de>; Sun, 29 Jun 2025 16:07:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FEEEAECD22
+	for <lists+freedreno@lfdr.de>; Sun, 29 Jun 2025 16:07:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 083C010E29D;
-	Sun, 29 Jun 2025 14:07:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66B0310E2A0;
+	Sun, 29 Jun 2025 14:07:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MOZOc4dD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MH7bbc1D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A40A10E29D
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:26 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55TAh20P010025
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B78FF10E29D
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:27 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55T9TfPu013288
  for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=eRArZHg5kja
- 6OQg/YP1uRgtCqLo62Lhjfwd+5rkVLKM=; b=MOZOc4dDi1ck9L+QRSsR4vZJwBN
- 66eV4YkdpLb9pYkCICHe++0gI4JQ3qi17ivoNbzlGqQmEq0KZtVhP/qPSAI230+N
- g7I9mBAWanm13+hoPbJcgMEQ/7YbZQNoTbQ8OXftnNproAOLI2vBTNGhX0tEpAWm
- WWdQ7ojNKt7IqYLGfxZdoalrUMTNEkKUH/ysVIOI6zA4LO5zvimkfl0smBD2vfhR
- cNWasV/YbqBqdohcaeJZNvsitE7Z11iw+kG/JqR2DCy1fRM8bSsgXVFZK/+TvpDG
- b231lke2FfeELS6npd506UWJFulJ004DvoG4D6bSLL5fFD+89CcJ8y71RaA==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j801t7pn-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=/ZGyoxYE2vw
+ gSzvJVWN2YN0dI0s8P9cmHBqgH65Sao8=; b=MH7bbc1DFoAnrrAiKzlxAKNKmNT
+ eQ+QgTpAXkqU+HtEK4xFOsAXH+cag2pGJoQ61dMBgwxSz7vnu75G2ZvFw2P1vtp3
+ e0gi7JUhhRO5MnbKPl+ftIGngduKQzriFLRWkCpRNoPT+Ty5+f2R7Fnb/zNm7QtS
+ uR6Uj48qzdphwtx4aowL3etKe+n9tHEjQec3EVQG7uAe+t9vxn5EhMM3MCfE9Stb
+ sonNhV/HPb9f5au9y3+d+xEh6Y14iMMZllfJQxSC2hljGQ7dcrrRB1S7JBRkFU1k
+ cqtbboiLHTI6HU3ugLv4i46GXH5Rg02nmIltsvZgrgFS0EkSUjEma5BwLpA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j8s9a5wm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:25 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-748e4637739so2577201b3a.1
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 07:07:25 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:26 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-74858256d38so1160124b3a.2
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 07:07:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751206044; x=1751810844;
+ d=1e100.net; s=20230601; t=1751206045; x=1751810845;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=eRArZHg5kja6OQg/YP1uRgtCqLo62Lhjfwd+5rkVLKM=;
- b=u4G/YKhfbGDmkgwpYbNbqXcdDXmmUDEsWOEI8aP9IDzrZg+I18qmG0kLLh9ejgAvO+
- aNDd6uHUpY02qCDf9DKUCyzcwZE8n94ZC1STGmXdxTS+j07PCaNAz1+yNB7fpc2PMjFB
- ATV7oENTBKbwoVUg8nghX02VQZG43f3OZuOG7hfArR/wkc1HCleNm58pPZZe/oqlz/4T
- F/uFW/QZewKslbyoYDnlNPvIf8333BvjSMzVdASPFhINLSfHWcxxVo+Wbb4yRGeAKGby
- Xwvm9kUqhlAqK7OmX89t0eCk6gz2wMf+vwtV+qBsSiJrhbtZPI040kbHecW5KTpJ0vwB
- Qgng==
-X-Gm-Message-State: AOJu0YxbwMvw6v1MOvQV7/Iec3RWBCNi0r49oqRFc/oaL3kB9ixaTE6B
- mDX60Yn1hCXixW5S2wiiOTPr1KEHpp2fFgS4G4JOJmU86uwRhweXI1Bezxbbq2n20RFB9+Z9uKz
- nFR9KRTH6xg5aZOL+fuhR2EIB+TYalN+zRuKsxDkOQw2JeX4S+MyMcq1LsbzCfkKxeqSMMSw=
-X-Gm-Gg: ASbGncunkwWE0/VHb8cCJi4UlF32iFtEH3VgsmjZWfT9UbQOFsZyW3/O1Zhk4oOmwVN
- SV9y1S+Mc07gsYZ/DPx607s2eUuDvTIRWC62lTnQDUWyzOAXMmkmscjwvI3RCFUfxMWlczI5k6A
- sJJdXhHRMyLfAjDpfpvMfId4yfighPcETW6/MUrsZXAhI8DL2gnJSv47EvQUxNr7eFjs1kboPUh
- jKgdcXq+ovIsYqtu15Mz1FPO0fu0zNSIUFHVPklhLFNCtmvOdPW1AC5ZvL+jseguI+t5oz/6rhC
- fb0W6PXyANUxUdv14kha3VBkW6elO74S
-X-Received: by 2002:a05:6a00:8c8a:b0:742:aed4:3e1 with SMTP id
- d2e1a72fcca58-74ae3e79e9emr15110879b3a.2.1751206044397; 
- Sun, 29 Jun 2025 07:07:24 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFzFoHhs30uufRxyXEDa8GNhAGcI0a2y/Q4jf783ZXcR3TPwpNn70ssWWhJXCFQV5WbzR2gNQ==
-X-Received: by 2002:a05:6a00:8c8a:b0:742:aed4:3e1 with SMTP id
- d2e1a72fcca58-74ae3e79e9emr15110847b3a.2.1751206043958; 
- Sun, 29 Jun 2025 07:07:23 -0700 (PDT)
+ bh=/ZGyoxYE2vwgSzvJVWN2YN0dI0s8P9cmHBqgH65Sao8=;
+ b=Y1Q1ECkOEdKdoMt78gDJfKlBgzg32HWO71IyXzAwGvaSGSSn65bNrRLym8HOaP1Rst
+ 8mx6B2aOfQNMqrpbRhCyB8FRNG11bXCC5X6nizLp67M1P/UCv2yMf3aUakK0VHAX6HtF
+ BAMJj7raaO/7ZQhyNueP3f/0JYS4SnSSSStszRiTp5KApWmWjBTItSvxJVZ0WqBNt1Lo
+ /qFDLX8qrAywgNym7DjQZ+zZ4NhLZXz3tIZ58mNkMiO+8+/pa/cwgfZp+Zu93bzeWBsU
+ oVnSc00QzoWwnuXgMeIcdLPs0YlxfubFepKQSJLlC2F5vHz9sUCngSa2JxWZEhUzngdw
+ 61zA==
+X-Gm-Message-State: AOJu0YxPUWixEvHiMX8KrGqYdrk6L75XlnjjP0PtcNTAKUI5hj8Dr+5N
+ nxfsxcMElyYp+PKB/QxqWNDQOnXn+az/hZ8K76izkS4cUgOvLZrMIy0ZphlsVOLv27KwiphPEco
+ B2/dRmsiAZcJLYcLKShc4WoAxp93zYNvXwC/Sd5qUguLofU4oNt2zV5tLkMRUoQ/fsOTSp6Q=
+X-Gm-Gg: ASbGncvMccGNIkracsLJP1t2US2KNUGMbC95prEHH02ckTWv7TLN3xLwwnIFsmwDcNZ
+ WK/89cx/ZnueWOXWb1fl8awPPa9+VPyu4Ie6SgjI+aIcJf9GjNkocwFfjBBvu3azxkk3hB6jONJ
+ qnUdUVqQqvKsYEyHBkOlpOQNqHyU9O+M+cIEOazWuGQ0e4VjbOAPjKSDX22DRMt383gERzmbly1
+ 0EDprst8kZX+aSalB2qWIdN109s0KeR9U0YGTv5fk1vzB7pXWPCoCSx0vsO85bCNfXdYJpz9nKj
+ 8ZDnGWr+4qHG1/Hs5mN1AepjNWDQaggq
+X-Received: by 2002:a05:6a00:a8c:b0:748:e1e4:71de with SMTP id
+ d2e1a72fcca58-74af6f75b9dmr12651629b3a.14.1751206045580; 
+ Sun, 29 Jun 2025 07:07:25 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IENZJtEa8Zo6YKK1VC7UhfnqyS3PG4LqHA7jxkHsRhyjRhGBPSmWMeaac3G6wvZ2uQ+OkNChw==
+X-Received: by 2002:a05:6a00:a8c:b0:748:e1e4:71de with SMTP id
+ d2e1a72fcca58-74af6f75b9dmr12651605b3a.14.1751206045178; 
+ Sun, 29 Jun 2025 07:07:25 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74af541bb6csm6705036b3a.41.2025.06.29.07.07.23
+ d2e1a72fcca58-74af57f1ef1sm6773669b3a.164.2025.06.29.07.07.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Jun 2025 07:07:23 -0700 (PDT)
+ Sun, 29 Jun 2025 07:07:24 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
@@ -82,36 +82,36 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v8 09/42] drm/msm: Collapse vma close and delete
-Date: Sun, 29 Jun 2025 07:03:12 -0700
-Message-ID: <20250629140537.30850-10-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v8 10/42] drm/msm: Don't close VMAs on purge
+Date: Sun, 29 Jun 2025 07:03:13 -0700
+Message-ID: <20250629140537.30850-11-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.50.0
 In-Reply-To: <20250629140537.30850-1-robin.clark@oss.qualcomm.com>
 References: <20250629140537.30850-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: PUoMCmi2IBiQ-jvRt14oBRp_q5GSx-uG
-X-Authority-Analysis: v=2.4 cv=YPWfyQGx c=1 sm=1 tr=0 ts=6861489d cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=RIvuzEnNBJp2qadMtJ0A:9
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-ORIG-GUID: PUoMCmi2IBiQ-jvRt14oBRp_q5GSx-uG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI5MDExOSBTYWx0ZWRfX8mm+loZc75l5
- pvJW3MmezLcCLwT+bCG/q1qPrdzHzN4kDaqtU+aJZcVdW+ro2yDUyf7c50M1PdR4xjETkUAy4v1
- XJ0Bxwku/qn3weZ0yKJ7DHY1n48pN1BUjx5zrrhJDZmaD6SUZM32OdzuZhr7uroMRt7TCbaptJJ
- MWjS0OPPMitfJzkXB7i6pw0ugOLMU8KNChwjXp4zI2eey+31gFMB0cqmNNl0ZcneTV/PD7wM0WA
- OOmMRtIpBn1QSIfHrn9rWXEzJIR2++Yl7xcZ+ElOnKkYdNrEVZTPi4wzyJ7eEtRdDt0IVKsStel
- dWvPcDL2KKDU+VBfpzVTtBAgFejZGij1pDlVMjv9BdiqXonlE4e9OZ7lemZe0clCeD+aKzZ/4fC
- 4jCrxK0JLvtX/vNfghOu4+0NaDu8T6SGz3eaB9iaTuujUXp1FyRVnsUQtjiOvO55RHDF2wEE
+X-Authority-Analysis: v=2.4 cv=H/Pbw/Yi c=1 sm=1 tr=0 ts=6861489e cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
+ a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=nDn0RKeFDUDCjqZoaxcA:9
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-ORIG-GUID: 50IWjuGpokrRKe4_7OvmiQsG8kEFNlmr
+X-Proofpoint-GUID: 50IWjuGpokrRKe4_7OvmiQsG8kEFNlmr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI5MDExOCBTYWx0ZWRfX3bXyYOSNjVrl
+ 2/epHJsH8NwlPBe9JJVA6xdQPxl4JTiuOdYqYq+96nl9JeGBHSejGzfaseH+9i83sWG5eRVmclr
+ sK7ro8tJJRz/xSYyqJvf3VkNhCA9QdxgCSFl8IHyvppHtef4mAFiS/8pb7PPO1S1JZV/rcIvk9f
+ SDodTE1pAdhHaUjCo+EmKcPi/5hrLWzd7Ct0HXFSQDAVw4a+QbN4iNC+MyF6o2E5iC3NgUOh1BK
+ r2PF7LErZymoX0J+AVa1uV2XkzAp2QE+BXoeVdkGOI0wCbCGW0EDKCi8XLoCgYZzXDqmklNq0BX
+ 85mqo9LCbmiH9a2L6LulJOnREp1ELVCw20sa+A/9OLWHtk44P0M4l1bUyhrOiu59Re3JaMxks58
+ YhlDVG0tYaXCVVrfYlk7YKRByQKgy7brRLRb5PYTnwPTl6EFG+n4dvaiWH6rT7h4PNVC5AIi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-06-27_05,2025-06-27_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxlogscore=990 mlxscore=0 malwarescore=0 suspectscore=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0
- priorityscore=1501 bulkscore=0 phishscore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506290119
+ impostorscore=0 malwarescore=0 suspectscore=0 mlxlogscore=999
+ priorityscore=1501 clxscore=1015 mlxscore=0 lowpriorityscore=0 spamscore=0
+ adultscore=0 bulkscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2506290118
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,83 +129,34 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-This fits better drm_gpuvm/drm_gpuva.
+Previously we'd also tear down the VMA, making the address space
+available again.  But with drm_gpuvm conversion, this would require
+holding the locks of all VMs the GEM object is mapped in.  Which is
+problematic for the shrinker.
+
+Instead just let the VMA hang around until the GEM object is freed.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 Tested-by: Antonino Maniscalco <antomani103@gmail.com>
 Reviewed-by: Antonino Maniscalco <antomani103@gmail.com>
 ---
- drivers/gpu/drm/msm/msm_gem.c     | 16 +++-------------
- drivers/gpu/drm/msm/msm_gem_vma.c |  2 ++
- 2 files changed, 5 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/msm/msm_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 9fa830209b1e..7b0430628834 100644
+index 7b0430628834..a20ae783f244 100644
 --- a/drivers/gpu/drm/msm/msm_gem.c
 +++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -349,15 +349,6 @@ static struct msm_gem_vma *lookup_vma(struct drm_gem_object *obj,
- 	return NULL;
- }
+@@ -755,7 +755,7 @@ void msm_gem_purge(struct drm_gem_object *obj)
+ 	GEM_WARN_ON(!is_purgeable(msm_obj));
  
--static void del_vma(struct msm_gem_vma *vma)
--{
--	if (!vma)
--		return;
--
--	list_del(&vma->list);
--	kfree(vma);
--}
--
- /*
-  * If close is true, this also closes the VMA (releasing the allocated
-  * iova range) in addition to removing the iommu mapping.  In the eviction
-@@ -368,11 +359,11 @@ static void
- put_iova_spaces(struct drm_gem_object *obj, bool close)
- {
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
--	struct msm_gem_vma *vma;
-+	struct msm_gem_vma *vma, *tmp;
+ 	/* Get rid of any iommu mapping(s): */
+-	put_iova_spaces(obj, true);
++	put_iova_spaces(obj, false);
  
- 	msm_gem_assert_locked(obj);
+ 	msm_gem_vunmap(obj);
  
--	list_for_each_entry(vma, &msm_obj->vmas, list) {
-+	list_for_each_entry_safe(vma, tmp, &msm_obj->vmas, list) {
- 		if (vma->vm) {
- 			msm_gem_vma_purge(vma);
- 			if (close)
-@@ -391,7 +382,7 @@ put_iova_vmas(struct drm_gem_object *obj)
- 	msm_gem_assert_locked(obj);
- 
- 	list_for_each_entry_safe(vma, tmp, &msm_obj->vmas, list) {
--		del_vma(vma);
-+		msm_gem_vma_close(vma);
- 	}
- }
- 
-@@ -556,7 +547,6 @@ static int clear_iova(struct drm_gem_object *obj,
- 
- 	msm_gem_vma_purge(vma);
- 	msm_gem_vma_close(vma);
--	del_vma(vma);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 6d18364f321c..ca29e81d79d2 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -102,8 +102,10 @@ void msm_gem_vma_close(struct msm_gem_vma *vma)
- 	spin_unlock(&vm->lock);
- 
- 	vma->iova = 0;
-+	list_del(&vma->list);
- 
- 	msm_gem_vm_put(vm);
-+	kfree(vma);
- }
- 
- /* Create a new vma and allocate an iova for it */
 -- 
 2.50.0
 
