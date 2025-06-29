@@ -2,119 +2,117 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10B9DAECD37
-	for <lists+freedreno@lfdr.de>; Sun, 29 Jun 2025 16:07:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72CF5AECD52
+	for <lists+freedreno@lfdr.de>; Sun, 29 Jun 2025 16:08:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD0410E340;
-	Sun, 29 Jun 2025 14:07:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0A4410E356;
+	Sun, 29 Jun 2025 14:08:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fcxmN759";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PqH0dLnO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 363D010E340
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:56 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55TAeHq7006623
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:55 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B84110E340
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:57 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55TDC0ET015448
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=S4kAEuyQKeE
- +qmE3bZkWMAOyZt7c6wX4bFKVn68PInY=; b=fcxmN759f4i6qKaLADOOaF5ik8m
- Pn8JUw9ODu7k0hVHo93n9rsV6RLwbrY/fZpMhi1d/R/NNwyYLPUW0NNJyz7FOGzm
- QHezVpw4NlE9y+E2oHzvbeTnHsYzrgAqDPd5BY6YQUC2IdxPGP1Hi2ER6Xt1LBHZ
- fn1rvAxnBWJNMTKT9Qc0HGnyAEE5AljDbdKYal58jU3FqG4LqZhCoLEvB18iQa25
- E2wf4iZXf4t2ImArEnwEnRjHQCbpfzpyQGOj2d/1+JFAef/ERw5lms8wMYO3E9FJ
- nizZiTbDdD2PtUVd2bN1RNFEReZXGkAdtpGJkHn7PgJZq+BKxGmF7X9Uccw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j8fxa8ej-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=/iFe2vNrJqp
+ a0S0dcdbvotV9UbXoILAtHKmoL3TqRPw=; b=PqH0dLnObI0wyLWZYTsxKoc/+lU
+ dhy15XQHsq1x6UU4b1RFHsjSdRAyJJBYd1jFQizvr/NjykuTPoSWZW7/5cRL6oxw
+ tt3l70cJVV5bMH+C/9kWz0mNDequHZVq4xFdgZLdUuQd5mHGKouNhaHZJUfIA+6V
+ bEn5xqC6LKqf9X0rWX4SrxOKPoIp2/TObItb49OB9yZyFQRxkjlDY0FOaYI8xWiw
+ AYnBDqtmTTY5vpbPXi+VK+750vBJHU3EqMRj3Skw0i1Yi3EcyTIQaoB+CIPrnNcA
+ K26RAd2HtcQqiEcfj6RwMAew8JGaMYGxaLBOsDuP9UTRpaKuKb2SFLXj7AA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j8s9a5yh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:55 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-235e7550f7bso30897785ad.3
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 07:07:55 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:56 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-313fab41f4bso5063628a91.0
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 07:07:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751206074; x=1751810874;
+ d=1e100.net; s=20230601; t=1751206075; x=1751810875;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=S4kAEuyQKeE+qmE3bZkWMAOyZt7c6wX4bFKVn68PInY=;
- b=JRUvgary2acxGOxa1cp6uR11Uzlmw8cPK+KeFK3/49HWa7BHa6JeH2iWY7Aaz/4cJ4
- 5EqzsjbdcJgHcuyIVeJ0s5+etmQCFg5h0Y6zJRjvI1GlehiQlZHQj/ZFoa/7q++wjsCk
- isIP7k7gkRwzyoVGvrsW6BtumRIwQyJK+hyk68NwRU3nyOv4mXYSfOBsfs/kpw6aDapR
- cLa8nBSQ69+I/AY6sFbsUqUdbNNJrZqyR0YpMXCbRZVxA/K+p1itaDvAlpNH11GL5/ho
- EFf108EuP37b3kBUFiaNSqdUdFrYfBPzn5ijoF4oCfQ8N9FfTGhEAOv7t/OqkJjMZMr9
- tyXw==
-X-Gm-Message-State: AOJu0Yz2/UAb/XY3m2IAN/QQ+b/RgXStR9n67e0HAHrxXRzLk97Jtk4W
- aiGgM5V0wcBSCv6PyGljUbm0IRHpNd0tqrWjU2EdC1s0g7BFBado9UfAu+JfhkwVvuhyLAW6Lug
- 1VEzLdN8fmEmoO2J7xKoJ4XdKo5qdgepHjcH3hKfpPsRAuqyKG1Q8R2kHdSAsmj7yWnJYXXk=
-X-Gm-Gg: ASbGnct0ugNDj1NasuNaTG6ymvyvFAVJhh8GmNNT/BTghbOEg70Ge328fieG7xIZ6BL
- jB75cZeIYu+42Y/ZK5FglOZNnQY1nMjqPKGjgxh0nmNq+ar86S222p43x0SgGYcGBsVFHZ3DFcf
- rI8qmSnK0F401TXoaI+UAHniXacCgD5Ze0P2b4k9RVjt2gZz6ZlnDJ73QJL57TPbi+6oCGhFDmZ
- L26kkutxkrPzwrNIUFy+OB+Ai1LxUj4eZ56Hc39CbE89eQ8BcNRIRPZPLYeB9a9gGoCf5m4KZMp
- qytja7jrCV7t3fN8PgutzSvir3AEHzGu
-X-Received: by 2002:a17:903:230f:b0:234:8a4a:adb4 with SMTP id
- d9443c01a7336-23ac45ea926mr154659455ad.21.1751206073839; 
- Sun, 29 Jun 2025 07:07:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHDFjkJ/2l3gBXJZ0dm/nqu3lCJ0DmF0UqzN8JdUb+/C/Yb3EBTnIMY/D/TL7ORLWfUgmVP4Q==
-X-Received: by 2002:a17:903:230f:b0:234:8a4a:adb4 with SMTP id
- d9443c01a7336-23ac45ea926mr154658885ad.21.1751206073161; 
- Sun, 29 Jun 2025 07:07:53 -0700 (PDT)
+ bh=/iFe2vNrJqpa0S0dcdbvotV9UbXoILAtHKmoL3TqRPw=;
+ b=EV2WmRq1Obds06DtzUgpEk0/UNBq13b/aNEl7VY1ov1OkuY9L5pSQEu29f054Yg+fS
+ jbo1YetkXYaCUyHgkNkMYAEoAEey+kUpggqYHUuADyGa3Xx7mnna576PTqfMPzpUsxgp
+ TYsSS3va6gZua5dDQW344CLMyoe9VAzZRf3fOd+06wJqA55u19UcqruTbtzaUmjpfw1R
+ rR4aa5NqT8FToz44412x9IVmba8PR/9Ya07vPbknw6jJKLmtjY3mXiX4ew1DVT4aoyRW
+ 4jNPRFHiJe+uW3+J1naXai0i/J3D+MynvcuvhJ6RmgbIeunzdKdbSnTDJNMI+8Ogg4V8
+ eZdw==
+X-Gm-Message-State: AOJu0YwO6ruqsBysFvdG/aKYYhz+NQJUyfUanGVu2+/hxGQwqdc1qmDw
+ ljGvFOYwCNBSo9sbC1SxPePX24VHkhAnWtpm4Ku1SNQtYpMBzwA0Wu/HxV8flLo+Q9rZ4cIc3Ra
+ Hlh9zFRFKpoRBkfUn6yDHfN8BhqEhUWLFIyn0PT8yGsZuIQn6Yav1jeEiwAhCO87AHNwgTtE=
+X-Gm-Gg: ASbGnctUNYggDj4kphFnfBXkRtevzzOfoWh2J8Nft+8Zy7cJSNAG8sadh3FSiXDQygt
+ 20S357oez0OEDLJ9h6WY/vK0U0B/pqZZC7m+A5WAiLeArorpBX0J/IGaJMf3k6eJfwfGaES/4no
+ IZ5nkj1rNsAfq9QFdHvt7wJKI+raM1ukp5NajC7p90LSj3P1s7MWvwvD8/vd2ZLBJsXz29CZiTy
+ Pi7PulltnjkU9yok8ESIAxBlDypID3MJnYmslLv9ZDFheVKFyqesYGWnkRZGgtbNgV0e/T7NF79
+ F7G5g8i6d8AT9oN8ZtLOy+21+n3aTY3X
+X-Received: by 2002:a17:90b:5347:b0:311:ba2e:bdc9 with SMTP id
+ 98e67ed59e1d1-318c930f9c3mr14565167a91.27.1751206074992; 
+ Sun, 29 Jun 2025 07:07:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFPDMdsJ611F8y8JvrQrlcinGlj6zhivPonGdvEr/gwskrbg5lpJzq8J57v2DwyMT0wLTqjCw==
+X-Received: by 2002:a17:90b:5347:b0:311:ba2e:bdc9 with SMTP id
+ 98e67ed59e1d1-318c930f9c3mr14565116a91.27.1751206074478; 
+ Sun, 29 Jun 2025 07:07:54 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23acb3af744sm58321685ad.157.2025.06.29.07.07.52
+ 98e67ed59e1d1-318c14e224csm6959025a91.32.2025.06.29.07.07.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Jun 2025 07:07:52 -0700 (PDT)
+ Sun, 29 Jun 2025 07:07:54 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Connor Abbott <cwabbott0@gmail.com>,
  Antonino Maniscalco <antomani103@gmail.com>,
  Danilo Krummrich <dakr@redhat.com>, Rob Clark <robdclark@chromium.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v8 22/42] drm/msm: Add opt-in for VM_BIND
-Date: Sun, 29 Jun 2025 07:03:25 -0700
-Message-ID: <20250629140537.30850-23-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v8 23/42] drm/msm: Mark VM as unusable on GPU hangs
+Date: Sun, 29 Jun 2025 07:03:26 -0700
+Message-ID: <20250629140537.30850-24-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.50.0
 In-Reply-To: <20250629140537.30850-1-robin.clark@oss.qualcomm.com>
 References: <20250629140537.30850-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI5MDExOSBTYWx0ZWRfX/cbRjggktqAE
- uH7egp4UUUlFQKzDW3xQbI4i/Z/6xnK4EtVaPNVI/MFcJXneEW9bXugVDgjw+s8gjOzbE6TcRKo
- bI2HHsx41wIlJZPdkYobz12leTJsFahzlY1Rq2j61JxgEIQnLeKr8H5A06pSRF9fsyoQrdhJ501
- KqG52bxhEcwjf7MGv5OuAYgkKEBejvHRNTqlPdYPSP3mMLa/FHdC2BghkicvOSe1Xij2dfiSTmX
- Qc+s7UOtPQYSGig3gVFjSDksciOSgq47/qc8Q+s01TGhB8oqA1AkN5k5GUsfGl2ZrtnyvaDKY23
- vqIZyendmifYlO/lY9hahv7hv9AW9/wEj8yAKKqKyrEnzTYB567dAvqt/dbzbdqxYfDqaon32/H
- 8cZQgyOwA+aohSn+tHiVoDZyNIoPPFssMMtst2yiSa52cjkvG/iSPSP9knctkwL0yYE2tXlf
-X-Proofpoint-GUID: ZavS4ZL3kZiCu1er1uW4RYmtrD_kh0qY
-X-Proofpoint-ORIG-GUID: ZavS4ZL3kZiCu1er1uW4RYmtrD_kh0qY
-X-Authority-Analysis: v=2.4 cv=TqPmhCXh c=1 sm=1 tr=0 ts=686148bb cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=iDRtRSvoPPFvr6RSarUA:9
- a=GvdueXVYPmCkWapjIL-Q:22
+X-Authority-Analysis: v=2.4 cv=H/Pbw/Yi c=1 sm=1 tr=0 ts=686148bc cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
+ a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=DhdyfM8_h7Qj4WYt2N4A:9
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: _mwzF3wkcvPlqfvfTztDiJ74LjdK_Hr3
+X-Proofpoint-GUID: _mwzF3wkcvPlqfvfTztDiJ74LjdK_Hr3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI5MDExOCBTYWx0ZWRfXz4OEK4DazP8v
+ FUyD9tDUW5EqHZMzBZZITYRsAbEC3GRt0oZYq0CG1uqEUImEw6cDumEally4dQ7YhNwQQdpkWj1
+ o8uksmxDzJ4JaNMzScSusWtL0eR08R6feJAubSdzOAHJZlyQD5PeC1/hzGca9nar3Fvyx0zCY2p
+ StK7x3lDzqpQxAooSnLL8mhiWlsHBEN3Yuvi8dVGlkgTrdpy8N5G2DnVDNNatiyJZYrfnyro5s5
+ U+ix4KEg1jAft2w5Y0R1F+FXWvopDA8ih0gk2UqTnwYm7a3KFFcSV8abfFoY2OCPaneB1V6VnTv
+ KNAjC6obzlLQBG5aaJ+YruGPYiUU/sXIb50YId/aW3YjIUzSJcqdRVXewZJMrmUETbup94aw5JN
+ ZIfYJclApnc3d4bcQ9RTp3omkxDxvMlImJGzUeV6MnOuYdhQhGuAzsqcSfmncvDg4H0RYNlp
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-06-27_05,2025-06-27_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 mlxlogscore=999 suspectscore=0 adultscore=0
- phishscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 mlxscore=0
- impostorscore=0 spamscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506290119
+ impostorscore=0 malwarescore=0 suspectscore=0 mlxlogscore=999
+ priorityscore=1501 clxscore=1015 mlxscore=0 lowpriorityscore=0 spamscore=0
+ adultscore=0 bulkscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2506290118
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,260 +130,88 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Add a SET_PARAM for userspace to request to manage to the VM itself,
-instead of getting a kernel managed VM.
-
-In order to transition to a userspace managed VM, this param must be set
-before any mappings are created.
+If userspace has opted-in to VM_BIND, then GPU hangs and VM_BIND errors
+will mark the VM as unusable.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 Tested-by: Antonino Maniscalco <antomani103@gmail.com>
 Reviewed-by: Antonino Maniscalco <antomani103@gmail.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  4 ++--
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 15 +++++++++++++
- drivers/gpu/drm/msm/msm_drv.c           | 22 +++++++++++++++++--
- drivers/gpu/drm/msm/msm_gem.c           |  8 +++++++
- drivers/gpu/drm/msm/msm_gpu.c           |  5 +++--
- drivers/gpu/drm/msm/msm_gpu.h           | 29 +++++++++++++++++++++++--
- include/uapi/drm/msm_drm.h              | 24 ++++++++++++++++++++
- 7 files changed, 99 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/msm/msm_gem.h        | 17 +++++++++++++++++
+ drivers/gpu/drm/msm/msm_gem_submit.c |  3 +++
+ drivers/gpu/drm/msm/msm_gpu.c        | 16 ++++++++++++++--
+ 3 files changed, 34 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 7364b7e9c266..62b5f294a2aa 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2276,7 +2276,7 @@ a6xx_create_vm(struct msm_gpu *gpu, struct platform_device *pdev)
- }
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index b5bf21f62f9d..f2631a8c62b9 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -76,6 +76,23 @@ struct msm_gem_vm {
  
- static struct drm_gpuvm *
--a6xx_create_private_vm(struct msm_gpu *gpu)
-+a6xx_create_private_vm(struct msm_gpu *gpu, bool kernel_managed)
- {
- 	struct msm_mmu *mmu;
- 
-@@ -2286,7 +2286,7 @@ a6xx_create_private_vm(struct msm_gpu *gpu)
- 		return ERR_CAST(mmu);
- 
- 	return msm_gem_vm_create(gpu->dev, mmu, "gpu", ADRENO_VM_START,
--				 adreno_private_vm_size(gpu), true);
-+				 adreno_private_vm_size(gpu), kernel_managed);
- }
- 
- static uint32_t a6xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 2baf381ea401..ff25e3dada04 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -504,6 +504,21 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_context *ctx,
- 		if (!capable(CAP_SYS_ADMIN))
- 			return UERR(EPERM, drm, "invalid permissions");
- 		return msm_context_set_sysprof(ctx, gpu, value);
-+	case MSM_PARAM_EN_VM_BIND:
-+		/* We can only support VM_BIND with per-process pgtables: */
-+		if (ctx->vm == gpu->vm)
-+			return UERR(EINVAL, drm, "requires per-process pgtables");
+ 	/** @managed: is this a kernel managed VM? */
+ 	bool managed;
 +
-+		/*
-+		 * We can only swtich to VM_BIND mode if the VM has not yet
-+		 * been created:
-+		 */
-+		if (ctx->vm)
-+			return UERR(EBUSY, drm, "VM already created");
-+
-+		ctx->userspace_managed_vm = value;
-+
-+		return 0;
- 	default:
- 		return UERR(EINVAL, drm, "%s: invalid param: %u", gpu->name, param);
- 	}
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 5cbc2c7b1204..c1627cae6ae6 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -232,9 +232,21 @@ static void load_gpu(struct drm_device *dev)
-  */
- struct drm_gpuvm *msm_context_vm(struct drm_device *dev, struct msm_context *ctx)
- {
-+	static DEFINE_MUTEX(init_lock);
- 	struct msm_drm_private *priv = dev->dev_private;
--	if (!ctx->vm)
--		ctx->vm = msm_gpu_create_private_vm(priv->gpu, current);
-+
-+	/* Once ctx->vm is created it is valid for the lifetime of the context: */
-+	if (ctx->vm)
-+		return ctx->vm;
-+
-+	mutex_lock(&init_lock);
-+	if (!ctx->vm) {
-+		ctx->vm = msm_gpu_create_private_vm(
-+			priv->gpu, current, !ctx->userspace_managed_vm);
-+
-+	}
-+	mutex_unlock(&init_lock);
-+
- 	return ctx->vm;
- }
- 
-@@ -424,6 +436,9 @@ static int msm_ioctl_gem_info_iova(struct drm_device *dev,
- 	if (!priv->gpu)
- 		return -EINVAL;
- 
-+	if (msm_context_is_vmbind(ctx))
-+		return UERR(EINVAL, dev, "VM_BIND is enabled");
-+
- 	if (should_fail(&fail_gem_iova, obj->size))
- 		return -ENOMEM;
- 
-@@ -445,6 +460,9 @@ static int msm_ioctl_gem_info_set_iova(struct drm_device *dev,
- 	if (!priv->gpu)
- 		return -EINVAL;
- 
-+	if (msm_context_is_vmbind(ctx))
-+		return UERR(EINVAL, dev, "VM_BIND is enabled");
-+
- 	/* Only supported if per-process address space is supported: */
- 	if (priv->gpu->vm == vm)
- 		return UERR(EOPNOTSUPP, dev, "requires per-process pgtables");
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 186d160b74de..d16d3012434a 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -81,6 +81,14 @@ static void msm_gem_close(struct drm_gem_object *obj, struct drm_file *file)
- 	if (!ctx->vm)
- 		return;
- 
-+	/*
-+	 * VM_BIND does not depend on implicit teardown of VMAs on handle
-+	 * close, but instead on implicit teardown of the VM when the device
-+	 * is closed (see msm_gem_vm_close())
++	/**
++	 * @unusable: True if the VM has turned unusable because something
++	 * bad happened during an asynchronous request.
++	 *
++	 * We don't try to recover from such failures, because this implies
++	 * informing userspace about the specific operation that failed, and
++	 * hoping the userspace driver can replay things from there. This all
++	 * sounds very complicated for little gain.
++	 *
++	 * Instead, we should just flag the VM as unusable, and fail any
++	 * further request targeting this VM.
++	 *
++	 * As an analogy, this would be mapped to a VK_ERROR_DEVICE_LOST
++	 * situation, where the logical device needs to be re-created.
 +	 */
-+	if (msm_context_is_vmbind(ctx))
-+		return;
++	bool unusable;
+ };
+ #define to_msm_vm(x) container_of(x, struct msm_gem_vm, base)
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 068ca618376c..9562b6343e13 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -681,6 +681,9 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	if (args->pad)
+ 		return -EINVAL;
+ 
++	if (to_msm_vm(ctx->vm)->unusable)
++		return UERR(EPIPE, dev, "context is unusable");
 +
- 	/*
- 	 * TODO we might need to kick this to a queue to avoid blocking
- 	 * in CLOSE ioctl
+ 	/* for now, we just have 3d pipe.. eventually this would need to
+ 	 * be more clever to dispatch to appropriate gpu module:
+ 	 */
 diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index fc4d6c9049b0..c08c942d85a0 100644
+index c08c942d85a0..0846f6c5169f 100644
 --- a/drivers/gpu/drm/msm/msm_gpu.c
 +++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -829,7 +829,8 @@ static int get_clocks(struct platform_device *pdev, struct msm_gpu *gpu)
+@@ -389,8 +389,20 @@ static void recover_worker(struct kthread_work *work)
  
- /* Return a new address space for a msm_drm_private instance */
- struct drm_gpuvm *
--msm_gpu_create_private_vm(struct msm_gpu *gpu, struct task_struct *task)
-+msm_gpu_create_private_vm(struct msm_gpu *gpu, struct task_struct *task,
-+			  bool kernel_managed)
- {
- 	struct drm_gpuvm *vm = NULL;
- 
-@@ -841,7 +842,7 @@ msm_gpu_create_private_vm(struct msm_gpu *gpu, struct task_struct *task)
- 	 * the global one
- 	 */
- 	if (gpu->funcs->create_private_vm) {
--		vm = gpu->funcs->create_private_vm(gpu);
-+		vm = gpu->funcs->create_private_vm(gpu, kernel_managed);
- 		if (!IS_ERR(vm))
- 			to_msm_vm(vm)->pid = get_pid(task_pid(task));
- 	}
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 29662742a7e1..b38a33a67ee9 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -79,7 +79,7 @@ struct msm_gpu_funcs {
- 	void (*gpu_set_freq)(struct msm_gpu *gpu, struct dev_pm_opp *opp,
- 			     bool suspended);
- 	struct drm_gpuvm *(*create_vm)(struct msm_gpu *gpu, struct platform_device *pdev);
--	struct drm_gpuvm *(*create_private_vm)(struct msm_gpu *gpu);
-+	struct drm_gpuvm *(*create_private_vm)(struct msm_gpu *gpu, bool kernel_managed);
- 	uint32_t (*get_rptr)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
- 
- 	/**
-@@ -364,6 +364,14 @@ struct msm_context {
- 	 */
- 	bool closed;
- 
-+	/**
-+	 * @userspace_managed_vm:
-+	 *
-+	 * Has userspace opted-in to userspace managed VM (ie. VM_BIND) via
-+	 * MSM_PARAM_EN_VM_BIND?
-+	 */
-+	bool userspace_managed_vm;
+ 	/* Increment the fault counts */
+ 	submit->queue->faults++;
+-	if (submit->vm)
+-		to_msm_vm(submit->vm)->faults++;
++	if (submit->vm) {
++		struct msm_gem_vm *vm = to_msm_vm(submit->vm);
 +
- 	/**
- 	 * @vm:
- 	 *
-@@ -456,6 +464,22 @@ struct msm_context {
- 
- struct drm_gpuvm *msm_context_vm(struct drm_device *dev, struct msm_context *ctx);
- 
-+/**
-+ * msm_context_is_vm_bind() - has userspace opted in to VM_BIND?
-+ *
-+ * @ctx: the drm_file context
-+ *
-+ * See MSM_PARAM_EN_VM_BIND.  If userspace is managing the VM, it can
-+ * do sparse binding including having multiple, potentially partial,
-+ * mappings in the VM.  Therefore certain legacy uabi (ie. GET_IOVA,
-+ * SET_IOVA) are rejected because they don't have a sensible meaning.
-+ */
-+static inline bool
-+msm_context_is_vmbind(struct msm_context *ctx)
-+{
-+	return ctx->userspace_managed_vm;
-+}
++		vm->faults++;
 +
- /**
-  * msm_gpu_convert_priority - Map userspace priority to ring # and sched priority
-  *
-@@ -683,7 +707,8 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 		const char *name, struct msm_gpu_config *config);
++		/*
++		 * If userspace has opted-in to VM_BIND (and therefore userspace
++		 * management of the VM), faults mark the VM as unusuable.  This
++		 * matches vulkan expectations (vulkan is the main target for
++		 * VM_BIND)
++		 */
++		if (!vm->managed)
++			vm->unusable = true;
++	}
  
- struct drm_gpuvm *
--msm_gpu_create_private_vm(struct msm_gpu *gpu, struct task_struct *task);
-+msm_gpu_create_private_vm(struct msm_gpu *gpu, struct task_struct *task,
-+			  bool kernel_managed);
+ 	get_comm_cmdline(submit, &comm, &cmd);
  
- void msm_gpu_cleanup(struct msm_gpu *gpu);
- 
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 5bc5e4526ccf..b974f5a24dbc 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -93,6 +93,30 @@ struct drm_msm_timespec {
- #define MSM_PARAM_UCHE_TRAP_BASE 0x14 /* RO */
- /* PRR (Partially Resident Region) is required for sparse residency: */
- #define MSM_PARAM_HAS_PRR    0x15  /* RO */
-+/* MSM_PARAM_EN_VM_BIND is set to 1 to enable VM_BIND ops.
-+ *
-+ * With VM_BIND enabled, userspace is required to allocate iova and use the
-+ * VM_BIND ops for map/unmap ioctls.  MSM_INFO_SET_IOVA and MSM_INFO_GET_IOVA
-+ * will be rejected.  (The latter does not have a sensible meaning when a BO
-+ * can have multiple and/or partial mappings.)
-+ *
-+ * With VM_BIND enabled, userspace does not include a submit_bo table in the
-+ * SUBMIT ioctl (this will be rejected), the resident set is determined by
-+ * the the VM_BIND ops.
-+ *
-+ * Enabling VM_BIND will fail on devices which do not have per-process pgtables.
-+ * And it is not allowed to disable VM_BIND once it has been enabled.
-+ *
-+ * Enabling VM_BIND should be done (attempted) prior to allocating any BOs or
-+ * submitqueues of type MSM_SUBMITQUEUE_VM_BIND.
-+ *
-+ * Relatedly, when VM_BIND mode is enabled, the kernel will not try to recover
-+ * from GPU faults or failed async VM_BIND ops, in particular because it is
-+ * difficult to communicate to userspace which op failed so that userspace
-+ * could rewind and try again.  When the VM is marked unusable, the SUBMIT
-+ * ioctl will throw -EPIPE.
-+ */
-+#define MSM_PARAM_EN_VM_BIND 0x16  /* WO, once */
- 
- /* For backwards compat.  The original support for preemption was based on
-  * a single ring per priority level so # of priority levels equals the #
 -- 
 2.50.0
 
