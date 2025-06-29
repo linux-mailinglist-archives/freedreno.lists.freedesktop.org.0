@@ -2,116 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E778AECD31
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CBB8AECD33
 	for <lists+freedreno@lfdr.de>; Sun, 29 Jun 2025 16:07:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C30AD10E2D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA67B10E2BA;
 	Sun, 29 Jun 2025 14:07:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="G7p2+MR1";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="X+wWrEAm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3A5810E29D
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:52 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55TADXsL028542
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:52 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C74A10E29D
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:53 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55TAw4OJ020452
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:53 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=hadax31kM4+
- sOKW6+ZA9wpUzRSoBTDuckmpOBYZlztw=; b=G7p2+MR1tEeDzDKPrPTuONNUP9L
- zniDCHXGtc1yGhFtQi6/f+A0mjHa9KRGDipcgix2StQjXvu2K3jqfBPfWwDGLZMa
- k63IE5FIeaa1VYDLcl1OizbMArLJtKEyg88mCWHCp6h001QoUV6lYQ+wUWfsEqC/
- 6xkSxNkonSlxF9JR2i3gQdC5AlP89yk016J0Clz1t9faeU7tgKOi4k1fOhiORnpi
- RInMtwKlW75mt9jtpn8mSOcWKqILYUDhFKxKDnuE04+miR8PiqomEF2z/4+nlq1d
- cGTTLKndwWk9yxIsWnb7ymZDJiv5SFRFlhsUJ+K9OlZVEdMkQBJSSmaFfhw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j7d9t9dj-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=P0BUJyXh6kP
+ qdE8f3drw7XmhKLdbfVd0jGadfPkUqgU=; b=X+wWrEAmJGmu/SO93F7X1tUL/59
+ vtB+c8v6olldeFmmDYL6571eNla+EuxBl389yKouIntPniJnrcoTMH74DFhA7OQb
+ oddhKmFUbna1mFj9CXiF4w/3WfR+IneSap3hPiEblx6jZ4KO/5+1Y55b3CvqA68B
+ dfe6fWH5mBmwMIUuOZL56+34LKKgSxNaokRFM5UGNRSVr/c53Rb5X7B1LD7amryO
+ WonnlJGGrFyQaKUnvREKcBgP8+8uQlGumwRN3kf0MInolI4eF+n2hMy4uHiQnXb+
+ YvFv4uOekV1IJdeU4KaiGyfcu7nFZrsULhP1tjY5SSpW336oVgiI1LYzJkQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j63k2e2d-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:51 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-23536f7c2d7so19745145ad.2
- for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 07:07:51 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 14:07:52 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b0e0c573531so2465488a12.3
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 07:07:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751206070; x=1751810870;
+ d=1e100.net; s=20230601; t=1751206072; x=1751810872;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hadax31kM4+sOKW6+ZA9wpUzRSoBTDuckmpOBYZlztw=;
- b=COzP8M2P1aNFfCecR7YGft6//i0PifdITPEAXVPNs82lCAN6ckvq6rgojWp5eryhil
- /9fAD/oBMLWzo9fp9Fb3HtUGWTm+I8D4x2l4ZekwGhlcDmzt9s3vynOTm2FoHqjvycC/
- 0bJF+6t1QR62xNOLrW4DT8bUSTuDMpBiiqMMQBoDLEzjorNoWtpYr7iaRsTpN/DI3EtK
- 1DJMyvasqLk1H8iNX12l7xtKPUcawfgKRA9UD4KiRAimYN1Ek5tBWL9x/tYUfGiw29hH
- Sv240e3El21954oaa8h7YY0c4qqSLjgsalUt+D/IeHNTW/CGIzOW/mXoTYE8pnplXQqP
- DkkQ==
-X-Gm-Message-State: AOJu0YzYAH8rWSSH6Or/6BtGp3PdhC168638hzXn1rqjZgVUyt1vXooZ
- h4IwQ/cG3Fb96trAtSBSeueq6IIqPrGujNjtkiPg24H+DFsQDX135vAcattgsgtiOiMvfkrEaU7
- cyWW6MNZbEIeNPWSr7aqLuuxMeDWyXg52G1trbAksak89mG2cxydGelIeJ3gMLQWYS3hSQYE=
-X-Gm-Gg: ASbGncvIKOebpClxN15QVKeWwn3tsp7BElQCoeMHEkaI7xkL7PKLozhXFvVUCnejJ9G
- 3ECgvHkIDc7vkJvv20StF3X810ofgX2uSHJXje3tpiOk8BN8KWI+TVM5sd3kosATaqKhuFyE29M
- S1td1JgycbUop2SDl+NmUh9/wp5nfqIPWLawJaAsXb15CjdOkpjx0ueQYEJkPzjF3nsX5wCs22B
- ZYFbmXzmDZVxY/c4gHL7vcV9XZovFGRct/sfS0Rm99nB0fZblautH1I6lXWOG74g0azKWJGMwnU
- 7yabk1TwKmiYh2GfePoOJzx/Az2UrgmX
-X-Received: by 2002:a17:903:2449:b0:234:ba75:836 with SMTP id
- d9443c01a7336-23ac3bffd8bmr147181815ad.7.1751206070492; 
- Sun, 29 Jun 2025 07:07:50 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEhgyBQ8WKKcLovdC2oavEyunsP/RHNeiUVkDACGNy5ppa5wMTeH1fWoAqZmD8XHl5viNYZ3A==
-X-Received: by 2002:a17:903:2449:b0:234:ba75:836 with SMTP id
- d9443c01a7336-23ac3bffd8bmr147181445ad.7.1751206070100; 
- Sun, 29 Jun 2025 07:07:50 -0700 (PDT)
+ bh=P0BUJyXh6kPqdE8f3drw7XmhKLdbfVd0jGadfPkUqgU=;
+ b=Unt87myuftFlMRYoU+VYzhM7OztMZfrJ4suSPLvQSgUCKCFCH3tQOYOMhfHj5Bh64y
+ hu8/h0mNpcsCnJYEhd7aE0K16F/qYSLjtHlJAt9ncQ57oJNDnxp4OD7ZVf9FfCw569tn
+ 3VLI+pEdIO3VVVXNN4hEEP64VriaS/JNAA1yeZ+SHi2WHw8eYsaYqh83lIFTJD2Y8lvs
+ +qXDmg8S9i8YPwcnfvtQWCndQ2gu47A5FO+RgcqiLkQ1abNO3Viv8XMTSCzj+oRCpkUl
+ IRKqRq37V4p2TxEfFPOr9QWqn01mn1g0RCI1Q9EvUETkrxFVu26GON7nqHnn2EhvYleq
+ z8pg==
+X-Gm-Message-State: AOJu0Yx4cJ1DU75CB4zLegSDvXWQrRYauspodYSeqid7dCHJlRk+8NUH
+ oTAG6FAhujtYe40I5qNuqiaVoQh7FGyzTaH1KXi4Q01rigl7lAuByhq6CMr4iOrQ18rxOwzbwtd
+ AFUpD+uMBoOQgqSBiLrXyEVGNv0cXImi1cCzKUYSTWaDqzgMhSx7XbtWYm2McPQJIt7wKcfI=
+X-Gm-Gg: ASbGncsi5t8iopHPI1bLczORLWbrzLM1aUFtcXUOaEFhykHWZIuBvihzp69s/CLE1sv
+ lBZUPOHUufbYnHmBKEIoDqXn4N2Y6GAXjS8olvwqTkao3hEgDgH8r1QRtHEuJ776r+9nlQx5ND9
+ GlG+anO/PghRHnJUddfdlrs/YNTXx/ryIEgwFP7VIclW9RCCOCoeDerSujToKdTumiIg46vMtAV
+ +QJim4V5JOuOyhwfu5oe5iv+fpc191TR3wkGUWkomx7EQb9XKFliUIurUWGPPmhQLs7X9ckukdS
+ cCkZIL73PbtmF932oNZqaaqrpsKSf3C1
+X-Received: by 2002:a17:902:db09:b0:226:38ff:1d6a with SMTP id
+ d9443c01a7336-23ac3cf54d3mr146088655ad.7.1751206071978; 
+ Sun, 29 Jun 2025 07:07:51 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE32k7Afuea4S6YlDfLE+VUZzeCxgrzidUbH0ovqiE4vkhu2fW7o1UrBtt/LddK/revmNzJUg==
+X-Received: by 2002:a17:902:db09:b0:226:38ff:1d6a with SMTP id
+ d9443c01a7336-23ac3cf54d3mr146088305ad.7.1751206071431; 
+ Sun, 29 Jun 2025 07:07:51 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23acb39baf5sm61278095ad.123.2025.06.29.07.07.49
+ d9443c01a7336-23acb2f182csm62074285ad.55.2025.06.29.07.07.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Jun 2025 07:07:49 -0700 (PDT)
+ Sun, 29 Jun 2025 07:07:51 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Connor Abbott <cwabbott0@gmail.com>,
  Antonino Maniscalco <antomani103@gmail.com>,
  Danilo Krummrich <dakr@redhat.com>, Rob Clark <robdclark@chromium.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v8 20/42] drm/msm: Drop queued submits on lastclose()
-Date: Sun, 29 Jun 2025 07:03:23 -0700
-Message-ID: <20250629140537.30850-21-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v8 21/42] drm/msm: Lazily create context VM
+Date: Sun, 29 Jun 2025 07:03:24 -0700
+Message-ID: <20250629140537.30850-22-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.50.0
 In-Reply-To: <20250629140537.30850-1-robin.clark@oss.qualcomm.com>
 References: <20250629140537.30850-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI5MDExOSBTYWx0ZWRfXwSfA/9vJbLPR
- jC3a0VKepZcTgJDWOPCEj5AcjJo2mAjy/evM054rsALolILCSUQYYEmYoSCmvbbZfVxryCU4EP9
- nm+WysF0ycK2fHjiKznkooQappIrC6JOP7wQPI2S3lOOReigf0PzFwmDRYBN8f07ir0xpaGby4N
- Ctb66m6la1ThAV0uh5LHr9IP4zBZ6scH6SmZhenhV7AAv0TWQV9rfCz91YJiIETWXVD9PiBUbsJ
- nUSRmJyfKaJMM+DdjQ3riUSiSwLlGzbKSL8QMXB4m/P4HE1Uska+xOLYuFehrD7WYZXPYWK2nbP
- iPoHtVx0RQpCPRG9sRXKHqLFUdkUCPDtY2ZKfG7eCrTECHVcjC50DvlfvHKlXXzj2sNEuVuBKHq
- 0kLoVo8agYNV8Yes5hCjYdhQFad9xGIobGQ0eDhe8Xk5P47bgXLEjBx8za5PNZmhOEuDgYqp
-X-Proofpoint-GUID: 4Vz0IHSmCHVe1U0UbjuarRzLmnEEPVPA
-X-Authority-Analysis: v=2.4 cv=RrbFLDmK c=1 sm=1 tr=0 ts=686148b7 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=Vc5hAS3c26tUa1HFGawA:9
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: 4Vz0IHSmCHVe1U0UbjuarRzLmnEEPVPA
+X-Authority-Analysis: v=2.4 cv=ZKfXmW7b c=1 sm=1 tr=0 ts=686148b8 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
+ a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=K8YrE2tTMaBrqk7BmowA:9
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI5MDExOSBTYWx0ZWRfX8aHgyH5mv9FK
+ hMw3AWXVf66BSnRx27Kjm9iVZsGREr/o1ciihVzL+MCoD/7dquj/FMZyp1gk8cmvEouMzA3uQqe
+ K/u5rg9SmWY/Pm3xVvJbcVGCmyR2thEegvoO5ImHv9oHF4SzIGabO6HUIIy3ROMCNXmEt6feVxD
+ TBIQosZq0R8xZ5IKQby4phdPhPYeT7VFlySPmXmK4/9BW2hcJc8RUUL/g40/5oBaRmGb4AXppmS
+ hlNH//7tjRqFRspxKaqaySc+H7JHhZM+5u7QBruRbBLJ61JAM1LPhbZSZDqYgelWuDgIiH09Gpj
+ 8Fexe3eFblFUcTaqgeEF2R1yedGQwI5LKCUPrs0yDoRxl95Bf+Rkffr4sWo4mZ5y85DR9u7pk95
+ dxp9WsxzVO+joQgGiBf+PfbniIDvFaHDuzl7liPeocHSNxuGd0Ulsj+w5318doNjmNyZCUVm
+X-Proofpoint-ORIG-GUID: rb9TD8jCRfHBdxWtu37Isuc4A1zNoqjc
+X-Proofpoint-GUID: rb9TD8jCRfHBdxWtu37Isuc4A1zNoqjc
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-06-27_05,2025-06-27_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxlogscore=999 adultscore=0 clxscore=1015 suspectscore=0
- phishscore=0 bulkscore=0 malwarescore=0 spamscore=0 mlxscore=0
- priorityscore=1501 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
+ adultscore=0 mlxscore=0 mlxlogscore=999 spamscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ impostorscore=0 malwarescore=0 clxscore=1015 classifier=spam authscore=0
+ authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
  engine=8.19.0-2505280000 definitions=main-2506290119
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,77 +129,200 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-If we haven't written the submit into the ringbuffer yet, then drop it.
-The submit still retires through the normal path, to preserve fence
-signalling order, but we can skip the IB's to userspace cmdstream.
+In the next commit, a way for userspace to opt-in to userspace managed
+VM is added.  For this to work, we need to defer creation of the VM
+until it is needed.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 Tested-by: Antonino Maniscalco <antomani103@gmail.com>
 Reviewed-by: Antonino Maniscalco <antomani103@gmail.com>
 ---
- drivers/gpu/drm/msm/msm_drv.c        | 1 +
- drivers/gpu/drm/msm/msm_gpu.h        | 8 ++++++++
- drivers/gpu/drm/msm/msm_ringbuffer.c | 6 ++++++
- 3 files changed, 15 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  3 ++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 14 +++++++-----
+ drivers/gpu/drm/msm/msm_drv.c           | 29 ++++++++++++++++++++-----
+ drivers/gpu/drm/msm/msm_gem_submit.c    |  2 +-
+ drivers/gpu/drm/msm/msm_gpu.h           |  9 +++++++-
+ 5 files changed, 43 insertions(+), 14 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 0b78888c58af..7364b7e9c266 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -112,6 +112,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ {
+ 	bool sysprof = refcount_read(&a6xx_gpu->base.base.sysprof_active) > 1;
+ 	struct msm_context *ctx = submit->queue->ctx;
++	struct drm_gpuvm *vm = msm_context_vm(submit->dev, ctx);
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	phys_addr_t ttbr;
+ 	u32 asid;
+@@ -120,7 +121,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 	if (ctx->seqno == ring->cur_ctx_seqno)
+ 		return;
+ 
+-	if (msm_iommu_pagetable_params(to_msm_vm(ctx->vm)->mmu, &ttbr, &asid))
++	if (msm_iommu_pagetable_params(to_msm_vm(vm)->mmu, &ttbr, &asid))
+ 		return;
+ 
+ 	if (adreno_gpu->info->family >= ADRENO_7XX_GEN1) {
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 12bf39c0516c..2baf381ea401 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -369,6 +369,8 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct drm_device *drm = gpu->dev;
++	/* Note ctx can be NULL when called from rd_open(): */
++	struct drm_gpuvm *vm = ctx ? msm_context_vm(drm, ctx) : NULL;
+ 
+ 	/* No pointer params yet */
+ 	if (*len != 0)
+@@ -414,8 +416,8 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+ 		*value = 0;
+ 		return 0;
+ 	case MSM_PARAM_FAULTS:
+-		if (ctx->vm)
+-			*value = gpu->global_faults + to_msm_vm(ctx->vm)->faults;
++		if (vm)
++			*value = gpu->global_faults + to_msm_vm(vm)->faults;
+ 		else
+ 			*value = gpu->global_faults;
+ 		return 0;
+@@ -423,14 +425,14 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+ 		*value = gpu->suspend_count;
+ 		return 0;
+ 	case MSM_PARAM_VA_START:
+-		if (ctx->vm == gpu->vm)
++		if (vm == gpu->vm)
+ 			return UERR(EINVAL, drm, "requires per-process pgtables");
+-		*value = ctx->vm->mm_start;
++		*value = vm->mm_start;
+ 		return 0;
+ 	case MSM_PARAM_VA_SIZE:
+-		if (ctx->vm == gpu->vm)
++		if (vm == gpu->vm)
+ 			return UERR(EINVAL, drm, "requires per-process pgtables");
+-		*value = ctx->vm->mm_range;
++		*value = vm->mm_range;
+ 		return 0;
+ 	case MSM_PARAM_HIGHEST_BANK_BIT:
+ 		*value = adreno_gpu->ubwc_config.highest_bank_bit;
 diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 488fdf02aee9..c4b0a38276fa 100644
+index c4b0a38276fa..5cbc2c7b1204 100644
 --- a/drivers/gpu/drm/msm/msm_drv.c
 +++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -254,6 +254,7 @@ static int msm_open(struct drm_device *dev, struct drm_file *file)
- 
- static void context_close(struct msm_context *ctx)
- {
-+	ctx->closed = true;
- 	msm_submitqueue_close(ctx);
- 	msm_context_put(ctx);
+@@ -218,10 +218,29 @@ static void load_gpu(struct drm_device *dev)
+ 	mutex_unlock(&init_lock);
  }
+ 
++/**
++ * msm_context_vm - lazily create the context's VM
++ *
++ * @dev: the drm device
++ * @ctx: the context
++ *
++ * The VM is lazily created, so that userspace has a chance to opt-in to having
++ * a userspace managed VM before the VM is created.
++ *
++ * Note that this does not return a reference to the VM.  Once the VM is created,
++ * it exists for the lifetime of the context.
++ */
++struct drm_gpuvm *msm_context_vm(struct drm_device *dev, struct msm_context *ctx)
++{
++	struct msm_drm_private *priv = dev->dev_private;
++	if (!ctx->vm)
++		ctx->vm = msm_gpu_create_private_vm(priv->gpu, current);
++	return ctx->vm;
++}
++
+ static int context_init(struct drm_device *dev, struct drm_file *file)
+ {
+ 	static atomic_t ident = ATOMIC_INIT(0);
+-	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_context *ctx;
+ 
+ 	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
+@@ -234,7 +253,6 @@ static int context_init(struct drm_device *dev, struct drm_file *file)
+ 	kref_init(&ctx->ref);
+ 	msm_submitqueue_init(dev, ctx);
+ 
+-	ctx->vm = msm_gpu_create_private_vm(priv->gpu, current);
+ 	file->driver_priv = ctx;
+ 
+ 	ctx->seqno = atomic_inc_return(&ident);
+@@ -413,7 +431,7 @@ static int msm_ioctl_gem_info_iova(struct drm_device *dev,
+ 	 * Don't pin the memory here - just get an address so that userspace can
+ 	 * be productive
+ 	 */
+-	return msm_gem_get_iova(obj, ctx->vm, iova);
++	return msm_gem_get_iova(obj, msm_context_vm(dev, ctx), iova);
+ }
+ 
+ static int msm_ioctl_gem_info_set_iova(struct drm_device *dev,
+@@ -422,18 +440,19 @@ static int msm_ioctl_gem_info_set_iova(struct drm_device *dev,
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_context *ctx = file->driver_priv;
++	struct drm_gpuvm *vm = msm_context_vm(dev, ctx);
+ 
+ 	if (!priv->gpu)
+ 		return -EINVAL;
+ 
+ 	/* Only supported if per-process address space is supported: */
+-	if (priv->gpu->vm == ctx->vm)
++	if (priv->gpu->vm == vm)
+ 		return UERR(EOPNOTSUPP, dev, "requires per-process pgtables");
+ 
+ 	if (should_fail(&fail_gem_iova, obj->size))
+ 		return -ENOMEM;
+ 
+-	return msm_gem_set_iova(obj, ctx->vm, iova);
++	return msm_gem_set_iova(obj, vm, iova);
+ }
+ 
+ static int msm_ioctl_gem_info_set_metadata(struct drm_gem_object *obj,
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index d8ff6aeb04ab..068ca618376c 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -63,7 +63,7 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
+ 
+ 	kref_init(&submit->ref);
+ 	submit->dev = dev;
+-	submit->vm = queue->ctx->vm;
++	submit->vm = msm_context_vm(dev, queue->ctx);
+ 	submit->gpu = gpu;
+ 	submit->cmd = (void *)&submit->bos[nr_bos];
+ 	submit->queue = queue;
 diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 231577656fae..a35e1c7bbcdd 100644
+index a35e1c7bbcdd..29662742a7e1 100644
 --- a/drivers/gpu/drm/msm/msm_gpu.h
 +++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -356,6 +356,14 @@ struct msm_context {
+@@ -364,7 +364,12 @@ struct msm_context {
  	 */
- 	int queueid;
+ 	bool closed;
  
+-	/** @vm: the per-process GPU address-space */
 +	/**
-+	 * @closed: The device file associated with this context has been closed.
++	 * @vm:
 +	 *
-+	 * Once the device is closed, any submits that have not been written
-+	 * to the ring buffer are no-op'd.
++	 * The per-process GPU address-space.  Do not access directly, use
++	 * msm_context_vm().
 +	 */
-+	bool closed;
-+
- 	/** @vm: the per-process GPU address-space */
  	struct drm_gpuvm *vm;
  
-diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
-index 552b8da9e5f7..b2f612e5dc79 100644
---- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-+++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-@@ -17,6 +17,7 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
- 	struct msm_fence_context *fctx = submit->ring->fctx;
- 	struct msm_gpu *gpu = submit->gpu;
- 	struct msm_drm_private *priv = gpu->dev->dev_private;
-+	unsigned nr_cmds = submit->nr_cmds;
- 	int i;
+ 	/** @kref: the reference count */
+@@ -449,6 +454,8 @@ struct msm_context {
+ 	atomic64_t ctx_mem;
+ };
  
- 	msm_fence_init(submit->hw_fence, fctx);
-@@ -36,8 +37,13 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
- 	/* TODO move submit path over to using a per-ring lock.. */
- 	mutex_lock(&gpu->lock);
- 
-+	if (submit->queue->ctx->closed)
-+		submit->nr_cmds = 0;
++struct drm_gpuvm *msm_context_vm(struct drm_device *dev, struct msm_context *ctx);
 +
- 	msm_gpu_submit(gpu, submit);
- 
-+	submit->nr_cmds = nr_cmds;
-+
- 	mutex_unlock(&gpu->lock);
- 
- 	return dma_fence_get(submit->hw_fence);
+ /**
+  * msm_gpu_convert_priority - Map userspace priority to ring # and sched priority
+  *
 -- 
 2.50.0
 
