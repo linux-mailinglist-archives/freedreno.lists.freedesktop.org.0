@@ -2,120 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5780AED9E7
-	for <lists+freedreno@lfdr.de>; Mon, 30 Jun 2025 12:34:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E567AEDCBE
+	for <lists+freedreno@lfdr.de>; Mon, 30 Jun 2025 14:28:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA3410E3F8;
-	Mon, 30 Jun 2025 10:34:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07DE410E437;
+	Mon, 30 Jun 2025 12:28:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BBMmDasa";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iSj7D8hF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC22D10E3F8
- for <freedreno@lists.freedesktop.org>; Mon, 30 Jun 2025 10:34:05 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55U8DBZq023313
- for <freedreno@lists.freedesktop.org>; Mon, 30 Jun 2025 10:34:05 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE0910E1F2
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 08:50:51 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55T6T6pi021775
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 08:50:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- g/DSsMm2kVm97th9bVbLAFQC3F5AhKTQNEcJC1748oA=; b=BBMmDasa3kkvlduS
- e7tyBDj6a271BzJUI+pMBE2cH3olV3LZbKolDv2l17VWcRmzXTgvxrW+g81jE7x5
- rTiVnRCzQFLYN3hY6stwMh2dzbdjvXzu5Rr4XFrIUPh4DaxQtvpwnCGL7DayGvHa
- nC2ZlU6yE2u6XyxFxvWEtEUE6FjVEQDGaCOQaLorxT556tahwkfdsJqVSP6QKOCT
- hHUflSnBkAnRukLnnABsMSxTyLsLB0O6nRQp+zWU/fOoFSTWHtEmAmstLudl+r+u
- hba8y1lvE56l3Hbf7xLXdQ1pc+EJKCm3T3wDmShPGNKI0utPop46kSfNYmgedKZx
- Bv0gEA==
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=0hMlDyDA0Cncyv17SlazKl1oOurrgn26mPK
+ 6B3j+WiA=; b=iSj7D8hFBCQQnbb1wnFI1cLknT+SVdnBKg8BTJLhgwFbusfBuQS
+ M+mr/qVmMKuCmlEAQYJuI3V1WKpXCv4M8iWQqgqe+/VekssVI/EFAKgpnr62iyJd
+ U40QTYajYpVeCEPPPn1d5SiR+jCeibMj6XelrK7qVPXmfoXMZqZqt9v5L4zFKPqw
+ Xwwbkuworiq8P641PRgQd7vaV9GhMDZ6LFbYYZgQG46q2xFXoId0SJGZhd4NiyIp
+ INhtAMVSdfsrzT271CYH3mWOwDT3D2fLIfwhlExa8tIniKKrmv/6UGsmMPNmwotY
+ ZlU3v/if41EY/xKxR+TudATT0tVMU/X/zAg==
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
  [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47kpq28fc6-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j7d9syrt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 30 Jun 2025 10:34:05 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 08:50:47 +0000 (GMT)
 Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7d0979e6263so14067785a.2
- for <freedreno@lists.freedesktop.org>; Mon, 30 Jun 2025 03:34:05 -0700 (PDT)
+ af79cd13be357-7d22790afd2so164230685a.2
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Jun 2025 01:50:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751279644; x=1751884444;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=g/DSsMm2kVm97th9bVbLAFQC3F5AhKTQNEcJC1748oA=;
- b=ZZWEjirudOsJJuCHQOCEacSwh6H6HIu20RHP5lNtWfymVBvoVOEP8C7smNHRsMr7Xq
- hW0ETUzEKwZ+sGvCKS5f6BDmflrGWubSGbUNJxSb2Ihu7IbjKSNeukmTeENWXvG74zSh
- V/vu/64twAqO7l9NqBU13YJDJWhE9GTeF7BRFpHJRS5ILD8Fn01p0iAAVjb+VZyL7j/0
- /BK8hXIv9ZvLOkKrDoY5cMUbqiIrbi39ApKk9Elu0h/9LYJJQ/MwhZ4M2mp/bYdFnv9M
- VGUwSy6MER5/Alf1iJArGsTmKJ3vOtgrLSX4QREkyKD6DMcvdplmO1UUEseevADVzRd0
- Pd8g==
-X-Gm-Message-State: AOJu0YxbN48/+2deALtSMqkUwdma8maDtF5bfYH373GSFKH5IfpWIfMJ
- xc/oXszfLh+wfBFlkNevYLpd7FnWCY3EpB6R2BNavvs3UYlEW1GWuRX/oiMfooLdMjLPB6JkSKR
- Yx4c6+6XLaiwZFykAmldSn23kjun6ld99IuME0Q09+YQZJl+lp4Dp0HRB+5VP3eTZ24a7U7Q=
-X-Gm-Gg: ASbGncv+omhDgCnUA/eji/tPh+4j4EdfmjmttSq1Id9oOED7DXfgHpl28Y83fvD1pN0
- YyqJYyl3A+QkNbRu3dIJzM/dcGMDzVP3F0r2KXOF5g8WnF7A2CDg3D/Thrid7u6Vc97ksaGKoUf
- C2aYuYwOun6YvJKxd/dQmFce91omZd2vN9lepzo1C51PZOVpg5lUgk282nXi1yQPVEAIdYa+ju2
- /HEFO9V/UnWJOi95f7JqRsTQt/iA+qRdwxPMcZksauqRsJG68XUpcSWdTf2bmJYygh5CMhMMxFp
- M3sfdYJhYn2Gfq30EwAf+G1AE65t6HYr8N6lTWvvILjWlCGE+YsCVd8FfoZ3jvKWrarZ7HkAN2I
- RKhel3QZn
-X-Received: by 2002:a05:620a:a218:b0:7d4:60e5:24f3 with SMTP id
- af79cd13be357-7d460e530abmr63824085a.6.1751279643696; 
- Mon, 30 Jun 2025 03:34:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF14u67wYVOXU0dwFwQQCwd2FEAqwgbTauB1E2BpJpoGlhPPQaUrdj7uROZsLTFGEwJNwiJMA==
-X-Received: by 2002:a05:620a:a218:b0:7d4:60e5:24f3 with SMTP id
- af79cd13be357-7d460e530abmr63820885a.6.1751279643192; 
- Mon, 30 Jun 2025 03:34:03 -0700 (PDT)
-Received: from [192.168.1.114] (83.9.29.190.neoplus.adsl.tpnet.pl.
- [83.9.29.190]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-60c828bb7b9sm5684192a12.15.2025.06.30.03.34.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Jun 2025 03:34:02 -0700 (PDT)
-Message-ID: <92314f06-e6a8-4882-a31c-914438d7761d@oss.qualcomm.com>
-Date: Mon, 30 Jun 2025 12:33:58 +0200
+ d=1e100.net; s=20230601; t=1751187047; x=1751791847;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0hMlDyDA0Cncyv17SlazKl1oOurrgn26mPK6B3j+WiA=;
+ b=TY02oqb4CHDGHqBgRh+QrXpa6G6dd5tw6xLBwkrtLbWf0Pe3LdVIM2p92vWi+NFE2G
+ ggWEzMIOiI77CaXGOht53gHcP4FgwamIC/vT0i7EY6m2yNEIS7ufDeJAecYQYd9tT9VM
+ a6PiS5ZIyi8SzHHIgTBfhN7MmuDxUTT30LQ3wL8GWRTwBAgx7yfXacLzH0E1pcdwVj01
+ iHFoGj4vekpTDRAzdf7lZWLl3K2HCCYqYKOIOeTlU3A5hWQhXHj/XnyC5RVkfnmhLl5d
+ uF4K7aH0gJv05KuFuxsrVEntFdQutpnvLjGooSnz7E2/HfaGLeh90N+8xXTPmIOUsLry
+ YCkg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXdw+bX5JWpy1rd1bNAbV5ZvICTWhP4s/9jBB/U2/gcncIau7Ojxla0r9dTS+LzFgEnLLeN7tqsW4A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrmVjI8suuB1LKOPe4Vy88K/wfk+M0xSI1eJumMXWc/V7dzfGb
+ I4V5k6H4yv3nAoMAWBKzJt+EsyAju9mOQgmJGr4f4qp0mxbF1PqwuInVthRo4v9r6wLUp4rG3Kf
+ jFaNMB2I4nnoTZw4vkjvUlm/OTv0lR518cMOhfQpaFLlw3nVJD789cz0A86EiyuxjAvVRxfs=
+X-Gm-Gg: ASbGncuGhN9bHDG6QIHmDZYh/9cYZUTlV2GhMGGyYANXmZSrDyuzsDYhSb1QqXfpj40
+ egUz3aHeH2lhlTnQqrGyMAt6ttNkPkgD3YZ2AYkAJnD7lYDw75HENO4wrYX6oplzl3jS39aGJlt
+ 76uR14+TccUxeMmNIlAFP2QQ2EvKSelj85VSGzk102Yl1rDHLF2LzvRHHEY9eJ0YL+9wuQ7vkpo
+ k5rqMDv/4sqlvoYj02BEweNuCD2aHSN88n4+JTLK5GzRdTXpmr/19hU3KExSecxNjTgStRzzmSF
+ 8X2TeTSQ3gD8P5zokeIKpIFeO/xcTZe2iyP/aRC+5Pk/tlOTJZHnqs538g==
+X-Received: by 2002:a05:620a:a101:b0:7d3:8d53:c509 with SMTP id
+ af79cd13be357-7d443923426mr1326542285a.2.1751187046662; 
+ Sun, 29 Jun 2025 01:50:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH7/wzur2ilMnXl00SgqKWW95HdeipYCmpE4UPXGQOX/T8tKPtvKwMo5gyNymqaUsH5MVU/Gw==
+X-Received: by 2002:a05:620a:a101:b0:7d3:8d53:c509 with SMTP id
+ af79cd13be357-7d443923426mr1326541185a.2.1751187046208; 
+ Sun, 29 Jun 2025 01:50:46 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.qualcomm.com ([123.51.149.218])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ae353c6bc2dsm463754966b.136.2025.06.29.01.50.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 29 Jun 2025 01:50:45 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+To: robin.clark@oss.qualcomm.com, lumag@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, abhinav.kumar@linux.dev,
+ jessica.zhang@oss.qualcomm.com, sean@poorly.run,
+ marijn.suijten@somainline.org, Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [RESEND PATCH v2] drm/msm/dsi: Fix 14nm DSI PHY PLL Lock issue
+Date: Sun, 29 Jun 2025 10:50:36 +0200
+Message-Id: <20250629085036.765397-1-loic.poulain@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ci: Remove sdm845/cheza jobs
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Helen Koike <helen.fornazier@gmail.com>,
- Vignesh Raman <vignesh.raman@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20250629135843.30097-1-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250629135843.30097-1-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=G4scE8k5 c=1 sm=1 tr=0 ts=6862681d cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=fKQzr7EGRj+VoE0XNsDNvQ==:17
- a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=EUspDBNiAAAA:8 a=_tQuiCBsMoVRMLc1B3gA:9
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: Es7-gMxKfRbjjMNTMHI1H6d909DLYuEx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjMwMDA4NyBTYWx0ZWRfX84QMRi5Gq4Nx
- KX5LOCrBn+6ky8Pj3MFahMWKc1xQq1xfyfKmMzX0GQzC9EOrIu7M9enmRdil2XqBu+NFucFw6lj
- +/ffF+qO4GLhKCgP5hIMrM0+cVYvNjB6qIZBncMZL4SkOCe187ADCAi3xSBc90Qm9QK7M1AsI3U
- kHYFEeLk+aQ66k7mFnXtpl8QUYd5s+L0SLzEXjMv5XHPODZeXzvifCqF+QpROikLPr1ESleX++T
- nqQzn4pz/BZuUMzIWw3Xtzu3SE9N0nhFsblZM72E2p0L9nCbFeyTlWRjdVReqXMqHCZ+51D0K3e
- uH/umqPLsxcCsvhGrT7HiKRBF2uGcsv/gEq14Zo88FUjHFNAbVB3i4yT4yPavgBYfeqJXcjpN0n
- Qs1Ko71SinmACBSPk68f7masBrvVNqtlnW5WdcNejHTwVSj0A06Uwt9UAk07JgTogaDKqapr
-X-Proofpoint-ORIG-GUID: Es7-gMxKfRbjjMNTMHI1H6d909DLYuEx
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjI5MDA3MyBTYWx0ZWRfX3EepicGDROuW
+ ovQijE8KGYJjWnScCp5tNQx5VKfv2hfOUlO3/CBCbret0KQsulswwiY+fOsB4a3JyfrECl2R6cR
+ S1Nbvn69RY+dBlJr/Qtc4Cv/g6MyDKaGPfmkd8/mju3reGQ5A09P29TxCTPZeg44vbIpC6Prfco
+ C6LiZl51+wvw+JC7jheVwmhpQph7zTkldI7H3ydQ6JWaOVp9bxNwCK3/F87OldOgcHBjaH5J2sL
+ BASZTEcCWRhGet3PrVFS2IfbYOD5qjznKB4Ne92B8lv2cIQbN/aShLPuAbr8C77SEYQ61saGEHM
+ dX4AFcMbpVts4psrNnNyeQck29bIOISAeqW/yvBoS0HqcBpb8Mo82a5BqGZxfrnscPk6ekv31BM
+ Og8UTSHv+8kR0xJcTwkYHiPsS6HiEbD1mZLdhEyOwBpE/NP3iQA64oiqT1vYktmnUvE3jlu+
+X-Proofpoint-GUID: mRp7DlYThWBTJrENHM5-BQvQCuGqKZMI
+X-Authority-Analysis: v=2.4 cv=RrbFLDmK c=1 sm=1 tr=0 ts=6860fe67 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ygdFXUo9QkFfm0HlBJS/UA==:17
+ a=6IFa9wvqVegA:10 a=EUspDBNiAAAA:8 a=Hn5eap2Cq60OI_ydS0cA:9
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: mRp7DlYThWBTJrENHM5-BQvQCuGqKZMI
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-06-30_02,2025-06-27_01,2025-03-28_01
+ definitions=2025-06-27_05,2025-06-27_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 bulkscore=0
- adultscore=0 malwarescore=0 mlxscore=0 spamscore=0 impostorscore=0
- mlxlogscore=773 priorityscore=1501 classifier=spam authscore=0 authtc=n/a
+ impostorscore=0 mlxlogscore=999 adultscore=0 clxscore=1011 suspectscore=0
+ phishscore=0 bulkscore=0 malwarescore=0 spamscore=0 mlxscore=0
+ priorityscore=1501 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2506300087
+ engine=8.19.0-2505280000 definitions=main-2506290073
+X-Mailman-Approved-At: Mon, 30 Jun 2025 12:28:03 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,14 +121,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+To configure and enable the DSI PHY PLL clocks, the MDSS AHB clock must
+be active for MMIO operations. Typically, this AHB clock is enabled as
+part of the DSI PHY interface enabling (dsi_phy_enable_resource).
 
+However, since these PLL clocks are registered as clock entities, they
+can be enabled independently of the DSI PHY interface, leading to
+enabling failures and subsequent warnings:
 
-On 29-Jun-25 15:58, Rob Clark wrote:
-> These runners are no more.  So remove the jobs.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+```
+msm_dsi_phy 5e94400.phy: [drm:dsi_pll_14nm_vco_prepare] *ERROR* DSI PLL lock failed
+------------[ cut here ]------------
+dsi0pllbyte already disabled
+WARNING: CPU: 3 PID: 1 at drivers/clk/clk.c:1194 clk_core_disable+0xa4/0xac
+CPU: 3 UID: 0 PID: 1 Comm: swapper/0 Tainted:
+Tainted: [W]=WARN
+Hardware name: Qualcomm Technologies, Inc. Robotics RB1 (DT)
+pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[...]
+```
 
-Do we have anyone using cheza at all anymore then?
+This issue is particularly prevalent at boot time during the disabling of
+unused clocks (clk_disable_unused()) which includes enabling the parent
+clock(s) when CLK_OPS_PARENT_ENABLE flag is set (this is the case for the
+14nm DSI PHY PLL consumers).
 
-Konrad
+To resolve this issue, we move the AHB clock as a PM dependency of the DSI
+PHY device (via pm_clk). Since the DSI PHY device is the parent of the PLL
+clocks, this resolves the PLL/AHB dependency. Now the AHB clock is enabled
+prior the PLL clk_prepare callback, as part of the runtime-resume chain.
+
+We also eliminate dsi_phy_[enable|disable]_resource functions, which are
+superseded by runtime PM.
+
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+---
+ v2: Move AHB clock into a proper PM dep instead of manually toggling it
+     from the PLL clock driver.
+
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 65 +++++++++++----------------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h |  1 -
+ 2 files changed, 25 insertions(+), 41 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index 5973d7325699..015cb579c669 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -5,6 +5,8 @@
+ 
+ #include <linux/clk-provider.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_clock.h>
++#include <linux/pm_runtime.h>
+ #include <dt-bindings/phy/phy.h>
+ 
+ #include "dsi_phy.h"
+@@ -511,30 +513,6 @@ int msm_dsi_cphy_timing_calc_v4(struct msm_dsi_dphy_timing *timing,
+ 	return 0;
+ }
+ 
+-static int dsi_phy_enable_resource(struct msm_dsi_phy *phy)
+-{
+-	struct device *dev = &phy->pdev->dev;
+-	int ret;
+-
+-	ret = pm_runtime_resume_and_get(dev);
+-	if (ret)
+-		return ret;
+-
+-	ret = clk_prepare_enable(phy->ahb_clk);
+-	if (ret) {
+-		DRM_DEV_ERROR(dev, "%s: can't enable ahb clk, %d\n", __func__, ret);
+-		pm_runtime_put_sync(dev);
+-	}
+-
+-	return ret;
+-}
+-
+-static void dsi_phy_disable_resource(struct msm_dsi_phy *phy)
+-{
+-	clk_disable_unprepare(phy->ahb_clk);
+-	pm_runtime_put(&phy->pdev->dev);
+-}
+-
+ static const struct of_device_id dsi_phy_dt_match[] = {
+ #ifdef CONFIG_DRM_MSM_DSI_28NM_PHY
+ 	{ .compatible = "qcom,dsi-phy-28nm-hpm",
+@@ -696,24 +674,30 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	phy->ahb_clk = msm_clk_get(pdev, "iface");
+-	if (IS_ERR(phy->ahb_clk))
+-		return dev_err_probe(dev, PTR_ERR(phy->ahb_clk),
+-				     "Unable to get ahb clk\n");
++	platform_set_drvdata(pdev, phy);
+ 
+-	ret = devm_pm_runtime_enable(&pdev->dev);
++	ret = devm_pm_runtime_enable(dev);
+ 	if (ret)
+ 		return ret;
+ 
+-	/* PLL init will call into clk_register which requires
+-	 * register access, so we need to enable power and ahb clock.
+-	 */
+-	ret = dsi_phy_enable_resource(phy);
++	ret = devm_pm_clk_create(dev);
+ 	if (ret)
+ 		return ret;
+ 
++	ret = pm_clk_add(dev, "iface");
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Unable to get iface clk\n");
++
+ 	if (phy->cfg->ops.pll_init) {
++		/* PLL init will call into clk_register which requires
++		 * register access, so we need to enable power and ahb clock.
++		 */
++		ret = pm_runtime_resume_and_get(dev);
++		if (ret)
++			return ret;
++
+ 		ret = phy->cfg->ops.pll_init(phy);
++		pm_runtime_put(&pdev->dev);
+ 		if (ret)
+ 			return dev_err_probe(dev, ret,
+ 					     "PLL init failed; need separate clk driver\n");
+@@ -725,18 +709,19 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, ret,
+ 				     "Failed to register clk provider\n");
+ 
+-	dsi_phy_disable_resource(phy);
+-
+-	platform_set_drvdata(pdev, phy);
+-
+ 	return 0;
+ }
+ 
++static const struct dev_pm_ops dsi_phy_pm_ops = {
++	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
++};
++
+ static struct platform_driver dsi_phy_platform_driver = {
+ 	.probe      = dsi_phy_driver_probe,
+ 	.driver     = {
+ 		.name   = "msm_dsi_phy",
+ 		.of_match_table = dsi_phy_dt_match,
++		.pm = &dsi_phy_pm_ops,
+ 	},
+ };
+ 
+@@ -762,7 +747,7 @@ int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
+ 
+ 	dev = &phy->pdev->dev;
+ 
+-	ret = dsi_phy_enable_resource(phy);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret) {
+ 		DRM_DEV_ERROR(dev, "%s: resource enable failed, %d\n",
+ 			__func__, ret);
+@@ -808,7 +793,7 @@ int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
+ phy_en_fail:
+ 	regulator_bulk_disable(phy->cfg->num_regulators, phy->supplies);
+ reg_en_fail:
+-	dsi_phy_disable_resource(phy);
++	pm_runtime_put(dev);
+ res_en_fail:
+ 	return ret;
+ }
+@@ -821,7 +806,7 @@ void msm_dsi_phy_disable(struct msm_dsi_phy *phy)
+ 	phy->cfg->ops.disable(phy);
+ 
+ 	regulator_bulk_disable(phy->cfg->num_regulators, phy->supplies);
+-	dsi_phy_disable_resource(phy);
++	pm_runtime_put(&phy->pdev->dev);
+ }
+ 
+ void msm_dsi_phy_set_usecase(struct msm_dsi_phy *phy,
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+index 7ea608f620fe..0c65821a3db2 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+@@ -103,7 +103,6 @@ struct msm_dsi_phy {
+ 	phys_addr_t lane_size;
+ 	int id;
+ 
+-	struct clk *ahb_clk;
+ 	struct regulator_bulk_data *supplies;
+ 
+ 	struct msm_dsi_dphy_timing timing;
+-- 
+2.34.1
+
