@@ -2,125 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4737AEE3FF
-	for <lists+freedreno@lfdr.de>; Mon, 30 Jun 2025 18:15:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5E34AEF27E
+	for <lists+freedreno@lfdr.de>; Tue,  1 Jul 2025 11:08:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CC5710E4A3;
-	Mon, 30 Jun 2025 16:15:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED60C10E54A;
+	Tue,  1 Jul 2025 09:07:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ti3Gh2d4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jxFIxUA1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47DF310E4A0
- for <freedreno@lists.freedesktop.org>; Mon, 30 Jun 2025 16:15:34 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55UFOEFk018560
- for <freedreno@lists.freedesktop.org>; Mon, 30 Jun 2025 16:15:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- mQQDvBO6LqPQoIi5HwlG43Vm0/0EOI2Xkn06iwnBM48=; b=Ti3Gh2d4RQmncd9/
- egBI0ZyWLS8PHaIpmdWutgtOIc3QymidjFS4CkKnNfsXy4hPkk7D5s786Rifjs2t
- Hoz5WJYmmnx8soCWqG5GcV9dEDbnVldPM/VKi6vjwEOw2Mv3cV1wyQZrheJDrc9y
- Cc5FTZ68uFHG50z/PMBl0dfV7O1MXrkwGj9supMJX5TG8ZMjVsFSSSl5jULK0Niw
- hlSvwsuaJzQOR4hsOaAyJztlWq/Yy2WJoZCNEMvnTIbl9qDH499SPjk4czakNZxZ
- Qhw0scVLkyGwfKcA0V/sN73aBVXcNwkqemsT238Z4k2enr53zIU91Y5k3x+x8s6J
- Nz++nw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j8fxde2j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 30 Jun 2025 16:15:33 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2356ce55d33so63306405ad.0
- for <freedreno@lists.freedesktop.org>; Mon, 30 Jun 2025 09:15:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751300132; x=1751904932;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=mQQDvBO6LqPQoIi5HwlG43Vm0/0EOI2Xkn06iwnBM48=;
- b=UjDfOTbz5JaAoh9JBJSGUOgggVlp2E1B70VnZTeggP9l311ohHPcjMJbAIbAFZcB/V
- yTDR89on73DvbrRlnqPrSX4rUKd8OL+NwnUTdyjmI7M2LXt4rS/UU4vJXZmGOAe0oJcT
- 9zJC7UxrEWhhhyT8gG/6PBCS2rGfdwIVUG5illuVjvJPQlJDpNZ+NYIOMnaO8xk5DeRc
- P8pJHWlLD+oUeNU8OSDqzM8aO6wH/+yKJJz+wgEXogjxdiQt44vmgBkZbK2PobORspY5
- eO4as5+LwUcdlsTbYb/Fyr0rCTXC85VLsuTfyGz0DWx4f3b4oYgH5aHqlLlk+Uoh+mXH
- WGOA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU0Cizd+PqJ2PnXFn4mMxU2TveKhqGPpL5sovK1+CZiHnqkLTy+FpP3s9vse+9cgP263jBS2rwSBp0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDFIrUL6vmeeuJ+3meWmImVPtqnK7qak05NffwPzV8F4NyY1Kt
- IsvCqThg7MiVABp+YD2ievmoFObU2zQiGh4ei2WKv3vvDwwimeiqoXfVwhyYZZdQFq7hAJDT1QO
- JvmUQoteK8rTltqvxavp2o4XhfplorwG6hI+HmSlzlgfeyKfiZ35vm2ESsTRW8Q7ysrDKC3Q=
-X-Gm-Gg: ASbGncuhRh+ndhRisFO58uKEjra30FC5khMD1CYZzCye9ymb47pMGP6neJWU3P4mfKZ
- LWe5z5bjpAR+ngcLvazpbYkCpqLuMWK2keES4fB1Qft2Nm4Z6vKhXr8701vH5aHdbGCrR91XW+H
- smabmYfWTaNAYFNEvjy740zSjBrckIkaY2FcqozFkuN9dT7RvBI1VTxY1V9knIQUKYnWGhXzLTi
- P5Q/Cj8qo4KpC4t8w/f6RFaQUnij7aPXZ9vc+uQoF3MoHaiiBBWqh6YGMztxpvaHv+Rke/fWu5V
- RgmKD2hPQm9Lh+W50erWVz0xTV6Vp5Y8BLofUszgs+Y=
-X-Received: by 2002:a17:903:98f:b0:234:ba37:87b6 with SMTP id
- d9443c01a7336-23ac40dee6emr209862215ad.17.1751300131852; 
- Mon, 30 Jun 2025 09:15:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEIs3i+DGQtrPZJHgDp38If8o1rdqI9yiRt+U4S1ECjmkidu5/g+aW0XIiSH1eCUSC/7H2oZw==
-X-Received: by 2002:a17:903:98f:b0:234:ba37:87b6 with SMTP id
- d9443c01a7336-23ac40dee6emr209861455ad.17.1751300131259; 
- Mon, 30 Jun 2025 09:15:31 -0700 (PDT)
-Received: from [192.168.1.9] ([106.222.233.253])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-315f54417f7sm14678037a91.45.2025.06.30.09.15.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Jun 2025 09:15:30 -0700 (PDT)
-Message-ID: <d323ceed-19e2-4b17-b97e-0833f132be16@oss.qualcomm.com>
-Date: Mon, 30 Jun 2025 21:45:23 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ci: Remove sdm845/cheza jobs
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, rob.clark@oss.qualcomm.com,
- Doug Anderson <dianders@chromium.org>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Helen Koike <helen.fornazier@gmail.com>,
- Vignesh Raman <vignesh.raman@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2B2B10E426;
+ Tue,  1 Jul 2025 09:07:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1751360862; x=1782896862;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=PwvduGq01JI/FZTSXvDPB92tBezOeopBPZMkqHTOsBs=;
+ b=jxFIxUA1NEF2+dGAGX7JH3raPwlFv/FfA6EnKqVTFGjOaYkJLEjJYwVC
+ +q8KGH8tVqpzM9D/Lk6hvaSg5sIfZe3UjTqT7HYGaOtywnUNoddsOuDmZ
+ +77UcqfWpntcGPOhvEPq5coweWModQ98xIik0YBOh9tsyGzssxoDGMqn4
+ +bmiUcdpVEffC2QfCfrpxrwB20eRLeDBo2Z0t/QHHdTi1vfGVCcwgAp/4
+ ElgmykyCESO9MsIOgz1FByyso/kyt4TU6aUXTGI92/sKpg5DiAg530WFV
+ fSp0pro0+Gj1zWRDh7HGZ511Vlo6s1YzEwQbizJ8swq5pWW1uhJGq/Zgn w==;
+X-CSE-ConnectionGUID: kLmg1ST+SAK6I5gQjAVy4A==
+X-CSE-MsgGUID: DMAZVcbPQieThxJ0e5MqdQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11480"; a="64218302"
+X-IronPort-AV: E=Sophos;i="6.16,279,1744095600"; d="scan'208";a="64218302"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2025 02:07:41 -0700
+X-CSE-ConnectionGUID: ecpeFWU3QhqDAygzV7/LgQ==
+X-CSE-MsgGUID: hZGfCFffS1eOQHKDiJBvYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,279,1744095600"; d="scan'208";a="159426871"
+Received: from zzombora-mobl1.ger.corp.intel.com (HELO stinkbox)
+ ([10.245.245.11])
+ by orviesa005.jf.intel.com with SMTP; 01 Jul 2025 02:07:32 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 01 Jul 2025 12:07:31 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Liviu Dudau <liviu.dudau@arm.com>, Russell King <linux@armlinux.org.uk>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20250629135843.30097-1-robin.clark@oss.qualcomm.com>
- <92314f06-e6a8-4882-a31c-914438d7761d@oss.qualcomm.com>
- <CACSVV01AUOp7vZ7kLt+gwxvfv4CYLtAQg6MhUccygbi1NpVJMg@mail.gmail.com>
- <aaaa42ed-989e-43ee-8d45-2908f52e8584@oss.qualcomm.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <aaaa42ed-989e-43ee-8d45-2908f52e8584@oss.qualcomm.com>
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Subject: [PATCH v2 02/19] drm: Pass pixel_format+modifier directly to
+ drm_get_format_info()
+Date: Tue,  1 Jul 2025 12:07:05 +0300
+Message-ID: <20250701090722.13645-3-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250701090722.13645-1-ville.syrjala@linux.intel.com>
+References: <20250701090722.13645-1-ville.syrjala@linux.intel.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjMwMDEzNCBTYWx0ZWRfX1Z0S/wt3IiPf
- 16lO0tb+21Qfm1G4wEwyaKQvdgodvvRSu5SN7zkvSn+7z6xS6eAvaMUjCU6E6J1rDRoyoVHnf/Y
- lkk4jj7DW3NZhuYKcv8W+2v7zm8EmdVsrk6w6KDPj7ztn+bHDzJ7jlTtxmgAr5+lrKdi2iSY5mO
- /hNm8+iIqzw5u+/5pihjXuKqvo+RULtjf+OJ0qQO5YSyv4u267n4rsuVHWcxKffSgdUP/wXJqS/
- RpdWIHePQP15cGgUknRJTeHmutalATO7JnKM4b/EYmnbMKd3ssCK2DZvMW2uxUgVKAeU488IYWx
- wvZ01SZlkVBhW492EJPwqAyKc0tfrUw2q/Qqy6oVvTZj1hnqHvWH+Bnfqx5wNL6HANxvq9QQasj
- 2qycGYm0bylEM+gfiwdmi62TGNuaX0jOE/Ia3qJrxzM4JpFVgaODHCfpqg8b5Mep3KMUWpOT
-X-Proofpoint-GUID: W5Osz26_qembxhdeqnwMfdNZkhqe3kNW
-X-Proofpoint-ORIG-GUID: W5Osz26_qembxhdeqnwMfdNZkhqe3kNW
-X-Authority-Analysis: v=2.4 cv=TqPmhCXh c=1 sm=1 tr=0 ts=6862b825 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=rtNiIixKYgeDUDJv+u67mw==:17
- a=IkcTkHD0fZMA:10 a=6IFa9wvqVegA:10 a=EUspDBNiAAAA:8 a=dp0Al3FcNReu_-gFsVQA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-06-30_04,2025-06-27_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 mlxlogscore=765 suspectscore=0 adultscore=0
- phishscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 mlxscore=0
- impostorscore=0 spamscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2506300134
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,33 +92,415 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 6/30/2025 9:26 PM, Konrad Dybcio wrote:
-> 
-> 
-> On 30-Jun-25 15:46, Rob Clark wrote:
->> On Mon, Jun 30, 2025 at 3:34 AM Konrad Dybcio
->> <konrad.dybcio@oss.qualcomm.com> wrote:
->>>
->>>
->>>
->>> On 29-Jun-25 15:58, Rob Clark wrote:
->>>> These runners are no more.  So remove the jobs.
->>>>
->>>> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
->>>> ---
->>>
->>> Do we have anyone using cheza at all anymore then?
->>
->> Probably not
-> 
-> Adding +Doug +Akhil +Jessica, if we don't have any users, we may
-> get rid of it upstream, as it never made it to the outside-outside
-> world..
-> 
-> Konrad
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-I am not aware of anyone using Cheza boards within Qcom. So it is fine
-with me if you plan to remove the DT bits.
+Decouple drm_get_format_info() from struct drm_mode_fb_cmd2 and just
+pass the pixel format+modifier combo in by hand.
 
--Akhil
+We may want to use drm_get_format_info() outside of the normal
+addfb paths where we won't have a struct drm_mode_fb_cmd2, and
+creating a temporary one just for this seems silly.
+
+Done with cocci:
+@@
+identifier dev, mode_cmd;
+@@
+struct drm_format_info *
+drm_get_format_info(struct drm_device *dev,
+-		    const struct drm_mode_fb_cmd2 *mode_cmd
++		    u32 pixel_format, u64 modifier
+     		    )
+{
+<...
+(
+- mode_cmd->pixel_format
++ pixel_format
+|
+- mode_cmd->modifier[0]
++ modifier
+)
+...>
+}
+
+@@
+identifier dev, mode_cmd;
+@@
+struct drm_format_info *
+drm_get_format_info(struct drm_device *dev,
+-		    const struct drm_mode_fb_cmd2 *mode_cmd
++		    u32 pixel_format, u64 modifier
+     		    );
+
+@@
+expression dev, mode_cmd;
+@@
+- drm_get_format_info(dev, mode_cmd)
++ drm_get_format_info(dev, mode_cmd->pixel_format, mode_cmd->modifier[0])
+
+v2: Fix kernel docs (Laurent)
+    Drop drm_mode_fb_cmd2 forward declaration (Thomas)
+
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Marek Vasut <marex@denx.de>
+Cc: Stefan Agner <stefan@agner.ch>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/arm/malidp_drv.c             |  3 ++-
+ drivers/gpu/drm/armada/armada_fb.c           |  4 +++-
+ drivers/gpu/drm/drm_fourcc.c                 | 11 ++++++-----
+ drivers/gpu/drm/drm_framebuffer.c            |  2 +-
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c |  9 ++++++---
+ drivers/gpu/drm/drm_modeset_helper.c         |  3 ++-
+ drivers/gpu/drm/exynos/exynos_drm_fb.c       |  4 +++-
+ drivers/gpu/drm/gma500/framebuffer.c         |  3 ++-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c       |  4 +++-
+ drivers/gpu/drm/msm/msm_fb.c                 |  6 ++++--
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c            |  3 ++-
+ drivers/gpu/drm/nouveau/nouveau_display.c    |  3 ++-
+ drivers/gpu/drm/omapdrm/omap_fb.c            |  6 ++++--
+ drivers/gpu/drm/radeon/radeon_fbdev.c        |  3 ++-
+ drivers/gpu/drm/rockchip/rockchip_drm_fb.c   |  3 ++-
+ drivers/gpu/drm/tegra/fb.c                   |  4 +++-
+ include/drm/drm_fourcc.h                     |  3 +--
+ 17 files changed, 48 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
+index e083021e9e99..558e44a7e627 100644
+--- a/drivers/gpu/drm/arm/malidp_drv.c
++++ b/drivers/gpu/drm/arm/malidp_drv.c
+@@ -325,7 +325,8 @@ malidp_verify_afbc_framebuffer_size(struct drm_device *dev,
+ 		return false;
+ 	}
+ 
+-	info = drm_get_format_info(dev, mode_cmd);
++	info = drm_get_format_info(dev, mode_cmd->pixel_format,
++				   mode_cmd->modifier[0]);
+ 
+ 	n_superblocks = (mode_cmd->width / afbc_superblock_width) *
+ 		(mode_cmd->height / afbc_superblock_height);
+diff --git a/drivers/gpu/drm/armada/armada_fb.c b/drivers/gpu/drm/armada/armada_fb.c
+index cf2e88218dc0..85fc2cb50544 100644
+--- a/drivers/gpu/drm/armada/armada_fb.c
++++ b/drivers/gpu/drm/armada/armada_fb.c
+@@ -86,7 +86,9 @@ struct armada_framebuffer *armada_framebuffer_create(struct drm_device *dev,
+ struct drm_framebuffer *armada_fb_create(struct drm_device *dev,
+ 	struct drm_file *dfile, const struct drm_mode_fb_cmd2 *mode)
+ {
+-	const struct drm_format_info *info = drm_get_format_info(dev, mode);
++	const struct drm_format_info *info = drm_get_format_info(dev,
++								 mode->pixel_format,
++								 mode->modifier[0]);
+ 	struct armada_gem_object *obj;
+ 	struct armada_framebuffer *dfb;
+ 	int ret;
+diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
+index 4b4444f6d504..e0d533611040 100644
+--- a/drivers/gpu/drm/drm_fourcc.c
++++ b/drivers/gpu/drm/drm_fourcc.c
+@@ -417,7 +417,8 @@ EXPORT_SYMBOL(drm_format_info);
+ /**
+  * drm_get_format_info - query information for a given framebuffer configuration
+  * @dev: DRM device
+- * @mode_cmd: metadata from the userspace fb creation request
++ * @pixel_format: pixel format (DRM_FORMAT_*)
++ * @modifier: modifier
+  *
+  * Returns:
+  * The instance of struct drm_format_info that describes the pixel format, or
+@@ -425,16 +426,16 @@ EXPORT_SYMBOL(drm_format_info);
+  */
+ const struct drm_format_info *
+ drm_get_format_info(struct drm_device *dev,
+-		    const struct drm_mode_fb_cmd2 *mode_cmd)
++		    u32 pixel_format, u64 modifier)
+ {
+ 	const struct drm_format_info *info = NULL;
+ 
+ 	if (dev->mode_config.funcs->get_format_info)
+-		info = dev->mode_config.funcs->get_format_info(mode_cmd->pixel_format,
+-							       mode_cmd->modifier[0]);
++		info = dev->mode_config.funcs->get_format_info(pixel_format,
++							       modifier);
+ 
+ 	if (!info)
+-		info = drm_format_info(mode_cmd->pixel_format);
++		info = drm_format_info(pixel_format);
+ 
+ 	return info;
+ }
+diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
+index b781601946db..18a0267e374e 100644
+--- a/drivers/gpu/drm/drm_framebuffer.c
++++ b/drivers/gpu/drm/drm_framebuffer.c
+@@ -176,7 +176,7 @@ static int framebuffer_check(struct drm_device *dev,
+ 	}
+ 
+ 	/* now let the driver pick its own format info */
+-	info = drm_get_format_info(dev, r);
++	info = drm_get_format_info(dev, r->pixel_format, r->modifier[0]);
+ 
+ 	for (i = 0; i < info->num_planes; i++) {
+ 		unsigned int width = drm_format_info_plane_width(info, r->width, i);
+diff --git a/drivers/gpu/drm/drm_gem_framebuffer_helper.c b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
+index 618ce725cd75..62eec0fddc3e 100644
+--- a/drivers/gpu/drm/drm_gem_framebuffer_helper.c
++++ b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
+@@ -160,7 +160,8 @@ int drm_gem_fb_init_with_funcs(struct drm_device *dev,
+ 	unsigned int i;
+ 	int ret;
+ 
+-	info = drm_get_format_info(dev, mode_cmd);
++	info = drm_get_format_info(dev, mode_cmd->pixel_format,
++				   mode_cmd->modifier[0]);
+ 	if (!info) {
+ 		drm_dbg_kms(dev, "Failed to get FB format info\n");
+ 		return -EINVAL;
+@@ -502,7 +503,8 @@ static __u32 drm_gem_afbc_get_bpp(struct drm_device *dev,
+ {
+ 	const struct drm_format_info *info;
+ 
+-	info = drm_get_format_info(dev, mode_cmd);
++	info = drm_get_format_info(dev, mode_cmd->pixel_format,
++				   mode_cmd->modifier[0]);
+ 
+ 	switch (info->format) {
+ 	case DRM_FORMAT_YUV420_8BIT:
+@@ -600,7 +602,8 @@ int drm_gem_fb_afbc_init(struct drm_device *dev,
+ 	int ret;
+ 
+ 	objs = afbc_fb->base.obj;
+-	info = drm_get_format_info(dev, mode_cmd);
++	info = drm_get_format_info(dev, mode_cmd->pixel_format,
++				   mode_cmd->modifier[0]);
+ 	if (!info)
+ 		return -EINVAL;
+ 
+diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
+index ef32f6af10d4..3fed2d5ab1d6 100644
+--- a/drivers/gpu/drm/drm_modeset_helper.c
++++ b/drivers/gpu/drm/drm_modeset_helper.c
+@@ -86,7 +86,8 @@ void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
+ 	int i;
+ 
+ 	fb->dev = dev;
+-	fb->format = drm_get_format_info(dev, mode_cmd);
++	fb->format = drm_get_format_info(dev, mode_cmd->pixel_format,
++					 mode_cmd->modifier[0]);
+ 	fb->width = mode_cmd->width;
+ 	fb->height = mode_cmd->height;
+ 	for (i = 0; i < 4; i++) {
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fb.c b/drivers/gpu/drm/exynos/exynos_drm_fb.c
+index fc1c5608db96..bcf7b534d1f7 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fb.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fb.c
+@@ -96,7 +96,9 @@ static struct drm_framebuffer *
+ exynos_user_fb_create(struct drm_device *dev, struct drm_file *file_priv,
+ 		      const struct drm_mode_fb_cmd2 *mode_cmd)
+ {
+-	const struct drm_format_info *info = drm_get_format_info(dev, mode_cmd);
++	const struct drm_format_info *info = drm_get_format_info(dev,
++								 mode_cmd->pixel_format,
++								 mode_cmd->modifier[0]);
+ 	struct exynos_drm_gem *exynos_gem[MAX_FB_BUFFER];
+ 	struct drm_framebuffer *fb;
+ 	int i;
+diff --git a/drivers/gpu/drm/gma500/framebuffer.c b/drivers/gpu/drm/gma500/framebuffer.c
+index 1a374702b696..c82e623a2071 100644
+--- a/drivers/gpu/drm/gma500/framebuffer.c
++++ b/drivers/gpu/drm/gma500/framebuffer.c
+@@ -39,7 +39,8 @@ static int psb_framebuffer_init(struct drm_device *dev,
+ 	 * Reject unknown formats, YUV formats, and formats with more than
+ 	 * 4 bytes per pixel.
+ 	 */
+-	info = drm_get_format_info(dev, mode_cmd);
++	info = drm_get_format_info(dev, mode_cmd->pixel_format,
++				   mode_cmd->modifier[0]);
+ 	if (!info || !info->depth || info->cpp[0] > 4)
+ 		return -EINVAL;
+ 
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index 7c0c12dde488..0ebcfcbc258b 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -45,7 +45,9 @@ mtk_drm_mode_fb_create(struct drm_device *dev,
+ 		       struct drm_file *file,
+ 		       const struct drm_mode_fb_cmd2 *cmd)
+ {
+-	const struct drm_format_info *info = drm_get_format_info(dev, cmd);
++	const struct drm_format_info *info = drm_get_format_info(dev,
++								 cmd->pixel_format,
++								 cmd->modifier[0]);
+ 
+ 	if (info->num_planes != 1)
+ 		return ERR_PTR(-EINVAL);
+diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
+index 09268e416843..df2f85c44d55 100644
+--- a/drivers/gpu/drm/msm/msm_fb.c
++++ b/drivers/gpu/drm/msm/msm_fb.c
+@@ -137,7 +137,8 @@ struct drm_framebuffer *msm_framebuffer_create(struct drm_device *dev,
+ 		struct drm_file *file, const struct drm_mode_fb_cmd2 *mode_cmd)
+ {
+ 	const struct drm_format_info *info = drm_get_format_info(dev,
+-								 mode_cmd);
++								 mode_cmd->pixel_format,
++								 mode_cmd->modifier[0]);
+ 	struct drm_gem_object *bos[4] = {0};
+ 	struct drm_framebuffer *fb;
+ 	int ret, i, n = info->num_planes;
+@@ -168,7 +169,8 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
+ 		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos)
+ {
+ 	const struct drm_format_info *info = drm_get_format_info(dev,
+-								 mode_cmd);
++								 mode_cmd->pixel_format,
++								 mode_cmd->modifier[0]);
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_kms *kms = priv->kms;
+ 	struct msm_framebuffer *msm_fb = NULL;
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+index c183b1112bc4..09329af9b01e 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+@@ -95,7 +95,8 @@ mxsfb_fb_create(struct drm_device *dev, struct drm_file *file_priv,
+ {
+ 	const struct drm_format_info *info;
+ 
+-	info = drm_get_format_info(dev, mode_cmd);
++	info = drm_get_format_info(dev, mode_cmd->pixel_format,
++				   mode_cmd->modifier[0]);
+ 	if (!info)
+ 		return ERR_PTR(-EINVAL);
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+index c50ec347b30a..bd9a85f4b4fc 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.c
++++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+@@ -295,7 +295,8 @@ nouveau_framebuffer_new(struct drm_device *dev,
+ 		kind = nvbo->kind;
+ 	}
+ 
+-	info = drm_get_format_info(dev, mode_cmd);
++	info = drm_get_format_info(dev, mode_cmd->pixel_format,
++				   mode_cmd->modifier[0]);
+ 
+ 	for (i = 0; i < info->num_planes; i++) {
+ 		height = drm_format_info_plane_height(info,
+diff --git a/drivers/gpu/drm/omapdrm/omap_fb.c b/drivers/gpu/drm/omapdrm/omap_fb.c
+index 449d521c78fe..e18878068c57 100644
+--- a/drivers/gpu/drm/omapdrm/omap_fb.c
++++ b/drivers/gpu/drm/omapdrm/omap_fb.c
+@@ -338,7 +338,8 @@ struct drm_framebuffer *omap_framebuffer_create(struct drm_device *dev,
+ 		struct drm_file *file, const struct drm_mode_fb_cmd2 *mode_cmd)
+ {
+ 	const struct drm_format_info *info = drm_get_format_info(dev,
+-								 mode_cmd);
++								 mode_cmd->pixel_format,
++								 mode_cmd->modifier[0]);
+ 	unsigned int num_planes = info->num_planes;
+ 	struct drm_gem_object *bos[4];
+ 	struct drm_framebuffer *fb;
+@@ -378,7 +379,8 @@ struct drm_framebuffer *omap_framebuffer_init(struct drm_device *dev,
+ 			dev, mode_cmd, mode_cmd->width, mode_cmd->height,
+ 			(char *)&mode_cmd->pixel_format);
+ 
+-	format = drm_get_format_info(dev, mode_cmd);
++	format = drm_get_format_info(dev, mode_cmd->pixel_format,
++				     mode_cmd->modifier[0]);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(formats); i++) {
+ 		if (formats[i] == mode_cmd->pixel_format)
+diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
+index d4a58bd679db..e3a481bbee7b 100644
+--- a/drivers/gpu/drm/radeon/radeon_fbdev.c
++++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
+@@ -67,7 +67,8 @@ static int radeon_fbdev_create_pinned_object(struct drm_fb_helper *fb_helper,
+ 	int height = mode_cmd->height;
+ 	u32 cpp;
+ 
+-	info = drm_get_format_info(rdev_to_drm(rdev), mode_cmd);
++	info = drm_get_format_info(rdev_to_drm(rdev), mode_cmd->pixel_format,
++				   mode_cmd->modifier[0]);
+ 	cpp = info->cpp[0];
+ 
+ 	/* need to align pitch with crtc limits */
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_fb.c b/drivers/gpu/drm/rockchip/rockchip_drm_fb.c
+index 5829ee061c61..66762ca54a98 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_fb.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_fb.c
+@@ -36,7 +36,8 @@ rockchip_fb_create(struct drm_device *dev, struct drm_file *file,
+ 	const struct drm_format_info *info;
+ 	int ret;
+ 
+-	info = drm_get_format_info(dev, mode_cmd);
++	info = drm_get_format_info(dev, mode_cmd->pixel_format,
++				   mode_cmd->modifier[0]);
+ 	if (!info)
+ 		return ERR_PTR(-ENOMEM);
+ 
+diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
+index 46170753699d..634c6346d947 100644
+--- a/drivers/gpu/drm/tegra/fb.c
++++ b/drivers/gpu/drm/tegra/fb.c
+@@ -134,7 +134,9 @@ struct drm_framebuffer *tegra_fb_create(struct drm_device *drm,
+ 					struct drm_file *file,
+ 					const struct drm_mode_fb_cmd2 *cmd)
+ {
+-	const struct drm_format_info *info = drm_get_format_info(drm, cmd);
++	const struct drm_format_info *info = drm_get_format_info(drm,
++								 cmd->pixel_format,
++								 cmd->modifier[0]);
+ 	struct tegra_bo *planes[4];
+ 	struct drm_gem_object *gem;
+ 	struct drm_framebuffer *fb;
+diff --git a/include/drm/drm_fourcc.h b/include/drm/drm_fourcc.h
+index c3f4405d6662..471784426857 100644
+--- a/include/drm/drm_fourcc.h
++++ b/include/drm/drm_fourcc.h
+@@ -54,7 +54,6 @@
+ #endif
+ 
+ struct drm_device;
+-struct drm_mode_fb_cmd2;
+ 
+ /**
+  * struct drm_format_info - information about a DRM format
+@@ -309,7 +308,7 @@ const struct drm_format_info *__drm_format_info(u32 format);
+ const struct drm_format_info *drm_format_info(u32 format);
+ const struct drm_format_info *
+ drm_get_format_info(struct drm_device *dev,
+-		    const struct drm_mode_fb_cmd2 *mode_cmd);
++		    u32 pixel_format, u64 modifier);
+ uint32_t drm_mode_legacy_fb_format(uint32_t bpp, uint32_t depth);
+ uint32_t drm_driver_legacy_fb_format(struct drm_device *dev,
+ 				     uint32_t bpp, uint32_t depth);
+-- 
+2.49.0
 
