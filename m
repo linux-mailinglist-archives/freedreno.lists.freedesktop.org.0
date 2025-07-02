@@ -2,111 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118C9AF044E
-	for <lists+freedreno@lfdr.de>; Tue,  1 Jul 2025 22:08:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A619DAF13E7
+	for <lists+freedreno@lfdr.de>; Wed,  2 Jul 2025 13:31:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5116610E653;
-	Tue,  1 Jul 2025 20:08:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57A5F10E6F0;
+	Wed,  2 Jul 2025 11:31:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="j46g3jw/";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="kXaSjN/V";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3404010E653
- for <freedreno@lists.freedesktop.org>; Tue,  1 Jul 2025 20:08:35 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 561BxKuK029895
- for <freedreno@lists.freedesktop.org>; Tue, 1 Jul 2025 20:08:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=SBwuim71xsjKrmppSOuCTBnyW8diNS3nOYNdmIZw7yQ=; b=j4
- 6g3jw/rSNac83Vw5OqjizwBTJSGIxKQuZ7w3pnOTNCo7pLgX2acd//rDyrjkoh5V
- pspMxnT/sGf0AcrdfQIgo+/dv7Fzy0LwYZpdbRrMAmKjsL8d5t7Dee0Y3ER0UT+N
- K1MKYhKu1HeSeH8SwpdT+HImUAh1EHNxeMzhht+6jXk/xo3pJ+X9MirXq35GbTip
- sCWHaCr46ad92JHzbNIkvtOu0iGTQrrKZ1rNqtd1Y6LvztCsVfx4H+SkaiYpLimN
- 2Qli46Ngn7QQ4Kb3XAiiRLrAlxoQ5kdXWUygBUHYD++4ROIObq+68LowLDDSJXr+
- xqFLh3KlAIOQc3ELh8ag==
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47m02v47b0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 01 Jul 2025 20:08:34 +0000 (GMT)
-Received: by mail-oi1-f198.google.com with SMTP id
- 5614622812f47-40b0a248ce8so3445265b6e.1
- for <freedreno@lists.freedesktop.org>; Tue, 01 Jul 2025 13:08:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751400513; x=1752005313;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=SBwuim71xsjKrmppSOuCTBnyW8diNS3nOYNdmIZw7yQ=;
- b=Uy7/rP6+d/GreJXyJ8SJveMoLz+4blIdTl8EROmDMlQQ0ibIgzsMNi6UEM+pm7YQxI
- kmwZxwfn+fnXR/TeTbITMe8EuBLv2khez37ss9ZBLqLu7EjsLNEgoXmpIPttxJnKzkSB
- tPcyqAMJXg5N0Dj1K94ns2dQsk4EVdrbCGgFGKwK0H0m/cs5sDtETQnOjTWu86Y8qBYX
- A8RqVEUaE/PPpvhUgi+ZX4UrHnJqj1tEnKjafTx8JW/0HudxCYTksgs7+YjTTrGcbsrR
- 5xssy2fgnwY43HHXk51VQGEpoqguCmUZn1GRk5CKpHYFlbNSvimsiNx3ngaypzLilEdO
- 6Mmw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUnjeDjYVaIQ79tAN2FgGhY5QJLu71mRtqxgll77KZydGhI8yoMEP4H+nmB+4HxgoEV1BL6TfyyDsA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyL9ja7FGJP+3MIiLI/Wg33rlWM9gbyXqi+GdktGBPbQ4eIXY6y
- SELzyCaci4qQaB/rZeSiw0BPML9rIg+ndRzKqnezDQmrojzaqyIxR3VMjxNkZXbb+PdpiEnN46J
- Bch6n2gc00vhwI2kytHlAWVzybhCNwdturGx4XLFUUMm6rmr6XIwFgDvkuIeLAwDPHOiz9PrgPe
- +ADg0GeUfq3hapqPaeBa6/TEI2jGHyulBxoilEMOsrnhe8fQ==
-X-Gm-Gg: ASbGncstfw9sB/Wy5E1nUThFTF2BxVe67cPW77p8acR3gqLRd7GnfWyPn5pUlvSQldP
- h/7kUT2x8N5QbXAoZN9E3WHgFWoksqrLiBXOqTyKKJdTI1pNLn6XOjOJ7y3nzTa6ta4hvVWCvEU
- 4X0W8FGWsPARv8oSo9gzrHa0sPqxgv7XZs41M=
-X-Received: by 2002:a05:6808:1692:b0:406:6825:da34 with SMTP id
- 5614622812f47-40b887a1fa4mr41111b6e.16.1751400513049; 
- Tue, 01 Jul 2025 13:08:33 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHTn8ar6KRE7VSflyhqGfSG2T9FoehvwwtG5pZ4XM05mL+wciurGhbrUT94vYFGe4aUoAWlNhJ+C3AxbpY9BTM=
-X-Received: by 2002:a05:6808:1692:b0:406:6825:da34 with SMTP id
- 5614622812f47-40b887a1fa4mr41070b6e.16.1751400512656; Tue, 01 Jul 2025
- 13:08:32 -0700 (PDT)
+X-Greylist: delayed 937 seconds by postgrey-1.36 at gabe;
+ Wed, 02 Jul 2025 11:31:22 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C711F10E6F0
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Jul 2025 11:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=vB
+ oJGHy0ISIe9dsE3K0UfQijWN6qYHy8h2nd32aYn0c=; b=kXaSjN/VSLR+fLQh5x
+ V2uqZSj7SAbIMImSPvPT+DZuz8vNVqIBDBrMAjk/mjtY4Z6hBUCoKfCXi5D0wJJ5
+ 5NDs7ZdNZlUGjifdUV094PvRR2s8Z6DpR3FqpRIpaCQ87HKE/vKQpNp8qAMmymq2
+ dvDTRAMKRToNO9p81kIf+JS+E=
+Received: from ProDesk.. (unknown [])
+ by gzsmtp5 (Coremail) with SMTP id QCgvCgCHTGOvFGVoldg0Aw--.49301S2;
+ Wed, 02 Jul 2025 19:15:00 +0800 (CST)
+From: Andy Yan <andyshrk@163.com>
+To: dmitry.baryshkov@oss.qualcomm.com
+Cc: mripard@kernel.org, neil.armstrong@linaro.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ jani.nikula@intel.com, lyude@redhat.com, jonathanh@nvidia.com,
+ p.zabel@pengutronix.de, simona@ffwll.ch, victor.liu@nxp.com,
+ rfoss@kernel.org, chunkuang.hu@kernel.org,
+ cristian.ciocaltea@collabora.com, Laurent.pinchart@ideasonboard.com,
+ linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Andy Yan <andyshrk@163.com>
+Subject: [PATCH v2 0/2] Pass down connector to drm bridge detect hook
+Date: Wed,  2 Jul 2025 19:14:42 +0800
+Message-ID: <20250702111453.102539-1-andyshrk@163.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20250623184734.22947-1-richard120310@gmail.com>
- <d040e32a-3519-434f-b6ce-1e63345b23c8@linuxfoundation.org>
-In-Reply-To: <d040e32a-3519-434f-b6ce-1e63345b23c8@linuxfoundation.org>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Tue, 1 Jul 2025 13:08:21 -0700
-X-Gm-Features: Ac12FXxRhs58jxTt2spO1M6MN1lYbY9HfEItbXNYaAy8DhgQ6MfSeK4lduOTxIw
-Message-ID: <CACSVV00YsGaKQZ-Tznb8maJbMih58ZRZEY_Ay3o=vtDXejOhtQ@mail.gmail.com>
-Subject: Re: [RFC PATCH] drm/msm: Remove dead code in msm_ioctl_gem_submit()
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: I Hsin Cheng <richard120310@gmail.com>, lumag@kernel.org,
- abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, shuah@kernel.org,
- linux-kernel-mentees@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzAxMDE0MCBTYWx0ZWRfXwp9pqSKL3EwP
- EFY8B8tpazzFOht3+5drSdSDEHVtwfHwOWimZuXC9qZ1rJM1rSda3EcVpuS6W9H9Qvow8K61vQm
- 508vAZnEhPYFbgNTpaBq5C9ogXkt0xGsaXK9uEIHEQxo9tx9sV2e9jqCBwTDL7fsnjDfNm25lD6
- TbQKzpueE9k7SCMhhVJhP7HZ5t69cXQ3juG+wtsC3p+aF96scyfl1lbMoik+Rr6pU4NvwbyZDON
- DPUgkf4tiFINVvNy5Z1Ed3wT+tidpsiRZTueP59SAjCFLzKJnuSeaUqlb65iv28w4B2xq/Uj9Dv
- kwFNyV8LSI/7PDVYQF7YEw+iq/W8zUfE32NObchgNouTQ6bRfj63fEb/Vrx/McqhK9PAgfwFMl4
- NO5tVgxgxbhQWYZBt9bxVQ4PLrgCdYbyBBZ/dZq+Hmug/n+bf58u22IKOqSKS+X6yeVq6rKi
-X-Authority-Analysis: v=2.4 cv=Y8L4sgeN c=1 sm=1 tr=0 ts=68644042 cx=c_pps
- a=4ztaESFFfuz8Af0l9swBwA==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
- a=6xGJIMmgAAAA:8 a=ag1SF4gXAAAA:8 a=pGLkceISAAAA:8 a=tHzW2L1M7Y5U8jh0s88A:9
- a=QEXdDO2ut3YA:10 a=TPnrazJqx2CeVZ-ItzZ-:22 a=aWz6Jz32kaLdCzdWRG-w:22
- a=Yupwre4RP9_Eg_Bd0iYG:22
-X-Proofpoint-GUID: CEXO3MHhp9Fti45c_4h1TF_DAEWW6gc_
-X-Proofpoint-ORIG-GUID: CEXO3MHhp9Fti45c_4h1TF_DAEWW6gc_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-01_02,2025-06-27_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 mlxlogscore=999
- lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0 phishscore=0
- mlxscore=0 spamscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507010140
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: QCgvCgCHTGOvFGVoldg0Aw--.49301S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAw48KrWfKF1UWr4UWr15urg_yoW5KF4fpF
+ W2qFyavry0yF4aka1xAF18AF90y3Z7XFWrKry2v3sI93WFvF1UArsxAayrXryDGFyxJr12
+ ywn7GrWxGF12yaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zigTmxUUUUU=
+X-Originating-IP: [58.22.7.114]
+X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbBkA9+XmhlDvqMnwAAsV
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,54 +62,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 1, 2025 at 12:38=E2=80=AFPM Shuah Khan <skhan@linuxfoundation.o=
-rg> wrote:
->
-> On 6/23/25 12:47, I Hsin Cheng wrote:
-> > According to the report of Coverity Scan [1], "sync_file" is going to b=
-e
-> > NULL when entering the "if" section after "out_post_unlock", so
-> > "fput(sync_file->file)" is never going to be exected in this block.
-> >
-> > [1]: https://scan5.scan.coverity.com/#/project-view/10074/10063?selecte=
-dIssue=3D1655089
-> > Signed-off-by: I Hsin Cheng <richard120310@gmail.com>
-> > ---
-> >   drivers/gpu/drm/msm/msm_gem_submit.c | 2 --
-> >   1 file changed, 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm=
-/msm_gem_submit.c
-> > index d4f71bb54e84..cba1dc6fe6c6 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > @@ -904,8 +904,6 @@ int msm_ioctl_gem_submit(struct drm_device *dev, vo=
-id *data,
-> >   out_post_unlock:
-> >       if (ret && (out_fence_fd >=3D 0)) {
-> >               put_unused_fd(out_fence_fd);
-> > -             if (sync_file)
-> > -                     fput(sync_file->file);
->
-> Are you sure you want delete these two lines? It might not make
-> sense to check sync_file inside if (ret && (out_fence_fd >=3D 0)),
-> but it is ncecessary to fput.
 
-fwiw, there is at least about to be a code path where this error
-handling is not dead, once the VM_BIND series is merged
+In some application scenarios, we hope to get the corresponding
+connector when the bridge's detect hook is invoked.
 
-BR,
--R
+For example, we may want to call drm_dp_read_sink_count_cap(which needs
+a drm_connector) at the dp deteck hook, intel_dp and nouveau_dp do this
+at it's connector's detetc_ctx/detect hook.
 
-> >       }
-> >
-> >       if (!IS_ERR_OR_NULL(submit)) {
->
-> Check the error paths carefully to see if this is indeed the right fix.
->
-> thanks,
-> -- Shuah
+But for a bridge driver, it's detect hook is initiated by the connector,
+there is no connector passed down.
+
+In most cases, we can get the connector by
+drm_atomic_get_connector_for_encoder
+if the encoder attached to the bridge is enabled, however there will
+still be some scenarios where the detect hook of the bridge is called
+but the corresponding encoder has not been enabled yet. For instance,
+this occurs when the device is hot plug in for the first time.
+
+Since the call to bridge's detect is initiated by the connector, passing
+down the corresponding connector directly will make things simpler.
+
+Before preparing this patch, we have had some discussions on the details
+here[0].
+
+PATCH1 adjust the dp/hdmi_audio_* callback parameters order, make it
+maintain the same parameter order as get_modes and edid_read.
+PATCH2 add connector to detect hook.
+
+[0]https://patchwork.freedesktop.org/patch/640712/?series=143573&rev=5
+
+Changes in v2:
+- Adjust the dp/hdmi_audio_* callback parameters order.
+
+Andy Yan (2):
+  drm/bridge: Make dp/hdmi_audio_* callback keep the same paramter order
+    with get_modes
+  drm/bridge: Pass down connector to drm bridge detect hook
+
+ drivers/gpu/drm/bridge/adv7511/adv7511.h      | 16 +++----
+ .../gpu/drm/bridge/adv7511/adv7511_audio.c    | 12 +++---
+ drivers/gpu/drm/bridge/adv7511/adv7511_cec.c  |  4 +-
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c  |  3 +-
+ drivers/gpu/drm/bridge/analogix/anx7625.c     |  2 +-
+ .../drm/bridge/cadence/cdns-mhdp8546-core.c   |  3 +-
+ drivers/gpu/drm/bridge/chrontel-ch7033.c      |  2 +-
+ drivers/gpu/drm/bridge/display-connector.c    | 11 +++--
+ drivers/gpu/drm/bridge/ite-it6263.c           |  3 +-
+ drivers/gpu/drm/bridge/ite-it6505.c           |  2 +-
+ drivers/gpu/drm/bridge/ite-it66121.c          |  3 +-
+ drivers/gpu/drm/bridge/lontium-lt8912b.c      |  6 +--
+ drivers/gpu/drm/bridge/lontium-lt9611.c       | 15 +++----
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c    |  3 +-
+ .../bridge/megachips-stdpxxxx-ge-b850v3-fw.c  |  3 +-
+ drivers/gpu/drm/bridge/sii902x.c              |  3 +-
+ drivers/gpu/drm/bridge/simple-bridge.c        |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c  | 14 +++----
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  3 +-
+ drivers/gpu/drm/bridge/tc358767.c             |  5 ++-
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c         |  3 +-
+ drivers/gpu/drm/bridge/ti-tfp410.c            |  2 +-
+ drivers/gpu/drm/bridge/ti-tpd12s015.c         |  8 +++-
+ .../gpu/drm/display/drm_bridge_connector.c    | 20 ++++-----
+ drivers/gpu/drm/drm_bridge.c                  |  5 ++-
+ drivers/gpu/drm/mediatek/mtk_dp.c             |  3 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c           |  3 +-
+ drivers/gpu/drm/msm/dp/dp_audio.c             |  8 ++--
+ drivers/gpu/drm/msm/dp/dp_audio.h             |  8 ++--
+ drivers/gpu/drm/msm/dp/dp_drm.c               |  3 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.h               | 10 ++---
+ drivers/gpu/drm/msm/hdmi/hdmi_audio.c         |  8 ++--
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c        |  2 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_hpd.c           |  4 +-
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c        |  2 +-
+ drivers/gpu/drm/xlnx/zynqmp_dp.c              |  3 +-
+ include/drm/drm_bridge.h                      | 42 ++++++++++---------
+ 37 files changed, 139 insertions(+), 110 deletions(-)
+
+-- 
+2.43.0
+
+base-commit: 56e5375b23f342dfa3179395aacc1b47395fddf7
+branch: drm-misc-next
+
