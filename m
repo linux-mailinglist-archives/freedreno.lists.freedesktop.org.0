@@ -2,56 +2,108 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 736DFAF74A7
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jul 2025 14:51:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A43AF7767
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jul 2025 16:28:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1606D10E82E;
-	Thu,  3 Jul 2025 12:51:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9495910E857;
+	Thu,  3 Jul 2025 14:28:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="jyqIAu5u";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UFx1j7yj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
- by gabe.freedesktop.org (Postfix) with ESMTP id E223010E82D;
- Thu,  3 Jul 2025 12:51:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=bY
- 9B1CwKG8zhSjP6nEjCOwgclQ+hLtFqP3JMLu5HpOk=; b=jyqIAu5ug7na6+ea3C
- sKxwIyIMconO37MZRAF64O1Et15BoBxIs6I68TQVjhbV9j7DcyQVsx9VR53a58uN
- /cb7IOvrVRC6z1TT88QDVJZvjKEQJe+tGNQQlEeIbMDDXCp2MNNamcusr4MDdXwi
- umd7mbCsYHXh2FFuKVCBel0UQ=
-Received: from ProDesk.. (unknown [])
- by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id
- _____wAXBAyWfGZoVnrrCA--.37969S4; 
- Thu, 03 Jul 2025 20:50:39 +0800 (CST)
-From: Andy Yan <andyshrk@163.com>
-To: dmitry.baryshkov@oss.qualcomm.com
-Cc: mripard@kernel.org, neil.armstrong@linaro.org,
- dri-devel@lists.freedesktop.org, dianders@chromium.org,
- jani.nikula@intel.com, lyude@redhat.com, jonathanh@nvidia.com,
- p.zabel@pengutronix.de, simona@ffwll.ch, victor.liu@nxp.com,
- rfoss@kernel.org, chunkuang.hu@kernel.org,
- cristian.ciocaltea@collabora.com, Laurent.pinchart@ideasonboard.com,
- linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
- Andy Yan <andy.yan@rock-chips.com>
-Subject: [PATCH v3 2/2] drm/bridge: Pass down connector to drm bridge detect
- hook
-Date: Thu,  3 Jul 2025 20:49:53 +0800
-Message-ID: <20250703125027.311109-3-andyshrk@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250703125027.311109-1-andyshrk@163.com>
-References: <20250703125027.311109-1-andyshrk@163.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DADE10E858
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jul 2025 14:28:36 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 563AoabG025172
+ for <freedreno@lists.freedesktop.org>; Thu, 3 Jul 2025 14:28:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ aPQxTypkDSifWXr1kKb5YoV+sU4Et63WdriVs3pvSJk=; b=UFx1j7yjt7VtX1vf
+ rZk4F/lhAvk2Zig6Ux2YGfDZtX/T549PlaPUYr3+cf9lVZMjt/Nq+gLTd50Tv4Sk
+ TchvAD3U+ijhGb4RN2SCTVyibdVO9NVpbzdUmNUTHmNrYYE5q6XcIbtYSlo1BPSs
+ AVrXwHN8J6c0ovDa/5CqpuNdq9gdaR4lQl5MUicrH9w6//D6bex9F2n9WV2gXe1i
+ cAU4Ig6dd7Ku+IuHJUVGoOJIMs6ZyqTD3qejP8GFEeI68iir7GCMgRhlzfxVkgDy
+ jziOm4hb/lEy57t2IkD/0Z9Zcs2d3YKHu/7WJI710zHS4AUgqKnGBRS0k/wkadMV
+ DklyIw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47kd64wv3m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Jul 2025 14:28:35 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-6fb0e344e3eso59633006d6.1
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Jul 2025 07:28:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751552914; x=1752157714;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=aPQxTypkDSifWXr1kKb5YoV+sU4Et63WdriVs3pvSJk=;
+ b=hGeAUecpgTIL1PN/+abX2nTT/ctj7PsXw1jfEFvD0FWd7wFwzBxMGF0h/iYAUUpg5k
+ 5bP2QMXNi3dLC5YQzptnqRZL/eoq4HLjBvTtLDY1+tN5T+RiZH8ddWrTABGDb2lOEZif
+ Wz8K8ifbePbNyzj1cb5lv2sf693DxY1owsMBW2bdS3aPongt4Q5qrd0+E1lyu2vXTT63
+ MUB06Y+jZ5kxmsZ3X1oU2+2trQscCsdOwaXvpi6RskW9EXyYkGgWPYNVbNG/TyYPqEtW
+ hRjskGzmfM/jFzuPaqNw0cOncw2JUsLrXFKdcjQItyNp8M9DcajNfHa4Q/SKNWAnlfl/
+ gICA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUrlhfBn/gZdIX2MARaJM4W45SFBgjVpQzH9rk/SVFnNU288cqphA8F6LAiRiApvWiYIwaa49gVWrE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQV1az8cnRSX+398EMegvcZfolssYeDHVH3hYKhQduwfDPmt0Q
+ myT++xnkZ2+cckGXyCGvQGFb/kEdKqLCl+DomXRBpAyRDMdRG6NGofstfQI96bxViHpywLVFp1d
+ 9AmNr031rekrBzfyUNNFkYcjv+F4Tto+doYQbiHPqIeK6zVSUUj/ChQbCp87xAmHpI0lXEXVToF
+ yDzTbIN96V8MCJQdcTU+cm6GoB9TuaP4eqLWChHxHss5s9rA==
+X-Gm-Gg: ASbGncsRhPXOl84gJAZadHtjbyu4EjrIQo76Z9pQY7WyBlXTs6qVJGGlCJ/ecxWLTLJ
+ ruGD5Aql+TN+NnBmEWV5sBl7AvyGnAkUgFjq3L9zN1M6NA5f0zrpnlc4k/bfF8bODkaTxvzW0ZN
+ RGp3PsDQ==
+X-Received: by 2002:ac8:5a13:0:b0:48a:e2ec:a3b4 with SMTP id
+ d75a77b69052e-4a97690de8fmr114049941cf.17.1751552914173; 
+ Thu, 03 Jul 2025 07:28:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGhT0FsD7uVl5phvxFI/cNiRm8hqsPWi3kG29UqR5qXmGXlI/kuvyqMq4P1GkE5QfKubdQnQD4c3Jw0sIygX1w=
+X-Received: by 2002:ac8:5a13:0:b0:48a:e2ec:a3b4 with SMTP id
+ d75a77b69052e-4a97690de8fmr114049331cf.17.1751552913522; Thu, 03 Jul 2025
+ 07:28:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wAXBAyWfGZoVnrrCA--.37969S4
-X-Coremail-Antispam: 1Uf129KBjvAXoWfCFWxWw13tFW3KrWxXFWxCrg_yoW5Gr1fKo
- WfA3sa9ayUG34xX393tF17KF4Yq3ZxKrn3WF4rK3ykWayUG3y7tFyIgFnxXFy7JFyavr47
- Z3ZrKr1rCr17GFn7n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
- AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU-dWrDUUUU
-X-Originating-IP: [58.22.7.114]
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbB0gl-Xmhmemw9ZgAAs5
+References: <20250629085036.765397-1-loic.poulain@oss.qualcomm.com>
+ <yafvivvzvcuyopyisxbkb4cqa3cmv4uzn7df34pwk4kqg2r55n@wx6spgecaw6d>
+In-Reply-To: <yafvivvzvcuyopyisxbkb4cqa3cmv4uzn7df34pwk4kqg2r55n@wx6spgecaw6d>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 3 Jul 2025 16:28:21 +0200
+X-Gm-Features: Ac12FXzaTzx9YfkCK84DA6YQHyPZZJRo6PMlwTGV2tIPqFEY4q9HMpAmvGKrPXw
+Message-ID: <CAFEp6-2Z2CLD8AW475AH7FkBrtysXpfnAtWryHWRN+Noh2DZGg@mail.gmail.com>
+Subject: Re: [RESEND PATCH v2] drm/msm/dsi: Fix 14nm DSI PHY PLL Lock issue
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com,
+ sean@poorly.run, marijn.suijten@somainline.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=Z+PsHGRA c=1 sm=1 tr=0 ts=68669393 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
+ a=EUspDBNiAAAA:8 a=ae2ZjgFDbcS0OE6Il88A:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzAzMDEyMiBTYWx0ZWRfXySsN/bRN3+fm
+ 3H4d42Liqs6rUE1Wjs9Uf4r6VCsWnw45FzVrsJP59xUbTZIe57bjV3tGg+aYKk4EdLJS785+o5W
+ aUY+vp+2R3ny21XUEyWHWlchzxRxJxQoxHeGlkzNh+VhPwl9U9oDthg4VCzCjrjWuAs+6F/MQW5
+ sauxnELvtoIQpEKOUtWwiIy4ySI/ymr79YoIXbpnf0UjkjxApvkPtQjCzdyhTaS5NssWwqDB4Dm
+ 5bxhAfavvLcGIHoyHl+npt3+EHaN3OilsezPoiI+vsAoOvAdaMl9tZ8aWr+92Eb1vOOFFgRl9lo
+ GdSSN9VB4l1nDio/wKZEewT6oVEj5bFUi6EtpUa0eCYKR5aP1XWUZjgTV8CJqi4IZWdR1LC3nhy
+ oUrTQgi9aXp9H9WHsTCoa6c4E43fyZd4ophPS5FlbuWspx7Z4HTJg5a66J9YcA89LU88Ly7Z
+X-Proofpoint-GUID: Zrs--LD4_i80PyC4dBGF7rfoabcCsKBP
+X-Proofpoint-ORIG-GUID: Zrs--LD4_i80PyC4dBGF7rfoabcCsKBP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
+ definitions=2025-07-03_04,2025-07-02_04,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0 mlxlogscore=999
+ spamscore=0 adultscore=0 mlxscore=0 priorityscore=1501 bulkscore=0
+ impostorscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507030122
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,556 +119,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Andy Yan <andy.yan@rock-chips.com>
+Hi Dmitry,
 
-In some application scenarios, we hope to get the corresponding
-connector when the bridge's detect hook is invoked.
+On Sun, Jun 29, 2025 at 4:57=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Sun, Jun 29, 2025 at 10:50:36AM +0200, Loic Poulain wrote:
+> > To configure and enable the DSI PHY PLL clocks, the MDSS AHB clock must
+> > be active for MMIO operations. Typically, this AHB clock is enabled as
+> > part of the DSI PHY interface enabling (dsi_phy_enable_resource).
+> >
+> > However, since these PLL clocks are registered as clock entities, they
+> > can be enabled independently of the DSI PHY interface, leading to
+> > enabling failures and subsequent warnings:
+> >
+> > ```
+> > msm_dsi_phy 5e94400.phy: [drm:dsi_pll_14nm_vco_prepare] *ERROR* DSI PLL=
+ lock failed
+> > ------------[ cut here ]------------
+> > dsi0pllbyte already disabled
+> > WARNING: CPU: 3 PID: 1 at drivers/clk/clk.c:1194 clk_core_disable+0xa4/=
+0xac
+> > CPU: 3 UID: 0 PID: 1 Comm: swapper/0 Tainted:
+> > Tainted: [W]=3DWARN
+> > Hardware name: Qualcomm Technologies, Inc. Robotics RB1 (DT)
+> > pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=3D--)
+> > [...]
+> > ```
+> >
+> > This issue is particularly prevalent at boot time during the disabling =
+of
+> > unused clocks (clk_disable_unused()) which includes enabling the parent
+> > clock(s) when CLK_OPS_PARENT_ENABLE flag is set (this is the case for t=
+he
+> > 14nm DSI PHY PLL consumers).
+> >
+> > To resolve this issue, we move the AHB clock as a PM dependency of the =
+DSI
+> > PHY device (via pm_clk). Since the DSI PHY device is the parent of the =
+PLL
+> > clocks, this resolves the PLL/AHB dependency. Now the AHB clock is enab=
+led
+> > prior the PLL clk_prepare callback, as part of the runtime-resume chain=
+.
+> >
+> > We also eliminate dsi_phy_[enable|disable]_resource functions, which ar=
+e
+> > superseded by runtime PM.
+> >
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > ---
+> >  v2: Move AHB clock into a proper PM dep instead of manually toggling i=
+t
+> >      from the PLL clock driver.
+> >
+> >  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 65 +++++++++++----------------
+> >  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h |  1 -
+> >  2 files changed, 25 insertions(+), 41 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/ms=
+m/dsi/phy/dsi_phy.c
+> > index 5973d7325699..015cb579c669 100644
+> > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> > @@ -5,6 +5,8 @@
+> >
+> >  #include <linux/clk-provider.h>
+> >  #include <linux/platform_device.h>
+> > +#include <linux/pm_clock.h>
+> > +#include <linux/pm_runtime.h>
+> >  #include <dt-bindings/phy/phy.h>
+> >
+> >  #include "dsi_phy.h"
+> > @@ -511,30 +513,6 @@ int msm_dsi_cphy_timing_calc_v4(struct msm_dsi_dph=
+y_timing *timing,
+> >       return 0;
+> >  }
+> >
+> > -static int dsi_phy_enable_resource(struct msm_dsi_phy *phy)
+> > -{
+> > -     struct device *dev =3D &phy->pdev->dev;
+> > -     int ret;
+> > -
+> > -     ret =3D pm_runtime_resume_and_get(dev);
+> > -     if (ret)
+> > -             return ret;
+> > -
+> > -     ret =3D clk_prepare_enable(phy->ahb_clk);
+> > -     if (ret) {
+> > -             DRM_DEV_ERROR(dev, "%s: can't enable ahb clk, %d\n", __fu=
+nc__, ret);
+> > -             pm_runtime_put_sync(dev);
+> > -     }
+> > -
+> > -     return ret;
+> > -}
+> > -
+> > -static void dsi_phy_disable_resource(struct msm_dsi_phy *phy)
+> > -{
+> > -     clk_disable_unprepare(phy->ahb_clk);
+> > -     pm_runtime_put(&phy->pdev->dev);
+> > -}
+> > -
+> >  static const struct of_device_id dsi_phy_dt_match[] =3D {
+> >  #ifdef CONFIG_DRM_MSM_DSI_28NM_PHY
+> >       { .compatible =3D "qcom,dsi-phy-28nm-hpm",
+> > @@ -696,24 +674,30 @@ static int dsi_phy_driver_probe(struct platform_d=
+evice *pdev)
+> >       if (ret)
+> >               return ret;
+> >
+> > -     phy->ahb_clk =3D msm_clk_get(pdev, "iface");
+> > -     if (IS_ERR(phy->ahb_clk))
+> > -             return dev_err_probe(dev, PTR_ERR(phy->ahb_clk),
+> > -                                  "Unable to get ahb clk\n");
+> > +     platform_set_drvdata(pdev, phy);
+> >
+> > -     ret =3D devm_pm_runtime_enable(&pdev->dev);
+> > +     ret =3D devm_pm_runtime_enable(dev);
+> >       if (ret)
+> >               return ret;
+> >
+> > -     /* PLL init will call into clk_register which requires
+> > -      * register access, so we need to enable power and ahb clock.
+> > -      */
+> > -     ret =3D dsi_phy_enable_resource(phy);
+> > +     ret =3D devm_pm_clk_create(dev);
+> >       if (ret)
+> >               return ret;
+> >
+> > +     ret =3D pm_clk_add(dev, "iface");
+>
+> This will break booting the kernel with some old DTS (before 6.0), where
+> we had iface_clk as a DSI PHY clock. Please document it in the commit
+> message.
 
-In most cases, we can get the connector by drm_atomic_get_connector_for_encoder
-if the encoder attached to the bridge is enabled, however there will
-still be some scenarios where the detect hook of the bridge is called
-but the corresponding encoder has not been enabled yet. For instance,
-this occurs when the device is hot plug in for the first time.
+Do we want to preserve backward compatibility and introduce some sort
+of msm_pm_clk_add to handle both?
 
-Since the call to bridge's detect is initiated by the connector, passing
-down the corresponding connector directly will make things simpler.
+>
+> > +     if (ret < 0)
+> > +             return dev_err_probe(dev, ret, "Unable to get iface clk\n=
+");
+> > +
+> >       if (phy->cfg->ops.pll_init) {
+> > +             /* PLL init will call into clk_register which requires
+> > +              * register access, so we need to enable power and ahb cl=
+ock.
+> > +              */
+>
+> I think with pm_clk this is no longer reuquired. Could you please verify
+> it and drop extra pm_runtime calls from probe?
 
-Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
----
+Will try.
 
-(no changes since v1)
+>
+> > +             ret =3D pm_runtime_resume_and_get(dev);
+> > +             if (ret)
+> > +                     return ret;
+> > +
+> >               ret =3D phy->cfg->ops.pll_init(phy);
+> > +             pm_runtime_put(&pdev->dev);
+> >               if (ret)
+> >                       return dev_err_probe(dev, ret,
+> >                                            "PLL init failed; need separ=
+ate clk driver\n");
+> > @@ -725,18 +709,19 @@ static int dsi_phy_driver_probe(struct platform_d=
+evice *pdev)
+> >               return dev_err_probe(dev, ret,
+> >                                    "Failed to register clk provider\n")=
+;
+> >
+> > -     dsi_phy_disable_resource(phy);
+> > -
+> > -     platform_set_drvdata(pdev, phy);
+> > -
+> >       return 0;
+> >  }
+> >
+> > +static const struct dev_pm_ops dsi_phy_pm_ops =3D {
+> > +     SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
+> > +};
+> > +
+> >  static struct platform_driver dsi_phy_platform_driver =3D {
+> >       .probe      =3D dsi_phy_driver_probe,
+> >       .driver     =3D {
+> >               .name   =3D "msm_dsi_phy",
+> >               .of_match_table =3D dsi_phy_dt_match,
+> > +             .pm =3D &dsi_phy_pm_ops,
+> >       },
+> >  };
+> >
+> > @@ -762,7 +747,7 @@ int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
+> >
+> >       dev =3D &phy->pdev->dev;
+> >
+> > -     ret =3D dsi_phy_enable_resource(phy);
+> > +     ret =3D pm_runtime_resume_and_get(dev);
+> >       if (ret) {
+> >               DRM_DEV_ERROR(dev, "%s: resource enable failed, %d\n",
+>
+> It would be nice to make error prints to follow the code changes.
 
- drivers/gpu/drm/bridge/adv7511/adv7511_drv.c          |  3 ++-
- drivers/gpu/drm/bridge/analogix/anx7625.c             |  2 +-
- drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c   |  3 ++-
- drivers/gpu/drm/bridge/chrontel-ch7033.c              |  2 +-
- drivers/gpu/drm/bridge/display-connector.c            | 11 ++++++++---
- drivers/gpu/drm/bridge/ite-it6263.c                   |  3 ++-
- drivers/gpu/drm/bridge/ite-it6505.c                   |  2 +-
- drivers/gpu/drm/bridge/ite-it66121.c                  |  3 ++-
- drivers/gpu/drm/bridge/lontium-lt8912b.c              |  6 +++---
- drivers/gpu/drm/bridge/lontium-lt9611.c               |  3 ++-
- drivers/gpu/drm/bridge/lontium-lt9611uxc.c            |  3 ++-
- .../gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c  |  3 ++-
- drivers/gpu/drm/bridge/sii902x.c                      |  3 ++-
- drivers/gpu/drm/bridge/simple-bridge.c                |  2 +-
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c          |  2 +-
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c             |  3 ++-
- drivers/gpu/drm/bridge/tc358767.c                     |  5 +++--
- drivers/gpu/drm/bridge/ti-sn65dsi86.c                 |  3 ++-
- drivers/gpu/drm/bridge/ti-tfp410.c                    |  2 +-
- drivers/gpu/drm/bridge/ti-tpd12s015.c                 |  8 +++++++-
- drivers/gpu/drm/display/drm_bridge_connector.c        |  2 +-
- drivers/gpu/drm/drm_bridge.c                          |  5 +++--
- drivers/gpu/drm/mediatek/mtk_dp.c                     |  3 ++-
- drivers/gpu/drm/mediatek/mtk_hdmi.c                   |  3 ++-
- drivers/gpu/drm/msm/dp/dp_drm.c                       |  3 ++-
- drivers/gpu/drm/msm/hdmi/hdmi.h                       |  2 +-
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c                |  2 +-
- drivers/gpu/drm/msm/hdmi/hdmi_hpd.c                   |  4 ++--
- drivers/gpu/drm/rockchip/rk3066_hdmi.c                |  2 +-
- drivers/gpu/drm/xlnx/zynqmp_dp.c                      |  3 ++-
- include/drm/drm_bridge.h                              |  6 ++++--
- 31 files changed, 68 insertions(+), 39 deletions(-)
+Sure.
 
-diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-index 9df18a8f2e37..cb6b6ce1669e 100644
---- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-+++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-@@ -864,7 +864,8 @@ static int adv7511_bridge_attach(struct drm_bridge *bridge,
- 	return ret;
- }
- 
--static enum drm_connector_status adv7511_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+adv7511_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct adv7511 *adv = bridge_to_adv7511(bridge);
- 
-diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
-index 0ac4a82c5a6e..c0ad8f59e483 100644
---- a/drivers/gpu/drm/bridge/analogix/anx7625.c
-+++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
-@@ -2448,7 +2448,7 @@ anx7625_audio_update_connector_status(struct anx7625_data *ctx,
- 				      enum drm_connector_status status);
- 
- static enum drm_connector_status
--anx7625_bridge_detect(struct drm_bridge *bridge)
-+anx7625_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct anx7625_data *ctx = bridge_to_anx7625(bridge);
- 	struct device *dev = ctx->dev;
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-index cb5f5a8c539a..a614d1384f71 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-@@ -2143,7 +2143,8 @@ static int cdns_mhdp_atomic_check(struct drm_bridge *bridge,
- 	return 0;
- }
- 
--static enum drm_connector_status cdns_mhdp_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+cdns_mhdp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct cdns_mhdp_device *mhdp = bridge_to_mhdp(bridge);
- 
-diff --git a/drivers/gpu/drm/bridge/chrontel-ch7033.c b/drivers/gpu/drm/bridge/chrontel-ch7033.c
-index ab9274793356..54d49d4882c8 100644
---- a/drivers/gpu/drm/bridge/chrontel-ch7033.c
-+++ b/drivers/gpu/drm/bridge/chrontel-ch7033.c
-@@ -215,7 +215,7 @@ static enum drm_connector_status ch7033_connector_detect(
- {
- 	struct ch7033_priv *priv = conn_to_ch7033_priv(connector);
- 
--	return drm_bridge_detect(priv->next_bridge);
-+	return drm_bridge_detect(priv->next_bridge, connector);
- }
- 
- static const struct drm_connector_funcs ch7033_connector_funcs = {
-diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
-index badd2c7f91a1..52b7b5889e6f 100644
---- a/drivers/gpu/drm/bridge/display-connector.c
-+++ b/drivers/gpu/drm/bridge/display-connector.c
-@@ -40,8 +40,7 @@ static int display_connector_attach(struct drm_bridge *bridge,
- 	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
- }
- 
--static enum drm_connector_status
--display_connector_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status display_connector_detect(struct drm_bridge *bridge)
- {
- 	struct display_connector *conn = to_display_connector(bridge);
- 
-@@ -82,6 +81,12 @@ display_connector_detect(struct drm_bridge *bridge)
- 	}
- }
- 
-+static enum drm_connector_status
-+display_connector_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
-+{
-+	return display_connector_detect(bridge);
-+}
-+
- static const struct drm_edid *display_connector_edid_read(struct drm_bridge *bridge,
- 							  struct drm_connector *connector)
- {
-@@ -172,7 +177,7 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
- 
- static const struct drm_bridge_funcs display_connector_bridge_funcs = {
- 	.attach = display_connector_attach,
--	.detect = display_connector_detect,
-+	.detect = display_connector_bridge_detect,
- 	.edid_read = display_connector_edid_read,
- 	.atomic_get_output_bus_fmts = display_connector_get_output_bus_fmts,
- 	.atomic_get_input_bus_fmts = display_connector_get_input_bus_fmts,
-diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge/ite-it6263.c
-index c4eedf643f39..cf813672b4ff 100644
---- a/drivers/gpu/drm/bridge/ite-it6263.c
-+++ b/drivers/gpu/drm/bridge/ite-it6263.c
-@@ -693,7 +693,8 @@ static int it6263_bridge_attach(struct drm_bridge *bridge,
- 	return 0;
- }
- 
--static enum drm_connector_status it6263_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+it6263_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct it6263 *it = bridge_to_it6263(bridge);
- 
-diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index b0dc9280d870..89649c17ffad 100644
---- a/drivers/gpu/drm/bridge/ite-it6505.c
-+++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -3238,7 +3238,7 @@ static void it6505_bridge_atomic_post_disable(struct drm_bridge *bridge,
- }
- 
- static enum drm_connector_status
--it6505_bridge_detect(struct drm_bridge *bridge)
-+it6505_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct it6505 *it6505 = bridge_to_it6505(bridge);
- 
-diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-index 6494f0842793..aa7b1dcc5d70 100644
---- a/drivers/gpu/drm/bridge/ite-it66121.c
-+++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -843,7 +843,8 @@ static enum drm_mode_status it66121_bridge_mode_valid(struct drm_bridge *bridge,
- 	return MODE_OK;
- }
- 
--static enum drm_connector_status it66121_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+it66121_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct it66121_ctx *ctx = container_of(bridge, struct it66121_ctx, bridge);
- 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt8912b.c b/drivers/gpu/drm/bridge/lontium-lt8912b.c
-index bd83228b0f0e..342374cb8fc6 100644
---- a/drivers/gpu/drm/bridge/lontium-lt8912b.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt8912b.c
-@@ -408,7 +408,7 @@ lt8912_connector_detect(struct drm_connector *connector, bool force)
- 	struct lt8912 *lt = connector_to_lt8912(connector);
- 
- 	if (lt->hdmi_port->ops & DRM_BRIDGE_OP_DETECT)
--		return drm_bridge_detect(lt->hdmi_port);
-+		return drm_bridge_detect(lt->hdmi_port, connector);
- 
- 	return lt8912_check_cable_status(lt);
- }
-@@ -607,12 +607,12 @@ lt8912_bridge_mode_valid(struct drm_bridge *bridge,
- }
- 
- static enum drm_connector_status
--lt8912_bridge_detect(struct drm_bridge *bridge)
-+lt8912_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct lt8912 *lt = bridge_to_lt8912(bridge);
- 
- 	if (lt->hdmi_port->ops & DRM_BRIDGE_OP_DETECT)
--		return drm_bridge_detect(lt->hdmi_port);
-+		return drm_bridge_detect(lt->hdmi_port, connector);
- 
- 	return lt8912_check_cable_status(lt);
- }
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-index ff85ac8130b4..a2d032ee4744 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-@@ -543,7 +543,8 @@ static int lt9611_regulator_enable(struct lt9611 *lt9611)
- 	return 0;
- }
- 
--static enum drm_connector_status lt9611_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+lt9611_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
- 	unsigned int reg_val = 0;
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-index 766da2cb45a7..38fb8776c0f4 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-@@ -353,7 +353,8 @@ static void lt9611uxc_bridge_mode_set(struct drm_bridge *bridge,
- 	lt9611uxc_unlock(lt9611uxc);
- }
- 
--static enum drm_connector_status lt9611uxc_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+lt9611uxc_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct lt9611uxc *lt9611uxc = bridge_to_lt9611uxc(bridge);
- 	unsigned int reg_val = 0;
-diff --git a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-index 81dde9ed7bcf..de57f8a9e98c 100644
---- a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-+++ b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-@@ -120,7 +120,8 @@ drm_connector_helper_funcs ge_b850v3_lvds_connector_helper_funcs = {
- 	.get_modes = ge_b850v3_lvds_get_modes,
- };
- 
--static enum drm_connector_status ge_b850v3_lvds_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+ge_b850v3_lvds_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct i2c_client *stdp4028_i2c =
- 			ge_b850v3_lvds_ptr->stdp4028_i2c;
-diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-index 882973e90062..d537b1d036fb 100644
---- a/drivers/gpu/drm/bridge/sii902x.c
-+++ b/drivers/gpu/drm/bridge/sii902x.c
-@@ -458,7 +458,8 @@ static int sii902x_bridge_attach(struct drm_bridge *bridge,
- 	return 0;
- }
- 
--static enum drm_connector_status sii902x_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+sii902x_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct sii902x *sii902x = bridge_to_sii902x(bridge);
- 
-diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-index c66bd913e33a..3d15ddd39470 100644
---- a/drivers/gpu/drm/bridge/simple-bridge.c
-+++ b/drivers/gpu/drm/bridge/simple-bridge.c
-@@ -90,7 +90,7 @@ simple_bridge_connector_detect(struct drm_connector *connector, bool force)
- {
- 	struct simple_bridge *sbridge = drm_connector_to_simple_bridge(connector);
- 
--	return drm_bridge_detect(sbridge->next_bridge);
-+	return drm_bridge_detect(sbridge->next_bridge, connector);
- }
- 
- static const struct drm_connector_funcs simple_bridge_con_funcs = {
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index f9438e39b94a..39332c57f2c5 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -876,7 +876,7 @@ static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
- }
- 
- static enum drm_connector_status
--dw_hdmi_qp_bridge_detect(struct drm_bridge *bridge)
-+dw_hdmi_qp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 76c6570e2a85..206b099a35e9 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2978,7 +2978,8 @@ static void dw_hdmi_bridge_atomic_enable(struct drm_bridge *bridge,
- 	mutex_unlock(&hdmi->mutex);
- }
- 
--static enum drm_connector_status dw_hdmi_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+dw_hdmi_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct dw_hdmi *hdmi = bridge->driver_private;
- 
-diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
-index 61559467e2d2..d33cde42c25b 100644
---- a/drivers/gpu/drm/bridge/tc358767.c
-+++ b/drivers/gpu/drm/bridge/tc358767.c
-@@ -1760,7 +1760,8 @@ static const struct drm_connector_helper_funcs tc_connector_helper_funcs = {
- 	.get_modes = tc_connector_get_modes,
- };
- 
--static enum drm_connector_status tc_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+tc_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct tc_data *tc = bridge_to_tc(bridge);
- 	bool conn;
-@@ -1785,7 +1786,7 @@ tc_connector_detect(struct drm_connector *connector, bool force)
- 	struct tc_data *tc = connector_to_tc(connector);
- 
- 	if (tc->hpd_pin >= 0)
--		return tc_bridge_detect(&tc->bridge);
-+		return tc_bridge_detect(&tc->bridge, connector);
- 
- 	if (tc->panel_bridge)
- 		return connector_status_connected;
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-index 3d0b4bc5129d..575dc2667592 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-@@ -1155,7 +1155,8 @@ static void ti_sn_bridge_atomic_post_disable(struct drm_bridge *bridge,
- 	pm_runtime_put_sync(pdata->dev);
- }
- 
--static enum drm_connector_status ti_sn_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+ti_sn_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
- 	int val = 0;
-diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
-index 549e8e8edeb4..b80ee089f880 100644
---- a/drivers/gpu/drm/bridge/ti-tfp410.c
-+++ b/drivers/gpu/drm/bridge/ti-tfp410.c
-@@ -89,7 +89,7 @@ tfp410_connector_detect(struct drm_connector *connector, bool force)
- {
- 	struct tfp410 *dvi = drm_connector_to_tfp410(connector);
- 
--	return drm_bridge_detect(dvi->next_bridge);
-+	return drm_bridge_detect(dvi->next_bridge, connector);
- }
- 
- static const struct drm_connector_funcs tfp410_con_funcs = {
-diff --git a/drivers/gpu/drm/bridge/ti-tpd12s015.c b/drivers/gpu/drm/bridge/ti-tpd12s015.c
-index 0919364e80d1..dcf686c4e73d 100644
---- a/drivers/gpu/drm/bridge/ti-tpd12s015.c
-+++ b/drivers/gpu/drm/bridge/ti-tpd12s015.c
-@@ -77,6 +77,12 @@ static enum drm_connector_status tpd12s015_detect(struct drm_bridge *bridge)
- 		return connector_status_disconnected;
- }
- 
-+static enum drm_connector_status
-+tpd12s015_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
-+{
-+	return tpd12s015_detect(bridge);
-+}
-+
- static void tpd12s015_hpd_enable(struct drm_bridge *bridge)
- {
- 	struct tpd12s015_device *tpd = to_tpd12s015(bridge);
-@@ -94,7 +100,7 @@ static void tpd12s015_hpd_disable(struct drm_bridge *bridge)
- static const struct drm_bridge_funcs tpd12s015_bridge_funcs = {
- 	.attach			= tpd12s015_attach,
- 	.detach			= tpd12s015_detach,
--	.detect			= tpd12s015_detect,
-+	.detect			= tpd12s015_bridge_detect,
- 	.hpd_enable		= tpd12s015_hpd_enable,
- 	.hpd_disable		= tpd12s015_hpd_disable,
- };
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 717d96530c38..3e4d561a3a32 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -210,7 +210,7 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
- 	enum drm_connector_status status;
- 
- 	if (detect) {
--		status = detect->funcs->detect(detect);
-+		status = detect->funcs->detect(detect, connector);
- 
- 		if (hdmi)
- 			drm_atomic_helper_connector_hdmi_hotplug(connector, status);
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 0b450b334afd..dd45d9b504d8 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1237,12 +1237,13 @@ EXPORT_SYMBOL(drm_atomic_bridge_chain_check);
-  * The detection status on success, or connector_status_unknown if the bridge
-  * doesn't support output detection.
-  */
--enum drm_connector_status drm_bridge_detect(struct drm_bridge *bridge)
-+enum drm_connector_status
-+drm_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	if (!(bridge->ops & DRM_BRIDGE_OP_DETECT))
- 		return connector_status_unknown;
- 
--	return bridge->funcs->detect(bridge);
-+	return bridge->funcs->detect(bridge, connector);
- }
- EXPORT_SYMBOL_GPL(drm_bridge_detect);
- 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index a5b10b2545dc..bef6eeb30d3e 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -2118,7 +2118,8 @@ static void mtk_dp_update_plugged_status(struct mtk_dp *mtk_dp)
- 	mutex_unlock(&mtk_dp->update_plugged_status_lock);
- }
- 
--static enum drm_connector_status mtk_dp_bdg_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct mtk_dp *mtk_dp = mtk_dp_from_bridge(bridge);
- 	enum drm_connector_status ret = connector_status_disconnected;
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-index 6943cdc77dec..845fd8aa43c3 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-@@ -1174,7 +1174,8 @@ static void mtk_hdmi_hpd_event(bool hpd, struct device *dev)
-  * Bridge callbacks
-  */
- 
--static enum drm_connector_status mtk_hdmi_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+mtk_hdmi_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct mtk_hdmi *hdmi = hdmi_ctx_from_bridge(bridge);
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index f222d7ccaa88..9a461ab2f32f 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -20,7 +20,8 @@
-  * @bridge: Pointer to drm bridge structure
-  * Returns: Bridge's 'is connected' status
-  */
--static enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+msm_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct msm_dp *dp;
- 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
-index 1d02d4e1ed5b..02cfd46df594 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.h
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
-@@ -215,7 +215,7 @@ int msm_hdmi_bridge_init(struct hdmi *hdmi);
- 
- void msm_hdmi_hpd_irq(struct drm_bridge *bridge);
- enum drm_connector_status msm_hdmi_bridge_detect(
--		struct drm_bridge *bridge);
-+		struct drm_bridge *bridge, struct drm_connector *connector);
- void msm_hdmi_hpd_enable(struct drm_bridge *bridge);
- void msm_hdmi_hpd_disable(struct drm_bridge *bridge);
- 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 53a7ce8cc7bc..46fd58646d32 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -475,7 +475,7 @@ msm_hdmi_hotplug_work(struct work_struct *work)
- 		container_of(work, struct hdmi_bridge, hpd_work);
- 	struct drm_bridge *bridge = &hdmi_bridge->base;
- 
--	drm_bridge_hpd_notify(bridge, drm_bridge_detect(bridge));
-+	drm_bridge_hpd_notify(bridge, drm_bridge_detect(bridge, hdmi_bridge->hdmi->connector));
- }
- 
- /* initialize bridge */
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-index 407e6c449ee0..114b0d507700 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-@@ -177,8 +177,8 @@ static enum drm_connector_status detect_gpio(struct hdmi *hdmi)
- 			connector_status_disconnected;
- }
- 
--enum drm_connector_status msm_hdmi_bridge_detect(
--		struct drm_bridge *bridge)
-+enum drm_connector_status
-+msm_hdmi_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
- 	struct hdmi *hdmi = hdmi_bridge->hdmi;
-diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-index e7875b52f298..ae4a5ac2299a 100644
---- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-+++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-@@ -450,7 +450,7 @@ struct drm_encoder_helper_funcs rk3066_hdmi_encoder_helper_funcs = {
- };
- 
- static enum drm_connector_status
--rk3066_hdmi_bridge_detect(struct drm_bridge *bridge)
-+rk3066_hdmi_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct rk3066_hdmi *hdmi = bridge_to_rk3066_hdmi(bridge);
- 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_dp.c b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-index 02e1feaa6115..588dd5610fa5 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_dp.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-@@ -1720,7 +1720,8 @@ static enum drm_connector_status __zynqmp_dp_bridge_detect(struct zynqmp_dp *dp)
- 	return connector_status_disconnected;
- }
- 
--static enum drm_connector_status zynqmp_dp_bridge_detect(struct drm_bridge *bridge)
-+static enum drm_connector_status
-+zynqmp_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct zynqmp_dp *dp = bridge_to_dp(bridge);
- 
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 7a75b449bc91..b5a3124f70ed 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -660,7 +660,8 @@ struct drm_bridge_funcs {
- 	 *
- 	 * drm_connector_status indicating the bridge output status.
- 	 */
--	enum drm_connector_status (*detect)(struct drm_bridge *bridge);
-+	enum drm_connector_status (*detect)(struct drm_bridge *bridge,
-+					    struct drm_connector *connector);
- 
- 	/**
- 	 * @get_modes:
-@@ -1382,7 +1383,8 @@ drm_atomic_helper_bridge_propagate_bus_fmt(struct drm_bridge *bridge,
- 					u32 output_fmt,
- 					unsigned int *num_input_fmts);
- 
--enum drm_connector_status drm_bridge_detect(struct drm_bridge *bridge);
-+enum drm_connector_status
-+drm_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector);
- int drm_bridge_get_modes(struct drm_bridge *bridge,
- 			 struct drm_connector *connector);
- const struct drm_edid *drm_bridge_edid_read(struct drm_bridge *bridge,
--- 
-2.43.0
-
+Regards,
+Loic
