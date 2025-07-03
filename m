@@ -2,119 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7944AF8191
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jul 2025 21:47:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD8F0AF829F
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jul 2025 23:27:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF5310E8D2;
-	Thu,  3 Jul 2025 19:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 957A610E8F5;
+	Thu,  3 Jul 2025 21:27:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RRsJwaD4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BGrvMhL0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8F1410E8C5
- for <freedreno@lists.freedesktop.org>; Thu,  3 Jul 2025 19:47:10 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 563DJLn2007736
- for <freedreno@lists.freedesktop.org>; Thu, 3 Jul 2025 19:47:10 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F08BC10E8F5
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jul 2025 21:27:48 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 563FiDmM032421
+ for <freedreno@lists.freedesktop.org>; Thu, 3 Jul 2025 21:27:48 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=kyjs9KtRSFqqWdHu/SnN7ykY
- 05Jh3LfVZ1F5/zy/um4=; b=RRsJwaD4JTLFe9in0afKI1Ngl1YV4Ai1WnVCglxl
- jmf4tzEOSUWJtM3sVCUn0xHaEPn17UUXb4Jn89i8W3YfCa7gQSUcbSIyoMLx5nuc
- pqoQlTnGS6AR6OfyHlc5z47Y6QpMZA4WuL60a1tlRsB+b1J9tvL4HUI2pqPUKy7A
- St/p8y5SjWwVFzHE7zQfiPXWn8EoRKK+26Dt8+noAx9uyh3pJ6JoPEdJd5tVZsT3
- 1s53SRBsLzqqKvuUWIY6XJa6zyPSpTXJQ8UmnKVo8jn/aZ60i3jZnj8yJAxCfc4i
- ZWhJxVkz7tni9RYBoihlxpkzcWMHiDlxA9YGIE7cdCZK1A==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47napw3tw0-1
+ :references:subject:to; s=qcppdkim1; bh=B8EhHwVKYpVrPJqxIdjJWt6i
+ mKVtstqw6FBfSw5Dfcs=; b=BGrvMhL0TDNFCs2LhwEFqzu7QOyx7f+cCW2mp+kZ
+ 0wLWqk+5N17jvzzu1Ejzhf6b5Rn5C4e8oNlufBfaxIEAiv6ngFCB8Uoui1q2PqP7
+ larACg6xkL6YsWwjNraGORUubtDCBCWV/64XJ5Yg8dVetIFaNAO10I/WdIYmNkoY
+ ZhvNxY5PnPdLW3+AYQrEYb8Ftu6+WtnUYzQ9zMhK3jSzheM04/qjbaVX2g97YAin
+ KLdDNnC+7V7hW4zi1gbXwYC2uza1NUhPNB0YI0EWgdJczDQ/35bUTDtLe+y4gaVW
+ 7Ul3qtUlNrw3LTZ0km0RYzuTt3fjoGcN8jZ606Mm+xYJpw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j63kj14g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 03 Jul 2025 19:47:10 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7d22790afd2so26909185a.2
- for <freedreno@lists.freedesktop.org>; Thu, 03 Jul 2025 12:47:10 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Jul 2025 21:27:48 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-7c7c30d8986so72507985a.2
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Jul 2025 14:27:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751572029; x=1752176829;
+ d=1e100.net; s=20230601; t=1751578067; x=1752182867;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kyjs9KtRSFqqWdHu/SnN7ykY05Jh3LfVZ1F5/zy/um4=;
- b=aJRl5ZmT1FVNR35wf4Rvs4//urUn7wmKwZdHpdSqu1HgNlUBEG1l7iectlj0axkR1/
- +y5F/gpkfavcALQSqNT5jaWt+n08SVXeg5usGmj0KKcc+zUcQTYRvcqBroGKwmObtyKJ
- tWkewIARw8lfeo//QARhK1oPOrDpVolTLHNVQYUUU8Aquf7EX4NN91ZyojWnTDI5wfvO
- UGcVAz/6iGEyCKulSvNjMOxIzdrPLQhp4493qaoWhLNXiDVTR2+cSFCDroJIrRCe+BB/
- PXIaUHpU9NR8JSUB7yLxdXhyQ46HGWCdXbLOLSTfTGOh6sJBKvMx/h80FUcFYz+q9kL7
- BR8w==
+ bh=B8EhHwVKYpVrPJqxIdjJWt6imKVtstqw6FBfSw5Dfcs=;
+ b=Y2HpnEFtdmav6NVI/0fF7Z5zgOftEYPUSefIglsX5X8kibbzD5r8yWrsixFCK8c8ZE
+ bgv3yBKmKsPhkdZznFJeYZGKI5j7YkAJsZzm4Z2wIu8eR1THxnPV8GV99CN4y7FPPA30
+ HWWxAZ6rFxhRcFCLPCSMKnl1nnA4cy2AEOusT7s6uDvMFyE0GZv7Pxi2pH9isKuPYdEf
+ yZzcljZBjC7j29ep//y5mn70DBWNbY2RlAGqqyBnyQ8w+PIjIFJi6dDhRmZKX48UdKWk
+ AnVM/5rC0CDcAUWtsY9jARomL+jAQ8DjWV7wXKvIXdmPAQkAeH2DUSq6BrI6osPNdMcr
+ mcAQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWfIBld2dIjWLf22MHspc2VZxm8LueHPYk0w+cXsHpnVsO+X39TCDtG0gbymTKu03TjcqvH5HKstWw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2hSuU2EDtvcFeCkA28BzWeMvh8Cn9KQCLjARi6KfeCobAgQsg
- zi/Jiov5tqhapVOmJUKtqRVJw4llQeIu8kaYLXLscYAOVhgQmi/8RDZZE6JtwHCoZsVqEfR3ra9
- 6j86C8E5LdIBacSw7m+UgFCyk4o7QgyqFIDfgFrva8LnWHeMFcjajKVq0MqbGKsf1d5Lr41j4NI
- Dr+ANrm4fR
-X-Gm-Gg: ASbGncsqwXWODORVJw+DfqS7iMTo66UlbzyUGgnAxLArRvVXgjVvC9h9rkHgHAuRlTq
- 99y/LAkXKa4AeZeT6HdApaO7IaEvPkH+GxkTn/uRqQFCQmBklWwcsa3w3xbg7wwbnGa4jIlroye
- 7nOoPeyzB00h3WV64tPOLDi8UPkb/kZJ3dj6H8BlNDm8Rx6wgLDIPDTwqTv/Pp8KkeliLDzRvLE
- uvnvChXaks0NROjiPcIe4QEsfGsXPBy9PppjsUb9FFtvlIXIq1jfm8wu0FAxGmB3mwpDmKGWHpW
- Rd9QYGE/ZoqxJzIvq4hFKgiJ/6FNMuLVdLrF77kFJ0p+TyhDiswaBi4BjRc7f64ukAZ7IVpgUkX
- BFDPFhmKyD3me65kC9SMbP9ekX1TjstqTLS8=
-X-Received: by 2002:a05:620a:27c2:b0:7c0:b523:e1b6 with SMTP id
- af79cd13be357-7d5dcc7603emr30091385a.11.1751572028362; 
- Thu, 03 Jul 2025 12:47:08 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHj2tRf9bBt4hGhXkfgtHAuEkZL3reD1egDOqsmHrUX4JA7cNn7ybYXWLKFG4hgzOlB5osvWg==
-X-Received: by 2002:a05:620a:27c2:b0:7c0:b523:e1b6 with SMTP id
- af79cd13be357-7d5dcc7603emr30088485a.11.1751572027963; 
- Thu, 03 Jul 2025 12:47:07 -0700 (PDT)
+ AJvYcCV9VxcsCwJTXQbHs38nGBGuzFzhsRo9aO6eMyU8ad8CzqJsVNyX9U1X34d3MDHpFrVUoHxEe27hsHg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwH8EZSNbOLbPzhXI0vTEwpffl346knAgwiSwey61fLxEybj7Ma
+ iHkHZr/MwDYNjESfebZGe6sa5d3Nq9rgF7GDcd8uQ+TXjBJGoh1t3AT6xX4hftBKqAOtR6GZcUx
+ m0cTLYYwYlqGDfIYzu5x4xPd9p+c7WYXaUbr66coOMTz9i3hVu0PCG/fEQdCo77CWL4Tft84=
+X-Gm-Gg: ASbGncspv+c9KtyD0kv50mqH3HTex+2g/rhfPSsDNJKKcQz2szACBmP8YqF8BjQpfZV
+ rMwIt0Xte5OOQomug1DqBhSIx3tU8glyad7EexGfElXSFU35VG1eMSNznTZvdGf3BqynRY52C8i
+ GpUPK3ETwmVgrEGK952ESRkQxTF2YzP3oy/OKOgcAH2Tnw7sPhBFjBtdsqHIKfCaVVOXsqWOWKt
+ 2pjH1/AEQjqzGhHxB1PMUKP4xmJnyp9AKj5BvfK/5cKffbvEXoPaH/XASHD9QdjV9tUk6ZoHUsT
+ mq8h28nZCdrQMr8S7nKPaRisOYzpTzAC2f5QgogyyPyGI5jpj691/EQH+j79s4y+lYksl3yLF9K
+ 9bzyLyF0ENxjl0IldL7LP6oGtQFG8y0NpSu4=
+X-Received: by 2002:a05:620a:3d86:b0:7d5:ca37:79a0 with SMTP id
+ af79cd13be357-7d5ddae521cmr2890485a.18.1751578066800; 
+ Thu, 03 Jul 2025 14:27:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEMJrZqqPZZas9zZzBzoVxAUKC2qdaPz2216jh1dVtgBGxiblPPM6KkbjiAzq0lqA6zcxM0YQ==
+X-Received: by 2002:a05:620a:3d86:b0:7d5:ca37:79a0 with SMTP id
+ af79cd13be357-7d5ddae521cmr2888085a.18.1751578066366; 
+ Thu, 03 Jul 2025 14:27:46 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-32e1b141ea0sm391081fa.78.2025.07.03.12.47.06
+ 2adb3069b0e04-55638494f6dsm72675e87.123.2025.07.03.14.27.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Jul 2025 12:47:07 -0700 (PDT)
-Date: Thu, 3 Jul 2025 22:47:05 +0300
+ Thu, 03 Jul 2025 14:27:44 -0700 (PDT)
+Date: Fri, 4 Jul 2025 00:27:43 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/msm: Update register xml
-Message-ID: <kwexjh3eaxerlfbzpsmd6nim5si6zdjpdthrpzcpakhwmodasl@vosfzxpkehxv>
-References: <20250703175125.598687-1-robin.clark@oss.qualcomm.com>
+To: Andy Yan <andyshrk@163.com>
+Cc: mripard@kernel.org, neil.armstrong@linaro.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ jani.nikula@intel.com, lyude@redhat.com, jonathanh@nvidia.com,
+ p.zabel@pengutronix.de, simona@ffwll.ch, victor.liu@nxp.com,
+ rfoss@kernel.org, chunkuang.hu@kernel.org,
+ cristian.ciocaltea@collabora.com, Laurent.pinchart@ideasonboard.com,
+ linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Andy Yan <andy.yan@rock-chips.com>
+Subject: Re: [PATCH v3 2/2] drm/bridge: Pass down connector to drm bridge
+ detect hook
+Message-ID: <chznjpcx6p2vn3i5jt52peikhipzjiwzlr74gx6mzp3wjstr6p@6zhhknnl3zek>
+References: <20250703125027.311109-1-andyshrk@163.com>
+ <20250703125027.311109-3-andyshrk@163.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250703175125.598687-1-robin.clark@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=dIKmmPZb c=1 sm=1 tr=0 ts=6866de3e cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=VrLyofq7WMs6qTrs2fUA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzAzMDE2MyBTYWx0ZWRfX1uHi0Wvrkk0F
- ZGNP+cpMEbN+KxHLR1TEe52OWanf5fws7nzFSh6q4ySDLetTwFT1c2z6GtQrpCgWYL5ycqz4w44
- UHJHvduBkyenu9vzGUUBok22GhH6xk8O3UaE5hidPSSogBbi8cHbDqM+WBBCJWqLeYyn7Nyv9U3
- aSBNkBNvp2g8AEcXCh5b2vN2AzbFKfBBTJzbBrrCS8glICbSBOCpck4IzEmDSHw6OLiDSdLLH9b
- 9YzmEJTjSfvY4fbtw0DsxQB4Ixm/RvAVwWkB6ruaIlufiJDqkpqHKW2vbVwHDZYjqEpEu0RFaEU
- uHQXLh6hi0nDQ7JJZrGH1RmBBckwlsTBhhmTJgKUoq8K4T5ZeFAo+gQxUS55XOfX+ZaDxcNTTe/
- UpzTuheK+YjLg0WlYT/ta6sMhQUUgpnnqDw+JMG76vIBSYDWXRuq3MFPmEoTakWcweHtuz0P
-X-Proofpoint-GUID: -PFFBF7xBgvSSILXWCpqUtVm7wnVWohw
-X-Proofpoint-ORIG-GUID: -PFFBF7xBgvSSILXWCpqUtVm7wnVWohw
+In-Reply-To: <20250703125027.311109-3-andyshrk@163.com>
+X-Authority-Analysis: v=2.4 cv=ZKfXmW7b c=1 sm=1 tr=0 ts=6866f5d4 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Wb1JkmetP80A:10 a=s8YR1HE3AAAA:8 a=EUspDBNiAAAA:8 a=nJWoAq30JnpefaDr-ZMA:9
+ a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=jGH_LyMDp9YhSvY-UuyI:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzAzMDE3NyBTYWx0ZWRfXxMzInvZmR/WG
+ jKk6PFq5r4wOU4DKdvPnYV/+USThSNIwn/7prIB28h+g+p4boRyu3UaM0qdVrgfngPPIoUUnrS3
+ rEK69uRp+4O8hOHyv84bu3dULoOAbwWNy0RuO0hjYrqqhFWNmDKmcmZ5TAbeSOcE0p3J3AkGcrt
+ PHrdRvalCvnqicJteGI0vNeMTtvtf6LBvRHyepZogpQZ6dLY9B15n8TQTgwY/r04i6SSVUmeyRm
+ aW1zm8JOpAWtqgZWCPUSVV6/ubplybcXpGySm9m5xuaw8CA70WnKG0FON+zHT/5Vi12VX3Ny+Fv
+ J0b24KrmlFBhTSzy8++XTnCmYFnMga1dbS9tLED/XZz1R05SC8Md3KRU4jFxzeoaeWT7LF+1Ikj
+ N1lo8u6d+nqPnMBnBaReNBz1nmxgYeG2XpVgDaaODCvDb74H2z9YEgtuUvGJFHOpSidO2uwG
+X-Proofpoint-ORIG-GUID: YHNNnxzs0GEjs-3uoGw0QTeKjeTKsZ8p
+X-Proofpoint-GUID: YHNNnxzs0GEjs-3uoGw0QTeKjeTKsZ8p
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-07-03_05,2025-07-02_04,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0 malwarescore=0
- impostorscore=0 mlxscore=0 adultscore=0 mlxlogscore=999 phishscore=0
- suspectscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507030163
+ adultscore=0 mlxscore=0 mlxlogscore=782 spamscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ impostorscore=0 malwarescore=0 clxscore=1015 classifier=spam authscore=0
+ authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507030177
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,35 +131,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 03, 2025 at 10:51:19AM -0700, Rob Clark wrote:
-> Sync register xml from mesa commit eb3e0b7164a3 ("freedreno/a6xx: Split
-> descriptors out into their own file").
+On Thu, Jul 03, 2025 at 08:49:53PM +0800, Andy Yan wrote:
+> From: Andy Yan <andy.yan@rock-chips.com>
 > 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> In some application scenarios, we hope to get the corresponding
+> connector when the bridge's detect hook is invoked.
+> 
+> In most cases, we can get the connector by drm_atomic_get_connector_for_encoder
+> if the encoder attached to the bridge is enabled, however there will
+> still be some scenarios where the detect hook of the bridge is called
+> but the corresponding encoder has not been enabled yet. For instance,
+> this occurs when the device is hot plug in for the first time.
+> 
+> Since the call to bridge's detect is initiated by the connector, passing
+> down the corresponding connector directly will make things simpler.
+> 
+> Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
 > ---
->  drivers/gpu/drm/msm/Makefile                  |    5 +
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c     |    2 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |    4 +
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c   |    2 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h   |    2 +-
->  drivers/gpu/drm/msm/adreno/a6xx_preempt.c     |    2 +-
->  .../drm/msm/adreno/adreno_gen7_9_0_snapshot.h |    4 +-
->  drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 3582 +++--------------
->  .../msm/registers/adreno/a6xx_descriptors.xml |  198 +
->  .../drm/msm/registers/adreno/a6xx_enums.xml   |  383 ++
->  .../msm/registers/adreno/a6xx_perfcntrs.xml   |  600 +++
->  .../drm/msm/registers/adreno/a7xx_enums.xml   |  223 +
->  .../msm/registers/adreno/a7xx_perfcntrs.xml   | 1030 +++++
->  .../drm/msm/registers/adreno/adreno_pm4.xml   |  302 +-
->  14 files changed, 3312 insertions(+), 3027 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_descriptors.xml
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_enums.xml
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.xml
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_enums.xml
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.xml
 > 
 
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
 -- 
