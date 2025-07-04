@@ -2,142 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0830AAF984A
-	for <lists+freedreno@lfdr.de>; Fri,  4 Jul 2025 18:32:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6D04AF99F5
+	for <lists+freedreno@lfdr.de>; Fri,  4 Jul 2025 19:44:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6AB310E355;
-	Fri,  4 Jul 2025 16:32:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1FB910E09B;
+	Fri,  4 Jul 2025 17:44:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IPh/6TZM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SP2f9R3I";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C259D10E34E
- for <freedreno@lists.freedesktop.org>; Fri,  4 Jul 2025 16:32:04 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 564948Xv024889
- for <freedreno@lists.freedesktop.org>; Fri, 4 Jul 2025 16:32:04 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 157BD10E359
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Jul 2025 17:44:40 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 564CDd2Z018581
+ for <freedreno@lists.freedesktop.org>; Fri, 4 Jul 2025 17:44:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- lCy3Mp26PN6RlYzqrLIVdWeBnpFYaVfs3jyvVwWycsk=; b=IPh/6TZM16S2tTdI
- hKVUt/DOxChP6B14zsxSMVAh+AMKmHC5Pfkq6nakLVpDdywDvWDJRVCrSJ2zsXFc
- gWjhvfRaGhs24QQx2Ay60I/2/pavVTerIVMbZPoEjq4bh0EPlhXduPsOyczGKqBX
- MU3zKZGN25OVffTKxZZZaH8+5goPbS06anXVBF7rt9+HaX8iOI5yDp8xj+2x+uwS
- 7NPAhav4yAakW7+TkmaHAVCdT41n/AxHHLJVeDwqegn/lXA7EQO0/wU3r4gV/fQZ
- M4yt+MMfS8ZV3b+WUX2Af2hAWlA8ovuhfmuwbQ4MphpLz8byEFi79gTA/72D18WO
- F/GBaA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j802c7bb-1
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=Ln9K1aZ7occVpcksNgIQY1Xb6OInD1HFG8L
+ +w5gb4lw=; b=SP2f9R3IZG/DoJI+RUU3QJ3PvGBOAV/A/nJIWA4cAVoqnofiY+u
+ 9nLvPSYvT9mXGDGLbSsmVNLcfRY+dmHhFo/Op33lTZvWiNocrDCtbuXOGyl1WZXu
+ ePiyu1opSy8b9shUreWgzOWL4jfN0LsDnxP3GU+mAD/wp0HyWo7RmMPaY88xeUwz
+ hftUSUYLo5kbNSyqX73Rl7PJkYStocg2dwg7JxsXtm3AjAyS3KMTXYfjKk2X0XfM
+ 0UnGE0o9LalVoL1WFqxq44xIP2GvWuqrNuVY16T9NV3qFZrdgPzbDHA0J4qInbAa
+ OU9vXg67MbIFIzzyloLHFOF5uuZQx2BIS0Q==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j8fxvpxn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 04 Jul 2025 16:32:03 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7d460764849so365632685a.1
- for <freedreno@lists.freedesktop.org>; Fri, 04 Jul 2025 09:32:03 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Jul 2025 17:44:40 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b2eb60594e8so794109a12.1
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Jul 2025 10:44:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751646723; x=1752251523;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lCy3Mp26PN6RlYzqrLIVdWeBnpFYaVfs3jyvVwWycsk=;
- b=ilKiFzgGzv1XRjqnyuPHW6okRryB/yYpQ09T0CE8A6QrR6DOO+di1LTpAHAUanX9vN
- sylN1iKTTkAwpcM2IdbIF0OZOKMTwSmFo7TPBn45W0NJAhR0e+Wmu+zdkd9/BHhgHyIb
- dz6aj6QaXOJ799Oqf78WrVJ8CdOYkFWZiLLMfXB1bCDZWMckRY0DQuQ1mVU7uPWZ/W4P
- lAqeRAXHQUfRFob0zg5RA4XiB198LQvNazbEglCokyCHEyI1OnoDCTx9NN/NbyPqVNqP
- 8eN76rbnfgZanjRkycv6yT6KYbsXaAr8t2go7aJae/3q0zG6Coy/JdCVSac27VI1NSq5
- pxyw==
+ d=1e100.net; s=20230601; t=1751651079; x=1752255879;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Ln9K1aZ7occVpcksNgIQY1Xb6OInD1HFG8L+w5gb4lw=;
+ b=fgcEe0ekSq/wFXykQMgW3tXFxfIAjaYkvYqx41xzjdoCAEg3QzmoMjNhsJMJ7T0q8B
+ f3V3t84e0QcEBbi0IKTbJ9Fm2mXr8WL5HqhLwlEz2Py5P549LG+0U28kaSYWkN03JvXg
+ xq5iWKARu1ykcoiINQTl8rLFjdfzkB/6XpE7L3hPlnIBun6x2xpJlses9K3ucVijzrHZ
+ SOxmKIbIPy+nwUm3TAJ88Ls42lY+dMlN+M6yTHkT9gZ6mQ4HukYWLR0zpXDdHQuNROR+
+ VKLS+R54tuy9ofFxPNMSeobacFo2Ksc3ZJCSt/GVXQ6RaPyOI4RufjPNTmmh1dKkNjEk
+ rAtg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXxw26DmUupqq1J80WlLQiR118e4megTDWWCuSEafWA0lXcSHBj5dmlRF5Q2jIEhNknDpHZcQDNuz4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1IKwBzNjzaRnox+fgHi1K/eAirNiiHrssW2SgEtHaNf0wXVJu
- 7GwGPacw/rLMmT1kdb9ZrgSCcmIAPNOs27z43p38eRHPNQhllZT5fU2SzLZOZ6o/ON8UocJUzUu
- Vdw9wqV/qIUwTovZazT9z6aSfMAhhmwoId5md2K4W78rhy4Ex1Nd5vS0hDWtmfMcdE8MFvlcIHu
- Jpe46Jfg==
-X-Gm-Gg: ASbGncu4lAdgV+Mak/oMxlG874ut2QKlb48WJNpAirdwqIqHX2/W5929MhVkh3TO5tc
- l6pU9fIfc2yCzibA3hj/vSPl16J0pWInKxV6gr0K+iNoKrhwEo04BdSa5pQVQBpBUt5roAsrqf5
- 3v6hPDCCcd4CWXassmu1dnc8wH6pAdD9/aQKnpsONtqp7LPWLP85488nFhY65L0jSv1qQ+WI10o
- rYnIyj57VJ/HOX5nxIm/rpN+uSH4ye8fq2o9WKYimcYFGtkyjStwqW1DoZ+BdWx3vvLAR1RXTUP
- b6wKnl6clGuHPqnhX2chvltbHGKEp+pcrPMNxh6urSUbI4Z7jMlL4OT2gLlBqtiOBTpjLI3iCcV
- pqRS//tGGVY3f1eIl6UwrDEFr+MsKE2mw67Q=
-X-Received: by 2002:a05:620a:1724:b0:7d4:3cf6:15f3 with SMTP id
- af79cd13be357-7d5dc6e3826mr542681685a.25.1751646722710; 
- Fri, 04 Jul 2025 09:32:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHFjNhcyPXleZqxKkeBOedoEcBl5IqQ/zhQ/LmNX+iWVLvPoc6U8bH4uDJapqPQZMpf7V7c1A==
-X-Received: by 2002:a05:620a:1724:b0:7d4:3cf6:15f3 with SMTP id
- af79cd13be357-7d5dc6e3826mr542676885a.25.1751646722210; 
- Fri, 04 Jul 2025 09:32:02 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCVUNhVexA27JVaVMiMl7whzOyodpxmJ98inbsWsAPRTliTFQGRXyNYHcOzx5DaymDVP3OA2MBLWpXg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJ/tIiAbR59Pp9furolHxSJ7HBLCTuxmZIV808qrPx56sbn7aF
+ wjfr/19AEk0lfPi/TdNDSsgxvtS+n4VZbrOfi7evdKtID/ews+z/zco9mTD94uZI/TNTMzVmlNx
+ og2S74i20sevyg+X1UYiQZpzR4/ryyifs4Ox4n1UP3nFobdT5Y632CYj1Z9QjkXkq3VBfi/E=
+X-Gm-Gg: ASbGncvt+NoIgxJAumLfFsfVvkpju1Lk7j/uytszZHZhOlu175FOVLJHDDppPd2tBF6
+ lXQW/qmIJ7XmdkVnTgG7FbclH8fSPDdYKCOW0/7T5p11ZyauIfqyXXsx1YGrA9Udfl2+pygoF7R
+ 3tVa0E5aPXA0xS4P1mvYXAWg1dkKqGMwAtQJGu7CwGrCzz1Y/mm/Lj8SyMBRaSZUpXF3YwuSAe1
+ VV7A3icKG+79kwir1XWt2HwBr7mb+hWvGd0VchE706DepsFeCyI7sR3iaHPAxpWEOJQTUDtjwgL
+ k8ioevZp9lEzCOLn+IBFaXstSsqzVqrJoQ==
+X-Received: by 2002:a05:6300:2414:b0:220:82c7:309c with SMTP id
+ adf61e73a8af0-22608fb3070mr3625375637.7.1751651078748; 
+ Fri, 04 Jul 2025 10:44:38 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH8Jl4EFpWHf5IwmZK4Vr8g/FAU4AIrSYjd7kWPFYX4w68L3NQh92fr5lAW9BcjJu7BoJ7+og==
+X-Received: by 2002:a05:6300:2414:b0:220:82c7:309c with SMTP id
+ adf61e73a8af0-22608fb3070mr3625338637.7.1751651078312; 
+ Fri, 04 Jul 2025 10:44:38 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-32e1af83102sm2813571fa.6.2025.07.04.09.32.01
+ d2e1a72fcca58-74ce4180dd8sm2731263b3a.100.2025.07.04.10.44.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Jul 2025 09:32:01 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 04 Jul 2025 19:31:56 +0300
-Subject: [PATCH 4/4] arm64: dts: qcom: sc8180x: modernize MDSS device
- definition
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250704-mdss-schema-v1-4-e978e4e73e14@oss.qualcomm.com>
-References: <20250704-mdss-schema-v1-0-e978e4e73e14@oss.qualcomm.com>
-In-Reply-To: <20250704-mdss-schema-v1-0-e978e4e73e14@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Fri, 04 Jul 2025 10:44:38 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Helen Koike <helen.fornazier@gmail.com>,
+ Vignesh Raman <vignesh.raman@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2359;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=bAtnGsyPKQGjRv4wCht+S1dUXqoLPaKb8f4OFVueSmM=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoaAH7eTzqlMVB/DjRgzBiEBYxLi08uNbOA1F97
- Vd0EtyyMZSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaGgB+wAKCRCLPIo+Aiko
- 1VkeCACEjcvsCOWvGzeerp5hPYD0fEONkveo55tJrQSZd19YanefgWVCovErRNlJ8+mMbndcfTi
- Gx9CSFn9ge59UYKObBArjFltpzQWnYQ+pJCm722MMoiEBssFUk6XozGFU233IQRNBN4SwnN1B7R
- gZgDvNjD3FMNb9mbXEmYJGe8qyPujcYlzyMT6p79fD4vs1d4vLln1hrDilvDr4HLjJ2Ilugb/wS
- 9jg7eBzC3wyaQIwRnQHQSuOVh+YR68OVTRZbWse1SQz+VmDkj+rAXtrqgaRezVSiAqDvFrEjgGm
- ps2vw8RJsWNTJTVQG46WluyhtvQegOpPR2Y2x7u2Ylsaki21
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: A5lDZ9Ox7UDQfkgLDx1-jCOAxctchMR9
-X-Authority-Analysis: v=2.4 cv=YPWfyQGx c=1 sm=1 tr=0 ts=68680203 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=WUOsL33OVTVxArewYC0A:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: A5lDZ9Ox7UDQfkgLDx1-jCOAxctchMR9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA0MDEyNCBTYWx0ZWRfX1GqhiIzPy73C
- uDzNeNXjxRlpqMQf8OK///Cu73eqOjRvlVKEAOZLmpoRbNrcB/CLCkQiYDaUcaQTAzpsy/wr0q+
- 0UXcfBPZ5xW6uFgKd82riR2ueYOiz+wD05GOezeCV6Nht0SwTwb5i9UrXS7w9Ui4uxDc1YtGikD
- VrLN01ICJjKUgkIJr0EqnQS7+p+sBBnvLtMNOjjtDyBtnREtoxyo53FEIHmD+nsqCJ5/XQpNIfX
- tnTMJwKtqujPSLqYPXDqeYUjzEdc8s4db5E/uR5kENJBwHKngfsxJNzeunKhQUn087Dm9ixTFmd
- xVV+ydA7GrxNZB+4oZ2TAwxGOYPjAhSo70ZULkaKryvJuNxXyJ7Hp5EOILw7dyjzOIPYwxz5wFt
- N7eMWPnbaWdqDURZaSg/yzePI+s/MthlYFZJwYkiR1rN5gfBI8WAZ5/S8gXKZdsnL2YLoxvB
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/ci: Uprev igt
+Date: Fri,  4 Jul 2025 10:44:32 -0700
+Message-ID: <20250704174433.693630-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.50.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA0MDEzNCBTYWx0ZWRfX3iN0CRW+Tphm
+ lTw3yVZwpISsXpNP7o57F6B0CMt5V+HyWm678UPoc/LrufA9jpE9qKyBpHN9OKLXIHkpEESSR5e
+ 4NiO/ZhuQIMjhHngunkzfAc01bnM96YNe1fACj/+FozFdRzXWb2WBvWLaDLvatjyl4na1dB+No/
+ LCciEq003Y2mJ8w1fBiZfEA5oW0mbHdSQ2Bv5J8Qs9P/XRIl4shdRkxJiq9P8d4ol1fGHI4CHQS
+ 3ph23vjXENcvwRC05pU1b9fkoreCekLJYitPwOP8t8dfZA0C9tlGX+uITIzrpA0H9l9B67xPZ3R
+ V4e93gb0zAci+7qSzU7cBHxaQkw9rcSmI6Is808OylqcT97KBiXCIQh+3+KoHfA6iyK8yu9SLCV
+ 8L4TZ0A3SxYAvG5XJwWVK959OOZLGE9PTwj9B2tR25tsUwoTszPXoDMR7QCibiZQ20q8/LHP
+X-Proofpoint-GUID: QDL8TQAp_f0wiHuIX3ga1RIPPs7gsl9L
+X-Proofpoint-ORIG-GUID: QDL8TQAp_f0wiHuIX3ga1RIPPs7gsl9L
+X-Authority-Analysis: v=2.4 cv=TqPmhCXh c=1 sm=1 tr=0 ts=68681308 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=xqWC_Br6kY4A:10 a=Wb1JkmetP80A:10
+ a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=8iDXaJqXtVj3SukbGHsA:9
+ a=bFCP_H2QrGi7Okbo017w:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-07-04_06,2025-07-04_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxlogscore=951 mlxscore=0 malwarescore=0 suspectscore=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0
- priorityscore=1501 bulkscore=0 phishscore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507040124
+ priorityscore=1501 bulkscore=0 mlxlogscore=999 suspectscore=0 adultscore=0
+ phishscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 mlxscore=0
+ impostorscore=0 spamscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507040134
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,79 +129,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Follow the lead of other platforms and update DT description of the MDSS
-device:
+Pull in igt updates that are a dependency for VM_BIND, and will reduce
+msm_mapping flakes.
 
-- Use generic node names (dislpay-subsystem, display-controller, phy)
-  instead of the platform-specific ones (mdss, mdp, dsi-phy)
-- Add platform-specific compatible string to DSI controllers.
+Skip msm_mapping@memptrs on sc7180 (the test should be checking for
+preemption support, and skipping if it is not supported).
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/77
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/sc8180x.dtsi | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/ci/gitlab-ci.yml                             | 2 +-
+ .../drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt    | 5 +++++
+ .../ci/xfails/msm-sc7180-trogdor-lazor-limozeen-skips.txt    | 5 +++++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8180x.dtsi b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-index b74ce3175d209b569e634073662307964158b340..14775b8dc682221ada3d30773be66edb46138662 100644
---- a/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-@@ -2956,7 +2956,7 @@ camcc: clock-controller@ad00000 {
- 			#power-domain-cells = <1>;
- 		};
+diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
+index 6f9b7beddcb3..d502d146b177 100644
+--- a/drivers/gpu/drm/ci/gitlab-ci.yml
++++ b/drivers/gpu/drm/ci/gitlab-ci.yml
+@@ -5,7 +5,7 @@ variables:
+   UPSTREAM_REPO: https://gitlab.freedesktop.org/drm/kernel.git
+   TARGET_BRANCH: drm-next
  
--		mdss: mdss@ae00000 {
-+		mdss: display-subsystem@ae00000 {
- 			compatible = "qcom,sc8180x-mdss";
- 			reg = <0 0x0ae00000 0 0x1000>;
- 			reg-names = "mdss";
-@@ -2996,7 +2996,7 @@ &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
+-  IGT_VERSION: 04bedb9238586b81d4d4ca62b02e584f6cfc77af
++  IGT_VERSION: 129d5b10baaadea1d6cd6377341c4cb42e7ee6fd
  
- 			status = "disabled";
+   DEQP_RUNNER_GIT_URL: https://gitlab.freedesktop.org/mesa/deqp-runner.git
+   DEQP_RUNNER_GIT_TAG: v0.20.0
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt
+index d4b8ba3a54a9..154b047787b2 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt
+@@ -32,3 +32,8 @@ kms_display_modes@mst-extended-mode-negative
  
--			mdss_mdp: mdp@ae01000 {
-+			mdss_mdp: display-controller@ae01000 {
- 				compatible = "qcom,sc8180x-dpu";
- 				reg = <0 0x0ae01000 0 0x8f000>,
- 				      <0 0x0aeb0000 0 0x3000>;
-@@ -3090,7 +3090,8 @@ opp-460000000 {
- 			};
- 
- 			mdss_dsi0: dsi@ae94000 {
--				compatible = "qcom,mdss-dsi-ctrl";
-+				compatible = "qcom,sc8180x-dsi-ctrl",
-+					     "qcom,mdss-dsi-ctrl";
- 				reg = <0 0x0ae94000 0 0x400>;
- 				reg-names = "dsi_ctrl";
- 
-@@ -3156,7 +3157,7 @@ opp-358000000 {
- 				};
- 			};
- 
--			mdss_dsi0_phy: dsi-phy@ae94400 {
-+			mdss_dsi0_phy: phy@ae94400 {
- 				compatible = "qcom,dsi-phy-7nm";
- 				reg = <0 0x0ae94400 0 0x200>,
- 				      <0 0x0ae94600 0 0x280>,
-@@ -3176,7 +3177,8 @@ mdss_dsi0_phy: dsi-phy@ae94400 {
- 			};
- 
- 			mdss_dsi1: dsi@ae96000 {
--				compatible = "qcom,mdss-dsi-ctrl";
-+				compatible = "qcom,sc8180x-dsi-ctrl",
-+					     "qcom,mdss-dsi-ctrl";
- 				reg = <0 0x0ae96000 0 0x400>;
- 				reg-names = "dsi_ctrl";
- 
-@@ -3223,7 +3225,7 @@ mdss_dsi1_out: endpoint {
- 				};
- 			};
- 
--			mdss_dsi1_phy: dsi-phy@ae96400 {
-+			mdss_dsi1_phy: phy@ae96400 {
- 				compatible = "qcom,dsi-phy-7nm";
- 				reg = <0 0x0ae96400 0 0x200>,
- 				      <0 0x0ae96600 0 0x280>,
-
+ # It causes other tests to fail, so skip it.
+ kms_invalid_mode@overflow-vrefresh
++
++# sc7180 does not have APRIV, so memptrs is not protected.
++# (Preemption is not supported on devices that do not have
++# APRIV, so this is ok)
++msm/msm_mapping@memptrs
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-skips.txt
+index 022db559cc7d..a9bb3e1ad75c 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-skips.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-skips.txt
+@@ -23,3 +23,8 @@ core_hotunplug.*
+ # https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/162
+ kms_display_modes@extended-mode-basic
+ kms_display_modes@mst-extended-mode-negative
++
++# sc7180 does not have APRIV, so memptrs is not protected.
++# (Preemption is not supported on devices that do not have
++# APRIV, so this is ok)
++msm/msm_mapping@memptrs
 -- 
-2.39.5
+2.50.0
 
