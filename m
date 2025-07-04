@@ -2,86 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B946CAF9849
-	for <lists+freedreno@lfdr.de>; Fri,  4 Jul 2025 18:32:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0830AAF984A
+	for <lists+freedreno@lfdr.de>; Fri,  4 Jul 2025 18:32:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B38F210E34E;
-	Fri,  4 Jul 2025 16:32:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6AB310E355;
+	Fri,  4 Jul 2025 16:32:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="L8EQvJhK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IPh/6TZM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 332F710E34E
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C259D10E34E
  for <freedreno@lists.freedesktop.org>; Fri,  4 Jul 2025 16:32:04 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 564GQbg2017317
- for <freedreno@lists.freedesktop.org>; Fri, 4 Jul 2025 16:32:03 GMT
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 564948Xv024889
+ for <freedreno@lists.freedesktop.org>; Fri, 4 Jul 2025 16:32:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KCNktFoNUnnmQKTMw9H4fEdcq72ueWODZAz3C17Oax0=; b=L8EQvJhKDAfT+2sX
- hz9EVG1Vgf3kfpKa/ZU8IKDHlf85rLiakPWVd0EdZjI5JqPjvFhGSJ2Dqda64Naq
- 7z/bePi81zfReJB0OIK0zvNdTQIN477hKGyJcwz4YWhk3l2XO+caNnCJ6lase/lV
- XcImaAJ87BG0aj1yKyuf80S/JJHm7gpxYOllxx8tdQ23dwX3Mm9x3kUBd2uvSB9i
- Nq3AnydtEmgm/isGJvEWMpK3/eYNJaf7OOKPsXbWqTH5Kjb9xuEvrHzCF2MX14fI
- /vlpBxqD9TDNsZSaC675BCwQz4IDBeN5c0Izc0rrFvXB6l6D/7LcTq6OHWkPfLy2
- gPC4mg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j7bw4p11-1
+ lCy3Mp26PN6RlYzqrLIVdWeBnpFYaVfs3jyvVwWycsk=; b=IPh/6TZM16S2tTdI
+ hKVUt/DOxChP6B14zsxSMVAh+AMKmHC5Pfkq6nakLVpDdywDvWDJRVCrSJ2zsXFc
+ gWjhvfRaGhs24QQx2Ay60I/2/pavVTerIVMbZPoEjq4bh0EPlhXduPsOyczGKqBX
+ MU3zKZGN25OVffTKxZZZaH8+5goPbS06anXVBF7rt9+HaX8iOI5yDp8xj+2x+uwS
+ 7NPAhav4yAakW7+TkmaHAVCdT41n/AxHHLJVeDwqegn/lXA7EQO0/wU3r4gV/fQZ
+ M4yt+MMfS8ZV3b+WUX2Af2hAWlA8ovuhfmuwbQ4MphpLz8byEFi79gTA/72D18WO
+ F/GBaA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j802c7bb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
  for <freedreno@lists.freedesktop.org>; Fri, 04 Jul 2025 16:32:03 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-6fb3bb94b5cso17408446d6.2
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-7d460764849so365632685a.1
  for <freedreno@lists.freedesktop.org>; Fri, 04 Jul 2025 09:32:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751646722; x=1752251522;
+ d=1e100.net; s=20230601; t=1751646723; x=1752251523;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KCNktFoNUnnmQKTMw9H4fEdcq72ueWODZAz3C17Oax0=;
- b=q4SgLNfhCtb91xq4DG/DejvujZcvSCHtLZ+7N2AWLeOoeGi/QhELVyet1LpmC9gtpU
- PbDfQ6UTaeGM3jA1YV12Q+1bYkjiLhXPcUbShVKyC0BgpJnwmCDVBgFpDizL2dEhK1+h
- uscu0CI678iO02Ad2NobREullMO7ThoShoaUMLmTtgv+nRltTAtJb54iBAwWUyoCmXFz
- 4iyduEdeuGeH9pSwS1OahnViva90qQ2ts5eiAqKX0RLU10eK/kuvri589sWEPfekPs5r
- x2hV6YIf1OM8gNSSasSEKxvsY5yUolI1uv+yH62+GObytrDnmmX+qqruxfgorUkw66N9
- hC+g==
+ bh=lCy3Mp26PN6RlYzqrLIVdWeBnpFYaVfs3jyvVwWycsk=;
+ b=ilKiFzgGzv1XRjqnyuPHW6okRryB/yYpQ09T0CE8A6QrR6DOO+di1LTpAHAUanX9vN
+ sylN1iKTTkAwpcM2IdbIF0OZOKMTwSmFo7TPBn45W0NJAhR0e+Wmu+zdkd9/BHhgHyIb
+ dz6aj6QaXOJ799Oqf78WrVJ8CdOYkFWZiLLMfXB1bCDZWMckRY0DQuQ1mVU7uPWZ/W4P
+ lAqeRAXHQUfRFob0zg5RA4XiB198LQvNazbEglCokyCHEyI1OnoDCTx9NN/NbyPqVNqP
+ 8eN76rbnfgZanjRkycv6yT6KYbsXaAr8t2go7aJae/3q0zG6Coy/JdCVSac27VI1NSq5
+ pxyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX7Qy+NizrlDzJbJ/cwX+2EkKn+cCto0akhoQ8GFKp55TXlCOAFHJ/dbMbJxi0P4gRm4cacdycrF4c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxGyLOlrRbmlc6nrIHMiuctMeLAiize1uuC/JkwgYOPMDInvkXE
- WMvc6mnrHD3FJhtk4Kxu8cRLuD1TTtr5v0iJm6n3dWEtSPbcllfXGwDNeeXV7fGTxITjsJbhQVc
- 9/DoveLJ2AK7NgQE6IlF0xv31A75wGQ9lRsQJvu4wbv5UlKLD1cXnrZG9FqKbptz7KwLC9SadsY
- Zc+K30nQ==
-X-Gm-Gg: ASbGnctVy2X0poLJtA902vBeQmUX7XsWbuzgd6i8rGdR7iFfkCtm1G6FTUzCLvz0/JF
- wzaz6QBqMvQLYF38o4NlJkowcBJmI1Dfh9ULV6JMSTpv3szZtFKrhrKzyo26o5QPlx2cE2+BO/j
- rdpNOPvnhGiuz1WW85oPEXK3JZ+w4Vzk8vwDrLr1ybV83rZxTcVZb/lAv8EFUH/UY4eBCNLHT9H
- ve9c0HDuK4rK5WPW9sYxxGTM/7r4sic2xDYhl2iZg/YfWJ2gKdRceiGb4BH2dOAjaRbM0+AGMlv
- XqVsVm0tO6hiQ7Xv/OU85I/Kt6wL8Nnl6Nro4f4o8vZR+4wf8iXaPUkZQIgQgznAVPLEjFfFTd3
- XoemAYGwTN1j2upsTardzrdK43mcOSVNedgM=
-X-Received: by 2002:a05:6214:3d11:b0:702:bf75:f0bc with SMTP id
- 6a1803df08f44-702c6db70d7mr49433656d6.37.1751646721593; 
- Fri, 04 Jul 2025 09:32:01 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF7leXLXrdut6G8GF3uKq3bZvUXfZP3iBDInTYxHHU38tIA1gL8XskUaqXMnDdAmOHUhEhZGg==
-X-Received: by 2002:a05:6214:3d11:b0:702:bf75:f0bc with SMTP id
- 6a1803df08f44-702c6db70d7mr49432786d6.37.1751646720835; 
- Fri, 04 Jul 2025 09:32:00 -0700 (PDT)
+ AJvYcCXxw26DmUupqq1J80WlLQiR118e4megTDWWCuSEafWA0lXcSHBj5dmlRF5Q2jIEhNknDpHZcQDNuz4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx1IKwBzNjzaRnox+fgHi1K/eAirNiiHrssW2SgEtHaNf0wXVJu
+ 7GwGPacw/rLMmT1kdb9ZrgSCcmIAPNOs27z43p38eRHPNQhllZT5fU2SzLZOZ6o/ON8UocJUzUu
+ Vdw9wqV/qIUwTovZazT9z6aSfMAhhmwoId5md2K4W78rhy4Ex1Nd5vS0hDWtmfMcdE8MFvlcIHu
+ Jpe46Jfg==
+X-Gm-Gg: ASbGncu4lAdgV+Mak/oMxlG874ut2QKlb48WJNpAirdwqIqHX2/W5929MhVkh3TO5tc
+ l6pU9fIfc2yCzibA3hj/vSPl16J0pWInKxV6gr0K+iNoKrhwEo04BdSa5pQVQBpBUt5roAsrqf5
+ 3v6hPDCCcd4CWXassmu1dnc8wH6pAdD9/aQKnpsONtqp7LPWLP85488nFhY65L0jSv1qQ+WI10o
+ rYnIyj57VJ/HOX5nxIm/rpN+uSH4ye8fq2o9WKYimcYFGtkyjStwqW1DoZ+BdWx3vvLAR1RXTUP
+ b6wKnl6clGuHPqnhX2chvltbHGKEp+pcrPMNxh6urSUbI4Z7jMlL4OT2gLlBqtiOBTpjLI3iCcV
+ pqRS//tGGVY3f1eIl6UwrDEFr+MsKE2mw67Q=
+X-Received: by 2002:a05:620a:1724:b0:7d4:3cf6:15f3 with SMTP id
+ af79cd13be357-7d5dc6e3826mr542681685a.25.1751646722710; 
+ Fri, 04 Jul 2025 09:32:02 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHFjNhcyPXleZqxKkeBOedoEcBl5IqQ/zhQ/LmNX+iWVLvPoc6U8bH4uDJapqPQZMpf7V7c1A==
+X-Received: by 2002:a05:620a:1724:b0:7d4:3cf6:15f3 with SMTP id
+ af79cd13be357-7d5dc6e3826mr542676885a.25.1751646722210; 
+ Fri, 04 Jul 2025 09:32:02 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-32e1af83102sm2813571fa.6.2025.07.04.09.31.59
+ 38308e7fff4ca-32e1af83102sm2813571fa.6.2025.07.04.09.32.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Jul 2025 09:31:59 -0700 (PDT)
+ Fri, 04 Jul 2025 09:32:01 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 04 Jul 2025 19:31:55 +0300
-Subject: [PATCH 3/4] dt-bindings: display/msm: describe MDSS on SC8180X
+Date: Fri, 04 Jul 2025 19:31:56 +0300
+Subject: [PATCH 4/4] arm64: dts: qcom: sc8180x: modernize MDSS device
+ definition
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250704-mdss-schema-v1-3-e978e4e73e14@oss.qualcomm.com>
+Message-Id: <20250704-mdss-schema-v1-4-e978e4e73e14@oss.qualcomm.com>
 References: <20250704-mdss-schema-v1-0-e978e4e73e14@oss.qualcomm.com>
 In-Reply-To: <20250704-mdss-schema-v1-0-e978e4e73e14@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -101,44 +102,42 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Konrad Dybcio <konradybcio@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11951;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2359;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=y32hNG5/FVpKU6/FJLy1ngxvMQuD/zA3kWUtRu3uMq4=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ0YG46+jD+xDH4uXcb3zeRiTYK2U+N9S9uZTE+Plwj/CL
- y/R17XuZDRmYWDkYpAVU2TxKWiZGrMpOezDjqn1MINYmUCmMHBxCsBEOsvY/+kaXRDdc+nKSx6v
- mpwD9bHsgnm7C4VOdOuVJJ4NPqSr6vuX8Vr1uv58/StWj64eOyHyquhL9mrGxbu/KyyTO/aV02D
- Bkuf8+X73/KUOONSu7lmpsFzvkHv37/i30+3vBz/LXtU55cL71/9j5GpuzV5S1HeD1yr7e0VI6n
- e9zxMkzmf5/4pLUne6G9hX90SBpe+YSG1p63UbocSpt5JOvmxmfrf8XCKfb7eC6RrGoyyqy/tzp
- B6EMebpZak/LL3bJqXm1yQ2y/TZ45sWXn+qSmJtfpayd72yf2dT/NryeHz+ZpnCXZb9YXJ//m15
- U/dBwezU5Id1PK8TlqyJOn0mhcviQZaKc9dmc3dJSWYGAA==
+ bh=bAtnGsyPKQGjRv4wCht+S1dUXqoLPaKb8f4OFVueSmM=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoaAH7eTzqlMVB/DjRgzBiEBYxLi08uNbOA1F97
+ Vd0EtyyMZSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaGgB+wAKCRCLPIo+Aiko
+ 1VkeCACEjcvsCOWvGzeerp5hPYD0fEONkveo55tJrQSZd19YanefgWVCovErRNlJ8+mMbndcfTi
+ Gx9CSFn9ge59UYKObBArjFltpzQWnYQ+pJCm722MMoiEBssFUk6XozGFU233IQRNBN4SwnN1B7R
+ gZgDvNjD3FMNb9mbXEmYJGe8qyPujcYlzyMT6p79fD4vs1d4vLln1hrDilvDr4HLjJ2Ilugb/wS
+ 9jg7eBzC3wyaQIwRnQHQSuOVh+YR68OVTRZbWse1SQz+VmDkj+rAXtrqgaRezVSiAqDvFrEjgGm
+ ps2vw8RJsWNTJTVQG46WluyhtvQegOpPR2Y2x7u2Ylsaki21
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: 1yh_xJVqqufI3XURs8CNIwY1oCtG141I
-X-Authority-Analysis: v=2.4 cv=RJCzH5i+ c=1 sm=1 tr=0 ts=68680203 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Wb1JkmetP80A:10 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
- a=A_dIghEbB8yRmxXuPYQA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
- a=sptkURWiP4Gy88Gu7hUp:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: 1yh_xJVqqufI3XURs8CNIwY1oCtG141I
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA0MDEyNSBTYWx0ZWRfX+BrdCSJXro9v
- wlg8IKTE/ure3XXVcJ7TLcr9yGlVdKkBmMlk6dSAHg7fhtE/XUM66O4iuyxFEQ82yv8UGnoNxK6
- IwBWwipLTKK0a3tlqazCj0mWH5Z9lhMV8OdKS6gvkMWuI5LRzshTCxJSJed3KCrBVbKTyVjSwQc
- 8uDtxx2c/6nqQ+7qMDwmXKpaSseWFzgKjIAcRWUMFzogPc5xaWpFdqACnag0aQlXcaqpRyJ1/dI
- fqQUzXorci8gMIjB1vL+waPZTi8gCzx4hkaGWOFMs8/s/YZBlRS3Hddl+An736c/nJ+hhzdKKnE
- F5au+AGccKDSVv2wwO1D9f8sggJAdUFp76QwVSwI1az6e0P7iKN492i3/UipgeUIwaLdAMhzTJr
- BaLaQqkID/GYEQcSDWHn/HcfTSpm6fFxMzfGpX+Ee864k6sBFiPcN7Okx4nESMO7RQBEVeA+
+X-Proofpoint-GUID: A5lDZ9Ox7UDQfkgLDx1-jCOAxctchMR9
+X-Authority-Analysis: v=2.4 cv=YPWfyQGx c=1 sm=1 tr=0 ts=68680203 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=WUOsL33OVTVxArewYC0A:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: A5lDZ9Ox7UDQfkgLDx1-jCOAxctchMR9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA0MDEyNCBTYWx0ZWRfX1GqhiIzPy73C
+ uDzNeNXjxRlpqMQf8OK///Cu73eqOjRvlVKEAOZLmpoRbNrcB/CLCkQiYDaUcaQTAzpsy/wr0q+
+ 0UXcfBPZ5xW6uFgKd82riR2ueYOiz+wD05GOezeCV6Nht0SwTwb5i9UrXS7w9Ui4uxDc1YtGikD
+ VrLN01ICJjKUgkIJr0EqnQS7+p+sBBnvLtMNOjjtDyBtnREtoxyo53FEIHmD+nsqCJ5/XQpNIfX
+ tnTMJwKtqujPSLqYPXDqeYUjzEdc8s4db5E/uR5kENJBwHKngfsxJNzeunKhQUn087Dm9ixTFmd
+ xVV+ydA7GrxNZB+4oZ2TAwxGOYPjAhSo70ZULkaKryvJuNxXyJ7Hp5EOILw7dyjzOIPYwxz5wFt
+ N7eMWPnbaWdqDURZaSg/yzePI+s/MthlYFZJwYkiR1rN5gfBI8WAZ5/S8gXKZdsnL2YLoxvB
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-07-04_06,2025-07-04_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 priorityscore=1501 mlxlogscore=999 adultscore=0
- malwarescore=0 clxscore=1015 lowpriorityscore=0 mlxscore=0 phishscore=0
- bulkscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507040125
+ spamscore=0 mlxlogscore=951 mlxscore=0 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 phishscore=0 classifier=spam authscore=0
+ authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507040124
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,380 +153,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Describe the Mobile Display SubSystem (MDSS) unit as present on the
-SC8180X platform.
+Follow the lead of other platforms and update DT description of the MDSS
+device:
 
-Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+- Use generic node names (dislpay-subsystem, display-controller, phy)
+  instead of the platform-specific ones (mdss, mdp, dsi-phy)
+- Add platform-specific compatible string to DSI controllers.
+
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- .../bindings/display/msm/qcom,sc8180x-mdss.yaml    | 359 +++++++++++++++++++++
- 1 file changed, 359 insertions(+)
+ arch/arm64/boot/dts/qcom/sc8180x.dtsi | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..00e82bdbbcc7e7836918ad6a0414286b6b576150
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml
-@@ -0,0 +1,359 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/msm/qcom,sc8180x-mdss.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm SC8180X Display MDSS
-+
-+maintainers:
-+  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-+
-+description:
-+  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
-+  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
-+  bindings of MDSS are mentioned for SC8180X target.
-+
-+$ref: /schemas/display/msm/mdss-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: qcom,sc8180x-mdss
-+
-+  clocks:
-+    items:
-+      - description: Display AHB clock from gcc
-+      - description: Display hf axi clock
-+      - description: Display sf axi clock
-+      - description: Display core clock
-+
-+  clock-names:
-+    items:
-+      - const: iface
-+      - const: bus
-+      - const: nrt_bus
-+      - const: core
-+
-+  iommus:
-+    maxItems: 1
-+
-+  interconnects:
-+    maxItems: 3
-+
-+  interconnect-names:
-+    maxItems: 3
-+
-+patternProperties:
-+  "^display-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+
-+    properties:
-+      compatible:
-+        const: qcom,sc8180x-dpu
-+
-+  "^displayport-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+
-+    properties:
-+      compatible:
-+        enum:
-+          - qcom,sc8180x-dp
-+          - qcom,sc8180x-edp
-+
-+  "^dsi@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+
-+    properties:
-+      compatible:
-+        contains:
-+          const: qcom,sc8180x-dsi-ctrl
-+
-+  "^phy@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+
-+    properties:
-+      compatible:
-+        const: qcom,dsi-phy-7nm
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,dispcc-sm8250.h>
-+    #include <dt-bindings/clock/qcom,gcc-sc8180x.h>
-+    #include <dt-bindings/clock/qcom,rpmh.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interconnect/qcom,sc8180x.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    display-subsystem@ae00000 {
-+        compatible = "qcom,sc8180x-mdss";
-+        reg = <0x0ae00000 0x1000>;
-+        reg-names = "mdss";
-+
-+        interconnects = <&mmss_noc MASTER_MDP_PORT0 &mc_virt SLAVE_EBI_CH0>,
-+                        <&mmss_noc MASTER_MDP_PORT1 &mc_virt SLAVE_EBI_CH0>,
-+                        <&gem_noc MASTER_AMPSS_M0 &config_noc SLAVE_DISPLAY_CFG>;
-+        interconnect-names = "mdp0-mem",
-+                             "mdp1-mem",
-+                             "cpu-cfg";
-+
-+        power-domains = <&dispcc MDSS_GDSC>;
-+
-+        clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                 <&gcc GCC_DISP_HF_AXI_CLK>,
-+                 <&gcc GCC_DISP_SF_AXI_CLK>,
-+                 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-+        clock-names = "iface", "bus", "nrt_bus", "core";
-+
-+        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-controller;
-+        #interrupt-cells = <1>;
-+
-+        iommus = <&apps_smmu 0x800 0x420>;
-+
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges;
-+
-+        display-controller@ae01000 {
-+            compatible = "qcom,sc8180x-dpu";
-+            reg = <0x0ae01000 0x8f000>,
-+                  <0x0aeb0000 0x2008>;
-+            reg-names = "mdp", "vbif";
-+
-+            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&gcc GCC_DISP_HF_AXI_CLK>,
-+                     <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+                     <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
-+                     <&dispcc DISP_CC_MDSS_ROT_CLK>,
-+                     <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>;
-+            clock-names = "iface",
-+                          "bus",
-+                          "core",
-+                          "vsync",
-+                          "rot",
-+                          "lut";
-+
-+            assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+            assigned-clock-rates = <19200000>;
-+
-+            operating-points-v2 = <&mdp_opp_table>;
-+            power-domains = <&rpmhpd SC8180X_MMCX>;
-+
-+            interrupt-parent = <&mdss>;
-+            interrupts = <0>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    dpu_intf1_out: endpoint {
-+                        remote-endpoint = <&dsi0_in>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    dpu_intf2_out: endpoint {
-+                        remote-endpoint = <&dsi1_in>;
-+                    };
-+                };
-+            };
-+
-+            mdp_opp_table: opp-table {
-+                compatible = "operating-points-v2";
-+
-+                opp-171428571 {
-+                    opp-hz = /bits/ 64 <171428571>;
-+                    required-opps = <&rpmhpd_opp_low_svs>;
-+                };
-+
-+                opp-300000000 {
-+                    opp-hz = /bits/ 64 <300000000>;
-+                    required-opps = <&rpmhpd_opp_svs>;
-+                };
-+
-+                opp-345000000 {
-+                    opp-hz = /bits/ 64 <345000000>;
-+                    required-opps = <&rpmhpd_opp_svs_l1>;
-+                };
-+
-+                opp-460000000 {
-+                    opp-hz = /bits/ 64 <460000000>;
-+                    required-opps = <&rpmhpd_opp_nom>;
-+                };
-+            };
-+        };
-+
-+        dsi@ae94000 {
-+            compatible = "qcom,sc8180x-dsi-ctrl",
-+                         "qcom,mdss-dsi-ctrl";
-+            reg = <0x0ae94000 0x400>;
-+            reg-names = "dsi_ctrl";
-+
-+            interrupt-parent = <&mdss>;
-+            interrupts = <4>;
-+
-+            clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-+                     <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-+                     <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-+                     <&dispcc DISP_CC_MDSS_ESC0_CLK>,
-+                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&gcc GCC_DISP_HF_AXI_CLK>;
-+            clock-names = "byte",
-+                          "byte_intf",
-+                          "pixel",
-+                          "core",
-+                          "iface",
-+                          "bus";
-+
-+            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
-+                              <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
-+            assigned-clock-parents = <&dsi0_phy 0>, <&dsi0_phy 1>;
-+
-+            operating-points-v2 = <&dsi_opp_table>;
-+            power-domains = <&rpmhpd SC8180X_MMCX>;
-+
-+            phys = <&dsi0_phy>;
-+            phy-names = "dsi";
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    dsi0_in: endpoint {
-+                        remote-endpoint = <&dpu_intf1_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    dsi0_out: endpoint {
-+                    };
-+                };
-+            };
-+
-+            dsi_opp_table: opp-table {
-+                compatible = "operating-points-v2";
-+
-+                opp-187500000 {
-+                    opp-hz = /bits/ 64 <187500000>;
-+                    required-opps = <&rpmhpd_opp_low_svs>;
-+                };
-+
-+                opp-300000000 {
-+                    opp-hz = /bits/ 64 <300000000>;
-+                    required-opps = <&rpmhpd_opp_svs>;
-+                };
-+
-+                opp-358000000 {
-+                    opp-hz = /bits/ 64 <358000000>;
-+                    required-opps = <&rpmhpd_opp_svs_l1>;
-+                };
-+            };
-+        };
-+
-+        dsi0_phy: phy@ae94400 {
-+            compatible = "qcom,dsi-phy-7nm";
-+            reg = <0x0ae94400 0x200>,
-+                  <0x0ae94600 0x280>,
-+                  <0x0ae94900 0x260>;
-+            reg-names = "dsi_phy",
-+                        "dsi_phy_lane",
-+                        "dsi_pll";
-+
-+            #clock-cells = <1>;
-+            #phy-cells = <0>;
-+
-+            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&rpmhcc RPMH_CXO_CLK>;
-+            clock-names = "iface", "ref";
-+            vdds-supply = <&vreg_dsi_phy>;
-+        };
-+
-+        dsi@ae96000 {
-+            compatible = "qcom,sc8180x-dsi-ctrl",
-+                         "qcom,mdss-dsi-ctrl";
-+            reg = <0x0ae96000 0x400>;
-+            reg-names = "dsi_ctrl";
-+
-+            interrupt-parent = <&mdss>;
-+            interrupts = <5>;
-+
-+            clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK>,
-+                     <&dispcc DISP_CC_MDSS_BYTE1_INTF_CLK>,
-+                     <&dispcc DISP_CC_MDSS_PCLK1_CLK>,
-+                     <&dispcc DISP_CC_MDSS_ESC1_CLK>,
-+                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&gcc GCC_DISP_HF_AXI_CLK>;
-+            clock-names = "byte",
-+                          "byte_intf",
-+                          "pixel",
-+                          "core",
-+                          "iface",
-+                          "bus";
-+
-+            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
-+                              <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
-+            assigned-clock-parents = <&dsi1_phy 0>, <&dsi1_phy 1>;
-+
-+            operating-points-v2 = <&dsi_opp_table>;
-+            power-domains = <&rpmhpd SC8180X_MMCX>;
-+
-+            phys = <&dsi1_phy>;
-+            phy-names = "dsi";
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    dsi1_in: endpoint {
-+                        remote-endpoint = <&dpu_intf2_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    dsi1_out: endpoint {
-+                    };
-+                };
-+            };
-+        };
-+
-+        dsi1_phy: phy@ae96400 {
-+            compatible = "qcom,dsi-phy-7nm";
-+            reg = <0x0ae96400 0x200>,
-+                  <0x0ae96600 0x280>,
-+                  <0x0ae96900 0x260>;
-+            reg-names = "dsi_phy",
-+                        "dsi_phy_lane",
-+                        "dsi_pll";
-+
-+            #clock-cells = <1>;
-+            #phy-cells = <0>;
-+
-+            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&rpmhcc RPMH_CXO_CLK>;
-+            clock-names = "iface", "ref";
-+            vdds-supply = <&vreg_dsi_phy>;
-+        };
-+    };
-+...
+diff --git a/arch/arm64/boot/dts/qcom/sc8180x.dtsi b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
+index b74ce3175d209b569e634073662307964158b340..14775b8dc682221ada3d30773be66edb46138662 100644
+--- a/arch/arm64/boot/dts/qcom/sc8180x.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
+@@ -2956,7 +2956,7 @@ camcc: clock-controller@ad00000 {
+ 			#power-domain-cells = <1>;
+ 		};
+ 
+-		mdss: mdss@ae00000 {
++		mdss: display-subsystem@ae00000 {
+ 			compatible = "qcom,sc8180x-mdss";
+ 			reg = <0 0x0ae00000 0 0x1000>;
+ 			reg-names = "mdss";
+@@ -2996,7 +2996,7 @@ &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
+ 
+ 			status = "disabled";
+ 
+-			mdss_mdp: mdp@ae01000 {
++			mdss_mdp: display-controller@ae01000 {
+ 				compatible = "qcom,sc8180x-dpu";
+ 				reg = <0 0x0ae01000 0 0x8f000>,
+ 				      <0 0x0aeb0000 0 0x3000>;
+@@ -3090,7 +3090,8 @@ opp-460000000 {
+ 			};
+ 
+ 			mdss_dsi0: dsi@ae94000 {
+-				compatible = "qcom,mdss-dsi-ctrl";
++				compatible = "qcom,sc8180x-dsi-ctrl",
++					     "qcom,mdss-dsi-ctrl";
+ 				reg = <0 0x0ae94000 0 0x400>;
+ 				reg-names = "dsi_ctrl";
+ 
+@@ -3156,7 +3157,7 @@ opp-358000000 {
+ 				};
+ 			};
+ 
+-			mdss_dsi0_phy: dsi-phy@ae94400 {
++			mdss_dsi0_phy: phy@ae94400 {
+ 				compatible = "qcom,dsi-phy-7nm";
+ 				reg = <0 0x0ae94400 0 0x200>,
+ 				      <0 0x0ae94600 0 0x280>,
+@@ -3176,7 +3177,8 @@ mdss_dsi0_phy: dsi-phy@ae94400 {
+ 			};
+ 
+ 			mdss_dsi1: dsi@ae96000 {
+-				compatible = "qcom,mdss-dsi-ctrl";
++				compatible = "qcom,sc8180x-dsi-ctrl",
++					     "qcom,mdss-dsi-ctrl";
+ 				reg = <0 0x0ae96000 0 0x400>;
+ 				reg-names = "dsi_ctrl";
+ 
+@@ -3223,7 +3225,7 @@ mdss_dsi1_out: endpoint {
+ 				};
+ 			};
+ 
+-			mdss_dsi1_phy: dsi-phy@ae96400 {
++			mdss_dsi1_phy: phy@ae96400 {
+ 				compatible = "qcom,dsi-phy-7nm";
+ 				reg = <0 0x0ae96400 0 0x200>,
+ 				      <0 0x0ae96600 0 0x280>,
 
 -- 
 2.39.5
