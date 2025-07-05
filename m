@@ -2,85 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B538FAF9DCF
-	for <lists+freedreno@lfdr.de>; Sat,  5 Jul 2025 04:47:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0245AF9DD1
+	for <lists+freedreno@lfdr.de>; Sat,  5 Jul 2025 04:47:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ECA010E368;
-	Sat,  5 Jul 2025 02:47:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F7CE10E369;
+	Sat,  5 Jul 2025 02:47:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PZPoAGJe";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WgOECNSY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66AC910E372
- for <freedreno@lists.freedesktop.org>; Sat,  5 Jul 2025 02:47:49 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 564NSqOT027687
- for <freedreno@lists.freedesktop.org>; Sat, 5 Jul 2025 02:47:48 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD07310E369
+ for <freedreno@lists.freedesktop.org>; Sat,  5 Jul 2025 02:47:50 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5652BwiG028340
+ for <freedreno@lists.freedesktop.org>; Sat, 5 Jul 2025 02:47:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- DsxNnig03igp0yVOfI6tKLCmpj5w+U2k2ajZF4YWfO4=; b=PZPoAGJeZGfCR9mV
- 0iCVrfmV6+JUjcMK7WNrMx4fgYpz0bczAJwpKWzgq7bgImXr8IJ3M4su52r6V+6i
- zI40I032smCZgdpnDnPyoPAkPSekv6ozUYm3pXoLaVcEY1N+TLpk2AB55xbK3ODA
- s4pe5Dwk7qClY2n9DEkxPnlMVi42+KaMtoOfH4+UNbMrkQQv+FYyHzHQapk9nraj
- 9lVPdZf7/6M0PwzrXZrLIIWwwd+bVluRMGl4fXmkYITtf89I56jQJwtmPqW9q7nJ
- BamITs8fRhiCuugMoxphAl02oN1yqz41+aMP5+PKpQrZXbQeePUjGevb9W3KlVHa
- PgbDdw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47j8s9w7nb-1
+ GPNRX6kvlGpl11U/TVdLyTY4+QGTQbEIYlMOf3sbM5g=; b=WgOECNSYRBpkJFSq
+ PXfO0eYc/wLmnq5P9Md7nr4Rgratd0h8EPQu+jyEv4aoaPa4AGnrYKL9xcEf6ZyV
+ wRjiYI98SbgrHr/AF9/8Z3AVSt5ldGHtx8TbvVGinWfLNxMAT55BeM/4BpqnecKm
+ SDYIp7cVdedEocLvzXwKdUcJs7pb+ZO5VDMjFtxP91xljVK+lDIEOdJ5KJAEW4Mc
+ 5MZp45v2RofqA00ksmDigmGCv4m5VeOsBKw6L7+V5wWChlJUC83+XD6DAuRECDkK
+ 4QjOjaKhA1TFZdIshu4UgNz5vdmp5tz0lWANYk/6K/xsaxIojxcumNLZZKkSt3JY
+ IFtMrA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47pu2ag149-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 05 Jul 2025 02:47:48 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7d09ed509aaso158764785a.3
- for <freedreno@lists.freedesktop.org>; Fri, 04 Jul 2025 19:47:48 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sat, 05 Jul 2025 02:47:49 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-7d40f335529so382698685a.0
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Jul 2025 19:47:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751683667; x=1752288467;
+ d=1e100.net; s=20230601; t=1751683669; x=1752288469;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DsxNnig03igp0yVOfI6tKLCmpj5w+U2k2ajZF4YWfO4=;
- b=pzD5IouJ5DEI25WmmG6gcLnZ+1qsFa8p8PxT6iE2cHxW2d4DsK2hAKPZxMfHXtlVoz
- aTC8KAhAzHD/1wjaxxj7AzeN7Ux/s5RuLlBy6IwBG3daBaLYwLKf+7XYRgNL+CuXqyFF
- 4aFirIE9B/7LSPC9WgBiQ45eNwwJgw2uwm8KgQvLwzZK/t1Ehxt8XEFfps4qArsiXPwT
- catfEKrzKGf9Ne43BmdRXOiH52eCoXP/pxEDq1yBPLU12VHqU4+8ndRjZ82mBgHExASG
- gISF9y5tt4CGNYmmXm10LMaA5+JbWIj0DCWk8xXj6AXyxLp29rxRC0lRy79KSXp1s3/v
- IpSw==
+ bh=GPNRX6kvlGpl11U/TVdLyTY4+QGTQbEIYlMOf3sbM5g=;
+ b=ICKAmxX1FC19wJQCMnrLhxJMam4a4NQi2zXmJq8Cp8pLendC7daKEi+iyP+Hm0Ab7u
+ FeX7LFjnkvdAbIDgJ47WF2uy2JHHtcMnC8NxBUhmUWl1Cn3XUVZzN7Ss7o/2Z6e1oqsJ
+ uC+Vl9soPSRLP0RTVJWWxZ5Huk/MkLIsNA+MsCtljQsb+B5EW/k/duY18Kg4sdzGVRCX
+ SDc7/sVDZnpma3489iHup0V5FzhvWhi/Oa9wt7rpa8vl6Pl5QsTNCXn3jgGBmmS8vVdC
+ t4uHuuwLU2v3crEJ+2X8peEJvpOQxSYg4YlSXRTSS71o48eRnqkGRBIO0A8oLiQu784i
+ eagw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXayG6sqWsE+XwNWfsNrlFvwxL0yEW12JxJpLJA/EoGYkt6byjjYVuo0c8fO9JKeQQnVHrpvhDrDXQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YybhWAh1vU1eipqg6ZrIkzaHx4CVQdIQN0EEXXyMX5+6JbPKSqe
- C0I0/8vzRYbElHztIeNvPdkXgeP45zekMgIzpIWwCA2MNyfrKSnsU5b+BCCd30Dr2YNDokY7foI
- ecoowWVb5txizW1RGg/b5CVcxviIAFGhPXNn/VFU2YUAvtp7fd0jFQjsStl8H/YywdLs/jP8=
-X-Gm-Gg: ASbGncumcXVpje36NkIvkGl+RC86IhZJ3E5YBO4fzFtqBxWvoiMl9G6BaOtPfB95A8E
- bMoVv4MIT+3KPesz4O6qCuEm2/R1j3GuPcUkX60gZRK7ZI48jnxHd2DFveddBQMh+cw5LO/94P3
- vIox3YLJIpHiVR5xxQxOj3zbXIkXE4wpAVzMX3VfL1DNpH+Ic9jugC3vyPjJW/UgjaL1kxI0VO3
- 99ftXtiIZKtaF3FxpPPwOSRQnT0tX8j49aNDmY1TUoyCBetskmybgyxg6waJgaFV6XDhSvYO1ui
- v7vAptvHzryIgBmLQpmFw5PrkkvBBbhzDSfgvDnuEuI7YyLMsYdeVxOSIklEbqvqO0HcVUyI7EP
- vYZjeD3bMoa+ZGx/Wp2g6FDqDicWWecd8VT4=
-X-Received: by 2002:a05:620a:408d:b0:7d3:a66d:4f3c with SMTP id
- af79cd13be357-7d5ef0fe619mr170045885a.7.1751683667596; 
- Fri, 04 Jul 2025 19:47:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGiYqdfjL7Rn1SxBAuEeKUyyr6SwsvudYw1VMr9DlWZRcvbzZcnGwoHupwmPfh/gZLRwrzYuQ==
-X-Received: by 2002:a05:620a:408d:b0:7d3:a66d:4f3c with SMTP id
- af79cd13be357-7d5ef0fe619mr170043085a.7.1751683667029; 
- Fri, 04 Jul 2025 19:47:47 -0700 (PDT)
+ AJvYcCUdL5a+xkCAUYNYGQS1stQUy42dshpyCSPtBYYK15R9C85XYX9ixsM4Gu3tzCq4xmok6+yU+IPYkW8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yym/vzZgiT3i2FpFXkh5U4ACCxESrcI5fp4QUoF4iSAgHqbuqtU
+ 06z3aOHqoCQFwwt/43/QxJ5ylXOVwrwChcVttgO8l0V01HYDt2IjjCnxPbUmDWqhTlqku2W6U8O
+ cnOmiwrBqXfhOzhHK/c/xGhhPRBU5yx9hrYNN2YtQS2KhXVx7ghvLmk2zWfDD3qH6DtgcXls=
+X-Gm-Gg: ASbGncvLQjOTGHpS9+6pcT03wHT8zwXZ24ejhqjfLLCAMISSgYTlzlNQicE4D6vsm+6
+ 1sp+6dx6OjefHnEVUkpClkNbxwGMcEzr0mAP++5GY1eVu8kgtKGxpqa8nUfCThbXU9yceQAJUfI
+ MfY6rowrpF3oP5BNgQS/cILn7X5KTtl+EHD8AHgW9paYiMZKUa/ucNPwOfI72gYTalKET+HmhPk
+ eDfE4jDYy33i5XXoja8Cq5oQADX8WDgrfhZHNJ7A+Tj4//tI/3V04DPJyD2/VMde27Inr9kaiC1
+ bqZadstODzl9rb2KNvQjLQqqLtFPkPIU5XuBLSHnpOjh0dlOgL1WOGT+X7q18Hb15PenIKzei5C
+ KP1Mn6Y2q1t+v3QCJs7oyaluejm9aXWAI7rA=
+X-Received: by 2002:a05:620a:178f:b0:7ce:eb71:f500 with SMTP id
+ af79cd13be357-7d5dc6e4290mr791402385a.28.1751683669021; 
+ Fri, 04 Jul 2025 19:47:49 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGJGzWE8i0pf3MCjcA4rpy8Ez0BO+QTKJR3Oss+otwH7sOxSUybDGPQWW0T6gEwmm6vgWjfSQ==
+X-Received: by 2002:a05:620a:178f:b0:7ce:eb71:f500 with SMTP id
+ af79cd13be357-7d5dc6e4290mr791400185a.28.1751683668595; 
+ Fri, 04 Jul 2025 19:47:48 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-32e1b1418b3sm4092411fa.76.2025.07.04.19.47.45
+ 38308e7fff4ca-32e1b1418b3sm4092411fa.76.2025.07.04.19.47.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Jul 2025 19:47:46 -0700 (PDT)
+ Fri, 04 Jul 2025 19:47:47 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 05 Jul 2025 05:47:30 +0300
-Subject: [PATCH 09/12] drm/msm/dpu: simplify _dpu_format_populate_plane_sizes_*
+Date: Sat, 05 Jul 2025 05:47:31 +0300
+Subject: [PATCH 10/12] drm/msm/dpu: drop redundant num_planes assignment in
+ _dpu_format_populate_plane_sizes*()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250705-dpu-formats-v1-9-40f0bb31b8c8@oss.qualcomm.com>
+Message-Id: <20250705-dpu-formats-v1-10-40f0bb31b8c8@oss.qualcomm.com>
 References: <20250705-dpu-formats-v1-0-40f0bb31b8c8@oss.qualcomm.com>
 In-Reply-To: <20250705-dpu-formats-v1-0-40f0bb31b8c8@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -94,38 +95,38 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3740;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3000;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=DW4Sf0tr+opR2OUJSjiXEm6tu/MiyrcROuHNPuR3uTM=;
- b=owEBbAGT/pANAwAKAYs8ij4CKSjVAcsmYgBoaJI9rmMP3gq4UEySExej8M9BSExYQdJGSXRnL
- CmDHN16TrqJATIEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaGiSPQAKCRCLPIo+Aiko
- 1X4uB/dCXfk0D0p0vS2Zp6nbCLQR+AhoBVHk795IPjRAMJ4YsMi8FHpaPRmWJakqNpGevfXgrU9
- fUNyX8afIXDOs8j3pL9OQE3mQQY6183ogr4HfT4zBxV2ftowdVhu58xzAWkZYqFzh1s8ySi0/Ry
- fdjLfkM+LkJwpITKi6Kie51fZbQ4TgVXq7A26KdN86WN08U/QXqGCJwDSADvlNAnPebdXAgU6GC
- TAXimEsAJ4gkjUe4CZz0C88YNgS6cSS0Da73LQhaM+4yjq6nE1qAIzJNAqZXIAkT6+EE+paF9GE
- 1u7rxzblO4O3zryC98asbDGHG2um+iTJcBlELR3F6MYhlzM=
+ bh=hhBaxxZmnT13WRs7rFTvlNBQVmnytMkWjXau7MkDvsE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoaJI93Vo2NjfFVLXURfm2DWRrzoITsNvbcjjtR
+ WLL1k60AW2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaGiSPQAKCRCLPIo+Aiko
+ 1TuuB/9+9r8SQ53CMiMyOptheGx1W8C1fndkh8MksuIN/2D562HclCnxV61eA87X3N3cMyd7Ll4
+ dkLWdX8kUHZUFYbD/g4ElGKqKlM/koSanNwns8MyCIPsyJLpz+MTmULcxS2RxE1RETCClc0SEOw
+ xhtSRtXImd1nk6YYFbNSuiXWjhszBQAfYBJwSm+9c4JoCmLizFqjtakVaea91FEgXjAU1w24D3Z
+ XgHd/RRZc8MMzqvIj0YbceWwAj9i+hPySayXXD3+wtuEqco7kkRNj1WWOPqkHroKPCMnamj7yFF
+ qupDYNKFsuJ+6mE3cI8ZqIBKQORQjez0JhDJcGDM6hVos8/i
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=H/Pbw/Yi c=1 sm=1 tr=0 ts=68689254 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=uxSOIRPgPw5i5GT2uqUA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: TC6aJX2hRtPoy3kvZYE3zQh-ziiHQAxW
-X-Proofpoint-GUID: TC6aJX2hRtPoy3kvZYE3zQh-ziiHQAxW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA1MDAxNyBTYWx0ZWRfX56pFuEFVe/aw
- /jBMpKZUGx7dKtW+ODxFfE4/IyZD1JLcsDZ49caCM4KpbF7PLMf6B+9/JH1Cq8rpAnkWYVlK//7
- JxKQnwuO1XxCYBmq++oH8+xDiCEM58uAyEDl5+i+Sf5yB4HYyr2lq/cZRnh6Q4CxJ+9lN4wtb69
- 1XlgAeyLW3pRCHJiN+Us/qDfFlAThuHFlCzIQ0+LaIvFjZ8ZyUUHCFYE/943sJ70hGtg8GBiI0n
- kDxXlwGOpN7cBeWkCJsBhonl34VjSWEqdxlUnTRse2qDKZ5HeT2291CUANDsBvSzPXrb1domYNw
- OCoQdjqNWq+5o0qJncd2xmqcl6oOu8+M/Sb2i7xQAST33HnDvHaoE7SL02/SfhTVLpLm2GFC9ka
- h4VKnkyLBgljG250sHiS1JKtxXXwtduOtW9jHHPXXmIr4EG/CYIx1eTyG4Bk94zGnoealXZ/
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA1MDAxNyBTYWx0ZWRfX0ZK0LqiuI1IC
+ jJ/VQBWgVrRCEsqVBBJ36QEle7LoOSJQtqh8TtMiWMG4ccV68BUu4kiWz+ZtDG45ByHJPm46ik2
+ 8C3/CT7oGfMiyutZS6pfMYjDe4LiDP4GQpagCKBN4JtHYtOQEVW0NwxLH/MTaIsuHVuRsEAJiDw
+ 4FMm9A/STliUpP3XIiV1IJuabMpwT8wwitJmmVlurER5hhgMBhrryIXaiEyq/MZ1KPdhJdQ1GC9
+ BNZlsUUVm/sEUO5pIUEWKJrgA+ELkBmMbc5mgwvc/J1UkjXBk9WRI1gPRD+GSRqrWG0CTo+1lF8
+ 3ELavCzd3bNmb6fK0R1cXZpK6nEHtpUEOyO/CV9zAxPAUop06uJ+A+M9v3agdyLP+DOscpBypEM
+ JSC4G5xdrjFdjTbInVuKMVEWeAKgXhXbzU1CMMx9t/PDSrEZFHWkQZbXWkzfijeCvNyaFZHy
+X-Proofpoint-ORIG-GUID: wFYjUFZ0WMlgd0rUBuHgzEeHxypPtP0-
+X-Proofpoint-GUID: wFYjUFZ0WMlgd0rUBuHgzEeHxypPtP0-
+X-Authority-Analysis: v=2.4 cv=erTfzppX c=1 sm=1 tr=0 ts=68689255 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=VIt9t0sQHfAwVTtMwRsA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-07-04_07,2025-07-04_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 suspectscore=0 mlxlogscore=999
- priorityscore=1501 clxscore=1015 mlxscore=0 lowpriorityscore=0 spamscore=0
- adultscore=0 bulkscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a
+ mlxscore=0 clxscore=1015 impostorscore=0 spamscore=0 priorityscore=1501
+ mlxlogscore=977 bulkscore=0 adultscore=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
  engine=8.19.0-2505280000 definitions=main-2507050017
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -143,121 +144,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move common bits of _dpu_format_populate_plane_sizes_ubwc() and
-_linear() to dpu_format_populate_plane_sizes(), reducing unnecessary
-duplication and simplifying code flow fror the UBWC function.
+Drop redundant layout->num_planes assignments, using the value assigned
+from the formats table. RGB UBWC formats need special handling: they use
+two planes (per the format table), but the uAPI defines plane[1] as
+empty.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 41 +++++++++++++----------------
- 1 file changed, 19 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-index 59c9427da7dda07b8e8ee3d070d2dfb3c165698e..195a6b7c4075eef40e7a5d0fee208168421cee35 100644
+index 195a6b7c4075eef40e7a5d0fee208168421cee35..e1fb7fd3b0b97a38880bc80aec26003d65a3a310 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-@@ -95,15 +95,9 @@ static int _dpu_format_populate_plane_sizes_ubwc(
- 		struct drm_framebuffer *fb,
- 		struct dpu_hw_fmt_layout *layout)
- {
--	int i;
- 	int color;
- 	bool meta = MSM_FORMAT_IS_UBWC(fmt);
+@@ -110,7 +110,6 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+ 		uint32_t y_meta_scanlines = 0;
+ 		uint32_t uv_meta_scanlines = 0;
  
--	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
--	layout->width = fb->width;
--	layout->height = fb->height;
--	layout->num_planes = fmt->num_planes;
--
- 	color = _dpu_format_get_media_color_ubwc(fmt);
- 	if (color < 0) {
- 		DRM_ERROR("UBWC format not supported for fmt: %p4cc\n",
-@@ -128,7 +122,7 @@ static int _dpu_format_populate_plane_sizes_ubwc(
- 			uv_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
+-		layout->num_planes = 2;
+ 		layout->plane_pitch[0] = VENUS_Y_STRIDE(color, fb->width);
+ 		y_sclines = VENUS_Y_SCANLINES(color, fb->height);
+ 		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
+@@ -124,7 +123,6 @@ static int _dpu_format_populate_plane_sizes_ubwc(
  		if (!meta)
--			goto done;
-+			return 0;
+ 			return 0;
  
- 		layout->num_planes += 2;
+-		layout->num_planes += 2;
  		layout->plane_pitch[2] = VENUS_Y_META_STRIDE(color, fb->width);
-@@ -152,7 +146,8 @@ static int _dpu_format_populate_plane_sizes_ubwc(
- 			rgb_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+ 		y_meta_scanlines = VENUS_Y_META_SCANLINES(color, fb->height);
+ 		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
+@@ -138,8 +136,6 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+ 	} else {
+ 		uint32_t rgb_scanlines, rgb_meta_scanlines;
  
+-		layout->num_planes = 1;
+-
+ 		layout->plane_pitch[0] = VENUS_RGB_STRIDE(color, fb->width);
+ 		rgb_scanlines = VENUS_RGB_SCANLINES(color, fb->height);
+ 		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
+@@ -148,7 +144,9 @@ static int _dpu_format_populate_plane_sizes_ubwc(
  		if (!meta)
--			goto done;
-+			return 0;
+ 			return 0;
+ 
+-		layout->num_planes += 2;
++		/* uAPI leaves plane[1] empty and plane[2] as meta */
++		layout->num_planes += 1;
 +
- 		layout->num_planes += 2;
  		layout->plane_pitch[2] = VENUS_RGB_META_STRIDE(color, fb->width);
  		rgb_meta_scanlines = VENUS_RGB_META_SCANLINES(color, fb->height);
-@@ -160,10 +155,6 @@ static int _dpu_format_populate_plane_sizes_ubwc(
- 			rgb_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 	}
+ 		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
+@@ -167,7 +165,6 @@ static int _dpu_format_populate_plane_sizes_linear(
  
--done:
--	for (i = 0; i < DPU_MAX_PLANES; i++)
--		layout->total_size += layout->plane_size[i];
--
- 	return 0;
- }
- 
-@@ -174,11 +165,6 @@ static int _dpu_format_populate_plane_sizes_linear(
- {
- 	int i;
- 
--	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
--	layout->width = fb->width;
--	layout->height = fb->height;
--	layout->num_planes = fmt->num_planes;
--
  	/* Due to memset above, only need to set planes of interest */
  	if (fmt->fetch_type == MDP_PLANE_INTERLEAVED) {
- 		layout->num_planes = 1;
-@@ -235,9 +221,6 @@ static int _dpu_format_populate_plane_sizes_linear(
+-		layout->num_planes = 1;
+ 		layout->plane_size[0] = fb->width * fb->height * fmt->bpp;
+ 		layout->plane_pitch[0] = fb->width * fmt->bpp;
+ 	} else {
+@@ -194,12 +191,10 @@ static int _dpu_format_populate_plane_sizes_linear(
+ 				(fb->height / v_subsample);
+ 
+ 		if (fmt->fetch_type == MDP_PLANE_PSEUDO_PLANAR) {
+-			layout->num_planes = 2;
+ 			layout->plane_size[1] *= 2;
+ 			layout->plane_pitch[1] *= 2;
+ 		} else {
+ 			/* planar */
+-			layout->num_planes = 3;
+ 			layout->plane_size[2] = layout->plane_size[1];
+ 			layout->plane_pitch[2] = layout->plane_pitch[1];
  		}
- 	}
- 
--	for (i = 0; i < DPU_MAX_PLANES; i++)
--		layout->total_size += layout->plane_size[i];
--
- 	return 0;
- }
- 
-@@ -254,6 +237,7 @@ int dpu_format_populate_plane_sizes(
- 		struct dpu_hw_fmt_layout *layout)
- {
- 	const struct msm_format *fmt;
-+	int ret, i;
- 
- 	if (!layout || !fb) {
- 		DRM_ERROR("invalid pointer\n");
-@@ -268,10 +252,23 @@ int dpu_format_populate_plane_sizes(
- 
- 	fmt = msm_framebuffer_format(fb);
- 
-+	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
-+	layout->width = fb->width;
-+	layout->height = fb->height;
-+	layout->num_planes = fmt->num_planes;
-+
- 	if (MSM_FORMAT_IS_UBWC(fmt) || MSM_FORMAT_IS_TILE(fmt))
--		return _dpu_format_populate_plane_sizes_ubwc(fmt, fb, layout);
-+		ret = _dpu_format_populate_plane_sizes_ubwc(fmt, fb, layout);
-+	else
-+		ret = _dpu_format_populate_plane_sizes_linear(fmt, fb, layout);
- 
--	return _dpu_format_populate_plane_sizes_linear(fmt, fb, layout);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < DPU_MAX_PLANES; i++)
-+		layout->total_size += layout->plane_size[i];
-+
-+	return 0;
- }
- 
- static void _dpu_format_populate_addrs_ubwc(struct msm_gem_address_space *aspace,
 
 -- 
 2.39.5
