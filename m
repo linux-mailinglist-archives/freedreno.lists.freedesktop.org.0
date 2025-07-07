@@ -2,107 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAAE0AFA8D2
-	for <lists+freedreno@lfdr.de>; Mon,  7 Jul 2025 03:22:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E552FAFAAD9
+	for <lists+freedreno@lfdr.de>; Mon,  7 Jul 2025 07:24:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BDAF10E300;
-	Mon,  7 Jul 2025 01:22:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C002210E2F3;
+	Mon,  7 Jul 2025 05:24:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NjGjmhOp";
+	dkim=pass (2048-bit key; unprotected) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="id5gyGtr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A42D510E300
- for <freedreno@lists.freedesktop.org>; Mon,  7 Jul 2025 01:21:59 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 566LrIjk030923
- for <freedreno@lists.freedesktop.org>; Mon, 7 Jul 2025 01:21:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YGTEHq4IajGxUn2mf1ux8G7XL8Yixn+AipVYC3nee/o=; b=NjGjmhOpTMbWmN33
- mO3imoHpweZEY6jBfi/omYJl/pKFRtYRJ6sMhVkOIIoaIPHQpVMJnFinvQ3in5vT
- 6AuvvOwiRY8vANIXvbF7JBu7jjDoy4+PsEqNSJe4nPolGpqmhxGQtNVZ6ZLcGV3d
- ODRIyn+ZQpMyaw8S0r6TOjzc4Yk2tuiPxzXOtiOAvzaiRkO8bPblMqeDACid4fq0
- +FTaL/qHv8RiCybJ3AOCC1fTzHl+FxCKI482mtbYVv1WeCnxWTQHxC0/xX/KTS7q
- I+ngBIkmIhqV1GABdAWgJmjcpasugjNzrMiuDMFdhSE06uNxhfv6kRF3MGUxwKXA
- ZcRsYg==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47pwbd7k0v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 07 Jul 2025 01:21:58 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-4066a4d2d31so717352b6e.2
- for <freedreno@lists.freedesktop.org>; Sun, 06 Jul 2025 18:21:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751851318; x=1752456118;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YGTEHq4IajGxUn2mf1ux8G7XL8Yixn+AipVYC3nee/o=;
- b=XsDgcTmmzlaHrRx2M3Oll4sIqBJmRKmVVAwH5mLkbqTB4irYv7cIVFxpSMbQAKDFqU
- w6AzCDgOdKJ5oNELK/CuZkgQBcPVvprsG1gMpH3m79yBhrWm0jho5FYBPJ6DOFQCoNlK
- Lxyn3DTVxBmYM+7hgcDGtm5TjTuLRuiyrhIJe3hlpMIOVlRjaKpYpRyKp3e2yON0BOBk
- IJeId4FF0TPFmW/qsMc5Pw8ZmnqaJu9GyN17MAPwYDbu8rgUkACJPe/7Bj9tmtTxafUZ
- sfODhln1V2RKVru0+wFxvcEXisqXQBRc6vtCq9fz855+BJA3I4+3Pk6F3nl/5FkimNeN
- zVrQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVPTotsXkxFN7wMjceQXIt0YPq501KP64cnbjYnP/23WFqf2sWAU4pfXAlcxURMae3ycEBbXgP5kyU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzM5AiRD1yXBsb6Ne3dgbL3NuBpiuau7WIq+th7VncPuvtyMYs4
- RKH25oP4COPLQZjJtFktnl8kd3JATZyhavA0BCVijQ6pICDs3DKLZGLrZjC3wL41sIVAUDCwJNq
- UJFib+4/XJDgv782mXf1GAAntn0FjBGm9Ek6Tyf/XSTU1Yj2nNstjnJ/m90ju72+H7LVr1MY3jJ
- e1tgoOQGTi0WUszmXGHqKcJ+Q3SK2pBmxsDSLzcJs55MouSg==
-X-Gm-Gg: ASbGncvj8phpZOdo/8XMO0PXitFR+b3wT8HUDeGlhTMfSno6C42EGWHoar0MgMkwlVY
- 30jF+WZPWzDR+GkOC3ls/uCUUCkVC9oxU84Zku+96Q+/5jQBkp+BYCKMhOn5vvdHv2m8Kmf32nH
- CWLLWGAHqh/ngaBeR/9d/pmTGh0Wxkd7Eq0Bk=
-X-Received: by 2002:a05:6808:6c85:b0:40c:fc48:33b5 with SMTP id
- 5614622812f47-40d2b968e58mr5796405b6e.12.1751851317861; 
- Sun, 06 Jul 2025 18:21:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFFs2KQvXeA8I+eNNlGJhs4a9HX4VvgO+pAA9xWcKrJk8Ka7dlkr/CtyJI2GXTeTCdlInF915oStCiYnr0X/MU=
-X-Received: by 2002:a05:6808:6c85:b0:40c:fc48:33b5 with SMTP id
- 5614622812f47-40d2b968e58mr5796393b6e.12.1751851317490; Sun, 06 Jul 2025
- 18:21:57 -0700 (PDT)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF2210E2F0;
+ Mon,  7 Jul 2025 05:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oldschoolsolutions.biz; s=s1-ionos; t=1751865864; x=1752470664;
+ i=jens.glathe@oldschoolsolutions.biz;
+ bh=rx6pHyen/TGfkdYHa02N353prfXsh5go8davgnfU6Po=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=id5gyGtrHH1e0azmQj4qX2mehB0bZ209QPfA8kg54dZSlkUrxvZEv6Oh5Uvt7VU2
+ z90mtbJEPzWbAGsrh+j16JwbHAIm88nePQlFxf/Uw/YbHjvgKRFtDqXH1GTZMgZUW
+ YAVBsRIlfkaQvbA8M/HsuhXnwBimUTirEYfOMfrX9Y1CJsyPJBuQJt27ix3zL7FbG
+ tTRghFark/wXaDU4eIsfdmkPjfUu8q9Nqyo2jsuaY1/6DCGZUqkD5AL77vofEGNnX
+ UcJpPA+IBpj/S3Kay6eNXjz+ROWY6H5d17pokmC0eJScRf47NCVllmVSy12uggdD/
+ atwnTvCxVpezeH2UTg==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from [192.168.0.174] ([62.226.41.123]) by mrelayeu.kundenserver.de
+ (mreue011 [212.227.15.167]) with ESMTPSA (Nemesis) id
+ 1MvKGv-1uq2nW3wvZ-00ybJH; Mon, 07 Jul 2025 07:24:24 +0200
+Message-ID: <8e72641d-77e6-4d10-998f-669de30ae495@oldschoolsolutions.biz>
+Date: Mon, 7 Jul 2025 07:24:18 +0200
 MIME-Version: 1.0
-References: <20250706-ubwc-no-ubwc-v1-1-e39552aa04df@oss.qualcomm.com>
-In-Reply-To: <20250706-ubwc-no-ubwc-v1-1-e39552aa04df@oss.qualcomm.com>
-From: Robin Clark <robin.clark@oss.qualcomm.com>
-Date: Sun, 6 Jul 2025 18:21:46 -0700
-X-Gm-Features: Ac12FXwpGmCmQ8_MwW7xpPT4fw4jzAuObtuXcAM1LUtEgzggh8phHjbplkb8mVU
-Message-ID: <CACSVV02AvJb_mb+Hw1aQPP+WTDTgG+f0n=kK50On1g54HnBuMA@mail.gmail.com>
-Subject: Re: [PATCH] soc: qcom: ubwc: provide no-UBWC configuration
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v2 0/3] Support for Adreno X1-85 Speedbin along with new
+ OPP levels
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+References: <20250701-x1e-speedbin-b4-v2-0-a8a7e06d39fb@oss.qualcomm.com>
+Content-Language: en-US
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <20250701-x1e-speedbin-b4-v2-0-a8a7e06d39fb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: 3_FlvYN5TmBRb1e2EfwfyeOxi3RgoJJi
-X-Proofpoint-ORIG-GUID: 3_FlvYN5TmBRb1e2EfwfyeOxi3RgoJJi
-X-Authority-Analysis: v=2.4 cv=e/kGSbp/ c=1 sm=1 tr=0 ts=686b2137 cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
- a=EUspDBNiAAAA:8 a=1Na2Qn3s6HqEfW6eAF4A:9 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA3MDAwNiBTYWx0ZWRfX//rKmy6p8D0t
- IOu+gJQKLSdpjKrk+P2h3WtQGrHvVcVL9L1Dr36OsMWmuCY2Drc35N74M4jF7awMhAv3J2/ZgbW
- CLv3GULCH/PE6C0WSIdNCUPpJ0I6yohJll21nHp/ybCRwZ3vPhf+WaT+ClUC6roxDnBaExAuZ8H
- aFSAIjY8AsiwWqZPYSLr8N84sVvlw2U/T+wUVmUFpyuKT53Gqr4AR4sTlM0wxlTIdYyuXXx8czJ
- DA1AWnjx531m1hEqOoZncIVng8aXt7O1Xh1D2XY8YIgD5qqidTcNQCYEzgC2Bovs/oETIyyYimZ
- yYRAc24V8h03NDY01qOOPFEdYE+4Vk0q1mLLp6zH9Q4PqV/j2MTcukOMn4lHAvNAXYeOCxB141L
- hUc+pI/c0m/JeifwUHRYWLFv/Tkn/n1MjG9nimQ7PY21mZeEX6By45RWmaNgqNUe/nwQfYmW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-04_07,2025-07-06_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 impostorscore=0 adultscore=0 mlxlogscore=999
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 mlxscore=0 phishscore=0
- bulkscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507070006
+X-Provags-ID: V03:K1:qLMGZZwoM6+ldmd7++Vubj4ab/6aDcgFW3bvzM71bBx9kFSjlpO
+ Kdt0vlIOT2EVbwzMG+OUxcL8mafr4n75Bv0dti8oCoASS46v+fFcIsT8RBYtLuQJ62Wp5ng
+ K6BrU1BHmCfUSAPpXgrYYybMM6XS/v6Z3NeRN17tdzYkmP+D/d/c03/HXRQdzBewxbx3n4Q
+ sBrnAqN3krBwD4BTUAZHg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:wxN9Od9Yqn0=;HVU3PIrdxRkHBrsGN5YDaBNptv+
+ QCMgc3Oj7rxaSfhMVKtkiZeqeEOxZ5pchTBt4F3i4Tp/lRJart/bRSx4L2b0qbpKmuFZpCATJ
+ ofngEvNQRaI07zcgFqwEfouuQuy8Azr3jirzuwQd0YjkLrkFGr8udf8LWnLnAA3IJFla/7XQF
+ 1v5u5R/F6K7p1CI5PrZvyUdNp8A6giGE61GgUNdTJz37U13U5iL/xNCiKc07qvPrXjK7/1NhK
+ R3Y2V4BUsaTUiY87J3jPFaTIscgt3TWf868gXIpVIZx9ALmsFB15tnNJrD91N2LjxHvGfcyks
+ wt2X/40wZyguV1uF3d+VkT09yDz2j5h60WgWBSguIbhlujder+Q7wct6uHBSYOV1UrsvyF0Fy
+ RX4z4ikZQa+ld+KfrStx4IDrSskNJ4BqllgcQOxsGx8MDEt+XWKLlNuBz/2b/Sx3L6gvusIe3
+ 8Lc5b4YXdWVKWpptISgOp5k5dxWukUCjDhaKCk51oO4GSvWDVfCoiNBGOTHjR2pKaXPA/6gjy
+ Ck7YrrEFzjCg9Hi5v5Nt80dzwsM6zOqFAfRpbXD+BX1GYJUp+M/myULaSgpppdaHUXE6bLl8R
+ qoQb4F+CXxPwpoIYfRo600nBqA+rHjxb86NaQobftPg3YLmFaTrVRR5ZbQeQrs76xxn52rABx
+ QPQ1qNgCUg+oUPuC5AhYBt3rVUhW3JNea9UtXjRamGGddGYdvgcCwbC9mmOclp/tgx4Gk4kW8
+ 7TnDwwqmakib1u+R09EtpTTGm/HG+wgISTa5p/z8cglNk5/v82y8J7lhrPytEZfRJeJ6LzYXf
+ 0UOElHz8NMWA94DvVO29C0txHkmc81um6COhPlr7D4Tl1jH7x2NlRnxPnrT1lbJR4BxxjZPNf
+ EsvFs3BllBCwGPgBQYYl3tBxZFbt+g5wZn5uU8SMa6TJgjyU2OciwRr5M9oHWzN2SUcPAIPmx
+ +8S9MCfbV6B5tFKUE4pLO5vvaDA9HiTjAXmJh8eTZ0Qu1g9vPzCwswhGINdsA3edmV1Efn02V
+ xcBEk5D78sLQE/ejkR9ykfMhgyJM8Ug+yDr53IoAml3I/rKsxQIcmLz9xCrfB7KC0ZsfqDo6f
+ uxll58h1tPM7GgMluiZA1KzUpbLHbQLEWYl+gHNhdRVzUWrabIkAMRhtLLALhW5pA9uN9gWD+
+ yQXBB0ZH0UI6TJbcXfmooO83H0mVllftEfOJJwp0DnPAWHL6awNyT+AQocmLjFSk6Kq/bafcp
+ rU3LEs9dkzhGGhU0p5jUXns4NNQeLqq9j5KMyq9cJVXPImbW7EwFAFqZfh5713egyD7KJ+pHY
+ pJK92dLBawv5krtIz2MknciGZ5Ps0te3wYwL7n6nxBypSff3iL6GGsOjVZm10fvc/47Ws9KVw
+ sNIbyuz4SBtYnk5KsJBiP5LJ9suU5VewPKA3w8aegaSsy9nHc/SFibnW9xUDLcDSmFwr9Y/m+
+ TEnxsHA3UdwdthA9OsNei8u+W7oRf38ztaKfPmaHxWXYg9KWGSFo45LKt0ZE1EkbZrFzP8847
+ JwTnyQlPZ8jBBougN+42ULxX90y0TmqE0ZlL8Fpaapx4kG4PTKk3GkCjx+DOCp4xWbpEjwBox
+ kjXjbpC1nma55CcL41KwN8vdcwpUXi/
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,70 +103,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jul 6, 2025 at 4:01=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
->
-> After the commit 45a2974157d2 ("drm/msm: Use the central UBWC config
-> database") the MDSS driver errors out if UBWC database didn't provide it
-> with the UBWC configuration. Make UBWC database return zero data for
-> MSM8916 / APQ8016, MSM8974 / APQ8074, MSM8226 and MSM8939.
->
-> Fixes: 1924272b9ce1 ("soc: qcom: Add UBWC config provider")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
-> Note: the driver is a part of drivers/soc, but as it got merged through
-> drm/msm tree, this fix should also go through the drm/msm tree.
+On 01.07.25 18:20, Akhil P Oommen wrote:
 
-Reviewed-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> This series adds gpu speedbin support for Adreno X1-85 GPU along with
+> additional OPP levels. Because the higher OPPs require GPU ACD feature,
+> this series has dependency on the GPU ACD support series [1] which is
+> now available in v6.16-rc1.
+>
+Hi Akhil, thank you for the patch. I just tested this on the HP Omnibook=
+=20
+X14, which - with the matching dtb loaded - shows the same max frequency=
+=20
+as I can reach during benchmark tests on Windows (1250MHz).
 
-> ---
->  drivers/soc/qcom/ubwc_config.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_confi=
-g.c
-> index bd0a98aad9f3b222abcf0a7af85a318caffa9841..df074520a8cae1a202a14ca09=
-4903bb1e7389066 100644
-> --- a/drivers/soc/qcom/ubwc_config.c
-> +++ b/drivers/soc/qcom/ubwc_config.c
-> @@ -12,6 +12,10 @@
->
->  #include <linux/soc/qcom/ubwc.h>
->
-> +static const struct qcom_ubwc_cfg_data no_ubwc_data =3D {
-> +       /* no UBWC, no HBB */
-> +};
-> +
->  static const struct qcom_ubwc_cfg_data msm8937_data =3D {
->         .ubwc_enc_version =3D UBWC_1_0,
->         .ubwc_dec_version =3D UBWC_1_0,
-> @@ -215,11 +219,17 @@ static const struct qcom_ubwc_cfg_data x1e80100_dat=
-a =3D {
->  };
->
->  static const struct of_device_id qcom_ubwc_configs[] __maybe_unused =3D =
-{
-> +       { .compatible =3D "qcom,apq8016", .data =3D &no_ubwc_data },
-> +       { .compatible =3D "qcom,apq8074", .data =3D &no_ubwc_data },
->         { .compatible =3D "qcom,apq8096", .data =3D &msm8998_data },
-> +       { .compatible =3D "qcom,msm8226", .data =3D &no_ubwc_data },
-> +       { .compatible =3D "qcom,msm8916", .data =3D &no_ubwc_data },
->         { .compatible =3D "qcom,msm8917", .data =3D &msm8937_data },
->         { .compatible =3D "qcom,msm8937", .data =3D &msm8937_data },
-> +       { .compatible =3D "qcom,msm8939", .data =3D &no_ubwc_data },
->         { .compatible =3D "qcom,msm8953", .data =3D &msm8937_data },
->         { .compatible =3D "qcom,msm8956", .data =3D &msm8937_data },
-> +       { .compatible =3D "qcom,msm8974", .data =3D &no_ubwc_data },
->         { .compatible =3D "qcom,msm8976", .data =3D &msm8937_data },
->         { .compatible =3D "qcom,msm8996", .data =3D &msm8998_data },
->         { .compatible =3D "qcom,msm8998", .data =3D &msm8998_data },
->
-> ---
-> base-commit: 8290d37ad2b087bbcfe65fa5bcaf260e184b250a
-> change-id: 20250706-ubwc-no-ubwc-3c5919273e03
->
-> Best regards,
-> --
-> With best wishes
-> Dmitry
->
+jglathe@x14-jg:~$ cat /sys/class/devfreq/*gpu*/available_frequencies
+300000000 390000000 550000000 687000000 744000000 800000000 925000000=20
+1000000000 1100000000 1175000000 1250000000
+
+Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+
+with best regards
+
+Jens
+
+
