@@ -2,112 +2,100 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A386AFEB46
-	for <lists+freedreno@lfdr.de>; Wed,  9 Jul 2025 16:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63346AFED08
+	for <lists+freedreno@lfdr.de>; Wed,  9 Jul 2025 17:06:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3265E10E7ED;
-	Wed,  9 Jul 2025 14:09:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD1B10E347;
+	Wed,  9 Jul 2025 15:06:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ibxh073e";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="dgYw25Rx";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="OUh8vWqs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC25310E7ED
- for <freedreno@lists.freedesktop.org>; Wed,  9 Jul 2025 14:09:08 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 569Coi90012557
- for <freedreno@lists.freedesktop.org>; Wed, 9 Jul 2025 14:09:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=/d3R6mnm1I4BAdLDWhYywDzK+yEimTdQcJV
- Hid63KMc=; b=Ibxh073epcP9IdnE8N2pbRLR1mXt0xUZ+k93DUYGd7b347B/rCg
- fU5ccPD5xgjTmGZz4Zt4n5qNbi5SGS7n/uaqahry7eJ1RpUKASWtE4RYIWi3AZ5U
- V8wD0hbTnRs8XfcHEh3PgWFcLzW+06eCXrw1W4FHMC2Nr1Ese//OwKKXBfIFaBro
- cmjACq9x0lPUjE+MRUni7ZiTGqfIPl7hV4ogSmIBNOFf6zDYGeifKYfojpPkYlh0
- WqQcbj8qCHThegKpMZTD13I49WTE68ucClh8byMil5ljb6BEtQZs6ocvDNzUTQ80
- nAbnlA6neCFC8CJHo6Vivq1fKhViInDmdYQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47pucn4v2g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 09 Jul 2025 14:09:07 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-31215090074so9007691a91.0
- for <freedreno@lists.freedesktop.org>; Wed, 09 Jul 2025 07:09:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752070146; x=1752674946;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=/d3R6mnm1I4BAdLDWhYywDzK+yEimTdQcJVHid63KMc=;
- b=LZ4sVYvLjBkPMcjT3E2yzZi4ljjBPQkV8wFvREbc5LprrMLvvIE+QQzpgm/a1nLpkd
- DPm1VI57g02tjadoXBbIBPRjnip5wy1nkjRyPBFeIlERWJ+6tQDk7yZrA0nn2CjfoAQn
- T9XixVUwEYViIE0v6rBzlcsrgzBNDwUHLIHssokUooIuK33djQthQom21hC5ku878nNi
- LVcSNquJZUjifxjmuMHe5Bnm6XRSGvRAv+X0Wn9tdSH/Brbo39WUphf0iImgRaUyciNd
- Xqsm/M+EhoZ50V9odoa1hwjuWonxQVVCQ/bDBNBvZdYnHyLTBCMv/rGsIhy3ypYAWRMz
- ADLg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXpod6tNrp4nOv2aFBNxafyCOW6HOvNTkUCvfuud0YDlqkr3v0HEgvIGPcf4ZUeYG8qOpGojqUCC3s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9PSr2y02xaG9xv1cOilRAAKlZYhqrZ9gWIsgi/zfIQKgdxf57
- JJxbRramg1bu2eVoNXZHOncjtfZd19mLnMscLJ4/NLXGu+O6dkhOZ9iekFOWWs/9u0aZj76v1mi
- 4/XBEcw+6/Q1eoxlUSkLci10lPdq0fFL2PypA+g9Hd7k3qE/GKX1FlSZgaXUbwJhbQKhmu5I=
-X-Gm-Gg: ASbGncsr7AH8sefaXEytim/KDtJUT44vVKhdfh/LMdHiEhpYS2yS/z+Hh7deQS4ji9c
- 2h30uDh4Ex3z4PCK5bd3gkAI0SIyq7HpGRdU1aWl+3xeQYj0SA8p+yLWUeB7sX4LcCKLXcZGJK7
- r28UY/CJ5QqdbuNIfF4QAggzJ838NwLB/3WqJ6vHbX+Dw0oWDVozU8X3UJfRmp4vRCn7OEwLt0H
- AJMcrosIcC3txpFBuhWus29pu2pl+M1g2G8uiy31OiNx0PU4Wv4cCQIRON4sq+C8A+t2YAyPfpo
- 8un7jOmaPAF2c5lATWw6eGiFVpts0KpKMg==
-X-Received: by 2002:a17:90a:e7d0:b0:311:f2f6:44ff with SMTP id
- 98e67ed59e1d1-31c2fdaefbcmr4683207a91.17.1752070146353; 
- Wed, 09 Jul 2025 07:09:06 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFMafukcX25WYJC16FEhi5PetBHsygYdFgLzh1SAK8KFse3W5EKQBerKIx1xEL84lugAaP6Ww==
-X-Received: by 2002:a17:90a:e7d0:b0:311:f2f6:44ff with SMTP id
- 98e67ed59e1d1-31c2fdaefbcmr4683150a91.17.1752070145827; 
- Wed, 09 Jul 2025 07:09:05 -0700 (PDT)
-Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c3017ca4csm2200198a91.31.2025.07.09.07.09.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jul 2025 07:09:05 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Arnd Bergmann <arnd@arndb.de>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm: Fix build with KMS disabled
-Date: Wed,  9 Jul 2025 07:08:38 -0700
-Message-ID: <20250709140838.144599-1-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.50.0
+X-Greylist: delayed 446 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Jul 2025 15:06:11 UTC
+Received: from fhigh-a3-smtp.messagingengine.com
+ (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9501010E347
+ for <freedreno@lists.freedesktop.org>; Wed,  9 Jul 2025 15:06:11 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.phl.internal
+ [10.202.2.45])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id EEC091400181;
+ Wed,  9 Jul 2025 10:58:44 -0400 (EDT)
+Received: from phl-imap-02 ([10.202.2.81])
+ by phl-compute-05.internal (MEProxy); Wed, 09 Jul 2025 10:58:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1752073124;
+ x=1752159524; bh=tJ5ubzgQeZmEM/uOLLsmE7v/DdXe2HEW/1v5AYeOmzg=; b=
+ dgYw25RxCvj0VdadUKjZeDGqJagcqueXSTlmEvisoQBw7fWI6DKehkohKe3hNL1Q
+ ykvNuXMqwZgO3rY1UGNna6ikoPFylt0vX/xVemZBYR6yGN+ZRKl3h+dPMJdlrZx5
+ uLcM1okwQrixmVcVXuwYGmt6PA5tRZ9Gvnd9Yti+6/QrO3d8pPFagKfylm1Ecldn
+ 2PNRR0txI9HFB6+OD+KSKwM+qhmXFaTDLDV+XLEpkctI+rrmdZ4Qdhm+jZUxoh54
+ lB5U4dCyByPZ258p4d/t+vSDnzBYihgWm/atVxf8UIbW8ZGG3uLWrCUV9P90tGzz
+ s9YiRljtu8qmRTxYHJIANQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1752073124; x=
+ 1752159524; bh=tJ5ubzgQeZmEM/uOLLsmE7v/DdXe2HEW/1v5AYeOmzg=; b=O
+ Uh8vWqslGQKwQ7Z/65+gwF9AXSv/Z5uuO/Xi9UekhsWKZZYCftChHyEgqiyNkoiL
+ SdGduAWbL4j9cT3HCEZFxG2WCUSQbfibJ9NI4sVIrTS8nF6iC83f+H165qaoTpD4
+ VmSvY9MMjF6L0fkPSxZQSNiz4SeQz6bQoIz3KPGhhYVLzbal4CrEpypL+AqpymTH
+ ay+uKn4QgEggA3aSMEuzaZ93Xd6/qAKPjQJQJe5TPwiS9dOm8ri84e6jwl4mUhgd
+ 1fHI2NoJZzEKKLrnjIOXpldL5loo6PfLvK++WL/3dl1EnP/5hyFEyWvZ2n2LoDpi
+ jXtMtedyJOL2hWgfyPQRw==
+X-ME-Sender: <xms:pINuaNbIYWLPcVvtN5TwrOEv5abub-gGM_uwXT0ZL_1DDu5TLF8iqA>
+ <xme:pINuaEbjUL_JKbajEIhC-Og0auyURx7VapeADrOF3C0imyNVOEJ-_Qq7hatFFOdcO
+ HTysSNMyZm1Iwvs-I0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdefjeekiecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+ ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+ hrpefoggffhffvvefkjghfufgtgfesthejredtredttdenucfhrhhomhepfdetrhhnugcu
+ uegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtthgvrh
+ hnpefhtdfhvddtfeehudekteeggffghfejgeegteefgffgvedugeduveelvdekhfdvieen
+ ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnug
+ esrghrnhgusgdruggvpdhnsggprhgtphhtthhopeduvddpmhhouggvpehsmhhtphhouhht
+ pdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrihhrlh
+ hivggusehgmhgrihhlrdgtohhmpdhrtghpthhtoheplhhumhgrgheskhgvrhhnvghlrdho
+ rhhgpdhrtghpthhtoheprggshhhinhgrvhdrkhhumhgrrheslhhinhhugidruggvvhdprh
+ gtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdho
+ rhhgpdhrtghpthhtohepfhhrvggvughrvghnoheslhhishhtshdrfhhrvggvuggvshhkth
+ hophdrohhrghdprhgtphhtthhopehjvghsshhitggrrdiihhgrnhhgsehoshhsrdhquhgr
+ lhgtohhmmhdrtghomhdprhgtphhtthhopehrohgsihhnrdgtlhgrrhhksehoshhsrdhquh
+ grlhgtohhmmhdrtghomhdprhgtphhtthhopehsvggrnhesphhoohhrlhihrdhruhhn
+X-ME-Proxy: <xmx:pINuaHiEzT9UXLOv4dWCroUUjpw0F5_r6vak6qY3wpsIYu6G3kb4QA>
+ <xmx:pINuaLSEnMWt8w3c6m5xYGQbprnB28Uep77aIfM1i104xkeAwqKbcg>
+ <xmx:pINuaB-ATmHtJsdIPKraS1h3GMp8SqbrD9-FU1CaT9-bMrhctGK4rA>
+ <xmx:pINuaEPvhhP_2-N45NSrf94g8TBPOQyarLL-D5iasKe9Y1aCdZjaIg>
+ <xmx:pINuaMgmLPMzeWdHZ9PFmdYBeMi8xhHp8yDfOuOniC-zDj8a5HEMhc7V>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id 1A1CA700065; Wed,  9 Jul 2025 10:58:44 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=GdQXnRXL c=1 sm=1 tr=0 ts=686e7803 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=xqWC_Br6kY4A:10 a=Wb1JkmetP80A:10
- a=EUspDBNiAAAA:8 a=isCY8TonHXl0-fnU9HAA:9 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: M7ay8eRgEJOg4nP6XyXAFKB2ZlE__vX2
-X-Proofpoint-ORIG-GUID: M7ay8eRgEJOg4nP6XyXAFKB2ZlE__vX2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA5MDEyNyBTYWx0ZWRfX+Ba0+RSg+FQP
- OMgBqFuowL0Qs+Yfo83YK/w90VQU6owN8iPs21pgng9wsXIbNed+tbFQFfpn5PcUVL4WueN2YKG
- nOUFNT04CES1aHpXasj6MqPMXNSLEyb66rt2XSf9QebSjmbu4u0R006cM62zkUDHMl1afUZJ0Ms
- z7ryev/Bw+HFT+9ukrJWmhdfNoQak98xElc+4R2dwkelMJG1Pw0CvX5p8352Ci6GEPzTbfkytmn
- 8F64bbHchYPYCeL/rMAnr54zzzbD5B7X56gK1QRy+Ik56wxylCilWhDDs/QvWvtrs61YTtvOudM
- 3I8TcY+sHfTWODbRqO6pbQGB9T6oiT3QXTWZqX8A+SxCbS8bt/7Jx/lGbN4W2kELtblx05Yhoqy
- ldBGIhRFts96hSY76Ol9jNjJWtY1+qbK94XTmcHraRiaazdBXZg+qlSR3+rIX0CzAs6nFQoS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-09_03,2025-07-08_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
- spamscore=0 suspectscore=0 mlxlogscore=999 priorityscore=1501 impostorscore=0
- malwarescore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507090127
+X-ThreadId: T39335a34c5ea96d2
+Date: Wed, 09 Jul 2025 16:58:23 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>,
+ "Jessica Zhang" <jessica.zhang@oss.qualcomm.com>,
+ "Sean Paul" <sean@poorly.run>,
+ "Marijn Suijten" <marijn.suijten@somainline.org>,
+ "Dave Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "open list" <linux-kernel@vger.kernel.org>
+Message-Id: <1b8a27c7-5f14-4b79-835c-19c9cc258496@app.fastmail.com>
+In-Reply-To: <20250709140838.144599-1-robin.clark@oss.qualcomm.com>
+References: <20250709140838.144599-1-robin.clark@oss.qualcomm.com>
+Subject: Re: [PATCH] drm/msm: Fix build with KMS disabled
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,59 +111,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When commit 98290b0a7d60 ("drm/msm: make it possible to disable
-KMS-related code.") was rebased on top of commit 3bebfd53af0f ("drm/msm:
-Defer VMA unmap for fb unpins"), the additional use of msm_kms was
-overlooked, resulting in a build break when KMS is disabled.  Add some
-additional ifdef to fix that.
+On Wed, Jul 9, 2025, at 16:08, Rob Clark wrote:
+> When commit 98290b0a7d60 ("drm/msm: make it possible to disable
+> KMS-related code.") was rebased on top of commit 3bebfd53af0f ("drm/msm:
+> Defer VMA unmap for fb unpins"), the additional use of msm_kms was
+> overlooked, resulting in a build break when KMS is disabled.  Add some
+> additional ifdef to fix that.
+>
+> Reported-by: Arnd Bergmann <arnd@arndb.de>
+> Fixes: 98290b0a7d60 ("drm/msm: make it possible to disable KMS-related code.")
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 
-Reported-by: Arnd Bergmann <arnd@arndb.de>
-Fixes: 98290b0a7d60 ("drm/msm: make it possible to disable KMS-related code.")
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/msm_gem.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Thanks for the fix!
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 33d3354c6102..c853ab3a2cda 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -96,7 +96,6 @@ void msm_gem_vma_get(struct drm_gem_object *obj)
- void msm_gem_vma_put(struct drm_gem_object *obj)
- {
- 	struct msm_drm_private *priv = obj->dev->dev_private;
--	struct drm_exec exec;
- 
- 	if (atomic_dec_return(&to_msm_bo(obj)->vma_ref))
- 		return;
-@@ -104,9 +103,13 @@ void msm_gem_vma_put(struct drm_gem_object *obj)
- 	if (!priv->kms)
- 		return;
- 
-+#ifdef CONFIG_DRM_MSM_KMS
-+	struct drm_exec exec;
-+
- 	msm_gem_lock_vm_and_obj(&exec, obj, priv->kms->vm);
- 	put_iova_spaces(obj, priv->kms->vm, true, "vma_put");
- 	drm_exec_fini(&exec);     /* drop locks */
-+#endif
- }
- 
- /*
-@@ -664,9 +667,13 @@ int msm_gem_set_iova(struct drm_gem_object *obj,
- 
- static bool is_kms_vm(struct drm_gpuvm *vm)
- {
-+#ifdef CONFIG_DRM_MSM_KMS
- 	struct msm_drm_private *priv = vm->drm->dev_private;
- 
- 	return priv->kms && (priv->kms->vm == vm);
-+#else
-+	return false;
-+#endif
- }
- 
- /*
--- 
-2.50.0
-
+Tested-by: Arnd Bergmann <arnd@arndb.de>
