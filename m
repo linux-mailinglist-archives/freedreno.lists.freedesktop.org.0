@@ -2,135 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9967CAFE3CE
-	for <lists+freedreno@lfdr.de>; Wed,  9 Jul 2025 11:16:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6C4AFE599
+	for <lists+freedreno@lfdr.de>; Wed,  9 Jul 2025 12:22:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 371C710E773;
-	Wed,  9 Jul 2025 09:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF05410E78E;
+	Wed,  9 Jul 2025 10:22:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MD04QiCb";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="WDgn0IoC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC8BA10E76F
- for <freedreno@lists.freedesktop.org>; Wed,  9 Jul 2025 09:16:14 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5697lMFw029113
- for <freedreno@lists.freedesktop.org>; Wed, 9 Jul 2025 09:16:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Cv1BCk8MYMc74KhkADwnTl/g1Y3GZM+AUyi9qevFM4U=; b=MD04QiCbcyupDjwl
- uMpXji2CFwUbWFMp4gW7xRrfwrZxp4LFM7WwubrPVypwEkJ4RNX5iWmon+pTowUp
- JSmny1owcMo9YZW1vft36dB9wAFi2pcXdOLdReDPrdxwxGwAKAmeqRlidX/FTtSw
- p1od8/Z6bq4ShAqeq9qtDW+4MDxabq/a2vZJf0Wtl+ubakfRm42HMYLSTsI6iIyP
- pnEhGuFJ9ArUQcl2QMnMEXzZPgX6xjC5Sj2k+zbRX7SmHTmM+9RzntQeSv7km1K5
- dxDP2hvWQSW7EetVn/i7lzhakHkyVMw6vpYV4yYGjybvf6aSVka0Kf8ILF9f3AqI
- RtKmNQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47smbeg96w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 09 Jul 2025 09:16:13 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-311d5fe941eso1604668a91.1
- for <freedreno@lists.freedesktop.org>; Wed, 09 Jul 2025 02:16:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752052572; x=1752657372;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Cv1BCk8MYMc74KhkADwnTl/g1Y3GZM+AUyi9qevFM4U=;
- b=V7Es9EcqSarW9780GA2hTIkw5suGDEOlLb1uRLWohakkpMBm8ebxbiW5zNkoUFcVMU
- xmgYkU/FJ32Z3II2qryFDsMa43WwchPtjLSfFtnf9bZxc1NjRWdQWYsfX8nLlaWLnMlj
- R/BfpiAJRjnPnA4dgMvHDt20rtqLTyRFD3wov8Bj9Tw8mIE4C1kTl+loxPFpPCgi6Blb
- Q4NMXUBdvYcB3jpleeoWG/uIH10isnaixatBFII/cyb/Qn5beGxNHsT23IRClSsyCJHw
- nW/eFQqf0pxCLF5Fr4imXmKOkEOEUTAuD12xcFZX22nGH+bUSeVunb6R+ppzCQkcaF+Z
- 85VA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUnu/bufxvQkZPTBceabxK0736dtzmildgBR6BMO89yQjFL8yaNaXq+SqY7ChnKDtrDRBe6NkIVsfE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzqlNQm8XJs5CPjY3Jg2kzDc6st8j8NivWsunAnJ63DRtbFOmh5
- b5czhXb/8MZgL78bjZx6H8XhmDjZbix64cuFFBTsCkrPUlhlFEGhdotVww/TvU7pCjXm8ADwdSE
- ays/SxwjunL5J3o8SXXI2440VJItgGd6br8GSW3Z5nScxXgJm4RsaqmjCMduJn3bWiIKu4zc=
-X-Gm-Gg: ASbGncuqP8QeUI3Idjd7s+eC0u0J+x5mLxwQOJH4G5sXF7WN9oqLi3POVnPMX+Q4o9w
- 3/FhBXsz91jPgdbw7uIR3JCZTnS4ET9ihmzr5zkss3G72Oz6MAkC+6D+vc/m71vXV5F0F04PYI9
- CY7QLwl7FCyLbzW0dfhaYrL96qUTt4zNRIR7fRNbu36XwiEnsxjqQ1o6Ey+5y30vEsOm2xA9baO
- 2C2CT+rfqBatIPz36inBy798c2lttM+K1DiAaqtUFcZHM9KdYhsiZOr39qR0ydWCthAbWVavuTS
- fGyGag8RLR8v/1slERMn/Raecl6EZFadpCHyZS/EKzIQuPSBWr6/whUHbss/Zv7fSzSEzU3nkPN
- cDyvF0ubNTOvg
-X-Received: by 2002:a17:90b:35ca:b0:312:25dd:1c8b with SMTP id
- 98e67ed59e1d1-31c2fcb0251mr1322489a91.2.1752052571536; 
- Wed, 09 Jul 2025 02:16:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGdfQoEh/GXWJ6Pu0rY5iE3WeMtosEwrdpewcGf70D85+7o6PThtirQuZHfaVGHEd9tQdVP5w==
-X-Received: by 2002:a17:90b:35ca:b0:312:25dd:1c8b with SMTP id
- 98e67ed59e1d1-31c2fcb0251mr1322454a91.2.1752052571046; 
- Wed, 09 Jul 2025 02:16:11 -0700 (PDT)
-Received: from [10.133.33.178] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c30067a55sm1502877a91.14.2025.07.09.02.16.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Jul 2025 02:16:10 -0700 (PDT)
-Message-ID: <d427de7d-76ac-4e5b-b79a-3b7638a8e7fc@oss.qualcomm.com>
-Date: Wed, 9 Jul 2025 17:16:02 +0800
+X-Greylist: delayed 456 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Jul 2025 10:22:49 UTC
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81A0410E78E;
+ Wed,  9 Jul 2025 10:22:49 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4bcYkk5Z6Tz9v0W;
+ Wed,  9 Jul 2025 12:15:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1752056110; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mFira+KRxdt8d2FwCbb09WeKAggOn2O87AQVoaADDDg=;
+ b=WDgn0IoCwgiKpF286Do31Pin7PJ2guwZj4o9mUTgcnO0KxKRTMpqV1aW5zxiX3N5htkerQ
+ kLhuJfncnmUQFLRQycp7T3gADDfsZpqselBwPENiHlokvruIwHszV22QpuL2+jmHRmt6SC
+ 2yWvgFkRY9erkLCMUhDcYQiYSuAD9QcIo7iKFxOvDGh2JLrZV6jU9u+yBUUarJcP9qa938
+ xzxeTJYjxtsL2NhiXfY1Iu86YK4LH1w0II4PxVwZh64bszBzCJlB/lXJnIgWpIqwwXfUWN
+ OnrrZ4LsSmNbTztfn1SQlVuOOhFrIzV65WwXMXNPPStL+o/Z9X9QGj9JNOiJlQ==
+Message-ID: <acb81a4e86f4f683c4f83509afdc5f24ea01e64d.camel@mailbox.org>
+Subject: Re: [PATCH v4] drm/sched: Use struct for drm_sched_init() params
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Philipp Stanner
+ <phasta@kernel.org>, Min Ma <min.ma@amd.com>, Lizhi Hou
+ <lizhi.hou@amd.com>,  Oded Gabbay <ogabbay@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lucas Stach
+ <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, Frank Binns
+ <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Qiang Yu
+ <yuq825@gmail.com>,  Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,  Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Karol Herbst <kherbst@redhat.com>, Lyude
+ Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>, Boris
+ Brezillon <boris.brezillon@collabora.com>, Rob Herring <robh@kernel.org>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Matthew Brost <matthew.brost@intel.com>, Melissa Wen <mwen@igalia.com>, 
+ =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sunil Khatri <sunil.khatri@amd.com>,  Lijo Lazar <lijo.lazar@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>, Yunxiang Li
+ <Yunxiang.Li@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
+ lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Christian Gmeiner <cgmeiner@igalia.com>
+Date: Wed, 09 Jul 2025 12:14:54 +0200
+In-Reply-To: <b5d0921c-7cbf-4d55-aa47-c35cd7861c02@igalia.com>
+References: <20250211111422.21235-2-phasta@kernel.org>
+ <b5d0921c-7cbf-4d55-aa47-c35cd7861c02@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] drm/msm/dp: Retry Link Training 2 with lower pattern
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- dmitry.baryshkov@oss.qualcomm.com
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
- <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
- quic_fangez@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org,
- quic_xiangxuy@quicinc.com
-References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
- <20241129-add-displayport-support-for-qcs615-platform-v1-7-09a4338d93ef@quicinc.com>
- <CAA8EJpoN1qBHyZrQJT_=e_26+tcaKRnSrhtxrK6zBP4BwpL=Hg@mail.gmail.com>
- <b4345b9e-62c6-470d-b1b0-4758cef7f175@quicinc.com>
- <xlmgdysjah3ueypdrdu5b6botvidb2wn4rfm4qpeysclscmuwy@vpfv2ymprblj>
- <b4e1ea54-ff3c-408e-8716-f48001ec9113@oss.qualcomm.com>
-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-In-Reply-To: <b4e1ea54-ff3c-408e-8716-f48001ec9113@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA5MDA4MyBTYWx0ZWRfXzxt2B7s0/2AT
- rlAlBm2CcgLsZ7a5mgsSUAPkoioauCpIixK1a/EOHV88wli0wfxrlSTn0E4eKbjAE62PGFDMlU2
- F20qglylnvvgR1eFc7bsaG+dD/2q2tLujBt8fm/dmq5AKf/D3oGU2M4qGWuSb7D9iUX+NSTjtLy
- z6ClsjfYgGcnbfiQb04WyE1Ibnhk0TQycbc0EaKZnMC+KmRQ3xzfeLwuCBmLw57aYXwdcPcOOtp
- grOmFSvRf42Z+KfkWa/B2V7gF7u8gxje01EqFq71XpsViSc7ixT17sVNQu3eBafm7IGXkmUXRKq
- Y2BLnzAQdS97ejK3R4j8pdfU/BjkDAs3rjYvpM8ww/PWl/c/OdYhwuwHpD22FT3M5tPQuxc/hnA
- Qokra1UA6MCzh83ZdDpIB92qmjADG0KlFeAIHcJqiK3P1nIOrDRsV7+p9rxl/8JhHlxIguj6
-X-Proofpoint-GUID: wdNGcdZ2pVr84xpA6ilLWw_mP8DZAfpg
-X-Proofpoint-ORIG-GUID: wdNGcdZ2pVr84xpA6ilLWw_mP8DZAfpg
-X-Authority-Analysis: v=2.4 cv=VpQjA/2n c=1 sm=1 tr=0 ts=686e335d cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=COk6AnOGAAAA:8 a=M9roUVu_bSbsc9sLP4sA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-09_02,2025-07-08_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0 suspectscore=0 clxscore=1015 impostorscore=0
- phishscore=0 mlxlogscore=999 lowpriorityscore=0 adultscore=0
- priorityscore=1501 bulkscore=0 spamscore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507090083
+X-MBO-RS-ID: 2cfb6c6c64b390fa220
+X-MBO-RS-META: ay4k4wqr33dnoj1dmtnedfghmj9cfjnj
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,54 +93,149 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, 2025-07-08 at 14:02 +0100, Tvrtko Ursulin wrote:
+>=20
+>=20
+> On 11/02/2025 11:14, Philipp Stanner wrote:
+> > drm_sched_init() has a great many parameters and upcoming new
+> > functionality for the scheduler might add even more. Generally, the
+> > great number of parameters reduces readability and has already
+> > caused
+> > one missnaming, addressed in:
+> >=20
+> > commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
+> > nouveau_sched_init()").
+> >=20
+> > Introduce a new struct for the scheduler init parameters and port
+> > all
+> > users.
+> >=20
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> > Acked-by: Matthew Brost <matthew.brost@intel.com> # for Xe
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> # for
+> > Panfrost and Panthor
+> > Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com> # for Etnaviv
+> > Reviewed-by: Frank Binns <frank.binns@imgtec.com> # for Imagination
+> > Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com> # for Sched
+> > Reviewed-by: Ma=C3=ADra Canal <mcanal@igalia.com> # for v3d
+> > ---
+> > Changes in v4:
+> > =C2=A0=C2=A0 - Add forgotten driver accel/amdxdna. (Me)
+> > =C2=A0=C2=A0 - Rephrase the "init to NULL" comments. (Tvrtko)
+> > =C2=A0=C2=A0 - Apply RBs by Tvrtko and Maira.
+> > =C2=A0=C2=A0 - Terminate the last struct members with a comma, so that =
+future
+> > =C2=A0=C2=A0=C2=A0=C2=A0 fields can be added with a minimal patch diff.=
+ (Me)
+> >=20
+> > Changes in v3:
+> > =C2=A0=C2=A0 - Various formatting requirements.
+> >=20
+> > Changes in v2:
+> > =C2=A0=C2=A0 - Point out that the hang-limit is deprecated. (Christian)
+> > =C2=A0=C2=A0 - Initialize the structs to 0 at declaration. (Planet Eart=
+h)
+> > =C2=A0=C2=A0 - Don't set stuff explicitly to 0 / NULL. (Tvrtko)
+> > =C2=A0=C2=A0 - Make the structs const where possible. (Boris)
+> > =C2=A0=C2=A0 - v3d: Use just 1, universal, function for sched-init. (Ma=
+=C3=ADra)
+> > ---
+>=20
+> 8><
+>=20
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c
+> > b/drivers/gpu/drm/panfrost/panfrost_job.c
+> > index 9b8e82fb8bc4..5657106c2f7d 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> > @@ -836,8 +836,16 @@ static irqreturn_t
+> > panfrost_job_irq_handler(int irq, void *data)
+> > =C2=A0=20
+> > =C2=A0 int panfrost_job_init(struct panfrost_device *pfdev)
+> > =C2=A0 {
+> > +	struct drm_sched_init_args args =3D {
+> > +		.ops =3D &panfrost_sched_ops,
+> > +		.num_rqs =3D DRM_SCHED_PRIORITY_COUNT,
+> > +		.credit_limit =3D 2,
+> > +		.timeout =3D msecs_to_jiffies(JOB_TIMEOUT_MS),
+> > +		.timeout_wq =3D pfdev->reset.wq,
+>=20
+> ^^^
+>=20
+> > +		.name =3D "pan_js",
+> > +		.dev =3D pfdev->dev,
+> > +	};
+> > =C2=A0=C2=A0	struct panfrost_job_slot *js;
+> > -	unsigned int nentries =3D 2;
+> > =C2=A0=C2=A0	int ret, j;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	/* All GPUs have two entries per queue, but without
+> > jobchain
+> > @@ -845,7 +853,7 @@ int panfrost_job_init(struct panfrost_device
+> > *pfdev)
+> > =C2=A0=C2=A0	 * so let's just advertise one entry in that case.
+> > =C2=A0=C2=A0	 */
+> > =C2=A0=C2=A0	if (!panfrost_has_hw_feature(pfdev,
+> > HW_FEATURE_JOBCHAIN_DISAMBIGUATION))
+> > -		nentries =3D 1;
+> > +		args.credit_limit =3D 1;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	pfdev->js =3D js =3D devm_kzalloc(pfdev->dev, sizeof(*js),
+> > GFP_KERNEL);
+> > =C2=A0=C2=A0	if (!js)
+>=20
+> Stumbled on this while looking at drm_sched_init() workqueue usage.
+>=20
+> I think this patch might need a fixup. Because somewhere around here
+> in=20
+> the code there is this:
+>=20
+> 	pfdev->reset.wq =3D alloc_ordered_workqueue("panfrost-reset",
+> 0);
+> 	if (!pfdev->reset.wq)
+> 		return -ENOMEM;
+>=20
+> Which means that after the patch panfrost is using system_wq for the=20
+> timeout handler instead the one it creates.
 
+Ouch yes, that's definitely a very subtle bug. AFAICS it comes to be by
+pfdev being initialized to 0.
 
-On 5/28/2025 4:49 AM, Konrad Dybcio wrote:
-> On 12/3/24 3:07 PM, Dmitry Baryshkov wrote:
->> On Tue, Dec 03, 2024 at 04:13:22PM +0800, Xiangxu Yin wrote:
->>>
->>>
->>> On 11/29/2024 9:53 PM, Dmitry Baryshkov wrote:
->>>> On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
->>>>>
->>>>> Add a mechanism to retry Link Training 2 by lowering the pattern level
->>>>> when the link training #2 first attempt fails. This approach enhances
->>>>> compatibility, particularly addressing issues caused by certain hub
->>>>> configurations.
->>>>
->>>> Please reference corresponding part of the standard, describing this lowering.
->>>>
->>> Per DisplayPort 1.4a specification Section 3.5.1.2 and Table 3-10, while the standard doesn't explicitly define a TPS downgrade mechanism, it does specify:
->>
->> Anything in DP 2.1?
->>
-In the DP 2.1 spec, mainly on section '3.6.7.2 8b/10b DP Link Layer LTTPR Link Training Mandates', defined 'LTTPR shall support TPS4'.
-The other parts seems similar to the 1.4 spec.
->>> - All devices shall support TPS1 and TPS2
->>> - HDR2-capable devices shall support TPS3
->>> - HDR3-capable devices shall support TPS4
->>> While these capabilities are explicitly defined DPCD for sink devices, source device capabilities are less strictly defined, with the minimum requirement being support for TPS1 and TPS2.
->>> In QCS615 DP phy is only supporting to HBR2, we observed a critical interoperability scenario with a DP->HDMI bridge. When link training at TPS4 consistently failed, downgrading to the next lower training pattern successfully established the link and display output successfully.
->>
->> Any other driver doing such TPS lowering? Or maybe we should be
->> selecting TPS3 for HBR2-only devices?
-> 
-This logic is porting from qualcomm downstream, 
-For other device, only found in some older Tx chips like i915（intel_dp_training_pattern) used the maximum hardware-supported patterns, but not lowering.
+Let me provide a fix..
 
-According to the description in DPCD table 2-232 003h, From the DP spec perspective, it appears that all supported cases should preferably adopt TPS4, as it is more robust.
-'DPRXs should support TPS4 and set this bit, regardless of whether the DPRX supports HBR3 because TPS4 is more conducive to robust link establishment than TPS2 and TPS3.
-0 = TPS4 is not supported.
-1 = TPS4 is supported (shall be supported for downstream devices with DPCD r1.4, except for eDPRXs).'
+P.
 
-Although maximum capability of QCS615 is HBR2, but the actual pattern supports TPS4. 
-From pure design perspective, it would be cleaner to drop this lowering in next patch. 
-> Bump, this patch looks interesting and I'd like to see it revisited if
-> it's correct
-> 
-> Konrad
-
+>=20
+> > @@ -875,13 +883,7 @@ int panfrost_job_init(struct panfrost_device
+> > *pfdev)
+> > =C2=A0=C2=A0	for (j =3D 0; j < NUM_JOB_SLOTS; j++) {
+> > =C2=A0=C2=A0		js->queue[j].fence_context =3D
+> > dma_fence_context_alloc(1);
+> > =C2=A0=20
+> > -		ret =3D drm_sched_init(&js->queue[j].sched,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 &panfrost_sched_ops, NULL,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 nentries, 0,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0
+> > msecs_to_jiffies(JOB_TIMEOUT_MS),
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 pfdev->reset.wq,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "pan_js", pfdev->dev);
+> > +		ret =3D drm_sched_init(&js->queue[j].sched, &args);
+>=20
+> ^^^
+>=20
+> > =C2=A0=C2=A0		if (ret) {
+> > =C2=A0=C2=A0			dev_err(pfdev->dev, "Failed to create
+> > scheduler: %d.", ret);
+> > =C2=A0=C2=A0			goto err_sched;
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
 
