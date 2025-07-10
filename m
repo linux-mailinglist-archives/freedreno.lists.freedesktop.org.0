@@ -2,79 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67B1AB00A19
-	for <lists+freedreno@lfdr.de>; Thu, 10 Jul 2025 19:43:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C96CFB00A20
+	for <lists+freedreno@lfdr.de>; Thu, 10 Jul 2025 19:43:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA1910E938;
-	Thu, 10 Jul 2025 17:43:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCD410E93E;
+	Thu, 10 Jul 2025 17:43:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="B+6OjqfQ";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="XiX+eaZ3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE90910E938
- for <freedreno@lists.freedesktop.org>; Thu, 10 Jul 2025 17:43:23 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90B2710E93D
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Jul 2025 17:43:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1752169402;
+ s=mimecast20190719; t=1752169407;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uSQAcfejxg7NhusLP2Sc0sAULtF+i3/IlJefnecYrRg=;
- b=B+6OjqfQc7p8lwXolVXwYI/sb1mmSew49ZKRY/KEFppN5CIQOX2tXqR15/HBHj8Iyhiy/w
- zPjmigVnLuQuNw8K+YqgZwb4FkLf9h76UTuRQVA41ahpiwjgsdo6BcLdBctGGtqYANHUlm
- R6LGc/pNG5eddjJzwH+hFdoOer6ePn8=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ZPzxLLqVb+btp2J7RVCrJ2ENgQ7+4k/pXM6bF/LohTw=;
+ b=XiX+eaZ3PhVeduaWehbecBRS6NRoWfsCYaSaR/3bc/oRrAA9MyWqp/RSKtWjNRPgKvStsk
+ uwAHU0e8Id1GBKl5E6NVsg498BWWxPhvL8iyISdi+5nK7TNnwbwaHDV9jGDKf6kdepcUzZ
+ YKCw+3U5xCghan6YIUIoNbQSJATDWMk=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-423-3XOb0lYSPsq5DGkrbZZ2fw-1; Thu, 10 Jul 2025 13:43:21 -0400
-X-MC-Unique: 3XOb0lYSPsq5DGkrbZZ2fw-1
-X-Mimecast-MFC-AGG-ID: 3XOb0lYSPsq5DGkrbZZ2fw_1752169401
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6fb5f71b363so20699426d6.2
- for <freedreno@lists.freedesktop.org>; Thu, 10 Jul 2025 10:43:21 -0700 (PDT)
+ us-mta-456-P6ioo9gHNsiLrcH2EQ-l6Q-1; Thu, 10 Jul 2025 13:43:24 -0400
+X-MC-Unique: P6ioo9gHNsiLrcH2EQ-l6Q-1
+X-Mimecast-MFC-AGG-ID: P6ioo9gHNsiLrcH2EQ-l6Q_1752169404
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-702b5e87d98so25243566d6.0
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Jul 2025 10:43:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752169401; x=1752774201;
+ d=1e100.net; s=20230601; t=1752169404; x=1752774204;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=uSQAcfejxg7NhusLP2Sc0sAULtF+i3/IlJefnecYrRg=;
- b=Upx9/7+YPyZhbFuWr+Mip/CbKfc4+dkNrg07Kn1wo8iggHg1yti4ps2N+NynR3eifP
- 0nJk2NI1Vy4oKDo9zAd7RKTMDfm19JnGY12zdP/UhYWU2sLgZXB9lympR32lUU87a4lC
- u70+GScM6VzcTi4PAMZVqNlLul5dJle+GYrf9FH7ZYPz1CaghdKwlpsnpnLo5TY5fHr3
- 8a3znkGCUNfjsPGBY6zK/W49SH+FzbcscZhnFvTJYAv8wxJ1nrKGd4ELaCyI0+d1gL0j
- z4k/j3LGWPcnCn1oY85Dt2MIZtRprvnzKFmDg4HA35P3hraKsmDb+WAa4W3C/i6QYPeu
- 3Z0Q==
+ bh=ZPzxLLqVb+btp2J7RVCrJ2ENgQ7+4k/pXM6bF/LohTw=;
+ b=jhgs5U0EhWm2fKI5qAkFVbQXsNhaX6T0lzftYtB3W0woqTyCgXM802XMXcZLZymfTn
+ YHArwAmhwgsxuvTpJBg9MOBgi3LnojcnpB8txydBw1miVIN0h7LVQTa/lEPcpJFNm1FT
+ 19sHOJxv6vElDjXHQe8RL2tlrbngCVvwfd+ZEZbztKaitDq4fjlX2kh4td/uyIwVpDpS
+ dQViXHNcCK/eKLO4aNw8Hzjlu58s5hQRO4MP7p8ybNnJjloTsclAotuOuWyf/yrw8ITO
+ SKXIEIv67W79g5Fx6yR66awiuLbF9mWa0QHAKCVKV4tpymsWGDWvpYZTyeK3fpQ3JkIs
+ qs3Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV7/W8eC9S0OmmuZAGmk0gwwd06Ot9z5so8NS5XPL479xsV3qFoUNpzz7TUGr3B5b3xkVhjZDCpdgU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzTebhV2djOyyYTBA8Sk0nbczKAJ/NglEYQnM90+HJx3N+d/bKQ
- je+zVG2kfHQ54YLfqtMAaylQPH8jAjwjHK45WMnMTkEmB/LRHQG/HOUopusvPzJBPUxO6o9RIPJ
- AgGYtjRl9cSFPeyMaDcELeKnQbIVb1dy14vrke6nIZ98VhJ0HlBIkAAuRWyo20nLj/+MCVg==
-X-Gm-Gg: ASbGncs8hB6pjtvd0dNBIG3DNi5Y+mgcgPjWkeK1ZkBnfbJNhH3A05GgkGgZVm9qamT
- tEq/oG2DaA33+1MTwunrbARAOfv9V6dqolA1PcjYS54j8v4MGfylI9kD5Clwude7goFjr+I6gTE
- Om8e/Ndq6uUy0c02bPcz7M3VCJElPEMeNI8Y233DRTC/UW9qPJHuTiG9QEChZMGjnWAKjcP5R3b
- loRNufLUkEJkGqaRpnvIMuF5owAPV22cJvUQs/Pzy2+GcoC9qjKqj8P+d9VIewGivwY+QzaZi3i
- 5BjcN1QCdRbA/jJqMugjhgvMBmY2dS1j+P1QrMQUxNCz3GAIQCPxnDTM/ajv
-X-Received: by 2002:ad4:576f:0:b0:702:ca9e:dba6 with SMTP id
- 6a1803df08f44-704a40f3f86mr2464666d6.16.1752169400841; 
- Thu, 10 Jul 2025 10:43:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGneFeZHD+R2IlA/RJ8povEc4F9IjcKH8Fgp0p4dCYgtfr/rKSizrHDLTlvLp9E8FfSRTeZdQ==
-X-Received: by 2002:ad4:576f:0:b0:702:ca9e:dba6 with SMTP id
- 6a1803df08f44-704a40f3f86mr2464046d6.16.1752169400264; 
- Thu, 10 Jul 2025 10:43:20 -0700 (PDT)
+ AJvYcCX9kHDuHZqJPUHtH4xJQx7v6fORIF+SnvJL2K6+NCfkK6MiUQXZcCnVFSctr5vlJ5YD1pC3IfMajIA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/32cYaX4YxFsS+3zV5YYBGCgIfHwbsL/CDOS5XQtfSUpfko/V
+ 1IIT82h5aQC7IvnZluZrXekA5CjCwPIQhrzHNYnd0I76wLn63de9Xg/h/RtNJAlG5Y0whjZXzeg
+ /aKW2A73Gngx9KJwA4zBK0dYN7Q8eoJgG12502ZH7FcvLOVgbleI4XmUhtvimkgUp6L4YDA==
+X-Gm-Gg: ASbGnctYwPFQzCayJxbWu3muI04vaod+gYBWWi6pUEqUxSg8l3a5BkLgmcM4yB5k6ly
+ EE3AW5LkzR7B1Way352vM96bpDuxty4C8UGSGAq03TR3dSN1NyhO8QwRZobqYWTxmMmt9YGUZVf
+ g3fFT2W1wQ2H6rSKcBJO0GC6oKgt205haIV0Ls8SWrCxYoRiilvRvhZA+KXGOTrTNeYPALzHgYa
+ 42BJ9VSgAwnRprQ8zKME5tmpKbBPWX3WfZW/VsVMqyCphRTE41vKPxEEhUoIFM/hFgr5IAF/32V
+ 6wGaEduj4bVxBnrq0As6DmowLKkbcnmJHqOH6Yd6yoIYoZUhp73edWr72Qf2
+X-Received: by 2002:a05:6214:4521:b0:6fb:66cb:5112 with SMTP id
+ 6a1803df08f44-704a3b03a02mr2644556d6.43.1752169403788; 
+ Thu, 10 Jul 2025 10:43:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFibFyJAqH2Tkc8cSfyuj43nonhKwPGrbHTb1n3BZYj/b4JFbj4juY9nmJvfEsNrJfVGljjaQ==
+X-Received: by 2002:a05:6214:4521:b0:6fb:66cb:5112 with SMTP id
+ 6a1803df08f44-704a3b03a02mr2644146d6.43.1752169403246; 
+ Thu, 10 Jul 2025 10:43:23 -0700 (PDT)
 Received: from [192.168.1.3] (c-73-183-52-120.hsd1.pa.comcast.net.
  [73.183.52.120]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-70497d71419sm10652876d6.86.2025.07.10.10.43.17
+ 6a1803df08f44-70497d71419sm10652876d6.86.2025.07.10.10.43.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Jul 2025 10:43:19 -0700 (PDT)
+ Thu, 10 Jul 2025 10:43:22 -0700 (PDT)
 From: Brian Masney <bmasney@redhat.com>
-Date: Thu, 10 Jul 2025 13:43:02 -0400
-Subject: [PATCH 1/9] drm/imx/ipuv3/imx-tve: convert from round_rate() to
+Date: Thu, 10 Jul 2025 13:43:03 -0400
+Subject: [PATCH 2/9] drm/mcde/mcde_clk_div: convert from round_rate() to
  determine_rate()
 MIME-Version: 1.0
-Message-Id: <20250710-drm-clk-round-rate-v1-1-601b9ea384c3@redhat.com>
+Message-Id: <20250710-drm-clk-round-rate-v1-2-601b9ea384c3@redhat.com>
 References: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
 In-Reply-To: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
 To: Philipp Zabel <p.zabel@pengutronix.de>, 
@@ -103,15 +103,15 @@ Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
  freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com, 
  linux-sunxi@lists.linux.dev, Brian Masney <bmasney@redhat.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1752169393; l=1689;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1752169393; l=1675;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=JMQuzI07hiKrV1ATnFggAmht1J6rMxSCqpxpi2ExgQM=;
- b=2cWi9RxWr4DG/uT+Adfe1rLsJLWqf/HsK4V1CHvsD1HqS0tzYLionTpIhnP/uRurPd7gfFmll
- 2lm+LwJba1xA78TVoaKVn+hJWZX7dEn9fhckaPz4uGeZs+gsOpWRugK
+ bh=kl2qeTWYwIcCK1THSOcO56NA9jbysmHw5mNgghcr0SU=;
+ b=dJ/qA0hGF/+fQfe0crsCUgeeRXp3uEEF5tBBbhlI5F6XFBRbvTidAvVYatP+DdWjLDW+J4Np0
+ hf2I1m8Rc9fCuxnysHNHHy4FFC3Lx0PLz51pJGMCy+rQ/pwYO2VWCbI
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: q0K3i6EzhYpMvzA1EekmEFtFnfuf_fwmFzXWkKwMmKI_1752169401
+X-Mimecast-MFC-PROC-ID: i6AZ1kgeAr1RvcvhD_u_5yZBhF7UHBOqoDageHAtOoo_1752169404
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -136,49 +136,42 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/gpu/drm/imx/ipuv3/imx-tve.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/mcde/mcde_clk_div.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/ipuv3/imx-tve.c b/drivers/gpu/drm/imx/ipuv3/imx-tve.c
-index c5629e155d25aef5b43445bc18c6c90039c99974..63f23b821b0be66a8e8a379e1375ffd98552e72f 100644
---- a/drivers/gpu/drm/imx/ipuv3/imx-tve.c
-+++ b/drivers/gpu/drm/imx/ipuv3/imx-tve.c
-@@ -368,17 +368,20 @@ static unsigned long clk_tve_di_recalc_rate(struct clk_hw *hw,
- 	return 0;
+diff --git a/drivers/gpu/drm/mcde/mcde_clk_div.c b/drivers/gpu/drm/mcde/mcde_clk_div.c
+index 3056ac566473487817b40f8b9b3146dbba2ae81c..8c5af2677357fcd6587279d58077d38ff836f0c0 100644
+--- a/drivers/gpu/drm/mcde/mcde_clk_div.c
++++ b/drivers/gpu/drm/mcde/mcde_clk_div.c
+@@ -71,12 +71,15 @@ static int mcde_clk_div_choose_div(struct clk_hw *hw, unsigned long rate,
+ 	return best_div;
  }
  
--static long clk_tve_di_round_rate(struct clk_hw *hw, unsigned long rate,
--				  unsigned long *prate)
-+static int clk_tve_di_determine_rate(struct clk_hw *hw,
-+				     struct clk_rate_request *req)
+-static long mcde_clk_div_round_rate(struct clk_hw *hw, unsigned long rate,
+-				     unsigned long *prate)
++static int mcde_clk_div_determine_rate(struct clk_hw *hw,
++				       struct clk_rate_request *req)
  {
- 	unsigned long div;
+-	int div = mcde_clk_div_choose_div(hw, rate, prate, true);
++	int div = mcde_clk_div_choose_div(hw, req->rate,
++					  &req->best_parent_rate, true);
  
--	div = *prate / rate;
-+	div = req->best_parent_rate / req->rate;
- 	if (div >= 4)
--		return *prate / 4;
-+		req->rate = req->best_parent_rate / 4;
- 	else if (div >= 2)
--		return *prate / 2;
--	return *prate;
-+		req->rate = req->best_parent_rate / 2;
-+	else
-+		req->rate = req->best_parent_rate;
+-	return DIV_ROUND_UP_ULL(*prate, div);
++	req->rate = DIV_ROUND_UP_ULL(req->best_parent_rate, div);
 +
 +	return 0;
  }
  
- static int clk_tve_di_set_rate(struct clk_hw *hw, unsigned long rate,
-@@ -409,7 +412,7 @@ static int clk_tve_di_set_rate(struct clk_hw *hw, unsigned long rate,
- }
- 
- static const struct clk_ops clk_tve_di_ops = {
--	.round_rate = clk_tve_di_round_rate,
-+	.determine_rate = clk_tve_di_determine_rate,
- 	.set_rate = clk_tve_di_set_rate,
- 	.recalc_rate = clk_tve_di_recalc_rate,
+ static unsigned long mcde_clk_div_recalc_rate(struct clk_hw *hw,
+@@ -132,7 +135,7 @@ static int mcde_clk_div_set_rate(struct clk_hw *hw, unsigned long rate,
+ static const struct clk_ops mcde_clk_div_ops = {
+ 	.enable = mcde_clk_div_enable,
+ 	.recalc_rate = mcde_clk_div_recalc_rate,
+-	.round_rate = mcde_clk_div_round_rate,
++	.determine_rate = mcde_clk_div_determine_rate,
+ 	.set_rate = mcde_clk_div_set_rate,
  };
+ 
 
 -- 
 2.50.0
