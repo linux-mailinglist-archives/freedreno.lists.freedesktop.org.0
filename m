@@ -2,69 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B237B022F2
-	for <lists+freedreno@lfdr.de>; Fri, 11 Jul 2025 19:44:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9FA9B022FA
+	for <lists+freedreno@lfdr.de>; Fri, 11 Jul 2025 19:45:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0445110E2D1;
-	Fri, 11 Jul 2025 17:44:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E968610E3AF;
+	Fri, 11 Jul 2025 17:44:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WpPGK+iV";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Jhal1+Be";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
- [209.85.208.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 237F310E2D1
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 17:44:30 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-32b78b5aa39so21804611fa.1
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 10:44:30 -0700 (PDT)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2A4510E2D1
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 17:44:50 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-32cd0dfbdb8so19392231fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 10:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1752255868; x=1752860668; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1752255889; x=1752860689; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
  bh=u+ZM5SO8L4rZ2xYIS3dtWrMrDyHsyXlquIkrSDaXE+w=;
- b=WpPGK+iVTe1P7ee3gL8K+Cd9xYjdAyvE53eydFlPY1c6yAZmQ/GiT7/WBU41j3WEt+
- XBpbSzb8g0YtQA33cSSu4SrLI5Z2tsoxuwHtOcud1YG+oyX0Qw62j/LvxzMfVWpBkE7r
- YlT3Z0/C8XTBIfUH3pIG51YJFk/6qL0Ov1jwV7FzujOpMzCikxFh8HCZL51/wx+ySkJI
- flVvFtLXxRe2zeerS6fCvSn1JC8nlAWj4/PKjvWAn4T42TDjiJobBKoxN+ZMCceOLxjm
- j5UTPQyScXX4tHAic9RsL3KLMSMm3kSttSYprOiOW5fYkVI5sKGp9DYxmltAF73z6mhR
- ijCQ==
+ b=Jhal1+BeUCQBBPSSrVMI6FH3NAjuyXhPQq6PHAMWKeXpOhJrXbviXPsG7FjD3M8kWS
+ em8I8nVR/Q6v8Q5+Yzi/58MlI0QIMm1YXAmhZQR72WD9TalCx6DZq+xEXuoUsIMFjB9T
+ uBia/amJ1JWX1zKvhTOoVOwA32BlN1QL4HqCszbh8AQWpj5fo3VjAIM1JY9XCmK7RucF
+ Guf/gsMTzdCQDO/S71ig1+mPYiDvtuOBKwHprhE1r4qheDyRM8RNxnCWIfioF4WDA9qS
+ 9jT3O80uqw75DaiEQbEmnkU3jkaQwdMosv9AJD0nFsX5YJprqULp7ZpdQCSU+UUNIejl
+ eAAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752255868; x=1752860668;
+ d=1e100.net; s=20230601; t=1752255889; x=1752860689;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
  bh=u+ZM5SO8L4rZ2xYIS3dtWrMrDyHsyXlquIkrSDaXE+w=;
- b=eZ9yRoQP2Bg80AxY/2/fnorfW6Kmh0NUtwT2swyOoKOZhojZG/84O2sVzgcZFKZmAn
- MROeUlWCcgS/A1XRIJfBEnt2zgiEbjj+wN+jx/aJ8usJQQfrXKQzrKDCtEj8Kdaj29FA
- nHjXufjL40iRQknvIDtCCmLACX4GWfnMkJnHzQ6IOr2zxRIUub+je3NxG2MnFJpfBdyJ
- 2Pz0e4Vb14dee04dTKysCgXeFwiSC9eOb7Uqtfb+V02Gxuzh5c7tm0g7EC/iWp9whGWo
- iISnmx3470Qv16aPkYmOWkTUIjPW4+o8nYlsw3XjSyibSP5O2QQLjNfndrIXm0s++xsS
- Blfw==
+ b=qZOewoTUxQJxfU7QXj7H5uMuPzfUEiUjV2SpZWlfT/VTIgsekIBuqxxMhem+15O5em
+ q0cB47V2w8Oktofcy3umii6sKpkD241FwDcfWeNaOT+FXPxQXXl83/22rXZo8L7dA3Oz
+ 04EdEtux7rUU6ZK2agfBdOB+eNR+X8sBMyf3pAJ9RiA20fEKZUx07IKKZAuWrsZR8DXf
+ ngDGWAOzD6XQ8MsUdP/eYKBdkvz7Kt+88Zr5lkt9UWUJ/XeFWrHx3TwNnXu5Q3dT2Xgh
+ yeNAJOg0iFjqAEHElANHKAPQ9hzH09Sx1NJzK20xBiw5SAx5F34kzoZQ1d6/+eQtO4jt
+ 0sKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV23e8byVUaaOheLF5UnxK5mU9+L6yPg+s9LVxL1ZhYTAITA8DKPZbrN3sbqkb63MTvo3GgHx7Zr4M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2sjiz5NAoIG9r0NDeBni8sWZM7E46cbAFKxJVdeHrgJaJxGfH
- vpav7sJ4OTeT4ZLE+QyvLDRXnIQTyrAR2g22Xfr1jGbEHi3W7s7oASfawFOeNGNlYGiT0aAhe+k
- NvRV6yQ6IXgVR2SuqVX3zBXm0vmB0o7xY0uxBnZteBw==
-X-Gm-Gg: ASbGnctTPWmvsTZ5eA4cZi5DWzp4xSmmxLM/U+3pU9f048w4bgz3WdQsdh1M3sATe9B
- v07NDGz2KCj9uFM+7OefkRufKWL1VSBp1Uxp8r+D23IEhqtV76FhfyV/8w+9Xq774OvVlyMyHRD
- w0TVV6LUHe71JqidQO0Cx+VESgokLAXK7hefIZ/RQH8hmBag8VosqqT4UlORtsZmqgfHbF/u0tV
- 95Yauc=
-X-Google-Smtp-Source: AGHT+IHCwFbr6hM4SofCoKFNuaGsZexul62ZHJaP09xPkxTc5K3eZJNMRyy9Lqm+DJrLEpWrNm0Dt8rNW5UZHZ3ILnk=
-X-Received: by 2002:a05:651c:111b:b0:32a:6b23:d3cc with SMTP id
- 38308e7fff4ca-3305341163emr16031911fa.25.1752255868348; Fri, 11 Jul 2025
- 10:44:28 -0700 (PDT)
+ AJvYcCXPcgKXlh9P76kEkBGkJmVPlkzqMeccThvhkfqatIPtsL9sUQ+m0ZAeLafqcBSKDx1BJ+fpbBK4Cbw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxsXSQ4NrMP9yKZkqqOwBssoamLkJcbv5jF0q9ZOa6GKH6eDunH
+ FQe+QAOB+YvX/CLyWCjzWNK43C7SR5enKHVYO5+pU9TD7eAJXH5rmSf5MQEru11xwJTJCw7ah3o
+ npT+xAW+3ubl8wK3ORJ3lsYoaCZJTEctKxOCmMOQXhg==
+X-Gm-Gg: ASbGncvWLaD4z3E2NG3+8hMnYZmmab46o3y4dAvmRzSu+1nklDKLMUpyBQierpBgOE6
+ aE04KCLTYSPB8X7MCs1e0eI29vWUI6w+XZjYh5jcnUjEkl/3K0HMI/0XqCdTLeY2ZJBI0Lt1tIN
+ KCiwN+aF6tJtp0pqWduXKeOvZIUIbdzVXDFQDJC4EbnAgfnw7Wl4T7t7R/G00BYlIJ5wTn/9QSC
+ 5m9D0o=
+X-Google-Smtp-Source: AGHT+IH6ZOzBfHIgYUwgOc3NHyt2gji+Em8NzLEp8xFU4pLvltizLDn2SrTtw5BwtYgzrpRFDHd1anYmDStmm3/BYxA=
+X-Received: by 2002:a2e:ae05:0:b0:32b:75f0:cfa4 with SMTP id
+ 38308e7fff4ca-3305343ffbdmr14799021fa.25.1752255889239; Fri, 11 Jul 2025
+ 10:44:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
- <20250710-drm-clk-round-rate-v1-2-601b9ea384c3@redhat.com>
-In-Reply-To: <20250710-drm-clk-round-rate-v1-2-601b9ea384c3@redhat.com>
+ <20250710-drm-clk-round-rate-v1-5-601b9ea384c3@redhat.com>
+In-Reply-To: <20250710-drm-clk-round-rate-v1-5-601b9ea384c3@redhat.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 11 Jul 2025 19:44:17 +0200
-X-Gm-Features: Ac12FXy5w5LZfYTJ16GWumg6iWoXPYqfrbZ0euf79O43X2SKG618Bj4k3h1lAGY
-Message-ID: <CACRpkdZus86rP1BiSw2j24eaSuMrCEorZU9Rc4ouWmmz8iaqhA@mail.gmail.com>
-Subject: Re: [PATCH 2/9] drm/mcde/mcde_clk_div: convert from round_rate() to
+Date: Fri, 11 Jul 2025 19:44:38 +0200
+X-Gm-Features: Ac12FXxUNTUQvVOGg3MoOkpShRe7WywXW6kbpP4WvN3P-CcJwwv5gR7MoObTWCg
+Message-ID: <CACRpkda3R+2hhzvd+snkTGrRb-gZ8OUvzAhFE5Cg6yXfZ+E4nQ@mail.gmail.com>
+Subject: Re: [PATCH 5/9] drm/pl111: convert from round_rate() to
  determine_rate()
 To: Brian Masney <bmasney@redhat.com>
 Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
