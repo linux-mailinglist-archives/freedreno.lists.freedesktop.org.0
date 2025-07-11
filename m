@@ -2,122 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C59DB0195A
-	for <lists+freedreno@lfdr.de>; Fri, 11 Jul 2025 12:07:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADF78B022C5
+	for <lists+freedreno@lfdr.de>; Fri, 11 Jul 2025 19:40:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 032EF10EA0F;
-	Fri, 11 Jul 2025 10:07:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84D1210E3A9;
+	Fri, 11 Jul 2025 17:40:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OX36XM2I";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z0hYY/nr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6164B10EA0F
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 10:07:23 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56B1XJdN030508
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 10:07:23 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3802410E3AB
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 17:40:45 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56BAC0al023233
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 17:40:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- hk3nB5hWTU3eT0rJpe16RuFw4gADrZf69fEfZrrhc2E=; b=OX36XM2IQUjYjYLC
- L4JqjrIbaAKVweFxyeSK4wN6dvE5lT3qkwMV3183xhN+svzUylTx27sH8vR82D3X
- +LLBCt3WcV84TxXekS8/MyTWVz+kG7i8lcJt1qytO7ynWUTB6CoX424yAETo2RPN
- GI1G4svg4yTDq7t8w6NYEOGIeuqdE4CpsJx2rPk3W8hASUpbrsZ5hZMLHFvFEjcO
- qMrGz9PAdsny5U4hNRfrPN78cKVMWMC20zXUTrBtgBIHofaJlF3THCtJLJR0Aaz0
- NXLzVJqw4XPu6CKZO3k7OtEdmuwugIMMcajabtwMwsh5H18H7CiEmLAZ7qq3ppHe
- i+HmWA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47smber7v0-1
+ bSezsz2wXgTichUOuspk0FPIeAlYJ0bxEsO1UFLnzmo=; b=Z0hYY/nrrlBJik1F
+ 7yVA9QtxJ/aLHlPP3bPTJNmgQW8BOtB00MfHuN+TPuQ25N6Xnxdg3IIMvQVUIdye
+ 8uYP/8m/HLTjESmX7YB5xmzsKbXegTBa6ZUTYPE9mZMjbGDu6zehHid3jjkpfaeU
+ ING/wn9fJk2qWAPky4kOim61wZN/5CGU/hJ6nmaZsYdwzEpy6/guCmzDQ5C9KwmK
+ FT98QK5OWkFLdIuXrn7Amezke6MP7jozasPWMiZk5Shh2/fNCcZ6w2dEd3FKLVT5
+ 42f/m3JjCzgarYVIdTxvlF0KjTGT4yxcKhxrd85NIZ1HL5ToHqPTbFsJZfl2TKUD
+ O7llpA==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47r9b1adx6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 10:07:22 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7de3c682919so17856885a.2
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 03:07:22 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 17:40:44 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-23dc7d3e708so14365215ad.3
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jul 2025 10:40:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752228441; x=1752833241;
+ d=1e100.net; s=20230601; t=1752255644; x=1752860444;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hk3nB5hWTU3eT0rJpe16RuFw4gADrZf69fEfZrrhc2E=;
- b=PLWrYgRyHU7YCCVWBv2af2A2WKd6ov8hD72zokJ1KyZyjoqijFcWCSIA/K9QkzmpWm
- ucC+r/BBwn9E/pNyDGt4xJ40r3L1Q2ssQbHLD4aELdPu0l2725GtrO+uPwPLJvTDhcfL
- N0CF4NAhNX1vugrSodAQJqECItALdPEYlLUdL2G08ccymFeiKrh8/Y8XIjRwsI2Gp3Sz
- u5K0oMlPDvIlXL48XikosbUQT04NUQaYmjxJlKQCAxmbFIbFJsKliUQi14tPR+/5WzVT
- d0lhb2WA7zRl0CkLRdtohb2HJ7QIU7fAbOqtrrwZTNCNWkc+6THXgfTgQhl2OY61ljKG
- wemA==
+ bh=bSezsz2wXgTichUOuspk0FPIeAlYJ0bxEsO1UFLnzmo=;
+ b=i1QISVnYt444edbOczRcI4yvH5xAqe3HPY0evvnVPetJQifDDvcCbSc9ry457XpKgX
+ 5KjIgy0nH/+zArnEOpHQilUMgvttr9jOpIAFJfcDhgo32nZGPw6sL+H0QtlGUzyNZCMQ
+ qSvAoci2Naki+LoaKT5FAc/Ab67ExigkKfGEt1wm6XQTx45pi/0wOj/+CoHptuo/hgST
+ IKhtwm/LVX8wBFNtFdGmdpe7L7cKGWXJDf8EXQpYSYKhidglBlUgoRYXnEaP1nG4y9Su
+ dvjOuMbU4d3vGY7wNwzZ0MLo/mQpU7wt0C3gatKvpJDv5MPSii6Zu3IxBUUp+UuZTJSl
+ FWdQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUs7ic+WbDjqcQTzr2wc6Mp1+mS3h5zWFWeb24KLz5zbRD8ah/TbBNdOPRHqHKdyhJLFUWCJg7GuC8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwfUEX+S0+8BN6cv0pztHio9Iewf0SpH3NN3l1D3afZOZ+B/Gc
- +PSzFOFwoCQFEZzmTFaz72FR9735iw/uH0ny+8Rlyz8CzS7AIIcOcq7Ii1oG7MqjHOG8fmsDj7z
- jN5gn2zlBIucNW311xeIVxw7/4k2aBIojtc5fi9zypqy2Kdkh0AE9FYyzhiv/KNEcjC2AkO0=
-X-Gm-Gg: ASbGncudAVW3VfMj0C9QGWuzpkmte3fFXDYySbH0K89AcvZ/msx7dpsQW66ab3dj8fX
- Oa1yrBwimtle/nO1nNSNkyXJUoxFnqQcqQ/NO5IP8mr5fX5KN7vIscfNIvlJbTdWaMKIitmnlJP
- AQUx3XAfF9FUZ9pGpjxpxNWJmrTf72k+9O9UZYXBnwPpqbqh3cxiNStZf8AdE9bESA5aeTuqjGm
- MinkmBshCvVS7nStXlTN5iaR/phnuxp+8nZvlN0ZnGrn6G+695aHt8RFscdcZZe8fXaUBT0+8RN
- SGBJQeUH5OMwDAG/EdmhnEIyKehbqkZfu/9Bhjhz33/VCYkgRAKqt7KdzEhDnDIEXyIULv2z4za
- VJnAYXnI7dq2aSQyiApcW
-X-Received: by 2002:a05:620a:1a23:b0:7c0:b43c:b36c with SMTP id
- af79cd13be357-7ddea4222a1mr161754985a.6.1752228441496; 
- Fri, 11 Jul 2025 03:07:21 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHrWNOlRhFuBEfA5EPZynQzF8v5JBD8YYJNHk12CZDzRYg39rtNgm6sSnObsdsSkGwVBUSA2w==
-X-Received: by 2002:a05:620a:1a23:b0:7c0:b43c:b36c with SMTP id
- af79cd13be357-7ddea4222a1mr161752885a.6.1752228440873; 
- Fri, 11 Jul 2025 03:07:20 -0700 (PDT)
-Received: from [192.168.143.225] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-611c952b753sm1992960a12.31.2025.07.11.03.07.18
+ AJvYcCX9akRZynZxZNHgOvtibcpa03yID5AgTTxe3PJJ3xuzU8hUKrJBxnB8ZwBiBWakv0FzKIcP0nvvbmw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwlyE7aclh9Ac9A29/ZdOAI8yKn/vzUaZP/SlEx+/2gI1Tqj3Gu
+ BQ3btA0iKUqJJ/eaqTl/n7F17o602Mq6JyES/uBV9bm+uj3i2/t38ACymbSki0aYuikEpzPkbJo
+ PQ5du3vsMAWETGlqnUKlLn85As9Vt5LR7WhT0qjn46oiBhl+rRZihX0XPaSHGZ6RfkLHMXq4=
+X-Gm-Gg: ASbGncujZ1Ub0unazoNKetzfbkyYCjSdv9ogrnObTtoLQ6IA345Q+2sJSBNx5FSLisr
+ hQT9G8JsuyqKC1V0WlgZM373B+Jsg17b/HQl/wnVctQ+kt9D4P/mhw79J5ZRhbNR1i6vTFY5s+8
+ muWaOp1qbJA9DkF49YnxUSJ0nNYkL74F0mLnMtHklClCmwIr7jcPoPyAYNVf0D69ngsIzIrnL4/
+ PFwOflcNZTN7LlEdXeeqNCd/uJQnIJdcDrgUppd3H620aB4SbeYHJ8cXu4i5BHVhxf6/f/7VtmZ
+ lbt0nWon25m565+L3DXFIQkSGCai7XoXuY7u+xgDUBWuuf8d9HYv9YWjOGAJgiTfvhOL9qF7Lcu
+ TLILrb0ygkEGvyp8cI0dkYg==
+X-Received: by 2002:a17:903:1a0b:b0:23d:ed96:e2b6 with SMTP id
+ d9443c01a7336-23dee2a09c6mr60377085ad.44.1752255643664; 
+ Fri, 11 Jul 2025 10:40:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEdn8HQaoW/XQ9oZfpcgpjf8lK7LzxLVyZK79thkB/L5CABuXts7BBynHCZ1AX8U9kj0TvvpQ==
+X-Received: by 2002:a17:903:1a0b:b0:23d:ed96:e2b6 with SMTP id
+ d9443c01a7336-23dee2a09c6mr60376615ad.44.1752255643074; 
+ Fri, 11 Jul 2025 10:40:43 -0700 (PDT)
+Received: from [10.134.71.99] (i-global254.qualcomm.com. [199.106.103.254])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23de42ad295sm50602615ad.81.2025.07.11.10.40.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Jul 2025 03:07:20 -0700 (PDT)
-Message-ID: <f754d2d1-689d-4681-8cdf-9e1e5daeb6f4@oss.qualcomm.com>
-Date: Fri, 11 Jul 2025 12:07:17 +0200
+ Fri, 11 Jul 2025 10:40:42 -0700 (PDT)
+Message-ID: <fdc5c2a6-1df8-41b6-b0c4-5557f8e5d720@oss.qualcomm.com>
+Date: Fri, 11 Jul 2025 10:40:39 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] drm/msm/dsi_phy_10nm: convert from round_rate() to
- determine_rate()
-To: Brian Masney <bmasney@redhat.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
+Subject: Re: [PATCH] drm/msm: Fix build with KMS disabled
+To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Arnd Bergmann <arnd@arndb.de>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maxime Ripard <mripard@kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20250710-drm-msm-phy-clk-round-rate-v1-0-364b1d9ee3f8@redhat.com>
- <20250710-drm-msm-phy-clk-round-rate-v1-1-364b1d9ee3f8@redhat.com>
+ open list <linux-kernel@vger.kernel.org>
+References: <20250709140838.144599-1-robin.clark@oss.qualcomm.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250710-drm-msm-phy-clk-round-rate-v1-1-364b1d9ee3f8@redhat.com>
-Content-Type: text/plain; charset=UTF-8
+From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+In-Reply-To: <20250709140838.144599-1-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzExMDA3MSBTYWx0ZWRfXzWJw5ELenSn/
- HLzSRZyozMQs/TyRxpXlCVyLEhWJ56ay6L5fk4+drlLxwD+XHjJgeUWp/qMuqzBIi3AiRfZPoal
- c8iEND/vD6CdfmILLRn92sQ6EYdnZHvek2JgLFPfQ4NTh+K9EsLi9XVTU9F2H67z3IcFSUfnCfr
- kxLSO11kpxQeyTftrZbrZCa55/Pr/iaglXWO3xBU14haLPMp2my51ULSRt6XyEytrTRetbPhSgZ
- q/3vO0yFM7n3/d7TF4S0TADnNprBaO88MaG+R8ss/xOCGHiN1jtqHuBx5ZXms3M4yammrt/Exqs
- Lxegfvm6ybfjy0AJ0meA0f7UqZUDIn8lYAbvywuOb/RamTgo3cEnpyYXr+mcQZqmh5SqED/Q/7a
- zcaJQ8nELJfK5VeimaSix3hYl5H/btm5Mk5RWqxBAcwRTcuwJiSDJM59MhXpdYBBjvTOuLcZ
-X-Proofpoint-GUID: IfhjImJAbkwjZbO5Kqf4e1FQTX3_w36z
-X-Proofpoint-ORIG-GUID: IfhjImJAbkwjZbO5Kqf4e1FQTX3_w36z
-X-Authority-Analysis: v=2.4 cv=VpQjA/2n c=1 sm=1 tr=0 ts=6870e25a cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=20KFwNOVAAAA:8 a=oYwTbBpYGhGVpGtzMvsA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Authority-Analysis: v=2.4 cv=dYuA3WXe c=1 sm=1 tr=0 ts=68714c9c cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=Mfb-Jb5ACYakjZQR0UMA:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzExMDEzMCBTYWx0ZWRfXxlUd3MHwlUZ8
+ cZzIBSsgczcSU0BEMQCd+qDmzqLbK9Onu6p9b9DmeUCJj0nHm3NkkJfXT40xkrY8J6OLXF2p7TP
+ +YU/Y02VkyAbkTrQV8VuVYHr+NC31ion2QRyN+cZYTnHFqwGSrSopsjYe6AJ9ieP2Cs4HJ9Swnf
+ qKJfQaDYZ70LnH6eTgbNVBYTpQm3Run+STFMOEwBfhFdsiOIDSxWFV9MphmQXuWSGLrDBFT+kSH
+ b0oc+Cr+mcMtnrYIZynli+YOiOsupcIxN8bsGdwjGFr+ZnW8y60ha+9pD45jNPwHd/ombiUR2kp
+ 656+bij9HZa8ddjRDvFD8AtUZ8HJMvEHTtMgSHOZJm1JauanmnwRgpYzUU1Dyk/bW1bZsMygY44
+ Pd3ygH8+yKrp5xs3n5nKlgHUdfkxYMyPM5EpahuSjvgFVQmaGwFCWM9yKDAcKMyTMOJH5x2n
+X-Proofpoint-GUID: OPszPrytmW3xcBEhdZjq-MwRsYuyVJtY
+X-Proofpoint-ORIG-GUID: OPszPrytmW3xcBEhdZjq-MwRsYuyVJtY
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-11_03,2025-07-09_01,2025-03-28_01
+ definitions=2025-07-11_05,2025-07-09_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0 suspectscore=0 clxscore=1015 impostorscore=0
- phishscore=0 mlxlogscore=999 lowpriorityscore=0 adultscore=0
- priorityscore=1501 bulkscore=0 spamscore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507110071
+ phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 adultscore=0 mlxlogscore=999 malwarescore=0
+ mlxscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507110130
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,42 +127,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/10/25 6:27 PM, Brian Masney wrote:
-> The round_rate() clk ops is deprecated, so migrate this driver from
-> round_rate() to determine_rate() using the Coccinelle semantic patch
-> on the cover letter of this series.
+
+
+On 7/9/2025 7:08 AM, Rob Clark wrote:
+> When commit 98290b0a7d60 ("drm/msm: make it possible to disable
+> KMS-related code.") was rebased on top of commit 3bebfd53af0f ("drm/msm:
+> Defer VMA unmap for fb unpins"), the additional use of msm_kms was
+> overlooked, resulting in a build break when KMS is disabled.  Add some
+> additional ifdef to fix that.
 > 
-> Signed-off-by: Brian Masney <bmasney@redhat.com>
+> Reported-by: Arnd Bergmann <arnd@arndb.de>
+> Fixes: 98290b0a7d60 ("drm/msm: make it possible to disable KMS-related code.")
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+
+Reviewed-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+
 > ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
+>   drivers/gpu/drm/msm/msm_gem.c | 9 ++++++++-
+>   1 file changed, 8 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> index af2e30f3f842a0157f161172bfe42059cabe6a8a..d9848b5849836a75f8f6b983d96f8901d06a5dd3 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> @@ -444,21 +444,21 @@ static unsigned long dsi_pll_10nm_vco_recalc_rate(struct clk_hw *hw,
->  	return (unsigned long)vco_rate;
->  }
->  
-> -static long dsi_pll_10nm_clk_round_rate(struct clk_hw *hw,
-> -		unsigned long rate, unsigned long *parent_rate)
-> +static int dsi_pll_10nm_clk_determine_rate(struct clk_hw *hw,
-> +					   struct clk_rate_request *req)
->  {
->  	struct dsi_pll_10nm *pll_10nm = to_pll_10nm(hw);
->  
-> -	if      (rate < pll_10nm->phy->cfg->min_pll_rate)
-> -		return  pll_10nm->phy->cfg->min_pll_rate;
-> -	else if (rate > pll_10nm->phy->cfg->max_pll_rate)
-> -		return  pll_10nm->phy->cfg->max_pll_rate;
-> -	else
-> -		return rate;
-> +	if (req->rate < pll_10nm->phy->cfg->min_pll_rate)
-> +		req->rate = pll_10nm->phy->cfg->min_pll_rate;
-> +	else if (req->rate > pll_10nm->phy->cfg->max_pll_rate)
-> +		req->rate = pll_10nm->phy->cfg->max_pll_rate;
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 33d3354c6102..c853ab3a2cda 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -96,7 +96,6 @@ void msm_gem_vma_get(struct drm_gem_object *obj)
+>   void msm_gem_vma_put(struct drm_gem_object *obj)
+>   {
+>   	struct msm_drm_private *priv = obj->dev->dev_private;
+> -	struct drm_exec exec;
+>   
+>   	if (atomic_dec_return(&to_msm_bo(obj)->vma_ref))
+>   		return;
+> @@ -104,9 +103,13 @@ void msm_gem_vma_put(struct drm_gem_object *obj)
+>   	if (!priv->kms)
+>   		return;
+>   
+> +#ifdef CONFIG_DRM_MSM_KMS
+> +	struct drm_exec exec;
+> +
+>   	msm_gem_lock_vm_and_obj(&exec, obj, priv->kms->vm);
+>   	put_iova_spaces(obj, priv->kms->vm, true, "vma_put");
+>   	drm_exec_fini(&exec);     /* drop locks */
+> +#endif
+>   }
+>   
+>   /*
+> @@ -664,9 +667,13 @@ int msm_gem_set_iova(struct drm_gem_object *obj,
+>   
+>   static bool is_kms_vm(struct drm_gpuvm *vm)
+>   {
+> +#ifdef CONFIG_DRM_MSM_KMS
+>   	struct msm_drm_private *priv = vm->drm->dev_private;
+>   
+>   	return priv->kms && (priv->kms->vm == vm);
+> +#else
+> +	return false;
+> +#endif
+>   }
+>   
+>   /*
 
-clamp_t() smells better for this series
-
-Konrad
