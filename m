@@ -2,119 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67FD8B043AA
-	for <lists+freedreno@lfdr.de>; Mon, 14 Jul 2025 17:25:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94BC8B0469B
+	for <lists+freedreno@lfdr.de>; Mon, 14 Jul 2025 19:36:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2AF10E4BA;
-	Mon, 14 Jul 2025 15:25:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 547F710E08E;
+	Mon, 14 Jul 2025 17:36:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kNhQqIjo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bacon7nz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA27210E4BA
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 15:25:28 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56EF6njT008136
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 15:25:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6LV0K5UJorWZ+7uM8Thq68wdIY0Xdv/k6eWXam/eClc=; b=kNhQqIjoc5cCmRQ7
- wdc6TlBQ7yruYBIu3W+dQihuwiFn+tK6s4LmFT0vP4gI2Q1PQWK9xiVEVvN1HFnf
- JBou7nxc43Fg3nl8pLI1ta7dTzm5nRspNy0P3KOlsD1nu9CpxIT+ZbWgKyCyYrMs
- fPRJlB5TOlY7F7uwC+4hoo4zT7ToA9BETKyikjMRlHoXc8DltnFt2lQmQ/m/zJbe
- DaZcNUVamVB+VoSCsr3Q4LdyQX3tXnbEyNIfej5VPAnSfd6ektwxfHwOxL+NOUKn
- 92seAj5xxzqlrbIVpkhLpwbKfiJYbUTWnZCAwbuu5ZPZyBRq09Ktx4T8Pa8P6aTo
- kfZmEw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47vwghhdcv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 15:25:28 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7d44a260e45so807722685a.1
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 08:25:28 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC6BC10E221;
+ Mon, 14 Jul 2025 17:36:26 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-3a6d77b43c9so4069867f8f.3; 
+ Mon, 14 Jul 2025 10:36:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1752514585; x=1753119385; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=87+Ndx4tU3Bc/RBm9y43dq54vArNIkAlt17RzyhLMK4=;
+ b=Bacon7nzDkjDPXbM4L05FXSsiDFvFv6e/5jOng714XD8n9smus/H7toT9zmjiRefFd
+ Xov45JtmH+liBKDygyVvDWhM2jNFr7iiwuV3g5LwfSg1zhemnknw0IMw5MuQXwnNL3QG
+ mKLV4/OonBvyZ5n1CqXFjsCJHWHe5Ir9/HTnpCanvh3kPc8MUvtzrRNFGqzP1g6XMVFt
+ tSybsPzB9GmDMbj9ITrpEcNTizHK3IOFmqulzDDggUKhFeKMMlXosJXqO+b6/aTVEGW+
+ 9VTUG8fI/p5rr9sP1QG4NBFfccefrW33MFKjT6sjdzF8P+Y7nLSLZF04puF00HUKTEhl
+ gxqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752506727; x=1753111527;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6LV0K5UJorWZ+7uM8Thq68wdIY0Xdv/k6eWXam/eClc=;
- b=aGwuZti/VjckmJG+5UmiCHb+HHcHdjzKNaVHKtA60l4ADIvHnzJi2/4sSpuoJb3j5D
- ANvyPPS5U5o9KGnRvWhWDvskrV5Fto4fA6iB0koJDrpWk7/j9BO2ds7Aa1NSBNQxBVvK
- TLzGgkstJ3UhF9PcvPdaIQpCx4Fy7XDIK/QSi0qGaDwtS7dazQTRd4x02z12FcgaWr+g
- Rg8bzFRmucjuZUJUC+OVKM5h1jkoIe9aM3Szroqu8iqial/Z0IZpI55EPXEC3RLafmZ5
- krTC73b/4MZt+BqluYU2lKZD8vq6VG5qfRC45klnaxaugkFOIRY6R2M31NdRaYgfsBeX
- fEAg==
+ d=1e100.net; s=20230601; t=1752514585; x=1753119385;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=87+Ndx4tU3Bc/RBm9y43dq54vArNIkAlt17RzyhLMK4=;
+ b=YfeW9IXz6Rl0DtAxvK6MzqjkgGxai/En6FwtX7yU4gVe2avF76gA8g2hmErUJYcCQQ
+ exVOhIo7X1+wNA4u/Dti6Df37QJQSRmehkO4czrVZeQodbuhMGKWPL6thTJmpguwMflK
+ NeQVEDJ9yOSa4SLccYoiZqiZiEnAqNwW1bRZ0Y/g1kE9F3z78LmLym8goYPOpU9PNyEQ
+ sgbu4CbofhB3Wh73cxabsgR97xyM6K2RwzdLJU0VfAkxzxGzR0hB/DtGAfTP4o9HlVy/
+ HhB+jkvTtUETTztpltXPwoimPm2ZrkULY73VvPf3JZEimSUKg0qLCu3DS0PzVbPG28S5
+ 2/RA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVbqw++JGVt+xmNE3/WhyLQFFf16Fu7kqWSv7ikwhhG1WECVMSeMpapGlFKrQmdWmfXq1DjiCvzC8Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRlEMkKcobFys9AbQ/qWFTr2BD3T0T/EWy5xuZlpSSf/dTGOTS
- oOBF+hJHahCXQb/JnBXGKz7/sCuzfj8PROKhz2lbavIT3iv7uhL5/LIEKZcjg/9NoOGN0Vi15bn
- D8jfEs1kXkTebLZ4NKcyxbGJ9ITJKQRwoJe+iaPOj8jNWaeLdpRzJx84Px486jWFnHYJXPXE=
-X-Gm-Gg: ASbGncsP+9+e0EFrMIiXpU+G/GrlSiKLlLjgNX+00C3do8U33HckcK3rwqTIKe1kyDH
- jVUC3bQXGns5lkxWXLktcvrJijdw4JslnJEdOHDgWPbwxRQ/mFkH8hoPIt/JJJjdljXpfKGT5m/
- NwSh+1rTCc8qcaG6G/qYKvsV30s0TSsemNi584j+AkAk1vi+IBJnGUj6kW5JNnxms50QdLJi6SQ
- rUPM/w1a3n9cgPS1Q7KCyAE91LPqRvwWKYEOMhpic/A4Y3NWfZaoPHyGFkpvUnaOBLl2D9XeOAZ
- fYewd51OiHYUWL59eMLISmlvzqgTVgtzlP7XTuCzEIWThcFRxmtR2EaV1LlG3c4H2lu/CRjSTXA
- ydF4GYDKEs5uWWK36z/bphC0BKoU3pfib2pxB1holGc6lsPWxI7do
-X-Received: by 2002:a05:620a:ac18:b0:7dc:b8aa:d093 with SMTP id
- af79cd13be357-7dcb8aad0d6mr2168478285a.20.1752506726820; 
- Mon, 14 Jul 2025 08:25:26 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFwZ25/ylUQ3528GkME7MJF3ljBMaRtFCayAvIoA9pqD+T/SbwujgEb5PAw4osLJdBxZhSxNw==
-X-Received: by 2002:a05:620a:ac18:b0:7dc:b8aa:d093 with SMTP id
- af79cd13be357-7dcb8aad0d6mr2168470885a.20.1752506726150; 
- Mon, 14 Jul 2025 08:25:26 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCUBeiY/Q+RWeknqVpZtpB3U/TsR5p4ZIA1bxCp1g/4WujoQoJSyaxj4wrIgbFMacEJvhKwCvmY+7sdm@lists.freedesktop.org,
+ AJvYcCVCbQ9Tf+Oavo2ZaS87Wx8OmqqOsRQkrHmPp5UBoFS0b6mCmwl8Ig4bbW9Y3QCNLZPW61QVt7+0Oak=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyfZNhXLFowAQW9wp6q113d0zQ0MeXOa/sHjSYNk2XlMy2hS7Q2
+ 1Rb3iiPnFuWB1/Ae56kRMAO019MJpEhMm7MZh6rlsxiCnnXQ7WPwt31b
+X-Gm-Gg: ASbGncuWlNCTsFJ+pe7+O759BquhncRSe0tK78FVMTfuUNSpwT09gMjcaqJ2cjDDgo6
+ madhm+ofiA8Xo9wuoeTEk2m0tVt7/hFBvxVZm7WJQTW5D1wEIy/5rIPwnGIXRiYXTjG2A4mli9U
+ ziEDnPO9UYVG0nHaXJ4/LjSZTfsxCsTqs0opSZwTaaCUp/XVI4cuNEndPdVYINAOPghAxgQL8EZ
+ 3F2cUOAIGEhFuzqiG6yR8onCEZFDCB4SPhKt0PDaam3BmEyYZs20GK3usjZORWlFxVi2G1zFF7N
+ YE1KsyQwIJ4m8g0NBLYMACYNCl3txK/iwX96wfzizB5YZ5Kcym7W0QrTUZ4vg4y7HvWsq922P+U
+ 2G4XSGImDoovjoo/lhuBwBHHc4JMsTxIoYV+yCzcxcJPPgg==
+X-Google-Smtp-Source: AGHT+IHwE5k8y6WgeeHHGTBoqTHW3b9d3pXfevxQkkUzEV8uufq6SNg+JFLfpZe/W1mCrWg4+Y19GA==
+X-Received: by 2002:a5d:5f49:0:b0:3a3:6e85:a529 with SMTP id
+ ffacd0b85a97d-3b5f18f80c5mr11655696f8f.51.1752514584561; 
+ Mon, 14 Jul 2025 10:36:24 -0700 (PDT)
+Received: from alarm (92.40.201.95.threembb.co.uk. [92.40.201.95])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55943b87bcasm1975359e87.250.2025.07.14.08.25.25
+ ffacd0b85a97d-3b5e8e0d872sm13152531f8f.60.2025.07.14.10.36.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Jul 2025 08:25:25 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Andy Yan <andyshrk@163.com>
-Cc: mripard@kernel.org, neil.armstrong@linaro.org,
- dri-devel@lists.freedesktop.org, dianders@chromium.org,
- jani.nikula@intel.com, lyude@redhat.com, jonathanh@nvidia.com,
- p.zabel@pengutronix.de, simona@ffwll.ch, victor.liu@nxp.com,
- rfoss@kernel.org, chunkuang.hu@kernel.org,
- cristian.ciocaltea@collabora.com, Laurent.pinchart@ideasonboard.com,
- linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/2] Pass down connector to drm bridge detect hook
-Date: Mon, 14 Jul 2025 18:25:24 +0300
-Message-Id: <175250667117.3567548.8371527247937906463.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250703125027.311109-1-andyshrk@163.com>
-References: <20250703125027.311109-1-andyshrk@163.com>
+ Mon, 14 Jul 2025 10:36:24 -0700 (PDT)
+From: Dale Whinham <daleyo@gmail.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ freedreno@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+Cc: =?UTF-8?q?J=C3=A9r=C3=B4me=20de=20Bretagne?= <jerome.debretagne@gmail.com>, 
+ Dale Whinham <daleyo@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Jeff Johnson <jjohnson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Maximilian Luz <luzmaximilian@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 0/9] Microsoft Surface Pro 11 support
+Date: Mon, 14 Jul 2025 18:35:36 +0100
+Message-ID: <20250714173554.14223-1-daleyo@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=EbLIQOmC c=1 sm=1 tr=0 ts=68752168 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Wb1JkmetP80A:10 a=0YRiGFPyvPvEouyWwLEA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: v2xNl3-itOGhZ2sfJ1aoJP0wysl7MHVf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE0MDA5MiBTYWx0ZWRfX6ifFpT/OGqPV
- AOdcKSpbBECJ08anh5B626euDXDb+HZH0gitZGmErpbZWLgR3hDlz2z1vwtJCK/RDoaCh0TLvdL
- Z6iJ6roXJh0N/uf0QCVlw86Ep0X8YekOgBXcAAb63Erc6/rvO2GodH/hGOc7dxJSp4SZ3weszLw
- g+jXTzxsYp8U/DQk0+7iLEeTHvSfh7zWgUF5dxFyR4Bibw4AzTzMyNSmTp59W1C7+vUdiV93/fF
- 3Ytw58b6X7UmYItxpCLbXak6il67eifqrhNzMUJqtmBYR6qTNVlXWN4ZAOxQe8uBQZwkGZ1SJy4
- FSv69SuoXx4fRCeZDbqAPhj6tUY82GZ7s70Kp0x4LX/i8d7gutA8FttWMMoL4SIoWunyqu8iCLJ
- ebddQ+2T48AyvfhnnUfV7xFnojWTa96kGlAMoxSAHETL2dVum32vAHY9A/A1zyEV/VaKRz4v
-X-Proofpoint-ORIG-GUID: v2xNl3-itOGhZ2sfJ1aoJP0wysl7MHVf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-14_01,2025-07-14_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 bulkscore=0 mlxscore=0 suspectscore=0 impostorscore=0
- adultscore=0 phishscore=0 mlxlogscore=999 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507140092
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,27 +110,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 03 Jul 2025 20:49:51 +0800, Andy Yan wrote:
-> In some application scenarios, we hope to get the corresponding
-> connector when the bridge's detect hook is invoked.
-> 
-> For example, we may want to call drm_dp_read_sink_count_cap(which needs
-> a drm_connector) at the dp deteck hook, intel_dp and nouveau_dp do this
-> at it's connector's detetc_ctx/detect hook.
-> 
-> [...]
+This series brings support for the X1E80100/X1P64100-based Microsoft
+Surface Pro 11.
 
-Applied to drm-misc-next, thanks!
+Patches 7 to 9 are included as RFC as we are unsure of how best to
+achieve the required functionality, however the implementation is
+functional.
 
-[1/2] drm/bridge: Make dp/hdmi_audio_* callback keep the same paramter order with get_modes
-      commit: 02bb63d1a59341032b8e7e4021e18d044bdb1786
-[2/2] drm/bridge: Pass down connector to drm bridge detect hook
-      commit: 5d156a9c3d5ea3dbec192121259dee2c2f938fa1
+Dale Whinham (6):
+  dt-bindings: display: panel: samsung,atna30dw01: document ATNA30DW01
+  firmware: qcom: scm: allow QSEECOM on Surface Pro 11
+  platform/surface: aggregator_registry: Add Surface Pro 11
+  arm64: dts: qcom: Add support for Surface Pro 11
+  wifi: ath12k: Add support for disabling rfkill via devicetree
+  arm64: dts: qcom: x1e80100-denali: Disable rfkill for wifi0
 
-I fixed the building of cdn-dp driver while applying.
+Jérôme de Bretagne (3):
+  dt-bindings: arm: qcom: Document Microsoft Surface Pro 11
+  drm/msm/dp: Work around bogus maximum link rate
+  dt-bindings: wireless: ath12k: Add disable-rfkill property
 
-Best regards,
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ .../display/panel/samsung,atna33xc20.yaml     |    2 +
+ .../bindings/net/wireless/qcom,ath12k.yaml    |    3 +
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ .../dts/qcom/x1e80100-microsoft-denali.dts    | 1341 +++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ drivers/gpu/drm/msm/dp/dp_panel.c             |   13 +
+ drivers/net/wireless/ath/ath12k/core.c        |    3 +
+ .../surface/surface_aggregator_registry.c     |   18 +
+ 9 files changed, 1383 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e80100-microsoft-denali.dts
+
 -- 
-With best wishes
-Dmitry
+2.50.1
 
