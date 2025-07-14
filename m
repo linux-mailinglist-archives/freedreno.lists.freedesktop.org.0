@@ -2,96 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94BC8B0469B
-	for <lists+freedreno@lfdr.de>; Mon, 14 Jul 2025 19:36:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B042AB0469F
+	for <lists+freedreno@lfdr.de>; Mon, 14 Jul 2025 19:36:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 547F710E08E;
-	Mon, 14 Jul 2025 17:36:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6658C10E221;
+	Mon, 14 Jul 2025 17:36:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bacon7nz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P5HJx/bi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC6BC10E221;
- Mon, 14 Jul 2025 17:36:26 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-3a6d77b43c9so4069867f8f.3; 
- Mon, 14 Jul 2025 10:36:26 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EEC010E221;
+ Mon, 14 Jul 2025 17:36:36 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4561607166aso11643455e9.2; 
+ Mon, 14 Jul 2025 10:36:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752514585; x=1753119385; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=87+Ndx4tU3Bc/RBm9y43dq54vArNIkAlt17RzyhLMK4=;
- b=Bacon7nzDkjDPXbM4L05FXSsiDFvFv6e/5jOng714XD8n9smus/H7toT9zmjiRefFd
- Xov45JtmH+liBKDygyVvDWhM2jNFr7iiwuV3g5LwfSg1zhemnknw0IMw5MuQXwnNL3QG
- mKLV4/OonBvyZ5n1CqXFjsCJHWHe5Ir9/HTnpCanvh3kPc8MUvtzrRNFGqzP1g6XMVFt
- tSybsPzB9GmDMbj9ITrpEcNTizHK3IOFmqulzDDggUKhFeKMMlXosJXqO+b6/aTVEGW+
- 9VTUG8fI/p5rr9sP1QG4NBFfccefrW33MFKjT6sjdzF8P+Y7nLSLZF04puF00HUKTEhl
- gxqA==
+ d=gmail.com; s=20230601; t=1752514594; x=1753119394; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BtITE6KgMoS3AhCyG7ge+r6WLj1yPmuHodNoaoo4KmM=;
+ b=P5HJx/bigD4Fc2V46Rtf5jnblftv/DdG3skPSC1Z8wGhcVZv5JJrDnC5kj4pdfCtC7
+ MU2qwJ43yb0oWeji2NRWDAuKrH3hSHSVDOxWPnZAhZ+BQupz85dWPH180RzkQPCCtIeh
+ YUbRsaF2DA3qZ474GSz86DCGyEHIL3zcbt7XCSQN4QwKtWyBbnox5TFjZRkBEui6e15k
+ azBOOkiXQWW4XXRP6L9p9fjk2xQoaoQe7kW1uAZIejdAIHN3AiebuGGwbt3ANK5UAHeP
+ EwydZIPxjKxJeUysWI1GjRdgjElQgA+8giaR4hKU0RsIKQTmnLzvXSqfMjqjXRi8dYHC
+ W4qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752514585; x=1753119385;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=87+Ndx4tU3Bc/RBm9y43dq54vArNIkAlt17RzyhLMK4=;
- b=YfeW9IXz6Rl0DtAxvK6MzqjkgGxai/En6FwtX7yU4gVe2avF76gA8g2hmErUJYcCQQ
- exVOhIo7X1+wNA4u/Dti6Df37QJQSRmehkO4czrVZeQodbuhMGKWPL6thTJmpguwMflK
- NeQVEDJ9yOSa4SLccYoiZqiZiEnAqNwW1bRZ0Y/g1kE9F3z78LmLym8goYPOpU9PNyEQ
- sgbu4CbofhB3Wh73cxabsgR97xyM6K2RwzdLJU0VfAkxzxGzR0hB/DtGAfTP4o9HlVy/
- HhB+jkvTtUETTztpltXPwoimPm2ZrkULY73VvPf3JZEimSUKg0qLCu3DS0PzVbPG28S5
- 2/RA==
+ d=1e100.net; s=20230601; t=1752514594; x=1753119394;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BtITE6KgMoS3AhCyG7ge+r6WLj1yPmuHodNoaoo4KmM=;
+ b=KtVIXqWQY68RqvIZ6hnb0dnDYKsoQMt056NWw1p2NHDNM/jTD9aTNG8bA2YRn4zL2y
+ 0CbOfMSdAgFCwVjMHnBAsPdye60G7uCN30WfaR36MPPUg3Vua9ALbxuSg2+HtmyqWRpl
+ 6pB7JrwwwWRkbIeb3MWs8v+BXNbgbAm2JysLLsq5q58Fxg7FzZQ25ApeMy2haUG9KYY7
+ lEgTeNG5VlQW3H10DDdWajztSoabRfk8w5LmsV62+CkupO540xglpLxeWH/TL1HZkrpJ
+ Rh3g419fOGfRZ/qe5ECGnApcuEhK+rdrWUnng5WNwJGOnspWCyyhZ7CvEWqRmpiY/XaC
+ 8fIg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUBeiY/Q+RWeknqVpZtpB3U/TsR5p4ZIA1bxCp1g/4WujoQoJSyaxj4wrIgbFMacEJvhKwCvmY+7sdm@lists.freedesktop.org,
- AJvYcCVCbQ9Tf+Oavo2ZaS87Wx8OmqqOsRQkrHmPp5UBoFS0b6mCmwl8Ig4bbW9Y3QCNLZPW61QVt7+0Oak=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyfZNhXLFowAQW9wp6q113d0zQ0MeXOa/sHjSYNk2XlMy2hS7Q2
- 1Rb3iiPnFuWB1/Ae56kRMAO019MJpEhMm7MZh6rlsxiCnnXQ7WPwt31b
-X-Gm-Gg: ASbGncuWlNCTsFJ+pe7+O759BquhncRSe0tK78FVMTfuUNSpwT09gMjcaqJ2cjDDgo6
- madhm+ofiA8Xo9wuoeTEk2m0tVt7/hFBvxVZm7WJQTW5D1wEIy/5rIPwnGIXRiYXTjG2A4mli9U
- ziEDnPO9UYVG0nHaXJ4/LjSZTfsxCsTqs0opSZwTaaCUp/XVI4cuNEndPdVYINAOPghAxgQL8EZ
- 3F2cUOAIGEhFuzqiG6yR8onCEZFDCB4SPhKt0PDaam3BmEyYZs20GK3usjZORWlFxVi2G1zFF7N
- YE1KsyQwIJ4m8g0NBLYMACYNCl3txK/iwX96wfzizB5YZ5Kcym7W0QrTUZ4vg4y7HvWsq922P+U
- 2G4XSGImDoovjoo/lhuBwBHHc4JMsTxIoYV+yCzcxcJPPgg==
-X-Google-Smtp-Source: AGHT+IHwE5k8y6WgeeHHGTBoqTHW3b9d3pXfevxQkkUzEV8uufq6SNg+JFLfpZe/W1mCrWg4+Y19GA==
-X-Received: by 2002:a5d:5f49:0:b0:3a3:6e85:a529 with SMTP id
- ffacd0b85a97d-3b5f18f80c5mr11655696f8f.51.1752514584561; 
- Mon, 14 Jul 2025 10:36:24 -0700 (PDT)
+ AJvYcCVeD/LXTJWurhtoUWoQbcGTSMq+49OmMoEWc7X3u2gnCTdAw4EKgQqlBLG3pwWA7bTGfsSokhRmmu4=@lists.freedesktop.org,
+ AJvYcCXOEPDAzc4ztc641sdiOT/PBUDNc1xfMhp7eh6+ZL6qjyX3wDcTqJNvR6MW7VCgl2ErHWG2o8LlTkau@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtrPTNPLh/ubSyBJl7Oy9hM08qQxajpLH9IeipWOeINp7BxxiT
+ ZFDmncaWjgbC4/clNd49vfGfpwtffvVNkJ7KkeAMs+x8xLO37aoIzoh0
+X-Gm-Gg: ASbGnctrV8x6Y8FfRvlxvbW4aw+ARxHls2k3N1+Itm5OC7w4GCOH8mtgcAZXHFdSkVr
+ E+YVGt7BtumVLdZkSgmFrU6yDTCDKW0kAQt6T7ogjzvMP0WiaWGw8yeqi/AQgCWfu9YxKSBbVDt
+ uGZxmfDt0Gp3n+cczHwtRX5NM1HZb9A5TPRX7QsphnKcObPFfCwMXLSaD0sq3yqcYrS1SwhZaRf
+ I4FjDU6TwZJgUV9JVbDciafKo8mulL+OKeUs7c1AzQTtZkqFd2a4i+ywZNWg58Od2urYm44NUc7
+ bOmO1C1hx5kOs914iHt/SD+rL0MfFr5BA57NAlk/hKsrHBGtUV32IdQJt7Gpjy1UaENYtq2Z7FA
+ zBebSjQV8ot0IspVvr/5YjJ7AZi/pbZ9PyayAD91jnfi5Dw==
+X-Google-Smtp-Source: AGHT+IF3IHZAfUwjccfOhHLL0NnXoP3T/kMpOhEmbqxn+mxAllsqLzGXG/3Az9GvJrjSX4te6HwBiQ==
+X-Received: by 2002:a05:600c:3f18:b0:456:c50:1b3 with SMTP id
+ 5b1f17b1804b1-4560c50065emr75556405e9.29.1752514593967; 
+ Mon, 14 Jul 2025 10:36:33 -0700 (PDT)
 Received: from alarm (92.40.201.95.threembb.co.uk. [92.40.201.95])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b5e8e0d872sm13152531f8f.60.2025.07.14.10.36.22
+ ffacd0b85a97d-3b5e8e0d872sm13152531f8f.60.2025.07.14.10.36.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Jul 2025 10:36:24 -0700 (PDT)
+ Mon, 14 Jul 2025 10:36:33 -0700 (PDT)
 From: Dale Whinham <daleyo@gmail.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>,
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- freedreno@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: =?UTF-8?q?J=C3=A9r=C3=B4me=20de=20Bretagne?= <jerome.debretagne@gmail.com>, 
- Dale Whinham <daleyo@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Johannes Berg <johannes@sipsolutions.net>,
- Jeff Johnson <jjohnson@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Maximilian Luz <luzmaximilian@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 0/9] Microsoft Surface Pro 11 support
-Date: Mon, 14 Jul 2025 18:35:36 +0100
-Message-ID: <20250714173554.14223-1-daleyo@gmail.com>
+ Dale Whinham <daleyo@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 6/9] drm/msm/dp: Work around bogus maximum link rate
+Date: Mon, 14 Jul 2025 18:35:42 +0100
+Message-ID: <20250714173554.14223-7-daleyo@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250714173554.14223-1-daleyo@gmail.com>
+References: <20250714173554.14223-1-daleyo@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -110,38 +96,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This series brings support for the X1E80100/X1P64100-based Microsoft
-Surface Pro 11.
+From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Patches 7 to 9 are included as RFC as we are unsure of how best to
-achieve the required functionality, however the implementation is
-functional.
+The OLED display in the Surface Pro 11 reports a maximum link rate of
+zero in its DPCD, causing it to fail to probe correctly.
 
-Dale Whinham (6):
-  dt-bindings: display: panel: samsung,atna30dw01: document ATNA30DW01
-  firmware: qcom: scm: allow QSEECOM on Surface Pro 11
-  platform/surface: aggregator_registry: Add Surface Pro 11
-  arm64: dts: qcom: Add support for Surface Pro 11
-  wifi: ath12k: Add support for disabling rfkill via devicetree
-  arm64: dts: qcom: x1e80100-denali: Disable rfkill for wifi0
+The Surface Pro 11's DSDT table contains some XML with an
+"EDPOverrideDPCDCaps" block that defines the max link rate as 0x1E
+(8.1Gbps/HBR3).
 
-Jérôme de Bretagne (3):
-  dt-bindings: arm: qcom: Document Microsoft Surface Pro 11
-  drm/msm/dp: Work around bogus maximum link rate
-  dt-bindings: wireless: ath12k: Add disable-rfkill property
+Add a quirk to conditionally override the max link rate if its value
+is zero specifically for this model.
 
- .../devicetree/bindings/arm/qcom.yaml         |    1 +
- .../display/panel/samsung,atna33xc20.yaml     |    2 +
- .../bindings/net/wireless/qcom,ath12k.yaml    |    3 +
- arch/arm64/boot/dts/qcom/Makefile             |    1 +
- .../dts/qcom/x1e80100-microsoft-denali.dts    | 1341 +++++++++++++++++
- drivers/firmware/qcom/qcom_scm.c              |    1 +
- drivers/gpu/drm/msm/dp/dp_panel.c             |   13 +
- drivers/net/wireless/ath/ath12k/core.c        |    3 +
- .../surface/surface_aggregator_registry.c     |   18 +
- 9 files changed, 1383 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/x1e80100-microsoft-denali.dts
+Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+Signed-off-by: Dale Whinham <daleyo@gmail.com>
+---
+ drivers/gpu/drm/msm/dp/dp_panel.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 4e8ab75c771b..b2e65b987c05 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -11,6 +11,8 @@
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+ 
++#include <linux/dmi.h>
++
+ #define DP_MAX_NUM_DP_LANES	4
+ #define DP_LINK_RATE_HBR2	540000 /* kbytes */
+ 
+@@ -58,6 +60,17 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_panel *msm_dp_panel)
+ 	if (rc)
+ 		return rc;
+ 
++	/*
++	 * for some reason the ATNA30DW01-1 OLED panel in the Surface Pro 11
++	 * reports a max link rate of 0 in the DPCD. Fix it to match the
++	 * EDPOverrideDPCDCaps string found in the ACPI DSDT
++	 */
++	if (dpcd[DP_MAX_LINK_RATE] == 0 &&
++	    dmi_match(DMI_SYS_VENDOR, "Microsoft Corporation") &&
++	    dmi_match(DMI_PRODUCT_NAME, "Microsoft Surface Pro, 11th Edition")) {
++		dpcd[1] = DP_LINK_BW_8_1;
++	}
++
+ 	msm_dp_panel->vsc_sdp_supported = drm_dp_vsc_sdp_supported(panel->aux, dpcd);
+ 	link_info = &msm_dp_panel->link_info;
+ 	link_info->revision = dpcd[DP_DPCD_REV];
 -- 
 2.50.1
 
