@@ -2,110 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B800B04815
-	for <lists+freedreno@lfdr.de>; Mon, 14 Jul 2025 21:51:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E31AB0481F
+	for <lists+freedreno@lfdr.de>; Mon, 14 Jul 2025 21:56:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DA5F10E346;
-	Mon, 14 Jul 2025 19:51:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A78610E346;
+	Mon, 14 Jul 2025 19:56:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WGPQ++58";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="lyxFh+bV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE96710E346
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 19:51:08 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56EHNYOo026582
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 19:51:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=cHAxU5EnEHUmmvSd/XnW201tIJmHnogoSkLScD389cU=; b=WG
- PQ++58bGoF+QZqX8R59+SGOPQ5PGrMacju4rWcCYnLEkDxTgEJpKP7YkBwD154sq
- 9WiG72nCnuXda1yJIvewzAF2zawQFDgKGOrKExlFBKoLj/C5y2wPx78Nha1PiqBX
- Twqo/auhtkq8WhM6evSTi0ZYi8n2erpzgm1acGEMk5bghAeqxykWQAqEBUU4Ed1M
- 6px2RztULwEMNBz7M641NHGu5GdxX+hx+qOrB4EdMRESJYB1B3te87vDc7l/x3OX
- 87+DDYTkC0cUF5H7GaNoudRFJssKsuEC7qnwnBxO9NyxB58x4yf3P3OyrQRN9MXf
- LIGd1bQId2+prm6eMjow==
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
- [209.85.161.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ug37wupf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 19:51:07 +0000 (GMT)
-Received: by mail-oo1-f72.google.com with SMTP id
- 006d021491bc7-60f430ab80eso4221021eaf.0
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 12:51:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752522667; x=1753127467;
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9315610E345
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 19:56:32 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-b26f7d2c1f1so5550352a12.0
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 12:56:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1752522987; x=1753127787;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cHAxU5EnEHUmmvSd/XnW201tIJmHnogoSkLScD389cU=;
- b=L0HrQISP80QLmZ/wICT9M96tEwlBAxcwBC3aep4QW6GIDouC+3FBI0lt6GJHujj1FQ
- bOwvY+vplo9z34WYJ37dstIW35Buxxjpt4Y0H8OuBvIJkVaxL4HNUn0FTXEMv1eGtrP5
- hu3aqcs+BYEULh7QEeH8UbhYdxSYTP5JRVN94oj+WURH/3jCtCPu80MYHqxiQx5lsewl
- X5rkbh+d2PGAo6lN9bec2xR3MWjPsgh4LuDmeUJhI6LePZ4DVZLdoTDSQpY7eamu0nsG
- UG5f1Qmn0ubyNEGtBQhrlT830Q33SNJAvGn+p+j+JqveAAczTrxt/LZpqP5GfKAPx7J6
- pzpA==
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=e05D0/DQz0T/VtfT27OBXGtPxndXar2Bry+kzVT5CP4=;
+ b=lyxFh+bVSo9P/rl4oC5B9i+1bd6lm4ClQ3zBmABEwI8okGOQWc33kneNJtNczqrwFH
+ B6sLb0s91ZNLB66OWj0YMCp1++bTBeP92nALOQeOwHhMZOD8Gx3/CgFC8o6Jo3ptN3nd
+ suTjWzvaOIdG/CTJivqzVzHu3aOkTCLmJWFsc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752522987; x=1753127787;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=e05D0/DQz0T/VtfT27OBXGtPxndXar2Bry+kzVT5CP4=;
+ b=jakKuPeYyZrb7C9+b3il4V005Gm8IjXoSCs365PC2m87FGr9rpw9tqiCXnlBMy9Dcu
+ eEHJXjmNzFu9CcRS9uoo+hn+81z9g7FHCHzTuq9/AAXnb+diWPNCigo6HGcjoUsZ+G3J
+ GZZVoNgb0Drx2EdbarNsXK0d4hm+oq1KprtJvH6OjimxYEDo5WT0fsyMsQkIR4h43zyt
+ 7LuhiFe/Mi2h1GL1xXdbT9GTeS+0xCCDgKoNXN6a8+r/EK8VNDQg5nel/QxCkDpYSqul
+ Tf5F5ye6cgJT2mPiNiBu2bIRjI+37379lMnDJsBoec74QiAhhOCsVnP4fh6mAEOg1DH7
+ XFYQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVGhQDz5qmV+e2Ed1xZpl4Qn1ZoCO2GhjpTFDCtZ5N2KiEbqzC3HFdlCBqzLXjT7sSaHNlaY59Zme0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxEYY6l/QIBM2K/U9QhBM7eihWlPwC+cV5CUBk/IW/+pKB1IMnL
- qMxyb0GtKNzBVMwcDWkg/jxABdMY9fSlFB9wz0ls0yegdoy6K+YG2ghJGuZQw0sM5bmCcyt4W58
- bAK7gf5rXmzKN0pwvAjFvPqMLUFzB1pOkeRAOMJX1W1DSjRUr+5k35Fdb1G5nDeYQwI4pe5fXG0
- v8gA2NPTU+N3thbAsROAm+RCZkcZD+mDaZiuDOYedUtYiS7w==
-X-Gm-Gg: ASbGncs1IqhadYHUMI7IKJh0HXnscjtwHHydggmsIfFX5oDLhlDCT5yEYX16/Ixdh5/
- yR860p/140KGzy9PMVahjh4oJoh8pm9fKe3TZKrRSUb7MzQPrvgAaJ0xFFyVQxcEPI8muuNiT45
- AEJRKna/wD3soVqNJWtBJuf0nwsC02oKV4PxTinnrjHq/xr2owd2c6
-X-Received: by 2002:a05:6820:2b14:b0:613:90e1:729a with SMTP id
- 006d021491bc7-615933298d2mr395647eaf.4.1752522666671; 
- Mon, 14 Jul 2025 12:51:06 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFvNOTRr7nTbzGLFYFpm62n4sXgSE9iNBusqXlHlebIghEEjvoyILcY8+9jbV1NxN9chrsAuYDFxtNto888VVg=
-X-Received: by 2002:a05:6820:2b14:b0:613:90e1:729a with SMTP id
- 006d021491bc7-615933298d2mr395636eaf.4.1752522666307; Mon, 14 Jul 2025
- 12:51:06 -0700 (PDT)
+ AJvYcCXUA8TBLJt7YFcAj9bBko25+P3wlFH/+6+SzjPLl2Dqt0RlFCfaJFH48iH7zTzhVz40NTlcrpcjRHg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyEPfMJ4sOqMNbr1xDI9GXt+r0WqeKPRgBLst4rgGxV0vb4gCXP
+ HD8i8IpBA39f3clCOMSeaScuMbBmjEhyWNmnXjeBrIlCLnA1V2uF50adgl10GhSZJrtDRgQSjkt
+ n80I=
+X-Gm-Gg: ASbGncs2tTTQAjX8yb43pc0eERonoDWjc6ZoqTvpl71QD9H1WAF7fJSlXBri1+Axs3P
+ sGJkYhjXmkPXoOnPFNuALxEjzXP/NibBXFJRppCDIvNiOEgDGeO5piLCNS1YGzu1yYtrfgSJYyp
+ 7Mhom29BFqu3orCiNoU1BNuT+RD+ZVzVdTRxTtazjghRykgfFaGwx/pUKhfaRIGMblBhjNRfSGY
+ GITCum3D9tfUpET/wPIS3/o2LY6pv4px3LYRYGRPfotALv3lnrfi84Vwl7GUHFk3DIdBctTEXU5
+ W0Q22VZF47kVzk4cmNtGP6SBXefRN/XcVM6VdTM/83HUsvn98oCkpDFnA1CceWPvsujtLMv2O7K
+ 7Mu5GJGt7GSsO14xTMCu6lvXHg952PDGUFcL84ne6XczFxvr71i1hf71zyeJck4vBqQ==
+X-Google-Smtp-Source: AGHT+IE4rZfYfRIaufeCnqoHhRnjj/1No9HnMNR4dl9Ll5KlmcEoJk3gYHIrfTLCHZVtmzxUP9zCVA==
+X-Received: by 2002:a05:6a20:3951:b0:201:b65:81ab with SMTP id
+ adf61e73a8af0-2311ee4b1d6mr20751648637.23.1752522987059; 
+ Mon, 14 Jul 2025 12:56:27 -0700 (PDT)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com.
+ [209.85.215.172]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b3bbe52ba7asm10598223a12.13.2025.07.14.12.56.21
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Jul 2025 12:56:25 -0700 (PDT)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-b34a6d0c9a3so4747692a12.3
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 12:56:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUyJ+x/Zzg4v0a3a0h9GtEt4EU+8VSRU8konwj5AC0aNZoG6xDYx5JN9surgYgOSgQQkGhjbnRreVo=@lists.freedesktop.org
+X-Received: by 2002:a17:90b:1b0c:b0:312:f88d:260b with SMTP id
+ 98e67ed59e1d1-31c4ca8484dmr22759292a91.14.1752522980950; Mon, 14 Jul 2025
+ 12:56:20 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250714173554.14223-1-daleyo@gmail.com>
- <20250714173554.14223-7-daleyo@gmail.com>
-In-Reply-To: <20250714173554.14223-7-daleyo@gmail.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 14 Jul 2025 12:50:54 -0700
-X-Gm-Features: Ac12FXzMmQvS5rnzO5-iDknQYE-6ywvsNV2cxkydI09oPN8GV7Xk6HdI3xrZ3s4
-Message-ID: <CACSVV00-DDnQYp-65Pi-XwpEKT1_jYik2=zH_bK_oJiGLxX48A@mail.gmail.com>
-Subject: Re: [PATCH 6/9] drm/msm/dp: Work around bogus maximum link rate
-To: Dale Whinham <daleyo@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+References: <20250629135843.30097-1-robin.clark@oss.qualcomm.com>
+ <92314f06-e6a8-4882-a31c-914438d7761d@oss.qualcomm.com>
+ <CACSVV01AUOp7vZ7kLt+gwxvfv4CYLtAQg6MhUccygbi1NpVJMg@mail.gmail.com>
+ <aaaa42ed-989e-43ee-8d45-2908f52e8584@oss.qualcomm.com>
+ <d323ceed-19e2-4b17-b97e-0833f132be16@oss.qualcomm.com>
+In-Reply-To: <d323ceed-19e2-4b17-b97e-0833f132be16@oss.qualcomm.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 14 Jul 2025 12:56:09 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VV_xvcWwdpi88wSYWXyftUP5eP-SQVkgEBRQgfwDN+zg@mail.gmail.com>
+X-Gm-Features: Ac12FXxRHKFdz1WEnIQ737ze8ocdQTtdcG6dsifTSijome0hozAkI0iK1xwhErU
+Message-ID: <CAD=FV=VV_xvcWwdpi88wSYWXyftUP5eP-SQVkgEBRQgfwDN+zg@mail.gmail.com>
+Subject: Re: [PATCH] drm/ci: Remove sdm845/cheza jobs
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, rob.clark@oss.qualcomm.com,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ Helen Koike <helen.fornazier@gmail.com>,
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?B?SsOpcsO0bWUgZGUgQnJldGFnbmU=?= <jerome.debretagne@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE0MDEzMSBTYWx0ZWRfX3KohTB4R+B6+
- DbkVHlium6Ib49B6ZLyQd0b2PF01Bj0Jth/qiczDpj4T2LwwlMh2VN2kIcXV3YbqobgTV5YQN9X
- lFESGOB3KjIiQtK49tdogx2hrdtI4FdQYT5O+N76Nu/LBSd4xhN2lKAuG/WmdS/DVD/NzCz7K7o
- aQbUE+ymbPd8n/YXnrzM9DXMVAbz0NHAHO8u067Iwhit9/jx7QfoDaPSjVJ2yOwcVglv3aJ/ZuW
- Slb9vsFAJPsZaHsyYtoZ7ryxMJqnpvDCgWUNQj6YVlz9adBsAku+r5hKDMJM9c95vsVMJJXlBlh
- IjHfTvtOBgw3uCBiRqhXHigcU3nr4hsS+lWgS4O+TrBxweou/jwWdSFbWYTlOvcPO8iBvp0eDSD
- CCAuH/aObmgBwP8umAqW3lK94xxY7nksBLmE9uDSD8aYs9zRW4mxFoLJnEIew5aqvvOmRK33
-X-Proofpoint-GUID: GmQGYZ7XVKwo0FbyXTslsAnsEmooQgSf
-X-Authority-Analysis: v=2.4 cv=SZT3duRu c=1 sm=1 tr=0 ts=68755fab cx=c_pps
- a=wURt19dY5n+H4uQbQt9s7g==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
- a=pGLkceISAAAA:8 a=B0QqisOVu6ZhBNclzXcA:9 a=QEXdDO2ut3YA:10
- a=-UhsvdU3ccFDOXFxFb4l:22
-X-Proofpoint-ORIG-GUID: GmQGYZ7XVKwo0FbyXTslsAnsEmooQgSf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-14_02,2025-07-14_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxlogscore=999 mlxscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 adultscore=0 impostorscore=0 malwarescore=0
- phishscore=0 spamscore=0 suspectscore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507140131
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,82 +111,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 14, 2025 at 10:36=E2=80=AFAM Dale Whinham <daleyo@gmail.com> wr=
-ote:
->
-> From: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
->
-> The OLED display in the Surface Pro 11 reports a maximum link rate of
-> zero in its DPCD, causing it to fail to probe correctly.
->
-> The Surface Pro 11's DSDT table contains some XML with an
-> "EDPOverrideDPCDCaps" block that defines the max link rate as 0x1E
-> (8.1Gbps/HBR3).
->
-> Add a quirk to conditionally override the max link rate if its value
-> is zero specifically for this model.
->
-> Signed-off-by: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
-> Signed-off-by: Dale Whinham <daleyo@gmail.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_panel.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/d=
-p_panel.c
-> index 4e8ab75c771b..b2e65b987c05 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> @@ -11,6 +11,8 @@
->  #include <drm/drm_of.h>
->  #include <drm/drm_print.h>
->
-> +#include <linux/dmi.h>
-> +
->  #define DP_MAX_NUM_DP_LANES    4
->  #define DP_LINK_RATE_HBR2      540000 /* kbytes */
->
-> @@ -58,6 +60,17 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_panel =
-*msm_dp_panel)
->         if (rc)
->                 return rc;
->
-> +       /*
-> +        * for some reason the ATNA30DW01-1 OLED panel in the Surface Pro=
- 11
-> +        * reports a max link rate of 0 in the DPCD. Fix it to match the
-> +        * EDPOverrideDPCDCaps string found in the ACPI DSDT
-> +        */
-> +       if (dpcd[DP_MAX_LINK_RATE] =3D=3D 0 &&
-> +           dmi_match(DMI_SYS_VENDOR, "Microsoft Corporation") &&
-> +           dmi_match(DMI_PRODUCT_NAME, "Microsoft Surface Pro, 11th Edit=
-ion")) {
-> +               dpcd[1] =3D DP_LINK_BW_8_1;
-> +       }
+Hi,
 
-Not a dp expert myself, but..
-
-In drm_dp_helpers.c there is dpcd_quirk_list[].. which applies quirks
-based on the oui ("Organizational Unique ID") of the dp sink.  I think
-this would be the correct way to handle this.  Although I guess you'll
-need to add a new quirk for this.
-
-Idk if the surface pro 11 has multiple different panel options.  If so
-you defn wouldn't want to match on the DMI.
-
-BR,
--R
-
-
-> +
->         msm_dp_panel->vsc_sdp_supported =3D drm_dp_vsc_sdp_supported(pane=
-l->aux, dpcd);
->         link_info =3D &msm_dp_panel->link_info;
->         link_info->revision =3D dpcd[DP_DPCD_REV];
-> --
-> 2.50.1
+On Mon, Jun 30, 2025 at 9:15=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualcom=
+m.com> wrote:
 >
+> On 6/30/2025 9:26 PM, Konrad Dybcio wrote:
+> >
+> >
+> > On 30-Jun-25 15:46, Rob Clark wrote:
+> >> On Mon, Jun 30, 2025 at 3:34=E2=80=AFAM Konrad Dybcio
+> >> <konrad.dybcio@oss.qualcomm.com> wrote:
+> >>>
+> >>>
+> >>>
+> >>> On 29-Jun-25 15:58, Rob Clark wrote:
+> >>>> These runners are no more.  So remove the jobs.
+> >>>>
+> >>>> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> >>>> ---
+> >>>
+> >>> Do we have anyone using cheza at all anymore then?
+> >>
+> >> Probably not
+> >
+> > Adding +Doug +Akhil +Jessica, if we don't have any users, we may
+> > get rid of it upstream, as it never made it to the outside-outside
+> > world..
+> >
+> > Konrad
+>
+> I am not aware of anyone using Cheza boards within Qcom. So it is fine
+> with me if you plan to remove the DT bits.
+
+As far as I'm aware, anyone at Google who had a cheza gave it to Rob
+to put in his lab. If Rob says nobody is using it then I'm 99.9%
+certain that nobody at Google is using it anymore. There were a very
+small number of external developers who were given a cheza prototype
+but I can't quite imagine any of them still using it.
+
+-Doug
