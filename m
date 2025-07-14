@@ -2,34 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCC19B05151
-	for <lists+freedreno@lfdr.de>; Tue, 15 Jul 2025 07:56:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3845CB05979
+	for <lists+freedreno@lfdr.de>; Tue, 15 Jul 2025 14:01:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 948A310E04E;
-	Tue, 15 Jul 2025 05:56:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFBE810E0C5;
+	Tue, 15 Jul 2025 12:01:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="VX+QduDY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FlsDbIcE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6433B89D99;
- Tue, 15 Jul 2025 05:56:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=2AAMJf9maUaSbdg1Sv1it05urNJplT7iXxy+4HxO3a4=; b=V
- X+QduDYHn7WI5C8WTm1hyejbxQyFZJk0I9jYC9AHKiHCgkkLtItpylL5oEU/aO4B
- JIfz+agsJfJg4r7VWDAXKdNlf7cFSoKUvJ5xxz8ET4HInT/k7g6mZ93DEPOnmO9A
- H1Sejfa5f0jIdX51i1lAoLnWoP4s9CtD98mCHptK2g=
-Received: from andyshrk$163.com ( [58.22.7.114] ) by
- ajax-webmail-wmsvr-40-109 (Coremail) ; Tue, 15 Jul 2025 13:54:29 +0800
- (CST)
-X-Originating-IP: [58.22.7.114]
-Date: Tue, 15 Jul 2025 13:54:29 +0800 (CST)
-From: "Andy Yan" <andyshrk@163.com>
-To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-Cc: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
- mripard@kernel.org, neil.armstrong@linaro.org,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46EB710E0DB;
+ Mon, 14 Jul 2025 22:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1752531315; x=1784067315;
+ h=date:message-id:from:to:cc:subject:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=3hSxTtkziUSGFdZ/QE79AJcoYavoz4VRQvR6zKD654o=;
+ b=FlsDbIcEsPaDlWgizpVMo73XkrwbLqxi37QH716ufAMKzO+lmGsFMZBq
+ 0z+9JIn/NsDURMU0d9ZOrLxpux0ezXq33wLME17qVIv1/7wJm4tqNL6wW
+ N8YWD/jp2l3ncrubti4PHFU9Qhe+KcyPviT2cy2OUu0J/CSlgwD1nO0c6
+ 1dQ887Nvh4GGJgb9TPb/gVjfP8wGPnl0NjDG38s6pJqPFKa2cLGo01SZ4
+ 1kIl3InM8RcMWkEdld0lmihBVZkD7U8QO9/lFBJcOyxoDNpy2uHIDgiDN
+ resg2TUrzSrJKNLvqMJOopSRBTAI1VPcy1S9urCTw/45XQRwe7fj7B2Gy A==;
+X-CSE-ConnectionGUID: O/7jVqm8T/KgNEF5VvVHDQ==
+X-CSE-MsgGUID: Q7NrxapAQteBpH9Kq0ptzw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11491"; a="77274272"
+X-IronPort-AV: E=Sophos;i="6.16,312,1744095600"; d="scan'208";a="77274272"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2025 15:15:15 -0700
+X-CSE-ConnectionGUID: oACIzgexQJG57d5u3/RD8A==
+X-CSE-MsgGUID: gO4PIoEuSB2JtqOHNp9bdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,312,1744095600"; d="scan'208";a="162593975"
+Received: from orsosgc001.jf.intel.com (HELO orsosgc001.intel.com)
+ ([10.165.21.142])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2025 15:15:13 -0700
+Date: Mon, 14 Jul 2025 15:15:13 -0700
+Message-ID: <85ple2ju6m.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andy Yan <andyshrk@163.com>, mripard@kernel.org, neil.armstrong@linaro.org,
  dri-devel@lists.freedesktop.org, dianders@chromium.org,
  jani.nikula@intel.com, lyude@redhat.com, jonathanh@nvidia.com,
  p.zabel@pengutronix.de, simona@ffwll.ch, victor.liu@nxp.com,
@@ -37,26 +54,20 @@ Cc: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
  cristian.ciocaltea@collabora.com, Laurent.pinchart@ideasonboard.com,
  linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
  linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
- "Andy Yan" <andy.yan@rock-chips.com>
-Subject: Re:Re: [PATCH v3 2/2] drm/bridge: Pass down connector to drm bridge
+ Andy Yan <andy.yan@rock-chips.com>
+Subject: Re: [PATCH v3 2/2] drm/bridge: Pass down connector to drm bridge
  detect hook
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.14 build 20250519(9504565a)
- Copyright (c) 2002-2025 www.mailtech.cn 163com
-In-Reply-To: <85ple2ju6m.wl-ashutosh.dixit@intel.com>
+In-Reply-To: <chznjpcx6p2vn3i5jt52peikhipzjiwzlr74gx6mzp3wjstr6p@6zhhknnl3zek>
 References: <20250703125027.311109-1-andyshrk@163.com>
  <20250703125027.311109-3-andyshrk@163.com>
  <chznjpcx6p2vn3i5jt52peikhipzjiwzlr74gx6mzp3wjstr6p@6zhhknnl3zek>
- <85ple2ju6m.wl-ashutosh.dixit@intel.com>
-X-NTES-SC: AL_Qu2eAPmet0At7yWRYOkfmkcVgOw9UcO5v/Qk3oZXOJF8jCPp9C0vUnNTMUnG6MWDDiCwnQiHWzVR6spgbahGYoQgR2kpPlq5MmA38IZpXJoXxw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
-MIME-Version: 1.0
-Message-ID: <23a4efde.4f62.1980ca61c5e.Coremail.andyshrk@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: bSgvCgD3n84V7XVo2yEEAA--.19921W
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbBEgGLXmh15WLOpAADs1
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/29.4 (x86_64-redhat-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-7
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 15 Jul 2025 12:01:00 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,45 +83,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-CgpIaSBEaXhpdCzCoApBdCAyMDI1LTA3LTE1IDA2OjE1OjEzLCAiRGl4aXQsIEFzaHV0b3NoIiA8
-YXNodXRvc2guZGl4aXRAaW50ZWwuY29tPiB3cm90ZToKPk9uIFRodSwgMDMgSnVsIDIwMjUgMTQ6
-Mjc6NDMgLTA3MDAsIERtaXRyeSBCYXJ5c2hrb3Ygd3JvdGU6Cj4+Cj4+IE9uIFRodSwgSnVsIDAz
-LCAyMDI1IGF0IDA4OjQ5OjUzUE0gKzA4MDAsIEFuZHkgWWFuIHdyb3RlOgo+Cj5IaSBBbmR5LAo+
-Cj4+ID4gRnJvbTogQW5keSBZYW4gPGFuZHkueWFuQHJvY2stY2hpcHMuY29tPgo+PiA+Cj4+ID4g
-SW4gc29tZSBhcHBsaWNhdGlvbiBzY2VuYXJpb3MsIHdlIGhvcGUgdG8gZ2V0IHRoZSBjb3JyZXNw
-b25kaW5nCj4+ID4gY29ubmVjdG9yIHdoZW4gdGhlIGJyaWRnZSdzIGRldGVjdCBob29rIGlzIGlu
-dm9rZWQuCj4+ID4KPj4gPiBJbiBtb3N0IGNhc2VzLCB3ZSBjYW4gZ2V0IHRoZSBjb25uZWN0b3Ig
-YnkgZHJtX2F0b21pY19nZXRfY29ubmVjdG9yX2Zvcl9lbmNvZGVyCj4+ID4gaWYgdGhlIGVuY29k
-ZXIgYXR0YWNoZWQgdG8gdGhlIGJyaWRnZSBpcyBlbmFibGVkLCBob3dldmVyIHRoZXJlIHdpbGwK
-Pj4gPiBzdGlsbCBiZSBzb21lIHNjZW5hcmlvcyB3aGVyZSB0aGUgZGV0ZWN0IGhvb2sgb2YgdGhl
-IGJyaWRnZSBpcyBjYWxsZWQKPj4gPiBidXQgdGhlIGNvcnJlc3BvbmRpbmcgZW5jb2RlciBoYXMg
-bm90IGJlZW4gZW5hYmxlZCB5ZXQuIEZvciBpbnN0YW5jZSwKPj4gPiB0aGlzIG9jY3VycyB3aGVu
-IHRoZSBkZXZpY2UgaXMgaG90IHBsdWcgaW4gZm9yIHRoZSBmaXJzdCB0aW1lLgo+PiA+Cj4+ID4g
-U2luY2UgdGhlIGNhbGwgdG8gYnJpZGdlJ3MgZGV0ZWN0IGlzIGluaXRpYXRlZCBieSB0aGUgY29u
-bmVjdG9yLCBwYXNzaW5nCj4+ID4gZG93biB0aGUgY29ycmVzcG9uZGluZyBjb25uZWN0b3IgZGly
-ZWN0bHkgd2lsbCBtYWtlIHRoaW5ncyBzaW1wbGVyLgo+PiA+Cj4+ID4gU2lnbmVkLW9mZi1ieTog
-QW5keSBZYW4gPGFuZHkueWFuQHJvY2stY2hpcHMuY29tPgo+PiA+IC0tLQo+PiA+Cj4+Cj4+IFJl
-dmlld2VkLWJ5OiBEbWl0cnkgQmFyeXNoa292IDxkbWl0cnkuYmFyeXNoa292QG9zcy5xdWFsY29t
-bS5jb20+Cj4KPlRoaXMgc2VlbXMgdG8gYmUgYnJlYWtpbmcgJ21ha2UgYWxsbW9kY29uZmlnJy4g
-VGhpcyBpcyB3aGF0IGlzIGJlaW5nIHNlZW46Cj4KPi4uL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uv
-bWVnYWNoaXBzLXN0ZHB4eHh4LWdlLWI4NTB2My1mdy5jOiBJbiBmdW5jdGlvbiDigJhnZV9iODUw
-djNfbHZkc19kZXRlY3TigJk6Cj4uLi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL21lZ2FjaGlwcy1z
-dGRweHh4eC1nZS1iODUwdjMtZncuYzoxNDU6MTY6IGVycm9yOiB0b28gZmV3IGFyZ3VtZW50cyB0
-byBmdW5jdGlvbiDigJhnZV9iODUwdjNfbHZkc19icmlkZ2VfZGV0ZWN04oCZCj4gIDE0NSB8ICAg
-ICAgICAgcmV0dXJuIGdlX2I4NTB2M19sdmRzX2JyaWRnZV9kZXRlY3QoJmdlX2I4NTB2M19sdmRz
-X3B0ci0+YnJpZGdlKTsKPiAgICAgIHwgICAgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn5+fgo+Li4vZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9tZWdhY2hpcHMtc3RkcHh4eHgt
-Z2UtYjg1MHYzLWZ3LmM6MTI0OjE6IG5vdGU6IGRlY2xhcmVkIGhlcmUKPiAgMTI0IHwgZ2VfYjg1
-MHYzX2x2ZHNfYnJpZGdlX2RldGVjdChzdHJ1Y3QgZHJtX2JyaWRnZSAqYnJpZGdlLCBzdHJ1Y3Qg
-ZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ICAgICAgfCBefn5+fn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+Cj4uLi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL21lZ2FjaGlwcy1zdGRweHh4eC1nZS1i
-ODUwdjMtZncuYzoxNDY6MTogZXJyb3I6IGNvbnRyb2wgcmVhY2hlcyBlbmQgb2Ygbm9uLXZvaWQg
-ZnVuY3Rpb24gWy1XZXJyb3I9cmV0dXJuLXR5cGVdCj4gIDE0NiB8IH0KPiAgICAgIHwgXgo+Cj5D
-b3VsZCB5b3UgcGxlYXNlIHBvc3QgYSBmaXggZm9yIHRoaXMuIE1heWJlIGRvICdtYWtlIGFsbG1v
-ZGNvbmZpZycgdG8gY2hlY2sKCj5pZiB5b3UgaGF2ZW4ndCBtaXNzZWQgYW55dGhpbmcgZWxzZS4K
-CgpUaGFua3MgZm9yIGNhdGNoaW5nIHRoaXMuIEkgaGF2ZSBzZW50IGEgZml4IGZvciB0aGlzOgpo
-dHRwczovL2xvcmUua2VybmVsLm9yZy9kcmktZGV2ZWwvMjAyNTA3MTUwNTQ3NTQuODAwNzY1LTEt
-YW5keXNocmtAMTYzLmNvbS9ULyN1CgpBbmQgYmVmb3JlIHJlbGVhc2luZyB0aGUgZml4IHBhdGNo
-IHRoaXMgdGltZSwgSSBoYWQgYWxyZWFkeSBlbnN1cmVkIHRoYXQgdGhlICJtYWtlIGFsbG1vZGNv
-bmZpZyIgY29tcGlsYXRpb24gd2FzIHN1Y2Nlc3NmdWwuCgoKTWFueSB0aGFua3MuCiA+Cj5UaGFu
-a3MuCj4tLQo+QXNodXRvc2gK
+On Thu, 03 Jul 2025 14:27:43 -0700, Dmitry Baryshkov wrote:
+>
+> On Thu, Jul 03, 2025 at 08:49:53PM +0800, Andy Yan wrote:
+
+Hi Andy,
+
+> > From: Andy Yan <andy.yan@rock-chips.com>
+> >
+> > In some application scenarios, we hope to get the corresponding
+> > connector when the bridge's detect hook is invoked.
+> >
+> > In most cases, we can get the connector by drm_atomic_get_connector_for=
+_encoder
+> > if the encoder attached to the bridge is enabled, however there will
+> > still be some scenarios where the detect hook of the bridge is called
+> > but the corresponding encoder has not been enabled yet. For instance,
+> > this occurs when the device is hot plug in for the first time.
+> >
+> > Since the call to bridge's detect is initiated by the connector, passing
+> > down the corresponding connector directly will make things simpler.
+> >
+> > Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
+> > ---
+> >
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+This seems to be breaking 'make allmodconfig'. This is what is being seen:
+
+../drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c: In function =
+=A1ge_b850v3_lvds_detect=A2:
+../drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c:145:16: error: =
+too few arguments to function =A1ge_b850v3_lvds_bridge_detect=A2
+  145 |         return ge_b850v3_lvds_bridge_detect(&ge_b850v3_lvds_ptr->br=
+idge);
+      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c:124:1: note: de=
+clared here
+  124 | ge_b850v3_lvds_bridge_detect(struct drm_bridge *bridge, struct drm_=
+connector *connector)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c:146:1: error: c=
+ontrol reaches end of non-void function [-Werror=3Dreturn-type]
+  146 | }
+      | ^
+
+Could you please post a fix for this. Maybe do 'make allmodconfig' to check
+if you haven't missed anything else.
+
+Thanks.
+--
+Ashutosh
