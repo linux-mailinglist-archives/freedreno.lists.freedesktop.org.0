@@ -2,71 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B8E4B0698E
-	for <lists+freedreno@lfdr.de>; Wed, 16 Jul 2025 00:59:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2A0B069F2
+	for <lists+freedreno@lfdr.de>; Wed, 16 Jul 2025 01:40:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56F8F10E6E0;
-	Tue, 15 Jul 2025 22:59:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 157DD10E730;
+	Tue, 15 Jul 2025 23:40:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WOA+EWPm";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IaYCSLOO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 985AB10E715
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 22:59:25 +0000 (UTC)
-Received: by mail-oo1-f50.google.com with SMTP id
- 006d021491bc7-613c7b65039so828753eaf.0
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 15:59:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1752620365; x=1753225165; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=nAbN1phbWnHR6tinlmWhEsvw3/nZ2WfWNMcro9Jd5Oo=;
- b=WOA+EWPmwmAnzr7gJDu+EbmLia+y6qOHj6bP4mckSB1ffWvkaVTcJJfz5dq0uipxvB
- cG1aSC/nR6xBifRqyRrUbOkIu2/yDwN20M2HibESnBt0R93qgJoKf50rcytfWZzpK2kK
- 68tVaCJHhKSwX9Hk1vP5Wvk0hCxqZyN/2ivjH61c4gZz/zI09BgM4jrPiZtEXMPJTZND
- Qbza08RlL4ogQsu1QI/j0ojhRm2lnS/QoYQovMl7l6BXG2lXGqSGq9sVw1bCnvBLOPra
- FOhVYp1vaWIXM87ISLn7wBSJcVIc2AM8Ctjnhu+hOXL2QgX0cPzhxv34st6Ctp8JdcZy
- T35Q==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6B8E10E730
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 23:39:59 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56FGDH2e003411
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 23:39:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ RJPlRCoQzcnkdT0dHLtH3H9tpyaccIIMXOn4F1lvVCg=; b=IaYCSLOOLEaD7LrN
+ c+4qWtRQIwr9PbsPWTZao3TgCymOOJOmZECQEhAnPDrIM6rlecqc/gzA17hAKjgG
+ VnhgYvgvLRa2DAyMv+gUj9QQYFILDfXiW0q473s1UBcR5ZBMr21PyVcIC2rIwF2I
+ KxhYX+8Rwkw+YSCi65/ugOgmCrDQgtCjd2k7eYoGmr95nqmJy1CocCi99FtNEwcN
+ tCEaPdzpnNh/A4frAfIW7sxs3lu/eXagbkYSXErqXrjFbUHH2N/1fZKxpjpPMeMA
+ A/2Gduk5qR2x0fRKHt4IMfd83iPC1GzodJsnGj1EF+85DhqkHvzacrNWyUGxfZNz
+ Y/Ug2Q==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47w5drmtfv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 23:39:59 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b391a561225so4722820a12.1
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 16:39:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752620365; x=1753225165;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20230601; t=1752622798; x=1753227598;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nAbN1phbWnHR6tinlmWhEsvw3/nZ2WfWNMcro9Jd5Oo=;
- b=F6oXBepNTq0Z3oSEH24N+moGc8Y7aB3SKvFjVrqJx/CRLpxH1gl3Z7WFhglTxAd3ZB
- 4qk4VsXxoDBjHgqKlNB0Mev6cpcyOHKD2+o955Jef5+EO2fmLe1dzWAl3infrQ1xzK0W
- DvdzF3rbYAkwZcKHql/4YqOTZuK2zLwcl/vFRtKjl0F9hyOF+vWl3kDVjxdhZuwoJZ57
- S6w/qbQac4gBh8Bn9BSqibO0znXKIGGSrT5oeBaAdZ4PdUFMEFZWGfl5O64rdk7LRd4P
- z8aejtsFRH4vfE+J1cOyCavgM4tzskNBWaPft4V5KpPEYb8uk9H96XS7ytflOZZa8dAd
- SXsg==
-X-Gm-Message-State: AOJu0YwwhRLj2u7kDPIJT45xFEw7wasOMBkwwH46HHC15ZvbkaFtv+/L
- NX13KtfILRFZ/TYTn3qs51N4qTg+nR1yuGGAcgE1Z8y16mlaOUYrhoxlHAKYPn/Nt2c=
-X-Gm-Gg: ASbGnctoEjYC8i3x8t0HtOmOVlAKIwycMmRixyf+1QBJhcnOqyNg8tBg+PNFolTLZSF
- OjSYkET+f5hr3NeYIUHxjy4qx/kETRD/IDYR/k5Hu3cS46EACmM9MuFQSOtd0KpgOYQ4pXjT9F1
- dBVThgcQ69+aQdhJUCur+YK1bcOE3fP9+eu3IT6d0Od2Hq6OOQ8zkHYB1ObkA1+QwAI7/medMp5
- mvzCzgrEK8VvdC+Y9jUZoAGYHvSScNFNBfL8qBx1ymtstd5TsYxRmSpQqJCApihDHHVpEvw7eSf
- jdsLtHOq6eFSQc9mdQlsnzGPg/Hlq0hC7aCHtDhmo1HyfrHJy1Iy5WZaQWx2ynQQslgSwW+5PQK
- QHXu9Y+nfOFDvwBJaYT1bZywg6/aX
-X-Google-Smtp-Source: AGHT+IG0wy7DyTehUAZCiFKNekxjgta2wc39ptqLXGwqA7ffyUNnEWamWaLTQpcfhbS6l8BCDfP8jg==
-X-Received: by 2002:a05:6808:244f:b0:406:5a47:a081 with SMTP id
- 5614622812f47-41d034ec1f2mr472800b6e.13.1752620364673; 
- Tue, 15 Jul 2025 15:59:24 -0700 (PDT)
-Received: from localhost ([2603:8080:b800:f700:9b4e:9dd8:875d:d59])
- by smtp.gmail.com with UTF8SMTPSA id
- 5614622812f47-41c48678a3esm496352b6e.26.2025.07.15.15.59.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Jul 2025 15:59:24 -0700 (PDT)
-Date: Tue, 15 Jul 2025 17:59:23 -0500
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: freedreno@lists.freedesktop.org
-Subject: [bug report] drm/msm: Support pgtable preallocation
-Message-ID: <cf1dacd6-3e09-4ec1-aaea-a28ac3105e07@sabinyo.mountain>
+ bh=RJPlRCoQzcnkdT0dHLtH3H9tpyaccIIMXOn4F1lvVCg=;
+ b=Xz4v4Sh7daELbnG9C0f5vgemkzxt8OYu1AyqeqlEbVIfkJmejymwfN+jOqRWr9ypl9
+ ULFKMxo+wYQTLn/j8i///6qmgof4596pTwcKdpGFda1W7QZ7gEvQCr5hZnYk8bHRoofJ
+ 3ab/NsIJVjVANs/QFwOWJijtz2BzTBfexlOflJFhVqvzQ1IVqDGIWl/DP6enGUX+3abM
+ CQ0shihER92ThPDIZzRBOrgX5mD0gOqT7YALVINFgtkr6rx+CvtE6/sNDj4LlYdH3sVh
+ w6VJO3zfged5Dka7u+QSW+W1BeIknaN/rkno48njxgF4HDJm02GMLpeIYpcZHits8cQ5
+ KTiQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV/QT0g6RVw/FXVYWp8wlciXJUzoycH2ZK3UZluMF+ED/SfUouJGIamnX7bLo0o9CgQ2IhHyLdosqk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx4IhydU0+brZ1tNIqJkOMz/LYRTpQ1e6LwV5djF7TEbvahqoo/
+ 9cGDmS85LF38y1YOTb1IHqYtpZHS98IBedo2RW7Tou2Kf15L5oKT0ILnjMYL34kyNQyFcEzoSuF
+ hub2meE4L3/wvrIUFrZeJvXX3o10FrL8VawEXpSwbuXKpxKoIQidZzbH24jhGdjD6QsEY3HY=
+X-Gm-Gg: ASbGnctU0eoE1WFz0mZZQqMGoPpMXEXL/5K4U8gyczdCca08/jmkq8DkauUWiBjTR2S
+ V4nkaF+FGS3xqe02s9PvwREwe/JxCJk3MHGT9yDGVIqkavzQ3UeQ8p+Alzvs3ZBf9CShYQBWKeY
+ UANFEg0I5wDBoaPaZK7s2AoeqtI60nC++D2acRmQNAhpqs6lRpUEMPH61CQk/NLjOD7hgngHK6I
+ H1ZKui/ARGtYVUC0LBIz+7GdQY3u90JgUt7VRKYjYLQT+T0JdWWj6SnNgOeStE1D+QN0NGZW9B9
+ JWFEZde27y3nZheiqD2VhV930RQKg28b+AweaiLutHbDAJ9pePvqXIR4msWB6RAma/+P0MmqWTg
+ si9wiymYtkQP2+dKgogqCYw==
+X-Received: by 2002:a17:903:8cc:b0:23e:1a6e:171e with SMTP id
+ d9443c01a7336-23e25789d06mr7514905ad.51.1752622798179; 
+ Tue, 15 Jul 2025 16:39:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFf12jj/HXthN2xljhqv21Hmol41Hu+5CcS5uDGOfODnO8leUZVdIm61q3dSm6XrZYdYl3Kww==
+X-Received: by 2002:a17:903:8cc:b0:23e:1a6e:171e with SMTP id
+ d9443c01a7336-23e25789d06mr7514655ad.51.1752622797749; 
+ Tue, 15 Jul 2025 16:39:57 -0700 (PDT)
+Received: from [10.134.71.99] (i-global254.qualcomm.com. [199.106.103.254])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23de4333e6csm118928995ad.162.2025.07.15.16.39.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Jul 2025 16:39:57 -0700 (PDT)
+Message-ID: <03f4b74e-9231-43f7-aac1-b2ec1b6cf8ed@oss.qualcomm.com>
+Date: Tue, 15 Jul 2025 16:39:53 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/dpu: Initialize crtc_state to NULL in
+ dpu_plane_virtual_atomic_check()
+To: Nathan Chancellor <nathan@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, llvm@lists.linux.dev,
+ patches@lists.linux.dev, stable@vger.kernel.org
+References: <20250715-drm-msm-fix-const-uninit-warning-v1-1-d6a366fd9a32@kernel.org>
+Content-Language: en-US
+From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+In-Reply-To: <20250715-drm-msm-fix-const-uninit-warning-v1-1-d6a366fd9a32@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: UBMsxVeKM0f7agE7dsq1IDEWZxGTWO6b
+X-Authority-Analysis: v=2.4 cv=D4xHKuRj c=1 sm=1 tr=0 ts=6876e6cf cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=5QVS9psdCSE4z-izM1AA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: UBMsxVeKM0f7agE7dsq1IDEWZxGTWO6b
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE1MDIxOSBTYWx0ZWRfXxONnptxa77F+
+ Ldi9c7OiWfqKzMSCP0JfVdWIrKfegKMTBJV/yCDQbL9V8BFGlzWLaD954/XFgGkxLlA7pgueP2S
+ hcbg4DVucds0ZhAH/2lc9rYJr37tXnn5GjQSHrBCZiU6HQaXGA9R5Z3nAQQ42rAE3qZ6mHTa8f/
+ lcaYlvsACAlHmSb8H5zJsRfEQIbM9XFfhBB8yEkYa3htvDM1oKaEnI+JhknzBIdeQeiT+ziMwN4
+ qISZG32XBdZMmS1ho7KqYMGDOiNPUx7B4pw6ACc+ToqRq7aE8nFfIO4hfaUVOyLNZl1aMrvbAn2
+ 6V7h2zTXI0hdSe4zo+GYNImfQdVd/OUSvXn+GpzwSUiv1WsvudDy8932D8J6grsEMXORQMDAJ2D
+ f5i1rr4ugovBtOmL6Iyt72rfw5zMX2fwT4EmrMAYNS1m3x70SMrMFF3/GoIS33Z01aStLe1V
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-15_05,2025-07-15_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 mlxlogscore=999 impostorscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 bulkscore=0 mlxscore=0
+ priorityscore=1501 phishscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507150219
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,49 +130,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Rob Clark,
 
-Commit e601ea31d66b ("drm/msm: Support pgtable preallocation") from
-Jun 29, 2025 (linux-next), leads to the following Smatch static
-checker warning:
 
-	drivers/gpu/drm/msm/msm_iommu.c:782 msm_iommu_gpu_new()
-	error: we previously assumed 'adreno_smmu' could be null (see line 771)
+On 7/15/2025 4:27 PM, Nathan Chancellor wrote:
+> After a recent change in clang to expose uninitialized warnings from
+> const variables and pointers [1], there is a warning around crtc_state
+> in dpu_plane_virtual_atomic_check():
+> 
+>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1145:6: error: variable 'crtc_state' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
+>     1145 |         if (plane_state->crtc)
+>          |             ^~~~~~~~~~~~~~~~~
+>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1149:58: note: uninitialized use occurs here
+>     1149 |         ret = dpu_plane_atomic_check_nosspp(plane, plane_state, crtc_state);
+>          |                                                                 ^~~~~~~~~~
+>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1145:2: note: remove the 'if' if its condition is always true
+>     1145 |         if (plane_state->crtc)
+>          |         ^~~~~~~~~~~~~~~~~~~~~~
+>     1146 |                 crtc_state = drm_atomic_get_new_crtc_state(state,
+>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1139:35: note: initialize the variable 'crtc_state' to silence this warning
+>     1139 |         struct drm_crtc_state *crtc_state;
+>          |                                          ^
+>          |                                           = NULL
+> 
+> Initialize crtc_state to NULL like other places in the driver do, so
+> that it is consistently initialized.
+> 
+> Cc: stable@vger.kernel.org
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2106
+> Fixes: 774bcfb73176 ("drm/msm/dpu: add support for virtual planes")
+> Link: https://github.com/llvm/llvm-project/commit/2464313eef01c5b1edf0eccf57a32cdee01472c7 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-drivers/gpu/drm/msm/msm_iommu.c
-    760 struct msm_mmu *msm_iommu_gpu_new(struct device *dev, struct msm_gpu *gpu, unsigned long quirks)
-    761 {
-    762         struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(dev);
-    763         struct msm_iommu *iommu;
-    764         struct msm_mmu *mmu;
-    765 
-    766         mmu = msm_iommu_new(dev, quirks);
-    767         if (IS_ERR_OR_NULL(mmu))
-    768                 return mmu;
-    769 
-    770         iommu = to_msm_iommu(mmu);
-    771         if (adreno_smmu && adreno_smmu->cookie) {
-                    ^^^^^^^^^^^
-The commit adds a NULL check.  Hopefully it can be removed.
+Reviewed-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 
-    772                 const struct io_pgtable_cfg *cfg =
-    773                         adreno_smmu->get_ttbr1_cfg(adreno_smmu->cookie);
-    774                 size_t tblsz = get_tblsz(cfg);
-    775 
-    776                 iommu->pt_cache =
-    777                         kmem_cache_create("msm-mmu-pt", tblsz, tblsz, 0, NULL);
-    778         }
-    779         iommu_set_fault_handler(iommu->domain, msm_gpu_fault_handler, iommu);
-    780 
-    781         /* Enable stall on iommu fault: */
---> 782         if (adreno_smmu->set_stall)
-                    ^^^^^^^^^^^
-because the old code dereferences "adreno_smmu" without checking.
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 421138bc3cb7..30ff21c01a36 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1136,7 +1136,7 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
+>   	struct drm_plane_state *old_plane_state =
+>   		drm_atomic_get_old_plane_state(state, plane);
+>   	struct dpu_plane_state *pstate = to_dpu_plane_state(plane_state);
+> -	struct drm_crtc_state *crtc_state;
+> +	struct drm_crtc_state *crtc_state = NULL;
+>   	int ret;
+>   
+>   	if (IS_ERR(plane_state))
+> 
+> ---
+> base-commit: d3deabe4c619875714b9a844b1a3d9752dbae1dd
+> change-id: 20250715-drm-msm-fix-const-uninit-warning-2b93cef9f1c6
+> 
+> Best regards,
+> --
+> Nathan Chancellor <nathan@kernel.org>
+> 
 
-    783                 adreno_smmu->set_stall(adreno_smmu->cookie, true);
-    784 
-    785         return mmu;
-    786 }
-
-regards,
-dan carpenter
