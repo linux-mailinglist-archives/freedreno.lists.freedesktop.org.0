@@ -2,71 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3988EB066BF
-	for <lists+freedreno@lfdr.de>; Tue, 15 Jul 2025 21:25:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D64EB0698B
+	for <lists+freedreno@lfdr.de>; Wed, 16 Jul 2025 00:59:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B2D010E645;
-	Tue, 15 Jul 2025 19:25:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4785E10E70F;
+	Tue, 15 Jul 2025 22:59:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="heiMVCWo";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FrmUc7SK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76F7E10E630
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 19:25:19 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-73a44512c8aso1561901a34.0
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 12:25:19 -0700 (PDT)
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6732D10E6E0
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 22:59:16 +0000 (UTC)
+Received: by mail-ot1-f53.google.com with SMTP id
+ 46e09a7af769-73e5792cb9dso564497a34.2
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 15:59:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1752607518; x=1753212318; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1752620355; x=1753225155; darn=lists.freedesktop.org;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=+ofJOuQnwaL8gPzkrwRaNCRkxUIKaR9tFQY4znsAEw4=;
- b=heiMVCWoxwrSnWrIKpFXAsNd5cy95DFsx10vVv9jJX0cR28wgxz9Q55pSnDkzhVW/g
- P2BYgr4QMOfF8SOaykEWUFRDGTUti5X8CrmViUKRs4hU3WqzyF8q0gBEBfc5G+vFcK9I
- Wy1CLcy1Dj/RcVPOHRQQrA+ave6C1++G+tCPHgK6mm0qfXXiP34zis8nxVqojx+c1Kp+
- gCubw3/WYV8kOiTaC7XS8HFKjsPZEuptLSzzJ0xMdaYik+Mpgdl+PqimEatYu+dAL27g
- HKHlyTfJ769sXnc7+7SwttoRlFFku10g2YH9AdUx6Uq2LbTIP1E0HH2PA3XIhjA6GXpt
- FpoA==
+ bh=BnsFPQQX9fMc8mZnHVVURxEZg5Aj2fFc9fMGBOeMT1w=;
+ b=FrmUc7SK2AMJSfeHKmG4z/PDcGCY2wUwOAPucWWf8tghstUbaj8TE3CjnBnzwP87Hv
+ Yb87G/dRd+16iy5I8ZykZOagavsRYs9DaQcBdW5kn3Sw5Ulsdt+alyBfTX90ZRXyuU5u
+ y+FjN5Q6Kqrbqw6e1Kms460sjXBlctZjju4vfGrh8lTsIanCeIQiwgk7VYjL3c2Yolcz
+ sQj1Qs9eIhqsSCDs0CMj2D2jO0oAuQ7regYWlnDO9uXRGsSsKE1YfM4VfiubXXe5i53Y
+ AgzxqIOaQOt+nP0Gtx6XfXHnIzZssonqLe3jflucXOKx9FM84YuDMiq3gg4hgWMQ4uAa
+ CD9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752607518; x=1753212318;
+ d=1e100.net; s=20230601; t=1752620355; x=1753225155;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+ofJOuQnwaL8gPzkrwRaNCRkxUIKaR9tFQY4znsAEw4=;
- b=RkhqD7S/lao/SmlwmuK7u9myLWEaZSdOWQd8Ku5XflGRfNBaIjDJPYg1ig3TaJ0pTn
- u89tAyvlCmXBmO9ZFMNq6E00AyFiYYUU9Sc43eCsXvXySIxLTKc2yn/74pg2m2ZyODYJ
- 33OiIh6qGYXXvlTh5b0nEKZsrSM8QeVDtyXQ9o3Rc2FmJrmhVjMya3aaNUB56ln8eLSh
- N5AXAwuDtylvOChaqNipXYQ79bnedZsSxJMtLpn7ao4g5NPUm4A7v0ulLZMou1N6Zifw
- 7aylGu4H/aUfC2vZwXsk4AGRHV7KT2EjZYyaMa1SuK0lhwfrDjgGHM4xRRXkBMi2UtOg
- xdlg==
+ bh=BnsFPQQX9fMc8mZnHVVURxEZg5Aj2fFc9fMGBOeMT1w=;
+ b=iXicxwogwaEaYGKGzyR98k4wO6n0frampUYAh9DTFZz9VDJbOxuXU0ecmZ74YlU0Rm
+ Pkj7v/3qpTaX6nRyg4XK+6odrmdu49fO8b0wqSGIPz00bpkRBrBUSVZkfKyRfiFgPRNg
+ LcfcAUDeL1Q0rWZDvxch9ME6YdrXRieaCGdTJPrPP9vsWNNVmarV9P/6n5dYGAbLySnw
+ RxwI5GkgBIGptx2H94e0wHm1ixX72XLVdjQCZkNeZyZ3n3LPpzXNNmoSWh2GPG33IXbb
+ wpbAfAl66czHHUXq8/fspblnMqSymBcw2MZRLAVENudSwUcZiGbdnZwQruMIAjahb+bS
+ I5gQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXNTwwU2OCwsuOnvP8c2UsEvgLU4jQ57gj8kkKDr+/ZpWKtsgxGZrqY7sd2x5m9zJAzbslJKcHgALc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvTeJMejQX0XVvuL/txStvQmGoQjsPH1hHm80nhuIWBGj+0sDn
- DFVlc0yRh1YJsEID9iMDDNSbxUJhmHP4iw2uBhY5YQ0XLQ+gFKGtSaAoKfslfDGXLGpw61SMdC3
- MHGw1
-X-Gm-Gg: ASbGnctup6ZehPEiYZamgidcHBNKgEOnoHQXgWhSRQZ6dyvQ5oxEicxXbVD1Vl5flow
- B2G91HzffTrEZq7KjFUIYSndDo9EjqjIGDcitLTV6zuNOL5GJUp+9dOmkowE+QpTSl6eZCX/zph
- G1XuiDSW5LSi1TZgcI81vbvUYcqht6DXhQr8mcuRgsHYO9vLoUqG/q/p3mDyCCB45LL8ECrk/wp
- u/qT/fZyrP0jQ3oI+C8YlLC5QQsUk/Ws3iEbbNBPjvesN3gh7mu3xAte7mvFPAMiiFHzdZMJ4KN
- 5/a7+lhtPr7rN+xzjCZUaN3tClY0HKkofqobY7f9es2pVvPOVehb08MkJEdGoJnT2VA/pqvMVuw
- 1GwhIhsUwgHxl610VjJYukVbz8nbhT4s26Y+xTTY=
-X-Google-Smtp-Source: AGHT+IH0UsF4awYSy87dNiScID5eXH435TcbPOt5aqfeubV8wnUSfcZEpEnsaZ8SOoPdJjjZOGDlnw==
-X-Received: by 2002:a05:6808:3010:b0:41c:cbbc:8abe with SMTP id
- 5614622812f47-41cf04d9d0amr203848b6e.31.1752607518370; 
- Tue, 15 Jul 2025 12:25:18 -0700 (PDT)
+ AJvYcCVC658H8bUIptjAYNE6lmDsTqi2VqqMTDtN47GSm73Z41tKp7w5WwOnXFbdHzrzS/bdbgpXfgLVewU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw3nHi4Z/NkGblPo0QQTNOn+/HFZOtW+srfgDNNc93zPNLJnm5c
+ lyVEL8DTFu/DjrxuOnilDvoo0yxIqe12k2A0CIliVu2OSBmEtJ0gTd6u1OtTTotoSiw=
+X-Gm-Gg: ASbGnct6Cgl2yHmTSRsfVKqhM1alHdqN7O0hl3ux9GzJS9ASTxjV9BgMCoil6piCzL6
+ 6MMdDXwHG9LAT7Ausr6cG+mh4hMhIHLM7Ops9l6p3X4Y/aBNs1TkGeVnyKlhErN4Pg6aCFnBjIF
+ 9F9K10Qpw7czIlxaKMy6+/lKeiNgfbUQLJZyaT/v4to/feKKftY4VHSNnjPfsU5RjEU2MRVcI9p
+ 0vVIq493NXvooF2nppJRPEi24IUpNKkssFff9lEDFr6iZ6nY95USeCfjAOLc/QSS9ksKJBTw56R
+ Naop4DMx6F68/mmSrG21EHxUOu15QBELQkHn40pU1i1XCevRXmeXbvYPFJy+FtqG7xvEOanilXR
+ +TAT/xW6s2ib4tMpYKpkfmtEcJApqtG5Lsub0ILk=
+X-Google-Smtp-Source: AGHT+IH0Pa4EbTgpgoFrZOlgckCS3peshir9288PbWdkOLJnnQdwMW9LC5JMwO//cfY2PLCk3mbHRA==
+X-Received: by 2002:a05:6830:8209:b0:73a:6904:1b46 with SMTP id
+ 46e09a7af769-73e64a01712mr1097518a34.8.1752620355684; 
+ Tue, 15 Jul 2025 15:59:15 -0700 (PDT)
 Received: from localhost ([2603:8080:b800:f700:9b4e:9dd8:875d:d59])
  by smtp.gmail.com with UTF8SMTPSA id
- 5614622812f47-4141c1ac3b5sm2292737b6e.35.2025.07.15.12.25.16
+ 586e51a60fabf-2ff1173040asm2947393fac.46.2025.07.15.15.59.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Jul 2025 12:25:17 -0700 (PDT)
-Date: Tue, 15 Jul 2025 14:25:14 -0500
+ Tue, 15 Jul 2025 15:59:15 -0700 (PDT)
+Date: Tue, 15 Jul 2025 17:59:13 -0500
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: [bug report] drm/msm: Fix submit error-path leaks
-Message-ID: <55953f27-0762-4ef2-8dda-3208b34a5c75@sabinyo.mountain>
+Subject: [bug report] drm/msm: bail out late_init_minor() if it is not a GPU
+ device
+Message-ID: <6174f797-e64b-41d7-becb-ebe7575871a8@sabinyo.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -85,124 +85,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Rob Clark,
+Hello Dmitry Baryshkov,
 
-Commit 68dc6c2d5eec ("drm/msm: Fix submit error-path leaks") from May
-9, 2023 (linux-next), leads to the following Smatch static checker
-warning:
+This is a semi-automatic email about new static checker warnings.
 
-drivers/gpu/drm/msm/msm_gem_submit.c:816 msm_ioctl_gem_submit() warn: fd used after fd_install() 'out_fence_fd'
-drivers/gpu/drm/msm/msm_gem_submit.c:818 msm_ioctl_gem_submit() warn: fd used after fd_install() 'sync_file->file'
+Commit 4f89cf40d01e ("drm/msm: bail out late_init_minor() if it is
+not a GPU device") from Jul 5, 2025, leads to the following Smatch
+complaint:
 
-drivers/gpu/drm/msm/msm_gem_submit.c
-    751                 WARN_ON(ret);
-    752         } else {
-    753                 /*
-    754                  * Allocate an id which can be used by WAIT_FENCE ioctl to map
-    755                  * back to the underlying fence.
-    756                  */
-    757                 submit->fence_id = idr_alloc_cyclic(&queue->fence_idr,
-    758                                                     submit->user_fence, 1,
-    759                                                     INT_MAX, GFP_NOWAIT);
-    760         }
-    761 
-    762         spin_unlock(&queue->idr_lock);
-    763         idr_preload_end();
-    764 
-    765         if (submit->fence_id < 0) {
-    766                 ret = submit->fence_id;
-    767                 submit->fence_id = 0;
-    768         }
-    769 
-    770         if (ret == 0 && args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
-    771                 sync_file = sync_file_create(submit->user_fence);
-    772                 if (!sync_file) {
-    773                         ret = -ENOMEM;
-    774                 } else {
-    775                         fd_install(out_fence_fd, sync_file->file);
-                                           ^^^^^^^^^^^^
-Once we call fd_install() the file is exposed to userspace and they can make
-the fd point to a different file.
+    drivers/gpu/drm/msm/msm_debugfs.c:332 late_init_minor()
+    warn: variable dereferenced before check 'minor' (see line 328)
 
-    776                         args->fence_fd = out_fence_fd;
-    777                 }
-    778         }
-    779 
-    780         if (ret)
-    781                 goto out;
-    782 
-    783         submit_attach_object_fences(submit);
-    784 
-    785         if (msm_context_is_vmbind(ctx)) {
-    786                 /*
-    787                  * If we are not using VM_BIND, submit_pin_vmas() will validate
-    788                  * just the BOs attached to the submit.  In that case we don't
-    789                  * need to validate the _entire_ vm, because userspace tracked
-    790                  * what BOs are associated with the submit.
-    791                  */
-    792                 ret = drm_gpuvm_validate(submit->vm, &submit->exec);
-    793                 if (ret)
-    794                         goto out;
-    795         }
-    796 
-    797         /* The scheduler owns a ref now: */
-    798         msm_gem_submit_get(submit);
-    799 
-    800         msm_rd_dump_submit(priv->rd, submit, NULL);
-    801 
-    802         drm_sched_entity_push_job(&submit->base);
-    803 
-    804         args->fence = submit->fence_id;
-    805         queue->last_fence = submit->fence_id;
-    806 
-    807         msm_syncobj_reset(syncobjs_to_reset, args->nr_in_syncobjs);
-    808         msm_syncobj_process_post_deps(post_deps, args->nr_out_syncobjs, submit->user_fence);
-    809 
-    810 out:
-    811         submit_cleanup(submit, !!ret);
-    812 out_unlock:
-    813         mutex_unlock(&queue->lock);
-    814 out_post_unlock:
-    815         if (ret && (out_fence_fd >= 0)) {
---> 816                 put_unused_fd(out_fence_fd);
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-So this put_unused_fd() could potentially do something to the wrong file.
-Traditionally, we either do the fd_install() last or we just leak until the
-process dies and all the files are released.
+drivers/gpu/drm/msm/msm_debugfs.c
+   327	{
+   328		struct drm_device *dev = minor->dev;
+                                         ^^^^^^^
+The patch adds a dereference
 
-(Hand wavey because I'm not sure how all this works exactly)
+   329		struct msm_drm_private *priv = dev->dev_private;
+   330		int ret;
+   331	
+   332		if (!minor)
+                    ^^^^^^
+But the older code assumes the minor can be NULL
 
-    817                 if (sync_file)
-    818                         fput(sync_file->file);
-    819         }
-    820 
-    821         if (!IS_ERR_OR_NULL(submit)) {
-    822                 msm_gem_submit_put(submit);
-    823         } else {
-    824                 /*
-    825                  * If the submit hasn't yet taken ownership of the queue
-    826                  * then we need to drop the reference ourself:
-    827                  */
-    828                 msm_submitqueue_put(queue);
-    829         }
-    830         if (!IS_ERR_OR_NULL(post_deps)) {
-    831                 for (i = 0; i < args->nr_out_syncobjs; ++i) {
-    832                         kfree(post_deps[i].chain);
-    833                         drm_syncobj_put(post_deps[i].syncobj);
-    834                 }
-    835                 kfree(post_deps);
-    836         }
-    837 
-    838         if (!IS_ERR_OR_NULL(syncobjs_to_reset)) {
-    839                 for (i = 0; i < args->nr_in_syncobjs; ++i) {
-    840                         if (syncobjs_to_reset[i])
-    841                                 drm_syncobj_put(syncobjs_to_reset[i]);
-    842                 }
-    843                 kfree(syncobjs_to_reset);
-    844         }
-    845 
-    846         return ret;
-    847 }
+   333			return 0;
+   334	
 
 regards,
 dan carpenter
