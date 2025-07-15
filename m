@@ -2,71 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D64EB0698B
-	for <lists+freedreno@lfdr.de>; Wed, 16 Jul 2025 00:59:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B8E4B0698E
+	for <lists+freedreno@lfdr.de>; Wed, 16 Jul 2025 00:59:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4785E10E70F;
-	Tue, 15 Jul 2025 22:59:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56F8F10E6E0;
+	Tue, 15 Jul 2025 22:59:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FrmUc7SK";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WOA+EWPm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
- [209.85.210.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6732D10E6E0
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 22:59:16 +0000 (UTC)
-Received: by mail-ot1-f53.google.com with SMTP id
- 46e09a7af769-73e5792cb9dso564497a34.2
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 15:59:16 -0700 (PDT)
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
+ [209.85.161.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 985AB10E715
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 22:59:25 +0000 (UTC)
+Received: by mail-oo1-f50.google.com with SMTP id
+ 006d021491bc7-613c7b65039so828753eaf.0
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 15:59:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1752620355; x=1753225155; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1752620365; x=1753225165; darn=lists.freedesktop.org;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=BnsFPQQX9fMc8mZnHVVURxEZg5Aj2fFc9fMGBOeMT1w=;
- b=FrmUc7SK2AMJSfeHKmG4z/PDcGCY2wUwOAPucWWf8tghstUbaj8TE3CjnBnzwP87Hv
- Yb87G/dRd+16iy5I8ZykZOagavsRYs9DaQcBdW5kn3Sw5Ulsdt+alyBfTX90ZRXyuU5u
- y+FjN5Q6Kqrbqw6e1Kms460sjXBlctZjju4vfGrh8lTsIanCeIQiwgk7VYjL3c2Yolcz
- sQj1Qs9eIhqsSCDs0CMj2D2jO0oAuQ7regYWlnDO9uXRGsSsKE1YfM4VfiubXXe5i53Y
- AgzxqIOaQOt+nP0Gtx6XfXHnIzZssonqLe3jflucXOKx9FM84YuDMiq3gg4hgWMQ4uAa
- CD9w==
+ bh=nAbN1phbWnHR6tinlmWhEsvw3/nZ2WfWNMcro9Jd5Oo=;
+ b=WOA+EWPmwmAnzr7gJDu+EbmLia+y6qOHj6bP4mckSB1ffWvkaVTcJJfz5dq0uipxvB
+ cG1aSC/nR6xBifRqyRrUbOkIu2/yDwN20M2HibESnBt0R93qgJoKf50rcytfWZzpK2kK
+ 68tVaCJHhKSwX9Hk1vP5Wvk0hCxqZyN/2ivjH61c4gZz/zI09BgM4jrPiZtEXMPJTZND
+ Qbza08RlL4ogQsu1QI/j0ojhRm2lnS/QoYQovMl7l6BXG2lXGqSGq9sVw1bCnvBLOPra
+ FOhVYp1vaWIXM87ISLn7wBSJcVIc2AM8Ctjnhu+hOXL2QgX0cPzhxv34st6Ctp8JdcZy
+ T35Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752620355; x=1753225155;
+ d=1e100.net; s=20230601; t=1752620365; x=1753225165;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BnsFPQQX9fMc8mZnHVVURxEZg5Aj2fFc9fMGBOeMT1w=;
- b=iXicxwogwaEaYGKGzyR98k4wO6n0frampUYAh9DTFZz9VDJbOxuXU0ecmZ74YlU0Rm
- Pkj7v/3qpTaX6nRyg4XK+6odrmdu49fO8b0wqSGIPz00bpkRBrBUSVZkfKyRfiFgPRNg
- LcfcAUDeL1Q0rWZDvxch9ME6YdrXRieaCGdTJPrPP9vsWNNVmarV9P/6n5dYGAbLySnw
- RxwI5GkgBIGptx2H94e0wHm1ixX72XLVdjQCZkNeZyZ3n3LPpzXNNmoSWh2GPG33IXbb
- wpbAfAl66czHHUXq8/fspblnMqSymBcw2MZRLAVENudSwUcZiGbdnZwQruMIAjahb+bS
- I5gQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVC658H8bUIptjAYNE6lmDsTqi2VqqMTDtN47GSm73Z41tKp7w5WwOnXFbdHzrzS/bdbgpXfgLVewU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3nHi4Z/NkGblPo0QQTNOn+/HFZOtW+srfgDNNc93zPNLJnm5c
- lyVEL8DTFu/DjrxuOnilDvoo0yxIqe12k2A0CIliVu2OSBmEtJ0gTd6u1OtTTotoSiw=
-X-Gm-Gg: ASbGnct6Cgl2yHmTSRsfVKqhM1alHdqN7O0hl3ux9GzJS9ASTxjV9BgMCoil6piCzL6
- 6MMdDXwHG9LAT7Ausr6cG+mh4hMhIHLM7Ops9l6p3X4Y/aBNs1TkGeVnyKlhErN4Pg6aCFnBjIF
- 9F9K10Qpw7czIlxaKMy6+/lKeiNgfbUQLJZyaT/v4to/feKKftY4VHSNnjPfsU5RjEU2MRVcI9p
- 0vVIq493NXvooF2nppJRPEi24IUpNKkssFff9lEDFr6iZ6nY95USeCfjAOLc/QSS9ksKJBTw56R
- Naop4DMx6F68/mmSrG21EHxUOu15QBELQkHn40pU1i1XCevRXmeXbvYPFJy+FtqG7xvEOanilXR
- +TAT/xW6s2ib4tMpYKpkfmtEcJApqtG5Lsub0ILk=
-X-Google-Smtp-Source: AGHT+IH0Pa4EbTgpgoFrZOlgckCS3peshir9288PbWdkOLJnnQdwMW9LC5JMwO//cfY2PLCk3mbHRA==
-X-Received: by 2002:a05:6830:8209:b0:73a:6904:1b46 with SMTP id
- 46e09a7af769-73e64a01712mr1097518a34.8.1752620355684; 
- Tue, 15 Jul 2025 15:59:15 -0700 (PDT)
+ bh=nAbN1phbWnHR6tinlmWhEsvw3/nZ2WfWNMcro9Jd5Oo=;
+ b=F6oXBepNTq0Z3oSEH24N+moGc8Y7aB3SKvFjVrqJx/CRLpxH1gl3Z7WFhglTxAd3ZB
+ 4qk4VsXxoDBjHgqKlNB0Mev6cpcyOHKD2+o955Jef5+EO2fmLe1dzWAl3infrQ1xzK0W
+ DvdzF3rbYAkwZcKHql/4YqOTZuK2zLwcl/vFRtKjl0F9hyOF+vWl3kDVjxdhZuwoJZ57
+ S6w/qbQac4gBh8Bn9BSqibO0znXKIGGSrT5oeBaAdZ4PdUFMEFZWGfl5O64rdk7LRd4P
+ z8aejtsFRH4vfE+J1cOyCavgM4tzskNBWaPft4V5KpPEYb8uk9H96XS7ytflOZZa8dAd
+ SXsg==
+X-Gm-Message-State: AOJu0YwwhRLj2u7kDPIJT45xFEw7wasOMBkwwH46HHC15ZvbkaFtv+/L
+ NX13KtfILRFZ/TYTn3qs51N4qTg+nR1yuGGAcgE1Z8y16mlaOUYrhoxlHAKYPn/Nt2c=
+X-Gm-Gg: ASbGnctoEjYC8i3x8t0HtOmOVlAKIwycMmRixyf+1QBJhcnOqyNg8tBg+PNFolTLZSF
+ OjSYkET+f5hr3NeYIUHxjy4qx/kETRD/IDYR/k5Hu3cS46EACmM9MuFQSOtd0KpgOYQ4pXjT9F1
+ dBVThgcQ69+aQdhJUCur+YK1bcOE3fP9+eu3IT6d0Od2Hq6OOQ8zkHYB1ObkA1+QwAI7/medMp5
+ mvzCzgrEK8VvdC+Y9jUZoAGYHvSScNFNBfL8qBx1ymtstd5TsYxRmSpQqJCApihDHHVpEvw7eSf
+ jdsLtHOq6eFSQc9mdQlsnzGPg/Hlq0hC7aCHtDhmo1HyfrHJy1Iy5WZaQWx2ynQQslgSwW+5PQK
+ QHXu9Y+nfOFDvwBJaYT1bZywg6/aX
+X-Google-Smtp-Source: AGHT+IG0wy7DyTehUAZCiFKNekxjgta2wc39ptqLXGwqA7ffyUNnEWamWaLTQpcfhbS6l8BCDfP8jg==
+X-Received: by 2002:a05:6808:244f:b0:406:5a47:a081 with SMTP id
+ 5614622812f47-41d034ec1f2mr472800b6e.13.1752620364673; 
+ Tue, 15 Jul 2025 15:59:24 -0700 (PDT)
 Received: from localhost ([2603:8080:b800:f700:9b4e:9dd8:875d:d59])
  by smtp.gmail.com with UTF8SMTPSA id
- 586e51a60fabf-2ff1173040asm2947393fac.46.2025.07.15.15.59.14
+ 5614622812f47-41c48678a3esm496352b6e.26.2025.07.15.15.59.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Jul 2025 15:59:15 -0700 (PDT)
-Date: Tue, 15 Jul 2025 17:59:13 -0500
+ Tue, 15 Jul 2025 15:59:24 -0700 (PDT)
+Date: Tue, 15 Jul 2025 17:59:23 -0500
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: [bug report] drm/msm: bail out late_init_minor() if it is not a GPU
- device
-Message-ID: <6174f797-e64b-41d7-becb-ebe7575871a8@sabinyo.mountain>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: freedreno@lists.freedesktop.org
+Subject: [bug report] drm/msm: Support pgtable preallocation
+Message-ID: <cf1dacd6-3e09-4ec1-aaea-a28ac3105e07@sabinyo.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -85,32 +82,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Dmitry Baryshkov,
+Hello Rob Clark,
 
-This is a semi-automatic email about new static checker warnings.
+Commit e601ea31d66b ("drm/msm: Support pgtable preallocation") from
+Jun 29, 2025 (linux-next), leads to the following Smatch static
+checker warning:
 
-Commit 4f89cf40d01e ("drm/msm: bail out late_init_minor() if it is
-not a GPU device") from Jul 5, 2025, leads to the following Smatch
-complaint:
+	drivers/gpu/drm/msm/msm_iommu.c:782 msm_iommu_gpu_new()
+	error: we previously assumed 'adreno_smmu' could be null (see line 771)
 
-    drivers/gpu/drm/msm/msm_debugfs.c:332 late_init_minor()
-    warn: variable dereferenced before check 'minor' (see line 328)
+drivers/gpu/drm/msm/msm_iommu.c
+    760 struct msm_mmu *msm_iommu_gpu_new(struct device *dev, struct msm_gpu *gpu, unsigned long quirks)
+    761 {
+    762         struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(dev);
+    763         struct msm_iommu *iommu;
+    764         struct msm_mmu *mmu;
+    765 
+    766         mmu = msm_iommu_new(dev, quirks);
+    767         if (IS_ERR_OR_NULL(mmu))
+    768                 return mmu;
+    769 
+    770         iommu = to_msm_iommu(mmu);
+    771         if (adreno_smmu && adreno_smmu->cookie) {
+                    ^^^^^^^^^^^
+The commit adds a NULL check.  Hopefully it can be removed.
 
-drivers/gpu/drm/msm/msm_debugfs.c
-   327	{
-   328		struct drm_device *dev = minor->dev;
-                                         ^^^^^^^
-The patch adds a dereference
+    772                 const struct io_pgtable_cfg *cfg =
+    773                         adreno_smmu->get_ttbr1_cfg(adreno_smmu->cookie);
+    774                 size_t tblsz = get_tblsz(cfg);
+    775 
+    776                 iommu->pt_cache =
+    777                         kmem_cache_create("msm-mmu-pt", tblsz, tblsz, 0, NULL);
+    778         }
+    779         iommu_set_fault_handler(iommu->domain, msm_gpu_fault_handler, iommu);
+    780 
+    781         /* Enable stall on iommu fault: */
+--> 782         if (adreno_smmu->set_stall)
+                    ^^^^^^^^^^^
+because the old code dereferences "adreno_smmu" without checking.
 
-   329		struct msm_drm_private *priv = dev->dev_private;
-   330		int ret;
-   331	
-   332		if (!minor)
-                    ^^^^^^
-But the older code assumes the minor can be NULL
-
-   333			return 0;
-   334	
+    783                 adreno_smmu->set_stall(adreno_smmu->cookie, true);
+    784 
+    785         return mmu;
+    786 }
 
 regards,
 dan carpenter
