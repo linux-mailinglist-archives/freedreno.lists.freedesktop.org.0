@@ -2,118 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F5C4B07251
-	for <lists+freedreno@lfdr.de>; Wed, 16 Jul 2025 11:58:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF396B07573
+	for <lists+freedreno@lfdr.de>; Wed, 16 Jul 2025 14:20:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53DA410E771;
-	Wed, 16 Jul 2025 09:58:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38F5210E27E;
+	Wed, 16 Jul 2025 12:20:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TD7TaINl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V3dj1uRm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30CEC10E269
- for <freedreno@lists.freedesktop.org>; Wed, 16 Jul 2025 09:58:31 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56G5QorG029553
- for <freedreno@lists.freedesktop.org>; Wed, 16 Jul 2025 09:58:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- uCPi2EzrNB692xy9We9a/N/3HeKk+7QZjy0Feteaw+Y=; b=TD7TaINlKPIASE36
- u/IbN+GDCE0I8aXSUbZMgWJU5NLyxC3OiBPrp/w94eJ2CIRTzCtvErpjFnPBsIKY
- dEoPnit2bh26v+QbjDsA08VXCjUStPFtRonIes9qDcEcSPf1Rckx0ks9IgGr0Ulp
- /ZFd1CGsPFstiDMvrOhiTJ+CgMKmcQIGvXWRag6QCDVN7AqIXuLa09ElQm2W61WD
- uKJ0GCCuX6oqQhJhFdSaFr/LcQGPVOUHdiQvg7iD+itE+anVeK9B1Pra+Nj5ePtF
- RlFj1INTotKb96Um/t3VD+YR/PYkYlsdtQMWFKJERhJXZMf9bOiynuOEB3PG8/no
- JoW32Q==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ufxb3gfs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 16 Jul 2025 09:58:29 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4a58580a76eso2640381cf.0
- for <freedreno@lists.freedesktop.org>; Wed, 16 Jul 2025 02:58:29 -0700 (PDT)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D52189C0D;
+ Tue, 15 Jul 2025 22:53:33 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-60c01b983b6so733770a12.0; 
+ Tue, 15 Jul 2025 15:53:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1752620011; x=1753224811; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+XsV7dB0/dBV/4w5KD5MsUTgHRRbA9nMltbkQvDt2jw=;
+ b=V3dj1uRmWmMYTCr2tdKrnGMgGqwO8ZpwM0wch+AqUZA8mn+QI6mWkBgZHCxsTdib/J
+ aPr2eGUbQbfO9pRh0G+vXidGTkeE2nWNWu5zRRCi+z/Re9K66GgjKjJQanh1gTC12MXl
+ ZT5i+ui2IsbQnLHTCKWblmL+oKV19vZeI1GjLRWarxKQEDRJlaLBPpKYP+e5mksmGknc
+ XMfDuYRh+7JGK78MlQz5yqNPH2fPEj0RNSEA/RSdFk6jxYQ5V0RMc30LZbK951QvSCW7
+ tgmesIkxfdgIbFPDcbD6FbdLYqJ9RND3FZ2F0vH8O7zn04A2kJln5t7C3U8u3dVNDkP+
+ gShg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752659909; x=1753264709;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uCPi2EzrNB692xy9We9a/N/3HeKk+7QZjy0Feteaw+Y=;
- b=b6TfOGfLqehGww6QoHgc9mGER9lFGHD90NckorUAyCj6G2qlfBLmY4TCOUkhAr2ffl
- JOE/+0KHiABMkONnqQI8wP+xnrtU+zg6vu3+WILzXiLpCaUlQvl1/AdAPFV88d53lirE
- 7g9xIwMXMDUsK4KE73VXPkFbKQERDSHRAU0yC4EqQmPNTHP6SSm0WiI/PhPkutXe/tdS
- tGFNyhxcXO/sKiy8r49KoxIeDZBhnrKqooMBQ1MDb8HYOZEwMwddY+WegAbUazsPqg0k
- j9t5KDGxKZSPv6CS713dzCtic7B9YPkVajd4mC/5YDw2Oa/N6qXQE24agSuF3jzn6G5B
- YEyQ==
+ d=1e100.net; s=20230601; t=1752620011; x=1753224811;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+XsV7dB0/dBV/4w5KD5MsUTgHRRbA9nMltbkQvDt2jw=;
+ b=Oj+COgdvVDyawmWoIYaPJ9L6JZL7OPWEQU72+jMG+LhqlgOFcrLultx4hwiRJFYqwB
+ y+LBmYp1NtAKKwQiSULP6rzLzG0C0yU6JPWQQgtuyX2cqgeUg4yZmWooCi2XlWMcD3Hm
+ lpm1CEL8r+RYMr4Onb6cxunuGAmck+VfOwLBXHS84b3CvtxhSae0h6MpDACbAfmbNBVb
+ 2n/fwUXhqXfBHVNqd1P95kM4BokoLYh2JfDgxEQbPvG+8KGR7P3hGicW8Ec9aE326YnJ
+ RahBQWw4unKqon9vbpk5biwr96gqqKuvSuSNQZ8FK2IWe3QWBx7v2RY00DUSyZFOJJdj
+ S/0Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVTnVY06PjsSurXrAOC9+76YHU9bIUCEk6AP4HK0XbJ+RYgotBivtgQVkVnEBIUEAc2FmakVGwD2mg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxpxko/No2xdb4PfW3l8h00trfFz4XAhMq99iChshjq1Ej3bwqT
- NqeCsQ5NpgMAZKMdgrzA1KzQ63zl3aj5/8pVTBodCBLgfVE7HQaHyyFlUn1XuiMg4j7INAWMXgR
- +twMY9tE5p2NQE4yEHmwbjY7tQBNK9aWdVp0w8Wzwu98V6xbUqHTd2t6s7wh2wmUMRPJcZn4=
-X-Gm-Gg: ASbGncukowcE+O/4CduE6ri8leZLtoqq+MQ0CspR9cnuY/smUiCGn234Ntco7ZUL19e
- 7wLDr9dHvf52pUw88huiEPOX3GcpFV/Rwg/QsBQriCcCXOiKzHLtxXiEfSwusRRestz6y4hG61L
- BeqTcUVkys4f9XxJ02ns4ly7uLD/2NsQvnoOigAcBV3kvhXhNtMunk9c1M1EGPgZjErSEDULKrM
- tRV550VnkmLOFIjNaGOENXsoBR7rQ4nX8sTluaB1iDq2semVEeq4VNFhZfwYVtYl8V70d0QpUye
- QeAUMpFmmvK8mx2/CiLNyh6CrP6qfkSMUiX8y4buxL4mLHHMZl1WtAaHSOpkcvO7IT+gA9TmyFr
- 98x09nqvmDVZbtdODtNZH
-X-Received: by 2002:a05:620a:28c1:b0:7e3:297d:ec32 with SMTP id
- af79cd13be357-7e342b37074mr137701185a.10.1752659909178; 
- Wed, 16 Jul 2025 02:58:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHpnCpN/dC4tnBcVCDR8doy3/WCq6HZeBLkingkmeSVXbTv0Ng7Hs+rCJV4fx9aFN6b/RA0hQ==
-X-Received: by 2002:a05:620a:28c1:b0:7e3:297d:ec32 with SMTP id
- af79cd13be357-7e342b37074mr137699885a.10.1752659908851; 
- Wed, 16 Jul 2025 02:58:28 -0700 (PDT)
-Received: from [192.168.143.225] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae6e82df2efsm1166796766b.151.2025.07.16.02.58.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 02:58:28 -0700 (PDT)
-Message-ID: <ad1afd1b-9cad-47d1-8dc9-0d62b25f502a@oss.qualcomm.com>
-Date: Wed, 16 Jul 2025 11:58:25 +0200
+ AJvYcCVqSQt3QgNVzy5UwrqFX6rtybJRFTUNabc80CVyVXTO9pT39tG6WOzt/GnBQCT1xNC9qRdjEt3QgQyW@lists.freedesktop.org,
+ AJvYcCXKKKUjFUVdIbdLLGKvu0v1CCKt5RQ4uP+edwN75npcfcbw8TEYpDWmPO1GK8ZHYsoIQfZtFZiVGb0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwCQqo+kXTswsfrg3Ptc4yDANEw0acf35Z1OgKX+0kg8ENuQY+k
+ PhVkLdtaM/Zybmm0veBHyyff3P6nHhW0ZTBYjuQl8Pqcg4Aa9qy9WjJWl76P6NSkTgin6ku/LLc
+ JKMF4BXwi1C6o1Wm9RVgVywIPZdhdEw==
+X-Gm-Gg: ASbGnct4Rp/jlAk6TfzAE2zBR8abaI7f4fZeB2yksPp3RYdS9ytYhBQhEccqRTNcHzA
+ xPWZovviHjosO0seX9GVlffTJ+OAX96W6dG+m/lAzRy7WXKjJwxEa6vf/3btBVPwyTsO7S/P9JW
+ dwCx3SsyBfflMQ3f479YP3Kdh8GyLW0ePASfXF49z90wQ+uZgpt5QJepSYNmTh6ctHC0EVq4XZ+
+ Y/ITYZQMR+U59TlRurh23Cuxh0yc/UL4VtmXlg=
+X-Google-Smtp-Source: AGHT+IHJ0UrphscN3ZQ6MjbsfF09sNSf+YfHJeVDahoSygCKdgSFJpnKOrntHpiY1NQ/G9FOEePT6PqTIu3mZzcGNhU=
+X-Received: by 2002:a05:6402:3787:b0:607:35d:9fb4 with SMTP id
+ 4fb4d7f45d1cf-61282c93cb7mr699146a12.15.1752620011188; Tue, 15 Jul 2025
+ 15:53:31 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/kms: move snapshot init earlier in KMS init
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250715-msm-move-snapshot-init-v1-1-f39c396192ab@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250715-msm-move-snapshot-init-v1-1-f39c396192ab@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: b5tyhTvkx4DUXMRL_MXjUCNnmKlv9YLY
-X-Proofpoint-ORIG-GUID: b5tyhTvkx4DUXMRL_MXjUCNnmKlv9YLY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE2MDA4OSBTYWx0ZWRfX/i5amwZRSg6k
- pghsF3eNUEDqdAKJtrIpbPzZ8Az4fbkzYPzFX2TkIhWBzY0O7NPSow8WCyYyf1iJySNLfGoK+TT
- ttErDCfZuP/OWcwttzRV7qEp69Ujk4c0dQ4rbuhil+qj59SwJaLZifqYlXC9rKKNlOXLULCkoUV
- ugIa8d/kcY08qe/VoMd1WgeFZZK6upFzcX+A3SlXFcZtg5lkxu7//DNJFCxaqzUHubTlp/GKi1V
- fONXTNxaAKfkEBpBDPUIYU+lqgKxBASYUu2+O+Na6e61LIKOFhQXZC+b4VhXj9dGmmD4NjEa4CX
- J7L+plvN8EcpCzy1tAMTF3pigTqK9GMBW5pg/Pq3SmeG4JErW0OmJei8+3H5nrQ0zaj5ZXs1GZG
- 7PGpU+j0EH0tFmCA1dD5swUMDgRfNKsfi7YvWYiTI9tQCwFwsHy+FNE3KWNWT+uLvjziFS4C
-X-Authority-Analysis: v=2.4 cv=Xc2JzJ55 c=1 sm=1 tr=0 ts=687777c5 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=qnTbvVf9oJKgxClKmkgA:9
- a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-16_01,2025-07-15_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 mlxscore=0 priorityscore=1501 adultscore=0 mlxlogscore=984
- phishscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
- clxscore=1015 malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507160089
+References: <20250714173554.14223-1-daleyo@gmail.com>
+ <20250714173554.14223-7-daleyo@gmail.com>
+ <CACSVV00-DDnQYp-65Pi-XwpEKT1_jYik2=zH_bK_oJiGLxX48A@mail.gmail.com>
+In-Reply-To: <CACSVV00-DDnQYp-65Pi-XwpEKT1_jYik2=zH_bK_oJiGLxX48A@mail.gmail.com>
+From: =?UTF-8?B?SsOpcsO0bWUgZGUgQnJldGFnbmU=?= <jerome.debretagne@gmail.com>
+Date: Wed, 16 Jul 2025 00:52:54 +0200
+X-Gm-Features: Ac12FXwFj68pn6YB4znyT4ywvUmV_BN2k_YiCalM6sBLs5LcPLsqZL0a65VkVi8
+Message-ID: <CA+kEDGF96VbjGPBW0hWSji2eQtQU-bXjsZAaZjjUo0cvpwhBQg@mail.gmail.com>
+Subject: Re: [PATCH 6/9] drm/msm/dp: Work around bogus maximum link rate
+To: rob.clark@oss.qualcomm.com
+Cc: Dale Whinham <daleyo@gmail.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 16 Jul 2025 12:20:07 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,19 +93,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/15/25 5:50 PM, Dmitry Baryshkov wrote:
-> Various parts of the display driver can be triggering the display
-> snapshot (including the IOMMU fault handlers). Move the call to
-> msm_disp_snapshot_init() before KMS initialization, otherwise it is
-> possible to ocassionally trigger the kernel fault during init:
+On Mon, Jul 14, 2025 at 21:51, Rob Clark <rob.clark@oss.qualcomm.com> wrote=
+:
+>
+> On Mon, Jul 14, 2025 at 10:36=E2=80=AFAM Dale Whinham <daleyo@gmail.com> =
+wrote:
+> >
+> > From: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
+> >
+> > The OLED display in the Surface Pro 11 reports a maximum link rate of
+> > zero in its DPCD, causing it to fail to probe correctly.
+> >
+> > The Surface Pro 11's DSDT table contains some XML with an
+> > "EDPOverrideDPCDCaps" block that defines the max link rate as 0x1E
+> > (8.1Gbps/HBR3).
+> >
+> > Add a quirk to conditionally override the max link rate if its value
+> > is zero specifically for this model.
+> >
+> > Signed-off-by: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.co=
+m>
+> > Signed-off-by: Dale Whinham <daleyo@gmail.com>
+> > ---
+> >  drivers/gpu/drm/msm/dp/dp_panel.c | 13 +++++++++++++
+> >  1 file changed, 13 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp=
+/dp_panel.c
+> > index 4e8ab75c771b..b2e65b987c05 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> > @@ -11,6 +11,8 @@
+> >  #include <drm/drm_of.h>
+> >  #include <drm/drm_print.h>
+> >
+> > +#include <linux/dmi.h>
+> > +
+> >  #define DP_MAX_NUM_DP_LANES    4
+> >  #define DP_LINK_RATE_HBR2      540000 /* kbytes */
+> >
+> > @@ -58,6 +60,17 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_pane=
+l *msm_dp_panel)
+> >         if (rc)
+> >                 return rc;
+> >
+> > +       /*
+> > +        * for some reason the ATNA30DW01-1 OLED panel in the Surface P=
+ro 11
+> > +        * reports a max link rate of 0 in the DPCD. Fix it to match th=
+e
+> > +        * EDPOverrideDPCDCaps string found in the ACPI DSDT
+> > +        */
+> > +       if (dpcd[DP_MAX_LINK_RATE] =3D=3D 0 &&
+> > +           dmi_match(DMI_SYS_VENDOR, "Microsoft Corporation") &&
+> > +           dmi_match(DMI_PRODUCT_NAME, "Microsoft Surface Pro, 11th Ed=
+ition")) {
+> > +               dpcd[1] =3D DP_LINK_BW_8_1;
+> > +       }
+>
+> Not a dp expert myself, but..
+>
+> In drm_dp_helpers.c there is dpcd_quirk_list[].. which applies quirks
+> based on the oui ("Organizational Unique ID") of the dp sink.  I think
+> this would be the correct way to handle this.  Although I guess you'll
+> need to add a new quirk for this.
+>
+> Idk if the surface pro 11 has multiple different panel options.  If so
+> you defn wouldn't want to match on the DMI.
+>
+> BR,
+> -R
 
-[...]
+Thanks Rob for the feedback, I have a working implementation
+based on your suggestion with a new quirk, we will switch to it in V2.
 
-> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Fixes: 98659487b845 ("drm/msm: add support to take dpu snapshot")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+Best,
+J=C3=A9r=C3=B4me
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+> > +
+> >         msm_dp_panel->vsc_sdp_supported =3D drm_dp_vsc_sdp_supported(pa=
+nel->aux, dpcd);
+> >         link_info =3D &msm_dp_panel->link_info;
+> >         link_info->revision =3D dpcd[DP_DPCD_REV];
+> > --
+> > 2.50.1
+> >
