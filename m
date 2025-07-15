@@ -2,133 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77C27B0651E
-	for <lists+freedreno@lfdr.de>; Tue, 15 Jul 2025 19:28:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3988EB066BF
+	for <lists+freedreno@lfdr.de>; Tue, 15 Jul 2025 21:25:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 526DB10E231;
-	Tue, 15 Jul 2025 17:28:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B2D010E645;
+	Tue, 15 Jul 2025 19:25:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zgdx9DnY";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="heiMVCWo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52AE910E231
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 17:28:24 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56FGD9kB022695
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 17:28:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=ga9LEiLYJZQSrksTrc649E
- EuSqapBL05a/sdzXt+JFI=; b=Zgdx9DnYQolsWxN3RaF4WTQGbUGMvVZwdqwtg3
- yJF5YxVONXbzLdUi1XY/eDsLKxU2qhpstoi1FcC3jj2BInJGpbcq+yXsVlopy+Kf
- a8BK6PSAn/pCcLYwkV8WvalxIWEXBzxO8EBijO9C3J3fsUCv3VswAji5OAMAFxk6
- o8cex1ZhIH/PR9WjhGJHxFXGbGuk95yjWfDJNu0SUZxblpNFnb5zZEEbb5E++JLH
- ynbvCpatNR4rcuPAcgnHYAKOdp1B4Qknxd2obMavVAm1HYR2ZVdC3eOOCKNVxxCF
- oRpaUcJ+4hpq50TDRzxgNOoaHDhTckmguXma1HcZMmDH9YEA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47wkruhrcj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 17:28:23 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7dabc82916cso1022075685a.0
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 10:28:23 -0700 (PDT)
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76F7E10E630
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 19:25:19 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 46e09a7af769-73a44512c8aso1561901a34.0
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 12:25:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1752607518; x=1753212318; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+ofJOuQnwaL8gPzkrwRaNCRkxUIKaR9tFQY4znsAEw4=;
+ b=heiMVCWoxwrSnWrIKpFXAsNd5cy95DFsx10vVv9jJX0cR28wgxz9Q55pSnDkzhVW/g
+ P2BYgr4QMOfF8SOaykEWUFRDGTUti5X8CrmViUKRs4hU3WqzyF8q0gBEBfc5G+vFcK9I
+ Wy1CLcy1Dj/RcVPOHRQQrA+ave6C1++G+tCPHgK6mm0qfXXiP34zis8nxVqojx+c1Kp+
+ gCubw3/WYV8kOiTaC7XS8HFKjsPZEuptLSzzJ0xMdaYik+Mpgdl+PqimEatYu+dAL27g
+ HKHlyTfJ769sXnc7+7SwttoRlFFku10g2YH9AdUx6Uq2LbTIP1E0HH2PA3XIhjA6GXpt
+ FpoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752600502; x=1753205302;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ga9LEiLYJZQSrksTrc649EEuSqapBL05a/sdzXt+JFI=;
- b=iiKLEzqkFHsepxRPzMYUHUkgdEQ+HSx74F5bDzBI7kTe53YySqZO0+Oj+jznrvcqH1
- r5mlEooOYWHtGiEVxFj0EoGtqdxEylqLnjz7oc1NmeZm24QuYYFaaEcjK5+sa1L0MQcC
- VfvdxLxl6Sq1xY/yIJND/apen+mcWaLPEoepZmxO0dLxYWirYVOhKPZ5s9u+95vSg5gE
- OYYz+Tj6TbWzqS5Oq0TVpx4yL+Zjt1IvvRYeXpWfa/AYEwvZsLmSsQ+o9CqUPaenTrbr
- UXmU8caaPrfcurzNxIuvQeD/Jx16JlfvOE2hvkPOWYYxe/UqTicV0J7X7gSbC80wOqfg
- sKfQ==
+ d=1e100.net; s=20230601; t=1752607518; x=1753212318;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+ofJOuQnwaL8gPzkrwRaNCRkxUIKaR9tFQY4znsAEw4=;
+ b=RkhqD7S/lao/SmlwmuK7u9myLWEaZSdOWQd8Ku5XflGRfNBaIjDJPYg1ig3TaJ0pTn
+ u89tAyvlCmXBmO9ZFMNq6E00AyFiYYUU9Sc43eCsXvXySIxLTKc2yn/74pg2m2ZyODYJ
+ 33OiIh6qGYXXvlTh5b0nEKZsrSM8QeVDtyXQ9o3Rc2FmJrmhVjMya3aaNUB56ln8eLSh
+ N5AXAwuDtylvOChaqNipXYQ79bnedZsSxJMtLpn7ao4g5NPUm4A7v0ulLZMou1N6Zifw
+ 7aylGu4H/aUfC2vZwXsk4AGRHV7KT2EjZYyaMa1SuK0lhwfrDjgGHM4xRRXkBMi2UtOg
+ xdlg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUDGHeTq1/ABWZsaXfEhGT6KK+n5uK15YuxfvwWBiGykfUOrIx/5jRuH0R7vhmRTf4rmdjNh1ffjvs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyrlth1ASiFEBYxghCi5pMUuZOPl80NhnNdH52cpU5tkAti8Zb+
- NxKfLhohtSLwNqtul8JFC/2FFPQPzxvR+FMpZFE59hvCgpkBr82wkUhs8dro8mtCOLOcw+7JxBo
- aF6bPtCpcnq62LVy9bqu0nFp0pMfgZG5fu/oG1IBMC6FHCgroLzpjIKLjV7Yd2wDfMZ41l0o=
-X-Gm-Gg: ASbGnctU7icbuA9ORubfxhAnn+Nrk6u4H9UwXDW2z5uhPHtkcgOWC86yPEcmWawy8sx
- YguLxrS0EHIZrleexDHhy7ujkHIfBWw6SH5BRyfpV2uPuFoOt/NvN2IuRnEd4gYRnrEwECXlghS
- qr5c+gDX+8q828zv901OA1XzsYgxR9n8AW5Q0nBlNsOtab8WfqZMytSmw4QpkTjdziFJXKvnxWA
- fWSuai8DAPk6E6UbIHBZ4UuHhBuuNJgUc+/m7Qlvrv2d5ebftFDB6SiecDC0QcF5PV4cBaCrBDU
- +EzWMtZ31zDfFy6kIvruWLeKEXmPN0dNG8Z9RepTwP/iQPeDVnh8C9DwvpRvbKzdqjoelHo5yjg
- nztdCOVjSOw9xm+74SRcDd5HvmUOR28NJ6trgX5oV4Cz9xkj9M3O4
-X-Received: by 2002:a05:620a:4714:b0:7e3:2bff:78d3 with SMTP id
- af79cd13be357-7e32bff8888mr1121107585a.48.1752600502311; 
- Tue, 15 Jul 2025 10:28:22 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFZEzJG58hA6++K4A4OjwEpcmW9O7bWx0NfNEZFoHJsNZF3DRzQ7RzoezJtTWpqnzcFg4UR8w==
-X-Received: by 2002:a05:620a:4714:b0:7e3:2bff:78d3 with SMTP id
- af79cd13be357-7e32bff8888mr1121102885a.48.1752600501890; 
- Tue, 15 Jul 2025 10:28:21 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55943b60f14sm2386192e87.155.2025.07.15.10.28.19
+ AJvYcCXNTwwU2OCwsuOnvP8c2UsEvgLU4jQ57gj8kkKDr+/ZpWKtsgxGZrqY7sd2x5m9zJAzbslJKcHgALc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyvTeJMejQX0XVvuL/txStvQmGoQjsPH1hHm80nhuIWBGj+0sDn
+ DFVlc0yRh1YJsEID9iMDDNSbxUJhmHP4iw2uBhY5YQ0XLQ+gFKGtSaAoKfslfDGXLGpw61SMdC3
+ MHGw1
+X-Gm-Gg: ASbGnctup6ZehPEiYZamgidcHBNKgEOnoHQXgWhSRQZ6dyvQ5oxEicxXbVD1Vl5flow
+ B2G91HzffTrEZq7KjFUIYSndDo9EjqjIGDcitLTV6zuNOL5GJUp+9dOmkowE+QpTSl6eZCX/zph
+ G1XuiDSW5LSi1TZgcI81vbvUYcqht6DXhQr8mcuRgsHYO9vLoUqG/q/p3mDyCCB45LL8ECrk/wp
+ u/qT/fZyrP0jQ3oI+C8YlLC5QQsUk/Ws3iEbbNBPjvesN3gh7mu3xAte7mvFPAMiiFHzdZMJ4KN
+ 5/a7+lhtPr7rN+xzjCZUaN3tClY0HKkofqobY7f9es2pVvPOVehb08MkJEdGoJnT2VA/pqvMVuw
+ 1GwhIhsUwgHxl610VjJYukVbz8nbhT4s26Y+xTTY=
+X-Google-Smtp-Source: AGHT+IH0UsF4awYSy87dNiScID5eXH435TcbPOt5aqfeubV8wnUSfcZEpEnsaZ8SOoPdJjjZOGDlnw==
+X-Received: by 2002:a05:6808:3010:b0:41c:cbbc:8abe with SMTP id
+ 5614622812f47-41cf04d9d0amr203848b6e.31.1752607518370; 
+ Tue, 15 Jul 2025 12:25:18 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700:9b4e:9dd8:875d:d59])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5614622812f47-4141c1ac3b5sm2292737b6e.35.2025.07.15.12.25.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Jul 2025 10:28:20 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Tue, 15 Jul 2025 20:28:18 +0300
-Subject: [PATCH] drm/msm/dpu: correct dpu_plane_virtual_atomic_check()
+ Tue, 15 Jul 2025 12:25:17 -0700 (PDT)
+Date: Tue, 15 Jul 2025 14:25:14 -0500
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: [bug report] drm/msm: Fix submit error-path leaks
+Message-ID: <55953f27-0762-4ef2-8dda-3208b34a5c75@sabinyo.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250715-msm-fix-virt-atomic-check-v1-1-9bab02c9f952@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIALGPdmgC/x2MWwqAIBAArxL73YIV0eMq0Ydsay2hhkYE4t2TP
- gdmJkHkIBxhrhIEfiSKdwWaugI6tNsZZSsMrWp7NTQ92mjRyIuPhBv17a0Q0sF0ouZuNGS2idU
- Ipb8CF/F/L2vOH3a4SG5rAAAA
-X-Change-ID: 20250715-msm-fix-virt-atomic-check-ae38fcfd9e08
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel test robot <lkp@intel.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1486;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=QdqZrsXqEfuVxvLXTf6lvuSiH/gRiLYnrwqhir+p7vM=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ0ZZ/2YZ1c2H2Pj1pe32uqxj1Ftbcdjz97cdMz9dZrSOf
- nvDZ8mfTkZjFgZGLgZZMUUWn4KWqTGbksM+7JhaDzOIlQlkCgMXpwBM5Jkc+/8gboGC1u+Rn+Oe
- fs5qDpzVuqJaZLHg9jlN395YqLoL/FjwvWXypUm9wfsNwj5+nigwM/DvepWmz6/elttbBF/iFmw
- /FdPpxjPhZZ2lmnnOtV1Jx8+l+nYlO3Rqr/julXSXSaT4kerSwExm48zSLTPvuAtGLls2zZztYK
- JS9PJzrpd1eWbndHzMOphqzrE3Il9+/pov+1I3T57JnZ7v5+oZmpnufZlnaUG+kjnzI82oo2t+9
- Mwsc2eIk28/1G16qjllgYyh56kbvzdq2b+yvicpwXVLWd3TuJhhWqboT6fypit3J+fraH/NzJ13
- baleq6214gxvli3MNntKWj7vnNqwVOE534K45pRa5w0PAA==
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: PYb10O9VGAV3me7_OICeAxbERMqh6e5n
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE1MDE2MCBTYWx0ZWRfXx2UDUabcUYeC
- TWX/lrDOqmnwDcEw1Ja3mXCQDIW4XdotKgzDa7CvBjLZ3GlsulLbSRLVRrMuLhkbpv5tyAzigw/
- l1LYFGUIw1cFqXsIMUIFBA/xtxolfdlpblZXETYw+o0th6/uKNAtzq1RXOHtc1OWLFf36CH3JRb
- Ny+ZuvMkB4tgVoFWjIjsg8egDZMPSQotqWGy8hMAr0DY+DrYzreVCe0CTRYYVSJffzkHyR+sSbj
- Teg5eRgiLYukUqVaVJdDKtlg9k+K8nAtMZjSr0kds0CkbEYqGVWsYiBKwXpikgnuCuagc0mFSOb
- 78WudeDi8gXgbzro0VdAlYrrNBtSoPpf0e44IMTEwrFGx568c2jYfARibNcp6qjZU8a0ZcGLlS3
- E6CplgWNTWrHmSK3cM8jo4d5IwcDETdlHUdgeh8YD5gLBTzB7mikNMPAHJik7leAsNsrbB34
-X-Authority-Analysis: v=2.4 cv=WqUrMcfv c=1 sm=1 tr=0 ts=68768fb7 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Wb1JkmetP80A:10 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8
- a=GxcwXDoS6YlZNtEUzcMA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: PYb10O9VGAV3me7_OICeAxbERMqh6e5n
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-15_04,2025-07-15_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 mlxscore=0 mlxlogscore=788 bulkscore=0
- adultscore=0 priorityscore=1501 impostorscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 spamscore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507150160
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,37 +85,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix c&p error in dpu_plane_virtual_atomic_check(), compare CRTC width
-too, in addition to CRTC height.
+Hello Rob Clark,
 
-Fixes: 8c62a31607f6 ("drm/msm/dpu: allow using two SSPP blocks for a single plane")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202507150432.U0cALR6W-lkp@intel.com/
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Commit 68dc6c2d5eec ("drm/msm: Fix submit error-path leaks") from May
+9, 2023 (linux-next), leads to the following Smatch static checker
+warning:
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 01171c535a27c8983aab6450d6f7a4316ae9c4ee..c722f54e71b03b78f3de82fec4f2d291d95bbba3 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -1162,7 +1162,7 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
- 	if (!old_plane_state || !old_plane_state->fb ||
- 	    old_plane_state->src_w != plane_state->src_w ||
- 	    old_plane_state->src_h != plane_state->src_h ||
--	    old_plane_state->src_w != plane_state->src_w ||
-+	    old_plane_state->crtc_w != plane_state->crtc_w ||
- 	    old_plane_state->crtc_h != plane_state->crtc_h ||
- 	    msm_framebuffer_format(old_plane_state->fb) !=
- 	    msm_framebuffer_format(plane_state->fb))
+drivers/gpu/drm/msm/msm_gem_submit.c:816 msm_ioctl_gem_submit() warn: fd used after fd_install() 'out_fence_fd'
+drivers/gpu/drm/msm/msm_gem_submit.c:818 msm_ioctl_gem_submit() warn: fd used after fd_install() 'sync_file->file'
 
----
-base-commit: 8290d37ad2b087bbcfe65fa5bcaf260e184b250a
-change-id: 20250715-msm-fix-virt-atomic-check-ae38fcfd9e08
+drivers/gpu/drm/msm/msm_gem_submit.c
+    751                 WARN_ON(ret);
+    752         } else {
+    753                 /*
+    754                  * Allocate an id which can be used by WAIT_FENCE ioctl to map
+    755                  * back to the underlying fence.
+    756                  */
+    757                 submit->fence_id = idr_alloc_cyclic(&queue->fence_idr,
+    758                                                     submit->user_fence, 1,
+    759                                                     INT_MAX, GFP_NOWAIT);
+    760         }
+    761 
+    762         spin_unlock(&queue->idr_lock);
+    763         idr_preload_end();
+    764 
+    765         if (submit->fence_id < 0) {
+    766                 ret = submit->fence_id;
+    767                 submit->fence_id = 0;
+    768         }
+    769 
+    770         if (ret == 0 && args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+    771                 sync_file = sync_file_create(submit->user_fence);
+    772                 if (!sync_file) {
+    773                         ret = -ENOMEM;
+    774                 } else {
+    775                         fd_install(out_fence_fd, sync_file->file);
+                                           ^^^^^^^^^^^^
+Once we call fd_install() the file is exposed to userspace and they can make
+the fd point to a different file.
 
-Best regards,
--- 
-With best wishes
-Dmitry
+    776                         args->fence_fd = out_fence_fd;
+    777                 }
+    778         }
+    779 
+    780         if (ret)
+    781                 goto out;
+    782 
+    783         submit_attach_object_fences(submit);
+    784 
+    785         if (msm_context_is_vmbind(ctx)) {
+    786                 /*
+    787                  * If we are not using VM_BIND, submit_pin_vmas() will validate
+    788                  * just the BOs attached to the submit.  In that case we don't
+    789                  * need to validate the _entire_ vm, because userspace tracked
+    790                  * what BOs are associated with the submit.
+    791                  */
+    792                 ret = drm_gpuvm_validate(submit->vm, &submit->exec);
+    793                 if (ret)
+    794                         goto out;
+    795         }
+    796 
+    797         /* The scheduler owns a ref now: */
+    798         msm_gem_submit_get(submit);
+    799 
+    800         msm_rd_dump_submit(priv->rd, submit, NULL);
+    801 
+    802         drm_sched_entity_push_job(&submit->base);
+    803 
+    804         args->fence = submit->fence_id;
+    805         queue->last_fence = submit->fence_id;
+    806 
+    807         msm_syncobj_reset(syncobjs_to_reset, args->nr_in_syncobjs);
+    808         msm_syncobj_process_post_deps(post_deps, args->nr_out_syncobjs, submit->user_fence);
+    809 
+    810 out:
+    811         submit_cleanup(submit, !!ret);
+    812 out_unlock:
+    813         mutex_unlock(&queue->lock);
+    814 out_post_unlock:
+    815         if (ret && (out_fence_fd >= 0)) {
+--> 816                 put_unused_fd(out_fence_fd);
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+So this put_unused_fd() could potentially do something to the wrong file.
+Traditionally, we either do the fd_install() last or we just leak until the
+process dies and all the files are released.
 
+(Hand wavey because I'm not sure how all this works exactly)
+
+    817                 if (sync_file)
+    818                         fput(sync_file->file);
+    819         }
+    820 
+    821         if (!IS_ERR_OR_NULL(submit)) {
+    822                 msm_gem_submit_put(submit);
+    823         } else {
+    824                 /*
+    825                  * If the submit hasn't yet taken ownership of the queue
+    826                  * then we need to drop the reference ourself:
+    827                  */
+    828                 msm_submitqueue_put(queue);
+    829         }
+    830         if (!IS_ERR_OR_NULL(post_deps)) {
+    831                 for (i = 0; i < args->nr_out_syncobjs; ++i) {
+    832                         kfree(post_deps[i].chain);
+    833                         drm_syncobj_put(post_deps[i].syncobj);
+    834                 }
+    835                 kfree(post_deps);
+    836         }
+    837 
+    838         if (!IS_ERR_OR_NULL(syncobjs_to_reset)) {
+    839                 for (i = 0; i < args->nr_in_syncobjs; ++i) {
+    840                         if (syncobjs_to_reset[i])
+    841                                 drm_syncobj_put(syncobjs_to_reset[i]);
+    842                 }
+    843                 kfree(syncobjs_to_reset);
+    844         }
+    845 
+    846         return ret;
+    847 }
+
+regards,
+dan carpenter
