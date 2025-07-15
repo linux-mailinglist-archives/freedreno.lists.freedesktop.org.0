@@ -2,106 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 528D0B04CEC
-	for <lists+freedreno@lfdr.de>; Tue, 15 Jul 2025 02:31:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCC19B05151
+	for <lists+freedreno@lfdr.de>; Tue, 15 Jul 2025 07:56:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D29610E11E;
-	Tue, 15 Jul 2025 00:31:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 948A310E04E;
+	Tue, 15 Jul 2025 05:56:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QgUwGKpF";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="VX+QduDY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEEAC10E105
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 00:31:39 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56EKhVG1007513
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 00:31:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=rnWWSbqyVPN78Z8y5QMVj8G1tTsX+qJi/k8zbVH/95E=; b=Qg
- UwGKpFM6pGFgwuXYzYWR7HqPmzzi3rx7A5CthiwYTuMJlJiV4LrbHOfooHRQScl2
- 8JxBTgYse/tvM0f066IhNrPMr15v4Hj5sPdDbK+5mUxfqRCbG2S4YZcGuYkMHlGY
- Zng4NOYL/3sJfff6e1A5MWwaDmN3ELtXm125lUJlq9y5FdydcBcoQkXl+PEagNCn
- 7L4uwjIIa+ytk70peZfbo6P3BlPe4vTA8sqxPrW61ooNo00IG91odp1MLv7Cletf
- mtKghUn1yo5Ib9flW+5PrCuZzZsZeOXwJBK7Hq/x2a6sbS8YwFiUx4NpXQM/JzuU
- 318dLvQqsyLKVnbTowSw==
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ufvbe8eu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 15 Jul 2025 00:31:38 +0000 (GMT)
-Received: by mail-oi1-f200.google.com with SMTP id
- 5614622812f47-41bb68aad9aso124569b6e.0
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jul 2025 17:31:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752539498; x=1753144298;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=rnWWSbqyVPN78Z8y5QMVj8G1tTsX+qJi/k8zbVH/95E=;
- b=SuGTRLWvES1Kpi/sIfSeTtkwGqSrjN2CxTckiSwZuY+mT3FlPSMr6zYtcEf7ULDxtM
- aAOKH14ZdoK2UiC4HNhtPDPPjwWReR6apsE8bFKtN1surrQ35ULyCsK0eD04neXMcpDz
- 5PPrJqy+ALPoO3WJnQd1U/hazMQGw5eW9YkA7jdgksUEU7hOaK+XopxgnXQQZIr9cIb+
- WpmWuPg/JJ/fiK9XOfmipesxgDMUYGv0E0GF7gMBu1416BIlGEkfVWwEKpe5ju51t6OS
- NFXxuVt9DOdkPNYGkCz3VyBiC8/VWEf0rLxzhaXek526lIyXDOyjhtwigdvma+t/+/qf
- dTUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUt7qCDs6AxWrzPVsFoxo69lXPHH2rVOtA31/PiqhkvEy5j1u8mnGzNN7XnLG2Tykr3PDvbW+fhqW0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMOTlGny0TYWlro15XcvtbibrhPMFLg4xyQcfqrZSvl1Wg5xAV
- CRsdDqdeyJEzGq2EQM3YrF3cVTxiBIgWEQc3uiFbkFunCzDDgXH0DrJ9FYSnz54co7P08P9NGtz
- HK5VNyHD6up6zM+32HuSBUD9en/UbIAwtklQNSqOcIb0iwd44+9bK1D0JB2Fqk+5FX9wxmvsz0e
- E/A2gJgiFr+15GSMlDNfbd2eZWcQBWDQv682NfrphHRdJizg==
-X-Gm-Gg: ASbGncuRYUulWmHoI36V2/1GTnmB86PcoEv35sGcw8VXY3YYA7/5pXho1XrI9li5VYq
- V+g1pgp3CjXWvy944XBW8M1F+40XGOnmOmmf5htNjpyagPiXE+IMMPsnbJTREuYMnTOOE3PlsVq
- Azx0GTcGMXllnhPpqqjGzMcj2qyhNYYk1OqU0yVohFNVce+J1iK9PZ
-X-Received: by 2002:a05:6808:1b20:b0:41b:2876:a93b with SMTP id
- 5614622812f47-41b7a364efcmr1243726b6e.6.1752539497900; 
- Mon, 14 Jul 2025 17:31:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEVe0q7vgkIseEjo0dk13NCUfajh6E6wM7UZk0jmXnLOcEYFwaSqyd5OwR2la8d/TxAac8+t4HrvknpzfBER2Q=
-X-Received: by 2002:a05:6808:1b20:b0:41b:2876:a93b with SMTP id
- 5614622812f47-41b7a364efcmr1243707b6e.6.1752539497369; Mon, 14 Jul 2025
- 17:31:37 -0700 (PDT)
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6433B89D99;
+ Tue, 15 Jul 2025 05:56:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=2AAMJf9maUaSbdg1Sv1it05urNJplT7iXxy+4HxO3a4=; b=V
+ X+QduDYHn7WI5C8WTm1hyejbxQyFZJk0I9jYC9AHKiHCgkkLtItpylL5oEU/aO4B
+ JIfz+agsJfJg4r7VWDAXKdNlf7cFSoKUvJ5xxz8ET4HInT/k7g6mZ93DEPOnmO9A
+ H1Sejfa5f0jIdX51i1lAoLnWoP4s9CtD98mCHptK2g=
+Received: from andyshrk$163.com ( [58.22.7.114] ) by
+ ajax-webmail-wmsvr-40-109 (Coremail) ; Tue, 15 Jul 2025 13:54:29 +0800
+ (CST)
+X-Originating-IP: [58.22.7.114]
+Date: Tue, 15 Jul 2025 13:54:29 +0800 (CST)
+From: "Andy Yan" <andyshrk@163.com>
+To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+Cc: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
+ mripard@kernel.org, neil.armstrong@linaro.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ jani.nikula@intel.com, lyude@redhat.com, jonathanh@nvidia.com,
+ p.zabel@pengutronix.de, simona@ffwll.ch, victor.liu@nxp.com,
+ rfoss@kernel.org, chunkuang.hu@kernel.org,
+ cristian.ciocaltea@collabora.com, Laurent.pinchart@ideasonboard.com,
+ linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
+ "Andy Yan" <andy.yan@rock-chips.com>
+Subject: Re:Re: [PATCH v3 2/2] drm/bridge: Pass down connector to drm bridge
+ detect hook
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.14 build 20250519(9504565a)
+ Copyright (c) 2002-2025 www.mailtech.cn 163com
+In-Reply-To: <85ple2ju6m.wl-ashutosh.dixit@intel.com>
+References: <20250703125027.311109-1-andyshrk@163.com>
+ <20250703125027.311109-3-andyshrk@163.com>
+ <chznjpcx6p2vn3i5jt52peikhipzjiwzlr74gx6mzp3wjstr6p@6zhhknnl3zek>
+ <85ple2ju6m.wl-ashutosh.dixit@intel.com>
+X-NTES-SC: AL_Qu2eAPmet0At7yWRYOkfmkcVgOw9UcO5v/Qk3oZXOJF8jCPp9C0vUnNTMUnG6MWDDiCwnQiHWzVR6spgbahGYoQgR2kpPlq5MmA38IZpXJoXxw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 MIME-Version: 1.0
-References: <20250714230813.46279-1-mcanal@igalia.com>
-In-Reply-To: <20250714230813.46279-1-mcanal@igalia.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 14 Jul 2025 17:31:26 -0700
-X-Gm-Features: Ac12FXyhqSGe2MJwwTijBSGs8N0ketRONbFjQxi_2j2xnDRBqZcf9njzSpvOAUE
-Message-ID: <CACSVV02kLAg9t31HNCy5zL3xAJ3j2MRp9zn1P1FiVE0tz5SMyQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm: Remove unused global fault counter
-To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE1MDAwMyBTYWx0ZWRfX65iy237oEw+S
- m5lQmGLj5/mui80pqs6ltPCaKz6aAtgkue57cdasFafrVivCuRKCn/4RL3IawwTz88+JZEHPSZ0
- e1dY1IfEiQbPn3YJytC8I0MlD4uLCUresvT9bEN8RWZBlBfxM+0ZRpUo01FOUlVrC0Ww9HJNKs0
- uCSWXYPYD7MUXhaI2+POTI0DoEplYvGs/vnkGEU4/CMZO67d2ptaOvVFEq9ND6bwZixCW7Imsq1
- UWETqHpAKT4mUIBFpnVFgL6VSroz9fdYkLZfIXjzC17HEIWg0cuYcoQCu99MKS7fuzV+SU6rIf0
- L7ZP22z4vfsIxIRpNMVaB3WJu8k4r26ob+65oyDHb7OHXpswhgJG+elCrdALM+dKP775LPVtt1O
- /goRgGU5BpUBwT/eIGTeoQI0Fi5GRMzZ86QBkuLTVLvaR9MC7UeqcN8Qqk1PgmD7ihoXpcyN
-X-Proofpoint-GUID: xesn0GjeAU4zWCyqrL7JHX5tEY5jkvdf
-X-Authority-Analysis: v=2.4 cv=RPSzH5i+ c=1 sm=1 tr=0 ts=6875a16a cx=c_pps
- a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
- a=V2sgnzSHAAAA:8 a=m9oiR8dIFG-smg8RVMEA:9 a=QEXdDO2ut3YA:10
- a=pF_qn-MSjDawc0seGVz6:22 a=Z31ocT7rh6aUJxSkT1EX:22
-X-Proofpoint-ORIG-GUID: xesn0GjeAU4zWCyqrL7JHX5tEY5jkvdf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-14_03,2025-07-14_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 bulkscore=0 priorityscore=1501 mlxlogscore=999 spamscore=0
- clxscore=1015 suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- malwarescore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507150003
+Message-ID: <23a4efde.4f62.1980ca61c5e.Coremail.andyshrk@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: bSgvCgD3n84V7XVo2yEEAA--.19921W
+X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbBEgGLXmh15WLOpAADs1
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,124 +69,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 14, 2025 at 4:08=E2=80=AFPM Ma=C3=ADra Canal <mcanal@igalia.com=
-> wrote:
->
-> The global fault counter is no longer used since commit 12578c075f89
-> ("drm/msm/gpu: Skip retired submits in recover worker"). Additionally,
-> with commit eab7766c79fd ("drm/msm: Remove vram carveout support"), all
-> supported devices now have a defined virtual memory address space, which
-> eliminates the need for a global fault counter.
-
-Hmm, I think commit 12578c075f89 ("drm/msm/gpu: Skip retired submits
-in recover worker") was wrong, now that you point it out.  We could
-still have situations where we get a fault after the faulting process
-has ended.  In that case get_pid_task() would return NULL.
-
-BR,
--R
-
->
-> Hence, remove the global faults counter. While here, s/unusuable/unusable=
-.
->
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  5 +----
->  drivers/gpu/drm/msm/msm_gpu.c           | 23 +++++++++++------------
->  drivers/gpu/drm/msm/msm_gpu.h           |  6 ------
->  3 files changed, 12 insertions(+), 22 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.c
-> index f1230465bf0d..5bb00b9c998a 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -416,10 +416,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm=
-_context *ctx,
->                 *value =3D 0;
->                 return 0;
->         case MSM_PARAM_FAULTS:
-> -               if (vm)
-> -                       *value =3D gpu->global_faults + to_msm_vm(vm)->fa=
-ults;
-> -               else
-> -                       *value =3D gpu->global_faults;
-> +               *value =3D vm ? to_msm_vm(vm)->faults : 0;
->                 return 0;
->         case MSM_PARAM_SUSPENDS:
->                 *value =3D gpu->suspend_count;
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.=
-c
-> index c317b25a8162..3d5a76d2901c 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -463,6 +463,7 @@ static void recover_worker(struct kthread_work *work)
->         struct drm_device *dev =3D gpu->dev;
->         struct msm_drm_private *priv =3D dev->dev_private;
->         struct msm_gem_submit *submit;
-> +       struct msm_gem_vm *vm;
->         struct msm_ringbuffer *cur_ring =3D gpu->funcs->active_ring(gpu);
->         char *comm =3D NULL, *cmd =3D NULL;
->         int i;
-> @@ -482,20 +483,18 @@ static void recover_worker(struct kthread_work *wor=
-k)
->
->         /* Increment the fault counts */
->         submit->queue->faults++;
-> -       if (submit->vm) {
-> -               struct msm_gem_vm *vm =3D to_msm_vm(submit->vm);
->
-> -               vm->faults++;
-> +       vm =3D to_msm_vm(submit->vm);
-> +       vm->faults++;
->
-> -               /*
-> -                * If userspace has opted-in to VM_BIND (and therefore us=
-erspace
-> -                * management of the VM), faults mark the VM as unusuable=
-.  This
-> -                * matches vulkan expectations (vulkan is the main target=
- for
-> -                * VM_BIND)
-> -                */
-> -               if (!vm->managed)
-> -                       msm_gem_vm_unusable(submit->vm);
-> -       }
-> +       /*
-> +        * If userspace has opted-in to VM_BIND (and therefore userspace
-> +        * management of the VM), faults mark the VM as unusable. This
-> +        * matches vulkan expectations (vulkan is the main target for
-> +        * VM_BIND)
-> +        */
-> +       if (!vm->managed)
-> +               msm_gem_vm_unusable(submit->vm);
->
->         get_comm_cmdline(submit, &comm, &cmd);
->
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.=
-h
-> index b2a96544f92a..88d8ddef616b 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -226,12 +226,6 @@ struct msm_gpu {
->         /* does gpu need hw_init? */
->         bool needs_hw_init;
->
-> -       /**
-> -        * global_faults: number of GPU hangs not attributed to a particu=
-lar
-> -        * address space
-> -        */
-> -       int global_faults;
-> -
->         void __iomem *mmio;
->         int irq;
->
-> --
-> 2.50.0
->
+CgpIaSBEaXhpdCzCoApBdCAyMDI1LTA3LTE1IDA2OjE1OjEzLCAiRGl4aXQsIEFzaHV0b3NoIiA8
+YXNodXRvc2guZGl4aXRAaW50ZWwuY29tPiB3cm90ZToKPk9uIFRodSwgMDMgSnVsIDIwMjUgMTQ6
+Mjc6NDMgLTA3MDAsIERtaXRyeSBCYXJ5c2hrb3Ygd3JvdGU6Cj4+Cj4+IE9uIFRodSwgSnVsIDAz
+LCAyMDI1IGF0IDA4OjQ5OjUzUE0gKzA4MDAsIEFuZHkgWWFuIHdyb3RlOgo+Cj5IaSBBbmR5LAo+
+Cj4+ID4gRnJvbTogQW5keSBZYW4gPGFuZHkueWFuQHJvY2stY2hpcHMuY29tPgo+PiA+Cj4+ID4g
+SW4gc29tZSBhcHBsaWNhdGlvbiBzY2VuYXJpb3MsIHdlIGhvcGUgdG8gZ2V0IHRoZSBjb3JyZXNw
+b25kaW5nCj4+ID4gY29ubmVjdG9yIHdoZW4gdGhlIGJyaWRnZSdzIGRldGVjdCBob29rIGlzIGlu
+dm9rZWQuCj4+ID4KPj4gPiBJbiBtb3N0IGNhc2VzLCB3ZSBjYW4gZ2V0IHRoZSBjb25uZWN0b3Ig
+YnkgZHJtX2F0b21pY19nZXRfY29ubmVjdG9yX2Zvcl9lbmNvZGVyCj4+ID4gaWYgdGhlIGVuY29k
+ZXIgYXR0YWNoZWQgdG8gdGhlIGJyaWRnZSBpcyBlbmFibGVkLCBob3dldmVyIHRoZXJlIHdpbGwK
+Pj4gPiBzdGlsbCBiZSBzb21lIHNjZW5hcmlvcyB3aGVyZSB0aGUgZGV0ZWN0IGhvb2sgb2YgdGhl
+IGJyaWRnZSBpcyBjYWxsZWQKPj4gPiBidXQgdGhlIGNvcnJlc3BvbmRpbmcgZW5jb2RlciBoYXMg
+bm90IGJlZW4gZW5hYmxlZCB5ZXQuIEZvciBpbnN0YW5jZSwKPj4gPiB0aGlzIG9jY3VycyB3aGVu
+IHRoZSBkZXZpY2UgaXMgaG90IHBsdWcgaW4gZm9yIHRoZSBmaXJzdCB0aW1lLgo+PiA+Cj4+ID4g
+U2luY2UgdGhlIGNhbGwgdG8gYnJpZGdlJ3MgZGV0ZWN0IGlzIGluaXRpYXRlZCBieSB0aGUgY29u
+bmVjdG9yLCBwYXNzaW5nCj4+ID4gZG93biB0aGUgY29ycmVzcG9uZGluZyBjb25uZWN0b3IgZGly
+ZWN0bHkgd2lsbCBtYWtlIHRoaW5ncyBzaW1wbGVyLgo+PiA+Cj4+ID4gU2lnbmVkLW9mZi1ieTog
+QW5keSBZYW4gPGFuZHkueWFuQHJvY2stY2hpcHMuY29tPgo+PiA+IC0tLQo+PiA+Cj4+Cj4+IFJl
+dmlld2VkLWJ5OiBEbWl0cnkgQmFyeXNoa292IDxkbWl0cnkuYmFyeXNoa292QG9zcy5xdWFsY29t
+bS5jb20+Cj4KPlRoaXMgc2VlbXMgdG8gYmUgYnJlYWtpbmcgJ21ha2UgYWxsbW9kY29uZmlnJy4g
+VGhpcyBpcyB3aGF0IGlzIGJlaW5nIHNlZW46Cj4KPi4uL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uv
+bWVnYWNoaXBzLXN0ZHB4eHh4LWdlLWI4NTB2My1mdy5jOiBJbiBmdW5jdGlvbiDigJhnZV9iODUw
+djNfbHZkc19kZXRlY3TigJk6Cj4uLi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL21lZ2FjaGlwcy1z
+dGRweHh4eC1nZS1iODUwdjMtZncuYzoxNDU6MTY6IGVycm9yOiB0b28gZmV3IGFyZ3VtZW50cyB0
+byBmdW5jdGlvbiDigJhnZV9iODUwdjNfbHZkc19icmlkZ2VfZGV0ZWN04oCZCj4gIDE0NSB8ICAg
+ICAgICAgcmV0dXJuIGdlX2I4NTB2M19sdmRzX2JyaWRnZV9kZXRlY3QoJmdlX2I4NTB2M19sdmRz
+X3B0ci0+YnJpZGdlKTsKPiAgICAgIHwgICAgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fgo+Li4vZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9tZWdhY2hpcHMtc3RkcHh4eHgt
+Z2UtYjg1MHYzLWZ3LmM6MTI0OjE6IG5vdGU6IGRlY2xhcmVkIGhlcmUKPiAgMTI0IHwgZ2VfYjg1
+MHYzX2x2ZHNfYnJpZGdlX2RldGVjdChzdHJ1Y3QgZHJtX2JyaWRnZSAqYnJpZGdlLCBzdHJ1Y3Qg
+ZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ICAgICAgfCBefn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+Cj4uLi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL21lZ2FjaGlwcy1zdGRweHh4eC1nZS1i
+ODUwdjMtZncuYzoxNDY6MTogZXJyb3I6IGNvbnRyb2wgcmVhY2hlcyBlbmQgb2Ygbm9uLXZvaWQg
+ZnVuY3Rpb24gWy1XZXJyb3I9cmV0dXJuLXR5cGVdCj4gIDE0NiB8IH0KPiAgICAgIHwgXgo+Cj5D
+b3VsZCB5b3UgcGxlYXNlIHBvc3QgYSBmaXggZm9yIHRoaXMuIE1heWJlIGRvICdtYWtlIGFsbG1v
+ZGNvbmZpZycgdG8gY2hlY2sKCj5pZiB5b3UgaGF2ZW4ndCBtaXNzZWQgYW55dGhpbmcgZWxzZS4K
+CgpUaGFua3MgZm9yIGNhdGNoaW5nIHRoaXMuIEkgaGF2ZSBzZW50IGEgZml4IGZvciB0aGlzOgpo
+dHRwczovL2xvcmUua2VybmVsLm9yZy9kcmktZGV2ZWwvMjAyNTA3MTUwNTQ3NTQuODAwNzY1LTEt
+YW5keXNocmtAMTYzLmNvbS9ULyN1CgpBbmQgYmVmb3JlIHJlbGVhc2luZyB0aGUgZml4IHBhdGNo
+IHRoaXMgdGltZSwgSSBoYWQgYWxyZWFkeSBlbnN1cmVkIHRoYXQgdGhlICJtYWtlIGFsbG1vZGNv
+bmZpZyIgY29tcGlsYXRpb24gd2FzIHN1Y2Nlc3NmdWwuCgoKTWFueSB0aGFua3MuCiA+Cj5UaGFu
+a3MuCj4tLQo+QXNodXRvc2gK
