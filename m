@@ -2,82 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF396B07573
-	for <lists+freedreno@lfdr.de>; Wed, 16 Jul 2025 14:20:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3867CB082EA
+	for <lists+freedreno@lfdr.de>; Thu, 17 Jul 2025 04:25:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38F5210E27E;
-	Wed, 16 Jul 2025 12:20:08 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V3dj1uRm";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51CF010E3DE;
+	Thu, 17 Jul 2025 02:25:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D52189C0D;
- Tue, 15 Jul 2025 22:53:33 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-60c01b983b6so733770a12.0; 
- Tue, 15 Jul 2025 15:53:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752620011; x=1753224811; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+XsV7dB0/dBV/4w5KD5MsUTgHRRbA9nMltbkQvDt2jw=;
- b=V3dj1uRmWmMYTCr2tdKrnGMgGqwO8ZpwM0wch+AqUZA8mn+QI6mWkBgZHCxsTdib/J
- aPr2eGUbQbfO9pRh0G+vXidGTkeE2nWNWu5zRRCi+z/Re9K66GgjKjJQanh1gTC12MXl
- ZT5i+ui2IsbQnLHTCKWblmL+oKV19vZeI1GjLRWarxKQEDRJlaLBPpKYP+e5mksmGknc
- XMfDuYRh+7JGK78MlQz5yqNPH2fPEj0RNSEA/RSdFk6jxYQ5V0RMc30LZbK951QvSCW7
- tgmesIkxfdgIbFPDcbD6FbdLYqJ9RND3FZ2F0vH8O7zn04A2kJln5t7C3U8u3dVNDkP+
- gShg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752620011; x=1753224811;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+XsV7dB0/dBV/4w5KD5MsUTgHRRbA9nMltbkQvDt2jw=;
- b=Oj+COgdvVDyawmWoIYaPJ9L6JZL7OPWEQU72+jMG+LhqlgOFcrLultx4hwiRJFYqwB
- y+LBmYp1NtAKKwQiSULP6rzLzG0C0yU6JPWQQgtuyX2cqgeUg4yZmWooCi2XlWMcD3Hm
- lpm1CEL8r+RYMr4Onb6cxunuGAmck+VfOwLBXHS84b3CvtxhSae0h6MpDACbAfmbNBVb
- 2n/fwUXhqXfBHVNqd1P95kM4BokoLYh2JfDgxEQbPvG+8KGR7P3hGicW8Ec9aE326YnJ
- RahBQWw4unKqon9vbpk5biwr96gqqKuvSuSNQZ8FK2IWe3QWBx7v2RY00DUSyZFOJJdj
- S/0Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVqSQt3QgNVzy5UwrqFX6rtybJRFTUNabc80CVyVXTO9pT39tG6WOzt/GnBQCT1xNC9qRdjEt3QgQyW@lists.freedesktop.org,
- AJvYcCXKKKUjFUVdIbdLLGKvu0v1CCKt5RQ4uP+edwN75npcfcbw8TEYpDWmPO1GK8ZHYsoIQfZtFZiVGb0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwCQqo+kXTswsfrg3Ptc4yDANEw0acf35Z1OgKX+0kg8ENuQY+k
- PhVkLdtaM/Zybmm0veBHyyff3P6nHhW0ZTBYjuQl8Pqcg4Aa9qy9WjJWl76P6NSkTgin6ku/LLc
- JKMF4BXwi1C6o1Wm9RVgVywIPZdhdEw==
-X-Gm-Gg: ASbGnct4Rp/jlAk6TfzAE2zBR8abaI7f4fZeB2yksPp3RYdS9ytYhBQhEccqRTNcHzA
- xPWZovviHjosO0seX9GVlffTJ+OAX96W6dG+m/lAzRy7WXKjJwxEa6vf/3btBVPwyTsO7S/P9JW
- dwCx3SsyBfflMQ3f479YP3Kdh8GyLW0ePASfXF49z90wQ+uZgpt5QJepSYNmTh6ctHC0EVq4XZ+
- Y/ITYZQMR+U59TlRurh23Cuxh0yc/UL4VtmXlg=
-X-Google-Smtp-Source: AGHT+IHJ0UrphscN3ZQ6MjbsfF09sNSf+YfHJeVDahoSygCKdgSFJpnKOrntHpiY1NQ/G9FOEePT6PqTIu3mZzcGNhU=
-X-Received: by 2002:a05:6402:3787:b0:607:35d:9fb4 with SMTP id
- 4fb4d7f45d1cf-61282c93cb7mr699146a12.15.1752620011188; Tue, 15 Jul 2025
- 15:53:31 -0700 (PDT)
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.74.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32D1B10E3DE;
+ Thu, 17 Jul 2025 02:25:22 +0000 (UTC)
+X-QQ-mid: zesmtpgz7t1752718861t8873202c
+X-QQ-Originating-IP: Zl/o0y9rYQVp35UT5ekeseH22v+Sdn/qwiqeQJnkDl0=
+Received: from [127.0.0.1] ( [119.98.96.24]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 17 Jul 2025 10:20:59 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 3465737500828252999
+Message-ID: <A9DB4AE061FD8BB9+3519a519-1a29-49c1-a07d-28a0577677cc@radxa.com>
+Date: Thu, 17 Jul 2025 10:21:01 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/9] drm/msm/dp: Work around bogus maximum link rate
+To: Dale Whinham <daleyo@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250714173554.14223-1-daleyo@gmail.com>
  <20250714173554.14223-7-daleyo@gmail.com>
- <CACSVV00-DDnQYp-65Pi-XwpEKT1_jYik2=zH_bK_oJiGLxX48A@mail.gmail.com>
-In-Reply-To: <CACSVV00-DDnQYp-65Pi-XwpEKT1_jYik2=zH_bK_oJiGLxX48A@mail.gmail.com>
-From: =?UTF-8?B?SsOpcsO0bWUgZGUgQnJldGFnbmU=?= <jerome.debretagne@gmail.com>
-Date: Wed, 16 Jul 2025 00:52:54 +0200
-X-Gm-Features: Ac12FXwFj68pn6YB4znyT4ywvUmV_BN2k_YiCalM6sBLs5LcPLsqZL0a65VkVi8
-Message-ID: <CA+kEDGF96VbjGPBW0hWSji2eQtQU-bXjsZAaZjjUo0cvpwhBQg@mail.gmail.com>
-Subject: Re: [PATCH 6/9] drm/msm/dp: Work around bogus maximum link rate
-To: rob.clark@oss.qualcomm.com
-Cc: Dale Whinham <daleyo@gmail.com>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 16 Jul 2025 12:20:07 +0000
+From: Xilin Wu <sophon@radxa.com>
+Content-Language: en-US
+In-Reply-To: <20250714173554.14223-7-daleyo@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrgz:qybglogicsvrgz8a-1
+X-QQ-XMAILINFO: NklBUSB3jTRVvXDiQ8w9DwZ39M5ljPi3YvIiCLjPoclJeL4bOwDJNaXR
+ tG9PVLVhqKousPxdxkCAuo+DfPg9u32IYM5U6g8Em7RsjQd4RahY/AhS0b9rtXv56pkMDqv
+ CVps2+Ud9kfnMNEEchpEJPfxd8zeNDVO/zIChEcfU35P6eI7YDVhQ70ytT5jzYpSiXKofDr
+ sB44BPEOIKXnwytI9c1i1hCoFQgTrJvP1lPdR08QFI5xc1U3wqxqCiOwzdKb0IUtKE4sbYn
+ UmLH/UQ0qSlF/sk7wvyj82Nq7l4Ife9jRqBx2UIEoc5zQ7SdpSn2/eJU7+dvDHDeaYeFLmD
+ Qq1evB7qMyFXGr4oUSabGiltpW1WDDEjIlhWqkr+HJ5F7zpNwc3H715id2WoLptPVLstSHz
+ 30t7xNLU3A9+UiKG8VoJ8AVzoKrgXmcMVzOIq4Y7+9+dZzHJRBsy/CqpbAjZiNAZtuLLBiC
+ aHvQsgctfMTVnISkToNVlmVvOLhwKPZMbON3CSVwAHSPisg0MNBP5ud3pI9eRM0XoudEcip
+ WZ+JGBGJAEy5WMPxFCxOy1POZNqEm3wBW3qBClzZw1CWhQKHWYA8N2t2gu8eiKMdFQCSVSh
+ FInlFGChoNEe0XgDlEhe1tDK1Fv21CJDFSsOzYURhV16jBzecCHZRvcd3byOLW4bpX/1NK2
+ WGqNGzxUW862XMrBP+35KzTXCH/J+h94CwG9rIV7AtPTr9ATNHsiTexdwdfYpT5T45mBc45
+ QogQfiKVEvDDLQ6ryfBUM48dDC+mV1XZOApS0dY0RRbCTZFMJJxDFjb/mYM6c4vp+6So61K
+ 3JZAuWMFEKQgYusULeOZfFnu32ovkkvYkJBTl7Y6WsoaGRR3ufcJEouh3VLoikChW1Q1Q5o
+ ZWxV4aMIeHxcrDnEm8jJvFcKbV2KdK7RdN02z6jSV25hHQ975gba8zx5Y/Y4XdqpyUTg6Vk
+ QZGcLQFsd7SB4McbWzoKeSDfxPkfqcGxCRVnXA2lK1mvd4nA5rc3plZxuyeCO8Qn5z4Xd9q
+ UjMtWyLumUMnOtFwK8D5oHckMhqb1qqiw8KNdeKQ==
+X-QQ-XMRINFO: Nq+8W0+stu50PRdwbJxPCL0=
+X-QQ-RECHKSPAM: 0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,88 +74,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 14, 2025 at 21:51, Rob Clark <rob.clark@oss.qualcomm.com> wrote=
-:
->
-> On Mon, Jul 14, 2025 at 10:36=E2=80=AFAM Dale Whinham <daleyo@gmail.com> =
-wrote:
-> >
-> > From: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
-> >
-> > The OLED display in the Surface Pro 11 reports a maximum link rate of
-> > zero in its DPCD, causing it to fail to probe correctly.
-> >
-> > The Surface Pro 11's DSDT table contains some XML with an
-> > "EDPOverrideDPCDCaps" block that defines the max link rate as 0x1E
-> > (8.1Gbps/HBR3).
-> >
-> > Add a quirk to conditionally override the max link rate if its value
-> > is zero specifically for this model.
-> >
-> > Signed-off-by: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.co=
-m>
-> > Signed-off-by: Dale Whinham <daleyo@gmail.com>
-> > ---
-> >  drivers/gpu/drm/msm/dp/dp_panel.c | 13 +++++++++++++
-> >  1 file changed, 13 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp=
-/dp_panel.c
-> > index 4e8ab75c771b..b2e65b987c05 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> > @@ -11,6 +11,8 @@
-> >  #include <drm/drm_of.h>
-> >  #include <drm/drm_print.h>
-> >
-> > +#include <linux/dmi.h>
-> > +
-> >  #define DP_MAX_NUM_DP_LANES    4
-> >  #define DP_LINK_RATE_HBR2      540000 /* kbytes */
-> >
-> > @@ -58,6 +60,17 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_pane=
-l *msm_dp_panel)
-> >         if (rc)
-> >                 return rc;
-> >
-> > +       /*
-> > +        * for some reason the ATNA30DW01-1 OLED panel in the Surface P=
-ro 11
-> > +        * reports a max link rate of 0 in the DPCD. Fix it to match th=
-e
-> > +        * EDPOverrideDPCDCaps string found in the ACPI DSDT
-> > +        */
-> > +       if (dpcd[DP_MAX_LINK_RATE] =3D=3D 0 &&
-> > +           dmi_match(DMI_SYS_VENDOR, "Microsoft Corporation") &&
-> > +           dmi_match(DMI_PRODUCT_NAME, "Microsoft Surface Pro, 11th Ed=
-ition")) {
-> > +               dpcd[1] =3D DP_LINK_BW_8_1;
-> > +       }
->
-> Not a dp expert myself, but..
->
-> In drm_dp_helpers.c there is dpcd_quirk_list[].. which applies quirks
-> based on the oui ("Organizational Unique ID") of the dp sink.  I think
-> this would be the correct way to handle this.  Although I guess you'll
-> need to add a new quirk for this.
->
-> Idk if the surface pro 11 has multiple different panel options.  If so
-> you defn wouldn't want to match on the DMI.
->
-> BR,
-> -R
+On 2025/7/15 01:35:42, Dale Whinham wrote:
+> From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+> 
+> The OLED display in the Surface Pro 11 reports a maximum link rate of
+> zero in its DPCD, causing it to fail to probe correctly.
+> 
+> The Surface Pro 11's DSDT table contains some XML with an
+> "EDPOverrideDPCDCaps" block that defines the max link rate as 0x1E
+> (8.1Gbps/HBR3).
+> 
+> Add a quirk to conditionally override the max link rate if its value
+> is zero specifically for this model.
+> 
+> Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+> Signed-off-by: Dale Whinham <daleyo@gmail.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_panel.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> index 4e8ab75c771b..b2e65b987c05 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> @@ -11,6 +11,8 @@
+>   #include <drm/drm_of.h>
+>   #include <drm/drm_print.h>
+>   
+> +#include <linux/dmi.h>
+> +
+>   #define DP_MAX_NUM_DP_LANES	4
+>   #define DP_LINK_RATE_HBR2	540000 /* kbytes */
+>   
+> @@ -58,6 +60,17 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_panel *msm_dp_panel)
+>   	if (rc)
+>   		return rc;
+>   
+> +	/*
+> +	 * for some reason the ATNA30DW01-1 OLED panel in the Surface Pro 11
+> +	 * reports a max link rate of 0 in the DPCD. Fix it to match the
+> +	 * EDPOverrideDPCDCaps string found in the ACPI DSDT
+> +	 */
+> +	if (dpcd[DP_MAX_LINK_RATE] == 0 &&
+> +	    dmi_match(DMI_SYS_VENDOR, "Microsoft Corporation") &&
+> +	    dmi_match(DMI_PRODUCT_NAME, "Microsoft Surface Pro, 11th Edition")) {
+> +		dpcd[1] = DP_LINK_BW_8_1;
+> +	}
+> +
 
-Thanks Rob for the feedback, I have a working implementation
-based on your suggestion with a new quirk, we will switch to it in V2.
+My Galaxy Book4 Edge with the ATNA60CL07-0 panel also reports a max link 
+rate of 0. But I think eDP v1.4 panels need a different way to retrieve 
+supported links rates, which could be found in the amdgpu [1], i915 [2] 
+and nouveau [3] drivers.
 
-Best,
-J=C3=A9r=C3=B4me
+[1]: 
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c#n2098
+[2]: 
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/gpu/drm/i915/display/intel_dp.c#n4281
+[3]: 
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/gpu/drm/nouveau/nouveau_dp.c#n101
 
-> > +
-> >         msm_dp_panel->vsc_sdp_supported =3D drm_dp_vsc_sdp_supported(pa=
-nel->aux, dpcd);
-> >         link_info =3D &msm_dp_panel->link_info;
-> >         link_info->revision =3D dpcd[DP_DPCD_REV];
-> > --
-> > 2.50.1
-> >
+
+>   	msm_dp_panel->vsc_sdp_supported = drm_dp_vsc_sdp_supported(panel->aux, dpcd);
+>   	link_info = &msm_dp_panel->link_info;
+>   	link_info->revision = dpcd[DP_DPCD_REV];
+
+
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
