@@ -2,79 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB7EAB09045
-	for <lists+freedreno@lfdr.de>; Thu, 17 Jul 2025 17:12:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25CEAB0906F
+	for <lists+freedreno@lfdr.de>; Thu, 17 Jul 2025 17:19:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 460AF10E83F;
-	Thu, 17 Jul 2025 15:12:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0FAC10E843;
+	Thu, 17 Jul 2025 15:19:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="G8AscNDs";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="C3Qcr1D1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 628EB10E242
- for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 15:12:09 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56HCcrLP021792
- for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 15:12:08 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D61EF10E842
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 15:19:37 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56HCNM5s025177
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 15:19:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=9pJTFEenY3rWVgqlsRhih+or7W0MW5NJ012
- 2DRYZs8s=; b=G8AscNDsDktygSubSOSuuClEkViZ1voMSYdMFDhtdunPUR0EhvL
- v6b7c56Wiz2NOApId5/ok6ytPHNU392+vJ2g1mK9liSAvtsGTWHRrE9KL7DzDb2t
- /y08LE+AWiaJ/4HgY6+EjIRlfoBOSoO32iT403u9egb807ythASsuylRFeX3XNRv
- AmYy8llaKMTWLMnFEMsmwyxRyykTbtdARDkcmryxwZfYnevrkYkhzSZOiUWDsAb5
- G9gCoi0VuZ+DFb5VSMi/I5cwvZlmN4POT9bdcIkuoubQhCyx+VV4J1EEhERhUojz
- G+Okan//1h0laG764Evx4GavBX4xhqIwFEw==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ufu8g0jb-1
+ :subject:to; s=qcppdkim1; bh=wdkJ8bz+kx17ne/rgHDgW3wfkXF5IySByRD
+ 4qnNkc5o=; b=C3Qcr1D1NEUcWP6EY+2mlCyQQfNqpNFXdRT6CEeOShwlyLY6upG
+ NvYLb8oYruljiKwllG+0oOpWRm6Ism6qOlxpuxMRtt3rT08fg7JMwOM21fy0t0u+
+ n8nEuIS24IeIrah6IxzHQ7SIGbZwJjH+VgieZ8kamfe6db/JnNVH+cKMm/fjGxd+
+ psGrYB00jA2ANjF48EhZIh7q/wW5I1fkpcEO+HCGF4kJKt1ff/CY1/kScqmkbZsQ
+ sDaRcHIrFnC6DB2E/1XhysUcmcGPyd5QIH8fee7wewLZ3zD2pVFwtQTrJ7SPvkPW
+ Ez2aNx0AhXPfvRejnGaUCKBYGyd5fDVAOSQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47xbsqcc4h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 15:12:08 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-748e6457567so1416545b3a.1
- for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 08:12:08 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 15:19:36 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-313fab41f4bso1380853a91.0
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 08:19:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752765127; x=1753369927;
+ d=1e100.net; s=20230601; t=1752765575; x=1753370375;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=9pJTFEenY3rWVgqlsRhih+or7W0MW5NJ0122DRYZs8s=;
- b=oriEfxVfcWi8zBF+QQKoiQl6i2JkUgnYnlJC4HmsRF/DGEj92aoPM/bEPwtfqYXhdl
- 2d/ojMHw6tCpF/3IVXar5jRz6AepFtSburmmeZjISKnsRXWBTJjgTCWU8kjBmPEUQSYW
- ku4sr1XL+XKkbz28q8b+Z9/Vlv658VAe1jRhBZMNIyFHsmXxGEVMGmzUSfpF08MfVEkP
- 38eRJZRGlcXnt1CX1kPreO+vpE+rNOzOdMcYffCqfw1I45AMCg60SOduPwzOAIen8RqS
- RGaV2B0j+JKzGpKM/okG6kC8diqKDpMGHuo5x3t5clAOabArvPXDypMgXV5RgXOAVwxE
- pM6w==
+ bh=wdkJ8bz+kx17ne/rgHDgW3wfkXF5IySByRD4qnNkc5o=;
+ b=lNwgEyk1zIGlADdGxRisNlG6jQe+D4BQlPU6wB4c+JiUatNUUEYFT+gkKWb/oGFFKU
+ XATiS06J9IQiqr5QiYu51A7xPlvWArjebAUTeoge6+K0087t20tdn0+P+juADh+A8/9W
+ RGs5Ck4b2hHz8hufK6xiO1Vd/u/+zFaV0RRKHU/nrs+currvQKmpRCRySzpPKNCZS2bE
+ M30GAy6Od2GOQhlqAcrUCBRW/9VGzwf9MsYVu+vpVZ9kEcm8EIVGXy6MCWqcybaAYcUd
+ dvSa1spvCZoLgGIUoSWMTmw2lgi8sw6UnF638H2cYYgZKr9cIvDBPaazAlebqICFUw3N
+ neRA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVLTvViOombFl3hdDAFrUv2g823+JTt4qbDBSlI8/dXfPgJ2KyKbzLuXOC/pqS3rZnjIFl5jArFXMM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwIwBAZxCzgTHQfT3XSMitEu5y5p1i1rs5pqs5wQF35p0wjCb34
- rwVQ9VfuSbDw5eGB4pjUVllkFebHpIVcM6hpXhM//Er/IgLHGqTNfIuneCzcaXPU4nn8LDYjBka
- fKtO6DwtUX2MFblo55OI1aZin7M6GR2M1rpSuy+oyqRrKdUMehu+63csxhIwZns9oITiWOxw=
-X-Gm-Gg: ASbGncuZKPKuNQ5iLzjospH5VH99MwRAjN35hdoHHRUHypIfpi1Xx6FHnR3+UXCXbXi
- /Xz2Fe7KgMqJreIWT38KrVfrPBSH3jJ2rR895ci8/Y0ECoNAHeY7hoW458o1bju2vZ/thAXwYHS
- MVTHCDbi7NVyrV+hqQGTP2uhRMkqikkZb6w3UbNNSLXrmVv8WpL+02bbSvPCxIwifs69hjE6G9P
- /BHCFwHjX2VYzL6rANoUBaoMZq14dy2GVXDcz+gUuM7V4pBPZJHt6a6+uqdd1ZL2rWoJURepYYq
- TD3aQZPzWJRIXeKqeG4K8USGVmsUBH8EN6ItsrQvXjZCmtKDpW4=
-X-Received: by 2002:a05:6a21:329d:b0:234:21aa:b538 with SMTP id
- adf61e73a8af0-2390c744e99mr5905547637.1.1752765127007; 
- Thu, 17 Jul 2025 08:12:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHTO8+Xo0qyZNjecPdyEQ1E7S+g3tlFLsy6r4ztKGL0EU33rzpzcW1a1wjSpktmiADaNdA2KQ==
-X-Received: by 2002:a05:6a21:329d:b0:234:21aa:b538 with SMTP id
- adf61e73a8af0-2390c744e99mr5905493637.1.1752765126508; 
- Thu, 17 Jul 2025 08:12:06 -0700 (PDT)
+ AJvYcCW4Y1/FRK7qhQbH+PxNBV4zKqs2mGLR24xSjd4q/+HvvaqF34F0ut+27RDPuoI+/470OCaF+0hif/Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwJfClOR6DsOCdwdXzwlftJq7WHBnEv4cRkLYTKTaKlRI7ryLvF
+ xFQYFKkr5pTNst8nDDeJ4zG5wSLU1udcgnAuyjvK7QLFM3lM0GVWf94uqxKE3Rbu6pgK/rnMCwn
+ qooIs8t0SffxTfFAueZOvvixJSpaa241uAcqrTndTm2vrkpKBwZ/cnGdMg5upH/kcIO8/fJtAyd
+ UzrGc=
+X-Gm-Gg: ASbGnctSeeNVfwHt58VpGe4YYN1ieAUG0/I7rB8ZAzGBz+qYX33dmZ0W9AGP4ziTNJS
+ 2t0EeZUIC00YWKGpJZP6UCmCamMP3ISxrXnbAIG4L9OgMHkmwM+WuK78sj9EHUUu3GT6zhl9gEj
+ OEF8KIHi1lOlIaGnz6DE9RYniAG+bPMizBDhJtV0Ug1BE8RwijyQXNKDcjeTnnw/rV+HsteAieP
+ V+kjZbvYP+ulwwqGJRtg54c0LLZIvG/9E1tJICnyd1smLBq8/FBXu2khOmYW/qgp6kyAOlLAvB7
+ wB+K4Q9/jD+9FVN/rqABbIbsfaLhbON9eN8dwSJL4F1ETRgTmHY=
+X-Received: by 2002:a17:90b:3a91:b0:311:9c1f:8516 with SMTP id
+ 98e67ed59e1d1-31caf85e029mr5009412a91.15.1752765575374; 
+ Thu, 17 Jul 2025 08:19:35 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGJBlIDvX0IMhzg5s1vxarPavrcpaAW/SghWPjLESXyVamMIaNFxD+9sBYlLjBFgfg4OT5j9g==
+X-Received: by 2002:a17:90b:3a91:b0:311:9c1f:8516 with SMTP id
+ 98e67ed59e1d1-31caf85e029mr5009375a91.15.1752765574859; 
+ Thu, 17 Jul 2025 08:19:34 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74eb9dd5d3esm16293073b3a.4.2025.07.17.08.12.05
+ 98e67ed59e1d1-31caf7c32f7sm1708090a91.16.2025.07.17.08.19.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Jul 2025 08:12:06 -0700 (PDT)
+ Thu, 17 Jul 2025 08:19:34 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Rob Clark <robin.clark@oss.qualcomm.com>,
- Dan Carpenter <dan.carpenter@linaro.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
@@ -82,34 +82,34 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm: Drop unneeded NULL check
-Date: Thu, 17 Jul 2025 08:12:01 -0700
-Message-ID: <20250717151202.7987-1-robin.clark@oss.qualcomm.com>
+Subject: [PATCH] drm/msm: Fix pagetables setup/teardown serialization
+Date: Thu, 17 Jul 2025 08:19:30 -0700
+Message-ID: <20250717151931.10228-1-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE3MDEzMyBTYWx0ZWRfX+KZ9K6RPx3W2
- RzVvj/BN3oNEO7/CYOYfHCiwLU56FtvnA0iG83Cs3w1z3jSpadV/io+S7LZGOIUOm3xnKzTGlq7
- lBJrzRsXy4g8C9Hlj80z1fxmPYAOBM92yLpaA/Pb0xBXuNhZsF39WJOmY3UZ3ZP1g6+cs6bD352
- mRRd0hjVSYHicfjVsLQyrT/sDCMlaJIv500zglIYdcZU5X6OqCSGHr38IZIflMLcbou4+kERHzD
- Xf21xCRlvG9YCkr0yD+JKgDZJ/j4+iUTQu/GZBdgK2Es6xYMtc5NckryqtIhi523XW34QOycALC
- eTKHwyZvDxSz+Cro4oAcuN9vy3ciLC8T8hg4fRuw4xJIag7K+9i6lY+x1TQXEBiF97noMjj0QxC
- gJ/nW4UOFEYqHkMBrmSVUjJXsf/kxRvDMZyDhFR/jWHewIvLxMSBDWEJ7iV03q1ifga6AS2L
-X-Proofpoint-ORIG-GUID: yMNHJr3hDmspOHMBzXyg0UrlMNLFLTEY
-X-Proofpoint-GUID: yMNHJr3hDmspOHMBzXyg0UrlMNLFLTEY
-X-Authority-Analysis: v=2.4 cv=f59IBPyM c=1 sm=1 tr=0 ts=687912c8 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=xqWC_Br6kY4A:10 a=Wb1JkmetP80A:10
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=eWlSUfSnBrBg5eVjM6UA:9
- a=2VI0MkxyNR6bbpdq8BZq:22 a=cvBusfyB2V15izCimMoJ:22
+X-Authority-Analysis: v=2.4 cv=ad1hnQot c=1 sm=1 tr=0 ts=68791488 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=xqWC_Br6kY4A:10 a=Wb1JkmetP80A:10
+ a=EUspDBNiAAAA:8 a=ufhHnk6gINzqDhHgaV0A:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: _WS7n3L5LKkoRktl-qLuIe2AU9sZmX9i
+X-Proofpoint-GUID: _WS7n3L5LKkoRktl-qLuIe2AU9sZmX9i
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE3MDEzNCBTYWx0ZWRfX+ZdllVw+GT9g
+ jp/ZlssJ+xl+TrnXFkLkYwehcmAU9Q2oEQYFjqKJbUDRYmbZqBUyGFfQco3+gVAm9o7GJ2Kb6SQ
+ 7G+m9oxokpV7T2bbmpm5n7H1z/jsg+awTU7iGS2EuFVnbeMi3DKHvRwsWM6pgPLDf7p0l+yZFiT
+ JwLJ1duzO8zXVUdg31b0pwmq5HCBfSquFuWR3gDHLaMUE+wBJaLAxOPU2xHGGGcPZ/8WovIEyPX
+ 4yxiLvnY459O5ma3H3DBVZVfCJxQvsAcX9krUA7edZXj3x2vtQruYFoSoEDPTBnnDDY2WT3hruQ
+ UMkbWlhzOG0X+W5VX+cFh65LKI+YZCwQs6lIiRyLUiUXUI6xUKEQt6laCdUNccXCXkA76oGpuaz
+ G+5gowxoc1vtEqEIhn7K8+RSB0ysq1OA04MUd/WrwJU1Uy0xeNRTcp4VBUYEiI60EQkN2r2B
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-17_01,2025-07-17_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 malwarescore=0 spamscore=0 mlxscore=0
- bulkscore=0 suspectscore=0 impostorscore=0 adultscore=0 priorityscore=1501
- mlxlogscore=999 phishscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507170133
+ adultscore=0 bulkscore=0 mlxlogscore=999 suspectscore=0 spamscore=0
+ malwarescore=0 phishscore=0 mlxscore=0 lowpriorityscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507170134
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,27 +125,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is always set in msm_gpu_init(), and can never be NULL.
+An atomic counter is not sufficient, as one task could still be in the
+process of tearing things down while another task increments the counter
+back up to one and begins setup again.  The race condition existed since
+commit b145c6e65eb0 ("drm/msm: Add support to create a local pagetable")
+but got bigger in commit dbbde63c9e9d ("drm/msm: Add PRR support").
 
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Fixes: dbbde63c9e9d ("drm/msm: Add PRR support")
+Fixes: b145c6e65eb0 ("drm/msm: Add support to create a local pagetable")
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_iommu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/msm_iommu.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index 55c29f49b788..cefa50192391 100644
+index cefa50192391..89cdda73711a 100644
 --- a/drivers/gpu/drm/msm/msm_iommu.c
 +++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -768,7 +768,7 @@ struct msm_mmu *msm_iommu_gpu_new(struct device *dev, struct msm_gpu *gpu, unsig
- 		return mmu;
+@@ -14,7 +14,9 @@
+ struct msm_iommu {
+ 	struct msm_mmu base;
+ 	struct iommu_domain *domain;
+-	atomic_t pagetables;
++
++	struct mutex init_lock;  /* protects pagetables counter and prr_page */
++	int pagetables;
+ 	struct page *prr_page;
  
- 	iommu = to_msm_iommu(mmu);
--	if (adreno_smmu && adreno_smmu->cookie) {
-+	if (adreno_smmu->cookie) {
- 		const struct io_pgtable_cfg *cfg =
- 			adreno_smmu->get_ttbr1_cfg(adreno_smmu->cookie);
- 		size_t tblsz = get_tblsz(cfg);
+ 	struct kmem_cache *pt_cache;
+@@ -227,7 +229,8 @@ static void msm_iommu_pagetable_destroy(struct msm_mmu *mmu)
+ 	 * If this is the last attached pagetable for the parent,
+ 	 * disable TTBR0 in the arm-smmu driver
+ 	 */
+-	if (atomic_dec_return(&iommu->pagetables) == 0) {
++	mutex_lock(&iommu->init_lock);
++	if (--iommu->pagetables == 0) {
+ 		adreno_smmu->set_ttbr0_cfg(adreno_smmu->cookie, NULL);
+ 
+ 		if (adreno_smmu->set_prr_bit) {
+@@ -236,6 +239,7 @@ static void msm_iommu_pagetable_destroy(struct msm_mmu *mmu)
+ 			iommu->prr_page = NULL;
+ 		}
+ 	}
++	mutex_unlock(&iommu->init_lock);
+ 
+ 	free_io_pgtable_ops(pagetable->pgtbl_ops);
+ 	kfree(pagetable);
+@@ -568,9 +572,12 @@ struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent, bool kernel_m
+ 	 * If this is the first pagetable that we've allocated, send it back to
+ 	 * the arm-smmu driver as a trigger to set up TTBR0
+ 	 */
+-	if (atomic_inc_return(&iommu->pagetables) == 1) {
++	mutex_lock(&iommu->init_lock);
++	if (iommu->pagetables++ == 0) {
+ 		ret = adreno_smmu->set_ttbr0_cfg(adreno_smmu->cookie, &ttbr0_cfg);
+ 		if (ret) {
++			iommu->pagetables--;
++			mutex_unlock(&iommu->init_lock);
+ 			free_io_pgtable_ops(pagetable->pgtbl_ops);
+ 			kfree(pagetable);
+ 			return ERR_PTR(ret);
+@@ -595,6 +602,7 @@ struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent, bool kernel_m
+ 			adreno_smmu->set_prr_bit(adreno_smmu->cookie, true);
+ 		}
+ 	}
++	mutex_unlock(&iommu->init_lock);
+ 
+ 	/* Needed later for TLB flush */
+ 	pagetable->parent = parent;
+@@ -730,7 +738,7 @@ struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks)
+ 	iommu->domain = domain;
+ 	msm_mmu_init(&iommu->base, dev, &funcs, MSM_MMU_IOMMU);
+ 
+-	atomic_set(&iommu->pagetables, 0);
++	mutex_init(&iommu->init_lock);
+ 
+ 	ret = iommu_attach_device(iommu->domain, dev);
+ 	if (ret) {
 -- 
 2.50.1
 
