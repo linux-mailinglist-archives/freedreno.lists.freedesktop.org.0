@@ -2,84 +2,144 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDF97B09664
-	for <lists+freedreno@lfdr.de>; Thu, 17 Jul 2025 23:37:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A6D5B097BF
+	for <lists+freedreno@lfdr.de>; Fri, 18 Jul 2025 01:28:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C170210E8A9;
-	Thu, 17 Jul 2025 21:37:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58A0710E334;
+	Thu, 17 Jul 2025 23:28:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PwTs46Cl";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dE6z2L0R";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7079110E8A9;
- Thu, 17 Jul 2025 21:37:16 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-60c4f796446so2182689a12.1; 
- Thu, 17 Jul 2025 14:37:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752788235; x=1753393035; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DrtASW4nJI5s0TcFU7BZl03KBcG7L4TmJyfK+6pQD+I=;
- b=PwTs46ClAkl/yeuTEKLBQHZj4b+1pd77mjOl4NnXzw1jnPmi2/xto3N1R33vrmsxSU
- rl+x7IPt3N35/AlgsbNtM23cApSrEZnWTaY/6EYB35Vrf6QEXnF8UwAZENGkbiy5hcuE
- 3uoQBkro4cUlIY122mZDlHoAKacLC+M0WsEQYGEDSLEzxrrYlS+6Hp/4scfiRw5aJjgm
- Qf7f6kq6i0/XUa/kNEQEP9LRt0UY4VTIt4w9isQ0rIYKLH82Yv+6fnC+AN/EPj7TJN/8
- TYjeIkNY7ryuV1QIG9BBqmDpKQJELG5E9DPCfkoo9ywerZVJfXVeCcHae6RxUp9qM4XD
- HqUw==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E71510E334
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 23:28:52 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56HFPvwS015972
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 23:28:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=Yz5ZkUX+suGgaKXr9mUH/0
+ YiWBvqd0jdhWimlhmg86Q=; b=dE6z2L0RIlS08dSgqJQ2838ZAB/Wutk8bVcdX6
+ d+p877uymcRLeTvoFBuZECpSKgHH/HhQ9CbTBCYTrUQGXwaM2bn+OKuYtw0xevPt
+ 9ntRRIEVg6wRVCxhqOtNkRngc5zz6hXBi3rpjj9LezjsxcEeiw1xxclBlSJoZ0IW
+ 4joRQcBh0ect7P3nl/ruwkhiohYL/KhZ9RO3nbG4IDKvlIoNW+9jklLQi5tgdasG
+ VSpy41LVWoYlRV9Ym2xKpqpkSg33IiZTlUHWRtQmCQ7dNolwIGN9tag1uUuFPb3p
+ OiY17yAOLewA3Z7YD3GvUuFLlkEb4eqQOT/u/Ro3Gp/KuitA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47y3tc19u1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 23:28:51 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-31215090074so2241245a91.0
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jul 2025 16:28:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752788235; x=1753393035;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DrtASW4nJI5s0TcFU7BZl03KBcG7L4TmJyfK+6pQD+I=;
- b=QH5gM2o/aDA3y9j9+oGPhlhwa36co5tSLxVsR3qg7DSaJJHZxYJyohEVyzraRdXuGx
- kwMwUqr5lMdQBXu3EUyh1rTRv6syx9f5py8rZl1D87ngVs1s4sRbGk/ZK4rrilr8UJEk
- y3JzG5vi1lq2Edhpq/vpTZR3OoazLrqeDm0eHo8mXdcXqdbPs5pff7b9M5XTijgt8iiY
- kdQKKwJqLTGSzZx0ANakoIengcmiwIuu+wucWmnlFwnuRYF2IhbuMYrKWdgnfx03y0Bv
- zstYLeDto66j2T56CVQjOY9XAl97CghPJjWgVnEwSUfli9nii1bAhkXu8Wvdwn+fCueO
- WLMg==
+ d=1e100.net; s=20230601; t=1752794930; x=1753399730;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Yz5ZkUX+suGgaKXr9mUH/0YiWBvqd0jdhWimlhmg86Q=;
+ b=kk/wN1Nqrmdz0/cRN545sdIGqMehN9tW8LEP/3PsOtTTHEvbjfyZBh5XKdXNuhlDKs
+ 9TdiPAu3vF8TbQSa0Wtky6xxXi4MnThQvbw7m3JuhN5fo9XaeS2fYwGV5ta8JGJuBcA6
+ qdZo4kkdoLsFsiLw8kePK64WOynyKDdwS334+m1jBaaS5CON3GscUzYaa4CahCHExFsO
+ MdIqLyKqzxwmpNPzq6oDTFkx4kDGyOYk64STDgSY6Kc1ELIFrqXF9MJek2jiM0YzxD5L
+ O9Y+z4E1GTXALqBlaJyB3+sYu9a/udtKSEp7ZsSOipyb+kTbKXA4GJ/83MM3IlfCvbAV
+ HO3Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWZfdqTVQ/tS3eIwoHIbyhftllAy5kbqI0d0kLiJEJTC5PvoNg+ucSRjenGRw5K3KWmJq7xbkXXqLQ=@lists.freedesktop.org,
- AJvYcCXBqFkTs6mx7BX3VEIVzic2UpKePpw1B+zxpcvBuOgcNygQLShfbKevgu0RA7Cg6+nKzHshKw23qE8d@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyYfvwwab9tnyB6WoN+BdA7klyWYgam+3IsshZxwUR03G+4ay1l
- oBUrN1tkg3nUCWQ/qTlhOrbqPxWPKJpqHYwQ8ECyqws42Cij2qV9d2M1r6l04tXOYfKaaUoADeI
- X8h2Bc1O4B93aY6ox/ylD8J8naovJSg==
-X-Gm-Gg: ASbGncuG2eFTdDSDEFQcDjL5pTzUoXTXMxj+xo8cVXw/5ukwIrEIAB12zuU9Uz1PP+f
- pkFnxPAS5puP8NDb64T19YC209HO07eX7Btiy68iCvNC/O3m95ksN8s1zbnJyxlA7I/KlZUlTfo
- C0iXn8H/CoEILqkHB02XN59vk/uIkLV/6Fv3ToP34O/0hF3P1Qp/Dc6CvhDMTLDzgCHEE37hcdZ
- rap/wOpZMW9l2lP4E4y4df+Wi90X7pAfMe6g+Y=
-X-Google-Smtp-Source: AGHT+IFVlRN4WGIlFsUPwjfESSFGLiHpyki75MoVraFsVt7ReruuctGVWu4zLsO1ep8kuBhcM77A+tPIk089SPdJwm0=
-X-Received: by 2002:a05:6402:2685:b0:611:d497:e8a8 with SMTP id
- 4fb4d7f45d1cf-612823da4c1mr8091202a12.27.1752788234592; Thu, 17 Jul 2025
- 14:37:14 -0700 (PDT)
+ AJvYcCVA2EwEX4qQQK/uo9aMUgLBwdIfVwFWxF2hc9p4YYnR5MN/URRoxxq4xUUeZwKIpmspcwyY1aAJvQg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvOLjaVCBzCUmC6RsoyZs5ocvldm68X98fMfO9gUiymgtAPB+o
+ 6m3WvLCACwH4sSAG3n66VEW1btkutg/CjL64hcPUrhUIkM4VNX6ly0I8Da7/PgRTpO1UTnq55m+
+ QdWqruEttsS7XnNqBbp4zNNtzxfNsr24/nqO+RJQuBCH+MAEg70kKXFiwXOKYGQrXpvWoYAY=
+X-Gm-Gg: ASbGncskdl+VNZzCvAxC+uC0BHeXceSHxtJInW3YE3zOQBxFGBgh2fRKgcoi8Y8rYrq
+ 4qLkCRy3C2CVKCOLbNztC8gn3w+ZVArFVwFR09PjtKqUGW6W9s4z22OowBI1q8VffVFtqpJSV6G
+ 0/+DyXShBXcQk52l2D5r7PuRmmeth//qqsZ4J35gkQZkdRjXHE1/zZqk55hZTr8jIgWcWcUKX4d
+ vs+STh57eeaXO/94H7c0rW6MyhVwRb6WpT1Doupu29EUZXOACCg+BJzh0puEyqBNELBNWXrRasP
+ jVM2lOmsjP+Xdbeb2RFilno6Tdu8RtTF7pBW7ojMbQRPysjvpERFaGgiiX5ncL24UO/l1HghpBq
+ 4uWiDupS7mXfiGVMdqgU9+Txm
+X-Received: by 2002:a17:90b:55cb:b0:312:959:dc41 with SMTP id
+ 98e67ed59e1d1-31c9f43747emr10698313a91.27.1752794930316; 
+ Thu, 17 Jul 2025 16:28:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGeZSn04EmYEL+h/t9yfP7/sJS7wsCnlKQu6QgEAKxyzBH79jPsm+h7MWyyQYnvMQSkLJjfIQ==
+X-Received: by 2002:a17:90b:55cb:b0:312:959:dc41 with SMTP id
+ 98e67ed59e1d1-31c9f43747emr10698286a91.27.1752794929826; 
+ Thu, 17 Jul 2025 16:28:49 -0700 (PDT)
+Received: from jesszhan-linux.qualcomm.com (i-global254.qualcomm.com.
+ [199.106.103.254]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23e3b5e3cb7sm2002195ad.17.2025.07.17.16.28.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Jul 2025 16:28:49 -0700 (PDT)
+From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+Subject: [PATCH v3 0/5] dt-bindings: msm/dp: Add support for 4 pixel
+ streams
+Date: Thu, 17 Jul 2025 16:28:42 -0700
+Message-Id: <20250717-dp_mst_bindings-v3-0-72ce08285703@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20250714173554.14223-1-daleyo@gmail.com>
- <20250714173554.14223-7-daleyo@gmail.com>
- <A9DB4AE061FD8BB9+3519a519-1a29-49c1-a07d-28a0577677cc@radxa.com>
- <CA+kEDGGaKrYO9Pu3un_Nq_6AOZC5L9sG+CEwh2ZEzWFeHGqtEA@mail.gmail.com>
- <eb0f5be5-3a6f-4969-affd-c01a6216ad0c@oss.qualcomm.com>
-In-Reply-To: <eb0f5be5-3a6f-4969-affd-c01a6216ad0c@oss.qualcomm.com>
-From: =?UTF-8?B?SsOpcsO0bWUgZGUgQnJldGFnbmU=?= <jerome.debretagne@gmail.com>
-Date: Thu, 17 Jul 2025 23:36:38 +0200
-X-Gm-Features: Ac12FXyoN-ygLAdINlTQHq9O6GwthS9JPnfwymokk-OCpRjxgsVHQiOVjtDhOY4
-Message-ID: <CA+kEDGE1kb12pW_OH1n4LmB9PVtgEsft563p9Cx_Mxev9Em3Ow@mail.gmail.com>
-Subject: Re: [PATCH 6/9] drm/msm/dp: Work around bogus maximum link rate
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Xilin Wu <sophon@radxa.com>, Dale Whinham <daleyo@gmail.com>,
- Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACqHeWgC/3XNSwqDMBCA4atI1o3EPGztynuUIjEPHaiJGpUW8
+ e6Nlq5KNwP/wHyzomBGMAFdkxWNZoEA3sVgpwSpVrrGYNCxESWUZ3Fg3VddmKoanAbXBHwWLLd
+ WFdJQi+JVPxoLz0O83WO3ECY/vo4HS7Zv/1tLhgkuZCE5q0lOuSyHGRQ4lSrfoV1b6FcQRDDyK
+ 9Ao2IIKnnPNqLyUPoR0mOUjCt2H2bbtDfDZEZ33AAAA
+X-Change-ID: 20241202-dp_mst_bindings-7536ffc9ae2f
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Abel Vesa <abel.vesa@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Mahadevan <quic_mahap@quicinc.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Danila Tikhonov <danila@jiaxyga.com>, cros-qcom-dts-watchers@chromium.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Abhinav Kumar <abhinav.kumar@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Yongxing Mou <quic_yongmou@quicinc.com>
+X-Mailer: b4 0.15-dev-a9b2a
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1752794927; l=3202;
+ i=jessica.zhang@oss.qualcomm.com; s=20230329; h=from:subject:message-id;
+ bh=NTksIiK3ILvCnqxlzcFH7JIUO55H2AfzNNjxdbfSZtE=;
+ b=q2mx7f+qusw7faryQbddFyq4FuzXuMHpT5OooNTFj/X3U+tTXQnAe8M55ksS7d0HsbtyMF3nM
+ +fnjv8H99+WCMgk7Jy7sQWsQQjD/gYCOtdZ/IG61OB+HNzVMJw3mpu/
+X-Developer-Key: i=jessica.zhang@oss.qualcomm.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+X-Authority-Analysis: v=2.4 cv=Z5PsHGRA c=1 sm=1 tr=0 ts=68798733 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=COk6AnOGAAAA:8 a=HrLnuC2iPlrUScbyRF0A:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: ztTXWanDMFwx8OZ9wnQf1xH7Qqq4-86i
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE3MDIwNiBTYWx0ZWRfX7kidRKE3bDE/
+ sSPgLS6v6Ra+PEp2ucHCcqovlIEZ7adUs6uDmA6fUAUtm79UHdM7cvOdaJfr3QACp7AWpQFFojo
+ YHwf7/f47+U9IGhtTPZmKdmZdUuMgiuYhIadF5zUHVs8NQHk9V8IEiIRbbHVkdkGPeMvc4ZrNfb
+ 5nh7WdZhfSA698DrROD94UT0rH1Zs/i3pYE8sldLOH5PmknDbj7736XPVb0xgSJVqbF4aCnBMWZ
+ rvkPY8cTwAEgJ+AcstJi5F3wBERKa+dnZLVWd5IejGhPUe+jD9c/og6Cg9b1w/wqtbKNevwQsmO
+ ZCgh392toBM8FQ1XmR/D9gu6l5muELAg3P0wwuYn01EHUhaHrhVxrQQMtrUOi8vHdL2NmmLI0ty
+ J87he+H9lAgRDd1+KlHligclwq80iFJkgIErY4mbsbDDRlOL9/mKN7KIWM6o1WsNTCDn6YVA
+X-Proofpoint-GUID: ztTXWanDMFwx8OZ9wnQf1xH7Qqq4-86i
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-17_04,2025-07-17_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 mlxlogscore=807 suspectscore=0 spamscore=0 clxscore=1015
+ mlxscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507170206
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,140 +155,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Le jeu. 17 juil. 2025 =C3=A0 23:10, Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> a =C3=A9crit :
->
-> On 7/17/25 10:27 PM, J=C3=A9r=C3=B4me de Bretagne wrote:
-> > On 2025/7/17 04:21, Xilin Wu <sophon@radxa.com> wrote :
-> >>
-> >> On 2025/7/15 01:35:42, Dale Whinham wrote:
-> >>> From: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
-> >>>
-> >>> The OLED display in the Surface Pro 11 reports a maximum link rate of
-> >>> zero in its DPCD, causing it to fail to probe correctly.
-> >>>
-> >>> The Surface Pro 11's DSDT table contains some XML with an
-> >>> "EDPOverrideDPCDCaps" block that defines the max link rate as 0x1E
-> >>> (8.1Gbps/HBR3).
-> >>>
-> >>> Add a quirk to conditionally override the max link rate if its value
-> >>> is zero specifically for this model.
-> >>>
-> >>> Signed-off-by: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.=
-com>
-> >>> Signed-off-by: Dale Whinham <daleyo@gmail.com>
-> >>> ---
-> >>>   drivers/gpu/drm/msm/dp/dp_panel.c | 13 +++++++++++++
-> >>>   1 file changed, 13 insertions(+)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/=
-dp/dp_panel.c
-> >>> index 4e8ab75c771b..b2e65b987c05 100644
-> >>> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> >>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> >>> @@ -11,6 +11,8 @@
-> >>>   #include <drm/drm_of.h>
-> >>>   #include <drm/drm_print.h>
-> >>>
-> >>> +#include <linux/dmi.h>
-> >>> +
-> >>>   #define DP_MAX_NUM_DP_LANES 4
-> >>>   #define DP_LINK_RATE_HBR2   540000 /* kbytes */
-> >>>
-> >>> @@ -58,6 +60,17 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_pa=
-nel *msm_dp_panel)
-> >>>       if (rc)
-> >>>               return rc;
-> >>>
-> >>> +     /*
-> >>> +      * for some reason the ATNA30DW01-1 OLED panel in the Surface P=
-ro 11
-> >>> +      * reports a max link rate of 0 in the DPCD. Fix it to match th=
-e
-> >>> +      * EDPOverrideDPCDCaps string found in the ACPI DSDT
-> >>> +      */
-> >>> +     if (dpcd[DP_MAX_LINK_RATE] =3D=3D 0 &&
-> >>> +         dmi_match(DMI_SYS_VENDOR, "Microsoft Corporation") &&
-> >>> +         dmi_match(DMI_PRODUCT_NAME, "Microsoft Surface Pro, 11th Ed=
-ition")) {
-> >>> +             dpcd[1] =3D DP_LINK_BW_8_1;
-> >>> +     }
-> >>> +
-> >>
-> >> My Galaxy Book4 Edge with the ATNA60CL07-0 panel also reports a max li=
-nk
-> >> rate of 0. But I think eDP v1.4 panels need a different way to retriev=
-e
-> >> supported links rates, which could be found in the amdgpu [1], i915 [2=
-]
-> >> and nouveau [3] drivers.
-> >
-> > Thanks Xilin for the sharing and pointers into 3 other drivers, that
-> > would explain the current limitation for Adreno GPUs. Fixing it would
-> > require a big contribution independent of the actual SP11 enablement.
->
-> FWIW Adreno is a wholly separate (from DPU - the display engine) block
+On some MSM chipsets, the display port controller is capable of supporting
+up to 4 streams.
 
-Thanks Konrad, indeed I should have referred to the display engine.
+To drive these additional streams, the pixel clocks for the corresponding
+stream needs to be enabled.
 
-> >
-> > Is it a feature planned in the short-medium term within the MSM driver?
-> > If not, would a quirk like [4] be acceptable upstream in the meanwhile?
->
-> I'm not a display guy, but this looks like yet another block of code
-> begging to be commonized across DP drivers,
+Fixup the documentation of some of the bindings to clarify exactly which
+stream they correspond to, then add the new bindings and device tree
+changes.
 
-I agree 100% in principle, but the 3 implementations are different today.
+---
+Changes in v3:
+- Fixed dtschema errors (Rob Herring)
+- Documented all pixel stream clocks (Dmitry)
+- Ordered compatibility list alphabetically (Dmitry)
+- Dropped assigned-clocks too (Dmitry)
+- Link to v2: https://lore.kernel.org/r/20250530-dp_mst_bindings-v2-0-f925464d32a8@oss.qualcomm.com
 
-> so I wouldn't expect it to be a big blocker.
+Changes in v2:
+- Rebased on top of next-20250523
+- Dropped merged maintainer patch
+- Added a patch to make the corresponding dts change to add pixel 1
+  stream
+- Squashed pixel 0 and pixel 1 stream binding patches (Krzysztof)
+- Drop assigned-clock-parents bindings for dp-controller (Krzysztof)
+- Updated dp-controller.yaml to include all chipsets that support stream
+  1 pixel clock (Krzysztof)
+- Added missing minItems and if statement (Krzysztof)
+- Link to v1: https://lore.kernel.org/r/20241202-dp_mst_bindings-v1-0-9a9a43b0624a@quicinc.com
 
-Well, it is for me :)
+---
+Abhinav Kumar (4):
+      dt-bindings: Fixup x1e80100 to add DP MST support
+      dt-bindings: clock: Add SC7280 DISPCC DP pixel 1 clock binding
+      dt-bindings: display/msm: drop assigned-clock-parents for dp controller
+      dt-bindings: display/msm: add stream pixel clock bindings for MST
 
-> Adding a panel quirk doesn't seem in order, as the panel is /probably/
-> very much in spec, and it's the driver bit that's missing.
+Jessica Zhang (1):
+      arm64: dts: qcom: Add MST pixel streams for displayport
 
-I agree that a quirk shouldn't be needed. I guess we'll work on
-upstreaming everything else and keep an out-of-tree patch for this
-issue for the moment That's a bit sad as this will block regular
-users from easily installing / testing via the Ubuntu Concept ISO
-for instance.
+ .../bindings/display/msm/dp-controller.yaml        | 53 +++++++++++-----
+ .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 14 +++--
+ .../bindings/display/msm/qcom,sar2130p-mdss.yaml   | 11 ++--
+ .../bindings/display/msm/qcom,sc7180-mdss.yaml     |  3 -
+ .../bindings/display/msm/qcom,sc7280-mdss.yaml     | 12 ++--
+ .../bindings/display/msm/qcom,sm7150-mdss.yaml     |  5 --
+ .../bindings/display/msm/qcom,sm8750-mdss.yaml     | 11 ++--
+ .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 21 +++----
+ arch/arm64/boot/dts/qcom/sa8775p.dtsi              | 34 +++++++---
+ arch/arm64/boot/dts/qcom/sar2130p.dtsi             | 10 ++-
+ arch/arm64/boot/dts/qcom/sc7280.dtsi               | 10 ++-
+ arch/arm64/boot/dts/qcom/sc8180x.dtsi              | 20 ++++--
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi             | 72 +++++++++++++++-------
+ arch/arm64/boot/dts/qcom/sm8150.dtsi               | 10 ++-
+ arch/arm64/boot/dts/qcom/sm8250.dtsi               | 10 ++-
+ arch/arm64/boot/dts/qcom/sm8350.dtsi               | 10 ++-
+ arch/arm64/boot/dts/qcom/sm8450.dtsi               | 10 ++-
+ arch/arm64/boot/dts/qcom/sm8550.dtsi               | 10 ++-
+ arch/arm64/boot/dts/qcom/sm8650.dtsi               | 10 ++-
+ arch/arm64/boot/dts/qcom/x1e80100.dtsi             | 30 ++++++---
+ include/dt-bindings/clock/qcom,dispcc-sc7280.h     |  2 +
+ 21 files changed, 235 insertions(+), 133 deletions(-)
+---
+base-commit: 7a88d609b069b7d2f4d10113b18fea02921bedb1
+change-id: 20241202-dp_mst_bindings-7536ffc9ae2f
 
-Or could the quirk be accepted temporarily with good comments
-then reverted when the driver adds the missing support? I guess
-it would depend on the time scale of this support landing.
+Best regards,
+--  
+Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 
-Cheers,
-J=C3=A9r=C3=B4me
-
-> Konrad
->
-> >
-> > [4] https://github.com/JeromeDeBretagne/linux-surface-pro-11/commit/d26=
-5cfb
-> >
-> > Thanks a lot,
-> > J=C3=A9r=C3=B4me
-> >
-> >
-> >
-> >> [1]:
-> >> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tr=
-ee/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c#n2098
-> >> [2]:
-> >> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tr=
-ee/drivers/gpu/drm/i915/display/intel_dp.c#n4281
-> >> [3]:
-> >> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tr=
-ee/drivers/gpu/drm/nouveau/nouveau_dp.c#n101
-> >>
-> >>
-> >>>       msm_dp_panel->vsc_sdp_supported =3D drm_dp_vsc_sdp_supported(pa=
-nel->aux, dpcd);
-> >>>       link_info =3D &msm_dp_panel->link_info;
-> >>>       link_info->revision =3D dpcd[DP_DPCD_REV];
-> >>
-> >>
-> >> --
-> >> Best regards,
-> >> Xilin Wu <sophon@radxa.com>
-> >
