@@ -2,120 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D51BB0A97C
-	for <lists+freedreno@lfdr.de>; Fri, 18 Jul 2025 19:28:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 011D8B0AA0E
+	for <lists+freedreno@lfdr.de>; Fri, 18 Jul 2025 20:19:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE3510EA29;
-	Fri, 18 Jul 2025 17:28:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC12910E028;
+	Fri, 18 Jul 2025 18:19:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TOjihzHU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C1NYKmxU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77CCB10EA28
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 17:28:41 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56IHFfTh007301
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 17:28:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=f6yNaiRLHAcK+6GC8eMfTdPL
- ypI+sKJ1RhRN3e/m+tM=; b=TOjihzHUobpA6dFi1+++Hpb9xgD+bHm3xJHRqLqd
- CV4XWt9vKzLLg51HQ9F+OCmYbxK2s8LfdHOPNyCjtr+1qujPhZivZxfVHGnTjjIl
- OCg6TVvyjhWZvUYXTpjTQy6AnCUtShf8RUcL/+rOxqYWsRRNj6AsyyczA/dT5D2d
- SNEl+EFiynDyIT/mDLsDmGQOhE8CAwmg1hhv5IfU7xzibtcW3chHD4isF52Gqomd
- APa0HuB0GLjFDnwYzvB3859uVjnGpRro63e7kUcI29A+bs7Se991AjQiw6jGc4Uj
- g9fIwhGe8Tt5vJIWUu7P5yCA3kmo+l21eoeKHIlQcDJaDw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47wfcadk31-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 17:28:40 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7c5cd0f8961so424040785a.1
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 10:28:40 -0700 (PDT)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C0F210E008;
+ Fri, 18 Jul 2025 18:19:29 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-60c01b983b6so5221223a12.0; 
+ Fri, 18 Jul 2025 11:19:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1752862768; x=1753467568; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=74K7xsG9MSz6N4H1ymJC7EYXlz7ZOsPuNwkmBaXHlTM=;
+ b=C1NYKmxUhRotvqaUwMKzAQW1gsj+0/bKYak0Q7uUwcgzBKnP5LEKmFc3Nuiss1S0OD
+ yOqdhNwMBrv/uA4a6+m2efyT1jYTwaGX7pmMRIplAfbb/bUw/zLzMCnNHQMHpxLH9JS6
+ DbrGIihh+hrIycGh8g/916XlyWxt0+bjekOk5K8zonSeXwksuYFqV7hxFP7kPLrk3Fvk
+ uij5+0T6bNrfJY2rTv1ABNauHIUnTweywGYY/ML6McSVzyMBBe2UUFKtCesL7wX8S88N
+ dsOI975UqzpH3oQf/GgNGMON1Txu4oq+ew1+6KRl7wyK9PMMuM08kEB6jrjDEMXd8BPU
+ NWyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752859720; x=1753464520;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=f6yNaiRLHAcK+6GC8eMfTdPLypI+sKJ1RhRN3e/m+tM=;
- b=lLweJ3TOmE2OfDregxJ373JtgS0DAxJYugzjBtMU39f4KIny1sfNqVPKRLAj1jtFiC
- 2H7mPe+mA5Zc5OndKHV9GUxdXMkZVIUPXywVse3nC3Hzlhzk/ix1XCQc3sweszvpqObr
- A+l8Bbijt+xDyydoCM1BMJH6puh1dk+4d0qHXNSGF1tmgzw20hoqskG1+bal+/kMfOIc
- hpwe2N2wUxPBOpIDoSyquEEXVorLVTzGc8uSmuBrLE5TLoCgfGwLrcu3BI58A7BR0WVl
- j8ssH/gEqf3XwulosFYrPNtOCTFZyIPZD+u/cjuZyyGcGsp4Dy615RVlYxMU06/Jy7sT
- Wd1w==
+ d=1e100.net; s=20230601; t=1752862768; x=1753467568;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=74K7xsG9MSz6N4H1ymJC7EYXlz7ZOsPuNwkmBaXHlTM=;
+ b=fvMAOzJRMLRlf64D0NtSpYZGGO1LYIUdX0Rm1WLSCF4Ee2BKHRgvBn9x5GK7ihiq1/
+ dspObEjkJVdTsKkUhn1aXbk/K5sKL6lc5TSgoaAlxtH48NUgPnLkutv9P/MkAPg4gufy
+ iJR8ZglzakRO77/No0PMN/IZg42gSnqOP5qY4csi7uze4U+9QzbzPVycSd5COdOuSom+
+ RCbNTcZ8PoHPyMjhHhuqSRuJzr/5VM2r5wQa1yRSxbFmAFRH8UQk1Z5Cm3o83U7R8aDS
+ ZEAaXHajCRgSqxWqA6GgQ0E8n1Cwcwy/OxuekbkvkBP/96hWiMH8FMSSVsUpZ22uD+Cj
+ 5aYA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXuMlLeQjo7LDtF6trt4wruLZ/8GsnMZ4R899hZS+OtLi1J2T0IffvcroFWjefqG3tbCRoONGyfKfo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxD1zBZ7h/glAhVemAMJ/04ebCkjyfFh7cCYakoEFvCz0yV+nY8
- enlNUhOIAE6WVTgPdhiYyQ+BbdMAuYycrmCEliTmga+ejFmx0TLAWW7VxMKQddQT3C/iFUSiCAq
- xKH/YSFbmJr17oL2x/uvVyGqeKFVCeICSrSPkCxKILDtEtxqAnPbzUHnlN5T000YawXNHhlY=
-X-Gm-Gg: ASbGnctOEGrSJogwc+/5SYqf2FD9fstgt9najnHefE0qTUOwWdrv7x4fxbvLbk3yl3p
- teBYxAuzmw9B/+YxuS27jxKd+7aa7N5tnFGYtfHsXlhBy9ABdr60g+hYjvSbMRudl89S7bP+xsp
- 8TgSzpwxoOEvqQwHb1EBSy7yWqTE2oMq+BhPFgarn+kq5liaz0d6+m+vdGfX9z1m1mCwJBe5pGD
- gzLHeeVNJUS1ZUdU+i8wHYug4QBz+0ANErPcgwjJB7BSandyE/b9HWVeulBAK7kIQhguy4eQTM4
- Go1S+l/VMWoE1jb9bO7EeWUJ2iQtLM9gNVGv3VwUGrGhcN+W4Vkyyjcw7S3k2Zm34+pUIKXJjJB
- FvmISVak4jV5HZxMK4NQxXwJHX4Mln9MpIBZijH5Va697PV7I5x7+
-X-Received: by 2002:a05:620a:4088:b0:7e1:538d:5c5e with SMTP id
- af79cd13be357-7e3436253d2mr1626776585a.46.1752859719408; 
- Fri, 18 Jul 2025 10:28:39 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH1w3sp9zVGjYWBmgKH917pY8I7F8sCh3F9gp3Q6iMWVLnWjt4QkDQ8fFwWBHnJpBaRVJQW4A==
-X-Received: by 2002:a05:620a:4088:b0:7e1:538d:5c5e with SMTP id
- af79cd13be357-7e3436253d2mr1626770785a.46.1752859718706; 
- Fri, 18 Jul 2025 10:28:38 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55a31aac76bsm336325e87.68.2025.07.18.10.28.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Jul 2025 10:28:37 -0700 (PDT)
-Date: Fri, 18 Jul 2025 20:28:35 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Colin Ian King <colin.i.king@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH][next] drm/msm: remove extraneous semicolon after a
- statement
-Message-ID: <qjvxpdibdt76vvw2capf6mupiuqvjlcevtfl66dkqp634ot2zd@eau52bnkh5ec>
-References: <20250718133404.2047673-1-colin.i.king@gmail.com>
+ AJvYcCXb6uTA6AYFXGiLX9+RterUHEq1A83Vs+ICCLCxgIw9+aJPn/r8R1Fum2HAM06iSm0D/HzjkMB4+5PM@lists.freedesktop.org,
+ AJvYcCXhXieYquZ7IZ6MV8rqBSbMQhRPLCjrt+f9Eb+gyfT2ONzln5MpYTSHRHrXRlyYPnaluY88+DVkboo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YytxrlKqSkpv/FKQLkwzsAGBk2OUwvT3For05kQUuuS1lDUPndz
+ zPBp1Nzz19prxYWionyh2vnWIH6jg6ZPKIqre3DM8GsLIW9/7EjXVIEk3pngH4bAlYYy5Zgj0OI
+ o00dkwTfJdgf+ocYjH3Lqp1Z0uXy5QQ==
+X-Gm-Gg: ASbGnctis19O+mQMg8oJmOHtJjCKR+CUjykOXJHH6GXlNvthkhK28ou/n9BQth2hE8G
+ ocOuxxkVE8d8PjqPwtgSVY6QJiTF+S4SiDIZWvBPLq36lIFlrhm+rTHtKfZaWXFrlT2wHsAkipm
+ Qop258JxcW8Gowiz/vgNCb7T0IZHWYAnNqpx0Tr9DVFjRA2xeJQo+ypOd7Jj4M98j/1pITOzI1O
+ c5fSFAHKGcq7SZLqhcvRwP+dGiysg1yuomNHmU=
+X-Google-Smtp-Source: AGHT+IGwAL0QIL1OXzPtmtjtPdJ5o+m2l7uXeUnGXEH0kmtpLo7mnRs7gLDXMvUVVKUsf9oyz1Gvp732AxWj1qd5IoA=
+X-Received: by 2002:a05:6402:2553:b0:600:129:444e with SMTP id
+ 4fb4d7f45d1cf-612a3243e21mr7033430a12.4.1752862767584; Fri, 18 Jul 2025
+ 11:19:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250718133404.2047673-1-colin.i.king@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE4MDEzOCBTYWx0ZWRfX/t8hiqDZZtxw
- UgPXx99OFDOHR4QxKpPJbjK5oQULk4VNpj2OHILCMS4oifzT3xBhGuXQ0rCPwb9feM1hlKIQ56T
- tzN9LdKrw/KUzpHDwydaMa2n6fn8cTBOBRe1CxUqRYR2y9y+kN6Ciqgtg/zinWNvDvgw92rSRST
- rSlhhCHm056VV1h5yfOgOeXcazT/9Hj0gVWn5F32NA62cCxgNrNTg6tDosNfwLZwk7jsT+Zv7QB
- zbYZL1OKa/vrp4xdjwEGYJfS7StU9SqQU2IzvBwDe7awXWnNXnHqLi0+uz7SQN8TKW7PYWPom04
- Pa/mn0CoBb4g5X21co0U4X/DPFZcf1Ii8CvorLGW70bKrkY5c1bIiG/YXPywHalB9kpSRgLUgZ9
- S4xefg1MK0KswCUAruwVAW9LcP9GKS/+RfVwn9UfEhKGFkO5FQHiULjbw9DKSvtcdtV1LDV4
-X-Proofpoint-GUID: Z8GtfjgElgy_1kqL5qa9atO1GvXmkv20
-X-Authority-Analysis: v=2.4 cv=SeX3duRu c=1 sm=1 tr=0 ts=687a8448 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Wb1JkmetP80A:10 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=xHVDqe4EictJAN7MuBgA:9
- a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: Z8GtfjgElgy_1kqL5qa9atO1GvXmkv20
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-18_04,2025-07-17_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- lowpriorityscore=0 mlxlogscore=751 impostorscore=0 clxscore=1015 adultscore=0
- suspectscore=0 malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507180138
+References: <20250714173554.14223-1-daleyo@gmail.com>
+ <20250714173554.14223-7-daleyo@gmail.com>
+ <A9DB4AE061FD8BB9+3519a519-1a29-49c1-a07d-28a0577677cc@radxa.com>
+ <CA+kEDGGaKrYO9Pu3un_Nq_6AOZC5L9sG+CEwh2ZEzWFeHGqtEA@mail.gmail.com>
+ <eb0f5be5-3a6f-4969-affd-c01a6216ad0c@oss.qualcomm.com>
+ <CA+kEDGE1kb12pW_OH1n4LmB9PVtgEsft563p9Cx_Mxev9Em3Ow@mail.gmail.com>
+ <jsynzhzzt4drqcrvbuprjnvu33go4gow3l3hxgafuczdn67uhm@2eq7c5rzflr5>
+In-Reply-To: <jsynzhzzt4drqcrvbuprjnvu33go4gow3l3hxgafuczdn67uhm@2eq7c5rzflr5>
+From: =?UTF-8?B?SsOpcsO0bWUgZGUgQnJldGFnbmU=?= <jerome.debretagne@gmail.com>
+Date: Fri, 18 Jul 2025 20:18:56 +0200
+X-Gm-Features: Ac12FXzzYWrZjR3avCafumkyLvX__-G0ym7_pt9vsNv0Ix5JqyoJp0mkxUi2sRg
+Message-ID: <CA+kEDGEFgUFkUozUYq85XXj8ZPhx=mCMJyjp+bE3+gvYpFTQUQ@mail.gmail.com>
+Subject: Re: [PATCH 6/9] drm/msm/dp: Work around bogus maximum link rate
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Xilin Wu <sophon@radxa.com>,
+ Dale Whinham <daleyo@gmail.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: multipart/alternative; boundary="0000000000009a1b10063a382a38"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,18 +96,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jul 18, 2025 at 02:34:04PM +0100, Colin Ian King wrote:
-> There is a statement that has an extraneous semicolon; remove it.
-> 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> ---
->  drivers/gpu/drm/msm/msm_gpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+--0000000000009a1b10063a382a38
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Friday, Jul 18, 2025, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.co=
+m>
+wrote:
+> On Thu, Jul 17, 2025 at 11:36:38PM +0200, J=C3=A9r=C3=B4me de Bretagne wr=
+ote:
+>> Le jeu. 17 juil. 2025 =C3=A0 23:10, Konrad Dybcio
+>> <konrad.dybcio@oss.qualcomm.com> a =C3=A9crit :
+>> >
+>> > On 7/17/25 10:27 PM, J=C3=A9r=C3=B4me de Bretagne wrote:
+>> > > On 2025/7/17 04:21, Xilin Wu <sophon@radxa.com> wrote :
+>> > >>
+>> > >> On 2025/7/15 01:35:42, Dale Whinham wrote:
+>> > >>> From: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
+>> > >>>
+>> > >>> The OLED display in the Surface Pro 11 reports a maximum link rate
+of
+>> > >>> zero in its DPCD, causing it to fail to probe correctly.
+>> > >>>
+>> > >>> The Surface Pro 11's DSDT table contains some XML with an
+>> > >>> "EDPOverrideDPCDCaps" block that defines the max link rate as 0x1E
+>> > >>> (8.1Gbps/HBR3).
+>> > >>>
+>> > >>> Add a quirk to conditionally override the max link rate if its
+value
+>> > >>> is zero specifically for this model.
+>> > >>>
+>> > >>> Signed-off-by: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gma=
+il.com>
+>> > >>> Signed-off-by: Dale Whinham <daleyo@gmail.com>
+>> > >>> ---
+>> > >>>   drivers/gpu/drm/msm/dp/dp_panel.c | 13 +++++++++++++
+>> > >>>   1 file changed, 13 insertions(+)
+>> > >>>
+>
+> [...]
+>
+>>
+>> > >
+>> > > Is it a feature planned in the short-medium term within the MSM
+driver?
+>> > > If not, would a quirk like [4] be acceptable upstream in the
+meanwhile?
+>> >
+>> > I'm not a display guy, but this looks like yet another block of code
+>> > begging to be commonized across DP drivers,
+>>
+>> I agree 100% in principle, but the 3 implementations are different today=
+.
+>>
+>> > so I wouldn't expect it to be a big blocker.
+>>
+>> Well, it is for me :)
+>>
+>> > Adding a panel quirk doesn't seem in order, as the panel is /probably/
+>> > very much in spec, and it's the driver bit that's missing.
+>>
+>> I agree that a quirk shouldn't be needed. I guess we'll work on
+>> upstreaming everything else and keep an out-of-tree patch for this
+>> issue for the moment That's a bit sad as this will block regular
+>> users from easily installing / testing via the Ubuntu Concept ISO
+>> for instance.
+>>
+>> Or could the quirk be accepted temporarily with good comments
+>> then reverted when the driver adds the missing support? I guess
+>> it would depend on the time scale of this support landing.
+>
+> Unforutunately, there is more than that. We should also be writing the
+> LINK_RATE_SET register. So, just setting the max_bw is not enough.
+
+Maybe I've misunderstood. When you say max_bw is not enough,
+are you talking about some future driver changes or about a potential
+shorter-term fix?
+
+I can confirm that this initial simple patch (and also the updated one
+reusing the quirk list [4]) is enough to get the SP11 OLED display
+working whereas it doesn't probe and remains off without such a fix.
+
+Thanks,
+J=C3=A9r=C3=B4me
+
+[4] https://github.com/JeromeDeBretagne/linux-surface-pro-11/commit/d265cfb
 
 
--- 
-With best wishes
-Dmitry
+> --
+> With best wishes
+> Dmitry
+>
+
+--0000000000009a1b10063a382a38
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">On Friday, Jul 18, 2025, Dmitry Baryshkov &lt;<a href=3D"m=
+ailto:dmitry.baryshkov@oss.qualcomm.com" target=3D"_blank">dmitry.baryshkov=
+@oss.qualcomm.com</a>&gt; wrote:<br>&gt; On Thu, Jul 17, 2025 at 11:36:38PM=
+ +0200, J=C3=A9r=C3=B4me de Bretagne wrote:<br>&gt;&gt; Le jeu. 17 juil. 20=
+25 =C3=A0 23:10, Konrad Dybcio<br>&gt;&gt; &lt;<a href=3D"mailto:konrad.dyb=
+cio@oss.qualcomm.com" target=3D"_blank">konrad.dybcio@oss.qualcomm.com</a>&=
+gt; a =C3=A9crit :<br>&gt;&gt; &gt;<br>&gt;&gt; &gt; On 7/17/25 10:27 PM, J=
+=C3=A9r=C3=B4me de Bretagne wrote:<br>&gt;&gt; &gt; &gt; On 2025/7/17 04:21=
+, Xilin Wu &lt;<a href=3D"mailto:sophon@radxa.com" target=3D"_blank">sophon=
+@radxa.com</a>&gt; wrote :<br>&gt;&gt; &gt; &gt;&gt;<br>&gt;&gt; &gt; &gt;&=
+gt; On 2025/7/15 01:35:42, Dale Whinham wrote:<br>&gt;&gt; &gt; &gt;&gt;&gt=
+; From: J=C3=A9r=C3=B4me de Bretagne &lt;<a href=3D"mailto:jerome.debretagn=
+e@gmail.com" target=3D"_blank">jerome.debretagne@gmail.com</a>&gt;<br>&gt;&=
+gt; &gt; &gt;&gt;&gt;<br>&gt;&gt; &gt; &gt;&gt;&gt; The OLED display in the=
+ Surface Pro 11 reports a maximum link rate of<br>&gt;&gt; &gt; &gt;&gt;&gt=
+; zero in its DPCD, causing it to fail to probe correctly.<br>&gt;&gt; &gt;=
+ &gt;&gt;&gt;<br>&gt;&gt; &gt; &gt;&gt;&gt; The Surface Pro 11&#39;s DSDT t=
+able contains some XML with an<br>&gt;&gt; &gt; &gt;&gt;&gt; &quot;EDPOverr=
+ideDPCDCaps&quot; block that defines the max link rate as 0x1E<br>&gt;&gt; =
+&gt; &gt;&gt;&gt; (8.1Gbps/HBR3).<br>&gt;&gt; &gt; &gt;&gt;&gt;<br>&gt;&gt;=
+ &gt; &gt;&gt;&gt; Add a quirk to conditionally override the max link rate =
+if its value<br>&gt;&gt; &gt; &gt;&gt;&gt; is zero specifically for this mo=
+del.<br>&gt;&gt; &gt; &gt;&gt;&gt;<br>&gt;&gt; &gt; &gt;&gt;&gt; Signed-off=
+-by: J=C3=A9r=C3=B4me de Bretagne &lt;<a href=3D"mailto:jerome.debretagne@g=
+mail.com" target=3D"_blank">jerome.debretagne@gmail.com</a>&gt;<br>&gt;&gt;=
+ &gt; &gt;&gt;&gt; Signed-off-by: Dale Whinham &lt;<a href=3D"mailto:daleyo=
+@gmail.com" target=3D"_blank">daleyo@gmail.com</a>&gt;<br>&gt;&gt; &gt; &gt=
+;&gt;&gt; ---<br>&gt;&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0drivers/gpu/drm/msm=
+/dp/dp_panel.c | 13 +++++++++++++<br>&gt;&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=
+=A01 file changed, 13 insertions(+)<br>&gt;&gt; &gt; &gt;&gt;&gt;<br>&gt;<b=
+r>&gt; [...]<br>&gt;<br>&gt;&gt;<br>&gt;&gt; &gt; &gt;<br>&gt;&gt; &gt; &gt=
+; Is it a feature planned in the short-medium term within the MSM driver?<b=
+r>&gt;&gt; &gt; &gt; If not, would a quirk like [4] be acceptable upstream =
+in the meanwhile?<br>&gt;&gt; &gt;<br>&gt;&gt; &gt; I&#39;m not a display g=
+uy, but this looks like yet another block of code<br>&gt;&gt; &gt; begging =
+to be commonized across DP drivers,<br>&gt;&gt;<br>&gt;&gt; I agree 100% in=
+ principle, but the 3 implementations are different today.<br>&gt;&gt;<br>&=
+gt;&gt; &gt; so I wouldn&#39;t expect it to be a big blocker.<br>&gt;&gt;<b=
+r>&gt;&gt; Well, it is for me :)<br>&gt;&gt;<br>&gt;&gt; &gt; Adding a pane=
+l quirk doesn&#39;t seem in order, as the panel is /probably/<br>&gt;&gt; &=
+gt; very much in spec, and it&#39;s the driver bit that&#39;s missing.<br>&=
+gt;&gt;<br>&gt;&gt; I agree that a quirk shouldn&#39;t be needed. I guess w=
+e&#39;ll work on<br>&gt;&gt; upstreaming everything else and keep an out-of=
+-tree patch for this<br>&gt;&gt; issue for the moment That&#39;s a bit sad =
+as this will block regular<br>&gt;&gt; users from easily installing / testi=
+ng via the Ubuntu Concept ISO<br>&gt;&gt; for instance.<br>&gt;&gt;<br>&gt;=
+&gt; Or could the quirk be accepted temporarily with good comments<br>&gt;&=
+gt; then reverted when the driver adds the missing support? I guess<br>&gt;=
+&gt; it would depend on the time scale of this support landing.<br>&gt;<br>=
+&gt; Unforutunately, there is more than that. We should also be writing the=
+<br>&gt; LINK_RATE_SET register. So, just setting the max_bw is not enough.=
+<br><br>Maybe I&#39;ve misunderstood. When you say max_bw is not enough, <b=
+r><div>are you talking about some future driver changes or about a potentia=
+l</div><div>shorter-term fix?</div><div><br></div><div>I can confirm that t=
+his initial simple patch (and also the updated one</div><div>reusing the qu=
+irk list [4]) is enough to get the SP11 OLED display</div><div>working wher=
+eas it doesn&#39;t probe and remains off without such a fix.</div><br>Thank=
+s,<br>J=C3=A9r=C3=B4me<br><br>[4] <a href=3D"https://github.com/JeromeDeBre=
+tagne/linux-surface-pro-11/commit/d265cfb" target=3D"_blank">https://github=
+.com/JeromeDeBretagne/linux-surface-pro-11/commit/d265cfb</a></div><br><br>=
+&gt; --<br>&gt; With best wishes<br>&gt; Dmitry<br>&gt;
+
+--0000000000009a1b10063a382a38--
