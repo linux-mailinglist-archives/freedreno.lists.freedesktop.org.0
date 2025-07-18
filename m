@@ -2,92 +2,145 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31646B0A594
-	for <lists+freedreno@lfdr.de>; Fri, 18 Jul 2025 15:50:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7127B0A701
+	for <lists+freedreno@lfdr.de>; Fri, 18 Jul 2025 17:21:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C31010E9CE;
-	Fri, 18 Jul 2025 13:50:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 143AA10E9E5;
+	Fri, 18 Jul 2025 15:21:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NrxZ3a0Y";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VxzhaWjN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3B9E10E9C6
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 13:50:28 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-6fae8838c1aso3742846d6.2
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 06:50:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752846628; x=1753451428; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=SkrPfspFyHc5xXXEoWwTf4iCGpyicgV2GEoNlsTW98U=;
- b=NrxZ3a0YLG74qWwTMMRUKDvMVBVskWkxwtNPMi3yK0KqBArq8cLAorSydLXYcGnLjs
- zRah9hXTbPZ1SFBPlmrHgLzEQOETaZMiVM3CjZCyl9jWRahsYHD6AhxDv+LY+6+pvm1H
- dOrthfkij8Vce0FMcAzobv842TBPS+l7ZyyyHxVoDLjQrvYnhdxqlZQ9w4qwUHvWhjFo
- BKWi1q0K+9ZWOLvetYQQX2V+IwxwuH32NCHhJf8NwLdeBVQx/0YS2D8E08CBIc/x1Jj9
- +3DpTvYKL80+RYv+fPy2R4+vQL39jNhMlF1GxGRvBgfsW7JfZuU/Gv5AqHE+aY1v7StH
- YauQ==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB9EA10E9E5
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 15:21:19 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56I8aDo7021792
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 15:21:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=13kqIIhvX8G/h4Zyb4Bf0S
+ syUcZjDX5f8XV6NFySlbc=; b=VxzhaWjNb02Cs8EjdF4CxETxfROq7KxpJOKDej
+ O6tpWw34I4DPlGeSwh4Qd1BIo9mDYr1T7gJRVU5YgWJ4kmPPioSGGcjIwDuzpu+I
+ 1e96n6+vXNBe8nSenamcEpnvcxsicaUPjkA49MnC7yU7PZP/bEuOns5LXepDdje7
+ TRVsikGQJVp65LX162On9HMCJB4b6OJuCccRsW2hfP3Kl/qr0UZK1ofmZr+c4Fob
+ dFJQmjF1qzZ/8AlltQzUMimLiLZeEfDHc+fuF1V7OdNweBDpW3VyMnn96TO87FiG
+ Hcb8gLSt5ZxVeKkV6IWyMwNk2Q6Pu+5TsRfE71zFBMm51W5Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ufu8kvt3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 15:21:18 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7e350826d99so289959385a.2
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 08:21:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752846628; x=1753451428;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1752852078; x=1753456878;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=SkrPfspFyHc5xXXEoWwTf4iCGpyicgV2GEoNlsTW98U=;
- b=tqe9eFl03Ish9Ux+PjPr9WyVkKIaVPkslxt0GRUkCMV/3vzSdMgLgrJdOOO0PQEgeW
- G7xCRYRdt6TUXBdEcqxWYeg5d51OcgvtCz+WpNsUfF8caDFtwF0zwTIen7a1cFfo5V51
- c5xyY4epCpo8zk85VxSHasd3HdLQ27gmeg/7UHnqMldZKgP/EErwcyZVRgaicogjtvtg
- FVudODDIgfRC74A45DidkSvfBESbtp7nJkoB0Aro/vR2srSqWgxv4auomfmE0zUdRr7d
- RO8HmAugOF/aWsAbvnSqOimdrzUmzzZ+m6/pbyJ+k6awblLDqIid35noFA3cvAPjbmyO
- G+HA==
+ bh=13kqIIhvX8G/h4Zyb4Bf0SsyUcZjDX5f8XV6NFySlbc=;
+ b=OsX0EqFJjjUFHdZp0LlbDiquDxjdsDOmke2HXL8Rj/6alpXZpgbSf6t/Dz2a+TKHlt
+ VXR9yobXsyRHGLD0EggoXVuwJeKthkWPWCrJqQ1YBE24Tq9BxMeW24yK9lOSpB7DwoDo
+ RIF41EApllGODLpyS6Qm1wX1c2t2WeFuf8O2c9HwRXLSlK3XOOI8uZ03JZ8EwggCqwDy
+ 0AYMTtWkEj5xAaYL9EL+nh6I2zw7OwZiEY5oHmDeafGZeNbmlXgnJFCapT1BZHTQ8Zr5
+ NKyXxTM0QvIeMYnEVy3mjzKhDULJE5AVclI/V6txJ92u8wI6yQb74K9fdCKJ7+UgE13O
+ jrvQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU58d4AkrDkPaD4/de2D2A8Chc6BuJh0h2I9K/tid/vZESbqZx355muBdOigTgVe+yI1oe/lf1Ih3A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyTv3Ao2T6bh0toloZrKXzZwvSgHlQItHGPhjnm9NUhA0Yc8rbH
- 2gx3OYfFXQsd0+mxLbbxdflIXBn8BYunFCQbOCjK496/dqXLX97/utWs
-X-Gm-Gg: ASbGnctb07se5owC2wPJgmCu2X8xtyqeltQpcSsLIAI8kA9uULTaDHVwd/nUW7M87Hp
- q/BgExgEcC1KrIe0wMG+WaNO71anClg/0+Ap+ou/koB6BoYpk0q2Vtt4gcD3XA/DzxdCRtBcCpq
- O3hV11QIslXHpLQsWj3tUp81XUih4hd49wsj4kQS4loSb9iIXUqlf+nQ3yorBO2TdAcPTeoFUbG
- aEQucEZ1Tcsm4MdyWWaweLQyOhvB83xMeYadW+GPG9p1lFumWZstwT2L00hQwSpJ9U7sDfXHyjU
- /fDrNT+Hn+uTNah5j/SNx0BBG6megQ9gHO8W6u7bXhPRgpXUfrx9DqsU+dLdetmfLy5Jyv0JHft
- YDOXPf7Tow1lFpJX0Nrauu+H4P/5lPqmgJUCVyRQqEw2c/QzIBh8F03fzrpWlioUavwwoGn0OvN
- 64
-X-Google-Smtp-Source: AGHT+IGY+iixbqvjsq7I2rON5HkFkX4iW716c+BcnszkkT292Hx+bz0cr4N2jZl10jUZwZr8FYCT4Q==
-X-Received: by 2002:a05:6214:418f:b0:704:a6ef:2ea2 with SMTP id
- 6a1803df08f44-704f48370efmr70796456d6.4.1752846627495; 
- Fri, 18 Jul 2025 06:50:27 -0700 (PDT)
-Received: from [192.168.124.1] (syn-067-243-142-039.res.spectrum.com.
- [67.243.142.39]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-7051b8c049dsm7632356d6.17.2025.07.18.06.50.26
+ AJvYcCWSTGAFZbgr81HYdcTwAJlZl8LgtRAwgpVzMWLbXT3NX3iSx6IRq0er9lZ+uMFHauw6YasVhaw/Brk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxyS8+B6bu2H3srboJCae3m08er87+2EVWEpUbSn83OyklS2mxk
+ ACpE9BbJCU6AQsEbUpOhiMFooebLEt4291OMp9wuPtGoAJ8/peNgqQPyJxANHtgq1bPzVGcXb3P
+ 7raI8hQfliIC9R4RrwRUFo3b+KRZ+TPc+Szpo0xI7An1vvCyQSZyWVzQjUvp7XIw0X0mGUB0=
+X-Gm-Gg: ASbGnctQ9UpQtG7CYscaq7I0vq9j7xCaToZyBUjOjgquFXdVhBmAuJs5wpQrtWms3kM
+ LbLbgBfFIT7uraW31hTxtJTboYMyYHqDbZ5Mt1zrQIrJWFQWebogbsaagqAvpGya8mu0rNucGcf
+ HMO73mJodphAEkWqOPIRPCkJC30iYK9PDpMOkIew39oDBT3t8Qs1pbFM3Xhi366vNCDKogdEmEp
+ 15zWC5RruKhaR0B+FdHOooKe6K8OCkCBu48jZigXtb13r5jDq8c/b3Ipvnl2/fAA3RJRyi+95c+
+ KN3tbrvOfnVuj1ssjURtV3vP+ZOTDwqedrcYsoHW9L6k4o5oJbPbCPnpUMtClbdQkmV9uezslOb
+ zTKjOCq8QPuhzVP+TnK3NlzKzUozjT4HhdLQ4pA==
+X-Received: by 2002:a05:620a:2145:b0:7e3:5550:22af with SMTP id
+ af79cd13be357-7e3555022ffmr475413885a.16.1752852072413; 
+ Fri, 18 Jul 2025 08:21:12 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGih5HUBirffAz2WZL4QKYwy08DDOZqNQMloXSzP16EApN9OS9U886pytxqNhKO8kzqfu4L4Q==
+X-Received: by 2002:a05:620a:2145:b0:7e3:5550:22af with SMTP id
+ af79cd13be357-7e3555022ffmr475405285a.16.1752852071615; 
+ Fri, 18 Jul 2025 08:21:11 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-330a91f09a9sm2515041fa.94.2025.07.18.08.21.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Jul 2025 06:50:27 -0700 (PDT)
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Fri, 18 Jul 2025 09:50:17 -0400
-Subject: [PATCH] drm/msm: Wait for MMU devcoredump when waiting for GMU
+ Fri, 18 Jul 2025 08:21:10 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 0/2] drm/bridge: lontium-lt9611uxc: switch to
+ DRM_BRIDGE_OP_HDMI_AUDIO
+Date: Fri, 18 Jul 2025 18:21:07 +0300
+Message-Id: <20250718-lt9611uxc-hdmi-v1-0-0aa8dd26a57a@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250718-msm-gmu-fault-wait-v1-1-4dcadd3b0eb6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIABhRemgC/x2MSQqAMAwAvyI5G6hLVfyKeAiaasCqtG5Q/LvF4
- zDMBPDshD20SQDHl3jZ1ghZmsAw0zoxyhgZcpVrVWcNWm9xsicaOpcDb5IDy0rrsqBoDUEMd8d
- Gnn/a9e/7AXQioLVkAAAA
-X-Change-ID: 20250718-msm-gmu-fault-wait-465543a718fa
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Connor Abbott <cwabbott0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAGNmemgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDc0ML3ZwSSzNDw9KKZN2MlNxMXeOUFEszYwOz5JS0NCWgpoKi1LTMCrC
+ B0bG1tQByS41fYAAAAA==
+X-Change-ID: 20250718-lt9611uxc-hdmi-3dd96306cdff
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1752846626; l=5970;
- i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
- bh=7jdn+j6fBv6aWaKF7kL45m2rJ786qt9Jr+L9adAhzQ8=;
- b=h/gtiksZFzUmUzMXG5fGGLeqjCC3mUBvSX2JjMHs7VbjfVxTsnoicD0K24PKvLU1mw5vRb2zF
- GJ4yZzmoLsuBaSI4XnI4dg+jT2bOKWyVQ8TpXgHtqUXBCroozZ39wGV
-X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
- pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=970;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=8QWEbzhz2HbUL5CsjbPmWgU/3XJPnqot8B2ZA16nFWs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoemZmrEL2Zztp1/d85i0Oy9Zc2oZaO+hb0CQUZ
+ ZBKX+ii2zqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaHpmZgAKCRCLPIo+Aiko
+ 1Rd/CACs4rPc7tst3TZYIDDeEoQX9zKw6b34Lk1QY82wtNiwp1z7kv5KTqL+H5iB5gH9P1UDiSS
+ nw3HcHcejQ5xrn5NDQRYCAtIh+Yk8v3MYHW1UHNxSPIHyMS8SbNufXY3ThYqJMcFkJ5OF+mVlVe
+ 3nQcukkkQUAj59qsqfWFJsN70YCDBUQIe9qu1Y9Sx6orOgASt4ws1mGKpBEx0TTwa/F5j8cSk1v
+ y1NqCttIgJc/n5GDXUbDDzKXUJxU16RWjIDq+u8NnSu8N2+u1+mtGdsTKxEh89zBNGgpILUZhTR
+ ybERI466cwrPMuVeppkJibCtOrWqkLHbQsc6qCw9J4KcJ+gV
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE4MDExOSBTYWx0ZWRfX4PPQSTDLrDK+
+ KfyZdnoSU/NOBOw+N8GVlRNNeKTdI+8XTBK8f1yh1p2yvcLTQEIPHiCyvIApnZT5qh5+En30HLK
+ WSNiNAzd04NaYlxBn5shWiGjXXRvJBQtZ0wVJ7y5xKB6f/PfT1+LFlmz8pPhB87+q/xvUOTCIY1
+ Jn9+9pyJbbjpHnDZw5OQdLya9cq37MIXGfoIxmxNSEAcF+iMZfnAbDCyW6OTdZgmfdxRZeRtnaM
+ nCxCG3iWW6r586vTfiQtJKwUKdFCXXO/+J1t+0zG7QQsl+viQbIPy74qgo/Z3RkMGcCD7gL6a8Z
+ OFsm7YyglwtqjvA1ED7MWCC+nEnJlFTzMG9BIHvEipnEfHxtSjTWHgt1QB3slMGSRWpUmSaj/+C
+ /TAXNtyiK61sHoWCF9BlC+L1KFqiDci8FtQSWHWDdzUn70rjj9alMR9NBD2oSHcnHTuWPm2Q
+X-Proofpoint-ORIG-GUID: s3x_k77TzweGwqE0ha5vjEwGXviiTAcQ
+X-Proofpoint-GUID: s3x_k77TzweGwqE0ha5vjEwGXviiTAcQ
+X-Authority-Analysis: v=2.4 cv=f59IBPyM c=1 sm=1 tr=0 ts=687a666e cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=viR3P9R_XIStfHs_oGYA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-18_03,2025-07-17_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 spamscore=0 mlxscore=0
+ bulkscore=0 suspectscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ mlxlogscore=999 phishscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507180119
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,155 +156,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If there is a flood of faults then the MMU can become saturated while it
-waits for the kernel to process the first fault and resume it, so that
-the GMU becomes blocked. This is mainly a problem when the kernel reads
-the state of the GPU for a devcoredump, because this takes a while. If
-we timeout waiting for the GMU, check if this has happened and retry
-after we're finished.
+Use DRM HDMI audio helpers in order to implement HDMI audio support for
+Lontium LT9611UXC bridge.
 
-Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c   | 21 ++++++++++++++++++---
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c   | 21 ++++++++++++++++++---
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 +++++++++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h |  2 ++
- 4 files changed, 49 insertions(+), 6 deletions(-)
+Dmitry Baryshkov (2):
+      drm/bridge: add connector argument to .hpd_notify callback
+      drm/bridge: lontium-lt9611uxc: switch to HDMI audio helpers
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 28e6705c6da682c7b41c748e375dda59a6551898..6ec396fab22d194481a76d30b2d36ea5fb662241 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -340,6 +340,7 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- 	int ret;
- 	u32 val;
- 	int request, ack;
-+	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
- 
- 	WARN_ON_ONCE(!mutex_is_locked(&gmu->lock));
- 
-@@ -363,9 +364,23 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- 	/* Trigger the equested OOB operation */
- 	gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET, 1 << request);
- 
--	/* Wait for the acknowledge interrupt */
--	ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO, val,
--		val & (1 << ack), 100, 10000);
-+	do {
-+		/* Wait for the acknowledge interrupt */
-+		ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO, val,
-+			val & (1 << ack), 100, 10000);
-+
-+		if (!ret)
-+			break;
-+
-+		if (completion_done(&a6xx_gpu->base.fault_coredump_done))
-+			break;
-+
-+		/* We may timeout because the GMU is temporarily wedged from
-+		 * pending faults from the GPU and we are taking a devcoredump.
-+		 * Wait until the MMU is resumed and try again.
-+		 */
-+		wait_for_completion(&a6xx_gpu->base.fault_coredump_done);
-+	} while (true);
- 
- 	if (ret)
- 		DRM_DEV_ERROR(gmu->dev,
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-index 8e69b1e8465711837151725c8f70e7b4b16a368e..4e775ca757ce3649ac238d25cebfd7eb693fda61 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-@@ -104,10 +104,25 @@ static int a6xx_hfi_wait_for_msg_interrupt(struct a6xx_gmu *gmu, u32 id, u32 seq
- {
- 	int ret;
- 	u32 val;
-+	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-+
-+	do {
-+		/* Wait for a response */
-+		ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO, val,
-+			val & A6XX_GMU_GMU2HOST_INTR_INFO_MSGQ, 100, 1000000);
-+
-+		if (!ret)
-+			break;
- 
--	/* Wait for a response */
--	ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO, val,
--		val & A6XX_GMU_GMU2HOST_INTR_INFO_MSGQ, 100, 1000000);
-+		if (completion_done(&a6xx_gpu->base.fault_coredump_done))
-+			break;
-+
-+		/* We may timeout because the GMU is temporarily wedged from
-+		 * pending faults from the GPU and we are taking a devcoredump.
-+		 * Wait until the MMU is resumed and try again.
-+		 */
-+		wait_for_completion(&a6xx_gpu->base.fault_coredump_done);
-+	} while (true);
- 
- 	if (ret) {
- 		DRM_DEV_ERROR(gmu->dev,
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index f1230465bf0d0840274a6eb03a10c4df3a7a68d3..19181b6fddfd518e2f60324da1a7087458115e40 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -293,6 +293,7 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int flags,
- 			 struct adreno_smmu_fault_info *info, const char *block,
- 			 u32 scratch[4])
- {
-+	struct adreno_gpu *adreno_gpu = container_of(gpu, struct adreno_gpu, base);
- 	struct msm_drm_private *priv = gpu->dev->dev_private;
- 	struct msm_mmu *mmu = to_msm_vm(gpu->vm)->mmu;
- 	const char *type = "UNKNOWN";
-@@ -345,6 +346,11 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int flags,
- 		/* Turn off the hangcheck timer to keep it from bothering us */
- 		timer_delete(&gpu->hangcheck_timer);
- 
-+		/* Let any concurrent GMU transactions know that the MMU may be
-+		 * blocked for a while and they should wait on us.
-+		 */
-+		reinit_completion(&adreno_gpu->fault_coredump_done);
-+
- 		fault_info.ttbr0 = info->ttbr0;
- 		fault_info.iova  = iova;
- 		fault_info.flags = flags;
-@@ -352,6 +358,8 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int flags,
- 		fault_info.block = block;
- 
- 		msm_gpu_fault_crashstate_capture(gpu, &fault_info);
-+
-+		complete_all(&adreno_gpu->fault_coredump_done);
- 	}
- 
- 	return 0;
-@@ -1238,6 +1246,9 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	if (ret)
- 		return ret;
- 
-+	init_completion(&adreno_gpu->fault_coredump_done);
-+	complete_all(&adreno_gpu->fault_coredump_done);
-+
- 	pm_runtime_set_autosuspend_delay(dev,
- 		adreno_gpu->info->inactive_period);
- 	pm_runtime_use_autosuspend(dev);
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 9dc93c247196d5b8b3659157f7aeea81809d4056..f16556c6f2921708e740ecd47f5b4668e87700aa 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -179,6 +179,8 @@ struct adreno_gpu {
- 	uint16_t speedbin;
- 	const struct adreno_gpu_funcs *funcs;
- 
-+	struct completion fault_coredump_done;
-+
- 	/* interesting register offsets to dump: */
- 	const unsigned int *registers;
- 
-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c     | 125 ++++++++++---------------
+ drivers/gpu/drm/display/drm_bridge_connector.c |   2 +-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c     |   1 +
+ drivers/gpu/drm/msm/dp/dp_display.c            |   3 +-
+ drivers/gpu/drm/msm/dp/dp_drm.h                |   3 +-
+ drivers/gpu/drm/omapdrm/dss/hdmi4.c            |   1 +
+ include/drm/drm_bridge.h                       |   1 +
+ 7 files changed, 57 insertions(+), 79 deletions(-)
 ---
-base-commit: 8290d37ad2b087bbcfe65fa5bcaf260e184b250a
-change-id: 20250718-msm-gmu-fault-wait-465543a718fa
+base-commit: 024e09e444bd2b06aee9d1f3fe7b313c7a2df1bb
+change-id: 20250718-lt9611uxc-hdmi-3dd96306cdff
 
 Best regards,
 -- 
-Connor Abbott <cwabbott0@gmail.com>
+With best wishes
+Dmitry
 
