@@ -2,126 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50154B0AC0C
-	for <lists+freedreno@lfdr.de>; Sat, 19 Jul 2025 00:16:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E1F2B0AC42
+	for <lists+freedreno@lfdr.de>; Sat, 19 Jul 2025 00:48:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A29410E013;
-	Fri, 18 Jul 2025 22:16:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07BC710E013;
+	Fri, 18 Jul 2025 22:48:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PeXl4k9G";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="b9qNCDFI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6016D10E18C
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 22:15:59 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56IGlMl9000541
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 22:15:59 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30FEF10E013
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 22:48:14 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56IH9pOo008506
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 22:48:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=C0PvvuuzwRxUCUNTXNvI2E
- 7eGEwqScHU67dxy7VxDIk=; b=PeXl4k9GhBPXSMyVIKR6Uojtv9cKAkDCsPzQe1
- ZAPxUeWKXFwBqe540fNFoTMcFEIfd2QXFSC34slPxhlAAlJQ7N8qqwPSoYlbPuGJ
- C59oKwWCY92Eb9z0L9RzHq6e1p4HfAUa9PY7jwqq7jkP/JbFtlFUfoZt6R8TzzhN
- w2F8ynS1pj5Qo4e29ZGjii4jBou5FXofRPuEcGSx/txY7Ic1HHjo7/DZOoS6W0mw
- eZZMXFLGjg9se9OVkg19S2JY6aXfq/0sNQV68pAfgqfCnxjYEEnUZz5L2XBrj7DL
- GHfgPNYvF4eDgCA+Al4zLZ9augU/Yup9OqLBh+A6G1u/Xpdw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47w5ds03da-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=HHGP8L0TyeRKQJV/lR6+jNfw
+ 4z8jT1bWYC47YlMabyg=; b=b9qNCDFIiF37zkPVPxVrouahLXOkCPf8fNx8sF50
+ q3scs4vq+BXcx9vVlQBA6nQxRIB2+7jV/r7KfOixhUY0vfz+WAamicYdmKyEHjUO
+ uIIaLvoiYPo9jxC0XmARGr3Ui1g9HQ6xaDaGXVQM2HPwPsDu7kiul3Cm/SU5fbJ2
+ ycl2x7ZAf6AFr9XWUYfu0VThVk09jwUmMyQouSv2LhB2N2Zsl5mYxbSMaFgmJumz
+ NIHE35HFnjm+RVQmD6YQIWNLiqICZq0hixNAUVrKuuCXQzHURxkLwwLNFhpcSDVZ
+ Z6onBgv91wQwkrnIq/gj+y2xNZhLb6CL2PNOoWYI/0wpNg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ufxbd5cu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 22:15:58 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-b2c36951518so2783206a12.2
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 15:15:58 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 22:48:13 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-7e350915d2aso549277685a.1
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jul 2025 15:48:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752876958; x=1753481758;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=C0PvvuuzwRxUCUNTXNvI2E7eGEwqScHU67dxy7VxDIk=;
- b=XwC92ej/RJuMtNGEqbm4TkwRPGOmSWulhc801aJp0hkH0Z/B3gUoy1q2g0lu3EhBzW
- hmDcpaZwpj5C68oHoFRYG+0CHnihTBjCd6rCJ2H7bmxse/pkjIeZ2xRnSDRhhQxepMvg
- LZZOm87asOR51tzXo2hF2QySeoDO03nJ8MvJ/u/OWotjOsnqIGJbOwlzrE4y0/hQt89b
- Nk9nYowC8K92mPRtwUeDDbVkc4Y2T6g4PqhPx8p7bORiCTeYjoTDCeC3Pi8VlzZDjLg4
- Yktikqabgf9EGm7jBkOYvOl7JYHWOl6NQRALlEE3eUPFZpECiWoTsPjUzVg9XIEjCuUJ
- OuKQ==
+ d=1e100.net; s=20230601; t=1752878892; x=1753483692;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HHGP8L0TyeRKQJV/lR6+jNfw4z8jT1bWYC47YlMabyg=;
+ b=JwYqi1B3ke747sRkTU0siDtDKhf6GU3Z5xoo64SutCyuPOjhMgyevy9+LL7oHMH787
+ g6+VfZZ+Ls5H59Ezxk0FOHlBa9lMZndOLdAo2HHzuOGoo83N0hVct37bkl43JkWwpG2W
+ RGLOUTIiATUkd7oq9bveh2ea7+rafx2yGqYwkBoJ0bvSg4iT8RG6kZLQDobxpzVJj9kT
+ Vqy5PcAkK7NnwTNjNxE20xDRE6Yhs5+ZUZrVm+rvhfDy4TMmOooqkqyTKRfdqOIqufAd
+ gFym5fS8KUZL1diuw/Yhczvh0215Hn0f5a7+QjQV8ka3svMUkNlXV6K7KlQF5dhzKeCa
+ 5rNw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVL4ExxQwKja0Q92vRxerBETSC/VQ8O6uoY2Z0zdQVcX99DIFJtjdswSCc8IWFcMYSaslm7vIM1BBc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0mE4oH9nVsG3YmrbA+wssEnznEDDa9nc4sJ7AJ7dQwhs2G8fp
- Ad8OGf99ujAfAv0/PjegFE24pYkx+k9d0uf2L/YjlLQF8avUxLQV8ObzwcHv3J94J3UQqxwdpup
- GXC/eoyBcvisWnVNe6Ey/mLEDlGOUb3lFJFFa3kp5s/ykXeiwXh4TPAH0TlGuBvjAmKLBUu0=
-X-Gm-Gg: ASbGncun38XBiDbHez0mWR2YoTo7ybHziNTAH2sgqplo/KSiG54fYkgFbH4Cie2gHya
- 10qfoatAtjphEqdSf8tAAdAm0AstiIOFIA8HGSK+xgqU/xIsPKHZUURiPM6UQ2K284ZJKWqTBJA
- p8OkBUVXfll5xJwQUiyfX3pS0YmYI3MQX2czy5CkxW2608Iksijn0B5opBaiBu2c17QbbvrmEkE
- ywNQxtEYzhrBcsr6hlYWzNcorN5gQmTn4A/hUMZg1tXvtX+lcRv/py4veHp1nyHKXuDTXmaJKEv
- bbl9iXFdzbwGGb34pZAbtcuKrP3gVAtPs1IKu4lpM+g4tCZftDqlFC73CK54dYZ+MLKvl8yQtj3
- C7OlSnrCeJrfsvcIyd0buhk4w
-X-Received: by 2002:a05:6a20:3d89:b0:22b:f4e5:d0ee with SMTP id
- adf61e73a8af0-2390db6ab83mr14277064637.14.1752876957758; 
- Fri, 18 Jul 2025 15:15:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHBO0ykGTBfx1qrutnG+D2aTIW4RWxzLxSjTOcm4yBjA+VpO8y6BfIeSt9nGM4mM6vLEZlXAA==
-X-Received: by 2002:a05:6a20:3d89:b0:22b:f4e5:d0ee with SMTP id
- adf61e73a8af0-2390db6ab83mr14277020637.14.1752876957315; 
- Fri, 18 Jul 2025 15:15:57 -0700 (PDT)
-Received: from jesszhan-linux.qualcomm.com (i-global254.qualcomm.com.
- [199.106.103.254]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-759cbc680absm1795568b3a.144.2025.07.18.15.15.56
+ AJvYcCXaBz7TneIsruDO2Bagn5mvGJktrQmfnv6UdzvG3qcf2uZtspTmtrD8vRJ3HFDIBAFKBTbNod1OGOw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YypFSiifgnxj+jCgO5oBAneSDT/ErAh1+AxSu7Wv691xXuJCnLQ
+ r3g6mKj/stlHlcoVdToT971kSl/gdx2JSSzUNlOCRpELL5JrhbGhK+cwgc7B++PtWJLfoWI18Ja
+ MKz/oLeWgK2GiHa3uBkz0LZPny4Ja90Gi0dHIkSa+UHVoCku9Cs53V2XGkPNdlgW+B8dAoO8=
+X-Gm-Gg: ASbGncs6x+2Oayt/8lhSu7MZVZA43fbmt6ujT94xGZfhVWEwAlUGa6wipdP1pboDA2I
+ jgxgeIDVzjtQvFecpSw4kQiJ3AkKJ2ncUi7dqU/5MlsIALqYd/fjI+v46RITMUnQO02/9fhWi+8
+ STswZuY6RLZOKApNB03z2vjpPBAHBTihTTH1MOt4YbI3VwngJfEE/yT4dXto+JAZ6N80sF22IXk
+ vjTyRSyQbcUGiD0NvGJkVkyKIp1f0+R/Q94BOD296O+ONhwLhlwUdtcRb8n9Vdp/LHiplViJ+YT
+ IBZdKxFTNEXNw64v4VzfA8KSfYZo3VeReKrw6fsdaFIP1kXDts7hsSlN0ml5g5szThBT4ENwu4U
+ 5z+/vfANk8GwyEtRUnib1jn0q1WWn/VwNkCrPkEgxZZ5PPxYxcHJa
+X-Received: by 2002:a05:620a:19a8:b0:7e2:3a27:a10b with SMTP id
+ af79cd13be357-7e356b08261mr557583685a.51.1752878892383; 
+ Fri, 18 Jul 2025 15:48:12 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF/wGMWsIGMuMedQ4IyeHVUwmgTIKPo1srnscW5QKnARy5UV9vAyXmC6qAal8+ZyC/iIeQGkA==
+X-Received: by 2002:a05:620a:19a8:b0:7e2:3a27:a10b with SMTP id
+ af79cd13be357-7e356b08261mr557580285a.51.1752878891882; 
+ Fri, 18 Jul 2025 15:48:11 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-330a91049c9sm3710941fa.39.2025.07.18.15.48.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Jul 2025 15:15:57 -0700 (PDT)
-From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Date: Fri, 18 Jul 2025 15:15:51 -0700
-Subject: [PATCH] drm/msm/dp: Propagate core clock enable error in runtime
- resume
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250718-dp-clk-error-v1-1-9bb5f28d4927@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAJbHemgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI1MDcwNj3ZQC3eScbN3UoqL8Il3zZENLM1MDMzNTE0MloJaCotS0zAqwcdG
- xtbUAe16cUl4AAAA=
-X-Change-ID: 20250703-dp-clk-error-7c1965066541
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Fri, 18 Jul 2025 15:48:11 -0700 (PDT)
+Date: Sat, 19 Jul 2025 01:48:09 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Sean Paul <seanpaul@chromium.org>
-X-Mailer: b4 0.15-dev-a9b2a
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1752876956; l=2330;
- i=jessica.zhang@oss.qualcomm.com; s=20230329; h=from:subject:message-id;
- bh=+ObMCEP0xXFpmbdqHtBPYDKFpPRzfo7882m39lX89Tg=;
- b=dgS9lNvWdwfby7lBzTlT1cofoz3lNYpyZ62ENSpTmdID0SgnlzSsj9e0Vdl8ysD9gnJPYJXlP
- 3o8Eta1eK/GDXhhc3Dbp8FQ1HzTSVUSTi+inNYbjgPWxPp82OplE178
-X-Developer-Key: i=jessica.zhang@oss.qualcomm.com; a=ed25519;
- pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
-X-Proofpoint-ORIG-GUID: -InJ0fZGRghsX_bRhdQHHJLbeVlJaeY9
-X-Authority-Analysis: v=2.4 cv=D4xHKuRj c=1 sm=1 tr=0 ts=687ac79e cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=_9WUdxqi14MbyrDA3vYA:9
- a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: -InJ0fZGRghsX_bRhdQHHJLbeVlJaeY9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE4MDE4MiBTYWx0ZWRfXw9OoEgvkQeCT
- D0Vxg4ZQPaGziismt0MsaaZnGvx4u/vYhVcIObAqxHax40sQY7TRYn568oCn7072R7+UftZ47v3
- t95BMn20TksFPFoIJa2KluKZg+4Dlaz+0ARhBG6ujwkr9eZ4X3gNCVONHPrCIQzYvEkUZ8TcMr1
- U/S9Sew9IqXMF4fM6W/l0C7Rxob6kIClnlhpoqcS/zfzdI6nsjYzwq/cuOWeoWI+j5vNY+rQQF2
- 756uVA8ThodMMeMI/7fy9ZWRVGMnmtHKWt+1yh45MGC9VY9qhn7ZJ6b5y7YIjjJs4OlbUP1BaDY
- 7yHe8VGz01DBPpKt0YSbeNBrVTDWumbogQtoG6X/J8Tln03nx8lRs+apSWR7/hCrurVZgzpGpzW
- bMOyNVTzIiEjEF5U1QQQNM98D70XgPq5u+K4txnm5Q0a9q67wOOmsO0qigi47y1tJIz6Qn4B
+Subject: Re: [PATCH] drm/msm/dp: Propagate core clock enable error in runtime
+ resume
+Message-ID: <rpoild7nomdoh2tr5kizt5jkv23gd772nf42nvb3x3eltmizda@jpwx5pbphuaz>
+References: <20250718-dp-clk-error-v1-1-9bb5f28d4927@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250718-dp-clk-error-v1-1-9bb5f28d4927@oss.qualcomm.com>
+X-Proofpoint-GUID: 5jAlwNeo5lfaDYxfTvCDg-fb0apr3LEh
+X-Proofpoint-ORIG-GUID: 5jAlwNeo5lfaDYxfTvCDg-fb0apr3LEh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE4MDE4NyBTYWx0ZWRfX1IFqPOqzjhxC
+ zV1eJRidgojV7VEOU5GVfs50BzEA7d0ZvA6ogYIkJEV3Sn1Kwoedd8/Uio7l6kdxNDHI0USUDru
+ q+3yC2B5Pf6cvUwMcr9x7CPg6lU4NxWYGgby9FvitBg6Bdon+d2Swh346JdrgMCAXKt1Q42iR8F
+ d3dnvuzzr+u2Oha2nQPFApmjdX7xXm1TiJF7MnTfsRBibbSFmXFSeaS6IcbfaqBqBVJw1TSjwED
+ r/dwuNRZTJpK8R95+kooApuxrV0vMUw3R4i4BbCDWMXDK4JgY40LUpbNnwJJ8qBwEJpp5IdRQLv
+ 9I/Wt/hdM4jbao+iv49S6cal/Rez4zaBKRBJuT5zvyyPy62q2VaMdiY7xeedxyo+PoE/4a89Lzw
+ lHpBYGWceNPAsP8qm7OiQS0O/giFfMxbbJz+uVVzyjbd9ax/2OpKR2jU7rMWfxWdQ8KiReKv
+X-Authority-Analysis: v=2.4 cv=Xc2JzJ55 c=1 sm=1 tr=0 ts=687acf2d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=K_Du84Slk-LVA_55HQ4A:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-18_05,2025-07-17_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=999 impostorscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 suspectscore=0 bulkscore=0 mlxscore=0
- priorityscore=1501 phishscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507180182
+ bulkscore=0 mlxscore=0 priorityscore=1501 adultscore=0 mlxlogscore=999
+ phishscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
+ clxscore=1015 malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507180187
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,79 +129,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently, runtime resume will always return success even if the core
-clock enable fails.
+On Fri, Jul 18, 2025 at 03:15:51PM -0700, Jessica Zhang wrote:
+> Currently, runtime resume will always return success even if the core
+> clock enable fails.
+> 
+> Propagate any core clock enable errors during the resume to avoid any
+> crashes later.
+> 
+> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 16 ++++++++++++----
+>  1 file changed, 12 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index d87d47cc7ec3..77d5e89239d2 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -463,17 +463,24 @@ static void msm_dp_display_host_phy_exit(struct msm_dp_display_private *dp)
+>  	}
+>  }
+>  
+> -static void msm_dp_display_host_init(struct msm_dp_display_private *dp)
+> +static int msm_dp_display_host_init(struct msm_dp_display_private *dp)
+>  {
+> +	int rc;
+> +
+>  	drm_dbg_dp(dp->drm_dev, "type=%d core_init=%d phy_init=%d\n",
+>  		dp->msm_dp_display.connector_type, dp->core_initialized,
+>  		dp->phy_initialized);
+>  
+> -	msm_dp_ctrl_core_clk_enable(dp->ctrl);
+> +	rc = msm_dp_ctrl_core_clk_enable(dp->ctrl);
+> +	if (rc)
+> +		return rc;
+> +
+>  	msm_dp_ctrl_reset(dp->ctrl);
+>  	msm_dp_ctrl_enable_irq(dp->ctrl);
+>  	msm_dp_aux_init(dp->aux);
+>  	dp->core_initialized = true;
+> +
+> +	return 0;
+>  }
+>  
+>  static void msm_dp_display_host_deinit(struct msm_dp_display_private *dp)
+> @@ -1453,6 +1460,7 @@ static int msm_dp_pm_runtime_suspend(struct device *dev)
+>  static int msm_dp_pm_runtime_resume(struct device *dev)
+>  {
+>  	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
+> +	int rc;
+>  
+>  	/*
+>  	 * for eDP, host cotroller, HPD block and PHY are enabled here
+> @@ -1462,14 +1470,14 @@ static int msm_dp_pm_runtime_resume(struct device *dev)
+>  	 * HPD block is enabled at msm_dp_bridge_hpd_enable()
+>  	 * PHY will be enabled at plugin handler later
+>  	 */
+> -	msm_dp_display_host_init(dp);
+> +	rc = msm_dp_display_host_init(dp);
 
-Propagate any core clock enable errors during the resume to avoid any
-crashes later.
 
-Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+if (rc)
+	return rc;
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index d87d47cc7ec3..77d5e89239d2 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -463,17 +463,24 @@ static void msm_dp_display_host_phy_exit(struct msm_dp_display_private *dp)
- 	}
- }
- 
--static void msm_dp_display_host_init(struct msm_dp_display_private *dp)
-+static int msm_dp_display_host_init(struct msm_dp_display_private *dp)
- {
-+	int rc;
-+
- 	drm_dbg_dp(dp->drm_dev, "type=%d core_init=%d phy_init=%d\n",
- 		dp->msm_dp_display.connector_type, dp->core_initialized,
- 		dp->phy_initialized);
- 
--	msm_dp_ctrl_core_clk_enable(dp->ctrl);
-+	rc = msm_dp_ctrl_core_clk_enable(dp->ctrl);
-+	if (rc)
-+		return rc;
-+
- 	msm_dp_ctrl_reset(dp->ctrl);
- 	msm_dp_ctrl_enable_irq(dp->ctrl);
- 	msm_dp_aux_init(dp->aux);
- 	dp->core_initialized = true;
-+
-+	return 0;
- }
- 
- static void msm_dp_display_host_deinit(struct msm_dp_display_private *dp)
-@@ -1453,6 +1460,7 @@ static int msm_dp_pm_runtime_suspend(struct device *dev)
- static int msm_dp_pm_runtime_resume(struct device *dev)
- {
- 	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
-+	int rc;
- 
- 	/*
- 	 * for eDP, host cotroller, HPD block and PHY are enabled here
-@@ -1462,14 +1470,14 @@ static int msm_dp_pm_runtime_resume(struct device *dev)
- 	 * HPD block is enabled at msm_dp_bridge_hpd_enable()
- 	 * PHY will be enabled at plugin handler later
- 	 */
--	msm_dp_display_host_init(dp);
-+	rc = msm_dp_display_host_init(dp);
- 	if (dp->msm_dp_display.is_edp) {
- 		msm_dp_aux_hpd_enable(dp->aux);
- 		msm_dp_display_host_phy_init(dp);
- 	}
- 
- 	enable_irq(dp->irq);
--	return 0;
-+	return rc;
- }
- 
- static const struct dev_pm_ops msm_dp_pm_ops = {
 
----
-base-commit: d086c886ceb9f59dea6c3a9dae7eb89e780a20c9
-change-id: 20250703-dp-clk-error-7c1965066541
+>  	if (dp->msm_dp_display.is_edp) {
+>  		msm_dp_aux_hpd_enable(dp->aux);
+>  		msm_dp_display_host_phy_init(dp);
+>  	}
+>  
+>  	enable_irq(dp->irq);
+> -	return 0;
+> +	return rc;
 
-Best regards,
---  
-Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+Keep 'return 0' here.
 
+>  }
+>  
+>  static const struct dev_pm_ops msm_dp_pm_ops = {
+> 
+> ---
+> base-commit: d086c886ceb9f59dea6c3a9dae7eb89e780a20c9
+> change-id: 20250703-dp-clk-error-7c1965066541
+> 
+> Best regards,
+> --  
+> Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> 
+
+-- 
+With best wishes
+Dmitry
