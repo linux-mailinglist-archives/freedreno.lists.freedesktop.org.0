@@ -2,118 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32BD0B0AF3E
-	for <lists+freedreno@lfdr.de>; Sat, 19 Jul 2025 12:10:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 802C6B0B2EA
+	for <lists+freedreno@lfdr.de>; Sun, 20 Jul 2025 02:06:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE13310E16F;
-	Sat, 19 Jul 2025 10:09:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B54A110E44B;
+	Sun, 20 Jul 2025 00:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l+cVNGda";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pEtxp9jq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A13E10E16F
- for <freedreno@lists.freedesktop.org>; Sat, 19 Jul 2025 10:09:57 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56J5Z8TJ032483
- for <freedreno@lists.freedesktop.org>; Sat, 19 Jul 2025 10:09:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=RE1pFV3S18CkB3zRzoB2uTfO
- /SX7VdjQHJe24Ou3Foc=; b=l+cVNGdakJcecBefkvUSegIxlcXElvvMqp/MsTT8
- 4H3ve5RHgdJt6/VIbmHWVa8AxxidKvl0neLm4AAyxvJOctdZMRSFuBkQleplbg7u
- K8BY7aeqXLM7hHQHvbhLdNVOMDJBgSS1IOovw2lQVgfQg64+LxwuVuo5+beWLuaT
- 47gzC1zkbxt01mdWRchWKUYkfMZQg4BA0xv3OAdXwhWwItn91ea93QGx25zZiUSf
- bRMnTyR5k6REkPLAePBGyvfensF5RXNhRJQF0f91RyKLWjtHONIbjAU1VU0EUhmx
- uyb7GXTLiQ8YfE28SVuEso1Se4ntnlCRirHG8dtkHxXkDQ==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48048v0esg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 19 Jul 2025 10:09:56 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-6ff81086f57so30180676d6.3
- for <freedreno@lists.freedesktop.org>; Sat, 19 Jul 2025 03:09:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752919795; x=1753524595;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RE1pFV3S18CkB3zRzoB2uTfO/SX7VdjQHJe24Ou3Foc=;
- b=p4PAD7z8fYhuCEZS89OPVbf7ARDHwCSzluhX9U4b9Cj3wRO4LzdMVaHLchWDTse3YN
- zwDhLU6YR0Qh4Ky9fqYx4sg/kfir71e10f7L9W4zQmm3FpIn3Fx8DZn1HxFIfsRipUKQ
- SFL9xPWWJ4WkQfaNHvIWMlVujDz0QB/8dvEp5TYtoYv1+thNftjckg/pqDUTkVJ2mrNK
- /vWwUnx+zG526FG4UUsbwQBR4WS+WUVyfED9PJxf6BVEWVOb3mOr8iKR+pHZbg+u/wv7
- cAg6ML5VVib2ek4ajLe1DYjNQWSGd0oCWSEcnzrqYbEhqngPtIb61kKY3xZPTWsXHknR
- LHGQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW6YlbWW5n8lp5vl3cLaY04f5PbPRBLwXvWDasczs163tA2Ra0rl3hm1FJ1qEL1p82lFdXsRQsLGy0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwCevNJohjPkyxM4YJ+1PwOs/curpRlM7HRuR9KnygtksaVf/Uj
- xv0aK1uGoK1XhCzZAuAYrfW6Od61ZcEZ9khKwFYfocWtGUTNZJl6CK656qqRRo2EpKPU901AEmA
- Y0iMoKbmblAW8VbfzjVRT3SlJISFvynIJo33r5GTsdQF1rjZfL6lLVn6nV1aOSWoTZsYjKT0=
-X-Gm-Gg: ASbGncsv43PUZrqlyi6tUuHfaNTCNJNsk+dAB2p1Xs2v+wCZqvgfsjPJIc4ptNY+qIW
- 1hehR0XseyR3To9f4nD6Izx5py2jV6hyisgbsVw70hIZpRZmdQ9JLBFYyMOasL8zHmb++WCUchx
- h5sB2DjTMnlumRKwQts0QHigvI1N6Cj455PH7mCNVL9DcxZYVi65pOOTFKdyF5Px40o8BejHY8O
- ZHIfyJS+thF02DcP0uvusDMyCRcN401SoIuYXo0HsZqtg57c8Z7uLMxYjxKhMPk1ipL2HSY0dbS
- DMHoWIUZqc+Yah8ozLzBckRb2Jmw43q1qDkPv1bMeZNNHh17/Hiy1CBGkPf1X+6cmIobtBu3RF1
- 2V8mt/q10Lo6pjUUQTJoLiMIRXhud6FWgVMxHmRBEAQxJZekTGng1
-X-Received: by 2002:a05:6214:2588:b0:702:bd47:c83b with SMTP id
- 6a1803df08f44-704f6b14502mr218121726d6.45.1752919795423; 
- Sat, 19 Jul 2025 03:09:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFehkDz+6k3vy4Why9MJSZaqqZjYifa1Z30P0ziJ8/YT+jYi7ZIiAlsF/cxcytNaLGGtDLW/g==
-X-Received: by 2002:a05:6214:2588:b0:702:bd47:c83b with SMTP id
- 6a1803df08f44-704f6b14502mr218121076d6.45.1752919794955; 
- Sat, 19 Jul 2025 03:09:54 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55a31da2274sm655766e87.172.2025.07.19.03.09.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Jul 2025 03:09:53 -0700 (PDT)
-Date: Sat, 19 Jul 2025 13:09:52 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 10/12] drm/msm/dpu: support SSPP assignment for
- quad-pipe case
-Message-ID: <khu6gwzn7gulubwoshdutl4d2nu3c6exnkv4cimjljc5wbxf7l@ho4gxsolq3hn>
-References: <20250707-v6-16-rc2-quad-pipe-upstream-v12-0-67e3721e7d83@linaro.org>
- <20250707-v6-16-rc2-quad-pipe-upstream-v12-10-67e3721e7d83@linaro.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E30610E445;
+ Sun, 20 Jul 2025 00:06:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 91ED245B16;
+ Sun, 20 Jul 2025 00:06:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13700C4CEF7;
+ Sun, 20 Jul 2025 00:06:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1752970010;
+ bh=EApa/B3qVNDfcExaLR6bhySD8ifVqpdKzBSj8T1Yzv8=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=pEtxp9jqGZO/EZuUwwHs96LA4wrnlAkGCZ4Pg0R4zbUB4294vQFYHYJTV1LBCw2H1
+ 04kSoJNYJMhAtTEUS7WcSFj0U3uh7AAnoun76XMx8phL4VcGr0ejm4qGizm0MnRhwi
+ bsAhIocqOL2gdDrJk1yPAkxQmmD8KfytwnDGJkt26gwL29NcHKv7tZa+1kZPF56Ty8
+ D3q5im5bsSV5jcEnWvJo9ek5gcWPf3KOzh3Oh8RP7MRnoCAZ9uCAQO8GaLyLCNoxld
+ ZDb5f/yRhPsNzBzlGohtFYDLYlaVe+kNf4a+KhbJLutSbLx0FZ96kG2jMVDoyCLjjz
+ 34Q0P2ptEK31Q==
+Date: Sat, 19 Jul 2025 19:06:49 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250707-v6-16-rc2-quad-pipe-upstream-v12-10-67e3721e7d83@linaro.org>
-X-Proofpoint-GUID: RnoNoDZ5FARXgtCWrWPT0SRCHBx3nPYg
-X-Authority-Analysis: v=2.4 cv=SYL3duRu c=1 sm=1 tr=0 ts=687b6ef4 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Wb1JkmetP80A:10 a=sWKEhP36mHoA:10 a=KKAkSRfTAAAA:8 a=X62n9y2ZVatY7HXpRCIA:9
- a=CjuIK1q_8ugA:10 a=1HOtulTD9v-eNWfpl4qZ:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE5MDEwMCBTYWx0ZWRfX2zBl8mJjpuQc
- 4o7FuGv1oID/Sr0OiXmrAVsUtwLWd4mjWN1BFlHqC0Chqrs22KD5Wu5RG25mkHnVf+zAYwBy3Y9
- 30aZGpCL8NBwGcQ+vmkD0ICBUsaoprdY0E7wRnfh7Ua0eohsLXqwuODoz4HfHp7OwOlzkVNjsMM
- WAeuN41Gc1jBYop7FM5797Utbnfm3FafbfEfd11pTkY+uF2R/+hBfNt9Y5K//v2HPN2/T9LM07t
- gurass10+IQon92eaptSwOJASAkutMSOMsRXW8mUkteoXiC7VWGDrPST7qKAUnjmM33ATAszBao
- +eIupcI45HaWe4AzIzCSwtScoyzPeuYgpx2rHwSZnk2IBb1X0FVpm+pCW/21c022UuajKdDbfyG
- MPtDl3pOeU0zW9E8Z61E2Sj4D/iUZ2H6ftI0MtdwOzPlW8CPmwDwP0FJHI5kMP2WP1Ixt+Nq
-X-Proofpoint-ORIG-GUID: RnoNoDZ5FARXgtCWrWPT0SRCHBx3nPYg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-19_01,2025-07-17_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 mlxscore=0 bulkscore=0 mlxlogscore=999
- lowpriorityscore=0 phishscore=0 malwarescore=0 spamscore=0 clxscore=1015
- priorityscore=1501 adultscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507190100
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org, 
+ Bjorn Andersson <andersson@kernel.org>, Sean Paul <sean@poorly.run>, 
+ freedreno@lists.freedesktop.org, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abel.vesa@linaro.org>, 
+ Yongxing Mou <quic_yongmou@quicinc.com>, 
+ Danila Tikhonov <danila@jiaxyga.com>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Abhinav Kumar <abhinav.kumar@oss.qualcomm.com>, 
+ linux-kernel@vger.kernel.org, 
+ Marijn Suijten <marijn.suijten@somainline.org>, linux-clk@vger.kernel.org, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Mahadevan <quic_mahap@quicinc.com>, 
+ Simona Vetter <simona@ffwll.ch>, Konrad Dybcio <konradybcio@kernel.org>, 
+ devicetree@vger.kernel.org
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+In-Reply-To: <20250717-dp_mst_bindings-v3-0-72ce08285703@oss.qualcomm.com>
+References: <20250717-dp_mst_bindings-v3-0-72ce08285703@oss.qualcomm.com>
+Message-Id: <175296991792.777248.14434286781609695390.robh@kernel.org>
+Subject: Re: [PATCH v3 0/5] dt-bindings: msm/dp: Add support for 4 pixel
+ streams
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,238 +79,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 07, 2025 at 02:18:05PM +0800, Jun Nie wrote:
-> Currently, SSPPs are assigned to a maximum of two pipes. However,
-> quad-pipe usage scenarios require four pipes and involve configuring
-> two stages. In quad-pipe case, the first two pipes share a set of
-> mixer configurations and enable multi-rect mode when certain
-> conditions are met. The same applies to the subsequent two pipes.
+
+On Thu, 17 Jul 2025 16:28:42 -0700, Jessica Zhang wrote:
+> On some MSM chipsets, the display port controller is capable of supporting
+> up to 4 streams.
 > 
-> Assign SSPPs to the pipes in each stage using a unified method and
-> to loop the stages accordingly.
+> To drive these additional streams, the pixel clocks for the corresponding
+> stream needs to be enabled.
 > 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> Fixup the documentation of some of the bindings to clarify exactly which
+> stream they correspond to, then add the new bindings and device tree
+> changes.
+> 
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 143 +++++++++++++++++++-----------
->  1 file changed, 89 insertions(+), 54 deletions(-)
+> Changes in v3:
+> - Fixed dtschema errors (Rob Herring)
+> - Documented all pixel stream clocks (Dmitry)
+> - Ordered compatibility list alphabetically (Dmitry)
+> - Dropped assigned-clocks too (Dmitry)
+> - Link to v2: https://lore.kernel.org/r/20250530-dp_mst_bindings-v2-0-f925464d32a8@oss.qualcomm.com
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 149e7066480b07f9f6d422748d89ffd6f9416f33..ecfebf7a2406d65930075cc2a4b8a8a7d40b3d3c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -954,6 +954,30 @@ static int dpu_plane_is_multirect_parallel_capable(struct dpu_hw_sspp *sspp,
->  		dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth);
->  }
->  
-> +static bool dpu_plane_get_single_pipe(struct dpu_plane_state *pstate,
-> +				      struct dpu_sw_pipe **single_pipe,
-> +				      struct dpu_sw_pipe_cfg **single_pipe_cfg,
-> +				      int *stage_index)
-> +{
-> +	int stage_idx, pipe_idx, i, valid_pipe = 0;
-> +
-> +	for (stage_idx = 0; stage_idx < STAGES_PER_PLANE; stage_idx++) {
-> +		for (i = 0; i < PIPES_PER_STAGE; i++) {
-> +			pipe_idx = stage_idx * PIPES_PER_STAGE + i;
-> +			if (drm_rect_width(&pstate->pipe_cfg[pipe_idx].src_rect) != 0) {
-> +				valid_pipe++;
-> +				if (valid_pipe > 1)
-> +					return false;
-> +
-> +				*single_pipe = &pstate->pipe[pipe_idx];
-> +				*single_pipe_cfg = &pstate->pipe_cfg[pipe_idx];
-> +				*stage_index = stage_idx;
-> +			}
-> +		}
-> +	}
-> +
-> +	return valid_pipe == 1;
-> +}
->  
->  static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
->  				       struct drm_atomic_state *state,
-> @@ -1021,18 +1045,23 @@ static int dpu_plane_try_multirect_shared(struct dpu_plane_state *pstate,
->  					  const struct msm_format *fmt,
->  					  uint32_t max_linewidth)
->  {
-> -	struct dpu_sw_pipe *pipe = &pstate->pipe[0];
-> -	struct dpu_sw_pipe *r_pipe = &pstate->pipe[1];
-> -	struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg[0];
-> -	struct dpu_sw_pipe *prev_pipe = &prev_adjacent_pstate->pipe[0];
-> -	struct dpu_sw_pipe_cfg *prev_pipe_cfg = &prev_adjacent_pstate->pipe_cfg[0];
-> +	struct dpu_sw_pipe *pipe, *prev_pipe;
-> +	struct dpu_sw_pipe_cfg *pipe_cfg, *prev_pipe_cfg;
->  	const struct msm_format *prev_fmt = msm_framebuffer_format(prev_adjacent_pstate->base.fb);
-> +	int stage_index, prev_stage_index;
->  	u16 max_tile_height = 1;
->  
-> -	if (prev_adjacent_pstate->pipe[1].sspp != NULL ||
-> +	if (!dpu_plane_get_single_pipe(pstate, &pipe, &pipe_cfg, &stage_index))
-> +		return false;
-> +
-> +	if (!dpu_plane_get_single_pipe(prev_adjacent_pstate, &prev_pipe,
-> +				       &prev_pipe_cfg, &prev_stage_index) ||
->  	    prev_pipe->multirect_mode != DPU_SSPP_MULTIRECT_NONE)
->  		return false;
->  
-> +	if (stage_index != prev_stage_index)
-> +		return false;
-
-This should be handled other way around: save N pstates and then loop
-over stage indices. If there is no rect at the corresponding stage for a
-plane, skip assignment (and use prev_adjacent_pstate for the next plane).
-
-> +
->  	if (!dpu_plane_is_multirect_capable(pipe->sspp, pipe_cfg, fmt) ||
->  	    !dpu_plane_is_multirect_capable(prev_pipe->sspp, prev_pipe_cfg, prev_fmt))
->  		return false;
-> @@ -1043,11 +1072,6 @@ static int dpu_plane_try_multirect_shared(struct dpu_plane_state *pstate,
->  	if (MSM_FORMAT_IS_UBWC(prev_fmt))
->  		max_tile_height = max(max_tile_height, prev_fmt->tile_height);
->  
-> -	r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> -	r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> -
-> -	r_pipe->sspp = NULL;
-> -
->  	if (dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth) &&
->  	    dpu_plane_is_parallel_capable(prev_pipe_cfg, prev_fmt, max_linewidth) &&
->  	    (pipe_cfg->dst_rect.x1 >= prev_pipe_cfg->dst_rect.x2 ||
-> @@ -1176,6 +1200,44 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
->  	return 0;
->  }
->  
-> +static int dpu_plane_assign_resource_in_stage(struct dpu_sw_pipe *pipe,
-> +					      struct dpu_sw_pipe_cfg *pipe_cfg,
-> +					      struct drm_plane_state *plane_state,
-> +					      struct dpu_global_state *global_state,
-> +					      struct drm_crtc *crtc,
-> +					      struct dpu_rm_sspp_requirements *reqs)
-> +{
-> +	struct drm_plane *plane = plane_state->plane;
-> +	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
-> +	struct dpu_sw_pipe *r_pipe = pipe + 1;
-> +	struct dpu_sw_pipe_cfg *r_pipe_cfg = pipe_cfg + 1;
-> +
-> +	if (drm_rect_width(&pipe_cfg->src_rect) != 0) {
-> +		pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, reqs);
-> +		if (!pipe->sspp)
-> +			return -ENODEV;
-> +	}
-> +
-> +	if (drm_rect_width(&r_pipe_cfg->src_rect) != 0 &&
-> +	    dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pipe_cfg,
-> +					      pipe->sspp,
-> +					      msm_framebuffer_format(plane_state->fb),
-> +					      dpu_kms->catalog->caps->max_linewidth)) {
-> +		goto stage_assinged;
-> +	}
-> +
-> +	if (drm_rect_width(&r_pipe_cfg->src_rect) != 0) {
-> +		r_pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, reqs);
-> +		if (!r_pipe->sspp)
-> +			return -ENODEV;
-> +		r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> +		r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> +	}
-> +
-> +stage_assinged:
-> +	return 0;
-> +}
-> +
->  static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
->  					      struct dpu_global_state *global_state,
->  					      struct drm_atomic_state *state,
-> @@ -1188,11 +1250,9 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
->  	struct dpu_rm_sspp_requirements reqs;
->  	struct dpu_plane_state *pstate, *prev_adjacent_pstate;
->  	struct dpu_sw_pipe *pipe;
-> -	struct dpu_sw_pipe *r_pipe;
->  	struct dpu_sw_pipe_cfg *pipe_cfg;
-> -	struct dpu_sw_pipe_cfg *r_pipe_cfg;
->  	const struct msm_format *fmt;
-> -	int i;
-> +	int i, stage_id, ret;
->  
->  	if (plane_state->crtc)
->  		crtc_state = drm_atomic_get_new_crtc_state(state,
-> @@ -1202,11 +1262,6 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
->  	prev_adjacent_pstate = prev_adjacent_plane_state ?
->  		to_dpu_plane_state(prev_adjacent_plane_state) : NULL;
->  
-> -	pipe = &pstate->pipe[0];
-> -	r_pipe = &pstate->pipe[1];
-> -	pipe_cfg = &pstate->pipe_cfg[0];
-> -	r_pipe_cfg = &pstate->pipe_cfg[1];
-> -
->  	for (i = 0; i < PIPES_PER_PLANE; i++)
->  		pstate->pipe[i].sspp = NULL;
->  
-> @@ -1220,44 +1275,24 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
->  
->  	reqs.rot90 = drm_rotation_90_or_270(plane_state->rotation);
->  
-> -	if (drm_rect_width(&r_pipe_cfg->src_rect) == 0) {
-> -		if (!prev_adjacent_pstate ||
-> -		    !dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate, fmt,
-> -						    dpu_kms->catalog->caps->max_linewidth)) {
-> -			pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
-> -			if (!pipe->sspp)
-> -				return -ENODEV;
-> -
-> -			r_pipe->sspp = NULL;
-> -
-> -			pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> -			pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> -
-> -			r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> -			r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> -		}
-> -	} else {
-> -		pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
-> -		if (!pipe->sspp)
-> -			return -ENODEV;
-> -
-> -		if (!dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pipe_cfg,
-> -						      pipe->sspp,
-> -						      msm_framebuffer_format(plane_state->fb),
-> -						      dpu_kms->catalog->caps->max_linewidth)) {
-> -			/* multirect is not possible, use two SSPP blocks */
-> -			r_pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
-> -			if (!r_pipe->sspp)
-> -				return -ENODEV;
-> -
-> -			pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> -			pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> +	if (prev_adjacent_pstate &&
-> +	    dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate, fmt,
-> +					    dpu_kms->catalog->caps->max_linewidth)) {
-> +		goto assigned;
-> +	}
->  
-> -			r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> -			r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> -		}
-> +	for (stage_id = 0; stage_id < STAGES_PER_PLANE; stage_id++) {
-> +		pipe = &pstate->pipe[stage_id * PIPES_PER_STAGE];
-> +		pipe_cfg = &pstate->pipe_cfg[stage_id * PIPES_PER_STAGE];
-> +		ret = dpu_plane_assign_resource_in_stage(pipe, pipe_cfg,
-> +							 plane_state,
-> +							 global_state,
-> +							 crtc, &reqs);
-> +		if (ret)
-> +			return ret;
->  	}
->  
-> +assigned:
->  	return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
->  }
->  
+> Changes in v2:
+> - Rebased on top of next-20250523
+> - Dropped merged maintainer patch
+> - Added a patch to make the corresponding dts change to add pixel 1
+>   stream
+> - Squashed pixel 0 and pixel 1 stream binding patches (Krzysztof)
+> - Drop assigned-clock-parents bindings for dp-controller (Krzysztof)
+> - Updated dp-controller.yaml to include all chipsets that support stream
+>   1 pixel clock (Krzysztof)
+> - Added missing minItems and if statement (Krzysztof)
+> - Link to v1: https://lore.kernel.org/r/20241202-dp_mst_bindings-v1-0-9a9a43b0624a@quicinc.com
 > 
-> -- 
-> 2.34.1
+> ---
+> Abhinav Kumar (4):
+>       dt-bindings: Fixup x1e80100 to add DP MST support
+>       dt-bindings: clock: Add SC7280 DISPCC DP pixel 1 clock binding
+>       dt-bindings: display/msm: drop assigned-clock-parents for dp controller
+>       dt-bindings: display/msm: add stream pixel clock bindings for MST
+> 
+> Jessica Zhang (1):
+>       arm64: dts: qcom: Add MST pixel streams for displayport
+> 
+>  .../bindings/display/msm/dp-controller.yaml        | 53 +++++++++++-----
+>  .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 14 +++--
+>  .../bindings/display/msm/qcom,sar2130p-mdss.yaml   | 11 ++--
+>  .../bindings/display/msm/qcom,sc7180-mdss.yaml     |  3 -
+>  .../bindings/display/msm/qcom,sc7280-mdss.yaml     | 12 ++--
+>  .../bindings/display/msm/qcom,sm7150-mdss.yaml     |  5 --
+>  .../bindings/display/msm/qcom,sm8750-mdss.yaml     | 11 ++--
+>  .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 21 +++----
+>  arch/arm64/boot/dts/qcom/sa8775p.dtsi              | 34 +++++++---
+>  arch/arm64/boot/dts/qcom/sar2130p.dtsi             | 10 ++-
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi               | 10 ++-
+>  arch/arm64/boot/dts/qcom/sc8180x.dtsi              | 20 ++++--
+>  arch/arm64/boot/dts/qcom/sc8280xp.dtsi             | 72 +++++++++++++++-------
+>  arch/arm64/boot/dts/qcom/sm8150.dtsi               | 10 ++-
+>  arch/arm64/boot/dts/qcom/sm8250.dtsi               | 10 ++-
+>  arch/arm64/boot/dts/qcom/sm8350.dtsi               | 10 ++-
+>  arch/arm64/boot/dts/qcom/sm8450.dtsi               | 10 ++-
+>  arch/arm64/boot/dts/qcom/sm8550.dtsi               | 10 ++-
+>  arch/arm64/boot/dts/qcom/sm8650.dtsi               | 10 ++-
+>  arch/arm64/boot/dts/qcom/x1e80100.dtsi             | 30 ++++++---
+>  include/dt-bindings/clock/qcom,dispcc-sc7280.h     |  2 +
+>  21 files changed, 235 insertions(+), 133 deletions(-)
+> ---
+> base-commit: 7a88d609b069b7d2f4d10113b18fea02921bedb1
+> change-id: 20241202-dp_mst_bindings-7536ffc9ae2f
+> 
+> Best regards,
+> --
+> Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> 
+> 
 > 
 
--- 
-With best wishes
-Dmitry
+
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
+
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
+
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+This patch series was applied (using b4) to base:
+ Base: base-commit 7a88d609b069b7d2f4d10113b18fea02921bedb1 not known, ignoring
+ Base: attempting to guess base-commit...
+ Base: tags/v6.16-rc2-698-g6b93840116df (exact match)
+
+If this is not the correct base, please add 'base-commit' tag
+(or use b4 which does this automatically)
+
+New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/qcom/' for 20250717-dp_mst_bindings-v3-0-72ce08285703@oss.qualcomm.com:
+
+arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['edp-panel'], 'enable-gpios': [[71, 74, 0]], 'power-supply': [[258]], 'pinctrl-0': [[259]], 'pinctrl-names': ['default'], 'port': {'endpoint': {'remote-endpoint': [[260]], 'phandle': 257}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s-oled.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['edp-panel'], 'power-supply': [[276]], 'phandle': 597, 'port': {'endpoint': {'remote-endpoint': [[277]], 'phandle': 275}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s-oled.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['samsung,atna45dc02', 'samsung,atna33xc20'], 'enable-gpios': [[275, 4, 0]], 'power-supply': [[276]], 'pinctrl-0': [[277]], 'pinctrl-names': ['default'], 'port': {'endpoint': {'remote-endpoint': [[278]], 'phandle': 274}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1p42100-crd.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['samsung,atna45af01', 'samsung,atna33xc20'], 'enable-gpios': [[268, 4, 0]], 'power-supply': [[269]], 'pinctrl-0': [[270]], 'pinctrl-names': ['default'], 'port': {'endpoint': {'remote-endpoint': [[271]], 'phandle': 267}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1p42100-crd.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['edp-panel'], 'power-supply': [[272]], 'backlight': [[273]], 'port': {'endpoint': {'remote-endpoint': [[274]], 'phandle': 271}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['edp-panel'], 'power-supply': [[268]], 'port': {'endpoint': {'remote-endpoint': [[269]], 'phandle': 267}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-asus-vivobook-s15.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['samsung,atna56ac03', 'samsung,atna33xc20'], 'enable-gpios': [[261, 4, 0]], 'power-supply': [[262]], 'pinctrl-0': [[263]], 'pinctrl-names': ['default'], 'port': {'endpoint': {'remote-endpoint': [[264]], 'phandle': 260}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-asus-vivobook-s15.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['edp-panel'], 'power-supply': [[276]], 'backlight': [[277]], 'phandle': 603, 'port': {'endpoint': {'remote-endpoint': [[278]], 'phandle': 275}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-hp-elitebook-ultra-g1q.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['edp-panel'], 'power-supply': [[272]], 'backlight': [[273]], 'port': {'endpoint': {'remote-endpoint': [[274]], 'phandle': 271}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-hp-elitebook-ultra-g1q.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus15.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['edp-panel'], 'backlight': [[266]], 'power-supply': [[267]], 'port': {'endpoint': {'remote-endpoint': [[268]], 'phandle': 265}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus15.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['samsung,atna45af01', 'samsung,atna33xc20'], 'enable-gpios': [[278, 4, 0]], 'power-supply': [[279]], 'pinctrl-0': [[280]], 'pinctrl-names': ['default'], 'port': {'endpoint': {'remote-endpoint': [[281]], 'phandle': 277}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus13.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): aux-bus: False schema does not allow {'panel': {'compatible': ['edp-panel'], 'backlight': [[266]], 'power-supply': [[267]], 'port': {'endpoint': {'remote-endpoint': [[268]], 'phandle': 265}}}}
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus13.dtb: displayport-controller@aea0000 (qcom,x1e80100-dp): '#sound-dai-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
+
+
+
+
+
