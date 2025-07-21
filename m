@@ -2,50 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 541ADB0B85A
-	for <lists+freedreno@lfdr.de>; Sun, 20 Jul 2025 23:45:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C75CB0BB8F
+	for <lists+freedreno@lfdr.de>; Mon, 21 Jul 2025 06:01:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2968410E054;
-	Sun, 20 Jul 2025 21:45:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0DE10E00D;
+	Mon, 21 Jul 2025 04:01:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UE3zeXDw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vg32tEoZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5292310E054;
- Sun, 20 Jul 2025 21:45:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=bQJYSnwRkchY3zI6tgHZy5FwvAi9hVv3Wew3x0xU9LE=; b=UE3zeXDwfUbpuBZACGcl6rb2kQ
- tCboNXf/Yo+YEov623V3qJA/Xd1NdvmEEpmj3j7U+dkL31RnJL2K2xVGUlR5Dc8OPKygwr4gGiZt9
- EMi7hTsnNM2nOdJsuN1UafcrmpDz0sK0hmERfPQybPZvKmEcA726/Z0q2KH6URlxKkssDXUBEEPpR
- /EL+lpSVgreV85oNUhiEqdRzuu6lsDO3h88ysVRusT/Iycy+SPjMe/DIPJK5SPAvFwnUtSXU2q0Gn
- 4MswkI+5cH16eR/Y3G6L09Zm7X55D/MYQWdQObw3WT20ZU1+Qs5vr7AxJra/mrD6xhCNxnXLw6Kek
- YcG9il/g==;
-Received: from [187.36.210.68] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA512__CHACHA20_POLY1305:256)
- (Exim) id 1udbqI-001SKK-Bt; Sun, 20 Jul 2025 23:45:10 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Subject: [PATCH v2] drm/msm: Update global fault counter when faulty process
- has already ended
-Date: Sun, 20 Jul 2025 18:42:31 -0300
-Message-ID: <20250720214458.22193-1-mcanal@igalia.com>
-X-Mailer: git-send-email 2.50.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49A2A10E00D;
+ Mon, 21 Jul 2025 04:01:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1753070492; x=1784606492;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=hpmC95n4OBxLRcb5nlXE+FdVNSoRbAa6a34M075HyI4=;
+ b=Vg32tEoZ33V9KG8HoyAYZkVLziYTXsLn51Qc6HOts/yqii7Lt5SPDYNN
+ dSLNTnIJxncOAiWcOEX/q4UGso8NLiQvFKnblOT2v3eY5imUP0ebB1OGQ
+ +si87h0mp7ttL6idegbSer4CipPc9gqH/fZGx+SkNfym760VdzZV8G3MO
+ BEl4+/QU9hbqxUzBezmyytvdEa3dJuX/hNzNwrUPI3h7VtmXD3g7mUOpI
+ o9U27lzfSSSm/BxJvkhlF53X+29IYPSzA6YHe52hPryaGUC7eNHoi+VnM
+ 8KHUQLxdl+vcgu3fae1BYpVo1s3XqVfW1gY00iEEaF/jX7B1lk6QgOtQN g==;
+X-CSE-ConnectionGUID: gWZ0fjJRTCC6ff9UQd8jxw==
+X-CSE-MsgGUID: KRAK/r52SaCDC4j5LdeV6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11498"; a="59067848"
+X-IronPort-AV: E=Sophos;i="6.16,328,1744095600"; d="scan'208";a="59067848"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2025 21:01:31 -0700
+X-CSE-ConnectionGUID: KmiIKJ+gQPyWI8ywyFMbPw==
+X-CSE-MsgGUID: OoElf3AvQpa8rs33sWEITw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,328,1744095600"; d="scan'208";a="189675444"
+Received: from lkp-server01.sh.intel.com (HELO 9ee84586c615) ([10.239.97.150])
+ by fmviesa001.fm.intel.com with ESMTP; 20 Jul 2025 21:01:27 -0700
+Received: from kbuild by 9ee84586c615 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1udhiP-000GSX-2H;
+ Mon, 21 Jul 2025 04:01:25 +0000
+Date: Mon, 21 Jul 2025 12:00:29 +0800
+From: kernel test robot <lkp@intel.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: Re: [PATCH 12/17] drm/msm: Skip devfreq IDLE when possible
+Message-ID: <202507211133.d0ChrtTQ-lkp@intel.com>
+References: <20250720-ifpc-support-v1-12-9347aa5bcbd6@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250720-ifpc-support-v1-12-9347aa5bcbd6@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,66 +78,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The global fault counter is no longer used since commit 12578c075f89
-("drm/msm/gpu: Skip retired submits in recover worker"). However, it's
-still needed, as we need to handle cases where a GPU fault occurs after
-the faulting process has already ended.
+Hi Akhil,
 
-Hence, increment the global fault counter when the submitting process
-had already ended. This way, the number of faults returned by
-MSM_PARAM_FAULTS will stay consistent.
+kernel test robot noticed the following build errors:
 
-While here, s/unusuable/unusable.
+[auto build test ERROR on 88bf743cabe5793d24f831ef8240a0bf90e5fd44]
 
-Fixes: 12578c075f89 ("drm/msm/gpu: Skip retired submits in recover worker")
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
+url:    https://github.com/intel-lab-lkp/linux/commits/Akhil-P-Oommen/drm-msm-Update-GMU-register-xml/20250720-201844
+base:   88bf743cabe5793d24f831ef8240a0bf90e5fd44
+patch link:    https://lore.kernel.org/r/20250720-ifpc-support-v1-12-9347aa5bcbd6%40oss.qualcomm.com
+patch subject: [PATCH 12/17] drm/msm: Skip devfreq IDLE when possible
+config: sparc-allmodconfig (https://download.01.org/0day-ci/archive/20250721/202507211133.d0ChrtTQ-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 15.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250721/202507211133.d0ChrtTQ-lkp@intel.com/reproduce)
 
-v1 -> v2: https://lore.kernel.org/dri-devel/20250714230813.46279-1-mcanal@igalia.com/T/
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202507211133.d0ChrtTQ-lkp@intel.com/
 
-* Don't delete the global fault, but instead, increment it when the we get
-	a fault after the faulting process has ended (Rob Clark)
-* Rewrite the commit message based on the changes.
+All errors (new ones prefixed by >>):
 
- drivers/gpu/drm/msm/msm_gpu.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+   In file included from drivers/gpu/drm/msm/msm_gpu_devfreq.c:7:
+>> drivers/gpu/drm/msm/adreno/adreno_gpu.h:17:10: fatal error: adreno_common.xml.h: No such file or directory
+      17 | #include "adreno_common.xml.h"
+         |          ^~~~~~~~~~~~~~~~~~~~~
+   compilation terminated.
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index c317b25a8162..416d47185ef0 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -465,6 +465,7 @@ static void recover_worker(struct kthread_work *work)
- 	struct msm_gem_submit *submit;
- 	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
- 	char *comm = NULL, *cmd = NULL;
-+	struct task_struct *task;
- 	int i;
- 
- 	mutex_lock(&gpu->lock);
-@@ -482,16 +483,20 @@ static void recover_worker(struct kthread_work *work)
- 
- 	/* Increment the fault counts */
- 	submit->queue->faults++;
--	if (submit->vm) {
-+
-+	task = get_pid_task(submit->pid, PIDTYPE_PID);
-+	if (!task)
-+		gpu->global_faults++;
-+	else {
- 		struct msm_gem_vm *vm = to_msm_vm(submit->vm);
- 
- 		vm->faults++;
- 
- 		/*
- 		 * If userspace has opted-in to VM_BIND (and therefore userspace
--		 * management of the VM), faults mark the VM as unusuable.  This
-+		 * management of the VM), faults mark the VM as unusable. This
- 		 * matches vulkan expectations (vulkan is the main target for
--		 * VM_BIND)
-+		 * VM_BIND).
- 		 */
- 		if (!vm->managed)
- 			msm_gem_vm_unusable(submit->vm);
+
+vim +17 drivers/gpu/drm/msm/adreno/adreno_gpu.h
+
+7198e6b03155f6 Rob Clark 2013-07-19  16  
+7198e6b03155f6 Rob Clark 2013-07-19 @17  #include "adreno_common.xml.h"
+7198e6b03155f6 Rob Clark 2013-07-19  18  #include "adreno_pm4.xml.h"
+7198e6b03155f6 Rob Clark 2013-07-19  19  
+
 -- 
-2.50.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
