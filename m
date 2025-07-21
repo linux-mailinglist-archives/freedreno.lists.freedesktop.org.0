@@ -2,137 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEAEBB0BBB1
-	for <lists+freedreno@lfdr.de>; Mon, 21 Jul 2025 06:18:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59967B0BE6E
+	for <lists+freedreno@lfdr.de>; Mon, 21 Jul 2025 10:06:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17F6310E394;
-	Mon, 21 Jul 2025 04:18:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5865C10E263;
+	Mon, 21 Jul 2025 08:06:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Pd+gqMZN";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oJ7L4OM0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 651CD10E00D
- for <freedreno@lists.freedesktop.org>; Mon, 21 Jul 2025 04:18:27 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56L40uAh030100
- for <freedreno@lists.freedesktop.org>; Mon, 21 Jul 2025 04:18:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 0HxS55+QTxxnhovCNlJMVgeCUCIs7adrQbeCrM4+8pY=; b=Pd+gqMZN6VlsReQ2
- ApLJJ3KRx8yfPGzjKNebwJ80Go6FToeUYYa4O3lfQ5S2qmB4E34dhEzTL4M9KXN7
- vU58SaWiWgI4OzuOYPgSrgb4RQf375zxiPkmT2RUyzmLU7FJsSnJTkBQqSIc0xQe
- hH68NESm3siMXM5EMpgKo76pIExrNphUcOUVqi/jQgSj23wvtEG8dmGSi6TaCuPI
- thk+Z/BVtHM2Lw4D3n6mBmBwz1l9IKfKnqGriP6TdGbt06GYnx+uoH91zzfPDYI6
- F/Oi+QNMY1ijMZcOsntm8K2USXBvnjx669FrqrQIPQixelVh80lAKL/3UoieitQL
- j6WMLQ==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48048tba3s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 21 Jul 2025 04:18:25 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-74951713860so421975b3a.3
- for <freedreno@lists.freedesktop.org>; Sun, 20 Jul 2025 21:18:25 -0700 (PDT)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
+ [209.85.219.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 850B610E263
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Jul 2025 08:06:25 +0000 (UTC)
+Received: by mail-yb1-f179.google.com with SMTP id
+ 3f1490d57ef6-e8d713e64c5so3545973276.0
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Jul 2025 01:06:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1753085184; x=1753689984; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QXjZydoegZQ2ZsNWUnq3mbu0ARbwzLhTN1MMUw8Kewk=;
+ b=oJ7L4OM0Kkn3Ax0+mSaXfmAoLd3A6YqOpxgVj3TvICgaJzRtR0Et2XQb/WGepVFpC3
+ hcSr2W4qcHwseDSPnxNRa6ClCNBNUDzhc2j7QyG7FeQFkuba09V33rKmdGY0+tUrPkLY
+ d1oYtSPaRYFam12M+ypt5MeP89MmADahnw8yOZaiHn9sP3mFN1ABtKn8Ra4+kEDFIh+9
+ cbiGHvmin/oh60wo6zayIPuV4qTZyCFjlekR0hOhJNJoJ1Dcx0slQGd3ra7Ak4/MjShZ
+ CximwawZH/xLIAGfzD+IyVNX1B0y8R36X8Amir3bihX+ZuZ9mxF4SiYxjLPoZHsZbKdt
+ s9RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753071504; x=1753676304;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=0HxS55+QTxxnhovCNlJMVgeCUCIs7adrQbeCrM4+8pY=;
- b=pddVshT0lJRO2FEuwyXar7s9F999M8KsFLlMpGDnct5RCAcw5+5ZIbgECGjz+JQ9wL
- CXvhcgzH0qtyqDfqfMvq/6F6cOqDuQFp7vLkdcJvVsYRlkAQW1wKeBsID7wUq/Xdn+LK
- Y199Y/nx7w/mXQ+LOWV8uo3yghbXWmWBLL3uaTeM7c5QXO8SD2qLMT1YoKp0+5m1VZFp
- l5orYzArcezauaDZSsPJScJiSfCbkrcBEc4+mN9eigkBN4A0sbt95/136iv1LRmOkUc6
- cYb5IN9NXCloempYEbZGJX69kgGhLxTbwvv4wqOvrjgeKHy3rd8eU++UI+sPD0H0hiWE
- wbkQ==
+ d=1e100.net; s=20230601; t=1753085184; x=1753689984;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QXjZydoegZQ2ZsNWUnq3mbu0ARbwzLhTN1MMUw8Kewk=;
+ b=gmznfBsqB6C0tNA3VL9X+lkKAm4z+T58DCA3pHGVMxp/8NWrV2tYF61MiXgzjKaOz4
+ Ab1oC+iEb6XIIfDVBBymc7O3hafOo3FjcaibqoLCFxKRMRqvO+bj2XIadXavU06tPEx2
+ XNCLK/nXYrLVJiWEBdYtstrNo7wRnvWocRgrKh9lxy/+yGhVGU32rbYCXF5DGcWPca52
+ suzgaftO6bh5fTjfbOTA4ZaAZ2ZIvN3MPY1Tpjq/XqyKtqHRxJFIl1cED3tQNK2SoAQ8
+ vQRKvbhQR4kEUQZ5JJRyPkUF/YZ3wyKW3ySN9f3TUe62HZK3WSuBJQdzFSv2yzpsHE67
+ JNXA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX8dY9e2qGim6coTQf9MYDieK2zVPwczlZR4YH7K5T0UHNUS1MNnxKkg0RAUjFEBi7jrMQQywiJUKU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YytkqN/qvo5ZN3fj9Ld7NDLaqFdLpx+uFVFbliOcTrumiT8Lb0r
- PY9uEBVO109Y0w06gkHzlkMS8fhCvERoGuWo1SbQMRAU5PqSRUerJKzkabLiOZfppNDwu9eX7XB
- Ua1gOvBRVccQRFhaWoZomUnVc8IPX7fw7jD/Wul3vzgtXE/SkcFMIk56Z0DpVmkBiktJIIno=
-X-Gm-Gg: ASbGncvnTL8Ec2vUHkH+JUYiLI+4AuYA8S1bMD9aRS6fPJUelVFPaL8YkT+tItu/GRj
- GmL2doEWjLjFOcSxA05YtwOT/c0b71nr7NeWKHaMT3UvBNaBg30ENdVy9dBF3eCrc9FFj+naW3o
- cwaFUK4NSBDGzqxRN5tlS0cGnOm5YVkiAfpmxDOAYGa3YIKoMyppOGVPqfm0DzNHvFGoW0s+Ybr
- SfVQGnm/eCLff8u2BWz5/aNavD344sDz7WxihOroslnKiGHT9ak2c49pUfKFhH7RNbtakcRnjM/
- 60MgII6nMfgGr1111f5i+1UtjOwMiMBk6FAnbKO0zM7/AD0TYTtAZm1KDLlq5NeYTOHUhH/bZb2
- MDwLDRRg8kZrlIRJB6Cj96op/nwuE
-X-Received: by 2002:a05:6a20:9147:b0:1ee:d6da:b645 with SMTP id
- adf61e73a8af0-237d5c0df9emr13823370637.4.1753071504500; 
- Sun, 20 Jul 2025 21:18:24 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE9E+Jpxuf/n9mwdKcrc+ICdr6n87fGKbL6wE5SUt8XIJ2tugZsZ8TP4nLkT2kWBtaUKyMt+w==
-X-Received: by 2002:a05:6a20:9147:b0:1ee:d6da:b645 with SMTP id
- adf61e73a8af0-237d5c0df9emr13823324637.4.1753071503997; 
- Sun, 20 Jul 2025 21:18:23 -0700 (PDT)
-Received: from [10.133.33.17] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f2fe8ea7bsm4493637a12.21.2025.07.20.21.18.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 20 Jul 2025 21:18:23 -0700 (PDT)
-Message-ID: <a723b6a6-c70a-442f-9785-9f607548664f@oss.qualcomm.com>
-Date: Mon, 21 Jul 2025 12:18:16 +0800
+ AJvYcCXxXwB0GYJDoknfm2ScELX58VASqpAcw+TEeL8WG5uBTNM52egus9QvGID3qtm/yxP1sO9ryptu4LQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxOZ2aFDvasqGYvop4I896DebWSET8p6IqvnncQFFQGu7qiLoZ/
+ TZU68Bwe1KUwGHFPJ8EZpWNVRN5wYgq2x8TL7iP7XXFX2z6DdRJAjeIxRiiruChwD4DewmyPGCn
+ xWEh4EPADUluq8+S5qFma0fyQkb0vVMWUm69Ie7MP+Q==
+X-Gm-Gg: ASbGnctX8xal0g2MAVXNp2FiXLkbarW9i51J0o9701rCjVOwMXX1bqyCaoLj3fgYseN
+ 6NESmllJ7KpeVlsSW42NEoQmXzR3oapn7Ge9r4l1JmPkJ3TpuyC+m3eqqZw3MSmatjc4mOH0v7U
+ hCjJceo7b1zEoOQ9H7jTeMXXnVMUBf7BRipMswMloylWOarGxIHthE0ruNCRiDUzEBKbn7JFJ8j
+ Iwq4V0=
+X-Google-Smtp-Source: AGHT+IFQ1amy/ZZahM40X8cb+37Q8KwVejxmxIxsmKDog+M5sSU7+um7am/YJwzpORCNPb1FN60oKJvPa9bR+ya3E0E=
+X-Received: by 2002:a05:6902:2289:b0:e8b:9ef1:f9ef with SMTP id
+ 3f1490d57ef6-e8d7a5c06e3mr14034257276.45.1753085184308; Mon, 21 Jul 2025
+ 01:06:24 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] drm/msm/dp: Retry Link Training 2 with lower pattern
+References: <20250707-v6-16-rc2-quad-pipe-upstream-v12-0-67e3721e7d83@linaro.org>
+ <20250707-v6-16-rc2-quad-pipe-upstream-v12-10-67e3721e7d83@linaro.org>
+ <khu6gwzn7gulubwoshdutl4d2nu3c6exnkv4cimjljc5wbxf7l@ho4gxsolq3hn>
+In-Reply-To: <khu6gwzn7gulubwoshdutl4d2nu3c6exnkv4cimjljc5wbxf7l@ho4gxsolq3hn>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Mon, 21 Jul 2025 16:06:13 +0800
+X-Gm-Features: Ac12FXwkEB5hHMigCqH7XK813bTvGyxHvB3mIUQVlEvS1vlsVmEtmCJHtAk3gcQ
+Message-ID: <CABymUCPhjugvyQ2KQabjTn3XNEDRSnQgRX5te-tHKT8hBLPdMQ@mail.gmail.com>
+Subject: Re: [PATCH v12 10/12] drm/msm/dpu: support SSPP assignment for
+ quad-pipe case
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
- <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
- quic_fangez@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org,
- quic_xiangxuy@quicinc.com
-References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
- <20241129-add-displayport-support-for-qcs615-platform-v1-7-09a4338d93ef@quicinc.com>
- <CAA8EJpoN1qBHyZrQJT_=e_26+tcaKRnSrhtxrK6zBP4BwpL=Hg@mail.gmail.com>
- <b4345b9e-62c6-470d-b1b0-4758cef7f175@quicinc.com>
- <xlmgdysjah3ueypdrdu5b6botvidb2wn4rfm4qpeysclscmuwy@vpfv2ymprblj>
- <b4e1ea54-ff3c-408e-8716-f48001ec9113@oss.qualcomm.com>
- <d427de7d-76ac-4e5b-b79a-3b7638a8e7fc@oss.qualcomm.com>
- <w66xyhu5w7ajpkennvj24cad4j6izvapsp3reyla7iui2jdgkx@d43b6z3qw5tj>
-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-In-Reply-To: <w66xyhu5w7ajpkennvj24cad4j6izvapsp3reyla7iui2jdgkx@d43b6z3qw5tj>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIxMDAzNCBTYWx0ZWRfX833DrMKScdv0
- XWQSB+4N0oI6ObSiFnSq3RDSdIOZ+bIeaHUuPbiLtIOVmQjP5TJCeoA7f/IrmOPB1s0m0zdSpq9
- f/vVl2E2q7Ktem7nCxqxIdM5fM2ofPex9422ajB5+03vM1k83swBJxRI5QblsFL9e8KmFkxRM+j
- xVITfvQm2tRmN3Set4JEPLbwXloQVcy17S2ImYp32iMxOe0F2okHptnRhai1VXudHQ2N23QV3Sp
- kZu3Upj7xDIgoFsuQGz7AfrIQ0CPvkj6GAq0PCqEk1p983cmlZZnuY+bwLZNlCrTeZ8dIsuaQpv
- dEuTTWqBJCIsOV4bdWVWBZ0OdAx0oob0KnPVk8854VlXxWg5ctbEebiiuDkULfFdi9rWT+R3g36
- g77J0VDfLseTgU5km1EcEeAG/zGJbvUoxnh56uIWQQPnA6QP75RJxXd04YtAr6PZrOW+hDRC
-X-Authority-Analysis: v=2.4 cv=Jb68rVKV c=1 sm=1 tr=0 ts=687dbf91 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=COk6AnOGAAAA:8 a=q-zp-rPcFIMxVU44S18A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: pQkzmVqmgoobqJ2NZF4pJABXCwZbro4G
-X-Proofpoint-ORIG-GUID: pQkzmVqmgoobqJ2NZF4pJABXCwZbro4G
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-21_02,2025-07-17_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 adultscore=0 priorityscore=1501 clxscore=1015 phishscore=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 malwarescore=0 mlxscore=0
- spamscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507210034
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,57 +92,302 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 7/19/2025 5:43 PM, Dmitry Baryshkov wrote:
-> On Wed, Jul 09, 2025 at 05:16:02PM +0800, Xiangxu Yin wrote:
->>
->> On 5/28/2025 4:49 AM, Konrad Dybcio wrote:
->>> On 12/3/24 3:07 PM, Dmitry Baryshkov wrote:
->>>> On Tue, Dec 03, 2024 at 04:13:22PM +0800, Xiangxu Yin wrote:
->>>>>
->>>>> On 11/29/2024 9:53 PM, Dmitry Baryshkov wrote:
->>>>>> On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
->>>>>>> Add a mechanism to retry Link Training 2 by lowering the pattern level
->>>>>>> when the link training #2 first attempt fails. This approach enhances
->>>>>>> compatibility, particularly addressing issues caused by certain hub
->>>>>>> configurations.
->>>>>> Please reference corresponding part of the standard, describing this lowering.
->>>>>>
->>>>> Per DisplayPort 1.4a specification Section 3.5.1.2 and Table 3-10, while the standard doesn't explicitly define a TPS downgrade mechanism, it does specify:
->>>> Anything in DP 2.1?
->>>>
->> In the DP 2.1 spec, mainly on section '3.6.7.2 8b/10b DP Link Layer LTTPR Link Training Mandates', defined 'LTTPR shall support TPS4'.
->> The other parts seems similar to the 1.4 spec.
->>>>> - All devices shall support TPS1 and TPS2
->>>>> - HDR2-capable devices shall support TPS3
->>>>> - HDR3-capable devices shall support TPS4
->>>>> While these capabilities are explicitly defined DPCD for sink devices, source device capabilities are less strictly defined, with the minimum requirement being support for TPS1 and TPS2.
->>>>> In QCS615 DP phy is only supporting to HBR2, we observed a critical interoperability scenario with a DP->HDMI bridge. When link training at TPS4 consistently failed, downgrading to the next lower training pattern successfully established the link and display output successfully.
->>>> Any other driver doing such TPS lowering? Or maybe we should be
->>>> selecting TPS3 for HBR2-only devices?
->> This logic is porting from qualcomm downstream, 
-> Hopefully a downstream has some sensible commit message which describes
-> the issue and the configuration to reproduce it?
-
-The downstream commit log shows in 2019/08, SM8250 (kernel 4.19) type-c DP meet LT2 failures on Samsung HDR curved monitor, the pattern lowering fix was adopted.
-On QCS615, an mDP-to-HDMI adapter cable exhibited similar LT failure pattern, and it's works with this solution.
-However, It's rare compatibility case with special device and lowering seems violates protocol standards, maybe not suitable for general deployment.
-
->> For other device, only found in some older Tx chips like i915（intel_dp_training_pattern) used the maximum hardware-supported patterns, but not lowering.
->>
->> According to the description in DPCD table 2-232 003h, From the DP spec perspective, it appears that all supported cases should preferably adopt TPS4, as it is more robust.
-> If other drivers don't perform this kind of lowering, I'd prefer if we
-> don't perform it too.
-Agree,  I'll remove this patch in an upcoming version soon.
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=B4=
+7=E6=9C=8819=E6=97=A5=E5=91=A8=E5=85=AD 18:09=E5=86=99=E9=81=93=EF=BC=9A
 >
->> 'DPRXs should support TPS4 and set this bit, regardless of whether the DPRX supports HBR3 because TPS4 is more conducive to robust link establishment than TPS2 and TPS3.
->> 0 = TPS4 is not supported.
->> 1 = TPS4 is supported (shall be supported for downstream devices with DPCD r1.4, except for eDPRXs).'
->>
->> Although maximum capability of QCS615 is HBR2, but the actual pattern supports TPS4. 
->> From pure design perspective, it would be cleaner to drop this lowering in next patch. 
->>> Bump, this patch looks interesting and I'd like to see it revisited if
->>> it's correct
->>>
->>> Konrad
->>
+> On Mon, Jul 07, 2025 at 02:18:05PM +0800, Jun Nie wrote:
+> > Currently, SSPPs are assigned to a maximum of two pipes. However,
+> > quad-pipe usage scenarios require four pipes and involve configuring
+> > two stages. In quad-pipe case, the first two pipes share a set of
+> > mixer configurations and enable multi-rect mode when certain
+> > conditions are met. The same applies to the subsequent two pipes.
+> >
+> > Assign SSPPs to the pipes in each stage using a unified method and
+> > to loop the stages accordingly.
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 143 +++++++++++++++++++---=
+--------
+> >  1 file changed, 89 insertions(+), 54 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/dr=
+m/msm/disp/dpu1/dpu_plane.c
+> > index 149e7066480b07f9f6d422748d89ffd6f9416f33..ecfebf7a2406d65930075cc=
+2a4b8a8a7d40b3d3c 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > @@ -954,6 +954,30 @@ static int dpu_plane_is_multirect_parallel_capable=
+(struct dpu_hw_sspp *sspp,
+> >               dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidt=
+h);
+> >  }
+> >
+> > +static bool dpu_plane_get_single_pipe(struct dpu_plane_state *pstate,
+> > +                                   struct dpu_sw_pipe **single_pipe,
+> > +                                   struct dpu_sw_pipe_cfg **single_pip=
+e_cfg,
+> > +                                   int *stage_index)
+> > +{
+> > +     int stage_idx, pipe_idx, i, valid_pipe =3D 0;
+> > +
+> > +     for (stage_idx =3D 0; stage_idx < STAGES_PER_PLANE; stage_idx++) =
+{
+> > +             for (i =3D 0; i < PIPES_PER_STAGE; i++) {
+> > +                     pipe_idx =3D stage_idx * PIPES_PER_STAGE + i;
+> > +                     if (drm_rect_width(&pstate->pipe_cfg[pipe_idx].sr=
+c_rect) !=3D 0) {
+> > +                             valid_pipe++;
+> > +                             if (valid_pipe > 1)
+> > +                                     return false;
+> > +
+> > +                             *single_pipe =3D &pstate->pipe[pipe_idx];
+> > +                             *single_pipe_cfg =3D &pstate->pipe_cfg[pi=
+pe_idx];
+> > +                             *stage_index =3D stage_idx;
+> > +                     }
+> > +             }
+> > +     }
+> > +
+> > +     return valid_pipe =3D=3D 1;
+> > +}
+> >
+> >  static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
+> >                                      struct drm_atomic_state *state,
+> > @@ -1021,18 +1045,23 @@ static int dpu_plane_try_multirect_shared(struc=
+t dpu_plane_state *pstate,
+> >                                         const struct msm_format *fmt,
+> >                                         uint32_t max_linewidth)
+> >  {
+> > -     struct dpu_sw_pipe *pipe =3D &pstate->pipe[0];
+> > -     struct dpu_sw_pipe *r_pipe =3D &pstate->pipe[1];
+> > -     struct dpu_sw_pipe_cfg *pipe_cfg =3D &pstate->pipe_cfg[0];
+> > -     struct dpu_sw_pipe *prev_pipe =3D &prev_adjacent_pstate->pipe[0];
+> > -     struct dpu_sw_pipe_cfg *prev_pipe_cfg =3D &prev_adjacent_pstate->=
+pipe_cfg[0];
+> > +     struct dpu_sw_pipe *pipe, *prev_pipe;
+> > +     struct dpu_sw_pipe_cfg *pipe_cfg, *prev_pipe_cfg;
+> >       const struct msm_format *prev_fmt =3D msm_framebuffer_format(prev=
+_adjacent_pstate->base.fb);
+> > +     int stage_index, prev_stage_index;
+> >       u16 max_tile_height =3D 1;
+> >
+> > -     if (prev_adjacent_pstate->pipe[1].sspp !=3D NULL ||
+> > +     if (!dpu_plane_get_single_pipe(pstate, &pipe, &pipe_cfg, &stage_i=
+ndex))
+> > +             return false;
+> > +
+> > +     if (!dpu_plane_get_single_pipe(prev_adjacent_pstate, &prev_pipe,
+> > +                                    &prev_pipe_cfg, &prev_stage_index)=
+ ||
+> >           prev_pipe->multirect_mode !=3D DPU_SSPP_MULTIRECT_NONE)
+> >               return false;
+> >
+> > +     if (stage_index !=3D prev_stage_index)
+> > +             return false;
+>
+> This should be handled other way around: save N pstates and then loop
+> over stage indices. If there is no rect at the corresponding stage for a
+> plane, skip assignment (and use prev_adjacent_pstate for the next plane).
+
+You mean dpu_plane_virtual_assign_resources() shall notify its caller
+dpu_assign_plane_resources() to skip updating prev_adjacent_plane_state
+if dpu_plane_try_multirect_shared() return false? If so, we can add an
+argument "bool pipe_shared" in dpu_plane_virtual_assign_resources() to
+get the status. But that is an optimization to share pipes across multiple
+planes. Can we add new patches based on current patch set later?
+
+Or my understanding is not aligned with your thoughts?
+
+- Jun
+>
+> > +
+> >       if (!dpu_plane_is_multirect_capable(pipe->sspp, pipe_cfg, fmt) ||
+> >           !dpu_plane_is_multirect_capable(prev_pipe->sspp, prev_pipe_cf=
+g, prev_fmt))
+> >               return false;
+> > @@ -1043,11 +1072,6 @@ static int dpu_plane_try_multirect_shared(struct=
+ dpu_plane_state *pstate,
+> >       if (MSM_FORMAT_IS_UBWC(prev_fmt))
+> >               max_tile_height =3D max(max_tile_height, prev_fmt->tile_h=
+eight);
+> >
+> > -     r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> > -     r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
+> > -
+> > -     r_pipe->sspp =3D NULL;
+> > -
+> >       if (dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth) &=
+&
+> >           dpu_plane_is_parallel_capable(prev_pipe_cfg, prev_fmt, max_li=
+newidth) &&
+> >           (pipe_cfg->dst_rect.x1 >=3D prev_pipe_cfg->dst_rect.x2 ||
+> > @@ -1176,6 +1200,44 @@ static int dpu_plane_virtual_atomic_check(struct=
+ drm_plane *plane,
+> >       return 0;
+> >  }
+> >
+> > +static int dpu_plane_assign_resource_in_stage(struct dpu_sw_pipe *pipe=
+,
+> > +                                           struct dpu_sw_pipe_cfg *pip=
+e_cfg,
+> > +                                           struct drm_plane_state *pla=
+ne_state,
+> > +                                           struct dpu_global_state *gl=
+obal_state,
+> > +                                           struct drm_crtc *crtc,
+> > +                                           struct dpu_rm_sspp_requirem=
+ents *reqs)
+> > +{
+> > +     struct drm_plane *plane =3D plane_state->plane;
+> > +     struct dpu_kms *dpu_kms =3D _dpu_plane_get_kms(plane);
+> > +     struct dpu_sw_pipe *r_pipe =3D pipe + 1;
+> > +     struct dpu_sw_pipe_cfg *r_pipe_cfg =3D pipe_cfg + 1;
+> > +
+> > +     if (drm_rect_width(&pipe_cfg->src_rect) !=3D 0) {
+> > +             pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, global_s=
+tate, crtc, reqs);
+> > +             if (!pipe->sspp)
+> > +                     return -ENODEV;
+> > +     }
+> > +
+> > +     if (drm_rect_width(&r_pipe_cfg->src_rect) !=3D 0 &&
+> > +         dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pi=
+pe_cfg,
+> > +                                           pipe->sspp,
+> > +                                           msm_framebuffer_format(plan=
+e_state->fb),
+> > +                                           dpu_kms->catalog->caps->max=
+_linewidth)) {
+> > +             goto stage_assinged;
+> > +     }
+> > +
+> > +     if (drm_rect_width(&r_pipe_cfg->src_rect) !=3D 0) {
+> > +             r_pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, global=
+_state, crtc, reqs);
+> > +             if (!r_pipe->sspp)
+> > +                     return -ENODEV;
+> > +             r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> > +             r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
+> > +     }
+> > +
+> > +stage_assinged:
+> > +     return 0;
+> > +}
+> > +
+> >  static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
+> >                                             struct dpu_global_state *gl=
+obal_state,
+> >                                             struct drm_atomic_state *st=
+ate,
+> > @@ -1188,11 +1250,9 @@ static int dpu_plane_virtual_assign_resources(st=
+ruct drm_crtc *crtc,
+> >       struct dpu_rm_sspp_requirements reqs;
+> >       struct dpu_plane_state *pstate, *prev_adjacent_pstate;
+> >       struct dpu_sw_pipe *pipe;
+> > -     struct dpu_sw_pipe *r_pipe;
+> >       struct dpu_sw_pipe_cfg *pipe_cfg;
+> > -     struct dpu_sw_pipe_cfg *r_pipe_cfg;
+> >       const struct msm_format *fmt;
+> > -     int i;
+> > +     int i, stage_id, ret;
+> >
+> >       if (plane_state->crtc)
+> >               crtc_state =3D drm_atomic_get_new_crtc_state(state,
+> > @@ -1202,11 +1262,6 @@ static int dpu_plane_virtual_assign_resources(st=
+ruct drm_crtc *crtc,
+> >       prev_adjacent_pstate =3D prev_adjacent_plane_state ?
+> >               to_dpu_plane_state(prev_adjacent_plane_state) : NULL;
+> >
+> > -     pipe =3D &pstate->pipe[0];
+> > -     r_pipe =3D &pstate->pipe[1];
+> > -     pipe_cfg =3D &pstate->pipe_cfg[0];
+> > -     r_pipe_cfg =3D &pstate->pipe_cfg[1];
+> > -
+> >       for (i =3D 0; i < PIPES_PER_PLANE; i++)
+> >               pstate->pipe[i].sspp =3D NULL;
+> >
+> > @@ -1220,44 +1275,24 @@ static int dpu_plane_virtual_assign_resources(s=
+truct drm_crtc *crtc,
+> >
+> >       reqs.rot90 =3D drm_rotation_90_or_270(plane_state->rotation);
+> >
+> > -     if (drm_rect_width(&r_pipe_cfg->src_rect) =3D=3D 0) {
+> > -             if (!prev_adjacent_pstate ||
+> > -                 !dpu_plane_try_multirect_shared(pstate, prev_adjacent=
+_pstate, fmt,
+> > -                                                 dpu_kms->catalog->cap=
+s->max_linewidth)) {
+> > -                     pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, =
+global_state, crtc, &reqs);
+> > -                     if (!pipe->sspp)
+> > -                             return -ENODEV;
+> > -
+> > -                     r_pipe->sspp =3D NULL;
+> > -
+> > -                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> > -                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
+> > -
+> > -                     r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> > -                     r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NON=
+E;
+> > -             }
+> > -     } else {
+> > -             pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, global_s=
+tate, crtc, &reqs);
+> > -             if (!pipe->sspp)
+> > -                     return -ENODEV;
+> > -
+> > -             if (!dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_p=
+ipe, r_pipe_cfg,
+> > -                                                   pipe->sspp,
+> > -                                                   msm_framebuffer_for=
+mat(plane_state->fb),
+> > -                                                   dpu_kms->catalog->c=
+aps->max_linewidth)) {
+> > -                     /* multirect is not possible, use two SSPP blocks=
+ */
+> > -                     r_pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm=
+, global_state, crtc, &reqs);
+> > -                     if (!r_pipe->sspp)
+> > -                             return -ENODEV;
+> > -
+> > -                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> > -                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
+> > +     if (prev_adjacent_pstate &&
+> > +         dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate, =
+fmt,
+> > +                                         dpu_kms->catalog->caps->max_l=
+inewidth)) {
+> > +             goto assigned;
+> > +     }
+> >
+> > -                     r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> > -                     r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NON=
+E;
+> > -             }
+> > +     for (stage_id =3D 0; stage_id < STAGES_PER_PLANE; stage_id++) {
+> > +             pipe =3D &pstate->pipe[stage_id * PIPES_PER_STAGE];
+> > +             pipe_cfg =3D &pstate->pipe_cfg[stage_id * PIPES_PER_STAGE=
+];
+> > +             ret =3D dpu_plane_assign_resource_in_stage(pipe, pipe_cfg=
+,
+> > +                                                      plane_state,
+> > +                                                      global_state,
+> > +                                                      crtc, &reqs);
+> > +             if (ret)
+> > +                     return ret;
+> >       }
+> >
+> > +assigned:
+> >       return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
+> >  }
+> >
+> >
+> > --
+> > 2.34.1
+> >
+>
+> --
+> With best wishes
+> Dmitry
