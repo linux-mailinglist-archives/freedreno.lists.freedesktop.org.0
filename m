@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BFFFB0DAE7
-	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 15:33:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68F42B0DB10
+	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 15:39:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 440FC10E691;
-	Tue, 22 Jul 2025 13:33:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44A2510E698;
+	Tue, 22 Jul 2025 13:39:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hPDuicZB";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="opGsLQ5t";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB8AA10E698
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:33:46 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56M9FdVn012555
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:33:46 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6201410E698
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:39:35 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56M99F87016274
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:39:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=EfsXBdGr0ZefoEuNYobsoglk
- aaa77ZqFclUas4r8I6Q=; b=hPDuicZByTNlXa7CIkXCxdo4NPztXLE7eqKIPhCE
- SyJ6vyzlekTf7Lf8KAcsevpsdAZDvdmrkLH8sNkco2BVsvqtTc5GbIIDFGec8YVO
- myTm9y5rA+/akEelLQ9kEc0e34pxDnp55A/Q6LaRYapcFilfVnweow5PM2gxf9Yx
- xR8udUzWEznaAIp+TGZX2cFmXLsdVziXjdNmuNVao0OPhtYT3ahVKS+bWswz8dKt
- zjZBY/UxO8CGWoph8bM6hXnNSPHBsKX8I9FpBqZLnyxW0B31frq/TXPtMAb+dlBG
- c2+Px8ZrGm3yzHiG8P0fa8Zs/pgeZotuZmKu/ILqZP+Cuw==
+ :references:subject:to; s=qcppdkim1; bh=4w3F0joZHW750KxFalsn9QVx
+ Ns0FPKKZPb2uX1yiarA=; b=opGsLQ5tSzq299+AcwZy9AxOaTjfrG7Vq/UQSF0g
+ hTPLYon4gdQzd5Hv3rvlsy1dxpv7549YPoSBbF7HXwDnRagGztr1FyBNT4Ki0O1r
+ Ib5ompQdFhVzwomnNGgwEKTmt6OCWSFlSXaxphsUH7eEy2HKJwaH80Dk+20bWRRD
+ 51NjxrKzOWOhnARKS69h9VSclxz9jS1PpTo55/JUcLsqYdCOCiqJFPghUY5RpWJs
+ aeINXIeim2ECvUImYEkdcX4jiqGB+foL7Cyb3s0OaxUx/0uTfkZzyNhCdMsWZSYG
+ MtrbCYK9hoQ9a2eWw2yAb3w5dJujpgQkgGTvhPpOv7qBng==
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
  [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 481qh6kufj-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48048s1nc3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:33:45 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:39:34 +0000 (GMT)
 Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7da0850c9e5so827466985a.0
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 06:33:45 -0700 (PDT)
+ af79cd13be357-7e348600cadso720919085a.3
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 06:39:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753191225; x=1753796025;
+ d=1e100.net; s=20230601; t=1753191573; x=1753796373;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EfsXBdGr0ZefoEuNYobsoglkaaa77ZqFclUas4r8I6Q=;
- b=dGqRcI6S6BGHz71Sm9CBWCUZobBEJnd0g6qCK4eqjZlR5MfboCGNdq75aa264rJ3/y
- 58LWVLmxbc7zCAtTed5TpxWCXEOmNDj6WWs3R0Ux0Vg6B1vSfyRM0p2fNTbYA6Nopg6G
- 4hG5KZXeHnW+fvrJx0fe5T0UVAbbibusKF5UquDFS2+sOxe0na20no53bFsYf+PsiNuY
- fYzR8+LY1MmP7Ov8rZJEs/PkLTz9S84iWL3rO3ju9uVOtlMs701UtwYyh+nj9OWrX/sC
- 95B6YxGXqeoA5b9gG7TgfOS8cqVm9K29t4rv+QPSkyZEmIVJ4dnhusCxpnreyYrXJUBy
- jnxg==
+ bh=4w3F0joZHW750KxFalsn9QVxNs0FPKKZPb2uX1yiarA=;
+ b=Nw4C0gWF271qCmctuH7oGndKmDvZrgWjH4/PLRVoguzKSX4B5yLagqAiH23kLeLdaW
+ pYY/Tr2VvIqywuoIdU6AbkMaExyaEsybm1niGgAsDMTMvPTF5Zz211UMKhh/u0hJAAcj
+ q041zFi+MBILo496w6RSszylonj/aefW0Dh4E86l7NIvZ5gy2vFvfy7Lk5tGYXwJP5tv
+ 20X1gReY/vHVNnaWFGwyUZQ5E1CINKo5pJ/CrraINz31L6iJSkgU7LG0kHNIu63TqJTP
+ 2yw9LxSUbrl4lxDVXflMGLPFqF/vZUID3F5PkAQZLrl9AWIlrh5QC1YPebzA9nIvzmcF
+ +wZA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU7iclRX5uoRn20DNeEsvpNu14OA7MoCf5lATeV2GFU+W22Zdu0o7C3Hi6TD5J3nwpzx9gInc8lOSU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUHErnudTA/ouk9N3t5pOu7vLuOau4hSUfPm4z3ZTkk2wuXoVd
- w9PGEker6S83zb3CGrsf28XA2xeLfdxkFOeozUG7uwvqMb23SaCC/AKFwHXQEBqpDBdbRT2QJjW
- 7HJFsFHykjiaZbWhw4mLLCp9wGo+OhjyH2F5+/fUCxy639CjymYCKIi07Jm/2O6LitgOa1EQ=
-X-Gm-Gg: ASbGncvI1hBWVLTl4YkFRaLwwD6kzZ9GRgBVn7oGZuqwWoF0VyYDp35CefSmNS9gkHn
- Qs9mZ1zLT+6fEdfp54TVNqksuKNErT2y7qm8g18n9bXfEX0HdkLo8vDM2PVFlumjeucOh91kehV
- 2ofkiWs4mNa7ZknAQNLVbxtudxyaNuYeEFEALpuY5AtiB+vJkF5YyccM3k+nQTiROUu+3F636MP
- 1WYezC20pXaWBYvVB1dL4wqDVnii6mi1lKMe8YTiEHoOuNby9NZWJ7CxHAnVaYYHkXiyF0SfcnC
- qrRjGz/NCv95RLevHx7D2OH2sihJWWyWd8Nn5Uy9klAIVEJyjJ5OYPB0Mw8/kbsYM7HPZXrAscK
- qbJWybeMTvJxM6yU+13nR0EArX53qtpC6We9OiJlhVriECa1PjH1s
-X-Received: by 2002:a05:620a:1a8b:b0:7e1:4b5f:3f98 with SMTP id
- af79cd13be357-7e342b994e7mr3254130585a.57.1753191224789; 
- Tue, 22 Jul 2025 06:33:44 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEP3AAsy3mbtljhMSzHmvF/WFjUN8vlpUNZFy1EG7TdKoCphtGRWA/vS7N52z+3EqqbWOMt3w==
-X-Received: by 2002:a05:620a:1a8b:b0:7e1:4b5f:3f98 with SMTP id
- af79cd13be357-7e342b994e7mr3254124785a.57.1753191224115; 
- Tue, 22 Jul 2025 06:33:44 -0700 (PDT)
+ AJvYcCWXUPyEpt7ns0LjKmMRgT65WSiD3eaJDaSR+OtStj/517FYBbyE50gWQ+ZLilMDTSMCcdUGaszXymo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0XTgkQYb9MVWDIh/GCmeyhu9azx/z9XxvZlVuoCPSm2/Wggqm
+ F9aNjMDyFYeyErPhi08zz6RsqKpq2DXXFauSi3xZXBdpkan2C/nbRGabR1Z1TWCJHwf8hGVegUX
+ 63QvFIkkP4ojkbs0AaBJDWKjpNE905QslmoBYNTDpS1wFDTH/e8Pvn5ElLRVnaA65megpHlE=
+X-Gm-Gg: ASbGncvPII3ywANVt2KDyxzMGOHPr+0OKZPjGm0ZUqa+4IDttCIDtmRVAZmLdhs6rSx
+ UNHjqseP4EpiNsBPlNPuqNqCxqUZ9RiO7ZT7w1ps28T0AJpHkgNkYvDLfUVj6gFaJQOzwHyWy+/
+ BS2BbZdlD86A4rRZCvzkILWqpx5RXCiSLsm33IRN0zA2nR2TTsZ6q9NhADKMu1yC3qjEza76res
+ nQNXkKfYe7VjiU+dfS64+na6mLOJ4Zl7ASShxSTlsXpttayT15rTlYhPsJgixrqfQR+X/FCyxEK
+ ikzGoVUx+fYE2RoKNXTZNarZBDfRhIj+m1jjV7auMLsb5glA0EKOzSm/0m2mv0IMbNWL0d8a2Db
+ n1A+3Z/puVivrzeIZyX6r+cx9PxHEHsiyf64HnHK3OTQ3hj39QMON
+X-Received: by 2002:a05:620a:19a5:b0:7e3:52f6:66e5 with SMTP id
+ af79cd13be357-7e352f6672amr2503269185a.35.1753191573285; 
+ Tue, 22 Jul 2025 06:39:33 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHWXNAeEBRYm0Qc899vTrFNNPTNnIjLTPXDWYSnbj33m9VCWWBjQI/8iRumSgWsa8P13k24+Q==
+X-Received: by 2002:a05:620a:19a5:b0:7e3:52f6:66e5 with SMTP id
+ af79cd13be357-7e352f6672amr2503264185a.35.1753191572771; 
+ Tue, 22 Jul 2025 06:39:32 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55a31d7c735sm1951720e87.129.2025.07.22.06.33.43
+ 38308e7fff4ca-330a91f640csm16330041fa.91.2025.07.22.06.39.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Jul 2025 06:33:43 -0700 (PDT)
-Date: Tue, 22 Jul 2025 16:33:41 +0300
+ Tue, 22 Jul 2025 06:39:31 -0700 (PDT)
+Date: Tue, 22 Jul 2025 16:39:30 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -85,36 +85,36 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 05/17] drm/msm/a6xx: Fix PDC sleep sequence
-Message-ID: <avni4utnzdmmafc2mf7aqgva3osbhuiqtia7gdngqswk5cmtn6@zo65ir7gyj6y>
+Subject: Re: [PATCH 07/17] drm/msm/adreno: Add fenced regwrite support
+Message-ID: <tyjkwrdmsj7k7tkqqxdd65l5v5jxugr5me3ivg5onn3hbffkwp@7uhsbzolqiyd>
 References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
- <20250720-ifpc-support-v1-5-9347aa5bcbd6@oss.qualcomm.com>
+ <20250720-ifpc-support-v1-7-9347aa5bcbd6@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250720-ifpc-support-v1-5-9347aa5bcbd6@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=CZ4I5Krl c=1 sm=1 tr=0 ts=687f9339 cx=c_pps
+In-Reply-To: <20250720-ifpc-support-v1-7-9347aa5bcbd6@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDExMiBTYWx0ZWRfXxOX6LJP2tDes
+ Sa0iICo3wsVfEk0In801ia3qq6f6WsvMaLpASLLmjvAWD+leijGac8cNAym5CYwNQPul9Zpgk5A
+ wDUvmC+RW7nV5vC7gMdTfWcf1t+Cqd3WQc205kOypqu7/hYZ1PipDr/Ed0ZQTgV4YeykBEWlCkc
+ BUF+vpQzz1ksFLSkMFVMaYQ7JjM4nG74qWUD2FnFrdoohJgxfac8lSmzn5d/+FVlWW2VZsJ3xm4
+ 96zavNe5s+ccmRiZD795K+dsMOD0idhG5u6/3Rm9TDN5wXz3O6XqiUYTwwB32wf5wuFTlJ0hrSH
+ 2l4MZW9TvcM0yHX89PzpPZPCMDOBCVoneaaPRKDWvdHcaeVl9f9rdSafXrM7AiGM9DcbAh+gOc7
+ hdDehjUv8bwKYSk+0mz2JAKHAPmgqC9DFfawfl6vcKrmJP6Yf2Dco9OCmkdT/Eie2ewCmwfk
+X-Proofpoint-ORIG-GUID: hC9d1z-Q3qAS2N23JZFruEo_uNTsXMxM
+X-Proofpoint-GUID: hC9d1z-Q3qAS2N23JZFruEo_uNTsXMxM
+X-Authority-Analysis: v=2.4 cv=OPUn3TaB c=1 sm=1 tr=0 ts=687f9496 cx=c_pps
  a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=mwp7AVN4ek2gjh_I9OMA:9 a=CjuIK1q_8ugA:10
+ a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=A7g6f4VAW18hdwHdu84A:9 a=CjuIK1q_8ugA:10
  a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: JbdeyJ9_kHF8n_AhRIwtXEXGoFDNhPPT
-X-Proofpoint-GUID: JbdeyJ9_kHF8n_AhRIwtXEXGoFDNhPPT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDExMSBTYWx0ZWRfX/22l5vhafhs6
- NS+nchai7jwJWUdlqbd53HXFITNBAneYsEoRHG6l/XM5TOEnzoYPqP23XzPY7aXkPpLPticks4k
- 2eER2zQlDDAP8bfeTho1REsV6u87ZdHw52M65xKxUjNcVMsvLXRRvA3S6U9HT6+DJ1CUwuu2K/W
- PkvU/zVaGicn2KMQY4N9u40u6CU/fOYIlJN7vbu3bOZeXosMkSUr7GC9CRPTbd/WyaC3YGCc3+v
- CSP52IQQT3e1e3ini/mvrd54GdaUi5JaLn989pLcHaDo57i6LKalEG0DQK5Qf21geGlNmOKpZU1
- ukOaryhbUtSvSClLDh2ZwpSl6wuaCBhHzu+/lXr65dth4u1oGDvCykniZL3Mrzn48LAh1IXRZ+e
- XHjW+SI1Mh5iV6gnZ68kj+6CFzGHsG+BaXWibHptVEHAGATQ0350n3Ejqp/ipYjAnFfW4Jys
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-22_02,2025-07-21_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 mlxlogscore=999 impostorscore=0
- clxscore=1015 mlxscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- bulkscore=0 spamscore=0 malwarescore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507220111
+ adultscore=0 clxscore=1015 mlxlogscore=999 lowpriorityscore=0 suspectscore=0
+ spamscore=0 mlxscore=0 bulkscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507220112
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,136 +130,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jul 20, 2025 at 05:46:06PM +0530, Akhil P Oommen wrote:
-> Since the PDC resides out of the GPU subsystem and cannot be reset in
-> case it enters bad state, utmost care must be taken to trigger the PDC
-> wake/sleep routines in the correct order.
-> 
-> The PDC wake sequence can be exercised only after a PDC sleep sequence.
-> Additionally, GMU firmware should initialize a few registers before the
-> KMD can trigger a PDC sleep sequence. So PDC sleep can't be done if the
-
-s/KMD/the driver/
-
-> GMU firmware has not initialized. Track these dependencies using a new
-> status variable and trigger PDC sleep/wake sequences appropriately.
-
-Again, it looks like there should be a Fixes tag here.
-
+On Sun, Jul 20, 2025 at 05:46:08PM +0530, Akhil P Oommen wrote:
+> There are some special registers which are accessible even when GX power
+> domain is collapsed during an IFPC sleep. Accessing these registers
+> wakes up GPU from power collapse and allow programming these registers
+> without additional handshake with GMU. This patch adds support for this
+> special register write sequence.
 > 
 > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 30 +++++++++++++++++++-----------
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  6 ++++++
->  2 files changed, 25 insertions(+), 11 deletions(-)
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 63 ++++++++++++++++++++++++++++++-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+>  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 20 +++++-----
+>  3 files changed, 73 insertions(+), 11 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 3bebb6dd7059782ceca29f2efd2acee24d3fc930..4d6c70735e0892ed87d6a68d64f24bda844e5e16 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -279,6 +279,8 @@ static int a6xx_gmu_start(struct a6xx_gmu *gmu)
->  	if (ret)
->  		DRM_DEV_ERROR(gmu->dev, "GMU firmware initialization timed out\n");
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 491fde0083a202bec7c6b3bca88d0e5a717a6560..8c004fc3abd2896d467a9728b34e99e4ed944dc4 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -16,6 +16,67 @@
 >  
-> +	set_bit(GMU_STATUS_FW_START, &gmu->status);
+>  #define GPU_PAS_ID 13
+>  
+> +static bool fence_status_check(struct msm_gpu *gpu, u32 offset, u32 value, u32 status, u32 mask)
+> +{
+> +	/* Success if !writedropped0/1 */
+> +	if (!(status & mask))
+> +		return true;
 > +
->  	return ret;
->  }
->  
-> @@ -528,6 +530,9 @@ static int a6xx_rpmh_start(struct a6xx_gmu *gmu)
->  	int ret;
->  	u32 val;
->  
-> +	if (!test_and_clear_bit(GMU_STATUS_PDC_SLEEP, &gmu->status))
+> +	udelay(10);
+
+Why do we need udelay() here? Why can't we use interval setting inside
+gmu_poll_timeout()?
+
+> +
+> +	/* Try to update fenced register again */
+> +	gpu_write(gpu, offset, value);
+> +	return false;
+> +}
+> +
+> +static int fenced_write(struct a6xx_gpu *a6xx_gpu, u32 offset, u32 value, u32 mask)
+> +{
+> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+> +	struct msm_gpu *gpu = &adreno_gpu->base;
+> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+> +	u32 status;
+> +
+> +	gpu_write(gpu, offset, value);
+> +
+> +	/* Nothing else to be done in the case of no-GMU */
+> +	if (adreno_has_gmu_wrapper(adreno_gpu))
 > +		return 0;
 > +
->  	gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, BIT(1));
->  
->  	ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_RSCC_CONTROL_ACK, val,
-> @@ -555,6 +560,11 @@ static void a6xx_rpmh_stop(struct a6xx_gmu *gmu)
->  	int ret;
->  	u32 val;
->  
-> +	if (test_and_clear_bit(GMU_STATUS_FW_START, &gmu->status))
-> +		return;
+> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
+> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
+> +		return 0;
 > +
-> +	/* TODO: should we skip if IFPC is not enabled */
-
-Is this a question or a statement?
-
+> +	dev_err_ratelimited(gmu->dev, "delay in fenced register write (0x%x)\n",
+> +			offset);
 > +
->  	gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, 1);
->  
->  	ret = gmu_poll_timeout_rscc(gmu, REG_A6XX_GPU_RSCC_RSC_STATUS0_DRV0,
-> @@ -563,6 +573,8 @@ static void a6xx_rpmh_stop(struct a6xx_gmu *gmu)
->  		DRM_DEV_ERROR(gmu->dev, "Unable to power off the GPU RSC\n");
->  
->  	gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, 0);
+> +	/* Try again for another 1ms before failing */
+> +	gpu_write(gpu, offset, value);
+> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
+> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
+> +		return 0;
 > +
-> +	set_bit(GMU_STATUS_PDC_SLEEP, &gmu->status);
->  }
->  
->  static inline void pdc_write(void __iomem *ptr, u32 offset, u32 value)
-> @@ -691,8 +703,6 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
->  	/* ensure no writes happen before the uCode is fully written */
->  	wmb();
->  
-> -	a6xx_rpmh_stop(gmu);
-> -
->  err:
->  	if (!IS_ERR_OR_NULL(pdcptr))
->  		iounmap(pdcptr);
-> @@ -852,19 +862,15 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
->  	else
->  		gmu_write(gmu, REG_A6XX_GMU_GENERAL_7, 1);
->  
-> -	if (state == GMU_WARM_BOOT) {
-> -		ret = a6xx_rpmh_start(gmu);
-> -		if (ret)
-> -			return ret;
-> -	} else {
-> +	ret = a6xx_rpmh_start(gmu);
+> +	dev_err_ratelimited(gmu->dev, "fenced register write (0x%x) fail\n",
+> +			offset);
+> +
+> +	return -ETIMEDOUT;
+> +}
+> +
+> +int a6xx_fenced_write(struct a6xx_gpu *a6xx_gpu, u32 offset, u64 value, u32 mask, bool is_64b)
+> +{
+> +	int ret;
+> +
+> +	ret = fenced_write(a6xx_gpu, offset, lower_32_bits(value), mask);
 > +	if (ret)
 > +		return ret;
 > +
-> +	if (state == GMU_COLD_BOOT) {
->  		if (WARN(!adreno_gpu->fw[ADRENO_FW_GMU],
->  			"GMU firmware is not loaded\n"))
->  			return -ENOENT;
->  
-> -		ret = a6xx_rpmh_start(gmu);
-> -		if (ret)
-> -			return ret;
-> -
->  		ret = a6xx_gmu_fw_load(gmu);
->  		if (ret)
->  			return ret;
-> @@ -1046,6 +1052,8 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
->  
->  	/* Reset GPU core blocks */
->  	a6xx_gpu_sw_reset(gpu, true);
+> +	if (!is_64b)
+> +		return 0;
 > +
-> +	a6xx_rpmh_stop(gmu);
+> +	ret = fenced_write(a6xx_gpu, offset + 1, upper_32_bits(value), mask);
+
+no need for a separate ret assignment.
+
+> +
+> +	return ret;
+> +}
+> +
+>  static inline bool _a6xx_check_idle(struct msm_gpu *gpu)
+>  {
+>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> @@ -86,7 +147,7 @@ static void a6xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>  	/* Update HW if this is the current ring and we are not in preempt*/
+>  	if (!a6xx_in_preempt(a6xx_gpu)) {
+>  		if (a6xx_gpu->cur_ring == ring)
+> -			gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
+> +			a6xx_fenced_write(a6xx_gpu, REG_A6XX_CP_RB_WPTR, wptr, BIT(0), false);
+
+I can't stop but notice that we don't handle a6xx_fenced_write() errors.
+Is it fine? Or will it result in some sort of crash / reset?
+
+>  		else
+>  			ring->restore_wptr = true;
+>  	} else {
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> index 9201a53dd341bf432923ffb44947e015208a3d02..2be036a3faca58b4b559c30881e4b31d5929592a 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -291,5 +291,6 @@ int a6xx_gpu_state_put(struct msm_gpu_state *state);
+>  
+>  void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_off);
+>  void a6xx_gpu_sw_reset(struct msm_gpu *gpu, bool assert);
+> +int a6xx_fenced_write(struct a6xx_gpu *gpu, u32 offset, u64 value, u32 mask, bool is_64b);
+>  
+>  #endif /* __A6XX_GPU_H__ */
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> index 3b17fd2dba89115a8e48ba9469e52e4305b0cdbb..5b0fd510ff58d989ab285f1a2497f6f522a6b187 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> @@ -41,7 +41,7 @@ static inline void set_preempt_state(struct a6xx_gpu *gpu,
 >  }
 >  
->  static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> index b2d4489b40249b1916ab4a42c89e3f4bdc5c4af9..034f1b4e5a3fb9cd601bfbe6d06d64e5ace3b6e7 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> @@ -117,6 +117,12 @@ struct a6xx_gmu {
+>  /* Write the most recent wptr for the given ring into the hardware */
+> -static inline void update_wptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+> +static inline void update_wptr(struct a6xx_gpu *a6xx_gpu, struct msm_ringbuffer *ring)
+>  {
+>  	unsigned long flags;
+>  	uint32_t wptr;
+> @@ -51,7 +51,7 @@ static inline void update_wptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>  	if (ring->restore_wptr) {
+>  		wptr = get_wptr(ring);
 >  
->  	struct qmp *qmp;
->  	struct a6xx_hfi_msg_bw_table *bw_table;
-> +
-> +/* To check if we can trigger sleep seq at PDC. Cleared in a6xx_rpmh_stop() */
-> +#define GMU_STATUS_FW_START	0
-> +/* To track if PDC sleep seq was done */
-> +#define GMU_STATUS_PDC_SLEEP	1
-> +	unsigned long status;
->  };
+> -		gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
+> +		a6xx_fenced_write(a6xx_gpu, REG_A6XX_CP_RB_WPTR, wptr, BIT(0), false);
 >  
->  static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
+>  		ring->restore_wptr = false;
+>  	}
+> @@ -172,7 +172,7 @@ void a6xx_preempt_irq(struct msm_gpu *gpu)
+>  
+>  	set_preempt_state(a6xx_gpu, PREEMPT_FINISH);
+>  
+> -	update_wptr(gpu, a6xx_gpu->cur_ring);
+> +	update_wptr(a6xx_gpu, a6xx_gpu->cur_ring);
+>  
+>  	set_preempt_state(a6xx_gpu, PREEMPT_NONE);
+>  
+> @@ -268,7 +268,7 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
+>  	 */
+>  	if (!ring || (a6xx_gpu->cur_ring == ring)) {
+>  		set_preempt_state(a6xx_gpu, PREEMPT_FINISH);
+> -		update_wptr(gpu, a6xx_gpu->cur_ring);
+> +		update_wptr(a6xx_gpu, a6xx_gpu->cur_ring);
+>  		set_preempt_state(a6xx_gpu, PREEMPT_NONE);
+>  		spin_unlock_irqrestore(&a6xx_gpu->eval_lock, flags);
+>  		return;
+> @@ -302,13 +302,13 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
+>  
+>  	spin_unlock_irqrestore(&ring->preempt_lock, flags);
+>  
+> -	gpu_write64(gpu,
+> -		REG_A6XX_CP_CONTEXT_SWITCH_SMMU_INFO,
+> -		a6xx_gpu->preempt_smmu_iova[ring->id]);
+> +	a6xx_fenced_write(a6xx_gpu,
+> +		REG_A6XX_CP_CONTEXT_SWITCH_SMMU_INFO, a6xx_gpu->preempt_smmu_iova[ring->id],
+> +		BIT(1), true);
+>  
+> -	gpu_write64(gpu,
+> +	a6xx_fenced_write(a6xx_gpu,
+>  		REG_A6XX_CP_CONTEXT_SWITCH_PRIV_NON_SECURE_RESTORE_ADDR,
+> -		a6xx_gpu->preempt_iova[ring->id]);
+> +		a6xx_gpu->preempt_iova[ring->id], BIT(1), true);
+>  
+>  	a6xx_gpu->next_ring = ring;
+>  
+> @@ -328,7 +328,7 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
+>  	set_preempt_state(a6xx_gpu, PREEMPT_TRIGGERED);
+>  
+>  	/* Trigger the preemption */
+> -	gpu_write(gpu, REG_A6XX_CP_CONTEXT_SWITCH_CNTL, cntl);
+> +	a6xx_fenced_write(a6xx_gpu, REG_A6XX_CP_CONTEXT_SWITCH_CNTL, cntl, BIT(1), false);
+>  }
+>  
+>  static int preempt_init_ring(struct a6xx_gpu *a6xx_gpu,
 > 
 > -- 
 > 2.50.1
