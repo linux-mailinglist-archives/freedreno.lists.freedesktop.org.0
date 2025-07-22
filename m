@@ -2,88 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3380B0D2B8
-	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 09:23:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93837B0D4CB
+	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 10:38:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C05610E5FD;
-	Tue, 22 Jul 2025 07:23:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61E2010E62C;
+	Tue, 22 Jul 2025 08:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dvLq0ini";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BoVWvkHA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA65C10E5FC
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:23:54 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56M3CpcZ030100
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:23:54 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0650010E62F
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 08:38:14 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56M7LExU015188
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 08:38:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jEdBY03qFvh1fXbNADBz8i4gZfJxuCQnbh3vgnGp/88=; b=dvLq0inii3Od0ClI
- J6ur1tntciApdBWmuYfeNo/67ljujTZKIShJ+ZgW4YNfjFRVMWhhgC90Y2EsOUVD
- O8NiClFF79ORn+mdI5dOH1dSeZM9HZthC1yYN/lrOz+Iim363f/whY2K9iQsXVyN
- K35omPkGw3Ubk7tLBMznf2XXEM6iHsLxA7DYkZvUzWkDIZ9/UYw9y+cPNrDazlVp
- xWt4Xlnt5gi/Rq5LosSj53pczPkvD2kenR3OkBpNEqvflrTImogIFP2dP+lTTA5/
- rXYtD1ejbMujgflv6aJMdPGxtrjabsZJU9cGa0cbInUtQfU9A/RC38j7RsrQ8CqB
- +7vpDQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48048tgeff-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=1LN3juNr35Nerg/PZAItQ7sh
+ /peCDRI4YAsD2qwMZyw=; b=BoVWvkHAGvdAI4rzH7r1eOMj16IDjtqa4Ny/iBq+
+ mwlDIczIE1TwFupSa1JXzY8AWNzdlKSQY+kkxCOFOZiGfZpkCxbUnjdP6Ie6J75I
+ aDS46WDDUjsAL08I9iJyVSvdz0UqXSxx2TBpTrCGaNtYvWqMjuiDA9IQ34yZBwYp
+ Pc/+E3AAvKXl6JwXRqZXWzdPr82LHGc9+wOKc4Qayh3nMELJ2qlpjr9LX3Kv0ik6
+ E8bKze18XmZJgAtwgKCk2EXECWMnKR1qWv3usaIlgwQw/r4T6bdbAmVJgNjlWzQk
+ PMfmjttFiIhSKnyBKOYL8pk+qolWY5Oosb3qmA8+bzKAvg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 481t6w1vp3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:23:53 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-31cb5c86189so103662a91.2
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 00:23:53 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 08:38:13 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-7ceb5b5140eso930554685a.2
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 01:38:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753169032; x=1753773832;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jEdBY03qFvh1fXbNADBz8i4gZfJxuCQnbh3vgnGp/88=;
- b=pxdwWj2QNTzG23GG+C7xS0dhbrdtXb+PRx/ClNRCTh5LEBWqcDj45mp6aYz+Sce7B7
- eNtFX/B2LiU4c3JbqCobFMDAhrNRTme1s3iubPHI35iM7XcxlTQgAqaqp4x9QCo72P2D
- KtJMaH7OmvgZgukK6NqTFo22AeImTVZpuG/g8SnQGr3SkRz+S8oy5/SaTBBP3Ekpap0S
- ST8DYqA/Z8yDW8QN33l9p01X4uONvjjXg+UQ7XAntmYtNXNoewBe/FSnrmKow6vMAuNo
- kPbupj+37DXVnwWkuaqHauGWXqVr2iF2t5rASljPiQ2NlUQAcoS50oe7kSc8IUAZ2XTD
- e/aA==
+ d=1e100.net; s=20230601; t=1753173492; x=1753778292;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1LN3juNr35Nerg/PZAItQ7sh/peCDRI4YAsD2qwMZyw=;
+ b=C034he7ii7/9ycHrhXtlIRGEuvgIgt+jVH4TpmFxhok5nSFSpZ0Qrj4eN5d+HrtdY3
+ mfxwZ/ORdH+V8E+1ayA7lYZyS6jZeC+gnxncIC5OCTMiJKSlwtwRqPAz1UzstgW/MeCT
+ QdjUtI7KucuQlzaCmivRKJw8Lj7JPLnJbzIJL79jLJMWaM87MNeb8fJTkD1RmZOz5Idd
+ teI4Z5CLHA+LPSuIvwvVUGkzTVTog4OUzzSvGQPwR3bRZ3QlkyIvfkwO4+QvapVHHVVc
+ 7tP+EVgkC+cmpNwxtPH9oGlqTa4Tb8TWNTfp5eF/i+97+9LdviQDE/NkmhRUcOkN4/Y0
+ dHbQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW0AjKGwFPZujsWvzukkKB8ZR0akU4pG1TuZq/4qNjxmNbX0nHBXBEAqVi30Qv6QkGdTiT7fF/7hQc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw71YsPkgdBASvrBB+pbDa69J15XC2nq/TryEO0c4aqFgfpFsYe
- uDDX+h5pVXdRjKn8k6g5BAiNAm+NSIfR5r16UqITFOPI7ZSV2XTuObCT0BQPc2R0r9JORB2vy+P
- gQ9qrslBj6/7DCKa/QP6qHynmG31TBd68lQSY8ZLVzuDjLFXd88BQIh+YLy5rFd6eN4MybCg=
-X-Gm-Gg: ASbGncscQAPcEjF7MQRSynJlGL7+76lr4srE9p0ruJL9PazWeCcwszAdLljjBXaOUDD
- qXCPqob1mNRFnEWN/+yrJpKZH2hUbUy/e7Mlvt4ln4xl4tymQRTemQPWNq/qwUIucaY0xXUQoK6
- SoTtoewJMep76f+SfzaLHJIAVP4ft0AiAg6nEQQ2PdWPWmkht52vxUPpJkdCcjs8scGZrevIZRJ
- IOsrsBwxwdB1lCDzP+oBvNmtS0cPrzKWuee+5ypdvkFmComJJDTqWOHZciC8ucuHYgYWoBCe16C
- MNhcaSe77PO8Dkwv1ssMWrfI7g80SF/5dqMn0Xh32rWf0DkMxm+1CdWOhNuyCXCe97sZGQ5UcBm
- aC5V0VbY3S2un4hcp7B2ShSl3C1IjADgTM+ci0Hf/hsWs3QFGxWnBphX+
-X-Received: by 2002:a17:90b:3f8d:b0:312:e76f:520f with SMTP id
- 98e67ed59e1d1-31c9e79d7c3mr14629914a91.8.1753169032285; 
- Tue, 22 Jul 2025 00:23:52 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF1XLfN2mY2sAshzziXsRcvI50Gk1XCHtzF71muk5tiUDPXXOn3B74zKxnqYqovSxD5Tf54Vg==
-X-Received: by 2002:a17:90b:3f8d:b0:312:e76f:520f with SMTP id
- 98e67ed59e1d1-31c9e79d7c3mr14629887a91.8.1753169031768; 
- Tue, 22 Jul 2025 00:23:51 -0700 (PDT)
-Received: from sziotdisp01-gv.qualcomm.com.ap.qualcomm.com
- (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+ AJvYcCU2ApdDJma59VKHwX+j7uZzsdSZDkKkBFcfyiFvbCUwRhskSuBt3NcqGp7QQD93gBVmHfR1+/fXajw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyZazhDIH37kVa86sdP7ZYUlkJwA4CflClnIe60GhCHBDEvs64n
+ x5bPFsjY+ax9S72yc2SYTLA6U/a5gORAkaXKCfhB61PcdHbXoLtgnnvRE9BO/aaZo4QMohDwQ3u
+ InPoYQjeXGsLhynKva46hJpoxqPkP8RWxZ189NKALz8g+Yvuhpp6RfpW0uRpJ5wNkLp85ci8=
+X-Gm-Gg: ASbGncsonrcA1FEFfY1/k/H+2+B4rVy/U2Z1mQ9mNy7Xi8Xs9f7dMFQcRR5fp6Ve/zn
+ Zhd/ionfvMhGnrSOBX8GO1+9paH7XyDEugGakNBYW1bW6+297xxotjTb1ojoLkld022z6P8QFn1
+ QLY/OesJZSljApgmQhclwxVh/PHWzzO+tpYYhDKBOXRMmnN4fU4LsoDhyUx8aMCh4on8Ygb17un
+ fKZs2LQGAPwzzlKeD1R0az4lvv7R2ZYHas+NtnVOlT5+NJ4g8FqcTB8Sng1YJP8RwBOyVSIBUKC
+ 7l5mrCvbrSOwiutHq9POIjCh0UyttvEau3JL28c1QluYn3u7X15EZ3G6eGYOBO31KBs1pQtVNnx
+ WNJ9cbG354pPPBr2spPCdPiHFvqCh8pZKiwGNlVeYVWVWmXQLJCir
+X-Received: by 2002:a05:620a:406:b0:7e3:4413:e493 with SMTP id
+ af79cd13be357-7e34413e881mr2290740785a.59.1753173491880; 
+ Tue, 22 Jul 2025 01:38:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHFbsL3wu7P/XdnVzAH3W4UCqCA/Ov1LUyaPJbXnyrUZTuDLtE4QZ32mMPQ6V1IvABbTSx6EA==
+X-Received: by 2002:a05:620a:406:b0:7e3:4413:e493 with SMTP id
+ af79cd13be357-7e34413e881mr2290739285a.59.1753173491349; 
+ Tue, 22 Jul 2025 01:38:11 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31cc3e45e6csm7490753a91.3.2025.07.22.00.23.45
+ 2adb3069b0e04-55a4ba29d2esm101582e87.59.2025.07.22.01.38.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Jul 2025 00:23:51 -0700 (PDT)
-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-Date: Tue, 22 Jul 2025 15:22:14 +0800
-Subject: [PATCH v2 13/13] drm/msm/dp: Add support for lane mapping
- configuration
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250722-add-displayport-support-for-qcs615-platform-v2-13-42b4037171f8@oss.qualcomm.com>
-References: <20250722-add-displayport-support-for-qcs615-platform-v2-0-42b4037171f8@oss.qualcomm.com>
-In-Reply-To: <20250722-add-displayport-support-for-qcs615-platform-v2-0-42b4037171f8@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Tue, 22 Jul 2025 01:38:10 -0700 (PDT)
+Date: Tue, 22 Jul 2025 11:38:08 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
@@ -96,43 +89,44 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
- fange.zhang@oss.qualcomm.com, quic_lliu6@quicinc.com,
- quic_yongmou@quicinc.com, Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1753168938; l=11603;
- i=xiangxu.yin@oss.qualcomm.com; s=20241125; h=from:subject:message-id;
- bh=1od1x0khFrwfMLUnR4xw/dFXf07Vmo4IXF/QPtNukLQ=;
- b=22uwtEHDknol6p+guCL6gTd6/l2boxMJtMRJfEpMolrKz8FrRthhJTl+UL9Si1r9s6y8ujyon
- 3n8olREt5hfCEJWY7gDOhY7d5cMoGyNH1qXBbZus8RiMNOYEqQMIylx
-X-Developer-Key: i=xiangxu.yin@oss.qualcomm.com; a=ed25519;
- pk=F1TwipJzpywfbt3n/RPi4l/A4AVF+QC89XzCHgZYaOc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDA1OSBTYWx0ZWRfX1vLkQbLvx2iW
- MEPJumHu7OwIP9Ot9sSuzlFZXo+9dILSMZjm9dNCPmn0gZOUcJKUF8QehrL++z1eXTJx2nJjRUa
- Bfq/eJhG6DLmGrAPt4nfK5bV3SmtiHfDa5n+NXsVyzWXMp8E5x3GPeM2w3S3GEJs0RD81/ERsPy
- RszL6hbmIqpZR3aTKgB/VCcn53L3GoWQHw5oxsWksGr1R4A2ZmihMcicPbjjnU6LOcpbQUErjqb
- Nty/4hzCL6bZAm0C4sojU/R5WCq8LdLUJSASsnWzcFRCXE8MJmEkftuBR6m4CubYeTXmfQIvAvR
- FKb72V83pzxNcdMcao3RR+5wcAKBWQPHlwO9vZV9ODNyyBdWMYD943pXzf5wtf/CBjb8Iw0ve5C
- mT8OPQqbcMwTDXkgZIvE3bGeYf/4DfTL3HqPz+z0pLqh45y/wxLNAEg7a2E1KTaOcDI8570Y
-X-Authority-Analysis: v=2.4 cv=Jb68rVKV c=1 sm=1 tr=0 ts=687f3c89 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=NfoP-xiufhIyd-I1U-kA:9
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: FmvOo9l5WezADhLSeeQjo6GiDur3Ld0F
-X-Proofpoint-ORIG-GUID: FmvOo9l5WezADhLSeeQjo6GiDur3Ld0F
+ konrad.dybcio@oss.qualcomm.com, fange.zhang@oss.qualcomm.com,
+ quic_lliu6@quicinc.com, quic_yongmou@quicinc.com
+Subject: Re: [PATCH v2 02/13] dt-bindings: phy: Add binding for QCS615
+ standalone QMP DP PHY
+Message-ID: <jemfu5sy7k4a2iar55im5bhyhxzlrwpftmpqmps3b2tco7r6a2@oodls7gi45yy>
+References: <20250722-add-displayport-support-for-qcs615-platform-v2-0-42b4037171f8@oss.qualcomm.com>
+ <20250722-add-displayport-support-for-qcs615-platform-v2-2-42b4037171f8@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250722-add-displayport-support-for-qcs615-platform-v2-2-42b4037171f8@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=SPpCVPvH c=1 sm=1 tr=0 ts=687f4df5 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Wb1JkmetP80A:10 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=BMzRNCE2on2YpiivjS8A:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDA3MSBTYWx0ZWRfX226etD4uUil/
+ oOohMlr6aJhLDf1x3T8La09rfjEHBZm2d3dKhXYAu7mCQdRTuVVUigL3q0IIJRe7ilalQuhYyGC
+ VzCJsoFNCSpDAOcZTaUgEs1r+Pk0P0wthCB/tyzDe67172r2Uvap0Wq5a2t3e9n6cOT5ol4/ZGy
+ tj4+ZDlGrwRZF3ktz+kkhsS6juwaJlC5CsjZIIZWG86TPAHZB0HSy48ErQO9Cs5Q8TOB6VQyxUY
+ YI5UCBamImeANeivzHQyUQ6hgB1WYefwwEZUnjavWHDvT9l9zvTunowixa9bQEL0khdIUEMTwbE
+ ZpUESjXChL09NjLM0Vnu9QpcA57XKrspfuCPXScrQMUdcyGbKnNHKjGr7XYJ2epXB2ASrRjqX01
+ B2miXGSbRwHrGDjJq+dP5ZzgVrFuUMFmNzZK2WgHC6qN+neeFcMbnf8TDUmDJhqy2YgrL61X
+X-Proofpoint-ORIG-GUID: pINasE36JINXt1RorZusQ9EnGm1mxtRf
+X-Proofpoint-GUID: pINasE36JINXt1RorZusQ9EnGm1mxtRf
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-22_01,2025-07-21_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 adultscore=0 priorityscore=1501 clxscore=1015 phishscore=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 malwarescore=0 mlxscore=0
- spamscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507220059
+ spamscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
+ mlxscore=0 bulkscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507220071
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,346 +142,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since max_dp_lanes and max_dp_link_rate are link-specific parameters,
-move their parsing from dp_panel to dp_link for better separation
-of concerns.
+On Tue, Jul 22, 2025 at 03:22:03PM +0800, Xiangxu Yin wrote:
+> Introduce device tree binding documentation for the Qualcomm QMP DP PHY
+> on QCS615 SoCs. This PHY supports DisplayPort functionality and is
+> designed to operate independently from the USB3 PHY.
+> 
+> Unlike combo PHYs found on other platforms, the QCS615 DP PHY is
+> standalone and does not support USB/DP multiplexing. The binding
+> describes the required clocks, resets, TCSR configuration, and clock/PHY
+> cells for proper integration.
 
-Add lane mapping configuration for the DisplayPort (DP) controller on
-the QCS615 platform.
+Simply put: no, this is not correct. Even if you go to the SM6150 block
+diagram, it points out that DP uses the USB3 PHY, not a separate DP PHY.
 
-QCS615 platform requires non-default logical-to-physical lane mapping
-due to its unique hardware routing. Unlike the standard mapping sequence
-<0 1 2 3>, QCS615 uses <3 2 0 1>, which necessitates explicit
-configuration via the data-lanes property in the device tree. This
-ensures correct signal routing between the DP controller and PHY.
+I thought that we have discussed it beforehand.
 
-The DP PHY supports polarity inversion (PN swap) but does not support
-lane swapping. Therefore, lane mapping should be handled in the DP
-controller domain using REG_DP_LOGICAL2PHYSICAL_LANE_MAPPING.
+I can quote my comment from the previous thread:
 
-Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c  | 10 ++---
- drivers/gpu/drm/msm/dp/dp_link.c  | 71 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_link.h  |  5 +++
- drivers/gpu/drm/msm/dp/dp_panel.c | 78 +++++----------------------------------
- drivers/gpu/drm/msm/dp/dp_panel.h |  3 --
- 5 files changed, 90 insertions(+), 77 deletions(-)
+>> No. It means replacing extending existing entries with bigger reg and
+>> #phy-cells = <1>. The driver must keep working with old node definitions
+>> as is to ensure backwards compatibility. New nodes should make it
+>> register two PHYs (USB3 and DP). On the driver side modify generic code
+>> paths, all platforms supported by the driver should be able to support
+>> USB3+DP combination.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index c42fd2c17a328f6deae211c9cd57cc7416a9365a..cbcc7c2f0ffc4696749b6c43818d20853ddec069 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -423,13 +423,13 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
- 
- static void msm_dp_ctrl_lane_mapping(struct msm_dp_ctrl_private *ctrl)
- {
--	u32 ln_0 = 0, ln_1 = 1, ln_2 = 2, ln_3 = 3; /* One-to-One mapping */
-+	u32 *lane_map = ctrl->link->lane_map;
- 	u32 ln_mapping;
- 
--	ln_mapping = ln_0 << LANE0_MAPPING_SHIFT;
--	ln_mapping |= ln_1 << LANE1_MAPPING_SHIFT;
--	ln_mapping |= ln_2 << LANE2_MAPPING_SHIFT;
--	ln_mapping |= ln_3 << LANE3_MAPPING_SHIFT;
-+	ln_mapping = lane_map[0] << LANE0_MAPPING_SHIFT;
-+	ln_mapping |= lane_map[1] << LANE1_MAPPING_SHIFT;
-+	ln_mapping |= lane_map[2] << LANE2_MAPPING_SHIFT;
-+	ln_mapping |= lane_map[3] << LANE3_MAPPING_SHIFT;
- 
- 	msm_dp_write_link(ctrl, REG_DP_LOGICAL2PHYSICAL_LANE_MAPPING,
- 			ln_mapping);
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index 66e1bbd80db3a28f5f16d083486752007ceaf3f7..7c7a4aa584eb42a0ca7c6ec45de585cde8639cb4 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -6,12 +6,14 @@
- #define pr_fmt(fmt)	"[drm-dp] %s: " fmt, __func__
- 
- #include <drm/drm_device.h>
-+#include <drm/drm_of.h>
- #include <drm/drm_print.h>
- 
- #include "dp_reg.h"
- #include "dp_link.h"
- #include "dp_panel.h"
- 
-+#define DP_LINK_RATE_HBR2      540000 /* kbytes */
- #define DP_TEST_REQUEST_MASK		0x7F
- 
- enum audio_sample_rate {
-@@ -37,6 +39,7 @@ struct msm_dp_link_request {
- 
- struct msm_dp_link_private {
- 	u32 prev_sink_count;
-+	struct device *dev;
- 	struct drm_device *drm_dev;
- 	struct drm_dp_aux *aux;
- 	struct msm_dp_link msm_dp_link;
-@@ -1210,10 +1213,73 @@ u32 msm_dp_link_get_test_bits_depth(struct msm_dp_link *msm_dp_link, u32 bpp)
- 	return tbd;
- }
- 
-+static u32 msm_dp_link_link_frequencies(struct device_node *of_node)
-+{
-+	struct device_node *endpoint;
-+	u64 frequency = 0;
-+	int cnt;
-+
-+	endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
-+	if (!endpoint)
-+		return 0;
-+
-+	cnt = of_property_count_u64_elems(endpoint, "link-frequencies");
-+
-+	if (cnt > 0)
-+		of_property_read_u64_index(endpoint, "link-frequencies",
-+					   cnt - 1, &frequency);
-+	of_node_put(endpoint);
-+
-+	do_div(frequency,
-+	       10 * /* from symbol rate to link rate */
-+	       1000); /* kbytes */
-+
-+	return frequency;
-+}
-+
-+static int msm_dp_link_parse_dt(struct msm_dp_link *msm_dp_link)
-+{
-+	struct msm_dp_link_private *link;
-+	struct device_node *of_node;
-+	int cnt;
-+	u32 lane_map[DP_MAX_NUM_DP_LANES] = {0};
-+
-+	link = container_of(msm_dp_link, struct msm_dp_link_private, msm_dp_link);
-+	of_node = link->dev->of_node;
-+
-+	/*
-+	 * data-lanes is the property of msm_dp_out endpoint
-+	 */
-+	cnt = drm_of_get_data_lanes_count_ep(of_node, 1, 0, 1, DP_MAX_NUM_DP_LANES);
-+	if (cnt < 0) {
-+		/* legacy code, data-lanes is the property of mdss_dp node */
-+		cnt = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
-+	}
-+
-+	if (cnt > 0) {
-+		struct device_node *endpoint;
-+
-+		msm_dp_link->max_dp_lanes = cnt;
-+		endpoint = of_graph_get_endpoint_by_regs(of_node, 1, -1);
-+		of_property_read_u32_array(endpoint, "data-lanes", lane_map, cnt);
-+	} else {
-+		msm_dp_link->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
-+	}
-+
-+	memcpy(msm_dp_link->lane_map, lane_map, msm_dp_link->max_dp_lanes * sizeof(u32));
-+
-+	msm_dp_link->max_dp_link_rate = msm_dp_link_link_frequencies(of_node);
-+	if (!msm_dp_link->max_dp_link_rate)
-+		msm_dp_link->max_dp_link_rate = DP_LINK_RATE_HBR2;
-+
-+	return 0;
-+}
-+
- struct msm_dp_link *msm_dp_link_get(struct device *dev, struct drm_dp_aux *aux)
- {
- 	struct msm_dp_link_private *link;
- 	struct msm_dp_link *msm_dp_link;
-+	int ret;
- 
- 	if (!dev || !aux) {
- 		DRM_ERROR("invalid input\n");
-@@ -1225,9 +1291,14 @@ struct msm_dp_link *msm_dp_link_get(struct device *dev, struct drm_dp_aux *aux)
- 		return ERR_PTR(-ENOMEM);
- 
- 	link->aux   = aux;
-+	link->dev   = dev;
- 
- 	mutex_init(&link->psm_mutex);
- 	msm_dp_link = &link->msm_dp_link;
- 
-+	ret = msm_dp_link_parse_dt(msm_dp_link);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
- 	return msm_dp_link;
- }
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
-index ba47c6d19fbfacfc58031263e4a2f5a6d9c2c229..b1eb2de6d2a7693f17aa2f256657110af839533d 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.h
-+++ b/drivers/gpu/drm/msm/dp/dp_link.h
-@@ -12,6 +12,7 @@
- #define DS_PORT_STATUS_CHANGED 0x200
- #define DP_TEST_BIT_DEPTH_UNKNOWN 0xFFFFFFFF
- #define DP_LINK_CAP_ENHANCED_FRAMING (1 << 0)
-+#define DP_MAX_NUM_DP_LANES    4
- 
- struct msm_dp_link_info {
- 	unsigned char revision;
-@@ -72,6 +73,10 @@ struct msm_dp_link {
- 	struct msm_dp_link_test_audio test_audio;
- 	struct msm_dp_link_phy_params phy_params;
- 	struct msm_dp_link_info link_params;
-+
-+	u32 lane_map[DP_MAX_NUM_DP_LANES];
-+	u32 max_dp_lanes;
-+	u32 max_dp_link_rate;
- };
- 
- /**
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 15b7f6c7146e1176a80b5c9d25896b1c8ede3aed..ad5d55bf009dbe60e61ca4f4c108116333129203 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -16,9 +16,6 @@
- 
- #define DP_INTF_CONFIG_DATABUS_WIDEN     BIT(4)
- 
--#define DP_MAX_NUM_DP_LANES	4
--#define DP_LINK_RATE_HBR2	540000 /* kbytes */
--
- struct msm_dp_panel_private {
- 	struct device *dev;
- 	struct drm_device *drm_dev;
-@@ -91,6 +88,7 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_panel *msm_dp_panel)
- 	int rc, max_lttpr_lanes, max_lttpr_rate;
- 	struct msm_dp_panel_private *panel;
- 	struct msm_dp_link_info *link_info;
-+	struct msm_dp_link *link;
- 	u8 *dpcd, major, minor;
- 
- 	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
-@@ -105,16 +103,20 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_panel *msm_dp_panel)
- 	major = (link_info->revision >> 4) & 0x0f;
- 	minor = link_info->revision & 0x0f;
- 
-+	link = panel->link;
-+	drm_dbg_dp(panel->drm_dev, "max_lanes=%d max_link_rate=%d\n",
-+		   link->max_dp_lanes, link->max_dp_link_rate);
-+
- 	link_info->rate = drm_dp_max_link_rate(dpcd);
- 	link_info->num_lanes = drm_dp_max_lane_count(dpcd);
- 
- 	/* Limit data lanes from data-lanes of endpoint property of dtsi */
--	if (link_info->num_lanes > msm_dp_panel->max_dp_lanes)
--		link_info->num_lanes = msm_dp_panel->max_dp_lanes;
-+	if (link_info->num_lanes > link->max_dp_lanes)
-+		link_info->num_lanes = link->max_dp_lanes;
- 
- 	/* Limit link rate from link-frequencies of endpoint property of dtsi */
--	if (link_info->rate > msm_dp_panel->max_dp_link_rate)
--		link_info->rate = msm_dp_panel->max_dp_link_rate;
-+	if (link_info->rate > link->max_dp_link_rate)
-+		link_info->rate = link->max_dp_link_rate;
- 
- 	/* Limit data lanes from LTTPR capabilities, if any */
- 	max_lttpr_lanes = drm_dp_lttpr_max_lane_count(panel->link->lttpr_common_caps);
-@@ -173,9 +175,6 @@ int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
- 
- 	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
- 
--	drm_dbg_dp(panel->drm_dev, "max_lanes=%d max_link_rate=%d\n",
--		msm_dp_panel->max_dp_lanes, msm_dp_panel->max_dp_link_rate);
--
- 	rc = msm_dp_panel_read_dpcd(msm_dp_panel);
- 	if (rc) {
- 		DRM_ERROR("read dpcd failed %d\n", rc);
-@@ -648,60 +647,6 @@ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel)
- 	return 0;
- }
- 
--static u32 msm_dp_panel_link_frequencies(struct device_node *of_node)
--{
--	struct device_node *endpoint;
--	u64 frequency = 0;
--	int cnt;
--
--	endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
--	if (!endpoint)
--		return 0;
--
--	cnt = of_property_count_u64_elems(endpoint, "link-frequencies");
--
--	if (cnt > 0)
--		of_property_read_u64_index(endpoint, "link-frequencies",
--						cnt - 1, &frequency);
--	of_node_put(endpoint);
--
--	do_div(frequency,
--		10 * /* from symbol rate to link rate */
--		1000); /* kbytes */
--
--	return frequency;
--}
--
--static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
--{
--	struct msm_dp_panel_private *panel;
--	struct device_node *of_node;
--	int cnt;
--
--	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
--	of_node = panel->dev->of_node;
--
--	/*
--	 * data-lanes is the property of msm_dp_out endpoint
--	 */
--	cnt = drm_of_get_data_lanes_count_ep(of_node, 1, 0, 1, DP_MAX_NUM_DP_LANES);
--	if (cnt < 0) {
--		/* legacy code, data-lanes is the property of mdss_dp node */
--		cnt = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
--	}
--
--	if (cnt > 0)
--		msm_dp_panel->max_dp_lanes = cnt;
--	else
--		msm_dp_panel->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
--
--	msm_dp_panel->max_dp_link_rate = msm_dp_panel_link_frequencies(of_node);
--	if (!msm_dp_panel->max_dp_link_rate)
--		msm_dp_panel->max_dp_link_rate = DP_LINK_RATE_HBR2;
--
--	return 0;
--}
--
- struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux,
- 			      struct msm_dp_link *link,
- 			      void __iomem *link_base,
-@@ -709,7 +654,6 @@ struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux
- {
- 	struct msm_dp_panel_private *panel;
- 	struct msm_dp_panel *msm_dp_panel;
--	int ret;
- 
- 	if (!dev || !aux || !link) {
- 		DRM_ERROR("invalid input\n");
-@@ -729,10 +673,6 @@ struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux
- 	msm_dp_panel = &panel->msm_dp_panel;
- 	msm_dp_panel->max_bw_code = DP_LINK_BW_8_1;
- 
--	ret = msm_dp_panel_parse_dt(msm_dp_panel);
--	if (ret)
--		return ERR_PTR(ret);
--
- 	return msm_dp_panel;
- }
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-index d2cf401506dcbaf553192d5e18c87207337664ab..921a296852d4df65f817665d3e1344f2f7c9ece7 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.h
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-@@ -41,9 +41,6 @@ struct msm_dp_panel {
- 	bool vsc_sdp_supported;
- 	u32 hw_revision;
- 
--	u32 max_dp_lanes;
--	u32 max_dp_link_rate;
--
- 	u32 max_bw_code;
- };
- 
+Looking at the hardware memory maps:
+
+MSM8998: USB3 PHY regs at 0xc010000, DP PHY regs at 0xc011000
+SDM660: USB3 PHY regs at 0xc010000, DP PHY regs at 0xc011000
+QCM2290: USB3 PHY regs at 0x1615000, DP PHY regs at 0x1616000
+SM6115: USB3 PHY regs at 0x1615000, DP PHY regs at 0x1616000
+
+Now:
+SM6150: USB3 PHY regs at 0x88e6000
+        USB3 PHY regs at 0x88e8000, DP PHY regs at 0x88e9000
+
+I do not know, why msm-4.14 didn't describe second USB3 PHY. Maybe you
+can comment on it.
+
+But based on that list, the only special case that we need to handle is
+the first USB3 PHY, which doesn't have a corresponding DP PHY block. But
+it will be handled anyway by the code that implements support for the
+existing DT entries. All other hardware blocks are combo USB+DP PHYs.
+
+Having all of that in mind, please, for v3 patchset implement USB+DP
+support in the phy-qcom-qmp-usbc driver and add the following logic
+that also was requested in v1 review:
+
+>> Not quite. Both USB3 and DP drivers should be calling power_on / _off.
+>> If USB3 is on, powering on DP PHY should fail. Vice versa, if DP is on,
+>> powering on USB should fail.
+
+> 
+> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> ---
+>  .../bindings/phy/qcom,qcs615-qmp-dp-phy.yaml       | 111 +++++++++++++++++++++
+>  1 file changed, 111 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-dp-phy.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..17e37c1df7b61dc2f7aa35ee106fd94ee2829c5f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-dp-phy.yaml
+> @@ -0,0 +1,111 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/qcom,qcs615-qmp-dp-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm QMP PHY controller (DP, QCS615)
+> +
+> +maintainers:
+> +  - Vinod Koul <vkoul@kernel.org>
+> +
+> +description:
+> +  The QMP DP PHY controller supports DisplayPort physical layer functionality
+> +  on Qualcomm QCS615 SoCs. This PHY is independent from USB3 PHY and does not
+> +  support combo mode.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,qcs615-qmp-dp-phy
+> +
+> +  reg:
+> +    maxItems: 4
+> +
+> +  clocks:
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    items:
+> +      - const: cfg_ahb
+> +      - const: ref
+> +
+> +  clock-output-names:
+> +    maxItems: 2
+> +    description:
+> +      Names of the clocks provided by the PHY.
+> +
+> +  qcom,tcsr-reg:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    items:
+> +      - items:
+> +          - description: phandle to TCSR hardware block
+> +          - description: offset of the DP PHY moode register
+> +    description:
+> +      DP PHY moode register present in the TCSR
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  reset-names:
+> +    items:
+> +      - const: phy
+> +
+> +  vdda-phy-supply: true
+> +
+> +  vdda-pll-supply: true
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +    description:
+> +      See include/dt-bindings/phy/phy-qcom-qmp.h
+> +
+> +  "#phy-cells":
+> +    const: 1
+> +    description:
+> +      See include/dt-bindings/phy/phy-qcom-qmp.h
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - clock-output-names
+> +  - qcom,tcsr-reg
+> +  - resets
+> +  - reset-names
+> +  - vdda-phy-supply
+> +  - vdda-pll-supply
+> +  - "#clock-cells"
+> +  - "#phy-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,qcs615-gcc.h>
+> +    #include <dt-bindings/clock/qcom,rpmh.h>
+> +
+> +    phy@88e9000 {
+> +      compatible = "qcom,qcs615-qmp-dp-phy";
+> +      reg = <0x088e9000 0x200>,
+> +            <0x088e9400 0x10c>,
+> +            <0x088e9800 0x10c>,
+> +            <0x088e9c00 0x200>;
+> +
+> +      clocks = <&gcc GCC_AHB2PHY_WEST_CLK>,
+> +               <&gcc GCC_USB3_SEC_CLKREF_CLK>;
+> +      clock-names = "cfg_ahb", "ref";
+> +      clock-output-names = "dp_phy_link_clk", "dp_phy_vco_div_clk";
+> +
+> +      qcom,tcsr-reg = <&tcsr 0xb24c>;
+> +
+> +      resets = <&gcc GCC_USB3_DP_PHY_SEC_BCR>;
+> +      reset-names = "phy";
+> +
+> +      vdda-phy-supply = <&vreg_l11a>;
+> +      vdda-pll-supply = <&vreg_l5a>;
+> +
+> +      #clock-cells = <1>;
+> +      #phy-cells = <1>;
+> +    };
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
