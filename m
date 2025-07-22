@@ -2,120 +2,121 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B71ECB0E59C
-	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 23:38:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBC2FB0E5AA
+	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 23:41:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F7E210E719;
-	Tue, 22 Jul 2025 21:38:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C06DF10E719;
+	Tue, 22 Jul 2025 21:41:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kOt82l1N";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EFU09Jt6";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 046DB10E274
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 21:37:59 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56MKTPqc030717
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 21:37:59 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F46510E06F
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 21:41:11 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56MKTLDP026556
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 21:41:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- LxLJaMV7OXItal3Gz6wp6eY7p9oi9m5tlAOw82q3OnA=; b=kOt82l1NSr5ROuW3
- bSRdVdcSuPIGn/CQpDL7Cx3fTxSls+G/0PFu4oe+S7YnGvMzsnExL4A2JYMuU6j/
- FpvKW74RW5VJNw575g/fa5OHg38/3bjnCLhQ9fZNx7vmPUJkkpOpTQE3zXv6VPnz
- Ox7s1+WZOzueyqBvjnvUEaHWgF9g/i7VCJ1m5lRBeJsmaM6PHvDITBqnvDHWLU2k
- 96ZQQQtrTtFQcIRLXh4qeBuRX5n2KAJgv40GtHJ+TaW7+2l+TjEgmdc05mrlSr3/
- eymp38UdfXg+FzSt6ZG3W1mEcedKzdh76t6gRHVvPoENyJ6tI4HvohhnFT8UjhFZ
- IFBzfQ==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48048v988t-1
+ jjqeRMS/46ph8PMRqSc+j1jHH5fh1ltcyKMQO/fuhWo=; b=EFU09Jt6AD+YRXLL
+ pLgqiVq0wEeKhRgF5abY5Z0yiZHrPlHbor7i2DdETV0Z3EXMDY/qc51RT/cEOjvx
+ MktNxllr1DW/6HMysgzyNTIYJ+k9kOCUiVeka24JsXhrX/tTvUUlygbRKQhAsM97
+ 0eW6nYR8woBJK9Kewf2BSSyLHigkdwDiAoLDe5TzznK9szmnksJrskPoFNJXmMnk
+ yZoNDUyzXJXDHrskBoAmo3Kk07ePvld60vV92H0XUmXRIb8yiB0CWNU75FM0C5EW
+ 4ajn/hULaAumpB0Tp2AgpsA+NnvRAr/cx1DeQAXfBlts45kaJlOZLzkxZlrUld09
+ 69/Ncg==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48047qaydw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 21:37:59 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-74d12fa4619so5258285b3a.0
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 14:37:59 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 21:41:10 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b31f4a9f67cso6752421a12.1
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 14:41:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753220278; x=1753825078;
+ d=1e100.net; s=20230601; t=1753220469; x=1753825269;
  h=content-transfer-encoding:in-reply-to:content-language:from
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=LxLJaMV7OXItal3Gz6wp6eY7p9oi9m5tlAOw82q3OnA=;
- b=rFhXukthrft+fCw4qUpRx7pV/esLr0AQBEYkAoaIJRvYqcBBzm3JDLmrF22dSPSkbs
- nl4QSiu+YJSwolTZtU0AVlboWiZ0vqAFwtX3EdtTOZxuqPo2LZ22SYNixtkPzz+sVZOZ
- 6ALfbU1ml0UcfwbTLRWuKIjimu0UE/DlEiSrsLRH0tvu9cREetHsJzfaWj+mx+BAq+G2
- mOENGeOUCMWKLaRK+LbGb0+fO+ceFDzksU49N1YaG/EU57nu2zT00NXJrHTLGLThyX/B
- +EBQXghJY+yumHr4j2vS67xqhgYZWb9S1CMmJx9RdexIb0IxKPyr+5mzkdEV63YdW/oE
- uBGg==
+ bh=jjqeRMS/46ph8PMRqSc+j1jHH5fh1ltcyKMQO/fuhWo=;
+ b=TPCNnFZUyetwZreeFYGPuGavo1fw9FeSmhTeFYMLdpHkk2nx+kp8XpRP/0gAnRh/v1
+ hFmCJq509pOvmD8cz0squ6PxdEEuzeW9U5zLgLtk/t5q/P7S5tFQYHMmWy/1pZ65CmeM
+ mdEVCYLnElRQiXjMOw+J2dLsv3WFwcnPFwgDz6VpdZPNqiqn7gHkKBHMyPaISo2IFt4I
+ xRZfAf6j5bdEoVfJVOSxHxTR7sTzsUJoRuNv/O5QdUqWzhprtjxEeyFZdhXmFZV4+tcU
+ gGaZEZW1tGe4ZAJKWKMHsZo0aSLVVh5e9ceqyIhADFJH2QrU6F4pzHjHfkeDn/chjKVr
+ FwKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWzpwrH/cSqG88daKkfd+9HMEd/Mbh3wCMsYagxvibfAymrXwZ1yBztbGHTa90k0dg6kHPNU4BqXyw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzqegf2gAFLKe3hP/gOr1Rmd2nAYHTz9jJcusdXG7zDfNFQ3HEW
- Ce7+u/nechdSUgq8Lrg7mP9Q9xFPxlb9aHwvuAtDF3Yt0/pH/+jjem8SSlQ10HOcQ5YMvGCxoSU
- lkGp0b88FXbFFbXkMFJr8qT9E/BcpGL6kPs0msm09Qp2fcPrJwmzQGuD6ZFpySwQFdq2DIKc=
-X-Gm-Gg: ASbGncs9MR9LvCHdEqnTETfMrAm6t/DavaunpZM7aFsYCqTvC3tGfzD5h4c7BMg013D
- gAU/rwyoN3uToIfszmLZrNTXAxYSmH2afv34buXgH61ZcSwrnE2z4OjHTZLNhklKB8XVhmv03pP
- uvMwq1Rxj2SjL54Ae/5OPhP/OR3mAq3w6GDBzbxLoDiHw0kdCVxZnZC6+RePnN0qTvSuwvfR8ku
- 4W8/HV4YxIufzPVhZdx/jabIyQgLxzU+KCprADN12PZ3OXehCDV+WzQdnazhEOKPxEPcmdmGJk/
- QhrKZoKVRiM40VihfgsgBz98HXeT394gCs1X0M2OluPlKbmKrgTN0zRk1wX2UryD
-X-Received: by 2002:a05:6a20:3d88:b0:23d:480d:1c8e with SMTP id
- adf61e73a8af0-23d490f610bmr649751637.27.1753220278605; 
- Tue, 22 Jul 2025 14:37:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHUzh0+F2fFC/OFAdVApFhTjPc/PEurlH2lfCsWMfZmPW8kbCHDDIcYhoLoJAcVU+iy17tT6A==
-X-Received: by 2002:a05:6a20:3d88:b0:23d:480d:1c8e with SMTP id
- adf61e73a8af0-23d490f610bmr649724637.27.1753220278164; 
- Tue, 22 Jul 2025 14:37:58 -0700 (PDT)
+ AJvYcCVac7sw4oA5to8vEVtPLObkqRt50kBZ5/qR5kNmx1PlA15CkQg0ZlYe/Bphx1x5dhFMvUln5KhbrsA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzzPdS++f5EPgTO14rz6fWE16r37RRHXkmHrgtKw4Skm12dh1nS
+ H9q/0oTR918Gs3HQ+oeoWHow40+Z1wrynNj7xhBqEn24HtzphwYJaimCQL5Yr/uwGB9u8NrJiMQ
+ d7msVI6NFskYG92V15BhzV6dLgayhtCcXFKS+oQ46AtLHbDeWrZQGFdxNrbegTheTQqCnS4x+y0
+ 9a37o=
+X-Gm-Gg: ASbGncsuT1VsAXNYD7SVsW0kLtJwBYECweg21+Hzx80TWM+uyefTiHTCDmPZzlmfavM
+ B3MtxlRY0Wc9WF5dc6dR6qOfLkVoPWmRedLDOwi+4EQ+7solqzZH9X7LuYraqxhoqRrJcnf2Ybv
+ wWgw0+HbEIo48Y2XlK0Xn2HKvTzq5AjNQmKhzmM2HL3YAi+r/vUsTlImic2VJZyOdHhJ9/wYd75
+ 5hmnyGqR9yFIuDQ0XiJkLOb4QfqNu5B4LoJdDYgKex3J9UHBFcq1KBuP6YH6T+15GeLxSgoCDIz
+ nvZQ/3Hz84yi9NA3JngL5c1+Nn3Z2vzo7edrns/TQBc6AnNMR/AHb2Lg1JHHze+t
+X-Received: by 2002:a05:6a20:9148:b0:217:ff4b:cc57 with SMTP id
+ adf61e73a8af0-23d4915fb8amr590777637.39.1753220469365; 
+ Tue, 22 Jul 2025 14:41:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFAegiXBmz6me1rwnZXHQKFdO1xAzXIAxFFtINhqI1FUmRxyNoREYp9vqjr22X1YmcsF9Ffmg==
+X-Received: by 2002:a05:6a20:9148:b0:217:ff4b:cc57 with SMTP id
+ adf61e73a8af0-23d4915fb8amr590746637.39.1753220468954; 
+ Tue, 22 Jul 2025 14:41:08 -0700 (PDT)
 Received: from [192.168.1.4] ([106.222.235.133])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f2fe62d9fsm7733090a12.1.2025.07.22.14.37.51
+ d2e1a72fcca58-75ef7510655sm2143552b3a.55.2025.07.22.14.41.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 14:37:57 -0700 (PDT)
-Message-ID: <85073de3-3933-439d-9912-1f0ff145df97@oss.qualcomm.com>
-Date: Wed, 23 Jul 2025 03:07:50 +0530
+ Tue, 22 Jul 2025 14:41:08 -0700 (PDT)
+Message-ID: <02d1fa2a-0faf-44db-a683-53c5a51e09f1@oss.qualcomm.com>
+Date: Wed, 23 Jul 2025 03:11:03 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 16/17] drm/msm/a6xx: Enable IFPC on Adreno X1-85
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
  <20250720-ifpc-support-v1-16-9347aa5bcbd6@oss.qualcomm.com>
- <37nuk4kevhpwlzbpgm4tyhnmk6vi3a75oosz7l7xbvvn7qwq22@oomdnizhc673>
+ <38100984-df2c-4a15-a192-7f38b8671145@oss.qualcomm.com>
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <37nuk4kevhpwlzbpgm4tyhnmk6vi3a75oosz7l7xbvvn7qwq22@oomdnizhc673>
+In-Reply-To: <38100984-df2c-4a15-a192-7f38b8671145@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: k64BfzB1f_d68uuknKJOf7f2eZcWvpVV
-X-Authority-Analysis: v=2.4 cv=SYL3duRu c=1 sm=1 tr=0 ts=688004b7 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=4dphQItTPUswyQvINXrzgA==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=0HPixKO5BHaGtdwfH9wA:9
- a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10 a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDE4NyBTYWx0ZWRfX72w+wxjhKW0Q
- AYCoVur1NkoINDk+urqe355/jTnOAWiTyUbOs9ujiNCpAbVpb1fuYpTo25aUyFV5HIc3Q5Yd4uf
- Ds1aacL8gZ5/zqZ3N8mUr2+AS7VSTVLJZ08PGOpk/NVfKk1g3bRWtnXdn8ktWdmon/Sh01rfe3J
- 7om5hj8ZAbYnoaMREyQkOHFGzdkkWrc8WtG4IffA9/WKr78IflMp8glNjPeygQmL94rCEBV+lxU
- ig/SP1TYcu3LUhS32ZbRpHrkZFHVdhFnlnmcq7r7cF3ZP/AB7RHTCCXUvGDv2WzT1hqR17OiBee
- UTzq4kdQFVnHnUQq5GUypgQ5MFY8sMOH43sybq/85qLkJSpwGdiX1NgFqIcqoQMuYreISAgJ5/X
- 2RO5fZ4O4W+xKPVuJTG7I85JfJHEKFgDaPVjHjTbPiVj/k3uJg/4Chx9QChZZTAenZcMNgu4
-X-Proofpoint-ORIG-GUID: k64BfzB1f_d68uuknKJOf7f2eZcWvpVV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDE4NyBTYWx0ZWRfX056b6T1DYi0a
+ 8vknzRaeGlgKWETt9f0IygdkNM2qX2MSSNBO4O5N3y4MFv8GkSSKsAp9kJ3ColCu2Y/7XThfLG4
+ +A1fYLqHp/eM1d08rjkgunp5SHdhY3Q+0MRlCQItqdi6sb/aSnAT6lPjNGPOJ51wOaZCRhAyVJG
+ VA+uzlaAjKs2OfJk5pziFVcj103g/mAyt2UK11wQyCZSt7OEG9+fEwICM8Cxwei9sY8oL6XNssm
+ /e0Hczu1nvu4gsk0lRF0bM7rnent+nS7BGmYnkJa3EGDRuax4NsInctfhhGommGXGqvPuhTTdoY
+ 7dWpB9JATR70FaQ5Me4wj03xa63Fwqz5y1QadhpFjv6hTBNFmgt2sPNd6wF7JVd471GeZaNM/U7
+ wSrhde4T4sOuOiBp+3E9S7vuyG5O4gAeZcj41hOCO02vTWCciKKII+/cZWQsaoEehab+UYpv
+X-Proofpoint-ORIG-GUID: BdLONjiYR0e9_-IRbR67kEgN7juop4vL
+X-Proofpoint-GUID: BdLONjiYR0e9_-IRbR67kEgN7juop4vL
+X-Authority-Analysis: v=2.4 cv=IrMecK/g c=1 sm=1 tr=0 ts=68800576 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=4dphQItTPUswyQvINXrzgA==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=wgrHQ5V9N6DtgpC36WEA:9
+ a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-22_03,2025-07-22_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 mlxscore=0 bulkscore=0 mlxlogscore=677
- lowpriorityscore=0 phishscore=0 malwarescore=0 spamscore=0 clxscore=1015
- priorityscore=1501 adultscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507220187
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 mlxscore=0 mlxlogscore=614 phishscore=0
+ impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507220187
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,23 +132,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/22/2025 7:25 PM, Dmitry Baryshkov wrote:
-> On Sun, Jul 20, 2025 at 05:46:17PM +0530, Akhil P Oommen wrote:
+On 7/22/2025 8:25 PM, Konrad Dybcio wrote:
+> On 7/20/25 2:16 PM, Akhil P Oommen wrote:
 >> Add the IFPC restore register list and enable IFPC support on Adreno
 >> X1-85 gpu.
-> 
-> Nit: GPU
-> 
-> I can't stop but notice that KGSL enables IFPC for a bigger set of
-> SKUs, starting from a630v2 and a615. Is there a plan to get IFPC
-> supported on those platforms?
-
-Sorry, no access to those hardwares. But I can certainly help if someone
-wants to do that. :)
-
--Akhil.
-
-> 
 >>
 >> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 >> ---
@@ -156,5 +144,36 @@ wants to do that. :)
 >>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
 >>  3 files changed, 78 insertions(+), 5 deletions(-)
 >>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>> index 70f7ad806c34076352d84f32d62c2833422b6e5e..07fcabed472c3b9ca47faf1a8b3f7cf580801981 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>> @@ -1343,6 +1343,69 @@ static const uint32_t a7xx_pwrup_reglist_regs[] = {
+>>  
+>>  DECLARE_ADRENO_REGLIST_LIST(a7xx_pwrup_reglist);
+>>  
+>> +/* Applicable for X185, A750 */
+>> +static const u32 a750_ifpc_reglist_regs[] = {
+>> +	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_0,
+>> +	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_1,
+>> +	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_2,
+>> +	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_3,
+>> +	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_4,
+>> +	REG_A6XX_TPL1_NC_MODE_CNTL,
+>> +	REG_A6XX_SP_NC_MODE_CNTL,
+>> +	REG_A6XX_CP_DBG_ECO_CNTL,
+>> +	REG_A6XX_CP_PROTECT_CNTL,
+>> +	REG_A6XX_CP_PROTECT(0),
+>> +	REG_A6XX_CP_PROTECT(1),
 > 
+> Is it fair to assume that we'd like to saverestore all CP_PROT
+> registers on all SKUs, always? We can save some space in .rodata
+> this way..
+
+Yeah. Makes sense, but lets do that when we duplicate it in future.
+
+-Akhil
+
+> 
+> Konrad
 
