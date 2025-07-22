@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68F42B0DB10
-	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 15:39:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C35E0B0DB29
+	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 15:44:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44A2510E698;
-	Tue, 22 Jul 2025 13:39:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64DAA10E044;
+	Tue, 22 Jul 2025 13:44:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="opGsLQ5t";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Of93aJyQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6201410E698
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:39:35 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56M99F87016274
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:39:34 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7D210E044
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:44:22 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56M8rwVB006230
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:44:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=4w3F0joZHW750KxFalsn9QVx
- Ns0FPKKZPb2uX1yiarA=; b=opGsLQ5tSzq299+AcwZy9AxOaTjfrG7Vq/UQSF0g
- hTPLYon4gdQzd5Hv3rvlsy1dxpv7549YPoSBbF7HXwDnRagGztr1FyBNT4Ki0O1r
- Ib5ompQdFhVzwomnNGgwEKTmt6OCWSFlSXaxphsUH7eEy2HKJwaH80Dk+20bWRRD
- 51NjxrKzOWOhnARKS69h9VSclxz9jS1PpTo55/JUcLsqYdCOCiqJFPghUY5RpWJs
- aeINXIeim2ECvUImYEkdcX4jiqGB+foL7Cyb3s0OaxUx/0uTfkZzyNhCdMsWZSYG
- MtrbCYK9hoQ9a2eWw2yAb3w5dJujpgQkgGTvhPpOv7qBng==
+ :references:subject:to; s=qcppdkim1; bh=/PlvjBmBNhRqz0BnasHFhjw6
+ BKLI8rWtueB1348TmAU=; b=Of93aJyQ8B2IXq//kHIuNs5oNAeHAckqmlzzEHin
+ JB0jbnxK3HwqmVrHsXdArPWFtS5InJJECABp1JqgOORgL/j51qy9VArRt/ZqegY7
+ SRXubWmx6w4Ca6cx60eifdX/A6beIlp2D9WPZSHC3R9A0aI0KRADO8OF3K/uGbg6
+ xnelwe9XrpQ1rA1wqz8L2sclzfUaBBp1hNSBcvmZdzz8PcxkT+6dD9iJfze8djQt
+ chkRh1WJpqmcvOdijECtCl+fHhCvFt7+BgcAVx6TcFLsC2z40n14TNybb1T7L7y4
+ 0Eu76qghAovYfV294L5ZFHuqm1ERp1Dc82PxjHmIcW20Dg==
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
  [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48048s1nc3-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48047q9mrw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:39:34 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 13:44:21 +0000 (GMT)
 Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7e348600cadso720919085a.3
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 06:39:34 -0700 (PDT)
+ af79cd13be357-7e33d32c501so1266507085a.3
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 06:44:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753191573; x=1753796373;
+ d=1e100.net; s=20230601; t=1753191861; x=1753796661;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4w3F0joZHW750KxFalsn9QVxNs0FPKKZPb2uX1yiarA=;
- b=Nw4C0gWF271qCmctuH7oGndKmDvZrgWjH4/PLRVoguzKSX4B5yLagqAiH23kLeLdaW
- pYY/Tr2VvIqywuoIdU6AbkMaExyaEsybm1niGgAsDMTMvPTF5Zz211UMKhh/u0hJAAcj
- q041zFi+MBILo496w6RSszylonj/aefW0Dh4E86l7NIvZ5gy2vFvfy7Lk5tGYXwJP5tv
- 20X1gReY/vHVNnaWFGwyUZQ5E1CINKo5pJ/CrraINz31L6iJSkgU7LG0kHNIu63TqJTP
- 2yw9LxSUbrl4lxDVXflMGLPFqF/vZUID3F5PkAQZLrl9AWIlrh5QC1YPebzA9nIvzmcF
- +wZA==
+ bh=/PlvjBmBNhRqz0BnasHFhjw6BKLI8rWtueB1348TmAU=;
+ b=C6XJrUAkkUti0vVwwgEMIlTRV4xErt2+NEPrKgRTqBRRjgu/Ot3Nc+EyhWACTlQnvj
+ e+yUewQDGFeZHsfZejwrN5GcdMlr4u/NXQpU8QvNf8yZF84sOLLm1xTKfZ02mnHq/7yO
+ tVvlwIFkvGrctNRHTCEnGEPSu5YXAvfBAwrtd0wggvx02pRKmFoTqX4YQyAQXCRCggmk
+ 0dOYyaoB/qI6y7BhVY5AbcBXNhj6DCNiNWs7+kBb4ogE2fFeVCidAp1Rd5OTbG96UBKl
+ Fjb2s+cWcCTOnFi7f4/4sv6Yo7Onp+CiMIktTZTLHN9YyUOR46vB/GmTv+lwq7llSyzY
+ uBYw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWXUPyEpt7ns0LjKmMRgT65WSiD3eaJDaSR+OtStj/517FYBbyE50gWQ+ZLilMDTSMCcdUGaszXymo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0XTgkQYb9MVWDIh/GCmeyhu9azx/z9XxvZlVuoCPSm2/Wggqm
- F9aNjMDyFYeyErPhi08zz6RsqKpq2DXXFauSi3xZXBdpkan2C/nbRGabR1Z1TWCJHwf8hGVegUX
- 63QvFIkkP4ojkbs0AaBJDWKjpNE905QslmoBYNTDpS1wFDTH/e8Pvn5ElLRVnaA65megpHlE=
-X-Gm-Gg: ASbGncvPII3ywANVt2KDyxzMGOHPr+0OKZPjGm0ZUqa+4IDttCIDtmRVAZmLdhs6rSx
- UNHjqseP4EpiNsBPlNPuqNqCxqUZ9RiO7ZT7w1ps28T0AJpHkgNkYvDLfUVj6gFaJQOzwHyWy+/
- BS2BbZdlD86A4rRZCvzkILWqpx5RXCiSLsm33IRN0zA2nR2TTsZ6q9NhADKMu1yC3qjEza76res
- nQNXkKfYe7VjiU+dfS64+na6mLOJ4Zl7ASShxSTlsXpttayT15rTlYhPsJgixrqfQR+X/FCyxEK
- ikzGoVUx+fYE2RoKNXTZNarZBDfRhIj+m1jjV7auMLsb5glA0EKOzSm/0m2mv0IMbNWL0d8a2Db
- n1A+3Z/puVivrzeIZyX6r+cx9PxHEHsiyf64HnHK3OTQ3hj39QMON
-X-Received: by 2002:a05:620a:19a5:b0:7e3:52f6:66e5 with SMTP id
- af79cd13be357-7e352f6672amr2503269185a.35.1753191573285; 
- Tue, 22 Jul 2025 06:39:33 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHWXNAeEBRYm0Qc899vTrFNNPTNnIjLTPXDWYSnbj33m9VCWWBjQI/8iRumSgWsa8P13k24+Q==
-X-Received: by 2002:a05:620a:19a5:b0:7e3:52f6:66e5 with SMTP id
- af79cd13be357-7e352f6672amr2503264185a.35.1753191572771; 
- Tue, 22 Jul 2025 06:39:32 -0700 (PDT)
+ AJvYcCXvXPB6euMn9uQu+u0657ozNvtZdAIGK7I6XaC91d4tO2eB1+Infqw6OUjkQ4nnlsAniSq5ANDLn2Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YztKzGCHxwZU673pJSvy3d57c2sezBRMGBeNJJQVzJlmJRh5wWM
+ qieMDZxwbkmOnPzEH9lreKfMy44/Uv47JsKwb75LBHQgPSwjlk/WQFGBLImSsI9YM+OIkb6v+Iu
+ Mp/NXpnASI81Q4VnPl8mM1vn5ayqUGNiH0r8nEHPmpz0ecM4GdoxXgcW+32PQ7+pY0OWJQFk=
+X-Gm-Gg: ASbGncvqFd3/OaU8PhgOSggIlbSzvBWnqACDNAXzyX7tilaP+3sVgkygVLuDB8g3uSR
+ z/qkb0FfTPZoadyqHG6EW9xZdUhJfoFVwBpD0bqpal4MvCPnw1AdZ+5dSgg2etwXYWnmFdOI4qH
+ NlDxR3PN32Y1u20rzIvbAarH+9glvb6m6OHCkTN5T7r4O0H8ossf80iRcGHFcY67UBDhc0tmrMv
+ rkEfjGMV3KGspUVMCwUOSjJVitXuLj9MD5UyUJmeZBqYMJPEC9DBI7nBaLjESIVwnDmGXoImm3J
+ 6HXjs1kZIgKl8qHdqI84lQuR5alJwSW9ywwZ/qtQnsU69QbxGMxb2yQCiiQm7rEJ6jrdUCcxV7z
+ HOEreqcYp4QRp+jOEuCZy7eCPyQhQpKUw1//ocoCDjlAqJyoio0ig
+X-Received: by 2002:a05:620a:d96:b0:7e6:2167:6fb with SMTP id
+ af79cd13be357-7e6216707e1mr450345185a.57.1753191860624; 
+ Tue, 22 Jul 2025 06:44:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFJYjfAd2lPvfeopVnQTvfIiKF4FZMT25Jj8QNn5OT3bmUYHUVmlPAwFf/7JubdQINFF9syIw==
+X-Received: by 2002:a05:620a:d96:b0:7e6:2167:6fb with SMTP id
+ af79cd13be357-7e6216707e1mr450339985a.57.1753191859973; 
+ Tue, 22 Jul 2025 06:44:19 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-330a91f640csm16330041fa.91.2025.07.22.06.39.31
+ 38308e7fff4ca-330a9109c31sm16373981fa.43.2025.07.22.06.44.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Jul 2025 06:39:31 -0700 (PDT)
-Date: Tue, 22 Jul 2025 16:39:30 +0300
+ Tue, 22 Jul 2025 06:44:17 -0700 (PDT)
+Date: Tue, 22 Jul 2025 16:44:16 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -85,34 +85,34 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 07/17] drm/msm/adreno: Add fenced regwrite support
-Message-ID: <tyjkwrdmsj7k7tkqqxdd65l5v5jxugr5me3ivg5onn3hbffkwp@7uhsbzolqiyd>
+Subject: Re: [PATCH 08/17] drm/msm/a6xx: Set Keep-alive votes to block IFPC
+Message-ID: <jvn44gmttkidyy4emnz6mytqqjbwltlxibywfr6bfbqjfbq35e@fuvvefesqbzw>
 References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
- <20250720-ifpc-support-v1-7-9347aa5bcbd6@oss.qualcomm.com>
+ <20250720-ifpc-support-v1-8-9347aa5bcbd6@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250720-ifpc-support-v1-7-9347aa5bcbd6@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDExMiBTYWx0ZWRfXxOX6LJP2tDes
- Sa0iICo3wsVfEk0In801ia3qq6f6WsvMaLpASLLmjvAWD+leijGac8cNAym5CYwNQPul9Zpgk5A
- wDUvmC+RW7nV5vC7gMdTfWcf1t+Cqd3WQc205kOypqu7/hYZ1PipDr/Ed0ZQTgV4YeykBEWlCkc
- BUF+vpQzz1ksFLSkMFVMaYQ7JjM4nG74qWUD2FnFrdoohJgxfac8lSmzn5d/+FVlWW2VZsJ3xm4
- 96zavNe5s+ccmRiZD795K+dsMOD0idhG5u6/3Rm9TDN5wXz3O6XqiUYTwwB32wf5wuFTlJ0hrSH
- 2l4MZW9TvcM0yHX89PzpPZPCMDOBCVoneaaPRKDWvdHcaeVl9f9rdSafXrM7AiGM9DcbAh+gOc7
- hdDehjUv8bwKYSk+0mz2JAKHAPmgqC9DFfawfl6vcKrmJP6Yf2Dco9OCmkdT/Eie2ewCmwfk
-X-Proofpoint-ORIG-GUID: hC9d1z-Q3qAS2N23JZFruEo_uNTsXMxM
-X-Proofpoint-GUID: hC9d1z-Q3qAS2N23JZFruEo_uNTsXMxM
-X-Authority-Analysis: v=2.4 cv=OPUn3TaB c=1 sm=1 tr=0 ts=687f9496 cx=c_pps
+In-Reply-To: <20250720-ifpc-support-v1-8-9347aa5bcbd6@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDExMiBTYWx0ZWRfX5n2k1Iwkh0WE
+ 5S2pLl3/0JRqfGHt4WytQAUMk+C5BO0gDlNO3JtACum8jYxN2f+E67RlfpYTwGVQVxSoQ8Zts4A
+ Wn5aucrRoQ+fpZlGPy3VAbGvXwIy7F3bMwTQaFEpFIcg4KTf2DIjyshZXHe2fygZJDhdNHzghRx
+ Lr9g2uZ9cQLT6B7bDC3sSKxZ5nQZ+fpHGmANEGdvYf8U+ZWuRM63++0dltiIugTTwYONFLHoqAb
+ ZQOeBHQjx3WhmpQ/jkmka10uo01G0N5lBsqKhsVhcl8WLTq0M+IusROWLIVU+EncvpjK72hv3F1
+ 8CRIzLyz46w75KwRL/DWBqPsEMmsK8Rt2Zb6Ib5KYXzrSeeYBIwYoLoH1FBLeU8xPxQcx9AR6Vu
+ dOZR5yVyKB0zA+07SfxXko4vf8abFqQbaf+z3+UAJw6p8T5rncEugMbUoSdDMBTo2XwHk0CK
+X-Proofpoint-ORIG-GUID: DTAzMyoXlTR8T88Ae3AqpLNU4oeKsyV3
+X-Proofpoint-GUID: DTAzMyoXlTR8T88Ae3AqpLNU4oeKsyV3
+X-Authority-Analysis: v=2.4 cv=IrMecK/g c=1 sm=1 tr=0 ts=687f95b5 cx=c_pps
  a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=A7g6f4VAW18hdwHdu84A:9 a=CjuIK1q_8ugA:10
+ a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=kzfAnjQGA3Um0d4qlLMA:9 a=CjuIK1q_8ugA:10
  a=PEH46H7Ffwr30OY-TuGO:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-22_02,2025-07-21_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 mlxlogscore=999 lowpriorityscore=0 suspectscore=0
- spamscore=0 mlxscore=0 bulkscore=0 priorityscore=1501 phishscore=0
- malwarescore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 mlxscore=0 mlxlogscore=999 phishscore=0
+ impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
  definitions=main-2507220112
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -130,191 +130,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jul 20, 2025 at 05:46:08PM +0530, Akhil P Oommen wrote:
-> There are some special registers which are accessible even when GX power
-> domain is collapsed during an IFPC sleep. Accessing these registers
-> wakes up GPU from power collapse and allow programming these registers
-> without additional handshake with GMU. This patch adds support for this
-> special register write sequence.
+On Sun, Jul 20, 2025 at 05:46:09PM +0530, Akhil P Oommen wrote:
+> Set Keepalive votes at appropriate places to block IFPC power collapse
+> until we access all the required registers. This is required during gpu
+> IRQ handling and also during preemption.
 > 
 > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 63 ++++++++++++++++++++++++++++++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
->  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 20 +++++-----
->  3 files changed, 73 insertions(+), 11 deletions(-)
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 26 +++++++++++++++++---------
+>  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 20 ++++++++++++++++++++
+>  2 files changed, 37 insertions(+), 9 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 491fde0083a202bec7c6b3bca88d0e5a717a6560..8c004fc3abd2896d467a9728b34e99e4ed944dc4 100644
+> index 8c004fc3abd2896d467a9728b34e99e4ed944dc4..6770f0363e7284e4596b1188637a4615d2c0779b 100644
 > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -16,6 +16,67 @@
+> @@ -1752,8 +1752,6 @@ static void a6xx_cp_hw_err_irq(struct msm_gpu *gpu)
 >  
->  #define GPU_PAS_ID 13
->  
-> +static bool fence_status_check(struct msm_gpu *gpu, u32 offset, u32 value, u32 status, u32 mask)
-> +{
-> +	/* Success if !writedropped0/1 */
-> +	if (!(status & mask))
-> +		return true;
-> +
-> +	udelay(10);
-
-Why do we need udelay() here? Why can't we use interval setting inside
-gmu_poll_timeout()?
-
-> +
-> +	/* Try to update fenced register again */
-> +	gpu_write(gpu, offset, value);
-> +	return false;
-> +}
-> +
-> +static int fenced_write(struct a6xx_gpu *a6xx_gpu, u32 offset, u32 value, u32 mask)
-> +{
-> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> +	struct msm_gpu *gpu = &adreno_gpu->base;
-> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-> +	u32 status;
-> +
-> +	gpu_write(gpu, offset, value);
-> +
-> +	/* Nothing else to be done in the case of no-GMU */
-> +	if (adreno_has_gmu_wrapper(adreno_gpu))
-> +		return 0;
-> +
-> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
-> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
-> +		return 0;
-> +
-> +	dev_err_ratelimited(gmu->dev, "delay in fenced register write (0x%x)\n",
-> +			offset);
-> +
-> +	/* Try again for another 1ms before failing */
-> +	gpu_write(gpu, offset, value);
-> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
-> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
-> +		return 0;
-> +
-> +	dev_err_ratelimited(gmu->dev, "fenced register write (0x%x) fail\n",
-> +			offset);
-> +
-> +	return -ETIMEDOUT;
-> +}
-> +
-> +int a6xx_fenced_write(struct a6xx_gpu *a6xx_gpu, u32 offset, u64 value, u32 mask, bool is_64b)
-> +{
-> +	int ret;
-> +
-> +	ret = fenced_write(a6xx_gpu, offset, lower_32_bits(value), mask);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!is_64b)
-> +		return 0;
-> +
-> +	ret = fenced_write(a6xx_gpu, offset + 1, upper_32_bits(value), mask);
-
-no need for a separate ret assignment.
-
-> +
-> +	return ret;
-> +}
-> +
->  static inline bool _a6xx_check_idle(struct msm_gpu *gpu)
+>  static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
 >  {
->  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> @@ -86,7 +147,7 @@ static void a6xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
->  	/* Update HW if this is the current ring and we are not in preempt*/
->  	if (!a6xx_in_preempt(a6xx_gpu)) {
->  		if (a6xx_gpu->cur_ring == ring)
-> -			gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
-> +			a6xx_fenced_write(a6xx_gpu, REG_A6XX_CP_RB_WPTR, wptr, BIT(0), false);
-
-I can't stop but notice that we don't handle a6xx_fenced_write() errors.
-Is it fine? Or will it result in some sort of crash / reset?
-
->  		else
->  			ring->restore_wptr = true;
->  	} else {
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> index 9201a53dd341bf432923ffb44947e015208a3d02..2be036a3faca58b4b559c30881e4b31d5929592a 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> @@ -291,5 +291,6 @@ int a6xx_gpu_state_put(struct msm_gpu_state *state);
+> -	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> -	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>  	struct msm_ringbuffer *ring = gpu->funcs->active_ring(gpu);
 >  
->  void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_off);
->  void a6xx_gpu_sw_reset(struct msm_gpu *gpu, bool assert);
-> +int a6xx_fenced_write(struct a6xx_gpu *gpu, u32 offset, u64 value, u32 mask, bool is_64b);
+>  	/*
+> @@ -1765,13 +1763,6 @@ static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
+>  	if (gpu_read(gpu, REG_A6XX_RBBM_STATUS3) & A6XX_RBBM_STATUS3_SMMU_STALLED_ON_FAULT)
+>  		return;
 >  
->  #endif /* __A6XX_GPU_H__ */
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-> index 3b17fd2dba89115a8e48ba9469e52e4305b0cdbb..5b0fd510ff58d989ab285f1a2497f6f522a6b187 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-> @@ -41,7 +41,7 @@ static inline void set_preempt_state(struct a6xx_gpu *gpu,
+> -	/*
+> -	 * Force the GPU to stay on until after we finish
+> -	 * collecting information
+> -	 */
+> -	if (!adreno_has_gmu_wrapper(adreno_gpu))
+> -		gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 1);
+> -
+>  	DRM_DEV_ERROR(&gpu->pdev->dev,
+>  		"gpu fault ring %d fence %x status %8.8X rb %4.4x/%4.4x ib1 %16.16llX/%4.4x ib2 %16.16llX/%4.4x\n",
+>  		ring ? ring->id : -1, ring ? ring->fctx->last_fence : 0,
+> @@ -1810,9 +1801,24 @@ static void a7xx_sw_fuse_violation_irq(struct msm_gpu *gpu)
+>  	}
 >  }
 >  
->  /* Write the most recent wptr for the given ring into the hardware */
-> -static inline void update_wptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-> +static inline void update_wptr(struct a6xx_gpu *a6xx_gpu, struct msm_ringbuffer *ring)
+> +static void set_keepalive_vote(struct msm_gpu *gpu, bool on)
+
+a6xx_set_keepalive_vote()
+
+> +{
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +
+> +	if (adreno_has_gmu_wrapper(adreno_gpu))
+> +		return;
+> +
+> +	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, on);
+> +}
+> +
+>  static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
 >  {
->  	unsigned long flags;
->  	uint32_t wptr;
-> @@ -51,7 +51,7 @@ static inline void update_wptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
->  	if (ring->restore_wptr) {
->  		wptr = get_wptr(ring);
+>  	struct msm_drm_private *priv = gpu->dev->dev_private;
+> +
+> +	/* Set keepalive vote to avoid power collapse after RBBM_INT_0_STATUS is read */
+> +	set_keepalive_vote(gpu, true);
+> +
+>  	u32 status = gpu_read(gpu, REG_A6XX_RBBM_INT_0_STATUS);
 >  
-> -		gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
-> +		a6xx_fenced_write(a6xx_gpu, REG_A6XX_CP_RB_WPTR, wptr, BIT(0), false);
+>  	gpu_write(gpu, REG_A6XX_RBBM_INT_CLEAR_CMD, status);
+> @@ -1849,6 +1855,8 @@ static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
+>  	if (status & A6XX_RBBM_INT_0_MASK_CP_SW)
+>  		a6xx_preempt_irq(gpu);
 >  
->  		ring->restore_wptr = false;
->  	}
-> @@ -172,7 +172,7 @@ void a6xx_preempt_irq(struct msm_gpu *gpu)
+> +	set_keepalive_vote(gpu, false);
+> +
+>  	return IRQ_HANDLED;
+>  }
 >  
->  	set_preempt_state(a6xx_gpu, PREEMPT_FINISH);
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> index 5b0fd510ff58d989ab285f1a2497f6f522a6b187..1c8ec1911010c00a000d195116fc950c4d947cac 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> @@ -136,6 +136,21 @@ static void preempt_disable_postamble(struct a6xx_gpu *a6xx_gpu)
+>  	a6xx_gpu->postamble_enabled = false;
+>  }
 >  
-> -	update_wptr(gpu, a6xx_gpu->cur_ring);
-> +	update_wptr(a6xx_gpu, a6xx_gpu->cur_ring);
+> +/*
+> + * Set preemption keepalive vote. Please note that this vote is different from the one used in
+> + * a6xx_irq()
+> + */
+> +static void set_keepalive_vote(struct msm_gpu *gpu, bool on)
+
+a6xx_set_preempt_keepalive_vote();
+
+> +{
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +
+> +	if (adreno_has_gmu_wrapper(adreno_gpu))
+> +		return;
+> +
+> +	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_PWR_COL_PREEMPT_KEEPALIVE, on);
+> +}
+> +
+>  void a6xx_preempt_irq(struct msm_gpu *gpu)
+>  {
+>  	uint32_t status;
+> @@ -176,6 +191,8 @@ void a6xx_preempt_irq(struct msm_gpu *gpu)
 >  
 >  	set_preempt_state(a6xx_gpu, PREEMPT_NONE);
 >  
-> @@ -268,7 +268,7 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
->  	 */
->  	if (!ring || (a6xx_gpu->cur_ring == ring)) {
->  		set_preempt_state(a6xx_gpu, PREEMPT_FINISH);
-> -		update_wptr(gpu, a6xx_gpu->cur_ring);
-> +		update_wptr(a6xx_gpu, a6xx_gpu->cur_ring);
->  		set_preempt_state(a6xx_gpu, PREEMPT_NONE);
->  		spin_unlock_irqrestore(&a6xx_gpu->eval_lock, flags);
->  		return;
-> @@ -302,13 +302,13 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
+> +	set_keepalive_vote(gpu, false);
+> +
+>  	trace_msm_gpu_preemption_irq(a6xx_gpu->cur_ring->id);
+>  
+>  	/*
+> @@ -302,6 +319,9 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
 >  
 >  	spin_unlock_irqrestore(&ring->preempt_lock, flags);
 >  
-> -	gpu_write64(gpu,
-> -		REG_A6XX_CP_CONTEXT_SWITCH_SMMU_INFO,
-> -		a6xx_gpu->preempt_smmu_iova[ring->id]);
-> +	a6xx_fenced_write(a6xx_gpu,
-> +		REG_A6XX_CP_CONTEXT_SWITCH_SMMU_INFO, a6xx_gpu->preempt_smmu_iova[ring->id],
-> +		BIT(1), true);
->  
-> -	gpu_write64(gpu,
-> +	a6xx_fenced_write(a6xx_gpu,
->  		REG_A6XX_CP_CONTEXT_SWITCH_PRIV_NON_SECURE_RESTORE_ADDR,
-> -		a6xx_gpu->preempt_iova[ring->id]);
-> +		a6xx_gpu->preempt_iova[ring->id], BIT(1), true);
->  
->  	a6xx_gpu->next_ring = ring;
->  
-> @@ -328,7 +328,7 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
->  	set_preempt_state(a6xx_gpu, PREEMPT_TRIGGERED);
->  
->  	/* Trigger the preemption */
-> -	gpu_write(gpu, REG_A6XX_CP_CONTEXT_SWITCH_CNTL, cntl);
-> +	a6xx_fenced_write(a6xx_gpu, REG_A6XX_CP_CONTEXT_SWITCH_CNTL, cntl, BIT(1), false);
->  }
->  
->  static int preempt_init_ring(struct a6xx_gpu *a6xx_gpu,
+> +	/* Set the keepalive bit to keep the GPU ON until preemption is complete */
+> +	set_keepalive_vote(gpu, true);
+> +
+>  	a6xx_fenced_write(a6xx_gpu,
+>  		REG_A6XX_CP_CONTEXT_SWITCH_SMMU_INFO, a6xx_gpu->preempt_smmu_iova[ring->id],
+>  		BIT(1), true);
 > 
 > -- 
 > 2.50.1
