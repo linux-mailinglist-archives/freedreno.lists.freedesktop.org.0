@@ -2,151 +2,122 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D37FB0DED1
-	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 16:36:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BFE3B0DF87
+	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 16:52:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4E8D10E6AE;
-	Tue, 22 Jul 2025 14:36:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFC4D10E6C8;
+	Tue, 22 Jul 2025 14:52:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="u2Hu8Jjl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="plinSJiD";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="u2Hu8Jjl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="plinSJiD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fvxP2BTG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A371410E099
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 14:36:33 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3C061211C9;
- Tue, 22 Jul 2025 14:36:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1753194992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=AYaGKdibHtzw4fA/0MfIQrIP4w9AF7TLkj3JQ1iP4C4=;
- b=u2Hu8JjlgffotkHx5wKimPnY9YrKxfvbfJCljb9mXhMfit/pJkkv57d0u5hRXM6sLi6d7R
- BdbvJtJcKyy7i/IOYeNOzxspvafX4FbrhBK3e9PYqehsA9qZ2MwxBb4f0WxZk59gYg1S94
- WIPA9y6prvKGlVMbjjvJI/kTyzABIeQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1753194992;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=AYaGKdibHtzw4fA/0MfIQrIP4w9AF7TLkj3JQ1iP4C4=;
- b=plinSJiDqSWEZSQEdK7JB5oOXqxdfJ6KMMqJL3BUb4gHbFGmAcXVZGvaqqyS0wXotfgJPY
- WwQj1yDN8088MRBw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=u2Hu8Jjl;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=plinSJiD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1753194992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=AYaGKdibHtzw4fA/0MfIQrIP4w9AF7TLkj3JQ1iP4C4=;
- b=u2Hu8JjlgffotkHx5wKimPnY9YrKxfvbfJCljb9mXhMfit/pJkkv57d0u5hRXM6sLi6d7R
- BdbvJtJcKyy7i/IOYeNOzxspvafX4FbrhBK3e9PYqehsA9qZ2MwxBb4f0WxZk59gYg1S94
- WIPA9y6prvKGlVMbjjvJI/kTyzABIeQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1753194992;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=AYaGKdibHtzw4fA/0MfIQrIP4w9AF7TLkj3JQ1iP4C4=;
- b=plinSJiDqSWEZSQEdK7JB5oOXqxdfJ6KMMqJL3BUb4gHbFGmAcXVZGvaqqyS0wXotfgJPY
- WwQj1yDN8088MRBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CE5FB132EA;
- Tue, 22 Jul 2025 14:36:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Y3kdIuihf2jxKQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 22 Jul 2025 14:36:24 +0000
-Message-ID: <a0afced8-fcfe-4e1e-b679-e17b40238786@suse.de>
-Date: Tue, 22 Jul 2025 16:36:23 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1BEF10E6C6
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 14:52:32 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56MEMDp9015188
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 14:52:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ JKfgySS6e/EZJ9CHZwXQOHZ4Nnh1OaO/SrNWrKkQSd8=; b=fvxP2BTG2vlJvOGG
+ PublOSHqG307548zzPWYE6pIZE6E79GhiPnSSxeif2V/g5SiIu9r/qyg4VQhN+o7
+ +krg7HRQccZS8t/HiuOdrBT4b2ZTRv3vRPViQ83jIBGH+jLDMsofTcjknsaH0usz
+ Q4xV9Bx/sEchi0sy9FZ1fFMaLFgzf1MzKyE0q3LwBkl6/VGKd+9Yw9yLkfdylxN7
+ C+F4vN/cAJCciQFNNC3LG6OsyAOryVBnQzdjuA3SQC7CQ0beaOGcvamcupBZVnfz
+ PeF/LAaQ7KzQXFav3XB4wqge/ks+xi/o+OYtT0BhtWeKnP4ME/nL0IAS+X5aCq8t
+ OIWLYw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 481t6w2yww-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 14:52:31 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-6facde431b2so18348866d6.1
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:52:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753195950; x=1753800750;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=JKfgySS6e/EZJ9CHZwXQOHZ4Nnh1OaO/SrNWrKkQSd8=;
+ b=S9nq+371g5/LrbzCIT+1Uf3FU3UWvJDdhQHVQwGJbHbmQFUugzxvxsBGQ/DHeGaJnH
+ 3QmWGS/ZOQGza0I0FRDTgheQLM/D8trObIZLdcYWJQPjGWMvnBoUIYWV/VJptuPcZ7PO
+ U8jO3g3b/sUVc9bXWrGDAJ4qryM/bLeAhqIS8VOzVb6DbIqrKtrrP42z3fskI9rlO5u4
+ bXgtKkQ0CVSu4fOd/zf0dyQ0OomX8sJ54bJCiA4QRhxEJmD1V92qQj8vuGGhs1UD6iM7
+ kSZrLLdnwzrZL0n7FIZ8MVqgLXSKKB7VwieOlbeW76Ph/GJ9voQWw+AL76dAWY/6zGz9
+ vYAw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVGnVRzWys56uQSR9izZhBeHvPhV1+mgbHgqqdZSPEK6XKK8uNBhWHqJFoLeqSHPe17sZWg9OTmqII=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzhiMNftSMR7z1B9CR8WkjR4ja4j9TL/dgKKjUlef3cF28a3ZhK
+ /2G9t5q9WspF8a7PP8vmLDPd6DeHuJrzNz3s/r1lhRRdpeuNT02MjeX0ilj93fDZgmaA5gbgxUu
+ CVSKunt6InxXv8UBz5VINn/sXbqxffTBSnJ/PEQ8XOBoapPDoMvxDfVzKwWLR6TPms6Qb7O8=
+X-Gm-Gg: ASbGnct2dnv3UYbOL/21TZ81Ia4fRnIiTfET2eo89Be4sy2Yh3ff1QGnNBI5DvESrWn
+ 5czxHwZUq/rtq73szzxbHhHG32eLI/8ZS9ahdz4vpZOT5su1KhOy5N7H3913Lyb9ap0tPlYJEgN
+ f+51UmGHxsiRjKEIHIbI8WrhbLscJ2t82SpROyJuwQVLxRTJzdvBJs9/HTXHffrXX5JaHLPTHbd
+ mLJkzgNwqzg68XrJaZZc9xk3DcZqihZxirzWvmQXHAgkc7RWSmTIXEtVxQpr5SVqs27j+M5K/S5
+ WvBFd94CDbcna+cYLO+nyV1zJBwv1WmJIqUQi6wloBihTlSqjP+7ZWXY/yHTZo/yi4WWivb7AYa
+ kYjApO+VMkS4aQLt7N4be
+X-Received: by 2002:a05:620a:2714:b0:7d2:89c2:eddb with SMTP id
+ af79cd13be357-7e342a5dc6amr1310278985a.2.1753195949434; 
+ Tue, 22 Jul 2025 07:52:29 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHuJgUU9V6/qKb7uv3smvtN8wrkQjr3Ocrb0xAp9swHWKZD9GzivTqkf1QkinncRE8s3a+Xow==
+X-Received: by 2002:a05:620a:2714:b0:7d2:89c2:eddb with SMTP id
+ af79cd13be357-7e342a5dc6amr1310275285a.2.1753195948053; 
+ Tue, 22 Jul 2025 07:52:28 -0700 (PDT)
+Received: from [192.168.143.225] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-612c8f5d06dsm6945128a12.33.2025.07.22.07.52.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Jul 2025 07:52:27 -0700 (PDT)
+Message-ID: <30442713-2990-490a-b076-93c3cfc3901d@oss.qualcomm.com>
+Date: Tue, 22 Jul 2025 16:52:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/25] drm/dumb-buffers: Fix and improve buffer-size
- calculation
-To: simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, geert@linux-m68k.org,
- tomi.valkeinen@ideasonboard.com
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org
-References: <20250613090431.127087-1-tzimmermann@suse.de>
+Subject: Re: [PATCH 07/17] drm/msm/adreno: Add fenced regwrite support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
+ <20250720-ifpc-support-v1-7-9347aa5bcbd6@oss.qualcomm.com>
+ <tyjkwrdmsj7k7tkqqxdd65l5v5jxugr5me3ivg5onn3hbffkwp@7uhsbzolqiyd>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20250613090431.127087-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <tyjkwrdmsj7k7tkqqxdd65l5v5jxugr5me3ivg5onn3hbffkwp@7uhsbzolqiyd>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,kernel.org,linux.intel.com,linux-m68k.org,ideasonboard.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[20];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_DN_NONE(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:mid, suse.de:dkim]
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 3C061211C9
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
+X-Authority-Analysis: v=2.4 cv=SPpCVPvH c=1 sm=1 tr=0 ts=687fa5af cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=5dKzzWTJmYxMyaayncUA:9
+ a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDEyMyBTYWx0ZWRfXwhDKjeFE+FCE
+ 6vp7CmzQ/KoBV1m62HAkWbZeDi2uwfTqiPXKUuZ6xbaTN5u6fQjCE7Epp63M+lRk73sF+DEs0L9
+ ETGWCKku2YV5+fQ9f/cQ4kF41p4lCUPsML1zxAgoSydEEQvHdw6lkKaL1LUkdhYPTjmeio/2q7A
+ 0MzIlQH1l7UtkQJRNrp5Wpumj8LQrdWcYUEDQbPr4zsyRxPcj1YeRZiNS3vQ2ySnx9Kbyigj/uZ
+ 6+jj5CJ2fR0Zj5QeOobXAf4wuppjF8HId44Vr7dn+9XnPfpx1cFN4YdQYwcpytG4ryVBI0+/2JT
+ KQ2ltWsggEhjJCyhiN4/saXkVXKGmCxKzipFRuOcDMjxJaIxoH84xzH0Un6vU4P09cqRfrS6DWy
+ wfjUmexR/a5oNH6hx3M5Hec29Fkja+BO097MEFOng2OOLsG3+c672dj6ymjryMZgJhHC+VJQ
+X-Proofpoint-ORIG-GUID: 9JMXQB94LVPdAic2EIEqZm2cEkjmjfwU
+X-Proofpoint-GUID: 9JMXQB94LVPdAic2EIEqZm2cEkjmjfwU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-22_02,2025-07-21_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
+ mlxscore=0 bulkscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507220123
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,114 +133,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Ping for additional reviews. Especially patches 3, 4, and 5, which cover 
-a wide range of drivers..
+On 7/22/25 3:39 PM, Dmitry Baryshkov wrote:
+> On Sun, Jul 20, 2025 at 05:46:08PM +0530, Akhil P Oommen wrote:
+>> There are some special registers which are accessible even when GX power
+>> domain is collapsed during an IFPC sleep. Accessing these registers
+>> wakes up GPU from power collapse and allow programming these registers
+>> without additional handshake with GMU. This patch adds support for this
+>> special register write sequence.
+>>
+>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>> ---
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 63 ++++++++++++++++++++++++++++++-
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+>>  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 20 +++++-----
+>>  3 files changed, 73 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> index 491fde0083a202bec7c6b3bca88d0e5a717a6560..8c004fc3abd2896d467a9728b34e99e4ed944dc4 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> @@ -16,6 +16,67 @@
+>>  
+>>  #define GPU_PAS_ID 13
+>>  
+>> +static bool fence_status_check(struct msm_gpu *gpu, u32 offset, u32 value, u32 status, u32 mask)
+>> +{
+>> +	/* Success if !writedropped0/1 */
+>> +	if (!(status & mask))
+>> +		return true;
+>> +
+>> +	udelay(10);
+> 
+> Why do we need udelay() here? Why can't we use interval setting inside
+> gmu_poll_timeout()?
 
-Am 13.06.25 um 11:00 schrieb Thomas Zimmermann:
-> Dumb-buffer pitch and size is specified by width, height, bits-per-pixel
-> plus various hardware-specific alignments. The calculation of these
-> values is inconsistent and duplicated among drivers. The results for
-> formats with bpp < 8 are sometimes incorrect.
->
-> This series fixes this for most drivers. Default scanline pitch and
-> buffer size are now calculated with the existing 4CC helpers. There is
-> a new helper drm_mode_size_dumb() that calculates scanline pitch and
-> buffer size according to driver requirements.
->
-> The series fixes the common GEM implementations for DMA, SHMEM and
-> VRAM. It further changes most implementations of dumb_create to use
-> the new helper. A small number of drivers has more complicated
-> calculations and will be updated by a later patches.
->
-> v5:
-> - use check_mul_overflow() for overflow test (Tomi)
-> - imx: fix intermediate code (Tomi)
-> - rz-du: include dumb-buffers header
-> v4:
-> - improve UAPI documentation
-> - document bpp special cases
-> - use drm_warn_once()
-> - add TODO lists
-> - armada: fix pitch alignment
-> v3:
-> - document UAPI semantics
-> - fall back to bpp-based allocation for unknown color modes
-> - cleanups
-> v2:
-> - rewrite series
-> - convert many individual drivers besides the shared GEM helpers
->
-> Thomas Zimmermann (25):
->    drm/dumb-buffers: Sanitize output on errors
->    drm/dumb-buffers: Provide helper to set pitch and size
->    drm/gem-dma: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/gem-shmem: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/gem-vram: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/armada: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/exynos: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/gma500: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/hibmc: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/imx/ipuv3: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/loongson: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/mediatek: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/msm: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/nouveau: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/omapdrm: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/qxl: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/renesas/rcar-du: Compute dumb-buffer sizes with
->      drm_mode_size_dumb()
->    drm/renesas/rz-du: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/rockchip: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/tegra: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/virtio: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/vmwgfx: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/xe: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/xen: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/xlnx: Compute dumb-buffer sizes with drm_mode_size_dumb()
->
->   Documentation/gpu/todo.rst                    |  27 +++
->   drivers/gpu/drm/armada/armada_gem.c           |  16 +-
->   drivers/gpu/drm/drm_dumb_buffers.c            | 170 ++++++++++++++++--
->   drivers/gpu/drm/drm_gem_dma_helper.c          |   7 +-
->   drivers/gpu/drm/drm_gem_shmem_helper.c        |  16 +-
->   drivers/gpu/drm/drm_gem_vram_helper.c         |  89 +++------
->   drivers/gpu/drm/exynos/exynos_drm_gem.c       |   8 +-
->   drivers/gpu/drm/gma500/gem.c                  |  21 +--
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  25 ++-
->   drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |  29 ++-
->   drivers/gpu/drm/loongson/lsdc_gem.c           |  29 +--
->   drivers/gpu/drm/mediatek/mtk_gem.c            |  13 +-
->   drivers/gpu/drm/msm/msm_gem.c                 |  27 ++-
->   drivers/gpu/drm/nouveau/nouveau_display.c     |   7 +-
->   drivers/gpu/drm/omapdrm/omap_gem.c            |  15 +-
->   drivers/gpu/drm/qxl/qxl_dumb.c                |  17 +-
->   drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c |   7 +-
->   drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c  |   8 +-
->   drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |  12 +-
->   drivers/gpu/drm/tegra/gem.c                   |   8 +-
->   drivers/gpu/drm/virtio/virtgpu_gem.c          |  11 +-
->   drivers/gpu/drm/vmwgfx/vmwgfx_surface.c       |  21 +--
->   drivers/gpu/drm/xe/xe_bo.c                    |   8 +-
->   drivers/gpu/drm/xen/xen_drm_front.c           |   7 +-
->   drivers/gpu/drm/xlnx/zynqmp_kms.c             |   7 +-
->   include/drm/drm_dumb_buffers.h                |  14 ++
->   include/drm/drm_gem_vram_helper.h             |   6 -
->   include/uapi/drm/drm_mode.h                   |  50 +++++-
->   28 files changed, 447 insertions(+), 228 deletions(-)
->   create mode 100644 include/drm/drm_dumb_buffers.h
->
->
-> base-commit: 75238c32deae15ee4120b42a5be556ec36807a84
-> prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-> prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
-> prerequisite-patch-id: 719d09751d38f5da743beed6266585ee063e1e29
+Similarly here:
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+[...]
 
+>> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
+>> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
+>> +		return 0;
+>> +
+>> +	dev_err_ratelimited(gmu->dev, "delay in fenced register write (0x%x)\n",
+>> +			offset);
+>> +
+>> +	/* Try again for another 1ms before failing */
+>> +	gpu_write(gpu, offset, value);
+>> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
+>> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
+>> +		return 0;
+>> +
+>> +	dev_err_ratelimited(gmu->dev, "fenced register write (0x%x) fail\n",
+>> +			offset);
+
+We may want to combine the two, so as not to worry the user too much..
+
+If it's going to fail, I would assume it's going to fail both checks
+(unless e.g. the bus is so congested a single write can't go through
+to a sleepy GPU across 2 miliseconds, but that's another issue)
+
+Konrad
