@@ -2,85 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5280B0D2A5
-	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 09:23:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8032FB0D2AA
+	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 09:23:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC52610E5F5;
-	Tue, 22 Jul 2025 07:23:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B7CB10E5FA;
+	Tue, 22 Jul 2025 07:23:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lzj58o4q";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VJBINQj7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75E9F10E5F9
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:23:14 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56M2brYM029352
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:23:13 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4968C10E5F8
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:23:21 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56M3atoQ005532
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:23:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 2G0T0WOtKiIKh+NEO4I9svxY1jp+Mn9eSha/YD/ULrM=; b=lzj58o4qSN3Bvcja
- 5CK/7ha4r9D51wHIQcg9jocmNQgDkmnONq9rhYvhnRgynWdOhL9fHJGl5n+kTn75
- MW0vsI8S7giPC5ec75BrDP1ddGZmIvxllx3mwDhLBi0mLqBDFa1UGU7NcmcAIFNs
- JkeWpil+kw1Vc0FDdjeBozZ2wUuEYJ1HgW/1G79XlLRqJ5jSqwnJAvQrkRZlJFey
- xq71ZNtpb1RNRi2NeLWtyXGqh3GiH5STv1+M5LWBniacht5cf2X4MoBQqwG2b3jI
- q006IKzfb/KSJRw12aNHGuaajFi5NVmVEMOTh9gFOBaN147m6dg8s/i7h9AGIDUt
- pktAgw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48048tgecj-1
+ 50gbykZlp9W//j/JysAggcmqdiy+fttOZK6UNV9hvWI=; b=VJBINQj7sLrDudlY
+ AtjYwIb+diP8fUWMBgM9K20lJSeb7x28f7Qq7TVB4GK6HP5v+j3J5mA0u+0z55tD
+ 8h1Cm9Ex2ZBCyMQSmbGFRkPmYjf36Hr7VyEnf8Mmr2ju+wgTAD+NylMuirU+kRvp
+ MHBSVjcquFd7T047XxTOh/gIAqDQy5/KDDvlmJKcyvPLAGdXXm+U+JZucUuxHCRc
+ eq3T6RYsdPsRPdLiPW2xf+USEh4et0ZQxaXD793AITfHKXFesRcyzagd4CAK1KIJ
+ 7FfLlqlPJ9YvOWZd+trAI9eG0Q1yDIEB9FZVA3HziVtCfQS0naOVvh5TL7NL0V5q
+ +kLt6w==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48047q8h9a-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:23:13 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-311d5fe941eso1624472a91.1
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 00:23:13 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 07:23:20 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-311e9b4d254so296439a91.1
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 00:23:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753168992; x=1753773792;
+ d=1e100.net; s=20230601; t=1753168999; x=1753773799;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2G0T0WOtKiIKh+NEO4I9svxY1jp+Mn9eSha/YD/ULrM=;
- b=VIZD/eNiSc1K10pwMmv7zHJUj60wpsRUfyH9Af/sMs7UsFw1lrbmdhizHSlxXPQwWH
- PCuadLOFJ4A/8faWmYhUjrK6oSpkukehqIchksIuvPJegTJoma7i+XdfaNxq6NVWzVVP
- XMd20TMlLCdl5aith06QlaMc9k0bnDK676qRKCeOiIGVITXSmzLhIEQrWSP8QmQXRQ6T
- OKXBr7wbdG98Ip64ezVbr+rZLQZzXQ4Jda9UdJouBADQDA7h8scVwo55Y/JqFDugSew0
- uzyJJOaSbssTpMWDZ4UuVDMZastJVCWXN9gDAI9hL0XQOcFXYZF3yj07yg0tMdFbfOkV
- pskQ==
+ bh=50gbykZlp9W//j/JysAggcmqdiy+fttOZK6UNV9hvWI=;
+ b=UBarDUytBUHPxjD6Otwl3G4sXqTQbAEhnMo2GbmXLYr8+mjpNYjfJmfy4ku1MCZ/MV
+ bqsSTt9NT1dgYgPX5Ay4IPuKwzukha5yvms2GR1jom8FflS8dIdT7GhQnOVj6pMe6piH
+ mOr7SH2Up9uHDJB+SF1HFQNpRnZmUcGU6nmgUEy0T8RWCA0PlP+3fR8itab8U/hlQ1yv
+ MURkEWIiogqwepvyToDs0MDTDdppSmou7cw7ydS0UsTGDlMoe0iPNohmQxhyQZ+qSz5g
+ 9M10XvzPGtadf8rmuq4NbdMpUDXamQYFebvZhGsIIIlzni0pmb72BIwpoWbyt9ERwky4
+ dFEA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBo9tOYh9/X/UWgJ8eNeq3/DyM/6+Go0QqOZd4sxa+yKfltAneXV6I9px1aqgAJtKWUwpm7Nd0PBA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlDPDSzBCFpxTEVvgROPwqWB4pUs0teVZWj6LjbVLKT4KwMzzT
- huRtWcWrFEsC6f9gSk3eVfK9t8DUoqxuPQMlqZb02x/fbJZ1Nukft6OYXWrwtqr+0CGxKH4Afgt
- rPcAOrohywZA0/+99ZOboIGNY33mJfcVfPsz3OHaGQ3zfFFzNhIFfk1FzlxrAXDf/C615IAM=
-X-Gm-Gg: ASbGncvAVzIhkyDdh6TuB+lywEPSfy6XSlN5IvKPRJfQznxCkikofxkhfgtOkkijcUc
- cXrIvE1ATYAcMw0+5yATjmbr2qxLGf3jc2ELTQHrBDjO+HMLXGXs27KwDToYDDBr+fXmFJU2M4N
- 9+6ARdcMnmbu5exgRB5z2Or1x1eRoHqT7P9XzZjMIEV6UMogbxkmvFCL1VqTEFV/IYoM4s3PCqB
- P+WGsPKnz5Pjzdm7SxXw6b7g+H+jqyHovi8ixEalkLlus1lRFXNEo076FzvnM6/v3rH5zpiui1J
- czHmaJpcG3kf2yauB+fUJU77suGlQ6ZcYUSU5zz9hTEWyOulIMXKDuiRxPOriYa4W2xB33h9soa
- RlqQHpbj/BkvUpMdj18txjzgX1cam3FP0e4YxbbaOHX4eQ4ka0nqGeBkO
-X-Received: by 2002:a17:90b:520a:b0:312:25dd:1c8b with SMTP id
- 98e67ed59e1d1-31c9e6ec82dmr13017110a91.2.1753168992107; 
- Tue, 22 Jul 2025 00:23:12 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFoj4lcyXjswUxdZF8/u2FWJg6raQtP1rmh1s3qmXvAnSh709kLnNrV1BVHUQMrwWxUCjwP+A==
-X-Received: by 2002:a17:90b:520a:b0:312:25dd:1c8b with SMTP id
- 98e67ed59e1d1-31c9e6ec82dmr13017083a91.2.1753168991511; 
- Tue, 22 Jul 2025 00:23:11 -0700 (PDT)
+ AJvYcCXanmbhbs6M8XKcvEZqIPZOsAGPBQm2e3U4tP1Po9aDRMQU5DTomFQTpKgMa4SDjrUEDHj8/nszcnc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyvE7eEhsIoiewEHtMjkgH0f0xhseujzpTzBXVhB3qo/wtkgH22
+ xUnJzxMcZtoplk1XUE4SbB6aG1oNnYfktSy9GOQ6Qg4VvBPXOfIqlV6dJpMgKhHeotaK1XAzqxA
+ 1waQxEYSUDmw4BtjfDz6CzWXx/7gQHA2lE6XsnZT07FbvSljYpkyxZjLuxoss925V6fqhEV0=
+X-Gm-Gg: ASbGncs+j+YvMzIChCuy9btcWYqLbsPz3JruIT/F9drdZlLH/++oJmKvAab7tlzTtUO
+ BDqjyidP5MBQxCzqUiI/6eJi502kCF1gurEXpIVT0Q6B+5agz0Ll4k3PSJCNDvdH9dIH2yB+/1U
+ eyYJtTcH2xusqdYtgQBPmrvwBB5hCGzuPHtQWDKDfHR8EbzxhT1H4Yjcpq7T9cqsSjVFPT5g7Z5
+ S1rcA5D955aNezyyCNuR3/6eq1GyhyNkeu2YK2th2XEJlviOOJJewwf5BCujeayxFHiK1mXgZE8
+ OmeZV0FSnu5o3Cfx+K+CuXwvVLCrHIh4ZBLFxmlkXBxFnSyLYaSNCLOBYxW+LiCUaFeBYPRJR1H
+ fv6Ob3qaSFOLQtPK3DzVqTN90kbzQ8kZt2gXIdge9GSJeupEeDesUURVL
+X-Received: by 2002:a17:90b:2e87:b0:313:14b5:2521 with SMTP id
+ 98e67ed59e1d1-31c9e79557cmr13773552a91.5.1753168998801; 
+ Tue, 22 Jul 2025 00:23:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGkC1ZDFo8lez2mdAN1F41YIQzKnqunRrEKcvsfZ+PBJAKj4IdoTBXlggqkNRHOyeq11zgfiA==
+X-Received: by 2002:a17:90b:2e87:b0:313:14b5:2521 with SMTP id
+ 98e67ed59e1d1-31c9e79557cmr13773535a91.5.1753168998356; 
+ Tue, 22 Jul 2025 00:23:18 -0700 (PDT)
 Received: from sziotdisp01-gv.qualcomm.com.ap.qualcomm.com
  (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31cc3e45e6csm7490753a91.3.2025.07.22.00.23.05
+ 98e67ed59e1d1-31cc3e45e6csm7490753a91.3.2025.07.22.00.23.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Jul 2025 00:23:11 -0700 (PDT)
+ Tue, 22 Jul 2025 00:23:18 -0700 (PDT)
 From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-Date: Tue, 22 Jul 2025 15:22:08 +0800
-Subject: [PATCH v2 07/13] phy: qcom: qmp-usbc: Add QCS615 DP PHY
- configuration and init data
+Date: Tue, 22 Jul 2025 15:22:09 +0800
+Subject: [PATCH v2 08/13] phy: qcom: qmp-usbc: Implement DP PHY bring-up
+ flow for QCS615
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250722-add-displayport-support-for-qcs615-platform-v2-7-42b4037171f8@oss.qualcomm.com>
+Message-Id: <20250722-add-displayport-support-for-qcs615-platform-v2-8-42b4037171f8@oss.qualcomm.com>
 References: <20250722-add-displayport-support-for-qcs615-platform-v2-0-42b4037171f8@oss.qualcomm.com>
 In-Reply-To: <20250722-add-displayport-support-for-qcs615-platform-v2-0-42b4037171f8@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -104,33 +104,33 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  fange.zhang@oss.qualcomm.com, quic_lliu6@quicinc.com,
  quic_yongmou@quicinc.com, Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1753168937; l=8758;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1753168938; l=10441;
  i=xiangxu.yin@oss.qualcomm.com; s=20241125; h=from:subject:message-id;
- bh=qNbe8OPGDdUMep/3XWLUqrKYp08jEHqdWv1AWzkSpPk=;
- b=mAlLNDIHo3v5PwuFwQE2/GRlhiiojVXyQZfsqkeI6HBKPdhdxnMxMIzZ3+JUuNGv3PXoDhjGY
- VF+cFQcDTtGCEBmuYvuqsYjDSCI83TjF/Hc8HP27QQGsVMlbY4lAF+A
+ bh=nWc1YJDMMhWycabU9+LemuRakn4oZ1TgB8V91TrIhOE=;
+ b=8q/HV5iUXtw87AXDON4gbfnio/aZ4O11A+yS+2+kqcDN6aFkT2mAl6tpxmBpvw2Q5SuIdmdcG
+ NikQttSg+12B3UFG+uFxrmHnL+mebaVLEFOxMiw8l7qMaqOqP50fkY7
 X-Developer-Key: i=xiangxu.yin@oss.qualcomm.com; a=ed25519;
  pk=F1TwipJzpywfbt3n/RPi4l/A4AVF+QC89XzCHgZYaOc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDA1OSBTYWx0ZWRfX6Qy43n5uO4eJ
- 8K8CkrI4YZBQpzjd1yp7QcL7Br4DaqCbRFc0uunMlk1RosJ2hCT8J3S8xo2sZaF6bZjk1S/HHnB
- 9bYarkw7Rxw/IauSZ0p5yRsTOiT1J92au+ILDXuO65Q7e12PW24fq4zpVev0JjHTXGpHzdNWF0U
- vWE4he93H0dryG3/D9G1RFXD9AWbXgVbagnDGrIKjNVMhDJ00PdwsHveQQPrwqnxj1Qdy7KAvJJ
- P0DrLYweSGLhdrSkpkIKpVxuNlzqRwWaHuzhU5+AnxYtobapu1xFa1KeF0xBlykw8jaflO6Sbcz
- 4pRt4aeF2LGf60qX5hK5QFLT6Bg4iJg823ak7OJM9A3bfA25zYFpRrSbsz6MWDFMTsTEQfR2X1h
- gdYqB4Nh7nFga/K9TXq25gFybsIZRRTffZcNQyd9tz8A0083tD3g2Zytf6AfYps7eSz/JlX1
-X-Authority-Analysis: v=2.4 cv=Jb68rVKV c=1 sm=1 tr=0 ts=687f3c61 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=LsK-adbuWOzvq-IKUcoA:9
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: IGmQrGzwpI_mbLyBCqqmbsL0LuOLoGK4
-X-Proofpoint-ORIG-GUID: IGmQrGzwpI_mbLyBCqqmbsL0LuOLoGK4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDA1OSBTYWx0ZWRfXzNlaDkvp8EMk
+ dHuYpIERQCkruvM3FFbgrr3GrxxfchlKRhj67UBlFXji5CMdyI7GNiN3NGzIQAlhlblYrp/VaGR
+ /yflUXO9ARWXGJSJgZa5VzOBGsq6KKrAkts2eypKrjXX5pZtwvZQbAtBQVR8L9zDaMi53l1iA2j
+ v1q6bKdWXCUWor9vYYeccpO0TjqiHj16t8mGmZAa8NYAV9ianwfQ9B02PLlN6GQXvUKcXkSsvBs
+ xmXF86TmeNtIdtbdYSLydnlxbxBuXNdjTsyej1C1dTR8UjbivKrahRRJb8pwHlQq+6uxSjc5Kb9
+ bsfqqUlLPAY2Y1BtU3cDuqhICgt1wIc8sp2QSRN0TOj1O0q9/5zhKBzblIlltDMfjpxf7SUmqxC
+ DUBUyXFQf/GRkkVfXhtnv2VS6wd8LGzBp20oVC1fyZx2pIbgMi3C/4/0OeVrEu6q8xp69ASu
+X-Proofpoint-ORIG-GUID: dyI1ye8ZpZjm4zUO5RH_qFuLZCDI5UUe
+X-Proofpoint-GUID: dyI1ye8ZpZjm4zUO5RH_qFuLZCDI5UUe
+X-Authority-Analysis: v=2.4 cv=IrMecK/g c=1 sm=1 tr=0 ts=687f3c68 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=yBTmwL0D05r7FsG-PegA:9
+ a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-22_01,2025-07-21_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 adultscore=0 priorityscore=1501 clxscore=1015 phishscore=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 malwarescore=0 mlxscore=0
- spamscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 mlxscore=0 mlxlogscore=999 phishscore=0
+ impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
  definitions=main-2507220059
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -148,228 +148,311 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Introduce QCS615 hardware-specific configuration for DP PHY mode,
-including register offsets, initialization tables, voltage swing
-and pre-emphasis settings, and regulator definitions.
+Add QCS615-specific DP PHY bring-up sequence, including AUX channel
+initialization, TX configuration, clock setup, and PHY calibration.
+
+These functions follow the QMP combo PHY flow and are integrated into
+the `qmp_phy_dp_cfg` structure to support full DP PHY mode enablement.
 
 Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 ---
- drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 148 +++++++++++++++++++++++++++++++
- 1 file changed, 148 insertions(+)
+ drivers/phy/qualcomm/phy-qcom-qmp-dp-phy.h |   1 +
+ drivers/phy/qualcomm/phy-qcom-qmp-usbc.c   | 256 +++++++++++++++++++++++++++++
+ 2 files changed, 257 insertions(+)
 
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-dp-phy.h b/drivers/phy/qualcomm/phy-qcom-qmp-dp-phy.h
+index 0ebd405bcaf0cac8215550bfc9b226f30cc43a59..59885616405f878885d0837838a0bac1899fb69f 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-dp-phy.h
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-dp-phy.h
+@@ -25,6 +25,7 @@
+ #define QSERDES_DP_PHY_AUX_CFG7				0x03c
+ #define QSERDES_DP_PHY_AUX_CFG8				0x040
+ #define QSERDES_DP_PHY_AUX_CFG9				0x044
++#define QSERDES_DP_PHY_VCO_DIV				0x068
+ 
+ /* QSERDES COM_BIAS_EN_CLKBUFLR_EN bits */
+ # define QSERDES_V3_COM_BIAS_EN				0x0001
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-index bc0eaa7dba9cb84b54c7c5a264aac613f888cb99..aefcc520ee0bb3dd116e58222e5e035d1d750714 100644
+index aefcc520ee0bb3dd116e58222e5e035d1d750714..13228a21644271567d4281169ff1c1f316465d81 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-@@ -28,6 +28,9 @@
- #include "phy-qcom-qmp.h"
- #include "phy-qcom-qmp-pcs-misc-v3.h"
- 
-+#include "phy-qcom-qmp-dp-phy.h"
-+#include "phy-qcom-qmp-dp-phy-v3.h"
-+
- #define PHY_INIT_COMPLETE_TIMEOUT		10000
- #define SW_PORTSELECT_VAL			BIT(0)
- #define SW_PORTSELECT_MUX			BIT(1)
-@@ -286,6 +289,86 @@ static const struct qmp_phy_init_tbl qcm2290_usb3_pcs_tbl[] = {
- 	QMP_PHY_INIT_CFG(QPHY_V3_PCS_RX_SIGDET_LVL, 0x88),
- };
- 
-+static const struct qmp_phy_init_tbl qcs615_qmp_dp_serdes_tbl[] = {
-+	QMP_PHY_INIT_CFG(QSERDES_COM_SVS_MODE_CLK_SEL, 0x01),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_SYSCLK_EN_SEL, 0x37),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_CLK_SELECT, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_SYS_CLK_CTRL, 0x06),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_BIAS_EN_CLKBUFLR_EN, 0x3f),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_CLK_ENABLE1, 0x0e),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_BG_CTRL, 0x0f),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_SYSCLK_BUF_ENABLE, 0x06),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_CLK_SELECT, 0x30),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_PLL_IVCO, 0x0f),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_PLL_CCTRL_MODE0, 0x28),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_PLL_RCTRL_MODE0, 0x16),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_CP_CTRL_MODE0, 0x0b),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_INTEGLOOP_GAIN0_MODE0, 0x40),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_INTEGLOOP_GAIN1_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_VCO_TUNE_MAP, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_BG_TIMER, 0x08),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_CORECLK_DIV, 0x05),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_VCO_TUNE_CTRL, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_VCO_TUNE1_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_VCO_TUNE2_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_VCO_TUNE_CTRL, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_CORE_CLK_EN, 0x0f),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_CMN_CONFIG, 0x02),
-+};
-+
-+static const struct qmp_phy_init_tbl qcs615_qmp_dp_serdes_tbl_rbr[] = {
-+	QMP_PHY_INIT_CFG(QSERDES_COM_HSCLK_SEL, 0x2c),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DEC_START_MODE0, 0x69),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DIV_FRAC_START1_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DIV_FRAC_START2_MODE0, 0x80),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DIV_FRAC_START3_MODE0, 0x07),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_LOCK_CMP1_MODE0, 0xbf),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_LOCK_CMP2_MODE0, 0x21),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_LOCK_CMP3_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_LANE_MODE_1, 0xc6),
-+};
-+
-+static const struct qmp_phy_init_tbl qcs615_qmp_dp_serdes_tbl_hbr[] = {
-+	QMP_PHY_INIT_CFG(QSERDES_COM_HSCLK_SEL, 0x24),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DEC_START_MODE0, 0x69),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DIV_FRAC_START1_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DIV_FRAC_START2_MODE0, 0x80),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DIV_FRAC_START3_MODE0, 0x07),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_LOCK_CMP1_MODE0, 0x3f),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_LOCK_CMP2_MODE0, 0x38),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_LOCK_CMP3_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_LANE_MODE_1, 0xc4),
-+};
-+
-+static const struct qmp_phy_init_tbl qcs615_qmp_dp_serdes_tbl_hbr2[] = {
-+	QMP_PHY_INIT_CFG(QSERDES_COM_HSCLK_SEL, 0x20),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DEC_START_MODE0, 0x8c),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DIV_FRAC_START1_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DIV_FRAC_START2_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_DIV_FRAC_START3_MODE0, 0x0a),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_LOCK_CMP1_MODE0, 0x7f),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_LOCK_CMP2_MODE0, 0x70),
-+	QMP_PHY_INIT_CFG(QSERDES_COM_LOCK_CMP3_MODE0, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_LANE_MODE_1, 0xc4),
-+};
-+
-+static const struct qmp_phy_init_tbl qcs615_qmp_dp_tx_tbl[] = {
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_TRANSCEIVER_BIAS_EN, 0x1a),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_VMODE_CTRL1, 0x40),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_PRE_STALL_LDO_BOOST_EN, 0x30),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_INTERFACE_SELECT, 0x3d),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_CLKBUF_ENABLE, 0x0f),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_RESET_TSYNC_EN, 0x03),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_TRAN_DRVR_EMP_EN, 0x03),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_PARRATE_REC_DETECT_IDLE_EN, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_TX_INTERFACE_MODE, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_TX_EMP_POST1_LVL, 0x2b),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_TX_DRV_LVL, 0x2f),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_TX_BAND, 0x4),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_RES_CODE_LANE_OFFSET_TX, 0x12),
-+	QMP_PHY_INIT_CFG(QSERDES_V3_TX_RES_CODE_LANE_OFFSET_RX, 0x12),
-+};
-+
- enum qmp_phy_usbc_type {
- 	QMP_PHY_USBC_USB,
- 	QMP_PHY_USBC_DP,
-@@ -469,11 +552,20 @@ static const char * const usb3phy_reset_l[] = {
- 	"phy_phy", "phy",
- };
- 
-+static const char * const dpphy_reset_l[] = {
-+	"phy",
-+};
-+
- /* list of regulators */
- static const char * const qmp_phy_usb_vreg_l[] = {
- 	"vdda-phy", "vdda-pll",
- };
- 
-+static struct qmp_regulator_data qmp_phy_dp_vreg_l[] = {
-+	{ .name = "vdda-phy", .enable_load = 21800 },
-+	{ .name = "vdda-pll", .enable_load = 36000 },
-+};
-+
- static const struct qmp_usbc_usb_offsets qmp_usbc_usb_offsets_v3_qcm2290 = {
- 	.serdes		= 0x0,
- 	.pcs		= 0xc00,
-@@ -484,6 +576,27 @@ static const struct qmp_usbc_usb_offsets qmp_usbc_usb_offsets_v3_qcm2290 = {
- 	.rx2		= 0x800,
- };
- 
-+static const struct qmp_usbc_dp_offsets qmp_usbc_dp_offsets_qcs615 = {
-+	.dp_serdes	= 0x0c00,
-+	.dp_txa		= 0x0400,
-+	.dp_txb		= 0x0800,
-+	.dp_phy		= 0x0000,
-+};
-+
-+static const u8 qmp_dp_pre_emphasis_hbr2_rbr[4][4] = {
-+	{0x00, 0x0b, 0x12, 0xff},
-+	{0x00, 0x0a, 0x12, 0xff},
-+	{0x00, 0x0c, 0xff, 0xff},
-+	{0xff, 0xff, 0xff, 0xff}
-+};
-+
-+static const u8 qmp_dp_voltage_swing_hbr2_rbr[4][4] = {
-+	{0x07, 0x0f, 0x14, 0xff},
-+	{0x11, 0x1d, 0x1f, 0xff},
-+	{0x18, 0x1f, 0xff, 0xff},
-+	{0xff, 0xff, 0xff, 0xff}
-+};
-+
- static const struct qmp_phy_usb_cfg msm8998_usb3phy_cfg = {
- 	.offsets		= &qmp_usbc_usb_offsets_v3_qcm2290,
- 
-@@ -532,6 +645,28 @@ static const struct qmp_phy_usb_cfg sdm660_usb3phy_cfg = {
+@@ -645,6 +645,11 @@ static const struct qmp_phy_usb_cfg sdm660_usb3phy_cfg = {
  	.regs			= qmp_v3_usb3phy_regs_layout_qcm2290,
  };
  
-+static const struct qmp_phy_dp_cfg qcs615_dpphy_cfg = {
-+	.offsets		= &qmp_usbc_dp_offsets_qcs615,
++static void qcs615_qmp_dp_aux_init(struct qmp_usbc *qmp);
++static void qcs615_qmp_configure_dp_tx(struct qmp_usbc *qmp);
++static int qcs615_qmp_configure_dp_phy(struct qmp_usbc *qmp);
++static int qcs615_qmp_calibrate_dp_phy(struct qmp_usbc *qmp);
 +
-+	.dp_serdes_tbl		= qcs615_qmp_dp_serdes_tbl,
-+	.dp_serdes_tbl_num	= ARRAY_SIZE(qcs615_qmp_dp_serdes_tbl),
-+	.dp_tx_tbl		= qcs615_qmp_dp_tx_tbl,
-+	.dp_tx_tbl_num		= ARRAY_SIZE(qcs615_qmp_dp_tx_tbl),
-+
-+	.serdes_tbl_rbr		= qcs615_qmp_dp_serdes_tbl_rbr,
-+	.serdes_tbl_rbr_num	= ARRAY_SIZE(qcs615_qmp_dp_serdes_tbl_rbr),
-+	.serdes_tbl_hbr		= qcs615_qmp_dp_serdes_tbl_hbr,
-+	.serdes_tbl_hbr_num	= ARRAY_SIZE(qcs615_qmp_dp_serdes_tbl_hbr),
-+	.serdes_tbl_hbr2	= qcs615_qmp_dp_serdes_tbl_hbr2,
-+	.serdes_tbl_hbr2_num	= ARRAY_SIZE(qcs615_qmp_dp_serdes_tbl_hbr2),
-+
-+	.swing_tbl		= &qmp_dp_voltage_swing_hbr2_rbr,
-+	.pre_emphasis_tbl	= &qmp_dp_pre_emphasis_hbr2_rbr,
-+
-+	.vreg_list		= qmp_phy_dp_vreg_l,
-+	.num_vregs		= ARRAY_SIZE(qmp_phy_dp_vreg_l),
-+};
-+
- static const struct qmp_phy_cfg msm8998_phy_usb3_cfg = {
- 	.type = QMP_PHY_USBC_USB,
- 	.cfg = &msm8998_usb3phy_cfg,
-@@ -565,6 +700,10 @@ static int qmp_usbc_generic_init(struct phy *phy)
+ static const struct qmp_phy_dp_cfg qcs615_dpphy_cfg = {
+ 	.offsets		= &qmp_usbc_dp_offsets_qcs615,
  
- 		num_vregs = cfg->num_vregs;
- 		reg_pwr_dn = cfg->regs[QPHY_PCS_POWER_DOWN_CONTROL];
-+	} else {
-+		struct qmp_phy_dp_cfg *cfg = to_dp_cfg(qmp);
+@@ -663,6 +668,11 @@ static const struct qmp_phy_dp_cfg qcs615_dpphy_cfg = {
+ 	.swing_tbl		= &qmp_dp_voltage_swing_hbr2_rbr,
+ 	.pre_emphasis_tbl	= &qmp_dp_pre_emphasis_hbr2_rbr,
+ 
++	.dp_aux_init		= qcs615_qmp_dp_aux_init,
++	.configure_dp_tx	= qcs615_qmp_configure_dp_tx,
++	.configure_dp_phy	= qcs615_qmp_configure_dp_phy,
++	.calibrate_dp_phy	= qcs615_qmp_calibrate_dp_phy,
 +
-+		num_vregs = cfg->num_vregs;
- 	}
- 
- 	ret = regulator_bulk_enable(num_vregs, qmp->vregs);
-@@ -599,6 +738,9 @@ static int qmp_usbc_generic_init(struct phy *phy)
- 
- 		qphy_setbits(layout->pcs, reg_pwr_dn, SW_PWRDN);
- 		writel(val, layout->pcs_misc);
-+	} else {
-+		if (qmp->tcsr_map && qmp->dp_phy_mode_reg)
-+			regmap_write(qmp->tcsr_map, qmp->dp_phy_mode_reg, 1);
- 	}
- 
+ 	.vreg_list		= qmp_phy_dp_vreg_l,
+ 	.num_vregs		= ARRAY_SIZE(qmp_phy_dp_vreg_l),
+ };
+@@ -778,6 +788,252 @@ static int qmp_usbc_generic_exit(struct phy *phy)
  	return 0;
-@@ -624,6 +766,12 @@ static int qmp_usbc_generic_exit(struct phy *phy)
- 		struct qmp_phy_usb_cfg *cfg = to_usb_cfg(qmp);
+ }
  
- 		num_vregs = cfg->num_vregs;
-+	} else {
-+		struct qmp_phy_dp_cfg *cfg = to_dp_cfg(qmp);
++static void qcs615_qmp_dp_aux_init(struct qmp_usbc *qmp)
++{
++	struct qmp_phy_dp_layout *layout = to_dp_layout(qmp);
 +
-+		num_vregs = cfg->num_vregs;
-+		if (qmp->tcsr_map && qmp->dp_phy_mode_reg)
-+			regmap_write(qmp->tcsr_map, qmp->dp_phy_mode_reg, 0);
- 	}
- 	regulator_bulk_disable(num_vregs, qmp->vregs);
- 
++	writel(DP_PHY_PD_CTL_AUX_PWRDN |
++	       DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN |
++	       DP_PHY_PD_CTL_PLL_PWRDN,
++	       layout->dp_phy + QSERDES_DP_PHY_PD_CTL);
++
++	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
++	       DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN |
++	       DP_PHY_PD_CTL_PLL_PWRDN,
++	       layout->dp_phy + QSERDES_DP_PHY_PD_CTL);
++
++	writel(0x00, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG0);
++	writel(0x13, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG1);
++	writel(0x00, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG2);
++	writel(0x00, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG3);
++	writel(0x0a, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG4);
++	writel(0x26, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG5);
++	writel(0x0a, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG6);
++	writel(0x03, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG7);
++	writel(0xbb, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG8);
++	writel(0x03, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG9);
++	layout->dp_aux_cfg = 0;
++
++	writel(PHY_AUX_STOP_ERR_MASK | PHY_AUX_DEC_ERR_MASK |
++	       PHY_AUX_SYNC_ERR_MASK | PHY_AUX_ALIGN_ERR_MASK |
++	       PHY_AUX_REQ_ERR_MASK,
++	       layout->dp_phy + QSERDES_V3_DP_PHY_AUX_INTERRUPT_MASK);
++}
++
++static int qcs615_qmp_configure_dp_swing(struct qmp_usbc *qmp)
++{
++	struct qmp_phy_dp_layout *layout = to_dp_layout(qmp);
++	struct qmp_phy_dp_cfg *cfg = to_dp_cfg(qmp);
++	const struct phy_configure_opts_dp *dp_opts = &layout->dp_opts;
++	void __iomem *tx = layout->dp_tx;
++	void __iomem *tx2 = layout->dp_tx2;
++	unsigned int v_level = 0, p_level = 0;
++	u8 voltage_swing_cfg, pre_emphasis_cfg;
++	int i;
++
++	if (dp_opts->lanes > 4) {
++		dev_err(qmp->dev, "Invalid lane_num(%d)\n", dp_opts->lanes);
++		return -EINVAL;
++	}
++
++	for (i = 0; i < dp_opts->lanes; i++) {
++		v_level = max(v_level, dp_opts->voltage[i]);
++		p_level = max(p_level, dp_opts->pre[i]);
++	}
++
++	if (v_level > 4 || p_level > 4) {
++		dev_err(qmp->dev, "Invalid v(%d) | p(%d) level)\n",
++			v_level, p_level);
++		return -EINVAL;
++	}
++
++	voltage_swing_cfg = (*cfg->swing_tbl)[v_level][p_level];
++	pre_emphasis_cfg = (*cfg->pre_emphasis_tbl)[v_level][p_level];
++
++	voltage_swing_cfg |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
++	pre_emphasis_cfg |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
++
++	if (voltage_swing_cfg == 0xff && pre_emphasis_cfg == 0xff)
++		return -EINVAL;
++
++	writel(voltage_swing_cfg, tx + QSERDES_V3_TX_TX_DRV_LVL);
++	writel(pre_emphasis_cfg, tx + QSERDES_V3_TX_TX_EMP_POST1_LVL);
++	writel(voltage_swing_cfg, tx2 + QSERDES_V3_TX_TX_DRV_LVL);
++	writel(pre_emphasis_cfg, tx2 + QSERDES_V3_TX_TX_EMP_POST1_LVL);
++
++	return 0;
++}
++
++static void qmp_usbc_configure_dp_mode(struct qmp_usbc *qmp)
++{
++	struct qmp_phy_dp_layout *layout = to_dp_layout(qmp);
++	bool reverse = (qmp->orientation == TYPEC_ORIENTATION_REVERSE);
++	u32 val;
++
++	val = DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
++	      DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN;
++
++	writel(val, layout->dp_phy + QSERDES_DP_PHY_PD_CTL);
++
++	if (reverse)
++		writel(0xc9, layout->dp_phy + QSERDES_DP_PHY_MODE);
++	else
++		writel(0xd9, layout->dp_phy + QSERDES_DP_PHY_MODE);
++}
++
++static int qmp_usbc_configure_dp_clocks(struct qmp_usbc *qmp)
++{
++	struct qmp_phy_dp_layout *layout = to_dp_layout(qmp);
++	const struct phy_configure_opts_dp *dp_opts = &layout->dp_opts;
++	u32 phy_vco_div;
++	unsigned long pixel_freq;
++
++	switch (dp_opts->link_rate) {
++	case 1620:
++		phy_vco_div = 0x1;
++		pixel_freq = 1620000000UL / 2;
++		break;
++	case 2700:
++		phy_vco_div = 0x1;
++		pixel_freq = 2700000000UL / 2;
++		break;
++	case 5400:
++		phy_vco_div = 0x2;
++		pixel_freq = 5400000000UL / 4;
++		break;
++	default:
++		dev_err(qmp->dev, "link rate:%d not supported\n", dp_opts->link_rate);
++		return -EINVAL;
++	}
++	writel(phy_vco_div, layout->dp_phy + QSERDES_DP_PHY_VCO_DIV);
++
++	clk_set_rate(layout->dp_link_hw.clk, dp_opts->link_rate * 100000);
++	clk_set_rate(layout->dp_pixel_hw.clk, pixel_freq);
++
++	return 0;
++}
++
++static void qcs615_qmp_configure_dp_tx(struct qmp_usbc *qmp)
++{
++	struct qmp_phy_dp_layout *layout = to_dp_layout(qmp);
++	void __iomem *tx = layout->dp_tx;
++	void __iomem *tx2 = layout->dp_tx2;
++
++	/* program default setting first */
++	writel(0x2a, tx + QSERDES_V3_TX_TX_DRV_LVL);
++	writel(0x20, tx + QSERDES_V3_TX_TX_EMP_POST1_LVL);
++	writel(0x2a, tx2 + QSERDES_V3_TX_TX_DRV_LVL);
++	writel(0x20, tx2 + QSERDES_V3_TX_TX_EMP_POST1_LVL);
++
++	qcs615_qmp_configure_dp_swing(qmp);
++}
++
++static int qcs615_qmp_configure_dp_phy(struct qmp_usbc *qmp)
++{
++	struct qmp_phy_dp_layout *layout = to_dp_layout(qmp);
++	u32 status;
++	int ret;
++
++	qmp_usbc_configure_dp_mode(qmp);
++
++	writel(0x05, layout->dp_phy + QSERDES_V3_DP_PHY_TX0_TX1_LANE_CTL);
++	writel(0x05, layout->dp_phy + QSERDES_V3_DP_PHY_TX2_TX3_LANE_CTL);
++
++	ret = qmp_usbc_configure_dp_clocks(qmp);
++	if (ret)
++		return ret;
++
++	writel(0x01, layout->dp_phy + QSERDES_DP_PHY_CFG);
++	writel(0x05, layout->dp_phy + QSERDES_DP_PHY_CFG);
++	writel(0x01, layout->dp_phy + QSERDES_DP_PHY_CFG);
++	writel(0x09, layout->dp_phy + QSERDES_DP_PHY_CFG);
++
++	writel(0x20, layout->dp_serdes + QSERDES_COM_RESETSM_CNTRL);
++
++	if (readl_poll_timeout(layout->dp_serdes + QSERDES_COM_C_READY_STATUS,
++			       status,
++			       ((status & BIT(0)) > 0),
++			       500,
++			       10000)) {
++		dev_err(qmp->dev, "C_READY not ready\n");
++		return -ETIMEDOUT;
++	}
++
++	if (readl_poll_timeout(layout->dp_serdes + QSERDES_COM_CMN_STATUS,
++			       status,
++			       ((status & BIT(0)) > 0),
++			       500,
++			       10000)){
++		dev_err(qmp->dev, "FREQ_DONE not ready\n");
++		return -ETIMEDOUT;
++	}
++
++	if (readl_poll_timeout(layout->dp_serdes + QSERDES_COM_CMN_STATUS,
++			       status,
++			       ((status & BIT(1)) > 0),
++			       500,
++			       10000)){
++		dev_err(qmp->dev, "PLL_LOCKED not ready\n");
++		return -ETIMEDOUT;
++	}
++
++	writel(0x19, layout->dp_phy + QSERDES_DP_PHY_CFG);
++
++	if (readl_poll_timeout(layout->dp_phy + QSERDES_V3_DP_PHY_STATUS,
++			       status,
++			       ((status & BIT(0)) > 0),
++			       500,
++			       10000)){
++		dev_err(qmp->dev, "TSYNC_DONE not ready\n");
++		return -ETIMEDOUT;
++	}
++
++	if (readl_poll_timeout(layout->dp_phy + QSERDES_V3_DP_PHY_STATUS,
++			       status,
++			       ((status & BIT(1)) > 0),
++			       500,
++			       10000)){
++		dev_err(qmp->dev, "PHY_READY not ready\n");
++		return -ETIMEDOUT;
++	}
++
++	writel(0x3f, layout->dp_tx + QSERDES_V3_TX_TRANSCEIVER_BIAS_EN);
++	writel(0x10, layout->dp_tx + QSERDES_V3_TX_HIGHZ_DRVR_EN);
++	writel(0x0a, layout->dp_tx + QSERDES_V3_TX_TX_POL_INV);
++	writel(0x3f, layout->dp_tx2 + QSERDES_V3_TX_TRANSCEIVER_BIAS_EN);
++	writel(0x10, layout->dp_tx2 + QSERDES_V3_TX_HIGHZ_DRVR_EN);
++	writel(0x0a, layout->dp_tx2 + QSERDES_V3_TX_TX_POL_INV);
++
++	writel(0x18, layout->dp_phy + QSERDES_DP_PHY_CFG);
++	writel(0x19, layout->dp_phy + QSERDES_DP_PHY_CFG);
++
++	if (readl_poll_timeout(layout->dp_phy + QSERDES_V3_DP_PHY_STATUS,
++			       status,
++			       ((status & BIT(1)) > 0),
++			       500,
++			       10000)){
++		dev_err(qmp->dev, "PHY_READY not ready\n");
++		return -ETIMEDOUT;
++	}
++
++	return 0;
++}
++
++static int qcs615_qmp_calibrate_dp_phy(struct qmp_usbc *qmp)
++{
++	static const u8 cfg1_settings[] = {0x13, 0x23, 0x1d};
++	struct qmp_phy_dp_layout *layout = to_dp_layout(qmp);
++	u8 val;
++
++	layout->dp_aux_cfg++;
++	layout->dp_aux_cfg %= ARRAY_SIZE(cfg1_settings);
++	val = cfg1_settings[layout->dp_aux_cfg];
++
++	writel(val, layout->dp_phy + QSERDES_DP_PHY_AUX_CFG1);
++
++	return 0;
++}
++
+ static int qmp_usbc_usb_power_on(struct phy *phy)
+ {
+ 	struct qmp_usbc *qmp = phy_get_drvdata(phy);
 
 -- 
 2.34.1
