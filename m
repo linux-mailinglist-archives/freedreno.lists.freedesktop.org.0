@@ -2,79 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B586B0E0B2
-	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 17:38:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52EA3B0E291
+	for <lists+freedreno@lfdr.de>; Tue, 22 Jul 2025 19:27:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E611910E294;
-	Tue, 22 Jul 2025 15:38:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E854910E34D;
+	Tue, 22 Jul 2025 17:27:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DWBVwOIA";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CsofTea7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5946010E132
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 15:38:29 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56MCralU018032
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 15:38:29 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F8CC10E34D
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 17:27:11 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56MCcT3U000994
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 17:27:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=5v7ZQEbIAiB0+2jIBiZJ/zlAz5qzyamJW6N+8IwXK2g=; b=DW
- BVwOIAfZamAYOhpztOGGNnXgLreZMfJCH5mBPagIOcmoQtv0nLI8Pa0HO0quJCLN
- 6Wi5edUrWF31LX6kjoCOtQuQhE43+E0HUqaXGGKjot+d3RpcjeDgjnf4lxKYGK/J
- MlP643aCQbvi0Adpa3rW9FFu9ZiNWV06gvJGXWAwV96fJ65UGvl8y6WxC/IKl38u
- JDbG08GBvw5qD1ohkOR1YoJVUFd6qD9vS0dlCal0awFo4rMqfifnEVS9g45Gfbq3
- tpjwgde6iVAr6OIro43Q73w/4iatt9HgaWmod/QXC7tPo3x1ua6DEDlDm201eHMm
- OfX1PfU/HsHKvQzByM/w==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 482b1u8hsa-1
+ qcppdkim1; bh=YrjoZd7QCC3rgO1NgwMgFJMp5C62tulHsO96Xx3lRDo=; b=Cs
+ ofTea7bG1QFvcknnfaPBsuxWjCB0UwTjj5Zxci9asGpuq3hMstWoQjWAYWaQDz6B
+ SKzUwUS2+OFrMyBfT67QLCCUXA8ajpRXPRsbKJYuCbS1NF/tV2sAGDF3o0x8iBLe
+ fx1o+KOJyRfQSaPRPXzgZTqFM0cyKn8FJmuAtn+/+bSoL8bYkJQ+MpfwEnAjsNPu
+ RD15BGgWVFRAu4Lx6rdPekOfXW+j2+oamlWVWByfQ6cb+s15qRWrFmL8VCPOPk3z
+ PkIj7pRqYREenC2JWlrfUZjc5xmGvWImFdfYSdSRTdusmESyXLdbaUEt4xMrkmRY
+ c2r7LhemJkovIgAzdbyA==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48044dj71h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 15:38:28 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-40cf6614bceso4656257b6e.2
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 08:38:28 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 17:27:10 +0000 (GMT)
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-41be154c1d6so4889553b6e.1
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jul 2025 10:27:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753198708; x=1753803508;
+ d=1e100.net; s=20230601; t=1753205229; x=1753810029;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :reply-to:in-reply-to:references:mime-version:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=5v7ZQEbIAiB0+2jIBiZJ/zlAz5qzyamJW6N+8IwXK2g=;
- b=c7aXSL/B2vWIrRKzs7nCDNaowR4/JC8xoHFCu5lgDtg/XsWpPP9ci+klA2W+iRTMx3
- 2HJxrVyZFJI/+NDArowDtwnfZex8rV7W+HWRnHvDiaeQkEfQGO+hYOtyAahBZyuKQoQC
- 653tj2Kjy9CBNvqOWMvreXLiX/vfuYOowyl0Cl1/39jHMBiqg3w/bvf09SomV88jfTcm
- kLAhoed4UDImldub+ys+3o18zyiuw4ncF3igZefQQiQq5YR6LFyVdZCx4uf/OzfL1DWK
- 0i52SkseNwoCIlwUGbIAPLkEIVQ9CCL4G+L+mOj90sfGiG41oYQbzRj+cf6mAGt0q+nE
- 7hGQ==
+ bh=YrjoZd7QCC3rgO1NgwMgFJMp5C62tulHsO96Xx3lRDo=;
+ b=cTpxQE0ADMJpSSFrTwCW76dGOoLY534BPBislrjrVjcNxSL9wE5DqmUiLtGKdhYOuR
+ DC4pEuKhRSbwnUS7XTTKSVM2R8xBZQ6FJ8hYIBI2+MtmY1E4JXBKjWC3iUZBQR4+Rqxw
+ PiUUtBnsmdomAg13Q6zab7uyYALmym8jyph510kL2II6mXdpzOLE6WMTczwrbDHcdii4
+ OaaliHpCUuFiT+W6oksDXF+HRTk5HSgjaX2ipT7fSH0fWN02/HGpZvNdsSSZ/RFS8OSe
+ fwDfguvG29OYFinK6OajxN1OkGKiAfY0DhJiLADyobLXV0poBoNn4PNULo3p+LqrmASm
+ GQ2Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXX60au9Do1Vls3umEUfsa/qlb+1Ihoh+o8WtF1MWEMKR0Z+sf6P13XE1d9I3XHZFYNMsxslwq4SOg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzmvb5mMsgx95m5AEEELmJQQ0W28Pvwg47C8Q96Lr5SZiNE85pt
- xrd6eQw1xhVJfFNs0aBQXZDq8mSMXZFMIOL1WQEkbknsPgcjGnujUquSU+FuPetfatoDSqV9yLL
- TuKyVeBf+j3XevlFyGHXjBYzQ7YfKxGEvB/4tjiQfmtfl7VZuqPc7oq/PoI3gmNRYEkKQQ/iZ9a
- tN875DTJKxDdcdOuh8+KjTNRIuHWM8A2mI2JewPQd+rvSm9A==
-X-Gm-Gg: ASbGnctOMnfvvk12zqr3B1+l5FrHnQ+Zrfbf22LAL25XZ1jjpHi23g9LTdzr0oi79tv
- waCcxOj/BwdnptY82jZ6E3iSfo+lUEfttUcrc345D5ESdlL75PEQHB2pHON/JTQSCZfL9XaYplr
- GYJqlsZ+4kTGBgMrazyiemUmyd7E1yxg2dCq+EmotHI52kZHSVX2gK
-X-Received: by 2002:a05:6808:680a:b0:40b:2566:9569 with SMTP id
- 5614622812f47-41d04c92c9cmr13430193b6e.24.1753198707605; 
- Tue, 22 Jul 2025 08:38:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE1GJFYfKEf/2vfcM24SVmmRuQ+5KIZBxPBd7aDQfDJlhTZLhTkv+JowWe/tlkItYgNDaaLaguNHER2f1sJAMA=
-X-Received: by 2002:a05:6808:680a:b0:40b:2566:9569 with SMTP id
- 5614622812f47-41d04c92c9cmr13430177b6e.24.1753198707155; Tue, 22 Jul 2025
- 08:38:27 -0700 (PDT)
+ AJvYcCU7Bd6AEr+BKgvZcXKBbKClVnMA6oJ5d6v9AdT2pPIDNL9SqgvzVFBzIwwgLxD86asM1G5uqX2fNZ8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzqlhx0RCQRGEMBvmKuyJjMwALRdRwFrrI1CCBBftVcRJMWE7iF
+ Rkta/7i0tbG9MVqsHvSMPBBbiCfzTeY8ed4oYjVRxwhZeMLMUwLjHYQYZrNT9T0f0sx6AM/kw5d
+ E8uFgZdgy1Lr6gM2cDXf0mexhX6DQBfXRPIotkBW2TfaTCIrvJsENUvr1yeQIYAvJFoQ7gWGP10
+ YbsSO/IZaCfekIJjkUctsCIjELlyRnClsdk++9gbzHg0UvhQ==
+X-Gm-Gg: ASbGncvG+WfqsikcaZxQDhHPys6wfbTYfdbTePB98lDOHPXvwAPvgnTMnZxzlSnnz/i
+ dVMU9CJZ5s62gAPPYDkqJNWQwn+eTqoVdmUQxs/vi2M3NlkXlpHEaFU6k1GEEa/LbNe+gZA2ipX
+ xEKwIwDv9jjK8gdRb19/w517rCTo3hGJRsgIjl0iqqxEq688uRc/Bm
+X-Received: by 2002:a05:6808:1b2c:b0:41c:1727:8b4d with SMTP id
+ 5614622812f47-426c4bdfe8amr134361b6e.11.1753205229212; 
+ Tue, 22 Jul 2025 10:27:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHt351bm791NHr11RGdS2kzc1apQfD8udpp73fwAAszYsw6GEV5yDdNjEt0nwD6ENSLExfzwwg6Dsyx6tcyQ74=
+X-Received: by 2002:a05:6808:1b2c:b0:41c:1727:8b4d with SMTP id
+ 5614622812f47-426c4bdfe8amr134333b6e.11.1753205228734; Tue, 22 Jul 2025
+ 10:27:08 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
- <20250720-ifpc-support-v1-12-9347aa5bcbd6@oss.qualcomm.com>
- <vng6tut4sv3zfbwogsb74omqsbqutpeskqdnezbs4ftsanqyb4@nv35r7mqmcva>
-In-Reply-To: <vng6tut4sv3zfbwogsb74omqsbqutpeskqdnezbs4ftsanqyb4@nv35r7mqmcva>
+ <20250720-ifpc-support-v1-5-9347aa5bcbd6@oss.qualcomm.com>
+ <avni4utnzdmmafc2mf7aqgva3osbhuiqtia7gdngqswk5cmtn6@zo65ir7gyj6y>
+In-Reply-To: <avni4utnzdmmafc2mf7aqgva3osbhuiqtia7gdngqswk5cmtn6@zo65ir7gyj6y>
 From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Tue, 22 Jul 2025 08:38:16 -0700
-X-Gm-Features: Ac12FXyqViKjRhthyqXadlDIINRduJGIQgMSW9SK6xnSnnCzfXGivfqsWQaTERE
-Message-ID: <CACSVV01EhWWohUDQ8n=FQeDuaDcgmYnMBJDMJ8D1Gist1NR4QQ@mail.gmail.com>
-Subject: Re: [PATCH 12/17] drm/msm: Skip devfreq IDLE when possible
+Date: Tue, 22 Jul 2025 10:26:58 -0700
+X-Gm-Features: Ac12FXz7GgAd4CQ5r6mtT-fkFUIs76swU0cXdPQmfmKvXuiUlkOuIL_tdrwpuow
+Message-ID: <CACSVV0346j2y-1Jkj=wasekYy5syax_E495AQZv0bvrrqwCSRw@mail.gmail.com>
+Subject: Re: [PATCH 05/17] drm/msm/a6xx: Fix PDC sleep sequence
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -87,28 +87,28 @@ Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=LdY86ifi c=1 sm=1 tr=0 ts=687fb074 cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=19W1w_CfSDR24Ta8X3MA:9 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDEzMSBTYWx0ZWRfXz9bpTNppKoiZ
- sDsJWDjdS0Gc6YeZXBHXDiWWipH2g6IGrljZhV+kbfKps4Ppwq2g4ZdHrCB4Ib1m+Pxu9o2ChOa
- BGyscisRnFQ9qwmRvq1M6xriWJ8Na56o4LtCEBnkvvrU3QCH+UbotICeWTt6qbXKsGjXAj/KEFw
- fYtg6oC7OHyzwFGMecgujdqEN1x7Po27HprtcA+k110MIfXHXc3YapWslIa2WJN1dMD6BdxEn9v
- f6T0zT7acrvnP5qcWs8I/O80yC8Nh1BrF4sZcQ4BKylwV4q5Ao0Isb+ZYm5MfksRbRTpTYQGk5s
- f6oRHuBxej6XBfmUzfkl2KVu/ybgXzMcYDRZHAGDX0okC0GfKzeahzavmmr2a+nbX/5AsyQ0XdF
- cwP8VzEOMUZ7UwNXsX7HB5zAtWW4XQEVz0MR/+3xQZfdyIVMKQlNQEdD3uQYZiGW6sQSCOuK
-X-Proofpoint-ORIG-GUID: X4UusQDskC5JyGFUWOoV1U3zJedvPaTg
-X-Proofpoint-GUID: X4UusQDskC5JyGFUWOoV1U3zJedvPaTg
+X-Authority-Analysis: v=2.4 cv=BJ6zrEQG c=1 sm=1 tr=0 ts=687fc9ee cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
+ a=EUspDBNiAAAA:8 a=5FltqUUlFAtdD00mdp8A:9 a=QEXdDO2ut3YA:10
+ a=pF_qn-MSjDawc0seGVz6:22
+X-Proofpoint-GUID: ri-WH-cQyJiemuHhrOK7olL0qP-Fa77t
+X-Proofpoint-ORIG-GUID: ri-WH-cQyJiemuHhrOK7olL0qP-Fa77t
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIyMDE0NiBTYWx0ZWRfX0a/q7sVhDMbX
+ Jc126ZG5JGNWawMdY29qm3s8VPCw1axZIiJDBgXEb38LtN43UGcC6v4UcGKkJAEugqEzjL7ebcY
+ 02mqD1HljynlsSBufZDojrDZLEtIc2xEHb6Yb++TPz8QReWL6sxyV1Ah5ZXk8iB6xZxOwCvPtIT
+ Fg9S1W0mzWM6jYj0ZVJNCnlRHxKlRMKKcGHl9fQxPP/2FcPoxfk3blSnx9IR/pv3ngWgOkhEmNI
+ 61IyyWtF64u8qKwetZjBEtFCihptfqY+caxTyhGnDk7DCUv9pZst44+OpE7yRRZSCwWOdIv+Uej
+ lXjaZyeM6uw7w7aBDHanlwpUVB5cLMakLG/nGjtHeAAVZObw0kYRtKah2D2w7ThvFxmdzj+EOR7
+ ve5z5D6EQCqxFOoXMv4icv5TZkcBLmraZsqfOvw92j+0BpIIjB5zORH7IW8wrUWG+SbRs+lv
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-22_02,2025-07-21_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0 priorityscore=1501 adultscore=0 phishscore=0
- malwarescore=0 lowpriorityscore=0 mlxlogscore=999 bulkscore=0 spamscore=0
- suspectscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507220131
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 spamscore=0
+ mlxlogscore=999 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
+ mlxscore=0 malwarescore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507220146
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,68 +125,159 @@ Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 22, 2025 at 6:50=E2=80=AFAM Dmitry Baryshkov
+On Tue, Jul 22, 2025 at 6:33=E2=80=AFAM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 >
-> On Sun, Jul 20, 2025 at 05:46:13PM +0530, Akhil P Oommen wrote:
-> > When IFPC is supported, devfreq idling is redundant and adds
-> > unnecessary pm suspend/wake latency. So skip it when IFPC is
-> > supported.
+> On Sun, Jul 20, 2025 at 05:46:06PM +0530, Akhil P Oommen wrote:
+> > Since the PDC resides out of the GPU subsystem and cannot be reset in
+> > case it enters bad state, utmost care must be taken to trigger the PDC
+> > wake/sleep routines in the correct order.
+> >
+> > The PDC wake sequence can be exercised only after a PDC sleep sequence.
+> > Additionally, GMU firmware should initialize a few registers before the
+> > KMD can trigger a PDC sleep sequence. So PDC sleep can't be done if the
 >
-> With this in place we have a dummy devfreq instance which does nothing.
-> Wouldn't it be better to skip registering devfreq if IFPC is supported
-> on the platform?
+> s/KMD/the driver/
 
-devfreq is still scaling the freq.  What is being bypassed is
-essentially a CPU based version of IFPC (because on sc7180 we didn't
-have IFPC
-
-Currently only a618 and 7c3 enable gpu_clamp_to_idle.. if at some
-point those grew IFPC support we could remove the trickery to drop GPU
-to min freq when it is idle altogether.
+IMHO for gpu things "KMD" makes sense, to differentiate between kernel
+and user mode (UMD).. this is perhaps different from other areas where
+there isn't a userspace component to the driver stack
 
 BR,
 -R
 
+> > GMU firmware has not initialized. Track these dependencies using a new
+> > status variable and trigger PDC sleep/wake sequences appropriately.
+>
+> Again, it looks like there should be a Fixes tag here.
+>
 > >
 > > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > > ---
-> >  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
+> >  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 30 +++++++++++++++++++--------=
+---
+> >  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  6 ++++++
+> >  2 files changed, 25 insertions(+), 11 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/ms=
-m/msm_gpu_devfreq.c
-> > index 2e1d5c3432728cde15d91f69da22bb915588fe86..53ef2add5047e7d6b6371af=
-949cab36ce8409372 100644
-> > --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> > +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> > @@ -4,6 +4,7 @@
-> >   * Author: Rob Clark <robdclark@gmail.com>
-> >   */
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/ms=
+m/adreno/a6xx_gmu.c
+> > index 3bebb6dd7059782ceca29f2efd2acee24d3fc930..4d6c70735e0892ed87d6a68=
+d64f24bda844e5e16 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> > @@ -279,6 +279,8 @@ static int a6xx_gmu_start(struct a6xx_gmu *gmu)
+> >       if (ret)
+> >               DRM_DEV_ERROR(gmu->dev, "GMU firmware initialization time=
+d out\n");
 > >
-> > +#include "adreno/adreno_gpu.h"
-> >  #include "msm_gpu.h"
-> >  #include "msm_gpu_trace.h"
+> > +     set_bit(GMU_STATUS_FW_START, &gmu->status);
+> > +
+> >       return ret;
+> >  }
 > >
-> > @@ -300,6 +301,8 @@ void msm_devfreq_active(struct msm_gpu *gpu)
-> >       if (!has_devfreq(gpu))
-> >               return;
+> > @@ -528,6 +530,9 @@ static int a6xx_rpmh_start(struct a6xx_gmu *gmu)
+> >       int ret;
+> >       u32 val;
 > >
-> > +     if (to_adreno_gpu(gpu)->info->quirks & ADRENO_QUIRK_IFPC)
-> > +             return;
-> >       /*
-> >        * Cancel any pending transition to idle frequency:
-> >        */
-> > @@ -370,6 +373,9 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
-> >       if (!has_devfreq(gpu))
-> >               return;
+> > +     if (!test_and_clear_bit(GMU_STATUS_PDC_SLEEP, &gmu->status))
+> > +             return 0;
+> > +
+> >       gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, BIT(1));
 > >
-> > +     if (to_adreno_gpu(gpu)->info->quirks & ADRENO_QUIRK_IFPC)
+> >       ret =3D gmu_poll_timeout(gmu, REG_A6XX_GMU_RSCC_CONTROL_ACK, val,
+> > @@ -555,6 +560,11 @@ static void a6xx_rpmh_stop(struct a6xx_gmu *gmu)
+> >       int ret;
+> >       u32 val;
+> >
+> > +     if (test_and_clear_bit(GMU_STATUS_FW_START, &gmu->status))
 > > +             return;
 > > +
-> >       msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
-> >                              HRTIMER_MODE_REL);
+> > +     /* TODO: should we skip if IFPC is not enabled */
+>
+> Is this a question or a statement?
+>
+> > +
+> >       gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, 1);
+> >
+> >       ret =3D gmu_poll_timeout_rscc(gmu, REG_A6XX_GPU_RSCC_RSC_STATUS0_=
+DRV0,
+> > @@ -563,6 +573,8 @@ static void a6xx_rpmh_stop(struct a6xx_gmu *gmu)
+> >               DRM_DEV_ERROR(gmu->dev, "Unable to power off the GPU RSC\=
+n");
+> >
+> >       gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, 0);
+> > +
+> > +     set_bit(GMU_STATUS_PDC_SLEEP, &gmu->status);
 > >  }
+> >
+> >  static inline void pdc_write(void __iomem *ptr, u32 offset, u32 value)
+> > @@ -691,8 +703,6 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu=
+)
+> >       /* ensure no writes happen before the uCode is fully written */
+> >       wmb();
+> >
+> > -     a6xx_rpmh_stop(gmu);
+> > -
+> >  err:
+> >       if (!IS_ERR_OR_NULL(pdcptr))
+> >               iounmap(pdcptr);
+> > @@ -852,19 +862,15 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu=
+, unsigned int state)
+> >       else
+> >               gmu_write(gmu, REG_A6XX_GMU_GENERAL_7, 1);
+> >
+> > -     if (state =3D=3D GMU_WARM_BOOT) {
+> > -             ret =3D a6xx_rpmh_start(gmu);
+> > -             if (ret)
+> > -                     return ret;
+> > -     } else {
+> > +     ret =3D a6xx_rpmh_start(gmu);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     if (state =3D=3D GMU_COLD_BOOT) {
+> >               if (WARN(!adreno_gpu->fw[ADRENO_FW_GMU],
+> >                       "GMU firmware is not loaded\n"))
+> >                       return -ENOENT;
+> >
+> > -             ret =3D a6xx_rpmh_start(gmu);
+> > -             if (ret)
+> > -                     return ret;
+> > -
+> >               ret =3D a6xx_gmu_fw_load(gmu);
+> >               if (ret)
+> >                       return ret;
+> > @@ -1046,6 +1052,8 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *g=
+mu)
+> >
+> >       /* Reset GPU core blocks */
+> >       a6xx_gpu_sw_reset(gpu, true);
+> > +
+> > +     a6xx_rpmh_stop(gmu);
+> >  }
+> >
+> >  static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx=
+_gmu *gmu)
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/ms=
+m/adreno/a6xx_gmu.h
+> > index b2d4489b40249b1916ab4a42c89e3f4bdc5c4af9..034f1b4e5a3fb9cd601bfbe=
+6d06d64e5ace3b6e7 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> > @@ -117,6 +117,12 @@ struct a6xx_gmu {
+> >
+> >       struct qmp *qmp;
+> >       struct a6xx_hfi_msg_bw_table *bw_table;
+> > +
+> > +/* To check if we can trigger sleep seq at PDC. Cleared in a6xx_rpmh_s=
+top() */
+> > +#define GMU_STATUS_FW_START  0
+> > +/* To track if PDC sleep seq was done */
+> > +#define GMU_STATUS_PDC_SLEEP 1
+> > +     unsigned long status;
+> >  };
+> >
+> >  static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
 > >
 > > --
 > > 2.50.1
