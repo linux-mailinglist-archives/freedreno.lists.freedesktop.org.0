@@ -2,116 +2,111 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5930EB0FAAE
-	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 21:05:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C55C4B0FABC
+	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 21:08:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5DD210E852;
-	Wed, 23 Jul 2025 19:05:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E4FA10E191;
+	Wed, 23 Jul 2025 19:08:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l1hsHUTr";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dY9FdImd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A05E710E861
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 19:05:06 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56NHu4np007909
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 19:05:05 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26E7710E008
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 19:08:58 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56NHaTYM025878
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 19:08:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=LlwxGzbxOFLE6tNUdLnrCDcI
- n1YFSoVX4yc5JSgu4+8=; b=l1hsHUTrgTE7qd/eAxzIIAPPwarGjdXcx56NN52j
- F+j9zlJ6VRNZp825RrlRrIUojTEpFyP6CU8DHN3zQj9uhORUL9BRsCaPaGL5OQwg
- Zzat7JfrFHTsTWFHXhub+YhJWBF1s0tOXv6vkP9YIST3k/Aulb06J2NhkND3lg5k
- 1Ttuwtd1HB+WuEYWXcwjGJSxatj+yu7GnHQfeaPBGwGApIttVhUPQ/hElc+DnSL0
- sktYR5LPlavblOMiiRdz4Xvkq5+mkNq229iK8Ux4j1Qgeow4CKqGcy3yo0IBDvc7
- Lbjo9VLg3MAVDp2AgV/+NRwpvbybNozyDgyLdZ6KFSVjoQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 482d3hva13-1
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=mASOgsCi7NBq5T98FPC/x55U6eCvkphaYtG
+ YjqMVya8=; b=dY9FdImdDR9/7eLvB5z/muueEDREJzyboWBxSOLntKGdkenKupL
+ 19gbBWE4IN96sEDEKmNnsOorRLY3yOZ+ScfhLcoIaJknbgmpeM6GhRtjl47DnT21
+ 0Pf8v6kEfnLz2upXp/AV9L84pvK+0z7fIakSAwmSpI4RrPdV7s/0xIpP3BIvNmdD
+ bCGYaMDGJR+9X/p5PTONCcTrvic+qz0zipnngxozjzjntjyH/YAjujokB6OtqjNy
+ 8fiea5orKNWNkTp3mnlaJYDJBkiCe+Ev/Bzfuf0OLl4CeL0YkimmGhv88mHszUYQ
+ aR7BOf9iBfUkoKvEd34q6MAiC+oZUcgcQ5g==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48044dp3jf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 19:05:05 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7e33f7a58f6so30147585a.3
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 12:05:05 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 19:08:57 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2355651d204so1181985ad.2
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 12:08:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753297505; x=1753902305;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LlwxGzbxOFLE6tNUdLnrCDcIn1YFSoVX4yc5JSgu4+8=;
- b=dWlonlAWaMZUlT7fzhMJByduqrs4mj7Bv64Hh9a8GNBt+kMr8CqXQVig2OyyoQewD7
- wrs5juuKHIzbNnjEH6z4NjUI4jRck7IGxAtoj5hkJYxKEVnEO6mcT1yF926r2zgDLfPi
- mBda0hb+92ZEfeP/2Ud8T4Rq7LIJzY6vFhVG0fnnvTByCWPhLQ5JzG8ybsCllKm2CwVr
- 9xRBRnjduYQKAHwgTVgu17Rg6tXtPipzr49yEYmKGPLxp4m9sEiw+3sUZVIhv4dUyOtg
- v/cp5Q3b7z4Gpws5xkt3oCmnfkPxHLhdHABFWKLZJ7jT8BLYgy0M4WweG6Lvp0W4IQSz
- A5Xg==
+ d=1e100.net; s=20230601; t=1753297736; x=1753902536;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mASOgsCi7NBq5T98FPC/x55U6eCvkphaYtGYjqMVya8=;
+ b=bOwFE3EvtPv32+wBSfo5NInBJ2pTvYupIX9NfXO0hTBsgGtTl3I+lLsY56Qe8SsUVl
+ nELFx6z4uYJhxVLgTv7779ut6w71vsJ5XUaOAZJuF/1+4mz+eRXjC3lKfWbvVKnRKySG
+ iOu8ycMMfhDnEt1vPC+i2IyPFjrKVauVoZmhRUsAM7KIvbM1gsk+jhmol04NKEdznhlA
+ BNedATN3KdldTMvcI75aB2y03UnL/esDiVGV11hbasHwCK6tT5GAekW0b7gp7x8tlQi+
+ AjGNu56Qft65tN0io+w3X0ys9zzMEMN044TL7IQ/yUowvxN9L7mpN5oroMvAE5vI7W0P
+ weSA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUhkQwb8K9GEY+tWk589LVa7t/5PMAnlb/m9OcH+DspQ5wxgNQHOXbpWCfXGX0jZrIGd7MRVYWrF30=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YweqvzziTZhG5maCZfGQsLmMGWqfAL6urCWyDsFibBXHRkkh7Wd
- togCKMB3miPgIeviNhVKR1KCo/rijK3hAMY0ID+tAQ6zt11J6JwruLlHiqAsBSXdpU8LMoXyDeg
- InsZOV2bPNJrqWtgY+TJ/vPgsGSBSnbyeh+NmUIcW6KUJhs1WB95wWzbvKOP6S+pU8d0uNvg=
-X-Gm-Gg: ASbGncsAOC9WjqopOPQXUeEshS466EkIK68kvvYEw8WD0KlVLtONQVl1Z62ymzybXTc
- GRbrGxWSLTF+L9/nZdImSgxNIgb0X5GKWjVpt3bcvb2tOkpUdruSifZYddQ4wiVCUhwDzZPg5gD
- J1A43X3DE/3IKEyzjn6Z6JbjDqbQAx59ZEBwNgXGF5/CoUl+eWj+FMWzevuPJO5ikrLX5mUG/Kr
- fuhAAI6MeaSNhmvTEvYl8ab+ZX13lr2kO1UnCooFOBGroHOzjhunlXVPox4PM2KRgku4Im4OF3b
- 3VLLz6STEMRhO6qjW3/LTBXxW6/98IsQXVjVD9gUx8KDU7MpVB/WMzoPYPoSNLjnJ5Dp9EnZp4Q
- pimkfGEekmPP+/ViYW0X4v05lfZYZOp+WciAYcrGFWQjYXPXyf5MF
-X-Received: by 2002:a05:620a:a201:b0:7d3:f883:6047 with SMTP id
- af79cd13be357-7e62a19e6bdmr438162085a.51.1753297504556; 
- Wed, 23 Jul 2025 12:05:04 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHVikEHzskkn5r6WHCg2DXMAwpPQxlleG1dXDP5Na0HIBh6BhiLe+Oy1cOXXzmZ/m6sol52RQ==
-X-Received: by 2002:a05:620a:a201:b0:7d3:f883:6047 with SMTP id
- af79cd13be357-7e62a19e6bdmr438155485a.51.1753297503926; 
- Wed, 23 Jul 2025 12:05:03 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCV6VTC+JKry/YXWYFxJK0NjzONMaylI5G9v/FiXIQ/6LbLKpF0plsIaOQY00v6NP5hkHMauec9FRcs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywtcgv8gSHnC/VHprpwR4sXE/mVNBtxdO1HjBlDsGfBDVPKxRaU
+ caCheXM2Q2jSLUnl3RsDVa6w6RfgGVvC2Aq5FAoYWWAepN2ubsBW7mimglDQhO8PwhLn+boeVIZ
+ tM45m8ngUffob+nhkc0mCb7SDKo58WBWvOgJ3f4LDNVFR2HLv5z9OEPDTeeRbpLwNcupPFT8=
+X-Gm-Gg: ASbGncsss7j97BJYRDR/EeZcZb7Q4qAB9W66Uwhc09T8niNhrr7C9c7Z/VbGqF9kwpW
+ wy5SKLQ1JYIwUQuU9d4GrT0t2Glzk61pJ+QZgLAlx7wT43xvZO+Mza1FTv+gUDaCRj7rA1zU694
+ e0td7MsMkl8lPW58CQZMCELqq/6Z9yFDqBDyEsKS//FnZs52nT0LeCBIvOHshhsJdLjp79tItz4
+ 5KaHMnzcvD5SzRgY5SXFdlzFvJoK9ZCH2rrbSuhHTn5F2Ke/B3VknKcmKb9XuXvIaHiPQI5YmI2
+ WMx2UpN0aLIsISLlr4FybdH0OhbXqE2yxTxrpnKtoleEEFvVUUs=
+X-Received: by 2002:a17:903:1109:b0:235:c973:ba20 with SMTP id
+ d9443c01a7336-23f9820283dmr69182725ad.49.1753297735435; 
+ Wed, 23 Jul 2025 12:08:55 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHhVi/6gfyiJ69GTvshRkz/NQIrNp1El4Pbp2UDbBc4h/tVujCiVC1TqjgOnUvKlvGS+Ua0kA==
+X-Received: by 2002:a17:903:1109:b0:235:c973:ba20 with SMTP id
+ d9443c01a7336-23f9820283dmr69182405ad.49.1753297735019; 
+ Wed, 23 Jul 2025 12:08:55 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55a4e0338casm527398e87.190.2025.07.23.12.05.01
+ d9443c01a7336-23e3b6ef9aesm101308975ad.211.2025.07.23.12.08.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jul 2025 12:05:03 -0700 (PDT)
-Date: Wed, 23 Jul 2025 22:05:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Chenyuan Yang <chenyuan0y@gmail.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- tglx@linutronix.de, krzysztof.kozlowski@linaro.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: Add a null ptr check for
- dpu_encoder_needs_modeset
-Message-ID: <ciawdvjevycjjuowmykfux2v25lvr66kzey4jklq7t5cjzqalj@qfcva77k2bvr>
-References: <20250722211740.3697191-1-chenyuan0y@gmail.com>
+ Wed, 23 Jul 2025 12:08:54 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org (open list),
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH 0/2] drm/msm: Error path fixes
+Date: Wed, 23 Jul 2025 12:08:48 -0700
+Message-ID: <20250723190852.18394-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250722211740.3697191-1-chenyuan0y@gmail.com>
-X-Authority-Analysis: v=2.4 cv=G8UcE8k5 c=1 sm=1 tr=0 ts=68813261 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Wb1JkmetP80A:10 a=pGLkceISAAAA:8 a=_XfERVBWgaszTNbD_PYA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDE2MSBTYWx0ZWRfX2kzgry893bX/
- pt5au9SqLblQ9yAVqIbIFVF08kvYmv1M0Jh60TvY8s190cNGJcnSlkz6YdIC4Zhl7rSmWxZFN5a
- nQoJ7s0MkBNLJJtBvjWQ+osHFCvxTS6ukKarGfUTZeKs+iPKpFj+FvI2EfUaPniC0c9LH1eXGdm
- tn7m2AW0qira1tpIl++KwUb7sYwr/pg6NG7PZYAHUPwvxsTw8BPtsqZIJILgOUXbHF5f+NBXPIT
- o9MshFkWo8903+vVWJXbaPW5nrZLuQo5nRQeeFhSNFixGFv1HN+r8/tme+8NSfnOlyS8uOmTq41
- 6heyqX2RYBsz+pfz+eS06DRr3WfoY0kjJ/sDYq0/phnNLswkbSaMJp7EwzyJRe40GlsmX/h8lqO
- xP6QK6mK5ZlTJmeXgk3RPNGGDosTrgLoUCXsNr6F/3kQuh4EdYNNubb4DYTA0SD+UogTIxAz
-X-Proofpoint-GUID: cxU2nDaSFjsHTFdRv-1Q-HRQM9rDta9g
-X-Proofpoint-ORIG-GUID: cxU2nDaSFjsHTFdRv-1Q-HRQM9rDta9g
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=BJ6zrEQG c=1 sm=1 tr=0 ts=68813349 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=Wb1JkmetP80A:10
+ a=eljiBBwz-SQjAQrFlygA:9 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: OtRtBIx6Wfy4cOTCSMCma9DrzWDwcjia
+X-Proofpoint-ORIG-GUID: OtRtBIx6Wfy4cOTCSMCma9DrzWDwcjia
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDE2MiBTYWx0ZWRfX+8aBx+mJeNkH
+ OJJu/6CnKEFHJLpMac2/A6B0VfpJaFINoYOAjfhhFLEQuDoTi5b4kl+IS8Cmzj49LKtifkObiL/
+ S6oFCxmNnb9dSUry+qvuKp6dlCbdcVI2eISaUV3i/2AGZofN50QMRjjtGoMTQWmwPbLUijB+d8Z
+ FEvY3kJSD6uZ6RHLD7NvDUPuKhJpv3kmVU/BQJ6z9Dn0JYPsLXFDJtuQ1J7WUwu8yeKWR6Rii6Z
+ eb/4enmjqLcyoXubv2EyRDv2fwIp4rV8PmAObLy5vy+SmEDKbeBqyaw+R20W0RjxIMvo8nI11xp
+ Q6ALxl0So6p8/ngO/Dnkuolhr+Pej0JDbvq/E7a3g033pSgdXhcMBYYFcWZPLpaRrghnrskDUFm
+ FkrtLSYZoVu4mVeJ9jKzj8Kx7Due7OkZMhThqOkWisvZVbgfq3ZF3JEWneMcFHuhWkMNk1hb
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-23_03,2025-07-23_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 mlxscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 lowpriorityscore=0
- mlxlogscore=999 adultscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507230161
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 spamscore=0
+ mlxlogscore=952 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
+ mlxscore=0 malwarescore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507230162
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,41 +122,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 22, 2025 at 04:17:40PM -0500, Chenyuan Yang wrote:
-> The drm_atomic_get_new_connector_state() can return NULL if the
-> connector is not part of the atomic state. Add a check to prevent
-> a NULL pointer dereference.
-> 
-> This follows the same pattern used in dpu_encoder_update_topology()
-> within the same file, which checks for NULL before using conn_state.
-> 
-> Signed-off-by: Chenyuan Yang <chenyuan0y@gmail.com>
-> Fixes: 1ce69c265a53 ("drm/msm/dpu: move resource allocation to CRTC")
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index c0ed110a7d30..4bddb9504796 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -729,6 +729,8 @@ bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_st
->  		return false;
->  
->  	conn_state = drm_atomic_get_new_connector_state(state, connector);
-> +	if (!conn_state)
-> +		return false;
+For reasons unknown to me, systemd-udev recently started limiting
+max-files to 64k (at least in f42), which exposed some problematic
+allocation related error paths.
 
-Did this happen in a real case or is it just
-yet-another-static-analysys?
+Rob Clark (2):
+  drm/msm: Fix refcnt underflow in error path
+  drm/msm: Fix submit error path cleanup
 
->  
->  	/**
->  	 * These checks are duplicated from dpu_encoder_update_topology() since
-> -- 
-> 2.34.1
-> 
+ drivers/gpu/drm/msm/msm_gem.c        | 4 +++-
+ drivers/gpu/drm/msm/msm_gem_submit.c | 9 +++++----
+ 2 files changed, 8 insertions(+), 5 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.50.1
+
