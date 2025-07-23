@@ -2,81 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA8D0B0EF97
-	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 12:19:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83FB6B0EFA9
+	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 12:23:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C346A10E138;
-	Wed, 23 Jul 2025 10:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ACCE10E138;
+	Wed, 23 Jul 2025 10:23:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RnAwaWWL";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dSbZ/oLy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE0CC10E138
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:19:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0B3010E138
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:23:02 +0000 (UTC)
 Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56N9b1fR011036
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:19:16 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56N9aC3k019723
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:23:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- V17Z+d0hImGw2HvJRpGbhQVJAXUpjz394Odn/ptEGBw=; b=RnAwaWWLrHfE57XP
- nhj6x2QQPoD0TcW84iojwQf4BBA2WEsS5cttmXK2FdIjSA+riCntCZiCKC2vg1Js
- IpksfbZV7Ad6pToZP+t7Mw2fJ6MvMvmZh/BWcwE8yqrp3yanbkkYeNryATXoHcHk
- dfBBeLCnTVuEww5C9k+w2xGmx3sn9YEIyrUJSwilwzEDrwhqthlc7sNRhCe5GWTw
- ZfL0SCHyrQXLXXmd56ZetbyAG0cqU8JcELt2s4jX67XLkIgqWe/T2sv3SqCAg1Pn
- S/59z4TzwKKSUo8n4cn9YWzVxSfth1i2SR32ErWs1bokUchZPyw/6bE1sWhv/gaz
- kaxmeA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 482d3htsus-1
+ A8pYxrLggsp/Pc9lqDpa3++CGRfIO5nj4AvygT3vYys=; b=dSbZ/oLyUawVCApG
+ U9s1cCPf1xaU5ffr1QouCSCReiTXpsSdXT7yImzX80Ko4E33y+KWyJl5y7B9zmS5
+ D2U2UwBB8crRwf3p/3/G//AUWbfC/MJa/EU5dDSNahH0XM6MGursDaTOnoT41VX3
+ ocl/Y16OYNQ4+WFYSx/gSyzZIKXHpeXcQs5uQB271ERjdxN9/O1rNtjPHXFw6z0n
+ 4UzOtDr4+5w7tSTHVyINko/jOvcoEB2IihBvFnWmlWvjwYT5s/B3LblCndbDvFLh
+ LXymxsVGKKRdd6tKAMLHV5BmUU5Xv3YP7Vx+u6BWr5Y4jeKNNlzNPAclWLc0rl+L
+ ivewTw==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 482d3htt62-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:19:15 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4abdc49ce0dso5025131cf.2
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 03:19:15 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:23:01 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-6fb030f541bso15667336d6.1
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 03:23:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753265955; x=1753870755;
+ d=1e100.net; s=20230601; t=1753266181; x=1753870981;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=V17Z+d0hImGw2HvJRpGbhQVJAXUpjz394Odn/ptEGBw=;
- b=ZZBUGz+3kRVtKtHG1Jn6tVmkXMYAjEHycZ79OU/GXvL8/d3zIAO5EFWGNF7wrDQf6C
- YttRPUmxO2OlAILn6ZGBoTCI8Bh9uXe6valIdqxzXg0efzFQh2WPL9jvMy/Kv3GEDn0R
- gTUnHb6ZKhXj3jskObqt6gngd02xldIDvNRNKUmNoEJCkyHvi53b8XwOGAsvms/m0HUl
- l0SK4ywv4kU0xsdjKQbQKJMY5/v5ffPtQ3vfdObwLAjfHBBRODM7q5Zbd6VabHLlEYfm
- FEQyP1dpZOjVysra56dhSYgXyJBYy2LO+suyQACIllGKTjuaT+yA32Z8YUG6PAD9Vf1I
- mMLw==
+ bh=A8pYxrLggsp/Pc9lqDpa3++CGRfIO5nj4AvygT3vYys=;
+ b=KyCLHIBnM5EPKestiFpCISncRIQlgnBf/hLq4+t9vLI03h4Nk7AoY9drNki73Rc4YT
+ sU690src4ecDVA5i+ItUhKt16//HuDEBHVifPBcN3oMxizUlrJkwJAHT1f329WFKQFWj
+ aRM0SRi6t7ddPg3spHKuUzQ6DsI/EuHD0XINdXHe52qb76EQwBphgCjqcQijxQWIAgyk
+ XHyc+IrAU3aj9r4WF1g5rkaOna5/DrXfSM1IVNwbQP23tPWEQVTYARJnsI0aXH43O/pG
+ 5LkTkqH5T4PpWJnTlYeKSaShGoozFtmvnbuJURhmSbfL3RNCUTP78WVh4YKsxiXpTO3J
+ 9sIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUp4aIbVo1TkqZFaDzaKvcVl3lSbqLqr2vjPx5o27wu6eKHRoST08v4FYM+259dK3bHOSK0YIjbWnc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxc6AmuoJdDdTE16oqMyCMhFdDgqBZzjVxM1j6PWlQsQt1p7L5q
- XSU6NrqdPuJEhy2QtoMyZj4ReqZbhcQ084nUPIraG1PpH+2lhCi+aQtsA/ln/5i+Y3mdqOwplJv
- paWYkCdajhGhsI25jNqncP5f8cM925Q6fDJzCAaLNJigqMC5sN8P6CJzUerUQWw0TMZ2f8gY=
-X-Gm-Gg: ASbGncvDYhYD1hm4CjMXHWKYpzhGjN7eBUCZD9ImgMsliwDsiDo1DHhHWNAkiL6siF2
- O/Lj7U1+gVme2v0o5bc8hjVsQftvhXbJZ9JMFX9bkhenrD2kFpnpFPoTPDsQyJbVDMmK7d7zL9H
- hf/wePWcjqz8MiRP1vYr30bZwr7ztRpq4G7m0B5Fw4G8Hc0yUqyvFo77bmPnHduK9D1soXas62y
- vFGo8U0thMKp0JFVRkFRzHmatv0YjTe7yU20D+27jlKS5OneRYaV83pKj17OS983sKCIPvtoRXh
- 5MdjoLmQWIlFb3ngVF6RTRJzH5UmGYHYuKOX4PSpbwLgcZsBENg4lrsaPcIlYBHOiWePZr44Pce
- EPlMYivAPctjVZJaHNQ==
-X-Received: by 2002:ac8:7d13:0:b0:4ab:5d40:6f80 with SMTP id
- d75a77b69052e-4ae6dc82f5cmr14375801cf.0.1753265954966; 
- Wed, 23 Jul 2025 03:19:14 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFby7S9+brNY6voLnyjlEtGVWjDtOvm42SqEKk7jFypebfRo0SRww046lz8A9ap0ikYoNWxlg==
-X-Received: by 2002:ac8:7d13:0:b0:4ab:5d40:6f80 with SMTP id
- d75a77b69052e-4ae6dc82f5cmr14375521cf.0.1753265954448; 
- Wed, 23 Jul 2025 03:19:14 -0700 (PDT)
+ AJvYcCWa/EgriSkY36OBgSmuW9/sYKXRz6fibKRZb1PchAC3ZoRClwTqlih9Jsjn3WTBMxdU3/91yqL+ldk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxoaESYQdaqY0cWzSmj/HdXIuuuNQtJT62KRO1VhpuIY93yIhK3
+ qMS4jB5zYr9wLAmb5O+316ltRyJMzNW1nChKr9Z+eKN7DD6rtNzedf47Mdjbr9MUXFc0ZVl+er6
+ 5bzkfgVKDjIlrRAh6oPsIzLD6ekK8VPJ7T2GacR9x8+ggRxuDwNkh4537t0YKOoZTXrxUBr8=
+X-Gm-Gg: ASbGncv9yGT8gd8VXwahOUyGZ6FRGh8svhNBjoJj2KTzYqJp40TqMbJQq7rVq6qOqy6
+ l3meRuaYnnOXYJc7qvRwoCFdMpBfl4ck2EQGjeaI98j7iyKuXTmRBrliy4scNmvkqsWn7K55bYy
+ UK8bYTSiQrWUv3QJ2NbiiTX9piY9853XfTw/geUBD0e5keXqSic+LTTfnd4rAlgszMfZmlOtbWY
+ yBIAfz/fojpaYkQvXU9wg8e71pafk8H2QZFaxi3eRgl/fm6NXL9Tl7tNKiK8Vykk50b2uQvUSk2
+ KNq8j8Jt8JnioHlStx6MW5HhpAldWZ5T+EDQY5bP/Ggts6WEoXgLxtwhx0NQX8uQfVgj8NEizUy
+ qiGYlpbjeVKJW8cAzog==
+X-Received: by 2002:a05:620a:28d3:b0:7e1:6d46:9bde with SMTP id
+ af79cd13be357-7e62a1af38emr109301485a.11.1753266180886; 
+ Wed, 23 Jul 2025 03:23:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEbdAr1cLYfzXD8fo0X4Lr4Ip40OFyltSfV9KEUBwzI9EI09L7HNQRYzee7xRd+UpVLCkm7uQ==
+X-Received: by 2002:a05:620a:28d3:b0:7e1:6d46:9bde with SMTP id
+ af79cd13be357-7e62a1af38emr109300185a.11.1753266180496; 
+ Wed, 23 Jul 2025 03:23:00 -0700 (PDT)
 Received: from [192.168.43.16] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aec6c795282sm1025387166b.6.2025.07.23.03.19.12
+ a640c23a62f3a-aec6caf9ad7sm1021436966b.164.2025.07.23.03.22.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 03:19:13 -0700 (PDT)
-Message-ID: <0a2188e7-3919-48f7-b5c1-8f779f617f28@oss.qualcomm.com>
-Date: Wed, 23 Jul 2025 12:19:11 +0200
+ Wed, 23 Jul 2025 03:23:00 -0700 (PDT)
+Message-ID: <ffc28d89-ba45-480a-b664-9e4ffc50a3bc@oss.qualcomm.com>
+Date: Wed, 23 Jul 2025 12:22:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/17] drm/msm/a6xx: Switch to GMU AO counter
+Subject: Re: [PATCH 11/17] drm/msm: Add support for IFPC
 To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -88,25 +88,25 @@ To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
- <20250720-ifpc-support-v1-9-9347aa5bcbd6@oss.qualcomm.com>
+ <20250720-ifpc-support-v1-11-9347aa5bcbd6@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250720-ifpc-support-v1-9-9347aa5bcbd6@oss.qualcomm.com>
+In-Reply-To: <20250720-ifpc-support-v1-11-9347aa5bcbd6@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=G8UcE8k5 c=1 sm=1 tr=0 ts=6880b723 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=oovjfIWShZiszQ5o9iAA:9
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDA4NiBTYWx0ZWRfX1IoYXbbPctP9
- 0ck2w2ut/9Sj2g6qcM0psIosSXptWuvqhZ/nJ0AmhYRb/EeWiWA3g4jJQm/e1TWA0DMizJPKY+W
- pLFB5Sg2lax41ugfQsJRPqCIV0ILuAdX0kx6JS0DrtoCEBEe36XtfcUhdTQv+pNmMyv8+o4jN0g
- 3xHlcDrR0rVBfJEKj7sd7Jxq86pOZJ5X8GLOggq9SKGJqfbC5LQDjZsnezuguwIY/wXzqkZj+FM
- YIV4d1qkLOT/rXffAk9ELUv++5lirOr4IK67f1B907erTp/y2mMAWvNgv4DkZcqM6iwiKnpC6GF
- rBHaLdWs9pBz+THf86Np2m2jWFUk0JuimOoZGCihNf1/ipLxsewn60WYVc6fY+IHn/YOYSCNEmn
- IW2YB9P9z0Z2Emf49NESXoLFHneNiRLcZoIqpOlPmJvgvi8+7glb5EQuH+zkjmrs1zHeKcuT
-X-Proofpoint-GUID: 4qj5W2GC0kQxRmbm74QaSResgbd64nBD
-X-Proofpoint-ORIG-GUID: 4qj5W2GC0kQxRmbm74QaSResgbd64nBD
+X-Authority-Analysis: v=2.4 cv=G8UcE8k5 c=1 sm=1 tr=0 ts=6880b805 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=mXZsdZnO6U5RsJfdWwEA:9
+ a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDA4NyBTYWx0ZWRfX5/zQkXJwahHA
+ T+aylyJv48sJyCOjcYo568SijE6LrAQXteQalm8LYOXMz5Hi70p4mQ2PyDfs2PAuiCXvJMe6bIW
+ SFMpFK2UcvUF/wevk0+fhUlv1GEgMIDU25aQYJWQemv/lbJ/XRtCPOO/7AiSiWWlcjqPFzzG7Xn
+ LNLw5qqqURt8qWWj6WccA2B/RAbH5t1gqyCs4zwMYy3zALoDD54JYeO7lrcgJbTBE32aCylBDBW
+ uLgESIIjkwZI6PklArVp9W6tzTvl13rG2MNgs4/xy6W9oYLdAcE+JiCFybmVR3PkSXnndLcPynR
+ eYG1Fe5VV+BOjmkSqi89tOUUB7M0W/k0FuE9OiT7n7QnmVdr0LuAk/oMAGT0Z6dJZnOHJM0EKGj
+ 54rTYVNQL7+9zrv/GjTMdzSPx+RWIdF9yrFnQpZgYkyv1Zdrwp0a+3hiFzG+lZhlF/Keee9Z
+X-Proofpoint-GUID: gIRm-WuBmDSku8Q6iBvfnbcMFSE-uZj9
+X-Proofpoint-ORIG-GUID: gIRm-WuBmDSku8Q6iBvfnbcMFSE-uZj9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-23_02,2025-07-22_01,2025-03-28_01
@@ -115,7 +115,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 lowpriorityscore=0
  mlxlogscore=999 adultscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507230086
+ definitions=main-2507230087
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,57 +132,24 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 7/20/25 2:16 PM, Akhil P Oommen wrote:
-> CP_ALWAYS_ON counter falls under GX domain which is collapsed during
-> IFPC. So switch to GMU_ALWAYS_ON counter for any CPU reads since it is
-> not impacted by IFPC. Both counters are clocked by same xo clock source.
+> Add a new quirk to denote IFPC (Inter-Frame Power Collapse) support
+> for a gpu. Based on this flag send the feature ctrl hfi message to
+> GMU to enable IFPC support.
 > 
 > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 30 ++++++++++++++++--------------
->  1 file changed, 16 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 6770f0363e7284e4596b1188637a4615d2c0779b..f000915a4c2698a85b45bd3c92e590f14999d10d 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -16,6 +16,19 @@
->  
->  #define GPU_PAS_ID 13
->  
-> +static u64 read_gmu_ao_counter(struct a6xx_gpu *a6xx_gpu)
+
+[...]
+
+> +static int a6xx_hfi_enable_ifpc(struct a6xx_gmu *gmu)
 > +{
-> +	u64 count_hi, count_lo, temp;
+> +	if (gmu->idle_level != GMU_IDLE_STATE_IFPC)
+> +		return 0;
 > +
-> +	do {
-> +		count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-> +		count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
-> +		temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-> +	} while (count_hi != temp);
+> +	return a6xx_hfi_feature_ctrl_msg(gmu, HFI_FEATURE_IFPC, 1, 0x1680);
+> +}
 
-The original logic is as follows:
-
-static u64 gen7_read_alwayson(struct adreno_device *adreno_dev)
-{
-        struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
-        u32 lo = 0, hi = 0, tmp = 0;
-
-        /* Always use the GMU AO counter when doing a AHB read */
-        gmu_core_regread(device, GEN7_GMU_ALWAYS_ON_COUNTER_H, &hi);
-        gmu_core_regread(device, GEN7_GMU_ALWAYS_ON_COUNTER_L, &lo);
-
-        /* Check for overflow */
-        gmu_core_regread(device, GEN7_GMU_ALWAYS_ON_COUNTER_H, &tmp);
-
-        if (hi != tmp) {
-                gmu_core_regread(device, GEN7_GMU_ALWAYS_ON_COUNTER_L,
-                                &lo);
-                hi = tmp;
-        }
-
-        return (((u64) hi) << 32) | lo;
-}
-
-Doing this in a while-loop almost looks like you want a lot of time to
-pass - REG_WIDTH(u32?)/19.2 MHz
+If this function is not used anywhere else, you may want to inline it,
+checking for the opposite condition
 
 Konrad
