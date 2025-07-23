@@ -2,82 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86E67B0EF67
-	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 12:11:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 599F6B0EF7F
+	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 12:13:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60E7710E138;
-	Wed, 23 Jul 2025 10:10:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30FA710E138;
+	Wed, 23 Jul 2025 10:13:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cVibFs78";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IBbMXJPl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 047FB10E138
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:10:58 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56N9Kxnw005629
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:10:58 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00A7F10E138
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:13:52 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56N9pnba019659
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:13:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 367qI0nz7D+7h4lGNKFfyYMcgYPJRnaZzBeo2TflJFQ=; b=cVibFs78mpAbpqKm
- uF8czhr8zLx2t4Qe27UCNjJL81V0q2OYEG1FpSQWB/bKdWqDmB4M+AE1OgetC+wv
- JHsywSzGtQ/T+n47iZ1WLol0PVw9buC1KizXkkhhJ/QqHcqaXT/VRZmcVvYG/qPM
- Qf4/jw4miQeR5x7PrdId5DJgJ2WkVr/MgKaqKmvTQMoHBdGMzYI2NRbwxn566b66
- Gb56vuMXwJUOp39PMt/ep/xobhf3JTnjOywpHv6WSYl8kKFgoKeSjGisTfhOOxAv
- 93kUO9oH4QWUlgBODKksBeK0tTXDMmUWqStrGJiuw9OuPHrVZGa8JNA6ngTO7wlI
- 3Y2J+w==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 482b1ub98r-1
+ A1Fp0VrKpCniXZvPKeA5q3E1PK5THOcusTjUp11AbC8=; b=IBbMXJPlWbhzanWP
+ XHSwCHLB+a3ijQ/iwEMi9BNvVwvjFRrt0AYV5+kaD4xenJ8MrjCAj7aL4bhrECfF
+ tzkTgkiWNn7/wqt/2E2Ip0oCqZgjRLOZfotcswi8JLB6fXlm5heivGKezvzLxmEx
+ msw2ProNf7Yg6hO1eFoeWXTP0TOtClm5ucQ4wJ57SzmjhPWDuKAzhBFFZ0hm38WC
+ mzYoUHE0eEZj8j83zO41NBWHDcIKNb4cyMb5KL5n620gafyb9tXN1O/UghBFSUYZ
+ 0Of7YxeJG3+IG3q4K6bL8/MUg07olclUdKE/oRg4a7aumM+1m4H+vIRZbE5dSTDX
+ xAQlvA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 481qh6pxx7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:10:58 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-6fac0b29789so23568296d6.2
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 03:10:57 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 10:13:51 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7de3c682919so95054485a.2
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 03:13:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753265456; x=1753870256;
+ d=1e100.net; s=20230601; t=1753265631; x=1753870431;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=367qI0nz7D+7h4lGNKFfyYMcgYPJRnaZzBeo2TflJFQ=;
- b=tFUDNtBSIMxKffSHF68IGkGTkbdJq4BdMJYOl0NPAnjpkA60q6h8OmPSwsuBegnC+M
- ziw1ZI97B37WmtBkUa+D9G4YgkOU+c6nHs31rSJXOZh2vtruPay7tsLhBYJqNPn16ITs
- wczF00QtRgg7QQGH9VZoONqYW5nAdQAO4Xu1tPgGDbyFBpffNGnUepbmmfVfKiyqfz+n
- pmBxmnpQQGpVVqh7aQw76g7/aGCL40f6sdK/qFgk39/RgElIZz+DBJHmZ1FG+NTBjiRx
- FxLbusl+DEnMAQyIuhhnYYHxot4eDT2eajD7fZ34cAHZvZ5JpFjO3Px3ZquknLhbHZHH
- Lf0g==
+ bh=A1Fp0VrKpCniXZvPKeA5q3E1PK5THOcusTjUp11AbC8=;
+ b=UvM9FjSt4Jh9KyWFZ3ovd3DF/JyvZcYJE/jIl+OcPG86l6aQcmTXZAng7ZqtQ4gf2H
+ TZjFw5NWmiOHptc8Ide2j9GDR/WtkMxwkdKcoQyzpnkCBuy91mTFVRyX0DsTBYpe35OT
+ TrdC2C5+9nTAa9IBqi51NLLHKEns6ZubItBLm/JbqT56rav9OmrfX6yhc3OsYrYA+dPI
+ RCncg43biGvUQexd+rH9YowfjfRAr+t14eO0cdmOPME0GTDZjRnIqv8MJN7XtJXfVV52
+ yKPiMeAS4zzgTSXrIVneaBArhIkA5aAo1tbI72KD4kexXp+imOW4Kjf2Ghgm+FeC7S9I
+ 23dw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU7Fj2kaPTsayEUTiz5Al286POVHq6++XUZ8Ik1Cof7MGEnZQTqnbjDlBrk669EHp9zqx/PKVxrnyw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwIGpOIsKqB2D9D8E3XL/ruv1GMtlLU+UF6/fgyhOudwblEW3dQ
- kC0YFZZILkJvf0XLmr+Bs2A9Iv2z6z8o9D97m0q/sv7AJEaFihqY30SOVhE+tXWjmy+8CXTk1sQ
- OmVxvU6QREZg72EQdUOUDbd6r3igNx41YQjqtUkiTkSpD5Fv8qEDMVmCeq1JD4f40GIocAM8=
-X-Gm-Gg: ASbGnctERCvn9OP2VUQAihmlnYBPabqLBObYBSCRcvl7ncZnBUVjfm/BkdN8D2ve2s6
- 7dj4oy4uoO8v5fnA8d/I1oXBxMVMQkAoGKJjS3MA+kRsPmqt5JhEtaR943GZ2t3wXIk32nqbUz0
- dwMtOpWmZeEsAtJsClMCI/tYapJu4pumBsFUxyr1SL651q80Cr5NShrlwJwceeMC0/8sCUbyzpV
- Fow8GIyc6iPo7lRC4eWxaXsvH2gHN6dwzeCMu0u1zhFLq/LXcagYswImMB2ca0ddHwepKSx8YZ/
- wi7SjVVoZ5JQmiw9hc5XlVq6DCIugcVSi8p5qhBTZYgnzYzjwA6gBFqJSeVXpwg+jhwF8Pjk1dR
- RbXpwIAP3M2qHnqX8yw==
-X-Received: by 2002:a05:620a:3187:b0:7e1:ba5:6ee0 with SMTP id
- af79cd13be357-7e62a0390eemr120704485a.0.1753265456501; 
- Wed, 23 Jul 2025 03:10:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHR6Y6ZAAWdnN6iFKod/XOWI6twM2I3VQjkDNOIwbsj0NfFRXCat4cq56yGbwtYclqGHHydmQ==
-X-Received: by 2002:a05:620a:3187:b0:7e1:ba5:6ee0 with SMTP id
- af79cd13be357-7e62a0390eemr120702285a.0.1753265455848; 
- Wed, 23 Jul 2025 03:10:55 -0700 (PDT)
+ AJvYcCUfLQ4kyHSrNUHCVe6bjMSgL82E5gM6HcV9LZwP5BhViCWeo7b14yMbR9bLvbvdgPL3PgoUMOlm7uY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+Rn5ShunsUAgboD0l71CcUnf2LScc++NdSE7YS2ZREk+sTJcu
+ UrYaBLmlrMQbxKEmFSoNBC5NifKcLONbv6eIa+DlwW6odtIFnCMI8kP/iCeBqn18uTlagmIm+Po
+ 3eCJyXcdNgNKYMSUCR+h/Ola+IEWXhtyolQ5YKQsmltwEjzuKzwUiz1h4UqBWLRyW+PBnwBI208
+ 5vVmo=
+X-Gm-Gg: ASbGncuS83WofAQfrimW4VLhhja/9ah3xE0Q87A1yiEfdAMlMqkBXbfSFaXz5lPdRdn
+ RYTirnNPXAzMybyjhxZXqC1xbEDbQCYfaAQs0sI2FAqd1Dn2u/gHeTEEn0iqfi3zhsWl0hi1ngt
+ MZga3iqj2cgTobqqfwlz8lLI+wq+/zDFFdqJQ4YTPCl5N+WuIrAIjU+t0n8LMIaD2j83+z1pK1C
+ LNWSWcD3eWEPTj/G4lFYQFq3KaWvHadDcM8FjvRI8eF4FktyQxJLJmRD4Hcoxh7onNAiEYBhhYl
+ IOkJJM/v1ESyQLZjCMKfmT2CmfsJBvQdFalY3aPUWhgV8GSYwcgJ1Td4r5wdK4Oup5jG14vTLZK
+ SV8+3Sb9MyM1fekHraA==
+X-Received: by 2002:a05:620a:318a:b0:7df:d668:22ff with SMTP id
+ af79cd13be357-7e62a0c1347mr135521585a.4.1753265630568; 
+ Wed, 23 Jul 2025 03:13:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEj3f1wr8H3E8T0jx6NxR/LC1BEZKnxCKVi6DM0FYNiWA0IcAlD7hCgXo8SM37cDFvPxE/gAg==
+X-Received: by 2002:a05:620a:318a:b0:7df:d668:22ff with SMTP id
+ af79cd13be357-7e62a0c1347mr135518985a.4.1753265629973; 
+ Wed, 23 Jul 2025 03:13:49 -0700 (PDT)
 Received: from [192.168.43.16] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-612f1312e17sm6525453a12.39.2025.07.23.03.10.53
+ 4fb4d7f45d1cf-612c8f543ddsm8186317a12.30.2025.07.23.03.13.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 03:10:54 -0700 (PDT)
-Message-ID: <ef79b37e-8b63-4ccc-a739-994a119b95c9@oss.qualcomm.com>
-Date: Wed, 23 Jul 2025 12:10:53 +0200
+ Wed, 23 Jul 2025 03:13:49 -0700 (PDT)
+Message-ID: <02b9de9b-36c8-4db8-a1dd-65a82aee0eaf@oss.qualcomm.com>
+Date: Wed, 23 Jul 2025 12:13:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/17] drm/msm/a6xx: Poll AHB fence status in GPU IRQ
- handler
+Subject: Re: [PATCH 02/17] drm/msm: a6xx: Refactor a6xx_sptprac_enable()
 To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -89,35 +89,36 @@ To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
- <20250720-ifpc-support-v1-10-9347aa5bcbd6@oss.qualcomm.com>
+ <20250720-ifpc-support-v1-2-9347aa5bcbd6@oss.qualcomm.com>
+ <d4b46652-c4d0-44b4-aef5-e8bcf606de06@oss.qualcomm.com>
+ <4832a160-344a-4140-a115-d4742f95825b@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250720-ifpc-support-v1-10-9347aa5bcbd6@oss.qualcomm.com>
+In-Reply-To: <4832a160-344a-4140-a115-d4742f95825b@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=LdY86ifi c=1 sm=1 tr=0 ts=6880b532 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=LpQP-O61AAAA:8
- a=wn_gRGg2Iv5gsIDpaVAA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
- a=pioyyrs4ZptJ924tMmac:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDA4NSBTYWx0ZWRfX08O8ImKdywef
- gygkmX+/mG92OGJ9OJObyQNltWGvwHE7k358ESG6Aj8n9NTO2ISb2XuMYX3PlS63t3Lzy3FJPPK
- 7qOhob6i9/eDOxBrUFKMnAbtIuHym2ZrkrmtgDv8lCDlskM0HOkXwCbHaa1AZodLeNIbmavawiu
- nW40AekHQbZ0Lkwo/vnZBsmsF/mwEm6IDludmFw4siOhZGgDkDri+sEWlYRkBSTivDw/Xme8p1/
- KXgeszZz+MY2jHIYdu035ZX36JpKmnADZlphVdoH2EJqjECX4WW4CGw+7Q29NoxwcW/TxzNtOPY
- FFA9LNJH9r16R+2wUjIlDtUtF+ndsh2/YXeEruPdR0diiD/38wLgL38IoRWyxEeiKmuhWNiJHl8
- aSQUVDpc1BBlh+BFWQpcdhnbuBOLITclvgjAr3wdKxzu6oZdx67mI9rDwwFtuvC7qG4OVZsn
-X-Proofpoint-ORIG-GUID: AGaE66na9IEOxroajfJavbwx39LUUS1t
-X-Proofpoint-GUID: AGaE66na9IEOxroajfJavbwx39LUUS1t
+X-Authority-Analysis: v=2.4 cv=CZ4I5Krl c=1 sm=1 tr=0 ts=6880b5df cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=3Acu8AJWO6yBlTze4eEA:9
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: lJe7-ypK7MmmtXTryC9fcfgBStHxec_3
+X-Proofpoint-GUID: lJe7-ypK7MmmtXTryC9fcfgBStHxec_3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDA4NSBTYWx0ZWRfX68MVazoIKmp5
+ IayiYulxISvh459zWibIaCwEOd+jBBNEYrfwjGCHwe2SZAv+ZrB6OKxvNnJ/QZW4kvcZS584TNa
+ Fl8JLgSfOmK7OQIGzdFJ3X2KccoxokvGa6DsPrw0EfIwveF1pFi8wSGT4TZFPPmsxsVM8no/AAF
+ 6NvMNzNS588Mru6PjJOhyvbpqn0d4AKS6eNH8Jsg4zKxi5/cCQLJkf9Wf3Hg9KTS4/ynVmHsmV8
+ 8RvILNNkrh9z4iXhkS/8DyafU6+31kRV/nq9cr9CeeVBQ13A4bzfPcNU9NQY7W61Sy0lmAxDdjm
+ NBjODH1RFH0KH5M/xL+HcnoEZV4r19Zt4nz678H7Zo2GrEWU+94GHARpjpJ7BTpxa1QGinu3iSv
+ rbn1+CS8eyPtuo2C60AzaaNFO2yNfF4Eakz9BLiPldzbc+lf7cYCTe0fo6VWK2VhaRQpCJNF
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-23_01,2025-07-22_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0 priorityscore=1501 adultscore=0 phishscore=0
- malwarescore=0 lowpriorityscore=0 mlxlogscore=807 bulkscore=0 spamscore=0
- suspectscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507230085
+ priorityscore=1501 suspectscore=0 mlxlogscore=983 impostorscore=0
+ clxscore=1015 mlxscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
+ bulkscore=0 spamscore=0 malwarescore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507230085
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,37 +134,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/20/25 2:16 PM, Akhil P Oommen wrote:
-> Even though GX power domain is kept ON when there is a pending GPU
-> interrupt, there is a small window of potential race with GMU where it
-> may move the AHB fence to 'Drop' mode. Close this race window by polling
-> for AHB fence to ensure that it is in 'Allow' mode.
+On 7/22/25 9:47 PM, Akhil P Oommen wrote:
+> On 7/22/2025 8:00 PM, Konrad Dybcio wrote:
+>> On 7/20/25 2:16 PM, Akhil P Oommen wrote:
+>>> A minor refactor to combine the subroutines for legacy a6xx GMUs under
+>>> a single check. This helps to avoid an unnecessary check and return
+>>> early from the subroutine for majority of a6xx gpus.
+>>>
+>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>>> ---
+>>>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 8 ++++----
+>>>  1 file changed, 4 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>> index 38c0f8ef85c3d260864541d83abe43e49c772c52..41129692d127b70e9293b82bea5ccb6b911b0bfb 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>> @@ -403,7 +403,10 @@ int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
+>>>  	int ret;
+>>>  	u32 val;
+>>>  
+>>> -	if (!gmu->legacy)
+>>> +	WARN_ON(!gmu->legacy);
+>>> +
+>>> +	/* Nothing to do if GMU does the power management */
+>>> +	if (gmu->idle_level > GMU_IDLE_STATE_ACTIVE)
+>>
+>> This isn't quite a no-op, but I can't seem to find what the '1' value
+>> would map to, even in 845 kernel sources. Do we have to worry about it?
 > 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
+> This is fine. '1' seems to be a low power state that was removed very
+> early in the gmu firmware development stage. We can ignore that.
 
-There's some more context in this commit message, please include some
-of it:
+Ok, good - could you also add a define for it, perhaps something like:
 
-commit 5e1b78bde04ca08ebc27031aba509565f7df348a
-Author: Kyle Piefer <kpiefer@codeaurora.org>
-Date:   Thu Oct 19 13:22:10 2017 -0700
-
-    msm: kgsl: Prevent repeated FENCE stuck errors
-    
-    If the AHB fence is in DROP mode when we enter the RBBM
-    interrupt handler, it is usually harmless. The GMU will
-    see the pending interrupt and abort power collapse, causing
-    the fence to be set back to ALLOW. Until this happens though,
-    we cannot proceed to read the IRQ status and write the clear
-    register because they are inaccessible.
-    
-    Poll the fence status until it is ALLOW and we can proceed.
-    If we poll for too long and the fence is still stuck,
-    the GMU is probably hung. In this case print an error
-    message and give up.
-    
-    <cut off tags so as not to confuse b4>
-
+#define GMU_IDLE_STATE_RESERVED 1 /* Cancelled feature, never exposed by fw */
 
 Konrad
