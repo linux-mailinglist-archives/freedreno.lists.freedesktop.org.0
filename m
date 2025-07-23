@@ -2,118 +2,121 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3E43B0FC55
-	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 23:54:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DEDBB0FC5D
+	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 23:57:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56CDC10E863;
-	Wed, 23 Jul 2025 21:54:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C0E310E864;
+	Wed, 23 Jul 2025 21:57:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AfCtL84g";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Yufwob0b";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA27A10E85E
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:54:05 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56NHBIrb005191
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:54:05 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63F3410E077
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:57:25 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56NHBuux004492
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:57:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- dzsHnqL9/hadPlM9oZ6TcSm5Sor5EgahUS/FmSJA380=; b=AfCtL84g/WgiuJo8
- wd98mkQAmPlVVt0pymqGy8LmcdiL8JCcan5VSCAzVgcfVUWMWrBviYkbGYz6AM+z
- 7OG85BulK4hhCfzezB/KgaxMsuZzLuaqexCRlZLMas/Shozs/hYSel8eZ5XQJkQW
- gC6nKykdEqYgjqZsFGOBlAs/jFh5u5ij6kxoMdJxZzsjr82w7sFuBwNEhKW45Ml8
- jW1PIPutGH21X9cLYxkf7qWD2QOV7z8LoIhetRMVg/SzupvATa/V4laKwtYrWUpf
- 49Z+X7VeKaq67FgOdh5qniGEVkJWkopuzDaqiIwSm/E/sWJty4jt1HaOuaZapMuJ
- IxoDoQ==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 481t6w7srh-1
+ OJ+IYU0/ojEVW5G9zuKC8BY7swUqGdFQH23X2V5IKK8=; b=Yufwob0bDJ0w5GdB
+ hm0F8+3TFob3MdtZgWS6cMYBLdvKv5Fts8AocKCXK4LgymsH5kvtHT2UWTEOq67E
+ yXFdvBoS9yVC0zuLi62tjyaV7g3wDxrJ5e7zlQAwU7IFcgmSEzeOy2C/sqVa5MVO
+ +Y1Mevz1D3P1UF+lBgOR5XcF/Gjdrys1rq0pYVRYw1F0l6012olMXSZVAb0tXE1+
+ 81FwbRcLFkN0HSVha2rqEerBXhWcZQVHdtvx6UjlPeYjZh7KOTjpDjUFPF+bbyR7
+ TUX26bcaBskO/1xcRzdedmyaOQ6jQOc/C18YYQSaB93j0l8oXcnj754E6FRBDdg1
+ 2+DzaQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 481qh6rt7w-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:54:05 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-b2c00e965d0so276355a12.2
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 14:54:05 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:57:24 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-75ab147e0f7so319410b3a.2
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 14:57:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753307644; x=1753912444;
+ d=1e100.net; s=20230601; t=1753307843; x=1753912643;
  h=content-transfer-encoding:in-reply-to:content-language:from
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dzsHnqL9/hadPlM9oZ6TcSm5Sor5EgahUS/FmSJA380=;
- b=iGFrvNavr45iC+zYaacoPWP56zm+xlmEptmDFGzk5M0JmNzet/7ZaTAVYcM2+ufP5d
- 1pblEUmafv6rxtc3zvqoVzsYx6xVAGq0iD65OSvt8Le+mWckPG+5EUS1/URX4gPt8SDr
- WCF9Y/Lr6/iRREYk3disgnRmz79W+GTGS3PQAjnJExq5fzCHfvHrDe0yAWFC6yzXZO3I
- 1sTukE72LXOI0uLybS9WQW3hHjJu29YZZ1O/PuF2dY6SdrufoqwiIxjnm+3Dtlsp7g03
- 60ipgf2D0Ir/1OBtLU1WRDtx1Sp4PJzIovDu4Bo/n3l7fsKVn6p9HbmFqqVGTFbAD0cE
- Xbrg==
+ bh=OJ+IYU0/ojEVW5G9zuKC8BY7swUqGdFQH23X2V5IKK8=;
+ b=BqRfdmpXvdBp0XuNLuGbXuQ7mJ/RNSjXE7Np7PLSA98JzbLbXZxdh6krYZFWRr/s+z
+ Ko/+u4f6XIT6Ak4FF2ZBxZxuNVh10LOh+R0485TNU7j0zLGL0Maz1MXKTa1D2FhxZAio
+ sJuRF1U7Y+nFSzVd4oYWF5AqXBAKFVyayTMdzkA6XJDB1BL4JPQUCP4vr2QnIYIe2y91
+ SePHn8hprE2QXfhPTy/CkHaKXLsYYbVQJidJWq52fALSyvlSZzFkRZ3pQsErjAf/bGp8
+ MpomWGWL2KGPfEeaq9oBzAfAniv9jr5QwR9XXql8IyXPw29D8PXWaIt5lgIJInLTq2nt
+ oDyA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUla1ApbNLDk6b1WXrWfe1MyOL8yhIKBidPNi/9toRJZweQOTP7wt0pyX6LEa822Ca4wiUkgPjsv8w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzx6YTISXEg4z/Drwzpmr/jmpY6E/AMNZHADNDAiQqlnAvhSctZ
- /PGJG6Xj5we9veGVZrlL/Ht2S70gcdGKCGPqHy0W5JSN9VoQGcW6OaEl7mS2DKCq8xZ8g5UuHjz
- XsPMLMhrfTHAr1GeYDcgwLHA/tQaN8PvbYaUcw7YEbLlfk3FsAPBYr5i8+OvYGZ4KtL1rGOA=
-X-Gm-Gg: ASbGnct46MweGTwLO5yc0bVpVVykNH2NYCcAqS+WZLCKevKZ0y4ZgVuefY0w2GVRlNP
- wNLQbdyXtzwJegfIHwXCVmBh9EbTSYHoRo1g1dM3crSWMHrtNnrl2AiwtQI9yIBh2td+WBrWJZX
- k8i0RtUPeutPj4HrF1pI0O14N6bTyxOaQTTCOlXxpMeN6uWZp7hZLRvtJ00LyTusC43M8OGEw/K
- ikLdGlRKrwqNSh/NF1lGBwvXWm2XyI0UqTB+jSojykrT6nTAGLp54tens4qpyZ7s+oaVvHdg+LY
- p0f26zSEnRHWbv27Gn0QDLp4XLYf6N66sfBBc3UGcmvxc8xHET8bdv16i3tDWQ==
-X-Received: by 2002:a17:90b:562b:b0:319:bf4:c3e8 with SMTP id
- 98e67ed59e1d1-31e507c4148mr7375980a91.18.1753307644531; 
- Wed, 23 Jul 2025 14:54:04 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEPJPJDfrA159Lqv2Tdqj6Nf4Prqoe6Smdo5JPb9rk84PO6Hho36y1HH3kU1XqlJ1NR66kYIQ==
-X-Received: by 2002:a17:90b:562b:b0:319:bf4:c3e8 with SMTP id
- 98e67ed59e1d1-31e507c4148mr7375953a91.18.1753307644126; 
- Wed, 23 Jul 2025 14:54:04 -0700 (PDT)
+ AJvYcCU9i1jVaf0fEtfCjbKDAV/AlV9SPIjaq3NcKwVDQnl6+rlxUVZ5+81rYroeqZ7nwEc0VF+H3tabHVc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYqksCXeEUrh3hh3lJhUKF8tjqJ69r+OE78xi5r1j2deseVZSy
+ boP0x6+L+6hCaaSHi3AAdoErI3z/KGYNNtBsZYbSGKSFzfYYpHlCq++S0gz+qDoM07nwjdN5CAm
+ USJTLvEl2WKCLI69KaS1zHmvXG3wn3gH4PfBpVqEvgirZ5AbuNuPiC++9sP9e3WTEAx3g7jM=
+X-Gm-Gg: ASbGncu+91pPcmCQz5VDE+n1K3p+4isw5wSVO/QD/giquhOvLgSPHV9wlLYyZ5ukp75
+ BdUyZunZnOlZxh6zIDS7mVipIFQVX8bRCj7bZ63zhPMEyQb4u4Xnxn7SofMRaKwDsRTyd/tvw95
+ 2S61lUPTTcqC+scmsvKgaVmjybjHNDsrkGcm9BN03A7fyedJ17NdFIIp4CT4DoT0iRDckpx2TsQ
+ KBuFlB2wIzxnbihhr0Wa7zossXDNV1Nlux1Ps9QjgFyVGFS6teeYcGNtCjzPvXWemCahvXVy6ld
+ 2sRYUFlS1QiUrFcZvBYRr7x6XUaP7iIOPaMhouiYdcabHebqgUNnDVV3elrMgQ==
+X-Received: by 2002:a05:6a00:1914:b0:75f:8239:5c2b with SMTP id
+ d2e1a72fcca58-76035ff3a9dmr6809754b3a.23.1753307843095; 
+ Wed, 23 Jul 2025 14:57:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEWT5EGhznLq4VFRgdd229b0EV7FZUBLIcTF0ozLJKJ43/pxYlu8O0H+tTREYzCfpQFAEhI7A==
+X-Received: by 2002:a05:6a00:1914:b0:75f:8239:5c2b with SMTP id
+ d2e1a72fcca58-76035ff3a9dmr6809712b3a.23.1753307842602; 
+ Wed, 23 Jul 2025 14:57:22 -0700 (PDT)
 Received: from [192.168.1.5] ([106.222.235.3])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31e639d780esm54569a91.1.2025.07.23.14.53.59
+ d2e1a72fcca58-761b04b3517sm124546b3a.84.2025.07.23.14.57.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 14:54:03 -0700 (PDT)
-Message-ID: <343d2e49-aa52-463b-a844-e78af2a54d1d@oss.qualcomm.com>
-Date: Thu, 24 Jul 2025 03:23:57 +0530
+ Wed, 23 Jul 2025 14:57:22 -0700 (PDT)
+Message-ID: <bd0d5470-04e3-4545-be5d-a71b9d3fb5a0@oss.qualcomm.com>
+Date: Thu, 24 Jul 2025 03:27:16 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/17] drm/msm/a6xx: Make crashstate capture IFPC safe
+Subject: Re: [PATCH 16/17] drm/msm/a6xx: Enable IFPC on Adreno X1-85
 To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
- <20250720-ifpc-support-v1-15-9347aa5bcbd6@oss.qualcomm.com>
- <d50f9a01-ba8f-44ec-9206-fcef641333aa@oss.qualcomm.com>
+ <20250720-ifpc-support-v1-16-9347aa5bcbd6@oss.qualcomm.com>
+ <37nuk4kevhpwlzbpgm4tyhnmk6vi3a75oosz7l7xbvvn7qwq22@oomdnizhc673>
+ <85073de3-3933-439d-9912-1f0ff145df97@oss.qualcomm.com>
+ <50d6a7dd-46a4-4281-968d-d7df041f21ae@oss.qualcomm.com>
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <d50f9a01-ba8f-44ec-9206-fcef641333aa@oss.qualcomm.com>
+In-Reply-To: <50d6a7dd-46a4-4281-968d-d7df041f21ae@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=SPpCVPvH c=1 sm=1 tr=0 ts=688159fd cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=pSIa2sKh8ADkebnh61Ypzg==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=5VcmFa3VxYkzaEkvw6AA:9
- a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDE4NyBTYWx0ZWRfX8l6DbA7zLBLq
- rsR0Uf1IsrS2CiHhDNknsHS6wUViq+yFghrff82qcRhQKOUY+inLsYbHZJAfQ0YiEmREVicMceL
- 0FRh2jXovjG1staBmRfjSQP++qiX3vOkIPT68iGjI8kgiQ2eiVLXeZvamzA6nJpFb2y/YOIVOyH
- pbL63QVyhUPaOcKcXLwuyYxUMwdUGIEVJ5eWvq6CKHA+8DQGh86J53mMK02dl6jviz9I2wwiUuH
- /oTcBXFrGxAjae5SrvuTEtF78s+/iEgucl96OqNVYZhQphyZkRdFnV0giv1iWYpij/un34DbqKn
- 5cU+WV+NXFdz1BEoGJuRNnq7zIem1UWr/yOZpJqDkSaVNf/A6TM/lBhWQR3eoAl3Ny19f7nNzn+
- rgZL49ghdIfreSi9ZRKoE1mXi88EN2J6HsUK4jLx7YMyZjTYcmPd4c5E15u87WyfakgiR6bv
-X-Proofpoint-ORIG-GUID: 3kOmrpBOlhH6lO346h0KgyR256PGur36
-X-Proofpoint-GUID: 3kOmrpBOlhH6lO346h0KgyR256PGur36
+X-Authority-Analysis: v=2.4 cv=CZ4I5Krl c=1 sm=1 tr=0 ts=68815ac4 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=pSIa2sKh8ADkebnh61Ypzg==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=LD9g5RzjIN7if3dsUIgA:9
+ a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-ORIG-GUID: KS7xhH5aOaAe_dCeybwYN3kkaKmv9QZn
+X-Proofpoint-GUID: KS7xhH5aOaAe_dCeybwYN3kkaKmv9QZn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDE4NyBTYWx0ZWRfX+gNONjd/lQZk
+ yRhvJb9NCCk5ACOHfhpS6OwSCW4LKI5jhpuvRPRDPXYphgFfDZLJ2Bvqx634buNgjskowX9Xj/n
+ ih1MijQfGPMLSMfug+WsRg41+b85uqZzRTHR7pmYZIo/unFnYO58RMKxBh7MQ0VGKE2TtamTzQk
+ 4m6Timxm2gJskUhz5s+ztjI4zdS+n2n1CMaITlMTaZ/0or58ngziS0a8ApbzoqdEZQBjoYS/Xw1
+ ToCsDmuvcACg/0zWejap6Uo8Y7lkGQP/UFR8zZlJjw8mz0BmFNZN1iCiPWHnUwoT1N2N9UZfFOM
+ OFYNoCs/i5guQRI+1nJuWVPhWf2HWTlFxpjNVuw52eERyGzUw3KyYxdXF+4QMEJ/+CGRFV9lni5
+ ZbsISt5kEbHVOtqeUawSUSeI59rMCv/z7AanpLX7SpjGLjCF8ToMUTyCZP9gJuKDl7pBii+M
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-23_03,2025-07-23_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
- mlxscore=0 bulkscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 mlxlogscore=481 classifier=spam authscore=0 authtc=n/a
+ priorityscore=1501 suspectscore=0 mlxlogscore=768 impostorscore=0
+ clxscore=1015 mlxscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
+ bulkscore=0 spamscore=0 malwarescore=0 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
  engine=8.19.0-2505280000 definitions=main-2507230187
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -131,31 +134,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/23/2025 4:02 PM, Konrad Dybcio wrote:
-> On 7/20/25 2:16 PM, Akhil P Oommen wrote:
->> Now with IFPC, GX domain can collapse as soon as GPU becomes IDLE. So
->> add gx_is_on check before accessing any GX registers during crashstate
->> capture and recovery.
+On 7/23/2025 4:03 PM, Konrad Dybcio wrote:
+> On 7/22/25 11:37 PM, Akhil P Oommen wrote:
+>> On 7/22/2025 7:25 PM, Dmitry Baryshkov wrote:
+>>> On Sun, Jul 20, 2025 at 05:46:17PM +0530, Akhil P Oommen wrote:
+>>>> Add the IFPC restore register list and enable IFPC support on Adreno
+>>>> X1-85 gpu.
+>>>
+>>> Nit: GPU
+>>>
+>>> I can't stop but notice that KGSL enables IFPC for a bigger set of
+>>> SKUs, starting from a630v2 and a615. Is there a plan to get IFPC
+>>> supported on those platforms?
 >>
->> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->> ---
+>> Sorry, no access to those hardwares. But I can certainly help if someone
+>> wants to do that. :)
 > 
-> [...]
+> Let's get the groundwork merged first ;) 
 > 
->> +	/*
->> +	 * This is true only on an A6XX_GEN1 with GMU, has IFPC enabled and a super old SQE firmware
->> +	 * without 'whereami' support
->> +	 */
-> 
-> Firmware that old won't even be accepted by the driver, see the slightly
-> confusing logic in a6xx_ucode_check_version()
+> Nowadays you can reasonably assume we have access to at least one board,
+> no matter which SoC
 
-hmm. you are right. In that case, I don't know why we still have the
-below bit here:
+We just need to add a proper ifpc restore register list for most
+chipsets. But the legacy gmu firmware (a630 derivatives) might have some
+quirks.
 
-	ring->memptrs->rptr = gpu_read(gpu, REG_A6XX_CP_RB_RPTR);
+-Akhil.
 
--Akhil
 
 > 
 > Konrad
