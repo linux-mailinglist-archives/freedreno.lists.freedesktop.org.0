@@ -2,123 +2,124 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76DE9B0FC47
-	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 23:46:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0499EB0FC50
+	for <lists+freedreno@lfdr.de>; Wed, 23 Jul 2025 23:53:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB76510E077;
-	Wed, 23 Jul 2025 21:46:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBE5810E077;
+	Wed, 23 Jul 2025 21:53:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IoZGisDV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nqs/YFDx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 418E810E077
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:46:46 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56NHrdFR032272
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:46:45 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88BBF10E194
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:53:06 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56NHVG0W012834
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:53:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- tvauJF9+c6IKxzBGTcvA8iSaaoeAgCJyCD9Tgwx44f0=; b=IoZGisDVCuegZMFt
- /m/Q4EEsuKHnnCOd7eju/TXpfgxGb5IOhqc27QPCdVKs94ZKD8bIem3LfsZI+E52
- JotkVof08ygoTKIbTWh+vcogoJww7Gkk4LXwJaU6YwIzUYrwQ/aop30OxPWmoAx9
- aza2USyuTvfNUJtwEtTnL+Ofjbq9B5AVVQ3KZi0jMyA+YA0VQW6dbvAUnpggMjmt
- CWFlf+Rimaj5KkGhSKvr3qfGA7JTVW5IpAJmBJt09cos2ADWMDObwoDc3YSRpD2j
- 86tkgt3JYPesJ9JrXH4T2Tnmw/xwKVbcOmJoU0BKcRyUcHPVV36lSSSFz/eRuF1E
- F3cqfw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4826t1dxmc-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=v72jQE2tLfM4yFjj0GK92SGI
+ mdakpqBvLjrNZl77Tu0=; b=nqs/YFDxNBje1ApXmMFgBluOnK0kQE83xMukvMLQ
+ i5CRsGZKizemqdixV0lmFlKl5b3w3B5l1SrJYLFW/jVqCt9o1VU7M4mUiAeyfEC7
+ K8QM5hZKN9kyddwv86Q6wbuCfxsseiACZ0Ile1h2Os9Y7Vd8OgJz0ygz7jD5iolA
+ bx5IHN/LLYJDycrCSLY5nNgMuaBzPkSrfIqBsTWNUHl463L5KUrP9+IEhsYaDmem
+ ZyZBBBrvk/ObQ0ad9UUVWNpimk/dEtrWEiUO8sB8nQH5FySp+VsV7JlM/yoGy37p
+ ddLZtQn+iiwkhpvXXgi135LL4/gD4rqobc4psxEF8MQzDA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48048vd01y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:46:45 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2369dd58602so2511115ad.1
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 14:46:44 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 21:53:05 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-70707aed1eeso5598666d6.3
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Jul 2025 14:53:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753307204; x=1753912004;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tvauJF9+c6IKxzBGTcvA8iSaaoeAgCJyCD9Tgwx44f0=;
- b=twuWJBLwyc2ugy/z9YTBP3xJhskjrNUSVZ1tn4xVFDkABpA0Zd6c1nqHY7eWQbMoQa
- TS59v9Tpf6QHEuu+KYjVoRoULQiKRaX1vfmN+Etz9iqx9BDa0vCGSi/PVnFO1SPWwDYj
- Jg+7tFexcuJLagtXQG7gp8meQONr1XCydaAcp1w3hEdm20SbZnBLyMChDG+M9+8ws/Ix
- dGwYGoocOb/eaDjmovBKyMoaOkEORtHfQr8wF7Xe+KZEm+apkxf4GGI/9IM4JXLp2IcV
- 4k0KTBtoe2gJyQZs/pZa45p1YWNR3BuGtId/NpR6U4WDZxPdlCUula6MWjaDi8gpEcLb
- y2fQ==
+ d=1e100.net; s=20230601; t=1753307584; x=1753912384;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=v72jQE2tLfM4yFjj0GK92SGImdakpqBvLjrNZl77Tu0=;
+ b=bGbNgIO+VHiEOZkF/quz9LRamH3J/j6z8g9JeyU2XMWo/Avo24LMXk2bOeKRuFNhtp
+ 6PpRGogyZ7c6tomgANYHQGlNZaagWHHJ5AFafTzDzfowChUmsG2qz1Cp6TPOFbxDCuLx
+ fsPEM5fRXC3fgei/LGDDnck9YW03MkS5ukBXhs3RNbvsw7b7a1sMaQU0ZjkIBgKU+KPL
+ 7OVzvYvv5YQUOpXpawZKeGeghf52imiDOBJ3Egp4Fe91nSh1Frs+0byBHbScYqIa8BIj
+ 8EyUEOkmlFOG47CowgCj4dPI+adZLVWpI0p5K+1AlRD90G7541CVqQpsgudviRQxd0t/
+ lQyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWv1hrsifhYX+d+Fe5fQ0J9jiCQ8LTqIcDbmWAr/J9w1+VviGsSZjDYYw1gSL+oCCY+xPq9VETorac=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxO4wL8sUO/X2G2sanAt8mp/4uRgNy6TF6vFW686ku7/VazVJkf
- pJDYJqtCf0JN8m0Kc8IwFZZBuh7X4IJtkvMrSpaPLK+YKZnMlB0ww/0rS0MNLDzOPQhhG11evV6
- 4tOpBb5nhty0T3mXcb9ucvxnCy1g/E5EICSuwMZWykNsJXLADsKsPaWiJXMYQ5FClckJ+EV0=
-X-Gm-Gg: ASbGncvoIgI0ETMnJIyLVVwPnBtLZrQ2A2blkU4BYGOAZsfdLbo1Sf41Xx4/7zIpZ8c
- AlXqS44Egt3g80DWddOA01Yv5OjBlKh4yS9j7v/F9HrM6h8gvSwC1Lf8/s43PTp1VmemydIe1pE
- NL1EcXDjBYTGOiuIRWLnhRlURw0t+/JCA4wXCQ7BxvtdESemb9XqdzalCdAkzlncNiRACCutniA
- ef+pSIpO6nFNXKVn4fRe2SujswuzOfg7+v3mlvDU/Sb1P2oy8WUj6UWLDCYw5KaiEotw5wyrJN0
- JUBR+k+b3sFauZYZKZsZNicZZTSLDHGd/F/1iqNcNoz5T2Bf+ZhaxMszMpJiTg==
-X-Received: by 2002:a17:903:1b48:b0:234:a734:4ab1 with SMTP id
- d9443c01a7336-23f981404c6mr59177205ad.3.1753307203821; 
- Wed, 23 Jul 2025 14:46:43 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEifem4DTzHzvzmHJWifbcs4RdVeOJnOTJq0luVnu1W3g+TYFyHU5if7/jQbz053j1WkSaKAw==
-X-Received: by 2002:a17:903:1b48:b0:234:a734:4ab1 with SMTP id
- d9443c01a7336-23f981404c6mr59176895ad.3.1753307203346; 
- Wed, 23 Jul 2025 14:46:43 -0700 (PDT)
-Received: from [192.168.1.5] ([106.222.235.3])
+ AJvYcCVN/5ieJQH80E0UWBFB8jNnybd0YyBw32SOSip0HfuwtZW7+taDs/a4DBeSypQGxMaWk25uypYCZMI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz3WRq+lJ3mE+fYEyYE0sRRUUjRYtsyiVaynvz1DcVxvMJBI9A7
+ pXIBcYXU5TDXT+PGDDkLrTg+R8v0HhVtSM7iqxxD/Tjq+7Stq0hqjhrp4zcZsSkUbm3nfmF3ddK
+ eukqOFzjR0Jey+2C5GB7NiyMNAOmjSMgaaAqP36s1G9/zG7R0GxHVrujpTIK08VcShDShVVk=
+X-Gm-Gg: ASbGncsF/IH32SKzmaQK2Bx/J7yg3O58sOimT0Ufhe8ayt3j9mMs2zpSkO1HwDRpnPR
+ lSfGOCNHqWtegdzI4cqzje5pwv4WlL2N+UHrCN80d0ytrQ69I5jFli1I7xfdd4FPmcdq2wz0Y+p
+ XoYKY+H4N5zA3YKtschvwdxOxAm97DgPfH+jVh7lh8DVvdfAkyfDyhP2YHTI/mUrQKJJ216IaB+
+ AnYrhAxp+EM1Q0rSy4PMJ7P5gHrK9yBgCKgHmMVe6/C6SfqU7lTS2OtdK0/Pm6tDqAA/bvB0aP6
+ vbFMAvglN5e0ZVQKrkZ5DceX13YBlylMic7TXWsvsgWThUNK7nLg3ru9yCCgV9vztU8CjFeMKys
+ 7ZpnzAZikLRlnpv14QCuR+rGElgegrEp8ZM8TrBVcjMHluLKuuvYs
+X-Received: by 2002:a05:6214:c65:b0:704:f953:eb60 with SMTP id
+ 6a1803df08f44-707007987c9mr54947966d6.47.1753307584360; 
+ Wed, 23 Jul 2025 14:53:04 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFLtHVDKzBN5wiY19PRElCtVoKBtRxEOU+M0J8TZMQP/DquUGxds3clV1zM02s/3MTy6pOoIQ==
+X-Received: by 2002:a05:6214:c65:b0:704:f953:eb60 with SMTP id
+ 6a1803df08f44-707007987c9mr54947606d6.47.1753307583818; 
+ Wed, 23 Jul 2025 14:53:03 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23fa48dc18fsm198195ad.133.2025.07.23.14.46.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 14:46:43 -0700 (PDT)
-Message-ID: <820f45f1-9494-48eb-b536-7a8124de06f0@oss.qualcomm.com>
-Date: Thu, 24 Jul 2025 03:16:38 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/17] drm/msm: Skip devfreq IDLE when possible
-To: rob.clark@oss.qualcomm.com
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ 2adb3069b0e04-55b53c84badsm33283e87.145.2025.07.23.14.53.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Jul 2025 14:53:01 -0700 (PDT)
+Date: Thu, 24 Jul 2025 00:53:00 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 08/17] drm/msm/a6xx: Set Keep-alive votes to block IFPC
+Message-ID: <s7ck5taxbozy3dxtav2huxh5d4ietfmqsv4mliajelu2gy4eqo@6xmp73eamqm7>
 References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
- <20250720-ifpc-support-v1-12-9347aa5bcbd6@oss.qualcomm.com>
- <vng6tut4sv3zfbwogsb74omqsbqutpeskqdnezbs4ftsanqyb4@nv35r7mqmcva>
- <CACSVV01EhWWohUDQ8n=FQeDuaDcgmYnMBJDMJ8D1Gist1NR4QQ@mail.gmail.com>
- <800f8c9d-5586-46a7-aa83-dfb3b97633e0@oss.qualcomm.com>
- <CACSVV00d4rbNDOLVZJTBNRmUsGyY6Tkwzv0cHRomeYyMXWHZVA@mail.gmail.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <CACSVV00d4rbNDOLVZJTBNRmUsGyY6Tkwzv0cHRomeYyMXWHZVA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: obZrVkyihAvaEgbHLLtfLjLrMmhxvmGE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDE4NiBTYWx0ZWRfX0L28TAUJkP4m
- QGVuiuyO09YcnSj1kat5sF2ZdM8gtwKRgR09Wpd57ffRAFS/gtj4QVTcF/OscIXQ0eWVG1qwlM7
- ZTzvoCmTVExRkKE/fjyZ16qCwMeB4qr8eIYKdmdfKgTyIEX1mrZWGTd1/roXrc0lxrboCdy+L1K
- OlL4W0ZUHecWMbmTMda1ES04vmJR5yB9RxIhheFb9XTC0/7nnNvUIlVfEbQ2HV+/qIWzHv7mZ6s
- aMDs1LIyS9aMo8KVc2m79Qxvb01eHvbGXIVR1YZyq2cTSNrsASIBWU0aVx2OWabUkljoODoL3cq
- +Rg5cY9zqNKOsLymcoDo7UMCT6js/m3BXYCJD6K4XWTOQNdlyGOcgE8yvc+4IPOqpV3h+5gvmek
- pF3HvrFC2bGAvq73rEl5fO5Ta9hDyAbq3PXqMTfZJoiNYAMAqNgK2rYvbRdj4MWxDtfROZNE
-X-Authority-Analysis: v=2.4 cv=E8/Npbdl c=1 sm=1 tr=0 ts=68815845 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=pSIa2sKh8ADkebnh61Ypzg==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=XTD9XnCZvQp0TTkZ5uwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: obZrVkyihAvaEgbHLLtfLjLrMmhxvmGE
+ <20250720-ifpc-support-v1-8-9347aa5bcbd6@oss.qualcomm.com>
+ <jvn44gmttkidyy4emnz6mytqqjbwltlxibywfr6bfbqjfbq35e@fuvvefesqbzw>
+ <0427769f-62a1-4a20-af94-b340413296ab@oss.qualcomm.com>
+ <644a81ff-bbce-4cc7-a364-8e0c591898b3@oss.qualcomm.com>
+ <9322badb-9f94-4bd1-9e3f-447a9134cd7d@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9322badb-9f94-4bd1-9e3f-447a9134cd7d@oss.qualcomm.com>
+X-Proofpoint-GUID: RDyy1JcOrHm_m20gzk-HsAW8RdHTnH7p
+X-Authority-Analysis: v=2.4 cv=SYL3duRu c=1 sm=1 tr=0 ts=688159c1 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=4BsFJF9TogBGrZafdScA:9 a=CjuIK1q_8ugA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIzMDE4NyBTYWx0ZWRfX8goKyhoQnxke
+ N3zPOL7jiL/js5MHUYzBEXEsUO0nyTfKVnNoYTtUOK6WLIVaNR83KfdxrvHFacuJAUvdJkBbr9p
+ cGUTQMa1A3rl7qVVmtwDoTPfhnm7eduRkkTrts2BfIokiFwvrAmbLW/Rj6GWlcidwKuwXl94ajY
+ KVn3kZXWfgqzMyJBrIsnL38TopN55si4Mtzp6UWK5WjC19CtlyxqhJ5D5txnhpOpIod7KsOgN7w
+ vPQXlayq+KecYPKoKj+6Bthd9lQ5yd6R040xER7UtK+snLlSiL/HtkzvENRCULT93BW905sjmG6
+ ipgHAnILs1RPcC8J6hXY9fgZH2KSrcG35zbXHbJmKFNY5On5Q7t2GmoKIcziiNLXbr+Hj5gyWZY
+ tXWUHJ4BqG9TNYGzhq28Jw5qMo8mjE9vNfyl+oDGBwJHcEpjJSsKPLs32aj+8v2xXMAmrvqJ
+X-Proofpoint-ORIG-GUID: RDyy1JcOrHm_m20gzk-HsAW8RdHTnH7p
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-23_03,2025-07-23_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015 phishscore=0
- mlxlogscore=999 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507230186
+ impostorscore=0 suspectscore=0 mlxscore=0 bulkscore=0 mlxlogscore=868
+ lowpriorityscore=0 phishscore=0 malwarescore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 adultscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507230187
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,105 +135,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/23/2025 1:43 AM, Rob Clark wrote:
-> On Tue, Jul 22, 2025 at 12:23 PM Akhil P Oommen
-> <akhilpo@oss.qualcomm.com> wrote:
->>
->> On 7/22/2025 9:08 PM, Rob Clark wrote:
->>> On Tue, Jul 22, 2025 at 6:50 AM Dmitry Baryshkov
->>> <dmitry.baryshkov@oss.qualcomm.com> wrote:
->>>>
->>>> On Sun, Jul 20, 2025 at 05:46:13PM +0530, Akhil P Oommen wrote:
->>>>> When IFPC is supported, devfreq idling is redundant and adds
->>>>> unnecessary pm suspend/wake latency. So skip it when IFPC is
->>>>> supported.
->>>>
->>>> With this in place we have a dummy devfreq instance which does nothing.
->>>> Wouldn't it be better to skip registering devfreq if IFPC is supported
->>>> on the platform?
->>>
->>> devfreq is still scaling the freq.  What is being bypassed is
->>> essentially a CPU based version of IFPC (because on sc7180 we didn't
->>> have IFPC
->>>
->>> Currently only a618 and 7c3 enable gpu_clamp_to_idle.. if at some
->>> point those grew IFPC support we could remove the trickery to drop GPU
->>> to min freq when it is idle altogether.
->>
->> There are 2 functionalities here:
->> 1. Clamp-to-idle: enabled only on a618/7c3
->> 2. boost-after-idle: Enabled for all GPUs.
->>
->> With this patch, we are skipping both when IFPC is supported. In the
->> absence of latency due to clamp-to-idle, do you think a618 (relatively
->> weaker GPU) would require boost-after-idle to keep with the
->> UI/composition workload for its typical configuration (1080p@60hz)? If
->> yes, I should probably create a quirk to disable boost-after-idle for
->> premium tier GPUs, instead of tying it to IFPC feature.
+On Thu, Jul 24, 2025 at 02:52:52AM +0530, Akhil P Oommen wrote:
+> On 7/23/2025 3:35 PM, Konrad Dybcio wrote:
+> > On 7/22/25 11:24 PM, Akhil P Oommen wrote:
+> >> On 7/22/2025 7:14 PM, Dmitry Baryshkov wrote:
+> >>> On Sun, Jul 20, 2025 at 05:46:09PM +0530, Akhil P Oommen wrote:
+> >>>> Set Keepalive votes at appropriate places to block IFPC power collapse
+> >>>> until we access all the required registers. This is required during gpu
+> >>>> IRQ handling and also during preemption.
+> >>>>
+> >>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> >>>> ---
+> > 
+> > [...]
+> > 
+> >>>> +static void set_keepalive_vote(struct msm_gpu *gpu, bool on)
+> >>>
+> >>> a6xx_set_keepalive_vote()
+> >>
+> >> static fn! Why do we need prefix here?
+> > 
+> > It's good practice to namespace-prefix your functions, so that you
+> > can more easily find them, e.g. in a backtrace.
 > 
-> Hmm, yeah.. I suppose _this_ patch should only skip clamp-to-idle.  It
-> is a different topic, boost-after-idle.
+> It would be obvious from the parent functions in the backtrace, right?
 
-I think we can just drop this patch. Also, Boost-after-idle is not super
-bad as it is only doubling the gpu freq. We can try to optimize it
-separately.
-
--Akhil.
+Think about jumping to a tag, etc.
 
 > 
-> BR,
-> -R
+> A bit subjective! I feel that the prefixes are unnecessary for small
+> local helper fns. Prefix for *every* single routine in a source file
+> makes the code look a little bit bloated.
 > 
->> -Akhil.
->>
->>>
->>> BR,
->>> -R
->>>
->>>>>
->>>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>>> ---
->>>>>  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 6 ++++++
->>>>>  1 file changed, 6 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
->>>>> index 2e1d5c3432728cde15d91f69da22bb915588fe86..53ef2add5047e7d6b6371af949cab36ce8409372 100644
->>>>> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
->>>>> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
->>>>> @@ -4,6 +4,7 @@
->>>>>   * Author: Rob Clark <robdclark@gmail.com>
->>>>>   */
->>>>>
->>>>> +#include "adreno/adreno_gpu.h"
->>>>>  #include "msm_gpu.h"
->>>>>  #include "msm_gpu_trace.h"
->>>>>
->>>>> @@ -300,6 +301,8 @@ void msm_devfreq_active(struct msm_gpu *gpu)
->>>>>       if (!has_devfreq(gpu))
->>>>>               return;
->>>>>
->>>>> +     if (to_adreno_gpu(gpu)->info->quirks & ADRENO_QUIRK_IFPC)
->>>>> +             return;
->>>>>       /*
->>>>>        * Cancel any pending transition to idle frequency:
->>>>>        */
->>>>> @@ -370,6 +373,9 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
->>>>>       if (!has_devfreq(gpu))
->>>>>               return;
->>>>>
->>>>> +     if (to_adreno_gpu(gpu)->info->quirks & ADRENO_QUIRK_IFPC)
->>>>> +             return;
->>>>> +
->>>>>       msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
->>>>>                              HRTIMER_MODE_REL);
->>>>>  }
->>>>>
->>>>> --
->>>>> 2.50.1
->>>>>
->>>>
->>>> --
->>>> With best wishes
->>>> Dmitry
->>
+> -Akhil.
+> 
+> > 
+> > For a prefix, adreno_gmu_ would be even better, as the register doesn't
+> > seem to have changed across generations
+> > 
+> > Konrad
+> 
 
+-- 
+With best wishes
+Dmitry
