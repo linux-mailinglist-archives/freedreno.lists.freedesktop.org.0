@@ -2,134 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 009F2B109A8
-	for <lists+freedreno@lfdr.de>; Thu, 24 Jul 2025 13:55:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E9B9B10DB9
+	for <lists+freedreno@lfdr.de>; Thu, 24 Jul 2025 16:35:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD5E010E93B;
-	Thu, 24 Jul 2025 11:55:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D859810E95A;
+	Thu, 24 Jul 2025 14:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JtWQumYZ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nKqqmxhd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED01610E93B
- for <freedreno@lists.freedesktop.org>; Thu, 24 Jul 2025 11:55:28 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56O9ZtFT018150
- for <freedreno@lists.freedesktop.org>; Thu, 24 Jul 2025 11:55:28 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C4EB10E95A
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Jul 2025 14:35:55 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56O9XOOn006573
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Jul 2025 14:35:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=mINbh0hT0mOMLjUaQwlGXcWW
- ToNWDwkhWfpfbCEFXxs=; b=JtWQumYZJkZLJV4AipaSDwxut0syaib3lRas6zal
- 9hzcGjFLqShot4RHdNHklOX5WV+cPhH47AAe8yqT0jX2d8dZgOUbuVwDQN3OKcIo
- pBJnKVL2u527aYZm/oNeiLL+semul1dK55OAdm1vjxvEljN2GLcEAIlh/uo/IQnN
- M/daUF+SHZ/V3H5qR5zNd3iJ5CTzl317BIg/R3VLv9vHtebx4LuqPL39ye3qbMjo
- dn/BtO5izWiF09IRSUhHoca91PjSQQn6OGqTH3NALZKHEmPZ7bsVy3zkYTl7E/Si
- 5rnvn6vHyUC/lAVtRld3HfnxzmR/Bbwj4BInBbpO5p/ZKQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 481qh6tr08-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ GJP5OrXYtaNIwr5c3QE7nQS8J5flRoXRt0htwVVshBo=; b=nKqqmxhdhfF6hIJl
+ JlHtcuALY42H9cVgkN6/8wF1vLCv07fNq1T9kyur2pJBO1u+51WxEHVhzwD5Sy6s
+ aeN7gXGM1t+h+ZEy4BoiLJMyWWdP3XEfUiUZrZXTBImWC7M62ZigRDh7bVq/fCkT
+ CZlk/h8ggAd3NXqsY8kxC7Ceg/Ab7ZNtqzKXOTnNt4dn3NVSEFbSP/DO41BZnvEy
+ 2TET/tNm7pCgwYn1hqYYyNO8RXYoVpOMPJylEsQhrkUe2Wb5Z+zxL3urkZ8VSQfL
+ HOhq3Gtegu4wXHwZ+hFdmEUaOQWh6LjCJfrJIlXL0Tf1ThQ9Qm6oG6z+BePA4bXh
+ 7Yphqg==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48047qh2rs-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 24 Jul 2025 11:55:27 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-6fb3bb94b5cso14821286d6.2
- for <freedreno@lists.freedesktop.org>; Thu, 24 Jul 2025 04:55:27 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Jul 2025 14:35:54 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-75494e5417bso1208087b3a.0
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Jul 2025 07:35:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753358127; x=1753962927;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mINbh0hT0mOMLjUaQwlGXcWWToNWDwkhWfpfbCEFXxs=;
- b=SmAXlyPzheyNmDyGUX2u5qapVq4QcwWjSEtMAnkQtjj3XsdUDVPF4cDC9l9g4tOxT5
- BMoWEiC6vKENG04H0tRTIr409F1WyYwA2oHF9Nu/WAZv3vHAhB19UcZAbfxATgLP7prE
- 6FfqYpTzOrYS/I9CkmYwnNVhZM3OCleUGW/UQ3DhUVXiEjJ08zMVQZRS4/jIgXxWNhjc
- rpQwlNL2JrlD4Eu7b8WbPobCXALMEkRSURxetqixhq7gmZL5p+k0FOWEhSv998nDvbIY
- FzWwOZU4zAKwm/fKAyAfuPWNCzZPU4LGgCRi/oY8FOh2ElkCTbpzlNLkHGGeJIGkqazt
- OBvg==
+ d=1e100.net; s=20230601; t=1753367753; x=1753972553;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GJP5OrXYtaNIwr5c3QE7nQS8J5flRoXRt0htwVVshBo=;
+ b=MAR+cDvLUoVK6Pi/r0KayYoV+7FvWYl8+WYDnfXgyyWEnKf2MV6pmpzqgl4U4RApUf
+ N98KRYnKg33RL806rRMFf1NF8jOBgnZlMqhg17Vb+MdJuAotLM8YqmVrF3LthMfuA7oJ
+ C469dr6tDs8JVqPZTyAb4kZz95WzAg0ZXqzlMPcaBNj5f74oCnIg8B5XuVuGyUujN32/
+ sAdsK5NzXq7pWmilBEz1BhVopFO9Z8WjpLyQCTGvUvWZ7tclWKAQjbKTjj0iwDHRrYOW
+ hDgJAMpbf3a4kcBtSZuUKmpbVcr+AYYQYzP0LVyyH3Q5qQkO70vwLvEPniA8jew6N5Dy
+ ClYw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVWM2cUeJBxo4M6YInKa2kJ3+chO6RhdlZSqS/mJoWZhrc/t5OVn4gXrkEzgGR7Br0AndBscBSIQEw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxaPDpmeGIeBF4HMFWlDFKSpYHqxJHfLOQZWg/brjxbMp7z6OJ0
- Cj30tOQmTIyk1Hnq+US5T/dJ643cLPf3meipLbchG7SY3kMitLkZwFO2zRsJ2J7S2wNdOZaIWHd
- pOieE/5U0BdkzA4uZ47uhq1gLRIkLAeMCrXdi+OaIYM9Vi82je+VdfoaK1wJA7kGzk1g7nhc=
-X-Gm-Gg: ASbGncsyRld35BvwNkq5lcoj4wmrj7MzHYrbLbjUbjeQP8r1tLI9fd097A1JLS3nBhC
- RDrXocp4l+Wd9i5Us6VCuI7HH1dohAPNYwc7E5uq2F+uczmWotnbmpvx/LpzBkrlyxgrbLulCpk
- djOosoRQTpYBphLR7XcB+1ZxIYRKS+4c/aaV5bi8ZY3o8NR87B+08Fa42crzZ8hjKQzxQsxh7nX
- VV0Qi2dsvexKoUcH8eR4b8UN4lDOwrZbVnS+7JwDmsQfCDiInn7rKu7t/iNGk/dKJZwalWro+oB
- 0Fdw0JGc3kkwEZo1wZFZ9UGYoli41Sg9RoQfRzyh2mThKceNPXBVimUvuCiH98Rc41HIF/ki66L
- NI4uevnA0jGDDDbRYCr557/tx8a3NtwmS6OUNb/BIUApob1acnGnm
-X-Received: by 2002:ad4:5aae:0:b0:704:f3ef:cbc2 with SMTP id
- 6a1803df08f44-707006800c0mr78839486d6.33.1753358126500; 
- Thu, 24 Jul 2025 04:55:26 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGd1t3+gJxk8pnw1F60NxFlYtusGeWg+p73JrUwlRncJWEKckPZk4d7/2qrIO4VrYiW8onn3Q==
-X-Received: by 2002:ad4:5aae:0:b0:704:f3ef:cbc2 with SMTP id
- 6a1803df08f44-707006800c0mr78839116d6.33.1753358125983; 
- Thu, 24 Jul 2025 04:55:25 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCW62ZLFYAQQ3wbnR7OxKJx8QaRKsZbTVIqiTzM8yaE4itCsckAHwKwXxYb+8DM5nzv/WwyYmc0e5Es=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzE+nc7LlrK87t/BLdEeziymMA9DDlCu+1TirzSF2YOWML4Hulo
+ zXHXZoeZfZPgtTRrPWZrZGynfeEiqDbaAEMJgHURa5isvdFSeIZzxYaUj49aufHenWlGTTC9cxN
+ wcwAe7xvUhWyUZn0ByAzcP2vKsOjmTqupU0jb7i6U7VotpJepOwzYF/GtHqAljBnhy9dXcmk=
+X-Gm-Gg: ASbGncusPSFzd/bZSKSWUsDRY4WvswET4A0LQcjRWFZG0zomb+yRa1i0dN6oOSspNPj
+ OG+xM+0PuWxMaBMQK5RB0kM+CH+cbLSsvs0iqwuyFIQ5bX2EPYav30Q75AvDgVfMuDjDeYSIQ6U
+ uPcMatyNmcDOXZTKgy8PBJyEhWBubVymyIBN28ZmTHuLns0n73F3GjVzw5AUwFRWtR720b1G3eF
+ SLqXKsPTBHEltWf5OVyGdlPmFWT5XkkCzHWk3SiVF7ePtRqskd4c8uqROTbcATLDUvMACDmD6SQ
+ tW4kLlAaVNOIvqwcOyB9/BtlsL/Z0DrupZdqVfMIukl410MnrGDDzfML3DMKOw==
+X-Received: by 2002:a05:6a00:8b8c:b0:736:4c3d:2cba with SMTP id
+ d2e1a72fcca58-761f0aae747mr2193512b3a.9.1753367753110; 
+ Thu, 24 Jul 2025 07:35:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IErsxD0US8xYnn5Y59yyRl45GxrphsiOAnuwC/zARlLpy5inA5mS3Yzry3LPCBjaE+Q2UR4zA==
+X-Received: by 2002:a05:6a00:8b8c:b0:736:4c3d:2cba with SMTP id
+ d2e1a72fcca58-761f0aae747mr2193469b3a.9.1753367752353; 
+ Thu, 24 Jul 2025 07:35:52 -0700 (PDT)
+Received: from [192.168.1.5] ([106.222.235.3])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b53b2286asm327797e87.32.2025.07.24.04.55.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jul 2025 04:55:25 -0700 (PDT)
-Date: Thu, 24 Jul 2025 14:55:22 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Abel Vesa <abel.vesa@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Mahadevan <quic_mahap@quicinc.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Danila Tikhonov <danila@jiaxyga.com>, cros-qcom-dts-watchers@chromium.org,
- Abhinav Kumar <abhinav.kumar@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Yongxing Mou <quic_yongmou@quicinc.com>
-Subject: Re: [PATCH v3 4/5] dt-bindings: display/msm: add stream pixel clock
- bindings for MST
-Message-ID: <5nqzjnrivsuuttslzfecdwzigkqhdipy2wbjmgaa5mijr3w5hl@rbz47vnykzzn>
-References: <20250717-dp_mst_bindings-v3-0-72ce08285703@oss.qualcomm.com>
- <20250717-dp_mst_bindings-v3-4-72ce08285703@oss.qualcomm.com>
+ d2e1a72fcca58-761ab41dfe0sm1775131b3a.0.2025.07.24.07.35.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Jul 2025 07:35:52 -0700 (PDT)
+Message-ID: <ac476949-d0e7-4058-ad76-c3cc45691092@oss.qualcomm.com>
+Date: Thu, 24 Jul 2025 20:05:46 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250717-dp_mst_bindings-v3-4-72ce08285703@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=CZ4I5Krl c=1 sm=1 tr=0 ts=68821f2f cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Wb1JkmetP80A:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=TLo0AdDBy_HI3n6x0gMA:9
- a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: zDQJLRNDfGZp3pk7v1fOjm6fB9V_rWEo
-X-Proofpoint-GUID: zDQJLRNDfGZp3pk7v1fOjm6fB9V_rWEo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzI0MDA4OSBTYWx0ZWRfX3F698TnXnwUc
- PnuNfqyKEtM9ZOFWQcaxU6RYgXLZlZTqnwm3rN6F7A+a74avkj0+PqCFYLade1dtntzEnvS87gV
- dFMFgBELWigEx6oX7nW0bY5AgS0Y2mjkL8RcuEWXUtb4BwxGfmHk3i0bCEnwCfISpSuJatXiqSZ
- UA8AkesDuFkfvCW6eYUXNEIU2iQcfhbiaBszaNtfhaCGfFjgsp0uQ+rfMMI2lU8e7fnNU+AfBzD
- CK7A2/ZhBXH3J4QVYT3THr2il8pEGwaMpDuYV5LgZmGwjWmpXeGTm3xBcgKxkMdOd15pZQf9YOp
- 9/Loe0G6qTlfvo9DQx000nK5myVk/6ON9j6Yc6OrStnt/fVOI8GjNwKU0nrGOe2kySSu7OIkN5F
- AAjvjtdibPUklITxONOVRotdLVAjdxIkMVjWA9tqpk1AoW8ACZSSP7sAcarZp270IJebhoGB
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: adreno: a6xx: enable GMU bandwidth voting for
+ x1e80100 GPU
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20250721-topic-x1e80100-gpu-bwvote-v1-1-946619b0f73a@linaro.org>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20250721-topic-x1e80100-gpu-bwvote-v1-1-946619b0f73a@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzI0MDExMSBTYWx0ZWRfXzFwjwdUtTJbV
+ 0KJuvqeZ/T5NhfZ3XZREBJ18r2HFqvJEht2Dwkcz3cs2JaZYFKpCVAR6kTTcIYwic3DSmZPo/vH
+ tJz88lTRRzg3w0nb+NreHlCRfJvxUcQZsETtAACntGdXDBZ/HDHB/RnJFlSBhgRqkhul0PKwnll
+ zLp8sGjWoCPzQjtd9Zsyt4MnHFuzJcYGK+Q0uUuYyqzHYAVLvDA6D1TFIbBAZadl16l7e1unti1
+ ObGvu/qrV3liCkDVuxrqv5R+I05u1TdUwJxwKkAPbtfykJVgh/Ue83ffKXMGIb/jblqgXsw884o
+ xnLqFm7D9hDLLRpUOa5HJfdu0wTOcOoDCLHo6ixxk9y6GgdlmYH7z2IUbp/xQ0Oc9pTEGW3y1uB
+ PZrnR1H7mNFP31+u4ls4VegjgbGS/kXq+HFs3MRN3kO0VwhhAkOgonLEuB1LZVbPRWa5qhoz
+X-Proofpoint-ORIG-GUID: MMN--r0Jc7wY_9FOcx783FL86mIIWpup
+X-Proofpoint-GUID: MMN--r0Jc7wY_9FOcx783FL86mIIWpup
+X-Authority-Analysis: v=2.4 cv=IrMecK/g c=1 sm=1 tr=0 ts=688244ca cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=pSIa2sKh8ADkebnh61Ypzg==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=KKAkSRfTAAAA:8 a=1B6o04Z4kyHWbw-D5gsA:9
+ a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22 a=cvBusfyB2V15izCimMoJ:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-24_02,2025-07-24_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 mlxlogscore=828 impostorscore=0
- clxscore=1015 mlxscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- bulkscore=0 spamscore=0 malwarescore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507240089
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 mlxscore=0 mlxlogscore=999 phishscore=0
+ impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507240111
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,45 +130,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 17, 2025 at 04:28:46PM -0700, Jessica Zhang wrote:
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On 7/21/2025 6:05 PM, Neil Armstrong wrote:
+> The Adreno GPU Management Unit (GMU) can also scale DDR Bandwidth along
+> the Frequency and Power Domain level, but by default we leave the
+> OPP core scale the interconnect ddr path.
 > 
-> On some chipsets such as qcom,sa8775p-dp, qcom,sm8650-dp and some more,
-> the display port controller can support more than one pixel stream
-> (multi-stream transport).
+> Declare the Bus Control Modules (BCMs) and the corresponding parameters
+> in the GPU info struct to allow the GMU to vote for the bandwidth.
 > 
-> These chipsets can support up to 4 stream pixel clocks for display port
-> controller. To support MST on these platforms, add the appropriate
-> stream pixel clock bindings
-> 
-> Since this mode is not supported on all chipsets, add exception
-> rules and min/max items to clearly mark which chipsets support
-> only SST mode (single stream) and which ones support MST.
-> 
-> Note: On chipsets that do support MST, the number of streams supported
-> can vary between controllers. For example, SA8775P supports 4 MST
-> streams on mdss_dp0 but only 2 streams on mdss_dp1.
-> 
-> In addition, many chipsets depend on the "sm8350-dp" compatibility
-> string but not all (ex. SM6350) support MST. Because of these reasons,
-> the min/maxItem for MST-supported platforms is a range of 5-8.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
->  .../bindings/display/msm/dp-controller.yaml        | 36 +++++++++++++++++++++-
->  .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 10 ++++--
->  .../bindings/display/msm/qcom,sar2130p-mdss.yaml   |  6 ++--
->  .../bindings/display/msm/qcom,sc7280-mdss.yaml     |  6 ++--
->  .../bindings/display/msm/qcom,sm8750-mdss.yaml     |  6 ++--
->  .../bindings/display/msm/qcom,x1e80100-mdss.yaml   |  6 ++--
->  6 files changed, 59 insertions(+), 11 deletions(-)
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index 00e1afd46b81546eec03e22cda9e9a604f6f3b60..b313505e665ba50e46f2c2b7c34925b929a94c31 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1440,6 +1440,17 @@ static const struct adreno_info a7xx_gpus[] = {
+>  			.pwrup_reglist = &a7xx_pwrup_reglist,
+>  			.gmu_chipid = 0x7050001,
+>  			.gmu_cgc_mode = 0x00020202,
+> +			.bcms = (const struct a6xx_bcm[]) {
+> +				{ .name = "SH0", .buswidth = 16 },
+> +				{ .name = "MC0", .buswidth = 4 },
+> +				{
+> +					.name = "ACV",
+> +					.fixed = true,
+> +					.perfmode = BIT(2),
+> +					.perfmode_bw = 10687500,
 
-I've cross-checked. We need to stop declaring SM6350 as compatible with
-SM8350, it doesn't provide MST support (and so there will be a need for
-a driver update too). Other than that, please document DP MST on SDM845.
-With those changes in place, I think, all platforms will be covered.
+This configurations should be similar to X1-45.
 
--- 
-With best wishes
-Dmitry
+-Akhil
+
+> +				},
+> +				{ /* sentinel */ },
+> +			},
+>  		},
+>  		.preempt_record_size = 4192 * SZ_1K,
+>  		.speedbins = ADRENO_SPEEDBINS(
+> 
+> ---
+> base-commit: 97987520025658f30bb787a99ffbd9bbff9ffc9d
+> change-id: 20250721-topic-x1e80100-gpu-bwvote-9fc4690fe5e3
+> 
+> Best regards,
+
