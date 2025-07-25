@@ -2,125 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFED4B11F7C
-	for <lists+freedreno@lfdr.de>; Fri, 25 Jul 2025 15:45:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE18DB12699
+	for <lists+freedreno@lfdr.de>; Sat, 26 Jul 2025 00:12:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C02510E36D;
-	Fri, 25 Jul 2025 13:45:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A977A10E23C;
+	Fri, 25 Jul 2025 22:12:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eVfjDJws";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lL6ZzHkf";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E3C910E36D
- for <freedreno@lists.freedesktop.org>; Fri, 25 Jul 2025 13:45:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D424710E23C
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jul 2025 22:12:26 +0000 (UTC)
 Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56P94h09025956
- for <freedreno@lists.freedesktop.org>; Fri, 25 Jul 2025 13:45:13 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56PChDdS011175
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jul 2025 22:12:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6ONmnBZZ9xI8tN7Ug6QnlRIQwZtjBF6/HFAbbw5ba98=; b=eVfjDJwsYZBzEMcO
- V6yyGTyhTzC3N/k4f0tWdn8ta6024NnF7g0Umn7vZQm86LTJSIBLzJOlBm6uM72K
- 9RsB7+DbZEnqDHMcVlWNeo2pFxm+Q/9iyB82bKZ/RfgNNFZarW//YQF6qWAQpDcu
- hA/MYAhvTr6oXPnzgN7w5YhR6fz+5BS23W0P23EuyUztyVbnxMLUkRdZI1MFW3BU
- F0O3L8rj9ttoWyyXUcYtU32Zdj1Sn0aAlpCjEfsZsTOwKOdyHsRzXw19TOs65tAe
- zNi5T2HxUFHKio3HHapw/RKE8idak7xkZ5z65H08ehYLMJYq0VAuTyTfELNvutW6
- KAYNjg==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 483w30t7ad-1
+ 4X1DTfh0h5zjGoQqDTegOhGV3+NK0W3zXpJbN3Ug020=; b=lL6ZzHkfdghUkzCj
+ +4epTCO/EMm1dleIOvZx5/ZN1w/THYMeOJF/itwdulsmsnMaMnMUgOc51+zk4lLI
+ UJePzvn8Dr7Ann5Cmy5jS/ZihRFvTagonVReUHrHwAIVjiyPN1d0ZwnHmC2OqVqA
+ LX2qTlolS4vJWbTFubBkxf0tYACpjcLLIdvlEX06E/6ySGXpIBInbIEYkZ4lhVBj
+ fGpzvBt48GEtiHv+T/O1lVIR/ar0ntS/0f3pI4sK2VGJPwNcZLzG3Jxz8FY9KJma
+ S1DrcigPAAxik2Znv0InKVYzUPveXD4NPQPtomz0UI52r3HZCHA6Z+Kf6u1n2qn8
+ RSDG9Q==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 483w30uhcn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 25 Jul 2025 13:45:12 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-7071fe91a25so14355446d6.0
- for <freedreno@lists.freedesktop.org>; Fri, 25 Jul 2025 06:45:12 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jul 2025 22:12:25 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-b0e0c573531so1811637a12.3
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jul 2025 15:12:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753451112; x=1754055912;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20230601; t=1753481544; x=1754086344;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6ONmnBZZ9xI8tN7Ug6QnlRIQwZtjBF6/HFAbbw5ba98=;
- b=YEPe5WRFEzakblfjFkU3YeX5IHuC0u9XWSIoyL+5nHgOqALp7rptoKJL8nI+qC6X7v
- QhYKiTZqFdteeWhI5tNFYzuizBGPNpNTT96fzciwOaVuoDewr4XyBIK85AUXFNzGIkW4
- OVDP9DmF0ZykRNbXmeqGVgua34hF1kVADOY/0THZz5VmSbA82Qk4yIsH1F42Mu0AmB/0
- c8/XSzUFcHDlF1xTgqxVzuANcSWZPmjy/wEl49p0+1+w/K5NMACHKS/AZDS5YcRf6F3p
- 9oN2dxkcqrYaOTSFRTiwiWxMmoDECyxdPegX3fUhNZbh3qXLsFEq6FTMBonwMhOGOVhW
- Kh1A==
+ bh=4X1DTfh0h5zjGoQqDTegOhGV3+NK0W3zXpJbN3Ug020=;
+ b=DzdcTDaWfyM1UbM2LUHf/phLz3MpUqaR7ok8jnAGRVENPQ2tzTVQ3DmORNvBkgAVzR
+ HZJpa2PYzXPkFUB1OFqcQkl3br9YLBk4MuJxzqW6QD06cl/KCNDZTm8MHmhh5SVsg5/B
+ Cj7pg3WnXITVAvs+0xH5OC4a31AEYrOPwWyY6j7kiyDcYOg2FYXeYUdmyahnAwfWVB8M
+ 2KhnU7XIsY2EphDZeK64Mydd2iTJyOSmW2SqTG1QX5hLzg310Ot+hT7l87M1gTZ8D+Ib
+ z6jvhWzgv+lt92jdonz/K4M+hh6HugwOgc6U89lk2EWNpnM2SorMkQlb7wp4lsJ4mJXi
+ IwwQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVFLLFnaqkvTrAKWWZ6SlkkTmo/SxM0H1oldCegCvQe+yJ3e4s0oJqZVwAf5p2NAgScUcOvj7LFaMc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw0Lz1wNUP+CkQQtyT2WXq7wcZNOcHSgtSo1qpSs27w6d6AJkS8
- rH5OV8FP1DnqOBFwNAOJ9sMyTFFzx/xZdG6r7TidQ3RnO3PFtvTSUx2dzc+aveWQSZcTrculLb3
- rffS5vwezxmziDTZ44tE2ANcbsn7re+U+rBlq1rLWw/bA4Tly2Hqu7dlibPK29UbxL5u5m2U=
-X-Gm-Gg: ASbGncsKQh6PWp5ad8ihYXx5LZrBV8qWd6UBqj+oc2G6hasBB5eCPrkIkAvfyEhMqI9
- LT2hYgBTwuAmBBzxmASX2Y25gAbHON0jF/68c6iMovOVVp1UnRN/orAfpLEevF8caf3VRsMg00a
- GvyFJaaI6FOWqZ0ZbW3qjRYdmXZAz1N5PdgnqwwXFeGMuXLLuaR/Mhp4rlrBW/7vsjve7B7j/4h
- E0zX7SnZ9VvgKmKUYJTAPjcVz6B2+3ZfgVREWm3JJIaNvFzIC2vjnyM1WxYl8Hts3UWkQZlveyJ
- /+aCDGCDKODy/Awz6cRW8hlZiFmECz8TmlB67GoQv1bgxX6Qj6xIRCiNzuyuMvE6+BSs+N7NiT7
- Zq2r3ts9tHpJgqavuk/JfqL0lrIc43UFnMwahg/TCog2+jXXIYn0p
-X-Received: by 2002:a05:6214:2262:b0:706:c5f3:c137 with SMTP id
- 6a1803df08f44-7072088723dmr20905656d6.24.1753451111599; 
- Fri, 25 Jul 2025 06:45:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH1U/xIZZYpQK1jfWnH2Yh4VPLMFxYgo4DYiR+SfBY8b+qvkCOewAz9ojreIom0tLRc0x+sNA==
-X-Received: by 2002:a05:6214:2262:b0:706:c5f3:c137 with SMTP id
- 6a1803df08f44-7072088723dmr20904936d6.24.1753451110818; 
- Fri, 25 Jul 2025 06:45:10 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCUuu0ALWmxUKbmYM3jgYATjMgWyV23n/iZmx0VSwG/4hetukr3/4XBPQapphbBTvDfch3dB2Cr/alc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzspzu4ImEQ67DxiJ+dsH2pd4KYy2cErsC0gQ69GMWWuk2LWDdE
+ UoAyn/Ii5NmrSX8at4fqGLnVFBA5iGOXZEU5cSvCqO/2YoLWjGwoTwuLlZtoHw/q+w5eVFucET4
+ DPoAeQplLOdGEM6bzIun3F6xRlFlNW/5htJrz4pSpoyPmtwePICbA+yUfQ7xXoaL7zftlaqU=
+X-Gm-Gg: ASbGnctuU2CQv/aFgllnWIMtxEcOdpm4xZiwZTHlk6GeGgAXv//3Qmx4i+qjm3C/tjJ
+ Ogj8RtdM3LkX4YfIilRAvj/5K9psNmn+ShB3An3+vuFCqfXxPVcvkM5eT4wOaCyehWtIANnUQap
+ KodwNDCXhlnEKdROMPHDSLk6z229hJmWRXa8j5UC0KbGEny3Hfy6qILP5Fd1mriulXLvF/oKWPH
+ AdOEBfYuK5ay5ZLBqh812npXhPAIkEW9ubAyYWqfEdyxtwS8tJH5j5nXkh3T3jRjs4Ntq5cDuXl
+ v32+OtEqYLASoKCxAhpeXvL19JMG7zS7V72MfluuzMINEHriTEQLLC9q98zhvw==
+X-Received: by 2002:a05:6a20:7291:b0:206:a9bd:a3a3 with SMTP id
+ adf61e73a8af0-23d7019bfd6mr5713439637.24.1753481544390; 
+ Fri, 25 Jul 2025 15:12:24 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHX44LpEE6pjx6vDy1KFy13/JWR3bwOHq1/KIsk5FhoYPJGajvnBuxDCj/wdjizthdytBpexg==
+X-Received: by 2002:a05:6a20:7291:b0:206:a9bd:a3a3 with SMTP id
+ adf61e73a8af0-23d7019bfd6mr5713405637.24.1753481543909; 
+ Fri, 25 Jul 2025 15:12:23 -0700 (PDT)
+Received: from [192.168.1.5] ([106.222.235.3])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b53b34ec2sm948748e87.48.2025.07.25.06.45.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Jul 2025 06:45:10 -0700 (PDT)
-Date: Fri, 25 Jul 2025 16:45:08 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 10/12] drm/msm/dpu: support SSPP assignment for
- quad-pipe case
-Message-ID: <tozhsnjg34ob4xdhzs2tzga3cghjtkpfy4672ubdyazbqvne2e@kzdhjuwmrtor>
-References: <20250707-v6-16-rc2-quad-pipe-upstream-v12-0-67e3721e7d83@linaro.org>
- <20250707-v6-16-rc2-quad-pipe-upstream-v12-10-67e3721e7d83@linaro.org>
- <khu6gwzn7gulubwoshdutl4d2nu3c6exnkv4cimjljc5wbxf7l@ho4gxsolq3hn>
- <CABymUCPhjugvyQ2KQabjTn3XNEDRSnQgRX5te-tHKT8hBLPdMQ@mail.gmail.com>
- <bxual3dbzffgbe6vziwumaqpyxrnjbvnljy2pg2o5mtgixufbm@mjvg5em2xklf>
- <CABymUCOgnOMTM=XYEMbE_8h_x+zeC1OnMKGMH5ZEP+Zuhz4PKw@mail.gmail.com>
+ d2e1a72fcca58-7640b2ddf63sm436237b3a.102.2025.07.25.15.12.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 25 Jul 2025 15:12:22 -0700 (PDT)
+Message-ID: <8656b48d-2f27-4dd9-b29a-72ee1129d18a@oss.qualcomm.com>
+Date: Sat, 26 Jul 2025 03:42:18 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: Wait for MMU devcoredump when waiting for GMU
+To: Connor Abbott <cwabbott0@gmail.com>
+Cc: rob.clark@oss.qualcomm.com, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+References: <20250718-msm-gmu-fault-wait-v1-1-4dcadd3b0eb6@gmail.com>
+ <CACSVV023+6939fWvObBKg-rcoqP7TvxjQ2a8mY5+69dBh6cakA@mail.gmail.com>
+ <6cca1521-a806-4c43-a003-36a045cf007c@oss.qualcomm.com>
+ <CACu1E7EApr6Ne3XxFv4cUa2JuwNW2kfo1c5wSsAUN78iWyQ2sg@mail.gmail.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <CACu1E7EApr6Ne3XxFv4cUa2JuwNW2kfo1c5wSsAUN78iWyQ2sg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCOgnOMTM=XYEMbE_8h_x+zeC1OnMKGMH5ZEP+Zuhz4PKw@mail.gmail.com>
-X-Authority-Analysis: v=2.4 cv=WtArMcfv c=1 sm=1 tr=0 ts=68838a68 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Wb1JkmetP80A:10 a=sWKEhP36mHoA:10 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
- a=1EURjifVAzo2SBUh9P8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: c8_rdTaJqVI4wkA0xYO-komh4wb0wwEs
-X-Proofpoint-ORIG-GUID: c8_rdTaJqVI4wkA0xYO-komh4wb0wwEs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzI1MDExNyBTYWx0ZWRfXz/VdyIthfdC4
- gR4Z/tYDVUnamVZ84O5gqY2w5MsLGS4LrLgZ7NsGsSO81xhg7/X+tVD1DjWF90cS98FLvJAlTkX
- gS8PsUdHZvX599P+wW558RMHfPVWS9AxNhxnYgsrLhTpb+/SmYwCeB0wv16aOii7laSA1QoDSgc
- wZTk8CepOMduXrF0GH8ZC5d9D+CA20/2R9ILuaxEnY/G/DTB/a44bw73maoZ1zDD14zSQbP9Oct
- pAr5ezIxrOLNPYo4G1uA9xX1nNGCteUkHqiKleweyh8pQZdIaewXCi7T1zPmKURLWA+NR9zlIxS
- R+r4DLm8rhm7iGFJru0cvEy6G6ZW0M8WPDT9ihKE3uiLWz6MLiejkK0tTCeriVdpa/BUbDwY/BE
- 6XdatVJli1At+VwCed8e1jqUfnNFeScao9uzRAtFCu0YawVyjYa/KlcIL9d4EdhTaFeNFlNX
+X-Authority-Analysis: v=2.4 cv=WtArMcfv c=1 sm=1 tr=0 ts=68840149 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=pSIa2sKh8ADkebnh61Ypzg==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
+ a=rrUdA_u0f1kXpUkxPP8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: M0u-3suTQTHLtqT5C_rR_0SGF52VVqx4
+X-Proofpoint-ORIG-GUID: M0u-3suTQTHLtqT5C_rR_0SGF52VVqx4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzI1MDE5MiBTYWx0ZWRfXyABm4u9s344v
+ Hf84xnsGRhEmXdOTcZBJy2elcnbpZ5KRMHRfyzhbtDCzESCR+0xvmgop2S9DrCbXEVhLCm/jVLX
+ Ebk0RsoZy3ylkN9LmBv+mycdoIBv3TQda6D5ayxzdRzHGidPX4vQFSEnskQpXxxGT7QwUGniUvY
+ lBzkA4E3CidL7wZMiwISSQgZEgB4aVxbtlEz+puyBiw5ATvvWK3zbbHUlFt9aSXPh7ve/BgsEuw
+ rmZYDoDFZISMbYoI4BOy4XzLs++DtaFta4j732ru30oa6YCvJG/nYbWMqkvDbUmjiHPBymjv6xg
+ RLwnr3UeFa4j3biWJiF/j9KJuEYcm7fpnpaEMmF8M3n6hYxCLGflZJVGpucXo8mgS9xvnHrKQLc
+ c1LsR4Spb8AzzQyYzOI1Mj6+2B/Pnp9eEAkFBCEx7HOCVBae0p+s5Zf03Y+ZOB+SNY9+o9+Q
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-25_03,2025-07-24_01,2025-03-28_01
+ definitions=2025-07-25_06,2025-07-24_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- mlxscore=0 clxscore=1015 mlxlogscore=999 suspectscore=0 malwarescore=0
+ mlxscore=0 clxscore=1015 mlxlogscore=793 suspectscore=0 malwarescore=0
  spamscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507250117
+ definitions=main-2507250192
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,290 +131,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 24, 2025 at 09:56:21AM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年7月22日周二 20:04写道：
-> >
-> > On Mon, Jul 21, 2025 at 04:06:13PM +0800, Jun Nie wrote:
-> > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年7月19日周六 18:09写道：
-> > > >
-> > > > On Mon, Jul 07, 2025 at 02:18:05PM +0800, Jun Nie wrote:
-> > > > > Currently, SSPPs are assigned to a maximum of two pipes. However,
-> > > > > quad-pipe usage scenarios require four pipes and involve configuring
-> > > > > two stages. In quad-pipe case, the first two pipes share a set of
-> > > > > mixer configurations and enable multi-rect mode when certain
-> > > > > conditions are met. The same applies to the subsequent two pipes.
-> > > > >
-> > > > > Assign SSPPs to the pipes in each stage using a unified method and
-> > > > > to loop the stages accordingly.
-> > > > >
-> > > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > > > ---
-> > > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 143 +++++++++++++++++++-----------
-> > > > >  1 file changed, 89 insertions(+), 54 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > > > > index 149e7066480b07f9f6d422748d89ffd6f9416f33..ecfebf7a2406d65930075cc2a4b8a8a7d40b3d3c 100644
-> > > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > > > > @@ -954,6 +954,30 @@ static int dpu_plane_is_multirect_parallel_capable(struct dpu_hw_sspp *sspp,
-> > > > >               dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth);
-> > > > >  }
-> > > > >
-> > > > > +static bool dpu_plane_get_single_pipe(struct dpu_plane_state *pstate,
-> > > > > +                                   struct dpu_sw_pipe **single_pipe,
-> > > > > +                                   struct dpu_sw_pipe_cfg **single_pipe_cfg,
-> > > > > +                                   int *stage_index)
-> > > > > +{
-> > > > > +     int stage_idx, pipe_idx, i, valid_pipe = 0;
-> > > > > +
-> > > > > +     for (stage_idx = 0; stage_idx < STAGES_PER_PLANE; stage_idx++) {
-> > > > > +             for (i = 0; i < PIPES_PER_STAGE; i++) {
-> > > > > +                     pipe_idx = stage_idx * PIPES_PER_STAGE + i;
-> > > > > +                     if (drm_rect_width(&pstate->pipe_cfg[pipe_idx].src_rect) != 0) {
-> > > > > +                             valid_pipe++;
-> > > > > +                             if (valid_pipe > 1)
-> > > > > +                                     return false;
-> > > > > +
-> > > > > +                             *single_pipe = &pstate->pipe[pipe_idx];
-> > > > > +                             *single_pipe_cfg = &pstate->pipe_cfg[pipe_idx];
-> > > > > +                             *stage_index = stage_idx;
-> > > > > +                     }
-> > > > > +             }
-> > > > > +     }
-> > > > > +
-> > > > > +     return valid_pipe == 1;
-> > > > > +}
-> > > > >
-> > > > >  static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
-> > > > >                                      struct drm_atomic_state *state,
-> > > > > @@ -1021,18 +1045,23 @@ static int dpu_plane_try_multirect_shared(struct dpu_plane_state *pstate,
-> > > > >                                         const struct msm_format *fmt,
-> > > > >                                         uint32_t max_linewidth)
-> > > > >  {
-> > > > > -     struct dpu_sw_pipe *pipe = &pstate->pipe[0];
-> > > > > -     struct dpu_sw_pipe *r_pipe = &pstate->pipe[1];
-> > > > > -     struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg[0];
-> > > > > -     struct dpu_sw_pipe *prev_pipe = &prev_adjacent_pstate->pipe[0];
-> > > > > -     struct dpu_sw_pipe_cfg *prev_pipe_cfg = &prev_adjacent_pstate->pipe_cfg[0];
-> > > > > +     struct dpu_sw_pipe *pipe, *prev_pipe;
-> > > > > +     struct dpu_sw_pipe_cfg *pipe_cfg, *prev_pipe_cfg;
-> > > > >       const struct msm_format *prev_fmt = msm_framebuffer_format(prev_adjacent_pstate->base.fb);
-> > > > > +     int stage_index, prev_stage_index;
-> > > > >       u16 max_tile_height = 1;
-> > > > >
-> > > > > -     if (prev_adjacent_pstate->pipe[1].sspp != NULL ||
-> > > > > +     if (!dpu_plane_get_single_pipe(pstate, &pipe, &pipe_cfg, &stage_index))
-> > > > > +             return false;
-> > > > > +
-> > > > > +     if (!dpu_plane_get_single_pipe(prev_adjacent_pstate, &prev_pipe,
-> > > > > +                                    &prev_pipe_cfg, &prev_stage_index) ||
-> > > > >           prev_pipe->multirect_mode != DPU_SSPP_MULTIRECT_NONE)
-> > > > >               return false;
-> > > > >
-> > > > > +     if (stage_index != prev_stage_index)
-> > > > > +             return false;
-> > > >
-> > > > This should be handled other way around: save N pstates and then loop
-> > > > over stage indices. If there is no rect at the corresponding stage for a
-> > > > plane, skip assignment (and use prev_adjacent_pstate for the next plane).
-> > >
-> > > You mean dpu_plane_virtual_assign_resources() shall notify its caller
-> > > dpu_assign_plane_resources() to skip updating prev_adjacent_plane_state
-> > > if dpu_plane_try_multirect_shared() return false? If so, we can add an
-> > > argument "bool pipe_shared" in dpu_plane_virtual_assign_resources() to
-> > > get the status. But that is an optimization to share pipes across multiple
-> > > planes. Can we add new patches based on current patch set later?
-> > >
-> > > Or my understanding is not aligned with your thoughts?
-> >
-> > Not quite. I think we need to store all NUM_STAGES 'prev_adjancent' states and
-> > update them as the driver loops through the stages for each plane.
-> >
+On 7/25/2025 1:31 AM, Connor Abbott wrote:
+> On Thu, Jul 24, 2025 at 3:48 PM Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
+>>
+>> On 7/21/2025 9:02 PM, Rob Clark wrote:
+>>> On Fri, Jul 18, 2025 at 6:50 AM Connor Abbott <cwabbott0@gmail.com> wrote:
+>>>>
+>>>> If there is a flood of faults then the MMU can become saturated while it
+>>>> waits for the kernel to process the first fault and resume it, so that
+>>>> the GMU becomes blocked. This is mainly a problem when the kernel reads
+>>>> the state of the GPU for a devcoredump, because this takes a while. If
+>>>> we timeout waiting for the GMU, check if this has happened and retry
+>>>> after we're finished.
+>>>>
+>>>> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+>>>> ---
+>>>>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c   | 21 ++++++++++++++++++---
+>>>>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c   | 21 ++++++++++++++++++---
+>>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 +++++++++++
+>>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  2 ++
+>>>>  4 files changed, 49 insertions(+), 6 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>>> index 28e6705c6da682c7b41c748e375dda59a6551898..6ec396fab22d194481a76d30b2d36ea5fb662241 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>>> @@ -340,6 +340,7 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+>>>>         int ret;
+>>>>         u32 val;
+>>>>         int request, ack;
+>>>> +       struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
+>>>>
+>>>>         WARN_ON_ONCE(!mutex_is_locked(&gmu->lock));
+>>>>
+>>>> @@ -363,9 +364,23 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+>>>>         /* Trigger the equested OOB operation */
+>>>>         gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET, 1 << request);
+>>>>
+>>>> -       /* Wait for the acknowledge interrupt */
+>>>> -       ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO, val,
+>>>> -               val & (1 << ack), 100, 10000);
+>>>> +       do {
+>>>> +               /* Wait for the acknowledge interrupt */
+>>>> +               ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO, val,
+>>>> +                       val & (1 << ack), 100, 10000);
+>>>> +
+>>>> +               if (!ret)
+>>>> +                       break;
+>>>> +
+>>>> +               if (completion_done(&a6xx_gpu->base.fault_coredump_done))
+>>
+>> I didn't get why this is required. Could you please add a comment?
 > 
-> I see. So the prev_adjacent_plane_state in dpu_assign_plane_resources()
-> shall be converted into an array, and map to prev_adjacent_pstate[N] in
-> dpu_plane_virtual_assign_resources(). Then check new single pipe plane
-> vs every member in the prev_adjacent_pstate[N] to confirm stage index is
-> aligned before sharing SSPP.  Right?
-> 
-> If so, that is the optimization for the dual stage case. It does not introduce
-> regression to the existing single stage case with current implementation.
-> Can we just merge this patch first, then add the optimization for the
-> dual stages case in new patch set? As this patch set focus on quad-pipe
-> with 2 stages, without hurting existing usage cases. And it changes lots
-> of code and involve rebase effort from time to time. While the optimization
-> for the dual stage case will limit the change in plane, though several review
-> cycle may be needed.
+> Without this, if the GMU timed out for some other reason not related
+> to SMMU then we'd loop infinitely. This gives up if there isn't
+> currently a crashstate pending.
 
-It's not an optimization, it's a normal flow: you have two different
-stages, there should be no intersection between them. So, no, please fix
-that. It will also change some bits and pieces of the logic that you
-have here, hopefully making it easier to follow. For example, I don't
-think you'd need dpu_plane_get_single_pipe() anymore, etc.
+Ah! That api doc somehow confused me.
 
 > 
-> Regards,
-> Jun
-> 
-> > > > > +
-> > > > >       if (!dpu_plane_is_multirect_capable(pipe->sspp, pipe_cfg, fmt) ||
-> > > > >           !dpu_plane_is_multirect_capable(prev_pipe->sspp, prev_pipe_cfg, prev_fmt))
-> > > > >               return false;
-> > > > > @@ -1043,11 +1072,6 @@ static int dpu_plane_try_multirect_shared(struct dpu_plane_state *pstate,
-> > > > >       if (MSM_FORMAT_IS_UBWC(prev_fmt))
-> > > > >               max_tile_height = max(max_tile_height, prev_fmt->tile_height);
-> > > > >
-> > > > > -     r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> > > > > -     r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> > > > > -
-> > > > > -     r_pipe->sspp = NULL;
-> > > > > -
-> > > > >       if (dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth) &&
-> > > > >           dpu_plane_is_parallel_capable(prev_pipe_cfg, prev_fmt, max_linewidth) &&
-> > > > >           (pipe_cfg->dst_rect.x1 >= prev_pipe_cfg->dst_rect.x2 ||
-> > > > > @@ -1176,6 +1200,44 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
-> > > > >       return 0;
-> > > > >  }
-> > > > >
-> > > > > +static int dpu_plane_assign_resource_in_stage(struct dpu_sw_pipe *pipe,
-> > > > > +                                           struct dpu_sw_pipe_cfg *pipe_cfg,
-> > > > > +                                           struct drm_plane_state *plane_state,
-> > > > > +                                           struct dpu_global_state *global_state,
-> > > > > +                                           struct drm_crtc *crtc,
-> > > > > +                                           struct dpu_rm_sspp_requirements *reqs)
-> > > > > +{
-> > > > > +     struct drm_plane *plane = plane_state->plane;
-> > > > > +     struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
-> > > > > +     struct dpu_sw_pipe *r_pipe = pipe + 1;
-> > > > > +     struct dpu_sw_pipe_cfg *r_pipe_cfg = pipe_cfg + 1;
-> > > > > +
-> > > > > +     if (drm_rect_width(&pipe_cfg->src_rect) != 0) {
-> > > > > +             pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, reqs);
-> > > > > +             if (!pipe->sspp)
-> > > > > +                     return -ENODEV;
-> > > > > +     }
-> > > > > +
-> > > > > +     if (drm_rect_width(&r_pipe_cfg->src_rect) != 0 &&
-> > > > > +         dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pipe_cfg,
-> > > > > +                                           pipe->sspp,
-> > > > > +                                           msm_framebuffer_format(plane_state->fb),
-> > > > > +                                           dpu_kms->catalog->caps->max_linewidth)) {
-> > > > > +             goto stage_assinged;
-> > > > > +     }
-> > > > > +
-> > > > > +     if (drm_rect_width(&r_pipe_cfg->src_rect) != 0) {
-> > > > > +             r_pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, reqs);
-> > > > > +             if (!r_pipe->sspp)
-> > > > > +                     return -ENODEV;
-> > > > > +             r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> > > > > +             r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> > > > > +     }
-> > > > > +
-> > > > > +stage_assinged:
-> > > > > +     return 0;
-> > > > > +}
-> > > > > +
-> > > > >  static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
-> > > > >                                             struct dpu_global_state *global_state,
-> > > > >                                             struct drm_atomic_state *state,
-> > > > > @@ -1188,11 +1250,9 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
-> > > > >       struct dpu_rm_sspp_requirements reqs;
-> > > > >       struct dpu_plane_state *pstate, *prev_adjacent_pstate;
-> > > > >       struct dpu_sw_pipe *pipe;
-> > > > > -     struct dpu_sw_pipe *r_pipe;
-> > > > >       struct dpu_sw_pipe_cfg *pipe_cfg;
-> > > > > -     struct dpu_sw_pipe_cfg *r_pipe_cfg;
-> > > > >       const struct msm_format *fmt;
-> > > > > -     int i;
-> > > > > +     int i, stage_id, ret;
-> > > > >
-> > > > >       if (plane_state->crtc)
-> > > > >               crtc_state = drm_atomic_get_new_crtc_state(state,
-> > > > > @@ -1202,11 +1262,6 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
-> > > > >       prev_adjacent_pstate = prev_adjacent_plane_state ?
-> > > > >               to_dpu_plane_state(prev_adjacent_plane_state) : NULL;
-> > > > >
-> > > > > -     pipe = &pstate->pipe[0];
-> > > > > -     r_pipe = &pstate->pipe[1];
-> > > > > -     pipe_cfg = &pstate->pipe_cfg[0];
-> > > > > -     r_pipe_cfg = &pstate->pipe_cfg[1];
-> > > > > -
-> > > > >       for (i = 0; i < PIPES_PER_PLANE; i++)
-> > > > >               pstate->pipe[i].sspp = NULL;
-> > > > >
-> > > > > @@ -1220,44 +1275,24 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
-> > > > >
-> > > > >       reqs.rot90 = drm_rotation_90_or_270(plane_state->rotation);
-> > > > >
-> > > > > -     if (drm_rect_width(&r_pipe_cfg->src_rect) == 0) {
-> > > > > -             if (!prev_adjacent_pstate ||
-> > > > > -                 !dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate, fmt,
-> > > > > -                                                 dpu_kms->catalog->caps->max_linewidth)) {
-> > > > > -                     pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
-> > > > > -                     if (!pipe->sspp)
-> > > > > -                             return -ENODEV;
-> > > > > -
-> > > > > -                     r_pipe->sspp = NULL;
-> > > > > -
-> > > > > -                     pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> > > > > -                     pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> > > > > -
-> > > > > -                     r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> > > > > -                     r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> > > > > -             }
-> > > > > -     } else {
-> > > > > -             pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
-> > > > > -             if (!pipe->sspp)
-> > > > > -                     return -ENODEV;
-> > > > > -
-> > > > > -             if (!dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pipe_cfg,
-> > > > > -                                                   pipe->sspp,
-> > > > > -                                                   msm_framebuffer_format(plane_state->fb),
-> > > > > -                                                   dpu_kms->catalog->caps->max_linewidth)) {
-> > > > > -                     /* multirect is not possible, use two SSPP blocks */
-> > > > > -                     r_pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
-> > > > > -                     if (!r_pipe->sspp)
-> > > > > -                             return -ENODEV;
-> > > > > -
-> > > > > -                     pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> > > > > -                     pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> > > > > +     if (prev_adjacent_pstate &&
-> > > > > +         dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate, fmt,
-> > > > > +                                         dpu_kms->catalog->caps->max_linewidth)) {
-> > > > > +             goto assigned;
-> > > > > +     }
-> > > > >
-> > > > > -                     r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> > > > > -                     r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> > > > > -             }
-> > > > > +     for (stage_id = 0; stage_id < STAGES_PER_PLANE; stage_id++) {
-> > > > > +             pipe = &pstate->pipe[stage_id * PIPES_PER_STAGE];
-> > > > > +             pipe_cfg = &pstate->pipe_cfg[stage_id * PIPES_PER_STAGE];
-> > > > > +             ret = dpu_plane_assign_resource_in_stage(pipe, pipe_cfg,
-> > > > > +                                                      plane_state,
-> > > > > +                                                      global_state,
-> > > > > +                                                      crtc, &reqs);
-> > > > > +             if (ret)
-> > > > > +                     return ret;
-> > > > >       }
-> > > > >
-> > > > > +assigned:
-> > > > >       return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
-> > > > >  }
-> > > > >
-> > > > >
-> > > > > --
-> > > > > 2.34.1
-> > > > >
-> > > >
-> > > > --
-> > > > With best wishes
-> > > > Dmitry
-> >
-> > --
-> > With best wishes
-> > Dmitry
+>>
+>>>> +                       break;
+>>>> +
+>>>> +               /* We may timeout because the GMU is temporarily wedged from
+>>>> +                * pending faults from the GPU and we are taking a devcoredump.
+>>>> +                * Wait until the MMU is resumed and try again.
+>>>> +                */
+>>>> +               wait_for_completion(&a6xx_gpu->base.fault_coredump_done);
 
--- 
-With best wishes
-Dmitry
+use the interruptible version? we may reach here from a process context.
+
+>>>> +       } while (true);
+>>>
+>>> It is a bit sad to duplicate this nearly identical code twice.  And I
+>>> wonder if other gmu_poll_timeout()'s need similar treatment?  Maybe
+>>> Akhil has an opinion about whether we should just build this into
+>>> gmu_poll_timeout() instead?
+>>
+>> Yeah. That make sense. A potential issue I see is that we might be
+>> holding both gpu and gmu locks here and the crashstate capture in the pf
+>> handler tries to lock gpu, which can result in a dead lock.
+> 
+> I think there would already be a deadlock, or at least timeout in that
+> situation now. Any task waiting for the GMU to complete while holding
+> the GPU lock would block the crashstate capture from completing and
+> allowing the GMU to continue.
+
+Timeout is fine as there is progress eventually. But deadlock is not
+acceptable. Also, userspace can easily trigger this deadlock which makes
+it a security issue.
+
+I agree, we need to improve the gmu error handling situation overall. I
+thought about this a few years ago actually. At that time, I thought it
+would be simpler if we always did coredump/recovery from a single
+thread. Not sure if that idea still makes sense.
+
+On a related topic, stall-on-fault cannot be used in production. GMU is
+very critical as it interacts directly with SoC power management
+subsystems and also every year, there is an additional responsibility on
+GMU to do a very time critical mitigation like CLX, thermal, BCL etc.
+And these mitigations should be handled within a few microseconds. So
+GMU should never be blocked, even for microseconds. Apart from that,
+even GPU's internal bus can get locked up in rare cases which can lead
+to a fatal system bus/NoC error when KMD access a register in the GPU space.
+
+But stall-on-fault is useful while debugging. So any improvements in
+this area is useful.
+
+-Akhil.
+
