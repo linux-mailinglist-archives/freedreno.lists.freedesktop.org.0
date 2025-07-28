@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 803B8B13B33
-	for <lists+freedreno@lfdr.de>; Mon, 28 Jul 2025 15:15:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11BC0B13B38
+	for <lists+freedreno@lfdr.de>; Mon, 28 Jul 2025 15:15:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 522C010E161;
-	Mon, 28 Jul 2025 13:15:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D27E310E511;
+	Mon, 28 Jul 2025 13:15:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OEOpgAIa";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vJsqBaxw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B85C10E526
- for <freedreno@lists.freedesktop.org>; Mon, 28 Jul 2025 13:15:46 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-74b54cead6cso2834218b3a.1
- for <freedreno@lists.freedesktop.org>; Mon, 28 Jul 2025 06:15:46 -0700 (PDT)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3820810E511
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Jul 2025 13:15:52 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-74b54cead6cso2834320b3a.1
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Jul 2025 06:15:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1753708546; x=1754313346; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1753708552; x=1754313352; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=T9b10Utde/4CPYmUXL4JbunDZfV3oczzPP2bJZaYWdQ=;
- b=OEOpgAIaEG/TdM63pwqZYnzoXkyhInLrkDI8ZbrBDeRb8Y3QSElPbC8OCNLDWezkSB
- Bpolh9EN/7Da8H9oFgpZzNl/l11twvFJvIQ+Z/wfeJWUuTzmKvvl75/1mWlOMDL1b83a
- Yeg89I3l3gaQ7zCiD+bQ/RdQ+8dbJs6j79O7OAri3JH0Sxh3Eclf+YWNV42y6f/q5j8m
- fwSpXzX/lu14UUV3aRNClAxDd9TS8zI3El+j6C23CyeV48YsQxyd4ULJi28JBnsHj4YA
- 5RDeSfUDjMvqk2lkH7edTng5U6AD5eNl7JunjCfpJ6MP7tNvyf1cLwuzrJ7D56PfBOsb
- ffSA==
+ :reply-to; bh=Qn+v6OgZHkJhIdrgUSm7eqGUg7pVI5uvXHn5BEBRhNQ=;
+ b=vJsqBaxwCCTHMAg97Rd3PXSr2KbHpJLFw8Ha4FQE5rFmpH1RYZmiM/bIpOn/H+otqn
+ tAsmN/eKUGB9jwtB4XTwlp6DObdh/D4rcOVB/f3zoF9dJzdJ7t9EROJcytLzAVJaDiCL
+ crp7HcXXo1H1OphLnvehEEGzlzpJ260mRkw8DqltNHCeXsq5uFNRuoTL7yJ/UBPD1TVm
+ +CYOZdvCELAYV9SaRCjNkQdQS9UgXI4SOn0Tq8TFBBnFBo+aRHmmcGQyZnLBtnk4lvU7
+ CycnCyJu90TU98VNcibnsv0L5VGVot3WFPrtEmYinIB47hGkwNIoXlN7E7beGXWLT5g1
+ iIOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753708546; x=1754313346;
+ d=1e100.net; s=20230601; t=1753708552; x=1754313352;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=T9b10Utde/4CPYmUXL4JbunDZfV3oczzPP2bJZaYWdQ=;
- b=uhqtOzFB2+M/42dEAXye8gRFIi5ToG49k8H39OhV7zkschzmmMAExIqmgYmaHIUNB9
- DHqVPsj4CoyPbQZMwbkqnUhLdgQEitBJV48u5bvOseunDugaCHYx76ZPo9po2X9cnFfr
- PjeFqvObbdwQpxk6CP9OcFWHvMNPF4c3uN+nG//4woLcBJ16ZTwFXEKkT4Dejj9rWpGc
- lexkVicUrLddbgpzuk5I+VT1g26W4AtUm+0YeQoFOtBTpFUoXO14D+KiTR82bU2rpqQd
- H2yQbX51fig1kVDH4q7Ay5DHkZJEyPxcyweoIE9/9F6NlGFOhQd4PSYVJAR9gkZmETKy
- ReUA==
+ bh=Qn+v6OgZHkJhIdrgUSm7eqGUg7pVI5uvXHn5BEBRhNQ=;
+ b=aXDx9fMlrHGbsmacdjdHYYyne9yh6auNLYLEl0N9Q5wX3fPiDi6OJ5tbQQh3tcagsl
+ HgN7d9jh2CXoVdGR5faoD4ufGIcipvAraSTScIrs6a1pyD0hUs6Lxy25YH39LlynaLxB
+ tIYCj2Wjsu6zGktEC7qzx3r13b9IrlCND8wXd/M2xSFnkFUTHjoFHEq+7WxCxFEdSuJV
+ GkZaZz685jzc/VIVuf9P7mcYFQVKr9RKq3vPfrNWX5VBuqtEPg0rqmN/xjKgxGN8V5dz
+ EnEuX+//41zzvpVwKAXrlt/PmFECRUv3mp/6TOt8JhF7HX65nBg8erKJEs3RiOWdwFZb
+ 6HOQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWsrUYuUP3fu1E3p2oxMuhpTvPINu6N7quXqjT13ChLYbrU6qacvYNI8o8xF0MyQEQsKWeIhXts/LQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXN072v1YzImcDwA3C2PvwmIu5pfMyiXvlNtvd60R4Dzdnv2dQ
- 8Ca6fayhzyOycGNmG/PN23Si7OjWC1xGWj3IoG5VZTIQo9xfwgYqKAehsXKxt/6cDqY=
-X-Gm-Gg: ASbGncsmsQJzCCf4bE0uZ/xGDYoF1RACcsEi+ZeLmr4PHN1SCKTXzVclQcoFl6hw9Ck
- P2HD8DRT58XI5YyZbgMAC7kRNRqImEe+VlOe8Yn04ca26rmoBRFM7vwfHk3ZHZtBYa4o72uqrD+
- +OaI11CUpndhEsWpSPA6LPwugh64fQJpZzgDttHTpSvXKAXBn70JPSUEPWpuEOP9imgwXWtaF5D
- +HD/71wduBW/uDU4Dq7f7RexMvTh5w+KMDJdXWoD3LT7vsDbDGLN7cQk9MshiZTVsZn3KQXsS9C
- b8CXrKjnXsM+/AQiyrLI69AZCEXQ83RMEp9e3xZkqfeEv+fiVDN/QppBaWt9TnIiMfRyPwa3jSH
- W/QEhIgsq7EuIuQleiQ==
-X-Google-Smtp-Source: AGHT+IHbqBpQjCtxe9bcHUGWtz/0l+dnLHsBvK5SG2J6Lsb4myJk0X8h64pZKZ/PgVwkog5yUGmIyA==
-X-Received: by 2002:a05:6a00:23ce:b0:751:6771:f76 with SMTP id
- d2e1a72fcca58-763374066a6mr15723458b3a.12.1753708545592; 
- Mon, 28 Jul 2025 06:15:45 -0700 (PDT)
+ AJvYcCWZBqykxyxun0bpmMoP3a10U+AaZzWfzCNf4lv6qVL/IBCKIAvbfBsyz+diM9zX4nn2dmbN7pTIwOQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwoZ9K+RvCy8BuxI2qz/ftka9tTOaqsd1PQ0F1F1clW/lY0IT83
+ bX60qM1Z1fUgYcQmJ9T9I/UTpfYy+h+0wegCwx/cJRz5LxgZZiuK+p5doMrE/U6VT8I=
+X-Gm-Gg: ASbGnctEk+UyqNmkS7dJ58kvo1UxSCLAf8XxJ3Ct1DyHH49fv917zz+1u8+TK6MzlHT
+ M69a+rtw2zoqXGu5tfSa4dZ+j6me9/2BTRyx+pfJOh5VxkTtXFlzhFjnMdei+G/4MsBW2VjNuu1
+ nAppcziEnlZSZS2tCZkcV5d/9r9pUfnakNiZBQumxADrexVmzwHt95aG1mXOmOZyRlLL8U4htLa
+ RtzLpzECp6enTnwsbjhvmqUhKOjuUAh+4QX7eJt+ODQ3RW2hWpGVlI+Fj8BHPmxk4ZLMZyeodJ1
+ IXYrSj385PA3176r7qs/ISU1ePq/zvSwLluPsw1xFBvuPP7Me9O7NodetDp+RrZnWgJT5uQAHN2
+ T0zTNcOrs8PEEUAK+dQ==
+X-Google-Smtp-Source: AGHT+IHlzUU7/t2lppoNDSPLOPsJBoVZUs1UnIXVdTdd6zaw0ClpN8tuHAerHkshX9Y6uji/BsOdIw==
+X-Received: by 2002:a05:6a00:3a23:b0:742:a111:ee6f with SMTP id
+ d2e1a72fcca58-76335b749f7mr14932786b3a.10.1753708551497; 
+ Mon, 28 Jul 2025 06:15:51 -0700 (PDT)
 Received: from [127.0.1.1] ([112.64.60.64]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76408c0287fsm5590318b3a.47.2025.07.28.06.15.40
+ d2e1a72fcca58-76408c0287fsm5590318b3a.47.2025.07.28.06.15.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Jul 2025 06:15:45 -0700 (PDT)
+ Mon, 28 Jul 2025 06:15:51 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 28 Jul 2025 21:14:34 +0800
-Subject: [PATCH v13 10/12] drm/msm/dpu: support SSPP assignment for
+Date: Mon, 28 Jul 2025 21:14:35 +0800
+Subject: [PATCH v13 11/12] drm/msm/dpu: support plane splitting in
  quad-pipe case
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250728-v6-16-rc2-quad-pipe-upstream-v13-10-954e4917fe4f@linaro.org>
+Message-Id: <20250728-v6-16-rc2-quad-pipe-upstream-v13-11-954e4917fe4f@linaro.org>
 References: <20250728-v6-16-rc2-quad-pipe-upstream-v13-0-954e4917fe4f@linaro.org>
 In-Reply-To: <20250728-v6-16-rc2-quad-pipe-upstream-v13-0-954e4917fe4f@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -78,13 +78,13 @@ To: Rob Clark <robdclark@gmail.com>,
  Jessica Zhang <quic_jesszhan@quicinc.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>
+ Jun Nie <jun.nie@linaro.org>, Dmitry Baryshkov <lumag@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1753708472; l=9758;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1753708472; l=9601;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=dKFyKjmZeF9PN4Wn7efC/rAUhNPwQdgLaQ4zoFinDnw=;
- b=EN/CCzOSx5auRQN86J9yiqFTt/XuNVwjLL/EnZzXAIgmx1ijR7DfrttIomzlbho0rVeZrXgfn
- cJBoPoH09KEBm578AZQUgaR2yA8tPXq3uPqEIBR1+EsgDUmkz2whTrB
+ bh=62ozXnbT/Af7l3D69JBokAFwEP8TJlVAodF76QVei2E=;
+ b=kwujthmtCKOj5c1kiyD5YZ31zmtBjeL5YSHal08c1NiDdjy6VtxQaecarMtAUSxfL7oYJ5jcB
+ p1RLA4dfFIhB6tfFVZE1ky9fUG7t3O7ebK0QFrOpOt/BArc4fKvSpEj
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -102,260 +102,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently, SSPPs are assigned to a maximum of two pipes. However,
-quad-pipe usage scenarios require four pipes and involve configuring
-two stages. In quad-pipe case, the first two pipes share a set of
-mixer configurations and enable multi-rect mode when certain
-conditions are met. The same applies to the subsequent two pipes.
+The content of every half of screen is sent out via one interface in
+dual-DSI case. The content for every interface is blended by a LM
+pair in quad-pipe case, thus a LM pair should not blend any content
+that cross the half of screen in this case. Clip plane into pipes per
+left and right half screen ROI if topology is quad pipe case.
 
-Assign SSPPs to the pipes in each stage using a unified method and
-to loop the stages accordingly.
+The clipped rectangle on every half of screen is futher handled by two
+pipes if its width exceeds a limit for a single pipe.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 160 ++++++++++++++++++------------
- 1 file changed, 99 insertions(+), 61 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  11 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h  |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 137 +++++++++++++++++++++---------
+ 3 files changed, 110 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 55429f29a4b95594771d930efe42aaa4126f6f07..e1e16a8d5ac55ba52a0f460d62901dced65e3a9e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -959,6 +959,30 @@ static int dpu_plane_is_multirect_parallel_capable(struct dpu_hw_sspp *sspp,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index c7dc5b47ae18ebd78de30d2a0605caa7dd547850..1c7a5e545745320018c3e9a2d163cbfd3dceaf7b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1592,6 +1592,17 @@ int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
+ 	return 0;
  }
  
- 
-+static bool dpu_plane_get_single_pipe_in_stage(struct dpu_plane_state *pstate,
-+					       struct dpu_sw_pipe **single_pipe,
-+					       struct dpu_sw_pipe_cfg **single_pipe_cfg,
-+					       int stage_index)
++/**
++ * dpu_crtc_get_num_lm - Get mixer number in this CRTC pipeline
++ * @state: Pointer to drm crtc state object
++ */
++unsigned int dpu_crtc_get_num_lm(const struct drm_crtc_state *state)
 +{
-+	int pipe_idx, i, valid_pipe = 0;
++	struct dpu_crtc_state *cstate = to_dpu_crtc_state(state);
 +
-+	for (i = 0; i < PIPES_PER_STAGE; i++) {
-+		pipe_idx = stage_index * PIPES_PER_STAGE + i;
-+		if (drm_rect_width(&pstate->pipe_cfg[pipe_idx].src_rect) != 0) {
-+			valid_pipe++;
-+			if (valid_pipe > 1)
-+				return false;
-+
-+			if (single_pipe)
-+				*single_pipe = &pstate->pipe[pipe_idx];
-+			if (single_pipe_cfg)
-+				*single_pipe_cfg = &pstate->pipe_cfg[pipe_idx];
-+		}
-+	}
-+
-+	return valid_pipe == 1;
++	return cstate->num_mixers;
 +}
 +
- static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
- 				       struct drm_atomic_state *state,
- 				       const struct drm_crtc_state *crtc_state)
-@@ -1023,17 +1047,20 @@ static bool dpu_plane_try_multirect_parallel(struct dpu_sw_pipe *pipe, struct dp
- static int dpu_plane_try_multirect_shared(struct dpu_plane_state *pstate,
- 					  struct dpu_plane_state *prev_adjacent_pstate,
- 					  const struct msm_format *fmt,
--					  uint32_t max_linewidth)
-+					  uint32_t max_linewidth, int stage_index)
+ #ifdef CONFIG_DEBUG_FS
+ static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
  {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+index 94392b9b924546f96e738ae20920cf9afd568e6b..6eaba5696e8e6bd1246a9895c4c8714ca6589b10 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+@@ -267,4 +267,6 @@ static inline enum dpu_crtc_client_type dpu_crtc_get_client_type(
+ 
+ void dpu_crtc_frame_event_cb(struct drm_crtc *crtc, u32 event);
+ 
++unsigned int dpu_crtc_get_num_lm(const struct drm_crtc_state *state);
++
+ #endif /* _DPU_CRTC_H_ */
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index e1e16a8d5ac55ba52a0f460d62901dced65e3a9e..498cf7bb9c241e2214e1924664aca3ab1c642c82 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -824,8 +824,12 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
+ 	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
+ 	struct dpu_sw_pipe_cfg *pipe_cfg;
+ 	struct dpu_sw_pipe_cfg *r_pipe_cfg;
++	struct dpu_sw_pipe_cfg init_pipe_cfg;
+ 	struct drm_rect fb_rect = { 0 };
++	const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
+ 	uint32_t max_linewidth;
++	u32 num_lm;
++	int stage_id, num_stages;
+ 
+ 	min_scale = FRAC_16_16(1, MAX_UPSCALE_RATIO);
+ 	max_scale = MAX_DOWNSCALE_RATIO << 16;
+@@ -848,13 +852,10 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
+ 		return -EINVAL;
+ 	}
+ 
+-	/* move the assignment here, to ease handling to another pairs later */
+-	pipe_cfg = &pstate->pipe_cfg[0];
+-	r_pipe_cfg = &pstate->pipe_cfg[1];
+-	/* state->src is 16.16, src_rect is not */
+-	drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
++	num_lm = dpu_crtc_get_num_lm(crtc_state);
+ 
+-	pipe_cfg->dst_rect = new_plane_state->dst;
++	/* state->src is 16.16, src_rect is not */
++	drm_rect_fp_to_int(&init_pipe_cfg.src_rect, &new_plane_state->src);
+ 
+ 	fb_rect.x2 = new_plane_state->fb->width;
+ 	fb_rect.y2 = new_plane_state->fb->height;
+@@ -879,35 +880,94 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
+ 
+ 	max_linewidth = pdpu->catalog->caps->max_linewidth;
+ 
+-	drm_rect_rotate(&pipe_cfg->src_rect,
++	drm_rect_rotate(&init_pipe_cfg.src_rect,
+ 			new_plane_state->fb->width, new_plane_state->fb->height,
+ 			new_plane_state->rotation);
+ 
+-	if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
+-	     _dpu_plane_calc_clk(&crtc_state->adjusted_mode, pipe_cfg) > max_mdp_clk_rate) {
+-		if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewidth) {
+-			DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
+-					DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
+-			return -E2BIG;
++	/*
++	 * We have 1 mixer pair cfg for 1:1:1 and 2:2:1 topology, 2 mixer pair
++	 * configs for left and right half screen in case of 4:4:2 topology.
++	 * But we may have 2 rect to split wide plane that exceeds limit with 1
++	 * config for 2:2:1. So need to handle both wide plane splitting, and
++	 * two halves of screen splitting for quad-pipe case. Check dest
++	 * rectangle left/right clipping first, then check wide rectangle
++	 * splitting in every half next.
++	 */
++	num_stages = (num_lm + 1) / 2;
++	/* iterate mixer configs for this plane, to separate left/right with the id */
++	for (stage_id = 0; stage_id < num_stages; stage_id++) {
++		struct drm_rect mixer_rect = {
++			.x1 = stage_id * mode->hdisplay / num_stages,
++			.y1 = 0,
++			.x2 = (stage_id + 1) * mode->hdisplay / num_stages,
++			.y2 = mode->vdisplay
++			};
++		int cfg_idx = stage_id * PIPES_PER_STAGE;
++
++		pipe_cfg = &pstate->pipe_cfg[cfg_idx];
++		r_pipe_cfg = &pstate->pipe_cfg[cfg_idx + 1];
++
++		drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
++		pipe_cfg->dst_rect = new_plane_state->dst;
++
++		DPU_DEBUG_PLANE(pdpu, "checking src " DRM_RECT_FMT
++				" vs clip window " DRM_RECT_FMT "\n",
++				DRM_RECT_ARG(&pipe_cfg->src_rect),
++				DRM_RECT_ARG(&mixer_rect));
++
++		/*
++		 * If this plane does not fall into mixer rect, check next
++		 * mixer rect.
++		 */
++		if (!drm_rect_clip_scaled(&pipe_cfg->src_rect,
++					  &pipe_cfg->dst_rect,
++					  &mixer_rect)) {
++			memset(pipe_cfg, 0, 2 * sizeof(struct dpu_sw_pipe_cfg));
++
++			continue;
+ 		}
+ 
+-		*r_pipe_cfg = *pipe_cfg;
+-		pipe_cfg->src_rect.x2 = (pipe_cfg->src_rect.x1 + pipe_cfg->src_rect.x2) >> 1;
+-		pipe_cfg->dst_rect.x2 = (pipe_cfg->dst_rect.x1 + pipe_cfg->dst_rect.x2) >> 1;
+-		r_pipe_cfg->src_rect.x1 = pipe_cfg->src_rect.x2;
+-		r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
+-	} else {
+-		memset(r_pipe_cfg, 0, sizeof(*r_pipe_cfg));
+-	}
++		pipe_cfg->dst_rect.x1 -= mixer_rect.x1;
++		pipe_cfg->dst_rect.x2 -= mixer_rect.x1;
++
++		DPU_DEBUG_PLANE(pdpu, "Got clip src:" DRM_RECT_FMT " dst: " DRM_RECT_FMT "\n",
++				DRM_RECT_ARG(&pipe_cfg->src_rect), DRM_RECT_ARG(&pipe_cfg->dst_rect));
++
++		/* Split wide rect into 2 rect */
++		if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
++		     _dpu_plane_calc_clk(mode, pipe_cfg) > max_mdp_clk_rate) {
++
++			if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewidth) {
++				DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
++						DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
++				return -E2BIG;
++			}
++
++			memcpy(r_pipe_cfg, pipe_cfg, sizeof(struct dpu_sw_pipe_cfg));
++			pipe_cfg->src_rect.x2 = (pipe_cfg->src_rect.x1 + pipe_cfg->src_rect.x2) >> 1;
++			pipe_cfg->dst_rect.x2 = (pipe_cfg->dst_rect.x1 + pipe_cfg->dst_rect.x2) >> 1;
++			r_pipe_cfg->src_rect.x1 = pipe_cfg->src_rect.x2;
++			r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
++			DPU_DEBUG_PLANE(pdpu, "Split wide plane into:"
++					DRM_RECT_FMT " and " DRM_RECT_FMT "\n",
++					DRM_RECT_ARG(&pipe_cfg->src_rect),
++					DRM_RECT_ARG(&r_pipe_cfg->src_rect));
++		} else {
++			memset(r_pipe_cfg, 0, sizeof(struct dpu_sw_pipe_cfg));
++		}
+ 
+-	drm_rect_rotate_inv(&pipe_cfg->src_rect,
+-			    new_plane_state->fb->width, new_plane_state->fb->height,
+-			    new_plane_state->rotation);
+-	if (drm_rect_width(&r_pipe_cfg->src_rect) != 0)
+-		drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
+-				    new_plane_state->fb->width, new_plane_state->fb->height,
++		drm_rect_rotate_inv(&pipe_cfg->src_rect,
++				    new_plane_state->fb->width,
++				    new_plane_state->fb->height,
+ 				    new_plane_state->rotation);
+ 
++		if (drm_rect_width(&r_pipe_cfg->src_rect) != 0)
++			drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
++					    new_plane_state->fb->width,
++					    new_plane_state->fb->height,
++					    new_plane_state->rotation);
++	}
++
+ 	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
+ 
+ 	return 0;
+@@ -991,20 +1051,17 @@ static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
+ 		drm_atomic_get_new_plane_state(state, plane);
+ 	struct dpu_plane *pdpu = to_dpu_plane(plane);
+ 	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
 -	struct dpu_sw_pipe *pipe = &pstate->pipe[0];
 -	struct dpu_sw_pipe *r_pipe = &pstate->pipe[1];
 -	struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg[0];
--	struct dpu_sw_pipe *prev_pipe = &prev_adjacent_pstate->pipe[0];
--	struct dpu_sw_pipe_cfg *prev_pipe_cfg = &prev_adjacent_pstate->pipe_cfg[0];
-+	struct dpu_sw_pipe *pipe, *prev_pipe;
-+	struct dpu_sw_pipe_cfg *pipe_cfg, *prev_pipe_cfg;
- 	const struct msm_format *prev_fmt = msm_framebuffer_format(prev_adjacent_pstate->base.fb);
- 	u16 max_tile_height = 1;
- 
--	if (prev_adjacent_pstate->pipe[1].sspp != NULL ||
-+	if (!dpu_plane_get_single_pipe_in_stage(pstate, &pipe,
-+						&pipe_cfg, stage_index))
-+		return false;
-+
-+	if (!dpu_plane_get_single_pipe_in_stage(prev_adjacent_pstate,
-+						&prev_pipe, &prev_pipe_cfg,
-+						stage_index) ||
- 	    prev_pipe->multirect_mode != DPU_SSPP_MULTIRECT_NONE)
- 		return false;
- 
-@@ -1048,11 +1075,6 @@ static int dpu_plane_try_multirect_shared(struct dpu_plane_state *pstate,
- 	if (MSM_FORMAT_IS_UBWC(prev_fmt))
- 		max_tile_height = max(max_tile_height, prev_fmt->tile_height);
- 
--	r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
--	r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+-	struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->pipe_cfg[1];
+-	int ret = 0;
 -
--	r_pipe->sspp = NULL;
--
- 	if (dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth) &&
- 	    dpu_plane_is_parallel_capable(prev_pipe_cfg, prev_fmt, max_linewidth) &&
- 	    (pipe_cfg->dst_rect.x1 >= prev_pipe_cfg->dst_rect.x2 ||
-@@ -1181,36 +1203,69 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
- 	return 0;
- }
+-	ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg,
+-					  &crtc_state->adjusted_mode,
+-					  new_plane_state);
+-	if (ret)
+-		return ret;
++	struct dpu_sw_pipe *pipe;
++	struct dpu_sw_pipe_cfg *pipe_cfg;
++	int ret = 0, i;
  
-+static int dpu_plane_assign_resource_in_stage(struct dpu_sw_pipe *pipe,
-+					      struct dpu_sw_pipe_cfg *pipe_cfg,
-+					      struct drm_plane_state *plane_state,
-+					      struct dpu_global_state *global_state,
-+					      struct drm_crtc *crtc,
-+					      struct dpu_rm_sspp_requirements *reqs)
-+{
-+	struct drm_plane *plane = plane_state->plane;
-+	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
-+	struct dpu_sw_pipe *r_pipe = pipe + 1;
-+	struct dpu_sw_pipe_cfg *r_pipe_cfg = pipe_cfg + 1;
-+
-+	if (drm_rect_width(&pipe_cfg->src_rect) != 0) {
-+		pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, reqs);
+-	if (drm_rect_width(&r_pipe_cfg->src_rect) != 0) {
+-		ret = dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_cfg,
++	for (i = 0; i < PIPES_PER_PLANE; i++) {
++		pipe = &pstate->pipe[i];
++		pipe_cfg = &pstate->pipe_cfg[i];
 +		if (!pipe->sspp)
-+			return -ENODEV;
-+		pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-+		pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-+	}
-+
-+	if (drm_rect_width(&r_pipe_cfg->src_rect) != 0 &&
-+	    dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pipe_cfg,
-+					      pipe->sspp,
-+					      msm_framebuffer_format(plane_state->fb),
-+					      dpu_kms->catalog->caps->max_linewidth))
-+		goto stage_assinged;
-+
-+	if (drm_rect_width(&r_pipe_cfg->src_rect) != 0) {
-+		r_pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, reqs);
-+		if (!r_pipe->sspp)
-+			return -ENODEV;
-+		r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-+		r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-+	}
-+
-+stage_assinged:
-+	return 0;
-+}
-+
- static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
- 					      struct dpu_global_state *global_state,
- 					      struct drm_atomic_state *state,
- 					      struct drm_plane_state *plane_state,
--					      struct drm_plane_state *prev_adjacent_plane_state)
-+					      struct drm_plane_state **prev_adjacent_plane_state)
- {
- 	const struct drm_crtc_state *crtc_state = NULL;
- 	struct drm_plane *plane = plane_state->plane;
- 	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
- 	struct dpu_rm_sspp_requirements reqs;
--	struct dpu_plane_state *pstate, *prev_adjacent_pstate;
-+	struct dpu_plane_state *pstate, *prev_adjacent_pstate[STAGES_PER_PLANE];
- 	struct dpu_sw_pipe *pipe;
--	struct dpu_sw_pipe *r_pipe;
- 	struct dpu_sw_pipe_cfg *pipe_cfg;
--	struct dpu_sw_pipe_cfg *r_pipe_cfg;
- 	const struct msm_format *fmt;
--	int i;
-+	int i, ret;
- 
- 	if (plane_state->crtc)
- 		crtc_state = drm_atomic_get_new_crtc_state(state,
- 							   plane_state->crtc);
- 
- 	pstate = to_dpu_plane_state(plane_state);
--	prev_adjacent_pstate = prev_adjacent_plane_state ?
--		to_dpu_plane_state(prev_adjacent_plane_state) : NULL;
--
--	pipe = &pstate->pipe[0];
--	r_pipe = &pstate->pipe[1];
--	pipe_cfg = &pstate->pipe_cfg[0];
--	r_pipe_cfg = &pstate->pipe_cfg[1];
-+	for (i = 0; i < STAGES_PER_PLANE; i++)
-+		prev_adjacent_pstate[i] = prev_adjacent_plane_state[i] ?
-+			to_dpu_plane_state(prev_adjacent_plane_state[i]) : NULL;
- 
- 	for (i = 0; i < PIPES_PER_PLANE; i++)
- 		pstate->pipe[i].sspp = NULL;
-@@ -1225,42 +1280,27 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
- 
- 	reqs.rot90 = drm_rotation_90_or_270(plane_state->rotation);
- 
--	if (drm_rect_width(&r_pipe_cfg->src_rect) == 0) {
--		if (!prev_adjacent_pstate ||
--		    !dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate, fmt,
--						    dpu_kms->catalog->caps->max_linewidth)) {
--			pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
--			if (!pipe->sspp)
--				return -ENODEV;
--
--			r_pipe->sspp = NULL;
-+	for (i = 0; i < STAGES_PER_PLANE; i++) {
-+		if (!prev_adjacent_pstate[i])
-+			goto assignment;
- 
--			pipe->multirect_index = DPU_SSPP_RECT_SOLO;
--			pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
--
--			r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
--			r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
--		}
--	} else {
--		pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
--		if (!pipe->sspp)
--			return -ENODEV;
--
--		if (!dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pipe_cfg,
--						      pipe->sspp,
--						      msm_framebuffer_format(plane_state->fb),
--						      dpu_kms->catalog->caps->max_linewidth)) {
--			/* multirect is not possible, use two SSPP blocks */
--			r_pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
--			if (!r_pipe->sspp)
--				return -ENODEV;
-+		if (dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate[i], fmt,
-+						   dpu_kms->catalog->caps->max_linewidth,
-+						   i))
 +			continue;
- 
--			pipe->multirect_index = DPU_SSPP_RECT_SOLO;
--			pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-+assignment:
-+		if (dpu_plane_get_single_pipe_in_stage(pstate, NULL, NULL, i))
-+			prev_adjacent_plane_state[i] = plane_state;
- 
--			r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
--			r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
--		}
-+		pipe = &pstate->pipe[i * PIPES_PER_STAGE];
-+		pipe_cfg = &pstate->pipe_cfg[i * PIPES_PER_STAGE];
-+		ret = dpu_plane_assign_resource_in_stage(pipe, pipe_cfg,
-+							 plane_state,
-+							 global_state,
-+							 crtc, &reqs);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
-@@ -1273,7 +1313,7 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
- 			       unsigned int num_planes)
- {
- 	unsigned int i;
--	struct drm_plane_state *prev_adjacent_plane_state = NULL;
-+	struct drm_plane_state *prev_adjacent_plane_state[STAGES_PER_PLANE] = { NULL };
- 
- 	for (i = 0; i < num_planes; i++) {
- 		struct drm_plane_state *plane_state = states[i];
-@@ -1284,11 +1324,9 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
- 
- 		int ret = dpu_plane_virtual_assign_resources(crtc, global_state,
- 							     state, plane_state,
--							     prev_adjacent_plane_state);
-+							     &prev_adjacent_plane_state[0]);
++		DPU_DEBUG_PLANE(pdpu, "pipe %d is in use, validate it\n", i);
++		ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg,
+ 						  &crtc_state->adjusted_mode,
+ 						  new_plane_state);
  		if (ret)
- 			break;
--
--		prev_adjacent_plane_state = plane_state;
- 	}
- 
- 	return 0;
 
 -- 
 2.34.1
