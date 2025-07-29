@@ -2,115 +2,114 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 941E8B14E88
-	for <lists+freedreno@lfdr.de>; Tue, 29 Jul 2025 15:40:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C55CB14F0B
+	for <lists+freedreno@lfdr.de>; Tue, 29 Jul 2025 16:06:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68CC810E1FC;
-	Tue, 29 Jul 2025 13:40:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02EE310E296;
+	Tue, 29 Jul 2025 14:06:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="k67GQX+y";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AG4TgF2i";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7D7610E1FC
- for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 13:40:14 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56T7vwlG001568
- for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 13:40:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=HLQ2yUgG0gFIFURD76i4Mqz/jV+uThgccL9ep7CGuxI=; b=k6
- 7GQX+yLg6ftc4AUhslhPJ/bzpJSeGBK4cIhSIKmHQGil9vtARXhgDZPJGxMXmuGC
- sMY4lnFuSjZYQ+aiYIUjngUi9JtW7pYQWU02fvjE6jEoDzl5cg81WjIsX7iNK5Zv
- WLvHBSRBgiEIhzdZk+hVclfIs4vcwqsYwZq95ij0m4/+BnURhjslpGP/ym5ykHNi
- Y35ut2bmqB+JCIZP2lYWPTPCC44T0r9PSrmhDvScS/8IUaLGxhNCjbdnlgNtK7lr
- 3CIvauZabbUGs1vauPChnIkCdlOr+FKV5XbuFw6ZuPZWph6pVFTt9B51PkRxXLYO
- WgneYO33PsSnS3ixK1jw==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484pm2g65y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 13:40:13 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-41b2182bc54so6932055b6e.2
- for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 06:40:13 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8695010E28F
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 14:06:35 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-451d7b50815so36616235e9.2
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 07:06:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1753797994; x=1754402794; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=Fn497pBIb31Sx7BbH71sH1wCChN0m96yZl9gFKIrt2U=;
+ b=AG4TgF2iM49Su2E4taYqmhOPGf/OVVI8wIWa77d3DxU8s0pKgj6uN3bxYR5WYUec2t
+ jakNp+lTbFmGBXOr7VNAD0QmVOcd/RrFXf2ODgJ4TO8hmZqDMHE9GQQdvoQiJNk1Eln4
+ OQRfAMw2m/hOBwTkY6cfv8O7PYIXEGgsEp/S3BCahnJ7jI9p71RbcUHf9BLz5FJPZfWM
+ /xyUXcW6/wCs7JxZTPcEbNA4QkH7BrJldf0PGgi32zdaEAtmITgQe0aV+nak5Qc49ZxA
+ TwaMSFjyo2SeFzInBo3mSDSwC8L+yG+LlYuCy2EH9NynnBoS+R04gNivgHuvkIJOKqFq
+ DAhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753796413; x=1754401213;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=HLQ2yUgG0gFIFURD76i4Mqz/jV+uThgccL9ep7CGuxI=;
- b=k5I/LA1uVyGD6v/lWbDrzp6tjJOe6yXiFBJ/47GTA+qfShKFB9kfvGN8LasR/FIWdO
- u3cAOtnUCILMuql1HkQ52AD3ASZ0fRmFOSM8oUAIdAwxzAf2dUH7F3Jd/kknR2rG2/I/
- ZH4Bwa1IW8ECcfYRWUZ9OShqHpK/GSIhwdDzfXv50TlAEpjR4/nBDT7ww4XCiagtfM0o
- 92OYjoyW7WtB2EMFULO0QMAzkmGMPRak3uJeejXSZ5zNrrqis0AsOOqP4aZ1ECSpMnUN
- lDXnV/CIAuTwANdipG0MMkCF59WhXAglBc7t4BeFMCcVIdKZ/xUF+5CqbJMMpy3A2AIQ
- 2C3w==
+ d=1e100.net; s=20230601; t=1753797994; x=1754402794;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Fn497pBIb31Sx7BbH71sH1wCChN0m96yZl9gFKIrt2U=;
+ b=WuiU8bNLdcz1DZk6UoV6vs79d2gV22yBO0s6KYyE+S3y3577ijfpsRRZX5ctjKtrsx
+ 1zSULC3Np0eOgXI3jOoZaN8P9GRiYpml2FaUlRo4hCChuTS3kKoWN5s1uUWJ/H8nxBWL
+ ieBqoHG5weyJXT0luRy2Wf4YrmAmqQu8Nos6naP+VXxIaPiuhzuPR5XyFwS7DAr7erz1
+ eA1LHtUneF6Avml5BW/AN7vci2k9TirhLKS9T1VqVvOmmxk7qNliyc1P7c4VC8hddy58
+ pdA611y9Z/3SBXBjkEJAwtpwhxU5sCZZap5HcPuTj0jESAd9VXuiWUWZjubpVeR6u8VY
+ rwzw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWAsfHZJsGJ8qwa1wb2Im5PtQr2j8TpuJX+ZgiNtiWOHau+hefkPXDy1jaTR6ZUU3mOl0ZYevcipkI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyj2rbmLKMkTc4QpwBXhhn/OY1Coccc2It2F2m5H3qx2J4pC9In
- uZ6TivO2/YrRQv/g5u4Tcyr2ZF2GOU7jYLirrtXITClEL0rhYbgrGKmWc82pNNGAp1EcSeoPwh5
- TV2eFsnzAUvjHPf6JlSkELSVabiBRIs2I2qJsmzXXi2sSDso164WgpHuClA7knULYq94VwfQnVo
- nUAwOIT6f57zjXK3eEH9rtjFnCHtfP3Fh2sXnULKJ1+tJ9mg==
-X-Gm-Gg: ASbGncsVgq8xNS7+0xL6xn9qpZUix+sxp9I0cbriHGTRwud+cKSEVjJrrfANWFykx1o
- T/JxWWNzc7bHgVlj2qYG3a/1ZhBQDEkJ0kJMXDymnHW1pKO1470o4s+BT/EgBegmm1bRg8QyiGd
- eXHCmsyjNUm4DobDVjr0RBs5JNgVNw6OgADit6KoXyGBgJXW5gNeL0
-X-Received: by 2002:a05:6808:6801:b0:404:dad4:f971 with SMTP id
- 5614622812f47-42bb972a2e3mr9290685b6e.33.1753796412961; 
- Tue, 29 Jul 2025 06:40:12 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFqf4clMcdqT5vWJ+nvIVIeCHsaCdP9DQ2Xz98Wpurg/ABYUj+EgAD19sV+SQb892Lv/ifuAOnr9etFXbN2drw=
-X-Received: by 2002:a05:6808:6801:b0:404:dad4:f971 with SMTP id
- 5614622812f47-42bb972a2e3mr9290665b6e.33.1753796412292; Tue, 29 Jul 2025
- 06:40:12 -0700 (PDT)
+ AJvYcCVewscPTLKLOnrLz2s1kmW57uvyiQz6Un35PL/Wolzyr8+hKacl/nBWHzZWfWdbBgn8sgq5yl4KZCI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzEI5sQZDhtlv6J1Ia84Qq+u4vk+ateGnkUQ353jCpC+4OeTlNH
+ Vd13pGrtYSgxYYmb8trXNsKvZjSLs0M1myMUcw2w6qsmOeKluDR/KGtLp2VXG6La29c=
+X-Gm-Gg: ASbGncsXARcUnE8GaMviRYHBMULD3RPRtrHQ6+RXsw3c/4y9WVQDsWGpwhvOUU4F1lD
+ Bnp5q2dq1ow2r0F/mOPkrzI9pYWcfqu4LWKphOowig7/3WZLlT0ZYe1PjdhDe9kL1tAn2xUogqU
+ AmB4zN7B6sS7xLyvj6NTrr+TBFuUCTz1TJknWR/2P3fWCf15XVt65ahmQN0nm0n7JxnPyhfKDk6
+ Kxl8PkzNZuP97TIyo0Xpa5wvz43kjfXu6osQ7LEwBU2e9JBdaeqrK8if9Eq454lvU2mJI35c6NO
+ 4Srm7v4X8hW05CEai6AKpZskArWcM6qHS7VNlNIziCt3PBnIwBXChI1detbPa4lyr1swbozvghr
+ Lua27yO2l07H6sKNzF0T0n0y0EIktPQR34w3D/03DTCxokRZ54adO114aHFQwAuxue2wdIGNh
+X-Google-Smtp-Source: AGHT+IF0jH8WRN0uj1ieZOTFoPYfy4emJn+MHYxU9ZEF0XGbevulltaVbFmdQE5WJDFjaDKAdfUMXQ==
+X-Received: by 2002:a05:600c:3e0c:b0:456:18f3:b951 with SMTP id
+ 5b1f17b1804b1-45892814760mr1387415e9.15.1753797993672; 
+ Tue, 29 Jul 2025 07:06:33 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:3d9:2080:3ae8:20b:c783:9328?
+ ([2a01:e0a:3d9:2080:3ae8:20b:c783:9328])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b78dd6cb0fsm3231780f8f.29.2025.07.29.07.06.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 29 Jul 2025 07:06:33 -0700 (PDT)
+Message-ID: <cfbad162-e629-45c9-8436-74bb6fc416f2@linaro.org>
+Date: Tue, 29 Jul 2025 16:06:32 +0200
 MIME-Version: 1.0
-References: <20250728203412.22573-1-robin.clark@oss.qualcomm.com>
- <20250728203412.22573-2-robin.clark@oss.qualcomm.com>
- <CACu1E7F=Y2oKfiWtD0VYfmLkL24e7JrZYMt8dmoGW7zrq7bd2g@mail.gmail.com>
- <CACSVV02W28L0MS32J0n1PTpEsaq_6RxEPgb_6y6G=6TryGEPQw@mail.gmail.com>
-In-Reply-To: <CACSVV02W28L0MS32J0n1PTpEsaq_6RxEPgb_6y6G=6TryGEPQw@mail.gmail.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Tue, 29 Jul 2025 06:40:01 -0700
-X-Gm-Features: Ac12FXx6wa3mBL8aH-OOfMIc4b5Q0MeA9kQw7eyuD2mIfr3Ns8qFmq3Be1tUb5g
-Message-ID: <CACSVV02DLSM2dHUj4MiPpogF3pgjk4ex5=9_P2AKdGmtx4bd=g@mail.gmail.com>
-Subject: Re: [PATCH 1/7] drm/msm: Add missing "location"s to devcoredump
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH 16/17] drm/msm/a6xx: Enable IFPC on Adreno X1-85
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: av1U3HQATGB-7HnnpWRVGLKLjDgg8ADb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzI5MDEwNCBTYWx0ZWRfX2KIEi0OCJPaB
- sFVoebg/ZpOw0EZ9nde31vXayxp2NTfsC13c2GB7ylHjflkHV/4WdFFIOijvquYy7iX1B1UKP+E
- AwD+A3JFHKbBvUIPEaaAJulGUTo3P66DULVgA7EmuqN+vSCgep0jnJunNDfoIuTnrB0xN2H25J3
- wGTNRd+N/Kl0efDX0ZhyVuwiVfC/ZfaL56zRZ3DCGxf1APc9qWdOEtI+7HWSeEU0QrhuJi6IhlQ
- XnAu2OXzqmQfG7dhvwgl9sXCtWRZiNwAWfBk+M+YOpazyVl68Fs6VRbssKGjz2joVB80lRZto+H
- u79fHwnQLgpOuREx8a2Uma2j33AkgyxB3K1CbVaRuDhCuWiUwUPb+yrBOFgjQEpXDf/9MuGXLwb
- 6UqiIPC9y4WtMj3etRDFIwcm5XKhiN5AbwEQAYYPG4fn+ckln5/t+S8I0jP83TMnoUFuXsnS
-X-Authority-Analysis: v=2.4 cv=HfYUTjE8 c=1 sm=1 tr=0 ts=6888cf3d cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=0I_rIkXGDByXq9DAmH4A:9 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-ORIG-GUID: av1U3HQATGB-7HnnpWRVGLKLjDgg8ADb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-29_03,2025-07-28_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0
- spamscore=0 lowpriorityscore=0 adultscore=0 mlxlogscore=999 phishscore=0
- priorityscore=1501 malwarescore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507290104
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
+ <20250720-ifpc-support-v1-16-9347aa5bcbd6@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20250720-ifpc-support-v1-16-9347aa5bcbd6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,49 +122,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 28, 2025 at 3:15=E2=80=AFPM Rob Clark <rob.clark@oss.qualcomm.c=
-om> wrote:
->
-> On Mon, Jul 28, 2025 at 2:04=E2=80=AFPM Connor Abbott <cwabbott0@gmail.co=
-m> wrote:
-> >
-> > On Mon, Jul 28, 2025 at 4:43=E2=80=AFPM Rob Clark <robin.clark@oss.qual=
-comm.com> wrote:
-> > >
-> > > This is needed to properly interpret some of the sections.
-> > >
-> > > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> > > ---
-> > >  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gp=
-u/drm/msm/adreno/a6xx_gpu_state.c
-> > > index faca2a0243ab..e586577e90de 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> > > @@ -1796,6 +1796,7 @@ static void a7xx_show_shader(struct a6xx_gpu_st=
-ate_obj *obj,
-> > >
-> > >         print_name(p, "  - type: ", a7xx_statetype_names[block->state=
-type]);
-> > >         print_name(p, "    - pipe: ", a7xx_pipe_names[block->pipeid])=
-;
-> > > +       drm_printf(p, "    - location: %d", block->location);
-> >
-> > We should probably at least try to keep it proper YAML by indenting
-> > everything after another level...
->
-> this made me realize I missed a \n... but otherwise I think the indent
-> is correct?  Or should location not have a leading '-'?
+On 20/07/2025 14:16, Akhil P Oommen wrote:
+> Add the IFPC restore register list and enable IFPC support on Adreno
+> X1-85 gpu.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 67 ++++++++++++++++++++++++++++++-
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 15 +++++--
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+>   3 files changed, 78 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index 70f7ad806c34076352d84f32d62c2833422b6e5e..07fcabed472c3b9ca47faf1a8b3f7cf580801981 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1343,6 +1343,69 @@ static const uint32_t a7xx_pwrup_reglist_regs[] = {
+>   
 
-beyond that, even without the added location field, some random online
-yaml checker is telling me that we were already not proper yaml.. so I
-guess, :shrug:?
+<snip>
 
-BR,
--R
+> +
+>   static const struct adreno_info a7xx_gpus[] = {
+>   	{
+>   		.chip_ids = ADRENO_CHIP_IDS(0x07000200),
+> @@ -1432,12 +1495,13 @@ static const struct adreno_info a7xx_gpus[] = {
+>   		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+>   		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+>   			  ADRENO_QUIRK_HAS_HW_APRIV |
+> -			  ADRENO_QUIRK_PREEMPTION,
+> +			  ADRENO_QUIRK_PREEMPTION | ADRENO_QUIRK_IFPC,
+>   		.init = a6xx_gpu_init,
+>   		.a6xx = &(const struct a6xx_info) {
+>   			.hwcg = a740_hwcg,
+>   			.protect = &a730_protect,
+>   			.pwrup_reglist = &a7xx_pwrup_reglist,
+> +			.ifpc_reglist = &a750_ifpc_reglist,
+>   			.gmu_chipid = 0x7050001,
+>   			.gmu_cgc_mode = 0x00020202,
+>   		},
+> @@ -1459,6 +1523,7 @@ static const struct adreno_info a7xx_gpus[] = {
+>   		.a6xx = &(const struct a6xx_info) {
+>   			.protect = &a730_protect,
+>   			.pwrup_reglist = &a7xx_pwrup_reglist,
+> +			.ifpc_reglist = &a750_ifpc_reglist,
+
+So far it's stable on a750 so I think can safely add ADRENO_QUIRK_IFPC here aswell.
+
+Neil
+
+<snip>
+
