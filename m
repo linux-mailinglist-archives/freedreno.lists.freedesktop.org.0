@@ -2,67 +2,126 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13C8DB14AC1
-	for <lists+freedreno@lfdr.de>; Tue, 29 Jul 2025 11:08:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D145EB14DFF
+	for <lists+freedreno@lfdr.de>; Tue, 29 Jul 2025 15:01:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9449C10E5FE;
-	Tue, 29 Jul 2025 09:08:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE6FF10E1F8;
+	Tue, 29 Jul 2025 13:01:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BqgJfGAD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ptyRps1r";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F6C810E5FA;
- Tue, 29 Jul 2025 09:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1753780082; x=1785316082;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=6xqd3ZGPvMT14nG70kPsq5tJ9sNdsKyLjJnQfae58F8=;
- b=BqgJfGADuyx+ffN2JAMAFHWgSYKQPLZ/GomxoNBHK3W/eTQ+jKd4uud/
- k6fYVTZKUmo7RDIwjUSYmzKB5t7g4fMtVFfZtXYrrHXTlUvsxqepHc2t6
- ZA8G9oIEIY/VV2zuowapqow2XdHY8zUZdnNsacvxD1BETEUdQJdkkDQEU
- /1lwnvh9ABMonkair/IOP+CcGXaeEtRxMfXgZ6ffzPb5nY9aNOZzKRph9
- L5KF+TLz5LwZSgwWL33rrqYS0cR2PdNgmW/bf7ZKRRGPKlHKJQmVoIFS8
- MewJn8hfsAzMv+9qYrZQFE0jfNVT5CjUHep0c22Mg1lMX7Mv2izYcWhky g==;
-X-CSE-ConnectionGUID: QpluGZy8RyypA+M51Ad5uw==
-X-CSE-MsgGUID: 2eJYmdoDQ3+c2VbGLX7N6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11505"; a="55980653"
-X-IronPort-AV: E=Sophos;i="6.16,348,1744095600"; d="scan'208";a="55980653"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2025 02:08:02 -0700
-X-CSE-ConnectionGUID: TyZw7sn9S422x4l1rFBgQA==
-X-CSE-MsgGUID: s8Ah/v+2SsKq8DjNu4eM7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,348,1744095600"; d="scan'208";a="162360901"
-Received: from lkp-server01.sh.intel.com (HELO 160750d4a34c) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 29 Jul 2025 02:07:59 -0700
-Received: from kbuild by 160750d4a34c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1uggJP-00018t-1o;
- Tue, 29 Jul 2025 09:07:55 +0000
-Date: Tue, 29 Jul 2025 17:07:10 +0800
-From: kernel test robot <lkp@intel.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A4F310E1F8
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 13:01:50 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56T8GL6s018829
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 13:01:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ juelwFjR0xLghnG+f+9iPeOqQI/44lFNaWH/bAdlNAM=; b=ptyRps1rY0xMNoXh
+ EOyXS2PpTv3+wYuRo1OUBzUHolaxzWKMLyVOlWyJcSeLFMlw2EtahowaE+jQM4KY
+ qmQxb+aq8T4/gR1VKVTXhKAF35ySBOXxrDowLNNUCmdITgbaGECJ8muXnRNbdekJ
+ /lzn+fPoL0s5kB5DmJYNCCwJD5sBs4+EZlXWkJIkcBQkioQntrdccK2oUfvcDUVr
+ FpfLdQC/ceAZwLaZGnfzGqOnzv2fM1WRQzEgzC6X4oPEycQj0dSs0KqPlDSdtzcC
+ BDSyBNqSvKQOt5JtZmC/EO/9yRwSXVgiRm6CCRUsYmwrtD4pQYrx/x48SgpJfEiS
+ ohJFQw==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484q8606nm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 13:01:49 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-4e7f62a0fecso118679137.1
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Jul 2025 06:01:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753794108; x=1754398908;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=juelwFjR0xLghnG+f+9iPeOqQI/44lFNaWH/bAdlNAM=;
+ b=bBX44ezRYcrtUWSNkAH8rQeZn4M2VZthlESNt0bOmrgnvh/wu6z5rpNorA+PxTBFt4
+ +TbcYWLxeE8C8dfAMkHcTT5LsCxKDxzgNh7u4q5FWB7w8jCIs12rUj6BV6bRXU3asiyA
+ nuVcn1sQZXrQID7ICBDTmGSvFZ9zC58i+kDfFUvGYU9PEVGfm5YKwRGcpdvrLfewDJRf
+ el+k1m1t9FG4eXCBdkNCNCYfKIsnURZzIxWt7QbVZlUtQ1ENNKwGgbCyMB/c35LVRJGK
+ +a4L7pclkM9XG1VWy6pHxCUjLfQeeYEVKDPfEjEoJbHV3pPNmjYRi4vRgE/l87rsJT+L
+ z7+w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW+TnUUWdFlZV7/l3crgM1+vMF9bboUhSACESzHCldv53kZUOZOYPt5bEXBXOpyXkejcCq+YkU9wr0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIq1qCvwbhoey7s3gdxy+LSAaLb9eT5bs9XgDTO3bXE7NS1BF1
+ sL4N/0iaeQnFsAv+nMpwHS2A9DlZkF99RQzjR8G42tkmMbYyTNg02Yb9lq1wdzrtU4a8HN8Mwq8
+ DE/NzoaK4coIXPfFPBLKzLKoFZmHtpn9wnm1Q74fiysmgOa1I2fnU3HFN1JxkxJurKRgnuxI=
+X-Gm-Gg: ASbGncvEmQOcYxgsN9jwCGZm877ro9RCrJTTPHNhnr2qF6HsvgasTJTLMb7VEkPW3k5
+ 1bjNU3h6jwOpIqablHGtMoC8ho/wK+lPK10UkF0+zgsZ+Gy21Hqk0xUBSbNfsH4DLWNC9RxtY8j
+ /RJax28fSawRIC0WNCIWeWfanltzP65dljshkxO2zBn+80UiEXITVHtA61As66Dq6sNShyMPRD9
+ bCmmPM2kulZ7QgTyO84jEJxwiFQtcdguqAidU2uw7SxTeP/UvhgHQLI+vst99dRrdy5xTE5vMyQ
+ NbjDV1OuhZRY+Ccj11QAgSzw2TclNrbU8heslugnGkHg0QDwVFKnsxZJEO136wm4ibMYHSRh+PC
+ 6cxlizU4e5WtmnVa9Zw==
+X-Received: by 2002:a05:6122:3642:b0:537:426e:bd0 with SMTP id
+ 71dfb90a1353d-538db607c97mr1409820e0c.1.1753794108162; 
+ Tue, 29 Jul 2025 06:01:48 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH3XZWl+BOftPeIJVe+mX7EzNQo4NU6m5CJLOb08qSGkjUakLEtnkqZAh4Nc9Ct/8TqmnlT/w==
+X-Received: by 2002:a05:6122:3642:b0:537:426e:bd0 with SMTP id
+ 71dfb90a1353d-538db607c97mr1409759e0c.1.1753794107351; 
+ Tue, 29 Jul 2025 06:01:47 -0700 (PDT)
+Received: from [192.168.43.17] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af6358a0994sm585862966b.44.2025.07.29.06.01.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 29 Jul 2025 06:01:45 -0700 (PDT)
+Message-ID: <9e48ea8e-b59b-4620-9781-211cc1f7cc07@oss.qualcomm.com>
+Date: Tue, 29 Jul 2025 15:01:43 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/17] drm/msm/adreno: Add fenced regwrite support
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/7] drm/msm: Fix a7xx debugbus read
-Message-ID: <202507291635.fl7cCAyl-lkp@intel.com>
-References: <20250728203412.22573-6-robin.clark@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250728203412.22573-6-robin.clark@oss.qualcomm.com>
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
+ <20250720-ifpc-support-v1-7-9347aa5bcbd6@oss.qualcomm.com>
+ <tyjkwrdmsj7k7tkqqxdd65l5v5jxugr5me3ivg5onn3hbffkwp@7uhsbzolqiyd>
+ <30442713-2990-490a-b076-93c3cfc3901d@oss.qualcomm.com>
+ <d696e7df-7f11-4491-89ff-ba71274ae101@oss.qualcomm.com>
+ <1d320aac-e928-4fd0-812c-268a3a943575@oss.qualcomm.com>
+ <3f58451a-9b5f-4697-9679-d549104e8312@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <3f58451a-9b5f-4697-9679-d549104e8312@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzI5MDEwMSBTYWx0ZWRfX+LIFIglQdqvG
+ Y8iGamTOqmjRojsXZX+/lW1JfHLA8axNmlzKwTeesTNoV6NuLAvrk5G1df894banDHkTKRhBgJU
+ jOqxMK5BrzjexbdoIUdOYTb9qFk9uREgL6v0PhqM4y77QdZiQ1EliZSDCJcsJEtJ1PIgHTz4eAa
+ +YOi7dcP9fgjyDizCV0QY/YtZ7U7ef9Xkj/z7JMxjxfaN2Nz95M8fOkq6YZtqzOR1Y8dXUOuKzf
+ O3sCeASHcRhsYjE0gLtz2D3lmYSQpwhvafw8awjikOqjSumirZDuy7cWqVfsnwKCq6MAJ1qcdN1
+ QCl1UeMCdXmoQlMWS69kKvkaKbsb2RrBZpkskzInJd5lJ6FGfRfKdS4RkTUYbo324I/qeu7vG1/
+ QiQ7IiSHFy54ow2fgSJqlHmK3iNav1IwO72snB8gdDCymaLUVxcegrT/6AJqxc8wbqvj/Xj4
+X-Authority-Analysis: v=2.4 cv=TqLmhCXh c=1 sm=1 tr=0 ts=6888c63d cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=9hkt72pFxozsIUrbaQoA:9
+ a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-ORIG-GUID: SJJ8nz4QcsMnynsIBbF_p9rukEkswnBn
+X-Proofpoint-GUID: SJJ8nz4QcsMnynsIBbF_p9rukEkswnBn
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-29_03,2025-07-28_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 spamscore=0 priorityscore=1501 clxscore=1015
+ impostorscore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507290101
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,72 +137,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob,
+On 7/24/25 6:54 PM, Akhil P Oommen wrote:
+> On 7/24/2025 5:16 PM, Konrad Dybcio wrote:
+>> On 7/23/25 11:06 PM, Akhil P Oommen wrote:
+>>> On 7/22/2025 8:22 PM, Konrad Dybcio wrote:
+>>>> On 7/22/25 3:39 PM, Dmitry Baryshkov wrote:
+>>>>> On Sun, Jul 20, 2025 at 05:46:08PM +0530, Akhil P Oommen wrote:
+>>>>>> There are some special registers which are accessible even when GX power
+>>>>>> domain is collapsed during an IFPC sleep. Accessing these registers
+>>>>>> wakes up GPU from power collapse and allow programming these registers
+>>>>>> without additional handshake with GMU. This patch adds support for this
+>>>>>> special register write sequence.
+>>>>>>
+>>>>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>>>>>> ---
+>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 63 ++++++++++++++++++++++++++++++-
+>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 20 +++++-----
+>>>>>>  3 files changed, 73 insertions(+), 11 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>> index 491fde0083a202bec7c6b3bca88d0e5a717a6560..8c004fc3abd2896d467a9728b34e99e4ed944dc4 100644
+>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>> @@ -16,6 +16,67 @@
+>>>>>>  
+>>>>>>  #define GPU_PAS_ID 13
+>>>>>>  
+>>>>>> +static bool fence_status_check(struct msm_gpu *gpu, u32 offset, u32 value, u32 status, u32 mask)
+>>>>>> +{
+>>>>>> +	/* Success if !writedropped0/1 */
+>>>>>> +	if (!(status & mask))
+>>>>>> +		return true;
+>>>>>> +
+>>>>>> +	udelay(10);
+>>>>>
+>>>>> Why do we need udelay() here? Why can't we use interval setting inside
+>>>>> gmu_poll_timeout()?
+>>>>
+>>>> Similarly here:
+>>>>
+>>>> [...]
+>>>>
+>>>>>> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
+>>>>>> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
+>>>>>> +		return 0;
+>>>>>> +
+>>>>>> +	dev_err_ratelimited(gmu->dev, "delay in fenced register write (0x%x)\n",
+>>>>>> +			offset);
+>>>>>> +
+>>>>>> +	/* Try again for another 1ms before failing */
+>>>>>> +	gpu_write(gpu, offset, value);
+>>>>>> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
+>>>>>> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
+>>>>>> +		return 0;
+>>>>>> +
+>>>>>> +	dev_err_ratelimited(gmu->dev, "fenced register write (0x%x) fail\n",
+>>>>>> +			offset);
+>>>>
+>>>> We may want to combine the two, so as not to worry the user too much..
+>>>>
+>>>> If it's going to fail, I would assume it's going to fail both checks
+>>>> (unless e.g. the bus is so congested a single write can't go through
+>>>> to a sleepy GPU across 2 miliseconds, but that's another issue)
+>>>
+>>> In case of success, we cannot be sure if the first write went through.
+>>> So we should poll separately.
+>>
+>> You're writing to it 2 (outside fence_status_check) + 2*1000/10 (inside)
+>> == 202 times, it really better go through..
+> 
+> For the following sequence:
+> 1. write reg1 <- suppose this is dropped
+> 2. write reg2 <- and this went through
+> 3. Check fence status <- This will show success
 
-kernel test robot noticed the following build errors:
+What I'm saying is that fence_status_check() does the same write you
+execute inbetween the polling calls
 
-[auto build test ERROR on drm/drm-next]
-[also build test ERROR on next-20250729]
-[cannot apply to drm-exynos/exynos-drm-next linus/master drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip v6.16]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Rob-Clark/drm-msm-Add-missing-location-s-to-devcoredump/20250729-043615
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-patch link:    https://lore.kernel.org/r/20250728203412.22573-6-robin.clark%40oss.qualcomm.com
-patch subject: [PATCH 5/7] drm/msm: Fix a7xx debugbus read
-config: powerpc-randconfig-002-20250729 (https://download.01.org/0day-ci/archive/20250729/202507291635.fl7cCAyl-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250729/202507291635.fl7cCAyl-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202507291635.fl7cCAyl-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c: In function 'debugbus_read':
->> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:180:9: error: implicit declaration of function 'FIELD_PREP'; did you mean 'FIELD'? [-Werror=implicit-function-declaration]
-      reg = FIELD_PREP(GENMASK(7, 0), offset) |
-            ^~~~~~~~~~
-            FIELD
-   cc1: some warnings being treated as errors
-
-
-vim +180 drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-
-   172	
-   173	/* read a value from the GX debug bus */
-   174	static int debugbus_read(struct msm_gpu *gpu, u32 block, u32 offset,
-   175			u32 *data)
-   176	{
-   177		u32 reg;
-   178	
-   179		if (to_adreno_gpu(gpu)->info->family >= ADRENO_7XX_GEN1) {
- > 180			reg = FIELD_PREP(GENMASK(7, 0), offset) |
-   181				FIELD_PREP(GENMASK(24, 16), block);
-   182		} else {
-   183			reg = A6XX_DBGC_CFG_DBGBUS_SEL_D_PING_INDEX(offset) |
-   184				A6XX_DBGC_CFG_DBGBUS_SEL_D_PING_BLK_SEL(block);
-   185		}
-   186	
-   187		gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_A, reg);
-   188		gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_B, reg);
-   189		gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_C, reg);
-   190		gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_D, reg);
-   191	
-   192		/* Wait 1 us to make sure the data is flowing */
-   193		udelay(1);
-   194	
-   195		data[0] = gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_TRACE_BUF2);
-   196		data[1] = gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_TRACE_BUF1);
-   197	
-   198		return 2;
-   199	}
-   200	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Konrad
+> 
+>>
+>> If it's just about the write reaching the GPU, you can write it once and
+>> read back the register you've written to, this way you're sure that the
+>> GPU can observe the write
+> 
+> This is a very unique hw behavior. We can't do posted write.
+> 
+> -Akhil
+> 
+>>
+>> Konrad
+> 
