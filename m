@@ -2,129 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A6EAB15DE8
-	for <lists+freedreno@lfdr.de>; Wed, 30 Jul 2025 12:16:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 653CAB16072
+	for <lists+freedreno@lfdr.de>; Wed, 30 Jul 2025 14:39:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF1B10E440;
-	Wed, 30 Jul 2025 10:16:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38D6910E206;
+	Wed, 30 Jul 2025 12:39:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Kw5bmzUS";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="f+FP2hJT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD17C10E157
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 10:16:27 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56U4kK7o013712
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 10:16:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- e74WcFwkTr6qVr34ZJAvZTfeytAh6aWlboCX6N91C3A=; b=Kw5bmzUSHx4PROsj
- WFRjmhqaxrVUj/5aGffpMHtJaySYHJKSY7gbM1742maN0xiQAkLy+hHEDb16UgwV
- UcCLWhxRDLqFv0M9FGqOkSyQ1ZKRGtjf9oMWfzonCyS3lDfQiUB1BcDvfr+pFMxo
- VwxGQnokbaF/DeCxN77CsEGOxmsgDTf3R+ESA05MvX0gz8NP5ChOjHHPc2XvTY1H
- 1q5nKz4sc9Pq15owH390aNtsUt49yr1gi8mlvVk0Sel9m47bjjzBF8WzRT46vXTL
- LGAAR+XsE3RKLJLEf+5/r1K2AaSbKsskxYf/KlJNRTp9AnDg2AmK7coCk1eh2a3n
- ngFqwA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484qda38hx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 10:16:26 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4ab716c33cdso29944601cf.0
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 03:16:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753870585; x=1754475385;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=e74WcFwkTr6qVr34ZJAvZTfeytAh6aWlboCX6N91C3A=;
- b=nfPKh4Q7Sv4/ZVriS3YredX4yYGRfk/xV7sAhDCBw/cCvrEqjG4k1Db9iATIv3u/Hl
- +UVAG+xEHElKRvOdfoP09QOdz32YEtsNmvlvOdGEue8MM6kLb++nZuw60CDI2bvfVQLW
- uGU4F0J5wK9MRW2yiyHjfTg6KT7mR9BWK+XObB7NkNxCZdQo54Cst7T5ySW8ZVwMbz1z
- Nz5AJEpVXprw01xpVlG1M4ltgvFiw12klLysrDtYNAR9oySvLUhQqTZMcHbM0Z6+Cmng
- 5R3jg/azkyGsvYpBSERjuAg57urXB5razmWFtVFnukahxTdvrb8ICxgNpd8w3qnLlkJP
- 89OA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWZmEaHO7VdaPfR6zTK7HPiq4E9NZWAf1KA+fb0mMaPSDby1Zu9Q98rvL31WpI7LBOVzNCNg+J2YyI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVdjeiKgtZBlHJXIvyHPK0eXijW8WkcjPqf3sSciZ9APQR7wJ2
- k4tHYkNh8YI6HkAZymIJrWcokgn05FMCdf+Ev+gw4RlRj5XYSFv9Q/lKS5x6XM7D92PAe/b2cug
- xFtL7L0NX0h7vjF+qVjXT6ACccJ1E3MrYNfloeDv7guD/KyO4qjk0iaYlemWe2lFskZ7NKSI=
-X-Gm-Gg: ASbGncsRfZF1vk8MYLefetJK+3wPyfY8SJSiuPtrLLnk6vvyA6zY8tM9eQ7LEm5/8lV
- KxtW1k/xJWyawvUoXygZ8oOnWsTWnFg6GXnvK0l0N5p67n4tTwiBodYklLANfEYn5VaB7lKCvTw
- ZARpbFEYPDzdO5lf619lUncU0+4ZnXNpp4qxCbXmdumpc/Evm3IRh1p+WDN3GhVLdAR7obNtQ1u
- nWkw+ZlH3E1XSzAWc1dpTdsh/4QgXi3lrTTByFq5Lr4GJ1kCG7x8KvZU8NN4bOnqJYmN6CN4Bxk
- RqJm5FQUgFqdeqdtcPbfRca0jjBSAUReaUIojBdkNLiyTBOvVJKEQAWjiOjHCVTDDNxS2i540QF
- 6RbfMtHBNE5tS78K8yw==
-X-Received: by 2002:a05:620a:a907:b0:7e6:6f9d:4b06 with SMTP id
- af79cd13be357-7e66f9d4b93mr156064985a.0.1753870585407; 
- Wed, 30 Jul 2025 03:16:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFMVovcbr9AHNlT90gl+k15THWxhh7Sd7H8hPKD8T+t66JapkQsUuAU5RAVLiYqLUQ/JNBoxw==
-X-Received: by 2002:a05:620a:a907:b0:7e6:6f9d:4b06 with SMTP id
- af79cd13be357-7e66f9d4b93mr156060585a.0.1753870584897; 
- Wed, 30 Jul 2025 03:16:24 -0700 (PDT)
-Received: from [192.168.43.16] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af635accc38sm715115266b.114.2025.07.30.03.16.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 03:16:24 -0700 (PDT)
-Message-ID: <070915c8-4d7f-40d2-ba38-e20a801c9089@oss.qualcomm.com>
-Date: Wed, 30 Jul 2025 12:16:21 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E78A010E206;
+ Wed, 30 Jul 2025 12:39:50 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56UCbNYl028544;
+ Wed, 30 Jul 2025 12:39:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=Mawt0rfG/fwH1rT+/g0bcR/fK0FuOvLtmL8
+ qqUivDBg=; b=f+FP2hJTCF2K/xKahqG23qMqaFL/wSu8RJ1KHM0TOsrbnMtL1R8
+ Dk9aEH75NTjaPoDGFRByfaTDfZnltp7tf8ZT7C7IVPyb2hDKHfn2f8voKhCafkGT
+ IgCjWynGlqudl+g+fWRhXesyNb23nwWNtU495xAvPz7cg19rrYLaalH/V4zrHvRk
+ KLTAZEGHVUt9YjPDtKDG61MDZNhlRKQpbu/WV/1lPncm/Oi3QbN8jrLk0M7S2Zl2
+ fWzgnIE5rqlGD/mbBQpabTAd8pydFJDCywYQuu2Pt/P/bzLW75BR/rZdOo/IK9ak
+ 87fBeU2yAT3jnr95yu7kc423/MFhvYie9LQ==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484nyu430f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Jul 2025 12:39:46 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 56UCdf5R004622; 
+ Wed, 30 Jul 2025 12:39:41 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 48591e85a9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Jul 2025 12:39:41 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 56UCdfN9004614;
+ Wed, 30 Jul 2025 12:39:41 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com
+ [10.213.99.91])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 56UCdfbj004612
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Jul 2025 12:39:41 +0000
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
+ id B8BBF58F; Wed, 30 Jul 2025 18:09:40 +0530 (+0530)
+From: Ayushi Makhija <quic_amakhija@quicinc.com>
+To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, robdclark@gmail.com,
+ lumag@kernel.org, sean@poorly.run, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, quic_rajeevny@quicinc.com,
+ quic_vproddut@quicinc.com, quic_jesszhan@quicinc.com
+Subject: [PATCH] drm/msm: update the high bitfield of certain DSI registers
+Date: Wed, 30 Jul 2025 18:09:38 +0530
+Message-Id: <20250730123938.1038640-1-quic_amakhija@quicinc.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/5] soc: qcom: ubwc: Add QCS8300 UBWC cfg
-To: Yongxing Mou <quic_yongmou@quicinc.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20250730-mdssdt_qcs8300-v5-0-bc8ea35bbed6@quicinc.com>
- <20250730-mdssdt_qcs8300-v5-5-bc8ea35bbed6@quicinc.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250730-mdssdt_qcs8300-v5-5-bc8ea35bbed6@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: MvrpEfhaVSIhZrzJAoeqc9lPtxrLLzji
-X-Authority-Analysis: v=2.4 cv=Pfv/hjhd c=1 sm=1 tr=0 ts=6889f0fa cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=COk6AnOGAAAA:8 a=TI01094hTbTrXjSAet8A:9
- a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: MvrpEfhaVSIhZrzJAoeqc9lPtxrLLzji
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzMwMDA3MSBTYWx0ZWRfX/0zbGWIuh5+2
- 9h3vDF5rBPcYclhyeSMARO31iK6Gb80gouiydfVdzFoIw9d8ah0FHTIR/v+IyRxBJI206+5YaF8
- hwiucHk4jJcOsZlgqotjukHBGh18lsf3gZ99GUB8jbtA/TzkHeJ8CH9lEjjIkAuq0XAPT8FORrQ
- 4X6kAhJErKeUCH+/4NYZyVHb2umkVGYxIZhYeQyOpaLoymBAuM4MvBsGTKsampywJay5MLy5xN0
- IPK0qxixP+lGonYsZgIlJnCnXDTy8JCEAo0xuSwQ8/5hA0PrajLuumWh/Z8ByAEIKB+SpC8Sd++
- RRv6yxQCgox8ASAhcFO5fKjjMDRPEghuFUYVpVoyZPEYCUpHiTlGIrlmxWc66usioSQvCJn3E/z
- GB6nr1KLDKd6GMCSKqJPKsz43XyOLdi/j6/NLwLknVlBAce+XpBvZhO3b6GqQAB06Ax7YPZE
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: lNgcXMyzuGU6ao3aCspHGZrkVxRAAquK
+X-Proofpoint-ORIG-GUID: lNgcXMyzuGU6ao3aCspHGZrkVxRAAquK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzMwMDA4OSBTYWx0ZWRfX+1NgfSanKRs1
+ 8txiFQVrNZmc09V8A8LqbLc3JMrOZelqtWt/w9+0/11HMl9ApJ+y+puSsFqpLgQ3FkVeVs52LRI
+ INbM/wd4O5wFrtzzevSYE1INlf2doNYuk9G1M/VsEz6pFyk2kt8qEV6hnLdIhk/Q40c+gIQGPAQ
+ njvoQ51lwim55bVHfv3+H7MMLfYlPacCYSeOYqd0l2QbPeBOGe1OeW1QF16QaYI1XebOw7ms0Ic
+ S6GHMUU4ttkGv5L+sIFPYn+yAFLVazoiica29fyhbKGaY8WG0vHSe3EtnXRyfni7DjYSfHXzHfe
+ Ktj022tC62UIhTGNhBxywmzgeSHyhd2DWdw7bSRg5P3HrPB9w00K3ufJCNe/Cr45mvFgf2QCJb/
+ vAjyjTE9LGD6kOI7LtnYM3CZwMoVqHgNfl3j1mW4e7X13Z8TLfOSMFkUV3HmjGHx9zz5uopX
+X-Authority-Analysis: v=2.4 cv=CLoqXQrD c=1 sm=1 tr=0 ts=688a1292 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Wb1JkmetP80A:10 a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8 a=Kq9bw2mKO37xPRn0vu4A:9
+ a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-30_04,2025-07-30_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 clxscore=1015 adultscore=0 priorityscore=1501 mlxscore=0
- spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ mlxscore=0 adultscore=0 suspectscore=0 mlxlogscore=895 spamscore=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ clxscore=1011 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507300071
+ definitions=main-2507300089
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,42 +107,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/30/25 11:42 AM, Yongxing Mou wrote:
-> The QCS8300 adopts UBWC 4.0, consistent with SA8775P, add 4 channels LP5
-> configuration data according to the specification.
-> 
-> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
-> ---
->  drivers/soc/qcom/ubwc_config.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_config.c
-> index bd0a98aad9f3b222abcf0a7af85a318caffa9841..389fb871018b65987295db60571c063b4d984d70 100644
-> --- a/drivers/soc/qcom/ubwc_config.c
-> +++ b/drivers/soc/qcom/ubwc_config.c
-> @@ -35,6 +35,16 @@ static const struct qcom_ubwc_cfg_data qcm2290_data = {
->  	.highest_bank_bit = 15,
->  };
->  
-> +static const struct qcom_ubwc_cfg_data qcs8300_data = {
-> +	.ubwc_enc_version = UBWC_4_0,
-> +	.ubwc_dec_version = UBWC_4_0,
-> +	.ubwc_swizzle = UBWC_SWIZZLE_ENABLE_LVL2 |
-> +			UBWC_SWIZZLE_ENABLE_LVL3,
-> +	.ubwc_bank_spread = true,
-> +	.highest_bank_bit = 16,
-> +	.macrotile_mode = true,
-> +};
-> +
->  static const struct qcom_ubwc_cfg_data sa8775p_data = {
->  	.ubwc_enc_version = UBWC_4_0,
->  	.ubwc_dec_version = UBWC_4_0,
-> @@ -225,6 +235,7 @@ static const struct of_device_id qcom_ubwc_configs[] __maybe_unused = {
->  	{ .compatible = "qcom,msm8998", .data = &msm8998_data },
->  	{ .compatible = "qcom,qcm2290", .data = &qcm2290_data, },
->  	{ .compatible = "qcom,qcm6490", .data = &sc7280_data, },
-> +	{ .compatible = "qcom,qcs8300", .data = &qcs8300_data, },
+Currently, the high bitfield of certain DSI registers
+do not align with the configuration of the SWI registers
+description. This can lead to wrong programming these DSI
+registers, for example for 4k resloution where H_TOTAL is
+taking 13 bits but software is programming only 12 bits
+because of the incorrect bitmask for H_TOTAL bitfeild,
+this is causing DSI FIFO errors. To resolve this issue,
+increase the high bitfield of the DSI registers from 12 bits
+to 16 bits in dsi.xml to match the SWI register configuration.
 
-You can just pass &sc8280xp_data instead, they're equivalent
+Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+---
+ drivers/gpu/drm/msm/registers/display/dsi.xml | 28 +++++++++----------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-Konrad
+diff --git a/drivers/gpu/drm/msm/registers/display/dsi.xml b/drivers/gpu/drm/msm/registers/display/dsi.xml
+index 501ffc585a9f..c7a7b633d747 100644
+--- a/drivers/gpu/drm/msm/registers/display/dsi.xml
++++ b/drivers/gpu/drm/msm/registers/display/dsi.xml
+@@ -159,28 +159,28 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
+ 		<bitfield name="RGB_SWAP" low="12" high="14" type="dsi_rgb_swap"/>
+ 	</reg32>
+ 	<reg32 offset="0x00020" name="ACTIVE_H">
+-		<bitfield name="START" low="0" high="11" type="uint"/>
+-		<bitfield name="END" low="16" high="27" type="uint"/>
++		<bitfield name="START" low="0" high="15" type="uint"/>
++		<bitfield name="END" low="16" high="31" type="uint"/>
+ 	</reg32>
+ 	<reg32 offset="0x00024" name="ACTIVE_V">
+-		<bitfield name="START" low="0" high="11" type="uint"/>
+-		<bitfield name="END" low="16" high="27" type="uint"/>
++		<bitfield name="START" low="0" high="15" type="uint"/>
++		<bitfield name="END" low="16" high="31" type="uint"/>
+ 	</reg32>
+ 	<reg32 offset="0x00028" name="TOTAL">
+-		<bitfield name="H_TOTAL" low="0" high="11" type="uint"/>
+-		<bitfield name="V_TOTAL" low="16" high="27" type="uint"/>
++		<bitfield name="H_TOTAL" low="0" high="15" type="uint"/>
++		<bitfield name="V_TOTAL" low="16" high="31" type="uint"/>
+ 	</reg32>
+ 	<reg32 offset="0x0002c" name="ACTIVE_HSYNC">
+-		<bitfield name="START" low="0" high="11" type="uint"/>
+-		<bitfield name="END" low="16" high="27" type="uint"/>
++		<bitfield name="START" low="0" high="15" type="uint"/>
++		<bitfield name="END" low="16" high="31" type="uint"/>
+ 	</reg32>
+ 	<reg32 offset="0x00030" name="ACTIVE_VSYNC_HPOS">
+-		<bitfield name="START" low="0" high="11" type="uint"/>
+-		<bitfield name="END" low="16" high="27" type="uint"/>
++		<bitfield name="START" low="0" high="15" type="uint"/>
++		<bitfield name="END" low="16" high="31" type="uint"/>
+ 	</reg32>
+ 	<reg32 offset="0x00034" name="ACTIVE_VSYNC_VPOS">
+-		<bitfield name="START" low="0" high="11" type="uint"/>
+-		<bitfield name="END" low="16" high="27" type="uint"/>
++		<bitfield name="START" low="0" high="15" type="uint"/>
++		<bitfield name="END" low="16" high="31" type="uint"/>
+ 	</reg32>
+ 
+ 	<reg32 offset="0x00038" name="CMD_DMA_CTRL">
+@@ -209,8 +209,8 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
+ 		<bitfield name="WORD_COUNT" low="16" high="31" type="uint"/>
+ 	</reg32>
+ 	<reg32 offset="0x00058" name="CMD_MDP_STREAM0_TOTAL">
+-		<bitfield name="H_TOTAL" low="0" high="11" type="uint"/>
+-		<bitfield name="V_TOTAL" low="16" high="27" type="uint"/>
++		<bitfield name="H_TOTAL" low="0" high="15" type="uint"/>
++		<bitfield name="V_TOTAL" low="16" high="31" type="uint"/>
+ 	</reg32>
+ 	<reg32 offset="0x0005c" name="CMD_MDP_STREAM1_CTRL">
+ 		<bitfield name="DATA_TYPE" low="0" high="5" type="uint"/>
+-- 
+2.34.1
+
