@@ -2,129 +2,133 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A984B159F9
-	for <lists+freedreno@lfdr.de>; Wed, 30 Jul 2025 09:49:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98EB3B15AF1
+	for <lists+freedreno@lfdr.de>; Wed, 30 Jul 2025 10:53:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9483710E41B;
-	Wed, 30 Jul 2025 07:49:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C9ED10E153;
+	Wed, 30 Jul 2025 08:53:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DBvqUKWV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="A4eBIy1G";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 681EE10E426
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 07:49:30 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56U7V9Z8017410
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 07:49:30 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 760D410E42D
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 08:53:29 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56U58JG5013628
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 08:53:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rTm+TZkQT/SGQGK62s6S181SpWgQH5VtRqWeAqKrzZc=; b=DBvqUKWVV6+E3hMq
- WemIAzJm3LT2m6sGOWR+cg/hJWHEaFz31nnOakfi6LAogcIilPrC6WEOO28ovgDf
- lymO0BXfeHSfbweKmBEiP8OEk7M96xynCHloyYXZ9efHUPSal3PhgUqUbFhV4Hw2
- f5nSEkFcD55Hxe4ZmtLNZgHN6IE8cTNqr8S9PLwMxHpGygxxtCOPNKVOMKUlSabi
- vjmyfeNCXocYaeRxiPu7p69i6lZbCceAd3GQ47WmZ9kOpahLV1fFHWv57Mc1W9XO
- hEKpZtR8rdl04mIETVTOFGGFQBW15B5IHvto2riCYE9zLfesedjZ7voALZdp+CAG
- U4IfbA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 486v6y39r6-1
+ yry99kMMFqY8zCfj7lzYjkJIij1/JDYYNXnSDFUTCG0=; b=A4eBIy1GyrTNL8FR
+ HHew1H3isqDjCTSZtmeUW71Pfb+vXhZb14hPo2yiP6y/g+PreAftTE7fwR83tuPg
+ Y+fEQG3eA/Vm3fmXCJ4XEtE91oC5J3mim4FDKKN6bFTAKGg6TC9dO1SYJabrd3jH
+ TF8vY0vbIFnqJ6D4eZ9HhWSnqvAK+d5sc8lfPXMNxwgHAraCuOv8nzW1cx63jY3h
+ IOS/l65gkDY0Pc9Uh0rETLD/njU8X88t0CQSp9o//UadTiX+Fo0Lx1DN4mo2DFw+
+ YNmRprdQRRuogDuIglMIHWBSg8VQ6VLeXlvYMwjFaTx7JLbv8zdSqTZBSCXoxmSA
+ XpmR2Q==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484qda2yjx-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 07:49:29 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4ab5e4f4600so17464661cf.2
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 00:49:29 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 08:53:27 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-74cf7913166so1200922b3a.0
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 01:53:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753861768; x=1754466568;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rTm+TZkQT/SGQGK62s6S181SpWgQH5VtRqWeAqKrzZc=;
- b=tU8czTRHG5kH/wNvtbzWMV9VO3/DxAOZ/n75+nxNBqTNk/wg6F09asqq4RXcJqbDp0
- n7CYO7yp3E1GZy4bMlX6/C5ciaSdb7oVMxau/FiMKIW6Ri9xY+FcAXFOzfwIwXKWczwG
- 6+psVV7Fvypt50nyLFFP4GcK783lKWOK2YCUPAOq1unS1NIm8QRoR5eatn/hYRxCw2R8
- c8ohoPOhd8uRO1ge1mqCJISfMvI9F6cEwmqiNO9bxU0N7Kyf8YtVv8TAia2WcPY/N3bc
- giao7CFy2DOQy7oj4f601Kho3SHBMmXJ+6YRufKQGQ0RnhEQoeI7tHk3Zbi8UuF82FcH
- 9EzQ==
+ d=1e100.net; s=20230601; t=1753865606; x=1754470406;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=yry99kMMFqY8zCfj7lzYjkJIij1/JDYYNXnSDFUTCG0=;
+ b=nm0iO3St75BLj1TI6KBZyDI6oWVoa1SCtuOaaVRYKCeS/oeSMpbnT4avvHILnAD8JE
+ XkR/MfUMQz+uan9Wvbsa1bVPZHOodgcuq9beUSIHq8hEUcEexgL5BExE8P7YGTcQmYBV
+ Tp3U8h4SPpIBuSBQ4m+S85Us60aS9aoIPMDhuhl9BRptUp9ezHflq5Yef0QqTXeHuhG6
+ SPniJujPjlCDvEFT/u3+FPIfwV7WuWLrVwr9TVS+Zhu4qepjGKF5CKSkWHXrvFE4uzAn
+ zoN/mfcdNH0Pzh9l+CUqzI2HwQ6UoDmVZKAMc/dMkOXqQ3wxEFW8927j5W6cm3vVniqb
+ grGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUYom5vc92REk79eklK2PXHEEAtmQ2DRNywpRxrW27Ne10ft2WvBO6g7sGJ/3lfi31LQqyY+WhcfiI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxgTeQAH4fnzqom8VTfp366n0lJoxJWOr+I37fxq+lM8CCaFsxm
- sI85723P/vuAbVo1aPRmWOW3YlwLDjoytTvlNcw+zeAF2wM04e47xwy5y/AnBINZvsTppw7WXkf
- Wh62svWOGvUbjDSANbg2wPhDBACWREwno9Au4nv2YqKu4T1/DrUcAwTZwdxk1SOnvAP/vMXc=
-X-Gm-Gg: ASbGnct5R17OMNSSuzWekVPzDTLY+Vbg4pDZOd/iuC3eHcpAZ9YiOxq4HBThtT7Xg0R
- eUTcUqD59hiYuADzTDTevrFK8byUVUObpUGaqTvOExl9Uv36tCKmEiyhhpjVN28OrEcgwGLzLFJ
- 1MqhIlYrHfr1q6eyDvtfHu+STGp8EcJBuEOaK0bvt3YtEB7Gp8+q/pROnf3cSl4a0UcjcWgoh5w
- 6oiRcL9jOQEP1OZDD9TXhbB9Mxxp8Sz1Myz5wAGMtGNHRkIsPHgvz5CYjazAzR256+LGLUCzGUC
- 3n0bWiZoMnQXT2mDfW4SF8EZmHjKK6mu4XZ1U7ln3qtZlzwHqJE8ETu/fI576XvlsLyjfkwg5fX
- AsJl1RtYqF9ubMQeC+w==
-X-Received: by 2002:a05:622a:488:b0:4a7:bed9:524c with SMTP id
- d75a77b69052e-4aedbc144cemr18606081cf.11.1753861768340; 
- Wed, 30 Jul 2025 00:49:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGpPhh045uTi/QuFSdP8//pNs61a36JHJHwALkH8CLnoy9U2dacpk/Mha/zFLAQRC76nIkYJw==
-X-Received: by 2002:a05:622a:488:b0:4a7:bed9:524c with SMTP id
- d75a77b69052e-4aedbc144cemr18605921cf.11.1753861767853; 
- Wed, 30 Jul 2025 00:49:27 -0700 (PDT)
-Received: from [192.168.43.16] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af9015990c4sm74181966b.128.2025.07.30.00.49.25
+ AJvYcCX85A+I3tk7nqsUWojxwmYGgJg1kqKgDmsLpS/I/XK1uW/HOarrprKht2kK99KFrTKe8nMXoVgYses=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzEdzKs0Co7xoaB9BXFMGaJv6CTgeRJGJKYZkAiF04aCDJy1yn3
+ C8yoCJVJxObA2SUjhbV8oZPJYyzJMXUU8EQz82Ax3rtB/0ZFIQZDVxairdeIrIQgn/0HJzdAp5J
+ PFcOzBxXjqgoh7Bq8Fk8lLlq5eDHe+lvjRhE99eadK/zpUCvKfWOFYFumh4yK6G+AnvKgi/o=
+X-Gm-Gg: ASbGncsU61BYl6cxMDWBlUvz536Ae70BtEH4861TqIp6qC47zafGtv4fpbP2LkoqUDU
+ PzbYbCnVLP5+59urWmlfE8kIQvtYWTVfCkU9tBx4VfpJx7LyYcF9Crrbn3wDp+xcYDMKF4+7ZLY
+ 9ut9nBOJVAxtTdmd8cUcjttcuThuwbdYEjiySfBPfGoCJu9um6Fx43YyQ84OQA6p2Sle1P3OGHP
+ jtynvP5WSqc7RDsopL7UEH3GyPfvFmDPQclUbM4RFAtwKh0o8fi5WLxNJFNHx/Au/JyTeqxWAlZ
+ HlNkjPMq8NRojs3MYiSBQjDhOGoYQOBzuU8IBMho13TuwcYK1S8ATVoBSzWhvYyrajV2deW0bIc
+ p+pP+rdWJzUYHLuQ3/RMvTC+gXcTZwg==
+X-Received: by 2002:a05:6a00:3a15:b0:736:fefa:b579 with SMTP id
+ d2e1a72fcca58-76ab331d67emr1785827b3a.7.1753865606442; 
+ Wed, 30 Jul 2025 01:53:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE1lcGCmyjgrElcbydcxH4piKCVTBp09W5mqd3uW9/dBMAgGC4DCe3OpUMuk8Rvd0cylpoWZg==
+X-Received: by 2002:a05:6a00:3a15:b0:736:fefa:b579 with SMTP id
+ d2e1a72fcca58-76ab331d67emr1785793b3a.7.1753865605877; 
+ Wed, 30 Jul 2025 01:53:25 -0700 (PDT)
+Received: from [10.133.33.112] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-76b210e4f94sm1072225b3a.36.2025.07.30.01.53.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 00:49:27 -0700 (PDT)
-Message-ID: <7c5df7d1-6757-4cfd-b69d-46854731a119@oss.qualcomm.com>
-Date: Wed, 30 Jul 2025 09:49:23 +0200
+ Wed, 30 Jul 2025 01:53:25 -0700 (PDT)
+Message-ID: <e5a3f05f-9775-4e3d-ae7d-ebbca14b4df5@oss.qualcomm.com>
+Date: Wed, 30 Jul 2025 16:53:16 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/17] drm/msm/adreno: Add fenced regwrite support
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+Subject: Re: [PATCH v2 02/13] dt-bindings: phy: Add binding for QCS615
+ standalone QMP DP PHY
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
- <20250720-ifpc-support-v1-7-9347aa5bcbd6@oss.qualcomm.com>
- <tyjkwrdmsj7k7tkqqxdd65l5v5jxugr5me3ivg5onn3hbffkwp@7uhsbzolqiyd>
- <30442713-2990-490a-b076-93c3cfc3901d@oss.qualcomm.com>
- <d696e7df-7f11-4491-89ff-ba71274ae101@oss.qualcomm.com>
- <1d320aac-e928-4fd0-812c-268a3a943575@oss.qualcomm.com>
- <3f58451a-9b5f-4697-9679-d549104e8312@oss.qualcomm.com>
- <9e48ea8e-b59b-4620-9781-211cc1f7cc07@oss.qualcomm.com>
- <bd6076a5-f888-4044-8a5d-ea6e6fea28e8@oss.qualcomm.com>
- <4226ced8-411e-4cc1-be2c-4d1452c09b14@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <4226ced8-411e-4cc1-be2c-4d1452c09b14@oss.qualcomm.com>
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ konrad.dybcio@oss.qualcomm.com, fange.zhang@oss.qualcomm.com,
+ quic_lliu6@quicinc.com, quic_yongmou@quicinc.com
+References: <20250722-add-displayport-support-for-qcs615-platform-v2-0-42b4037171f8@oss.qualcomm.com>
+ <20250722-add-displayport-support-for-qcs615-platform-v2-2-42b4037171f8@oss.qualcomm.com>
+ <jemfu5sy7k4a2iar55im5bhyhxzlrwpftmpqmps3b2tco7r6a2@oodls7gi45yy>
+ <e673a3a3-6924-49db-9040-e34b82199a43@oss.qualcomm.com>
+ <w3rwao5wbmstdyics6qhp7beulbbp5ludqkwpfsmevgqmzz3d6@u2e533zlitkr>
+From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+In-Reply-To: <w3rwao5wbmstdyics6qhp7beulbbp5ludqkwpfsmevgqmzz3d6@u2e533zlitkr>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzMwMDA1MSBTYWx0ZWRfXx7h7A5jf3UZs
- fkpvvVqBZsFz9jAfmF7z/DRwFmhTdptjNDLxs/WCXQl+ilVf3bzqSrLAeHyM7CCJtee9qTs0Pnf
- g3nV/Ho0EKd08EWgoYuNyCkvPlxYRwjqGZoYy8IzrbJiY3hf3iFZ41N8eGmyJdjwDcLvsg8pgQy
- P7O7sVL+LW6ZW3RWLP/EdryYRbkZFqDtZ5dL1ZxYzRPVmrWAzcNZfA8nCcTvIYfZTTPNs8ITS7V
- HjeY64rYep2QP/Jqh4G3l/oPR60GUfG4lXw1YC0xAFjA0U5v+UEYoZT+5dM2aG61NHnd9fB04dd
- 3r0J4AoFdbvL/3lQxyfePSasg/uHYmiteuCMHetH8pm1/rwM9KhwBjik9tPN4NPC20BNGq+8eb3
- y8PZke1t97/EPH8LY5bG7Q2xXUY1k/JvtroteOseTfAnozpkqEIiNU2nFZdfbMDikyHuyrJK
-X-Proofpoint-GUID: DqZeA85fnNQ6D1FN1zvBLs7aH8iX_bQ9
-X-Proofpoint-ORIG-GUID: DqZeA85fnNQ6D1FN1zvBLs7aH8iX_bQ9
-X-Authority-Analysis: v=2.4 cv=QYlmvtbv c=1 sm=1 tr=0 ts=6889ce89 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=EUspDBNiAAAA:8 a=ND-EWpZVFRsHkRg0wacA:9
- a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: xfVpwI40737EJ5a3osBDEty5Fc7CG7Ga
+X-Authority-Analysis: v=2.4 cv=Pfv/hjhd c=1 sm=1 tr=0 ts=6889dd87 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=Oh2cFVv5AAAA:8 a=EUspDBNiAAAA:8
+ a=B85Fo_iQka-ta6S4ByUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22 a=7KeoIwV6GZqOttXkcoxL:22
+X-Proofpoint-GUID: xfVpwI40737EJ5a3osBDEty5Fc7CG7Ga
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzMwMDA2MCBTYWx0ZWRfX42xPNd/DAgfZ
+ FZ+2bqfaQxSPAWz9w54vBMIbjkphflHS/Gh+byQSw16J52tB/fQfwcNxxJ6lCHFcw+yLnJZBaYw
+ oDIRpvFRboVzQof0GXMFNxfsAvTa5kgdnGMu6snlDKm01OC3DSsvDAe+KrJri+UvwPxoGpqcDLq
+ Ye4avmfwdhcbkv8iqgLqDLz8hWkyU+tIKsglNhucPgf7uU2AuopzGSFYITH1IdUgDyNPtzT+G5/
+ sZe99e7yORn7RlqnRya9bqCMRlJmMbXNSQxc44233g1NcTurGHsmPWSEx6tljToNB/GSQPcWMBs
+ nVIlPa46W0viiVhldY1ORMIT9HM9nlR8nlAJWRj+UbDopfT5caXmPTrEZbSvmG7nVkWrr+Nj0WF
+ xSHyuVQmqjjD9iaSktPH7dGYmp1wBy/ByhbaZ27sJAWEbCoF0D0R7shc4rb06otMbyQRy0UO
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-30_03,2025-07-30_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 suspectscore=0 mlxlogscore=999
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0
- priorityscore=1501 mlxscore=0 spamscore=0 classifier=spam authscore=0
- authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507300051
+ mlxlogscore=999 clxscore=1015 adultscore=0 priorityscore=1501 mlxscore=0
+ spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
+ impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507300060
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,107 +144,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/29/25 11:49 PM, Akhil P Oommen wrote:
-> On 7/30/2025 3:10 AM, Akhil P Oommen wrote:
->> On 7/29/2025 6:31 PM, Konrad Dybcio wrote:
->>> On 7/24/25 6:54 PM, Akhil P Oommen wrote:
->>>> On 7/24/2025 5:16 PM, Konrad Dybcio wrote:
->>>>> On 7/23/25 11:06 PM, Akhil P Oommen wrote:
->>>>>> On 7/22/2025 8:22 PM, Konrad Dybcio wrote:
->>>>>>> On 7/22/25 3:39 PM, Dmitry Baryshkov wrote:
->>>>>>>> On Sun, Jul 20, 2025 at 05:46:08PM +0530, Akhil P Oommen wrote:
->>>>>>>>> There are some special registers which are accessible even when GX power
->>>>>>>>> domain is collapsed during an IFPC sleep. Accessing these registers
->>>>>>>>> wakes up GPU from power collapse and allow programming these registers
->>>>>>>>> without additional handshake with GMU. This patch adds support for this
->>>>>>>>> special register write sequence.
->>>>>>>>>
->>>>>>>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>>>>>>> ---
->>>>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 63 ++++++++++++++++++++++++++++++-
->>>>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
->>>>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 20 +++++-----
->>>>>>>>>  3 files changed, 73 insertions(+), 11 deletions(-)
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>>>>> index 491fde0083a202bec7c6b3bca88d0e5a717a6560..8c004fc3abd2896d467a9728b34e99e4ed944dc4 100644
->>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>>>>> @@ -16,6 +16,67 @@
->>>>>>>>>  
->>>>>>>>>  #define GPU_PAS_ID 13
->>>>>>>>>  
->>>>>>>>> +static bool fence_status_check(struct msm_gpu *gpu, u32 offset, u32 value, u32 status, u32 mask)
->>>>>>>>> +{
->>>>>>>>> +	/* Success if !writedropped0/1 */
->>>>>>>>> +	if (!(status & mask))
->>>>>>>>> +		return true;
->>>>>>>>> +
->>>>>>>>> +	udelay(10);
->>>>>>>>
->>>>>>>> Why do we need udelay() here? Why can't we use interval setting inside
->>>>>>>> gmu_poll_timeout()?
->>>>>>>
->>>>>>> Similarly here:
->>>>>>>
->>>>>>> [...]
->>>>>>>
->>>>>>>>> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
->>>>>>>>> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
->>>>>>>>> +		return 0;
->>>>>>>>> +
->>>>>>>>> +	dev_err_ratelimited(gmu->dev, "delay in fenced register write (0x%x)\n",
->>>>>>>>> +			offset);
->>
->> This print should be after the 2nd polling. Otherwise the delay due to
->> this may allow GPU to go back to IFPC.
->>
->>>>>>>>> +
->>>>>>>>> +	/* Try again for another 1ms before failing */
->>>>>>>>> +	gpu_write(gpu, offset, value);
->>>>>>>>> +	if (!gmu_poll_timeout(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS, status,
->>>>>>>>> +			fence_status_check(gpu, offset, value, status, mask), 0, 1000))
->>>>>>>>> +		return 0;
->>>>>>>>> +
->>>>>>>>> +	dev_err_ratelimited(gmu->dev, "fenced register write (0x%x) fail\n",
->>>>>>>>> +			offset);
->>>>>>>
->>>>>>> We may want to combine the two, so as not to worry the user too much..
->>>>>>>
->>>>>>> If it's going to fail, I would assume it's going to fail both checks
->>>>>>> (unless e.g. the bus is so congested a single write can't go through
->>>>>>> to a sleepy GPU across 2 miliseconds, but that's another issue)
->>>>>>
->>>>>> In case of success, we cannot be sure if the first write went through.
->>>>>> So we should poll separately.
->>>>>
->>>>> You're writing to it 2 (outside fence_status_check) + 2*1000/10 (inside)
->>>>> == 202 times, it really better go through..
+
+On 7/22/2025 8:41 PM, Dmitry Baryshkov wrote:
+> On Tue, Jul 22, 2025 at 08:05:06PM +0800, Xiangxu Yin wrote:
+>> On 7/22/2025 4:38 PM, Dmitry Baryshkov wrote:
+>>> On Tue, Jul 22, 2025 at 03:22:03PM +0800, Xiangxu Yin wrote:
+>>>> Introduce device tree binding documentation for the Qualcomm QMP DP PHY
+>>>> on QCS615 SoCs. This PHY supports DisplayPort functionality and is
+>>>> designed to operate independently from the USB3 PHY.
 >>>>
->>>> For the following sequence:
->>>> 1. write reg1 <- suppose this is dropped
->>>> 2. write reg2 <- and this went through
->>>> 3. Check fence status <- This will show success
+>>>> Unlike combo PHYs found on other platforms, the QCS615 DP PHY is
+>>>> standalone and does not support USB/DP multiplexing. The binding
+>>>> describes the required clocks, resets, TCSR configuration, and clock/PHY
+>>>> cells for proper integration.
+>>> Simply put: no, this is not correct. Even if you go to the SM6150 block
+>>> diagram, it points out that DP uses the USB3 PHY, not a separate DP PHY.
 >>>
->>> What I'm saying is that fence_status_check() does the same write you
->>> execute inbetween the polling calls
->>
->> On a second thought I think it is simpler to just use a single polling
->> of 2ms and measure the time taken using ktime to print a warning if it
->> took more that 1ms.
-> 
-> But then we can't know if the higher latency measured is because this
-> thread got scheduled out just before we measure with ktime 2nd time. So
-> we should rely on gmu_poll_timeout() for accuracy.
-> 
-> We need a warn after 1ms because there is a 1ms timeout in VRM. We
-> should know if it occurs frequently enough to cause a performance issue.
+>>> I thought that we have discussed it beforehand.
+>>>
+>>> I can quote my comment from the previous thread:
+>>>
+>>>>> No. It means replacing extending existing entries with bigger reg and
+>>>>> #phy-cells = <1>. The driver must keep working with old node definitions
+>>>>> as is to ensure backwards compatibility. New nodes should make it
+>>>>> register two PHYs (USB3 and DP). On the driver side modify generic code
+>>>>> paths, all platforms supported by the driver should be able to support
+>>>>> USB3+DP combination.
+>>> Looking at the hardware memory maps:
+>>>
+>>> MSM8998: USB3 PHY regs at 0xc010000, DP PHY regs at 0xc011000
+>>> SDM660: USB3 PHY regs at 0xc010000, DP PHY regs at 0xc011000
+>>> QCM2290: USB3 PHY regs at 0x1615000, DP PHY regs at 0x1616000
+>>> SM6115: USB3 PHY regs at 0x1615000, DP PHY regs at 0x1616000
+>>>
+>>> Now:
+>>> SM6150: USB3 PHY regs at 0x88e6000
+>>>         USB3 PHY regs at 0x88e8000, DP PHY regs at 0x88e9000
+>>>
+>>> I do not know, why msm-4.14 didn't describe second USB3 PHY. Maybe you
+>>> can comment on it.
+>>>
+>>> But based on that list, the only special case that we need to handle is
+>>> the first USB3 PHY, which doesn't have a corresponding DP PHY block. But
+>>> it will be handled anyway by the code that implements support for the
+>>> existing DT entries. All other hardware blocks are combo USB+DP PHYs.
+>>>
+>>> Having all of that in mind, please, for v3 patchset implement USB+DP
+>>> support in the phy-qcom-qmp-usbc driver and add the following logic
+>>> that also was requested in v1 review:
+>>>
+>>>>> Not quite. Both USB3 and DP drivers should be calling power_on / _off.
+>>>>> If USB3 is on, powering on DP PHY should fail. Vice versa, if DP is on,
+>>>>> powering on USB should fail.
+>>> I think our understanding might not be fully aligned. 
+> I did not write this. Please fix your mailer to quote messages properly.
+> As you are using Thunderbird, I'm not sure where the issue comes from.
+>
+> Also please fix it to wrap your responses somwhere logically.
+>
+>>> Perhaps this is because I didn’t accurately update the mutual exclusion relationships and test results for the different PHYs. 
+>>> Let me clarify my latest findings and explain why I believe these are separate PHYs that require mutual exclusion via TCSR.
+>>>
+>>> 1. About the TCSR DP_PHYMODE Registers
+>>>
+>>> MSM8998/SDM660:
+>>> 	Only one TCSR_USB3_DP_PHYMODE register at 0x1FCB248.
+>>> QCM2290/SM6115:
+>>> 	TCSR_USB3_0_DP_PHYMODE at 0x3CB248
+>>> 	TCSR_USB3_1_DP_PHYMODE at 0x3CB24C
+>>> SM6150:
+>>> 	TCSR_USB3_0_DP_PHYMODE at 0x1FCB248
+>>> 	TCSR_USB3_1_DP_PHYMODE at 0x1FCB24C
+> SM6150 has two different sets of output pins, so the first register
+> covers first set of SS lanes (which are routed to the documented SS
+> PHY), the second register covers the second set of SS lanes (which are
+> routed to the DP and secondary USB PHY).
+>
+> I can only assume that the same configuration was supposed to be
+> applicable to QCM2290 / SM6115, but was later removed / disabled, while
+> the registers were kept in the TCSR block.
+>
+>>> Even though MSM8998, SDM660, QCM2290, and SM6115 all have one USB3 PHY and one DP PHY, the TCSR DP_PHYMODE register configuration is different on each platform.
+>>>
+>>> Additionally, I found some interesting register documentation for QCM2290/SM6115:
+>>> 	TCSR_USB3_0_DP_PHYMODE: “In kamorta this one is for mobile usb. DP not supported.”
+>>> 	TCSR_USB3_1_DP_PHYMODE: “DP mode supported for Auto usb in kamorta.”
+>>> I think the reason for having two different TCSR registers is to allow both the USB3.0 and DP PHYs to be useds at the same time in certain product configurations.
+> Sure. One for the first PHY (USB), one for the second PHY (USB+DP).
+> If you check the memory map, you will find the second VLS CLAMP register
+> for the second USB PHY.
+>
+>>> 2. SM6150 Test Results
+>>> When TCSR_DP_PHYMODE_0 is switched to DP, the USB3 primary PHY cannot work, and the DP PHY is also not functional (possibly due to clock lack or other configuration mismatch with this TCSR setting).
+>>> When TCSR_DP_PHYMODE_1 is switched to DP, both the USB3 primary PHY and the DP PHY work normally.
+>>> I think "why msm-4.14 didn't describe second USB3 PHY", because TCSR_DP_PHYMODE_1 always works in DP mode.
+>>> https://android.googlesource.com/kernel/msm/+/af03eef7d4c3cbd1fe26c67d4f1915b05d0c1488/drivers/gpu/drm/msm/dp/dp_catalog_v200.c
+> Here it still programs the TCSR register.
+>
+>>> Based on these info, I believe these are separate PHYs, and only the
+>>> TCSR DP_PHYMODE registers determine which USB3/DP PHYs are paired or
+>>> mutually exclusive. This is why I have maintained separate private
+>>> data for each PHY and implemented Power on mutex control via TCSR,
+>>> rather than using a qmp_combo-like structure.
+> Still, no. Check the block diagram of SM6150.
+>
+>>> Given the above, do you think we still need to force USB and DP to be strictly bound together like a combo PHY?
+> Yes.
 
-VRM, as in the RPMh component?
+I checked the related PHY series and block diagrams again.
 
-Please provide more context on how it's tied together in the commit
-message, it'll be useful for people down the line (I'd assume accessing
-these special registers invokes some handler that brings GX back up
-momentarily, which is why we're polling in the first place?)
+PRI and SEC go to different nodes based on the SoC design, and there are two types of configurations: USB3-only and USB3+DP pairing.
 
-Konrad
+Before proceed the v3 patchset, I’d like to double-confirm whether the following structure is what you expect:
+
+usb_qmpphy_1: phy@88e6000 {
+    compatible = "qcom,sm6150-qmp-usb3-prim-phy"; <== rename to PRIM
+    ...
+    qcom,tcsr-reg = <&tcsr 0xb244>, <&tcsr 0xb248>;
+    qcom,tcsr-names = "vls_clamp", "dp_phy_mode";
+    
+    #clock-cells = <1>;
+    #phy-cells = <1>;
+    ...
+};
+
+usb_qmpphy_2: phy@88e8000 {
+    compatible = "qcom,sm6150-qmp-usb3dp-sec-phy"; <== SEC SS, use usb3dp to indicate DP capability
+
+    reg = <0x0 0x088e8000 0x0 0x2000>; <== SS2 base address and offset define in driver config
+
+    clocks = <&gcc GCC_AHB2PHY_WEST_CLK>,
+            <&gcc GCC_USB3_SEC_CLKREF_CLK>; <== This SoC has no USB3.0 SEC SS clk
+    clock-names = "cfg_ahb",
+                "ref";
+    clock-output-names = "dp_phy_link_clk",
+                    "dp_phy_vco_div_clk";
+                    
+    resets = <&gcc GCC_USB3PHY_PHY_SEC_BCR >,
+         <&gcc GCC_USB3_DP_PHY_SEC_BCR>;
+    reset-names = "phy", "phy_phy";
+
+    qcom,tcsr-reg = <&tcsr 0xbff0>, <&tcsr 0xb24c>;
+    qcom,tcsr-names = "vls_clamp", "dp_phy_mode"; <== added for backward compatibility with legacy configs that only had vls_clamp
+
+    #clock-cells = <1>;
+    #phy-cells = <1>;
+
+    status = "disabled";
+};
+
+>
+>>>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+>>>> ---
+>>>>  .../bindings/phy/qcom,qcs615-qmp-dp-phy.yaml       | 111 +++++++++++++++++++++
+>>>>  1 file changed, 111 insertions(+)
+>>>>
