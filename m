@@ -2,133 +2,113 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98EB3B15AF1
-	for <lists+freedreno@lfdr.de>; Wed, 30 Jul 2025 10:53:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A60DB15C77
+	for <lists+freedreno@lfdr.de>; Wed, 30 Jul 2025 11:43:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C9ED10E153;
-	Wed, 30 Jul 2025 08:53:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D545110E43D;
+	Wed, 30 Jul 2025 09:43:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="A4eBIy1G";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="OWcjDp5F";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 760D410E42D
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 08:53:29 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56U58JG5013628
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 08:53:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yry99kMMFqY8zCfj7lzYjkJIij1/JDYYNXnSDFUTCG0=; b=A4eBIy1GyrTNL8FR
- HHew1H3isqDjCTSZtmeUW71Pfb+vXhZb14hPo2yiP6y/g+PreAftTE7fwR83tuPg
- Y+fEQG3eA/Vm3fmXCJ4XEtE91oC5J3mim4FDKKN6bFTAKGg6TC9dO1SYJabrd3jH
- TF8vY0vbIFnqJ6D4eZ9HhWSnqvAK+d5sc8lfPXMNxwgHAraCuOv8nzW1cx63jY3h
- IOS/l65gkDY0Pc9Uh0rETLD/njU8X88t0CQSp9o//UadTiX+Fo0Lx1DN4mo2DFw+
- YNmRprdQRRuogDuIglMIHWBSg8VQ6VLeXlvYMwjFaTx7JLbv8zdSqTZBSCXoxmSA
- XpmR2Q==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484qda2yjx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 08:53:27 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-74cf7913166so1200922b3a.0
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jul 2025 01:53:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753865606; x=1754470406;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=yry99kMMFqY8zCfj7lzYjkJIij1/JDYYNXnSDFUTCG0=;
- b=nm0iO3St75BLj1TI6KBZyDI6oWVoa1SCtuOaaVRYKCeS/oeSMpbnT4avvHILnAD8JE
- XkR/MfUMQz+uan9Wvbsa1bVPZHOodgcuq9beUSIHq8hEUcEexgL5BExE8P7YGTcQmYBV
- Tp3U8h4SPpIBuSBQ4m+S85Us60aS9aoIPMDhuhl9BRptUp9ezHflq5Yef0QqTXeHuhG6
- SPniJujPjlCDvEFT/u3+FPIfwV7WuWLrVwr9TVS+Zhu4qepjGKF5CKSkWHXrvFE4uzAn
- zoN/mfcdNH0Pzh9l+CUqzI2HwQ6UoDmVZKAMc/dMkOXqQ3wxEFW8927j5W6cm3vVniqb
- grGQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX85A+I3tk7nqsUWojxwmYGgJg1kqKgDmsLpS/I/XK1uW/HOarrprKht2kK99KFrTKe8nMXoVgYses=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzEdzKs0Co7xoaB9BXFMGaJv6CTgeRJGJKYZkAiF04aCDJy1yn3
- C8yoCJVJxObA2SUjhbV8oZPJYyzJMXUU8EQz82Ax3rtB/0ZFIQZDVxairdeIrIQgn/0HJzdAp5J
- PFcOzBxXjqgoh7Bq8Fk8lLlq5eDHe+lvjRhE99eadK/zpUCvKfWOFYFumh4yK6G+AnvKgi/o=
-X-Gm-Gg: ASbGncsU61BYl6cxMDWBlUvz536Ae70BtEH4861TqIp6qC47zafGtv4fpbP2LkoqUDU
- PzbYbCnVLP5+59urWmlfE8kIQvtYWTVfCkU9tBx4VfpJx7LyYcF9Crrbn3wDp+xcYDMKF4+7ZLY
- 9ut9nBOJVAxtTdmd8cUcjttcuThuwbdYEjiySfBPfGoCJu9um6Fx43YyQ84OQA6p2Sle1P3OGHP
- jtynvP5WSqc7RDsopL7UEH3GyPfvFmDPQclUbM4RFAtwKh0o8fi5WLxNJFNHx/Au/JyTeqxWAlZ
- HlNkjPMq8NRojs3MYiSBQjDhOGoYQOBzuU8IBMho13TuwcYK1S8ATVoBSzWhvYyrajV2deW0bIc
- p+pP+rdWJzUYHLuQ3/RMvTC+gXcTZwg==
-X-Received: by 2002:a05:6a00:3a15:b0:736:fefa:b579 with SMTP id
- d2e1a72fcca58-76ab331d67emr1785827b3a.7.1753865606442; 
- Wed, 30 Jul 2025 01:53:26 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE1lcGCmyjgrElcbydcxH4piKCVTBp09W5mqd3uW9/dBMAgGC4DCe3OpUMuk8Rvd0cylpoWZg==
-X-Received: by 2002:a05:6a00:3a15:b0:736:fefa:b579 with SMTP id
- d2e1a72fcca58-76ab331d67emr1785793b3a.7.1753865605877; 
- Wed, 30 Jul 2025 01:53:25 -0700 (PDT)
-Received: from [10.133.33.112] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76b210e4f94sm1072225b3a.36.2025.07.30.01.53.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 01:53:25 -0700 (PDT)
-Message-ID: <e5a3f05f-9775-4e3d-ae7d-ebbca14b4df5@oss.qualcomm.com>
-Date: Wed, 30 Jul 2025 16:53:16 +0800
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65F1210E43D;
+ Wed, 30 Jul 2025 09:43:14 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56U6EfZw014586;
+ Wed, 30 Jul 2025 09:43:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=f7iraRWkvQHYrHL8Iug9KT
+ Y4j4R6e3IUEIZUCUXiwUA=; b=OWcjDp5F1fCvyvoFNbcZ2r+wlRRqI1CBW/tq5Y
+ IZVIhmZ36+p9122pmoaDipY/1TRoLVJkLZq+osie21YnQSMsuw5m+wNgPT9B3CfK
+ UVzq2TnGyh6HoM0X62+NwcvBJ3qUycq9hD5L4BrkPfn9cX3WhZlUXO78inL+9+cZ
+ C3fZobDRgC+fLzjMgLfDPRON8Vi0QVEYff2z0saPze83wZA59k/bp4yYjlVVsc4c
+ 8JPlhNcrvWWbto3p9FvbTC8kRJ+bdYp+KedeF0Gkg00bsHTl4JTWr1LEeZQdjh88
+ yaCT+m+qz4lPfEm2x2xGS8Yn2ma+a8k3Dc0A2SyOhjRQ9qKQ==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484q3xu6q3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Jul 2025 09:43:05 +0000 (GMT)
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.45.79.139])
+ by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 56U9h4sb031596
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Jul 2025 09:43:04 GMT
+Received: from cse-cd01-lnx.ap.qualcomm.com (10.80.80.8) by
+ nasanex01c.na.qualcomm.com (10.45.79.139) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Wed, 30 Jul 2025 02:42:58 -0700
+From: Yongxing Mou <quic_yongmou@quicinc.com>
+Subject: [PATCH v5 0/5] Display enablement changes for Qualcomm QCS8300
+ platform
+Date: Wed, 30 Jul 2025 17:42:25 +0800
+Message-ID: <20250730-mdssdt_qcs8300-v5-0-bc8ea35bbed6@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/13] dt-bindings: phy: Add binding for QCS615
- standalone QMP DP PHY
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAXpiWgC/22QW2rDMBBFt2L0XYXRy5JDKdlHKUGPcSKI7cRyT
+ EvI3is5KTRNfwQzcM+cqwtJOEZMZF1dyIhzTHHo86BeKuL3tt8hjSHPhAOXjHNJu5BSmLYnn4w
+ AoIw5bYwIvgZHcug4Yhs/F+D7x20e8XTO3Om2JB2mZBfuunrNWAWaaRqO2y5NWxf7EPtdorOgQ
+ DX3CIYbpUFshpRWp7M9+KHrVvl5K+ecTUjLJk7rKisiNCildIE7qC1iE1grWtROMOG15aFlzpE
+ ito9pGsavpfjMF7N7R/W348yzCwPvXStQGd9sciEfe180isU9WP8btN5ZCE4J4fEhWCxm8XNZA
+ WPiCVB+ofYGGyFVUwM8A+QvAIcngCzqtdGojeSMq0fA9Xr9BkgMlHQCAgAA
+X-Change-ID: 20241224-mdssdt_qcs8300-11b7883dc60b
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- konrad.dybcio@oss.qualcomm.com, fange.zhang@oss.qualcomm.com,
- quic_lliu6@quicinc.com, quic_yongmou@quicinc.com
-References: <20250722-add-displayport-support-for-qcs615-platform-v2-0-42b4037171f8@oss.qualcomm.com>
- <20250722-add-displayport-support-for-qcs615-platform-v2-2-42b4037171f8@oss.qualcomm.com>
- <jemfu5sy7k4a2iar55im5bhyhxzlrwpftmpqmps3b2tco7r6a2@oodls7gi45yy>
- <e673a3a3-6924-49db-9040-e34b82199a43@oss.qualcomm.com>
- <w3rwao5wbmstdyics6qhp7beulbbp5ludqkwpfsmevgqmzz3d6@u2e533zlitkr>
-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-In-Reply-To: <w3rwao5wbmstdyics6qhp7beulbbp5ludqkwpfsmevgqmzz3d6@u2e533zlitkr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: xfVpwI40737EJ5a3osBDEty5Fc7CG7Ga
-X-Authority-Analysis: v=2.4 cv=Pfv/hjhd c=1 sm=1 tr=0 ts=6889dd87 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=Oh2cFVv5AAAA:8 a=EUspDBNiAAAA:8
- a=B85Fo_iQka-ta6S4ByUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22 a=7KeoIwV6GZqOttXkcoxL:22
-X-Proofpoint-GUID: xfVpwI40737EJ5a3osBDEty5Fc7CG7Ga
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzMwMDA2MCBTYWx0ZWRfX42xPNd/DAgfZ
- FZ+2bqfaQxSPAWz9w54vBMIbjkphflHS/Gh+byQSw16J52tB/fQfwcNxxJ6lCHFcw+yLnJZBaYw
- oDIRpvFRboVzQof0GXMFNxfsAvTa5kgdnGMu6snlDKm01OC3DSsvDAe+KrJri+UvwPxoGpqcDLq
- Ye4avmfwdhcbkv8iqgLqDLz8hWkyU+tIKsglNhucPgf7uU2AuopzGSFYITH1IdUgDyNPtzT+G5/
- sZe99e7yORn7RlqnRya9bqCMRlJmMbXNSQxc44233g1NcTurGHsmPWSEx6tljToNB/GSQPcWMBs
- nVIlPa46W0viiVhldY1ORMIT9HM9nlR8nlAJWRj+UbDopfT5caXmPTrEZbSvmG7nVkWrr+Nj0WF
- xSHyuVQmqjjD9iaSktPH7dGYmp1wBy/ByhbaZ27sJAWEbCoF0D0R7shc4rb06otMbyQRy0UO
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, Kuogee Hsieh
+ <quic_khsieh@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, "Konrad
+ Dybcio" <konradybcio@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Yongxing Mou <quic_yongmou@quicinc.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1753868577; l=3837;
+ i=quic_yongmou@quicinc.com; s=20241121; h=from:subject:message-id;
+ bh=VwrLwk4N5aOftz1GVDh+AA1ziCxnQvYuCZX/YYBDOKc=;
+ b=1WmW0bhbP5xfaqjbbMhKB06I5UIlLjV9IMVl46LAVd3SYBivhnMWkL9pgxnSZXPvVvQTYJ05A
+ 9miTctBFDjiAOvgSC4O8us/or2TIqkwHjHnq9qgMJzzYs3CaV7lC7pb
+X-Developer-Key: i=quic_yongmou@quicinc.com; a=ed25519;
+ pk=zeCnFRUqtOQMeFvdwex2M5o0Yf67UHYfwCyBRQ3kFbU=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01c.na.qualcomm.com (10.45.79.139)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=JovxrN4C c=1 sm=1 tr=0 ts=6889e929 cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=VwQbUJbxAAAA:8
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=4DmgWqGqtajQqN1ybTwA:9
+ a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: rVs3jOtblvEJy4lZ6_8We01v0rqBoXav
+X-Proofpoint-GUID: rVs3jOtblvEJy4lZ6_8We01v0rqBoXav
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzMwMDA2NyBTYWx0ZWRfX1+r/HRHnB0sR
+ nB9JoQfu9N8ditLXlDv0thNF4D8nMAStKLwPp/ApJ0cLa2fSIhpz7YcKkbpHnreqABaQ4VRps0x
+ tkRV58BQErMmvqW80lqzT5ivQis7hhtrR9JiuM+2lScBU3tZ0AeEXuIi7+BkrFz8cdjfHUmebyi
+ bCLAe6PJUjX5xbstxcfg+qRZc6d56eGE8RjCRQI/ykcJKWFEnrkgx6DhJ+j9lvTzDOvTOhXkOmG
+ 07YCLL4aXE6UszDoJKwyZUin8CetPYLWQh6ebXfTqGnWjMSbs52WLGCj893C71J5DbroGJyhHqI
+ /PHaPc9TPc+SP+Hghyv37T0bkIWtb9fwrT2KvAamWkHQUA9XO3aQ4ChfHcX2oI2I6lECiv1r6XR
+ c4MXNrpvCPf+dE4TyfmWpOV2dzpC6vbDS93TON3ReusMTS8+Sfigk8M+LD2B5nCh6pNaVnhZ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-30_03,2025-07-30_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 clxscore=1015 adultscore=0 priorityscore=1501 mlxscore=0
- spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 spamscore=0 mlxlogscore=999
+ mlxscore=0 adultscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507300060
+ definitions=main-2507300067
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,158 +124,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This series introduces support to enable the Mobile Display Subsystem (MDSS)
+, Display Processing Unit (DPU), DisplayPort controller for the Qualcomm 
+QCS8300 target. It includes the addition of the hardware catalog, compatible
+string, and their YAML bindings.
 
-On 7/22/2025 8:41 PM, Dmitry Baryshkov wrote:
-> On Tue, Jul 22, 2025 at 08:05:06PM +0800, Xiangxu Yin wrote:
->> On 7/22/2025 4:38 PM, Dmitry Baryshkov wrote:
->>> On Tue, Jul 22, 2025 at 03:22:03PM +0800, Xiangxu Yin wrote:
->>>> Introduce device tree binding documentation for the Qualcomm QMP DP PHY
->>>> on QCS615 SoCs. This PHY supports DisplayPort functionality and is
->>>> designed to operate independently from the USB3 PHY.
->>>>
->>>> Unlike combo PHYs found on other platforms, the QCS615 DP PHY is
->>>> standalone and does not support USB/DP multiplexing. The binding
->>>> describes the required clocks, resets, TCSR configuration, and clock/PHY
->>>> cells for proper integration.
->>> Simply put: no, this is not correct. Even if you go to the SM6150 block
->>> diagram, it points out that DP uses the USB3 PHY, not a separate DP PHY.
->>>
->>> I thought that we have discussed it beforehand.
->>>
->>> I can quote my comment from the previous thread:
->>>
->>>>> No. It means replacing extending existing entries with bigger reg and
->>>>> #phy-cells = <1>. The driver must keep working with old node definitions
->>>>> as is to ensure backwards compatibility. New nodes should make it
->>>>> register two PHYs (USB3 and DP). On the driver side modify generic code
->>>>> paths, all platforms supported by the driver should be able to support
->>>>> USB3+DP combination.
->>> Looking at the hardware memory maps:
->>>
->>> MSM8998: USB3 PHY regs at 0xc010000, DP PHY regs at 0xc011000
->>> SDM660: USB3 PHY regs at 0xc010000, DP PHY regs at 0xc011000
->>> QCM2290: USB3 PHY regs at 0x1615000, DP PHY regs at 0x1616000
->>> SM6115: USB3 PHY regs at 0x1615000, DP PHY regs at 0x1616000
->>>
->>> Now:
->>> SM6150: USB3 PHY regs at 0x88e6000
->>>         USB3 PHY regs at 0x88e8000, DP PHY regs at 0x88e9000
->>>
->>> I do not know, why msm-4.14 didn't describe second USB3 PHY. Maybe you
->>> can comment on it.
->>>
->>> But based on that list, the only special case that we need to handle is
->>> the first USB3 PHY, which doesn't have a corresponding DP PHY block. But
->>> it will be handled anyway by the code that implements support for the
->>> existing DT entries. All other hardware blocks are combo USB+DP PHYs.
->>>
->>> Having all of that in mind, please, for v3 patchset implement USB+DP
->>> support in the phy-qcom-qmp-usbc driver and add the following logic
->>> that also was requested in v1 review:
->>>
->>>>> Not quite. Both USB3 and DP drivers should be calling power_on / _off.
->>>>> If USB3 is on, powering on DP PHY should fail. Vice versa, if DP is on,
->>>>> powering on USB should fail.
->>> I think our understanding might not be fully aligned. 
-> I did not write this. Please fix your mailer to quote messages properly.
-> As you are using Thunderbird, I'm not sure where the issue comes from.
->
-> Also please fix it to wrap your responses somwhere logically.
->
->>> Perhaps this is because I didn’t accurately update the mutual exclusion relationships and test results for the different PHYs. 
->>> Let me clarify my latest findings and explain why I believe these are separate PHYs that require mutual exclusion via TCSR.
->>>
->>> 1. About the TCSR DP_PHYMODE Registers
->>>
->>> MSM8998/SDM660:
->>> 	Only one TCSR_USB3_DP_PHYMODE register at 0x1FCB248.
->>> QCM2290/SM6115:
->>> 	TCSR_USB3_0_DP_PHYMODE at 0x3CB248
->>> 	TCSR_USB3_1_DP_PHYMODE at 0x3CB24C
->>> SM6150:
->>> 	TCSR_USB3_0_DP_PHYMODE at 0x1FCB248
->>> 	TCSR_USB3_1_DP_PHYMODE at 0x1FCB24C
-> SM6150 has two different sets of output pins, so the first register
-> covers first set of SS lanes (which are routed to the documented SS
-> PHY), the second register covers the second set of SS lanes (which are
-> routed to the DP and secondary USB PHY).
->
-> I can only assume that the same configuration was supposed to be
-> applicable to QCM2290 / SM6115, but was later removed / disabled, while
-> the registers were kept in the TCSR block.
->
->>> Even though MSM8998, SDM660, QCM2290, and SM6115 all have one USB3 PHY and one DP PHY, the TCSR DP_PHYMODE register configuration is different on each platform.
->>>
->>> Additionally, I found some interesting register documentation for QCM2290/SM6115:
->>> 	TCSR_USB3_0_DP_PHYMODE: “In kamorta this one is for mobile usb. DP not supported.”
->>> 	TCSR_USB3_1_DP_PHYMODE: “DP mode supported for Auto usb in kamorta.”
->>> I think the reason for having two different TCSR registers is to allow both the USB3.0 and DP PHYs to be useds at the same time in certain product configurations.
-> Sure. One for the first PHY (USB), one for the second PHY (USB+DP).
-> If you check the memory map, you will find the second VLS CLAMP register
-> for the second USB PHY.
->
->>> 2. SM6150 Test Results
->>> When TCSR_DP_PHYMODE_0 is switched to DP, the USB3 primary PHY cannot work, and the DP PHY is also not functional (possibly due to clock lack or other configuration mismatch with this TCSR setting).
->>> When TCSR_DP_PHYMODE_1 is switched to DP, both the USB3 primary PHY and the DP PHY work normally.
->>> I think "why msm-4.14 didn't describe second USB3 PHY", because TCSR_DP_PHYMODE_1 always works in DP mode.
->>> https://android.googlesource.com/kernel/msm/+/af03eef7d4c3cbd1fe26c67d4f1915b05d0c1488/drivers/gpu/drm/msm/dp/dp_catalog_v200.c
-> Here it still programs the TCSR register.
->
->>> Based on these info, I believe these are separate PHYs, and only the
->>> TCSR DP_PHYMODE registers determine which USB3/DP PHYs are paired or
->>> mutually exclusive. This is why I have maintained separate private
->>> data for each PHY and implemented Power on mutex control via TCSR,
->>> rather than using a qmp_combo-like structure.
-> Still, no. Check the block diagram of SM6150.
->
->>> Given the above, do you think we still need to force USB and DP to be strictly bound together like a combo PHY?
-> Yes.
+Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+---
+Changes in v5:Fixed review comments from Krzysztof, Dmitry.
+- Rebase to next-20250717.
+- Change DP compatible to qcs8300-dp due to add 4 streams support.
+- Add QCS8300 UBWC config change due to rebase.
+- Add 4 streams clk and phy in the mdss yaml.
+- Link to v4: https://lore.kernel.org/r/20250120-mdssdt_qcs8300-v4-0-1687e7842125@quicinc.com
 
-I checked the related PHY series and block diagrams again.
+Changes in v4:Fixed review comments from Krzysztof, Dmitry.
+- Use the common style for the dt-bindings commits.[Dmitry]
+- Update the commits msg for the mdss binding patch, explain why they
+  reuse different platform drivers.[Krzysztof]
+- Link to v3: https://lore.kernel.org/r/20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com
 
-PRI and SEC go to different nodes based on the SoC design, and there are two types of configurations: USB3-only and USB3+DP pairing.
+Changes in v3:Fixed review comments from Krzysztof, Dmitry.
+- Fix the missing space issue in commit message.[Krzysztof]
+- Separate the patch for the phy from this series.[Dmitry]
+- Remove unused dependencies and update in the cover letter.[Dmitry][Krzysztof]
+- Link to v2: https://lore.kernel.org/r/20241226-mdssdt_qcs8300-v2-0-acba0db533ce@quicinc.com
 
-Before proceed the v3 patchset, I’d like to double-confirm whether the following structure is what you expect:
+Changes in v2:Fixed review comments from Krzysztof, Dmitry, Rob.
+- Decouple the devicetree changes from this series.[Dmitry][Krzysztof]
+- Drop the dpu driver changes and reuse SA8775P DPU driver.[Dmitry]
+- Fix compilation issues in MDSS bindings.[Rob][Krzysztof]
+- Correct formatting errors and remove unnecessary status in MDSS
+  bindings.[Krzysztof]
+- Add the the necessary information in MDSS changes commit msg.[Dmitry]
+- Rebase MDSS driver changes to https://lore.kernel.org/dri-devel/
+  20241127-msm-mdss-ubwc-v3-0-9782a7c2b023@linaro.org/.[Dmitry]
+- Package the DisplayPort controller and eDP PHY bindings document to
+  this patch series.
+- Collecting MDSS changes reviewd-by Dmitry.
+- Reuse the sa8775p eDP PHY as a fallback compat.[Dmitry]
+- Reuse the sm8650 DP controller as a fallback compat.[Dmitry]
+- Link to v1: https://lore.kernel.org/r/20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com
+---
+This series depend on 4 pixel streams dt-binding series:
+https://lore.kernel.org/all/20250717-dp_mst_bindings-v3-0-72ce08285703@oss.qualcomm.com/
 
-usb_qmpphy_1: phy@88e6000 {
-    compatible = "qcom,sm6150-qmp-usb3-prim-phy"; <== rename to PRIM
-    ...
-    qcom,tcsr-reg = <&tcsr 0xb244>, <&tcsr 0xb248>;
-    qcom,tcsr-names = "vls_clamp", "dp_phy_mode";
-    
-    #clock-cells = <1>;
-    #phy-cells = <1>;
-    ...
-};
+and separate eDP PHY binding:
+https://lore.kernel.org/all/20250730072725.1433360-1-quic_yongmou@quicinc.com/~
 
-usb_qmpphy_2: phy@88e8000 {
-    compatible = "qcom,sm6150-qmp-usb3dp-sec-phy"; <== SEC SS, use usb3dp to indicate DP capability
+---
+Yongxing Mou (5):
+      dt-bindings: display/msm: Document the DPU for QCS8300
+      dt-bindings: display/msm: dp-controller: document QCS8300 compatible
+      dt-bindings: display/msm: Document MDSS on QCS8300
+      drm/msm: mdss: Add QCS8300 support
+      soc: qcom: ubwc: Add QCS8300 UBWC cfg
 
-    reg = <0x0 0x088e8000 0x0 0x2000>; <== SS2 base address and offset define in driver config
+ .../bindings/display/msm/dp-controller.yaml        |   2 +
+ .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 284 +++++++++++++++++++++
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |  15 +-
+ drivers/gpu/drm/msm/msm_mdss.c                     |   1 +
+ drivers/soc/qcom/ubwc_config.c                     |  11 +
+ 5 files changed, 308 insertions(+), 5 deletions(-)
+---
+base-commit: 024e09e444bd2b06aee9d1f3fe7b313c7a2df1bb
+change-id: 20241224-mdssdt_qcs8300-11b7883dc60b
+prerequisite-message-id: <20250717-dp_mst_bindings-v3-0-72ce08285703@oss.qualcomm.com>
+prerequisite-patch-id: 4782272bb7d2403e2f2dbf762586d4570e6b6ba6
+prerequisite-patch-id: cfdd5c37d38b2a4f1386af4021ba3920c6d8dcf8
+prerequisite-patch-id: c874bf64aec8cb2ff0bc91051620ac771cbeeeea
+prerequisite-patch-id: 63defbfb812a2f9c6365a98538421aea374e0e13
+prerequisite-patch-id: 0ffa9d544d516d4e14700229a4ab6a9c7751823f
 
-    clocks = <&gcc GCC_AHB2PHY_WEST_CLK>,
-            <&gcc GCC_USB3_SEC_CLKREF_CLK>; <== This SoC has no USB3.0 SEC SS clk
-    clock-names = "cfg_ahb",
-                "ref";
-    clock-output-names = "dp_phy_link_clk",
-                    "dp_phy_vco_div_clk";
-                    
-    resets = <&gcc GCC_USB3PHY_PHY_SEC_BCR >,
-         <&gcc GCC_USB3_DP_PHY_SEC_BCR>;
-    reset-names = "phy", "phy_phy";
+Best regards,
+-- 
+Yongxing Mou <quic_yongmou@quicinc.com>
 
-    qcom,tcsr-reg = <&tcsr 0xbff0>, <&tcsr 0xb24c>;
-    qcom,tcsr-names = "vls_clamp", "dp_phy_mode"; <== added for backward compatibility with legacy configs that only had vls_clamp
-
-    #clock-cells = <1>;
-    #phy-cells = <1>;
-
-    status = "disabled";
-};
-
->
->>>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
->>>> ---
->>>>  .../bindings/phy/qcom,qcs615-qmp-dp-phy.yaml       | 111 +++++++++++++++++++++
->>>>  1 file changed, 111 insertions(+)
->>>>
