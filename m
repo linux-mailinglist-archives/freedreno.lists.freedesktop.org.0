@@ -2,124 +2,137 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C27B9B17570
-	for <lists+freedreno@lfdr.de>; Thu, 31 Jul 2025 19:09:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 233BEB1757C
+	for <lists+freedreno@lfdr.de>; Thu, 31 Jul 2025 19:13:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB2310E233;
-	Thu, 31 Jul 2025 17:09:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E96C910E288;
+	Thu, 31 Jul 2025 17:13:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VEnTLPRf";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WX50MObl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39B3B10E233
- for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 17:08:59 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56VDf5ro021707
- for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 17:08:58 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A07E610E28C
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 17:13:51 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56VDf38B031404
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 17:13:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- GtfRg6ZF4ZVfESZEfQJ18GzI3Pea+wsXgaYV5Vzg3Uw=; b=VEnTLPRfRIMHNcqu
- 66Q7Zs226RstoCrhLSvCvOv8ga0NULtVA1FDUwRDM9AsNF6kXAWiuGak6iM1r0Yu
- vOfonC3ugN12iEhMs8GRBEUCqD4xVr68K+Wv4b9BiXTsWUwhIwbXPh/uvCzfJThN
- /7DWKfx3B6JYbapbGlkr1Xd2Nfqn7HyPIH83vwzESnz0gsHg64IHJFUQBNNWyQfS
- 0/B9QDU6/ldy58qIkukyW+CPU5fNkqEMeK97IhnVY+wWrm69bJ0gGUbDaF1m9MAS
- ElfdZdpaUlVigm19fM2RSAmng+2gYWQ1Pj3LOej8iEot6qc3S+TSOoWE06mOrdc/
- aN/BPg==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484mcrgu9s-1
+ ofCj3+DeUV/y5WrDcns9NIGKwdDXCv8HNiS6UfKisRo=; b=WX50MObla3mMccxm
+ ttNOLrjiWUwAoWZTPwT3Xm72rI/wWRFztiSINDhCfV6JHIRCl3nw2WezEn0CFkdS
+ E5PT3RTxlkhUBTGnaCFvvWKTXTY62EomlWlz8LvGu+98SKu7Xe2iC9bKh82+VLF8
+ m3pC2BYM4lpNU4tPE8ZDEuo3s30YUZyJpwtY/CxKGak/1KZSd96kHEE9ZraMuWP7
+ doiTPmL/J7FkQ1+f/+PfhnsZEZ7UKRXcX4j73mnpQSZ0grapCtxkj9gfV9lzeeLN
+ oB2qciirDcHaZqxLDTYWmblraG5PKBoUP3zG5CvzVh3NCPf4whRh2zwzi+vSc5I1
+ jGpXNA==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
+ [209.85.221.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 487jwew39e-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 17:08:58 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-427850a77a2so199108b6e.3
- for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 10:08:58 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 17:13:50 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id
+ 71dfb90a1353d-53944694ae2so249339e0c.0
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 10:13:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753981737; x=1754586537;
+ d=1e100.net; s=20230601; t=1753982029; x=1754586829;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=GtfRg6ZF4ZVfESZEfQJ18GzI3Pea+wsXgaYV5Vzg3Uw=;
- b=GxBQTMeFKzFwvB4HSKKO2e6vFbDd1TQ1tIqd+alZJGOx3j1hw1uDhe/rK+lu3l8AMZ
- 3HePByD5puz10u0TW52uQih2Vdz/ZbnLprbFQcdpCVNA9pLy6vW1pPNtva25Br9oRBoh
- BVf0kI58XN6bixMHx5eqVKCnjtnPj/1RhKoT00EpZFB5SrJq64IHR2XPsiGobfjSXsCd
- 9X639+VF4vAQZIftDUjgAv4IM0/uZ52RK8JRevqiHRhCozh1tntvbEy61PBmf8yiMyAM
- RiGilkDzYmksIV+KEIvP4zHvtEXHE856Y707nYbdb3S5TLuL4EYKNISB2GXGn1VNmkpp
- P4QQ==
+ bh=ofCj3+DeUV/y5WrDcns9NIGKwdDXCv8HNiS6UfKisRo=;
+ b=AA0vmdMAIacedYbb9SpV5F0MG58WwFRcWZGRPYe7AlAu6SM1UgsFE7FxUOzalFDCKG
+ RHNHc9YIc5nrC78chmxWv0U7rrvY9DEtP5hHjlto+2XY46UrRJcPocgrcL8sIvLX9ZEV
+ NKvHK1jl6wGzItRVENr5a2dFZIfrSa1Rcv15Wr0EFBM0RAXBSOrEjfX4RfKjbPiedzPA
+ yFbbSz/2Xg8b+E9PXP3lOBrV/FdVK47wsbvvbVxP0xfT1mPiy4oZJ2kgcq7W9A1ceY5q
+ 6LH5LQkWMOy6lOniV3qIlvv6oF05xcveEwdeZzYtyoNJarOF1jRwmZeDCtY+t/Di+WNj
+ ygUA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVg9lT1XRl/OU6N/M+FQiPBQkghTm6304wQkRX+/p/9RBEVtL+SlBQApmqxCJbynGSoPEWGKMb3KvM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFgYDBDLdd9PDw1Afx6LU25W69Bmt7zRxjaK/GVUdh/zcwz/oK
- jW8KvihxAsLFNIY5dCQ/5lCRj/cip4yIkij9WhurJDxFVh6qTsTVwNhRsKsWqcc7P4IoZJ4HmPZ
- l8XwzkVHJXZEvphUy7TbSUB2S0ipjb9lvJw9TtOqqUZFK7K5OX9oHOJeITo38VzbeIk1eE0A=
-X-Gm-Gg: ASbGncsWAS7lJ+Djzrz2E08en4lndUQzvFY5PZkPxe+l0W9lD/Nm5zjVtLyGImBpClD
- 03UBRise1gV/pQ+uk2q3XiQdQ/gekXix1B9n2XOfEG88YzBzubFgdZ/ZrNZkU35psiYXPY9hinm
- NvSmd29Q9JxyZ9Yhed8jvHK9NagvWeHvgGJwtANsGcpfuYYyrdqdRHB23y8Xxf5ACdumm3M56np
- YW0xlPDCadRzJDO65+D3/f0bxxrk+6+izpcFPPYESwVc/FgRQ53z+pvHW90L6wB6K7dsPFYG3eP
- UhNwqra2cT0KRzpG9+4+9+3kGpbRAaAQl5zTgsmZu0nkecuisZcp6+EAN+tTlOo1HORVlFC06As
- TNCbk0uCXqC/qpQ==
-X-Received: by 2002:a05:6808:1409:b0:41c:95a3:8180 with SMTP id
- 5614622812f47-4319b43b6dbmr5283407b6e.20.1753981737105; 
- Thu, 31 Jul 2025 10:08:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF+OypuAGGtVpznevK8exqeiiyeTVEUujNPDG8SbmILGSpx5BCp+glpBxBspqy2bxr4PhAjWw==
-X-Received: by 2002:a05:6808:1409:b0:41c:95a3:8180 with SMTP id
- 5614622812f47-4319b43b6dbmr5283376b6e.20.1753981736549; 
- Thu, 31 Jul 2025 10:08:56 -0700 (PDT)
+ AJvYcCUm8yxCEBJ+mQKY/Dep8VQQPHqHCxVtbSlrczIV+lieyZrN63q/vzLRChDGSbuw8l7kq3Z0CHf4jA0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz7XGdCo+/fPD3MWWdxvqK2WUp1QewidwggW+KfShbrwbI9erki
+ z2wDPRPGdegl/rCXhfQmHzSdwOoibMN7aW1wb6OX7HEsZDegIEvo/yrrGIUy6scpunPyw6GXPtD
+ +MPkUqK+dhYIi8nK/CYperyxaDNXPtk1/fzmnG50CWwFgGEIfyFmVFDFNUJva8zpvRM0/zUo=
+X-Gm-Gg: ASbGncsFJPnJnox6ULXCoPaa6e8qHNeTdDy3vmEbj13MRPySPY/z0BL5OCQhbD96G4E
+ 9rQYz5TapeSC/UH2H05fEJK/VsRr87Ea4Tn+Ryb5+udVY9qx5l1igmS8z1xr5wAZMdF2sVCX8Tl
+ aWEMcmc441zDM/O+O/lNWtpTdYtyNGuF3MelQs/HEGLA5l5G66Beq5GcSXwI6q43S4uzZOkLIi7
+ 7N8+aq/yMjo1If9e3VJ2t9S3M1GFl7drjnBBxs1eqVcmljqolegsgk6PGmnLWjWqo4ZNiChH9tn
+ ChRTVqAJLepJU0cRP9omvGqsKqsCwzKo8L0VGH79u4X+erYoVqdgubNVnGJKOXZHFdtCGAYOcCd
+ kjtKdfqdhHSxUnw==
+X-Received: by 2002:a05:6122:62ca:b0:538:e454:ea8e with SMTP id
+ 71dfb90a1353d-53938905a99mr1857785e0c.7.1753982029402; 
+ Thu, 31 Jul 2025 10:13:49 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF52dzZur4u5mVprmHH1cNIiS5IST4nNlWgeTkq324s1h1QrAG/Kd+PfkF4M7ViNxObk+iijw==
+X-Received: by 2002:a05:6122:62ca:b0:538:e454:ea8e with SMTP id
+ 71dfb90a1353d-53938905a99mr1857741e0c.7.1753982028845; 
+ Thu, 31 Jul 2025 10:13:48 -0700 (PDT)
 Received: from [10.148.43.238] (87-95-32-33.bb.dnainternet.fi. [87.95.32.33])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b8899f897sm298252e87.49.2025.07.31.10.08.54
+ 38308e7fff4ca-33238272963sm2983111fa.14.2025.07.31.10.13.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 10:08:54 -0700 (PDT)
-Message-ID: <c7346b52-c5a0-4aa2-a8d4-92761e33b011@oss.qualcomm.com>
-Date: Thu, 31 Jul 2025 20:08:53 +0300
+ Thu, 31 Jul 2025 10:13:47 -0700 (PDT)
+Message-ID: <ad4f53eb-2f4b-4e62-a162-461de431e3de@oss.qualcomm.com>
+Date: Thu, 31 Jul 2025 20:13:46 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 10/12] drm/msm/dpu: support SSPP assignment for
- quad-pipe case
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+Subject: Re: [PATCH v2 02/13] dt-bindings: phy: Add binding for QCS615
+ standalone QMP DP PHY
+To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250728-v6-16-rc2-quad-pipe-upstream-v13-0-954e4917fe4f@linaro.org>
- <20250728-v6-16-rc2-quad-pipe-upstream-v13-10-954e4917fe4f@linaro.org>
- <4dpeif7wynynbsccbhc253wkshuylnsjslsosmrnyld3bmot5l@yqrmpln44qe2>
- <CABymUCMa06E0zavQsKeDw_rjTW5F9o4ancxWuQynMO3wsHKFwA@mail.gmail.com>
- <4c492060-cdde-43c6-8351-d969b0f9322b@oss.qualcomm.com>
- <CABymUCO63-V7MoWpgCTEV_8R_4rVHM-1=eyRP34=OdKGpYSLDQ@mail.gmail.com>
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ konrad.dybcio@oss.qualcomm.com, fange.zhang@oss.qualcomm.com,
+ quic_lliu6@quicinc.com, quic_yongmou@quicinc.com
+References: <20250722-add-displayport-support-for-qcs615-platform-v2-0-42b4037171f8@oss.qualcomm.com>
+ <20250722-add-displayport-support-for-qcs615-platform-v2-2-42b4037171f8@oss.qualcomm.com>
+ <jemfu5sy7k4a2iar55im5bhyhxzlrwpftmpqmps3b2tco7r6a2@oodls7gi45yy>
+ <e673a3a3-6924-49db-9040-e34b82199a43@oss.qualcomm.com>
+ <w3rwao5wbmstdyics6qhp7beulbbp5ludqkwpfsmevgqmzz3d6@u2e533zlitkr>
+ <e5a3f05f-9775-4e3d-ae7d-ebbca14b4df5@oss.qualcomm.com>
+ <ffdvzupefzhqq7fqtloycc3xzu57i55ths73xcjftor2cifuzr@5vhq2hfmkvda>
+ <bd8f8643-a8c8-43d7-b293-acdba5ff798a@oss.qualcomm.com>
 Content-Language: en-US
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <CABymUCO63-V7MoWpgCTEV_8R_4rVHM-1=eyRP34=OdKGpYSLDQ@mail.gmail.com>
+In-Reply-To: <bd8f8643-a8c8-43d7-b293-acdba5ff798a@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzMxMDExOCBTYWx0ZWRfX3O3FwBNPLYVL
- +fU3V/VPp7AgXJq+15bzK3MOFvpXkqHDCqMfRT26bQS8KCrbhbLiOBu3G27cuz+Szs5r6GP0G05
- FJKPoTZl1kWTZNd7V9Vany5pQSc8ZBf1oj3gJScMH0AZAGg3KAi6b2J0YOMc9+jaKQTvWwDysy/
- UXO8BhVSCTdpLE3lrtTaW1x9e4Xf3opESmvy+TYsaJ2CiG8v8fz3nlPOgCec3g8At5CdXVKydEe
- 8dczi1N7o65VK3TtYBIrqwAKBYQrhfno2XbvMbAj6DXZrn8AX+sAmB9t5VavxIOP1AbWVZ0oudZ
- 5x3FGPpGW6JRmrcbGCSlCraiVpYiTQBvRpt1WWifaz9dgZaIz8in4BNsc8OIfLpKc2eeLHhFANa
- jsvG1PoEykjB9voGd/r2jajpazIBmQgcQlqTeJNJv8wLq++RUBEaKOWdN0qtOGt5eZ6FvM5M
-X-Authority-Analysis: v=2.4 cv=Hth2G1TS c=1 sm=1 tr=0 ts=688ba32a cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=H8T8cKqSsIHj2cBiWKmgXw==:17
- a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=sWKEhP36mHoA:10 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=uxWrRjmYTHnT6oAD6TgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: NCW0gnIh3Cu0xNOQA9oeS393e_1Ie-aU
-X-Proofpoint-ORIG-GUID: NCW0gnIh3Cu0xNOQA9oeS393e_1Ie-aU
+X-Proofpoint-ORIG-GUID: dyuTvHjkcRxH13s6ESyEl_EuV-ZkVBIx
+X-Authority-Analysis: v=2.4 cv=Wv0rMcfv c=1 sm=1 tr=0 ts=688ba44e cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=H8T8cKqSsIHj2cBiWKmgXw==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=Oh2cFVv5AAAA:8 a=EUspDBNiAAAA:8
+ a=74qhCITlYKpdjXRJ2hIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22 a=7KeoIwV6GZqOttXkcoxL:22
+X-Proofpoint-GUID: dyuTvHjkcRxH13s6ESyEl_EuV-ZkVBIx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzMxMDExNiBTYWx0ZWRfXzaZVd7p/0YK+
+ 2DfrikgzFhaAzfelsRCaKVzaQMo99MO0gIz/YZmcEfIMu/8r2WqcliEWG2lhYe6NYi3LeYyj520
+ QbbhqxAl7rkhLDUU42ToDP3IRHnMi1iYOOpThuv2cynhszBsw/X5ab6F9iP3EXDZ5PBg0OmZFjO
+ cdFasN2WJ+qXAG9V+DntZmC8EbJzovH7VNm72LAejmSxVjlquQrv9q6yyUPGc/HoFT5UAgfOD5L
+ jccR24cd+1hkbbFmSA/CpZ32Qq066kKHz2SC4xDrfacO6mL0Gm3ORKjnSfBgI84b5f5qfID4tyn
+ mUHzTnX8DZ1g7ZeYTxTi8BpdTvX3JKgL6LBacG3GkHG64pjbqwLGtA9MiCyUO8dN+ZLbgR8CiH0
+ Zmj135oN+4S4FgsSYXN4E0WPw/eY8/Cj4jnZPcxkhMGZBQM9xR1bT4302rnk84/EDH8p20nf
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-31_03,2025-07-31_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 mlxscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 adultscore=0 malwarescore=0 mlxlogscore=999 clxscore=1015
- spamscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507310118
+ spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 mlxscore=0 adultscore=0 impostorscore=0
+ phishscore=0 mlxlogscore=999 suspectscore=0 classifier=spam authscore=0
+ authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2507310116
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,350 +148,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 31/07/2025 18:37, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年7月31日周四 22:22写道：
->>
->> On 31/07/2025 13:52, Jun Nie wrote:
->>> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年7月31日周四 02:52写道：
->>>>
->>>> On Mon, Jul 28, 2025 at 09:14:34PM +0800, Jun Nie wrote:
->>>>> Currently, SSPPs are assigned to a maximum of two pipes. However,
->>>>> quad-pipe usage scenarios require four pipes and involve configuring
->>>>> two stages. In quad-pipe case, the first two pipes share a set of
->>>>> mixer configurations and enable multi-rect mode when certain
->>>>> conditions are met. The same applies to the subsequent two pipes.
->>>>>
->>>>> Assign SSPPs to the pipes in each stage using a unified method and
->>>>> to loop the stages accordingly.
->>>>>
->>>>> Signed-off-by: Jun Nie <jun.nie@linaro.org>
->>>>> ---
->>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 160 ++++++++++++++++++------------
->>>>>    1 file changed, 99 insertions(+), 61 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>> index 55429f29a4b95594771d930efe42aaa4126f6f07..e1e16a8d5ac55ba52a0f460d62901dced65e3a9e 100644
->>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>> @@ -959,6 +959,30 @@ static int dpu_plane_is_multirect_parallel_capable(struct dpu_hw_sspp *sspp,
->>>>>    }
->>>>>
->>>>>
->>>>> +static bool dpu_plane_get_single_pipe_in_stage(struct dpu_plane_state *pstate,
->>>>> +                                            struct dpu_sw_pipe **single_pipe,
->>>>> +                                            struct dpu_sw_pipe_cfg **single_pipe_cfg,
->>>>> +                                            int stage_index)
->>>>> +{
->>>>> +     int pipe_idx, i, valid_pipe = 0;
->>>>> +
->>>>> +     for (i = 0; i < PIPES_PER_STAGE; i++) {
->>>>
->>>> Why do you need to loop here? Is there a case when pipe 0 is not
->>>> assigned, but pipe 1 is?
->>>
->>> Loop the pipe in a stage to count the valid pipes. If there are 2 valid
->>> pipes in stage of the current plane, this function will return false.
->>> Or you prefer the below coding?
->>>
->>> 1029         pipe_idx = stage_index * PIPES_PER_STAGE;
->>> 1030         if (drm_rect_width(&pstate->pipe_cfg[pipe_idx].src_rect) != 0 &&
->>> 1031             drm_rect_width(&pstate->pipe_cfg[pipe_idx +
->>> 1].src_rect) == 0) {
->>
->> Yes, this is better from my POV. But the bigger question is why do you
->> need it at all? What is wrong with the existing check? Can it be that
->> pipe0 is not used, but pipe1 is used?
+On 31/07/2025 08:06, Xiangxu Yin wrote:
 > 
-> There is no case that pipe0 is not used, but pipe1 is used. Existing check
-> does not filter the plane which contains single pipe in a stage, which can
-> be a candidate for SSPP sharing. If the stage contains 2 valid pipes or
-> no valid pipes, it is skipped in dpu_plane_try_multirect_shared(), or it is
-> skipped to be stored in prev_adjacent_plane_state[].
-
-Oh, I see, you need to check both pipes because you might need to skip 
-it completely. I'd really prefer to have more explicit code:
-
-- check for pipe0, skip this part of the plane if there is none
-- check for pipe1, if there is none, it's a candidate for sharing.
-
-If that becomes too ugly, then yes, explicit check for pipe0 and pipe1 
-are better than a loop.
-
-> 
->>
->>> 1032                         if (single_pipe)
->>
->> You don't need these ifs. You always pass a valid pointer.
-> 
-> OK, a valid pointer can be passed though the return value may not be needed.
-
-You are always passing a valid pointer there. If at any point we add 
-other usage, then we'd need to add this if.
-
->>
->>> 1033                                 *single_pipe = &pstate->pipe[pipe_idx];
->>> 1034                         if (single_pipe_cfg)
->>> 1035                                 *single_pipe_cfg =
->>> &pstate->pipe_cfg[pipe_idx];
->>> 1036                 return true;
->>> 1037         }
->>> 1038
->>> 1039         return false;
+> On 7/31/2025 2:35 AM, Dmitry Baryshkov wrote:
+>> On Wed, Jul 30, 2025 at 04:53:16PM +0800, Xiangxu Yin wrote:
+>>> On 7/22/2025 8:41 PM, Dmitry Baryshkov wrote:
+>>>> On Tue, Jul 22, 2025 at 08:05:06PM +0800, Xiangxu Yin wrote:
+>>>>> On 7/22/2025 4:38 PM, Dmitry Baryshkov wrote:
+>>>>>> On Tue, Jul 22, 2025 at 03:22:03PM +0800, Xiangxu Yin wrote:
+>>>>>>> Introduce device tree binding documentation for the Qualcomm QMP DP PHY
+>>>>>>> on QCS615 SoCs. This PHY supports DisplayPort functionality and is
+>>>>>>> designed to operate independently from the USB3 PHY.
+>>>>>>>
+>>>>>>> Unlike combo PHYs found on other platforms, the QCS615 DP PHY is
+>>>>>>> standalone and does not support USB/DP multiplexing. The binding
+>>>>>>> describes the required clocks, resets, TCSR configuration, and clock/PHY
+>>>>>>> cells for proper integration.
+>>>>>> Simply put: no, this is not correct. Even if you go to the SM6150 block
+>>>>>> diagram, it points out that DP uses the USB3 PHY, not a separate DP PHY.
+>>>>>>
+>>>>>> I thought that we have discussed it beforehand.
+>>>>>>
+>>>>>> I can quote my comment from the previous thread:
+>>>>>>
+>>>>>>>> No. It means replacing extending existing entries with bigger reg and
+>>>>>>>> #phy-cells = <1>. The driver must keep working with old node definitions
+>>>>>>>> as is to ensure backwards compatibility. New nodes should make it
+>>>>>>>> register two PHYs (USB3 and DP). On the driver side modify generic code
+>>>>>>>> paths, all platforms supported by the driver should be able to support
+>>>>>>>> USB3+DP combination.
+>>>>>> Looking at the hardware memory maps:
+>>>>>>
+>>>>>> MSM8998: USB3 PHY regs at 0xc010000, DP PHY regs at 0xc011000
+>>>>>> SDM660: USB3 PHY regs at 0xc010000, DP PHY regs at 0xc011000
+>>>>>> QCM2290: USB3 PHY regs at 0x1615000, DP PHY regs at 0x1616000
+>>>>>> SM6115: USB3 PHY regs at 0x1615000, DP PHY regs at 0x1616000
+>>>>>>
+>>>>>> Now:
+>>>>>> SM6150: USB3 PHY regs at 0x88e6000
+>>>>>>          USB3 PHY regs at 0x88e8000, DP PHY regs at 0x88e9000
+>>>>>>
+>>>>>> I do not know, why msm-4.14 didn't describe second USB3 PHY. Maybe you
+>>>>>> can comment on it.
+>>>>>>
+>>>>>> But based on that list, the only special case that we need to handle is
+>>>>>> the first USB3 PHY, which doesn't have a corresponding DP PHY block. But
+>>>>>> it will be handled anyway by the code that implements support for the
+>>>>>> existing DT entries. All other hardware blocks are combo USB+DP PHYs.
+>>>>>>
+>>>>>> Having all of that in mind, please, for v3 patchset implement USB+DP
+>>>>>> support in the phy-qcom-qmp-usbc driver and add the following logic
+>>>>>> that also was requested in v1 review:
+>>>>>>
+>>>>>>>> Not quite. Both USB3 and DP drivers should be calling power_on / _off.
+>>>>>>>> If USB3 is on, powering on DP PHY should fail. Vice versa, if DP is on,
+>>>>>>>> powering on USB should fail.
+>>>>>> I think our understanding might not be fully aligned.
+>>>> I did not write this. Please fix your mailer to quote messages properly.
+>>>> As you are using Thunderbird, I'm not sure where the issue comes from.
+>>>>
+>>>> Also please fix it to wrap your responses somwhere logically.
+>>>>
+>>>>>> Perhaps this is because I didn’t accurately update the mutual exclusion relationships and test results for the different PHYs.
+>>>>>> Let me clarify my latest findings and explain why I believe these are separate PHYs that require mutual exclusion via TCSR.
+>>>>>>
+>>>>>> 1. About the TCSR DP_PHYMODE Registers
+>>>>>>
+>>>>>> MSM8998/SDM660:
+>>>>>> 	Only one TCSR_USB3_DP_PHYMODE register at 0x1FCB248.
+>>>>>> QCM2290/SM6115:
+>>>>>> 	TCSR_USB3_0_DP_PHYMODE at 0x3CB248
+>>>>>> 	TCSR_USB3_1_DP_PHYMODE at 0x3CB24C
+>>>>>> SM6150:
+>>>>>> 	TCSR_USB3_0_DP_PHYMODE at 0x1FCB248
+>>>>>> 	TCSR_USB3_1_DP_PHYMODE at 0x1FCB24C
+>>>> SM6150 has two different sets of output pins, so the first register
+>>>> covers first set of SS lanes (which are routed to the documented SS
+>>>> PHY), the second register covers the second set of SS lanes (which are
+>>>> routed to the DP and secondary USB PHY).
+>>>>
+>>>> I can only assume that the same configuration was supposed to be
+>>>> applicable to QCM2290 / SM6115, but was later removed / disabled, while
+>>>> the registers were kept in the TCSR block.
+>>>>
+>>>>>> Even though MSM8998, SDM660, QCM2290, and SM6115 all have one USB3 PHY and one DP PHY, the TCSR DP_PHYMODE register configuration is different on each platform.
+>>>>>>
+>>>>>> Additionally, I found some interesting register documentation for QCM2290/SM6115:
+>>>>>> 	TCSR_USB3_0_DP_PHYMODE: “In kamorta this one is for mobile usb. DP not supported.”
+>>>>>> 	TCSR_USB3_1_DP_PHYMODE: “DP mode supported for Auto usb in kamorta.”
+>>>>>> I think the reason for having two different TCSR registers is to allow both the USB3.0 and DP PHYs to be useds at the same time in certain product configurations.
+>>>> Sure. One for the first PHY (USB), one for the second PHY (USB+DP).
+>>>> If you check the memory map, you will find the second VLS CLAMP register
+>>>> for the second USB PHY.
+>>>>
+>>>>>> 2. SM6150 Test Results
+>>>>>> When TCSR_DP_PHYMODE_0 is switched to DP, the USB3 primary PHY cannot work, and the DP PHY is also not functional (possibly due to clock lack or other configuration mismatch with this TCSR setting).
+>>>>>> When TCSR_DP_PHYMODE_1 is switched to DP, both the USB3 primary PHY and the DP PHY work normally.
+>>>>>> I think "why msm-4.14 didn't describe second USB3 PHY", because TCSR_DP_PHYMODE_1 always works in DP mode.
+>>>>>> https://android.googlesource.com/kernel/msm/+/af03eef7d4c3cbd1fe26c67d4f1915b05d0c1488/drivers/gpu/drm/msm/dp/dp_catalog_v200.c
+>>>> Here it still programs the TCSR register.
+>>>>
+>>>>>> Based on these info, I believe these are separate PHYs, and only the
+>>>>>> TCSR DP_PHYMODE registers determine which USB3/DP PHYs are paired or
+>>>>>> mutually exclusive. This is why I have maintained separate private
+>>>>>> data for each PHY and implemented Power on mutex control via TCSR,
+>>>>>> rather than using a qmp_combo-like structure.
+>>>> Still, no. Check the block diagram of SM6150.
+>>>>
+>>>>>> Given the above, do you think we still need to force USB and DP to be strictly bound together like a combo PHY?
+>>>> Yes.
+>>> I checked the related PHY series and block diagrams again.
 >>>
->>>>
->>>>> +             pipe_idx = stage_index * PIPES_PER_STAGE + i;
->>>>> +             if (drm_rect_width(&pstate->pipe_cfg[pipe_idx].src_rect) != 0) {
->>>>> +                     valid_pipe++;
->>>>> +                     if (valid_pipe > 1)
->>>>> +                             return false;
->>>>> +
->>>>> +                     if (single_pipe)
->>>>> +                             *single_pipe = &pstate->pipe[pipe_idx];
->>>>> +                     if (single_pipe_cfg)
->>>>> +                             *single_pipe_cfg = &pstate->pipe_cfg[pipe_idx];
->>>>> +             }
->>>>> +     }
->>>>> +
->>>>> +     return valid_pipe == 1;
->>>>> +}
->>>>> +
->>>>>    static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
->>>>>                                        struct drm_atomic_state *state,
->>>>>                                        const struct drm_crtc_state *crtc_state)
->>>>> @@ -1023,17 +1047,20 @@ static bool dpu_plane_try_multirect_parallel(struct dpu_sw_pipe *pipe, struct dp
->>>>>    static int dpu_plane_try_multirect_shared(struct dpu_plane_state *pstate,
->>>>>                                           struct dpu_plane_state *prev_adjacent_pstate,
->>>>>                                           const struct msm_format *fmt,
->>>>> -                                       uint32_t max_linewidth)
->>>>> +                                       uint32_t max_linewidth, int stage_index)
->>>>>    {
->>>>> -     struct dpu_sw_pipe *pipe = &pstate->pipe[0];
->>>>> -     struct dpu_sw_pipe *r_pipe = &pstate->pipe[1];
->>>>> -     struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg[0];
->>>>> -     struct dpu_sw_pipe *prev_pipe = &prev_adjacent_pstate->pipe[0];
->>>>> -     struct dpu_sw_pipe_cfg *prev_pipe_cfg = &prev_adjacent_pstate->pipe_cfg[0];
->>>>> +     struct dpu_sw_pipe *pipe, *prev_pipe;
->>>>> +     struct dpu_sw_pipe_cfg *pipe_cfg, *prev_pipe_cfg;
->>>>>         const struct msm_format *prev_fmt = msm_framebuffer_format(prev_adjacent_pstate->base.fb);
->>>>>         u16 max_tile_height = 1;
->>>>>
->>>>> -     if (prev_adjacent_pstate->pipe[1].sspp != NULL ||
->>>>> +     if (!dpu_plane_get_single_pipe_in_stage(pstate, &pipe,
->>>>> +                                             &pipe_cfg, stage_index))
->>>>> +             return false;
->>>>> +
->>>>> +     if (!dpu_plane_get_single_pipe_in_stage(prev_adjacent_pstate,
->>>>> +                                             &prev_pipe, &prev_pipe_cfg,
->>>>> +                                             stage_index) ||
->>>>>             prev_pipe->multirect_mode != DPU_SSPP_MULTIRECT_NONE)
->>>>>                 return false;
->>>>>
->>>>> @@ -1048,11 +1075,6 @@ static int dpu_plane_try_multirect_shared(struct dpu_plane_state *pstate,
->>>>>         if (MSM_FORMAT_IS_UBWC(prev_fmt))
->>>>>                 max_tile_height = max(max_tile_height, prev_fmt->tile_height);
->>>>>
->>>>> -     r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
->>>>> -     r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>>> -
->>>>> -     r_pipe->sspp = NULL;
->>>>> -
->>>>>         if (dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth) &&
->>>>>             dpu_plane_is_parallel_capable(prev_pipe_cfg, prev_fmt, max_linewidth) &&
->>>>>             (pipe_cfg->dst_rect.x1 >= prev_pipe_cfg->dst_rect.x2 ||
->>>>> @@ -1181,36 +1203,69 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
->>>>>         return 0;
->>>>>    }
->>>>>
->>>>> +static int dpu_plane_assign_resource_in_stage(struct dpu_sw_pipe *pipe,
->>>>> +                                           struct dpu_sw_pipe_cfg *pipe_cfg,
->>>>> +                                           struct drm_plane_state *plane_state,
->>>>> +                                           struct dpu_global_state *global_state,
->>>>> +                                           struct drm_crtc *crtc,
->>>>> +                                           struct dpu_rm_sspp_requirements *reqs)
->>>>> +{
->>>>> +     struct drm_plane *plane = plane_state->plane;
->>>>> +     struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
->>>>> +     struct dpu_sw_pipe *r_pipe = pipe + 1;
->>>>> +     struct dpu_sw_pipe_cfg *r_pipe_cfg = pipe_cfg + 1;
->>>>> +
->>>>> +     if (drm_rect_width(&pipe_cfg->src_rect) != 0) {
->>>>> +             pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, reqs);
->>>>> +             if (!pipe->sspp)
->>>>> +                     return -ENODEV;
->>>>> +             pipe->multirect_index = DPU_SSPP_RECT_SOLO;
->>>>> +             pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>>> +     }
->>>>> +
->>>>> +     if (drm_rect_width(&r_pipe_cfg->src_rect) != 0 &&
->>>>> +         dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pipe_cfg,
->>>>> +                                           pipe->sspp,
->>>>> +                                           msm_framebuffer_format(plane_state->fb),
->>>>> +                                           dpu_kms->catalog->caps->max_linewidth))
->>>>> +             goto stage_assinged;
->>>>> +
->>>>> +     if (drm_rect_width(&r_pipe_cfg->src_rect) != 0) {
->>>>> +             r_pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, reqs);
->>>>> +             if (!r_pipe->sspp)
->>>>> +                     return -ENODEV;
->>>>> +             r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
->>>>> +             r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>>> +     }
->>>>> +
->>>>> +stage_assinged:
->>>>> +     return 0;
->>>>> +}
->>>>> +
->>>>>    static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
->>>>>                                               struct dpu_global_state *global_state,
->>>>>                                               struct drm_atomic_state *state,
->>>>>                                               struct drm_plane_state *plane_state,
->>>>> -                                           struct drm_plane_state *prev_adjacent_plane_state)
->>>>> +                                           struct drm_plane_state **prev_adjacent_plane_state)
->>>>>    {
->>>>>         const struct drm_crtc_state *crtc_state = NULL;
->>>>>         struct drm_plane *plane = plane_state->plane;
->>>>>         struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
->>>>>         struct dpu_rm_sspp_requirements reqs;
->>>>> -     struct dpu_plane_state *pstate, *prev_adjacent_pstate;
->>>>> +     struct dpu_plane_state *pstate, *prev_adjacent_pstate[STAGES_PER_PLANE];
->>>>>         struct dpu_sw_pipe *pipe;
->>>>> -     struct dpu_sw_pipe *r_pipe;
->>>>>         struct dpu_sw_pipe_cfg *pipe_cfg;
->>>>> -     struct dpu_sw_pipe_cfg *r_pipe_cfg;
->>>>>         const struct msm_format *fmt;
->>>>> -     int i;
->>>>> +     int i, ret;
->>>>>
->>>>>         if (plane_state->crtc)
->>>>>                 crtc_state = drm_atomic_get_new_crtc_state(state,
->>>>>                                                            plane_state->crtc);
->>>>>
->>>>>         pstate = to_dpu_plane_state(plane_state);
->>>>> -     prev_adjacent_pstate = prev_adjacent_plane_state ?
->>>>> -             to_dpu_plane_state(prev_adjacent_plane_state) : NULL;
->>>>> -
->>>>> -     pipe = &pstate->pipe[0];
->>>>> -     r_pipe = &pstate->pipe[1];
->>>>> -     pipe_cfg = &pstate->pipe_cfg[0];
->>>>> -     r_pipe_cfg = &pstate->pipe_cfg[1];
->>>>> +     for (i = 0; i < STAGES_PER_PLANE; i++)
->>>>> +             prev_adjacent_pstate[i] = prev_adjacent_plane_state[i] ?
->>>>> +                     to_dpu_plane_state(prev_adjacent_plane_state[i]) : NULL;
->>>>>
->>>>>         for (i = 0; i < PIPES_PER_PLANE; i++)
->>>>>                 pstate->pipe[i].sspp = NULL;
->>>>> @@ -1225,42 +1280,27 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
->>>>>
->>>>>         reqs.rot90 = drm_rotation_90_or_270(plane_state->rotation);
->>>>>
->>>>> -     if (drm_rect_width(&r_pipe_cfg->src_rect) == 0) {
->>>>> -             if (!prev_adjacent_pstate ||
->>>>> -                 !dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate, fmt,
->>>>> -                                                 dpu_kms->catalog->caps->max_linewidth)) {
->>>>> -                     pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
->>>>> -                     if (!pipe->sspp)
->>>>> -                             return -ENODEV;
->>>>> -
->>>>> -                     r_pipe->sspp = NULL;
->>>>> +     for (i = 0; i < STAGES_PER_PLANE; i++) {
->>>>> +             if (!prev_adjacent_pstate[i])
->>>>> +                     goto assignment;
->>>>>
->>>>> -                     pipe->multirect_index = DPU_SSPP_RECT_SOLO;
->>>>> -                     pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>>> -
->>>>> -                     r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
->>>>> -                     r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>>> -             }
->>>>> -     } else {
->>>>> -             pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
->>>>> -             if (!pipe->sspp)
->>>>> -                     return -ENODEV;
->>>>> -
->>>>> -             if (!dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_pipe_cfg,
->>>>> -                                                   pipe->sspp,
->>>>> -                                                   msm_framebuffer_format(plane_state->fb),
->>>>> -                                                   dpu_kms->catalog->caps->max_linewidth)) {
->>>>> -                     /* multirect is not possible, use two SSPP blocks */
->>>>> -                     r_pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
->>>>> -                     if (!r_pipe->sspp)
->>>>> -                             return -ENODEV;
->>>>> +             if (dpu_plane_try_multirect_shared(pstate, prev_adjacent_pstate[i], fmt,
->>>>> +                                                dpu_kms->catalog->caps->max_linewidth,
->>>>> +                                                i))
->>>>> +                     continue;
->>>>
->>>>
->>>> if (prev_adjacent_pstate[i] &&
->>>>       dpu_plane_try_multirect_shared())
->>>>           continue;
->>>>
->>>> No need for the goto.
+>>> PRI and SEC go to different nodes based on the SoC design, and there are two types of configurations: USB3-only and USB3+DP pairing.
 >>>
->>> Right, it will be simpler.
->>>>
->>>>>
->>>>> -                     pipe->multirect_index = DPU_SSPP_RECT_SOLO;
->>>>> -                     pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>>> +assignment:
->>>>> +             if (dpu_plane_get_single_pipe_in_stage(pstate, NULL, NULL, i))
->>>>> +                     prev_adjacent_plane_state[i] = plane_state;
->>>>>
->>>>> -                     r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
->>>>> -                     r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>>> -             }
->>>>> +             pipe = &pstate->pipe[i * PIPES_PER_STAGE];
->>>>> +             pipe_cfg = &pstate->pipe_cfg[i * PIPES_PER_STAGE];
->>>>> +             ret = dpu_plane_assign_resource_in_stage(pipe, pipe_cfg,
->>>>> +                                                      plane_state,
->>>>> +                                                      global_state,
->>>>> +                                                      crtc, &reqs);
->>>>> +             if (ret)
->>>>> +                     return ret;
->>>>>         }
->>>>>
->>>>>         return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
->>>>> @@ -1273,7 +1313,7 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
->>>>>                                unsigned int num_planes)
->>>>>    {
->>>>>         unsigned int i;
->>>>> -     struct drm_plane_state *prev_adjacent_plane_state = NULL;
->>>>> +     struct drm_plane_state *prev_adjacent_plane_state[STAGES_PER_PLANE] = { NULL };
->>>>>
->>>>>         for (i = 0; i < num_planes; i++) {
->>>>>                 struct drm_plane_state *plane_state = states[i];
->>>>> @@ -1284,11 +1324,9 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
->>>>>
->>>>>                 int ret = dpu_plane_virtual_assign_resources(crtc, global_state,
->>>>>                                                              state, plane_state,
->>>>> -                                                          prev_adjacent_plane_state);
->>>>> +                                                          &prev_adjacent_plane_state[0]);
->>>>
->>>> It's exactly the prev_adjacent_plane_state.
+>>> Before proceed the v3 patchset, I’d like to double-confirm whether the following structure is what you expect:
 >>>
->>> Yes, I will change it.
->>>
->>>>
->>>>>                 if (ret)
->>>>>                         break;
->>>>> -
->>>>> -             prev_adjacent_plane_state = plane_state;
->>>>>         }
->>>>>
->>>>>         return 0;
->>>>>
->>>>> --
->>>>> 2.34.1
->>>>>
->>>>
->>>> --
->>>> With best wishes
->>>> Dmitry
+>>> usb_qmpphy_1: phy@88e6000 {
+>>>      compatible = "qcom,sm6150-qmp-usb3-prim-phy"; <== rename to PRIM
+>> No, we already have a compatible name and DT schema for this device.
+> Then current compatible name is "qcom,qcs615-qmp-usb3-phy" and shall we need update to "qcom,sm6150-qmp-usb3-phy"?
+
+Why? You _already_ have a compatible string. You don't need to change it 
+just to follow the SoC name.
+
 >>
+>>>      ...
+>>>      qcom,tcsr-reg = <&tcsr 0xb244>, <&tcsr 0xb248>;
+>>>      qcom,tcsr-names = "vls_clamp", "dp_phy_mode";
+>> No need for qcom,tcsr-names. Second TCSR register should be optional in
+>> the driver.
+> Ok.
 >>
->> --
->> With best wishes
->> Dmitry
+>>>      
+>>>      #clock-cells = <1>;
+>>>      #phy-cells = <1>;
+>> #clock-cells = <0>;
+>> #phy-cells = <0>;
+>>
+>>>      ...
+>>> };
+>>>
+>>> usb_qmpphy_2: phy@88e8000 {
+>>>      compatible = "qcom,sm6150-qmp-usb3dp-sec-phy"; <== SEC SS, use usb3dp to indicate DP capability
+>> qcom,sm6150-qmp-usb3-dp-phy
+> Ok, but for this part, shall we update dt-binding in "qcom,msm8998-qmp-usb3-phy.yaml" or create a new one?
+
+I think (I might be wrong here) new ones is a better fit. We'll migrate 
+the rest of PHYs to new bindings later on.
+
+>>
+>>>      reg = <0x0 0x088e8000 0x0 0x2000>; <== SS2 base address and offset define in driver config
+>>>
+>>>      clocks = <&gcc GCC_AHB2PHY_WEST_CLK>,
+>>>              <&gcc GCC_USB3_SEC_CLKREF_CLK>; <== This SoC has no USB3.0 SEC SS clk
+>>>      clock-names = "cfg_ahb",
+>>>                  "ref";
+>>>      clock-output-names = "dp_phy_link_clk",
+>>>                      "dp_phy_vco_div_clk";
+>> No need to, the driver can generate names on its own.
+> Ok.
+>>
+>>>                      
+>>>      resets = <&gcc GCC_USB3PHY_PHY_SEC_BCR >,
+>>>           <&gcc GCC_USB3_DP_PHY_SEC_BCR>;
+>>>      reset-names = "phy", "phy_phy";
+>> "phy_phy", "dp_phy". Is there no GCC_USB3_PHY_SEC_BCR?
+> There are only GCC_USB2_PHY_SEC_BCR and GCC_USB3PHY_PHY_SEC_BCR, no GCC_USB3_PHY_SEC_BCR.
+
+Ack.
+
+>>>      qcom,tcsr-reg = <&tcsr 0xbff0>, <&tcsr 0xb24c>;
+>>>      qcom,tcsr-names = "vls_clamp", "dp_phy_mode"; <== added for backward compatibility with legacy configs that only had vls_clamp
+>> No need for qcom,tcsr-names, correct otherwise.
+>>
+>>>      #clock-cells = <1>;
+>>>      #phy-cells = <1>;
+>>>
+>>>      status = "disabled";
+>>> };
+>>>
+>>>>>>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+>>>>>>> ---
+>>>>>>>   .../bindings/phy/qcom,qcs615-qmp-dp-phy.yaml       | 111 +++++++++++++++++++++
+>>>>>>>   1 file changed, 111 insertions(+)
+>>>>>>>
 
 
 -- 
