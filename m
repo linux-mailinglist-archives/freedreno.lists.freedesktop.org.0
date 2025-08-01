@@ -2,147 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4727B183B3
-	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 16:26:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45BD5B18471
+	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 17:07:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E2EA10E885;
-	Fri,  1 Aug 2025 14:26:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFF310E8A3;
+	Fri,  1 Aug 2025 15:07:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mv0TcpOl";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WBPQ0nIm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12C8810E885
- for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 14:26:14 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 571DF3gl009776
- for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 14:26:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- EzvS1jMX5x8+R7F+NrDMwwT/fTPAvaYvo4kcmEWAh8w=; b=Mv0TcpOlW2B6528l
- q1fFdZ1HJ+9on7dRfi5X4/XNaFJsntPIpJbuj0G2513OWO2znFSjc+t6b7uC9o+1
- VgWUXg9WvZZN5zxQjlg0gTcchFScz8cc50Dt+K6fXBUL1DWQe8SaQzTWZTus0YGi
- R1qWeSYfHYHAirPrNlyE6VVp6RxqURJjpo+oKRp/rQI96e9dbpAuX212NleLRLP5
- KXuCWlVaCRpuW7bOfFIIHcqS23A7Ustp4WgBL7ut775P+EUW7F2W4DKjVJkigvXW
- OJMvoAuo1MT8bBv4Kw507RcOT9yjfguAMhUasvajj88LiKLnUvZGs+PziHVdqQCW
- 1r5ToA==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 488q7xsncb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 14:26:13 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id
- ada2fe7eead31-4fc078d2103so2458148137.1
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 07:26:13 -0700 (PDT)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C86D910E8A3
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 15:07:47 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-23fe9a5e5e8so7595255ad.0
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 08:07:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1754060867; x=1754665667; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=106+qj6fPtqcw4cgNYXTkI8WumvzYf5yx+BSbDzApRc=;
+ b=WBPQ0nImI1v0dHs5mYd2B35/PVwqOJ6pbJ6rct54gUZ/vUkcAynEFZLAi57rpF68js
+ 2l0Ae7m2x4I9n423IlGRlxMW0hRgppCQl3UC0vEWHvgu7d5Dl2P5t9hKAHMmeiTPls+1
+ 0VrNyqSDmgdKHD5T3CLEX754LAF+/eTuG2qkihUQAfYAASX+bZInd432BkG3WeOtMkGt
+ GhX/tAWnsXxyyue6eaBlGwKo7Pz5knK3Ui5ep23iimUgCfP5ndOqyXFkKXP5qhh1/Fmq
+ W70yuUC2iZ8IPsjo2zG3X0lwNXuP2TWMK32s0Nqu+hnSB9xLmEncMEiyjg54mr4oSFrM
+ p15w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754058372; x=1754663172;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EzvS1jMX5x8+R7F+NrDMwwT/fTPAvaYvo4kcmEWAh8w=;
- b=lWPhcKWZHe/oOZ8H6DJrO266jFlf5uGtkztLVhs+sVxk9Ddec0x1X2zy5B29HepJc3
- 37ZqpwRxOqdVOEet2Kc2GdpBRZBqrQ4zrZUOsb+WQZB9Wv84mcLFfi9LaCbdVC1k4tLW
- 60ao2OdkPEe08j0318eHo6peLHGL3ONMLQPW2OEYZ9gppasNSpciKIJvZD8/IowfM/Xt
- h99XmwKEXkDVdhtKoD3mm3awV5MY03n/AWIHBk26tAD6XfHpqoRMJB3jF71QKjTenXPc
- lgHX7JWI+dpzyMXYuMtP1+0sHva/En2n8i2EogHAR0e+7BSlb6l1GusgOc/chDvVsZfz
- E7lQ==
+ d=1e100.net; s=20230601; t=1754060867; x=1754665667;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=106+qj6fPtqcw4cgNYXTkI8WumvzYf5yx+BSbDzApRc=;
+ b=qNuUCdXafVbIdjPQ37nCCq5Y7UDW98ymT/D3vk62pR4QRDGNz6oTjL0tHsr/3wtsDJ
+ nVrjC1Tbnnjth8McgxiYBWMETbnvjlG68I/4RTWKEauO9zPAUNYFI4H/gdDUlz7MGDen
+ 9AeR1GLlexvDQpuhg8Tm2CnAXkPjcIsX9ZOOqaKPHiescj39Bc/rFSIgatyJX4pDXGoh
+ dzIG5AkAfIPvsCqjmw3LEm3hqcUJKlEnF3fD9NYT0Z/w/Nhle9ng7L2960TU7CaLYg6C
+ lSu5qt79Eiwi1kuMOpB+hCq0lLhQIJLsvd28dgyJDndX6dfqH9XoXJhYMWjPJD2o/thx
+ Wc3g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWrdFxNxXPxRHsAlHYm6FMUMDu5HELi+OUDkIG9l11oPJTpJs5nPYw2/S3cGKEvXsUy5cbQHfxgj3w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCqN/oNRIfpTwJzoiWdjl1+v5Bvjn4gxpIp8M++yzG3XMzorCD
- mo5aq8dsPpKJTvOSKcTHfJiUXuxLDuExuIcBglTQvNnzg0yTMZXd7ALbxgcj+54zskZH6RIW36G
- sMm6lR9oKimNlbRAyRTiFQG/4A+fPviki7NORVRACN/i7F8gx+PjM7fPbXaed+ziowe2Y42Y=
-X-Gm-Gg: ASbGnctZe35Dz2NXkGtbdbqNkOxZiupPLCfixvpb4KLfe6LPWkMOw4H1eNGWhxgW63Q
- KYsDvdj3o9npXcfBCUGc9pspn8G0i+o+1b7JnNk6JqIJGhkww+b86bJGw0kMOxvJVtVZD+a+e2P
- 9p+lBwdCIGhg4NcyPsvVSRwL2PJDgsh81wSce4w35DQZxjK5HTeQQLia3u4NeOitSSKjZ1wOAH3
- FRSIuRxvK7EQsiqtZxoLYkjosKbPV5xGfUP6ds0NRGA2yq9z4uccQ04xJQCOtl2OTTqPZlu7Mfm
- DBLQhPeVzmxVGHi5mRZa7F1SjJUL7bHcOZboSRFSfasIGw+7p9TdZ+oysry0QlourHTdgfBjC8p
- UndPdyKfRIY5Rf1Tv/AijgzVhC2oEuTJZo1+KjDUqtk4Yz8mBfs+KslTCU4mj6I/GlKCF2s33LD
- l4RZB4++mJJsm/umFv8q4i3Q==
-X-Received: by 2002:a05:6102:3ca3:b0:4e5:9c06:39d8 with SMTP id
- ada2fe7eead31-4fbe7eede93mr8246360137.5.1754058371990; 
- Fri, 01 Aug 2025 07:26:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHtV8DSsj9RYUgiFZC2c162wgAzqi/wUqPBz85jhmoN0PI6WRYnMuJqyzF2EbQRO88PjZQP5g==
-X-Received: by 2002:a05:6102:3ca3:b0:4e5:9c06:39d8 with SMTP id
- ada2fe7eead31-4fbe7eede93mr8246299137.5.1754058371520; 
- Fri, 01 Aug 2025 07:26:11 -0700 (PDT)
-Received: from ?IPV6:2001:14bb:11f:12ba:7035:8684:db73:a472?
- (2001-14bb-11f-12ba-7035-8684-db73-a472.rev.dnainternet.fi.
- [2001:14bb:11f:12ba:7035:8684:db73:a472])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-33238272f35sm6403761fa.3.2025.08.01.07.26.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Aug 2025 07:26:10 -0700 (PDT)
-Message-ID: <7ea6294d-1958-4586-975b-beb3e5114a4b@oss.qualcomm.com>
-Date: Fri, 1 Aug 2025 17:26:08 +0300
+ AJvYcCWh++L63IySoljO2zOoE0UpWZ95Ug87zb1lJjlgwmNwwdQvvki48E/ZKfM/mbUavs8lKBEBynJZQPc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9iajt8GLsFudBztBK1q17w9IkEuNcReXuNb5DevBb09UPN5RK
+ oLzV2Nwn/KZ08Hl8gD49MS/aNMBu6DOaQDjqkq/3QJ7tKXWAjh67kX3lmWWEkkFNlRs=
+X-Gm-Gg: ASbGncsXCWzra2mh3h2i5WUhSjI/eWWUb8hl4ftoa0FkyZVNOsKnBCMEB1uPxaU7tKh
+ auLM3kUQ6HX6T6vnITzMnxiOEhXVuzo0FuT5OAmupBiVHbIRlOMjnueKWcTTdwfagoMZtDci9F7
+ AFRDBxUc/JKS/dSTRQlUFmGfjEiQJCZX7tHybFMeKQxKJE6LQHtTBKYNurvV8kxEdC+e8JrWlOQ
+ HK8qLPcER4mDzvLuwbpJmCCeDXAaWAh0uYWV4trPXlzlNws+EUmUziNZtcSW4xX22XkABNOjh0+
+ 1REKGKJqO19gq7aQ0G1vLOdbYUaiYOSOj8k7J8vo0H9B6rMuWNM51A0g1Ps1NTaV2ue5/ODgAO3
+ vLecjsqeds4PLqTigwA==
+X-Google-Smtp-Source: AGHT+IGqeDKUAlkYy4GOeCgxdJf59+m6ATh2vqP1BwPmMrCzXl2Vz8y53rzBOY6r5v7je774FoaNkw==
+X-Received: by 2002:a17:903:1746:b0:240:6aad:1c43 with SMTP id
+ d9443c01a7336-24096b548b8mr174514895ad.48.1754060867130; 
+ Fri, 01 Aug 2025 08:07:47 -0700 (PDT)
+Received: from [127.0.1.1] ([112.64.60.64]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-241e8aafa11sm45639705ad.172.2025.08.01.08.07.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Aug 2025 08:07:46 -0700 (PDT)
+From: Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH v14 00/13] drm/msm/dpu: Support quad pipe with dual-interface
+Date: Fri, 01 Aug 2025 23:07:24 +0800
+Message-Id: <20250801-v6-16-rc2-quad-pipe-upstream-v14-0-b626236f4c31@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] drm: writeback: drop excess connector initialization
- functions
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
- <20250801-wb-drop-encoder-v1-7-824646042f7d@oss.qualcomm.com>
- <b92e89d2-5bd8-4228-872e-6e5ae9b4b054@bootlin.com>
- <DM3PPF208195D8D03E1F9D3E7EB4D07C1D6E326A@DM3PPF208195D8D.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <DM3PPF208195D8D03E1F9D3E7EB4D07C1D6E326A@DM3PPF208195D8D.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=EqPSrTcA c=1 sm=1 tr=0 ts=688cce85 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=2OwXVqhp2XgA:10 a=CdbOqKgfPjM6tkZZvDYA:9 a=QEXdDO2ut3YA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-ORIG-GUID: CC1CG5eM38fMAS3_RUVP5t2y20J5QKsY
-X-Proofpoint-GUID: CC1CG5eM38fMAS3_RUVP5t2y20J5QKsY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDEwOSBTYWx0ZWRfX2doQHC7q/XA9
- ic0tZoBI6RyZJfb856Jm+pVS0KbDQ9TCf+IsBiCRav0zMjD0XBww8ijZaLgBE8S9DuhzjgjMvuS
- 81iUnYArfu2ViP+BZU41rSuO/9fyAgcm5zzJYW74XOVbKfqmQFjrdLqC9P/L6YJIgWj8zYz4wDM
- nZdj1cDP/sw6rV0KI0uech+BL2tMUpfbfmBcP1rZmPbWe4TMR7hGsr/12qULjjt5WvAxdINs5IO
- NIUVXPdaRUCEKOT52U3jkJbcLwRJq85kzt2+HGjO3e4FI6OxYoJQebRtB8ZYYJBuBYKzi7o134Y
- Y+C5avS1N3jXx5U+y82LPK7cVjcDV+wPVjA+dfdmYRfd4S1jwuAV9aT0but1xvptwmkdPOrPWeM
- VzHnbyHsuInsxvHO5yUHF1k7q+jaU1Vl7jnJk6rOjSFAGShGgn3m0ax0ZStRidi+koGNp89O
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-01_04,2025-08-01_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 mlxlogscore=999
- impostorscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 malwarescore=0
- phishscore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2508010109
+X-B4-Tracking: v=1; b=H4sIACzYjGgC/32NywrCMBBFf0WydiSPJhFX/od0EZpJG9AmTtqil
+ P67seDW5Tlczl1ZQYpY2OWwMsIllpjGCqI5Hlg3uLFHiL4KJrnU3HIDiwFhgDoJz9l5yDEjzLl
+ MhO4B2nCltVchNIHVRCYM8bX3b23lIZYp0Xu/W4T86l/Z/i/XNXAwFpWVAq0/q+s9jo7SKVHP2
+ m3bPqKZRR/MAAAA
+X-Change-ID: 20250706-v6-16-rc2-quad-pipe-upstream-560355d3ff4f
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jun Nie <jun.nie@linaro.org>, Dmitry Baryshkov <lumag@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754060859; l=7751;
+ i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
+ bh=uA2ixnnoXafXruIUteuT3qqmY9e8PDC/kHFAhbO3cd4=;
+ b=QY/SXpKDAL8jD4MdGcdh4/bW5eZ5zcbfjIQyxoSQmzg0eNBKZeFpW1iBxJxpxtgxStxPdPPDC
+ SB65hz8Sx6DBZmLA59UFLYjxUCbP6AdJ5lbndNO3qo3HZwVOdtBvgd2
+X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
+ pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,47 +104,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/08/2025 17:22, Kandpal, Suraj wrote:
->> Subject: Re: [PATCH 7/8] drm: writeback: drop excess connector initialization
->> functions
-> 
-> This should be drm/writeback
+2 or more SSPPs and dual-DSI interface are need for super wide panel.
+And 4 DSC are preferred for power optimal in this case due to width
+limitation of SSPP and MDP clock rate constrain. This patch set
+extends number of pipes to 4 and revise related mixer blending logic
+to support quad pipe. All these changes depends on the virtual plane
+feature to split a super wide drm plane horizontally into 2 or more sub
+clip. Thus DMA of multiple SSPPs can share the effort of fetching the
+whole drm plane.
 
-No:
+The first pipe pair co-work with the first mixer pair to cover the left
+half of screen and 2nd pair of pipes and mixers are for the right half
+of screen. If a plane is only for the right half of screen, only one
+or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
+assinged for invalid pipe.
 
-$ git log --oneline --no-merges next/master 
-drivers/gpu/drm/drm_writeback.c
-fb721b2c35b1 drm: writeback: Fix drm_writeback_connector_cleanup signature
-09cba36cc840 drm: Include <linux/export.h>
-ddd147d91d50 drm: writeback: Fix kernel doc name
-ff3881cc6a58 drm: writeback: Fix use after free in 
-drm_writeback_connector_cleanup()
-1914ba2b91ea drm: writeback: Create drmm variants for 
-drm_writeback_connector initialization
-2f3f4a73631b drm: writeback: Add missing cleanup in case of 
-initialization failure
-135d8fc7af44 drm: writeback: Create an helper for 
-drm_writeback_connector initialization
-02c50fa60ca5 drm/writeback: remove pointless enable_signaling implementation
-720cf96d8fec drm: Drop drm_framebuffer.h from drm_crtc.h
-7933aecffa28 drm: introduce drm_writeback_connector_init_with_encoder() API
-57b8280a0a41 drm: allow passing possible_crtcs to 
-drm_writeback_connector_init()
-38d6fd406aaa drm/writeback: don't set fence->ops to default
-b1066a123538 drm: Clear the fence pointer when writeback job signaled
-0500c04ea14a drm: drop use of drmP.h in drm/*
-9d2230dc1351 drm: writeback: Add job prepare and cleanup operations
-e482ae9b5fdc drm: writeback: Fix leak of writeback job
-97eb9eaeb95b drm: writeback: Cleanup job ownership handling when queuing job
-71a5cb3eb758 drm: writeback: Fix doc that says connector should be 
-disconnected
-cde4c44d8769 drm: drop _mode_ from drm_mode_connector_attach_encoder
-73915b2b1f25 drm/writeback: Fix the "overview" section of the doc
-b13cc8dd5884 drm: writeback: Add out-fences for writeback connectors
-935774cd71fe drm: Add writeback connector type
+For those panel that does not require quad-pipe, only 1 or 2 pipes in
+the 1st pipe pair will be used. There is no concept of right half of
+screen.
 
+For legacy non virtual plane mode, the first 1 or 2 pipes are used for
+the single SSPP and its multi-rect mode.
 
+Changes in v14:
+- Add patch to fix null pointer bug SSPP sharing, which is missed in
+  the last version.
+- Polish single pipe check with removing loop.
+- Polish logic of SSPP sharing test in dpu_plane_virtual_assign_resources()
+- Polish argument of dpu_plane_virtual_assign_resources().
+- Link to v13: https://lore.kernel.org/r/20250728-v6-16-rc2-quad-pipe-upstream-v13-0-954e4917fe4f@linaro.org
 
+Changes in v13:
+- Modify the SSPP assignment patch for sharing SSPP among planes in
+  quad-pipe case.
+- Link to v12: https://lore.kernel.org/r/20250707-v6-16-rc2-quad-pipe-upstream-v12-0-67e3721e7d83@linaro.org
+    
+Changes in v12:
+- Polish single pipe case detection in a plane. Add stage index check when
+  sharing SSPP with multi-rect mode in 2 planes.
+- Abstract SSPP assignment in a stage into a function.
+- Rebase to latest msm/msm-next.
+- Link to v11: https://lore.kernel.org/r/20250603-v6-15-quad-pipe-upstream-v11-0-c3af7190613d@linaro.org
+
+Changes in v11:
+- Change function name from dpu_plane_check_single_pipe to
+  dpu_plane_get_single_pipe.
+- Abstract SSPP assignment in stage into a function.
+- Link to v10: https://lore.kernel.org/r/20250526-v6-15-quad-pipe-upstream-v10-0-5fed4f8897c4@linaro.org
+
+Changes in v10:
+- Drop changes in drm helper side, because num_lm == 0 does not lead to
+  any issue in the first call to dpu_plane_atomic_check_nosspp() with
+  latest repo. It is initialized properly right after the call in
+  drm_atomic_helper_check_planes(), thus the later plane splitting works
+  as expected.
+- Rebase to latest msm-next branch.
+- Fix PIPES_PER_STAGE to PIPES_PER_PLANE where handling all pipes, instead
+  of stages.
+- Link to v9: https://lore.kernel.org/r/20250506-quad-pipe-upstream-v9-0-f7b273a8cc80@linaro.org
+
+Changes in v9:
+- Rebase to latest mainline and drop 3 patches as mainline already cover
+  the logic.
+  "Do not fix number of DSC"
+  "configure DSC per number in use"
+  "switch RM to use crtc_id rather than enc_id for allocation"
+- Add a patch to check crtc before checking plane in drm framework.
+- Add a patch to use dedicated WB number in an encoder to avoid regression.
+- Revise the condition to decide quad-pipe topology.
+- Link to v8: https://lore.kernel.org/r/20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org
+
+Changes in v8:
+- Fix looping pipes of a plane in _dpu_plane_color_fill()
+- Improve pipe assignment with deleting pipes loop in stage.
+- Define PIPES_PER_PLANE properly when it appears fisrt.
+- rename lms_in_pair to lms_in_stage to avoid confusion.
+- Add review tags.
+- Link to v7: https://lore.kernel.org/r/20250226-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v7-0-8d5f5f426eb2@linaro.org
+
+Changes in v7:
+- Improve pipe assignment to avoid point to invalid memory.
+- Define STAGES_PER_PLANE as 2 only when quad-pipe is introduced.
+- Polish LM number when blending pipes with min() and pull up to caller func.
+- Add review tags.
+- Link to v6: https://lore.kernel.org/r/20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org
+
+Changes in v6:
+- Replace LM number with PP number to calculate PP number per encoder.
+- Rebase to Linux v6.14-rc2.
+- Add review tags.
+- Link to v5: https://lore.kernel.org/r/20250118-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v5-0-9701a16340da@linaro.org
+
+Changes in v5:
+- Iterate SSPP flushing within the required mixer pair, instead of all
+  active mixers or specific mixer.
+- Limit qaud-pipe usage case to SoC with 4 or more DSC engines and 2
+  interfaces case.
+- Remove valid flag and use width for pipe validation.
+- Polish commit messages and code comments.
+- Link to v4: https://lore.kernel.org/r/20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org
+
+Changes in v4:
+- Restrict SSPP flushing to the required mixer, instead of all active mixers.
+- Polish commit messages and code comments.
+- Rebase to latest msm/drm-next branch.
+- Move pipe checking patch to the top of patch set.
+- Link to v3: https://lore.kernel.org/dri-devel/20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org
+
+Changes in v3:
+- Split change in trace into a separate patch.
+- Rebase to latest msm-next branch.
+- Reorder patch sequence to make sure valid flag is set in earlier patch
+- Rectify rewrite patch to move logic change into other patch
+- Polish commit messages and code comments.
+- Link to v2: https://lore.kernel.org/dri-devel/20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org
+
+Changes in v2:
+- Revise the patch sequence with changing to 2 pipes topology first. Then
+  prepare for quad-pipe setup, then enable quad-pipe at last.
+- Split DSI patches into other patch set.
+- Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org
+
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+Jun Nie (13):
+      drm/msm: Do not validate SSPP when it is not ready
+      drm/msm/dpu: polish log for resource allocation
+      drm/msm/dpu: decide right side per last bit
+      drm/msm/dpu: fix mixer number counter on allocation
+      drm/msm/dpu: bind correct pingpong for quad pipe
+      drm/msm/dpu: Add pipe as trace argument
+      drm/msm/dpu: handle pipes as array
+      drm/msm/dpu: split PIPES_PER_STAGE definition per plane and mixer
+      drm/msm/dpu: Use dedicated WB number definition
+      drm/msm/dpu: blend pipes per mixer pairs config
+      drm/msm/dpu: support SSPP assignment for quad-pipe case
+      drm/msm/dpu: support plane splitting in quad-pipe case
+      drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI case
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 120 +++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      |  43 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c        | 445 ++++++++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h        |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c           |  29 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h        |  10 +-
+ 10 files changed, 414 insertions(+), 259 deletions(-)
+---
+base-commit: c7f3b7e47fcc7bcb5326275e38c203770e21357e
+change-id: 20250706-v6-16-rc2-quad-pipe-upstream-560355d3ff4f
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Jun Nie <jun.nie@linaro.org>
+
