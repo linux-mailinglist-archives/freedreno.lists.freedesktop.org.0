@@ -2,117 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D4C9B17733
-	for <lists+freedreno@lfdr.de>; Thu, 31 Jul 2025 22:32:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40ED9B17AC2
+	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 03:19:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A7D810E7E5;
-	Thu, 31 Jul 2025 20:32:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEAD810E2D0;
+	Fri,  1 Aug 2025 01:19:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bItUczJe";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DSu0lrDp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3C5810E2B2
- for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 20:32:03 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56VDfARu005014
- for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 20:32:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=95j11hbpABfVkWXAtbUrfq5oYNt/9RLXdyb6uZduDVU=; b=bI
- tUczJeCkAQYvmh2+CUG6hR+kEzUQgFzWdtxpccVFSteLEausfVNDS5ZSKCx57Juy
- HVR3KsEw8v4ONwLSXFo9oaxnw31rRQ4y3bZQK2WTG22wCY7jaw5X4dZ5WW0U7MMU
- IeMz6WKXysiTTjjKA5mslzwBOomWRjwaInq2HpIdk0DUeRtijUwuUbVkqy2x4XF6
- UVZR11p1uvgjKay4sIz3gXIpBzceuwGEZN0IJNCCUePFDtVlD20pXhG8bXUc0TpR
- +kkpHNgfHAI/kZCSPMX7tlk2pINjOXtCkteSXk9qTESDjQM0CbZ5eVkSTnI9djZZ
- t6uxz1cYvZRy7ibispdA==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484q869j89-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 20:32:02 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-41bebd9dd93so268245b6e.0
- for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 13:32:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753993922; x=1754598722;
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A88FE10E089
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 01:19:53 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-71b6ad2d6fcso4428297b3.3
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Jul 2025 18:19:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1754011192; x=1754615992; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=95j11hbpABfVkWXAtbUrfq5oYNt/9RLXdyb6uZduDVU=;
- b=sA/MNhWNTfo4cAGoliIHQ1LFThaIKL6d1/yA7Jr5i4xI/cFZvNi25rQuEyPHs5dReT
- ODV8wDT14ltNJm5yfKSgdoDk1Xmj2S+i46uA3tzrjWquTt2Z0QuVV3YxGvP3h2HTIWVS
- 67hbKyiWtLkNAYo7shevQeG+wOHg72hKSgO5W0+w46WMETteq8rHTpNzcT7Zno8KxhIS
- WoTLL8QWBAXmd0uk0y4aNkmM0T9b7897twlZHBex+eNOh/xAKVKrQuvCZOBJKtDjUfAb
- g371loQn0G8OEdmQJsULhf+AL/TVwPCc55AXb6X5IXuW7n95wIDf3JWo40nTWxvH+CdU
- merw==
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XXUiw9bAmvFij/Xs2oriGu47rDApjJHReezfEKz8cZk=;
+ b=DSu0lrDpgJq9iY+3H+jMTjen+1VyXiE05vYwZghSVzis9UxKZKRxFSStxMSSbknAWm
+ r6adsXFy7p5+DVNcinx/48GWEALEeGUjpUDXFNYgnnJZVTul9u0ZnJNmu633eYtV9VsX
+ SYwkNSGUaHlkpHsU0XadKeSqYyt2i+gKWbbUf5mUWUJsMwJVk52mKuaygcZUtWA7yg7D
+ riZehahDHz3XKYT855gyPeEAHr+Dqifds6XEWXRKCvjL9aJztVv+hc3iOWWWe0AuelY5
+ QcYn1cm/9LLLbbLKhNn0CFSGDD5GbOlkacWKbSjAHdK4TeBDroX8ED+BJIT0IDOcvQPL
+ qnYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754011192; x=1754615992;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XXUiw9bAmvFij/Xs2oriGu47rDApjJHReezfEKz8cZk=;
+ b=samI0mOQ0N+9pBu2b6npwLuLwykye/EwpsnwDULQuCe4ffnenPumPlDg7AqiZg6LzP
+ AgyT3UYjp/zyWpo+F3YP1CBoWChYAEPFMLPUmKfUOU5KeW3Vvd1Hrsq5SRW0tki0cvhP
+ nomjEOM0tR3gQtIoDbJGNlHgcTTiC2T5caMAKQj98TYKJz5nKF+FDXwIl4+Mw2wK9Utt
+ DDFyFGP7OnCl4MR9xIRrJoBj2WO6UImSiIof5KjhQ2mqrtDyOJrzHKbpipYIkpD0G72T
+ QLV7zDEvDEym+rYRtR/2X3ZlPyiUf1DkOuQWPDyhJ9S4/Oy+dVAhh3BEYSUED5dljCbA
+ Mqjw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVJPtD7aXeD81f454UBxFM1NUmCQTN8v6B0kO+epzGbwoaiu90SbGNfBgNTxD1veJbqLiNACA5OZ9w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJCaIk4hSM4LY9XpqSuPKeqSD2ota16jXkFi+H2V4MKgr7M9Yb
- bIfY3BWCzMkaTf6/UX5gQDjm4Bg236MdfbqDO5Xtcm6R22MPqxCVt9yIdwfVKV8LB9SB9z1qAal
- ZaW7X6sbfPIlDrqANCuRoCtGNyjTpx2Z8TpksXOOig+SxMWXZ9yw4ybhMfrnJpGqiRtDRguEsd9
- QB4VPyIl6nRzPqh9JTjDarnBjvSQAxjmLwc3nyuqG/Druewg==
-X-Gm-Gg: ASbGncv+d8p3NOc82Ui8RTZn9NniBGOotBfjLM0VBJV+exkBsGinRwUPTg9fJ/oxvrs
- TznTl/aDAlBzkaDiPi7zt/eeRM4MiHLOxvX8cV0dI0w9W6RqT5fmsd0eQVbdHEOWOKhIui7oNjo
- owEZvRnyXB7kwE/R5UZ87AH084OLHJweK9kdKvqETj05ptBD21Ir12
-X-Received: by 2002:a05:6808:d48:b0:40c:f698:c132 with SMTP id
- 5614622812f47-43199c82e9bmr5343038b6e.11.1753993921808; 
- Thu, 31 Jul 2025 13:32:01 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEB1z2a8DRYITGDp5oVp8wvyaSOT3GViM176ZVbHA0f+yokdIDGj8gjhCgpQ3jKYYoQb+mKpRMhxR6uPxgxVkQ=
-X-Received: by 2002:a05:6808:d48:b0:40c:f698:c132 with SMTP id
- 5614622812f47-43199c82e9bmr5343020b6e.11.1753993921409; Thu, 31 Jul 2025
- 13:32:01 -0700 (PDT)
+ AJvYcCXK7z2eJK6/i6cjmhG6d4fdOGAbYqt87swdvx7MSdBdzdQ/WsvMHRjC/sY5aL2bkIxmLiThc8/upC0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyNhBpnPGuu8GD3NcQ1g0vaYXgTWXcpS7vqO8c5Zex1wSqWAnx7
+ 1hPdE5IgvgqSshwlzEnfY/97CM6OyGnkrCwnhRUVcdXKhMQ3V8bTioC+6uRhiBEZ14RRalkNrqP
+ nrd/eysY/g2Hg2/rtiry4hYa5p6k/KYBDioiEMmFuzQ==
+X-Gm-Gg: ASbGncugdVprEXrtByOk1cAy3vQlHY1Bb7nwbMSp9vIOfQlbcyW6D5AduNKJNiwOUxv
+ NbvURRcoYRz2rZ6XLYHFRzRBEp617MO0asZEcVuQBo0YIA3ZMVcZAO+kc8pMHNEPWK/KKmqTV+P
+ S4mTuiGd3nvgXD9gjimwlrJD90KLfvu0wNy7MdEXTtKI2L9QHT7I67+dxgPC2yHlWh5ncRAJnfe
+ NnG7DuC+I666N4JWw==
+X-Google-Smtp-Source: AGHT+IEKt+ZT0pexcO15N/b7Q9t7zFCWvynIZkq2ZL8JrZr8XHCjFwlbmL9fDBuc1oF57Go+UCki+q53Mf7Rd7P3+vU=
+X-Received: by 2002:a05:690c:3581:b0:70e:1771:c165 with SMTP id
+ 00721157ae682-71b6d7f8699mr11775427b3.29.1754011192243; Thu, 31 Jul 2025
+ 18:19:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250728203412.22573-1-robin.clark@oss.qualcomm.com>
- <20250728203412.22573-2-robin.clark@oss.qualcomm.com>
- <CACu1E7F=Y2oKfiWtD0VYfmLkL24e7JrZYMt8dmoGW7zrq7bd2g@mail.gmail.com>
- <CACSVV02W28L0MS32J0n1PTpEsaq_6RxEPgb_6y6G=6TryGEPQw@mail.gmail.com>
- <CACSVV02DLSM2dHUj4MiPpogF3pgjk4ex5=9_P2AKdGmtx4bd=g@mail.gmail.com>
- <CACu1E7E6QaWgjFy13qP4BS_5mdhJ2vFVsnm9WtnJE3_t7rymPQ@mail.gmail.com>
-In-Reply-To: <CACu1E7E6QaWgjFy13qP4BS_5mdhJ2vFVsnm9WtnJE3_t7rymPQ@mail.gmail.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Thu, 31 Jul 2025 13:31:49 -0700
-X-Gm-Features: Ac12FXxbyEjKFrDZgWUpR8ETQOQajKnWdha82A9YYrUt8UGqoYorcn4PYFKocMw
-Message-ID: <CACSVV02qk59riW4_UAZjd=NTsSLF7qsQW6hkYEz7JcttBJDWTw@mail.gmail.com>
-Subject: Re: [PATCH 1/7] drm/msm: Add missing "location"s to devcoredump
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+References: <20250728-v6-16-rc2-quad-pipe-upstream-v13-0-954e4917fe4f@linaro.org>
+ <20250728-v6-16-rc2-quad-pipe-upstream-v13-10-954e4917fe4f@linaro.org>
+ <4dpeif7wynynbsccbhc253wkshuylnsjslsosmrnyld3bmot5l@yqrmpln44qe2>
+ <CABymUCMa06E0zavQsKeDw_rjTW5F9o4ancxWuQynMO3wsHKFwA@mail.gmail.com>
+ <4c492060-cdde-43c6-8351-d969b0f9322b@oss.qualcomm.com>
+ <CABymUCO63-V7MoWpgCTEV_8R_4rVHM-1=eyRP34=OdKGpYSLDQ@mail.gmail.com>
+ <c7346b52-c5a0-4aa2-a8d4-92761e33b011@oss.qualcomm.com>
+In-Reply-To: <c7346b52-c5a0-4aa2-a8d4-92761e33b011@oss.qualcomm.com>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Fri, 1 Aug 2025 09:19:41 +0800
+X-Gm-Features: Ac12FXzDFQAwvQWbG77uzpAUTLkbkRxIduTGvtusB4QM0I09WiqTGVfPaX3PXmk
+Message-ID: <CABymUCPgXAaJCLTiN1XxK1JEjxnr9qPye_E6gMLSMvEhgXJk6w@mail.gmail.com>
+Subject: Re: [PATCH v13 10/12] drm/msm/dpu: support SSPP assignment for
+ quad-pipe case
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzMxMDE0NiBTYWx0ZWRfXwc2ZBk2GfZma
- pCMJ5LSVPNdoTzhGSYO0iAgGRnaW6M37qw1myrjNpwMQ+C/Ix33irIy525JH0PQKw5n7KtdvYkQ
- dkrjSNhJiBG4x1+NWQFWTUFyMCwGF/XjB9HAuBttnYBD0X+MUY3MOpbIOe04+0ga9w5Zy5SraCw
- JI2L0x78tMIZ2ao74l0kds7ozUBaTI84mOzQtJIJYeDQs1WZ8pygSqmzNDYkhq05fZ4fUoN86Jd
- RNUMRv97i79DtcFW9tQkGZiQ2xX5VLETUUIWEV0ecRtpU3r+cocpfRbiBmHap6ttyzBEoILTzxh
- JMR//5s7pxHdl6qhLip7gbSS8xAmDDfsBTOHhLJ2jR5R2EKnFYSot0wIlU6BrWBlP4DeNLtU91Y
- xvE5C9CkT8xWSiqI2dWee4a5540Ro0Q0NQJ512OHk5bsqKq/W2O0v/FhzqmiWIp0kVXuoNGA
-X-Authority-Analysis: v=2.4 cv=TqLmhCXh c=1 sm=1 tr=0 ts=688bd2c2 cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=3X2iVFLOVPrzddhlX30A:9 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-ORIG-GUID: a-pIjvGHIaJWZCfzrVSHydhzPn0h1DgR
-X-Proofpoint-GUID: a-pIjvGHIaJWZCfzrVSHydhzPn0h1DgR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-31_04,2025-07-31_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 adultscore=0 spamscore=0 priorityscore=1501 clxscore=1015
- impostorscore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2507310146
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,87 +93,465 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 31, 2025 at 12:16=E2=80=AFPM Connor Abbott <cwabbott0@gmail.com=
-> wrote:
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=B4=
+8=E6=9C=881=E6=97=A5=E5=91=A8=E4=BA=94 01:08=E5=86=99=E9=81=93=EF=BC=9A
 >
-> On Tue, Jul 29, 2025 at 9:40=E2=80=AFAM Rob Clark <rob.clark@oss.qualcomm=
-.com> wrote:
+> On 31/07/2025 18:37, Jun Nie wrote:
+> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=
+=B9=B47=E6=9C=8831=E6=97=A5=E5=91=A8=E5=9B=9B 22:22=E5=86=99=E9=81=93=EF=BC=
+=9A
+> >>
+> >> On 31/07/2025 13:52, Jun Nie wrote:
+> >>> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=
+=B9=B47=E6=9C=8831=E6=97=A5=E5=91=A8=E5=9B=9B 02:52=E5=86=99=E9=81=93=EF=BC=
+=9A
+> >>>>
+> >>>> On Mon, Jul 28, 2025 at 09:14:34PM +0800, Jun Nie wrote:
+> >>>>> Currently, SSPPs are assigned to a maximum of two pipes. However,
+> >>>>> quad-pipe usage scenarios require four pipes and involve configurin=
+g
+> >>>>> two stages. In quad-pipe case, the first two pipes share a set of
+> >>>>> mixer configurations and enable multi-rect mode when certain
+> >>>>> conditions are met. The same applies to the subsequent two pipes.
+> >>>>>
+> >>>>> Assign SSPPs to the pipes in each stage using a unified method and
+> >>>>> to loop the stages accordingly.
+> >>>>>
+> >>>>> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> >>>>> ---
+> >>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 160 ++++++++++++++++=
+++------------
+> >>>>>    1 file changed, 99 insertions(+), 61 deletions(-)
+> >>>>>
+> >>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gp=
+u/drm/msm/disp/dpu1/dpu_plane.c
+> >>>>> index 55429f29a4b95594771d930efe42aaa4126f6f07..e1e16a8d5ac55ba52a0=
+f460d62901dced65e3a9e 100644
+> >>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> >>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> >>>>> @@ -959,6 +959,30 @@ static int dpu_plane_is_multirect_parallel_cap=
+able(struct dpu_hw_sspp *sspp,
+> >>>>>    }
+> >>>>>
+> >>>>>
+> >>>>> +static bool dpu_plane_get_single_pipe_in_stage(struct dpu_plane_st=
+ate *pstate,
+> >>>>> +                                            struct dpu_sw_pipe **s=
+ingle_pipe,
+> >>>>> +                                            struct dpu_sw_pipe_cfg=
+ **single_pipe_cfg,
+> >>>>> +                                            int stage_index)
+> >>>>> +{
+> >>>>> +     int pipe_idx, i, valid_pipe =3D 0;
+> >>>>> +
+> >>>>> +     for (i =3D 0; i < PIPES_PER_STAGE; i++) {
+> >>>>
+> >>>> Why do you need to loop here? Is there a case when pipe 0 is not
+> >>>> assigned, but pipe 1 is?
+> >>>
+> >>> Loop the pipe in a stage to count the valid pipes. If there are 2 val=
+id
+> >>> pipes in stage of the current plane, this function will return false.
+> >>> Or you prefer the below coding?
+> >>>
+> >>> 1029         pipe_idx =3D stage_index * PIPES_PER_STAGE;
+> >>> 1030         if (drm_rect_width(&pstate->pipe_cfg[pipe_idx].src_rect)=
+ !=3D 0 &&
+> >>> 1031             drm_rect_width(&pstate->pipe_cfg[pipe_idx +
+> >>> 1].src_rect) =3D=3D 0) {
+> >>
+> >> Yes, this is better from my POV. But the bigger question is why do you
+> >> need it at all? What is wrong with the existing check? Can it be that
+> >> pipe0 is not used, but pipe1 is used?
 > >
-> > On Mon, Jul 28, 2025 at 3:15=E2=80=AFPM Rob Clark <rob.clark@oss.qualco=
-mm.com> wrote:
-> > >
-> > > On Mon, Jul 28, 2025 at 2:04=E2=80=AFPM Connor Abbott <cwabbott0@gmai=
-l.com> wrote:
-> > > >
-> > > > On Mon, Jul 28, 2025 at 4:43=E2=80=AFPM Rob Clark <robin.clark@oss.=
-qualcomm.com> wrote:
-> > > > >
-> > > > > This is needed to properly interpret some of the sections.
-> > > > >
-> > > > > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 ++
-> > > > >  1 file changed, 2 insertions(+)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/driver=
-s/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> > > > > index faca2a0243ab..e586577e90de 100644
-> > > > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> > > > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> > > > > @@ -1796,6 +1796,7 @@ static void a7xx_show_shader(struct a6xx_gp=
-u_state_obj *obj,
-> > > > >
-> > > > >         print_name(p, "  - type: ", a7xx_statetype_names[block->s=
-tatetype]);
-> > > > >         print_name(p, "    - pipe: ", a7xx_pipe_names[block->pipe=
-id]);
-> > > > > +       drm_printf(p, "    - location: %d", block->location);
-> > > >
-> > > > We should probably at least try to keep it proper YAML by indenting
-> > > > everything after another level...
-> > >
-> > > this made me realize I missed a \n... but otherwise I think the inden=
-t
-> > > is correct?  Or should location not have a leading '-'?
-> >
-> > beyond that, even without the added location field, some random online
-> > yaml checker is telling me that we were already not proper yaml.. so I
-> > guess, :shrug:?
-> >
-> > BR,
-> > -R
+> > There is no case that pipe0 is not used, but pipe1 is used. Existing ch=
+eck
+> > does not filter the plane which contains single pipe in a stage, which =
+can
+> > be a candidate for SSPP sharing. If the stage contains 2 valid pipes or
+> > no valid pipes, it is skipped in dpu_plane_try_multirect_shared(), or i=
+t is
+> > skipped to be stored in prev_adjacent_plane_state[].
 >
-> Before this change, it looked like this:
+> Oh, I see, you need to check both pipes because you might need to skip
+> it completely. I'd really prefer to have more explicit code:
 >
->   - pipe: A7XX_PIPE_BR
->     - cluster-name: A7XX_CLUSTER_SP_PS
->       - context: 3
->         - { offset: 0x02a718, value: 0x00000003 }
->         ...
->
-> Notice that each nested thing (pipe -> cluster -> context) has an
-> additional level of indentation. Now, it looks like this:
->
->   - pipe: A7XX_PIPE_BR
->     - cluster-name: A7XX_CLUSTER_SP_PS
->       - context: 3
->       - location: 4
->         - { offset: 0x02a718, value: 0x00000003 }
->         ...
->
-> So it looks a bit weird with the context and location not being
-> nested. Also, I think the correct nesting HW-wise is cluster ->
-> location -> context, rather than context-> location, so the location
-> should be first. But ultimately it's up to you.
+> - check for pipe0, skip this part of the plane if there is none
+> - check for pipe1, if there is none, it's a candidate for sharing.
 
-In terms of nesting, type, pipe, and location are all at the same
-level, and then for that tuple there is SPs nested under that, and
-then USPTPs nested under the SPs.  Although I guess we already had
-pipe nested under type..
+Yeah, this is the logic of the current implementation. So the your only
+concern is the loop. Will remove the loop as above code.
 
-BR,
--R
+>
+> If that becomes too ugly, then yes, explicit check for pipe0 and pipe1
+> are better than a loop.
+>
+> >
+> >>
+> >>> 1032                         if (single_pipe)
+> >>
+> >> You don't need these ifs. You always pass a valid pointer.
+> >
+> > OK, a valid pointer can be passed though the return value may not be ne=
+eded.
+>
+> You are always passing a valid pointer there. If at any point we add
+> other usage, then we'd need to add this if.
+>
+> >>
+> >>> 1033                                 *single_pipe =3D &pstate->pipe[p=
+ipe_idx];
+> >>> 1034                         if (single_pipe_cfg)
+> >>> 1035                                 *single_pipe_cfg =3D
+> >>> &pstate->pipe_cfg[pipe_idx];
+> >>> 1036                 return true;
+> >>> 1037         }
+> >>> 1038
+> >>> 1039         return false;
+> >>>
+> >>>>
+> >>>>> +             pipe_idx =3D stage_index * PIPES_PER_STAGE + i;
+> >>>>> +             if (drm_rect_width(&pstate->pipe_cfg[pipe_idx].src_re=
+ct) !=3D 0) {
+> >>>>> +                     valid_pipe++;
+> >>>>> +                     if (valid_pipe > 1)
+> >>>>> +                             return false;
+> >>>>> +
+> >>>>> +                     if (single_pipe)
+> >>>>> +                             *single_pipe =3D &pstate->pipe[pipe_i=
+dx];
+> >>>>> +                     if (single_pipe_cfg)
+> >>>>> +                             *single_pipe_cfg =3D &pstate->pipe_cf=
+g[pipe_idx];
+> >>>>> +             }
+> >>>>> +     }
+> >>>>> +
+> >>>>> +     return valid_pipe =3D=3D 1;
+> >>>>> +}
+> >>>>> +
+> >>>>>    static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
+> >>>>>                                        struct drm_atomic_state *sta=
+te,
+> >>>>>                                        const struct drm_crtc_state =
+*crtc_state)
+> >>>>> @@ -1023,17 +1047,20 @@ static bool dpu_plane_try_multirect_paralle=
+l(struct dpu_sw_pipe *pipe, struct dp
+> >>>>>    static int dpu_plane_try_multirect_shared(struct dpu_plane_state=
+ *pstate,
+> >>>>>                                           struct dpu_plane_state *p=
+rev_adjacent_pstate,
+> >>>>>                                           const struct msm_format *=
+fmt,
+> >>>>> -                                       uint32_t max_linewidth)
+> >>>>> +                                       uint32_t max_linewidth, int=
+ stage_index)
+> >>>>>    {
+> >>>>> -     struct dpu_sw_pipe *pipe =3D &pstate->pipe[0];
+> >>>>> -     struct dpu_sw_pipe *r_pipe =3D &pstate->pipe[1];
+> >>>>> -     struct dpu_sw_pipe_cfg *pipe_cfg =3D &pstate->pipe_cfg[0];
+> >>>>> -     struct dpu_sw_pipe *prev_pipe =3D &prev_adjacent_pstate->pipe=
+[0];
+> >>>>> -     struct dpu_sw_pipe_cfg *prev_pipe_cfg =3D &prev_adjacent_psta=
+te->pipe_cfg[0];
+> >>>>> +     struct dpu_sw_pipe *pipe, *prev_pipe;
+> >>>>> +     struct dpu_sw_pipe_cfg *pipe_cfg, *prev_pipe_cfg;
+> >>>>>         const struct msm_format *prev_fmt =3D msm_framebuffer_forma=
+t(prev_adjacent_pstate->base.fb);
+> >>>>>         u16 max_tile_height =3D 1;
+> >>>>>
+> >>>>> -     if (prev_adjacent_pstate->pipe[1].sspp !=3D NULL ||
+> >>>>> +     if (!dpu_plane_get_single_pipe_in_stage(pstate, &pipe,
+> >>>>> +                                             &pipe_cfg, stage_inde=
+x))
+> >>>>> +             return false;
+
+The current stage is tested with a single valid pipe, skipped if false.
+
+> >>>>> +
+> >>>>> +     if (!dpu_plane_get_single_pipe_in_stage(prev_adjacent_pstate,
+> >>>>> +                                             &prev_pipe, &prev_pip=
+e_cfg,
+> >>>>> +                                             stage_index) ||
+> >>>>>             prev_pipe->multirect_mode !=3D DPU_SSPP_MULTIRECT_NONE)
+> >>>>>                 return false;
+> >>>>>
+> >>>>> @@ -1048,11 +1075,6 @@ static int dpu_plane_try_multirect_shared(st=
+ruct dpu_plane_state *pstate,
+> >>>>>         if (MSM_FORMAT_IS_UBWC(prev_fmt))
+> >>>>>                 max_tile_height =3D max(max_tile_height, prev_fmt->=
+tile_height);
+> >>>>>
+> >>>>> -     r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> >>>>> -     r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
+> >>>>> -
+> >>>>> -     r_pipe->sspp =3D NULL;
+> >>>>> -
+> >>>>>         if (dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewi=
+dth) &&
+> >>>>>             dpu_plane_is_parallel_capable(prev_pipe_cfg, prev_fmt, =
+max_linewidth) &&
+> >>>>>             (pipe_cfg->dst_rect.x1 >=3D prev_pipe_cfg->dst_rect.x2 =
+||
+> >>>>> @@ -1181,36 +1203,69 @@ static int dpu_plane_virtual_atomic_check(s=
+truct drm_plane *plane,
+> >>>>>         return 0;
+> >>>>>    }
+> >>>>>
+> >>>>> +static int dpu_plane_assign_resource_in_stage(struct dpu_sw_pipe *=
+pipe,
+> >>>>> +                                           struct dpu_sw_pipe_cfg =
+*pipe_cfg,
+> >>>>> +                                           struct drm_plane_state =
+*plane_state,
+> >>>>> +                                           struct dpu_global_state=
+ *global_state,
+> >>>>> +                                           struct drm_crtc *crtc,
+> >>>>> +                                           struct dpu_rm_sspp_requ=
+irements *reqs)
+> >>>>> +{
+> >>>>> +     struct drm_plane *plane =3D plane_state->plane;
+> >>>>> +     struct dpu_kms *dpu_kms =3D _dpu_plane_get_kms(plane);
+> >>>>> +     struct dpu_sw_pipe *r_pipe =3D pipe + 1;
+> >>>>> +     struct dpu_sw_pipe_cfg *r_pipe_cfg =3D pipe_cfg + 1;
+> >>>>> +
+> >>>>> +     if (drm_rect_width(&pipe_cfg->src_rect) !=3D 0) {
+> >>>>> +             pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, glob=
+al_state, crtc, reqs);
+> >>>>> +             if (!pipe->sspp)
+> >>>>> +                     return -ENODEV;
+> >>>>> +             pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> >>>>> +             pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
+> >>>>> +     }
+> >>>>> +
+> >>>>> +     if (drm_rect_width(&r_pipe_cfg->src_rect) !=3D 0 &&
+> >>>>> +         dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, =
+r_pipe_cfg,
+> >>>>> +                                           pipe->sspp,
+> >>>>> +                                           msm_framebuffer_format(=
+plane_state->fb),
+> >>>>> +                                           dpu_kms->catalog->caps-=
+>max_linewidth))
+> >>>>> +             goto stage_assinged;
+> >>>>> +
+> >>>>> +     if (drm_rect_width(&r_pipe_cfg->src_rect) !=3D 0) {
+> >>>>> +             r_pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, gl=
+obal_state, crtc, reqs);
+> >>>>> +             if (!r_pipe->sspp)
+> >>>>> +                     return -ENODEV;
+> >>>>> +             r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> >>>>> +             r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
+> >>>>> +     }
+> >>>>> +
+> >>>>> +stage_assinged:
+> >>>>> +     return 0;
+> >>>>> +}
+> >>>>> +
+> >>>>>    static int dpu_plane_virtual_assign_resources(struct drm_crtc *c=
+rtc,
+> >>>>>                                               struct dpu_global_sta=
+te *global_state,
+> >>>>>                                               struct drm_atomic_sta=
+te *state,
+> >>>>>                                               struct drm_plane_stat=
+e *plane_state,
+> >>>>> -                                           struct drm_plane_state =
+*prev_adjacent_plane_state)
+> >>>>> +                                           struct drm_plane_state =
+**prev_adjacent_plane_state)
+> >>>>>    {
+> >>>>>         const struct drm_crtc_state *crtc_state =3D NULL;
+> >>>>>         struct drm_plane *plane =3D plane_state->plane;
+> >>>>>         struct dpu_kms *dpu_kms =3D _dpu_plane_get_kms(plane);
+> >>>>>         struct dpu_rm_sspp_requirements reqs;
+> >>>>> -     struct dpu_plane_state *pstate, *prev_adjacent_pstate;
+> >>>>> +     struct dpu_plane_state *pstate, *prev_adjacent_pstate[STAGES_=
+PER_PLANE];
+> >>>>>         struct dpu_sw_pipe *pipe;
+> >>>>> -     struct dpu_sw_pipe *r_pipe;
+> >>>>>         struct dpu_sw_pipe_cfg *pipe_cfg;
+> >>>>> -     struct dpu_sw_pipe_cfg *r_pipe_cfg;
+> >>>>>         const struct msm_format *fmt;
+> >>>>> -     int i;
+> >>>>> +     int i, ret;
+> >>>>>
+> >>>>>         if (plane_state->crtc)
+> >>>>>                 crtc_state =3D drm_atomic_get_new_crtc_state(state,
+> >>>>>                                                            plane_st=
+ate->crtc);
+> >>>>>
+> >>>>>         pstate =3D to_dpu_plane_state(plane_state);
+> >>>>> -     prev_adjacent_pstate =3D prev_adjacent_plane_state ?
+> >>>>> -             to_dpu_plane_state(prev_adjacent_plane_state) : NULL;
+> >>>>> -
+> >>>>> -     pipe =3D &pstate->pipe[0];
+> >>>>> -     r_pipe =3D &pstate->pipe[1];
+> >>>>> -     pipe_cfg =3D &pstate->pipe_cfg[0];
+> >>>>> -     r_pipe_cfg =3D &pstate->pipe_cfg[1];
+> >>>>> +     for (i =3D 0; i < STAGES_PER_PLANE; i++)
+> >>>>> +             prev_adjacent_pstate[i] =3D prev_adjacent_plane_state=
+[i] ?
+> >>>>> +                     to_dpu_plane_state(prev_adjacent_plane_state[=
+i]) : NULL;
+> >>>>>
+> >>>>>         for (i =3D 0; i < PIPES_PER_PLANE; i++)
+> >>>>>                 pstate->pipe[i].sspp =3D NULL;
+> >>>>> @@ -1225,42 +1280,27 @@ static int dpu_plane_virtual_assign_resourc=
+es(struct drm_crtc *crtc,
+> >>>>>
+> >>>>>         reqs.rot90 =3D drm_rotation_90_or_270(plane_state->rotation=
+);
+> >>>>>
+> >>>>> -     if (drm_rect_width(&r_pipe_cfg->src_rect) =3D=3D 0) {
+> >>>>> -             if (!prev_adjacent_pstate ||
+> >>>>> -                 !dpu_plane_try_multirect_shared(pstate, prev_adja=
+cent_pstate, fmt,
+> >>>>> -                                                 dpu_kms->catalog-=
+>caps->max_linewidth)) {
+> >>>>> -                     pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->=
+rm, global_state, crtc, &reqs);
+> >>>>> -                     if (!pipe->sspp)
+> >>>>> -                             return -ENODEV;
+> >>>>> -
+> >>>>> -                     r_pipe->sspp =3D NULL;
+> >>>>> +     for (i =3D 0; i < STAGES_PER_PLANE; i++) {
+> >>>>> +             if (!prev_adjacent_pstate[i])
+> >>>>> +                     goto assignment;
+> >>>>>
+> >>>>> -                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> >>>>> -                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_N=
+ONE;
+> >>>>> -
+> >>>>> -                     r_pipe->multirect_index =3D DPU_SSPP_RECT_SOL=
+O;
+> >>>>> -                     r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT=
+_NONE;
+> >>>>> -             }
+> >>>>> -     } else {
+> >>>>> -             pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms->rm, glob=
+al_state, crtc, &reqs);
+> >>>>> -             if (!pipe->sspp)
+> >>>>> -                     return -ENODEV;
+> >>>>> -
+> >>>>> -             if (!dpu_plane_try_multirect_parallel(pipe, pipe_cfg,=
+ r_pipe, r_pipe_cfg,
+> >>>>> -                                                   pipe->sspp,
+> >>>>> -                                                   msm_framebuffer=
+_format(plane_state->fb),
+> >>>>> -                                                   dpu_kms->catalo=
+g->caps->max_linewidth)) {
+> >>>>> -                     /* multirect is not possible, use two SSPP bl=
+ocks */
+> >>>>> -                     r_pipe->sspp =3D dpu_rm_reserve_sspp(&dpu_kms=
+->rm, global_state, crtc, &reqs);
+> >>>>> -                     if (!r_pipe->sspp)
+> >>>>> -                             return -ENODEV;
+> >>>>> +             if (dpu_plane_try_multirect_shared(pstate, prev_adjac=
+ent_pstate[i], fmt,
+> >>>>> +                                                dpu_kms->catalog->=
+caps->max_linewidth,
+> >>>>> +                                                i))
+> >>>>> +                     continue;
+> >>>>
+> >>>>
+> >>>> if (prev_adjacent_pstate[i] &&
+> >>>>       dpu_plane_try_multirect_shared())
+> >>>>           continue;
+> >>>>
+> >>>> No need for the goto.
+> >>>
+> >>> Right, it will be simpler.
+> >>>>
+> >>>>>
+> >>>>> -                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> >>>>> -                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_N=
+ONE;
+> >>>>> +assignment:
+> >>>>> +             if (dpu_plane_get_single_pipe_in_stage(pstate, NULL, =
+NULL, i))
+> >>>>> +                     prev_adjacent_plane_state[i] =3D plane_state;
+
+Only plane with a stage that contains a single valid pipe will be the
+candidate for later
+planes. Since it is current plane to be allocated with SSPP, and it
+fails to share SSPP
+with the previous plane in above code, so there is no need to get the
+valid pipe here.
+Thus the pointer for dpu_plane_get_single_pipe_in_stage() is NULL.
+
+> >>>>>
+> >>>>> -                     r_pipe->multirect_index =3D DPU_SSPP_RECT_SOL=
+O;
+> >>>>> -                     r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT=
+_NONE;
+> >>>>> -             }
+> >>>>> +             pipe =3D &pstate->pipe[i * PIPES_PER_STAGE];
+> >>>>> +             pipe_cfg =3D &pstate->pipe_cfg[i * PIPES_PER_STAGE];
+> >>>>> +             ret =3D dpu_plane_assign_resource_in_stage(pipe, pipe=
+_cfg,
+> >>>>> +                                                      plane_state,
+> >>>>> +                                                      global_state=
+,
+> >>>>> +                                                      crtc, &reqs)=
+;
+> >>>>> +             if (ret)
+> >>>>> +                     return ret;
+> >>>>>         }
+> >>>>>
+> >>>>>         return dpu_plane_atomic_check_sspp(plane, state, crtc_state=
+);
+> >>>>> @@ -1273,7 +1313,7 @@ int dpu_assign_plane_resources(struct dpu_glo=
+bal_state *global_state,
+> >>>>>                                unsigned int num_planes)
+> >>>>>    {
+> >>>>>         unsigned int i;
+> >>>>> -     struct drm_plane_state *prev_adjacent_plane_state =3D NULL;
+> >>>>> +     struct drm_plane_state *prev_adjacent_plane_state[STAGES_PER_=
+PLANE] =3D { NULL };
+> >>>>>
+> >>>>>         for (i =3D 0; i < num_planes; i++) {
+> >>>>>                 struct drm_plane_state *plane_state =3D states[i];
+> >>>>> @@ -1284,11 +1324,9 @@ int dpu_assign_plane_resources(struct dpu_gl=
+obal_state *global_state,
+> >>>>>
+> >>>>>                 int ret =3D dpu_plane_virtual_assign_resources(crtc=
+, global_state,
+> >>>>>                                                              state,=
+ plane_state,
+> >>>>> -                                                          prev_adj=
+acent_plane_state);
+> >>>>> +                                                          &prev_ad=
+jacent_plane_state[0]);
+> >>>>
+> >>>> It's exactly the prev_adjacent_plane_state.
+> >>>
+> >>> Yes, I will change it.
+> >>>
+> >>>>
+> >>>>>                 if (ret)
+> >>>>>                         break;
+> >>>>> -
+> >>>>> -             prev_adjacent_plane_state =3D plane_state;
+> >>>>>         }
+> >>>>>
+> >>>>>         return 0;
+> >>>>>
+> >>>>> --
+> >>>>> 2.34.1
+> >>>>>
+> >>>>
+> >>>> --
+> >>>> With best wishes
+> >>>> Dmitry
+> >>
+> >>
+> >> --
+> >> With best wishes
+> >> Dmitry
+>
+>
+> --
+> With best wishes
+> Dmitry
