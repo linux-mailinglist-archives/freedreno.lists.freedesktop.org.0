@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D714B186FA
+	by mail.lfdr.de (Postfix) with ESMTPS id 9341DB186FD
 	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 20:00:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C55210E8DE;
-	Fri,  1 Aug 2025 18:00:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E3BE10E8E6;
+	Fri,  1 Aug 2025 18:00:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="d6czJdrb";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kKlD83Pp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB3F010E8DA
- for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 18:00:21 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 571Hf9iG001001
- for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 18:00:21 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD48910E8DD
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 18:00:23 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 571HfOT0028475
+ for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 18:00:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=hi1vgMO0Vv7
- J21nNKfYLDG2T1ayUhJgydMOm04m2eGY=; b=d6czJdrbXACfHnZPn6JhECTGRA3
- mTXLVnmT7RJABZleG2bEQfdlPuaRDGH9xFvd23aQ85qz26JZRjUUs/+DVD8+RuTB
- 99ovOLDtgKNVhmiTQCe2a8VWClrKwdwAfwbQ6Du0iwWKnrJJ5j1JxzGX69lt/PMx
- Q15/Y7/zPHnzaVeMh5vVvZeEuzK8jlAo9TRMJAC4lOIZYuUSRGzxOoX++LqVyJaz
- UBh3EWzgyRXPPZRadC/Nb0uYIzIb29MTguRlN10ecV145yDOlhVusKV0yjjC4SHr
- i7NGWY7k0PZM45NhUfvzAQolgeUdmr2epa23em2vtJQGtX67fERg62TCyLA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 488wgrs274-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=c4KQRsxVztP
+ sTBbcxsf/rU0NN9GCrtgWESCaGZHxR9Y=; b=kKlD83PpUsSxT+R9tgtLKssh7oa
+ axtF6CJtuTg5VLR1lshYjT5/h82lbogM/aA8syWTCnGjh+JXEDBI9rsaZ0T1Iv6U
+ JihWXcgAAaUxL5EV36kx/BSpbuyYFRxK6J0QiTt19S+87SbaeNNWOm7d0nXOr5p3
+ QWbz2beTVcQgppV+Ok7D4tlCyFHXAIFcNED1k9B0l+RvIoxFI4ZLxiVjVW1AUio9
+ haVhuAL4ZSQHHGvyWvv/oQ+/6GKE+qsfbeMFuTzgJep3tY0OknlZcBvcFzVRqlQo
+ KZMKqEnEQIpeBtmWX+IGWLIwT6ayQiu3weljB1rfEHWIFqbBDKGuuOxOs+w==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484q86d5aa-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 18:00:21 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-b1ffc678adfso1861816a12.0
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 11:00:21 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 18:00:22 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b421b03d498so889071a12.3
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 11:00:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754071220; x=1754676020;
+ d=1e100.net; s=20230601; t=1754071222; x=1754676022;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hi1vgMO0Vv7J21nNKfYLDG2T1ayUhJgydMOm04m2eGY=;
- b=Z/i5JHuXd0EuJUD7vTw6wWF6efa0GlY3eV5Q461VfCt3mHp+0kA79fSv6Orl49qdS3
- CDCQr0t5rC7pijETy0km6/BhmNfYIjg4ojShh22PlcjkUsDczssZeRNARx23aUC10dy+
- 5s4EN22yUpOJUrV68IVI2+gl/mYRS5gX3FUJrQtRCbV2AjC0474Lev9gjOqCFqcZ/+eM
- qVrTGXi+xaVyHhX5yUcdR5O1WFMm/2n8kGmGwMuVgriBu8vZdnKPc5VHK+jP/cNo3GCz
- 4nbdGBcCkfYrHvAdfssdZbiv9FYRpc5kiLOwntU3TA5O9X6NATR7HGEviLknbbpzx9Xg
- It0Q==
+ bh=c4KQRsxVztPsTBbcxsf/rU0NN9GCrtgWESCaGZHxR9Y=;
+ b=bcZtvHmnuRhdcU0RlHwfe6eljicJLPv2sbA8KGPe3QlvHK9g2h2Jf9+f+mCK/mf3na
+ EtMmIlMSdcIIOpHArl3MPmJbb1XTzL7gh0JOPcu3VoPeOsRM74suHHRvqLUkMQ43d1BG
+ pyVoQY5dG4N8n3Sl0euhmkogMfYnJvOczCQnus82cQGMR8+Oqu0e3A3XNf3BvGULa8ar
+ KNuxP1L62zXI3vF7x/GfWnW3Rc/5j1zK9+wzkpdCh5H+7yVV16KUALoQmrPxTHyzXjx/
+ ZS4NY/fQZMbg1g3F9ZARIORyAoTodAcrLZ9wl7Vrc5vpR3P37gQTiloEM8DG0ovs+cTs
+ A3eA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVREk7MrA3T/sj5oLXUH80Ejj/mQfAzIRiGATVSxznT898+tXtBZek5uY6wGaHOBM0BdPCz95Y032w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwsDTyOwAcQYUxF81MXFJE1m2jTQmFtWKDEXSA+KuIJMWbIIdZi
- MHDQ/TQCgLkEL5I/OnTc0SxrrQTaRqzjT5qYBqkGLZ2bAkO1RBW1NSqe8PJ9F9ba7ytiKr/dgSU
- kiegDVIGFVm3lLsanX2sQCwRR/8Dsc0+KwT/BCbzRD7nKsr72QQUls/UW7kwPCmDVfQBiT9U=
-X-Gm-Gg: ASbGnctx0/aa8+hY/xkOSc32c1ALSozeCK+M3EQpuQ/ZsQhsXotHCKFjB8xMvx3BaDG
- 0q8A43WpjzReNQD9gQgdWHsPqGekfdc30/YCNhhlYJJNAN8YaaCuQ57BOVWQ+bImn0NVfD8Do+C
- GoiKdVsF3Qfi69MrB778RYQ+7W1h1OdfUjZ+ZkssFJs3flSpSXzlyaSqcrtjgp4A0k9INWgLvQJ
- EJG2qjyzQGqAV7tMZ5zJVLLWsvpywboGNCOHSjoYWZD/qqtIa0ghPWh9ESvCrxO4/fQtd0bQMV2
- IDpuJaPAl60Q+wvEReckkvNp21m24Aig2D9woIGbyLFABMhrrB8=
-X-Received: by 2002:a05:6a20:7486:b0:22d:fd6:95e0 with SMTP id
- adf61e73a8af0-23df8fa1de7mr868831637.11.1754071220358; 
- Fri, 01 Aug 2025 11:00:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE6mgJb3hkI3FjCFdZoHfiotilqYID1iNK88urHoLYa/fSW4RsyuIEp7AhFOrCT6Y4ZIAhoow==
-X-Received: by 2002:a05:6a20:7486:b0:22d:fd6:95e0 with SMTP id
- adf61e73a8af0-23df8fa1de7mr868773637.11.1754071219906; 
- Fri, 01 Aug 2025 11:00:19 -0700 (PDT)
+ AJvYcCXgiihMS62Pla79KjFmPRub0wrIohh5NmHXWAKoBBYU3ECx7M+Noio0r+Gn42g6eqWMWO7Nc4N8T68=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwNKuzbzF/6i9Fa8yna50wWJM9HnNWH7CD7OWSnNeajwzTm2xkP
+ 0o7nFplTZSwvBjmSsq/l3DZKH4lcogfoqCuKZ7HZaoEqAMWoFNLYwji6kFJ+fPLySRVlhltQWWB
+ xx+NaNBi4zpbsYtEH18zft46B/ReoGBz0p/cZnEJy2+XPI123PcmtjZoidXhWyPzrLzhPsnc=
+X-Gm-Gg: ASbGncufLhmy7owDPY7uR+dhjq7DKDoI5tKv6R+K1YOkRhPNiFFq5LJSraPgmrtphon
+ LeA36+QkZgSyholW0+aAKUtySaI424VtqpXlj4mfYRgCj+VJT0wSCMa9AmjTkzej57E0JVzg4yy
+ nJ/x3IouFwakvxBi0LIBLBvau+jp0wt6f51MuN61HfAW90qGj9eeBr3mKPu+7tGhZXLx/G2ceP2
+ VOkS/PC0M5adqjN/NiNik5+QDunHuGpVYUA+P2LNCWbbcBN1wLOY/Gxru6y/IfXqWeHWa1lOR40
+ fWLrIHt1kRcico6tEHxjfjlq2YeAeeeQTLEr22lFgbnzOOTlLxc=
+X-Received: by 2002:a17:90b:1d4c:b0:312:959:dc42 with SMTP id
+ 98e67ed59e1d1-321161f13afmr971400a91.11.1754071222057; 
+ Fri, 01 Aug 2025 11:00:22 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHuZ5/YHyU5W5/PGpq9mfkW8lN3EVfPrvr2fz5DIS9QKgNMf1X1fXg1DmF3I6ux4H1PpGawMA==
+X-Received: by 2002:a17:90b:1d4c:b0:312:959:dc42 with SMTP id
+ 98e67ed59e1d1-321161f13afmr971344a91.11.1754071221443; 
+ Fri, 01 Aug 2025 11:00:21 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b422baedf5csm4238296a12.47.2025.08.01.11.00.19
+ 41be03b00d2f7-b422bb0be58sm3946576a12.57.2025.08.01.11.00.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Aug 2025 11:00:19 -0700 (PDT)
+ Fri, 01 Aug 2025 11:00:20 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -83,35 +83,35 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3 4/7] drm/msm: Constify snapshot tables
-Date: Fri,  1 Aug 2025 11:00:01 -0700
-Message-ID: <20250801180009.345662-5-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v3 5/7] drm/msm: Fix a7xx debugbus read
+Date: Fri,  1 Aug 2025 11:00:02 -0700
+Message-ID: <20250801180009.345662-6-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250801180009.345662-1-robin.clark@oss.qualcomm.com>
 References: <20250801180009.345662-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=fs7cZE4f c=1 sm=1 tr=0 ts=688d00b5 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
- a=EUspDBNiAAAA:8 a=3YnKlkqyfxy5QV46dWoA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: QKiaoa_FPAhcnEXCoU7_CiL-DRpkAh_N
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDEzOCBTYWx0ZWRfX93yLtYq7Pa+v
- vYp/I7CkS1+vtwXXaPGJmwgOPhx5hYWZ9qsh0R1TTnjycODM5SfI8ufMRKc5FvFKhs39gnBH8qd
- KkdVBCa4ekMtK7Xjwe575Cb1xhBir2Fo64EXVd9lNAsi4jrNdE3QuE0XpkTkThArAhikhb+4SVu
- Ivd0YknHeJcE9RAnZH19qLoLpFDBZIOtu00SHNZUBFQRjweoTZiocPSBSVSfhe+hfJTe3OF6dSQ
- rugC3G6wRjXKB62Iqnq1M9Y6siG61F3NL3P+g0VyvNsd726jIY4wC7oU6ff4JfkyrODbgJcyogU
- M3iUwYVpWkW8hhMZA5ph5GFhJQrY0N+Hr0MkSIIjlMialbTGLh4OCuRwrCnwxUZbqciPbh3cZgf
- dGX2EyZQ4sl0XZMDLIm9S1C2grK/hQOPVa+MZ0vst3ZT7g1t2GUFqsogBGHRvRSoc6ggd+Qx
-X-Proofpoint-ORIG-GUID: QKiaoa_FPAhcnEXCoU7_CiL-DRpkAh_N
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDE0MSBTYWx0ZWRfX5c8jWAIQPNw3
+ zaQ4AdjcPt6+6EjSIcG6S33WYvs+4xEsNTWhdkaUtnZSVXrzlyandwhC+ZfJqKIefeAVbEoaOWN
+ dQl0HcsfHUOdFmZcNAzuy8T3acwjD/78OMOw9InyXU2qgfMv+SnxhSWr+4+gnl0PhUYriyKVCg7
+ NNe25/D71j0dRiszh2yWRU9pjvRbLV5YWW8c5EjS6NtmBqxj7Jxuy28KnLJJPaF014w+l+uprSe
+ +83Izuom7JR/4Y8ZD57ygzMkKZT253+j2Gba6m+K8EAw5yRAC5AemXDbFWkJeEvJQ8AD/aS6yVQ
+ FM0wJAU1iYVomQ9X1fO6UrZzat6FSyPokTgmb2LQPGkchqdbO5UNGmBLgwJQAUlterWAJBwTI0i
+ +T0GpQtSESMw7dEvdyWlJ0YEauvEg99WBoDUh0KNO2GBFZ7myHtNePB3awcpgWI3Mse882Pt
+X-Authority-Analysis: v=2.4 cv=TqLmhCXh c=1 sm=1 tr=0 ts=688d00b7 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
+ a=EUspDBNiAAAA:8 a=aM-jV3debDdmslfU2skA:9 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-ORIG-GUID: 4Oe0GxlkMsyQOSEOFOjsz0f7TA6xdTz_
+X-Proofpoint-GUID: 4Oe0GxlkMsyQOSEOFOjsz0f7TA6xdTz_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-01_06,2025-08-01_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 mlxscore=0 lowpriorityscore=0
- adultscore=0 priorityscore=1501 phishscore=0 mlxlogscore=999 impostorscore=0
- bulkscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2508010138
+ mlxscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 spamscore=0 priorityscore=1501 clxscore=1015
+ impostorscore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2508010141
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,159 +127,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A bit of divergence from the downstream driver from which these headers
-were imported.  But no need for these tables not to be const.
+The bitfield positions changed in a7xx.
+
+v2: Don't open-code the bitfield building
+v3: Also fix cx_debugbus
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c           |  2 +-
- drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h |  8 ++++----
- drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h |  8 ++++----
- drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h | 10 +++++-----
- 4 files changed, 14 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c   | 32 ++++++++++++++-----
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 14 +++++++-
+ 2 files changed, 37 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 5204b28fd7f9..173c14f215a7 100644
+index 173c14f215a7..2c7a52fb0b9b 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -11,7 +11,7 @@
- static const unsigned int *gen7_0_0_external_core_regs[] __always_unused;
- static const unsigned int *gen7_2_0_external_core_regs[] __always_unused;
- static const unsigned int *gen7_9_0_external_core_regs[] __always_unused;
--static struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] __always_unused;
-+static const struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] __always_unused;
- static const u32 gen7_9_0_cx_debugbus_blocks[] __always_unused;
+@@ -174,8 +174,15 @@ static int a6xx_crashdumper_run(struct msm_gpu *gpu,
+ static int debugbus_read(struct msm_gpu *gpu, u32 block, u32 offset,
+ 		u32 *data)
+ {
+-	u32 reg = A6XX_DBGC_CFG_DBGBUS_SEL_D_PING_INDEX(offset) |
+-		A6XX_DBGC_CFG_DBGBUS_SEL_D_PING_BLK_SEL(block);
++	u32 reg;
++
++	if (to_adreno_gpu(gpu)->info->family >= ADRENO_7XX_GEN1) {
++		reg = A7XX_DBGC_CFG_DBGBUS_SEL_D_PING_INDEX(offset) |
++			A7XX_DBGC_CFG_DBGBUS_SEL_D_PING_BLK_SEL(block);
++	} else {
++		reg = A6XX_DBGC_CFG_DBGBUS_SEL_D_PING_INDEX(offset) |
++			A6XX_DBGC_CFG_DBGBUS_SEL_D_PING_BLK_SEL(block);
++	}
  
- #include "adreno_gen7_0_0_snapshot.h"
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h
-index cb66ece6606b..afcc7498983f 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h
-@@ -81,7 +81,7 @@ static const u32 gen7_0_0_debugbus_blocks[] = {
- 	A7XX_DBGBUS_USPTP_7,
- };
+ 	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_A, reg);
+ 	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_B, reg);
+@@ -198,11 +205,18 @@ static int debugbus_read(struct msm_gpu *gpu, u32 block, u32 offset,
+ 	readl((ptr) + ((offset) << 2))
  
--static struct gen7_shader_block gen7_0_0_shader_blocks[] = {
-+static const struct gen7_shader_block gen7_0_0_shader_blocks[] = {
- 	{A7XX_TP0_TMO_DATA,                 0x200, 4, 2, A7XX_PIPE_BR, A7XX_USPTP},
- 	{A7XX_TP0_SMO_DATA,                  0x80, 4, 2, A7XX_PIPE_BR, A7XX_USPTP},
- 	{A7XX_TP0_MIPMAP_BASE_DATA,         0x3c0, 4, 2, A7XX_PIPE_BR, A7XX_USPTP},
-@@ -695,7 +695,7 @@ static const struct gen7_sel_reg gen7_0_0_rb_rbp_sel = {
- 	.val = 0x9,
- };
+ /* read a value from the CX debug bus */
+-static int cx_debugbus_read(void __iomem *cxdbg, u32 block, u32 offset,
++static int cx_debugbus_read(struct msm_gpu *gpu, void __iomem *cxdbg, u32 block, u32 offset,
+ 		u32 *data)
+ {
+-	u32 reg = A6XX_CX_DBGC_CFG_DBGBUS_SEL_A_PING_INDEX(offset) |
+-		A6XX_CX_DBGC_CFG_DBGBUS_SEL_A_PING_BLK_SEL(block);
++	u32 reg;
++
++	if (to_adreno_gpu(gpu)->info->family >= ADRENO_7XX_GEN1) {
++		reg = A7XX_CX_DBGC_CFG_DBGBUS_SEL_A_PING_INDEX(offset) |
++			A7XX_CX_DBGC_CFG_DBGBUS_SEL_A_PING_BLK_SEL(block);
++	} else {
++		reg = A6XX_CX_DBGC_CFG_DBGBUS_SEL_A_PING_INDEX(offset) |
++			A6XX_CX_DBGC_CFG_DBGBUS_SEL_A_PING_BLK_SEL(block);
++	}
  
--static struct gen7_cluster_registers gen7_0_0_clusters[] = {
-+static const struct gen7_cluster_registers gen7_0_0_clusters[] = {
- 	{ A7XX_CLUSTER_NONE, A7XX_PIPE_BR, STATE_NON_CONTEXT,
- 		gen7_0_0_noncontext_pipe_br_registers, },
- 	{ A7XX_CLUSTER_NONE, A7XX_PIPE_BV, STATE_NON_CONTEXT,
-@@ -764,7 +764,7 @@ static struct gen7_cluster_registers gen7_0_0_clusters[] = {
- 		gen7_0_0_vpc_cluster_vpc_ps_pipe_bv_registers, },
- };
+ 	cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_SEL_A, reg);
+ 	cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_SEL_B, reg);
+@@ -315,7 +329,8 @@ static void a6xx_get_debugbus_block(struct msm_gpu *gpu,
+ 		ptr += debugbus_read(gpu, block->id, i, ptr);
+ }
  
--static struct gen7_sptp_cluster_registers gen7_0_0_sptp_clusters[] = {
-+static const struct gen7_sptp_cluster_registers gen7_0_0_sptp_clusters[] = {
- 	{ A7XX_CLUSTER_NONE, A7XX_SP_NCTX_REG, A7XX_PIPE_BR, 0, A7XX_HLSQ_STATE,
- 		gen7_0_0_sp_noncontext_pipe_br_hlsq_state_registers, 0xae00 },
- 	{ A7XX_CLUSTER_NONE, A7XX_SP_NCTX_REG, A7XX_PIPE_BR, 0, A7XX_SP_TOP,
-@@ -914,7 +914,7 @@ static const u32 gen7_0_0_dpm_registers[] = {
- };
- static_assert(IS_ALIGNED(sizeof(gen7_0_0_dpm_registers), 8));
+-static void a6xx_get_cx_debugbus_block(void __iomem *cxdbg,
++static void a6xx_get_cx_debugbus_block(struct msm_gpu *gpu,
++		void __iomem *cxdbg,
+ 		struct a6xx_gpu_state *a6xx_state,
+ 		const struct a6xx_debugbus_block *block,
+ 		struct a6xx_gpu_state_obj *obj)
+@@ -330,7 +345,7 @@ static void a6xx_get_cx_debugbus_block(void __iomem *cxdbg,
+ 	obj->handle = block;
  
--static struct gen7_reg_list gen7_0_0_reg_list[] = {
-+static const struct gen7_reg_list gen7_0_0_reg_list[] = {
- 	{ gen7_0_0_gpu_registers, NULL },
- 	{ gen7_0_0_cx_misc_registers, NULL },
- 	{ gen7_0_0_dpm_registers, NULL },
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h
-index 6f8ad50f32ce..6569f12bf12f 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h
-@@ -95,7 +95,7 @@ static const u32 gen7_2_0_debugbus_blocks[] = {
- 	A7XX_DBGBUS_CCHE_2,
- };
+ 	for (ptr = obj->data, i = 0; i < block->count; i++)
+-		ptr += cx_debugbus_read(cxdbg, block->id, i, ptr);
++		ptr += cx_debugbus_read(gpu, cxdbg, block->id, i, ptr);
+ }
  
--static struct gen7_shader_block gen7_2_0_shader_blocks[] = {
-+static const struct gen7_shader_block gen7_2_0_shader_blocks[] = {
- 	{A7XX_TP0_TMO_DATA,                 0x200, 6, 2, A7XX_PIPE_BR, A7XX_USPTP},
- 	{A7XX_TP0_SMO_DATA,                  0x80, 6, 2, A7XX_PIPE_BR, A7XX_USPTP},
- 	{A7XX_TP0_MIPMAP_BASE_DATA,         0x3c0, 6, 2, A7XX_PIPE_BR, A7XX_USPTP},
-@@ -489,7 +489,7 @@ static const struct gen7_sel_reg gen7_2_0_rb_rbp_sel = {
- 	.val = 0x9,
- };
+ static void a6xx_get_debugbus_blocks(struct msm_gpu *gpu,
+@@ -526,7 +541,8 @@ static void a6xx_get_debugbus(struct msm_gpu *gpu,
+ 			int i;
  
--static struct gen7_cluster_registers gen7_2_0_clusters[] = {
-+static const struct gen7_cluster_registers gen7_2_0_clusters[] = {
- 	{ A7XX_CLUSTER_NONE, A7XX_PIPE_BR, STATE_NON_CONTEXT,
- 		gen7_2_0_noncontext_pipe_br_registers, },
- 	{ A7XX_CLUSTER_NONE, A7XX_PIPE_BV, STATE_NON_CONTEXT,
-@@ -558,7 +558,7 @@ static struct gen7_cluster_registers gen7_2_0_clusters[] = {
- 		gen7_0_0_vpc_cluster_vpc_ps_pipe_bv_registers, },
- };
+ 			for (i = 0; i < nr_cx_debugbus_blocks; i++)
+-				a6xx_get_cx_debugbus_block(cxdbg,
++				a6xx_get_cx_debugbus_block(gpu,
++					cxdbg,
+ 					a6xx_state,
+ 					&cx_debugbus_blocks[i],
+ 					&a6xx_state->cx_debugbus[i]);
+diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+index d860fd94feae..86fab2750ba7 100644
+--- a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
++++ b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+@@ -594,10 +594,14 @@ by a particular renderpass/blit.
+ 	<reg32 offset="0x0600" name="DBGC_CFG_DBGBUS_SEL_A"/>
+ 	<reg32 offset="0x0601" name="DBGC_CFG_DBGBUS_SEL_B"/>
+ 	<reg32 offset="0x0602" name="DBGC_CFG_DBGBUS_SEL_C"/>
+-	<reg32 offset="0x0603" name="DBGC_CFG_DBGBUS_SEL_D">
++	<reg32 offset="0x0603" name="DBGC_CFG_DBGBUS_SEL_D" variants="A6XX">
+ 		<bitfield high="7" low="0" name="PING_INDEX"/>
+ 		<bitfield high="15" low="8" name="PING_BLK_SEL"/>
+ 	</reg32>
++	<reg32 offset="0x0603" name="DBGC_CFG_DBGBUS_SEL_D" variants="A7XX-">
++		<bitfield high="7" low="0" name="PING_INDEX"/>
++		<bitfield high="24" low="16" name="PING_BLK_SEL"/>
++	</reg32>
+ 	<reg32 offset="0x0604" name="DBGC_CFG_DBGBUS_CNTLT">
+ 		<bitfield high="5" low="0" name="TRACEEN"/>
+ 		<bitfield high="14" low="12" name="GRANU"/>
+@@ -3796,6 +3800,14 @@ by a particular renderpass/blit.
+ 	<reg32 offset="0x0030" name="CFG_DBGBUS_TRACE_BUF2"/>
+ </domain>
  
--static struct gen7_sptp_cluster_registers gen7_2_0_sptp_clusters[] = {
-+static const struct gen7_sptp_cluster_registers gen7_2_0_sptp_clusters[] = {
- 	{ A7XX_CLUSTER_NONE, A7XX_SP_NCTX_REG, A7XX_PIPE_BR, 0, A7XX_HLSQ_STATE,
- 		gen7_0_0_sp_noncontext_pipe_br_hlsq_state_registers, 0xae00 },
- 	{ A7XX_CLUSTER_NONE, A7XX_SP_NCTX_REG, A7XX_PIPE_BR, 0, A7XX_SP_TOP,
-@@ -737,7 +737,7 @@ static const u32 gen7_2_0_dpm_registers[] = {
- };
- static_assert(IS_ALIGNED(sizeof(gen7_2_0_dpm_registers), 8));
- 
--static struct gen7_reg_list gen7_2_0_reg_list[] = {
-+static const struct gen7_reg_list gen7_2_0_reg_list[] = {
- 	{ gen7_2_0_gpu_registers, NULL },
- 	{ gen7_2_0_cx_misc_registers, NULL },
- 	{ gen7_2_0_dpm_registers, NULL },
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h
-index b1f8bbf1d843..0956dfca1f05 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h
-@@ -117,7 +117,7 @@ static const u32 gen7_9_0_cx_debugbus_blocks[] = {
- 	A7XX_DBGBUS_GBIF_CX,
- };
- 
--static struct gen7_shader_block gen7_9_0_shader_blocks[] = {
-+static const struct gen7_shader_block gen7_9_0_shader_blocks[] = {
- 	{ A7XX_TP0_TMO_DATA, 0x0200, 6, 2, A7XX_PIPE_BR, A7XX_USPTP },
- 	{ A7XX_TP0_SMO_DATA, 0x0080, 6, 2, A7XX_PIPE_BR, A7XX_USPTP },
- 	{ A7XX_TP0_MIPMAP_BASE_DATA, 0x03C0, 6, 2, A7XX_PIPE_BR, A7XX_USPTP },
-@@ -1116,7 +1116,7 @@ static const struct gen7_sel_reg gen7_9_0_rb_rbp_sel = {
- 	.val = 0x9,
- };
- 
--static struct gen7_cluster_registers gen7_9_0_clusters[] = {
-+static const struct gen7_cluster_registers gen7_9_0_clusters[] = {
- 	{ A7XX_CLUSTER_NONE, A7XX_PIPE_BR, STATE_NON_CONTEXT,
- 		gen7_9_0_non_context_pipe_br_registers,  },
- 	{ A7XX_CLUSTER_NONE, A7XX_PIPE_BV, STATE_NON_CONTEXT,
-@@ -1185,7 +1185,7 @@ static struct gen7_cluster_registers gen7_9_0_clusters[] = {
- 		gen7_9_0_vpc_pipe_bv_cluster_vpc_ps_registers,  },
- };
- 
--static struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] = {
-+static const struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] = {
- 	{ A7XX_CLUSTER_NONE, A7XX_SP_NCTX_REG, A7XX_PIPE_BR, 0, A7XX_HLSQ_STATE,
- 		gen7_9_0_non_context_sp_pipe_br_hlsq_state_registers, 0xae00},
- 	{ A7XX_CLUSTER_NONE, A7XX_SP_NCTX_REG, A7XX_PIPE_BR, 0, A7XX_SP_TOP,
-@@ -1294,7 +1294,7 @@ static struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] = {
- 		gen7_9_0_tpl1_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
- };
- 
--static struct a6xx_indexed_registers gen7_9_0_cp_indexed_reg_list[] = {
-+static const struct a6xx_indexed_registers gen7_9_0_cp_indexed_reg_list[] = {
- 	{ "CP_SQE_STAT", REG_A6XX_CP_SQE_STAT_ADDR,
- 		REG_A6XX_CP_SQE_STAT_DATA, 0x00040},
- 	{ "CP_DRAW_STATE", REG_A6XX_CP_DRAW_STATE_ADDR,
-@@ -1337,7 +1337,7 @@ static struct a6xx_indexed_registers gen7_9_0_cp_indexed_reg_list[] = {
- 		REG_A7XX_CP_AQE_STAT_DATA_1, 0x00040},
- };
- 
--static struct gen7_reg_list gen7_9_0_reg_list[] = {
-+static const struct gen7_reg_list gen7_9_0_reg_list[] = {
- 	{ gen7_9_0_gpu_registers, NULL},
- 	{ gen7_9_0_cx_misc_registers, NULL},
- 	{ gen7_9_0_cx_dbgc_registers, NULL},
++<domain name="A7XX_CX_DBGC" width="32">
++	<!-- Bitfields shifted, but otherwise the same: -->
++	<reg32 offset="0x0000" name="CFG_DBGBUS_SEL_A" variants="A7XX-">
++		<bitfield high="7" low="0" name="PING_INDEX"/>
++		<bitfield high="24" low="16" name="PING_BLK_SEL"/>
++	</reg32>
++</domain>
++
+ <domain name="A6XX_CX_MISC" width="32" prefix="variant" varset="chip">
+ 	<reg32 offset="0x0001" name="SYSTEM_CACHE_CNTL_0"/>
+ 	<reg32 offset="0x0002" name="SYSTEM_CACHE_CNTL_1"/>
 -- 
 2.50.1
 
