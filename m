@@ -2,127 +2,152 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62FD9B180B0
-	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 13:06:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 869AEB182B7
+	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 15:51:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F37410E837;
-	Fri,  1 Aug 2025 11:06:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27C9510E85D;
+	Fri,  1 Aug 2025 13:51:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dohDivY4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HBASkNa/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D26E10E838
- for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 11:06:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E2C310E85D
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 13:51:21 +0000 (UTC)
 Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57193wbb004992
- for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 11:06:36 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57197rth005107
+ for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 13:51:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ohWu67k8HbB1UHHgamfp/0d6mH0sfNTpA38ZH8ZkldA=; b=dohDivY4oMDnATkk
- 9f3S5ewE+CnZH6drV6sJiaPFu79g8KwUmK1qSZotlj7Jz6PpXUERiuce7hPYY/0E
- sS4oMIM43AuHQUY9wkgmjUFAoNrxyNQ001t0hhrEvuRTou7AD0uGLLPw5T47nty5
- ZAs1EaEOE50dT7TkJTx5AFYM3nB7RD8CzIZZtoSF2v9GjawdM5N1pNDQ/9BuClr2
- JwzP/xWTJ6v5xrOv3yz7BKLY6SUlrEERx2JD5DXT4Z0AI8oerg7FLDeGpQCUSDjo
- VZIjgx3ye3rXw9eLv+wa/tWoomrd2QkFh1e1zDK3cXC3ji/11SjfaC1Q60mwXjE2
- 2Ysz+A==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
- [209.85.217.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484q86bwwy-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=R5/BhHZWXHfoz2PoAt8iPP
+ dFYjTG2bedIk3AU8wQfSM=; b=HBASkNa/Hs0jzEUfn96lq/l0dTsR7WwCRZ9RvA
+ qB9MjzTzt1vriGZRyYaQRSKNBcJgKm9wvwqONDJYP7GuRxfNATw1LsVhdEFVFbYD
+ 7wjrslaRLBoAkTJ3d5iZvYr06nWoUswLyIortj2vIabtDE1ebc3o6deiCd+FmOvr
+ GZGjRkmVCxJr9M0d+3GCiJZgbsp2epP/OmnI8FmK0sbnz2X8sashd2IDdyAZEAoK
+ e8yQE6Lr6WorHOPbMZqWkd5AJii2P8o1CBZYEFA2k5jSqMatJLyH51+Dv/S/f6bp
+ ZLVkr94qUy7F3dpg5oxw9MtqphMTwrKwZHO63y0nyslNS37A==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484q86cbb2-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 11:06:36 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id
- ada2fe7eead31-4fbffa43e85so298614137.0
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 04:06:36 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 13:51:20 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4af019842d1so12266401cf.0
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 06:51:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754046395; x=1754651195;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ohWu67k8HbB1UHHgamfp/0d6mH0sfNTpA38ZH8ZkldA=;
- b=afuQRWpBwzQHPZ0BWkoGAd2qqAdUC3KHDtx3VfCyhdPS8pgxIRzIQMF3T6dIuTNflF
- RsJ+HQL1O7FYjFrYeOwhwB/jAZjDwKx+evK/VFlSSarpWf77sdzrZjhztEzs8Xf3BpcD
- I1Jwn38mvEPjGwN/D1LKZEcq76ZG8PCQEIykTbivhOosNjQWdWgE744lB9klbBQpmRFz
- 9UjYYv9EA+TPwqW1wpsUPeFrHWtUkV50DfWVWfu2jQmF1JXH7dEL65DXfMri5+NyK3B7
- clyhAYaF0Ne/OCwMshtv/qXhO5SlkF+jzjZJ8gXb1CVBseg2Q66zh90DyYsTfSdeGmFY
- akHg==
+ d=1e100.net; s=20230601; t=1754056279; x=1754661079;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=R5/BhHZWXHfoz2PoAt8iPPdFYjTG2bedIk3AU8wQfSM=;
+ b=UTbJFqUqGegnkj2fxSlgCUWUUs6G8VT4tsTFjfAPiuIlYhwOZVexxRyuyhzVXdyndN
+ 3XPy3s5XqKogU/+OqTR/l4tfRO1jRiAdeA0QGp6n4dXMQTVEa4hBp5vnYw1oPi6o/r9T
+ bc18dwpLpNLCt06QkuumPcQvR4JJ05Zz917LMqDMrAIMiKHaqfy4ksshaIX6UME1Gju0
+ kSJLIujD/ryv36Krl+zGTJk/33i9gTAFAAAS/wKTaABBNkg0nxFDgpVzSsCAsbdUWqgm
+ MGk1wx5SvXxJhvbUnIDbbMi9NjvvkL0V2H215pApptDyhvFksYjZDCXV/4qMeso3/YNI
+ Ndhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVIH/s49x6r6XDYYdjUkfgZVJnKg1m2hICbtt2f9BEHRcOLgmHL66jn1rYqFw5/jubXgdRzfWouvdI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwScCGxKm9oTin7FwBfqZFixhqxpV+jI0AkYreohD+ru0QTpvib
- Y223vsQnEtk0xRiDItqQl6OoDUwG5F0MGtrrODkQMLpKgYVEb9F3i3oaLEjQ3TRiS7//TOWO3vX
- RL1BDA61cNXXGMEuyPJnqkzlldjdhH6b7uvvf0TIs/UXxH4WrYDygj52xBDm3agfrY5h7ENI=
-X-Gm-Gg: ASbGncvYK4mqRw9CMo7aNqIfAO3Syf8MfGhh8KPYgNR++kZl6V5G39X7mho2wQJ79ym
- zXwFZ9c/IXFGQkcP0XHPDpdINpujlfhEez9qXlM1I5ttqXDG0GL8BO2+sPKOgjgg0IDy/n4ClqF
- rdqUkHsx4jhfLEx0AR3pf0o0qwR+ffaUUgxlKZNRvL/sP+IWbjuVvHNWxF/hm9LI1P5gePdJd87
- cFpVPDc5qVNSdUIRHQ8f9xnA/GXXWoR3EhMBYbnbnVRTvOnBM/kmR56YK3fDCu7MMVXUtXIsf/F
- g2ulJJSYhR58xWyiB6d5RpuukzrmvkkeYl7gJ3xVoZ6qZKVNODP6yss/9lWTiXODE/UfggEGDuM
- yi3T014ajdlK3PHzLzhiKGpY3LXoaIfTuvaA25g5Yq0+pR09IiAPT
-X-Received: by 2002:a05:6102:d8d:b0:4e5:9426:f9e6 with SMTP id
- ada2fe7eead31-4fbe88fea36mr6776835137.23.1754046395014; 
- Fri, 01 Aug 2025 04:06:35 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IELXu+i98JlBWaD9NFVhCHmgXrDjDlJp2pJeGlNotCFdOuNkns+rDbVOGaCSxMcLE/OBy1MTg==
-X-Received: by 2002:a05:6102:d8d:b0:4e5:9426:f9e6 with SMTP id
- ada2fe7eead31-4fbe88fea36mr6776774137.23.1754046394479; 
- Fri, 01 Aug 2025 04:06:34 -0700 (PDT)
+ AJvYcCW1kfipt5gjEtROs4RizZWUvxmw8HnePXM5Q1Syct0f+8N7tVfDQXJhENw/x5fbDwcpN/GPXmZZdls=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzjx1c3IDp9o3hYuCDnr+G/tMWgRNtTC0UKLbaUTSqEd9KDucB/
+ EDiElvnWnbKgmiRepBOcU7Slagkxf7Jw1Ev/QwTRtTSYCsYra7zF0xd+caXLEPCjwaYLwsbmvr+
+ g21ft37jbqXoHzl8BqhSAMsLKhaod5W8bd6XwNoCYrMqtcU8ngCwAtExkVCNkIrGvGseYXDQ=
+X-Gm-Gg: ASbGnctY6RGi92j6n7yZD05emWsDsUmwnNMvDYp+RhVchfi+eEmoyWQosln9KSGn6Yo
+ DnU77YoXGCh9t97xt0F66VclcNmN2e8mQqqIVOl/ClzcFivTAEze2NuM3AKFV/HoZfikoSjpUWe
+ iJn7oOaD2JpOCVUGmtpkkus2B+3QZS7fyXMb60bxuLNP1C0sMcYSj99jZd6aqAyWyL5EJBplnez
+ K5oZUaJ68K46UIfHHEELlf1NGpPlXUiwTgNgaZolhuhhhEfopipX2ZU7bxDE+BVCKVeW1iQgB+F
+ wcus+xJ8wtKWHie5dMnss2uEJzmimg9pP8jF695MLAudyIelfrUV1mx1sJBjBi7x/KRdgSHrKf2
+ tOETWOPgiu/XW22uIMQFygAEhZfU7Ssz4oftDLu4N9e+QG8JWS81V
+X-Received: by 2002:ac8:5784:0:b0:4ab:95a7:71d1 with SMTP id
+ d75a77b69052e-4aedbe7beb9mr161744541cf.55.1754056278964; 
+ Fri, 01 Aug 2025 06:51:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFtbade6pZ9wkxnorEF6axWOtrohHvqQculMvY2mHe46exVpYNBH602aw6FU7DeF5T4f4fIgQ==
+X-Received: by 2002:ac8:5784:0:b0:4ab:95a7:71d1 with SMTP id
+ d75a77b69052e-4aedbe7beb9mr161743521cf.55.1754056278246; 
+ Fri, 01 Aug 2025 06:51:18 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b889ac767sm537574e87.68.2025.08.01.04.06.33
+ 38308e7fff4ca-33238273006sm5917801fa.9.2025.08.01.06.51.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Aug 2025 04:06:33 -0700 (PDT)
-Date: Fri, 1 Aug 2025 14:06:31 +0300
+ Fri, 01 Aug 2025 06:51:17 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 10/12] drm/msm/dpu: support SSPP assignment for
- quad-pipe case
-Message-ID: <akxp2lpikvslacz72gvp3ctzdgsrbfnth4ugqfhbxvflmr6ssu@f4ebi3tyz3am>
-References: <20250728-v6-16-rc2-quad-pipe-upstream-v13-0-954e4917fe4f@linaro.org>
- <20250728-v6-16-rc2-quad-pipe-upstream-v13-10-954e4917fe4f@linaro.org>
- <4dpeif7wynynbsccbhc253wkshuylnsjslsosmrnyld3bmot5l@yqrmpln44qe2>
- <CABymUCMa06E0zavQsKeDw_rjTW5F9o4ancxWuQynMO3wsHKFwA@mail.gmail.com>
- <4c492060-cdde-43c6-8351-d969b0f9322b@oss.qualcomm.com>
- <CABymUCO63-V7MoWpgCTEV_8R_4rVHM-1=eyRP34=OdKGpYSLDQ@mail.gmail.com>
- <c7346b52-c5a0-4aa2-a8d4-92761e33b011@oss.qualcomm.com>
- <CABymUCPgXAaJCLTiN1XxK1JEjxnr9qPye_E6gMLSMvEhgXJk6w@mail.gmail.com>
+Subject: [PATCH 0/8] drm: writeback: clean up writeback connector
+ initialization
+Date: Fri, 01 Aug 2025 16:51:08 +0300
+Message-Id: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCPgXAaJCLTiN1XxK1JEjxnr9qPye_E6gMLSMvEhgXJk6w@mail.gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDA4MSBTYWx0ZWRfXxB293/1Blfl2
- CQ6lTzLQdkbUoE5fMhdFtNvZpzi+jEpzCoybDG2PucGC+EJY4PcMto+Y0ybXeUnq+hE6kdbQ2kq
- HiKtV1UeqG0xDLxV2XRTNRlsHPMs2gZLTQxnLkTpeV5mfAnq+0NqNJaKk7AkpT5jjKdkD8xDTt6
- YawJ8vWHdNhWupIIeik2dJAU9tRlVq3ORl39X4YNqRmhRBwgDPufOLSk1MQ311gJ3cb3IReIZ9d
- mmN0gklNBvAjW9c/xv18tz+B1kcdaJ9DI6nbThikJzPiaijRvq0zzKzyU3IDx8pDU6LvgViJhf7
- kn5UUTSHsbyPbvszYrRVhIXAT0TmiPUUZmlUPwjx97lm1otSsdmO/fhOuCZtOdBgZgqKi85fYNF
- tJ5xhQp34w1N9Crh6AFGISJzvKVWO7f73Z4COptk5H2wPsyHkcs0NQOFNgVwZdrBVusQZ6S8
-X-Authority-Analysis: v=2.4 cv=TqLmhCXh c=1 sm=1 tr=0 ts=688c9fbc cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=2OwXVqhp2XgA:10 a=sWKEhP36mHoA:10 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
- a=K2Uce_oDiRnA2C7xoV4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: JL8b8MeO82KzI1KhfK_IuFwEPrTz49De
-X-Proofpoint-GUID: JL8b8MeO82KzI1KhfK_IuFwEPrTz49De
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEzGjGgC/x3MMQqAMAxA0atIZgNVKFWvIg7aRM3SlhRUKN7d4
+ viG/wtkVuEMU1NA+ZIsMVR0bQP+XMPBKFQNvemtGUyH94akMSEHH4kVR7ca7+xGlhzUKinv8vz
+ HeXnfD6NH1jNhAAAA
+X-Change-ID: 20250801-wb-drop-encoder-97a0c75bd5d7
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2072;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=R+5orXaZWYFqlHQCgWzWcWIKZBQ4MU2KJjCzPihl1hE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBojMZSfeMebHGzi1ad5D9OJIiWxXkAsbLdE3xg4
+ nZazyGjsZCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaIzGUgAKCRCLPIo+Aiko
+ 1SdmCACyivvAMPFOURSFjenFZ8ROTLDqjmHCkE57/8pbDDtOmnvDfJ7Fi6i01/G4wEPnTGHed44
+ N+uX0xC10aDYDljZbg9Ye2oCBvC8b8VJfxf1JuBphl5iqinO8bjED8LaJHe/Z1IQHal1TB2a/oo
+ PG6bYJEhwq7tv9+s0dTyKqvksmESoD0WDb1DipCPoHx0hVqHvZ1tmNdtf7u/JgHibuAZQ45snAg
+ 0cRP4v//GNyZU6xiXtGe3Y7K95lbOvjZiSFO2fwFx9NrdrFXD+QX3+JaMCInjnjVO/qKNVipJ10
+ sML3WPF2VNylJRkIVccwbCu8kIidTpUocxHhmfn3G52M6APm
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDEwMyBTYWx0ZWRfX5uosKV2CTs8g
+ OX3FHRIXHnTLnpflTXFE1vLc5q7MxMyWdzbLCAeTHjBThivziZNlR0goXzxhdysM66737Yd2ak6
+ nzvVBR68tyMgKg/kB3jXspSY7WGgUFDFMTkriE+Hfy7IE7Pr+Wfnk7QwRp8mOpPFjBJ+mMQrGtb
+ p+RkUGp9tGmPkGDRgkBlugRkzgD5loFY+nUT0pk0wrfil78K3whv2YOiowHGuIEXE1Xb2Elnb/G
+ +/sijEfvV0TBbz3OuionIu2+4cfhR2f4UkxJj+MNcwOKi8DRtBsX0MCHDHkcXYVwm5mCRzKhHWz
+ 1uWvAjYhmG49m77pl6cDbBSoyWEqMYKZ0TD15o2quJ8fwFBHjQ2pYUIs5EA/xaC6WjIVCFXh61J
+ 27WPX25z0SZtkcSHwxAfEZH5K7u9nP249dqNiCWrsiOCc2TrF1OZkEwRqot39Tq/urZ7GPfA
+X-Authority-Analysis: v=2.4 cv=TqLmhCXh c=1 sm=1 tr=0 ts=688cc658 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=cFjmsF-WLDi_aLc5EnEA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: y5wQr9N2Z6jCqgyB7S3PTg1BBXMZlqFZ
+X-Proofpoint-GUID: y5wQr9N2Z6jCqgyB7S3PTg1BBXMZlqFZ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-01_03,2025-07-31_03,2025-03-28_01
+ definitions=2025-08-01_04,2025-08-01_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  mlxscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
  malwarescore=0 adultscore=0 spamscore=0 priorityscore=1501 clxscore=1015
- impostorscore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a
+ impostorscore=0 mlxlogscore=935 classifier=spam authscore=0 authtc=n/a
  authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2508010081
+ engine=8.19.0-2505280000 definitions=main-2508010103
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,81 +163,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Aug 01, 2025 at 09:19:41AM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年8月1日周五 01:08写道：
-> >
-> > On 31/07/2025 18:37, Jun Nie wrote:
-> > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年7月31日周四 22:22写道：
-> > >>
-> > >> On 31/07/2025 13:52, Jun Nie wrote:
-> > >>> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年7月31日周四 02:52写道：
-> > >>>>
-> > >>>> On Mon, Jul 28, 2025 at 09:14:34PM +0800, Jun Nie wrote:
-> > >>>>> Currently, SSPPs are assigned to a maximum of two pipes. However,
-> > >>>>> quad-pipe usage scenarios require four pipes and involve configuring
-> > >>>>> two stages. In quad-pipe case, the first two pipes share a set of
-> > >>>>> mixer configurations and enable multi-rect mode when certain
-> > >>>>> conditions are met. The same applies to the subsequent two pipes.
-> > >>>>>
-> > >>>>> Assign SSPPs to the pipes in each stage using a unified method and
-> > >>>>> to loop the stages accordingly.
-> > >>>>>
-> > >>>>> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > >>>>> ---
-> > >>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 160 ++++++++++++++++++------------
-> > >>>>>    1 file changed, 99 insertions(+), 61 deletions(-)
-> > >>>>>
-> > >>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > >>>>> index 55429f29a4b95594771d930efe42aaa4126f6f07..e1e16a8d5ac55ba52a0f460d62901dced65e3a9e 100644
-> > >>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > >>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > >>>>> @@ -959,6 +959,30 @@ static int dpu_plane_is_multirect_parallel_capable(struct dpu_hw_sspp *sspp,
-> > >>>>>    }
-> > >>>>>
-> > >>>>>
-> > >>>>> +static bool dpu_plane_get_single_pipe_in_stage(struct dpu_plane_state *pstate,
-> > >>>>> +                                            struct dpu_sw_pipe **single_pipe,
-> > >>>>> +                                            struct dpu_sw_pipe_cfg **single_pipe_cfg,
-> > >>>>> +                                            int stage_index)
-> > >>>>> +{
-> > >>>>> +     int pipe_idx, i, valid_pipe = 0;
-> > >>>>> +
-> > >>>>> +     for (i = 0; i < PIPES_PER_STAGE; i++) {
-> > >>>>
-> > >>>> Why do you need to loop here? Is there a case when pipe 0 is not
-> > >>>> assigned, but pipe 1 is?
-> > >>>
-> > >>> Loop the pipe in a stage to count the valid pipes. If there are 2 valid
-> > >>> pipes in stage of the current plane, this function will return false.
-> > >>> Or you prefer the below coding?
-> > >>>
-> > >>> 1029         pipe_idx = stage_index * PIPES_PER_STAGE;
-> > >>> 1030         if (drm_rect_width(&pstate->pipe_cfg[pipe_idx].src_rect) != 0 &&
-> > >>> 1031             drm_rect_width(&pstate->pipe_cfg[pipe_idx +
-> > >>> 1].src_rect) == 0) {
-> > >>
-> > >> Yes, this is better from my POV. But the bigger question is why do you
-> > >> need it at all? What is wrong with the existing check? Can it be that
-> > >> pipe0 is not used, but pipe1 is used?
-> > >
-> > > There is no case that pipe0 is not used, but pipe1 is used. Existing check
-> > > does not filter the plane which contains single pipe in a stage, which can
-> > > be a candidate for SSPP sharing. If the stage contains 2 valid pipes or
-> > > no valid pipes, it is skipped in dpu_plane_try_multirect_shared(), or it is
-> > > skipped to be stored in prev_adjacent_plane_state[].
-> >
-> > Oh, I see, you need to check both pipes because you might need to skip
-> > it completely. I'd really prefer to have more explicit code:
-> >
-> > - check for pipe0, skip this part of the plane if there is none
-> > - check for pipe1, if there is none, it's a candidate for sharing.
-> 
-> Yeah, this is the logic of the current implementation. So the your only
-> concern is the loop. Will remove the loop as above code.
+Drivers using drm_writeback_connector_init() / _with_encoder() don't
+perform cleanup in a manner similar to drmm_writeback_connector_init()
+(see drm_writeback_connector_cleanup()). Migrate all existing drivers
+to use drmm_writeback_connector_init(), drop
+drm_writeback_connector_init() and drm_writeback_connector::encoder
+(it's unused afterwards).
 
-Ok.
+This series leaves former drm_writeback_connector_init_with_encoder()
+(renamed to drm_writeback_connector_init as a non-managed counterpart
+for drmm_writeback_connector_init()). It is supposed to be used by
+drivers which can not use drmm functions (like Intel). However I think
+it would be better to drop it completely.
 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (8):
+      drm/amd/display: use drmm_writeback_connector_init()
+      drm/komeda: use drmm_writeback_connector_init()
+      drm/mali: use drmm_writeback_connector_init()
+      drm/msm/dpu: use drmm_writeback_connector_init()
+      drm/msm/dpu: use drmm_writeback_connector_init()
+      drm/vc4: use drmm_writeback_connector_init()
+      drm: writeback: drop excess connector initialization functions
+      drm: writeback: rename drm_writeback_connector_init_with_encoder()
 
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   | 18 ++++--
+ .../drm/arm/display/komeda/komeda_wb_connector.c   | 30 ++++++----
+ drivers/gpu/drm/arm/malidp_mw.c                    | 25 ++++----
+ drivers/gpu/drm/drm_writeback.c                    | 69 +++-------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      | 10 +---
+ .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++---
+ drivers/gpu/drm/vc4/vc4_txp.c                      |  9 ++-
+ include/drm/drm_writeback.h                        | 22 +------
+ 9 files changed, 77 insertions(+), 131 deletions(-)
+---
+base-commit: 94f208ff622b09309358abaf26d7acca0c318fae
+change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
+
+Best regards,
 -- 
 With best wishes
 Dmitry
+
