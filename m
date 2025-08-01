@@ -2,91 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCC5DB18498
-	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 17:09:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCCF7B18667
+	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 19:17:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9446410E8B3;
-	Fri,  1 Aug 2025 15:09:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF7B10E8D7;
+	Fri,  1 Aug 2025 17:17:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="adsAeI2w";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HcaSaINw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C642510E8A5
- for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 15:09:08 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-b34c068faf8so2404293a12.2
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 08:09:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1754060948; x=1754665748; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qMyTzj0YkyEhVsWHYdHluPcgaxyf2WjhZvLWIgnb3dk=;
- b=adsAeI2weMSTteLJeKOVQoQvXBZd+XVRgOHJJR9peBkpkfpy95vdRhW16Uj4Dy6Q5a
- LhfYN/TOThBjxQscjxrq+zDHFrouI3/ZHIuu+/WR0Ah50RGZm3j4syit2JXGNfqQfzTX
- p//p4swphHtJ7gDa88QrSa7MYb9nqcK1cMu8yId2BteQbK0aGQB/N94PoiZWWNQjf70g
- Orh0f0rmBbGvXU7/VsBgsoYM+FD2KgeFE5nI2VmfBR9CmDxc7kKbF3YiGeLhxDyqKgkr
- Dy4tQaZko2bpUu/MM3lWrOT9hufKfsvl6dsdz4V1bh78DYavgdnIWsyNPm7zL0tdVEbg
- Lh3g==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48F9510E0F1
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 17:17:24 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 571FOAla022356
+ for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 17:17:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=tcHaBQuDwa1ZE5v+k3+Pq4tj
+ ndoraV1eMdugB4VbHQk=; b=HcaSaINwoYx9biLMK6dAfKkUszEDfQRgOjaUIsli
+ 4VaIeuyS5hVeUoQvAobR5bDB9dnjO2lc88wICa5WI0Cq0pBWgVLwT55/lkl62Kax
+ 2k+AhSwgtMJoMdSIHrmSk+8nUVNqzjrA+VaFj7mcaeOLb2vkrafJ+eFOyAbM2Vc0
+ 5x9A/dA9HuG5CPJlpe92M+g+5I9u+P+ROVK3p60lfHs1RDv2TEH7Nr75k5QOpgJF
+ LLdXClIacAlu3UrlTlEE8NpfHeL6dInTTWlC0pKmqIS59Ady0FJmo5ym2ASGzhkh
+ uWkOxTskjsvCAWXOvQlu+PhoRc7t1ZfrisTWgIqbdw6RFg==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484p1avhd2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 17:17:23 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-4d5ef3b8038so1266028137.1
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 10:17:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754060948; x=1754665748;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qMyTzj0YkyEhVsWHYdHluPcgaxyf2WjhZvLWIgnb3dk=;
- b=Old2yTt2SXnM2e+J+ftQJ8n4rBUiDS8xOGjzwhIcfiit666PlWrDn0rbOFeaAqOXbq
- YYx6/NZz5KqWDmAuhmQw0ihORQZQCEe9Rx1pzBtUGfy9jeyheVg0LB+V88qHQ7/Kz2ln
- 4Gh59045oibkEkcY6bndX6wg3AFsYNo49mwFxKY2OVRuJAWRZ0BlreH3pP5g3ojxFK+t
- HZ9m75Hrdhm2bOa3Ls09xcyZ2i8D9pTSIbytr6eg309j/gk+jiCPnwYDQyJt6CxhVeBq
- 8T9i9RXBRv9jJx/iAQdhkzFAMKGy1o7RG8MoH+GOyT3AOahMTRe6Gm9QfqFXTBKfhwZX
- 6KJA==
+ d=1e100.net; s=20230601; t=1754068643; x=1754673443;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tcHaBQuDwa1ZE5v+k3+Pq4tjndoraV1eMdugB4VbHQk=;
+ b=ZGmvlRQFr7wkudhqJ+uV3fXBAHlvnbKMzTwGYSs3B3QHLJFqPVlCDSW0UepXub6bL9
+ fFKHBbp/tpn+loYghyQNRAYOb+hJzyfQkhUcbf0i6AnAlbxjgt8KGWU7bV3u+dTfxlYL
+ zEbC3v1lXm0l2gE0OuFTA/jn6rXm9yg4SdhdUXovKIsUDiVE2PRgPzg+jw7rCdQrjChm
+ EH/DkiyBe4JbpsShLtxwd/4ItFmjIU/oJpbZ8lpp9h3f8qto4K1ylWHGbIC+tjhdF5Zf
+ Cbv5f8uXyzgptyv3BRKjJj+NXOEnCtvonneTUt9+ILg8tJSXjyD0FchCe+dtUDAlEBsU
+ QN5A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU8bV44dOLI4MfZX6NWQw8rQgqTWHhi7CK3VDaujXTvnll+Qo2QfB6VXrTODKYKF/Ubgd5PCo08EHQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDWbiO0y0tQIrXom30+8Q9g34LIcOj1cotMxlsm+eqkXgMP6kx
- mZaWtY6sGiZAeeNFYa94gwNLP6ByQ22FVNGJq0sna8mwuuA+46Nj+DPackfHKi2/SsU=
-X-Gm-Gg: ASbGncugOH1WuhPM3iATz5w/XfN2AZR0jyBiE4zri5dre0iOHtzGaGhqRAd6F39JBvm
- 1ULLK+/fKpedWdy28ThJfknybxPh58WXo/XEkE5UIVd5G6YMXLCcObP4Za9J3Kw2UfZb/GOrMF2
- jXmEwyysTGbJYojQ0xGBGpyv1IM/NpZ5XAuJduS8emIL4DQ8nacqdlc9NB5GRbjIf20aSlL3eOA
- brOgvex1O7n9qEep6mYhncLZ7j8+dAUmUIkseE+hs/hnSwZRptkNHHyfhCHRJNV//Gmn8JJjJSv
- MKmZJBxnDjxXwT90WaIJE0OOYHyJ+3cujWGQlKXj5B2xQR0L7ZztAw0dUgD+HqtiN5IuvB9ctYX
- K1TyDm+MNjAR0UC+ngw==
-X-Google-Smtp-Source: AGHT+IFbIzv1RI9jaQPJA/y6fxdr9d8t/skdnwH51V+twjPoFCHjhTBO5pTmvEwfCUPhQB227TDx+w==
-X-Received: by 2002:a17:903:22c4:b0:240:a54e:218e with SMTP id
- d9443c01a7336-240a54e232cmr152369305ad.53.1754060948100; 
- Fri, 01 Aug 2025 08:09:08 -0700 (PDT)
-Received: from [127.0.1.1] ([112.64.60.64]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241e8aafa11sm45639705ad.172.2025.08.01.08.09.02
+ AJvYcCV48S8gI7BsLBIJgwgNFxUHp+NDxNwVhZv4aghue09pZyl8GqDNN/H2F3LWNIQUJPFSr8T/vw4YQZs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy8UVqxvSXZuNML+pqKUdAXXiNBdsOa1qXdrG/ZRcWFCrhmtPuH
+ XpC8U1zRNbWhPkpuzyx6e28zqrT9DaEBcpsMEsXQ/Dtbdd7ad8uUUrA7zfBgjiopd0Yf4dtHesQ
+ ig/04xQdgjdHwixvMjF+UTe+qO7ZneyhlUoRJvhWETy9Bz7KpRgh8KFpd6320TOPusPmKel4=
+X-Gm-Gg: ASbGnctY+gBb7192rx+lrxZdaWhU6alyHZyAhTr4YTCa2P4xPTieByun28KKntxI++3
+ WUUBdVTpYMm26G3U7YsMhDnbGSBG3r6mWVWD6dQlfGYWTTo/4GjI/mys8p7oDFshtIkus8j4lbz
+ 38Pt7nOzqmqd+HyXa+OKYqLCnEt8eTwQX/icbdsHe6pN6RGW8bQiE28cPOmlR8Qazc0gkiStnOs
+ tt+qyCdLUO+hqrKkgOvCMqX3H5Tz9FFBqGceC4yCRI4+C5ANekLjXBoWdonRgM1QUhGy5l9Bmtf
+ WV6RT4pwXXHrjhLX33gaLbSNWwI34nppQnnmlUOy9W+ab+l+U5QSlkVuylK09V+jIa1f5ezdmE3
+ uwOYLu3D2Nhl64wY92v8j0qsPhyYWX54D6tuKKulZQQ/VAgjc71d5
+X-Received: by 2002:a05:6102:dcb:b0:4db:154f:aa02 with SMTP id
+ ada2fe7eead31-4fdc1f384f4mr101985137.1.1754068642834; 
+ Fri, 01 Aug 2025 10:17:22 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGVuQPnE9jDf3e0O6nex/ypiEGC/lp11qe6uAM8yV+lPx1/MwQJoC1CoJZFxb4EtvLk8nU0Rw==
+X-Received: by 2002:a05:6102:dcb:b0:4db:154f:aa02 with SMTP id
+ ada2fe7eead31-4fdc1f384f4mr101949137.1.1754068642360; 
+ Fri, 01 Aug 2025 10:17:22 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-55b88cabb8asm668546e87.145.2025.08.01.10.17.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Aug 2025 08:09:07 -0700 (PDT)
-From: Jun Nie <jun.nie@linaro.org>
-Date: Fri, 01 Aug 2025 23:07:37 +0800
-Subject: [PATCH v14 13/13] drm/msm/dpu: Enable quad-pipe for DSC and
- dual-DSI case
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250801-v6-16-rc2-quad-pipe-upstream-v14-13-b626236f4c31@linaro.org>
+ Fri, 01 Aug 2025 10:17:21 -0700 (PDT)
+Date: Fri, 1 Aug 2025 20:17:18 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v14 01/13] drm/msm: Do not validate SSPP when it is not
+ ready
+Message-ID: <3pkmepbcppjtgr2pavxzh2becu6r3ddqkgzyn3av2uwipbrvia@4cjijtbfvfo5>
 References: <20250801-v6-16-rc2-quad-pipe-upstream-v14-0-b626236f4c31@linaro.org>
-In-Reply-To: <20250801-v6-16-rc2-quad-pipe-upstream-v14-0-b626236f4c31@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>, Dmitry Baryshkov <lumag@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754060859; l=8147;
- i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=L0RJjmTLlYkHLbKt8l66Y1ANmmW3YDpsTiGU9UI7WH8=;
- b=I4x2VzIeZZcQrMOHoQWPzpCyld0+wvb0QhXLrqR0yjgWwmb5JZigsGOsJsLXSgN8SIJ6rkWQ8
- JyYL9Abo2MxDMVrJVXyPrPRyQ8mz+JgNKiyZHKbfPUpZ/3D/YBwyVHV
-X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
- pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
+ <20250801-v6-16-rc2-quad-pipe-upstream-v14-1-b626236f4c31@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250801-v6-16-rc2-quad-pipe-upstream-v14-1-b626236f4c31@linaro.org>
+X-Proofpoint-ORIG-GUID: gWbZhz2a4_ZI6B_g_PSdATMmZHYE2Ro6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDEzNCBTYWx0ZWRfX+Tt5WkBOeZZx
+ wIfrgwrt8ccSa0etxcNpHoyD3jzsUqDfDuyPEmM736em80+KZkHR+3nZ5XYfPR40gamE+iVc3NZ
+ rV2lcvvhw0RfHeqP+/5DicHGycNWLsKOkqLM2QorWUnjPNbedLQLbyEFvaHl0A1U2PFJz2CTReZ
+ naH68iZ5+/SznLTzDP/G5rIshOMh1WRxp0ZVU6qsxycs+rZZLAcnhtxI5piFY5lzm5gP/X+0ApN
+ q16bEPhjiAM+YUX9lpsS/d0heCpp1ohyD7JhUWw+AeM0PSf2b9LOx59sON0J1J0M5Afq10g9Vho
+ RRKJnWsc88aXcBezoAZOdNBINCnQSIjTG1gTdyC4W7ocpJpd8vU1cqI9LuoDR8N+Shq0S+t2FP1
+ Mk06DI2zYDzhx6Cw/2irSaLWuWAAB+dP1YBqqIfVIqf1U0pFghEMIqZMwAMo3U1cR0M0yFJn
+X-Proofpoint-GUID: gWbZhz2a4_ZI6B_g_PSdATMmZHYE2Ro6
+X-Authority-Analysis: v=2.4 cv=KtNN2XWN c=1 sm=1 tr=0 ts=688cf6a3 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=R_82AcX6jhCS_hus:21 a=xqWC_Br6kY4A:10
+ a=kj9zAlcOel0A:10 a=2OwXVqhp2XgA:10 a=KKAkSRfTAAAA:8 a=2eMu2khG-ckBsvoFBtQA:9
+ a=CjuIK1q_8ugA:10 a=-aSRE8QhW-JAV6biHavz:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-01_05,2025-08-01_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 suspectscore=0
+ adultscore=0 mlxlogscore=999 bulkscore=0 spamscore=0 impostorscore=0
+ mlxscore=0 malwarescore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2508010134
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,212 +129,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To support high-resolution cases that exceed the width limitation of
-a pair of SSPPs, or scenarios that surpass the maximum MDP clock rate,
-additional pipes are necessary to enable parallel data processing
-within the SSPP width constraints and MDP clock rate.
+On Fri, Aug 01, 2025 at 11:07:25PM +0800, Jun Nie wrote:
+> Current code will validate current plane and previous plane to
+> confirm they can share a SSPP with multi-rect mode. The SSPP
+> is already allocated for previous plane, while current plane
+> is not associated with any SSPP yet. Null pointer is referenced
+> when validating the SSPP of current plane. Skip SSPP validation
+> for current plane.
+> 
+> Unable to handle kernel NULL pointer dereference at virtual address 0000000000000020
+> Mem abort info:
+>   ESR = 0x0000000096000004
+>   EC = 0x25: DABT (current EL), IL = 32 bits
+>   SET = 0, FnV = 0
+>   EA = 0, S1PTW = 0
+>   FSC = 0x04: level 0 translation fault
+> Data abort info:
+>   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+>   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+>   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+> user pgtable: 4k pages, 48-bit VAs, pgdp=0000000888ac3000
+> [0000000000000020] pgd=0000000000000000, p4d=0000000000000000
+> Internal error: Oops: 0000000096000004 [#1]  SMP
+> Modules linked in:
+> CPU: 4 UID: 0 PID: 1891 Comm: modetest Tainted: G S                  6.15.0-rc2-g3ee3f6e1202e #335 PREEMPT
+> Tainted: [S]=CPU_OUT_OF_SPEC
+> Hardware name: SM8650 EV1 rev1 4slam 2et (DT)
+> pstate: 63400009 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+> pc : dpu_plane_is_multirect_capable+0x68/0x90
+> lr : dpu_assign_plane_resources+0x288/0x410
+> sp : ffff800093dcb770
+> x29: ffff800093dcb770 x28: 0000000000002000 x27: ffff000817c6c000
+> x26: ffff000806b46368 x25: ffff0008013f6080 x24: ffff00080cbf4800
+> x23: ffff000810842680 x22: ffff0008013f1080 x21: ffff00080cc86080
+> x20: ffff000806b463b0 x19: ffff00080cbf5a00 x18: 00000000ffffffff
+> x17: 707a5f657a696c61 x16: 0000000000000003 x15: 0000000000002200
+> x14: 00000000ffffffff x13: 00aaaaaa00aaaaaa x12: 0000000000000000
+> x11: ffff000817c6e2b8 x10: 0000000000000000 x9 : ffff80008106a950
+> x8 : ffff00080cbf48f4 x7 : 0000000000000000 x6 : 0000000000000000
+> x5 : 0000000000000000 x4 : 0000000000000438 x3 : 0000000000000438
+> x2 : ffff800082e245e0 x1 : 0000000000000008 x0 : 0000000000000000
+> Call trace:
+>  dpu_plane_is_multirect_capable+0x68/0x90 (P)
+>  dpu_crtc_atomic_check+0x5bc/0x650
+>  drm_atomic_helper_check_planes+0x13c/0x220
+>  drm_atomic_helper_check+0x58/0xb8
+>  msm_atomic_check+0xd8/0xf0
+>  drm_atomic_check_only+0x4a8/0x968
+>  drm_atomic_commit+0x50/0xd8
+>  drm_atomic_helper_update_plane+0x140/0x188
+>  __setplane_atomic+0xfc/0x148
+>  drm_mode_setplane+0x164/0x378
+>  drm_ioctl_kernel+0xc0/0x140
+>  drm_ioctl+0x20c/0x500
+>  __arm64_sys_ioctl+0xbc/0xf8
+>  invoke_syscall+0x50/0x120
+>  el0_svc_common.constprop.0+0x48/0xf8
+>  do_el0_svc+0x28/0x40
+>  el0_svc+0x30/0xd0
+>  el0t_64_sync_handler+0x144/0x168
+>  el0t_64_sync+0x198/0x1a0
+> Code: b9402021 370fffc1 f9401441 3707ff81 (f94010a1)
+> ---[ end trace 0000000000000000 ]---
+> 
+> Fixes: 3ed12a3664b36 ("drm/msm/dpu: allow sharing SSPP between planes")
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 01171c535a27c8983aab6450d6f7a4316ae9c4ee..4371c8e1602126bdd0860c5de263db3dd2d3291a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -910,7 +910,8 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
+>  
+>  static int dpu_plane_is_multirect_capable(struct dpu_hw_sspp *sspp,
+>  					  struct dpu_sw_pipe_cfg *pipe_cfg,
+> -					  const struct msm_format *fmt)
+> +					  const struct msm_format *fmt,
+> +					  bool validate_sspp)
+>  {
+>  	if (drm_rect_width(&pipe_cfg->src_rect) != drm_rect_width(&pipe_cfg->dst_rect) ||
+>  	    drm_rect_height(&pipe_cfg->src_rect) != drm_rect_height(&pipe_cfg->dst_rect))
+> @@ -922,6 +923,9 @@ static int dpu_plane_is_multirect_capable(struct dpu_hw_sspp *sspp,
+>  	if (MSM_FORMAT_IS_YUV(fmt))
+>  		return false;
+>  
+> +	if (!validate_sspp)
+> +		return true;
 
-Request 4 mixers and 4 DSCs for high-resolution cases where both DSC
-and dual interfaces are enabled. More use cases can be incorporated
-later if quad-pipe capabilities are required.
+if (!sspp)
+	return true;
 
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 27 +++++++++++++++++------
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 28 ++++++++----------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
- 6 files changed, 35 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 1c7a5e545745320018c3e9a2d163cbfd3dceaf7b..2625ad777e477d2d5a6a746989bb9e10493e19ad 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
- 		struct dpu_crtc_state *crtc_state)
- {
- 	struct dpu_crtc_mixer *m;
--	u32 crcs[CRTC_DUAL_MIXERS];
-+	u32 crcs[CRTC_QUAD_MIXERS];
- 
- 	int rc = 0;
- 	int i;
-@@ -1328,6 +1328,7 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
- 	struct msm_display_topology topology = {0};
- 	struct drm_encoder *drm_enc;
-+	u32 num_rt_intf;
- 
- 	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask)
- 		dpu_encoder_update_topology(drm_enc, &topology, crtc_state->state,
-@@ -1341,11 +1342,14 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 	 * Dual display
- 	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
- 	 *
-+	 * If DSC is enabled, try to use 4:4:2 topology if there is enough
-+	 * resource. Otherwise, use 2:2:2 topology.
-+	 *
- 	 * Single display
- 	 * 1 LM, 1 INTF
- 	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
- 	 *
--	 * If DSC is enabled, use 2 LMs for 2:2:1 topology
-+	 * If DSC is enabled, use 2:2:1 topology
- 	 *
- 	 * Add dspps to the reservation requirements if ctm is requested
- 	 *
-@@ -1357,14 +1361,23 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 	 * (mode->hdisplay > MAX_HDISPLAY_SPLIT) check.
- 	 */
- 
--	if (topology.num_intf == 2 && !topology.cwb_enabled)
--		topology.num_lm = 2;
--	else if (topology.num_dsc == 2)
-+	num_rt_intf = topology.num_intf;
-+	if (topology.cwb_enabled)
-+		num_rt_intf--;
-+
-+	if (topology.num_dsc) {
-+		if (dpu_kms->catalog->dsc_count >= num_rt_intf * 2)
-+			topology.num_dsc = num_rt_intf * 2;
-+		else
-+			topology.num_dsc = num_rt_intf;
-+		topology.num_lm = topology.num_dsc;
-+	} else if (num_rt_intf == 2) {
- 		topology.num_lm = 2;
--	else if (dpu_kms->catalog->caps->has_3d_merge)
-+	} else if (dpu_kms->catalog->caps->has_3d_merge) {
- 		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
--	else
-+	} else {
- 		topology.num_lm = 1;
-+	}
- 
- 	if (crtc_state->ctm)
- 		topology.num_dspp = topology.num_lm;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-index 6eaba5696e8e6bd1246a9895c4c8714ca6589b10..455073c7025b0bcb970d8817f197d9bcacc6dca5 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-@@ -210,7 +210,7 @@ struct dpu_crtc_state {
- 
- 	bool bw_control;
- 	bool bw_split_vote;
--	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
-+	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
- 
- 	uint64_t input_fence_timeout_ns;
- 
-@@ -218,10 +218,10 @@ struct dpu_crtc_state {
- 
- 	/* HW Resources reserved for the crtc */
- 	u32 num_mixers;
--	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
-+	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
- 
- 	u32 num_ctls;
--	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
-+	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
- 
- 	enum dpu_crtc_crc_source crc_source;
- 	int crc_frame_skip_count;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 4616b360812491afbe63f8ffd4a57bc9604382e7..d13eeb3a707e186faec67ec02a634c14414d9048 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -55,7 +55,7 @@
- #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
- 	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
- 
--#define MAX_CHANNELS_PER_ENC 2
-+#define MAX_CHANNELS_PER_ENC 4
- #define MAX_CWB_PER_ENC 2
- 
- #define IDLE_SHORT_TIMEOUT	1
-@@ -675,22 +675,12 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
- 
- 	dsc = dpu_encoder_get_dsc_config(drm_enc);
- 
--	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
--	if (dsc) {
--		/*
--		 * Use 2 DSC encoders, 2 layer mixers and 1 or 2 interfaces
--		 * when Display Stream Compression (DSC) is enabled,
--		 * and when enough DSC blocks are available.
--		 * This is power-optimal and can drive up to (including) 4k
--		 * screens.
--		 */
--		WARN(topology->num_intf > 2,
--		     "DSC topology cannot support more than 2 interfaces\n");
--		if (topology->num_intf >= 2 || dpu_kms->catalog->dsc_count >= 2)
--			topology->num_dsc = 2;
--		else
--			topology->num_dsc = 1;
--	}
-+	/*
-+	 * Set DSC number as 1 to mark the enabled status, will be adjusted
-+	 * in dpu_crtc_get_topology()
-+	 */
-+	if (dsc)
-+		topology->num_dsc = 1;
- 
- 	connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
- 	if (!connector)
-@@ -2179,8 +2169,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
- 	struct dpu_hw_mixer_cfg mixer;
- 	int i, num_lm;
- 	struct dpu_global_state *global_state;
--	struct dpu_hw_blk *hw_lm[2];
--	struct dpu_hw_mixer *hw_mixer[2];
-+	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-+	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
- 
- 	memset(&mixer, 0, sizeof(mixer));
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index 61b22d9494546885db609efa156222792af73d2a..09395d7910ac87c035b65cf476350bf6c9619612 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -302,7 +302,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
- 
- 	/* Use merge_3d unless DSC MERGE topology is used */
- 	if (phys_enc->split_role == ENC_ROLE_SOLO &&
--	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
-+	    (dpu_cstate->num_mixers != 1) &&
- 	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
- 		return BLEND_3D_H_ROW_INT;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index a78bb2c334e30bc86554bde45355808b790c6235..ce0265c13e050fbd48ac5c3202e8fa23edd1220d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -24,7 +24,7 @@
- #define DPU_MAX_IMG_WIDTH 0x3fff
- #define DPU_MAX_IMG_HEIGHT 0x3fff
- 
--#define CRTC_DUAL_MIXERS	2
-+#define CRTC_QUAD_MIXERS	4
- 
- #define MAX_XIN_COUNT 16
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-index e4875a1f638db6f1983d9c51cb399319d27675e9..5cedcda285273a46cd6e11da63cde92cab94b9f4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-@@ -34,7 +34,7 @@
- #define DPU_MAX_PLANES			4
- #endif
- 
--#define STAGES_PER_PLANE		1
-+#define STAGES_PER_PLANE		2
- #define PIPES_PER_STAGE			2
- #define PIPES_PER_PLANE			(PIPES_PER_STAGE * STAGES_PER_PLANE)
- #ifndef DPU_MAX_DE_CURVES
+> +
+>  	if (!test_bit(DPU_SSPP_SMART_DMA_V1, &sspp->cap->features) &&
+>  	    !test_bit(DPU_SSPP_SMART_DMA_V2, &sspp->cap->features))
+>  		return false;
+> @@ -945,7 +949,7 @@ static int dpu_plane_is_multirect_parallel_capable(struct dpu_hw_sspp *sspp,
+>  						   const struct msm_format *fmt,
+>  						   uint32_t max_linewidth)
+>  {
+> -	return dpu_plane_is_multirect_capable(sspp, pipe_cfg, fmt) &&
+> +	return dpu_plane_is_multirect_capable(sspp, pipe_cfg, fmt, true) &&
+>  		dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth);
+>  }
+>  
+> @@ -1028,8 +1032,9 @@ static int dpu_plane_try_multirect_shared(struct dpu_plane_state *pstate,
+>  	    prev_pipe->multirect_mode != DPU_SSPP_MULTIRECT_NONE)
+>  		return false;
+>  
+> -	if (!dpu_plane_is_multirect_capable(pipe->sspp, pipe_cfg, fmt) ||
+> -	    !dpu_plane_is_multirect_capable(prev_pipe->sspp, prev_pipe_cfg, prev_fmt))
+> +	/* Do not validate SSPP of current plane when it is not ready */
+> +	if (!dpu_plane_is_multirect_capable(pipe->sspp, pipe_cfg, fmt, false) ||
+> +	    !dpu_plane_is_multirect_capable(prev_pipe->sspp, prev_pipe_cfg, prev_fmt, true))
+>  		return false;
+>  
+>  	if (MSM_FORMAT_IS_UBWC(fmt))
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
