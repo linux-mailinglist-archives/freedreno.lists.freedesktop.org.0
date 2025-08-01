@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57C17B18704
+	by mail.lfdr.de (Postfix) with ESMTPS id 59C82B18705
 	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 20:00:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60CE010E8E8;
-	Fri,  1 Aug 2025 18:00:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3164D10E30B;
+	Fri,  1 Aug 2025 18:00:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GmOizVTF";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aaNmEuGK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7376410E8E9
- for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 18:00:26 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 571HfrHE002804
- for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 18:00:26 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD9C10E8D7
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 18:00:31 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 571HfLU7001519
+ for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 18:00:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=3TY7JajUGvg
- SQAFX3ZoHDjZ0l2tg+rnsIJNFhfiXB5I=; b=GmOizVTFpFkXh8LhaF8YLtKApVo
- 4TfIABwqGfxA73oKsdDx699Dvb1VgoTq9XgleS0+7GOMI88g7klEjKW8R6oBwWDT
- 55jd3WJDZZusaPyam3JgmK3W31YzkcVQgUwk/SIF2moOs3CGyMlLWioiMpWK23EU
- 7WveXX9E6ihf+CijRH9+Lm6F4c6ox9piNFH+QY37X5XcVLNjpfRaNGmel4+JLlaO
- pD66DNl5cMAFZCqmWGexPnyG8v4MFfYKuyclH1U1lazq002YjO7neXWwmrCufRN0
- kuAkunvG9fZjnRVa8SR/dxub3UFl9blVg97QGG/eDd4RPFgjKakAesguVVw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 488wgrs280-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=V9+fcbz7W94
+ r3G/u7UQJHN/TfdQW561mZf8p47PIeZU=; b=aaNmEuGKHrB1W4wwaq9fNwiKsFi
+ GSNG2TX3N1hxhlRe2h2eeq+HWvw3CR55m6E0ZY+j+KoEH6u5mRGiYX5iuRxcDScb
+ ooi8+X8R0l7PXPVBUGiZofF5JLWuLapA2S8GoR3qYYNlZ38Hzlthr8R8hF8tcCBF
+ CyeTClbDv5gfq17XjYHCvGuB+6YYtQz3XjLeeNIkflsEOX/Ra1hxy/KOWC7x5N6t
+ p+3qJpeIWwj3jmNkl+vcI9lTiB310XNujd+irtH/K732OXq8MkkRB3CwBwYLYRGY
+ EHoKiMMEa5wiANXuNszOBoEXAzrjQJEZenrhoSHVAqHSVxdDsrq7hPBCICw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 488q7xtcng-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 18:00:25 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-315af0857f2so1338409a91.0
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 11:00:25 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 18:00:30 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-3138e65efe2so2193135a91.1
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 11:00:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754071225; x=1754676025;
+ d=1e100.net; s=20230601; t=1754071230; x=1754676030;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3TY7JajUGvgSQAFX3ZoHDjZ0l2tg+rnsIJNFhfiXB5I=;
- b=VNM9yxTyjkUtkrNjJ566TNJl2D2ktMrH5ZUQ9Ave4xLo1Ig80AoAGHouDTkzvRi3Qu
- +GdZGlH+d7PYIZxzY1AOdXjABFgU1yvdtmEF5DzIpdi7dzQCkkX6tCQAw9xXQJNGsNQ4
- xBk+gS0PrxHOHzQh34noiLwjoIwOL8VuTBuQBhgjqGshwuUrkIXnEik6kLqRhx/swDww
- dOrLEd2W9utfV/UnGrdDQ5WujpmD753MPInpzvXNb6mrVjwbnrlX10FZY5CoBGtkCmMf
- tfhoR4+JoEHzfEwlusy9ATnV3CjPJaB8748WF4FAsnr0MziJVpX0JMDAYEUJIWp6MB8U
- hBzA==
+ bh=V9+fcbz7W94r3G/u7UQJHN/TfdQW561mZf8p47PIeZU=;
+ b=kJq1p9oLtRw/3l+4UroNynRraYH1hV2m8CJ/EiXGi3BaMb1Br7L280zZ6QnKaNLSd7
+ I9a35Cs4t0vVealXXmnxmRtuQTDTIQZWsbS+iFulOHsIwPCgw6libtaodugUPZO7KUsy
+ Xj6BHrZQIUBr0YZTn+pL6LxyrRGo/hZdqCn8JHm6uDLhl7m8y7GRZi24O/3VDRCUuy0h
+ peT2aC3r6+4MKSv6x/97wX07YPvj568Y3L3O8CQt13RinfS6edA0X6hwY1q353yLHYAW
+ Dr3w56rTy30L4zqOUjflBWdmF1SrFzIJ6iCh5I0sL+q9F2U9HfaAEF+sd2ez/IzYdlwH
+ smfA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWgZCX05ViJRWnKy+uNQOFYQL6q4U8RlLAQ0pnWb5ComYAS+8nv67CSUvWfEvMpsumrQ86GtXNd+qo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxtWmbIviTKtogj828/HaU0Xwqz4Wk4v2qoiKgBVICKFiMtkW9S
- Y/jvXj2LGzUambq6LBVljd4E/Jk1wEkHZyA0A1bADln4I45AEdKoGPQqgTVniFCpj1jaqj2aR6U
- dg+9nEJzKb5fHCDjKMbu8GKdJxc7EZfDm9J0AXHt+Sn/MvvZr0oyUD1G5HUxTQbbXLOxA3qc=
-X-Gm-Gg: ASbGncs32IS6Il3WfGwWwrHYx5psKyS5JCvDjADbdamp2az3vUlIIZTcPUnRMXkkEgf
- LUbtGyl0cu/ADAmAOvfMXpVBl1YKf17onBQ9aooopYfsscUvu7tcVHtiksBxrw3UrC9bIoyDdd1
- rMRt3xRoekz+EY20mXgkfkbVpyTUy4vnevbOvtOoEUBW+5UHMXA/WxouyP89C6/1geKNyKf5vE8
- HepylZiDdU29jJkn65d199OMCrfe3i4nNY7bPhnmBpqbQy84qc8Tn/aV8H/l9PYtsMIHCKgl4vi
- AQ+aufAR6zi0W8RSlP7s5P1QqxjXPnsV+UEovmRXHzFvf/7zCiU=
-X-Received: by 2002:a17:90b:2246:b0:320:fe6d:860a with SMTP id
- 98e67ed59e1d1-3211629d087mr935847a91.18.1754071224707; 
- Fri, 01 Aug 2025 11:00:24 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEX5MtZHVrDtRtNwnDqwNS5CiFJn1C83bZxhXU0qOaY2Ye0o4TdoGfd9YmU32DzzAJKMfk9aQ==
-X-Received: by 2002:a17:90b:2246:b0:320:fe6d:860a with SMTP id
- 98e67ed59e1d1-3211629d087mr935769a91.18.1754071224045; 
- Fri, 01 Aug 2025 11:00:24 -0700 (PDT)
+ AJvYcCUqTy0q6YSgxPIxp6qHxvz/hiRHeh6O70Bn3EgcjyjIbHZseDgO0nZVpLjWlSYZNZq1ASyWVlmhJJk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWuKkoUzXjhJKqRhdf38Y0nBz/rPk70R3EJ73WjOkPJmsyThjr
+ GEgch87ajzmLXW8HfQj6aG0bfHn0q0VwOFsOtTe16QhxYw8bN76NW8gE0CrJ008A1v6Kwa6n1kR
+ Bk6R0EVqkaBYN7aqQLy/UTsK+gnQH3bZt3agH5g7qL+QL7TmCqU99fVK3eR2U1uFjDYZBQkA=
+X-Gm-Gg: ASbGncuBqUJlM1ZIn+BUpQwpw/lSyW/bmoJgsZKeGJsewKvFnKryy34S81Bj1TVxuRa
+ kyP+lxf2oRddNnN+wf4KXu/3DrXCo4WPJjOVfdKzdGra2FWa1vza9VmjxWun8ulwZa/GghtkswV
+ eH2A8D+e2PYyLNmDX1JhUoxTKjhOi37je8HaldHyMxn3xqZ3Jg8gYEsCOUNxmImRyV5L1Ckd0eh
+ 5mhlKEbiW6kJobrbbTlgySV79by4NauKPLOFWyo5ncjXrHsuuz8VjYxv/dxUOS1kHll0onVDxxs
+ G8MerUbhxi85zbXU7igQq3nMwIRDPvuje75UWM4w6TA0ofXnq38=
+X-Received: by 2002:a17:90b:498d:b0:312:1dc9:9f67 with SMTP id
+ 98e67ed59e1d1-321161d9bd4mr1027090a91.2.1754071227828; 
+ Fri, 01 Aug 2025 11:00:27 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFH0dkuAC+cmmCazD4s9F12bafJvjQsxaVASh+WEL94pt/xIt0kpv25mM+WKaVod2hnX2+8ww==
+X-Received: by 2002:a17:90b:498d:b0:312:1dc9:9f67 with SMTP id
+ 98e67ed59e1d1-321161d9bd4mr1026863a91.2.1754071225861; 
+ Fri, 01 Aug 2025 11:00:25 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31f63c25f0dsm8105815a91.0.2025.08.01.11.00.23
+ 98e67ed59e1d1-32102ae8b5dsm1260245a91.3.2025.08.01.11.00.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Aug 2025 11:00:23 -0700 (PDT)
+ Fri, 01 Aug 2025 11:00:25 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -83,34 +83,33 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3 6/7] drm/msm: Fix debugbus snapshot
-Date: Fri,  1 Aug 2025 11:00:03 -0700
-Message-ID: <20250801180009.345662-7-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v3 7/7] drm/msm: Fix a7xx TPL1 cluster snapshot
+Date: Fri,  1 Aug 2025 11:00:04 -0700
+Message-ID: <20250801180009.345662-8-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250801180009.345662-1-robin.clark@oss.qualcomm.com>
 References: <20250801180009.345662-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=fs7cZE4f c=1 sm=1 tr=0 ts=688d00b9 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=Q8ed3UK4sgpFGPsrdooA:9
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: ewfDrFwt4Ii_g5q9O15MVvPvTZ-0E-dD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDEzOCBTYWx0ZWRfXy6L6Z5pSLy22
- AMBcXkZb8b2hVz2DxGANQPn95k8eRdioDwa3YShorTH08SEcbtycqkZCjQ6nL4zEIhD0WfByyj8
- pqHuHQM13PMKRL4hr1soaHZ9RqOKmuPGamt8e1qrKb3srtJKoBpXVCFddPGV+EC1DMw4SunBdUz
- vwsgqX+iAVbye+7B9iAnP48MC8pyP3BfCclo0FVgwYWAJ7AIhZcYBt0UEDjoIvkdacia7zwZgtA
- Kodq5mX64DsKQ7XZ+x+Mdc8TDfuZANZULFUDcATsc1Ybm1U49KksiZqlAfMtxOMyg2KQWgaNDpP
- sx24Yd6oEPJI+YwfAFzbbhubGKn+yTTf+RMpKlab5N5U9GOGcpxqfKrbOkQmShpPDoTIPPqrAd/
- +6wsrgZad1x40MofVXM4nAPYmOQj+0IFid23KWy+ghAKcrO0QyfthaP9FJaj8/RbrGctAwpP
-X-Proofpoint-ORIG-GUID: ewfDrFwt4Ii_g5q9O15MVvPvTZ-0E-dD
+X-Authority-Analysis: v=2.4 cv=EqPSrTcA c=1 sm=1 tr=0 ts=688d00be cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
+ a=EUspDBNiAAAA:8 a=zhZQclFZcvAaLIcfx54A:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: ZksAm_G9-PmfDbIjTnsCKqKkquOsHOH7
+X-Proofpoint-GUID: ZksAm_G9-PmfDbIjTnsCKqKkquOsHOH7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDEzOCBTYWx0ZWRfX3VgO1YMFFxvG
+ 7jWUQaRFPToXeq75eKwU7eeP3N7KzHOviAr3b0mla8EEUV+NtcHiBbR0NE12PbJ15cou4On7pCA
+ ezCIenvPlAlnpqaITQDipT157giMPfNoVL36LHPrrNDUvqPkpmZ1Iw/yjq2ygFLMqvxoYNAu7dz
+ ugt7EFuKohcBuGWX6EsOowrjGkG/fps58aAnas0+GdcqVLHq0x9+G0B7w1OxvpKvgdD/iyD22fw
+ 0ci/wv3Wn3F0IfEeh9asDAr9yDH6n6WEMzNykRULnc0+2DxRIgF6IGGN4r5cR0oJYl6F8ZeDRC5
+ E4XMmydneDnaFbaG4/NA1g6l5xwfSzrz8YTpmgRuB2z6JCLOvQjjQRGJ1JzxIvZmJTWgQXx613q
+ DY/MBMRezq4bwTipIGe92aTBa7jYJcyx94+8ADvzJKAt4wqgpM0k8Nw6HlIKE0cBQkWY5VQZ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-01_06,2025-08-01_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 mlxscore=0 lowpriorityscore=0
- adultscore=0 priorityscore=1501 phishscore=0 mlxlogscore=999 impostorscore=0
- bulkscore=0 clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
+ suspectscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 mlxlogscore=999
+ impostorscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 malwarescore=0
+ phishscore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
  definitions=main-2508010138
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -128,30 +127,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We weren't setting the # of captured debugbus blocks.
+Later gens have both a PIPE_BR and PIPE_NONE section.  The snapshot tool
+seems to expect this for x1-85 as well.  I guess this was just a bug in
+downstream kgsl, which went unnoticed?
 
-Reported-by: Connor Abbott <cwabbott0@gmail.com>
-Suggested-by: Connor Abbott <cwabbott0@gmail.com>
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h | 11 +++++++++--
+ drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h |  2 ++
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 2c7a52fb0b9b..4c7f3c642f6a 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -438,8 +438,9 @@ static void a7xx_get_debugbus_blocks(struct msm_gpu *gpu,
- 				a6xx_state, &a7xx_debugbus_blocks[gbif_debugbus_blocks[i]],
- 				&a6xx_state->debugbus[i + debugbus_blocks_count]);
- 		}
--	}
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h
+index afcc7498983f..04b49d385f9d 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h
+@@ -668,12 +668,19 @@ static const u32 gen7_0_0_sp_noncontext_pipe_lpac_usptp_registers[] = {
+ };
+ static_assert(IS_ALIGNED(sizeof(gen7_0_0_sp_noncontext_pipe_lpac_usptp_registers), 8));
  
-+		a6xx_state->nr_debugbus = total_debugbus_blocks;
-+	}
- }
+-/* Block: TPl1 Cluster: noncontext Pipeline: A7XX_PIPE_BR */
+-static const u32 gen7_0_0_tpl1_noncontext_pipe_br_registers[] = {
++/* Block: TPl1 Cluster: noncontext Pipeline: A7XX_PIPE_NONE */
++static const u32 gen7_0_0_tpl1_noncontext_pipe_none_registers[] = {
+ 	0x0b600, 0x0b600, 0x0b602, 0x0b602, 0x0b604, 0x0b604, 0x0b608, 0x0b60c,
+ 	0x0b60f, 0x0b621, 0x0b630, 0x0b633,
+ 	UINT_MAX, UINT_MAX,
+ };
++static_assert(IS_ALIGNED(sizeof(gen7_0_0_tpl1_noncontext_pipe_none_registers), 8));
++
++/* Block: TPl1 Cluster: noncontext Pipeline: A7XX_PIPE_BR */
++static const u32 gen7_0_0_tpl1_noncontext_pipe_br_registers[] = {
++	 0x0b600, 0x0b600,
++	 UINT_MAX, UINT_MAX,
++};
+ static_assert(IS_ALIGNED(sizeof(gen7_0_0_tpl1_noncontext_pipe_br_registers), 8));
  
- static void a6xx_get_debugbus(struct msm_gpu *gpu,
+ /* Block: TPl1 Cluster: noncontext Pipeline: A7XX_PIPE_LPAC */
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h
+index 6569f12bf12f..772652eb61f3 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h
+@@ -573,6 +573,8 @@ static const struct gen7_sptp_cluster_registers gen7_2_0_sptp_clusters[] = {
+ 		gen7_0_0_sp_noncontext_pipe_lpac_usptp_registers, 0xaf80 },
+ 	{ A7XX_CLUSTER_NONE, A7XX_TP0_NCTX_REG, A7XX_PIPE_BR, 0, A7XX_USPTP,
+ 		gen7_0_0_tpl1_noncontext_pipe_br_registers, 0xb600 },
++	{ A7XX_CLUSTER_NONE, A7XX_TP0_NCTX_REG, A7XX_PIPE_NONE, 0, A7XX_USPTP,
++		gen7_0_0_tpl1_noncontext_pipe_none_registers, 0xb600 },
+ 	{ A7XX_CLUSTER_NONE, A7XX_TP0_NCTX_REG, A7XX_PIPE_LPAC, 0, A7XX_USPTP,
+ 		gen7_0_0_tpl1_noncontext_pipe_lpac_registers, 0xb780 },
+ 	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX0_3D_CPS_REG, A7XX_PIPE_BR, 0, A7XX_HLSQ_STATE,
 -- 
 2.50.1
 
