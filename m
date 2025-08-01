@@ -2,137 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DADCB1832F
-	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 16:06:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 557B4B18337
+	for <lists+freedreno@lfdr.de>; Fri,  1 Aug 2025 16:06:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19C5E10E869;
-	Fri,  1 Aug 2025 14:06:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rh4XrDsc";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FE8B10E869;
+	Fri,  1 Aug 2025 14:06:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EFCA10E869
- for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 14:06:12 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5718YpFK004997
- for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 14:06:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=X5mYO9TNcqG6LvwHvkvNnoW7
- mrgbAWbzpJxMDANF+yw=; b=Rh4XrDscXyf2Oo02oBHA4UuChG3U+1dh+T7OZAib
- VOuvM1m8SWmIm9s0HizjkP+In4P+XyxFB4XZx7IO7Jk/zzYjW/kIu9MAoHDfanDt
- ZK6ZqoVyXjZ4oZ9aQZ//45SiMCQnN1Md4SWDUjpVylMLrsI6fDTO6e1lMPCbcul0
- oj45dL+plcwt4ZOUYWeVSm6+aXgBwJX1E3S9fNMRuKw5jxIHAfkXX8Cu7W2h2xE2
- KUNOSM2i5MN6SzVqn+zzuAD2NNXnZ3nFwYlKDBiFE8zuStZ6F5rYuv5nXO0iq51Y
- M0bXcC1Vu0z1BSpGM0cpy9kLcSbf0lYPsu/KiiErHey7GA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484q86cctu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 14:06:12 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-7641e7c233cso1977467b3a.1
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 07:06:11 -0700 (PDT)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C09F210E869;
+ Fri,  1 Aug 2025 14:06:35 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-af922ab4849so254364366b.3; 
+ Fri, 01 Aug 2025 07:06:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754057171; x=1754661971;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=X5mYO9TNcqG6LvwHvkvNnoW7mrgbAWbzpJxMDANF+yw=;
- b=KbB9oQJqWkBoyUArVQ3yM2r4sXrQdtdpxSspwEEn6SiUoMQuvg80ZzwWLGzRXAVTFI
- x2fU3ttuU8N1VSnM4UB2kBZiQ1lHUCR0Qez9yoorkMU6ezh9PSx1FCX6MoxdkncCTwOa
- 6bIwc4CcAOr8s1mPUZu4N5/vsiXJWP9oX2xCNyloIstdJd3zwWeYH6yZNdK+0oEUCnuT
- c/yBlcj94Oh5W3K8VZpC/chffs2IfVvslNDb9+fYP59KT3KSwJRQA2Z0Qq5KPZcJ/IV/
- +p8dbP2okDzWDxFd5vFiJsvlirR9fjzO1mgsXfVKMFpJS4FY7uZvKU2tQGZWJzkS/xv6
- tPrw==
+ d=1e100.net; s=20230601; t=1754057193; x=1754661993;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=A0A5xi+3xpovbOffaEI0YAyQFVVclpkd8BxIERvxAbg=;
+ b=fVAhnnWp9zZ4a9hkLmnTMiqTYIl7YTs1aQaU5MNF1hwms5q3Wfh8jigSDDjR9QwSfe
+ HeIv9Bi7tAFDthnlEB3qy8YgAxQa7+DAuCOAFxTjqKBYhxtLYFvLMa6uEnhpz0zpILex
+ jkCy3Agmcgh2N6nq1A4FABLM8P/2tU7HwqWz3UioAsznmkBH1+ZLTjbefYan/luOdWiO
+ d8EvnoVLm0sqbFXzXng04MWn7Bc+KQji+8Do3vUnkRsLo0Etp5ysXCbKLXT/haIT6xVI
+ JtUWI3i3IO5dL8PeLr1ck77KkvF1GRA9Ygnzjw8lfcaM+TJKc4zgpR0KIR/ehlLdTVzW
+ /Enw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVeFZ0PI6pFiMvvSXsK7RywNQUgvc6+JYgp86pbkOWlaWyTxrC9SF8+89ZHAnPQ+gTNC0jIzq7VTcU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHQ8WQYO/8igQVmh7kAwkzy0NZ2XLt48ZF1viuF/6vx4swS1i1
- oVR3b7ppxGerS986DXDlhH6bZnQ8oYllVXzAxIA6rS0HAaEPAOHoYGISuC2csOsdUEoM1hU9peJ
- hkAXmLDpwtiypc8Zy0XWprOo9r2Mt8JlbYYdUAN/yKvtOirfYF3O4ARor0umQnhfHEbKqV+o=
-X-Gm-Gg: ASbGnctb5T/tV/ehvoHTJrskmONoxICKR7iACGehnMtn2XGercFbnBtJc/9Q2OGQf8n
- sIcXldxgcMWEObB3rWRwiwLBDODZ/6X25G5zfEEHtCjdyVTFc2fAUWRCIKsu/olsqH3+Cx2O+M2
- O4D2vT88LhPUfyusYl4qDHaKUxFrma7Tw+mcUA46hhzcp7gA1BPw8lzOuhaW5mKu34NpwzWnWOM
- ln1wadLFaZmbs7Z/cZyO6Xhr5yCe5pfNNcRnilwxZ6oA6qM0DtbW5ck7ZHYJNj06kMFVo+fqdOe
- ZVrCMupCg92eH1Oc+awtpqSadH/5D9DHFD0OtiUnHhfrCWULBztIuSBtw1l9D+Rfh8TUL/szyuw
- tE3rxl3bx6DQs29bCNWdZTEA4TTBAJWhD22pgCsKl768/33icnltK
-X-Received: by 2002:a05:6a21:33a5:b0:239:29ea:9c97 with SMTP id
- adf61e73a8af0-23dc0ec463emr20483662637.24.1754057170865; 
- Fri, 01 Aug 2025 07:06:10 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGitYNtTnXOBq8raaQNZX9YeStN7g/CeoibFIFiLag1gYHl4anqkXU57qCgbVhM4DI8a/qNMg==
-X-Received: by 2002:a05:6a21:33a5:b0:239:29ea:9c97 with SMTP id
- adf61e73a8af0-23dc0ec463emr20483562637.24.1754057170060; 
- Fri, 01 Aug 2025 07:06:10 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-332388fc7d0sm5621721fa.59.2025.08.01.07.06.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Aug 2025 07:06:09 -0700 (PDT)
-Date: Fri, 1 Aug 2025 17:06:07 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 5/8] drm/msm/dpu: use drmm_writeback_connector_init()
-Message-ID: <z4ewbwtrqnem3af2tuket4wpgsulo6f6vy54hnhxrcx56hdx23@i5nuuiw3j36g>
+ AJvYcCUF2Pn8GaBH6zrucuv65oWIvynElKBymiaA/g8QJ2CDdlfaMha7rsn17ZT6bX4dY6Ee6N9s+zY4@lists.freedesktop.org,
+ AJvYcCUTKTfYLlppozyK/ng0mVmYptoUE8lz6Gb6vfJTyudMVu0V4iisw9sephYoTQfi3buvljqUTBw9ZwoB@lists.freedesktop.org,
+ AJvYcCVg/yX4P56ibo6b3PF/dTOVZqIcg7+jaOFqEKsNSj+JsCvr6beRWL3fDEK8Hc/eohQrFnWaEnuqbaeg@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx4pubdWE1O49Fru16iE9ilePg7VcBMeqb4xp59yk1Kzi/ma9q3
+ XNFdMEsdNCElGtiZ/agwsQ5K72gOicmzXo81EVwRTNa8u6QWNJHfGWsYJK8mhl5IY0A=
+X-Gm-Gg: ASbGncvtlEdtPwbBEzgyb2wZJF0A7NTIdc4OVNKeRLfW5DHInQL2afBbZzeknqOvdNS
+ TrsUkCHInk0xV/xfBNjpv1n/Sz+pGOoCCErw6aBZhTShiK0DwyqYzWMPI9n92SSvVwNpmVKOqfX
+ 2mLvvDsvFg/xSQrOT3GZhS5LlIfDX8/iLAvS9rRVcwoxbHlFPPiWLZwHCCaewVnGt2mV7ERMvy7
+ xIwE7f01Jp43letPtaVqyU8Sx0AtF7bHXRjPN6VAoP2GH3dpvMZGkISgQgbJ/u2O67QM9TLqwP7
+ syeore4eNQlxzW0zAXebFPEVJfbpX+bRuIcWMMzFQwUhONgKwnUhdCEvPaET0d2SV5kvspKp6CL
+ LBc6RkZYBgh2P92lMfGdm03ZecR35vJtPPhq0aGnwALKFimbKnGqtMC1INFe8ngZ9XoQIpW8=
+X-Google-Smtp-Source: AGHT+IF9O6P4/j4Zk2x8CleHxTXZA99WC1/fgwWkY8+gyU6BBMObEQIlufj1QeBI27OMXuLiBRyjIw==
+X-Received: by 2002:a17:906:37da:b0:af9:3b4f:a536 with SMTP id
+ a640c23a62f3a-af93b4fb5a6mr113834366b.45.1754057192609; 
+ Fri, 01 Aug 2025 07:06:32 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com.
+ [209.85.218.52]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a1e833dsm290953266b.64.2025.08.01.07.06.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Aug 2025 07:06:32 -0700 (PDT)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-af922ab4849so254357966b.3; 
+ Fri, 01 Aug 2025 07:06:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUG450r5zQYYk3EDvlwWURAEqucKufdyrSq9IawLtsyPkdZahU6o4k221mRf412dYr/ViQxcxq7XbFB@lists.freedesktop.org,
+ AJvYcCUnfpohICGjiwP5EVUxLFVtKycU9DjC55W7nCOpPqK+aXNuf7d55QDZcsnAULMO7ByPBAB31zRz@lists.freedesktop.org,
+ AJvYcCV6yrPiJcLuO/Jtz8UzgL6BovnSP4ryqtYzvGJ8VGJ6y2oHl9+QtNZOR0MRfv9w17e5Pj36QvZXAkRz@lists.freedesktop.org
+X-Received: by 2002:a17:906:dc8c:b0:ae2:9291:9226 with SMTP id
+ a640c23a62f3a-af931992ab9mr376411666b.59.1754057191885; Fri, 01 Aug 2025
+ 07:06:31 -0700 (PDT)
+MIME-Version: 1.0
 References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
  <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 In-Reply-To: <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDEwNSBTYWx0ZWRfX2Don1cLDgvHs
- 2F+UYP+MW+SLVse98plNN62MUezGxd6HsrB3vUiBXNNIw9tz67qWSBFMi+JSfpR2cHJNoMZQ/Vo
- I6Dt8XXzrCl2cfSAqVgiu+pCJ19/KiZvOkrSOZmzBmRkFxQ4Ar9UZPUJgBALZa0DYHMrqSGri7k
- PiC9kGMZO7LXS9ld0EbIFS0ZDxRVw3pyBgIbqIvxLkabTWAtrDlaSdW03xAIPwcuu+W+VgQlsEG
- TEY8NBK41djW+HsG+ZOHCLJrQMazeGTkhDuO/V/9Pydu6ciTd2142x5oI+m7Jq+BD/4ofSNKgG+
- lQvHyK5W+NEcY+qr7DkdYWLgR84UqW1oGYbi9i3ZxWDD6cjyFQr4AvM1bLjm7moF4aAhlUvYnuZ
- 54pchfEk5lR9An4oARh6AqSQT2ZcaI+pdxa8CHVb9gxxwdFGps2wdB7FbwWt04VXCJEAUIx/
-X-Authority-Analysis: v=2.4 cv=TqLmhCXh c=1 sm=1 tr=0 ts=688cc9d4 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=noEQxEA5MoPOL7h678AA:9 a=CjuIK1q_8ugA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-ORIG-GUID: 8QD8dlCTMA2omvPL1tG4cBWUaoKkESzo
-X-Proofpoint-GUID: 8QD8dlCTMA2omvPL1tG4cBWUaoKkESzo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-01_04,2025-08-01_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 adultscore=0 spamscore=0 priorityscore=1501 clxscore=1015
- impostorscore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2508010105
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 1 Aug 2025 16:06:17 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUamdfu4VH8H9oyA_uhF8Jx8zDi2jfPmiy_-r2u-LU23g@mail.gmail.com>
+X-Gm-Features: Ac12FXyqNVzOuQuexYljmDDN0_xmYa1ngs423zaCF76oVKZNARv5QvM4zwy2PHA
+Message-ID: <CAMuHMdUamdfu4VH8H9oyA_uhF8Jx8zDi2jfPmiy_-r2u-LU23g@mail.gmail.com>
+Subject: Re: [PATCH 5/8] drm/msm/dpu: use drmm_writeback_connector_init()
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, "Kandpal,
+ Suraj" <suraj.kandpal@intel.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ DRI Development <dri-devel@lists.freedesktop.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,26 +114,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Aug 01, 2025 at 04:51:13PM +0300, Dmitry Baryshkov wrote:
-> Use drmm_plain_encoder_alloc() to allocate simple encoder and
-> drmm_writeback_connector_init() in order to initialize writeback
-> connector instance.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++++++++++++-------
->  1 file changed, 16 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> index 8cd37d7b8ae281cbc1fd8cbb243c621174517e23..9986a10e8114680e9da48986f4ca3ce6ec66b8cb 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> @@ -134,7 +134,6 @@ static void rcar_du_wb_conn_reset(struct drm_connector *connector)
+s@msm/dpu@renesas/r-car@ in the Subject.
 
-And I used wrong subject prefix here... I will fix it for v2 after
-getting feedback on the series.
+Gr{oetje,eeting}s,
 
+                        Geert
 
 -- 
-With best wishes
-Dmitry
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
