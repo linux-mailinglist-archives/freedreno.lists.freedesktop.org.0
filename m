@@ -2,129 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 192B5B18DD7
-	for <lists+freedreno@lfdr.de>; Sat,  2 Aug 2025 11:56:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68B05B18DED
+	for <lists+freedreno@lfdr.de>; Sat,  2 Aug 2025 12:19:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E928410E3D4;
-	Sat,  2 Aug 2025 09:56:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC2910E004;
+	Sat,  2 Aug 2025 10:19:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eOMTQSLa";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="M8IKCKUD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B23010E3D4
- for <freedreno@lists.freedesktop.org>; Sat,  2 Aug 2025 09:56:29 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5725fC0H022941
- for <freedreno@lists.freedesktop.org>; Sat, 2 Aug 2025 09:56:29 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B253110E004
+ for <freedreno@lists.freedesktop.org>; Sat,  2 Aug 2025 10:18:58 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5725g4Xr009900
+ for <freedreno@lists.freedesktop.org>; Sat, 2 Aug 2025 10:18:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=tgapHTEIyirK94bcuh79Jkb2
- NHYVIyca+jtZheFWZ+c=; b=eOMTQSLaaM+CPoqDc2v/btTMTF1q7UxFxQ959aCg
- IqSx3thWCL0zZ6fNRr9MUFDd1ykMheaBZd0IkF+rgaMjUPeWsYb0OxQtqPX33UBY
- tshAm3VwA8ldYiXAkkfB0ydBgxnpciOwqiLGSsN/wdDWkSHcEcKY39zjUE1BxJTf
- MBuftNk2bjbjyw9LKC6R3YbxUF/mVOP6K5tqY8SfReM24BTNx7cesNrFDjjYBDQd
- qD8EPrhwCpV29BZO6Qp394fdKPI/6EmG6oU009mRqptUAoEvyKlnFnrxLsle+kvo
- /H9HzMdErvwxNxudQi7/D95NKVPml/8r4OfZJUHfOQ0LCw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48981rgvt4-1
+ :references:subject:to; s=qcppdkim1; bh=Jx+kGc1/RtPDFH2kU0Zb9HbE
+ qcdsxBgONzyUhmEa04Q=; b=M8IKCKUDEC+Bd7QZtmEsqmYVwRAdDw/7z3Lfae+m
+ uSnhCG4cChirryJxvVQGcObJPaHmBNSxKmt5xFy95jUK8OH1c3hkCCETqnEDaVUb
+ gNzM7e+qacgNXr4mIyeu1ttimWpDBxqOeVRVXewtT7w8jmX+9ThOzUerngFF8frX
+ kwenYUebvafcly5XthVInTotUAO8FRpCnrE/J6CGRUyRk17WbCcd6KytPLrfHMXT
+ Fxbye/W9+xQVto+0xrQ+DVdTxCEnyogYo777Xxvu0KObV+2aH9z+ugb6fR3zHm+a
+ xHZIP3IX0WFPDvkx3XvNh0YigwyME2cTsU7hcoJ2AmF+Sg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 489b2a0kg9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 02 Aug 2025 09:56:28 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7e69d69691fso3283685a.3
- for <freedreno@lists.freedesktop.org>; Sat, 02 Aug 2025 02:56:28 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sat, 02 Aug 2025 10:18:57 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-7e68bc0408bso225283185a.3
+ for <freedreno@lists.freedesktop.org>; Sat, 02 Aug 2025 03:18:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754128588; x=1754733388;
+ d=1e100.net; s=20230601; t=1754129937; x=1754734737;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tgapHTEIyirK94bcuh79Jkb2NHYVIyca+jtZheFWZ+c=;
- b=vmtnM/coOyBCjpyIm49XTJBBiKEUVqGAuRTWNaJ5ocZHmkcIM9QVL90tcs0yPvQkkr
- MP3vIpfLgh3zHVy0MyxG9rC5LJ65bk/44CyucTYj0wSDevb/HJE9fwXQ/ENEqDKEsDSX
- 2hYZBx7HbvqIuRPbfPBphun06eFg4TQ2TCfpcGWl6TeKTIeATy0gCoNvZP9G9uhOPBAd
- ey37H7Kyx3sFo/b8fpO5/IFgJjvD/2JchLIWHvbH1UgUaq7fFnQBISM72+xbjVxntNwB
- yYfV4EJr2Bnll0jCWG1/ubKC6tl6ZGvixnodJLjyKwS4gGDCaOGdT35H6qW2H7Br0h19
- B3Uw==
+ bh=Jx+kGc1/RtPDFH2kU0Zb9HbEqcdsxBgONzyUhmEa04Q=;
+ b=a1crfFmyMfw6Q1T4xhGWBMnFmqWdBh3SVtYUmGYAUHGC3hPWHQ9kKM4LdKZD2VWVYS
+ BeDdqj1BEvqocTkSpqzHfrxya2ZXCFLQNBb7MPWrqfy4miKPxdjw4/j8PEDjejR0+pLj
+ QTaexXamMSRLzSp4DVeCHiwt0QhjnzGeOyJDF2iBdT4iVOa9FFd+dByr41BrTcGBGGsJ
+ 5W4olYfXepiHSV+tpoePlWPqjXAR1xdfSv7boXDvrvykSUnveMy2tKt6YtFbFV2pw4OK
+ BMnJMGY2YMlyUsiJsa4bi48edFOw1GPEjUilWMJqtOBkRV4hCYe0petH25qPw6BXxRQv
+ essQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUcEdkc0L1CU+B+UmWPKieH0yvVgRVM5dcDJqYh4bnD24H8NwP/tNIZxpCY5K3fGxhr4/ZL/DZDz3k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxM9X5EFWEbJsuYIz8TH1uI8MLRKNnYGRrQYjnezd8F+LQ4yIth
- 5XTZ8L3hmkMEJlJboYyoiceQpQEuDwL86/pulxeBn+jb8XiC4ZvvmQ+UjVYkQuJbdukN+t5WmW5
- CrjwsTi9W286mz0YkLvd2gCGdqT1slGYSBcdsjkjpgvZG/j2+g3OQ50xjHg5F1siaQWQdQWU=
-X-Gm-Gg: ASbGncvi4YxXQkc88ijXEgPP9rcbwKXzoJdlQS58GczR50lvRrxQai6YtGTyXhLr0wg
- 7Rlqr/SAaRTeDa9HjdTYHs/pNs9qpV+f0lCdL1UtCN6366TQtx1JC9FmAJhAgcBXqbRWH9UQkRE
- XjGdm+meNz577GMY6U8/Wq00VzJWd1dy2BIYHzrcMF6fSLoZhect5ViEtaOHuhqHjWyzSCkcctR
- 70HAInnmJbm+DKNYY31eaYPy1CSPE7ZRL30vIfll5FBZSsA96dImJz570rxanOh1Wcoc3dM86nF
- olejq6r84ycVS9u20xkKSXx1aGeLycghQdMkZ+MPu3m4m5G80NE3TyOYIPW5MbScGS6x74kJ5c4
- n/nvSnlmfDkUIvpBrt7vdYYDInMWtaJ1cRno2JAxC7T9u9Jw2goxR
-X-Received: by 2002:a05:6214:124c:b0:707:452e:1e9b with SMTP id
- 6a1803df08f44-709363276c0mr30228646d6.44.1754128588154; 
- Sat, 02 Aug 2025 02:56:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHWmPmGi7bSzZLL/ufth6B1UYrxlQ6n2myVT51dGj1PWD8ll7fyJ3i928JLrowb7W4FELQxbw==
-X-Received: by 2002:a05:6214:124c:b0:707:452e:1e9b with SMTP id
- 6a1803df08f44-709363276c0mr30228296d6.44.1754128587672; 
- Sat, 02 Aug 2025 02:56:27 -0700 (PDT)
+ AJvYcCXmvBIWogyOcjej5U49A9dWHZgUAz3PiTQs3DNmYHSsitfJzMbffvBbv8GFuIikQX27tGUJ1YkGbyY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJJkT5x+rrRpOz4NVIS7frQyS7xOSFNHRhwKZX+4PIdvRWCTm7
+ 43ayV8BGhrOscIXiPo4pqXQN4Q0kKAzgbBvyFU0b+YnPWUrIW7DLAft8rd67oV3VKDuOykn8O5y
+ RMU/UMP9VtbwrNndDtbdwy1JnDXB+eYEYqLMbbejwMPeRPDE2ggxb5u0RBOdvWIbiGbAxmJw=
+X-Gm-Gg: ASbGncugWyfi24lsaRQUwI+exKNf/x76N1bo20dEZVhY1PhLY3KAK4Z65WmpUiHkIfW
+ nnWU8nKl4W/V0q5Q2EKiaqTzIgCy1DBhtNefyBf5+XiOAF4w/KM6Fp5yJVGkqjYh79dTGd2kxp4
+ /i8X2EWaJdVWf3PH9MRj/xUHJJ+XTP/QY4LCvTA+HVxAkgwlQs/Y+nv889TDgfqB8LD6tlBJHlm
+ YQiD+NHilDGHdcqYGzDOZ2J1p3J2Ge45k3bM3STAexexgTWMyobjp2SCH9F1iahJeLwv2gsyHBY
+ tlL9KVy7ZkryaON59Eg2SghzDq41oIxDNwgw05g7vbPbo+vbM6eqOn7RFccYmW41IKO8LzfKOQL
+ dw6osAySdZZ4OReKo5zpSD9w5SXqVMHq8XN6Cx3Lb/5BNsvsGnbUf
+X-Received: by 2002:ae9:f716:0:b0:7e3:48a2:b978 with SMTP id
+ af79cd13be357-7e696371059mr347570385a.49.1754129936731; 
+ Sat, 02 Aug 2025 03:18:56 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGkTnIMpLeKTQssFIE7XgfKnhYV45kHZ+Dp3zZITljw76FcrvhI8dE+FJ/ar1u/0l7+mkctwQ==
+X-Received: by 2002:ae9:f716:0:b0:7e3:48a2:b978 with SMTP id
+ af79cd13be357-7e696371059mr347568285a.49.1754129936298; 
+ Sat, 02 Aug 2025 03:18:56 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-332388fb356sm9193871fa.61.2025.08.02.02.56.25
+ 2adb3069b0e04-55b8898c2e9sm918063e87.4.2025.08.02.03.18.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 02:56:25 -0700 (PDT)
-Date: Sat, 2 Aug 2025 12:56:24 +0300
+ Sat, 02 Aug 2025 03:18:55 -0700 (PDT)
+Date: Sat, 2 Aug 2025 13:18:53 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <quic_yongmou@quicinc.com>
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/5] dt-bindings: display/msm: Document MDSS on QCS8300
-Message-ID: <deefg7w3ot6cd3woexfwagetmkg4nvu37f66h4ulbdqegdgi3u@plj6puxcsil4>
-References: <20250730-mdssdt_qcs8300-v5-0-bc8ea35bbed6@quicinc.com>
- <20250730-mdssdt_qcs8300-v5-3-bc8ea35bbed6@quicinc.com>
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yongxing Mou <quic_yongmou@quicinc.com>
+Subject: Re: [PATCH 18/19] drm/msm/dp: Move link training to atomic_enable()
+Message-ID: <qz725rrbpae5iw6tmx2s2pbaxl7pliyxf7dd3gyev64zqrbq5t@aeacyijbswl3>
+References: <20250711-hpd-refactor-v1-0-33cbac823f34@oss.qualcomm.com>
+ <20250711-hpd-refactor-v1-18-33cbac823f34@oss.qualcomm.com>
+ <cofa377vptj7on637u3c3mnxndplcmaegsb5h6idinz5wrvm6s@toylno4uapq4>
+ <a085fb45-91e2-4827-b8e9-8af90796cc49@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250730-mdssdt_qcs8300-v5-3-bc8ea35bbed6@quicinc.com>
-X-Proofpoint-ORIG-GUID: KuZx1NdTJw3r9CJEj6wiQKbotiP8YBl-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAyMDA3OSBTYWx0ZWRfX9Q59GGqF0ExX
- FnRYoRiKKqMmdKxafuI2m15ZBM8QzSwFRADinKmdnRhI2U47NENCkFZLHgU5I13T8Kjnbl4SjXL
- +cVxrDzJiucp9OKlOJCLZRxEBoFitEiZkcklFlB/Hs8QEuMNll4rXWSA5tsTrlQlbjdhIzZm5OJ
- 4NE8YK2goe/oStrCqzHnv3fM+pd4B7nyFAJIWMgiRswQ6K/Uc15R8VsszixROoQt2wdBrPoaLNs
- NKdZHNRyHieJkyPif7sGXnVXhsYd0opmef9Cd8lSDJBqw+Ko+MaUc6qBWR5rODSpe+O6Fa/ZW1n
- /oGqM1dAV4m8GdlzUInTIVRdEubZdG+wjyJLu7UjzNjrwAsvS+tl5CNS0Dy/3eCoo0p/Hzd7Bb4
- PpC4OIlZlEF3k7ENdxBWWhbuDv8BPBm4zylRBKqZjzXavxwkPzV6ZqIy1pl75qpHkc6ujg/h
-X-Proofpoint-GUID: KuZx1NdTJw3r9CJEj6wiQKbotiP8YBl-
-X-Authority-Analysis: v=2.4 cv=a8Mw9VSF c=1 sm=1 tr=0 ts=688de0cd cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=gEfo2CItAAAA:8 a=COk6AnOGAAAA:8 a=BQMJ-ZqQIgEHPhERFsAA:9
- a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=sptkURWiP4Gy88Gu7hUp:22
- a=TjNXssC_j7lpFel5tvFf:22
+In-Reply-To: <a085fb45-91e2-4827-b8e9-8af90796cc49@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=OKwn3TaB c=1 sm=1 tr=0 ts=688de611 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=alj5FwM-wW7eLBos5QIA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: _ukeCpQty_CdQFM52LQ8WeTQjD2oPHJi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAyMDA4NiBTYWx0ZWRfXy9/ZvmCFQmRI
+ XZ1Mfl6KEuqjCgbUXLyBvFz9j2xncjeSb1HU9Mn7/apDGAST6LIOe2IDvgbZrKidZhPLiLVjC2Q
+ tXgYGKXRTUBH+zHjPqI5TCm06QNMGhB9WTipuHcycA5SSwg2MV5sLJKzX5O7yQ+bmxH7g1B8mp9
+ B9JV2P5Gm6sxWR4VSSmg18tXFrq6G+tco6VRUhmvhLoXHOPUDqqDSyuwJDIb3cG+lXKHsWO3klY
+ 3Q60qagENwxNwLcu6akJduaqaK5bnpul1iy1+QVqAcrQVHQL6WDf9xeNJFCtSaSP4TdnYR33Xvc
+ EGfMuD6yeiuwi5rCKC0VCRNaN5h6tfAb6ExChVyVb1WZz8snU85rxg/3eYAYZlN7nmh/CUnl/yS
+ wmzh58R7ernuKy/6BQ3jkHHlU2EvYs3keDSXuO/YxsL0PmpQScGf8kzLips80Wi6W7RE8cAj
+X-Proofpoint-GUID: _ukeCpQty_CdQFM52LQ8WeTQjD2oPHJi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-01_08,2025-08-01_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0
- spamscore=0 mlxlogscore=999 mlxscore=0 malwarescore=0 impostorscore=0
- suspectscore=0 adultscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2508020079
+ bulkscore=0 spamscore=0 suspectscore=0 mlxlogscore=999 clxscore=1015
+ phishscore=0 impostorscore=0 priorityscore=1501 adultscore=0 mlxscore=0
+ malwarescore=0 lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2508020086
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,96 +131,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jul 30, 2025 at 05:42:28PM +0800, Yongxing Mou wrote:
-> Document the MDSS hardware found on the Qualcomm QCS8300 platform.
+On Fri, Aug 01, 2025 at 04:58:55PM -0700, Jessica Zhang wrote:
 > 
-> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
-> ---
->  .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 284 +++++++++++++++++++++
->  1 file changed, 284 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..ae4bc16395326bffd6c9eff92778d9f207209526
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml
-> @@ -0,0 +1,284 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/qcom,qcs8300-mdss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Technologies, Inc. QCS8300 Display MDSS
-> +
-> +maintainers:
-> +  - Yongxing Mou <quic_yongmou@quicinc.com>
-> +
-> +description:
-> +  QCS8300 MSM Mobile Display Subsystem(MDSS), which encapsulates sub-blocks like
-> +  DPU display controller, DP interfaces and EDP etc.
-> +
-> +$ref: /schemas/display/msm/mdss-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,qcs8300-mdss
-> +
-> +  clocks:
-> +    items:
-> +      - description: Display AHB
-> +      - description: Display hf AXI
-> +      - description: Display core
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  interconnects:
-> +    maxItems: 3
-> +
-> +  interconnect-names:
-> +    maxItems: 3
-> +
-> +patternProperties:
-> +  "^display-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +
-> +    properties:
-> +      compatible:
-> +        items:
-> +          - const: qcom,qcs8300-dpu
-> +          - const: qcom,sa8775p-dpu
+> On 7/14/2025 4:54 AM, Dmitry Baryshkov wrote:
+> > On Fri, Jul 11, 2025 at 05:58:23PM -0700, Jessica Zhang wrote:
+> > > Currently, the DP link training is being done during HPD. Move
+> > > link training to atomic_enable() in accordance with the atomic_enable()
+> > > documentation.
+> > > 
+> > > In addition, don't disable the link until atomic_post_disable() (as part
+> > > of the dp_ctrl_off[_link_stream]() helpers).
+> > > 
+> > > Since the link training is moved to a later part of the enable sequence,
+> > > change the bridge detect() to return true when the display is physically
+> > > connected instead of when the link is ready.
+> > 
+> > These two parts should be patch #2 in the series.
+> > 
+> > > 
+> > > Finally, call the plug/unplug handlers directly in hpd_notify() instead
+> > > of queueing them in the event thread so that they aren't preempted by
+> > > other events.
+> > > 
+> > > Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> > > ---
+> > >   drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++-------
+> > >   drivers/gpu/drm/msm/dp/dp_drm.c     |  6 +++---
+> > >   2 files changed, 11 insertions(+), 10 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > index 87f2750a99ca..32e1ee40c2c3 100644
+> > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > @@ -410,11 +410,6 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+> > >   	msm_dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+> > >   	msm_dp_link_reset_phy_params_vx_px(dp->link);
+> > > -	rc = msm_dp_ctrl_on_link(dp->ctrl);
+> > > -	if (rc) {
+> > > -		DRM_ERROR("failed to complete DP link training\n");
+> > > -		goto end;
+> > > -	}
+> > >   	msm_dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
+> > > @@ -1561,6 +1556,12 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+> > >   		force_link_train = true;
+> > >   	}
+> > > +	rc = msm_dp_ctrl_on_link(msm_dp_display->ctrl);
+> > > +	if (rc) {
+> > > +		DRM_ERROR("Failed link training (rc=%d)\n", rc);
+> > > +		dp->connector->state->link_status = DRM_LINK_STATUS_BAD;
+> > > +	}
+> > > +
+> > >   	msm_dp_display_enable(msm_dp_display, force_link_train);
+> > >   	rc = msm_dp_display_post_enable(dp);
+> > > @@ -1706,7 +1707,7 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+> > >   		return;
+> > >   	if (!msm_dp_display->link_ready && status == connector_status_connected)
+> > > -		msm_dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
+> > > +		msm_dp_hpd_plug_handle(dp, 0);
+> > >   	else if (msm_dp_display->link_ready && status == connector_status_disconnected)
+> > > -		msm_dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
+> > > +		msm_dp_hpd_unplug_handle(dp, 0);
+> > 
+> > This chunk should be separated from this patch. I'd ask to drop
+> > EV_HPD_PLUG_INT / EV_HPD_UNPLUG_INT completely and call DRM functions
+> > all over the place instead. You can do it in a single patch, which comes
+> > after this one.
+> 
+> Hi Dmitry,
+> 
+> Sure I can split this into a separate patch.
+> 
+> Is the goal here to remove the event queue entirely?
 
-Use contains: instead of listing both of them
+I think so.
 
-> +
-> +  "^displayport-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +
-> +    properties:
-> +      compatible:
-> +        items:
-> +          - const: qcom,qcs8300-dp
-> +
-> +  "^phy@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        items:
-> +          - const: qcom,qcs8300-edp-phy
-> +          - const: qcom,sa8775p-edp-phy
+> 
+> I can drop EV_USER_NOTIFICATION,
 
-Use contains: instead of listing both of them
+With the link training being moved to atomic_enable, there should be no
+need for an extra event here, I agree.
 
-> +
-> +required:
-> +  - compatible
-> +
-> +unevaluatedProperties: false
-> +
+> but I'm not sure if I can completely drop
+> EV_HPD_[UN]PLUG_INT entirely without major refactor of the plug/unplug
+> handlers since they are used for the HPD IRQ handling.
+
+And one of the pieces of the problem is that it's not doing its job
+correctly.
+
+The code flow should be:
+- Inside the IRQ handler notify DRM core about HPD events from the
+  bridge, don't do anything else.
+- Inside detect() callback read DPCD bits and identify if there is a
+  valid branch device.
+- Inside hpd_notify() check if DPRX has sent IRQ_HPD pulse, handle the
+  rest of the tasks: link events, etc.
+
+Note: we might want to duplicate DPCD reading between detect() and
+hpd_notify() in order to relieve detect from updating the DP structures.
 
 -- 
 With best wishes
