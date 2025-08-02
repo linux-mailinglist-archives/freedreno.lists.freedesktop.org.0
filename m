@@ -2,120 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1A71B189AC
-	for <lists+freedreno@lfdr.de>; Sat,  2 Aug 2025 01:59:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCC84B18B27
+	for <lists+freedreno@lfdr.de>; Sat,  2 Aug 2025 09:49:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAEE110E06F;
-	Fri,  1 Aug 2025 23:59:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B099010E0C6;
+	Sat,  2 Aug 2025 07:49:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="o07yc4Li";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EbhniN2X";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01FE310E06F
- for <freedreno@lists.freedesktop.org>; Fri,  1 Aug 2025 23:58:59 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 571LfH1t022988
- for <freedreno@lists.freedesktop.org>; Fri, 1 Aug 2025 23:58:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- sJil9fuANTIpmKQE7cP4cPGJ+csBLlaXLdFVNl5IgEY=; b=o07yc4LiXSNMEQ0m
- tPDQtTL9RKOocu7P/FqueYPSICyprAmwRxEO1PpDp3wZBie5R28tFQA/JcOhmbDi
- Fl1a5SRYUKy8/7LKsBp35BZISo7WN7qQHh68eCQmOx/v9FDCf3uo8lhxObDy9spF
- hMBTocTUEY4TIfIhvBayY9jAa/oHlow2IGFHABxhTWIl2/EfDVrOOXR9dzu2VUVf
- /a+JfVVphcxWsIwUuSr577sD+CQthPSeXG1UdkYl/SrwMLzTEW79t7gHcnaK7hee
- yPvuiWwmhH+qxzdU8kfDV4AVa2B2NFqZDB8f2cXIhAnRMpyrCU4/NdOvFUT8+Nmy
- DAp7Pg==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484qdad99e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 23:58:58 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-75ab147e0a3so3512495b3a.3
- for <freedreno@lists.freedesktop.org>; Fri, 01 Aug 2025 16:58:58 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC85910E0C6
+ for <freedreno@lists.freedesktop.org>; Sat,  2 Aug 2025 07:49:10 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-3b8de6f7556so13062f8f.1
+ for <freedreno@lists.freedesktop.org>; Sat, 02 Aug 2025 00:49:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1754120949; x=1754725749; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Jc41eAaTwlF+ilpjGXVXKV/B+JMC260AXywvrCae45I=;
+ b=EbhniN2XhhLpxsUdVy2QSZiKEqpq7TcE50gqbXNryECbeV7Q8f6S5oDraUdgUCtgL1
+ Dtta2QwetpNFrWKYBuzNm4T8ddNQ/KQxiBYOaO0HRoVCHU4nmVXeXtk+ZTZkN1z6NSAx
+ KmBmo+NjXZ4rPg0TNWJ3LF46MB2xjv1FKa51BWzN+3ajQz8EWrUGd/YYwpx2x16Ygoi3
+ KykGwiZSELoMPKJcbfNVx364rj4EN1w/eQ5wZGTWx63/4QyXUAhoBlwK/ZDugY/QFr+v
+ zOkCUrtanPulEwGp8cE1elH+iKQLnJ4InWlTATkS0KmAv6SlSJXszuR7j+1KnY3qyT6L
+ 9xdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754092737; x=1754697537;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20230601; t=1754120949; x=1754725749;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=sJil9fuANTIpmKQE7cP4cPGJ+csBLlaXLdFVNl5IgEY=;
- b=MXrFdaX5+Q4P2ldSwnQcWvmIDy8zu8eCMwPIJ5lAKO+zxD1Vh8DVqvY41rT8Q88bfZ
- EkZaGq/4iO3UTb5ZWAEJSw8PAqeN035mVtSJmpVQv04vA9c4lhcnH2Y2T18CmkDCMAEK
- zfolTjg+8mxa8skA9sJQHDoGRBKNAGYgRs1JkO6QUa105Ri3nzOtfSaG7k2PutU6DY0B
- YIjxs3r/4YIYgMLOGzkZDE6U6VPHiW2b2z+2KoCu9GcUYqdH680k7rfkJUB2VLImc4I+
- h+uLo0xOHPuTogqOtl0vccLEC7VhvSgUU3C+/YJsK4IOZmhYXeiEkhubZnonpeJ0eYWm
- m7HA==
+ bh=Jc41eAaTwlF+ilpjGXVXKV/B+JMC260AXywvrCae45I=;
+ b=Q4N2sJfxa2yiLMpkNoIqwjevAd9obS/+bOymFTp33D2yJ7s7N4SdzU5UOvCii0p6HI
+ 2J/pnMG2leu/kGTINjtXXjVVnYFpbm2lH7ens4hCq6Y13al5JvknLNThK+2CcuEweoIx
+ zMprdbceVbvkcipd8WqWIoYIxhMddXcon0f0L4SAHXk5czLngoMsUf8dX89MChU/f5F0
+ x9CwadqyNdmA88vYaRZcXRcB2OGszNSn7gJqQf6nvmywDKZGJ7+8oRQ+Q1FvHW68JzLI
+ lsR+D6iuJWjMKKZlschFvNWsqig24hBW3OdWhGU8Cu6ohZtQBUExyDpfpap92vzZ5iv4
+ sQAA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXDxZjyD8/YbtRjsI6p35ZvAt2CTSJbuQuNGwkzTY+KPOCvnV81a58qf7FVDxvkRsgHAxK0/mlHYzw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx5ZQxWw9dLMR0MuyQQl0AXygI2PkddmRm31Z4Al5RA5GARhhtK
- k34Ks50FkKCaG5wZY0kSsh3xrdSeU6XAqh4qS6Diw9NKzZU/CH/FhFERDQGTSHhblD5l4MxKiGH
- Hw9bXyIJY0y6srsLkKCXYap1IRI8BChjeScfaNu6jjlSmsZ+HQYorpkkWbHBnVQ5IJftL5sc=
-X-Gm-Gg: ASbGncu+qcz63zMoBbDb68nyEyQKi84hgHHcBB6aoj9wRjpZzS8bfcaAaHOmtSkOXnH
- 8gsMzdjtAn/BQrSMKvWmPptQHYiKii1/0UPo+jmynx113Wt/w1Xb7cV0S5ma6ExSJEWI5Y3MXqC
- H24iZ1BhDosm8jmLVU/9HUOdyWyO+WUdylWxpIS9nhLzIQxT5+3rsq9lKWtd1t83qmnihu2XgUW
- LQCoRI/zUg+vKB3XTYA92IRf99FE/ACy8t9+o8D7bHekPqoPanipMcLIa2/cKhyJhwOZX3TvaJC
- /iQHn3Bxl1kuDKliqVyrTHMXaY8so/+0oiFDUcEk1k7/C9xTvDGidlN2kGreKVoKPtogcE9fARJ
- fGADWujIDDzoofl6ZG49Dgg==
-X-Received: by 2002:a05:6a00:2ea4:b0:76a:d724:d712 with SMTP id
- d2e1a72fcca58-76bec302327mr1651999b3a.3.1754092737422; 
- Fri, 01 Aug 2025 16:58:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGTfKbPm8IV20xoihIcyGu1iRejGkZ8MwdHaIanUdy4YR9la0eA1aJYMT5RSic/HhKvru8Tzg==
-X-Received: by 2002:a05:6a00:2ea4:b0:76a:d724:d712 with SMTP id
- d2e1a72fcca58-76bec302327mr1651981b3a.3.1754092736990; 
- Fri, 01 Aug 2025 16:58:56 -0700 (PDT)
-Received: from [10.134.71.99] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76bccfbd02csm4934867b3a.62.2025.08.01.16.58.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Aug 2025 16:58:56 -0700 (PDT)
-Message-ID: <a085fb45-91e2-4827-b8e9-8af90796cc49@oss.qualcomm.com>
-Date: Fri, 1 Aug 2025 16:58:55 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/19] drm/msm/dp: Move link training to atomic_enable()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Dmitry Baryshkov
- <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ AJvYcCVj4eYP4pyf79wIfeK/V9bkluyo8sZno42iNIRJnEZiu4G29JBrL04amUb2J1QPii+VtMnYP2bfXNg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzRL5HLnSZ5vn6241NidimD1FJnHv1ASRFe49rlo/RF8x2s912n
+ BbdKFBNHSrQlM9K9ITXkst5ATsIagHHanKVtWGU6MdgAwm+NnwI0sMH/XGs/u23CknM=
+X-Gm-Gg: ASbGncv5O1Z+h/ZmdCKJdTtQUaPKfLadf6djyWxhkaKT1P+Bs7lmxmFoIn7YgziEz2g
+ cfqDt4F8CJobZ+IijA6Vf6yZ9QZbZrM7fn4dYqizeflyW3TyxDAvMRywACkW7tQ2MBH0LI0UPcL
+ WejUhUfHWijnoT30fFSSiMIMHp2IF8s9rpvbuq4jHYO/8Iw0Sqq+JHX36v2Np6fIFQggZYKiCgv
+ jeXzgQm/O29vACkZBhHB19DTCTxE+x4zv+JhzZ9qQGoPitQ3QH+UG9SP7vdHxz1ubYIO6dj/Xn9
+ ZXtxI0EkdC+vmGTFuJHLrmaQD1ndqddBX17pmOSOXUXeh6iH5LYWvwPfwdUcatIwIce2IliJ0UU
+ FQXZIyrYiG+9UbuLmOQZIli8BXcA=
+X-Google-Smtp-Source: AGHT+IGJDg+6ps6Mjc9ekjWCPSzQ0GJRPDNUWN8QdOsqxwaMblKCLjyVVDDVhNK92I/A+0L9596+VQ==
+X-Received: by 2002:a05:6000:258a:b0:3b7:8984:5134 with SMTP id
+ ffacd0b85a97d-3b8d94708c7mr1655077f8f.16.1754120949205; 
+ Sat, 02 Aug 2025 00:49:09 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-458bc39e694sm9541765e9.19.2025.08.02.00.49.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 02 Aug 2025 00:49:08 -0700 (PDT)
+Date: Sat, 2 Aug 2025 10:49:05 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yongxing Mou <quic_yongmou@quicinc.com>
-References: <20250711-hpd-refactor-v1-0-33cbac823f34@oss.qualcomm.com>
- <20250711-hpd-refactor-v1-18-33cbac823f34@oss.qualcomm.com>
- <cofa377vptj7on637u3c3mnxndplcmaegsb5h6idinz5wrvm6s@toylno4uapq4>
-Content-Language: en-US
-From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-In-Reply-To: <cofa377vptj7on637u3c3mnxndplcmaegsb5h6idinz5wrvm6s@toylno4uapq4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: nTUvUvxX7jonBnPKuetDIA4LQA2YZIBd
-X-Authority-Analysis: v=2.4 cv=Pfv/hjhd c=1 sm=1 tr=0 ts=688d54c2 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=yJ1ceeCYH-zBWwCu-X0A:9
- a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-GUID: nTUvUvxX7jonBnPKuetDIA4LQA2YZIBd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDE5NCBTYWx0ZWRfX/lVSF/BJFGlM
- llj835Xroa5n3LrE4bhlm3orFNpshS2PC+9DXoAeWHW8dIyvDW8ZxQtdGkix+c/bkUmuaEWURGV
- G5IYmU7iPqUfavA5WS58WIa65j6TlnRSYpwdjBDIpc48WWlkv6qi8XMfiuD8AeHOTM6IcrpZAAh
- 3Q04AhekyZUto5+TMWkJ7cUqtwjjtjdkcKG5yFB92sVGo61cQCdU4MFLWdH2tRkfoIOH9SuRdZH
- wPoBYNq2ILplFEf8TLOv26cyAI0gy4u/4azA1gmMWBn0sPbstH2dcMOH7ntGTQ4FjR02T9WPxvo
- jsHUaRtlgGCQF7DB3Q7oXDRXEPDqi0ek5bZDrFGSPWwLxslaY4FLeXCMbjmV+CJOjhdJCDEvd7L
- YFYkSKil0QAv3RjlPONRZckkE3iYhvXd3LNcs36oLPghXgOJjyICIzLOzfPjHNFOQlnTx4lt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-01_08,2025-08-01_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 clxscore=1015 adultscore=0 priorityscore=1501 mlxscore=0
- spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2508010194
+ freedreno@lists.freedesktop.org
+Subject: [bug report] drm/msm: Add VM_BIND ioctl
+Message-ID: <aI3C8c4iR3PmIMGE@stanley.mountain>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,93 +89,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hello Rob Clark,
 
+Commit 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl") from Jun 29, 2025
+(linux-next), leads to the following Smatch static checker warning:
 
-On 7/14/2025 4:54 AM, Dmitry Baryshkov wrote:
-> On Fri, Jul 11, 2025 at 05:58:23PM -0700, Jessica Zhang wrote:
->> Currently, the DP link training is being done during HPD. Move
->> link training to atomic_enable() in accordance with the atomic_enable()
->> documentation.
->>
->> In addition, don't disable the link until atomic_post_disable() (as part
->> of the dp_ctrl_off[_link_stream]() helpers).
->>
->> Since the link training is moved to a later part of the enable sequence,
->> change the bridge detect() to return true when the display is physically
->> connected instead of when the link is ready.
-> 
-> These two parts should be patch #2 in the series.
-> 
->>
->> Finally, call the plug/unplug handlers directly in hpd_notify() instead
->> of queueing them in the event thread so that they aren't preempted by
->> other events.
->>
->> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++-------
->>   drivers/gpu/drm/msm/dp/dp_drm.c     |  6 +++---
->>   2 files changed, 11 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 87f2750a99ca..32e1ee40c2c3 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -410,11 +410,6 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
->>   	msm_dp_link_psm_config(dp->link, &dp->panel->link_info, false);
->>   
->>   	msm_dp_link_reset_phy_params_vx_px(dp->link);
->> -	rc = msm_dp_ctrl_on_link(dp->ctrl);
->> -	if (rc) {
->> -		DRM_ERROR("failed to complete DP link training\n");
->> -		goto end;
->> -	}
->>   
->>   	msm_dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
->>   
->> @@ -1561,6 +1556,12 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
->>   		force_link_train = true;
->>   	}
->>   
->> +	rc = msm_dp_ctrl_on_link(msm_dp_display->ctrl);
->> +	if (rc) {
->> +		DRM_ERROR("Failed link training (rc=%d)\n", rc);
->> +		dp->connector->state->link_status = DRM_LINK_STATUS_BAD;
->> +	}
->> +
->>   	msm_dp_display_enable(msm_dp_display, force_link_train);
->>   
->>   	rc = msm_dp_display_post_enable(dp);
->> @@ -1706,7 +1707,7 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
->>   		return;
->>   
->>   	if (!msm_dp_display->link_ready && status == connector_status_connected)
->> -		msm_dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
->> +		msm_dp_hpd_plug_handle(dp, 0);
->>   	else if (msm_dp_display->link_ready && status == connector_status_disconnected)
->> -		msm_dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
->> +		msm_dp_hpd_unplug_handle(dp, 0);
-> 
-> This chunk should be separated from this patch. I'd ask to drop
-> EV_HPD_PLUG_INT / EV_HPD_UNPLUG_INT completely and call DRM functions
-> all over the place instead. You can do it in a single patch, which comes
-> after this one.
+	drivers/gpu/drm/msm/msm_gem_vma.c:596 msm_gem_vm_sm_step_remap()
+	error: we previously assumed 'vm_bo' could be null (see line 564)
 
-Hi Dmitry,
+drivers/gpu/drm/msm/msm_gem_vma.c
+    521 static int
+    522 msm_gem_vm_sm_step_remap(struct drm_gpuva_op *op, void *arg)
+    523 {
+    524         struct msm_vm_bind_job *job = ((struct op_arg *)arg)->job;
+    525         struct drm_gpuvm *vm = job->vm;
+    526         struct drm_gpuva *orig_vma = op->remap.unmap->va;
+    527         struct drm_gpuva *prev_vma = NULL, *next_vma = NULL;
+    528         struct drm_gpuvm_bo *vm_bo = orig_vma->vm_bo;
+    529         bool mapped = to_msm_vma(orig_vma)->mapped;
+    530         unsigned flags;
+    531 
+    532         vm_dbg("orig_vma: %p:%p:%p: %016llx %016llx", vm, orig_vma,
+    533                orig_vma->gem.obj, orig_vma->va.addr, orig_vma->va.range);
+    534 
+    535         if (mapped) {
+    536                 uint64_t unmap_start, unmap_range;
+    537 
+    538                 drm_gpuva_op_remap_to_unmap_range(&op->remap, &unmap_start, &unmap_range);
+    539 
+    540                 vm_op_enqueue(arg, (struct msm_vm_op){
+    541                         .op = MSM_VM_OP_UNMAP,
+    542                         .unmap = {
+    543                                 .iova = unmap_start,
+    544                                 .range = unmap_range,
+    545                                 .queue_id = job->queue->id,
+    546                         },
+    547                         .obj = orig_vma->gem.obj,
+    548                 });
+    549 
+    550                 /*
+    551                  * Part of this GEM obj is still mapped, but we're going to kill the
+    552                  * existing VMA and replace it with one or two new ones (ie. two if
+    553                  * the unmapped range is in the middle of the existing (unmap) VMA).
+    554                  * So just set the state to unmapped:
+    555                  */
+    556                 to_msm_vma(orig_vma)->mapped = false;
+    557         }
+    558 
+    559         /*
+    560          * Hold a ref to the vm_bo between the msm_gem_vma_close() and the
+    561          * creation of the new prev/next vma's, in case the vm_bo is tracked
+    562          * in the VM's evict list:
+    563          */
+    564         if (vm_bo)
+                ^^^^^^^^^^
+NULL check
 
-Sure I can split this into a separate patch.
+    565                 drm_gpuvm_bo_get(vm_bo);
+    566 
+    567         /*
+    568          * The prev_vma and/or next_vma are replacing the unmapped vma, and
+    569          * therefore should preserve it's flags:
+    570          */
+    571         flags = orig_vma->flags;
+    572 
+    573         msm_gem_vma_close(orig_vma);
+    574 
+    575         if (op->remap.prev) {
+    576                 prev_vma = vma_from_op(arg, op->remap.prev);
+    577                 if (WARN_ON(IS_ERR(prev_vma)))
+    578                         return PTR_ERR(prev_vma);
+    579 
+    580                 vm_dbg("prev_vma: %p:%p: %016llx %016llx", vm, prev_vma, prev_vma->va.addr, prev_vma->va.range);
+    581                 to_msm_vma(prev_vma)->mapped = mapped;
+    582                 prev_vma->flags = flags;
+    583         }
+    584 
+    585         if (op->remap.next) {
+    586                 next_vma = vma_from_op(arg, op->remap.next);
+    587                 if (WARN_ON(IS_ERR(next_vma)))
+    588                         return PTR_ERR(next_vma);
+    589 
+    590                 vm_dbg("next_vma: %p:%p: %016llx %016llx", vm, next_vma, next_vma->va.addr, next_vma->va.range);
+    591                 to_msm_vma(next_vma)->mapped = mapped;
+    592                 next_vma->flags = flags;
+    593         }
+    594 
+    595         if (!mapped)
+--> 596                 drm_gpuvm_bo_evict(vm_bo, true);
+                                           ^^^^^
+Unchecked dereference.  Possibly if we're not mapped then it's non-NULL?
+If so then just ignore this warning.
 
-Is the goal here to remove the event queue entirely?
+    597 
+    598         /* Drop the previous ref: */
+    599         drm_gpuvm_bo_put(vm_bo);
+    600 
+    601         return 0;
+    602 }
 
-I can drop EV_USER_NOTIFICATION, but I'm not sure if I can completely 
-drop EV_HPD_[UN]PLUG_INT entirely without major refactor of the 
-plug/unplug handlers since they are used for the HPD IRQ handling.
-
-Thanks,
-
-Jessica Zhang
-
-> 
->>   }
-> 
-
+regards,
+dan carpenter
