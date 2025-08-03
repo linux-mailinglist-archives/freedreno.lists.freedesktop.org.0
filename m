@@ -2,108 +2,142 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22E87B18E9C
-	for <lists+freedreno@lfdr.de>; Sat,  2 Aug 2025 15:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94A58B193E3
+	for <lists+freedreno@lfdr.de>; Sun,  3 Aug 2025 13:54:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57F7010E155;
-	Sat,  2 Aug 2025 13:13:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED26E10E1AF;
+	Sun,  3 Aug 2025 11:54:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fff7fVi1";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iQCEe4UB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60B7310E12C
- for <freedreno@lists.freedesktop.org>; Sat,  2 Aug 2025 13:13:09 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5725fBbl002498
- for <freedreno@lists.freedesktop.org>; Sat, 2 Aug 2025 13:13:09 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C89110E13B
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Aug 2025 11:54:00 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5736WuQi021335
+ for <freedreno@lists.freedesktop.org>; Sun, 3 Aug 2025 11:54:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=RwyIruoH357mBYmIQWZhwXtNEOPEWuLPLWx1UxajN4Y=; b=Ff
- f7fVi1dnNIrwXb/iMeIqV8CbfLsqBxJjIEsHJwM2pWSvtK9UZfZQP8Sb81Dsjwz4
- F/I5I1OD2CTRle5g1kzdIFsCDW8uACcl+G5XA2bVPGHlEayfgHbAsVydzLcdVSCd
- tl5qlVyIFIA5OFRTjUgxFgdrZ+QdkFxQB5G7H5v33Bklg0F6KmgLyqUwCn7HNmLT
- NcO/eTatKODfF0psNXdG0QHpheBvhQAEI/ogq0Pkdberpozom4xdZiNfU5Pui2OC
- x8t63PTD7SJtTNPx8LvFM0k1NfkuPBy6o7H9bfDsav0wujnHxogPji85Tp5drpT3
- K7bOovCV2VTUZUgxNaow==
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 489aw70syt-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=13kqIIhvX8G/h4Zyb4Bf0S
+ syUcZjDX5f8XV6NFySlbc=; b=iQCEe4UBn+zhy5xKBcGEWlR2jONw9So3CdetpX
+ BpfErIOkkwKR3hQkvFA+8niFS1/e73tzuV9Vv5XKDWEnXeM12hoo7HG9ME02InX+
+ nrmvch2r0vlubkl96JzBpFqC5ACIvESypeZVz0nNhvjLQp/OQxqKNbFX9/vfWGSH
+ vGzTsYCGY3yUN8mg2ZUSQIlIeFCZJkG7yFlYKCHv8UrOgixZah5tM0awNZL4CHzJ
+ Hi6h3RlmCX52GZYMlEwaS2CGLcgMjWsb5lRLeR+lmcjWNg68J3xXZbjFZWdfJT/e
+ CLr2V27/e1xHmODW/9iIWMjIKcHRfTywKdVxCRasguey/7iQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48a2ke0a1x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 02 Aug 2025 13:13:08 +0000 (GMT)
-Received: by mail-oi1-f198.google.com with SMTP id
- 5614622812f47-41ea6bb72dfso573238b6e.2
- for <freedreno@lists.freedesktop.org>; Sat, 02 Aug 2025 06:13:08 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Aug 2025 11:53:59 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4ab878dfc1aso79253871cf.0
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Aug 2025 04:53:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754140387; x=1754745187;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RwyIruoH357mBYmIQWZhwXtNEOPEWuLPLWx1UxajN4Y=;
- b=bvPIr5+Q62h9aF7SivbeD9Zk53w8SxI754g7v7aljEAax983vfePfKL8CzFq63eBnB
- 3GdD8LnGOjSyI95Jd/GL96R8dUYaIaydpHxp7vtFPBz9SU3+52QYTaorKh8120PAAlkC
- 3gNtaUEmYRBSbXBltW6XegSf72MMy0fd9r8fWRezCMxFHHs1pxllIgdgekaHnoLcJrg4
- pfdLbl/gSJNDZMX8kOR4C0rENe6YYPXI0I8HLFfBL40MB7EWpClGEV1dce2HHiiAcMQ3
- rziAcG6kshUziOGnGMZp3Xqe85gkNmXykotvdZtaRDP6B3wThxph+DkOC7/mnPJ/A4Zj
- CQqw==
+ d=1e100.net; s=20230601; t=1754222038; x=1754826838;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=13kqIIhvX8G/h4Zyb4Bf0SsyUcZjDX5f8XV6NFySlbc=;
+ b=Me3hPl5S5Go7yU+hsJzRBFWz9dAznhq0plOmSEVqwvqXbjMfOaen1nRFLYLMx49mFt
+ H3CPHRfZGp/YgE8FiCHrpnKlD+Qpw9d2eunP+qpju/FprB88YoQIeg9KwY5OfXKAtLHi
+ YiaGreWgsxIQcKi6/lRpY8ORB5A6w7LXvrw/JgeCxc7hg6kugRBqAJszjTn82K9HKF8h
+ L4+hHSl8h3J4KY/22EscTq6LFBExnGNiyw2RChXIyJ680iUNDaXtjSFK9ZmmFI0Izjwb
+ 15Hvlffq7PCVJNjgBCZ9puAzVsq8C8l1q37Q7UjWsdOv8EWR4KSYzE34aW3cUWhXHP+Y
+ OGsw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVM1+RxI+jzT6fSZNhumug8VWcM4yWaLnRfMkeR0gJH6IP8SQvHa9gmh3Ugt1bxwdMRdo8WX6sf5Ys=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMeQVTezLYOI4+z1O4uP0hR63IFbbmoQMb8TYVZSgB1FNRqJOp
- 7VOMiV1kXcHOkpw2d3ljtYtfSW5dcmJ5qGCsKZTm89tTRyOxbU1VOQAwW4okpmDP9F5aTwZSykL
- ASL/x+t59Oaq20CvFkFg+6JEMBkmrK3bScGEiTh9UvObgDjuDCxqYyN3bDCZv4rwuJHoiW/Kr8W
- iDUtoJqEInfdVHBLX58CqOzxoZOqIo0EjXbrpbwcxjpwW6Iw==
-X-Gm-Gg: ASbGncthIo0mYuotmlJwouSmKPtCvstUNrDbG28lGk17aeJ3fNj2DOWgzSiaizosc9B
- MvBk0XBCQfr6huMqx38ZAVvHIUd72VOLeDnFMdcmcPLbA0TQalvKGYv1d3cEiYPK53NcZXEP1F8
- JMZHaKv6vWNbgEmzMIZxwlzZaw60dwEYYjwf/DsE1Jg7hCRx0vBKpO
-X-Received: by 2002:a05:6808:f0d:b0:409:f8e:72a7 with SMTP id
- 5614622812f47-433f0356347mr1718339b6e.33.1754140387521; 
- Sat, 02 Aug 2025 06:13:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHWQkdajOA5XCw4IsBRRfjdIHkUjt/VC0wsWR6Nzln9EEWN+Aa4GjnIjQVDxxDcbK/En0vwGMd3+BZR/+Qkc88=
-X-Received: by 2002:a05:6808:f0d:b0:409:f8e:72a7 with SMTP id
- 5614622812f47-433f0356347mr1718322b6e.33.1754140387107; Sat, 02 Aug 2025
- 06:13:07 -0700 (PDT)
+ AJvYcCWSUQqgs1TaFkJJ88dYvHCEKBktC24dEDbZKK54215DugA5wOsvRBHo70xOeq1/ufgM0he+8RmmG5k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBQ9C6y/UOCW0SBd/uGwitpHfD+DIpzOGqSXAD4qlRjNHzrduk
+ MGkMA/AJ4YLBaaR2SvzSt2RLF1n5DTJ5Z+xwvP5cJt42VbLdV53QC7G0P66zUmdvP7P0BVaXfoh
+ pR5eTlwz4/D2usa2TnVFNa2lbLt9tuleYvMkGH4QCZl/BLkIbE0tA/K+XZPYBPZPh0pLujSI=
+X-Gm-Gg: ASbGncuXqXJ+ogVOQ1v2wgpPA0gla3uPWqG6K2o0H1Ax/Sy3nk9ZV81KQ9MRtUaEgB+
+ F+uYM4d/TBwuMrT2tQdF2eGyarLpOSsFk2R3wQONVQRv7enhpcdeVZOhXOLaDy8b6ZwhORpXMiO
+ 8KhgodJwPhRmtiK+G/br+5rM1+imftqUO8nGqSYq4OZxXeFksZSVfTuspiQPofT7vCozKEyWWRz
+ 1G8ZxAKjC4atCZZUUJ7ZDVTL30+k1dWAN/Nt0ifT+ORra32Ackx0LyoR7ultfJBChuSThVKWHwR
+ MrmYxcnGyzWvT9ivOVnplSdIe8Gk680c4BKS2sCbmecr/h8meZk80dt4E7LoqInQOT4rptKFvqV
+ grQuu1AD8eP1blsHe8VIa+UiU0UDgwUW/apCq/KYHrdtjqAPoSbl0
+X-Received: by 2002:ac8:7c50:0:b0:4ab:63f7:9a80 with SMTP id
+ d75a77b69052e-4af1098c10cmr109506451cf.13.1754222038595; 
+ Sun, 03 Aug 2025 04:53:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF6F1gC3i9qNqPGQ2+U8UnWuUnVr8S0dL9Kp9yI/T0GmDv1re8BD8ymDZkfYLJgECcFcEOVzg==
+X-Received: by 2002:ac8:7c50:0:b0:4ab:63f7:9a80 with SMTP id
+ d75a77b69052e-4af1098c10cmr109505841cf.13.1754222037990; 
+ Sun, 03 Aug 2025 04:53:57 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-332382a6f74sm13281731fa.20.2025.08.03.04.53.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 03 Aug 2025 04:53:57 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH RESEND 0/2] drm/bridge: lontium-lt9611uxc: switch to
+ DRM_BRIDGE_OP_HDMI_AUDIO
+Date: Sun, 03 Aug 2025 14:53:50 +0300
+Message-Id: <20250803-lt9611uxc-hdmi-v1-0-cb9ce1793acf@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <aI3C8c4iR3PmIMGE@stanley.mountain>
-In-Reply-To: <aI3C8c4iR3PmIMGE@stanley.mountain>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Sat, 2 Aug 2025 06:12:56 -0700
-X-Gm-Features: Ac12FXzxLB_zJXMDBnX0oji4EfdrWmXO6C4QFI5VAFWsuljcbouIO7FFpZP8jEo
-Message-ID: <CACSVV00Bv+P2rzi0Wpnxba8VCTiVT_kK3voRZEZJGKrupSbigA@mail.gmail.com>
-Subject: Re: [bug report] drm/msm: Add VM_BIND ioctl
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: zaOifDIMzzCcVZLGDvhLRXmG3CSGyj16
-X-Proofpoint-ORIG-GUID: zaOifDIMzzCcVZLGDvhLRXmG3CSGyj16
-X-Authority-Analysis: v=2.4 cv=MrZS63ae c=1 sm=1 tr=0 ts=688e0ee4 cx=c_pps
- a=4ztaESFFfuz8Af0l9swBwA==:117 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10
- a=KKAkSRfTAAAA:8 a=h7oZlVOF9mIUhsnAhVEA:9 a=QEXdDO2ut3YA:10
- a=TPnrazJqx2CeVZ-ItzZ-:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAyMDExMCBTYWx0ZWRfX4aH0ETceLJQ3
- +ElVccLAuYrxCIaqIf81Jwnrvuu6iiJ1CEBEThWi4JKbNESdG+04EPz5/H7nTZRkp8jP+w5IoGo
- SzPHFdf7c9gqnjQVymob3rD5J6GnxBxm3BTdOKbAsgZ9lu+AwOI3rV+Q9iAg20orhXbW4gX8Udg
- KlY/1qPp56Q441GKRTjyLo3Je3YHlv+L4CnIRy7yOKjWZ4znfG3fxHH0TaeepOQ+XR3LxQYVrYp
- czo3ovInoqU+PLW8mlcli2XByQ8XYxT7MEvG2EZvwwu4xBt5BucYyOSR5MrfGuWwmyRdqLp1Rnf
- qwfNifE8nXaIB+EE5CYgQbjKpJo+7eGqfqXWl3SG5s+s6+qqj/X4x2hycdFv8GD0efUfUXIGFA/
- VidFKYBnKPad7XJqRb8f79VQSfi22rdMT70cu4tRuQI1/kAzr8+9PRkooBFMK/dYaVvoDNAD
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=970;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=8QWEbzhz2HbUL5CsjbPmWgU/3XJPnqot8B2ZA16nFWs=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ0a/76XO+afzL5QKXQqM/OCzeVVFxIPW+vrJ85d3iq3S2
+ mJucD20k9GYhYGRi0FWTJHFp6Blasym5LAPO6bWwwxiZQKZwsDFKQAT2e/PwTDZzds4TCJ3dd13
+ K9typZKPcnseh78q7kk6VPCsvHrdXva/obn74nxnev78YTf/W9lKiT7Z061Olr38F3aqXL098ep
+ pZcXG5eau1/hnKbfeyjl9dIlqhfsHjisb7SvunUiT7pSwm3e7b4afq/J88xIu2+Aeqy9hscq/Kh
+ 7JX2LNrvM7wf7rYP5pWX6HM3tdNaclzvMIa9S6brW/+Nu73a9+83ewOyybL1ywbbVSiKq24sk2m
+ Y9VXCsP5ptdvmrka7avfYLBe+9HRxZOqeQ+umZ228ME37N6ApLPWtL/KPEpb0pvVug+7nae3fJP
+ e5O6RbHJtFSzH5GqLmuzovrMw2bVFT6wunHexnRnlqceAA==
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-ORIG-GUID: 7Adb7-zr62eBTlpzefLLMcRxIrR8B1CF
+X-Authority-Analysis: v=2.4 cv=TMNFS0la c=1 sm=1 tr=0 ts=688f4dd8 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=viR3P9R_XIStfHs_oGYA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAzMDA4MCBTYWx0ZWRfX5iAwdzghowDH
+ mvIKkLqjsR5lCybF7dBD+8c6mm62+4RJLkZZGdnbGIrdZqOWfkMSbXOGuVlffACskUxndyNyYbW
+ xHVCaO360CL0vWrrqVDidL0ZOIMbdICbrHQ0Wa1PPBDBNBYxBtwt3B8Q71Ht0mnvXivcyozqFwI
+ RJyoB3iF80eLhX+Rjh8M8U+Rf+oQ1/ykl9c49U0g2lJeS0NM/d2mIgZY4Van3gYin/M6xt90Vee
+ IDUX5uzl+qZF4iJUxMFMZRHwWC0fh8U1Bl9YIa1DtCpBzDnfIwkGscFM0tMR1CPC3lQNaLpigPA
+ nuoelJuvoX0iDyOZS0B3WZuKWxCRgSrBjvy4ynV58uMNHRajY0hoBGUB7CpCWz0FTnO4Nf9SaXa
+ s/mphHVbTeAw3DDqmri4dMMbZsi62f/ywCM36QqDWrSg6Ahm4v9yBOSqe3e0b8+yDj6Hs+Ei
+X-Proofpoint-GUID: 7Adb7-zr62eBTlpzefLLMcRxIrR8B1CF
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-01_08,2025-08-01_01,2025-03-28_01
+ definitions=2025-08-03_03,2025-08-01_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- impostorscore=0 bulkscore=0 phishscore=0 mlxlogscore=999 priorityscore=1501
- malwarescore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ suspectscore=0 spamscore=0 phishscore=0 malwarescore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 adultscore=0 mlxlogscore=999 bulkscore=0
+ priorityscore=1501 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2508020110
+ definitions=main-2508030080
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,134 +150,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Aug 2, 2025 at 12:49=E2=80=AFAM Dan Carpenter <dan.carpenter@linaro=
-.org> wrote:
->
-> Hello Rob Clark,
->
-> Commit 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl") from Jun 29, 2025
-> (linux-next), leads to the following Smatch static checker warning:
->
->         drivers/gpu/drm/msm/msm_gem_vma.c:596 msm_gem_vm_sm_step_remap()
->         error: we previously assumed 'vm_bo' could be null (see line 564)
->
-> drivers/gpu/drm/msm/msm_gem_vma.c
->     521 static int
->     522 msm_gem_vm_sm_step_remap(struct drm_gpuva_op *op, void *arg)
->     523 {
->     524         struct msm_vm_bind_job *job =3D ((struct op_arg *)arg)->j=
-ob;
->     525         struct drm_gpuvm *vm =3D job->vm;
->     526         struct drm_gpuva *orig_vma =3D op->remap.unmap->va;
->     527         struct drm_gpuva *prev_vma =3D NULL, *next_vma =3D NULL;
->     528         struct drm_gpuvm_bo *vm_bo =3D orig_vma->vm_bo;
->     529         bool mapped =3D to_msm_vma(orig_vma)->mapped;
->     530         unsigned flags;
->     531
->     532         vm_dbg("orig_vma: %p:%p:%p: %016llx %016llx", vm, orig_vm=
-a,
->     533                orig_vma->gem.obj, orig_vma->va.addr, orig_vma->va=
-.range);
->     534
->     535         if (mapped) {
->     536                 uint64_t unmap_start, unmap_range;
->     537
->     538                 drm_gpuva_op_remap_to_unmap_range(&op->remap, &un=
-map_start, &unmap_range);
->     539
->     540                 vm_op_enqueue(arg, (struct msm_vm_op){
->     541                         .op =3D MSM_VM_OP_UNMAP,
->     542                         .unmap =3D {
->     543                                 .iova =3D unmap_start,
->     544                                 .range =3D unmap_range,
->     545                                 .queue_id =3D job->queue->id,
->     546                         },
->     547                         .obj =3D orig_vma->gem.obj,
->     548                 });
->     549
->     550                 /*
->     551                  * Part of this GEM obj is still mapped, but we'r=
-e going to kill the
->     552                  * existing VMA and replace it with one or two ne=
-w ones (ie. two if
->     553                  * the unmapped range is in the middle of the exi=
-sting (unmap) VMA).
->     554                  * So just set the state to unmapped:
->     555                  */
->     556                 to_msm_vma(orig_vma)->mapped =3D false;
->     557         }
->     558
->     559         /*
->     560          * Hold a ref to the vm_bo between the msm_gem_vma_close(=
-) and the
->     561          * creation of the new prev/next vma's, in case the vm_bo=
- is tracked
->     562          * in the VM's evict list:
->     563          */
->     564         if (vm_bo)
->                 ^^^^^^^^^^
-> NULL check
->
->     565                 drm_gpuvm_bo_get(vm_bo);
->     566
->     567         /*
->     568          * The prev_vma and/or next_vma are replacing the unmappe=
-d vma, and
->     569          * therefore should preserve it's flags:
->     570          */
->     571         flags =3D orig_vma->flags;
->     572
->     573         msm_gem_vma_close(orig_vma);
->     574
->     575         if (op->remap.prev) {
->     576                 prev_vma =3D vma_from_op(arg, op->remap.prev);
->     577                 if (WARN_ON(IS_ERR(prev_vma)))
->     578                         return PTR_ERR(prev_vma);
->     579
->     580                 vm_dbg("prev_vma: %p:%p: %016llx %016llx", vm, pr=
-ev_vma, prev_vma->va.addr, prev_vma->va.range);
->     581                 to_msm_vma(prev_vma)->mapped =3D mapped;
->     582                 prev_vma->flags =3D flags;
->     583         }
->     584
->     585         if (op->remap.next) {
->     586                 next_vma =3D vma_from_op(arg, op->remap.next);
->     587                 if (WARN_ON(IS_ERR(next_vma)))
->     588                         return PTR_ERR(next_vma);
->     589
->     590                 vm_dbg("next_vma: %p:%p: %016llx %016llx", vm, ne=
-xt_vma, next_vma->va.addr, next_vma->va.range);
->     591                 to_msm_vma(next_vma)->mapped =3D mapped;
->     592                 next_vma->flags =3D flags;
->     593         }
->     594
->     595         if (!mapped)
-> --> 596                 drm_gpuvm_bo_evict(vm_bo, true);
->                                            ^^^^^
-> Unchecked dereference.  Possibly if we're not mapped then it's non-NULL?
-> If so then just ignore this warning.
+Use DRM HDMI audio helpers in order to implement HDMI audio support for
+Lontium LT9611UXC bridge.
 
-Correct, the !mapped case will only happen when the shrinker evicts
-BOs.  The case where the BO (and therefore vm_bo) is NULL, is MAP_NULL
-mappings which are backed by the PRR page, not a BO that can be
-evicted.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (2):
+      drm/bridge: add connector argument to .hpd_notify callback
+      drm/bridge: lontium-lt9611uxc: switch to HDMI audio helpers
 
-Would adding a WARN_ON(!vm_bo) convey to smatch that this case should
-not happen unless something somewhere else was rather screwed up?
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c     | 125 ++++++++++---------------
+ drivers/gpu/drm/display/drm_bridge_connector.c |   2 +-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c     |   1 +
+ drivers/gpu/drm/msm/dp/dp_display.c            |   3 +-
+ drivers/gpu/drm/msm/dp/dp_drm.h                |   3 +-
+ drivers/gpu/drm/omapdrm/dss/hdmi4.c            |   1 +
+ include/drm/drm_bridge.h                       |   1 +
+ 7 files changed, 57 insertions(+), 79 deletions(-)
+---
+base-commit: 024e09e444bd2b06aee9d1f3fe7b313c7a2df1bb
+change-id: 20250718-lt9611uxc-hdmi-3dd96306cdff
 
-BR,
--R
+Best regards,
+-- 
+With best wishes
+Dmitry
 
->     597
->     598         /* Drop the previous ref: */
->     599         drm_gpuvm_bo_put(vm_bo);
->     600
->     601         return 0;
->     602 }
->
-> regards,
-> dan carpenter
