@@ -2,145 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBF92B193E7
-	for <lists+freedreno@lfdr.de>; Sun,  3 Aug 2025 13:54:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F1ADB19A91
+	for <lists+freedreno@lfdr.de>; Mon,  4 Aug 2025 06:01:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95AF610E1DC;
-	Sun,  3 Aug 2025 11:54:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA5B310E0EE;
+	Mon,  4 Aug 2025 04:00:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oa1McpqS";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="fxwFZqpD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F33AD10E1DD
- for <freedreno@lists.freedesktop.org>; Sun,  3 Aug 2025 11:54:08 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 573BKWH9013283
- for <freedreno@lists.freedesktop.org>; Sun, 3 Aug 2025 11:54:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B315F10E0EE;
+ Mon,  4 Aug 2025 04:00:57 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 573LU2bX026982;
+ Mon, 4 Aug 2025 04:00:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- OarMjpCIfYSkdkdW6bUdGi1fdmdKOoKfw0cvB3ckh4U=; b=oa1McpqSmnROzTG8
- QRuna6UWkZoGedGlWV6YZR8aK0ASMJbjfkezkiyoRVkkGTEIeWoD4ieRfnSjhhsX
- 4Aj+239XFkNc3EndHgD+53KZMaLZBjW7hJTQJhTOhZgH+L3zgDgUDrN5AkTczz4D
- QypwOYTHrh767djrJqj4zpRAKNGMEIh44Pcvz8qzgo6fD+X+vhQ4WrprShxWbbEr
- m9WqVX25dd+me4PVYsMNsTfrRPb5QwSPbYPep81uaCu0M51iakOOvcCoebHBeoQa
- drQhoWbJZOTC7OP90zReWtaMOZWXWQIN1Pc3476r1UaL+9Zj/kaycrIr3Qf75ZTj
- Hswvbg==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 489a0m29kg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 03 Aug 2025 11:54:07 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-70738c24c4fso22715226d6.1
- for <freedreno@lists.freedesktop.org>; Sun, 03 Aug 2025 04:54:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754222047; x=1754826847;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OarMjpCIfYSkdkdW6bUdGi1fdmdKOoKfw0cvB3ckh4U=;
- b=MwnrfcGrehpa+4BkM7LBiHywV6hqcXj9wAFqUe3L6IzcOY+qj4SHQEgQsqt6BtBjDO
- UckSbYCRmmmWzhllPV5aHbWxow7SQtQk7h94CN6GUK3YrYfVVWk/DrMYnh8gJYvy4xec
- jatDw6CPAZ9tV35Wk6y71I8OEsh4uG+g3GdZvAwxRIrt+1DoKmgmWiwnJO9NGloDMZ/3
- BKKgZLbF6kJPcC8qUNvckfRVagfNVSO6bbYf56/Q1CT0Gr1h4CxgQ6qm77hCfj+RvGsn
- o3SKl8ZuySOTfbWMTem/J0hkiUW8Ibg3OT6UQGVUQdlVUAaM6qLbvJXJWXi8n0VneMwB
- Zaqg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXE0kz1Mh86A2TATPFWS6RuGvvTxbidvqnWRtNEl3Dphf1N++r7Yg1HbY28ar3pz1vTMbhA/iy0y40=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxj4VQlHFSh02WLkyw9o4MQhFq73Bc7uUsdnnUrt7OW8e+KrWmB
- pRCOc0PLDFeffSEO/7vhmE1h0e1/5zfqq2CEdwkowgdrKMALFCFvgzTnpbggc6wK9yO4nTgg2wH
- F4uPnzRqJnEcxT5C9KyTunb1MPF+Lx7OqtZZk5ewfa9bbnTcAF4gydHbEpbhHEZNB3nkpBts=
-X-Gm-Gg: ASbGncuTaP5Rbj6Q+revH2jEtm4X21y94oJbpQd12wJE9gjbrrReQV5BcjGeDndjpvk
- 7JVeuMLKj60L3H7L4PYcGzvD8EkVWLBS//Lx2e6ZP4IsZXpvfgb7hSKo1C0nITcCWR+jNE2WsZ1
- asDEduENnN3FuF//Sf0xQKp2Ql0QDZXTHqFeKbdND6pS8qjvZ3YYaTu/e7/7PovE7KTWZZLrofO
- tYKzVTQh3Jctrt0XKS6+WwVRSCA5PKf8+puv4LyGKuiL2P1OBhGSfFJ+p9DCSal/RDgi+fKTI7I
- eiMUePQe77F4P4SZByHZq0RFteHE0SxgW53FhBFomg2emwRZuDIMOuC0/xqyxA77WhMTIYSCfsW
- sUz4O7YHzqX6phqIwU3n26JhbJLp66BRM/gj9EoCglo02miaOQKSs
-X-Received: by 2002:a05:6214:5294:b0:707:458a:a1d2 with SMTP id
- 6a1803df08f44-70935f0e68fmr68792636d6.8.1754222046899; 
- Sun, 03 Aug 2025 04:54:06 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGYJtAa3Jt0m4NRJ/zRiS+cHF+uv22QjpHfvokGO6es+edxh1sHS3nM88A/XbZxPix1pvJmiQ==
-X-Received: by 2002:a05:6214:5294:b0:707:458a:a1d2 with SMTP id
- 6a1803df08f44-70935f0e68fmr68792176d6.8.1754222046367; 
- Sun, 03 Aug 2025 04:54:06 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-332382a6f74sm13281731fa.20.2025.08.03.04.54.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Aug 2025 04:54:04 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sun, 03 Aug 2025 14:53:52 +0300
-Subject: [PATCH RESEND 2/2] drm/bridge: lontium-lt9611uxc: switch to HDMI
- audio helpers
+ hcIav76jDxMQjNH0hlEDlh3kXoAijWiurSJwVWt/Gpw=; b=fxwFZqpD70cHPBqp
+ hoEDlHUxoXlB7zumAADM4sBvhuESjE4p64bxXkjalGpuZ8+9pBUnBo4ArSQvPz25
+ qGOkSnKnBhWLoDmkKPI/JuCITO2T9eCCYei6I2M8eCTSF9xQMUoXINLAanNOEcvM
+ Q7pY05NluiRFBXL+wWxMinrspljwouFrpqQFkKriRdKe5YnFUNHpcPdazAKFewWD
+ Ibo+5Hl4290g7PiBRmCzriS7a3T7S74IvTzkdzqVJncUDWyk06RlNv5MT8m5RDsp
+ nsJAUpLqM3ysjqVlFxPGtyObO4Hbe23HuAUyqc0cbdeqqqAY23I9dUkkWGf+YvAG
+ vVgd1Q==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 489buqkars-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Aug 2025 04:00:48 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 57440lox013230
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 4 Aug 2025 04:00:47 GMT
+Received: from [10.64.68.119] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Sun, 3 Aug
+ 2025 21:00:41 -0700
+Message-ID: <cdbe1013-4f15-4638-870b-151292920ce7@quicinc.com>
+Date: Mon, 4 Aug 2025 12:00:39 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250803-lt9611uxc-hdmi-v1-2-cb9ce1793acf@oss.qualcomm.com>
-References: <20250803-lt9611uxc-hdmi-v1-0-cb9ce1793acf@oss.qualcomm.com>
-In-Reply-To: <20250803-lt9611uxc-hdmi-v1-0-cb9ce1793acf@oss.qualcomm.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/5] dt-bindings: display/msm: Document MDSS on QCS8300
+To: "Rob Herring (Arm)" <robh@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Conor Dooley <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, Jessica Zhang
+ <jessica.zhang@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6559;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=Q7HopIOTnY6OvjIs/ZdbZ8AVdNk/D/2TLd7Vbpjb/sM=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoj03ToPLH5Byq4lo7D85bCtTHS3XG0bPogIwUm
- /cQUERHctaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaI9N0wAKCRCLPIo+Aiko
- 1cISCACQxo+ezbLEzR4+iHyyDF4DOdbCBE2hKG6Hc92ZzUWkMsqgNRYIUT6Y0Nwn7z8nzXnKPGz
- Sr1DlH5k7vW+iMx3htubJgM16nalVz/Ok5Z6u+nP40p/jJf6bhXs48L6dOgmSuVD40TTxeuGBsK
- jRXcFGWuJMlExM8CNm1rgGCGhSwIgtfR3yxlw4Jr4B6ahSAWv8MSduTARspo9R/jygywBJIUnE7
- /oRJ4ZmPppuoSdVLRkhn0grwm7GzpA5Ngcifv2AuRc5iqpCElMmCfehgYz/Dq6hqcD033zdAngt
- FXHGkjxPSJLtzYA6XEKD+3T4jbt5Hur7470I+jS0DmcQx8x9
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=JOM7s9Kb c=1 sm=1 tr=0 ts=688f4ddf cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=rji8DJjHHTBzgOBfyK4A:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: Kr6J9xsNqClMleN50HERg4wuxHMjpJZP
-X-Proofpoint-ORIG-GUID: Kr6J9xsNqClMleN50HERg4wuxHMjpJZP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAzMDA3OSBTYWx0ZWRfXzH6cQwmiFNA4
- KPBveNyFy8EWnIDQmV5L6zgfhIPRIkq8Tq2RzD5nFeaU1bZj3RokLOZglNIdgKau0p1zhE3it+H
- RXajp3hpx/b03eSIGZq2OLzmIJz4z+CeYS97DGIbjrZ4u3EsF4VgZmvg6rB2hyXMc8g62Q1Ba2r
- hLZm/swpi1lv65VbRl1i1pTn6J0n40Dxpa0A8llztcvTb5dB7msxAx34xu42qqTViWim7+igbCC
- 7v9h8Hx2hlNABSw9Veg49PjSQManQ8u9H51IoLRATd9pI6CUCVMMWk38SYltWcs6eIGh/ZPUsTv
- Ed6P0JboTP7VahCIK8PPkCmEIvfQa73XeCwmK+zvxYv3nBp6cwZ/g9XHBlccC83bJ/L0eO+57fJ
- 8iebLZE67wRuL+fsEXYnXX0GAKQNen3UGk2MdZB8WFECexWRWfmtFkYmwuKuCOt2lOha1ly+
+ <freedreno@lists.freedesktop.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ <linux-kernel@vger.kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,
+ <dri-devel@lists.freedesktop.org>, Simona Vetter <simona@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ David Airlie <airlied@gmail.com>
+References: <20250730-mdssdt_qcs8300-v5-0-bc8ea35bbed6@quicinc.com>
+ <20250730-mdssdt_qcs8300-v5-3-bc8ea35bbed6@quicinc.com>
+ <175390746243.1660386.11206814214268936734.robh@kernel.org>
+Content-Language: en-US
+From: Yongxing Mou <quic_yongmou@quicinc.com>
+In-Reply-To: <175390746243.1660386.11206814214268936734.robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: qUlklVohklxLDWbjxgDX96kozVlNe_MR
+X-Authority-Analysis: v=2.4 cv=VZT3PEp9 c=1 sm=1 tr=0 ts=68903070 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=gEfo2CItAAAA:8
+ a=voM4FWlXAAAA:8 a=COk6AnOGAAAA:8 a=VwQbUJbxAAAA:8 a=0awkmHLjsCMGZ7zvgVIA:9
+ a=QEXdDO2ut3YA:10 a=sptkURWiP4Gy88Gu7hUp:22 a=IC2XNlieTeVoXbcui8wp:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA0MDAxOCBTYWx0ZWRfXxE0n+U69sIqQ
+ JCKRyRWvNhe0pi8+zCd9AKE3+rrl/xvc+X4F31lDvINuY+yd2zf7ar24v2Itx9JWkiBm1E559ry
+ Owg06WUYgRXJzIn2ohWzgYdxA7nGO3nfVPhAqJxcsLN8M+f7dXilEJxtHa5+WajWtC/z/dpIhYX
+ FJI7Gn9RG7U9ad/bhFmblARDn83PWzW1fUcrLAO8jPZUY0ypXLAjFHu7OgyYp4Y73vN49QCDrCa
+ UuA6XpoVhBM8IVsFdnkDvDr6cg1141GjfvCvcPGEBwSDHiBqW5C7yaXSddJye55Z7efqlRuC6Vj
+ VQDnLAfgWsFJARzfYSpwRXxdSmosFKbimImlXcZxbP9k1B2opbtVqUGxOBnGh+TXUQsj4IgkNj6
+ 0EyO18zuS2USUdBw4mVNVN7Wx20An3xLsDbMVJ6pZ8Qgz0UrtWvwHY5bGJipQeP08v+09Rb/
+X-Proofpoint-ORIG-GUID: qUlklVohklxLDWbjxgDX96kozVlNe_MR
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-03_03,2025-08-01_01,2025-03-28_01
+ definitions=2025-08-04_02,2025-08-01_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 suspectscore=0 mlxlogscore=999 spamscore=0
- clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0 mlxscore=0
- impostorscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2508030079
+ adultscore=0 mlxlogscore=999 malwarescore=0 bulkscore=0 phishscore=0
+ spamscore=0 mlxscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2505280000 definitions=main-2508040018
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,216 +116,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-While LT9611UXC is a DSI-to-HDMI bridge, it implements all HDMI-related
-functions internally, in the firmware, thus it doesn't make sense to
-implement DRM_BRIDGE_OP_HDMI. However it is possible to implement
-DRM_BRIDGE_OP_HDMI_AUDIO, streamlining HDMI audio plumbing (which
-includes plugged notifications and ELD handling).
 
-Implement corresponding callbacks and trigger EDID read /
-drm_connector_hdmi_audio_plugged_notify() from the hpd_notify callback.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 125 +++++++++++------------------
- 1 file changed, 49 insertions(+), 76 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-index 38fb8776c0f441ae433c60a7680aaa6501a8956e..11aab07d88df646a54fea287030a183eb823b26d 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-@@ -17,8 +17,6 @@
- #include <linux/wait.h>
- #include <linux/workqueue.h>
- 
--#include <sound/hdmi-codec.h>
--
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_edid.h>
-@@ -27,6 +25,8 @@
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- 
-+#include <drm/display/drm_hdmi_audio_helper.h>
-+
- #define EDID_BLOCK_SIZE	128
- #define EDID_NUM_BLOCKS	2
- 
-@@ -48,7 +48,6 @@ struct lt9611uxc {
- 	struct device_node *dsi1_node;
- 	struct mipi_dsi_device *dsi0;
- 	struct mipi_dsi_device *dsi1;
--	struct platform_device *audio_pdev;
- 
- 	struct gpio_desc *reset_gpio;
- 	struct gpio_desc *enable_gpio;
-@@ -429,12 +428,52 @@ static const struct drm_edid *lt9611uxc_bridge_edid_read(struct drm_bridge *brid
- 	return drm_edid_read_custom(connector, lt9611uxc_get_edid_block, lt9611uxc);
- }
- 
-+static void lt9611uxc_bridge_hpd_notify(struct drm_bridge *bridge,
-+					struct drm_connector *connector,
-+					enum drm_connector_status status)
-+{
-+	const struct drm_edid *drm_edid;
-+
-+	if (status == connector_status_disconnected) {
-+		drm_connector_hdmi_audio_plugged_notify(connector, false);
-+		drm_edid_connector_update(connector, NULL);
-+		return;
-+	}
-+
-+	drm_edid = lt9611uxc_bridge_edid_read(bridge, connector);
-+	drm_edid_connector_update(connector, drm_edid);
-+	drm_edid_free(drm_edid);
-+
-+	if (status == connector_status_connected)
-+		drm_connector_hdmi_audio_plugged_notify(connector, true);
-+}
-+
-+static int lt9611uxc_hdmi_audio_prepare(struct drm_bridge *bridge,
-+					struct drm_connector *connector,
-+					struct hdmi_codec_daifmt *fmt,
-+					struct hdmi_codec_params *hparms)
-+{
-+	/*
-+	 * LT9611UXC will automatically detect rate and sample size, so no need
-+	 * to setup anything here.
-+	 */
-+	return 0;
-+}
-+
-+static void lt9611uxc_hdmi_audio_shutdown(struct drm_bridge *bridge,
-+					  struct drm_connector *connector)
-+{
-+}
-+
- static const struct drm_bridge_funcs lt9611uxc_bridge_funcs = {
- 	.attach = lt9611uxc_bridge_attach,
- 	.mode_valid = lt9611uxc_bridge_mode_valid,
- 	.mode_set = lt9611uxc_bridge_mode_set,
- 	.detect = lt9611uxc_bridge_detect,
- 	.edid_read = lt9611uxc_bridge_edid_read,
-+	.hpd_notify = lt9611uxc_bridge_hpd_notify,
-+	.hdmi_audio_prepare = lt9611uxc_hdmi_audio_prepare,
-+	.hdmi_audio_shutdown = lt9611uxc_hdmi_audio_shutdown,
- };
- 
- static int lt9611uxc_parse_dt(struct device *dev,
-@@ -508,73 +547,6 @@ static int lt9611uxc_read_version(struct lt9611uxc *lt9611uxc)
- 	return ret < 0 ? ret : rev;
- }
- 
--static int lt9611uxc_hdmi_hw_params(struct device *dev, void *data,
--				    struct hdmi_codec_daifmt *fmt,
--				    struct hdmi_codec_params *hparms)
--{
--	/*
--	 * LT9611UXC will automatically detect rate and sample size, so no need
--	 * to setup anything here.
--	 */
--	return 0;
--}
--
--static void lt9611uxc_audio_shutdown(struct device *dev, void *data)
--{
--}
--
--static int lt9611uxc_hdmi_i2s_get_dai_id(struct snd_soc_component *component,
--					 struct device_node *endpoint,
--					 void *data)
--{
--	struct of_endpoint of_ep;
--	int ret;
--
--	ret = of_graph_parse_endpoint(endpoint, &of_ep);
--	if (ret < 0)
--		return ret;
--
--	/*
--	 * HDMI sound should be located as reg = <2>
--	 * Then, it is sound port 0
--	 */
--	if (of_ep.port == 2)
--		return 0;
--
--	return -EINVAL;
--}
--
--static const struct hdmi_codec_ops lt9611uxc_codec_ops = {
--	.hw_params	= lt9611uxc_hdmi_hw_params,
--	.audio_shutdown = lt9611uxc_audio_shutdown,
--	.get_dai_id	= lt9611uxc_hdmi_i2s_get_dai_id,
--};
--
--static int lt9611uxc_audio_init(struct device *dev, struct lt9611uxc *lt9611uxc)
--{
--	struct hdmi_codec_pdata codec_data = {
--		.ops = &lt9611uxc_codec_ops,
--		.max_i2s_channels = 2,
--		.i2s = 1,
--		.data = lt9611uxc,
--	};
--
--	lt9611uxc->audio_pdev =
--		platform_device_register_data(dev, HDMI_CODEC_DRV_NAME,
--					      PLATFORM_DEVID_AUTO,
--					      &codec_data, sizeof(codec_data));
--
--	return PTR_ERR_OR_ZERO(lt9611uxc->audio_pdev);
--}
--
--static void lt9611uxc_audio_exit(struct lt9611uxc *lt9611uxc)
--{
--	if (lt9611uxc->audio_pdev) {
--		platform_device_unregister(lt9611uxc->audio_pdev);
--		lt9611uxc->audio_pdev = NULL;
--	}
--}
--
- #define LT9611UXC_FW_PAGE_SIZE 32
- static void lt9611uxc_firmware_write_page(struct lt9611uxc *lt9611uxc, u16 addr, const u8 *buf)
- {
-@@ -858,11 +830,17 @@ static int lt9611uxc_probe(struct i2c_client *client)
- 	i2c_set_clientdata(client, lt9611uxc);
- 
- 	lt9611uxc->bridge.of_node = client->dev.of_node;
--	lt9611uxc->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
-+	lt9611uxc->bridge.ops = DRM_BRIDGE_OP_DETECT |
-+		DRM_BRIDGE_OP_EDID |
-+		DRM_BRIDGE_OP_HDMI_AUDIO;
- 	if (lt9611uxc->hpd_supported)
- 		lt9611uxc->bridge.ops |= DRM_BRIDGE_OP_HPD;
- 	lt9611uxc->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 
-+	lt9611uxc->bridge.hdmi_audio_dev = dev;
-+	lt9611uxc->bridge.hdmi_audio_max_i2s_playback_channels = 2;
-+	lt9611uxc->bridge.hdmi_audio_dai_port = 2;
-+
- 	drm_bridge_add(&lt9611uxc->bridge);
- 
- 	/* Attach primary DSI */
-@@ -881,10 +859,6 @@ static int lt9611uxc_probe(struct i2c_client *client)
- 		}
- 	}
- 
--	ret = lt9611uxc_audio_init(dev, lt9611uxc);
--	if (ret)
--		goto err_remove_bridge;
--
- 	return 0;
- 
- err_remove_bridge:
-@@ -908,7 +882,6 @@ static void lt9611uxc_remove(struct i2c_client *client)
- 
- 	free_irq(client->irq, lt9611uxc);
- 	cancel_work_sync(&lt9611uxc->work);
--	lt9611uxc_audio_exit(lt9611uxc);
- 	drm_bridge_remove(&lt9611uxc->bridge);
- 
- 	mutex_destroy(&lt9611uxc->ocm_lock);
-
--- 
-2.39.5
+On 2025/7/31 4:31, Rob Herring (Arm) wrote:
+> WARNING: This email originated from outside of Qualcomm. Please be wary of any links or attachments, and do not enable macros.
+> 
+> On Wed, 30 Jul 2025 17:42:28 +0800, Yongxing Mou wrote:
+>> Document the MDSS hardware found on the Qualcomm QCS8300 platform.
+>>
+>> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+>> ---
+>>   .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 284 +++++++++++++++++++++
+>>   1 file changed, 284 insertions(+)
+>>
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.example.dtb: phy@aec2a00 (qcom,qcs8300-edp-phy): compatible:0: 'qcom,qcs8300-edp-phy' is not one of ['qcom,sa8775p-edp-phy', 'qcom,sc7280-edp-phy', 'qcom,sc8180x-edp-phy', 'qcom,sc8280xp-dp-phy', 'qcom,sc8280xp-edp-phy', 'qcom,x1e80100-dp-phy']
+>          from schema $id: http://devicetree.org/schemas/phy/qcom,edp-phy.yaml#
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.example.dtb: phy@aec2a00 (qcom,qcs8300-edp-phy): compatible: ['qcom,qcs8300-edp-phy', 'qcom,sa8775p-edp-phy'] is too long
+>          from schema $id: http://devicetree.org/schemas/phy/qcom,edp-phy.yaml#
+> 
+> doc reference errors (make refcheckdocs):
+> 
+> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20250730-mdssdt_qcs8300-v5-3-bc8ea35bbed6@quicinc.com
+> 
+> The base for the series is generally the latest rc1. A different dependency
+> should be noted in *this* patch.
+> 
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+> 
+> pip3 install dtschema --upgrade
+> 
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your schema.
+> 
+This warning need to apply this patch..
+https://lore.kernel.org/all/20250730072725.1433360-1-quic_yongmou@quicinc.com/
+thanks, link in the cover-letter seem wrong. and there is an unnecessary ~
 
