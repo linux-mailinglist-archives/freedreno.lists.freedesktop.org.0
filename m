@@ -2,83 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFDB0B19C01
-	for <lists+freedreno@lfdr.de>; Mon,  4 Aug 2025 09:13:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69200B1A528
+	for <lists+freedreno@lfdr.de>; Mon,  4 Aug 2025 16:43:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EF2510E343;
-	Mon,  4 Aug 2025 07:12:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MqddZeGP";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4393D10E599;
+	Mon,  4 Aug 2025 14:43:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C499F10E343
- for <freedreno@lists.freedesktop.org>; Mon,  4 Aug 2025 07:12:57 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4563cfac19cso42136485e9.2
- for <freedreno@lists.freedesktop.org>; Mon, 04 Aug 2025 00:12:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1754291576; x=1754896376; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=pins6pCk0Fa4rQAmFrWg25RZups1O5EoRcd2l2gX4sE=;
- b=MqddZeGP6pAixNPauXafwf8SKbq+HQE/ZeeDXZbhV6ke8jpVNFiIgUWyIYcqqxqVk/
- akUdO4a1tI5OM3ilxMbjGqFDAmjlrp0CQqT3yHtIFh8kORyV72NBmMahfNnW5v0Sd7Ja
- LzVgtZUC8/SXzzPI/glFFuQweH1ZE9Wiz0CiMSfKW7olGokUZEelicfGjge2LgQYJhdE
- O+yASvsQB/UL7VLmY/iykIOW3rnAzWYFiLn5Ctak0WcOXbpat+hMfoyBcBx4Nromj0IO
- 0j4m57dFRmKO8dm8pOSuhvrNCvAsvSM6sTgO9LWWxRJFBNwZCtQJIZTDi/KnSPaySgnj
- 25Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754291576; x=1754896376;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pins6pCk0Fa4rQAmFrWg25RZups1O5EoRcd2l2gX4sE=;
- b=bLwiDzzJvSgyJIOvOIV/0HBtSBqz6D7OAvufvGOVH+AxSGALgqjMoXcLBqkY3AiRZk
- F3x3XciEmgdSDhfaAMb4pXHEq2HbHf/45OZTVZafK00mxLQ35CGB2Y3WQma1cCV9/L84
- aRHauJF+glY6v5Ac3yt0QXP4o4QmcWhAmZpeNXUMr/tUlt4U2nnBH7Fa8m5+k6PKzprs
- GruiCHH+jf5+p0Nl9FJIF8hSNZCqe+3rXnP6N59fPfB7CDODoZdGfnD62JNdr31tkMof
- 77b7tCJrLmu2QPk+wXmWnYMmxPcl230C4VwMQn4KyWEqtmP7oVrEV9tEbtJ11Thm2P5i
- gG8A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXHbckke+CvD1RcNwRwRSMuS4+LsbizicB25fA+daotsOPqGcqifmzzLTJRRLkdPk4AB7clWQf09tw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxKUKAGA5hJ3/K3tNN0G6NDA2cZdKm7gFdbK5/y1wLNnqb8Ay9O
- XdB87SD81mHqWB0rAb6AD9h19cVJotYt26967UFNGXfnDEb4xq0qzujSur3sy5D0S/I=
-X-Gm-Gg: ASbGncvrFLiSyERNHYnC8wn0U9zawhTItTg2pmWrlYFfxLx+3O3W3eE7qctfZzwguLu
- BQYgmED85aYn8Lntloo2G4Eku+gCiV7Pr7Dhba51T75MjFlalBhiuNJVH+Z4NvoNtzkLq4tOHG3
- 5oCNY79PU2g9FbMwhh4Yz5aeo8PGVzQjuHyj7Yh+4w2FxLmk3cOPS6Q7dBzVNM6wZgiHoVhnMwZ
- P4yslF6y8FmJT/RrJUsvW3tfoS5536fDu2JdSUGI34qDWISPvYWw41Pc8ub26qHpVfAGR3GHOdQ
- 4dOJCOg3XSVLWyrvoj/adcM+h2oFnlj250awRa+u5dLbqRJ2OFNWXxXdI6HVfIyNfXc0lk6ZgU9
- JwpxPO2o7v1YAS6WYRyA6Ryt07cw=
-X-Google-Smtp-Source: AGHT+IFRLwySDJxGy6saRiUmoXuk2+5KeKGSB+JTT7r9m1nznyH/1R8mONHfgSxX/9MUe5BEsJDY3w==
-X-Received: by 2002:a05:600c:4450:b0:453:9b7:c214 with SMTP id
- 5b1f17b1804b1-458b6b43c1cmr59832095e9.29.1754291576213; 
- Mon, 04 Aug 2025 00:12:56 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458953cfcc1sm203814495e9.17.2025.08.04.00.12.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Aug 2025 00:12:55 -0700 (PDT)
-Date: Mon, 4 Aug 2025 10:12:53 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7800110E360
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Aug 2025 14:43:49 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F24B4150C
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Aug 2025 07:43:40 -0700 (PDT)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C30643F738
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Aug 2025 07:43:48 -0700 (PDT)
+Date: Mon, 4 Aug 2025 15:43:12 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [bug report] drm/msm: Add VM_BIND ioctl
-Message-ID: <6117eece-fe02-40e5-80f0-66003b85997d@suswa.mountain>
-References: <aI3C8c4iR3PmIMGE@stanley.mountain>
- <CACSVV00Bv+P2rzi0Wpnxba8VCTiVT_kK3voRZEZJGKrupSbigA@mail.gmail.com>
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 0/8] drm: writeback: clean up writeback connector
+ initialization
+Message-ID: <aJDHAF69VOEHwcKO@e110455-lin.cambridge.arm.com>
+References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV00Bv+P2rzi0Wpnxba8VCTiVT_kK3voRZEZJGKrupSbigA@mail.gmail.com>
+In-Reply-To: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,113 +73,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Aug 02, 2025 at 06:12:56AM -0700, Rob Clark wrote:
-> On Sat, Aug 2, 2025 at 12:49 AM Dan Carpenter <dan.carpenter@linaro.org> wrote:
-> >
-> > Hello Rob Clark,
-> >
-> > Commit 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl") from Jun 29, 2025
-> > (linux-next), leads to the following Smatch static checker warning:
-> >
-> >         drivers/gpu/drm/msm/msm_gem_vma.c:596 msm_gem_vm_sm_step_remap()
-> >         error: we previously assumed 'vm_bo' could be null (see line 564)
-> >
-> > drivers/gpu/drm/msm/msm_gem_vma.c
-> >     521 static int
-> >     522 msm_gem_vm_sm_step_remap(struct drm_gpuva_op *op, void *arg)
-> >     523 {
-> >     524         struct msm_vm_bind_job *job = ((struct op_arg *)arg)->job;
-> >     525         struct drm_gpuvm *vm = job->vm;
-> >     526         struct drm_gpuva *orig_vma = op->remap.unmap->va;
-> >     527         struct drm_gpuva *prev_vma = NULL, *next_vma = NULL;
-> >     528         struct drm_gpuvm_bo *vm_bo = orig_vma->vm_bo;
-> >     529         bool mapped = to_msm_vma(orig_vma)->mapped;
-> >     530         unsigned flags;
-> >     531
-> >     532         vm_dbg("orig_vma: %p:%p:%p: %016llx %016llx", vm, orig_vma,
-> >     533                orig_vma->gem.obj, orig_vma->va.addr, orig_vma->va.range);
-> >     534
-> >     535         if (mapped) {
-> >     536                 uint64_t unmap_start, unmap_range;
-> >     537
-> >     538                 drm_gpuva_op_remap_to_unmap_range(&op->remap, &unmap_start, &unmap_range);
-> >     539
-> >     540                 vm_op_enqueue(arg, (struct msm_vm_op){
-> >     541                         .op = MSM_VM_OP_UNMAP,
-> >     542                         .unmap = {
-> >     543                                 .iova = unmap_start,
-> >     544                                 .range = unmap_range,
-> >     545                                 .queue_id = job->queue->id,
-> >     546                         },
-> >     547                         .obj = orig_vma->gem.obj,
-> >     548                 });
-> >     549
-> >     550                 /*
-> >     551                  * Part of this GEM obj is still mapped, but we're going to kill the
-> >     552                  * existing VMA and replace it with one or two new ones (ie. two if
-> >     553                  * the unmapped range is in the middle of the existing (unmap) VMA).
-> >     554                  * So just set the state to unmapped:
-> >     555                  */
-> >     556                 to_msm_vma(orig_vma)->mapped = false;
-> >     557         }
-> >     558
-> >     559         /*
-> >     560          * Hold a ref to the vm_bo between the msm_gem_vma_close() and the
-> >     561          * creation of the new prev/next vma's, in case the vm_bo is tracked
-> >     562          * in the VM's evict list:
-> >     563          */
-> >     564         if (vm_bo)
-> >                 ^^^^^^^^^^
-> > NULL check
-> >
-> >     565                 drm_gpuvm_bo_get(vm_bo);
-> >     566
-> >     567         /*
-> >     568          * The prev_vma and/or next_vma are replacing the unmapped vma, and
-> >     569          * therefore should preserve it's flags:
-> >     570          */
-> >     571         flags = orig_vma->flags;
-> >     572
-> >     573         msm_gem_vma_close(orig_vma);
-> >     574
-> >     575         if (op->remap.prev) {
-> >     576                 prev_vma = vma_from_op(arg, op->remap.prev);
-> >     577                 if (WARN_ON(IS_ERR(prev_vma)))
-> >     578                         return PTR_ERR(prev_vma);
-> >     579
-> >     580                 vm_dbg("prev_vma: %p:%p: %016llx %016llx", vm, prev_vma, prev_vma->va.addr, prev_vma->va.range);
-> >     581                 to_msm_vma(prev_vma)->mapped = mapped;
-> >     582                 prev_vma->flags = flags;
-> >     583         }
-> >     584
-> >     585         if (op->remap.next) {
-> >     586                 next_vma = vma_from_op(arg, op->remap.next);
-> >     587                 if (WARN_ON(IS_ERR(next_vma)))
-> >     588                         return PTR_ERR(next_vma);
-> >     589
-> >     590                 vm_dbg("next_vma: %p:%p: %016llx %016llx", vm, next_vma, next_vma->va.addr, next_vma->va.range);
-> >     591                 to_msm_vma(next_vma)->mapped = mapped;
-> >     592                 next_vma->flags = flags;
-> >     593         }
-> >     594
-> >     595         if (!mapped)
-> > --> 596                 drm_gpuvm_bo_evict(vm_bo, true);
-> >                                            ^^^^^
-> > Unchecked dereference.  Possibly if we're not mapped then it's non-NULL?
-> > If so then just ignore this warning.
+Hi,
+
+On Fri, Aug 01, 2025 at 04:51:08PM +0300, Dmitry Baryshkov wrote:
+> Drivers using drm_writeback_connector_init() / _with_encoder() don't
+> perform cleanup in a manner similar to drmm_writeback_connector_init()
+> (see drm_writeback_connector_cleanup()). Migrate all existing drivers
+> to use drmm_writeback_connector_init(), drop
+> drm_writeback_connector_init() and drm_writeback_connector::encoder
+> (it's unused afterwards).
 > 
-> Correct, the !mapped case will only happen when the shrinker evicts
-> BOs.  The case where the BO (and therefore vm_bo) is NULL, is MAP_NULL
-> mappings which are backed by the PRR page, not a BO that can be
-> evicted.
+> This series leaves former drm_writeback_connector_init_with_encoder()
+> (renamed to drm_writeback_connector_init as a non-managed counterpart
+> for drmm_writeback_connector_init()). It is supposed to be used by
+> drivers which can not use drmm functions (like Intel). However I think
+> it would be better to drop it completely.
+
+The intent of _init_with_encoder() was to be a special case for drivers
+that use their own specific encoder and the rest use the generic function
+that creates the virtual encoder inside the call. The API for
+_init_with_encoder() was actually introduced 4 years after the original
+patch, so that should give a hint.
+
+drmm_writeback_connector_init() is more like _init_with_encoder() and
+I don't remember reviewing it, so I'm not sure why that was considered
+to be the better behaviour for the managed version. Now you're moving
+all the drivers to the managed version and you have to duplicate code
+in each driver to create the ENCODER_VIRTUAL encoder.
+
+I'm not against the changes being made in the series, I just want to
+see a better justification on why _init_with_encoder() behaviour is
+better than the previous default that you're removing.
+
+Best regards,
+Liviu
+
+
 > 
-> Would adding a WARN_ON(!vm_bo) convey to smatch that this case should
-> not happen unless something somewhere else was rather screwed up?
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+> Dmitry Baryshkov (8):
+>       drm/amd/display: use drmm_writeback_connector_init()
+>       drm/komeda: use drmm_writeback_connector_init()
+>       drm/mali: use drmm_writeback_connector_init()
+>       drm/msm/dpu: use drmm_writeback_connector_init()
+>       drm/msm/dpu: use drmm_writeback_connector_init()
+>       drm/vc4: use drmm_writeback_connector_init()
+>       drm: writeback: drop excess connector initialization functions
+>       drm: writeback: rename drm_writeback_connector_init_with_encoder()
+> 
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   | 18 ++++--
+>  .../drm/arm/display/komeda/komeda_wb_connector.c   | 30 ++++++----
+>  drivers/gpu/drm/arm/malidp_mw.c                    | 25 ++++----
+>  drivers/gpu/drm/drm_writeback.c                    | 69 +++-------------------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      | 10 +---
+>  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++---
+>  drivers/gpu/drm/vc4/vc4_txp.c                      |  9 ++-
+>  include/drm/drm_writeback.h                        | 22 +------
+>  9 files changed, 77 insertions(+), 131 deletions(-)
+> ---
+> base-commit: 94f208ff622b09309358abaf26d7acca0c318fae
+> change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
+> 
+> Best regards,
+> -- 
+> With best wishes
+> Dmitry
+> 
 
-No.  WARN_ON() doesn't mean something can't happen.  Just ignore it.
-Old warnings are always false positives and if people have questions
-they can find this thread on lore.
-
-regards,
-dan carpenter
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
