@@ -2,107 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8C22B19B5E
-	for <lists+freedreno@lfdr.de>; Mon,  4 Aug 2025 08:12:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFDB0B19C01
+	for <lists+freedreno@lfdr.de>; Mon,  4 Aug 2025 09:13:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93FBC10E011;
-	Mon,  4 Aug 2025 06:12:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EF2510E343;
+	Mon,  4 Aug 2025 07:12:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="c+ZH84dH";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MqddZeGP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4977010E011;
- Mon,  4 Aug 2025 06:12:20 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 573LuEXw007793;
- Mon, 4 Aug 2025 06:12:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- gGBwkDcpa8KTjBGTp6+vS9yUmGblXxtWNRSb0sPG4Mc=; b=c+ZH84dHVBN0mP4u
- bnRq1F50Q6xHXUWNWrr1mRs7wugmvkIo/6eorWplxApGwVR0mEULiSLsQGhQliGG
- k31y1cWkWgXUFl817d+KDlzwl14+yf8ToulLX65OKcnBA953MwhlxLHO7+DD63Kg
- sOHoLS5PIpG7387i4qiLEEIwk0S/SuuNBZY3D7tOTAuuaROvBNxqY9F1q0smyHLy
- q0nzgrGBKBbea+2cy9xzd1AeiETX1ppY0wtADPykREkTByJTDYzm9eR28VfS9zI0
- c3wC3JyWfSQFVe3tFZWX0Q4r/5Fy+T7irFAphSyom1aV1frSOkyjhjewlt72AUCF
- zUjXow==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 489buqkkcq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 04 Aug 2025 06:12:11 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5746C2qr001084
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 4 Aug 2025 06:12:02 GMT
-Received: from [10.64.68.119] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Sun, 3 Aug
- 2025 23:11:56 -0700
-Message-ID: <eb87e18b-8dcf-4ed8-b60c-5673517b7009@quicinc.com>
-Date: Mon, 4 Aug 2025 14:11:53 +0800
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C499F10E343
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Aug 2025 07:12:57 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4563cfac19cso42136485e9.2
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Aug 2025 00:12:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1754291576; x=1754896376; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=pins6pCk0Fa4rQAmFrWg25RZups1O5EoRcd2l2gX4sE=;
+ b=MqddZeGP6pAixNPauXafwf8SKbq+HQE/ZeeDXZbhV6ke8jpVNFiIgUWyIYcqqxqVk/
+ akUdO4a1tI5OM3ilxMbjGqFDAmjlrp0CQqT3yHtIFh8kORyV72NBmMahfNnW5v0Sd7Ja
+ LzVgtZUC8/SXzzPI/glFFuQweH1ZE9Wiz0CiMSfKW7olGokUZEelicfGjge2LgQYJhdE
+ O+yASvsQB/UL7VLmY/iykIOW3rnAzWYFiLn5Ctak0WcOXbpat+hMfoyBcBx4Nromj0IO
+ 0j4m57dFRmKO8dm8pOSuhvrNCvAsvSM6sTgO9LWWxRJFBNwZCtQJIZTDi/KnSPaySgnj
+ 25Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754291576; x=1754896376;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pins6pCk0Fa4rQAmFrWg25RZups1O5EoRcd2l2gX4sE=;
+ b=bLwiDzzJvSgyJIOvOIV/0HBtSBqz6D7OAvufvGOVH+AxSGALgqjMoXcLBqkY3AiRZk
+ F3x3XciEmgdSDhfaAMb4pXHEq2HbHf/45OZTVZafK00mxLQ35CGB2Y3WQma1cCV9/L84
+ aRHauJF+glY6v5Ac3yt0QXP4o4QmcWhAmZpeNXUMr/tUlt4U2nnBH7Fa8m5+k6PKzprs
+ GruiCHH+jf5+p0Nl9FJIF8hSNZCqe+3rXnP6N59fPfB7CDODoZdGfnD62JNdr31tkMof
+ 77b7tCJrLmu2QPk+wXmWnYMmxPcl230C4VwMQn4KyWEqtmP7oVrEV9tEbtJ11Thm2P5i
+ gG8A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXHbckke+CvD1RcNwRwRSMuS4+LsbizicB25fA+daotsOPqGcqifmzzLTJRRLkdPk4AB7clWQf09tw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxKUKAGA5hJ3/K3tNN0G6NDA2cZdKm7gFdbK5/y1wLNnqb8Ay9O
+ XdB87SD81mHqWB0rAb6AD9h19cVJotYt26967UFNGXfnDEb4xq0qzujSur3sy5D0S/I=
+X-Gm-Gg: ASbGncvrFLiSyERNHYnC8wn0U9zawhTItTg2pmWrlYFfxLx+3O3W3eE7qctfZzwguLu
+ BQYgmED85aYn8Lntloo2G4Eku+gCiV7Pr7Dhba51T75MjFlalBhiuNJVH+Z4NvoNtzkLq4tOHG3
+ 5oCNY79PU2g9FbMwhh4Yz5aeo8PGVzQjuHyj7Yh+4w2FxLmk3cOPS6Q7dBzVNM6wZgiHoVhnMwZ
+ P4yslF6y8FmJT/RrJUsvW3tfoS5536fDu2JdSUGI34qDWISPvYWw41Pc8ub26qHpVfAGR3GHOdQ
+ 4dOJCOg3XSVLWyrvoj/adcM+h2oFnlj250awRa+u5dLbqRJ2OFNWXxXdI6HVfIyNfXc0lk6ZgU9
+ JwpxPO2o7v1YAS6WYRyA6Ryt07cw=
+X-Google-Smtp-Source: AGHT+IFRLwySDJxGy6saRiUmoXuk2+5KeKGSB+JTT7r9m1nznyH/1R8mONHfgSxX/9MUe5BEsJDY3w==
+X-Received: by 2002:a05:600c:4450:b0:453:9b7:c214 with SMTP id
+ 5b1f17b1804b1-458b6b43c1cmr59832095e9.29.1754291576213; 
+ Mon, 04 Aug 2025 00:12:56 -0700 (PDT)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-458953cfcc1sm203814495e9.17.2025.08.04.00.12.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Aug 2025 00:12:55 -0700 (PDT)
+Date: Mon, 4 Aug 2025 10:12:53 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Rob Clark <rob.clark@oss.qualcomm.com>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [bug report] drm/msm: Add VM_BIND ioctl
+Message-ID: <6117eece-fe02-40e5-80f0-66003b85997d@suswa.mountain>
+References: <aI3C8c4iR3PmIMGE@stanley.mountain>
+ <CACSVV00Bv+P2rzi0Wpnxba8VCTiVT_kK3voRZEZJGKrupSbigA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/5] dt-bindings: display/msm: Document MDSS on QCS8300
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-CC: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Neil
- Armstrong" <neil.armstrong@linaro.org>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, "Konrad
- Dybcio" <konradybcio@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-References: <20250730-mdssdt_qcs8300-v5-0-bc8ea35bbed6@quicinc.com>
- <20250730-mdssdt_qcs8300-v5-3-bc8ea35bbed6@quicinc.com>
- <deefg7w3ot6cd3woexfwagetmkg4nvu37f66h4ulbdqegdgi3u@plj6puxcsil4>
- <477bebcc-2d1a-4183-8e3d-d792e876c63a@quicinc.com>
- <gkcy5rmtodvkgcyzv5mylq4fnlampwichvywcej7ncrbn35jni@ewvcda4o2s2l>
-Content-Language: en-US
-From: Yongxing Mou <quic_yongmou@quicinc.com>
-In-Reply-To: <gkcy5rmtodvkgcyzv5mylq4fnlampwichvywcej7ncrbn35jni@ewvcda4o2s2l>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: i7lp5iemk3xiyXVN5r8jJzQH1ADL1jFE
-X-Authority-Analysis: v=2.4 cv=VZT3PEp9 c=1 sm=1 tr=0 ts=68904f3b cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=gEfo2CItAAAA:8
- a=COk6AnOGAAAA:8 a=XyTV15-iCbcj3UDuXsEA:9 a=QEXdDO2ut3YA:10
- a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA0MDAzMSBTYWx0ZWRfX812Gj8ghY+Ew
- 1kryj4hJpBcDkG0vt1+TTyu2arbcu31+G7dvT3ocClqMOfi9vhxCWHWPVrn5Xwsekoc2HOs2bH5
- W6T7HAGrIRJTBWeOmZabGRGBECXzQuMr0+8vnncI2yefrAN8lmkewolygNjqjPqRebuU3EFDgON
- xUPZA8NZQEil5kCNa+oD26QKXIwr+N5BcKG2Pbu+4UEEZROxHjSuyh5JAA4kD4S/zCSJtX2NejH
- UZete//T6m5G5tYjAeAXXFmlcMJaAt8zD1YS/yPiQwKOhyDFqD9NjCrSownlzUKiyrQG+i7s+7+
- O9aB9PRZ+N+xkDw4rHJZ4JUre+NHCb1Gg4psONJcuWDiF+ov7hOf1ejqiyZP40j2PW9uWge4weZ
- LJGNlddf+QaiUXCpS2yQ6YSUEhJPj35MEmAgEh9BYDS79cePrtimMNIN/jBGzCgiunYbTg2T
-X-Proofpoint-ORIG-GUID: i7lp5iemk3xiyXVN5r8jJzQH1ADL1jFE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-04_02,2025-08-04_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=999 malwarescore=0 bulkscore=0 phishscore=0
- spamscore=0 mlxscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
- lowpriorityscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2508040031
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACSVV00Bv+P2rzi0Wpnxba8VCTiVT_kK3voRZEZJGKrupSbigA@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,123 +94,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Sat, Aug 02, 2025 at 06:12:56AM -0700, Rob Clark wrote:
+> On Sat, Aug 2, 2025 at 12:49 AM Dan Carpenter <dan.carpenter@linaro.org> wrote:
+> >
+> > Hello Rob Clark,
+> >
+> > Commit 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl") from Jun 29, 2025
+> > (linux-next), leads to the following Smatch static checker warning:
+> >
+> >         drivers/gpu/drm/msm/msm_gem_vma.c:596 msm_gem_vm_sm_step_remap()
+> >         error: we previously assumed 'vm_bo' could be null (see line 564)
+> >
+> > drivers/gpu/drm/msm/msm_gem_vma.c
+> >     521 static int
+> >     522 msm_gem_vm_sm_step_remap(struct drm_gpuva_op *op, void *arg)
+> >     523 {
+> >     524         struct msm_vm_bind_job *job = ((struct op_arg *)arg)->job;
+> >     525         struct drm_gpuvm *vm = job->vm;
+> >     526         struct drm_gpuva *orig_vma = op->remap.unmap->va;
+> >     527         struct drm_gpuva *prev_vma = NULL, *next_vma = NULL;
+> >     528         struct drm_gpuvm_bo *vm_bo = orig_vma->vm_bo;
+> >     529         bool mapped = to_msm_vma(orig_vma)->mapped;
+> >     530         unsigned flags;
+> >     531
+> >     532         vm_dbg("orig_vma: %p:%p:%p: %016llx %016llx", vm, orig_vma,
+> >     533                orig_vma->gem.obj, orig_vma->va.addr, orig_vma->va.range);
+> >     534
+> >     535         if (mapped) {
+> >     536                 uint64_t unmap_start, unmap_range;
+> >     537
+> >     538                 drm_gpuva_op_remap_to_unmap_range(&op->remap, &unmap_start, &unmap_range);
+> >     539
+> >     540                 vm_op_enqueue(arg, (struct msm_vm_op){
+> >     541                         .op = MSM_VM_OP_UNMAP,
+> >     542                         .unmap = {
+> >     543                                 .iova = unmap_start,
+> >     544                                 .range = unmap_range,
+> >     545                                 .queue_id = job->queue->id,
+> >     546                         },
+> >     547                         .obj = orig_vma->gem.obj,
+> >     548                 });
+> >     549
+> >     550                 /*
+> >     551                  * Part of this GEM obj is still mapped, but we're going to kill the
+> >     552                  * existing VMA and replace it with one or two new ones (ie. two if
+> >     553                  * the unmapped range is in the middle of the existing (unmap) VMA).
+> >     554                  * So just set the state to unmapped:
+> >     555                  */
+> >     556                 to_msm_vma(orig_vma)->mapped = false;
+> >     557         }
+> >     558
+> >     559         /*
+> >     560          * Hold a ref to the vm_bo between the msm_gem_vma_close() and the
+> >     561          * creation of the new prev/next vma's, in case the vm_bo is tracked
+> >     562          * in the VM's evict list:
+> >     563          */
+> >     564         if (vm_bo)
+> >                 ^^^^^^^^^^
+> > NULL check
+> >
+> >     565                 drm_gpuvm_bo_get(vm_bo);
+> >     566
+> >     567         /*
+> >     568          * The prev_vma and/or next_vma are replacing the unmapped vma, and
+> >     569          * therefore should preserve it's flags:
+> >     570          */
+> >     571         flags = orig_vma->flags;
+> >     572
+> >     573         msm_gem_vma_close(orig_vma);
+> >     574
+> >     575         if (op->remap.prev) {
+> >     576                 prev_vma = vma_from_op(arg, op->remap.prev);
+> >     577                 if (WARN_ON(IS_ERR(prev_vma)))
+> >     578                         return PTR_ERR(prev_vma);
+> >     579
+> >     580                 vm_dbg("prev_vma: %p:%p: %016llx %016llx", vm, prev_vma, prev_vma->va.addr, prev_vma->va.range);
+> >     581                 to_msm_vma(prev_vma)->mapped = mapped;
+> >     582                 prev_vma->flags = flags;
+> >     583         }
+> >     584
+> >     585         if (op->remap.next) {
+> >     586                 next_vma = vma_from_op(arg, op->remap.next);
+> >     587                 if (WARN_ON(IS_ERR(next_vma)))
+> >     588                         return PTR_ERR(next_vma);
+> >     589
+> >     590                 vm_dbg("next_vma: %p:%p: %016llx %016llx", vm, next_vma, next_vma->va.addr, next_vma->va.range);
+> >     591                 to_msm_vma(next_vma)->mapped = mapped;
+> >     592                 next_vma->flags = flags;
+> >     593         }
+> >     594
+> >     595         if (!mapped)
+> > --> 596                 drm_gpuvm_bo_evict(vm_bo, true);
+> >                                            ^^^^^
+> > Unchecked dereference.  Possibly if we're not mapped then it's non-NULL?
+> > If so then just ignore this warning.
+> 
+> Correct, the !mapped case will only happen when the shrinker evicts
+> BOs.  The case where the BO (and therefore vm_bo) is NULL, is MAP_NULL
+> mappings which are backed by the PRR page, not a BO that can be
+> evicted.
+> 
+> Would adding a WARN_ON(!vm_bo) convey to smatch that this case should
+> not happen unless something somewhere else was rather screwed up?
 
+No.  WARN_ON() doesn't mean something can't happen.  Just ignore it.
+Old warnings are always false positives and if people have questions
+they can find this thread on lore.
 
-On 2025/8/4 12:52, Dmitry Baryshkov wrote:
-> On Mon, Aug 04, 2025 at 12:31:31PM +0800, Yongxing Mou wrote:
->>
->>
->> On 2025/8/2 17:56, Dmitry Baryshkov wrote:
->>> On Wed, Jul 30, 2025 at 05:42:28PM +0800, Yongxing Mou wrote:
->>>> Document the MDSS hardware found on the Qualcomm QCS8300 platform.
->>>>
->>>> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
->>>> ---
->>>>    .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 284 +++++++++++++++++++++
->>>>    1 file changed, 284 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml
->>>> new file mode 100644
->>>> index 0000000000000000000000000000000000000000..ae4bc16395326bffd6c9eff92778d9f207209526
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml
->>>> @@ -0,0 +1,284 @@
->>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/display/msm/qcom,qcs8300-mdss.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Qualcomm Technologies, Inc. QCS8300 Display MDSS
->>>> +
->>>> +maintainers:
->>>> +  - Yongxing Mou <quic_yongmou@quicinc.com>
->>>> +
->>>> +description:
->>>> +  QCS8300 MSM Mobile Display Subsystem(MDSS), which encapsulates sub-blocks like
->>>> +  DPU display controller, DP interfaces and EDP etc.
->>>> +
->>>> +$ref: /schemas/display/msm/mdss-common.yaml#
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    const: qcom,qcs8300-mdss
->>>> +
->>>> +  clocks:
->>>> +    items:
->>>> +      - description: Display AHB
->>>> +      - description: Display hf AXI
->>>> +      - description: Display core
->>>> +
->>>> +  iommus:
->>>> +    maxItems: 1
->>>> +
->>>> +  interconnects:
->>>> +    maxItems: 3
->>>> +
->>>> +  interconnect-names:
->>>> +    maxItems: 3
->>>> +
->>>> +patternProperties:
->>>> +  "^display-controller@[0-9a-f]+$":
->>>> +    type: object
->>>> +    additionalProperties: true
->>>> +
->>>> +    properties:
->>>> +      compatible:
->>>> +        items:
->>>> +          - const: qcom,qcs8300-dpu
->>>> +          - const: qcom,sa8775p-dpu
->>>
->>> Use contains: instead of listing both of them
->>>
->> Got it, thanks~ here we want to fallback qcs8300 to sa8775p.
->> Should we update it to :
->> +        contains:
->> +          enum:
->> +            - qcom,qcs8300-dpu
->> +            - qcom,sa8775p-dpu
->>
->>   above method can be validated using dt_binding_check.
-> 
-> 
-> _instead_ of listing both of them
-> 
-> So:
-> 
->    contains:
->      const: qcom,qcs8300-dpu
-> 
-Got it.. thanks~!
->>>> +
->>>> +  "^displayport-controller@[0-9a-f]+$":
->>>> +    type: object
->>>> +    additionalProperties: true
->>>> +
->>>> +    properties:
->>>> +      compatible:
->>>> +        items:
->>>> +          - const: qcom,qcs8300-dp
->>>> +
->>>> +  "^phy@[0-9a-f]+$":
->>>> +    type: object
->>>> +    additionalProperties: true
->>>> +    properties:
->>>> +      compatible:
->>>> +        items:
->>>> +          - const: qcom,qcs8300-edp-phy
->>>> +          - const: qcom,sa8775p-edp-phy
->>>
->>> Use contains: instead of listing both of them
->>>
->> Same as above
->>>> +
->>>> +required:
->>>> +  - compatible
->>>> +
->>>> +unevaluatedProperties: false
->>>> +
->>>
->>
-> 
+regards,
+dan carpenter
 
