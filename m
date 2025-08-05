@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C0FAB1B8AD
-	for <lists+freedreno@lfdr.de>; Tue,  5 Aug 2025 18:43:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00510B1B8B3
+	for <lists+freedreno@lfdr.de>; Tue,  5 Aug 2025 18:44:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3052710E6CB;
-	Tue,  5 Aug 2025 16:43:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D121510E086;
+	Tue,  5 Aug 2025 16:44:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fDHe3jex";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SRIvf3C3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586B910E6CB
- for <freedreno@lists.freedesktop.org>; Tue,  5 Aug 2025 16:43:14 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 575GBGAe005060
- for <freedreno@lists.freedesktop.org>; Tue, 5 Aug 2025 16:43:14 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B3AE10E031
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Aug 2025 16:44:36 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 575EA3E4016577
+ for <freedreno@lists.freedesktop.org>; Tue, 5 Aug 2025 16:44:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=hv30jdihqjoTZ5O1+BHgicFjeP5thjFR90f
- +0mrcaKc=; b=fDHe3jexkYZwPPGKJy7F2swAdK4gcYfVaZ2ysGacXOy+4tdFXPX
- UWGqAluR34H6so0S3k1StKae49FO0PgTZ0lBdtJ5ST5pvar71nQ1plGOGjZ7zrm1
- Dj1SyALsRk3iiHPlzHthrzAOqlnHDD8LAOsZsZAW2ZNYkrYUdLpPV87JBp4ewleY
- GpnL6AFbZ1pPtaWjf9TKAor+IJLaneI0uhjT62LXdzSSYkKrNo49+GZBIyTuCqG4
- 0ytLr5TYRg3cJ0oXO8LL64VDY40AhqU55OmfJ1oG9Iig85nvYASXoBJmIjRKg+9Q
- K+ql863nrxDU1Z7ECEzlC70WtINCktNPlaA==
+ :subject:to; s=qcppdkim1; bh=xFZ6cFO6wa52HtJqwYOKHtqGz7UHtTevLTj
+ q7d3NNvg=; b=SRIvf3C3XrZjewO4zKbPO7X3F9IOLoIBzYRNbchpfa32QM2YoPm
+ QDimi+wg7WVw8qrS879CcnYVAcm8jHG6N6dWEdwt99xiHvzAVB+iORPxpDVOfFFo
+ kD09DUHvoJliAYG9UpyP2DO88sE8JyiEz+Y9IfrwFmp1ZBfFeP05ouGz2E3wjVl+
+ AftroD2NAc1/SFIw1tMTYLVqQxWVkzO+EBjXRW49LtsY2CYwZeuKHerhJ4dTojZr
+ tprPQiWbeWQ2mjabwiq/RIb0h2V8LSuokn/zaY9ogqq8WrNW/KqdQMbx20Bg8waT
+ 7cxFz2i7j3hJUfHIiLwcsE73JGBfMRUgUaQ==
 Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
  [209.85.215.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48b3j3u54s-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4898cjsgrm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 05 Aug 2025 16:43:13 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Aug 2025 16:44:36 +0000 (GMT)
 Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-b00e4358a34so3055558a12.0
- for <freedreno@lists.freedesktop.org>; Tue, 05 Aug 2025 09:43:13 -0700 (PDT)
+ 41be03b00d2f7-b1ffc678adfso4457987a12.0
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Aug 2025 09:44:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754412193; x=1755016993;
+ d=1e100.net; s=20230601; t=1754412275; x=1755017075;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=hv30jdihqjoTZ5O1+BHgicFjeP5thjFR90f+0mrcaKc=;
- b=loJyYxr6paHc631tahPx3TAxYPV4Ug8NeGjat15k5ksvGFMpS+viaI7h9kllwk22Xs
- cbB99rr5ZLmzUJunECA+x3lKnUzEdnYcAxoFLGGrcdpPpgGZuhNogpOZr5u17uv766ay
- 9wtqZivNPEokPHGp6c+yU/kjTDTRn22hVZAp2A/43V4liU4VQqVo9WzZf/rTrQmPQ1Yf
- wDOwsnr4EYzr+tLrwHSThGZJLEVH30XQPHEhhST6/4sQJExzLFzK9iONVQMmZiCzgBSt
- BCLoHU+7v29UQe9xFucENQpMfGVg0J1h8A+PrbmpYjJ4xToliXjs/gbDtYixW86HMCxm
- EObw==
+ bh=xFZ6cFO6wa52HtJqwYOKHtqGz7UHtTevLTjq7d3NNvg=;
+ b=igp3aE3WoTKY/3uiHf6sXcgDTGuekfC1EwHPFlP4f1DRF9Ay00N4GDG/hMAsnawJo0
+ yCGCszk3KyQIaqHa1+XEci5rS42QhC5Hq4dqfw46g3Pqhb6ZKtpvMsgXvynGfit2V6zH
+ 3ZzRDez7T3wUcmTHPXRjn7thx0t7EEyt3KASYHX+79u1V6jGPlB7Ued4iVR7aGkpdCa8
+ aq90R4P2GxJXeM9P9WULbPXcJmC42WIOn6EpOp+aNWbYNRDVicyU+AB0lfQCjHqsImd2
+ eYExXpBc0sblEgbCMIutyrIPFCkGZMt1QR5kkbfjdFeAq0TGHyiFpBztzetrkhl4GrvZ
+ hAIw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXs3nGQq1ZchoPGqUeQgii4Mssk64qAtGUnf3kEBpvHMqDCBSlYPKBbF4QNGsrfMUaDIr47cAgJmAY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxe3VOJnH58vqMX0iUcDPYMLctLbQ/w7si6h3GAqTuCC5gqQawt
- axRvY8t1S4Cv6e1ZIvP8201+Ap3LZD+fmivWsFmE52L9eDNS0NAAZNd+whtvEl0LbyMWz5R4EmO
- EDuxhearkm/6Nmab8NiK3rvmHQGp+gD3l3UnQVkir4nxtVKukikrqAhoSKTGnWyMtvPOVZ9klW4
- ob+5c=
-X-Gm-Gg: ASbGncu3QIQeunVb0wpehxgzM0EX/5VMaPO2dU6herglck0wAOkUlbU2Z4mSXenjTRK
- C2B3oG7WmjaPz1oT+FKed3AznH2zWlXIrb4JzH4c/STgkDCTVsI89tM36gKLPG7SjdNYFBa4T8+
- rSZQ7J7XJbG7Uc95aupFgN9nhzsxmT9q1jOJnXU+YiU2UdrU7i1LwaMU8iE0/M2jw1IZ0zgfkoX
- 5WKTvadK2JakcOi5AmiH0Y78zUzeIwl8b8eMw1qFVhroHtubJYBb98SrPks/SOazpum2ZAYCaiG
- +Kv0xzzltNl9KLAWjAiOBrM6qEAirKs3jQEl+tiL1KV9y8Ck/+I=
-X-Received: by 2002:a17:902:e889:b0:23d:fa76:5c3b with SMTP id
- d9443c01a7336-24246f721fbmr218343765ad.22.1754412192654; 
- Tue, 05 Aug 2025 09:43:12 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG19NECaSamtKmV1ToEgyAxx1m7KHOpQTVdLiTHMDu1lnYZHtJCITz8j/23vDlW8kqUI1HB9w==
-X-Received: by 2002:a17:902:e889:b0:23d:fa76:5c3b with SMTP id
- d9443c01a7336-24246f721fbmr218343185ad.22.1754412192122; 
- Tue, 05 Aug 2025 09:43:12 -0700 (PDT)
+ AJvYcCVNlyuYNQZgIhdqkvl7Fwk8jqREe4dT/qTodvMX2JkJL+ROUj/uTig/HcCyCc49BaFeVirVTF2V38I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YysL3IBPYdB75EdCACgzneI1HnxnP8pSGhj1cTB7e4CS/yM//ck
+ kp8VtHVPviCvbD2aOszvQNEtt70k9L3FS570AzNEkV3mTUALKdnzjid9z/7tm5OS9diqMHXPX+u
+ oK4xj5DiatB/Q7W1Kugg7YFlc+7CDtk1JcJ8ByO0gJpNHqBwcnaP19x6bKVNRZunPBuFzxYE=
+X-Gm-Gg: ASbGnct5Z+4RoBJ2iVyj/Y/ZzW7Ee+umAsCW9CrLy0GCw6QkXCX6SqS6ZRYZu+zz541
+ SECpwCRNcY1PogngbkP/giWfXBuFwjSvQI8TlBues73oJI9TlkLhqhe4BuEHGhspNdUT9pjFBJM
+ k+d1IggcSv+aVCJreiopGkZf3R4RBoPbE9FyI9z19LuYbswSwd2jfMafaQtNxmTTei/xXcqwLNB
+ PWtilqPAuriyOLs3/E2Bc6kVEgMyYFTqRmVBEg2realvNaoEuLS/wfCqVoc26j5XByexxSTiiK7
+ maNqsmwbzZ02Q/pPBlaHiSV6Lbj9Je8cNrjzaJvs37OEE/2IMp8=
+X-Received: by 2002:a05:6a20:914b:b0:240:21e1:cbbd with SMTP id
+ adf61e73a8af0-24021e1cda9mr4886592637.26.1754412275130; 
+ Tue, 05 Aug 2025 09:44:35 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGm/6uN6G/KVi2o9cN+/U0oUl1Y1E1Sdo+Y+NbmDyrpK8rXomnmGpne1qkC2tg1XzKix+vaGQ==
+X-Received: by 2002:a05:6a20:914b:b0:240:21e1:cbbd with SMTP id
+ adf61e73a8af0-24021e1cda9mr4886558637.26.1754412274703; 
+ Tue, 05 Aug 2025 09:44:34 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241d1f0e81dsm137414025ad.46.2025.08.05.09.43.11
+ 41be03b00d2f7-b422b7841besm11489904a12.3.2025.08.05.09.44.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Aug 2025 09:43:11 -0700 (PDT)
+ Tue, 05 Aug 2025 09:44:34 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Danilo Krummrich <dakr@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -82,31 +82,31 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm: Fix a few comments
-Date: Tue,  5 Aug 2025 09:43:08 -0700
-Message-ID: <20250805164308.23894-1-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v2] drm/msm: Handle in-place remaps
+Date: Tue,  5 Aug 2025 09:44:31 -0700
+Message-ID: <20250805164431.24350-1-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: a6X9FTrybd5ra9OAegydEqK3fApER_3x
-X-Authority-Analysis: v=2.4 cv=TZ+WtQQh c=1 sm=1 tr=0 ts=689234a1 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=MNBgmNZl c=1 sm=1 tr=0 ts=689234f4 cx=c_pps
  a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
- a=EUspDBNiAAAA:8 a=q6EcQpUjypoMYbJrLQEA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA1MDExNiBTYWx0ZWRfX08PuraeoM6ni
- B0VpXZjaft3Dp9dXdJOu6VvmBPJywhVGh+bfL3ZFSKuF3n0nTIaCfLc8SOyD9PAsAGSoc9AF5g8
- plgwovpoHj/HwiLosvgXIFL9nQCEhSQqoWyyu/+kkZgn5OLxU/r5ZHgdE5JEM4VUwzV6wUM3Pg0
- 2CHyWA5RxKPdsQXBDakCcMcIwDAsCgCcLD7w8gIz1BDtiEqiwCblbU2YVqa32E6+H7TphCJoBwb
- B3IHotuZvCpmk68pXsYzGw4NKTVFa3zoq/sl6JEKfnYFKwtNbLAQhFvxl68q1BmUgqZJYwnJEzR
- oC9PrcWANGcUN9rkKUkp+05pCPVhYGhEBsqBUAuhAo1aj3QuXpkTWWPwywka7vAmDfuQvNudKcw
- rLZvIEt9iy7hf/5Zx7Y4IiIIH50l9ccC4vxi2cfTDuwoowPN3kPRGepyBvY1NryAUzLvI1vN
-X-Proofpoint-ORIG-GUID: a6X9FTrybd5ra9OAegydEqK3fApER_3x
+ a=EUspDBNiAAAA:8 a=54pnWYnEFG7XCx_V-2kA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-ORIG-GUID: HaJsy-9rafGPh6AO6JCxSfxN4oF3C39B
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA1MDExNiBTYWx0ZWRfX9cZC6k+Cx2Mc
+ UlAr/1vldHFWD6v5nhwyaQM+f+w73PpWKeM76y7dN4WURPV5Wp4ml8GoBvVC3RHeSowHudcAHZT
+ ax0Y70KPX3OXx8V6QiGteqxV5ofrNL4L4+en5jRe0t092nXp7T6V3lBYkmx2qBeyoQ3MkJVxQHU
+ D+1ljJ1LfkkmyzOh7VFl7D8g4AZTdrlb7AqddG/8tgGlhXyNhgctb8Egvux4sekwor3HRCA4dov
+ 9cJRvBLJdX2tkEvtjr+jpOM/oRIaijCOVoVqyLhVeEpru+XlRTTgXqcNPKRIIhHueaHy8tGAcnQ
+ 1oa2aHueXcID0FpWXk9Np9aJIfIpUBO/UWTxO0v7qBvnwHcSZyLCdGfpz/aRuXQ3dbLCCMlQ6bP
+ 86EQjDB3bTtSGX10WMtYi0IxHWvlMhP2mx3EnCRe4HyseJk49UfvcIaJp4aT98qnZ44Gcfdn
+X-Proofpoint-GUID: HaJsy-9rafGPh6AO6JCxSfxN4oF3C39B
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-05_04,2025-08-04_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 mlxscore=0 suspectscore=0 impostorscore=0
- spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0 mlxlogscore=999
- phishscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ impostorscore=0 malwarescore=0 phishscore=0 mlxlogscore=999 suspectscore=0
+ spamscore=0 mlxscore=0 priorityscore=1501 clxscore=1015 adultscore=0
+ lowpriorityscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
  definitions=main-2508050116
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -124,47 +124,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix a couple comments which had become (partially) obsolete or incorrect
-with the gpuvm conversion.
+Detect and handle the special case of a MAP op simply updating the vma
+flags of an existing vma, and skip the pgtable updates.  This allows
+turnip to set the MSM_VMA_DUMP flag on an existing mapping without
+requiring additional synchronization against commands running on the
+GPU.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_gem.h     | 2 +-
- drivers/gpu/drm/msm/msm_gem_vma.c | 5 +----
- 2 files changed, 2 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/msm_gem_vma.c | 41 ++++++++++++++++++++++++++++---
+ 1 file changed, 37 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 88239da1cd72..751c3b4965bc 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -100,7 +100,7 @@ struct msm_gem_vm {
- 	 *
- 	 * Only used for kernel managed VMs, unused for user managed VMs.
- 	 *
--	 * Protected by @mm_lock.
-+	 * Protected by vm lock.  See msm_gem_lock_vm_and_obj(), for ex.
- 	 */
- 	struct drm_mm mm;
- 
 diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index dc54c693b28d..d1f5bb2e0a16 100644
+index d1f5bb2e0a16..00d0f3b7ba32 100644
 --- a/drivers/gpu/drm/msm/msm_gem_vma.c
 +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -319,13 +319,10 @@ msm_gem_vma_map(struct drm_gpuva *vma, int prot, struct sg_table *sgt)
- 		mutex_lock(&vm->mmu_lock);
+@@ -451,6 +451,8 @@ msm_gem_vm_bo_validate(struct drm_gpuvm_bo *vm_bo, struct drm_exec *exec)
+ struct op_arg {
+ 	unsigned flags;
+ 	struct msm_vm_bind_job *job;
++	const struct msm_vm_bind_op *op;
++	bool kept;
+ };
  
- 	/*
--	 * NOTE: iommu/io-pgtable can allocate pages, so we cannot hold
-+	 * NOTE: if not using pgtable preallocation, we cannot hold
- 	 * a lock across map/unmap which is also used in the job_run()
- 	 * path, as this can cause deadlock in job_run() vs shrinker/
- 	 * reclaim.
--	 *
--	 * Revisit this if we can come up with a scheme to pre-alloc pages
--	 * for the pgtable in map/unmap ops.
- 	 */
- 	ret = vm_map_op(vm, &(struct msm_vm_map_op){
- 		.iova = vma->va.addr,
+ static void
+@@ -472,14 +474,18 @@ vma_from_op(struct op_arg *arg, struct drm_gpuva_op_map *op)
+ }
+ 
+ static int
+-msm_gem_vm_sm_step_map(struct drm_gpuva_op *op, void *arg)
++msm_gem_vm_sm_step_map(struct drm_gpuva_op *op, void *_arg)
+ {
+-	struct msm_vm_bind_job *job = ((struct op_arg *)arg)->job;
++	struct op_arg *arg = _arg;
++	struct msm_vm_bind_job *job = arg->job;
+ 	struct drm_gem_object *obj = op->map.gem.obj;
+ 	struct drm_gpuva *vma;
+ 	struct sg_table *sgt;
+ 	unsigned prot;
+ 
++	if (arg->kept)
++		return 0;
++
+ 	vma = vma_from_op(arg, &op->map);
+ 	if (WARN_ON(IS_ERR(vma)))
+ 		return PTR_ERR(vma);
+@@ -599,15 +605,41 @@ msm_gem_vm_sm_step_remap(struct drm_gpuva_op *op, void *arg)
+ }
+ 
+ static int
+-msm_gem_vm_sm_step_unmap(struct drm_gpuva_op *op, void *arg)
++msm_gem_vm_sm_step_unmap(struct drm_gpuva_op *op, void *_arg)
+ {
+-	struct msm_vm_bind_job *job = ((struct op_arg *)arg)->job;
++	struct op_arg *arg = _arg;
++	struct msm_vm_bind_job *job = arg->job;
+ 	struct drm_gpuva *vma = op->unmap.va;
+ 	struct msm_gem_vma *msm_vma = to_msm_vma(vma);
+ 
+ 	vm_dbg("%p:%p:%p: %016llx %016llx", vma->vm, vma, vma->gem.obj,
+ 	       vma->va.addr, vma->va.range);
+ 
++	/*
++	 * Detect in-place remap.  Turnip does this to change the vma flags,
++	 * in particular MSM_VMA_DUMP.  In this case we want to avoid actually
++	 * touching the page tables, as that would require synchronization
++	 * against SUBMIT jobs running on the GPU.
++	 */
++	if (op->unmap.keep &&
++	    (arg->op->op == MSM_VM_BIND_OP_MAP) &&
++	    (vma->gem.obj == arg->op->obj) &&
++	    (vma->gem.offset == arg->op->obj_offset) &&
++	    (vma->va.addr == arg->op->iova) &&
++	    (vma->va.range == arg->op->range)) {
++		/* We are only expecting a single in-place unmap+map cb pair: */
++		WARN_ON(arg->kept);
++
++		/* Leave the existing VMA in place, but signal that to the map cb: */
++		arg->kept = true;
++
++		/* Only flags are changing, so update that in-place: */
++		unsigned orig_flags = vma->flags & (DRM_GPUVA_USERBITS - 1);
++		vma->flags = orig_flags | arg->flags;
++
++		return 0;
++	}
++
+ 	if (!msm_vma->mapped)
+ 		goto out_close;
+ 
+@@ -1268,6 +1300,7 @@ vm_bind_job_prepare(struct msm_vm_bind_job *job)
+ 		const struct msm_vm_bind_op *op = &job->ops[i];
+ 		struct op_arg arg = {
+ 			.job = job,
++			.op = op,
+ 		};
+ 
+ 		switch (op->op) {
 -- 
 2.50.1
 
