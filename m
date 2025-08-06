@@ -2,48 +2,117 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1264B1BCDD
-	for <lists+freedreno@lfdr.de>; Wed,  6 Aug 2025 00:56:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21511B1BE42
+	for <lists+freedreno@lfdr.de>; Wed,  6 Aug 2025 03:25:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94DFC10E6FF;
-	Tue,  5 Aug 2025 22:56:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E974410E2C7;
+	Wed,  6 Aug 2025 01:24:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d+NfAI0C";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WZnCqWYl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1865210E6FC;
- Tue,  5 Aug 2025 22:56:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 45DEA5C5E74;
- Tue,  5 Aug 2025 22:56:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFED4C4CEF0;
- Tue,  5 Aug 2025 22:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754434562;
- bh=+al342bVs+POurrkFCVBYQ90F4lkUhb3/Od3XV/5kIk=;
- h=From:To:Cc:Subject:Date:From;
- b=d+NfAI0C7M3SIMcRYMsBp571UxwDaQUyX6t4JIy6Q6Mmc7Ar1CWpPVraFpkOuKcdH
- l2Lpw6slA1d9W/GYWNiRgqEr09524WJjUoNhm/7bBeAA9tXvO90R6RcwTVdwwttE+H
- OVJzV0wk2thXCwMK7eVO8JPcgRqtr7BxjBs2+MtHatnZktnmGiVJUwCVJT/ol+1vt8
- j+obV2Iupe9FF/QHFre/vV7K46J4mXd3bdtAVphXPlaUUNQEdpZPYACRAukm0kodCs
- n+KGf8mr4bhifvFc1lepkylJrTMhjhtj+C2sogfznQohzOZpfdftWLO/hTOqY9ck3T
- wq42afdDnnl3A==
-From: Sasha Levin <sashal@kernel.org>
-To: robin.clark@oss.qualcomm.com,
-	lumag@kernel.org
-Cc: abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- antomani103@gmail.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Subject: [PATCH] drm/msm: Fix objtool warning in submit_lock_objects()
-Date: Tue,  5 Aug 2025 18:55:57 -0400
-Message-Id: <20250805225557.593192-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14EC410E2C7
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Aug 2025 01:24:57 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 575IJ3tv028034
+ for <freedreno@lists.freedesktop.org>; Wed, 6 Aug 2025 01:24:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=cECZSFy3qa0bHjy4EhDWe8hr
+ H3jcwRS+Y/cAXNikEvM=; b=WZnCqWYliZrXAa9l0D6gS08pZD5aOk4pHsA8w3uo
+ 3uTmfTchrXSBEkKnkjwWSMeKduOuZkvtqsz+1bARX/fIgrA8CWE68l8vp7eaLMIB
+ 27oIU6mFPGP4icayA/sIi02FU5i0aun/Bl2YU1miEv1Px4UYEfUfNhdKOSwpilNe
+ wJMUDlWXY7xvzbtFKLcRyp8ZAGG4Q2FBTE9gmKxCdMebYO24kgh1L2vC5BS6V/nM
+ Fr8FRFnGPk1O83SoAlmGdIDlNMSgB6UQ22G9gbniVfqhjTl9+LqohAy4JRgYu7VK
+ YOIPrrKwF9uc/KAoiqECqUceMmNI7drFKQLrgu2mp7Uyuw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48bpyb8xrd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Aug 2025 01:24:56 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7c790dc38b4so120749685a.0
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Aug 2025 18:24:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754443496; x=1755048296;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cECZSFy3qa0bHjy4EhDWe8hrH3jcwRS+Y/cAXNikEvM=;
+ b=cmgEglxl7l8jikRvgYTGanDedTayCIRFjcP6tHuIRDI4Dy56oh7DjH6+8V2jX3a410
+ R/R/KUVodI6rDgJQgJnfq0tIcBYIhIEMg01pZwB4kGPQZBmLVrcaaSts9ummc9pFt3g/
+ xOUyBWgwpX5VLkF0tfNj9UrZZCkhfvzp5IOUNisD9Q0gDb2OqmIsiuVDRqnrq1vb1l/r
+ L6J4jZygaOlcQTM4oFZnE1kf97knZ65Ili6k3/pcGLkDieGy2OQuWEzM+FvizdnvNQrD
+ keWtY2TME5dUGtexigdzVouV6f2m22uxpjqsGE8syP527cyiY/R9PPJENXJ4za0nsOmF
+ d06w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWZUeMcOY3wEjSxiwqN7MZpnebNUDs4aLvFonBEU///d83WBD/R3mWGCTKbKa6raQ+kw5Kg8Tv6Koc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDqgE0TIi6FdaCkRJy66s04kgtC5KRj04jJlq0fqogX8lDdrjZ
+ 04H4rltKmW+Q6sVmUtG77inTlCSRRKTiLuiiIYcvUU9l52GbOf2vvKtIx5Nh/mg1jAy/sD9uvNy
+ yZCiVeonUM/D9tdL/wSkjea6l3dENZEHE4vC0dCsW6zAffDjGrmyZSFJAw3Um5lFb8v8IVLo=
+X-Gm-Gg: ASbGnctY8JkreiuvxBm/9LpoF4krt2Lpgo7s2e9DooXmPbFAsQHDNDuImxmxngKcX2+
+ CovuFJ8+nF+73We/m/yVmwRJtx99XjWo2XOY98IQWahkjwmH9U02VtzljrD+OWth9wfxOR7Vuv4
+ 9Z1ADdHbYNCQi4hcebExzDSkFJYpGoE9QoyhxAmER/p5gFuEExkO+qgxFyvc074w7Xj2BPmT9r7
+ 2g8yeYivpzJ/OQpXoOR+Nl/OtSA2njbnkTS+Db8FhGuim4P+j3qRlKk25rB7UeKJdVFXBfPZwqG
+ bsgEBYLbIQtpFQcq/iuX5u+Hbzswk89TM7XtMhhkZnFFHQ6EH5Ns3IncoP7Il/1R9seJh44OUHY
+ V9DZ4BS5xv3prlDsyQfoIzkZS4acjXm34mUGljZZh6xOCuVTU0Ifv
+X-Received: by 2002:a05:620a:1a95:b0:7ce:ea9d:5967 with SMTP id
+ af79cd13be357-7e8156eaa4amr154492185a.15.1754443496022; 
+ Tue, 05 Aug 2025 18:24:56 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGE3iln/vIeJH6XAQFmoLvafmfwZ8ex6TVrHNRQ6JVSz4HJUlvRexPyLHQYfDNi/TLCH3K+5w==
+X-Received: by 2002:a05:620a:1a95:b0:7ce:ea9d:5967 with SMTP id
+ af79cd13be357-7e8156eaa4amr154489885a.15.1754443495580; 
+ Tue, 05 Aug 2025 18:24:55 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-332382b55d2sm21196351fa.31.2025.08.05.18.24.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Aug 2025 18:24:54 -0700 (PDT)
+Date: Wed, 6 Aug 2025 04:24:51 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/msm: Fix a few comments
+Message-ID: <mwfrgvslnbfxegxqhfx4ldshqqxyfgm6cwbopm5hk4srgeza4s@vohmu53ettad>
+References: <20250805164308.23894-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250805164308.23894-1-robin.clark@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA2MDAwNiBTYWx0ZWRfX2xEB/+Lf4p2S
+ aCx7iaJVhPhNm7snfggMmz10PL+cIPPax9g8psa7UNhNhxTKgt7loU7hSXG1+mJrlucpemk1BIJ
+ S0wSbLHXOebZKzC/tjjfyy0njhE0TiCnzdg388LtMr1C0B/5w0NBDc/6qt1antXYCxctHDmvAZF
+ ytrGrkccTKK1g3nnG7D8cTelsz6bTr9WiLRhzVk8KMYS1Vz9VQqlD323KH5iBe2tm+uuTDUIA5w
+ 1yOAt6SDtEBCKtcUhO8T4/UojGLYyMpeirazNX8J5S7Zs5gMa83WDcWuapfN1a8lpisFTxDYfdC
+ FJ/ryO/UOvmdlhyvOcVLJw+soAwjzVoZ8r1/t+pRyXbsW+IMd+uge86QBEzhau9W+kGGURvJs86
+ EQl/H6stnqNVcmn2RpDBj5yzPuBzNUTSvUGmPZOK7jAxRe8SZn1NpWJ7iE3+CaNOw7hpAPGE
+X-Proofpoint-GUID: vfuWEpzOEQuh6jmfA7biQpSHGa2uaPft
+X-Authority-Analysis: v=2.4 cv=EavIQOmC c=1 sm=1 tr=0 ts=6892aee8 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=GOsSNTHw1BKba07vPD4A:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: vfuWEpzOEQuh6jmfA7biQpSHGa2uaPft
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-05_05,2025-08-04_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 phishscore=0 malwarescore=0 impostorscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 mlxlogscore=874
+ priorityscore=1501 spamscore=0 suspectscore=0 classifier=spam authscore=0
+ authtc=n/a authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508060006
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,94 +128,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Restructure submit_lock_objects() to use a single loop with break
-statements to fix objtool warning:
+On Tue, Aug 05, 2025 at 09:43:08AM -0700, Rob Clark wrote:
+> Fix a couple comments which had become (partially) obsolete or incorrect
+> with the gpuvm conversion.
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/msm_gem.h     | 2 +-
+>  drivers/gpu/drm/msm/msm_gem_vma.c | 5 +----
+>  2 files changed, 2 insertions(+), 5 deletions(-)
+> 
 
-  drivers/gpu/drm/msm/msm.o: warning: objtool: submit_lock_objects+0x451:
-  sibling call from callable instruction with modified stack frame
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-The drm_exec_until_all_locked() macro uses computed gotos internally
-for its retry loop. Having return statements inside this macro, or
-immediately after it in certain code paths, confuses objtool's static
-analysis of stack frames, causing it to incorrectly flag tail call
-optimizations.
 
-Fixes: 92395af63a99 ("drm/msm: Add VM_BIND submitqueue")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/msm_gem_submit.c | 43 ++++++++++++----------------
- 1 file changed, 19 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 5f8e939a5906..253347b6e328 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -276,46 +276,41 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
- {
- 	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT;
- 	struct drm_exec *exec = &submit->exec;
--	int ret;
-+	int ret = 0;
- 
--	if (msm_context_is_vmbind(submit->queue->ctx)) {
-+	if (msm_context_is_vmbind(submit->queue->ctx))
- 		flags |= DRM_EXEC_IGNORE_DUPLICATES;
- 
--		drm_exec_init(&submit->exec, flags, submit->nr_bos);
-+	drm_exec_init(&submit->exec, flags, submit->nr_bos);
- 
--		drm_exec_until_all_locked (&submit->exec) {
-+	drm_exec_until_all_locked (&submit->exec) {
-+		if (msm_context_is_vmbind(submit->queue->ctx)) {
- 			ret = drm_gpuvm_prepare_vm(submit->vm, exec, 1);
- 			drm_exec_retry_on_contention(exec);
- 			if (ret)
--				return ret;
-+				break;
- 
- 			ret = drm_gpuvm_prepare_objects(submit->vm, exec, 1);
- 			drm_exec_retry_on_contention(exec);
- 			if (ret)
--				return ret;
--		}
--
--		return 0;
--	}
--
--	drm_exec_init(&submit->exec, flags, submit->nr_bos);
--
--	drm_exec_until_all_locked (&submit->exec) {
--		ret = drm_exec_lock_obj(&submit->exec,
--					drm_gpuvm_resv_obj(submit->vm));
--		drm_exec_retry_on_contention(&submit->exec);
--		if (ret)
--			return ret;
--		for (unsigned i = 0; i < submit->nr_bos; i++) {
--			struct drm_gem_object *obj = submit->bos[i].obj;
--			ret = drm_exec_prepare_obj(&submit->exec, obj, 1);
-+				break;
-+		} else {
-+			ret = drm_exec_lock_obj(&submit->exec,
-+						drm_gpuvm_resv_obj(submit->vm));
- 			drm_exec_retry_on_contention(&submit->exec);
- 			if (ret)
--				return ret;
-+				break;
-+			for (unsigned i = 0; i < submit->nr_bos; i++) {
-+				struct drm_gem_object *obj = submit->bos[i].obj;
-+				ret = drm_exec_prepare_obj(&submit->exec, obj, 1);
-+				drm_exec_retry_on_contention(&submit->exec);
-+				if (ret)
-+					break;
-+			}
- 		}
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static int submit_fence_sync(struct msm_gem_submit *submit)
 -- 
-2.39.5
-
+With best wishes
+Dmitry
