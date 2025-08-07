@@ -2,48 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FEC7B1D8A4
-	for <lists+freedreno@lfdr.de>; Thu,  7 Aug 2025 15:11:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBDABB1D95C
+	for <lists+freedreno@lfdr.de>; Thu,  7 Aug 2025 15:51:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2764510E842;
-	Thu,  7 Aug 2025 13:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16F0E10E854;
+	Thu,  7 Aug 2025 13:51:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cfcqk+2n";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="At4XKK7p";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BA8810E169;
- Thu,  7 Aug 2025 13:11:05 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5207E601BB;
- Thu,  7 Aug 2025 13:11:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEA39C4CEEB;
- Thu,  7 Aug 2025 13:11:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754572264;
- bh=Aaqn6wdS/DoynQGLnl7lgxbV5pDHSEtutNYoP0S1tNs=;
- h=From:To:Cc:Subject:Date:From;
- b=Cfcqk+2nCl7jdrLXeY51/6Xu1vl5bzkWjWJpErz/+Yh5N7vyHjok+3enlHAGeb4/g
- Ti3AYdvXs4bfp92WanoF2MiLWNmTq40xg/WhL3JQ6TgJBX/9FPCpAKAJmoWHmjVYdP
- MKtu1YK7qvSy6zy7z+xymGj5zVe19p5o34+/mUl8GbxHVjqlVl0WA01eB6nIMNb/bJ
- k2ih5Ywsjf4s4kUXsdGfqZ1Xkoa2rdXgEIn9SExWdqeoB47RzlC20t12I8TceyyhI/
- T3xT36DCahW9SjMMCLyUHmV3J3tE1Uqw2MeRrs6uZf68QqOT8vw/Mfu93wk7jIL3cD
- dOGWsv+QzFtCQ==
-From: Sasha Levin <sashal@kernel.org>
-To: robin.clark@oss.qualcomm.com,
-	lumag@kernel.org
-Cc: abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- antomani103@gmail.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Subject: [PATCH v2] drm/msm: Fix objtool warning in submit_lock_objects()
-Date: Thu,  7 Aug 2025 09:10:58 -0400
-Message-Id: <20250807131058.1013858-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFF0810E854
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Aug 2025 13:51:07 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5779DBji012825
+ for <freedreno@lists.freedesktop.org>; Thu, 7 Aug 2025 13:51:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ YJaOnJPrQPzYB5QLyB82PbBYQ3YcFtLHpT0PXF3urfk=; b=At4XKK7p5ORvOQQc
+ dzZBJJx1j7ulVqMKhjIUWMmK8HwTpD1MdfEME1TAvbfys5RL9pJXXseh9Bq4rm+F
+ qXOkcwt4s78uQoGgVyCdtv6vsHLIDgI8s4WWdRC1vlHSpqtxNrIRZHCgarYmLQg3
+ lDUUshPXfXg9m+2eQP6VWtoGJWGsHC74b1anYhoS4h7Sv9WiIJvMSjEgUd3YjH49
+ ZRqAIL7IQYlMtJclt+OkcV6Meq4q3tntXFoe+ttkPiPe9FLrBpIo5B6O7A2k6VC2
+ eOGqtG+SdYT0VCnqJbXdhhi59qIZ+7MYCD8TQgg3PcJSRf3c4Orfk4n3CedGfUrL
+ q7TSOw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48bpybej2c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Aug 2025 13:51:06 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-70778c8179eso1926356d6.2
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Aug 2025 06:51:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754574666; x=1755179466;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YJaOnJPrQPzYB5QLyB82PbBYQ3YcFtLHpT0PXF3urfk=;
+ b=PXF8fzuahTodUKra2w92U9Y1lvG+rslZ2wIzGXL3WmUhz+9Vj/b8HGBFv7epHe9JlF
+ vqj7KOIis9+ehZD+vTurXQR8sE17sk2GuIzYSDrC6v/yG4fO98X/VWRBGDypwpZUfV0Y
+ e6Xf9ZjTKXQIdSRUMnmxOXMIen0u8gV47FO1wbp7E3VrYyqB5C/IR0449YYSFTMVEs/Y
+ wDcnrLFFDc726Bg4yscJtx4gmGShmsZ3FkxRqBU9lUjIijtopgg+vQhyIQbI+PVK3U5E
+ +n1y8KQWdDLB4IIYfRgs4s7Z0FPOa6p4Ph8MhQIJ/GG6OmCdIae+UgOm2BMRf+jCmLDc
+ Mrnw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVCYPYYDztJvWcAdbD1GXF1BwYmyNLr66JnFO0jUZJc3t9+oHQdSi19v5vjbRPengKczhIDMeVJzSU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBdEftwUfpiN6Px4dR+/PH6E7pM14QzdjKf5lMkOzfdkXbAbAj
+ krTCDeQisgqX3FnvCgooU5rP2pSZnspie2w3b0+vOPwz+/y/+flN4jeQeFCDvA69JnNvVeVYkBm
+ 4M8DIKXu8vq/cS8m8VeiPsUeknm9iCtHyXrcs1LErPap8DKg4k7TCNj4bZXYxqDeXc11ae6k=
+X-Gm-Gg: ASbGncvGE4QLA5YkiU7svP/D71S3b1Sdo6d2FZGbyFYXJ81tDPdfdzn/IMah/nvPpqK
+ RH+9Rl63JhK0hwJilTdWptD4QcB4bXko0ogmpKzCmWMpDO7VD0vHUiyWRuTZgk8OdLBaAAdWhxw
+ GYlo0eT3kPCE6AIw+8nR7dBoRm1CVtK4ss+4LXVqwTaO4PG97bULGGk5v4V/ZYLS6UnI624EhMx
+ 1LRFCrRbRzZW7JOzQvGb+f7xQqahGSfvZAoUSd3zo8AWADFuNsXE13Ws4hpXvPou6mHxGYNgtQy
+ BDQ6BJYle76sap/bwb1wuCreejfS3ISXvoBCmK8X7DXWux+fZxYlhy/22oOQX69md9ybV+ot3JL
+ JHS6vcdDxdy/RqGX2gQ==
+X-Received: by 2002:ad4:596a:0:b0:707:1654:ced4 with SMTP id
+ 6a1803df08f44-7097943f2d4mr53232826d6.0.1754574665960; 
+ Thu, 07 Aug 2025 06:51:05 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG05izQ2F1cJL0JtNMoakn9YJ17uRV6nsijU+bcL9wSJdmVXy+nD+ZxHapPlNUdAOzNVzIiHQ==
+X-Received: by 2002:ad4:596a:0:b0:707:1654:ced4 with SMTP id
+ 6a1803df08f44-7097943f2d4mr53232626d6.0.1754574665396; 
+ Thu, 07 Aug 2025 06:51:05 -0700 (PDT)
+Received: from [192.168.43.16] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-615a8f15a66sm12009012a12.16.2025.08.07.06.51.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Aug 2025 06:51:04 -0700 (PDT)
+Message-ID: <937197e9-09dd-4f3c-bdb4-4001f5217c07@oss.qualcomm.com>
+Date: Thu, 7 Aug 2025 15:51:02 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/17] drm/msm/a6xx: Fix PDC sleep sequence
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
+ <20250720-ifpc-support-v1-5-9347aa5bcbd6@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250720-ifpc-support-v1-5-9347aa5bcbd6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA2MDAwOSBTYWx0ZWRfXwNYHqXgoXmME
+ bAnHY7Z+muMgWnXWNNaZcWxIgU/sqOpK5W2ZfiSerdGwA8BjI83wldZ16ylrIrq/tC5JZhQ4A0D
+ EQYsFpNa5DJX+TA8S2qVTpzSfmW09dde2BSjHGBQ6ntp3EtLoz523bQX5yumx/W6GY+HXIielaa
+ JxZhzWtf4jQTUxj1JC77Rsu1Zjo42inGpyhvwkHy5frIyB1gQ1f6D+FcSfaJwol0yPKE9fcB2US
+ VwexTep9HW7UKN0MzIzVG6SoK3HtaenoVsuw7Q4pYqaXPOZfYW8dU7f5BkGWyYyef0aVIhgkhh9
+ lZ+cfRqVVEqc0Y3sbXj6UYBVuB36rbxM35lm7XOyASj/VwBAfb7qISCK6/jr0zLd+1vW/gKa8OK
+ KTISbjkO
+X-Proofpoint-GUID: swcHEpXiQOCNUPwV7v1ojtI065F9oKga
+X-Authority-Analysis: v=2.4 cv=EavIQOmC c=1 sm=1 tr=0 ts=6894af4a cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=f2c1g6THgo9BaYdya5UA:9
+ a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-ORIG-GUID: swcHEpXiQOCNUPwV7v1ojtI065F9oKga
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-07_02,2025-08-06_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 priorityscore=1501 adultscore=0 bulkscore=0
+ phishscore=0 spamscore=0 suspectscore=0 malwarescore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508060009
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,111 +130,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Split the vmbind case into a separate helper function
-submit_lock_objects_vmbind() to fix objtool warning:
+On 7/20/25 2:16 PM, Akhil P Oommen wrote:
+> Since the PDC resides out of the GPU subsystem and cannot be reset in
+> case it enters bad state, utmost care must be taken to trigger the PDC
+> wake/sleep routines in the correct order.
+> 
+> The PDC wake sequence can be exercised only after a PDC sleep sequence.
+> Additionally, GMU firmware should initialize a few registers before the
+> KMD can trigger a PDC sleep sequence. So PDC sleep can't be done if the
+> GMU firmware has not initialized. Track these dependencies using a new
+> status variable and trigger PDC sleep/wake sequences appropriately.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
 
-  drivers/gpu/drm/msm/msm.o: warning: objtool: submit_lock_objects+0x451:
-  sibling call from callable instruction with modified stack frame
+FWIW some time ago I made this patch, which tackles a similar issue,
+perhaps it's a good idea to merge both:
 
-The drm_exec_until_all_locked() macro uses computed gotos internally
-for its retry loop. Having return statements inside this macro, or
-immediately after it in certain code paths, confuses objtool's static
-analysis of stack frames, causing it to incorrectly flag tail call
-optimizations.
+From 7d6441fc6ec5ee7fe723e1ad86d11fdd17bee922 Mon Sep 17 00:00:00 2001
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Date: Thu, 20 Feb 2025 10:28:51 +0100
+Subject: [PATCH] drm/msm/adreno: Delay the Adreno RPMh startup to HFI init
 
-Fixes: 92395af63a99 ("drm/msm: Add VM_BIND submitqueue")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+There's no use in trying to power up the GX logic before we're almost
+ready to fire up the GPU. In fact, with A8xx the PDC and RSC uCode are
+loaded by the GMU firmware, so we *must* wait for the GMU to fully
+initialize before trying to do so.
+
+Move it to right before HFI init.
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 12 ++----------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c |  2 +-
+ 3 files changed, 4 insertions(+), 11 deletions(-)
 
-Changes since v1:
- - Extract helper submit_lock_objects_vmbind() instead of refactoring
-   single loop
-
- drivers/gpu/drm/msm/msm_gem_submit.c | 49 +++++++++++++++-------------
- 1 file changed, 27 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 5f8e939a5906..1ce90e351b7a 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -271,32 +271,37 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 28e6705c6da6..3335583ada45 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -513,7 +513,7 @@ static int a6xx_gmu_notify_slumber(struct a6xx_gmu *gmu)
  	return ret;
  }
  
--/* This is where we make sure all the bo's are reserved and pin'd: */
--static int submit_lock_objects(struct msm_gem_submit *submit)
-+static int submit_lock_objects_vmbind(struct msm_gem_submit *submit)
+-static int a6xx_rpmh_start(struct a6xx_gmu *gmu)
++int a6xx_rpmh_start(struct a6xx_gmu *gmu)
  {
--	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT;
-+	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES;
- 	struct drm_exec *exec = &submit->exec;
--	int ret;
-+	int ret = 0;
+ 	int ret;
+ 	u32 val;
+@@ -842,19 +842,11 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
+ 	else
+ 		gmu_write(gmu, REG_A6XX_GMU_GENERAL_7, 1);
  
--	if (msm_context_is_vmbind(submit->queue->ctx)) {
--		flags |= DRM_EXEC_IGNORE_DUPLICATES;
-+	drm_exec_init(&submit->exec, flags, submit->nr_bos);
- 
--		drm_exec_init(&submit->exec, flags, submit->nr_bos);
-+	drm_exec_until_all_locked (&submit->exec) {
-+		ret = drm_gpuvm_prepare_vm(submit->vm, exec, 1);
-+		drm_exec_retry_on_contention(exec);
-+		if (ret)
-+			break;
- 
--		drm_exec_until_all_locked (&submit->exec) {
--			ret = drm_gpuvm_prepare_vm(submit->vm, exec, 1);
--			drm_exec_retry_on_contention(exec);
--			if (ret)
--				return ret;
-+		ret = drm_gpuvm_prepare_objects(submit->vm, exec, 1);
-+		drm_exec_retry_on_contention(exec);
-+		if (ret)
-+			break;
-+	}
- 
--			ret = drm_gpuvm_prepare_objects(submit->vm, exec, 1);
--			drm_exec_retry_on_contention(exec);
--			if (ret)
--				return ret;
--		}
-+	return ret;
-+}
- 
--		return 0;
--	}
-+/* This is where we make sure all the bo's are reserved and pin'd: */
-+static int submit_lock_objects(struct msm_gem_submit *submit)
-+{
-+	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT;
-+	int ret = 0;
-+
-+	if (msm_context_is_vmbind(submit->queue->ctx))
-+		return submit_lock_objects_vmbind(submit);
- 
- 	drm_exec_init(&submit->exec, flags, submit->nr_bos);
- 
-@@ -305,17 +310,17 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
- 					drm_gpuvm_resv_obj(submit->vm));
- 		drm_exec_retry_on_contention(&submit->exec);
- 		if (ret)
+-	if (state == GMU_WARM_BOOT) {
+-		ret = a6xx_rpmh_start(gmu);
+-		if (ret)
 -			return ret;
-+			break;
- 		for (unsigned i = 0; i < submit->nr_bos; i++) {
- 			struct drm_gem_object *obj = submit->bos[i].obj;
- 			ret = drm_exec_prepare_obj(&submit->exec, obj, 1);
- 			drm_exec_retry_on_contention(&submit->exec);
- 			if (ret)
--				return ret;
-+				break;
- 		}
- 	}
+-	} else {
++	if (state == GMU_COLD_BOOT) {
+ 		if (WARN(!adreno_gpu->fw[ADRENO_FW_GMU],
+ 			"GMU firmware is not loaded\n"))
+ 			return -ENOENT;
+ 
+-		ret = a6xx_rpmh_start(gmu);
+-		if (ret)
+-			return ret;
+-
+ 		ret = a6xx_gmu_fw_load(gmu);
+ 		if (ret)
+ 			return ret;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+index d1ce11131ba6..309305298a45 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+@@ -216,5 +216,6 @@ bool a6xx_gmu_gx_is_on(struct a6xx_gmu *gmu);
+ bool a6xx_gmu_sptprac_is_on(struct a6xx_gmu *gmu);
+ void a6xx_sptprac_disable(struct a6xx_gmu *gmu);
+ int a6xx_sptprac_enable(struct a6xx_gmu *gmu);
++int a6xx_rpmh_start(struct a6xx_gmu *gmu);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+index 8e69b1e84657..9ea01daf2995 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+@@ -910,7 +910,7 @@ int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state)
+ 	if (ret)
+ 		return ret;
  
 -	return 0;
-+	return ret;
++	return a6xx_rpmh_start(gmu);
  }
  
- static int submit_fence_sync(struct msm_gem_submit *submit)
+ void a6xx_hfi_stop(struct a6xx_gmu *gmu)
 -- 
-2.39.5
+2.50.1
 
+
+
+Konrad
