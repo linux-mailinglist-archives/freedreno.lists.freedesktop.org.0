@@ -2,215 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD9BCB1E1A7
-	for <lists+freedreno@lfdr.de>; Fri,  8 Aug 2025 07:24:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 177F8B1E68C
+	for <lists+freedreno@lfdr.de>; Fri,  8 Aug 2025 12:39:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 846ED10E4B9;
-	Fri,  8 Aug 2025 05:24:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDEE810E90C;
+	Fri,  8 Aug 2025 10:39:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BCWyKf+R";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Jr5lVrSP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B686310E1BD;
- Fri,  8 Aug 2025 05:24:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1754630670; x=1786166670;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=RNRjt7QNLqR+uF0uHXW5E1/SUzplXhhUxcxtdKP164k=;
- b=BCWyKf+RYq91b3qONI3Cihcd2akXbXF5s4jjoJeln6OAAgv3o6v9gBC0
- 8c7YtR2B+lgoTlIrfdEran83ZgJ14I4GZFqZA4WrAvPX8b0OJ33InSPSc
- f0urkBlC0F7Q3V9pVJ52iTjYl5ChyI0TQI4YZosu/EgodGTryjR7eTNHl
- 50qffTeVhIVMF7b0hMSeTnNsI14jxjAbY/xft+QNthfVE+gCRg5pz9jKv
- xnr7fUyopzDOroJMDb/Qmong0Bibqj5Y7mMeThAmb9cCqYuAEpFc1rKOm
- d3fLo468j8/JbjxSBotvoCP9YjZ94Xlc2BpprgV8p1ATrodQr4Otitbzc Q==;
-X-CSE-ConnectionGUID: D3oCocf1TvOtY/segdTobQ==
-X-CSE-MsgGUID: YME1FTWYSQqhVm9YmUbjHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11514"; a="44568583"
-X-IronPort-AV: E=Sophos;i="6.17,274,1747724400"; d="scan'208";a="44568583"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2025 22:24:29 -0700
-X-CSE-ConnectionGUID: 9NJG4GGuSa2HvfXcu1fmKg==
-X-CSE-MsgGUID: 6M96z+sARa6Is+l1R6b+cw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,274,1747724400"; d="scan'208";a="188924638"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2025 22:24:28 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.26; Thu, 7 Aug 2025 22:24:27 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.26 via Frontend Transport; Thu, 7 Aug 2025 22:24:27 -0700
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (40.107.93.61) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.26; Thu, 7 Aug 2025 22:24:27 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OkSti03GeYIPiUjPad3BfTML10DIZCPuUbV8kAbCn2nvLWzrRoHMeScGdgw2A/yAw4E56ec9VpgqK4a3cHS/+s7q2Fr9HOBJgLyRTQQIPQ1S2wEVHQAvDa+gcFaxnxgiFwnFC9cIZrTwg2IoRCXkzWcXwzSh7VNjU+5+htMOfUotT6RAoC59x0Hhq9EXifbI28XGXa9+PsF4KLqRwzodD6Ud+qbQSIs3CRz1m1oPCGPVipE2SEeutmNa6gt263yxoCMrP+9dITX0JcaVS9Rfm+KMYkUhn947ewC7xs8DGRJ9ap2RR8q46rT4ws6kwpE9TeyCkf2+WNE2IrWXQ8f7VQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RNRjt7QNLqR+uF0uHXW5E1/SUzplXhhUxcxtdKP164k=;
- b=Tq2nkzgXcCeT4QOkjSpDGDqJvN8aRAX4Knyll5Em3cmyGvo+SoB2BaWDxqKheoVm38DLnk2lH+Q3Q1qGr/c7GfsuWBq7z4y29Q8o/GURc2v0B4H4VEHKOgjT1tUO7+PyS6W0wXJcftM/FP3np/Dg5FH9egGtFcfY1xgM23etOG+4eEESEDMZrVE4avpzqvE9gxFcT7zAyDYrkr3PTcMwNmdxjqjPR62mVE3eo/8IkGJyk4aTpG0ES7cS4LxPbPBgctqpz2KCYfRsmFDS4WuXy6xumYuAnuJsv6aDqRI3gHhRHlu9OVh9/G31ZVdALkRVQBxCy++asHRG8JFHUOuGWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM3PPF208195D8D.namprd11.prod.outlook.com
- (2603:10b6:f:fc00::f13) by CH3PR11MB7392.namprd11.prod.outlook.com
- (2603:10b6:610:145::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.15; Fri, 8 Aug
- 2025 05:24:19 +0000
-Received: from DM3PPF208195D8D.namprd11.prod.outlook.com
- ([fe80::76e3:aa2a:a205:819f]) by DM3PPF208195D8D.namprd11.prod.outlook.com
- ([fe80::76e3:aa2a:a205:819f%7]) with mapi id 15.20.9009.016; Fri, 8 Aug 2025
- 05:24:19 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Harry Wentland <harry.wentland@amd.com>, "Leo
- Li" <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Liviu Dudau <liviu.dudau@arm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, "Abhinav
- Kumar" <abhinav.kumar@linux.dev>, Jessica Zhang
- <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Laurent Pinchart
- <laurent.pinchart+renesas@ideasonboard.com>, Tomi Valkeinen
- <tomi.valkeinen+renesas@ideasonboard.com>, Kieran Bingham
- <kieran.bingham+renesas@ideasonboard.com>, Geert Uytterhoeven
- <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, "Dave
- Stevenson" <dave.stevenson@raspberrypi.com>, =?utf-8?B?TWHDrXJhIENhbmFs?=
- <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-Subject: RE: [PATCH 8/8] drm: writeback: rename
- drm_writeback_connector_init_with_encoder()
-Thread-Topic: [PATCH 8/8] drm: writeback: rename
- drm_writeback_connector_init_with_encoder()
-Thread-Index: AQHcAutvtF48Hd1pDUSGm6UrRS1SEbRN1YcAgApofzCAAAS4gA==
-Date: Fri, 8 Aug 2025 05:24:19 +0000
-Message-ID: <DM3PPF208195D8D9DF6BA02300F667B1967E32FA@DM3PPF208195D8D.namprd11.prod.outlook.com>
-References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
- <20250801-wb-drop-encoder-v1-8-824646042f7d@oss.qualcomm.com>
- <3c522dd8-0e56-4ab3-84da-d9193137d4fe@bootlin.com>
- <DM3PPF208195D8D863A5A2E8A151A77A7B3E32FA@DM3PPF208195D8D.namprd11.prod.outlook.com>
-In-Reply-To: <DM3PPF208195D8D863A5A2E8A151A77A7B3E32FA@DM3PPF208195D8D.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM3PPF208195D8D:EE_|CH3PR11MB7392:EE_
-x-ms-office365-filtering-correlation-id: 03a9e947-1e12-4a5b-88fc-08ddd63bd364
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|38070700018|921020; 
-x-microsoft-antispam-message-info: =?utf-8?B?VWliNjVSVGNMMWN6aUpzRjY3TGIvRWZRK1NGN1ZmNEVIbldGeVkyaW5OUk9i?=
- =?utf-8?B?RnhYeFcvNm5uN0o4T2JiVkV3YVBCTXI1Tm5yUnYyUW16bkpuRm5KNUVoZ0gv?=
- =?utf-8?B?Sng4T3pXckJWV1BGaXV0NTRIcFVNWnZBWDRFOUQ5M3c3V21iVGUrUUYvWGNx?=
- =?utf-8?B?OUpJVEdqbm5ZWHoxZVZqSDBETjR0ajl1U3lGNm4wQTNqd2VOTW0vOE1UQnMw?=
- =?utf-8?B?SFluS2xMY3o3MnlQTzdLbnZXczF5SFhzVGtGZEFDZjc2aktBZ1puY29Cd0Zu?=
- =?utf-8?B?by9lVWdmc2JCZnJkY3lPK2prdlRGOElUaHNEWWZKOHU5MWxkSG9tb0w0Y1hB?=
- =?utf-8?B?VVhQUkdRVWxSRzZDUThyK0FTRVlNTUhuZkMzL3IwMU5kL3NsTGhaczZYbEhk?=
- =?utf-8?B?MDVYRW9KanFsOGdkVUVBblZvdFdEbXlqbC9nTG9OT1ArWTJqaEtqemRLZWEv?=
- =?utf-8?B?dy8rK2lZRWxaRmR5bW9uazdyVnhuL0FRUS9leENlU1dVRXJMRmdXcGdXTXJy?=
- =?utf-8?B?Nkw2NEljZDRUNzBMMXlLMllsVzFUTUhrLzJrSTFMTUxMRXRXalFTczJLMHh6?=
- =?utf-8?B?bHRXdm13ZlRsWHMzWGNxU2h0QTFnK2huVE15ck9adTQxcWFaZnVOaVJaZ1pl?=
- =?utf-8?B?OXRRMG8zL01XWThIUFFIdkdZSGFERjRDczhKckxNT0VpeWNWemwrdWxzeVhI?=
- =?utf-8?B?enJHMXViM2lSeFEwSWE0UzlyTzg0UUZ0dUNLWDJncG1HSjZtVGN0eG5TTk5l?=
- =?utf-8?B?SWo1L0d6RDN5UzV5Z1NLTkN6NnFaMVRvR1hYdkZLMEloTkFueS96NTVoemRq?=
- =?utf-8?B?a0ZtU1oyQU1vV0hyUGwwV2MyS29jbzNrQWozVFhzZ0Y5eGhvQmhzSVppUGFm?=
- =?utf-8?B?WkFMdmh4bW02V0RLTHYvMVJSZVNLOGJ4VTlVNWEyWmtuV3RzaHAvczluNkc3?=
- =?utf-8?B?ZzI2UU91THMxbkJtd2lYRzZTNjFZdFlFdTRFOXBYMkVza0xNSHJEUi9tdzNi?=
- =?utf-8?B?UUlPSitJWTV5Y1ZrRFVmWnVDbjYzUy8xc0M2M0lLcmZxMzNjeHZnY2R2bjA2?=
- =?utf-8?B?Zm93bzBqVnd4eDcrdkxjQURadlBsZ1BPYmJsdjI2YWZzZmlTZXpvbHpEVkQ2?=
- =?utf-8?B?aUordERoekZwVWRUNkFJTWpFOVJiYjNXRldHQW94MFFTaFBhUUZDQU1yQi9s?=
- =?utf-8?B?cWlHS3B2cDBmY3hDUjQ4WlhVSkdmYnBTbUxqVW4xZlZUMHhZUTgrY3ROM2Mv?=
- =?utf-8?B?RVhmN251OE1mQTlvRVM0dkdkUVo1NzUzNGpYKzAwSzdCRGs0T3pwZFZqdk5I?=
- =?utf-8?B?dFpkMXVuekV1UTY1dmQrK1V0WWNISVRNMll5N1BKcnV6cHFwM0tTR0xGVStK?=
- =?utf-8?B?MkJTc1lNdFRJTFFxN2x2b2RPUTlWbi9PbitIdmFpRHJKNGhGZ2ZCd1UvSjhL?=
- =?utf-8?B?TGhqYjZHRXZ1Q2IzWGZiTmlTQ0JKdXJEYVVLSmtRTTNBMmdLV09UMSszbWZx?=
- =?utf-8?B?LzZrTzVJdzZFRzQ0YkVHVWV2ZU5kNzNJcUlCOGRTWDErRWVPVGV4T09IcWFy?=
- =?utf-8?B?ODFJRkx4ZUhaSS94NkZOR3k4NlNwaFhBeUt4dkZ2a0VLQkYvWisva2NtOU5F?=
- =?utf-8?B?WWcveVZDRWF6Q2liMTZJK0xYSkhLZTRMZlo0RXRGZzhBRWZsRElyRTJoVU02?=
- =?utf-8?B?SXh2Z0ZpT1ZhcmdtTkIrT25EeXh0aTIzUklpc2dIY2FodFc4M2o1ZUhkRmZl?=
- =?utf-8?B?MEVROUdSbjlIdVpOZDRVTkNJSVg3VFdlZWs5RzFqdWwzaEc4anYzbnNxZ2Yr?=
- =?utf-8?B?K0tLelJnMktYNWt4YSszNFhsNEhKZDJwalNzUjA3Nzc4VmFVWkdSMEFLSlpn?=
- =?utf-8?B?Vmp1eE5kNlZXcWpoV0ZFVVRHc3g5a3lkNDNBQS9rMkpMVXhnUGszc3AyWVNR?=
- =?utf-8?Q?FlwDwkqJABy8wmGJI0ohu8apO2MV4k4n?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PPF208195D8D.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700018)(921020);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cGFqS2l0VnptNGtrZHpFL2x3WkhMMlU2bnA1MVd5bittSjRrOUhpOEoxck92?=
- =?utf-8?B?aEFUVlBQSXRWVmFuV2NCV3FLTzRCUjVEazc4blRtSzFPbld0R0dnc21wTlB2?=
- =?utf-8?B?UzF0SWpLMlZ1L3JyWGlrZ0dmb1U5RHlZY2pDbll2MU4xU3YwaVd0L3c0SmdN?=
- =?utf-8?B?OEVCS2sxekJjRnlTWFo2Q1YwK2NLSHdpbXJLcldBeHh6TEtFVkwwYjkrcUNi?=
- =?utf-8?B?WWJQL3dLdkNFWFV0V0xGc3BqOUVnWDR0ZDBCUWNIQmVNTXo5WDIvWmhMS1R3?=
- =?utf-8?B?aEdXa3Q4dktjd1NGWCtYaU9PVUFlVEsxVll0TmJjSlNzZTZHSGZHQnVCeTN3?=
- =?utf-8?B?N0U2anRxSjgybEZmR0ZSczNQOG9NU292ME1kdkRPQUwreXdZcys5S29ocThM?=
- =?utf-8?B?OXgzcnROb3RWdjlaaml5Z1BuQ08wbU94b2x2bE83VUxQeWFWS2JpY040R1d5?=
- =?utf-8?B?dU9CQXM0dmIzU3RzNnluVVphZkgwbmFoN0FWZnA0aXM1MW5ka3J6ZU1icGtm?=
- =?utf-8?B?RU5TcWNhdWtNMnpqMkdoNDIzcnEzdzRQTFVLcG1FRE1xbkNyeDlBclEvTndm?=
- =?utf-8?B?cUp3MTZraEcxenRiWEZrZzJRWVc4YmhJdzEwQ1RDNGZXamlVYnE5YXZ4cU12?=
- =?utf-8?B?VTE5U2ppTG91Q2s5VjRxSG1aSGRZZFIyWjBuN2FjdG9HenpBQSt2SXZNZUMz?=
- =?utf-8?B?NysrNUcxM2F1WlV0bTBTOU9sMTY1VVU3cVB0MnZ3YVcwbU1NUTNXc0hCakVM?=
- =?utf-8?B?ZnBPclZVQk5iZVZGYVExVXd3ZnZQVnhaVURuQzhLSmdhNTUxVURCdFJXTlY4?=
- =?utf-8?B?RWd5ZHNZUGwvUU5JdUR6UENybWo3QmJzdkNhQkg0OXJ5Z1dsa0RDNThjbW9a?=
- =?utf-8?B?WXU3MDlFMVAvRTFYQzFkZDBQd2p3bFp1ZWF5YU0rMFY1NWJ6T2ZreHU0QkxJ?=
- =?utf-8?B?VWkrSmU2YWhFd1EwdVZsSjF6eUtleER6WHdpYkxRakl2d09kZzVZUkpEbnRt?=
- =?utf-8?B?c3ozWThsdWRBakdHSWtsNklmdHR0TVlYSnJqaGJ1VSs4VUJ1bm1GMGNIWDh0?=
- =?utf-8?B?SmdTOUh6QnRzQXhSUlBKUlhsd1pXbDZOci9TMFFUaUNldURhb0tUeTVCcEZa?=
- =?utf-8?B?VGZoQnVaWHFFUjlqNGFaQktSbjZ1b2hsQzRaeUl0NFIwUjRDelNka0JReHkz?=
- =?utf-8?B?NUxWNXJDT3prdkZHeFJQN1pWUWpSbDhJVFNIUlNNSHJFdGdvU1JIV1FDbHNL?=
- =?utf-8?B?c2Q2Q0o5dVZsbFMxb2VKVytvSmI0V2hmdm5CWUZHSGVHZnVRSGZjWSt5VEp4?=
- =?utf-8?B?V2JtaHFDVlhXQ0pyL0hGRFcyTk1RRGZ6MXA1ZWhGYkk0M0tkTVVRZVpmUlVB?=
- =?utf-8?B?bzZBdlZOUnBLRGVGS3JwRERWYWllKzdSbkFjbXNKWWNPVWpjcUdGdjIydWsy?=
- =?utf-8?B?eVVjYzV6dy80TGxMZnpUT3J3cE9NQVhENkRJZTRCa0pTcWxlLyt0bGM4UHJn?=
- =?utf-8?B?RjU0cWtKYjkvNG5rU2owYysxb1poVXVrdFdHUUdZVVYrVXJvdGFXaDZ0eDhk?=
- =?utf-8?B?MHJ6UjN6dWJVNkxheXlySU5uZ3FTRGJyY1A5bjJ3aFk0UDlSa0drK1NoRUMr?=
- =?utf-8?B?WFVQRVcyVmMyaXJIY0FqRklWM2c4cFNzYUxkREVSa1B0SG5seVhmMk9ERUdW?=
- =?utf-8?B?azVtKy9pYjErNU9pREp2QkZyYVRnRHBJNmViM3B0SERrNVJNWUc4M2F4TFhS?=
- =?utf-8?B?MitKVVk1MXc1WU8zZDNnalZzd3hwb3hDWHY4enRGdlhNZ1JCQ1JabzBOdTVj?=
- =?utf-8?B?Y3UxamN4R2U0TmtsdFNQVk5FR2YyblhmNC9jTmorYnBLYmg1NmV3SGJvNjZR?=
- =?utf-8?B?U1lOMFhLU3lOcHBFSVQ3dVpJdEpCODQ4RVY5YnROMXlnSkQ2Q1czTWdUSU91?=
- =?utf-8?B?MVVCNmlNTk9DK2I4bG5nVFhTOHZGcjVPd3oyQ0FsMXdUOHFnYjVoaEFsQ3hV?=
- =?utf-8?B?eUNMS2p5a0g3SnREM05ua1pycllJZGw2aVQ3T1Zmc0tlekg0TDE3aVp4d3la?=
- =?utf-8?B?NXoyVDlML0gzY2hmQllKQ3liMGxUWW1aOWhCQWFyT2l6cWdyVjZTeGhRTWpM?=
- =?utf-8?Q?INTpXosxSK8i9bgZA/pF8xi4V?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A73F710E4F8;
+ Fri,  8 Aug 2025 10:39:17 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8BE56185B;
+ Fri,  8 Aug 2025 12:38:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1754649506;
+ bh=Y0gS6J0mhQktSq+C0TT5Um8U9ovXu1q7Nt6P8iHnDWs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Jr5lVrSPVUOSgI3ZG7rnQxfQ0mqE4UQeD1awvg09VPwIcXyhDp4kr260Cag2+AVUu
+ 3UVp9sYtGyq1oS9DwSsYsCKf661vS8pRO1lByoraJdJwR4zimofODif1GIbMYMWmRh
+ eA9PS7yFrsupq3Eo+Lr3hdO59qI70eg9MvUL2/P4=
+Message-ID: <a23636e1-4930-405e-abc0-92f99b830148@ideasonboard.com>
+Date: Fri, 8 Aug 2025 13:39:12 +0300
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM3PPF208195D8D.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03a9e947-1e12-4a5b-88fc-08ddd63bd364
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Aug 2025 05:24:19.4228 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Xj2K8SxuR8hY6hZANjkcurvpTyPSTN3mmrymVuWqzQzRqiIcmxDfnNFFyZi3eouaEhq6rn/7s0lUPmCMDrVVEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7392
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 02/25] drm/dumb-buffers: Provide helper to set pitch
+ and size
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, geert@linux-m68k.org
+References: <20250613090431.127087-1-tzimmermann@suse.de>
+ <20250613090431.127087-3-tzimmermann@suse.de>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <20250613090431.127087-3-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -226,109 +108,344 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogS2FuZHBhbCwgU3VyYWoN
-Cj4gU2VudDogRnJpZGF5LCBBdWd1c3QgOCwgMjAyNSAxMDozNSBBTQ0KPiBUbzogTG91aXMgQ2hh
-dXZldCA8bG91aXMuY2hhdXZldEBib290bGluLmNvbT47IERtaXRyeSBCYXJ5c2hrb3YNCj4gPGRt
-aXRyeS5iYXJ5c2hrb3ZAb3NzLnF1YWxjb21tLmNvbT47IEphbmkgTmlrdWxhDQo+IDxqYW5pLm5p
-a3VsYUBsaW51eC5pbnRlbC5jb20+OyBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1k
-LmNvbT47DQo+IExlbyBMaSA8c3VucGVuZy5saUBhbWQuY29tPjsgUm9kcmlnbyBTaXF1ZWlyYSA8
-c2lxdWVpcmFAaWdhbGlhLmNvbT47IEFsZXgNCj4gRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
-YW1kLmNvbT47IENocmlzdGlhbiBLw7ZuaWcNCj4gPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT47
-IERhdmlkIEFpcmxpZSA8YWlybGllZEBnbWFpbC5jb20+OyBTaW1vbmEgVmV0dGVyDQo+IDxzaW1v
-bmFAZmZ3bGwuY2g+OyBMaXZpdSBEdWRhdSA8bGl2aXUuZHVkYXVAYXJtLmNvbT47IE1hYXJ0ZW4g
-TGFua2hvcnN0DQo+IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+OyBNYXhpbWUg
-UmlwYXJkIDxtcmlwYXJkQGtlcm5lbC5vcmc+Ow0KPiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1l
-cm1hbm5Ac3VzZS5kZT47IFJvYiBDbGFyaw0KPiA8cm9iaW4uY2xhcmtAb3NzLnF1YWxjb21tLmNv
-bT47IERtaXRyeSBCYXJ5c2hrb3YgPGx1bWFnQGtlcm5lbC5vcmc+Ow0KPiBBYmhpbmF2IEt1bWFy
-IDxhYmhpbmF2Lmt1bWFyQGxpbnV4LmRldj47IEplc3NpY2EgWmhhbmcNCj4gPGplc3NpY2Euemhh
-bmdAb3NzLnF1YWxjb21tLmNvbT47IFNlYW4gUGF1bCA8c2VhbkBwb29ybHkucnVuPjsgTWFyaWpu
-DQo+IFN1aWp0ZW4gPG1hcmlqbi5zdWlqdGVuQHNvbWFpbmxpbmUub3JnPjsgTGF1cmVudCBQaW5j
-aGFydA0KPiA8bGF1cmVudC5waW5jaGFydCtyZW5lc2FzQGlkZWFzb25ib2FyZC5jb20+OyBUb21p
-IFZhbGtlaW5lbg0KPiA8dG9taS52YWxrZWluZW4rcmVuZXNhc0BpZGVhc29uYm9hcmQuY29tPjsg
-S2llcmFuIEJpbmdoYW0NCj4gPGtpZXJhbi5iaW5naGFtK3JlbmVzYXNAaWRlYXNvbmJvYXJkLmNv
-bT47IEdlZXJ0IFV5dHRlcmhvZXZlbg0KPiA8Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+OyBNYWdu
-dXMgRGFtbSA8bWFnbnVzLmRhbW1AZ21haWwuY29tPjsNCj4gRGF2ZSBTdGV2ZW5zb24gPGRhdmUu
-c3RldmVuc29uQHJhc3BiZXJyeXBpLmNvbT47IE1hw61yYSBDYW5hbA0KPiA8bWNhbmFsQGlnYWxp
-YS5jb20+OyBSYXNwYmVycnkgUGkgS2VybmVsIE1haW50ZW5hbmNlIDxrZXJuZWwtDQo+IGxpc3RA
-cmFzcGJlcnJ5cGkuY29tPg0KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGRy
-aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LQ0KPiBrZXJuZWxAdmdlci5rZXJu
-ZWwub3JnOyBsaW51eC1hcm0tbXNtQHZnZXIua2VybmVsLm9yZzsNCj4gZnJlZWRyZW5vQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZzsgbGludXgtcmVuZXNhcy1zb2NAdmdlci5rZXJuZWwub3JnDQo+IFN1
-YmplY3Q6IFJFOiBbUEFUQ0ggOC84XSBkcm06IHdyaXRlYmFjazogcmVuYW1lDQo+IGRybV93cml0
-ZWJhY2tfY29ubmVjdG9yX2luaXRfd2l0aF9lbmNvZGVyKCkNCj4gDQo+ID4gPiBTaWduZWQtb2Zm
-LWJ5OiBEbWl0cnkgQmFyeXNoa292IDxkbWl0cnkuYmFyeXNoa292QG9zcy5xdWFsY29tbS5jb20+
-DQo+IA0KPiBMR1RNLA0KPiBSZXZpZXdlZC1ieTogU3VyYWogS2FuZHBhbCA8c3VyYWoua2FuZHBh
-bEBpbnRlbC5jb20+DQoNCk9uZSB0aGluZyBJIG5vdGljZWQgd2FzIGFmdGVyIHRoZSBSZW5hbWUg
-Ym90aCBkcm1fd3JpdGViYWNrX2Nvbm5lY3Rvcl9pbml0DQpBbmQgZHJtbV93cml0ZWJhY2tfY29u
-bmVjdG9yX2luaXQgaGF2ZSBpZGVudGljYWwgY29tbWVudHMgYm90aCBhbGxvd2luZyBjdXN0b20g
-ZW5jb2RlcnMNClRvIGJlIHVzZWQgbm93IGlzIHRoYXQgd2hhdCB3ZSB3ZXJlIGFpbWluZyBmb3Ig
-d2l0aCB0aGUgb25seSBkaWZmZXJlbmNlIGJlaW5nIHRoZSANCnJldCA9IGRybW1fYWRkX2FjdGlv
-bl9vcl9yZXNldChkZXYsIGRybV93cml0ZWJhY2tfY29ubmVjdG9yX2NsZWFudXAsDQogICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB3Yl9jb25uZWN0b3IpOw0KY2FsbCA/DQoN
-ClJlZ2FyZHMsDQpTdXJhaiBLYW5kcGFsDQoNCj4gDQo+ID4gPiAtLS0NCj4gPiA+ICAgZHJpdmVy
-cy9ncHUvZHJtL2RybV93cml0ZWJhY2suYyB8IDE0ICsrKysrKystLS0tLS0tDQo+ID4gPiAgIGlu
-Y2x1ZGUvZHJtL2RybV93cml0ZWJhY2suaCAgICAgfCAxMCArKysrKy0tLS0tDQo+ID4gPiAgIDIg
-ZmlsZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pDQo+ID4gPg0K
-PiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fd3JpdGViYWNrLmMNCj4gPiA+
-IGIvZHJpdmVycy9ncHUvZHJtL2RybV93cml0ZWJhY2suYyBpbmRleA0KPiA+ID4NCj4gPg0KPiAx
-YTAxZGY5MWIyYzU4NjhlMTU4ZDQ4OWI3ODJmNGM1N2M2MWEyNzJjLi5lYzI1NzVjNGMyMWI3NDQ5
-NzA3YjA1OTUzDQo+ID4gMjJlDQo+ID4gPiAyMjAyYTBjZjk4NjUgMTAwNjQ0DQo+ID4gPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vZHJtX3dyaXRlYmFjay5jDQo+ID4gPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vZHJtX3dyaXRlYmFjay5jDQo+ID4gPiBAQCAtMjM1LDcgKzIzNSw3IEBAIHN0YXRpYyBp
-bnQgX19kcm1fd3JpdGViYWNrX2Nvbm5lY3Rvcl9pbml0KHN0cnVjdA0KPiA+IGRybV9kZXZpY2Ug
-KmRldiwNCj4gPiA+ICAgfQ0KPiA+ID4NCj4gPiA+ICAgLyoqDQo+ID4gPiAtICogZHJtX3dyaXRl
-YmFja19jb25uZWN0b3JfaW5pdF93aXRoX2VuY29kZXIgLSBJbml0aWFsaXplIGENCj4gPiA+IHdy
-aXRlYmFjayBjb25uZWN0b3Igd2l0aA0KPiA+ID4gKyAqIGRybV93cml0ZWJhY2tfY29ubmVjdG9y
-X2luaXQgLSBJbml0aWFsaXplIGEgd3JpdGViYWNrIGNvbm5lY3Rvcg0KPiA+ID4gKyB3aXRoDQo+
-ID4gPiAgICAqIGEgY3VzdG9tIGVuY29kZXINCj4gPg0KPiA+IElmIEkgdW5kZXJzdG9vZCBjb3Jy
-ZWN0bHkgeW91ciBzZXJpZXMgeW91IHdhbnQgdG8gcmVkdWNlIHRoZSB1c2FnZSBvZg0KPiA+IG5v
-bi0gZHJtbSB3cml0ZWJhY2ssIHNvIG1heWJlIHdlIGNhbiBhZGQgYSBjb21tZW50IHRvIGRpcmVj
-dCBwb2VwbGUgdG8NCj4gPiBkcm1tIHZhcmlhbnQgdG8gYXZvaWQgbmV3IHVzYWdlIG9mIHRoaXMg
-QVBJPw0KPiA+DQo+ID4gV2l0aCBvciB3aXRob3V0IHRoaXM6DQo+ID4NCj4gPiBSZXZpZXdlZC1i
-eTogTG91aXMgQ2hhdXZldCA8bG91aXMuY2hhdXZldEBib290bGluLmNvbT4NCj4gPg0KPiA+ID4g
-ICAgKg0KPiA+ID4gICAgKiBAZGV2OiBEUk0gZGV2aWNlDQo+ID4gPiBAQCAtMjYzLDExICsyNjMs
-MTEgQEAgc3RhdGljIGludA0KPiA+ID4gX19kcm1fd3JpdGViYWNrX2Nvbm5lY3Rvcl9pbml0KHN0
-cnVjdA0KPiA+IGRybV9kZXZpY2UgKmRldiwNCj4gPiA+ICAgICoNCj4gPiA+ICAgICogUmV0dXJu
-czogMCBvbiBzdWNjZXNzLCBvciBhIG5lZ2F0aXZlIGVycm9yIGNvZGUNCj4gPiA+ICAgICovDQo+
-ID4gPiAtaW50IGRybV93cml0ZWJhY2tfY29ubmVjdG9yX2luaXRfd2l0aF9lbmNvZGVyKHN0cnVj
-dCBkcm1fZGV2aWNlICpkZXYsDQo+ID4gPiAtCQkJCQkgICAgICBzdHJ1Y3QgZHJtX3dyaXRlYmFj
-a19jb25uZWN0b3INCj4gPiAqd2JfY29ubmVjdG9yLA0KPiA+ID4gLQkJCQkJICAgICAgc3RydWN0
-IGRybV9lbmNvZGVyICplbmMsDQo+ID4gPiAtCQkJCQkgICAgICBjb25zdCBzdHJ1Y3QgZHJtX2Nv
-bm5lY3Rvcl9mdW5jcw0KPiA+ICpjb25fZnVuY3MsDQo+ID4gPiAtCQkJCQkgICAgICBjb25zdCB1
-MzIgKmZvcm1hdHMsIGludCBuX2Zvcm1hdHMpDQo+ID4gPiAraW50IGRybV93cml0ZWJhY2tfY29u
-bmVjdG9yX2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwNCj4gPiA+ICsJCQkJIHN0cnVjdCBk
-cm1fd3JpdGViYWNrX2Nvbm5lY3Rvcg0KPiA+ICp3Yl9jb25uZWN0b3IsDQo+ID4gPiArCQkJCSBj
-b25zdCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9mdW5jcw0KPiA+ICpjb25fZnVuY3MsDQo+ID4gPiAr
-CQkJCSBzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuYywNCj4gPiA+ICsJCQkJIGNvbnN0IHUzMiAqZm9y
-bWF0cywgaW50IG5fZm9ybWF0cykNCj4gPiA+ICAgew0KPiA+ID4gICAJc3RydWN0IGRybV9jb25u
-ZWN0b3IgKmNvbm5lY3RvciA9ICZ3Yl9jb25uZWN0b3ItPmJhc2U7DQo+ID4gPiAgIAlpbnQgcmV0
-Ow0KPiA+ID4gQEAgLTI4NCw3ICsyODQsNyBAQCBpbnQNCj4gPiA+IGRybV93cml0ZWJhY2tfY29u
-bmVjdG9yX2luaXRfd2l0aF9lbmNvZGVyKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsDQo+ID4gPg0K
-PiA+ID4gICAJcmV0dXJuIHJldDsNCj4gPiA+ICAgfQ0KPiA+ID4gLUVYUE9SVF9TWU1CT0woZHJt
-X3dyaXRlYmFja19jb25uZWN0b3JfaW5pdF93aXRoX2VuY29kZXIpOw0KPiA+ID4gK0VYUE9SVF9T
-WU1CT0woZHJtX3dyaXRlYmFja19jb25uZWN0b3JfaW5pdCk7DQo+ID4gPg0KPiA+ID4gICAvKioN
-Cj4gPiA+ICAgICogZHJtX3dyaXRlYmFja19jb25uZWN0b3JfY2xlYW51cCAtIENsZWFudXAgdGhl
-IHdyaXRlYmFjaw0KPiA+ID4gY29ubmVjdG9yIGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1f
-d3JpdGViYWNrLmgNCj4gPiA+IGIvaW5jbHVkZS9kcm0vZHJtX3dyaXRlYmFjay5oIGluZGV4DQo+
-ID4gPg0KPiA+DQo+IDg3OWNhMTAzMzIwY2MyMjVmZmIzNjg3NDE5MDg4MzYxMzE1NTM1ZmMuLjk1
-ODQ2NmEwNWU2MDRiMzg3NzIyNjEwZmMxDQo+ID4gMWYNCj4gPiA+IDllODQxMzE2ZDIxYiAxMDA2
-NDQNCj4gPiA+IC0tLSBhL2luY2x1ZGUvZHJtL2RybV93cml0ZWJhY2suaA0KPiA+ID4gKysrIGIv
-aW5jbHVkZS9kcm0vZHJtX3dyaXRlYmFjay5oDQo+ID4gPiBAQCAtMTM3LDExICsxMzcsMTEgQEAg
-ZHJtX2Nvbm5lY3Rvcl90b193cml0ZWJhY2soc3RydWN0DQo+ID4gZHJtX2Nvbm5lY3RvciAqY29u
-bmVjdG9yKQ0KPiA+ID4gICAJcmV0dXJuIGNvbnRhaW5lcl9vZihjb25uZWN0b3IsIHN0cnVjdCBk
-cm1fd3JpdGViYWNrX2Nvbm5lY3RvciwgYmFzZSk7DQo+ID4gPiAgIH0NCj4gPiA+DQo+ID4gPiAt
-aW50IGRybV93cml0ZWJhY2tfY29ubmVjdG9yX2luaXRfd2l0aF9lbmNvZGVyKHN0cnVjdCBkcm1f
-ZGV2aWNlICpkZXYsDQo+ID4gPiAtCQkJCXN0cnVjdCBkcm1fd3JpdGViYWNrX2Nvbm5lY3Rvcg0K
-PiA+ICp3Yl9jb25uZWN0b3IsDQo+ID4gPiAtCQkJCXN0cnVjdCBkcm1fZW5jb2RlciAqZW5jLA0K
-PiA+ID4gLQkJCQljb25zdCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9mdW5jcw0KPiA+ICpjb25fZnVu
-Y3MsIGNvbnN0IHUzMiAqZm9ybWF0cywNCj4gPiA+IC0JCQkJaW50IG5fZm9ybWF0cyk7DQo+ID4g
-PiAraW50IGRybV93cml0ZWJhY2tfY29ubmVjdG9yX2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRl
-diwNCj4gPiA+ICsJCQkJIHN0cnVjdCBkcm1fd3JpdGViYWNrX2Nvbm5lY3Rvcg0KPiA+ICp3Yl9j
-b25uZWN0b3IsDQo+ID4gPiArCQkJCSBjb25zdCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9mdW5jcw0K
-PiA+ICpjb25fZnVuY3MsDQo+ID4gPiArCQkJCSBzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuYywNCj4g
-PiA+ICsJCQkJIGNvbnN0IHUzMiAqZm9ybWF0cywgaW50IG5fZm9ybWF0cyk7DQo+ID4gPg0KPiA+
-ID4gICBpbnQgZHJtbV93cml0ZWJhY2tfY29ubmVjdG9yX2luaXQoc3RydWN0IGRybV9kZXZpY2Ug
-KmRldiwNCj4gPiA+ICAgCQkJCSAgc3RydWN0IGRybV93cml0ZWJhY2tfY29ubmVjdG9yDQo+ID4g
-KndiX2Nvbm5lY3RvciwNCj4gPiA+DQo+ID4NCj4gPiAtLQ0KPiA+IExvdWlzIENoYXV2ZXQsIEJv
-b3RsaW4NCj4gPiBFbWJlZGRlZCBMaW51eCBhbmQgS2VybmVsIGVuZ2luZWVyaW5nDQo+ID4gaHR0
-cHM6Ly9ib290bGluLmNvbQ0KDQo=
+Hi,
+
+On 13/06/2025 12:00, Thomas Zimmermann wrote:
+> Add drm_modes_size_dumb(), a helper to calculate the dumb-buffer
+> scanline pitch and allocation size. Implementations of struct
+> drm_driver.dumb_create can call the new helper for their size
+> computations.
+> 
+> There is currently quite a bit of code duplication among DRM's
+> memory managers. Each calculates scanline pitch and buffer size
+> from the given arguments, but the implementations are inconsistent
+> in how they treat alignment and format support. Later patches will
+> unify this code on top of drm_mode_size_dumb() as much as possible.
+> 
+> drm_mode_size_dumb() uses existing 4CC format helpers to interpret
+> the given color mode. This makes the dumb-buffer interface behave
+> similar the kernel's video= parameter. Current per-driver implementations
+> again likely have subtle differences or bugs in how they support color
+> modes.
+> 
+> The dumb-buffer UAPI is only specified for known color modes. These
+> values describe linear, single-plane RGB color formats or legacy index
+> formats. Other values should not be specified. But some user space
+> still does. So for unknown color modes, there are a number of known
+> exceptions for which drm_mode_size_dumb() calculates the pitch from
+> the bpp value, as before. All other values work the same but print
+> an error.
+> 
+> v5:
+> - check for overflows with check_mul_overflow() (Tomi)
+> v4:
+> - use %u conversion specifier (Geert)
+> - list DRM_FORMAT_Dn in UAPI docs (Geert)
+> - avoid dmesg spamming with drm_warn_once() (Sima)
+> - add more information about bpp special case (Sima)
+> - clarify parameters for hardware alignment
+> - add a TODO item for DUMB_CREATE2
+> v3:
+> - document the UAPI semantics
+> - compute scanline pitch from for unknown color modes (Andy, Tomi)
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
+>  Documentation/gpu/todo.rst         |  27 ++++++
+>  drivers/gpu/drm/drm_dumb_buffers.c | 130 +++++++++++++++++++++++++++++
+>  include/drm/drm_dumb_buffers.h     |  14 ++++
+>  include/uapi/drm/drm_mode.h        |  50 ++++++++++-
+>  4 files changed, 220 insertions(+), 1 deletion(-)
+>  create mode 100644 include/drm/drm_dumb_buffers.h
+> 
+> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+> index be8637da3fe9..f7312afa87b5 100644
+> --- a/Documentation/gpu/todo.rst
+> +++ b/Documentation/gpu/todo.rst
+> @@ -648,6 +648,33 @@ Contact: Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter
+>  
+>  Level: Advanced
+>  
+> +Implement a new DUMB_CREATE2 ioctl
+> +----------------------------------
+> +
+> +The current DUMB_CREATE ioctl is not well defined. Instead of a pixel and
+> +framebuffer format, it only accepts a color mode of vague semantics. Assuming
+> +a linear framebuffer, the color mode gives and idea of the supported pixel
+
+"an" idea.
+
+> +format. But userspace effectively has to guess the correct values. It really
+> +only works reliable with framebuffers in XRGB8888. Userspace has begun to
+
+"reliably"
+
+> +workaround these limitations by computing arbitrary format's buffer sizes and
+> +calculating their sizes in terms of XRGB8888 pixels.
+> +
+> +One possible solution is a new ioctl DUMB_CREATE2. It should accept a DRM
+> +format and a format modifier to resolve the color mode's ambiguity. As
+> +framebuffers can be multi-planar, the new ioctl has to return the buffer size,
+> +pitch and GEM handle for each individual color plane.
+> +
+> +In the first step, the new ioctl can be limited to the current features of
+> +the existing DUMB_CREATE. Individual drivers can then be extended to support
+> +multi-planar formats. Rockchip might require this and would be a good candidate.
+> +
+> +In addition to the kernel implementation, there must be user-space support
+> +for the new ioctl. There's code in Mesa that might be able to use the new
+> +call.
+
+I think it would be important to allow non-alloc use of DUMB_CREATE2, or
+have another ioctl for it. In other words, you could ask the driver what
+the buffers for pixel format XYZ have to look like, and then you could
+allocate the actual memory buffers from somewhere else.
+
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
+ Tomi
+
+> +Contact: Thomas Zimmermann <tzimmermann@suse.de>
+> +
+> +Level: Advanced
+>  
+>  Better Testing
+>  ==============
+> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
+> index 9916aaf5b3f2..e9eed9a5b760 100644
+> --- a/drivers/gpu/drm/drm_dumb_buffers.c
+> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
+> @@ -25,6 +25,8 @@
+>  
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_drv.h>
+> +#include <drm/drm_dumb_buffers.h>
+> +#include <drm/drm_fourcc.h>
+>  #include <drm/drm_gem.h>
+>  #include <drm/drm_mode.h>
+>  
+> @@ -57,6 +59,134 @@
+>   * a hardware-specific ioctl to allocate suitable buffer objects.
+>   */
+>  
+> +static int drm_mode_align_dumb(struct drm_mode_create_dumb *args,
+> +			       unsigned long hw_pitch_align,
+> +			       unsigned long hw_size_align)
+> +{
+> +	u32 pitch = args->pitch;
+> +	u32 size;
+> +
+> +	if (!pitch)
+> +		return -EINVAL;
+> +
+> +	if (hw_pitch_align)
+> +		pitch = roundup(pitch, hw_pitch_align);
+> +
+> +	if (!hw_size_align)
+> +		hw_size_align = PAGE_SIZE;
+> +	else if (!IS_ALIGNED(hw_size_align, PAGE_SIZE))
+> +		return -EINVAL; /* TODO: handle this if necessary */
+> +
+> +	if (check_mul_overflow(args->height, pitch, &size))
+> +		return -EINVAL;
+> +	size = ALIGN(size, hw_size_align);
+> +	if (!size)
+> +		return -EINVAL;
+> +
+> +	args->pitch = pitch;
+> +	args->size = size;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * drm_mode_size_dumb - Calculates the scanline and buffer sizes for dumb buffers
+> + * @dev: DRM device
+> + * @args: Parameters for the dumb buffer
+> + * @hw_pitch_align: Hardware scanline alignment in bytes
+> + * @hw_size_align: Hardware buffer-size alignment in bytes
+> + *
+> + * The helper drm_mode_size_dumb() calculates the size of the buffer
+> + * allocation and the scanline size for a dumb buffer. Callers have to
+> + * set the buffers width, height and color mode in the argument @arg.
+> + * The helper validates the correctness of the input and tests for
+> + * possible overflows. If successful, it returns the dumb buffer's
+> + * required scanline pitch and size in &args.
+> + *
+> + * The parameter @hw_pitch_align allows the driver to specifies an
+> + * alignment for the scanline pitch, if the hardware requires any. The
+> + * calculated pitch will be a multiple of the alignment. The parameter
+> + * @hw_size_align allows to specify an alignment for buffer sizes. The
+> + * provided alignment should represent requirements of the graphics
+> + * hardware. drm_mode_size_dumb() handles GEM-related constraints
+> + * automatically across all drivers and hardware. For example, the
+> + * returned buffer size is always a multiple of PAGE_SIZE, which is
+> + * required by mmap().
+> + *
+> + * Returns:
+> + * Zero on success, or a negative error code otherwise.
+> + */
+> +int drm_mode_size_dumb(struct drm_device *dev,
+> +		       struct drm_mode_create_dumb *args,
+> +		       unsigned long hw_pitch_align,
+> +		       unsigned long hw_size_align)
+> +{
+> +	u64 pitch = 0;
+> +	u32 fourcc;
+> +
+> +	/*
+> +	 * The scanline pitch depends on the buffer width and the color
+> +	 * format. The latter is specified as a color-mode constant for
+> +	 * which we first have to find the corresponding color format.
+> +	 *
+> +	 * Different color formats can have the same color-mode constant.
+> +	 * For example XRGB8888 and BGRX8888 both have a color mode of 32.
+> +	 * It is possible to use different formats for dumb-buffer allocation
+> +	 * and rendering as long as all involved formats share the same
+> +	 * color-mode constant.
+> +	 */
+> +	fourcc = drm_driver_color_mode_format(dev, args->bpp);
+> +	if (fourcc != DRM_FORMAT_INVALID) {
+> +		const struct drm_format_info *info = drm_format_info(fourcc);
+> +
+> +		if (!info)
+> +			return -EINVAL;
+> +		pitch = drm_format_info_min_pitch(info, 0, args->width);
+> +	} else if (args->bpp) {
+> +		/*
+> +		 * Some userspace throws in arbitrary values for bpp and
+> +		 * relies on the kernel to figure it out. In this case we
+> +		 * fall back to the old method of using bpp directly. The
+> +		 * over-commitment of memory from the rounding is acceptable
+> +		 * for compatibility with legacy userspace. We have a number
+> +		 * of deprecated legacy values that are explicitly supported.
+> +		 */
+> +		switch (args->bpp) {
+> +		default:
+> +			drm_warn_once(dev,
+> +				      "Unknown color mode %u; guessing buffer size.\n",
+> +				      args->bpp);
+> +			fallthrough;
+> +		/*
+> +		 * These constants represent various YUV formats supported by
+> +		 * drm_gem_afbc_get_bpp().
+> +		 */
+> +		case 12: // DRM_FORMAT_YUV420_8BIT
+> +		case 15: // DRM_FORMAT_YUV420_10BIT
+> +		case 30: // DRM_FORMAT_VUY101010
+> +			fallthrough;
+> +		/*
+> +		 * Used by Mesa and Gstreamer to allocate NV formats and others
+> +		 * as RGB buffers. Technically, XRGB16161616F formats are RGB,
+> +		 * but the dumb buffers are not supposed to be used for anything
+> +		 * beyond 32 bits per pixels.
+> +		 */
+> +		case 10: // DRM_FORMAT_NV{15,20,30}, DRM_FORMAT_P010
+> +		case 64: // DRM_FORMAT_{XRGB,XBGR,ARGB,ABGR}16161616F
+> +			pitch = args->width * DIV_ROUND_UP(args->bpp, SZ_8);
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!pitch || pitch > U32_MAX)
+> +		return -EINVAL;
+> +
+> +	args->pitch = pitch;
+> +
+> +	return drm_mode_align_dumb(args, hw_pitch_align, hw_size_align);
+> +}
+> +EXPORT_SYMBOL(drm_mode_size_dumb);
+> +
+>  int drm_mode_create_dumb(struct drm_device *dev,
+>  			 struct drm_mode_create_dumb *args,
+>  			 struct drm_file *file_priv)
+> diff --git a/include/drm/drm_dumb_buffers.h b/include/drm/drm_dumb_buffers.h
+> new file mode 100644
+> index 000000000000..1f3a8236fb3d
+> --- /dev/null
+> +++ b/include/drm/drm_dumb_buffers.h
+> @@ -0,0 +1,14 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +#ifndef __DRM_DUMB_BUFFERS_H__
+> +#define __DRM_DUMB_BUFFERS_H__
+> +
+> +struct drm_device;
+> +struct drm_mode_create_dumb;
+> +
+> +int drm_mode_size_dumb(struct drm_device *dev,
+> +		       struct drm_mode_create_dumb *args,
+> +		       unsigned long hw_pitch_align,
+> +		       unsigned long hw_size_align);
+> +
+> +#endif
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index c082810c08a8..efe8f5ad35ee 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -1058,7 +1058,7 @@ struct drm_mode_crtc_page_flip_target {
+>   * struct drm_mode_create_dumb - Create a KMS dumb buffer for scanout.
+>   * @height: buffer height in pixels
+>   * @width: buffer width in pixels
+> - * @bpp: bits per pixel
+> + * @bpp: color mode
+>   * @flags: must be zero
+>   * @handle: buffer object handle
+>   * @pitch: number of bytes between two consecutive lines
+> @@ -1066,6 +1066,54 @@ struct drm_mode_crtc_page_flip_target {
+>   *
+>   * User-space fills @height, @width, @bpp and @flags. If the IOCTL succeeds,
+>   * the kernel fills @handle, @pitch and @size.
+> + *
+> + * The value of @bpp is a color-mode number describing a specific format
+> + * or a variant thereof. The value often corresponds to the number of bits
+> + * per pixel for most modes, although there are exceptions. Each color mode
+> + * maps to a DRM format plus a number of modes with similar pixel layout.
+> + * Framebuffer layout is always linear.
+> + *
+> + * Support for all modes and formats is optional. Even if dumb-buffer
+> + * creation with a certain color mode succeeds, it is not guaranteed that
+> + * the DRM driver supports any of the related formats. Most drivers support
+> + * a color mode of 32 with a format of DRM_FORMAT_XRGB8888 on their primary
+> + * plane.
+> + *
+> + * +------------+------------------------+------------------------+
+> + * | Color mode | Framebuffer format     | Compatible formats     |
+> + * +============+========================+========================+
+> + * |     32     |  * DRM_FORMAT_XRGB8888 |  * DRM_FORMAT_BGRX8888 |
+> + * |            |                        |  * DRM_FORMAT_RGBX8888 |
+> + * |            |                        |  * DRM_FORMAT_XBGR8888 |
+> + * +------------+------------------------+------------------------+
+> + * |     24     |  * DRM_FORMAT_RGB888   |  * DRM_FORMAT_BGR888   |
+> + * +------------+------------------------+------------------------+
+> + * |     16     |  * DRM_FORMAT_RGB565   |  * DRM_FORMAT_BGR565   |
+> + * +------------+------------------------+------------------------+
+> + * |     15     |  * DRM_FORMAT_XRGB1555 |  * DRM_FORMAT_BGRX1555 |
+> + * |            |                        |  * DRM_FORMAT_RGBX1555 |
+> + * |            |                        |  * DRM_FORMAT_XBGR1555 |
+> + * +------------+------------------------+------------------------+
+> + * |      8     |  * DRM_FORMAT_C8       |  * DRM_FORMAT_D8       |
+> + * |            |                        |  * DRM_FORMAT_R8       |
+> + * +------------+------------------------+------------------------+
+> + * |      4     |  * DRM_FORMAT_C4       |  * DRM_FORMAT_D4       |
+> + * |            |                        |  * DRM_FORMAT_R4       |
+> + * +------------+------------------------+------------------------+
+> + * |      2     |  * DRM_FORMAT_C2       |  * DRM_FORMAT_D2       |
+> + * |            |                        |  * DRM_FORMAT_R2       |
+> + * +------------+------------------------+------------------------+
+> + * |      1     |  * DRM_FORMAT_C1       |  * DRM_FORMAT_D1       |
+> + * |            |                        |  * DRM_FORMAT_R1       |
+> + * +------------+------------------------+------------------------+
+> + *
+> + * Color modes of 10, 12, 15, 30 and 64 are only supported for use by
+> + * legacy user space. Please don't use them in new code. Other modes
+> + * are not support.
+> + *
+> + * Do not attempt to allocate anything but linear framebuffer memory
+> + * with single-plane RGB data. Allocation of other framebuffer
+> + * layouts requires dedicated ioctls in the respective DRM driver.
+>   */
+>  struct drm_mode_create_dumb {
+>  	__u32 height;
+
