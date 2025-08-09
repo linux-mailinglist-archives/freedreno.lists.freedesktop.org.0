@@ -2,87 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA636B1F178
-	for <lists+freedreno@lfdr.de>; Sat,  9 Aug 2025 02:35:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51BB1B1F179
+	for <lists+freedreno@lfdr.de>; Sat,  9 Aug 2025 02:35:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8DDC10E204;
-	Sat,  9 Aug 2025 00:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 115EE10E21D;
+	Sat,  9 Aug 2025 00:35:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nU4a4UC9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ajZ4qw3A";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4E1110E200
- for <freedreno@lists.freedesktop.org>; Sat,  9 Aug 2025 00:35:37 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 578EC4jH003627
- for <freedreno@lists.freedesktop.org>; Sat, 9 Aug 2025 00:35:37 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0BF010E200
+ for <freedreno@lists.freedesktop.org>; Sat,  9 Aug 2025 00:35:38 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 578Dw9tU011818
+ for <freedreno@lists.freedesktop.org>; Sat, 9 Aug 2025 00:35:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=ZbGX5bxjJoDa8OQ/Re32Qt
- hpJZzf8LuGqJ7nEgpoBBU=; b=nU4a4UC95r8zh3UAkKBuonofP0oxbbv8+V3dDP
- PndUx+IBRExGN8NXOBqhVI7ID2JemTF52Ob6pZDlIe4G1kWt9zrB2ir6P25AXoVy
- WPnzUZD36lEyNS4ggguh0zGywmljQAlOCyJL9qUsDiLP+v95qzukPN8LlziTkU8D
- vpVl5mF9wBYTnWARh7BjZKiO6bEA8Sz4eH43p5rl4kxhsnzR8kmC6C/kQ26ThHx4
- 7A0Cw/jboAOjQRKQYxeraPD4JNBiMIWOkwM2Acl+4kyzcoucwVlbhgEDdY+s/YxI
- p6dNVoT+2gBozw1F6iEjkbtk4Pi/TvhGKGhj8jw8z3F1PCGA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48bpyakhuq-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Am8SRRlpRsUiuuIqG7X6GswUkVcm4QHsls9Y8TEI2o0=; b=ajZ4qw3AVALeFnVG
+ wAats32HsPCVnTKzz7H+3cKxflvILAgpCk73BXH36NbDo8xY5ASkKU5OQTfFFvLR
+ 6RX4p0TkPWKIm5YejoixVToByFlcv4rGv47avigjYFcdDfTY/iF2xLlwC5r7yJ9T
+ Y7Gz/JL71g/fELB/ZtVuxggsYOJDC/rfXxLOESu+FEa6BwA9ZFbuVpjaps18kSAL
+ UiH9IFGBSxUCBZ78BQSGMS5TXNe3dBkjVNgDTRn8YRV8+K+0kIjmFz0TrChSU2Bj
+ rkb0TVZY0AnzQiySz/KTjNlVvO8cAz22/QFZO0gv4gmMmGkZ4IJwbKjTNmzlZvZp
+ nfyDqw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48cpvy69ch-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 09 Aug 2025 00:35:37 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-b2fcbd76b61so4176079a12.3
- for <freedreno@lists.freedesktop.org>; Fri, 08 Aug 2025 17:35:37 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Aug 2025 00:35:38 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b42bcfe9c89so2098871a12.1
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Aug 2025 17:35:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754699736; x=1755304536;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZbGX5bxjJoDa8OQ/Re32QthpJZzf8LuGqJ7nEgpoBBU=;
- b=DDQ0t6DTXVQOO3LYQfpBGS8PamMpA+PyFs5604T+22E+5oA/UhP8ItWnHO/YCb6mDq
- 8xu2pXzHzR9HUH79oaccGcXDfpV7fY/IDcRAqXkMRESD+Zep7bbaMifs1rZd66XU+7IV
- 8bYOIkCq/Xl3zNqFXJhYU23dJEwJY4NVyHCC4E1IkMSqPEFHRozKMOlKCAm/hs1IkVM2
- 3K39Pcu+2PMqpS/c/hRicHaM0GzYynpJDLRFJWU0kKMf0/14tI2MiD02wFiEJrFVPo+T
- Q4uSSK+yafI1T3vT8AKKXj2P6FGVe/PlQbpw0UFsydsI0nmwY/BhXamCQywozzpEeUrA
- TXqA==
+ d=1e100.net; s=20230601; t=1754699737; x=1755304537;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Am8SRRlpRsUiuuIqG7X6GswUkVcm4QHsls9Y8TEI2o0=;
+ b=Gp6QNdIwUd18GLwIRnhGnpfsqGIXHl16a27qgAvFjsuaDoMg/lXh30IXibJsJjLCRt
+ Ljx9pJDEd+he/ABNcRzc9d9wGYLHJ/ICG9EsukFaGQBElTrG+rrbKu8a1IJ+0ZqwlukN
+ aSUhttO+CW3HuAzY4mzv4pEsCJihl24ycf96xbNG/cH5W0XWgXxA34MlFuHqy/jeLObT
+ stbTrN56H+tAwhEVhPr3TMSQHapGgTZAz8MSvs6FwTQPri8w7UYiu1g8p7fk2uz1YB1m
+ QpdfqxXGqIm/SY5pCY+HHJQattTkOcbNj7GEZ70QAsX+lY0hvM5HAV08X9E15gKtlrdf
+ UqXA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXGOu7LpSVcsVNhsDElpkD1iB21Kt/3W/TvlEjbY1HbdefF/RBcZXm1woHV+Tv226uXfXjZokNM+FA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyzRfwFUY7CLra9XnIXOLWHaiblQfus9xBsCmdCTy9kLcVvKTu+
- Y3VPvkv0m7CL0cefmH4G8w76JfvYcwhqUrkLUp2vcuEQAxETQ6JkhDrKvAKmD00zHLHryIw48VR
- M8bT4R3oOUEmpVpvckDrjGsm2EhdXGGiOgZPMe1pgQVDKcWx1AdosrOlJCDX21hCAUMJv96I=
-X-Gm-Gg: ASbGncu9sFt8S+omhaiMcHg9IVzUS1rgcWBNh79z9BBjIZ+6afw+NP4uGK81BEqrEng
- WoolJPrwXHv1eI8fiRcRMgBVZIWXtSEEOtCYsc+IUhboEvwGaWRPPx9X61hNeVaxk+kGC27AFhj
- 2zo38sJUnaJLf6dHhzDp+HWE0Ty9gnpccX2toi+Ya/WHwM9njG9aGTmDGytbSW0W1fchsw/erP0
- Y8M5Y8cja/z2mGyri563m1yIH+0kjeyA+PYthoxkyvSWw3HJNpAovmid9jrWbzetm/Yk+ZKD5Vs
- XK1X5kTN5jjEwmau7oDm8zmqmozK9i5N0ig/CkdoEV6mPf9e/vVmH9IVOom0KEeVFO+in7KYAdJ
- UKcpGxrFYg426MQFRWZ6bQI00
-X-Received: by 2002:a17:902:cf04:b0:240:7308:aecb with SMTP id
- d9443c01a7336-242c21ff8f9mr89428155ad.32.1754699736238; 
- Fri, 08 Aug 2025 17:35:36 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGi+7fe4uPTv690KlXyI03z9asGDkSfIXdbnLoKLJoKkTTJSV1FDnOhicgZI/Utxq39clnAPQ==
-X-Received: by 2002:a17:902:cf04:b0:240:7308:aecb with SMTP id
- d9443c01a7336-242c21ff8f9mr89427815ad.32.1754699735782; 
- Fri, 08 Aug 2025 17:35:35 -0700 (PDT)
+ AJvYcCVdnPbP+CHovfRPAhH/6/vKJYPn/KizfkhO4zcuelxuaHI09VEkIH4Q5LJqIvWQWKCz+y2DSLh7F1E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz5pjBCfrfSyiqAXnZfXZJuEgOneUPdkx+TkVcx4qNDRHR7jM2/
+ BKI7oC+U8c3pfkHG9p2rHlwS9lo+aPHmNu/gssuotgG4cQA9LlmkKWBbHDP3fIZhGbpVRrm8X7S
+ YJHtdSixNnd/kyjzm7+FUENf2DwU+WgCdxOoJPsUK8N+0mtfmlsr0uwMrKqU+vWY3Xb4MwfU=
+X-Gm-Gg: ASbGncthMnRetg/lWwJFgxRRlga9eK0HmjAi54w+LjBiNhEe3WwARoTZVWYlpGQnKgO
+ mYGHeG1pcT+Vwbnuzxycflpe7e/S1f+j85g3KmbkSF4UjrcWDfaCMuom2H8m91VU+v6V36Ehy4b
+ bzjctLMX/5XQdkjWt0USPdMiDE01V5MRrdj6bbgyeIY3frBSH4AZS54JySz9WsD5ujXIXAGnTMJ
+ j/fB61rm+TkC6gyBbKiqOMwVHicHksi4D+AHQnG2mmqc2NQDFscCF2xDmWcGmZwLz604DewSEXi
+ 1V7uL8zs+n+d8fMYC3ZK4TGnZ/VC7D+ZI0cr9ql3cM0m1e/ZD3Bba5GVNSU3GC+Lg8rd8Ixyevf
+ EDlceDOhVYq3O8XgQI4jZE4KD
+X-Received: by 2002:a17:902:f708:b0:240:2bb6:d4ae with SMTP id
+ d9443c01a7336-242c21fd174mr54617575ad.30.1754699737431; 
+ Fri, 08 Aug 2025 17:35:37 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGKDv8apsZallq/K7ay2tvwcFTR/tP3fr5zCSv6TlMV9b4Q5I+msieWi+8RSFY9p8c2K/WIFg==
+X-Received: by 2002:a17:902:f708:b0:240:2bb6:d4ae with SMTP id
+ d9443c01a7336-242c21fd174mr54617295ad.30.1754699737061; 
+ Fri, 08 Aug 2025 17:35:37 -0700 (PDT)
 Received: from jesszhan-linux.qualcomm.com (i-global254.qualcomm.com.
  [199.106.103.254]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241d1ef678dsm219865355ad.39.2025.08.08.17.35.34
+ d9443c01a7336-241d1ef678dsm219865355ad.39.2025.08.08.17.35.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Aug 2025 17:35:35 -0700 (PDT)
+ Fri, 08 Aug 2025 17:35:36 -0700 (PDT)
 From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Subject: [PATCH v2 00/12] drm/msm/dp: Drop the HPD state machine
-Date: Fri, 08 Aug 2025 17:35:12 -0700
-Message-Id: <20250808-hpd-refactor-v2-0-7f4e1e741aa3@oss.qualcomm.com>
+Date: Fri, 08 Aug 2025 17:35:13 -0700
+Subject: [PATCH v2 01/12] drm/msm/dp: fix HPD state status bit shift value
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMCXlmgC/1WMQQ7CIBBFr9LMWhoYijWuvIfpglIqJLa0oETTc
- HfHunIzyZv//9sg2ehtgnO1QbTZJx9mAjxUYJyeb5b5gRiQo+IKJXPLwKIdtXmEyNrGouqVOiL
- XQJOFEv/addeO2PlEtfduz+L7/YlaIf5FWTDOpDS9NieUo2wuIaV6feq7CdNU04GulPIBJLDWG
- K8AAAA=
-X-Change-ID: 20250523-hpd-refactor-74e25b55620a
+Message-Id: <20250808-hpd-refactor-v2-1-7f4e1e741aa3@oss.qualcomm.com>
+References: <20250808-hpd-refactor-v2-0-7f4e1e741aa3@oss.qualcomm.com>
+In-Reply-To: <20250808-hpd-refactor-v2-0-7f4e1e741aa3@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
@@ -92,38 +90,36 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yongxing Mou <quic_yongmou@quicinc.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
+ Yongxing Mou <quic_yongmou@quicinc.com>
 X-Mailer: b4 0.15-dev-a9b2a
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754699734; l=2514;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754699734; l=1021;
  i=jessica.zhang@oss.qualcomm.com; s=20230329; h=from:subject:message-id;
- bh=GcppbpLyBA9b1yf2lCD9BuTJMMUuGA+FkmOmn+rmg2s=;
- b=4JF/mkzCvIDHNqLd9NKmhnVuxsW0hiYQreE5SpMBbfbel+6PDV1d5C+Cb38ZRK1JqxcUnFZ4s
- mmHrn7CAiP5AMbC+8MtborBGBd2E4rpRpdWZ1V5/XNJtMoaJgUAEPlk
+ bh=dlkqBGODh3j3sXW+PUd6RTyGAht6wmJhJ9vt60MBI2Q=;
+ b=ijI/+bZvfr7WaBEdK9j7OTWq9Mt0uUE/lrcNkpvprQoAvNK6hxioFg/i7npV3sgZFasfJwhTe
+ 2rPCFARIkY5DEARh6P00mQa7MQ5/83Lu2BVkZld78HPNmiSTf2FE6Qy
 X-Developer-Key: i=jessica.zhang@oss.qualcomm.com; a=ed25519;
  pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
-X-Proofpoint-ORIG-GUID: XPVcQYIWazgydXlAu_oLPdk01HYDJ8Jk
-X-Authority-Analysis: v=2.4 cv=MrlS63ae c=1 sm=1 tr=0 ts=689697d9 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=ykQkPS02loRjcs06OSIA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA2MDAwOSBTYWx0ZWRfXx2xZWm40iGvg
- yupddEZsaEXwMJ9n6nEaJHa0VkpCrvVae4QUgSQrcOsleDLZCdHT9Cfh8LaFOWlKeZd+mEE98m5
- KnyqhBPXnowTjrsWw1L9Z4xdJVjILL/3wji3T+JgaPtRQzw/ol92JJEPY+1Gp9+bd3cMdyj9aNz
- 8+YOADEjGZGeqP5twrG6vb0WQJ+G6WdjvoqjGYTyPDk/OXJUc+kSP7ghFL3r5Oz9EaOJhuZXlVT
- qiO3rchYdRG3uDxqzJTFzTAbBNyuPfByRiciH/wvWSv7yDTJcgyYzvTRny3qY/gCyKjb8m4JTps
- 47fgU1QhU3rYlQmwY4XuHxjWkgvUiuURSh+orQGRSrugIDgqiExftFj35pV+4tzMwogT+HjQgcm
- K+MLaKUE
-X-Proofpoint-GUID: XPVcQYIWazgydXlAu_oLPdk01HYDJ8Jk
+X-Authority-Analysis: v=2.4 cv=TJpFS0la c=1 sm=1 tr=0 ts=689697da cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=jiMY0BZLP9KyD5qzzL8A:9
+ a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: gQwFEPiIa1dtPMQ7VdMJQCRjrCEiiISM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA3MDA0NiBTYWx0ZWRfXwx6x2WHU2wFW
+ cAmDk+sCwup4S+uYmWvFwMqwDCtElrEwxPfz/7mpG0H1gvyNa9+dllfTw3hkKAchGYmclgMNfb3
+ WGeV8DRDH9AvmdenT0MZhDA+xFlxNjvU5oCJP9TBfRxJHpvhGm0E9lXWN/GCqb8bcvdehV1vu3e
+ Rc8Z/8ohx2eWNFvpQpKmkJZrPEbMdmOUbNou9VIT6NZoOZk5ucxyuS9uy4qc34JdRlHYtxsLa+j
+ fX/aVhSk1VkOTtni8g45GuzKa1qA20DyjtxKPvCXOx2Q6hsPZtqWVrEmcesGggc/tKHuLW8KElJ
+ LWnMAz41T1QwCciyAjaVjzGfOdWg9Qo4Zl9+CDB631hYcEScwmUru99o1Nu1a2BIZrkKtN5rrZ8
+ JKeox2ER
+X-Proofpoint-ORIG-GUID: gQwFEPiIa1dtPMQ7VdMJQCRjrCEiiISM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-08_08,2025-08-06_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 adultscore=0 priorityscore=1501 phishscore=0
- spamscore=0 bulkscore=0 clxscore=1015 malwarescore=0 classifier=typeunknown
+ clxscore=1015 phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ adultscore=0 spamscore=0 malwarescore=0 suspectscore=0 classifier=typeunknown
  authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508060009
+ engine=8.19.0-2507300000 definitions=main-2508070046
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,65 +135,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently, all HPD interrupt handling must go through the HPD state
-machine.
+The HPD state status is the last 3 bits, not 4 bits of the
+HPD_INT_STATUS register.
 
-This has caused many issues where the DRM framework assumes that DP is
-in one state while the state machine is stuck in another state.
+Fix the bit shift macro so that the correct bits are returned in
+msm_dp_aux_is_link_connected().
 
-As discussed here [1], this series:
-
-- Removes the state machine
-- Moves link training to atomic_enable()
-- Changes the detect() behavior to return true if a display is physically
-  plugged in (as opposed to if the DP link is ready).
-- Remove event queue and move internal HPD handling to hpd_notify()
-
-This has been validated on x1e80100-crd and sa8775p-ride. Any help
-testing on other platforms/use-cases would be appreciated!
-
-[1] https://patchwork.freedesktop.org/patch/656312/?series=142010&rev=2#comment_1201738
-
+Fixes: 19e52bcb27c2 ("drm/msm/dp: return correct connection status after suspend")
+Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 ---
-Changes in v2:
-- Dropped event queue (Dmitry)
-- Moved internal HPD handling to use hpd_notify() (Dmitry)
-- Reworked bridge detect() to read DPCP and sink count (Dmitry)
-- Moved setting of link_trained to plug/unplugged handling
-- Dropped msm_dp::connected (Dmitry)
-- Squashed all hpd state related patches (Dmitry)
-- Link to v1: https://lore.kernel.org/r/20250711-hpd-refactor-v1-0-33cbac823f34@oss.qualcomm.com
+ drivers/gpu/drm/msm/dp/dp_reg.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
----
-Abhinav Kumar (1):
-      drm/msm/dp: remove redundant checks related to ST_DISPLAY_OFF in plug handler
+diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+index 7c44d4e2cf13..b851efc132ea 100644
+--- a/drivers/gpu/drm/msm/dp/dp_reg.h
++++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+@@ -69,7 +69,7 @@
+ #define DP_DP_HPD_REPLUG_INT_ACK		(0x00000004)
+ #define DP_DP_HPD_UNPLUG_INT_ACK		(0x00000008)
+ #define DP_DP_HPD_STATE_STATUS_BITS_MASK	(0x0000000F)
+-#define DP_DP_HPD_STATE_STATUS_BITS_SHIFT	(0x1C)
++#define DP_DP_HPD_STATE_STATUS_BITS_SHIFT	(0x1D)
+ 
+ #define REG_DP_DP_HPD_INT_MASK			(0x0000000C)
+ #define DP_DP_HPD_PLUG_INT_MASK			(0x00000001)
 
-Jessica Zhang (11):
-      drm/msm/dp: fix HPD state status bit shift value
-      drm/msm/dp: Fix the ISR_* enum values
-      drm/msm/dp: Read DPCD and sink count in bridge detect()
-      drm/msm/dp: Move link training to atomic_enable()
-      drm/msm/dp: Drop EV_USER_NOTIFICATION
-      drm/msm/dp: Use drm_bridge_hpd_notify()
-      drm/msm/dp: Handle internal HPD IRQ in hpd_notify()
-      drm/msm/dp: Drop event waitqueue
-      drm/msm/dp: Return early from atomic_enable() if cable is not connected
-      drm/msm/dp: drop the entire HPD state machine
-      drm/msm/dp: Add sink_count and link_ready to debug logs
-
- drivers/gpu/drm/msm/dp/dp_ctrl.c    |  22 --
- drivers/gpu/drm/msm/dp/dp_ctrl.h    |   1 -
- drivers/gpu/drm/msm/dp/dp_display.c | 580 +++++++++++-------------------------
- drivers/gpu/drm/msm/dp/dp_display.h |   1 +
- drivers/gpu/drm/msm/dp/dp_drm.c     |  20 +-
- drivers/gpu/drm/msm/dp/dp_drm.h     |   1 +
- drivers/gpu/drm/msm/dp/dp_reg.h     |   2 +-
- 7 files changed, 187 insertions(+), 440 deletions(-)
----
-base-commit: 8290d37ad2b087bbcfe65fa5bcaf260e184b250a
-change-id: 20250523-hpd-refactor-74e25b55620a
-
-Best regards,
---  
-Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+-- 
+2.50.1
 
