@@ -2,87 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57679B1F358
-	for <lists+freedreno@lfdr.de>; Sat,  9 Aug 2025 10:34:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 295EEB1F36B
+	for <lists+freedreno@lfdr.de>; Sat,  9 Aug 2025 10:37:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F22610E14B;
-	Sat,  9 Aug 2025 08:34:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A19B10E14B;
+	Sat,  9 Aug 2025 08:37:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DHI1ylL/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aK8mAb7w";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69D0810E2A1
- for <freedreno@lists.freedesktop.org>; Sat,  9 Aug 2025 08:34:20 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5793Z3dg012611
- for <freedreno@lists.freedesktop.org>; Sat, 9 Aug 2025 08:34:20 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DB7C10E14B
+ for <freedreno@lists.freedesktop.org>; Sat,  9 Aug 2025 08:36:58 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5797GVYk025917
+ for <freedreno@lists.freedesktop.org>; Sat, 9 Aug 2025 08:36:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- tHOzaiCC5F8i8lHg3dFjNbOd7YZhTe1TcbaS/7DwHXM=; b=DHI1ylL/uaF28GmB
- C94lsUAsh5JYqE/yxFDKl9tRhuVHy6YqnZXco6Ko/O3MHKJiutOw66XD72BakQix
- WYprBswCxB/+y8JjW0ATMU7bISjTif4lC4VileJ1wCe/1M75bhVdozy9P31HkobS
- fIH0DvFfv06E6+E9AXM79yNR90l27QQaSdjmUu8yxryc4hUFXLYp6xUj04fexMau
- kUaAMHDONkT2MvH8XfZuXem7U88w9S7pGzQS4rRw4hXbp+WrKy7U9+jp91x43yjs
- d5vpzZ+r3Ozk8/mmMwqqTCPDnmpv9w5Kh6dbvwgIgnKMlSOPgqcZ0FD4C5O3TC4K
- uhtlJw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dxj40b4y-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=Vbhk6QCT3EVReeZaEWJCjX
+ Dtjty/QxM/QqF3JsKZ/bQ=; b=aK8mAb7wHR5CDudbNk+2qoh4ORGcuSpp7chNfB
+ 6++T8nTbtFwp61xD+vH4dam9eveMkdL/wdrfiu4W5YiQHRFYEpKGs4UoM+yLMSvL
+ EC+Hpbiz43YJ+AqR4FJPLA5uRTECXQZsAjwPJbF0SikwJ3jXa31WqoOsZ5UztfeM
+ T70FEGLOcgEOgWfh7eRTDHv/tuyq2NHiKScvNzd85nOGWNIi47eFHzUORm3qtysE
+ JFyEgxqX+wXktzaKCD10gWUrzhu3CdS5MldCCYNjdak24e4JzU3/V+m/7g9vUx01
+ l07HrL5srnGtmENYNAPKTJD1Vc5QHcPcboGk8jKHA17Od8qA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dwwy0cvx-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 09 Aug 2025 08:34:19 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4b0884559cdso40044441cf.2
- for <freedreno@lists.freedesktop.org>; Sat, 09 Aug 2025 01:34:19 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Aug 2025 08:36:57 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4b06228c36aso38590581cf.1
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Aug 2025 01:36:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754728458; x=1755333258;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tHOzaiCC5F8i8lHg3dFjNbOd7YZhTe1TcbaS/7DwHXM=;
- b=j3J82Zyc0UlaWmwF6UIp/Zfx+fVRhT4LbLSdzA5GAlhpc+vw9RnW3hApBUQTu9gMj5
- Bj96iSdYjYn1Jf3UZNTCB35D64q5WP2FgVYo8lLlAu+/BZ+6cA43SiUWhFejX1Sk3vS+
- w6y1Mi/FTj76dbxdFM8byuK+dTOOu5rVeC+kZmpL0Nwj9U8GSnvvBH6X/X5LBJ/NmMIy
- R+mLiBdDc4IRap4IBJ8MmZeLfLNu4E1Oh4yua/t+m8czJPjxTKGIGvxge8u3DrisIvvo
- jNiuiLp8V+fZ5+3qHQcRjaA/jhsby4cdb/tkSNAZmPTXMEaLlWTGTtDEyMHbv4/WDfrr
- wXWg==
+ d=1e100.net; s=20230601; t=1754728617; x=1755333417;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Vbhk6QCT3EVReeZaEWJCjXDtjty/QxM/QqF3JsKZ/bQ=;
+ b=bgNXvS0TRTeJfLMzC514j2GkceEQcHda4uEea82M0TmY9PALKIC7x/7n8lx8SDjC3m
+ OLjX0jIzFsTmgpl/iVaUYw7b9TJU7eekiPGp91livS2XeI43rjIJVwk+Aaw7yHQEYkv6
+ yBnr7MYGn62hz9MfHfee/X19UW5ponNiMZhIAH5YggeIF/Hab09On7dGXDQMx+jW++Wk
+ RPmwRNPnp4BYhQjR4VZpjVC21RPJFSdlutBFtiA4HbD+oLU3BSu5S230Rojgmbh9o2lO
+ WpxOsk1QXvXk0Lor9uP859bezy+7ScivqDtQUyEyzu0zRXDNwc7ThSdB4zGinF6sT6Sk
+ lnUA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUYT+f+dfdXuiFXHlAQGU3SqqUKDtoQwlgDUaTHlfE0xfHpxPWsqDNzQ0ehFlTLzmMQEoiU9Pve6ck=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxyVDNKZS+2N7fJZHoHLM7TOyjFMXYfsAuL2CdB+zexzThkJG3k
- NQXQZhmspPsj4qe75NFrGrYt1ISj4A/JXc/YmLXOukFkT8RvKI3RNwy7GMJPVwYVljONXnbwV8N
- xDwsNqLjmwExxlx73nIr8t7fCSl/mhCbKSDEjb3Wapi6Fz1sb5mu8SO2j9d1EbGvpca+ErgA=
-X-Gm-Gg: ASbGnctmYNTo2R33DH8B6pjZbIt63gXBO71Hy6qZkGWR6+53JW3HnsFMIVUyJWRy7wU
- orE8jcqJZKswJuA6skUov9eGCDA+k87mXaPlQgFc426QhX8f/yiFxJN1G+EXWKAsVcqLqmXeM4F
- OEMjHdj3dfWylDyCuNpZpMRO52nxhUuAlCtMK+kt0dKquRrrUIsvNZ8BnRhTH1+iAidtAFOo9FV
- nVBk8wkFAGwinS711v+mp05a3VI8hxYeR10aLbtR1ubacsbdwVzJiZYDxb3Row6cKJZW2lXB+Nk
- GtrD8WNMTD2RoILUALiAOiCdM5ymxCf4DH6heATGmUM2GjlYC8cbuft0lkCqH2zefCFSQhWaH5I
- GeJLfqCINBWVAzj8UoSwjnwqRSeUT7fKr1vU/XBuXQZ0VDUqWZJAc
-X-Received: by 2002:a05:622a:13cf:b0:4af:1547:4513 with SMTP id
- d75a77b69052e-4b0aee629e8mr77324771cf.58.1754728458131; 
- Sat, 09 Aug 2025 01:34:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFPRKMoihFya0R/88dPZM/Ya/YpBLYC1QFY2794iF4MD25Q949eD1Dn+KHq+zWgAtAjsvuFZQ==
-X-Received: by 2002:a05:622a:13cf:b0:4af:1547:4513 with SMTP id
- d75a77b69052e-4b0aee629e8mr77324511cf.58.1754728457484; 
- Sat, 09 Aug 2025 01:34:17 -0700 (PDT)
+ AJvYcCUvSdUGmBpBmDn9pVKZSeel0A8dVaks01uzlnzC8OfubUatGOWIiKqGvAqcr7PSB6nQhgKIE0niEcA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyZwHWTGC83dOq5KfTIU42hUMnUmwarbxqPIsmgR02QmdL/Znsy
+ J1+fmC20nWayj+2ttYbPLZ+ZKzH9a166SMhIpz/PuuJVFf3Y0Ju/rv022nmUtwXHUf3ueBPzuhj
+ EtTXO/ju+ZFhwE+zNuKfeykqj+cZp1Gx/u1gp4gLgpIQSqlDRn21eA6dGO+F1KKyUb9Xr69I=
+X-Gm-Gg: ASbGnctGMTpVxOPGSfEIH48Ctjlt+nTKuaG80jbLha0mNmnv4aT4iM/wgRpf0kPN/lE
+ jGyRCGsbEaXIJbs/5xiLTvlKM/wjZy+PMPSERECDPCxcD1Dk+ehDfz43mBNxnhJxGDKQYRCfNwN
+ Dy6pZWadWc6FnMufXqt+8PP6Okw+Qaseq9d7sLrppSVWqKXOa7b02x7hq3Lh63vQoXgzX2QSCZq
+ x9v58CZsHe78MsuhydtmkJLhf8tATo45qyFL3X2/bpOocDoQWDclAiRJomY9X4aMM7freCMMHTr
+ IyUTb4eym1hSGhnMlEGM9rO+7jt4a5ItzaiQGCOGBS6bsr7kn99GExkvewgWB+RWtEK3LVdEp6b
+ Vv6YsxgTsf3KyPiQfR5yn67xJ1QPX3Miv/p1l4yj7lJk6FQD9Ce0b
+X-Received: by 2002:a05:622a:2446:b0:4b0:7ecf:beda with SMTP id
+ d75a77b69052e-4b0aed0bff1mr90397691cf.9.1754728616697; 
+ Sat, 09 Aug 2025 01:36:56 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH37kRnw8/1Yvy8Ct0TseBki1Zc9SOjiU5tdXrLe87OhkeI9dMLexzVEv+ZZeRaP96/LWT6Gw==
+X-Received: by 2002:a05:622a:2446:b0:4b0:7ecf:beda with SMTP id
+ d75a77b69052e-4b0aed0bff1mr90397511cf.9.1754728616224; 
+ Sat, 09 Aug 2025 01:36:56 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b88c99078sm3268166e87.102.2025.08.09.01.34.13
+ 2adb3069b0e04-55b88db2214sm3239974e87.177.2025.08.09.01.36.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Aug 2025 01:34:13 -0700 (PDT)
+ Sat, 09 Aug 2025 01:36:55 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 09 Aug 2025 11:33:57 +0300
-Subject: [PATCH v4 6/6] arm64: dts: qcom: Add MST pixel streams for displayport
+Date: Sat, 09 Aug 2025 11:36:54 +0300
+Subject: [PATCH] dt-bindings: display/msm: qcom,mdp5: drop lut clock
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250809-dp_mst_bindings-v4-6-bb316e638284@oss.qualcomm.com>
-References: <20250809-dp_mst_bindings-v4-0-bb316e638284@oss.qualcomm.com>
-In-Reply-To: <20250809-dp_mst_bindings-v4-0-bb316e638284@oss.qualcomm.com>
+Message-Id: <20250809-msm8976-no-lut-v1-1-f5479d110297@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAKUIl2gC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDCwNL3dziXAtLczPdvHzdnNISXZMkU0MDg6TktCRjUyWgpoKi1LTMCrC
+ B0bG1tQBoHPxKYAAAAA==
+X-Change-ID: 20250809-msm8976-no-lut-4b5100bcfb35
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -94,48 +95,44 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Abel Vesa <abel.vesa@linaro.org>, Mahadevan <quic_mahap@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
+ Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=27554;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1257;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=bWogejo2vi3gl352VZRFqEcGv8m7/EBOIvPZdPXNKdI=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBolwf0fDH3B+CwaGnvUFGc4QgbTzbjCn6FC3HRY
- w6vA0A65yGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaJcH9AAKCRCLPIo+Aiko
- 1eT5CACaNOdE8n868rtgAThxdh9Rpl+RBe1vJrE+Hpb+COB6msJv8JfMLyAOLj5/j3GP8mvGU7b
- z6vnWazLFAqRI/qVeskuCfidxsUs50CcTZ9hxE4e0qY2jBFKDYCNwBnn9M1rpA4NwFdg8q7F6S3
- cnYA5t5CvV12fFDbR9pJoxpqnyFxafr3dm2p9kf4Ft7Z6/QrmMqtS65ow2tYC9TmlZdt9c44prQ
- Zk01QFpbjq0QbgA68nk3MN9kJV8rUsgBmEcvRTvWPsijYp+xYgBu8VFkiutY4b64WG4tNols9hV
- KidOOyyGjAHJoC0lHbEL9NXjU05mdehcMY7aCi+iP1inoQwD
+ bh=KmUlDlykqRmfS/c3OkAxh7AJ+0CRPOU7eFP0ludcvrM=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ8Z0jmVKKiy51Y/+3+p5PqP0fs3XmjAmj0vMF8rL7+qbz
+ 9pwz+dNJ6MxCwMjF4OsmCKLT0HL1JhNyWEfdkythxnEygQyhYGLUwAmwt7I/lc0OcDbbM3ekOis
+ iwVbqiwWv17z0pxlS2uU0aXM3CsaynEnRPmeb52nF5CvlMBhGOc+92HM1YO1LOrxojddP8zyZRP
+ 5zHk2sFz3352j1zasC+o/syEq5We3aOYH9cKSCU+5LnV0ae26m/r1Gp/4Djul+zKnijef6Xt56U
+ BCzOwJJuueexW0nir2Csl1MQuQFDc93Nt8nmch890Sh4OmlWwWQi1Mu9cw/jBfKjb7y7H57yfPU
+ sqwC7/WWmZYwnjp8IHpC+c92KXH2Tox8bggZ5zCYpZnis0HXAqSLhYf+8J2KyHWfnnvXYu/b1s6
+ ZO/0Gr+xMvVSfXdl4dTAhx+mz1JO/wa0sWVamsGVsr2yAA==
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAyNyBTYWx0ZWRfX7NBYRr1ZIPjY
- t46YUIo1gPNuGJiLcStZa43Z4WPiLuXCLtH/If+/fhs4pyyuYVd0vW4NjPieWrS2nstnxNFWpS4
- i/JVLxhAaiB4z4ckdXjNj5S3N/RHrS/nLve0HxoutnBZtGOj4535mqiqCx4vGc5PINDs6hWPiMk
- 5Bf4c0rcLWRyGry63NCrtTL7TrZWNpG6UZpelnm5ApGeycgdAGq6gh6Q7dLmPHw2OUC8lLByzkA
- j2ELpy1ASQugnSmzDIUV7I1Q4UneiqoDGgTCgkDUF/TWPJ7mfeEnG9MKprf/fsNHoYRMyVqw2+y
- 9HBergfR0zJtrAjmBPVUn+yF+j3RqhdXef5WkwmlCGqI0PROQ3lgnxUtU23HHSmbumLjTL20pbS
- klDaod8k
-X-Authority-Analysis: v=2.4 cv=fvDcZE4f c=1 sm=1 tr=0 ts=6897080b cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=GeKaIpM8acZGkCD96n0A:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: UOS6Jj5rZ-mvvvevQyhyH6NwyDNHF5uy
-X-Proofpoint-GUID: UOS6Jj5rZ-mvvvevQyhyH6NwyDNHF5uy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAyMSBTYWx0ZWRfX0VqaNSCGZpW+
+ QAIO3ejmVHX+AIHBsZwZbKnPo64OKK5SdRhX2OGT8s9tDoieDXBOD0vGaPRbK8rtRG9vic08LHt
+ u+SUROJWqloP1zf8c5Rtr+4GZ8MISUARPGhkyU5wBfbOSqJqLHPKh2n9hqyn3VObR08W4On+s5H
+ w1592feVYziXEI/9FASrga+FnlbhiMz0poLaRoTdrlkOJH7FYD4ke3aoEb5Y8aF4nmgZUSEsYJg
+ j3qZ4ObQww5kp0ocLb2xgnyT0DeFX3oHn7EskiV4O6kBOChOx93RRoY8C6luHWNVpiLQ+R+XtzO
+ r1ZKUzLZIb9XI0MIMhxjWDN4snVcn/pWH9wZlRtcSkikTJwKjN2oDn5nSGnpVej9hkm+DXo3Tcg
+ dt0c8BTO
+X-Authority-Analysis: v=2.4 cv=CbUI5Krl c=1 sm=1 tr=0 ts=689708a9 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=-Y5st2MN6ViVPFRs--AA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: vYlgm1Ax_FE3UYc_5MW-nnyHGymzpzjo
+X-Proofpoint-ORIG-GUID: vYlgm1Ax_FE3UYc_5MW-nnyHGymzpzjo
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-09_02,2025-08-06_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0
- clxscore=1015 phishscore=0 bulkscore=0 impostorscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508090027
+ impostorscore=0 adultscore=0 phishscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508090021
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,610 +148,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+None of MDP5 platforms have a LUT clock on the display-controller, it
+was added by the mistake. Drop it, fixing DT warnings on MSM8976 /
+MSM8956 platforms. Technically it's an ABI break, but no other platforms
+are affected.
 
-Update Qualcomm DT files in order to declare extra stream pixel clocks
-used on these platforms to support DisplayPort MST.
-
-Note: SC7280 isn't udpated since it requires clock controller changes.
-
-Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+Fixes: 385c8ac763b3 ("dt-bindings: display/msm: convert MDP5 schema to YAML format")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/sa8775p.dtsi  | 34 ++++++++++++----
- arch/arm64/boot/dts/qcom/sar2130p.dtsi | 10 +++--
- arch/arm64/boot/dts/qcom/sc8180x.dtsi  | 20 +++++++---
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 72 +++++++++++++++++++++++-----------
- arch/arm64/boot/dts/qcom/sdm845.dtsi   | 15 +++++--
- arch/arm64/boot/dts/qcom/sm8150.dtsi   | 10 +++--
- arch/arm64/boot/dts/qcom/sm8250.dtsi   | 10 +++--
- arch/arm64/boot/dts/qcom/sm8350.dtsi   | 10 +++--
- arch/arm64/boot/dts/qcom/sm8450.dtsi   | 10 +++--
- arch/arm64/boot/dts/qcom/sm8550.dtsi   | 10 +++--
- arch/arm64/boot/dts/qcom/sm8650.dtsi   | 10 +++--
- arch/arm64/boot/dts/qcom/x1e80100.dtsi | 30 +++++++++-----
- 12 files changed, 171 insertions(+), 70 deletions(-)
+ Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-index 9997a29901f57d7894dc1eacb6a809caa427c6c4..74d08c5a320aaf685b6337ef481ed45f5453a5d2 100644
---- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-@@ -4691,15 +4691,28 @@ mdss0_dp0: displayport-controller@af54000 {
- 					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_AUX_CLK>,
- 					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_CLK>,
- 					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
--					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-+					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL1_CLK>,
-+					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL2_CLK>,
-+					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL3_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel",
-+					      "stream_2_pixel",
-+					      "stream_3_pixel";
- 				assigned-clocks = <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
--						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
--				assigned-clock-parents = <&mdss0_dp0_phy 0>, <&mdss0_dp0_phy 1>;
-+						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-+						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>,
-+						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL2_CLK_SRC>,
-+						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL3_CLK_SRC>;
-+				assigned-clock-parents = <&mdss0_dp0_phy 0>,
-+							 <&mdss0_dp0_phy 1>,
-+							 <&mdss0_dp0_phy 1>,
-+							 <&mdss0_dp0_phy 1>,
-+							 <&mdss0_dp0_phy 1>;
- 				phys = <&mdss0_dp0_phy>;
- 				phy-names = "dp";
- 
-@@ -4770,15 +4783,20 @@ mdss0_dp1: displayport-controller@af5c000 {
- 					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_AUX_CLK>,
- 					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_LINK_CLK>,
- 					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_LINK_INTF_CLK>,
--					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_PIXEL0_CLK>;
-+					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_PIXEL0_CLK>,
-+					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 				assigned-clocks = <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_LINK_CLK_SRC>,
--						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_PIXEL0_CLK_SRC>;
--				assigned-clock-parents = <&mdss0_dp1_phy 0>, <&mdss0_dp1_phy 1>;
-+						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_PIXEL0_CLK_SRC>,
-+						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX1_PIXEL1_CLK_SRC>;
-+				assigned-clock-parents = <&mdss0_dp1_phy 0>,
-+							 <&mdss0_dp1_phy 1>,
-+							 <&mdss0_dp1_phy 1>;
- 				phys = <&mdss0_dp1_phy>;
- 				phy-names = "dp";
- 
-diff --git a/arch/arm64/boot/dts/qcom/sar2130p.dtsi b/arch/arm64/boot/dts/qcom/sar2130p.dtsi
-index 38f7869616ff01ece3799ced15c39375d629e364..62bd535d7f14bed10fae329b20ac97cb63f3761b 100644
---- a/arch/arm64/boot/dts/qcom/sar2130p.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sar2130p.dtsi
-@@ -2144,16 +2144,20 @@ mdss_dp0: displayport-controller@ae90000 {
- 					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_dp_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_dp_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_dp_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_dp_qmpphy QMP_USB43DP_DP_PHY>;
-diff --git a/arch/arm64/boot/dts/qcom/sc8180x.dtsi b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-index f4f1d6a11960c69055d001a34e893e696ae5ce77..48353f70878d57c4e61b33c6f4c147379e4ea4d0 100644
---- a/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-@@ -3239,16 +3239,20 @@ mdss_dp0: displayport-controller@ae90000 {
- 					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_prim_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_prim_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_prim_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_prim_qmpphy QMP_USB43DP_DP_PHY>;
-@@ -3317,16 +3321,20 @@ mdss_dp1: displayport-controller@ae98000 {
- 					 <&dispcc DISP_CC_MDSS_DP_AUX1_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK1_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK1_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DP_PIXEL2_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL2_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK1_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DP_PIXEL2_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL2_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_sec_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_sec_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_sec_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_sec_qmpphy QMP_USB43DP_DP_PHY>;
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index 87555a119d947dca75415675807f7965b2f203ac..11ea2fa0b8537165d59469d1c7ccfa3c29496c54 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -4338,15 +4338,19 @@ mdss0_dp0: displayport-controller@ae90000 {
- 					 <&dispcc0 DISP_CC_MDSS_DPTX0_AUX_CLK>,
- 					 <&dispcc0 DISP_CC_MDSS_DPTX0_LINK_CLK>,
- 					 <&dispcc0 DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
--					 <&dispcc0 DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+					 <&dispcc0 DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-+					 <&dispcc0 DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
- 				clock-names = "core_iface", "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc0 DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
--						  <&dispcc0 DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-+						  <&dispcc0 DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-+						  <&dispcc0 DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_0_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_0_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_0_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_0_qmpphy QMP_USB43DP_DP_PHY>;
-@@ -4417,14 +4421,18 @@ mdss0_dp1: displayport-controller@ae98000 {
- 					 <&dispcc0 DISP_CC_MDSS_DPTX1_AUX_CLK>,
- 					 <&dispcc0 DISP_CC_MDSS_DPTX1_LINK_CLK>,
- 					 <&dispcc0 DISP_CC_MDSS_DPTX1_LINK_INTF_CLK>,
--					 <&dispcc0 DISP_CC_MDSS_DPTX1_PIXEL0_CLK>;
-+					 <&dispcc0 DISP_CC_MDSS_DPTX1_PIXEL0_CLK>,
-+					 <&dispcc0 DISP_CC_MDSS_DPTX1_PIXEL1_CLK>;
- 				clock-names = "core_iface", "core_aux",
- 					      "ctrl_link",
--					      "ctrl_link_iface", "stream_pixel";
-+					      "ctrl_link_iface", "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc0 DISP_CC_MDSS_DPTX1_LINK_CLK_SRC>,
--						  <&dispcc0 DISP_CC_MDSS_DPTX1_PIXEL0_CLK_SRC>;
-+						  <&dispcc0 DISP_CC_MDSS_DPTX1_PIXEL0_CLK_SRC>,
-+						  <&dispcc0 DISP_CC_MDSS_DPTX1_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
-@@ -4494,10 +4502,12 @@ mdss0_dp2: displayport-controller@ae9a000 {
- 					 <&dispcc0 DISP_CC_MDSS_DPTX2_AUX_CLK>,
- 					 <&dispcc0 DISP_CC_MDSS_DPTX2_LINK_CLK>,
- 					 <&dispcc0 DISP_CC_MDSS_DPTX2_LINK_INTF_CLK>,
--					 <&dispcc0 DISP_CC_MDSS_DPTX2_PIXEL0_CLK>;
-+					 <&dispcc0 DISP_CC_MDSS_DPTX2_PIXEL0_CLK>,
-+					 <&dispcc0 DISP_CC_MDSS_DPTX2_PIXEL1_CLK>;
- 				clock-names = "core_iface", "core_aux",
- 					      "ctrl_link",
--					      "ctrl_link_iface", "stream_pixel";
-+					      "ctrl_link_iface", "stream_pixel",
-+					      "stream_1_pixel";
- 				interrupt-parent = <&mdss0>;
- 				interrupts = <14>;
- 				phys = <&mdss0_dp2_phy>;
-@@ -4505,8 +4515,11 @@ mdss0_dp2: displayport-controller@ae9a000 {
- 				power-domains = <&rpmhpd SC8280XP_MMCX>;
- 
- 				assigned-clocks = <&dispcc0 DISP_CC_MDSS_DPTX2_LINK_CLK_SRC>,
--						  <&dispcc0 DISP_CC_MDSS_DPTX2_PIXEL0_CLK_SRC>;
--				assigned-clock-parents = <&mdss0_dp2_phy 0>, <&mdss0_dp2_phy 1>;
-+						  <&dispcc0 DISP_CC_MDSS_DPTX2_PIXEL0_CLK_SRC>,
-+						  <&dispcc0 DISP_CC_MDSS_DPTX2_PIXEL1_CLK_SRC>;
-+				assigned-clock-parents = <&mdss0_dp2_phy 0>,
-+							 <&mdss0_dp2_phy 1>,
-+							 <&mdss0_dp2_phy 1>;
- 				operating-points-v2 = <&mdss0_dp2_opp_table>;
- 
- 				#sound-dai-cells = <0>;
-@@ -5669,10 +5682,12 @@ mdss1_dp0: displayport-controller@22090000 {
- 					 <&dispcc1 DISP_CC_MDSS_DPTX0_AUX_CLK>,
- 					 <&dispcc1 DISP_CC_MDSS_DPTX0_LINK_CLK>,
- 					 <&dispcc1 DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
--					 <&dispcc1 DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+					 <&dispcc1 DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-+					 <&dispcc1 DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
- 				clock-names = "core_iface", "core_aux",
- 					      "ctrl_link",
--					      "ctrl_link_iface", "stream_pixel";
-+					      "ctrl_link_iface", "stream_pixel",
-+					      "stream_1_pixel";
- 				interrupt-parent = <&mdss1>;
- 				interrupts = <12>;
- 				phys = <&mdss1_dp0_phy>;
-@@ -5680,8 +5695,11 @@ mdss1_dp0: displayport-controller@22090000 {
- 				power-domains = <&rpmhpd SC8280XP_MMCX>;
- 
- 				assigned-clocks = <&dispcc1 DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
--						  <&dispcc1 DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
--				assigned-clock-parents = <&mdss1_dp0_phy 0>, <&mdss1_dp0_phy 1>;
-+						  <&dispcc1 DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-+						  <&dispcc1 DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
-+				assigned-clock-parents = <&mdss1_dp0_phy 0>,
-+							 <&mdss1_dp0_phy 1>,
-+							 <&mdss1_dp0_phy 1>;
- 				operating-points-v2 = <&mdss1_dp0_opp_table>;
- 
- 				#sound-dai-cells = <0>;
-@@ -5741,10 +5759,12 @@ mdss1_dp1: displayport-controller@22098000 {
- 					 <&dispcc1 DISP_CC_MDSS_DPTX1_AUX_CLK>,
- 					 <&dispcc1 DISP_CC_MDSS_DPTX1_LINK_CLK>,
- 					 <&dispcc1 DISP_CC_MDSS_DPTX1_LINK_INTF_CLK>,
--					 <&dispcc1 DISP_CC_MDSS_DPTX1_PIXEL0_CLK>;
-+					 <&dispcc1 DISP_CC_MDSS_DPTX1_PIXEL0_CLK>,
-+					 <&dispcc1 DISP_CC_MDSS_DPTX1_PIXEL1_CLK>;
- 				clock-names = "core_iface", "core_aux",
- 					      "ctrl_link",
--					      "ctrl_link_iface", "stream_pixel";
-+					      "ctrl_link_iface", "stream_pixel",
-+					      "stream_1_pixel";
- 				interrupt-parent = <&mdss1>;
- 				interrupts = <13>;
- 				phys = <&mdss1_dp1_phy>;
-@@ -5752,8 +5772,11 @@ mdss1_dp1: displayport-controller@22098000 {
- 				power-domains = <&rpmhpd SC8280XP_MMCX>;
- 
- 				assigned-clocks = <&dispcc1 DISP_CC_MDSS_DPTX1_LINK_CLK_SRC>,
--						  <&dispcc1 DISP_CC_MDSS_DPTX1_PIXEL0_CLK_SRC>;
--				assigned-clock-parents = <&mdss1_dp1_phy 0>, <&mdss1_dp1_phy 1>;
-+						  <&dispcc1 DISP_CC_MDSS_DPTX1_PIXEL0_CLK_SRC>,
-+						  <&dispcc1 DISP_CC_MDSS_DPTX1_PIXEL1_CLK_SRC>;
-+				assigned-clock-parents = <&mdss1_dp1_phy 0>,
-+							 <&mdss1_dp1_phy 1>,
-+							 <&mdss1_dp1_phy 1>;
- 				operating-points-v2 = <&mdss1_dp1_opp_table>;
- 
- 				#sound-dai-cells = <0>;
-@@ -5813,10 +5836,12 @@ mdss1_dp2: displayport-controller@2209a000 {
- 					 <&dispcc1 DISP_CC_MDSS_DPTX2_AUX_CLK>,
- 					 <&dispcc1 DISP_CC_MDSS_DPTX2_LINK_CLK>,
- 					 <&dispcc1 DISP_CC_MDSS_DPTX2_LINK_INTF_CLK>,
--					 <&dispcc1 DISP_CC_MDSS_DPTX2_PIXEL0_CLK>;
-+					 <&dispcc1 DISP_CC_MDSS_DPTX2_PIXEL0_CLK>,
-+					 <&dispcc1 DISP_CC_MDSS_DPTX2_PIXEL1_CLK>;
- 				clock-names = "core_iface", "core_aux",
- 					      "ctrl_link",
--					      "ctrl_link_iface", "stream_pixel";
-+					      "ctrl_link_iface", "stream_pixel",
-+					      "stream_1_pixel";
- 				interrupt-parent = <&mdss1>;
- 				interrupts = <14>;
- 				phys = <&mdss1_dp2_phy>;
-@@ -5824,8 +5849,11 @@ mdss1_dp2: displayport-controller@2209a000 {
- 				power-domains = <&rpmhpd SC8280XP_MMCX>;
- 
- 				assigned-clocks = <&dispcc1 DISP_CC_MDSS_DPTX2_LINK_CLK_SRC>,
--						  <&dispcc1 DISP_CC_MDSS_DPTX2_PIXEL0_CLK_SRC>;
--				assigned-clock-parents = <&mdss1_dp2_phy 0>, <&mdss1_dp2_phy 1>;
-+						  <&dispcc1 DISP_CC_MDSS_DPTX2_PIXEL0_CLK_SRC>,
-+						  <&dispcc1 DISP_CC_MDSS_DPTX2_PIXEL1_CLK_SRC>;
-+				assigned-clock-parents = <&mdss1_dp2_phy 0>,
-+							 <&mdss1_dp2_phy 1>,
-+							 <&mdss1_dp2_phy 1>;
- 				operating-points-v2 = <&mdss1_dp2_opp_table>;
- 
- 				#sound-dai-cells = <0>;
-diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 828b55cb6baf10458feae8f53c04663ef958601e..816987906ca51b8c7eb834d8b850839941eadb6b 100644
---- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -4656,12 +4656,19 @@ mdss_dp: displayport-controller@ae90000 {
- 					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
--				clock-names = "core_iface", "core_aux", "ctrl_link",
--					      "ctrl_link_iface", "stream_pixel";
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK>;
-+				clock-names = "core_iface",
-+					      "core_aux",
-+					      "ctrl_link",
-+					      "ctrl_link_iface",
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
- 				phy-names = "dp";
-diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-index abf12e10d33f1ce5c74e3e9136585bcb0a578492..598d505c8dcf86199f59240e62f6de36e55dfbfd 100644
---- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-@@ -3890,16 +3890,20 @@ mdss_dp: displayport-controller@ae90000 {
- 					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index b0197602c677d49f7833f31d71f72436499bfe84..9fbbd7e09aa54cc5f242052745242ce76493a388 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -4771,16 +4771,20 @@ mdss_dp: displayport-controller@ae90000 {
- 					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-index 9a4207ead6156333b8b6030fb0fbc1d215948041..136f40a3b9767133d6a4fe52753530bccced3391 100644
---- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-@@ -2876,16 +2876,20 @@ mdss_dp: displayport-controller@ae90000 {
- 					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 33574ad706b915136546c7f92c7cd0b8a0d62b7e..da83ac10f70f666fbb836e79a38a4a73a8f9969c 100644
---- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -3431,16 +3431,20 @@ mdss_dp0: displayport-controller@ae90000 {
- 					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 45713d46f3c52487d2638b7ab194c111f58679ce..6ceae0e3165ec9033c8f9f1c0106db874530cc7a 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -3755,16 +3755,20 @@ mdss_dp0: displayport-controller@ae90000 {
- 					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_dp_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_dp_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_dp_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				phys = <&usb_dp_qmpphy QMP_USB43DP_DP_PHY>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index e14d3d778b71bbbd0c8fcc851eebc9df9ac09c31..e4dd8cd33aefba143d92cbcf3ccc3fc1d3f3249c 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -5481,16 +5481,20 @@ mdss_dp0: displayport-controller@af54000 {
- 					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_dp_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_dp_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_dp_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				operating-points-v2 = <&dp_opp_table>;
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100.dtsi b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-index 5e9a8fa3cf96468b12775f91192cbd779d5ce946..17a7c217a2f975f0e71b9b5df5781061e66884b3 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-@@ -5312,16 +5312,20 @@ mdss_dp0: displayport-controller@ae90000 {
- 					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_1_ss0_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_ss0_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_ss0_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				operating-points-v2 = <&mdss_dp0_opp_table>;
-@@ -5395,16 +5399,20 @@ mdss_dp1: displayport-controller@ae98000 {
- 					 <&dispcc DISP_CC_MDSS_DPTX1_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX1_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX1_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DPTX1_PIXEL0_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DPTX1_PIXEL0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX1_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX1_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DPTX1_PIXEL0_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DPTX1_PIXEL0_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX1_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_1_ss1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_ss1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_ss1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				operating-points-v2 = <&mdss_dp1_opp_table>;
-@@ -5478,16 +5486,20 @@ mdss_dp2: displayport-controller@ae9a000 {
- 					 <&dispcc DISP_CC_MDSS_DPTX2_AUX_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX2_LINK_CLK>,
- 					 <&dispcc DISP_CC_MDSS_DPTX2_LINK_INTF_CLK>,
--					 <&dispcc DISP_CC_MDSS_DPTX2_PIXEL0_CLK>;
-+					 <&dispcc DISP_CC_MDSS_DPTX2_PIXEL0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX2_PIXEL1_CLK>;
- 				clock-names = "core_iface",
- 					      "core_aux",
- 					      "ctrl_link",
- 					      "ctrl_link_iface",
--					      "stream_pixel";
-+					      "stream_pixel",
-+					      "stream_1_pixel";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX2_LINK_CLK_SRC>,
--						  <&dispcc DISP_CC_MDSS_DPTX2_PIXEL0_CLK_SRC>;
-+						  <&dispcc DISP_CC_MDSS_DPTX2_PIXEL0_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX2_PIXEL1_CLK_SRC>;
- 				assigned-clock-parents = <&usb_1_ss2_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_ss2_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_ss2_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
- 				operating-points-v2 = <&mdss_dp2_opp_table>;
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+index e153f8d26e7aaec64656570bbec700794651c10f..2735c78b0b67af8c004350f40ca9700c563b75f8 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+@@ -60,7 +60,6 @@ properties:
+           - const: bus
+           - const: core
+           - const: vsync
+-          - const: lut
+           - const: tbu
+           - const: tbu_rt
+         # MSM8996 has additional iommu clock
 
+---
+base-commit: a933d3dc1968fcfb0ab72879ec304b1971ed1b9a
+change-id: 20250809-msm8976-no-lut-4b5100bcfb35
+
+Best regards,
 -- 
-2.39.5
+With best wishes
+Dmitry
 
