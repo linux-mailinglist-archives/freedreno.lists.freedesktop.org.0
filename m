@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45154B20543
-	for <lists+freedreno@lfdr.de>; Mon, 11 Aug 2025 12:26:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26024B2054C
+	for <lists+freedreno@lfdr.de>; Mon, 11 Aug 2025 12:28:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 026F110E423;
-	Mon, 11 Aug 2025 10:26:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF53C10E427;
+	Mon, 11 Aug 2025 10:28:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pWvBRDlF";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="d9sOpvJs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED7910E422
- for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:26:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DCAB10E422
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:28:10 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57B9d8J1000579
- for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:26:34 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57B9d9KZ000631
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:28:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=/4tDhgxFTFm32rKj8OsdQCqN
- y65/pv1+di1cZhSEdpw=; b=pWvBRDlFziWWj5HuLW6H45HJTcZttvz9ESkLk0uM
- NtbaIchPIMRUyLPnyIR695bRbOQWNCjwWRwgAk98kCYBnBk2qh5jQ9es6go3Dgpg
- SX0ssCGAI/alg9bRIIxq88G2InB6hzr1moD5U2QhV8hcyL7P2ZOnVtuws4dAJudD
- P4Vl5Qf8a60HnW3Xrnv7Nj+bn70KreoYJvyxCBy2nKp1EHBjp1VEjRzZoYaV7NRR
- wr8dg/RegWDNJIexQISYO07Ju5oRebJOEov79b/yNy4tD2rXH16OGqiewyhKLbnP
- XhaGft8cga81AclHPne3cWxWUUNOydlCvoPt9MBVsTVZ1A==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dxq6uy1y-1
+ :references:subject:to; s=qcppdkim1; bh=S0wh/vf9/ahF7czkuW2zqdi/
+ QK9zgAaa0tIwnSvWMPo=; b=d9sOpvJshStdAy5fa3QCF2K0LlzG6kYdh0u51C12
+ tq/CY6gep0XLjkozWPaZQAAVnQKqRxdS22XjMpXF9KpTa/xwmJklZcYi58+wVtBz
+ uccjxAgMX3MC0JIAnZBb19FrvZGpx6IfkxOaa+Oaw4McjQGiTFsw+pKUpU8mxJjs
+ 7N8dBL8C/OS0coltbGBCZHdG9r++tckpKwCpGwDM/DS10wGnY6qgBbwKEhy1sYxr
+ kOIn4k/qhvBDr23TfRdX3tXIKif+NCPm8UvNEutjTP9aa6ceDjrb26lTlYkSltQp
+ 1okPKCG5h7mnm9HBgpDlZUdf7Uhjsf8pf+jXYzOJhqBDmw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dxq6uy5k-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:26:34 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4b0a3557d05so87815821cf.2
- for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 03:26:34 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:28:09 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4b08431923dso108038171cf.0
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 03:28:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754907994; x=1755512794;
+ d=1e100.net; s=20230601; t=1754908088; x=1755512888;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/4tDhgxFTFm32rKj8OsdQCqNy65/pv1+di1cZhSEdpw=;
- b=CyoNVAWb7ysIl1jkGqis3+glU6oXAh1xD7wzmrgScklNHvJD8WVm6dk4BUnDz2jFjM
- XX6h0N+6YdJt89S5SJQg1bMYzVbKE1ZgF9P8Are0wdNpWdYFgBj2Z7qgiHIjWh4Pws70
- Ohkh5eLyIEUJHegDAgBaSXju4xH7iMwNyMluSS42/syrwz2CRHM2hs1nHutCtwvNCETX
- STT1o1jirL76dbSHfjvVsksl0/+ggwDmdlSBtnHHY4mpCbIGRua+syxJOuyfYHH3GUJa
- /lny91ZmuqONXCUN9z1PyLq9RDnRZrVtRIbWYIUxZS7KqFnnQnw4FQRdXLFSWT+qPFhW
- 0hsw==
+ bh=S0wh/vf9/ahF7czkuW2zqdi/QK9zgAaa0tIwnSvWMPo=;
+ b=HLCCkBapQZCriTdWJK/f8NCbKCfXUbGSVwJhlSakCMliTrlkqUEYDT78XLGY47IG1l
+ YH0xBaUokUIKrO4lGVqtTYjshONYdR4ORhZdVkgKyq2ZIvJh9REKRtzSuxuWokw54l8v
+ WJ8XWOXoBug18QyY75uXyupUbNP6kjxkj6vj1QlNp6QyEb/mdBD0TPdfcn0m7BBbtGHh
+ /j2KA0AATuuV0P6vAvYAywPmtuZsi2XfI+r3r8MH+fJYDMgGJ2JB7/vq6LU29FVG0Wft
+ 8iypSlwlH8R9tWgQ+ktuCFI7hGlXzbVPEQhy6uOhkDL4sq/VxzTSfwhhn6RRYwF7TxXf
+ hyFQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU8dqFWeeEi7TZ2IHqsyrWUwV2a7KT4IKmAvXGWEeC2c+je6S0OZmjTNxFYl5D7KdFBInzuRR4h9Tw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw4J3Gb/CTb0GhXlVI4/KMfXh2F00gdFxXrvdUEJEGjX1greZLs
- 1XFhGI/wdd6NI99HdRkF/QQkQ7bsPkX/rNC+75yRhppVnbpOjFX9nQzqLcrmZ7iamIl8AOOXLDu
- 6OPy2AVFLUtIKlOYtc56gXEsm8GESG4xv2r+OqL1i2IswLQuQYmzj/0mQoFtto8WmwDNCni8=
-X-Gm-Gg: ASbGncsbcQjYGduEQTWT6j1SmbW0BK9GzTTJ3gRwtA1EAP+sZ29Ww41VboLZ2mjDFg/
- dHtCZi19pWeVin0HNzQPKaVBbZrYo5VyHR0I/8+HdHZPtQJhRJB4S9Z0I0yfGTku9rq+MCBSLM1
- 1jDN2a2hqT0bZpJ4dtLx+mQclutZLx/o7iV3r0WJ7dDNuFyEBU98aJePUNZe9Aa9hmr2Dv6hgNk
- vLisGW/vOwedvjCQkmCqSkekKZSnjeMIdxoWGw9IG3Si0l+biqChH0M18OJicqTVStJ4Hf/NiaD
- EGg9JzPez8lA7/mWU3kpws8k0U2kJDSnDw06JcfjqEtAh3R1T/CoRwxGiaL5v6CNPjyx2tTHujJ
- EGGSFLCm3oVHBpjoh6y5ZlcT3UdRWA7i74G9RM80YHIi/hqo7NUwZ
-X-Received: by 2002:a05:622a:ca:b0:4b0:80c2:6674 with SMTP id
- d75a77b69052e-4b0aec9df57mr160251281cf.26.1754907993655; 
- Mon, 11 Aug 2025 03:26:33 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEBtZfXQ4QunBGnECg8IgNPTThfg2oORkBUD9GYQsf+7kkjIYq2XXmXZ3mbOFg4UkIpF+IRdA==
-X-Received: by 2002:a05:622a:ca:b0:4b0:80c2:6674 with SMTP id
- d75a77b69052e-4b0aec9df57mr160250851cf.26.1754907993170; 
- Mon, 11 Aug 2025 03:26:33 -0700 (PDT)
+ AJvYcCXRyajaSj4BYatGSYDyi6QgwSoN8CQ6Tg67ZRr6KqtO0J/gYAMRJtkUCansVq9pLiM4Ce1CoIJS4bc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywp0uYlaAjr0kMrhmcAvHzUXFxkuqbwaaBToX011VUKOKHMN1G9
+ Qr0fmmb5ODepT5mm23M8l7+nNIG/BOyaO37kzjW+ajFXSoH7EExuvDEbDrGF9LaXfWxyL1BWPjb
+ DDb0ehBponrLXoqf+rGyXBA6+dOeHS3v/Qs1Azy0smpvA3ONtuW9SxeLSlCBC6nE9cok/pNI=
+X-Gm-Gg: ASbGnctoZgsOfAAPHbQg3equuvZdywX8rYRu4vEzTrY7pJwF9xj7/ATcNwoq1SJyyyo
+ wMiUU4pNnzJTm4SUuEEqUv6JHM16YFQ/H7cjBp12UdZJ1DFD18Xp7AzXTAA4glndKYzzy6W0dMM
+ seKfMqfXjBWf7Ogz12Laa6ZN+JNb2x/89JayEGBKwKeD/YzrgvNBZ+Mcs7TZLg9oZMyba3yeEBD
+ BnmgY0AqrebJpN8Z+nw09wxdELHbiYL6iObXc+VWX8iGcNBy3UUTJb1cJtfVigufu5QYKnEzVYI
+ vYZ7cuH0N4l/L8nX5BL2W9r6DCQSGLgFXgE1d0RSPZn2wfrKTudCfRRG9SrYn4uc8IkOId1EtRS
+ 1uBxRkerkDnXoO/bPebsGdrZWZHCpEROayqxx0Qd4KLUYv7JSQ3LX
+X-Received: by 2002:a05:622a:348:b0:4b0:889b:bc5e with SMTP id
+ d75a77b69052e-4b0ca69c598mr83121311cf.22.1754908088380; 
+ Mon, 11 Aug 2025 03:28:08 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGChlYy+rk1d69F1ULSQJbZUJQYjmNVQhVTyYQ4mc1AGZP7o17UaEkItyvfAe/6wocgG6cF7g==
+X-Received: by 2002:a05:622a:348:b0:4b0:889b:bc5e with SMTP id
+ d75a77b69052e-4b0ca69c598mr83120731cf.22.1754908087789; 
+ Mon, 11 Aug 2025 03:28:07 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-332388fef31sm41894971fa.70.2025.08.11.03.26.31
+ 2adb3069b0e04-55b88cabb7fsm4247040e87.146.2025.08.11.03.28.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Aug 2025 03:26:32 -0700 (PDT)
-Date: Mon, 11 Aug 2025 13:26:30 +0300
+ Mon, 11 Aug 2025 03:28:06 -0700 (PDT)
+Date: Mon, 11 Aug 2025 13:28:05 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Suraj Kandpal <suraj.kandpal@intel.com>
 Cc: kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
@@ -92,28 +92,28 @@ Cc: kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
  laurent.pinchart+renesas@ideasonboard.com, mcanal@igalia.com,
  dave.stevenson@raspberrypi.com, tomi.valkeinen+renesas@ideasonboard.com,
  kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com
-Subject: Re: [RFC PATCH 8/8] drm/msm/dpu: Adapt dpu writeback to new
- drm_writeback_connector
-Message-ID: <ag34es6qm4b22qti4hbsju6sk5ny7ixq5fiwtni22vf7tvx5ba@ficntlx6i2hs>
+Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
+ structure
+Message-ID: <g7ny277cnctr3edw53qyutiyv3yxah2m7pulg2u6gud6f2gla6@micq4aliwx3i>
 References: <20250811092707.3986802-1-suraj.kandpal@intel.com>
- <20250811092707.3986802-9-suraj.kandpal@intel.com>
+ <20250811092707.3986802-2-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250811092707.3986802-9-suraj.kandpal@intel.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAyOCBTYWx0ZWRfXxZgO9W2lTX3l
- QtGHTgN+TMXUaTPFDO6Q2IToTSsyqx1uTRKRf+2C/d6zw6ZzJvsX/nhbEJsL1FfBB4pkgKDJphw
- XpZThEuoNDTKkQRjxcemQnW8d+FGs0eiWeEAwfvO/US0vrEFS+c9H7KyB0pMsTlMAKIBk/zshiJ
- hYnnu7mHK7DlutfljT52QegcTP77Y5nzUKSyTN/mnpoDXEM07XbKebJMjE4pbbeAXp/XNAXx+v6
- g9FHaQMSqtPzefqAEZhF3JP8rUTTWHXN4ZwgKBSJpziJnFpOMptccGsds7uYgMn2IwTns/Mc7sy
- 6jrYl7hKKk435G9bHDfYea5XTg7RnonxDEZChdb7KdRAQA2Xlwr2/gnGBBA8BtlGKTij0icIHkL
- q2CTR4SU
-X-Authority-Analysis: v=2.4 cv=QYhmvtbv c=1 sm=1 tr=0 ts=6899c55a cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=QyXUC8HyAAAA:8 a=Fxrl8DOH8qgm06HfJ5gA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: FAFVpRTMECt4IasrqIqFCcroF16CZDM7
-X-Proofpoint-ORIG-GUID: FAFVpRTMECt4IasrqIqFCcroF16CZDM7
+In-Reply-To: <20250811092707.3986802-2-suraj.kandpal@intel.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAyOCBTYWx0ZWRfX7NGCVkfICNm1
+ BDhkcj5FYtZWqr0n6WqoUOVMinpM5tmjGBMWzxwqbYbadI2zBgxS0fsM3eKEhkAH1ySAUvchKRb
+ q1iRPeoEVqyqQQWc94fBOtmPKbepq+xZWzUIIWoQ76erSL7o40IC8ByMSuB9NIrK/DlUbQzCeCz
+ +dAiufc0rXORA+TfqpiQukqYcRIsVn8OOeMNruh+GTXFJ/2iSqu/j662P7jghWq+ZwRb8tgCPCy
+ gu8rq9M57QzaP/LvwVupqAGcT6IwkS4EIh63vhOAe8kR3Eb+8hZFPEPe2QBlA8Ega7GgHowxezJ
+ 5hrDMh1xOgCWGGQFUICFG/TJSKlIQm+yN5Lpwnm1WXw0HX5hXxYf5z8d+TTprcHzYVFjIcLWoj0
+ XYWBjZQe
+X-Authority-Analysis: v=2.4 cv=QYhmvtbv c=1 sm=1 tr=0 ts=6899c5b9 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=QyXUC8HyAAAA:8 a=-zeacxS0QVZa6ZkZsZMA:9 a=CjuIK1q_8ugA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: 0DK5_3ujJhIrtUUtuF-W3sDI6FEi49iQ
+X-Proofpoint-ORIG-GUID: 0DK5_3ujJhIrtUUtuF-W3sDI6FEi49iQ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-11_01,2025-08-06_01,2025-03-28_01
@@ -137,39 +137,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 11, 2025 at 02:57:07PM +0530, Suraj Kandpal wrote:
-> Now that drm_writeback_connector is embedded with the drm_connector
-> adapt the dpu writeback functionality to this changes. This
-> includes changing the drm_writeback_connector to be changed to
-> drm_connector within the dpu_wb_connector.
-> Some other changes are done which are a result of the all the above
-> changes mentioned.
+On Mon, Aug 11, 2025 at 02:57:00PM +0530, Suraj Kandpal wrote:
+> Some drivers cannot work with the current design where the connector
+> is embedded within the drm_writeback_connector such as intel and
+> some drivers that can get it working end up adding a lot of checks
+> all around the code to check if it's a writeback conenctor or not.
+> To solve this we move the drm_writeback_connector within the
+> drm_connector and remove the drm_connector base which was in
+> drm_writeback_connector. We do all other required
+> modifications that come with these changes along with addition
+> of new function which returns the drm_connector when
+> drm_writeback_connector is present.
+> All drivers will be expected to allocate the drm_connector.
 > 
 > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 > ---
->  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c  |  3 ++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c    | 16 +++++++++-------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h    |  4 ++--
->  3 files changed, 13 insertions(+), 10 deletions(-)
+>  drivers/gpu/drm/drm_writeback.c | 33 ++++++++++------
+>  include/drm/drm_connector.h     | 60 +++++++++++++++++++++++++++++
+>  include/drm/drm_writeback.h     | 68 ++++-----------------------------
+>  3 files changed, 89 insertions(+), 72 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> index 56a5b596554d..0e60c1ac07c5 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> @@ -484,7 +484,8 @@ static void dpu_encoder_phys_wb_prepare_for_kickoff(
->  		return;
->  	}
+> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+> index ec2575c4c21b..198b8c488056 100644
+> --- a/drivers/gpu/drm/drm_writeback.c
+> +++ b/drivers/gpu/drm/drm_writeback.c
+> @@ -89,8 +89,10 @@ static const char *drm_writeback_fence_get_driver_name(struct dma_fence *fence)
+>  {
+>  	struct drm_writeback_connector *wb_connector =
+>  		fence_to_wb_connector(fence);
+> +	struct drm_connector *connector =
+> +		drm_writeback_to_connector(wb_connector);
 >  
-> -	drm_conn = &wb_enc->wb_conn->base;
-> +	drm_conn =
-> +		container_of(wb_enc->wb_conn, struct drm_connector, writeback);
-
-Just store drm_connector in dpu_encoder_phys_wb instead of
-drm_writeback_connector.
-
->  	state = drm_conn->state;
+> -	return wb_connector->base.dev->driver->name;
+> +	return connector->dev->driver->name;
+>  }
 >  
->  	if (wb_enc->wb_conn && wb_enc->wb_job)
+>  static const char *
+> @@ -187,7 +189,8 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
+>  					  struct drm_encoder *enc, const u32 *formats,
+>  					  int n_formats)
+>  {
+> -	struct drm_connector *connector = &wb_connector->base;
+> +	struct drm_connector *connector =
+> +		drm_writeback_to_connector(wb_connector);
+>  	struct drm_mode_config *config = &dev->mode_config;
+>  	struct drm_property_blob *blob;
+>  	int ret = create_writeback_properties(dev);
+> @@ -269,7 +272,8 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  				 struct drm_encoder *enc,
+>  				 const u32 *formats, int n_formats)
+>  {
+> -	struct drm_connector *connector = &wb_connector->base;
+> +	struct drm_connector *connector =
+> +		drm_writeback_to_connector(wb_connector);
+
+Please pass drm_connector instead (to all init functions). It would make
+more sense.
+
+>  	int ret;
+>  
+>  	ret = drm_connector_init(dev, connector, con_funcs,
+> @@ -339,7 +343,8 @@ int drmm_writeback_connector_init(struct drm_device *dev,
+>  				  struct drm_encoder *enc,
+>  				  const u32 *formats, int n_formats)
+>  {
+> -	struct drm_connector *connector = &wb_connector->base;
+> +	struct drm_connector *connector =
+> +		drm_writeback_to_connector(wb_connector);
+>  	int ret;
+>  
+>  	ret = drmm_connector_init(dev, connector, con_funcs,
 
 -- 
 With best wishes
