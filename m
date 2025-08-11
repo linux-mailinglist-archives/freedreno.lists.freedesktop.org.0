@@ -2,105 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B6CDB1FCF3
-	for <lists+freedreno@lfdr.de>; Mon, 11 Aug 2025 00:58:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD2B8B2008E
+	for <lists+freedreno@lfdr.de>; Mon, 11 Aug 2025 09:45:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78B1F10E374;
-	Sun, 10 Aug 2025 22:58:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D41E10E2F4;
+	Mon, 11 Aug 2025 07:45:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="D2kM4GYt";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="D4o5i43M";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2UzyeJfD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D84110E375
- for <freedreno@lists.freedesktop.org>; Sun, 10 Aug 2025 22:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1754866692;
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6420110E281;
+ Mon, 11 Aug 2025 07:44:58 +0000 (UTC)
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1754898295;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FbrTb5TIWzNpxLExdP2beMCh0zMQGTK+0dHd5wdG15k=;
- b=D2kM4GYtpy3MRtgGqEIc73oaruJOEH5xA+MD5zSi2oR3aKMcCc9+MdOSLk12qiBL8v5MuB
- NeMIMe4KNmxCPrAGR3TjljxLmpM5GmAmMhj8DTCFuc+TMxy2IUgeTpRCyYzUvKVyx8vBG4
- HNclJAcJUJtyp7KcEl/1RqDeocrY4+s=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-217-zTbCfYg4PdWsXbA5Tuhbiw-1; Sun, 10 Aug 2025 18:58:11 -0400
-X-MC-Unique: zTbCfYg4PdWsXbA5Tuhbiw-1
-X-Mimecast-MFC-AGG-ID: zTbCfYg4PdWsXbA5Tuhbiw_1754866690
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7e809830338so1315959185a.1
- for <freedreno@lists.freedesktop.org>; Sun, 10 Aug 2025 15:58:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754866690; x=1755471490;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=FbrTb5TIWzNpxLExdP2beMCh0zMQGTK+0dHd5wdG15k=;
- b=QoV9Kuu7JsmfJMacq8yXFim7PBWDpWZbU6UMYOEdxKhG1Zbr7KpusBG1kE7zBcuvhu
- taMWm8bWyAi0ZguWN0TRUxlKvifDdr9Ve0vpW54M962DVrlYn6Mui+/yE6m1NR52F7Vx
- 1CDxlxVS6r40Ck5Nntm8Q/rYsgDFIK5pQ66Yw/4xrHnc1HqCon8UFxJ8AdZYT8ZkNOwS
- eaZH4SbaVS/Pp0GHibT5L4CgYkMRbLGSeOZYiaUJpSw6m5UMkzWOIyDlEudNayJq/KnJ
- /85IyxQmXwEdAGeX7SpUzWnn59QL65C/nhOCfnyduspVJH1pgH0qlpwNmbXY0srV2gX8
- Xmqg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU8FzIT2m27/fOOQ/OoNBVvEdeubIEqOkTfd+8stK8G3+jEIbA5S8qjQqfzkFUYA0OxjjkCi6OT/AU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw/6UuMbu6T2c8FfHt2aVWq+8uDGGeP8TqWv0dW/cRxrZroIKc4
- sOe7Bb45AdTzoPEjF10xKZH3vVtRDjfJ/DIXU6ZJnzKhArW6kFcjEAy2Vd9QUCGzxvI5hFJSdXf
- UFViyxy13U5HxQXB276wNIblT3R+LADncguqHUplflgP8UXopCWeK1mFY5DplF0LggQJfpg==
-X-Gm-Gg: ASbGncuyOHh2aHkjN1kJLveWZ+df3CjV8ZhfwtD14+uwuZLmRa2e+EHqyYTqfn2ARXQ
- omVyXjD4t5I1fEPM7gc/YEEJI8Zskvbr6ms4ibDV30JISax9KukV+bRzF0SmX1BiZHrsjrSrBlo
- 5KLNNHIOE8KlZ2jvs2guWTAHUmq0Pbr2nCkKQCrWVzKyq6/duR0t0TOnVH5DLqSbueagzCdYWCn
- tFgFLqf16SfI9joJJ9wvxJ0ILhJdjEzcyOQk9JBk0ZCZW5uKg2Ep9CPJ2KsdNOrqARpDMuOugmt
- yETbA3o2zVRNJjfJ4j8YkFSuIbXpTM4XURj/XJqWA3cV9jE8l863noET8QYOeFOKUJ597eRgo+R
- nZzESdw==
-X-Received: by 2002:a05:6214:2469:b0:707:48b6:bcd4 with SMTP id
- 6a1803df08f44-7099a51356fmr150862556d6.48.1754866690661; 
- Sun, 10 Aug 2025 15:58:10 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGGUGt1AwSBne/o9+rNR3LtSm/WoA2RbHO8v9LNVgg4wnAMJx+OP+IR27C+Pk0SSrEVzMCAAA==
-X-Received: by 2002:a05:6214:2469:b0:707:48b6:bcd4 with SMTP id
- 6a1803df08f44-7099a51356fmr150862326d6.48.1754866690271; 
- Sun, 10 Aug 2025 15:58:10 -0700 (PDT)
-Received: from [10.144.145.224] (c-73-183-52-120.hsd1.pa.comcast.net.
- [73.183.52.120]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-7077cdd9916sm144266336d6.61.2025.08.10.15.58.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 10 Aug 2025 15:58:09 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-Date: Sun, 10 Aug 2025 18:57:31 -0400
-Subject: [PATCH v2 7/7] drm/msm/hdmi_phy_8998: convert from round_rate() to
- determine_rate()
+ content-transfer-encoding:content-transfer-encoding;
+ bh=3yHhcIXpXP2XUzerFjjEaa8c+o1sXQ3vMEvbz0QEGMA=;
+ b=D4o5i43MOpkRlUOFH7cP60q+0t0OIzVxjjuqcnzgYIhdk3cdLVJxytWY+Vl9poEc/hIUa1
+ HK7FP0olLeTk/UCB2M5LgBgRREWdBdlIkktj1DC51waDvPiT7hfCddFfLf43oIQCRoeJAR
+ PEzIFznwgmNM/r5Bn48DV5/qBj8P0uKH7yEAnOcMaouoA+jI6Puhm5Wasgdk94TlqYAVZP
+ xkbk4YCHlZgWqTxb8vIHyIjXe6DkR54yvMWoNF5qgYrg6aFNcqpyRznrTxMN1nuYg5Qqak
+ vJwrSyuQQB1KbKnIy3psA/ocPPK+QQvM6uVWlpnyVL2sL90V+lKfT4nU4VvVvw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1754898295;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=3yHhcIXpXP2XUzerFjjEaa8c+o1sXQ3vMEvbz0QEGMA=;
+ b=2UzyeJfDunSg5QI4TqDV3z2HC0G2CRqfwbdp9m5v/P34EmpCgQGbZU5YheTrCS4SV7cCL3
+ NHc2H7yjPK23h8BA==
+Date: Mon, 11 Aug 2025 09:44:42 +0200
+Subject: [PATCH v3] drm/msm: Don't use %pK through printk
 MIME-Version: 1.0
-Message-Id: <20250810-drm-msm-phy-clk-round-rate-v2-7-0fd1f7979c83@redhat.com>
-References: <20250810-drm-msm-phy-clk-round-rate-v2-0-0fd1f7979c83@redhat.com>
-In-Reply-To: <20250810-drm-msm-phy-clk-round-rate-v2-0-0fd1f7979c83@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20250811-restricted-pointers-drm-v3-1-caadea353b42@linutronix.de>
+X-B4-Tracking: v=1; b=H4sIAGmfmWgC/33NTQ6CMBCG4auQrh3Tlp8WV97DuEA6yCRayLQSD
+ OHuAi5MTHT5fsk8M4mATBjEIZkE40CBOr9EuktE3Vb+ikBuaaGlzmUmM2AMkamO6KDvyEfkAI7
+ vYM3FyLQwZVM5sVz3jA2Nm3w6L91SiB0/t0eDWte3WSj70xwUSDBWoXTW1q7Uxxv5R+TO07h3K
+ FZ30B/L/LM0KEhd2di8KJpSm29rnucXhKB7jw4BAAA=
+X-Change-ID: 20250404-restricted-pointers-drm-87b703679fad
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Abhinav Kumar <abhinav.kumar@linux.dev>, 
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maxime Ripard <mripard@kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754866653; l=1762;
- i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=b3lpeRdsfILZNbKt0s4jDvsKWYmd9ZM6thqzD9ovEpA=;
- b=bPI+bgndtQjl8U/B8CPlCWIm4ICh/KSI/9pQqEc+JGzlNlWdm7ffMObXa6FktebNdwMw2IQ7l
- yRXvUD2K69rChwg8WTjpcfmYgZ91P/5xMLfzNQFm4R78kNC3NkqT/fj
-X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
- pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: cDyLXUHYOYLWFn_CauIrUoofUfRriLF5ApmpB5sVXQQ_1754866690
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754898289; l=4461;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=nPAxLK0kdnoLLvkkz8FkxvMkrjhUSfR8Aw0JOl8BcCA=;
+ b=F9XWlcjzagfHm6pHcUlX/WHfjXUgibbjlJfGVvdhUaHNyxzQAkZaZsmghXKSbIANCepewbySy
+ suALB1eHiaPA86Ktl4CKhSsu4Gb2hYH0ONXzNxqdy5AAbIwiPerIWsJ
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,52 +79,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The round_rate() clk ops is deprecated, so migrate this driver from
-round_rate() to determine_rate() using the Coccinelle semantic patch
-on the cover letter of this series. The change to use clamp_t() was
-done manually.
+In the past %pK was preferable to %p as it would not leak raw pointer
+values into the kernel log.
+Since commit ad67b74d2469 ("printk: hash addresses printed with %p")
+the regular %p has been improved to avoid this issue.
+Furthermore, restricted pointers ("%pK") were never meant to be used
+through printk(). They can still unintentionally leak raw pointers or
+acquire sleeping locks in atomic contexts.
 
-Signed-off-by: Brian Masney <bmasney@redhat.com>
+Switch to the regular pointer formatting which is safer and
+easier to reason about.
+
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+Changes in v3:
+- Rebase on v6.17-rc1
+- Add R-b from Dimtry
+- Link to v2: https://lore.kernel.org/r/20250718-restricted-pointers-drm-v2-1-3d9f8566f927@linutronix.de
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-index 33bb48ae58a2da13b7e90ff419c6e05fec1466af..a86ff370636972168124da19e114f0acab2249d2 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-@@ -646,16 +646,12 @@ static int hdmi_8998_pll_prepare(struct clk_hw *hw)
- 	return 0;
- }
- 
--static long hdmi_8998_pll_round_rate(struct clk_hw *hw,
--				     unsigned long rate,
--				     unsigned long *parent_rate)
-+static int hdmi_8998_pll_determine_rate(struct clk_hw *hw,
-+					struct clk_rate_request *req)
- {
--	if (rate < HDMI_PCLK_MIN_FREQ)
--		return HDMI_PCLK_MIN_FREQ;
--	else if (rate > HDMI_PCLK_MAX_FREQ)
--		return HDMI_PCLK_MAX_FREQ;
--	else
--		return rate;
-+	req->rate = clamp_t(unsigned long, req->rate, HDMI_PCLK_MIN_FREQ, HDMI_PCLK_MAX_FREQ);
-+
-+	return 0;
- }
- 
- static unsigned long hdmi_8998_pll_recalc_rate(struct clk_hw *hw,
-@@ -688,7 +684,7 @@ static int hdmi_8998_pll_is_enabled(struct clk_hw *hw)
- 
- static const struct clk_ops hdmi_8998_pll_ops = {
- 	.set_rate = hdmi_8998_pll_set_clk_rate,
--	.round_rate = hdmi_8998_pll_round_rate,
-+	.determine_rate = hdmi_8998_pll_determine_rate,
- 	.recalc_rate = hdmi_8998_pll_recalc_rate,
- 	.prepare = hdmi_8998_pll_prepare,
- 	.unprepare = hdmi_8998_pll_unprepare,
+Changes in v2:
+- Drop already applied patches
+- Link to v1: https://lore.kernel.org/r/20250618-restricted-pointers-drm-v1-0-781e0d88cd92@linutronix.de
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c | 4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 4 ++--
+ drivers/gpu/drm/msm/msm_mdss.c              | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index d4b545448d74657aafc96e9042c7756654b4f0e7..94912b4708fb5be937f1b3898a5676f7b481bd42 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -596,7 +596,7 @@ static void _dpu_crtc_complete_flip(struct drm_crtc *crtc)
+ 
+ 	spin_lock_irqsave(&dev->event_lock, flags);
+ 	if (dpu_crtc->event) {
+-		DRM_DEBUG_VBL("%s: send event: %pK\n", dpu_crtc->name,
++		DRM_DEBUG_VBL("%s: send event: %p\n", dpu_crtc->name,
+ 			      dpu_crtc->event);
+ 		trace_dpu_crtc_complete_flip(DRMID(crtc));
+ 		drm_crtc_send_vblank_event(crtc, dpu_crtc->event);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+index 11fb1bc54fa92a5d9926addb437bc4b8f283723b..54b20faa0b697e3bf8ad81bd806adb49de98f2b5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+@@ -31,14 +31,14 @@ static void dpu_setup_dspp_pcc(struct dpu_hw_dspp *ctx,
+ 	u32 base;
+ 
+ 	if (!ctx) {
+-		DRM_ERROR("invalid ctx %pK\n", ctx);
++		DRM_ERROR("invalid ctx %p\n", ctx);
+ 		return;
+ 	}
+ 
+ 	base = ctx->cap->sblk->pcc.base;
+ 
+ 	if (!base) {
+-		DRM_ERROR("invalid ctx %pK pcc base 0x%x\n", ctx, base);
++		DRM_ERROR("invalid ctx %p pcc base 0x%x\n", ctx, base);
+ 		return;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 12dcb32b472497f9e59619db4e810abfbf610c7c..a306077647c317af9345eeff13082230906b5767 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1345,7 +1345,7 @@ static int dpu_kms_mmap_mdp5(struct dpu_kms *dpu_kms)
+ 		dpu_kms->mmio = NULL;
+ 		return ret;
+ 	}
+-	DRM_DEBUG("mapped dpu address space @%pK\n", dpu_kms->mmio);
++	DRM_DEBUG("mapped dpu address space @%p\n", dpu_kms->mmio);
+ 
+ 	dpu_kms->vbif[VBIF_RT] = msm_ioremap_mdss(mdss_dev,
+ 						  dpu_kms->pdev,
+@@ -1380,7 +1380,7 @@ static int dpu_kms_mmap_dpu(struct dpu_kms *dpu_kms)
+ 		dpu_kms->mmio = NULL;
+ 		return ret;
+ 	}
+-	DRM_DEBUG("mapped dpu address space @%pK\n", dpu_kms->mmio);
++	DRM_DEBUG("mapped dpu address space @%p\n", dpu_kms->mmio);
+ 
+ 	dpu_kms->vbif[VBIF_RT] = msm_ioremap(pdev, "vbif");
+ 	if (IS_ERR(dpu_kms->vbif[VBIF_RT])) {
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index 1f5fe7811e016909282087176a42a2349b21c9c4..39885b333910bb7aab7f72b9846f49ab16cfe5cc 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -423,7 +423,7 @@ static struct msm_mdss *msm_mdss_init(struct platform_device *pdev, bool is_mdp5
+ 	if (IS_ERR(msm_mdss->mmio))
+ 		return ERR_CAST(msm_mdss->mmio);
+ 
+-	dev_dbg(&pdev->dev, "mapped mdss address space @%pK\n", msm_mdss->mmio);
++	dev_dbg(&pdev->dev, "mapped mdss address space @%p\n", msm_mdss->mmio);
+ 
+ 	ret = msm_mdss_parse_data_bus_icc_path(&pdev->dev, msm_mdss);
+ 	if (ret)
+
+---
+base-commit: 8f5ae30d69d7543eee0d70083daf4de8fe15d585
+change-id: 20250404-restricted-pointers-drm-87b703679fad
+
+Best regards,
 -- 
-2.50.1
+Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 
