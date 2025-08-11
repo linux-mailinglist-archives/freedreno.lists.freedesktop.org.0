@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 737B6B20555
-	for <lists+freedreno@lfdr.de>; Mon, 11 Aug 2025 12:30:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E8C0B2055A
+	for <lists+freedreno@lfdr.de>; Mon, 11 Aug 2025 12:31:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4507710E422;
-	Mon, 11 Aug 2025 10:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00DB410E42C;
+	Mon, 11 Aug 2025 10:31:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AbTh0PHL";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nxd7ThhG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B92B310E427
- for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:30:50 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57B9dBYB025561
- for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:30:50 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 577B010E433
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:31:13 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57B9d864019036
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:31:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=UnmCHPZVrs6fp3g1DtME56zq
- 8DIGelnQr7GBLyjo+J0=; b=AbTh0PHLe6Hqp2GF83C7oLkqY+xVq55GoHfPraLC
- j0nzYRel48zZlDChdvMVVHR2hzfMm+batlJn5gCFSWgYWDzChUfisDZKLkY6vCaA
- JjuWic6QnXKJ2g6RoAUnFptBuh9sW+s4YIHwLdhdhKZN8+x4Fx1oEX0iQpqRxnaU
- ZBzhCI8dFXCgdv8znKcS7AHTCLpzrzZuqCGHLiysVQPP+aGJ60O2pddpOo9r7rfI
- EkuHER38D9Rhz1aPFplGkdo3WP8+Ay5N3BFaqpoaf3gZFIJ+onRvoPIYC41ZCdlc
- EKPyYG1AAkYdweKK4EPOIoLPEzwXXElv2SnANmtSc/gu0Q==
+ :references:subject:to; s=qcppdkim1; bh=/ucSKnN0VabkHBeCyUPOOAp0
+ 1IU9Td+bmPEMlaDwwOU=; b=nxd7ThhG8UiO8u4+aSNd9NxDhUvou3BAn+kuDkqC
+ 0g12KNcGvPLBzZnLa922+aQAbCjy1re5GA0N2LweBkFOLRA+D8uL/VfU3tYcp05c
+ MVYswdGvFgzsWqtoWc90iiEXIOHc2EOv7V2sEd0ekyqZQiohlxdbKUAdzWgib9SS
+ dT96BvYp3AopY15+Xc64JZgnvcudlWTfSJzFvPSDrLbMD06Zp6y9IqlbdiBaRdxB
+ xvpbFvtoFJuFPhFmy22IsFXejAVmNxgtkLd5hw6Ilu4ccGPcecZAlprtTxcdwVPS
+ Yvs61NKR1WVjdbsB8Wm0jz+TrDKP9OGP1NN7OyfQjOeJHw==
 Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
  [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dwb741yw-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dxduv08s-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:30:49 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 10:31:12 +0000 (GMT)
 Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4b0de38c71fso7463841cf.3
- for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 03:30:49 -0700 (PDT)
+ d75a77b69052e-4b08898f776so106832861cf.1
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Aug 2025 03:31:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754908249; x=1755513049;
+ d=1e100.net; s=20230601; t=1754908271; x=1755513071;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UnmCHPZVrs6fp3g1DtME56zq8DIGelnQr7GBLyjo+J0=;
- b=YKi4LnW58y/OuKL/PKj4weN76FMju7wkSimw+gkMUMY2hV/Ok53hS2DufsCd+fiJLx
- EwTpk9o7QOiUS9arF+oSJb1SFHaaON1byhho7MlX2Ntn/+PO2/FHX0HVxYVFJTjw+FEw
- 8sFfpffroHiYdLfQcGlBtuOiWUxFhXbX4+vprHVqAeDlmFihiU0ZCGLwOYWDB0z5b7m8
- orK+2FlvywHmNf7tPKe8gND9qHPr6qnrnXRllYwH6uvcOFf9Wv/JX3mvkP6hgn6A8Tu3
- lp5QbwoBuIWWtBauAzDb82GcjW1pRFXFklUI3x5v0VKjV01RA5iND9TSc9vPIpLRHblM
- Dg9g==
+ bh=/ucSKnN0VabkHBeCyUPOOAp01IU9Td+bmPEMlaDwwOU=;
+ b=UlVm4N2x3GC3VOo0R/QUQ3sUUw20Zw2DjsfWa6VidqzTXvkN58u527ILEYxbr5TIbk
+ bdje6oC+fxjdX8qSn7gy7yQWT+mP8+XNJrcggQgTv3E/vrMUM6iHBOhtdY3ABaqdiwt0
+ /HiWQVpnoX8jdRZm+TLsuCCk2iqVeSvqF4nKABwxRHz1zBXvg5CqQ65VkT8wLYPQUird
+ 3QXOZOJ6GuMPCWbcSTbnmfrFhSB0wQ1JPJzGuzp1WANPRfHvWP4kinPc2jmkTNcl+crO
+ TT8iCqJjpNPvaFE4Nf4XQo4Ti7gcgZ9F5Yc9/m06oOyyhJXGgWRJI7m93sOU3xO5MK2R
+ 3cbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVKTuMa4hXs1A5lhvHR4gJFZUJM/6EY5ZgPFoZzuzU0xpF/CXxx7zxZI2kGA8BJSuv1Pm4+sOgPfhM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywg+aLLMsIRm7kg0InVdoX3BI/OqZnoLU3YKwh0L91uzST0vQhC
- Tow39VNOu9hDpZqQ8gt2vVNnBOtUIdS64vPXYye7rT1q6j3N//3thOmr3M4MTQsEfePbHI7ACJe
- CrEe5a1wtsVPu2AeGQC9OgLAQ6z/7a5o/lkj/gGtyNhJOwu9bmRL7Em2f3zVGr2ktZAXALAY=
-X-Gm-Gg: ASbGncsM/fCgZYPRyLGPalkT9ManOtsUlvHrthFba6Atm//tWKyukcQ0GqyZ3xOZNyJ
- aXUObPriVCuXELkRRwf8UPPnYoyaExh42f8+FqvYzi1S4INbinc7JDZJgo7MbLkUmoy5cKHMl84
- bZAxDLRzSGXSyts4HSo7O9sQLElIJApamFwTDPAAVC1ptk4cqwVGhh6IeHOSpsLPA3AfRw3xkpK
- p5wRGvNKpJXrzpiuXp+KrP4bqCRAri33xvVmcGMWJDtIji735dCw0FZlCkm95lgqy/u1YNK6mgE
- 39ESSrjVBPojnNb2cc7GwztIiKi2ObLmJOh4AuIIM4DyA2nwME3ncK8L1GtBg1vH/lLGA7pnf5N
- 5F8VMNhZfOuhRgdi/K1nj2BOsizrg7D2JefKNGIZSzoGAJkYOauW7
-X-Received: by 2002:ac8:5806:0:b0:4ae:8835:3ae1 with SMTP id
- d75a77b69052e-4b0aed41babmr187408051cf.19.1754908248559; 
- Mon, 11 Aug 2025 03:30:48 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEuf5qtoUnT+tc8B2ICrvl8IAPGTKvOtw3BZsZTanNw0atI/DIbb3U6d2sGEsqxH83orNUAhw==
-X-Received: by 2002:ac8:5806:0:b0:4ae:8835:3ae1 with SMTP id
- d75a77b69052e-4b0aed41babmr187407401cf.19.1754908247969; 
- Mon, 11 Aug 2025 03:30:47 -0700 (PDT)
+ AJvYcCV/cYUnf3ZNALIwdT8+6keXsilcOVxFfnvtO2ig9KXP9BHusIaYZh6K+M1b0YgDoJfgSd1X0fe9S9E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/9nMfdyjsJs4rzvN33QhEfraHKvEoqtr5Ra5WGCiWNx8AStTV
+ IgfOCTkd8AJ2vO4THwqNBJoDXe4rkMs5lu2E/XsfbIHQKdiU0svPJhyBA5HxaioJvYf+BR0a0xF
+ QcZzLKEKtkM6RdBwkZiluF4VD7QhPTRU0Gy2qh+oxCCWgPGYH53cbTzjXA51PGRXY7I5EV/Y=
+X-Gm-Gg: ASbGncumCDaTu01vC8GduB/sZ6w5b9B4+rVZ8PBADR/7Ay8PxlaMLWFFOvl762AeklQ
+ Miludsoc26kBW5UXuhEJEZehUY3kcB1Yq7CgCeEyK7E49J81GOso2eRvfzlGevKUGzCIsALPdHQ
+ xZZxsc1Q/0nWalsJwF5HoWMg7lVAYj2NY5dyMuI67lMZyFbKtXuTxi1Nq7gT9uIkf/s/sOpNvu3
+ hELAw1omPpLa4BYF9j9hYPLeYLTqg1OoRaS5rgYJq2kvMj04idIXbagVYaRiFV4Todsal2O9ghi
+ Q45Pgnsy+nDDynm7hvzRVCypZufR6Vql9HI9yX/Fqv6X6EyXHabLlwOGVxkm70sceg/l1nrQ8vX
+ j99yaFLxtJMyNJVzi6Lei78Bo4uvwbxMSZh1UzaDs5NSxvvQ5cQvw
+X-Received: by 2002:ac8:5956:0:b0:4b0:7581:4dbf with SMTP id
+ d75a77b69052e-4b0aec7e670mr172487681cf.18.1754908271518; 
+ Mon, 11 Aug 2025 03:31:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHcBbTdZISUt9SKxmEFAT76YcvHLLyKJL2uxyoSRdkuIyPT1U4jZXtxIgMb19xtPh+M9uOHug==
+X-Received: by 2002:ac8:5956:0:b0:4b0:7581:4dbf with SMTP id
+ d75a77b69052e-4b0aec7e670mr172487341cf.18.1754908271099; 
+ Mon, 11 Aug 2025 03:31:11 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55ccccf88dcsm938218e87.55.2025.08.11.03.30.37
+ 2adb3069b0e04-55b88caf0ebsm4214962e87.154.2025.08.11.03.31.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Aug 2025 03:30:38 -0700 (PDT)
-Date: Mon, 11 Aug 2025 13:30:36 +0300
+ Mon, 11 Aug 2025 03:31:10 -0700 (PDT)
+Date: Mon, 11 Aug 2025 13:31:08 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Brian Masney <bmasney@redhat.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -87,36 +87,36 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/7] drm/msm/dsi_phy_10nm: convert from round_rate()
+Subject: Re: [PATCH v2 2/7] drm/msm/dsi_phy_14nm: convert from round_rate()
  to determine_rate()
-Message-ID: <conbpmqs2cdgyu2oub57j6oq562yzlfvdkidfbetgsobndya43@wj75ikipfz6x>
+Message-ID: <23yejfrhz3qmi67r63ni7zawmpsawrb3jzn37r4h75s2ax5gki@6ngyqpqlqdez>
 References: <20250810-drm-msm-phy-clk-round-rate-v2-0-0fd1f7979c83@redhat.com>
- <20250810-drm-msm-phy-clk-round-rate-v2-1-0fd1f7979c83@redhat.com>
+ <20250810-drm-msm-phy-clk-round-rate-v2-2-0fd1f7979c83@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250810-drm-msm-phy-clk-round-rate-v2-1-0fd1f7979c83@redhat.com>
-X-Authority-Analysis: v=2.4 cv=K6oiHzWI c=1 sm=1 tr=0 ts=6899c659 cx=c_pps
+In-Reply-To: <20250810-drm-msm-phy-clk-round-rate-v2-2-0fd1f7979c83@redhat.com>
+X-Authority-Analysis: v=2.4 cv=IuYecK/g c=1 sm=1 tr=0 ts=6899c670 cx=c_pps
  a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=20KFwNOVAAAA:8 a=EUspDBNiAAAA:8 a=dIVbyNGrPfH0ZhoiaTEA:9
+ a=2OwXVqhp2XgA:10 a=20KFwNOVAAAA:8 a=EUspDBNiAAAA:8 a=oBXrOfH6mq4iYN50PBoA:9
  a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: TEGS56WDRx50nbN_GxsOhcRgmkbB3nPV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAxMyBTYWx0ZWRfX8MR57722mGLQ
- IluX7pqDir8BY8bwIZDjPOuKantpji8fhxw+wOPoNZ2naD7BbcaxFj5HCFwvZsQTWReElgY9UBD
- fUtUVZTDQWIFYJI1Hrc93+6VW37jsFIx+VUOmOyd7V1Ber00O7WqUk29tfIYWoc5ukb61UUeF+y
- Gqqp5uu/V8BFwcHmp+ym/ZDv3er/RbtvR+FQhAGKpcqTdfx5y7o0IH0G7KPKn5nA6Mj4Q/J45/Y
- /qiI2he2cl4RzPVhKfRUNcZweflWcjra5hMnNVpopl0Sy6ZcuOuq1mQsGS47gGLyppIRaMJOpTK
- 7c7EopqUchemi+jsTKfTJDCE2zSf0ffmMg+Mt+N/n4KQgMCBJ2q2xJVZY+QNSfsnMXSioittkjG
- 0dHAzNjN
-X-Proofpoint-ORIG-GUID: TEGS56WDRx50nbN_GxsOhcRgmkbB3nPV
+X-Proofpoint-ORIG-GUID: mjzq3S34YNfNjlOJZ5yN2ULua4sZlzOl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAyNSBTYWx0ZWRfX7EqRZ93qB0Qf
+ GvhAdioA7nAw6zC19Rm96ShMdFgHAUEuEuIPYlLXNEMHA+z7+21hzXDh5ppn+mzXOy6APuIwlcH
+ Mrf4KRgX3tivqTN+ATlgUA6gmZPtfyMYOF6mXbC2BWFU9Cw6v9+THqP12qZzNVsKa0+BviceGVq
+ cV6Oa7XsAf0UvRGFYAlyfeVPSaz2mz4ylQxDG3lvi/oRSvj3mXOi5pdrUvUUfC6iLbOYeTtWbbP
+ nw7D3hgJE+GijWgjtZQh0eYR7K+g/cujVIS+e5Ysn0/b2SPwlDZwfmZeqLU1YEidb4T3GZA5T5/
+ lib8xEqZdeI4VNYnywaQrKInv/Be1jEnHjlcwCAuZFlwVp3xcOskpCBWL7S+685CAvafAd0FQAT
+ eZFSw86i
+X-Proofpoint-GUID: mjzq3S34YNfNjlOJZ5yN2ULua4sZlzOl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-11_01,2025-08-06_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 spamscore=0 phishscore=0 adultscore=0
- bulkscore=0 clxscore=1015 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508090013
+ impostorscore=0 malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0
+ clxscore=1015 phishscore=0 suspectscore=0 bulkscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508090025
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,7 +132,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Aug 10, 2025 at 06:57:25PM -0400, Brian Masney wrote:
+On Sun, Aug 10, 2025 at 06:57:26PM -0400, Brian Masney wrote:
 > The round_rate() clk ops is deprecated, so migrate this driver from
 > round_rate() to determine_rate() using the Coccinelle semantic patch
 > on the cover letter of this series. The change to use clamp_t() was
@@ -140,54 +140,12 @@ On Sun, Aug 10, 2025 at 06:57:25PM -0400, Brian Masney wrote:
 > 
 > Signed-off-by: Brian Masney <bmasney@redhat.com>
 > ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c | 16 +++++++---------
->  1 file changed, 7 insertions(+), 9 deletions(-)
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 34 +++++++++++++++---------------
+>  1 file changed, 17 insertions(+), 17 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> index af2e30f3f842a0157f161172bfe42059cabe6a8a..ec486ff02c9b5156cdf0902d05464cf57dc9605b 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> @@ -444,21 +444,19 @@ static unsigned long dsi_pll_10nm_vco_recalc_rate(struct clk_hw *hw,
->  	return (unsigned long)vco_rate;
->  }
->  
-> -static long dsi_pll_10nm_clk_round_rate(struct clk_hw *hw,
-> -		unsigned long rate, unsigned long *parent_rate)
-> +static int dsi_pll_10nm_clk_determine_rate(struct clk_hw *hw,
-> +					   struct clk_rate_request *req)
->  {
->  	struct dsi_pll_10nm *pll_10nm = to_pll_10nm(hw);
->  
-> -	if      (rate < pll_10nm->phy->cfg->min_pll_rate)
-> -		return  pll_10nm->phy->cfg->min_pll_rate;
-> -	else if (rate > pll_10nm->phy->cfg->max_pll_rate)
-> -		return  pll_10nm->phy->cfg->max_pll_rate;
-> -	else
-> -		return rate;
-> +	req->rate = clamp_t(unsigned long, req->rate,
-> +			    pll_10nm->phy->cfg->min_pll_rate, pll_10nm->phy->cfg->max_pll_rate);
-
-Nit: I'd prefer if there was an EOL after min_pll_rate, but no need to
-resend it just for the sake of it.
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-
-
-> +
-> +	return 0;
->  }
->  
->  static const struct clk_ops clk_ops_dsi_pll_10nm_vco = {
-> -	.round_rate = dsi_pll_10nm_clk_round_rate,
-> +	.determine_rate = dsi_pll_10nm_clk_determine_rate,
->  	.set_rate = dsi_pll_10nm_vco_set_rate,
->  	.recalc_rate = dsi_pll_10nm_vco_recalc_rate,
->  	.prepare = dsi_pll_10nm_vco_prepare,
-> 
-> -- 
-> 2.50.1
-> 
 
 -- 
 With best wishes
