@@ -2,62 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93496B2145F
-	for <lists+freedreno@lfdr.de>; Mon, 11 Aug 2025 20:30:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58F26B24BB5
+	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 16:16:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A22410E044;
-	Mon, 11 Aug 2025 18:30:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AY6KtuB0";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3724310E1E6;
+	Wed, 13 Aug 2025 14:16:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D421E10E044;
- Mon, 11 Aug 2025 18:30:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B982760051;
- Mon, 11 Aug 2025 18:30:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6AD5C4CEED;
- Mon, 11 Aug 2025 18:30:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754937027;
- bh=ToeU378XNa7mcFjM8LmFCjP4twLYSzkkMioVIdczQs0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AY6KtuB04J369OsmZY5WPLLMHlWxEKtMRYDNHKEnd69l2I5cg7SmoWrcxrGAViOEq
- YqI0agLeXYlF3Vmd7NeIr8m7C64aA2w/pNGvA+XRIEeTDGbVZjediEj9D/Ia3tujcf
- kMg5sGrj+B2PYD4KDGOVFPWa9PoP283rRMlIf8fu1111PhpuyGPenM2Vaaw/H8F/LD
- yX9Vfq2ZY9OPHCmHInwtoJC67o2teJIMv6QBO5ut5FI2i5DTKwNIru8AUKMRki/COv
- Y2ZE+WIMCX5yvK0Nq3Sl7ZV7pbEP8fjyWO0Ts2IwtEi2uC+TnVR7GwaVM3gMwLF/1W
- jxS6lDg0lU9sg==
-Date: Mon, 11 Aug 2025 13:30:24 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Yongxing Mou <quic_yongmou@quicinc.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 5/6] soc: qcom: ubwc: Add QCS8300 UBWC cfg
-Message-ID: <aw6epwnox2shu6tb2btsgnewnhs7ifmur2o7fyuz7ucegtzl4u@57r7q35fxh3n>
-References: <20250806-mdssdt_qcs8300-v6-0-dbc17a8b86af@quicinc.com>
- <20250806-mdssdt_qcs8300-v6-5-dbc17a8b86af@quicinc.com>
- <xfhxrzrzct6n25jtoaacptf2grd44gazfm7fkiyqlhq5bjqujz@bjvacutguagv>
+X-Greylist: delayed 392 seconds by postgrey-1.36 at gabe;
+ Tue, 12 Aug 2025 09:05:18 UTC
+Received: from hs01.dakr.org (hs01.dakr.org [173.249.23.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17F1410E110
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Aug 2025 09:05:18 +0000 (UTC)
+Message-ID: <b0a36f3d-706a-4622-89a1-f88c6255e4fb@dakr.org>
+Date: Tue, 12 Aug 2025 10:58:42 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <xfhxrzrzct6n25jtoaacptf2grd44gazfm7fkiyqlhq5bjqujz@bjvacutguagv>
+Subject: Re: [PATCH v9 14/42] drm/msm: Convert vm locking
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Connor Abbott <cwabbott0@gmail.com>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Danilo Krummrich <dakr@redhat.com>, Rob Clark <robdclark@chromium.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_(?:buf|fence|resv)b"
+ <linux-media@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_(?:buf|fence|resv)b"
+ <linaro-mm-sig@lists.linaro.org>
+References: <20250629201530.25775-1-robin.clark@oss.qualcomm.com>
+ <20250629201530.25775-15-robin.clark@oss.qualcomm.com>
+From: Danilo Krummrich <kernel@dakr.org>
+Content-Language: en-US
+In-Reply-To: <20250629201530.25775-15-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 13 Aug 2025 14:16:28 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,28 +57,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 06, 2025 at 06:32:20AM +0300, Dmitry Baryshkov wrote:
-> On Wed, Aug 06, 2025 at 11:16:49AM +0800, Yongxing Mou wrote:
-> > The QCS8300 supports UBWC 4.0 and 4 channels LP5 memory interface. Use
-> > the SC8280XP as fallback for QCS8300 according to the specification.
-> > 
-> > Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
-> > ---
-> >  drivers/soc/qcom/ubwc_config.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> > 
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> 
-> Bjorn, is there a chance that you'd ack merging this through the msm
-> tree?
+On 6/29/25 10:12 PM, Rob Clark wrote:
+> +	/*
+> +	 * We mostly want to use DRM_GPUVM_RESV_PROTECTED, except that
+> +	 * makes drm_gpuvm_bo_evict() a no-op for extobjs (ie. we loose
+> +	 * tracking that an extobj is evicted) :facepalm:
+> +	 */
 
-Acked-by: Bjorn Andersson <andersson@kernel.org>
+Yeah, it's a consequence of this locking scheme and I really hate it. However,
+you don't entirely loose tracking:
 
-Regards,
-Bjorn
+The next time you call drm_gpuvm_prepare_objects() it will be added to the list
+[1] and hence picked up by subsequent validation through drm_gpuvm_validate().
 
-> 
-> -- 
-> With best wishes
-> Dmitry
+[1] https://elixir.bootlin.com/linux/v6.16/source/drivers/gpu/drm/drm_gpuvm.c#L1154
