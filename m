@@ -2,53 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF94FB24585
-	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 11:36:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF669B2460A
+	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 11:52:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C22A10E1D0;
-	Wed, 13 Aug 2025 09:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A04610E6C3;
+	Wed, 13 Aug 2025 09:52:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="GwpT86EQ";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LSob99fV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACD610E1D0;
- Wed, 13 Aug 2025 09:36:23 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57D6mIvS020477;
- Wed, 13 Aug 2025 09:36:18 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CE6610E6C1;
+ Wed, 13 Aug 2025 09:52:15 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57D6mJsQ025986;
+ Wed, 13 Aug 2025 09:52:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 1s84W2H68M75UiDlQ3DS8fGcXqxpmjW4a9xrs2qxFEg=; b=GwpT86EQtNfPPCAH
- atlxdCocbOcKfDQb4vR5JcmJ++hj9DYO2Y4dKSMcUWvn2pFxQ7dDm6rxYVbHWrj5
- pSA5DSvL5rZUnYydkt2ULC8AlE7xWwNY3jxubqHKgaQPWVaBPftOcyJmNPSdBTRP
- Y+VDKq/QuyzFYa+Gu+lBitunaEDA2r4FkNpXEWDDcZbZpqFYEIIt6k2z54Y3r9BX
- OWMay6P7lrQk1+xJf2uEZXbDNqpS6hUCS+q+xPWkzwxxddni20BtDQ5zxxuvBZjY
- dPxZ2XOOaLniITyWjio5r9v29RKretiu4aJK/SJOWCqtEq8qMnIi8FOe7Q+LWcqS
- DFoN6g==
+ /d2pP3eikutOq1UWe80VMn/eSPyNptjb0CHW7cqF0gk=; b=LSob99fVcCZ2Aj9T
+ SSQZnH2hIt9aC+wlUW8jS7TFoAHBHVnZV16GOsKyIH90kzyVaPst/7qpF9p6Xw6D
+ IYg/qX+xYCc+vJEElYoV9iHCxVuJ78rcJd3kO21hfwHYj3mdcgzqxzrvxOU0RiCM
+ k6mMGMmGrFkjwGSBqiitOheScK/sdZJZkO/XlwLA0LDMF5WMx64Y6u27gDAfBO4k
+ XTAWlMzBFndYz94dzNNJ8Pi5GQ5BpxdX3c9uMMwcVP+JSk0F5xoQ0ygY6pT8n29N
+ 0AD4rqa+f8tHn+NmkdHxkoTPiJphL4x773cnxBV9JAKLRA2pQpVmsEpGLmzE3Cx5
+ cnLy/w==
 Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48eqhx9dpn-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dw9suhy4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Aug 2025 09:36:18 +0000 (GMT)
+ Wed, 13 Aug 2025 09:52:11 +0000 (GMT)
 Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
  [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 57D9aH2P031554
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 57D9qAMD027415
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Aug 2025 09:36:17 GMT
+ Wed, 13 Aug 2025 09:52:10 GMT
 Received: from [10.133.33.43] (10.80.80.8) by nalasex01c.na.qualcomm.com
  (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 13 Aug
- 2025 02:36:12 -0700
-Message-ID: <48c61bce-21e6-488a-b976-da53004b6226@quicinc.com>
-Date: Wed, 13 Aug 2025 17:36:10 +0800
+ 2025 02:52:06 -0700
+Message-ID: <61834162-7e73-4467-9dd7-bfb1dcbd0afb@quicinc.com>
+Date: Wed, 13 Aug 2025 17:52:04 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/38] drm/msm/dp: break up dp_display_enable into two
- parts
+Subject: Re: [PATCH v2 05/38] drm/msm/dp: allow dp_ctrl stream APIs to use any
+ panel passed to it
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 CC: Rob Clark <robin.clark@oss.qualcomm.com>, Abhinav Kumar
  <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
@@ -59,11 +59,11 @@ CC: Rob Clark <robin.clark@oss.qualcomm.com>, Abhinav Kumar
  <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Abhinav
  Kumar" <quic_abhinavk@quicinc.com>
 References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
- <20250609-msm-dp-mst-v2-3-a54d8902a23d@quicinc.com>
- <gwib6zcvkxsxcz222cno5jbvsnt2abdoqfnymlxq7e6c6wdfvn@nlplodnco2sw>
+ <20250609-msm-dp-mst-v2-5-a54d8902a23d@quicinc.com>
+ <5emeno6zpefewmysmmfb6s64mme32pzatgpzeu6hnuzgfi3q4t@i6zpgj5am3ie>
 Content-Language: en-US
 From: Yongxing Mou <quic_yongmou@quicinc.com>
-In-Reply-To: <gwib6zcvkxsxcz222cno5jbvsnt2abdoqfnymlxq7e6c6wdfvn@nlplodnco2sw>
+In-Reply-To: <5emeno6zpefewmysmmfb6s64mme32pzatgpzeu6hnuzgfi3q4t@i6zpgj5am3ie>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -72,27 +72,27 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODEwMDA1NyBTYWx0ZWRfX4PdcXcukTa2P
- URMhVEhBNdNH725gJHQm0vGR0aEeaLNImRkDguUmL5r5fYiFpPLbNe+0BoW5ww6l4R8ZXjXAVBM
- UEZkkCsCiqBQwi1LwPMGHSYEt9aDAeNIbl9nvPzQXPahqF9meO2VIIJ8QC52/Jdc8F/SS332uhs
- 4aEYZyW1/Mki/Rl7wq70tmiHs4cbGZv983fUo2JKRQXIbGJZOyBFbcMMJqIOsmonxSjsgTG7loM
- mCul9tZ8mJXjt4qeQiN9Y29fpZ6asybU4J/Ad8aCY473c3S7ubvodXIS/reBJNlBQdTAKTRfN2l
- dr/3JwBoBlxOZjDBk2g1G84lBEfRiEVUICTh/ChWLGDfWVeF+4EZHc6tIv6w8e13e4iJsonJa+d
- 2I8bJagW
-X-Proofpoint-GUID: tVZXj0YtTUN59EnYnrCn4GhSGQZ26VXV
-X-Authority-Analysis: v=2.4 cv=aYNhnQot c=1 sm=1 tr=0 ts=689c5c92 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=J+Wq7BnS c=1 sm=1 tr=0 ts=689c604b cx=c_pps
  a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8
- a=a1Dkl4VKOg0tngf4JrsA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: tVZXj0YtTUN59EnYnrCn4GhSGQZ26VXV
+ a=OfSDUUBKtISxzcSHUPkA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: SRDXNu8u84Es_D1A1GKQUbyd49YvZ4mw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAxNSBTYWx0ZWRfX8JBF8/npCHTC
+ TZqUScWbE06e6FTKxynDSopYo6ByTRIMJgIpKLdqrweUdFnHUBzYk0ggTCBMK+k7bYchdc8UbRL
+ /+qquySH0ANA+BgwW25iFhc2++qxjbjzEzaBfeWdb0pfzrtj8UW8ViMR1tT+TCgm0WRubziy+Y3
+ QoVhQ0bkqf6/1+0PWh96QSBIpw81Li0RtdK2c0JY2Y5J8T9KLOEHB40CVTSulaD1aFRQaYygNUN
+ 23eM75+LWsc+REk3ZKRQmVrdMR7lP+r3ntqXOSfn39PMgFaK3d1er+txRIRWRCS7OYac5zLCuUO
+ 713DPW4ubtjdD+OCQra+c1YoWY1UmNXAfe5HkS3RentIZ7C62jR83J65f844QEw0tz3pqfFq7xy
+ lyG5ipjN
+X-Proofpoint-GUID: SRDXNu8u84Es_D1A1GKQUbyd49YvZ4mw
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-12_08,2025-08-11_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 phishscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508100057
+ priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ phishscore=0 suspectscore=0 spamscore=0 clxscore=1015 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508090015
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,342 +110,232 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 2025/6/9 20:59, Dmitry Baryshkov wrote:
-> On Mon, Jun 09, 2025 at 08:21:22PM +0800, Yongxing Mou wrote:
+On 2025/6/9 21:12, Dmitry Baryshkov wrote:
+> On Mon, Jun 09, 2025 at 08:21:24PM +0800, Yongxing Mou wrote:
 >> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 >>
->> dp_display_enable() currently re-trains the link if needed
->> and then enables the pixel clock, programs the controller to
->> start sending the pixel stream. Splite these two parts into
->> prepare/enable APIs, to support MST bridges_enable inserte
-> 
-> typos
-> 
->> the MST payloads funcs between enable stream_clks and programe
->> register.
+>> Currently, the dp_ctrl stream APIs operate on their own dp_panel
+>> which is cached inside the dp_ctrl's private struct. However with MST,
+>> the cached panel represents the fixed link and not the sinks which
+>> are hotplugged. Allow the stream related APIs to work on the panel
+>> which is passed to them rather than the cached one. For SST cases,
+>> this shall continue to use the cached dp_panel.
 >>
 >> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 >> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
 >> ---
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 57 +++++++++++++--------
->>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  3 +-
->>   drivers/gpu/drm/msm/dp/dp_display.c | 99 +++++++++++++++++++++++++++----------
->>   drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->>   4 files changed, 111 insertions(+), 49 deletions(-)
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 37 ++++++++++++++++++++-----------------
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  5 +++--
+>>   drivers/gpu/drm/msm/dp/dp_display.c |  4 ++--
+>>   3 files changed, 25 insertions(+), 21 deletions(-)
+> 
+> I think previous review comments got ignored. Please step back and
+> review them. Maybe I should ask you to go back to v1 and actually check
+> all the review comments there?
+> 
+Sorry for that.. i will check all the comments again.. thanks
 >>
 >> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> index a50bfafbb4ea85c114c958ea0ed24362a1f23136..1e13ca81b0155a37a4ed7a2e83c918293d703a37 100644
+>> index 1ce3cca121d0c56b493e282c76eb9202371564cf..aee8e37655812439dfb65ae90ccb61b14e6e261f 100644
 >> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
 >> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> @@ -1980,40 +1980,61 @@ static int msm_dp_ctrl_link_retrain(struct msm_dp_ctrl_private *ctrl)
->>   	return msm_dp_ctrl_setup_main_link(ctrl, &training_step);
+>> @@ -135,7 +135,8 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   	drm_dbg_dp(ctrl->drm_dev, "mainlink off\n");
 >>   }
 >>   
->> -int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train)
->> +int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train)
+>> -static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
+>> +static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl,
+>> +				    struct msm_dp_panel *msm_dp_panel)
+>>   {
+>>   	u32 config = 0, tbd;
+>>   	const u8 *dpcd = ctrl->panel->dpcd;
+>> @@ -143,7 +144,7 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
+>>   	/* Default-> LSCLK DIV: 1/4 LCLK  */
+>>   	config |= (2 << DP_CONFIGURATION_CTRL_LSCLK_DIV_SHIFT);
+>>   
+>> -	if (ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
+>> +	if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
+>>   		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
+>>   
+>>   	/* Scrambler reset enable */
+>> @@ -151,7 +152,7 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
+>>   		config |= DP_CONFIGURATION_CTRL_ASSR;
+>>   
+>>   	tbd = msm_dp_link_get_test_bits_depth(ctrl->link,
+>> -			ctrl->panel->msm_dp_mode.bpp);
+>> +			msm_dp_panel->msm_dp_mode.bpp);
+>>   
+>>   	config |= tbd << DP_CONFIGURATION_CTRL_BPC_SHIFT;
+>>   
+>> @@ -174,20 +175,21 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
+>>   	msm_dp_catalog_ctrl_config_ctrl(ctrl->catalog, config);
+>>   }
+>>   
+>> -static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl)
+>> +static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl,
+>> +						struct msm_dp_panel *msm_dp_panel)
+>>   {
+>>   	u32 cc, tb;
+>>   
+>>   	msm_dp_catalog_ctrl_lane_mapping(ctrl->catalog);
+>>   	msm_dp_catalog_setup_peripheral_flush(ctrl->catalog);
+>>   
+>> -	msm_dp_ctrl_config_ctrl(ctrl);
+>> +	msm_dp_ctrl_config_ctrl(ctrl, msm_dp_panel);
+>>   
+>>   	tb = msm_dp_link_get_test_bits_depth(ctrl->link,
+>> -		ctrl->panel->msm_dp_mode.bpp);
+>> +		msm_dp_panel->msm_dp_mode.bpp);
+>>   	cc = msm_dp_link_get_colorimetry_config(ctrl->link);
+>>   	msm_dp_catalog_ctrl_config_misc(ctrl->catalog, cc, tb);
+>> -	msm_dp_panel_timing_cfg(ctrl->panel);
+>> +	msm_dp_panel_timing_cfg(msm_dp_panel);
+>>   }
+>>   
+>>   /*
+>> @@ -1317,7 +1319,7 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
+>>   	u8 assr;
+>>   	struct msm_dp_link_info link_info = {0};
+>>   
+>> -	msm_dp_ctrl_config_ctrl(ctrl);
+>> +	msm_dp_ctrl_config_ctrl(ctrl, ctrl->panel);
+> 
+> Could you please explain, when is it fine to use ctrl->panel and when it
+> is not? Here you are passing msm_dp_panel to configure DP link for link
+> training. I don't think we need the panel for that, so just using
+> ctrl->panel here is incorrect too.
+> 
+Emm, If we need to program registers related to the pixel clock or DP 
+link with MST(all of them need pass the stream_id to determine the 
+register address), we should pass in msm_dp_panel. If we're only 
+programming the other parts not related to the stream_id, passing in 
+ctrl->panel is sufficient.
+here in link tranning, it's right, we actually don't need to pass in the 
+panel. But since in msm_dp_ctrl_config_ctrl, we will write config to 
+DP0/DP1 CONFIGURATION_CTRL, even mst2/mst3 link CONFIGURATION_CTRL. and 
+this func will also been called in msm_dp_ctrl_configure_source_params. 
+so we need add ctrl->panel here.
+>>   
+>>   	link_info.num_lanes = ctrl->link->link_params.num_lanes;
+>>   	link_info.rate = ctrl->link->link_params.rate;
+>> @@ -1735,7 +1737,8 @@ static bool msm_dp_ctrl_send_phy_test_pattern(struct msm_dp_ctrl_private *ctrl)
+>>   	return success;
+>>   }
+>>   
+>> -static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl)
+>> +static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl,
+>> +						struct msm_dp_panel *msm_dp_panel)
+>>   {
+>>   	int ret;
+>>   	unsigned long pixel_rate;
+>> @@ -1759,7 +1762,7 @@ static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl
+>>   		return ret;
+>>   	}
+>>   
+>> -	pixel_rate = ctrl->panel->msm_dp_mode.drm_mode.clock;
+>> +	pixel_rate = msm_dp_panel->msm_dp_mode.drm_mode.clock;
+>>   	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
+>>   	if (ret) {
+>>   		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
+>> @@ -1797,7 +1800,7 @@ void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   
+>>   	if (sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {
+>>   		drm_dbg_dp(ctrl->drm_dev, "PHY_TEST_PATTERN request\n");
+>> -		if (msm_dp_ctrl_process_phy_test_request(ctrl)) {
+>> +		if (msm_dp_ctrl_process_phy_test_request(ctrl, ctrl->panel)) {
+>>   			DRM_ERROR("process phy_test_req failed\n");
+>>   			return;
+>>   		}
+>> @@ -2015,7 +2018,7 @@ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_li
+>>   	return ret;
+>>   }
+>>   
+>> -int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
+>> +int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *msm_dp_panel)
 >>   {
 >>   	int ret = 0;
->> -	bool mainlink_ready = false;
->>   	struct msm_dp_ctrl_private *ctrl;
->> -	unsigned long pixel_rate;
->> -	unsigned long pixel_rate_orig;
->>   
->>   	if (!msm_dp_ctrl)
->>   		return -EINVAL;
+>>   	bool mainlink_ready = false;
+>> @@ -2028,9 +2031,9 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
 >>   
 >>   	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
 >>   
 >> -	pixel_rate = pixel_rate_orig = ctrl->panel->msm_dp_mode.drm_mode.clock;
->> -
+>> +	pixel_rate = pixel_rate_orig = msm_dp_panel->msm_dp_mode.drm_mode.clock;
+>>   
 >> -	if (msm_dp_ctrl->wide_bus_en || ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
->> -		pixel_rate >>= 1;
->> -
->> -	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%lu\n",
->> -		ctrl->link->link_params.rate,
->> -		ctrl->link->link_params.num_lanes, pixel_rate);
->> +	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d\n",
->> +		   ctrl->link->link_params.rate,
->> +		   ctrl->link->link_params.num_lanes);
-> 
-> Please don't mix whitespace changes with the actual code changes. It
-> makes reviewing the patch much harder.
-> 
+>> +	if (msm_dp_ctrl->wide_bus_en || msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
+>>   		pixel_rate >>= 1;
 >>   
->>   	drm_dbg_dp(ctrl->drm_dev,
->> -		"core_clk_on=%d link_clk_on=%d stream_clk_on=%d\n",
->> -		ctrl->core_clks_on, ctrl->link_clks_on, ctrl->stream_clks_on);
->> +		   "core_clk_on=%d link_clk_on=%d stream_clk_on=%d\n",
->> +		   ctrl->core_clks_on, ctrl->link_clks_on, ctrl->stream_clks_on);
+>>   	drm_dbg_dp(ctrl->drm_dev, "pixel_rate=%lu\n", pixel_rate);
+>> @@ -2058,12 +2061,12 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   	 */
+>>   	reinit_completion(&ctrl->video_comp);
 >>   
->>   	if (!ctrl->link_clks_on) { /* link clk is off */
->>   		ret = msm_dp_ctrl_enable_mainlink_clocks(ctrl);
->>   		if (ret) {
->>   			DRM_ERROR("Failed to start link clocks. ret=%d\n", ret);
->> -			goto end;
->> +			return ret;
->>   		}
->>   	}
+>> -	msm_dp_ctrl_configure_source_params(ctrl);
+>> +	msm_dp_ctrl_configure_source_params(ctrl, msm_dp_panel);
 >>   
->> +	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl))
->> +		msm_dp_ctrl_link_retrain(ctrl);
->> +
->> +	/* stop txing train pattern to end link training */
->> +	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
->> +
->> +	return ret;
->> +}
->> +
->> +int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
->> +{
->> +	int ret = 0;
->> +	bool mainlink_ready = false;
->> +	struct msm_dp_ctrl_private *ctrl;
->> +	unsigned long pixel_rate;
->> +	unsigned long pixel_rate_orig;
->> +
->> +	if (!msm_dp_ctrl)
->> +		return -EINVAL;
->> +
->> +	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
->> +
->> +	pixel_rate = pixel_rate_orig = ctrl->panel->msm_dp_mode.drm_mode.clock;
->> +
->> +	if (msm_dp_ctrl->wide_bus_en || ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
->> +		pixel_rate >>= 1;
->> +
->> +	drm_dbg_dp(ctrl->drm_dev, "pixel_rate=%lu\n", pixel_rate);
->> +
->>   	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
->>   	if (ret) {
->>   		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
->> @@ -2031,12 +2052,6 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train
->>   		ctrl->stream_clks_on = true;
->>   	}
+>>   	msm_dp_catalog_ctrl_config_msa(ctrl->catalog,
+>>   		ctrl->link->link_params.rate,
+>>   		pixel_rate_orig,
+>> -		ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420);
+>> +		msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420);
 >>   
->> -	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl))
->> -		msm_dp_ctrl_link_retrain(ctrl);
->> -
->> -	/* stop txing train pattern to end link training */
->> -	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
->> -
->>   	/*
->>   	 * Set up transfer unit values and set controller state to send
->>   	 * video.
+>>   	msm_dp_ctrl_setup_tr_unit(ctrl);
+>>   
+>> @@ -2081,7 +2084,7 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   	return ret;
+>>   }
+>>   
+>> -void msm_dp_ctrl_clear_vsc_sdp_pkt(struct msm_dp_ctrl *msm_dp_ctrl)
+>> +void msm_dp_ctrl_clear_vsc_sdp_pkt(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *dp_panel)
+>>   {
+>>   	struct msm_dp_ctrl_private *ctrl;
+>>   
 >> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
->> index b7abfedbf5749c25877a0b8ba3af3d8ed4b23d67..42745c912adbad7221c78f5cecefa730bfda1e75 100644
+>> index edbe5766db74c4e4179141d895f9cb85e514f29b..fbe458c5a17bda0586097a61d925f608d99f9224 100644
 >> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
 >> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
->> @@ -18,7 +18,8 @@ struct msm_dp_ctrl {
+>> @@ -18,7 +18,7 @@ struct msm_dp_ctrl {
 >>   struct phy;
 >>   
 >>   int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl);
->> -int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train);
->> +int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl);
->> +int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *dp_ctrl, bool force_link_train);
->>   void msm_dp_ctrl_off_link_stream(struct msm_dp_ctrl *msm_dp_ctrl);
+>> -int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl);
+>> +int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *msm_dp_panel);
+>>   int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *dp_ctrl, bool force_link_train);
 >>   void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl);
 >>   void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl);
+>> @@ -41,7 +41,8 @@ void msm_dp_ctrl_config_psr(struct msm_dp_ctrl *msm_dp_ctrl);
+>>   int msm_dp_ctrl_core_clk_enable(struct msm_dp_ctrl *msm_dp_ctrl);
+>>   void msm_dp_ctrl_core_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl);
+>>   
+>> -void msm_dp_ctrl_clear_vsc_sdp_pkt(struct msm_dp_ctrl *msm_dp_ctrl);
+>> +void msm_dp_ctrl_clear_vsc_sdp_pkt(struct msm_dp_ctrl *msm_dp_ctrl,
+>> +				   struct msm_dp_panel *msm_dp_panel);
+>>   void msm_dp_ctrl_psm_config(struct msm_dp_ctrl *msm_dp_ctrl);
+>>   void msm_dp_ctrl_reinit_phy(struct msm_dp_ctrl *msm_dp_ctrl);
+>>   
 >> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 9d2db9cbd2552470a36a63f70f517c35436f7280..5ac5dcf35b789f2bda052a2c17aae20aa48d8e18 100644
+>> index a5ca498cb970d0c6a4095b0b7fc6269c2dc3ad31..17ccea4047500848c4fb3eda87a10e29b18e0cfb 100644
 >> --- a/drivers/gpu/drm/msm/dp/dp_display.c
 >> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -831,7 +831,37 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
->>   	return 0;
->>   }
->>   
->> -static int msm_dp_display_enable(struct msm_dp_display_private *dp, bool force_link_train)
->> +static int msm_dp_display_prepare(struct msm_dp_display_private *dp)
->> +{
->> +	int rc = 0;
->> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
->> +	bool force_link_train = false;
->> +
->> +	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
->> +	if (msm_dp_display->prepared) {
->> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
->> +		return 0;
->> +	}
-> 
-> How can it be prepared here? It is called at the beginning of the
-> .atomic_enable() only, so there is no way this can be true.
-> 
-Emm, sorry for forget this case.. Whern MST enabled, 
-msm_dp_display_prepare() will be called from 
-mst_bridge_atomic_pre_enable, that means, when second stream called this 
-func, it already prepared, so we should skip here. so this condition 
-will really hit in MST case..
->> +
->> +	rc = pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
->> +	if (rc) {
->> +		DRM_ERROR("failed to pm_runtime_resume\n");
->> +		return rc;
->> +	}
->> +
->> +	if (dp->hpd_state == ST_CONNECTED && !msm_dp_display->power_on) {
->> +		msm_dp_display_host_phy_init(dp);
->> +		force_link_train = true;
->> +	}
->> +
->> +	rc = msm_dp_ctrl_prepare_stream_on(dp->ctrl, force_link_train);
->> +	if (!rc)
->> +		msm_dp_display->prepared = true;
->> +
->> +	return rc;
->> +}
->> +
->> +static int msm_dp_display_enable(struct msm_dp_display_private *dp)
->>   {
->>   	int rc = 0;
->>   	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
->> @@ -842,7 +872,7 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp, bool force_l
+>> @@ -872,7 +872,7 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp)
 >>   		return 0;
 >>   	}
 >>   
->> -	rc = msm_dp_ctrl_on_stream(dp->ctrl, force_link_train);
->> +	rc = msm_dp_ctrl_on_stream(dp->ctrl);
+>> -	rc = msm_dp_ctrl_on_stream(dp->ctrl);
+>> +	rc = msm_dp_ctrl_on_stream(dp->ctrl, dp->panel);
 >>   	if (!rc)
 >>   		msm_dp_display->power_on = true;
 >>   
->> @@ -872,13 +902,10 @@ static int msm_dp_display_post_enable(struct msm_dp *msm_dp_display)
->>   	return 0;
->>   }
+>> @@ -925,7 +925,7 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
+>>   	if (!msm_dp_display->power_on)
+>>   		return 0;
 >>   
->> -static int msm_dp_display_disable(struct msm_dp_display_private *dp)
->> +static void msm_dp_display_audio_notify_disable(struct msm_dp_display_private *dp)
->>   {
->>   	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>> -	msm_dp_ctrl_clear_vsc_sdp_pkt(dp->ctrl);
+>> +	msm_dp_ctrl_clear_vsc_sdp_pkt(dp->ctrl, dp->panel);
 >>   
->> -	if (!msm_dp_display->power_on)
->> -		return 0;
->> -
->>   	/* wait only if audio was enabled */
->>   	if (msm_dp_display->audio_enabled) {
->>   		/* signal the disconnect event */
->> @@ -889,6 +916,14 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
->>   	}
->>   
->>   	msm_dp_display->audio_enabled = false;
->> +}
->> +
->> +static int msm_dp_display_disable(struct msm_dp_display_private *dp)
->> +{
->> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
->> +
->> +	if (!msm_dp_display->power_on)
->> +		return 0;
->>   
+>>   	/* dongle is still connected but sinks are disconnected */
 >>   	if (dp->link->sink_count == 0) {
->>   		/*
->> @@ -1506,9 +1541,8 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
->>   	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(drm_bridge);
->>   	struct msm_dp *dp = msm_dp_bridge->msm_dp_display;
->>   	int rc = 0;
->> +
->>   	struct msm_dp_display_private *msm_dp_display;
->> -	u32 hpd_state;
->> -	bool force_link_train = false;
->>   
->>   	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
->>   
->> @@ -1516,29 +1550,23 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
->>   		msm_dp_hpd_plug_handle(msm_dp_display, 0);
->>   
->>   	mutex_lock(&msm_dp_display->event_mutex);
->> -	if (pm_runtime_resume_and_get(&dp->pdev->dev)) {
->> -		DRM_ERROR("failed to pm_runtime_resume\n");
->> -		mutex_unlock(&msm_dp_display->event_mutex);
->> -		return;
->> -	}
->>   
->> -	hpd_state = msm_dp_display->hpd_state;
->> -	if (hpd_state == ST_DISCONNECT_PENDING) {
->> +	rc = msm_dp_display_prepare(msm_dp_display);
->> +	if (rc) {
->> +		DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
->>   		mutex_unlock(&msm_dp_display->event_mutex);
->>   		return;
->>   	}
->>   
->> -	if (hpd_state == ST_CONNECTED && !dp->power_on) {
->> -		msm_dp_display_host_phy_init(msm_dp_display);
->> -		force_link_train = true;
->> -	}
->> -
->> -	msm_dp_display_enable(msm_dp_display, force_link_train);
->> -
->> -	rc = msm_dp_display_post_enable(dp);
->> -	if (rc) {
->> -		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
->> -		msm_dp_display_disable(msm_dp_display);
->> +	if (dp->prepared) {
->> +		rc = msm_dp_display_enable(msm_dp_display);
->> +		if (rc)
->> +			DRM_ERROR("DP display enable failed, rc=%d\n", rc);
->> +		rc = msm_dp_display_post_enable(dp);
->> +		if (rc) {
->> +			DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
->> +			msm_dp_display_disable(msm_dp_display);
->> +		}
->>   	}
->>   
->>   	/* completed connection */
->> @@ -1560,6 +1588,20 @@ void msm_dp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
->>   	msm_dp_ctrl_push_idle(msm_dp_display->ctrl);
->>   }
->>   
->> +static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
->> +{
->> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
->> +
->> +	if (!msm_dp_display->prepared) {
->> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
->> +		return;
->> +	}
-> 
-> Why/ how is it possible?
-> 
->> +
->> +	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
->> +
->> +	msm_dp_display->prepared = false;
->> +}
->> +
->>   void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
->>   				       struct drm_atomic_state *state)
->>   {
->> @@ -1580,6 +1622,8 @@ void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
->>   		drm_dbg_dp(dp->drm_dev, "type=%d wrong hpd_state=%d\n",
->>   			   dp->connector_type, hpd_state);
->>   
->> +	msm_dp_display_audio_notify_disable(msm_dp_display);
->> +
->>   	msm_dp_display_disable(msm_dp_display);
->>   
->>   	hpd_state =  msm_dp_display->hpd_state;
->> @@ -1588,9 +1632,10 @@ void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
->>   		msm_dp_display->hpd_state = ST_DISCONNECTED;
->>   	}
->>   
->> +	msm_dp_display_unprepare(msm_dp_display);
->> +
->>   	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", dp->connector_type);
->>   
->> -	pm_runtime_put_sync(&dp->pdev->dev);
->>   	mutex_unlock(&msm_dp_display->event_mutex);
->>   }
->>   
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
->> index cc6e2cab36e9c0b1527ff292e547cbb4d69fd95c..2394840e9f28e136705004c3e6af93fbe13c33c5 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
->> @@ -19,6 +19,7 @@ struct msm_dp {
->>   	bool link_ready;
->>   	bool audio_enabled;
->>   	bool power_on;
->> +	bool prepared;
->>   	unsigned int connector_type;
->>   	bool is_edp;
->>   	bool internal_hpd;
 >>
 >> -- 
 >> 2.34.1
