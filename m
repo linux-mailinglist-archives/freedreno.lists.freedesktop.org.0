@@ -2,119 +2,142 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6F83B2522E
-	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 19:40:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82139B252FF
+	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 20:26:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B843210E034;
-	Wed, 13 Aug 2025 17:40:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFD910E785;
+	Wed, 13 Aug 2025 18:26:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WZHLL5AQ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="U1ZMJpOr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFDB610E03A
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 17:40:29 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57DBLfDS031964
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 17:40:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- SGOnx8wASardlLmh6F+MJ3xLLydD3abWl/e37ujFDdw=; b=WZHLL5AQnirT0KJQ
- 1IJe83vJhzUs/s44Jt9JxckEh+IY5kC5OixiGT+CLmR1z37ANq7EwwVaiUeN+4S7
- 0aCWLW4gZJkrqSdxLm1dQp7XYaWcSEvEw+vjMzimZHhiZeW2P/ZV7inhrnFo7dKI
- G7vZgD+2LFYLvqtx0kcx5FVmksOKvN03zMDNFXecKKnLlikeQci8YdlkLyDi4SVF
- ib7JdMiyEGZpH4tssw7jZ5qP6Vb3eb8xB2wkzCiaktGdyjDzAbdr1AV3Apocvv96
- MRGcpOT7wjh8Aa24mo9X3wRXSdfRqUP6ue3UUQ71yiuF2Gd39D60epy5GvpZYZjT
- zGbLKw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48fem4gqe7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 17:40:28 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4b109c8804dso3351071cf.3
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 10:40:28 -0700 (PDT)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA1B10E785
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 18:26:04 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-afcb731ca55so2710866b.0
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 11:26:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1755109562; x=1755714362; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=PG2XQ09YxGQDAljbZJ1dBpExZdNgeyI6Zcz42FxK4Mc=;
+ b=U1ZMJpOrft3cozDssIDJkq8Wg3AJQaJOcqxJXbn2ARzJqeXa7StOKLSKkmFYe0PVtP
+ CtxSOUCIpkKb2d4qcr1pWQCzy6tkcgIoekKf6sqYFfU63Im7zb6OCCdmot6TdxozeV8I
+ SCv6Qa2rOrGkMy/ROlxx/gSUT16OzbEAad1IdrQeSyAg+gQcI0beXRGcf604HLV3WjXk
+ ic9jGK8GEog1Pgu5NzAr2fhTP+ebGGOLQ0ZTvhrE9VQNc50ZHkbQv/ye/aUdnuAMwLqC
+ lFkMXaz5qwGM1LarBhYu5yvYMYOTnz2nr2Xx0IkUO+RE4zgjbtInzwLrM6vAsbMiKsM1
+ fFqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755106828; x=1755711628;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SGOnx8wASardlLmh6F+MJ3xLLydD3abWl/e37ujFDdw=;
- b=mzkYMxOVn0DJx/YU543aeE6voj44ZKN6k47Pqet9SrMr9jJapnKjB5jLB28DguceVS
- Hlp3TWzBtbd3K3CT3y4EICAphrYlpB+qD90aii1Tnj84V3XWX+s6oNl6sFEgw2h1KOM8
- qPX8XE4tamqlT9/CXA4qYqt3JiO4zQYnpKtTiTviYnE3GJZignFfs6kxuwkQrVYlGuwi
- MhsKxR9cRJdN5cDcYDv2yfAGGmHMiXuaJl1/H5QgGvq6YdMR7ENAi2scHR9dE+stlov0
- Iki6tEVzmuOKxLNC14isvQ0GjozvlqnXbaNzroJYPj7sxmzGZsaWYPp9/0N3+p1sDssB
- 10yQ==
+ d=1e100.net; s=20230601; t=1755109562; x=1755714362;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=PG2XQ09YxGQDAljbZJ1dBpExZdNgeyI6Zcz42FxK4Mc=;
+ b=wVcIOVB0JVomOfMj/JyN5S3uiGpqbh6X9k7wbDXMVjuijfzt0/Z19c44zs2aDF+ZiI
+ J7oqRLoNRS35V3Ak1i+bXGw+gKOZ4+PJFUgMfaMtnjhR1GhG96+Kc4rCmLgDFXIDpppZ
+ pw03b3eQZUXUhymOaWl+uvOaK6zs0vIDOQ7adjOSQr7ZS60ESqdVtecMSc5rQjeSAa62
+ uv5MyASxLk3rxeSLcUB1gAOuKdHfgoMQsn9GhlArXwVDG7OiH3Mf8VzFEgJYeIPkPnZl
+ 9/8vT7EsZniKWC2K3/oFKuyh64lOnf+s8KBZOSiXnxKgRPc5hCCVR2CiI6of63IXgB4S
+ R9yA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVQ5KLIr41lYKgT1M4crNlY0wGJeR0YuYXUyhVkF4vGduodOrpFR8gr5xUuyBXfdAtioYuP0QS0pi4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSTTd0mIMmnR5zPdqosh8462UgE7VFhq+YPET3hSZ+mPU899kv
- hKW6Nf6quv5vQgZT//wfwvgwumHOnDGbusX6YV/OCpuvdwaYNADwuE2ZTb9hDb5NM2gFIry3cE8
- l3ssSUcVBJXV1pL8OQa+0cXU9uaVlYrzBqZfT+NjBvg00lMLIIWrmpiUyGXkqEnFV/MOSol0=
-X-Gm-Gg: ASbGncur7VvN/3e07UEuG5xS3499F8U8AEFOV3sqQ053B85QBq5NbwI0PC/xtBcqr2M
- UBIUvNATaYDZHewcoX6rlAhKxk7HRSS4sfL+I1vw4sBs6iHdXc5php+W0qiYQHbhEGSVFEV8Zmu
- yfuFkdk/Bq6PJf3bk+BLNJkXgWpLQn7RQ2SOssVfoy1uREYdO0HDSKza9I2KBF5VXZ3U3EwmmiM
- Q8DjfUILg7Co8aycG+ODQseiVUlulDZKYn7NugaCW16D9AGEzhWZ4BlElnK5wKLlQnU9NOkAJP4
- UevJySzCt/TOJMJnjX6nk7oBUaf9D0TE+SaHi7Is2Z6ywB+D9X3urAYmsQa5koSdO4CwzIxm8b5
- kpWPzItgjrH5yBprsYZ7wVA4gwiaafL3DodhvTbzwZTQ8DzNljX6v
-X-Received: by 2002:a05:622a:1826:b0:4b0:80c7:ba32 with SMTP id
- d75a77b69052e-4b10aa6b551mr698341cf.38.1755106827918; 
- Wed, 13 Aug 2025 10:40:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFGSYwB2jPhXDGF7QnvYQoWrDeEZN5VgRz2fGxMg00AQDFPHwe889FhEH4ieuMEs9en12IG6Q==
-X-Received: by 2002:a05:622a:1826:b0:4b0:80c7:ba32 with SMTP id
- d75a77b69052e-4b10aa6b551mr697831cf.38.1755106827256; 
- Wed, 13 Aug 2025 10:40:27 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCWoQsgtq78VCWvfi//u7jxnltD34rT61XKKGA48DO83AYc1lm6x8MaWJO1yCpevMKFyZ4yJ9rUgyFU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZhtpQ07DipUFcPJQHVMmAlLkeqGZp2wLgkXicJ42OigRd+4XA
+ z2HzpvS6+/8NgKj/xkU7yqhrVfBzrUx6YaHqobqOge4o2NiY9d+8RvlwBf8C5LXFrco=
+X-Gm-Gg: ASbGncsCq2SBSZBDIwgQpZsGqh8ElMhpB+0zWyAdbXwmly6AVKXDDIN3MTMaD2/Dpnl
+ VztBKP+/MNKH5PZUN04ZBfJ3nTJx/0sjru9xmv58M4kpqkaSvJhkm1OceUrZ83D4jI6ddO2IZ1s
+ R3ABN83au3XUpwtk40P/dAj5yTwURh/UfuBdkP4VbgLVxnnYsk0h74y4tJT5unih2EQ3JTxvrMN
+ tG3mdGd1f1tpoe38GNeMrWdWHoxO9UMUiDJsZrADX20iprNCzvif2WSUkrafh/viUCvPmO4FJPz
+ GX7HpOiniHOugcGDDnXAiv+bwtHliro1B2njuxcVVHZmR8wDZkyIkdPusEiAP01S29RThm+Nanc
+ zE/gE3HBkUVeNW1SMtBBxuIK0iEIjPzxxGQMiFni+XVM=
+X-Google-Smtp-Source: AGHT+IFaN9KUjjqPxBrud3j7rI49y4RZJJQ73wRUqjRKrKs4uhIrrRPKHQ6crcL+1sNOlr+nwDLI0Q==
+X-Received: by 2002:a17:907:d88:b0:ae3:5d47:634 with SMTP id
+ a640c23a62f3a-afcb98e24d8mr8259266b.9.1755109562455; 
+ Wed, 13 Aug 2025 11:26:02 -0700 (PDT)
+Received: from [192.168.1.29] ([178.197.219.123])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b8898bd63sm5375446e87.20.2025.08.13.10.40.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Aug 2025 10:40:26 -0700 (PDT)
-Date: Wed, 13 Aug 2025 20:40:24 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Chenyuan Yang <chenyuan0y@gmail.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- tglx@linutronix.de, krzysztof.kozlowski@linaro.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: Add a null ptr check for
- dpu_encoder_needs_modeset
-Message-ID: <2rtdf7azwluus757f3azwjacoiqussnoxfqqxtr3p3l4l7rkrt@dbk5pfdglugu>
-References: <20250722211740.3697191-1-chenyuan0y@gmail.com>
- <ciawdvjevycjjuowmykfux2v25lvr66kzey4jklq7t5cjzqalj@qfcva77k2bvr>
- <CALGdzurR2XPoai8qshTX6hzgF-zLQ-FrsWxu5NGjrkjNzWaHaQ@mail.gmail.com>
+ a640c23a62f3a-af91a0766f9sm2488355966b.24.2025.08.13.11.26.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Aug 2025 11:26:01 -0700 (PDT)
+Message-ID: <c0864d4f-fede-4d2e-8f93-c52d870adb5d@linaro.org>
+Date: Wed, 13 Aug 2025 20:25:59 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CALGdzurR2XPoai8qshTX6hzgF-zLQ-FrsWxu5NGjrkjNzWaHaQ@mail.gmail.com>
-X-Proofpoint-GUID: vzLQlkpgh09fU4aq1spHQMkMmkEtF7aL
-X-Proofpoint-ORIG-GUID: vzLQlkpgh09fU4aq1spHQMkMmkEtF7aL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODExMDA2OCBTYWx0ZWRfX8um4AH+M2iej
- bTU63fu33yF/xd1zVtzxSMEsX1PKubZ6aRktnMP5vGZMf1x0me/HVOaFU+OfdGaonKFy3EBS5sl
- AiXB6j4kR7a8CIdolAtipS5FnM4Qf/aRVria6uHGfqclWewczHqyQH7GiCNS3VHppHV7oTXIMQc
- P7AhUgwXjqnPgrsdPYuYzom0YQZrWuYEFJp/yI+Chx5ErJ7lKK+cjRWtEIUxBlvqMr+l3/UzL9Z
- 9IgGS6F7sRWs/C7og+0w+g0jTRNvXK/Gj/JMcWJQUublE0CKgmQJd5nSMArR5QTz7ugd/zfRYOU
- BCaZeFF2ENeZZNBQDdynloKz15q1fWeGwYPqxe7xMCYzK87Lvff7NaNKDAkrdeAmtdORuKTWvUy
- 5JmjXvdM
-X-Authority-Analysis: v=2.4 cv=YMafyQGx c=1 sm=1 tr=0 ts=689cce0c cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=jpGDCbsBDmrldJ3tXloA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-13_01,2025-08-11_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 priorityscore=1501 spamscore=0 suspectscore=0
- adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508110068
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 06/17] drm/msm/dsi/phy: Toggle back buffer resync after
+ preparing PLL
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Abel Vesa <abel.vesa@linaro.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
+ <20250610-b4-sm8750-display-v6-6-ee633e3ddbff@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ 2+47PN9NZAOyb771QoVr8A==
+In-Reply-To: <20250610-b4-sm8750-display-v6-6-ee633e3ddbff@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,56 +153,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jul 23, 2025 at 12:43:06PM -0700, Chenyuan Yang wrote:
-> On Wed, Jul 23, 2025 at 12:05 PM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >
-> > On Tue, Jul 22, 2025 at 04:17:40PM -0500, Chenyuan Yang wrote:
-> > > The drm_atomic_get_new_connector_state() can return NULL if the
-> > > connector is not part of the atomic state. Add a check to prevent
-> > > a NULL pointer dereference.
-> > >
-> > > This follows the same pattern used in dpu_encoder_update_topology()
-> > > within the same file, which checks for NULL before using conn_state.
-> > >
-> > > Signed-off-by: Chenyuan Yang <chenyuan0y@gmail.com>
-> > > Fixes: 1ce69c265a53 ("drm/msm/dpu: move resource allocation to CRTC")
-> > > ---
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > index c0ed110a7d30..4bddb9504796 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > @@ -729,6 +729,8 @@ bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_st
-> > >               return false;
-> > >
-> > >       conn_state = drm_atomic_get_new_connector_state(state, connector);
-> > > +     if (!conn_state)
-> > > +             return false;
-> >
-> > Did this happen in a real case or is it just
-> > yet-another-static-analysys?
+On 10/06/2025 16:05, Krzysztof Kozlowski wrote:
+> According to Hardware Programming Guide for DSI PHY, the retime buffer
+> resync should be done after PLL clock users (byte_clk and intf_byte_clk)
+> are enabled.  Downstream also does it as part of configuring the PLL.
 > 
-> This is a static-analysis detected bug.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
-
+> Driver was only turning off the resync FIFO buffer, but never bringing it
+> on again.
 > 
-> > >
-> > >       /**
-> > >        * These checks are duplicated from dpu_encoder_update_topology() since
-> > > --
-> > > 2.34.1
-> > >
-> >
-> > --
-> > With best wishes
-> > Dmitry
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
 
--- 
-With best wishes
-Dmitry
+
+BTW, this and two other fixes from this thread were for some reason not
+picked up.
+
+One fix got comments, but it does not stop rest of the fixes,
+considering they were reviewed.
+
+Best regards,
+Krzysztof
