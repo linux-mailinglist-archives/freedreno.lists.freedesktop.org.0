@@ -2,142 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82139B252FF
-	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 20:26:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88744B25379
+	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 20:58:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFD910E785;
-	Wed, 13 Aug 2025 18:26:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61C4410E0BB;
+	Wed, 13 Aug 2025 18:58:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="U1ZMJpOr";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DFEjAHz3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA1B10E785
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 18:26:04 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-afcb731ca55so2710866b.0
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 11:26:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755109562; x=1755714362; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=PG2XQ09YxGQDAljbZJ1dBpExZdNgeyI6Zcz42FxK4Mc=;
- b=U1ZMJpOrft3cozDssIDJkq8Wg3AJQaJOcqxJXbn2ARzJqeXa7StOKLSKkmFYe0PVtP
- CtxSOUCIpkKb2d4qcr1pWQCzy6tkcgIoekKf6sqYFfU63Im7zb6OCCdmot6TdxozeV8I
- SCv6Qa2rOrGkMy/ROlxx/gSUT16OzbEAad1IdrQeSyAg+gQcI0beXRGcf604HLV3WjXk
- ic9jGK8GEog1Pgu5NzAr2fhTP+ebGGOLQ0ZTvhrE9VQNc50ZHkbQv/ye/aUdnuAMwLqC
- lFkMXaz5qwGM1LarBhYu5yvYMYOTnz2nr2Xx0IkUO+RE4zgjbtInzwLrM6vAsbMiKsM1
- fFqQ==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3AF410E0BB
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 18:58:36 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57DBLeS4012188
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 18:58:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ +QJUUbiVzNJcnH/bipGMN08GPCP4aDShS4aNk4HTRcc=; b=DFEjAHz3mT5UXaKE
+ g1jXU/JHSVoL1fyko7kVxmuxILen6yK3+RB7rBTdqEwV9OMCHSn9MTH+9uf6t1Dq
+ q1/6EP+0MExN/p05QGe7QZgm7YriVgoS0IrDSGSanoPep1JgEiFh9q1zK9O3DQHh
+ NnaKpZWqewjcB055sa/9OU5qacmKGf0N0KoPHS6N8mRFaggwk2GiXVpZcg+9ZkCG
+ 6LjLzSn/B0A2fv023p9Fdbalomu92whZfhDYJTOJK9RfFPsx38zhuT3dxb3CIfyv
+ g+2lc6VfoWK4fQGuBRDUtAJ2+8Nz0uNai7byw+VwCpqVekmi0RuMMdUVrETFm7xU
+ XAXAng==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48eqhxb3kc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 18:58:36 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-b471754bd26so39582a12.3
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 11:58:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755109562; x=1755714362;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PG2XQ09YxGQDAljbZJ1dBpExZdNgeyI6Zcz42FxK4Mc=;
- b=wVcIOVB0JVomOfMj/JyN5S3uiGpqbh6X9k7wbDXMVjuijfzt0/Z19c44zs2aDF+ZiI
- J7oqRLoNRS35V3Ak1i+bXGw+gKOZ4+PJFUgMfaMtnjhR1GhG96+Kc4rCmLgDFXIDpppZ
- pw03b3eQZUXUhymOaWl+uvOaK6zs0vIDOQ7adjOSQr7ZS60ESqdVtecMSc5rQjeSAa62
- uv5MyASxLk3rxeSLcUB1gAOuKdHfgoMQsn9GhlArXwVDG7OiH3Mf8VzFEgJYeIPkPnZl
- 9/8vT7EsZniKWC2K3/oFKuyh64lOnf+s8KBZOSiXnxKgRPc5hCCVR2CiI6of63IXgB4S
- R9yA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWoQsgtq78VCWvfi//u7jxnltD34rT61XKKGA48DO83AYc1lm6x8MaWJO1yCpevMKFyZ4yJ9rUgyFU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZhtpQ07DipUFcPJQHVMmAlLkeqGZp2wLgkXicJ42OigRd+4XA
- z2HzpvS6+/8NgKj/xkU7yqhrVfBzrUx6YaHqobqOge4o2NiY9d+8RvlwBf8C5LXFrco=
-X-Gm-Gg: ASbGncsCq2SBSZBDIwgQpZsGqh8ElMhpB+0zWyAdbXwmly6AVKXDDIN3MTMaD2/Dpnl
- VztBKP+/MNKH5PZUN04ZBfJ3nTJx/0sjru9xmv58M4kpqkaSvJhkm1OceUrZ83D4jI6ddO2IZ1s
- R3ABN83au3XUpwtk40P/dAj5yTwURh/UfuBdkP4VbgLVxnnYsk0h74y4tJT5unih2EQ3JTxvrMN
- tG3mdGd1f1tpoe38GNeMrWdWHoxO9UMUiDJsZrADX20iprNCzvif2WSUkrafh/viUCvPmO4FJPz
- GX7HpOiniHOugcGDDnXAiv+bwtHliro1B2njuxcVVHZmR8wDZkyIkdPusEiAP01S29RThm+Nanc
- zE/gE3HBkUVeNW1SMtBBxuIK0iEIjPzxxGQMiFni+XVM=
-X-Google-Smtp-Source: AGHT+IFaN9KUjjqPxBrud3j7rI49y4RZJJQ73wRUqjRKrKs4uhIrrRPKHQ6crcL+1sNOlr+nwDLI0Q==
-X-Received: by 2002:a17:907:d88:b0:ae3:5d47:634 with SMTP id
- a640c23a62f3a-afcb98e24d8mr8259266b.9.1755109562455; 
- Wed, 13 Aug 2025 11:26:02 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.219.123])
+ d=1e100.net; s=20230601; t=1755111514; x=1755716314;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+QJUUbiVzNJcnH/bipGMN08GPCP4aDShS4aNk4HTRcc=;
+ b=ZrU2H5BdS1lqnhexMKHKCe56Awu/hkt9DG3kJ/geW3Db12k+7ZmKgcVGhgdx0OBcwD
+ YN3w+wf8MxLIASM801Q1cLTcnlUbZaw+QvR2IUynA+Ygkw1vXqiobAmY3RA0v6cs65aX
+ EWCz+iWCjUej4wlT8o6LRR3kAfWovMB1uX66dfaarfjTZijc2o4geylH15G8Q8zr++/5
+ Tw2IjbIV6cggWJDMWqBEORkyROAwsN2yYLVSVAL3msuPBuGQncrmqjsx3nOfogURoykl
+ NvXGPTf+AcRP8pFpgXDFL8c9Xch/4QNjb/A6XV3PdZu9l8khXaICPD+DJePQVLHVBVT7
+ Inog==
+X-Gm-Message-State: AOJu0Yxn77NSOBe9rrTi8mW9bHhekvIe1VkXDvQPLQB5PNulAkB9uzyx
+ qg7mMda+xkiIJ7Px9aXLrNHWoNBm9tTvQdurywHyjWNBjgGeohMs9fAZIa94ZIXIWqxIBRPb6fx
+ AnnbxD/Wl5ATCsN10Fo8rxUZTGC9F68NFndKwFHWG75vOwm2BuUHxP9AMdndTEfoXpfBHOSPYOg
+ R3uNY=
+X-Gm-Gg: ASbGncs6npMn3S1WrCwhG0isl+jfEFwk0Jy95/dgZ+dtx6ViDajRnDGUz1oIT764nkK
+ fnnZikyyxDIC+eN5UDfjTv0yhLsUOxFsuX+VQ0NsFlNWoXUGyUpsrU+6f/B1gTj48iXsMCwrgo9
+ qdrmMZdeXR2K+YtyLHQDs1ukBFI3f742ssFNXM3BcxpTRWjYJhEqPwAVyOoVzP5kPJ1B5Rt+pAF
+ MjV/RusqDk5O+0R7T4m5AhSY6TXYpXzn/mpAyZBQbMqAcq4bTBH0YmfxCBXx2bCaNm6KAhy7zW9
+ fi/bIQpZfp/+uG6IDX96WM5Pq0M4DIHkBEsUkwPIJtZYdQvC0YwrRqQn9ByogeQ=
+X-Received: by 2002:a17:903:2b0f:b0:234:8ec1:4af6 with SMTP id
+ d9443c01a7336-244586d5141mr2215935ad.45.1755111514511; 
+ Wed, 13 Aug 2025 11:58:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHqQz3FOqUUKIy3tpw4V8Krf1DP5+DVOyw/qS9U7w/w2Q37+PWx8bvSmB8kfJzTMyTFWA8ipA==
+X-Received: by 2002:a17:903:2b0f:b0:234:8ec1:4af6 with SMTP id
+ d9443c01a7336-244586d5141mr2215725ad.45.1755111514030; 
+ Wed, 13 Aug 2025 11:58:34 -0700 (PDT)
+Received: from [192.168.1.5] ([106.222.235.33])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0766f9sm2488355966b.24.2025.08.13.11.26.00
+ d9443c01a7336-241e899a8cdsm332263865ad.121.2025.08.13.11.58.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Aug 2025 11:26:01 -0700 (PDT)
-Message-ID: <c0864d4f-fede-4d2e-8f93-c52d870adb5d@linaro.org>
-Date: Wed, 13 Aug 2025 20:25:59 +0200
+ Wed, 13 Aug 2025 11:58:33 -0700 (PDT)
+Message-ID: <cdd4757f-9433-4c80-b5b2-003d42038a87@oss.qualcomm.com>
+Date: Thu, 14 Aug 2025 00:28:31 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/17] drm/msm/dsi/phy: Toggle back buffer resync after
- preparing PLL
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Abel Vesa <abel.vesa@linaro.org>, Srinivas Kandagatla <srini@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org>
- <20250610-b4-sm8750-display-v6-6-ee633e3ddbff@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [bug report] drm/msm/adreno: Add support for ACD
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: freedreno@lists.freedesktop.org
+References: <aJTL87hBAEtJb3VT@stanley.mountain>
+ <2d54964b-1f60-4a58-8064-567611a3a126@oss.qualcomm.com>
+ <aJwnNqfxZHfiVHZB@stanley.mountain>
 Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- 2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <20250610-b4-sm8750-display-v6-6-ee633e3ddbff@linaro.org>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+In-Reply-To: <aJwnNqfxZHfiVHZB@stanley.mountain>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODEwMDA1NyBTYWx0ZWRfX272vPBbZ4NFR
+ 50Q7n2BF/Df1yzQ/LNNKtoCT7I1+/lXuIhDsfMbsxXx4uKQNXliEQNyN2VLGXhp8ApA5CZUMeUr
+ 6MZaYIz0e9qnOo997ayjIzJDnKBigO6W2qeMhl9mWEAt5+zMIeNV4xa9ms/FCWMCfOy5VRJQe/4
+ nW0Kl+TEzSjMzOy5WJzS/AC2cQccUaszvU44jpt+zD7QrXwh2hBxzR1sObxwuVNgzAbs4DsL8E7
+ +JBG4JUTnqcpBj12Lqy0pLTKkuLQamQuYj9o5Jq6TskiVMlga7pFa7r+RJyiMGtqv2DLIj+qS+Q
+ JNQlNDqCjXycJBFsN4N270IBvUpGsB71JBs410upNItTspFxHjegZXLZFxkmjLuJmNaJbJOm0gk
+ RElmSyRh
+X-Proofpoint-GUID: VKRw5lsr-X_qSC6g61DdKXHyGq0BByyN
+X-Authority-Analysis: v=2.4 cv=aYNhnQot c=1 sm=1 tr=0 ts=689ce05c cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=geSN8yY6MFID4zSGlH7RRw==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=hUEC3-M51WLkc8_fCi8A:9
+ a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-ORIG-GUID: VKRw5lsr-X_qSC6g61DdKXHyGq0BByyN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-13_01,2025-08-11_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 phishscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508100057
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,24 +121,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/06/2025 16:05, Krzysztof Kozlowski wrote:
-> According to Hardware Programming Guide for DSI PHY, the retime buffer
-> resync should be done after PLL clock users (byte_clk and intf_byte_clk)
-> are enabled.  Downstream also does it as part of configuring the PLL.
+On 8/13/2025 11:18 AM, Dan Carpenter wrote:
+> On Fri, Aug 08, 2025 at 10:28:38PM +0530, Akhil P Oommen wrote:
+>> On 8/7/2025 9:23 PM, Dan Carpenter wrote:
+>>> Hello Akhil P Oommen,
+>>>
+>>> Commit b733fe7bff8b ("drm/msm/adreno: Add support for ACD") from Apr
+>>> 19, 2025 (linux-next), leads to the following Smatch static checker
+>>> warning:
+>>>
+>>> 	drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1700 a6xx_gmu_acd_probe()
+>>> 	error: 'opp' dereferencing possible ERR_PTR()
+>>>
+>>> drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>>     1668 static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
+>>>     1669 {
+>>>     1670         struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
+>>>     1671         struct a6xx_hfi_acd_table *cmd = &gmu->acd_table;
+>>>     1672         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+>>>     1673         struct msm_gpu *gpu = &adreno_gpu->base;
+>>>     1674         int ret, i, cmd_idx = 0;
+>>>     1675         extern bool disable_acd;
+>>>     1676 
+>>>     1677         /* Skip ACD probe if requested via module param */
+>>>     1678         if (disable_acd) {
+>>>     1679                 DRM_DEV_ERROR(gmu->dev, "Skipping GPU ACD probe\n");
+>>>     1680                 return 0;
+>>>     1681         }
+>>>     1682 
+>>>     1683         cmd->version = 1;
+>>>     1684         cmd->stride = 1;
+>>>     1685         cmd->enable_by_level = 0;
+>>>     1686 
+>>>     1687         /* Skip freq = 0 and parse acd-level for rest of the OPPs */
+>>>     1688         for (i = 1; i < gmu->nr_gpu_freqs; i++) {
+>>>     1689                 struct dev_pm_opp *opp;
+>>>     1690                 struct device_node *np;
+>>>     1691                 unsigned long freq;
+>>>     1692                 u32 val;
+>>>     1693 
+>>>     1694                 freq = gmu->gpu_freqs[i];
+>>>     1695                 opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, freq, true);
+>>>                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>>> No error checking.
+>>
+>> We are passing back a freq which we pulled out from the opp_table a few
+>> lines before this. So it is unlikely that this call would fail.
+>>
+>> But it is okay to add a check here if that would make Smatch checker happy.
+>>
 > 
-> Driver was only turning off the resync FIFO buffer, but never bringing it
-> on again.
+> No, no, just ignore it, if it can't fail.
 > 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
+> Or I can add dev_pm_opp_find_freq_exact() to the "no need to check" list.
+> That's easy to do.
 
+Would that make Smatch ignore usage of "dev_pm_opp_find_freq_exact()" in
+other code/drivers? If yes, we may not want that.
 
-BTW, this and two other fixes from this thread were for some reason not
-picked up.
+-Akhil
 
-One fix got comments, but it does not stop rest of the fixes,
-considering they were reviewed.
+> 
+> regards,
+> dan carpenter
+> 
+> 
 
-Best regards,
-Krzysztof
