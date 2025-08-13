@@ -2,206 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08172B24684
-	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 12:04:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D187B248E8
+	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 13:57:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D19E910E6D4;
-	Wed, 13 Aug 2025 10:04:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F283C10E4EE;
+	Wed, 13 Aug 2025 11:57:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SbESFdfS";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="loiZe62l";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC7210E6D2;
- Wed, 13 Aug 2025 10:04:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1755079467; x=1786615467;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=ZtkETacaJI4IQWUrcTL8/1bZ8SNYUZ4XLw6sw4BMlRg=;
- b=SbESFdfSBcza+wAZOmDb4PNcQgM0MpRMHNOm/fO0+KtlYzKj0+As8aif
- qmmXYVLdy0GvnpExr8MmfTRVk004c8NUOY5KveqOLiTAnhFYUSAUzS1ZO
- G07beO90w21HT99QuMJKoFsfLS6rX+6vAs7yMoMsTZXacUzR1t+IwuSiu
- GIbADxqMvaeCNGJftrlki+GfaBlVCiIbJN12rB6+MTR8A4LZmyOIqRVJ/
- +FzWyOc8suYIl9/ONeRVgKkMcQaDvQk1+fRPrN7m1YjbevDomMm5OnPxi
- AMUn9IYb7CmgUg589yDRtiuFHWjgWHNv2Ri+FD5g2fEAb68o7rG6ysWUT Q==;
-X-CSE-ConnectionGUID: YWXNypYYQLKYLYIRwonHuA==
-X-CSE-MsgGUID: 4WJiqmQeSgCNh4hIuao9qg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11520"; a="57270692"
-X-IronPort-AV: E=Sophos;i="6.17,285,1747724400"; d="scan'208";a="57270692"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2025 03:04:26 -0700
-X-CSE-ConnectionGUID: borcEQNhSSSEx6gAAG8jlg==
-X-CSE-MsgGUID: X/gNl/N1TXeWXXkfdoC5Kg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,285,1747724400"; d="scan'208";a="197289297"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2025 03:04:26 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 13 Aug 2025 03:04:26 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17 via Frontend Transport; Wed, 13 Aug 2025 03:04:26 -0700
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (40.107.96.88) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.26; Wed, 13 Aug 2025 03:04:26 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hQg325TvqcxCqoYYxWmnP4aC0ujfwpKYRmHDCTgGBoONc/loAFq5taVCE0MFtti49LFrJUuPCVDWwe/iVBye9/aJJFWvLOmEDAQNeEJ16/qc2t6IOa1dE/6OY7Sc7ktGs3rm9Xw8nyZ3RnOvFGIhNbhc3Es2f4e8YUHZSYq+Ee4cmGza31tdthEaZ8VXHzrDYfuma2mlwTR1vRXG2eTCVuLSa5VV/qv9Z6g2+NER1DiFprnYFrl74CBNRd4TWMUaZNeYwIy6JxnDyTPLa3C3PD+2FqvSJkZ4YAkPr2wJ3sBGGZ6VApeuEWOGSudDVXKblyvgVWUkcvI78A/GTj/NfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZtkETacaJI4IQWUrcTL8/1bZ8SNYUZ4XLw6sw4BMlRg=;
- b=PWVCJdru3VD+r7y6meQ0fmETStw4dzyZrm3qJ0+hp6JjLcSNhBF7zDiOzuPR1XT1COCoTEInjIBcWAcKQYDC/b+8dp51Mfx7+aTxofUVT2RoWRYGiH1bC+8onQQz4FdCRHPeYSBInsRF8JQI5A4NhmL1bcmvQxsQ/sViOx65wxHPN3KWkv+igmaNTtx5riQtMsAas+Xnn7uPbAOWL29JwBuDnZUrtFXGqTg0DFAeHKu0YTA7/uGHJg5J9tHE2KPBJwQ49QC3Al1NNlujXCivwRdYATTa+zO3xh9AsJEiuZiu8rBqS9T9reasCQtmlT1JPATT44PZFFR0wmq3P7OruA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM3PPF208195D8D.namprd11.prod.outlook.com
- (2603:10b6:f:fc00::f13) by CY5PR11MB6415.namprd11.prod.outlook.com
- (2603:10b6:930:35::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.14; Wed, 13 Aug
- 2025 10:04:22 +0000
-Received: from DM3PPF208195D8D.namprd11.prod.outlook.com
- ([fe80::7aab:2a1f:f728:eb01]) by DM3PPF208195D8D.namprd11.prod.outlook.com
- ([fe80::7aab:2a1f:f728:eb01%5]) with mapi id 15.20.9031.014; Wed, 13 Aug 2025
- 10:04:22 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>
-CC: "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>, "Murthy, Arun R"
- <arun.r.murthy@intel.com>, "Shankar, Uma" <uma.shankar@intel.com>, "Nikula,
- Jani" <jani.nikula@intel.com>, "harry.wentland@amd.com"
- <harry.wentland@amd.com>, "siqueira@igalia.com" <siqueira@igalia.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>, "airlied@gmail.com"
- <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "robin.clark@oss.qualcomm.com"
- <robin.clark@oss.qualcomm.com>, "abhinav.kumar@linux.dev"
- <abhinav.kumar@linux.dev>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
- "sean@poorly.run" <sean@poorly.run>, "marijn.suijten@somainline.org"
- <marijn.suijten@somainline.org>, "mcanal@igalia.com" <mcanal@igalia.com>,
- "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
- "tomi.valkeinen+renesas@ideasonboard.com"
- <tomi.valkeinen+renesas@ideasonboard.com>,
- "kieran.bingham+renesas@ideasonboard.com"
- <kieran.bingham+renesas@ideasonboard.com>, "louis.chauvet@bootlin.com"
- <louis.chauvet@bootlin.com>
-Subject: RE: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
- structure
-Thread-Topic: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
- structure
-Thread-Index: AQHcCqI6AGKw1/GB0USjdMcIW4UewrRdM8uAgAAKoACAAA7iAIAAJHeAgALrc9A=
-Date: Wed, 13 Aug 2025 10:04:22 +0000
-Message-ID: <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
-References: <20250811092707.3986802-1-suraj.kandpal@intel.com>
- <20250811092707.3986802-2-suraj.kandpal@intel.com>
- <20250811094429.GE21313@pendragon.ideasonboard.com>
- <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
- <20250811111546.GA30760@pendragon.ideasonboard.com>
- <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
-In-Reply-To: <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM3PPF208195D8D:EE_|CY5PR11MB6415:EE_
-x-ms-office365-filtering-correlation-id: 2a9f6db5-cbf7-45c4-7623-08ddda50c6cc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?S/FncEyAn0tgVs6PY35DSFtDOykYEVRIssP4ROG9lpqnOeFy+aGjBj+CvJnO?=
- =?us-ascii?Q?Fw7G+oXYcU7yiQz0R2q6lGc82ZjFRYoSpeggErMn8hUrkZ8X8pVh2ycXM44V?=
- =?us-ascii?Q?9UOkBaFGYG9Cy1mD8/uZoDtc4vB21iOkT14vA4OTpBWjynamDI6Dzdt9eAC4?=
- =?us-ascii?Q?5DcHmNPF6jyL4nBPyZ6l+FPktVwnMqhg6B1WT3jQ3ZvODXrE7moAvTKglSOF?=
- =?us-ascii?Q?skFiHHWThuFvIGMAjfMdT3fT0K3sl49gGsxu82TbZjjgR39wQnloHkMXxfry?=
- =?us-ascii?Q?VVOneD1eH8zZGsQmt3wE+oR1Zmc6iQ7jqE8N0+Krvcu5XqadIPyiKr03aYq/?=
- =?us-ascii?Q?KXWkODWvYkoWiAe01OoFO4eRmxHDCS1EJHw26x7IDDDhm+fWfRRv1W0JNp6C?=
- =?us-ascii?Q?wnnhScHxCZijBnggOYkjKrZPge+hlhLu850lQLSo0HvlAxWKHYadpeV/HEDJ?=
- =?us-ascii?Q?aGRjugGNvi+xmEgcmrnqz4/ros1gw4ph/s2NfLzA14oqg5CxTYmrHmMG3cT1?=
- =?us-ascii?Q?fs2a4XePg71rJ5Pm+FBK40mmMe+qol1iyS+agz7ZoQFah80bL3X/pr5E7HHI?=
- =?us-ascii?Q?gziwUdoZple/fddvFo4wX/DvYRJbzjMcA8QV3WlyYk3v58ElU+Tm6PRtTlub?=
- =?us-ascii?Q?aafJm32Vd8rQs4KWJl/YQ48xa6GStvwjGsfygJ7nxjqEyUUaO/AXJfHxa8/o?=
- =?us-ascii?Q?baPh8fUgOVHCiXOSFSY24bvbMqz7xXlCZDwUr7sFuqPPpCwQHJdNTAyP9ri/?=
- =?us-ascii?Q?r9y+ygaslxA+bVmgmCjmD/AYrA15Mhnmyhypr6RwhJ/E1RP+ZyrtQA3avqZU?=
- =?us-ascii?Q?X581Q7R7ycjH2ZMXiQjgaNxyBjCDnQY64RwHg+REgFwCMmn77XfsYLF7hi7t?=
- =?us-ascii?Q?go63zClnDaPSsq3MWtm9aKEjHcR2IT1mjhKUECFT+3dHQTQVKPpVcUFYsAdy?=
- =?us-ascii?Q?waAwYVPRYP8NiQ1oJ1Bpbn3E87WGYNIuzwntcWjl3n0yOVF/BQyRz+3OjX6B?=
- =?us-ascii?Q?vOmTrEelHgSaBxLFiUoakN1XoCXJIEsqs3ntz3b1NzqpFOGb/h1a87UcFOb9?=
- =?us-ascii?Q?vr4G7d4bjAd4q1vMF01Gh5pAFjCGdEIpKPEKuULpfBhJV50tZkbiPH8u2YTM?=
- =?us-ascii?Q?Yjd07oGdNdG98hNmqSYZcDFb4u6wXoDSixAzN0m+LtMqTRwXXN20FhF+n07m?=
- =?us-ascii?Q?Z4LIDnyts+YcK3YLSi8J7pE/xq+AsqrcsTCOePJwyWN+6uje+bHPORiaYI6X?=
- =?us-ascii?Q?g7DVq6OvTpNG08UuBXQE8DKmi25+ZAaG3AhsOZ5aPhLO+v9hD2W54x/nNlYe?=
- =?us-ascii?Q?Di9rR9bbrjcgcHsGvRK7PPM0vcnNkevCoVO1QgiZhzHV2jJ7S2pxZepJJnij?=
- =?us-ascii?Q?eicIHjPNVCK5QDeuWpLgkIIiW4pPRToFNo6Sc96+ir2qeFDOTw63mkQRe3mg?=
- =?us-ascii?Q?epwBhiYTonX5rXrLKnKSn0F73k07zG+aWFYiSkyoWaFFhKuNsjNUew=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PPF208195D8D.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZuITuh/Bk+vW8fN8wS40igUs4w9iTJXC0JVeTmeY0qOVgNuAnOOPxm9aI/de?=
- =?us-ascii?Q?/jxzpIHP6Rxn3/P7vpL+tdy8yIS1916tu6wcS6lnvhBdUnhNUWdCS9aQ3LB7?=
- =?us-ascii?Q?cb6JLrw6OM7RHy9w3AqzT2wFzzVH6yjeSNYhQeyFg7S5AocrbJvVLgrbSkN/?=
- =?us-ascii?Q?bLkD835qmQJjIRMGawLIkfEYFaQuWWi3eK2IVx/SgPdzgXvsb+je7KTTb3oy?=
- =?us-ascii?Q?CeMJObVbjzheMi7k2ti2k6MOlQbr7cC1RKqzOclq5/s7U6t5kNGIyXZqNWEG?=
- =?us-ascii?Q?tch1PbgPu/V60x1GLUDCoj5tuu+lGWVL6oDSWoweV3y/7/xxSo0SO3byAy8F?=
- =?us-ascii?Q?hOxsiRscRC2SSXxULAdMgUl9vE4k4pI66JsheMuFrukVdkmPSHQv2scQ1pi2?=
- =?us-ascii?Q?8VdkZ6Eq3XBs2U5FAIH1kFdweF1joKl32aKtxwww0gY5nKP0iXGIxTNWmuU9?=
- =?us-ascii?Q?yzstRzhsXXrPVrgrZtrT3yyu8HXq77d57eAOGLY7u7sFDLL2X6ENx0miBgve?=
- =?us-ascii?Q?VN7V1agWB3roYQu8DqzUcWd2Gu2MQ3ajkaKE8jootLU2Cog0oAdngz0BToBi?=
- =?us-ascii?Q?E+OwIiuLBp74bnybI3bn3iPkWU0pyVUBm3Ul8eEFKCyWHMiXKptJvH4Cb8ag?=
- =?us-ascii?Q?xeh3UvIb/tRjwwvnmPhTZiP2iCFBZeZjsVDhUWwnJDIBvJBRMCG1HPJfQunM?=
- =?us-ascii?Q?/2TUmsmM0ftDsk51R3Oy65eQ6h76FXj/W7Ug7L7Z7qLUSOFYoPI8yqM5R4Vw?=
- =?us-ascii?Q?UFtTje2QYagZsb46zj1IWv1TwL1zBRquvvCI7s8wcGb88zUtixc13OWir0X/?=
- =?us-ascii?Q?HPQPCv126o9F9htaF4fRBshxGt63yHr7AmRgjk/PhQtoghxe2oyIsWrkEC60?=
- =?us-ascii?Q?bJKx6xfoUg2Nte6CWJsfxUeQMVIcG5M/VTyv9cDHvAhMam72GaKAxIQuNtf5?=
- =?us-ascii?Q?JCbT6KW5pTn/28LGzW3JahkvwE0AcMakxCoD3izJXpellXINQEu8hOAx94+S?=
- =?us-ascii?Q?8HgCvw78J/B+eC07pY2kUQIz7OtbclmUEbOZtk1LNqPcOKhMWTEtv6CYb7CQ?=
- =?us-ascii?Q?ZtIXFQd6L8DR3f0g/aub9QzwDGF0Y39lOLk8ctAnGYkjlOMyDVCELm64noBA?=
- =?us-ascii?Q?QMAg3D2uzM+43dATjGPC34OysXpHtYbCti9J8N808XSwQD0mB22QL4BwduMV?=
- =?us-ascii?Q?cBxd9ar5sgImC5e4BExZtxkpW1Qy71PZgvjUyj1ZBmgTWuiEj7+nxwLRuSw3?=
- =?us-ascii?Q?V/DJECjQCSf/eIuLulmDBrH80/QUixbZc5jA75LESUMUOC/j0I7c1pFWupUU?=
- =?us-ascii?Q?sj78Yk1JRtCpkBJh+meuf4Tc1xLogwo4cLdPWv9rq9Aoy/tBbf/TDMQVAuT1?=
- =?us-ascii?Q?V0yaMZ/if9d41XhDIqsH1siVYM/35jQmOAs48c0lrC2tMKg1WgVSSSMqyJPi?=
- =?us-ascii?Q?lWWYRmsuTv+CUVGQiYZiIULkE5ZuaFFKyJpkpackocr9a0Lla6BZGFBVA9hF?=
- =?us-ascii?Q?y3mFb9kFJ7GazjBZeZAwGjRi5+D7UUv5WYgWKYw7SkLgn5Uf/AEbKqhWne3l?=
- =?us-ascii?Q?6KBRojBrbp6yYMLM+IXSBFreDMdQAryNSY+A3Dw/?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE71810E4EE;
+ Wed, 13 Aug 2025 11:56:59 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57DBLhio020736;
+ Wed, 13 Aug 2025 11:56:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ScSNKkjpVNqkt8xw0KExEZDqJCC3ogyqFs0kGjXvUNs=; b=loiZe62lb9RT6XMg
+ ikGdyrAHtIOgkGWlLPXUHA69P0IWhp6nMoHkAsP+AUYyuTmDv59PTaD6WsCNKFGl
+ COiMAwqgQszDY0gPMkVUY21o/9pl/5+0jQNKAzeXokRJW2B6BiJrar3uJuyCHD6j
+ xIgyvIojSWJLjffXMulBqlLs3W26dzG7uWQHgvRz1Uu9o//jNI0kQQvvlgF9X0H3
+ LXyvT+9OxePSrQCWVdib9izxGGDevGC2lbfcgQImZeaYCB20Oz/l21lx3N+B2CUx
+ 6QG/eLnSXy7G0k5Pavu1wWavo6KFrVwFbZeiNPGtedKaxe/yB5kUNqF74aS7Wg7r
+ fXMyhw==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dw9suvj8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Aug 2025 11:56:48 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 57DBum66030166
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Aug 2025 11:56:48 GMT
+Received: from [10.133.33.43] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 13 Aug
+ 2025 04:56:44 -0700
+Message-ID: <552ce804-1aa2-48ca-a68c-8a98621e7363@quicinc.com>
+Date: Wed, 13 Aug 2025 19:56:41 +0800
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM3PPF208195D8D.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a9f6db5-cbf7-45c4-7623-08ddda50c6cc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2025 10:04:22.3842 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hv/H6cd8VEriFYJBcl8fwi8aHiIVoCdvIvpMTyayUFORDgLQFjU9XXHUuuNopbgo2wAnZnCv4I2OwhCZahr8gA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6415
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/38] drm/msm/dp: move the pixel clock control to its
+ own API
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: Rob Clark <robin.clark@oss.qualcomm.com>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Abhinav
+ Kumar" <quic_abhinavk@quicinc.com>
+References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
+ <20250609-msm-dp-mst-v2-6-a54d8902a23d@quicinc.com>
+ <5b2lpjd2raqmowi466avustasdjsssl2tjwogd3ixjg7gi3dxv@cqtkbtcijnlc>
+Content-Language: en-US
+From: Yongxing Mou <quic_yongmou@quicinc.com>
+In-Reply-To: <5b2lpjd2raqmowi466avustasdjsssl2tjwogd3ixjg7gi3dxv@cqtkbtcijnlc>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=J+Wq7BnS c=1 sm=1 tr=0 ts=689c7d80 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8
+ a=hdPSHQnkDWgsf_opGwoA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: eIzyrElTwVyFL53DnzA7DeRQUIEXl9uy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAxNSBTYWx0ZWRfX8xjwgCvuPyM/
+ ag8VIySIzHToY+rMiF8YbYYdh6AT4lmP013p8+DUjVjwJiH6rzn5T4pQiWxTG3SvjQzT/m8uM6p
+ xSOTE4qJOCFquS56rareFRBvJNDq/L8XKibJGEHJvuRmBJWwFd/h2fSLwR0Gvmz93AsudWkwJ76
+ NGmASpibpBtBEOMYiIC9dlhHVmITkXN8Zem1+NFxvz+uSFP7zqj++cjDKaWa1qX6pNvZBicMuhE
+ Dt9n1TREbPYQt/jZ8f8/uC7fsJQeLFDDs2xcacBRmWRVnAJZ+74YyE7K6ROoixTQGVzXNzUSlEZ
+ l2QYjCgOdfLFs96L9ff0HlJqmiGkhF1cmEUWjrq3bR5HzfPBj6I3IkEEEuL1te27FMn7sGwpZ7I
+ rMI5g5eh
+X-Proofpoint-GUID: eIzyrElTwVyFL53DnzA7DeRQUIEXl9uy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-13_01,2025-08-11_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ phishscore=0 suspectscore=0 spamscore=0 clxscore=1015 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508090015
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -217,45 +108,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-> > > };
-> >
-> > I still don't like that. This really doesn't belong here. If anything,
-> > the drm_connector for writeback belongs to drm_crtc.
->=20
-> Why? We already have generic HDMI field inside drm_connector. I am really
-> hoping to be able to land DP parts next to it. In theory we can have a DV=
-I-
-> specific entry there (e.g. with the subconnector type).
-> The idea is not to limit how the drivers subclass those structures.
->=20
-> I don't see a good case why WB should deviate from that design.
->=20
-> > If the issue is that some drivers need a custom drm_connector
-> > subclass, then I'd rather turn the connector field of
-> > drm_writeback_connector into a pointer.
->=20
-> Having a pointer requires additional ops in order to get drm_connector fr=
-om
-> WB code and vice versa. Having drm_connector_wb inside drm_connector
-> saves us from those ops (which don't manifest for any other kind of struc=
-ture).
-> Nor will it take any more space since union will reuse space already take=
-n up by
-> HDMI part.
->=20
-> >
 
-Seems like this thread has died. We need to get a conclusion on the design.
-Laurent do you have any issue with the design given Dmitry's explanation as=
- to why this
-Design is good for drm_writeback_connector.
 
-Regards,
-Suraj Kandpal
+On 2025/6/9 21:16, Dmitry Baryshkov wrote:
+> On Mon, Jun 09, 2025 at 08:21:25PM +0800, Yongxing Mou wrote:
+>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>
+>> Enable/Disable of DP pixel clock happens in multiple code paths
+>> leading to code duplication. Move it into individual helpers so that
+>> the helpers can be called wherever necessary.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 98 +++++++++++++++++++++-------------------
+>>   1 file changed, 52 insertions(+), 46 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index aee8e37655812439dfb65ae90ccb61b14e6e261f..ed00dd2538d98ddbc6bdcbd5fa154fd7043c48d6 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -97,7 +97,7 @@ struct msm_dp_ctrl_private {
+>>   
+>>   	bool core_clks_on;
+>>   	bool link_clks_on;
+>> -	bool stream_clks_on;
+>> +	bool pixel_clks_on;
+> 
+> As you are touching this part, how many paths lead to pixel clock being
+> enabled and/or disabled? Can we sort them out and drop this flag, making
+> sure that the clock can be enabled only in one place and disabled in
+> another one (hopefully)?
+> 
+Here we only have 2 paths to enable/disable pixel, 
+1.msm_dp_ctrl_process_phy_test_request 2.msm_dp_display_enable/disable.
+both of them are in pairs. Maybe we can keep this state to make it 
+easier to access the on/off status of each of them in the case of 4 MST 
+streams. when we get the snapshot of the pixel clk, we can visit here.
+>>   };
+>>   
+>>   static int msm_dp_aux_link_configure(struct drm_dp_aux *aux,
+>> @@ -1406,8 +1406,8 @@ int msm_dp_ctrl_core_clk_enable(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   	ctrl->core_clks_on = true;
+>>   
+>>   	drm_dbg_dp(ctrl->drm_dev, "enable core clocks \n");
+>> -	drm_dbg_dp(ctrl->drm_dev, "stream_clks:%s link_clks:%s core_clks:%s\n",
+>> -		   str_on_off(ctrl->stream_clks_on),
+>> +	drm_dbg_dp(ctrl->drm_dev, "pixel_clks:%s link_clks:%s core_clks:%s\n",
+>> +		   str_on_off(ctrl->pixel_clks_on),
+>>   		   str_on_off(ctrl->link_clks_on),
+>>   		   str_on_off(ctrl->core_clks_on));
+>>   
+>> @@ -1425,8 +1425,8 @@ void msm_dp_ctrl_core_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   	ctrl->core_clks_on = false;
+>>   
+>>   	drm_dbg_dp(ctrl->drm_dev, "disable core clocks \n");
+>> -	drm_dbg_dp(ctrl->drm_dev, "stream_clks:%s link_clks:%s core_clks:%s\n",
+>> -		   str_on_off(ctrl->stream_clks_on),
+>> +	drm_dbg_dp(ctrl->drm_dev, "pixel_clks:%s link_clks:%s core_clks:%s\n",
+>> +		   str_on_off(ctrl->pixel_clks_on),
+>>   		   str_on_off(ctrl->link_clks_on),
+>>   		   str_on_off(ctrl->core_clks_on));
+>>   }
+>> @@ -1456,8 +1456,8 @@ static int msm_dp_ctrl_link_clk_enable(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   	ctrl->link_clks_on = true;
+>>   
+>>   	drm_dbg_dp(ctrl->drm_dev, "enable link clocks\n");
+>> -	drm_dbg_dp(ctrl->drm_dev, "stream_clks:%s link_clks:%s core_clks:%s\n",
+>> -		   str_on_off(ctrl->stream_clks_on),
+>> +	drm_dbg_dp(ctrl->drm_dev, "pixel_clks:%s link_clks:%s core_clks:%s\n",
+>> +		   str_on_off(ctrl->pixel_clks_on),
+>>   		   str_on_off(ctrl->link_clks_on),
+>>   		   str_on_off(ctrl->core_clks_on));
+>>   
+>> @@ -1475,8 +1475,8 @@ static void msm_dp_ctrl_link_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   	ctrl->link_clks_on = false;
+>>   
+>>   	drm_dbg_dp(ctrl->drm_dev, "disabled link clocks\n");
+>> -	drm_dbg_dp(ctrl->drm_dev, "stream_clks:%s link_clks:%s core_clks:%s\n",
+>> -		   str_on_off(ctrl->stream_clks_on),
+>> +	drm_dbg_dp(ctrl->drm_dev, "pixel_clks:%s link_clks:%s core_clks:%s\n",
+>> +		   str_on_off(ctrl->pixel_clks_on),
+>>   		   str_on_off(ctrl->link_clks_on),
+>>   		   str_on_off(ctrl->core_clks_on));
+>>   }
+>> @@ -1737,6 +1737,42 @@ static bool msm_dp_ctrl_send_phy_test_pattern(struct msm_dp_ctrl_private *ctrl)
+>>   	return success;
+>>   }
+>>   
+>> +static int msm_dp_ctrl_on_pixel_clk(struct msm_dp_ctrl_private *ctrl, unsigned long pixel_rate)
+>> +{
+>> +	int ret;
+>> +
+>> +	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
+>> +	if (ret) {
+>> +		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	if (ctrl->pixel_clks_on) {
+>> +		drm_dbg_dp(ctrl->drm_dev, "pixel clks already enabled\n");
+>> +	} else {
+>> +		ret = clk_prepare_enable(ctrl->pixel_clk);
+>> +		if (ret) {
+>> +			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+>> +			return ret;
+>> +		}
+>> +		ctrl->pixel_clks_on = true;
+>> +	}
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static void msm_dp_ctrl_off_pixel_clk(struct msm_dp_ctrl *msm_dp_ctrl)
+>> +{
+>> +	struct msm_dp_ctrl_private *ctrl;
+>> +
+>> +	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+>> +
+>> +	if (ctrl->pixel_clks_on) {
+>> +		clk_disable_unprepare(ctrl->pixel_clk);
+>> +		ctrl->pixel_clks_on = false;
+>> +	}
+>> +}
+>> +
+>>   static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl,
+>>   						struct msm_dp_panel *msm_dp_panel)
+>>   {
+>> @@ -1763,22 +1799,7 @@ static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl
+>>   	}
+>>   
+>>   	pixel_rate = msm_dp_panel->msm_dp_mode.drm_mode.clock;
+>> -	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
+>> -	if (ret) {
+>> -		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
+>> -		return ret;
+>> -	}
+>> -
+>> -	if (ctrl->stream_clks_on) {
+>> -		drm_dbg_dp(ctrl->drm_dev, "pixel clks already enabled\n");
+>> -	} else {
+>> -		ret = clk_prepare_enable(ctrl->pixel_clk);
+>> -		if (ret) {
+>> -			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+>> -			return ret;
+>> -		}
+>> -		ctrl->stream_clks_on = true;
+>> -	}
+>> +	ret = msm_dp_ctrl_on_pixel_clk(ctrl, pixel_rate);
+>>   
+>>   	msm_dp_ctrl_send_phy_test_pattern(ctrl);
+>>   
+>> @@ -1998,8 +2019,8 @@ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_li
+>>   		   ctrl->link->link_params.num_lanes);
+>>   
+>>   	drm_dbg_dp(ctrl->drm_dev,
+>> -		   "core_clk_on=%d link_clk_on=%d stream_clk_on=%d\n",
+>> -		   ctrl->core_clks_on, ctrl->link_clks_on, ctrl->stream_clks_on);
+>> +		   "core_clk_on=%d link_clk_on=%d pixel_clks_on=%d\n",
+>> +		   ctrl->core_clks_on, ctrl->link_clks_on, ctrl->pixel_clks_on);
+>>   
+>>   	if (!ctrl->link_clks_on) { /* link clk is off */
+>>   		ret = msm_dp_ctrl_enable_mainlink_clocks(ctrl);
+>> @@ -2038,21 +2059,10 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
+>>   
+>>   	drm_dbg_dp(ctrl->drm_dev, "pixel_rate=%lu\n", pixel_rate);
+>>   
+>> -	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
+>> +	ret = msm_dp_ctrl_on_pixel_clk(ctrl, pixel_rate);
+>>   	if (ret) {
+>> -		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
+>> -		goto end;
+>> -	}
+>> -
+>> -	if (ctrl->stream_clks_on) {
+>> -		drm_dbg_dp(ctrl->drm_dev, "pixel clks already enabled\n");
+>> -	} else {
+>> -		ret = clk_prepare_enable(ctrl->pixel_clk);
+>> -		if (ret) {
+>> -			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+>> -			goto end;
+>> -		}
+>> -		ctrl->stream_clks_on = true;
+>> +		DRM_ERROR("failed to enable pixel clk\n");
+>> +		return ret;
+>>   	}
+>>   
+>>   	/*
+>> @@ -2080,7 +2090,6 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
+>>   	drm_dbg_dp(ctrl->drm_dev,
+>>   		"mainlink %s\n", mainlink_ready ? "READY" : "NOT READY");
+>>   
+>> -end:
+>>   	return ret;
+>>   }
+>>   
+>> @@ -2154,10 +2163,7 @@ void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   
+>>   	msm_dp_catalog_ctrl_reset(ctrl->catalog);
+>>   
+>> -	if (ctrl->stream_clks_on) {
+>> -		clk_disable_unprepare(ctrl->pixel_clk);
+>> -		ctrl->stream_clks_on = false;
+>> -	}
+>> +	msm_dp_ctrl_off_pixel_clk(msm_dp_ctrl);
+>>   
+>>   	dev_pm_opp_set_rate(ctrl->dev, 0);
+>>   	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
-> > > I plan to add drm_connector_dp in a similar way, covering DP needs
-> > > (currently WIP).
->=20
-> --
-> With best wishes
-> Dmitry
