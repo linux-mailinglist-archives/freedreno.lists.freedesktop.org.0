@@ -2,97 +2,206 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF669B2460A
-	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 11:52:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08172B24684
+	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 12:04:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A04610E6C3;
-	Wed, 13 Aug 2025 09:52:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D19E910E6D4;
+	Wed, 13 Aug 2025 10:04:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LSob99fV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SbESFdfS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CE6610E6C1;
- Wed, 13 Aug 2025 09:52:15 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57D6mJsQ025986;
- Wed, 13 Aug 2025 09:52:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- /d2pP3eikutOq1UWe80VMn/eSPyNptjb0CHW7cqF0gk=; b=LSob99fVcCZ2Aj9T
- SSQZnH2hIt9aC+wlUW8jS7TFoAHBHVnZV16GOsKyIH90kzyVaPst/7qpF9p6Xw6D
- IYg/qX+xYCc+vJEElYoV9iHCxVuJ78rcJd3kO21hfwHYj3mdcgzqxzrvxOU0RiCM
- k6mMGMmGrFkjwGSBqiitOheScK/sdZJZkO/XlwLA0LDMF5WMx64Y6u27gDAfBO4k
- XTAWlMzBFndYz94dzNNJ8Pi5GQ5BpxdX3c9uMMwcVP+JSk0F5xoQ0ygY6pT8n29N
- 0AD4rqa+f8tHn+NmkdHxkoTPiJphL4x773cnxBV9JAKLRA2pQpVmsEpGLmzE3Cx5
- cnLy/w==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dw9suhy4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Aug 2025 09:52:11 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 57D9qAMD027415
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Aug 2025 09:52:10 GMT
-Received: from [10.133.33.43] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 13 Aug
- 2025 02:52:06 -0700
-Message-ID: <61834162-7e73-4467-9dd7-bfb1dcbd0afb@quicinc.com>
-Date: Wed, 13 Aug 2025 17:52:04 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/38] drm/msm/dp: allow dp_ctrl stream APIs to use any
- panel passed to it
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-CC: Rob Clark <robin.clark@oss.qualcomm.com>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Abhinav
- Kumar" <quic_abhinavk@quicinc.com>
-References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
- <20250609-msm-dp-mst-v2-5-a54d8902a23d@quicinc.com>
- <5emeno6zpefewmysmmfb6s64mme32pzatgpzeu6hnuzgfi3q4t@i6zpgj5am3ie>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC7210E6D2;
+ Wed, 13 Aug 2025 10:04:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1755079467; x=1786615467;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=ZtkETacaJI4IQWUrcTL8/1bZ8SNYUZ4XLw6sw4BMlRg=;
+ b=SbESFdfSBcza+wAZOmDb4PNcQgM0MpRMHNOm/fO0+KtlYzKj0+As8aif
+ qmmXYVLdy0GvnpExr8MmfTRVk004c8NUOY5KveqOLiTAnhFYUSAUzS1ZO
+ G07beO90w21HT99QuMJKoFsfLS6rX+6vAs7yMoMsTZXacUzR1t+IwuSiu
+ GIbADxqMvaeCNGJftrlki+GfaBlVCiIbJN12rB6+MTR8A4LZmyOIqRVJ/
+ +FzWyOc8suYIl9/ONeRVgKkMcQaDvQk1+fRPrN7m1YjbevDomMm5OnPxi
+ AMUn9IYb7CmgUg589yDRtiuFHWjgWHNv2Ri+FD5g2fEAb68o7rG6ysWUT Q==;
+X-CSE-ConnectionGUID: YWXNypYYQLKYLYIRwonHuA==
+X-CSE-MsgGUID: 4WJiqmQeSgCNh4hIuao9qg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11520"; a="57270692"
+X-IronPort-AV: E=Sophos;i="6.17,285,1747724400"; d="scan'208";a="57270692"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2025 03:04:26 -0700
+X-CSE-ConnectionGUID: borcEQNhSSSEx6gAAG8jlg==
+X-CSE-MsgGUID: X/gNl/N1TXeWXXkfdoC5Kg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.17,285,1747724400"; d="scan'208";a="197289297"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2025 03:04:26 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 13 Aug 2025 03:04:26 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17 via Frontend Transport; Wed, 13 Aug 2025 03:04:26 -0700
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (40.107.96.88) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.26; Wed, 13 Aug 2025 03:04:26 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hQg325TvqcxCqoYYxWmnP4aC0ujfwpKYRmHDCTgGBoONc/loAFq5taVCE0MFtti49LFrJUuPCVDWwe/iVBye9/aJJFWvLOmEDAQNeEJ16/qc2t6IOa1dE/6OY7Sc7ktGs3rm9Xw8nyZ3RnOvFGIhNbhc3Es2f4e8YUHZSYq+Ee4cmGza31tdthEaZ8VXHzrDYfuma2mlwTR1vRXG2eTCVuLSa5VV/qv9Z6g2+NER1DiFprnYFrl74CBNRd4TWMUaZNeYwIy6JxnDyTPLa3C3PD+2FqvSJkZ4YAkPr2wJ3sBGGZ6VApeuEWOGSudDVXKblyvgVWUkcvI78A/GTj/NfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZtkETacaJI4IQWUrcTL8/1bZ8SNYUZ4XLw6sw4BMlRg=;
+ b=PWVCJdru3VD+r7y6meQ0fmETStw4dzyZrm3qJ0+hp6JjLcSNhBF7zDiOzuPR1XT1COCoTEInjIBcWAcKQYDC/b+8dp51Mfx7+aTxofUVT2RoWRYGiH1bC+8onQQz4FdCRHPeYSBInsRF8JQI5A4NhmL1bcmvQxsQ/sViOx65wxHPN3KWkv+igmaNTtx5riQtMsAas+Xnn7uPbAOWL29JwBuDnZUrtFXGqTg0DFAeHKu0YTA7/uGHJg5J9tHE2KPBJwQ49QC3Al1NNlujXCivwRdYATTa+zO3xh9AsJEiuZiu8rBqS9T9reasCQtmlT1JPATT44PZFFR0wmq3P7OruA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM3PPF208195D8D.namprd11.prod.outlook.com
+ (2603:10b6:f:fc00::f13) by CY5PR11MB6415.namprd11.prod.outlook.com
+ (2603:10b6:930:35::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.14; Wed, 13 Aug
+ 2025 10:04:22 +0000
+Received: from DM3PPF208195D8D.namprd11.prod.outlook.com
+ ([fe80::7aab:2a1f:f728:eb01]) by DM3PPF208195D8D.namprd11.prod.outlook.com
+ ([fe80::7aab:2a1f:f728:eb01%5]) with mapi id 15.20.9031.014; Wed, 13 Aug 2025
+ 10:04:22 +0000
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>
+CC: "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>, "Murthy, Arun R"
+ <arun.r.murthy@intel.com>, "Shankar, Uma" <uma.shankar@intel.com>, "Nikula,
+ Jani" <jani.nikula@intel.com>, "harry.wentland@amd.com"
+ <harry.wentland@amd.com>, "siqueira@igalia.com" <siqueira@igalia.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>, "airlied@gmail.com"
+ <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "robin.clark@oss.qualcomm.com"
+ <robin.clark@oss.qualcomm.com>, "abhinav.kumar@linux.dev"
+ <abhinav.kumar@linux.dev>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
+ "sean@poorly.run" <sean@poorly.run>, "marijn.suijten@somainline.org"
+ <marijn.suijten@somainline.org>, "mcanal@igalia.com" <mcanal@igalia.com>,
+ "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
+ "tomi.valkeinen+renesas@ideasonboard.com"
+ <tomi.valkeinen+renesas@ideasonboard.com>,
+ "kieran.bingham+renesas@ideasonboard.com"
+ <kieran.bingham+renesas@ideasonboard.com>, "louis.chauvet@bootlin.com"
+ <louis.chauvet@bootlin.com>
+Subject: RE: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
+ structure
+Thread-Topic: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
+ structure
+Thread-Index: AQHcCqI6AGKw1/GB0USjdMcIW4UewrRdM8uAgAAKoACAAA7iAIAAJHeAgALrc9A=
+Date: Wed, 13 Aug 2025 10:04:22 +0000
+Message-ID: <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
+References: <20250811092707.3986802-1-suraj.kandpal@intel.com>
+ <20250811092707.3986802-2-suraj.kandpal@intel.com>
+ <20250811094429.GE21313@pendragon.ideasonboard.com>
+ <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
+ <20250811111546.GA30760@pendragon.ideasonboard.com>
+ <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
+In-Reply-To: <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
+Accept-Language: en-US
 Content-Language: en-US
-From: Yongxing Mou <quic_yongmou@quicinc.com>
-In-Reply-To: <5emeno6zpefewmysmmfb6s64mme32pzatgpzeu6hnuzgfi3q4t@i6zpgj5am3ie>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Authority-Analysis: v=2.4 cv=J+Wq7BnS c=1 sm=1 tr=0 ts=689c604b cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8
- a=OfSDUUBKtISxzcSHUPkA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: SRDXNu8u84Es_D1A1GKQUbyd49YvZ4mw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAxNSBTYWx0ZWRfX8JBF8/npCHTC
- TZqUScWbE06e6FTKxynDSopYo6ByTRIMJgIpKLdqrweUdFnHUBzYk0ggTCBMK+k7bYchdc8UbRL
- /+qquySH0ANA+BgwW25iFhc2++qxjbjzEzaBfeWdb0pfzrtj8UW8ViMR1tT+TCgm0WRubziy+Y3
- QoVhQ0bkqf6/1+0PWh96QSBIpw81Li0RtdK2c0JY2Y5J8T9KLOEHB40CVTSulaD1aFRQaYygNUN
- 23eM75+LWsc+REk3ZKRQmVrdMR7lP+r3ntqXOSfn39PMgFaK3d1er+txRIRWRCS7OYac5zLCuUO
- 713DPW4ubtjdD+OCQra+c1YoWY1UmNXAfe5HkS3RentIZ7C62jR83J65f844QEw0tz3pqfFq7xy
- lyG5ipjN
-X-Proofpoint-GUID: SRDXNu8u84Es_D1A1GKQUbyd49YvZ4mw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-12_08,2025-08-11_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0 bulkscore=0
- phishscore=0 suspectscore=0 spamscore=0 clxscore=1015 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508090015
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM3PPF208195D8D:EE_|CY5PR11MB6415:EE_
+x-ms-office365-filtering-correlation-id: 2a9f6db5-cbf7-45c4-7623-08ddda50c6cc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?S/FncEyAn0tgVs6PY35DSFtDOykYEVRIssP4ROG9lpqnOeFy+aGjBj+CvJnO?=
+ =?us-ascii?Q?Fw7G+oXYcU7yiQz0R2q6lGc82ZjFRYoSpeggErMn8hUrkZ8X8pVh2ycXM44V?=
+ =?us-ascii?Q?9UOkBaFGYG9Cy1mD8/uZoDtc4vB21iOkT14vA4OTpBWjynamDI6Dzdt9eAC4?=
+ =?us-ascii?Q?5DcHmNPF6jyL4nBPyZ6l+FPktVwnMqhg6B1WT3jQ3ZvODXrE7moAvTKglSOF?=
+ =?us-ascii?Q?skFiHHWThuFvIGMAjfMdT3fT0K3sl49gGsxu82TbZjjgR39wQnloHkMXxfry?=
+ =?us-ascii?Q?VVOneD1eH8zZGsQmt3wE+oR1Zmc6iQ7jqE8N0+Krvcu5XqadIPyiKr03aYq/?=
+ =?us-ascii?Q?KXWkODWvYkoWiAe01OoFO4eRmxHDCS1EJHw26x7IDDDhm+fWfRRv1W0JNp6C?=
+ =?us-ascii?Q?wnnhScHxCZijBnggOYkjKrZPge+hlhLu850lQLSo0HvlAxWKHYadpeV/HEDJ?=
+ =?us-ascii?Q?aGRjugGNvi+xmEgcmrnqz4/ros1gw4ph/s2NfLzA14oqg5CxTYmrHmMG3cT1?=
+ =?us-ascii?Q?fs2a4XePg71rJ5Pm+FBK40mmMe+qol1iyS+agz7ZoQFah80bL3X/pr5E7HHI?=
+ =?us-ascii?Q?gziwUdoZple/fddvFo4wX/DvYRJbzjMcA8QV3WlyYk3v58ElU+Tm6PRtTlub?=
+ =?us-ascii?Q?aafJm32Vd8rQs4KWJl/YQ48xa6GStvwjGsfygJ7nxjqEyUUaO/AXJfHxa8/o?=
+ =?us-ascii?Q?baPh8fUgOVHCiXOSFSY24bvbMqz7xXlCZDwUr7sFuqPPpCwQHJdNTAyP9ri/?=
+ =?us-ascii?Q?r9y+ygaslxA+bVmgmCjmD/AYrA15Mhnmyhypr6RwhJ/E1RP+ZyrtQA3avqZU?=
+ =?us-ascii?Q?X581Q7R7ycjH2ZMXiQjgaNxyBjCDnQY64RwHg+REgFwCMmn77XfsYLF7hi7t?=
+ =?us-ascii?Q?go63zClnDaPSsq3MWtm9aKEjHcR2IT1mjhKUECFT+3dHQTQVKPpVcUFYsAdy?=
+ =?us-ascii?Q?waAwYVPRYP8NiQ1oJ1Bpbn3E87WGYNIuzwntcWjl3n0yOVF/BQyRz+3OjX6B?=
+ =?us-ascii?Q?vOmTrEelHgSaBxLFiUoakN1XoCXJIEsqs3ntz3b1NzqpFOGb/h1a87UcFOb9?=
+ =?us-ascii?Q?vr4G7d4bjAd4q1vMF01Gh5pAFjCGdEIpKPEKuULpfBhJV50tZkbiPH8u2YTM?=
+ =?us-ascii?Q?Yjd07oGdNdG98hNmqSYZcDFb4u6wXoDSixAzN0m+LtMqTRwXXN20FhF+n07m?=
+ =?us-ascii?Q?Z4LIDnyts+YcK3YLSi8J7pE/xq+AsqrcsTCOePJwyWN+6uje+bHPORiaYI6X?=
+ =?us-ascii?Q?g7DVq6OvTpNG08UuBXQE8DKmi25+ZAaG3AhsOZ5aPhLO+v9hD2W54x/nNlYe?=
+ =?us-ascii?Q?Di9rR9bbrjcgcHsGvRK7PPM0vcnNkevCoVO1QgiZhzHV2jJ7S2pxZepJJnij?=
+ =?us-ascii?Q?eicIHjPNVCK5QDeuWpLgkIIiW4pPRToFNo6Sc96+ir2qeFDOTw63mkQRe3mg?=
+ =?us-ascii?Q?epwBhiYTonX5rXrLKnKSn0F73k07zG+aWFYiSkyoWaFFhKuNsjNUew=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PPF208195D8D.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZuITuh/Bk+vW8fN8wS40igUs4w9iTJXC0JVeTmeY0qOVgNuAnOOPxm9aI/de?=
+ =?us-ascii?Q?/jxzpIHP6Rxn3/P7vpL+tdy8yIS1916tu6wcS6lnvhBdUnhNUWdCS9aQ3LB7?=
+ =?us-ascii?Q?cb6JLrw6OM7RHy9w3AqzT2wFzzVH6yjeSNYhQeyFg7S5AocrbJvVLgrbSkN/?=
+ =?us-ascii?Q?bLkD835qmQJjIRMGawLIkfEYFaQuWWi3eK2IVx/SgPdzgXvsb+je7KTTb3oy?=
+ =?us-ascii?Q?CeMJObVbjzheMi7k2ti2k6MOlQbr7cC1RKqzOclq5/s7U6t5kNGIyXZqNWEG?=
+ =?us-ascii?Q?tch1PbgPu/V60x1GLUDCoj5tuu+lGWVL6oDSWoweV3y/7/xxSo0SO3byAy8F?=
+ =?us-ascii?Q?hOxsiRscRC2SSXxULAdMgUl9vE4k4pI66JsheMuFrukVdkmPSHQv2scQ1pi2?=
+ =?us-ascii?Q?8VdkZ6Eq3XBs2U5FAIH1kFdweF1joKl32aKtxwww0gY5nKP0iXGIxTNWmuU9?=
+ =?us-ascii?Q?yzstRzhsXXrPVrgrZtrT3yyu8HXq77d57eAOGLY7u7sFDLL2X6ENx0miBgve?=
+ =?us-ascii?Q?VN7V1agWB3roYQu8DqzUcWd2Gu2MQ3ajkaKE8jootLU2Cog0oAdngz0BToBi?=
+ =?us-ascii?Q?E+OwIiuLBp74bnybI3bn3iPkWU0pyVUBm3Ul8eEFKCyWHMiXKptJvH4Cb8ag?=
+ =?us-ascii?Q?xeh3UvIb/tRjwwvnmPhTZiP2iCFBZeZjsVDhUWwnJDIBvJBRMCG1HPJfQunM?=
+ =?us-ascii?Q?/2TUmsmM0ftDsk51R3Oy65eQ6h76FXj/W7Ug7L7Z7qLUSOFYoPI8yqM5R4Vw?=
+ =?us-ascii?Q?UFtTje2QYagZsb46zj1IWv1TwL1zBRquvvCI7s8wcGb88zUtixc13OWir0X/?=
+ =?us-ascii?Q?HPQPCv126o9F9htaF4fRBshxGt63yHr7AmRgjk/PhQtoghxe2oyIsWrkEC60?=
+ =?us-ascii?Q?bJKx6xfoUg2Nte6CWJsfxUeQMVIcG5M/VTyv9cDHvAhMam72GaKAxIQuNtf5?=
+ =?us-ascii?Q?JCbT6KW5pTn/28LGzW3JahkvwE0AcMakxCoD3izJXpellXINQEu8hOAx94+S?=
+ =?us-ascii?Q?8HgCvw78J/B+eC07pY2kUQIz7OtbclmUEbOZtk1LNqPcOKhMWTEtv6CYb7CQ?=
+ =?us-ascii?Q?ZtIXFQd6L8DR3f0g/aub9QzwDGF0Y39lOLk8ctAnGYkjlOMyDVCELm64noBA?=
+ =?us-ascii?Q?QMAg3D2uzM+43dATjGPC34OysXpHtYbCti9J8N808XSwQD0mB22QL4BwduMV?=
+ =?us-ascii?Q?cBxd9ar5sgImC5e4BExZtxkpW1Qy71PZgvjUyj1ZBmgTWuiEj7+nxwLRuSw3?=
+ =?us-ascii?Q?V/DJECjQCSf/eIuLulmDBrH80/QUixbZc5jA75LESUMUOC/j0I7c1pFWupUU?=
+ =?us-ascii?Q?sj78Yk1JRtCpkBJh+meuf4Tc1xLogwo4cLdPWv9rq9Aoy/tBbf/TDMQVAuT1?=
+ =?us-ascii?Q?V0yaMZ/if9d41XhDIqsH1siVYM/35jQmOAs48c0lrC2tMKg1WgVSSSMqyJPi?=
+ =?us-ascii?Q?lWWYRmsuTv+CUVGQiYZiIULkE5ZuaFFKyJpkpackocr9a0Lla6BZGFBVA9hF?=
+ =?us-ascii?Q?y3mFb9kFJ7GazjBZeZAwGjRi5+D7UUv5WYgWKYw7SkLgn5Uf/AEbKqhWne3l?=
+ =?us-ascii?Q?6KBRojBrbp6yYMLM+IXSBFreDMdQAryNSY+A3Dw/?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM3PPF208195D8D.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a9f6db5-cbf7-45c4-7623-08ddda50c6cc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2025 10:04:22.3842 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hv/H6cd8VEriFYJBcl8fwi8aHiIVoCdvIvpMTyayUFORDgLQFjU9XXHUuuNopbgo2wAnZnCv4I2OwhCZahr8gA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6415
+X-OriginatorOrg: intel.com
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,237 +217,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+> > > };
+> >
+> > I still don't like that. This really doesn't belong here. If anything,
+> > the drm_connector for writeback belongs to drm_crtc.
+>=20
+> Why? We already have generic HDMI field inside drm_connector. I am really
+> hoping to be able to land DP parts next to it. In theory we can have a DV=
+I-
+> specific entry there (e.g. with the subconnector type).
+> The idea is not to limit how the drivers subclass those structures.
+>=20
+> I don't see a good case why WB should deviate from that design.
+>=20
+> > If the issue is that some drivers need a custom drm_connector
+> > subclass, then I'd rather turn the connector field of
+> > drm_writeback_connector into a pointer.
+>=20
+> Having a pointer requires additional ops in order to get drm_connector fr=
+om
+> WB code and vice versa. Having drm_connector_wb inside drm_connector
+> saves us from those ops (which don't manifest for any other kind of struc=
+ture).
+> Nor will it take any more space since union will reuse space already take=
+n up by
+> HDMI part.
+>=20
+> >
 
+Seems like this thread has died. We need to get a conclusion on the design.
+Laurent do you have any issue with the design given Dmitry's explanation as=
+ to why this
+Design is good for drm_writeback_connector.
 
-On 2025/6/9 21:12, Dmitry Baryshkov wrote:
-> On Mon, Jun 09, 2025 at 08:21:24PM +0800, Yongxing Mou wrote:
->> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>
->> Currently, the dp_ctrl stream APIs operate on their own dp_panel
->> which is cached inside the dp_ctrl's private struct. However with MST,
->> the cached panel represents the fixed link and not the sinks which
->> are hotplugged. Allow the stream related APIs to work on the panel
->> which is passed to them rather than the cached one. For SST cases,
->> this shall continue to use the cached dp_panel.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 37 ++++++++++++++++++++-----------------
->>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  5 +++--
->>   drivers/gpu/drm/msm/dp/dp_display.c |  4 ++--
->>   3 files changed, 25 insertions(+), 21 deletions(-)
-> 
-> I think previous review comments got ignored. Please step back and
-> review them. Maybe I should ask you to go back to v1 and actually check
-> all the review comments there?
-> 
-Sorry for that.. i will check all the comments again.. thanks
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> index 1ce3cca121d0c56b493e282c76eb9202371564cf..aee8e37655812439dfb65ae90ccb61b14e6e261f 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> @@ -135,7 +135,8 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl)
->>   	drm_dbg_dp(ctrl->drm_dev, "mainlink off\n");
->>   }
->>   
->> -static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
->> +static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl,
->> +				    struct msm_dp_panel *msm_dp_panel)
->>   {
->>   	u32 config = 0, tbd;
->>   	const u8 *dpcd = ctrl->panel->dpcd;
->> @@ -143,7 +144,7 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
->>   	/* Default-> LSCLK DIV: 1/4 LCLK  */
->>   	config |= (2 << DP_CONFIGURATION_CTRL_LSCLK_DIV_SHIFT);
->>   
->> -	if (ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
->> +	if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
->>   		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
->>   
->>   	/* Scrambler reset enable */
->> @@ -151,7 +152,7 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
->>   		config |= DP_CONFIGURATION_CTRL_ASSR;
->>   
->>   	tbd = msm_dp_link_get_test_bits_depth(ctrl->link,
->> -			ctrl->panel->msm_dp_mode.bpp);
->> +			msm_dp_panel->msm_dp_mode.bpp);
->>   
->>   	config |= tbd << DP_CONFIGURATION_CTRL_BPC_SHIFT;
->>   
->> @@ -174,20 +175,21 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
->>   	msm_dp_catalog_ctrl_config_ctrl(ctrl->catalog, config);
->>   }
->>   
->> -static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl)
->> +static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl,
->> +						struct msm_dp_panel *msm_dp_panel)
->>   {
->>   	u32 cc, tb;
->>   
->>   	msm_dp_catalog_ctrl_lane_mapping(ctrl->catalog);
->>   	msm_dp_catalog_setup_peripheral_flush(ctrl->catalog);
->>   
->> -	msm_dp_ctrl_config_ctrl(ctrl);
->> +	msm_dp_ctrl_config_ctrl(ctrl, msm_dp_panel);
->>   
->>   	tb = msm_dp_link_get_test_bits_depth(ctrl->link,
->> -		ctrl->panel->msm_dp_mode.bpp);
->> +		msm_dp_panel->msm_dp_mode.bpp);
->>   	cc = msm_dp_link_get_colorimetry_config(ctrl->link);
->>   	msm_dp_catalog_ctrl_config_misc(ctrl->catalog, cc, tb);
->> -	msm_dp_panel_timing_cfg(ctrl->panel);
->> +	msm_dp_panel_timing_cfg(msm_dp_panel);
->>   }
->>   
->>   /*
->> @@ -1317,7 +1319,7 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
->>   	u8 assr;
->>   	struct msm_dp_link_info link_info = {0};
->>   
->> -	msm_dp_ctrl_config_ctrl(ctrl);
->> +	msm_dp_ctrl_config_ctrl(ctrl, ctrl->panel);
-> 
-> Could you please explain, when is it fine to use ctrl->panel and when it
-> is not? Here you are passing msm_dp_panel to configure DP link for link
-> training. I don't think we need the panel for that, so just using
-> ctrl->panel here is incorrect too.
-> 
-Emm, If we need to program registers related to the pixel clock or DP 
-link with MST(all of them need pass the stream_id to determine the 
-register address), we should pass in msm_dp_panel. If we're only 
-programming the other parts not related to the stream_id, passing in 
-ctrl->panel is sufficient.
-here in link tranning, it's right, we actually don't need to pass in the 
-panel. But since in msm_dp_ctrl_config_ctrl, we will write config to 
-DP0/DP1 CONFIGURATION_CTRL, even mst2/mst3 link CONFIGURATION_CTRL. and 
-this func will also been called in msm_dp_ctrl_configure_source_params. 
-so we need add ctrl->panel here.
->>   
->>   	link_info.num_lanes = ctrl->link->link_params.num_lanes;
->>   	link_info.rate = ctrl->link->link_params.rate;
->> @@ -1735,7 +1737,8 @@ static bool msm_dp_ctrl_send_phy_test_pattern(struct msm_dp_ctrl_private *ctrl)
->>   	return success;
->>   }
->>   
->> -static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl)
->> +static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl,
->> +						struct msm_dp_panel *msm_dp_panel)
->>   {
->>   	int ret;
->>   	unsigned long pixel_rate;
->> @@ -1759,7 +1762,7 @@ static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl
->>   		return ret;
->>   	}
->>   
->> -	pixel_rate = ctrl->panel->msm_dp_mode.drm_mode.clock;
->> +	pixel_rate = msm_dp_panel->msm_dp_mode.drm_mode.clock;
->>   	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
->>   	if (ret) {
->>   		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
->> @@ -1797,7 +1800,7 @@ void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl)
->>   
->>   	if (sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {
->>   		drm_dbg_dp(ctrl->drm_dev, "PHY_TEST_PATTERN request\n");
->> -		if (msm_dp_ctrl_process_phy_test_request(ctrl)) {
->> +		if (msm_dp_ctrl_process_phy_test_request(ctrl, ctrl->panel)) {
->>   			DRM_ERROR("process phy_test_req failed\n");
->>   			return;
->>   		}
->> @@ -2015,7 +2018,7 @@ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_li
->>   	return ret;
->>   }
->>   
->> -int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
->> +int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *msm_dp_panel)
->>   {
->>   	int ret = 0;
->>   	bool mainlink_ready = false;
->> @@ -2028,9 +2031,9 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
->>   
->>   	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
->>   
->> -	pixel_rate = pixel_rate_orig = ctrl->panel->msm_dp_mode.drm_mode.clock;
->> +	pixel_rate = pixel_rate_orig = msm_dp_panel->msm_dp_mode.drm_mode.clock;
->>   
->> -	if (msm_dp_ctrl->wide_bus_en || ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
->> +	if (msm_dp_ctrl->wide_bus_en || msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
->>   		pixel_rate >>= 1;
->>   
->>   	drm_dbg_dp(ctrl->drm_dev, "pixel_rate=%lu\n", pixel_rate);
->> @@ -2058,12 +2061,12 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
->>   	 */
->>   	reinit_completion(&ctrl->video_comp);
->>   
->> -	msm_dp_ctrl_configure_source_params(ctrl);
->> +	msm_dp_ctrl_configure_source_params(ctrl, msm_dp_panel);
->>   
->>   	msm_dp_catalog_ctrl_config_msa(ctrl->catalog,
->>   		ctrl->link->link_params.rate,
->>   		pixel_rate_orig,
->> -		ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420);
->> +		msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420);
->>   
->>   	msm_dp_ctrl_setup_tr_unit(ctrl);
->>   
->> @@ -2081,7 +2084,7 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
->>   	return ret;
->>   }
->>   
->> -void msm_dp_ctrl_clear_vsc_sdp_pkt(struct msm_dp_ctrl *msm_dp_ctrl)
->> +void msm_dp_ctrl_clear_vsc_sdp_pkt(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *dp_panel)
->>   {
->>   	struct msm_dp_ctrl_private *ctrl;
->>   
->> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
->> index edbe5766db74c4e4179141d895f9cb85e514f29b..fbe458c5a17bda0586097a61d925f608d99f9224 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
->> @@ -18,7 +18,7 @@ struct msm_dp_ctrl {
->>   struct phy;
->>   
->>   int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl);
->> -int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl);
->> +int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *msm_dp_panel);
->>   int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *dp_ctrl, bool force_link_train);
->>   void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl);
->>   void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl);
->> @@ -41,7 +41,8 @@ void msm_dp_ctrl_config_psr(struct msm_dp_ctrl *msm_dp_ctrl);
->>   int msm_dp_ctrl_core_clk_enable(struct msm_dp_ctrl *msm_dp_ctrl);
->>   void msm_dp_ctrl_core_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl);
->>   
->> -void msm_dp_ctrl_clear_vsc_sdp_pkt(struct msm_dp_ctrl *msm_dp_ctrl);
->> +void msm_dp_ctrl_clear_vsc_sdp_pkt(struct msm_dp_ctrl *msm_dp_ctrl,
->> +				   struct msm_dp_panel *msm_dp_panel);
->>   void msm_dp_ctrl_psm_config(struct msm_dp_ctrl *msm_dp_ctrl);
->>   void msm_dp_ctrl_reinit_phy(struct msm_dp_ctrl *msm_dp_ctrl);
->>   
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index a5ca498cb970d0c6a4095b0b7fc6269c2dc3ad31..17ccea4047500848c4fb3eda87a10e29b18e0cfb 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -872,7 +872,7 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp)
->>   		return 0;
->>   	}
->>   
->> -	rc = msm_dp_ctrl_on_stream(dp->ctrl);
->> +	rc = msm_dp_ctrl_on_stream(dp->ctrl, dp->panel);
->>   	if (!rc)
->>   		msm_dp_display->power_on = true;
->>   
->> @@ -925,7 +925,7 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
->>   	if (!msm_dp_display->power_on)
->>   		return 0;
->>   
->> -	msm_dp_ctrl_clear_vsc_sdp_pkt(dp->ctrl);
->> +	msm_dp_ctrl_clear_vsc_sdp_pkt(dp->ctrl, dp->panel);
->>   
->>   	/* dongle is still connected but sinks are disconnected */
->>   	if (dp->link->sink_count == 0) {
->>
->> -- 
->> 2.34.1
->>
-> 
+Regards,
+Suraj Kandpal
 
+> > > I plan to add drm_connector_dp in a similar way, covering DP needs
+> > > (currently WIP).
+>=20
+> --
+> With best wishes
+> Dmitry
