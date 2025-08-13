@@ -2,75 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E61EB24090
-	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 07:49:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF94FB24585
+	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 11:36:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6FB910E1B1;
-	Wed, 13 Aug 2025 05:48:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C22A10E1D0;
+	Wed, 13 Aug 2025 09:36:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="emindVgY";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="GwpT86EQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D87CD10E1B1
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 05:48:43 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-45a16e52e54so2092385e9.2
- for <freedreno@lists.freedesktop.org>; Tue, 12 Aug 2025 22:48:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755064122; x=1755668922; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=VfE8Ic+gnHdIsqClfpGya7590Y0IfLe/MfkuvgEeOQI=;
- b=emindVgYWE0sLUud6aUB7Qxvcmpr+Kzt1iqlMvKa7nO70WnfawHIEJFTqi8AwZN+93
- TlDFk+nMipIMjvI/syydu5SHViyHCGUPZIGFqhGBKajiUmtbLoUEhCXjYrHg3cObh9DQ
- I8jTkV8kAeqy+5xB/nEWKJeoKvIdh+X6DhYP9nhhB5G1afLvA1lnHBVfWitmbAVO9le6
- ZFMnIQ18Ag7+GaRUkl1NuAsJggE0luap0+Zb87zXwEJ06evEVxEMT9Y6Jwuyy+5GgUUk
- TSW5RSDibP0b/UTNFANYEf16/roC+awK/289FeuOoUnz0jVw0k77IrQ39Y790L2avsYU
- OXGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755064122; x=1755668922;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VfE8Ic+gnHdIsqClfpGya7590Y0IfLe/MfkuvgEeOQI=;
- b=lvpkQLWLV4pJ4ZcGyYoIIDLmLkVScDCZjenJbHjwj6dqXbpZuIiJ6BeE2ZATaLpB2F
- 6DyKzlDq/SJLf67NNZanLhEwH1wYuUEdPJgIvogxr+A7a5vPDLlxl0eNk0ASUMcYdxVt
- QfjteiSLRtpbkKCyC85E16NbcDUozlS/vA+mh+5ihp2QlJY/8cwU1rkDiWEgA7Udk+aA
- Q95iIHtIaxcglR6WUn6QCnSKd94QMlcRametGGfGKo1nX6KQW6tLFpLWuA+J6p0o4nb7
- XQnJHpHx5Np3ZoDoXbZ5hdVWbeS1RkNfB/bV+ir/uhvAhpw/PIbbPMQUUvYrIEuGEao+
- 7gCw==
-X-Gm-Message-State: AOJu0Yw474CzKTw/pRjxuYxmQc+pq2SYsfeC0lVh0hbZypDiW1rTilYk
- +jaYcMoAVbpy1GBVLy2czdNUWqYyT+Xszw+7GSTh8yIgGvAB9EX4DgBDVeR5pJg/bZk=
-X-Gm-Gg: ASbGncuj5Wj2qYBo7psfMEHAY6Z2o3+F8yrBzkh4O9rd4KdLOBC2pflk+zNsbguuE7J
- dcEhbpxYf448wWmXzOp001zp0YQfUtJmDORUJslMtxocOq+h7ewbrzFKVTV7cJjZK039pvdiw2B
- mwjprSRJPSFK+uRKbnzSz571EylmrFtBdNuJrEnJlSMZVWd7n1tKCDpGefPBxMIUrv4FyQ1oYNI
- Jshx9Ea+ejEYQHrk/TJ0/lSVYk14WXoSdD8vS1mJ87dJWRKRo2I2ubvZqHY/dxWp8bvwnM04WYd
- Q+ks/ebvJfHEwpjj1+340PlSr+WxuE+mocAGWTgNKzbDNkHVM99QwVPzSltAUfAsP8unsuO4ZyE
- JSS68bbHRT2Q/y9K/U465jU1FNFRF3OGPc5HosBqHwPw=
-X-Google-Smtp-Source: AGHT+IGDADxwxs8qNCE610oaTrPtgNxpPncJXnpNk6rKjrbCLBihfX3yefCi6OCmakHlPFQo+xz50g==
-X-Received: by 2002:a05:600c:4e93:b0:458:bb0e:8cda with SMTP id
- 5b1f17b1804b1-45a1663514fmr14098455e9.17.1755064122176; 
- Tue, 12 Aug 2025 22:48:42 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3b79c475067sm45936463f8f.58.2025.08.12.22.48.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Aug 2025 22:48:41 -0700 (PDT)
-Date: Wed, 13 Aug 2025 08:48:38 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: freedreno@lists.freedesktop.org
-Subject: Re: [bug report] drm/msm/adreno: Add support for ACD
-Message-ID: <aJwnNqfxZHfiVHZB@stanley.mountain>
-References: <aJTL87hBAEtJb3VT@stanley.mountain>
- <2d54964b-1f60-4a58-8064-567611a3a126@oss.qualcomm.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACD610E1D0;
+ Wed, 13 Aug 2025 09:36:23 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57D6mIvS020477;
+ Wed, 13 Aug 2025 09:36:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 1s84W2H68M75UiDlQ3DS8fGcXqxpmjW4a9xrs2qxFEg=; b=GwpT86EQtNfPPCAH
+ atlxdCocbOcKfDQb4vR5JcmJ++hj9DYO2Y4dKSMcUWvn2pFxQ7dDm6rxYVbHWrj5
+ pSA5DSvL5rZUnYydkt2ULC8AlE7xWwNY3jxubqHKgaQPWVaBPftOcyJmNPSdBTRP
+ Y+VDKq/QuyzFYa+Gu+lBitunaEDA2r4FkNpXEWDDcZbZpqFYEIIt6k2z54Y3r9BX
+ OWMay6P7lrQk1+xJf2uEZXbDNqpS6hUCS+q+xPWkzwxxddni20BtDQ5zxxuvBZjY
+ dPxZ2XOOaLniITyWjio5r9v29RKretiu4aJK/SJOWCqtEq8qMnIi8FOe7Q+LWcqS
+ DFoN6g==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48eqhx9dpn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Aug 2025 09:36:18 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 57D9aH2P031554
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Aug 2025 09:36:17 GMT
+Received: from [10.133.33.43] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 13 Aug
+ 2025 02:36:12 -0700
+Message-ID: <48c61bce-21e6-488a-b976-da53004b6226@quicinc.com>
+Date: Wed, 13 Aug 2025 17:36:10 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2d54964b-1f60-4a58-8064-567611a3a126@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/38] drm/msm/dp: break up dp_display_enable into two
+ parts
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: Rob Clark <robin.clark@oss.qualcomm.com>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Abhinav
+ Kumar" <quic_abhinavk@quicinc.com>
+References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
+ <20250609-msm-dp-mst-v2-3-a54d8902a23d@quicinc.com>
+ <gwib6zcvkxsxcz222cno5jbvsnt2abdoqfnymlxq7e6c6wdfvn@nlplodnco2sw>
+Content-Language: en-US
+From: Yongxing Mou <quic_yongmou@quicinc.com>
+In-Reply-To: <gwib6zcvkxsxcz222cno5jbvsnt2abdoqfnymlxq7e6c6wdfvn@nlplodnco2sw>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODEwMDA1NyBTYWx0ZWRfX4PdcXcukTa2P
+ URMhVEhBNdNH725gJHQm0vGR0aEeaLNImRkDguUmL5r5fYiFpPLbNe+0BoW5ww6l4R8ZXjXAVBM
+ UEZkkCsCiqBQwi1LwPMGHSYEt9aDAeNIbl9nvPzQXPahqF9meO2VIIJ8QC52/Jdc8F/SS332uhs
+ 4aEYZyW1/Mki/Rl7wq70tmiHs4cbGZv983fUo2JKRQXIbGJZOyBFbcMMJqIOsmonxSjsgTG7loM
+ mCul9tZ8mJXjt4qeQiN9Y29fpZ6asybU4J/Ad8aCY473c3S7ubvodXIS/reBJNlBQdTAKTRfN2l
+ dr/3JwBoBlxOZjDBk2g1G84lBEfRiEVUICTh/ChWLGDfWVeF+4EZHc6tIv6w8e13e4iJsonJa+d
+ 2I8bJagW
+X-Proofpoint-GUID: tVZXj0YtTUN59EnYnrCn4GhSGQZ26VXV
+X-Authority-Analysis: v=2.4 cv=aYNhnQot c=1 sm=1 tr=0 ts=689c5c92 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8
+ a=a1Dkl4VKOg0tngf4JrsA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: tVZXj0YtTUN59EnYnrCn4GhSGQZ26VXV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-12_08,2025-08-11_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 phishscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508100057
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,61 +108,347 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Aug 08, 2025 at 10:28:38PM +0530, Akhil P Oommen wrote:
-> On 8/7/2025 9:23 PM, Dan Carpenter wrote:
-> > Hello Akhil P Oommen,
-> > 
-> > Commit b733fe7bff8b ("drm/msm/adreno: Add support for ACD") from Apr
-> > 19, 2025 (linux-next), leads to the following Smatch static checker
-> > warning:
-> > 
-> > 	drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1700 a6xx_gmu_acd_probe()
-> > 	error: 'opp' dereferencing possible ERR_PTR()
-> > 
-> > drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> >     1668 static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
-> >     1669 {
-> >     1670         struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-> >     1671         struct a6xx_hfi_acd_table *cmd = &gmu->acd_table;
-> >     1672         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> >     1673         struct msm_gpu *gpu = &adreno_gpu->base;
-> >     1674         int ret, i, cmd_idx = 0;
-> >     1675         extern bool disable_acd;
-> >     1676 
-> >     1677         /* Skip ACD probe if requested via module param */
-> >     1678         if (disable_acd) {
-> >     1679                 DRM_DEV_ERROR(gmu->dev, "Skipping GPU ACD probe\n");
-> >     1680                 return 0;
-> >     1681         }
-> >     1682 
-> >     1683         cmd->version = 1;
-> >     1684         cmd->stride = 1;
-> >     1685         cmd->enable_by_level = 0;
-> >     1686 
-> >     1687         /* Skip freq = 0 and parse acd-level for rest of the OPPs */
-> >     1688         for (i = 1; i < gmu->nr_gpu_freqs; i++) {
-> >     1689                 struct dev_pm_opp *opp;
-> >     1690                 struct device_node *np;
-> >     1691                 unsigned long freq;
-> >     1692                 u32 val;
-> >     1693 
-> >     1694                 freq = gmu->gpu_freqs[i];
-> >     1695                 opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, freq, true);
-> >                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> > No error checking.
+
+
+On 2025/6/9 20:59, Dmitry Baryshkov wrote:
+> On Mon, Jun 09, 2025 at 08:21:22PM +0800, Yongxing Mou wrote:
+>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>
+>> dp_display_enable() currently re-trains the link if needed
+>> and then enables the pixel clock, programs the controller to
+>> start sending the pixel stream. Splite these two parts into
+>> prepare/enable APIs, to support MST bridges_enable inserte
 > 
-> We are passing back a freq which we pulled out from the opp_table a few
-> lines before this. So it is unlikely that this call would fail.
+> typos
 > 
-> But it is okay to add a check here if that would make Smatch checker happy.
+>> the MST payloads funcs between enable stream_clks and programe
+>> register.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 57 +++++++++++++--------
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  3 +-
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 99 +++++++++++++++++++++++++++----------
+>>   drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+>>   4 files changed, 111 insertions(+), 49 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index a50bfafbb4ea85c114c958ea0ed24362a1f23136..1e13ca81b0155a37a4ed7a2e83c918293d703a37 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -1980,40 +1980,61 @@ static int msm_dp_ctrl_link_retrain(struct msm_dp_ctrl_private *ctrl)
+>>   	return msm_dp_ctrl_setup_main_link(ctrl, &training_step);
+>>   }
+>>   
+>> -int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train)
+>> +int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train)
+>>   {
+>>   	int ret = 0;
+>> -	bool mainlink_ready = false;
+>>   	struct msm_dp_ctrl_private *ctrl;
+>> -	unsigned long pixel_rate;
+>> -	unsigned long pixel_rate_orig;
+>>   
+>>   	if (!msm_dp_ctrl)
+>>   		return -EINVAL;
+>>   
+>>   	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+>>   
+>> -	pixel_rate = pixel_rate_orig = ctrl->panel->msm_dp_mode.drm_mode.clock;
+>> -
+>> -	if (msm_dp_ctrl->wide_bus_en || ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
+>> -		pixel_rate >>= 1;
+>> -
+>> -	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%lu\n",
+>> -		ctrl->link->link_params.rate,
+>> -		ctrl->link->link_params.num_lanes, pixel_rate);
+>> +	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d\n",
+>> +		   ctrl->link->link_params.rate,
+>> +		   ctrl->link->link_params.num_lanes);
 > 
-
-No, no, just ignore it, if it can't fail.
-
-Or I can add dev_pm_opp_find_freq_exact() to the "no need to check" list.
-That's easy to do.
-
-regards,
-dan carpenter
-
+> Please don't mix whitespace changes with the actual code changes. It
+> makes reviewing the patch much harder.
+> 
+>>   
+>>   	drm_dbg_dp(ctrl->drm_dev,
+>> -		"core_clk_on=%d link_clk_on=%d stream_clk_on=%d\n",
+>> -		ctrl->core_clks_on, ctrl->link_clks_on, ctrl->stream_clks_on);
+>> +		   "core_clk_on=%d link_clk_on=%d stream_clk_on=%d\n",
+>> +		   ctrl->core_clks_on, ctrl->link_clks_on, ctrl->stream_clks_on);
+>>   
+>>   	if (!ctrl->link_clks_on) { /* link clk is off */
+>>   		ret = msm_dp_ctrl_enable_mainlink_clocks(ctrl);
+>>   		if (ret) {
+>>   			DRM_ERROR("Failed to start link clocks. ret=%d\n", ret);
+>> -			goto end;
+>> +			return ret;
+>>   		}
+>>   	}
+>>   
+>> +	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl))
+>> +		msm_dp_ctrl_link_retrain(ctrl);
+>> +
+>> +	/* stop txing train pattern to end link training */
+>> +	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
+>> +{
+>> +	int ret = 0;
+>> +	bool mainlink_ready = false;
+>> +	struct msm_dp_ctrl_private *ctrl;
+>> +	unsigned long pixel_rate;
+>> +	unsigned long pixel_rate_orig;
+>> +
+>> +	if (!msm_dp_ctrl)
+>> +		return -EINVAL;
+>> +
+>> +	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+>> +
+>> +	pixel_rate = pixel_rate_orig = ctrl->panel->msm_dp_mode.drm_mode.clock;
+>> +
+>> +	if (msm_dp_ctrl->wide_bus_en || ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
+>> +		pixel_rate >>= 1;
+>> +
+>> +	drm_dbg_dp(ctrl->drm_dev, "pixel_rate=%lu\n", pixel_rate);
+>> +
+>>   	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
+>>   	if (ret) {
+>>   		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
+>> @@ -2031,12 +2052,6 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train
+>>   		ctrl->stream_clks_on = true;
+>>   	}
+>>   
+>> -	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl))
+>> -		msm_dp_ctrl_link_retrain(ctrl);
+>> -
+>> -	/* stop txing train pattern to end link training */
+>> -	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
+>> -
+>>   	/*
+>>   	 * Set up transfer unit values and set controller state to send
+>>   	 * video.
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> index b7abfedbf5749c25877a0b8ba3af3d8ed4b23d67..42745c912adbad7221c78f5cecefa730bfda1e75 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> @@ -18,7 +18,8 @@ struct msm_dp_ctrl {
+>>   struct phy;
+>>   
+>>   int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl);
+>> -int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train);
+>> +int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl);
+>> +int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *dp_ctrl, bool force_link_train);
+>>   void msm_dp_ctrl_off_link_stream(struct msm_dp_ctrl *msm_dp_ctrl);
+>>   void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl);
+>>   void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl);
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 9d2db9cbd2552470a36a63f70f517c35436f7280..5ac5dcf35b789f2bda052a2c17aae20aa48d8e18 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -831,7 +831,37 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+>>   	return 0;
+>>   }
+>>   
+>> -static int msm_dp_display_enable(struct msm_dp_display_private *dp, bool force_link_train)
+>> +static int msm_dp_display_prepare(struct msm_dp_display_private *dp)
+>> +{
+>> +	int rc = 0;
+>> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>> +	bool force_link_train = false;
+>> +
+>> +	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
+>> +	if (msm_dp_display->prepared) {
+>> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+>> +		return 0;
+>> +	}
+> 
+> How can it be prepared here? It is called at the beginning of the
+> .atomic_enable() only, so there is no way this can be true.
+> 
+Emm, sorry for forget this case.. Whern MST enabled, 
+msm_dp_display_prepare() will be called from 
+mst_bridge_atomic_pre_enable, that means, when second stream called this 
+func, it already prepared, so we should skip here. so this condition 
+will really hit in MST case..
+>> +
+>> +	rc = pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
+>> +	if (rc) {
+>> +		DRM_ERROR("failed to pm_runtime_resume\n");
+>> +		return rc;
+>> +	}
+>> +
+>> +	if (dp->hpd_state == ST_CONNECTED && !msm_dp_display->power_on) {
+>> +		msm_dp_display_host_phy_init(dp);
+>> +		force_link_train = true;
+>> +	}
+>> +
+>> +	rc = msm_dp_ctrl_prepare_stream_on(dp->ctrl, force_link_train);
+>> +	if (!rc)
+>> +		msm_dp_display->prepared = true;
+>> +
+>> +	return rc;
+>> +}
+>> +
+>> +static int msm_dp_display_enable(struct msm_dp_display_private *dp)
+>>   {
+>>   	int rc = 0;
+>>   	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>> @@ -842,7 +872,7 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp, bool force_l
+>>   		return 0;
+>>   	}
+>>   
+>> -	rc = msm_dp_ctrl_on_stream(dp->ctrl, force_link_train);
+>> +	rc = msm_dp_ctrl_on_stream(dp->ctrl);
+>>   	if (!rc)
+>>   		msm_dp_display->power_on = true;
+>>   
+>> @@ -872,13 +902,10 @@ static int msm_dp_display_post_enable(struct msm_dp *msm_dp_display)
+>>   	return 0;
+>>   }
+>>   
+>> -static int msm_dp_display_disable(struct msm_dp_display_private *dp)
+>> +static void msm_dp_display_audio_notify_disable(struct msm_dp_display_private *dp)
+>>   {
+>>   	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>>   
+>> -	if (!msm_dp_display->power_on)
+>> -		return 0;
+>> -
+>>   	/* wait only if audio was enabled */
+>>   	if (msm_dp_display->audio_enabled) {
+>>   		/* signal the disconnect event */
+>> @@ -889,6 +916,14 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
+>>   	}
+>>   
+>>   	msm_dp_display->audio_enabled = false;
+>> +}
+>> +
+>> +static int msm_dp_display_disable(struct msm_dp_display_private *dp)
+>> +{
+>> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>> +
+>> +	if (!msm_dp_display->power_on)
+>> +		return 0;
+>>   
+>>   	if (dp->link->sink_count == 0) {
+>>   		/*
+>> @@ -1506,9 +1541,8 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+>>   	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(drm_bridge);
+>>   	struct msm_dp *dp = msm_dp_bridge->msm_dp_display;
+>>   	int rc = 0;
+>> +
+>>   	struct msm_dp_display_private *msm_dp_display;
+>> -	u32 hpd_state;
+>> -	bool force_link_train = false;
+>>   
+>>   	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+>>   
+>> @@ -1516,29 +1550,23 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+>>   		msm_dp_hpd_plug_handle(msm_dp_display, 0);
+>>   
+>>   	mutex_lock(&msm_dp_display->event_mutex);
+>> -	if (pm_runtime_resume_and_get(&dp->pdev->dev)) {
+>> -		DRM_ERROR("failed to pm_runtime_resume\n");
+>> -		mutex_unlock(&msm_dp_display->event_mutex);
+>> -		return;
+>> -	}
+>>   
+>> -	hpd_state = msm_dp_display->hpd_state;
+>> -	if (hpd_state == ST_DISCONNECT_PENDING) {
+>> +	rc = msm_dp_display_prepare(msm_dp_display);
+>> +	if (rc) {
+>> +		DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
+>>   		mutex_unlock(&msm_dp_display->event_mutex);
+>>   		return;
+>>   	}
+>>   
+>> -	if (hpd_state == ST_CONNECTED && !dp->power_on) {
+>> -		msm_dp_display_host_phy_init(msm_dp_display);
+>> -		force_link_train = true;
+>> -	}
+>> -
+>> -	msm_dp_display_enable(msm_dp_display, force_link_train);
+>> -
+>> -	rc = msm_dp_display_post_enable(dp);
+>> -	if (rc) {
+>> -		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
+>> -		msm_dp_display_disable(msm_dp_display);
+>> +	if (dp->prepared) {
+>> +		rc = msm_dp_display_enable(msm_dp_display);
+>> +		if (rc)
+>> +			DRM_ERROR("DP display enable failed, rc=%d\n", rc);
+>> +		rc = msm_dp_display_post_enable(dp);
+>> +		if (rc) {
+>> +			DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
+>> +			msm_dp_display_disable(msm_dp_display);
+>> +		}
+>>   	}
+>>   
+>>   	/* completed connection */
+>> @@ -1560,6 +1588,20 @@ void msm_dp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
+>>   	msm_dp_ctrl_push_idle(msm_dp_display->ctrl);
+>>   }
+>>   
+>> +static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+>> +{
+>> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>> +
+>> +	if (!msm_dp_display->prepared) {
+>> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+>> +		return;
+>> +	}
+> 
+> Why/ how is it possible?
+> 
+>> +
+>> +	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
+>> +
+>> +	msm_dp_display->prepared = false;
+>> +}
+>> +
+>>   void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
+>>   				       struct drm_atomic_state *state)
+>>   {
+>> @@ -1580,6 +1622,8 @@ void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
+>>   		drm_dbg_dp(dp->drm_dev, "type=%d wrong hpd_state=%d\n",
+>>   			   dp->connector_type, hpd_state);
+>>   
+>> +	msm_dp_display_audio_notify_disable(msm_dp_display);
+>> +
+>>   	msm_dp_display_disable(msm_dp_display);
+>>   
+>>   	hpd_state =  msm_dp_display->hpd_state;
+>> @@ -1588,9 +1632,10 @@ void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
+>>   		msm_dp_display->hpd_state = ST_DISCONNECTED;
+>>   	}
+>>   
+>> +	msm_dp_display_unprepare(msm_dp_display);
+>> +
+>>   	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", dp->connector_type);
+>>   
+>> -	pm_runtime_put_sync(&dp->pdev->dev);
+>>   	mutex_unlock(&msm_dp_display->event_mutex);
+>>   }
+>>   
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+>> index cc6e2cab36e9c0b1527ff292e547cbb4d69fd95c..2394840e9f28e136705004c3e6af93fbe13c33c5 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+>> @@ -19,6 +19,7 @@ struct msm_dp {
+>>   	bool link_ready;
+>>   	bool audio_enabled;
+>>   	bool power_on;
+>> +	bool prepared;
+>>   	unsigned int connector_type;
+>>   	bool is_edp;
+>>   	bool internal_hpd;
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
