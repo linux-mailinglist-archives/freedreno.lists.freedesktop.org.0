@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81225B2641B
-	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 13:21:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 005FAB26423
+	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 13:23:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36F7F10E86A;
-	Thu, 14 Aug 2025 11:21:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C779D10E84C;
+	Thu, 14 Aug 2025 11:23:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="euaRl9WN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GGcXKh22";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C330B10E852
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 11:21:44 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57E95d81002966
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 11:21:43 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E7FC10E0EB
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 11:23:02 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57E9SCxq012279
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 11:23:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- BLzSrsvlz1k7U0IApR8xjk7JKOJ6PPWdleXZ1uW1ptM=; b=euaRl9WNX9NsW8OO
- /OnDGUTHnSJqOcIpM+ERPAffH9ircd+a1aV16KBhMT4nLYU3IUTZYcFK2Ba5wX3X
- JiGFsECAxEv2/+2SMItlzqgRzBVwLMjhLmjSTkal6gbFNc4CQADVf6ROuggcLd8H
- C95uH1jq3v48osVuu4V/eFVQ7KRqdQS3IRkJOSiu8sZkSKEPQ3b4IyWbAWYYYaHc
- 3p8+495wNoO9fTXi3CLZX0xvipyJunroaaSz5rtcqhL2p+WCYNhHV1eMTHJdxMGn
- oR35uXiO0w/6UjeYURysgxKlSVUY70W6bUJMChqPC93F+cdmTYBpOjzewNWysabv
- bSnDWQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dxdv7fqv-1
+ hQ5Wn1+6Fv1oHRCInTDg/1OC1hdkSifC03+smNxA01M=; b=GGcXKh22d5t6Y/hu
+ Vnko01d0Da6qxSaAjur0KGPPQda6XnxoR7i+LibZQajlTvkayG5Wc7HFJ1yjfmFd
+ P+W/841Ql8xanTNz3ENCTyRRifmykpfzP6oB3e4yFIADz5Nh5j7V/uK4JBNsgTk9
+ juvSCflvG6GmuryIbM0ogM84mVsle2Am5+lNiVtNpMIk0CTCbnEhm+ZOXdCjghLv
+ VSBKbFJqR3J0FRxNTW5iKOBWTXA9CAHqzDmgdmuDh5kApFQOSYbrXGSDOp1gNsZY
+ KDuPH1v/y9ZayTBIgPT0coD5MU592ju6lWDtjG4e7ezbn9488KW3+f8h21L4Vz4i
+ G7mnLw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48eqhxdmpq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 11:21:43 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4b109cb7ca0so2563331cf.3
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 04:21:43 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 11:23:01 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4b109b11c4eso2607771cf.1
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 04:23:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755170503; x=1755775303;
+ d=1e100.net; s=20230601; t=1755170580; x=1755775380;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BLzSrsvlz1k7U0IApR8xjk7JKOJ6PPWdleXZ1uW1ptM=;
- b=niHU7Unx9rxaRfRWO/dlxe83fX+UBNlNrnGal0sKyX41K98wY/K/lX3Y5avetYPKoG
- 9dGJyvO4lor6Jxc5hjCxrM7rt+w70veJG4hW+C/AV72gix9oenyDFDvV9CNnk4cDZbWT
- NH/xjyQMRdunmN7glHiVZPU3EwJhXv8YVEFCrvIO3tvp6qrSMZVa+mDdKJTyrknIV/LG
- gVcfOtWnCoRjgc1fdqJiF+SUjUX+dGq3DHXkVUY5Gjowz8PKXHg9chJk7Gc2Hc6iYDZT
- iqeyaeCGeAM3wXnvqzqhKa9nWzST+h7jaq3lWInDEI13h8XUYvQfRWRLvPFEK3Snq79R
- l7ZQ==
+ bh=hQ5Wn1+6Fv1oHRCInTDg/1OC1hdkSifC03+smNxA01M=;
+ b=dFWm6BNucEjBYT27yaJXNWdkqpIqKMdj0QAD/mg4gS42sjmIRJvH4FsHlTLqbuWZQ5
+ IAI1Zenz129VG7e/z0Rcm7kXiRqmTxo7LDi1ZG09yGVaJ6Fy2hKFl0zi7q/mT5UGnB/F
+ bN35HVVdRUThlPA5JVpbD4Pze/zjxvKtYMfk9Br4do84SCfBY42zIvnApMHE4QbppL72
+ a9Ffi3QtLbOgELQvyScf9C3KO4R6KF+RVZpPG2kzton4TFdhsXv7dy7dhCvLLTgABgmL
+ hJ98VRDDEFqZ9n08GZ65q5fsi8Nm6qRbckXB6LRsDd8uep1ciKHTUc4yQYz6boqZfXjV
+ AnUQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8gFwaP8fLqsXXUdOnlFAupx8ZmSSE/aI4L3lJBJJ4ewJHVCLJJwrsX0dmGOw0gFgkvQ+plm4z7sI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQhKe2CVs6bdCk/1iqLzrFoVVGd06+Owz9kjwBG77tyvPU56UN
- BwWATeMKYKfzzPk0DgS30XfYtj83DiRi1XOSeIBKb3AlLHvCztR6K/aRcabEjmXa/ZDEt01BCFv
- mofuVC7VZ9wzfjJe8PyI9wwXwKh7j8vP/TucHfpsL+EHiZcUxEHFfM1TxuP6/eL/8HdEzp58=
-X-Gm-Gg: ASbGncv9lV5xiPnTxtwgeRwM9PKye/RrOfpCMO7/pXdVROkq7UdOWt5BaHSft+KPquF
- lXSao3s9ClVc39mGOf7kJPtuqAuJsTGslwbXV6P2JulF4xObcjvCOwLldbuvzzXagZjtAfNHnXU
- ODXBoXxCGk5OX+gJkYovzlkcMWNJv4JmuflVTdfYREkZQ+L0uWKR4bMLCeen9pte/gk6o6b4Li3
- CgB+vPVcoUcoNb2Rr4GfsV308a1dYj1EvMQHDMwOreGNFUACg2F1BBWrAKc51PvCccvLcPcpr6q
- o/QlPKULaO5gJpzgp55TxwfIcvifD3w5xPE6hz2jIduORHd85VYa/QBPRwmD4qeXC1THiwhMVNR
- tUC4rX9QzeuA/ubyBMA==
-X-Received: by 2002:ac8:5a0d:0:b0:4ab:723e:fba7 with SMTP id
- d75a77b69052e-4b10aa82b70mr16850431cf.7.1755170502747; 
- Thu, 14 Aug 2025 04:21:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHGvtOWlrpuz/iNQTwiGREwfxnYm+3vQJfqpP9BRWhj2V2vfmiGGO6FJVbo4wdvgDfBPNzUHQ==
-X-Received: by 2002:ac8:5a0d:0:b0:4ab:723e:fba7 with SMTP id
- d75a77b69052e-4b10aa82b70mr16850081cf.7.1755170502199; 
- Thu, 14 Aug 2025 04:21:42 -0700 (PDT)
+ AJvYcCW/O4G8Y5DdXkplITLaFXPq4LosKKGMqLsMTF3Vq2Ljn2zI5nwDWisN74pAjIs2I4TzmTd6FXgVERo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxALKBVCR1FuNf2Bs9nDOqnCtWt0bLksMwJBiuOxcAJTrHFuNjr
+ C1RDz4DenCGwxMQsd3NkTDIGimTRaWP9ZCF4mbwcS7w3NZ0Pm2ZQpQamBh6x5SR9Nk6pt9ySsb/
+ ihLEiePRLlxAs5Buq1ugTufwCip25yK3h1V7+yUL0S3s2r0N5WPuwgmsT5jr76zH6nDk5xwU=
+X-Gm-Gg: ASbGncv3RIx7BwKJBv4/EcTs8t7G0xG8Iqq/JRKNqNwkP9qPIcUoVetC1598V9QDU7W
+ pYhMs/r/31iP7rOepi9ubwM0ZIfCB354a+9kPlD1EQk0CQmzVETJDzor0dxRDYW4584Wu/C/MHY
+ 5tI7LhqNU3zAsRl7uxwkdFzwRbKignf7z4JQljyqeWL70OIUOoUtG9TV6yj0XW9jq0EeIqX3sU6
+ TAPMl1wxILVH0nxlH6xn60A30pv4zhKvb3pvZZerA4R4aTrCC5PiPy3BCvFt8sFkmshHL4e0YNN
+ qsgaVIJSH6qGC711mbctf7pGVyeVgFFw67sKB49IMNxG3MRfGpxNaihzJ1Dxq1QKU0fuYXWXp50
+ EQiGaL1TjR/+kblKE6A==
+X-Received: by 2002:ac8:574a:0:b0:4ab:6d02:c061 with SMTP id
+ d75a77b69052e-4b10aa79245mr17184361cf.6.1755170580415; 
+ Thu, 14 Aug 2025 04:23:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEBEqH1INBenomIkNEpLsnsD1vmfMViwj5vT13W7Lz3WQ/KCQYzoIaA6pCulkVk2wkfvE/B5Q==
+X-Received: by 2002:ac8:574a:0:b0:4ab:6d02:c061 with SMTP id
+ d75a77b69052e-4b10aa79245mr17183881cf.6.1755170579781; 
+ Thu, 14 Aug 2025 04:22:59 -0700 (PDT)
 Received: from [192.168.43.16] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a1e6cecsm2578916266b.70.2025.08.14.04.21.40
+ 4fb4d7f45d1cf-615a8fe7995sm22946026a12.36.2025.08.14.04.22.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 04:21:41 -0700 (PDT)
-Message-ID: <33442cc4-a205-46a8-a2b8-5c85c236c8d4@oss.qualcomm.com>
-Date: Thu, 14 Aug 2025 13:21:39 +0200
+ Thu, 14 Aug 2025 04:22:59 -0700 (PDT)
+Message-ID: <b4f283ce-5be1-4d2f-82e2-e9c3be22a37f@oss.qualcomm.com>
+Date: Thu, 14 Aug 2025 13:22:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] drm/msm: adreno: a6xx: enable GMU bandwidth voting for
@@ -91,33 +91,34 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 References: <20250725-topic-x1e80100-gpu-bwvote-v2-1-58d2fbb6a127@linaro.org>
  <e7ddfe18-d2c7-4201-a271-81be7c814011@oss.qualcomm.com>
+ <33442cc4-a205-46a8-a2b8-5c85c236c8d4@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <e7ddfe18-d2c7-4201-a271-81be7c814011@oss.qualcomm.com>
+In-Reply-To: <33442cc4-a205-46a8-a2b8-5c85c236c8d4@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=IuYecK/g c=1 sm=1 tr=0 ts=689dc6c7 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODEwMDA1NyBTYWx0ZWRfX3kyladqhRBFZ
+ NlkHHEN25iZVfqfeMBOcOeHmdy3LYnqlVMGZI6PBQ7sXv2CnPRMVN42McTQoodSr0iqfeJj9PlP
+ uUQ2+EIXaqy0nlbgAO+ZpfNbW8/pRBibAtomo1ITe4KDrgTGW7V+s+or2Uvcuz2cGtH+1mKxqt9
+ k1Lr2rRhH7GaTtiQC1XzIzlaBiZqqci9m/mE9IXkYqbg+VH0qeaOK/8Y8VzDY9+oUzaYrJkod76
+ SMwxIc0zZteAkaSqv+k+2nUyLGgN7BDD3x2j1SDUqBGQZ3wKRKGMR6yg86Loyms+fVRFVGeF9N9
+ XVoxJrlwPHA55NSPYZE8PRxYbXzjkgEjHeSLTaf33mFAt3GOJx833KmMt58ou5KPy0exEhqMJ4o
+ CTSzAeXH
+X-Proofpoint-GUID: D6CgtvAHLzSUVkrekFYUUyNJj4ygDKO9
+X-Authority-Analysis: v=2.4 cv=aYNhnQot c=1 sm=1 tr=0 ts=689dc715 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8
- a=EUspDBNiAAAA:8 a=vBWWQJBIfp5UPC7yhvoA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: 8O_GOk_d4Lodz8HYzReffv1NlrmS_Kmm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAyNSBTYWx0ZWRfX52q8lLhd8J+U
- sioVU8+1FIj9+cXoSZTf14wtGbczxzayOguFLts8KNlCClmbaSIBL0f3AnnT2TmF8EKGILhemQt
- 9ThJdlOE/DNZLND4WEMFFQnwGItcD7MxCAx1atjHZ/sJvXAtNUnskdbJ1qt6dB1/tyggnq9sQmh
- UALgk87bOu1Q7ag7oVKd0iNdtmRhA2IgZnSFvuCTcs2J4GcRfIvrfEEu7LtdPi41n54ACVBZi6f
- VF2NfaC4bqQ4dhrEHpT1a2ANXEwkK8fiLKZFkokSn6fN4hqSW8GbJCTcgTnknp8XjGZbG+FBfuI
- ChWxBOd1pFkBdTzI5pTCCh8o6c8sxVKmslhMRYywROmJP1UK7PnQAuWsV1ahvv/D7U5wFkzywop
- d1As2BqR
-X-Proofpoint-GUID: 8O_GOk_d4Lodz8HYzReffv1NlrmS_Kmm
+ a=EUspDBNiAAAA:8 a=w8v9NIqJ3aMQWT92luIA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: D6CgtvAHLzSUVkrekFYUUyNJj4ygDKO9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-13_02,2025-08-14_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0
- clxscore=1015 phishscore=0 suspectscore=0 bulkscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508090025
+ spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 phishscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508100057
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,44 +134,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/31/25 12:19 PM, Konrad Dybcio wrote:
-> On 7/25/25 10:35 AM, Neil Armstrong wrote:
->> The Adreno GPU Management Unit (GMU) can also scale DDR Bandwidth along
->> the Frequency and Power Domain level, but by default we leave the
->> OPP core scale the interconnect ddr path.
+On 8/14/25 1:21 PM, Konrad Dybcio wrote:
+> On 7/31/25 12:19 PM, Konrad Dybcio wrote:
+>> On 7/25/25 10:35 AM, Neil Armstrong wrote:
+>>> The Adreno GPU Management Unit (GMU) can also scale DDR Bandwidth along
+>>> the Frequency and Power Domain level, but by default we leave the
+>>> OPP core scale the interconnect ddr path.
+>>>
+>>> Declare the Bus Control Modules (BCMs) and the corresponding parameters
+>>> in the GPU info struct to allow the GMU to vote for the bandwidth.
+>>>
+>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>> ---
+>>> Changes in v2:
+>>> - Used proper ACV perfmode bit/freq
+>>> - Link to v1: https://lore.kernel.org/r/20250721-topic-x1e80100-gpu-bwvote-v1-1-946619b0f73a@linaro.org
+>>> ---
+>>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 11 +++++++++++
+>>>  1 file changed, 11 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>> index 00e1afd46b81546eec03e22cda9e9a604f6f3b60..892f98b1f2ae582268adebd758437ff60456cdd5 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>> @@ -1440,6 +1440,17 @@ static const struct adreno_info a7xx_gpus[] = {
+>>>  			.pwrup_reglist = &a7xx_pwrup_reglist,
+>>>  			.gmu_chipid = 0x7050001,
+>>>  			.gmu_cgc_mode = 0x00020202,
+>>> +			.bcms = (const struct a6xx_bcm[]) {
+>>> +				{ .name = "SH0", .buswidth = 16 },
+>>> +				{ .name = "MC0", .buswidth = 4 },
+>>> +				{
+>>> +					.name = "ACV",
+>>> +					.fixed = true,
+>>> +					.perfmode = BIT(3),
+>>> +					.perfmode_bw = 16500000,
 >>
->> Declare the Bus Control Modules (BCMs) and the corresponding parameters
->> in the GPU info struct to allow the GMU to vote for the bandwidth.
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->> Changes in v2:
->> - Used proper ACV perfmode bit/freq
->> - Link to v1: https://lore.kernel.org/r/20250721-topic-x1e80100-gpu-bwvote-v1-1-946619b0f73a@linaro.org
->> ---
->>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 11 +++++++++++
->>  1 file changed, 11 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> index 00e1afd46b81546eec03e22cda9e9a604f6f3b60..892f98b1f2ae582268adebd758437ff60456cdd5 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> @@ -1440,6 +1440,17 @@ static const struct adreno_info a7xx_gpus[] = {
->>  			.pwrup_reglist = &a7xx_pwrup_reglist,
->>  			.gmu_chipid = 0x7050001,
->>  			.gmu_cgc_mode = 0x00020202,
->> +			.bcms = (const struct a6xx_bcm[]) {
->> +				{ .name = "SH0", .buswidth = 16 },
->> +				{ .name = "MC0", .buswidth = 4 },
->> +				{
->> +					.name = "ACV",
->> +					.fixed = true,
->> +					.perfmode = BIT(3),
->> +					.perfmode_bw = 16500000,
+>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Actually no, BIT(3) is for the CPU (OS), GPU should use BIT(2)
 
-Actually no, BIT(3) is for the CPU (OS), GPU should use BIT(2)
+This is *very* platform-dependent, goes without saying..
+
+I see BIT(2) is also valid for X1P4
 
 Konrad
