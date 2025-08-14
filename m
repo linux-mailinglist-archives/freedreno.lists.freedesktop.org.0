@@ -2,121 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C5E1B2550A
-	for <lists+freedreno@lfdr.de>; Wed, 13 Aug 2025 23:15:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B763FB25CA2
+	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 09:06:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EAC010E08E;
-	Wed, 13 Aug 2025 21:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E49510E7F9;
+	Thu, 14 Aug 2025 07:06:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aC3fyS+B";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UQbjO/pP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD7010E7C9
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 21:15:49 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57DBLt5F012998
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 21:15:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- BU4jpzKtkDsQFKXYvRi5iZOPZy6N+odqXW/8kLMUFwI=; b=aC3fyS+B86oBIXic
- Z6Vt+HYCZPSUECqGjyQ98u5u1kEDjjXC7moR8Y7Yw+bZGjA66tZYmfwzxGcyn/Ql
- FpMxKo3y9W0/vwJpZJQ4Fufg93/rag9jkTrDNJLQ88qiZfAb3X/NoROAxgOcBvEE
- 0tYh9M3Vk87BANWvYK+P0nj3kaRiLiDBg73XlHHyJglLd1BRNC9I6iHM+ldJb8WF
- BG97PbBS0cijCZUwWdT31bwKWY6Af4pGkACAjJx3pvS60D26zE9s81fmwPWeVw78
- 9Vs7K0R6AWqLzrw7gH2VKqIldvtzTkWHMbOYT44g610ExtqHIlmL26XdYcwFpHsY
- X1vYHQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48eqhxbe30-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 21:15:48 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-244581c62faso1894195ad.2
- for <freedreno@lists.freedesktop.org>; Wed, 13 Aug 2025 14:15:48 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D75810E7F9
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 07:06:10 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0990b2so3718765e9.2
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 00:06:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1755155169; x=1755759969; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=cS0/5HUZ9pMLTw61523HJPzKvIi8k7gEcgo8DCDqG5w=;
+ b=UQbjO/pPhkmFDVR+XnjKjsFMM/vR0EsNsuCGzb/fmMMEnHO3xuG3wYTI4x08XKu/x6
+ laAuTAayjDn9h/uyGSxy8mg9GyCyVBTcjzdNZDPLZrDdgWx870qKXncxL5lO7GqjraZO
+ znEh5Q/2lfpxYDBMhI3kZf/KmzCY7A7+MnfD75/exzmAKpDyUvHraV8Wx0KNicRdF7vU
+ s4c2+UMHDIrfqa9nhbu6jMJlj5ahC8OT9TAf9DAB1TVyfz5zMhecnF1XvMD5T+Uescaa
+ k4iUIoqYxl74Sxa+Lt93ikpW4oy0KhId9FcjPyqQPjcIfpTiXkOg8KshM+p5jqE27P/P
+ 8fbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755119747; x=1755724547;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BU4jpzKtkDsQFKXYvRi5iZOPZy6N+odqXW/8kLMUFwI=;
- b=p8GTQAjg20rzmsS8CBE93VU8Ji0TfiiFRBzj0Z3E1Z4AQxQoO2rVpnVgC804u5Kr/M
- 59ohvm6eGyXZbVWwFzVjHgtuxqx1XMyLLaIPu4xSHNSJlCaYeLIkU/SNpHPiN1gjPYKC
- Qjsm7BoR02smjplYjlcORFKjwWgbIfpnmIlySqvSgao/+FRQIeoTNaEs6OO8f7IhKm9q
- R6tRbiReVXGbIaGc4RsyshUbm6/9iISN0ZTt4RmpEp5tOQwCA6lGcmfHltmIfSXQoj1q
- QPZxKs/rUTXUji1oNNR03miKPKXEudM4ZIl8E3nKs9uw6bEpl8IrJjCBiRMT8T5YexpJ
- 1elw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUZHHb7P4zVOPjh5xnyoFWkRgJO4vLBCU3A21q0C0JGZl0TQ1xGyPT47k+arLvrHthNVnm55AGlbLc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzi0xQJ92gN63zjnaSrpS6wALNdE1S6jHwbYumdqQecsXokF8Ku
- S/XHAz6zdgqVSClU8M4YQlEo3cxyAaO+W+/4akiP2hwiKf5fXWwB9pD7yp5Gqj7if2egKWPe/nw
- nK5Ykpk9XkOXVVoF8/141on4MUW9Wj7cS2xc2z9p9aLqs/09KJk7NoI5Rf6sz8GyZw2sc5Bw=
-X-Gm-Gg: ASbGncve5h3GYbDVOR1wIBP7i931wfsP8auIPTctDfQ3FgwCft0fYC0QKjnGpLA5i3N
- fJSfQAFnPkz4nw22Mwk7ghzFuVfDNz6698O1RQLpxtwpxtNo0Hd7fSVrpX6xLH9um3XF+W2O7mh
- nXg1+8tg+hlLakC1BR8K/HO8dol9HQY9RzjRPBubXoFKBm5lNEXwXZi0ykmPbOr7XTbrPKVn3Mf
- TQWCMivfV/aHDOh7PwpvQz7h/NRG3IGeyk2Pv5cG/zPAiRqqrCKBxozmLxIKUzKtkiaBRJxS9mJ
- aztZZKMM6S7x9JylVMTO5c5PTApxd4TwUSw0SD/2EVX+Ncy+TGRaS4VvTapZCZE=
-X-Received: by 2002:a17:902:f612:b0:240:22af:91c7 with SMTP id
- d9443c01a7336-244584edfd6mr5555005ad.14.1755119746933; 
- Wed, 13 Aug 2025 14:15:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHegHtK3Ax/E8VqCoX3HqLC7R/eeYh4Ddkvi7u9xQ5U8sonAzBwOxUTAIwSh2fBoqSbuDCrcw==
-X-Received: by 2002:a17:902:f612:b0:240:22af:91c7 with SMTP id
- d9443c01a7336-244584edfd6mr5554695ad.14.1755119746464; 
- Wed, 13 Aug 2025 14:15:46 -0700 (PDT)
-Received: from [192.168.1.5] ([106.222.235.33])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241d1ef595esm331895325ad.13.2025.08.13.14.15.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Aug 2025 14:15:46 -0700 (PDT)
-Message-ID: <5e862a36-8384-4098-b22a-9bbad1205965@oss.qualcomm.com>
-Date: Thu, 14 Aug 2025 02:45:41 +0530
+ d=1e100.net; s=20230601; t=1755155169; x=1755759969;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cS0/5HUZ9pMLTw61523HJPzKvIi8k7gEcgo8DCDqG5w=;
+ b=cVZQp9nBFMo1MepkWalGhEUXccSO2hW99yGq4LY5fkNU2YWqlS2Q1bsEL+a8PenS/s
+ FWGUaRMxA2buCMrOWMZqvpp4iWm3vp4CP4Okww19OT7nkrvgE7inYrepLilxUo1qDmMs
+ 4aZcjKAz23MKlegzIaS7EpgYrwjc4GggSuK6fF5tNrby7LYLKrRUgaf4ITwRl1ininzO
+ QUYF2t5tmIfMXEgwOnC/B9uhukQdOKm6VhAxq3jaz9Xwh+4rsR4zYfdnCubxfwmPgTZ3
+ z8tcNa3EmVp+ROJElxaXAgeB9i6+lJLYwfxqgXWGvQUzo4NnR9Al0kEAAuoRqCECtWOq
+ 18AA==
+X-Gm-Message-State: AOJu0Yy/9wk6pxXX/XLJ7d445tlWmye672u5nQKtE1ntGcfE2jIEWI12
+ PS/3u87jGmqcEsCZeyHhX7AWYfJwRLei2o+Oc8pto0NAAv8ro1veDwkZMuHD4rhB+al0A9EMD9G
+ 5mVSS
+X-Gm-Gg: ASbGnctJ2qkE40fE9aOuZ56EwqlBtG95bDngHVsTxarAxxr7P21Qy497otIqn8XkPF6
+ U8fHHfNVch1ZVyLDtI6LakoT7R98rlkmzx0AKchST39nDZHqUL2PHTjSXh2NIw/paFrvdOy1xBk
+ H5WWBH3MU7bKh7j0JP23xkGdv3sk67/tH7Dq01Uhst5A/tHJFR5JoEs95aeM9FEmz7aqpRI65uj
+ TT7qb/9FXqBTOxhW1lzIn8f2/Vb7R2eFodG7xTj560XZRp2u4D/pCqhh8gpCLnVPlgcBP4dxB+X
+ eVkmCODDEgQ9Hod4EO5GC7vNHMUUw189PcdGkOQeGp+pd6NA+NaFPWVAgjMqoZDzLT/Biay2qe6
+ E9qX3C/3URYsCddHsKA1OQy8zUX+2insfi2H06dFVFiQ=
+X-Google-Smtp-Source: AGHT+IGfKXYMiD1fqG6Y1UydpuaQEFurYi0HrTV1dGWQcn2Rd3hDcwOOzPRYl/BBjfQhUHwSfAccnw==
+X-Received: by 2002:a05:600c:4e93:b0:43c:fe5e:f03b with SMTP id
+ 5b1f17b1804b1-45a1b668299mr14795445e9.30.1755155168812; 
+ Thu, 14 Aug 2025 00:06:08 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-45a1c6d2700sm9519045e9.12.2025.08.14.00.06.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Aug 2025 00:06:08 -0700 (PDT)
+Date: Thu, 14 Aug 2025 10:06:03 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: freedreno@lists.freedesktop.org
+Subject: Re: [bug report] drm/msm/adreno: Add support for ACD
+Message-ID: <aJ2K26ZBVZilC8jg@stanley.mountain>
+References: <aJTL87hBAEtJb3VT@stanley.mountain>
+ <2d54964b-1f60-4a58-8064-567611a3a126@oss.qualcomm.com>
+ <aJwnNqfxZHfiVHZB@stanley.mountain>
+ <cdd4757f-9433-4c80-b5b2-003d42038a87@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/17] drm/msm/a6xx: Fix PDC sleep sequence
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250720-ifpc-support-v1-0-9347aa5bcbd6@oss.qualcomm.com>
- <20250720-ifpc-support-v1-5-9347aa5bcbd6@oss.qualcomm.com>
- <937197e9-09dd-4f3c-bdb4-4001f5217c07@oss.qualcomm.com>
- <ba1d97d0-3420-4cca-8823-4d27cbe7bae6@oss.qualcomm.com>
- <d9357f4a-6f26-4570-bcb5-62fe39c78a70@oss.qualcomm.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <d9357f4a-6f26-4570-bcb5-62fe39c78a70@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODEwMDA1NyBTYWx0ZWRfXx2hF0syHjVQR
- pfVsrnOpp+TbXiQk6Fkt1EMxHWyAbzKFpWk4IgWALOWYMatLRR2bGoGgP75J5C23DyD+eGYZ5LN
- GEfKxWML0aeQtlHjxNxdAAQAcyvzgoK8FpOSBeoEHKuUO2BH0MzmEOOe/YynTMmGxqqGN5RX3XX
- ectZzKuFm34IbG5qzE9BNauUF7aXBmXkVMxuHFB7WjMlVX7CIqBx3OPa8lSrPgvxPJXn/ZL1Yrc
- mFCpDqW2SR8msNZyMiR8QANe5C+GKrXk5lYjf3r1HVec4TAI2CmZq/nPtGVbcK59Ut+EkLpneyT
- g8CkHDwpDwv2twAiWLJFQuWwWaKaBQR2sCXZPxqolRQ5mn7T//7Yaml3rz7jAbOuKmPxjlmCDb+
- KjdaonHS
-X-Proofpoint-GUID: h7LDP2jUzXPokqhMAYrK14aXOsZC--m9
-X-Authority-Analysis: v=2.4 cv=aYNhnQot c=1 sm=1 tr=0 ts=689d0084 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=geSN8yY6MFID4zSGlH7RRw==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=svzdbv4JTWmE8afvHjAA:9
- a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-ORIG-GUID: h7LDP2jUzXPokqhMAYrK14aXOsZC--m9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-13_01,2025-08-11_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 phishscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508100057
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cdd4757f-9433-4c80-b5b2-003d42038a87@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,76 +89,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/11/2025 2:10 PM, Konrad Dybcio wrote:
-> On 8/8/25 7:22 PM, Akhil P Oommen wrote:
->> On 8/7/2025 7:21 PM, Konrad Dybcio wrote:
->>> On 7/20/25 2:16 PM, Akhil P Oommen wrote:
->>>> Since the PDC resides out of the GPU subsystem and cannot be reset in
->>>> case it enters bad state, utmost care must be taken to trigger the PDC
->>>> wake/sleep routines in the correct order.
->>>>
->>>> The PDC wake sequence can be exercised only after a PDC sleep sequence.
->>>> Additionally, GMU firmware should initialize a few registers before the
->>>> KMD can trigger a PDC sleep sequence. So PDC sleep can't be done if the
->>>> GMU firmware has not initialized. Track these dependencies using a new
->>>> status variable and trigger PDC sleep/wake sequences appropriately.
->>>>
->>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>> ---
->>>
->>> FWIW some time ago I made this patch, which tackles a similar issue,
->>> perhaps it's a good idea to merge both:
->>>
->>> From 7d6441fc6ec5ee7fe723e1ad86d11fdd17bee922 Mon Sep 17 00:00:00 2001
->>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>> Date: Thu, 20 Feb 2025 10:28:51 +0100
->>> Subject: [PATCH] drm/msm/adreno: Delay the Adreno RPMh startup to HFI init
->>>
->>> There's no use in trying to power up the GX logic before we're almost
->>> ready to fire up the GPU. In fact, with A8xx the PDC and RSC uCode are
->>> loaded by the GMU firmware, so we *must* wait for the GMU to fully
->>> initialize before trying to do so.
->>>
->>
->> iirc, this wake up sequence should be done before fw start. That aligns
->> with downstream sequence order too.
+On Thu, Aug 14, 2025 at 12:28:31AM +0530, Akhil P Oommen wrote:
+> On 8/13/2025 11:18 AM, Dan Carpenter wrote:
+> > On Fri, Aug 08, 2025 at 10:28:38PM +0530, Akhil P Oommen wrote:
+> >> On 8/7/2025 9:23 PM, Dan Carpenter wrote:
+> >>> Hello Akhil P Oommen,
+> >>>
+> >>> Commit b733fe7bff8b ("drm/msm/adreno: Add support for ACD") from Apr
+> >>> 19, 2025 (linux-next), leads to the following Smatch static checker
+> >>> warning:
+> >>>
+> >>> 	drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1700 a6xx_gmu_acd_probe()
+> >>> 	error: 'opp' dereferencing possible ERR_PTR()
+> >>>
+> >>> drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> >>>     1668 static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
+> >>>     1669 {
+> >>>     1670         struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
+> >>>     1671         struct a6xx_hfi_acd_table *cmd = &gmu->acd_table;
+> >>>     1672         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+> >>>     1673         struct msm_gpu *gpu = &adreno_gpu->base;
+> >>>     1674         int ret, i, cmd_idx = 0;
+> >>>     1675         extern bool disable_acd;
+> >>>     1676 
+> >>>     1677         /* Skip ACD probe if requested via module param */
+> >>>     1678         if (disable_acd) {
+> >>>     1679                 DRM_DEV_ERROR(gmu->dev, "Skipping GPU ACD probe\n");
+> >>>     1680                 return 0;
+> >>>     1681         }
+> >>>     1682 
+> >>>     1683         cmd->version = 1;
+> >>>     1684         cmd->stride = 1;
+> >>>     1685         cmd->enable_by_level = 0;
+> >>>     1686 
+> >>>     1687         /* Skip freq = 0 and parse acd-level for rest of the OPPs */
+> >>>     1688         for (i = 1; i < gmu->nr_gpu_freqs; i++) {
+> >>>     1689                 struct dev_pm_opp *opp;
+> >>>     1690                 struct device_node *np;
+> >>>     1691                 unsigned long freq;
+> >>>     1692                 u32 val;
+> >>>     1693 
+> >>>     1694                 freq = gmu->gpu_freqs[i];
+> >>>     1695                 opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, freq, true);
+> >>>                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> >>> No error checking.
+> >>
+> >> We are passing back a freq which we pulled out from the opp_table a few
+> >> lines before this. So it is unlikely that this call would fail.
+> >>
+> >> But it is okay to add a check here if that would make Smatch checker happy.
+> >>
+> > 
+> > No, no, just ignore it, if it can't fail.
+> > 
+> > Or I can add dev_pm_opp_find_freq_exact() to the "no need to check" list.
+> > That's easy to do.
 > 
-> FWIW techpack/graphics adreno_gen7_gmu.c @ gfx-kernel.lnx.15.0.r3-rel
-> adb0a9da173e ("kgsl: rgmu: corrected pm suspend flag check on resume")
-> 
-> // load gmu fw, enable clocks, irq, set up chipid etc.
-> [...]
-> 
-> // unmask CM3_SYSRESET
-> ret = gen7_gmu_device_start(adreno_dev);
-> if (ret)
->         goto err;
-> 
-> if (!test_bit(GMU_PRIV_PDC_RSC_LOADED, &gmu->flags)) {
-> 	// set PDC_GPU_ENABLE_PDC & seq_start_addr
->         ret = gen7_load_pdc_ucode(adreno_dev);
->         if (ret)
->                 goto err;
-> 
-> 	// disable hwcg, sleep/wake handshake setup, pdc ucode
->         gen7_load_rsc_ucode(adreno_dev);
->         set_bit(GMU_PRIV_PDC_RSC_LOADED, &gmu->flags);
-> }
-> 
-> // set HFI_CTRL_INIT
-> ret = gen7_gmu_hfi_start(adreno_dev);
-> if (ret)
->         goto err;
-> 
-> // continue booting the gpus, send out feature messages
-> 
-> on a830, the patch is observably necessary (gmu doesn't start otherwise)
+> Would that make Smatch ignore usage of "dev_pm_opp_find_freq_exact()" in
+> other code/drivers? If yes, we may not want that.
 
-I am confused actually, why are we mixing ucode load and PDC trigger
-sequence?
+It just wouldn't print this warning if people left off the error handling.
 
--Akhil.
+I'm going to ignore it anyway, right?  I recently had a case where I got
+mixed up which functions needed error handling and I ignored the wrong one.
+We still caught it in testing, but I'm also going through and marking which ones
+to ignore or not.
 
-> 
-> Konrad
+regards,
+dan carpenter
 
