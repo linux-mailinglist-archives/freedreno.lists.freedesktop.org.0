@@ -2,95 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15752B26091
-	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 11:18:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C2CBB260B6
+	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 11:23:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6F5810E82E;
-	Thu, 14 Aug 2025 09:18:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04D5210E078;
+	Thu, 14 Aug 2025 09:23:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ssEY77i1";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XVki3B+K";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3CE810E82A
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:18:21 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-45a1b001f55so3349345e9.0
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 02:18:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755163100; x=1755767900; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Sw1jsJRwABde2QJUqyand4FN1Jn1+zxeyEdBFH61xAc=;
- b=ssEY77i1iCfFccyTVBMEd6dzVkE9HwhJKPqhb9DS8wxg2qQA5twcpW5Kj6T7YliZ8p
- w9h5LCIu2GzDK1KdS1MUxnBMlnudti+O9t/68yp6b3/SPK3uwfDdalrhEHkZo6teIIWA
- U57NNWhzBgGbrfxEfsIXKRhgM6/GL3aDUF9Evh13Xb81Zn/9Pk3VwffbngoCa0iZjsS+
- s0P81xFjJZVD1E4QZZ/+yxlLuNPzjUQ5ighcll+RTzlhuQ94SFINcFbsh9XAT6gLQHna
- Yj4Yvz00j9hCiOHFcECCdZkuL93U4dnY4krS3GX8uVOQOYntZpdLtsZCTT96xXnAmRtL
- UL2A==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D937110E078
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:23:51 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57DN2rlC031245
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:23:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Rr8nJMfQPfH5v6BDXEA9yngasaki1qlI6+ZUchKQ1BU=; b=XVki3B+KzUIq1NxD
+ +a3auLWmpQJUUl88yWV9KbFruKeA16xcU2n9N73EeExsQr2iz7EoVYBZuuLA0KhP
+ JI3RujXwl58kln+zzuBB9PtU3AHLxNOcMTTp1wD0iim/iQmpS9t+xWxt79F4M/Lb
+ 9S0vR4yWwuqS52/9FkxBsEBGEZdsWiNdbtrSnRFQzwBEdpITlkEXaS58niLu6P13
+ K5N+k6BPK/4QHwHDLONHUU5VLaEcgEo3bFlYBq3Bt3idxIKnIi943E6YMgxog5I8
+ aldTwaVcXPLBeuo/ykJQsJltZYbBBzZk07dJgZHgXsg4VXzxlVDuyxHbjoo4eBcU
+ zAC+qg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48fm3vt1cn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:23:50 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4b109bd9b3dso2455161cf.2
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 02:23:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755163100; x=1755767900;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Sw1jsJRwABde2QJUqyand4FN1Jn1+zxeyEdBFH61xAc=;
- b=l35zlQ7Hq/ky7dLpjOw8GYg8hVWZJprR460L3qJmI59KnxYEj2xyWKAHzpiXEhXo6F
- cOc1JtKUVh4APBI6RVPckwulk0+BdPB9Aj8oWr4f1AAyFvBRECjnnMVAh258Fm97C95c
- bekwS5j5QHsHXpik8JiF6ocMkzzJIdtTQzBDD9w2ZkJqKr5Bq3awKovxLX/1wh/WmGCl
- VTXKrxGtofUoft8amp2rbOOmWFQ2LbnT5TtjBw4mB7WrjYIYku1qx+8WM/uEbuiaFm0C
- 3zp6wZLOG/79S96fhsILWVuIyg3Sdep7QdwRqGVJAJqflBJc/96NxIPVrqXfxmGAIRtU
- b4iA==
+ d=1e100.net; s=20230601; t=1755163430; x=1755768230;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Rr8nJMfQPfH5v6BDXEA9yngasaki1qlI6+ZUchKQ1BU=;
+ b=AEDW87cUexdVbvarcyuY1M6cDCgKjXDIdFtnrx8i+cKIi8Wip6OAL8tXz4P+XIQPIf
+ 54NTNfPc2BsO0e1Tem7+bf/2DMeRTjKWUn9h16cau4WKJ7aKaOWCdDRJElqzUHjX8c7m
+ R4xPvlsaC7R/ab33jt1T+ltMcaqkwNS4oe0hdfngMkelyTUBTSGSGRLqrU+KauXS2h8o
+ IRin9hUbIDBx2PBcVDynb65idmH0/IBKRlh6HqvmV6zcSa1NxzCpqz4fZlA6hJXsZuEv
+ UH35AcGL9dVod29ZEBUYZbRvLnF9xlhrKcrpkh/DF9eb7FxcSrgFj02qDWk1gX8hCka4
+ 0FXg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpJqKCeN3ALQ8e8JBBbotv0Bo//oOSCMQ8VlSN5fb/TfVdh6GFZC+P3QSd0tIioaqAZg1ubITgHe8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwV64DcwgcqxwBWJO3wVSSqTlZOuuNJ7y8bJq7pZfiSPDQlrHlG
- LSK3uoaRaZQdBhSfPtiP3cGPYMAgPKphPpRE0y0JfO5uQ/JgwQlCsiAQ2j+Y1xjzPwU=
-X-Gm-Gg: ASbGncubz/VSjI2xHvQsWSh2ogK0lxtPAjxDlJnv0LsvJu1jrJXLbl99a4Lk70/bhxX
- XfWKLywh5OKeOlP4afnF8be9Pa5TirBtkjQ3lThHCSLfsJTYLSdUcnEe04H4PMLd8oXCmzFTH9U
- 6t7WuA6ArdgyNrKUsihMo6UgXtQZ6M7GL5a+ynvepoWuHXEH3FiHj1hW1h15vAOn0Ox5riyq68H
- DAum2V6vuVMSboDnK7agNtlBiYtamE7vr/FxpfPWgsA461q+SqJ1rb0rQ/lD67HRSohZxcQL4K8
- +ajkm0vuhEEi6sMWwNJ41WQpKHlNYhsTyJWr5TfYgTsyY/geJWUBK6qzKZAjID1PhNwmP78Q2Yw
- Q/x6tbmItK8MtbMMtsUt1SAawsutxWADIHAlK
-X-Google-Smtp-Source: AGHT+IHgCKHrKmlG0XE5ASsl3flO7xdPvj24GpGqa+EV9hH/V/JZ27mTKnghzyA1i5XsC1PyFXNpXg==
-X-Received: by 2002:a05:600c:3151:b0:459:e3f8:92ec with SMTP id
- 5b1f17b1804b1-45a1b60e2e8mr20488895e9.10.1755163100162; 
- Thu, 14 Aug 2025 02:18:20 -0700 (PDT)
-Received: from [127.0.0.2] ([2a02:2454:ff21:ef41:ea13:2485:4711:708])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a1c74876csm13861925e9.14.2025.08.14.02.18.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Aug 2025 02:18:19 -0700 (PDT)
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-Date: Thu, 14 Aug 2025 11:18:07 +0200
-Subject: [PATCH 2/2] drm/msm: dp: Delay applying clock defaults until PHY
- is fully enabled
+ AJvYcCXCRo49XIhrX6SIa5BfspyqhXwMnVJAAz0aZEoHyq+fZThWsPrZt3+8BMFihK6S65tJ5iUn+YveAS0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLRZpr39kFElL2nrzSnYl0yCWKuwWvc4KdoYqPI7UoU30fmLI/
+ VYR9ddbg6fMHU3gxKh1tK/rE9N8oZe0AnYDvuXI0NGklvxEtrhCvJEUbR4rBCJ7SpxB9H1op6wy
+ 1LAw3IC6s4YGmAIK/CuI/6HSu4Em5lak60ljCXG/YlrrexSvP4H9zDPKq/cN6ZcJ9PzjFYR0=
+X-Gm-Gg: ASbGncskjfaZ3PHEWZj4OnpCIqNjhVJaCP/JiOrn6yiSCVdg8BkJauR5UjWdeFB5ffi
+ WnBdWbFRC3uRrKCtuSPaKq5iPEfTMfEJyuqvObLLpr+ml+9LXrEAQ5Rrsdo18FBoKeQdeBsxOxm
+ +nq73FyS09Q1t7fzgoompXec0TiGiRcogfC/ZHsXmj4Rc9TTQyzN/IVnbtfyojiQXqdGeD7VZR3
+ rDXrfOeM2xHpKqUdj0BzpYnF7BydzLkMG1yf30QealhwXhtLLc7h+lYOWW6+MNns/82KGoVQGhQ
+ tlbpoCu3y26ACuNMEpVzYaEsDwgc/kxsFiH1L00zUmelUWqvyqeelXReyreGrSNjPnf2TCqcpG9
+ 0kTr9kBBj+h1N3HrFaA==
+X-Received: by 2002:ac8:580b:0:b0:475:1c59:1748 with SMTP id
+ d75a77b69052e-4b10ab40660mr16148741cf.11.1755163430090; 
+ Thu, 14 Aug 2025 02:23:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEEmqdtGcjWlowhifxBpEnAQnNU5How2ZYW9ypeoFFwgzTxDN1AK/KzEpZK/3H7HMSaNxTjIQ==
+X-Received: by 2002:ac8:580b:0:b0:475:1c59:1748 with SMTP id
+ d75a77b69052e-4b10ab40660mr16148641cf.11.1755163429567; 
+ Thu, 14 Aug 2025 02:23:49 -0700 (PDT)
+Received: from [192.168.43.16] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a07670bsm2574670766b.8.2025.08.14.02.23.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Aug 2025 02:23:49 -0700 (PDT)
+Message-ID: <5fd77c1c-ffb3-4413-929a-36437b170591@oss.qualcomm.com>
+Date: Thu, 14 Aug 2025 11:23:47 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] soc: qcom: ubwc: use no-uwbc config for MSM8917
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20250814-more-ubwc-v1-0-d520f298220d@oss.qualcomm.com>
+ <20250814-more-ubwc-v1-1-d520f298220d@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250814-more-ubwc-v1-1-d520f298220d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250814-platform-delay-clk-defaults-v1-2-4aae5b33512f@linaro.org>
-References: <20250814-platform-delay-clk-defaults-v1-0-4aae5b33512f@linaro.org>
-In-Reply-To: <20250814-platform-delay-clk-defaults-v1-0-4aae5b33512f@linaro.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
- Abel Vesa <abel.vesa@linaro.org>, Michael Walle <mwalle@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODExMDEwNyBTYWx0ZWRfX4GA3Y55Jnh8v
+ ca2+A+CK1L9/SvLIQvDGTkinOF8EG2h14yyXvjdGk3yjQlpT5/UWFI/+OvmF8eZKsOTFw9Ze6P6
+ EUNnCpe1Kz5KLU0GpM5UWsWEAXu10CQz6nCZ6pLXQJXPZ8C+4nQQtnXknoBYYGlCLezXX9pvxsQ
+ cCgJbTqpvAC9iBdTOFKtuORoAhaGtWD+sVuQ8WEfaou+gU+24XHgGTTnQSaAMWBMpUKnDwIWrrq
+ A1tw6ji/oDr7/9MS/cHo0J1clccFbIPyEv/Sx7Ynzphwh4j+g01suAVhUHsJS41/nfYSCMGbXld
+ Z3NJiHDNtFMsPHba/YZ7jKoLJMNMbwOS4MOn0LKcI2UoTxGx3JIq0zz0asUK14Q0ohKLbS4XZxU
+ ggvGvKJe
+X-Proofpoint-GUID: w0G7IW7R_qm-mFFqibMVHpr-bQcFi5ip
+X-Authority-Analysis: v=2.4 cv=A+1sP7WG c=1 sm=1 tr=0 ts=689dab27 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=Oh2cFVv5AAAA:8 a=EUspDBNiAAAA:8
+ a=GOBAdVRHtaGIiaGvnzsA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+ a=7KeoIwV6GZqOttXkcoxL:22
+X-Proofpoint-ORIG-GUID: w0G7IW7R_qm-mFFqibMVHpr-bQcFi5ip
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-13_02,2025-08-11_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 spamscore=0
+ phishscore=0 clxscore=1015 adultscore=0 bulkscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508110107
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,109 +127,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On some Qualcomm platforms, we cannot safely reparent clocks when the new
-parent is not already powered up. This problem occurs for the DP and DSI
-controller when we try to reparent the link clocks using the standard
-"assigned-clock-parents" property to the clock source provided by the PHY.
-We often bypass this problem, because the clocks are already assigned to
-the correct parent by the boot firmware. Without that, there is an error
-during boot in the kernel log and DP/DSI is not functional.
+On 8/14/25 9:22 AM, Dmitry Baryshkov wrote:
+> MSM8917 has MDSS 1.15 and Adreno 308, neither of which support UBWC.
+> Change UBWC configuration to point out that UBWC is not supported on
+> this platform.
+> 
+> Fixes: 1924272b9ce1 ("soc: qcom: Add UBWC config provider")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/soc/qcom/ubwc_config.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_config.c
+> index 1490a7f63767bba176e8e2e76891d7d2c424bb7f..5113c2902bf2ba3711bb14b35bbbb8a2b49b8cfe 100644
+> --- a/drivers/soc/qcom/ubwc_config.c
+> +++ b/drivers/soc/qcom/ubwc_config.c
+> @@ -225,7 +225,7 @@ static const struct of_device_id qcom_ubwc_configs[] __maybe_unused = {
+>  	{ .compatible = "qcom,apq8096", .data = &msm8998_data },
+>  	{ .compatible = "qcom,msm8226", .data = &no_ubwc_data },
+>  	{ .compatible = "qcom,msm8916", .data = &no_ubwc_data },
+> -	{ .compatible = "qcom,msm8917", .data = &msm8937_data },
+> +	{ .compatible = "qcom,msm8917", .data = &no_ubwc_data },
 
-For example, the following error occurs on X1E if the &mdss_dp3 controller
-was not initialized by the boot firmware:
+https://android.googlesource.com/kernel/msm/+/android-7.1.0_r0.2/arch/arm/boot/dts/qcom/msm8917-mdss.dtsi#93
 
-  clk: failed to reparent disp_cc_mdss_dptx3_link_clk_src to aec5a00.phy::link_clk: -16
-  disp_cc_mdss_dptx3_link_clk_src: rcg didn't update its configuration.
-  WARNING: CPU: 0 PID: 77 at drivers/clk/qcom/clk-rcg2.c:136 update_config+0xd4/0xe8
-  pc : update_config+0xd4/0xe8
-  Call trace:
-   update_config+0xd4/0xe8 (P)
-   clk_rcg2_set_parent+0x58/0x68
-   __clk_set_parent+0x4c/0x214
-   clk_core_set_parent_nolock+0xe8/0x1f4
-   clk_set_parent+0xa4/0x13c
-   of_clk_set_defaults+0x15c/0x4a8
-   platform_probe+0x3c/0xc4
-   ...
-  clk: failed to reparent disp_cc_mdss_dptx3_pixel0_clk_src to aec5a00.phy::vco_div_clk: -16
-  disp_cc_mdss_dptx3_pixel0_clk_src: rcg didn't update its configuration.
-  WARNING: CPU: 0 PID: 77 at drivers/clk/qcom/clk-rcg2.c:136 update_config+0xd4/0xe8
-  ...
+&mdss_rotator {
+	/delete-property/ qcom,mdss-has-ubwc;
+};
 
-In the current implementation, it is tricky to solve this from any of the
-involved drivers, because the call to clk_set_parent() happens from the
-platform driver core (before the probe() function of the DP driver is
-called). Similarly, the PHY/clock driver cannot solve this alone, because
-it doesn't know which clock rate and configuration to use for the PHY.
+argh! thanks for catching that
 
-For DSI on SM8750, we solved this by avoiding use of assigned-clock-parents
-and calling clk_set_parent() separately from the DSI controller driver (see
-commit 80dd5911cbfd ("drm/msm/dsi: Add support for SM8750")). We could do
-that for the DP controller as well, but this would require changing the
-existing DT bindings for a number of platforms, just to workaround a
-limitation in the Linux driver model. The DT does not specify when to apply
-the assigned-clock-parents, so there is nothing wrong with the current
-hardware description.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Instead, fix this by using the new "driver_managed_clk_defaults" option in
-the platform_driver struct. Delay the call to of_clk_set_defaults() until
-we have set up the PHY to avoid the error shown above.
-
-Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 10 ++++++++++
- drivers/gpu/drm/msm/dp/dp_display.c |  2 ++
- 2 files changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index c42fd2c17a328f6deae211c9cd57cc7416a9365a..21249d2b85b308ef2437f1c7a309c795103599f6 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/types.h>
- #include <linux/clk.h>
-+#include <linux/clk/clk-conf.h>
- #include <linux/completion.h>
- #include <linux/delay.h>
- #include <linux/iopoll.h>
-@@ -140,6 +141,7 @@ struct msm_dp_ctrl_private {
- 	bool core_clks_on;
- 	bool link_clks_on;
- 	bool stream_clks_on;
-+	bool clk_defaults_set;
- };
- 
- static inline u32 msm_dp_read_ahb(const struct msm_dp_ctrl_private *ctrl, u32 offset)
-@@ -1789,6 +1791,14 @@ static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl)
- 	phy_configure(phy, &ctrl->phy_opts);
- 	phy_power_on(phy);
- 
-+	if (!ctrl->clk_defaults_set) {
-+		ret = of_clk_set_defaults(ctrl->dev->of_node, false);
-+		if (ret)
-+			return ret;
-+
-+		ctrl->clk_defaults_set = true;
-+	}
-+
- 	dev_pm_opp_set_rate(ctrl->dev, ctrl->link->link_params.rate * 1000);
- 	ret = msm_dp_ctrl_link_clk_enable(&ctrl->msm_dp_ctrl);
- 	if (ret)
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index d87d47cc7ec3eb757ac192c411000bc50b824c59..b8a0e61b806e6e386980f9c6ad6f58b487a68c7e 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1487,6 +1487,8 @@ static struct platform_driver msm_dp_display_driver = {
- 		.suppress_bind_attrs = true,
- 		.pm = &msm_dp_pm_ops,
- 	},
-+	/* Apply clock parents after PHY is fully initialized */
-+	.driver_managed_clk_defaults = true,
- };
- 
- int __init msm_dp_register(void)
-
--- 
-2.50.1
-
+Konrad
