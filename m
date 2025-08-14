@@ -2,97 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6ED4B26581
-	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 14:38:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4EEBB2683B
+	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 15:57:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9499210E14E;
-	Thu, 14 Aug 2025 12:38:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F49910E1C0;
+	Thu, 14 Aug 2025 13:57:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NQpT3GvL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MlHULCrn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 804A310E14E
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 12:38:52 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-45a15fd04d9so13372425e9.1
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 05:38:52 -0700 (PDT)
+Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
+ [209.85.166.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E125F10E1C0
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 13:57:48 +0000 (UTC)
+Received: by mail-io1-f43.google.com with SMTP id
+ ca18e2360f4ac-88432ccadeaso73740739f.0
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 06:57:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755175131; x=1755779931; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=EPz7ssqjO1h3zPDdSNeM/PBBBggiFT8+tZOchRnsIG8=;
- b=NQpT3GvLm408LpDZ+9U6eJ0Sjz+vlINWxc1Iev1R89SBMVg80jn+vs60DTL3LOtHN0
- jeSjYlSaqo/ctlyZjVxqvo0kEvyZ7aGYzreHoRAXb4lyUaPL2CCp6Z3cXU2L+d6wIH9F
- wtVYSqtIIpd1UWNav3+C9ol+/TZuu8LznVTyQeIc4dfpoN6O9AUbq+akdi8aTUwMlO1J
- 5ROlawkocyqvbEbhD5PK2sQ5njP9HnTC/KPRVzKh4XYjqz0dxyoJZTJauYixdMzF7OmF
- H70yq3Y1sootaE4I52MO81w+kvyQZ2OIYlr1XC8KZfNPNaubnV/56S0gm5a1OOi5I+Ld
- c/jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755175131; x=1755779931;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1755179868; x=1755784668; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EPz7ssqjO1h3zPDdSNeM/PBBBggiFT8+tZOchRnsIG8=;
- b=ef//CNkmXucz1jKZ6iVeSEivvoiYrN0xJuaPYju4/rRwCGaQaA6+SAJlkviDSY9Tav
- 3UHfaW3cMNUM2BsLnvHtcfVbFfIc42iBrPwobOx6ly5xgNNSFnF1Qo+vz2dKIaqx9qP9
- Nhe3jj4UkMlyFm+LaDQQLtjMgzHlYhW1cu2KwedUhnhW77XUuHhN23fgiXBz+BdtKxtL
- vmsbUqpJsNKkuJRI25iGwh028Md9muJbydK3lFQ4ricawOazEsKy4ZDZlbTe7/iHtfdk
- +NgXL17YUms2FdlGD0CWuNkz2b6pPZzO9y3Weg5IAiEgMPL9Fw0gNFj1SZ586QpRf97q
- TiRQ==
+ bh=lx6GiGCWcv29uwWUzTtNLQ4E7xpMKt+G9arurIsmu+M=;
+ b=MlHULCrn4WOKAsZnXJP0IIB+6i4pt3TJpQgu5NzK6mJaGY7UulZCJDRN9L/WtF+RW5
+ xqKNcsvmUaPYTpOZBaEIT0wuR00ZjQogb7fJp66U0kb3dj6VhKAf94c4KTKZLIi9QIq6
+ GqP9tHIXg1QiV+0AJvpMfgM5A7T1jzJ84hL4tBjDpv+ZAJodme2pIJJcGePg1pRllORw
+ V3FNWLXWJJqtr66t860kAMSBcfJBkJqFW6apve4lG5ftbMo4sHWBFRCQeWSvsTBbpg0i
+ vfxPawZLRcVaeRRDs2ygj8fVnISf0t0+rMCuK4bXV5AJiAaltPn1SJZMlDa4GxtsjkI1
+ c74Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755179868; x=1755784668;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lx6GiGCWcv29uwWUzTtNLQ4E7xpMKt+G9arurIsmu+M=;
+ b=GvnjMYyEqMwKZc5rz1zVpFipXQWn0fqe4n7dgJIwHjhAb1Ji6j8LeMSRzcAvgxtfjN
+ TzdkRBxFldxm9uaApv1fagzMMU7SDsBWGqc1x67lyWXrgh4BOJCR6F5tPQq5IVFPeO+/
+ lRfj5hLGvKAmA04eY0LRmKKoCz7Yzh7NqLjZxEoKiLf8oj4skFZ7d5weBdj5ec3ORAQU
+ hjM2BgNQAaJxgSaatTlvVvIBlUYZ4T9Nzp82bC3G4HB0xejq9xyvs4pCHBPviOBEsBI2
+ LFNDFb7I5aBaeu4SIOZk98phbshS7sRZ7aa14BXKRnRfFBtKeR8HA2oH3BmtQ4JWocl9
+ 6TCw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWhIYX3Gs8yqhIg8lhT+/ZnYcXfWSM97qmWK90sONZf3XeyFMFi+S/oPWcccLd3oNAydVC38H1enfw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw0s3tpOAMdMjA6EbvVVsue+cYdrQa2YkRnUYzAU3CKh2iHIJja
- ktR+gvLp2SKf65UFjuVGbStiGK0Aouz7Q/hMnlLF5qTI7qZTJHd7aHj3jKXlbW04QXs=
-X-Gm-Gg: ASbGncvwbs9ZFIR2ZQ2k67DJ3Y/l8mbo8CWIWCti7E3NittUKCSk5L3gAGtlJ34jL15
- 28BIKEHCXUcFuCSJ/X3E4l8OCP6NGtGvvjb1mi1ibC0eJ4K3zabEjwUrG8wQhdPLSWrGqXN4mSg
- L/sAIzVvp4+FG8H3avhQ6Xm7wFP4hXwxgze7dVStNaqBVjHVN0HnK1RsNB+JY7mKEE+H6o52/rF
- MHWJCVOcZg/ou4ECy76bYfNMp0R0cNhRuZq3Vhrz3rP/jpx3m11qbTM+FC+gNKbR63b/A6H14KU
- N8IcLHeHHSseB2suWjzmeV3EfDLeIxuV5n4B7F9cG2AdMmBR8pGyHzfO+OiYKWT4/iTEOoOa0+4
- RZpRiCAlQbkaP25un++BOlnqWShnsOz4BOSCDLH3WJNM=
-X-Google-Smtp-Source: AGHT+IF/ppAwQetiBd0wp/qfvGWqioLtpcsysBKMaFWSLwxDoTBshLVeizH2zPHayB9NK+G77PX3mg==
-X-Received: by 2002:a05:600c:a410:b0:459:dd1d:2ee0 with SMTP id
- 5b1f17b1804b1-45a1b5ce7ccmr18335865e9.0.1755175130790; 
- Thu, 14 Aug 2025 05:38:50 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff21:ef30:1e8b:1779:ed5:b6f])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a1b855c87sm11997735e9.4.2025.08.14.05.38.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Aug 2025 05:38:50 -0700 (PDT)
-Date: Thu, 14 Aug 2025 14:38:45 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Abel Vesa <abel.vesa@linaro.org>, Michael Walle <mwalle@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/2] driver core: platform: / drm/msm: dp: Delay applying
- clock defaults
-Message-ID: <aJ3Y1XhvTPB7J6az@linaro.org>
-References: <20250814-platform-delay-clk-defaults-v1-0-4aae5b33512f@linaro.org>
- <flybqtcacqa3mtvav4ba7qcqtn6b7ocziweydeuo4v2iosqdqe@4oj7z4ps7d2c>
+ AJvYcCUrgSN85x4f0FsElsK62G5mG4+JRUtC0AHPFrF4hxhr5GAEsv9NuARFDKaVeVMkws8Q6jOtZhuFqEg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJUfnoo4E/ejiTHMmx+pwQHuUxLb+BQ9EzuvpKe4699AJsqHPn
+ YBiQuBCB4PIYYSK0WR0+NsjjB0k5Nar+RpNInaWJ8sdBKtHavG+hCQIlUjYVxGPhYTMUesyibkP
+ L1YqWoD6gwsZts0Tj/Moh/qs5Oy7SijU=
+X-Gm-Gg: ASbGncurvscK0T9p9vu3Y/fXJC3bliO5aahfF4RVvJe41G/15gQOjrIZG+WrfjUcoOV
+ MpWQbzc+/zRNRQbroy1qJ15iidP7CUcfsr4fxvInDnmWlniC2LGs7tD+N0Z7hYughncWcvOTXsn
+ bKCpWMincXQhbBsCDlKPZpSobrhz0mvpXZLKOJrtUYLLfCFF04GLGu/XsncsPbh7udi7SYWc95P
+ QlRIQ==
+X-Google-Smtp-Source: AGHT+IGs16U205aOtZ4HBD0b6pJYPBy2opepBtywhB0G+Lk9q5kbkx9S+mMTExEzA966qWKdVXQEjluAfFVjwam4dlQ=
+X-Received: by 2002:a05:6602:15cf:b0:881:8d1f:1a7c with SMTP id
+ ca18e2360f4ac-884339cc3famr582895939f.12.1755179867920; Thu, 14 Aug 2025
+ 06:57:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <flybqtcacqa3mtvav4ba7qcqtn6b7ocziweydeuo4v2iosqdqe@4oj7z4ps7d2c>
+References: <aJTL87hBAEtJb3VT@stanley.mountain>
+ <2d54964b-1f60-4a58-8064-567611a3a126@oss.qualcomm.com>
+ <aJwnNqfxZHfiVHZB@stanley.mountain>
+ <cdd4757f-9433-4c80-b5b2-003d42038a87@oss.qualcomm.com>
+ <aJ2K26ZBVZilC8jg@stanley.mountain>
+In-Reply-To: <aJ2K26ZBVZilC8jg@stanley.mountain>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 14 Aug 2025 06:57:35 -0700
+X-Gm-Features: Ac12FXxHK41NLgF0xoi0AjL5btc7nK8oxwwJ1zZEcnlEHXprFfu1HPsbAd42SH0
+Message-ID: <CAF6AEGuO-8Y-dqsXZa5Oi4fTdzzWsOss5KEhyUkqiGCyuhVrdw@mail.gmail.com>
+Subject: Re: [bug report] drm/msm/adreno: Add support for ACD
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,105 +87,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 14, 2025 at 02:55:44PM +0300, Dmitry Baryshkov wrote:
-> On Thu, Aug 14, 2025 at 11:18:05AM +0200, Stephan Gerhold wrote:
-> > Currently, the platform driver core always calls of_clk_set_defaults()
-> > before calling the driver probe() function. This will apply any
-> > "assigned-clock-parents" and "assigned-clock-rates" specified in the device
-> > tree. However, in some situations, these defaults cannot be safely applied
-> > before the driver has performed some early initialization. Otherwise, the
-> > clock operations might fail or the device could malfunction.
-> > 
-> > This is the case for the DP/DSI controller on some Qualcomm platforms. We
-> > use assigned-clock-parents there to bind the DP/DSI link clocks to the PHY,
-> > but this fails if the PHY is not already powered on. We often bypass this
-> > problem because the boot firmware already sets up the correct clock parent,
-> > but this is not always the case.
-> 
-> So, the issue is that our abstraction is loose and we register a clock
-> before it becomes usable. Would it be better to delay registering a
-> clock until it's actually useable? (and then maybe to unregister on the
-> link shutdown)
-> 
-> > 
-> > Michael had a somewhat related problem in the PVR driver recently [1],
-> > where of_clk_set_defaults() needs to be called a second time from the PVR
-> > driver (after the GPU has been powered on) to make the assigned-clock-rates
-> > work correctly.
-> > 
-> > I propose adding a simple flag to the platform_driver struct that skips the
-> > call to of_clk_set_defaults(). The platform driver can then call it later
-> > after the necessary initialization was performed (in my case: after the PHY
-> > was fully enabled for the first time).
-> > 
-> > There are also alternative solutions that I considered, but so far
-> > I discarded them in favor of this simple one:
-> > 
-> >  - Avoid use of assigned-clock-parents: We could move the clocks from
-> >    "assigned-clock-parents" to "clocks" and call clk_set_parent() manually
-> >    from the driver. This is what we did for DSI on SM8750 (see commit
-> >    80dd5911cbfd ("drm/msm/dsi: Add support for SM8750")).
-> > 
-> >    This is the most realistic alternative, but it has a few disadvantages:
-> > 
-> >     - We need additional boilerplate in the driver to assign all the clock
-> >       parents, that would be normally hidden by of_clk_set_defaults().
-> > 
-> >     - We need to change the existing DT bindings for a number of platforms
-> >       just to workaround this limitation in the Linux driver stack. The DT
-> >       does not specify when to apply the assigned-clock-parents, so there
-> >       is nothing wrong with the current hardware description.
-> > 
-> >  - Use clock subsystem CLK_OPS_PARENT_ENABLE flag: In theory, this would
-> >    enable the new parent before we try to reparent to it. It does not work
-> >    in this situation, because the clock subsystem does not have enough
-> >    information to power on the PHY. Only the DP/DSI driver has.
-> > 
-> Another possible option would be to introduce the 'not useable' state /
-> flag to the CCF, pointing out that the clock is registered, but should
-> not be considered for parenting operations.
-> 
-> >  - Cache the new parent in the clock driver: We could try to workaround
-> >    this problem in the clock driver, by delaying application of the new
-> >    clock parent until the parent actually gets enabled. From the
-> >    perspective of the clock subsystem, the clock would be already
-> >    reparented. This would create an inconsistent state: What if the clock
-> >    is already running off some other parent and we get a clk_set_rate()
-> >    before the parent clock gets enabled? It would operate on the new
-> >    parent, but the actual rate is still being derived from the old parent.
-> > 
-> 
-> But... Generally it feels that we should be able to bring up the clocks
-> in some 'safe' configuration, so that the set_parent / set_rate calls
-> can succeed. E.g. DISP_CC_MDSS_DPTX0_LINK_CLK_SRC can be clocked from XO
-> until we actually need to switch it to a proper rate. I see that
-> e.g. dispcc-sm8550.c sets 'CLK_SET_RATE_PARENT' on some of DP clock
-> sources for no reason (PHY clock rates can not be set through CCF, they
-> are controlled through PHY ops).
-> 
+On Thu, Aug 14, 2025 at 12:06=E2=80=AFAM Dan Carpenter <dan.carpenter@linar=
+o.org> wrote:
+>
+> On Thu, Aug 14, 2025 at 12:28:31AM +0530, Akhil P Oommen wrote:
+> > On 8/13/2025 11:18 AM, Dan Carpenter wrote:
+> > > On Fri, Aug 08, 2025 at 10:28:38PM +0530, Akhil P Oommen wrote:
+> > >> On 8/7/2025 9:23 PM, Dan Carpenter wrote:
+> > >>> Hello Akhil P Oommen,
+> > >>>
+> > >>> Commit b733fe7bff8b ("drm/msm/adreno: Add support for ACD") from Ap=
+r
+> > >>> 19, 2025 (linux-next), leads to the following Smatch static checker
+> > >>> warning:
+> > >>>
+> > >>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1700 a6xx_gmu_acd_probe()
+> > >>>   error: 'opp' dereferencing possible ERR_PTR()
+> > >>>
+> > >>> drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> > >>>     1668 static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
+> > >>>     1669 {
+> > >>>     1670         struct a6xx_gpu *a6xx_gpu =3D container_of(gmu, st=
+ruct a6xx_gpu, gmu);
+> > >>>     1671         struct a6xx_hfi_acd_table *cmd =3D &gmu->acd_table=
+;
+> > >>>     1672         struct adreno_gpu *adreno_gpu =3D &a6xx_gpu->base;
+> > >>>     1673         struct msm_gpu *gpu =3D &adreno_gpu->base;
+> > >>>     1674         int ret, i, cmd_idx =3D 0;
+> > >>>     1675         extern bool disable_acd;
+> > >>>     1676
+> > >>>     1677         /* Skip ACD probe if requested via module param */
+> > >>>     1678         if (disable_acd) {
+> > >>>     1679                 DRM_DEV_ERROR(gmu->dev, "Skipping GPU ACD =
+probe\n");
+> > >>>     1680                 return 0;
+> > >>>     1681         }
+> > >>>     1682
+> > >>>     1683         cmd->version =3D 1;
+> > >>>     1684         cmd->stride =3D 1;
+> > >>>     1685         cmd->enable_by_level =3D 0;
+> > >>>     1686
+> > >>>     1687         /* Skip freq =3D 0 and parse acd-level for rest of=
+ the OPPs */
+> > >>>     1688         for (i =3D 1; i < gmu->nr_gpu_freqs; i++) {
+> > >>>     1689                 struct dev_pm_opp *opp;
+> > >>>     1690                 struct device_node *np;
+> > >>>     1691                 unsigned long freq;
+> > >>>     1692                 u32 val;
+> > >>>     1693
+> > >>>     1694                 freq =3D gmu->gpu_freqs[i];
+> > >>>     1695                 opp =3D dev_pm_opp_find_freq_exact(&gpu->p=
+dev->dev, freq, true);
+> > >>>                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> > >>> No error checking.
+> > >>
+> > >> We are passing back a freq which we pulled out from the opp_table a =
+few
+> > >> lines before this. So it is unlikely that this call would fail.
+> > >>
+> > >> But it is okay to add a check here if that would make Smatch checker=
+ happy.
+> > >>
+> > >
+> > > No, no, just ignore it, if it can't fail.
+> > >
+> > > Or I can add dev_pm_opp_find_freq_exact() to the "no need to check" l=
+ist.
+> > > That's easy to do.
+> >
+> > Would that make Smatch ignore usage of "dev_pm_opp_find_freq_exact()" i=
+n
+> > other code/drivers? If yes, we may not want that.
+>
+> It just wouldn't print this warning if people left off the error handling=
+.
+>
+> I'm going to ignore it anyway, right?  I recently had a case where I got
+> mixed up which functions needed error handling and I ignored the wrong on=
+e.
+> We still caught it in testing, but I'm also going through and marking whi=
+ch ones
+> to ignore or not.
 
-I don't think there is any problem with the 'safe' configuration you
-mention. I have not tried, but we should be able to use that. However,
-my understanding is that reparenting does not fail because the clock
-itself is in an "unusable" state, but because the new parent is in an
-"unusable" state. We can run the clock from XO, but that wouldn't solve
-the problem of reparenting to the PHY (until the PHY is fully
-configured).
+drive-by comment:  Would it be useful to have a comment that smatch
+could look for in cases like this.. similar to how rust has a practice
+of adding a comment describing unsafe blocks?  It could be a useful
+way to document "safe because: this isn't expected to fail" cases,
+both for humans and tools.
 
-(It would help a lot if you can find someone from the hardware team at
- Qualcomm to confirm that. Everything I write is just based on
- experiments I have done.)
+BR,
+-R
 
-So, assume that DISP_CC_MDSS_DPTX0_LINK_CLK_SRC is already running from
-XO, but the PHY is powered off. Now of_clk_set_defaults() gets called
-and we get the call to clk_set_parent() while the PHY is off. How do we
-deal with that? Returning 0 without actually changing the parent would
-result in inconsistent state, as I described above. clk_get_parent()
-would return the new parent, but actually it's still running from XO.
-
-With my changes in this series the clock state is always consistent with
-the state returned by the clk APIs. We just delay the call to
-clk_set_parent() until we know that it can succeed.
-
-Thanks,
-Stephan
+> regards,
+> dan carpenter
+>
