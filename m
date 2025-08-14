@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73AC6B260D4
-	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 11:27:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B82BB260DD
+	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 11:28:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BB8D10E2A3;
-	Thu, 14 Aug 2025 09:27:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7BD510E296;
+	Thu, 14 Aug 2025 09:28:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oBLjGASS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="c4iccqO0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A393C10E296
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:27:16 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57E9MC1D025691
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:27:16 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC27110E29E
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:28:28 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57E9J5Bl020811
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:28:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=zvxCWSRBlZv5hDIRk34myOM8
- a1Wew5iutKQ7yJWvhmc=; b=oBLjGASSkhi5Jx8pEoMRu8jNPs+eaB126S8Gjm3X
- KdDVYScRqmwQidLE5b7vEvkYaf/ckR6NA4AXwrJhSayXjTcSUyQbXixsLFGHHS1V
- kuTV4/iOsA/Um0A82sgfwGsAk1wrV0b6MayHVJNjms8MT9UwJAz/wivsewOl4Cc0
- vVZmFIN420+NFp7rHESUjcGEciqdNVlTZoCnumRrAPm7h7arbtwyvCFM1Tb4Ic2r
- G1xh69Dlz5YgN7xB6gnnj6YGzb4DQZ9jqYUact+8wsaFULzWEDyQFEFsaZemaQWH
- 0E3pYh701SdXkF2SRrR+XJdHZoA53rKMYFw60QARpr6b6g==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dy3gf2f2-1
+ :references:subject:to; s=qcppdkim1; bh=O076QscBlfaSz8F8rEYXMUKe
+ ydobwM2fUce6AJi5pU0=; b=c4iccqO0EpYkH9FlIOWuAAX4vE+ax/m/JH/fRlbb
+ t9eJgwcJ+5InT7JIM2Txed7ag9OTSWtkpyrYw2cv5tr4C/Bj9nMemtKdTxly7w+G
+ 6xJsDYtZVXn4de0Ch6I6PiCvND/NVK6cVDFb/14nB+Hdijs+xNpcWfBRkTb6xFWy
+ DB6Tfjz9+fpsrvF74b9+m+n2saOGXxjoOZI5lXpy5vmAaPAUYirCnvg9IWUZvHT4
+ b+VazyBmbJAXOKNh+PwVcEj6816hGiMib3v2UH3n/dk72oVu23tc/sqGvg+JlcXH
+ 9+5aBS/XHa6jg8uZARpyzPpdOoorP6E953G4MUM4yzL3sA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dw9syc7r-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:27:16 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4b0faa8d615so46407371cf.1
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 02:27:16 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:28:28 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4b1099142e0so20379891cf.0
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 02:28:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755163635; x=1755768435;
+ d=1e100.net; s=20230601; t=1755163707; x=1755768507;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zvxCWSRBlZv5hDIRk34myOM8a1Wew5iutKQ7yJWvhmc=;
- b=C1qqO/AXTYEej37km9t4TYjAASPKlFyIWMMqVQboWWacsjXz/y4k9ONo/mjIfnf/Dp
- 9rYddAOJeiWNv7dL7w6N0ydHgKotauWhjx4F5S67N8NcGTiUKsovWwBDURLenOC7zzBC
- BEoa+yhQO0onQixJZO6n2GBXhDnkCsO79jbRoKGY/Y1LlHDR8kfvRoF3zd61AbYFqVt/
- xUwR0jJqZN0hoZssqEhLgY7hzDc29XYrfpKfjK42km/QL1vancLL/6cfV957h8mykMJz
- fdSyq9dWtWL/6YKg3PehVsTqm99QapCasVSdSSuU3+J6G4azoU2VhyuVFLIqGLoaVVes
- SqPQ==
+ bh=O076QscBlfaSz8F8rEYXMUKeydobwM2fUce6AJi5pU0=;
+ b=KwZnxBO/dG4+M6Lcfws6cu3tunDskkcmLZGipP1zv6i0IvSgVLYTkt7E6ER25l1lH1
+ 3WQjWvDcVTe+moKo2H8qq2Sdq+PQ3r/opQxtBaFGbddRKtWKRe/vJABwMTFNoCi69PvM
+ Y/GHzGLw2CLDzUeezYii6ZWOoj8tdbAbfGfkSPp5Dm8c2Fn3vQLpdAvgvrsZFrkVaBrW
+ 18gPWyfVmYMepC0RWN78NYT/eXnZeT8LQzBmI9Hp03SkaGJMYYKCG+ITifYKy4uWid6s
+ 6uWWSQow4/9oV8eLseQHrKXkTp4qzrWl4PNlcaZ03modfaOyMXrsprZULa8AehHKnW6f
+ WlZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUbWwIKYWF/EJMLN7JuF9l+kfa4sN/eWEmxWSFD6+RLgRJGVKnPTMwTYpZ7ASXGdt2qdn/zpe8kQFg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoSK1c4upvUe1XM9sh1LhdqhYevY1vdiG3TF6o36IneG1zJq0q
- iFGD8UoHcC7Q0GT4O0MmRHBXpv+zuOV9xhtXxxKJuYOYGjMX/6WsZIfJKo9atlMyYWmKBzGJyNi
- M65wN32GfrFhVRV8/KJpfsoXq+9tcCVyIMfxv2naKFBnmRyW4WSZTo1GgGWrRui2N6qs/iFg=
-X-Gm-Gg: ASbGncsXR8NuHYU5Z9WNUzyp4wcvHOSMhqKducutqSH8/PkwwXS1Tk434YQ6tB8SiJQ
- E4wnv9g2X6zOBh7ATNlx1qc2/XmdJPHaja25dZYQNz+EBFJRstX2k04g/Ltu0MYxKM2CNUpROHb
- SctngJgyQy5rE3c4eBUE27wfUn4j28GcUFM83UT84p7Q4FpVjtBPQBt6UDuBGfCJ08LX+uYidrD
- 6Qsjxn2LZAXG0x4oJN7PUK8k/73YToKtcxpakuUZ1uyy6q94jKI8FRMweqX6oQwfAXMbSruIx4/
- LeiXHeHXfhnzSAYZfYi95FvplLBRauNPlUukkPiUmdXkFLwQilqTXkvNdQ+7SWXbNGaUPLMwiB4
- 4GmNTjHaVOxGVSNcnA/LjeoMaaTYzOgGPhjIKXeaFaiqiShKvGcWg
-X-Received: by 2002:ac8:7d8a:0:b0:4b0:69ef:8209 with SMTP id
- d75a77b69052e-4b10c03f7e8mr20699841cf.26.1755163634727; 
- Thu, 14 Aug 2025 02:27:14 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGBjVvw/Dh9L2WDNaCrSVxcKNewmCQ7QcEKe6lAOLf6M3q1psXddyfkwfj70vcyEZ6Y9oS9JQ==
-X-Received: by 2002:ac8:7d8a:0:b0:4b0:69ef:8209 with SMTP id
- d75a77b69052e-4b10c03f7e8mr20699641cf.26.1755163634235; 
- Thu, 14 Aug 2025 02:27:14 -0700 (PDT)
+ AJvYcCX1sVXKuZOFKqJz9Yw11MTSKEE9pYOsOo26IPZdE/iZbRnkOvwssq8Hgqtvu0bObGX9QE6rspAtVkA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyL0BLuRmLF7HjbxA0h5OLVbDB1uxlViSyAifjieo+eKIeVw3oU
+ 4ciUpByT8vTuBv4rCNs+I33c+Wc5W6cOCR6k+CYlcuzjIrOk4uw6UljOZY6rBZVgGM8nvQpaKV6
+ 5ghIi19rFQvbP9MPh/1RXxnLOF/4tr+chAc4WWXHB0l7xYwLHms2Nx1QCazMRd9Zto27eBvs=
+X-Gm-Gg: ASbGncs3NqHM+bC5P4P1mpdwC5laDTIJNHvtb1TVQekE0yqWBEuYN4Gj+KEMLTqzc6m
+ fszPFRMrZ1FLSGt+oYT29lpMTNoDryw7/w14a0OVVS4gaXU0O3DbKSdZsYSuXfpwX0+eRUxN7/F
+ KjB+f0WX/M00GEsUdBrltw/eGEvbyrpfUXVHta0DVYkkf9+ya2mHli3GhcypIaM20/SJSXDlWMI
+ vvYQub7h5E059ZQpLIgZOPrbfre8Om9NDqqI5NjGXwPw/6w2uqBRdBES+YPTeJLNbG8VBtupK0h
+ AB2QtgLUdXEF7xpO820gR90v6RG/GPpEWDc8rb/gLACmaSaNQaB6QCWkC042m1nFnDrgwnlWkVy
+ 2hdc8ABTc92Jis6EEtJO6Juffaw79x0KcRFUjkU1v+agkqsA1Jo3r
+X-Received: by 2002:ac8:588d:0:b0:4b0:7989:13db with SMTP id
+ d75a77b69052e-4b10c5ed878mr20121331cf.58.1755163706760; 
+ Thu, 14 Aug 2025 02:28:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG3MUHvm6rtSa8l/GeGn7RYGTzj4ND9ReLlHxxvcNHQJymdlM1Mf9CYxBThDHTsoL8aM4maXg==
+X-Received: by 2002:ac8:588d:0:b0:4b0:7989:13db with SMTP id
+ d75a77b69052e-4b10c5ed878mr20121041cf.58.1755163706254; 
+ Thu, 14 Aug 2025 02:28:26 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-333f8cbc6f4sm2275421fa.9.2025.08.14.02.27.13
+ 2adb3069b0e04-55b889ad021sm5649676e87.74.2025.08.14.02.28.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Aug 2025 02:27:13 -0700 (PDT)
-Date: Thu, 14 Aug 2025 12:27:11 +0300
+ Thu, 14 Aug 2025 02:28:25 -0700 (PDT)
+Date: Thu, 14 Aug 2025 12:28:23 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Yongxing Mou <quic_yongmou@quicinc.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -85,37 +85,37 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v2 26/38] drm/msm/dp: skip reading the EDID for MST cases
-Message-ID: <pbbisppntd7fntghbjbyjmdvbxqc7uux42kiuryau4trgf3w47@4d5fi6zpcdf5>
+Subject: Re: [PATCH v2 32/38] drm/msm: add support for non-blocking commits
+Message-ID: <vns2bbpekccowbu3ahg4cnvhrbfk3yc2tvu7o4n45gpn2tpybp@w6gmsve76erp>
 References: <20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com>
- <20250609-msm-dp-mst-v2-26-a54d8902a23d@quicinc.com>
- <lusd35wv2pj5sy6mdiw7axqxnei2wqo57pf6ju5ys2ibfrkidu@63lkbckuu2n6>
- <e3b5721d-cf37-4b35-9851-5e822fa16c09@quicinc.com>
+ <20250609-msm-dp-mst-v2-32-a54d8902a23d@quicinc.com>
+ <rznsg4feyxanhvggxtebilg3ukbcrv3xgi4f2ijadjqaeqfelo@ogib4gythj7d>
+ <a8458790-b4d8-4165-bd6f-00497a9d0457@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e3b5721d-cf37-4b35-9851-5e822fa16c09@quicinc.com>
-X-Authority-Analysis: v=2.4 cv=X4lSKHTe c=1 sm=1 tr=0 ts=689dabf4 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8 a=jWxsxo1frd0NMcvgwksA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAzMSBTYWx0ZWRfX3RPz2NY3hD8y
- q6N49B983sIyfvfYuIZDhoC7KKpZdN35Fa2ciDa276L/5MUaGPxwu9pYpd27Mha+iFGGvqQ1/xr
- QYWbjE5tfBOkmPyWlIdNfE1n73Y6cRr+Sm7U48SvUtbwJ5ZagqwsEFx4SlVqdD8LrGYx46QcDhO
- KvXKXehi06aWLmhQzUezHdaPqcE27pZYEcsB+6pmpWXdLY1WyPu4l5/UfIB3uFOxqrg093o3LD4
- aCzxTkEYqbbMXJLX73BDQvqQgxbbgEDCEZheoqzMd2gxmvlLaMiV3mDo9FoK62lC3WI9TfkZNCl
- H6/9yo94nz3Uk/HFICCVn6ltTWL8yXS+ySz+K9fzemVIGJbDi8E4sOEeNNQseRev3u07RTXfxRu
- 1+p2P+p+
-X-Proofpoint-GUID: oL4S82uUHsChZSr8JlW3Zu_Y9MphLk0w
-X-Proofpoint-ORIG-GUID: oL4S82uUHsChZSr8JlW3Zu_Y9MphLk0w
+In-Reply-To: <a8458790-b4d8-4165-bd6f-00497a9d0457@quicinc.com>
+X-Authority-Analysis: v=2.4 cv=J+Wq7BnS c=1 sm=1 tr=0 ts=689dac3c cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8 a=Z7gkRSVo2wHhsan7cAUA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: 7BUJFyD4hrdemDK7SLTbPDnP50nTnAbK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAxNSBTYWx0ZWRfX6FTJWh9XDkwQ
+ q+kg5ZxjWjUyywAsQcrhxibwmu7Wlrx8aHieMwn+xoCtPiQNNJOZoIbZGbZo4f5yik5GmUTVQW1
+ wfHCYORTufp58XYxT4fRn2H7vFCQRT0mTVGIVIrezB0N3xIvSoPy/Gd4hJck9gwUviqKKMLH6Ij
+ h5UEfdqD3l6ta7PY5Ml3RuR0JLGeyIH1cpiYOJgWIrfjqM+mXp5o4kJaSq/8dQ62ZmsTu8bRVd/
+ tBQ9xNz2UrGOPgkWE9oqAR0Y0Nue7aL17Gw0e6/+GjMAInBsrqeE5ntYdCbDlSPDmtxAjmNgAkd
+ w2yN4VQ/hzLUrXwywgkOQrSHP52hnHE9sRk8TbHzphT/XTfQso5yJXLHQovx7dwWsfW+fh0kTvX
+ pTv1JxH9
+X-Proofpoint-GUID: 7BUJFyD4hrdemDK7SLTbPDnP50nTnAbK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-13_02,2025-08-11_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 adultscore=0
- spamscore=0 bulkscore=0 suspectscore=0 impostorscore=0 classifier=typeunknown
+ priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ phishscore=0 suspectscore=0 spamscore=0 clxscore=1015 classifier=typeunknown
  authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508090031
+ engine=8.19.0-2507300000 definitions=main-2508090015
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,57 +131,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 14, 2025 at 04:22:44PM +0800, Yongxing Mou wrote:
+On Thu, Aug 14, 2025 at 04:54:16PM +0800, Yongxing Mou wrote:
 > 
 > 
-> On 2025/6/9 23:58, Dmitry Baryshkov wrote:
-> > On Mon, Jun 09, 2025 at 08:21:45PM +0800, Yongxing Mou wrote:
+> On 2025/6/9 22:50, Dmitry Baryshkov wrote:
+> > On Mon, Jun 09, 2025 at 08:21:51PM +0800, Yongxing Mou wrote:
 > > > From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > > > 
-> > > For MST cases, EDID is handled through AUX sideband messaging.
-> > > Skip the EDID read during hotplug handle for MST cases.
+> > > Hook up the mst framework APIs with atomic_commit_setup() and
+> > > atomic_commit_tail() APIs to handle non-blocking commits.
 > > 
-> > Why? It makes sense to read it during the HPD processing, ping HDMI
-> > codec, update CEC info, etc.
+> > Were non-blocking commits not supported before this patch?
 > > 
-> For MST case to read EDID. we will use drm_dp_mst_edid_read when MST
-> connetors .get_modes() called.
+> This patch only work for MST case. and for SST case, i'm not sure.  I see
+> commit_tail() called drm_atomic_helper_wait_for_dependencies() in DRM
+> codes.. Hopefully this can answer your question.
 
-I see that other MST drivers indeed read EDID from get_modes(). The only
-issue that I can foresee is the audio handling. We've discussed that
-some time ago (for the HDMI implementation) and it's generally expected
-that we notify ASoC (and provide ELD) from the HPD (detect) path rather
-than the get_modes() or e.g. atomic_enable().
-
-Note: AMD / Radeon, Nouveau and Intel drivers don't have this problem
-since they don't use ASoC and hdmi_codec ops.
+This should be a part of the commit message.
 
 > > > 
 > > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
 > > > ---
-> > >   drivers/gpu/drm/msm/dp/dp_display.c | 8 +++++---
-> > >   1 file changed, 5 insertions(+), 3 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > index 88cae0ca66015377e59bee757462edeae5ae91bf..b1b025d1d356046f8f9e3d243fc774185df24318 100644
-> > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > @@ -438,9 +438,11 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
-> > >   	if (rc)
-> > >   		goto end;
-> > > -	rc = msm_dp_panel_read_edid(dp->panel, connector);
-> > > -	if (rc)
-> > > -		goto end;
-> > > +	if (!dp->mst_supported || !drm_dp_read_mst_cap(dp->aux, dp->panel->dpcd)) {
-> > > +		rc = msm_dp_panel_read_edid(dp->panel, connector);
-> > > +		if (rc)
-> > > +			goto end;
-> > > +	}
-> > >   	msm_dp_link_process_request(dp->link);
-> > > 
-> > > -- 
-> > > 2.34.1
+> > >   drivers/gpu/drm/msm/msm_atomic.c | 3 +++
+> > >   drivers/gpu/drm/msm/msm_kms.c    | 2 ++
+> > >   2 files changed, 5 insertions(+)
 > > > 
 > > 
 > 
