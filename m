@@ -2,66 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5CE9B271EC
-	for <lists+freedreno@lfdr.de>; Fri, 15 Aug 2025 00:46:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82C1AB2731F
+	for <lists+freedreno@lfdr.de>; Fri, 15 Aug 2025 01:48:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F93C10E11D;
-	Thu, 14 Aug 2025 22:46:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 295E810E232;
+	Thu, 14 Aug 2025 23:48:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DzwUkoTq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nogP06os";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A596C10E0B5;
- Thu, 14 Aug 2025 22:46:14 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B09010E232;
+ Thu, 14 Aug 2025 23:48:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4019B44F52;
- Thu, 14 Aug 2025 22:46:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1540C4CEF1;
- Thu, 14 Aug 2025 22:46:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id E056A5C6FCD;
+ Thu, 14 Aug 2025 23:48:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73D75C4CEED;
+ Thu, 14 Aug 2025 23:48:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755211574;
- bh=eVKCvuZBdo7sTzDK9mufFyxVjNlpGmchq+d/D5GmycM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DzwUkoTqwUMyNSWMdTnnC7kDdMAhoIBXxmxUvHpoKQ3lHJzR15QCFXYIkslS5771z
- np5vqUeJLkSaucizKdOw+Qodlq6CX3ORVE1aeEDNZuZHAijeEhJGuUiJBXaPbAznRx
- d3fPFHHjU8QmSiNrXeQ/yNn0dcLrAI+skVOImTGRxtwDMqHsyoOLLC7uhUVsHP+85M
- bShH9tgKuPo1B+Xh4owWq1mKrO8fDgq7LEcHJHTYMehJZrFM0ntCtZo2FoH5nPUbFq
- aWNUrZM2aw8YNuIW1VxjCFifU+QIbhfxh/EzqiwMFaApPX/RYxntHnC6rsP1gEgYfb
- /Zdp9OI2Pw16w==
-Date: Thu, 14 Aug 2025 17:46:13 -0500
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Abel Vesa <abel.vesa@linaro.org>, Mahadevan <quic_mahap@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display/msm: add stream pixel clock
- bindings for MST
-Message-ID: <20250814224613.GA4052689-robh@kernel.org>
-References: <20250809-dp_mst_bindings-v5-0-b185fe574f38@oss.qualcomm.com>
- <20250809-dp_mst_bindings-v5-5-b185fe574f38@oss.qualcomm.com>
+ s=k20201202; t=1755215335;
+ bh=J2pOmDG+0oiYVuABnzLpk0FXLDrvf8TG3nt5h0zb8Wc=;
+ h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
+ b=nogP06oslO7URh1TMZmmDCnc0s7XptzWzvQrNbaa5my3Xl7uQMYaj5rv3Qy3ygMua
+ pru3uNCkv3Q5ukA56dwBTHaG1B4kHdPspMyxzIYiFRpMMH/UUaYTfHgVhHvQem9y/s
+ d/f0MpKWkE2Z0dpqSfygQDBx2ElwFfMxGWdbU663kQISXjlOrI9CkAYAz9MOh5SIjK
+ ZxbCxMubhnpqVA+uSGzvAFoLLT4WXOYFPAI0LNNbgZX4fmHTvBNo7oAi2WT0ib787f
+ LBDuDEXNjUrdehRjHWMgWAjzI5pq5yuZswGdrAVM4pgJ7Vuy38hMVX4nVcNTGtNdDs
+ yjlclV3hr8MgA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+ id 19419CE0ADB; Thu, 14 Aug 2025 16:48:54 -0700 (PDT)
+Date: Thu, 14 Aug 2025 16:48:54 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jessica.zhang@oss.qualcomm.com, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ antomani103@gmail.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/msm: Fix objtool warning in submit_lock_objects()
+Message-ID: <00f16170-93ca-4dac-a01f-4c5e0c60ff4c@paulmck-laptop>
+References: <20250807131058.1013858-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250809-dp_mst_bindings-v5-5-b185fe574f38@oss.qualcomm.com>
+In-Reply-To: <20250807131058.1013858-1-sashal@kernel.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,144 +60,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: paulmck@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Aug 09, 2025 at 12:16:19PM +0300, Dmitry Baryshkov wrote:
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On Thu, Aug 07, 2025 at 09:10:58AM -0400, Sasha Levin wrote:
+> Split the vmbind case into a separate helper function
+> submit_lock_objects_vmbind() to fix objtool warning:
 > 
-> On a vast majority of Qualcomm chipsets DisplayPort controller can
-> support several MST streams (up to 4x). To support MST these chipsets
-> use up to 4 stream pixel clocks for the DisplayPort controller. Expand
-> corresponding clock bindings for these platforms and fix example
-> schema files to follow updated bindings.
+>   drivers/gpu/drm/msm/msm.o: warning: objtool: submit_lock_objects+0x451:
+>   sibling call from callable instruction with modified stack frame
 > 
-> Note: On chipsets that do support MST, the number of streams supported
-> can vary between controllers. For example, SA8775P supports 4 MST
-> streams on mdss_dp0 but only 2 streams on mdss_dp1.
+> The drm_exec_until_all_locked() macro uses computed gotos internally
+> for its retry loop. Having return statements inside this macro, or
+> immediately after it in certain code paths, confuses objtool's static
+> analysis of stack frames, causing it to incorrectly flag tail call
+> optimizations.
 > 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Fixes: 92395af63a99 ("drm/msm: Add VM_BIND submitqueue")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+Tested-by: Paul E. McKenney <paulmck@kernel.org>
+
 > ---
->  .../bindings/display/msm/dp-controller.yaml        | 72 +++++++++++++++++++++-
->  .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 20 ++++--
->  .../bindings/display/msm/qcom,sar2130p-mdss.yaml   | 10 ++-
->  .../bindings/display/msm/qcom,sm8750-mdss.yaml     | 10 ++-
->  .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 10 ++-
->  5 files changed, 108 insertions(+), 14 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 352824c245224d7b5e096770684795625fc9f146..0122592a3ef5fcfe5a5ff8364b2cb6540a37a8ab 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -58,20 +58,28 @@ properties:
->      maxItems: 1
+> Changes since v1:
+>  - Extract helper submit_lock_objects_vmbind() instead of refactoring
+>    single loop
+> 
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 49 +++++++++++++++-------------
+>  1 file changed, 27 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index 5f8e939a5906..1ce90e351b7a 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -271,32 +271,37 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
+>  	return ret;
+>  }
 >  
->    clocks:
-> +    minItems: 5
->      items:
->        - description: AHB clock to enable register access
->        - description: Display Port AUX clock
->        - description: Display Port Link clock
->        - description: Link interface clock between DP and PHY
-> -      - description: Display Port Pixel clock
-> +      - description: Display Port stream 0 Pixel clock
-> +      - description: Display Port stream 1 Pixel clock
-> +      - description: Display Port stream 2 Pixel clock
-> +      - description: Display Port stream 3 Pixel clock
+> -/* This is where we make sure all the bo's are reserved and pin'd: */
+> -static int submit_lock_objects(struct msm_gem_submit *submit)
+> +static int submit_lock_objects_vmbind(struct msm_gem_submit *submit)
+>  {
+> -	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT;
+> +	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES;
+>  	struct drm_exec *exec = &submit->exec;
+> -	int ret;
+> +	int ret = 0;
 >  
->    clock-names:
-> +    minItems: 5
->      items:
->        - const: core_iface
->        - const: core_aux
->        - const: ctrl_link
->        - const: ctrl_link_iface
->        - const: stream_pixel
-> +      - const: stream_1_pixel
-> +      - const: stream_2_pixel
-> +      - const: stream_3_pixel
+> -	if (msm_context_is_vmbind(submit->queue->ctx)) {
+> -		flags |= DRM_EXEC_IGNORE_DUPLICATES;
+> +	drm_exec_init(&submit->exec, flags, submit->nr_bos);
 >  
->    phys:
->      maxItems: 1
-> @@ -187,6 +195,68 @@ allOf:
->          required:
->            - "#sound-dai-cells"
+> -		drm_exec_init(&submit->exec, flags, submit->nr_bos);
+> +	drm_exec_until_all_locked (&submit->exec) {
+> +		ret = drm_gpuvm_prepare_vm(submit->vm, exec, 1);
+> +		drm_exec_retry_on_contention(exec);
+> +		if (ret)
+> +			break;
 >  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,sc7180-dp
-> +              - qcom,sc7280-dp
-> +              - qcom,sc7280-edp
-> +              - qcom,sc8180x-edp
-> +              - qcom,sc8280xp-edp
-> +              - qcom,sm6350-dp
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 5
-> +          maxItems: 5
-> +    else:
-> +      if:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              enum:
-> +                # some of SA8775P DP controllers support 4 streams MST,
-> +                # others just 2 streams MST
-> +                - qcom,sa8775p-dp
-> +      then:
-> +        oneOf:
-> +          - properties:
-> +              clocks:
-> +                minItems: 8
-> +                maxItems: 8
-> +          - properties:
-> +              clocks:
-> +                minItems: 6
-> +                maxItems: 6
-
-I don't really care if we catch someone putting in 7 clocks. So just 
-do:
-
-clocks:
-  minItems: 6
-  maxItems: 8
-
-> +      else:
-> +        if:
-> +          properties:
-> +            compatible:
-> +              contains:
-> +                enum:
-> +                  # on these platforms some DP controllers support 2 streams
-> +                  # MST, others are SST only
-> +                  - qcom,sc8280xp-dp
-> +                  - qcom,x1e80100-dp
-> +        then:
-> +          oneOf:
-> +            - properties:
-> +                clocks:
-> +                  minItems: 6
-> +                  maxItems: 6
-> +            - properties:
-> +                clocks:
-> +                  minItems: 5
-> +                  maxItems: 5
-
-And here you really didn't need the oneOf.
-
-> +        else:
-> +          properties:
-> +            clocks:
-> +              minItems: 6
-> +              maxItems: 6
+> -		drm_exec_until_all_locked (&submit->exec) {
+> -			ret = drm_gpuvm_prepare_vm(submit->vm, exec, 1);
+> -			drm_exec_retry_on_contention(exec);
+> -			if (ret)
+> -				return ret;
+> +		ret = drm_gpuvm_prepare_objects(submit->vm, exec, 1);
+> +		drm_exec_retry_on_contention(exec);
+> +		if (ret)
+> +			break;
+> +	}
+>  
+> -			ret = drm_gpuvm_prepare_objects(submit->vm, exec, 1);
+> -			drm_exec_retry_on_contention(exec);
+> -			if (ret)
+> -				return ret;
+> -		}
+> +	return ret;
+> +}
+>  
+> -		return 0;
+> -	}
+> +/* This is where we make sure all the bo's are reserved and pin'd: */
+> +static int submit_lock_objects(struct msm_gem_submit *submit)
+> +{
+> +	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT;
+> +	int ret = 0;
 > +
-> +
->  additionalProperties: false
+> +	if (msm_context_is_vmbind(submit->queue->ctx))
+> +		return submit_lock_objects_vmbind(submit);
 >  
->  examples:
+>  	drm_exec_init(&submit->exec, flags, submit->nr_bos);
+>  
+> @@ -305,17 +310,17 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
+>  					drm_gpuvm_resv_obj(submit->vm));
+>  		drm_exec_retry_on_contention(&submit->exec);
+>  		if (ret)
+> -			return ret;
+> +			break;
+>  		for (unsigned i = 0; i < submit->nr_bos; i++) {
+>  			struct drm_gem_object *obj = submit->bos[i].obj;
+>  			ret = drm_exec_prepare_obj(&submit->exec, obj, 1);
+>  			drm_exec_retry_on_contention(&submit->exec);
+>  			if (ret)
+> -				return ret;
+> +				break;
+>  		}
+>  	}
+>  
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  static int submit_fence_sync(struct msm_gem_submit *submit)
+> -- 
+> 2.39.5
+> 
