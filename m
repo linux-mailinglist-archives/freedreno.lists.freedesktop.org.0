@@ -2,127 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6134DB26DF3
-	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 19:52:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36BC1B271CA
+	for <lists+freedreno@lfdr.de>; Fri, 15 Aug 2025 00:42:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38F4910E8CC;
-	Thu, 14 Aug 2025 17:52:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C273E10E11D;
+	Thu, 14 Aug 2025 22:42:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AMPkh4oK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bl3fP5X5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10F5910E21A
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 17:52:20 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57E9Ee1T012982
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 17:52:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- kf1KNla6dRvfydP3rOxmCpoNvWjKiR17gEq81Ru/7Mk=; b=AMPkh4oKUw7tc07r
- 34OjQkKiwy94XH8TppZ8C0lknz/11zIT/IR0EFDCgRTD3PvdsFAR3xGHJQdyiPRE
- iAgUFqASufFQRS4qPJ/XvxEkt355x48vQjd/p1sCOgMnGRqzY/Zp+OVhTXupdNVX
- EGdm4jUfq5pjyO701DXBcLGIxqXdcELfLRGa12K+Lgm+Jc6okDLmvFNFPMeNLegZ
- t7ZRsE5ALL+zSNoStzyy6tmgCgK8Bd8iL/vRKAvsbSo0/15nZ3mHreNK1KKGklmd
- 2MW9Vildv2eHkJ3TEPR16aoZo/RJOGVnJUCb32IVFrRNObQgtIaexOOJnVY+MmwZ
- I1URnQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48ffq6vjh1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 17:52:19 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4b109c6bf1dso2804731cf.3
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 10:52:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755193938; x=1755798738;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kf1KNla6dRvfydP3rOxmCpoNvWjKiR17gEq81Ru/7Mk=;
- b=qYFeUXKhSRPR3qaYwaeuyPfEzwcMs+F8nvOfkpfD/afsszXg5uTRZ4obxrvXdDPE6m
- jKDsUb7krDf/c9P4+o3MiK0dOBkd381hks0lLHvEVuKCMIUCnkaFyixNBmtbGEEHd+in
- XC0k7eLVf8+6qjTJ1WyAYmOcXmk4sm+l8aYkxDZbn9Qwml29+Wmbi0VKV6f9B4+4p5y/
- 8gRl5uT1Xy8SPEceBIzEp+KMqyl8pMhaAm0oB56J4sOei6vfQ02QuCepCdwrubhulxSM
- AMm1riOvcV3MSVl+whH862YJwJ/31kMeFNhyc0WPzGKYORbBIDwCWxjHtuKRdzwKh05F
- 4hEA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWUtO0UgUBZn+bhoI8LxM1B3I7mR05mGKhFPBBl2kovjMT0cBOUr8H/38zUH2bmgDTr4YNjdNswy0k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx4AnHGORkeT46e8V0PkDFT5YwIFsdPm69cnyXVSQThNWvb/oaD
- YRH9MhUlrcg45PlThImZo9PHV7i8O+tgtbuTP7v2gLy87L71YjVhVbdptvbU+JCglrvUofAs+UY
- kvrqcc8L8N3vGt70g83hriQXtSpjDLo41TkNsKCdDWkqnHgh6ak122GEbOFb/L8+YymZ2FeU=
-X-Gm-Gg: ASbGnctwNLUHBjhTWpVEg3MB1nl4tQ3rBQBeYQqdk34uIAHqpvXazhlGFjjl0ghzlNq
- 8397XwiD07OU6ApbdfiQodep9+DQfyIUZtJZlmsjEJRW/pqretLsAkJebzNDi0p7XAwgy1y8++B
- rcMaSaezlCioanwPvfntK8lg4A3StbbyLJ11Dc51HomvkAOqE69tVFPpTGb7c3gMI/ov/a3UeHh
- qU009JDenSEa2zWQx+pPoEg8QeYTyefRnHJras1sSA/1XpS9Ilg04N+Dpks267ngH+IEQFOTj/3
- UDELmkdGuyoRl/S0khh3DTghI/rcEMaDIHc/5ihq4S6ARD8lI0/JaGehj3Sn1U/YODJ4vSEBBhO
- /lZbS8BhwHi0vtYbvjA==
-X-Received: by 2002:ac8:7d12:0:b0:4ab:7633:c58e with SMTP id
- d75a77b69052e-4b10a98ac48mr29607211cf.2.1755193937979; 
- Thu, 14 Aug 2025 10:52:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFnts5b3T3oPwnRC47gGDR5vru1FmCBJm2j7CtF+T0NTcUjDzn2U3ZeqG7szkJIlGQBWfi7zA==
-X-Received: by 2002:ac8:7d12:0:b0:4ab:7633:c58e with SMTP id
- d75a77b69052e-4b10a98ac48mr29606861cf.2.1755193937163; 
- Thu, 14 Aug 2025 10:52:17 -0700 (PDT)
-Received: from [192.168.43.16] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0766d1sm2630993066b.18.2025.08.14.10.52.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 10:52:16 -0700 (PDT)
-Message-ID: <df007b41-5c3d-4c69-81b9-27155485ccf9@oss.qualcomm.com>
-Date: Thu, 14 Aug 2025 19:52:13 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/msm: adreno: a6xx: enable GMU bandwidth voting for
- x1e80100 GPU
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 222F910E11D;
+ Thu, 14 Aug 2025 22:42:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0C734601D9;
+ Thu, 14 Aug 2025 22:42:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92942C4CEED;
+ Thu, 14 Aug 2025 22:42:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1755211355;
+ bh=F4W5ax2tQL/1jCkWGQXYRuokg8iY6q+qXi/DeCaJnH0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Bl3fP5X5p6HVV3INso5AX3mhA4SqKtSnbWRXOoOd0o+3DJwLkzQjs/Ywpo8mkowK8
+ vWH4NnPaURMGXcOay/tDstoJ3++YtgKODVmTjGkJggXcn3LywW+JNRRq9fDfnXHtmI
+ uFarhFf4LuhNKJ9IJ07r/PM84SpLXbLV39bnAt11+p5CaYEo8J5iPQPU4HZhjz7z87
+ hYEjM7Rlis6VP87rPfQC9zjLWw7mc/ITA8B8MDcoYD7jShIgOPC2uQJZ0BT/Wbb6N4
+ QNTyra28h9+r1wqL+8ZW+lyVYfPj67LWS0Bs5R94CLw0r2ZGxe0lv+zJtQ8uILHmoj
+ JcBjN5RTF9dHg==
+Date: Thu, 14 Aug 2025 17:42:34 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Mahadevan <quic_mahap@quicinc.com>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Bjorn Andersson <andersson@kernel.org>, Simona Vetter <simona@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20250725-topic-x1e80100-gpu-bwvote-v2-1-58d2fbb6a127@linaro.org>
- <e7ddfe18-d2c7-4201-a271-81be7c814011@oss.qualcomm.com>
- <33442cc4-a205-46a8-a2b8-5c85c236c8d4@oss.qualcomm.com>
- <b4f283ce-5be1-4d2f-82e2-e9c3be22a37f@oss.qualcomm.com>
- <269506b6-f51b-45cc-b7cc-7ad0e5ceea47@linaro.org>
- <1727374d-0461-4442-ab35-9acb8ef7f666@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <1727374d-0461-4442-ab35-9acb8ef7f666@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODExMDA3NSBTYWx0ZWRfXxLl8xh2Du4di
- s7/2LbZuyRsUviKfA15dyzpGDqZJFj2xQWFzeSOEnbiRS07DIJOnF48Jy969Sw7futEJVvUxhiv
- q+zZkPJpee5NRxfTbWTli+ApC2Mb+i+kc10HaeZXtcd8SZ0+UKkm5yYTarRkWVl7KX3Tbhl6Wdj
- 5bt2Xz6x7GiaPH1XTmGI0gUGLvr/y1rzPNBenMekS7pdPjfMbBLcHubMKjGSk+dMGAFIjXaZPHL
- LnVoKXoiaadzBjkvJlXg2j7Z2b0B4rR338GzZ/z8GqvUTg9Vqt6EXjJLp2py+1uEb5PosspAsR3
- /pcKOMIu5RkEhqKV8bq4vEP02n4CnunncmDnkJv9xUeLB8rPpGY+mJxfd+WpH5Tt81+vsWxOjy9
- AIAzRDm2
-X-Authority-Analysis: v=2.4 cv=TLZFS0la c=1 sm=1 tr=0 ts=689e2253 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=06jlRiaS0U7peylTb-kA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: 1kjKpg6ZgF51s5A25VATxjEZpqWFtUiQ
-X-Proofpoint-ORIG-GUID: 1kjKpg6ZgF51s5A25VATxjEZpqWFtUiQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-13_02,2025-08-14_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508110075
+ Abel Vesa <abel.vesa@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, David Airlie <airlied@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 3/6] dt-bindings: display/msm: dp-controller: add
+ X1E80100
+Message-ID: <175521135433.4051745.12957568381296813915.robh@kernel.org>
+References: <20250809-dp_mst_bindings-v5-0-b185fe574f38@oss.qualcomm.com>
+ <20250809-dp_mst_bindings-v5-3-b185fe574f38@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250809-dp_mst_bindings-v5-3-b185fe574f38@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,67 +77,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/14/25 6:38 PM, Akhil P Oommen wrote:
-> On 8/14/2025 7:56 PM, Neil Armstrong wrote:
->> Hi,
->>
->> On 14/08/2025 13:22, Konrad Dybcio wrote:
->>> On 8/14/25 1:21 PM, Konrad Dybcio wrote:
->>>> On 7/31/25 12:19 PM, Konrad Dybcio wrote:
->>>>> On 7/25/25 10:35 AM, Neil Armstrong wrote:
->>>>>> The Adreno GPU Management Unit (GMU) can also scale DDR Bandwidth
->>>>>> along
->>>>>> the Frequency and Power Domain level, but by default we leave the
->>>>>> OPP core scale the interconnect ddr path.
->>>>>>
->>>>>> Declare the Bus Control Modules (BCMs) and the corresponding
->>>>>> parameters
->>>>>> in the GPU info struct to allow the GMU to vote for the bandwidth.
->>>>>>
->>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>>>> ---
->>>>>> Changes in v2:
->>>>>> - Used proper ACV perfmode bit/freq
->>>>>> - Link to v1: https://lore.kernel.org/r/20250721-topic-x1e80100-
->>>>>> gpu-bwvote-v1-1-946619b0f73a@linaro.org
->>>>>> ---
->>>>>>   drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 11 +++++++++++
->>>>>>   1 file changed, 11 insertions(+)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/
->>>>>> gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>> index
->>>>>> 00e1afd46b81546eec03e22cda9e9a604f6f3b60..892f98b1f2ae582268adebd758437ff60456cdd5 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>> @@ -1440,6 +1440,17 @@ static const struct adreno_info a7xx_gpus[] = {
->>>>>>               .pwrup_reglist = &a7xx_pwrup_reglist,
->>>>>>               .gmu_chipid = 0x7050001,
->>>>>>               .gmu_cgc_mode = 0x00020202,
->>>>>> +            .bcms = (const struct a6xx_bcm[]) {
->>>>>> +                { .name = "SH0", .buswidth = 16 },
->>>>>> +                { .name = "MC0", .buswidth = 4 },
->>>>>> +                {
->>>>>> +                    .name = "ACV",
->>>>>> +                    .fixed = true,
->>>>>> +                    .perfmode = BIT(3),
->>>>>> +                    .perfmode_bw = 16500000,
->>>>>
->>>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>>
->>>> Actually no, BIT(3) is for the CPU (OS), GPU should use BIT(2)
+
+On Sat, 09 Aug 2025 12:16:17 +0300, Dmitry Baryshkov wrote:
+> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > 
-> You are right that BIT(2) is GPU specific, but that support was
-> commercialized from A7XX_GEN3. Anyway, the Win KMD uses BIT(2), so lets
-> use that in Linux too.
+> Add X1E80100 to the dp-controller bindings, it has DisplayPort
+> controller similar to other platforms, but it uses its own compatible
+> string.
 > 
-> I know some docs show BIT(2) support, but lets not bring in untested
-> configurations.
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
 
-Eh, then let's get the docs fixed if you don't trust them because we can't
-work like that..
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-FWIW this is information from per-platform RPMh cmd-db data
-
-Konrad
