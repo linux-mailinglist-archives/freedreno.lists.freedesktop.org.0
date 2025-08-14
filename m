@@ -2,73 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BABD8B26090
-	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 11:18:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15752B26091
+	for <lists+freedreno@lfdr.de>; Thu, 14 Aug 2025 11:18:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B95910E82D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6F5810E82E;
 	Thu, 14 Aug 2025 09:18:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="po/6dNJ/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ssEY77i1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 693CD10E829
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:18:20 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-45a1abf5466so4526865e9.0
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 02:18:20 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3CE810E82A
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 09:18:21 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-45a1b001f55so3349345e9.0
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 02:18:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755163099; x=1755767899; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1755163100; x=1755767900; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ZAaDT/OUbXmcuIyI0UD5MRIk/4NCc8MDaMt6MhGlz8c=;
- b=po/6dNJ/2sYRtdOJghgcDohcLJVUYoEs0cGf64zsLj1Vnguya/o72gJhwvUgQitRbh
- TsoAYIBolmItZdS1MiE9wIvtLD6QQO5aSkrFWiLJ6pfVEvcrPaZoJLDa1NEC1kbLhZnl
- g3LMj9zpVLq/No8MpDaZRph33wHRCNyNM6ciKmwK0BfRE+lusQWJhibREDJgf3oo+L/v
- rZR2xFeu0giyJR06hB05a2LkTazoivYQWQQdRKPyEx+HisnAKkzI8BcFPIPoIPpJ7FJX
- o8PI0r4ejXTigaGXkXGjcE/1xjaPP3OSvNDsjM7FEYrVb2u6Sx8Ao+wH50HVHJJgKss4
- 8EPw==
+ :reply-to; bh=Sw1jsJRwABde2QJUqyand4FN1Jn1+zxeyEdBFH61xAc=;
+ b=ssEY77i1iCfFccyTVBMEd6dzVkE9HwhJKPqhb9DS8wxg2qQA5twcpW5Kj6T7YliZ8p
+ w9h5LCIu2GzDK1KdS1MUxnBMlnudti+O9t/68yp6b3/SPK3uwfDdalrhEHkZo6teIIWA
+ U57NNWhzBgGbrfxEfsIXKRhgM6/GL3aDUF9Evh13Xb81Zn/9Pk3VwffbngoCa0iZjsS+
+ s0P81xFjJZVD1E4QZZ/+yxlLuNPzjUQ5ighcll+RTzlhuQ94SFINcFbsh9XAT6gLQHna
+ Yj4Yvz00j9hCiOHFcECCdZkuL93U4dnY4krS3GX8uVOQOYntZpdLtsZCTT96xXnAmRtL
+ UL2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755163099; x=1755767899;
+ d=1e100.net; s=20230601; t=1755163100; x=1755767900;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ZAaDT/OUbXmcuIyI0UD5MRIk/4NCc8MDaMt6MhGlz8c=;
- b=sHeQaApFIjOP1IGf5Bm6uRfS7kmY2sx+RIRGoeLLOX9iVzETMZWznj4SvA1yzl1tSi
- yhWQPQtOgyzeMWaHl0LUuTt5hFqVUE4SuF/Ul6ntlKsoy95Y0t5JpRFbVgz8iG6m3z95
- fM4odc/y6+GyQTZyRKXLwBKkNPcLHUe2LtxvmavVsmzOKIxqCEzDWWJT/sGdQJ2p/UDf
- dvGu8q1apIa0iigw5PgeR7xQrkBMz0+r0SWFr/NOSA0tjkdKv4KeC9xDLXfHdgml9auU
- At52AI1WmOyODpJn16UA+FO81ai2Qewv4hBj0peL8Z7RL/hTvcetMr9EdQ3+YZq/zHTQ
- /zIg==
+ bh=Sw1jsJRwABde2QJUqyand4FN1Jn1+zxeyEdBFH61xAc=;
+ b=l35zlQ7Hq/ky7dLpjOw8GYg8hVWZJprR460L3qJmI59KnxYEj2xyWKAHzpiXEhXo6F
+ cOc1JtKUVh4APBI6RVPckwulk0+BdPB9Aj8oWr4f1AAyFvBRECjnnMVAh258Fm97C95c
+ bekwS5j5QHsHXpik8JiF6ocMkzzJIdtTQzBDD9w2ZkJqKr5Bq3awKovxLX/1wh/WmGCl
+ VTXKrxGtofUoft8amp2rbOOmWFQ2LbnT5TtjBw4mB7WrjYIYku1qx+8WM/uEbuiaFm0C
+ 3zp6wZLOG/79S96fhsILWVuIyg3Sdep7QdwRqGVJAJqflBJc/96NxIPVrqXfxmGAIRtU
+ b4iA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWSwk42PvRtl9TIkffFWHrBzjQL+4pjer8hfquuuy8hjrGJxhqyqiYaJ8uyPSc2moNfV3OKMH/TybI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywrj42BVtoS+sX5dpetqgxMQMq1s1FY3Zjz8XwBhTLdryIZ7o3u
- u65XLSfeKWe05wbFRuFwv+uFJstwraTA2FL5C6N0RTHgcts8FnZUbAE7KQuZwg23OR8=
-X-Gm-Gg: ASbGncv5lGmYMO2WxXHWzsKhEVho04+F/AJrQG1lEJKu8QRSHDDF3NCfWPLOvzw9zRH
- u7POaZXRLxpuqMN2YuMXHUvsq8rLUHo2hgTSN0+GnSHzF+hCi6krv2kX5SmN4cY6GQ4/oBUWIQ2
- q8mgPQrrgM6dd5bOZAt8rHmjmfNAog6PsLFhfzrGJ5FifeevjutlZZDGoC2fk6yZyu/UUGfycSo
- K9oyxUzSzyaRRk4hZjyKwkBbYEskH0VeNNaEpy60ibr0d+EvaUWotEueGFnQSSVglFmLiWo5ui+
- hmm0F9f/EwZJEqE3wkCWFW26e4aHp606+mjawIrYZhv/hkrmf38E1pLo0RN6uANwBmIaehBw5j5
- 1W6IJLOuDuNKRtzMWEKs/5VE7NO/nwsm7fXey
-X-Google-Smtp-Source: AGHT+IEja8CLfTSNlKR5f4WfpXSN4rOwyS5Xo1KeZ5Yr/TOyUiNzdSQo50qDF7mxVImYpzfwRhB+ZA==
-X-Received: by 2002:a05:600c:3503:b0:456:ed3:a488 with SMTP id
- 5b1f17b1804b1-45a1b78645emr16883635e9.1.1755163098783; 
- Thu, 14 Aug 2025 02:18:18 -0700 (PDT)
+ AJvYcCXpJqKCeN3ALQ8e8JBBbotv0Bo//oOSCMQ8VlSN5fb/TfVdh6GFZC+P3QSd0tIioaqAZg1ubITgHe8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwV64DcwgcqxwBWJO3wVSSqTlZOuuNJ7y8bJq7pZfiSPDQlrHlG
+ LSK3uoaRaZQdBhSfPtiP3cGPYMAgPKphPpRE0y0JfO5uQ/JgwQlCsiAQ2j+Y1xjzPwU=
+X-Gm-Gg: ASbGncubz/VSjI2xHvQsWSh2ogK0lxtPAjxDlJnv0LsvJu1jrJXLbl99a4Lk70/bhxX
+ XfWKLywh5OKeOlP4afnF8be9Pa5TirBtkjQ3lThHCSLfsJTYLSdUcnEe04H4PMLd8oXCmzFTH9U
+ 6t7WuA6ArdgyNrKUsihMo6UgXtQZ6M7GL5a+ynvepoWuHXEH3FiHj1hW1h15vAOn0Ox5riyq68H
+ DAum2V6vuVMSboDnK7agNtlBiYtamE7vr/FxpfPWgsA461q+SqJ1rb0rQ/lD67HRSohZxcQL4K8
+ +ajkm0vuhEEi6sMWwNJ41WQpKHlNYhsTyJWr5TfYgTsyY/geJWUBK6qzKZAjID1PhNwmP78Q2Yw
+ Q/x6tbmItK8MtbMMtsUt1SAawsutxWADIHAlK
+X-Google-Smtp-Source: AGHT+IHgCKHrKmlG0XE5ASsl3flO7xdPvj24GpGqa+EV9hH/V/JZ27mTKnghzyA1i5XsC1PyFXNpXg==
+X-Received: by 2002:a05:600c:3151:b0:459:e3f8:92ec with SMTP id
+ 5b1f17b1804b1-45a1b60e2e8mr20488895e9.10.1755163100162; 
+ Thu, 14 Aug 2025 02:18:20 -0700 (PDT)
 Received: from [127.0.0.2] ([2a02:2454:ff21:ef41:ea13:2485:4711:708])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a1c74876csm13861925e9.14.2025.08.14.02.18.17
+ 5b1f17b1804b1-45a1c74876csm13861925e9.14.2025.08.14.02.18.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Aug 2025 02:18:18 -0700 (PDT)
+ Thu, 14 Aug 2025 02:18:19 -0700 (PDT)
 From: Stephan Gerhold <stephan.gerhold@linaro.org>
-Date: Thu, 14 Aug 2025 11:18:06 +0200
-Subject: [PATCH 1/2] driver core: platform: Add option to skip/delay
- applying clock defaults
+Date: Thu, 14 Aug 2025 11:18:07 +0200
+Subject: [PATCH 2/2] drm/msm: dp: Delay applying clock defaults until PHY
+ is fully enabled
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250814-platform-delay-clk-defaults-v1-1-4aae5b33512f@linaro.org>
+Message-Id: <20250814-platform-delay-clk-defaults-v1-2-4aae5b33512f@linaro.org>
 References: <20250814-platform-delay-clk-defaults-v1-0-4aae5b33512f@linaro.org>
 In-Reply-To: <20250814-platform-delay-clk-defaults-v1-0-4aae5b33512f@linaro.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -106,60 +106,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently, the platform driver core always calls of_clk_set_defaults()
-before calling the driver probe() function. This will apply any
-"assigned-clock-parents" and "assigned-clock-rates" specified in the device
-tree. However, in some situations, these defaults cannot be safely applied
-before the driver has performed some early initialization. Otherwise, the
-clock operations might fail or the device could malfunction.
+On some Qualcomm platforms, we cannot safely reparent clocks when the new
+parent is not already powered up. This problem occurs for the DP and DSI
+controller when we try to reparent the link clocks using the standard
+"assigned-clock-parents" property to the clock source provided by the PHY.
+We often bypass this problem, because the clocks are already assigned to
+the correct parent by the boot firmware. Without that, there is an error
+during boot in the kernel log and DP/DSI is not functional.
 
-Add a "driver_managed_clk_defaults" option to the platform_driver struct,
-similar to the existing "driver_managed_dma" option. If this option is set,
-applying the clock defaults is skipped in the platform driver core and the
-driver must do this itself when ready.
+For example, the following error occurs on X1E if the &mdss_dp3 controller
+was not initialized by the boot firmware:
+
+  clk: failed to reparent disp_cc_mdss_dptx3_link_clk_src to aec5a00.phy::link_clk: -16
+  disp_cc_mdss_dptx3_link_clk_src: rcg didn't update its configuration.
+  WARNING: CPU: 0 PID: 77 at drivers/clk/qcom/clk-rcg2.c:136 update_config+0xd4/0xe8
+  pc : update_config+0xd4/0xe8
+  Call trace:
+   update_config+0xd4/0xe8 (P)
+   clk_rcg2_set_parent+0x58/0x68
+   __clk_set_parent+0x4c/0x214
+   clk_core_set_parent_nolock+0xe8/0x1f4
+   clk_set_parent+0xa4/0x13c
+   of_clk_set_defaults+0x15c/0x4a8
+   platform_probe+0x3c/0xc4
+   ...
+  clk: failed to reparent disp_cc_mdss_dptx3_pixel0_clk_src to aec5a00.phy::vco_div_clk: -16
+  disp_cc_mdss_dptx3_pixel0_clk_src: rcg didn't update its configuration.
+  WARNING: CPU: 0 PID: 77 at drivers/clk/qcom/clk-rcg2.c:136 update_config+0xd4/0xe8
+  ...
+
+In the current implementation, it is tricky to solve this from any of the
+involved drivers, because the call to clk_set_parent() happens from the
+platform driver core (before the probe() function of the DP driver is
+called). Similarly, the PHY/clock driver cannot solve this alone, because
+it doesn't know which clock rate and configuration to use for the PHY.
+
+For DSI on SM8750, we solved this by avoiding use of assigned-clock-parents
+and calling clk_set_parent() separately from the DSI controller driver (see
+commit 80dd5911cbfd ("drm/msm/dsi: Add support for SM8750")). We could do
+that for the DP controller as well, but this would require changing the
+existing DT bindings for a number of platforms, just to workaround a
+limitation in the Linux driver model. The DT does not specify when to apply
+the assigned-clock-parents, so there is nothing wrong with the current
+hardware description.
+
+Instead, fix this by using the new "driver_managed_clk_defaults" option in
+the platform_driver struct. Delay the call to of_clk_set_defaults() until
+we have set up the PHY to avoid the error shown above.
 
 Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
 ---
- drivers/base/platform.c         | 8 +++++---
- include/linux/platform_device.h | 6 ++++++
- 2 files changed, 11 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 10 ++++++++++
+ drivers/gpu/drm/msm/dp/dp_display.c |  2 ++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index 09450349cf32364bcb3c8dd94023406442ec204d..c7278ace71d3f6d473fdea35bf79bcf80a56ee21 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -1392,9 +1392,11 @@ static int platform_probe(struct device *_dev)
- 	if (unlikely(drv->probe == platform_probe_fail))
- 		return -ENXIO;
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index c42fd2c17a328f6deae211c9cd57cc7416a9365a..21249d2b85b308ef2437f1c7a309c795103599f6 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -7,6 +7,7 @@
  
--	ret = of_clk_set_defaults(_dev->of_node, false);
--	if (ret < 0)
--		return ret;
-+	if (!drv->driver_managed_clk_defaults) {
-+		ret = of_clk_set_defaults(_dev->of_node, false);
-+		if (ret < 0)
-+			return ret;
-+	}
- 
- 	ret = dev_pm_domain_attach(_dev, PD_FLAG_ATTACH_POWER_ON |
- 					 PD_FLAG_DETACH_POWER_OFF);
-diff --git a/include/linux/platform_device.h b/include/linux/platform_device.h
-index 074754c23d330c9a099e20eecfeb6cbd5025e04f..fa561dae2f106b61d868a870e10d9656542b1c7e 100644
---- a/include/linux/platform_device.h
-+++ b/include/linux/platform_device.h
-@@ -250,6 +250,12 @@ struct platform_driver {
- 	 * to setup and manage their own I/O address space.
- 	 */
- 	bool driver_managed_dma;
-+	/*
-+	 * Skip calling of_clk_set_defaults() before calling the probe function.
-+	 * Use this if the driver needs to perform some initialization before
-+	 * clock defaults (parent, rates) are applied.
-+	 */
-+	bool driver_managed_clk_defaults;
+ #include <linux/types.h>
+ #include <linux/clk.h>
++#include <linux/clk/clk-conf.h>
+ #include <linux/completion.h>
+ #include <linux/delay.h>
+ #include <linux/iopoll.h>
+@@ -140,6 +141,7 @@ struct msm_dp_ctrl_private {
+ 	bool core_clks_on;
+ 	bool link_clks_on;
+ 	bool stream_clks_on;
++	bool clk_defaults_set;
  };
  
- #define to_platform_driver(drv)	(container_of((drv), struct platform_driver, \
+ static inline u32 msm_dp_read_ahb(const struct msm_dp_ctrl_private *ctrl, u32 offset)
+@@ -1789,6 +1791,14 @@ static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl)
+ 	phy_configure(phy, &ctrl->phy_opts);
+ 	phy_power_on(phy);
+ 
++	if (!ctrl->clk_defaults_set) {
++		ret = of_clk_set_defaults(ctrl->dev->of_node, false);
++		if (ret)
++			return ret;
++
++		ctrl->clk_defaults_set = true;
++	}
++
+ 	dev_pm_opp_set_rate(ctrl->dev, ctrl->link->link_params.rate * 1000);
+ 	ret = msm_dp_ctrl_link_clk_enable(&ctrl->msm_dp_ctrl);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index d87d47cc7ec3eb757ac192c411000bc50b824c59..b8a0e61b806e6e386980f9c6ad6f58b487a68c7e 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1487,6 +1487,8 @@ static struct platform_driver msm_dp_display_driver = {
+ 		.suppress_bind_attrs = true,
+ 		.pm = &msm_dp_pm_ops,
+ 	},
++	/* Apply clock parents after PHY is fully initialized */
++	.driver_managed_clk_defaults = true,
+ };
+ 
+ int __init msm_dp_register(void)
 
 -- 
 2.50.1
