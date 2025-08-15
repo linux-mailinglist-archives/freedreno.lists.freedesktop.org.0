@@ -2,52 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82C1AB2731F
-	for <lists+freedreno@lfdr.de>; Fri, 15 Aug 2025 01:48:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61EECB28E5D
+	for <lists+freedreno@lfdr.de>; Sat, 16 Aug 2025 16:09:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 295E810E232;
-	Thu, 14 Aug 2025 23:48:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A71E10E079;
+	Sat, 16 Aug 2025 14:09:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nogP06os";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DAI+7a0w";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B09010E232;
- Thu, 14 Aug 2025 23:48:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E056A5C6FCD;
- Thu, 14 Aug 2025 23:48:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73D75C4CEED;
- Thu, 14 Aug 2025 23:48:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755215335;
- bh=J2pOmDG+0oiYVuABnzLpk0FXLDrvf8TG3nt5h0zb8Wc=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
- b=nogP06oslO7URh1TMZmmDCnc0s7XptzWzvQrNbaa5my3Xl7uQMYaj5rv3Qy3ygMua
- pru3uNCkv3Q5ukA56dwBTHaG1B4kHdPspMyxzIYiFRpMMH/UUaYTfHgVhHvQem9y/s
- d/f0MpKWkE2Z0dpqSfygQDBx2ElwFfMxGWdbU663kQISXjlOrI9CkAYAz9MOh5SIjK
- ZxbCxMubhnpqVA+uSGzvAFoLLT4WXOYFPAI0LNNbgZX4fmHTvBNo7oAi2WT0ib787f
- LBDuDEXNjUrdehRjHWMgWAjzI5pq5yuZswGdrAVM4pgJ7Vuy38hMVX4nVcNTGtNdDs
- yjlclV3hr8MgA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id 19419CE0ADB; Thu, 14 Aug 2025 16:48:54 -0700 (PDT)
-Date: Thu, 14 Aug 2025 16:48:54 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- antomani103@gmail.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/msm: Fix objtool warning in submit_lock_objects()
-Message-ID: <00f16170-93ca-4dac-a01f-4c5e0c60ff4c@paulmck-laptop>
-References: <20250807131058.1013858-1-sashal@kernel.org>
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 370CC10E237;
+ Fri, 15 Aug 2025 03:44:13 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-7e8706df76bso227225885a.3; 
+ Thu, 14 Aug 2025 20:44:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755229452; x=1755834252; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:subject:from:cc:to:content-language
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CbV50UlUgsDMAydMhI9fr0dDw1OdFhDvioJbc7w73qE=;
+ b=DAI+7a0webGAXoSwgzC5mOhmT3tfK1P2OHzsNFqdVzEXUybbUCUoPcJdn9ULlKMzKv
+ AJf//+Gsi/JuM8S1oVwjQk5whcuxh/SqCqZG5iN3Xlmg1fDjUhN5HMPcBOi1NoMeMFSd
+ v/1kSEys7ZE97cUBnA5mRNYbTf0Oef+WLvgGue7Uo3ETstgiszKIvk2Q3RuTPZEyzlNU
+ oEvmWI7+RIL93nHvjyy7Lj+LtW9IGwDl6f+wmIwigZ5oo5biOYHtRT8t5qpVmhfLmTPF
+ 7J/WGs9g2bPLVQI9pq/cnMlAapLiOO/bXOTW41xKwhlnP1rBID9O+9b1jZaepNViDe5m
+ 5Akg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755229452; x=1755834252;
+ h=content-transfer-encoding:subject:from:cc:to:content-language
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=CbV50UlUgsDMAydMhI9fr0dDw1OdFhDvioJbc7w73qE=;
+ b=pSw0SJchHLr5vLQ24FEKF9yoxo9rGfTSs9u4OBZq+KrAfvkGQn189lJ/Q3zpCILg/p
+ O0g7VJ+4nGIpLzar9xrPwghEIi5OOIqTs83uh98r76z/P//YEB2WzDs4oauR7WtPv7fT
+ ClbV1o9x34kcq9v24f2dPqIqOP7aXuOL3Ge76/M03BHYxec8QebrRJh6am1CIVLmm5p7
+ JReePtwkYF9j1ifWB4BfdmDkyWr3K3LgQyPjBFiiu9mm0uozvmvur2FwNooyvX/ZWTlJ
+ L32ATQKDLqfR2HPSmV+cWPUDcTWfxSIYBzKZKWsxFng/SwmnVzp5mkx4nWoE8iNNHAZG
+ q3NQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXMMLEfTQUWBl20KXnQqW5pxHLnHQJJ1M0SfVjf6jk6/coMmqtwqsbusyQsGuIbEQPa18+MbpFqWV6U@lists.freedesktop.org,
+ AJvYcCXTewbKeJhktBxZcXAEOEMe5jbC87lK6l2oM10qtJ4SS4E2r2zPj7INGIIl3+cM7/IFfpgRUb+Lh3o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzbbkgaI2ZsBjPr7iyhl9haHEclbHb0az/jGVD+/El63GeUiqIj
+ POOV/4UKfS6ivxiKRUYTNyGACjdJV3Mf8mjWvhhBaCqE7l/L5CBR5453
+X-Gm-Gg: ASbGncs0dS9L76MkdtTpf9rycVwCK6eJ2DU/InaGPo1hnjO4AH8TiztGDiFEUDlfzgA
+ 96dAsZhHQ7agnJO8DK28ebk9zM6AHA26po/4yt31oHG0y/LxKiTBrC7HilmqZ6DbQ/8s12Mno2t
+ niDDt2kttWifDw1GL1mYhQsoX6Lerm7W1o10u724TfweNW9CN2uTqd8LM7kk+rznglTNXCL9vDP
+ 2sU1WEeSJJZluHOQo9zaVJVzHG47oEkMG6bbA5eYlbnwrG1CHJzPqo0ftiI/62J053gMUnj55xB
+ rhPiyHUFOvgpG8/2VdqIOyc8u8y7Ac0RmQAR6qrqw2feUGI/GTBcp+rwI+KGXdNLjdrTWzqS6NY
+ F/JzJYGhkw1c1rt88pKJfDIvnsyoygNfDqRw6B93I7DMCfqV4QySdXSW7CS5s+fFe
+X-Google-Smtp-Source: AGHT+IGIGnDL5nu1a/uGIVA0/0RYDDU2j1ihE4igtwRQmfr93oe7iQrgSnBxskK5UThAEoo6WS7kew==
+X-Received: by 2002:a05:620a:4001:b0:7e8:5aaf:700 with SMTP id
+ af79cd13be357-7e87e023fe4mr63156185a.21.1755229452174; 
+ Thu, 14 Aug 2025 20:44:12 -0700 (PDT)
+Received: from [192.168.1.105] (c-73-176-204-61.hsd1.il.comcast.net.
+ [73.176.204.61]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7e87e1c9b91sm35794685a.66.2025.08.14.20.44.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Aug 2025 20:44:11 -0700 (PDT)
+Message-ID: <2c238b60-39b3-4dbb-84f6-747769bd67a3@gmail.com>
+Date: Thu, 14 Aug 2025 22:44:10 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250807131058.1013858-1-sashal@kernel.org>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+From: Eric Salem <ericsalem@gmail.com>
+Subject: Converting logging dev_* functions to drm_*
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Sat, 16 Aug 2025 14:09:33 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,119 +89,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: paulmck@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 07, 2025 at 09:10:58AM -0400, Sasha Levin wrote:
-> Split the vmbind case into a separate helper function
-> submit_lock_objects_vmbind() to fix objtool warning:
-> 
->   drivers/gpu/drm/msm/msm.o: warning: objtool: submit_lock_objects+0x451:
->   sibling call from callable instruction with modified stack frame
-> 
-> The drm_exec_until_all_locked() macro uses computed gotos internally
-> for its retry loop. Having return statements inside this macro, or
-> immediately after it in certain code paths, confuses objtool's static
-> analysis of stack frames, causing it to incorrectly flag tail call
-> optimizations.
-> 
-> Fixes: 92395af63a99 ("drm/msm: Add VM_BIND submitqueue")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Hi all,
 
-Tested-by: Paul E. McKenney <paulmck@kernel.org>
+The TODO list[1] for the DRM subsystem has a task for converting the dev_*
+functions to their drm_* equivalents. It mentions contacting the relevant
+maintainers before starting to ensure your changes will be merged.
 
-> ---
-> 
-> Changes since v1:
->  - Extract helper submit_lock_objects_vmbind() instead of refactoring
->    single loop
-> 
->  drivers/gpu/drm/msm/msm_gem_submit.c | 49 +++++++++++++++-------------
->  1 file changed, 27 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 5f8e939a5906..1ce90e351b7a 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -271,32 +271,37 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
->  	return ret;
->  }
->  
-> -/* This is where we make sure all the bo's are reserved and pin'd: */
-> -static int submit_lock_objects(struct msm_gem_submit *submit)
-> +static int submit_lock_objects_vmbind(struct msm_gem_submit *submit)
->  {
-> -	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT;
-> +	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES;
->  	struct drm_exec *exec = &submit->exec;
-> -	int ret;
-> +	int ret = 0;
->  
-> -	if (msm_context_is_vmbind(submit->queue->ctx)) {
-> -		flags |= DRM_EXEC_IGNORE_DUPLICATES;
-> +	drm_exec_init(&submit->exec, flags, submit->nr_bos);
->  
-> -		drm_exec_init(&submit->exec, flags, submit->nr_bos);
-> +	drm_exec_until_all_locked (&submit->exec) {
-> +		ret = drm_gpuvm_prepare_vm(submit->vm, exec, 1);
-> +		drm_exec_retry_on_contention(exec);
-> +		if (ret)
-> +			break;
->  
-> -		drm_exec_until_all_locked (&submit->exec) {
-> -			ret = drm_gpuvm_prepare_vm(submit->vm, exec, 1);
-> -			drm_exec_retry_on_contention(exec);
-> -			if (ret)
-> -				return ret;
-> +		ret = drm_gpuvm_prepare_objects(submit->vm, exec, 1);
-> +		drm_exec_retry_on_contention(exec);
-> +		if (ret)
-> +			break;
-> +	}
->  
-> -			ret = drm_gpuvm_prepare_objects(submit->vm, exec, 1);
-> -			drm_exec_retry_on_contention(exec);
-> -			if (ret)
-> -				return ret;
-> -		}
-> +	return ret;
-> +}
->  
-> -		return 0;
-> -	}
-> +/* This is where we make sure all the bo's are reserved and pin'd: */
-> +static int submit_lock_objects(struct msm_gem_submit *submit)
-> +{
-> +	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT;
-> +	int ret = 0;
-> +
-> +	if (msm_context_is_vmbind(submit->queue->ctx))
-> +		return submit_lock_objects_vmbind(submit);
->  
->  	drm_exec_init(&submit->exec, flags, submit->nr_bos);
->  
-> @@ -305,17 +310,17 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
->  					drm_gpuvm_resv_obj(submit->vm));
->  		drm_exec_retry_on_contention(&submit->exec);
->  		if (ret)
-> -			return ret;
-> +			break;
->  		for (unsigned i = 0; i < submit->nr_bos; i++) {
->  			struct drm_gem_object *obj = submit->bos[i].obj;
->  			ret = drm_exec_prepare_obj(&submit->exec, obj, 1);
->  			drm_exec_retry_on_contention(&submit->exec);
->  			if (ret)
-> -				return ret;
-> +				break;
->  		}
->  	}
->  
-> -	return 0;
-> +	return ret;
->  }
->  
->  static int submit_fence_sync(struct msm_gem_submit *submit)
-> -- 
-> 2.39.5
-> 
+I want to update the drivers under drivers/gpu/drm/msm/adreno. There are
+seven files that need updating:
+
+a2xx_gpu.c
+a5xx_gpu.c
+a6xx_gmu.c
+a6xx_gpu.c
+a6xx_preempt.c
+adreno_device.c
+adreno_gpu.c
+
+Is there any opposition to this?
+
+Thanks,
+
+Eric
+
+[1] https://www.kernel.org/doc/html/latest/gpu/todo.html#convert-logging-to-drm-functions-with-drm-device-parameter
