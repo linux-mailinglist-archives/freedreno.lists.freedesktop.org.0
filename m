@@ -2,83 +2,132 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9F45B278C6
-	for <lists+freedreno@lfdr.de>; Fri, 15 Aug 2025 08:05:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48661B27AE3
+	for <lists+freedreno@lfdr.de>; Fri, 15 Aug 2025 10:25:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0C3710E22F;
-	Fri, 15 Aug 2025 06:05:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22C0310E366;
+	Fri, 15 Aug 2025 08:25:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="poB2z/mH";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="W1t5KgYc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50D5310E22F
- for <freedreno@lists.freedesktop.org>; Fri, 15 Aug 2025 06:05:32 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-45a1b05d252so10872585e9.1
- for <freedreno@lists.freedesktop.org>; Thu, 14 Aug 2025 23:05:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755237931; x=1755842731; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=NLKGU002PnG8vgvK8+pdEgdjHah4yQTu8jqx2K5lOQw=;
- b=poB2z/mHzvRGs5AtCaukwTcO4poTNvVpoXsE48ABj1Y9vCT0KGm1m6RA/Pz+CDezfC
- cSwStHQsHoxBjWNLfXkXknR6ExiyML4qjvC5CjMZpN7ShH/HI2w1MwaEf5sa1KeWZTwW
- hRjYNyjZPCIAzQU6xJ4YyAxM2oALAfvmeiR0GLNj0IE9+tmkeLDN3HTQ/snXHCsivJyZ
- U6xe2Go/nl4u9rEh0A4Ao9caX7CvhR0gnixRLAN5Taf2TsVPKyA5BsKHkWnijbtdGzk/
- lZffIbnvyakA/+nJEqvn2ex5AnEa7O6Q+8TdYDv/kopE6eXJrzCy2lLQ7AB89TLDqKQh
- A5mQ==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5934E10E372
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Aug 2025 08:25:56 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57F86glt011665
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Aug 2025 08:25:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ NUp9id380DZ/OObz+oDgJw+5UIsJFHPyVrQSjaIg6Ws=; b=W1t5KgYcqdcplNA4
+ +D82pGSLq3f6/jEw27m8UaioPHPr5G0p56AbZj8pd/ObiLuCLZtHBBkrYhVFtRUp
+ +F/NSRM/ZTFYeiXX57+JgQcIQoDKrSrLDmH4tcxoF8+gFapaaDONaUWtHMAy7pR9
+ 4CziGzqTrHUqJGg13hwGUJfAVKPp6XdA86OuwVE6XvP+zyuCrLudrV2ufFnkMmOd
+ k5RrWiYxKwEVbN13T3ynLEH+idGR4d1d3+NY9LPlaMbpd1FxRvviBZ1G5jqHMQDg
+ yllh8mrD3zg7QkmZsTW9ZPxubBe5sfvCjmFWLGn/tDzr0aiodKs75icaFxS++avr
+ yZ2wEQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48fjxbnp9t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Aug 2025 08:25:55 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-b471739121bso41348a12.1
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Aug 2025 01:25:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755237931; x=1755842731;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NLKGU002PnG8vgvK8+pdEgdjHah4yQTu8jqx2K5lOQw=;
- b=fTvZVwSEPb8cEUWMP8BvdX2kQRJyDC8J4F3h16NgCvKQJgEWdSuRwo5q4wymnvwB7J
- lgk4BV7/64JUwHD6miaoGVSSyITHaQLjHz4w4q93+X8o3rVs9mCpXmyOeoP5AHHjap33
- 5Mj34KX9oixMG1jQo7r0k/6EzeLXjOWcJfJ3dsfKxTdEAMmvKYaHqn3obFqlEvpwQY7k
- +qjsXoNU2+/awQaVlIGOY8fM1Kq2u+qeaq4WNC6gqzEshZgmuWWpewueO/qBlNHaqfJ1
- HlkbaiUReik3P4y3h0yPVcckOuGow17ZLoIhM/c6kEKz4AXgE2MjKLFhPSWYORbN0k4V
- /3+Q==
+ d=1e100.net; s=20230601; t=1755246355; x=1755851155;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=NUp9id380DZ/OObz+oDgJw+5UIsJFHPyVrQSjaIg6Ws=;
+ b=nC+RZ2XUpWMIawLQyDEupn56Fci+5fe6EtNp9NneOBJMhD6H/LmxYPf/XzhcE6xOXe
+ ZUwJPGgGWrhrQJNjZuK3Z1UkT77TvKhzNrfNb1uNKhRY1xn/KLgsrFzI5E8HlVC8XFt6
+ mEswe244wOQwUXFWa9DexzkUyQoCg/wYuG6Rb+P0vtX9yH4wApciLCdxegYunyMfhOK/
+ EdskvYgdvbMSyD3VlLoI0EkwqK8ysHyTpR7n6iAFE3PB/4mNNS1ppR+b+xnLNPpscxgb
+ w7lVnGhMmJiQtqLJwOJT0jY+dA3xd9+27ITWFU6/R7QQO2BCqtRJBo1YNPim5CVj/7lW
+ Gnhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX0gL72Irp6x0txQPde+7WbNmLE25FxnuLat4sx92wwg/7wR455QEqxx7hORTl5eZMIIiORb1/j+GE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxRwuWvR2IJmctUO1tPhEd+KHgMxEsCDW9/wPX5P+Z9ly1UY1V
- V4m0+xZ8czUgsijQtMeV4fJDbtplMiGX+e0vys9247vxxRn0lvmuvlOB3/Mb0ueEQZk=
-X-Gm-Gg: ASbGncsgU5ScOmtfbKJpL19YBlUBmWJVJn4oCHYx8r/cMtzO72awIa5mNpKCgIJzM/+
- aytuv3yy4ilkQtRglQanbRUVIWMYOMeNP+IYE/6WBrzL2kg2Sx51irBVRUU/vWADy0C3swJv43e
- yzMySU+DNJ/4EhSzg7bNkFPR0ZhWSzzc29zhT7gxz5rkL+/TeqTRdRHOWtuc3DydRUh4c2j5bs4
- pj44z5++XfOC0rT38jduhfIE/j8O7SWmyMddrb1ipYoWSKPx1cgR8e6czDWIAPIiz30Sk+PDytk
- WkwTSvgNWAQK/y8vJSeUgxs5AhN3Jv1UB2fJObUN4D9giWylKAVyM2OpEqu82vogb6I2h+4r36E
- 1EEWricp1ro9oB0ZAJDeobBe6YfevDG2XNFJHmw==
-X-Google-Smtp-Source: AGHT+IEkgNga8C/5/B/cMPHRG+dpfv/2kc5MmkWVx5Jah93fWQXG2dLd0tNnDvNF8b/UXTvivHbQyg==
-X-Received: by 2002:a05:600c:a48:b0:43c:eeee:b713 with SMTP id
- 5b1f17b1804b1-45a21844a8dmr6584795e9.20.1755237930554; 
- Thu, 14 Aug 2025 23:05:30 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-45a1c6bc85csm45543355e9.5.2025.08.14.23.05.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Aug 2025 23:05:30 -0700 (PDT)
-Date: Fri, 15 Aug 2025 09:05:26 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, freedreno@lists.freedesktop.org
-Subject: Re: [bug report] drm/msm/adreno: Add support for ACD
-Message-ID: <aJ7OJq4nwkAXp6SR@stanley.mountain>
-References: <aJTL87hBAEtJb3VT@stanley.mountain>
- <2d54964b-1f60-4a58-8064-567611a3a126@oss.qualcomm.com>
- <aJwnNqfxZHfiVHZB@stanley.mountain>
- <cdd4757f-9433-4c80-b5b2-003d42038a87@oss.qualcomm.com>
- <aJ2K26ZBVZilC8jg@stanley.mountain>
- <CAF6AEGuO-8Y-dqsXZa5Oi4fTdzzWsOss5KEhyUkqiGCyuhVrdw@mail.gmail.com>
+ AJvYcCX2K6LM+JqO7mmYzPOJoh3uRflweIh5DE2lePEmn6myN1te++odYWDHmwEBZQ7xBsKV7uTxxPmM/Io=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBFosc/HHaRy85ERNbncWEXhs07FuAAmmfEGNRJlMYAg9qNb6l
+ 2klhS5veeEShuL33faUBox9ad8C56hKu1C9hsFXq5bAuHuikg2cNkLVgMUTmoBh0YvrA19G2h9k
+ AfIbtORzIkEFSjQfQQmA8z/h0il5rj1xsilrmxuLXllDHqv2/iKaMhWLWtxUjTimB/ht0UTs=
+X-Gm-Gg: ASbGnctxOe+jX3LcmEB1jbOlV47i0BryNcE5wa6yG1DoyV6xmH9yMU84kOjRegsFCWY
+ Kg57wQWosIJV7h+qjHlmP7u0TErA23MsT5tMGahod5eSV9g2XYMOfw3nr6rAv+9jp0y82KyWBFh
+ K3ZzvcrqABm2MRwVKue0+MYtOZd+EnFYxADTfdRcwemHE1yChgh4WOCHzcmXDWrCUJ6J4F8HBHj
+ rU/WeBMKk9+Zq3dtY0J/Z5frqcp8NFMRw7//ZVIgOZWTcGN6k182JS+5u+0B6L/irbmbMM78Uvx
+ twfNzPDmHN+K+b6Ci8FPe7VeFnR66QACejBft899qY3ojErY2ujSpHnXM0pJfWsNxGZzKZoax3m
+ bCHau6Ny8kASeVp0yypciDTsE6kl1
+X-Received: by 2002:a05:6a00:1393:b0:76b:cf2b:18ab with SMTP id
+ d2e1a72fcca58-76e446b43d3mr731548b3a.1.1755246354605; 
+ Fri, 15 Aug 2025 01:25:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHlOGconyNmSJveNt3MkVQqNUPji6K3KxwQpbezFFRgXr8JkSt+WNcYJk1eoULrcB7MfzyFyg==
+X-Received: by 2002:a05:6a00:1393:b0:76b:cf2b:18ab with SMTP id
+ d2e1a72fcca58-76e446b43d3mr731532b3a.1.1755246354054; 
+ Fri, 15 Aug 2025 01:25:54 -0700 (PDT)
+Received: from [10.133.33.10] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-76e4558a81asm629191b3a.83.2025.08.15.01.25.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Aug 2025 01:25:53 -0700 (PDT)
+Message-ID: <661789d6-5fbe-4915-b70a-5ff2466c7a26@oss.qualcomm.com>
+Date: Fri, 15 Aug 2025 16:25:43 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/13] dt-bindings: phy: Add binding for QCS615
+ standalone QMP DP PHY
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
+ fange.zhang@oss.qualcomm.com, quic_lliu6@quicinc.com,
+ quic_yongmou@quicinc.com
+References: <20250722-add-displayport-support-for-qcs615-platform-v2-0-42b4037171f8@oss.qualcomm.com>
+ <20250722-add-displayport-support-for-qcs615-platform-v2-2-42b4037171f8@oss.qualcomm.com>
+ <0c94206c-f70f-4bed-81ec-bb2870748121@kernel.org>
+From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+In-Reply-To: <0c94206c-f70f-4bed-81ec-bb2870748121@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGuO-8Y-dqsXZa5Oi4fTdzzWsOss5KEhyUkqiGCyuhVrdw@mail.gmail.com>
+X-Authority-Analysis: v=2.4 cv=G6EcE8k5 c=1 sm=1 tr=0 ts=689eef13 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=P-IC7800AAAA:8 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=0gnJL556ed7yCVVD25sA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
+ a=d3PnA9EDa4IxuAV0gXij:22 a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODExMDA5NyBTYWx0ZWRfX3ULFrc1YqbbA
+ a6pmOB9ftisZc4VRdh2soc9t7nQ8Cu0Qy+S1TuXVLlGl+JJDParyNtuOjzH3ipMKkj4uxGQn7mX
+ FF2iZJk8ViZJAnutkl/Con6ZuavxURx5xeQF70PTEThoZjiEpdpprL/bpKuWVATzCYdsa0yYzFW
+ bdNSNQOT3/mQnzeJwC5OJehjCHxzMEbmt7bjUzLt9C7mzkrLhAglcdNgsud45e+yT/RUA+UB0rC
+ lWgGsIkI35hD6bxWSrt0ouxNO4f6cdx17v7NSDv1gEXJTrVpt3y6gdhsSRJfZ5fIbLNZtVC2DrC
+ o4v6SUW7NeQiAf84QPQgusFvyAyYLtjB+RBIOcvXxi9wRLz9xZj/L/xuFWy+32p6PfyH9+NM2e6
+ xudDsJc1
+X-Proofpoint-ORIG-GUID: A4add75Jm9uPU-yu3MJ5sd3QkKjaY5r1
+X-Proofpoint-GUID: A4add75Jm9uPU-yu3MJ5sd3QkKjaY5r1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-15_03,2025-08-14_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0
+ malwarescore=0 adultscore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508110097
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,88 +143,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 14, 2025 at 06:57:35AM -0700, Rob Clark wrote:
-> On Thu, Aug 14, 2025 at 12:06 AM Dan Carpenter <dan.carpenter@linaro.org> wrote:
-> >
-> > On Thu, Aug 14, 2025 at 12:28:31AM +0530, Akhil P Oommen wrote:
-> > > On 8/13/2025 11:18 AM, Dan Carpenter wrote:
-> > > > On Fri, Aug 08, 2025 at 10:28:38PM +0530, Akhil P Oommen wrote:
-> > > >> On 8/7/2025 9:23 PM, Dan Carpenter wrote:
-> > > >>> Hello Akhil P Oommen,
-> > > >>>
-> > > >>> Commit b733fe7bff8b ("drm/msm/adreno: Add support for ACD") from Apr
-> > > >>> 19, 2025 (linux-next), leads to the following Smatch static checker
-> > > >>> warning:
-> > > >>>
-> > > >>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1700 a6xx_gmu_acd_probe()
-> > > >>>   error: 'opp' dereferencing possible ERR_PTR()
-> > > >>>
-> > > >>> drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > > >>>     1668 static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
-> > > >>>     1669 {
-> > > >>>     1670         struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-> > > >>>     1671         struct a6xx_hfi_acd_table *cmd = &gmu->acd_table;
-> > > >>>     1672         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> > > >>>     1673         struct msm_gpu *gpu = &adreno_gpu->base;
-> > > >>>     1674         int ret, i, cmd_idx = 0;
-> > > >>>     1675         extern bool disable_acd;
-> > > >>>     1676
-> > > >>>     1677         /* Skip ACD probe if requested via module param */
-> > > >>>     1678         if (disable_acd) {
-> > > >>>     1679                 DRM_DEV_ERROR(gmu->dev, "Skipping GPU ACD probe\n");
-> > > >>>     1680                 return 0;
-> > > >>>     1681         }
-> > > >>>     1682
-> > > >>>     1683         cmd->version = 1;
-> > > >>>     1684         cmd->stride = 1;
-> > > >>>     1685         cmd->enable_by_level = 0;
-> > > >>>     1686
-> > > >>>     1687         /* Skip freq = 0 and parse acd-level for rest of the OPPs */
-> > > >>>     1688         for (i = 1; i < gmu->nr_gpu_freqs; i++) {
-> > > >>>     1689                 struct dev_pm_opp *opp;
-> > > >>>     1690                 struct device_node *np;
-> > > >>>     1691                 unsigned long freq;
-> > > >>>     1692                 u32 val;
-> > > >>>     1693
-> > > >>>     1694                 freq = gmu->gpu_freqs[i];
-> > > >>>     1695                 opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, freq, true);
-> > > >>>                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> > > >>> No error checking.
-> > > >>
-> > > >> We are passing back a freq which we pulled out from the opp_table a few
-> > > >> lines before this. So it is unlikely that this call would fail.
-> > > >>
-> > > >> But it is okay to add a check here if that would make Smatch checker happy.
-> > > >>
-> > > >
-> > > > No, no, just ignore it, if it can't fail.
-> > > >
-> > > > Or I can add dev_pm_opp_find_freq_exact() to the "no need to check" list.
-> > > > That's easy to do.
-> > >
-> > > Would that make Smatch ignore usage of "dev_pm_opp_find_freq_exact()" in
-> > > other code/drivers? If yes, we may not want that.
-> >
-> > It just wouldn't print this warning if people left off the error handling.
-> >
-> > I'm going to ignore it anyway, right?  I recently had a case where I got
-> > mixed up which functions needed error handling and I ignored the wrong one.
-> > We still caught it in testing, but I'm also going through and marking which ones
-> > to ignore or not.
-> 
-> drive-by comment:  Would it be useful to have a comment that smatch
-> could look for in cases like this.. similar to how rust has a practice
-> of adding a comment describing unsafe blocks?  It could be a useful
-> way to document "safe because: this isn't expected to fail" cases,
-> both for humans and tools.
-> 
 
-I don't want to litter the code with comments silencing Smatch warnings.
+On 7/22/2025 5:18 PM, Krzysztof Kozlowski wrote:
+> On 22/07/2025 09:22, Xiangxu Yin wrote:
+>> Introduce device tree binding documentation for the Qualcomm QMP DP PHY
+>> on QCS615 SoCs. This PHY supports DisplayPort functionality and is
+>> designed to operate independently from the USB3 PHY.
+> A nit, subject: drop second/last, redundant "binding for". The
+> "dt-bindings" prefix is already stating that these are bindings.
+> See also:
+> https://elixir.bootlin.com/linux/v6.7-rc8/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
 
-Adding a comment for humans would be enough.  I hand review all these
-warnings so I'd see the comment.  Otherwise, generally, I try to only
-send warnings once.  We fix all the real bugs so all old warnings are
-false positives.
+Ok, will update subject in next patch.
 
-regards,
-dan carpenter
+>> Unlike combo PHYs found on other platforms, the QCS615 DP PHY is
+>> standalone and does not support USB/DP multiplexing. The binding
+>> describes the required clocks, resets, TCSR configuration, and clock/PHY
+>> cells for proper integration.
+>>
+>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+>> ---
+>>  .../bindings/phy/qcom,qcs615-qmp-dp-phy.yaml       | 111 +++++++++++++++++++++
+>>  1 file changed, 111 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-dp-phy.yaml
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..17e37c1df7b61dc2f7aa35ee106fd94ee2829c5f
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-dp-phy.yaml
+>> @@ -0,0 +1,111 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/phy/qcom,qcs615-qmp-dp-phy.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm QMP PHY controller (DP, QCS615)
+> That's too vague title. You are not adding here Qualcomm QMP PHY
+> controllers.
+
+Will update to 'Qualcomm QMP USB3-DP PHY controller (DP, QCS615)' in next patch.
+
+>
+>> +
+>> +maintainers:
+>> +  - Vinod Koul <vkoul@kernel.org>
+> Hm? Why?
+
+
+I referred to the definitions in qcom,msm8998-qmp-usb3-phy.yaml and qcom,sc8280xp-qmp-usb43dp-phy.yaml.
+
+I also found that Vinod Koul is listed as the maintainer of the GENERIC PHY FRAMEWORK in linux-next/MAINTAINERS.
+
+Did I misunderstand anything here?
+
+
+>> +
+>> +description:
+>> +  The QMP DP PHY controller supports DisplayPort physical layer functionality
+>> +  on Qualcomm QCS615 SoCs. This PHY is independent from USB3 PHY and does not
+>> +  support combo mode.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - qcom,qcs615-qmp-dp-phy
+>> +
+>> +  reg:
+>> +    maxItems: 4
+> I don't understand what you are doing here. Why previous patch evolved
+> into this? Where is any reasoning for that in the changelog? You said:
+>
+> "- Add new binding qcom,qcs615-qmp-dp-phy.yaml for QCS615 standalone DP
+> [Krzysztof]"
+>
+> but you must say WHY you are doing things...
+>
+> Anyway, missing constraints. Look at other Qualcomm bindings.
+
+
+I misunderstood your earlier comment in '20241129-add-displayport-support-for-qcs615-platform-v1-2-09a4338d93ef@quicinc.com' and mistakenly included "[Krzysztof]" in the commit message as if it were a quote. 
+
+Apologies for the confusion and will drop this part in cover letter in next patch.
+
+In next patch, the address regions will be consolidated into a single range, similar to other QMP PHYs, and |maxItems| will be updated to |1|.
+
+
+>
+>> +
+>> +  clocks:
+>> +    maxItems: 2
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: cfg_ahb
+>> +      - const: ref
+>> +
+>> +  clock-output-names:
+>> +    maxItems: 2
+>> +    description:
+>> +      Names of the clocks provided by the PHY.
+> Drop description, redundant. It cannot be anything else.
+
+
+Ok, will drop it.
+
+
+>
+>> +
+>> +  qcom,tcsr-reg:
+>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+>> +    items:
+>> +      - items:
+>> +          - description: phandle to TCSR hardware block
+>> +          - description: offset of the DP PHY moode register
+>> +    description:
+>> +      DP PHY moode register present in the TCSR
+>> +
+>> +  resets:
+>> +    maxItems: 1
+>> +
+>> +  reset-names:
+>> +    items:
+>> +      - const: phy
+> Drop reset-names, useless.
+
+
+In next patch, this config will be updated to USB or DP PHY binding with two resets: 'phy_phy' for USB and 'dp_phy' for DP.
+Shall I keep 'reset-names' prop here?
+
+>
+>> +
+>> +  vdda-phy-supply: true
+>> +
+>> +  vdda-pll-supply: true
+>> +
+>> +  "#clock-cells":
+>> +    const: 1
+>> +    description:
+>> +      See include/dt-bindings/phy/phy-qcom-qmp.h
+>> +
+>> +  "#phy-cells":
+>> +    const: 1
+>> +    description:
+>> +      See include/dt-bindings/phy/phy-qcom-qmp.h
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - clocks
+>> +  - clock-names
+>> +  - clock-output-names
+>> +  - qcom,tcsr-reg
+>> +  - resets
+>> +  - reset-names
+>> +  - vdda-phy-supply
+>> +  - vdda-pll-supply
+>> +  - "#clock-cells"
+>> +  - "#phy-cells"
+>> +
+> Why introducing completely different order? See existing binding and DTS
+> coding style.
+>
+> Best regards,
+> Krzysztof
+
+
+Ok, will update to follow the existing order.
+
+compatible
+reg
+clocks
+clock-names
+resets
+reset-names
+vdda-phy-supply
+vdda-pll-supply
+#clock-cells
+#phy-cells
+qcom,tcsr-reg
+
