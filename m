@@ -2,115 +2,121 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B72F3B29A8E
-	for <lists+freedreno@lfdr.de>; Mon, 18 Aug 2025 09:12:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE95B29A95
+	for <lists+freedreno@lfdr.de>; Mon, 18 Aug 2025 09:13:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 037DA10E3D1;
-	Mon, 18 Aug 2025 07:12:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7AB510E3D5;
+	Mon, 18 Aug 2025 07:13:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QYbhG0f/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="glmIizsz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85FA510E3D1
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 07:12:15 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57HMK43Y010089
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 07:12:15 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 144A210E3D4
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 07:13:46 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57HLUQfb005494
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 07:13:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4eFYXz9ONO1rsY5R32v0zLbnZIBbCFLEnN5L1WePSYw=; b=QYbhG0f/BizLaN4O
- qrCEu1wgP5dLhf5YHg10PV9FviLlk2c04Fk0CYbcaW4UrT3bkDRTOUtTEV27nsnd
- tLC+RY3HcCtH7izvACthiqjiJOd0ukxuPf1B9/pJcTr2EIkK0tRvs4DS9/m86eBE
- Qvh2Hq3qNIPWPH8q7l4iMaa6mBlfh7vYNEcMgCKPRZqEMOZsBPy6om3k5/i3/E9/
- idCYZ5a9QAdbLFE/IbFqV7o4taQDmtjrCJDEnNZafKA6RjAAoiosOA536UKjufU8
- 6px759Nvjy065YYJvYvgGHp8pT/KNrXIdQJphvKIq9pvVOqOYVKvTslynFsQE4TZ
- jA7Unw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48jk99kkka-1
+ eO7wadraGhre+LJhTfVeJor488W/8ImtdDnMyxSeuN8=; b=glmIizszRqn3/+U+
+ AQB6xcC8EP+OqOJ7w+DsAbFyuSIbb5/21T7AShl/+fevJU6Z2rOWZxz2SpccdLe5
+ oqcdd4L5ua0fZZqDr7GPdOPWpph+zDF49+S/Q5OkOoGkMV/iMgfVkenf0vRapAKc
+ yVuMIthwebhXF9OBg40/SrJiLng9n5MuhPrePLkKBcqkJ4hWYf444lReEOkEfWkR
+ pSf1OBbqx6o6CNGgY5/g2+9MXxhGMDOzILaBIBF3Ad4mEOcdoxgo6xtxcQ3NIEFp
+ wM01PcoiibPISy38rnrAxcaJUotGB/eqHBfo8679ErvBGg2efl6+HkpoeJ2OpUYR
+ 1OUPKQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48jgxtbumt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 07:12:13 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2445806dc88so97836015ad.1
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 00:12:12 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 07:13:45 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-24458264c5aso38202785ad.3
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 00:13:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755501118; x=1756105918;
+ d=1e100.net; s=20230601; t=1755501224; x=1756106024;
  h=content-transfer-encoding:in-reply-to:content-language:from
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4eFYXz9ONO1rsY5R32v0zLbnZIBbCFLEnN5L1WePSYw=;
- b=fkrzuofBXrmv3Nk+rjmBFT5dNrDR0w5A237Fbtm3w20BpF7/JogTADzvzlFUYpcgQH
- dpH3XhtfpIk37Prxxy2NFGX4AzOAvvh3WpDlErTwbeAIiSxAk+y6H2e3TSZOYtQKgvH/
- FkAcp9UkmBZGK/5ocgRHDBkpAwawEtNKlpWmFtdVt/cRsbSzDxRk3nnGg2MwWtJ2nBYX
- 3watKEwybY8pZRm68I0ht1eMeRFEEbSMDAtRrlWd6UzITZwn3+rAEXVFkrfSoYo5r/R3
- 8WBvGIeYEcC/p6MVD3A+S3/fy7DlE05WBlAxpvNrk/8cbZNDqylMWeGoi9UP3Q3FXAqE
- hLNA==
-X-Gm-Message-State: AOJu0YygRnlNLFa8j/q4bBHZOtLqSQki3TqE2eQod0muy+Zq9kFMsS+x
- umk1v+FYF1mezkktZOASwiv3QMa31pAk4QGKOmA1TeSv0PFLy6MeZR8elc9Cj3/AeVh3HfR4A6S
- EJ1RRa+UFF9FlfQojS5ZqzJ7Rl9rlgBsWsOsv650IkSMnDXyK06EAhDbdBJAou5cDC9kEfUs=
-X-Gm-Gg: ASbGncsrowkq8qFuqNYJ+fYHw9hUzArld9dLUDqEABf8P2DtYnI2l/AGwaDJkqRkmVT
- YzaGwqWIzYRK5ol4/EITq5StSjS4SS7m/r2lFuZ4WpYHhW1oE3QaK0owzylqLHDbRZTIMkY/mPy
- gQkYno+8iQzzZ1hLOdv2PVgQCEPqcQR4YJEWAcJT+DClL45EVt+80slVjypQyzIFT3E8e5JeYBK
- nWcMRa0UBzFeQi/8LiPpSpa3E9iIJyPV12we71WTrPxUEcQUe0q8y1F1DbVpolwlPoTYDAH7qwp
- XK6atySvm70D8r2efG07do6/kJ+SHRd4EPSYd0IaLwAWCdQ1COJkoLJSpf7px+Qu
-X-Received: by 2002:a17:902:ebc2:b0:243:3c4:ccaa with SMTP id
- d9443c01a7336-2446d73b8c7mr151281355ad.19.1755501117639; 
- Mon, 18 Aug 2025 00:11:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGiKyMj6H6ZQGoeu6S6teayibAv7/eiOIKjBX05pyjGvBOWtXvqxZQgvbi+2YXGev75Ro/9hA==
-X-Received: by 2002:a17:902:ebc2:b0:243:3c4:ccaa with SMTP id
- d9443c01a7336-2446d73b8c7mr151281085ad.19.1755501117167; 
- Mon, 18 Aug 2025 00:11:57 -0700 (PDT)
+ bh=eO7wadraGhre+LJhTfVeJor488W/8ImtdDnMyxSeuN8=;
+ b=I3rFzycLqhOVMxlOTCqbguycMbJzyEiPjaFEcC3nGW9GwZBU84E9RS+J4rjidBguat
+ LWtav/+cXMD0su16QpyTf1WvB4puFVhtI5dk5mfkIn8fdnUQtoLiJWjdtRbicThFG4sZ
+ SdfXimbISh19ep7+fkSTTUiBjgCvBr2SA/B3d+KYuWxcoBcUSNFQEszTbEpOrrpHWn82
+ 5WOdhZflXqQsRthqePKIoouSVD0AK0UDa75MhdZVwKIB+4pfBCsKJiBhz0zymR6fjeFY
+ XDt9+mYrukwVzpI6BUFh9UOFY1FCMo6fmRYQhhlVZixMwtZwRWt75HoejK7iCElGfAle
+ cMkA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXLN0aX6Pq4X8+YNbP+03NGQOSDDZ9wbwRmvW7Ncid/MdlWwVEWPCRsaxovr8L9A6RQvg8GJTDZ+pM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz4qcPzEYXuoyGipdzwLyz5ICSeciYvkQPNCQyioytNsxFBqlPJ
+ l4ug84gMkEJeIDRWmOd8UcEbjNohqSvpmBKkqW8phlUiUaKA1s2Q2we1S+EdijQLBo0eoy3CdHs
+ p+GzLdyyPdiGKGsEI7aJeSABL1jU/gLHslJzI8IseTup30ZuAs5K4Ax+wo3nccsxU0tE6Q+dDUG
+ NdZ4c=
+X-Gm-Gg: ASbGncsyjC7sdbJvF4T97orG4ZKZJkTkbFTNjeroc2aAPRk4x9metxbvH4/76lKN76m
+ pIF9g5IfzxeGs9nqFJN4EAGlLn9PKZxvnUTFrSy50sAaTWNDLM3VO5VVTTuf5E8yOt8ic6rEN7o
+ /HIfDNse5WIMAVP8CVbV+WT2x6C+71AvoTkaAO8MxNgoxHwupnfGo+hrUesYffPRr5tYGU+Vh+S
+ 3Z+acAeC8jdPoS5HSssSt0o80n7XcpN9F9QpcdtKhn/EM3DxaGckeTZowOEXakMLOWN3Blec9w8
+ WEjgdFPkLzZ8xEUj97xNxt7YVMxEVFD3+dUav98J/JKlz6IpD5cfPuI16C44h7on
+X-Received: by 2002:a17:903:2d0:b0:226:38ff:1d6a with SMTP id
+ d9443c01a7336-2446d6e4c8fmr162951755ad.7.1755501224254; 
+ Mon, 18 Aug 2025 00:13:44 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEKK/VsGw2K363BINLgo4z0OW/kcKqNy2Al0tPXrsMMCPgwF+XIrPg9LBdfU+0MmAtu3XKsaA==
+X-Received: by 2002:a17:903:2d0:b0:226:38ff:1d6a with SMTP id
+ d9443c01a7336-2446d6e4c8fmr162951415ad.7.1755501223816; 
+ Mon, 18 Aug 2025 00:13:43 -0700 (PDT)
 Received: from [192.168.1.4] ([106.222.229.157])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-32343c6f284sm7039663a91.24.2025.08.18.00.11.55
+ d9443c01a7336-2446ca9d043sm71010145ad.12.2025.08.18.00.13.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 00:11:56 -0700 (PDT)
-Message-ID: <1051801e-2537-4ef5-9d24-5c3fbf7d79dd@oss.qualcomm.com>
-Date: Mon, 18 Aug 2025 12:41:52 +0530
+ Mon, 18 Aug 2025 00:13:43 -0700 (PDT)
+Message-ID: <026b1a09-c8db-4a5d-af43-3be4fe24a824@oss.qualcomm.com>
+Date: Mon, 18 Aug 2025 12:43:38 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [bug report] drm/msm/adreno: Add support for ACD
-To: Rob Clark <robdclark@gmail.com>, Dan Carpenter <dan.carpenter@linaro.org>
-Cc: freedreno@lists.freedesktop.org
-References: <aJTL87hBAEtJb3VT@stanley.mountain>
- <2d54964b-1f60-4a58-8064-567611a3a126@oss.qualcomm.com>
- <aJwnNqfxZHfiVHZB@stanley.mountain>
- <cdd4757f-9433-4c80-b5b2-003d42038a87@oss.qualcomm.com>
- <aJ2K26ZBVZilC8jg@stanley.mountain>
- <CAF6AEGuO-8Y-dqsXZa5Oi4fTdzzWsOss5KEhyUkqiGCyuhVrdw@mail.gmail.com>
- <aJ7OJq4nwkAXp6SR@stanley.mountain>
- <CAF6AEGuySMUDOf3gWU3FdQXxwJkmfURK1mBOGyjrYtJdZ_U_Rw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/msm: adreno: a6xx: enable GMU bandwidth voting for
+ x1e80100 GPU
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20250725-topic-x1e80100-gpu-bwvote-v2-1-58d2fbb6a127@linaro.org>
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <CAF6AEGuySMUDOf3gWU3FdQXxwJkmfURK1mBOGyjrYtJdZ_U_Rw@mail.gmail.com>
+In-Reply-To: <20250725-topic-x1e80100-gpu-bwvote-v2-1-58d2fbb6a127@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: jecz09R4TkEeJsVUI0caCOAkPp4nc0qG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE2MDA0NSBTYWx0ZWRfX46A/XvbjKmAs
- 8FuSxJBjLZINfA+ADdVV56mtXg1tqWaZf6tERrl82jkk3m8uzrYVc+W0WRihT6TkX2ChDEyRAUG
- Fuzc6lLGrcEJ4CabJgEs5yPN1JvQMG6B9F+HAVuG1WttwihGD1v2VeqKJ4UqfZ+cUsO7awF7FzJ
- YVIsdc/7dxqvCRlNbgMnD+sfk15Xqus5sqWx+BQXgTIQc5rtrFT+3HcYwnQEGriTw8fRdPdKFDc
- j9YtXBFhwqe/gyA7lykOi0PqXyjMHMotvmxjqxVljUpgiQICE/ELmjPyXEo62SHzi8bjyPXnmbt
- BxysW+A7FOSVOVFhc+yLclGMU0gEFHCcHwbE/a4yrcI6jLew8IWDwHzWnqiQt9s+dfqM3AWOSiG
- jcrnveoA
-X-Authority-Analysis: v=2.4 cv=IIMCChvG c=1 sm=1 tr=0 ts=68a2d24d cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=9Q8gPALlkHEzzDxkdHlyxw==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=KKAkSRfTAAAA:8 a=0beGzprJXZfq2z5psJEA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: jecz09R4TkEeJsVUI0caCOAkPp4nc0qG
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: U7chrXVZxmh6Bj-RWa7nXPHMj_0t71DN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE2MDAyMCBTYWx0ZWRfX/4dWgC0AuTTW
+ rYSRYIuejbvczDESMLZIEJ9ig/YCELCxsHQNgBVPHTSVJ7KG4MFjLDvHEHgd+fgPsAlXPJd6njQ
+ Aqu44JRdMuzh1owH3QA37c0snoZujSjlN2Hr4n7YxdNg7+nkKaZpsNNTrM9lT4KNTx5RSkeNHCA
+ vhoeHd6u6KaU56feTDcjnTa6lUoX+jk+7E4kfXFi2sQqBLjplYWcq02V3AENs9PVUJzPw5Q9IGz
+ Ysk8gOG6EF8gJ0i7cL7ZAeB4CxBipxN88TSr9PVU6ZrCaT8EAX748fr7KsL5/NORuvADdTTpnnP
+ WQJfDn9mTjhdE8JhkXs8nsPDsEt5UVhd4BxSa2MAV6SDUaWtw+tKIg7ywf/sVNzcZ/R7zMOxe7E
+ 76bQ5P/p
+X-Proofpoint-GUID: U7chrXVZxmh6Bj-RWa7nXPHMj_0t71DN
+X-Authority-Analysis: v=2.4 cv=V7B90fni c=1 sm=1 tr=0 ts=68a2d2a9 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=9Q8gPALlkHEzzDxkdHlyxw==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8
+ a=EUspDBNiAAAA:8 a=1B6o04Z4kyHWbw-D5gsA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=cvBusfyB2V15izCimMoJ:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-18_03,2025-08-14_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 clxscore=1015 impostorscore=0 phishscore=0
- adultscore=0 malwarescore=0 bulkscore=0 suspectscore=0 classifier=typeunknown
+ priorityscore=1501 phishscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ suspectscore=0 impostorscore=0 bulkscore=0 spamscore=0 classifier=typeunknown
  authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508160045
+ engine=8.19.0-2507300000 definitions=main-2508160020
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,102 +132,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/15/2025 7:59 PM, Rob Clark wrote:
-> On Thu, Aug 14, 2025 at 11:05 PM Dan Carpenter <dan.carpenter@linaro.org> wrote:
->>
->> On Thu, Aug 14, 2025 at 06:57:35AM -0700, Rob Clark wrote:
->>> On Thu, Aug 14, 2025 at 12:06 AM Dan Carpenter <dan.carpenter@linaro.org> wrote:
->>>>
->>>> On Thu, Aug 14, 2025 at 12:28:31AM +0530, Akhil P Oommen wrote:
->>>>> On 8/13/2025 11:18 AM, Dan Carpenter wrote:
->>>>>> On Fri, Aug 08, 2025 at 10:28:38PM +0530, Akhil P Oommen wrote:
->>>>>>> On 8/7/2025 9:23 PM, Dan Carpenter wrote:
->>>>>>>> Hello Akhil P Oommen,
->>>>>>>>
->>>>>>>> Commit b733fe7bff8b ("drm/msm/adreno: Add support for ACD") from Apr
->>>>>>>> 19, 2025 (linux-next), leads to the following Smatch static checker
->>>>>>>> warning:
->>>>>>>>
->>>>>>>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1700 a6xx_gmu_acd_probe()
->>>>>>>>   error: 'opp' dereferencing possible ERR_PTR()
->>>>>>>>
->>>>>>>> drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>>>>>>     1668 static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
->>>>>>>>     1669 {
->>>>>>>>     1670         struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
->>>>>>>>     1671         struct a6xx_hfi_acd_table *cmd = &gmu->acd_table;
->>>>>>>>     1672         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->>>>>>>>     1673         struct msm_gpu *gpu = &adreno_gpu->base;
->>>>>>>>     1674         int ret, i, cmd_idx = 0;
->>>>>>>>     1675         extern bool disable_acd;
->>>>>>>>     1676
->>>>>>>>     1677         /* Skip ACD probe if requested via module param */
->>>>>>>>     1678         if (disable_acd) {
->>>>>>>>     1679                 DRM_DEV_ERROR(gmu->dev, "Skipping GPU ACD probe\n");
->>>>>>>>     1680                 return 0;
->>>>>>>>     1681         }
->>>>>>>>     1682
->>>>>>>>     1683         cmd->version = 1;
->>>>>>>>     1684         cmd->stride = 1;
->>>>>>>>     1685         cmd->enable_by_level = 0;
->>>>>>>>     1686
->>>>>>>>     1687         /* Skip freq = 0 and parse acd-level for rest of the OPPs */
->>>>>>>>     1688         for (i = 1; i < gmu->nr_gpu_freqs; i++) {
->>>>>>>>     1689                 struct dev_pm_opp *opp;
->>>>>>>>     1690                 struct device_node *np;
->>>>>>>>     1691                 unsigned long freq;
->>>>>>>>     1692                 u32 val;
->>>>>>>>     1693
->>>>>>>>     1694                 freq = gmu->gpu_freqs[i];
->>>>>>>>     1695                 opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, freq, true);
->>>>>>>>                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->>>>>>>> No error checking.
->>>>>>>
->>>>>>> We are passing back a freq which we pulled out from the opp_table a few
->>>>>>> lines before this. So it is unlikely that this call would fail.
->>>>>>>
->>>>>>> But it is okay to add a check here if that would make Smatch checker happy.
->>>>>>>
->>>>>>
->>>>>> No, no, just ignore it, if it can't fail.
->>>>>>
->>>>>> Or I can add dev_pm_opp_find_freq_exact() to the "no need to check" list.
->>>>>> That's easy to do.
->>>>>
->>>>> Would that make Smatch ignore usage of "dev_pm_opp_find_freq_exact()" in
->>>>> other code/drivers? If yes, we may not want that.
->>>>
->>>> It just wouldn't print this warning if people left off the error handling.
->>>>
->>>> I'm going to ignore it anyway, right?  I recently had a case where I got
->>>> mixed up which functions needed error handling and I ignored the wrong one.
->>>> We still caught it in testing, but I'm also going through and marking which ones
->>>> to ignore or not.
->>>
->>> drive-by comment:  Would it be useful to have a comment that smatch
->>> could look for in cases like this.. similar to how rust has a practice
->>> of adding a comment describing unsafe blocks?  It could be a useful
->>> way to document "safe because: this isn't expected to fail" cases,
->>> both for humans and tools.
->>>
->>
->> I don't want to litter the code with comments silencing Smatch warnings.
->>
->> Adding a comment for humans would be enough.  I hand review all these
->> warnings so I'd see the comment.  Otherwise, generally, I try to only
->> send warnings once.  We fix all the real bugs so all old warnings are
->> false positives.
+On 7/25/2025 2:05 PM, Neil Armstrong wrote:
+> The Adreno GPU Management Unit (GMU) can also scale DDR Bandwidth along
+> the Frequency and Power Domain level, but by default we leave the
+> OPP core scale the interconnect ddr path.
 > 
-> ok, well I think we should at least add a comment here for humans
+> Declare the Bus Control Modules (BCMs) and the corresponding parameters
+> in the GPU info struct to allow the GMU to vote for the bandwidth.
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Yeah. I will add this to my list.
+Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
 -Akhil
 
+> ---
+> Changes in v2:
+> - Used proper ACV perfmode bit/freq
+> - Link to v1: https://lore.kernel.org/r/20250721-topic-x1e80100-gpu-bwvote-v1-1-946619b0f73a@linaro.org
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
-> BR,
-> -R
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index 00e1afd46b81546eec03e22cda9e9a604f6f3b60..892f98b1f2ae582268adebd758437ff60456cdd5 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1440,6 +1440,17 @@ static const struct adreno_info a7xx_gpus[] = {
+>  			.pwrup_reglist = &a7xx_pwrup_reglist,
+>  			.gmu_chipid = 0x7050001,
+>  			.gmu_cgc_mode = 0x00020202,
+> +			.bcms = (const struct a6xx_bcm[]) {
+> +				{ .name = "SH0", .buswidth = 16 },
+> +				{ .name = "MC0", .buswidth = 4 },
+> +				{
+> +					.name = "ACV",
+> +					.fixed = true,
+> +					.perfmode = BIT(3),
+> +					.perfmode_bw = 16500000,
+> +				},
+> +				{ /* sentinel */ },
+> +			},
+>  		},
+>  		.preempt_record_size = 4192 * SZ_1K,
+>  		.speedbins = ADRENO_SPEEDBINS(
 > 
->> regards,
->> dan carpenter
+> ---
+> base-commit: 97987520025658f30bb787a99ffbd9bbff9ffc9d
+> change-id: 20250721-topic-x1e80100-gpu-bwvote-9fc4690fe5e3
+> 
+> Best regards,
 
