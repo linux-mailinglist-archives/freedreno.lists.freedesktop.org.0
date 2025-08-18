@@ -2,128 +2,123 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D833B29AA5
-	for <lists+freedreno@lfdr.de>; Mon, 18 Aug 2025 09:17:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 203FFB29BA8
+	for <lists+freedreno@lfdr.de>; Mon, 18 Aug 2025 10:08:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6725F10E3D7;
-	Mon, 18 Aug 2025 07:17:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F02B410E14F;
+	Mon, 18 Aug 2025 08:08:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="i2yIIDLh";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="r1lhROsl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D40610E3D9
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 07:17:26 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57HMHDvH027109
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 07:17:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- /qhnVhx2Ak6MmVxTVAge6g/u9xCi1sPaDT0gtIzKOTs=; b=i2yIIDLh60u3/pai
- iGEyQnRONS5vyvdznnmZ17Vjr8DHLxqUR1N7EJ6hPHyGbexWjXrpr7collEmvexA
- UK1xkUgQW7fh4QBbYauWbS+ljauo10SBwRlZjV42PtgglcZ1VqRzmI5bTmofvQ4i
- HMQExpzLy5lJXFwTAEXIF+8GGwRzAlbQslOhQDYdVGf3ZpkIzYgfzJnf9caY+RyN
- kgF6JlMYfDxp3xM+E8Li5D9RfwHzeaju+x3Thr3kPmaMNMQpYoTX7AL519FV8Ylg
- 89AdsOLKi/+bxn8I7YRg5ZCS7PMOB/M4wBXQsktVcJExxqQYpHnf6XWirxmurj4v
- IzZw3A==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48jjc7uqnn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 07:17:25 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-24456ebed7bso44831525ad.0
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 00:17:25 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F7DE10E414
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 08:08:15 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-45a1b066b5eso17767085e9.1
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 01:08:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1755504494; x=1756109294; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=rUNGkpO4Bj6949FkP0Yja1jszmdmG380tow+zHeqATc=;
+ b=r1lhROsldLrHyevU7FPkC9TqMNnPrN+UdALoyz99R7fsY1vtIlbyDO0JfAVxLyyGgQ
+ b/roq5jo7pFstxFc1SX5i0TPV4j7UtP2vaucQ3/56XhEd5MpwzkIsUhvs5CcoaW2/O3l
+ wrauZOUGpiEywMBxwICYce6ZblzzdqCeY5fIqua0H0OZAdlxRIirRi4xsVPIEqH56Pr7
+ MFyGQ1PcMOFerHeurUh4f4XT+2MhoOVwVX/hOkHINUsrVtfD2ZJ8iHffBCuP7OwCQGxw
+ 8Wsq/ldzl18w+nXJPG3Qmfl0FNXI4+fDgwCQw+IkLzafR+T/BPwt/jhH7lrl0rw7P5Es
+ qCkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755501444; x=1756106244;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/qhnVhx2Ak6MmVxTVAge6g/u9xCi1sPaDT0gtIzKOTs=;
- b=khxpQ/NKuybIWbRCOhY+wMwJ05lOL3kOe4ODz/+9w81M7gOZMjYP38iFCpbPLcLZng
- uTpVddjaA/lkVa/3S2M9042uO2hhQm/XoN/lboHr6djXW9aJIt3OPs0z47CTyXys0YZb
- H/yb8JSBdn495jPjZ5bNVoUpD0uqNmd9Wa1K8Ax2S+2DQrql2EoCkmwrL+3QbM21ZPid
- EDm+nHlXGqHh9XnjzKJRE40OTVVmq3XGRPuXjBYmZiAixpdxbNMnwkubvo+VXv4dh+XZ
- ekPgSS2gxy4UX3Q3C7hNVBsaV3AOAiafTGIcpORlRXCcgBtPiQSxNJ8/Gvg0kYCO2w0I
- t8vQ==
+ d=1e100.net; s=20230601; t=1755504494; x=1756109294;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=rUNGkpO4Bj6949FkP0Yja1jszmdmG380tow+zHeqATc=;
+ b=jp4A+LhmFVfNgt3NZ+pqbBJP9GSjXdn1Arf/oP/EKGtvXqVXFLcwl8UHPcLoZ3qpcD
+ 7Zw/cxsrSv/eUKFmP3wW/s+OBc2VS4W1DwXEhm+M4IzFuQNLtLsF+yMFGzf30MoWGZ0f
+ 1EPuQbPUnKhgUcBwMhdn1ao/EKIYM8rpCs8zENl/XocfT+LJSarFJc4p29Q0CQZoNdf7
+ 9bS778Nxq7VSFdbfMvRmADXLOmzbaBb8xT7j4ih6FSIFSXm8XeuPzzplIE+niWDuZuRw
+ FmmPMunRk3ewHL7b1bC0On9WF9cIxWtm7Nq70WGcEF1CNS3+y5aMdcdhoBdVHB/F5now
+ LOIw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXK/eF0kZ4B+z7K7nYrlDf3z2jt+VXvBtwqpD9EAodjwJ+v0n61wApXMcAjNKZoyeITCb/Lxm/9sRA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzj3hBPkA1CjBmIHimhhDb1FkZzGnn4aprFhLiOsFw+/4xLOw58
- uW2Inl28ltLSmQsR9FlrP1Ge5x32ppD9pSr0UVmWS4Ddra+PB+s2GZNBjqgEbM2ik4WwHqd8JEW
- 9LlLUnst/rEGSg31xnuR0We7Oakd07SVDsZvrsLMZ2WV4EVhXXhXcoQ+ok98k3o6ip0cVOK0=
-X-Gm-Gg: ASbGnctz9ofgIRjBGs1uPA4+V9bpkaijpobp6nswuKISA6Uaark+zlothdUefvBjCOW
- wB8UTPBb2ZyDvVzIn+APtxbjJLA8jnZ5ykrk60cMgr787ho3aYxBgnJ1uGEdmXHe7GreBRKsWDk
- Fkf8DvySgXh+pRKyiLyOnETA/tSxxV5K2AlH5NX9lkBVPdqLbcf1F86LTVBD47k7PdxfI6tT2gV
- X+0S9Ntpnu9aveR6FlstmHgRSaLtBAvUw1yaaKmZNii/LQbWGoPTxxG1qv2yzHrWGmhbqq2H2//
- sgvq/OYyIaFIrwQ6V06xpbJXQyVNxJtGLGojJyf8PspJOAtm6KN91rQ50c+yHex3
-X-Received: by 2002:a17:902:f645:b0:240:86b2:ae9c with SMTP id
- d9443c01a7336-2446bdad87bmr122769665ad.14.1755501443896; 
- Mon, 18 Aug 2025 00:17:23 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEQzDZnDrRPt9e9ar4NcGlKQx/v15yiS7nW8hWVOCiahtj0oNaVAIJtchO0QDQCqoEqEh/UUQ==
-X-Received: by 2002:a17:902:f645:b0:240:86b2:ae9c with SMTP id
- d9443c01a7336-2446bdad87bmr122769485ad.14.1755501443427; 
- Mon, 18 Aug 2025 00:17:23 -0700 (PDT)
-Received: from [192.168.1.4] ([106.222.229.157])
+ AJvYcCVZH532KJBqQudpa4rWUREZHsjVj3jfyJLVK9Wo6J4qTsrHap8gQIdmgR5o3yyetoyt5w0NKchkY9Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy9KXGIoEK5J/yTPNXHmh3eYovkxzrsJ9BZFPzxpy/YdWXsWo+I
+ OQw2/pwtE8tAgcCLCD8/3zbRGnw5FxEzG7Yab71J9EVkcnhCmviP51ntjjr0tZAme4k=
+X-Gm-Gg: ASbGncvpJqB5XjU3NdYgDg45nJ4pHqjeyoETiDyxgrj/Cw0DDNodgK85Bscd0TGVWZq
+ 9llhH3VPkhi6KmaS6TdDm2uFwqDRA5txjKSO1IGhWu/cqTw+g6DvMiM2XjPMaDPKTZjeOygUDH3
+ j4YOfP3zDPnF6Z2OoolV45bJqIRKoEirAqzMMizR5Bvj/cXec5V+2dAyyFvLfxSDaajbm/ok5mD
+ SvJxtem5H4gcIdQciPgD9Xz2DUXw9yjqWnkx3YnYBkC2qoq41k+BF8neqpcSC4TOHkMZo9TV24e
+ Dx9ignJHKDBT/d6SwkPugRwMOsC5cl9YX+mGlj3g2EFir26nnwcojLLiIfKm7yUu2Nn4KAGCJNQ
+ 3gi6LH1XxJGtMQiXvzGf1XBoSOSnuNQElgYh/TmxgaCzkFPnrb45NpHDAjnFNqdRE0eyJaAoZ
+X-Google-Smtp-Source: AGHT+IHEM62e9pbBVitK2clt1VV7OlbcJpPegVTu73FKhD1duGOlewFnegIrBDPdbp9Z/MC7kDWGMA==
+X-Received: by 2002:a05:600c:4e86:b0:456:1514:5b04 with SMTP id
+ 5b1f17b1804b1-45a2183a7f1mr82250165e9.21.1755504493826; 
+ Mon, 18 Aug 2025 01:08:13 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:3d9:2080:70d:8646:e014:cc6e?
+ ([2a01:e0a:3d9:2080:70d:8646:e014:cc6e])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2446ca9dbfdsm71325165ad.19.2025.08.18.00.17.18
+ 5b1f17b1804b1-45a221bbadfsm121465845e9.0.2025.08.18.01.08.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 00:17:23 -0700 (PDT)
-Message-ID: <77db4861-4868-4110-8c31-eb2045ddbf4b@oss.qualcomm.com>
-Date: Mon, 18 Aug 2025 12:47:17 +0530
+ Mon, 18 Aug 2025 01:08:12 -0700 (PDT)
+Message-ID: <744209a8-7a7e-4909-b608-8bfc70a8727b@linaro.org>
+Date: Mon, 18 Aug 2025 10:08:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/msm: adreno: a6xx: enable GMU bandwidth voting for
- x1e80100 GPU
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH RESEND 1/2] drm/bridge: add connector argument to
+ .hpd_notify callback
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250725-topic-x1e80100-gpu-bwvote-v2-1-58d2fbb6a127@linaro.org>
- <e7ddfe18-d2c7-4201-a271-81be7c814011@oss.qualcomm.com>
- <33442cc4-a205-46a8-a2b8-5c85c236c8d4@oss.qualcomm.com>
- <b4f283ce-5be1-4d2f-82e2-e9c3be22a37f@oss.qualcomm.com>
- <269506b6-f51b-45cc-b7cc-7ad0e5ceea47@linaro.org>
- <1727374d-0461-4442-ab35-9acb8ef7f666@oss.qualcomm.com>
- <df007b41-5c3d-4c69-81b9-27155485ccf9@oss.qualcomm.com>
- <pxigrjxtizcrhn4l25ph4yh4runebintfp4swqfiewfq5hqceo@g5cy3mdgjir5>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <pxigrjxtizcrhn4l25ph4yh4runebintfp4swqfiewfq5hqceo@g5cy3mdgjir5>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE2MDAzMyBTYWx0ZWRfX5zBw2gGAwF53
- V1PDCUmEPhGay/bJeffCD+/TPYKNxB+Tj5utMIlNzzJH3Ru6/H44CpkxmfZMuuPLCNzabUay3+U
- 4A7QbmnhmjhWKnn+fCwgJPXT8wfc/eubckN1oDPWI4Yl+os+cvv9H1QEMB9+R0bFOqmDOD399Ge
- QxerTXEqbSoFv8M4/XinqjTzFS8T/aQij9XNbe7iqng6SqZUD/kuAz7Qv3PJnXgTxHpfotSGrFU
- e6IkF2JOB/K6GS0fE3iq3fCixx1z4H5r2cLjBeDp/WneMlevmD5FwqwuitlKYWDku05eOqE7Gcq
- 8W28UCrF2JUc/w8rkKL9c0W2fapiUpyBpvkuRrMTsxsV0Ic3JFpxNOkT9+3/39ok8qE+i7YYTq9
- qUX9gZdu
-X-Authority-Analysis: v=2.4 cv=c4mrQQ9l c=1 sm=1 tr=0 ts=68a2d385 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=9Q8gPALlkHEzzDxkdHlyxw==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=tT0-4YtFDMztOtjXKeIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: 3Dd-jIfRzc_W4lcPKupd-gSVizUqP9E0
-X-Proofpoint-ORIG-GUID: 3Dd-jIfRzc_W4lcPKupd-gSVizUqP9E0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-18_03,2025-08-14_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 priorityscore=1501 adultscore=0 impostorscore=0
- bulkscore=0 phishscore=0 malwarescore=0 suspectscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508160033
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+References: <20250803-lt9611uxc-hdmi-v1-0-cb9ce1793acf@oss.qualcomm.com>
+ <20250803-lt9611uxc-hdmi-v1-1-cb9ce1793acf@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20250803-lt9611uxc-hdmi-v1-1-cb9ce1793acf@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,81 +131,102 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/16/2025 3:45 AM, Dmitry Baryshkov wrote:
-> On Thu, Aug 14, 2025 at 07:52:13PM +0200, Konrad Dybcio wrote:
->> On 8/14/25 6:38 PM, Akhil P Oommen wrote:
->>> On 8/14/2025 7:56 PM, Neil Armstrong wrote:
->>>> Hi,
->>>>
->>>> On 14/08/2025 13:22, Konrad Dybcio wrote:
->>>>> On 8/14/25 1:21 PM, Konrad Dybcio wrote:
->>>>>> On 7/31/25 12:19 PM, Konrad Dybcio wrote:
->>>>>>> On 7/25/25 10:35 AM, Neil Armstrong wrote:
->>>>>>>> The Adreno GPU Management Unit (GMU) can also scale DDR Bandwidth
->>>>>>>> along
->>>>>>>> the Frequency and Power Domain level, but by default we leave the
->>>>>>>> OPP core scale the interconnect ddr path.
->>>>>>>>
->>>>>>>> Declare the Bus Control Modules (BCMs) and the corresponding
->>>>>>>> parameters
->>>>>>>> in the GPU info struct to allow the GMU to vote for the bandwidth.
->>>>>>>>
->>>>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>>>>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>>>>>> ---
->>>>>>>> Changes in v2:
->>>>>>>> - Used proper ACV perfmode bit/freq
->>>>>>>> - Link to v1: https://lore.kernel.org/r/20250721-topic-x1e80100-
->>>>>>>> gpu-bwvote-v1-1-946619b0f73a@linaro.org
->>>>>>>> ---
->>>>>>>>   drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 11 +++++++++++
->>>>>>>>   1 file changed, 11 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/
->>>>>>>> gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>>>> index
->>>>>>>> 00e1afd46b81546eec03e22cda9e9a604f6f3b60..892f98b1f2ae582268adebd758437ff60456cdd5 100644
->>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>>>> @@ -1440,6 +1440,17 @@ static const struct adreno_info a7xx_gpus[] = {
->>>>>>>>               .pwrup_reglist = &a7xx_pwrup_reglist,
->>>>>>>>               .gmu_chipid = 0x7050001,
->>>>>>>>               .gmu_cgc_mode = 0x00020202,
->>>>>>>> +            .bcms = (const struct a6xx_bcm[]) {
->>>>>>>> +                { .name = "SH0", .buswidth = 16 },
->>>>>>>> +                { .name = "MC0", .buswidth = 4 },
->>>>>>>> +                {
->>>>>>>> +                    .name = "ACV",
->>>>>>>> +                    .fixed = true,
->>>>>>>> +                    .perfmode = BIT(3),
->>>>>>>> +                    .perfmode_bw = 16500000,
->>>>>>>
->>>>>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>>>>
->>>>>> Actually no, BIT(3) is for the CPU (OS), GPU should use BIT(2)
->>>
->>> You are right that BIT(2) is GPU specific, but that support was
->>> commercialized from A7XX_GEN3. Anyway, the Win KMD uses BIT(2), so lets
->>> use that in Linux too.
->>>
->>> I know some docs show BIT(2) support, but lets not bring in untested
->>> configurations.
->>
->> Eh, then let's get the docs fixed if you don't trust them because we can't
->> work like that..
->>
->> FWIW this is information from per-platform RPMh cmd-db data
+On 03/08/2025 13:53, Dmitry Baryshkov wrote:
+> Drivers might need to update DRM connector in the
+> drm_bridge_funcs.hpd_notify callback (e.g. it might be necessary to
+> update EDID before setting ELD). Add corresponding argument to the
+> callback.
 > 
-> If it comes from cmd-db, then we should be requesting it from the cmd-db
-> driver rather than hardcoding it here.
-
-Not really. This should be under the control of GPU driver.
-BIT(3) is correct for X1E.
-
--Akhil.
-
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/display/drm_bridge_connector.c | 2 +-
+>   drivers/gpu/drm/meson/meson_encoder_hdmi.c     | 1 +
+>   drivers/gpu/drm/msm/dp/dp_display.c            | 3 ++-
+>   drivers/gpu/drm/msm/dp/dp_drm.h                | 3 ++-
+>   drivers/gpu/drm/omapdrm/dss/hdmi4.c            | 1 +
+>   include/drm/drm_bridge.h                       | 1 +
+>   6 files changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+> index 5eb7e9bfe36116c9618cd3773f1c01e7ebb573be..f2fd277d694b8c959f913517ff5861b777d8a9dd 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -141,7 +141,7 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
+>   	/* Notify all bridges in the pipeline of hotplug events. */
+>   	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
+>   		if (bridge->funcs->hpd_notify)
+> -			bridge->funcs->hpd_notify(bridge, status);
+> +			bridge->funcs->hpd_notify(bridge, connector, status);
+>   	}
+>   }
+>   
+> diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+> index 8205ee56a691ee7d166b16cfce6932d0308fe6c4..a665c9036878c1e879b7bd88df1d523658fe8849 100644
+> --- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+> +++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+> @@ -323,6 +323,7 @@ static int meson_encoder_hdmi_atomic_check(struct drm_bridge *bridge,
+>   }
+>   
+>   static void meson_encoder_hdmi_hpd_notify(struct drm_bridge *bridge,
+> +					  struct drm_connector *connector,
+>   					  enum drm_connector_status status)
+>   {
+>   	struct meson_encoder_hdmi *encoder_hdmi = bridge_to_meson_encoder_hdmi(bridge);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index d87d47cc7ec3eb757ac192c411000bc50b824c59..0676b3423abcb31ac3ea6e6269473764786133ed 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1774,7 +1774,8 @@ void msm_dp_bridge_hpd_disable(struct drm_bridge *bridge)
+>   }
+>   
+>   void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+> -			  enum drm_connector_status status)
+> +			      struct drm_connector *connector,
+> +			      enum drm_connector_status status)
+>   {
+>   	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(bridge);
+>   	struct msm_dp *msm_dp_display = msm_dp_bridge->msm_dp_display;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
+> index d8c9b905f8bfb5abe47c1cb26d17bc605e3e1ba6..9eb3431dd93adf096f45b6d981967734bc8a2b0c 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.h
+> @@ -40,6 +40,7 @@ void msm_dp_bridge_mode_set(struct drm_bridge *drm_bridge,
+>   void msm_dp_bridge_hpd_enable(struct drm_bridge *bridge);
+>   void msm_dp_bridge_hpd_disable(struct drm_bridge *bridge);
+>   void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+> -			  enum drm_connector_status status);
+> +			      struct drm_connector *connector,
+> +			      enum drm_connector_status status);
+>   
+>   #endif /* _DP_DRM_H_ */
+> diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> index 3cd612af24498b057c33eaecb3d43c8df76cd23e..29b2dfb90b5fa3b137d05725d65a1cccb9cd1345 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> @@ -428,6 +428,7 @@ static void hdmi4_bridge_disable(struct drm_bridge *bridge,
+>   }
+>   
+>   static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
+> +				    struct drm_connector *connector,
+>   				    enum drm_connector_status status)
+>   {
+>   	struct omap_hdmi *hdmi = drm_bridge_to_hdmi(bridge);
+> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+> index 8ed80cad77ec4b40d0aa6159e802a2839d5b8792..1e73d72c55426ec21905070a13b44aa36b02e023 100644
+> --- a/include/drm/drm_bridge.h
+> +++ b/include/drm/drm_bridge.h
+> @@ -730,6 +730,7 @@ struct drm_bridge_funcs {
+>   	 * controllers for HDMI bridges.
+>   	 */
+>   	void (*hpd_notify)(struct drm_bridge *bridge,
+> +			   struct drm_connector *connector,
+>   			   enum drm_connector_status status);
+>   
+>   	/**
 > 
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
