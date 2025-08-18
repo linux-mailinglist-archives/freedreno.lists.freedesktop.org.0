@@ -2,123 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C72EB29BAA
-	for <lists+freedreno@lfdr.de>; Mon, 18 Aug 2025 10:08:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 332ABB29E2D
+	for <lists+freedreno@lfdr.de>; Mon, 18 Aug 2025 11:41:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D887110E409;
-	Mon, 18 Aug 2025 08:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B145810E40A;
+	Mon, 18 Aug 2025 09:41:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="v3bogr1t";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EbgmVj9W";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76CC110E409
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 08:08:37 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-45a15fd04d9so30081715e9.1
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 01:08:37 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31A4D10E412
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 09:41:21 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-3b9e7437908so4025641f8f.3
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 02:41:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755504516; x=1756109316; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=elEJPdcRzf4AoHzJ3HTFysx+7CDqgMfvBfQYC/vrwSs=;
- b=v3bogr1tHIc0kxd9amKHuSZHehiY8zr+AcmyL+k9UQi8nQX/7u2rJZYWk6g3Z++tba
- 5haYM6nUBdDuW1dr4kc3whBk7vilWEYUOCai2+HoFVDiw2xOyyi5M9PkdNmZ8RP34DrN
- lKyjdQkuuZeQjffCug3wdu5fM9+xf1k/Vd9PzHDGxQsHAU3hYfkAuxHMF2HIqUemjt/Q
- niYfbMxN0bi2xslf8z8UK4Q8RSrJWy3akYfySR/WvJB03tpMqUqJSZEfDdA9bDjAeTjv
- Y9mpmdrWatEOotuYwU9ZM2oM9qyGWD20jUUhTm4EFpV6SrFfobfYuGw7jXNLdeiY3y4k
- nn1w==
+ d=linaro.org; s=google; t=1755510080; x=1756114880; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=7/6XeVgmIa+p+6b+L9eiuvQqY3NOmqfJPOHueP62RXE=;
+ b=EbgmVj9WMWHWmGySRegSwQP8tc8LCU0XUOP7lbOA258ShSEnVhBv2MiwwLJ7tfolh0
+ yy/MbhKqCleNAzp5myJZ9saEMRRyfly163Anm3QNj7lPfmcvuWtD5uH4LkE9kE7FI2fl
+ WSagzxyPJF9BKucvhKMwJ9A1g9Jvq1xcFKxJWKXGQTkFKCfOjoBpS88YPWNXLheRNOav
+ u0e1eb/z8B4oI35UwxV81ynqioM1fLwlXrfX0naF4ngxDTR705iXYrQKAQ0bxPqXmB78
+ EM5uhzE8IRBK880tnzeIgtfsyFnxrPGV/c45jDUvSaMi7q0aJ+nNZUDrJnU553t53ptu
+ lsfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755504516; x=1756109316;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=elEJPdcRzf4AoHzJ3HTFysx+7CDqgMfvBfQYC/vrwSs=;
- b=qmOXwePzIbhpRV6eqYazAmggcV18iVUOkfZnNBf6OkulXSyXfX7ztH0xr66v2/iRyO
- lRvlq+F/oKOWVo5AC1Du1naJ/fIEDPZiSF+aJq5kAF310lcn5rVg7DNqa9P3Nm5PobrK
- /gqnLHwxBGzXCmKUhpyMlFueoZPoDQ3/rJ+uSoO8aHdAUOMFq5fiQWvP5OZE3a+EJceo
- 1TO5750CoEpdmSpOz8CvKn5Yj0g8hUhC95/jkiloShTb0MNFg2rlVz5nxxBDgu36a6MH
- UonlJzn7+hQ6mmNBtvlhxCplA/rJl4+UZzUkNy8SlRDfzp7dzLplfVI94730dB8X0Nok
- 6Log==
+ d=1e100.net; s=20230601; t=1755510080; x=1756114880;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7/6XeVgmIa+p+6b+L9eiuvQqY3NOmqfJPOHueP62RXE=;
+ b=LgcymCJeh0BpJaYRbNUSqmHLXJJqpJLRELWOXLeaF2r9mqsrDo6VQShC/CgESHJYoY
+ puJeiUPKIg8sDmwF3HwuNuNolx4I+VWBfO9OCbnmLImYEIMX7H59qSGZOHiLUonyivf0
+ Dp6JJpkH9Jc4aVnKZVWJaSUwCalDnu7WZEQoolwA+YPIHw1/kiKUKQn+Wexg7OBG1P55
+ dsLOenGNTwYOPpMxcUrRxgXHKAEAI6fiFpvbfjy6lme00idKkR1smebERSvnmuqd/ps0
+ XiFFoqc2XDWV9eaM6gXZlKjw9ebwh81F3VXqzW1az/jGlVUtOrbz94MYEfk/ud6lFgK3
+ yTxg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9nqCCF9+RXCB7/f/BzWbUZJ/1o8qykap5xNXTzUxoyaU9+SBbEsOBlUgrhS2w4GVB8f4Y+Yx66Vc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywa3LrYV+kvyVkGXsSGD8jsiek+2MwGWKUYYMVJCSDGFwp9xpoO
- cxCTYBg/kP3hxKc0xz38fUjBjZLHqnUgXnVq5MhFvaBPO8cubyW/zkcFLW7YFdinJXw=
-X-Gm-Gg: ASbGncuwsWGhN+VE7j4TjnCLON50jq3L4OZI3CjMojnw1QAdfQyi3Mf2JksLY7lvIZC
- AsfFkV1KY/rtIcmNmoxUVChDXvgMKqECORy12Cj2B6k5scy+fs3uhTJFcJiePfyD0yVXTxpfeyQ
- F5QJ6G55yGr3HhPdovJplpTyuFTtgeylgv+S07O8vRp5IUl9D0zcxFLzKvTNx4kZt+IBQvgh9TO
- ITMAeAODYm0DN4J9KUY9xJfCAuBhZme4+vg4B8Qiw2SOrEHdl/CFjgJCul6AwGfBfvDRrurR1F9
- SuGC5M77awaW4JwRamhyWKy2I1W2Ec9cvsIn8m2SMNKLaTciFnjQZkj4Rlaziv7vSV7s7YQTHak
- djDMyotSBz1f1LfOGGGBJ+qX318r4/K2EVFreht08WrDn+pL7mEkf6K3fvqxj3SCTHRfcpktR
-X-Google-Smtp-Source: AGHT+IEV/tKPxIV4CiXdCsoRwjIQw7DcU75vVWJ0k+TKlA/cHd3fxVCK+aTUSCDUGfTKr01x0FeBPw==
-X-Received: by 2002:a05:6000:18ab:b0:3a5:5130:1c71 with SMTP id
- ffacd0b85a97d-3bb46fc7df9mr8247891f8f.0.1755504515600; 
- Mon, 18 Aug 2025 01:08:35 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:3d9:2080:70d:8646:e014:cc6e?
- ([2a01:e0a:3d9:2080:70d:8646:e014:cc6e])
+ AJvYcCXgoPQdw3r9ni13u5vfWQAxtTdOEzMk2+64I67W47knU4YkNdiqgTLbsVDbZvYIWRiaS9Bc3vrfnHU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyXIUyPqV2eQbXtHwN5kz9ypMaEGaJoGR+Obn6vJ2Th8sCZbFfc
+ fOEsajlLlpW9y+YnAsvLZECfy5cmYelOE4J2WkFmmEGHuxpEpxUqr0BA/5vuujHZoRY=
+X-Gm-Gg: ASbGncsInyRBzPvQwrHgjVq71aXexmboufWk6P7O2larq7EadVKbxeC2REeKCYm8tfF
+ U477itSGwJxnhUFdhT2P7ENWQl+/8dB0eUU3O/y3w/k0m9zuA4gQcLEY/ci8zfQNO1YqdPN4MKr
+ VJApvYO88pi5sxObhr+dTnCIYtP6mqeqs0R1+JkxkmTt6kzSmWUxEqniI6NxCpMGYXrSsmJ8F5W
+ 8WKDokizjo/5J3NlFF21flUxEqwU3VO35C5ifbbABW1CfwqOkaczOncT0caxupoo+Wxq85JAtf7
+ LHvCOswrNRkBIe9T1dtU5AqQwTXMjTJJVI8MY/sKd1di6nTwr1PpEP8dK2y6syg+URqFM0nEXls
+ IFNUq5OogF+ov9WQPLXWF2VSFRL9RQUPf
+X-Google-Smtp-Source: AGHT+IFm/M8wUXEyOBLmxPkFEJb2HmV9g/AOtbNKPh8cmZrkqxxe9lLpbMafCp4YszxE4MeB7w3jNA==
+X-Received: by 2002:a05:6000:1785:b0:3b9:10c5:b321 with SMTP id
+ ffacd0b85a97d-3bc6a18bd15mr6710433f8f.44.1755510079426; 
+ Mon, 18 Aug 2025 02:41:19 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff21:ef30:d6e:23fa:76e1:25d])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3bb676ca37fsm11744214f8f.41.2025.08.18.01.08.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 01:08:34 -0700 (PDT)
-Message-ID: <e173b1b3-ad91-46ad-b293-c52948bb32a1@linaro.org>
-Date: Mon, 18 Aug 2025 10:08:35 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH RESEND 2/2] drm/bridge: lontium-lt9611uxc: switch to HDMI
- audio helpers
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ 5b1f17b1804b1-45a1b899338sm86822425e9.7.2025.08.18.02.41.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Aug 2025 02:41:18 -0700 (PDT)
+Date: Mon, 18 Aug 2025 11:41:16 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20250803-lt9611uxc-hdmi-v1-0-cb9ce1793acf@oss.qualcomm.com>
- <20250803-lt9611uxc-hdmi-v1-2-cb9ce1793acf@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20250803-lt9611uxc-hdmi-v1-2-cb9ce1793acf@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Abel Vesa <abel.vesa@linaro.org>, Michael Walle <mwalle@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/2] driver core: platform: / drm/msm: dp: Delay applying
+ clock defaults
+Message-ID: <aKL1NPuZWWxsAavx@linaro.org>
+References: <20250814-platform-delay-clk-defaults-v1-0-4aae5b33512f@linaro.org>
+ <flybqtcacqa3mtvav4ba7qcqtn6b7ocziweydeuo4v2iosqdqe@4oj7z4ps7d2c>
+ <aJ3Y1XhvTPB7J6az@linaro.org>
+ <ddp77rvwe6brwyvkzbkouguigd5tjg2qqfxomlhd2hb2x7w7uf@2uyl2q47bpei>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ddp77rvwe6brwyvkzbkouguigd5tjg2qqfxomlhd2hb2x7w7uf@2uyl2q47bpei>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,222 +107,163 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/08/2025 13:53, Dmitry Baryshkov wrote:
-> While LT9611UXC is a DSI-to-HDMI bridge, it implements all HDMI-related
-> functions internally, in the firmware, thus it doesn't make sense to
-> implement DRM_BRIDGE_OP_HDMI. However it is possible to implement
-> DRM_BRIDGE_OP_HDMI_AUDIO, streamlining HDMI audio plumbing (which
-> includes plugged notifications and ELD handling).
+On Sat, Aug 16, 2025 at 04:55:00PM +0300, Dmitry Baryshkov wrote:
+> On Thu, Aug 14, 2025 at 02:38:45PM +0200, Stephan Gerhold wrote:
+> > On Thu, Aug 14, 2025 at 02:55:44PM +0300, Dmitry Baryshkov wrote:
+> > > On Thu, Aug 14, 2025 at 11:18:05AM +0200, Stephan Gerhold wrote:
+> > > > Currently, the platform driver core always calls of_clk_set_defaults()
+> > > > before calling the driver probe() function. This will apply any
+> > > > "assigned-clock-parents" and "assigned-clock-rates" specified in the device
+> > > > tree. However, in some situations, these defaults cannot be safely applied
+> > > > before the driver has performed some early initialization. Otherwise, the
+> > > > clock operations might fail or the device could malfunction.
+> > > > 
+> > > > This is the case for the DP/DSI controller on some Qualcomm platforms. We
+> > > > use assigned-clock-parents there to bind the DP/DSI link clocks to the PHY,
+> > > > but this fails if the PHY is not already powered on. We often bypass this
+> > > > problem because the boot firmware already sets up the correct clock parent,
+> > > > but this is not always the case.
+> > > 
+> > > So, the issue is that our abstraction is loose and we register a clock
+> > > before it becomes usable. Would it be better to delay registering a
+> > > clock until it's actually useable? (and then maybe to unregister on the
+> > > link shutdown)
+> > > 
+> > > > 
+> > > > Michael had a somewhat related problem in the PVR driver recently [1],
+> > > > where of_clk_set_defaults() needs to be called a second time from the PVR
+> > > > driver (after the GPU has been powered on) to make the assigned-clock-rates
+> > > > work correctly.
+> > > > 
+> > > > I propose adding a simple flag to the platform_driver struct that skips the
+> > > > call to of_clk_set_defaults(). The platform driver can then call it later
+> > > > after the necessary initialization was performed (in my case: after the PHY
+> > > > was fully enabled for the first time).
+> > > > 
+> > > > There are also alternative solutions that I considered, but so far
+> > > > I discarded them in favor of this simple one:
+> > > > 
+> > > >  - Avoid use of assigned-clock-parents: We could move the clocks from
+> > > >    "assigned-clock-parents" to "clocks" and call clk_set_parent() manually
+> > > >    from the driver. This is what we did for DSI on SM8750 (see commit
+> > > >    80dd5911cbfd ("drm/msm/dsi: Add support for SM8750")).
+> > > > 
+> > > >    This is the most realistic alternative, but it has a few disadvantages:
+> > > > 
+> > > >     - We need additional boilerplate in the driver to assign all the clock
+> > > >       parents, that would be normally hidden by of_clk_set_defaults().
+> > > > 
+> > > >     - We need to change the existing DT bindings for a number of platforms
+> > > >       just to workaround this limitation in the Linux driver stack. The DT
+> > > >       does not specify when to apply the assigned-clock-parents, so there
+> > > >       is nothing wrong with the current hardware description.
+> > > > 
+> > > >  - Use clock subsystem CLK_OPS_PARENT_ENABLE flag: In theory, this would
+> > > >    enable the new parent before we try to reparent to it. It does not work
+> > > >    in this situation, because the clock subsystem does not have enough
+> > > >    information to power on the PHY. Only the DP/DSI driver has.
+> > > > 
+> > > Another possible option would be to introduce the 'not useable' state /
+> > > flag to the CCF, pointing out that the clock is registered, but should
+> > > not be considered for parenting operations.
+> > > 
+> > > >  - Cache the new parent in the clock driver: We could try to workaround
+> > > >    this problem in the clock driver, by delaying application of the new
+> > > >    clock parent until the parent actually gets enabled. From the
+> > > >    perspective of the clock subsystem, the clock would be already
+> > > >    reparented. This would create an inconsistent state: What if the clock
+> > > >    is already running off some other parent and we get a clk_set_rate()
+> > > >    before the parent clock gets enabled? It would operate on the new
+> > > >    parent, but the actual rate is still being derived from the old parent.
+> > > > 
+> > > 
+> > > But... Generally it feels that we should be able to bring up the clocks
+> > > in some 'safe' configuration, so that the set_parent / set_rate calls
+> > > can succeed. E.g. DISP_CC_MDSS_DPTX0_LINK_CLK_SRC can be clocked from XO
+> > > until we actually need to switch it to a proper rate. I see that
+> > > e.g. dispcc-sm8550.c sets 'CLK_SET_RATE_PARENT' on some of DP clock
+> > > sources for no reason (PHY clock rates can not be set through CCF, they
+> > > are controlled through PHY ops).
+> > > 
+> > 
+> > I don't think there is any problem with the 'safe' configuration you
+> > mention. I have not tried, but we should be able to use that. However,
+> > my understanding is that reparenting does not fail because the clock
+> > itself is in an "unusable" state, but because the new parent is in an
+> > "unusable" state. We can run the clock from XO, but that wouldn't solve
+> > the problem of reparenting to the PHY (until the PHY is fully
+> > configured).
 > 
-> Implement corresponding callbacks and trigger EDID read /
-> drm_connector_hdmi_audio_plugged_notify() from the hpd_notify callback.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 125 +++++++++++------------------
->   1 file changed, 49 insertions(+), 76 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> index 38fb8776c0f441ae433c60a7680aaa6501a8956e..11aab07d88df646a54fea287030a183eb823b26d 100644
-> --- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> @@ -17,8 +17,6 @@
->   #include <linux/wait.h>
->   #include <linux/workqueue.h>
->   
-> -#include <sound/hdmi-codec.h>
-> -
->   #include <drm/drm_atomic_helper.h>
->   #include <drm/drm_bridge.h>
->   #include <drm/drm_edid.h>
-> @@ -27,6 +25,8 @@
->   #include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
->   
-> +#include <drm/display/drm_hdmi_audio_helper.h>
-> +
->   #define EDID_BLOCK_SIZE	128
->   #define EDID_NUM_BLOCKS	2
->   
-> @@ -48,7 +48,6 @@ struct lt9611uxc {
->   	struct device_node *dsi1_node;
->   	struct mipi_dsi_device *dsi0;
->   	struct mipi_dsi_device *dsi1;
-> -	struct platform_device *audio_pdev;
->   
->   	struct gpio_desc *reset_gpio;
->   	struct gpio_desc *enable_gpio;
-> @@ -429,12 +428,52 @@ static const struct drm_edid *lt9611uxc_bridge_edid_read(struct drm_bridge *brid
->   	return drm_edid_read_custom(connector, lt9611uxc_get_edid_block, lt9611uxc);
->   }
->   
-> +static void lt9611uxc_bridge_hpd_notify(struct drm_bridge *bridge,
-> +					struct drm_connector *connector,
-> +					enum drm_connector_status status)
-> +{
-> +	const struct drm_edid *drm_edid;
-> +
-> +	if (status == connector_status_disconnected) {
-> +		drm_connector_hdmi_audio_plugged_notify(connector, false);
-> +		drm_edid_connector_update(connector, NULL);
-> +		return;
-> +	}
-> +
-> +	drm_edid = lt9611uxc_bridge_edid_read(bridge, connector);
-> +	drm_edid_connector_update(connector, drm_edid);
-> +	drm_edid_free(drm_edid);
-> +
-> +	if (status == connector_status_connected)
-> +		drm_connector_hdmi_audio_plugged_notify(connector, true);
-> +}
-> +
-> +static int lt9611uxc_hdmi_audio_prepare(struct drm_bridge *bridge,
-> +					struct drm_connector *connector,
-> +					struct hdmi_codec_daifmt *fmt,
-> +					struct hdmi_codec_params *hparms)
-> +{
-> +	/*
-> +	 * LT9611UXC will automatically detect rate and sample size, so no need
-> +	 * to setup anything here.
-> +	 */
-> +	return 0;
-> +}
-> +
-> +static void lt9611uxc_hdmi_audio_shutdown(struct drm_bridge *bridge,
-> +					  struct drm_connector *connector)
-> +{
-> +}
-> +
->   static const struct drm_bridge_funcs lt9611uxc_bridge_funcs = {
->   	.attach = lt9611uxc_bridge_attach,
->   	.mode_valid = lt9611uxc_bridge_mode_valid,
->   	.mode_set = lt9611uxc_bridge_mode_set,
->   	.detect = lt9611uxc_bridge_detect,
->   	.edid_read = lt9611uxc_bridge_edid_read,
-> +	.hpd_notify = lt9611uxc_bridge_hpd_notify,
-> +	.hdmi_audio_prepare = lt9611uxc_hdmi_audio_prepare,
-> +	.hdmi_audio_shutdown = lt9611uxc_hdmi_audio_shutdown,
->   };
->   
->   static int lt9611uxc_parse_dt(struct device *dev,
-> @@ -508,73 +547,6 @@ static int lt9611uxc_read_version(struct lt9611uxc *lt9611uxc)
->   	return ret < 0 ? ret : rev;
->   }
->   
-> -static int lt9611uxc_hdmi_hw_params(struct device *dev, void *data,
-> -				    struct hdmi_codec_daifmt *fmt,
-> -				    struct hdmi_codec_params *hparms)
-> -{
-> -	/*
-> -	 * LT9611UXC will automatically detect rate and sample size, so no need
-> -	 * to setup anything here.
-> -	 */
-> -	return 0;
-> -}
-> -
-> -static void lt9611uxc_audio_shutdown(struct device *dev, void *data)
-> -{
-> -}
-> -
-> -static int lt9611uxc_hdmi_i2s_get_dai_id(struct snd_soc_component *component,
-> -					 struct device_node *endpoint,
-> -					 void *data)
-> -{
-> -	struct of_endpoint of_ep;
-> -	int ret;
-> -
-> -	ret = of_graph_parse_endpoint(endpoint, &of_ep);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	/*
-> -	 * HDMI sound should be located as reg = <2>
-> -	 * Then, it is sound port 0
-> -	 */
-> -	if (of_ep.port == 2)
-> -		return 0;
-> -
-> -	return -EINVAL;
-> -}
-> -
-> -static const struct hdmi_codec_ops lt9611uxc_codec_ops = {
-> -	.hw_params	= lt9611uxc_hdmi_hw_params,
-> -	.audio_shutdown = lt9611uxc_audio_shutdown,
-> -	.get_dai_id	= lt9611uxc_hdmi_i2s_get_dai_id,
-> -};
-> -
-> -static int lt9611uxc_audio_init(struct device *dev, struct lt9611uxc *lt9611uxc)
-> -{
-> -	struct hdmi_codec_pdata codec_data = {
-> -		.ops = &lt9611uxc_codec_ops,
-> -		.max_i2s_channels = 2,
-> -		.i2s = 1,
-> -		.data = lt9611uxc,
-> -	};
-> -
-> -	lt9611uxc->audio_pdev =
-> -		platform_device_register_data(dev, HDMI_CODEC_DRV_NAME,
-> -					      PLATFORM_DEVID_AUTO,
-> -					      &codec_data, sizeof(codec_data));
-> -
-> -	return PTR_ERR_OR_ZERO(lt9611uxc->audio_pdev);
-> -}
-> -
-> -static void lt9611uxc_audio_exit(struct lt9611uxc *lt9611uxc)
-> -{
-> -	if (lt9611uxc->audio_pdev) {
-> -		platform_device_unregister(lt9611uxc->audio_pdev);
-> -		lt9611uxc->audio_pdev = NULL;
-> -	}
-> -}
-> -
->   #define LT9611UXC_FW_PAGE_SIZE 32
->   static void lt9611uxc_firmware_write_page(struct lt9611uxc *lt9611uxc, u16 addr, const u8 *buf)
->   {
-> @@ -858,11 +830,17 @@ static int lt9611uxc_probe(struct i2c_client *client)
->   	i2c_set_clientdata(client, lt9611uxc);
->   
->   	lt9611uxc->bridge.of_node = client->dev.of_node;
-> -	lt9611uxc->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
-> +	lt9611uxc->bridge.ops = DRM_BRIDGE_OP_DETECT |
-> +		DRM_BRIDGE_OP_EDID |
-> +		DRM_BRIDGE_OP_HDMI_AUDIO;
->   	if (lt9611uxc->hpd_supported)
->   		lt9611uxc->bridge.ops |= DRM_BRIDGE_OP_HPD;
->   	lt9611uxc->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
->   
-> +	lt9611uxc->bridge.hdmi_audio_dev = dev;
-> +	lt9611uxc->bridge.hdmi_audio_max_i2s_playback_channels = 2;
-> +	lt9611uxc->bridge.hdmi_audio_dai_port = 2;
-> +
->   	drm_bridge_add(&lt9611uxc->bridge);
->   
->   	/* Attach primary DSI */
-> @@ -881,10 +859,6 @@ static int lt9611uxc_probe(struct i2c_client *client)
->   		}
->   	}
->   
-> -	ret = lt9611uxc_audio_init(dev, lt9611uxc);
-> -	if (ret)
-> -		goto err_remove_bridge;
-> -
->   	return 0;
->   
->   err_remove_bridge:
-> @@ -908,7 +882,6 @@ static void lt9611uxc_remove(struct i2c_client *client)
->   
->   	free_irq(client->irq, lt9611uxc);
->   	cancel_work_sync(&lt9611uxc->work);
-> -	lt9611uxc_audio_exit(lt9611uxc);
->   	drm_bridge_remove(&lt9611uxc->bridge);
->   
->   	mutex_destroy(&lt9611uxc->ocm_lock);
+> How would the CCF react if we return -ENA from the enable() method of
+> the PHY clock if it's not available yet?
 > 
 
-LGTM
+With the current setup it wouldn't change anything, because the failing
+operation is just the clk_set_parent() that happens from the driver core
+before the clock will be enabled. It wouldn't reach the enable() method.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+With CLK_OPS_PARENT_ENABLE, I would expect clk_set_parent() to fail,
+which also doesn't get us any further. :-)
+
+> > 
+> > (It would help a lot if you can find someone from the hardware team at
+> >  Qualcomm to confirm that. Everything I write is just based on
+> >  experiments I have done.)
+> > 
+> > So, assume that DISP_CC_MDSS_DPTX0_LINK_CLK_SRC is already running from
+> > XO, but the PHY is powered off. Now of_clk_set_defaults() gets called
+> > and we get the call to clk_set_parent() while the PHY is off. How do we
+> > deal with that? Returning 0 without actually changing the parent would
+> > result in inconsistent state, as I described above. clk_get_parent()
+> > would return the new parent, but actually it's still running from XO.
+> 
+> For RCG2 we already have a lot of tricks like that.
+> 
+
+That is true, although e.g. the clk_rcg2_shared_ops apply the tricks
+(the caching of clock ops) only while the clock is off. When the clock
+is off, it doesn't matter what we return about the freq/parents from the
+clk ops. The problematic case I mentioned above would occur if the clock
+is (for whatever reason) already running sourced from XO during boot.
+
+In other words, I could imagine that implementing something like the
+clk_rcg2_shared_ops for the DP clocks could fix the error I'm trying to
+solve in this patch series. However, it would only work if the clock is
+really off during boot and not already running sourced from XO.
+
+> > 
+> > With my changes in this series the clock state is always consistent with
+> > the state returned by the clk APIs. We just delay the call to
+> > clk_set_parent() until we know that it can succeed.
+> 
+> I know. But what happens when we power down the PHY? The clock is
+> assumed to have the PHY clock as a parent, but it's supposedly not
+> clocking.
+> 
+
+I don't think this is a big problem in practice, given that these clocks
+are only consumed by a single driver that manages both PHY and clocks
+anyway. The clock should always get disabled before the PHY is powered
+down.
+
+> Another option would be to introduce a safe config for the PHYs and make
+> sure that the PHY is brought up every time we need it to be up (e.g. via
+> pm_runtime).
+
+I considered that as well, but what exactly would I use as "safe"
+configuration? There are lots of PHY configuration registers that are
+set based on the rate or other parameters of the panel/display
+connected.
+
+Implementing something like clk_rcg2_shared_ops could presumably work,
+with the limitation that it will only work if the clock is really off
+during boot and not already running from XO. Otherwise, I think the
+simple approach of delaying the clk_set_parent() implemented in this
+series is still the most straightforward way to solve this issue.
+
+Thanks,
+Stephan
