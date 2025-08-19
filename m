@@ -2,49 +2,112 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D90BB2CE51
-	for <lists+freedreno@lfdr.de>; Tue, 19 Aug 2025 22:53:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C7B6B2CFE8
+	for <lists+freedreno@lfdr.de>; Wed, 20 Aug 2025 01:29:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 567A110E00F;
-	Tue, 19 Aug 2025 20:53:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 696D810E226;
+	Tue, 19 Aug 2025 23:29:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gzsgm6I8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kr3KqPQ2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3F3210E00F
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 20:53:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6E86D5C62EA;
- Tue, 19 Aug 2025 20:53:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D627C4CEF1;
- Tue, 19 Aug 2025 20:53:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755636834;
- bh=Ct16rkVZw82v7+uuxySxZhhLvccFn3UN87vyKAsTQPE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gzsgm6I8sfNPAtW9b0QYKaMZGXnqrH3IRcpRZPdEko6oKUiWSb505KYj9NVzShETN
- I/rbrEDVEA96kIxJzu9QFOeSltKLutm/vCRqE1q3/EiNTi9hqHlnJ8qwEcRmlwUbA+
- QbRp0+XlR0UWF1KriqrTa4Nn9HyTpm6HT9VjNIqK6CDa5ue4Zmcfa098mampciG1HC
- mji+qAcLMYKG7gIpIYfVercpggeF5JEODBpTvpVgnGpHjENNWlZ1Pj89qkBf7f/bXx
- Zny7A8dZ6k/VSxe0VPsLPAkfFfG2gDgiu7Rhd7Zq/HMq/vQQt2BGlfyZ2VdHjX59GM
- f0kfoko2pOi8Q==
-Date: Tue, 19 Aug 2025 15:53:51 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7172610E0F8
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 23:29:12 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57JL0n7H019887
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 23:29:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=uXtfjUzzByf11+oWG4pmF8mNkBkkbpFfD4T
+ 0474ANBY=; b=kr3KqPQ2BQHM8y9CIGwXmvqiMqQObMhTD79qY4GbG9+5kLjJsmf
+ xpUor5AIH/xYM78EW+1aJjagj8CJ9GvfJSKYTbVsdkZtjppE8Lz1jpRdidJ4AG0y
+ NKvJj8FnI+AFb8wND1dbasNCdM5r3QyEXE6DK7qifZ9tXmOc1ndriLLHaAyzAd3L
+ DEng6MW4Dg+5AHMCom5acBZFX8tDZdzSRd49gOYZlsI90ztEGjUHSrCj+TInoZgU
+ LAdSdkgQZkyv2A2R8jC2jNDyDyq67HsdYVau2D3TyFMcGwI1wnKEkuM2SdilTEW1
+ +nkQdaekBLqhadKUGlgi8yGQ0FVu3HZsghA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48n0tfg8wj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 23:29:11 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-244582bc5e4so69867465ad.2
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 16:29:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755646150; x=1756250950;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uXtfjUzzByf11+oWG4pmF8mNkBkkbpFfD4T0474ANBY=;
+ b=iZ4TDXfaZH06efqO8enXbVnUMnkRjg5RWTmTOqv/ppf92L2YJVBn6SV3d7QbxYt8nT
+ c6+uOceoeLOq98ePPKg22/iSNsrfFHITdhfWXGGhydXZg6exf9hUZRN5dXq+hkMD3Zux
+ fOJCe3F97cVj2jfTv9t50ak59mmn/i+30Hy2cCkXyiJH3chkwppZC0xxQaxd7D3BPHCg
+ Ph761Ya5fd6mXN7PSbvOyO8T03xfb5goc5fAEKtnv+Es3nlAwBMxIltPR864esqbasfl
+ 5xGR56rwgqiF6UeR5Yx+vHMgNTP7LrdxWuJtT9ccTXdUvT5a430UFe16It4hrhXh56Rh
+ PVjA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU9OacRYXB+Oi9Wj6q2vHPStHO445U6oXRwwbT32+Tg1vk2l8N0HBlOkxP81phgKtZtZ+E2N2BjalI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxq/r16VRW44p8IgSXW775up/I4glCGJ46d2OZyMKyGgREN+b4F
+ jMu2k2a8do/MF5J8bZl78dYoFa4caWJl0ZXmenJroKIEszC36wSRR3qLO2PTuUtNpCkquyP0IK3
+ YEkpIZ2Iv6I0sI77KppIx3S+lII5FnlGHpy0uQh9lY5JhAkSKnTRNw5nUz4TodbBofEW5Uyw=
+X-Gm-Gg: ASbGncstCy9HYgfGbuyauaaV6CEYhzAn5qjGJM0w9PmodNj5ahIF9iTtxWVs/sIvWnD
+ RUlY/RwodU5WtHCFVJ+24RK2UwdYuncpLn1sz4VmSEqc0mDgaoKnrfCHGYjChcQCTlirCv2N4Iu
+ f0gspaQ9mzPcGtAWCO/xcHXm15lDWnCbcpw0nx75u1oMK06X7nprUQeOzxELxO4uj6IFOAksmLt
+ Ekit3KCExIGdGWZoGKja//QBcpFHjAVMXrVXdrYevoD+AglGIpXNsFPYoENo8HdeYEQTJ86fryZ
+ dm7qmcZEejG0i0OKC8GvvBw2Hb75+LPw6PyDTWAQsiFfnWvB2u0=
+X-Received: by 2002:a17:903:181:b0:242:89fd:48cc with SMTP id
+ d9443c01a7336-245ef25b64fmr7800905ad.50.1755646150141; 
+ Tue, 19 Aug 2025 16:29:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGqUzvFcXROWico6d5Pqt2w0AvN4+pGykRNe2nE6KgbOBguGbbEYaRHz4y5taRq3of+8i1TGQ==
+X-Received: by 2002:a17:903:181:b0:242:89fd:48cc with SMTP id
+ d9443c01a7336-245ef25b64fmr7800625ad.50.1755646149739; 
+ Tue, 19 Aug 2025 16:29:09 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-245ed51a97csm8052695ad.132.2025.08.19.16.29.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Aug 2025 16:29:09 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Connor Abbott <cwabbott0@gmail.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] soc: qcom: ubwc: more fixes and missing platforms
-Message-ID: <5czfssozoq3hthm4j5jecads45itqczu7xlxosxbp3ihhhqxwv@p2fnp3tuzale>
-References: <20250814-more-ubwc-v1-0-d520f298220d@oss.qualcomm.com>
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org (open list),
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH 0/3] drm/msm: A few GEM/VM_BIND fixes
+Date: Tue, 19 Aug 2025 16:29:00 -0700
+Message-ID: <20250819232905.207547-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250814-more-ubwc-v1-0-d520f298220d@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=EuuLbScA c=1 sm=1 tr=0 ts=68a508c7 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
+ a=7-57VTQsmsoFMMg7Vz0A:9 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: ipEa_MVekV38d2BUA8uBr0JE_bJOgm4e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE5MDE5NiBTYWx0ZWRfX7cDja91yDWZa
+ /APH+idDYOL7naE8NIGvKEzs8fCqif1oYmnWEaTyw3JJt/4oqa0t655W+FScNJlE2J8hW/J8uxX
+ mD7U5a81H5Fphyx+sGDjWE24RQHnMzzyGO92KDE0DrV9hwENYFgfnpKpdOZdsFOBaqy//a7qstU
+ kSHCIUZGADqbsHkemQ/EpE3knagcmWo77dmJcCoNlifN6+SZVwl3JiEbdYCC1spz7E/tbXZShvN
+ lDZjyf4+wvCCNljrvdwr4YHU0ts+q25Tu5wdMQZsusy427MqeQOWezl7jQgXieTubYHuhtGDCql
+ cATxAj1gInPvUWIKoc4BiAVqdbueKpLiYywr88seke0a/vJkDGB+wTW7HYCjzsIDo9UBfCKje+Z
+ ofSwe7bx0dOt7iY1V1ayA29HnMiXSw==
+X-Proofpoint-ORIG-GUID: ipEa_MVekV38d2BUA8uBr0JE_bJOgm4e
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-19_04,2025-08-14_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2508110000 definitions=main-2508190196
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,37 +123,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 14, 2025 at 10:22:19AM +0300, Dmitry Baryshkov wrote:
-> Add missing configuration for several platforms and correct
-> configuration for several other platforms.
-> 
-> Note: I'm not sure how to handle MSM8956/76 platforms. MDSS definitely
-> doesn't have UBWC support. This doesn't provide a threat for now (as
-> MDP5 driver doesn't provide UBWC support), but if we were to switch
-> these platforms to the DPU driver, we might need to filter them out.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Fixes for a few issues found in vkd3d-proton testing.
 
-Acked-by: Bjorn Andersson <andersson@kernel.org>
+Rob Clark (3):
+  drm/msm: Fix obj leak in VM_BIND error path
+  drm/msm: Fix missing VM_BIND offset/range validation
+  drm/msm: Fix 32b size truncation
 
-Regards,
-Bjorn
+ drivers/gpu/drm/msm/msm_gem.c     | 17 ++++++++---------
+ drivers/gpu/drm/msm/msm_gem.h     |  6 +++---
+ drivers/gpu/drm/msm/msm_gem_vma.c | 31 +++++++++++++++++++++++++------
+ 3 files changed, 36 insertions(+), 18 deletions(-)
 
-> ---
-> Dmitry Baryshkov (4):
->       soc: qcom: ubwc: use no-uwbc config for MSM8917
->       soc: qcom: ubwc: add more missing platforms
->       soc: qcom: add configuration for MSM8929
->       soc: qcom: use no-UBWC config for MSM8956/76
-> 
->  drivers/soc/qcom/ubwc_config.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 0b6974bb4134ca6396752a0b122026b41300592f
-> change-id: 20250814-more-ubwc-d56e4bccc23d
-> 
-> Best regards,
-> -- 
-> With best wishes
-> Dmitry
-> 
+-- 
+2.50.1
+
