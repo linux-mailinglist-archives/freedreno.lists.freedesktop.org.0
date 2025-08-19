@@ -2,83 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AC96B2C29A
-	for <lists+freedreno@lfdr.de>; Tue, 19 Aug 2025 14:04:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66111B2C29C
+	for <lists+freedreno@lfdr.de>; Tue, 19 Aug 2025 14:04:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6959810E5BD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7904110E5BF;
 	Tue, 19 Aug 2025 12:04:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dVq0ZZhM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ICYEgLv3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD56510E577
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 09:21:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9811A10E579
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 09:22:29 +0000 (UTC)
 Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57J90b7Y027047
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 09:21:47 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57J90Yos026974
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 09:22:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- XeLoNElQRYDHRk++SgBPgdfN1LI9ODXyEKJtgngTUGA=; b=dVq0ZZhMETwhqEnt
- s9EfemQb6XzcugD0fg40sr83pH+2k2K+UZgvgtAqw3++2bTs7uSCmU71SU/ZjD0B
- AfsOk8hvc8Q7Kr81MndamSUWR2bF7md+pIjAgPxSGlFjYjbfFSsrlTJT7NXtddY+
- rnMEi8lGjgX8pt4zPAnjAZ1fTfPV29jlnqbA2zrbTwLMrtYmAQxQFTsTNV4fehh7
- nNOJVdCMl5T2Rcq6ZyCN407NxCXsuYu4QK37AVfeLuyZNIoxOvTb3xO98iOGtoLv
- DzynLzO1RjTNZMNMCSZhfThoyRcF0sJJh2RxMM0amncpykOcsHo0PJqKMTtdaD6H
- pJ5tAQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48jhjyfy69-1
+ KczFnqDzEs+8Gb7pivRJCslUzgY2ZS98+cXZUjdh5lA=; b=ICYEgLv3ITBdFBKr
+ uvXfh7N/Y4K6UR7I6z0l/LLT8+qtcjGj56uYEbq8KzkijCu/+lZLh5HLBPmJ9YPY
+ qgY4FP9o4zHREFtktO1RLFdhWX7WBfdm0VIbngG+uL5HgJx3HzP5LK+ewwd78dRF
+ L/31KnStgx/WI18gKdrrPIUoM4KvgRzsmlzbs7Tmnbd1yRR7Re/1opsiIw9SOeLV
+ euufvIQBHHwalR1X2pwXX4232jC5kqVJNcYcRaHeJCfWsSRbuuObelSWplReXcYT
+ Jt3UPSB/VELqWlYzONXnCJ0zGub0iQCAAOeR7EBXfiZKXAczIgL9ZCg/dkWm1zXU
+ 70c/YA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48jhjyfy8y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 09:21:47 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-24458274406so123514365ad.3
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 02:21:47 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 09:22:28 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-76e2eab5baaso4333301b3a.2
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 02:22:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755595306; x=1756200106;
+ d=1e100.net; s=20230601; t=1755595347; x=1756200147;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XeLoNElQRYDHRk++SgBPgdfN1LI9ODXyEKJtgngTUGA=;
- b=nMaePJC5G3lE0FZ48OrJl0pfrcqjR2t5F88Z+D93TLLMeodfALYG0dG9HeDZY1LniB
- Ri0cgEG078feFbNW0p4ADGe4aTTjclssosLeLLD/IouE0Nv7pcVxDDcQl2YSKJymALdW
- XmWL/kZ+VumMk6KUXK5o7QVnQvRUwS84tmQi0wKuirPF/vlrikYwbanyK4Tm5PHm0SMF
- xyfnYYMOOzHHeOHQXgRF5hnshU4Xvb0gZumRSO8zv7Y0BFo2HFu5lDNdJ+YAz+8G5KyO
- /sQmX/9yg7hGCvIWDnIRwJNJQpeuw4BHLNfURaDgiiEcFVu+StebcpqDfK/rrdn1VxNW
- gmDA==
+ bh=KczFnqDzEs+8Gb7pivRJCslUzgY2ZS98+cXZUjdh5lA=;
+ b=iDjbSP2mJWZrwwiVqHy1sfZeKsxiOkA2pwQze8jAtKOXto3QUMExkmF7gaktFYaomJ
+ cYYZFM4lYKsWcPWftP0K7VkO/YtU5KWjky2Bz6kyhd4APv2p8laZxm3bPoWIbgq9huhJ
+ xVzX7Wpqpc//uZ9OG1sVZ/sCHk/Y1WY0HQ6GAdbeZot6xklpSbvI8P+2jSFIf/vnStDM
+ kSHgDMUSGa1ZkE+qnxyM4TLVXF49LhaO2akaQFSFAJquWbJ3ZXh8lKuNW0uXIf9Qz3fc
+ 78JLE+kNxXYvJnCo2cjoGYMl4elS9wUcAvd14/17SocM6VxRCyto5o90G85OgV9fJ5eF
+ uJog==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXq+4kpbf/cxpoHXwOSOOxctRhZMiCqVu5SFwF+9IKzUF1V368ECrEVMW6RJTUeY22gsor89WTP1r8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0Ywg5JNxyqaJJFeA5T2DXZi0QqfkipBE2UY5djATwLBYxQSbg
- InnNGOjiPEx3H1lG/H57A9CeNOmWl9wVo1L2lEd184uRFf5qC9twQzZ4fDDY11ZEXZlnbKOwKM+
- PNn9qZgrpQ6EUe4YShYs72uMKCL35+okNsQN4XdxlSKkj/4+a23XP4ITuaUMPi65i9y5pl8I=
-X-Gm-Gg: ASbGncu/kBhe3iTWhsLFH7brsthbqywQvv58PyfCCPVASb+FKk0l+1hHL6BUWcoIGaN
- 8pykdqi7axa/lcAl4S7z1ufofhboXyLBg3mQzGhmjCJPJDoByfX34tKfGRZvejlnrYQZrfHsjqB
- Vl+NG//Gt9C4lcfL3qRmexoZkdJH2U4Ze+7H1hHQdfh1yRjoguxWoE2qlVnU1I0CbIj7M1nNj9+
- +MlHtFijfjYT61dy7oz2OJNSgHEEj7of1G0tzufmLWB9B3eufoDM53BcNnKRa0tgJSjYDip091A
- e9A28a5zw1pDe9lvrydIknYvyBQpsdjytHicWOE52nUo+uzeA3C6BT0owOZm/O2W7Q0cdcCda9t
- bEYk6jh2dsR2hth1eR32W+2BgWiH7YQ==
-X-Received: by 2002:a17:903:37ce:b0:240:4b3b:334f with SMTP id
- d9443c01a7336-245e04926b5mr26682815ad.34.1755595305590; 
- Tue, 19 Aug 2025 02:21:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFpiiFaPA8kQRfNSDplxINgiGA8HlGb5Wu8T7SwEDTnoUTiI6Noo4c+zpUmfz128LX8UgJLAw==
-X-Received: by 2002:a17:903:37ce:b0:240:4b3b:334f with SMTP id
- d9443c01a7336-245e04926b5mr26682375ad.34.1755595305122; 
- Tue, 19 Aug 2025 02:21:45 -0700 (PDT)
+ AJvYcCV9vPQYNZ9dRlHGh0x7RnMmS0DurUYjf0cont36F2aIzqGArdxlopoAress20iOYFdtLoU1JIjRqCU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyeNnCoE5Z+NmwVxK5i7+mE00cDMKQfnFrQUutf+zASG/y4cf6r
+ kjb3ltBvdrS25CJQdbRyZPGjeJPqoAA1RyiURieeleDue7qvrNO9za8XTHWk30xvpytDNchNFKJ
+ Ny6qUyyGIS/SQ/mUFoEzymchxj0ip/UP2DrfgjbNklSdlroIhdG/hIfPtLS+D79D/RAAqHLM=
+X-Gm-Gg: ASbGnct8+EM9ZUL1Iydro6kNQzaKfKi886mIvkIX/8EHrlW7otJJJ1Cb/jS+Y9g4Rf6
+ mJlX9gC6dprQi59u8DoW1Ft09iLqdEcA4WmttLvYNYdojfqc4DbbUBvVT5hntsPB2Ubs5pGCnTG
+ lAIQEaseJS9FJd6Ytgx9qoqbHGpoWB8TS8EFmgzsiYaa5COs6rwr9NfC3wxA84LQ/mVC5MT/Btk
+ fuVzf+g4seb+4dYY43a07PCm6a+uSmX5rblEb2jLOKfAemG97odE2vqohyz2rBJ2hBnOzALZErh
+ 8xdPHyDp3QP7go38s+ie5BwBS+oW8tTbLfdsLXQFROeuUrZimGoIxEm9pth5Z8MCEEQd0RyHsAd
+ iIlcIiSDdpp3rrquJiYPMBw8+l3iCmg==
+X-Received: by 2002:a05:6a00:3e16:b0:76b:cae6:ee8a with SMTP id
+ d2e1a72fcca58-76e81102294mr2238137b3a.12.1755595347385; 
+ Tue, 19 Aug 2025 02:22:27 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFphi7ddJrn4OsHLiNEW55tJtpl5xzFPqO7FIxkJjqz5ACjMc6dZTHp/btM76pdxRLSv7Tocw==
+X-Received: by 2002:a05:6a00:3e16:b0:76b:cae6:ee8a with SMTP id
+ d2e1a72fcca58-76e81102294mr2238112b3a.12.1755595346893; 
+ Tue, 19 Aug 2025 02:22:26 -0700 (PDT)
 Received: from [10.133.33.87] (tpe-colo-wan-fw-bordernet.qualcomm.com.
  [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2446caa3806sm103046795ad.28.2025.08.19.02.21.38
+ d2e1a72fcca58-76e7d524c95sm1906515b3a.81.2025.08.19.02.22.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 02:21:44 -0700 (PDT)
-Message-ID: <76ff9434-eeaf-4ee0-a8fa-aec566c46c2a@oss.qualcomm.com>
-Date: Tue, 19 Aug 2025 17:21:36 +0800
+ Tue, 19 Aug 2025 02:22:26 -0700 (PDT)
+Message-ID: <20e7790e-6a30-4301-aa50-db180ceeb7a8@oss.qualcomm.com>
+Date: Tue, 19 Aug 2025 17:22:19 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/6] dt-bindings: display/msm: dp-controller: document
- QCS8300 compatible
-To: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v7 6/6] drm/msm/dp: Add DisplayPort controller for QCS8300
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
  <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
@@ -97,26 +96,26 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20250819-qcs8300_mdss-v7-0-49775ef134f4@oss.qualcomm.com>
- <20250819-qcs8300_mdss-v7-2-49775ef134f4@oss.qualcomm.com>
- <20250819-ant-of-ultimate-genius-fbfa1a@kuoka>
+ <20250819-qcs8300_mdss-v7-6-49775ef134f4@oss.qualcomm.com>
+ <brculyyu3dgc5nkj2cuzv3jkjzcouljy5o4jwr6mw33r6i7gt7@j6ur7yvwmky5>
 Content-Language: en-US
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <20250819-ant-of-ultimate-genius-fbfa1a@kuoka>
+In-Reply-To: <brculyyu3dgc5nkj2cuzv3jkjzcouljy5o4jwr6mw33r6i7gt7@j6ur7yvwmky5>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: QcAhP5zB1nyPrQSbDQxV-lopS9zU_cE6
-X-Authority-Analysis: v=2.4 cv=ZJHXmW7b c=1 sm=1 tr=0 ts=68a4422b cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=b6vJvH-rrpbGiSTQa0AA:9
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: QcAhP5zB1nyPrQSbDQxV-lopS9zU_cE6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE2MDAyOCBTYWx0ZWRfX67zY14NtD4Eu
- kEdM/t/4b9uN0fuqJ4O/RKFkRtXsAtwduWGMJy01XGwCpnELynIyCC8S/a3cxSclVSc8FDPM7XR
- 6x4bKfX+rfR9gVBA/DfzKKEOFBlTt+y3eGNbAW35n4VaB36g9xSwlDWN1eKJ3PMlo6wNMpVfxOY
- coXlU5Gl1SNL/JPz/QHnLAepe+0qpObIaSlMGcS4jS8xsu3xSXQz1QcPFPmYvTQjr66tBZnE7d3
- qth9/pLg/MiHIDvJc47L1i/GZ+QdIOoTAZp3JpWLfzxrog2aR3p2tpGpSa4eWTAGSMRs2oDhXxo
- 8+IQa0MhiV3CRWVyZ+tT4nvBQoB9HYp6+KI88lFwIfQKMUjNv+jNekZKroqYRIdPEsk0ycRE+YT
- 5YTu8Euk
+X-Proofpoint-ORIG-GUID: cNd2QKie70AKdu3SaxS7bHZqrREqhHx0
+X-Authority-Analysis: v=2.4 cv=ZJHXmW7b c=1 sm=1 tr=0 ts=68a44254 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=ZXt-rHCGnEisyK7TIFQA:9
+ a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: cNd2QKie70AKdu3SaxS7bHZqrREqhHx0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE2MDAyOCBTYWx0ZWRfX7gJVf5mV1QId
+ f6ioL/GSZlVNW7uAzPWvFJNyb7Zu1DKDjN36eNjkUpD6P8xHWAV7inlxqCExjiCtniDCXKncy/J
+ 5RlctX93X4gdL9gL/0QM4/MPcUwaNbctNpgnsn5FteAXjwWhKlrBe2OOG92o/ZiSzRzzQnQ/qP/
+ aXKz6h/8KGDrnRiRwLYkozMFYoWMV6GvOkG0Kphv890CAUgeXWC/WNO1BzaLGYsXm18ggJUvJth
+ uQG112rMJLAYBBwuwgVd4gDv4LXextg53/G6sl8/metmPlySj/yS2RbgXws0nqbsJCOgUeysaue
+ Y6w8UKE6EDgoMWk41B+FOf2L9bQNL3wIVa1Jb+EQ2fFmla6WG2XTIRH/9qEvsbdaEU3GjCHFnQT
+ IlWOIJmb
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-19_01,2025-08-14_01,2025-03-28_01
@@ -143,47 +142,45 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 2025/8/19 15:58, Krzysztof Kozlowski wrote:
-> On Tue, Aug 19, 2025 at 11:33:29AM +0800, Yongxing Mou wrote:
->> Add compatible string for the DisplayPort controller found on the
->> Qualcomm QCS8300 SoC.
->>
+On 2025/8/19 15:59, Dmitry Baryshkov wrote:
+> On Tue, Aug 19, 2025 at 11:33:33AM +0800, Yongxing Mou wrote:
 >> The Qualcomm QCS8300 platform comes with one DisplayPort controller
 >> with same base offset as SM8650. But it requires new compatible string
 >> because QCS8300 controller supports 4 MST streams. 4 MST streams will
 >> be enabled as part of MST feature support. Currently, using SM8650 as
 >> fallback to enable SST on QCS8300.
 > 
-> I don't think last sentence is true. Where in current code SM8650 is
-> used as fallback?
+> Hmm, no, you are not using SM8650 as a fallback. You are using the data
+> structure for SM8650 for QCS8300. That's a different thing. It would
+> have been using SM8650 as fallback, if you had declared device with two
+> compatibles, qcom,qcs8300-dp and qcom,sm8650-dp, and then relied on the
+> second entry (only) to provide a match and data.
 > 
-Sorry, this more like a description error. As Dmitry pointed out, we are 
-not using SM8650 as a fallback; we are only using SM8650's data 
-structure in the driver. I will correct the commit message in the next 
-version. Thanks.
+> Exactly the same comment applies to the UBWC patch.
+> 
+Got it, thanks, will correct it in next version soon..
 >>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 >> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 >> ---
->>   Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 5 ++++-
->>   1 file changed, 4 insertions(+), 1 deletion(-)
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 1 +
+>>   1 file changed, 1 insertion(+)
 >>
->> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->> index 68a6fd27506fda004e53174db5bcc88a29e8d2a6..ac44abfdd2853393ae199387c9ae2c37e1c48f52 100644
->> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->> @@ -18,6 +18,7 @@ properties:
->>     compatible:
->>       oneOf:
->>         - enum:
->> +          - qcom,qcs8300-dp
-> 
-> ...here not.
-> Emm, if we need new compatable, can we add qcom,qcs8300-dp here? 
->>             - qcom,sa8775p-dp
->>             - qcom,sc7180-dp
->>             - qcom,sc7280-dp
-> 
-> Best regards,
-> Krzysztof
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index d87d47cc7ec3eb757ac192c411000bc50b824c59..bb4660585849d1a67921a28e7e12422e0c327ab2 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -187,6 +187,7 @@ static const struct msm_dp_desc msm_dp_desc_x1e80100[] = {
+>>   };
+>>   
+>>   static const struct of_device_id msm_dp_dt_match[] = {
+>> +	{ .compatible = "qcom,qcs8300-dp", .data = &msm_dp_desc_sm8650 },
+>>   	{ .compatible = "qcom,sa8775p-dp", .data = &msm_dp_desc_sa8775p },
+>>   	{ .compatible = "qcom,sc7180-dp", .data = &msm_dp_desc_sc7180 },
+>>   	{ .compatible = "qcom,sc7280-dp", .data = &msm_dp_desc_sc7280 },
+>>
+>> -- 
+>> 2.34.1
+>>
 > 
 
