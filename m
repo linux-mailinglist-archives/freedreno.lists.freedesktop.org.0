@@ -2,91 +2,139 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5C9CB2B622
-	for <lists+freedreno@lfdr.de>; Tue, 19 Aug 2025 03:32:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B635B2C29E
+	for <lists+freedreno@lfdr.de>; Tue, 19 Aug 2025 14:04:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0B6610E505;
-	Tue, 19 Aug 2025 01:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52AE210E5C7;
+	Tue, 19 Aug 2025 12:04:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LvR9SZh/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CGwL40L6";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D819D10E513
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 01:32:15 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-b471754bf05so4166691a12.2
- for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 18:32:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755567135; x=1756171935; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qMyTzj0YkyEhVsWHYdHluPcgaxyf2WjhZvLWIgnb3dk=;
- b=LvR9SZh/w5RqqMLH6lQcYXi7wmK+n97LZIeXJ9UrATPXuqoZIk/P/o9Zs1UtfVf8O8
- UFRSGNAhCeo89kRQeqFJs4eS/TsFFzyzPvoO/wlc6pa+EWuhlJ2uJTe/aICcSzlFt9ta
- JPJbc8umO3Fb7Xqrubt8DdTbTECMctZO25XEuHntAWqTVZZ7t8JKvCvj25SCz4fa308t
- c3gq1Yjv8M6XdpLrnQXX8sIZBF+QqKgfAgqHFtMdKqYEn48V1cnnmO1ce9hysyPoz6ku
- ew5ZN6Otz+fwyvyMFpsc/kE/u0Ba01mI1GBTwkrCh1nWhiDyRGjRWiXDlT3agXPiG3r8
- ADqw==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7200C10E1FE
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 03:33:58 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57INmqoI007382
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 03:33:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=ENUwjWediX0THdtA40OPB/
+ h6B8YY9WYqTFCdS0y38fI=; b=CGwL40L62zj7GNu2jTStu3ytqsnU9cu1ylemt6
+ 1RclrS+d67M0thflp1mT9mhPu+OGqObxzyBpGSd849HSKjN16Sq/oBGE4BnSp/+J
+ /9MnWUdzin2PIJw7WLhxOkre2ltKUHPfoe0g5qjzNhonJ+XaYBvJB0M2DryihfBk
+ PfqqPTK825yQSf3lfYPPMg7+c2a/l/0UeABPaRcdsuGvjiCPiX2OcDhjPq05iDr6
+ ot78nOdW3AfTfxtMzCpxZ1Kb1ZJAs5G9yr7w6p4Xueq0IME7LvxcqWdCLQ0LAhrn
+ h0bgW0co5ktpl6uHxmHJeGrUhnfMbuyrdmzhIQNiWVix8RtQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48jhjyf1q4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 03:33:57 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2445806eab4so49984095ad.1
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Aug 2025 20:33:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755567135; x=1756171935;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qMyTzj0YkyEhVsWHYdHluPcgaxyf2WjhZvLWIgnb3dk=;
- b=GvTGyFfkBXg1y5jwUumdlcg3nRgFghY0OFJk477baHeB+Qacb22Vxc2LpRh574WLTW
- rtm4dObUzUrEZp6yM8g00SspVGQ/eT4MIUgLpvKQYeBQYSZVc3Np/20xbFgEQ7MqiZVV
- Vyo+n4dagsJPhoCb7U1C02G2voKEwPMIarqHh+5ZBVPQRStJLtVP7KBwl2WQb3KOxiAm
- Qoe26dnFIJhYDZrQQNst8c3moNF2uF41QLUOARXoto5Rz8jwkb+0FDGzUFo9G4oiK4gK
- 1x1Tp+vB0aQJ+eoky35sh4zN1ut8rN+Sbal3o4buW2fvXCkFj2HsuJMyuELSob1IIovO
- dLoQ==
+ d=1e100.net; s=20230601; t=1755574435; x=1756179235;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ENUwjWediX0THdtA40OPB/h6B8YY9WYqTFCdS0y38fI=;
+ b=dpKKsSfgMc8XsxNBkMMRDnn4HDNKILkz3CbV4FqLe/Qsvrm6n8Yf518uiJNW0aSnIC
+ XHLKgS9PWJmAlSk8kpSb54QZklUfkNGYt1+1+pRla4HgklLuW/dEXcHnqbr4DyF/brkR
+ vY5CWVU1Ohy5GIzs2bTOpnXNp/PqQtLARbCuV6pZBqlC5KTr4G/oQpwLNNqjEJ4F/uCo
+ Nnh6m+twhF3FnbHbL+6IJYClVmrMFTdcuP9GO176MQb5Vig1VqVbf/sxrjap30k/2GN9
+ yTXIHuJibli2PXpo/Mx5SJcQ1KyBUo7Pk/SQ5t2du9vzFnDksdbS7h+oLsmMH2bKdRc3
+ H9EA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW1rjX53Oct4GLmKoGtPtSVzcE6fRPZjYOv/pHas2Tque6zpuQNSKqQ2nLCvAIgY3Rddi5ymmp6gOs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxwur4XQdkn5ehKIbiKgY0fg2Rn/zbQzfm+FC3n3vzcj7Wnzwjd
- Vhqft2H3GdN4kcMN8ChDPnf73TboQ4mMg8Aa7UBTlI+wIKvYAU8OtT8cA+kTPAJUIXI=
-X-Gm-Gg: ASbGncsGevc4byaL6Q58XtlsIocf6Uv1Gu5Pde0zctKpcpo/cSOw1lhjmCmOq2pU7s8
- 757EYmkPxSitcn4o+zPRIlPTlWNV174jg7Bi8QvPd10Wmo17z34GKOqVwT98UnvIK4V50OuN89F
- IS3TOrjtw79S3HYIuf88uE5ZE95Wizj4m8x/0dLLdxXIbKA6J1Jc04uRLvSKohsJlmcKcQ+iwx/
- PAB8l4g2PWCGNizLSR/x7o3p0QVWT53bttpprZP0ZbUoNAuWMhghgKXAhwO3HpLe/3dZ8KH2lDx
- DH65KI//is4wYOdsCaS+lNRCArx68byBkIkdzAMpG06+HVq3hPKFLINk9giuyE17kKDFyg7uLgb
- McjGNZbs6g2AmjpIjfyPor/QCyES6
-X-Google-Smtp-Source: AGHT+IE8RHvfh/Cctqiyl6/8J3tgPOVITpUkoUIjq0XlgaCJSMD46yMW8MCdqNjJp84ataVmSx8tLQ==
-X-Received: by 2002:a17:902:ebc7:b0:242:cf0b:66cd with SMTP id
- d9443c01a7336-245e0481f88mr12016835ad.34.1755567135257; 
- Mon, 18 Aug 2025 18:32:15 -0700 (PDT)
-Received: from [127.0.1.1] ([112.64.60.64]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3245e4faf80sm248637a91.5.2025.08.18.18.32.10
+ AJvYcCXZDQ/B3bHQiwk1EpVHwUP6YsjjUpjM3T1PsquPAoHrL9DOY6WsK1HJNkwqJukQz6pR7FhEgQal+iw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJ/7CRWUPJTpLVlv6iqy3b8UXzCXbGHFYEEY4Pv4TACcdaeczF
+ lDCHkx7/ekCKShd/85hWphmkAbbzLUK5CmpxcLe+yx031/w7Gb+M8gowvGXjwC+ThMUIG9VkJU/
+ 8vUDYUhafEecl/TQY3dTgvfoKnQxnh3l7qF4JAJ5Do4bH3+4b/ZJ9ud+REyeMtMg0wtFEhoo=
+X-Gm-Gg: ASbGncvec2JbHfGrr9EH3FjiwjZgDAUgC8p+hS9109RSX576k7QOGnNTEB3oXNXL376
+ R2A0xjNm41ecw8H51xcvdQc2U0SbpnCXQUgShvWqr8MlXNysMGBqEOo3H9YihHZ44gFYUrtYBkg
+ rwsGFh/U3oWGMDgR5JAuLPyESC/a5ermKkdvE9sWW42u0r1G86xx9FKg0b+TLCsLTnliSyOKf19
+ rJltW8DbF2+3+prsDL5jyDEie5BuddFmw48O55CTZOjkkISN/p6m3l7EReuxPh/pb/7IJkQkeBO
+ tqQFw0cra/AKw9vy0layE4Dk/Hq8hBP3FYh1w72vmkhxJ6H9wkkOcacN+jJAMZCWUF39smE=
+X-Received: by 2002:a17:903:2446:b0:234:986c:66bf with SMTP id
+ d9443c01a7336-245e02ba933mr13364335ad.11.1755574434933; 
+ Mon, 18 Aug 2025 20:33:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHss6c8onEoG6c911yMQzA2sYFqZ4ZMtHctzk2SNONn9jf/tAsbViaKRwP7SeFk8XYsBbF6zQ==
+X-Received: by 2002:a17:903:2446:b0:234:986c:66bf with SMTP id
+ d9443c01a7336-245e02ba933mr13363975ad.11.1755574434385; 
+ Mon, 18 Aug 2025 20:33:54 -0700 (PDT)
+Received: from cse-cd01-lnx.ap.qualcomm.com ([114.94.8.21])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2446d50f55esm94486325ad.82.2025.08.18.20.33.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Aug 2025 18:32:14 -0700 (PDT)
-From: Jun Nie <jun.nie@linaro.org>
-Date: Tue, 19 Aug 2025 09:31:07 +0800
-Subject: [PATCH v15 13/13] drm/msm/dpu: Enable quad-pipe for DSC and
- dual-DSI case
+ Mon, 18 Aug 2025 20:33:54 -0700 (PDT)
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Subject: [PATCH v7 0/6] Display enablement changes for Qualcomm QCS8300
+ platform
+Date: Tue, 19 Aug 2025 11:33:27 +0800
+Message-Id: <20250819-qcs8300_mdss-v7-0-49775ef134f4@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250819-v6-16-rc2-quad-pipe-upstream-v15-13-2c7a85089db8@linaro.org>
-References: <20250819-v6-16-rc2-quad-pipe-upstream-v15-0-2c7a85089db8@linaro.org>
-In-Reply-To: <20250819-v6-16-rc2-quad-pipe-upstream-v15-0-2c7a85089db8@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>, Dmitry Baryshkov <lumag@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAI3wo2gC/2WO3WrDMAxGXyX4eg6yncRpGKPvMUrwj5IZZqeJk
+ tJS+u5z2rGb6UJwPtD5dGeES0BiXXFnC14ChSll0G8Fc18mjciDz8wkyBpa0fLZUasA+uiJuFG
+ NGsCDNWBZPjkvOITrU/d5evGC85at6ytkEYnM09oV77/SmvtzH2ntbUg+pJH4peHAUYva5qlV2
+ xwnonLezLebYizz+tjr/st0fk1LLetSVEqpBrjgud/1tymNcdqOO4Tk/hTWEPJdGtauAFkhHLC
+ qKuulhcYgHrwY1IDaKqGcNtIPwlp2ejx+AFalP806AQAA
+X-Change-ID: 20250818-qcs8300_mdss-a363f0d0ba0b
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1755567061; l=8147;
- i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=L0RJjmTLlYkHLbKt8l66Y1ANmmW3YDpsTiGU9UI7WH8=;
- b=ZcJ6S3WHQXRsMtgbOv482z83OBDYeGPM5nwtD0j76evpw/yvxjqIIAO2RxVIUUq8RJGq/nIgR
- GYZAkyzZd6tCRN2BIpz1aUStpKb+sw1/+d0rbEzRHK4hvdyliOc3kUr
-X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
- pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1755574426; l=4914;
+ i=yongxing.mou@oss.qualcomm.com; s=20241121; h=from:subject:message-id;
+ bh=dVyBNXGz5ma3x0LUn2EkFXAjKM3emel65zhTYxIPsTY=;
+ b=f2dkyFEWMQNkJJzFoYA+d3EhrNPohe3TcMjFLx7zGY61oOt2zLUilCNWQGrSUdIahBi/CC7yg
+ zGx6q8Ie9XZAkryvRVWLqr7rnfdHLMAqpGITYishRnsUe+CC2Vnp61L
+X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
+ pk=zeCnFRUqtOQMeFvdwex2M5o0Yf67UHYfwCyBRQ3kFbU=
+X-Proofpoint-ORIG-GUID: 8MFjULyMDjzZSOBonCf4iE1SfNVm7YJx
+X-Authority-Analysis: v=2.4 cv=ZJHXmW7b c=1 sm=1 tr=0 ts=68a3f0a5 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=iD6vXzWbp0dc2yQZ6nwA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=TjNXssC_j7lpFel5tvFf:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: 8MFjULyMDjzZSOBonCf4iE1SfNVm7YJx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE2MDAyOCBTYWx0ZWRfX31ma4FRQv3QT
+ lv811TpqZQOCXZRqtxyBFol3rv7cTuJR8jDiNfELETU7QmvsqwYcxQnfR/wUbBFdoqv+q/UuGmy
+ qDBKIqE+8eNIQvdbzisc2pbKTvViLJmZstiLKVw62VHwynmumsshaKPFUksfC6s/EB0N357dmoV
+ 41dkT6C2rnJ75aX5fNzZq2p1G2SxptRjgPvsa0syHKfFRk/O8Oc5pdjVR8UKpuGq+aCs5uBH/tz
+ XsVqNxoNy+Xn/r2tIx6soysf1G/0rGEIc/DsVy/UC4EMCIY0r9XMQn2J0kS0NIo+MqJe5LhduB2
+ 9HeK4aMRsXue2fZrImYGZnwh/6+Jm3Nuv5Z9E95TmcKXma5mLNyktceRLrtqGpBb0c8OKRa1h9E
+ CEMtX0ke
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-19_01,2025-08-14_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 phishscore=0 suspectscore=0 clxscore=1011
+ bulkscore=0 spamscore=0 impostorscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508160028
+X-Mailman-Approved-At: Tue, 19 Aug 2025 12:04:42 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,212 +150,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To support high-resolution cases that exceed the width limitation of
-a pair of SSPPs, or scenarios that surpass the maximum MDP clock rate,
-additional pipes are necessary to enable parallel data processing
-within the SSPP width constraints and MDP clock rate.
+This series introduces support to enable the Mobile Display Subsystem (MDSS)
+, Display Processing Unit (DPU), DisplayPort controller for the Qualcomm
+QCS8300 target. It includes the addition of the hardware catalog, compatible
+string, and their YAML bindings.
 
-Request 4 mixers and 4 DSCs for high-resolution cases where both DSC
-and dual interfaces are enabled. More use cases can be incorporated
-later if quad-pipe capabilities are required.
-
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 27 +++++++++++++++++------
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 28 ++++++++----------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
- 6 files changed, 35 insertions(+), 32 deletions(-)
+Changes in v7: Fixed review comments from Dmitry.
+- Rebase to next-20250818 and 4 pixel stream series V6.
+- Add more description for the dp-controller dt-bingding change.[Dmitry]
+- Reorder the MDSS change and UBWC change.[Dmitry]
+- Switch to the OSS email.
+- Link to v6: https://lore.kernel.org/r/20250806-mdssdt_qcs8300-v6-0-dbc17a8b86af@quicinc.com
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 1c7a5e545745320018c3e9a2d163cbfd3dceaf7b..2625ad777e477d2d5a6a746989bb9e10493e19ad 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
- 		struct dpu_crtc_state *crtc_state)
- {
- 	struct dpu_crtc_mixer *m;
--	u32 crcs[CRTC_DUAL_MIXERS];
-+	u32 crcs[CRTC_QUAD_MIXERS];
- 
- 	int rc = 0;
- 	int i;
-@@ -1328,6 +1328,7 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
- 	struct msm_display_topology topology = {0};
- 	struct drm_encoder *drm_enc;
-+	u32 num_rt_intf;
- 
- 	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask)
- 		dpu_encoder_update_topology(drm_enc, &topology, crtc_state->state,
-@@ -1341,11 +1342,14 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 	 * Dual display
- 	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
- 	 *
-+	 * If DSC is enabled, try to use 4:4:2 topology if there is enough
-+	 * resource. Otherwise, use 2:2:2 topology.
-+	 *
- 	 * Single display
- 	 * 1 LM, 1 INTF
- 	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
- 	 *
--	 * If DSC is enabled, use 2 LMs for 2:2:1 topology
-+	 * If DSC is enabled, use 2:2:1 topology
- 	 *
- 	 * Add dspps to the reservation requirements if ctm is requested
- 	 *
-@@ -1357,14 +1361,23 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 	 * (mode->hdisplay > MAX_HDISPLAY_SPLIT) check.
- 	 */
- 
--	if (topology.num_intf == 2 && !topology.cwb_enabled)
--		topology.num_lm = 2;
--	else if (topology.num_dsc == 2)
-+	num_rt_intf = topology.num_intf;
-+	if (topology.cwb_enabled)
-+		num_rt_intf--;
-+
-+	if (topology.num_dsc) {
-+		if (dpu_kms->catalog->dsc_count >= num_rt_intf * 2)
-+			topology.num_dsc = num_rt_intf * 2;
-+		else
-+			topology.num_dsc = num_rt_intf;
-+		topology.num_lm = topology.num_dsc;
-+	} else if (num_rt_intf == 2) {
- 		topology.num_lm = 2;
--	else if (dpu_kms->catalog->caps->has_3d_merge)
-+	} else if (dpu_kms->catalog->caps->has_3d_merge) {
- 		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
--	else
-+	} else {
- 		topology.num_lm = 1;
-+	}
- 
- 	if (crtc_state->ctm)
- 		topology.num_dspp = topology.num_lm;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-index 6eaba5696e8e6bd1246a9895c4c8714ca6589b10..455073c7025b0bcb970d8817f197d9bcacc6dca5 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-@@ -210,7 +210,7 @@ struct dpu_crtc_state {
- 
- 	bool bw_control;
- 	bool bw_split_vote;
--	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
-+	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
- 
- 	uint64_t input_fence_timeout_ns;
- 
-@@ -218,10 +218,10 @@ struct dpu_crtc_state {
- 
- 	/* HW Resources reserved for the crtc */
- 	u32 num_mixers;
--	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
-+	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
- 
- 	u32 num_ctls;
--	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
-+	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
- 
- 	enum dpu_crtc_crc_source crc_source;
- 	int crc_frame_skip_count;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 4616b360812491afbe63f8ffd4a57bc9604382e7..d13eeb3a707e186faec67ec02a634c14414d9048 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -55,7 +55,7 @@
- #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
- 	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
- 
--#define MAX_CHANNELS_PER_ENC 2
-+#define MAX_CHANNELS_PER_ENC 4
- #define MAX_CWB_PER_ENC 2
- 
- #define IDLE_SHORT_TIMEOUT	1
-@@ -675,22 +675,12 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
- 
- 	dsc = dpu_encoder_get_dsc_config(drm_enc);
- 
--	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
--	if (dsc) {
--		/*
--		 * Use 2 DSC encoders, 2 layer mixers and 1 or 2 interfaces
--		 * when Display Stream Compression (DSC) is enabled,
--		 * and when enough DSC blocks are available.
--		 * This is power-optimal and can drive up to (including) 4k
--		 * screens.
--		 */
--		WARN(topology->num_intf > 2,
--		     "DSC topology cannot support more than 2 interfaces\n");
--		if (topology->num_intf >= 2 || dpu_kms->catalog->dsc_count >= 2)
--			topology->num_dsc = 2;
--		else
--			topology->num_dsc = 1;
--	}
-+	/*
-+	 * Set DSC number as 1 to mark the enabled status, will be adjusted
-+	 * in dpu_crtc_get_topology()
-+	 */
-+	if (dsc)
-+		topology->num_dsc = 1;
- 
- 	connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
- 	if (!connector)
-@@ -2179,8 +2169,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
- 	struct dpu_hw_mixer_cfg mixer;
- 	int i, num_lm;
- 	struct dpu_global_state *global_state;
--	struct dpu_hw_blk *hw_lm[2];
--	struct dpu_hw_mixer *hw_mixer[2];
-+	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-+	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
- 
- 	memset(&mixer, 0, sizeof(mixer));
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index 61b22d9494546885db609efa156222792af73d2a..09395d7910ac87c035b65cf476350bf6c9619612 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -302,7 +302,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
- 
- 	/* Use merge_3d unless DSC MERGE topology is used */
- 	if (phys_enc->split_role == ENC_ROLE_SOLO &&
--	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
-+	    (dpu_cstate->num_mixers != 1) &&
- 	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
- 		return BLEND_3D_H_ROW_INT;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index a78bb2c334e30bc86554bde45355808b790c6235..ce0265c13e050fbd48ac5c3202e8fa23edd1220d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -24,7 +24,7 @@
- #define DPU_MAX_IMG_WIDTH 0x3fff
- #define DPU_MAX_IMG_HEIGHT 0x3fff
- 
--#define CRTC_DUAL_MIXERS	2
-+#define CRTC_QUAD_MIXERS	4
- 
- #define MAX_XIN_COUNT 16
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-index e4875a1f638db6f1983d9c51cb399319d27675e9..5cedcda285273a46cd6e11da63cde92cab94b9f4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-@@ -34,7 +34,7 @@
- #define DPU_MAX_PLANES			4
- #endif
- 
--#define STAGES_PER_PLANE		1
-+#define STAGES_PER_PLANE		2
- #define PIPES_PER_STAGE			2
- #define PIPES_PER_PLANE			(PIPES_PER_STAGE * STAGES_PER_PLANE)
- #ifndef DPU_MAX_DE_CURVES
+Changes in v6: Fixed review comments from Konrad, Dmitry.
+- Rewrite commit msg in dp-controller dt-binding change.[Dmitry]
+- Optimize the description in MDSS dt-binding.[Dmitry]
+- Pass the sc8280xp_data as fallback in the UBWC change.[Konrad]
+- Add the DP controller driver change.
+- Link to v5: https://lore.kernel.org/r/20250730-mdssdt_qcs8300-v5-0-bc8ea35bbed6@quicinc.com
 
+Changes in v5:Fixed review comments from Krzysztof, Dmitry.
+- Rebase to next-20250717.
+- Change DP compatible to qcs8300-dp due to add 4 streams support.
+- Add QCS8300 UBWC config change due to rebase.
+- Add 4 streams clk and phy in the mdss yaml.
+- Link to v4: https://lore.kernel.org/r/20250120-mdssdt_qcs8300-v4-0-1687e7842125@quicinc.com
+
+Changes in v4:Fixed review comments from Krzysztof, Dmitry.
+- Use the common style for the dt-bindings commits.[Dmitry]
+- Update the commits msg for the mdss binding patch, explain why they
+  reuse different platform drivers.[Krzysztof]
+- Link to v3: https://lore.kernel.org/r/20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com
+
+Changes in v3:Fixed review comments from Krzysztof, Dmitry.
+- Fix the missing space issue in commit message.[Krzysztof]
+- Separate the patch for the phy from this series.[Dmitry]
+- Remove unused dependencies and update in the cover letter.[Dmitry][Krzysztof]
+- Link to v2: https://lore.kernel.org/r/20241226-mdssdt_qcs8300-v2-0-acba0db533ce@quicinc.com
+
+Changes in v2:Fixed review comments from Krzysztof, Dmitry, Rob.
+- Decouple the devicetree changes from this series.[Dmitry][Krzysztof]
+- Drop the dpu driver changes and reuse SA8775P DPU driver.[Dmitry]
+- Fix compilation issues in MDSS bindings.[Rob][Krzysztof]
+- Correct formatting errors and remove unnecessary status in MDSS
+  bindings.[Krzysztof]
+- Add the the necessary information in MDSS changes commit msg.[Dmitry]
+- Rebase MDSS driver changes to https://lore.kernel.org/dri-devel/
+  20241127-msm-mdss-ubwc-v3-0-9782a7c2b023@linaro.org/.[Dmitry]
+- Package the DisplayPort controller and eDP PHY bindings document to
+  this patch series.
+- Collecting MDSS changes reviewd-by Dmitry.
+- Reuse the sa8775p eDP PHY as a fallback compat.[Dmitry]
+- Reuse the sm8650 DP controller as a fallback compat.[Dmitry]
+- Link to v1: https://lore.kernel.org/r/20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com
+---
+This series depend on 4 pixel streams dt-binding series:
+https://lore.kernel.org/all/20250815-dp_mst_bindings-v6-0-e715bbbb5386@oss.qualcomm.com/
+
+and separate eDP PHY binding:
+https://lore.kernel.org/all/20250730072725.1433360-1-quic_yongmou@quicinc.com/
+
+---
+Yongxing Mou (6):
+      dt-bindings: display/msm: Document the DPU for QCS8300
+      dt-bindings: display/msm: dp-controller: document QCS8300 compatible
+      dt-bindings: display/msm: Document MDSS on QCS8300
+      soc: qcom: ubwc: Add QCS8300 UBWC cfg
+      drm/msm: mdss: Add QCS8300 support
+      drm/msm/dp: Add DisplayPort controller for QCS8300
+
+ .../bindings/display/msm/dp-controller.yaml        |   5 +-
+ .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 282 +++++++++++++++++++++
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |  15 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |   1 +
+ drivers/soc/qcom/ubwc_config.c                     |   1 +
+ 6 files changed, 299 insertions(+), 6 deletions(-)
+---
+base-commit: 024e09e444bd2b06aee9d1f3fe7b313c7a2df1bb
+change-id: 20250818-qcs8300_mdss-a363f0d0ba0b
+prerequisite-message-id: <20250815-dp_mst_bindings-v6-0-e715bbbb5386@oss.qualcomm.com>
+prerequisite-patch-id: ffeeb0739a4b3d310912f4bb6c0bd17802818879
+prerequisite-patch-id: f0f92109d1bfffa6a1142f2aaecbd72a29b858c0
+prerequisite-patch-id: 9cabb6be69b17e8580a2cffc7aa2709106cc1adf
+prerequisite-patch-id: a389a2e4eca44bf62bb2c861c96596368be7a021
+prerequisite-patch-id: 4f02ab9314f95984ab7dc9b852ba4d6c676746a7
+prerequisite-patch-id: 62d643df7c88d8db2279def1e4b63a605e9145c0
+prerequisite-message-id: <20250730072725.1433360-1-quic_yongmou@quicinc.com>
+prerequisite-patch-id: 2ea89bba3c9c6ba37250ebd947c1d4acedc78a5d
+
+Best regards,
 -- 
-2.34.1
+Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
