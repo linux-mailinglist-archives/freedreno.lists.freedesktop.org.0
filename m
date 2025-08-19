@@ -2,175 +2,101 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5F7B2BDEB
-	for <lists+freedreno@lfdr.de>; Tue, 19 Aug 2025 11:48:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A6E9B2BF26
+	for <lists+freedreno@lfdr.de>; Tue, 19 Aug 2025 12:41:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B031B10E580;
-	Tue, 19 Aug 2025 09:48:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3E9010E592;
+	Tue, 19 Aug 2025 10:41:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="EVD+MD+M";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AQah9tSF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010050.outbound.protection.outlook.com [52.101.69.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5DA910E0A2;
- Tue, 19 Aug 2025 09:48:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sT8p3ouFgMgqLnFAopXhvh+kflz34OdzjiEnz2iU37W6cEEFjlSMhaaak/KqY1rVnBcejF2lN157w9W7MzJ0D74pr5IpoMxoWbWGWlmmqCE9bmn/WIzDiRAGDfIBaJdVWf61My3wWTGowDvL5QefdMCxxqlG2OLAHiRHNsM8yrABMe2rE2t+Al9cOLmfesRbMMdtgIukeVygiIi2fOcktak3nWfMVa+eMqTDnGmTaQ1quWt0d8weXovJYzoa4zr+nFy6c11pO0IieUK8vujzBhBvfFYRgHYZgzzpZS0kn7neBFCZBv2TFc8Qg3AKNjA8hwMBhgfrCBwLJm0McLqVNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CH6+Os8I38BhAU5PE9v2zMQjGM3xP9/iQUuSjuOjWX8=;
- b=R+FDgbu8IAjfegqomc8EykIhRq4uOD+fQe6D3uk5ypqiFYmD7u3CchukQz8Bs3qN+V9GYHJ30HuMJZPhE/rBPOMx1/8bRE9PsAZ5xDSiclynQcwiyPeDYgYQpDc2I1UjLbq62DhIMNK5RyhJF+G1S7MdNvJM22ltUuEZ13YzbWahXqjDlnqBE6MSJNF9bH9loY1c0r8Lh03/VrmmX9VCJ9OkPjS1z4pyi+gaujGegXxNyuuh2aX0cnAFlMalhL8EJfBO+YD+0sDauqUxNonJ3NstfZp0wnHmhm5BFoG9i/W5pJWXvDy0p3i5by1zcfucbCYqUQIo2RpuolAG/zRqng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CH6+Os8I38BhAU5PE9v2zMQjGM3xP9/iQUuSjuOjWX8=;
- b=EVD+MD+Mqa8jTefM1oGoEcmbTTYNvOv9dNnB5pIz3GisRCNmDZTWutjX0VOt1QaBAkAztDdoXHRwVksvKpnVKqr8JOwCaVEIuDw2Z73SoXKDInAcxtPs3D4tU/WZIRrr5y/ATIyO40IC9EnxMLJIoTn+Db/At/c5yYLv75gdmJWj+WhwvyQicFT9koPUlexjL7O0kIhxhJOohVUH37It4hdPJfakmKnf3h+HPrGgurWVio7TJaNfYXUxvUX5xHWOqoqFi29Nwq7Pvtl+EBW0ypZT7ktmmQ0XPzgnovfsXZBJOr+odNTA5DD+YCMsyhFbFNg8EsDiZqHOfsCofjw9RQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by AM9PR04MB8794.eurprd04.prod.outlook.com (2603:10a6:20b:409::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.13; Tue, 19 Aug
- 2025 09:48:24 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::d1ce:ea15:6648:6f90]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::d1ce:ea15:6648:6f90%5]) with mapi id 15.20.9052.011; Tue, 19 Aug 2025
- 09:48:24 +0000
-Message-ID: <9e77615a-9d5b-4971-b1db-74d6bed39533@nxp.com>
-Date: Tue, 19 Aug 2025 17:49:54 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] drm/bridge: ite-it6232: declare supported infoframes
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39E4F10E592
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 10:41:07 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-45a1b066b5eso26462575e9.1
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 03:41:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1755600066; x=1756204866; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=glX62E8Cvg+ozSiZSRuzg+tAjXYmebGt9j3LKNmF3UU=;
+ b=AQah9tSFxUb1tDxh2YtRzJ2n6jORxMVgtrtOwkAqNdTnnq1LLSU1sm4Leqnlx8++ta
+ /PYNqfdevUHRLF4rkikF3Sivf8r3ff+jB9a+QeJ6yKaxp7oKAS7yIJTpOj8fnMSSgz2/
+ GDmx1x3Ff0Eo4S8lrv4y1uMqBqF30TiPGri7KQh2SXjFee/jZaaKOWegz7WXD8CltgY/
+ +m6VUk18avVVY17HB5udJ7TOBWX7h9caNGIs7yYv9acrqZM3h1uYT1JdY+7xZOiW3oM1
+ hdvDfWMiduGzAKIVfyB7SD5kFwBKrUDAN+s1za8MIF+vthktY2UXKW7q9eCGIaDRqYg7
+ 5eog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755600066; x=1756204866;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=glX62E8Cvg+ozSiZSRuzg+tAjXYmebGt9j3LKNmF3UU=;
+ b=uOETbGpKxe4trfUcXdRoGsr4noLcTh7WN4pOqDvme0Xa9An+IbUXqfNEIzQzSYAluW
+ GihG3SEf26ucGAVrmwmgHp9JvkJuc3sfZBupMVUCMaixJAOIIGFeDyobuhuOY4+LC0Jc
+ pgkYKesXtzNeT0/gvSgdZP6JtGiQOp5lO2R7B9H+OKlA+2+8tIvRE571fZRW2oCDN4NA
+ QcW2pySZh0giyNcDE28hK/BoPvF8TqYsWmZCgGpMOfzz5GX9KKhCcYNaLCWO0P652ffJ
+ 5UW/Pvq+pQjcQ+7tJPWmRnadxP6Nx+y0UUewUvLJNSvMA9mFuj6gEzPWlOsLfF8S/56p
+ EiMw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUx2SmRlJpmExAAyKVUwxJuRBZlMHGOe3Q6BnXFVmvGFfdr3ApdIV2vMig5WTDA10/PtRtRHzhh2ZQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtIrODzeu6yvZHtt1SQH+zqNv+vsCgPGJb4CZhyuUefPWmGbJT
+ PIZVPU9qroCFID5N3PcaPeBVkNvKQ7eQJKMH2qYF9p486A/6JEZBu1H9x0vTAE7B1aE=
+X-Gm-Gg: ASbGncu2uk4iTuc9DZiwmHuMO0Zx+GOrbIhcbMGW4U+Pt2tWEPa8hAMeAIqQHYpuz5A
+ SpRRZqK5+n8HtOsOSp4V6ywmEAePb47xnySiAWKekzXSO7T+gn6Jj5j+0dEahoiaw7bMaV+wWMz
+ 0oxI0Iha16MhoXOQu9NyXDKUHqHczgAmO9NVvSQTDfJ/OoJdfx3QN3oxOdsJjW7FJH/gom8JPkd
+ UV0aELCMXsmKu51dIrubvQwg9TySXADz46gx3B4XBs09+GJk+qvD5k3X4dn0zPABvkbRsqKb5Iw
+ XA3svAdaxEeoTryHcTLKaaSt/lQ4rD/nSRMo9WcKADWyfQS1MlRTS4ioMw4l8VzhSIvFvuxtJ2A
+ 7u4obOLjh28JFIXoWnbBtn80S1AZIEEw4EtP/WLfLMKvL
+X-Google-Smtp-Source: AGHT+IF92BFgSG4K1XuBMhzvrucpTD0xeQxk5gLeD5NViGH6bkHSxz+KVVVwKkaVXjPsa0XAls0VGA==
+X-Received: by 2002:a05:600c:b90:b0:456:496:2100 with SMTP id
+ 5b1f17b1804b1-45b43e0cd9fmr15389385e9.31.1755600065503; 
+ Tue, 19 Aug 2025 03:41:05 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff21:ef30:ab17:881:fd74:dd23])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45a1c749143sm220151915e9.16.2025.08.19.03.41.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Aug 2025 03:41:04 -0700 (PDT)
+Date: Tue, 19 Aug 2025 12:41:00 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Chen-Yu Tsai <wens@csie.org>, Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20250816-drm-limit-infoframes-v1-0-6dc17d5f07e9@oss.qualcomm.com>
- <20250816-drm-limit-infoframes-v1-3-6dc17d5f07e9@oss.qualcomm.com>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <20250816-drm-limit-infoframes-v1-3-6dc17d5f07e9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR01CA0033.apcprd01.prod.exchangelabs.com
- (2603:1096:4:192::23) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Abel Vesa <abel.vesa@linaro.org>, Michael Walle <mwalle@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/2] driver core: platform: / drm/msm: dp: Delay applying
+ clock defaults
+Message-ID: <aKRUvCVpz8y47TPs@linaro.org>
+References: <20250814-platform-delay-clk-defaults-v1-0-4aae5b33512f@linaro.org>
+ <flybqtcacqa3mtvav4ba7qcqtn6b7ocziweydeuo4v2iosqdqe@4oj7z4ps7d2c>
+ <aJ3Y1XhvTPB7J6az@linaro.org>
+ <ddp77rvwe6brwyvkzbkouguigd5tjg2qqfxomlhd2hb2x7w7uf@2uyl2q47bpei>
+ <aKL1NPuZWWxsAavx@linaro.org>
+ <2hzzc3fd52kb54s2pr6fxfnd4svi7x3zt7dyvenja3suhieidb@hrlggbqocqa7>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|AM9PR04MB8794:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33719af9-7c8f-47f5-12c8-08dddf0589de
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|376014|7416014|1800799024|366016|7053199007|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MjhBSGRISU9IeS80OXkvaWphTHk0dGs4T1AxNlNxaGRMMlVxb2VtdWF0Nzhq?=
- =?utf-8?B?Z2JyN3FSYU11bjV1QitpdG1sZjg3QkFxcVNqQXl3THhhVElhT2RUMkwzRGNO?=
- =?utf-8?B?MXQrREJvL0NkMUZ5OC9ScXpXand1WGRSWG1UZjE2TnNPRmFCNDFzV3BELzkr?=
- =?utf-8?B?VW1QU3Z2b0dtOWp1aEhZY28vZVNOSWFpdk9GamJnQ1ZuRDhYeUtSRkJFOEx2?=
- =?utf-8?B?eVdRZ2ptYnd1TDFOZUZNT25DdUlJVG5mRGZxLytwWUNUM3k4M2Vpc1pSUVZj?=
- =?utf-8?B?U05HSXJoN05XdkNhRGo5WGNoVGFVdE9iMHN1bWl0SzVSMmhmVS9kVGp0cjR1?=
- =?utf-8?B?aHVUWTZOMG9kMi81NE5xL2M5Qy9PTGRrd1l3d1pWYm41RmJJaDMyUjFwODVE?=
- =?utf-8?B?Vmg4c3pSckVGSzhOcDlZUVJNT0dyZXYxSy9qbG5hWWdLckZid1JZSHNoL25o?=
- =?utf-8?B?enJaVlB1Vm9kVE1DRDlqNXdDQURzVjN3dDBtRzRSeTI1c05ybTlZZitDa2xu?=
- =?utf-8?B?M3JXYkJia1JaeWw3SVUxWWVoKzl4UDZxa2N5UytGVXZSS2NzWGRlY21aT2ZG?=
- =?utf-8?B?ZWlnV1hYVU9uQVFUd3hMbGtwb1FoOUc3cmQ2b0VtZEE3TTZTcWd3K3BwZU9r?=
- =?utf-8?B?K0NHbHErWnljNDJSRWNnUXEzS0svUWF6aWllR3ZiTmRFMUpxVk5MWmFDTkd0?=
- =?utf-8?B?d3F6TllJNmtJWVMzcldtY1V1Y3RqY0l0VmpML250UjFOVzNyeE9zZmhUZVgy?=
- =?utf-8?B?UTJCTzNQTXdrOVF3WVErbHpKWkNCVElMelRIYlpCbUZ4ZU9HNmlJN0dyVzlL?=
- =?utf-8?B?b1NYZHlWOEt6cERHaU5xNFRZUVpNd1paYmd2YnVNUmhhK2VTZlkxVDd5QTli?=
- =?utf-8?B?WkxKQVJqcUJURDNWcFNUMVBkZkphZktBYThRdkFpdEMweXY1ZGdSMmxnS2Z2?=
- =?utf-8?B?UjhGbms3NzVqQjNMbkNKcUllUUlEd2wzRFdxK05GMC9mYzhOa2NOSjlybkQv?=
- =?utf-8?B?dWp3MWdhOE5oZFkrNWtUZ1FkZ21uenVadXZpVzBCMENaYm40cXgyMFQxWkxx?=
- =?utf-8?B?RzFDNVhJeklHK3E3YTZEU0dHWExkRUlDdmpoSkxHTUVxVWU2QzhmK1Q3RnRD?=
- =?utf-8?B?QUpDTnA4RUJVeWViUk55OGFuRm1GN3BuMUxKbzVrbTBjNzdFdTY0SEt1WEE5?=
- =?utf-8?B?K0VDK2NZMmVhak95UnM3Q2RjbGt0NkJ5TXNuTDQzSE9MN1pOWHdQclREdWZQ?=
- =?utf-8?B?Kzc3cTBocGdYQW8zKzYwa2dGby9YQW81cTRXWGQ5bEFjaENiREwzVng5STFx?=
- =?utf-8?B?RklILy9NaU81emhvSFZlRnM1cmYzQWlqc082ZWhuWWlpUlU0dHNGM2NZcXhY?=
- =?utf-8?B?clZFOE50TnhyVDhsWERxcGdadnU3R3E4Sk92dFREVTM5K1BQRTl3MEZIWlVV?=
- =?utf-8?B?bldNZGtOc0dSWi84OEhubVNYdmxuVk85V1pCV29iSlpyaGNvU2RhZU94NUVk?=
- =?utf-8?B?SHlEUzFDMUFtenhVcWdaam1mUjdnblFOdWdGVzNFWDAxM28wZ3U4MkVFMWdJ?=
- =?utf-8?B?eEtyQm5nOFI5OG1kMjdEV0h0alNrWDhsLzZJZXV0TldOUXZlMnc0UXFpU2h6?=
- =?utf-8?B?UVlWdFRtUE1xeXVRc29vek15bXVBb3VtcXNLZDJ1RTA1REk1Ynk3bGlHR0Ux?=
- =?utf-8?B?WXZHS1hHVUpJdzQ3K3gyUzBKQkhNbmFGN0R6dG0vSi9lcUUzdFN2TEF5cmw1?=
- =?utf-8?B?Q1pISHpxSXBwZ0I4TXBiZEpMVWh2YTVLUjFWa2ZZZGZwbGZvNS9GMUoxd1pX?=
- =?utf-8?B?c2FBWWJlS1JhR3BiZWRKUHExeTBqbU1hTVBhSGc1K2xteWFodTJvVUkzdnE4?=
- =?utf-8?B?Sk9zTW5vMkZ2M1NzMVlvZnNoVjB5b0taMm5JMENMTURFVTl1SUl2RGRvU0d6?=
- =?utf-8?B?enBzSEwvSFViSHgvRS9NanQ0ejdtOGppSXIrUVpOcEpOa3hQR0lYNCtKUkxz?=
- =?utf-8?B?dnRVSzZKR0RBPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(376014)(7416014)(1800799024)(366016)(7053199007)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1NSSGxDSDlya2FLeVJsWStaTFU2WUtGQTVMQjlEMmkxWTcxNE11WjNOS0Ns?=
- =?utf-8?B?OUNQaEhVQVpsSDBLWTNwZTUyYWpqU3lLMzhrbE1zQUdCb1pWSU9hSjhlNUM2?=
- =?utf-8?B?ZU5KdXFodUxKOE5WZk9HdHF6SUJWVmRhVkVrVkhCZ2xaenRxVUNhcFJsdE1M?=
- =?utf-8?B?RkZ3L3MzbDc0RExDemRnNlVsWTJwODJoUFVGbzg4Q3NrTnBTYURxT01UYWlj?=
- =?utf-8?B?UHNoVXZFUXFLcU9jODFqWkdLQTJTeWRvN1NkVGdSRDM5MGozanFGNUl6TStQ?=
- =?utf-8?B?OHhUODFKMVdsa1VJZzJMNC9wamdVNlA3Zk10c3dMVW5DN0pBVTlzQk43R3gw?=
- =?utf-8?B?bzR0b09DdU1ldDd2S2p1MW9nSlBCRldQSkcwUEM5OW13Q0cvUXY4YnVxdzhs?=
- =?utf-8?B?WUs2dCs1d2J1YnNZMmNXZjVxZTFaR1lFVTc0Qk0vU0VBNVVMNC9FOWg1cUhm?=
- =?utf-8?B?eVJJejRLTFY4MXlHVVRmSFR5UGJOdEdsYlhjOGNnYTd1R00rZDBHMCtTSFdu?=
- =?utf-8?B?b2RBamRpOWV1ajM4TlIzVGRtWTczMUhHZlBIVy9jbDVaVDEvMWo3dXZhcWx3?=
- =?utf-8?B?ZTg5OXJqSDVVN3RiRm4zSmZyQnhCSkdCWGdEdWMycHZod291QVFqWEx5LzhO?=
- =?utf-8?B?eTdDVnk0cUI5VFFZalBoTktzR3hXV3RPRkFvVjhkSGtueERJOUFLeXppdDlU?=
- =?utf-8?B?ZkFqUWltem52VFM4b25qeURuRnZsSmloa0xuMGdnc21ZTHRhWUQzQ080WmFj?=
- =?utf-8?B?eFVqa1RtcGFoelBJNmFqZHNEdTdrWHRmNzF4MVpySEpjWUJaN3g2U1NXaFFM?=
- =?utf-8?B?QXNSS2c0QS9oK2tmQVhlamlQYTBlNU9yL3dkd3NOdGxuUmFKRG03S1lNS2t3?=
- =?utf-8?B?NUlPdzNsQWlnekJRNjQraVc2M1JuUjZRM1hzRU5SWGRzUmpVQm4xRktGOFM4?=
- =?utf-8?B?eU05NGdsZGV0UU9TZjZmZS9ydWF5Q2ZnQmFnVm5OZ2xVbmFzaEMwQXZGUmtT?=
- =?utf-8?B?T1pib2VWcHh3MWh1VTRwMXo2L3NSbWZ1WlpWSktJcHBVL1htVzR1ZGIzT1BD?=
- =?utf-8?B?R0JiaWpqZkFQMVE1cmdDZHJxbDNSSE0wUk9oVUU1d1hyMi8xNGZVR0xtbjU3?=
- =?utf-8?B?Nm1OT0ZJd0RabjBlUWlJbnNRakNIdndWVkh5emZ6Vk9sdTJaWDRHV1ZUR2tM?=
- =?utf-8?B?V0oyaEUvcVdkUGlmVStIVDZFN1RlZWpDL3cyYU0yb244TVhBKy9pT0pOUTE2?=
- =?utf-8?B?U3Z0QjRqWFBlRzBDS2g1SkFwbWFUckhLb2dkcVB0THRpQVFDS0drSFMvOStw?=
- =?utf-8?B?SmFNemhLdzljK1AzOFkvc3laOGEyL1pOVVg1a1RlL1BvalNFL0VhWDQwcWVC?=
- =?utf-8?B?MXFDSWMzdG1tT1JSd21ScTBhdG1yYnFGdWZNbEJtSDdqalhqYlBQeUdPS24r?=
- =?utf-8?B?Si9LL3hGVncxcHljMXp4RmpwZnl6VWRySEZjOEplTml1S0oreUk2eXUyUllR?=
- =?utf-8?B?MFhnVmJFRU1HVERGZlp5WXhCVzBVSW9mWDg0eVhxQTUyTGJReCtIcjhDNXc2?=
- =?utf-8?B?MUhTc2d4NVA0NVVTak90VnRJYnA5dEk0SEx1ODk2aTNiQzRPczJCVFp1aGd1?=
- =?utf-8?B?YjZoZHRZM3M5TGVOQVJxejhZQTR0bGJIOVdZN0dpaHVFeW5YakdaSXZkV2x3?=
- =?utf-8?B?QnE2T1JXbUxjMm5CWllSK1h6VmdOOTF0T1RrMm1aaDI3Y3A3aTlNS2xzQUs1?=
- =?utf-8?B?cENoZnQzM2Q0QThrRlROQUFZbmJxOG9ZUEpmME9kMGVWejZELzVDTnl5VGM1?=
- =?utf-8?B?RnlEQm14KzJKa0dIQTRwN0hRL0dmR3F0K09md3hLbEJoVnlSZ1NCTmcrMTRh?=
- =?utf-8?B?aElUVC81RUorbVRRT3dERzJ6c2ZGYURCVU5kUUpiQ0xMNDFDMEpHUFMwQlVh?=
- =?utf-8?B?S25ld3ZsM2UrUmtRV0pneDlla0NNQ0dhVENuMm13SUpwWG5keTBjd1lrUXlk?=
- =?utf-8?B?TkY0eGoxTVBvSFhmSHI0SUE1eEFNOTF3bzl6TEszOUNuUm53TE9SM281SGZp?=
- =?utf-8?B?WUpjeU1ZdEt3dVJGZnpjUmpsUnk4cXc3M0UvYldsQ2Exa1l5OFc5eDdZYzdi?=
- =?utf-8?Q?dScwScERM5l2U8dcPiT9rvKl6?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33719af9-7c8f-47f5-12c8-08dddf0589de
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2025 09:48:24.0044 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DBgq77hd5ybYR8UbHbHMDQF1+5h8Brx1tmZETQriI2feH9DY6DZ19aeqeSnjsv8zeZBeuy8SOxb5L6qFyO2img==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8794
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2hzzc3fd52kb54s2pr6fxfnd4svi7x3zt7dyvenja3suhieidb@hrlggbqocqa7>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -186,44 +112,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
-
-On 08/16/2025, Dmitry Baryshkov wrote:
-> Declare which infoframes are supported via the .hdmi_write_infoframe()
-> interface.
+On Tue, Aug 19, 2025 at 04:19:26AM +0300, Dmitry Baryshkov wrote:
+> On Mon, Aug 18, 2025 at 11:41:16AM +0200, Stephan Gerhold wrote:
+> > On Sat, Aug 16, 2025 at 04:55:00PM +0300, Dmitry Baryshkov wrote:
+> > > On Thu, Aug 14, 2025 at 02:38:45PM +0200, Stephan Gerhold wrote:
+> > > > On Thu, Aug 14, 2025 at 02:55:44PM +0300, Dmitry Baryshkov wrote:
+> > > > > On Thu, Aug 14, 2025 at 11:18:05AM +0200, Stephan Gerhold wrote:
+> > > > > > Currently, the platform driver core always calls of_clk_set_defaults()
+> > > > > > before calling the driver probe() function. This will apply any
+> > > > > > "assigned-clock-parents" and "assigned-clock-rates" specified in the device
+> > > > > > tree. However, in some situations, these defaults cannot be safely applied
+> > > > > > before the driver has performed some early initialization. Otherwise, the
+> > > > > > clock operations might fail or the device could malfunction.
+> > > > > > 
+> > > > > > This is the case for the DP/DSI controller on some Qualcomm platforms. We
+> > > > > > use assigned-clock-parents there to bind the DP/DSI link clocks to the PHY,
+> > > > > > but this fails if the PHY is not already powered on. We often bypass this
+> > > > > > problem because the boot firmware already sets up the correct clock parent,
+> > > > > > but this is not always the case.
+> > > > > 
+> > > > > So, the issue is that our abstraction is loose and we register a clock
+> > > > > before it becomes usable. Would it be better to delay registering a
+> > > > > clock until it's actually useable? (and then maybe to unregister on the
+> > > > > link shutdown)
+> > > > > 
+> > > > > > 
+> > > > > > Michael had a somewhat related problem in the PVR driver recently [1],
+> > > > > > where of_clk_set_defaults() needs to be called a second time from the PVR
+> > > > > > driver (after the GPU has been powered on) to make the assigned-clock-rates
+> > > > > > work correctly.
+> > > > > > 
+> > > > > > I propose adding a simple flag to the platform_driver struct that skips the
+> > > > > > call to of_clk_set_defaults(). The platform driver can then call it later
+> > > > > > after the necessary initialization was performed (in my case: after the PHY
+> > > > > > was fully enabled for the first time).
+> > > > > > 
+> > > > > > There are also alternative solutions that I considered, but so far
+> > > > > > I discarded them in favor of this simple one:
+> > > > > > 
+> > > > > >  - Avoid use of assigned-clock-parents: We could move the clocks from
+> > > > > >    "assigned-clock-parents" to "clocks" and call clk_set_parent() manually
+> > > > > >    from the driver. This is what we did for DSI on SM8750 (see commit
+> > > > > >    80dd5911cbfd ("drm/msm/dsi: Add support for SM8750")).
+> > > > > > 
+> > > > > >    This is the most realistic alternative, but it has a few disadvantages:
+> > > > > > 
+> > > > > >     - We need additional boilerplate in the driver to assign all the clock
+> > > > > >       parents, that would be normally hidden by of_clk_set_defaults().
+> > > > > > 
+> > > > > >     - We need to change the existing DT bindings for a number of platforms
+> > > > > >       just to workaround this limitation in the Linux driver stack. The DT
+> > > > > >       does not specify when to apply the assigned-clock-parents, so there
+> > > > > >       is nothing wrong with the current hardware description.
+> > > > > > 
+> > > > > >  - Use clock subsystem CLK_OPS_PARENT_ENABLE flag: In theory, this would
+> > > > > >    enable the new parent before we try to reparent to it. It does not work
+> > > > > >    in this situation, because the clock subsystem does not have enough
+> > > > > >    information to power on the PHY. Only the DP/DSI driver has.
+> > > > > > 
+> > > > > Another possible option would be to introduce the 'not useable' state /
+> > > > > flag to the CCF, pointing out that the clock is registered, but should
+> > > > > not be considered for parenting operations.
+> > > > > 
+> > > > > >  - Cache the new parent in the clock driver: We could try to workaround
+> > > > > >    this problem in the clock driver, by delaying application of the new
+> > > > > >    clock parent until the parent actually gets enabled. From the
+> > > > > >    perspective of the clock subsystem, the clock would be already
+> > > > > >    reparented. This would create an inconsistent state: What if the clock
+> > > > > >    is already running off some other parent and we get a clk_set_rate()
+> > > > > >    before the parent clock gets enabled? It would operate on the new
+> > > > > >    parent, but the actual rate is still being derived from the old parent.
+> > > > > > 
+> > > > > 
+> > > > > But... Generally it feels that we should be able to bring up the clocks
+> > > > > in some 'safe' configuration, so that the set_parent / set_rate calls
+> > > > > can succeed. E.g. DISP_CC_MDSS_DPTX0_LINK_CLK_SRC can be clocked from XO
+> > > > > until we actually need to switch it to a proper rate. I see that
+> > > > > e.g. dispcc-sm8550.c sets 'CLK_SET_RATE_PARENT' on some of DP clock
+> > > > > sources for no reason (PHY clock rates can not be set through CCF, they
+> > > > > are controlled through PHY ops).
+> > > > > 
+> > > > 
+> > > > I don't think there is any problem with the 'safe' configuration you
+> > > > mention. I have not tried, but we should be able to use that. However,
+> > > > my understanding is that reparenting does not fail because the clock
+> > > > itself is in an "unusable" state, but because the new parent is in an
+> > > > "unusable" state. We can run the clock from XO, but that wouldn't solve
+> > > > the problem of reparenting to the PHY (until the PHY is fully
+> > > > configured).
+> > > 
+> > > 
+> > > How would the CCF react if we return -ENA from the enable() method of
+> > > the PHY clock if it's not available yet?
+> > > 
+> > 
+> > With the current setup it wouldn't change anything, because the failing
+> > operation is just the clk_set_parent() that happens from the driver core
+> > before the clock will be enabled. It wouldn't reach the enable() method.
+> > 
+> > With CLK_OPS_PARENT_ENABLE, I would expect clk_set_parent() to fail,
+> > which also doesn't get us any further. :-)
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/bridge/ite-it6263.c | 1 +
->  1 file changed, 1 insertion(+)
-
-For subject, s/it6232/it6263.
-
+> Ack
 > 
-> diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge/ite-it6263.c
-> index cf813672b4ffb8ab5c524c6414ee7b414cebc018..b1956891a8388401c13cd2fc5c78f0779063adf4 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6263.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6263.c
-> @@ -875,6 +875,7 @@ static int it6263_probe(struct i2c_client *client)
->  	it->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
->  	it->bridge.vendor = "ITE";
->  	it->bridge.product = "IT6263";
-> +	it->bridge.supported_infoframes = DRM_CONNECTOR_INFOFRAME_AVI;
-
-With supported_infoframes set, the two lines setting vendor and product
-are dead code.  I think it's worth dropping them and updating kerneldoc
-for vendor and product members because they don't have to be required if
-DRM_BRIDGE_OP_HDMI is set.  But, this could be done with future patch(not
-in this patch series).
-
-Reviewed-by: Liu Ying <victor.liu@nxp.com>
-
->  
->  	return devm_drm_bridge_add(dev, &it->bridge);
->  }
+> > 
+> > > > 
+> > > > (It would help a lot if you can find someone from the hardware team at
+> > > >  Qualcomm to confirm that. Everything I write is just based on
+> > > >  experiments I have done.)
+> > > > 
+> > > > So, assume that DISP_CC_MDSS_DPTX0_LINK_CLK_SRC is already running from
+> > > > XO, but the PHY is powered off. Now of_clk_set_defaults() gets called
+> > > > and we get the call to clk_set_parent() while the PHY is off. How do we
+> > > > deal with that? Returning 0 without actually changing the parent would
+> > > > result in inconsistent state, as I described above. clk_get_parent()
+> > > > would return the new parent, but actually it's still running from XO.
+> > > 
+> > > For RCG2 we already have a lot of tricks like that.
+> > > 
+> > 
+> > That is true, although e.g. the clk_rcg2_shared_ops apply the tricks
+> > (the caching of clock ops) only while the clock is off. When the clock
+> > is off, it doesn't matter what we return about the freq/parents from the
+> > clk ops. The problematic case I mentioned above would occur if the clock
+> > is (for whatever reason) already running sourced from XO during boot.
+> > 
+> > In other words, I could imagine that implementing something like the
+> > clk_rcg2_shared_ops for the DP clocks could fix the error I'm trying to
+> > solve in this patch series. However, it would only work if the clock is
+> > really off during boot and not already running sourced from XO.
+> 
+> link_clk_src clocks are clk_byte2_ops, so they don't have separate
+> enable/disable ops. You might implement something close to
+> clk_regmap_phy_mux_ops: turn XO parent into "disabled" state.
 > 
 
+Thanks for the suggestion, I'll keep that in mind.
 
--- 
-Regards,
-Liu Ying
+> > 
+> > > > 
+> > > > With my changes in this series the clock state is always consistent with
+> > > > the state returned by the clk APIs. We just delay the call to
+> > > > clk_set_parent() until we know that it can succeed.
+> > > 
+> > > I know. But what happens when we power down the PHY? The clock is
+> > > assumed to have the PHY clock as a parent, but it's supposedly not
+> > > clocking.
+> > > 
+> > 
+> > I don't think this is a big problem in practice, given that these clocks
+> > are only consumed by a single driver that manages both PHY and clocks
+> > anyway. The clock should always get disabled before the PHY is powered
+> > down.
+> > 
+> > > Another option would be to introduce a safe config for the PHYs and make
+> > > sure that the PHY is brought up every time we need it to be up (e.g. via
+> > > pm_runtime).
+> > 
+> > I considered that as well, but what exactly would I use as "safe"
+> > configuration? There are lots of PHY configuration registers that are
+> > set based on the rate or other parameters of the panel/display
+> > connected.
+> > 
+> > Implementing something like clk_rcg2_shared_ops could presumably work,
+> > with the limitation that it will only work if the clock is really off
+> > during boot and not already running from XO. Otherwise, I think the
+> > simple approach of delaying the clk_set_parent() implemented in this
+> > series is still the most straightforward way to solve this issue.
+> 
+> I know that it works, but it feels a bit clumsy to me.
+> 
+
+I realize that adding a field to the platform_driver struct feels a bit
+weird, but I think in general requiring more control about when exactly
+assigned-clock-parents/rates are applied is a valid use case. The reason
+we haven't seen more of these issues is likely mainly because people
+just avoid using assigned-clock-parents/rates in these use cases, even
+if it would be the right way to describe the hardware.
+
+I'm happy to try implementing the workaround in the Qualcomm clock
+drivers, but hearing more opinions about the more general approach of
+this patch series would also be good.
+
+Thanks,
+Stephan
