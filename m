@@ -2,115 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1FF7B2CFED
-	for <lists+freedreno@lfdr.de>; Wed, 20 Aug 2025 01:29:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC3EFB2D066
+	for <lists+freedreno@lfdr.de>; Wed, 20 Aug 2025 01:46:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0E9310E234;
-	Tue, 19 Aug 2025 23:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88EB510E68F;
+	Tue, 19 Aug 2025 23:46:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PrRQ4pbQ";
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="muisPuBr";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="71eJ+Kto";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 285C410E229
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 23:29:16 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57JL178K020085
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 23:29:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=eorQnuKwFmy
- 2NP3qxzCVt5IHD0p6HNwhfpue4EH5fbo=; b=PrRQ4pbQgGU3zIbwI6WUS/i+lbb
- QwgBCdLHKiuGmdVJhDU70Kzzp1XfZraBmqmhhuYi6zCCV8p1KjAyWLGclhjWB/NR
- 49KOhpakQ1bvvAAUukhZBfOjZNt9pI+k9qjqiWuVu3GnPxCp7+5/Vioha3slOf0h
- GlyrLJyPTiSlG8ekygsd1yierTJ5YcC5KVA3X9lGADoFh++EbH9lAQHNea+GI6us
- HW/TtS8ePp56MxRIUYSF5obBvHOoW6DzXUhH3jZqnRgxTr+q9ByMpj7HR5ms32h/
- 7MsxoC5x6smZzogi+ola7robDSTkdSki1Tsg6TvaF1LLqBinpE8iKJ8wuCw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48n0tfg8wt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 23:29:15 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-24457f4f3ecso70036325ad.0
- for <freedreno@lists.freedesktop.org>; Tue, 19 Aug 2025 16:29:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755646154; x=1756250954;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eorQnuKwFmy2NP3qxzCVt5IHD0p6HNwhfpue4EH5fbo=;
- b=JfMmWOzCj26ooxvPtxJsm1/pVlXnqD0oPByLoYBbIRSkYFL6Ew7k52J+IKusISrlsj
- 9bVdGfeI+IWj3sWtpF0J3foB4E5dedjoR62MUwlPAM8fVC+RRH1Uc9iI3kob5JTs9ff3
- ihnqzl2cGRyF4AslN7j3RHM+7a63NmE/+ju9Ql1tvFDAwBSbo2tqvq025Ijk99tHMt91
- cgD1TRSHD2pRyuAICTvKoKxOcd4DDnpDGvvXB4te09+XM/JXc+YRgf2QjHgT4q6B42NX
- 71IRdttwCrCWpX2HFnxypcbuaMCpBOH4eAR3xnsFpnmQODYp10kdUbS6I5cBEXJync78
- ptMw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/FrKZJsfuGV1+WwI39CMAFMw+lVbqXjKQqNybVvRikzWBKX+O5dEs1eLzZB516HOwhRLLz8W4MDE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQEi8ZUH0vkmPy+ZnyLu6x+nyS/vC3GXJBtOkMJRjUAKe0+gID
- adAxZ/kCTs4vPevcPdgfjCPGx8mfTRw0Bwm9m2hHgd47OpJ/BWyMIy7NVhFbgpSAh6cRPYBaLRZ
- 2eZfakbTCADZfOABBrGc0A09qL0+l2gpjCJD6zzAP0EK11K/SqNik9RLqCBZtlXoI+Iii/ps=
-X-Gm-Gg: ASbGncvXfIPv1FPiQkXMYgVo5uNOT8MVxwfTUoeZW4nFHDidOhMEdgKLoQRLdDFl7s7
- +4Jv/PrDC0kzoqhbObguN7Ykf1Dopmde3gUESfnj7uodrS7B4OuZJYHm+TROQxim0v6fQfNzRFA
- uOwSP6WrwlYcC8JbUTIIbYi5XHiNerF3CrGuRqkGh+nb1LQOmx8DyRakYKv0uHDGEveflvZQYCD
- bmb5Mf1BQvTPk8I2xwEHdbv6Mhc2yvw1edAgtwtg1MMt0AwJyJqh1C3rwvJGgd0+vRsFo4RhMyo
- RdVtn8QWRASUrKLBJPsAY/QKBEfF9plskHJAYF2Gc16FQQWAGRU=
-X-Received: by 2002:a17:903:234e:b0:243:963:2a70 with SMTP id
- d9443c01a7336-245ef156358mr8027625ad.25.1755646154007; 
- Tue, 19 Aug 2025 16:29:14 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHlmpOombDfq8VbEjWHWMgGH5Q1/mKcc7dH8Jm6GIHXrGX0qRiaR2T3uKoERFwvEKAF5ww/Bg==
-X-Received: by 2002:a17:903:234e:b0:243:963:2a70 with SMTP id
- d9443c01a7336-245ef156358mr8027425ad.25.1755646153561; 
- Tue, 19 Aug 2025 16:29:13 -0700 (PDT)
-Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-245ed4ebc4esm8040925ad.115.2025.08.19.16.29.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Aug 2025 16:29:13 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Connor Abbott <cwabbott0@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 3/3] drm/msm: Fix 32b size truncation
-Date: Tue, 19 Aug 2025 16:29:03 -0700
-Message-ID: <20250819232905.207547-4-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250819232905.207547-1-robin.clark@oss.qualcomm.com>
-References: <20250819232905.207547-1-robin.clark@oss.qualcomm.com>
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9175110E68C;
+ Tue, 19 Aug 2025 23:46:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Date:Subject:From; t=1755646709; bh=kpY+Nl5vsHKrBlzLVtfhztv
+ xRfiJB87Mxz4rJktiaKM=; b=muisPuBrVe+vTxyAJxMV9VlJHQIAVylsj9VYA0sMPCE1I9ABwn
+ quKdRWCXg42jkf2W2TND5sqAoHtSNB9/Au40aj1M++fpDY+YJkjc7nhXUhoIvu60P9y33es7d28
+ gnjGY3nNUnzHYK0QegBqvjlwQH3fFiAHNB025tiHK5eHPg7EpS7D5uB4+zlo6eo72oaux98uc73
+ lM3gWSBW9pEwnmbc7KUT85ThBodLcdU9vZxOENT4GuGvde8svER3o2Iyymq3+MF6w35fBG7fDRl
+ mWfMj3HxXRGsSBnUG3Uj9DCmN+gzEZv6t6uJ2/SEhN6ZRd2LliuLSJuE25IuI37421Q==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Date:Subject:From; t=1755646709; bh=kpY+Nl5vsHKrBlzLVtfhztv
+ xRfiJB87Mxz4rJktiaKM=; b=71eJ+Ktoi0+cuOKQEJAsAY9wJg/vc1Ft+dBXpiZdXKk161lxoG
+ pivA4UqvSEGcJd16HT4nhP4nbZaVGppZlqDQ==;
+From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
+ <barnabas.czeman@mainlining.org>
+Subject: [PATCH v6 0/6] Initial support of MSM8937 and Xiaomi Redmi 3S
+Date: Wed, 20 Aug 2025 01:37:44 +0200
+Message-Id: <20250820-msm8937-v6-0-b090b2acb67e@mainlining.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=EuuLbScA c=1 sm=1 tr=0 ts=68a508cb cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
- a=EUspDBNiAAAA:8 a=Zku5-IFyaxskcEPfeVAA:9 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: r0gnzW1EuX17vG8dG_qNSwRcou5zCTAb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE5MDE5NiBTYWx0ZWRfXx3kJoN9r9PkQ
- +VS9rW7BUCGi7PRZJG9aSB5jcwI4zmXS1mA+j2fe7L9qB4WjUMP5k1Plphp+VHTHq1TzXTSt8VR
- puPDLbn0zcBZ0HXIJ2lukMn5haU6S4XgNK3zgCMPOK4zxbtTcehJIp0H6nM0UKYvh5/VJdEIby/
- +ghkXEi/D+Usz+UR0F1MSk+FMsmyl6eRkjLZ5FwYBPFSLzoRL/dKTP/z8nWLLQSUPt+lQphbtTg
- xSP81QwyjjrWSVBR7hZogu3t8ssBjjYLiRHeNNQqMoGNkfSPUks02boHgfhkHO4jCOcS/EHxpz+
- kctyxaswIL2TWsAtSZA80sgPZrdjSVMouMlj1atxb+FuIz143lKyvpsID25TxmH7kXFKeFWH/fw
- TyL9AUFUKzA6xFB+cGNm7Ty2jYMgOw==
-X-Proofpoint-ORIG-GUID: r0gnzW1EuX17vG8dG_qNSwRcou5zCTAb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-19_04,2025-08-14_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2508110000 definitions=main-2508190196
+X-B4-Tracking: v=1; b=H4sIAMgKpWgC/23PwWrEIBAG4FdZPNeio4naU9+j9JDVMTvQmEVL2
+ GXJu9cstAaa4z/M9zPzYAUzYWFvpwfLuFChOdXQv5yYvwxpRE6hZgYCOgFS8KlM1inDASxGEbx
+ C71jdvmaMdHs2fXzWfKHyPef7s3iR2/S3Q/51LJILbgIYDL2JRtj3aaD0RYnS+DrnkW1FC+wwq
+ Iah4rNzpg57hUEdYrXHumFVcRiC8dKC9/58iHXDSnYN64pllArQGjFod4i7hjXsfu62s6OzxmG
+ UOvzH67r+AHIgwaiXAQAA
+X-Change-ID: 20250210-msm8937-228ef0dc3ec9
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, 
+ =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Adam Skladowski <a_skl39@protonmail.com>, 
+ Sireesh Kodali <sireeshkodali@protonmail.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, iommu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ linux@mainlining.org, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ Daniil Titov <daniilt971@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Dang Huynh <danct12@riseup.net>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1755646705; l=3529;
+ i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
+ bh=JZrmsmOLakGNiArgxLyorPY9EkM8UNZYC42Sd1HoK+4=;
+ b=PP8iWeu44PDXA5tIe8ikwR1WhFZxabycKfMF9ZAj0w4Zj4ROxeZNwa9PYnTYUghBJasw2fA64
+ zgLA/zioHNcCQyArr6qrVuLJYTPtp5MLMYcszSy8RUh0w59c0m1+m3j
+X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
+ pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,99 +101,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Somehow we never noticed this when arm64 became a thing, many years ago.
+This patch series add initial support for MSM8937 SoC
+and Xiaomi Redmi 3S (land).
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+The series is extending the MSM8917 gcc and pinctrl drivers
+because they are sibling SoCs.
+MSM8937 have 4 more A53 cores and have one more dsi port then
+MSM8917.
+It implements little-big architecture and uses Adreno 505.
+
+Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
 ---
- drivers/gpu/drm/msm/msm_gem.c | 17 ++++++++---------
- drivers/gpu/drm/msm/msm_gem.h |  6 +++---
- 2 files changed, 11 insertions(+), 12 deletions(-)
+Changes in v6:
+- msm8937:
+  - Fix nodes ordering.
+  - Format clocks, reg, dmas and -names properties.
+  - Add gpu_speedbin.
+- Describe A505 clocks.
+- Link to v5: https://lore.kernel.org/r/20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 958bac4e2768..9a935650e5e3 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -1142,7 +1142,7 @@ static int msm_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct
- 
- /* convenience method to construct a GEM buffer object, and userspace handle */
- int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
--		uint32_t size, uint32_t flags, uint32_t *handle,
-+		size_t size, uint32_t flags, uint32_t *handle,
- 		char *name)
- {
- 	struct drm_gem_object *obj;
-@@ -1208,9 +1208,8 @@ static const struct drm_gem_object_funcs msm_gem_object_funcs = {
- 	.vm_ops = &vm_ops,
- };
- 
--static int msm_gem_new_impl(struct drm_device *dev,
--		uint32_t size, uint32_t flags,
--		struct drm_gem_object **obj)
-+static int msm_gem_new_impl(struct drm_device *dev, uint32_t flags,
-+			    struct drm_gem_object **obj)
- {
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_gem_object *msm_obj;
-@@ -1244,7 +1243,7 @@ static int msm_gem_new_impl(struct drm_device *dev,
- 	return 0;
- }
- 
--struct drm_gem_object *msm_gem_new(struct drm_device *dev, uint32_t size, uint32_t flags)
-+struct drm_gem_object *msm_gem_new(struct drm_device *dev, size_t size, uint32_t flags)
- {
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_gem_object *msm_obj;
-@@ -1259,7 +1258,7 @@ struct drm_gem_object *msm_gem_new(struct drm_device *dev, uint32_t size, uint32
- 	if (size == 0)
- 		return ERR_PTR(-EINVAL);
- 
--	ret = msm_gem_new_impl(dev, size, flags, &obj);
-+	ret = msm_gem_new_impl(dev, flags, &obj);
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-@@ -1299,12 +1298,12 @@ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_gem_object *msm_obj;
- 	struct drm_gem_object *obj;
--	uint32_t size;
-+	size_t size;
- 	int ret, npages;
- 
- 	size = PAGE_ALIGN(dmabuf->size);
- 
--	ret = msm_gem_new_impl(dev, size, MSM_BO_WC, &obj);
-+	ret = msm_gem_new_impl(dev, MSM_BO_WC, &obj);
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-@@ -1347,7 +1346,7 @@ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
- 	return ERR_PTR(ret);
- }
- 
--void *msm_gem_kernel_new(struct drm_device *dev, uint32_t size, uint32_t flags,
-+void *msm_gem_kernel_new(struct drm_device *dev, size_t size, uint32_t flags,
- 			 struct drm_gpuvm *vm, struct drm_gem_object **bo,
- 			 uint64_t *iova)
- {
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 751c3b4965bc..a4cf31853c50 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -297,10 +297,10 @@ bool msm_gem_active(struct drm_gem_object *obj);
- int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout);
- int msm_gem_cpu_fini(struct drm_gem_object *obj);
- int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
--		uint32_t size, uint32_t flags, uint32_t *handle, char *name);
-+		size_t size, uint32_t flags, uint32_t *handle, char *name);
- struct drm_gem_object *msm_gem_new(struct drm_device *dev,
--		uint32_t size, uint32_t flags);
--void *msm_gem_kernel_new(struct drm_device *dev, uint32_t size, uint32_t flags,
-+		size_t size, uint32_t flags);
-+void *msm_gem_kernel_new(struct drm_device *dev, size_t size, uint32_t flags,
- 			 struct drm_gpuvm *vm, struct drm_gem_object **bo,
- 			 uint64_t *iova);
- void msm_gem_kernel_put(struct drm_gem_object *bo, struct drm_gpuvm *vm);
+Changes in v5:
+- msm8937:
+  - Remove wrongly defined idle-states.
+  - Fix thermal zones.
+  - Use the header with DSI phy clock IDs.
+  - Fix the nodes order.
+  - Fix the pinctrls style.
+  - Follow gcc header changes.
+- msm8937-xiaomi-land:
+  - Remove headphone switch and speaker amplifier bindings.
+  - Unify status property style.
+- gcc bindings:
+  - Expand MSM8953 gcc schema with MSM8937.
+  - Add MSM8937 prefix for MSM8937 specific clocks.
+- gcc:
+  - Follow the bindings changes.
+- Drop alwayson clock documentation it will be handled in another
+  patchset.
+- Link to v4: https://lore.kernel.org/r/20250315-msm8937-v4-0-1f132e870a49@mainlining.org
+
+Changes in v4:
+- Add missing rpmcc include for qcom,gcc-msm8937 dtbinding exmaple.
+- msm8937: add missing space after s9-p1@230
+- msm8937-xiaomi-land: replace LED_FUNCTION_INDICATOR to LED_FUNCTION_STATUS
+- Remove applied patches
+- Link to v3: https://lore.kernel.org/r/20250224-msm8937-v3-0-dad7c182cccb@mainlining.org
+
+Changes in v3:
+- Fix qcom,gcc-msm8937 dtbinding example 
+- Link to v2: https://lore.kernel.org/r/20250223-msm8937-v2-0-b99722363ed3@mainlining.org
+
+Changes in v2:
+- drop applied patches
+- drop gcc schema commits infavor of a new schema for gcc-msm8937
+- document always on clock for adreno 505/506/510
+- msm8937:
+  - set cache size
+  - rename cpu labels
+  - fix style issues addressed by review
+- msm8937-xiaom-land:
+  - remove unused serial0 alias
+  - remove regulator-always-on from pm8937_l6
+  - add blue indicator led for aw2013
+- Link to v1: https://lore.kernel.org/r/20250211-msm8937-v1-0-7d27ed67f708@mainlining.org
+
+---
+Barnabás Czémán (4):
+      dt-bindings: clock: qcom: Add MSM8937 Global Clock Controller
+      dt-bindings: display/msm/gpu: describe A505 clocks
+      dt-bindings: arm: qcom: Add Xiaomi Redmi 3S
+      arm64: dts: qcom: Add Xiaomi Redmi 3S
+
+Dang Huynh (1):
+      arm64: dts: qcom: Add initial support for MSM8937
+
+Daniil Titov (1):
+      clk: qcom: gcc: Add support for Global Clock controller found on MSM8937
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    6 +
+ .../bindings/clock/qcom,gcc-msm8953.yaml           |   11 +-
+ .../devicetree/bindings/display/msm/gpu.yaml       |    4 +-
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ arch/arm64/boot/dts/qcom/msm8937-xiaomi-land.dts   |  381 ++++
+ arch/arm64/boot/dts/qcom/msm8937.dtsi              | 2134 ++++++++++++++++++++
+ drivers/clk/qcom/Kconfig                           |    6 +-
+ drivers/clk/qcom/gcc-msm8917.c                     |  617 +++++-
+ include/dt-bindings/clock/qcom,gcc-msm8917.h       |   19 +
+ 9 files changed, 3168 insertions(+), 11 deletions(-)
+---
+base-commit: 3ac864c2d9bb8608ee236e89bf561811613abfce
+change-id: 20250210-msm8937-228ef0dc3ec9
+
+Best regards,
 -- 
-2.50.1
-
+Barnabás Czémán <barnabas.czeman@mainlining.org>
