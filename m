@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EE38B2E927
-	for <lists+freedreno@lfdr.de>; Thu, 21 Aug 2025 02:04:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E0A5B2E929
+	for <lists+freedreno@lfdr.de>; Thu, 21 Aug 2025 02:04:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB99B10E830;
-	Thu, 21 Aug 2025 00:04:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA1C710E835;
+	Thu, 21 Aug 2025 00:04:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bnO3TDYv";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oGm/QCW+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5BA110E829
- for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:36 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57KJI6s3002680
- for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:36 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57F9A10E839
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:38 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57KGmjFU005491
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=UUeZ954T0o+
- UR5vuNiqg0BBHjNOT7Hd/arRfZ79Ap5Y=; b=bnO3TDYveWTOLQkrfm5KcRB8buo
- 9/wxJEHtJNuR4gVm924oFrvDt4dqX8QBrtQ4wfPF3ZkFOIbppnEeavSg0/NR5KcB
- nJeyjRuQRB7DplRV9XFwpxFA9rNRv0R1ajpcvmihLg2KNTZO6rintJ6vtBJe9m4w
- vxHlDVsFcV55q52w5k+wiY1jHQ4ZUlJQ/kwhPl6yssTnNL/iFqVFfTK+KiiMfreG
- Z70qJTUF0LRPC5Arcq4cUgww6QFylMX1L8yLKH5qppU5Hg0e8eh60SJMnVJK2PeG
- 7maKAnXNkVHXES43FarV9w0IYni2Ys9b0wUmkGQJ3naZpHGyx774r56lZJQ==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48n528uc3b-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=7GonE0I4O86
+ IMbS9YwA1nRfKE7NxszsWoTIBBuaYOXQ=; b=oGm/QCW+yDsDLwFUlm0BTzAsCYm
+ Q3CdZT4IjuaTN2G6iLwc6GW7VGglHZmkUZukV92bpXX4V5kbGIC76Cu9ZyHPWlmH
+ DuGjCb+i//M4OxZdUvRD1pL5ypAUeD8M5AjOxq99w7eCKNNsIOsiEVghoMtWOkRO
+ UsWIDXmuauwZPcQlh/xrHB6izFBDSdwBu+lAk/C9SkLgvc9/WtnBb7VDLGHORcjI
+ XEHLWzbMzTZKuh6Fd8kuddbByOwqHQJVpnobWTOqftGoy1X1qwk9FfbwSZKoinQ4
+ O6rEKr672qi1+tVLsEDEZ3NCRbVZMiSvz3A307bdxB0VdjWoB36PWgWuBxQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48n5293bub-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:35 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-b47253319b8so221730a12.3
- for <freedreno@lists.freedesktop.org>; Wed, 20 Aug 2025 17:04:35 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:37 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-323266d8396so461375a91.0
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Aug 2025 17:04:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755734675; x=1756339475;
+ d=1e100.net; s=20230601; t=1755734676; x=1756339476;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=UUeZ954T0o+UR5vuNiqg0BBHjNOT7Hd/arRfZ79Ap5Y=;
- b=DsUw35kmbLuuIdzYjGQR7ww+61CrHNfBsRJmeyqDngImC/5dafxGXvYpemPcTvlqwX
- 59HOf1swZhdsNov7m8xg1Z+pw49BOd3VkCqFpIlQ9O/iesMSBeYk8koPKkV4wj+I0Vbv
- bQoebKWlssF3I75jcLCZ4I7U7EXO0gH5tTcjfcoFbfSuE/ehy1rtbYolTAnLHNqxic/T
- EyUEjv7bkUHe82RZCS1Ie9r9dhLT5Z3fe2JotLH39mscaDACLkM34URAXJLU/4ATva1J
- rllqNrgR4RYZ4z15JEv2G1xlsoJxeRzGpDchuXjetfgtgVkDu0ozi2ijqqgi46r4QPh4
- Sarw==
+ bh=7GonE0I4O86IMbS9YwA1nRfKE7NxszsWoTIBBuaYOXQ=;
+ b=hkN1nNmo/klheU2tHzFlAN7nnLxB0F7WATVyXg6uk7ETe515fMmT0JsjlfX5pyUtC0
+ aO8hb6892vxb5uvFmnvVlZBlfsz3U6EYm5WGk0nCkZvWg03EoCEEiv25/3hlC1pLMi0G
+ gS7N6vk9ujFqYU/82fQ9/PkgsJO84rK/6qRDdLAK6B2p+I/hOmhZ74I7KUU1yMlx8fzz
+ XaCRIM3+R5DcsR6xlR9PrMuF+IZpwbYZGo6iqP2deIxmSz8JrdTCkIR5J57KhzKQ8878
+ 6eMI7K17H5DKQY8UAqMI0lvRCjxY+8BRmOPj3VUVfPwU0/zCLYkmyPMul1r5tHNafUFe
+ ortw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWm1+WbdnF97P+1/aWlTPITlDG9xx9WpOcwc8yJGeFeQP45d+VhRoD5SIoz8Q69lqpbZqFSuBBEB20=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwNTVCJlEh/vJvdc4oMsIc6p8BRjRzjxk5cNBXdcylcBIb1gL5h
- 0KK+haHQAJqE0lM+KvubCNuUWmgB7x3tsOq4L2mGla/NYwOKOueJ7MfyB5sK8v4tUP6zqGjzFi8
- 900/XSMdIsfAdnDa1h/xMuDOblPiGSRs59tVSQ5GtyAdGpQQWD8eXn2MEE9Vcg6ykuNusguQ=
-X-Gm-Gg: ASbGnct2Z7+EnBpfREsYQuRWev5SWB8jlRO7kUN8WVd0DDjo6qg1zT3+fg1VMhdx4No
- VZEt6D6um4KpEcVdeZxENlLk/qq85aBCbET3t0AOSkqWePa3SkOvL7mvhWWy0klIH70gJmoB7Hz
- 4nCIpjEojiPYwtXoEYTRzeP2ybiKdBYXvnBgJPq6kRzJfhlOw7w6GIhQ3gWGGdL0rtVEboN0L6o
- bsMts7dDlDMv4zOCQbwwFP4ZdbHUYWsTSgh/jk21PG4KAiDlrTzXEzluxa9YZLGm70EHLf+UAiH
- T4p7W4vr+WBhVC2OHjKVx/4sd5COgkvyX4H3rfYvwRDEBEMMDcE=
-X-Received: by 2002:a05:6a20:2589:b0:240:750:58f with SMTP id
- adf61e73a8af0-24330a38b92mr513545637.30.1755734674623; 
- Wed, 20 Aug 2025 17:04:34 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFlUnW8lxbe7CPRYj4ZEmunFvuRSStPlf00u91BAFQGx6Z5Mg65P2yj1AhS1x6n8d3UR7v6+g==
-X-Received: by 2002:a05:6a20:2589:b0:240:750:58f with SMTP id
- adf61e73a8af0-24330a38b92mr513507637.30.1755734674129; 
- Wed, 20 Aug 2025 17:04:34 -0700 (PDT)
+ AJvYcCU8UbLHpX0R+StJexYjXG096YVKgSayQXDH/BYZEppFyguhssLePCJbaQLv8jAkUMAQKucreGS/kwU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwUrl3GQQjtZZJwa1La8WVmPGsgr4Nq7S3hJUw+kxirTs5J/FdF
+ cNAUqzAD0Kc/xAss1nuzWAy3U6Rzqx0mv/g8yTA1SDkrH5vZ6WX4KbEQ+M406unz4RMeZsqNy2Y
+ TW1ktHPy/ORvlvuO7iaPJ9X21kXFdsYDfZ7vkuvV6qZPuRg0ILKrHTRQoeWH1SFxuMXmJj8k=
+X-Gm-Gg: ASbGncsjWgWa/xf0gXpAFIwcPLPvIIqsB9+z24XLI8nABrgXwfd4CRlDTlGus3faqRd
+ ZO6w/+U5Y5cpIS7TQk5ypWzfhfZTqzDmvERpYTnm8cM58RwuOdv4IO7NHMJ9pe4pHXbYHAI/J0/
+ XrWdPZOkDMTX5Okb1/vQSJgyT2LQSrKrW9GNvqW0LMDGJMPsVLtrDvrmRjTOQrlzMxU0Wyi032y
+ V3ElMMZcy8IcxQbbIPCCT7fWhrqQZzjORRQMYY/184EvkgiWvn09X4yPBZE/q/x4yWI/bK1z29h
+ iuokUBfXdqxyc7PLLTdiENXFOfEnrhPHreR74bpdKzRY+DMLUvQ=
+X-Received: by 2002:a17:90a:c890:b0:321:c8e1:82e with SMTP id
+ 98e67ed59e1d1-324ed1bfb25mr758856a91.26.1755734676230; 
+ Wed, 20 Aug 2025 17:04:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IENGaAHhgimor5pJiOH4MjaweNyjNHnC1m6WbGg+qru+W8Qt7ZVMax/uq24M3YIwwpqMOR0CQ==
+X-Received: by 2002:a17:90a:c890:b0:321:c8e1:82e with SMTP id
+ 98e67ed59e1d1-324ed1bfb25mr758824a91.26.1755734675703; 
+ Wed, 20 Aug 2025 17:04:35 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76e8f20c7dbsm3229516b3a.68.2025.08.20.17.04.33
+ 41be03b00d2f7-b47640d3e3fsm3201333a12.56.2025.08.20.17.04.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Aug 2025 17:04:33 -0700 (PDT)
+ Wed, 20 Aug 2025 17:04:35 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -83,35 +83,36 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 1/3] drm/msm: Fix obj leak in VM_BIND error path
-Date: Wed, 20 Aug 2025 17:04:25 -0700
-Message-ID: <20250821000429.303628-2-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v2 2/3] drm/msm: Fix missing VM_BIND offset/range validation
+Date: Wed, 20 Aug 2025 17:04:26 -0700
+Message-ID: <20250821000429.303628-3-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250821000429.303628-1-robin.clark@oss.qualcomm.com>
 References: <20250821000429.303628-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=fpOFpF4f c=1 sm=1 tr=0 ts=68a66293 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=hfQrMx_BsErUUvjcJTYA:9
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-GUID: DDuIWOmAQ7wy7MmxR748zgcXi3XIVL9a
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIwMDAxMyBTYWx0ZWRfXzumfnoAB8i+j
- AEzfPLPNHiNoj4yEuvMBvYUoJfmlWoPMLx5OcDHumFqg5Igc9z4MG5zSvG4LoLVD5UrVV3bM1P6
- IqA6dWg4kt11YWoFI/o4KFBbmZT0o+6eqAk5N4tuBS0jUkX+yQBjyAX1vxSeSNNCA6/hW35uDM3
- vUSpZywswAk3jzxd2ApFIZhNDUhKeY6DEj75LsrcV9pbITCMPp/p+a8ldTk+B6z5UNv+T6S0N61
- MJca+vwpbBH+fq4ITgDC+OXM3C11zDU2Z06SVo3Anx5XN/ML2A+SuOg3L1OiHPLaOUMFGZr37TE
- nueDK1/0vbHsx3bguQk915nlRFyiZ//b1su4KkURWDZkvrrHbTxf6xQpijyPmB4FHcjxmXVmDlz
- 38NZFKz4UySkWWxuh//Ge8GE7QRerw==
-X-Proofpoint-ORIG-GUID: DDuIWOmAQ7wy7MmxR748zgcXi3XIVL9a
+X-Authority-Analysis: v=2.4 cv=Aui3HO9P c=1 sm=1 tr=0 ts=68a66295 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=xd9qGtD1qYZMgD9OdIwA:9
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: S0Cw7R4XHVzOg03hcbW-zIOCK8e5G8Bz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIwMDAxMyBTYWx0ZWRfXzh7EeiwCmeUM
+ LyhtHWChvTQrXRRYMkNiKZxes9Hp49m8VvfknSZpNhbfEKlySXYOrsWkaXFaQVaj1UjHSUP6p3r
+ aFFPBxXBI3oZ0RS25m4YhL2GPyqKxglSI2kj7nTifjxdwk1TSWg77YrbEUA1Fs3QlSzSc7EysaO
+ KCZJ7sKdFd7HKEnB18wImtF/YDZEakGYSN/euUTKDS+A3hl7POWjSge9gwIzYfvIz5kkamj8RZu
+ iidLId29PxVFevBNR110Elsd1NKwOaFXSWijM8A1PbxUykw1l3TWsnpX+qBlv+0L03myXDZn264
+ 0aJFNeLACqqLt+O1N0V1c9ByNXYjUSIGaDWsjgMViB3UQujRSq9sfP0ZzshvDxMdHwZAvtM9zXQ
+ +m162xJKzJKaOy5c/w9YR+t3jaqq/g==
+X-Proofpoint-GUID: S0Cw7R4XHVzOg03hcbW-zIOCK8e5G8Bz
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-20_06,2025-08-20_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0
- suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2508110000 definitions=main-2508200013
+ impostorscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2508110000
+ definitions=main-2508200013
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,81 +128,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If we fail a handle-lookup part way thru, we need to drop the already
-obtained obj references.
+We need to reject the MAP op if offset+range is larger than the BO size.
 
+Reported-by: Connor Abbott <cwabbott0@gmail.com>
 Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 Tested-by: Connor Abbott <cwabbott0@gmail.com>
 ---
- drivers/gpu/drm/msm/msm_gem_vma.c | 25 +++++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/msm_gem_vma.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 00d0f3b7ba32..209154be5efc 100644
+index 209154be5efc..381a0853c05b 100644
 --- a/drivers/gpu/drm/msm/msm_gem_vma.c
 +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -1023,6 +1023,7 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *job, struct drm_msm_vm_bind *args
- 	struct drm_device *dev = job->vm->drm;
- 	int ret = 0;
- 	int cnt = 0;
-+	int i = -1;
+@@ -1080,6 +1080,12 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *job, struct drm_msm_vm_bind *args
  
- 	if (args->nr_ops == 1) {
- 		/* Single op case, the op is inlined: */
-@@ -1056,11 +1057,12 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *job, struct drm_msm_vm_bind *args
- 
- 	spin_lock(&file->table_lock);
- 
--	for (unsigned i = 0; i < args->nr_ops; i++) {
-+	for (i = 0; i < args->nr_ops; i++) {
-+		struct msm_vm_bind_op *op = &job->ops[i];
- 		struct drm_gem_object *obj;
- 
--		if (!job->ops[i].handle) {
--			job->ops[i].obj = NULL;
-+		if (!op->handle) {
-+			op->obj = NULL;
- 			continue;
- 		}
- 
-@@ -1068,15 +1070,15 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *job, struct drm_msm_vm_bind *args
- 		 * normally use drm_gem_object_lookup(), but for bulk lookup
- 		 * all under single table_lock just hit object_idr directly:
- 		 */
--		obj = idr_find(&file->object_idr, job->ops[i].handle);
-+		obj = idr_find(&file->object_idr, op->handle);
- 		if (!obj) {
--			ret = UERR(EINVAL, dev, "invalid handle %u at index %u\n", job->ops[i].handle, i);
-+			ret = UERR(EINVAL, dev, "invalid handle %u at index %u\n", op->handle, i);
- 			goto out_unlock;
- 		}
- 
- 		drm_gem_object_get(obj);
- 
--		job->ops[i].obj = obj;
-+		op->obj = obj;
+ 		op->obj = obj;
  		cnt++;
++
++		if ((op->range + op->obj_offset) > obj->size) {
++			ret = UERR(EINVAL, dev, "invalid range: %016llx + %016llx > %016zx\n",
++				   op->range, op->obj_offset, obj->size);
++			goto out_unlock;
++		}
  	}
  
-@@ -1085,6 +1087,17 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *job, struct drm_msm_vm_bind *args
- out_unlock:
- 	spin_unlock(&file->table_lock);
- 
-+	if (ret) {
-+		for (; i >= 0; i--) {
-+			struct msm_vm_bind_op *op = &job->ops[i];
-+
-+			if (!op->obj)
-+				continue;
-+
-+			drm_gem_object_put(op->obj);
-+			op->obj = NULL;
-+		}
-+	}
- out:
- 	return ret;
- }
+ 	*nr_bos = cnt;
 -- 
 2.50.1
 
