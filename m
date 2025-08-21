@@ -2,115 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1697B2F156
-	for <lists+freedreno@lfdr.de>; Thu, 21 Aug 2025 10:23:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDE68B2F8A1
+	for <lists+freedreno@lfdr.de>; Thu, 21 Aug 2025 14:48:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F7B110E8DB;
-	Thu, 21 Aug 2025 08:23:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDEEF10E97E;
+	Thu, 21 Aug 2025 12:47:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CYfqfqJh";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+9vMn/zl";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CYfqfqJh";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+9vMn/zl";
+	dkim=pass (2048-bit key; unprotected) header.d=foss.st.com header.i=@foss.st.com header.b="x54WHZWt";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2055010E91A
- for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 08:23:02 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1F1B92186F;
- Thu, 21 Aug 2025 08:22:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1755764547; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eU7TYaqJ6duBML6uqVqJigVOdQm0L8koItjVVhsfmDY=;
- b=CYfqfqJht5lUOE4zN33sX1KK1JeKs87F5FxRoURqIJ2T5ShyZwV3g4qBgEZ+KqP8nTsFZf
- nLT7rWhlvWkQDn7dQmdhdw/fdrlD1qNCwuZ8v/WulaOXUTCyiF16OT4nbbkwL8PZYvrsh9
- hROe7QacKTe/RBk0/FyjaSo8QRb/I00=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1755764547;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eU7TYaqJ6duBML6uqVqJigVOdQm0L8koItjVVhsfmDY=;
- b=+9vMn/zlV0/9G7plhgdmRfTkp3ACIUUvEf9Man6jSLLAQMGCg7LRLEpn6WXefo+gK4n8fz
- c7w74sX7QUxboSCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1755764547; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eU7TYaqJ6duBML6uqVqJigVOdQm0L8koItjVVhsfmDY=;
- b=CYfqfqJht5lUOE4zN33sX1KK1JeKs87F5FxRoURqIJ2T5ShyZwV3g4qBgEZ+KqP8nTsFZf
- nLT7rWhlvWkQDn7dQmdhdw/fdrlD1qNCwuZ8v/WulaOXUTCyiF16OT4nbbkwL8PZYvrsh9
- hROe7QacKTe/RBk0/FyjaSo8QRb/I00=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1755764547;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eU7TYaqJ6duBML6uqVqJigVOdQm0L8koItjVVhsfmDY=;
- b=+9vMn/zlV0/9G7plhgdmRfTkp3ACIUUvEf9Man6jSLLAQMGCg7LRLEpn6WXefo+gK4n8fz
- c7w74sX7QUxboSCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 90CBC139A8;
- Thu, 21 Aug 2025 08:22:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id AO8bIkLXpmhzEwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 21 Aug 2025 08:22:26 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, geert@linux-m68k.org,
- tomi.valkeinen@ideasonboard.com
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: [PATCH v6 25/25] drm/xlnx: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-Date: Thu, 21 Aug 2025 10:17:32 +0200
-Message-ID: <20250821081918.79786-26-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250821081918.79786-1-tzimmermann@suse.de>
-References: <20250821081918.79786-1-tzimmermann@suse.de>
+X-Greylist: delayed 2017 seconds by postgrey-1.36 at gabe;
+ Thu, 21 Aug 2025 10:13:24 UTC
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8758A10E8F3;
+ Thu, 21 Aug 2025 10:13:24 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57L8uf03028719;
+ Thu, 21 Aug 2025 11:39:25 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ kHxcorhp5czLlBBNNIvPxeZEYbfShmd+8rRbKqHVLQc=; b=x54WHZWtHoVtnKSh
+ GwXIq32qEehSt5QN4pnCvtl8/TiFHUGkCVxLDpTAaQktot64B36wulxk1ei+r5EB
+ q4oJU0m5ApNcrcGtHJTtGKf8JmVGtpf2P+Nqv7T7elfSWoaqyewnWBbT/y30hkyM
+ QztQ5odjdA0mMraCkgbl+w7JGJlgWV4xAyEG9fI/kLcwVxziU/qGhGPxTAw20d6i
+ hM/4vG1IQ1AxUrf3PLjbdmzhAQKlbABlritN7UG4B85uzMmfNcd9IrPQzWD/XlfS
+ /PHF7fjxPPYQDRwv1ACERxT7tPpV8bBLheQgLG2lpZ+jXslc/76fxC3S4Xlo4gTt
+ cUUJxA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48n81wnyun-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Aug 2025 11:39:25 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 50FE64002D;
+ Thu, 21 Aug 2025 11:36:50 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C3FF873DB4E;
+ Thu, 21 Aug 2025 11:35:26 +0200 (CEST)
+Received: from [10.48.87.178] (10.48.87.178) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 21 Aug
+ 2025 11:35:25 +0200
+Message-ID: <ea6b8999-4f5d-4cc2-b92b-b0776c2b1363@foss.st.com>
+Date: Thu, 21 Aug 2025 11:35:24 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/9] drm/stm/dw_mipi_dsi-stm: convert from round_rate()
+ to determine_rate()
+To: Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Shawn Guo
+ <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Raphael Gallais-Pou
+ <raphael.gallais-pou@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai
+ <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
+ <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>
+CC: <linux-clk@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>, <linux-sunxi@lists.linux.dev>
+References: <20250811-drm-clk-round-rate-v2-0-4a91ccf239cf@redhat.com>
+ <20250811-drm-clk-round-rate-v2-6-4a91ccf239cf@redhat.com>
+Content-Language: en-US
+From: Yannick FERTRE <yannick.fertre@foss.st.com>
+In-Reply-To: <20250811-drm-clk-round-rate-v2-6-4a91ccf239cf@redhat.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-1.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid];
- RCPT_COUNT_TWELVE(0.00)[22]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,kernel.org,linux.intel.com,linux-m68k.org,ideasonboard.com];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6),to(RLbwen1niosrcqbxsafh1)];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Flag: NO
-X-Spam-Score: -1.30
+X-Originating-IP: [10.48.87.178]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-21_02,2025-08-20_03,2025-03-28_01
+X-Mailman-Approved-At: Thu, 21 Aug 2025 12:47:57 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,45 +101,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
-buffer size. Align the pitch according to hardware requirements.
+Hi Brian,
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- drivers/gpu/drm/xlnx/zynqmp_kms.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+thanks for the patch.
 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-index 2bee0a2275ed..02f3a7d78cf8 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-@@ -19,6 +19,7 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
-+#include <drm/drm_dumb_buffers.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_fbdev_dma.h>
- #include <drm/drm_fourcc.h>
-@@ -363,10 +364,12 @@ static int zynqmp_dpsub_dumb_create(struct drm_file *file_priv,
- 				    struct drm_mode_create_dumb *args)
- {
- 	struct zynqmp_dpsub *dpsub = to_zynqmp_dpsub(drm);
--	unsigned int pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
-+	int ret;
- 
- 	/* Enforce the alignment constraints of the DMA engine. */
--	args->pitch = ALIGN(pitch, dpsub->dma_align);
-+	ret = drm_mode_size_dumb(drm, args, dpsub->dma_align, 0);
-+	if (ret)
-+		return ret;
- 
- 	return drm_gem_dma_dumb_create_internal(file_priv, drm, args);
- }
--- 
-2.50.1
+Acked-by: Yannick Fertre <yannick.fertre@foss.st.com>
 
+Le 11/08/2025 à 12:56, Brian Masney a écrit :
+> The round_rate() clk ops is deprecated, so migrate this driver from
+> round_rate() to determine_rate() using the Coccinelle semantic patch
+> on the cover letter of this series.
+>
+> Acked-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Signed-off-by: Brian Masney <bmasney@redhat.com>
+> ---
+>   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 14 ++++++++------
+>   1 file changed, 8 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+> index 2c7bc064bc66c6a58903a207cbe8091a14231c2b..58eae6804cc82d174323744206be7046568b905c 100644
+> --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+> +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+> @@ -274,8 +274,8 @@ static unsigned long dw_mipi_dsi_clk_recalc_rate(struct clk_hw *hw,
+>   	return (unsigned long)pll_out_khz * 1000;
+>   }
+>   
+> -static long dw_mipi_dsi_clk_round_rate(struct clk_hw *hw, unsigned long rate,
+> -				       unsigned long *parent_rate)
+> +static int dw_mipi_dsi_clk_determine_rate(struct clk_hw *hw,
+> +					  struct clk_rate_request *req)
+>   {
+>   	struct dw_mipi_dsi_stm *dsi = clk_to_dw_mipi_dsi_stm(hw);
+>   	unsigned int idf, ndiv, odf, pll_in_khz, pll_out_khz;
+> @@ -283,14 +283,14 @@ static long dw_mipi_dsi_clk_round_rate(struct clk_hw *hw, unsigned long rate,
+>   
+>   	DRM_DEBUG_DRIVER("\n");
+>   
+> -	pll_in_khz = (unsigned int)(*parent_rate / 1000);
+> +	pll_in_khz = (unsigned int)(req->best_parent_rate / 1000);
+>   
+>   	/* Compute best pll parameters */
+>   	idf = 0;
+>   	ndiv = 0;
+>   	odf = 0;
+>   
+> -	ret = dsi_pll_get_params(dsi, pll_in_khz, rate / 1000,
+> +	ret = dsi_pll_get_params(dsi, pll_in_khz, req->rate / 1000,
+>   				 &idf, &ndiv, &odf);
+>   	if (ret)
+>   		DRM_WARN("Warning dsi_pll_get_params(): bad params\n");
+> @@ -298,7 +298,9 @@ static long dw_mipi_dsi_clk_round_rate(struct clk_hw *hw, unsigned long rate,
+>   	/* Get the adjusted pll out value */
+>   	pll_out_khz = dsi_pll_get_clkout_khz(pll_in_khz, idf, ndiv, odf);
+>   
+> -	return pll_out_khz * 1000;
+> +	req->rate = pll_out_khz * 1000;
+> +
+> +	return 0;
+>   }
+>   
+>   static int dw_mipi_dsi_clk_set_rate(struct clk_hw *hw, unsigned long rate,
+> @@ -351,7 +353,7 @@ static const struct clk_ops dw_mipi_dsi_stm_clk_ops = {
+>   	.disable = dw_mipi_dsi_clk_disable,
+>   	.is_enabled = dw_mipi_dsi_clk_is_enabled,
+>   	.recalc_rate = dw_mipi_dsi_clk_recalc_rate,
+> -	.round_rate = dw_mipi_dsi_clk_round_rate,
+> +	.determine_rate = dw_mipi_dsi_clk_determine_rate,
+>   	.set_rate = dw_mipi_dsi_clk_set_rate,
+>   };
+>   
+>
