@@ -2,88 +2,129 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1AFEB2F8A0
-	for <lists+freedreno@lfdr.de>; Thu, 21 Aug 2025 14:48:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78466B2F54D
+	for <lists+freedreno@lfdr.de>; Thu, 21 Aug 2025 12:28:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31A9F10E97C;
-	Thu, 21 Aug 2025 12:47:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5245910E929;
+	Thu, 21 Aug 2025 10:28:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=foss.st.com header.i=@foss.st.com header.b="n5hHxiHw";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CivwUtCh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6543510E8F4;
- Thu, 21 Aug 2025 09:40:15 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57L73mkn017291;
- Thu, 21 Aug 2025 11:39:56 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- WlqqfI0U0npfmgU+tmlUwSHbK4ZelsnQ4LVffls/8aw=; b=n5hHxiHwTKdbVyRl
- vHBWgMduDM+tlhtZeSXTi/mGPgVEsu/HOgOcBgDrwFVAPAVlc6/35j9oQpPweKad
- b2qSUj3MTwx77kAkK3nbKgC77W4lGqLmIjx7LNzvM/UjDvLLrDJrMHOuAU6CtxCr
- xjP3lYfEXbJUS0nBw/4kiq15Gi9Rf9+B5RecphEiZFJCv1mCLprGvM8uV+5MUVZT
- fO1CxdWtOi6kMZTY82cKed2gYCB3d7Ds4+8ggAbvIlE4ywU/hhm9sKiDDh5r8zpz
- /8z7stmnBupg7HBOfEsgTrji6B2v+Hp+gya+hzkvCOsMcbEyZJRxy1z+LDv1JwVz
- vEpSJg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48n70de72d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Aug 2025 11:39:56 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3446F40046;
- Thu, 21 Aug 2025 11:37:35 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F3EAD73DB5A;
- Thu, 21 Aug 2025 11:36:15 +0200 (CEST)
-Received: from [10.48.87.178] (10.48.87.178) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 21 Aug
- 2025 11:36:14 +0200
-Message-ID: <86adb9ce-68de-494f-92e8-6e11773987fe@foss.st.com>
-Date: Thu, 21 Aug 2025 11:36:13 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A17810E92B
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 10:28:25 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57L9b8kP015224
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 10:28:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Bo/sYYeMVH8ubDzUgHDxT88A
+ ZENWIvmqdh74NivXn0w=; b=CivwUtChF8i1DNVsez1ALO1+qJB3ve2S7jUeT5r0
+ LmxxdTJx0OVqCVRcTyLKGsbXHvHx6R9XKyQSmuQ28t5VE+9cvH9k5FaBInfMjnX0
+ JjIqEP5+hxHNuYO66Vh+J3/M7t2XWQVpobj7hYSEoPV5z8PS7/352vy5bEOJckEr
+ j0Z41snS1EXDZREWJ4+PF5WR73VUhgppFNzy7yR90sS6M+wancgB6Z5trIm9FjT/
+ FjYX0qLcKjBMgVO2gVZStG8Ub/DbnXz4MhGXYFm7nOLgnVGPqaUKqIqE2zV/Zqlz
+ fMtLIqeVo/HOMKQlH/lIya/tBWp37D+snFXNoibYywITOw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48n52951ak-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 10:28:24 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-70a88dbf013so19649936d6.0
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 03:28:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755772103; x=1756376903;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Bo/sYYeMVH8ubDzUgHDxT88AZENWIvmqdh74NivXn0w=;
+ b=coSb9W0Qt3Chbfa5lcwqGsrnn32vzvDrG5UKp/e0Hw/mLus6q6RLG2S+Yjw0zlJNbj
+ tYp0mnGRoiigf+yK1nUxHGkl4F3SEKPGm7og7TcqGcU3L7BZD/cIn5Sa+ltGIN1CZiaX
+ m3OaINcqszB9/Mg5Nwq4G+BRrv37hFW4IBjE91N2zBLL/0BJVQTmKI1a7DBYhCUxBzEC
+ qwsQ/uJGabMcvI0ETlqiGAvw66roLl4QGY6RR9hdkhSwNDMDzLdtZ9+Sx7CAMqhB+UzX
+ yyDyY5SaDZ5lH6YIN2xAC65lDANhtySnlwEakSz0Nlt5Bki7CUYLGd2ZDmDOwkGClXAf
+ oKUA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUMDLzFd8k74N1L/VRTNlAUoNNOUNJFnX3cZ5EFW66j9wkSW6Tq2TouHsn8folm7sRXAN5eUbd8ed8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyoc0nhboSQxmxje7U4xV97uybXjmXGp8K2HHwFfCZudHwhN/O4
+ RTqWPxIVTOJleERobvZZXVDw6osLo96XcZtQ2Do/nQehHfv47hKQ8Sils481EogRZxTWI5qh+60
+ UucVHl1DOy8J+K9gMMsJcXjynaUiTVAw4gb+RLz8VA/YGO4/m87tE/IN4MO2M/O5JtKUEwPc=
+X-Gm-Gg: ASbGnculmFWeR8zDUqotv6zwcFgdxqz7siKgg3H3hd5ZgkRMGPGgmk8EWWkPDvaTwO4
+ 9egISELMn8k4CyBE5e15HzhGoYnrn1vss47LBxy9RwP2+FWj+X7zNlYk/v0lL0IbiC9AbVdp8aB
+ nxF6x2IU9Ctp1intxb45UvHd06GNhQRrJtG/c70Zs/rSpzUZKB7x/xjj8TZmCdQ7D1RNkf/vNHp
+ 8dggr2+OUgCj/tlC9rAgM/O1ZyMgqsIoi705Dti4+cfUvebAeE61zzzmf04sFKG1oCh9jVvBRv1
+ QLhRFx4Ss8xhgpvz3MLiFDD10WbC4lcr2tm6k9v6OXAKA27SgkM++21CjwQ+i92QMDRyUNJEK1L
+ rAjxkSWCE9HDP+DnH7snwKEVBhYDHmdBJKNBC3UKdmbczg2yDQ0w4
+X-Received: by 2002:a05:6214:21c2:b0:709:31f8:fd96 with SMTP id
+ 6a1803df08f44-70d88e96a7dmr16543806d6.20.1755772103358; 
+ Thu, 21 Aug 2025 03:28:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGwYF+lZ1f8liHpI39C8YmGl+9DTxpGYR/3aTWLPUKxMN0WxZXjU48KYaq6jDvJjEnbHvlfEw==
+X-Received: by 2002:a05:6214:21c2:b0:709:31f8:fd96 with SMTP id
+ 6a1803df08f44-70d88e96a7dmr16543666d6.20.1755772102918; 
+ Thu, 21 Aug 2025 03:28:22 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-55cef3cc9c7sm3038380e87.71.2025.08.21.03.28.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Aug 2025 03:28:22 -0700 (PDT)
+Date: Thu, 21 Aug 2025 13:28:18 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 2/6] dt-bindings: display/msm: dp-controller: document
+ QCS8300 compatible
+Message-ID: <3ws6xfmmrnjybn4umbbnzjdksqberzuxslz6uxpabtsz2yzyss@jwblshilyx4p>
+References: <20250821-qcs8300_mdss-v8-0-e9be853938f9@oss.qualcomm.com>
+ <20250821-qcs8300_mdss-v8-2-e9be853938f9@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/9] drm/stm/lvds: convert from round_rate() to
- determine_rate()
-To: Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, Jessica Zhang
- <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, Raphael Gallais-Pou
- <raphael.gallais-pou@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai
- <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
- <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>
-CC: <linux-clk@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <linux-sunxi@lists.linux.dev>
-References: <20250811-drm-clk-round-rate-v2-0-4a91ccf239cf@redhat.com>
- <20250811-drm-clk-round-rate-v2-7-4a91ccf239cf@redhat.com>
-Content-Language: en-US
-From: Yannick FERTRE <yannick.fertre@foss.st.com>
-In-Reply-To: <20250811-drm-clk-round-rate-v2-7-4a91ccf239cf@redhat.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.48.87.178]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250821-qcs8300_mdss-v8-2-e9be853938f9@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=Aui3HO9P c=1 sm=1 tr=0 ts=68a6f4c8 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=WnZbLXWYNgm-BG77tk8A:9 a=CjuIK1q_8ugA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-ORIG-GUID: OnbnAx3d0jUzFeZMAAv36PAy0hxs6u_O
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIwMDAxMyBTYWx0ZWRfX69KtYf3BAHh7
+ TMeupY8C+E3IkNkOVl9JYNraMNFiFFrx9OXCHER54aEMKb7K48uv8pitD6fFiQ3j3QwJsN3gKa6
+ DzDyatIgRVKgA8FBQoAXMGT9MqnlQX03GKfuZQSms6k6WATujDCqcORHCXbMY/RxZ1PJ3KONcxs
+ EJkZ4Ht6lahFEjlgYWqjHdAvoXnbOPwjkpNMosoGgI1O91s/RPDP9VguAW2gO6Yy3LiHx6jVXnY
+ dJ5XP1FoYEBOiLTCNcnrcscVOwk3HEGNk1xmxC+bARNeDEfMgMND8iNyMtg0K8kzxGEBLtbz9TP
+ IW5yq/DZt6Szf05rbgGDor7rnYeNFqziDlxjonNdCCnQBml7hdO83tzNP1BCG+FdhhdXzTBipoH
+ OhpfB4x3L8njWQvY/RPfMf/Ntg9avg==
+X-Proofpoint-GUID: OnbnAx3d0jUzFeZMAAv36PAy0hxs6u_O
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-21_02,2025-08-20_03,2025-03-28_01
-X-Mailman-Approved-At: Thu, 21 Aug 2025 12:47:57 +0000
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2508110000
+ definitions=main-2508200013
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,64 +140,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Brian,
+On Thu, Aug 21, 2025 at 11:35:57AM +0800, Yongxing Mou wrote:
+> Add compatible string for the DisplayPort controller found on the
+> Qualcomm QCS8300 SoC.
+> 
+> The Qualcomm QCS8300 platform comes with one DisplayPort controller
+> with same base offset as SM8650. It requires new compatible string
+> because QCS8300 controller supports 4 MST streams. And 4 MST streams
+> support will be enabled as part of MST feature support. Currently, using
+> SM8650 data structure to enable SST on QCS8300 in the driver.
 
-thanks for the patch.
+Bindings describe the hardware. There is no point in discussing the
+driver here.
 
-Acked-by: Yannick Fertre <yannick.fertre@foss.st.com>
-
-Le 11/08/2025 à 12:56, Brian Masney a écrit :
-> The round_rate() clk ops is deprecated, so migrate this driver from
-> round_rate() to determine_rate() using the Coccinelle semantic patch
-> on the cover letter of this series.
->
-> Acked-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> Signed-off-by: Brian Masney <bmasney@redhat.com>
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 > ---
->   drivers/gpu/drm/stm/lvds.c | 12 +++++++-----
->   1 file changed, 7 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/stm/lvds.c b/drivers/gpu/drm/stm/lvds.c
-> index 07788e8d3d8302a3951e97d64736b721033998d3..fe38c0984b2b552e1ccaef4d1e589b9d86a40ee3 100644
-> --- a/drivers/gpu/drm/stm/lvds.c
-> +++ b/drivers/gpu/drm/stm/lvds.c
-> @@ -682,8 +682,8 @@ static unsigned long lvds_pixel_clk_recalc_rate(struct clk_hw *hw,
->   	return (unsigned long)lvds->pixel_clock_rate;
->   }
->   
-> -static long lvds_pixel_clk_round_rate(struct clk_hw *hw, unsigned long rate,
-> -				      unsigned long *parent_rate)
-> +static int lvds_pixel_clk_determine_rate(struct clk_hw *hw,
-> +					 struct clk_rate_request *req)
->   {
->   	struct stm_lvds *lvds = container_of(hw, struct stm_lvds, lvds_ck_px);
->   	unsigned int pll_in_khz, bdiv = 0, mdiv = 0, ndiv = 0;
-> @@ -703,7 +703,7 @@ static long lvds_pixel_clk_round_rate(struct clk_hw *hw, unsigned long rate,
->   	mode = list_first_entry(&connector->modes,
->   				struct drm_display_mode, head);
->   
-> -	pll_in_khz = (unsigned int)(*parent_rate / 1000);
-> +	pll_in_khz = (unsigned int)(req->best_parent_rate / 1000);
->   
->   	if (lvds_is_dual_link(lvds->link_type))
->   		multiplier = 2;
-> @@ -719,14 +719,16 @@ static long lvds_pixel_clk_round_rate(struct clk_hw *hw, unsigned long rate,
->   	lvds->pixel_clock_rate = (unsigned long)pll_get_clkout_khz(pll_in_khz, bdiv, mdiv, ndiv)
->   					 * 1000 * multiplier / 7;
->   
-> -	return lvds->pixel_clock_rate;
-> +	req->rate = lvds->pixel_clock_rate;
-> +
-> +	return 0;
->   }
->   
->   static const struct clk_ops lvds_pixel_clk_ops = {
->   	.enable = lvds_pixel_clk_enable,
->   	.disable = lvds_pixel_clk_disable,
->   	.recalc_rate = lvds_pixel_clk_recalc_rate,
-> -	.round_rate = lvds_pixel_clk_round_rate,
-> +	.determine_rate = lvds_pixel_clk_determine_rate,
->   };
->   
->   static const struct clk_init_data clk_data = {
->
+>  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 68a6fd27506fda004e53174db5bcc88a29e8d2a6..ac44abfdd2853393ae199387c9ae2c37e1c48f52 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -18,6 +18,7 @@ properties:
+>    compatible:
+>      oneOf:
+>        - enum:
+> +          - qcom,qcs8300-dp
+>            - qcom,sa8775p-dp
+>            - qcom,sc7180-dp
+>            - qcom,sc7280-dp
+> @@ -179,6 +180,7 @@ allOf:
+>            compatible:
+>              contains:
+>                enum:
+> +                - qcom,qcs8300-dp
+>                  - qcom,sa8775p-dp
+>                  - qcom,x1e80100-dp
+>        then:
+> @@ -217,8 +219,9 @@ allOf:
+>            compatible:
+>              contains:
+>                enum:
+> -                # some of SA8775P DP controllers support 4 streams MST,
+> +                # SA8775P DP0 and QCS8300 DP controllers support 4 streams MST,
+>                  # others just 2 streams MST
+
+QCS8300 has only one DP. As such, it doesn't belong to this clause.
+
+> +                - qcom,qcs8300-dp
+>                  - qcom,sa8775p-dp
+>        then:
+>          properties:
+> 
+> -- 
+> 2.34.1
+> 
+
+-- 
+With best wishes
+Dmitry
