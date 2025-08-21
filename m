@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E0A5B2E929
-	for <lists+freedreno@lfdr.de>; Thu, 21 Aug 2025 02:04:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11279B2E92B
+	for <lists+freedreno@lfdr.de>; Thu, 21 Aug 2025 02:04:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA1C710E835;
-	Thu, 21 Aug 2025 00:04:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAB9110E826;
+	Thu, 21 Aug 2025 00:04:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oGm/QCW+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dnNH4hbQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57F9A10E839
- for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:38 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57KGmjFU005491
- for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:37 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F03D10E829
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:39 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57KIpedD019721
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=7GonE0I4O86
- IMbS9YwA1nRfKE7NxszsWoTIBBuaYOXQ=; b=oGm/QCW+yDsDLwFUlm0BTzAsCYm
- Q3CdZT4IjuaTN2G6iLwc6GW7VGglHZmkUZukV92bpXX4V5kbGIC76Cu9ZyHPWlmH
- DuGjCb+i//M4OxZdUvRD1pL5ypAUeD8M5AjOxq99w7eCKNNsIOsiEVghoMtWOkRO
- UsWIDXmuauwZPcQlh/xrHB6izFBDSdwBu+lAk/C9SkLgvc9/WtnBb7VDLGHORcjI
- XEHLWzbMzTZKuh6Fd8kuddbByOwqHQJVpnobWTOqftGoy1X1qwk9FfbwSZKoinQ4
- O6rEKr672qi1+tVLsEDEZ3NCRbVZMiSvz3A307bdxB0VdjWoB36PWgWuBxQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48n5293bub-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=Qp/A80ntMQW
+ zKIpfCuvJC05mBAON98quijLhbVW9wZM=; b=dnNH4hbQwF1dp70I1AK4GDd7LPD
+ QA6H48WypGfAO9OmxYlws9xAzKsvDrZsDs8jJkSat/QdWkh/nLRYnarZ8SgaJohJ
+ eIrOwL5ntNZphB8gylta/McpcLVfYzkF/gvlgEnbB3R2r6pjLkWRAN+WmvmyTP5F
+ 0yUGEqhSxD6QuzpVmDwJEn7hAqRYnYmURnKKVDpibhlJ2kqwjvvpPy1Pj0WWJ2+E
+ UPWMXKfyE090ZF09g9H3VAvUOUjN7TrpFAVQYvh03l6H2x+bUpwHoQiApghNZtxJ
+ A+oXiSWFzPJ8NoJau9GorVIqtxtgN+9KFqBzUA6g/LeBN4GHrFgMcbRkbBA==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48n5293e8a-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:37 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-323266d8396so461375a91.0
- for <freedreno@lists.freedesktop.org>; Wed, 20 Aug 2025 17:04:37 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Aug 2025 00:04:38 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-b47538030bfso306174a12.1
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Aug 2025 17:04:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755734676; x=1756339476;
+ d=1e100.net; s=20230601; t=1755734678; x=1756339478;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7GonE0I4O86IMbS9YwA1nRfKE7NxszsWoTIBBuaYOXQ=;
- b=hkN1nNmo/klheU2tHzFlAN7nnLxB0F7WATVyXg6uk7ETe515fMmT0JsjlfX5pyUtC0
- aO8hb6892vxb5uvFmnvVlZBlfsz3U6EYm5WGk0nCkZvWg03EoCEEiv25/3hlC1pLMi0G
- gS7N6vk9ujFqYU/82fQ9/PkgsJO84rK/6qRDdLAK6B2p+I/hOmhZ74I7KUU1yMlx8fzz
- XaCRIM3+R5DcsR6xlR9PrMuF+IZpwbYZGo6iqP2deIxmSz8JrdTCkIR5J57KhzKQ8878
- 6eMI7K17H5DKQY8UAqMI0lvRCjxY+8BRmOPj3VUVfPwU0/zCLYkmyPMul1r5tHNafUFe
- ortw==
+ bh=Qp/A80ntMQWzKIpfCuvJC05mBAON98quijLhbVW9wZM=;
+ b=iqz51BRfUf5kxPSpO4TNwj/dVc1wppJ+iRft9RSUHo5tXNDuAv+hOxwO1G5M4jVWRL
+ GnNbN1FTX4B+L3DCOmC/FX9FWOGvehRG5AK7xjJi3oA6EUqvsZ1Lw+Dy9wJ8QQgRYMd1
+ xfnQ5Y60y63J1449GdIRLAJkkNlO9gCWQ6rlNFap1U1kRYihvha+g0PEnY7fl19+e9TB
+ O9FeMnLdwTgWKn/6D2GMQNFmTwyhfcS10lcu7KEef3WjCwTSzf4ohgyfdGVHsGJ8fdTO
+ DxfgxXXC7PAh/XyeGxxzhbNMNPvAbmvQ9QEcbQn6R/o89zEYQ0cOh+fOXsUTOUhKJCUB
+ bChQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU8UbLHpX0R+StJexYjXG096YVKgSayQXDH/BYZEppFyguhssLePCJbaQLv8jAkUMAQKucreGS/kwU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwUrl3GQQjtZZJwa1La8WVmPGsgr4Nq7S3hJUw+kxirTs5J/FdF
- cNAUqzAD0Kc/xAss1nuzWAy3U6Rzqx0mv/g8yTA1SDkrH5vZ6WX4KbEQ+M406unz4RMeZsqNy2Y
- TW1ktHPy/ORvlvuO7iaPJ9X21kXFdsYDfZ7vkuvV6qZPuRg0ILKrHTRQoeWH1SFxuMXmJj8k=
-X-Gm-Gg: ASbGncsjWgWa/xf0gXpAFIwcPLPvIIqsB9+z24XLI8nABrgXwfd4CRlDTlGus3faqRd
- ZO6w/+U5Y5cpIS7TQk5ypWzfhfZTqzDmvERpYTnm8cM58RwuOdv4IO7NHMJ9pe4pHXbYHAI/J0/
- XrWdPZOkDMTX5Okb1/vQSJgyT2LQSrKrW9GNvqW0LMDGJMPsVLtrDvrmRjTOQrlzMxU0Wyi032y
- V3ElMMZcy8IcxQbbIPCCT7fWhrqQZzjORRQMYY/184EvkgiWvn09X4yPBZE/q/x4yWI/bK1z29h
- iuokUBfXdqxyc7PLLTdiENXFOfEnrhPHreR74bpdKzRY+DMLUvQ=
-X-Received: by 2002:a17:90a:c890:b0:321:c8e1:82e with SMTP id
- 98e67ed59e1d1-324ed1bfb25mr758856a91.26.1755734676230; 
- Wed, 20 Aug 2025 17:04:36 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IENGaAHhgimor5pJiOH4MjaweNyjNHnC1m6WbGg+qru+W8Qt7ZVMax/uq24M3YIwwpqMOR0CQ==
-X-Received: by 2002:a17:90a:c890:b0:321:c8e1:82e with SMTP id
- 98e67ed59e1d1-324ed1bfb25mr758824a91.26.1755734675703; 
- Wed, 20 Aug 2025 17:04:35 -0700 (PDT)
+ AJvYcCXHgufLZ4iWjmkk3moh/HDidnUUc6Mz9qU4Ad7TsQvP3E726mMsa91N3ILdmDDj2QGZZ7B2rHK9zYs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEpyfrsSRtd+jVegohThbBbYuTrVstTgNou/40Dcq6plxCRIni
+ 3IcKOA4lcrNGf5k22i8ttOEFjjtpHAW8Ly/I7YJ5XHPkVCJdbHUnkncMSKWhwLR8lkpf6dJGwp6
+ 8HndgXD6etkFCb7aPKskVrkqZCDkpCmjJlmhWmX11LWx7NWRJiDC/cs3YCZGkXXA5G3qD1l4=
+X-Gm-Gg: ASbGncvVUpo1UQ1fbyEqdVys40WfxBDmqCwwLT9Mi/UobLNioyiqMEzMyD62sukaXOp
+ G8Wghbubh84kc5MhKTTS0yr/5ORdveRhxGH0ePAgIfEoONHkn2AnffEDVu74nUPjzuG9wySKBog
+ yO6YHOB5mNbeenQGLshQTx3XvtBD5AaY2B2z+k8dYYb/Hm7eBihvSQc527HNDQIAOxpXM14X6bW
+ 9/4H6tOVpIFnWju7tycRkmvlm2jZvHJPuZcE9t/L2ol8Ai9FzyIK+xuEptNkoofAuSsq9zklmD0
+ rWktAXARk215q1EioaKPTWOPNGaakuOvgbGrKoGXfCB1uUoVqkI=
+X-Received: by 2002:a17:902:ce11:b0:240:9f9:46a0 with SMTP id
+ d9443c01a7336-245fedb7bcfmr7679305ad.38.1755734677477; 
+ Wed, 20 Aug 2025 17:04:37 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEP5tsfZ6UJAKOwZ9VJcJCpxgsE7IAQWoLU/G9aFnHsuF58zIqAfzhOOeqY/ioG4KuVujNrLA==
+X-Received: by 2002:a17:902:ce11:b0:240:9f9:46a0 with SMTP id
+ d9443c01a7336-245fedb7bcfmr7678895ad.38.1755734677061; 
+ Wed, 20 Aug 2025 17:04:37 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b47640d3e3fsm3201333a12.56.2025.08.20.17.04.35
+ d9443c01a7336-2460273cba9sm2170355ad.63.2025.08.20.17.04.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Aug 2025 17:04:35 -0700 (PDT)
+ Wed, 20 Aug 2025 17:04:36 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -83,36 +83,35 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 2/3] drm/msm: Fix missing VM_BIND offset/range validation
-Date: Wed, 20 Aug 2025 17:04:26 -0700
-Message-ID: <20250821000429.303628-3-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v2 3/3] drm/msm: Fix 32b size truncation
+Date: Wed, 20 Aug 2025 17:04:27 -0700
+Message-ID: <20250821000429.303628-4-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250821000429.303628-1-robin.clark@oss.qualcomm.com>
 References: <20250821000429.303628-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Aui3HO9P c=1 sm=1 tr=0 ts=68a66295 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=xd9qGtD1qYZMgD9OdIwA:9
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: S0Cw7R4XHVzOg03hcbW-zIOCK8e5G8Bz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIwMDAxMyBTYWx0ZWRfXzh7EeiwCmeUM
- LyhtHWChvTQrXRRYMkNiKZxes9Hp49m8VvfknSZpNhbfEKlySXYOrsWkaXFaQVaj1UjHSUP6p3r
- aFFPBxXBI3oZ0RS25m4YhL2GPyqKxglSI2kj7nTifjxdwk1TSWg77YrbEUA1Fs3QlSzSc7EysaO
- KCZJ7sKdFd7HKEnB18wImtF/YDZEakGYSN/euUTKDS+A3hl7POWjSge9gwIzYfvIz5kkamj8RZu
- iidLId29PxVFevBNR110Elsd1NKwOaFXSWijM8A1PbxUykw1l3TWsnpX+qBlv+0L03myXDZn264
- 0aJFNeLACqqLt+O1N0V1c9ByNXYjUSIGaDWsjgMViB3UQujRSq9sfP0ZzshvDxMdHwZAvtM9zXQ
- +m162xJKzJKaOy5c/w9YR+t3jaqq/g==
-X-Proofpoint-GUID: S0Cw7R4XHVzOg03hcbW-zIOCK8e5G8Bz
+X-Proofpoint-GUID: qQmlK58Ud52Ow153WA72D0uR5A0FRHen
+X-Proofpoint-ORIG-GUID: qQmlK58Ud52Ow153WA72D0uR5A0FRHen
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIwMDAxMyBTYWx0ZWRfX5cb5frpnKGkh
+ UW173kGyfsOH9VHWJHqFYWLtO5GrTpBpqS4zoD32icWU1Oo4pizQG0W1G9yZp1tpUlB6JjF0n++
+ iQOUkwHmnyeWQFYCLzVX+ZFo0jdXNMGI8H+lhY8I07lQjVAhsakwTpOdgfSb8nCqsVJcUg0mBBv
+ 8w4UoHO/Of7A/7wfs9/Nv0iJypO1EL4P9SXd4Nbfd4Y1M1b9ewm5pW763cLiL5LwpUu9smOwq/k
+ mkAh6B/bp3IMgc220XfVgrzuOTkP6dBO09RoQkS0LStD+mJydCzu8uGlMW2cT+4zKXvPJQO/g4B
+ q3N09GO5yH05jUtnBIFcdOZF46/5hr9W2Z2eNduuYR+90Oxi68vxHwEsn+SGHJK/OmZLBgB9BNo
+ 7StIdiEbqpKXIflNQBnsmhG4ENdC1g==
+X-Authority-Analysis: v=2.4 cv=SPkblOvH c=1 sm=1 tr=0 ts=68a66296 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=xqWC_Br6kY4A:10 a=2OwXVqhp2XgA:10
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=ZgH9EFzBAD-oDO0bpbcA:9
+ a=x9snwWr2DeNwDh03kgHS:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-20_06,2025-08-20_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2508110000
- definitions=main-2508200013
+ suspectscore=0 priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2508110000 definitions=main-2508200013
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,33 +127,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We need to reject the MAP op if offset+range is larger than the BO size.
+Somehow we never noticed this when arm64 became a thing, many years ago.
 
-Reported-by: Connor Abbott <cwabbott0@gmail.com>
-Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
+v2: also fix npages
+
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 Tested-by: Connor Abbott <cwabbott0@gmail.com>
 ---
- drivers/gpu/drm/msm/msm_gem_vma.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/msm/msm_gem.c       | 21 ++++++++++-----------
+ drivers/gpu/drm/msm/msm_gem.h       |  6 +++---
+ drivers/gpu/drm/msm/msm_gem_prime.c |  2 +-
+ 3 files changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 209154be5efc..381a0853c05b 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -1080,6 +1080,12 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *job, struct drm_msm_vm_bind *args
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 958bac4e2768..aefc82184eec 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -189,7 +189,7 @@ static struct page **get_pages(struct drm_gem_object *obj)
+ 	if (!msm_obj->pages) {
+ 		struct drm_device *dev = obj->dev;
+ 		struct page **p;
+-		int npages = obj->size >> PAGE_SHIFT;
++		size_t npages = obj->size >> PAGE_SHIFT;
  
- 		op->obj = obj;
- 		cnt++;
-+
-+		if ((op->range + op->obj_offset) > obj->size) {
-+			ret = UERR(EINVAL, dev, "invalid range: %016llx + %016llx > %016zx\n",
-+				   op->range, op->obj_offset, obj->size);
-+			goto out_unlock;
-+		}
- 	}
+ 		p = drm_gem_get_pages(obj);
  
- 	*nr_bos = cnt;
+@@ -1142,7 +1142,7 @@ static int msm_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct
+ 
+ /* convenience method to construct a GEM buffer object, and userspace handle */
+ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+-		uint32_t size, uint32_t flags, uint32_t *handle,
++		size_t size, uint32_t flags, uint32_t *handle,
+ 		char *name)
+ {
+ 	struct drm_gem_object *obj;
+@@ -1208,9 +1208,8 @@ static const struct drm_gem_object_funcs msm_gem_object_funcs = {
+ 	.vm_ops = &vm_ops,
+ };
+ 
+-static int msm_gem_new_impl(struct drm_device *dev,
+-		uint32_t size, uint32_t flags,
+-		struct drm_gem_object **obj)
++static int msm_gem_new_impl(struct drm_device *dev, uint32_t flags,
++			    struct drm_gem_object **obj)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_gem_object *msm_obj;
+@@ -1244,7 +1243,7 @@ static int msm_gem_new_impl(struct drm_device *dev,
+ 	return 0;
+ }
+ 
+-struct drm_gem_object *msm_gem_new(struct drm_device *dev, uint32_t size, uint32_t flags)
++struct drm_gem_object *msm_gem_new(struct drm_device *dev, size_t size, uint32_t flags)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_gem_object *msm_obj;
+@@ -1259,7 +1258,7 @@ struct drm_gem_object *msm_gem_new(struct drm_device *dev, uint32_t size, uint32
+ 	if (size == 0)
+ 		return ERR_PTR(-EINVAL);
+ 
+-	ret = msm_gem_new_impl(dev, size, flags, &obj);
++	ret = msm_gem_new_impl(dev, flags, &obj);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+@@ -1299,12 +1298,12 @@ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_gem_object *msm_obj;
+ 	struct drm_gem_object *obj;
+-	uint32_t size;
+-	int ret, npages;
++	size_t size, npages;
++	int ret;
+ 
+ 	size = PAGE_ALIGN(dmabuf->size);
+ 
+-	ret = msm_gem_new_impl(dev, size, MSM_BO_WC, &obj);
++	ret = msm_gem_new_impl(dev, MSM_BO_WC, &obj);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+@@ -1347,7 +1346,7 @@ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
+ 	return ERR_PTR(ret);
+ }
+ 
+-void *msm_gem_kernel_new(struct drm_device *dev, uint32_t size, uint32_t flags,
++void *msm_gem_kernel_new(struct drm_device *dev, size_t size, uint32_t flags,
+ 			 struct drm_gpuvm *vm, struct drm_gem_object **bo,
+ 			 uint64_t *iova)
+ {
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 751c3b4965bc..a4cf31853c50 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -297,10 +297,10 @@ bool msm_gem_active(struct drm_gem_object *obj);
+ int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout);
+ int msm_gem_cpu_fini(struct drm_gem_object *obj);
+ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+-		uint32_t size, uint32_t flags, uint32_t *handle, char *name);
++		size_t size, uint32_t flags, uint32_t *handle, char *name);
+ struct drm_gem_object *msm_gem_new(struct drm_device *dev,
+-		uint32_t size, uint32_t flags);
+-void *msm_gem_kernel_new(struct drm_device *dev, uint32_t size, uint32_t flags,
++		size_t size, uint32_t flags);
++void *msm_gem_kernel_new(struct drm_device *dev, size_t size, uint32_t flags,
+ 			 struct drm_gpuvm *vm, struct drm_gem_object **bo,
+ 			 uint64_t *iova);
+ void msm_gem_kernel_put(struct drm_gem_object *bo, struct drm_gpuvm *vm);
+diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
+index c0a33ac839cb..036d34c674d9 100644
+--- a/drivers/gpu/drm/msm/msm_gem_prime.c
++++ b/drivers/gpu/drm/msm/msm_gem_prime.c
+@@ -15,7 +15,7 @@
+ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
+ {
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+-	int npages = obj->size >> PAGE_SHIFT;
++	size_t npages = obj->size >> PAGE_SHIFT;
+ 
+ 	if (msm_obj->flags & MSM_BO_NO_SHARE)
+ 		return ERR_PTR(-EINVAL);
 -- 
 2.50.1
 
