@@ -2,126 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A38BB31688
-	for <lists+freedreno@lfdr.de>; Fri, 22 Aug 2025 13:43:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3250B31B34
+	for <lists+freedreno@lfdr.de>; Fri, 22 Aug 2025 16:22:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1184410EAD1;
-	Fri, 22 Aug 2025 11:43:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 849A610EB0E;
+	Fri, 22 Aug 2025 14:22:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fYAOCsr5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qaMeOYRl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E332010EAD0
- for <freedreno@lists.freedesktop.org>; Fri, 22 Aug 2025 11:43:01 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57M8UduB025041
- for <freedreno@lists.freedesktop.org>; Fri, 22 Aug 2025 11:43:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=tgTz7yxNUzClQiIcX4b6JBav
- BqVRBHXbupABDNM7vtU=; b=fYAOCsr5tbBL4NRTCiHeGXfBgGz55sQtMnm3YUhI
- 6VNwk6Kg7J2PhtaNDLAKfDvNwfI06oq5aT0PUYIofROHRgGHr01aYp36g7QcqbjU
- rl3dor+cC1jJeVy7SlHnLWUXgb9h7LAv8lDQ+x9ZTNeJoejspD+IkcD/83VitQt6
- IY+TRTP+pyIpCi65/RgFS7YtzAuW8Erd5Z238eoNEQmpeo4dmYWNTDMqrr1JO7+x
- BpWRszdtr0wvAOpEjTrkZr7RU3u7qDRwmDtQ1mgXcMFrkI2maLc7xaLgAfHxczuI
- bXP/qrFETcSlezpbXK/orQisJmavKYIktjC+7POCI7U25Q==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48n52ah48s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 22 Aug 2025 11:43:01 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-70a9f562165so64307516d6.2
- for <freedreno@lists.freedesktop.org>; Fri, 22 Aug 2025 04:43:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755862980; x=1756467780;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tgTz7yxNUzClQiIcX4b6JBavBqVRBHXbupABDNM7vtU=;
- b=KnTGSlf8uoLduyWr83IkXR8qcA0web1JLfk+YF5v0af35zubiqCs6TWpuhsJ6Guq3H
- REuNAXFIBx40ufevbh1DMqGyU67XYQr6PyNrJ/sasJoka29Gf9PWW7QCj004823QA313
- uS94X2gfkupgx7JapiBrrX6da6Kl5seUo41iC89MdToaf3wpt02ItnmyGEYxwHuFj2OM
- dRDv2WnDjNCE4K5/qC4hgmZS+x0S2xptd3uZIHmRym6STqBgZAjfMLYiZNknbsul5a6e
- /7OUdBssVIjd3+Yl4KA50GUAWPT9PnQSpP+AbYOqVI6lWIGhWMmRsEvSQC5IhIaW3+Hc
- XfkQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVdp7we24OQqxATajpecRHZQ8J4jiFyr5CCUa9opaENszrQv8mlECfnsRFtY/8TqIG+s55wy5fFQuM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1Fsj3mjzVWYRolAXLv07BUGjAqd+N92Rh70CQWC1yTwP90L+j
- 4rnPXK3NGMcCwVCF1sgM2fNdsoOn8W3wTaIQn98cgezSW/MvqYqT23tTTQPmkVjgSlqVMpS20KT
- VCc8qeg8WuxJlrY2uu9d+x2DK7c3765ig8LqcTqlcKvv9awXv4sDUVLZy8td0ILNTZAjNIXo=
-X-Gm-Gg: ASbGncskkYUOWO2Cny32CWVk4e09SVFezKV+oQoKY1GV6E2hKA0hhyJxAAfcKaPb56t
- hSZ7Fi2ydlbvmCGdOheqODNZj2iUm60xaECS38HVIpOw3XYCRtd18Tea7jhRb0TY91zep2rlgVk
- sGpJS6YWeP6/JhxcimpG2lVL1rlI7uYz3WsxwpCKZo16RWOwufJG1Uuvr3I6y81EjBXmJqTkV91
- kIBeJ+DUDgiKESDgBnXdxcVLJOg0WZKUhxcAQPof0lKJAQIVtBGzjJ9MYbZBBxa6ITDVDZbrmqn
- F6z0+jWJXMIB/Iz14GktIITMWiFO4PmgEyCf+WXsaXn+SMMcd+5mbL//7aIlEdY0fsOZdni/9nH
- 4gC3Jjveen3pxiSgR0S61JDrU5/bol3xgmBPG/2mNL54wCxqeUwJD
-X-Received: by 2002:a05:6214:c8e:b0:70d:479a:ca6e with SMTP id
- 6a1803df08f44-70d970cdea2mr33545856d6.8.1755862979975; 
- Fri, 22 Aug 2025 04:42:59 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEdRz6hdH7m4nOBMkuiSMbEeU+mfLZWmnffBKcn1rd+5I9DQW3QC15nh5Lpj4VpWDwLhDkI8A==
-X-Received: by 2002:a05:6214:c8e:b0:70d:479a:ca6e with SMTP id
- 6a1803df08f44-70d970cdea2mr33545456d6.8.1755862979349; 
- Fri, 22 Aug 2025 04:42:59 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3340a44b538sm36210471fa.26.2025.08.22.04.42.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Aug 2025 04:42:58 -0700 (PDT)
-Date: Fri, 22 Aug 2025 14:42:56 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D269310EB0E;
+ Fri, 22 Aug 2025 14:22:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id B3368A586EF;
+ Fri, 22 Aug 2025 14:22:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39066C4CEED;
+ Fri, 22 Aug 2025 14:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1755872551;
+ bh=Jfs2aObCoc6/9U+QUowqTuZJPGKpl9EHfkAakKt01fA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=qaMeOYRlR4Wv/Qpfazr+fo0Yo7+OBcRJGW62A3b4/mgjwe9k/g3rOj6w0V6+obcSO
+ YwUvSrcRG9N16SjtpKOJ245+NA/KDnGZ8/Flkm2gy06fvsfE1pUYx55oo0EJdYouBR
+ 5OaUow07gdPvg7YjN9xh4t7cZoroh7XWXR8hVT+ordFWaXUhQjXXFIOk4C7vKd3Vrb
+ KeXDdrxgd6taY8hNG6Ro96WkMwQ115uk/0SmE5YCfZcy5oORlqyxpCFZNO4iU92Q0R
+ LOJM9aJrkloBRtFQ1N0+m+r5o3LwqtQBi0TkEcMn5/igGCqMpEgMrEfdEjzEgi2DVY
+ wfA3Lm/2ip+/Q==
+Date: Fri, 22 Aug 2025 09:22:30 -0500
+From: Rob Herring <robh@kernel.org>
+To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Connor Abbott <cwabbott0@gmail.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Gaurav Kohli <quic_gkohli@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 6/6] arm64: dts: qcom: qcs9100-ride: Enable Adreno 663
- GPU
-Message-ID: <g6fwzj7njcxomwoze5phbyt5xx24s4aeaxq7x64qe5esanabix@okocxeysh7xa>
-References: <20250822-a663-gpu-support-v4-0-97d26bb2144e@oss.qualcomm.com>
- <20250822-a663-gpu-support-v4-6-97d26bb2144e@oss.qualcomm.com>
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
+ tingwei.zhang@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ quic_lliu6@quicinc.com
+Subject: Re: [PATCH v3 02/14] dt-bindings: phy: Add QMP USB3+DP PHY for QCS615
+Message-ID: <20250822142230.GA3591699-robh@kernel.org>
+References: <20250820-add-displayport-support-for-qcs615-platform-v3-0-a43bd25ec39c@oss.qualcomm.com>
+ <20250820-add-displayport-support-for-qcs615-platform-v3-2-a43bd25ec39c@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250822-a663-gpu-support-v4-6-97d26bb2144e@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: cYr-4oNc9BZhAKpajlMXDxec9X4EdUyY
-X-Authority-Analysis: v=2.4 cv=B83gEOtM c=1 sm=1 tr=0 ts=68a857c5 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=lIFQIvOu6nGuaiKUdkgA:9 a=CjuIK1q_8ugA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: cYr-4oNc9BZhAKpajlMXDxec9X4EdUyY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIwMDAxMyBTYWx0ZWRfX0yGa1gkboakF
- 64fKDI6bNK+fF6FmDJxx10Kt19/YwkP/bxERKVptzUp6aeO6YzjNgj/hPoB03H8ZRmfggHsu7W5
- Ij+8IQBmtkJLTDTnjP8WQcPNOK//X/bdWvjZqYIvW62H6IrszJbbJB+s3ODrf1vVC1E9gt6X8jE
- u8d/+jzSX7Pe47n/rrEjSod0F9tryo40r3mIf1A2MHrn7Fwx5Gxhd29IT2os+nHfSnEKNYrC+dL
- ISwe04skF/Fu9oFIcGTfun8cCJOmf/lFRyp2mXfEw8zOpNG4iDeOR33XyrGGa5ilLGM4gov5mmv
- oROIlehcaeQH3k+ZxTex/hAdS+Hd1kWx/d+hK7Pt94ADF71RIiuYv0V1MofiOAhgNY1JkrooCgq
- bTtDIni1zmgfI6D/7l282cSFgMWBRQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-22_04,2025-08-20_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2508110000 definitions=main-2508200013
+In-Reply-To: <20250820-add-displayport-support-for-qcs615-platform-v3-2-a43bd25ec39c@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,19 +78,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Aug 22, 2025 at 12:25:31AM +0530, Akhil P Oommen wrote:
-> Enable GPU on both qcs9100-ride platforms and provide the path
-> for zap shader.
+On Wed, Aug 20, 2025 at 05:34:44PM +0800, Xiangxu Yin wrote:
+> Add device tree binding documentation for the Qualcomm QMP USB3+DP PHY
+> on QCS615 Platform. This PHY supports both USB3 and DP functionality
+> over USB-C, with PHY mode switching capability. It does not support
+> combo mode.
 > 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  .../bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml   | 108 +++++++++++++++++++++
+>  1 file changed, 108 insertions(+)
 > 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..c2b1fbab2930f0653f4ddb95f7b54d8fe994f92d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
+> @@ -0,0 +1,108 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/qcom,qcs615-qmp-usb3dp-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm QMP USB3-DP PHY controller (DP, QCS615)
+> +
+> +maintainers:
+> +  - Vinod Koul <vkoul@kernel.org>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+No, this should be someone who has the h/w.
 
+> +
+> +description:
+> +  The QMP PHY controller supports physical layer functionality for both
+> +  USB3 and DisplayPort over USB-C. While it enables mode switching
+> +  between USB3 and DisplayPort, but does not support combo mode.
 
--- 
-With best wishes
-Dmitry
+Wrap at 80 chars.
+
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,qcs615-qmp-usb3-dp-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    items:
+> +      - const: cfg_ahb
+> +      - const: ref
+> +
+> +  resets:
+> +    maxItems: 2
+> +
+> +  reset-names:
+> +    items:
+> +      - const: phy_phy
+
+phy_phy?
+
+> +      - const: dp_phy
+> +
+> +  vdda-phy-supply: true
+> +
+> +  vdda-pll-supply: true
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +    description:
+> +      See include/dt-bindings/phy/phy-qcom-qmp.h
+> +
+> +  "#phy-cells":
+> +    const: 1
+> +    description:
+> +      See include/dt-bindings/phy/phy-qcom-qmp.h
+> +
+> +  qcom,tcsr-reg:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    items:
+> +      - items:
+> +          - description: phandle to TCSR hardware block
+> +          - description: offset of the VLS CLAMP register
+> +      - items:
+> +          - description: phandle to TCSR hardware block
+> +          - description: offset of the DP PHY mode register
+> +    description: Clamp and PHY mode register present in the TCSR
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - vdda-phy-supply
+> +  - vdda-pll-supply
+> +  - "#clock-cells"
+> +  - "#phy-cells"
+> +  - qcom,tcsr-reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,qcs615-gcc.h>
+> +    #include <dt-bindings/clock/qcom,rpmh.h>
+> +
+> +    phy@88e8000 {
+> +      compatible = "qcom,qcs615-qmp-usb3-dp-phy";
+> +      reg = <0x88e8000 0x2000>;
+> +
+> +      clocks = <&gcc GCC_AHB2PHY_WEST_CLK>,
+> +               <&gcc GCC_USB3_SEC_CLKREF_CLK>;
+> +      clock-names = "cfg_ahb",
+> +                    "ref";
+> +
+> +      resets = <&gcc GCC_USB3PHY_PHY_SEC_BCR >,
+> +               <&gcc GCC_USB3_DP_PHY_SEC_BCR>;
+> +      reset-names = "phy_phy",
+> +                    "dp_phy";
+> +
+> +      vdda-phy-supply = <&vreg_l11a>;
+> +      vdda-pll-supply = <&vreg_l5a>;
+> +
+> +      #clock-cells = <1>;
+> +      #phy-cells = <1>;
+> +
+> +      qcom,tcsr-reg = <&tcsr 0xbff0>,
+> +                      <&tcsr 0xb24c>;
+> +    };
+> 
+> -- 
+> 2.34.1
+> 
