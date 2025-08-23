@@ -2,118 +2,136 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77FD1B32414
-	for <lists+freedreno@lfdr.de>; Fri, 22 Aug 2025 23:22:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75F8B32590
+	for <lists+freedreno@lfdr.de>; Sat, 23 Aug 2025 02:12:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52BED10EBC8;
-	Fri, 22 Aug 2025 21:22:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45BBA10EBE0;
+	Sat, 23 Aug 2025 00:12:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gQS8Om7v";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XvkAguRV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37DF710EBC9
- for <freedreno@lists.freedesktop.org>; Fri, 22 Aug 2025 21:22:34 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57MHaMih005538
- for <freedreno@lists.freedesktop.org>; Fri, 22 Aug 2025 21:22:33 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2207310EBD1
+ for <freedreno@lists.freedesktop.org>; Sat, 23 Aug 2025 00:12:07 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57MKEIKR016725
+ for <freedreno@lists.freedesktop.org>; Sat, 23 Aug 2025 00:12:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- y04A3Fq2j9qagFY6krypelE5uzKnSvrs/VFzYky1PFg=; b=gQS8Om7vQtOyKzYk
- Fy41yFewp/AE82OFifGiQr6Rq+Zmao8xQeRDTu6nesE1TXyWnBUwaTp8ztldk0Zq
- rImQ6OLSJ9wzj2YrELxsUuD52qRalGZXUN/xiREzUKWV6u8PjB25m3OyML1S5mxg
- Muh8slscn3lggCPC2f7csqm2x/+hSOM4ttZmGEwsFGaVAKTvZ9/90DoMQKI4hoUB
- vfM6GPetebR5W/zyhtoN6HuMrpTiTRBa/b4tz3fEIveYq5j4xs0BmxYnMUQDuxt7
- ycv/Ok91yS8m3KrNuXIRhOHVSsja0cnbvkGEIgg0rKMa45f1j3X1EsecX5fzb2Si
- 9gTNTg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48pw3drgda-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=LKH3UmwyCqZl4E/zd7SLx5
+ cyJ5JW0DFn9aa/Um4dYq4=; b=XvkAguRVqkCgLToup5Ft4AYtG1pSR2nQsaPp9J
+ 24p6CUG2X8tVecbxiNnnba3XmgJLI5/nhj39UriZIo6f728hmSywHqcKnFPc+u2+
+ rY674Ta6yoewXff4d2UhYXwc2kT1lxeT+1YZ5ttAnzqQ/GnBVAk4ST858c11S/G0
+ UURk0q2sNTsL+bDWs+sIVPXQiucINHqEIBRa+tE5DHWfwtEffkyGg/lGItysAy4g
+ y+dn7zjuHFUB4kPQFKU0FprwgiBgY7ei1kqzqc0+8fZAtuhLF9/QWrX3kmFdJmCv
+ K6yjm8gAazAz/P78AIPYfBiSViUxF3bQosvUs5ZD0swvZ7Ww==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48pw0yrthg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 22 Aug 2025 21:22:33 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-76e2e8e28e1so6006192b3a.1
- for <freedreno@lists.freedesktop.org>; Fri, 22 Aug 2025 14:22:33 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sat, 23 Aug 2025 00:12:07 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4b2b3cd4d00so25000981cf.3
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Aug 2025 17:12:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755897753; x=1756502553;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=y04A3Fq2j9qagFY6krypelE5uzKnSvrs/VFzYky1PFg=;
- b=A3uAWgfeGywu+Fv5b4i9maLeoCUuneZqUMnRfG5Q/ohmFFj17/S55r8cloAZjhpdev
- 8iw36h7zD6jntyqLehgJ8hKp71K0VvEG6esZLb2JW6jUgSznbpeRSVvf6+atIK0H7hlT
- 6ApqmqFKnowVe9M1+MhtlnxaYRve9Pz/kyoJkIoNeNWRVbqBhyclbE7X48z1lXxbu/jF
- qcVWPS8XcckY7fLcLRpud9++tYeW/+XcmZ1BlFeQDFk34xjUpxtqSSiPZb6owatVAgPT
- ffPBYNjRx/n6VWyy+KI8M8mJbCwTeXGE7OdO+IEXzUfK4GC96ptpDE9E7CkVfLXV2WH5
- R7zQ==
+ d=1e100.net; s=20230601; t=1755907925; x=1756512725;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LKH3UmwyCqZl4E/zd7SLx5cyJ5JW0DFn9aa/Um4dYq4=;
+ b=OKn0llRR7bL46TEWVagDl7H3FoRK3syjwWAPFc7sF201UwXc+d1pJoR6pvlSahyVIa
+ kZmICzNAnmE6yvKxdaBt2a9gDmmNBhSgpaBR/cFUQTXv273UKVoys6fHvE/Y5tXJ7Aux
+ vAnv+HVhQoCsjus7VRBaLoorvHKIcWkOZCQ8+Xn4nVRpzjRj5irCLziiKyETF8OgffDD
+ 5PBH2zK1Z2MgALrf3z9NJA+mstK0G4Wh9sPSANDLrPPPTFuCOngLbbG3UAlnjAvK52EM
+ yjpv8VJKZDxA3z//658eEjL+DNKJuNPNgMnNSpWFzQtIAODSJhMZZHCOHJtS5adVjEj3
+ qC+Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXVVEXn713Pv63jG8+bsT+wg4mtVwdxmaN2wHZAXjHBadBiV9bE63LtVT2CszG79Gdo3S3Otrj0f5k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyEWlmzt4XqfIdkDzwZP8faGc+Vii3oi7+wxRbk1jRCevNc5Baa
- Dd296pQu89hobiP3zfHNlhYlsOp6v/JCI0pNrxPnm5/tGcX/ivnM73ir2ZCRfBTCeel4JDfGQgv
- Qh48meuWbjIhrhe4rM3Xv6nlvAA6zA2PAZCVDCVujMnm6knkxZ1oVHjnqjQUrFccTKvuLUEE=
-X-Gm-Gg: ASbGncu2PQIpQAVfpWR4i9+eROyTB5997LBH62ge3oc13vu0AB+iKtSA5Asn/ZTf+vO
- FW1Ps4QrGxydJ60moyL/jjE46xDmwx26JoxbhxEIV8dklnbklccFXmt4/Vk5lujNxlbwoumQOTd
- KJ8vKQ6X45G+6YDC9ErFjMZmjbIDXokVof4gRFqWh+WjY8DZ5IwDj5U5zA+q22dWCIK4/SRYV/s
- aJH4Dsx7JEp2XXLSslAy8DGdMk9Ni5+m4uugl5YXgIAoF73ENVTbzgo7x6Ombksqpzm/9pyf4YB
- bfDEcEQ5tXGvoKSSSOZ1endxxiLhVuQmTDOXujwLb4IDfTQFLXFFsFFaonOQHLU=
-X-Received: by 2002:a05:6a00:2991:b0:770:374c:6c60 with SMTP id
- d2e1a72fcca58-770375bb1b7mr3749743b3a.12.1755897752665; 
- Fri, 22 Aug 2025 14:22:32 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHqSDDQ1Oqep4mXvYQ0f5AHY2NlHaFudfMAfAYS8IQDadWgR54tO2EW+TnIYNX89ov0/SlHQg==
-X-Received: by 2002:a05:6a00:2991:b0:770:374c:6c60 with SMTP id
- d2e1a72fcca58-770375bb1b7mr3749726b3a.12.1755897752210; 
- Fri, 22 Aug 2025 14:22:32 -0700 (PDT)
-Received: from [192.168.1.6] ([106.222.235.20])
+ AJvYcCWStIYoavQHqw490erBH5O8rIunUjcbAKFgDqeOTCVvnfGWcczmDhEVymo2nWNNjZxIEzIETrYfd4A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwwdcGDstGbJift52Zm2kaUQHoyXFUZCdRqbg5Mux1lRHuuQ2q5
+ e6DNyKzNa26ZT0QHaVS8w/RgBvK78jOvqOoIfe62/Gg9rHfJsZm3dNop6uvQ6PdfPp//zje6Xf+
+ XSye05gCvgtddceryCEFPfzeZQRWALL+vrVOe0ddn0W5ID3YS/CDQUbg1xiYmY9kAxaEzZGU=
+X-Gm-Gg: ASbGncuGwi9o9vb27WyJz6PNBKj7sFzfIka3IE7VCSpD42BjQ3OZkUzElPFcoLmc//7
+ CrHOHkzoAE1WEfqoHNbNuApjA/Jbv4nkscHcTEEsgLdpQpXwG1IH7ouY336SMGsmi8JajZFcSBo
+ /8nXZc0ETMFi3vQtiHymBRKALzZZGCNm8ZAs1IhATwjlbWZw+V01eYGQDWdTYslL/eUCjonmm7f
+ /n3Gfs6i8rgGdMRK2MbjHKR9WbXlsCsDqrsx3TOEbv50vhAGcOuog0JWTrG26hnfCECVhvTMcqT
+ IEVIH1/g/rm2PoULBIM18EB+UU5b3E54R8tHag0xYCIZRvmjU5fH06/KGyr71u8i3EnvThe3Txy
+ giHgL5PHztMb0GgcZGPZHFW1QiACzwV+ZqIAmlmsb/t1LN4O9IIhz
+X-Received: by 2002:a05:622a:248c:b0:4b0:eb79:931d with SMTP id
+ d75a77b69052e-4b2aaa561b3mr63251961cf.2.1755907924818; 
+ Fri, 22 Aug 2025 17:12:04 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGjRcYFg4ZlcT2OcnbWB43OpYbpLPRq63IBEUW/yX7KrugkfRBNsErbT8C9Dy4q63T/Oz64nQ==
+X-Received: by 2002:a05:622a:248c:b0:4b0:eb79:931d with SMTP id
+ d75a77b69052e-4b2aaa561b3mr63251531cf.2.1755907924269; 
+ Fri, 22 Aug 2025 17:12:04 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-770401af16bsm767687b3a.54.2025.08.22.14.22.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Aug 2025 14:22:31 -0700 (PDT)
-Message-ID: <73ba625b-604d-44e7-a73b-9f727ec46917@oss.qualcomm.com>
-Date: Sat, 23 Aug 2025 02:52:26 +0530
+ 2adb3069b0e04-55f35c8ba2dsm208929e87.77.2025.08.22.17.12.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Aug 2025 17:12:02 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Sat, 23 Aug 2025 03:12:00 +0300
+Subject: [PATCH] drm/msm: fix msm_gem_vma_new() allocations for managed GPUVMs
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: make sure to not queue up recovery more than once
-To: Antonino Maniscalco <antomani103@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250823-msm-fix-gpuvm-init-v1-1-e199cd5b1983@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAE8HqWgC/x2MQQqAIBAAvxJ7bsE2Kukr0aFysz1oohVB9Pek4
+ 8DMPJA4CifoiwciX5Jk9xmqsoBlm7xlFJMZSFGjNNXoksNVbrThvByKlwMbUkZ3PC8rtZDDEDk
+ b/3QY3/cDlPxl9GQAAAA=
+X-Change-ID: 20250823-msm-fix-gpuvm-init-520d87ebcf26
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250821-recovery-fix-v1-1-abfc518ba0a5@gmail.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20250821-recovery-fix-v1-1-abfc518ba0a5@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: o9JC6nB9S6DsWcT-2kDbrT8y3x0maISB
-X-Proofpoint-ORIG-GUID: o9JC6nB9S6DsWcT-2kDbrT8y3x0maISB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIyMDE2MSBTYWx0ZWRfXxJ8l59ojUJnK
- yi6QGDd4VCZXaSoq/Ew9SIgRJkiXoGVuimC+0qp836uIlcXf+zOjv8fb8KN8v5ZLocvy5N2mFcs
- JopPlPyEBnsgGC4uokA8bduNt2WTfIIO4nMA3tI7tFMz+ALsZT1RD4kGbTWEV7G44EnQGlhrHIP
- eoCRYrMUCy2CVtWOC2amOcCeF7ykJR/C698EqAIz1JKUt1wBnOiVVW86sQv1QMOSyYl46xsO1KC
- kTJlaOqqJj0EsLiukQNlvc2ypzyVWnNLymPKA097yYoSC480tgO+h7n3k7YuHqx7eo5W77Wt9Se
- hZJuD/mWDtzT2kZQ8DnPphqF32EGePVXJPwbweq0lFtYL8BXqhGC10DpIe/gMqgo1Svt8cgz49T
- 6nJGcKkT
-X-Authority-Analysis: v=2.4 cv=WId/XmsR c=1 sm=1 tr=0 ts=68a8df99 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=YJRzWv9GHcPC3W2cS631hg==:17
- a=xRKJ3yPZld0_iGqN:21 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=F5irVdaa_9mHTkytiuEA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Danct12 <danct12@disroot.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2074;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=izTeRDcb3LUu2+xcZ1pXgxZuqtAbJOSjKbwv77VWnSo=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoqQdQnWFc2erhkmlZkodf2OTqrgXkxW7pdw437
+ 37G1d3E8l2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaKkHUAAKCRCLPIo+Aiko
+ 1dAzB/4wwaKA7WZL9E0yYd1cJks/dBt54lwvKms5QB1urUJqn4s3R8HawZOj6/PHvvNfOSGQtWt
+ HS6BJvmXj38WrfrHOJOGq/ndCib3iVdLmzHccrKenBuszzTmd9bKBbpLU0OmfXpMODSTFRe+lZV
+ BdQoMbzHGZnMhNa+raq2b8L2GZQId0Ls6wIdV4eCzDD9FHhBJzEwubPWtbVcD5tVT1s0mSHgUVP
+ k88E6Zm1yzUXdgQYYg+9rVLLREEZCdJae68Ai6a97cWNcGbdRD+c1qclyxYICn8dKcq/WKPwUW1
+ To3j3KXRZe1APQYAm9z6u20OdAU/ovFhR9lWbeb422fc9KBp
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=Z6bsHGRA c=1 sm=1 tr=0 ts=68a90757 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=2OwXVqhp2XgA:10 a=LpNgXrTXAAAA:8 a=EUspDBNiAAAA:8 a=O0ltPWiidyXzGDMWRkgA:9
+ a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22 a=LqOpv0_-CX5VL_7kjZO3:22
+X-Proofpoint-GUID: jZkVGLMeks8DDuAEBdwb6kHDMVeWBwy1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIyMDE2MCBTYWx0ZWRfX40wfNYzf0fvE
+ ytOYWyX1mCL/qbWSDbz4rDJTx2/rd88gV6AAVF4Af2W5beWU6GVKplreoD0g5mnaSiVpcVdoXnu
+ sfxG6lsGdccjYujXwyMhp9lTlMOE6OcqEE/RAMmoqrMJbdrfl06khs/ou5C+w0AFDPxsOQSae6H
+ sNRfZD/3FQevgTYcENJRKfSv43dK+F8qE+XUBnvq6kW0jLODgK+deVqQTNpCydHwCKmo7fry9IS
+ 6hIn6TnqoXlLOxrcwwx0wAhPecwT4xOBLgIsFE9fyODkqt3J4WGXYMvueX31d1JDyL+/5aHmXaz
+ TkN7grrcFMIsanpyan03fHTqdXB9yo8Pb0n7TPAW3tEhdrBmlCm4PrjUvkpG/L6zhTcEAHduYnz
+ kg8z+t95
+X-Proofpoint-ORIG-GUID: jZkVGLMeks8DDuAEBdwb6kHDMVeWBwy1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-22_05,2025-08-20_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 clxscore=1015 adultscore=0 phishscore=0
- bulkscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
+ suspectscore=0 phishscore=0 adultscore=0 bulkscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508220161
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508220160
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,43 +147,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/21/2025 6:36 PM, Antonino Maniscalco wrote:
-> If two fault IRQs arrive in short succession recovery work will be
-> queued up twice.
-> 
-> When recovery runs a second time it may end up killing an unrelated
-> context.
-> 
-> Prevent this by masking off interrupts when triggering recovery.
-> 
-> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+Since commit 3309323241fb ("drm/gpuvm: Kill drm_gpuva_init()") MSM
+driver fails to init, failing with "[drm:msm_gpu_init] *ERROR* could not
+allocate memptrs: -22" errors. The mentioned commit reworked the
+function, but didn't take into account that op_map is initialized at the
+top of the function, while ranges might change if GPUVM is managed by
+the kernel.
 
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Move op_mode initialization after finalizing all addresses and right
+before the drm_gpuva_init_from_op() call.
 
--Akhil
+Reported-by: Danct12 <danct12@disroot.org>
+Fixes: 3309323241fb ("drm/gpuvm: Kill drm_gpuva_init()")
+Suggested-by: Rob Clark <robin.clark@oss.qualcomm.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/msm_gem_vma.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 45dd5fd1c2bfcb0a01b71a326c7d95b0f9496d99..f8992a68df7fb77362273206859e696c1a52e02f 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1727,6 +1727,9 @@ static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
->  	/* Turn off the hangcheck timer to keep it from bothering us */
->  	timer_delete(&gpu->hangcheck_timer);
->  
-> +	/* Turn off interrupts to avoid triggering recovery again */
-> +	gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, 0);
-> +
->  	kthread_queue_work(gpu->worker, &gpu->recover_work);
->  }
->  
-> 
-> ---
-> base-commit: ba0f4c4c0f9d0f90300578fc8d081f43be281a71
-> change-id: 20250821-recovery-fix-350c07a92f97
-> 
-> Best regards,
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 3f440bc1f7106f3b0091f037611d0b433e5e2c18..6df6b7c0984da57fe64de41fa54f7dea0a324c74 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -368,12 +368,6 @@ struct drm_gpuva *
+ msm_gem_vma_new(struct drm_gpuvm *gpuvm, struct drm_gem_object *obj,
+ 		u64 offset, u64 range_start, u64 range_end)
+ {
+-	struct drm_gpuva_op_map op_map = {
+-		.va.addr = range_start,
+-		.va.range = range_end - range_start,
+-		.gem.obj = obj,
+-		.gem.offset = offset,
+-	};
+ 	struct msm_gem_vm *vm = to_msm_vm(gpuvm);
+ 	struct drm_gpuvm_bo *vm_bo;
+ 	struct msm_gem_vma *vma;
+@@ -402,6 +396,13 @@ msm_gem_vma_new(struct drm_gpuvm *gpuvm, struct drm_gem_object *obj,
+ 	if (obj)
+ 		GEM_WARN_ON((range_end - range_start) > obj->size);
+ 
++	struct drm_gpuva_op_map op_map = {
++		.va.addr = range_start,
++		.va.range = range_end - range_start,
++		.gem.obj = obj,
++		.gem.offset = offset,
++	};
++
+ 	drm_gpuva_init_from_op(&vma->base, &op_map);
+ 	vma->mapped = false;
+ 
+
+---
+base-commit: 0f4c93f7eb861acab537dbe94441817a270537bf
+change-id: 20250823-msm-fix-gpuvm-init-520d87ebcf26
+
+Best regards,
+-- 
+With best wishes
+Dmitry
 
