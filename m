@@ -2,122 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66EFAB34B49
-	for <lists+freedreno@lfdr.de>; Mon, 25 Aug 2025 22:00:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E9AB34C1C
+	for <lists+freedreno@lfdr.de>; Mon, 25 Aug 2025 22:35:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B5E110E550;
-	Mon, 25 Aug 2025 20:00:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9145A10E363;
+	Mon, 25 Aug 2025 20:35:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cjlo3I6k";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PgXu6Sjt";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B936310E550
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 20:00:04 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57PFm3Ts004580
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 20:00:04 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED3E010E55A
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 20:35:36 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57PFvgPw030514
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 20:35:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QpMXjjOloTbOcv7VKi87DER32XX876zK5UxtTO2ua/w=; b=cjlo3I6kOhBPZA0p
- cSlGSa5xmLkswO5obuRr3lT6JCUurIBNg29AZt1dNny5CZcBaCf76N4y2nuELyXf
- ncRqJZeHIPP5OcEcaqOMOJYxu/au6gGmi/qrz6pXyz97bbkWG5tLYmRs/XeiF+yD
- jTVcBDyJLiedm65n8oeOgMwmma2GdCDn2L3XAa1xrrUMtfdgOIo8jzytvoZ0xPSe
- 3zOrnvWB0JqyUALi0IcShbU8z5qgIs8jonUFjLPaq7uNGFHGz++Aqzqhla827Nbc
- y2L+7qzuNqSvXmUm7IfSuGfmSBEIXVfB1drY7hXAnmBqR+AHxrx30Ia8vLPriTww
- heiRVg==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q5um6dda-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=yAvDexHvFvVoJW4KVsl9EQO3
+ 3UW9a1WIuE20kaTFqaA=; b=PgXu6SjtXcpQPUtmEFuPi341ur7MZqRobaTW5GXF
+ uSUp7McW1hSPDkGCJh1Bjb/cJ3lDrDeB+7H2ID0j5O/82iICQbCLcUEJX04UEk4y
+ 0jaX/1CSNLIiCb8XF3I5FCwj2fYopopFQnRxodjjkIF2ymueFfs6ZdsRu3slGorf
+ w4D5FnAHThKIfkRdbS/3ztFvrvTwUnp0K/xcg3/oqOFZon/Sv6ViMnJzc1Sp5pgd
+ r7GL7cmG7mX4qjI4/SCInXBjEmHuT3QGm3Z6TqUnmtvnVsObo2I+DpwcfNzAXblZ
+ K0J/5ChIsFvdOYLKIa1K+KGZC/Md32JJfSm9HWPZIBpu7Q==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q6thxdwv-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 19:59:56 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-70d9eb2e971so63725766d6.2
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 12:59:52 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 20:35:36 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4b295536c25so90663901cf.3
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 13:35:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756151986; x=1756756786;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=QpMXjjOloTbOcv7VKi87DER32XX876zK5UxtTO2ua/w=;
- b=GZVXOI99ynKyQE/07JfDoxcCcdP8XRLxUCrbxerIYD7H4+5TEEKhUZFbA5rwOujH/h
- LCqPnKIJbGa3cvXbphQxedPLU1VaTpOQagAuwri+umFjKcCN8T57ffI0xOVf4dmYihqr
- G6n3NHmCmZ4ccTKv5Ky9ZOvRsdcBT9DwTan1Zd5wU5PCNZtB0p7VRecuIWf7wOrlg/+F
- 5qA4ccNNCKN3AW5BUmUfR1LupNEC/PS+lYVQ3FRpKcxBI8Et/ZDdoZzRfnZEqieZW3x8
- i4yxZjgqqCeEXDYwLujf+7Egxycl2sTbBoHqk0Tu4Yd0VX9+d2L18fjwJCJmYeOIH24d
- Higg==
+ d=1e100.net; s=20230601; t=1756154135; x=1756758935;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yAvDexHvFvVoJW4KVsl9EQO33UW9a1WIuE20kaTFqaA=;
+ b=niTW3M2BtrRMiFecOEU2nd/RBCa3ZQHfD9TEVZO8KImREam9ecLhVrF3/lpHmlmYTP
+ 3zb6dCB2sROC/npc69BLnbrfhYsqQjR7kXkVRlqg1vkdWKmJOujP7VB4wMoaxHSMh2rx
+ qRFgNSLH6EX9+xjv0ue56hwYgXbe048cHIDTDzkqPhi+eMqDex4imuyCWBsYCOgTfvyx
+ 1IBeqb+SQTI/7W/hiOXtH9C4CRS6UKhNkT1cPItICEcKbSR2R4N0DGPVxZeGW/deK4J3
+ NYWf2xXwCqUfSNBcjgD8bz1/SVPhfEdn1FkyviDeFfZjGHjuXkqE6TRTrQYAN+lgCQSr
+ FAIQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWFWdRwJSrfvXxzYKK9zjrtLiJritiKSSWUP+dSIe1R60tEnRsqo8nhXeqX90SBm3ahtJ8r1x71s20=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz5VZ7BiLyBxUSZm4aPfxvZh+SewIqJPXxEc8vyHca/bKNgo7x+
- Fmp4jMABqVD8UlLgmKF+S1/0Ql5RmS/PuyTAiKBYSOUR6ctW+CRPza5WBqhq116DYqlNQ2k5oYZ
- MtPmgsFDwD+s0NLo1cTjiDSJ/DsArahEqIKkEQ3qZyjITW4hdLKCQYY7PR+UhqEqmUkg2nnw=
-X-Gm-Gg: ASbGncskWV045gp39JqAc+t1pynk8+nLk8LPa5DMpnCBHmkJq6nsrTBunEYmwkFCRZF
- g7l/9CYai41HqIWyp+32Cr/i4ELxUoFUnrJe1xSHurhKBoJnSCQ1Y+7ymtaaXgn/nij+d8ZbYKa
- CfaoehF4EMdCUT6ePFHTHYwBU4JO9Jld9ALpCm+3f0rCHcaFKYUpU9kgoeygTymj20iLO/+8Gvb
- PfWssUKYeHbc3S37vfEMufIG2j/SPBYCeqTkW5/ks0xT7QhKkVTDd/J9WT83y+tEm92TBaDx+Zv
- NoGHLYNxdkyE6S0A0D/uy2Hsuu+52OANUeFMuHQ/bm2f62eRSWfwgh7iW5BS83uwOQdt6eqYETs
- v+DTzpBau5lnBtqjQNFAwotz+r3INN2k0P2SK9UG3bXvWAywV3OfH
-X-Received: by 2002:ad4:5de9:0:b0:70d:ac6c:d5e with SMTP id
- 6a1803df08f44-70dac6c152cmr97978696d6.17.1756151986341; 
- Mon, 25 Aug 2025 12:59:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEQJCEWzdMqyTuDrQVNON3NoBMK6mCKwkSCCF09YR8Rv+ULva4lyyz7WmxFpfIfcvr79oPndg==
-X-Received: by 2002:ad4:5de9:0:b0:70d:ac6c:d5e with SMTP id
- 6a1803df08f44-70dac6c152cmr97978436d6.17.1756151985824; 
- Mon, 25 Aug 2025 12:59:45 -0700 (PDT)
+ AJvYcCW5yrNi93Js6JVtY4wFrhySw1AfpBSno7/6SMj1n+jQ/maozmy+MBiE5HOzJeCO3168jSB4EZnT7MI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwCQWC37ZXT5/rNKXgHnEexEGgG4UITron2vTcltPXPGebBw6dT
+ YHVaqZpkTecs7p3OEs+WUwA4GW+kS2Nn8efBwht7X3SwS4BLhr4LB4g+axtdaf9kNCgtl32RVTF
+ KxHFciCUXeWJMBBgG19WZvglnRq+CvcmiQmtfRJB7SAtV8pGXtiF1McXXwXxoLsK7dBV97VY=
+X-Gm-Gg: ASbGncsHmS9pddiVYjijN6yfl9R7ixYYj8Zo7sxJwpzw6jPW83Ta6l5782u1+TA2wTo
+ Qos+OYmcFn/TraOt7Pv+pWaOw/Zxrsazux9oG4fOFmdNgrTkPsdbNsy6NlpCdbk+OWuqQX4+ecu
+ Fh3DaDttxbauVCD5rU3xSouy9tHomSszhFKrgoZNCuQuYvIpai7diDytiiuKBe5fOkWT4GmalCp
+ /MExWdANQ+RKZ4IG3wAYmpBjXyXs2Cgm0rTIKvvCOvceAfQNXJzGQRDTctsGsc82Jf4DDQlK95b
+ tQJz4emskb0v/AwG5dVhDX0+5r+oWkNdj1s8IWzZzaru2SHqYm8qhdNZLDZvVaYQzx9Y+OgEj0N
+ zE7w0bOQk3PdkpiWA91QySPiInt4shqR1heGjb3cGKg5NGWT44HaB
+X-Received: by 2002:a05:622a:4c7:b0:4b0:61fa:19b4 with SMTP id
+ d75a77b69052e-4b2aaaf9fd3mr148023161cf.46.1756154134864; 
+ Mon, 25 Aug 2025 13:35:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHTxiwt2uolX8Aw9ZSuuS6XRndHBCwOU955PX0YNpOUiIwP0WQiM9f0I04RKUylBqfzH/cMJg==
+X-Received: by 2002:a05:622a:4c7:b0:4b0:61fa:19b4 with SMTP id
+ d75a77b69052e-4b2aaaf9fd3mr148022881cf.46.1756154134337; 
+ Mon, 25 Aug 2025 13:35:34 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3365e2687acsm17787781fa.32.2025.08.25.12.59.44
+ 2adb3069b0e04-55f35c99ff5sm1778909e87.117.2025.08.25.13.35.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Aug 2025 12:59:45 -0700 (PDT)
-Date: Mon, 25 Aug 2025 22:59:43 +0300
+ Mon, 25 Aug 2025 13:35:33 -0700 (PDT)
+Date: Mon, 25 Aug 2025 23:35:31 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Alex Robinson <alex@ironrobin.net>, lumag@kernel.org,
- abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm: fix race in Adreno header generation
-Message-ID: <7w522k6vkngqw2tfbmrhuvxxcdlby3wwzueaqw75pxud2y7puw@2rjhjl5ikn6c>
-References: <20250823020919.9947-1-alex@ironrobin.net>
- <6sdzghcc4uynvmk6r4axpwgqlmgxqzi457ttedqlrql7f7lt47@glsrzu46a63x>
- <CACSVV01R=FPAErpfJJvESKig+Z8=amEkpf6QFnkXHhTjFsPf5g@mail.gmail.com>
- <5a405510-3eec-4262-9855-483dd589d8dc@oss.qualcomm.com>
- <CACSVV03y1s+EdkNm0nWFL7yuR8y=YuBs-OJaKquOh4izwKc_nA@mail.gmail.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 16/38] drm/msm/dp: Add catalog support for 3rd/4th
+ stream MST
+Message-ID: <j6n7jntsapy53ojyackylfctouuyu762pjf5dsbjhwoti6cos6@5ppukry35xo5>
+References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-16-01faacfcdedd@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV03y1s+EdkNm0nWFL7yuR8y=YuBs-OJaKquOh4izwKc_nA@mail.gmail.com>
-X-Authority-Analysis: v=2.4 cv=VtIjA/2n c=1 sm=1 tr=0 ts=68acc0bc cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=foaXouvCAAAA:8 a=ogmizbzjsSRwc_UF5_MA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
- a=lBkOZJTZZNyIbKe29SIT:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzMiBTYWx0ZWRfX1EwGfOMzw3YJ
- 7PoTGCT/yNyhV0kFF4J/way3U7Jgz8azriJiCrgqKqy3lNfcDdmpoqRHHR3sPPkJWnmZbpwrHy8
- Lkh8lBC9yyT6C3W3A5E/Kbja39xpQPhw5wajVdxa4Lfk9nrgbxqu2OgkCsI70nPXBya+wM64eSp
- LO21DA/xmqbu7KvvaLyh/OxcspJRu3R4/eamJSs5KJPmLUAywLsIhXnBEj8O1/y3o47ZTv31GgK
- Z/CY4mLD5V3EDr3ZJnnUuUmT/fOtSb9FE7x3LhjAxaC4lc5K52IVWEhCSNreWuuje7rYrPtHWHx
- TofiAJ7J0nAZu6iao0Z2jiAXs8X+pOEv3h7mqPTfxIWrJM+6grDQfw9diNQRc76LplTKseyxQ7s
- CjVo3PbJ
-X-Proofpoint-GUID: zmm-ecwgQLsXZW0rBwDg9ueKP-ZHaif4
-X-Proofpoint-ORIG-GUID: zmm-ecwgQLsXZW0rBwDg9ueKP-ZHaif4
+In-Reply-To: <20250825-msm-dp-mst-v3-16-01faacfcdedd@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDA0MyBTYWx0ZWRfX/Q3bDQmF+e1a
+ x6T6jE+EQcp/lXQg8tcUrDG47loosTs39I5ub6OTkn9cYnG+KgXXY83WjahuV9z08O7aOMt+uch
+ 7sZwEGhqhsLzp3FpphAlVBZsbaxPSr4k9NeVFejOKCv+CWQN4O6Xk4XOqjF6C1CX7qTe3C46fqN
+ KMKU9nNgNCzGoL4WJJXCx1NS/iBx+bNdm8/4DxeU0aTCxooXbceORw6snEqPDfMJLyCsYL0Ze0Y
+ SyjNJoBq09IyAWBevMiLShpBxgZjxx/frTVJwSaa3jsrKCuczkQm0J8BYn+Jc8p2gGdUVu3OuwW
+ SGLjenqno2TtDmMVeIJ/PuUqds35ZK0wRYyd97okAOHpshfkHhMGiRLp4gw0vUliwhvgFFjgpX9
+ csOYzPaL
+X-Proofpoint-ORIG-GUID: MkNTMQZY5_iSMwgeQHaISM6m1WVjjuo2
+X-Proofpoint-GUID: MkNTMQZY5_iSMwgeQHaISM6m1WVjjuo2
+X-Authority-Analysis: v=2.4 cv=W544VQWk c=1 sm=1 tr=0 ts=68acc918 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=-oqhLQCYqG34RGAAmHUA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-25_09,2025-08-20_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- suspectscore=0 malwarescore=0 adultscore=0 spamscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508230032
+ priorityscore=1501 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230043
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,53 +130,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 25, 2025 at 10:48:06AM -0700, Rob Clark wrote:
-> On Mon, Aug 25, 2025 at 9:23 AM Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
-> >
-> > On 8/23/2025 7:46 PM, Rob Clark wrote:
-> > > On Sat, Aug 23, 2025 at 6:49 AM Dmitry Baryshkov
-> > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > >>
-> > >> On Sat, Aug 23, 2025 at 02:09:39AM +0000, Alex Robinson wrote:
-> > >>> Builds can compile msm-y objects (e.g. msm_gpu_devfreq.o)
-> > >>> before adreno_common.xml.h is generated in trees that generate Adreno
-> > >>> headers at build time. Make msm-y depend on the generated headers,
-> > >>> removing the race.
-> > >>>
-> > >>> Signed-off-by: Alex Robinson <alex@ironrobin.net>
-> > >>> ---
-> > >>>  drivers/gpu/drm/msm/Makefile | 1 +
-> > >>>  1 file changed, 1 insertion(+)
-> > >>>
-> > >>> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> > >>> index 0c0dfb25f01b..1a918d44ac48 100644
-> > >>> --- a/drivers/gpu/drm/msm/Makefile
-> > >>> +++ b/drivers/gpu/drm/msm/Makefile
-> > >>> @@ -221,6 +221,7 @@ DISPLAY_HEADERS = \
-> > >>>       generated/sfpb.xml.h
-> > >>>
-> > >>>  $(addprefix $(obj)/,$(adreno-y)): $(addprefix $(obj)/,$(ADRENO_HEADERS))
-> > >>> +$(addprefix $(obj)/,$(msm-y)): $(addprefix $(obj)/,$(ADRENO_HEADERS))
-> > >>
-> > >> I'd say, no. The idea was that msm-y should not depend on
-> > >> ADRENO_HEADERS. If there is any dependency, please move it to adreno-y.
-> > >
-> > > probably we should s/adreno/gpu/ and move all the msm_gpu*.* there..
-> > >
-> > > In the mean time, I think we were going to drop this patch from the IFPC series
-> >
-> > Yeah. I will drop that patch.
-> >
-> > Btw, was my usage of adreno_gpu symbol in msm_gpu* files incorrect?
+On Mon, Aug 25, 2025 at 10:16:02PM +0800, Yongxing Mou wrote:
+> To support 4-stream MST, the link clocks for stream 3 and stream 4
+> are controlled by MST_2_LCLK and MST_3_LCLK. These clocks share the
+> same register definitions but use different base addresses.
 > 
-> I suppose _technically_ it is, but the split btwn msm_gpu and adreno
-> really only made sense for a2xx, and only if we tried to upstream the
-> old 2d core, which never happened
+> This patch adds catalog support to enable programming of these blocks.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  82 ++++++++++++++++++---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h    |   4 +-
+>  drivers/gpu/drm/msm/dp/dp_display.c |  24 ++++++-
+>  drivers/gpu/drm/msm/dp/dp_panel.c   | 138 ++++++++++++++++++++++++++++++------
+>  drivers/gpu/drm/msm/dp/dp_panel.h   |   4 +-
+>  drivers/gpu/drm/msm/dp/dp_reg.h     |  14 ++++
+>  6 files changed, 230 insertions(+), 36 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index b8b6a09966aed96f705bdd54cb16ea63e5f0141f..608a1a077301b2ef3c77c271d873bb4364abe779 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -118,6 +118,8 @@ struct msm_dp_ctrl_private {
+>  	struct msm_dp_link *link;
+>  	void __iomem *ahb_base;
+>  	void __iomem *link_base;
+> +	void __iomem *mst2link_base;
+> +	void __iomem *mst3link_base;
+>  
+>  	struct phy *phy;
+>  
+> @@ -172,6 +174,40 @@ static inline void msm_dp_write_link(struct msm_dp_ctrl_private *ctrl,
+>  	writel(data, ctrl->link_base + offset);
+>  }
+>  
+> +static inline u32 msm_dp_read_mstlink(struct msm_dp_ctrl_private *ctrl,
+> +				       enum msm_dp_stream_id stream_id, u32 offset)
+> +{
+> +	switch (stream_id) {
+> +	case DP_STREAM_2:
+> +		return readl_relaxed(ctrl->mst2link_base + offset);
+> +	case DP_STREAM_3:
+> +		return readl_relaxed(ctrl->mst3link_base + offset);
+> +	default:
+> +		DRM_ERROR("error stream_id\n");
+> +		return 0;
 
-Granted that there seem to be nobody interested in OpenVG anymore, I
-suggest we forget that Z180 existed. I think it would be wise to
-simplify things for the GPU cores (merging more of the msm_gpu_* into
-adreno/).
+I'd totally prefer having a single set of wrappers which can handle all
+4 streams. Having separate call sequences is not a good idea and it
+makes it hard to change / extend it.
+
+> +	}
+> +}
+> +
+> +static inline void msm_dp_write_mstlink(struct msm_dp_ctrl_private *ctrl,
+> +			       enum msm_dp_stream_id stream_id, u32 offset, u32 data)
+> +{
+> +	/*
+> +	 * To make sure link reg writes happens before any other operation,
+> +	 * this function uses writel() instread of writel_relaxed()
+> +	 */
+> +	switch (stream_id) {
+> +	case DP_STREAM_2:
+> +		writel(data, ctrl->mst2link_base + offset);
+> +		break;
+> +	case DP_STREAM_3:
+> +		writel(data, ctrl->mst3link_base + offset);
+> +		break;
+> +	default:
+> +		DRM_ERROR("error stream_id\n");
+> +		break;
+> +	}
+> +}
+> +
+>  static int msm_dp_aux_link_configure(struct drm_dp_aux *aux,
+>  					struct msm_dp_link_info *link)
+>  {
+> @@ -386,7 +422,11 @@ static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
+>  	u32 config = 0, tbd;
+>  	u32 reg_offset = 0;
+>  
+> -	config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
+> +	if (msm_dp_panel->stream_id < DP_STREAM_2)
+> +		config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
+> +
+> +	if (msm_dp_panel->stream_id == DP_STREAM_1)
+> +		reg_offset = REG_DP1_CONFIGURATION_CTRL - REG_DP_CONFIGURATION_CTRL;
+>  
+>  	if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
+>  		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
+> @@ -401,8 +441,11 @@ static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
+>  
+>  	drm_dbg_dp(ctrl->drm_dev, "stream DP_CONFIGURATION_CTRL=0x%x\n", config);
+>  
+> -	if (msm_dp_panel->stream_id == DP_STREAM_1)
+> -		reg_offset = REG_DP1_CONFIGURATION_CTRL - REG_DP_CONFIGURATION_CTRL;
+> +	if (msm_dp_panel->stream_id > DP_STREAM_1)
+> +		msm_dp_write_mstlink(ctrl, msm_dp_panel->stream_id,
+> +			REG_DP_MSTLINK_CONFIGURATION_CTRL, config);
+> +	else
+> +		msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL + reg_offset, config);
+>  }
+>  
+>  static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctrl)
+
+[...]
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+> index 43a9ce0539906e1f185abf250fdf161e462d9645..a806d397ff9d9ad3830b1f539614bffcc955a786 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_reg.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+> @@ -142,6 +142,7 @@
+>  
+>  #define REG_DP_CONFIGURATION_CTRL		(0x00000008)
+>  #define REG_DP1_CONFIGURATION_CTRL		(0x00000400)
+> +#define REG_DP_MSTLINK_CONFIGURATION_CTRL	(0x00000034)
+
+Please don't mix registers from different register spaces, it's
+confusing.
+
+>  #define DP_CONFIGURATION_CTRL_SYNC_ASYNC_CLK	(0x00000001)
+>  #define DP_CONFIGURATION_CTRL_STATIC_DYNAMIC_CN (0x00000002)
+>  #define DP_CONFIGURATION_CTRL_P_INTERLACED	(0x00000004)
+> @@ -163,12 +164,19 @@
+>  #define REG_DP1_SOFTWARE_MVID			(0x00000414)
+>  #define REG_DP1_SOFTWARE_NVID			(0x00000418)
+>  #define REG_DP1_TOTAL_HOR_VER			(0x0000041C)
+> +#define REG_MSTLINK_SOFTWARE_MVID		(0x00000040)
+> +#define REG_MSTLINK_SOFTWARE_NVID		(0x00000044)
+> +#define REG_DP_MSTLINK_TOTAL_HOR_VER		(0x00000048)
+>  #define REG_DP_START_HOR_VER_FROM_SYNC		(0x00000020)
+> +#define REG_DP_MSTLINK_START_HOR_VER_FROM_SYNC	(0x0000004C)
+>  #define REG_DP_HSYNC_VSYNC_WIDTH_POLARITY	(0x00000024)
+> +#define REG_DP_MSTLINK_HSYNC_VSYNC_WIDTH_POLARITY	(0x00000050)
+>  #define REG_DP_ACTIVE_HOR_VER			(0x00000028)
+> +#define REG_DP_MSTLINK_ACTIVE_HOR_VER		(0x00000054)
+>  
+>  #define REG_DP_MISC1_MISC0			(0x0000002C)
+>  #define REG_DP1_MISC1_MISC0			(0x0000042C)
+> +#define REG_DP_MSTLINK_MISC1_MISC0		(0x00000058)
+>  #define DP_MISC0_SYNCHRONOUS_CLK		(0x00000001)
+>  #define DP_MISC0_COLORIMETRY_CFG_SHIFT		(0x00000001)
+>  #define DP_MISC0_TEST_BITS_DEPTH_SHIFT		(0x00000005)
+> @@ -236,9 +244,11 @@
+>  
+>  #define MMSS_DP_SDP_CFG				(0x00000228)
+>  #define MMSS_DP1_SDP_CFG			(0x000004E0)
+> +#define MMSS_DP_MSTLINK_SDP_CFG		(0x0000010c)
+>  #define GEN0_SDP_EN				(0x00020000)
+>  #define MMSS_DP_SDP_CFG2			(0x0000022C)
+>  #define MMSS_DP1_SDP_CFG2			(0x000004E4)
+> +#define MMSS_DP_MSTLINK_SDP_CFG2		(0x0000011c)
+>  #define MMSS_DP_AUDIO_TIMESTAMP_0		(0x00000230)
+>  #define MMSS_DP_AUDIO_TIMESTAMP_1		(0x00000234)
+>  #define GENERIC0_SDPSIZE_VALID			(0x00010000)
+> @@ -248,6 +258,7 @@
+>  
+>  #define MMSS_DP_SDP_CFG3			(0x0000024c)
+>  #define MMSS_DP1_SDP_CFG3			(0x000004E8)
+> +#define MMSS_DP_MSTLINK_SDP_CFG3		(0x00000114)
+>  #define UPDATE_SDP				(0x00000001)
+>  
+>  #define MMSS_DP_EXTENSION_0			(0x00000250)
+> @@ -297,6 +308,9 @@
+>  #define MMSS_DP_GENERIC1_8			(0x00000348)
+>  #define MMSS_DP_GENERIC1_9			(0x0000034C)
+>  #define MMSS_DP1_GENERIC0_0			(0x00000490)
+> +#define MMSS_DP_MSTLINK_GENERIC0_0		(0x000000BC)
+> +#define MMSS_DP_MSTLINK_GENERIC0_1		(0x000000C0)
+> +#define MMSS_DP_MSTLINK_GENERIC0_2		(0x000000C4)
+>  
+>  #define MMSS_DP_VSCEXT_0			(0x000002D0)
+>  #define MMSS_DP_VSCEXT_1			(0x000002D4)
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
 With best wishes
