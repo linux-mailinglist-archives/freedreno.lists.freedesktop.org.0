@@ -2,154 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EFA4B33AED
-	for <lists+freedreno@lfdr.de>; Mon, 25 Aug 2025 11:26:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3607B3405F
+	for <lists+freedreno@lfdr.de>; Mon, 25 Aug 2025 15:08:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 767F110E419;
-	Mon, 25 Aug 2025 09:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9804310E463;
+	Mon, 25 Aug 2025 13:08:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XlG1Zg00";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q5AcVBoa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCC5310E42F
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 09:26:43 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57P93k8x017699
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 09:26:43 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8083F10E460
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 13:08:49 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57P8GAeJ006427
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 13:08:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=4EjmfETgNQm/Vlvha9wFXQHI
- t0wG5jz8jtoxkPVtlaI=; b=XlG1Zg007yo8B7QsjnIaAxiPH9JAUnbzR9Sab0I3
- YHz+BiXJi/mP3RdpI6WVigzYtLwx6oOTG51Yrn9GneL9axk7y47GahXNS9xHdBjR
- macTnmoASdfVIYIxqLuL6IG9rUS79yUrksDyXcUVlWzqceHPjXh9qS9iLGIUXpD/
- DSRuKz3jSsmXW4rBN0qDlOv+LSLwxTV4d2ZA1U1bUOUV0/MJ/FRiNDO0/Lq1GpUR
- M2uUZlHtnqYt/POZif6PT/757sXTQfYKiUhKtzVg1qCLtyAudYXo+28fu7weMMll
- DeMHZH3f2KfZzHtUTT0b25G8n5UTpdC64UeVQaf4Pz6+0w==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q5uc4g2w-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=mLb5kXtp3JZDVVL6Y5bEFTlZwa6bARViRJ9g/Jqdr/w=; b=Q5
+ AcVBoaQmdmull2cK/OetVXsMAs4whnLUM3fHKV7+h52HRj/y+M1Lt3UKKYIJeoDD
+ /P8Gtl4hDIh46VOHqlV+5Iqlykj34KATBbU2VJ56xwmRFoMLyQlg6HJuKIPbcX9c
+ E1VQssucmWlVUIurCGwxagI/eiaq27zvndo4M0GRc/nRoNCVzEO3sEkn5gEm3VQI
+ P0ewY9pQpQ8vN6Hd1ApE9gkQEFsffM6PchmBk2xET9xksYOEeFHFDfQpPwZ3EBSC
+ AZ+uI/3EuJqFd3qOSLckI/8B+5UjbKtg4euhR9Ufeqh+fS2yNLE+7LQDuiVuvHA4
+ tOFSbMhv83JxHwA5FIWg==
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
+ [209.85.210.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q5w2n883-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 09:26:42 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-70db892e7b2so21344466d6.1
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 02:26:42 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 13:08:48 +0000 (GMT)
+Received: by mail-ot1-f72.google.com with SMTP id
+ 46e09a7af769-745232e75c2so966160a34.1
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 06:08:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756114002; x=1756718802;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4EjmfETgNQm/Vlvha9wFXQHIt0wG5jz8jtoxkPVtlaI=;
- b=jvCXMhfrN1Nn2UeLqhzKG25QLLoiX5UNwsYZ/dfvUn4elT+ehivwb2cD0xJ+9rKTPo
- ApLQU7YnrTssyv/IiGwm8Exo2pvWLTIUPr4tymJLey+yS9i2r9HnAakbYZgcTBtId3td
- paTKaArY4I54jMPbKk4rlGWEoMjICs4j4AKpzjck86PrRzsw59R7JeU3XpVNG74Yb6KW
- GeWnTEDiaADopLnyXj2+cu244FvFIzhESF+zM4Ie7RTbamj8m8/YwVeOVqgaoQk6u6TF
- UIMQj3EW5yNTBJ8Al3NK7q8aqxd5uiMQ4GRZT8C7j14agc6dMUOusG9uIYV2WPUnWojm
- 3PKA==
+ d=1e100.net; s=20230601; t=1756127327; x=1756732127;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=mLb5kXtp3JZDVVL6Y5bEFTlZwa6bARViRJ9g/Jqdr/w=;
+ b=XQn5ZR4Vnb6kIjl6HnSZ9Fnwguprul6+Pak5qpDCqk4xK5m6qtwDNzbKcgIDa6HUbZ
+ xmMRBUHpeVPEl4BeyvdeekF+gRPjNpJgSIn4EHguMWy5ls7NWKslZTLuemrcJtFhqCtT
+ RIZ31oBNuSiUP5i40t+smCPm2h1u7j4NjgGM4oZZ3zdTjrCnJBCMELdL91V5LMgmfCJ9
+ en8WuEIasZcWWRQhys5vkam0QryclYDfkfUKiNlx0iK69Mshmz/G2laxLNARIcmGT4gj
+ pRnL6XL1pJ/J1jIi2NhhBCoCoVGMp6T3w8fKQ1Ab15mOzOQOXovcg7pPIONHd47+DMH+
+ P9oA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVHm9j/niIvx7q9iXSi4IaEHu2yYuGyiVSirjo7RckuCtT7Gysq3yGHqJqkPf4d2sXAv0czFrL5KSU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwLh9naeb0dudfjj2MlO870ypez+b02KVWxwdsYOnakOddEv4bV
- lvZLJQ5LqbvD77Up48RRPBGqd8/sVC8rZmqSfcUUHvTkG3Xe/UofZrpYbHfRG8JOIi+LfVIfT8l
- MBHs8ccjL8baPi3kUy+15muwmPLysrWoBhpf/wEc4KJk5KPJopjE00gghg9ER7SHRDxkKQkM=
-X-Gm-Gg: ASbGncun8StMR3LPR7+wlQPUs6cD/bklsUjfXCTvhIwfN11/g0b9xLGkAoelI+MC3gl
- n1h1iqTSMMs1S7TrEnZeDt0Z81COuk4flSgBY97a1wI/MhlfvXmTvPBcPgGJyERy4wRnjVzsREH
- bVvlWOsT37MYknueDYq0l57z0+CZRX7XOBFafH7iPSktzpMMDh4z8wMAXkcS37ap0+gAFcRnZfd
- 7oX95MxvfUgamTH7wO4/+uEMbnfm1rfdBIUfHOewcAGX9JyAHgj6H2DHGRD/Mej5g5/ivygnRo1
- K9OUixYBcxHkEx2ei7n9fgpBI5JFVPv3u0UjXSUe4Ki5gmMazMrp9bG70xxOp4cVj2U9mIhUSKX
- wbdU2D4GxYeY9+H0Y5gLoqLHbmyHgsXEzrZIc9kQ0LCcBeblFiR5U
-X-Received: by 2002:a05:6214:4a02:b0:70d:a44c:7888 with SMTP id
- 6a1803df08f44-70da44c7dc8mr92019666d6.24.1756114001803; 
- Mon, 25 Aug 2025 02:26:41 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEm4osqf3FKfdRsdXmqHxRRVdAGOSVE7liNGQR4vahCuDo4dZvvt3gTYb3tINRaNS66Ihgu0w==
-X-Received: by 2002:a05:6214:4a02:b0:70d:a44c:7888 with SMTP id
- 6a1803df08f44-70da44c7dc8mr92019466d6.24.1756114001224; 
- Mon, 25 Aug 2025 02:26:41 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3365e20ed53sm15882191fa.4.2025.08.25.02.26.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Aug 2025 02:26:40 -0700 (PDT)
-Date: Mon, 25 Aug 2025 12:26:38 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-Cc: "mripard@kernel.org" <mripard@kernel.org>,
- "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "Shankar, Uma" <uma.shankar@intel.com>,
- "Nikula, Jani" <jani.nikula@intel.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "siqueira@igalia.com" <siqueira@igalia.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>,
- "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
- "mcanal@igalia.com" <mcanal@igalia.com>,
- "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
- "tomi.valkeinen+renesas@ideasonboard.com"
- <tomi.valkeinen+renesas@ideasonboard.com>, 
- "kieran.bingham+renesas@ideasonboard.com"
- <kieran.bingham+renesas@ideasonboard.com>, 
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
-Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
- structure
-Message-ID: <tk2x6a3laaiwa2tiaewa4esl5o2gi363h3tfb5uha6apno34gr@fxqbhixyicw6>
-References: <20250811092707.3986802-2-suraj.kandpal@intel.com>
- <20250811094429.GE21313@pendragon.ideasonboard.com>
- <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
- <20250811111546.GA30760@pendragon.ideasonboard.com>
- <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
- <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
- <aJ4LQvqli36TlETu@e110455-lin.cambridge.arm.com>
- <hc6f6wgsnauh72cowocpm55tikejhiha5z4mgufeq7v6gb2qml@kmgfd26bigos>
- <wr76vyag2osox2xf7ducnkiaanzk2k5ehd2ahnoyqdm5qiywlk@penf4v5bvg5z>
- <DM3PPF208195D8D87AECE8397914A67D9A1E33EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
+ AJvYcCVpiBoGXXzf9dRw0Z1b9n/fAJPHo1qacV2/MFu212rpZ1fICeveN7hPM2iSq0/t8eZ8Zrsf5L00olc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzobTE7CskTjPz6VIgSbJtHG/SZ2UcvgA3LVpENo23IBxXYay4W
+ gx0p75h9KGoVVshIPFvxAWKQqxpSQM9XpYwQrDJ26hAcQSDRET4nH+cQ+R3QFoEfVrEGO2Oj9KB
+ jV0ZwcRXfnke4CCpI0bMFZJo2iXF1qHPJMUkeZ6A7Eps7rSLgs0dNBJkv4cU2ucla7fLER+eL8D
+ BOVXuRtjWXaF4YNt80DxGYWxL/A2UFctiV/OoPS7JwC4jhpQ==
+X-Gm-Gg: ASbGnct5oIR2ChIFVi/MWezmTq8dZap+B5vFLmmeTqJ3EiVv+24u3DjFnX+/p4ijEka
+ h89MBS2KM2CMESRbcd3E4QR9TbRXBb9Xub9h+gca4i1nktfyU2aaUYC9Fk2T551eX93in3iVN+s
+ UxjnZxgZcTbs3njBdeIxWddpc5yn8egewqTu9howqH/7dYrKMjUl49
+X-Received: by 2002:a05:6830:618b:b0:73e:5bdd:a26a with SMTP id
+ 46e09a7af769-7450096feb5mr6755028a34.9.1756127326777; 
+ Mon, 25 Aug 2025 06:08:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHf1mlBVCjf4vOsM5MnwVwSaIvX8715qihb4fhYBKinuor019PfotnBMd06hPMWBc+xl0MSuBbV6ACZ4S2dee4=
+X-Received: by 2002:a05:6830:618b:b0:73e:5bdd:a26a with SMTP id
+ 46e09a7af769-7450096feb5mr6755016a34.9.1756127326391; Mon, 25 Aug 2025
+ 06:08:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM3PPF208195D8D87AECE8397914A67D9A1E33EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzMiBTYWx0ZWRfX2AqziDpQFQDj
- IPkfQEbT04iUNHSA+ODJFLAGBlDa1en1HbnOrYxHm7lPHxXnPN4S4csRh0pCXmJb04/WKanOe0V
- fe0OrylrnhexpYY9ewVDIqLn+IiPp+tUDVEgc32iKzVJmtYi8THzMlz5e+w59z3arraFvEA0QUn
- aCSAnKU0PM/r3CBWOAFBP1rr4ZxBFD+hHyKolwI8cQOD15ReLsbPThusFj4L+MWgLgPIxi++gcc
- bop+pBDpkv+1LrCzdSenREcEuV3xwxT/LzqUx9iZDidGyVnFbz9assgkFp+hIsjihE3urbeW+bN
- bSA/peRQ2JqB47v+8EH2WzkDL3sNv1X4J1jKBEhLaBgY00hu4+kvq0WfRBE1WIWXQSLWYCMnRgF
- BJI9SV2V
-X-Proofpoint-ORIG-GUID: 79RMeNXKcnchBbmd4Vb6tCTJphswfkaN
-X-Authority-Analysis: v=2.4 cv=I85lRMgg c=1 sm=1 tr=0 ts=68ac2c52 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=2bDsevyxfkvo1t3REK0A:9
- a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: 79RMeNXKcnchBbmd4Vb6tCTJphswfkaN
+References: <20250823-msm-fix-gpuvm-init-v1-1-e199cd5b1983@oss.qualcomm.com>
+ <20250825090908.269e1119@fedora>
+In-Reply-To: <20250825090908.269e1119@fedora>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Mon, 25 Aug 2025 06:08:34 -0700
+X-Gm-Features: Ac12FXxVMbN4YIAqrvV2kTi7-EqGh6ZKLdVC2PGJCMTcARzTFOGIUb9P7BDgx8Q
+Message-ID: <CACSVV02uJCRW8imFz7Q4fDZ3gfwkjQW2TkKYEVKLrfs4bXRFCg@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm: fix msm_gem_vma_new() allocations for managed
+ GPUVMs
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Danct12 <danct12@disroot.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=Z/vsHGRA c=1 sm=1 tr=0 ts=68ac6061 cx=c_pps
+ a=+3WqYijBVYhDct2f5Fivkw==:117 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10
+ a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8 a=LpNgXrTXAAAA:8 a=fJUbV6HVZzjmhIKkI0cA:9
+ a=QEXdDO2ut3YA:10 a=eYe2g0i6gJ5uXG_o6N4q:22 a=AbAUZ8qAyYyZVLSsDulk:22
+ a=LqOpv0_-CX5VL_7kjZO3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzMyBTYWx0ZWRfX3c9USNMKpOvS
+ W+2OpDb+rhV7cd9bC++dj4fDQK6joSvDoMNA4K2cUj1x1BVx3Diw6+LYBPUfwDufvvUEKSVeEOd
+ 3mE1vxbyPSuV9MEMJ8Q6N/WrHTUBsHCHrJHQzppJCoRkeCP3ICjAgxrqDcZ8MEqkHRoc+wr3Rrp
+ V7BkWznSd+c5QyydjDPCX57LvUYmUMPh9Jeq8Kjh7cK9W0r4Sg/BNpZG34bNEupSBn0W6N3rpTE
+ s9Bk36hvKrIjXamEUlUAGRoioJO5lWGaK+Mb0fxkRim37uuQJv1MkTt+2rK/Z8AsSqPfF8Uhr7E
+ VPPaHjM/ATzTvCJvics7DvRavALw4dNsx3MTz0Utztr/PrdRhcl+GqVzDjIsB1Z2Rb8m1IFqfg4
+ 3ARA2is2
+X-Proofpoint-GUID: 7NCD1O10FkWT93Tjyb3z01O12zHwqEYj
+X-Proofpoint-ORIG-GUID: 7NCD1O10FkWT93Tjyb3z01O12zHwqEYj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-25_04,2025-08-20_03,2025-03-28_01
+ definitions=2025-08-25_06,2025-08-20_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
- suspectscore=0 phishscore=0 clxscore=1015 impostorscore=0
+ spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0 clxscore=1015
+ suspectscore=0 impostorscore=0 adultscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230032
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230033
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,88 +124,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 25, 2025 at 06:26:48AM +0000, Kandpal, Suraj wrote:
-> > Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor
-> > drm_writeback_connector structure
-> > 
-> > Hi,
-> > 
-> > On Sat, Aug 16, 2025 at 01:20:53AM +0300, Dmitry Baryshkov wrote:
-> > > On Thu, Aug 14, 2025 at 05:13:54PM +0100, liviu.dudau@arm.com wrote:
-> > > > Hi,
-> > > >
-> > > > On Wed, Aug 13, 2025 at 10:04:22AM +0000, Kandpal, Suraj wrote:
-> > > > > > > > };
-> > > > > > >
-> > > > > > > I still don't like that. This really doesn't belong here. If
-> > > > > > > anything, the drm_connector for writeback belongs to drm_crtc.
-> > > > > >
-> > > > > > Why? We already have generic HDMI field inside drm_connector. I
-> > > > > > am really hoping to be able to land DP parts next to it. In
-> > > > > > theory we can have a DVI- specific entry there (e.g. with the
-> > subconnector type).
-> > > > > > The idea is not to limit how the drivers subclass those structures.
-> > > > > >
-> > > > > > I don't see a good case why WB should deviate from that design.
-> > > > > >
-> > > > > > > If the issue is that some drivers need a custom drm_connector
-> > > > > > > subclass, then I'd rather turn the connector field of
-> > > > > > > drm_writeback_connector into a pointer.
-> > > > > >
-> > > > > > Having a pointer requires additional ops in order to get
-> > > > > > drm_connector from WB code and vice versa. Having
-> > > > > > drm_connector_wb inside drm_connector saves us from those ops
-> > (which don't manifest for any other kind of structure).
-> > > > > > Nor will it take any more space since union will reuse space
-> > > > > > already taken up by HDMI part.
-> > > > > >
-> > > > > > >
-> > > > >
-> > > > > Seems like this thread has died. We need to get a conclusion on the
-> > design.
-> > > > > Laurent do you have any issue with the design given Dmitry's
-> > > > > explanation as to why this Design is good for drm_writeback_connector.
-> > > >
-> > > > I'm with Laurent here. The idea for drm_connector (and a lot of drm
-> > > > structures) are to be used as base "classes" for extended
-> > > > structures. I don't know why HDMI connector ended up inside
-> > > > drm_connector as not all connectors have HDMI functionality, but that's a
-> > cleanup for another day.
-> > >
-> > > Maybe Maxime can better comment on it, but I think it was made exactly
-> > > for the purpose of not limiting the driver's design. For example, a
-> > > lot of drivers subclass drm_connector via drm_bridge_connector. If
-> > > struct drm_connector_hdmi was a wrapper around struct drm_connector,
-> > > then it would have been impossible to use HDMI helpers for bridge
-> > > drivers, while current design freely allows any driver to utilize
-> > > corresponding library code.
-> > 
-> > That's exactly why we ended up like this. With that design, we wouldn't have
-> > been able to "inherit" two connector "classes": bridge_connector is one,
-> > intel_connector another one.
-> > 
-> > See here for the rationale:
-> > https://lore.kernel.org/dri-devel/ZOTDKHxn2bOg+Xmg@phenom.ffwll.local/
-> > 
-> > I don't think the "but we'll bloat drm_connector" makes sense either.
-> > There's already a *lot* of things that aren't useful to every connector (fwnode,
-> > display_info, edid in general, scaling, vrr, etc.)
-> > 
-> > And it's not like we allocate more than a handful of them during a system's life.
-> 
-> So Are we okay with the approach mentioned here with the changes that have been proposed here like
-> Having drm_writeback_connector in union with drm_hdmi_connector
-> Also one more thing I would like to clarify here is how everyone would like the patches
-> patches where each patch changes both the drm core and all related drivers (ensures buildability but then review is tough for each driver).
-> Or patches where we have initial drm core changes and then each patch does the all changes in a driver in its own respective patch.
+On Mon, Aug 25, 2025 at 12:09=E2=80=AFAM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
+>
+> On Sat, 23 Aug 2025 03:12:00 +0300
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> > Since commit 3309323241fb ("drm/gpuvm: Kill drm_gpuva_init()") MSM
+> > driver fails to init, failing with "[drm:msm_gpu_init] *ERROR* could no=
+t
+> > allocate memptrs: -22" errors. The mentioned commit reworked the
+> > function, but didn't take into account that op_map is initialized at th=
+e
+> > top of the function, while ranges might change if GPUVM is managed by
+> > the kernel.
+> >
+> > Move op_mode initialization after finalizing all addresses and right
+> > before the drm_gpuva_init_from_op() call.
+> >
+> > Reported-by: Danct12 <danct12@disroot.org>
+> > Fixes: 3309323241fb ("drm/gpuvm: Kill drm_gpuva_init()")
+> > Suggested-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/msm/msm_gem_vma.c | 13 +++++++------
+> >  1 file changed, 7 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/ms=
+m_gem_vma.c
+> > index 3f440bc1f7106f3b0091f037611d0b433e5e2c18..6df6b7c0984da57fe64de41=
+fa54f7dea0a324c74 100644
+> > --- a/drivers/gpu/drm/msm/msm_gem_vma.c
+> > +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+> > @@ -368,12 +368,6 @@ struct drm_gpuva *
+> >  msm_gem_vma_new(struct drm_gpuvm *gpuvm, struct drm_gem_object *obj,
+> >               u64 offset, u64 range_start, u64 range_end)
+> >  {
+> > -     struct drm_gpuva_op_map op_map =3D {
+> > -             .va.addr =3D range_start,
+> > -             .va.range =3D range_end - range_start,
+> > -             .gem.obj =3D obj,
+> > -             .gem.offset =3D offset,
+> > -     };
+> >       struct msm_gem_vm *vm =3D to_msm_vm(gpuvm);
+> >       struct drm_gpuvm_bo *vm_bo;
+> >       struct msm_gem_vma *vma;
+> > @@ -402,6 +396,13 @@ msm_gem_vma_new(struct drm_gpuvm *gpuvm, struct dr=
+m_gem_object *obj,
+> >       if (obj)
+> >               GEM_WARN_ON((range_end - range_start) > obj->size);
+> >
+> > +     struct drm_gpuva_op_map op_map =3D {
+> > +             .va.addr =3D range_start,
+> > +             .va.range =3D range_end - range_start,
+> > +             .gem.obj =3D obj,
+> > +             .gem.offset =3D offset,
+> > +     };
+>
+> OOC, are we now allowed to declare local variables in the middle of a
+> code block in kernel code? I must admit that's not something I tried
+> doing recently, but I've had gcc warnings in the past because of that.
 
-The kernel must be bisectable. Which means that after each patch in the
-series the kernel must build completely and work without additionally
-introduced issues.
+yes.. I try not to go overboard with it, but this is a case where it
+seems like the cleanest solution
 
--- 
-With best wishes
-Dmitry
+BR,
+-R
+
+> > +
+> >       drm_gpuva_init_from_op(&vma->base, &op_map);
+> >       vma->mapped =3D false;
+> >
+> >
+> > ---
+> > base-commit: 0f4c93f7eb861acab537dbe94441817a270537bf
+> > change-id: 20250823-msm-fix-gpuvm-init-520d87ebcf26
+> >
+> > Best regards,
+>
