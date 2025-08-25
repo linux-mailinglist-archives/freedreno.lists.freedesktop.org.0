@@ -2,82 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38A32B34349
-	for <lists+freedreno@lfdr.de>; Mon, 25 Aug 2025 16:19:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B333CB3434C
+	for <lists+freedreno@lfdr.de>; Mon, 25 Aug 2025 16:19:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF2210E4D0;
-	Mon, 25 Aug 2025 14:19:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B19E10E4CF;
+	Mon, 25 Aug 2025 14:19:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KcXKcIx8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gK1o+SQW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC73D10E4CC
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 14:19:28 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57P91EF7020343
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 14:19:28 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6824510E4CC
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 14:19:33 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57P88YEk012652
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 14:19:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- P1yd10YofnLH+CQC4gSLJjeDZmLAxXPdlUuNT6txE1Y=; b=KcXKcIx89ECYWM+p
- Qumlgpfvh7fNUJ/+asqPchqOSihvhFSpD0mg5oAWug7OoGEeE0qSbq57S85peLe6
- 4OCCeIk3/BDph9cZ/1uPltJcOHuQ5tSLv4w6I3T0yEYf/dNyo8lpDyBwspduW3DF
- RLfE1HBg2RfhA+Xg/VuyFo+A+woEI9ec0phF57ruxPvG9UOfR92QlOOuDX7SzBmg
- K/NAM1WV7JOJVdnOM0jeTUsh5pzQ98929T7Bw5eRvLy1epvFWa7u5H2zujIXTaor
- F6n378ZEd4YEovLjC48UloZb9rWIiiapG6q3t41Rg34eaMlndjgG8AF2ONMCViTB
- y9kfIA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q6thwbpd-1
+ CZhkbXVUFYW+zS7ofmyWUZHIa7LAHJP5wKa7KCePTVk=; b=gK1o+SQW/eRGtNgY
+ cwkKf9XmIqP7EbppONYLbQWhVZQVht1u4T6b2E0FoCAHfSioHSOmFel2bYHghHeR
+ tJs+oWCCIZtLI3WX4ODvsHtDYxW+gVN6e9cxtgX+GKynywXqwnC4pKjHPA1oamWj
+ lRc59/EwphrFpoZ8x2EImF2j/98E784J3XlDgkUpW8eMa4rWMlzgDk58pWy+yYDz
+ n9Ve7JcqN7TmJypPM+Udu42kWKXml0LI05bdfhlVZmMRmWeU7WduRGabHp6vJuiz
+ GM0d2qyXoQ5ox86rHAG/fqV0VUMKBeYICI4rbF0HQS6XyBC2V7Ze5i2y+e+wQMF4
+ c5aj5w==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q5xpnf13-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 14:19:28 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-76e364afb44so3430404b3a.3
- for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 07:19:28 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 14:19:32 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-7705115a2a5so1251158b3a.0
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Aug 2025 07:19:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756131567; x=1756736367;
+ d=1e100.net; s=20230601; t=1756131572; x=1756736372;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=P1yd10YofnLH+CQC4gSLJjeDZmLAxXPdlUuNT6txE1Y=;
- b=nzwKv1xMjn4SCUeAbqVXph+6i8xJCkyXZDhB2KJ3tdZFV440VARjBbebBAOZbvAGn9
- 3wTJFbX6/BdBpQlk2N9NsJK4NPUCuPbCLQHKn9ni7A9EWM30ksIAMOarH0rkuspMLL40
- oABaMQM55cXyIUhX/9oltwsxkjBT4CXo49KJjzKzyZ77Uj7idaqzu03RmQiUUZpKPQix
- s9SAhmSJybuFzVdCApWo4GjAWDYcnrVrksiqjqUu9DiCuEpKlnbtXdVePlx3zJw2jFUg
- DG3gsj+6yjAgbwmUAsR+CGO2MiZYRIyOMkBGAte7fVPo91PJqhw0v16ySUVrU3Z4/aGX
- /foA==
+ bh=CZhkbXVUFYW+zS7ofmyWUZHIa7LAHJP5wKa7KCePTVk=;
+ b=lXOYmsukprXkGkrjww4sxCoXAwHVyGd8Y1EEcdK0iG5TyK+IIyBhJ/rz+0jVvgmQMQ
+ OYa1uq7MO06O+juLjqIs7n8OH9iDSVNFhjpqYrvAv23S5dtOxTQb4loFDWpmjGksb2so
+ ryufPeQb6UF6KCXU0mwK9QVy/21zgaixeWiBkYYXJJ57k2VfPTS/RoAnh3tu+CT4WefJ
+ UcQyqnBhj+x/0p3JuvJn3GOng5reKkIRyTXgHsbTPp+DDbHpryVX9raJUfY1gs3hljGa
+ +AigQXqQKfUA/l/J0fhszyJDmQWLDsAJvHXYkdG3Qxsdx1qcTkXDoA8ghrOirYH5w+Is
+ yVtA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU6ZT2f4N/T9gc7wX0TXlIGVLdXxtJwxjkN189hQYrBKaZE1JUTlGRD2pAA1rNugtvtj3v+SX0C4+k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyNr4VrIgCHi0LsUxN/hG6Li+2IDngGUhCgilmxw+ZM9L4sBSfA
- 0afhn5LX3MsZ3EGUI29X7Nwj2OQPzDKherFJkrErYFEUTSTc/aqRwTzd8QfgDWoBxqvDXcL3/rT
- n2oJMRzqdEIkDXERGJsUrK/mC4MQEiWAc29ejcVZfiqr8dlHBI5WA3yW0WQ3p4serkubgC0s=
-X-Gm-Gg: ASbGncvdNYrZrJA60no4GE6MqIvAh1vzyvecZf7V7ozGoHElVRV8Wp5hkb4q5+v4jOk
- T7mkrjNQqA0XKyhaj5TKcAvMOSgOLiGwujYmWYzv/6ncLYEulE8Ro/BZ8Ge7hFcfuPxXZNG9Tpz
- lhnrfQQmA+gvWzBDMXL29sqsfleudR7JbEXt54zu4Az0i6793YYmXurH6Af8ZBJ+azl+CUQUDft
- Lg91FJgxC03/6CyEtXYTsnpRa13vasatQGW1YTpO8wPmStpodx8UbgpP4Nz0ftI9UDNuDMx1P+t
- K83KErE1L3SLR4buvWJkBPb7R62ggOcBp3xLEhzVBUnWgZE60YgOyONNJFWnJReuUqiljT4=
-X-Received: by 2002:a05:6a00:b44:b0:771:ef50:346 with SMTP id
- d2e1a72fcca58-771ef50091cmr1422425b3a.15.1756131567565; 
- Mon, 25 Aug 2025 07:19:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHGFvu3XuT9VU/LnqIitNUMdiD78ZWBqA+dkmxK74qwT0hQeTdkMlAaWKNmSD7AF3jPQpDnfQ==
-X-Received: by 2002:a05:6a00:b44:b0:771:ef50:346 with SMTP id
- d2e1a72fcca58-771ef50091cmr1422378b3a.15.1756131567093; 
- Mon, 25 Aug 2025 07:19:27 -0700 (PDT)
+ AJvYcCURyUxJbD+NwwDsuIMQmysH6+uNPmTYYt7m3xkfqA6wydDqOstIpdU3eGjqnbhv6KFD/95GvPEZEw8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzvv/3KLyyn9TN0n67WEJ/vbXEjGea2abGR5STDDhDIZ9yqPe5m
+ +wH7G+LQHmYLLUZ2mdTOPA3J+lP3v8vVYZCBvJ0xcox/MGHBTcVikirAZHibJc99nxdRu+/rUPu
+ 72yhpd9i+lJStGOPXUxxyQkjHH98S0bf+LPyFsTvqmsmcL+0Utn8KDdz16IS/OdGPNFW/4pM=
+X-Gm-Gg: ASbGncvInUngyZ1lO0iKVeRN1J7pePOI41XDab6BED6VEc0lvaWxHa+/40LybZOYz9Y
+ pK/wKIiuSpVonbW3WnjCq5CNB/hJXM+tVadWRF8ObEC6vwENVPBnkJ3cjdcSt/raRRLxfWx7TA1
+ QXqBEjsEbK+qVZYB5O/NA1fcnTIFcy27Hp2nPgUNrbMSfJkorMTDk4ddUlAdSvAnC5HBQHT1Uel
+ D2jQqr8+R2MZrt34g6VY016oowo5WzShQmfoUsEIspAUTwtYpovkJdizmmbGKlM+J2y/OcpksQE
+ EbE7gfpddScSWl5Y2x0bIcfhWsu0/kfats4vLkSA1uju3TfIpzMK+gjS9YwshgxEexgg1pA=
+X-Received: by 2002:a05:6a20:7f85:b0:243:78a:826c with SMTP id
+ adf61e73a8af0-24340dcbc72mr19416777637.50.1756131571697; 
+ Mon, 25 Aug 2025 07:19:31 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFXv8tBZVC2UoKGO1/3uUglh2y92Zp+Cdn0tJSLzTXFD9surn4Xq1HARP3M1DlH3qrJwl+SIg==
+X-Received: by 2002:a05:6a20:7f85:b0:243:78a:826c with SMTP id
+ adf61e73a8af0-24340dcbc72mr19416732637.50.1756131571237; 
+ Mon, 25 Aug 2025 07:19:31 -0700 (PDT)
 Received: from cse-cd01-lnx.ap.qualcomm.com ([114.94.8.21])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-770401eb20dsm7672339b3a.79.2025.08.25.07.19.23
+ d2e1a72fcca58-770401eb20dsm7672339b3a.79.2025.08.25.07.19.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Aug 2025 07:19:26 -0700 (PDT)
+ Mon, 25 Aug 2025 07:19:30 -0700 (PDT)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Mon, 25 Aug 2025 22:16:19 +0800
-Subject: [PATCH v3 33/38] drm/msm: add support for MST non-blocking commits
+Date: Mon, 25 Aug 2025 22:16:20 +0800
+Subject: [PATCH v3 34/38] drm/msm: initialize DRM MST encoders for DP
+ controllers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250825-msm-dp-mst-v3-33-01faacfcdedd@oss.qualcomm.com>
+Message-Id: <20250825-msm-dp-mst-v3-34-01faacfcdedd@oss.qualcomm.com>
 References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
 In-Reply-To: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -92,35 +93,35 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1756131424; l=2126;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1756131424; l=4594;
  i=yongxing.mou@oss.qualcomm.com; s=20241121; h=from:subject:message-id;
- bh=bbMgrjogFWOe53cU7bupWnZmtxrreVf6AXy9Q1VXF+M=;
- b=gpg3jVD6oQp8tI8kWMMSeHm2DZx31ldvlH7b/o8hYiGVXXFJvVsSukXwu+8X2LIpMWKJk16+T
- Az8Qnk5jGIADEg6fsCyTUrl4ahidQSBEY8LldaFTeQqX6Yi482rJj8G
+ bh=ZDHDyo+PGP0KVM/qc1FieiisvNG7qcmF8Qsrn9I5YcA=;
+ b=IJWtywfKvZuE1pb21io/8fr6S2zZOE9lbHx1ilz2xgbyuxZb7lpvGT+BHkqz7UJ1bav+k/+rZ
+ syLKbD/EHzaAl5ZUlJy8FdXAgX2dGnVSHJu+0l3FtCWMskX8WKDLSSo
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=zeCnFRUqtOQMeFvdwex2M5o0Yf67UHYfwCyBRQ3kFbU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDA0MyBTYWx0ZWRfXz2TKDs/3fTHg
- UQSM6Fjqi0ANQPJBoLgADPEKYJEgsqCXRHDOo6rrx6KR42V0bXAU0e8tPD3ar/w6+mizmfFq3wd
- ZTz583y3hteVgo5fUHxf74AiT/VjHEGdOIaXxE/xyG4Up5VvHs4Fbexmpk/5tSCwTKfFGezRhRU
- KhBDAQReUDbTfIRmZ0CL/tuHSfN3AJ3M3YeR8Acnx3iSwC9b2+9uDJ3ERs0y3nUGS8I4TZtKlxq
- mDzS1v2kKfJDoX1Q4lDGSPF0vRO9Rtm9bCBpLvRmf+AYUsad4vsjiTejPDbfJrPOVNr3EbjHDj7
- uZhSjPgQit6K4siqlRHd9KhxTYhg9IV9zc5NYw8aYuJu9SHkIGGbV33wkj1FLObNJ5UlYDlqm6S
- rGkwjaMM
-X-Proofpoint-ORIG-GUID: lAlcO3jXSDue506mQ8meGtuf1tpb803r
-X-Proofpoint-GUID: lAlcO3jXSDue506mQ8meGtuf1tpb803r
-X-Authority-Analysis: v=2.4 cv=W544VQWk c=1 sm=1 tr=0 ts=68ac70f0 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+X-Authority-Analysis: v=2.4 cv=KOlaDEFo c=1 sm=1 tr=0 ts=68ac70f4 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
  a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=pGLkceISAAAA:8 a=-c5J4RddxQ5453FdQNsA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22 a=TjNXssC_j7lpFel5tvFf:22
+ a=z9hH63PmnJvNFBvS1J4A:9 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: scHFc1bFc398DUNcFUb5huSUzBiWWUDj
+X-Proofpoint-ORIG-GUID: scHFc1bFc398DUNcFUb5huSUzBiWWUDj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzMyBTYWx0ZWRfXy0vO/5alQHBx
+ Bn6evCoO3TYa5N30vmCTGAbGrlk3XIIL9Dw2dJgLnYCkEjgUz/LHlZJfl7uxKqWFlon/Kf87TKI
+ SpNH8N5Kvn2eY2GhgUu75p0y7H6Yz2BFfJs8aNj/akt8Svl3UMO8MNqyxZKTYMiC+hg3/Lh0kXi
+ ui56Oeao9XggcIq6gstrn63kUwwX1Rg2b9F5xNFBRJDeQlZIng2cc7sMUpMeVeO9mW87UwZD/6/
+ JiGEh9d0dGkRs4tmqHaYtdUghdt/09eFy1IJfiLuHYLTb4kkmcTZjeQUCZo+Tok4K67eFDHK7lE
+ 3tDtlIZI+/cJh54+vbqXz1SRTIb4ox/ydFPS6OrW/w11GsomIn1sYaqVmwS3EWqT7AcOE7w0fYp
+ ONu6MfgU
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-25_06,2025-08-20_03,2025-03-28_01
+ definitions=2025-08-25_07,2025-08-20_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
- bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 adultscore=0 phishscore=0
+ impostorscore=0 spamscore=0 suspectscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230043
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230033
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,62 +139,124 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-Integrate MST framework APIs with atomic_commit_setup() and
-atomic_commit_tail() to support non-blocking atomic commits
-for DisplayPort MST.
-
-This patch only applies to MST. For SST, non-blocking commits are
-already handled via commit_tail(), which internally calls
-drm_atomic_helper_wait_for_dependencies() in the DRM core.
+Initialize a DPMST encoder for each  MST capable DP controller
+and the number of encoders it supports depends on the number
+of streams it supports.
 
 Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_atomic.c | 3 +++
- drivers/gpu/drm/msm/msm_kms.c    | 2 ++
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 23 ++++++++++++++++++++++-
+ drivers/gpu/drm/msm/dp/dp_mst_drm.h         |  2 --
+ drivers/gpu/drm/msm/msm_drv.h               | 13 +++++++++++++
+ 4 files changed, 37 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index 3aa0020dec3a90b693ad3d4171cfcffc091aad4c..b1656fb456d54af11ba8a30d4971fface114c7a1 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -4,6 +4,7 @@
-  * Author: Rob Clark <robdclark@gmail.com>
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+index ca1ca2e51d7ead0eb34b27f3168e6bb06a71a11a..2eb4c39b111c1d8622e09e78ffafef017e28bbf6 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+@@ -28,6 +28,7 @@
+  * @h_tile_instance:    Controller instance used per tile. Number of elements is
+  *                      based on num_of_h_tiles
+  * @is_cmd_mode		Boolean to indicate if the CMD mode is requested
++ * @stream_id		stream id for which the interface needs to be acquired
+  * @vsync_source:	Source of the TE signal for DSI CMD devices
   */
- 
-+#include <drm/display/drm_dp_mst_helper.h>
- #include <drm/drm_atomic_uapi.h>
- #include <drm/drm_vblank.h>
- #include <drm/display/drm_dp_mst_helper.h>
-@@ -226,6 +227,8 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 
- 	trace_msm_atomic_commit_tail_start(async, crtc_mask);
- 
-+	drm_dp_mst_atomic_wait_for_dependencies(state);
-+
- 	kms->funcs->enable_commit(kms);
- 
- 	/*
-diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-index 6889f1c1e72121dcc735fa460ea04cdab11c6705..09776be1d3d854f4c77d7df3afa8d56f53639411 100644
---- a/drivers/gpu/drm/msm/msm_kms.c
-+++ b/drivers/gpu/drm/msm/msm_kms.c
-@@ -10,6 +10,7 @@
- #include <linux/sched/mm.h>
- #include <uapi/linux/sched/types.h>
- 
-+#include <drm/display/drm_dp_mst_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_mode_config.h>
- #include <drm/drm_vblank.h>
-@@ -29,6 +30,7 @@ static const struct drm_mode_config_funcs mode_config_funcs = {
- 
- static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
- 	.atomic_commit_tail = msm_atomic_commit_tail,
-+	.atomic_commit_setup = drm_dp_mst_atomic_setup_commit,
+ struct msm_display_info {
+@@ -35,6 +36,7 @@ struct msm_display_info {
+ 	uint32_t num_of_h_tiles;
+ 	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
+ 	bool is_cmd_mode;
++	int stream_id;
+ 	enum dpu_vsync_source vsync_source;
  };
  
- static irqreturn_t msm_irq(int irq, void *arg)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 12dcb32b472497f9e59619db4e810abfbf610c7c..0b9d9207f4f69e0d0725ff265c624828b5816a8b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -653,7 +653,8 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ 	struct msm_display_info info;
+ 	bool yuv_supported;
+ 	int rc;
+-	int i;
++	int i, stream_id;
++	int stream_cnt;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(priv->kms->dp); i++) {
+ 		if (!priv->kms->dp[i])
+@@ -676,6 +677,26 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ 			DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
+ 			return rc;
+ 		}
++
++		stream_cnt = msm_dp_get_mst_max_stream(priv->kms->dp[i]);
++
++		if (stream_cnt > 1) {
++			for (stream_id = 0; stream_id < stream_cnt; stream_id++) {
++				info.stream_id = stream_id;
++				encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DPMST, &info);
++				if (IS_ERR(encoder)) {
++					DPU_ERROR("encoder init failed for dp mst display\n");
++					return PTR_ERR(encoder);
++				}
++
++				rc = msm_dp_mst_drm_bridge_init(priv->kms->dp[i], encoder);
++				if (rc) {
++					DPU_ERROR("dp mst bridge %d init failed, %d\n",
++						  stream_id, rc);
++					continue;
++				}
++			}
++		}
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+index 8fe6cbbe741da4abb232256b3a15ba6b16ca4f3e..d73e3f908439094532e88945ed4d41ed092051c9 100644
+--- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+@@ -82,8 +82,6 @@ struct msm_dp_mst_connector {
+ 	struct msm_dp_panel *dp_panel;
+ };
+ 
+-int msm_dp_mst_drm_bridge_init(struct msm_dp *dp, struct drm_encoder *encoder);
+-
+ int msm_dp_mst_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux);
+ 
+ void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display);
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 985db9febd98e35dfed51d39dac1a522abe5a351..3e64ec7b7dbe1d1107e85def9aa80277131f40bf 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -363,6 +363,9 @@ bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
+ 			       const struct drm_display_mode *mode);
+ bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
+ 
++int msm_dp_get_mst_max_stream(struct msm_dp *dp_display);
++int msm_dp_mst_drm_bridge_init(struct msm_dp *dp_display, struct drm_encoder *encoder);
++
+ #else
+ static inline int __init msm_dp_register(void)
+ {
+@@ -379,6 +382,16 @@ static inline int msm_dp_modeset_init(struct msm_dp *dp_display,
+ 	return -EINVAL;
+ }
+ 
++static inline int msm_dp_get_mst_max_stream(struct msm_dp *dp_display)
++{
++	return -EINVAL;
++}
++
++static inline int msm_dp_mst_drm_bridge_init(struct msm_dp *dp_display, struct drm_encoder *encoder)
++{
++	return -EINVAL;
++}
++
+ static inline void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display)
+ {
+ }
 
 -- 
 2.34.1
