@@ -2,154 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42F55B36F81
-	for <lists+freedreno@lfdr.de>; Tue, 26 Aug 2025 18:08:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78D20B37044
+	for <lists+freedreno@lfdr.de>; Tue, 26 Aug 2025 18:29:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D0F610E0DA;
-	Tue, 26 Aug 2025 16:08:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A9710E0DA;
+	Tue, 26 Aug 2025 16:29:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JbswCT6s";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RBDkVS9/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1979E10E0DA
- for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 16:08:26 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57QFZwO0000532
- for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 16:08:25 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB27D10E384
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 16:29:34 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57Q9AYkw026003
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 16:29:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=5Y6MH/IfjA1JcEnoDtSw8pJM
- 2X/EunOT5oKJPorXhUE=; b=JbswCT6sjJBwB/oXRot1KzTm7NFqJUos8kr5i1CQ
- MP1A0cQ0WBCm2vDiljFK0hOwi19o+0cJpUQVlWAONGs8nOm7/NEe7wEfUuvyhydc
- CmhkC/SkW6VCegD9VGihV7/3wCI+YqYEZI5A1/Fx3TizavTs3DR0NGFBGFUhhTxl
- SnU65YAmgvZinrJ1lwsb93+k8Klg1GXt/QBvWkL4nZ9pJmbQFJHCg5jMMZS1tKnE
- KWpQSqL6k5pfdetx2H7bjnQOy4oeSH6onMkGAxSU27uvyINNG6CJd8IgdNd1kXyE
- Z/lqRkYgZuw4nptDVgV7LXFFAaNJJzX1TbIWhbep88YBhA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q5xfhhb3-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:reply-to:subject:to; s=qcppdkim1; bh=Tscxk8lnA09Aw
+ TJLl9Pq/EJ+dx1JKgEznU64KBSUuEA=; b=RBDkVS9/IB7/uxFNLqncOQUDSexlD
+ eT3nY+9FMXW8mWFEAg93FKfcwKN78om+tt13IRBQRCHYpwb/oYxpHw4KQn44GKTw
+ Nl57Zqez5aq7/m6zm/xSKt98x7l5x1MD3iHRgrtwlf96hhJWLcWphWhG2EkalpxK
+ 6zw7C9id6mFgM2JyfHhBADLwYSwHvOuhOncC6CCD+oSQfRMwLvp/kvFr7yqYFV6K
+ yduBazbP2KxdmvsM1/A1gt7VvKTRkjatza543omvsK37aLDCxJ7Pk2qNRt+jw2sd
+ nk5S3mirq0jphbNL/hoSdU5RD4d7ecaxLkw0mzDYCPy2eIIVtaztpr6zw==
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48s2eujr77-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 16:08:25 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4b10993f679so156559711cf.0
- for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 09:08:25 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 16:29:34 +0000 (GMT)
+Received: by mail-oi1-f197.google.com with SMTP id
+ 5614622812f47-435de81edfdso1601922b6e.3
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 09:29:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756224504; x=1756829304;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1756225773; x=1756830573;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5Y6MH/IfjA1JcEnoDtSw8pJM2X/EunOT5oKJPorXhUE=;
- b=kStCv7wPcaL52bBQeO8CCBlXme656Zr0JX/H3zFQ9/2xcfLPUslYdnC+yu2G4xZSo0
- YGswu/WcnbtsfOe9XX3uyBcVohaRN8rMcosv0rjWTOC9oAloB83zQ+J/o3+H2i++w+2d
- x/bYltvTGTdWQuk9nnrT1faWVleQt45USjK9LJRcPIdhyiCWTAM2MQt9QGWa2seI/XLr
- R9PuF+r8UdwVufWDfQq7uJiSz6F9pWlIljIEcNrQ5YMvjEM/xh46Hveld5553TcwKL93
- EXJnsckvPYeAWCsOINkw+/H0AsipV6fLTqS6nUZ01D6q+7oW9gBaW3alaSC+5v9vUy5p
- ulSw==
+ bh=Tscxk8lnA09AwTJLl9Pq/EJ+dx1JKgEznU64KBSUuEA=;
+ b=uYYrcojPtkYSsM+jv40fJDWQePUxKONfPqlR1kALXJgDaZp4MtCH4NAr56XydWp5po
+ LSuJkifRFPmwPzOgPD2sl2Q89pxEr0PvRg4ed0cEEZppssKZW7GdTblenhIk6M1iiI2E
+ vESS+Z7SyUzv0JB6P8SmlO8qghVsWJwUjSu8Ld5GTpzri0KK/uwJiKRwv6dlerzU0oge
+ +WPc6mSf/9V0p1xkYIPTEOz/6TqGGvqxqUmxU1y+7fM9Mc0xH/qsUZUnaJejZj8FjbdF
+ /vC7AixI5NkqErZLaOu48UwwJkfgG/MxostjDH+XBY2S5ilvZ00OuEPFE+p5v/DrqZl2
+ cnFw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXodU4o7heW+Dn4IYIw2KrgrMuGpntfvPO015U/TlpDN4qeiNVi3negkrCeEdmwMH9Uch20614CU0g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxBc8yOOG34MdrgI3yn7wttg05rRY2/7eBNGVl8D/ykBcqBed71
- qQSw7MeLlLsM7erUXAbjlolnJU2P7tX2z+J4hrInwljlJ/aNKf0jKD2+MWL3CJ8wChOhCqK6an/
- 2W8/AUKY0o4aO1yCbdl1UoE6ARwQyoRusfhJcF2sALwzFMe9UpWC3bTTWt5MNkkLzhTePnZE=
-X-Gm-Gg: ASbGncucwxJq/AAkg3dGbHQSDDCOjMomcMeQFVq2nUaPVVeYrvb4pOdpT0NZlndfTxU
- KcVeinMnHdM/Jyin7p6Aha9fVUywFeoAgUv6aN4gAZv7e4OdDJO+Iikb72UdFZD6dXtBqQWIMKP
- RhVEMohVbKE3YIYkedfTdtDimVi2JCzpkWObg97/GUAfchdsEKeLvn66OxLWQSltt22np1jCdQQ
- hrAga/WUKdz00WY5VZX46V/IvxcR3bHiouo3B+JapLhIHx+d/o9b3g7oTXS7AlE252itTZGKMc0
- 9qZW6jpEAO8pcbaBnNhBhZcjC/KtwYyJjspC09sJvxELd98f/dwHov//AYPmZsadQ+lMMI+FY74
- iiWf4khe0oweDXuO7YJH/9lOX1oyIaLt9aogCxiLvojwP9KqbjFa3
-X-Received: by 2002:a05:622a:188e:b0:4b0:677d:d8e1 with SMTP id
- d75a77b69052e-4b2aaa055c4mr159229751cf.17.1756224503979; 
- Tue, 26 Aug 2025 09:08:23 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGw4XVvhS8sJ4oPyO5LSxRLiQgorFOHBMUJBTT8et5S5EVGydVwVkXldGpoHbR11UxUC58e2w==
-X-Received: by 2002:a05:622a:188e:b0:4b0:677d:d8e1 with SMTP id
- d75a77b69052e-4b2aaa055c4mr159227761cf.17.1756224501655; 
- Tue, 26 Aug 2025 09:08:21 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55f45a230ddsm1241131e87.59.2025.08.26.09.08.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Aug 2025 09:08:20 -0700 (PDT)
-Date: Tue, 26 Aug 2025 19:08:17 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: "mripard@kernel.org" <mripard@kernel.org>
-Cc: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "Shankar, Uma" <uma.shankar@intel.com>,
- "Nikula, Jani" <jani.nikula@intel.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "siqueira@igalia.com" <siqueira@igalia.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>,
- "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
- "mcanal@igalia.com" <mcanal@igalia.com>,
- "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
- "tomi.valkeinen+renesas@ideasonboard.com"
- <tomi.valkeinen+renesas@ideasonboard.com>, 
- "kieran.bingham+renesas@ideasonboard.com"
- <kieran.bingham+renesas@ideasonboard.com>, 
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
-Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
- structure
-Message-ID: <76cmo6pqa534cdnckfgsnspczenzt7kiwkpgg4olxysjn2can7@g5dxteqi5jjs>
-References: <20250811094429.GE21313@pendragon.ideasonboard.com>
- <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
- <20250811111546.GA30760@pendragon.ideasonboard.com>
- <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
- <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
- <aJ4LQvqli36TlETu@e110455-lin.cambridge.arm.com>
- <hc6f6wgsnauh72cowocpm55tikejhiha5z4mgufeq7v6gb2qml@kmgfd26bigos>
- <wr76vyag2osox2xf7ducnkiaanzk2k5ehd2ahnoyqdm5qiywlk@penf4v5bvg5z>
- <DM3PPF208195D8D87AECE8397914A67D9A1E33EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
- <20250826-skinny-dancing-otter-de9be4@houat>
+ AJvYcCWN8flM60O3DPH2QKlM2IjHbpYZOwS4PzXuCFXAAQqFz4SgUIo1exbHWZUopLFgFIgB3z1P55v1fNU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymSrcka11DF1Ya5fbCoXZX0g9aFlSSC81dSXn0XsXUOYg4vjzP
+ gBA4qxIC9KHvSXZqrtP8JVEamd6+b1VGAyR1aQtdZS0l6/KVZ7ZI0Sd292mp81ZALS02z3hLRg3
+ gHSzHX+4HZXUt5k2qFKknkj31y79xtoOQ0yNnQWTuLp3bjPX0VWr2QivPeeDoj6uGAShJF186jK
+ y9VyKWEt9lyb+F3JbPZQrJx5qtRa4jo5gWjifv4xbi/knZrw==
+X-Gm-Gg: ASbGncsBU43yjSZX+s6AlNcyqq8H1cV/dA/8Z+7Oy1KGN199YXgYOcDU+7ajzT8/y8j
+ IKiYcQskXBbtZCAuJPE8BFxd12fX7NNU10l6yz+4Ruyv7DSw+IpawzSaVkg69w9awMMPCaXOUaR
+ QxpiYbn4VbMBaX0yVAZTsU31iWFRZbkd+VXt81J0LPCEV/gRF2sUlJ
+X-Received: by 2002:a05:6808:23d2:b0:437:761b:961d with SMTP id
+ 5614622812f47-4378537407amr8347890b6e.44.1756225771387; 
+ Tue, 26 Aug 2025 09:29:31 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFDSLcrGe9xj0YCnQ9UzxwRoOzPFqv44GvrHidL3Q3zNYyfxHnl+RlB9NftBJjb1WMFmYiTyMfoqSggWXktKCA=
+X-Received: by 2002:a05:6808:23d2:b0:437:761b:961d with SMTP id
+ 5614622812f47-4378537407amr8347868b6e.44.1756225770863; Tue, 26 Aug 2025
+ 09:29:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250826-skinny-dancing-otter-de9be4@houat>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzMyBTYWx0ZWRfX32zH3Crg/u34
- as6tULbmbolOjaKL9fJ0avU+yTuY9/QLCED+/brFTfvdR3jFTDzq5AP1Hy/6mnlPpY4rXYM7Afc
- dxKzb7uvO1JFmoFSqt//yF7zeRWjZTZE+ldXRhCybRJZEpGK1n3O84t6DRa7pdCa/f2phHc80tj
- M3H2SlUbBMNqrP3G1X96DBmxb+7hRPZGpHEYV8xwqM+eYblw+6sIRALnBYtEpkrGdyArCcKDpRJ
- ztAcQidJ5IJW029CSmsfCJS4Kc4XDJIFTpI/lCZTTAN1oKMb3Gnjm+oUii4T8pkKoEvZOp6oqKF
- cnw/cEPGHkMta0DwUAhJo2+madHwfjEppJyFSc5cqTL09CT380DGIWEliZp0jf9hpNDood05CLI
- Nk4IIiPX
-X-Proofpoint-GUID: Oh6kgM6XNHRxNL7vg4IYBrY1UZdHdMKZ
-X-Authority-Analysis: v=2.4 cv=MutS63ae c=1 sm=1 tr=0 ts=68addbf9 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=cj-Nge-_NgV5cCdd3SwA:9
- a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-ORIG-GUID: Oh6kgM6XNHRxNL7vg4IYBrY1UZdHdMKZ
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Tue, 26 Aug 2025 09:29:18 -0700
+X-Gm-Features: Ac12FXwFhQA5Ic16p1I53DRT2lsUPtvc6jq5BH8o7osm_vNSb7-qXftHxP2nqCQ
+Message-ID: <CACSVV02+u1VW1dzuz6JWwVEfpgTj6Y-JXMH+vX43KsKTVsW+Yg@mail.gmail.com>
+Subject: [pull] drm/msm: drm-msm-fixes-2025-08-26 for v6.17-rc4
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: "open list:DRM DRIVER for Qualcomm Adreno GPUs"
+ <dri-devel@lists.freedesktop.org>, 
+ "open list:DRM DRIVER for Qualcomm Adreno GPUs"
+ <linux-arm-msm@vger.kernel.org>, 
+ "open list:DRM DRIVER for Qualcomm Adreno GPUs"
+ <freedreno@lists.freedesktop.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Connor Abbott <cwabbott0@gmail.com>, bjorn.andersson@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: IA7o-hSseNtMQ9nr3AiSz3g33QnQUqFk
+X-Proofpoint-GUID: IA7o-hSseNtMQ9nr3AiSz3g33QnQUqFk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODI2MDAwMSBTYWx0ZWRfX2RwzUxWZUN/o
+ Pbs2N5im9pbx6scTJMehH9BzVQlmqopamcXtZXn0A6/6e0VEMw/pr3vWsse7ZQIzo70xUPeWO9I
+ UfBged1UsjCWSyXRhbAlxvf+olcicvBWBbKSFgZ2TtkCW7YBhaAUKG86NUnb33K09QacpRTc9nS
+ T42OC3IlVPD3tWomVlMaK6nFi68RQdgf0xfCvIjs+nsraiqCcf67QOrZb3iJbjRQ1rs911OlP40
+ hUaujVNEy4y0z3F9ZZDgYRtxuMEWCbAaQXPD2yiI9KTOHKgbiaSFctQyicfyjjVegH+WmJiVe0y
+ P/lXuoYN7Y6e0zDP0P5NPWfa1ANt64Etccixlo0XaiwrFYEqsBD72PognwX3kI6nh0qzyI2PK3V
+ rJexUe0v
+X-Authority-Analysis: v=2.4 cv=PJUP+eqC c=1 sm=1 tr=0 ts=68ade0ee cx=c_pps
+ a=WJcna6AvsNCxL/DJwPP1KA==:117 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10
+ a=e5mUnYsNAAAA:8 a=g1uuwZcmdHHBDmomJxkA:9 a=QEXdDO2ut3YA:10
+ a=_Y9Zt4tPzoBS9L09Snn2:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-26_02,2025-08-26_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 adultscore=0 spamscore=0 malwarescore=0
- suspectscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230033
+ suspectscore=0 impostorscore=0 phishscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508260001
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,102 +114,149 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Aug 26, 2025 at 05:48:18PM +0200, mripard@kernel.org wrote:
-> On Mon, Aug 25, 2025 at 06:26:48AM +0000, Kandpal, Suraj wrote:
-> > > Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor
-> > > drm_writeback_connector structure
-> > > 
-> > > Hi,
-> > > 
-> > > On Sat, Aug 16, 2025 at 01:20:53AM +0300, Dmitry Baryshkov wrote:
-> > > > On Thu, Aug 14, 2025 at 05:13:54PM +0100, liviu.dudau@arm.com wrote:
-> > > > > Hi,
-> > > > >
-> > > > > On Wed, Aug 13, 2025 at 10:04:22AM +0000, Kandpal, Suraj wrote:
-> > > > > > > > > };
-> > > > > > > >
-> > > > > > > > I still don't like that. This really doesn't belong here. If
-> > > > > > > > anything, the drm_connector for writeback belongs to drm_crtc.
-> > > > > > >
-> > > > > > > Why? We already have generic HDMI field inside drm_connector. I
-> > > > > > > am really hoping to be able to land DP parts next to it. In
-> > > > > > > theory we can have a DVI- specific entry there (e.g. with the
-> > > subconnector type).
-> > > > > > > The idea is not to limit how the drivers subclass those structures.
-> > > > > > >
-> > > > > > > I don't see a good case why WB should deviate from that design.
-> > > > > > >
-> > > > > > > > If the issue is that some drivers need a custom drm_connector
-> > > > > > > > subclass, then I'd rather turn the connector field of
-> > > > > > > > drm_writeback_connector into a pointer.
-> > > > > > >
-> > > > > > > Having a pointer requires additional ops in order to get
-> > > > > > > drm_connector from WB code and vice versa. Having
-> > > > > > > drm_connector_wb inside drm_connector saves us from those ops
-> > > (which don't manifest for any other kind of structure).
-> > > > > > > Nor will it take any more space since union will reuse space
-> > > > > > > already taken up by HDMI part.
-> > > > > > >
-> > > > > > > >
-> > > > > >
-> > > > > > Seems like this thread has died. We need to get a conclusion on the
-> > > design.
-> > > > > > Laurent do you have any issue with the design given Dmitry's
-> > > > > > explanation as to why this Design is good for drm_writeback_connector.
-> > > > >
-> > > > > I'm with Laurent here. The idea for drm_connector (and a lot of drm
-> > > > > structures) are to be used as base "classes" for extended
-> > > > > structures. I don't know why HDMI connector ended up inside
-> > > > > drm_connector as not all connectors have HDMI functionality, but that's a
-> > > cleanup for another day.
-> > > >
-> > > > Maybe Maxime can better comment on it, but I think it was made exactly
-> > > > for the purpose of not limiting the driver's design. For example, a
-> > > > lot of drivers subclass drm_connector via drm_bridge_connector. If
-> > > > struct drm_connector_hdmi was a wrapper around struct drm_connector,
-> > > > then it would have been impossible to use HDMI helpers for bridge
-> > > > drivers, while current design freely allows any driver to utilize
-> > > > corresponding library code.
-> > > 
-> > > That's exactly why we ended up like this. With that design, we wouldn't have
-> > > been able to "inherit" two connector "classes": bridge_connector is one,
-> > > intel_connector another one.
-> > > 
-> > > See here for the rationale:
-> > > https://lore.kernel.org/dri-devel/ZOTDKHxn2bOg+Xmg@phenom.ffwll.local/
-> > > 
-> > > I don't think the "but we'll bloat drm_connector" makes sense either.
-> > > There's already a *lot* of things that aren't useful to every connector (fwnode,
-> > > display_info, edid in general, scaling, vrr, etc.)
-> > > 
-> > > And it's not like we allocate more than a handful of them during a system's life.
-> > 
-> > So Are we okay with the approach mentioned here with the changes that have been proposed here like
-> > Having drm_writeback_connector in union with drm_hdmi_connector
-> 
-> I don't think we need a union here. It artificially creates the same
-> issue: we can't have two types for a connector if we do so.
+Hi Dave, Simona,
 
-Well... What kind of connector would be both HDMI and WriteBack? I think
-they are mutually exclusive already.
+Fixes for v6.17-rc4.  A bit later than intended, due to gitlab ci
+breakage.  (Not completely solved, but I eventually realized I could
+workaround it by creating the MR in the main drm/msm tree rather than
+my fork.)
 
-> > Also one more thing I would like to clarify here is how everyone would
-> > like the patches patches where each patch changes both the drm core
-> > and all related drivers (ensures buildability but then review is tough
-> > for each driver). Or patches where we have initial drm core changes
-> > and then each patch does the all changes in a driver in its own
-> > respective patch.
-> 
-> The latter should be preferred, but if you can't maintain bisectability
-> that way, then it's the most important and you should fall back to the
-> former.
+Has some soc/qcom/ubwc fixes ack'd by Bjorn to address fallout of
+migration to centralized UBWC config provider.
 
-I'd say, we should be trying our best in providing bisectability. It
-really a PITA if one can not use `git bisect run`.
+The following changes since commit 8290d37ad2b087bbcfe65fa5bcaf260e184b250a=
+:
 
--- 
-With best wishes
-Dmitry
+  drm/msm: Small function param doc fix (2025-07-05 09:59:12 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2025-08-26
+
+for you to fetch changes up to 3cf6147f2b51a569761e1ef010efbd891e3a3a15:
+
+  soc: qcom: use no-UBWC config for MSM8956/76 (2025-08-25 14:01:26 -0700)
+
+----------------------------------------------------------------
+Fixes for v6.17-rc4
+
+Core/GPU:
+- fix comment doc warning in gpuvm
+- fix build with KMS disabled
+- fix pgtable setup/teardown race
+- global fault counter fix
+- various error path fixes
+- GPU devcoredump snapshot fixes
+- handle in-place VM_BIND remaps to solve turnip vm update race
+- skip re-emitting IBs for unusable VMs
+- Don't use %pK through printk
+- moved display snapshot init earlier, fixing a crash
+
+DPU:
+- Fixed crash in virtual plane checking code
+- Fixed mode comparison in virtual plane checking code
+
+DSI:
+- Adjusted width of resulution-related registers
+- Fixed locking issue on 14nm PLLs
+
+UBWC (per Bjorn's ack)
+- Added UBWC configuration for several missing platforms (fixing
+  regression)
+
+----------------------------------------------------------------
+Antonino Maniscalco (1):
+      drm/msm: skip re-emitting IBs for unusable VMs
+
+Ayushi Makhija (1):
+      drm/msm: update the high bitfield of certain DSI registers
+
+Bagas Sanjaya (1):
+      drm/gpuvm: Wrap drm_gpuvm_sm_map_exec_lock() expected usage in
+literal code block
+
+Chenyuan Yang (1):
+      drm/msm/dpu: Add a null ptr check for dpu_encoder_needs_modeset
+
+Colin Ian King (1):
+      drm/msm: Fix dereference of pointer minor before null check
+
+Dmitry Baryshkov (8):
+      drm/msm/kms: move snapshot init earlier in KMS init
+      drm/msm/dpu: correct dpu_plane_virtual_atomic_check()
+      soc: qcom: ubwc: provide no-UBWC configuration
+      dt-bindings: display/msm: qcom,mdp5: drop lut clock
+      soc: qcom: ubwc: use no-uwbc config for MSM8917
+      soc: qcom: ubwc: add more missing platforms
+      soc: qcom: add configuration for MSM8929
+      soc: qcom: use no-UBWC config for MSM8956/76
+
+Loic Poulain (1):
+      drm/msm/dsi: Fix 14nm DSI PHY PLL Lock issue
+
+Luca Weiss (1):
+      soc: qcom: ubwc: Add missing UBWC config for SM7225
+
+Ma=C3=ADra Canal (1):
+      drm/msm: Update global fault counter when faulty process has already =
+ended
+
+Nathan Chancellor (1):
+      drm/msm/dpu: Initialize crtc_state to NULL in
+dpu_plane_virtual_atomic_check()
+
+Rob Clark (15):
+      drm/msm: Fix build with KMS disabled
+      drm/msm: Fix pagetables setup/teardown serialization
+      drm/msm: Fix refcnt underflow in error path
+      drm/msm: Fix submit error path cleanup
+      drm/msm: Defer fd_install in SUBMIT ioctl
+      drm/msm: Defer fd_install in VM_BIND ioctl
+      drm/msm: Add missing "location"s to devcoredump
+      drm/msm: Fix section names and sizes
+      drm/msm: Fix order of selector programming in cluster snapshot
+      drm/msm: Constify snapshot tables
+      drm/msm: Fix a7xx debugbus read
+      drm/msm: Fix debugbus snapshot
+      drm/msm: Fix a7xx TPL1 cluster snapshot
+      drm/msm: Fix a few comments
+      drm/msm: Handle in-place remaps
+
+Sasha Levin (1):
+      drm/msm: Fix objtool warning in submit_lock_objects()
+
+Thomas Wei=C3=9Fschuh (1):
+      drm/msm: Don't use %pK through printk
+
+ .../devicetree/bindings/display/msm/qcom,mdp5.yaml |  1 -
+ drivers/gpu/drm/drm_gpuvm.c                        |  2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        | 47 +++++++++-----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        | 38 ++++++------
+ .../gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h  | 19 ++++--
+ .../gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h  | 10 +--
+ .../gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h  | 34 +++++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c        |  4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  4 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              | 59 ++++++------------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |  1 -
+ drivers/gpu/drm/msm/msm_debugfs.c                  | 11 ++--
+ drivers/gpu/drm/msm/msm_gem.c                      | 13 +++-
+ drivers/gpu/drm/msm/msm_gem.h                      |  2 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c               | 72 ++++++++++++------=
+----
+ drivers/gpu/drm/msm/msm_gem_vma.c                  | 60 +++++++++++++-----
+ drivers/gpu/drm/msm/msm_gpu.c                      | 20 ++++--
+ drivers/gpu/drm/msm/msm_iommu.c                    | 16 +++--
+ drivers/gpu/drm/msm/msm_kms.c                      | 10 +--
+ drivers/gpu/drm/msm/msm_mdss.c                     |  2 +-
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml      | 14 ++++-
+ drivers/gpu/drm/msm/registers/display/dsi.xml      | 28 ++++-----
+ drivers/soc/qcom/ubwc_config.c                     | 23 ++++++-
+ 26 files changed, 301 insertions(+), 197 deletions(-)
