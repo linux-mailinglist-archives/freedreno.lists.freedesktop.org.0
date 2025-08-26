@@ -2,118 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCF0B358F5
-	for <lists+freedreno@lfdr.de>; Tue, 26 Aug 2025 11:32:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAC83B3830C
+	for <lists+freedreno@lfdr.de>; Wed, 27 Aug 2025 14:57:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E9D210E61D;
-	Tue, 26 Aug 2025 09:32:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFF3910E7FE;
+	Wed, 27 Aug 2025 12:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TtYTmx7o";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FsONH8FQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47BE910E61D
- for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 09:32:42 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57Q8kJTQ020022
- for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 09:32:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=yw7Fk6HJCJShlv2t9i0lzWI2
- sWKEgdH07td1ipZYTIs=; b=TtYTmx7oQltxw6Oc38y1ihdCLJNaDUO/XHkY7JlG
- iPA1iHeugl7VmWmaaonhvIPPK9qZhmH3WI8oZAfLk6S73i8tvYZMWCV7mW7fC20q
- IaQeEGyhU3G1TQL5c2DbLUz7AZBanjz1Np68EEFeS0eFhGg8xdw1GYTGR2umic8y
- 1G6HQ3PHk5H7Cs7dQ3v7/oeu0ykQ3XwpRNspfepw1o7mEx4AfjkWALD8xJjhB0Be
- 1GTW83bNMF8D6S9K8uYTymXR2Er1WkB6zGBiTEME2wLXtGn2wgrD86vftJh9rElT
- 0pM1wD25Bi916ScgX4hSJm8Z5bNOk594j6DhyimubANMSw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q615g5vf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 09:32:41 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4b109ab1e1dso215117831cf.1
- for <freedreno@lists.freedesktop.org>; Tue, 26 Aug 2025 02:32:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756200761; x=1756805561;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yw7Fk6HJCJShlv2t9i0lzWI2sWKEgdH07td1ipZYTIs=;
- b=KtwnDGChGUpzDVAAAp6SYibX9lHFahY/jkC/HeI8RJUajLGgHFx866XxshsuzW55jg
- lVsQo6Co6xF04Gij7/VK8rEzz9kKTUB2I3KmzlyWNjWfKllm0LbDLVOkpXgLwcDhCyWr
- gyelzB73xUustENI7U5a8US7NFaJYIbSWU0KGImCmvWFE8s+AopK6ijj7YzqCZUrpt9L
- pWofIqAN3JffU0dyXD8n75dSZaYyNB71MdDzOKlH/vyRfR2D/5nvkD+DTlMIFDsvg48i
- bJ331B2vbvMz9QWrocoX7y09wb27okwIj7ytSM+pMj95PvPYlOzAiayFjxkTqbpPSe6m
- nwLg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWP0C9tx/W6den2jSUYTpCGa5NgqkoBXVv9LOFNcegU+j/aDhkduDrws2skSCcnNMPZATzRyNvAMaI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6Q1TLHBN4qlwkOjL62MdW/KDCjPL/SdW3E3amJXoP3tiGtvwf
- 20NCrkl4JpQS4EkdYK0kyN0Sh4ifBHyx5tlu9sL2tQ7ip5QJlWWvhZyRRQFeEOiLJCVq1PSeifG
- L6Xu9Hc/S23oV+GEArCBSGmblT/8o0iPha1+sJxBsGDCMWSFEDLujySLnIvxvnEU27q9sfz4=
-X-Gm-Gg: ASbGncsxowlFH1OAe//x2PHAITqHu6NNob4WslzwHw/nUJRE1iUbtc3zcM5zyW731ed
- qa27t6FSkwENLTfh1QMtLzo5VkOUoFYebc12ss9tyB1L4UOQLLhxtRHASOASv7yOq5iPn4B+p2S
- +tnLayoQopM+/EDSg8ED0hHvgLV5C/amOqJln7syDUvcvbBed+XuFHxvsnwg0pW8df/etzqCSjz
- FXMAy+5FqVxQd42dKC1FxijmkfrZsoEIgKaObk4OF4dpkhrsgcAUbd2mj7MfpmT4Isb5piMGtAR
- rMki2IBu0KRNsrybj9l3PIhe+VUlW6VGkCShHlXGe/hvq6eCW4t8E1cU92CgrcREEY6JQdQgn8w
- 4EY7rwWJsAuDXH/x5o/+nr6uvoz3U93WWsmQOVmlCs5HHCjfRWuIl
-X-Received: by 2002:a05:622a:544d:b0:4b1:c29:22d9 with SMTP id
- d75a77b69052e-4b2aab66b5emr196220601cf.58.1756200760505; 
- Tue, 26 Aug 2025 02:32:40 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE/Pd9IGXO+XQ9K5LfqZoyJqKQgbNRBf/lZhXlh2ogmR33qnivK3QzAsXMGZxpxVrpfTu0QvQ==
-X-Received: by 2002:a05:622a:544d:b0:4b1:c29:22d9 with SMTP id
- d75a77b69052e-4b2aab66b5emr196220251cf.58.1756200759935; 
- Tue, 26 Aug 2025 02:32:39 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55f35c9a1efsm2142240e87.118.2025.08.26.02.32.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Aug 2025 02:32:39 -0700 (PDT)
-Date: Tue, 26 Aug 2025 12:32:37 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Qianfeng Rong <rongqianfeng@vivo.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: fix incorrect type for ret
-Message-ID: <m22aqeeviic76y5dgo6xgvlc6y3nl6xa34gnznp66g4exkgtce@eu2ta774tekb>
-References: <20250826092047.224341-1-rongqianfeng@vivo.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9356310E083;
+ Tue, 26 Aug 2025 11:28:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1756207721; x=1787743721;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=QTpwn17bS/2M5ihjKSMc54SrMGEVyPkZUy+LI0Eysoc=;
+ b=FsONH8FQFK4xsi8KDdE0n1aE0uBQUvfpo2BbrK2sOwUi12wa8dw3Kn5l
+ 8jesxs+Wf++RNA4sBdjeCAKHI4dwh131lIY6wuKlWAoFcDlN3Vfjg61Lp
+ qSOJiTxESzd16iI+sTDjJ7CSqeFwxyA2rV/edX3B10VOaq7ApQRXMwynU
+ TvCvhukrlQJSiVDiTckpCDuSbvTQ+1rwWXs9Scpb37esP+rEZ6Ws17ApS
+ bD4cWp0fiWa9+t6yn1/TOPE72FYJpaR0E3ubgrTDrtYMqzxIy7I99Wis/
+ gDTvECPZT1Iw1pbSqtXJpENBYGDJJKiw6yv6waO9Oqm4EW2Fg0ZTC2xBf w==;
+X-CSE-ConnectionGUID: tNTSZp4rSAebLl3X0Gg62A==
+X-CSE-MsgGUID: N6HNUwe2Tb+HiSFxlaSVDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11533"; a="69873949"
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="69873949"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2025 04:28:41 -0700
+X-CSE-ConnectionGUID: XSYuHinnRt+9yZYtOFQUyw==
+X-CSE-MsgGUID: ADIMLAKMRRiqUot4ZGBacw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="174857337"
+Received: from sschumil-mobl2.ger.corp.intel.com (HELO stinkbox)
+ ([10.245.245.254])
+ by orviesa005.jf.intel.com with SMTP; 26 Aug 2025 04:28:23 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 26 Aug 2025 14:28:22 +0300
+Date: Tue, 26 Aug 2025 14:28:22 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Louis Chauvet <louis.chauvet@bootlin.com>,
+	Haneen Mohammed <hamohammed.sa@gmail.com>,
+	Melissa Wen <melissa.srw@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Manikandan Muralidharan <manikandan.m@microchip.com>,
+	Dharma Balasubiramani <dharma.b@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>, Liu Ying <victor.liu@nxp.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+	Edmund Dea <edmund.j.dea@intel.com>,
+	Paul Kocialkowski <paulk@sys-base.io>,
+	Sui Jingfeng <suijingfeng@loongson.cn>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>,
+	Jernej@freedesktop.org, Skra@freedesktop.org
+Subject: Re: [PATCH 01/39] drm/atomic: Make drm_atomic_get_connector_state()
+ early return consistent
+Message-ID: <aK2aVmh2VN2WVvjh@intel.com>
+References: <20250825-drm-no-more-existing-state-v1-0-f08ccd9f85c9@kernel.org>
+ <20250825-drm-no-more-existing-state-v1-1-f08ccd9f85c9@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20250826092047.224341-1-rongqianfeng@vivo.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzNCBTYWx0ZWRfX605gQmV4s0rH
- cgC0vKqakhMirenY34l2LDVOjrorcVQLYu3fDoKkupWTbReWW5ovjLWOyGl6nnmWQKVkQCMI1i4
- sGJiqBkSqEykWvGoXzvsLJZ0v16tyi9D9xOFSqJWJXDhbCqidqRtAbhFc6A2zlEeDB0ts7dGX8T
- g+c+MuMa5YjbWWIkvxbYHk4/FqjEPxHO4ntFBqRHmkIVVF2QZ1zXBv2SLnFBT5FjRhktJM6MMgI
- nxMOTE8L1VKKIDpf1/pPoUsrUZpMf0KGaDSaFAwe2HIqgauxzUe0wfxdgzbgrLOCrN27qN+9BQu
- m7ie9WRT+CkiXzNNx1TtB38aQMX87b6GIDZIYh0gN5Z9939Z0qBjgoIXM3ZghZZDcKBS4CqpifJ
- BrvdGmo0
-X-Proofpoint-GUID: BhDMSGV6yOaMr0zp-2Hk1PmiTkwi9zv3
-X-Authority-Analysis: v=2.4 cv=K+AiHzWI c=1 sm=1 tr=0 ts=68ad7f39 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=1WtWmnkvAAAA:8 a=EUspDBNiAAAA:8 a=b381tfKDLOYfEgrzl5gA:9
- a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: BhDMSGV6yOaMr0zp-2Hk1PmiTkwi9zv3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-26_02,2025-08-26_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015 adultscore=0
- impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230034
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250825-drm-no-more-existing-state-v1-1-f08ccd9f85c9@kernel.org>
+X-Patchwork-Hint: comment
+X-Mailman-Approved-At: Wed, 27 Aug 2025 12:57:02 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,21 +117,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Aug 26, 2025 at 05:20:45PM +0800, Qianfeng Rong wrote:
-> Change 'ret' from unsigned long to int, as storing negative error codes
-> in an unsigned long makes it never equal to -ETIMEDOUT, causing logical
-> errors.
+On Mon, Aug 25, 2025 at 03:43:06PM +0200, Maxime Ripard wrote:
+> The drm_atomic_get_connector_state() tries to lookup if a connector
+> state was already allocated in the global state to return early if it
+> was the case. drm_atomic_get_plane_state() and
+> drm_atomic_get_crtc_state() behave similarly.
 > 
-> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
-> Signed-off-by: Qianfeng Rong <rongqianfeng@vivo.com>
+> However, and unlike the other two, drm_atomic_get_connector_state() will
+> do that lookup after having called drm_modeset_lock(), when the others
+> will do it before.
+> 
+> Let's move the early return before the lock to make it consistent.
+> 
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/drm_atomic.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index cd15cf52f0c9144711da5879da57884674aea9e4..fe21f154e0fa030f85fb3d6d35e2684adcf36e26 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -1128,10 +1128,13 @@ drm_atomic_get_connector_state(struct drm_atomic_state *state,
+>  	struct drm_mode_config *config = &connector->dev->mode_config;
+>  	struct drm_connector_state *connector_state;
+>  
+>  	WARN_ON(!state->acquire_ctx);
+>  
+> +	if (state->connectors[index].state)
+> +		return state->connectors[index].state;
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+connectors[] is dynamically allocated so this can't be done safely.
 
+> +
+>  	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
+>  	if (ret)
+>  		return ERR_PTR(ret);
+>  
+>  	index = drm_connector_index(connector);
+> @@ -1150,13 +1153,10 @@ drm_atomic_get_connector_state(struct drm_atomic_state *state,
+>  		       sizeof(*state->connectors) * (alloc - state->num_connector));
+>  
+>  		state->num_connector = alloc;
+>  	}
+>  
+> -	if (state->connectors[index].state)
+> -		return state->connectors[index].state;
+> -
+>  	connector_state = connector->funcs->atomic_duplicate_state(connector);
+>  	if (!connector_state)
+>  		return ERR_PTR(-ENOMEM);
+>  
+>  	drm_connector_get(connector);
+> 
+> -- 
+> 2.50.1
 
 -- 
-With best wishes
-Dmitry
+Ville Syrjälä
+Intel
