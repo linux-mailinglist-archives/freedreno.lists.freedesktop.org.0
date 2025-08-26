@@ -2,48 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAC83B3830C
-	for <lists+freedreno@lfdr.de>; Wed, 27 Aug 2025 14:57:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09B49B3830D
+	for <lists+freedreno@lfdr.de>; Wed, 27 Aug 2025 14:57:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFF3910E7FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7E3210E80A;
 	Wed, 27 Aug 2025 12:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FsONH8FQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D40WncAC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9356310E083;
- Tue, 26 Aug 2025 11:28:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A883B10E0CD;
+ Tue, 26 Aug 2025 11:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756207721; x=1787743721;
+ t=1756208842; x=1787744842;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=QTpwn17bS/2M5ihjKSMc54SrMGEVyPkZUy+LI0Eysoc=;
- b=FsONH8FQFK4xsi8KDdE0n1aE0uBQUvfpo2BbrK2sOwUi12wa8dw3Kn5l
- 8jesxs+Wf++RNA4sBdjeCAKHI4dwh131lIY6wuKlWAoFcDlN3Vfjg61Lp
- qSOJiTxESzd16iI+sTDjJ7CSqeFwxyA2rV/edX3B10VOaq7ApQRXMwynU
- TvCvhukrlQJSiVDiTckpCDuSbvTQ+1rwWXs9Scpb37esP+rEZ6Ws17ApS
- bD4cWp0fiWa9+t6yn1/TOPE72FYJpaR0E3ubgrTDrtYMqzxIy7I99Wis/
- gDTvECPZT1Iw1pbSqtXJpENBYGDJJKiw6yv6waO9Oqm4EW2Fg0ZTC2xBf w==;
-X-CSE-ConnectionGUID: tNTSZp4rSAebLl3X0Gg62A==
-X-CSE-MsgGUID: N6HNUwe2Tb+HiSFxlaSVDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11533"; a="69873949"
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="69873949"
+ bh=o+vuYla9ayRtfeuYJxM0Y64Y0tOO++Px6/MJMRMKzUM=;
+ b=D40WncACA8o1eMKHPRjbe/6n7GkJkhZ5tZvB7v+AEhBM/2j+tuKzazBl
+ ++JTc91kd0LOxrNXZPuPS87xINRwGPfgMjdl4loIHRzo97tKSZKy6H4Sn
+ rDvXhxBHo6OqUJ4baDstLmv6FxURv6OEjoVozrPQFKRe8VDWMFGcN77Fu
+ fuccTwlwxmepJWAXMWSFJm5+eE2wFWOrM06IEQJSqwJmzjck2rf92HNAA
+ auDE8Yuor6XCtsp7O1kzeoDU9PcxpvwFaqQMFLau4R7JHnT6Z8w9b+JC6
+ To0KSppo8VJ30ZWrA9rE69uWRhvc8OHaeg4rmAo7U16pxIDGuOKI5VxzF A==;
+X-CSE-ConnectionGUID: IgNXeyOfQYebZ4AFPwWKHQ==
+X-CSE-MsgGUID: ER5F/U3WS8eYgn8xRsTXwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11533"; a="69876221"
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="69876221"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2025 04:28:41 -0700
-X-CSE-ConnectionGUID: XSYuHinnRt+9yZYtOFQUyw==
-X-CSE-MsgGUID: ADIMLAKMRRiqUot4ZGBacw==
+ 26 Aug 2025 04:47:21 -0700
+X-CSE-ConnectionGUID: t8UIwRZXQJK657qAgmmUow==
+X-CSE-MsgGUID: xfTuBsbuSUWy0kKwm86+8g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="174857337"
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="174860723"
 Received: from sschumil-mobl2.ger.corp.intel.com (HELO stinkbox)
  ([10.245.245.254])
- by orviesa005.jf.intel.com with SMTP; 26 Aug 2025 04:28:23 -0700
+ by orviesa005.jf.intel.com with SMTP; 26 Aug 2025 04:47:04 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 26 Aug 2025 14:28:22 +0300
-Date: Tue, 26 Aug 2025 14:28:22 +0300
+ Tue, 26 Aug 2025 14:47:03 +0300
+Date: Tue, 26 Aug 2025 14:47:03 +0300
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -90,16 +90,16 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
 	Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>,
 	Jernej@freedesktop.org, Skra@freedesktop.org
-Subject: Re: [PATCH 01/39] drm/atomic: Make drm_atomic_get_connector_state()
- early return consistent
-Message-ID: <aK2aVmh2VN2WVvjh@intel.com>
+Subject: Re: [PATCH 06/39] drm/atomic: Convert
+ __drm_atomic_get_current_plane_state() to modern accessor
+Message-ID: <aK2et2g8OsJvyta3@intel.com>
 References: <20250825-drm-no-more-existing-state-v1-0-f08ccd9f85c9@kernel.org>
- <20250825-drm-no-more-existing-state-v1-1-f08ccd9f85c9@kernel.org>
+ <20250825-drm-no-more-existing-state-v1-6-f08ccd9f85c9@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250825-drm-no-more-existing-state-v1-1-f08ccd9f85c9@kernel.org>
+In-Reply-To: <20250825-drm-no-more-existing-state-v1-6-f08ccd9f85c9@kernel.org>
 X-Patchwork-Hint: comment
 X-Mailman-Approved-At: Wed, 27 Aug 2025 12:57:02 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -117,58 +117,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 25, 2025 at 03:43:06PM +0200, Maxime Ripard wrote:
-> The drm_atomic_get_connector_state() tries to lookup if a connector
-> state was already allocated in the global state to return early if it
-> was the case. drm_atomic_get_plane_state() and
-> drm_atomic_get_crtc_state() behave similarly.
+On Mon, Aug 25, 2025 at 03:43:11PM +0200, Maxime Ripard wrote:
+> The __drm_atomic_get_current_plane_state() function tries to get and
+> return the existing plane state, and if it doesn't exist returns the one
+> stored in the drm_plane->state field.
 > 
-> However, and unlike the other two, drm_atomic_get_connector_state() will
-> do that lookup after having called drm_modeset_lock(), when the others
-> will do it before.
+> Using the current nomenclature, it tries to get the existing plane state
+> with an ad-hoc implementation of drm_atomic_get_existing_plane_state(),
+> and falls back to either the old or new plane state, depending on
+> whether it is called before or after drm_atomic_helper_swap_state().
 > 
-> Let's move the early return before the lock to make it consistent.
+> The existing plane state itself is deprecated, because it also changes
+> when swapping states from the new state to the old state.
+> 
+> Fortunately for us, we can simplify things. Indeed,
+> __drm_atomic_get_current_plane_state() is only used in two macros:
+> intel_atomic_crtc_state_for_each_plane_state and
+> drm_atomic_crtc_state_for_each_plane_state().
+> 
+> The intel variant is only used through the intel_wm_compute() function
+> that is only ever called in intel_crtc_atomic_check().
+
+Ugh. I've been meaning to clean up that mess for years. I suppose
+I should revisit it again...
+
+> 
+> The generic variant is more widely used, and can be found in the malidp,
+> msm, tegra and vc4 drivers. All of these call sites though are during
+> atomic_check(), so we end up in the same situation than Intel's.
+> 
+> Thus, we only ever use the existing state as the new state, and
+> plane->state is always going to be the old state. Any plane isn't
+> guaranteed to be part of the state though, so we can't rely on
+> drm_atomic_get_old_plane_state() and we still need to use plane->state.
 > 
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/gpu/drm/drm_atomic.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  include/drm/drm_atomic.h | 20 +++++++++++++-------
+>  1 file changed, 13 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index cd15cf52f0c9144711da5879da57884674aea9e4..fe21f154e0fa030f85fb3d6d35e2684adcf36e26 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -1128,10 +1128,13 @@ drm_atomic_get_connector_state(struct drm_atomic_state *state,
->  	struct drm_mode_config *config = &connector->dev->mode_config;
->  	struct drm_connector_state *connector_state;
+> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+> index 798d33b50ef7497ce938ce3dbabee32487dda2d6..82e74d9444c4fa7f02ee0e472c8c68f7bc44cc6a 100644
+> --- a/include/drm/drm_atomic.h
+> +++ b/include/drm/drm_atomic.h
+> @@ -789,15 +789,15 @@ drm_atomic_get_new_connector_state(const struct drm_atomic_state *state,
+>  /**
+>   * __drm_atomic_get_current_plane_state - get current plane state
+>   * @state: global atomic state object
+>   * @plane: plane to grab
+>   *
+> - * This function returns the plane state for the given plane, either from
+> - * @state, or if the plane isn't part of the atomic state update, from @plane.
+> - * This is useful in atomic check callbacks, when drivers need to peek at, but
+> - * not change, state of other planes, since it avoids threading an error code
+> - * back up the call chain.
+> + * This function returns the plane state for the given plane, either the
+> + * new plane state from @state, or if the plane isn't part of the atomic
+> + * state update, from @plane. This is useful in atomic check callbacks,
+> + * when drivers need to peek at, but not change, state of other planes,
+> + * since it avoids threading an error code back up the call chain.
+>   *
+>   * WARNING:
+>   *
+>   * Note that this function is in general unsafe since it doesn't check for the
+>   * required locking for access state structures. Drivers must ensure that it is
+> @@ -814,13 +814,19 @@ drm_atomic_get_new_connector_state(const struct drm_atomic_state *state,
+>   */
+>  static inline const struct drm_plane_state *
+>  __drm_atomic_get_current_plane_state(const struct drm_atomic_state *state,
+>  				     struct drm_plane *plane)
+>  {
+> -	if (state->planes[drm_plane_index(plane)].state)
+> -		return state->planes[drm_plane_index(plane)].state;
+> +	struct drm_plane_state *plane_state;
 >  
->  	WARN_ON(!state->acquire_ctx);
->  
-> +	if (state->connectors[index].state)
-> +		return state->connectors[index].state;
-
-connectors[] is dynamically allocated so this can't be done safely.
-
+> +	plane_state = drm_atomic_get_new_plane_state(state, plane);
+> +	if (plane_state)
+> +		return plane_state;
 > +
->  	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
->  	if (ret)
->  		return ERR_PTR(ret);
+> +	/*
+> +	 * If the plane isn't part of the state, fallback to the currently active one.
+> +	 */
+>  	return plane->state;
+>  }
 >  
->  	index = drm_connector_index(connector);
-> @@ -1150,13 +1153,10 @@ drm_atomic_get_connector_state(struct drm_atomic_state *state,
->  		       sizeof(*state->connectors) * (alloc - state->num_connector));
->  
->  		state->num_connector = alloc;
->  	}
->  
-> -	if (state->connectors[index].state)
-> -		return state->connectors[index].state;
-> -
->  	connector_state = connector->funcs->atomic_duplicate_state(connector);
->  	if (!connector_state)
->  		return ERR_PTR(-ENOMEM);
->  
->  	drm_connector_get(connector);
+>  int __must_check
+>  drm_atomic_add_encoder_bridges(struct drm_atomic_state *state,
 > 
 > -- 
 > 2.50.1
