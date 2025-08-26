@@ -2,106 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09B49B3830D
-	for <lists+freedreno@lfdr.de>; Wed, 27 Aug 2025 14:57:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB8D0B36E79
+	for <lists+freedreno@lfdr.de>; Tue, 26 Aug 2025 17:48:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7E3210E80A;
-	Wed, 27 Aug 2025 12:57:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 814C610E383;
+	Tue, 26 Aug 2025 15:48:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D40WncAC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cBpUZwwJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A883B10E0CD;
- Tue, 26 Aug 2025 11:47:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756208842; x=1787744842;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=o+vuYla9ayRtfeuYJxM0Y64Y0tOO++Px6/MJMRMKzUM=;
- b=D40WncACA8o1eMKHPRjbe/6n7GkJkhZ5tZvB7v+AEhBM/2j+tuKzazBl
- ++JTc91kd0LOxrNXZPuPS87xINRwGPfgMjdl4loIHRzo97tKSZKy6H4Sn
- rDvXhxBHo6OqUJ4baDstLmv6FxURv6OEjoVozrPQFKRe8VDWMFGcN77Fu
- fuccTwlwxmepJWAXMWSFJm5+eE2wFWOrM06IEQJSqwJmzjck2rf92HNAA
- auDE8Yuor6XCtsp7O1kzeoDU9PcxpvwFaqQMFLau4R7JHnT6Z8w9b+JC6
- To0KSppo8VJ30ZWrA9rE69uWRhvc8OHaeg4rmAo7U16pxIDGuOKI5VxzF A==;
-X-CSE-ConnectionGUID: IgNXeyOfQYebZ4AFPwWKHQ==
-X-CSE-MsgGUID: ER5F/U3WS8eYgn8xRsTXwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11533"; a="69876221"
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="69876221"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2025 04:47:21 -0700
-X-CSE-ConnectionGUID: t8UIwRZXQJK657qAgmmUow==
-X-CSE-MsgGUID: xfTuBsbuSUWy0kKwm86+8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="174860723"
-Received: from sschumil-mobl2.ger.corp.intel.com (HELO stinkbox)
- ([10.245.245.254])
- by orviesa005.jf.intel.com with SMTP; 26 Aug 2025 04:47:04 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 26 Aug 2025 14:47:03 +0300
-Date: Tue, 26 Aug 2025 14:47:03 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Louis Chauvet <louis.chauvet@bootlin.com>,
-	Haneen Mohammed <hamohammed.sa@gmail.com>,
-	Melissa Wen <melissa.srw@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Manikandan Muralidharan <manikandan.m@microchip.com>,
-	Dharma Balasubiramani <dharma.b@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>, Liu Ying <victor.liu@nxp.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
-	Edmund Dea <edmund.j.dea@intel.com>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Sui Jingfeng <suijingfeng@loongson.cn>,
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Sandy Huang <hjc@rock-chips.com>,
-	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>,
-	Jernej@freedesktop.org, Skra@freedesktop.org
-Subject: Re: [PATCH 06/39] drm/atomic: Convert
- __drm_atomic_get_current_plane_state() to modern accessor
-Message-ID: <aK2et2g8OsJvyta3@intel.com>
-References: <20250825-drm-no-more-existing-state-v1-0-f08ccd9f85c9@kernel.org>
- <20250825-drm-no-more-existing-state-v1-6-f08ccd9f85c9@kernel.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C46410E383;
+ Tue, 26 Aug 2025 15:48:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3A799602BB;
+ Tue, 26 Aug 2025 15:48:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D1E1C4CEF1;
+ Tue, 26 Aug 2025 15:48:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1756223300;
+ bh=b8FPl/vsVw5JNumARcRZVHO1eLeE0zNGP8ZNm5DfGWI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cBpUZwwJwkflKJ0/vGcmpkC8DliLFLjpny0HUmG2Ln346CiBilgYH94HOREACj5jF
+ Eq+XapbP4mc3qqOBbKqJAOA0njYw2EK8+6zfRSA0eWXfO/SnsO8pThLIrOhMQixQZd
+ XHTps7BStTJKDCTVj8vOn5Gy/oHQabqqNoH1MEnvwi5qkv97UYldOWhQP3PUn5/9Lm
+ OHy0yblKZsp109frfTjXxEUXfzNX/BWGVXFCAq2cHizxUwV7oPc2+wbbiLb4kwDlOc
+ 9FKAQoMjqXrG9GwaCG+g+UxkSz4WB1qo0ykVddH858/C+LLN/pLzUJQA3YX3ce1Yuk
+ 4SOasopz6FeBw==
+Date: Tue, 26 Aug 2025 17:48:18 +0200
+From: "mripard@kernel.org" <mripard@kernel.org>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>, 
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, 
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Nautiyal,
+ Ankit K" <ankit.k.nautiyal@intel.com>, 
+ "Murthy, Arun R" <arun.r.murthy@intel.com>, "Shankar,
+ Uma" <uma.shankar@intel.com>, "Nikula, Jani" <jani.nikula@intel.com>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>, 
+ "siqueira@igalia.com" <siqueira@igalia.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>, 
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, 
+ "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>, 
+ "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, 
+ "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
+ "sean@poorly.run" <sean@poorly.run>, 
+ "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
+ "mcanal@igalia.com" <mcanal@igalia.com>, 
+ "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>, 
+ "tomi.valkeinen+renesas@ideasonboard.com"
+ <tomi.valkeinen+renesas@ideasonboard.com>, 
+ "kieran.bingham+renesas@ideasonboard.com"
+ <kieran.bingham+renesas@ideasonboard.com>,
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
+Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
+ structure
+Message-ID: <20250826-skinny-dancing-otter-de9be4@houat>
+References: <20250811092707.3986802-2-suraj.kandpal@intel.com>
+ <20250811094429.GE21313@pendragon.ideasonboard.com>
+ <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
+ <20250811111546.GA30760@pendragon.ideasonboard.com>
+ <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
+ <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
+ <aJ4LQvqli36TlETu@e110455-lin.cambridge.arm.com>
+ <hc6f6wgsnauh72cowocpm55tikejhiha5z4mgufeq7v6gb2qml@kmgfd26bigos>
+ <wr76vyag2osox2xf7ducnkiaanzk2k5ehd2ahnoyqdm5qiywlk@penf4v5bvg5z>
+ <DM3PPF208195D8D87AECE8397914A67D9A1E33EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="h5fbt5za66ojtx6g"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250825-drm-no-more-existing-state-v1-6-f08ccd9f85c9@kernel.org>
-X-Patchwork-Hint: comment
-X-Mailman-Approved-At: Wed, 27 Aug 2025 12:57:02 +0000
+In-Reply-To: <DM3PPF208195D8D87AECE8397914A67D9A1E33EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,96 +101,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 25, 2025 at 03:43:11PM +0200, Maxime Ripard wrote:
-> The __drm_atomic_get_current_plane_state() function tries to get and
-> return the existing plane state, and if it doesn't exist returns the one
-> stored in the drm_plane->state field.
-> 
-> Using the current nomenclature, it tries to get the existing plane state
-> with an ad-hoc implementation of drm_atomic_get_existing_plane_state(),
-> and falls back to either the old or new plane state, depending on
-> whether it is called before or after drm_atomic_helper_swap_state().
-> 
-> The existing plane state itself is deprecated, because it also changes
-> when swapping states from the new state to the old state.
-> 
-> Fortunately for us, we can simplify things. Indeed,
-> __drm_atomic_get_current_plane_state() is only used in two macros:
-> intel_atomic_crtc_state_for_each_plane_state and
-> drm_atomic_crtc_state_for_each_plane_state().
-> 
-> The intel variant is only used through the intel_wm_compute() function
-> that is only ever called in intel_crtc_atomic_check().
 
-Ugh. I've been meaning to clean up that mess for years. I suppose
-I should revisit it again...
+--h5fbt5za66ojtx6g
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
+ structure
+MIME-Version: 1.0
 
-> 
-> The generic variant is more widely used, and can be found in the malidp,
-> msm, tegra and vc4 drivers. All of these call sites though are during
-> atomic_check(), so we end up in the same situation than Intel's.
-> 
-> Thus, we only ever use the existing state as the new state, and
-> plane->state is always going to be the old state. Any plane isn't
-> guaranteed to be part of the state though, so we can't rely on
-> drm_atomic_get_old_plane_state() and we still need to use plane->state.
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->  include/drm/drm_atomic.h | 20 +++++++++++++-------
->  1 file changed, 13 insertions(+), 7 deletions(-)
-> 
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 798d33b50ef7497ce938ce3dbabee32487dda2d6..82e74d9444c4fa7f02ee0e472c8c68f7bc44cc6a 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -789,15 +789,15 @@ drm_atomic_get_new_connector_state(const struct drm_atomic_state *state,
->  /**
->   * __drm_atomic_get_current_plane_state - get current plane state
->   * @state: global atomic state object
->   * @plane: plane to grab
->   *
-> - * This function returns the plane state for the given plane, either from
-> - * @state, or if the plane isn't part of the atomic state update, from @plane.
-> - * This is useful in atomic check callbacks, when drivers need to peek at, but
-> - * not change, state of other planes, since it avoids threading an error code
-> - * back up the call chain.
-> + * This function returns the plane state for the given plane, either the
-> + * new plane state from @state, or if the plane isn't part of the atomic
-> + * state update, from @plane. This is useful in atomic check callbacks,
-> + * when drivers need to peek at, but not change, state of other planes,
-> + * since it avoids threading an error code back up the call chain.
->   *
->   * WARNING:
->   *
->   * Note that this function is in general unsafe since it doesn't check for the
->   * required locking for access state structures. Drivers must ensure that it is
-> @@ -814,13 +814,19 @@ drm_atomic_get_new_connector_state(const struct drm_atomic_state *state,
->   */
->  static inline const struct drm_plane_state *
->  __drm_atomic_get_current_plane_state(const struct drm_atomic_state *state,
->  				     struct drm_plane *plane)
->  {
-> -	if (state->planes[drm_plane_index(plane)].state)
-> -		return state->planes[drm_plane_index(plane)].state;
-> +	struct drm_plane_state *plane_state;
->  
-> +	plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	if (plane_state)
-> +		return plane_state;
-> +
-> +	/*
-> +	 * If the plane isn't part of the state, fallback to the currently active one.
-> +	 */
->  	return plane->state;
->  }
->  
->  int __must_check
->  drm_atomic_add_encoder_bridges(struct drm_atomic_state *state,
-> 
-> -- 
-> 2.50.1
+On Mon, Aug 25, 2025 at 06:26:48AM +0000, Kandpal, Suraj wrote:
+> > Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor
+> > drm_writeback_connector structure
+> >=20
+> > Hi,
+> >=20
+> > On Sat, Aug 16, 2025 at 01:20:53AM +0300, Dmitry Baryshkov wrote:
+> > > On Thu, Aug 14, 2025 at 05:13:54PM +0100, liviu.dudau@arm.com wrote:
+> > > > Hi,
+> > > >
+> > > > On Wed, Aug 13, 2025 at 10:04:22AM +0000, Kandpal, Suraj wrote:
+> > > > > > > > };
+> > > > > > >
+> > > > > > > I still don't like that. This really doesn't belong here. If
+> > > > > > > anything, the drm_connector for writeback belongs to drm_crtc.
+> > > > > >
+> > > > > > Why? We already have generic HDMI field inside drm_connector. I
+> > > > > > am really hoping to be able to land DP parts next to it. In
+> > > > > > theory we can have a DVI- specific entry there (e.g. with the
+> > subconnector type).
+> > > > > > The idea is not to limit how the drivers subclass those structu=
+res.
+> > > > > >
+> > > > > > I don't see a good case why WB should deviate from that design.
+> > > > > >
+> > > > > > > If the issue is that some drivers need a custom drm_connector
+> > > > > > > subclass, then I'd rather turn the connector field of
+> > > > > > > drm_writeback_connector into a pointer.
+> > > > > >
+> > > > > > Having a pointer requires additional ops in order to get
+> > > > > > drm_connector from WB code and vice versa. Having
+> > > > > > drm_connector_wb inside drm_connector saves us from those ops
+> > (which don't manifest for any other kind of structure).
+> > > > > > Nor will it take any more space since union will reuse space
+> > > > > > already taken up by HDMI part.
+> > > > > >
+> > > > > > >
+> > > > >
+> > > > > Seems like this thread has died. We need to get a conclusion on t=
+he
+> > design.
+> > > > > Laurent do you have any issue with the design given Dmitry's
+> > > > > explanation as to why this Design is good for drm_writeback_conne=
+ctor.
+> > > >
+> > > > I'm with Laurent here. The idea for drm_connector (and a lot of drm
+> > > > structures) are to be used as base "classes" for extended
+> > > > structures. I don't know why HDMI connector ended up inside
+> > > > drm_connector as not all connectors have HDMI functionality, but th=
+at's a
+> > cleanup for another day.
+> > >
+> > > Maybe Maxime can better comment on it, but I think it was made exactly
+> > > for the purpose of not limiting the driver's design. For example, a
+> > > lot of drivers subclass drm_connector via drm_bridge_connector. If
+> > > struct drm_connector_hdmi was a wrapper around struct drm_connector,
+> > > then it would have been impossible to use HDMI helpers for bridge
+> > > drivers, while current design freely allows any driver to utilize
+> > > corresponding library code.
+> >=20
+> > That's exactly why we ended up like this. With that design, we wouldn't=
+ have
+> > been able to "inherit" two connector "classes": bridge_connector is one,
+> > intel_connector another one.
+> >=20
+> > See here for the rationale:
+> > https://lore.kernel.org/dri-devel/ZOTDKHxn2bOg+Xmg@phenom.ffwll.local/
+> >=20
+> > I don't think the "but we'll bloat drm_connector" makes sense either.
+> > There's already a *lot* of things that aren't useful to every connector=
+ (fwnode,
+> > display_info, edid in general, scaling, vrr, etc.)
+> >=20
+> > And it's not like we allocate more than a handful of them during a syst=
+em's life.
+>=20
+> So Are we okay with the approach mentioned here with the changes that hav=
+e been proposed here like
+> Having drm_writeback_connector in union with drm_hdmi_connector
 
--- 
-Ville Syrjälä
-Intel
+I don't think we need a union here. It artificially creates the same
+issue: we can't have two types for a connector if we do so.
+
+> Also one more thing I would like to clarify here is how everyone would
+> like the patches patches where each patch changes both the drm core
+> and all related drivers (ensures buildability but then review is tough
+> for each driver). Or patches where we have initial drm core changes
+> and then each patch does the all changes in a driver in its own
+> respective patch.
+
+The latter should be preferred, but if you can't maintain bisectability
+that way, then it's the most important and you should fall back to the
+former.
+
+Maxime
+
+--h5fbt5za66ojtx6g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJQEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaK3XPQAKCRAnX84Zoj2+
+dkGOAXsF9clyGa0v79Lvcn8LKsqqNonbB//uZEuQy7tvsCVTi+DhFkU8idQEhmiv
+4/hwQBIBdjsjXoUxkxPssK1Cqn88KbP1KGjTWNATiM+3ovUf9J35gCUaNCEzp/9o
+nS7FRKYC
+=Lfn+
+-----END PGP SIGNATURE-----
+
+--h5fbt5za66ojtx6g--
