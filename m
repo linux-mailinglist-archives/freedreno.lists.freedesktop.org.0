@@ -2,133 +2,137 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0559B383AE
-	for <lists+freedreno@lfdr.de>; Wed, 27 Aug 2025 15:28:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6F9AB38465
+	for <lists+freedreno@lfdr.de>; Wed, 27 Aug 2025 16:05:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87F0410E7FE;
-	Wed, 27 Aug 2025 13:28:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A860710E119;
+	Wed, 27 Aug 2025 14:05:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TgrrppWR";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="H9ALsPMi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2268D10E817
- for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 13:28:14 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57R6kE0s022920
- for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 13:28:13 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6756C10E112
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 14:05:01 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57R6kFxJ014807
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 14:05:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- b6quTpF8lR620w9+wcbq204uyppZxMXlERbN+86W1g4=; b=TgrrppWRbNdt4yIr
- PXxE70i+ZxYtPJOJn0k7NJseMjEcTHHnvG4VFYfYb8MJhenupHgGqcItJRNqDHP2
- 1B90YawHW2BEetJAEIF148Ws2qx3CllLpYFMhb/gcX+wGnosSSE0nhCecZgaTBZm
- ORCVOAac64Cw7hC6SHURHvTANJeSDiRDW4nyFZfhiVyPBi7ObQk+484eGD7vqWzW
- hMk74uVXrfAQ4z5HB0s1dWNVKv8Plp56NDz9Mp1ctEIlRKK9eS9/Fv6AjHoi45bQ
- m4pFkFIbxOK1nIruG9yDZAoI1rtuvcv2/u/B84xrNrDIYQxHVqY+cZr9FPqTS+6S
- iWQsTQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q5y5mj5h-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=3n2g0Y56LJ8V+gTCm6izqR6c
+ NmLrEHV5/R5UXj9u9s4=; b=H9ALsPMiECpSZnQXU2DW4FIqnnpUD94/ULdoZiy0
+ qN2lzn8VtL6uoNXZdnR2C+U1A1sUExlCx6MMlJrN4HKN3V6S8a7w07U238xpL4mb
+ y1qQ0jXaTUHWT/mm4aT5sztcNM0AQpow3HRi6R2SYZGgKC78TFHp/WYXicXa7BEi
+ JciTR8mHsb3HCI0x/eOnk6vF9lBZ16987ABMFpPF3ov4RJlGcgEZ45aO6720q+8o
+ YazMiJVLwznoljH6k+S9oQfFgOn1gD/1SFCRjT3up7GVWiVlBP05MBYGx7SONp//
+ yKrzgMxsvrKdmDYIT0tbeoaGU6i+Lh5zyKpk+ZsgzPfflg==
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
+ [209.85.166.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q5we4kyh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 13:28:13 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-248c171ad6aso286235ad.1
- for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 06:28:12 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 14:05:00 +0000 (GMT)
+Received: by mail-io1-f69.google.com with SMTP id
+ ca18e2360f4ac-886e2a4735aso237466039f.3
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 07:05:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756301292; x=1756906092;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=b6quTpF8lR620w9+wcbq204uyppZxMXlERbN+86W1g4=;
- b=Ote2AyVovOTVninmbmHk/Of/1rRXyPXDudeidMgeC64efabzDfWtrRygMezyswqh1+
- iWyAMpOV7MbGv1lgM+CG6UU0Q0YJXGoULuF2knm/tWn2P8yq4lva/5QAA+ls4oKRmnL8
- umuCxjqkVnjed+bjjrcvkk0Bl3UuWVCv0h5xaZCrHHntrrAEk3qssDzBmkZbu/HZ6r1/
- bcPh2TeNb2ULiHLWeDlaSls9ffDtLEJaK/9S8ZWEeL98BBClmzRsjm5IGy+JasRQpjwk
- 1wC8UCXRboJo6TxhId9zeX5vuFbERhum8/qCPq4PHIiuXQC25MnxrDg4sZWBGWTQLssc
- GUKQ==
+ d=1e100.net; s=20230601; t=1756303499; x=1756908299;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3n2g0Y56LJ8V+gTCm6izqR6cNmLrEHV5/R5UXj9u9s4=;
+ b=KP18sTYkqyew0JxYf5nMjfhA0vifE/d27hs+CR44abNTczkDiD0r8ZR6BNStyRu7dM
+ ds9CJzGAVFZQpKFs10qyi+ODhGrtoBMSeRvU+aSqH2lNkmfR9HL6iRvf1qV27jN2tGFb
+ u+6D3dOu2urVS597fRpnrFo+TbIeEBAVZCFjoLZzgiFs313GsOkLuODTmbm5wIjlT/ly
+ sS3TesemlcoO/vi0tpjS21ej5cg8S79ewwegP/vWl/YsZWOBrzcRwHgwx/lxYFJwcWv+
+ Z5SaEWUu+3MAJGEzv0gTWlBQWk/dW7KdrQjnK/wjCbqmBq5crE8LhWPQ79XhcTd8azmr
+ fmGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXS/sv5Ke0YX7TffghFpLX6VRVDX/KYkWyf4yMQnBJ3u9PwNdvMD8SREyMWtUgLxIuWN0UpRbTs5PY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwWVoRJiLA0INrlLpViQ02717FSLYb9rjluFSRaqg8vEA5996ll
- XXMtSf3SnpOd630T+ptrFDxX3kBeCiDS5WSKZWwDn29D+LI/gDtboiUkMcydRMmT/Vg7HCtv23Q
- X3Nj5wfpgf5sdtSWOYuavWiCtrtR1UuRpC5xsSgjeRxJyT1X2MlSH0kgntDDwvcmqcxNCOeU=
-X-Gm-Gg: ASbGncs266OQmtgSJcuQej6EqUX/+z0AzhO2oSQ0bX5qRcTaFOZzG0SC0/53cILTDsS
- 9t5c2cXPQSTwjgYMH+nog9SbvXt2Q+K+nDqyNee3T8CExYwggzLaa/sOCiBSxSWf9dd5Z6SSzgd
- nIEdFaJuyeGWvDXlCJO92CgN+241XS7oNqvacV4uqR0/1FkGSyIPZLZJfupG6SKZQMfC7OzZCzW
- EvBjWxySEwmTsLwTcAx+Jw/OZep6zLf0g0+pkEcKtcsbf5zm8WjpjDqardRtKQTk7l+l8gPyk/L
- mNg/RQSLXQPQCoqJtDMqM3VknzAfk190C7h03g/2wYCP/Onv1cTuXsvPSS9ZvtbBEAMemOthqPa
- sDrZIq9vc+e6cLtL2lZvBf6fLmnDU4A==
-X-Received: by 2002:a17:902:da8b:b0:246:b41d:252e with SMTP id
- d9443c01a7336-246b42c6bbamr98937405ad.2.1756301291560; 
- Wed, 27 Aug 2025 06:28:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEGA6gBgzbMmU5Z3ZUIL62xQWLNNWghkywPFsB5di/g623cSVN2BoKy0/7fsAZ0g2TCIv6pig==
-X-Received: by 2002:a17:902:da8b:b0:246:b41d:252e with SMTP id
- d9443c01a7336-246b42c6bbamr98936845ad.2.1756301290930; 
- Wed, 27 Aug 2025 06:28:10 -0700 (PDT)
-Received: from [10.133.33.166] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-248a2677f81sm14018735ad.149.2025.08.27.06.28.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 06:28:10 -0700 (PDT)
-Message-ID: <f3cc06c1-25d2-40f4-bd77-8a9c51b40efa@oss.qualcomm.com>
-Date: Wed, 27 Aug 2025 21:28:00 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/14] phy: qcom: qmp-usbc: Move reset and regulator
- config into PHY cfg
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+ AJvYcCUZJXQs362YAq2QM/Rp6mFvNeTwaAp5MupbcMofjXUOry5uOmx4D/tgH7Fn/m7tNXPxzDBBNPjJETU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YylXcVCxjWK/96zFL8uRAPQZPaSxurFjqzC4UDi8MTlkg+4eHia
+ xWCrjsp5hMNs9FWM3HLoN0g55Eue2U9DgE2jvkoj/ahIhfNOJ9XnURsQH56puQNPNbKII4fKhxe
+ sRblDiSA3oNpC66YWV4WSvHoh+9AgY9qDvE9aKAyMBbvj5RHS72Npc6cAfHtzdzYQM8Dexyw=
+X-Gm-Gg: ASbGnctxw5kVZ2eGaoMcAdKAJoPKr5o/Kr1BKB/rUvxX4JoVyi4Js/0bGDQ3Wv5xfNo
+ Kr3texxg3rgtBVRKvZKg9NIUo5+2S3Pl8WUlUeJkxAfwOtQXdB0H2Vd1oYQHmbtVKjJ/Wt4xc10
+ mF8fXbOdc+KCH/0+VL5uGpiIycqV+C3sZadtPWncZ/LjQ0vwA5Aw01/Sv2EaVwMQ5udEhDt7Mjk
+ uYi/RK3CMjRrcN/qdxZhRsfUFJaxfWraBmdPO+/GHvDtAhl4eZcYdeZcFvD+ueOIaaNV7bUqRPW
+ 63TJXQQXLJcdrD72gTvb3u7bfY7yf7CtugHdCPkggN7fS4ZtbL8w9inB85UbehvEc1stWFGlNVm
+ BLtbY4UF+s8o8XL9Lae/nLMk2EXNwm0Febl386cEogt+vQRNoxqrK
+X-Received: by 2002:a05:6e02:1b0c:b0:3ef:1b56:c8ea with SMTP id
+ e9e14a558f8ab-3ef1b56c9f9mr67415945ab.11.1756303498926; 
+ Wed, 27 Aug 2025 07:04:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE/xsdrf+XrjtSQ2K8ar35ewr1T+sNBP+/hCqgRfZjcDR4oY8KJbZTP/1e4Kh/mCkfx80z06g==
+X-Received: by 2002:a05:6e02:1b0c:b0:3ef:1b56:c8ea with SMTP id
+ e9e14a558f8ab-3ef1b56c9f9mr67415045ab.11.1756303498104; 
+ Wed, 27 Aug 2025 07:04:58 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-55f35c11ffesm2878362e87.40.2025.08.27.07.04.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Aug 2025 07:04:56 -0700 (PDT)
+Date: Wed, 27 Aug 2025 17:04:53 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, fange.zhang@oss.qualcomm.com,
- yongxing.mou@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-References: <20250820-add-displayport-support-for-qcs615-platform-v3-0-a43bd25ec39c@oss.qualcomm.com>
- <20250820-add-displayport-support-for-qcs615-platform-v3-7-a43bd25ec39c@oss.qualcomm.com>
- <ofvzduf5xyip7w6yde2xwsrvv3tdh7ew3yyzeya2qzpqty3j7p@bnetyjowhdn5>
- <6f7c3962-ccfc-4400-a77f-399b06da93e1@oss.qualcomm.com>
- <llrt3xnd5gagovnmyzqebp2da5v67bkxjntfcgc5r5auamspyj@7v5taph3i3c4>
-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-In-Reply-To: <llrt3xnd5gagovnmyzqebp2da5v67bkxjntfcgc5r5auamspyj@7v5taph3i3c4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzMyBTYWx0ZWRfX9e17pe4DykkU
- 6SFssb1+Y6phs20ruHfNQZa5spBUDT6XBK+h4gVnqeO6NLveT+1PS+vjPh1Y20p2aZxYDayfxxk
- jGMv/xFyLwBMUFL/EK75uaEDZkYt9ZzKvBPp9PMOEv6yKcVTSqN4HiEixIgQm0w77vd57Nd/tSK
- m8NDIYANe6pumkVnLGx7we2KTePX1KUdIBowJmQM/Oqhu7X2RwpEQdzQsSBQt51Iq+YUt0pzPmF
- a8pCekQAkM02bEL6J/AMVaa3kmKRvwY63ewQUhJppU4tYbsWWx7bBa4VGZjiwRCwlKx1P/Pofp6
- ySEUNiuYoeyhX5V+JUaLhJqeEzSdHIg7t6om2zsrAaMUR7pOqDk2YVdQaKafC1IlgtOZhSMlRzj
- NI+wvv4L
-X-Authority-Analysis: v=2.4 cv=Lco86ifi c=1 sm=1 tr=0 ts=68af07ed cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=snPlLZzmUMwuVAg1AH4A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: d2Bc8LmBJDqOP9gvOa0tuT-PCVbz40L8
-X-Proofpoint-ORIG-GUID: d2Bc8LmBJDqOP9gvOa0tuT-PCVbz40L8
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Liu Ying <victor.liu@nxp.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/8] drm/connector: let drivers declare infoframes as
+ unsupported
+Message-ID: <jrvjvayhjczgb4yx3xshbv3e6ndzkmb7uu3ynoes2maniwjg37@hamxu5mzqmf7>
+References: <20250819-drm-limit-infoframes-v2-0-7595dda24fbd@oss.qualcomm.com>
+ <20250819-drm-limit-infoframes-v2-1-7595dda24fbd@oss.qualcomm.com>
+ <20250820-artichoke-silkworm-of-election-521b5e@houat>
+ <v7w7xkefm6ap7delx7wsvxmc76fwptqhe4ehokzfh4baueb7hr@acrx36exv42v>
+ <20250827-adorable-ocelot-of-adventure-ba88b7@houat>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250827-adorable-ocelot-of-adventure-ba88b7@houat>
+X-Proofpoint-GUID: 9Wf5ErjOsU1tyMQAjoCRqVPgPmPXB9in
+X-Proofpoint-ORIG-GUID: 9Wf5ErjOsU1tyMQAjoCRqVPgPmPXB9in
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzMyBTYWx0ZWRfX2VCqZH2hvPTR
+ OoZHm00W/RPKbZ4Gw7CSkEyGbRtyMvCBt34JIvGLsnn9EoajS3W938g4I9d+AJy4PLmxPon+FzT
+ qVwpWkdHupSMKgfHq06sq4lQpt8xA312zaVYciVr1kyGuxu9dXq03ZI8tEP8pr88qB2LdBXkOxA
+ kxyJ46dlNnxZYncvFq9n577gkRrlN/JZUD2WLhSg66mNZw78ptY38ZnIEYsb5ATc2sF0o6lMhLE
+ axucG0vDVJAnTQxZnzkpibOOL9LG7NOtEoLtSP2yXl86TttiTcM3blTm9qV9/DgkQFGVivWsopg
+ kaONuFBDyBLgHh+9J3luZdeUvwwODLyVStHuD/esHn5a4qO+jRxUiZ8FkJooin5ZQpZ4SJTDhB5
+ W7l3H0QG
+X-Authority-Analysis: v=2.4 cv=BJazrEQG c=1 sm=1 tr=0 ts=68af108c cx=c_pps
+ a=7F85Ct0dzgNClt63SJIU8Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=WI-fMjCVXOxGoBDYoyYA:9 a=CjuIK1q_8ugA:10
+ a=LKR0efx6xuerLj5D82wC:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-27_03,2025-08-26_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 clxscore=1015 malwarescore=0 spamscore=0
- suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230033
+ malwarescore=0 adultscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ bulkscore=0 phishscore=0 suspectscore=0 spamscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508230033
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,353 +148,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, Aug 27, 2025 at 09:30:20AM +0200, Maxime Ripard wrote:
+> Hi,
+> 
+> On Wed, Aug 20, 2025 at 12:52:44PM +0300, Dmitry Baryshkov wrote:
+> > On Wed, Aug 20, 2025 at 09:15:36AM +0200, Maxime Ripard wrote:
+> > > Hi,
+> > > 
+> > > On Tue, Aug 19, 2025 at 09:57:30PM +0300, Dmitry Baryshkov wrote:
+> > > > Currently DRM framework expects that the HDMI connector driver supports
+> > > > all infoframe types: it generates the data as required and calls into
+> > > > the driver to program all of them, letting the driver to soft-fail if
+> > > > the infoframe is unsupported. This has a major drawback on userspace
+> > > > API: the framework also registers debugfs files for all Infoframe types,
+> > > > possibly surprising the users when infoframe is visible in the debugfs
+> > > > file, but it is not visible on the wire.
+> > > > 
+> > > > Let drivers declare that they support only a subset of infoframes,
+> > > > creating a more consistent interface.
+> > > > 
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > > 
+> > > I'm not really convinced. Infoframes aren't really something you should
+> > > ignore, AVI is effectively mandatory, HDMI kind of is too, AUDIO is if
+> > > audio support is enabled, DRM is mandatory if HDR is used.
+> > 
+> > Nevertheless, sun4i, innohdmi, adv7511, it6263 and rk3066 drivers
+> > provide support only for the AVI infoframe.
+> 
+> Yes, but it's still something we shouldn't paper over. The spec mandates
+> it, if drivers want to deviate from it it's something we should warn
+> about, not silence.
+> 
+> sun4i is a good example, to me at least since I have the doc. The
+> hardware supports AVI, Audio, ACP, and SPD. HDR isn't supported, so DRM
+> isn't either. The only missing one is HDMI, but the documentation isn't
+> the best so it might still be supported. In short, it's a driver issue.
+> 
+> adv7511 supports AVI, Audio, ACP, SPD, ACP, and looks to have a
+> mechanism to send any infoframe as is. So, again, driver issue.
 
-On 8/22/2025 6:08 PM, Dmitry Baryshkov wrote:
-> On Fri, Aug 22, 2025 at 04:29:28PM +0800, Xiangxu Yin wrote:
->> On 8/20/2025 7:30 PM, Dmitry Baryshkov wrote:
->>> On Wed, Aug 20, 2025 at 05:34:49PM +0800, Xiangxu Yin wrote:
->>>> Refactor reset and regulator configuration to be managed via qmp_phy_cfg
->>>> instead of hardcoded lists. This enables per-PHY customization and
->>>> simplifies initialization logic for USB-only and USB/DP switchable PHYs.
->>> Please split into two patches in order to simplify reviewing.
->>
->> Ok, will split reset and regulator part.
->>
->>
->>>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
->>>> ---
->>>>  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 108 +++++++++++++++----------------
->>>>  1 file changed, 53 insertions(+), 55 deletions(-)
->>>>
->>>> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
->>>> index 61128d606238321d1b573655b3b987226aa2d594..4e797b7e65da0e3a827efa9a179f1c150c1b8b00 100644
->>>> --- a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
->>>> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
->>>> @@ -421,8 +421,9 @@ struct qmp_phy_cfg {
->>>>  	int (*configure_dp_phy)(struct qmp_usbc *qmp);
->>>>  	int (*calibrate_dp_phy)(struct qmp_usbc *qmp);
->>>>  
->>>> -	/* regulators to be requested */
->>>> -	const char * const *vreg_list;
->>>> +	const char * const *reset_list;
->>>> +	int num_resets;
->>>> +	const struct regulator_bulk_data *vreg_list;
->>>>  	int num_vregs;
->>>>  
->>>>  	/* array of registers with different offsets */
->>>> @@ -453,7 +454,6 @@ struct qmp_usbc {
->>>>  	struct clk_hw dp_pixel_hw;
->>>>  	struct clk_bulk_data *clks;
->>>>  	int num_clks;
->>>> -	int num_resets;
->>>>  	struct reset_control_bulk_data *resets;
->>>>  	struct regulator_bulk_data *vregs;
->>>>  
->>>> @@ -514,9 +514,18 @@ static const char * const usb3phy_reset_l[] = {
->>>>  	"phy_phy", "phy",
->>>>  };
->>>>  
->>>> -/* list of regulators */
->>>> -static const char * const qmp_phy_vreg_l[] = {
->>>> -	"vdda-phy", "vdda-pll",
->>>> +static const char * const usb3dpphy_reset_l[] = {
->>>> +	"phy_phy", "dp_phy",
->>>> +};
->>>> +
->>>> +static const struct regulator_bulk_data qmp_phy_usb_vreg_l[] = {
->>>> +	{ .supply = "vdda-phy" },
->>>> +	{ .supply = "vdda-pll" },
->>> Please fill in the values for all platforms. It well might be that they
->>> all share the same current requirements.
->>
->> I checked previous DP projects and found all platforms configured vdda-phy with 21.8mA and vdda-pll with 36mA.
-> No. On SDM660 and MSM8998 DP defines 73.4 mA for 0.9V supply and
-> 12.560 mA for 1.8 V supply.
->
->> However, I didn’t find USB load configs in downstream and from SoC related power grids:
-> Please check the actual HW documentation for those platforms.
->
->> QCS615
->> L12A: VDDA_USB0_SS_1P8/VDDA_USB1_SS_1P8 Ipk:20ma
->> L5A: VDDA_USB0_SS_0P9/VDDA_USB1_SS_0P9 Ipk:50mA
->>
->> sm6150
->> L11A: VDDA_USB0_SS_1P8/VDDA_USB1_SS_1P8 Ipk:20ma
->> L4A: VDDA_USB0_SS_0P9/VDDA_USB1_SS_0P9 Ipk:50mA
->>
->> SM6115
->> L12A: VDDA_USB_SS_DP_1P8 Ipk:13.3mA
->> L4A: VDDA_USB_SS_DP_CORE Ipk:66.1mA
->>
->> QCM2290
->> L13A: VDDA_USB_SS_DP_1P8 Ipk:13.3mA
->> L12A: VDDA_USB_SS_DP_CORE Ipk:66.1mA
->>
->> sdm660
->> LDO10A: VDDA_USB_SS_1P8 Ipk:14mA
->> LDO1B: VDDA_USB_SS_CORE Ipk:68.6mA
->>
->> msm8998
->> L2A: VDDA_USB_SS_1P2 Ipk:14.2mA
->> L1A: VDDA_USB_SS_CORE Ipk:68.6mA
->>
->> It seems the USB power requirements vary across platforms, and the
->> 21800 µA load for vdda-phy exceeds the Ipk range in most cases.
-> Ipk being ?
+I've send a patch, enabling SPD and VSI (HDMI) InfoFrames on ADV7511.
 
+> 
+> I couldn't find the other datasheet, but I'd be very surprised if it
+> wasn't the case for these too.
+> 
+> > Some of them can be extended to support other infoframe kinds (e.g.
+> > ADV7511 has two spare infoframes which can be used for HDMI and SPD).
+> > 
+> > > SPD is indeed optional though.
+> > > 
+> > > So, it's really dynamic in essence, and not really something we should
+> > > expect drivers to ignore.
+> > > 
+> > > I do acknowledge that a lot of drivers just silently ignore the
+> > > infoframes they don't support at the moment, which isn't great either.
+> > > 
+> > > Maybe we should standardize and document what drivers should do when
+> > > they don't support a given infoframe type?
+> > 
+> > The chips might be generating infoframes internally. This series was
+> > triggered by LT9611UXC, which does all HDMI work under the hood in the
+> > firmware. See [1]. The series I posted hooks HDMI audio directly into
+> > the bridge driver, but I'd really prefer to be able to use
+> > drm_atomic_helper_connector_hdmi_hotplug(), especially if I ever get to
+> > implementing CEC support for it.
+> > 
+> > ADV7511 likewise generates audio infoframe without Linux
+> > help (audio-related fields are programmed, but it's not the
+> > infoframe itself).
+> 
+> Implementing the write_infoframe hooks as a nop with a comment in those
+> case is totally reasonable to me.
+> 
+> I'd still like to document that drivers should only return 0 if they
+> programmed the infoframe, and -ENOTSUPP (and the core logging a warning)
+> otherwise.
+> 
+> That way, we would be able to differentiate between the legimitate
+> LT9611UXC case, and the "driver is broken" sun4i (and others) case.
 
-IPK: Instantaneous Peak Current
+I don't want to end up in a sitation where userspace has a different
+idea of the InfoFrame being sent than the actual one being present on
+the wire. It seems, we need several states per the infoframe:
 
+- Not supported
+- Autogenerated
+- Generated by software
 
->> I also tested removing the load settings for USB+DP PHY, and DP still works fine.
-> It mostly works either because we don't allow mode switching on older
-> platforms (yet) or because somebody else has already voted and that vote
-> keeps the required mode.
->
-> As you've started looking on specifying proper current load, please
-> finish the work.
+E.g. in case of ADV7511 we can declare that Audio InfofFrame is
+autogenerated, AVI, HDMI and SPD as 'software-generated' and DRM (HDR)
+as unsupported. LT9611UXC will declare all (need to check) frame types
+as auto.
 
+This way we can implement the checks and still keep userspace from
+having irrelevant data in debugfs.
 
-Discussed with chip validation and power SW teams.
+I will update my patchset to implement this, but I have another question
+beforehand: should we just declare VSI support or should it be more exact,
+specifying that the driver support HVS (00:0c:03), HVFS (c4:5d:d8), etc?
 
-The power grid tables are primarily used to ensure each module receives 
-the correct voltage, and they define the Ipk for each submodule. 
+I'm asking, because e.g. MSM HDMI controller has hardware support for
+generating HVS frames (but only HVS, the OUI is not programmed, register
+format doesn't match 1:1 frame contents, etc). I instead ended up using
+GENERIC0, because it was more flexible (it's like SPARE packets on
+ADV7511, the contents is being sent as is). However if we ever need to
+send DRM infoframes, we might need to switch from GENERIC0 to HVS, for
+the price of being unable to send HVFS frames.
 
-While they don’t specify recommended regulator load values, the Ipk values
-reflect the expected power domain strength and can help estimate the voting
-strength needed for each supply.
+WDYT?
 
-Since regulator load is mainly used for voting, I’ll define init_load_uA in
-the next patch based on each SoC’s Ipk values to better align with hardware expectations.
-
-
->> So, can we keep the regulator config as original qmp_phy_vreg_l?
->> static const char * const qmp_phy_vreg_l[] = { "vdda-phy", "vdda-pll"} 
->>
->>
->>>> +};
->>>> +
->>>> +static const struct regulator_bulk_data qmp_phy_usbdp_vreg_l[] = {
->>>> +	{ .supply = "vdda-phy", .init_load_uA = 21800 },
->>>> +	{ .supply = "vdda-phy", .init_load_uA = 36000 },
->>> Typo
->>
->> Sorry for Typo, will fix in next patch.
->>
->>
->>>>  };
->>>>  
->>>>  static const struct qmp_usbc_offsets qmp_usbc_offsets_v3_qcm2290 = {
->>>> @@ -569,8 +578,10 @@ static const struct qmp_phy_cfg msm8998_usb3phy_cfg = {
->>>>  	.rx_tbl_num             = ARRAY_SIZE(msm8998_usb3_rx_tbl),
->>>>  	.pcs_tbl                = msm8998_usb3_pcs_tbl,
->>>>  	.pcs_tbl_num            = ARRAY_SIZE(msm8998_usb3_pcs_tbl),
->>>> -	.vreg_list              = qmp_phy_vreg_l,
->>>> -	.num_vregs              = ARRAY_SIZE(qmp_phy_vreg_l),
->>>> +	.reset_list		= usb3phy_reset_l,
->>>> +	.num_resets		= ARRAY_SIZE(usb3phy_reset_l),
->>>> +	.vreg_list              = qmp_phy_usb_vreg_l,
->>>> +	.num_vregs              = ARRAY_SIZE(qmp_phy_usb_vreg_l),
->>>>  	.regs                   = qmp_v3_usb3phy_regs_layout,
->>>>  };
->>>>  
->>>> @@ -586,8 +597,10 @@ static const struct qmp_phy_cfg qcm2290_usb3phy_cfg = {
->>>>  	.rx_tbl_num		= ARRAY_SIZE(qcm2290_usb3_rx_tbl),
->>>>  	.pcs_tbl		= qcm2290_usb3_pcs_tbl,
->>>>  	.pcs_tbl_num		= ARRAY_SIZE(qcm2290_usb3_pcs_tbl),
->>>> -	.vreg_list		= qmp_phy_vreg_l,
->>>> -	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
->>>> +	.reset_list		= usb3phy_reset_l,
->>>> +	.num_resets		= ARRAY_SIZE(usb3phy_reset_l),
->>>> +	.vreg_list		= qmp_phy_usb_vreg_l,
->>>> +	.num_vregs		= ARRAY_SIZE(qmp_phy_usb_vreg_l),
->>>>  	.regs			= qmp_v3_usb3phy_regs_layout_qcm2290,
->>>>  };
->>>>  
->>>> @@ -603,8 +616,10 @@ static const struct qmp_phy_cfg sdm660_usb3phy_cfg = {
->>>>  	.rx_tbl_num		= ARRAY_SIZE(sdm660_usb3_rx_tbl),
->>>>  	.pcs_tbl		= qcm2290_usb3_pcs_tbl,
->>>>  	.pcs_tbl_num		= ARRAY_SIZE(qcm2290_usb3_pcs_tbl),
->>>> -	.vreg_list		= qmp_phy_vreg_l,
->>>> -	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
->>>> +	.reset_list		= usb3phy_reset_l,
->>>> +	.num_resets		= ARRAY_SIZE(usb3phy_reset_l),
->>>> +	.vreg_list		= qmp_phy_usb_vreg_l,
->>>> +	.num_vregs		= ARRAY_SIZE(qmp_phy_usb_vreg_l),
->>>>  	.regs			= qmp_v3_usb3phy_regs_layout_qcm2290,
->>>>  };
->>>>  
->>>> @@ -637,6 +652,11 @@ static const struct qmp_phy_cfg qcs615_usb3dp_phy_cfg = {
->>>>  
->>>>  	.swing_tbl		= &qmp_dp_voltage_swing_hbr2_rbr,
->>>>  	.pre_emphasis_tbl	= &qmp_dp_pre_emphasis_hbr2_rbr,
->>>> +
->>>> +	.reset_list		= usb3dpphy_reset_l,
->>>> +	.num_resets		= ARRAY_SIZE(usb3dpphy_reset_l),
->>>> +	.vreg_list		= qmp_phy_usbdp_vreg_l,
->>>> +	.num_vregs		= ARRAY_SIZE(qmp_phy_usbdp_vreg_l),
->>>>  };
->>>>  
->>>>  static int qmp_usbc_com_init(struct phy *phy)
->>>> @@ -653,13 +673,13 @@ static int qmp_usbc_com_init(struct phy *phy)
->>>>  		return ret;
->>>>  	}
->>>>  
->>>> -	ret = reset_control_bulk_assert(qmp->num_resets, qmp->resets);
->>>> +	ret = reset_control_bulk_assert(cfg->num_resets, qmp->resets);
->>>>  	if (ret) {
->>>>  		dev_err(qmp->dev, "reset assert failed\n");
->>>>  		goto err_disable_regulators;
->>>>  	}
->>>>  
->>>> -	ret = reset_control_bulk_deassert(qmp->num_resets, qmp->resets);
->>>> +	ret = reset_control_bulk_deassert(cfg->num_resets, qmp->resets);
->>>>  	if (ret) {
->>>>  		dev_err(qmp->dev, "reset deassert failed\n");
->>>>  		goto err_disable_regulators;
->>>> @@ -682,7 +702,7 @@ static int qmp_usbc_com_init(struct phy *phy)
->>>>  	return 0;
->>>>  
->>>>  err_assert_reset:
->>>> -	reset_control_bulk_assert(qmp->num_resets, qmp->resets);
->>>> +	reset_control_bulk_assert(cfg->num_resets, qmp->resets);
->>>>  err_disable_regulators:
->>>>  	regulator_bulk_disable(cfg->num_vregs, qmp->vregs);
->>>>  
->>>> @@ -694,7 +714,7 @@ static int qmp_usbc_com_exit(struct phy *phy)
->>>>  	struct qmp_usbc *qmp = phy_get_drvdata(phy);
->>>>  	const struct qmp_phy_cfg *cfg = qmp->cfg;
->>>>  
->>>> -	reset_control_bulk_assert(qmp->num_resets, qmp->resets);
->>>> +	reset_control_bulk_assert(cfg->num_resets, qmp->resets);
->>>>  
->>>>  	clk_bulk_disable_unprepare(qmp->num_clks, qmp->clks);
->>>>  
->>>> @@ -921,42 +941,22 @@ static const struct dev_pm_ops qmp_usbc_pm_ops = {
->>>>  			   qmp_usbc_runtime_resume, NULL)
->>>>  };
->>>>  
->>>> -static int qmp_usbc_vreg_init(struct qmp_usbc *qmp)
->>>> +static int qmp_usbc_reset_init(struct qmp_usbc *qmp)
->>>>  {
->>>>  	const struct qmp_phy_cfg *cfg = qmp->cfg;
->>>> -	struct device *dev = qmp->dev;
->>>> -	int num = cfg->num_vregs;
->>>> -	int i;
->>>> -
->>>> -	qmp->vregs = devm_kcalloc(dev, num, sizeof(*qmp->vregs), GFP_KERNEL);
->>>> -	if (!qmp->vregs)
->>>> -		return -ENOMEM;
->>>> -
->>>> -	for (i = 0; i < num; i++)
->>>> -		qmp->vregs[i].supply = cfg->vreg_list[i];
->>>> -
->>>> -	return devm_regulator_bulk_get(dev, num, qmp->vregs);
->>>> -}
->>>> -
->>>> -static int qmp_usbc_reset_init(struct qmp_usbc *qmp,
->>>> -			      const char *const *reset_list,
->>>> -			      int num_resets)
->>>> -{
->>>>  	struct device *dev = qmp->dev;
->>>>  	int i;
->>>>  	int ret;
->>>>  
->>>> -	qmp->resets = devm_kcalloc(dev, num_resets,
->>>> +	qmp->resets = devm_kcalloc(dev, cfg->num_resets,
->>>>  				   sizeof(*qmp->resets), GFP_KERNEL);
->>>>  	if (!qmp->resets)
->>>>  		return -ENOMEM;
->>>>  
->>>> -	for (i = 0; i < num_resets; i++)
->>>> -		qmp->resets[i].id = reset_list[i];
->>>> +	for (i = 0; i < cfg->num_resets; i++)
->>>> +		qmp->resets[i].id = cfg->reset_list[i];
->>>>  
->>>> -	qmp->num_resets = num_resets;
->>>> -
->>>> -	ret = devm_reset_control_bulk_get_exclusive(dev, num_resets, qmp->resets);
->>>> +	ret = devm_reset_control_bulk_get_exclusive(dev, cfg->num_resets, qmp->resets);
->>>>  	if (ret)
->>>>  		return dev_err_probe(dev, ret, "failed to get resets\n");
->>>>  
->>>> @@ -1146,11 +1146,6 @@ static int qmp_usbc_parse_usb_dt_legacy(struct qmp_usbc *qmp, struct device_node
->>>>  
->>>>  	qmp->num_clks = ret;
->>>>  
->>>> -	ret = qmp_usbc_reset_init(qmp, usb3phy_legacy_reset_l,
->>>> -				 ARRAY_SIZE(usb3phy_legacy_reset_l));
->>>> -	if (ret)
->>>> -		return ret;
->>>> -
->>>>  	return 0;
->>>>  }
->>>>  
->>>> @@ -1187,14 +1182,9 @@ static int qmp_usbc_parse_usb_dt(struct qmp_usbc *qmp)
->>>>  	qmp->pipe_clk = devm_clk_get(dev, "pipe");
->>>>  	if (IS_ERR(qmp->pipe_clk)) {
->>>>  		return dev_err_probe(dev, PTR_ERR(qmp->pipe_clk),
->>>> -				     "failed to get pipe clock\n");
->>>> +					"failed to get pipe clock\n");
->>> unrelated
->>
->> Ack.
->>
->>
->>>>  	}
->>>>  
->>>> -	ret = qmp_usbc_reset_init(qmp, usb3phy_reset_l,
->>>> -				 ARRAY_SIZE(usb3phy_reset_l));
->>>> -	if (ret)
->>>> -		return ret;
->>>> -
->>>>  	return 0;
->>>>  }
->>>>  
->>>> @@ -1228,6 +1218,7 @@ static int qmp_usbc_probe(struct platform_device *pdev)
->>>>  	struct phy_provider *phy_provider;
->>>>  	struct device_node *np;
->>>>  	struct qmp_usbc *qmp;
->>>> +	const struct qmp_phy_cfg *cfg;
->>>>  	int ret;
->>>>  
->>>>  	qmp = devm_kzalloc(dev, sizeof(*qmp), GFP_KERNEL);
->>>> @@ -1239,13 +1230,20 @@ static int qmp_usbc_probe(struct platform_device *pdev)
->>>>  
->>>>  	qmp->orientation = TYPEC_ORIENTATION_NORMAL;
->>>>  
->>>> -	qmp->cfg = of_device_get_match_data(dev);
->>>> -	if (!qmp->cfg)
->>>> +	cfg = of_device_get_match_data(dev);
->>>> +	if (!cfg)
->>>>  		return -EINVAL;
->>>>  
->>>> +	qmp->cfg = cfg;
->>> Why? This doesn't seem related at all.
->>
->> I added the |cfg| variable to simplify access to |num_vregs| and |vreg_list| in the following lines, 
->>
->> avoiding repeated |qmp->cfg->...| usage. 
->>
->> If this is considered unrelated, I’ll remove it in the next version.
-> This all gets clogged in a mixture of regulator and reset changes.
-> Hopefully it will be more obvious with the patches being split.
->
->>
->>>> +
->>>>  	mutex_init(&qmp->phy_mutex);
->>>>  
->>>> -	ret = qmp_usbc_vreg_init(qmp);
->>>> +	ret = qmp_usbc_reset_init(qmp);
->>>> +	if (ret)
->>>> +		return ret;
->>>> +
->>>> +	ret = devm_regulator_bulk_get_const(qmp->dev, cfg->num_vregs,
->>>> +					 cfg->vreg_list, &qmp->vregs);
->>>>  	if (ret)
->>>>  		return ret;
->>>>  
->>>>
->>>> -- 
->>>> 2.34.1
->>>>
+-- 
+With best wishes
+Dmitry
