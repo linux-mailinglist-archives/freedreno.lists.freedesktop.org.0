@@ -2,82 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D61DB38280
-	for <lists+freedreno@lfdr.de>; Wed, 27 Aug 2025 14:36:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0559B383AE
+	for <lists+freedreno@lfdr.de>; Wed, 27 Aug 2025 15:28:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F335410E7FE;
-	Wed, 27 Aug 2025 12:36:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87F0410E7FE;
+	Wed, 27 Aug 2025 13:28:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HP6Pd2lg";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TgrrppWR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B648A10E7FE
- for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 12:36:01 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57R6kHT9008289
- for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 12:36:01 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2268D10E817
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 13:28:14 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57R6kE0s022920
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 13:28:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- aE8zBC2r3Q0RIEhAPiMKgJEgO09ak2j9Srq2WGlHICA=; b=HP6Pd2lgIf3+Ff91
- zdA15rB7L979ZlVWxyvt9V+gX7l8lhk/YtxeUULsYWP+dZWXurOIURgs04oH4KNS
- Z/bgwUxV6lP20vVPOCcyPix+DqDw1Ox8eNXjp8japbIeEbJAqF1m5yaEtb6t0pFq
- fLCElBTU0sSvJTulxTPPQFvFPl1AHiiJ+FntF7mfCQ19RAeDtrdAaTniSVlS9Cnq
- 66JB+bFkO4VQmM28jkAjxofCz6ha4w3eI1nXmdkrVPrxpjZw/Kv/scqkwPqZ1n2W
- gSild69dNrPSBcFjVEieZb6WT0hQ7IyrUWWLvmtqWNTMcfjWjZ/W8Ynk3LGGEApY
- ehvgsg==
+ b6quTpF8lR620w9+wcbq204uyppZxMXlERbN+86W1g4=; b=TgrrppWRbNdt4yIr
+ PXxE70i+ZxYtPJOJn0k7NJseMjEcTHHnvG4VFYfYb8MJhenupHgGqcItJRNqDHP2
+ 1B90YawHW2BEetJAEIF148Ws2qx3CllLpYFMhb/gcX+wGnosSSE0nhCecZgaTBZm
+ ORCVOAac64Cw7hC6SHURHvTANJeSDiRDW4nyFZfhiVyPBi7ObQk+484eGD7vqWzW
+ hMk74uVXrfAQ4z5HB0s1dWNVKv8Plp56NDz9Mp1ctEIlRKK9eS9/Fv6AjHoi45bQ
+ m4pFkFIbxOK1nIruG9yDZAoI1rtuvcv2/u/B84xrNrDIYQxHVqY+cZr9FPqTS+6S
+ iWQsTQ==
 Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
  [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48sh8ajuuh-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q5y5mj5h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 12:36:01 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 13:28:13 +0000 (GMT)
 Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2465a387372so14441215ad.2
- for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 05:36:01 -0700 (PDT)
+ d9443c01a7336-248c171ad6aso286235ad.1
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Aug 2025 06:28:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756298160; x=1756902960;
+ d=1e100.net; s=20230601; t=1756301292; x=1756906092;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
  :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=aE8zBC2r3Q0RIEhAPiMKgJEgO09ak2j9Srq2WGlHICA=;
- b=V3wscCJr3UlsoAAzm1Z/mTBI5sQu+fAn3siqwIKQ4Qy904Cg9lR0/3gCMq7Kl/mFnD
- 0MwFgPhvJjE7u3+oeZ54+qYOaMOnb10hQVAv52R3to1gMfitWmpau3w4d7EKBWk4FSuc
- 5aSGJtCt4ytIhXTO479huvCNKKr21L7V0UjDE+v7PL7+qQ2qfs949LdWxprIpnrqfGpM
- JcSr1DU/+bWkNglgrUUWbHuenC9/ohud/dwyn/CT+xJw8wVqw8eWM5gFstpubO+Gu2G6
- VBNMjZ5A8sJe3q7buLphji92B6cx0ydH1gXPlJpV6C7+1N6Jj4XtPlpq9WkXFRw+RHe1
- d2wQ==
+ bh=b6quTpF8lR620w9+wcbq204uyppZxMXlERbN+86W1g4=;
+ b=Ote2AyVovOTVninmbmHk/Of/1rRXyPXDudeidMgeC64efabzDfWtrRygMezyswqh1+
+ iWyAMpOV7MbGv1lgM+CG6UU0Q0YJXGoULuF2knm/tWn2P8yq4lva/5QAA+ls4oKRmnL8
+ umuCxjqkVnjed+bjjrcvkk0Bl3UuWVCv0h5xaZCrHHntrrAEk3qssDzBmkZbu/HZ6r1/
+ bcPh2TeNb2ULiHLWeDlaSls9ffDtLEJaK/9S8ZWEeL98BBClmzRsjm5IGy+JasRQpjwk
+ 1wC8UCXRboJo6TxhId9zeX5vuFbERhum8/qCPq4PHIiuXQC25MnxrDg4sZWBGWTQLssc
+ GUKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUwwC6ZJA1tXtqQqhBJJILmF1QlylTdH6k39vOXiKTrtdDXehoYWm2DKybfBsupcEcyLX+kyNczGpM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQdDQkfJcWgQD0PHIYzuEPExl2eLTjUTozQ592ZYnpbdIfok/M
- AJsDe7MYfGUES4Ml2FwcIVIJIFGZXCN+UedPu4ZPbCtD7MwVAgLv0bSWwN1h5yqfu0/ViDRqrlz
- r+lgnftUYd70wFdgBSKommrd2osU9iEBDm+q5I+QkhMeIKVkOHBIFL4FX1PwAKOMUYRPEUhY=
-X-Gm-Gg: ASbGnctpaYXd8iwz7nkdtufiZpYE0fd/0ooeslfvXhfceb2NeFBtssLZZAFV6dzkATl
- FdkQUOP3TfERnXRdkVGNwqtnENJpaWlLZmWhRUWPnzpGG2gCiFQRfSmdFDT7llFc//tMpQIafDQ
- scV8iSI1xpWl8O5X83XI6DDZ5qn5KXgxBU5gyUXys2BDeDWSh4Q/RM6GozL3Ip6VrOly9xNfhhL
- m5tn1cAC76fHA9EET4Uypz2KoLgZ/pkZZ6U7XLHzDPa/CTTrQGEL/+S6iW0Ek5h4Jfl5e1rkmLT
- sC5k1exkGPOt/+fQkLM8ZYc1vKi3TW+y79ikICJYV9fOqUNaprnAXHVKgMdTlDRWKzeLrzBEkGR
- VytgY16lJ8d8Fgw17iJuWNcpDATzWBg==
-X-Received: by 2002:a17:902:c951:b0:248:9afa:7bc3 with SMTP id
- d9443c01a7336-2489b09c5damr16498705ad.8.1756298160289; 
- Wed, 27 Aug 2025 05:36:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEYZ+xD3z7w+wdaYRdOi1NqLqGkN8knb7naudF58SoA0hWReYupg5b3LgtyFq8V+9Sa/QcFuQ==
-X-Received: by 2002:a17:902:c951:b0:248:9afa:7bc3 with SMTP id
- d9443c01a7336-2489b09c5damr16498445ad.8.1756298159732; 
- Wed, 27 Aug 2025 05:35:59 -0700 (PDT)
+ AJvYcCXS/sv5Ke0YX7TffghFpLX6VRVDX/KYkWyf4yMQnBJ3u9PwNdvMD8SREyMWtUgLxIuWN0UpRbTs5PY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWVoRJiLA0INrlLpViQ02717FSLYb9rjluFSRaqg8vEA5996ll
+ XXMtSf3SnpOd630T+ptrFDxX3kBeCiDS5WSKZWwDn29D+LI/gDtboiUkMcydRMmT/Vg7HCtv23Q
+ X3Nj5wfpgf5sdtSWOYuavWiCtrtR1UuRpC5xsSgjeRxJyT1X2MlSH0kgntDDwvcmqcxNCOeU=
+X-Gm-Gg: ASbGncs266OQmtgSJcuQej6EqUX/+z0AzhO2oSQ0bX5qRcTaFOZzG0SC0/53cILTDsS
+ 9t5c2cXPQSTwjgYMH+nog9SbvXt2Q+K+nDqyNee3T8CExYwggzLaa/sOCiBSxSWf9dd5Z6SSzgd
+ nIEdFaJuyeGWvDXlCJO92CgN+241XS7oNqvacV4uqR0/1FkGSyIPZLZJfupG6SKZQMfC7OzZCzW
+ EvBjWxySEwmTsLwTcAx+Jw/OZep6zLf0g0+pkEcKtcsbf5zm8WjpjDqardRtKQTk7l+l8gPyk/L
+ mNg/RQSLXQPQCoqJtDMqM3VknzAfk190C7h03g/2wYCP/Onv1cTuXsvPSS9ZvtbBEAMemOthqPa
+ sDrZIq9vc+e6cLtL2lZvBf6fLmnDU4A==
+X-Received: by 2002:a17:902:da8b:b0:246:b41d:252e with SMTP id
+ d9443c01a7336-246b42c6bbamr98937405ad.2.1756301291560; 
+ Wed, 27 Aug 2025 06:28:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEGA6gBgzbMmU5Z3ZUIL62xQWLNNWghkywPFsB5di/g623cSVN2BoKy0/7fsAZ0g2TCIv6pig==
+X-Received: by 2002:a17:902:da8b:b0:246:b41d:252e with SMTP id
+ d9443c01a7336-246b42c6bbamr98936845ad.2.1756301290930; 
+ Wed, 27 Aug 2025 06:28:10 -0700 (PDT)
 Received: from [10.133.33.166] (tpe-colo-wan-fw-bordernet.qualcomm.com.
  [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-248787e1bb2sm37647865ad.96.2025.08.27.05.35.52
+ d9443c01a7336-248a2677f81sm14018735ad.149.2025.08.27.06.28.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 05:35:59 -0700 (PDT)
-Message-ID: <521fc2c7-d58f-4051-89b4-4c5a5a29d798@oss.qualcomm.com>
-Date: Wed, 27 Aug 2025 20:35:51 +0800
+ Wed, 27 Aug 2025 06:28:10 -0700 (PDT)
+Message-ID: <f3cc06c1-25d2-40f4-bd77-8a9c51b40efa@oss.qualcomm.com>
+Date: Wed, 27 Aug 2025 21:28:00 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/14] drm/msm/dp: Add support for lane mapping
- configuration
+Subject: Re: [PATCH v3 07/14] phy: qcom: qmp-usbc: Move reset and regulator
+ config into PHY cfg
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
@@ -98,35 +98,37 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  linux-phy@lists.infradead.org, fange.zhang@oss.qualcomm.com,
  yongxing.mou@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
  Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, quic_lliu6@quicinc.com
+ Konrad Dybcio <konradybcio@kernel.org>
 References: <20250820-add-displayport-support-for-qcs615-platform-v3-0-a43bd25ec39c@oss.qualcomm.com>
- <20250820-add-displayport-support-for-qcs615-platform-v3-14-a43bd25ec39c@oss.qualcomm.com>
- <wwn24kjpwexl66hd3wufa53lkqojb2bkpdogtxwr3uqotjpf3u@hclfgsv64ajn>
+ <20250820-add-displayport-support-for-qcs615-platform-v3-7-a43bd25ec39c@oss.qualcomm.com>
+ <ofvzduf5xyip7w6yde2xwsrvv3tdh7ew3yyzeya2qzpqty3j7p@bnetyjowhdn5>
+ <6f7c3962-ccfc-4400-a77f-399b06da93e1@oss.qualcomm.com>
+ <llrt3xnd5gagovnmyzqebp2da5v67bkxjntfcgc5r5auamspyj@7v5taph3i3c4>
 From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-In-Reply-To: <wwn24kjpwexl66hd3wufa53lkqojb2bkpdogtxwr3uqotjpf3u@hclfgsv64ajn>
+In-Reply-To: <llrt3xnd5gagovnmyzqebp2da5v67bkxjntfcgc5r5auamspyj@7v5taph3i3c4>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=cLDgskeN c=1 sm=1 tr=0 ts=68aefbb1 cx=c_pps
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzMyBTYWx0ZWRfX9e17pe4DykkU
+ 6SFssb1+Y6phs20ruHfNQZa5spBUDT6XBK+h4gVnqeO6NLveT+1PS+vjPh1Y20p2aZxYDayfxxk
+ jGMv/xFyLwBMUFL/EK75uaEDZkYt9ZzKvBPp9PMOEv6yKcVTSqN4HiEixIgQm0w77vd57Nd/tSK
+ m8NDIYANe6pumkVnLGx7we2KTePX1KUdIBowJmQM/Oqhu7X2RwpEQdzQsSBQt51Iq+YUt0pzPmF
+ a8pCekQAkM02bEL6J/AMVaa3kmKRvwY63ewQUhJppU4tYbsWWx7bBa4VGZjiwRCwlKx1P/Pofp6
+ ySEUNiuYoeyhX5V+JUaLhJqeEzSdHIg7t6om2zsrAaMUR7pOqDk2YVdQaKafC1IlgtOZhSMlRzj
+ NI+wvv4L
+X-Authority-Analysis: v=2.4 cv=Lco86ifi c=1 sm=1 tr=0 ts=68af07ed cx=c_pps
  a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=o8qHn1sYNikkEtO5ub0A:9
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODI2MDE1MyBTYWx0ZWRfXx/+0ojFMNXI/
- Qu8gFIiV9RosIksKVAzvVU+wsbA9XnxZeRxJS54PdhSlufhmYipcqTWgUBPEUoQQLNyo/jAXezb
- sIU4SXXDzskQ8xoyS5hdO4ivXco23xpFIycwKjuR4TsssLe52/PBDu1ugPNN0BoTlgnk6iemLQe
- 2Ficl+gZdW85oxTDfni04qNZEYOpDgRaM5xoPB+H5f4z9wXFxZzEpxISrnt7m6T5fN+G6J0+JbV
- GTTwhs3xKIq6viJc5zQ3n4K3xRrfp8Ot3Xz017qhci6zSx3OyQ5Oe/tU5Nlb89/zjiZ3ZXzJkgr
- OUCgLn1CCthMKIfODs5PljaX84Ay5dIvvqo/yhqWjJ37iwG1F8jeIndtnnBg95KCEC6QXMQnMPk
- hRFBhGdy
-X-Proofpoint-GUID: MGLx5yg3IlCP1xhKCzrWlUw8uDQGihUM
-X-Proofpoint-ORIG-GUID: MGLx5yg3IlCP1xhKCzrWlUw8uDQGihUM
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=snPlLZzmUMwuVAg1AH4A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: d2Bc8LmBJDqOP9gvOa0tuT-PCVbz40L8
+X-Proofpoint-ORIG-GUID: d2Bc8LmBJDqOP9gvOa0tuT-PCVbz40L8
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-27_03,2025-08-26_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0 adultscore=0
- impostorscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ impostorscore=0 adultscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508260153
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230033
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,36 +145,352 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 8/20/2025 7:49 PM, Dmitry Baryshkov wrote:
-> On Wed, Aug 20, 2025 at 05:34:56PM +0800, Xiangxu Yin wrote:
->> Since max_dp_lanes and max_dp_link_rate are link-specific parameters,
->> move their parsing from dp_panel to dp_link for better separation
->> of concerns.
+On 8/22/2025 6:08 PM, Dmitry Baryshkov wrote:
+> On Fri, Aug 22, 2025 at 04:29:28PM +0800, Xiangxu Yin wrote:
+>> On 8/20/2025 7:30 PM, Dmitry Baryshkov wrote:
+>>> On Wed, Aug 20, 2025 at 05:34:49PM +0800, Xiangxu Yin wrote:
+>>>> Refactor reset and regulator configuration to be managed via qmp_phy_cfg
+>>>> instead of hardcoded lists. This enables per-PHY customization and
+>>>> simplifies initialization logic for USB-only and USB/DP switchable PHYs.
+>>> Please split into two patches in order to simplify reviewing.
 >>
->> Add lane mapping configuration for the DisplayPort (DP) controller on
->> the QCS615 platform.
-> Separate patch
+>> Ok, will split reset and regulator part.
+>>
+>>
+>>>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+>>>> ---
+>>>>  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 108 +++++++++++++++----------------
+>>>>  1 file changed, 53 insertions(+), 55 deletions(-)
+>>>>
+>>>> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+>>>> index 61128d606238321d1b573655b3b987226aa2d594..4e797b7e65da0e3a827efa9a179f1c150c1b8b00 100644
+>>>> --- a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+>>>> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+>>>> @@ -421,8 +421,9 @@ struct qmp_phy_cfg {
+>>>>  	int (*configure_dp_phy)(struct qmp_usbc *qmp);
+>>>>  	int (*calibrate_dp_phy)(struct qmp_usbc *qmp);
+>>>>  
+>>>> -	/* regulators to be requested */
+>>>> -	const char * const *vreg_list;
+>>>> +	const char * const *reset_list;
+>>>> +	int num_resets;
+>>>> +	const struct regulator_bulk_data *vreg_list;
+>>>>  	int num_vregs;
+>>>>  
+>>>>  	/* array of registers with different offsets */
+>>>> @@ -453,7 +454,6 @@ struct qmp_usbc {
+>>>>  	struct clk_hw dp_pixel_hw;
+>>>>  	struct clk_bulk_data *clks;
+>>>>  	int num_clks;
+>>>> -	int num_resets;
+>>>>  	struct reset_control_bulk_data *resets;
+>>>>  	struct regulator_bulk_data *vregs;
+>>>>  
+>>>> @@ -514,9 +514,18 @@ static const char * const usb3phy_reset_l[] = {
+>>>>  	"phy_phy", "phy",
+>>>>  };
+>>>>  
+>>>> -/* list of regulators */
+>>>> -static const char * const qmp_phy_vreg_l[] = {
+>>>> -	"vdda-phy", "vdda-pll",
+>>>> +static const char * const usb3dpphy_reset_l[] = {
+>>>> +	"phy_phy", "dp_phy",
+>>>> +};
+>>>> +
+>>>> +static const struct regulator_bulk_data qmp_phy_usb_vreg_l[] = {
+>>>> +	{ .supply = "vdda-phy" },
+>>>> +	{ .supply = "vdda-pll" },
+>>> Please fill in the values for all platforms. It well might be that they
+>>> all share the same current requirements.
+>>
+>> I checked previous DP projects and found all platforms configured vdda-phy with 21.8mA and vdda-pll with 36mA.
+> No. On SDM660 and MSM8998 DP defines 73.4 mA for 0.9V supply and
+> 12.560 mA for 1.8 V supply.
+>
+>> However, I didn’t find USB load configs in downstream and from SoC related power grids:
+> Please check the actual HW documentation for those platforms.
+>
+>> QCS615
+>> L12A: VDDA_USB0_SS_1P8/VDDA_USB1_SS_1P8 Ipk:20ma
+>> L5A: VDDA_USB0_SS_0P9/VDDA_USB1_SS_0P9 Ipk:50mA
+>>
+>> sm6150
+>> L11A: VDDA_USB0_SS_1P8/VDDA_USB1_SS_1P8 Ipk:20ma
+>> L4A: VDDA_USB0_SS_0P9/VDDA_USB1_SS_0P9 Ipk:50mA
+>>
+>> SM6115
+>> L12A: VDDA_USB_SS_DP_1P8 Ipk:13.3mA
+>> L4A: VDDA_USB_SS_DP_CORE Ipk:66.1mA
+>>
+>> QCM2290
+>> L13A: VDDA_USB_SS_DP_1P8 Ipk:13.3mA
+>> L12A: VDDA_USB_SS_DP_CORE Ipk:66.1mA
+>>
+>> sdm660
+>> LDO10A: VDDA_USB_SS_1P8 Ipk:14mA
+>> LDO1B: VDDA_USB_SS_CORE Ipk:68.6mA
+>>
+>> msm8998
+>> L2A: VDDA_USB_SS_1P2 Ipk:14.2mA
+>> L1A: VDDA_USB_SS_CORE Ipk:68.6mA
+>>
+>> It seems the USB power requirements vary across platforms, and the
+>> 21800 µA load for vdda-phy exceeds the Ipk range in most cases.
+> Ipk being ?
 
 
-Ok. will separate in next patch.
+IPK: Instantaneous Peak Current
 
 
->> QCS615 platform requires non-default logical-to-physical lane mapping
->> due to its unique hardware routing. Unlike the standard mapping sequence
->> <0 1 2 3>, QCS615 uses <3 2 0 1>, which necessitates explicit
->> configuration via the data-lanes property in the device tree. This
->> ensures correct signal routing between the DP controller and PHY.
+>> I also tested removing the load settings for USB+DP PHY, and DP still works fine.
+> It mostly works either because we don't allow mode switching on older
+> platforms (yet) or because somebody else has already voted and that vote
+> keeps the required mode.
+>
+> As you've started looking on specifying proper current load, please
+> finish the work.
+
+
+Discussed with chip validation and power SW teams.
+
+The power grid tables are primarily used to ensure each module receives 
+the correct voltage, and they define the Ipk for each submodule. 
+
+While they don’t specify recommended regulator load values, the Ipk values
+reflect the expected power domain strength and can help estimate the voting
+strength needed for each supply.
+
+Since regulator load is mainly used for voting, I’ll define init_load_uA in
+the next patch based on each SoC’s Ipk values to better align with hardware expectations.
+
+
+>> So, can we keep the regulator config as original qmp_phy_vreg_l?
+>> static const char * const qmp_phy_vreg_l[] = { "vdda-phy", "vdda-pll"} 
 >>
->> The DP PHY supports polarity inversion (PN swap) but does not support
->> lane swapping. Therefore, lane mapping should be handled in the DP
->> controller domain using REG_DP_LOGICAL2PHYSICAL_LANE_MAPPING.
 >>
->> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
->> ---
->>  drivers/gpu/drm/msm/dp/dp_ctrl.c  | 10 ++---
->>  drivers/gpu/drm/msm/dp/dp_link.c  | 71 +++++++++++++++++++++++++++++++++++
->>  drivers/gpu/drm/msm/dp/dp_link.h  |  5 +++
->>  drivers/gpu/drm/msm/dp/dp_panel.c | 78 +++++----------------------------------
->>  drivers/gpu/drm/msm/dp/dp_panel.h |  3 --
->>  5 files changed, 90 insertions(+), 77 deletions(-)
+>>>> +};
+>>>> +
+>>>> +static const struct regulator_bulk_data qmp_phy_usbdp_vreg_l[] = {
+>>>> +	{ .supply = "vdda-phy", .init_load_uA = 21800 },
+>>>> +	{ .supply = "vdda-phy", .init_load_uA = 36000 },
+>>> Typo
 >>
+>> Sorry for Typo, will fix in next patch.
+>>
+>>
+>>>>  };
+>>>>  
+>>>>  static const struct qmp_usbc_offsets qmp_usbc_offsets_v3_qcm2290 = {
+>>>> @@ -569,8 +578,10 @@ static const struct qmp_phy_cfg msm8998_usb3phy_cfg = {
+>>>>  	.rx_tbl_num             = ARRAY_SIZE(msm8998_usb3_rx_tbl),
+>>>>  	.pcs_tbl                = msm8998_usb3_pcs_tbl,
+>>>>  	.pcs_tbl_num            = ARRAY_SIZE(msm8998_usb3_pcs_tbl),
+>>>> -	.vreg_list              = qmp_phy_vreg_l,
+>>>> -	.num_vregs              = ARRAY_SIZE(qmp_phy_vreg_l),
+>>>> +	.reset_list		= usb3phy_reset_l,
+>>>> +	.num_resets		= ARRAY_SIZE(usb3phy_reset_l),
+>>>> +	.vreg_list              = qmp_phy_usb_vreg_l,
+>>>> +	.num_vregs              = ARRAY_SIZE(qmp_phy_usb_vreg_l),
+>>>>  	.regs                   = qmp_v3_usb3phy_regs_layout,
+>>>>  };
+>>>>  
+>>>> @@ -586,8 +597,10 @@ static const struct qmp_phy_cfg qcm2290_usb3phy_cfg = {
+>>>>  	.rx_tbl_num		= ARRAY_SIZE(qcm2290_usb3_rx_tbl),
+>>>>  	.pcs_tbl		= qcm2290_usb3_pcs_tbl,
+>>>>  	.pcs_tbl_num		= ARRAY_SIZE(qcm2290_usb3_pcs_tbl),
+>>>> -	.vreg_list		= qmp_phy_vreg_l,
+>>>> -	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
+>>>> +	.reset_list		= usb3phy_reset_l,
+>>>> +	.num_resets		= ARRAY_SIZE(usb3phy_reset_l),
+>>>> +	.vreg_list		= qmp_phy_usb_vreg_l,
+>>>> +	.num_vregs		= ARRAY_SIZE(qmp_phy_usb_vreg_l),
+>>>>  	.regs			= qmp_v3_usb3phy_regs_layout_qcm2290,
+>>>>  };
+>>>>  
+>>>> @@ -603,8 +616,10 @@ static const struct qmp_phy_cfg sdm660_usb3phy_cfg = {
+>>>>  	.rx_tbl_num		= ARRAY_SIZE(sdm660_usb3_rx_tbl),
+>>>>  	.pcs_tbl		= qcm2290_usb3_pcs_tbl,
+>>>>  	.pcs_tbl_num		= ARRAY_SIZE(qcm2290_usb3_pcs_tbl),
+>>>> -	.vreg_list		= qmp_phy_vreg_l,
+>>>> -	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
+>>>> +	.reset_list		= usb3phy_reset_l,
+>>>> +	.num_resets		= ARRAY_SIZE(usb3phy_reset_l),
+>>>> +	.vreg_list		= qmp_phy_usb_vreg_l,
+>>>> +	.num_vregs		= ARRAY_SIZE(qmp_phy_usb_vreg_l),
+>>>>  	.regs			= qmp_v3_usb3phy_regs_layout_qcm2290,
+>>>>  };
+>>>>  
+>>>> @@ -637,6 +652,11 @@ static const struct qmp_phy_cfg qcs615_usb3dp_phy_cfg = {
+>>>>  
+>>>>  	.swing_tbl		= &qmp_dp_voltage_swing_hbr2_rbr,
+>>>>  	.pre_emphasis_tbl	= &qmp_dp_pre_emphasis_hbr2_rbr,
+>>>> +
+>>>> +	.reset_list		= usb3dpphy_reset_l,
+>>>> +	.num_resets		= ARRAY_SIZE(usb3dpphy_reset_l),
+>>>> +	.vreg_list		= qmp_phy_usbdp_vreg_l,
+>>>> +	.num_vregs		= ARRAY_SIZE(qmp_phy_usbdp_vreg_l),
+>>>>  };
+>>>>  
+>>>>  static int qmp_usbc_com_init(struct phy *phy)
+>>>> @@ -653,13 +673,13 @@ static int qmp_usbc_com_init(struct phy *phy)
+>>>>  		return ret;
+>>>>  	}
+>>>>  
+>>>> -	ret = reset_control_bulk_assert(qmp->num_resets, qmp->resets);
+>>>> +	ret = reset_control_bulk_assert(cfg->num_resets, qmp->resets);
+>>>>  	if (ret) {
+>>>>  		dev_err(qmp->dev, "reset assert failed\n");
+>>>>  		goto err_disable_regulators;
+>>>>  	}
+>>>>  
+>>>> -	ret = reset_control_bulk_deassert(qmp->num_resets, qmp->resets);
+>>>> +	ret = reset_control_bulk_deassert(cfg->num_resets, qmp->resets);
+>>>>  	if (ret) {
+>>>>  		dev_err(qmp->dev, "reset deassert failed\n");
+>>>>  		goto err_disable_regulators;
+>>>> @@ -682,7 +702,7 @@ static int qmp_usbc_com_init(struct phy *phy)
+>>>>  	return 0;
+>>>>  
+>>>>  err_assert_reset:
+>>>> -	reset_control_bulk_assert(qmp->num_resets, qmp->resets);
+>>>> +	reset_control_bulk_assert(cfg->num_resets, qmp->resets);
+>>>>  err_disable_regulators:
+>>>>  	regulator_bulk_disable(cfg->num_vregs, qmp->vregs);
+>>>>  
+>>>> @@ -694,7 +714,7 @@ static int qmp_usbc_com_exit(struct phy *phy)
+>>>>  	struct qmp_usbc *qmp = phy_get_drvdata(phy);
+>>>>  	const struct qmp_phy_cfg *cfg = qmp->cfg;
+>>>>  
+>>>> -	reset_control_bulk_assert(qmp->num_resets, qmp->resets);
+>>>> +	reset_control_bulk_assert(cfg->num_resets, qmp->resets);
+>>>>  
+>>>>  	clk_bulk_disable_unprepare(qmp->num_clks, qmp->clks);
+>>>>  
+>>>> @@ -921,42 +941,22 @@ static const struct dev_pm_ops qmp_usbc_pm_ops = {
+>>>>  			   qmp_usbc_runtime_resume, NULL)
+>>>>  };
+>>>>  
+>>>> -static int qmp_usbc_vreg_init(struct qmp_usbc *qmp)
+>>>> +static int qmp_usbc_reset_init(struct qmp_usbc *qmp)
+>>>>  {
+>>>>  	const struct qmp_phy_cfg *cfg = qmp->cfg;
+>>>> -	struct device *dev = qmp->dev;
+>>>> -	int num = cfg->num_vregs;
+>>>> -	int i;
+>>>> -
+>>>> -	qmp->vregs = devm_kcalloc(dev, num, sizeof(*qmp->vregs), GFP_KERNEL);
+>>>> -	if (!qmp->vregs)
+>>>> -		return -ENOMEM;
+>>>> -
+>>>> -	for (i = 0; i < num; i++)
+>>>> -		qmp->vregs[i].supply = cfg->vreg_list[i];
+>>>> -
+>>>> -	return devm_regulator_bulk_get(dev, num, qmp->vregs);
+>>>> -}
+>>>> -
+>>>> -static int qmp_usbc_reset_init(struct qmp_usbc *qmp,
+>>>> -			      const char *const *reset_list,
+>>>> -			      int num_resets)
+>>>> -{
+>>>>  	struct device *dev = qmp->dev;
+>>>>  	int i;
+>>>>  	int ret;
+>>>>  
+>>>> -	qmp->resets = devm_kcalloc(dev, num_resets,
+>>>> +	qmp->resets = devm_kcalloc(dev, cfg->num_resets,
+>>>>  				   sizeof(*qmp->resets), GFP_KERNEL);
+>>>>  	if (!qmp->resets)
+>>>>  		return -ENOMEM;
+>>>>  
+>>>> -	for (i = 0; i < num_resets; i++)
+>>>> -		qmp->resets[i].id = reset_list[i];
+>>>> +	for (i = 0; i < cfg->num_resets; i++)
+>>>> +		qmp->resets[i].id = cfg->reset_list[i];
+>>>>  
+>>>> -	qmp->num_resets = num_resets;
+>>>> -
+>>>> -	ret = devm_reset_control_bulk_get_exclusive(dev, num_resets, qmp->resets);
+>>>> +	ret = devm_reset_control_bulk_get_exclusive(dev, cfg->num_resets, qmp->resets);
+>>>>  	if (ret)
+>>>>  		return dev_err_probe(dev, ret, "failed to get resets\n");
+>>>>  
+>>>> @@ -1146,11 +1146,6 @@ static int qmp_usbc_parse_usb_dt_legacy(struct qmp_usbc *qmp, struct device_node
+>>>>  
+>>>>  	qmp->num_clks = ret;
+>>>>  
+>>>> -	ret = qmp_usbc_reset_init(qmp, usb3phy_legacy_reset_l,
+>>>> -				 ARRAY_SIZE(usb3phy_legacy_reset_l));
+>>>> -	if (ret)
+>>>> -		return ret;
+>>>> -
+>>>>  	return 0;
+>>>>  }
+>>>>  
+>>>> @@ -1187,14 +1182,9 @@ static int qmp_usbc_parse_usb_dt(struct qmp_usbc *qmp)
+>>>>  	qmp->pipe_clk = devm_clk_get(dev, "pipe");
+>>>>  	if (IS_ERR(qmp->pipe_clk)) {
+>>>>  		return dev_err_probe(dev, PTR_ERR(qmp->pipe_clk),
+>>>> -				     "failed to get pipe clock\n");
+>>>> +					"failed to get pipe clock\n");
+>>> unrelated
+>>
+>> Ack.
+>>
+>>
+>>>>  	}
+>>>>  
+>>>> -	ret = qmp_usbc_reset_init(qmp, usb3phy_reset_l,
+>>>> -				 ARRAY_SIZE(usb3phy_reset_l));
+>>>> -	if (ret)
+>>>> -		return ret;
+>>>> -
+>>>>  	return 0;
+>>>>  }
+>>>>  
+>>>> @@ -1228,6 +1218,7 @@ static int qmp_usbc_probe(struct platform_device *pdev)
+>>>>  	struct phy_provider *phy_provider;
+>>>>  	struct device_node *np;
+>>>>  	struct qmp_usbc *qmp;
+>>>> +	const struct qmp_phy_cfg *cfg;
+>>>>  	int ret;
+>>>>  
+>>>>  	qmp = devm_kzalloc(dev, sizeof(*qmp), GFP_KERNEL);
+>>>> @@ -1239,13 +1230,20 @@ static int qmp_usbc_probe(struct platform_device *pdev)
+>>>>  
+>>>>  	qmp->orientation = TYPEC_ORIENTATION_NORMAL;
+>>>>  
+>>>> -	qmp->cfg = of_device_get_match_data(dev);
+>>>> -	if (!qmp->cfg)
+>>>> +	cfg = of_device_get_match_data(dev);
+>>>> +	if (!cfg)
+>>>>  		return -EINVAL;
+>>>>  
+>>>> +	qmp->cfg = cfg;
+>>> Why? This doesn't seem related at all.
+>>
+>> I added the |cfg| variable to simplify access to |num_vregs| and |vreg_list| in the following lines, 
+>>
+>> avoiding repeated |qmp->cfg->...| usage. 
+>>
+>> If this is considered unrelated, I’ll remove it in the next version.
+> This all gets clogged in a mixture of regulator and reset changes.
+> Hopefully it will be more obvious with the patches being split.
+>
+>>
+>>>> +
+>>>>  	mutex_init(&qmp->phy_mutex);
+>>>>  
+>>>> -	ret = qmp_usbc_vreg_init(qmp);
+>>>> +	ret = qmp_usbc_reset_init(qmp);
+>>>> +	if (ret)
+>>>> +		return ret;
+>>>> +
+>>>> +	ret = devm_regulator_bulk_get_const(qmp->dev, cfg->num_vregs,
+>>>> +					 cfg->vreg_list, &qmp->vregs);
+>>>>  	if (ret)
+>>>>  		return ret;
+>>>>  
+>>>>
+>>>> -- 
+>>>> 2.34.1
+>>>>
