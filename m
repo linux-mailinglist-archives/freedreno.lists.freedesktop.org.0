@@ -2,69 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCD9EB3C8B4
-	for <lists+freedreno@lfdr.de>; Sat, 30 Aug 2025 09:30:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E046B3C8B9
+	for <lists+freedreno@lfdr.de>; Sat, 30 Aug 2025 09:30:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E32410E1AA;
-	Sat, 30 Aug 2025 07:30:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4D9D10E1AA;
+	Sat, 30 Aug 2025 07:30:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="XSY91wXb";
+	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="dZl0uj8U";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
  [209.85.160.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA95410E23D
- for <freedreno@lists.freedesktop.org>; Sat, 30 Aug 2025 07:30:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8858B10E237
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Aug 2025 07:30:45 +0000 (UTC)
 Received: by mail-qt1-f180.google.com with SMTP id
- d75a77b69052e-4b30f73ca43so10486441cf.3
- for <freedreno@lists.freedesktop.org>; Sat, 30 Aug 2025 00:30:13 -0700 (PDT)
+ d75a77b69052e-4b31201d331so16598921cf.0
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Aug 2025 00:30:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1756539012; x=1757143812;
+ d=fooishbar.org; s=google; t=1756539044; x=1757143844;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=u5ZG8/bv7fEyY7/sBaZXohrNcXIrZPRq+HcTim4TiEo=;
- b=XSY91wXb1yJ6X+wUjuEzetW2VA1JfudmCQaj5WOgxbDx7iUpT7M96X5qNHDxNNnI4l
- 2JOzLQ5lZOPEW4SDuI0yTz5LqVqKZo+mEetREEwRcizSbElOgSufvWwmQYThoAgRUu+Y
- jLz7id2v4nkkTYqJL4LEhJVdaIMdFf0wdLVNoAvuDonnuXC8jY+dMkxgFxyL92PKWmma
- kK6jV1QlWzZTbAhny8WeXz+QTe1RHiiv12yk0GIDMARHnC7QjwKQTE66+zbgZL9PwAs2
- r8IFt2Oia7LuXy/akisi1R2jvDOj1b9oo0sxgaDC6os40FrlIROzj9XlSCv8IXJgzY/Y
- +/nw==
+ bh=3vk4uw/k5t/ngjT55OkWyZFL8hHut4oedMZiTZnhFuY=;
+ b=dZl0uj8UTlYGpwV8KHSBsDTe/HbplD/v8YfxGbSItCpInEac5xBFP/UxyNxz3/hWD6
+ WsuLRI/OB8L/gQ5X95aF178pq7oKOCbfj+AJSS5kuZI8ke1TCn/5adNQwlv/SGiR8DZE
+ ci8vYwiHnlKP0yAuFe2l1gLrvcolDkQzvSBbCLyWw5rw1hw/51YGzurxpp7u2Y9S4YbA
+ M8FrKN2evV92m2SoPtuODHUhyhAkfkU5UQdrMoEWSuLvrHNiT0AyBbu5EtG6ltY1ee/g
+ NMF6AEgYlSWiI/TgoR32fKwguwEUAMxue3O6xjjvvUmPJZPyn5oWc9wcQ4GsfUDhg1yj
+ IqrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756539012; x=1757143812;
+ d=1e100.net; s=20230601; t=1756539044; x=1757143844;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=u5ZG8/bv7fEyY7/sBaZXohrNcXIrZPRq+HcTim4TiEo=;
- b=XuTOgb3+Jj+6eeOhbcOFHqBFbB4h1ywlZ5THtJ7S33AiB3oLvPxGZ7O2fQ1elKF4is
- ZPN2CKafxWwPmweWUdGVyMhws+PZNsXuN3Fz82dAHCK6Obx5VoDwadAKj4IguMpfalMU
- PHi4vDDVwO0RXPgJEEWG83hEJmaTj0DPZTIy9CXAm4hqQ8J1yHOHeAaG2o8Idt9+P7re
- 1Ipg4kN7nKojHAQYUbEPUxsfdSizQtn5Z/LPjf9g22Og2tNmD+M4Tq1ofcZ1A9do0LEZ
- KUD6GIKd4WdX/Ule2Nu3k4L9qwtLi0azEBsKu+a46Ti2JA1l+HbkYpb2dFGaQAL+3Q22
- /mEg==
+ bh=3vk4uw/k5t/ngjT55OkWyZFL8hHut4oedMZiTZnhFuY=;
+ b=Pe5ipkB9BT3FVaIdgQ841rrgfEByggXRD1vjkhydljGIvTkKkni247hyDXGGdhp188
+ B1TUhDavQLGHUeBZnfhGFEPULFzwn3rHC5JkCrizD1o9R89m2N4x1fRyNNEmY3IybfEe
+ MUmuC9ABT+MMbAhga6jZ1GSD7kt82Vzh/6GXdE+48aBvxqZGeTxS/3oOHrZTLllIp8j1
+ EK4rJDEt80IU/a+2cteCy3mKV3Jsbusi3AlaYhnGVJogQZG0M3xAPXp+q91lczANI5Xn
+ LeOuxT2H7wF3lsma/qjLVIHh4bgp8lPJMs50tkPH6VJa10I1pZ3hRQJdshTzBkIQIEDn
+ Lujw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX7oADLC5wny0gQyOfFGbX2PvkIATsGODtsfeAbg8NN6u3Gq8JA3Yx13Bj3u2bM4ZnckqShKj5wJto=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYImosmd30h/BGRiHmOPRj3fkjG/8NoSiri6EtBLg03hpy8uXk
- lVQE1h2keEMl34oXvZUL9ZpNP+L0W4zWSoT33VgQ3a4RBrgmvHw+LdRuDalGswRx+3jQsYFVXOH
- h7ruBTjy6ZPBG5f17AMezrPhImUkZ0EOBYoXc/ibGXA==
-X-Gm-Gg: ASbGncuVyrGr6VUmnoDdLw2UQtc6a1ztlCfX9UUB+AFP6s/w8/LXvpYSo70oXF5h5nN
- uWQyK8znvCc/33D2mPReAZIGnlklofVe+INT3fqKki0R0HpfTWaDJ90q8pZ9CQCg81kdIUlAGOs
- EA/lxC5KmdxUkVM2/lhXJbQgY9lvDKZxUnAMBx1s4SUUoEYbnO3pN+jFoDL+RjYQNVNIlGWBvi3
- o3p8sJ4xF2ojq0H
-X-Google-Smtp-Source: AGHT+IEoXuFZJwCV9cwGNvRYz37SGk7fTBsYXDUKkjm0VNio3cHCVlLucdjG7nkDJhE227CIqVsjn4jhHmK64RhHXes=
-X-Received: by 2002:ac8:5a12:0:b0:4b2:d607:16cb with SMTP id
- d75a77b69052e-4b31d855a89mr14707801cf.22.1756539012519; Sat, 30 Aug 2025
- 00:30:12 -0700 (PDT)
+ AJvYcCV1UE+RnTeZ3u30cloMQ1qnij4kFrvUmaLdsGfuF/NvcPBWatrX9FureJBGOt4zMgqv8Cpejl+bqHU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy0x+shv5aKWqPeznl305dZVuBqVcmDC68nM2zoTK0PhaY5PEXK
+ QAjWAWc649cjKZ6SJxo/+hELvZtXWA0hOVsQYc/FE2b2C0Um2oLXAkw67Z/bZUuuqzK84RrZQGT
+ KuyPUaklQUTBZPaT29llm+1UVd84C322l6S1ik8iqDA==
+X-Gm-Gg: ASbGncv0CqiQOaVYnL5A3dZNucM++Piegh32vKHYyNK0SGND+Ziw8+liwARPTAQkP7k
+ 8XcHLxydv5eNsQ1i+ItgcyS2AjOESl/cDX28EviVJ3WnfcJYd4znyaVy5DPG8NE0ZjmDMk7Mypw
+ OFJ60SqKyiBSSAxElZSUs40Rbo6Zf3ySfQ2PhuKg+IGb1c4L5W9qTXyRf6rbesKCabu166XnCA4
+ hi89Q==
+X-Google-Smtp-Source: AGHT+IGOnM65THr0nrJ2LPLTiMMlk+HvsXaVUyczPlRtZjJ7WLdbodWtVaS7JfPnD9Na2PcQiHxYrYNu+VnO9BqbaFo=
+X-Received: by 2002:a05:622a:1448:b0:4b1:103b:b67a with SMTP id
+ d75a77b69052e-4b31b9c3777mr22814681cf.32.1756539044617; Sat, 30 Aug 2025
+ 00:30:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250830-drm-limit-infoframes-v3-0-32fcbec4634e@oss.qualcomm.com>
-In-Reply-To: <20250830-drm-limit-infoframes-v3-0-32fcbec4634e@oss.qualcomm.com>
+ <20250830-drm-limit-infoframes-v3-5-32fcbec4634e@oss.qualcomm.com>
+In-Reply-To: <20250830-drm-limit-infoframes-v3-5-32fcbec4634e@oss.qualcomm.com>
 From: Daniel Stone <daniel@fooishbar.org>
-Date: Sat, 30 Aug 2025 09:30:01 +0200
-X-Gm-Features: Ac12FXwherP7pCCw1eIolUuD4CaoGI8lRnTYIDVTJZ8XE8BvqysFq5xqSgK9g3A
-Message-ID: <CAPj87rNDtfEYV88Ue0bFXJwQop-zy++Ty7uQ9XfrQ2TbAijeRg@mail.gmail.com>
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per driver
- capabilities
+Date: Sat, 30 Aug 2025 09:30:33 +0200
+X-Gm-Features: Ac12FXzpE91ILUTwZS_ZwZMq6UoPhvxeYv_akLo7dKmrA-yDSe19rsUZejc4hcM
+Message-ID: <CAPj87rPSqJoJnUoP11qzWXuqvYPb_=vP-5-p7SEVA6JCfcYCuA@mail.gmail.com>
+Subject: Re: [PATCH v3 05/11] drm/bridge: synopsys/dw-hdmi-qp: declare
+ supported infoframes
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -106,25 +107,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
-
 On Sat, 30 Aug 2025 at 02:23, Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> It's not uncommon for the particular device to support only a subset of
-> HDMI InfoFrames. It's not a big problem for the kernel, since we adopted
-> a model of ignoring the unsupported Infoframes, but it's a bigger
-> problem for the userspace: we end up having files in debugfs which do
-> mot match what is being sent on the wire.
->
-> Sort that out, making sure that all interfaces are consistent.
+> Declare which infoframes are supported via the .hdmi_write_infoframe()
+> interface.
 
-Thanks for the series, it's a really good cleanup.
-
-I know that dw-hdmi-qp can support _any_ infoframe, by manually
-packing it into the two GHDMI banks. So the supported set there is
-'all of the currently well-known ones, plus any two others, but only
-two and not more'. I wonder if that has any effect on the interface
-you were thinking about for userspace?
-
-Cheers,
-Daniel
+Reviewed-by: Daniel Stone <daniels@collabora.com>
