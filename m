@@ -2,97 +2,114 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35910B3D3B9
-	for <lists+freedreno@lfdr.de>; Sun, 31 Aug 2025 15:46:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A92A7B3D496
+	for <lists+freedreno@lfdr.de>; Sun, 31 Aug 2025 19:26:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB4E10E2EA;
-	Sun, 31 Aug 2025 13:46:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39AC710E0C6;
+	Sun, 31 Aug 2025 17:26:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="lq+KCuVt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ty1p/t1y";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
- [209.85.222.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A114210E2EA
- for <freedreno@lists.freedesktop.org>; Sun, 31 Aug 2025 13:46:37 +0000 (UTC)
-Received: by mail-qk1-f177.google.com with SMTP id
- af79cd13be357-7f722cb35fdso318078885a.3
- for <freedreno@lists.freedesktop.org>; Sun, 31 Aug 2025 06:46:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1756647996; x=1757252796;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jwybc7U/Gu47otp5cNNeYZoMPwQff+yr/8w72U7737w=;
- b=lq+KCuVtzemI7lzmdQpHeXUNMaTIkSy7XgyiFTPsMe2M/uK/C2Z7ZUR2Do28I/oAkt
- Z0P5VRBEo7ydXMQAneOYQ5DBAxl6y9eECB93MWuUKbvkus6qbdqCsNDRei+962yPLPuZ
- lJX6FopBfL5N4YzQ/SrIJD2di4zcIYPoPu681J3GNC6EqHakmX1VDxYYe5I/yldcXDSO
- qG1whAfQTlvJtHyZVsAbFKJH8dxFsnNFaTad7EExnueZwBrMNAmBulqnR3vQaxB4GOsd
- oucPI4YQnMBijxEq6ogjlHt1HdWutdNiBaEjcDlnxkc9KlX7KX+8imy4hhOsoBrUwdSn
- ugzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756647996; x=1757252796;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=jwybc7U/Gu47otp5cNNeYZoMPwQff+yr/8w72U7737w=;
- b=YTaPShydwWOj3zdsg+hFEwt4GfJ0//3fxF4Sw8I8qk4hMurDE5o4gVepbAZvOL4TTs
- 4w0L+wxllIS9X3aWOG+m8TPioTv2IoDfztmgMyk0h9FIqk/k+3DxnRq/7k6qhzmco4vU
- FrBL7BaNCZ9twcCU1Xh8FMqNzvOYCLWKmw7/zTWmJ+RoXhTbFyKOq0nfVxF1uV0hm3Uc
- P7NZnFQ7JuMJJ99ALWY94YlZUylazZvXldpIZKshOV/r0ZOgH1qKHdoqaxMIs6yBfl3u
- UuGwA6b99o3U+Tw6KApvOoc0Jf3gJmwP8nJJC7u6Q8Oc/a46lxY+n4JTq1hPGUHhIhj7
- B/Tg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVAnaD0nBPlCJ8vLBi152hs1UTFR37Y9Cve5jgVZO97j3ErvpAe9t+AHj7nGF0ylEMgCrOWy0ghX3E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzGfWByVcl9FCA9MeavbLHpx6j+es/E+w2XhHCpj+v06AiOD4c+
- mnocr3GXaZX7y1bDIPo7G2tO9gn78X8R8GuKZ6FPyGC7wgAJtnGRZ4lOh9SCve7v1+lzrtSFk4E
- 2q6mEgfcI+88tH9qDN7CJqEycDy3VonVlbWyakq58wg==
-X-Gm-Gg: ASbGncvCt9sz1v3XWcEBaUJztgv4lf2FHYBHgFkfP9XXTPxCu1ucp0HpeVZQ5r1vB+R
- DJ8PuDNm94olrl0XcayXODzOZX0OdixpXClmKRHDfNmgMphR7tUK71Wn2ESdvxu0KtRmwCnojHf
- c3nYq9c5v9r/Ybh37KhTRqtlBzx3HrHTmJxfVFxTEWIVeea/XSqVdUzMnurctNtGMnYFwqhgoOV
- Vs7HA==
-X-Google-Smtp-Source: AGHT+IF0dh6mtaD+ci0SXGWWOl3LWwfmYnKKOgfGlK7FZ7iXiuG8d9Mqq2iCDHrHKRWGSRl6Gppx/kRr2i15hBvQ/kA=
-X-Received: by 2002:a05:620a:c43:b0:7f7:c2a3:eaa5 with SMTP id
- af79cd13be357-7ff2b9817c6mr503403385a.68.1756647996439; Sun, 31 Aug 2025
- 06:46:36 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BEB910E0C6;
+ Sun, 31 Aug 2025 17:26:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 17931601AE;
+ Sun, 31 Aug 2025 17:26:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460ADC4CEED;
+ Sun, 31 Aug 2025 17:26:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1756661200;
+ bh=RRtiXiS/TOWMt2m/o+Byy9dAyID/y4LX9MHvorsPaJk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ty1p/t1ymjGws9pPzqegwv9izBVk+ZO349PTvsl05400ObmEAdxlLB4GLTXF5wwmC
+ 5h+TW60rnnRXvrF2E0zq0Kr3Bcukeg/1WwlLtgY6R+a+qE1h4wsttzKuKiZsu0iZ1M
+ eBw1mZebhOzOmKTAO5rSiKuwT16JI94QSMcmJsWhKTVEGQji1F5MhgKkiJ+N8IYdHK
+ xu2QJ/V/eMMZuWTZZkaIk/EMQtoKJqJWDMqdy9HUpqfMdQfn6+c3xrXvasl/Sidmiq
+ t4uxqkZzek7PxVR7ouQ7D4t8IJUFaNPPvGvUmpCD5vPLgzAiLS2JgXRe49zlU/PeaK
+ edLEBEPkCrT7g==
+Message-ID: <f6b6a19a-1671-437c-8e49-9fc832c84931@kernel.org>
+Date: Sun, 31 Aug 2025 19:26:29 +0200
 MIME-Version: 1.0
-References: <20250830-drm-limit-infoframes-v3-0-32fcbec4634e@oss.qualcomm.com>
- <CAPj87rNDtfEYV88Ue0bFXJwQop-zy++Ty7uQ9XfrQ2TbAijeRg@mail.gmail.com>
- <57ekub6uba7iee34sviadareqxv234zbmkr7avqofxes4mqnru@vgkppexnj6cb>
-In-Reply-To: <57ekub6uba7iee34sviadareqxv234zbmkr7avqofxes4mqnru@vgkppexnj6cb>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Sun, 31 Aug 2025 15:46:25 +0200
-X-Gm-Features: Ac12FXyJd7t7ZABF85TqQwXSEhwFfQP0deD84tmrq8IHkkpEGuVOeuzNQcUs-Sw
-Message-ID: <CAPj87rOSb90S_TeA8Cu5kd-M8bbfiE0fvPzgr9Gr4e9_rfZeFQ@mail.gmail.com>
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per driver
- capabilities
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 3/7] dt-bindings: firmware: qcom,scm: Add MSM8937
+To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
+ =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Liu Ying <victor.liu@nxp.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <lumag@kernel.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Robert Marko <robimarko@gmail.com>, Das Srinagesh <quic_gurus@quicinc.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ linux@mainlining.org
+References: <20250831-msm8937-v8-0-b7dcd63caaac@mainlining.org>
+ <20250831-msm8937-v8-3-b7dcd63caaac@mainlining.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20250831-msm8937-v8-3-b7dcd63caaac@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,43 +125,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+On 31/08/2025 14:29, Barnabás Czémán wrote:
+> Add compatible for MSM8937.
+> 
+> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+> ---
+>  Documentation/devicetree/bindings/firmware/qcom,scm.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
-On Sun, 31 Aug 2025 at 00:29, Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
-> On Sat, Aug 30, 2025 at 09:30:01AM +0200, Daniel Stone wrote:
-> > I know that dw-hdmi-qp can support _any_ infoframe, by manually
-> > packing it into the two GHDMI banks. So the supported set there is
-> > 'all of the currently well-known ones, plus any two others, but only
-> > two and not more'. I wonder if that has any effect on the interface
-> > you were thinking about for userspace?
->
-> I was mostly concerned with the existing debugfs interface (as it is
-> also used e.g. for edid-decode, etc).
->
-> It seems "everything + 2 spare" is more or less common (ADV7511, MSM
-> HDMI also have those. I don't have at hand the proper datasheet for
-> LT9611 (non-UXC one), but I think its InfoFrames are also more or less
-> generic).  Maybe we should change debugfs integration to register the
-> file when the frame is being enabled and removing it when it gets unset.
 
-Oh right, that's really interesting.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-> Then in the long run we can add 'slots' and allocate some of the frames
-> to the slots. E.g. ADV7511 would get 'software AVI', 'software SPD',
-> 'auto AUDIO' + 2 generic slots (and MPEG InfoFrame which can probably be
-> salvaged as another generic one)). MSM HDMI would get 'software AVI',
-> 'software AUDIO' + 2 generic slots (+MPEG + obsucre HDMI which I don't
-> want to use). Then the framework might be able to prioritize whether to
-> use generic slots for important data (as DRM HDR, HDMI) or less important
-> (SPD).
-
-Yeah, that sounds good! I wonder if we want to surface that from the
-debugfs interface: maybe just files named 0..$numslots with the
-content of the infoframes, one named 'slots' with the integer index,
-which infoframe type it's currently carrying, and which types it's
-capable of carrying. Then to preserve the current interface, symlinks
-from the infoframe type name to the slot index.
-
-Cheers,
-Daniel
+Best regards,
+Krzysztof
