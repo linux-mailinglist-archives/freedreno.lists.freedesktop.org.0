@@ -2,41 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD322B40061
-	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 14:26:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25BE9B3D7C8
+	for <lists+freedreno@lfdr.de>; Mon,  1 Sep 2025 05:46:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2FD710E69B;
-	Tue,  2 Sep 2025 12:26:36 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="EtoJRWCA";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CD5C10E309;
+	Mon,  1 Sep 2025 03:45:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8BE710E364
- for <freedreno@lists.freedesktop.org>; Sun, 31 Aug 2025 19:32:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1756668571; x=1756927771;
- bh=3KhoKyj0wJd216J+Iova6btrypiDJ3EhDLVcsGVnSak=;
- h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=EtoJRWCAvBl9JvPT6u5SYvyp6edJVqRBihXIIT3JCJxX6hL+007Yiie46bApVpsMc
- LSOtADRyelXui0DiEZ7UMbWlWCRVAt4u/Ljjw/rslmCd5akGyPqqQzQqSWm0QfOeV8
- pfmPCYY+TtRsDuzaWnRMPwH829vZ3hxkUN4dB2APZ4e1YFCSPR8FU/Jyl4rvcz90Fc
- so/5Lv9xML10DD54G0RLh1K3T3ypW+5Bt+BLz3iA6yaRUTg3mcLaTsVokNm7OeoL6n
- nqyqIasb2Nk/pS55mVaFE3aGCz1o4Qnktt5sq16FhOvJ2kWV4jbmULT+DyOoxue9UO
- tI/svyhmHEtCQ==
-Date: Sun, 31 Aug 2025 19:29:28 +0000
-To: "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-From: Ahmed.mekkakia@proton.me
-Subject: Adding support to Adreno 1xx GPUs
-Message-ID: <_nEiLyt_fbZ0CN7Q0eY38EYzdVG7p41pdKvQpy31wVnPk-814QJ7jzhAksv3pxJ8FUCatjOnP_klgyHGY2r1wTn-a4rjN2AOKR3LsP4bhWk=@proton.me>
-Feedback-ID: 131470055:user:proton
-X-Pm-Message-ID: da5f61b57576b4a6e17ac89bfd047d5b545a5a0d
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90E1B10E307;
+ Mon,  1 Sep 2025 03:45:52 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3A7EF40261;
+ Mon,  1 Sep 2025 03:45:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FAEBC4CEF0;
+ Mon,  1 Sep 2025 03:45:51 +0000 (UTC)
+Date: Mon, 1 Sep 2025 05:45:49 +0200
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Abel Vesa <abel.vesa@linaro.org>, Mahadevan <quic_mahap@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/9] dt-bindings: display/msm: dp-controller: fix
+ fallback for SM6350
+Message-ID: <20250901-arboreal-gay-wolf-bcaaec@kuoka>
+References: <20250829-dp_mst_bindings-v7-0-2b268a43917b@oss.qualcomm.com>
+ <20250829-dp_mst_bindings-v7-2-2b268a43917b@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="b1=_HIoe9leRYZTq0fNTXqkyo8VAw6nZuXTLkmkfsFhA4"
-X-Mailman-Approved-At: Tue, 02 Sep 2025 12:26:35 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250829-dp_mst_bindings-v7-2-2b268a43917b@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,36 +58,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---b1=_HIoe9leRYZTq0fNTXqkyo8VAw6nZuXTLkmkfsFhA4
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+On Fri, Aug 29, 2025 at 01:48:15AM +0300, Dmitry Baryshkov wrote:
+> The SM6350 doesn't have MST support, as such it is not compatible with
+> the SM8350 platform. Add new entry for SM6350 with fallback to SC7180
+> (which belongs to the same generation and also doesn't have MST
+> support).
+> 
+> Fixes: 39086151593a ("dt-bindings: display: msm: dp-controller: document SM6350 compatible")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/display/msm/dp-controller.yaml     | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index aed3bafa67e3c24d2a876acd29660378b367603a..0f814aa6f51406fdbdd7386027f88dfbacb24392 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -31,13 +31,25 @@ properties:
+>            - qcom,sm8650-dp
+>        - items:
+>            - enum:
+> -              - qcom,sar2130p-dp
+>                - qcom,sm6350-dp
+> +          - const: qcom,sc7180-dp
+> +
+> +      # deprecated entry for compatibility with old DT
+> +      - items:
+> +          - enum:
+> +              - qcom,sm6350-dp
+> +          - const: qcom,sm8350-dp
+> +        deprecated: true
 
-SGVsbG8sCkkgYW0gd29ya2luZyBvbiBtYWtpbmcgbGludXggZm9yIHRoZSBYcGVyaWEgWDEgKEhU
-QyBLb3Zza3kpIGEgdGhpbmcgLCBwcm9ibGVtIGlzIEkgaGF2ZSBpbXBsZW1lbnRlZCBhIGZldyBk
-cml2ZXJzIGV4Y2VwdCBmb3IgZ3JhcGhpY3MgYXMgdGhleSBhcmUgdW5kb2N1bWVudGVkIGFuZCB0
-aGUgYW5kcm9pZCBkcml2ZXJzIGFyZSBoYXJkIHRvIGZpZ3VyZSBvdXQgd2l0aCBkZWNvbXBpbGlu
-ZywgYW5kIHNpbmNlIHlvdXIgcHJvamVjdCBpcyBmb3IgYWRyZW5vIGdyYXBoaWNzIG9uIGxpbnV4
-LCBpIHdvdWxkIGxpa2UgdG8ga25vdyBpZiBpdCB3YXMgZXZlciBhdHRlbXB0ZWQsIG9yIGlmIHlv
-dSBwbGFuIGl0LCBpZiBuZWl0aGVyLCBkbyB5b3Ugc29tZWhvdyBvd24gYW55IGRvY3VtZW50YXRp
-b24gZm9yIHRoZSBhZHJlbm8gMXh4IChtb3JlIHNwZWNpZmljYWxseSAxMzApIGdyYXBoaWNzPwpU
-aGFuayB5b3Uu
+If it is only about bindings then there is little benefit in keeping
+this, just drop this case.  However you cannot drop it from DTS, so this
+is a bit pointless.
 
---b1=_HIoe9leRYZTq0fNTXqkyo8VAw6nZuXTLkmkfsFhA4
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
+Lack of MST support is not informative enough to claim it is not
+compatible with 8350. For example if it was working fine via fallback,
+then that statement is simply not correct.
 
-PGRpdj5IZWxsbywmbmJzcDs8YnI+PC9kaXY+PGRpdj5JIGFtIHdvcmtpbmcgb24gbWFraW5nIGxp
-bnV4IGZvciB0aGUgWHBlcmlhIFgxIChIVEMgS292c2t5KSBhIHRoaW5nICwgcHJvYmxlbSBpcyBJ
-IGhhdmUgaW1wbGVtZW50ZWQgYSBmZXcgZHJpdmVycyBleGNlcHQgZm9yIGdyYXBoaWNzIGFzIHRo
-ZXkgYXJlIHVuZG9jdW1lbnRlZCBhbmQgdGhlIGFuZHJvaWQgZHJpdmVycyBhcmUgaGFyZCB0byBm
-aWd1cmUgb3V0IHdpdGggZGVjb21waWxpbmcsIGFuZCBzaW5jZSB5b3VyIHByb2plY3QgaXMgZm9y
-IGFkcmVubyBncmFwaGljcyBvbiBsaW51eCwgaSB3b3VsZCBsaWtlIHRvIGtub3cgaWYgaXQgd2Fz
-IGV2ZXIgYXR0ZW1wdGVkLCBvciBpZiB5b3UgcGxhbiBpdCwgaWYgbmVpdGhlciwgZG8geW91IHNv
-bWVob3cgb3duIGFueSBkb2N1bWVudGF0aW9uIGZvciB0aGUgYWRyZW5vIDF4eCAobW9yZSBzcGVj
-aWZpY2FsbHkgMTMwKSBncmFwaGljcz88YnI+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6
-IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7
-IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPlRoYW5rIHlvdS48L2Rpdj4=
+And it HAD to work fine, because there is nothing binding to
+qcom,sm6350-dp.
 
-
---b1=_HIoe9leRYZTq0fNTXqkyo8VAw6nZuXTLkmkfsFhA4--
+Best regards,
+Krzysztof
 
