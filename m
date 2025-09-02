@@ -2,120 +2,132 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C981B3FAD4
-	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 11:41:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AC58B3FB17
+	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 11:49:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F057E10E1C6;
-	Tue,  2 Sep 2025 09:41:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE92B10E1C5;
+	Tue,  2 Sep 2025 09:49:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xb6ZPcu/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="df44LpFW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE0E210E63B
- for <freedreno@lists.freedesktop.org>; Tue,  2 Sep 2025 09:41:21 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5822SKL8030313
- for <freedreno@lists.freedesktop.org>; Tue, 2 Sep 2025 09:41:20 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F23A010E1C5
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Sep 2025 09:49:01 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5822RsqN010112
+ for <freedreno@lists.freedesktop.org>; Tue, 2 Sep 2025 09:49:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=X8F1Aylw8vvRYnvl4Vx+2yEC
- SAL/1P4EKbFDjgjCCS4=; b=Xb6ZPcu/3DtxMHqcWy4rG8k1k3LMUuMBDhpv893t
- Vry64vS3KcRkI5c5P+5EmC9T17IxqW+Qnl8BZz1uO1ZBI3aHVRLlqDZSD/eGAJ3h
- 3kaIchCS0up2/Oeb1Xaozv+ve5opMxxeVBonvlKQb8JygRwN1tanbo9DvNPc6lZM
- 9gM3T5X0qcotf74lDfUG7/g7eaTnoew6gckPrkAdmwVXWCMYUo9rzXM0D7pAh22Y
- l8r5dylc2QI2IghY4vzmynI8PUA40U5LCy9IbSgEYCtJh4EkmqPXaXK62vddlQPn
- UrNw1H3qPqUGh+OxJVRAtFZ6IEzwuDXYtGE8gezUUw/qAQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48w8wy354c-1
+ :references:subject:to; s=qcppdkim1; bh=ef0edgZ/9neE8uhkiRDCZwng
+ z4JTifOPA35MBTbIahA=; b=df44LpFWVR9fhHJ3FYUk3VZt9dD565gwO6w1Z10M
+ GT/4EpKZfqfGDw+OssvwXIkml8BcKYZyikE3SMc6MKbhyrPHt6a5+e4Hp4dHcIjk
+ e16YpjM0zcW7dztmy7qn3FRPq/aZdb3hSFXQqsEG5TyDdNn/1snsMGq9Y126lL/E
+ 3MXgqj5B53IfeE55sklNjY590QFtVb8mwJr2cVr0HcDxkhwxWWmePKGcvpdn/dvR
+ Dbgu+oFWKD5kVLZ2DiwYK0HgMV4WD0YNyIaoiaiZ0pxCsucbIxKYxHvymUKbsNSz
+ E5ETn3eaY5YNEizL1m9Tu/eqB6364D+vljm/vUo3+4vOmA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48urmjfbff-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 09:41:20 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4b29cdc7417so100651991cf.0
- for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 02:41:20 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 09:49:01 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4b30d6ed3a4so20027571cf.3
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 02:49:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756806080; x=1757410880;
+ d=1e100.net; s=20230601; t=1756806540; x=1757411340;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=X8F1Aylw8vvRYnvl4Vx+2yECSAL/1P4EKbFDjgjCCS4=;
- b=UsC8fjq4tLCVnoswkJBMDP+z89luHNo7DGKOOgqt/v+2tLgH+6+IFjClg/KYCC21MH
- ux2DqG6WmyOk/SHGJZ5qc0wySlctFByWnJ8tMorLVEBzM95Amm1/avP8EBhQ2PWdsmg/
- Jb5wwc+W2E7rw3rgHxuncLxKdsBrvkYOkfkq/mLV26b4U/oOePy2hf9ocuGuDO2wMsnT
- k5a//EeyiSzEXwVQlndiJXtC5vCPDowLdYNmk8gRl8ZQlYOtaYEzyiz1M13D9H/uuE+g
- 4Oz317l7IeNvaohiPdaah0VO3++UMC3cqVo/miTo6AE20UCWYu3l6789M1d3+fYZ9kuG
- /XNg==
+ bh=ef0edgZ/9neE8uhkiRDCZwngz4JTifOPA35MBTbIahA=;
+ b=xMAd5oNIWpfLzUXbwYAeHJsrGBbQDLewtXfisyeziYzIOVS0IXtmC7ocgeq0+FRR8C
+ s2RyIwb3rH2EQyGrHmALeDF3aoM+386d2devHH0Q7bLIoB1TPIUCQw0yztlZhk+PMEta
+ 4e8+MMqXdQUkeu13JEXkuO/zvupBLREQYEXz0qRY3Np5IkGyeU5w+qe1aiqdmFBFQI7y
+ 5acs2bSfyrULM8wXaHBSd288xVkpkbxyWdtBkA5BGc+YSxgbvjYcLZviRPkm+oFHGwXs
+ /glbW9dF84I8Lt1D7CM3F9VmyHMQ4nzQicwZ1FjW0TqzLwJI5BpG+WSy+ZeCxbbwtpCK
+ hY9A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW6EYfNsVD+XCPyfvkSGVCQxH5tlOa3NIAshxDB+8OaaXZ6TCNLDupqxUlffJCcUOk0HqSjgvncoxo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywa8uNh9EYB9CtDgbjtpNml4wjkHZg+a5RNxlF6GmGmXFqyAGMH
- VCj4yL9gzzv30AxqbbKu7m/nSd3C3FcjpCplLyhIEQglf94o158jb5JknV9TM6bRJIhswd8h63R
- eevbI9HIwVgpbm/hiyGYNMlq5dtR6p1aqm5+/0IhP8FQ5jfG/xz9ZSGDTf0WXV1UjEXGUM8M=
-X-Gm-Gg: ASbGnct3QVdvvud1tLmwQYuK2o2jbovET08dwg9QKhGvAwMGO7/D8i1zjcTQ2OZyV7W
- pzLo02EuQkYcBA/en6USxLD65uko1qZABVN0DjrGHWrNwOuMEmBrarLeHSk5sBy6Ww6uTwbnPqa
- IrKIp/H4gDrAbf7BXUWqxXxG7ynWQcxifyo+/0q8lEIaaWZL3UUJugeX7D4Mv8QQzbp2+tgmj6S
- EgZi5a/oHlWXt4kW916IW0ukyEWa2LJCeS9Q2X5bpPK57P/d0Zk7WlOcYk+Zb8uUw/qItjB34H3
- GFhrGqaRXFR37WX3cgwIByYYURUTg9mjoq+5/PGlJU+EcV3rFdk5z3vsSQlncv2NT9F9yBStAJS
- OilAxphxS/ue02k4Xv185GqX33582Qan4PFygSTjAJBlYhVx1Dokz
-X-Received: by 2002:a05:622a:1a86:b0:4b0:c1c8:ba6b with SMTP id
- d75a77b69052e-4b31d84640bmr144942211cf.23.1756806079706; 
- Tue, 02 Sep 2025 02:41:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG1kM1KKXIRQLni8+uR7WNKiFx9E+rFnyVU/tfrtMInNL9wYmJHshcvZJNSvNe3Lbzu//4Sng==
-X-Received: by 2002:a05:622a:1a86:b0:4b0:c1c8:ba6b with SMTP id
- d75a77b69052e-4b31d84640bmr144941971cf.23.1756806078981; 
- Tue, 02 Sep 2025 02:41:18 -0700 (PDT)
+ AJvYcCUy7mnguwfrYpavkw/vDgWyjX3L/hEQ9f1rjWh0DgmN3LINh13exyJa4YqUiC311U/rnSudTTCWNgk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVs6RWfPsGtg6Y6Wlt3hHbxWIh6o9kc4j6XEMS8STEYzt8TPOH
+ ZtvLZNHM/zvtO/yLTvVRUzKcNvhZjvmApymZA73cCPGkJM+FZZUSr9Kjw4BlVy/MQofvUKqlkeH
+ 9zSmntFy0zMblpLd1Q9nS++k4NR5pngfmDTISK2FL1nLHAOaN1aX2PM5SlkiUtbtgDmjZPRA=
+X-Gm-Gg: ASbGncvpFLv52wt5VKai91pqCZFb+Av46gCJOQCiVBEuukaALzppSnKZeSwPsAPcVnN
+ LrjmqfpjXEHDjQeP/H0EbKnsGV3lKmKJ9tPpJDVS3Mrlih55+VHyHXegyaWg4ZIN5GUAq0KkUg7
+ IxEKu7wbVMu4XmZTLUDrafUeoYc994r5JbIi8mFMs6YyNXSAy36kpG8PjVjMJIx0uTFIFmTMzCn
+ KgoQ9yohwFdLUMiVUO7/S1HlNOLF1WH8jXSUAgCRkO4bqNUoqI7Nuk8EzGouOM/rIzoNKzQ0bKM
+ eRHXReoKvZ7mSMbHVjPysiu+vmC59H5upSWl0WW45EokaA8R6wTb0lnkrBaHyngZ9hJoLd24OZy
+ 3AJsid+6OFg7rBY+2T5m0+TESBRhZmFdeA+WoUrqqFxxpUtLVHerw
+X-Received: by 2002:ac8:5f4c:0:b0:4b3:1c48:e9ea with SMTP id
+ d75a77b69052e-4b31d8445e4mr81606631cf.5.1756806540182; 
+ Tue, 02 Sep 2025 02:49:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFZKU4HE2HJogDoRI/mFySjKfrG/0weGrNzkeug/yUx/r/706E/wXqTZfTWe6WraRHbzYq5gg==
+X-Received: by 2002:ac8:5f4c:0:b0:4b3:1c48:e9ea with SMTP id
+ d75a77b69052e-4b31d8445e4mr81606321cf.5.1756806539674; 
+ Tue, 02 Sep 2025 02:48:59 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-337f4c904dbsm3631981fa.17.2025.09.02.02.41.17
+ 38308e7fff4ca-337f5075c85sm3350441fa.50.2025.09.02.02.48.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Sep 2025 02:41:18 -0700 (PDT)
-Date: Tue, 2 Sep 2025 12:41:16 +0300
+ Tue, 02 Sep 2025 02:48:58 -0700 (PDT)
+Date: Tue, 2 Sep 2025 12:48:56 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v3 12/38] drm/msm/dp: introduce max_streams for DP
- controller MST support
-Message-ID: <lngtq2tw4qajgjk57un5xrveblkmtjkkz3yjgue53vp6wwmqmf@owderf4zerfq>
-References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-12-01faacfcdedd@oss.qualcomm.com>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 2/6] dt-bindings: display/msm: dp-controller:
+ document QCS8300 compatible
+Message-ID: <tvdbil5fhgntj6wx235ihum6dxy673ekdlpmv2qath5r2o7f3l@jynol3ns7uxb>
+References: <20250901-qcs8300_mdss-v10-0-87cab7e48479@oss.qualcomm.com>
+ <20250901-qcs8300_mdss-v10-2-87cab7e48479@oss.qualcomm.com>
+ <20250902-speedy-overjoyed-dove-edf2ee@kuoka>
+ <fe2867dd-50a6-42d8-92b0-0e29fa7691ee@kernel.org>
+ <e59fca7a-4145-4aab-80a5-8305f935e8d4@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250825-msm-dp-mst-v3-12-01faacfcdedd@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=Ycq95xRf c=1 sm=1 tr=0 ts=68b6bbc0 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=KSwXNKDnAPCPISpuv5EA:9
- a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: PXJ-s_M6ax47BHQbymMdTZ_Ul7nD0YSc
-X-Proofpoint-ORIG-GUID: PXJ-s_M6ax47BHQbymMdTZ_Ul7nD0YSc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTAxMDEwMSBTYWx0ZWRfX7zred0NnW8TS
- vx0/WOtP/SPZxGFzI3J5Ej2xJ4vNVVzqBedK0oqMGZtP6m9KJ9RO7YBoXtrQkPxbX3E7yKthuNW
- 3yvOdZWAUVFq2H5XRcqoxMBMicII7t1xcgS/L/hUYMFI3Ycx2FVMSvp+nH0QNQ0AVAj2xi6Btgv
- cEINFmioAbMOeSbO2jy0e22lgHNOECcsSRIfvGsG1zYByabNLU4aO1XcllADFOc2qlUb4YQfSLa
- E5tJmfGQzGEEa34yY1oRJ2a2LsZS+0ZkuOq78AAzla9El+Fh6kkg4c6QtIEorsm4Odly5Db81pQ
- wmQql5dGBkVGehWa2kBYI539NX3x73wkhuhxNSTusJs/jONcUSNzPhvt6Hcsgx9XfcskDzT7y3g
- I0XT1uox
+In-Reply-To: <e59fca7a-4145-4aab-80a5-8305f935e8d4@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=OemYDgTY c=1 sm=1 tr=0 ts=68b6bd8d cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=lf_M6NTgIIccHnlT_YMA:9
+ a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: GomGz2qdxFTQLpf3V9iIbHWILGq5uGpk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAyNCBTYWx0ZWRfX98zwqlu7ASmE
+ vLgzqgL6ZO05F0Pu4u6amYxHZ8pT/7wPErost1PjkOreza5Ded+7b1ReiVjn0mXIHxqvImxRniV
+ gm1gpe1ni31AQdFgNO7xjiDIYfwnqtP/JvMHw5FymB6GSX1vEnX8eU5x1aOOJOAa4z5eEd4WJO2
+ p9Vlu9wjdm88kd+Q9ye4/LqaILKdDKJyqvib9iZiNUlrbNdDfC52TxUPigXdMKnyKpU6VRY8+pE
+ 9LgulUf8Aoppu33LTVbQKY+rUI9fEaWhOw6lpCQ7A2I8a3ciwtRMbodsDjH3Mhc70ot95DrgTh2
+ Xv3Z4WSEhaJQEK5b+RUsZmlepLI/8f8imc84m9mB5pgcbUOVS3effNU3x8XM4w454K6jETjq0aa
+ IY4BH5VZ
+X-Proofpoint-ORIG-GUID: GomGz2qdxFTQLpf3V9iIbHWILGq5uGpk
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-02_03,2025-08-28_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0
- bulkscore=0 suspectscore=0 impostorscore=0 spamscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2509010101
+ malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508300024
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,110 +143,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 25, 2025 at 10:15:58PM +0800, Yongxing Mou wrote:
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On Tue, Sep 02, 2025 at 03:42:55PM +0800, Yongxing Mou wrote:
 > 
-> Introduce the `mst_streams` field in each DP controller descriptor to
-> specify the number of supported MST streams. Most platforms support 2 or
-> 4 MST streams, while platforms without MST support default to a single
-> stream (`DEFAULT_STREAM_COUNT = 1`).
 > 
-> This change also accounts for platforms with asymmetric stream support,
-> e.g., DP0 supporting 4 streams and DP1 supporting 2.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 21 +++++++++++++++++++++
->  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->  2 files changed, 22 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 78d932bceb581ee54116926506b1025bd159108f..a8477a0a180137f15cbb1401c3964636aa32626c 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -33,6 +33,7 @@ module_param(psr_enabled, bool, 0);
->  MODULE_PARM_DESC(psr_enabled, "enable PSR for eDP and DP displays");
->  
->  #define HPD_STRING_SIZE 30
-> +#define DEFAULT_STREAM_COUNT 1
->  
->  enum {
->  	ISR_DISCONNECTED,
-> @@ -52,6 +53,7 @@ struct msm_dp_display_private {
->  	bool core_initialized;
->  	bool phy_initialized;
->  	bool audio_supported;
-> +	bool mst_supported;
->  
->  	struct drm_device *drm_dev;
->  
-> @@ -84,12 +86,15 @@ struct msm_dp_display_private {
->  
->  	void __iomem *p0_base;
->  	size_t p0_len;
-> +
-> +	int max_stream;
->  };
->  
->  struct msm_dp_desc {
->  	phys_addr_t io_start;
->  	unsigned int id;
->  	bool wide_bus_supported;
-> +	int mst_streams;
->  };
->  
->  static const struct msm_dp_desc msm_dp_desc_sa8775p[] = {
-> @@ -1213,6 +1218,15 @@ static int msm_dp_display_get_io(struct msm_dp_display_private *display)
->  	return 0;
->  }
->  
-> +int msm_dp_get_mst_max_stream(struct msm_dp *msm_dp_display)
-> +{
-> +	struct msm_dp_display_private *dp;
-> +
-> +	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
-> +
-> +	return dp->max_stream;
-> +}
-> +
->  static int msm_dp_display_probe(struct platform_device *pdev)
->  {
->  	int rc = 0;
-> @@ -1239,6 +1253,13 @@ static int msm_dp_display_probe(struct platform_device *pdev)
->  	dp->msm_dp_display.is_edp =
->  		(dp->msm_dp_display.connector_type == DRM_MODE_CONNECTOR_eDP);
->  	dp->hpd_isr_status = 0;
-> +	dp->max_stream = DEFAULT_STREAM_COUNT;
-> +	dp->mst_supported = FALSE;
-> +
-> +	if (desc->mst_streams > DEFAULT_STREAM_COUNT) {
-> +		dp->max_stream = desc->mst_streams;
+> On 9/2/2025 2:41 PM, Krzysztof Kozlowski wrote:
+> > On 02/09/2025 08:38, Krzysztof Kozlowski wrote:
+> > > On Mon, Sep 01, 2025 at 05:57:30PM +0800, Yongxing Mou wrote:
+> > > > +  - if:
+> > > > +      properties:
+> > > > +        compatible:
+> > > > +          contains:
+> > > > +            enum:
+> > > > +              # QCS8300 only has one DP controller that supports 4
+> > > > +              # streams MST.
+> > > > +              - qcom,qcs8300-dp
+> > > > +    then:
+> > > > +      properties:
+> > > > +        reg:
+> > > > +          minItems: 9
+> > > > +          maxItems: 9
+> > > > +        clocks:
+> > > > +          minItems: 8
+> > > > +          maxItems: 8
+> > > 
+> > > Clocks have only five items, reg has 5. At least in my next from few
+> > > days ago.
+> > > 
+> > > Nothing explains any patchset dependencies, so this makes reviewing more
+> > > difficult than it should be.
+> > OK, I found the dependency in cover letter (I was looking at wrong cover
+> > letter), but the dependency does not have relevant clock changes, so
+> > this is still wrong.
+> > 
+> Hi, https://lore.kernel.org/all/20250829-dp_mst_bindings-v7-7-2b268a43917b@oss.qualcomm.com/
+> dp-controller.yaml descriptions for regs and clks have been added. Compare
+> with SA8775P, QCS8300 don't have DP1 controller which supports 2 streams
+> MST, so its minItems and maxItems clocks is 8. > I suggest to slow down with
+> this patchset. It's v10 already with
+> > simultaneous other changes and two (!!!) dependencies.
+> > Sorry for that, will wait until the dependencies become stable before
+> updating the patch.> I don't know how I am supposed to review this.
 
-We should keep compatibility with earlier DT files which didn't define
-enough stream clocks for DP MST case. Please check how many stream
-clocks are actually present in the DT and set max_stream accordingly.
+Please fix you email client. This is garbled. It mixes your text and
+Krzysztof's on the same line.
 
-> +		dp->mst_supported = TRUE;
-> +	}
->  
->  	rc = msm_dp_display_get_io(dp);
->  	if (rc)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-> index 37c6e87db90ce951274cdae61f26d76dc9ef3840..7727cf325a89b4892d2370a5616c4fa76fc88485 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
-> @@ -29,6 +29,7 @@ struct msm_dp {
->  	bool psr_supported;
->  };
->  
-> +int msm_dp_get_mst_max_stream(struct msm_dp *msm_dp_display);
->  int msm_dp_display_get_modes(struct msm_dp *msm_dp_display);
->  bool msm_dp_display_check_video_test(struct msm_dp *msm_dp_display);
->  int msm_dp_display_get_test_bpp(struct msm_dp *msm_dp_display);
-> 
-> -- 
-> 2.34.1
+> > 
+> > Best regards,
+> > Krzysztof
 > 
 
 -- 
