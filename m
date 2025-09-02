@@ -2,81 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 290D0B3F29B
-	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 05:13:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4E3B3F2D6
+	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 05:45:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93A0B10E55C;
-	Tue,  2 Sep 2025 03:13:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35EF110E564;
+	Tue,  2 Sep 2025 03:45:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JWMSW4mD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ev9pT7Vo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6549F10E113
- for <freedreno@lists.freedesktop.org>; Tue,  2 Sep 2025 03:13:29 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5822XAK2031556
- for <freedreno@lists.freedesktop.org>; Tue, 2 Sep 2025 03:13:29 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A47F510E564
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Sep 2025 03:45:50 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5822S0Gf010134
+ for <freedreno@lists.freedesktop.org>; Tue, 2 Sep 2025 03:45:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=mFT7TaYN9yFmUBnkUS/DV54B
- AuRMajtXQdEYrtXcv6Q=; b=JWMSW4mD3PTluOAloZo2v2G5SpKLxOuXPtreb91I
- HO2B7mjqxjJB6HZTSE/JG8bM86XKEfm1+HRcRAGizJR1zv+x7kKsmGSkJCgDWBQQ
- hZuZfoYQgstxYme1EFXQuvAlb6T5459ib/NfGUUB/xYAxoO2tNqCndbAgmPKxE3d
- 1oTL95XM0ElVnBpABJAOBFwYgig4M1fYxaSZKiEpR+lBWRrl8wbh9obSoNA22z1x
- XMM61AB5Lb+y2lYPLcYLOmBHqTufDM659xl+4Le2NcwcroQNpuDsU1XN0SCBNq6n
- l6IauTpkF2si4mrFHIiiGj1Vyh2HUa5m8BQ41a4jq74tZw==
+ :references:subject:to; s=qcppdkim1; bh=u6pXxYvTpFhxbjh80IOUWJOQ
+ 14f2Hl+NCOsXpDoJFW0=; b=Ev9pT7Vohd0UOB4LnTx/IZrhMtHulcxpfjHQMKUB
+ 5u/wMkziB4dzmBnAFLVx58QV1K8TDsrSiJfyBGOBWYiQCEKZkU6OUm0KbPHN4zlW
+ ejptTarpiOyuDXmL03ukZbF4K1AfSDOP9b5cojzU7kGGn+BClV04TEWmHQeKybXe
+ ds5k7eFix+bNnbuRSHptuH4a12WISUyNCf1IzRCib77WLOF7AjnR/HFg1ZO2y8zh
+ HTnj8P/tr1VD6TDZIdCwA7tXAbgNG6NGr+0S9cAzaFa8+4JNa6K3med4PBeaeBLO
+ aX+/UhkaHqV3kpC4Zc8Fud+ioRUwYoPqZlpIaooTP8WLUQ==
 Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
  [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48wqvw82qe-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48urmjed2b-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 03:13:28 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 03:45:49 +0000 (GMT)
 Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-7131866cdceso47961006d6.1
- for <freedreno@lists.freedesktop.org>; Mon, 01 Sep 2025 20:13:28 -0700 (PDT)
+ 6a1803df08f44-70de52d2904so122197926d6.0
+ for <freedreno@lists.freedesktop.org>; Mon, 01 Sep 2025 20:45:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756782807; x=1757387607;
+ d=1e100.net; s=20230601; t=1756784749; x=1757389549;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mFT7TaYN9yFmUBnkUS/DV54BAuRMajtXQdEYrtXcv6Q=;
- b=U3KARf3FScxduTQne/kr54Xj6zLY+rdotG44UWXdoKmlkcfIdVcGOEVTHK9JwUTVCR
- WhFwBoImw3yCLXARNjeb+MgzGbCl4jWKXC8zOFPGYLN2gq3CBBU3rCRePh4gElIjgTlD
- v/qZRqeL2cKwrj1ib4IAOQ/jfZKgehStc9YSja3bp0XqCnkJe220v/E7t4kUOS8BpITb
- tOrCpPEGkgD/U6yDh3XUYSMiyyXQwLqARU/teT+jVGwxH8JFR5oxYa+IcyEAFls219Oz
- 20c9ET5OFe1NnPwx6d8LwX1d2RCpGF/lASmf2ta/GpP7Z8rBbVV6Ot0gIlhFCh/CeqyP
- FMAA==
+ bh=u6pXxYvTpFhxbjh80IOUWJOQ14f2Hl+NCOsXpDoJFW0=;
+ b=ibNVkz+nyUnnDXQTv9SlP32oreQ//9IU83yyeQSMd2SxrkG0qxymEQFTmJ+70Iz/DY
+ Pj9+5nt1AdkIj+9yGSpAeyeKkD/XBpIG0hAJxgox0hUqnTWWQB6/IFwiscNWzvTLQZUW
+ ArnSjggrr3oWo85oeR+GeujwJJKNuICNb9qVJPY8w4qfyrlRFtfJcC7EPDMksebDJprN
+ Dv9nWXsSy0j59m8qL3SaXbQp9orMMvZilcWQ2GBeWDAYvrkUfG4HmoV0Ydo5ZOId0x03
+ DIa0gl3qzwpyLQ5HbOlur1yUE2BzJoGeK0Lf/ESmpyCVZD01LGjBkcSV9LPA6/FmXDxA
+ CEDQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU8rqUVVZ+Mbekc9ZSs3YatXFXtyJipLMOOJpc+kQ8RtlP8X6p+QHUCOpfC1huYv1QmRSmUYqKp1TQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwblajaDkAWfhM5s2iRMdHs0TWr0bCeEUN9I3Pc5afzFVkdofr8
- FcIhU782DnH31mfELohsnTb7rmGf79CQtiKsggG8jq2MDngoYYDllElcryEBoTIdImy1VJ6ykQI
- 15yFodsUUUmlZDfdoHVFKLanSHZfM/sKogMo+pYNByX/KfTT0U1U/NlQ+DTQGDuExTdA96ro=
-X-Gm-Gg: ASbGncvOoxS8QeiEg1Kf8K9ux2eCNIUvQULmuRJZURN6LOvyvhKvpE/k1cbqoBH25ab
- 2K4h0NLxXVAr3j6GXh5Zq6fzmCQlxt0LTgKXKaoiyjGUIyt83wx8gpL3QmrSv7qAP65b85v1/Oi
- Ea5sdBCUmYYic7GFQT+YBcrOzIpyn8J6mJimeYoTPl7WcBXNC/eXxFEQuoWCzc6/8JoxGBsHwrl
- 9EwHCAy0rYu/iEhbW4kpX1EYuWeGKhWhoaadpR6lL1eLL/P2ijXSykwirlxZZ+3KoQtIE1UQoCd
- qIJh311+UY9RdUndVR9T/Is0GVSaC3aw4/fw5wrBQl84EDhV6GwjFljFrGNTUJPfPRzwFK4wsYe
- Tsdds4Yjsh59nBO90IO60lSJrkfpoOcCrzFxLKR6rjbQQzrCN+Cbz
-X-Received: by 2002:a05:6214:2425:b0:70d:bee7:22a6 with SMTP id
- 6a1803df08f44-70fac90b081mr99124256d6.57.1756782807502; 
- Mon, 01 Sep 2025 20:13:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGx3s/TeSWd/gD8+0Pzv1Eys9blTUBbEzGio/Yd+gCc0H1VU32BQyJUk3uEjCaZ6DP8MJyUzQ==
-X-Received: by 2002:a05:6214:2425:b0:70d:bee7:22a6 with SMTP id
- 6a1803df08f44-70fac90b081mr99123866d6.57.1756782807080; 
- Mon, 01 Sep 2025 20:13:27 -0700 (PDT)
+ AJvYcCUN1Zve2hozYsXIv7NtBtuaTxlaPnIMS5k3tPb9vqmBrNabYoaRzWtrXYPCsO6CxLuo8FezdsWQ61A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5qtvU4uv//L5JocK2UNDIBMT6tByfNXHwTI4w1HDlEscyWrdl
+ 22SZK8cOd5lQdLgSIKiOkAYaC/KmnBntPeoB6c5Z6gI8L8Iqtanoc6AyZVZqUWKzDqa3X1YzUeh
+ 45Ar8DYvJ6BR4XCaSYV0XP/OavCiAan9mV/6exg5fBa327cCn98UZQCpEEi+GBuHEjelwwmA=
+X-Gm-Gg: ASbGnctp8/szwY/+hGVYwfuvhxKgTGy7KDZWdCttgls6wSY3dnAY9t2DZ1SpUWrsLIg
+ ZlGfNgGRNq+vdS2ZqXPxLa5v+i7DxU0t+9QyugjSMdN9BSX0FroSXHMTSZ4cE4DKq1KlHkyeBoR
+ s+6nys/rytkLn51ErSeZt5+dB0Wnql7vvhKrme2gaUoPFcW/XYCoAQ6GxHZ4lMRFuvuvcahJtak
+ vIEPcv/rXcp/9SZmVIRcwVEhHEjg5jeGCr8g75w7Y9/QRun387BLAX8dYXqEmlo5nv/DaOQL1t7
+ lop4/3zbFbEZC05OKCmIrG0QT+aBPhcx2E0BM8dpwcV2KAgG+HO9jiwk7v0NCWXqcUE78XKhOZs
+ 0DWueE9cfLddQpKsOkaeH4hAJRFH1mJuVsFpww0eg9Ql8ewUkaUCq
+X-Received: by 2002:a05:6214:414:b0:70d:eb6d:b7f0 with SMTP id
+ 6a1803df08f44-70fac700c86mr114371996d6.10.1756784748489; 
+ Mon, 01 Sep 2025 20:45:48 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHW9DgkBw+MvElYTBWkwujyNrejM+p6uDFpj7XgGpJNMn2Ua2wxQ/b8FTcUSXpCO+uXL3IIqQ==
+X-Received: by 2002:a05:6214:414:b0:70d:eb6d:b7f0 with SMTP id
+ 6a1803df08f44-70fac700c86mr114371806d6.10.1756784747861; 
+ Mon, 01 Sep 2025 20:45:47 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-560827a53bbsm309669e87.124.2025.09.01.20.13.25
+ 2adb3069b0e04-560827900absm337975e87.66.2025.09.01.20.45.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Sep 2025 20:13:26 -0700 (PDT)
-Date: Tue, 2 Sep 2025 06:13:24 +0300
+ Mon, 01 Sep 2025 20:45:46 -0700 (PDT)
+Date: Tue, 2 Sep 2025 06:45:44 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+Cc: Daniel Stone <daniel@fooishbar.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
@@ -100,36 +101,38 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 02/11] drm/bridge: adv7511: declare supported infoframes
-Message-ID: <4rzkxynpbe7j5uyfiqscjt6l2yr4teothqcga3js7fn6e4tap2@s6npztjtbjbq>
+Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per
+ driver capabilities
+Message-ID: <voknqdv3zte2jzue5yxmysdiixxkogvpblvrccp5gu55x5ycca@srrcscly4ch4>
 References: <20250830-drm-limit-infoframes-v3-0-32fcbec4634e@oss.qualcomm.com>
- <20250830-drm-limit-infoframes-v3-2-32fcbec4634e@oss.qualcomm.com>
- <20250901-tidy-auburn-tarsier-e7b1e7@houat>
+ <CAPj87rNDtfEYV88Ue0bFXJwQop-zy++Ty7uQ9XfrQ2TbAijeRg@mail.gmail.com>
+ <57ekub6uba7iee34sviadareqxv234zbmkr7avqofxes4mqnru@vgkppexnj6cb>
+ <20250901-voracious-classy-hedgehog-ee28ef@houat>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250901-tidy-auburn-tarsier-e7b1e7@houat>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTAyMDAyNCBTYWx0ZWRfX03AbC+sy5aE4
- vUuEHvyUodnPJ/Lyobsom19rptO/ApD8e4E1q3J3WDCzXKuOOqDsTECztwyuo2jmTcwbDosSpq6
- nMC1OrgKp6RsBHJkbIa1qNSdBFHEADv7wgO1SE237iNcJv9VJufAr+Oc/wGBpZ7bMGoYg/w6HYN
- ZnUbrbhTdjZZ5jK6OdRVKfjWd9hCtfwbShvn6WhsZ90GyA/bqO0Thk5QBF/fL7f6wGtMoaVE7X3
- /uqYr1K2IH93UyNZ81Iw0kCoGRUbUjIlbi8xyhDtP46Sar/lYsM2o2vG8vBZTPmk2xNVl4Aq7km
- hEF1ojwqSSmcCnu4T01Qpyu0ztsXHqzmY/d26+PAsMuNuTlLHS047RYJA5UanwrJrEBoT0rxctn
- jMxtMSg+
-X-Authority-Analysis: v=2.4 cv=WKh/XmsR c=1 sm=1 tr=0 ts=68b660d8 cx=c_pps
+In-Reply-To: <20250901-voracious-classy-hedgehog-ee28ef@houat>
+X-Authority-Analysis: v=2.4 cv=OemYDgTY c=1 sm=1 tr=0 ts=68b6686d cx=c_pps
  a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=8AirrxEcAAAA:8 a=EUspDBNiAAAA:8 a=u7Ex-Lb6nDjXBYZR8i8A:9
- a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22 a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-GUID: mvb6s2euhefX-Z_UHgF--3Ee-r846_Qm
-X-Proofpoint-ORIG-GUID: mvb6s2euhefX-Z_UHgF--3Ee-r846_Qm
+ a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pHNJB9hyKJ2XXRMnjhQA:9
+ a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: HBoH4B441_UfAZWIm8x_6aktGQbXeehW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAyNCBTYWx0ZWRfXxOqSlX6ucGe8
+ ZGHy1LZ9pr4HkDOABOV/nGAhMcx9oYt5kWnBJNQXFMHizVI9czG1XiEgxGixicImC6/y4MZGFaW
+ tT3pssYurGvABWh1RBJlcz3Xdz6RItZ+cOE42I48AmpevXU+cFeLKD2dWj2p7xaokoFHuYFeXvO
+ +w9hm6D14HLdhbostzySTaWYvI0pA7XJcke8omoIm7RqIAu+fCdv+qxKqOs5ajEYQFaoioow7lB
+ TXPKIIUDJj6JOwuPB+WdOZ8w3QvUOurc2KrZvp6Z1YHajP7IMxshfT//6H4hvW+aCMxc/28SjBh
+ 6+nA5Ohot723Vo/YEkMMhS/Wa5+AFVM2NHfOyzGD3eeZK4SbegBqU2DXp4WQsUYaw9x9J4zjvA5
+ tNAV3Dp3
+X-Proofpoint-ORIG-GUID: HBoH4B441_UfAZWIm8x_6aktGQbXeehW
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-02_01,2025-08-28_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 phishscore=0 adultscore=0
- spamscore=0 malwarescore=0 impostorscore=0 priorityscore=1501
+ malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 phishscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509020024
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508300024
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,41 +148,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 01, 2025 at 09:12:45AM +0200, Maxime Ripard wrote:
-> On Sat, Aug 30, 2025 at 03:22:58AM +0300, Dmitry Baryshkov wrote:
-> > Declare which infoframes are supported via the .hdmi_write_infoframe()
-> > interface. Audio infoframe is handled separately.
+On Mon, Sep 01, 2025 at 09:07:02AM +0200, Maxime Ripard wrote:
+> On Sun, Aug 31, 2025 at 01:29:13AM +0300, Dmitry Baryshkov wrote:
+> > On Sat, Aug 30, 2025 at 09:30:01AM +0200, Daniel Stone wrote:
+> > > Hi Dmitry,
+> > > 
+> > > On Sat, 30 Aug 2025 at 02:23, Dmitry Baryshkov
+> > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> > > > It's not uncommon for the particular device to support only a subset of
+> > > > HDMI InfoFrames. It's not a big problem for the kernel, since we adopted
+> > > > a model of ignoring the unsupported Infoframes, but it's a bigger
+> > > > problem for the userspace: we end up having files in debugfs which do
+> > > > mot match what is being sent on the wire.
+> > > >
+> > > > Sort that out, making sure that all interfaces are consistent.
+> > > 
+> > > Thanks for the series, it's a really good cleanup.
+> > > 
+> > > I know that dw-hdmi-qp can support _any_ infoframe, by manually
+> > > packing it into the two GHDMI banks. So the supported set there is
+> > > 'all of the currently well-known ones, plus any two others, but only
+> > > two and not more'. I wonder if that has any effect on the interface
+> > > you were thinking about for userspace?
 > > 
-> > Reviewed-by: Liu Ying <victor.liu@nxp.com>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
+> > I was mostly concerned with the existing debugfs interface (as it is
+> > also used e.g. for edid-decode, etc).
 > > 
-> > diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> > index 26f8ef4824235a9a85b57a9a3a816fe26a59e45c..fe30567b56b4f600683f0545ed270665e692b12c 100644
-> > --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> > +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> > @@ -904,7 +904,7 @@ static int adv7511_bridge_hdmi_clear_infoframe(struct drm_bridge *bridge,
-> >  		break;
-> >  	default:
-> >  		drm_dbg_driver(adv7511->bridge.dev, "Unsupported HDMI InfoFrame %x\n", type);
-> > -		break;
-> > +		return -EOPNOTSUPP;
-> >  	}
-> >  
-> >  	return 0;
-> > @@ -938,7 +938,7 @@ static int adv7511_bridge_hdmi_write_infoframe(struct drm_bridge *bridge,
-> >  		break;
-> >  	default:
-> >  		drm_dbg_driver(adv7511->bridge.dev, "Unsupported HDMI InfoFrame %x\n", type);
-> > -		break;
-> > +		return -EOPNOTSUPP;
+> > It seems "everything + 2 spare" is more or less common (ADV7511, MSM
+> > HDMI also have those. I don't have at hand the proper datasheet for
+> > LT9611 (non-UXC one), but I think its InfoFrames are also more or less
+> > generic).  Maybe we should change debugfs integration to register the
+> > file when the frame is being enabled and removing it when it gets unset.
 > 
-> We do need to document that it's what drivers must return though.
+> But, like, for what benefit?
+> 
+> It's a debugfs interface for userspace to consume. The current setup
+> works fine with edid-decode already. Why should we complicate the design
+> that much and create fun races like "I'm running edid-decode in parallel
+> to a modeset that would remove the file I just opened, what is the file
+> now?".
 
-Ack
+Aren't we trading that with the 'I'm running edid-decode in paralle with
+to a modeset and the file suddenly becomes empty'?
 
+> > Then in the long run we can add 'slots' and allocate some of the frames
+> > to the slots. E.g. ADV7511 would get 'software AVI', 'software SPD',
+> > 'auto AUDIO' + 2 generic slots (and MPEG InfoFrame which can probably be
+> > salvaged as another generic one)). MSM HDMI would get 'software AVI',
+> > 'software AUDIO' + 2 generic slots (+MPEG + obsucre HDMI which I don't
+> > want to use). Then the framework might be able to prioritize whether to
+> > use generic slots for important data (as DRM HDR, HDMI) or less important
+> > (SPD).
+> 
+> Why is it something for the framework to deal with? If you want to have
+> extra infoframes in there, just go ahead and create additional debugfs
+> files in your driver.
+> 
+> If you want to have the slot mechanism, check in your atomic_check that
+> only $NUM_SLOT at most infoframes are set.
+
+The driver can only decide that 'we have VSI, SPD and DRM InfoFrames
+which is -ETOOMUCH for 2 generic slots'. The framework should be able to
+decide 'the device has 2 generic slots, we have HDR data, use VSI and
+DRM InfoFrames and disable SPD for now'.
+
+But... We are not there yet and I don't have clear usecase (we support
+HDR neither on ADV7511 nor on MSM HDMI, after carefully reading the
+guide I realised that ADV7511 has normal audio infoframes). Maybe I
+should drop all the 'auto' features, simplifying this series and land
+[1] for LT9611UXC as I wanted origianlly.
+
+[1] https://lore.kernel.org/dri-devel/20250803-lt9611uxc-hdmi-v1-2-cb9ce1793acf@oss.qualcomm.com/
 
 -- 
 With best wishes
