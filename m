@@ -2,141 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA866B3F501
-	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 08:07:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D51B1B3F5A9
+	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 08:38:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 543D410E597;
-	Tue,  2 Sep 2025 06:07:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81D6C10E5AF;
+	Tue,  2 Sep 2025 06:38:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zlo6oaSd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GJYL3Zxq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C15110E597
- for <freedreno@lists.freedesktop.org>; Tue,  2 Sep 2025 06:07:26 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-3d6af847306so216130f8f.2
- for <freedreno@lists.freedesktop.org>; Mon, 01 Sep 2025 23:07:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756793244; x=1757398044; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=t/B1FaoD/CzixDmOU5vubVEgdSvYSaE5OyF1FY9TFP8=;
- b=zlo6oaSd5T6Xf107lpSUxPb0rIijMynvefrdtdaORWsGtxfto3IyWVi7b4xdRZsZJk
- /YBytAPvd8MoTdBNqdIBpS3v2LfmAn/9pZmz3epsq9PQ7gbD4Fzrfvb+fMD6AthB4RCw
- wD+hlU/OxsuRNNgwIIweTBuEDjHtqDC+/XxZH2C1FZfH/2jps9OwBANPOOvRNqFL76QB
- TjdL/rFy7gCFw9NkRpuVgflwRIUuAjcLUyld/kliq1qvj4kfd0U8IznXTBXcXZ1oSKhO
- XiTaF4ZRTROViSiYegSGhCv+wtbV8+DsMN3PsUXOrhRhrQl1rh/w0+Q6siayw2b/SKrG
- cHNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756793244; x=1757398044;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=t/B1FaoD/CzixDmOU5vubVEgdSvYSaE5OyF1FY9TFP8=;
- b=Y9mL/al65iRLww7IDRY6QyCzPikf1OfwsXf8me7cv7CrMuxDScArm2g2+fekOuP8nU
- uuwfULCH8WF4B261LBiOk3R+SQRb/ReZh8wy6SSidzbxYzzYjQu0n4AtzKwsLJpYaToP
- n2QTPWFTvHF6l+W+M05wag0M6of6g02PPW14PlQB4QuxeZbz62Wd+x/UA7PsV9dHC+TE
- nKGGba4XCHPvJrD42dMrU7f3uCCC3PQH2gzx132ca7UrNjbRjSy9zB2kfFoqiq+V8kdp
- dkNRU35A1AcAPmDYGOIrgDlJtqDVj5PDV5B6OxaeOYXOJEs6ktaQQ4cQnNsUDzAMWK+8
- JMSA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVeQti0R+ryimlH55NQbsRP0RN8yjxkQzKUF/dbHZydNQz3Zq/20FZPXETkfsXeaWK4cRqvAaqMkTE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1ByNlT2Z33wUzSFzLTenkW/eCIGkNW/gxRnhverFRMbp9AeJg
- JHtuM1VHnp1m6Zn5LDnJ2rVG3ju34fPyeerbKw7ekExV2S53iF6ccr0s1WxkdhfRlL8=
-X-Gm-Gg: ASbGncu42Vyz6Y84tHblJSlsM+Jm4F3WOfONRjCS9wJQhWn+zGskKUL0i3RYUlD0mv6
- j3F0t+s5tohFgFO7yeC5ShgkLWuOF8YhP5elzhBkSZWQEFz6IrJx+VmQMW/YPKa8DfFzQxWNLuo
- 0chZb1AwpEI0u15rGTnIPy4ejgsSPqpr0DZETiXupjsIInb1excbEDDGIiuoNP3d5MPD5zSbPov
- z6Ehde5MTbtyoA5MSb91KRmZIft40ekDq27NLiN+jMepqDxvhTxRO2j9Nb0G+N7i0ya15gvBuJA
- Yvc2U+zEUTZZkP9n0G6kjg0dzwi0sTfKv7c94DnP7pF9JTXo05i+ArjVBNHRF/rq6NmeWwnsojw
- 9lodeKAjqD7kS+Wo8iAm4m5stKpN7T5peIp46doW7CVBFBZGg575RZg==
-X-Google-Smtp-Source: AGHT+IHlJQa2ozPDy4pXB3L1qvYBOkak8WzZG+cqww52jrlmExUNErZsn4LdUbYEor0rhiu5nFzizw==
-X-Received: by 2002:a05:600c:4f8b:b0:455:f12f:e3fc with SMTP id
- 5b1f17b1804b1-45b81e92f7fmr56974255e9.2.1756793244503; 
- Mon, 01 Sep 2025 23:07:24 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.219.123])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b7e74b72esm186726245e9.0.2025.09.01.23.07.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 23:07:23 -0700 (PDT)
-Message-ID: <ddd0f518-f9e1-49e8-bbaf-b810adcd35b3@linaro.org>
-Date: Tue, 2 Sep 2025 08:07:22 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 8/9] arm64: dts: qcom: sm6350: correct DP compatibility
- strings
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8068210E5AE;
+ Tue,  2 Sep 2025 06:38:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1C6EE41B2F;
+ Tue,  2 Sep 2025 06:38:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B14CC4CEED;
+ Tue,  2 Sep 2025 06:38:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1756795105;
+ bh=y+KwSI21zIY/J9GHDXq5VKNRciMqhOzsq5iKLOeZwE0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GJYL3ZxqIlgu8oiq4zv/Z3l+Z6ZlSDoILhccVWVAK7W0ZudUYz0lGxgvjjoCKfHNg
+ Tcah2MvFYbZ4MLAbA4Q+E/LHk5lJAh3H8TW97irv8Dk5uy5M8XOD+qXPPZwIws1V2t
+ u0JGMDE2uf6XyLWcFAwOuCkQ5q4b1pj+a6hZ4Jv492D15pW4cY7MTSm1ipYGpggfV/
+ 54eo0apGUdT5vUVVY/HCDX5nLGoASO32IhqQWi4rOjaVMW2PejGEj1/+vvveaxPgtJ
+ twNpA5RP9UI/hqBgyMZWNPaRQ6aq1/bJykc59SoYo03zVyypAJk/3oJ93T6+23hc4X
+ hLsm746sqY2PQ==
+Date: Tue, 2 Sep 2025 08:38:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Abel Vesa <abel.vesa@linaro.org>, Mahadevan <quic_mahap@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20250829-dp_mst_bindings-v7-0-2b268a43917b@oss.qualcomm.com>
- <20250829-dp_mst_bindings-v7-8-2b268a43917b@oss.qualcomm.com>
- <20250901-defiant-illegal-marmot-7ce0db@kuoka>
- <abkkn4f7uca6tzjasltyysxecuuirxxvbjz6l6re5v4z6jlmuh@ugz6jtw6vo4n>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- 2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <abkkn4f7uca6tzjasltyysxecuuirxxvbjz6l6re5v4z6jlmuh@ugz6jtw6vo4n>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v10 2/6] dt-bindings: display/msm: dp-controller:
+ document QCS8300 compatible
+Message-ID: <20250902-speedy-overjoyed-dove-edf2ee@kuoka>
+References: <20250901-qcs8300_mdss-v10-0-87cab7e48479@oss.qualcomm.com>
+ <20250901-qcs8300_mdss-v10-2-87cab7e48479@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250901-qcs8300_mdss-v10-2-87cab7e48479@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,32 +72,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/09/2025 06:04, Dmitry Baryshkov wrote:
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
->>> index 2493b9611dcb675f4c33794ecc0ee9e8823e24d4..8459b27cacc72a4827a2e289e669163ad6250059 100644
->>> --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
->>> @@ -2249,7 +2249,7 @@ opp-560000000 {
->>>  			};
->>>  
->>>  			mdss_dp: displayport-controller@ae90000 {
->>> -				compatible = "qcom,sm6350-dp", "qcom,sm8350-dp";
->>> +				compatible = "qcom,sm6350-dp", "qcom,sc7180-dp";
->>
->> No, that's breaking all the users.
-> 
-> WHy though? Both old and new lines are using fallbacks to bind the
-> driver to the device.
+On Mon, Sep 01, 2025 at 05:57:30PM +0800, Yongxing Mou wrote:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              # QCS8300 only has one DP controller that supports 4
+> +              # streams MST.
+> +              - qcom,qcs8300-dp
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 9
+> +          maxItems: 9
+> +        clocks:
+> +          minItems: 8
+> +          maxItems: 8
 
-Kernel has sc7180 fallback, but what if other DTS user does not and that
-other user was relying on sm8350 fallback compatible? That other user
-won't have sm6350 dedicated handling as well.
+Clocks have only five items, reg has 5. At least in my next from few
+days ago.
 
-That breaking of users I meant.
-
-With the kernel it should work, assuming SC7180-dp was introduced
-similar time as 8350-dp.
+Nothing explains any patchset dependencies, so this makes reviewing more
+difficult than it should be.
 
 Best regards,
 Krzysztof
+
