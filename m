@@ -2,117 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5108FB4081B
-	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 16:57:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3B3FB409D9
+	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 17:55:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0582C10E785;
-	Tue,  2 Sep 2025 14:57:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5025C89613;
+	Tue,  2 Sep 2025 15:55:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eu3j3OhN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iYbekwim";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DAE710E782
- for <freedreno@lists.freedesktop.org>; Tue,  2 Sep 2025 14:57:15 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 582EqAqb023408
- for <freedreno@lists.freedesktop.org>; Tue, 2 Sep 2025 14:57:14 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1CB489613
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Sep 2025 15:55:32 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 582EqHD1004234
+ for <freedreno@lists.freedesktop.org>; Tue, 2 Sep 2025 15:55:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=TsmfkgMBnp9SJQN3L5y7Bh9L
- sMiuyaGhK5Ns/kSaNZc=; b=eu3j3OhN8NE52GVbTnYhN5bolGpchquaY6Oo8k/l
- ZIq1js7kPg4ehpJhc5KyjfsJFAH4PuF77ImvKVVyLchpgfZVrYhzELTaL3Z9voCb
- omQZTL90PlEPBphxQuuykkCUPnLUzlNvsjDl5vSrGvOVrnwZMkmMk/5QU6a2iggr
- O/SzQYmNFf7PoYqZaaVSCk6DFHVh2V0r+iG6vvAfQ1Tq3KW/sCIrEe3hU5UTWcuL
- obseSgjLOqRVhF5dHpbiQuqVGnqB/No/IgASByuaos+JmEB5Ygs56lGJtSKKqoKB
- 4uCxCvZP7OT+Ir/3FozajGUA06obmmqQ2nmw3djLIVI/5g==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48upnp8bj1-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=A3gqSpoIQ3gnaOLqW/dm0/FqkEZT7i2DBb0/fr+ypKE=; b=iY
+ bekwim/S+o4b/4mz7R241d0gq1jTBYADedQsYVStLu2BprGGnjer6MEqIN95XOiO
+ a50a38xOjdPv+Ac8vCO70lZqQExDRqPZc1tVyc4GCPqEknUSMOODx/oAHig5+VXT
+ K0lZvxBC8i2UMmqSTJlqxtStDf248DPJq1iaazjbRL8T0OUiIDLPqQDZAQSGfqpu
+ VUXR9olBc4/EKWf5uMtlk1pp1+3hgC6SEwb4RdIDSUYDKmA6cooCp+rlOXrpia93
+ sEhlBrvh90zf1wgTE6Ge2MiKlfl/xeuo9nPuhWyt4qqLHATv8H3bOT94QthpFP2i
+ sIU829PTMLxWEnngA4ZA==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48urmjgbvf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 14:57:14 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4b320a0a542so56938321cf.3
- for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 07:57:14 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 15:55:31 +0000 (GMT)
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-438015ebdf9so1891734b6e.2
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 08:55:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756825033; x=1757429833;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TsmfkgMBnp9SJQN3L5y7Bh9LsMiuyaGhK5Ns/kSaNZc=;
- b=ntHWtCAXhwhdedlsFpK6hbDY89aK9ZSc97P4uhF6rsoSRtvpTQoJyhVb7eQKGHeJcK
- dZHIQ09uM5MkdtKpmScPF3+aAsLOb1i45opLVERtoASI1/QzB5g1e49/oJAzmO+M703h
- tjRWt74XkKxoiFfvPR6gmPSn2cLNhoyym3v11o7GiMUcW2ZG+IMlDyE6eys9uez9vamj
- jVwXa+W18lkhDQMLUz/7NlT7kPzL3h8GLKmbzY1aBroQ7P+rLAMH0f4cEGAmld/YRTzv
- 5QKzFmL4ZdRCLjW7fMR9/Wo+CpXPJtkUzoyxFLF7itnUdwghjwbR0gxUoWOJ/Qh30nHX
- fEVQ==
+ d=1e100.net; s=20230601; t=1756828531; x=1757433331;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=A3gqSpoIQ3gnaOLqW/dm0/FqkEZT7i2DBb0/fr+ypKE=;
+ b=rBWVyunn796/DfftMlgvY6NbVBq3AXS5ktH4F3Tjb1+9sI2tPqy1JpeJS8iwjxT6s/
+ jqSVzOnvuv7jE61SxNGfy/Da0wyTZGy18aVs7uqazeiQm9N3tcjk5fom/imuxmb93DE8
+ CIOgNwl7FxOqGNmAi43/5HNgotEMqoYiwpnK8d50mkNdPXbI0EKv9QTeHvHQ4RAjS+k8
+ xGA29WiII5sBdZcV8NJgQp7SHEKB4QanLRhqX8gfmlsawKwp2fkMkS09De3+zlkWs3GV
+ fl0QSGpLhgmDMTNnxB392KPUBAIwEQL7bKqKsf/vH38buWcbCoeqPE65ZQ87BakfnasI
+ hl2g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWBQyR7Ceirjdt9Lv6LcnjAIpBj4bOMAgfxtjsaBwMWwuSW9FHop1tzqKmrIo0MP0P+WReq+B3bQUo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6/D8SZskYpPbpu+V3Q1r6AcVlKEbhvcJii8VPRMPtQr/FfKy5
- IiLlJGGNcRWZOgQ/qN7Kt42sGn9FVaR/EbBzt0dNU/CNKW8FxoKPvRmq9ULArEfth4FQmY6ytZD
- OszDREZnL8s8Ax77o+268QhcZ+0AAHBQZJOCvWLkxkUXsLclINfrLY7WvuClQTOoPNMNllRs=
-X-Gm-Gg: ASbGnct4O/ZrHq3Vx08sUDPxSmsZPshdR3MNY+4rZy96YvcO5u+g/e7JDhah6ltDgGn
- /n2tR6yP1IDbHmDKyrO+bHLfpA9MZvTijdRcGqmNADJdIfpksGZe4uy2vM5gA0BkX2p3Rhz60OG
- EUQqgDVz7QC1yUlWQ3FHwEwKcOzIohthB566Z6mTtzBtabb1v7p4fPLdgk7slIMam2WrxpkijOa
- N2NITqAOE8vfWiEiT7prA0q2OfTEiqyJKHhTmM5MMxprisdOeJIppI2HfkcI6kyUG4+0587od9s
- KFFoDl6mgWXznCvNItRgdxrviXPZkBNl4rf4MbsZYc86GbJRb0bSm9+lai8WDnaXgtqwtlpjG75
- BkNAV1Drf/CFzj+vV4pZjZiuu96UjMDPPXMB+PzWaJMW+yceJmA3h
-X-Received: by 2002:a05:622a:1103:b0:4b3:9f3:8f86 with SMTP id
- d75a77b69052e-4b31da25423mr131231301cf.43.1756825033209; 
- Tue, 02 Sep 2025 07:57:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEZq3/yRV8lo2PEycPVb24whKPiXTRJq33EprBVrpg4tMMnhbq/xhljHZVKKCnnnAke8vRMXw==
-X-Received: by 2002:a05:622a:1103:b0:4b3:9f3:8f86 with SMTP id
- d75a77b69052e-4b31da25423mr131230811cf.43.1756825032575; 
- Tue, 02 Sep 2025 07:57:12 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-560827b3ac5sm751954e87.147.2025.09.02.07.57.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Sep 2025 07:57:11 -0700 (PDT)
-Date: Tue, 2 Sep 2025 17:57:09 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ AJvYcCU5nEoxPQhDfBB4XEdPDO5Iu4jHMUp+TZNWK8ufDuOvMbX1ezYlmpA/O6WirP/rKQZMm+P0+2z5noE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBo4KW4DAmjoki/e+Dn+Hq2owQlZmWcTIref4inLRew/DI1sxl
+ EZYWlWONMrqzW7xGGuyjhooCwxavjE0TbVROVRyMxcyIPi3rfmpK7rIYXe4ucNn9ZwGHmbDK5Ih
+ RtzVKCG8hZzD4Xxz5XBzdcoLHkm1XMV1qrp8OqBkltK27zrVxbwZTkNCkLQlRErRlVmT6yq2Syr
+ SLwikhBzBfNe/O6L/5Dn8O9ERUo1TL/TJ08Ml0qM0Usb84WA==
+X-Gm-Gg: ASbGncvOu7hvT85uuM1czAMyh0dXUBg3wDT4jMDEGfOA+HJUhWGGvFekZWAvHG354U4
+ M0y2ceV5hSEY9L96eKf4fNa8Tz5vmr/lp8XWIGka0kRWADNPBqqK5nAxMNG89kmoaZ8/EKDWpRd
+ kD1M+5mTKTwo5D/y7iKbZq5SVJB8OgXPBRhByzEfFfnQn5uxWbxyU1
+X-Received: by 2002:a05:6808:48d5:b0:437:dade:463f with SMTP id
+ 5614622812f47-437f7d994c4mr4151956b6e.34.1756828530771; 
+ Tue, 02 Sep 2025 08:55:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE1uf3jNioSmAshEc9z3yyLmgANd+2PnHEVtARN4d50VJILUSoxTI1ggnEVO/qE8F0+1dvdgSEHxjdhqo4mTMM=
+X-Received: by 2002:a05:6808:48d5:b0:437:dade:463f with SMTP id
+ 5614622812f47-437f7d994c4mr4151933b6e.34.1756828530347; Tue, 02 Sep 2025
+ 08:55:30 -0700 (PDT)
+MIME-Version: 1.0
+References: <20250902-assorted-sept-1-v1-0-f3ec9baed513@oss.qualcomm.com>
+ <20250902-assorted-sept-1-v1-1-f3ec9baed513@oss.qualcomm.com>
+In-Reply-To: <20250902-assorted-sept-1-v1-1-f3ec9baed513@oss.qualcomm.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Tue, 2 Sep 2025 08:55:18 -0700
+X-Gm-Features: Ac12FXxe1UwMG2c7pfYzqGvYc64XhcrboIhwaNGex0OludbeUsMDhRZIRxFJEYY
+Message-ID: <CACSVV026d+FWS09VOqRfFESJjk0g1Gp4TJhcdrBcWaZ3H4f3mQ@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/msm: Fix bootup splat with separate_gpu_drm
+ modparam
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v15 00/13] drm/msm/dpu: Support quad pipe with
- dual-interface
-Message-ID: <53z5v73r4ixmecpo6z3a6rnsmkgjjftbrwke24bf7mkr5ffh64@2viglv4lnows>
-References: <20250819-v6-16-rc2-quad-pipe-upstream-v15-0-2c7a85089db8@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250819-v6-16-rc2-quad-pipe-upstream-v15-0-2c7a85089db8@linaro.org>
-X-Proofpoint-GUID: Jt0gafzoWRSguitEAdxNIQxPeQyyCJmu
-X-Authority-Analysis: v=2.4 cv=Jt/xrN4C c=1 sm=1 tr=0 ts=68b705ca cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=e5mUnYsNAAAA:8
- a=NuLzGU6fH5aT33uQb0QA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
- a=cvBusfyB2V15izCimMoJ:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: Jt0gafzoWRSguitEAdxNIQxPeQyyCJmu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAwMSBTYWx0ZWRfX6kCrWsTY9D5q
- SCQRcRgmc8TXhJnOtlcWFp6zgqLmYjZxaUzYJPOuiVh5Rfy1JQGKWaEr7Z2O2OhYuL4nSU9tCnT
- E6yGvW4PsRi6ZnCrnFxFjAUGaOBlfcX8hAvB+t3upYzGMC7cZzEvyDcPpgop93a3wxr5fDwAuB3
- pRfjEyPSvtlU1SHCNyv6ycyC0tW5iZf5/EJ9StHogelbkgjri/ZElTIvzIaU4ivgsDpgu9GSB+x
- fkVPaxixQVp/VJcPDbPwWFICc+HpofQOySiBjkIg3lumGMDX0gzLK7C8+snPgAFOySxyvWSOmkx
- 6J35GmslzdCragUJNsmPiYUcYAb2D2JutsuDk4lMAVhIG6XRjGlfaxcAbmFPayaCjjhk/qXWFjq
- xAaVkNub
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=OemYDgTY c=1 sm=1 tr=0 ts=68b71373 cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10
+ a=EUspDBNiAAAA:8 a=Yc-ri1j8BvKz7xlZgGsA:9 a=QEXdDO2ut3YA:10
+ a=pF_qn-MSjDawc0seGVz6:22
+X-Proofpoint-GUID: KT0fAVqr9bQadNx_88FuwqiWltIQgMIV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAyNCBTYWx0ZWRfX7LoFObQc2BB/
+ V0R2ayX3hcNpdtRJR+IZJKQAWsJbIDd6m2WhjOVaqG8CrrzMoq+LPxJ/25o14W82SGtWsTGzMx7
+ P5GXyPnROmm8lG8he79CRui6ik1d2RKPa0LJjyhOPkCTBzIRWByBkGx8VN4HJUz/uBZ06K2b9v9
+ rQO38Tkgp0AZXB21mnBgEBntKSWusfvNO/O64SL5bkSf/qfiKvXGjHAOxVpAkBmiReIrNSeygBS
+ WJUxVppwVDDMkXfVMied81o7jgVKimsTxqV09cxdDJ0N9FTkHxWKmABSV/7H4xYCr4IOVSpeo/x
+ O37XJJlo+5bmagPlbxgiJNa1FU9IrzslXhLSLgw2zTFjk2r4DViE/pqf4rGh7vhBVdXKsWbENFn
+ 7ASCdTl9
+X-Proofpoint-ORIG-GUID: KT0fAVqr9bQadNx_88FuwqiWltIQgMIV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-02_05,2025-08-28_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 impostorscore=0
- spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508300001
+ malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508300024
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,44 +123,125 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Aug 19, 2025 at 09:30:54AM +0800, Jun Nie wrote:
-> 2 or more SSPPs and dual-DSI interface are need for super wide panel.
-> And 4 DSC are preferred for power optimal in this case due to width
-> limitation of SSPP and MDP clock rate constrain. This patch set
-> extends number of pipes to 4 and revise related mixer blending logic
-> to support quad pipe. All these changes depends on the virtual plane
-> feature to split a super wide drm plane horizontally into 2 or more sub
-> clip. Thus DMA of multiple SSPPs can share the effort of fetching the
-> whole drm plane.
-> 
-> The first pipe pair co-work with the first mixer pair to cover the left
-> half of screen and 2nd pair of pipes and mixers are for the right half
-> of screen. If a plane is only for the right half of screen, only one
-> or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
-> assinged for invalid pipe.
-> 
-> For those panel that does not require quad-pipe, only 1 or 2 pipes in
-> the 1st pipe pair will be used. There is no concept of right half of
-> screen.
-> 
-> For legacy non virtual plane mode, the first 1 or 2 pipes are used for
-> the single SSPP and its multi-rect mode.
-> 
-> Changes in v15:
-> - Polish logic in sspp check and assignment.
-> - Link to v14: https://lore.kernel.org/r/20250801-v6-16-rc2-quad-pipe-upstream-v14-0-b626236f4c31@linaro.org
+On Tue, Sep 2, 2025 at 4:50=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualcomm=
+.com> wrote:
+>
+> The drm_gem_for_each_gpuvm_bo() call from lookup_vma() accesses
+> drm_gem_obj.gpuva.list, which is not initialized when the drm driver
+> does not support DRIVER_GEM_GPUVA feature. Enable it for msm_kms
+> drm driver to fix the splat seen when msm.separate_gpu_drm=3D1 modparam
+> is set:
+>
+> [    9.506020] Unable to handle kernel paging request at virtual address =
+fffffffffffffff0
+> [    9.523160] Mem abort info:
+> [    9.523161]   ESR =3D 0x0000000096000006
+> [    9.523163]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+> [    9.523165]   SET =3D 0, FnV =3D 0
+> [    9.523166]   EA =3D 0, S1PTW =3D 0
+> [    9.523167]   FSC =3D 0x06: level 2 translation fault
+> [    9.523169] Data abort info:
+> [    9.523170]   ISV =3D 0, ISS =3D 0x00000006, ISS2 =3D 0x00000000
+> [    9.523171]   CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
+> [    9.523172]   GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0, Xs =3D 0
+> [    9.523174] swapper pgtable: 4k pages, 48-bit VAs, pgdp=3D0000000ad370=
+f000
+> [    9.523176] [fffffffffffffff0] pgd=3D0000000000000000, p4d=3D0000000ad=
+4787403, pud=3D0000000ad4788403, pmd=3D0000000000000000
+> [    9.523184] Internal error: Oops: 0000000096000006 [#1]  SMP
+> [    9.592968] CPU: 9 UID: 0 PID: 448 Comm: (udev-worker) Not tainted 6.1=
+7.0-rc4-assorted-fix-00005-g0e9bb53a2282-dirty #3 PREEMPT
+> [    9.592970] Hardware name: Qualcomm CRD, BIOS 6.0.240718.BOOT.MXF.2.4-=
+00515-HAMOA-1 07/18/2024
+> [    9.592971] pstate: a1400005 (NzCv daif +PAN -UAO -TCO +DIT -SSBS BTYP=
+E=3D--)
+> [    9.592973] pc : lookup_vma+0x28/0xe0 [msm]
+> [    9.592996] lr : get_vma_locked+0x2c/0x128 [msm]
+> [    9.763632] sp : ffff800082dab460
+> [    9.763666] Call trace:
+> [    9.763668]  lookup_vma+0x28/0xe0 [msm] (P)
+> [    9.763688]  get_vma_locked+0x2c/0x128 [msm]
+> [    9.763706]  msm_gem_get_and_pin_iova_range+0x68/0x11c [msm]
+> [    9.763723]  msm_gem_get_and_pin_iova+0x18/0x24 [msm]
+> [    9.763740]  msm_fbdev_driver_fbdev_probe+0xd0/0x258 [msm]
+> [    9.763760]  __drm_fb_helper_initial_config_and_unlock+0x288/0x528 [dr=
+m_kms_helper]
+> [    9.763771]  drm_fb_helper_initial_config+0x44/0x54 [drm_kms_helper]
+> [    9.763779]  drm_fbdev_client_hotplug+0x84/0xd4 [drm_client_lib]
+> [    9.763782]  drm_client_register+0x58/0x9c [drm]
+> [    9.763806]  drm_fbdev_client_setup+0xe8/0xcf0 [drm_client_lib]
+> [    9.763809]  drm_client_setup+0xb4/0xd8 [drm_client_lib]
+> [    9.763811]  msm_drm_kms_post_init+0x2c/0x3c [msm]
+> [    9.763830]  msm_drm_init+0x1a8/0x22c [msm]
+> [    9.763848]  msm_drm_bind+0x30/0x3c [msm]
+> [    9.919273]  try_to_bring_up_aggregate_device+0x168/0x1d4
+> [    9.919283]  __component_add+0xa4/0x170
+> [    9.919286]  component_add+0x14/0x20
+> [    9.919288]  msm_dp_display_probe_tail+0x4c/0xac [msm]
+> [    9.919315]  msm_dp_auxbus_done_probe+0x14/0x20 [msm]
+> [    9.919335]  dp_aux_ep_probe+0x4c/0xf0 [drm_dp_aux_bus]
+> [    9.919341]  really_probe+0xbc/0x298
+> [    9.919345]  __driver_probe_device+0x78/0x12c
+> [    9.919348]  driver_probe_device+0x40/0x160
+> [    9.919350]  __driver_attach+0x94/0x19c
+> [    9.919353]  bus_for_each_dev+0x74/0xd4
+> [    9.919355]  driver_attach+0x24/0x30
+> [    9.919358]  bus_add_driver+0xe4/0x208
+> [    9.919360]  driver_register+0x60/0x128
+> [    9.919363]  __dp_aux_dp_driver_register+0x24/0x30 [drm_dp_aux_bus]
+> [    9.919365]  atana33xc20_init+0x20/0x1000 [panel_samsung_atna33xc20]
+> [    9.919370]  do_one_initcall+0x6c/0x1b0
+> [    9.919374]  do_init_module+0x58/0x234
+> [    9.919377]  load_module+0x19cc/0x1bd4
+> [    9.919380]  init_module_from_file+0x84/0xc4
+> [    9.919382]  __arm64_sys_finit_module+0x1b8/0x2cc
+> [    9.919384]  invoke_syscall+0x48/0x110
+> [    9.919389]  el0_svc_common.constprop.0+0xc8/0xe8
+> [    9.919393]  do_el0_svc+0x20/0x2c
+> [    9.919396]  el0_svc+0x34/0xf0
+> [    9.919401]  el0t_64_sync_handler+0xa0/0xe4
+> [    9.919403]  el0t_64_sync+0x198/0x19c
+> [    9.919407] Code: eb0000bf 54000480 d100a003 aa0303e2 (f8418c44)
+> [    9.919410] ---[ end trace 0000000000000000 ]---
+>
+> Fixes: 217ed15bd399 ("drm/msm: enable separate binding of GPU and display=
+ devices")
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/msm_drv.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.=
+c
+> index 9dcc7a596a11d9342a515dab694bac93dc2805cb..7e977fec4100792394dccf590=
+97a01c2b2556608 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -826,6 +826,7 @@ static const struct file_operations fops =3D {
+>
+>  #define DRIVER_FEATURES_KMS ( \
+>                 DRIVER_GEM | \
+> +               DRIVER_GEM_GPUVA | \
 
-I tried picking up these patches into the msm-next-lumag, however they
-seem to trigger a lot of IGT test failures. See [1]. Could you please
-take a look at those failures? Note, virtual planes are still disabled
-by default.
+Hmm, the description of DRIVER_GEM_GPUVA is that "Driver supports user
+defined GPU VA bindings for GEM objects", which isn't really true.
+Fortunately the only thing that it actually seems to control currently
+is the list head initialization.
 
-[1] https://gitlab.freedesktop.org/drm/msm/-/pipelines/1502582
+Idk if it would be better to make the list head init unconditional, or
+just add a comment here?
 
+BR,
+-R
 
--- 
-With best wishes
-Dmitry
+>                 DRIVER_ATOMIC | \
+>                 DRIVER_MODESET | \
+>                 0 )
+>
+> --
+> 2.50.1
+>
