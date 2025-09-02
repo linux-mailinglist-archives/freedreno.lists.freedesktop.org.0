@@ -2,143 +2,123 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A804CB3FF42
-	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 14:09:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79495B40069
+	for <lists+freedreno@lfdr.de>; Tue,  2 Sep 2025 14:27:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6578210E691;
-	Tue,  2 Sep 2025 12:09:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 297C610E69B;
+	Tue,  2 Sep 2025 12:27:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rmAKwYut";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Pbruc/lT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93A9110E69C
- for <freedreno@lists.freedesktop.org>; Tue,  2 Sep 2025 12:09:06 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-b00f6705945so18154266b.1
- for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 05:09:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756814945; x=1757419745; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=1/HPI6NFGoV16FBD+omQL69pnrsn5PdoSWunfVTM3zE=;
- b=rmAKwYutTXnmy36hIVoo0IKA+HgaSxPS82rAcKFo051HiI7sxY4Ht03gsZD4QYulLR
- x1QkEyY9Dlo1nW7neyJ2CpP2QJsBC4TU1ygAIp4Ro2bP1gvfd24gD+oOoCBZxmUN1hXP
- y7xZz4PACM+IZfwgStx/SP5z3zdX+iXLewxbhEHPVJtu7soAySy56fdaxRhhwoe6ljBS
- hA8uIm9kLXSiPWNr+EOqoKAyKiWsuO43cyWe0gPCa8HzVZqmeKxFJVaWMIlM3l1PazDO
- 6YkjpoVmEzCRhCJ4eUC9vSZFyaCE4rMVZMXDdsm4EW22AnRc/TOST2O6OBvJ8TPEFeFQ
- odeg==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8E8E10E69F
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Sep 2025 12:27:07 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 582Agfw0009790
+ for <freedreno@lists.freedesktop.org>; Tue, 2 Sep 2025 12:27:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=ntn8ez5J94Za7jHLbwRFNJMz
+ nGA5D/WaHlKS9xvVPmI=; b=Pbruc/lTVXGDuI0JyUwi17FkWWiZESNihSfkAnsC
+ mdciZdD2y6eHHsGFT4hcwOD30VHUWYlS+/xcoZXmoQQRHZZm7YLF98s+R9DKsVyi
+ khXsX6zHGoNkvihV6B0zT1sdCzI8JkLbV8eZm34U51+hgWl2m2FJCuD8gOcUzK1g
+ g+DhE/erjOAObK3lRlmQ8Jc5LQgqfah5Z6ykzX6yzNei7xRP4+iDwwDGcVJ36mO5
+ Vony3YOGyEd69ejY2Nl7aRuyTW+3G5lJKbDET4mGiRdkh1zqQrxvbwEzGyu6jGRR
+ OTSjcgWB6gV3Edm9p73L3by4kw05ScjOA0bZHfzMjcI5Kw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48urmjfr2u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 12:27:06 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4b30cb3c705so29274471cf.3
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 05:27:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756814945; x=1757419745;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1/HPI6NFGoV16FBD+omQL69pnrsn5PdoSWunfVTM3zE=;
- b=lcbnnmvP1rDfexbmPaPd7Z81R5yNRWQzTE2dLdm7vEi1qopxu9I8f83j6xUDR1ZNEs
- oZARb6/JTy7DC3FHuDv0L//0s7u3Wk6maxBxuroLqE+1MTAYOohxtKXEr4wwGZOI0K2m
- 7qekLWGU2dN59DugoSyHBAtCINx1hpa2DkUMfar2Kog4xxnOywKI4ZnvmsCsH9qkyVFR
- HSAEr8bWKnvww2hZQMRt9UEMNK2s5fDM/aje1fkmJXvTaqIoztgPxskr+JDuUBF+nIwd
- o8wpM5eiPZs9v0kc0L7egLtRSigbs9TMq9UuY7RadqZ1+mCaPhK5eRUGVU0RdINealrE
- eEyg==
+ d=1e100.net; s=20230601; t=1756816026; x=1757420826;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ntn8ez5J94Za7jHLbwRFNJMznGA5D/WaHlKS9xvVPmI=;
+ b=l6wuxXaBlzvVsMKGnR8Aia+SKl8MLy+UmyRQ3ami+VN7KmTmVZEx09R5T1iJhfp5nk
+ UFIH/4a/hOMP2D3eCScFG0qAEs1dAlNmuclMEjFjpYpXenAub13sN7U4OACgMdNZ6YlR
+ SGZTOGu9GHGbC1YJG1DBqrsCc8R01UmzDoBBFKy7EHxUYetwx6ZA6KeLErGoS5/Qlqx9
+ mK52LWGKUzbrKYIEcb5ybGI3QV0u0Df8NJ6Wj5KBK2uQaG8pAHxQ6RQ4ObJGcjP9bxeE
+ wWZC5WxlwVb/BM0dGq/3nG15+RWV8sCY0Oh+6EQESb555qy/t467ObI3P2HxQbA62KV5
+ gLLw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXn2QtOGvaF3vjzMRqVCA9M/mKWT4UF71/Jt+PtmoKlZ2W/f6ROmwk1qJtfv5h/AtRmj+NMgBWsiVU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyhaG9LaJdRIZYn/v9+XotdLK52nEqOAa3PdytGwv/1N49Ocmy7
- LbJOHPqza33h3gjZuomBjYKAsA1ntLTG+xMr4SxcZgCJEYsWSdN59OS0aR7dzv3NmaY=
-X-Gm-Gg: ASbGncs+OU1mASqdomFw/oAEutA4c44dsqTig3OpPe1noAwncMCjP8wUO6ZVb6Gkpyl
- T/+5h4uu6WhF5FHWxCAbRyrdX8VpbT94ReZDCmJEn+4mQaed5UEKKlGvk4stiOmOao3nY8WydcO
- CTpZuh3CjflGzX2DWBoetFcNIP6J4tvZM9ORSBD12YwDFyWLGnZ42j4GANmL3uHOde/JD5IYZ2L
- mYZ0398Gj2Sv+QSAPhR74a22zDnuM/P0bdkY9fhHiyOIQxzsLnj8CTf1GgIWMhNaxhyzVDo8dmf
- OpiUti9t/4lzjSTbDvY5bXKTX35w8GWt7iXXviJs57e+itJ8q50kb46JPoSm1P52ofnD5ddUaJB
- 25F92xw2R4cEt73cBEEubOTDXd+Gh8jOti98iATA0+Fc=
-X-Google-Smtp-Source: AGHT+IE5iykgRl5Fdf/l0FPdyq9PirAB29rWNIujMfMrRP+NStLniASxEozwLpyAKtofELQa/w5UNA==
-X-Received: by 2002:a17:907:25c3:b0:afe:b131:1820 with SMTP id
- a640c23a62f3a-aff0f01e9fcmr675915066b.6.1756814944908; 
- Tue, 02 Sep 2025 05:09:04 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.219.123])
+ AJvYcCWJDPtTYbMgSI8T90X3B1FZTfUszhsS1J1Uo7mX61RdyjaHzZkfHjUfTJcr4K7nC92FxtXRHh8i6xM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAMqpoG/HjhjFiwllh3l840DbADCNGJwd5FLCzLpzx50gIxN2Y
+ L79rV9+e1OQQLAo9YWePLHs8ZJm/q7oxvMGdLltdzFYhCVsj2ZCVowH7JldTG1+wJu7z3WUHzlh
+ DDZr/ge2gkR0uQ9Gi9s4WdjW7OH9mQ4y2J6x8jNmsSalJSh6HMAi//uAKR+sEG3Mpsz2+g54oxH
+ /Uga8=
+X-Gm-Gg: ASbGncumpLrQQg8SRMEBnDhgCoF65xlJWjjJcZfCWgDs2h//YhMSpGC3SIPs4fPI1cC
+ mMSNn9HLEMmDug4cwAVSr2NtG5XJM+mRD0kjSjJqm/GvZpvKrx7eLeCS8JgXh0UIA8UMFBngsle
+ PDoadM7oNVIx0/2rjlu29YOy17mpen8emIxDy7DrlycUKDfzryFL5QTKp/ZTi8vRd0pSsFBKYx+
+ R4LZxKA/iQvRNIKIYy2uZMf3DR9Fj4PyG49ntSCYjP1NOMMhFkzKR4F0xXE3Rv0sAPNrBG7y1Gc
+ fzqB9dhkRKUUlTbqE/Cgifdzks02xYv8nmxHaXYNUCRmtOFEJsnekUGl03qrwZ6AUodlx9SecWz
+ 41fZJ2KdQg4B2By9CECwX6W125217aU9zWVjpQkyqfB/7piP9Km02
+X-Received: by 2002:ac8:580d:0:b0:4ae:b1c9:85ff with SMTP id
+ d75a77b69052e-4b31d7f0cc0mr137942871cf.2.1756816025549; 
+ Tue, 02 Sep 2025 05:27:05 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IExdU4n5PNydxyc4LwpOYj8vbohHbgS+IfS3msCD3N4Fhko9KMgmFaw92YOVmTJZXPyLhWngQ==
+X-Received: by 2002:ac8:580d:0:b0:4ae:b1c9:85ff with SMTP id
+ d75a77b69052e-4b31d7f0cc0mr137942321cf.2.1756816024972; 
+ Tue, 02 Sep 2025 05:27:04 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b0421939da1sm554565766b.27.2025.09.02.05.09.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Sep 2025 05:09:04 -0700 (PDT)
-Message-ID: <c69ced3d-d1f1-46a8-9930-463306b1ba41@linaro.org>
-Date: Tue, 2 Sep 2025 14:09:02 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/9] dt-bindings: display/msm: dp-controller: fix
- fallback for SM6350
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ 38308e7fff4ca-337f50332cdsm4498401fa.36.2025.09.02.05.27.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Sep 2025 05:27:04 -0700 (PDT)
+Date: Tue, 2 Sep 2025 15:27:02 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Abel Vesa <abel.vesa@linaro.org>, Mahadevan <quic_mahap@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20250829-dp_mst_bindings-v7-0-2b268a43917b@oss.qualcomm.com>
- <20250829-dp_mst_bindings-v7-2-2b268a43917b@oss.qualcomm.com>
- <20250901-arboreal-gay-wolf-bcaaec@kuoka>
- <qy6c2gundpbz5ixqpt2hefzfb56wcrzcaclqwg2opof4zc7lep@dpc3nv6usurk>
- <24999a53-ea5a-4823-a84f-2ca0ca184bb4@linaro.org>
- <ysj4ndb4twcvmlxb3marh2vktxxsup5l6ioljdgzlod46uimh2@pkgta6r3ydqx>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- 2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <ysj4ndb4twcvmlxb3marh2vktxxsup5l6ioljdgzlod46uimh2@pkgta6r3ydqx>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] drm/msm: Fix bootup splat with separate_gpu_drm
+ modparam
+Message-ID: <2mhq73sckc3x7rqvllbmfk3qwla2lqqidchecogytxyramoeu5@66j7zupcni2i>
+References: <20250902-assorted-sept-1-v1-0-f3ec9baed513@oss.qualcomm.com>
+ <20250902-assorted-sept-1-v1-1-f3ec9baed513@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250902-assorted-sept-1-v1-1-f3ec9baed513@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=OemYDgTY c=1 sm=1 tr=0 ts=68b6e29a cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=OXd86HWgjIUhjzT6azQA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: m1UFLVpl7gmVpwoir4XDi511AZhG2KWG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAyNCBTYWx0ZWRfX9E6A6h8nUH+A
+ ui+93ZFYXsPMeUgfOMxz3LBnfmD5Fl9tFd5ZZYpNgKA6bFOcFg/rqum+QGjZbmIX6S5jarZk6ZA
+ bkI2RLH5RfjSdT5dxbfFWqCmKr+rcrk23NnXzHV7DqtqCLMa5xyVoDMBYIu2Aaaf7XbkfWCG3lE
+ Z8IhwfVvHXWq3EcFAHVdxw2JRccIJ2qL5yK8aHC4FpJ2OjKS23CJk1iqMiR2UqfeQH1hNNJbf/i
+ 3qlq/s7GZfVGqvKS12rgZ5jbTRYcrpWDhzw8WBmZ4PfoQNfHkstCfV9AOkEy2EqNj3Mxu1SJL6X
+ WfJWmB4MBxTPMg/Fp6RIJLXPFNcJtESqhH0cQ/PnquicWDF0GmYPSoulmeonYJUarZSg3jU/0zU
+ qXDI0Zat
+X-Proofpoint-ORIG-GUID: m1UFLVpl7gmVpwoir4XDi511AZhG2KWG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-02_04,2025-08-28_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508300024
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,103 +134,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/09/2025 12:01, Dmitry Baryshkov wrote:
-> On Tue, Sep 02, 2025 at 08:04:54AM +0200, Krzysztof Kozlowski wrote:
->> On 02/09/2025 06:03, Dmitry Baryshkov wrote:
->>> On Mon, Sep 01, 2025 at 05:45:49AM +0200, Krzysztof Kozlowski wrote:
->>>> On Fri, Aug 29, 2025 at 01:48:15AM +0300, Dmitry Baryshkov wrote:
->>>>> The SM6350 doesn't have MST support, as such it is not compatible with
->>>>> the SM8350 platform. Add new entry for SM6350 with fallback to SC7180
->>>>> (which belongs to the same generation and also doesn't have MST
->>>>> support).
->>>>>
->>>>> Fixes: 39086151593a ("dt-bindings: display: msm: dp-controller: document SM6350 compatible")
->>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>>>> ---
->>>>>  .../devicetree/bindings/display/msm/dp-controller.yaml     | 14 +++++++++++++-
->>>>>  1 file changed, 13 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>>> index aed3bafa67e3c24d2a876acd29660378b367603a..0f814aa6f51406fdbdd7386027f88dfbacb24392 100644
->>>>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>>> @@ -31,13 +31,25 @@ properties:
->>>>>            - qcom,sm8650-dp
->>>>>        - items:
->>>>>            - enum:
->>>>> -              - qcom,sar2130p-dp
->>>>>                - qcom,sm6350-dp
->>>>> +          - const: qcom,sc7180-dp
->>>>> +
->>>>> +      # deprecated entry for compatibility with old DT
->>>>> +      - items:
->>>>> +          - enum:
->>>>> +              - qcom,sm6350-dp
->>>>> +          - const: qcom,sm8350-dp
->>>>> +        deprecated: true
->>>>
->>>> If it is only about bindings then there is little benefit in keeping
->>>> this, just drop this case.  However you cannot drop it from DTS, so this
->>>> is a bit pointless.
->>>
->>> Our plan is:
->>> - land updated DT bindings, describing MST clocks on MST-enabled
->>>   platforms,
->>> - land updated DTS, adding MST clocks where applicable,
->>
->> This part breaks all out-of-tree users of DTS.
+On Tue, Sep 02, 2025 at 05:20:00PM +0530, Akhil P Oommen wrote:
+> The drm_gem_for_each_gpuvm_bo() call from lookup_vma() accesses
+> drm_gem_obj.gpuva.list, which is not initialized when the drm driver
+> does not support DRIVER_GEM_GPUVA feature. Enable it for msm_kms
+> drm driver to fix the splat seen when msm.separate_gpu_drm=1 modparam
+> is set:
 > 
-> User of which one? SM6350 or all DTS?
+> [    9.506020] Unable to handle kernel paging request at virtual address fffffffffffffff0
+> [    9.523160] Mem abort info:
+> [    9.523161]   ESR = 0x0000000096000006
+> [    9.523163]   EC = 0x25: DABT (current EL), IL = 32 bits
+> [    9.523165]   SET = 0, FnV = 0
+> [    9.523166]   EA = 0, S1PTW = 0
+> [    9.523167]   FSC = 0x06: level 2 translation fault
+> [    9.523169] Data abort info:
+> [    9.523170]   ISV = 0, ISS = 0x00000006, ISS2 = 0x00000000
+> [    9.523171]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+> [    9.523172]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+> [    9.523174] swapper pgtable: 4k pages, 48-bit VAs, pgdp=0000000ad370f000
+> [    9.523176] [fffffffffffffff0] pgd=0000000000000000, p4d=0000000ad4787403, pud=0000000ad4788403, pmd=0000000000000000
+> [    9.523184] Internal error: Oops: 0000000096000006 [#1]  SMP
+> [    9.592968] CPU: 9 UID: 0 PID: 448 Comm: (udev-worker) Not tainted 6.17.0-rc4-assorted-fix-00005-g0e9bb53a2282-dirty #3 PREEMPT
+> [    9.592970] Hardware name: Qualcomm CRD, BIOS 6.0.240718.BOOT.MXF.2.4-00515-HAMOA-1 07/18/2024
+> [    9.592971] pstate: a1400005 (NzCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+> [    9.592973] pc : lookup_vma+0x28/0xe0 [msm]
+> [    9.592996] lr : get_vma_locked+0x2c/0x128 [msm]
+> [    9.763632] sp : ffff800082dab460
+> [    9.763666] Call trace:
+> [    9.763668]  lookup_vma+0x28/0xe0 [msm] (P)
+> [    9.763688]  get_vma_locked+0x2c/0x128 [msm]
+> [    9.763706]  msm_gem_get_and_pin_iova_range+0x68/0x11c [msm]
+> [    9.763723]  msm_gem_get_and_pin_iova+0x18/0x24 [msm]
+> [    9.763740]  msm_fbdev_driver_fbdev_probe+0xd0/0x258 [msm]
+> [    9.763760]  __drm_fb_helper_initial_config_and_unlock+0x288/0x528 [drm_kms_helper]
+> [    9.763771]  drm_fb_helper_initial_config+0x44/0x54 [drm_kms_helper]
+> [    9.763779]  drm_fbdev_client_hotplug+0x84/0xd4 [drm_client_lib]
+> [    9.763782]  drm_client_register+0x58/0x9c [drm]
+> [    9.763806]  drm_fbdev_client_setup+0xe8/0xcf0 [drm_client_lib]
+> [    9.763809]  drm_client_setup+0xb4/0xd8 [drm_client_lib]
+> [    9.763811]  msm_drm_kms_post_init+0x2c/0x3c [msm]
+> [    9.763830]  msm_drm_init+0x1a8/0x22c [msm]
+> [    9.763848]  msm_drm_bind+0x30/0x3c [msm]
+> [    9.919273]  try_to_bring_up_aggregate_device+0x168/0x1d4
+> [    9.919283]  __component_add+0xa4/0x170
+> [    9.919286]  component_add+0x14/0x20
+> [    9.919288]  msm_dp_display_probe_tail+0x4c/0xac [msm]
+> [    9.919315]  msm_dp_auxbus_done_probe+0x14/0x20 [msm]
+> [    9.919335]  dp_aux_ep_probe+0x4c/0xf0 [drm_dp_aux_bus]
+> [    9.919341]  really_probe+0xbc/0x298
+> [    9.919345]  __driver_probe_device+0x78/0x12c
+> [    9.919348]  driver_probe_device+0x40/0x160
+> [    9.919350]  __driver_attach+0x94/0x19c
+> [    9.919353]  bus_for_each_dev+0x74/0xd4
+> [    9.919355]  driver_attach+0x24/0x30
+> [    9.919358]  bus_add_driver+0xe4/0x208
+> [    9.919360]  driver_register+0x60/0x128
+> [    9.919363]  __dp_aux_dp_driver_register+0x24/0x30 [drm_dp_aux_bus]
+> [    9.919365]  atana33xc20_init+0x20/0x1000 [panel_samsung_atna33xc20]
+> [    9.919370]  do_one_initcall+0x6c/0x1b0
+> [    9.919374]  do_init_module+0x58/0x234
+> [    9.919377]  load_module+0x19cc/0x1bd4
+> [    9.919380]  init_module_from_file+0x84/0xc4
+> [    9.919382]  __arm64_sys_finit_module+0x1b8/0x2cc
+> [    9.919384]  invoke_syscall+0x48/0x110
+> [    9.919389]  el0_svc_common.constprop.0+0xc8/0xe8
+> [    9.919393]  do_el0_svc+0x20/0x2c
+> [    9.919396]  el0_svc+0x34/0xf0
+> [    9.919401]  el0t_64_sync_handler+0xa0/0xe4
+> [    9.919403]  el0t_64_sync+0x198/0x19c
+> [    9.919407] Code: eb0000bf 54000480 d100a003 aa0303e2 (f8418c44)
+> [    9.919410] ---[ end trace 0000000000000000 ]---
 
-SM6350.
+Nit: usually you can drop timestamps from the kernel log.
 
 > 
-> It extends the ABI, so no, it shouldn't. We add regions and clocks,
-
-No, it does not extend the ABI. You are changing the fallback, so you
-are changing the ABI.
-
-
-> existing users can use the previously defined feature set.
+> Fixes: 217ed15bd399 ("drm/msm: enable separate binding of GPU and display devices")
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/msm_drv.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> Anyway, is it about adding more explicit note to the cover letter and/or
-> commit message or would you have any other proposal on how to handle the
-> issue?
 
-Please be explicit if Linux was working with the old fallback or not. In
-the DTS change be explicit about impact, e.g. that sc7180 fallback is
-there since forever.
-
-> 
->>
->>> - land driver changes, keeping legacy support for non-MST DTs on
->>>   MST-enabled SoCs
->>>
->>>>
->>>> Lack of MST support is not informative enough to claim it is not
->>>> compatible with 8350. For example if it was working fine via fallback,
->>>> then that statement is simply not correct.
->>>>
->>>> And it HAD to work fine, because there is nothing binding to
->>>> qcom,sm6350-dp.
->>>
->>> It is working fine since currently we don't have MST support on the
->>> driver side (nor do we describe MST clocks in DT). It's true that the
->>> driver will have to handle non-MST DT for SM8350. However I definitely
->>> don't want to describe both cases in the bindings. SM6350 is not going
->>> to be compatible with the MST-enabled SM8350 schema.
->>
->> The question is rather: is SM6350 going to be compatible (working) with
->> MST-enabled drivers.
-> 
-> If somebody implements e.g. U-Boot DP MST support after we land DP MST
-> bindings, I would not guarantee that. SM8350 will already have second
-> stream clock.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
-Having second stream clock does not mean device stops working with Linux
-kernel. I can easily imagine both cases after adding MST to the drivers,
-the SM6350 stops working or keeps working...
-
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
