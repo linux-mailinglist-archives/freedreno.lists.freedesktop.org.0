@@ -2,139 +2,142 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB745B41118
-	for <lists+freedreno@lfdr.de>; Wed,  3 Sep 2025 02:03:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D41CDB4162C
+	for <lists+freedreno@lfdr.de>; Wed,  3 Sep 2025 09:20:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DD1110E040;
-	Wed,  3 Sep 2025 00:03:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74C1110E1F8;
+	Wed,  3 Sep 2025 07:20:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="L/8geawS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="N+J36IrV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0EAA10E855
- for <freedreno@lists.freedesktop.org>; Wed,  3 Sep 2025 00:03:49 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 582EqKbX024133
- for <freedreno@lists.freedesktop.org>; Wed, 3 Sep 2025 00:03:49 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7530710E0EE
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Sep 2025 07:20:17 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5832cX5p012210
+ for <freedreno@lists.freedesktop.org>; Wed, 3 Sep 2025 07:20:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=ELwTy4rK8lnamkj6o0BDI8Zg
- I9xpMe8TBXkmXU6Ff4Y=; b=L/8geawSjS+VL1ZqTEgE8/z4TydMsfUSymwbusYa
- x5yqL9GceOJwG0ZxmmdLBQzB1mvsQ1HfQlUPkbvRxtEXxTmpt6RWQx/ce9nwXC1R
- eZ8dJFL5So11f0KIlnvTxYQBM01hgSFNUYwDT8rJbk+Z5ey21Zpph7dh7tB7RcX7
- KRaJSiHcstOdbbK1nJf1nFONIF4vwWckmJZ3STK2IYc+fJdXBeBq6L+oyZmfu6Xj
- jEa6R4LtlgHaEJcSDDMkTtB62xEwGgPLZqFCu7+OwMR/G4ZYHoy/YAKVIdznpTMW
- btHrcrdtCaIvwsv3H8DEeqta8NH51Q9gKWb/2qkUNHii5Q==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48ush31fr0-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=2JoLFn5sP4ZLLO5SjGpvmt
+ sl7bGVvId7x0Y1lR5LUNY=; b=N+J36IrVFKzU/FNiGjYeNS4nZgyrAAgd6Ru6RR
+ CxtKRKWGOk898kEB/GFhgzx1NssteKCliuUJ3kWWekQ2DbjUu3RJ+Q4WAIZRjmVk
+ dRTEmh8VpC+4/8kH1Da1beCI0ZVs4jiJ9ok1GznVeaJi969pLBDgNnyYkrT8Db54
+ 5pel4QkC8d93b6ZWFRLDxMWA09788tGUwmvSg5wL9RK8ExBv32xZAk4Oz6D5/wZI
+ QOOpf3a1hwnL0qspsPRxnE40G5GPxX7m8FU4al339t6QzVhRnncYJPegIJIK2eHU
+ /qslFTt+qaAsFQFH0iWcARhBYNFD7aQpYOwg6zGBYAzrz77A==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48ut2fjfww-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 03 Sep 2025 00:03:48 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-70deedd1deaso101644386d6.0
- for <freedreno@lists.freedesktop.org>; Tue, 02 Sep 2025 17:03:48 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Sep 2025 07:20:16 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b4e1675ba95so618555a12.1
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Sep 2025 00:20:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756857827; x=1757462627;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ELwTy4rK8lnamkj6o0BDI8ZgI9xpMe8TBXkmXU6Ff4Y=;
- b=rXnO51PwPT33KBhy0b6oHkROBMz9CbNaASdtREpGcl7gG5YPrC/v9gnRkTtwj/R8aE
- ShZKjskrZtS7PDzsQNXV9ogm5PCWopJb5OLqYSQG9aLIHZ+wVOKk6iBQIVQ6nwU3x5Ld
- 7UOYsj48/svUYNXWHDKW/sls8OA24j4h0TTX+BUrbqjFqih7DzEQXHxAbtBbtvx3Xv2H
- awU+1xiX4E6EGI1DTAYHFYuiQEAfZNCXbnsGwPfUslXh65povbANKVomNZkapoElKWJu
- bk2gGs8u6UjBnVZbyU6GV1HX+glR4FrI0kRB608izYdCC+wE/eTjRBhmHzm70wMbeXDB
- LZIw==
+ d=1e100.net; s=20230601; t=1756884010; x=1757488810;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2JoLFn5sP4ZLLO5SjGpvmtsl7bGVvId7x0Y1lR5LUNY=;
+ b=hTyg77/8fnS8Mwbwnqy1d7OjViH39JuNH6V72MYKh3vosu9hSgxjLRGtds6V7KUnmp
+ apf0sJulLChwV+oTy1Ui67BBnjHK6v35hlVM6/O0ClbJX88SbE1qIcCsHMfiFMKxXZN7
+ 4X7uBnkEb2k8DdJydSr5I++6n6IA823tlj6mVui5dqqn79hi/L8aCecGF0Beb9ALUXNG
+ kWk7W6yOaP9eyqB/sQP8I/RdNfTAJJzaUA8EL1cFCuyAz/FClGDGHtFPQPW3cXrWWst7
+ NAiO/ScTVr/ZZcQsn2gFcgFZh9yx3GHSMRg0Vu4H+rzkxv79cK3mxFeRUk1CAxxlukL9
+ WK/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWcoaXCJW+egFoNVaxyTfka/8mO8Lj6s3iLjc9I2Ds21Kn2tLgYN1Fu22BDZoxt3uonlRx0sC4CzYw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhSaVTuBzd4AWzFnsQskDc3a2uxsDaKoO0F2Vx0tXC68DEoi1D
- 1UDNwXpBB4wp5nFQAB3iT/kXI85NcEPVy7WNAttLQVPNgdRXpP00Su/vseA6MDIY5fI4K1Xdrj3
- 2Cd7cHf68QkJICAzQY1iPkAa4zHiAnfAv4S4BvJsKkoX30e/9QymyQCDu34l/lBwBaIzectA=
-X-Gm-Gg: ASbGncuYaH35VWMuamf54/rDwYYACs2rk3qeF5tUqo1RnV31UOmVkoHBCs31OPN44rX
- W2X7brYj/T8JLnncF9Xfzo5M4I+M1jDAkturwnGWCw61n28Pl/TlsbDiAhqICkeaQgJ/J0gvxeq
- /UOMcdHWdTtogTbznn3M9rp8HL1lYQmEZXiqVj7jpS0PDwFPCnbWkuA07y+SnaeRhjVjkRp47Hq
- pUgfqKQnRq2KRMJsxX4lu/6YZoY7q1rtSOw7V+k3SUQCovshj3k7KxmcFCfE49YnttQaNRL+b6Y
- I7+dqUDLWdkCUFUm3ZZrKSV+ogu+PvWZvg6YxaZbCklGbD26bh0D2BM0mpuZSDyjLOGnKu4oAVb
- ofHD+n+4mviRyOwTTkSiS/6LgMDEMkNFWNq+W08j3OeR12M1qlpls
-X-Received: by 2002:ad4:5f87:0:b0:707:5b4e:587e with SMTP id
- 6a1803df08f44-70fac7806ccmr199294866d6.25.1756857827381; 
- Tue, 02 Sep 2025 17:03:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFMuG9yw8tt7JLfmbhrVrt89A0reycbHukEsCqIK+5fK6gS8LGclRbsEL6lCQ/NbdLcAxNQCQ==
-X-Received: by 2002:ad4:5f87:0:b0:707:5b4e:587e with SMTP id
- 6a1803df08f44-70fac7806ccmr199293896d6.25.1756857826617; 
- Tue, 02 Sep 2025 17:03:46 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCX3nx1V6w8n0QBQU71QCeAUOsbq9UTw4ye/kTU5m5/R0qwQJpa292dXyNHo2HXdpWbd0k+RBOwp09U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy5iW5u+vA3qTgDeCyH4DW2yIUAGJxOqJ/Hia5MLP7xz0NQoYDU
+ wHtZm17IxuPl99XB3Qbkd8l6l7zFh/VFH/NUQ0AsMf89xFmNl7BmQOfacBy0SMlLap5H+O9l4cT
+ glq75LlYxKsnm+Ecvo9t9vIIPR64xrtwpCV33L9ty0RM+V+vpb//imkWTKjvxmHJvy6Yso8w=
+X-Gm-Gg: ASbGnctccTBKpGVm4PIbaDtKcglMwalrhq2fGPr4SqroajbfPHacE/IbYLtxnYujs6t
+ 4tZ7WBsk/2AvkD6xyfwWX9FM0gJVjwbYxiGReAjYa/ukmBopasZbNNeloOzD7rh3vGhYwtNCekN
+ mTeb2M8iiGrhIYixVr/3HzhdqK01SWxmL+QoUAcdSWsmvDXpcOG405fkEYwXRGLSygITuJ/bJnI
+ pZ4cRc5Jrk/aRNsYjq10H0uDUoPPw0lcw0F3TVoqkKV5g+JsZyR+gncvfgUsMDxHMoDsFv7EbcQ
+ ethRFi53CLVDz/ujZiEFpyhD9tzdUHarCHNXcO9tLsAVvjbFlB0tGMxxQziuBkU/
+X-Received: by 2002:a05:6a20:938c:b0:246:5be:ca90 with SMTP id
+ adf61e73a8af0-24605becdb2mr3661974637.10.1756884010454; 
+ Wed, 03 Sep 2025 00:20:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE1UGA8r0cWsBWyAEbAPAOFFKu4QhQwB/Mj3xz8LLJJb2d9gBhwrpWd+rEMCxpJXlx3TTV7UQ==
+X-Received: by 2002:a05:6a20:938c:b0:246:5be:ca90 with SMTP id
+ adf61e73a8af0-24605becdb2mr3661943637.10.1756884009888; 
+ Wed, 03 Sep 2025 00:20:09 -0700 (PDT)
+Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5608acfc24fsm117321e87.104.2025.09.02.17.03.45
+ d2e1a72fcca58-7722a2b78d7sm15816191b3a.30.2025.09.03.00.20.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Sep 2025 17:03:45 -0700 (PDT)
-Date: Wed, 3 Sep 2025 03:03:43 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Daniel Stone <daniel@fooishbar.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Liu Ying <victor.liu@nxp.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per
- driver capabilities
-Message-ID: <pe6g2fanw65p67kfy5blbtiytngxmr6nkbazymojs4a66yvpl3@7j4ccnsvc6az>
-References: <20250830-drm-limit-infoframes-v3-0-32fcbec4634e@oss.qualcomm.com>
- <CAPj87rNDtfEYV88Ue0bFXJwQop-zy++Ty7uQ9XfrQ2TbAijeRg@mail.gmail.com>
- <57ekub6uba7iee34sviadareqxv234zbmkr7avqofxes4mqnru@vgkppexnj6cb>
- <20250901-voracious-classy-hedgehog-ee28ef@houat>
- <voknqdv3zte2jzue5yxmysdiixxkogvpblvrccp5gu55x5ycca@srrcscly4ch4>
- <st6wob5hden6ypxt2emzokfhl3ezpbuypv2kdtf5zdrdhlyjfw@l2neflb4uupo>
+ Wed, 03 Sep 2025 00:20:09 -0700 (PDT)
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: [PATCH v5 0/5] Support for Adreno 623 GPU
+Date: Wed, 03 Sep 2025 12:49:51 +0530
+Message-Id: <20250903-a623-gpu-support-v5-0-5398585e2981@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <st6wob5hden6ypxt2emzokfhl3ezpbuypv2kdtf5zdrdhlyjfw@l2neflb4uupo>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMiBTYWx0ZWRfX48MmdDSE6ixe
- 19M2JZsZdfQO+LNBAwotQ+tofLv/Hj42QeVb/Obgr+J4Zbx8zWQP2XtTP42i4SvZfkaEtcw2P9M
- XBP1MPvqGs0G2yE+lc2gt5KwvkCq5dCB10HoTslcGJ8Wr9BdRvVBesvSvnolyqR/QIv8JlpfRY6
- 0oN1YdjNNk5n9I/T447gUpAvi44/jINtU2a5oOFoHZCxQuaRMYEHkJVh3UdU1Py26JMKW/znpII
- x5VabzMLSy1ODMakxWoN7cnaPR4G2QGRzN8Y9ZQi7lL19UVgGWyoLlRQFehHlhIoDtgzOpj6wPw
- F/5FBXFMDsqIu5UC+d3zUXPa/bd0cEMRpG9t4MT6sAEFMY6Aiy1B11xqFw2ZxTmdu3kv6EYSNJ6
- Uzpao+Ux
-X-Proofpoint-ORIG-GUID: q5We5lMZUq4I8KwhaW-2VN2QS1YtAK3h
-X-Proofpoint-GUID: q5We5lMZUq4I8KwhaW-2VN2QS1YtAK3h
-X-Authority-Analysis: v=2.4 cv=M9NNKzws c=1 sm=1 tr=0 ts=68b785e4 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=5Tw3xx-O0H7r42Rls10A:9
- a=CjuIK1q_8ugA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABjst2gC/3XP207EIBAG4FdpuJYNMMCWxhjfwxhDgXaJ9iC0j
+ WbTd5eyF9ZsvWPIzPfPXFF0wbuIquKKglt89EOfCvFQIHPRfeuwt6lGjDBBGAWsJQPcjjOO8zg
+ OYcKNlKqUBJq6FCiNjcE1/iuTL6+3OrjPOcnT7RPVOjpshq7zU1Us8kTPOBjYZjsXo86ZVfGYI
+ 0vGCGdAty7JqABMccLMW/s+XD788/b2vTkl7gltcRcfpyF854MWmvP+332hmGClwEhhQDWW7b3
+ MLWxHsPKAYInQTkvBnTHUwj0Bv0Q66ICARICpgZ6Vspy7e4LvCXVA8ERYbjXlkqQW+pdY1/UHI
+ DzEf+oBAAA=
+X-Change-ID: 20250213-a623-gpu-support-f6698603fb85
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Gaurav Kohli <quic_gkohli@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Jie Zhang <quic_jiezh@quicinc.com>,
+ Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1756884002; l=2608;
+ i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
+ bh=iEHHNOUp5Zf9Seli7wZfoQELliaGPiDXzU/94llyCSk=;
+ b=D0JWR6w+bg4ZVSlHnoj/IzLyKrc0jTOe9GyPVcMLL8tw94rswzmMkSbALYa9b5Tj3z5ADZg6H
+ TNU9SKJAV4CBarOQJNW0/WI0wUmCkHbNmH2JLNRpWTEmVIV3wwzu2yg
+X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzOCBTYWx0ZWRfXymb2a27OVhEA
+ nzePe7M/Tz2VWFTu3vYDcvQ+ZE6fibXu0wpRDUrMJ1ALlauiT4Q9Tulhhx+NECMGYBomF0FgWek
+ CSx6xo7ZssWNhOSWfdheJjtucYyq49mMpPUg1SjxqDMV3asHYxH6jwZtnt1jtBw35twD84DHkub
+ SRuidq6mSGTk3emYj/Ll9zwDWPBRdDRvmJIBUXWdGeQEklOBHaoINEvQQLYUpr9wiL0scfeqm3D
+ 0APywy5tDI6HkeofqJvJ3fUr+ziBt8XlAlvkTPNT5E+/Z9M5Uqgw+4eiGy/fO1IHE+4XgWGRk3w
+ UrwIrDXc4NQursZbMCk90GBGk1uTXdj2eGIfT02P+9z0hqjV2BMA3ixHQCrNDKcNj3r+k5kcwie
+ L+S+kPXf
+X-Proofpoint-ORIG-GUID: h-kR37L6a5RTbvnCXaqRQIk4vZavg6q6
+X-Proofpoint-GUID: h-kR37L6a5RTbvnCXaqRQIk4vZavg6q6
+X-Authority-Analysis: v=2.4 cv=U7iSDfru c=1 sm=1 tr=0 ts=68b7ec30 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=xbU8ZoTWYswB9xRdz4sA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22 a=TjNXssC_j7lpFel5tvFf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-02_09,2025-08-28_01,2025-03-28_01
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-03_04,2025-08-28_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 suspectscore=0 phishscore=0 bulkscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508300032
+ spamscore=0 phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ malwarescore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508300038
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,115 +153,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 02, 2025 at 08:06:54PM +0200, Maxime Ripard wrote:
-> On Tue, Sep 02, 2025 at 06:45:44AM +0300, Dmitry Baryshkov wrote:
-> > On Mon, Sep 01, 2025 at 09:07:02AM +0200, Maxime Ripard wrote:
-> > > On Sun, Aug 31, 2025 at 01:29:13AM +0300, Dmitry Baryshkov wrote:
-> > > > On Sat, Aug 30, 2025 at 09:30:01AM +0200, Daniel Stone wrote:
-> > > > > Hi Dmitry,
-> > > > > 
-> > > > > On Sat, 30 Aug 2025 at 02:23, Dmitry Baryshkov
-> > > > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > > > > > It's not uncommon for the particular device to support only a subset of
-> > > > > > HDMI InfoFrames. It's not a big problem for the kernel, since we adopted
-> > > > > > a model of ignoring the unsupported Infoframes, but it's a bigger
-> > > > > > problem for the userspace: we end up having files in debugfs which do
-> > > > > > mot match what is being sent on the wire.
-> > > > > >
-> > > > > > Sort that out, making sure that all interfaces are consistent.
-> > > > > 
-> > > > > Thanks for the series, it's a really good cleanup.
-> > > > > 
-> > > > > I know that dw-hdmi-qp can support _any_ infoframe, by manually
-> > > > > packing it into the two GHDMI banks. So the supported set there is
-> > > > > 'all of the currently well-known ones, plus any two others, but only
-> > > > > two and not more'. I wonder if that has any effect on the interface
-> > > > > you were thinking about for userspace?
-> > > > 
-> > > > I was mostly concerned with the existing debugfs interface (as it is
-> > > > also used e.g. for edid-decode, etc).
-> > > > 
-> > > > It seems "everything + 2 spare" is more or less common (ADV7511, MSM
-> > > > HDMI also have those. I don't have at hand the proper datasheet for
-> > > > LT9611 (non-UXC one), but I think its InfoFrames are also more or less
-> > > > generic).  Maybe we should change debugfs integration to register the
-> > > > file when the frame is being enabled and removing it when it gets unset.
-> > > 
-> > > But, like, for what benefit?
-> > > 
-> > > It's a debugfs interface for userspace to consume. The current setup
-> > > works fine with edid-decode already. Why should we complicate the design
-> > > that much and create fun races like "I'm running edid-decode in parallel
-> > > to a modeset that would remove the file I just opened, what is the file
-> > > now?".
-> > 
-> > Aren't we trading that with the 'I'm running edid-decode in paralle with
-> > to a modeset and the file suddenly becomes empty'?
-> 
-> In that case, you know what the file is going to be: empty. And you went
-> from a racy, straightforward, design to a racy, complicated, design.
-> 
-> It was my question before, but I still don't really see what benefits it
-> would have, and why we need to care about it in the core, when it could
-> be dealt with in the drivers just fine on a case by case basis.
+This series adds support for A623 GPU found in QCS8300 (internal codename - Monaco)
+chipsets. This GPU IP is very similar to A621 GPU, except for the UBWC configuration
+and the GMU firmware.
 
-Actually it can not: debugfs files are registered from the core, not
-from the drivers. That's why I needed all the supported_infoframes
-(which later became software_infoframes).
+Since the last revision, there is a new board support (monaco-evk) in the mailing
+list. But I am skipping support for it in this series due to the heavy code churn
+happening in that file at the moment. For Bjorn's convenience, I will share a
+separate DT patch for gpu support for that board later.
 
-Anyway, I'm fine with having empty files there.
+First 2 patches are for Rob Clark and the rest are for Bjorn to pick up.
 
-> > > > Then in the long run we can add 'slots' and allocate some of the frames
-> > > > to the slots. E.g. ADV7511 would get 'software AVI', 'software SPD',
-> > > > 'auto AUDIO' + 2 generic slots (and MPEG InfoFrame which can probably be
-> > > > salvaged as another generic one)). MSM HDMI would get 'software AVI',
-> > > > 'software AUDIO' + 2 generic slots (+MPEG + obsucre HDMI which I don't
-> > > > want to use). Then the framework might be able to prioritize whether to
-> > > > use generic slots for important data (as DRM HDR, HDMI) or less important
-> > > > (SPD).
-> > > 
-> > > Why is it something for the framework to deal with? If you want to have
-> > > extra infoframes in there, just go ahead and create additional debugfs
-> > > files in your driver.
-> > > 
-> > > If you want to have the slot mechanism, check in your atomic_check that
-> > > only $NUM_SLOT at most infoframes are set.
-> > 
-> > The driver can only decide that 'we have VSI, SPD and DRM InfoFrames
-> > which is -ETOOMUCH for 2 generic slots'. The framework should be able to
-> > decide 'the device has 2 generic slots, we have HDR data, use VSI and
-> > DRM InfoFrames and disable SPD for now'.
-> 
-> I mean... the spec does? The spec says when a particular feature
-> requires to send a particular infoframe. If your device cannot support
-> to have more than two "features" enabled at the same time, so be it. It
-> something that should be checked in that driver atomic_check.
+---
+Changes in v5:
+- Rebased on top of v6.17-rc3
+- Added new patches for SKU detection and passive cooling support for GPU
+- Link to v4: https://lore.kernel.org/r/20250509-a623-gpu-support-v4-0-d4da14600501@quicinc.com
 
-Sounds good to me. Let's have those checks in the drivers until we
-actually have seveal drivers performing generic frame allocation.
+Changes in v4:
+- Correct the commit text for the new patch#1 added in v3 and drop the
+incorrect R-b tag
+- Link to v3: https://lore.kernel.org/r/20250508-a623-gpu-support-v3-0-3cb31799d44e@quicinc.com
 
-> Or just don't register the SPD debugfs file, ignore it, put a comment
-> there, and we're done too.
+Changes in v3:
+- Rebased on top of v6.15-rc5
+- Dropped drm-msm patches since they are merged in v6.15
+- Correct GMU opp table in dt (Konrad)
+- Remove smmu_clk from gmu clock list (Konrad)
+- Update dt-bindings yaml with a new patch#1
+- Link to v2: https://lore.kernel.org/r/20250228-a623-gpu-support-v2-0-aea654ecc1d3@quicinc.com
 
-It's generic code.
+Changes in v2:
+- Fix hwcg config (Konrad)
+- Split gpucc reg list patch (Rob)
+- Rebase on msm-next tip
+- Link to v1: https://lore.kernel.org/r/20250213-a623-gpu-support-v1-0-993c65c39fd2@quicinc.com
 
-> > But... We are not there yet and I don't have clear usecase (we support
-> > HDR neither on ADV7511 nor on MSM HDMI, after carefully reading the
-> > guide I realised that ADV7511 has normal audio infoframes). Maybe I
-> > should drop all the 'auto' features, simplifying this series and land
-> > [1] for LT9611UXC as I wanted origianlly.
-> > 
-> > [1] https://lore.kernel.org/dri-devel/20250803-lt9611uxc-hdmi-v1-2-cb9ce1793acf@oss.qualcomm.com/
-> 
-> Looking back at that series, I think it still has value to rely on the
-> HDMI infrastructure at the very least for the atomic_check sanitization.
-> 
-> But since you wouldn't use the generated infoframes, just skip the
-> debugfs files registration. You're not lying to userspace anymore, and
-> you get the benefits of the HDMI framework.
+---
+Akhil P Oommen (1):
+      drm/msm/adreno: Add speedbin data for A623 GPU
 
-We create all infoframe files for all HDMI connectors.
+Gaurav Kohli (1):
+      arm64: dts: qcom: qcs8300: Add GPU cooling
 
+Jie Zhang (3):
+      dt-bindings: display/msm/gmu: Update Adreno 623 bindings
+      arm64: dts: qcom: qcs8300: Add gpu and gmu nodes
+      arm64: dts: qcom: qcs8300-ride: Enable Adreno 623 GPU
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |  34 ++++++
+ arch/arm64/boot/dts/qcom/qcs8300-ride.dts          |   8 ++
+ arch/arm64/boot/dts/qcom/qcs8300.dtsi              | 132 ++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |   5 +
+ 4 files changed, 178 insertions(+), 1 deletion(-)
+---
+base-commit: 89d926fa53d0a6c257c4e8ac1c00c3d9a194ef31
+change-id: 20250213-a623-gpu-support-f6698603fb85
+prerequisite-message-id: <20250822042316.1762153-1-quic_gkohli@quicinc.com>
+prerequisite-patch-id: d7777838f03a79704af190f43063f99334e58e53
+prerequisite-patch-id: e3228ae5f83ed408ee59404be165498bc6a3e183
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Akhil P Oommen <akhilpo@oss.qualcomm.com>
+
