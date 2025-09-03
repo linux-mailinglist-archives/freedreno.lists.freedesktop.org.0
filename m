@@ -2,125 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0771B41A2F
-	for <lists+freedreno@lfdr.de>; Wed,  3 Sep 2025 11:36:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02FC8B41A3E
+	for <lists+freedreno@lfdr.de>; Wed,  3 Sep 2025 11:39:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD95610E124;
-	Wed,  3 Sep 2025 09:36:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E56C10E679;
+	Wed,  3 Sep 2025 09:39:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UsQoZwdU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cJTt2uvl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2450410E124
- for <freedreno@lists.freedesktop.org>; Wed,  3 Sep 2025 09:36:03 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5832JLd3024133
- for <freedreno@lists.freedesktop.org>; Wed, 3 Sep 2025 09:36:02 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 247A710E128
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Sep 2025 09:39:48 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58329TwO019572
+ for <freedreno@lists.freedesktop.org>; Wed, 3 Sep 2025 09:39:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=vSerlDJpxvfSadnBQ8QnDpTg
- YM6Q1KNBUaEKDfGqWbs=; b=UsQoZwdUapKoi6LnOo0SvJ8QMQCSFB4ulL1jZemo
- tP37+zgMx8Qeu8cV8rZvtJHoao4gHv+iZkAkGPF4XoSq+zTsG58FAkH31LnWC/Jx
- cmEtdiaPd78FUUhKDe0zjT9Wu8lE6f+AYIVMvge5i04FSJUqNMu+ptgfaD925loV
- RoWPad3TPZewXw4RHTjDdnAtVlv22ltQIYBYGgfrWhvUVPQy272YqsXIvnNHGrVL
- p3utT1gxYNBL+fEKtH4jJbZtNO9y0zYb0zyCWIe3lzV6MhGtd1+Ilxb/5FW6uQ+c
- FpYQabteem1iWJAxECYcd4IzYNxycDC5UK88myah5tFJ+A==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48ush32wxk-1
+ :references:subject:to; s=qcppdkim1; bh=PnA1zrsRSyNw0gMpmXgq+WAu
+ GqVrfq31mjMEHuIgNIs=; b=cJTt2uvlRhcLEXPM50l2Nn1iHr+jDECvtViTFnZf
+ UGu+lRvLDRrZWQoQI9v/YU3qR0UtoofPamSPNvmZq7hrUqAPunqKTQSzrMaJzfW0
+ PlQ5lMQdE9XAmVrgfXZCtqFker+/f7kGTYOBeK8kx+DJhbuL3XKYxKbWdleTdCtP
+ vbYK+SyOklxkLHFpMi/OZ126Apr6olaG9MrZIJKWDaF+d0TK0Kt3G2zHZskOXHpu
+ rVN2LbjTGH++paxBTKcuDOiW0TYHaXtlZfW63T7F7oRBdRZ/08t4CStSOwM4MeEq
+ m0glasTpCw+2/MPZtFWellcbpHmLxakH9BUpNyMSaLfwpA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48urw03432-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 03 Sep 2025 09:36:02 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-70dfd87a763so71253566d6.2
- for <freedreno@lists.freedesktop.org>; Wed, 03 Sep 2025 02:36:02 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Sep 2025 09:39:47 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4b302991816so105486601cf.0
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Sep 2025 02:39:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756892161; x=1757496961;
+ d=1e100.net; s=20230601; t=1756892386; x=1757497186;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vSerlDJpxvfSadnBQ8QnDpTgYM6Q1KNBUaEKDfGqWbs=;
- b=m3TmUB4+QbiVdcspRIg2B3e5u36SAbFe/zmsGxvGfv7wXzyIrIMvaFaT5trJfvi/Oi
- TuhITgZ3OKYuGcfhq+Dfal3M3zXzO/qLLuVVhiYQisVbUrVerrV/WQzP3LWHrmVOzV4K
- lg1kcUSHeO5CP6aXYFVky4i2rUzolG27jywuaR4IeYqCvIQ1Zdi6TrT5pz+nbxdeZn2h
- 416oNr5CC7d4PhaJhvaI7n6TvHE2phA05frBdYZPmkjdlBpROHq8GaiUQweWzEjvzZt3
- hcFSoYOd1YrJ8IS7HeQ4LsBRa6fpk/HE+aOhz20xJ2rZT3yLe18R1Unz9MfCoMDFVg64
- yqKg==
+ bh=PnA1zrsRSyNw0gMpmXgq+WAuGqVrfq31mjMEHuIgNIs=;
+ b=ktJnA4TSx2G1YKKgbALvVOtCLto+p5g3qz0wBpJ8X7gqJb7PuoB9+69uQ/0eQJTqI+
+ 4Mma6sOucEDTt6jX9trFGFO1BNktFM+5rMGdR9TXoKwVh74kA5iiaLoDDRd1z5STalGe
+ O90cLSJleZxNFxu+QK5EpajFtSMQZJRjruznROAqF9QGHLIvSKHbD8Z+swcukZEMrj1X
+ 2u8x95NmB3tr9S8zxyGIQTMQ92f0y9DBt9xSApU71iPGmlnzvphujOVyC7w97XE+mZRG
+ AZ2j03ijLD4BQBIuTo7WLc8tNVKKwd1OVlWlVeOqztTtw+Ykweoae2GCaFXPbjBOwhHS
+ o6DA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWlTNOFYhp+ptZkh3TsIS0/hwAQCxOF/zz312iJEXdFhwl45QRb9LaU3KtkKECaAlVCacvMeiTi7dA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOI3LW/Gq+gBu+Vo2IYMgrA4ouhAsU6L81TGFmOf97yPIviZK4
- slq6WEV80Cai8l0ks9ye7rpDHazqDntjvWWb63FdXBu4CRDXZqeJHojTv/6jJgmL9B/kmMjIye7
- N+vWOyk+nOs279HbnDbCvn97CZ7xRDtOcR+YBZwHKzIs5YGRXAluTqKKPvEAjdPMecbfhdGM=
-X-Gm-Gg: ASbGnctJkmLuEtdq9ZhsRfdmfRlBlT3kpJtPa5J9zrtXw8o3msb7QaTVFp+p6g8IFtm
- sRvg4vxHlnSyxM+2N4h2YlO/JWSDJKhXnEqQ6LOIaFWMflGF9qGiX0PesPmIrQQBh76CSx0X5yA
- nRnEDfFa0RLbqBxmgK/wgGBdjVLh0z1Nb48r0IW52qlRxBe9GNenq0PArhjLbyWmtV0HsGrcXaV
- ILi9ZPh+wr7GAyHJkhZJ9FQ98Tx1F2tN1i9KS1yTRSDs7ioHWhvOFhI+/9XYUN8tpsLDfx6eLjB
- NrNxnUwwut4V7ys0nTN1QTtpaS760h8uLfhOvTC17zUEaA2EwhT1pusbbmG7a7TOKwqrQ9LGwBy
- vhKuQeTmLf+CxDtcKirnGpuPJW5xQXJLHbhiNbsO+sv3KRBRh3aYZ
-X-Received: by 2002:a05:6214:1d29:b0:71a:5b14:3caf with SMTP id
- 6a1803df08f44-71a5b143f14mr94106796d6.42.1756892161134; 
- Wed, 03 Sep 2025 02:36:01 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEqgDTlX6V0CHb7DNRDOoeNqxg6UWnd6OmRx0Se3MK3/xtEY2lCzdiwyL/yLPFBz7pz69sN1g==
-X-Received: by 2002:a05:6214:1d29:b0:71a:5b14:3caf with SMTP id
- 6a1803df08f44-71a5b143f14mr94106496d6.42.1756892160620; 
- Wed, 03 Sep 2025 02:36:00 -0700 (PDT)
+ AJvYcCW8cNovABqi7GsTTmpGpzIqZ7I04XyXQlYDN8mDWZbArSaNiYQmNwHhTheqBlMRujrRB+N/Bv4q01o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTFdHc/XsvTGFfAAenNjPosSoDOh0DEGU6J/I6Gpm/85SpnDg6
+ N1BVXWjXqFxRx5wgPR0VjOUTtmzrH74MA7yzBmjqJiySwlBJUagfEhyAbcOYUb80pxG5RdINHjG
+ YSdZ2f2uSmXTijECcZfcohSW+NoprWZlCA3gSVcXXKL8Epf4y9+2xkJu0MbrSX4KvKNJoqr8=
+X-Gm-Gg: ASbGnctMdOFcMRyL4MVVb9rc8Yu9L6Dmn3FaisBKOuu/l6VHo8HZN7iI1XHXpEoyDgK
+ rqgti9LE2MBssVPPKv2ZI4yBjTl70U11Bmkt82LbIxI9tKbn8rmaHWDFQmP4Mn77NTExTdxsEeX
+ biM0vgDfPqc9jRM3MoScmMaueBA3gRBjNXCvtujEhLFNLPOZCG/cOmQx7PDBjFTGXd33JxOzkkC
+ ZggVb/52BOiXRUpALzLftYFESZPuqwd8zFDVnTnnOy7/qcXw12N1up1Wn1vxRNMXiQ73gsmmNGm
+ DSQRELe56aCG54Qj+GGXP8APjU2vUDUvf91jNFixdEnHcNM8HcRj4azgGuGfTBg3bSKw0lX3Dgh
+ aNt+Np7D4A35i3rTJ4IAxgmvFDh4uPUn1ETXSjKri9SacR+siP+Ed
+X-Received: by 2002:ac8:5d87:0:b0:4a9:c2e1:89c4 with SMTP id
+ d75a77b69052e-4b31da3d038mr175175311cf.47.1756892386457; 
+ Wed, 03 Sep 2025 02:39:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE8btfB/NeOOnX7chjqs01CjROAGySEXXXx2uoY7nlmZ3PqyzGxeauLl8pu/1CkaS6/4jaPqA==
+X-Received: by 2002:ac8:5d87:0:b0:4a9:c2e1:89c4 with SMTP id
+ d75a77b69052e-4b31da3d038mr175175011cf.47.1756892385878; 
+ Wed, 03 Sep 2025 02:39:45 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-337f4c503d7sm9027131fa.11.2025.09.03.02.35.59
+ 2adb3069b0e04-5608ad5027esm397058e87.149.2025.09.03.02.39.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Sep 2025 02:35:59 -0700 (PDT)
-Date: Wed, 3 Sep 2025 12:35:57 +0300
+ Wed, 03 Sep 2025 02:39:45 -0700 (PDT)
+Date: Wed, 3 Sep 2025 12:39:43 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] drm/msm/adreno: Add a modparam to skip GPU
-Message-ID: <oeecjgt43z3pgt7eaxat32vk4sch2h7hp3ibpvvw2cb2mognyx@ft73uzdyiq56>
-References: <20250902-assorted-sept-1-v1-0-f3ec9baed513@oss.qualcomm.com>
- <20250902-assorted-sept-1-v1-3-f3ec9baed513@oss.qualcomm.com>
- <a701e4f9-57b7-46cc-b42f-f1a4a902fbbb@oss.qualcomm.com>
- <zmaphb3douzah5m447naluu7cjrwieb36uznjb7uamblxduira@xhtklqmy22tu>
- <b7a1b89b-54dd-4d02-afcd-0144df5a6d57@oss.qualcomm.com>
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v15 12/13] drm/msm/dpu: support plane splitting in
+ quad-pipe case
+Message-ID: <xcq25wmw7roelcmoljypn3ozt7kqvylgibz2cloxghaeurcwvs@jjay7hton6md>
+References: <20250819-v6-16-rc2-quad-pipe-upstream-v15-0-2c7a85089db8@linaro.org>
+ <20250819-v6-16-rc2-quad-pipe-upstream-v15-12-2c7a85089db8@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b7a1b89b-54dd-4d02-afcd-0144df5a6d57@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMiBTYWx0ZWRfX5UzY35qCLcf0
- zCOZ/qhuu5wQeR89Fjq/bg+SzAHx2CPpihGRpN2oP7HvKc8xoEmRSCp0GZg8ZKeTXCEtecFZpK9
- pIDmn7Cye2hdRRL+lpAKT+7/BxKSwoU79WzQ6xQpPeyUxRMy+R453OcLHYtS61wB2+wnUQaipTu
- quqO5KCS/fsSmKEkhXFh0EmeEuG3/S4tD2ClTEvz62XaVej7YMq4kYXYS+lUugSu111JduK3GVc
- /nO2uQ4789khZeCLP8ukMd1MJItZLousmSrhCPFOWRxwel4/Y5v5L+e7x18TbDg3Epr1qq6xNqG
- 66UXzkh3fC89oablwXui9msL7EnqFLI+rbLlP+L1ATHAaYejhAkzGYZDBhKkXLrwo/scrlcqxHQ
- XYIB7/Ky
-X-Proofpoint-ORIG-GUID: nHO72piVgYssVGg3EkmuWRi_vvY-phO6
-X-Proofpoint-GUID: nHO72piVgYssVGg3EkmuWRi_vvY-phO6
-X-Authority-Analysis: v=2.4 cv=M9NNKzws c=1 sm=1 tr=0 ts=68b80c02 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=TuRy5nDU7s93I7UbW5wA:9 a=CjuIK1q_8ugA:10
- a=OIgjcC2v60KrkQgK7BGD:22
+In-Reply-To: <20250819-v6-16-rc2-quad-pipe-upstream-v15-12-2c7a85089db8@linaro.org>
+X-Proofpoint-GUID: eFd5IcNVIwYklP36MZL3QvJ1QxyOLLrz
+X-Proofpoint-ORIG-GUID: eFd5IcNVIwYklP36MZL3QvJ1QxyOLLrz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAyNyBTYWx0ZWRfX9mCTjemGKo+k
+ ca1HybbyDavq7USUxzxf9fhb7y3ssUa8rLl10hH8tRzBTAr7iKMwQfKDdwsK/R+x0CwgCiI/iBJ
+ /p5AzU1Hpgbh0hSflf5jkwbyZ9sF1Gu5uZRl+UwGtQ6ndYIib8eOOjGrs5t6cwxpHzKg4LBZa3x
+ xuDSgtjQym13MPFj9B5ITm3gmtQjF/EDexnoCy9wfUJ0OrL/3HZOF4IYP34hNUuVhq7eogq63ef
+ P+bYiXQEVFW14TXNH42bofJGquo8DNMUfTOmWmIh2HGe/vRpRY3mx9phdC25mCMpMGYRJGpA3ld
+ Tn3Eb1fUWStQbY3JtfDtiN075enpr+2tLHl8b5GtcTPLaTrBRm1UVFgQc9MA+HPswjte6N9Mhtm
+ I5zZOSKY
+X-Authority-Analysis: v=2.4 cv=NrDRc9dJ c=1 sm=1 tr=0 ts=68b80ce3 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=sWKEhP36mHoA:10 a=e5mUnYsNAAAA:8 a=KKAkSRfTAAAA:8
+ a=n0UrGh5Us5r51zfKeZkA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=cvBusfyB2V15izCimMoJ:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-03_05,2025-08-28_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 suspectscore=0 phishscore=0 bulkscore=0 classifier=typeunknown
+ clxscore=1015 suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ impostorscore=0 spamscore=0 bulkscore=0 adultscore=0 classifier=typeunknown
  authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508300032
+ engine=8.19.0-2507300000 definitions=main-2508300027
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,25 +129,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Sep 03, 2025 at 11:25:49AM +0200, Konrad Dybcio wrote:
-> On 9/2/25 3:02 PM, Dmitry Baryshkov wrote:
-> > On Tue, Sep 02, 2025 at 02:30:48PM +0200, Konrad Dybcio wrote:
-> >> On 9/2/25 1:50 PM, Akhil P Oommen wrote:
-> >>> During bringup of a new GPU support, it is convenient to have knob to
-> >>> quickly disable GPU, but keep the display support. This helps to
-> >>> fallback to 'kms_swrast' in case of bootup issues due to GPU. Add a
-> >>> modparam to support this.
-> >>
-> >> I'm not entirely opposed, but slapping a // in front of the compatible
-> >> in the dt works just as well
-> > 
-> > Which requires rebuilding and reprovisioning
+On Tue, Aug 19, 2025 at 09:31:06AM +0800, Jun Nie wrote:
+> The content of every half of screen is sent out via one interface in
+> dual-DSI case. The content for every interface is blended by a LM
+> pair in quad-pipe case, thus a LM pair should not blend any content
+> that cross the half of screen in this case. Clip plane into pipes per
+> left and right half screen ROI if topology is quad pipe case.
 > 
-> Fair
+> The clipped rectangle on every half of screen is futher handled by two
+> pipes if its width exceeds a limit for a single pipe.
+> 
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+I've run several CI workloads. This is the first commit which breaks IGT
+tests. See https://gitlab.freedesktop.org/drm/msm/-/pipelines/1503075
 
-
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  11 +++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h  |   2 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 137 +++++++++++++++++++++---------
+>  3 files changed, 110 insertions(+), 40 deletions(-)
 
 -- 
 With best wishes
