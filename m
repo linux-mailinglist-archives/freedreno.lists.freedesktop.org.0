@@ -2,115 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0D84B4297E
-	for <lists+freedreno@lfdr.de>; Wed,  3 Sep 2025 21:10:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C910B42BB3
+	for <lists+freedreno@lfdr.de>; Wed,  3 Sep 2025 23:18:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A22D10E04A;
-	Wed,  3 Sep 2025 19:10:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A967310E93F;
+	Wed,  3 Sep 2025 21:18:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZVLruMOC";
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="m9Kwi8LT";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="VKxRCq3G";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9FA910E04A;
- Wed,  3 Sep 2025 19:10:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756926604; x=1788462604;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=nqS3UzHQKIkIb/Rkk4XlaX9LsWxMZrg1+PMmz+JaHDI=;
- b=ZVLruMOCkYJ4zQRN8G57c41PSkAWYjG19uZwMVq8xnvczcp0L5wlEGc0
- 3ubyy/THqIH6LVlUOQB771UZKYn3zY3GgUC+IOZ4CVKBGNh/GvNA0G5bD
- mz4tgvuBLo6IzenyMm1gn2BMWuUs6gRm+j5WpmGOclKBC3XZHYXjAKBb3
- QFaP/Nf0EnHr8gbhzsMDCLXyAbNXOHPr7F7OojVaTvZoZqpBN7aumdD+t
- tcUTQhcm9IFV6XPi7qX+bd6XAMibKqRpeiax5D2MIGErgvNwkdhMDzC02
- Hd/H4JErwmq1rabqLCo2RXxHN5+0teCSBmZ6IDzX2T9ilcTbWR9UvqJrd Q==;
-X-CSE-ConnectionGUID: lovc/5k3QSKkyNYSMnpwbw==
-X-CSE-MsgGUID: GiAoQTR0Sk+ylaIJgT3IbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11542"; a="69513733"
-X-IronPort-AV: E=Sophos;i="6.18,236,1751266800"; d="scan'208";a="69513733"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2025 12:10:01 -0700
-X-CSE-ConnectionGUID: nGwL7IPyTYW/wuPoo+6uVg==
-X-CSE-MsgGUID: AsgfiIXISiG9KRkXNJLYfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,236,1751266800"; d="scan'208";a="171814105"
-Received: from bergbenj-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.11])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2025 12:09:45 -0700
-Date: Wed, 3 Sep 2025 22:09:41 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
- Liviu Dudau <liviu.dudau@arm.com>, Russell King <linux@armlinux.org.uk>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- linux-arm-kernel@lists.infradead.org, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- linux-samsung-soc@vger.kernel.org, Liu Ying <victor.liu@nxp.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Edmund Dea <edmund.j.dea@intel.com>, Paul Kocialkowski <paulk@sys-base.io>,
- Sui Jingfeng <suijingfeng@loongson.cn>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org,
- Hans de Goede <hansg@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Subject: Re: [PATCH v2 00/37] drm/atomic: Get rid of existing states (not
- really)
-Message-ID: <aLiSdWgOl15jb8Ga@intel.com>
-References: <20250902-drm-no-more-existing-state-v2-0-de98fc5f6d66@kernel.org>
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A902C10E93F;
+ Wed,  3 Sep 2025 21:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Date:Subject:From; t=1756933741; bh=bqzHAqPKSIfqbGTnCGmLkW+
+ yGY7a0Pdl1meacZYhxxA=; b=m9Kwi8LTmBFMnmoU7p1Qafwr25r/1A1zb91u0Ke/4xTxVWtsUF
+ Krn22Yj3cma5ReSQ2KuVNuHtQRh8jz91JI7DYBwy2+EhtK5F0r/kauMFctbDrgk5h3WVwi3qnXJ
+ 3+Nk4ihPR63UlAT4stOREltJ21dRqwKtORAS0yxH880qC+B0BuTwG0PB13KXhzEkCG2dqobSPOt
+ QV3fyDKIwhiPqMiDr4mOC8AybZg4eUcgUyX6QkDNzlxYoHRF3LrnwVV8zY2az43kWRrCAqfmcVa
+ zPyfBA3AET57O+LvsjAm8eatRvlc813GBb8ioKLU0TsOd+Kl7S8S9StIY9ulbTcAxeQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Date:Subject:From; t=1756933741; bh=bqzHAqPKSIfqbGTnCGmLkW+
+ yGY7a0Pdl1meacZYhxxA=; b=VKxRCq3GfZGFxVtbP/7IcagYnTUr5Tj5DXSGGMtNbx8u+ib1I2
+ bKC9+ypFN/NjXUiiTSVOplkNzLREuBKzuOCA==;
+From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
+ <barnabas.czeman@mainlining.org>
+Subject: [PATCH v9 0/7] Initial support of MSM8937 and Xiaomi Redmi 3S
+Date: Wed, 03 Sep 2025 23:08:20 +0200
+Message-Id: <20250903-msm8937-v9-0-a097c91c5801@mainlining.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250902-drm-no-more-existing-state-v2-0-de98fc5f6d66@kernel.org>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-B4-Tracking: v=1; b=H4sIAESuuGgC/3XQzU7FIBAF4Fe5YW0NzFAGXPkexgW/vSS2Na1pN
+ Dd9d+lNlCbi8kz4zgA3tsYlx5U9XW5siVte8zyVYB4uzF/tNMQuh5IZcOg5CN6N66gNUgegY+L
+ BY/SGldPvS0z589708lryNa8f8/J1L97EMf3pEL8dm+h4RwEoBkWJuH4ebZ7e8pSn4XFeBnYUb
+ XDCgBVDwc4YKkOFMWAT4xnLirHgYAN5ocF775pYVoyir1gWLJJAiJq4laaJ+4olnN7cH9dORpO
+ JScjQxqpiDfXTN3VgbrgD652i2MR0wnjaTAUDgjXJCWMdNbH+B+tjMwUfFHprrf+D933/BkWfB
+ ytOAgAA
+X-Change-ID: 20250210-msm8937-228ef0dc3ec9
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, 
+ =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
+ Robert Marko <robimarko@gmail.com>, 
+ Adam Skladowski <a_skl39@protonmail.com>, 
+ Sireesh Kodali <sireeshkodali@protonmail.com>, 
+ Das Srinagesh <quic_gurus@quicinc.com>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, iommu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ linux@mainlining.org, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ Daniil Titov <daniilt971@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Dang Huynh <danct12@riseup.net>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1756933738; l=4333;
+ i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
+ bh=e1gjdWn0vKRwDlsZj/ZBmgG7bHXaMkWeD/hnuty2IY0=;
+ b=xwPgJP+tj3ynGr1IcC2se1Xgm9RgJVHOyt8jT9LlbvM1HeYAYCt2hye+dVRU398Ye36vwSn/K
+ BazDpx0Wtu/BwBi+rx/yasMb4aEiWsWaYPh6+39glEPuVl3bM2lKBA/
+X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
+ pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,122 +103,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 02, 2025 at 11:34:59AM +0200, Maxime Ripard wrote:
-> Hi,
-> 
-> Here's a series to get rid of the drm_atomic_helper_get_existing_*_state
-> accessors.
-> 
-> The initial intent was to remove the __drm_*_state->state pointer to
-> only rely on old and new states, but we still need it now to know which
-> of the two we need to free: if a state has not been committed (either
-> dropped or checked only), then we need to free the new one, if it has
-> been committed we need to free the old state. 
-> 
-> Thus, the state pointer is kept (and documented) only to point to the
-> state we should free eventually.
-> 
-> All users have been converted to the relevant old or new state
-> accessors.  
-> 
-> This was tested on tidss.
-> 
-> Let me know what you think,
-> Maxime
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+This patch series add initial support for MSM8937 SoC
+and Xiaomi Redmi 3S (land).
 
-<replying again to see if my smtp issues are now solved...>
+The series is extending the MSM8917 gcc and pinctrl drivers
+because they are sibling SoCs.
+MSM8937 have 4 more A53 cores and have one more dsi port then
+MSM8917.
+It implements little-big architecture and uses Adreno 505.
 
-Other than the pre-existing ingenic private state issue that
-Dmitry spotted I didn't see anything obviously wrong.
+Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+---
+Changes in v9:
+- msm8937:
+  - Update vbif size to 0x3000.
+  - Update qfprom size to 0x3000.
+  - Remove extra line below wcnss-wlan2-pins.
+  - Update gpu_speedbin address to 0x201b.
+- qcom.yaml: Rebase on latest next.
+- Link to v8: https://lore.kernel.org/r/20250831-msm8937-v8-0-b7dcd63caaac@mainlining.org
 
-So apart from that the series is
-Reviewed-by: Ville Syrj�l� <ville.syrjala@linux.intel.com>
+Changes in v8:
+- msm8937:
+  - Fix scm compatible.
+  - Fix position of sram@60000 node.
+- Document qcom,scm-msm8937 compatible
+- Link to v7: https://lore.kernel.org/r/20250831-msm8937-v7-0-232a9fb19ab7@mainlining.org
 
-> ---
-> Changes in v2:
-> - Dropped the first and second patches
-> - Reworked the recipient list to be nicer with SMTPs
-> - Link to v1: https://lore.kernel.org/r/20250825-drm-no-more-existing-state-v1-0-f08ccd9f85c9@kernel.org
-> 
-> ---
-> Maxime Ripard (37):
->       drm/atomic: Convert drm_atomic_get_connector_state() to use new connector state
->       drm/atomic: Remove unused drm_atomic_get_existing_connector_state()
->       drm/atomic: Document __drm_connectors_state state pointer
->       drm/atomic: Convert __drm_atomic_get_current_plane_state() to modern accessor
->       drm/atomic: Convert drm_atomic_get_plane_state() to use new plane state
->       drm/vkms: Convert vkms_crtc_atomic_check() to use new plane state
->       drm/tilcdc: crtc: Use drm_atomic_helper_check_crtc_primary_plane()
->       drm/atomic: Remove unused drm_atomic_get_existing_plane_state()
->       drm/atomic: Document __drm_planes_state state pointer
->       drm/atomic: Convert drm_atomic_get_crtc_state() to use new connector state
->       drm/ingenic: ipu: Switch to drm_atomic_get_new_crtc_state()
->       drm/arm/malidp: Switch to drm_atomic_get_new_crtc_state()
->       drm/armada: Switch to drm_atomic_get_new_crtc_state()
->       drm/atmel-hlcdc: Switch to drm_atomic_get_new_crtc_state()
->       drm/exynos: Switch to drm_atomic_get_new_crtc_state()
->       drm/imx-dc: Switch to drm_atomic_get_new_crtc_state()
->       drm/imx-dcss: Switch to drm_atomic_get_new_crtc_state()
->       drm/imx-ipuv3: Switch to drm_atomic_get_new_crtc_state()
->       drm/ingenic: Switch to drm_atomic_get_new_crtc_state()
->       drm/kmb: Switch to drm_atomic_get_new_crtc_state()
->       drm/logicvc: Switch to drm_atomic_get_new_crtc_state()
->       drm/loongson: Switch to drm_atomic_get_new_crtc_state()
->       drm/mediatek: Switch to drm_atomic_get_new_crtc_state()
->       drm/msm/mdp5: Switch to drm_atomic_get_new_crtc_state()
->       drm/omap: Switch to drm_atomic_get_new_crtc_state()
->       drm/rockchip: Switch to drm_atomic_get_new_crtc_state()
->       drm/sun4i: Switch to drm_atomic_get_new_crtc_state()
->       drm/tegra: Switch to drm_atomic_get_new_crtc_state()
->       drm/tilcdc: Switch to drm_atomic_get_new_crtc_state()
->       drm/vboxvideo: Switch to drm_atomic_get_new_crtc_state()
->       drm/vc4: Switch to drm_atomic_get_new_crtc_state()
->       drm/atomic: Switch to drm_atomic_get_new_crtc_state()
->       drm/framebuffer: Switch to drm_atomic_get_new_crtc_state()
->       drm/atomic: Remove unused drm_atomic_get_existing_crtc_state()
->       drm/atomic: Document __drm_crtcs_state state pointer
->       drm/atomic: Convert drm_atomic_get_private_obj_state() to use new plane state
->       drm/atomic: Document __drm_private_objs_state state pointer
-> 
->  drivers/gpu/drm/arm/malidp_planes.c             |   2 +-
->  drivers/gpu/drm/armada/armada_plane.c           |   3 +-
->  drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c |   2 +-
->  drivers/gpu/drm/drm_atomic.c                    |  21 ++--
->  drivers/gpu/drm/drm_framebuffer.c               |   2 +-
->  drivers/gpu/drm/exynos/exynos_drm_plane.c       |   2 +-
->  drivers/gpu/drm/imx/dc/dc-plane.c               |   2 +-
->  drivers/gpu/drm/imx/dcss/dcss-plane.c           |   4 +-
->  drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c         |   3 +-
->  drivers/gpu/drm/ingenic/ingenic-drm-drv.c       |   3 +-
->  drivers/gpu/drm/ingenic/ingenic-ipu.c           |   4 +-
->  drivers/gpu/drm/kmb/kmb_plane.c                 |   3 +-
->  drivers/gpu/drm/logicvc/logicvc_layer.c         |   4 +-
->  drivers/gpu/drm/loongson/lsdc_plane.c           |   2 +-
->  drivers/gpu/drm/mediatek/mtk_plane.c            |   3 +-
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c      |   7 +-
->  drivers/gpu/drm/omapdrm/omap_plane.c            |   2 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_vop.c     |   6 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c    |   2 +-
->  drivers/gpu/drm/sun4i/sun8i_ui_layer.c          |   3 +-
->  drivers/gpu/drm/sun4i/sun8i_vi_layer.c          |   3 +-
->  drivers/gpu/drm/tegra/dc.c                      |   2 +-
->  drivers/gpu/drm/tilcdc/tilcdc_crtc.c            |   9 +-
->  drivers/gpu/drm/tilcdc/tilcdc_plane.c           |   3 +-
->  drivers/gpu/drm/vboxvideo/vbox_mode.c           |   8 +-
->  drivers/gpu/drm/vc4/vc4_plane.c                 |   6 +-
->  drivers/gpu/drm/vkms/vkms_crtc.c                |   4 +-
->  include/drm/drm_atomic.h                        | 144 ++++++++++++------------
->  28 files changed, 124 insertions(+), 135 deletions(-)
-> ---
-> base-commit: 7fa4d8dc380fbd81a9d702a855c50690c9c6442c
-> change-id: 20250825-drm-no-more-existing-state-9b3252c1a33b
-> 
-> Best regards,
-> -- 
-> Maxime Ripard <mripard@kernel.org>
+Changes in v7:
+- gpu.yaml: update adreno 505 pattern
+- Link to v6: https://lore.kernel.org/r/20250820-msm8937-v6-0-b090b2acb67e@mainlining.org
 
+Changes in v6:
+- msm8937:
+  - Fix nodes ordering.
+  - Format clocks, reg, dmas and -names properties.
+  - Add gpu_speedbin.
+- Describe A505 clocks.
+- Link to v5: https://lore.kernel.org/r/20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org
+
+Changes in v5:
+- msm8937:
+  - Remove wrongly defined idle-states.
+  - Fix thermal zones.
+  - Use the header with DSI phy clock IDs.
+  - Fix the nodes order.
+  - Fix the pinctrls style.
+  - Follow gcc header changes.
+- msm8937-xiaomi-land:
+  - Remove headphone switch and speaker amplifier bindings.
+  - Unify status property style.
+- gcc bindings:
+  - Expand MSM8953 gcc schema with MSM8937.
+  - Add MSM8937 prefix for MSM8937 specific clocks.
+- gcc:
+  - Follow the bindings changes.
+- Drop alwayson clock documentation it will be handled in another
+  patchset.
+- Link to v4: https://lore.kernel.org/r/20250315-msm8937-v4-0-1f132e870a49@mainlining.org
+
+Changes in v4:
+- Add missing rpmcc include for qcom,gcc-msm8937 dtbinding exmaple.
+- msm8937: add missing space after s9-p1@230
+- msm8937-xiaomi-land: replace LED_FUNCTION_INDICATOR to LED_FUNCTION_STATUS
+- Remove applied patches
+- Link to v3: https://lore.kernel.org/r/20250224-msm8937-v3-0-dad7c182cccb@mainlining.org
+
+Changes in v3:
+- Fix qcom,gcc-msm8937 dtbinding example 
+- Link to v2: https://lore.kernel.org/r/20250223-msm8937-v2-0-b99722363ed3@mainlining.org
+
+Changes in v2:
+- drop applied patches
+- drop gcc schema commits infavor of a new schema for gcc-msm8937
+- document always on clock for adreno 505/506/510
+- msm8937:
+  - set cache size
+  - rename cpu labels
+  - fix style issues addressed by review
+- msm8937-xiaom-land:
+  - remove unused serial0 alias
+  - remove regulator-always-on from pm8937_l6
+  - add blue indicator led for aw2013
+- Link to v1: https://lore.kernel.org/r/20250211-msm8937-v1-0-7d27ed67f708@mainlining.org
+
+---
+Barnabás Czémán (5):
+      dt-bindings: clock: qcom: Add MSM8937 Global Clock Controller
+      dt-bindings: firmware: qcom,scm: Add MSM8937
+      dt-bindings: display/msm/gpu: describe A505 clocks
+      dt-bindings: arm: qcom: Add Xiaomi Redmi 3S
+      arm64: dts: qcom: Add Xiaomi Redmi 3S
+
+Dang Huynh (1):
+      arm64: dts: qcom: Add initial support for MSM8937
+
+Daniil Titov (1):
+      clk: qcom: gcc: Add support for Global Clock controller found on MSM8937
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    6 +
+ .../bindings/clock/qcom,gcc-msm8953.yaml           |   11 +-
+ .../devicetree/bindings/display/msm/gpu.yaml       |    2 +-
+ .../devicetree/bindings/firmware/qcom,scm.yaml     |    3 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ arch/arm64/boot/dts/qcom/msm8937-xiaomi-land.dts   |  381 ++++
+ arch/arm64/boot/dts/qcom/msm8937.dtsi              | 2133 ++++++++++++++++++++
+ drivers/clk/qcom/Kconfig                           |    6 +-
+ drivers/clk/qcom/gcc-msm8917.c                     |  617 +++++-
+ include/dt-bindings/clock/qcom,gcc-msm8917.h       |   19 +
+ 10 files changed, 3168 insertions(+), 11 deletions(-)
+---
+base-commit: 5d50cf9f7cf20a17ac469c20a2e07c29c1f6aab7
+change-id: 20250210-msm8937-228ef0dc3ec9
+
+Best regards,
 -- 
-Ville Syrj�l�
-Intel
+Barnabás Czémán <barnabas.czeman@mainlining.org>
