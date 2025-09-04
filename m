@@ -2,114 +2,111 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CC55B44454
-	for <lists+freedreno@lfdr.de>; Thu,  4 Sep 2025 19:29:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE1FB44598
+	for <lists+freedreno@lfdr.de>; Thu,  4 Sep 2025 20:38:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27F1810E33E;
-	Thu,  4 Sep 2025 17:29:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C165A10EABD;
+	Thu,  4 Sep 2025 18:38:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="o5RlK2Nt";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JmULmFZW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B969210E33E
- for <freedreno@lists.freedesktop.org>; Thu,  4 Sep 2025 17:29:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CAED10EABD
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Sep 2025 18:38:20 +0000 (UTC)
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584GUxSi018575
- for <freedreno@lists.freedesktop.org>; Thu, 4 Sep 2025 17:29:11 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584GUjXc017818
+ for <freedreno@lists.freedesktop.org>; Thu, 4 Sep 2025 18:38:19 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- U4HSqJJKUJgHemW3ItHKzJuo91NgrXy7FmK7UmSqX0Y=; b=o5RlK2NtZhXh/To8
- HGTDqprDWTCdb3Uv0MLTr9XBz7AGVAOGsMBa924oyD28uRFBUguVz47Vw36w3aQ9
- GEjEmkSjFoNUz8vWNaaN2GFLT+kVidJB5ovdUoJQTMLGEbELElXfhtzCnjKzW8t5
- eCHjmdOIi5TyquYgcWdoVOGtCLXq6VghiCmoVz/grGWRXb8GolZV4V7AxMWSjOpB
- mIEzF43zpojRWkMG8fSqPZio0EAYteIbnGbx+aj04Rvnc3M7j9CfKA9gxMkyiUBg
- VqPICSnwK8LUk6M0aU4qGt0+CUj8wo8vC9cr6cZDFsZdCiWUa1ajlxo8EXoah1qo
- mGi45Q==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48yebur6cd-1
+ rssL+6G8FN5LG7LMUBKmTSBofG0KyOBvcSbrEws4HPo=; b=JmULmFZW6lZ/mKn0
+ 8itMKEbCHe7M2BP6t61xJmYFLLjfXs5zmAMyU2y001q6fNpmcmUoZ/0GYH/A2xFU
+ PwyJYF0C7iYAGmoP7UirkGTXNa1luXd9TkR5j33MI2lJts6LypbEkCipyTuc00Dt
+ xekHIPqR2m7VZgqCLW/xzOfR8bxHnQYN6lMkvlgW9hl+BsFjwqruVd0qfsMvwk25
+ KTJM9++3Dq6IPMYZ78d/C3QXrKOu7mP5S7uBn+k4ejlOFsS+9yEG4yqUdIsMw3RB
+ Ks/NtjjC1yFH/25mQ55X7d2tM71NP+LWM02FCBU1cPWO44M66D6sPlcXvakoF5M2
+ U6IQ2A==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48yeburcvb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 17:29:10 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4b3118ab93aso22207061cf.0
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 10:29:10 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 18:38:19 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-24cda4063easo8665845ad.2
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 11:38:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757006950; x=1757611750;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20230601; t=1757011098; x=1757615898;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=U4HSqJJKUJgHemW3ItHKzJuo91NgrXy7FmK7UmSqX0Y=;
- b=npTppoaACQNNqCGBDJQ+p5RaSho1SZB2ci5ZXRMJufI/xH0h82Qrud26h4mXgGsFxN
- cFNOjenum18tt5UNH+jM51X45GYlIBwFFhiXJ1H/swbKMcBlPFeqUO/qzlGwl6X1+MDt
- b0nGm3JF5sIi9yDApAF3bNPtKYWqeSvLpdggOk4VoBpPtPUm85MYZisDsDf7ae6e+lyW
- v0nqnwkNoZ5DvHQ0KAmimgz88RR3mejw/l6xYmWGGaq7iUGJZUtx5TeYzV8HN9dkkRhV
- jmKuLHHHXLcFus3uLJtKm3z1xti/3l3eRvexnASQxpv3ck2qYP7jDUmZ2KCpV8QnrBfx
- 9ABA==
+ bh=rssL+6G8FN5LG7LMUBKmTSBofG0KyOBvcSbrEws4HPo=;
+ b=Fc/Jnl9iVKIgBS4x7IGwXG/NF2yBj2ghun1wC+ikce8P3H+5AJKm1Dg0JzZ6QottTT
+ 09rl8+Zw8WIJB0Q66yUQEoK/NifIUr5rkTCguLlTZFnK6AXHVuV/rPRFinHR43ZkRyxs
+ V6bi01ozrALGSGy1qcpctSlqmA+DYvQEuCZc+I4eJQaIxyosBU19cPoWSkZu+3vXi0HK
+ zjwkcTldcIe+8Rm+RDgHAXygkQt+qE2NrySb5qBjM9FCyM5FFjfAJhgJb/ybgnre8Jed
+ 5XSC/UFyiMafEHrYgc4f7ElYmjgMVli+EKe87jGF+UMaqWTOgupq2zu6cC1ildW807/c
+ 6Ylw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUGXGZVLxmARZkvJR7vC7Ag8BuDAx6JaETwrv/PV4P94fmHKktnQQK2iFi05se8YrB4ethqX8ZqGoU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxP+Wy4VwB/0ythCDBITqlMGWjtPU822Rk0xFdBDy+10MCHxCe7
- iNpbevOtuY+PXQ5hNP0R8rraEM6H28n4vhO6o62N8YArvdGX8KCF7XkxxrpmJ7ZrxAIsJT7iZQf
- 0ggqbtK4yrkB1eGi3YLQttZCEhSeW0Y6qKl9VaoY5TERngyPrdbqhROV9odtPLQu7K2i3DyU=
-X-Gm-Gg: ASbGncsZc8boVH76YB+AgR43yewMn9mPCwf8tRHcMUdRlivHdLFZyiQG3wgMCsbi0Hd
- lDu4sBwj3sLf2YpgYvULNAJHZmnHi9zKamoJJMPNNHkVgCXVeY0pj+e56m9BLIXPXMEHXfAdN5e
- b43TWSH9CBv9KGBSBRu3IYK/JuK3OiM6kZlBlr+6ECginaagd/lEtPltDaH6unZSmKkIMDBrmRQ
- siNK7fNlKTv24T11EKT6nQbYKf1DrT5r3tVOdabRy/2x/dh0KuPkrF2yf8tHSaKUWigaAi4OWFZ
- d8Rr7v9ErjIZCWiWhPcCSNuHbcMrmHAaSbVUTiSa61R6CFlTCr5rhb6E0+FS4DdjFdFF2jkan9g
- G6Nm1T3i9jtF6sQGd1JQYXlB1QWjmNvTo0PV+e0KAx2Kwzn33odPl
-X-Received: by 2002:a05:622a:4e:b0:4b2:fbbb:cd47 with SMTP id
- d75a77b69052e-4b31dd1ffe2mr257449451cf.79.1757006949704; 
- Thu, 04 Sep 2025 10:29:09 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHNSvNTXAJpiFlDTiLw2UNIBHVhJ1puSDzs/X0PalMSkD4/kVf+SzhWlkUHsBE8oJ71Jpu99g==
-X-Received: by 2002:a05:622a:4e:b0:4b2:fbbb:cd47 with SMTP id
- d75a77b69052e-4b31dd1ffe2mr257449121cf.79.1757006949162; 
- Thu, 04 Sep 2025 10:29:09 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCVtwMmuxrWR34pzamluRSs0fLp5Nvmz3p2weigwP8cXw4izyv0wWoQB0TMub9VuFbfvGDXbaWoPGGE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyww5ejz0S+Wpk9kZbIXG+F+jXxYRDcHbahwujLPfjl+vxsW04J
+ 7AXRyKOcEqbRohCS8Y5vd9LGbZSk07hX3HauxvA6UzoeCnoOkfpz38Zwyt9R7PR3eQCIB5/SsaO
+ mViFh5cBDZVGge8vXRWgfJqHEhWjaYpALSNhDE+m6bPRe50KJEmMNJ0c8/XidmhKBZKi3GMY=
+X-Gm-Gg: ASbGncvYnahJw9TeZdKw1hdo6WkMBpJvtxJgCb1TJ61i5uMVzjImwx+yD1HFD806pox
+ SMkJlgJTJSLlXWYOaHXuzKm1H8C6dst4zNJNuOaPsSmfAk78i3wkSwgaZ+gjDH/FjyyEswB3Lq7
+ kCRYSaFi3NakJdoeybdEtjbySiQKYFQ6jrQ3P+GAwkSjfose/kpFoZc8mhM7AhByywwpFf1a5OJ
+ +GhjVf+5vW/7Xivv7rxuM3I5JYhaArJSLzC6e2rvguAPndrBIbTFcQ9E4ufUEe2bg39JiRvIncR
+ upB0b+PHksLFxGimeO/Upq9AmuqMdYJ9Q8xGiDKE3oqyh431NIrahTt+ZHOg2y4VNpLGT8ti7oz
+ olIhvYXTMBsE94Poz305JWg==
+X-Received: by 2002:a17:902:f542:b0:24b:1741:1a43 with SMTP id
+ d9443c01a7336-24b17411e77mr130690645ad.58.1757011097863; 
+ Thu, 04 Sep 2025 11:38:17 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGrGZXs3Bk5vSSAzqcnUJQ1gGAx5Q/kY4Q2C+c3W9OYcx0iHZD5nnEJBxA6I/4YYx/XY+RokQ==
+X-Received: by 2002:a17:902:f542:b0:24b:1741:1a43 with SMTP id
+ d9443c01a7336-24b17411e77mr130690365ad.58.1757011097364; 
+ Thu, 04 Sep 2025 11:38:17 -0700 (PDT)
+Received: from [10.134.71.99] (i-global254.qualcomm.com. [199.106.103.254])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-337f4c90454sm16554751fa.18.2025.09.04.10.29.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 10:29:07 -0700 (PDT)
-Date: Thu, 4 Sep 2025 20:29:03 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ d9443c01a7336-24ce9dd9373sm5748535ad.85.2025.09.04.11.38.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Sep 2025 11:38:16 -0700 (PDT)
+Message-ID: <c2d810bc-bdba-464b-9a05-49ca2e1c773b@oss.qualcomm.com>
+Date: Thu, 4 Sep 2025 11:38:16 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/12] drm/msm/dpu: use standard functions in
+ _dpu_format_populate_plane_sizes_ubwc()
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v15 12/13] drm/msm/dpu: support plane splitting in
- quad-pipe case
-Message-ID: <hzkvl7zyuq2fsavp2butdvbfykpzw5lz4f2eg2rzu4hgbxxq4j@tmoxnq2t5koq>
-References: <20250819-v6-16-rc2-quad-pipe-upstream-v15-0-2c7a85089db8@linaro.org>
- <20250819-v6-16-rc2-quad-pipe-upstream-v15-12-2c7a85089db8@linaro.org>
- <xcq25wmw7roelcmoljypn3ozt7kqvylgibz2cloxghaeurcwvs@jjay7hton6md>
- <CABymUCNXVfZyhCbkiqzJ-K2zGe=bofD82OD20d-CG+a-KkgN5Q@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCNXVfZyhCbkiqzJ-K2zGe=bofD82OD20d-CG+a-KkgN5Q@mail.gmail.com>
-X-Proofpoint-GUID: 8_PbV2r1nqm6T-ljiuMQfuir1p3Gj8KD
-X-Authority-Analysis: v=2.4 cv=X+ZSKHTe c=1 sm=1 tr=0 ts=68b9cc66 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=yJojWOMRYYMA:10 a=sWKEhP36mHoA:10 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=oA6wIzCi5S8-5R6LlW4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=Vxmtnl_E_bksehYqCbjh:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA0MDE2MyBTYWx0ZWRfXw805eRYmnq5u
- akpx4fall5oIHdVv7plhXmNEEpRfqeZDFNP4XGXCcSubYci7VN3gXBog4eWdiKYpeHICj486bsO
- OuK3Ns7qdq+raIHdBnGADAsWVDbuWq1tAXqCG1eFjcCQCMflmzhInww0G6FwxhgCkO20/Ord0x5
- 4fOh40IRSYdug3Rw4prdnx8iAJ/AX2HRHnPz7vTw7YkPlHvZ8zpCAQHMHUPiSSK1J1cC8VO83z8
- gcPMKdUcadcLi2IVgs6cMwHXG5JQMeWyIIaNokObc2N0aWZaKAJvYe07sBTuRTW1OQbtSxtqFq3
- h49co7Jj4PdUI8tBoOCwg4FK3Ys9a/aSv2HOu+kLtLkppH+tbGORb9auujke7WKGduAizlFyhI0
- 7lfW8rBW
-X-Proofpoint-ORIG-GUID: 8_PbV2r1nqm6T-ljiuMQfuir1p3Gj8KD
+References: <20250705-dpu-formats-v1-0-40f0bb31b8c8@oss.qualcomm.com>
+ <20250705-dpu-formats-v1-12-40f0bb31b8c8@oss.qualcomm.com>
+Content-Language: en-US
+From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+In-Reply-To: <20250705-dpu-formats-v1-12-40f0bb31b8c8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: P2lmLqV2sBGmIKZidnc84-hZZ1nHkRQD
+X-Authority-Analysis: v=2.4 cv=X+ZSKHTe c=1 sm=1 tr=0 ts=68b9dc9b cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=vPUQ5TvUw8t84cJzJAUA:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA0MDE2MyBTYWx0ZWRfX/iWjPMLZv54h
+ C6AQr9DnVMf5KIAN2/zKZaM7jXT+52bsVUgd6hp+oBcJB85og1M1FmL+2CFIqPEwO+AjXOrjO3q
+ CBGSpixrDlcJwTCoBZ8IgA1EKRUEcLI8J46ChgtyjEdFjWuiWk3tkmJ41c1WP0ktwr1GrF56Hgc
+ 2PLIu2xPkxyZom9gZsb1EvmQrlkMgD0hhoxf6ZtLPjwri9lBX7Mx8LGqn9D1qWm0fMRR6BjoTKH
+ X6WNW+WWyvs50o26iIOrgtkgI5JEM0QUmfyApJab3EFAOcXqf0CnUBrgNTLNg0KE5tPzW2yWIRX
+ Sp07fvOZmonb9TcEozjaAoj8T7ss/RWoCIx3N0dFgTXdEE5qojXf29u4cFPuVf3ZCJ5MpD8Ahyr
+ ezYKDBSt
+X-Proofpoint-ORIG-GUID: P2lmLqV2sBGmIKZidnc84-hZZ1nHkRQD
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-04_06,2025-09-04_01,2025-03-28_01
@@ -133,36 +130,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 05, 2025 at 12:09:52AM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年9月3日周三 17:39写道：
-> >
-> > On Tue, Aug 19, 2025 at 09:31:06AM +0800, Jun Nie wrote:
-> > > The content of every half of screen is sent out via one interface in
-> > > dual-DSI case. The content for every interface is blended by a LM
-> > > pair in quad-pipe case, thus a LM pair should not blend any content
-> > > that cross the half of screen in this case. Clip plane into pipes per
-> > > left and right half screen ROI if topology is quad pipe case.
-> > >
-> > > The clipped rectangle on every half of screen is futher handled by two
-> > > pipes if its width exceeds a limit for a single pipe.
-> > >
-> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >
-> > I've run several CI workloads. This is the first commit which breaks IGT
-> > tests. See https://gitlab.freedesktop.org/drm/msm/-/pipelines/1503075
+
+
+On 7/4/2025 7:47 PM, Dmitry Baryshkov wrote:
+> The _dpu_format_populate_plane_sizes_ubwc() used MSM_MEDIA_ALIGN() and
+> MSM_MEDIA_ROUNDUP(), macros inherited from the previous implementation,
+> msm_media_info.h. Replace them with the standard Linux macros,
+> round_up() and DIV_ROUND_UP() respectively.
 > 
-> Thanks for the work! I did test locally with all my patch set on sm8650 and
-> did not reproduce the issue. The baseline is not aligned with msm-next-lumag
-> yet because I need to port my platform patches to it. I will do it tomorrow.
->  Do you think this issue is related to difference of sm8650 and sm8350?
-> Regarding all failure cases are write back related.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 62 ++++++++++++-----------------
+>   1 file changed, 26 insertions(+), 36 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> index 67bc5a6eeb43dcf113dea9eccdb778cd52b1ad40..6a0426ed1460c5af4822844d7a7b0c51739df875 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> @@ -10,16 +10,6 @@
+>   #include "dpu_kms.h"
+>   #include "dpu_formats.h"
+>   
+> -#ifndef MSM_MEDIA_ALIGN
+> -#define MSM_MEDIA_ALIGN(__sz, __align) (((__align) & ((__align) - 1)) ?\
+> -	((((__sz) + (__align) - 1) / (__align)) * (__align)) :\
+> -	(((__sz) + (__align) - 1) & (~((__align) - 1))))
+> -#endif
+> -
+> -#ifndef MSM_MEDIA_ROUNDUP
+> -#define MSM_MEDIA_ROUNDUP(__sz, __r) (((__sz) + ((__r) - 1)) / (__r))
+> -#endif
+> -
+>   #define DPU_UBWC_PLANE_SIZE_ALIGNMENT	4096
+>   
+>   /*
+> @@ -80,57 +70,57 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+>   		    fmt->pixel_format == DRM_FORMAT_P010) {
+>   			if (MSM_FORMAT_IS_DX(fmt)) {
+>   				if (fmt->flags & MSM_FORMAT_FLAG_UNPACK_TIGHT) {
+> -					stride = MSM_MEDIA_ALIGN(fb->width, 192);
+> -					stride = MSM_MEDIA_ALIGN(stride * 4 / 3, 256);
+> +					stride = round_up(fb->width, 192);
 
-First of all, It's not only about SM8350. Tests also fail on SC7180.
+Hi Dmitry,
 
-Second, it's not about write back. I see various test failures. Please
-rerun the test suite with virtual planes being disabled on SM8650 HDK.
+It seems like the usage of round_up() here might be incorrect -- the 
+docs say "round up to next specified power of 2".
 
--- 
-With best wishes
-Dmitry
+Maybe we should use roundup() instead here?
+
+The rest of the patch LGTM.
+
+Thanks,
+
+Jessica Zhang
+
+> +					stride = round_up(stride * 4 / 3, 256);
+>   					y_tile_width = 48;
+>   				} else {
+> -					stride = MSM_MEDIA_ALIGN(fb->width * 2, 256);
+> +					stride = round_up(fb->width * 2, 256);
+>   					y_tile_width = 32;
+>   				}
+>   
+> -				sclines = MSM_MEDIA_ALIGN(fb->height, 16);
+> +				sclines = round_up(fb->height, 16);
+>   				y_tile_height = 4;
+>   			} else {
+> -				stride = MSM_MEDIA_ALIGN(fb->width, 128);
+> +				stride = round_up(fb->width, 128);
+>   				y_tile_width = 32;
+>   
+> -				sclines = MSM_MEDIA_ALIGN(fb->height, 32);
+> +				sclines = round_up(fb->height, 32);
+>   				y_tile_height = 8;
+>   			}
+>   		}
+>   
+>   		layout->plane_pitch[0] = stride;
+> -		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
+> +		layout->plane_size[0] = round_up(layout->plane_pitch[0] *
+>   			sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+>   
+>   		layout->plane_pitch[1] = stride;
+> -		layout->plane_size[1] = MSM_MEDIA_ALIGN(layout->plane_pitch[1] *
+> +		layout->plane_size[1] = round_up(layout->plane_pitch[1] *
+>   			sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+>   
+>   		if (!meta)
+>   			return 0;
+>   
+> -		y_meta_stride = MSM_MEDIA_ROUNDUP(fb->width, y_tile_width);
+> -		layout->plane_pitch[2] = MSM_MEDIA_ALIGN(y_meta_stride, 64);
+> +		y_meta_stride = DIV_ROUND_UP(fb->width, y_tile_width);
+> +		layout->plane_pitch[2] = round_up(y_meta_stride, 64);
+>   
+> -		y_meta_scanlines = MSM_MEDIA_ROUNDUP(fb->height, y_tile_height);
+> -		y_meta_scanlines = MSM_MEDIA_ALIGN(y_meta_scanlines, 16);
+> -		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
+> +		y_meta_scanlines = DIV_ROUND_UP(fb->height, y_tile_height);
+> +		y_meta_scanlines = round_up(y_meta_scanlines, 16);
+> +		layout->plane_size[2] = round_up(layout->plane_pitch[2] *
+>   			y_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+>   
+> -		uv_meta_stride = MSM_MEDIA_ROUNDUP((fb->width+1)>>1, y_tile_width / 2);
+> -		layout->plane_pitch[3] = MSM_MEDIA_ALIGN(uv_meta_stride, 64);
+> +		uv_meta_stride = DIV_ROUND_UP((fb->width+1)>>1, y_tile_width / 2);
+> +		layout->plane_pitch[3] = round_up(uv_meta_stride, 64);
+>   
+> -		uv_meta_scanlines = MSM_MEDIA_ROUNDUP((fb->height+1)>>1, y_tile_height);
+> -		uv_meta_scanlines = MSM_MEDIA_ALIGN(uv_meta_scanlines, 16);
+> -		layout->plane_size[3] = MSM_MEDIA_ALIGN(layout->plane_pitch[3] *
+> +		uv_meta_scanlines = DIV_ROUND_UP((fb->height+1)>>1, y_tile_height);
+> +		uv_meta_scanlines = round_up(uv_meta_scanlines, 16);
+> +		layout->plane_size[3] = round_up(layout->plane_pitch[3] *
+>   			uv_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+>   	} else {
+>   		unsigned int rgb_scanlines, rgb_meta_scanlines, rgb_meta_stride;
+>   
+> -		layout->plane_pitch[0] = MSM_MEDIA_ALIGN(fb->width * fmt->bpp, 256);
+> -		rgb_scanlines = MSM_MEDIA_ALIGN(fb->height, 16);
+> -		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
+> +		layout->plane_pitch[0] = round_up(fb->width * fmt->bpp, 256);
+> +		rgb_scanlines = round_up(fb->height, 16);
+> +		layout->plane_size[0] = round_up(layout->plane_pitch[0] *
+>   			rgb_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+>   
+>   		if (!meta)
+> @@ -139,13 +129,13 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+>   		/* uAPI leaves plane[1] empty and plane[2] as meta */
+>   		layout->num_planes += 1;
+>   
+> -		rgb_meta_stride = MSM_MEDIA_ROUNDUP(fb->width, 16);
+> -		layout->plane_pitch[2] = MSM_MEDIA_ALIGN(rgb_meta_stride, 64);
+> +		rgb_meta_stride = DIV_ROUND_UP(fb->width, 16);
+> +		layout->plane_pitch[2] = round_up(rgb_meta_stride, 64);
+>   
+> -		rgb_meta_scanlines = MSM_MEDIA_ROUNDUP(fb->height, 4);
+> -		rgb_meta_scanlines = MSM_MEDIA_ALIGN(rgb_meta_scanlines, 16);
+> +		rgb_meta_scanlines = DIV_ROUND_UP(fb->height, 4);
+> +		rgb_meta_scanlines = round_up(rgb_meta_scanlines, 16);
+>   
+> -		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
+> +		layout->plane_size[2] = round_up(layout->plane_pitch[2] *
+>   			rgb_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+>   	}
+>   
+> 
+
