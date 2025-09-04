@@ -2,119 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63FCFB44728
-	for <lists+freedreno@lfdr.de>; Thu,  4 Sep 2025 22:19:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC7F3B448A0
+	for <lists+freedreno@lfdr.de>; Thu,  4 Sep 2025 23:35:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBE0910E08D;
-	Thu,  4 Sep 2025 20:19:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8FC10EAEA;
+	Thu,  4 Sep 2025 21:35:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LlUmau70";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mdqixAeo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7B410E08D
- for <freedreno@lists.freedesktop.org>; Thu,  4 Sep 2025 20:19:23 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584In6SK003821
- for <freedreno@lists.freedesktop.org>; Thu, 4 Sep 2025 20:19:21 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D3BB10EAEA
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Sep 2025 21:35:24 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584IJDbN013622
+ for <freedreno@lists.freedesktop.org>; Thu, 4 Sep 2025 21:35:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=jWUNPuAEFI7JhvBCvnX55AlM
- FNdm2ykDPTbZ1bebaeI=; b=LlUmau709APIAZJv07SIRxbrcWaOjAIlpCqDCpOL
- UkS8iDsrKpDMR1yQRPuZMMZXSbNIoKg2U7KiKjdZHNSWhuJc/nQLAN2AQHt4Dz7Z
- FJh9XZxqrb2RFVz7xetDKWowFWiT3EqhWFJpfM4PfF2GQig0AhIxeTfAR/OH8egS
- XA5k40IT+eIOAj4lfpLsd2sy6SDIyb7o0oxeoyFW3xdzGXLjxQ4e7qU/YCr72wer
- RbFB2sABL+DQYIZDdPViNiUBLT0swhIVax9eB3/Gj+JKWg0vwqWpwdiLRTD/DQWr
- bp27CjFNyaPBg1hmXlE5wHuqpxuLX4o/iHUtUK4jtHgmuA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48ur8s8uft-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 1XSGHjK5H5x+hvh6MnHParrtMNDsdad7xw0PkjMbZ+g=; b=mdqixAeoCJkWbooj
+ iV81lDSVcjKJFNLnue60LYvsuNufsVhkyrkaHuZjCQ6xdYNP0O0KXjdv9VSrg0/Y
+ 2U46AT+05RG7V4DeTZRgeoss2aKXORmiJ4Apy79wl7F1DhF1jUfQLRjU5aiN8+EY
+ 8iOhu7ngq99teEifZeWsPCbYCe/Ow7tt710HQu6FDbfMfV6htbPCgfNXasAwRtYZ
+ OEa4srooUnaggtqJ+z6gYfZHNtB7slNFqhoA2PL2fVx5SYXD6fniBIyhfbIesPX+
+ SYYWl3K4zlwSwj0RUJWjJzlu6Q8biP0dNmLR2tUn4FF1+45ELwPLftvheg1mu9Od
+ /9Nlsg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48w8wycw10-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 20:19:21 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4b32b721a23so42472091cf.0
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 13:19:21 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 21:35:23 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-24ce3e62946so9045255ad.2
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 14:35:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757017160; x=1757621960;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jWUNPuAEFI7JhvBCvnX55AlMFNdm2ykDPTbZ1bebaeI=;
- b=HO1V+YEf1sfKj48tujL2Uv9auXpKvToYSLyGOieU8Rb0AA4Rlth1D6jmiBdwfqLfj4
- uc0R02HSA8qLjzVGkY5RwAFnnGQ29dOsDLJeeGf60069nMoU2/nunetB8zTBGnnVsVge
- qMyAJ7IS6TrJ1I9YmedFBU6pKdNGJ4ct+0sWtr227MFqoNlC3A52ys3AasYQPQqnNOSg
- kXX/6GyI8bV1Uzv7UKrLQzCq/ycPer5X5nz6AWrtoDhn/wtLqQeMAflIL11HhWe8fadW
- 8i56Ug6PTuVRQuBZFzmLsp0dZKy8ImS3oAUwvuwzdkzI4dQErSoMcJj1UNHsEHpISzCN
- bthg==
+ d=1e100.net; s=20230601; t=1757021715; x=1757626515;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=1XSGHjK5H5x+hvh6MnHParrtMNDsdad7xw0PkjMbZ+g=;
+ b=GqwMYuPdVDouwl71VxBiyzrNakVdoj3rtyL5p93vLg00sHU43A7bkXsNOHB3irPD6P
+ nzokBaUhqdYh+4EuFYN4zOZzE344irBOezwCX2RMzWn9TOb7fEzc8pck387cybIg1rSZ
+ /XNhnAYgMtXEKc0Hdu3+HX4iVZWFFjvKnl1tOQ6BvohuimPtWkfeTyokslwoD3KW/bWW
+ zALBO1wjcVJp7Q7L3odRUxoXKEJOm6JUFCM497lEBJnGXjI7OXAYBiaS+CCpPGQdv5ph
+ 8id42yESU9gc7F7yfMqAiemte4KTkKBZ4rLQjNiSkYURnE+JTnckRjpYkochYWBMETRh
+ nsPQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUU+VPhgHXRNFqfBgMAotzaGdRJAMRrZQBIg0Dj9m4wW6K5Bj5MsZaFf7yiJthv2jFOX3ytpdqwP84=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw/kFmA5WuS8gsmR5dYgzqd/ZKbzTUUweY8ZGiCdiEKhFxzwWlS
- ClhW/MXtvel/7XPA3pDtK7m9NO2qWspVhXcrSFbwGWOqmjXrt0+cuD9D1S7jBLpwol3oCTjMRZF
- vNZ7nqBaIBlgm517qZoqNDTTxOWmbsAeMdd3QwelGHM1P7PYxCzynZGQIYD515DOCWMzxmBY=
-X-Gm-Gg: ASbGncsqu0cUhvz9Frmv0NNbsEjDCO10R4Y80uHipLZNcOKFJEYFg0wDEfo4uNmoqWZ
- pzLdFvhOjHhrfKOAzDeMc/jLY55dONpp9az4eV0tFulwmSEKdgMVDgmT2CjLQHUrjYza/OZCnnK
- UfsGu22uPQdxB/oUvA4EYWuz05PDK/vELci6JTxDfF8igLJkL/v8UVA5xPD4vyl396KCUMquQzP
- iohz2XvBSXPFUdUqYB73aAGgwNGQHR+cZ6ZtQ46iOY8EmH7Z3NGcGsxZb5xaMDWH3lsSpXNY2LG
- 6bKgsaSB1QmEt3Ip6QO7xJoCYrAoQyP4crv6ehOqeSS5LsTeoGI+OQ7j3P1kig6JeYfIo7lghO2
- JqszZL9ieqTPdeDokgnaYWQDBAgNATp6tHY2ssgUINjHiPiKzyEPB
-X-Received: by 2002:a05:622a:2518:b0:4b5:d7e3:14a9 with SMTP id
- d75a77b69052e-4b5d7e31a96mr37976291cf.17.1757017160106; 
- Thu, 04 Sep 2025 13:19:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHJcRQsxcgT+uSNce80CLe8CYyvhDKUkldf2jsGuUpffbpj69zWEbc4KJJjbhdYWm1raJiMhA==
-X-Received: by 2002:a05:622a:2518:b0:4b5:d7e3:14a9 with SMTP id
- d75a77b69052e-4b5d7e31a96mr37975871cf.17.1757017159540; 
- Thu, 04 Sep 2025 13:19:19 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCViLVBGPZU9DJwWDbg4OLVsWOr8rqh0XA46gk4dBfUCm2M+3B1ajhgdVrwXRHF36OzTwnCXftUxyrQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyr7h1heFKLVFmg8qH3yrw0QpMFP+A/W09hodUw0+pH7gRHK3Pt
+ l7nsat4SkPUNqtWxSEX2lfPVOG0nz2uax9vVKdyyW1/DAqXlUrmXDDhos7qGvySHrrnd6dEP5Qi
+ iwYbI0583U7OCESqO/7B19zrogPn4N/eBTNvzZONxT38mWW75RsbXCQ/Kt8qei6oTelNgogVHMt
+ bdzBc=
+X-Gm-Gg: ASbGncs7lFkkYsMPAqFM4GFTgKa8VIKNJ0G+kJHLQU3z9GZkq/phT0XdsS1mLFWdeWT
+ S3oX+e7+20Jl1VqZAm8G8Zu7cj7VU/BiWHV9FsZfnuzbwwbSUkMnweYgN+5yxBLl3kAG+3FsZiQ
+ 5agmGCFB17L1eTdp+ixa66LNdzaVQMHHl1le3vvmyUjHYTpOAj1DZUVulFrT/hQ02d2jEFCPKxq
+ 0ZlvuNX1ZcrNlc44oJ33mbA8eZmcdH2YbeZ7IGDYy3i2GIlX50jBIB/4q4REyq283xbb3kjP9ZK
+ iVPJmhtQ1+YAI52xaNL8XrkSoGFY6/BaYJ6g8UamCtJMsp7XyuuvuieabearEoO4td4f5E6Jote
+ gO+VdaPGdiBNGHUxUVt3Qvw==
+X-Received: by 2002:a17:903:2383:b0:246:570:2d9a with SMTP id
+ d9443c01a7336-24944b1fc6emr283192235ad.59.1757021714792; 
+ Thu, 04 Sep 2025 14:35:14 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEp3igpntYcHLO4XqweUiLyIuxXfhO1KED/bu92vbMqGflTJz2eGcJkzb2pbmcEUuUIo7WMCQ==
+X-Received: by 2002:a17:903:2383:b0:246:570:2d9a with SMTP id
+ d9443c01a7336-24944b1fc6emr283191985ad.59.1757021714309; 
+ Thu, 04 Sep 2025 14:35:14 -0700 (PDT)
+Received: from [10.134.71.99] (i-global254.qualcomm.com. [199.106.103.254])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-337f4c90eb9sm16137861fa.22.2025.09.04.13.19.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 13:19:17 -0700 (PDT)
-Date: Thu, 4 Sep 2025 23:19:14 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
+ d9443c01a7336-24ccd76e157sm22652365ad.107.2025.09.04.14.35.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Sep 2025 14:35:13 -0700 (PDT)
+Message-ID: <c80e6933-8985-4da4-8498-66cedaa87b1f@oss.qualcomm.com>
+Date: Thu, 4 Sep 2025 14:35:14 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/12] drm/msm/disp: set num_planes and fetch_mode in
+ INTERLEAVED_RGB_FMT
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 12/12] drm/msm/dpu: use standard functions in
- _dpu_format_populate_plane_sizes_ubwc()
-Message-ID: <k7vorukb6rockoanjdebfjw3iio4l5nu3u6hdqyi4ke4cp3h66@omwo5bjxbt4t>
 References: <20250705-dpu-formats-v1-0-40f0bb31b8c8@oss.qualcomm.com>
- <20250705-dpu-formats-v1-12-40f0bb31b8c8@oss.qualcomm.com>
- <c2d810bc-bdba-464b-9a05-49ca2e1c773b@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c2d810bc-bdba-464b-9a05-49ca2e1c773b@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAxOSBTYWx0ZWRfX0qOEYHm5TpU9
- tZNRppTrqtEde58+uZEtP3YPeCqJ1oW3hRRPaHp6jIt3v1nDP+O9TPzgLC0VbHxh6XWZvyGQj9z
- nVoVSU4Ku7j3aCR+77MoW9mjIaezYBfPXUtKproGlpAJq7e9q+01DOHTixG00lf+JTHWwZqfGxI
- lla0XXAti5h5JOi5xdF3NtKecUECr/H0XPg1y2M5aJAozczeJfQsdGksoqvCB9ceas3f4jz/bfz
- xj8rYBCJ1LcXtKjgH9wX3TZwmb7/IWwZ2i94hpkxbUCXzlmQoAHx9xK8XGnZvL1dB67u6QpK8Xd
- v2y/pnv8yIe5EKaYnpwzaDgiITII7PC6EhlmaLJuZN7ea7qKvZ8qlUIdyKceUFmhX8L2TK4yXdM
- mMjbRAsS
-X-Proofpoint-GUID: 6N8YobPmfbaH1JJLHqy6NJ7poQE-qfnT
-X-Proofpoint-ORIG-GUID: 6N8YobPmfbaH1JJLHqy6NJ7poQE-qfnT
-X-Authority-Analysis: v=2.4 cv=PNkP+eqC c=1 sm=1 tr=0 ts=68b9f449 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=ncykOhDuLf7TmHMgJ_oA:9 a=CjuIK1q_8ugA:10
- a=kacYvNCVWA4VmyqE58fU:22
+ <20250705-dpu-formats-v1-2-40f0bb31b8c8@oss.qualcomm.com>
+Content-Language: en-US
+From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+In-Reply-To: <20250705-dpu-formats-v1-2-40f0bb31b8c8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Ycq95xRf c=1 sm=1 tr=0 ts=68ba061b cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=2YQhiLfsl84BKudLmi8A:9
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: QHU7Zav_b1b3FNLcywHCD04abWvp0-zR
+X-Proofpoint-ORIG-GUID: QHU7Zav_b1b3FNLcywHCD04abWvp0-zR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTAxMDEwMSBTYWx0ZWRfX8cxKx5o7ZBz6
+ zoG4mpnuYP6Ro81NtwKo7Y5RVh6Jz6OdNQsj1tyWhn2bTg8na+Ewe8thSHEst5hyFGdWHGpYy6M
+ xATduyvRSfTFd4byY7zJoWpquC83kgm1TFtpjdkzcTOeuj7UhhX+9F2QvjeZFVoe6Njy2pqU9BF
+ 7gEHDDZECdTKMJXXpNLVOBMr428HbN4XKXicLVbhD4p5QBS67/yMXoePTmRz6GVM9CsDFvOjUy+
+ gQL8/Rmt/jFGpwL626RAuJLKGdVDgaEGh3T6bd86MUXmy2xUuJVj37m6Y905QhCxXj7Nrjt31k2
+ nYQNvDIOMc53LAyJldZocLlxnjvMTQXec0os2YE/SjeWWDg+4Rwn5FZet611rv3NUykl2som16p
+ n5TElJy4
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-04_06,2025-09-04_01,2025-03-28_01
+ definitions=2025-09-04_07,2025-09-04_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 impostorscore=0 clxscore=1015
- suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508300019
+ clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0
+ bulkscore=0 suspectscore=0 impostorscore=0 spamscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2509010101
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,143 +131,300 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 04, 2025 at 11:38:16AM -0700, Jessica Zhang wrote:
-> 
-> 
-> On 7/4/2025 7:47 PM, Dmitry Baryshkov wrote:
-> > The _dpu_format_populate_plane_sizes_ubwc() used MSM_MEDIA_ALIGN() and
-> > MSM_MEDIA_ROUNDUP(), macros inherited from the previous implementation,
-> > msm_media_info.h. Replace them with the standard Linux macros,
-> > round_up() and DIV_ROUND_UP() respectively.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 62 ++++++++++++-----------------
-> >   1 file changed, 26 insertions(+), 36 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-> > index 67bc5a6eeb43dcf113dea9eccdb778cd52b1ad40..6a0426ed1460c5af4822844d7a7b0c51739df875 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-> > @@ -10,16 +10,6 @@
-> >   #include "dpu_kms.h"
-> >   #include "dpu_formats.h"
-> > -#ifndef MSM_MEDIA_ALIGN
-> > -#define MSM_MEDIA_ALIGN(__sz, __align) (((__align) & ((__align) - 1)) ?\
-> > -	((((__sz) + (__align) - 1) / (__align)) * (__align)) :\
-> > -	(((__sz) + (__align) - 1) & (~((__align) - 1))))
-> > -#endif
-> > -
-> > -#ifndef MSM_MEDIA_ROUNDUP
-> > -#define MSM_MEDIA_ROUNDUP(__sz, __r) (((__sz) + ((__r) - 1)) / (__r))
-> > -#endif
-> > -
-> >   #define DPU_UBWC_PLANE_SIZE_ALIGNMENT	4096
-> >   /*
-> > @@ -80,57 +70,57 @@ static int _dpu_format_populate_plane_sizes_ubwc(
-> >   		    fmt->pixel_format == DRM_FORMAT_P010) {
-> >   			if (MSM_FORMAT_IS_DX(fmt)) {
-> >   				if (fmt->flags & MSM_FORMAT_FLAG_UNPACK_TIGHT) {
-> > -					stride = MSM_MEDIA_ALIGN(fb->width, 192);
-> > -					stride = MSM_MEDIA_ALIGN(stride * 4 / 3, 256);
-> > +					stride = round_up(fb->width, 192);
-> 
-> Hi Dmitry,
-> 
-> It seems like the usage of round_up() here might be incorrect -- the docs
-> say "round up to next specified power of 2".
-> 
-> Maybe we should use roundup() instead here?
 
 
-Indeed, two macros with very simlar names. Thanks for spotting it!
+On 7/4/2025 7:47 PM, Dmitry Baryshkov wrote:
+> All interleaved RGB formats use only 1 plane and MDP_FETCH_LINEAR.
+> Specify num_planes and fetch_mode directly in the macro and remove
+> unused parameters.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
+Reviewed-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+
+> ---
+>   drivers/gpu/drm/msm/disp/mdp_format.c | 114 ++++++++++++----------------------
+>   1 file changed, 39 insertions(+), 75 deletions(-)
 > 
-> The rest of the patch LGTM.
-> 
-> Thanks,
-> 
-> Jessica Zhang
-> 
-> > +					stride = round_up(stride * 4 / 3, 256);
-> >   					y_tile_width = 48;
-> >   				} else {
-> > -					stride = MSM_MEDIA_ALIGN(fb->width * 2, 256);
-> > +					stride = round_up(fb->width * 2, 256);
-> >   					y_tile_width = 32;
-> >   				}
-> > -				sclines = MSM_MEDIA_ALIGN(fb->height, 16);
-> > +				sclines = round_up(fb->height, 16);
-> >   				y_tile_height = 4;
-> >   			} else {
-> > -				stride = MSM_MEDIA_ALIGN(fb->width, 128);
-> > +				stride = round_up(fb->width, 128);
-> >   				y_tile_width = 32;
-> > -				sclines = MSM_MEDIA_ALIGN(fb->height, 32);
-> > +				sclines = round_up(fb->height, 32);
-> >   				y_tile_height = 8;
-> >   			}
-> >   		}
-> >   		layout->plane_pitch[0] = stride;
-> > -		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
-> > +		layout->plane_size[0] = round_up(layout->plane_pitch[0] *
-> >   			sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
-> >   		layout->plane_pitch[1] = stride;
-> > -		layout->plane_size[1] = MSM_MEDIA_ALIGN(layout->plane_pitch[1] *
-> > +		layout->plane_size[1] = round_up(layout->plane_pitch[1] *
-> >   			sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
-> >   		if (!meta)
-> >   			return 0;
-> > -		y_meta_stride = MSM_MEDIA_ROUNDUP(fb->width, y_tile_width);
-> > -		layout->plane_pitch[2] = MSM_MEDIA_ALIGN(y_meta_stride, 64);
-> > +		y_meta_stride = DIV_ROUND_UP(fb->width, y_tile_width);
-> > +		layout->plane_pitch[2] = round_up(y_meta_stride, 64);
-> > -		y_meta_scanlines = MSM_MEDIA_ROUNDUP(fb->height, y_tile_height);
-> > -		y_meta_scanlines = MSM_MEDIA_ALIGN(y_meta_scanlines, 16);
-> > -		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
-> > +		y_meta_scanlines = DIV_ROUND_UP(fb->height, y_tile_height);
-> > +		y_meta_scanlines = round_up(y_meta_scanlines, 16);
-> > +		layout->plane_size[2] = round_up(layout->plane_pitch[2] *
-> >   			y_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
-> > -		uv_meta_stride = MSM_MEDIA_ROUNDUP((fb->width+1)>>1, y_tile_width / 2);
-> > -		layout->plane_pitch[3] = MSM_MEDIA_ALIGN(uv_meta_stride, 64);
-> > +		uv_meta_stride = DIV_ROUND_UP((fb->width+1)>>1, y_tile_width / 2);
-> > +		layout->plane_pitch[3] = round_up(uv_meta_stride, 64);
-> > -		uv_meta_scanlines = MSM_MEDIA_ROUNDUP((fb->height+1)>>1, y_tile_height);
-> > -		uv_meta_scanlines = MSM_MEDIA_ALIGN(uv_meta_scanlines, 16);
-> > -		layout->plane_size[3] = MSM_MEDIA_ALIGN(layout->plane_pitch[3] *
-> > +		uv_meta_scanlines = DIV_ROUND_UP((fb->height+1)>>1, y_tile_height);
-> > +		uv_meta_scanlines = round_up(uv_meta_scanlines, 16);
-> > +		layout->plane_size[3] = round_up(layout->plane_pitch[3] *
-> >   			uv_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
-> >   	} else {
-> >   		unsigned int rgb_scanlines, rgb_meta_scanlines, rgb_meta_stride;
-> > -		layout->plane_pitch[0] = MSM_MEDIA_ALIGN(fb->width * fmt->bpp, 256);
-> > -		rgb_scanlines = MSM_MEDIA_ALIGN(fb->height, 16);
-> > -		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
-> > +		layout->plane_pitch[0] = round_up(fb->width * fmt->bpp, 256);
-> > +		rgb_scanlines = round_up(fb->height, 16);
-> > +		layout->plane_size[0] = round_up(layout->plane_pitch[0] *
-> >   			rgb_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
-> >   		if (!meta)
-> > @@ -139,13 +129,13 @@ static int _dpu_format_populate_plane_sizes_ubwc(
-> >   		/* uAPI leaves plane[1] empty and plane[2] as meta */
-> >   		layout->num_planes += 1;
-> > -		rgb_meta_stride = MSM_MEDIA_ROUNDUP(fb->width, 16);
-> > -		layout->plane_pitch[2] = MSM_MEDIA_ALIGN(rgb_meta_stride, 64);
-> > +		rgb_meta_stride = DIV_ROUND_UP(fb->width, 16);
-> > +		layout->plane_pitch[2] = round_up(rgb_meta_stride, 64);
-> > -		rgb_meta_scanlines = MSM_MEDIA_ROUNDUP(fb->height, 4);
-> > -		rgb_meta_scanlines = MSM_MEDIA_ALIGN(rgb_meta_scanlines, 16);
-> > +		rgb_meta_scanlines = DIV_ROUND_UP(fb->height, 4);
-> > +		rgb_meta_scanlines = round_up(rgb_meta_scanlines, 16);
-> > -		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
-> > +		layout->plane_size[2] = round_up(layout->plane_pitch[2] *
-> >   			rgb_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
-> >   	}
-> > 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp_format.c b/drivers/gpu/drm/msm/disp/mdp_format.c
+> index eebedb1a2636e76996cf82847b7d391cb67b0941..26be35572fd2ee7456401aa525cc36025bc52ee4 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp_format.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp_format.c
+> @@ -67,7 +67,7 @@ static struct csc_cfg csc_convert[CSC_MAX] = {
+>   #define MDP_TILE_HEIGHT_NV12	8
+>   
+>   #define INTERLEAVED_RGB_FMT(fmt, a, r, g, b, e0, e1, e2, e3, uc, alpha,   \
+> -bp, flg, fm, np)                                                          \
+> +bp, flg)                                                                  \
+>   {                                                                         \
+>   	.pixel_format = DRM_FORMAT_ ## fmt,                               \
+>   	.fetch_type = MDP_PLANE_INTERLEAVED,                              \
+> @@ -80,9 +80,9 @@ bp, flg, fm, np)                                                          \
+>   	.chroma_sample = CHROMA_FULL,                                     \
+>   	.unpack_count = uc,                                               \
+>   	.bpp = bp,                                                        \
+> -	.fetch_mode = fm,                                                 \
+> +	.fetch_mode = MDP_FETCH_LINEAR,                                   \
+>   	.flags = MSM_FORMAT_FLAG_UNPACK_TIGHT | flg,                      \
+> -	.num_planes = np,                                                 \
+> +	.num_planes = 1,                                                  \
+>   	.tile_height = MDP_TILE_HEIGHT_DEFAULT                            \
+>   }
+>   
+> @@ -228,218 +228,182 @@ static const struct msm_format mdp_formats[] = {
+>   	INTERLEAVED_RGB_FMT(ARGB8888,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, C3_ALPHA, 4,
+> -		true, 4, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 4, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(ABGR8888,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, C3_ALPHA, 4,
+> -		true, 4, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 4, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(XBGR8888,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, C3_ALPHA, 4,
+> -		false, 4, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 4, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(RGBA8888,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C3_ALPHA, C1_B_Cb, C0_G_Y, C2_R_Cr, 4,
+> -		true, 4, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 4, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(BGRA8888,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C3_ALPHA, C2_R_Cr, C0_G_Y, C1_B_Cb, 4,
+> -		true, 4, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 4, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(BGRX8888,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C3_ALPHA, C2_R_Cr, C0_G_Y, C1_B_Cb, 4,
+> -		false, 4, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 4, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(XRGB8888,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, C3_ALPHA, 4,
+> -		false, 4, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 4, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(RGBX8888,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C3_ALPHA, C1_B_Cb, C0_G_Y, C2_R_Cr, 4,
+> -		false, 4, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 4, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(RGB888,
+>   		0, BPC8, BPC8, BPC8,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, 0, 3,
+> -		false, 3, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 3, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(BGR888,
+>   		0, BPC8, BPC8, BPC8,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, 0, 3,
+> -		false, 3, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 3, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(RGB565,
+>   		0, BPC5, BPC6, BPC5,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, 0, 3,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(BGR565,
+>   		0, BPC5, BPC6, BPC5,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, 0, 3,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(ARGB1555,
+>   		BPC1A, BPC5, BPC5, BPC5,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, C3_ALPHA, 4,
+> -		true, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(ABGR1555,
+>   		BPC1A, BPC5, BPC5, BPC5,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, C3_ALPHA, 4,
+> -		true, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(RGBA5551,
+>   		BPC1A, BPC5, BPC5, BPC5,
+>   		C3_ALPHA, C1_B_Cb, C0_G_Y, C2_R_Cr, 4,
+> -		true, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(BGRA5551,
+>   		BPC1A, BPC5, BPC5, BPC5,
+>   		C3_ALPHA, C2_R_Cr, C0_G_Y, C1_B_Cb, 4,
+> -		true, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(XRGB1555,
+>   		BPC1A, BPC5, BPC5, BPC5,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, C3_ALPHA, 4,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(XBGR1555,
+>   		BPC1A, BPC5, BPC5, BPC5,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, C3_ALPHA, 4,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(RGBX5551,
+>   		BPC1A, BPC5, BPC5, BPC5,
+>   		C3_ALPHA, C1_B_Cb, C0_G_Y, C2_R_Cr, 4,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(BGRX5551,
+>   		BPC1A, BPC5, BPC5, BPC5,
+>   		C3_ALPHA, C2_R_Cr, C0_G_Y, C1_B_Cb, 4,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(ARGB4444,
+>   		BPC4A, BPC4, BPC4, BPC4,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, C3_ALPHA, 4,
+> -		true, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(ABGR4444,
+>   		BPC4A, BPC4, BPC4, BPC4,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, C3_ALPHA, 4,
+> -		true, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(RGBA4444,
+>   		BPC4A, BPC4, BPC4, BPC4,
+>   		C3_ALPHA, C1_B_Cb, C0_G_Y, C2_R_Cr, 4,
+> -		true, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(BGRA4444,
+>   		BPC4A, BPC4, BPC4, BPC4,
+>   		C3_ALPHA, C2_R_Cr, C0_G_Y, C1_B_Cb, 4,
+> -		true, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(XRGB4444,
+>   		BPC4A, BPC4, BPC4, BPC4,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, C3_ALPHA, 4,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(XBGR4444,
+>   		BPC4A, BPC4, BPC4, BPC4,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, C3_ALPHA, 4,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(RGBX4444,
+>   		BPC4A, BPC4, BPC4, BPC4,
+>   		C3_ALPHA, C1_B_Cb, C0_G_Y, C2_R_Cr, 4,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(BGRX4444,
+>   		BPC4A, BPC4, BPC4, BPC4,
+>   		C3_ALPHA, C2_R_Cr, C0_G_Y, C1_B_Cb, 4,
+> -		false, 2, 0,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 2, 0),
+>   
+>   	INTERLEAVED_RGB_FMT(BGRA1010102,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C3_ALPHA, C2_R_Cr, C0_G_Y, C1_B_Cb, 4,
+> -		true, 4, MSM_FORMAT_FLAG_DX,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 4, MSM_FORMAT_FLAG_DX),
+>   
+>   	INTERLEAVED_RGB_FMT(RGBA1010102,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C3_ALPHA, C1_B_Cb, C0_G_Y, C2_R_Cr, 4,
+> -		true, 4, MSM_FORMAT_FLAG_DX,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 4, MSM_FORMAT_FLAG_DX),
+>   
+>   	INTERLEAVED_RGB_FMT(ABGR2101010,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, C3_ALPHA, 4,
+> -		true, 4, MSM_FORMAT_FLAG_DX,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 4, MSM_FORMAT_FLAG_DX),
+>   
+>   	INTERLEAVED_RGB_FMT(ARGB2101010,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, C3_ALPHA, 4,
+> -		true, 4, MSM_FORMAT_FLAG_DX,
+> -		MDP_FETCH_LINEAR, 1),
+> +		true, 4, MSM_FORMAT_FLAG_DX),
+>   
+>   	INTERLEAVED_RGB_FMT(XRGB2101010,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C1_B_Cb, C0_G_Y, C2_R_Cr, C3_ALPHA, 4,
+> -		false, 4, MSM_FORMAT_FLAG_DX,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 4, MSM_FORMAT_FLAG_DX),
+>   
+>   	INTERLEAVED_RGB_FMT(BGRX1010102,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C3_ALPHA, C2_R_Cr, C0_G_Y, C1_B_Cb, 4,
+> -		false, 4, MSM_FORMAT_FLAG_DX,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 4, MSM_FORMAT_FLAG_DX),
+>   
+>   	INTERLEAVED_RGB_FMT(XBGR2101010,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C2_R_Cr, C0_G_Y, C1_B_Cb, C3_ALPHA, 4,
+> -		false, 4, MSM_FORMAT_FLAG_DX,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 4, MSM_FORMAT_FLAG_DX),
+>   
+>   	INTERLEAVED_RGB_FMT(RGBX1010102,
+>   		BPC8A, BPC8, BPC8, BPC8,
+>   		C3_ALPHA, C1_B_Cb, C0_G_Y, C2_R_Cr, 4,
+> -		false, 4, MSM_FORMAT_FLAG_DX,
+> -		MDP_FETCH_LINEAR, 1),
+> +		false, 4, MSM_FORMAT_FLAG_DX),
+>   
+>   	/* --- RGB formats above / YUV formats below this line --- */
+>   
 > 
 
--- 
-With best wishes
-Dmitry
