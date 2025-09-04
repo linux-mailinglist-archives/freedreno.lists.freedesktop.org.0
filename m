@@ -2,82 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB934B433C7
-	for <lists+freedreno@lfdr.de>; Thu,  4 Sep 2025 09:24:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D23D1B433CB
+	for <lists+freedreno@lfdr.de>; Thu,  4 Sep 2025 09:24:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6891810E9AC;
-	Thu,  4 Sep 2025 07:24:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66E1F10E992;
+	Thu,  4 Sep 2025 07:24:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="D69oPy5+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gkWJDUfK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A87910E99C
- for <freedreno@lists.freedesktop.org>; Thu,  4 Sep 2025 07:24:06 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5840hamM007501
- for <freedreno@lists.freedesktop.org>; Thu, 4 Sep 2025 07:24:05 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A31BE10E991
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Sep 2025 07:24:13 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5840Kf6o029700
+ for <freedreno@lists.freedesktop.org>; Thu, 4 Sep 2025 07:24:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9dVZBRIHrWn92OQdcLLUSsigL8ODeAGNXa6XIWFJfC4=; b=D69oPy5+dzq92BeQ
- O1KXmaW2gIUWw01JKtNpva2oksDLJwfiZMAtp1lD/JVIot36R5IU4Q5GLlgSC7Ko
- 6AYgPiAvwvOUdsIZRd3YNRcrWn3xYrbj3ag5lmX2j7eBg4mWTYAMIKd3WE8Psarp
- 2bumrVVjS1OYcz6+Hv29gOg0q/qdfPN39VtFV8z5MHPfeaiwQhb7JjuY4D+2RNXP
- HO6BsYj7qfm4dNRlyHDYzLpL8RZhTcqFdjnejHTwBs9CdHEsDo/18R/CVH8K60vg
- kvPqtUfQPNuvFKamAKXdEwKUdN7WoJFBGVazqATYUYoqUzp8FeqBl/iITOYfk/aD
- Xndbrg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48uscv6r3r-1
+ WIK2qr3/NE94iQwkqEL7J6K1o6tIhuvxaoMJhpu+NbY=; b=gkWJDUfK/EmvHJOp
+ Il4ZQV1HfyFRXs2662MVXFJ4c5Nmx2ZkLS3Xqw3rMgecHgvVVGkpuIzRXqSAaWrl
+ eyXb8wRZguWLa2N6u9cQOte5cBqL/xY/EwsUWWgMRzC5FLOXnFVPgm2Rxd+s8+9+
+ fU3n+/VdqBw46eWok3GBw8G3LESkfwIy8va/izdkYzitN/9cLaYwUVq/jznk5oRa
+ QD+Wj+yG1KqjnATqoiIaewOlcCn8oTmMh3cLcoBlqn6KsaBgKFBtyPe9sy+2EqW7
+ vQd/sAJ0ErLlyqduLPc9VlofPrcl/9ea3A7YaZzIciz01VOjRS7z7rBQX1d/uEPP
+ hZCGSw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48upnperg8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 07:24:05 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-32b58eeb874so629897a91.3
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 00:24:05 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 07:24:12 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-b4c949fc524so523938a12.2
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 00:24:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756970644; x=1757575444;
+ d=1e100.net; s=20230601; t=1756970651; x=1757575451;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9dVZBRIHrWn92OQdcLLUSsigL8ODeAGNXa6XIWFJfC4=;
- b=TxH6gZrFLvUJcuAIsNiOyrBHmajVYnykSTPqmIRtYX2AmykbeIKIu3VbApEgZVKExl
- YH+gnbJdXa/iPIQ5tsh5mWTCGQxQywDyrp9YdMySokFYY6/InMHgST3yFg2GWNC3PxJO
- LnuM8dlIz1KfBWfR70Cic3H7xTptwvv4Vvy7uJf1uInYs3BbcBEFaF/qP+jO/dmaFmEj
- IHbTvHmxIX5ky1MdiAd2xVej9fxHU5G9yF0sTLqnaLjLshkQbEcTp6OmC1SEbgl98Llq
- VbsiAH7t8pNM/1QlLsg5njpXRNrCTwysT5fJfLiJB1dKYLI4WXkXQYwSCDJNRXt0sDL2
- Hfuw==
+ bh=WIK2qr3/NE94iQwkqEL7J6K1o6tIhuvxaoMJhpu+NbY=;
+ b=jaGK3B0etlyqXF+C01ia3o7q9CXvIS/mktKQLACz9eXVq+CzrQ5QyC8KJWIboBuzLe
+ MjYQ/O/cOsvLsa1R3b/b9I8Anyd1pN8bTrPQM5LDt+gvIuoBHY38cWGl23gtUoYdzlFv
+ BC/KHOi7+jSViwF84l2op2EHTjcXH18f53OPcCTjO2HDjjtut3dUKk75gAgdBKDH15wW
+ aq0Mv2XUj/rtp6GKUjmB5t/vJ3zXS+We7sW1+jTmdb0xBAEgl/MDyfnjlQ9EGPbhM6Ir
+ IoddJpTOG/oKzvOXpg0hykSyxVS5LELBYfxeZxL/Lmn7OL+i6YGyDgCLdjTnBtoKklzk
+ eqGA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV0MdDDawsztLJ3EIJrd4BGyBvRa/9Slq9DiI3cdKI4ak1G6QOFhOUxFn9r+bx1jZoDGqefEFAtaiA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywt+C8Xb/QNIw7KTVy7GqRb+Za77UH2YlA1s3PfRZBwM1MG9qsJ
- EH9nZuFVTHM1Fe5cU0gGH2LY8iuInV8d1sQN8OaYrw+0cAVHuc7nFQu4VD5GA+6iEvAx9QpLxHl
- l2EFfH97OPQH+t1IJtW5KX2RhPpjDA+9aN0Ne4U0nnOJBD+us3E1kbMEP0Mn2Yo5azi68jXA=
-X-Gm-Gg: ASbGncvKcYNfnFs/kkjDQFBQ3neWf9rtD5+fYwuvXwVTXiYX2VV/4hQe/as1aEwc+NF
- NQj3LOJ7wIkjeVhAp0rUDc9zUfubjKeSojoW/EiB40GsGMOIGaPRpi0M0ZkKWd5vyfJ9U2RbHq8
- ek0U/pnHhyASbjUb+OvDogsiE7O/gvHvHkYAvLq5ufaqCoL5DUKOamc+G1eGMqKx9mAkweT1SAx
- CeG/LUJMnpDr5S7QJ++uFO8sg+5p/H3jxw3aNOK/jOazptImpIOEaoa472svz7O1xzKaA858kzQ
- ZNBtFftVMobEXDxFWF7gMVBoXtcgD3EznUFTQovfOwqI5MOvAKDC2QcSJzP77Bc1oRFWjpc=
-X-Received: by 2002:a17:90b:4d81:b0:32a:34d8:33cf with SMTP id
- 98e67ed59e1d1-32a34d834d4mr7390781a91.31.1756970643734; 
- Thu, 04 Sep 2025 00:24:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHVtEivIroC/F52MrKpFpXrGgtmG0Mj0Zxs1tdX473pQTJpigyON8JmPgq0+VeILFyALx8wbg==
-X-Received: by 2002:a17:90b:4d81:b0:32a:34d8:33cf with SMTP id
- 98e67ed59e1d1-32a34d834d4mr7390747a91.31.1756970643077; 
- Thu, 04 Sep 2025 00:24:03 -0700 (PDT)
+ AJvYcCUw8TUhwWSKRmFpv++6qQLKgFU4ef+HfWDhMUsIb1UciyR/Z2hhYk7izlGzi2zzy7zQtiXd4z+xkIE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4NT50bPbkRhpmuMt3XZ0iwzPkOKeIkvoi2yupQYacsCFdpjQQ
+ Rc+PuNIaOBsyYUG03GsdRN9m2cQGj32KrAOPsNaYidaAtVRgH56kHOY3Q9XuGaDsMznUnJuPvTS
+ Z3NRBbg/oAS8xJACm6oi/rl6qoeKqDV8cWTtMyxqJFTqbCvqlaDDGFUcSeuEdH58VY3luOv8=
+X-Gm-Gg: ASbGnct2YK6vzyhpQrkLhAHs78QrFWyopEX0IpZTGAzk9Tp95Bp6jIg2yNxbKN89MBp
+ FhkekzrHkB8EozntYPMFz1xtGbiPuc8JM9tlaP6/zI68h8oPDWkNAxJb2VAhpsf7oVJHcGE3nWt
+ XMpt+oTdQVt7M6RIaDz7CLnE3mYk4GqHpZ6WO4jE3ahRBX+mEmUe59QsAATHRDH31hKaF5ryKOw
+ poss8TR3fH1rQi781ofXanYCdcRY5V9PbNvHHQWipI5118MvUAVPGmHmN+xSBCzzekP10SMz7xY
+ eDb34u2ensZSMLBhP75TPxOxMY/4QLmkykkwtc+MjqLx5T5McwGGmDp2vK43j+bFR7sp1h8=
+X-Received: by 2002:a05:6a20:4322:b0:243:ab0c:f0f7 with SMTP id
+ adf61e73a8af0-243d6f02e59mr23320011637.31.1756970651454; 
+ Thu, 04 Sep 2025 00:24:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHJ8enfuqQcqlAwxhsH+5qitYBcmR2no0dT0Gse689XelnQPF9r7les6vLU1Q3oV7U2TZEQrw==
+X-Received: by 2002:a05:6a20:4322:b0:243:ab0c:f0f7 with SMTP id
+ adf61e73a8af0-243d6f02e59mr23319971637.31.1756970650898; 
+ Thu, 04 Sep 2025 00:24:10 -0700 (PDT)
 Received: from cse-cd01-lnx.ap.qualcomm.com ([114.94.8.21])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-77243ffcebasm14656452b3a.51.2025.09.04.00.23.55
+ d2e1a72fcca58-77243ffcebasm14656452b3a.51.2025.09.04.00.24.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 00:24:02 -0700 (PDT)
+ Thu, 04 Sep 2025 00:24:10 -0700 (PDT)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Thu, 04 Sep 2025 15:22:38 +0800
-Subject: [PATCH v11 3/6] dt-bindings: display/msm: Document MDSS on QCS8300
+Date: Thu, 04 Sep 2025 15:22:39 +0800
+Subject: [PATCH v11 4/6] soc: qcom: ubwc: Add QCS8300 UBWC cfg
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250904-qcs8300_mdss-v11-3-bc8761964d76@oss.qualcomm.com>
+Message-Id: <20250904-qcs8300_mdss-v11-4-bc8761964d76@oss.qualcomm.com>
 References: <20250904-qcs8300_mdss-v11-0-bc8761964d76@oss.qualcomm.com>
 In-Reply-To: <20250904-qcs8300_mdss-v11-0-bc8761964d76@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -99,37 +99,36 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1756970611; l=10343;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1756970611; l=1189;
  i=yongxing.mou@oss.qualcomm.com; s=20241121; h=from:subject:message-id;
- bh=1wqqR4K7/dr7bRvAhes355NoRm2js3OlTBBG6nyqacQ=;
- b=ENooH7ZTj9gwsrWyV4eLcosyailPlA9CD849o8D3ID/TwgffRP8ozbHVzH2RpZYITDSGBjq4e
- YgK6G381imADRvZZ2nh6ShuihTb77x758XBfju+kOIFFgthM6EeY1xn
+ bh=/6uXAHc8u+Q/a1DjNDEMhzB6keYn2be9cZkXxsbUEe4=;
+ b=KWYVYnoqYgq/copKQInvh0Aj1bnq6K/MF3klLEorICC76+c7mfr4OZNoUWfsI0R5sv1eTtWYe
+ nVQENoqS8xYDc/JIPq98MskOGVTXkgR0GuWTiXIC4qigBzXIKpBSb/C
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=zeCnFRUqtOQMeFvdwex2M5o0Yf67UHYfwCyBRQ3kFbU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMSBTYWx0ZWRfX2xmz9MsPPO1+
- pjlSrOXbnEi/E60c1QjwGxq1xP6/Fmf8RGQB64/NklGSgP2v+//oHQMxDoDllyJMAOZV+JI+vWT
- LQJhM4nPvU3d8m4B15Zk5PxZmrKMfFw86y6OdLbpfNhfCA4NILYozamv1aMYrVTFxeV+sqKYbZv
- 3xvudNQNK11Gf14NpJIA3OtHU387UcpVHVPzuYk2ZcFqQo3OJJugUxyOM4TzuCjOd9HfxKC6eNN
- ZNf6vLQUfAV5eZ6EZ9Jg0+4kSO6pUxT5c7psgwQyAEuJELi2nZ9pi/rLv0pt+xLI9vuR49IMrme
- TtDwDXZNpl5k7pliJ1DjlrhFvCjyiYE0hhxqaheoQHmWHBqjGO7EB1MltXKfBDLcMQSI/NRdGAL
- BZBIwQl2
-X-Authority-Analysis: v=2.4 cv=A8xsP7WG c=1 sm=1 tr=0 ts=68b93e95 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=gEfo2CItAAAA:8 a=KKAkSRfTAAAA:8
- a=EUspDBNiAAAA:8 a=xy87eLYBKWInB6EY41QA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=sptkURWiP4Gy88Gu7hUp:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: z5JavhQoH2JmPemQjmnseC5fy4-dJK3-
-X-Proofpoint-GUID: z5JavhQoH2JmPemQjmnseC5fy4-dJK3-
+X-Proofpoint-GUID: C1513cdc43hidHvNXpeNCIBiN77kHh2E
+X-Authority-Analysis: v=2.4 cv=Jt/xrN4C c=1 sm=1 tr=0 ts=68b93e9c cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=yyC0Gtz2zuuxwh5CSaYA:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-ORIG-GUID: C1513cdc43hidHvNXpeNCIBiN77kHh2E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAwMSBTYWx0ZWRfX6rliPh0k02ri
+ 7EnpgQ337UDxIx5k5GRR+URacN2UiGBe32ALZPx0BThN4mc81E9dpS0dESkxelCcycrfrU3uOXW
+ ZzjLip/VEq3qJH0oHY27+Z22QvG85mdY6P0Kn7jNQb+e4lpWDHCfqeDpBW7wFpGMehCBkYivfyH
+ B2zQX4Ii0kxJ2lw5ZR6iOubHZgCenQO/AxGmnvztfdJrPJxcAcums3PSdqwFwqGTkiHjK90jo0f
+ nR7FZk/dbP97K55YD0BzAOPZ11LscOcYkdLCqu6nF1v9ZsFRJ/eTKvXV5kkctlSysyeLXGRWYPl
+ lv6sml97w/UWkUphHGdDHa0/dCfeCKOY5M6fdpPjx3VG9ooPp7q+ircBB3SAtEdi2eJDSWYcRH5
+ jQOXSjuB
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-04_02,2025-08-28_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 impostorscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508300031
+ adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 impostorscore=0
+ spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508300001
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,306 +144,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Document the MDSS hardware found on the Qualcomm QCS8300 platform.
+The QCS8300 supports UBWC 4.0 and 4 channels LP5 memory interface. Use
+the SC8280XP data structure for QCS8300 according to the specification.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Acked-by: Bjorn Andersson <andersson@kernel.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 ---
- .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 286 +++++++++++++++++++++
- 1 file changed, 286 insertions(+)
+ drivers/soc/qcom/ubwc_config.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..06b16e35a350d24a09e0e8623b743475061dcfe3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml
-@@ -0,0 +1,286 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/msm/qcom,qcs8300-mdss.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Technologies, Inc. QCS8300 Display MDSS
-+
-+maintainers:
-+  - Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-+
-+description:
-+  QCS8300 MSM Mobile Display Subsystem(MDSS), which encapsulates sub-blocks like
-+  DPU display controller, DP interfaces and EDP etc.
-+
-+$ref: /schemas/display/msm/mdss-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: qcom,qcs8300-mdss
-+
-+  clocks:
-+    items:
-+      - description: Display AHB
-+      - description: Display hf AXI
-+      - description: Display core
-+
-+  iommus:
-+    maxItems: 1
-+
-+  interconnects:
-+    maxItems: 3
-+
-+  interconnect-names:
-+    maxItems: 3
-+
-+patternProperties:
-+  "^display-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+
-+    properties:
-+      compatible:
-+        contains:
-+          const: qcom,qcs8300-dpu
-+
-+  "^displayport-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+
-+    properties:
-+      compatible:
-+        items:
-+          - const: qcom,qcs8300-dp
-+
-+  "^phy@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+    properties:
-+      compatible:
-+        contains:
-+          const: qcom,qcs8300-edp-phy
-+
-+required:
-+  - compatible
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interconnect/qcom,icc.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/qcom,qcs8300-gcc.h>
-+    #include <dt-bindings/clock/qcom,sa8775p-dispcc.h>
-+    #include <dt-bindings/interconnect/qcom,qcs8300-rpmh.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    mdss: display-subsystem@ae00000 {
-+        compatible = "qcom,qcs8300-mdss";
-+        reg = <0x0ae00000 0x1000>;
-+        reg-names = "mdss";
-+
-+        interconnects = <&mmss_noc MASTER_MDP0 QCOM_ICC_TAG_ACTIVE_ONLY
-+                         &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+                        <&mmss_noc MASTER_MDP1 QCOM_ICC_TAG_ACTIVE_ONLY
-+                         &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+                        <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+                         &config_noc SLAVE_DISPLAY_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
-+        interconnect-names = "mdp0-mem",
-+                             "mdp1-mem",
-+                             "cpu-cfg";
-+
-+        resets = <&dispcc_core_bcr>;
-+        power-domains = <&dispcc_gdsc>;
-+
-+        clocks = <&dispcc_ahb_clk>,
-+                 <&gcc GCC_DISP_HF_AXI_CLK>,
-+                 <&dispcc_mdp_clk>;
-+
-+        interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-controller;
-+        #interrupt-cells = <1>;
-+
-+        iommus = <&apps_smmu 0x1000 0x402>;
-+
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges;
-+
-+        display-controller@ae01000 {
-+            compatible = "qcom,qcs8300-dpu", "qcom,sa8775p-dpu";
-+            reg = <0x0ae01000 0x8f000>,
-+                  <0x0aeb0000 0x2008>;
-+            reg-names = "mdp", "vbif";
-+
-+            clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_AHB_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_MDP_LUT_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_MDP_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_VSYNC_CLK>;
-+            clock-names = "nrt_bus",
-+                          "iface",
-+                          "lut",
-+                          "core",
-+                          "vsync";
-+
-+            assigned-clocks = <&dispcc0 MDSS_DISP_CC_MDSS_VSYNC_CLK>;
-+            assigned-clock-rates = <19200000>;
-+            operating-points-v2 = <&mdp_opp_table>;
-+            power-domains = <&rpmhpd RPMHPD_MMCX>;
-+
-+            interrupt-parent = <&mdss>;
-+            interrupts = <0>;
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+                port@0 {
-+                    reg = <0>;
-+
-+                    dpu_intf0_out: endpoint {
-+                         remote-endpoint = <&mdss_dp0_in>;
-+                    };
-+                };
-+            };
-+
-+            mdp_opp_table: opp-table {
-+                compatible = "operating-points-v2";
-+
-+                opp-375000000 {
-+                    opp-hz = /bits/ 64 <375000000>;
-+                    required-opps = <&rpmhpd_opp_svs_l1>;
-+                };
-+
-+                opp-500000000 {
-+                    opp-hz = /bits/ 64 <500000000>;
-+                    required-opps = <&rpmhpd_opp_nom>;
-+                };
-+
-+                opp-575000000 {
-+                    opp-hz = /bits/ 64 <575000000>;
-+                    required-opps = <&rpmhpd_opp_turbo>;
-+                };
-+
-+                opp-650000000 {
-+                    opp-hz = /bits/ 64 <650000000>;
-+                    required-opps = <&rpmhpd_opp_turbo_l1>;
-+                };
-+            };
-+        };
-+
-+        mdss_dp0_phy: phy@aec2a00 {
-+            compatible = "qcom,qcs8300-edp-phy", "qcom,sa8775p-edp-phy";
-+
-+            reg = <0x0aec2a00 0x200>,
-+                  <0x0aec2200 0xd0>,
-+                  <0x0aec2600 0xd0>,
-+                  <0x0aec2000 0x1c8>;
-+
-+            clocks = <&dispcc MDSS_DISP_CC_MDSS_DPTX0_AUX_CLK>,
-+                     <&dispcc MDSS_DISP_CC_MDSS_AHB_CLK>;
-+            clock-names = "aux",
-+                          "cfg_ahb";
-+
-+            #clock-cells = <1>;
-+            #phy-cells = <0>;
-+
-+            vdda-phy-supply = <&vreg_l1c>;
-+            vdda-pll-supply = <&vreg_l4a>;
-+        };
-+
-+        displayport-controller@af54000 {
-+            compatible = "qcom,qcs8300-dp";
-+
-+            pinctrl-0 = <&dp_hot_plug_det>;
-+            pinctrl-names = "default";
-+
-+            reg = <0xaf54000 0x104>,
-+                  <0xaf54200 0x0c0>,
-+                  <0xaf55000 0x770>,
-+                  <0xaf56000 0x09c>,
-+                  <0xaf57000 0x09c>,
-+                  <0xaf58000 0x09c>,
-+                  <0xaf59000 0x09c>,
-+                  <0xaf5a000 0x23c>,
-+                  <0xaf5b000 0x23c>;
-+
-+            interrupt-parent = <&mdss>;
-+            interrupts = <12>;
-+            clocks = <&dispcc0 MDSS_DISP_CC_MDSS_AHB_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_AUX_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL1_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL2_CLK>,
-+                     <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL3_CLK>;
-+            clock-names = "core_iface",
-+                          "core_aux",
-+                          "ctrl_link",
-+                          "ctrl_link_iface",
-+                          "stream_pixel",
-+                          "stream_1_pixel",
-+                          "stream_2_pixel",
-+                          "stream_3_pixel";
-+            assigned-clocks = <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
-+                              <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-+                              <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>,
-+                              <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL2_CLK_SRC>,
-+                              <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL3_CLK_SRC>;
-+            assigned-clock-parents = <&mdss_dp0_phy 0>,
-+                                     <&mdss_dp0_phy 1>,
-+                                     <&mdss_dp0_phy 1>,
-+                                     <&mdss_dp0_phy 1>;
-+            phys = <&mdss_dp0_phy>;
-+            phy-names = "dp";
-+            operating-points-v2 = <&dp_opp_table>;
-+            power-domains = <&rpmhpd RPMHPD_MMCX>;
-+
-+            #sound-dai-cells = <0>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+
-+                    mdss_dp0_in: endpoint {
-+                        remote-endpoint = <&dpu_intf0_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                   reg = <1>;
-+
-+                   mdss_dp_out: endpoint { };
-+                };
-+            };
-+
-+            dp_opp_table: opp-table {
-+                compatible = "operating-points-v2";
-+
-+                opp-160000000 {
-+                    opp-hz = /bits/ 64 <160000000>;
-+                    required-opps = <&rpmhpd_opp_low_svs>;
-+                };
-+
-+                opp-270000000 {
-+                    opp-hz = /bits/ 64 <270000000>;
-+                    required-opps = <&rpmhpd_opp_svs>;
-+                };
-+
-+                opp-540000000 {
-+                    opp-hz = /bits/ 64 <540000000>;
-+                    required-opps = <&rpmhpd_opp_svs_l1>;
-+                };
-+
-+                opp-810000000 {
-+                    opp-hz = /bits/ 64 <810000000>;
-+                    required-opps = <&rpmhpd_opp_nom>;
-+                };
-+            };
-+        };
-+    };
-+...
+diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_config.c
+index 1490a7f63767bba176e8e2e76891d7d2c424bb7f..b70627d40dc4c671b8a855a17d4b8ca2dd9952d5 100644
+--- a/drivers/soc/qcom/ubwc_config.c
++++ b/drivers/soc/qcom/ubwc_config.c
+@@ -236,6 +236,7 @@ static const struct of_device_id qcom_ubwc_configs[] __maybe_unused = {
+ 	{ .compatible = "qcom,msm8998", .data = &msm8998_data },
+ 	{ .compatible = "qcom,qcm2290", .data = &qcm2290_data, },
+ 	{ .compatible = "qcom,qcm6490", .data = &sc7280_data, },
++	{ .compatible = "qcom,qcs8300", .data = &sc8280xp_data, },
+ 	{ .compatible = "qcom,sa8155p", .data = &sm8150_data, },
+ 	{ .compatible = "qcom,sa8540p", .data = &sc8280xp_data, },
+ 	{ .compatible = "qcom,sa8775p", .data = &sa8775p_data, },
 
 -- 
 2.34.1
