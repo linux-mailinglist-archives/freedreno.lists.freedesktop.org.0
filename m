@@ -2,81 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 035CBB44A2E
-	for <lists+freedreno@lfdr.de>; Fri,  5 Sep 2025 01:07:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB32B44A59
+	for <lists+freedreno@lfdr.de>; Fri,  5 Sep 2025 01:19:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF2FB10EAF8;
-	Thu,  4 Sep 2025 23:07:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD19C10E347;
+	Thu,  4 Sep 2025 23:19:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Sggjo2rn";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dJ5x9/nD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D58B910EAFA
- for <freedreno@lists.freedesktop.org>; Thu,  4 Sep 2025 23:07:08 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584HsaVm031741
- for <freedreno@lists.freedesktop.org>; Thu, 4 Sep 2025 23:07:08 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82BA810E347
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Sep 2025 23:19:23 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584IGibk032210
+ for <freedreno@lists.freedesktop.org>; Thu, 4 Sep 2025 23:19:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- VQxgtvqlq0HzxRDkP5I5PrVUOxES5Rbtim81FxX4br8=; b=Sggjo2rnmTJNkjGq
- S46CyRNFro+vFR8zL2uwM4EP7SArfGwrsatiZ+jzKxuktCM/uN2TgeAR6JIfzCbn
- dACUqifR102jbX+Udb6eoSWuOT0K+GCiE5ZA/jvrtvC7B//z7hWyy838KV+TzwwR
- IXW1TYw1ZlhnACSRS26O6G1vV21IUCFZ8pf+NJEA6dou/uZ5kHQzPOUJEuDFvVO4
- KtQ83P8eZ0UpEWixZPB0hhmcF13o5FSZjxIdFHG8wQeYU5w+YaoN9Or/X1ZO76rY
- 2pnM5V1LvQuLh0hkQwuLZ0faqxoo8E1rrcM03dT9RwetUKNQbRTnz/mYWAAKw+M/
- 5M4IMw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48urw09761-1
+ uLamEPOoB01f6VolYXkg33VIoUWF3PW3lIXHLO79ORM=; b=dJ5x9/nDwqG0I6nG
+ swbb8GiZTVtrD56ZTwIxLLIiuVNeDZ8Sc1Y61i0vOAyqhpBwmNMmVZIAfzslWWQr
+ 60uHkHujJSkMDb34pNGdci5ha/9K4O3u4rQPWHM7LX3V3aPoBz1NLT8SxkziKNcf
+ b5kBirlxilwwF7Ti+OCxUHL0SvrvgrqRs8DCHqsapazATKeLFuhX3iRehFaHrXDg
+ DWQ4oKbZt9PJQGC1Ppfzn7osLpOj5LjDZNyWyirm/8SviFNp8cbqFSAGnkgKmLVm
+ WFt768rDvUC67QQU4hbSp2c+XsiwUse5SkUR8IFMK0E/R4XT67f8xZG2CRPqeOfV
+ 3a8Y0w==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48upnphb6g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 23:07:07 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-24456ebed7bso22853185ad.0
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 16:07:07 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 23:19:22 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-323766e64d5so2362486a91.0
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 16:19:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757027227; x=1757632027;
+ d=1e100.net; s=20230601; t=1757027961; x=1757632761;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VQxgtvqlq0HzxRDkP5I5PrVUOxES5Rbtim81FxX4br8=;
- b=uarH+3nZrAIKrK/ejLmbsJm8pCJgF2K828T+t+tdJV6oMp9DANS+/Inuwb7aNqIZqI
- Zu136Y43EWWn+L6sXpD5FDQUzbcPcXgUGyaQpbG6AAStFGVoDB9SeXmvPdrGjQxLhz2k
- CerCNKRmKb4EmfVsUCATVydZEsUex+aqx6N/s+IpRPOqxllh+OopuX2jBHbkMYybbpjF
- vXDQOoVgAQui9tuvfk7vAR697w9bKBjKdKNWWi3xuIC1zXJYX6+Q93LVnmuOZL6/GZ0w
- W97ZCal98BnSL4MjyoCDlia6sH6r/49V3chhOhE4ljO/ny+NBaeyfAj9UV9cjaGmdsYw
- AdXg==
+ bh=uLamEPOoB01f6VolYXkg33VIoUWF3PW3lIXHLO79ORM=;
+ b=MntwkmWOnVH67vQfMno5FQ1kDQM1AJRtg4gefW+jHVqxJYzhlUXka/LZUdlS7KjPs9
+ slBfRVZByivinPjaq+5bhHx2x9DQeUT3FjHgLfpVdKXwUcnpUDCdwKQwW6+dZDs1GkXJ
+ EHJLoUXY3Vj/ftDqQP4DzMnaRdQ+vHFdIg1/Qomhay905NIce7/nuerBRetiUe4h5jzB
+ ZzGUDnB7xBJK4EJ7thtTaRcea1F7eFann1TTQ3MF+Sje746wWHeFHiOVr32bykmAxCKb
+ s6l/lHOlcVd4wwMs7UoVs/jnux9CN79v2guNH1Kcek6PZFZ7mh4KUtVYHHEUmQLZ7hzN
+ bIUg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWOPaOeQzp6Ziz5tsLFPm4lwQNNvpBezhyyi8JvIDiQaS2Qw/AEJmlXJAA5GlkggmD1zKmCEnL+a44=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwS2/bCv35aRtdnFTmrXp0f11WnOy7EfKzE24FS760NX7j4Pq3K
- EV6CE7abizBuJA/uaT+oIv11XTdvYBVrg2MOzbAV3fWB8RmwQ4KoKKhgLmwqVo6CCwRWG4bidLc
- C1034bc17FlyhITXmK3xQ+S+URoafn/m+Xzd+fZCwOZle4cF4apYpTsTHQR7/iNYuYmwhU/U=
-X-Gm-Gg: ASbGnctMYR+dGzD75d4Zt3BentAB/M77ENNx3Fj40SfGyxf1pR1EeMXo5ZiQpl0JQt3
- ytxN7xK825DnVBfJeqYI34G3IMVCJGz24pTLgVRVTsqRuCLGL7wdHfZ6+zo2/2qxiiCfas0muWW
- oag0hoPp4UmKJeinHSDTqgXMEy0Pag91Uk+xe8DzC3vUW+ZDEf/fX1e8Qjxj9N5NWt985zen/m9
- yVasfsDZPTwuFB+Al99gSPUUKiELxrJcI53pcgfJMbiGXmtLphhBF2kVYA8pYgzXMYCKCdLOutY
- 5bzewM1nCPP8OvvQDh9MqqBFgpJRuKXIsqqFHwMntYQLoWpJyPVwKr7tBpOeGzTsdAnaOF5/BTh
- lVzlk3eVgw2SjoQWh4126Kw==
-X-Received: by 2002:a17:903:244f:b0:246:cf6a:f010 with SMTP id
- d9443c01a7336-24cedfa9098mr16776675ad.13.1757027226467; 
- Thu, 04 Sep 2025 16:07:06 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG3a9adXc+OPNFqInEjRcz8beQaf9/kI61UkTE5l3c0GN008HPPd0XCUECzEsnDCx8AkRCd9A==
-X-Received: by 2002:a17:903:244f:b0:246:cf6a:f010 with SMTP id
- d9443c01a7336-24cedfa9098mr16776305ad.13.1757027225874; 
- Thu, 04 Sep 2025 16:07:05 -0700 (PDT)
+ AJvYcCXXZEcTnrLOXp+Vd3pPio8+70vUqbitUih+50O8TMo4v/ZKEhbN7foXRjbrSPXs01LF5hAnTkXSUr0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwqC97u7dH7bdYLkmu2bftMYNIIw+dStLSDNxrvU4pVUSgEQLQ0
+ iodT+84EsNwU6J6onfUo9WJAqrMZf5hb67mVi+/yEEuFS9RPF72Gjy34HwxKClSm1g1iE0euXVF
+ CBJi6/rQEQOpgEKnC2zRFxXu00WwbKg9WcDxapKDmM/oOSdryfFFBOofv/ejQo0Q3in6RKGc=
+X-Gm-Gg: ASbGnctEaF3iLXou6LRSUkLv8h+ibuu45vHlZCqy8jWrjz99U/nW9Tim4+Wb8SMxTLa
+ OK9Rj7+cP18+n+6LxyKbvbnRSXgnu9pnfhERuo9CydZ9rcvBwV+Y/jv7B1hJcRt/fvqffK8PdlH
+ UixDdhR8f7Px9sa+fCLqba1QPh4MW+uU0+KxC+4CSx5AgWTIfUj9EB68BqiteUbweoH6gHu9vfy
+ Q0piQQWGe9kUl1z33bnK7JWBrxAeCO+gY/OdLCBscJjw9hpIwRwyJqPdRo/rhLQQOTGG/VpaIXE
+ n+2lIk7jHT+ukDqUZJD2njVOMqVQBjLKpFmqDBB5/ayP9004BNEOCUNCWAjlPFiePRZDmCADu7S
+ 4jGjh/DeHSddTFrgxQQBLsw==
+X-Received: by 2002:a17:90b:1dc1:b0:325:4aa4:fbc5 with SMTP id
+ 98e67ed59e1d1-32bbe21494bmr1348052a91.14.1757027961312; 
+ Thu, 04 Sep 2025 16:19:21 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG14iUJGLqN5Efv5E0YS8iVGtsqzNk5BuOTvAdvDoQ8LeCJbUThTNVtbm48oZSXTCF0CmSDPw==
+X-Received: by 2002:a17:90b:1dc1:b0:325:4aa4:fbc5 with SMTP id
+ 98e67ed59e1d1-32bbe21494bmr1348016a91.14.1757027960807; 
+ Thu, 04 Sep 2025 16:19:20 -0700 (PDT)
 Received: from [10.134.71.99] (i-global254.qualcomm.com. [199.106.103.254])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-24cb28c3110sm38258035ad.120.2025.09.04.16.07.04
+ 98e67ed59e1d1-3276f57ab9esm26872664a91.4.2025.09.04.16.19.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 16:07:05 -0700 (PDT)
-Message-ID: <1865e8a7-9d9d-4671-8429-bff121ab6ac4@oss.qualcomm.com>
-Date: Thu, 4 Sep 2025 16:07:05 -0700
+ Thu, 04 Sep 2025 16:19:20 -0700 (PDT)
+Message-ID: <6e8b5af4-c4c3-4354-84ce-5d35475032ac@oss.qualcomm.com>
+Date: Thu, 4 Sep 2025 16:19:19 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/12] drm/msm/disp: pull in common YUV format parameters
+Subject: Re: [PATCH 09/12] drm/msm/dpu: simplify
+ _dpu_format_populate_plane_sizes_*
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
  <lumag@kernel.org>,
@@ -87,33 +88,33 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20250705-dpu-formats-v1-0-40f0bb31b8c8@oss.qualcomm.com>
- <20250705-dpu-formats-v1-6-40f0bb31b8c8@oss.qualcomm.com>
+ <20250705-dpu-formats-v1-9-40f0bb31b8c8@oss.qualcomm.com>
 Content-Language: en-US
 From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-In-Reply-To: <20250705-dpu-formats-v1-6-40f0bb31b8c8@oss.qualcomm.com>
+In-Reply-To: <20250705-dpu-formats-v1-9-40f0bb31b8c8@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: uE77VL5xQObwFG-9EndQIcuSiFWahsjz
-X-Proofpoint-ORIG-GUID: uE77VL5xQObwFG-9EndQIcuSiFWahsjz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAyNyBTYWx0ZWRfX+P7YDps5ljnd
- FsivI/Jw8biLm0sBAK7udqB1F0q6ORXKREsLv+JCRGtXarX98rt/VwcBUe81h7sOzUwL3Xr/L2d
- TYCrEB/z5+RN8Zad2EWFldcbDK4yxXaHkLA8AHUKdryMxuXr0oa02FfqzgCyxFqUQCgvHUNdVdO
- M0QQjGjiEwO1wPe7DRNfcUYaFJ16c5D6vA3FRFCLnFiQxLFPjbAzb/JfAjR0gMe4wkPMEN5MD7X
- aMqOQFHw3dSzEfBPolHeYCeBBEAtIWnnXFTkLIjHycFukaLTRXzvD5q22XmhtzIlvufOw1ZRQMA
- pc8mlLjHKMrgXWP+DveP2EMi7wk/GIlqbCSCnE5Am8g9GXFvD4VbKT1g3zU2R2r5Ho/4buKTErR
- H6tYwFMG
-X-Authority-Analysis: v=2.4 cv=NrDRc9dJ c=1 sm=1 tr=0 ts=68ba1b9b cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=NxCvQ7sPRDO8UjZhUV8A:9
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: uT-Bts-fQVbgQrQLZPogHN9kNS2C8lkz
+X-Authority-Analysis: v=2.4 cv=Jt/xrN4C c=1 sm=1 tr=0 ts=68ba1e7a cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=4y6PIlbho9MLiPufaWQA:9
+ a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: uT-Bts-fQVbgQrQLZPogHN9kNS2C8lkz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAwMSBTYWx0ZWRfX9aSpfs/S/mIh
+ t/tskLxwvcVcIs5n81gENJtSKcmcyXPzQsydGbdzBUaZMvSusGWQfTf3XFKjD261exzL/wiDlJy
+ HVuW8GtBVFaW8iKJpccaZO9zKSLrN4KNfr3b/k71Ycp36wIBUZiJRmCEpyd9Knc1pYqzIHTWSTF
+ puN/9bncrdM4tAWM1s1UCqx+9KkXAWeljnzCbuvrc1El4MAhMAd/JerPAlkW0OOFCNcbgFm6bIU
+ uuVZ3UgDdGncyd7CA5Qhy7e8DeSnmUkyvUTuVUPjiduWla97SyA2v1nS0Xe17PoyHw0MKTUenjj
+ OkmvLcrPuZfavW7QbLYLo/KvqcEzPNgkr4tM9pznGTj48ztXle7EQwul1WuMG96nYSVChQ7khwv
+ qui1JATj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-04_08,2025-09-04_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- impostorscore=0 spamscore=0 bulkscore=0 adultscore=0 classifier=typeunknown
+ adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 impostorscore=0
+ spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 classifier=typeunknown
  authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508300027
+ engine=8.19.0-2507300000 definitions=main-2508300001
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,237 +133,123 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 7/4/2025 7:47 PM, Dmitry Baryshkov wrote:
-> Pull common params of YUV formats into corresponding macro definitions,
-> simplifying format table.
+> Move common bits of _dpu_format_populate_plane_sizes_ubwc() and
+> _linear() to dpu_format_populate_plane_sizes(), reducing unnecessary
+> duplication and simplifying code flow fror the UBWC function.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 Reviewed-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 
 > ---
->   drivers/gpu/drm/msm/disp/mdp_format.c | 120 ++++++++++++++++------------------
->   1 file changed, 56 insertions(+), 64 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 41 +++++++++++++----------------
+>   1 file changed, 19 insertions(+), 22 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp_format.c b/drivers/gpu/drm/msm/disp/mdp_format.c
-> index d577b3d53fbebced63792b5c65f50dd45211c8ea..900b2de252a6eb2eac3d0670f1aaa77f7520fd77 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp_format.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp_format.c
-> @@ -244,27 +244,27 @@ static struct csc_cfg csc_convert[CSC_MAX] = {
->   	.tile_height = MDP_TILE_HEIGHT_UBWC,                              \
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> index 59c9427da7dda07b8e8ee3d070d2dfb3c165698e..195a6b7c4075eef40e7a5d0fee208168421cee35 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> @@ -95,15 +95,9 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+>   		struct drm_framebuffer *fb,
+>   		struct dpu_hw_fmt_layout *layout)
+>   {
+> -	int i;
+>   	int color;
+>   	bool meta = MSM_FORMAT_IS_UBWC(fmt);
+>   
+> -	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
+> -	layout->width = fb->width;
+> -	layout->height = fb->height;
+> -	layout->num_planes = fmt->num_planes;
+> -
+>   	color = _dpu_format_get_media_color_ubwc(fmt);
+>   	if (color < 0) {
+>   		DRM_ERROR("UBWC format not supported for fmt: %p4cc\n",
+> @@ -128,7 +122,7 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+>   			uv_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+>   
+>   		if (!meta)
+> -			goto done;
+> +			return 0;
+>   
+>   		layout->num_planes += 2;
+>   		layout->plane_pitch[2] = VENUS_Y_META_STRIDE(color, fb->width);
+> @@ -152,7 +146,8 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+>   			rgb_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+>   
+>   		if (!meta)
+> -			goto done;
+> +			return 0;
+> +
+>   		layout->num_planes += 2;
+>   		layout->plane_pitch[2] = VENUS_RGB_META_STRIDE(color, fb->width);
+>   		rgb_meta_scanlines = VENUS_RGB_META_SCANLINES(color, fb->height);
+> @@ -160,10 +155,6 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+>   			rgb_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+>   	}
+>   
+> -done:
+> -	for (i = 0; i < DPU_MAX_PLANES; i++)
+> -		layout->total_size += layout->plane_size[i];
+> -
+>   	return 0;
 >   }
 >   
-> -#define INTERLEAVED_YUV_FMT(fmt, a, r, g, b, e0, e1, e2, e3,              \
-> -alpha, chroma, count, bp, flg, fm, np)                                    \
-> +#define INTERLEAVED_YUV_FMT(fmt, bp, r, g, b, e0, e1, e2, e3, chroma)     \
->   {                                                                         \
->   	.pixel_format = DRM_FORMAT_ ## fmt,                               \
->   	.fetch_type = MDP_PLANE_INTERLEAVED,                              \
-> -	.alpha_enable = alpha,                                            \
-> +	.alpha_enable = false,                                            \
->   	.element = { (e0), (e1), (e2), (e3)},                             \
->   	.bpc_g_y = g,                                                     \
->   	.bpc_b_cb = b,                                                    \
->   	.bpc_r_cr = r,                                                    \
-> -	.bpc_a = a,                                                       \
-> +	.bpc_a = 0,                                                       \
->   	.chroma_sample = chroma,                                          \
-> -	.unpack_count = count,                                            \
-> +	.unpack_count = 4,                                                \
->   	.bpp = bp,                                                        \
-> -	.fetch_mode = fm,                                                 \
-> -	.flags = MSM_FORMAT_FLAG_UNPACK_TIGHT | flg,                      \
-> -	.num_planes = np,                                                 \
-> +	.fetch_mode = MDP_FETCH_LINEAR,                                   \
-> +	.flags = MSM_FORMAT_FLAG_UNPACK_TIGHT |                           \
-> +		 MSM_FORMAT_FLAG_YUV,                                     \
-> +	.num_planes = 1,                                                  \
->   	.tile_height = MDP_TILE_HEIGHT_DEFAULT                            \
+> @@ -174,11 +165,6 @@ static int _dpu_format_populate_plane_sizes_linear(
+>   {
+>   	int i;
+>   
+> -	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
+> -	layout->width = fb->width;
+> -	layout->height = fb->height;
+> -	layout->num_planes = fmt->num_planes;
+> -
+>   	/* Due to memset above, only need to set planes of interest */
+>   	if (fmt->fetch_type == MDP_PLANE_INTERLEAVED) {
+>   		layout->num_planes = 1;
+> @@ -235,9 +221,6 @@ static int _dpu_format_populate_plane_sizes_linear(
+>   		}
+>   	}
+>   
+> -	for (i = 0; i < DPU_MAX_PLANES; i++)
+> -		layout->total_size += layout->plane_size[i];
+> -
+>   	return 0;
 >   }
 >   
-> -#define PSEUDO_YUV_FMT(fmt, a, r, g, b, e0, e1, chroma, flg, fm, np)      \
-> +#define PSEUDO_YUV_FMT(fmt, r, g, b, e0, e1, chroma)                      \
->   {                                                                         \
->   	.pixel_format = DRM_FORMAT_ ## fmt,                               \
->   	.fetch_type = MDP_PLANE_PSEUDO_PLANAR,                            \
-> @@ -273,13 +273,14 @@ alpha, chroma, count, bp, flg, fm, np)                                    \
->   	.bpc_g_y = g,                                                     \
->   	.bpc_b_cb = b,                                                    \
->   	.bpc_r_cr = r,                                                    \
-> -	.bpc_a = a,                                                       \
-> +	.bpc_a = 0,                                                       \
->   	.chroma_sample = chroma,                                          \
->   	.unpack_count = 2,                                                \
->   	.bpp = 2,                                                         \
-> -	.fetch_mode = fm,                                                 \
-> -	.flags = MSM_FORMAT_FLAG_UNPACK_TIGHT | flg,                      \
-> -	.num_planes = np,                                                 \
-> +	.fetch_mode = MDP_FETCH_LINEAR,                                   \
-> +	.flags = MSM_FORMAT_FLAG_UNPACK_TIGHT |                           \
-> +		 MSM_FORMAT_FLAG_YUV,                                     \
-> +	.num_planes = 2,                                                  \
->   	.tile_height = MDP_TILE_HEIGHT_DEFAULT                            \
+> @@ -254,6 +237,7 @@ int dpu_format_populate_plane_sizes(
+>   		struct dpu_hw_fmt_layout *layout)
+>   {
+>   	const struct msm_format *fmt;
+> +	int ret, i;
+>   
+>   	if (!layout || !fb) {
+>   		DRM_ERROR("invalid pointer\n");
+> @@ -268,10 +252,23 @@ int dpu_format_populate_plane_sizes(
+>   
+>   	fmt = msm_framebuffer_format(fb);
+>   
+> +	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
+> +	layout->width = fb->width;
+> +	layout->height = fb->height;
+> +	layout->num_planes = fmt->num_planes;
+> +
+>   	if (MSM_FORMAT_IS_UBWC(fmt) || MSM_FORMAT_IS_TILE(fmt))
+> -		return _dpu_format_populate_plane_sizes_ubwc(fmt, fb, layout);
+> +		ret = _dpu_format_populate_plane_sizes_ubwc(fmt, fb, layout);
+> +	else
+> +		ret = _dpu_format_populate_plane_sizes_linear(fmt, fb, layout);
+>   
+> -	return _dpu_format_populate_plane_sizes_linear(fmt, fb, layout);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (i = 0; i < DPU_MAX_PLANES; i++)
+> +		layout->total_size += layout->plane_size[i];
+> +
+> +	return 0;
 >   }
 >   
-> @@ -303,7 +304,7 @@ flg, fm, np, th)                                                          \
->   	.tile_height = th                                                 \
->   }
->   
-> -#define PSEUDO_YUV_FMT_LOOSE(fmt, a, r, g, b, e0, e1, chroma, flg, fm, np)\
-> +#define PSEUDO_YUV_FMT_LOOSE(fmt, r, g, b, e0, e1, chroma)                \
->   {                                                                         \
->   	.pixel_format = DRM_FORMAT_ ## fmt,                               \
->   	.fetch_type = MDP_PLANE_PSEUDO_PLANAR,                            \
-> @@ -312,13 +313,15 @@ flg, fm, np, th)                                                          \
->   	.bpc_g_y = g,                                                     \
->   	.bpc_b_cb = b,                                                    \
->   	.bpc_r_cr = r,                                                    \
-> -	.bpc_a = a,                                                       \
-> +	.bpc_a = 0,                                                       \
->   	.chroma_sample = chroma,                                          \
->   	.unpack_count = 2,                                                \
->   	.bpp = 2,                                                         \
-> -	.fetch_mode = fm,                                                 \
-> -	.flags = MSM_FORMAT_FLAG_UNPACK_ALIGN_MSB | flg,                  \
-> -	.num_planes = np,                                                 \
-> +	.fetch_mode = MDP_FETCH_LINEAR,                                   \
-> +	.flags = MSM_FORMAT_FLAG_UNPACK_ALIGN_MSB |                       \
-> +		 MSM_FORMAT_FLAG_DX |                                     \
-> +		 MSM_FORMAT_FLAG_YUV,                                     \
-> +	.num_planes = 2,                                                  \
->   	.tile_height = MDP_TILE_HEIGHT_DEFAULT                            \
->   }
->   
-> @@ -342,23 +345,23 @@ flg, fm, np, th)                                                          \
->   	.tile_height = th                                                 \
->   }
->   
-> -#define PLANAR_YUV_FMT(fmt, a, r, g, b, e0, e1, e2, alpha, chroma, bp,    \
-> -flg, fm, np)                                                      \
-> +#define PLANAR_YUV_FMT(fmt, bp, r, g, b, e0, e1, e2, chroma)              \
->   {                                                                         \
->   	.pixel_format = DRM_FORMAT_ ## fmt,                               \
->   	.fetch_type = MDP_PLANE_PLANAR,                                   \
-> -	.alpha_enable = alpha,                                            \
-> +	.alpha_enable = false,                                            \
->   	.element = { (e0), (e1), (e2), 0 },                               \
->   	.bpc_g_y = g,                                                     \
->   	.bpc_b_cb = b,                                                    \
->   	.bpc_r_cr = r,                                                    \
-> -	.bpc_a = a,                                                       \
-> +	.bpc_a = 0,                                                       \
->   	.chroma_sample = chroma,                                          \
->   	.unpack_count = 1,                                                \
->   	.bpp = bp,                                                        \
-> -	.fetch_mode = fm,                                                 \
-> -	.flags = MSM_FORMAT_FLAG_UNPACK_TIGHT | flg,                      \
-> -	.num_planes = np,                                                 \
-> +	.fetch_mode = MDP_FETCH_LINEAR,                                   \
-> +	.flags = MSM_FORMAT_FLAG_UNPACK_TIGHT |                           \
-> +		 MSM_FORMAT_FLAG_YUV,                                     \
-> +	.num_planes = 3,                                                  \
->   	.tile_height = MDP_TILE_HEIGHT_DEFAULT                            \
->   }
->   
-> @@ -511,72 +514,61 @@ static const struct msm_format mdp_formats[] = {
->   
->   	/* 2 plane YUV */
->   	PSEUDO_YUV_FMT(NV12,
-> -		0, BPC8, BPC8, BPC8,
-> +		BPC8, BPC8, BPC8,
->   		C1_B_Cb, C2_R_Cr,
-> -		CHROMA_420, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 2),
-> +		CHROMA_420),
->   
->   	PSEUDO_YUV_FMT(NV21,
-> -		0, BPC8, BPC8, BPC8,
-> +		BPC8, BPC8, BPC8,
->   		C2_R_Cr, C1_B_Cb,
-> -		CHROMA_420, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 2),
-> +		CHROMA_420),
->   
->   	PSEUDO_YUV_FMT(NV16,
-> -		0, BPC8, BPC8, BPC8,
-> +		BPC8, BPC8, BPC8,
->   		C1_B_Cb, C2_R_Cr,
-> -		CHROMA_H2V1, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 2),
-> +		CHROMA_H2V1),
->   
->   	PSEUDO_YUV_FMT(NV61,
-> -		0, BPC8, BPC8, BPC8,
-> +		BPC8, BPC8, BPC8,
->   		C2_R_Cr, C1_B_Cb,
-> -		CHROMA_H2V1, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 2),
-> +		CHROMA_H2V1),
->   
->   	PSEUDO_YUV_FMT_LOOSE(P010,
-> -		0, BPC8, BPC8, BPC8,
-> +		BPC8, BPC8, BPC8,
->   		C1_B_Cb, C2_R_Cr,
-> -		CHROMA_420, MSM_FORMAT_FLAG_DX | MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 2),
-> +		CHROMA_420),
->   
->   	/* 1 plane YUV */
-> -	INTERLEAVED_YUV_FMT(VYUY,
-> -		0, BPC8, BPC8, BPC8,
-> +	INTERLEAVED_YUV_FMT(VYUY, 2,
-> +		BPC8, BPC8, BPC8,
->   		C2_R_Cr, C0_G_Y, C1_B_Cb, C0_G_Y,
-> -		false, CHROMA_H2V1, 4, 2, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 1),
-> +		CHROMA_H2V1),
->   
-> -	INTERLEAVED_YUV_FMT(UYVY,
-> -		0, BPC8, BPC8, BPC8,
-> +	INTERLEAVED_YUV_FMT(UYVY, 2,
-> +		BPC8, BPC8, BPC8,
->   		C1_B_Cb, C0_G_Y, C2_R_Cr, C0_G_Y,
-> -		false, CHROMA_H2V1, 4, 2, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 1),
-> +		CHROMA_H2V1),
->   
-> -	INTERLEAVED_YUV_FMT(YUYV,
-> -		0, BPC8, BPC8, BPC8,
-> +	INTERLEAVED_YUV_FMT(YUYV, 2,
-> +		BPC8, BPC8, BPC8,
->   		C0_G_Y, C1_B_Cb, C0_G_Y, C2_R_Cr,
-> -		false, CHROMA_H2V1, 4, 2, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 1),
-> +		CHROMA_H2V1),
->   
-> -	INTERLEAVED_YUV_FMT(YVYU,
-> -		0, BPC8, BPC8, BPC8,
-> +	INTERLEAVED_YUV_FMT(YVYU, 2,
-> +		BPC8, BPC8, BPC8,
->   		C0_G_Y, C2_R_Cr, C0_G_Y, C1_B_Cb,
-> -		false, CHROMA_H2V1, 4, 2, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 1),
-> +		CHROMA_H2V1),
->   
->   	/* 3 plane YUV */
-> -	PLANAR_YUV_FMT(YUV420,
-> -		0, BPC8, BPC8, BPC8,
-> +	PLANAR_YUV_FMT(YUV420, 1,
-> +		BPC8, BPC8, BPC8,
->   		C2_R_Cr, C1_B_Cb, C0_G_Y,
-> -		false, CHROMA_420, 1, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 3),
-> +		CHROMA_420),
->   
-> -	PLANAR_YUV_FMT(YVU420,
-> -		0, BPC8, BPC8, BPC8,
-> +	PLANAR_YUV_FMT(YVU420, 1,
-> +		BPC8, BPC8, BPC8,
->   		C1_B_Cb, C2_R_Cr, C0_G_Y,
-> -		false, CHROMA_420, 1, MSM_FORMAT_FLAG_YUV,
-> -		MDP_FETCH_LINEAR, 3),
-> +		CHROMA_420),
->   };
->   
->   /*
+>   static void _dpu_format_populate_addrs_ubwc(struct msm_gem_address_space *aspace,
 > 
 
