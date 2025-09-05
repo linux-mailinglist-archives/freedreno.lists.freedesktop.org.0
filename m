@@ -2,132 +2,129 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EB1DB44ADD
-	for <lists+freedreno@lfdr.de>; Fri,  5 Sep 2025 02:39:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90384B44BDD
+	for <lists+freedreno@lfdr.de>; Fri,  5 Sep 2025 04:50:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5637410EB0E;
-	Fri,  5 Sep 2025 00:39:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9563610E2AA;
+	Fri,  5 Sep 2025 02:50:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CmoBVaOW";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aNLe7H+h";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCC9C10E290
- for <freedreno@lists.freedesktop.org>; Fri,  5 Sep 2025 00:39:12 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584IJSpB008117
- for <freedreno@lists.freedesktop.org>; Fri, 5 Sep 2025 00:39:12 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1425310E2AA
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Sep 2025 02:50:45 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584I0iRh003019
+ for <freedreno@lists.freedesktop.org>; Fri, 5 Sep 2025 02:50:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ra9GluSXfhMlHZ2ACIpc5GR7mvUKtMwIaWiKkZbOwVY=; b=CmoBVaOWsvaUWwyX
- Ur0wrPYC4AipxzjvoRExW9VbSJbovPTvzHSiLANjH9GfjItEI7AMThPxYCQXYAVy
- fO4OeGNM256nexMaYz5FwBgkT9eMGfY43rBLXI8Bky4gE7SqTlstmsDfR0Czj4EO
- Yr9Ea/RoEnFZQwFf4emVkwioo7G28a7E9UuoPE32+gaHD/Rka4Gx5S/8wTQEm07Y
- W09GeMAteG5p1ekvPmh47z5xiA5m2Jr3kKeJP6tWqpWVXed8F657ZPOpvsoAKNL7
- tfrSul9fTu3NIsI58o9N3gI5D5usDNuYjduGLOjQMsjrkTOkE/+2l9uEUX75HgHX
- lhchtA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48urmjs8ms-1
+ gwSiyfYynLhMebpZWXrp11DL3hQi8HGEtTbhMohLx0M=; b=aNLe7H+hIb+m//KV
+ ylEP6nIvYZ55uhHhlFQYeywFTpy91q1Nf7jS731O+T8/9H4WJj4etV0BdXw8X9ej
+ 0px136uS7IO0ZBRIQc/MIKq9ACBwTC/k4LtaFi9r1bOtllkAcAk7mP+yn0H3d05E
+ cFNwdf/YfnEyv4Aa18n6CfeQRLPnFNsOZcHG+txOqlygQRR69Ado6W3hWVCWgMJL
+ nXU3YIS1240RfsXh4wjYOh8lZMkzgCWjBGpDJhheKjv5ZzDb/0mP28oSV5gtqJZk
+ aBdgRFjYLSGUBDHiCwGoCaPM0vuKOaiErvV22Zv1bXJ6NS5woSjAZu1Jg1g9fDxV
+ c/YNFg==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48ush39edk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 05 Sep 2025 00:39:11 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4b5d58d226cso32841591cf.1
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 17:39:11 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Sep 2025 02:50:44 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-77250c660d3so1844508b3a.0
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 19:50:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757032751; x=1757637551;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ra9GluSXfhMlHZ2ACIpc5GR7mvUKtMwIaWiKkZbOwVY=;
- b=AVSZapJu4ADj+b8FjR4QMXuFfa2H8Hy8+dReeygNqLPK8ThaltfZfs3aDzrRt6xGxq
- bISYI+Lo+FR9FfvwRf1AhXHSoMbrgV4MsmNKAUBos+lK4DUXC963fqPODI28ZSWDS+uO
- IloYAMQeBz437rYrhDenuKyV7l2gu3n5Za4jFnMaZy3j5oRUGki1G4YcjIZv4SDEofYK
- 5E1JDZnqI367DE23XzrTRW8EVIejDES5RnVnpX/eWhyxH6X9ON5y4wPJF7ZyYbqotovr
- 2Iqwix0rsIhGPnf9YZSPm0B2GAgDpRvxSDh+oQHQMKXcktizjDapkST8wD9akC/rpOT3
- IU6w==
+ d=1e100.net; s=20230601; t=1757040643; x=1757645443;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=gwSiyfYynLhMebpZWXrp11DL3hQi8HGEtTbhMohLx0M=;
+ b=bpOh5EQsFh6vjDWS5cTJurhFSA08ZmT1mfSO1iy+GXBlba7rpMpjtuhY+YxHzPqPpE
+ CoOE0SZCJvaVOi9zCKb8kLxN1E/Uj3/qxdxrYi1UAKZrddAIGg84wM6MUkuSgmM4BQWx
+ IPuhuYQT7IuIA+dT5rPg+MeRx3qKLzLWmZNW0HmdH+TWQxxkOSCMIWsZNKixJ8ToTtnZ
+ Ae+nH7eSV8Ay1SgrlTQz4t0CcXIRTZYYCPsX0tychuM2lSFDwz8uI04nDz/EB1hhOqlr
+ 29rZytNHl8keyg6/o7bQrOPKtpsH3cxYDI1QdV6UghN6QFIlRtiCUJvJt3AqbH4NbXot
+ 9+rw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW5dz+Mhj/T+yS1ic9hwkaMVVpRifZ5LMLBqCrVUCSWfrsJo+viJ6kVbQ9PVz5Tw4+hEPYSkjGEsxQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw4HyLrPAnnMAEBppLPhQkDRXHgJKBMrp2f/7/hudC41rZFik1H
- n6nhIJZ35Q3h85lO/yR3sa/PmKVQB2XAVQHairWpMU42y5/dhi58ZOjLnpnffKUwHrhWgqZaS5V
- l4dm30WLFZn/ECKWuxEyAZ41jA37odVai6K5AzZFG5UC5JMMoROenZWJwCaYgythWgftvqWQ=
-X-Gm-Gg: ASbGncu+1ntowR8qOhA4mpH5j9FtTjkBfcRSjKzJDFs1ykesXz1kyTGG7pfn9BaiaBo
- OkAzYp5MZPlvMSZW/acVD1WjpPxYTES+lkGsQ7xg3LFkwzKTQTqXHeQitQSh8Dw5GQt5L3ju6hj
- 0PxjWTD5hTKLMmS8XLcv4vkjmdr6K+UVK9Cza2EuL70qwgZsKJGitz+AugqW2PwNq5fg5basRAx
- VXvJEqkJ8WuCrMPjfFQFL6pCEdU+cRN8YlFrQ62nqcuGUQ1URrwqQzHmGbhFg6mIFEu+wYQdJRW
- i9TyN9LxtiOoQTXEoLAeov7wYMwRiVhiGNhVseiWfl8lXfgqctV02QnNWxYGLeMW2kunRO31kl3
- l0D+LBESjXj02jPHYzg1i5c+DULZHgN0qfR/EAadicEC/lIR0W9No
-X-Received: by 2002:a05:622a:4207:b0:4af:1535:6b53 with SMTP id
- d75a77b69052e-4b31da3b2a0mr222826021cf.54.1757032751059; 
- Thu, 04 Sep 2025 17:39:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGS3wnGT8ACgxrTqpQD8+qzTZ6t5n5H43QqgEg9VQB/rUpomSgmUzUzHoGTcB143SkCSuf93g==
-X-Received: by 2002:a05:622a:4207:b0:4af:1535:6b53 with SMTP id
- d75a77b69052e-4b31da3b2a0mr222825811cf.54.1757032750618; 
- Thu, 04 Sep 2025 17:39:10 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5608acfd938sm1510059e87.109.2025.09.04.17.39.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 17:39:08 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 05 Sep 2025 03:38:41 +0300
-Subject: [PATCH v2 12/12] drm/msm/dpu: use standard functions in
- _dpu_format_populate_plane_sizes_ubwc()
+ AJvYcCUBNjZmksVlHDG0dA9lHU4ZrhvZd6sj7rVxcqyLeIY853XOXWdQdRZotkXgYNKtY3Dm5iz5DIa6Bh8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxYvzNKLq6OGdBX00dmg+qb96egxInKjxhi6peXejyARhiQDFSy
+ B2DaVcqRxlHhn85DAEEzfEG5mU3IwdyHPx6ppOTRx6Sshtr9/Kv3SOA91f8tAxVcDiK9QLch/Iw
+ v7Ly39dhjLJ2h4eTSlBVYkMIDO9bYTUK1NvAsEIjX+k64DDpBFlC82YGxBab8FIuLt5b2sy8=
+X-Gm-Gg: ASbGncuPH+ZLpiBbTcqLmG7H2OCCHgm4d7xDs/lOjkreBYPg6nI7vqTKfKFpBNBBCLX
+ 5SGxFBLtfCIv7z9BiXuFu31sZEvrytkk4rfkjsqF18rffa3a7Akp+/3U1nY9ywshGPBAkeWIV0B
+ ik/LzfGYF+LcYI/GM9prRWXwtz5mN4RZHscDoAIMW9msTprjlXt+Iew8u/3BxD4eBRv4ljCBa0c
+ 0/gjMKRSTUzqWPtI0SYvtuxpsW4OobsJto6BEDiSOu4jxdaSMj2o0Ypz5jYatKoKcLUALwsoR4b
+ HaALSjScuuxHk8Kgom59bLBNYdNFxeA+JHaBT3UlKALYaocTvzW90vbddgk+6x1GAgMu1ipT449
+ RUxJ2rihLR/7/qpqeI1lIgvXTIJrXUg==
+X-Received: by 2002:a05:6a20:1595:b0:24a:b9e:4a75 with SMTP id
+ adf61e73a8af0-24a0b9e5423mr7186347637.47.1757040643470; 
+ Thu, 04 Sep 2025 19:50:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG202+hHYdYs+StM7sqddV46k8lCxOuVmORinbn6w3E3iPnOnrsT3F7nWJ+yDrEZS7E2co12w==
+X-Received: by 2002:a05:6a20:1595:b0:24a:b9e:4a75 with SMTP id
+ adf61e73a8af0-24a0b9e5423mr7186312637.47.1757040642973; 
+ Thu, 04 Sep 2025 19:50:42 -0700 (PDT)
+Received: from [10.133.33.41] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b5209ccb174sm566277a12.19.2025.09.04.19.50.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Sep 2025 19:50:42 -0700 (PDT)
+Message-ID: <d8aaff46-9e3b-4b53-a690-351253753edd@oss.qualcomm.com>
+Date: Fri, 5 Sep 2025 10:50:33 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250905-dpu-formats-v2-12-7a674028c048@oss.qualcomm.com>
-References: <20250905-dpu-formats-v2-0-7a674028c048@oss.qualcomm.com>
-In-Reply-To: <20250905-dpu-formats-v2-0-7a674028c048@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 2/6] dt-bindings: display/msm: dp-controller: document
+ QCS8300 compatible
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5431;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=lGlOq21wJXxPf5qd4HfAzqrvugD2QrjsunL1xmnHE9s=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBoujEKK92PZaXMEwacZH5/xSig59AgXXb3CmkPc
- fjelgfuBvKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaLoxCgAKCRCLPIo+Aiko
- 1TJbB/4r1O0t6fCeOk0Vjk5icw3t2tBKMN1g91Yubw5n3bIrgtCaaAj4eaBV0LGNLTrZQusxc2K
- Hw4mgODdktXjaQGdz3iQhL0wJyVXyQ19phnBcb6Y19aHwqZiiwqZ6JjfY6wgtBTZUYTgR9VzrL4
- TOkX8fsQmUcnphqOBgw7Hxn8/Sf7bBt6XRCQom6nKnZL+T9CMPCgl6cw7wVQy24Cbkwl8HArcL9
- vStylSVaxxlS+ykE/3IIxofD1eC262/fLFak/ohr8oKogkQ8P5GQsRetJ1lx9I8PIdFfc9BcQOj
- zhu4MFrmQ7SLnRgwqs10szN6IRd66kqr5s+ES0wJ4yW8eRSE
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=OemYDgTY c=1 sm=1 tr=0 ts=68ba312f cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=7bqH7Blup1pqkekdm3wA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: 6HYEIOmlpLOvwnssbUWas6dgHihpMGEb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAyNCBTYWx0ZWRfX+o/Ft4aFb8wO
- 8mNPysM1NRg/U2rovCvNQQW7C5N5FfP5+ECXeCkwD1DN58OCFHAx6/ie2GqbgydRqPdnF2NzO7F
- TtHoChXb3PskQhItXBziXxb/xGbNhGFvXr87dnA3FbpIuUghwr/2xfC+7zeo+e0LVlr4Ys2rG+L
- 1dpv1WYB3quD4fuJm3MGO0IZc2MgXh55TgcXNvuHrc8iLu19vEtn8DvqJoq9WR1I3EtZP5vt5Dh
- YxZLUGnWLj3kJrlrADlsfzOxGrIh02CK46CjHcnSM9nugYHPj31hBWHbgv3Vp4lnDIPQg1Rm4w0
- shfi8NskxNZXuOPFLeaB/1vwuc2k2P91yrTwB/IRLx5vV4Hcxn+cVWwb70FlY3M2bdFjGVWzyl6
- 9SbZfnav
-X-Proofpoint-ORIG-GUID: 6HYEIOmlpLOvwnssbUWas6dgHihpMGEb
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20250904-qcs8300_mdss-v11-0-bc8761964d76@oss.qualcomm.com>
+ <20250904-qcs8300_mdss-v11-2-bc8761964d76@oss.qualcomm.com>
+ <p2okyfwfl23bip65koaqezlvhyo3z47bnugojcieuspr37xc7b@s3qwgbqmts4l>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <p2okyfwfl23bip65koaqezlvhyo3z47bnugojcieuspr37xc7b@s3qwgbqmts4l>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMiBTYWx0ZWRfX1aaeidAPv3iA
+ lkPuhrw/bbUJQnIJ90pYP5rsMPA+NPtKBBzmMo6eo5h27LHzzE2Eup7/NQ5sJD+IoZOTPuwWhWd
+ 07ZTRLk0Fm+s1We/FO2VjKV6yywffJvVB4W9qm4VmxpIIJTZ/GprhqrgNisfiuhF7aLY1tqPDIQ
+ ig46+sb3Z3JjbNIgcqCsUjUELvPyqrzUe2U70slyIha/vZuajVBbRZosuDg84pxMaIi0pP/u8rS
+ ZnYRdb84ZNooOs+7/a6OS9MlrAwSLls+/cpVx2zy8idkviUHDKkLJ79vGGsKOV6eky4ZUXJuusi
+ fr+fRX3R/xkeffVkwaNLn3vfKrGn1Fwtr/U+0Dm11ZcwA741QCLgkP3EbEP3J0upyYL5+FdOyK/
+ 3WdlVAHk
+X-Proofpoint-ORIG-GUID: 2qFbYhd-JUnTgP-YgBi2VsVgFD5JP0pN
+X-Proofpoint-GUID: 2qFbYhd-JUnTgP-YgBi2VsVgFD5JP0pN
+X-Authority-Analysis: v=2.4 cv=M9NNKzws c=1 sm=1 tr=0 ts=68ba5004 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=LzpWVPJsz2Mq4VjTse8A:9
+ a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-04_08,2025-09-04_01,2025-03-28_01
+ definitions=2025-09-05_01,2025-09-04_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- adultscore=0 clxscore=1015 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508300024
+ impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0
+ clxscore=1015 suspectscore=0 phishscore=0 bulkscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508300032
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,136 +140,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The _dpu_format_populate_plane_sizes_ubwc() used MSM_MEDIA_ALIGN() and
-MSM_MEDIA_ROUNDUP(), macros inherited from the previous implementation,
-msm_media_info.h. Replace them with the standard Linux macros,
-round_up() and DIV_ROUND_UP() respectively.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 63 +++++++++++++----------------
- 1 file changed, 27 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-index da1870ce7680899759d09caa01050eeb9844a484..6e8883dbfad439a3b3f07b6fe9337820048fc2eb 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-@@ -10,16 +10,6 @@
- #include "dpu_kms.h"
- #include "dpu_formats.h"
- 
--#ifndef MSM_MEDIA_ALIGN
--#define MSM_MEDIA_ALIGN(__sz, __align) (((__align) & ((__align) - 1)) ?\
--	((((__sz) + (__align) - 1) / (__align)) * (__align)) :\
--	(((__sz) + (__align) - 1) & (~((__align) - 1))))
--#endif
--
--#ifndef MSM_MEDIA_ROUNDUP
--#define MSM_MEDIA_ROUNDUP(__sz, __r) (((__sz) + ((__r) - 1)) / (__r))
--#endif
--
- #define DPU_UBWC_PLANE_SIZE_ALIGNMENT	4096
- 
- /*
-@@ -78,56 +68,57 @@ static int _dpu_format_populate_plane_sizes_ubwc(
- 
- 		if (MSM_FORMAT_IS_DX(fmt)) {
- 			if (fmt->flags & MSM_FORMAT_FLAG_UNPACK_TIGHT) {
--				stride = MSM_MEDIA_ALIGN(fb->width, 192);
--				stride = MSM_MEDIA_ALIGN(stride * 4 / 3, 256);
-+				/* can't use round_up() here because 192 is NPoT */
-+				stride = roundup(fb->width, 192);
-+				stride = round_up(stride * 4 / 3, 256);
- 				y_tile_width = 48;
- 			} else {
--				stride = MSM_MEDIA_ALIGN(fb->width * 2, 256);
-+				stride = round_up(fb->width * 2, 256);
- 				y_tile_width = 32;
- 			}
- 
--			sclines = MSM_MEDIA_ALIGN(fb->height, 16);
-+			sclines = round_up(fb->height, 16);
- 			y_tile_height = 4;
- 		} else {
--			stride = MSM_MEDIA_ALIGN(fb->width, 128);
-+			stride = round_up(fb->width, 128);
- 			y_tile_width = 32;
- 
--			sclines = MSM_MEDIA_ALIGN(fb->height, 32);
-+			sclines = round_up(fb->height, 32);
- 			y_tile_height = 8;
- 		}
- 
- 		layout->plane_pitch[0] = stride;
--		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
-+		layout->plane_size[0] = round_up(layout->plane_pitch[0] *
- 			sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
- 		layout->plane_pitch[1] = stride;
--		layout->plane_size[1] = MSM_MEDIA_ALIGN(layout->plane_pitch[1] *
-+		layout->plane_size[1] = round_up(layout->plane_pitch[1] *
- 			sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
- 		if (!meta)
- 			return 0;
- 
--		y_meta_stride = MSM_MEDIA_ROUNDUP(fb->width, y_tile_width);
--		layout->plane_pitch[2] = MSM_MEDIA_ALIGN(y_meta_stride, 64);
-+		y_meta_stride = DIV_ROUND_UP(fb->width, y_tile_width);
-+		layout->plane_pitch[2] = round_up(y_meta_stride, 64);
- 
--		y_meta_scanlines = MSM_MEDIA_ROUNDUP(fb->height, y_tile_height);
--		y_meta_scanlines = MSM_MEDIA_ALIGN(y_meta_scanlines, 16);
--		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
-+		y_meta_scanlines = DIV_ROUND_UP(fb->height, y_tile_height);
-+		y_meta_scanlines = round_up(y_meta_scanlines, 16);
-+		layout->plane_size[2] = round_up(layout->plane_pitch[2] *
- 			y_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
--		uv_meta_stride = MSM_MEDIA_ROUNDUP((fb->width+1)>>1, y_tile_width / 2);
--		layout->plane_pitch[3] = MSM_MEDIA_ALIGN(uv_meta_stride, 64);
-+		uv_meta_stride = DIV_ROUND_UP((fb->width+1)>>1, y_tile_width / 2);
-+		layout->plane_pitch[3] = round_up(uv_meta_stride, 64);
- 
--		uv_meta_scanlines = MSM_MEDIA_ROUNDUP((fb->height+1)>>1, y_tile_height);
--		uv_meta_scanlines = MSM_MEDIA_ALIGN(uv_meta_scanlines, 16);
--		layout->plane_size[3] = MSM_MEDIA_ALIGN(layout->plane_pitch[3] *
-+		uv_meta_scanlines = DIV_ROUND_UP((fb->height+1)>>1, y_tile_height);
-+		uv_meta_scanlines = round_up(uv_meta_scanlines, 16);
-+		layout->plane_size[3] = round_up(layout->plane_pitch[3] *
- 			uv_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 	} else {
- 		unsigned int rgb_scanlines, rgb_meta_scanlines, rgb_meta_stride;
- 
--		layout->plane_pitch[0] = MSM_MEDIA_ALIGN(fb->width * fmt->bpp, 256);
--		rgb_scanlines = MSM_MEDIA_ALIGN(fb->height, 16);
--		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
-+		layout->plane_pitch[0] = round_up(fb->width * fmt->bpp, 256);
-+		rgb_scanlines = round_up(fb->height, 16);
-+		layout->plane_size[0] = round_up(layout->plane_pitch[0] *
- 			rgb_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
- 		if (!meta)
-@@ -136,13 +127,13 @@ static int _dpu_format_populate_plane_sizes_ubwc(
- 		/* uAPI leaves plane[1] empty and plane[2] as meta */
- 		layout->num_planes += 1;
- 
--		rgb_meta_stride = MSM_MEDIA_ROUNDUP(fb->width, 16);
--		layout->plane_pitch[2] = MSM_MEDIA_ALIGN(rgb_meta_stride, 64);
-+		rgb_meta_stride = DIV_ROUND_UP(fb->width, 16);
-+		layout->plane_pitch[2] = round_up(rgb_meta_stride, 64);
- 
--		rgb_meta_scanlines = MSM_MEDIA_ROUNDUP(fb->height, 4);
--		rgb_meta_scanlines = MSM_MEDIA_ALIGN(rgb_meta_scanlines, 16);
-+		rgb_meta_scanlines = DIV_ROUND_UP(fb->height, 4);
-+		rgb_meta_scanlines = round_up(rgb_meta_scanlines, 16);
- 
--		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
-+		layout->plane_size[2] = round_up(layout->plane_pitch[2] *
- 			rgb_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 	}
- 
-
--- 
-2.47.2
+On 9/4/2025 9:43 PM, Dmitry Baryshkov wrote:
+> On Thu, Sep 04, 2025 at 03:22:37PM +0800, Yongxing Mou wrote:
+>> Add compatible string for the DisplayPort controller found on the
+>> Qualcomm QCS8300 SoC.
+>>
+>> The Qualcomm QCS8300 platform comes with one DisplayPort controller
+>> that supports 4 MST streams.
+>>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>> ---
+>>   .../bindings/display/msm/dp-controller.yaml        | 22 ++++++++++++++++++++++
+>>   1 file changed, 22 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>> index aeb4e4f36044a0ff1e78ad47b867e232b21df509..ad08fd11588c45698f7e63ecc3218a749fc8ca67 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>> @@ -18,6 +18,7 @@ properties:
+>>     compatible:
+>>       oneOf:
+>>         - enum:
+>> +          - qcom,qcs8300-dp
+> 
+> Can we use fallback to qcom,sa8775p-dp instead of declaring a completely
+> new one?
+> 
+I think we can not use fallback to sa8775p, since we don't have DP1 
+controller for QCS8300. SA8775P actually have 4 DP controllers (now only 
+2 really used). So in the hardware, i think it is different with SA8775P 
+and we need a new one.>>             - qcom,sa8775p-dp
+>>             - qcom,sc7180-dp
+>>             - qcom,sc7280-dp
+>> @@ -195,6 +196,7 @@ allOf:
+>>             compatible:
+>>               contains:
+>>                 enum:
+>> +                - qcom,qcs8300-dp
+>>                   - qcom,sa8775p-dp
+>>                   - qcom,x1e80100-dp
+>>         then:
+>> @@ -295,6 +297,26 @@ allOf:
+>>             minItems: 6
+>>             maxItems: 8
+>>   
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              # QCS8300 only has one DP controller that supports 4
+>> +              # streams MST.
+>> +              - qcom,qcs8300-dp
+>> +    then:
+>> +      properties:
+>> +        reg:
+>> +          minItems: 9
+>> +          maxItems: 9
+>> +        clocks:
+>> +          minItems: 8
+>> +          maxItems: 8
+>> +        clocks-names:
+>> +          minItems: 8
+>> +          maxItems: 8
+>> +
+>>   additionalProperties: false
+>>   
+>>   examples:
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
