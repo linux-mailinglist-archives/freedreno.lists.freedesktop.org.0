@@ -2,83 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94387B44C7A
-	for <lists+freedreno@lfdr.de>; Fri,  5 Sep 2025 05:48:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EDF5B44C82
+	for <lists+freedreno@lfdr.de>; Fri,  5 Sep 2025 05:56:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7B310E2B2;
-	Fri,  5 Sep 2025 03:48:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA6A810E2B2;
+	Fri,  5 Sep 2025 03:56:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LImjBCPj";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BjPWPrKH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F3B510E2B2
- for <freedreno@lists.freedesktop.org>; Fri,  5 Sep 2025 03:48:31 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584J1EjK002359
- for <freedreno@lists.freedesktop.org>; Fri, 5 Sep 2025 03:48:31 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68B3710EB14
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Sep 2025 03:56:06 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 584GUqFN018471
+ for <freedreno@lists.freedesktop.org>; Fri, 5 Sep 2025 03:56:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- IfIuljfusmgW05hVN8hSlfX64nFQxgfeSfL9pQ3lsiE=; b=LImjBCPj0BaCskag
- 3GiURZj+7zFiKKss9CF1aEggs4qumQnLPg/C/LBGFB6uwGF6eV8sJs7oeOx+7dnf
- 17816NFQWGtHr9dHR8LA0ZiS7H0sBd+XPWENodCCq9QnaTRK3aHR16ICI4kLuV4o
- UNQZT2SDZGbNa1U1inqKszTRRW3puzys+l3BX0NfDdKpi6c4+GfrvsFLUkDkMRtc
- kNCzmMd8I9G4abKQVUXI49+K1yCCGOPEX6/MLsaW0J4f+DnRs6UFwJjtmgrATOxq
- Pv9VC5cTHX0d7PW49K531uyCuowiW0DcM/xenI1htllCIjU/nVjvXHFNAS+nPJBF
- SJhKAw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48ush39jq4-1
+ t4U00jwPam/6fp+vB6GN6T1ZOYywfy88ibIe8PM3Pls=; b=BjPWPrKHNdQvvz9l
+ nRL1EnBxmFRKejkyw5QKgATkqRSd8qLzreZAqeRTPquaVXtr5BfYdE7H7cotDivg
+ rh8Hot41txmFO1PEEmi8iR34CUqg+8oU2t+b6qAwXvSIYAC6GESS7lmxLjIIJUU2
+ OQmJ0sACUuqhXDCSc/KzRGdprupmVUtEUXqBOZLaaRTnOSbRRYs4kK+1V4dqn7NT
+ EQ1fCy070D5B5Eg77w9MoSj/u+Ibknd8OuJArvaudI1tlEP/ebUg1HRTjyf2ZqBI
+ cqse8rt5SPKH8iZybL+A1bh6w47HCplFzgXTh5xQi/XlK5Bcia9LTr5wItWgITzU
+ h9AKKg==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48yebusk9m-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 05 Sep 2025 03:48:30 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-b4c928089fdso2262906a12.0
- for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 20:48:30 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Sep 2025 03:56:05 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-772642f9fa3so2683414b3a.1
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Sep 2025 20:56:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757044108; x=1757648908;
+ d=1e100.net; s=20230601; t=1757044563; x=1757649363;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=IfIuljfusmgW05hVN8hSlfX64nFQxgfeSfL9pQ3lsiE=;
- b=lHk095Le8hJNZp2rXxHJBlqLY5fIqWGdfk7NqhiqKaqSfckeslgxydY4dorm3hKcST
- Zw11ueOeBPfWEC6R+J9zbXcU4ug2vlrAw9UGovOwAs5QaTecPTgP6iTRCuHz8jSSEfov
- pa7iIlqlcYBLw3YrbvoHZ2tibvf7s6CsYB5j6Y4Y3t/cleODrOwLowsxqLPM5e8/BSdQ
- CYWBKLZzL2rXRT492+cgbXHWloHH9TuJhXp7//4Ayz3wV562c3ZMKgqWihNaLuGCv/oR
- nH4hqf8qRidxGhEWm+ZtmkKezSF3zmcu0Q422+POdcdFaX5a6fnB2127bjv4vLH13qvf
- 0QeA==
+ bh=t4U00jwPam/6fp+vB6GN6T1ZOYywfy88ibIe8PM3Pls=;
+ b=k61+KwnCgK357gJxk6yOTPqmIy4SUGowF+A0n7j52PFxmhz2mgTn4ygDkC6I27/R2R
+ oJMM5MEEISAnM+ov8MrH62ttwR+404xpNkTs4i4kCCiL1v+HoayLIYfhaGqSQfcA1Bos
+ zm9npoZnEaiMa+sUOzOxft5unHH6XkCnBwyXzQj4ODOfCzGtOarxLgvUEaao3XJDmGR4
+ s0gRGZ5alhg2OLqyhotKP45jRTzVAPZKGwX9Wqx9wxMAjdeoECWZ6qYNfMZyX9iz+ytO
+ 9ieAfLpUfrlfnTYZ3Eu0hv3jAXxk571N6fGXtyEob/RBbkl61Ra9G2+e3W3V3drJ2Noz
+ Jvlw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVf6owli60qWz5dy8B1hmaNLfAVbzwq8cgOr0By6dD9kmpNZRIvmthbN7yxLKCylG3HHezBXVLDNIk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywj4BzqoKKP+gxf6I29RrN0mFnjrjPKUNgm0ddsNOYQKe2pMRVl
- MXcaK7nWLrcYTf5RCToCYw8hsvJyXMcMFXWOTKlhU/y4uAcInzV40sF70fAQPajyT4EcTd0RChc
- RNfCLT2HhqEAdj4yUjBRTIrgGACVxkkk86O7PyAXqH4aDg12Dd6+Ob9xEqnodaHEC3wO9fh0=
-X-Gm-Gg: ASbGncs7PaOdY45316yITyKpxbPm4VgBvY58tI1KlRWtp2/yvIh98UCswps5jyWJycc
- aeDxr358X9vL+uDOzEt9yNFr5H7qSZHaWwulckcIOpKiwTG+DP5f3LmMg641rjgFdXY5JnP/qsL
- fsvIrS3fPKq1gAZvnChuXybzYKnbTFxr4CpSyKeyArFIllfYFcENvmR9coqLbroqTy3G7CoDsNW
- 0BzYEmZwKrEkCF89UUmLx8r4oYLeZy1ngxP3/IKsD27BEH86/qICIAKqwEGhBtQxEUqC3BLpypq
- gAcKIWIZ4WP/r9fWLAxmFddNZHDz1TYjUeR98sqy0qeiN5iVJpCJzV0Req682nLkf3/G00WMj1Z
- yayPKabh2gEEQ/VhECJp6lbzwtXEspw==
-X-Received: by 2002:a17:90b:2751:b0:312:e731:5a66 with SMTP id
- 98e67ed59e1d1-32815412c9emr27368061a91.3.1757044108363; 
- Thu, 04 Sep 2025 20:48:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHM8mklBjBEEvC0AbLw/2BFNtYpsbj99lUvJobF3anjy5uLPxTqVCD4rlCCT2kOY0rt53TL/w==
-X-Received: by 2002:a17:90b:2751:b0:312:e731:5a66 with SMTP id
- 98e67ed59e1d1-32815412c9emr27368027a91.3.1757044107737; 
- Thu, 04 Sep 2025 20:48:27 -0700 (PDT)
+ AJvYcCVaJ8WR8E845qXRMYEA7Dw+SaFb9KYBvfyBlnsgDMjVwqOSCZ10ziFgcEQFaPjK7jYZFiUFNWyYISQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyb3PRFNNZ7DKQ9UZbk9fsqTlt1TDdUNyTUCw88Keh/1Ri66Pwd
+ iyA6QLemZQqCywbGE8hawbeTkTnKGDG1sGt5dUfNdZQ1v/WA04nkRG2r+eONj3J+3youDU3e6J2
+ i7E+WhymPeDO9QW9DHTy9zSxrp+YYCrfH6uTQIh0UMGoiddk409QsPWMvFmucZPH+q9ZDtrw=
+X-Gm-Gg: ASbGncvJotL/MjS+/rRjbw7lFQTq0luNOEl6T8Okt9xgZBuyFDdyyIwaox7/x66BDXt
+ 8u9E/LshpdPuh4uokAUw6XzR+8jLK4oVNRkAiy+Tn6jOsazeQyEaaeC2LXTuK5H6JIlqAFpfTj9
+ 5X3jC79TH6/MUWW2k/mfuV/jM102D3bgprXVVnHcNLAZd/6nBihQ9dG22t3ZYO/53lNx3ll7n1h
+ YtQ5F+x3WZGeduyGVCZPhvoHEZ3ydBbx+NgAsd52EWORu9xhWrjMXBAzOeOUVHYz+uyzbvbbMPf
+ 44JkH2RDoonZ+7I7xAzRH+RaCE5Fe9nx6p1qYnBm4CsqjN2snfIXF68rjMeXB1gCytt7sM92zze
+ O0Cp3ZfDoBW2OGyr+hVVUk6RLg3XtCA==
+X-Received: by 2002:a05:6a20:1611:b0:246:5be:ca90 with SMTP id
+ adf61e73a8af0-24e7e83cc89mr2634210637.10.1757044562473; 
+ Thu, 04 Sep 2025 20:56:02 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEqP3WckW3fa7ibrVA31oor3NOjH0qAdC4pvGViB84QmxNjn0RVQ5IS9R/kwsuVr8+x6wnSTA==
+X-Received: by 2002:a05:6a20:1611:b0:246:5be:ca90 with SMTP id
+ adf61e73a8af0-24e7e83cc89mr2634157637.10.1757044561910; 
+ Thu, 04 Sep 2025 20:56:01 -0700 (PDT)
 Received: from [10.133.33.41] (tpe-colo-wan-fw-bordernet.qualcomm.com.
  [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7722a4e1ca7sm20659323b3a.71.2025.09.04.20.48.21
+ 41be03b00d2f7-b4d96829a66sm16860662a12.6.2025.09.04.20.55.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 20:48:27 -0700 (PDT)
-Message-ID: <3c36caba-9579-4c43-bec8-73424c9a820d@oss.qualcomm.com>
-Date: Fri, 5 Sep 2025 11:48:18 +0800
+ Thu, 04 Sep 2025 20:56:01 -0700 (PDT)
+Message-ID: <2b986468-59b3-4586-9d4c-3ec34dc36c2c@oss.qualcomm.com>
+Date: Fri, 5 Sep 2025 11:55:52 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v11 0/6] Display enablement changes for Qualcomm QCS8300
  platform
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
  <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
@@ -93,45 +94,43 @@ To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>,
  Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 References: <20250904-qcs8300_mdss-v11-0-bc8761964d76@oss.qualcomm.com>
  <5bc0203c-21a1-4948-96ff-8eae844bfb93@oss.qualcomm.com>
  <d2940186-7baf-41d3-80dd-fbc860ac5acb@oss.qualcomm.com>
  <f3aa35bb-5ac7-4fe3-904e-2dd97b9c034a@oss.qualcomm.com>
- <c60ace5f-d682-4373-9c45-66782162dd25@oss.qualcomm.com>
+ <fgzptkddxhgqpsylthgo4a465jwypcu2oxo6woeihyukpn3zqd@hitdv3ujjhvc>
 Content-Language: en-US
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <c60ace5f-d682-4373-9c45-66782162dd25@oss.qualcomm.com>
+In-Reply-To: <fgzptkddxhgqpsylthgo4a465jwypcu2oxo6woeihyukpn3zqd@hitdv3ujjhvc>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMiBTYWx0ZWRfX1Zc5aFgeaIJO
- DY0smfYYR4T4sIPY/4/RPiUppErFI+LEKb/3sOG0K8GOcN7yDDj5xz54XlVcTsEBCK7K4JX9vlY
- VGX4Yy1o+dnct9TqdxNUUslcD03klLnNaexgLB50Oi6Jfjeez0YZ8Igz7v+e61KRqQIprW0Z2Sz
- xH2E6Qx5YBE2VCL6JK53ZpnG0YNBJlvmOSPFrnjTYhEuThi2vzRBnK2ujFNymCBzlcYsU7Q5hsZ
- rKrjIZ7uRxPP5Lxh3YgLEQMurUGF7EH63CyYj186INJqzfPiFyW+FVmoEp09rJTvoVxHQZxNcGx
- 9+xscBBMq+h9FXn8Z1pYZJAw4SdDFJxaO6EdZhQMB0yJNIX/BYU6KVpIDY8R0CNWDHqVUxUOVbt
- tzRnWdSa
-X-Proofpoint-ORIG-GUID: kwVk8DKgjUp6knfkDoFT4bIxnQzWmL3d
-X-Proofpoint-GUID: kwVk8DKgjUp6knfkDoFT4bIxnQzWmL3d
-X-Authority-Analysis: v=2.4 cv=M9NNKzws c=1 sm=1 tr=0 ts=68ba5d8e cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Proofpoint-GUID: 09Zk5yzfcfOYWh-Vdlcb9I1VwOV758HC
+X-Authority-Analysis: v=2.4 cv=X+ZSKHTe c=1 sm=1 tr=0 ts=68ba5f55 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
  a=COk6AnOGAAAA:8 a=1XWaLZrsAAAA:8 a=KKAkSRfTAAAA:8 a=_0dYuvDVJydFRCGzEJUA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
  a=TjNXssC_j7lpFel5tvFf:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA0MDE2MyBTYWx0ZWRfX/bKaObqIKcPp
+ PmnfB8Z6pWVGSVOIw1ZduZ8XsWrU/8gMLL7pC1stzhQJlW4PqS9cM9qdLJf6+FajZAHeWtxwL02
+ C3CcYy+YdjJzlLUfTMWXda2vJxrHnNcwD6y62O1EZFl+XqrEkqXqZcvYlnAIZAXWX+YsAbV71h2
+ WmqT1PlC+MUrk4IMyorJiLyXsLPAI6B7fS7wc9rUiycJQmwWzp46REbPOjGsl5qfWmjjsl/MyYF
+ DQzds7SP1HWThPu+Y9DHGkRdEx48OEpXRjRe5zFcHzOonghbtT2qYyAtcaWVhtAkGiOg3momZOG
+ rR1YGlrLMtxg25QR8RLxS4EkV4TfOaq5xgLxPIt4mJj+FVmA80MBoFlUT06N6SS32g5Bfg0IcRK
+ C5cCDNRk
+X-Proofpoint-ORIG-GUID: 09Zk5yzfcfOYWh-Vdlcb9I1VwOV758HC
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-05_01,2025-09-04_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 suspectscore=0 phishscore=0 bulkscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508300032
+ spamscore=0 bulkscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ malwarescore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509040163
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,8 +148,8 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 9/4/2025 5:44 PM, Konrad Dybcio wrote:
-> On 9/4/25 11:31 AM, Yongxing Mou wrote:
+On 9/4/2025 9:41 PM, Dmitry Baryshkov wrote:
+> On Thu, Sep 04, 2025 at 05:31:01PM +0800, Yongxing Mou wrote:
 >>
 >>
 >> On 9/4/2025 4:21 PM, Konrad Dybcio wrote:
@@ -209,7 +208,7 @@ On 9/4/2025 5:44 PM, Konrad Dybcio wrote:
 >>>>> Changes in v4:Fixed review comments from Krzysztof, Dmitry.
 >>>>> - Use the common style for the dt-bindings commits.[Dmitry]
 >>>>> - Update the commits msg for the mdss binding patch, explain why they
->>>>>      reuse different platform drivers.[Krzysztof]
+>>>>>      reuse different platform drivers.[Krzysztof]
 >>>>> - Link to v3: https://lore.kernel.org/r/20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com
 >>>>>
 >>>>> Changes in v3:Fixed review comments from Krzysztof, Dmitry.
@@ -223,12 +222,12 @@ On 9/4/2025 5:44 PM, Konrad Dybcio wrote:
 >>>>> - Drop the dpu driver changes and reuse SA8775P DPU driver.[Dmitry]
 >>>>> - Fix compilation issues in MDSS bindings.[Rob][Krzysztof]
 >>>>> - Correct formatting errors and remove unnecessary status in MDSS
->>>>>      bindings.[Krzysztof]
+>>>>>      bindings.[Krzysztof]
 >>>>> - Add the the necessary information in MDSS changes commit msg.[Dmitry]
 >>>>> - Rebase MDSS driver changes to https://lore.kernel.org/dri-devel/
->>>>>      20241127-msm-mdss-ubwc-v3-0-9782a7c2b023@linaro.org/.[Dmitry]
+>>>>>      20241127-msm-mdss-ubwc-v3-0-9782a7c2b023@linaro.org/.[Dmitry]
 >>>>> - Package the DisplayPort controller and eDP PHY bindings document to
->>>>>      this patch series.
+>>>>>      this patch series.
 >>>>> - Collecting MDSS changes reviewd-by Dmitry.
 >>>>> - Reuse the sa8775p eDP PHY as a fallback compat.[Dmitry]
 >>>>> - Reuse the sm8650 DP controller as a fallback compat.[Dmitry]
@@ -242,20 +241,20 @@ On 9/4/2025 5:44 PM, Konrad Dybcio wrote:
 >>>>>
 >>>>> ---
 >>>>> Yongxing Mou (6):
->>>>>          dt-bindings: display/msm: Document the DPU for QCS8300
->>>>>          dt-bindings: display/msm: dp-controller: document QCS8300 compatible
->>>>>          dt-bindings: display/msm: Document MDSS on QCS8300
->>>>>          soc: qcom: ubwc: Add QCS8300 UBWC cfg
->>>>>          drm/msm: mdss: Add QCS8300 support
->>>>>          drm/msm/dp: Add DisplayPort controller for QCS8300
+>>>>>          dt-bindings: display/msm: Document the DPU for QCS8300
+>>>>>          dt-bindings: display/msm: dp-controller: document QCS8300 compatible
+>>>>>          dt-bindings: display/msm: Document MDSS on QCS8300
+>>>>>          soc: qcom: ubwc: Add QCS8300 UBWC cfg
+>>>>>          drm/msm: mdss: Add QCS8300 support
+>>>>>          drm/msm/dp: Add DisplayPort controller for QCS8300
 >>>>>
->>>>>     .../bindings/display/msm/dp-controller.yaml        |  22 ++
->>>>>     .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 286 +++++++++++++++++++++
->>>>>     .../bindings/display/msm/qcom,sm8650-dpu.yaml      |  15 +-
->>>>>     drivers/gpu/drm/msm/dp/dp_display.c                |   1 +
->>>>>     drivers/gpu/drm/msm/msm_mdss.c                     |   1 +
->>>>>     drivers/soc/qcom/ubwc_config.c                     |   1 +
->>>>>     6 files changed, 321 insertions(+), 5 deletions(-)
+>>>>>     .../bindings/display/msm/dp-controller.yaml        |  22 ++
+>>>>>     .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 286 +++++++++++++++++++++
+>>>>>     .../bindings/display/msm/qcom,sm8650-dpu.yaml      |  15 +-
+>>>>>     drivers/gpu/drm/msm/dp/dp_display.c                |   1 +
+>>>>>     drivers/gpu/drm/msm/msm_mdss.c                     |   1 +
+>>>>>     drivers/soc/qcom/ubwc_config.c                     |   1 +
+>>>>>     6 files changed, 321 insertions(+), 5 deletions(-)
 >>>>> ---
 >>>>> base-commit: 3ac864c2d9bb8608ee236e89bf561811613abfce
 >>>>> change-id: 20250818-qcs8300_mdss-a363f0d0ba0b
@@ -284,23 +283,23 @@ On 9/4/2025 5:44 PM, Konrad Dybcio wrote:
 >>> git send-email --in-reply-to=<cover letter msgid> /tmp/0006-xyz-abc.patch
 >>>
 >>> Konrad
->> Thanks for guide, when i use cmd  "git send-email --in-reply-to="20250904-qcs8300_mdss-v11-0-bc8761964d76@oss.qualcomm.com" ~/tmpyongmou/0005-drm-msm-mdss-add-qcs8300-support.eml", seems something wrong, error log:
->> mou@oss.qualcomm.com>,  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>'
->> (body) Adding cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> from line 'Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>'
+>> Thanks for guide, when i use cmd  "git send-email
+>> --in-reply-to="20250904-qcs8300_mdss-v11-0-bc8761964d76@oss.qualcomm.com"
+>> ~/tmpyongmou/0005-drm-msm-mdss-add-qcs8300-support.eml", seems something
+>> wrong, error log:
+>> mou@oss.qualcomm.com>,  Dmitry Baryshkov
+>> <dmitry.baryshkov@oss.qualcomm.com>'
+>> (body) Adding cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> from
+>> line 'Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>'
 >> 5.1.3 The recipient address <y> is not a valid RFC 5321 address. For more
 >> 5.1.3 information, go to
->> 5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321
->> 5.1.3 specifications. d9443c01a7336-24b1ba1718bsm64512315ad.39 - gsmtpWould you mind sharing some suggestions for this? Thanks~~
+>> 5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321
+>> 5.1.3 specifications. d9443c01a7336-24b1ba1718bsm64512315ad.39 - gsmtpWould
+>> you mind sharing some suggestions for this? Thanks~~
 > 
-> Looks wrong, perhaps you pressed 'y' instinctively when git send-email asked you
-> whom (additionally) send the message to. Just to make sure b4 isn't broken I
-> tried something similar (ignore dry-run, I simply didn't want to send any emails):
+> When `git send-email` asks you, just press 'Enter', no extra chars. Or
+> it migth be easier to just `b4 send --resend`.
 > 
-> git send-email --dry-run /tmp/0014-illustrative_test.eml
-> To whom should the emails be sent (if anyone)? <enter>
-> Message-ID to be used as In-Reply-To for the first email (if any)? <enter>
-> <lots of email spam>
-> 
-> Result: OK
-Thanks for the guide. i think i should not type 'y' when b4 ask me.. now 
-i have post patch 5/6,6/6 to upstream, thank.
+Thanks for the guidance — that was the mistake I made. It has now been 
+sent upstream. It looks like the patch wasn't archived into the V11 
+series. So does this ok?
