@@ -2,125 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6866DB49B4A
-	for <lists+freedreno@lfdr.de>; Mon,  8 Sep 2025 22:58:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70EE1B49BB4
+	for <lists+freedreno@lfdr.de>; Mon,  8 Sep 2025 23:18:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1B9F10E5D8;
-	Mon,  8 Sep 2025 20:58:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A44710E5DD;
+	Mon,  8 Sep 2025 21:18:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fwsAPDy5";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="Ip98w3po";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E23310E209
- for <freedreno@lists.freedesktop.org>; Mon,  8 Sep 2025 20:58:22 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 588GNfge018400
- for <freedreno@lists.freedesktop.org>; Mon, 8 Sep 2025 20:58:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- XT4D6Rl6xH7fkqut4jVRGRITzuU+VSPL2bAYsUG2sK8=; b=fwsAPDy5ELsm5PqX
- Fro65gKobXPjGVoAHUBkPxR0EE9A7aLm7onUviGKb37+JaUjjsWiBlZepLTJRWii
- 2gShlA3u8TTcS56DxxoS/AkQS55kqxTu+Eb1FfXJ4taHz+m5d51VfizsvrANYptr
- LL2BOw2Y8lMqH3ykncbGTt1l9paupuF43t//RGdTL755WhZykTmjT6KGyKalOt3b
- KDe79Ugy1RP3iSdXSymD/+Tt9AxWsWxHUPTw8nXUoQ8sMBDh29genLN1OO2Od06X
- 9r81FgOvnQ1SLSxPiWpD2x5soj78B8rl1XyFTjcGgzIzD2UvkfBMjzS4IAXqw0Na
- J4+nUQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490by8x17y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 20:58:21 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4b5f75c17a3so75731361cf.3
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 13:58:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757365101; x=1757969901;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XT4D6Rl6xH7fkqut4jVRGRITzuU+VSPL2bAYsUG2sK8=;
- b=gA3Y6Jna2makk3r9WeRfGiAp4K2RgSV0AZ2Q6KksZ/iOhffQB4pmjnIXjXN81tCjnd
- UARougHE7DXCAAbGETvOC3KvE1AQFP3DSZNUs5hFgDzWJGBX5pnZLC+6DWdCHlCgbhQ2
- P+Wo1Jhr8qkjlCUE0f7g216L1ZSj8T3+JLCgncdvo8uqKOeNOkt+QJq4UIRO09ELz3oW
- 1/baBKEWtzRN4KPaA8VvA8K0FLwXEsC59cY4cTj0vbrhLLyfU/cs7iktBW/IumyKCyl3
- QVt1BcL51mqyYEccLpHdosNMjHYFpL5j7hSRJmrOtRlCx30wRKvHusJaObpSuBSElk9Y
- BFyg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUBY0y0/L3eQ5QoyRmm+MJtGfhtyewtg4tVjClZKJmw2iFCRAmec94ESxW4vare8kd0NsUW5t4BpW0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEb5QVCLM6yhghLWk+fhaZtki7NHwxUPTRKV078A64QDdyvUsh
- 8XJk49JVmC6BOJO9/TcpFSyHo72Mu0BghUMOVn0bpKrtHLJp1G7bQjLK7ul1OPry8GP3SOg85lf
- dUDf0gz57kvvWllDV7N4Gw43diacAU4yB0RlCSxH1dJ37A14NXtCQUIUL+lZ0B7V/NaxZBRQ=
-X-Gm-Gg: ASbGncuAw5VMXwKq++i/Qua4szXTWZzS9072oel/rgVY+9CNoY+634gENfGogJWysoQ
- 0PKOqIi2rzcaLa8XWiaHSy7wsL844Oi+vBKSBtRZP84tvLS4ECrrCZQZYjDSEVIxEjL8QdcZAPn
- odFD6RJYsfJX+FHsllVvhNnZWt9kDSxNv0eoKkF4elyh1refTqAbs6mm4NAdPkrEVBVjJx5J1ms
- 2/mFyTjF80JVTi346Z+K5rouJ7KoGRH1IfVdaJfaBupMGU4kTpQ+wtxzp6G0zzCQcE15crrwzFw
- soH8X9muQQjoBBCT78A87NKyc3TxBEx5H2ZPjVNWdqK8PImFGS4cS8Iz2KlDUCIVKdXCTbcuA1d
- LVbJ0OHdgpjV+q9KYmEE+iejMhwpbz9bYdghWtYV8MZdTsAefWmC4
-X-Received: by 2002:a05:622a:164a:b0:4b4:8f35:c902 with SMTP id
- d75a77b69052e-4b5f8386268mr101015531cf.4.1757365100932; 
- Mon, 08 Sep 2025 13:58:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFgGo4AskYYA97bXQw5ZnjKY3trY7Q/2Y1T6Qh64u6FXmuTPBJyX/pqKAgqBTyfCqSsjgeyRA==
-X-Received: by 2002:a05:622a:164a:b0:4b4:8f35:c902 with SMTP id
- d75a77b69052e-4b5f8386268mr101015111cf.4.1757365100187; 
- Mon, 08 Sep 2025 13:58:20 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-337f50bfda3sm36656851fa.62.2025.09.08.13.58.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Sep 2025 13:58:19 -0700 (PDT)
-Date: Mon, 8 Sep 2025 23:58:17 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ryan Eatmon <reatmon@ti.com>
-Cc: rob.clark@oss.qualcomm.com, Rob Clark <robdclark@gmail.com>,
- Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Bruce Ashfield <bruce.ashfield@gmail.com>
-Subject: Re: [PATCH v2] drivers: gpu: drm: msm: registers: improve
- reproducibility
-Message-ID: <dm22fmz6yuxrn7cwsviwg6djnbbwr2lq7aamatz3rjeeqf7r2q@mdmnolrb3ytq>
-References: <20250524-binrep-v2-1-09040177218e@oss.qualcomm.com>
- <6mgmrqmixjdftpjz2hvwjnsyh3wwylxuaih7yez2mdgjpcp3l2@zjr4ai6kkjxn>
- <CAF6AEGvJnSiyUJvBPusBZ+mriiP_vRiAgZnTyLSseu8Sdf9PXA@mail.gmail.com>
- <51cdf832-95a2-47bf-bc27-d43097883701@ti.com>
- <CACSVV02YrpYrvbFxKc808a=GjdxVjO=FjRG9gs_6qe5W-v=a9g@mail.gmail.com>
- <858dea80-1bd6-4bbc-9b98-9f959c00b304@ti.com>
+X-Greylist: delayed 534 seconds by postgrey-1.36 at gabe;
+ Mon, 08 Sep 2025 21:18:09 UTC
+Received: from smtp.smtpout.orange.fr (smtp-74.smtpout.orange.fr
+ [80.12.242.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E79B10E5DD;
+ Mon,  8 Sep 2025 21:18:09 +0000 (UTC)
+Received: from [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
+ ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
+ by smtp.orange.fr with ESMTPA
+ id vj6puzqdeoTLUvj6puozOR; Mon, 08 Sep 2025 23:09:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1757365753;
+ bh=6ltswrdyQEQpMWiYuSVRDKy5ajUU0upafr0DRYZj5dU=;
+ h=Message-ID:Date:MIME-Version:Subject:From:To;
+ b=Ip98w3po82tDFo78WFreoHDqqSTKQUvoEDNszK2zWi2rPiCt36agSQ7A+d4ZvaSwP
+ RamEvrAl303pcRErS0TjhS5RHHA6iZh1+gQFULZB4LPDlN6GQkKqpR25DMe4h4xHc+
+ 5RKsqzcnWD5B2tj8gbMs467I/v47QnQV5QSnh7TXb+5fliGMc4NinF060yTtb7QGzG
+ DglYg7jNHH6qr3PNyWaGhASvBsDuHa0poldyMxkZZNIC3Un7MzxkFR1ZCVXJKCav6K
+ PkWFuHBzk0GpBkZfbbkSvQDRC0e42JJd9EGFhKs16fNEWSn/bvGwXuv1HhZDuS1UTG
+ Ali2P3MY8035g==
+X-ME-Helo: [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
+X-ME-Auth: bWFyaW9uLmphaWxsZXRAd2FuYWRvby5mcg==
+X-ME-Date: Mon, 08 Sep 2025 23:09:13 +0200
+X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
+Message-ID: <78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr>
+Date: Mon, 8 Sep 2025 23:09:07 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/8] drm/msm/dpu: use drmm_writeback_connector_init()
+References: <20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com>
+ <20250819-wb-drop-encoder-v3-4-b48a6af7903b@oss.qualcomm.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Content-Language: en-US, fr-FR
+To: "dmitry.baryshkov@oss.qualcomm.com >> Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>
+Cc: abhinav.kumar@linux.dev, airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dave.stevenson@raspberrypi.com, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, geert+renesas@glider.be,
+ harry.wentland@amd.com, jani.nikula@linux.intel.com,
+ jessica.zhang@oss.qualcomm.com, kernel-list@raspberrypi.com,
+ kieran.bingham+renesas@ideasonboard.com,
+ laurent.pinchart+renesas@ideasonboard.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ liviu.dudau@arm.com, louis.chauvet@bootlin.com, lumag@kernel.org,
+ maarten.lankhorst@linux.intel.com, magnus.damm@gmail.com,
+ marijn.suijten@somainline.org, mcanal@igalia.com, mripard@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, suraj.kandpal@intel.com,
+ tomi.valkeinen+renesas@ideasonboard.com, tzimmermann@suse.de
+In-Reply-To: <20250819-wb-drop-encoder-v3-4-b48a6af7903b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <858dea80-1bd6-4bbc-9b98-9f959c00b304@ti.com>
-X-Authority-Analysis: v=2.4 cv=Yv8PR5YX c=1 sm=1 tr=0 ts=68bf436d cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=yJojWOMRYYMA:10 a=iGHA9ds3AAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=sozttTNsAAAA:8 a=pGLkceISAAAA:8 a=7zjSVlYyKO-sLu-dpfcA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22 a=nM-MV4yxpKKO9kiQg6Ot:22
-X-Proofpoint-GUID: nl-pugTfB25SHh7B-GBvQdB1eu-SYw4W
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAxOCBTYWx0ZWRfX7ZJB0Lnj2nzH
- /pomOGZnFK5XhZ7tQtC74QnqW5u5hLoRyKziloghX4nIRDIn+sfv57gthyunhiqu75RIgiLENDd
- 1CQgnGRqNgTfKWBTmXV+P9PNthPri64ovy55g5krf1nkBgx0gSwNM83xH556ftRw9x8ueTvn0sq
- Z1KsnaCafqF+6wuDWDxotD5F9EnGrURx4t0F5E1ujdpfuKV2Rg4fUx8D81eWeoUt2zD/MgB+4GK
- DPv4rId8vx2RloqiPYfvf85NSraiXoA4YBRA5XuBNSI3WZ97ILU8YhEFTCjbwv2PXHCP5eFnh9O
- Wx6Vs8jaYRfmy3+JP6KwITzQZsaHnVFXaVfjS6Ok3neKFMFi3FdjNLoCmYVIm8pSpDf0CjuRL/R
- mmot/Gp6
-X-Proofpoint-ORIG-GUID: nl-pugTfB25SHh7B-GBvQdB1eu-SYw4W
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-08_06,2025-09-08_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 suspectscore=0 phishscore=0 clxscore=1015
- spamscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060018
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,126 +80,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 08, 2025 at 12:59:37PM -0500, Ryan Eatmon wrote:
+Le 19/08/2025 à 22:32, Dmitry Baryshkov a écrit :
+> Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> drmm_writeback_connector_init() in order to initialize writeback
+> connector instance.
 > 
+> Reviewed-by: Louis Chauvet <louis.chauvet-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>
+> Reviewed-by: Suraj Kandpal <suraj.kandpal-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+> Reviewed-by: Jessica Zhang <jessica.zhang-5oFBVzJwu8Ry9aJCnZT0Uw@public.gmane.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov-5oFBVzJwu8Ry9aJCnZT0Uw@public.gmane.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 10 +++-------
+>   1 file changed, 3 insertions(+), 7 deletions(-)
 > 
-> On 9/8/2025 9:19 AM, Rob Clark wrote:
-> > On Mon, Sep 8, 2025 at 6:39 AM Ryan Eatmon <reatmon@ti.com> wrote:
-> > > 
-> > > 
-> > > 
-> > > On 9/6/2025 6:24 PM, Rob Clark wrote:
-> > > > On Sat, May 24, 2025 at 10:15 AM Dmitry Baryshkov
-> > > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > > > > 
-> > > > > On Sat, May 24, 2025 at 09:25:37PM +0530, Viswanath Kraleti wrote:
-> > > > > > From: Ryan Eatmon <reatmon@ti.com>
-> > > > > > 
-> > > > > > The files generated by gen_header.py capture the source path to the
-> > > > > > input files and the date.  While that can be informative, it varies
-> > > > > > based on where and when the kernel was built as the full path is
-> > > > > > captured.
-> > > > > > 
-> > > > > > Since all of the files that this tool is run on is under the drivers
-> > > > > > directory, this modifies the application to strip all of the path before
-> > > > > > drivers.  Additionally it prints <stripped> instead of the date.
-> > > > > > 
-> > > > > > Signed-off-by: Ryan Eatmon <reatmon@ti.com>
-> > > > > > Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
-> > > > > > Signed-off-by: Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
-> > > > > > ---
-> > > > > > The files generated by gen_header.py include the source path to the
-> > > > > > input files and the build date. While this information can be useful,
-> > > > > > it inadvertently exposes build system configuration details in the
-> > > > > > binaries. This hinders binary reproducibility, as the output will
-> > > > > > vary if the build environment changes.
-> > > > > > 
-> > > > > > This change was originally submitted to the linux-yocto-dev kernel [1]
-> > > > > > to address binary reproducibility QA errors. However, the fix is generic
-> > > > > > enough to be applicable to the mainline kernel and would benefit other
-> > > > > > distributions as well. So proposing it here for broader inclusion.
-> > > > > > 
-> > > > > > [1] https://git.yoctoproject.org/linux-yocto-dev/commit/?id=f36faf0f9f8d8f5b4c43a68e5c6bd83a62253140
-> > > > > > ---
-> > > > > > Changes in v2:
-> > > > > > - Corrected author id
-> > > > > > - Link to v1: https://lore.kernel.org/r/20250523-binrep-v1-1-c3a446518847@oss.qualcomm.com
-> > > > > > ---
-> > > > > >    drivers/gpu/drm/msm/registers/gen_header.py | 8 +++++---
-> > > > > >    1 file changed, 5 insertions(+), 3 deletions(-)
-> > > > > > 
-> > > > > 
-> > > > > Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > > 
-> > > > > Rob, WDYT?
-> > > > 
-> > > > I'm revisiting this one, in the context of trying to re-sync
-> > > > gen_header.py with mesa.. but it is only changing the contents of
-> > > > comments, so it's not quite clear to me how this ends up mattering for
-> > > > binary reproducibility.
-> > > 
-> > > The reason it matters is that for Yocto, the generated header file is
-> > > identified as a file that needs to be installed into the sysroot.  All
-> > > files going into the sysroot are checked to make sure they do not
-> > > contain dates and/or paths to the build directory contained within.
-> > > Since this is a generated header file that is included in the sysroot we
-> > > needed to strip out the path and date.
-> > > 
-> > > The idea for the reproducible builds are that the same files on a
-> > > different a machine at a different time should produce 100% identical
-> > > files.  Including paths and dates violates that tenet.
-> > > 
-> > > Hope that helps explain why we needed this.  So long as the
-> > > gen_header.py is being called to generate header files then we need to
-> > > maintain the reproducible aspect.
-> > > 
-> > 
-> > My plan is (was?) to just replace the entire comment header with simply:
-> > 
-> >    /* Autogenerated file, DO NOT EDIT manually! */
-> > 
-> > That said, I'm not entirely sure why these files should get installed
-> > into the sysroot?  I'm not super hands-on familiar with Yocto, so
-> > maybe there is a good reason.. but if there is, maybe the plan to
-> > remove the license/etc from the comment header isn't such a good idea
-> > after all?
-> 
-> The generated header files would be part of a linux-headers package that
-> would be needed to build other packages as part of the distro.  And so the
-> header files are all checked against the rules.  A linux-headers type
-> package is common for distros to have available.
-
-I think you mean linux-libc-headers here. No, as Rob wrote, it is not
-(these headers are not even under include/ subdir.
-
-Do we check the work-shared/kernel-source and kernel-build-artifacts for
-sysroot paths?
-
-> 
-> 
-> > BR,
-> > -R
-> > 
-> > > 
-> > > > That said, since the generated files are no longer checked in to mesa
-> > > > or the kernel, we could probably just drop all of this if it mattered.
-> > > > 
-> > > > BR,
-> > > > -R
-> > > 
-> > > --
-> > > Ryan Eatmon                reatmon@ti.com
-> > > -----------------------------------------
-> > > Texas Instruments, Inc.  -  LCPD  -  MGTS
-> > > 
-> > > 
-> 
-> -- 
-> Ryan Eatmon                reatmon@ti.com
-> -----------------------------------------
-> Texas Instruments, Inc.  -  LCPD  -  MGTS
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> index 8ff496082902b1ee713e806140f39b4730ed256a..cd73468e369a93c50303db2a7d4499bcb17be5d1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> @@ -80,7 +80,6 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
+>   static const struct drm_connector_funcs dpu_wb_conn_funcs = {
+>   	.reset = drm_atomic_helper_connector_reset,
+>   	.fill_modes = drm_helper_probe_single_connector_modes,
+> -	.destroy = drm_connector_cleanup,
+>   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>   };
+> @@ -131,12 +130,9 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
+>   
+>   	drm_connector_helper_add(&dpu_wb_conn->base.base, &dpu_wb_conn_helper_funcs);
+>   
+> -	/* DPU initializes the encoder and sets it up completely for writeback
+> -	 * cases and hence should use the new API drm_writeback_connector_init_with_encoder
+> -	 * to initialize the writeback connector
+> -	 */
+> -	rc = drm_writeback_connector_init_with_encoder(dev, &dpu_wb_conn->base, enc,
+> -			&dpu_wb_conn_funcs, format_list, num_formats);
+> +	rc = drmm_writeback_connector_init(dev, &dpu_wb_conn->base,
+> +					   &dpu_wb_conn_funcs, enc,
+> +					   format_list, num_formats);
+>   
+>   	if (!rc)
+>   		dpu_wb_conn->wb_enc = enc;
 > 
 
--- 
-With best wishes
-Dmitry
+dpu_wb_conn is allocated a few lines above using devm_kzalloc().
+
+Based on [1], mixing devm_ and drmm_ is not safe and can lead to a uaf.
+
+Is it correct here?
+If the explanation at [1] is correct, then &dpu_wb_conn->base would 
+point to some released memory, IIUC.
+
+
+just my 2c.
+
+CJ
+
+[1]: 
+https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753
