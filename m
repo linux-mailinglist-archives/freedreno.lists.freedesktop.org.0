@@ -2,117 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E886CB4998A
-	for <lists+freedreno@lfdr.de>; Mon,  8 Sep 2025 21:14:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EA57B499EC
+	for <lists+freedreno@lfdr.de>; Mon,  8 Sep 2025 21:30:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 301C210E1F4;
-	Mon,  8 Sep 2025 19:14:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D54110E0FD;
+	Mon,  8 Sep 2025 19:30:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FS3rFM4T";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bD2KKydy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0F7910E1B2
- for <freedreno@lists.freedesktop.org>; Mon,  8 Sep 2025 19:14:11 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 588GrNmo030846
- for <freedreno@lists.freedesktop.org>; Mon, 8 Sep 2025 19:14:10 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B733510E0FD
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Sep 2025 19:30:30 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 588BI8vv013554
+ for <freedreno@lists.freedesktop.org>; Mon, 8 Sep 2025 19:30:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=vJousEWyIWj0ub4ZHn6o3Sl6CyGPUwpGa21aRKVc7Yk=; b=FS
- 3rFM4TMjv6TCTt1jOjiOlisYyipDiwXSs3XP3nY+uIy+Wv0IScJlR79HTz07MCoX
- Vhi3UqI9HWugk11YV4T6BRdEqYprXSpnLeNVETFcq+NDAEj/6tekTanodfxZBdUx
- UjnFxc3CrYknR3fhLOI30aWVxh2hz7E8tBORhfQLFr5dMsNNC5xxu03kAIbX7uq5
- auogqTpTIYAoECF2qqwLaSHI5yBfx4X5+mHT6rxPXaeYjnXvqCMjbsXEQcrOdx5B
- yAjwite7w03kt/qEymz1bZnPAKU/nV3K4ATSuJSL8iBWertH/A6ufUkCpbhjlEAi
- qsse2VIsiz2tdp2slpZw==
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490aapdyh4-1
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=DBYI1s0Kwcsc+/IUwfNSLMfLO+qO59pSIyk
+ O91Hb1MA=; b=bD2KKydy0P6KX/3DNWpba6zELRUdSd7WvClpkUSAmJg/sT/0d2i
+ 9SUxhFAcksIG1o93lwlbVwxNU/SX0CGDd1i6WRmeWeNLfpS354JjMFQGuC6ejBsV
+ +oa2NbkvX6kFWWuGP0D533F9pRyF+BDAfok9iOZC5FcCqWO39hKamZiauFBaXrzW
+ uJ8YKwkignKXrthfIcRiL3Zg8Qi9fHDZioVsr5NNx9rI3cv310b5z35f+FU8QE55
+ 0dR2jLA4Xnstm1ECuMMdxyU7rH0uOFFNzKQrOVoM3BVhst70cSVnHqFO3p++lbwo
+ AIO6GxSrH0yuWSmmfXN8g23cQ2C501arY+A==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 491qhdtjv4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 19:14:10 +0000 (GMT)
-Received: by mail-oa1-f69.google.com with SMTP id
- 586e51a60fabf-3253fdac880so5941424fac.0
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 12:14:10 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 19:30:30 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-24456ebed7bso70850745ad.0
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 12:30:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757358850; x=1757963650;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=vJousEWyIWj0ub4ZHn6o3Sl6CyGPUwpGa21aRKVc7Yk=;
- b=ULn0/31lHj+wOdokt2E2FxkzDt0kAM1COeJ5mBeqz9Wa/Xh5k3d1LPSUoBj1FAFa4W
- c1Wx3CWJQBYKFlQVhp2Cn/BvEGc7hiPbAJya0zu1PFeYIPnrWCFOLUd2/4Vb9efSmCZB
- uR6pj/TCXI7SyfdhdiM55iqW9AOAkib5THuNA6G5UE7SQ+WJ+ZEXSmie51B+bbDLOvpv
- 6LwwC2A+2WTfgIT28Mw3aaXBGKflvAYRGJqofULAIHsS5As/F8rVkaepUjV5Fz7ys2Ts
- xLkAVk8tkZdde+h6tfo5QlFAac3qB2kqMu5/+3igc4UoT7IkyZm72DzAiru5eyP8skF0
- 75sg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVGwlgpDzxhFTiLdLqKh5vUmDUpv0RZgaOGo6e/gvzU4aYd4uEMj8NRDiPAh9E9JcCBfdCa3rLONOs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8sKFDHwkH6x18gwQGvm1O38cd2vYl47hP1EEkCK0o7LRAagAb
- dwyVmurB+0PAaV1xh9rSA26eQS7jgqjVBMY+UmSfzYX5aXUAJ737I4YTgsK6r+poe6g1rVage0h
- 9d0MsSnQVa/4j2O61imwv3k1mbxQCtWi4VSrrKVjhX6KfPIxycbr8GhlAUGuk1WizQzpXZ7qrTk
- Voe27yIIn4BqDg89NC2/SEIQUvTSqHMqIYrDPR2x3ta1p/Dg==
-X-Gm-Gg: ASbGncsCqcmZDxxUM9D81fiSaIEt9BiM65cVz98CF21ButlReVgw2OsZWwCjTm6oiM4
- jIoMt6QDJpKM33lawTYG4OxdumvDi2wQ/Vkzrm8CjhwTXI7AEafsb9jxJNldPM5x4Poi/3xSxda
- +DGlYOrHCgaWKxnuTGKOI55e6bHImb3inWfCpJPM5/4w2wAGjq6Sgs
-X-Received: by 2002:a05:6870:524d:b0:321:2b89:bbaa with SMTP id
- 586e51a60fabf-3226284cc86mr4609085fac.6.1757358849629; 
- Mon, 08 Sep 2025 12:14:09 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGokMZ7QUqcfHUl38dF+DB2O10fwJWlpb3ZPwwVbBjH/HoiQE2yWgmsLyAzH2eSvGXvnd62ydkMLjA94QKHo7g=
-X-Received: by 2002:a05:6870:524d:b0:321:2b89:bbaa with SMTP id
- 586e51a60fabf-3226284cc86mr4609070fac.6.1757358849094; Mon, 08 Sep 2025
- 12:14:09 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250524-binrep-v2-1-09040177218e@oss.qualcomm.com>
- <6mgmrqmixjdftpjz2hvwjnsyh3wwylxuaih7yez2mdgjpcp3l2@zjr4ai6kkjxn>
- <CAF6AEGvJnSiyUJvBPusBZ+mriiP_vRiAgZnTyLSseu8Sdf9PXA@mail.gmail.com>
- <51cdf832-95a2-47bf-bc27-d43097883701@ti.com>
- <CACSVV02YrpYrvbFxKc808a=GjdxVjO=FjRG9gs_6qe5W-v=a9g@mail.gmail.com>
- <858dea80-1bd6-4bbc-9b98-9f959c00b304@ti.com>
-In-Reply-To: <858dea80-1bd6-4bbc-9b98-9f959c00b304@ti.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 8 Sep 2025 12:13:57 -0700
-X-Gm-Features: AS18NWD6PCBVVpU8xqhBnPcHvCAMvQ-KNt6NE47xv7XjxuR77RvPVN2COWfaD_s
-Message-ID: <CACSVV027yBWLKaghuBnnGPg84W6RvrO=O+55ROx-SOeqTMbDGA@mail.gmail.com>
-Subject: Re: [PATCH v2] drivers: gpu: drm: msm: registers: improve
- reproducibility
-To: Ryan Eatmon <reatmon@ti.com>
-Cc: Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ d=1e100.net; s=20230601; t=1757359829; x=1757964629;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DBYI1s0Kwcsc+/IUwfNSLMfLO+qO59pSIykO91Hb1MA=;
+ b=I5PgIK+7JC0heyoasdwkHxhux156ZjTWU/ENQWsUZPOh3zNKZm5Uia383jjyfocAGq
+ VNqQj2frCSbi+ejmCzS7sutAGUSlbmLMKCBL48Kmp2yOjS4e657ZCe/MpHEQisoaHCeC
+ o00NlB7gbTAEIoTA01QohKrcwgGg0ANMKFj9AdEVmRPTnCImzdGK3AoJlq8E6upH/ito
+ TtxY+q22NgBSzsYiSQd+ezKb8Zjf8NDD4+r3uuoTE0ibX+9cmnrZUPfRQktZejKEzUFS
+ 2j2r032/T4//Gnx2F7Wb1NQYkwP0bHzEpZbFPbD8xK3xGRrtCoNqCX6BOG318iKGDzxp
+ dF/Q==
+X-Gm-Message-State: AOJu0YwQaxXVS2Yh8uTly8H5PLrKrvkSJqrSuEUIARis35r9aF5C1MJX
+ /8yKY/E5viEcD7e0Dqs9UQSu/bglgSWLyf+qQ3zbjd8LwgFXv6hQr4Kv99zcW2Cygnmj8jF+0tt
+ ISDC5okMEHZAufPochgu+6kKKeHB6R83BWSQlE8oQs+gq0ojYBC3iDB2aOc9qMu2wrAdNs3Q=
+X-Gm-Gg: ASbGncvMfP/Pc3AmyOKOdqU4uceyZ+KdiPts00IacSv7+GkK3AffwfME82TqzPb0CBk
+ Zd/UIpPwAMQBQ0GUt/cdpuRhTtGEdFMNHyC2Xbdt+pTSCrVyUJmEE6FLakCxVWzTIuKeas1EMPx
+ we13ui8N0iYucjPk91RsYdUomCU4LPX5RriwskRh4zm+44JNgbCRoTgkkGTBWWetQ3Rio6yP+xH
+ 8IdGAP7GMtkKtntwLZDdHVbKAD2w+rktniaN4/k4LluTA86/Qt4YwWfb/ZY6MwpH3hdzYUCawBU
+ tQWL+857cIhl9U3oRUcni4tIm1ZtVSy8/MP6Ncnr6OI2p6+MEPw=
+X-Received: by 2002:a17:902:d58a:b0:24b:270e:56d4 with SMTP id
+ d9443c01a7336-2517427c78amr113285325ad.4.1757359829209; 
+ Mon, 08 Sep 2025 12:30:29 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG0Ni+T7orgU9Tutacd+01JeovMGTrJRiaBNcvzJAbWLaTKOdvcEbz6Jlp0yDTmRpvFr6mVXg==
+X-Received: by 2002:a17:902:d58a:b0:24b:270e:56d4 with SMTP id
+ d9443c01a7336-2517427c78amr113285065ad.4.1757359828730; 
+ Mon, 08 Sep 2025 12:30:28 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-24caffd7beesm136191685ad.121.2025.09.08.12.30.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Sep 2025 12:30:28 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-kernel@vger.kernel.org (open list),
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Bruce Ashfield <bruce.ashfield@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=eMETjGp1 c=1 sm=1 tr=0 ts=68bf2b02 cx=c_pps
- a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10
- a=iGHA9ds3AAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=sozttTNsAAAA:8
- a=pGLkceISAAAA:8 a=E82fJwX0KJD4OIwMoWkA:9 a=QEXdDO2ut3YA:10
- a=y8BKWJGFn5sdPF1Y92-H:22 a=nM-MV4yxpKKO9kiQg6Ot:22
-X-Proofpoint-GUID: pJG5b6MRZxuUIX5ii-M8lkccw8RatFB1
-X-Proofpoint-ORIG-GUID: pJG5b6MRZxuUIX5ii-M8lkccw8RatFB1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAwMCBTYWx0ZWRfX9Vn/PJdU8WKM
- /vwZcFTqP6Hh2efYgrYS+jS8AKjr8i82tVbmIjWMZBLnP16BI1NIfPXoVQl5aHAGYZp408b8HbM
- E8Mx7qUV7QriiEmv91k9dSGKE/qQpUecOsJtRXmYrqkARtW9RJ3xH4DXms2T0KEk5xowaRE2Nj1
- 8ZJ497Cs1IOkaiMTVEHuoZFCkCoznbLw2qnHB030R9JIm+006MJMyy1Z5FbcXHP3amT+t8288Gl
- tBLRaruzDriQG8SzNXhebEApX42TNEhocAvMq9Tr9bgP0neFajWk5vxPMwHobOwR8jnd/L1j0BJ
- xmoZU8DErlGuCk6sfYHI/06RihE+F+jKFB3BSGCDFrRv13Eb2Igc6GRLt+EYjWpQvqQXAOCTk9Y
- trA/lepk
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH 0/5] drm/msm/registers: gen_header.py and regs sync
+Date: Mon,  8 Sep 2025 12:30:03 -0700
+Message-ID: <20250908193021.605012-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.51.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: DwJT3lOiyG3kC4ah5P63dC4zaGI66E-W
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA4MDAzNCBTYWx0ZWRfXxqB7NAZtxC2a
+ 3H0+n7hML1ffP0+R1Fh457hqdaKCIAm9hvxKol6zAWkohb4zvgTjwxQlPY2dmvv5buqntTNzcf6
+ i2XIy140KEU1y1kpJr9yzaRd9nNtDYFAEkRF7zCRaaFkt0/WTJfJ0hmG0WuMYC4T37DVUn+et79
+ fjWKpl4G4xmWzw45yqeeS7WCHt+fBna+06bhEmxg0dhaCH/iZOdEG/u2anSSpJIRnxzlZ4WwY/1
+ 8/U0/yKv2mztT+pN5I3egaP0nduoL0YvRmGYa3PH4oBV8M3xJAy4pSeIzmdUe3vUdfdZP2aLMYX
+ ypqwr/Zhdx9ZhmJSb51ZKJDBDspRDuVFW894w92kCtovkXJ6hpb8khBqzcFMWRR6/XDUo/iK5Sy
+ xnu36MiE
+X-Authority-Analysis: v=2.4 cv=YOCfyQGx c=1 sm=1 tr=0 ts=68bf2ed6 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=xqWC_Br6kY4A:10 a=yJojWOMRYYMA:10
+ a=e5mUnYsNAAAA:8 a=E6oEVHbn0fKM42HpNhsA:9 a=324X-CrmTo6CU4MGRt3R:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-ORIG-GUID: DwJT3lOiyG3kC4ah5P63dC4zaGI66E-W
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-08_06,2025-09-08_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0
- bulkscore=0 phishscore=0 spamscore=0 suspectscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2509060000
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 impostorscore=0
+ suspectscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509080034
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,142 +118,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 8, 2025 at 10:59=E2=80=AFAM Ryan Eatmon <reatmon@ti.com> wrote:
->
->
->
-> On 9/8/2025 9:19 AM, Rob Clark wrote:
-> > On Mon, Sep 8, 2025 at 6:39=E2=80=AFAM Ryan Eatmon <reatmon@ti.com> wro=
-te:
-> >>
-> >>
-> >>
-> >> On 9/6/2025 6:24 PM, Rob Clark wrote:
-> >>> On Sat, May 24, 2025 at 10:15=E2=80=AFAM Dmitry Baryshkov
-> >>> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >>>>
-> >>>> On Sat, May 24, 2025 at 09:25:37PM +0530, Viswanath Kraleti wrote:
-> >>>>> From: Ryan Eatmon <reatmon@ti.com>
-> >>>>>
-> >>>>> The files generated by gen_header.py capture the source path to the
-> >>>>> input files and the date.  While that can be informative, it varies
-> >>>>> based on where and when the kernel was built as the full path is
-> >>>>> captured.
-> >>>>>
-> >>>>> Since all of the files that this tool is run on is under the driver=
-s
-> >>>>> directory, this modifies the application to strip all of the path b=
-efore
-> >>>>> drivers.  Additionally it prints <stripped> instead of the date.
-> >>>>>
-> >>>>> Signed-off-by: Ryan Eatmon <reatmon@ti.com>
-> >>>>> Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
-> >>>>> Signed-off-by: Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.co=
-m>
-> >>>>> ---
-> >>>>> The files generated by gen_header.py include the source path to the
-> >>>>> input files and the build date. While this information can be usefu=
-l,
-> >>>>> it inadvertently exposes build system configuration details in the
-> >>>>> binaries. This hinders binary reproducibility, as the output will
-> >>>>> vary if the build environment changes.
-> >>>>>
-> >>>>> This change was originally submitted to the linux-yocto-dev kernel =
-[1]
-> >>>>> to address binary reproducibility QA errors. However, the fix is ge=
-neric
-> >>>>> enough to be applicable to the mainline kernel and would benefit ot=
-her
-> >>>>> distributions as well. So proposing it here for broader inclusion.
-> >>>>>
-> >>>>> [1] https://git.yoctoproject.org/linux-yocto-dev/commit/?id=3Df36fa=
-f0f9f8d8f5b4c43a68e5c6bd83a62253140
-> >>>>> ---
-> >>>>> Changes in v2:
-> >>>>> - Corrected author id
-> >>>>> - Link to v1: https://lore.kernel.org/r/20250523-binrep-v1-1-c3a446=
-518847@oss.qualcomm.com
-> >>>>> ---
-> >>>>>    drivers/gpu/drm/msm/registers/gen_header.py | 8 +++++---
-> >>>>>    1 file changed, 5 insertions(+), 3 deletions(-)
-> >>>>>
-> >>>>
-> >>>> Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> >>>>
-> >>>> Rob, WDYT?
-> >>>
-> >>> I'm revisiting this one, in the context of trying to re-sync
-> >>> gen_header.py with mesa.. but it is only changing the contents of
-> >>> comments, so it's not quite clear to me how this ends up mattering fo=
-r
-> >>> binary reproducibility.
-> >>
-> >> The reason it matters is that for Yocto, the generated header file is
-> >> identified as a file that needs to be installed into the sysroot.  All
-> >> files going into the sysroot are checked to make sure they do not
-> >> contain dates and/or paths to the build directory contained within.
-> >> Since this is a generated header file that is included in the sysroot =
-we
-> >> needed to strip out the path and date.
-> >>
-> >> The idea for the reproducible builds are that the same files on a
-> >> different a machine at a different time should produce 100% identical
-> >> files.  Including paths and dates violates that tenet.
-> >>
-> >> Hope that helps explain why we needed this.  So long as the
-> >> gen_header.py is being called to generate header files then we need to
-> >> maintain the reproducible aspect.
-> >>
-> >
-> > My plan is (was?) to just replace the entire comment header with simply=
-:
-> >
-> >    /* Autogenerated file, DO NOT EDIT manually! */
-> >
-> > That said, I'm not entirely sure why these files should get installed
-> > into the sysroot?  I'm not super hands-on familiar with Yocto, so
-> > maybe there is a good reason.. but if there is, maybe the plan to
-> > remove the license/etc from the comment header isn't such a good idea
-> > after all?
->
-> The generated header files would be part of a linux-headers package that
-> would be needed to build other packages as part of the distro.  And so
-> the header files are all checked against the rules.  A linux-headers
-> type package is common for distros to have available.
->
+Now that https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/37216
+has synced kernel side changes back to mesa, this completes the round
+trip by syncing mesa side changes back to the kernel.
 
-These headers should only be used to build the kernel, they are not in
-include/uapi and as such should not be used for building any other
-userspace package (or out of tree kernel module, for that matter).
+Rob Clark (5):
+  drm/msm/registers: Remove license/etc from generated headers
+  drm/msm/registers: Sync gen_header.py from mesa
+  drm/msm/registers: Make TPL1_BICUBIC_WEIGHTS_TABLE an array
+  drm/msm/registers: Generate _HI/LO builders for reg64
+  drm/msm/registers: Sync GPU registers from mesa
 
-BR,
--R
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c     |  10 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  18 +-
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c     |   4 +-
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 718 ++++++++++--------
+ .../msm/registers/adreno/a6xx_descriptors.xml |  40 -
+ .../drm/msm/registers/adreno/a6xx_enums.xml   |  50 +-
+ .../drm/msm/registers/adreno/adreno_pm4.xml   | 179 ++---
+ drivers/gpu/drm/msm/registers/gen_header.py   | 201 ++---
+ 8 files changed, 639 insertions(+), 581 deletions(-)
 
->
-> > BR,
-> > -R
-> >
-> >>
-> >>> That said, since the generated files are no longer checked in to mesa
-> >>> or the kernel, we could probably just drop all of this if it mattered=
-.
-> >>>
-> >>> BR,
-> >>> -R
-> >>
-> >> --
-> >> Ryan Eatmon                reatmon@ti.com
-> >> -----------------------------------------
-> >> Texas Instruments, Inc.  -  LCPD  -  MGTS
-> >>
-> >>
->
-> --
-> Ryan Eatmon                reatmon@ti.com
-> -----------------------------------------
-> Texas Instruments, Inc.  -  LCPD  -  MGTS
->
+-- 
+2.51.0
+
