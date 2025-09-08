@@ -2,112 +2,111 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D92F0B499F3
-	for <lists+freedreno@lfdr.de>; Mon,  8 Sep 2025 21:30:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B036B499F5
+	for <lists+freedreno@lfdr.de>; Mon,  8 Sep 2025 21:30:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3A2F10E5BC;
-	Mon,  8 Sep 2025 19:30:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4439F10E5BE;
+	Mon,  8 Sep 2025 19:30:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QGDFtKpv";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eVqrTKRB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A2C410E5B7
- for <freedreno@lists.freedesktop.org>; Mon,  8 Sep 2025 19:30:36 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 588DMK8N004866
- for <freedreno@lists.freedesktop.org>; Mon, 8 Sep 2025 19:30:36 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02D9910E5BD
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Sep 2025 19:30:38 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 588HKWOi030096
+ for <freedreno@lists.freedesktop.org>; Mon, 8 Sep 2025 19:30:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=V9UZtlyyn5h
- KtDyVI3Ro3LMaxycsPRVDyyu4mClJs1Y=; b=QGDFtKpv6a0HoUFcg9gqeuvyZJW
- cyS8PMsj3PXDDusPcXUsanRpU3zy0PxOr85suw73Xa0VXL4TBHAMOOAB45EKtpkJ
- l2mfUhF7ghzr61G6EWsBDyFrOOBdhKelZq84X6gYGBpRJWM/liWW8tWuC+9Axodp
- xUzEzzyfNqapkP3Ye+wjan0aZsiRG8rzGHiMUTg8MCNbLmNi0Xchdbf3KHry5hLz
- 33toAxnLcOmE+amDBnlG7+oXtHHtWspWORlX8T+VHK0vqr8pITPIh4Jvoq2Ve+1A
- knwb78y7xBXj4s8Y/W7PogAFFTk4JK3cfslJK6B0YHFCsHmm5XNd6zCVM5A==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 491t37t7t8-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=WsTaj9aC5GD
+ 50Hh4uc9YImnv7c9qgszQr9EnvkcFHK0=; b=eVqrTKRBhlWdtP7W72Uxq6NoiIW
+ YQ5p6nq/CK9yXaMQQlgEznwtyPAEChT3Cq7Nw+/roK0elBzPbJjkrzDp3xLZk989
+ K++0VQvquJXc0CYtc7TXeZQPid3bLSHCXciECvI+EvDEiKyAOOiS0rD/XyThvD0n
+ +sXG2RVyKjERFHJB0kzu9fvevv5aX1+qwf8g6LOdS3Eqb0ECxkOuGciKtae6S6EM
+ DjDhwp/74ROdDDohVZXEpT7/N4KT7K4o8uWORMNsWH637gFyrpSg8SBfSXu1FKSb
+ f423jRqAadm/zn+NpWpiFsZ7QHcz9uHSRU/lIJBjDC71v+sZh0kFohyEbLQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490e4kwmpd-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 19:30:36 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-b4fbb90b453so7885259a12.2
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 12:30:35 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 19:30:38 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-24ae30bd2d0so45742505ad.3
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 12:30:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757359835; x=1757964635;
+ d=1e100.net; s=20230601; t=1757359838; x=1757964638;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=V9UZtlyyn5hKtDyVI3Ro3LMaxycsPRVDyyu4mClJs1Y=;
- b=YcbfApFqisJwt9Lhmubu7j5SrnT0t5f+Fl8+l6G7yG1adXSKuCq6YdhgcHStn5xVeC
- i/Vsx2IRyB/rovOKZmGSn+bos3HWYZZ0Ae1kLg/WA7RotJJWkDgLLTdfDxl5MgbhEIMt
- 5lOSmYn5wR3Zl8yJmast0N1ldgszFs67JVM+gjMCjERIEyt4E8a0mj7+yuhAYLKTfsXR
- 308gkt75trvHKdMS1ZfAMAd6YZbdAopYUXXh9N1QCDZHTa4mwdoiIMkWsLt+R3UYQlv9
- 8PffI2UNQQW6wIESToinQOqC4zRp2nfl8OEWvKnuL/Un/Euj2TxZYpndDA8f5CB3eEAu
- 5ksw==
-X-Gm-Message-State: AOJu0Yw+h3hO2Scp+Qga6JTwsou/eR569L6TWb3q7fIZ+66C0prsHHE8
- FrG5AnztU+EX1IQdXduhs8D+Oom9Cs9GMomCnxrzJLji6LMGbM/UFZQeJlX72T32clA7RoykTzV
- cs0fNobf+5MO0u0P6JYCCYVf8TgCcxrDRz3DEpKcAC7E2eOPcPomMGErFhOynrrxYNQpL1tg=
-X-Gm-Gg: ASbGncugU1K9v+rm4cMkUR6vqqWkuIaCEDnaQgYwL3CwjREZY8Hj0dv6xxJGAAl9DJp
- eaav933+aYukM/Xcb8o9IJrSGMzo3gV+r/MpiTCMcMniUQ0InFZRnbqTcnyna6RT07avTyNq/+X
- nbnIs2tD92gfdB3aLyiMNpOwp5RU8Xnj094PcSkb26TmKdJ3m57NFw0WMrv4jE56LdvZegdJOna
- ddmeE1/Hl/a/1Enk2TC0eWtpSP+/9m/1dqr9GJzzHfcDMucNqUym79ByEliguSep8ARM8vC3xUc
- +ByECWU9Ys2jsalgmwJvNq4qFi+/qzs5jeZwL/WukAc2TtJhOQ8=
-X-Received: by 2002:a17:902:f68a:b0:24c:be1f:c1f3 with SMTP id
- d9443c01a7336-251736ded57mr130795935ad.35.1757359835085; 
- Mon, 08 Sep 2025 12:30:35 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEp6yo1Uy7RBj42hLfgm+tadYfLbQIubWtzG/4AK1CsZzs6I6GYEqVGCGj4HBQRVCJizgZa2Q==
-X-Received: by 2002:a17:902:f68a:b0:24c:be1f:c1f3 with SMTP id
- d9443c01a7336-251736ded57mr130795565ad.35.1757359834632; 
- Mon, 08 Sep 2025 12:30:34 -0700 (PDT)
+ bh=WsTaj9aC5GD50Hh4uc9YImnv7c9qgszQr9EnvkcFHK0=;
+ b=rQbpQTW/6wONlNZDmJ1R6HjhmqvAvb6SppPzLKtaOsmRtk/c4uhv5IqKkA58XjWehq
+ GQp3tiGrFY91flkK9j7FCauCKUiZkmBGr7qGJh1REmZigH9ffPdSxYyiIZq90xbFr7cN
+ vTMvMzEwxVqoESR3K+SastRqT8yY9924ZW4eM9UDyipWh0mI7xL8GPXJwiaAOVQWSRzr
+ zL/NbyRNZdfc1vcsQlMinbPamDrj8QcrvavO4HO33M3zHF3OcPxq31+jo7buMLR0Cmt7
+ GOcum/Y/PfylYZdef8joFQlG2dbPtDNFv4RIxNY7MHyWEoAHLdQis8ghEND6rglvFLi9
+ 1nXA==
+X-Gm-Message-State: AOJu0YxLQV63AMAyA5tWySKGQCmVGFXA08dhE4RHcHvJN3YOVv1q4zN0
+ wUnBiAvZGLxqDjQl5Qw7BTrScJRqJr+NZRZMzV2Gr1XQ2EV88KC/wMfMOzi28u7tHnSPC1zhOwX
+ eJNtuKVjexIiPRo8biDq6t/1gcoTNbKrnrst0XLJxA1Pz5BhOFuMk9LzubW7S/fy8AJbMWTA=
+X-Gm-Gg: ASbGncuIRE0N9WLloNhDbqiUIiOOxoL6PtBZoVo6GoqGbGHDdoHmyqyZdNDMNj+3PGJ
+ IuP/2MZQRK57THwh+BNem6ybzB/jaUGvzn3O4B13g/XaDBRPKqbaleDbwEjPHyzQZhfjKxjwmJr
+ /5I6Kps6EN3bV2UUCAGCMNQifTfiEZ+s0TtTa9XVJACHF0/osCUwMIbNe2s5GYvKN0hsQXhC2vL
+ 4Q8xRU5gEe5PIe4pwq9ftPKZSskZrbhJOi/7c17bpnhduZXeIibjf6VdROF8ZXZXKmM+2K7ib4O
+ mSuGMO/aT7t9QiQKDqLC/ikU95P+W2u3C5iqtWvC1ROZFbOgyQE=
+X-Received: by 2002:a17:903:19ee:b0:24c:bdf5:d74b with SMTP id
+ d9443c01a7336-2516dfcd7c5mr124312235ad.19.1757359837569; 
+ Mon, 08 Sep 2025 12:30:37 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEnE8HmdaJ0DQoZXF+EtTS9roT6QVEtH1gZOT81nijuJgDxG0dijPNgZrPVtA0NPjF7Ux7yew==
+X-Received: by 2002:a17:903:19ee:b0:24c:bdf5:d74b with SMTP id
+ d9443c01a7336-2516dfcd7c5mr124311505ad.19.1757359836629; 
+ Mon, 08 Sep 2025 12:30:36 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:5b3e:de60:4fda:e7b1])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-24c829d9114sm156524285ad.57.2025.09.08.12.30.33
+ d9443c01a7336-24cb28c3110sm134810835ad.120.2025.09.08.12.30.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Sep 2025 12:30:34 -0700 (PDT)
+ Mon, 08 Sep 2025 12:30:36 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 3/5] drm/msm/registers: Make TPL1_BICUBIC_WEIGHTS_TABLE an
- array
-Date: Mon,  8 Sep 2025 12:30:06 -0700
-Message-ID: <20250908193021.605012-4-robin.clark@oss.qualcomm.com>
+Subject: [PATCH 4/5] drm/msm/registers: Generate _HI/LO builders for reg64
+Date: Mon,  8 Sep 2025 12:30:07 -0700
+Message-ID: <20250908193021.605012-5-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250908193021.605012-1-robin.clark@oss.qualcomm.com>
 References: <20250908193021.605012-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: -DGs-eetf97D9DXaGJnJETkDMLNp25xg
-X-Proofpoint-GUID: -DGs-eetf97D9DXaGJnJETkDMLNp25xg
-X-Authority-Analysis: v=2.4 cv=NdLm13D4 c=1 sm=1 tr=0 ts=68bf2edc cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=xqWC_Br6kY4A:10 a=yJojWOMRYYMA:10
- a=EUspDBNiAAAA:8 a=TOpUcsStXtwAwhZrRvYA:9 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA4MDA2NiBTYWx0ZWRfX6RNh/WJdUvkY
- rBzNtFw4xezYqu8PzIAbIke/D97/++ohiHZRi8fyAeXqPkevqHIiWw1b5E+TnJHhmqsIZx0Kqde
- 5mPa7ZtEfBQYX/xrt2gE3QpmF02TfAgC4INGB88TzRLL71hqnX7A3ncbgg9B8qXXdLL2pYLBTAp
- uSV7Ob3FkNEsDBbcWuh+fRXSI4AKpbVF/uVOI9U+ZMAjoxN4DY/NTemthSMbm9UAqDJuSe+5j5U
- xh1/kMMOkvOvG/QQU0WVxM3SfKJDiesHxrGv40PVYxgAYL6FhE+8E5gYCmBqi/93boLkK4az7bM
- bvQJVOYpIfBH6GeTUSOpcBCvFpvd26cEhl9u3GXD/kG4ScBZtZoAyQuG4jksmVtxBqEdgplTdZZ
- 3nUSMi/S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAzOCBTYWx0ZWRfX+k4gqftzW9EY
+ 0Cd/agTjgoZK4CnzGlW06TGZhdT3xklQWnnmAW+ni6IIScutjTguVPf5S6Pb1WPugeAaKGi3SKD
+ K+RMN1ZdBlCALIEV1k64q9lb1lDcFwTp8rIE7/0aTrx/3Ud56wA4nRH1Tv/7Y4hHCsSWctULKOR
+ oxHP4gBq0kxo6aI1Us+kCEAK21OE+oouqeceEnWkyotASFKellklozVkg017k2tzlmQeCQ/M/Lp
+ IjSyHSf6Ze8YBjvhg++vNLatAvQlQoaeBhgU+k/ITbOsjzVE9dZDZyDNYZcOhkl1Mb40tgIeM++
+ 3/XKjCpwjYe6vQSfpXrHUGbElW8V9bSPGomEBouMETCUeimb4V2UrRwW8yQTm83Y0WwD0wywy7p
+ 9X5PzgFt
+X-Authority-Analysis: v=2.4 cv=J66q7BnS c=1 sm=1 tr=0 ts=68bf2ede cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=xqWC_Br6kY4A:10 a=yJojWOMRYYMA:10
+ a=EUspDBNiAAAA:8 a=QI1G1A81GPnZtfO3aA0A:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: KStboVbomke-NyksXW5KKltSAzhnsUsM
+X-Proofpoint-ORIG-GUID: KStboVbomke-NyksXW5KKltSAzhnsUsM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-08_06,2025-09-08_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
- clxscore=1015 impostorscore=0 spamscore=0 priorityscore=1501
+ impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 phishscore=0
+ adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509080066
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060038
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,90 +122,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Synced from mesa commit 77c42c1a5752 ("freedreno/registers: Make
-TPL1_BICUBIC_WEIGHTS_TABLE an array").
+The upstream mesa copy of the GPU regs has shifted more things to reg64
+instead of seperate 32b HI/LO reg32's.  This works better with the "new-
+style" c++ builders that mesa has been migrating to for a6xx+ (to better
+handle register shuffling between gens), but it leaves the C builders
+with missing _HI/LO builders.
+
+So handle the special case of reg64, automatically generating the
+missing _HI/LO builders.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c     | 10 +++++-----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c         | 10 +++++-----
- drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 18 +++++++-----------
- 3 files changed, 17 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/msm/registers/gen_header.py | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index a2d587e1a4f5..44df6410bce1 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -1355,11 +1355,11 @@ DECLARE_ADRENO_REGLIST_LIST(a7xx_pwrup_reglist);
+diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
+index 16239b754804..1d603dadfabd 100644
+--- a/drivers/gpu/drm/msm/registers/gen_header.py
++++ b/drivers/gpu/drm/msm/registers/gen_header.py
+@@ -161,6 +161,7 @@ class Bitset(object):
+ 	def __init__(self, name, template):
+ 		self.name = name
+ 		self.inline = False
++		self.reg = None
+ 		if template:
+ 			self.fields = template.fields[:]
+ 		else:
+@@ -266,6 +267,11 @@ class Bitset(object):
+ 	def dump(self, is_deprecated, prefix=None):
+ 		if prefix is None:
+ 			prefix = self.name
++		if self.reg and self.reg.bit_size == 64:
++			print("static inline uint32_t %s_LO(uint32_t val)\n{" % prefix)
++			print("\treturn val;\n}")
++			print("static inline uint32_t %s_HI(uint32_t val)\n{" % prefix)
++			print("\treturn val;\n}")
+ 		for f in self.fields:
+ 			if f.name:
+ 				name = prefix + "_" + f.name
+@@ -645,6 +651,7 @@ class Parser(object):
  
- /* Applicable for X185, A750 */
- static const u32 a750_ifpc_reglist_regs[] = {
--	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_0,
--	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_1,
--	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_2,
--	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_3,
--	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_4,
-+	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
-+	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
-+	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
-+	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
-+	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
- 	REG_A6XX_TPL1_NC_MODE_CNTL,
- 	REG_A6XX_SP_NC_MODE_CNTL,
- 	REG_A6XX_CP_DBG_ECO_CNTL,
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 2f68394d6c3b..a45c3917ae9b 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1337,14 +1337,14 @@ static int hw_init(struct msm_gpu *gpu)
+ 		self.current_reg = Reg(attrs, self.prefix(variant), self.current_array, bit_size)
+ 		self.current_reg.bitset = self.current_bitset
++		self.current_bitset.reg = self.current_reg
  
- 	/* Set weights for bicubic filtering */
- 	if (adreno_is_a650_family(adreno_gpu) || adreno_is_x185(adreno_gpu)) {
--		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_0, 0);
--		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_1,
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(0), 0);
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
- 			0x3fe05ff4);
--		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_2,
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
- 			0x3fa0ebee);
--		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_3,
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
- 			0x3f5193ed);
--		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_4,
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
- 			0x3f0243f0);
- 	}
- 
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
-index 86fab2750ba7..28d4e7149a5c 100644
---- a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
-+++ b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
-@@ -3296,17 +3296,13 @@ by a particular renderpass/blit.
- 	</reg32>
- 	<reg32 offset="0xb605" name="TPL1_UNKNOWN_B605" low="0" high="7" type="uint" variants="A6XX" usage="cmd"/> <!-- always 0x0 or 0x44 ? -->
- 
--	<reg32 offset="0xb608" name="TPL1_BICUBIC_WEIGHTS_TABLE_0" low="0" high="29" variants="A6XX"/>
--	<reg32 offset="0xb609" name="TPL1_BICUBIC_WEIGHTS_TABLE_1" low="0" high="29" variants="A6XX"/>
--	<reg32 offset="0xb60a" name="TPL1_BICUBIC_WEIGHTS_TABLE_2" low="0" high="29" variants="A6XX"/>
--	<reg32 offset="0xb60b" name="TPL1_BICUBIC_WEIGHTS_TABLE_3" low="0" high="29" variants="A6XX"/>
--	<reg32 offset="0xb60c" name="TPL1_BICUBIC_WEIGHTS_TABLE_4" low="0" high="29" variants="A6XX"/>
--
--	<reg32 offset="0xb608" name="TPL1_BICUBIC_WEIGHTS_TABLE_0" low="0" high="29" variants="A7XX" usage="cmd"/>
--	<reg32 offset="0xb609" name="TPL1_BICUBIC_WEIGHTS_TABLE_1" low="0" high="29" variants="A7XX" usage="cmd"/>
--	<reg32 offset="0xb60a" name="TPL1_BICUBIC_WEIGHTS_TABLE_2" low="0" high="29" variants="A7XX" usage="cmd"/>
--	<reg32 offset="0xb60b" name="TPL1_BICUBIC_WEIGHTS_TABLE_3" low="0" high="29" variants="A7XX" usage="cmd"/>
--	<reg32 offset="0xb60c" name="TPL1_BICUBIC_WEIGHTS_TABLE_4" low="0" high="29" variants="A7XX" usage="cmd"/>
-+	<array offset="0xb608" name="TPL1_BICUBIC_WEIGHTS_TABLE" stride="1" length="5" variants="A6XX">
-+		<reg32 offset="0" name="REG" low="0" high="29"/>
-+	</array>
-+
-+	<array offset="0xb608" name="TPL1_BICUBIC_WEIGHTS_TABLE" stride="1" length="5" variants="A7XX">
-+		<reg32 offset="0" name="REG" low="0" high="29" usage="cmd"/>
-+	</array>
- 
- 	<array offset="0xb610" name="TPL1_PERFCTR_TP_SEL" stride="1" length="12" variants="A6XX"/>
- 	<array offset="0xb610" name="TPL1_PERFCTR_TP_SEL" stride="1" length="18" variants="A7XX"/>
+ 		if len(self.stack) == 1:
+ 			self.file.append(self.current_reg)
 -- 
 2.51.0
 
