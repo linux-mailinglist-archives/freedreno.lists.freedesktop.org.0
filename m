@@ -2,133 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43153B48ADB
-	for <lists+freedreno@lfdr.de>; Mon,  8 Sep 2025 13:00:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3BDDB4FBDF
+	for <lists+freedreno@lfdr.de>; Tue,  9 Sep 2025 14:55:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D9F910E1FF;
-	Mon,  8 Sep 2025 11:00:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6D8810E707;
+	Tue,  9 Sep 2025 12:55:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Owp8rU9F";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="DKXGzQ4J";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4F0E10E1FF
- for <freedreno@lists.freedesktop.org>; Mon,  8 Sep 2025 11:00:24 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5888wZA8012276
- for <freedreno@lists.freedesktop.org>; Mon, 8 Sep 2025 11:00:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- SYd+/4tBi4uRuiBSAgW74S/nrmFmbZ9KidZtEig3lzk=; b=Owp8rU9Fn8ikQEhI
- 71aF6aQZEr8vQ0H/3EVViSDOwCFQYIVGwlEn9vyKBKE72WlMg6uRNkO66TtczNVq
- 312EV6MBrCSyqCNXnbTp6HLH7jSnQlp6ahrQCYqqGWegrVDr/nFRL6two33iEhur
- h6pzoqvwD/FduGTWCkNKjrs/X0/79cQ5GsTw+Ns1FaTbd04ixEUPDkdHjmZ+yb1H
- jkz+3R2oWOJwPtjLbmBa3/9mnIJfVSpYpXOG94WpNoNRwCxspTxFv7sT/x+hZyvs
- 2m0bYgGWEjPi18sqQIgTEHrUjp1PdOJVLpknu9V94k/xdZSuToIljZOayMlmcouX
- geVGMw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490c9j4e7d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 11:00:23 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-244581953b8so47980895ad.2
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 04:00:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757329216; x=1757934016;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SYd+/4tBi4uRuiBSAgW74S/nrmFmbZ9KidZtEig3lzk=;
- b=Zv0T7kFhYuLBk0TL2EC8SxdqrC06e11R7J6V0RV7Gy4hsNkJiIk6jwdSd62Y8CrTIk
- iHvC3flaHIUIiEc7/PwGlvMz8ZuoORSYxaAOxcUKnXM+QjKsPzrLzES4yP7901QHKuMu
- gtd59WJKVz/pZM4+HqDjShKM56D20ughIFhyfvgr+vsSp7TzRoGNRyuHcwM7CP4JhoEQ
- /92lnjP/JhlTYA1LbA7RqnxryfjgIqy/bB06ikccHuR2V7t5OaZL2+PrAiP8MpKGT8bo
- fx8MaUsygGQspIzs0tlG4Bvn8rgO4DeMfmFQknFk4g1NyxNU9Iunfm+frWjI9ebt9xfX
- mTfg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXl1d3kRDE2nJy6RY8h5UTpDnTijJG9S6aCqWJA+IG9YDugie/R107yUixkTu4Md4M+8T6PMBkreX0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwsJAFBzYMgENDzWMVJdEX2DtlJIELKzvN8In+M2mWkERMssq4Y
- lP63f5PRiHTNnm89J4Jzu9CA7G/umvZkKs7BFHJLuyjfLye6WtUq66s0id564olT1tyoiR9gy8/
- vTnT8Y99dhJWqJPeoy2BRbgDh+USxNmkx67hCIbtHTL14jsR8t/KtvpzzwP/AXuDe44nCx1U=
-X-Gm-Gg: ASbGnctVFk4hy10seW4fdjP3LphPfYx0kahn8njSZvga1cNEjsmGlb3wGbJxDih2uDF
- k0K84XbluFgk+dStE1T/PHnGYZIcxWSIdgS/ZzMoR323qeIOfMH0mN59hbR4OkzFCR4+iJ1ElQ6
- ksJ6MBZmTFGM0V0tLIGbEf/k6pOayx7gl5DWQ37kPMmt9NdNAgGsBlIRw3iovgJhDG7hVUb3aG7
- MAYSigMh9+hCzA/SNmn/+zQ/WaUZ+pFQ3njBN2TnThYqGP4aO+eksC27Sfzmkmk6NIz5Xg/MAQl
- z9QzS2gpfR01HdxC5w26Quhy9xMwgC3nJFAGFP2QRIUMbBFOA4A8Y3meNrAI2wsEOuodfRE9rDT
- CHtYtp1YJIbrABdjBV0R48oJHhQ9KgCU=
-X-Received: by 2002:a17:90b:3fc4:b0:32b:60b2:5fc6 with SMTP id
- 98e67ed59e1d1-32d43f9568bmr9615689a91.18.1757329215726; 
- Mon, 08 Sep 2025 04:00:15 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF7lI3U3SPCn+R/cTeBjZmrLv2/beqgvDHxI/eyb2oUf8c78PZXedihCbA+yCj1T6jDeNNjYw==
-X-Received: by 2002:a17:90b:3fc4:b0:32b:60b2:5fc6 with SMTP id
- 98e67ed59e1d1-32d43f9568bmr9615630a91.18.1757329215136; 
- Mon, 08 Sep 2025 04:00:15 -0700 (PDT)
-Received: from [10.133.33.101] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-32d89f32ebfsm2430310a91.0.2025.09.08.04.00.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Sep 2025 04:00:14 -0700 (PDT)
-Message-ID: <c30b4f6c-3871-48c6-8836-a087b5fa80ce@oss.qualcomm.com>
-Date: Mon, 8 Sep 2025 19:00:05 +0800
+X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
+ Mon, 08 Sep 2025 13:48:12 UTC
+Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9DAD10E511;
+ Mon,  8 Sep 2025 13:48:12 +0000 (UTC)
+Received: from fllvem-sh04.itg.ti.com ([10.64.41.54])
+ by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTP id 588Dc8Qw3874616;
+ Mon, 8 Sep 2025 08:38:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1757338688;
+ bh=awQQu3rGBPmoT6Z/hGfapL01e4DEGu0HstmwbMkPvLU=;
+ h=Date:Subject:To:CC:References:From:In-Reply-To;
+ b=DKXGzQ4JZXj5nh9aw1efczKmxuluwqOTnBdNNu1xswTJAuf+9OdClDg6tBuz6yiuP
+ ipsnzqWWCdbPDcHiEqX9hSKo7jNzc5uFA3ghINlV3d+5/58NXWd5D5jKVQ9FoI2e3L
+ 037rlkYGHHWE4lyXMzCAIL3CHQz56skk9ZQdXtic=
+Received: from DLEE105.ent.ti.com (dlee105.ent.ti.com [157.170.170.35])
+ by fllvem-sh04.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 588Dc7r93806024
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+ Mon, 8 Sep 2025 08:38:07 -0500
+Received: from DLEE211.ent.ti.com (157.170.170.113) by DLEE105.ent.ti.com
+ (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Mon, 8
+ Sep 2025 08:38:07 -0500
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE211.ent.ti.com
+ (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.20; Mon, 8 Sep
+ 2025 08:38:07 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE101.ent.ti.com
+ (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
+ Frontend Transport; Mon, 8 Sep 2025 08:38:07 -0500
+Received: from [128.247.81.40] (dtmz023nlv.dhcp.ti.com [128.247.81.40])
+ by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 588Dc7Ch973710;
+ Mon, 8 Sep 2025 08:38:07 -0500
+Message-ID: <51cdf832-95a2-47bf-bc27-d43097883701@ti.com>
+Date: Mon, 8 Sep 2025 08:38:07 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 2/6] dt-bindings: display/msm: dp-controller: document
- QCS8300 compatible
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20250904-qcs8300_mdss-v11-0-bc8761964d76@oss.qualcomm.com>
- <20250904-qcs8300_mdss-v11-2-bc8761964d76@oss.qualcomm.com>
- <p2okyfwfl23bip65koaqezlvhyo3z47bnugojcieuspr37xc7b@s3qwgbqmts4l>
- <d8aaff46-9e3b-4b53-a690-351253753edd@oss.qualcomm.com>
- <jdbwncstextusng5boqg4v5r7krbnjts6f3zgd65cu4rrst7ay@kkod7ihbgfrp>
- <69219cdd-bcca-4673-9a81-084184fda6db@oss.qualcomm.com>
- <pwbmqjspoyj2n7gchyaycxfp7ge46pyvm5dntkk7awkr6pblmi@wun2jdt5iehq>
+Subject: Re: [PATCH v2] drivers: gpu: drm: msm: registers: improve
+ reproducibility
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>
+CC: Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ Bruce Ashfield <bruce.ashfield@gmail.com>
+References: <20250524-binrep-v2-1-09040177218e@oss.qualcomm.com>
+ <6mgmrqmixjdftpjz2hvwjnsyh3wwylxuaih7yez2mdgjpcp3l2@zjr4ai6kkjxn>
+ <CAF6AEGvJnSiyUJvBPusBZ+mriiP_vRiAgZnTyLSseu8Sdf9PXA@mail.gmail.com>
 Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <pwbmqjspoyj2n7gchyaycxfp7ge46pyvm5dntkk7awkr6pblmi@wun2jdt5iehq>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Ryan Eatmon <reatmon@ti.com>
+In-Reply-To: <CAF6AEGvJnSiyUJvBPusBZ+mriiP_vRiAgZnTyLSseu8Sdf9PXA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAyMiBTYWx0ZWRfXzAbW5jW0BmWR
- 2vCYaGYlZUxyoF9cNG1aokSlHTD3nLuONzxYWQYBlDD4kbXWqMUF2Y1wDts/5gJcrE7NWyT3VGz
- K19HTkELT77tNngYm0cFEbqP8vZQqHsVwERbXgYz6FlhZsKzCLBGJA07zjA3GLx1EobUsw9vBcI
- DZYhYCjMhwy+WAI6joS7QBFmrgmPO4m20Pr8tBzu4/vlRx+ScKFtrxI0/QQ1ozHSO+mTjxnFiA7
- POEv/PE0ZozHCYvitNQ9NMDQEBTRq1DWRsRfqXPL4DAtRuJH3zicWYUj63z04e9KF0smxiTfI16
- L1mMuLVJtb9BFQfmPzi0e/NVhLP7pC7amrYElYBPJHpXoDs5drbSZhJcndEGNxoQiy/9GBaYKQr
- 88do7ODs
-X-Proofpoint-ORIG-GUID: 5pz1ifTd1NYK8q-6BMPaPOx1wGnby9V8
-X-Authority-Analysis: v=2.4 cv=PpOTbxM3 c=1 sm=1 tr=0 ts=68beb747 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=gsM-oFm3a_Sh21p_ijEA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: 5pz1ifTd1NYK8q-6BMPaPOx1wGnby9V8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-08_04,2025-09-08_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 spamscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 adultscore=0 impostorscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060022
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-Mailman-Approved-At: Tue, 09 Sep 2025 12:55:37 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,77 +88,80 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 9/8/2025 6:04 PM, Dmitry Baryshkov wrote:
-> On Mon, Sep 08, 2025 at 05:46:30PM +0800, Yongxing Mou wrote:
+On 9/6/2025 6:24 PM, Rob Clark wrote:
+> On Sat, May 24, 2025 at 10:15 AM Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com> wrote:
 >>
+>> On Sat, May 24, 2025 at 09:25:37PM +0530, Viswanath Kraleti wrote:
+>>> From: Ryan Eatmon <reatmon@ti.com>
+>>>
+>>> The files generated by gen_header.py capture the source path to the
+>>> input files and the date.  While that can be informative, it varies
+>>> based on where and when the kernel was built as the full path is
+>>> captured.
+>>>
+>>> Since all of the files that this tool is run on is under the drivers
+>>> directory, this modifies the application to strip all of the path before
+>>> drivers.  Additionally it prints <stripped> instead of the date.
+>>>
+>>> Signed-off-by: Ryan Eatmon <reatmon@ti.com>
+>>> Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+>>> Signed-off-by: Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
+>>> ---
+>>> The files generated by gen_header.py include the source path to the
+>>> input files and the build date. While this information can be useful,
+>>> it inadvertently exposes build system configuration details in the
+>>> binaries. This hinders binary reproducibility, as the output will
+>>> vary if the build environment changes.
+>>>
+>>> This change was originally submitted to the linux-yocto-dev kernel [1]
+>>> to address binary reproducibility QA errors. However, the fix is generic
+>>> enough to be applicable to the mainline kernel and would benefit other
+>>> distributions as well. So proposing it here for broader inclusion.
+>>>
+>>> [1] https://git.yoctoproject.org/linux-yocto-dev/commit/?id=f36faf0f9f8d8f5b4c43a68e5c6bd83a62253140
+>>> ---
+>>> Changes in v2:
+>>> - Corrected author id
+>>> - Link to v1: https://lore.kernel.org/r/20250523-binrep-v1-1-c3a446518847@oss.qualcomm.com
+>>> ---
+>>>   drivers/gpu/drm/msm/registers/gen_header.py | 8 +++++---
+>>>   1 file changed, 5 insertions(+), 3 deletions(-)
+>>>
 >>
->> On 9/5/2025 9:48 PM, Dmitry Baryshkov wrote:
->>> On Fri, Sep 05, 2025 at 10:50:33AM +0800, Yongxing Mou wrote:
->>>>
->>>>
->>>> On 9/4/2025 9:43 PM, Dmitry Baryshkov wrote:
->>>>> On Thu, Sep 04, 2025 at 03:22:37PM +0800, Yongxing Mou wrote:
->>>>>> Add compatible string for the DisplayPort controller found on the
->>>>>> Qualcomm QCS8300 SoC.
->>>>>>
->>>>>> The Qualcomm QCS8300 platform comes with one DisplayPort controller
->>>>>> that supports 4 MST streams.
->>>>>>
->>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>>>>> ---
->>>>>>     .../bindings/display/msm/dp-controller.yaml        | 22 ++++++++++++++++++++++
->>>>>>     1 file changed, 22 insertions(+)
->>>>>>
->>>>>> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>>>> index aeb4e4f36044a0ff1e78ad47b867e232b21df509..ad08fd11588c45698f7e63ecc3218a749fc8ca67 100644
->>>>>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>>>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>>>> @@ -18,6 +18,7 @@ properties:
->>>>>>       compatible:
->>>>>>         oneOf:
->>>>>>           - enum:
->>>>>> +          - qcom,qcs8300-dp
->>>>>
->>>>> Can we use fallback to qcom,sa8775p-dp instead of declaring a completely
->>>>> new one?
->>>>>
->>>> I think we can not use fallback to sa8775p, since we don't have DP1
->>>> controller for QCS8300. SA8775P actually have 4 DP controllers (now only 2
->>>> really used). So in the hardware, i think it is different with SA8775P and
->>>> we need a new one.>>             - qcom,sa8775p-dp
->>>
->>> The DP controller is the same as the one present on SA8775P.
->>>
->> Yes, it is same.. I just want to confirm again—even if we only need DP0 for
->> QCS8300, we can also use sa8775p as fallback, right?
+>> Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>
+>> Rob, WDYT?
 > 
-> What makes you think that we can't? Let me repharse the question: which
-> part of DP controller (single one) on QCS8300 is incompatible with the
-> DP controller on SA8775P?
-> 
-Sure.. got this point.. will update next version.. for the single one , 
-they are same...
+> I'm revisiting this one, in the context of trying to re-sync
+> gen_header.py with mesa.. but it is only changing the contents of
+> comments, so it's not quite clear to me how this ends up mattering for
+> binary reproducibility.
 
-Thanks.>>
->> static const struct msm_dp_desc msm_dp_desc_sa8775p[] = {
->>      { .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported
->> = true },
->>      { .io_start = 0x0af5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported
->> = true },
->>      { .io_start = 0x22154000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported
->> = true },
->>      { .io_start = 0x2215c000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported
->> = true },
->>      {}
->> };
->> .mst_streams = 4 is suitable for both QCS8300 and SA8775P DP 0 here.
->>
->> Previously, my understanding here was that we might need a new compatible
->> for QCS8300.
->>
->> Thanks~~>>>>              - qcom,sc7180-dp
->>>>>>               - qcom,sc7280-dp
->>>
->>
+The reason it matters is that for Yocto, the generated header file is 
+identified as a file that needs to be installed into the sysroot.  All 
+files going into the sysroot are checked to make sure they do not 
+contain dates and/or paths to the build directory contained within. 
+Since this is a generated header file that is included in the sysroot we 
+needed to strip out the path and date.
+
+The idea for the reproducible builds are that the same files on a 
+different a machine at a different time should produce 100% identical 
+files.  Including paths and dates violates that tenet.
+
+Hope that helps explain why we needed this.  So long as the 
+gen_header.py is being called to generate header files then we need to 
+maintain the reproducible aspect.
+
+
+> That said, since the generated files are no longer checked in to mesa
+> or the kernel, we could probably just drop all of this if it mattered.
 > 
+> BR,
+> -R
+
+-- 
+Ryan Eatmon                reatmon@ti.com
+-----------------------------------------
+Texas Instruments, Inc.  -  LCPD  -  MGTS
 
