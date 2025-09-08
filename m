@@ -2,121 +2,135 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48388B493B3
-	for <lists+freedreno@lfdr.de>; Mon,  8 Sep 2025 17:38:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1042CB493BC
+	for <lists+freedreno@lfdr.de>; Mon,  8 Sep 2025 17:39:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 251BF10E157;
-	Mon,  8 Sep 2025 15:38:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF31310E17E;
+	Mon,  8 Sep 2025 15:39:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GFIdD8hN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Kr2tOBst";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7EAA10E157
- for <freedreno@lists.freedesktop.org>; Mon,  8 Sep 2025 15:38:05 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58890aBP023900
- for <freedreno@lists.freedesktop.org>; Mon, 8 Sep 2025 15:38:05 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B263810E17E
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Sep 2025 15:39:11 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5889PRvp005837
+ for <freedreno@lists.freedesktop.org>; Mon, 8 Sep 2025 15:39:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7VfDo+K2YxkxcNLtYJDXPL/1mkJcb89EfTCTUVk46hQ=; b=GFIdD8hN8FyF4bNq
- dhcqYmW+iPIZ8TBq67UlEy0/8yzA3wwwpTrRyxIPuKOEergP7gnMI0zpbK/dn29f
- XRqI7AbVN8X2shw6sNLMD/hNfk/37wp2yktw8PqpDnEJ+CHz+tAX+NK9hKxUE/iX
- Kr+pkHyJSI6G7+xZ0d9oljO+hlnTjrVP3RZJdx+KAHb5Wy0Qoo5PvDrYBP1CjupA
- SsTpnwpGbRKas8Ag+0PqeB+SX/1deC9XXir53r5AfC1C3MEhkFeKQBffcu9Ydqv0
- gcS5sXoIN5Op9wOfZIvAEuhjF+sMleHovORE50aHAyTAUXWIR1EO+MLGC7xvkljz
- dQJwjg==
+ 9ix8Lxn9DP2aA0chOL91fW2+iXcks/DUCOCWwGLcOgI=; b=Kr2tOBstZ6FlTNhO
+ h+ImuNoASmfh+AhJM9R4LNr1x87C5DPsXFQIwrrXGYlGj9O9/ECKXyEg0g84gRev
+ 7L8F/8LVRbJuOUv591x2ewQLznBtxspvcp7r2Edaq9Z3xNBLvwhxkc0nupfHMCFW
+ NZiLN+Zj2nhn+cqfK1/1+OFhXHokjCmM3a522MndM8IqbRJ2RZcSXwiOlFQmkPva
+ VnV05oxNXhw157PBFwTgUbys/c7ixabSE8pE0GzmFLDlAxGyRByhgBvNFY+otpbW
+ uuZGfw/DqxL6PyYQ4sSDtCybmI4OxX3CFcfyxZCixulNEAGa3stSv1+HAsRWJRuj
+ hFsnpw==
 Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
  [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490e8a4xhx-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490e4kvxe3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 15:38:05 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 15:39:11 +0000 (GMT)
 Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4b5f15a5f3dso6676151cf.2
- for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 08:38:05 -0700 (PDT)
+ d75a77b69052e-4b613a54072so1789351cf.0
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Sep 2025 08:39:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757345884; x=1757950684;
+ d=1e100.net; s=20230601; t=1757345950; x=1757950750;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7VfDo+K2YxkxcNLtYJDXPL/1mkJcb89EfTCTUVk46hQ=;
- b=LDB1Bb/UR88TctsU36znx1G0m0590mO4TI9fEahLueA5udLZ6A+hovJplB9B9oi2M8
- PAlta/PnUxcH85+zuObU+z7/L18QVMNfWoTcgLR2/4fV7o4wQJdNLC3ptf7yV4D/MlxT
- jvIV24/Y4yko70+AGiEzLp60vNsbbQq+tUI7kQ4uXZapqVP9beQT+uCNR6srfvv1hrxJ
- Kf61vmsk7L9sO8+6jWUaP1o7vm6EmikTqJ7vWtdD6f+FsiHclEWa5FoBF2W65AvZHAOB
- 1jKoplTc0LJwqh6QV8QVDiS6PwKFxV5Gfhj5NeFO6CKCyu40DsfJh75QVU3fxro79HyC
- sg/Q==
+ bh=9ix8Lxn9DP2aA0chOL91fW2+iXcks/DUCOCWwGLcOgI=;
+ b=Dc1eoUr2Iu6QYvD1wwd0UULPU8pkpI4ljFPrdZnuAD7FLXhxE4c/FztaKes40Y0zo9
+ uowy2Bk9Qdbrw5sg8wC8uweTXh90bfpUIVPMj3+ZN00kCQtrkNrEjQX5h/nVAqG12iiT
+ pCC+um9yuUYw+KqAj7acr+QTG8HhRZyMbg1wRoUAr1vWN82sJq16P2xPvufgwLN7P3ZV
+ 4/tga05OVrdLALJt8v7b0I2i5fTM7uqCeCdPsvo86HAlzrjQhSzPi9gDF1E1UALAjLYY
+ waLThBlioxfm335LKyRmyAfv/vLEN7mpcUW6HYIOUM03hx825h222MJwz0NHH3+jkIK9
+ i+Sw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsHF4f2rJ+8WDM4at3USM+Ai9n6dm4tDgLUoqnuuYkWZUJeZM3ZnwqTXwriyY+mpHEnCMV8jThzXA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx6cqpbjVo42UqC3tD9hBps8Ro4z6HeIGPc37lTPfckrEQQDL1v
- j/oQsj9plE5IIOSqRAeYvYru7dbkMq+gw4roKYq25xhf6Hbg8kKcrJAkpoKZAILAvRiavCkYTny
- wqknifiO6ekJ9jgPGQAbAKzMrtQeuQZE9aRJpCbAY3U42rhou204OWswteuXmJ6rCnv95Kq0=
-X-Gm-Gg: ASbGncsmeuOtGRPyO5RrRKwuoVlK6DfEpfeAOcN1pDxFncfJ7eDQmVgXUHtq3Y3A+ZW
- +k2CZxipG94jzTSn4Ks8wtdkLFjExbiZtSC3+kTsQTofqbCb1HnHye8MGqEiekWAJ8vn4yE9+KN
- Hoztf8JfSovbTRmY1GUHWb9Kpj+VWTlLAes3zhXOHygixGthxDbK2zLdqvqqqQMTeszvYs7DqWi
- Uls0/9r5szsk8aJKyckUZ45azqLajG5jFXmrh8p9zgC0zVDl+YQF+RBtQm0Vv1pRlqk+rttrJJJ
- dPebgXSmVQQFhbjw+CqXizvshITWxFUgD8yybKVtLeR+InlKJw57i/gjCFDUqhbghAxwCmJ7HIc
- z5pEO5mhpBNFSIpEPYxQDog==
-X-Received: by 2002:a05:622a:1787:b0:4b3:4590:ab6d with SMTP id
- d75a77b69052e-4b5f848d05bmr58304571cf.7.1757345883525; 
- Mon, 08 Sep 2025 08:38:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFcsvpKBaQ4jCcWP5NtvuePywTOTY5oNYfv92gdyrYQkqbJJAvrzNLEIVI6ZIbznl8lDhI5wA==
-X-Received: by 2002:a05:622a:1787:b0:4b3:4590:ab6d with SMTP id
- d75a77b69052e-4b5f848d05bmr58304161cf.7.1757345882765; 
- Mon, 08 Sep 2025 08:38:02 -0700 (PDT)
+ AJvYcCWk5y9BODj4D5jyFArx3/aGE6tuxbjVGwMiLfFmZHUjccI7lp8ruLXbHbk96qkF0ngizT7QvnKGET8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yye4A8CCjHPZehcGro9S0WEfZbTR+arhVAqTog8ESci+EQD7ZQh
+ +eFMXF1VX00oPLD1UBh6D7ec2YsGvmh7MaQHyI9pM7fWDbNsDfQGFTp7C7EyNwp/vvCkyLspIXX
+ hwJorrLz43pTfdW+eOrdkyRcaijt63qvs2eucz1o4NXC0w5MNiHHDIXSjNXILUHD3g97Hxmg=
+X-Gm-Gg: ASbGncsgKC+gyHoq4sPjWtg8BHAoLzkZ/wUnCqYVdVrvTjQJwYsH4YIP4FduhV6j4jO
+ V7NGLgSZWldHb2bWqO6u/PE+k84n5Ccri5wC8cPXxxBU97uV7o+U9eKCnZgL7oDUETGzJeEppz5
+ NS3nhAyOS4tTYgArOYkXlFb7cVM1iXdLbwMGH/WnoRBR8hBl6jZ75LswIQoxCHsLi5iWnfjqcRs
+ uBjT+MPjyyEzloHEHQn0qkJwCFmUOkKyZ0rcxyGW8zzBkm/QeP5b5uchV5rodpGP3G2AlqoS89H
+ kCycoVTGQqGVv92H+BaTceZRKllS/eqBn7CUCtq5NjWBux49yB1pqnS+ai4vjiLhO/P4bx9AK7X
+ +Y3VsTA0/2gIfeuKcKKs8gQ==
+X-Received: by 2002:a05:622a:19a7:b0:4b4:9070:f27e with SMTP id
+ d75a77b69052e-4b5f826059cmr55448981cf.0.1757345949563; 
+ Mon, 08 Sep 2025 08:39:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFSjAuw3MqqByPMWEwcaVGXJrt8t0L5vdGx6BjurjDCr+ZzKHljYEOvuS1tfcYm8a1jnOKGwQ==
+X-Received: by 2002:a05:622a:19a7:b0:4b4:9070:f27e with SMTP id
+ d75a77b69052e-4b5f826059cmr55448481cf.0.1757345948792; 
+ Mon, 08 Sep 2025 08:39:08 -0700 (PDT)
 Received: from [192.168.149.223] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aff0d9b1b53sm2408307666b.96.2025.09.08.08.38.00
+ a640c23a62f3a-b0423ed35e4sm1961096966b.25.2025.09.08.08.39.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Sep 2025 08:38:02 -0700 (PDT)
-Message-ID: <59ac7827-6258-4268-8b71-4cbcbad859db@oss.qualcomm.com>
-Date: Mon, 8 Sep 2025 17:37:59 +0200
+ Mon, 08 Sep 2025 08:39:08 -0700 (PDT)
+Message-ID: <5bbe77f0-185f-4905-8097-8769f0d5f518@oss.qualcomm.com>
+Date: Mon, 8 Sep 2025 17:39:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/16] drm/msm/adreno: Add fenced regwrite support
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+Subject: Re: [PATCH v4 3/6] arm64: dts: qcom: sa8775p: Add gpu and gmu nodes
+To: rob.clark@oss.qualcomm.com, Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250908-ifpc-support-v2-0-631b1080bf91@oss.qualcomm.com>
- <20250908-ifpc-support-v2-7-631b1080bf91@oss.qualcomm.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Connor Abbott <cwabbott0@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Gaurav Kohli <quic_gkohli@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
+References: <20250822-a663-gpu-support-v4-0-97d26bb2144e@oss.qualcomm.com>
+ <20250822-a663-gpu-support-v4-3-97d26bb2144e@oss.qualcomm.com>
+ <f11b778d-eba1-4712-81c7-b83f2cb38b46@oss.qualcomm.com>
+ <exkrgx6rdotfrrsnklsd7zk4ydehsk5vaoevibpqisyq2dwbd4@sa4kgnuexlna>
+ <f169be5a-faa5-4824-861e-27bd2083b9cf@oss.qualcomm.com>
+ <t5pxum74q3fwf6wgcbaeaginjvtjfn357pkfswvafsggtmvxfv@jl5qjfhpmmow>
+ <c3de911c-e80a-429d-8a5c-c693546d4abf@oss.qualcomm.com>
+ <14b5db9f-8b31-4baa-a03d-12112425fbbe@oss.qualcomm.com>
+ <CACSVV02h8AUX8WtEuu5w-g2XnfBkfozHQQ15zGK6+LVX_w=d1g@mail.gmail.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250908-ifpc-support-v2-7-631b1080bf91@oss.qualcomm.com>
+In-Reply-To: <CACSVV02h8AUX8WtEuu5w-g2XnfBkfozHQQ15zGK6+LVX_w=d1g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=H7Dbw/Yi c=1 sm=1 tr=0 ts=68bef85d cx=c_pps
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAzOCBTYWx0ZWRfXxvmeTSz38bYp
+ Vipi4UwKxKq0AckShcnpxsUOmV7L7SBJ4Um4Gf1Xs2juibvHw3f003LvCbUgioLJl8OhkYDvz+R
+ v0alPBWXKb/ItOF5RBB+Cy0YIRBfVgZhCY9jceX1Mhy/SWGyRUFM8pOrzRFdXXPIM+NKqJGyEj5
+ W+dtEOFBLLTjZjTo5KIzUkGNuaMTV3MOz+0XN+6l1Lytj4aa5tnnFNirBahRUQXlPD74y6nD5f8
+ Lv+2DgvtTqEyUEPpIjWcwBJ1n4yJVNrgYQGRVi6uqjWvz94bUi/F4MNYD6dIDPT7yK6crs/Zp96
+ nF4KVCxqYnFyB8IbCA7RPvzGm+bmUXLNqVGeYl9VX5PQg7w/hDYC7PusInra5vvXtEhCFhgzcOw
+ sy8oTAXU
+X-Authority-Analysis: v=2.4 cv=J66q7BnS c=1 sm=1 tr=0 ts=68bef89f cx=c_pps
  a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=sRrLox2IjJLVq2cxUxUA:9
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: 0IXu3Lv5_4A7y_KBhr6emqdKzFFHwT5Y
-X-Proofpoint-ORIG-GUID: 0IXu3Lv5_4A7y_KBhr6emqdKzFFHwT5Y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAzOSBTYWx0ZWRfX+UeeqjmLiVfG
- 2uKEJKunV2bC/ahKQb3U4ADnj46xLreSckFt4yQWPJruN1e5qFO+rRJ0TSg36oMr4Y9PhqCtQpS
- Voja1II4XRc/IU4lFyJ7FWIZlQxb+hynid8+KQ/QQEcDRRpiKFkiUUih3QLr0hACJUqKaDq2ZwO
- sDjyWCUDwcz+NCHL7BsXzQSDRlTNRyj323kTgELHCUNvU3i/P/vM9WVil7MUGGuMHWrr5WkDz5c
- Jjn4MMpLe1AyfquDSHWglqfRjCJWin8GkWKRemfko+6wW9LBWeOkRz/T34zQwYagQflXCqdqNx8
- zyfa85yF/JviyJmIHEZ3m/PTLV42SARQMtADZ5eMpXdC/B84xCX4zvJnYxXUpdEXqF7nKdJrF7C
- q+IZ3The
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8
+ a=KKAkSRfTAAAA:8 a=am1a1fgwjgo6KoPeU6gA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=TjNXssC_j7lpFel5tvFf:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: bhyz_Jx96MHWeRf4icJmYfsbOTp1T5CV
+X-Proofpoint-ORIG-GUID: bhyz_Jx96MHWeRf4icJmYfsbOTp1T5CV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-08_05,2025-09-08_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0 phishscore=0
- clxscore=1015 suspectscore=0 priorityscore=1501 spamscore=0
+ impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 phishscore=0
+ adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060039
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060038
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,70 +146,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 9/8/25 10:27 AM, Akhil P Oommen wrote:
-> There are some special registers which are accessible even when GX power
-> domain is collapsed during an IFPC sleep. Accessing these registers
-> wakes up GPU from power collapse and allow programming these registers
-> without additional handshake with GMU. This patch adds support for this
-> special register write sequence.
+On 9/7/25 1:02 AM, Rob Clark wrote:
+> On Sat, Sep 6, 2025 at 1:56 PM Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
+>>
+>> On 9/3/2025 8:44 PM, Konrad Dybcio wrote:
+>>> On 9/3/25 4:00 PM, Dmitry Baryshkov wrote:
+>>>> On Wed, Sep 03, 2025 at 03:36:34PM +0200, Konrad Dybcio wrote:
+>>>>> On 9/3/25 2:39 PM, Dmitry Baryshkov wrote:
+>>>>>> On Wed, Sep 03, 2025 at 02:26:30PM +0200, Konrad Dybcio wrote:
+>>>>>>> On 8/21/25 8:55 PM, Akhil P Oommen wrote:
+>>>>>>>> From: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
+>>>>>>>>
+>>>>>>>> Add gpu and gmu nodes for sa8775p chipset. As of now all
+>>>>>>>> SKUs have the same GPU fmax, so there is no requirement of
+>>>>>>>> speed bin support.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
+>>>>>>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>>>>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>>>>> ---
+>>>>>>>>  arch/arm64/boot/dts/qcom/lemans.dtsi | 116 +++++++++++++++++++++++++++++++++++
+>>>>>>>>  1 file changed, 116 insertions(+)
+>>>>>>>>
+>>>>>>>> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
+>>>>>>>> index 8ceb59742a9fc6562b2c38731ddabe3a549f7f35..8eac8d4719db9230105ad93ac22287850b6b007c 100644
+>>>>>>>> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+>>>>>>>> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+>>>>>>>> @@ -1097,6 +1097,18 @@ ipcc: mailbox@408000 {
+>>>>>>>>                          #mbox-cells = <2>;
+>>>>>>>>                  };
+>>>>>>>>
+>>>>>>>> +                qfprom: efuse@784000 {
+>>>>>>>> +                        compatible = "qcom,sa8775p-qfprom", "qcom,qfprom";
+>>>>>>>> +                        reg = <0x0 0x00784000 0x0 0x2410>;
+>>>>>>>
+>>>>>>> len = 0x3000
+>>>>>>>
+>>>>>>> [...]
+>>>>>>>
+>>>>>>>> +                gmu: gmu@3d6a000 {
+>>>>>>>> +                        compatible = "qcom,adreno-gmu-663.0", "qcom,adreno-gmu";
+>>>>>>>> +                        reg = <0x0 0x03d6a000 0x0 0x34000>,
+>>>>>>>
+>>>>>>> This bleeds into GPU_CC, len should be 0x26000
+>>>>>>
+>>>>>> gpucc is in the middle of GMU, see other platforms.
+>>>>>
+>>>>> This is not the case here
+>>>>
+>>>> Why? I think GPU CC is a part of the GMU by design: GMU accesses GPU CC
+>>>> registers directly from the firmware.
+>>>
+>>> Correct, however this is only a similarly sounding argument - the DT
+>>> describes the hardware from the main Arm cluster POV. The GMU Cortex-M
+>>> core has its own address map etc.
 > 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 80 ++++++++++++++++++++++++++++++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
->  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 20 ++++----
->  3 files changed, 90 insertions(+), 11 deletions(-)
+> but the firmware is part of how the hardware appears to the main arm cluster
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 45dd5fd1c2bfcb0a01b71a326c7d95b0f9496d99..a63dad80ef461da45d5c41a042ed4f19d8282ef5 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -16,6 +16,84 @@
->  
->  #define GPU_PAS_ID 13
->  
-> +static bool fence_status_check(struct msm_gpu *gpu, u32 offset, u32 value, u32 status, u32 mask)
-> +{
-> +	/* Success if !writedropped0/1 */
-> +	if (!(status & mask))
-> +		return true;
-> +
-> +	udelay(10);
-> +
-> +	/* Try to update fenced register again */
-> +	gpu_write(gpu, offset, value);
-> +
-> +	/* We can't do a posted write here because the power domain could be
-> +	 * in collapse state. So use the heaviest barrier instead
-> +	 */
-> +	mb();
-> +	return false;
-> +}
-> +
-> +static int fenced_write(struct a6xx_gpu *a6xx_gpu, u32 offset, u32 value, u32 mask)
-> +{
-> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> +	struct msm_gpu *gpu = &adreno_gpu->base;
-> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-> +	u32 status;
-> +
-> +	gpu_write(gpu, offset, value);
-> +
-> +	/* Nothing else to be done in the case of no-GMU */
-> +	if (adreno_has_gmu_wrapper(adreno_gpu))
-> +		return 0;
-> +
-> +	/* We can't do a posted write here because the power domain could be
-> +	 * in collapse state. So use the heaviest barrier instead
-> +	 */
+>> We have been keeping GPUCC region in the GMU's reg range in all chipsets
+>> for the purpose of coredump.
+>>
+>> Can we leave this as is until we have a mechanism to dump these into gpu
+>> coredump (via gpucc driver??)? I recall you proposed something similar
+>> sometime back.
+> 
+> IMO we should keep this in the GMU range.. if in the future we have
+> some other mechanism to dump gpucc state, then for future platforms we
+> can start using that (ie. new dt but old kernel should be a thing we
+> at least pretend to try to keep working), but for current/past
+> platforms we should stick with keeping this in the GMU's range
 
-I'm not sure I follow - what's the relationship between the write being
-posted and the power domain being collapsed (i.e. the hw not being
-powered on)?
-
-Are you trying to get rid of the delay that could happen between this
-write leaving the CPU and arriving at the GPU (which would then be
-woken up), so that the 1ms poll below has greater chance to succeed
-because of how these "special registers" work?
+Eh, right, sorry, we discussed this with I think x1e, let's keep it
+as-is until more infra is in place
 
 Konrad
