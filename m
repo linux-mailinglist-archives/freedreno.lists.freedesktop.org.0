@@ -2,80 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4306B4FF3B
-	for <lists+freedreno@lfdr.de>; Tue,  9 Sep 2025 16:23:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B4E0B4FF5A
+	for <lists+freedreno@lfdr.de>; Tue,  9 Sep 2025 16:27:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6836C10E72A;
-	Tue,  9 Sep 2025 14:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3D610E734;
+	Tue,  9 Sep 2025 14:27:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YbFniPHI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="prmUN5Zf";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1603A10E72A
- for <freedreno@lists.freedesktop.org>; Tue,  9 Sep 2025 14:23:06 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5899LVo7031532
- for <freedreno@lists.freedesktop.org>; Tue, 9 Sep 2025 14:23:05 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45A6F10E734
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Sep 2025 14:27:03 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5899LWXI020625
+ for <freedreno@lists.freedesktop.org>; Tue, 9 Sep 2025 14:27:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=h2X4u/C0hT0ZnsZtZ5WLCYHT
- XPjaXvBzP3cbcDi/Cho=; b=YbFniPHIo9davfYh/UqJaVAPE3OtZ3Tmf1oVQHjl
- 8XHy2m84sdYjmVEqBiN+4A/chC1w40DaU3jMIxVZAjmpEfoUCX1xEAB6k1kLq7Qa
- R3eLZB8jCXjDcaoGWeWHY4imbBdWc6a+bXjX3LtiWsMZvdjOVIo0t4DfZrVGqg8Y
- SiWlU928L5tuqx+8zu7MA9kmOeRTZ86zSG/yZLz+hBsoAKKDeTeVgizt4XnIkqT8
- eabIomDAS8PW64huugCjt0r//isipB0vOvPQO6AzdZshMnD1OrT5X0qtfOTwWfwX
- IHu2D0qeD4f59RMScc+eY0UD2+9d2/Vwo5/W0oaGsyu/0Q==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490bws8m81-1
+ :references:subject:to; s=qcppdkim1; bh=yw7Fk6HJCJShlv2t9i0lzWI2
+ sWKEgdH07td1ipZYTIs=; b=prmUN5ZfV2hLIGaofH/Lo4W1DdveSATzHd0W0IGY
+ +iGzvRjaBZOviw0JVBOne0VMAa+xYjaJQiz9CduoXpnnMFj8myq2+RoJJwkIZAhV
+ h8O5fVMVFTMO9/Z4xQZYjxyatQhApvQuM9mcX6EnlzOCQE2RjLGjogxOdG6jS3NP
+ l05BHSwOiOV+FnYoz8oU0Ae9nK0DM80ZrlCHd2ufB6rkDVUabBYAJ/wSquyw6+jL
+ 5sQFL8g1g4VpunkQnD5YzaXkVu+xK5+CIKr3OeCm916HqufXxQTKUYcIUSiZIZvp
+ JAzoncmj6INosJaksQzgooREOCMWW2wTD+y7Q4VS2pmuIw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490e8a8duw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 09 Sep 2025 14:23:05 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-720408622e2so120050076d6.0
- for <freedreno@lists.freedesktop.org>; Tue, 09 Sep 2025 07:23:05 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Sep 2025 14:27:02 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-7296c012f86so117342576d6.3
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Sep 2025 07:27:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757427784; x=1758032584;
+ d=1e100.net; s=20230601; t=1757428021; x=1758032821;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=h2X4u/C0hT0ZnsZtZ5WLCYHTXPjaXvBzP3cbcDi/Cho=;
- b=gJ/ZOh73Q+qvQEDwJ9+LwQs48JTYiWHlAOe91WjX5/u7OcIaaohN2eKSSO0bV1FFqi
- RSxtFH15w2+ecsiK26h4km3/XFh8TKkIENQndSinjtuBGygQAcn6QVuPEkjM/ftgYqVT
- D4V0bn0q9ERWOvL92ARl1GUfOKdLPwmP00OgZO/TMhjc23ZPHoxW5jj/w9wDVUulb51q
- iJ14wWlOdzwbtTvJ5MkX5ou69L4bgv/WftU7TEH9Wbeccz8cUOfy+NH3/bD4ZmIBaqkq
- iF3lDpNuQSKHpY4JG7jnUxWR6EK+irZDyGxzc9+qc04z1AweLJxgbdvXjD2AhEwZSXi1
- qkZw==
+ bh=yw7Fk6HJCJShlv2t9i0lzWI2sWKEgdH07td1ipZYTIs=;
+ b=SpTfYuwCtdI7FvG5X4LPt1W3JlAfsuGzXwNzg+jTv+RIuRBjEq/WFux/HjrShS1V1K
+ h9Bvq8VpPIoWK/r269oHU1UezqY4VNApZL6P2PLI0V0aBa5zAt2PoJLFazpZxzTV2Zb9
+ RY4svkj0ftOmk4YMKr8sUwWB2rC/trXQOxlHNFmypkmWeRh8jYQFnWreROxRQiSBgeCm
+ RVj1M6kxj9AePVwDNDc0nPFwwBuYSMLJq8iaenONt85QESGEC/O5cuaVbtSYi6nPGf/b
+ eTFHe9gSeO8e4sPcrDDkHP1cdxJDkKfTm9fDOAOnZsGYkWU4ZMV7zYJREhKRoYIUwOmM
+ GzhA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX3Y6Asd2BJwKLUQi/X3JgntfNIR/yh+Zc9C5E22jiEdqJ2oD5HR3nHxvtYZGgjlA+VsXoE6dC07zY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzEuS5ouRieTdNmgxhrH5HWF+O6zaX1SVMwWcyk611XZ1Y5M0Oe
- N3gbO5qqeCPc+po4iSI+Q/axwlg7yD+QXp0Ol0G6CIj2Ah0vG9VzWJKO456AZAIp0kM3cpgWPlU
- zB4uRUZeIbvr/+xI5WsTpCL8MSqkZ6iwqEkLPyKvQx3w/UVylw075Jj9iSAubX3LON8HL2Xs=
-X-Gm-Gg: ASbGncsPsTGIJ45y3MS+pZ9cX/NrrJEpjHg5YFRNADVF3rEz0uuhnxfsXdoDImgxalv
- yoMy+eBm5qeDuL493ohbj6iFa+tMsDBcWd18B8/D5FP/feEqTPI0lCE8O4PIwTjVDWuhNiLaNYd
- SWJrywClxv3/p4pHaIDfp3it0YEbYTZdWt3lG6bS8Ww+LT0bMmNIRqucruIqYB5+qDSK1Zxd50i
- eAHDFsWg1qdruFLuF2aHPjFG85922fnCoTn7wv2qwyY7u2yXg65CwwBh+wmUmwYUx8+oDp1wRJ9
- KVr8wNBlk6GYFOPibvenN3wVO4Zd//oMeMPj4EpPod2MSUmN7BPfc04vNDvnp3leksYSxx09DGQ
- XA/OQCljvwnqJJRU6xErKsacWPBS08UFKu4NY0RUUyacJAKExBLDf
-X-Received: by 2002:a05:6214:f63:b0:70e:d82:703c with SMTP id
- 6a1803df08f44-73941de3724mr124936726d6.49.1757427783954; 
- Tue, 09 Sep 2025 07:23:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF+8if6eNbTpzHKsyNkm+8kJ+WHyQl9Ap4iWvgtn+1Z4Nqh0b/WPPZlhr5A1An/PL5BbFnfIA==
-X-Received: by 2002:a05:6214:f63:b0:70e:d82:703c with SMTP id
- 6a1803df08f44-73941de3724mr124936256d6.49.1757427783207; 
- Tue, 09 Sep 2025 07:23:03 -0700 (PDT)
+ AJvYcCUWaKuVzCaw7FGe8/ttZ2sazv5Qwj2ufUpYEI6O1umt8L9pv7z3GeBolObdkBWOt/bBuDzcbo/NMLg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw2Sdujj16aOYvu1WHqvSzeVeo6pGzBvlF857Sf5EEo5CnYZOVZ
+ E/HsKaYtQzEFAj5aiZXR382JmzY5ck11MdNL3Y0oxAPQHkDofteWyF1o6kX0l1kt9lAnLIJmrUq
+ mrCruWedtBnJeeGbVqOQRKm1t+z5ZVdMMnSSdHGowalj2bkt5zWn84M6VgD7pHdVRPRz6L1I=
+X-Gm-Gg: ASbGncudbWiI0C9h0FUeSsAWx0/xk9Kch4SIBdB7gW70YdfEfzX6Er/MWomm92Fntz8
+ jOZThYGs3uqgwnZ4zxhDiXuxyh7BODy9FF6MxBz0shzxKW1suRrL/IBkq0DGp64suV1wwepRH2m
+ u9dkdk27QRlHnEQ2y/Xr2VJIkx0V0GAQElkCrq1V3n4Sn6JBBtXkOEsNjVKmT8alLC3OUQLjPI2
+ mEP4z9uQrFDw4RRaDXnAbP37LFAbNSYBNg1YrAEyTIUmCRh4k5cC/YBSPM1t4fWmxtcQejcnK+w
+ urFPjb2bb/HetSKNMztbkk4adsrQIc/3dK5Nofzi/pmXfcaiVEj5Tm+75BOnesuWDadiG6EJ/Am
+ uybBvmviKhkodYf/Gzpq048+A97nGwHqQPzR6e8xex4K4MmXKZAYH
+X-Received: by 2002:a05:6214:1c82:b0:725:1035:1dc6 with SMTP id
+ 6a1803df08f44-73941de2c95mr112157286d6.64.1757428021153; 
+ Tue, 09 Sep 2025 07:27:01 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFj+Rvfz7tyFBU8l4QDVUaGg1lYtPx2BNUi8Rc06dcrMp5ZpK2kuCy0o8urhbMPnh2qES05Fw==
+X-Received: by 2002:a05:6214:1c82:b0:725:1035:1dc6 with SMTP id
+ 6a1803df08f44-73941de2c95mr112156786d6.64.1757428020517; 
+ Tue, 09 Sep 2025 07:27:00 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-337f4c934besm39228031fa.24.2025.09.09.07.23.01
+ 2adb3069b0e04-5680d0d8435sm560419e87.63.2025.09.09.07.26.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Sep 2025 07:23:01 -0700 (PDT)
-Date: Tue, 9 Sep 2025 17:23:00 +0300
+ Tue, 09 Sep 2025 07:26:59 -0700 (PDT)
+Date: Tue, 9 Sep 2025 17:26:57 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Qianfeng Rong <rongqianfeng@vivo.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -83,38 +83,37 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7] drm/msm/dsi/phy: Fix reading zero as PLL rates when
- unprepared
-Message-ID: <xkzlobhynrw3ylelnzwh7u5chigtytizy6vyc7gp4un5du4lcb@nssqq3f5pv7s>
-References: <20250908094950.72877-2-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] drm/msm/dpu: fix incorrect type for ret
+Message-ID: <6g7kftcagecmbal2oclxtmjjbi7wc365nb5wv7jhvyzbttcjz6@kxr6oojsvg6k>
+References: <20250826092047.224341-1-rongqianfeng@vivo.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250908094950.72877-2-krzysztof.kozlowski@linaro.org>
-X-Proofpoint-ORIG-GUID: 7VNeyHUcNU9BW29L_ZFcTkW-ebY0nWU1
-X-Proofpoint-GUID: 7VNeyHUcNU9BW29L_ZFcTkW-ebY0nWU1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAxOCBTYWx0ZWRfX8lWUd9bEAMnD
- 1hQYn+rcGLWpzaQgvPjue4oEG375//Kh0PC/rLVgQWeC2fSTfjmaqBm4lQZa6AYbhH1lIMRM9MQ
- tyBhA+XK1L0saqkDN7oHqGS+JZxXz1IIaUnTkakTd+wWVEZVKA+9ZLvyTT78xEV9kCj0/FeH0Gv
- GDmVtV3Lr1Arx72ASMV/xSTX+5OHldK1niUuWSVCvsHoUb4TlgAhnrO9Rscc47yZQ1+gve5dWVA
- ljyLqPxHMhpcPkCaLE3ZSAEhPSgfFKeC+z6WTuAmyKX0fuHOct56Jj6ZnJs+bgsQmVGEGxCdOQd
- Ykj6mt5aEM6uBe98JHn1iKMyECDDbXR0lDOelBifteM8I0hYX9ayqlFCmPcvFvtU8W+YPMOfMw7
- GtYEHuUM
-X-Authority-Analysis: v=2.4 cv=G4kcE8k5 c=1 sm=1 tr=0 ts=68c03849 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
- a=p65op6kECmbMoyNqUPAA:9 a=CjuIK1q_8ugA:10 a=1HOtulTD9v-eNWfpl4qZ:22
- a=cvBusfyB2V15izCimMoJ:22
+In-Reply-To: <20250826092047.224341-1-rongqianfeng@vivo.com>
+X-Authority-Analysis: v=2.4 cv=H7Dbw/Yi c=1 sm=1 tr=0 ts=68c03936 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=1WtWmnkvAAAA:8 a=EUspDBNiAAAA:8 a=b381tfKDLOYfEgrzl5gA:9
+ a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: MJqArib_gTaYprcTAJUUyjPL2-MdPt70
+X-Proofpoint-ORIG-GUID: MJqArib_gTaYprcTAJUUyjPL2-MdPt70
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAzOSBTYWx0ZWRfX/NzGiRSdDj4b
+ 8vU1Q/RTsfmxo3MYpucTN23lv/78aeEUJTNCgJlpg9Q8rXMLR9f+afhKkvzSlbg7yPRXE0gsiov
+ b2zYes950WKzehqX5AAg29fK7rwXEZMFBdfjbkUDf/0LHO7TYx39ZFGK6/HpRDMMTEkfLo4tDkG
+ bYH+BBz7R0s5nqV+X6VHmrC80YlgeSToCk90XK43TdO3K0YxnjXJyQWe6dInJU4WzvhEyB4prYk
+ xP+8euotqViyhXjYEhjXpc+0JNY6AXXIidt4/fuuukLfocjmZmp2KxX0fpVBCmilpRJtzd/Oygp
+ AaXxjPwwvao6KXu1SU5UiD9y/vlH1/SVUanPVyVNSUNEOirJ95lKVc0+1E1l9qUGeAkWVwZX5GH
+ D5NE6KMj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-09_02,2025-09-08_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 clxscore=1015
- malwarescore=0 adultscore=0 impostorscore=0 spamscore=0
+ malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0 phishscore=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060018
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060039
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,56 +129,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 08, 2025 at 11:49:51AM +0200, Krzysztof Kozlowski wrote:
-> Hardware Programming Guide for DSI PHY says that PLL_SHUTDOWNB and
-> DIGTOP_PWRDN_B have to be asserted for any PLL register access.
-> Whenever dsi_pll_7nm_vco_recalc_rate() or dsi_pll_7nm_vco_set_rate()
-> were called on unprepared PLL, driver read values of zero leading to all
-> sort of further troubles, like failing to set pixel and byte clock
-> rates.
+On Tue, Aug 26, 2025 at 05:20:45PM +0800, Qianfeng Rong wrote:
+> Change 'ret' from unsigned long to int, as storing negative error codes
+> in an unsigned long makes it never equal to -ETIMEDOUT, causing logical
+> errors.
 > 
-> Asserting the PLL shutdown bit is done by dsi_pll_enable_pll_bias() (and
-> corresponding dsi_pll_disable_pll_bias()) which are called through the
-> code, including from PLL .prepare() and .unprepare() callbacks.
-> 
-> The .set_rate() and .recalc_rate() can be called almost anytime from
-> external users including times when PLL is or is not prepared, thus
-> driver should not interfere with the prepare status.
-> 
-> Implement simple reference counting for the PLL bias, so
-> set_rate/recalc_rate will not change the status of prepared PLL.
-> 
-> Issue of reading 0 in .recalc_rate() did not show up on existing
-> devices, but only after re-ordering the code for SM8750.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
+> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
+> Signed-off-by: Qianfeng Rong <rongqianfeng@vivo.com>
 > ---
-> 
-> Continuing changelog from "drm/msm: Add support for SM8750" where this
-> was part of.
-> 
-> Changes in v7:
-> - Rebase
-> - I did not remove ndelay(250) as discussed with Dmitry, because:
->   1. Indeed the HPG does not mention any delay needed, unlike PHY 10 nm.
->   2. However downstream source code for PHY 3+4+5 nm has exactly these
->      delays. This could be copy-paste or could be intentional workaround
->      for some issue about which I have no clue. Timings are tricky and
->      I don't think I should be introducing changes without actually
->      knowing them.
-> - Add Rb tags
-> - Link to v6: https://lore.kernel.org/r/20250610-b4-sm8750-display-v6-0-ee633e3ddbff@linaro.org
-> 
-> Changes in v6:
-> 1. Print error on pll bias enable/disable imbalance refcnt
-> 
-> Changes in v5:
-> 1. New patch
-> ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h     |  1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 53 +++++++++++++++++++++++
->  2 files changed, 54 insertions(+)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
