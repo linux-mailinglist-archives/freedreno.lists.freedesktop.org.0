@@ -2,65 +2,128 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B25B4B4ABE8
-	for <lists+freedreno@lfdr.de>; Tue,  9 Sep 2025 13:29:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6367EB4FDD2
+	for <lists+freedreno@lfdr.de>; Tue,  9 Sep 2025 15:45:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E7C10E6C1;
-	Tue,  9 Sep 2025 11:29:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0149A10E752;
+	Tue,  9 Sep 2025 13:45:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k2Dw1p/A";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ojpuLWI/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA66E10E6BA;
- Tue,  9 Sep 2025 11:29:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 58C3460237;
- Tue,  9 Sep 2025 11:29:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5B5C4CEFA;
- Tue,  9 Sep 2025 11:28:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757417340;
- bh=hm0tnipoDHHszNsEnA1Tr51B4Yy6srxE7cfH3UWZfeQ=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=k2Dw1p/A/OrMqgN+FOPCrXanU/V1sDNUva/XlUOFd2t5IC87HDQL+qd0NTJ4KA9eU
- irkueP9eeBWqnJLEvJurDaffzPZsxC3ETSypX/1/d5ojeHKKE2ncxw5luhhb10wM9i
- 82hH+2GxNMjASQWSXs2xNz4kwcJWCBcvPe4SCvf/8lfyG0tPxIUcbVS92CapA0qu9M
- jUSTsBi7kaNpjH/CERfA+MGMsrEoJML50fSl4pz5Y8DAnFTh6JI1ju00zVr4B9T+rh
- Un+hbRkJE3Xdt++xmjtyjr7yIwH28AxvaRFVgcN9/sR1UXsy7eydrvXCduJJfIgc09
- A0Co0b4kQ5o8A==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 09 Sep 2025 13:27:44 +0200
-Subject: [PATCH v3 25/39] drm/msm/mdp5: Switch to
- drm_atomic_get_new_crtc_state()
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9789710E252
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Sep 2025 13:45:53 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5899LUHx029835
+ for <freedreno@lists.freedesktop.org>; Tue, 9 Sep 2025 13:45:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ HtGgkybPm6v0URRLFra4Jz238QIDHfHOy7Lnfw1I7jY=; b=ojpuLWI/i/8rSiLF
+ PgiIWFM8nkWUz1lFRxSdfSPkqpjx7ZZT+kmzidsQYFlscsuU6w2SY9cyRYaooE3E
+ ptoNqi+5sNeEb4staNh0kx46MBRGmsbYyPrVrEYY5WORfuMMbglSMBT3ozl9lVBn
+ z5zYXhM+VWba4/FTPj16RPPoKGJRqWZ1v7gD1hyJ9QawZfhbHOUH8hRNfma59hz9
+ WkQjGf1vgygkjBrijmeBjjObrZuT11rIKe7AtXl74mjKPun427GNvMZeZ522OUxo
+ 0v0oYx1PqN8y3bRrOFqGIO+FUiHH5HXGF9w07sKa7scU32TpI17pe+Zy7Tcr0jpx
+ gTW5XA==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 491t37vuve-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Sep 2025 13:45:51 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-77243618babso5687198b3a.0
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Sep 2025 06:45:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757425551; x=1758030351;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=HtGgkybPm6v0URRLFra4Jz238QIDHfHOy7Lnfw1I7jY=;
+ b=OHUSopiVSxKGIyGl+X68niDRDmBHW/MGVtk3ikHADN768QpkojGQ/bllJZsASn6P/S
+ P0N1N/JvqGy3AJpqywzptNi8dKAXUml3no+NUI8hk1p7ZoaijLPmE+wBgoc0PV44r53N
+ GO/zeWtQ0Bs7DRk8/f1UgxJ2Pmbz43wl+tOOkYHS77fk5jh4i6zrXCXwJEbJn+g1BPZa
+ 3fgbAp21S8SJrH3vJ2FW4x1wFn7EHSAh9lZVpAqWed7B8AYHZh5SDb5MYE2GeM99zdgq
+ ysNxdruvlU9RL2GjmQlA9amoQEj0IvWZh3A/L8wLsZJ+qgLyEd46KZwujVDCcprST/j+
+ GRyw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW4dWeOUqNDqHKEQwA4W6AQiRnKVxxzXKwM8BmT74hbP0wC6h1pjz3shg0D30fbTDmH0SZtQ8cM/ng=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzpRjErVsXIblDU2t0Dan8vo7BuAP0TH4dYtRp3XgQtvW6uUQ3n
+ lZrnmvppXXIHAV3bUxzzNve5GuW5lFsdUvd/r99mITricv312jfz7rdUzCbzX8/DroVwjPWdHny
+ pCu1rHIxR9+k4F+xWhVtdZ/5/s6z4VUxqUPxODW0hdcre6ntQ3sX/c2uOiDKbM3Cb65PlcYY=
+X-Gm-Gg: ASbGncsVyZLYVUMlfd5FCTbLzuAKaAe7PRu7PIWu+mwRrSxWtUigwYNj4GyR2/GhEbz
+ XFQqaYVPiypN1uJRxIYBOVqR0pRa4SsxikPyw3Qi+RAHtBfUgm/VvPISBt6DykW5keqJ8M5q7BL
+ P1se2opP6FhKQ7J3vIKiQY8g2Uipr5EjJC5IjrNEgCtO82hAENzcGvsVhg/YE3j+OEYydtK15t3
+ G00R2SdRayzh7Qrjhw4fzmyBHRpvQl/LyofvE6pJKABK6SmE6Q9Dzvvy0LTwEeCJwwsiNy7enxU
+ cJyGgRjI99Y4a5DYFV7+u7lCxSXwFitooM5k3mtRVvarskHpdey1Se8128ISvA==
+X-Received: by 2002:a05:6a00:13a2:b0:772:48c5:c761 with SMTP id
+ d2e1a72fcca58-7742dcccbd2mr13013025b3a.10.1757425550830; 
+ Tue, 09 Sep 2025 06:45:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE6cvRFc+/YxS+v49Zyl4iRKsKHIagabDncXnmXjWPenP1jekeJK1Igj52NaYuVapCTIrXssQ==
+X-Received: by 2002:a05:6a00:13a2:b0:772:48c5:c761 with SMTP id
+ d2e1a72fcca58-7742dcccbd2mr13012985b3a.10.1757425550288; 
+ Tue, 09 Sep 2025 06:45:50 -0700 (PDT)
+Received: from [10.91.118.43] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7746612d9c5sm2237291b3a.34.2025.09.09.06.45.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Sep 2025 06:45:49 -0700 (PDT)
+Message-ID: <87e8c438-63d0-4f00-b147-4783ad208ab3@oss.qualcomm.com>
+Date: Tue, 9 Sep 2025 19:15:42 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20250909-drm-no-more-existing-state-v3-25-1c7a7d960c33@kernel.org>
-References: <20250909-drm-no-more-existing-state-v3-0-1c7a7d960c33@kernel.org>
-In-Reply-To: <20250909-drm-no-more-existing-state-v3-0-1c7a7d960c33@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2354; i=mripard@kernel.org;
- h=from:subject:message-id; bh=hm0tnipoDHHszNsEnA1Tr51B4Yy6srxE7cfH3UWZfeQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDBkH+HW95CXXqpv+zRd58MyWO7Pl4VOrdwpuh3qudzlXT
- ItKPuzWMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACYyvZuxzvR9aJhK/KWErOwn
- ezam/v2W/45zh05WkMOHxas9A0LmmxUIux+0OnbTmNfrgkdbbbALY53S5jv9H4/NemQnqXKJ5cx
- 1pkfNd9eY/p7R5M90lb9zQttchhdqxa4ZiX5ZKXe3m1v5XgEA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/6] arm64: dts: qcom: sa8775p: Add gpu and gmu nodes
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Gaurav Kohli <quic_gkohli@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>, Sean Paul
+ <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Connor Abbott <cwabbott0@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+References: <20250822-a663-gpu-support-v4-0-97d26bb2144e@oss.qualcomm.com>
+ <20250822-a663-gpu-support-v4-3-97d26bb2144e@oss.qualcomm.com>
+ <f11b778d-eba1-4712-81c7-b83f2cb38b46@oss.qualcomm.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <f11b778d-eba1-4712-81c7-b83f2cb38b46@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: rXwO_Ie2fl-NPoCAF42pzP5K5qRxl_GR
+X-Proofpoint-GUID: rXwO_Ie2fl-NPoCAF42pzP5K5qRxl_GR
+X-Authority-Analysis: v=2.4 cv=NdLm13D4 c=1 sm=1 tr=0 ts=68c02f8f cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
+ a=KKAkSRfTAAAA:8 a=2iJ5yM1ecYHLd0rZiA0A:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22 a=TjNXssC_j7lpFel5tvFf:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA4MDA2NiBTYWx0ZWRfX6ZgkimIPXI00
+ GXVaSgj+YJVeCjk1ftcF6BEmvE2kKWkp7P0Y7Rlt1EeB+hyhpKyKbnVNXc0jEvKuVg5246iG2No
+ XzU1VdvXnzQ1WX9r6TDRfPBYmIF+2J/ZV6nTEMMU3DP77vxu8VpSGfhgpuiII3Sfk2Cxz4AUV7r
+ kJYuX2YYBtwHHV6f2Yp8STeMJHsSyNip2QZOjr3LL7X50NNnRqQzN27cOnFUf5VkKEAKf9KptOg
+ g6dzPcdfAgnvixkx7YxtgNwa7YZe/G0uml2WgBTm89gOAO46fz2a4g5bfnNb8fRjkCtl8STlo1h
+ ptYNOP0nhko6Rrx1/i+707Ba1H0exulTKGrIB/HexZVnC3MMYdB9clylkrJj057oLE64cyTNjj3
+ tiifVxic
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-09_01,2025-09-08_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
+ clxscore=1015 impostorscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509080066
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,65 +139,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The msm atomic_check implementation uses the deprecated
-drm_atomic_get_existing_crtc_state() helper.
+On 9/3/2025 5:56 PM, Konrad Dybcio wrote:
+> On 8/21/25 8:55 PM, Akhil P Oommen wrote:
+>> From: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
+>>
+>> Add gpu and gmu nodes for sa8775p chipset. As of now all
+>> SKUs have the same GPU fmax, so there is no requirement of
+>> speed bin support.
+>>
+>> Signed-off-by: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
+>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>  arch/arm64/boot/dts/qcom/lemans.dtsi | 116 +++++++++++++++++++++++++++++++++++
+>>  1 file changed, 116 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
+>> index 8ceb59742a9fc6562b2c38731ddabe3a549f7f35..8eac8d4719db9230105ad93ac22287850b6b007c 100644
+>> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+>> @@ -1097,6 +1097,18 @@ ipcc: mailbox@408000 {
+>>  			#mbox-cells = <2>;
+>>  		};
+>>  
+>> +		qfprom: efuse@784000 {
+>> +			compatible = "qcom,sa8775p-qfprom", "qcom,qfprom";
+>> +			reg = <0x0 0x00784000 0x0 0x2410>;
+> 
+> len = 0x3000
 
-This hook is called as part of the global atomic_check, thus before the
-states are swapped. The existing state thus points to the new state, and
-we can use drm_atomic_get_new_crtc_state() instead.
+My bad. I missed these additional comments in this thread. Will extend
+this range to keep it 4K aligned.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+> 
+> [...]
+> 
+>> +		gmu: gmu@3d6a000 {
+>> +			compatible = "qcom,adreno-gmu-663.0", "qcom,adreno-gmu";
+>> +			reg = <0x0 0x03d6a000 0x0 0x34000>,
+> 
+> This bleeds into GPU_CC, len should be 0x26000
+> 
+>> +			      <0x0 0x03de0000 0x0 0x10000>,
+>> +			      <0x0 0x0b290000 0x0 0x10000>;
+>> +			reg-names = "gmu", "rscc", "gmu_pdc";
+>> +			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
+>> +			interrupt-names = "hfi", "gmu";
+>> +			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
+>> +				 <&gpucc GPU_CC_CXO_CLK>,
+>> +				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
+>> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+>> +				 <&gpucc GPU_CC_AHB_CLK>,
+>> +				 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
+>> +				 <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
+> 
+> This clock only belongs in the SMMU node
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index 7c790406d533fbabb330c438419efb18204cc4b7..4ca183fb61a95af60ef5a2c011ae6b2a0df963f0 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -334,12 +334,11 @@ static int mdp5_plane_atomic_check(struct drm_plane *plane,
- 
- 	crtc = new_plane_state->crtc ? new_plane_state->crtc : old_plane_state->crtc;
- 	if (!crtc)
- 		return 0;
- 
--	crtc_state = drm_atomic_get_existing_crtc_state(state,
--							crtc);
-+	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
- 	if (WARN_ON(!crtc_state))
- 		return -EINVAL;
- 
- 	return mdp5_plane_atomic_check_with_state(crtc_state, new_plane_state);
- }
-@@ -371,12 +370,12 @@ static int mdp5_plane_atomic_async_check(struct drm_plane *plane,
- 	struct mdp5_plane_state *mdp5_state = to_mdp5_plane_state(new_plane_state);
- 	struct drm_crtc_state *crtc_state;
- 	int min_scale, max_scale;
- 	int ret;
- 
--	crtc_state = drm_atomic_get_existing_crtc_state(state,
--							new_plane_state->crtc);
-+	crtc_state = drm_atomic_get_new_crtc_state(state,
-+						   new_plane_state->crtc);
- 	if (WARN_ON(!crtc_state))
- 		return -EINVAL;
- 
- 	if (!crtc_state->active)
- 		return -EINVAL;
+Not really. This is recommended for A663 GPU like other A660 based GPUs.
+I know it is not intuitive. Similarly, we used to vote GMU clk for GPU
+SMMU earlier.
 
--- 
-2.50.1
+> 
+>> +			clock-names = "gmu",
+>> +				      "cxo",
+>> +				      "axi",
+>> +				      "memnoc",
+>> +				      "ahb",
+>> +				      "hub",
+>> +				      "smmu_vote";
+>> +			power-domains = <&gpucc GPU_CC_CX_GDSC>,
+>> +					<&gpucc GPU_CC_GX_GDSC>;
+>> +			power-domain-names = "cx",
+>> +					     "gx";
+>> +			iommus = <&adreno_smmu 5 0xc00>;
+>> +			operating-points-v2 = <&gmu_opp_table>;
+>> +
+>> +			gmu_opp_table: opp-table {
+>> +				compatible = "operating-points-v2";
+>> +
+>> +				opp-200000000 {
+>> +					opp-hz = /bits/ 64 <200000000>;
+> 
+> 500 MHz @ RPMH_REGULATOR_LEVEL_SVS, 200 isn't even present in the clock driver
+> 
+
+Ack. I guess this is fine. Hopefully GMU won't explode. :)
+
+-Akhil
+
+> Konrad
 
