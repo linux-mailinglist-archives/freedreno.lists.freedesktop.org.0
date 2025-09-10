@@ -2,86 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F867B52291
-	for <lists+freedreno@lfdr.de>; Wed, 10 Sep 2025 22:44:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E6CB52293
+	for <lists+freedreno@lfdr.de>; Wed, 10 Sep 2025 22:44:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF95110E9DD;
-	Wed, 10 Sep 2025 20:44:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9202D10E9DE;
+	Wed, 10 Sep 2025 20:44:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XrU8KvlU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OaGyExaa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 389FA10E368
- for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 20:44:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C16810E9DE
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 20:44:33 +0000 (UTC)
 Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58AJ6HIW024499
- for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 20:44:29 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58AJ6Ck5024211
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 20:44:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=nWIoku7RCCmxR6hiLsQeRJ
- gxh4TQgexEWCOmvJvrbBE=; b=XrU8KvlU3vGyH+KjktquJW/5Qdf2u74w5e7fCp
- aeasgqh6UBtPmRY0Pd4JlThpVgJMYBBQKAZP6sNseY2UG3nVeKaunThETKPEE2T/
- GsvAC9/aXv3SUKokTYn24jrK3ZWS9kYfHtAZSt1AxFFmDZrTP7Bq8PvEqg+mGjFE
- hFD8j+G2tj49MfeijhoLY7pXcjOg+kS/SCtJ3S3cRZNheMSz3yzTLsZs8sFJyXcQ
- xKS7wUrdqvxSGJ9Ggi36OuMQ5RIOX5j+rKR7Blfwuvf2JdON8qV6oZjx3nZsAE03
- wWVO/MYe6Dlhs55BNcMFrPwSRZVfAWUsqzlOtewCB6Ae32Vw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 493f6h07jt-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ GjMQrOqt1kzUjiB7WrBgzYzLHVWBj+hV2C1YKYXo120=; b=OaGyExaaQQXe2OT7
+ yepRG1DWBHoXnJ77boJyY9isfWYOlebMd1ol4dTjE9f4Jbk+f7Ao3h9fvbjpI0/l
+ SzQ7KRsns/1/ovmcQSvkH6V2rFDxt+xMrPNSFbMjqRpoveSajkMWR01NBFs87Wg7
+ x3oGiuvvCettf+wJJLvswNLXl8wkn+XJS8bp7MyoapEzhbEOvNScSJWjXsgvX4d4
+ NiO315xIvBTe6UPN/8lm6JAlZlscv4idOJZYMe/ZwF24p/YkFZz6Qd6l+jgFk0Vz
+ iiXh6rxNMoZUFr423h/AUM5jVn5afppPYpwj/JZthBaTNGwu3n78wrHkxkFI1c6U
+ SdP4NA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 493f6h07k1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 20:44:28 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-b522037281bso23732a12.3
- for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 13:44:28 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 20:44:33 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-77278d3789cso23951b3a.1
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 13:44:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757537068; x=1758141868;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nWIoku7RCCmxR6hiLsQeRJgxh4TQgexEWCOmvJvrbBE=;
- b=t6JwUgcUWJpowoRli8H65cdMbnJpmevvZ5j/e5kU0FxjQE44JKxw4MFNo7yK1dj41n
- 9l3enizhLmMoFVaAfJ4Adiml+LIZvRBMnOvot0cBHrbntgtZDQrl/E9jfMCva1o8+kQw
- CR1w3TK86cSRrjRb68EDMtDDUH7NZXWoOkbbVdvjCo8xNYgVsQ2MOpZOl+7mfpLvprDh
- NDstGaOoiLW+QheLmrfsue0EQS7Pkpv4k4iP5IoMukSRk1oIJzkrR3Bzgldqz5bQ39aS
- 254WHg0MoQrzI9nAT8c3fd/hZqrX39cSGSlj1B8Nqiu8WxsolsoVJE149MYGCyjNUJ7u
- F7QA==
+ d=1e100.net; s=20230601; t=1757537072; x=1758141872;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GjMQrOqt1kzUjiB7WrBgzYzLHVWBj+hV2C1YKYXo120=;
+ b=fbKViIDv1sCHqZ6SgXIDk+npzibf7OxwptTAqAhqAPamwoC+qWBL9f6um60hy/GdHu
+ SS/AN9cajSjIlgcH/QRgyuGePzNpuDWBNWhnRVEW5iBfugF9R74o6yQrLFgG9IaS24Gm
+ MBD6W7aZCGiGvumJr60LX5s5Y38Sdys4Hbafy16YbNEFeofaTxMZneH0dZzrGzwpRztH
+ y1MBzMxAD2X9PDV6WU6EYNyshNmuefXo0RZjJfK9VRLKviFxcz/iha55IQWhWX/Y8hUa
+ aGn3ewy04F7K1BqqFLTpMJdgXTS3rMWtnzCeB6QU2j+RMXHfDZc+jDXcaXIxAIbY5eBJ
+ 0hbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX1jZXUI5G2uEhgyhjg5AefGHoeMbRZA47kH/YR9aGNWm49SV8H6/M1yY4Mw+hDgvRC6kEij7s6cio=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDNuYli/XxksASdo6QqjSCdx63eWHaw8D4VX+Fe7jafXQxo5cC
- uJjLn+CgwD7J2z6TLyF3M0VUiy4gblD3EdSOXVFQAJ6nr631O2N/3TIz1GIwPNk8IQbIatszSPq
- g66f68JCMEZz0EcElPY6bR6YrKC60OY7v9f1d+jJVw6AjW5UptJmhidaD146ZQL3B2bjLmMs=
-X-Gm-Gg: ASbGncsKKnkDKcbwrxI9B5yJ1j62HRGb8/R9BC0vl0uo3FMct1l9jX1TcC0jyqGUJqV
- MjY699UZfli6qIoBv0Vn5qJ+dAhC9nru+rVRzV7R2eGsAOf++/9BU2wJPMaGuW6gpmB5IZ9xvwu
- hyK7gHEclaMa8T3zwsSl6q3UY+CfUGeD+Ps6w3H750mTuIVmYMXw054YlNam2WLn1cle7m2xTjv
- dH03ckkUo9WtHFEs2P9of3M0stvWEdi8T4AvzM1mx+IzNSplN0iQwaONKjC92Eb6sJ9zf1/OMsk
- eEX78vDb8T+CG0dyiOO29f5jQ6eXwVE10HXN+SX53qwW9hjwl+vEUY+SqMU0kjkR
-X-Received: by 2002:a17:90b:3f8c:b0:32b:be68:bb30 with SMTP id
- 98e67ed59e1d1-32d440d2749mr22619405a91.37.1757537067804; 
- Wed, 10 Sep 2025 13:44:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFLzBx/C6rpXTx/AbKEdDRvKi+XAeJbA0oSLh+2R4Y6TD77ThmcYAVvMZfgGZ6ZPkjXKl0yyQ==
-X-Received: by 2002:a17:90b:3f8c:b0:32b:be68:bb30 with SMTP id
- 98e67ed59e1d1-32d440d2749mr22619323a91.37.1757537066397; 
- Wed, 10 Sep 2025 13:44:26 -0700 (PDT)
+ AJvYcCXckHgiiiFHdhyhENJQv0TYAxAoXzeIchYbe69AdWjQpHRgZX4eS06ry97q3m9lGGP/wNwPUV5p0Q8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+8i+EUbecfhSJ7175UWqk67tcmmyrLK3kY8ZhiVA/fBxUlxtE
+ 9JBe913j2yxeZkpBVg2OfTMtEq0KQ52PAbgR0HPlzZJcbI+6jOOf4qrZY9d4W3befeDcFs40Qo7
+ n2KbA+ZfPErOYJxZfXfjFPqkMk3+krw0XCPm8Z+w2quKzyQYtVaTjaJlpa1+QTno26PNu5DE=
+X-Gm-Gg: ASbGnct+uD5nrJipB1e6/zwkPBwkjT2juH8T7ONXAKCiijQQxe9hmwY9LUqdZ0ofHng
+ O+fpv71jNLGP+49eXZJJ20CzEkshAE8G7LMZiY+GWiMVYq2jbC/4FG0+JcsHygH7NdO7djeucs4
+ VwgDvgOIFo70QsziwIl1NQJX4eYq1vd6VY0EYju0t2g7xQwe7WTTpiVVUMeUSw9S8fai3WhZWrj
+ m73EGAwTdz7GeSCCXwFzfQKNpkas94CKrSp6wNRJ5dZvayft5WuNVXLKce7Cy4LIWdfvyHzNBWm
+ I6ALj5Xk456JLFZGPkhtLVppsTAPWZHWBQmXgAzVX2fa5tIbIGgAHfIxE9HqxPiW
+X-Received: by 2002:a05:6a20:3c8f:b0:251:1b8c:565c with SMTP id
+ adf61e73a8af0-2534441550cmr23941565637.31.1757537072099; 
+ Wed, 10 Sep 2025 13:44:32 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF9OV2MeB3Kpz+lIR7PJ0sGEfu8xDO/gzp+R4DHMG4utoV9wKznHz0MNDx+h6Gs3YDnRszCcw==
+X-Received: by 2002:a05:6a20:3c8f:b0:251:1b8c:565c with SMTP id
+ adf61e73a8af0-2534441550cmr23941533637.31.1757537071574; 
+ Wed, 10 Sep 2025 13:44:31 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-32dd61eaa42sm46771a91.5.2025.09.10.13.44.21
+ 98e67ed59e1d1-32dd61eaa42sm46771a91.5.2025.09.10.13.44.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Sep 2025 13:44:26 -0700 (PDT)
+ Wed, 10 Sep 2025 13:44:31 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Subject: [PATCH v2 0/4] drm/msm: Assorted fixes and changes
-Date: Thu, 11 Sep 2025 02:14:03 +0530
-Message-Id: <20250911-assorted-sept-1-v2-0-a8bf1ee20792@oss.qualcomm.com>
+Date: Thu, 11 Sep 2025 02:14:04 +0530
+Subject: [PATCH v2 1/4] drm/msm: Fix bootup splat with separate_gpu_drm
+ modparam
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABPjwWgC/2WOwQ6CMAyGX4X0bAkbDpWT72E4DCiyRBisg2gI7
- +4Ab16afM3f7+8CTM4QQx4t4Gg2bGwfQJ4iqFrdPwlNHRhkIlVySwRqZus81cg0eBSolMoaoWS
- alVcIV4Ojxrx346M42NE4BbE/llBqJqxs1xmfR3MWiwu66gxbuDXsrfvs38xiT/+K5V/xLDDBJ
- qXqVmqqlUjvljkeJ/3a3HEYUKzr+gUK+ao84gAAAA==
-X-Change-ID: 20250901-assorted-sept-1-5556f15236b8
+Message-Id: <20250911-assorted-sept-1-v2-1-a8bf1ee20792@oss.qualcomm.com>
+References: <20250911-assorted-sept-1-v2-0-a8bf1ee20792@oss.qualcomm.com>
+In-Reply-To: <20250911-assorted-sept-1-v2-0-a8bf1ee20792@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -97,29 +96,28 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1757537061; l=1041;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1757537061; l=4407;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=J+p7EMrTz5Ci3v4cB32sGVNKuiRkVCCBePNgL++HPk0=;
- b=hvl43ly3LC2M/bCZ1O8Ib5iiOmQszyzcHxa1HmifszeN2jgiCGmATP61nlgRwPvXFFV6x013r
- ekqQUg/+U7kDXj8WEFR08JKHtAioiH86Vem1M3D/Cs/IK+d2AWRQ7I8
+ bh=TsM6Bk8IU172J5i+V6pxbaDOzPWuVAASo1qAv/7B0Mc=;
+ b=ducsX3eTW444B3LX7ve+GjHgu50CveeJOKhPEVAFz0SDyyqB4N0olEWFgMcuaDv3ZE4VrnB3p
+ LTjjhefYUPLCBh3hegVS8gvfT8foSgSNQCh0oqzPjvLSCnjT4I2YhA3
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-ORIG-GUID: bQjtuiUtQ_fWPrIq7_M__DMZQgIJBA0o
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTEwMDE3NyBTYWx0ZWRfXyDHk9VPJ+3sm
- wOgP7CoTlg7TVPsDLcgEHnQaNkHxIwMqcF7zRCU7W1IaG4CGW/PLfMCrrWC0NVN9PQMpd6xiF5+
- TqrH1Ny/vmSNIWBZ3aKzBF/tEhgu77aB0Z7+/79k7Gq5l5MyTHuFBaaV1sB56eb3MmOPOP3jBw1
- GD+BfJMEqHkeal5kiriRHFCAC+6im1XUwdMV6DLfBR7bSGbDuwL7iJVz6yQQwVjESTIE/PLXvMH
- zo+++cphanfbBeiMhajPROIiF+4s7LJg84Ya+ew2qLlBApqKBDdovaKvkZSHw6tW5cvVj/MurI1
- XadDI+OvkiocgfNANCFKLrlR4Ua/W0atQ0tXSl3cUmr56MrnU9sUEU/xX4ngXTp9hihrmMkyn8r
- CGrC2xK3
-X-Authority-Analysis: v=2.4 cv=WPB/XmsR c=1 sm=1 tr=0 ts=68c1e32c cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=vskJOa3sKGgw8GBTMRoA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: bQjtuiUtQ_fWPrIq7_M__DMZQgIJBA0o
+X-Proofpoint-ORIG-GUID: qwHq0Topg0F9Pi0wHF7HDEY1kxeQfaLJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTEwMDE3NyBTYWx0ZWRfX5sfSY9NnT9V0
+ Ay0dYQOKjy6mNWrs42TEx9xlN75E7KwGQrMRMZo8h8w1dIxzmZCvLGMJAn8f47BTByWzHYV3+rU
+ ld3mspXGs6T9IrEvKDg83A/YF3rZC5j5LlEBdx4rsrMSIHEH6+cNRGGDA/rej7AH0H5izMxcUQz
+ CzKc4EmJ8augVM9tgaF6oxNrrlA0PcldasDs9uRXOb0rPjdFK+sF+txnpOeNxhwIc+/4TESgL9i
+ oHHNV3seO9c84C6yovPtwh7nLbUX52c8iQeQZHrM2qN8gmYDroLiKETPo2jegsxHF+3SRhJz2hU
+ JWuTqNAAKJZQLqlK3oe2d0QCJd5vmQ3jLfeyjsXr6CJz89YXLxO0VFuXjRzf/WD363pgjhIcALc
+ ugh1VREA
+X-Authority-Analysis: v=2.4 cv=WPB/XmsR c=1 sm=1 tr=0 ts=68c1e331 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=wZg4fdH2GHFv12Tp5BEA:9
+ a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-GUID: qwHq0Topg0F9Pi0wHF7HDEY1kxeQfaLJ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-10_04,2025-09-10_01,2025-03-28_01
@@ -143,32 +141,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A few changes and fixes that were lying in my stack.
+The drm_gem_for_each_gpuvm_bo() call from lookup_vma() accesses
+drm_gem_obj.gpuva.list, which is not initialized when the drm driver
+does not support DRIVER_GEM_GPUVA feature. Enable it for msm_kms
+drm driver to fix the splat seen when msm.separate_gpu_drm=1 modparam
+is set. Also, update the description of DRIVER_GEM_GPUVA flag to
+reflect that it is also used by DRM drivers which doesn't support user
+defined GPUVA bindings. For eg: msm_kms driver.
 
+	Unable to handle kernel paging request at virtual address fffffffffffffff0
+	Mem abort info:
+	  ESR = 0x0000000096000006
+	  EC = 0x25: DABT (current EL), IL = 32 bits
+	  SET = 0, FnV = 0
+	  EA = 0, S1PTW = 0
+	  FSC = 0x06: level 2 translation fault
+	Data abort info:
+	  ISV = 0, ISS = 0x00000006, ISS2 = 0x00000000
+	  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+	  GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+	swapper pgtable: 4k pages, 48-bit VAs, pgdp=0000000ad370f000
+	[fffffffffffffff0] pgd=0000000000000000, p4d=0000000ad4787403, pud=0000000ad4788403, pmd=0000000000000000
+	Internal error: Oops: 0000000096000006 [#1]  SMP
+	CPU: 9 UID: 0 PID: 448 Comm: (udev-worker) Not tainted 6.17.0-rc4-assorted-fix-00005-g0e9bb53a2282-dirty #3 PREEMPT
+	pstate: a1400005 (NzCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+	pc : lookup_vma+0x28/0xe0 [msm]
+	lr : get_vma_locked+0x2c/0x128 [msm]
+	sp : ffff800082dab460
+	Call trace:
+	 lookup_vma+0x28/0xe0 [msm] (P)
+	 get_vma_locked+0x2c/0x128 [msm]
+	 msm_gem_get_and_pin_iova_range+0x68/0x11c [msm]
+	 msm_gem_get_and_pin_iova+0x18/0x24 [msm]
+	 msm_fbdev_driver_fbdev_probe+0xd0/0x258 [msm]
+	 __drm_fb_helper_initial_config_and_unlock+0x288/0x528 [drm_kms_helper]
+	 drm_fb_helper_initial_config+0x44/0x54 [drm_kms_helper]
+	 drm_fbdev_client_hotplug+0x84/0xd4 [drm_client_lib]
+	 drm_client_register+0x58/0x9c [drm]
+	 drm_fbdev_client_setup+0xe8/0xcf0 [drm_client_lib]
+	 drm_client_setup+0xb4/0xd8 [drm_client_lib]
+	 msm_drm_kms_post_init+0x2c/0x3c [msm]
+	 msm_drm_init+0x1a8/0x22c [msm]
+	 msm_drm_bind+0x30/0x3c [msm]
+	 try_to_bring_up_aggregate_device+0x168/0x1d4
+	 __component_add+0xa4/0x170
+	 component_add+0x14/0x20
+	 msm_dp_display_probe_tail+0x4c/0xac [msm]
+	 msm_dp_auxbus_done_probe+0x14/0x20 [msm]
+	 dp_aux_ep_probe+0x4c/0xf0 [drm_dp_aux_bus]
+	 really_probe+0xbc/0x298
+	 __driver_probe_device+0x78/0x12c
+	 driver_probe_device+0x40/0x160
+	 __driver_attach+0x94/0x19c
+	 bus_for_each_dev+0x74/0xd4
+	 driver_attach+0x24/0x30
+	 bus_add_driver+0xe4/0x208
+	 driver_register+0x60/0x128
+	 __dp_aux_dp_driver_register+0x24/0x30 [drm_dp_aux_bus]
+	 atana33xc20_init+0x20/0x1000 [panel_samsung_atna33xc20]
+	 do_one_initcall+0x6c/0x1b0
+	 do_init_module+0x58/0x234
+	 load_module+0x19cc/0x1bd4
+	 init_module_from_file+0x84/0xc4
+	 __arm64_sys_finit_module+0x1b8/0x2cc
+	 invoke_syscall+0x48/0x110
+	 el0_svc_common.constprop.0+0xc8/0xe8
+	 do_el0_svc+0x20/0x2c
+	 el0_svc+0x34/0xf0
+	 el0t_64_sync_handler+0xa0/0xe4
+	 el0t_64_sync+0x198/0x19c
+	Code: eb0000bf 54000480 d100a003 aa0303e2 (f8418c44)
+	---[ end trace 0000000000000000 ]---
+
+Fixes: 217ed15bd399 ("drm/msm: enable separate binding of GPU and display devices")
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
-Changes in v2:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v1: https://lore.kernel.org/r/20250902-assorted-sept-1-v1-0-f3ec9baed513@oss.qualcomm.com
+ drivers/gpu/drm/msm/msm_drv.c | 1 +
+ include/drm/drm_drv.h         | 3 ++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
----
-Akhil P Oommen (4):
-      drm/msm: Fix bootup splat with separate_gpu_drm modparam
-      drm/msm/a6xx: Fix GMU firmware parser
-      drm/msm/adreno: Add a modparam to skip GPU
-      drm/msm/a6xx: Add a comment to acd_probe()
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 9dcc7a596a11d9342a515dab694bac93dc2805cb..7e977fec4100792394dccf59097a01c2b2556608 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -826,6 +826,7 @@ static const struct file_operations fops = {
+ 
+ #define DRIVER_FEATURES_KMS ( \
+ 		DRIVER_GEM | \
++		DRIVER_GEM_GPUVA | \
+ 		DRIVER_ATOMIC | \
+ 		DRIVER_MODESET | \
+ 		0 )
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index 42fc085f986dee9261f8b08c4fc7d93b8d6d9769..8729c88fd12ba76eb0084fc1a2ebccaabf377995 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -110,7 +110,8 @@ enum drm_driver_feature {
+ 	/**
+ 	 * @DRIVER_GEM_GPUVA:
+ 	 *
+-	 * Driver supports user defined GPU VA bindings for GEM objects.
++	 * Driver uses the drm_gpuvm infrastructure for managing GPU virtual
++	 * address mappings of GEM objects.
+ 	 */
+ 	DRIVER_GEM_GPUVA		= BIT(8),
+ 	/**
 
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c      |  9 ++++++++-
- drivers/gpu/drm/msm/adreno/adreno_device.c | 13 +++++++++++++
- drivers/gpu/drm/msm/msm_drv.c              |  1 +
- include/drm/drm_drv.h                      |  3 ++-
- 4 files changed, 24 insertions(+), 2 deletions(-)
----
-base-commit: 5cc61f86dff464a63b6a6e4758f26557fda4d494
-change-id: 20250901-assorted-sept-1-5556f15236b8
-
-Best regards,
 -- 
-Akhil P Oommen <akhilpo@oss.qualcomm.com>
+2.50.1
 
