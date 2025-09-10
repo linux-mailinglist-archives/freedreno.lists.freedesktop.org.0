@@ -2,123 +2,126 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 601B7B5213E
-	for <lists+freedreno@lfdr.de>; Wed, 10 Sep 2025 21:38:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56A2B5214E
+	for <lists+freedreno@lfdr.de>; Wed, 10 Sep 2025 21:43:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDD010E9C6;
-	Wed, 10 Sep 2025 19:38:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C24110E9CC;
+	Wed, 10 Sep 2025 19:42:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dM3u2X4J";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="M4C4B47D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10EFB10E9C6
- for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 19:38:48 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58ACgSkO021329
- for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 19:38:48 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C308210E9CA
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 19:42:55 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58ACgKkJ024576
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 19:42:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KQu1oB27eIlAjTTYbUEVNBhRjkuYrUPFp5Bg13JvYK0=; b=dM3u2X4JFtWXF7rv
- MxD7iONV/6g1+O2+D9GH62cQBPHvbJszqQ/c/t2uE00YpIAhmqR/QCb4s91xx8Ya
- mJYNvf1V/UqLe/PeOMabk1/plkG9ybw7mXDWXyBzjfGTo+nf4B+PgTOjDZyvj6Vb
- Ug1eGTtrk1Z3uTclAcnepofloqRIpyRqcI5PY5Nclk3rYfsYvzTynvFCxnAmY2dA
- nL8ZiVBwibruBKR4q0YUVFKQr6VBZgMQr8VyQFBOLNymeAV01vmbeFOP+IZFEI3r
- 4Ag91Nhde/+nhBEF7FeKOcih6gfybr+D5v2NEZMdkH4xboBJbZb4ehO7s7WmvPBF
- eCuTtQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490by953f5-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=AshvdUVEa9FiNe5UYmEu3NEb
+ RFgCfkbR3d/lUj1X4cc=; b=M4C4B47DFelWfTtHXBl58OlfAnb9kgVzh2KD5MDP
+ u21jR0DMliki4JJ9sbq0tg/a+i93jCDeMlXDMvHLvtf7lP6zdaXEhxxR40DF68h+
+ rU/qxdJlK0+ZmRfhw4E6cF67By/Tr+FieX8DVNFtWhOFAWxwvGr5eR1s72BMLocK
+ /g2sryaJrEckcY4rJKMHckuG4bRdtmZmv+k7ig0la9HsVvpcCZ4RXA1kAkttl361
+ 6ckX43sYScEE63NUml41VV+UYRTAp8Z6clD8qHBQqabTgKjKw1MHHCSsIvDTZ3y4
+ RhcJ4PBDMquA6XnTAn+tQ4uLj2dtQHl0xxkg7UDOFdLxag==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490db8n4gr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 19:38:47 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4b60dd9634dso1907901cf.2
- for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 12:38:47 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 19:42:54 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4b6090aeaacso110772321cf.3
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Sep 2025 12:42:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757533127; x=1758137927;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KQu1oB27eIlAjTTYbUEVNBhRjkuYrUPFp5Bg13JvYK0=;
- b=npyA4eyrGT1Xx6zB7P16gE3UMkPzqz5/MGOLC0hqOrgI995eNp+4UgcuS1LBF9GD4A
- puJj5NyzWBD6V5z3RXJONsy+b5q3qfvB99myuiYS7WjZAxt/Ya0dJelsBLZZqMXFNEA1
- zeZtPieXvY8ujCdURqnDweeuN+YgGw1qYbYDgcpgVeO7Ms1LtQCtmBJxNppadXSB3TAT
- 7AuENSSzHdVM5gRxNm/x0EeBNw1eJOLvkcM30GJoMD5RFObSeoWWxEahiM0YekDm7ejp
- BgUwMIL6c+pBuxFaXTGkdcjQ2O4yTuKpE3Z7D3z5lEmLduoqpJHkwX4vjB3QhrR2v/dV
- 8k/A==
+ d=1e100.net; s=20230601; t=1757533374; x=1758138174;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AshvdUVEa9FiNe5UYmEu3NEbRFgCfkbR3d/lUj1X4cc=;
+ b=Q8yRkrnXDDH/nR5uPoFfosV1TA6cWXsBQlsAjWPyPCC9MVQgDsafdzXjWTDvLWbdqG
+ WX6UDT26Fpd/vNwa4/O08AbcNsswUb1o669IIEYes4KmeBsW8jy14Eg3vlbObEhNce+R
+ 4cUfUAZvxf29kPxB85FzC2ZduI34BZXdzHjj7kVMu45fiGPDtAp0KRWFEYdrjUvxUbtc
+ VOz3Yb6ZFCwKABSlU72K+y6mH56EwpoFXBdSRsAWKJ8p2HOIpxrTiwK4K2rR2a+HP9Y3
+ hs/8Y3w0eu93bpJwXBszy5ldAjmv4m9yOIaXrcsWyJqF2eozqOIJdvA02Q/xTJNX1vxK
+ SjbA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVLfLNo592x8IEMWY4WQQiL0xwLjzkBDtLA6Tn93l5LhsUcKPlE+FJuxs5cIY7qqTavW6XZvrQWCLI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz3qDCDM7vpBXSDSC85UCDcsqR+7N47aVK0lJ0gEzQYN0MJApH1
- RRt/gqckyF0iuIcsmhBP9p9hb9SVHxfV73WJgKSaueyOqEl98t8OMSJi1FsLtan8YnsMdg+PGbE
- ZZqJkNoSUJcVix1sEDC/e90AYJ8yclJsD+twlY9x16SMuPQh3dyCgWBWgaNcmwo39dVZBXgo=
-X-Gm-Gg: ASbGncsDnpujKG9SSiKWyEgRKxjyzqis/KmHwSpDOlCRLZEFV7awIDEgxS8wM1y/RUH
- u+rcpy4rSME0/AL8P3WsoAntvds2Rx9nW+hRbEk2yltrJ9hgsNqmi/jLDMrSn1XRV/S7YS0f8SW
- YLr2dJ7mjHnlKL2970wq6Hq7qRQbBIRolKrXNjMCOzqBR2nrRr4vS1+CoVVrKvvFPrZR56DopIc
- 5Mnkj3HwA2qor1Q4acQRBxJnei2h9SA5vZ/936xtSL6ParjvHKHqcE1Jq/k0QrwL/XpAadCEm7j
- LU9WuIiy4xdr+TgSD1kR62Nb3GEmkmQIBOB7/Yar5iun2IGV0j+jCsFnQ5P3XfhteeJBELbzGRJ
- ZVDBFtprHLRdFPTfnG/QimcYFcr8repXjL2pQdp3oKsTICb5ppVF9
-X-Received: by 2002:a05:622a:1115:b0:4b3:a2f6:d5e7 with SMTP id
- d75a77b69052e-4b5f846aecfmr191472361cf.60.1757533126886; 
- Wed, 10 Sep 2025 12:38:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHWpzldX+nVaSSGFt/xXRLMND2ntg53y340LE916xuyEMHMVjbyw6ovDoruvOslzFHp0wFBkQ==
-X-Received: by 2002:a05:622a:1115:b0:4b3:a2f6:d5e7 with SMTP id
- d75a77b69052e-4b5f846aecfmr191471741cf.60.1757533126191; 
- Wed, 10 Sep 2025 12:38:46 -0700 (PDT)
+ AJvYcCUCcsZ7BMGjfd8T6OCJYPnoBQ9SEmxZwqyFVT9r13Z+ds3er2brREnwTLED3iOH3H6bdPehtRfH1SA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwMMR2aKtTRAy0pNT4+qP165v0a7SeEnDYyeifMN2bdfuJfThpW
+ BkOwJMXMCr7bsvLNEUjHZHv66w24Okov68mLoZvncx0lnHKJDrq7/+8TMnpR9+BW7wCzDIwi2et
+ lZ0iWbBIrz1TLQHxGjpt53OlTVL5tB9v4CGe1tjbTcoX6bOk/7ZVeoU+GfdfgeTDUPQJLccc=
+X-Gm-Gg: ASbGncur9SXXqedrE7Yg4m77Mdc17OicOO2lla++kcN6NkfkYXsuglxpfZDXXimAJTi
+ yQSjaIYnufTfZl6u+5hVNGwqK1TVkvHDiJ9BzqLLAHz3/ezsOlqWnTI3ZaXOAlOtPImo37h6NyX
+ BDeSw9ZukneE+P5szVIrcG4lgZA+wRBP8/Oi+7k2T887SkuUYBsC60Pe9JBNWB3MyfQG1SkAnct
+ sHjJq3Ht+a5/g73LuqRWsL9dChwUObKb3KfZ0ZnMCRxXHYerbGYD4+CGzvxMMl4AxNmn+/RUPg8
+ mLkEn7prfYsyMPo8w4Mn+GdMNF1h5fOmN/N8JWInPQUZNC3nbuYaI/1ptZgsz5MUa8PrwUIgzV+
+ dAMdcNpsUmJu4hTcvf3MKb/HYHYx4Ss7+GN0ldfytRYI3EkiVc6Zy
+X-Received: by 2002:a05:622a:1904:b0:4b2:8ac4:ef85 with SMTP id
+ d75a77b69052e-4b5f84bdc04mr172828881cf.84.1757533373935; 
+ Wed, 10 Sep 2025 12:42:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE4LM5n6q3x7O/nMFCbv+KTdGAJSRvFARvfiNuJedE701eBLHhZVYWWeXkwyAfYeYOBgycy0w==
+X-Received: by 2002:a05:622a:1904:b0:4b2:8ac4:ef85 with SMTP id
+ d75a77b69052e-4b5f84bdc04mr172828411cf.84.1757533373376; 
+ Wed, 10 Sep 2025 12:42:53 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-56db89110c4sm53690e87.5.2025.09.10.12.38.44
+ 2adb3069b0e04-56dbfb5d10fsm49073e87.108.2025.09.10.12.42.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Sep 2025 12:38:45 -0700 (PDT)
-Date: Wed, 10 Sep 2025 22:38:43 +0300
+ Wed, 10 Sep 2025 12:42:52 -0700 (PDT)
+Date: Wed, 10 Sep 2025 22:42:50 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/5] drm/msm/registers: Remove license/etc from generated
- headers
-Message-ID: <sydyej7hrw6tryx5lnidqucx3bcw34dkinj5c2u6szbv2wgnuo@utrlq5q5pt6n>
-References: <20250908193021.605012-1-robin.clark@oss.qualcomm.com>
- <20250908193021.605012-2-robin.clark@oss.qualcomm.com>
- <o25axq4soxjluqnxjad2f3blhezuglsvex6k3aav5v65ynn7qd@5i3wm2lryr7q>
- <CACSVV02Zym2hC-fFcJsP4M9T4mYGXsMtGrmnux6Eva0C7PHdfA@mail.gmail.com>
+To: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
+ arun.r.murthy@intel.com, uma.shankar@intel.com, jani.nikula@intel.com,
+ harry.wentland@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, robin.clark@oss.qualcomm.com,
+ abhinav.kumar@linux.dev, tzimmermann@suse.de,
+ jessica.zhang@oss.qualcomm.com, sean@poorly.run,
+ marijn.suijten@somainline.org,
+ laurent.pinchart+renesas@ideasonboard.com, mcanal@igalia.com,
+ dave.stevenson@raspberrypi.com, tomi.valkeinen+renesas@ideasonboard.com,
+ kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com
+Subject: Re: [PATCH 1/7] drm: writeback: Refactor drm_writeback_connector
+ structure
+Message-ID: <curkiddhkz6k4rtbxxmmmm4oqyjzvda3xc2bc5c6dmq2c5qgkk@z6cwzap2hwgy>
+References: <20250909100649.1509696-1-suraj.kandpal@intel.com>
+ <20250909100649.1509696-2-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV02Zym2hC-fFcJsP4M9T4mYGXsMtGrmnux6Eva0C7PHdfA@mail.gmail.com>
-X-Authority-Analysis: v=2.4 cv=Yv8PR5YX c=1 sm=1 tr=0 ts=68c1d3c7 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=yJojWOMRYYMA:10 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=UhSop3MGIIBhUl3aXewA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: vgENcxHWsB6I1lEEG9-SXvhjufyC5lEU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAxOCBTYWx0ZWRfX3o79XuW0zO7P
- AG2uR2s/++vPI1Mq5yrNvfe63HlOB7sshtFjxSmpCJVMOZgJ/j+ErgVq+6fZ/ERg8oMrmOUGc07
- WOT3DHk4P5WD5B3/cjUDOPykflrBFaHlVnRRrTSlioAXuqRdrIbBvZRSUVGrfIOIRZr3pKUJGOq
- 7kKS0PjdgZOhtUjCNOPS3neXZFTUY14uyGieF6M7XQ3dmH7JgmF45Rqs7KQQ6YNVeUTwEdbMnlJ
- 7BQ+HRXGSM3uU5kpfrG5Rr1GOgeEuFTDjCtzk4lcQhZLq6PsOFylDxRexQMcYFxz59SV4ScnSoN
- OvxBTstKJ8mHHzbF45VxuDxS+H5Jb45Sn870NtVE5t1m1LoqClOm49L6iADN6pc3XmlkKnEs05T
- IQmwmi6z
-X-Proofpoint-ORIG-GUID: vgENcxHWsB6I1lEEG9-SXvhjufyC5lEU
+In-Reply-To: <20250909100649.1509696-2-suraj.kandpal@intel.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAzMSBTYWx0ZWRfX0pxK2EojWwXS
+ DNW5jb/xfC641g2kef5e4EVFsDMiYSVwcPFqM3RxXVAfH+f3/nM6SnFjS2E/vjKJtGBmRh8u64a
+ ATs9TPj2t31iZG3x9r40tQsAVg7DpQmBhQ5MsLS1WclOlsRc3LzH1Dgidavpve1yio/A/4RyI8s
+ sP5yfqc7cWG3OXhxbc0vl0s8TJxcuecHRp58ervm1P6YPV7qz7n9l0g1lzlQMTDEpg/u9Zue+ze
+ UqvCYuRGNwTU1UfVBM7uuKtWqNSS/7JGgAGbLtYQoZPQR6ubHD8SLudCcfu3iria9pVBULbghGR
+ CavJtk6Wvb0dFIQmuY4pOiq8Wo1/m2pOHH8VVcmjbMjXS1SIhUG2vKOtVMpCyiy6vP6KpM/HfFG
+ 31aIceRJ
+X-Proofpoint-ORIG-GUID: QmRoZW261qc8YoBcB9kgxkZV4xDPLr-V
+X-Proofpoint-GUID: QmRoZW261qc8YoBcB9kgxkZV4xDPLr-V
+X-Authority-Analysis: v=2.4 cv=VIDdn8PX c=1 sm=1 tr=0 ts=68c1d4be cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=QyXUC8HyAAAA:8 a=ht3OSqXAj6RBLq6GiRYA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-10_04,2025-09-10_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 suspectscore=0 phishscore=0 clxscore=1015
- spamscore=0 priorityscore=1501 impostorscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0
+ phishscore=0 adultscore=0 clxscore=1015 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060018
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060031
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,133 +137,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 09, 2025 at 10:25:52AM -0700, Rob Clark wrote:
-> On Tue, Sep 9, 2025 at 8:01 AM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >
-> > On Mon, Sep 08, 2025 at 12:30:04PM -0700, Rob Clark wrote:
-> > > Since these generated files are no longer checked in, either in mesa or
-> > > in the linux kernel, simplify things by dropping the verbose generated
-> > > comment.
-> > >
-> > > These were semi-nerf'd on the kernel side, in the name of build
-> > > reproducibility, by commit ba64c6737f86 ("drivers: gpu: drm: msm:
-> > > registers: improve reproducibility"), but in a way that was semi-
-> > > kernel specific.  We can just reduce the divergence between kernel
-> > > and mesa by just dropping all of this.
-> > >
-> > > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> > > ---
-> > >  drivers/gpu/drm/msm/registers/gen_header.py | 37 +--------------------
-> > >  1 file changed, 1 insertion(+), 36 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
-> > > index a409404627c7..56273a810c1d 100644
-> > > --- a/drivers/gpu/drm/msm/registers/gen_header.py
-> > > +++ b/drivers/gpu/drm/msm/registers/gen_header.py
-> > > @@ -444,9 +444,6 @@ class Parser(object):
-> > >               self.variants = set()
-> > >               self.file = []
-> > >               self.xml_files = []
-> > > -             self.copyright_year = None
-> > > -             self.authors = []
-> > > -             self.license = None
-> > >
-> > >       def error(self, message):
-> > >               parser, filename = self.stack[-1]
-> > > @@ -686,10 +683,6 @@ class Parser(object):
-> > >                       self.parse_field(attrs["name"], attrs)
-> > >               elif name == "database":
-> > >                       self.do_validate(attrs["xsi:schemaLocation"])
-> > > -             elif name == "copyright":
-> > > -                     self.copyright_year = attrs["year"]
-> > > -             elif name == "author":
-> > > -                     self.authors.append(attrs["name"] + " <" + attrs["email"] + "> " + attrs["name"])
-> > >
-> > >       def end_element(self, name):
-> > >               if name == "domain":
-> > > @@ -706,8 +699,6 @@ class Parser(object):
-> > >                       self.current_array = self.current_array.parent
-> > >               elif name == "enum":
-> > >                       self.current_enum = None
-> > > -             elif name == "license":
-> > > -                     self.license = self.cdata
-> > >
-> > >       def character_data(self, data):
-> > >               self.cdata += data
-> > > @@ -868,33 +859,7 @@ def dump_c(args, guard, func):
-> > >
-> > >       print("#ifndef %s\n#define %s\n" % (guard, guard))
-> > >
-> > > -     print("""/* Autogenerated file, DO NOT EDIT manually!
-> > > -
-> > > -This file was generated by the rules-ng-ng gen_header.py tool in this git repository:
-> > > -http://gitlab.freedesktop.org/mesa/mesa/
-> > > -git clone https://gitlab.freedesktop.org/mesa/mesa.git
-> > > -
-> > > -The rules-ng-ng source files this header was generated from are:
-> > > -""")
-> > > -     maxlen = 0
-> > > -     for filepath in p.xml_files:
-> > > -             new_filepath = re.sub("^.+drivers","drivers",filepath)
-> > > -             maxlen = max(maxlen, len(new_filepath))
-> > > -     for filepath in p.xml_files:
-> > > -             pad = " " * (maxlen - len(new_filepath))
-> > > -             filesize = str(os.path.getsize(filepath))
-> > > -             filesize = " " * (7 - len(filesize)) + filesize
-> > > -             filetime = time.ctime(os.path.getmtime(filepath))
-> > > -             print("- " + new_filepath + pad + " (" + filesize + " bytes, from <stripped>)")
-> > > -     if p.copyright_year:
-> > > -             current_year = str(datetime.date.today().year)
-> > > -             print()
-> > > -             print("Copyright (C) %s-%s by the following authors:" % (p.copyright_year, current_year))
-> > > -             for author in p.authors:
-> > > -                     print("- " + author)
-> > > -     if p.license:
-> > > -             print(p.license)
-> >
-> > IANAL, but I as the generated files contain C/C++ functions, I think we
-> > need to have a corresponding licence in the file.
-> 
-> I can't find anything that indicates a difference depending on the
-> contents of the generated file (ie. whether it be
-> functions/tables/prototypes/etc).  And AFAICT it is implicit that the
-> license of the generated file is inherited from the input to the
-> generator.
-> 
-> Some other points:
-> - the various *.mod.c files generated for each kernel module do not
-> contain a license
-> - various files generated by asn1_compiler do not contain a license
-> - other generated .c/.h files are a mixed bag, some contain a license
-> header and some do not
-> 
-> (In all of the cases the generated files should not be distributed,
-> IMHO.  Yocto should fix this.)
+On Tue, Sep 09, 2025 at 03:36:43PM +0530, Suraj Kandpal wrote:
+> Some drivers cannot work with the current design where the connector
+> is embedded within the drm_writeback_connector such as Intel and
+> some drivers that can get it working end up adding a lot of checks
+> all around the code to check if it's a writeback conenctor or not,
+> this is due to the limitation of inheritance in C.
+> To solve this we move the drm_writeback_connector within the
 
-It's a bit funny. Normally you use something like linux-headers-foo,
-which contains just include/*, arch/foo/include/ and some other files.
-Yocto has adopted a way of building the modules against a full-kernel
-source & binaries dirs. As such, those two directories are parts of the
-cache aka 'shared state', which gets shared, etc.
+Please take a look at Documentation/process/submitting-patches.rst:
+s/we //g, etc.
 
+> drm_connector and remove the drm_connector base which was in
+> drm_writeback_connector. We also make this drm_writeback_connector
+> a union with hdmi connector to save memory and since a connector can
+> never be both writeback and hdmi it should serve us well.
+> We do all other requireda modifications that come with these changes
+> along with addition of new function which returns the drm_connector
+> when drm_writeback_connector is present.
+> We also modify drivers using the drm_writeback_connector to
+> allow them to use this connector without breaking them.
+> The drivers modified here are amd, komeda, mali, vc4, vkms,
+> rcar_du, msm
 > 
-> BR,
-> -R
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  8 +--
+>  .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  6 +-
+>  .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+>  .../arm/display/komeda/komeda_wb_connector.c  |  8 +--
+>  drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+>  drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+>  drivers/gpu/drm/arm/malidp_hw.c               |  6 +-
+>  drivers/gpu/drm/arm/malidp_mw.c               |  8 +--
+>  drivers/gpu/drm/drm_writeback.c               | 33 ++++++---
+>  .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  3 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 16 +++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
+>  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  4 +-
+>  .../drm/renesas/rcar-du/rcar_du_writeback.c   | 19 ++---
+>  drivers/gpu/drm/vc4/vc4_txp.c                 | 14 ++--
+>  drivers/gpu/drm/vkms/vkms_composer.c          |  2 +-
+>  drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
+>  drivers/gpu/drm/vkms/vkms_writeback.c         | 13 ++--
+>  include/drm/drm_connector.h                   | 70 +++++++++++++++++--
+>  include/drm/drm_writeback.h                   | 68 ++----------------
+>  22 files changed, 163 insertions(+), 137 deletions(-)
 > 
-> >
-> > > -     print("*/")
-> > > +     print("/* Autogenerated file, DO NOT EDIT manually! */")
-> > >
-> > >       print()
-> > >       print("#ifdef __KERNEL__")
-> > > --
-> > > 2.51.0
-> > >
-> >
-> > --
-> > With best wishes
-> > Dmitry
+> @@ -2305,6 +2366,7 @@ struct drm_connector {
+>  	 * @cec: CEC-related data.
+>  	 */
+>  	struct drm_connector_cec cec;
+> +
+
+Probably a refactoring leftover.
+
+>  };
+>  
+>  #define obj_to_connector(x) container_of(x, struct drm_connector, base)
 
 -- 
 With best wishes
