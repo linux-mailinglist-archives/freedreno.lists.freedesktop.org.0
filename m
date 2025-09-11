@@ -2,72 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8BEBB5321D
-	for <lists+freedreno@lfdr.de>; Thu, 11 Sep 2025 14:29:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1F12B5321E
+	for <lists+freedreno@lfdr.de>; Thu, 11 Sep 2025 14:29:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B62E10EB00;
-	Thu, 11 Sep 2025 12:29:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88D8210EB02;
+	Thu, 11 Sep 2025 12:29:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iUbmW90t";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZizvmaTk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A67E10EAFF
- for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 12:29:22 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-45de60d39b7so5105405e9.0
- for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 05:29:22 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A9E710EB02
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 12:29:24 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-3d3ff4a4d6fso540811f8f.0
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 05:29:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1757593760; x=1758198560; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1757593763; x=1758198563; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=/qapoM1NTgjIA32q9aq+b/rv3iqgu/0hG4CK+nrUoPk=;
- b=iUbmW90tfeQUuqRCjtECxWlKOa1QT6F2b96zGwpzO3QM4VtKsGQE6KS5jQB9MMBUUG
- 39wuEphqvclI2dJ9Fy8WYKXASIFkvYJ1gB1Rg+cs9QxXIbWOMSJu3Z3s9iB1U6kO40aT
- pLk7qarqz1wyDZ5EUEBfwxqti49amD5kem0cp9UIwbzvEn4KKIABIei8LxvME3sT9wwa
- CpPUMF5YmpX+Wy2My40eP0CPG9sZN6TOy/37WrYxZ8xarH90AsKjpZSvQGiVmTcR6s3T
- qODX8ARMUbFejjTSYmi+w2TD/7V3D9xdivVtSNby3RpG8Z+Q3kX8d0iheK6ZpR8e6a7v
- W5VA==
+ :reply-to; bh=FYKFAdjOYASo/WjabAdPI3Sw4noi+10vn2fGFK6NGHo=;
+ b=ZizvmaTkIalNPv5NJ6wHNRCC58bGZNwvwwqQEl5Q+kHOXKNZoivf8HHIl7sCK6ojU6
+ wRCksXNehhe/eew5qSEGWHJK8oaGy+pi7/Er+knb/hSZ9GmeAR5T14JacVfHwQW5YKSt
+ 3OcajMKz+MPKBixaQRzFYS8HPUm0YEe1CS2ERxA1yJabcLGg7tEz21XFhbkHp67Pmp8Q
+ 3E0KbolRula7EcYGf1Uxi9B/qp1j6HB2RkFxrE+gqbEoM5Z2W6W8TQ5PEgrXSinrQIAu
+ qyGycD4ziJYFO/V/EcSoZAAeJCg88bqyuOAe4zZ/4CV6fyOQ17ua1T+GeJkR49kYptVy
+ M6cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757593760; x=1758198560;
+ d=1e100.net; s=20230601; t=1757593763; x=1758198563;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/qapoM1NTgjIA32q9aq+b/rv3iqgu/0hG4CK+nrUoPk=;
- b=kf81FT2T3ImoTDnuV14uoEvUOIZKh9ONO1wbt/nehULegBbUTvvx6Rm2v5uAkcTubo
- 9l6zfTaJxxIiXH1qUusBLRW0H0RzQezHd8WcFfsmAVBvjVSSrBEUp/l3KHLSoDWglGTQ
- d2urbw2ezB/s4xLLJgfbdwqmzTx6NkJs2oXiZVH/YpVcNv+QbOxN3fo0esHtW8SyfSNC
- qxUNnLW72yN0ZJsQaqGFVvfl+9l6zy6UeCfHBgxH/dWSXaTybl+Q4iWbXcDnYDIDePwk
- kx3l0veGGBMNtHV3QYfyBatQvg+HG/uqZv/offckw7yDiB/XnQ7zQ3BTGpTzXofQ7vz7
- +K4g==
+ bh=FYKFAdjOYASo/WjabAdPI3Sw4noi+10vn2fGFK6NGHo=;
+ b=wyjFyqAVE2aew3lhL3AzvVTZ//zsFcxobdxdjT1GzOs1yVPtBMRtjTmnFb7To6ajQp
+ 7e6YkU0tP1Uf2oX3jgjM+3WMghShYLK5fkPjnXKHpM5BRYJ28PMHVA00cPT/4+FQcj5/
+ yrrX5sCBAK3wJuXU+0g5lBy0njZ0QfhTZ7ERioiwK72VmH8z0qo1iV9hnzkV3MNpuVM2
+ Yptp6venHfGeL1IV3ftXCkgGifIZoJIJus2x8wFRUyiaUfF3cVJe/01oF1o4TJSwDvUC
+ G/zRfWRwo2nft3oDdI83Xeu6mQ/xHgzD7xBoz6ox22PAdkQpJ+3xWIxTPO8wHXgf6J+2
+ FOjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXPw5WT/dhs3FQDEO7wIlQqPLTxJ8HplFtXWMQ/OKNYvONHTDv3yMitbZdoIICifJbHrgqJQBkeVkU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQ5pcsc4nSBbYIz4eWz9Hz7OLS8oPIJHrSoZyb68kLuhpp1LRG
- TSz2La55eSQppprbGOFPRBEQCXS5RLeI5p14vSPRLYDOYRua8H71ojrEWtTyRexbylE=
-X-Gm-Gg: ASbGncs8eN8UBKGum4+e5wZuyfkkr+g7Cmpc19luq/cKyxVej9U5GummzAKRkYjlwC8
- qMunbyZbkXIYg6boV+z1k/Z4siiqPbRolz14RVeisa+fB5/D2qBo2rJGbSsGPENE8XcAgMAWWf3
- LLifmaxA/t81jjc9AKw77NFEvk4410Breq1Qwz8pDfQo4F+Rk5wKjgO4SioqZtMopgQFxTzwwWJ
- fycL9U6pgpN0EE4CmxDFzoSWzv+3mwl373mYAGSkET4uRdWyWJsPCTBMtpYMA8xZZQFIgWG68yy
- EoiUeqch5Uq070PgTDKpaWOhzi9beo0Cu2flcuGAbPxkqPhDeoQ8OhqSeLTj0oO5bXJ3GiZXFI3
- IU/RJrGBh5+ADmV24jA+a8AUGhNHWdvifvA==
-X-Google-Smtp-Source: AGHT+IHX4pfnUjM848MfniCu3WyeScBitJ5E/cygTtxz9LQ8TaGkNJ5wnB/S5GwIefVqEvsl0R9Knw==
-X-Received: by 2002:a05:600c:45cd:b0:45c:8e6d:a45f with SMTP id
- 5b1f17b1804b1-45ddde868a2mr175690925e9.5.1757593760523; 
- Thu, 11 Sep 2025 05:29:20 -0700 (PDT)
+ AJvYcCXNtdA5Ogi3G3DfQCWLw3iEgi72dyS1zDavVXkDtoqKK/Dk36gWl3RNTQjxb6fSclBsRrfsBjxwZ3Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzyNvSjlrLmiR5KAYyTFK5GDbnXo4gbZ9SMoLCDWCBWdxx3Zgvt
+ XVaJMeUscFemTkr8eAalWRmE2cTfjwb78Z1bNkTUahWzkNQOpt8yQSFJalpxtZWPJn0=
+X-Gm-Gg: ASbGncvGjzwofXMprCnPQ1Mp1/hTwlVnW7p2WaNY1ZuWtcxGlSf6FnT26Y1oMoJDY3j
+ MwqzWeZSU/eBsXqT7F4pQmUMcS4AJND//512F0QT56fppUWZMRuNqlfhOnul0bnsTDYdApuDnVV
+ n5LM/h1oyHNLhr1EMG2dh3HbDMNtjLB8mx9qW4iGEs2ymXT8xVRsjF5qytQuMs/88X9jkmHTfXv
+ HZanY5KiKMrnIGF/gYeQDGWJYsVH95xo5hlCQumrEY1dlxxQeDQKNslUqLyx4sY39GmsPt1KMbL
+ eIvf7nz1o3eMJuIz9Z74ajXJXk9XeFU1SA4ZTh7Xnj6wszcgZ/YZUztHu1zHc/G3KMYtTLabKTJ
+ sGSOiC0FsOfSe8UKWAej2AwSuKr9f32vNkQ==
+X-Google-Smtp-Source: AGHT+IE4wZnmN0HF5vilM8y4TE0lu9yYsqD43OkvBy4fyb1qhM9Qox4fLexabkHws0JYYvrRpH+fmg==
+X-Received: by 2002:a05:6000:3103:b0:3dc:2912:15c0 with SMTP id
+ ffacd0b85a97d-3e636d8f8e9mr16633511f8f.1.1757593762609; 
+ Thu, 11 Sep 2025 05:29:22 -0700 (PDT)
 Received: from hackbox.lan ([86.121.170.194]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3e7607cd424sm2230444f8f.36.2025.09.11.05.29.18
+ ffacd0b85a97d-3e7607cd424sm2230444f8f.36.2025.09.11.05.29.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Sep 2025 05:29:19 -0700 (PDT)
+ Thu, 11 Sep 2025 05:29:21 -0700 (PDT)
 From: Abel Vesa <abel.vesa@linaro.org>
-Date: Thu, 11 Sep 2025 15:28:50 +0300
-Subject: [PATCH 3/6] dt-bindings: display: msm: Document the Glymur
- DiplayPort controller
+Date: Thu, 11 Sep 2025 15:28:51 +0300
+Subject: [PATCH 4/6] drm/msm/mdss: Add Glymur device configuration
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250911-glymur-display-v1-3-d391a343292e@linaro.org>
+Message-Id: <20250911-glymur-display-v1-4-d391a343292e@linaro.org>
 References: <20250911-glymur-display-v1-0-d391a343292e@linaro.org>
 In-Reply-To: <20250911-glymur-display-v1-0-d391a343292e@linaro.org>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -86,21 +85,20 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>
 X-Mailer: b4 0.15-dev-dedf8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1459; i=abel.vesa@linaro.org; 
- h=from:subject:message-id;
- bh=XM0DxWjTAJ/QMdmpyiPJ2nNd+sYznSXNCG3HlohsAXw=; 
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBowsCSN6o0sLnMqNPtT5EEjzg1K5qvo4uAFpJwl
- PtMKaRuoVyJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaMLAkgAKCRAbX0TJAJUV
- ViArD/9NsVtmYH33UcA/4V7iCbCs+ZsbfDbtZTAgOkpKyxqbMP9xeZUPpW+b1Iy0mb28FwWvkWu
- jNT33guP64nucvFlvRk02l+4l2w5H/t6lwtBquxf5v6bjaO7RY2aaaDV7wi7QzQSwC8lxrz/YkU
- Ctpsl62WzkFHPScRbvvhcIdqk9UdEu+jsqrZ0b45UbLhhrZBY62aGwjoh34AXcJIQ4KHDmtiQrn
- uhcewa7QX67tKwrOnuxH3mb71Xna/1kWu/VkvrQ66LwsO3KTd2l01TfP8XHBQ+LkIz1FIjpKSnO
- h5JjQ9PG+GBbZRSdE2ocpDSB9UXbd1/HTbgVMXvtZ0sUVeUA28MMMBMzIBH28i4xD0tfw6V+Ey3
- yH60P1rGq0U1dibXl8kZNw0bgpGS+13lZg+IzTdrPj7lgrZKbZlMUKr8qUi4DOsBGfVSAfdir9f
- KB7xCbP8E7C8mVDLnmHzAhpg6SXzJi/9G7+LNzOZ1ayXoE1gOrFyumVZfO8QW0eSNLA8zPx0o+I
- ihEmIRLcF92GKC65dw1r10UhSzdbE9dCE4G9fHZy6GlwPUKSvGS/I5r5tySVkaV9YNswrWsMeZD
- 5WIBhxVpwEfL2CmTVDjL23nXkmL9MJjfCtIbcCAo/ohBhEBHO01CZA2mjUDedQtn7pGJ2ubsGRo
- 8zqly6wLXAHSRgw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=894; i=abel.vesa@linaro.org;
+ h=from:subject:message-id; bh=VIaFKqE75CM+elK2XI4KYXHHvaxVuznQBropijUaKvI=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBowsCUdGmh3ForSq9QMyjokksSbUSHlc5VCaSEp
+ Z/TmI90GCWJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaMLAlAAKCRAbX0TJAJUV
+ VqhRD/98jWD57j5rtDVLUAmyM7r+QH6yH7G4HtwgYCTfk4b9yqkUtRFB99WCwwyLcSIPW+5vWT3
+ G/7lYSdK+6ZkOnVdQYfuzZqmVIgMU0nr8gB3LTHyUAsI3ssZP+0mLTJQxH/5OtiDbOoldMPDDri
+ WmGQGY8ChrT+z9LFFdHnG3WytJE1RqkKTChVym0dUCmulLNjeiEOZZa5hXZs0vDeXVq0e/+ZxpN
+ 18XQXNojihi+l6o6Vom8r5GERiFnptA4aMMs1ksRJmewxwr5zDh3lrzdPsKTI4S5sKNoKCOFa44
+ SBrHee4vRiqfhVXgmTNTQDOQl8UapqVlEjozHl8rA6nNspaFJeHT9cM6ZpQstSnQUnBMVW5LVUU
+ VHFEM2KTUnG/gvgxjBfQbrTtgyu8VGrB9IVGfZxysai6mdioklApSIRaS1MMYKYMFHNUBDDu/Nv
+ ZtgzjHw6HOAbuZtsEhqdJfvAzF1NLJaWLQrXAfTJt1W9QyjGBz/7+CYp9WgbkrRKANOQwL/rvAG
+ vEzYT/JwTeusAn/XRifhUPHf2oxMCvGzfqITVgG1au/FJiUqutUn8XKtwNEdb3ATi3i0n+ehPta
+ 91zyKEzsYhb+dsLm8+d5w4Q8ZLhA6RZ1tnuiFrLH8X1+6xggAaWK9fIGS76n7A2bsKxZTB/tS2Q
+ F+cXo1n16s7mPxg==
 X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
  fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -118,43 +116,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Document the DisplayPort controller found in the Qualcomm Glymur SoC.
-There are 4 controllers and their base addresses and layouts differ,
-therefore being incompatible with all previous platforms.
+Add Mobile Display Subsystem (MDSS) support for the Glymur platform.
 
 Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
 ---
- Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/msm_mdss.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index aeb4e4f36044a0ff1e78ad47b867e232b21df509..26f5043748c166aa44be4e62445a63106edf9578 100644
---- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -18,6 +18,7 @@ properties:
-   compatible:
-     oneOf:
-       - enum:
-+          - qcom,glymur-dp
-           - qcom,sa8775p-dp
-           - qcom,sc7180-dp
-           - qcom,sc7280-dp
-@@ -195,6 +196,7 @@ allOf:
-           compatible:
-             contains:
-               enum:
-+                - qcom,glymur-dp
-                 - qcom,sa8775p-dp
-                 - qcom,x1e80100-dp
-       then:
-@@ -239,6 +241,7 @@ allOf:
-             enum:
-               # these platforms support 2 streams MST on some interfaces,
-               # others are SST only
-+              - qcom,glymur-dp
-               - qcom,sc8280xp-dp
-               - qcom,x1e80100-dp
-     then:
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index 2d0e3e784c044db8ac0c478446d211a982cf0350..60bd6af83a8846f2ad751ea625a20e419c80638b 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -553,6 +553,7 @@ static const struct msm_mdss_data data_153k6 = {
+ 
+ static const struct of_device_id mdss_dt_match[] = {
+ 	{ .compatible = "qcom,mdss", .data = &data_153k6 },
++	{ .compatible = "qcom,glymur-mdss", .data = &data_57k },
+ 	{ .compatible = "qcom,msm8998-mdss", .data = &data_76k8 },
+ 	{ .compatible = "qcom,qcm2290-mdss", .data = &data_76k8 },
+ 	{ .compatible = "qcom,sa8775p-mdss", .data = &data_74k },
 
 -- 
 2.45.2
