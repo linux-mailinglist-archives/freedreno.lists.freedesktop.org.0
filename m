@@ -2,106 +2,125 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C44B53224
-	for <lists+freedreno@lfdr.de>; Thu, 11 Sep 2025 14:29:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAED8B532E0
+	for <lists+freedreno@lfdr.de>; Thu, 11 Sep 2025 14:57:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD65A10EB07;
-	Thu, 11 Sep 2025 12:29:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8541210EB20;
+	Thu, 11 Sep 2025 12:57:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KOZ3b7X8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LOFpioyS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F41410EB07
- for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 12:29:28 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-3e249a4d605so727884f8f.3
- for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 05:29:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1757593767; x=1758198567; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=rK5gauka6WJHEkf+0ee8itGvW8sd0sVeeoCYGXwGtNQ=;
- b=KOZ3b7X84iUE8FT+DNNIJc7Ws4gwK+tqE3JFIa8ipberRx7PrT3nEtrRDJMtfWgS9J
- LK0KD6xx0sulQExHmgfTwMlK2Vc2DcOREFQTxDKGaxE/56M0wfnXbO5nyV+0c0ppmTcm
- HJGEyH498tQcfNvRO9ZEg+xk/Sxd8lkhKt/mL/fxdDvCGz5U52Sz9pdXvSlO0dO4qA76
- mVBIMT28IdikZyLlbdeNAniWo8ES062Pz9VKKMdUYg22k1gQy+Kfzi9LhcjyPjtQqh3f
- k3nkFLIeUAJm2EmWsht16Ni2nVTJrhb4fG77a/yRMKRKBICQHcM3WXJhMrPoRDkDgF5+
- Hq6A==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DADC110EB23
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 12:57:28 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58BATICL007257
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 12:57:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=5F4kfREjeTfa3WqC2b/52lNM
+ yv9yD3hosyjF57uJTA8=; b=LOFpioyS9HMKxtSXT1eBG8itb3soeCkkvdviL5y7
+ r7k7dvSbrqFumJfMv129e9MLbytCrCNOlkgq/BzGfpKPyQYRXDQfYYsnyhfQ2LzC
+ jiFiHMPazPyXNf87ca9RgMd5JlYmblWTs0lIbK7JtevSbJR8Z7XTwpnQI/jZSucv
+ CYzI3gpj3CMVywF4txmp9Bo/ZzjqOhO0AhvGbgf83fcSaBLBnI9I1/YT+Up6Y6TP
+ PUEG+Lwb/UC6OjzgHy5B4W/pWH4zOSEY4GVR+Gf4t6NDeAcWBOT4ED8XhNLc1Sc3
+ il3+Agv3M2bXsMT71eo23InBbrzEKBBlyLkAKgWpuSOylQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490e8afpay-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 12:57:28 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4b5f31ef7dfso33081611cf.1
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Sep 2025 05:57:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757593767; x=1758198567;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rK5gauka6WJHEkf+0ee8itGvW8sd0sVeeoCYGXwGtNQ=;
- b=R7SvzY/YyKpi8kY/vw9d/x95F0/1R5LuNxG2PeJdmjuqaem1HpWNzYOIfxze15LPRu
- mx5JMc4HtVstqbxMXezECL8vD1EJlDAdWl/8jbAG+hezhO+OydQ8li08i0f9fPHwFV2x
- oXHG6cuUU3D8mm8ArcuQlwKZyCaJUMvjBZGfd9z4yth8e7oLE7JDIQdtMla8TC4AC+Vr
- 7Fdv3seLBi+FlsD5d1Dcm4d8DMM5KkGWviUqVAjO2oR6AX4nCfFxSPWN55IlJqhkgbPF
- 4ovzgd9wjX1swWmuBmS+H29KrShhy+A9PJA/HDJd9/VT8SDP+LpoyPpLWv/Ld12iSPm0
- RVQQ==
+ d=1e100.net; s=20230601; t=1757595447; x=1758200247;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5F4kfREjeTfa3WqC2b/52lNMyv9yD3hosyjF57uJTA8=;
+ b=CbhWB685+X2+B94LQilZC8m3jUjSiUyOT3Ml1EfF/ufVey7c+a6kaapOWquZh03aY0
+ PynG4jqCkge9Ufdmt2XL4AfOhH0PsVeCyBng7DVjkn9rJV7XcCLkgT92/U94p2kqj1DT
+ 2LyXL1NMwmi64SlMyeJwVvmYi8SfGyjJexNr18BiY9U6vj7Izuw8sv4U9X87GMfdLT3/
+ df+HrugT07bhPswmnBwA1rO1+Fmx1f09Ji1mGUrlEdXJNpKTin7O8Ts5MIm301hvQ4Qc
+ xc9UFbIGj/fHYWux5gdf2daIPpUVJYOkCx5qqmAQS/SmugMAlvgSnvU7XGOHqX0b0iYU
+ IcsA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVgG0rqRseMLDIv/PstX3NSbY5xDoZfTd7Ahylef49DXdr6pfn9qnCyE0UpZpAjcGS9z2j62U9G3Fs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCX/7E54vHHwOwIB5ofMvtilHF0tUOw6zhk6Zm2LlqLNUF6J1t
- UmBMPc8pBO2PR+OPzCJMwh0XLJQPZUCUIRCdqtqpCZo3NnNjAvyDebyPAwBtBiOK3l8=
-X-Gm-Gg: ASbGnct/P74tAn27RkKeKNL3eDFiKZZ6gDMIyszU3eehVhD+aydZokJQlPctXfFBg89
- 2QxPI3DhDyWiXy0vi3knMTyWSf2+HKE6a1qsHr1vaIt9LWZvK4uURoczDinlGK0WPqcNMtG7cfE
- UgsIb3s+5seRZ1MJz36X6b173LNji6pcwSeeGTiERwSSDT7+OMQDZ6020YhK0mQYQiZBZXD8U3q
- RTbUZCpV2TwVQqw8MQZw4yNN3/XmwbM9S9exg5WsLmGk2keM/OtEsOc7N8el7N6HAOJ7zW9WUmf
- lsnUniPkae/AYtsF5Go/+lA0mocOGLC1V0QMIm6SUIZbjXFIcOzBQBhz0t3O8DKFpJEZen/aUs0
- k1HiGpy/Lul0vdv1v0hzUv1wzk6IO2WvZ4w==
-X-Google-Smtp-Source: AGHT+IE1cC/g8IOGUUpBkwH6C0EwoEtNLSlV22sbFAF6cIH/wjd9irgm7/iYj5aVuHtsstJb9iHmsw==
-X-Received: by 2002:a05:6000:2c0f:b0:3cf:3f1:acc3 with SMTP id
- ffacd0b85a97d-3e64d03a044mr16590630f8f.60.1757593766805; 
- Thu, 11 Sep 2025 05:29:26 -0700 (PDT)
-Received: from hackbox.lan ([86.121.170.194]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3e7607cd424sm2230444f8f.36.2025.09.11.05.29.24
+ AJvYcCX/clCKkP2Zp90TzIiSZFKtMilw06dT27AlOiLiUNYJyyh206viSsD4hrDvkMv66Bp1Ly/uWAciFUE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/uKQujxVsZtKeH2+5tHF9lotWTbfExuTTy44JPnPIKvLBlEj2
+ dENARHHDGwHdBCGNcugfZSG8XcwiKe28AsbpAPOjyHBBdpVyapS8BPbbpd4blfUwWop9g/odVau
+ SaLoKsa9IPPugeHOe2sSvwkmuvCgpyG0P24BRZPZ0M4/Xz9p/2GzpV7NPqp6pxizcadxzwGo=
+X-Gm-Gg: ASbGncsYD6IVFi4165rhJ2rJtL6tDHCqxU+sxvvEe5Xld4zpYzHY4tz0J1DsrylmpHi
+ 8ZhejSiBmjhQJv/jKbuh87Cb6mkzVUHzXSalpcUHjRW3vH3UOR/X7BHGYSb1DKbg26SSaSr9+vK
+ 5+j79sFTbwK689kI0SqTXlOVj2jte3Z77teYSFFLhp5l444PHYO0ncXgBj1IPgS9o99r99p+eYG
+ jBZ3SreI0GNwfhd+poIMAxv3kByPDaCWCAwJ2ybzEnLVmLSVJL8f8nXkLmItuLqrfYpqELP5s9k
+ iXY9pvW6JsQL3n3WD8nTkmnzECjLS23sVwaU5aAC+VEJyICqWUaWicU7xM8D0Dh9sFVpDrl3muf
+ AFH0fyIAqa/w9oM8RE1ej6wpsSUGuNRyTrsQFfTfubO+KF8kUXTbF
+X-Received: by 2002:a05:622a:130d:b0:4b5:6f48:e55a with SMTP id
+ d75a77b69052e-4b6346f39e1mr42311761cf.12.1757595446929; 
+ Thu, 11 Sep 2025 05:57:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEmfeR7fqbYQsz/Cx0vhB0h7BtieRzZWfwREik41OqRawcDy0H0xPFZm8LueVdNLZmIIf7boA==
+X-Received: by 2002:a05:622a:130d:b0:4b5:6f48:e55a with SMTP id
+ d75a77b69052e-4b6346f39e1mr42311341cf.12.1757595446424; 
+ Thu, 11 Sep 2025 05:57:26 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-56e5c3b5fadsm422254e87.6.2025.09.11.05.57.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Sep 2025 05:29:26 -0700 (PDT)
-From: Abel Vesa <abel.vesa@linaro.org>
-Date: Thu, 11 Sep 2025 15:28:53 +0300
-Subject: [PATCH 6/6] drm/msm/dp: Add support for Glymur
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250911-glymur-display-v1-6-d391a343292e@linaro.org>
+ Thu, 11 Sep 2025 05:57:25 -0700 (PDT)
+Date: Thu, 11 Sep 2025 15:57:23 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Abel Vesa <abel.vesa@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/6] drm/msm/dpu: Add support for Glymur
+Message-ID: <d7his4r3txgmpgptl6ohnjzslm5s3wquxxsi67gli4wcyszlsd@klru2kjlk6i4>
 References: <20250911-glymur-display-v1-0-d391a343292e@linaro.org>
-In-Reply-To: <20250911-glymur-display-v1-0-d391a343292e@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>
-X-Mailer: b4 0.15-dev-dedf8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1743; i=abel.vesa@linaro.org; 
- h=from:subject:message-id;
- bh=yTtr23lhqbScJlmUZX3cbsRwsRc0pG1apQVh15j5H+4=; 
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBowsCXXllfZnncjUx401LCYZHaYbpDX3c6m2/21
- U0nyQGiUlSJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaMLAlwAKCRAbX0TJAJUV
- Vm9kEACp8OBToeqBuXF1mK1YJ1FPkcHUkIU+HxqB9KpAvinTrIYTMv5IZa/QZCD3k68DovOSoMC
- 208JSw/Y4yFqgt6VaoEe036pfLuNh0xDjutfo1XNXGW5favOIO2TIZemDdvn+SNzwfPwP8qiLw4
- xby9+umqV7Ndxk/+7THWqvfSow6FWT9AQ2roJ5QPT9Z74UmRsonZgL3t8wNdTzxWWW/x6gOY4B+
- TI2YjWXpr8TxIiB/Z74+p7A9iCFD505EUbLCo/gCx8U0P7X6SVwOXJCdvzCz+wGZo2koxXnvXbO
- 22TTZZBoG+p4KQKFeYRreXlvu/JozLoIQ70S7mR3FyX/09SXinLfV/nXmP2Zrs2R1gxgDfM6Gkd
- KOC4dctiBsQPXYXGGNQvDhM06Y7nYBkNZXnADL/snmfWRBMpDnu+cDqfVeAW2PBMsldotiVGgu8
- 5YGfGeAvCKPHB93n3lyYmvoYlTITv2CN8RtUDhkYDx8krwVy4HONBjoBKFH3qjn2ShFLKD14w40
- 0FqpHbzkJvvlFN4VQt7kZr0Rx6Et+/NbYJxxYgxQLG4ifQzj4Tfp+IzbtKtyo2GWrvSsJHMOtSO
- OkfpAV742Cbv1ukc5QbbGXowNlgIDi+FuZuRJFmoxyjqkHXf2v1dahCAP6ZGbxuGn2NeILwr1nb
- U8YXvWMFTS8AUeQ==
-X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+ <20250911-glymur-display-v1-5-d391a343292e@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250911-glymur-display-v1-5-d391a343292e@linaro.org>
+X-Authority-Analysis: v=2.4 cv=H7Dbw/Yi c=1 sm=1 tr=0 ts=68c2c738 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Z5WwtQVXMiuTecYWR00A:9
+ a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: V_jCdmhmBrauXQpLQ_wJfMk1r7WhE2Q2
+X-Proofpoint-ORIG-GUID: V_jCdmhmBrauXQpLQ_wJfMk1r7WhE2Q2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAzOSBTYWx0ZWRfX4EL8G0PJ8uBT
+ pzg3Th3pbd9nvT2JaFN70Gi0hR6rJ1NxpGFv4XONcTRYS1gTxmYpDz9jDeyR891BrLnqaJMyTnk
+ zIiya95wVOgQDEKeaH4ezb1ZcevTwgSGy7oxDniJx3fzrdA8wwxlm1qFx7+RQXlNJWcn2qQlCSc
+ +ILEfFKzHxC4zp+8vsOfME2XErZHQWbd+Iaxg8psFADggL+GZtRKZCvimpLXMsFbTVhJL2BePjD
+ MlGAL5QzCxVUAfRh0aXfRWqI6qWwzCETR1jfWbuQlT0M63dPaa4i6PL4JMz3vnFpXgiMSlmPNX1
+ mbyDmDpvjdbtb7UUnly9G3lHCTmI65lJgZc9dKzL/sNdnD5c02sIBnDm1fvbLWFrQ3IytdsdQLl
+ Xqpd+ozF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-10_04,2025-09-11_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0 phishscore=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060039
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,43 +136,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Qualcomm Glymur platform comes with 4 DisplayPort controllers, which
-have different offsets than all previous platforms. Describe them and add
-the compatible.
+On Thu, Sep 11, 2025 at 03:28:52PM +0300, Abel Vesa wrote:
+> Add DPU version v12.2 support for the Glymur platform.
+> 
+> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> ---
+>  .../drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h    | 541 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   6 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>  5 files changed, 550 insertions(+)
+> 
 
-Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index d87d47cc7ec3eb757ac192c411000bc50b824c59..9bd9cd5c1e03cc17598b222177b6682bbcd89f0c 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -130,6 +130,14 @@ struct msm_dp_desc {
- 	bool wide_bus_supported;
- };
- 
-+static const struct msm_dp_desc msm_dp_desc_glymur[] = {
-+	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
-+	{ .io_start = 0x0af5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
-+	{ .io_start = 0x0af64000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
-+	{ .io_start = 0x0af6c000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
-+	{}
-+};
-+
- static const struct msm_dp_desc msm_dp_desc_sa8775p[] = {
- 	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{ .io_start = 0x0af5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
-@@ -187,6 +195,7 @@ static const struct msm_dp_desc msm_dp_desc_x1e80100[] = {
- };
- 
- static const struct of_device_id msm_dp_dt_match[] = {
-+	{ .compatible = "qcom,glymur-dp", .data = &msm_dp_desc_glymur },
- 	{ .compatible = "qcom,sa8775p-dp", .data = &msm_dp_desc_sa8775p },
- 	{ .compatible = "qcom,sc7180-dp", .data = &msm_dp_desc_sc7180 },
- 	{ .compatible = "qcom,sc7280-dp", .data = &msm_dp_desc_sc7280 },
 
 -- 
-2.45.2
-
+With best wishes
+Dmitry
