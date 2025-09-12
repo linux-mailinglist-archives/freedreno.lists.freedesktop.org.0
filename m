@@ -2,120 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81116B54C99
-	for <lists+freedreno@lfdr.de>; Fri, 12 Sep 2025 14:09:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64D75B54CA3
+	for <lists+freedreno@lfdr.de>; Fri, 12 Sep 2025 14:10:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57BED10EC34;
-	Fri, 12 Sep 2025 12:09:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA1510EC34;
+	Fri, 12 Sep 2025 12:10:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="N4qudoHJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mDZ+sMVz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 332B210EC34
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:09:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 560E410EC26
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:10:09 +0000 (UTC)
 Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58C9fIbg015195
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:09:21 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58C9fLnF015465
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:10:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=AWecxXQ1HoSKQokJLzYb6tbb
- rzkT4uWaDcoy5VKKVeg=; b=N4qudoHJb3LgJAVQziaNCtZl0F7NfM5kABN0udgc
- AwnPkhRGctPPhNtrEqLj1TzlUOG7nqOcWGSmqBVNjTg6DCl2lMUA2s0tfzfC0MZc
- Fxi2T88hQ9TmuN2Ii1EiknR4CbDaDKab5CbHdp4w/UTqpA+DLbERlyEL6wN4Q68/
- 9mBcuHp2OYC0JTRzDzirqGh0PLA2h1x8mt2KCFlWij0Wi3AQPDBYO0lKID6iXfw+
- BCDg27FiO+Fc+Uej1F+ZvbLM7+d8T92gEbNwOmwMQZ7uN2y8hE1PqR4BgFYIG/jP
- qf9YitCAwwqbtQ4uQqbX3SL1vs7PQMsE2V1rqc6ePsawUg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490aapuua9-1
+ :references:subject:to; s=qcppdkim1; bh=dUewbymExetqos/pBiWHZiBD
+ APIskSwpfO+nHDhO8vI=; b=mDZ+sMVzzT0+YVrLCIiX+PhRLvmJOSfFfErrhw04
+ m6AdFsZDmcPt0Obm6ckzfWx4Q1aZ5+S4nMGWp+miK4xCgs5METyJJPCetrGb1hy4
+ +UiBpuZQR8xqIlvMCmrq6SANVmDRdwdAnkOEtTJSEuFEb1BfJM/LJq0hyjPNc4H5
+ tNPyF+h1AVv7BmcAQYO97RKAKwZbiuj/Y7CfN2Co/OJz6LGNPURlDJXr78NYKlb4
+ Hul7VxkCW05y/MIGDcpS60WXLZmFOUPfsNqoq4jPLFeOmYLJxbBwJZfXxMZUG8iM
+ Vrrq/6Nj1dg4sWApmDsmlbdnIwHXY61EDnwe65LTxzYACQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490aapuucd-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:09:21 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4b302991816so37898911cf.0
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 05:09:21 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:10:08 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-767e5b2a74fso9557416d6.1
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 05:10:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757678960; x=1758283760;
+ d=1e100.net; s=20230601; t=1757679008; x=1758283808;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AWecxXQ1HoSKQokJLzYb6tbbrzkT4uWaDcoy5VKKVeg=;
- b=pcx+wivfNy2AtWcX13h82GQZ4Zlbd03NpyJcT3+Irr2shqysYYPWUBDnVd/aViMZk+
- 2cRNQ3NRyda/ssUryHUizeqrd8a00x6FQfdx4n8jJZBu97irObXbjYHsvNNY0fN9IHwI
- C+e6OxbzHrLY+R/hyMsj/xr+NGfDNy9IxFYC7d834+o8torBULQqB9mI1+Cx7FFjqPOe
- wnWyIu5HDuaW+C3MQmRHZNY0Jx0cD903sgB1kV2sXrudJFyNnBcKMvLlhgMn3hzkvRLE
- FDUnwOp6B+XLXI1fPdM7vWhgEaCgRN/GiWq8iz8BUxdXtaUl4tiox6WNgsuUUyykKMCx
- Wq5g==
+ bh=dUewbymExetqos/pBiWHZiBDAPIskSwpfO+nHDhO8vI=;
+ b=JF309+Av6tYXNEjqROiClOsqfijzPjrVWD+HbdgkELvPzpbcxQaORtgadRvzqBG5E6
+ lJgtx8bcbb6pCGU0RM+6FfYpwkTyDwBFdOjR+MJsmVXN1aToNkSHzBI5A5/NnKwhLq2o
+ tax3pKG9zmw2j9SC48FK/2nCIeK+4PzwTCvUgjLWhod9WcWPmk/xWQ/pGb8a6Ejmw0DR
+ 9UCx7q00iHF357YSVamAdT2AxLM1HAfezGVyqxqGMCOU4Ek2xpJm3ZL8sQiz1h5PN3K2
+ MKLtUhkNqfRxMW+CjVhmyelVdeHank3nNUK3xOSe5xSGtL4DGp3vyn4dR4IO+qE3DUbm
+ GEKg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVrcBYKgv3QubWJP8ZlsRrPRD3UMyFliA/s+WiPPK4qsXc3ZoL1Yp0jbvvXrom841eOhXwZBTRrygY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGqTRwGpOUPjAQaDCTB6jRYzdC3F4I+4F6XPosoqDTlPD0pmcv
- 2JshjzpSpitOaxNATqPZTUckoNkHcXYiO1En3ZhwfROLP5voau4UV8M9gkuXrrFKA1dJ74JWyvA
- y9pMkiO7nr4/m720K6OznfrP0TKr4Lt0vM9yvzlv44ZN5mTVRBtL4xspe93c1RRgnUOx4j9M=
-X-Gm-Gg: ASbGncsxfGqmfWimy8oEVli0ylX6zyy+n8JIbAbEbANbkeLogIh4yf6h8PgIf9yR5kI
- 98BhvZI+dRnjgyyPLmJigSXoxY0IkQuV8z2Vawy+xZ5vvT07pxWO7CGb+VCbXlgZYbRajk5UuVM
- LevWe1JRnlsM+/qPaYeziFj7M7/UiIY6kx9mZGzaMEr26lgyPXtDzaWmkHIEMe+P8zR2mRQMPbm
- FSPiIjp/qkaIkGRL8qi3Wu5xGrC6Tr1pK3E8zugb7B2rnBMdoffjQLlOpUvuuVG3Y4T2EcVDMnA
- nJkuqosWQj1Xzn+5/ZyhDbHBKuuUTvuWZk5cRgewJQcWBVbxdSMG2qluXRJpR/MUJktHHb/gKa0
- HDiK6vnu6R8h2Kq41B14QRfsSaeGXN25lsy1IMSZcR6of2IugiWVz
-X-Received: by 2002:a05:622a:2b45:b0:4b3:12f7:8baa with SMTP id
- d75a77b69052e-4b77d044455mr32331131cf.51.1757678960384; 
- Fri, 12 Sep 2025 05:09:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHBlHDLz23zA5O+/vEKCN91ortJnwiUYeDorqJurL/VJ4hd/jMETJMt2eSQJiBv4Cvs1e54jQ==
-X-Received: by 2002:a05:622a:2b45:b0:4b3:12f7:8baa with SMTP id
- d75a77b69052e-4b77d044455mr32330571cf.51.1757678959880; 
- Fri, 12 Sep 2025 05:09:19 -0700 (PDT)
+ AJvYcCXVXiISgRY6Wn//zitttU3LU+hT7sCWWh5JeXu9FlUAdCydXUD2RQSUzIgAXAZ8AOXjlSSyqN3nBrM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzRFEjpoVHJNytzmbgcnU5GdGOQklBRuNdicQk/4GQDFoFibA0E
+ pXEAQ1Tz2QklbImLtdWFDAvECItQh8OWhsZ3zQIXlDUD4F7cHkF1Ue5ANUjQW6raBX7reBVl8Ea
+ kNNjd4Eg1tHy47Xp7n60XQo16ZexaZx5hd6O3pDtFoWuAt7QJUgoNC5h1NbqxxcGPsLzN4TY=
+X-Gm-Gg: ASbGncv2uAFzyWgXuZEe8i03V5lTN9kDwDSUAsczMOnJ1BzD0imgYnLBrbai85nGst5
+ 9h7MEZvPQbySfY/tUBbMxQbKvV7ocWen93Wgid5n/jx2k0KqOp+rYf7tlUdU/S0cSgtQ3IvNZor
+ j+Wflg+v90dvWJSxfXx96nrEJ9MIlHD0Z38aG3mq98jgQgNE+p9x+GtSqTFsrpM38Tt8qe4NYiy
+ iQ/i2I42rh7Sxegv/rQHbOkpIbOlXn53/4MK34MMEh6RaofXZlmUA624aKgHOQelIUe1o/86HsU
+ 6PH26US9s2rFPfZpFZFiPBSvjbUDes3gp5lFDEXRpC90yEeDLXlXDh8qpPzhqTjl/ZI4Ileg9Ns
+ 0MzFM4X1TrDKmnsQ7oMV0/quU7+v3boh9Nj8LkUuaxSOYRwQFv5qq
+X-Received: by 2002:ad4:4ea3:0:b0:70d:f55f:ef97 with SMTP id
+ 6a1803df08f44-7621c32efaemr78241926d6.1.1757679007388; 
+ Fri, 12 Sep 2025 05:10:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGj9V1c+2coOy5S3o8/s5vrGQ5oy6OiMW/P7QJhRZCoPuqb8GRBAOCSvwHquRJ3YcZvRDvPSw==
+X-Received: by 2002:ad4:4ea3:0:b0:70d:f55f:ef97 with SMTP id
+ 6a1803df08f44-7621c32efaemr78241266d6.1.1757679006733; 
+ Fri, 12 Sep 2025 05:10:06 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-35062c8da78sm5874761fa.0.2025.09.12.05.09.18
+ 2adb3069b0e04-56e5cf2f446sm1136422e87.42.2025.09.12.05.10.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Sep 2025 05:09:19 -0700 (PDT)
-Date: Fri, 12 Sep 2025 15:09:17 +0300
+ Fri, 12 Sep 2025 05:10:05 -0700 (PDT)
+Date: Fri, 12 Sep 2025 15:10:03 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
- li.liu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH v4 11/13] phy: qcom: qmp-usbc: Add USB/DP mutex handling
-Message-ID: <q4dplt6fq3cneludcuhxevklaj6omeio3cjxw2owt4h3wistd6@arv23ri4cl75>
-References: <20250911-add-displayport-support-for-qcs615-platform-v4-0-2702bdda14ed@oss.qualcomm.com>
- <20250911-add-displayport-support-for-qcs615-platform-v4-11-2702bdda14ed@oss.qualcomm.com>
- <nfugwwknnlxls75yo5rex6ggu5nzpq6enyx6e6nfnfei3icxjg@t7dnzcfcjw4o>
- <cf6c2c2f-9878-4181-a3c8-9692423308bd@oss.qualcomm.com>
+ li.liu@oss.qualcomm.com
+Subject: Re: [PATCH 2/2] drm/msm/dp: Add DisplayPort support for SM6150
+Message-ID: <ds5fisf464z3i4b6hz2ca2ul4u65d4rmjzvst5plfvdwywo2qm@gzgffhfpp4ib>
+References: <20250912-add-dp-controller-support-for-sm6150-v1-0-02b34b7b719d@oss.qualcomm.com>
+ <20250912-add-dp-controller-support-for-sm6150-v1-2-02b34b7b719d@oss.qualcomm.com>
+ <budeqnh65mcmtc5rscbgvy2nz3woptxnht6sddzg7jhttsnx5f@bwf3kyvbrfaj>
+ <d9c55e72-0683-4eb3-a22f-015a799e2c79@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cf6c2c2f-9878-4181-a3c8-9692423308bd@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=eMETjGp1 c=1 sm=1 tr=0 ts=68c40d71 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=h6lld2rfrDIzuLPEmGQA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: L-57H6hoHQDc9hf0nJ51d0yRaaSGjOp_
-X-Proofpoint-ORIG-GUID: L-57H6hoHQDc9hf0nJ51d0yRaaSGjOp_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAwMCBTYWx0ZWRfXx2crl377DrAB
- L7MWKQ5rnvyOX89DiC96JKX3LwjHguHDoK19xxW9YQMumIM55ibmxX0IZWpPQiFejbDehRenMuJ
- munNWmrdMfvSLgZfKWlsVUg6Latk1Qw5TVEIOj0IqG4fQk/7lQiOj1wr08DTrlq94a12GzSXYwS
- eMScrgUUGp/yVOmZBqdATIP48CaeXQ0hHP/SqcidBrRw6ArMueLBUH3VSLnoAlyfDraDQTOO9r8
- iTOjZbwCV5c9eIOJNJ1amSEWZwnDx6aZ8/0gtt0WWFs+PRptiY672JLsROTfxfUq0Jg1Ayx1/jQ
- A3rdN6xoU1raNjblmwz8tLQA6uRLRHIe1E58IY2xdzLTCaOStGKo++wkxTYgPV8c/TPldd3w9Pi
- Z/yKwzKH
+In-Reply-To: <d9c55e72-0683-4eb3-a22f-015a799e2c79@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=eMETjGp1 c=1 sm=1 tr=0 ts=68c40da0 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=YvU48llmxf4k0NmX4icA:9 a=CjuIK1q_8ugA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: tgyxQoVA9-DbB8o9VITVk4pSA9bEl6_o
+X-Proofpoint-ORIG-GUID: tgyxQoVA9-DbB8o9VITVk4pSA9bEl6_o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAwMCBTYWx0ZWRfX43GCdm1edVic
+ 7OPmWf1s2Zw3UBCTbNsNk/RHwOuJg5ubJvWOzj2GYl9IKU4HdPjFIahfepaWIg6F+ijAlrYwoDH
+ J9bC2pT2sPBEf9F5uSiDp3s4W9CPuElJR1gzd7FlFczVxOA4uTir0pd93yyBERhQSdRorFLXwbn
+ x07U8Vj3OyX9d+z1Ud5kKMsIgOGoOCjUJ6Kla1jHcg9kci28kKYge4Gf6fAMr6+sISRIKBlDR6m
+ wxmu3X7dwNLMQXPoMsKokX1pBLp1T8CWSO/lnokmGQmeI50nz49hoR3iKm6CbRBteQIqF2yVtdL
+ 5UuYsxEnwroKnl4LRGYIW0C9smPgUXBXJQ9QpuEkqjTDaoiXtnvXsIm4qh66FNanzSOALWqaWGt
+ bKsYnC7u
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-12_04,2025-09-11_02,2025-03-28_01
@@ -139,58 +139,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 12, 2025 at 08:03:01PM +0800, Xiangxu Yin wrote:
+On Fri, Sep 12, 2025 at 07:53:50PM +0800, Xiangxu Yin wrote:
 > 
-> On 9/12/2025 6:32 PM, Dmitry Baryshkov wrote:
-> > On Thu, Sep 11, 2025 at 10:55:08PM +0800, Xiangxu Yin wrote:
-> >> Introduce mutual exclusion between USB and DP PHY modes to prevent
-> >> simultaneous activation.
-> > Describe the problem that you are trying to solve first.
-> 
-> 
-> Ok.
+> On 9/12/2025 7:47 PM, Dmitry Baryshkov wrote:
+> > On Fri, Sep 12, 2025 at 07:39:17PM +0800, Xiangxu Yin wrote:
+> >> Add support for SM6150 DisplayPort controller, which shares base offset
+> >> and configuration with SC7180. While SM6150 lacks some SC7180 features
+> >> (e.g. HBR3, MST), current msm_dp_desc_sc7180 data is sufficient. Listing it
+> > SM6150 supports MST as far as I can see.
 > 
 > 
+> Yes, but since msm_dp_desc hasn't been mainlined with MST enabled yet,
+> I went ahead and submitted it with this commit message.
+
+
+The commit message is misleading: it makes one think that SC7180
+supports MST, while SM6150 doesn't.
+
+> 
+> 
+> >> explicitly ensures future compatibility.
+> >>
 > >> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 > >> ---
-> >>  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 21 +++++++++++++++++++++
-> >>  1 file changed, 21 insertions(+)
+> >>  drivers/gpu/drm/msm/dp/dp_display.c | 1 +
+> >>  1 file changed, 1 insertion(+)
 > >>
-> >> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-> >> index 613239d15a6a3bba47a647db4e663713f127c93e..866277036089c588cf0c63204efb91bbec5430ae 100644
-> >> --- a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-> >> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-> >> @@ -1061,6 +1061,19 @@ static int qmp_usbc_usb_power_off(struct phy *phy)
-> >>  	return 0;
-> >>  }
-> >>  
-> >> +static int qmp_check_mutex_phy(struct qmp_usbc *qmp, bool is_dp)
-> > mutex has a very well defined use case - a sleeping lock. Please find
-> > some ofther name.
-> 
-> 
-> Then how about 'qmp_check_exclude_phy'?
-
-
-qmp_usbc_check_phy_status()?
-
-> 
-> 
-> >> +{
-> >> +	if ((is_dp && qmp->usb_init_count) ||
-> >> +	    (!is_dp && qmp->dp_init_count)) {
-> >> +		dev_err(qmp->dev,
-> >> +			"PHY is configured for %s, can not enable %s\n",
-> >> +			is_dp ? "USB" : "DP", is_dp ? "DP" : "USB");
-> >> +		return -EBUSY;
-> >> +	}
-> >> +
-> >> +	return 0;
-> >> +}
-> >> +
-> >>  static int qmp_usbc_usb_enable(struct phy *phy)
-> >>  {
-> >>  	struct qmp_usbc *qmp = phy_get_drvdata(phy);
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> >> index d87d47cc7ec3eb757ac192c411000bc50b824c59..ddb22b50490035779904d4cab20e2fee7e0f9657 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> >> @@ -196,6 +196,7 @@ static const struct of_device_id msm_dp_dt_match[] = {
+> >>  	{ .compatible = "qcom,sc8280xp-dp", .data = &msm_dp_desc_sc8280xp },
+> >>  	{ .compatible = "qcom,sc8280xp-edp", .data = &msm_dp_desc_sc8280xp },
+> >>  	{ .compatible = "qcom,sdm845-dp", .data = &msm_dp_desc_sdm845 },
+> >> +	{ .compatible = "qcom,sm6150-dp", .data = &msm_dp_desc_sc7180 },
+> >>  	{ .compatible = "qcom,sm8350-dp", .data = &msm_dp_desc_sc7180 },
+> >>  	{ .compatible = "qcom,sm8650-dp", .data = &msm_dp_desc_sm8650 },
+> >>  	{ .compatible = "qcom,x1e80100-dp", .data = &msm_dp_desc_x1e80100 },
+> >>
+> >> -- 
+> >> 2.34.1
+> >>
 
 -- 
 With best wishes
