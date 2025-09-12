@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41E77B54C89
-	for <lists+freedreno@lfdr.de>; Fri, 12 Sep 2025 14:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81116B54C99
+	for <lists+freedreno@lfdr.de>; Fri, 12 Sep 2025 14:09:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE4710EC31;
-	Fri, 12 Sep 2025 12:08:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57BED10EC34;
+	Fri, 12 Sep 2025 12:09:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GUQtzCm+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="N4qudoHJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A3C10EC53
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:08:40 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58C9fOUj010914
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:08:39 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 332B210EC34
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:09:22 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58C9fIbg015195
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:09:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=0oXXG099vonYe458jI6+jdyn
- M6kqgEhK5y0kr8AEekM=; b=GUQtzCm+Kv1oabrFCrcTZ/2JCOVDQrrbOkzuzAdX
- Vc05f31dhWQ/A9c4jyVLi99kBWMUgeFlDlJXrKaMmoLhASOqubcxAYKFSf1eSp/G
- OnyuEm/hR4RBM+tGYNrAVVtAa4G+N6OhSsS2nu5kCt4wYdBQychp2RoYKWxcSNa0
- QwKMP/667CTpNdz0uubf6Fy4enrnCQazxr2AtdE/brdzEqjF76s8NBN6ITqc7N+y
- mzR4CmmfOs2kwTF13/59iv8hs+NYJLYJZWGW+FyiCyWISiCnTahez1UcriM1L4Fd
- loPvoaUNnYizfdsK+kyTx5lPFc/WD/szKKwKOjarAFdV4A==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490e4mbcdq-1
+ :references:subject:to; s=qcppdkim1; bh=AWecxXQ1HoSKQokJLzYb6tbb
+ rzkT4uWaDcoy5VKKVeg=; b=N4qudoHJb3LgJAVQziaNCtZl0F7NfM5kABN0udgc
+ AwnPkhRGctPPhNtrEqLj1TzlUOG7nqOcWGSmqBVNjTg6DCl2lMUA2s0tfzfC0MZc
+ Fxi2T88hQ9TmuN2Ii1EiknR4CbDaDKab5CbHdp4w/UTqpA+DLbERlyEL6wN4Q68/
+ 9mBcuHp2OYC0JTRzDzirqGh0PLA2h1x8mt2KCFlWij0Wi3AQPDBYO0lKID6iXfw+
+ BCDg27FiO+Fc+Uej1F+ZvbLM7+d8T92gEbNwOmwMQZ7uN2y8hE1PqR4BgFYIG/jP
+ qf9YitCAwwqbtQ4uQqbX3SL1vs7PQMsE2V1rqc6ePsawUg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490aapuua9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:08:39 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-75e974f3f7dso50739226d6.1
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 05:08:39 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 12:09:21 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4b302991816so37898911cf.0
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 05:09:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757678918; x=1758283718;
+ d=1e100.net; s=20230601; t=1757678960; x=1758283760;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0oXXG099vonYe458jI6+jdynM6kqgEhK5y0kr8AEekM=;
- b=LHqPhcVdX5R8USKVkY64GkhOfUlxWE0hLxwq10pTu+MwRBbpkKdX7sk09DTD4GU5vu
- 8hTowgTJDLk/HvGPGYHmmderKsDbfZTpk18M486QR5TyWCZdYR8kVAYMYeeJoKh44yGN
- aqrtg9gLXPbPrBExClKRDHOPRi9zzbBFx8AcNc81F2qoNNiWAyzYkA/KyoqytKqyidg6
- DGD65Di7e2X6FYRYP7hJF1znBUEE+en0BegsjUTOLguoq4OkwBuBMe32VSD+Ot23MqtC
- 3sQY87i6TK7Cq/U35xXwqZXtp2TDFU1vWvcH6Ul5F4PxMoxIVejhVC9/0WDGdFsiWZ/D
- Jovw==
+ bh=AWecxXQ1HoSKQokJLzYb6tbbrzkT4uWaDcoy5VKKVeg=;
+ b=pcx+wivfNy2AtWcX13h82GQZ4Zlbd03NpyJcT3+Irr2shqysYYPWUBDnVd/aViMZk+
+ 2cRNQ3NRyda/ssUryHUizeqrd8a00x6FQfdx4n8jJZBu97irObXbjYHsvNNY0fN9IHwI
+ C+e6OxbzHrLY+R/hyMsj/xr+NGfDNy9IxFYC7d834+o8torBULQqB9mI1+Cx7FFjqPOe
+ wnWyIu5HDuaW+C3MQmRHZNY0Jx0cD903sgB1kV2sXrudJFyNnBcKMvLlhgMn3hzkvRLE
+ FDUnwOp6B+XLXI1fPdM7vWhgEaCgRN/GiWq8iz8BUxdXtaUl4tiox6WNgsuUUyykKMCx
+ Wq5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVLwvYiyp7mrAN9xBgG5zgiBGAKjxMVqo4un5OIKgCEXLOItNr8BYlek8F5EtMYbZvplHq8aVGbT7c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvP/C8xKtqsj3w3AGuqeVWQjL6LUUdw4hfsxSGa81huoCnE/Ip
- 4M3223THagoz3UqDZtnjMCO2EAVpRcOkw6wKXXj2p/onQM4hNWfQRMhYtzYk4ZnpRzp9etIJ+Ym
- 1bXou4vjt6kmEKOXa+0rBT5Glgk8eZ+AHubbx2hCKo939Y6HW1tlzIqz9FysQLtNHSmnZL3Q=
-X-Gm-Gg: ASbGncu2zTXWXiZO4toH4+nLyO+zxe2gL1WNAPHp21o6F5mF5wthyGq8ELoM+1TpA1l
- 9PzUkXRnSbmNlVBgjRHU4NbWjX92cDC9wT+OdFPC12WOTsaZJQBqIO0dhF/Zkq8wjWna/GqibjV
- XnGaiwEgYo+L2YAUWGwkQlTnNFubnMWMKl0DiMIpZvEVUuQWXmLNrGbeqOY2sbiQ7vCbbnIKTYy
- EGSDMs3a7LoXEdbHMk1bFCEk+Qw0Uf3Y/dBQN0U9sDPnXfm2ZwlbnJs4RwZVE52x7jJYEnj9M77
- 5NlsX2WA/8hgIfJz7TtqihShp74wZzq0yRWo7Hd6rJVAEvyQ0aA5X2D5JA7O/5li0GUuob420/8
- TjSN6gMuo3LlFJT77QyYqJyICZLxuuK2FImel2MxcChXNaVueOR2p
-X-Received: by 2002:a05:6214:3018:b0:765:fe8f:13df with SMTP id
- 6a1803df08f44-767c50643a1mr31418506d6.63.1757678917568; 
- Fri, 12 Sep 2025 05:08:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHM2i4nwyWJB0E+QBu+zEM9C2hMOxGjTWUuESDMwXmBg9KEJdV9S8YjsKklNga/yVnrgK5IRg==
-X-Received: by 2002:a05:6214:3018:b0:765:fe8f:13df with SMTP id
- 6a1803df08f44-767c50643a1mr31417486d6.63.1757678916750; 
- Fri, 12 Sep 2025 05:08:36 -0700 (PDT)
+ AJvYcCVrcBYKgv3QubWJP8ZlsRrPRD3UMyFliA/s+WiPPK4qsXc3ZoL1Yp0jbvvXrom841eOhXwZBTRrygY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwGqTRwGpOUPjAQaDCTB6jRYzdC3F4I+4F6XPosoqDTlPD0pmcv
+ 2JshjzpSpitOaxNATqPZTUckoNkHcXYiO1En3ZhwfROLP5voau4UV8M9gkuXrrFKA1dJ74JWyvA
+ y9pMkiO7nr4/m720K6OznfrP0TKr4Lt0vM9yvzlv44ZN5mTVRBtL4xspe93c1RRgnUOx4j9M=
+X-Gm-Gg: ASbGncsxfGqmfWimy8oEVli0ylX6zyy+n8JIbAbEbANbkeLogIh4yf6h8PgIf9yR5kI
+ 98BhvZI+dRnjgyyPLmJigSXoxY0IkQuV8z2Vawy+xZ5vvT07pxWO7CGb+VCbXlgZYbRajk5UuVM
+ LevWe1JRnlsM+/qPaYeziFj7M7/UiIY6kx9mZGzaMEr26lgyPXtDzaWmkHIEMe+P8zR2mRQMPbm
+ FSPiIjp/qkaIkGRL8qi3Wu5xGrC6Tr1pK3E8zugb7B2rnBMdoffjQLlOpUvuuVG3Y4T2EcVDMnA
+ nJkuqosWQj1Xzn+5/ZyhDbHBKuuUTvuWZk5cRgewJQcWBVbxdSMG2qluXRJpR/MUJktHHb/gKa0
+ HDiK6vnu6R8h2Kq41B14QRfsSaeGXN25lsy1IMSZcR6of2IugiWVz
+X-Received: by 2002:a05:622a:2b45:b0:4b3:12f7:8baa with SMTP id
+ d75a77b69052e-4b77d044455mr32331131cf.51.1757678960384; 
+ Fri, 12 Sep 2025 05:09:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHBlHDLz23zA5O+/vEKCN91ortJnwiUYeDorqJurL/VJ4hd/jMETJMt2eSQJiBv4Cvs1e54jQ==
+X-Received: by 2002:a05:622a:2b45:b0:4b3:12f7:8baa with SMTP id
+ d75a77b69052e-4b77d044455mr32330571cf.51.1757678959880; 
+ Fri, 12 Sep 2025 05:09:19 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-571a0fd0825sm170007e87.125.2025.09.12.05.08.35
+ 38308e7fff4ca-35062c8da78sm5874761fa.0.2025.09.12.05.09.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Sep 2025 05:08:35 -0700 (PDT)
-Date: Fri, 12 Sep 2025 15:08:33 +0300
+ Fri, 12 Sep 2025 05:09:19 -0700 (PDT)
+Date: Fri, 12 Sep 2025 15:09:17 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
@@ -93,38 +93,37 @@ Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
  li.liu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH v4 08/13] phy: qcom: qmp-usbc: Add USB/DP switchable PHY
- clk register
-Message-ID: <7ozv3u7xuvtz2x5q3pp5kdeydtsu5jlrgwjnxpxxiuh7przr2z@35uo7t3b4ze2>
+Subject: Re: [PATCH v4 11/13] phy: qcom: qmp-usbc: Add USB/DP mutex handling
+Message-ID: <q4dplt6fq3cneludcuhxevklaj6omeio3cjxw2owt4h3wistd6@arv23ri4cl75>
 References: <20250911-add-displayport-support-for-qcs615-platform-v4-0-2702bdda14ed@oss.qualcomm.com>
- <20250911-add-displayport-support-for-qcs615-platform-v4-8-2702bdda14ed@oss.qualcomm.com>
- <6p43oxn57kke5eotoqtt5gqtmhmgeteoymewqm3ko5q5veyegs@krkh4dwdno5i>
- <335ffce5-19c6-409d-8386-686fe9e5dea5@oss.qualcomm.com>
+ <20250911-add-displayport-support-for-qcs615-platform-v4-11-2702bdda14ed@oss.qualcomm.com>
+ <nfugwwknnlxls75yo5rex6ggu5nzpq6enyx6e6nfnfei3icxjg@t7dnzcfcjw4o>
+ <cf6c2c2f-9878-4181-a3c8-9692423308bd@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <335ffce5-19c6-409d-8386-686fe9e5dea5@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAzOCBTYWx0ZWRfX97QgPfcFA3IB
- NUQL/dm4NAn6eiN8eV9da2Xh06k/yYUvidWEGoiMW7TRZ7ZgJGfMOY/xlu7848NWCaSwdwhEsYI
- Zam/gJ//AkDfT1Fd5h8ZhPW3tHpg3xkL9gMVo9suDRn46W77aUVI9eHeEmUcoHEO5d43qJeBsn4
- 71cvjobnzkoR5stz8qOnYhW4dkDlNWHZmwAEWWo+C7+LzjGv8DJkNQIHllk/q5ZjagzDTEQb56n
- eycn8uKawWV4eZqPrfcSddmwo/iIA7AGqzcZRKl9N2Yy+pUBNaKIkE5mPcXMcn7MatPnx6QTYJp
- PGL49PpCuG7kSEKsBMv1AGIXeMwB1m/h7yoNfBVVn2qLjZxNyDRc0ZLH2QVvQETUd/5ACB/9aIJ
- My35b3t4
-X-Authority-Analysis: v=2.4 cv=J66q7BnS c=1 sm=1 tr=0 ts=68c40d47 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=bQXPqPv9zJb0mhjPT90A:9 a=CjuIK1q_8ugA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: O38UcAld2l2Whrq3h3pE2jHnrHDmTuAy
-X-Proofpoint-ORIG-GUID: O38UcAld2l2Whrq3h3pE2jHnrHDmTuAy
+In-Reply-To: <cf6c2c2f-9878-4181-a3c8-9692423308bd@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=eMETjGp1 c=1 sm=1 tr=0 ts=68c40d71 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=h6lld2rfrDIzuLPEmGQA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: L-57H6hoHQDc9hf0nJ51d0yRaaSGjOp_
+X-Proofpoint-ORIG-GUID: L-57H6hoHQDc9hf0nJ51d0yRaaSGjOp_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAwMCBTYWx0ZWRfXx2crl377DrAB
+ L7MWKQ5rnvyOX89DiC96JKX3LwjHguHDoK19xxW9YQMumIM55ibmxX0IZWpPQiFejbDehRenMuJ
+ munNWmrdMfvSLgZfKWlsVUg6Latk1Qw5TVEIOj0IqG4fQk/7lQiOj1wr08DTrlq94a12GzSXYwS
+ eMScrgUUGp/yVOmZBqdATIP48CaeXQ0hHP/SqcidBrRw6ArMueLBUH3VSLnoAlyfDraDQTOO9r8
+ iTOjZbwCV5c9eIOJNJ1amSEWZwnDx6aZ8/0gtt0WWFs+PRptiY672JLsROTfxfUq0Jg1Ayx1/jQ
+ A3rdN6xoU1raNjblmwz8tLQA6uRLRHIe1E58IY2xdzLTCaOStGKo++wkxTYgPV8c/TPldd3w9Pi
+ Z/yKwzKH
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-12_04,2025-09-11_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 phishscore=0
- adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060038
+ impostorscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0
+ bulkscore=0 phishscore=0 spamscore=0 suspectscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2509060000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,200 +139,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 12, 2025 at 08:00:14PM +0800, Xiangxu Yin wrote:
+On Fri, Sep 12, 2025 at 08:03:01PM +0800, Xiangxu Yin wrote:
 > 
-> On 9/12/2025 6:19 PM, Dmitry Baryshkov wrote:
-> > On Thu, Sep 11, 2025 at 10:55:05PM +0800, Xiangxu Yin wrote:
-> >> Add USB/DP switchable PHY clock registration and DT parsing for DP offsets.
-> >> Extend qmp_usbc_register_clocks and clock provider logic to support both
-> >> USB and DP instances.
-> >>
+> On 9/12/2025 6:32 PM, Dmitry Baryshkov wrote:
+> > On Thu, Sep 11, 2025 at 10:55:08PM +0800, Xiangxu Yin wrote:
+> >> Introduce mutual exclusion between USB and DP PHY modes to prevent
+> >> simultaneous activation.
+> > Describe the problem that you are trying to solve first.
+> 
+> 
+> Ok.
+> 
+> 
 > >> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 > >> ---
-> >>  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 208 +++++++++++++++++++++++++++++--
-> >>  1 file changed, 195 insertions(+), 13 deletions(-)
+> >>  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 21 +++++++++++++++++++++
+> >>  1 file changed, 21 insertions(+)
 > >>
-> >> @@ -1276,8 +1291,11 @@ static int phy_pipe_clk_register(struct qmp_usbc *qmp, struct device_node *np)
-> >>  
-> >>  	ret = of_property_read_string(np, "clock-output-names", &init.name);
-> >>  	if (ret) {
-> >> -		dev_err(qmp->dev, "%pOFn: No clock-output-names\n", np);
-> >> -		return ret;
-> >> +		char name[64];
-> >> +
-> >> +		/* Clock name is not mandatory. */
-> >> +		snprintf(name, sizeof(name), "%s::pipe_clk", dev_name(qmp->dev));
-> >> +		init.name = name;
-> >>  	}
-> > Do we have any guarantees that memory for 'name' exists beyond this point?
-> 
-> 
-> If the previous of_property_read_string() call succeeded, could 'name'
-> still be empty? or you means 'char name[64]' will be release after '}'?
-> 
-> From local verification, I can see 88e8000.phy::pipe_clk node from clk_summary.
-
-char name[64] belong to a stack frame that is not guaranteed to exist
-after you've close this bracked. So it can be easily overwritten with
-other values.
-
-> 
-> 
-> >>  
-> >>  	init.ops = &clk_fixed_rate_ops;
-> >> @@ -1286,19 +1304,176 @@ static int phy_pipe_clk_register(struct qmp_usbc *qmp, struct device_node *np)
-> >>  	fixed->fixed_rate = 125000000;
-> >>  	fixed->hw.init = &init;
-> >>  
-> >> -	ret = devm_clk_hw_register(qmp->dev, &fixed->hw);
-> >> -	if (ret)
-> >> +	return devm_clk_hw_register(qmp->dev, &fixed->hw);
-> >> +}
-> >> +
-> >> +
-> >> +/*
-> >> + * Display Port PLL driver block diagram for branch clocks
-> >> + *
-> >> + *              +------------------------------+
-> >> + *              |         DP_VCO_CLK           |
-> >> + *              |                              |
-> >> + *              |    +-------------------+     |
-> >> + *              |    |   (DP PLL/VCO)    |     |
-> >> + *              |    +---------+---------+     |
-> >> + *              |              v               |
-> >> + *              |   +----------+-----------+   |
-> >> + *              |   | hsclk_divsel_clk_src |   |
-> >> + *              |   +----------+-----------+   |
-> >> + *              +------------------------------+
-> >> + *                              |
-> >> + *          +---------<---------v------------>----------+
-> >> + *          |                                           |
-> >> + * +--------v----------------+                          |
-> >> + * |    dp_phy_pll_link_clk  |                          |
-> >> + * |     link_clk            |                          |
-> >> + * +--------+----------------+                          |
-> >> + *          |                                           |
-> >> + *          |                                           |
-> >> + *          v                                           v
-> >> + * Input to DISPCC block                                |
-> >> + * for link clk, crypto clk                             |
-> >> + * and interface clock                                  |
-> >> + *                                                      |
-> >> + *                                                      |
-> >> + *      +--------<------------+-----------------+---<---+
-> >> + *      |                     |                 |
-> >> + * +----v---------+  +--------v-----+  +--------v------+
-> >> + * | vco_divided  |  | vco_divided  |  | vco_divided   |
-> >> + * |    _clk_src  |  |    _clk_src  |  |    _clk_src   |
-> >> + * |              |  |              |  |               |
-> >> + * |divsel_six    |  |  divsel_two  |  |  divsel_four  |
-> >> + * +-------+------+  +-----+--------+  +--------+------+
-> >> + *         |                 |                  |
-> >> + *         v---->----------v-------------<------v
-> >> + *                         |
-> >> + *              +----------+-----------------+
-> >> + *              |   dp_phy_pll_vco_div_clk   |
-> >> + *              +---------+------------------+
-> >> + *                        |
-> >> + *                        v
-> >> + *              Input to DISPCC block
-> >> + *              for DP pixel clock
-> >> + *
-> >> + */
-> >> +static int qmp_dp_pixel_clk_determine_rate(struct clk_hw *hw, struct clk_rate_request *req)
-> >> +{
-> >> +	switch (req->rate) {
-> >> +	case 1620000000UL / 2:
-> >> +	case 2700000000UL / 2:
-> >> +	/* 5.4 and 8.1 GHz are same link rate as 2.7GHz, i.e. div 4 and div 6 */
-> >> +		return 0;
-> >> +	default:
-> >> +		return -EINVAL;
-> >> +	}
-> >> +}
-> >> +
-> >> +static unsigned long qmp_dp_pixel_clk_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
-> >> +{
-> >> +	const struct qmp_usbc *qmp;
-> >> +	const struct phy_configure_opts_dp *dp_opts;
-> >> +
-> >> +	qmp = container_of(hw, struct qmp_usbc, dp_pixel_hw);
-> >> +
-> >> +	dp_opts = &qmp->dp_opts;
-> >> +
-> >> +	switch (dp_opts->link_rate) {
-> >> +	case 1620:
-> >> +		return 1620000000UL / 2;
-> >> +	case 2700:
-> >> +		return 2700000000UL / 2;
-> >> +	case 5400:
-> >> +		return 5400000000UL / 4;
-> > No HBR3 support? Then why was it mentioned few lines above?
-> >
-> >> +	default:
-> >> +		return 0;
-> >> +	}
-> >> +}
-> >> +
-> >
-> >> +static int qmp_usbc_register_clocks(struct qmp_usbc *qmp, struct device_node *np)
-> >> +{
-> >> +	int ret;
-> >>  
-> >> -	ret = of_clk_add_hw_provider(np, of_clk_hw_simple_get, &fixed->hw);
-> >> +	ret = phy_pipe_clk_register(qmp, np);
-> >>  	if (ret)
-> >>  		return ret;
-> >>  
-> >> -	/*
-> >> -	 * Roll a devm action because the clock provider is the child node, but
-> >> -	 * the child node is not actually a device.
-> >> -	 */
-> >> -	return devm_add_action_or_reset(qmp->dev, phy_clk_release_provider, np);
-> >> +	if (qmp->dp_serdes != 0) {
-> >> +		ret = phy_dp_clks_register(qmp, np);
-> >> +		if (ret)
-> >> +			return ret;
-> >> +	}
-> >> +
-> >> +	return devm_of_clk_add_hw_provider(qmp->dev, qmp_usbc_clks_hw_get, qmp);
-> > Do you understand what did the comment (that you've removed) say? And
-> > why?
-
-
-And this was ignored :-(
-
-> >
+> >> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+> >> index 613239d15a6a3bba47a647db4e663713f127c93e..866277036089c588cf0c63204efb91bbec5430ae 100644
+> >> --- a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+> >> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+> >> @@ -1061,6 +1061,19 @@ static int qmp_usbc_usb_power_off(struct phy *phy)
+> >>  	return 0;
 > >>  }
 > >>  
-> >>  #if IS_ENABLED(CONFIG_TYPEC)
-> >> @@ -1429,6 +1604,13 @@ static int qmp_usbc_parse_dt(struct qmp_usbc *qmp)
-> >>  	if (IS_ERR(base))
-> >>  		return PTR_ERR(base);
-> >>  
-> >> +	if (offs->dp_serdes != 0) {
-> >> +		qmp->dp_serdes = base + offs->dp_serdes;
-> >> +		qmp->dp_tx = base + offs->dp_txa;
-> >> +		qmp->dp_tx2 = base + offs->dp_txb;
-> >> +		qmp->dp_dp_phy = base + offs->dp_dp_phy;
+> >> +static int qmp_check_mutex_phy(struct qmp_usbc *qmp, bool is_dp)
+> > mutex has a very well defined use case - a sleeping lock. Please find
+> > some ofther name.
+> 
+> 
+> Then how about 'qmp_check_exclude_phy'?
+
+
+qmp_usbc_check_phy_status()?
+
+> 
+> 
+> >> +{
+> >> +	if ((is_dp && qmp->usb_init_count) ||
+> >> +	    (!is_dp && qmp->dp_init_count)) {
+> >> +		dev_err(qmp->dev,
+> >> +			"PHY is configured for %s, can not enable %s\n",
+> >> +			is_dp ? "USB" : "DP", is_dp ? "DP" : "USB");
+> >> +		return -EBUSY;
 > >> +	}
 > >> +
-> >>  	qmp->serdes = base + offs->serdes;
-> >>  	qmp->pcs = base + offs->pcs;
-> >>  	if (offs->pcs_misc)
-> >> @@ -1537,7 +1719,7 @@ static int qmp_usbc_probe(struct platform_device *pdev)
-> >>  	 */
-> >>  	pm_runtime_forbid(dev);
-> >>  
-> >> -	ret = phy_pipe_clk_register(qmp, np);
-> >> +	ret = qmp_usbc_register_clocks(qmp, np);
-> >>  	if (ret)
-> >>  		goto err_node_put;
-> >>  
-> >>
-> >> -- 
-> >> 2.34.1
-> >>
+> >> +	return 0;
+> >> +}
+> >> +
+> >>  static int qmp_usbc_usb_enable(struct phy *phy)
+> >>  {
+> >>  	struct qmp_usbc *qmp = phy_get_drvdata(phy);
 
 -- 
 With best wishes
