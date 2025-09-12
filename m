@@ -2,122 +2,128 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CF1FB54A21
-	for <lists+freedreno@lfdr.de>; Fri, 12 Sep 2025 12:43:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE30AB54B2F
+	for <lists+freedreno@lfdr.de>; Fri, 12 Sep 2025 13:39:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 844B110EBFD;
-	Fri, 12 Sep 2025 10:42:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97BC810EC18;
+	Fri, 12 Sep 2025 11:39:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GQjW8HmI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CI5F8IAa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44BFC10EBFD
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 10:42:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFA7410E1AD
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 11:39:40 +0000 (UTC)
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58C9fcID023795
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 10:42:52 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58C9fNeV023224
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 11:39:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=tmYj8o/t1vex4Px+MD+gCX2U
- CvHxt1dgbQLo/nWIiZg=; b=GQjW8HmIki9icNT1gdLF4cGqZwRgsCl53xJuS9Yu
- 9IbMPHlyD40imdDMbcw3uSHzdLk7F3WgcNYQUjtYYpkZccjxvcvi8uul3CNtWfhe
- DTW7SnSgqJLvD3FnvuDcm3lJIjgsG6mTVn0ZtT2ZUAfbKq8JOU+5owxZ2fMR1/mf
- fyxG57HDuUI0InyWg0+OrsdXe94iztWIJ64I6LeESBNenh1RSDbYGp6PNXFhEaaF
- w5zwcoOlcBY1NQwqM7U/A+Yg4r9Cjq9AR/EZT7x4QbOadsDi9bi0NcJwxPuoyM47
- 7UlbLJMbYYrEZgLNA4mUtKtbeF1VfEl5x4cZtQ89DFgKLA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 491vc2fa2b-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=PykDANlSk4R6a44QfGxuU2
+ LMLVLao9uUaS064vEz4Rw=; b=CI5F8IAaL22LIdgNCh3lgNbXuHEmEpZaJXQnch
+ vBiVaHRyO2gUOQGShiQUNnMZq4NdDrgTH/rpLi+ld1luFBxQ2IgoimrrbsEipct6
+ KXu7AUVD1F8smoYOLPSEXJcYEYsG//E4OP2+5oBuHYnikikwLzuOM4fqLr6utxCB
+ rdKYWOscNN943Npbxid8X1WV5+3neX39cQkGWOPSujNG2E7VRJLefrQ7yx+WseWq
+ FDzCnkb2X8wclmNwEC/0QX91ArRRT6irbgqZW4el9eU8v2MsCOoMXptNGhsx536e
+ m52cj1dw1EZTAVxswKZA0tR1ejDLVvuY0y+Np95Gv09b3A4Q==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 491vc2fkfc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 10:42:52 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-817ecd47971so678897085a.0
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 03:42:52 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 11:39:39 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-3253ba05aa7so403183a91.2
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 04:39:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757673771; x=1758278571;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tmYj8o/t1vex4Px+MD+gCX2UCvHxt1dgbQLo/nWIiZg=;
- b=J87ztCDob56ueAr+TfKnzj3O3X90goeYOhubc8zObeGI2byKHVWu4pQ+XZLYttAiNw
- ZnXnOz3/Y1EPwV6OQAOnJn4Wq+gu4HZEzfopbR0MnyLAyRPX19OcDOPbThpGQJOKJPTw
- 3DBSYgHr38lFtQGBLW/7tOaIcQWd/XtmAlqKL5uzo33WgvoMLfT5rGCTy069tJZAZL3g
- O+1UVcCfNu/Ey65OUvoaVVVrLPCRsFFCAGTSdJaKrP49r834km8fuAraX6zlFOWge0sP
- 5evp4yA6pCgfKY/NkkV/gtmFB41i3x1czretYzYtQMEuUBiQ+hsVEjW8TrTfFPPu5rwc
- ntkQ==
+ d=1e100.net; s=20230601; t=1757677179; x=1758281979;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=PykDANlSk4R6a44QfGxuU2LMLVLao9uUaS064vEz4Rw=;
+ b=iTINL3e5A8MpUjY8ysy3QE3vwA955OYa+1ebEMmdEUD6ziQkfusGYR3E5cHgwOJwSE
+ tCulpddKfQ/QuSC8cSzaullxRM1AFDGRgXzrIhpzOq1/HuXsJ3auF91+iC/BUE+9JEzt
+ AEpUhYFIlMxXKLO0x1ByvjZJE2QtE+SScc6DK+l4k5K2pqHCSHFN3wNZVOuofM5fKip5
+ zwcEP0GGxgnymCK1vwTFdBqUnq8uimKTpbfmibwWZR7zW1zAD5lChYZXcTxQ68iPd3J8
+ G42hgDwWUAOfrddvcJiaYPVH+IcSaDYVF874NdcryxPHdzvkJFAcmtZdACUpGZjLd923
+ IoBQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXbXRbdLe00ircfh6qxeWNbhiIGF0hSMUpQrQzvLomVSF98K5+qdURXJwvEKg1lrQTmW4uQmUCdyzs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMbn/1JRI1mX3hC2yH9nuaCTqdfaBJrF2B6Tkl483n8dqd15XH
- 6KZNdtEEOy23w2nNIV1hLIYYc6C1itotNTTuzn5gfz5CjdPGYb0GePiS/DjMhuzj5CXkXCsDQ7q
- hatLf3C3hBNlLlFmkQzq2N+/awJnoJY8FScrf548uV4BmF/f5xpRIs5mZLNfuaQfFsa2uB9M=
-X-Gm-Gg: ASbGncvyMdTySF06lUMByZnXNa1EWeLa22n8ROdTSLordq91HP0/fEIy76EIgCiEa3V
- UrBtczkV9o7hOVzl/iR23eUAfjYpKQ0TP9DLdleZ2IuCgiZTlQauadt8qKgtJ8rH6Pd7eFWe1SS
- e147De3f6h/e9fHFvezHPE/TVJ4h7gZRjK/TWd1yTr2YGbuMw7AWaUpzglcGVLQxtMIhq0upKvr
- unFZeF9ISuYn7GGg/5CKLGCMOPfj2srpxY8meZ9pQLF1J5XvhrDqLQQWDxHxXgEbd6jSatQUFcG
- dRezoj5M2thWU2/ylILC827/UCq7fiJmpGrAIrnOjE1s306tBQf3XksMKCXnnBy45m9MszZ0gon
- Oc5VKwnOO+KuZqBtKEevlWknQVfe5fDJZrjIyIkkpv5ld5M3ZAJtJ
-X-Received: by 2002:a05:6214:c66:b0:729:1a8e:bbc3 with SMTP id
- 6a1803df08f44-76224bd0051mr77315786d6.16.1757673771399; 
- Fri, 12 Sep 2025 03:42:51 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGZ2QmS8xdGEbDL2t/HPuGI8RfYY86H09ePtFLONg3tM736xe3yZrmy2xCP1EXPL4YyRv692Q==
-X-Received: by 2002:a05:6214:c66:b0:729:1a8e:bbc3 with SMTP id
- 6a1803df08f44-76224bd0051mr77315476d6.16.1757673770919; 
- Fri, 12 Sep 2025 03:42:50 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCUqYhgRUyKEJIFJQiePfvhGoxppMrDDGloiS2xOE6ChzW8wRHzLzVKk3Fc6o9us3ae/QdycwPHY8kc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzgVu+6FwIXTX81fU3j4NDP7nqmfsj4dvp3v++eMqfTdcSAKEyL
+ k0Ov0AtWW2xEbg2UBl7dU56CMyTbgnnEkfQU/db+HkErn/6IvvfFjr/1GDf30wUVvqtnaX3v7qK
+ 4c1eHKqph0f59urAObQR+rLqxTPyCvvv1zwMNuvYnLzhNMHTWF+rDN1ScrQn3AZzi00sRkOo=
+X-Gm-Gg: ASbGncupIQFG1rkaLRXoYECBA7eh4MRZFgc+GThZO3zmlK9b294Fylkjp/+Y0z3lRhA
+ fMbQ7NQBzfxS2oKFvan66ElN0lb1SSgaZPTv9wZyhuhHl3890J+8Se+c9qNunOOSLJ8C+z+8tlf
+ /zLZAO7rz6kH24/VjQRh4H3pAm0bsMzodTE5N7X0cVm6jUUIhAUuuJl9rciFGJJI9/23usd1AXt
+ 0GrkHj83Z8rn/S0d900oMTMz/vVti9OrVOoHgCbzSNn/1qI5W6oRe0QS4w5yZwKbUnXzxCvcbqx
+ 9vDqIHIaCFGf4ZFadtuKHX9h6x2murey4gtcUL+7KVrUnUXCDpsi0N+IcmZV3m1grr9sx3FHxgJ
+ L9PenI5tjAIaChtbmhWGMhbFsovBqFx56J6UKXFbJ8QjNb5Mzu8MyHYP4
+X-Received: by 2002:a17:90b:1b08:b0:329:df65:de88 with SMTP id
+ 98e67ed59e1d1-32de4fad5c1mr1619903a91.7.1757677178537; 
+ Fri, 12 Sep 2025 04:39:38 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFb9/qfSDeeJM4k/mSV2bhoe+sAdxJ9belpgwJvZWL3AiibRSUg3vhUglLK/FGes1kYgelegw==
+X-Received: by 2002:a17:90b:1b08:b0:329:df65:de88 with SMTP id
+ 98e67ed59e1d1-32de4fad5c1mr1619868a91.7.1757677177899; 
+ Fri, 12 Sep 2025 04:39:37 -0700 (PDT)
+Received: from sziotdisp01-gv.qualcomm.com.ap.qualcomm.com
+ (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-56e6460ded0sm1080496e87.105.2025.09.12.03.42.49
+ d2e1a72fcca58-77607c45e34sm5278760b3a.91.2025.09.12.04.39.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Sep 2025 03:42:50 -0700 (PDT)
-Date: Fri, 12 Sep 2025 13:42:48 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
+ Fri, 12 Sep 2025 04:39:37 -0700 (PDT)
+From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+Subject: [PATCH 0/2] Add dp-controller support for sm6150
+Date: Fri, 12 Sep 2025 19:39:15 +0800
+Message-Id: <20250912-add-dp-controller-support-for-sm6150-v1-0-02b34b7b719d@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGQGxGgC/x2NQQrCQAwAv1JyNpBdaUW/Ih5qk62BulmyVYTSv
+ 7v0NnOZ2aCKq1S4dRu4fLWq5Sbh1MH0GvMsqNwcIsWeriHiyIxccLK8ui2LONZPKeYrJmv8HkJ
+ PyBd+0pmJhpigpYpL0t+xuT/2/Q9oQhOjdgAAAA==
+X-Change-ID: 20250912-add-dp-controller-support-for-sm6150-d7db03d0062f
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
- li.liu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH v4 13/13] drm/msm/dp: Add support for lane mapping
- configuration
-Message-ID: <oex5463riqvvyfyntxcyissaznnfsd6xogcniqouqcn6yokgwu@dwhje4i5inj6>
-References: <20250911-add-displayport-support-for-qcs615-platform-v4-0-2702bdda14ed@oss.qualcomm.com>
- <20250911-add-displayport-support-for-qcs615-platform-v4-13-2702bdda14ed@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250911-add-displayport-support-for-qcs615-platform-v4-13-2702bdda14ed@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=FN4bx/os c=1 sm=1 tr=0 ts=68c3f92c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=7XclI0hbOSOr8FJszFwA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: ptLSHFotLvZYvutIZ6E0JDzCc11OjvEs
-X-Proofpoint-GUID: ptLSHFotLvZYvutIZ6E0JDzCc11OjvEs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA4MDA5NCBTYWx0ZWRfX0UF13PMXd0NS
- aWa9ngaOJUwztbzY1n2L2Jn1yXH33YFVkXkQDj6LgZkJswA1oLBWrtn4S+1i8DWrIquX82oM9HQ
- EYcnPiQbzEEvxiBcisGXpBeiKqPXBEUEx4oykzJTJTeuwHFMEEHmcBv1d8z+1UJyO4mSQceaRzn
- MixEfoQI5gvHWNw8wlVcOwqKL9N/lJCr3XI7YC7ikOb20AtUiN3tFZUMKl2lcQ2XDiOmvM6wqJ/
- XP7NsB9kWagCSH7lqBSbMoP8X8ashQ63900X87qU1Y16++9BiKj8GOAUnlF21Ol+oNaOD9daLaS
- S8kYW5WKXFZxf11rz66YnkpgOM4UCjnPFof8NGmD+XiY7rV8tBuaJAlAChOVLp7Nh6VquL+F4Ut
- Kd+nfOZf
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, fange.zhang@oss.qualcomm.com,
+ yongxing.mou@oss.qualcomm.com, li.liu@oss.qualcomm.com,
+ Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1757677171; l=865;
+ i=xiangxu.yin@oss.qualcomm.com; s=20241125; h=from:subject:message-id;
+ bh=jJaKwtw9u/RInTyEr63Le7/5O1dlIWRXoH3wFolu9pM=;
+ b=GqiLToS8NHqUmFLqN3uA43qTSnAHpwgK8phMB7Q2jeQrhHoIR1sFeeVkcrDx4h37tHXsnWmsE
+ dg80WW/3tZWBxK+84WBbYMpFH2B6DOuQ5GFLMgjc3pyxKybCSJ2UhoV
+X-Developer-Key: i=xiangxu.yin@oss.qualcomm.com; a=ed25519;
+ pk=F1TwipJzpywfbt3n/RPi4l/A4AVF+QC89XzCHgZYaOc=
+X-Authority-Analysis: v=2.4 cv=FN4bx/os c=1 sm=1 tr=0 ts=68c4067c cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=jAdeW1IC_iKJYOCu1UcA:9
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: XkUk8Z3HLIYywOpDMZUuIX1OwuHIhWOc
+X-Proofpoint-GUID: XkUk8Z3HLIYywOpDMZUuIX1OwuHIhWOc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA4MDA5NCBTYWx0ZWRfX0Oa+SBP2//o/
+ TpWAAmHMd927/0xRbeLQ/+T/MxBFlhB7Ua8dwk+xvr5wy/+BhzBYxsVTKMJxZDWhezZMSTnmSIr
+ InQLgIg3pNvhmygVk+TBc5BQSARRiT0Llh9O/73Nr0u1keGjhRqcGPVzXme6Kui7KCy2GWougAD
+ jW4p7w9r7BqcQsEwOMjwDzXmqbKJWskveHC5yWg9p25LXxrVy5ftk8NEjHK0Wnl6TleBROb5dAz
+ xpOObUHUtOT/2KkRkZnjUa+XGBKiyNaUNxABWGXFrf+Db8XWc4FwVwcZJ6YNu3qzL262OkEzjnV
+ qqQeZb9i3P6TAZgU3gX5G327dl0Z5veUhcJU9h4rY8qWJyu88alRV+Ml6Ra28SJx0VOdkHpXjrw
+ luycGQoi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-12_03,2025-09-11_02,2025-03-28_01
+ definitions=2025-09-12_04,2025-09-11_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 priorityscore=1501 clxscore=1015 phishscore=0 adultscore=0
  bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0
@@ -138,81 +144,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 11, 2025 at 10:55:10PM +0800, Xiangxu Yin wrote:
-> QCS615 platform requires non-default logical-to-physical lane mapping due
-> to its unique hardware routing. Unlike the standard mapping sequence
-> <0 1 2 3>, QCS615 uses <3 2 0 1>, which necessitates explicit
-> configuration via the data-lanes property in the device tree. This ensures
-> correct signal routing between the DP controller and PHY.
-> 
-> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 10 +++++-----
->  drivers/gpu/drm/msm/dp/dp_link.c | 12 ++++++++++--
->  drivers/gpu/drm/msm/dp/dp_link.h |  1 +
->  3 files changed, 16 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index c42fd2c17a328f6deae211c9cd57cc7416a9365a..cbcc7c2f0ffc4696749b6c43818d20853ddec069 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -423,13 +423,13 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
->  
->  static void msm_dp_ctrl_lane_mapping(struct msm_dp_ctrl_private *ctrl)
->  {
-> -	u32 ln_0 = 0, ln_1 = 1, ln_2 = 2, ln_3 = 3; /* One-to-One mapping */
-> +	u32 *lane_map = ctrl->link->lane_map;
->  	u32 ln_mapping;
->  
-> -	ln_mapping = ln_0 << LANE0_MAPPING_SHIFT;
-> -	ln_mapping |= ln_1 << LANE1_MAPPING_SHIFT;
-> -	ln_mapping |= ln_2 << LANE2_MAPPING_SHIFT;
-> -	ln_mapping |= ln_3 << LANE3_MAPPING_SHIFT;
-> +	ln_mapping = lane_map[0] << LANE0_MAPPING_SHIFT;
-> +	ln_mapping |= lane_map[1] << LANE1_MAPPING_SHIFT;
-> +	ln_mapping |= lane_map[2] << LANE2_MAPPING_SHIFT;
-> +	ln_mapping |= lane_map[3] << LANE3_MAPPING_SHIFT;
->  
->  	msm_dp_write_link(ctrl, REG_DP_LOGICAL2PHYSICAL_LANE_MAPPING,
->  			ln_mapping);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-> index caca947122c60abb2a01e295f3e254cf02e34502..7c7a4aa584eb42a0ca7c6ec45de585cde8639cb4 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_link.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
-> @@ -1242,6 +1242,7 @@ static int msm_dp_link_parse_dt(struct msm_dp_link *msm_dp_link)
->  	struct msm_dp_link_private *link;
->  	struct device_node *of_node;
->  	int cnt;
-> +	u32 lane_map[DP_MAX_NUM_DP_LANES] = {0};
->  
->  	link = container_of(msm_dp_link, struct msm_dp_link_private, msm_dp_link);
->  	of_node = link->dev->of_node;
-> @@ -1255,10 +1256,17 @@ static int msm_dp_link_parse_dt(struct msm_dp_link *msm_dp_link)
->  		cnt = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
->  	}
->  
-> -	if (cnt > 0)
-> +	if (cnt > 0) {
-> +		struct device_node *endpoint;
-> +
->  		msm_dp_link->max_dp_lanes = cnt;
-> -	else
-> +		endpoint = of_graph_get_endpoint_by_regs(of_node, 1, -1);
-> +		of_property_read_u32_array(endpoint, "data-lanes", lane_map, cnt);
-> +	} else {
->  		msm_dp_link->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
-> +	}
-> +
-> +	memcpy(msm_dp_link->lane_map, lane_map, msm_dp_link->max_dp_lanes * sizeof(u32));
+This series splits the SM6150 dp-controller definition from the
+'[v3] Add DisplayPort support for QCS615 platform' series and rebases
+'dt-bindings: msm/dp: Add support for 4 pixel streams'.
 
-This will break all the cases when data-lanes is not present in DT: you
-are storing the empty lane map instead of the 1:1 lane mapping that was
-in place beforehand.
+The devicetree modification for DisplayPort on SM6150 will be provided
+in a future patch.
 
->  
->  	msm_dp_link->max_dp_link_rate = msm_dp_link_link_frequencies(of_node);
->  	if (!msm_dp_link->max_dp_link_rate)
+Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+---
+Xiangxu Yin (2):
+      dt-bindings: display/msm: dp-controller: Add SM6150
+      drm/msm/dp: Add DisplayPort support for SM6150
 
+ Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 2 ++
+ drivers/gpu/drm/msm/dp/dp_display.c                              | 1 +
+ 2 files changed, 3 insertions(+)
+---
+base-commit: 590b221ed4256fd6c34d3dea77aa5bd6e741bbc1
+change-id: 20250912-add-dp-controller-support-for-sm6150-d7db03d0062f
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+
