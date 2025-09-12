@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C556B54967
-	for <lists+freedreno@lfdr.de>; Fri, 12 Sep 2025 12:20:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 974CDB549D9
+	for <lists+freedreno@lfdr.de>; Fri, 12 Sep 2025 12:31:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72B0210E19B;
-	Fri, 12 Sep 2025 10:20:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 939C110EBFE;
+	Fri, 12 Sep 2025 10:31:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="baq9JZNn";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ez1cDXbS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6728F10E19B
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 10:20:33 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58C9fDUX018538
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 10:20:33 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09A9C10E187
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 10:31:17 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58C9fOBt010914
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 10:31:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=2+yk/HK2uTnuVPRZXu78qeeV
- MxzPMF0ZBseadsxMnhI=; b=baq9JZNnbBmtFqW2UCkb8P6sbj8TO0pqY2b/7FaO
- ywtAcEEjCW0fP1NFmwJ2ZmyuM3qyL1s7Q5y1aW6oXXCven99Q9ZZBRVAqyRVkP8T
- tibnnQQDd95xH4Xsk0216wOSu2WzFbmu/25Eo9VM8WPN6bDJpYr8n6jNCi3hpOZu
- NT5IQ6UZn4hvzXoVJCDKzS0+etyoDyg2umSy5EBclcVvaq0iHHvB2EZwangsKRUf
- PHoQbZlk4F18xguE7gjsWM/w6x7HzwRRnQA01k6p1Ywzp2c1vbE3K5meUlQNsmDA
- PTjj9Zy9TGop9cvAn5o9VWYukgf7X7bcJU9cMIsb7vv4pg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490e8ak564-1
+ :references:subject:to; s=qcppdkim1; bh=QYQVjSVGI7fSyP5NPLcxC0Gn
+ NWMprT3G/Z6o5y804gQ=; b=Ez1cDXbSvnGemg8472pZ8bhDQSW/4Ft8Q83R/893
+ 2LMiB8BhNhqVTzcLqTFOdPPzOGEBduIjUcmertrhXjUEwFazZ8uDN72wdBV17WVQ
+ N1IP3xd4EzB6oLWkiiA0uY9D3WlGRnKQhXnOmECOHgeQFIT9qcKZ5aoBLm3xiFcK
+ D+d1nyaUn8T/SNIOoVZO6Dv7YJUi2wuXu+p8yn5Ui7LmKx7tNTArTDBp0+OfU3kj
+ emw5YhBiJ+Oo3Kqik7N5C5FR1Nvb/HHQFGiG2jJRmnOVbC5aTQJNh/VPpp7fJ2K5
+ 3WK/a16Y6uK50vMN5E1UFSsc/z6PliVOMaryGGIDqb4UDA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490e4mb16p-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 10:20:32 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4b49715fdfbso59641391cf.2
- for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 03:20:32 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 10:31:16 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4b5fb1f057fso23881081cf.0
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Sep 2025 03:31:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757672431; x=1758277231;
+ d=1e100.net; s=20230601; t=1757673075; x=1758277875;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2+yk/HK2uTnuVPRZXu78qeeVMxzPMF0ZBseadsxMnhI=;
- b=ARSrKZsBLWeh6me3WXFV/MNNRSq9WVmnAtCLY7u1xhKtC3/uWKwJzBtUi5BmfYxBb1
- FjOgcwm+uVvvum0i2Oaya2OyuofzEIUF8E4dAWel7PeAuH98L/3D58gr8agPnjjAVESQ
- mc88XG/XHVPk72uI2ZAtX9Qe24vFTP7aTSsxnN/2LyCre+lCo37IBS8SyzqpyrPAjPEW
- Evt5SiUtR35DYUylMMdFxwYtaTtA1nZlX2G0YFMr20gCXK1SXMxmh39Obi3QGpJn7Rxn
- a0QYKH4l/Gd3ciFxfR3IEY7TcyAPae8hwSrOf2ESDd8mIxKP5CZeAmqz8tUJMYZ12Dg0
- LbWA==
+ bh=QYQVjSVGI7fSyP5NPLcxC0GnNWMprT3G/Z6o5y804gQ=;
+ b=S3G4lyXSZEEt/LgPG466s0oZGjCS7aQsfVYIovleDuipesZCOt6NmS652na/yaXX9c
+ SuQ6BE01DDJuS3pbYe8BuYyRp8UToWXLkKMCpnsJwBQkgQUr+CbHXUJVYCoPWiDBV21a
+ PdLEWO3lHC77eRdqpGbMlczP0NuZ4exhOzuPYGKj8nqNVkkxyxWM5BssWx7Vea9Gl+Ll
+ 5NC3GoNOonNfO4e9EejNDVq/NeuiL6/ORc3Q0TKd1FoMI9GG3n4t/GX/8q1DcQaNuhv7
+ uco3gOuxl8UWkL0UdtnOPpKCpRlM0P9p1COuYdWysvWRV2osswezPkzqMnAgZTaMt3dR
+ jw+w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWjGa6x1lpkxlCWqUaj+4z28maHmI0MQbdx92EDoseo3so3hEYF7X6cTsgqlFosIjmCgfI/12VSNK4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzy7Rs8eeMwKJGYDEmTHAKCc85aF0tWGR8WefkH0p1bFJmEdTUJ
- 3SoGCy0LGfNTz532cZKI+84QCRneYgPp6Cu7yIle569JENFwOV6OqbYUfzrNjPdQHNYZQq1cUvW
- LmdJ+zITacRlpzUw88WJt5ZluXBoQI7tvcKfwKaJMOyHgvHgw6uZqXxP3pkw7PXEGhGkgYAk=
-X-Gm-Gg: ASbGnctQVeEcWvinKKvnv9Aa/CmiWPBRZZfv5xE0MTDpqkGLQYazjuoZh2l+q50zm26
- icu9Mpbb14SyseJz2MgIy2emwU/R8C9h/RFjz554LdPy9L8C3BvG/qNjVmmrkHQ2g+5nJ6mTpB3
- sI77uZ4EutDZWZbyxAhbQhAxhffyas0erghS77b7rfWJNi3wYRnfUKrWlAxtNs1WDzO50K8guAH
- oSlVKem9FRUPmasBXd5wndrMfs6A5vQm0k+p/jq8e8HgjeugZM0w3e2qRwEtNiiPjJ0l+DdHUbd
- KsO9hNuq0T9Jzw03NcBxcRfU77dHyFecykmqbMeHo2AA18lxKEQ554H0XmlKtu0CIvrLYN9nO82
- IZW7e8kAuwxNvbuxNwGdbQBDVIKus+bQs2z6b6lmUkKA4AGb9RDse
-X-Received: by 2002:a05:622a:d1:b0:4b4:9169:455e with SMTP id
- d75a77b69052e-4b77d05e8cbmr30994891cf.34.1757672431557; 
- Fri, 12 Sep 2025 03:20:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF+kKC6NUmFZEfIjk6emSV08toNNjqRGF3CD3khX2vxvSwWG/Bv/20qxW9fKMHmTyb8jBpykg==
-X-Received: by 2002:a05:622a:d1:b0:4b4:9169:455e with SMTP id
- d75a77b69052e-4b77d05e8cbmr30994371cf.34.1757672430879; 
- Fri, 12 Sep 2025 03:20:30 -0700 (PDT)
+ AJvYcCVrcmnp62iv4zjZn9X9exSoeb/gyhLg5pLXnjf5GWzpdETY34BIlmA9wcjmn6LuAkPb8pVkRxTjHjY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzhjWN4ad/fEPqVuqdVMNkyFLX58SFIhwwqWJbNb5Vtyk8MFWbW
+ t4ecOhKjZMwbRzALUcNqG0CJJG9cv2o/BhNVh6r6G3bY0vZtcMWT85/LqNK4uSjFN0CYOW2CR54
+ nGp/Heh/XtgS/oxEcrIO/kP7YIlFWLR9R/qnEYU4fQMiOUfJ2/0s33BKrY1ym++qrjDUEcT0=
+X-Gm-Gg: ASbGncsezX3OwFmrlO6Z/cEvn+7/5lMcPAxLgo0PjC4TgzSmL4s63fY9smM/z+K+bBh
+ TEnFFbBQTUr2g8wxypxQX64eeTUBg9XVQxY69DUyBXqfjzB0j+erku7VHI2WELe8Po1/W7MEHji
+ lFuTWkV/iYV3lJip/krEGBXkj2yHzm6BD3eSaz2k1/OabGgd/KAC2r5Y3sVMQyb60Z/wYpeCcVf
+ xTomyBA+4kOEQwxIEBveFqxgIl/DK0yp1wfjX2HnRG+/Z3S0zN6DLcvjDEHcAE4COVpiX3poaN5
+ 1E+/HgiEJO3ZSK2KYLtH70SC9y0u6IOcKtNWufp4mOJWDSX2xWdwo5qnl/MdKgMCu8jUYdGBUTs
+ sut2CL5er42wGqmwFglO0EXQLYhysodGUNMiZtFNoQlbj+oC2phnX
+X-Received: by 2002:a05:622a:11:b0:4b4:9773:5866 with SMTP id
+ d75a77b69052e-4b77d0c8726mr25974541cf.65.1757673074767; 
+ Fri, 12 Sep 2025 03:31:14 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFlmYG3GvVCPpgbJA4niCY20ubvFQsgSIGszF/TZGTRPQ9P7ipXCexaQtPdOTizRtrNWqVY8g==
+X-Received: by 2002:a05:622a:11:b0:4b4:9773:5866 with SMTP id
+ d75a77b69052e-4b77d0c8726mr25973891cf.65.1757673074110; 
+ Fri, 12 Sep 2025 03:31:14 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-56e5c3b5fadsm1073715e87.6.2025.09.12.03.20.29
+ 2adb3069b0e04-56e65a3464bsm1032362e87.139.2025.09.12.03.31.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Sep 2025 03:20:30 -0700 (PDT)
-Date: Fri, 12 Sep 2025 13:20:27 +0300
+ Fri, 12 Sep 2025 03:31:13 -0700 (PDT)
+Date: Fri, 12 Sep 2025 13:31:11 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
@@ -93,36 +93,36 @@ Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
  li.liu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH v4 09/13] phy: qcom: qmp-usbc: Add TCSR parsing and PHY
- mode setting
-Message-ID: <x6p3hgatsauguzxryubkh54mue5adldkem2dh74ugf6jf3ige3@cb3mmigu6sjy>
+Subject: Re: [PATCH v4 10/13] phy: qcom: qmp-usbc: Add DP PHY ops for USB/DP
+ switchable Type-C PHYs
+Message-ID: <buob3axokndjfuwvv5j5zee4e66tf7t4ficz6fend5yadw4j6e@czus6n6zfor7>
 References: <20250911-add-displayport-support-for-qcs615-platform-v4-0-2702bdda14ed@oss.qualcomm.com>
- <20250911-add-displayport-support-for-qcs615-platform-v4-9-2702bdda14ed@oss.qualcomm.com>
+ <20250911-add-displayport-support-for-qcs615-platform-v4-10-2702bdda14ed@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250911-add-displayport-support-for-qcs615-platform-v4-9-2702bdda14ed@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=H7Dbw/Yi c=1 sm=1 tr=0 ts=68c3f3f0 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=lnF_te-ij5czt4pA2k8A:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: vdgNrTDebMZQAdgZBXjolblqEtkGtXR9
-X-Proofpoint-ORIG-GUID: vdgNrTDebMZQAdgZBXjolblqEtkGtXR9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAzOSBTYWx0ZWRfX7YZAx1wExxmb
- iuP3X6cKDjfzfQNjFxTgBPFKs/e0Dic/W+D/pjTWI6/Al3d3HSBjk/sXvf+5qg1/sufITPU6llx
- 8Ei+4gk2NwH84Xzreer1CM9riOmmN7GJo6P3QSwTY2rO1fONdXIjdyzYn6fKmtLYiGC9lDMM+kC
- ZVblr/ln/Z3BpRniwNcERVlgEaZf8HYX0tvUkhSG8v0abjwVOd0hae13JzsknCaYtuZqvu0OwOm
- GyQGvTpxIEh5i12/DymI50JdOzPROfcxGLa9K3DtbY8OGr8Hb3JhipyTSC0n58XYSLTioTzxQPW
- FV6z4DHglCbFJjQkVjYqSlKddU9chVArXOmAvSeL5f9PigAXc1SUKg3zbsh5lxspTaBdDL+DLxm
- 3p5lqUrz
+In-Reply-To: <20250911-add-displayport-support-for-qcs615-platform-v4-10-2702bdda14ed@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAzOCBTYWx0ZWRfX94KB2+u73mYv
+ YnlrP/GfP1J0UFtAbAbeGcNUHiYm6ItUDpATueknBbfr2iDm8BqG/XwCvVnips4z4OvCLyMfEmb
+ erKOKV4gnox8Z1lQFjl66WSwXU/jyvJLpgmzF2hvXn3UE0lXre9XO3Uy35IpuPsi8cCbGCq9L4A
+ V5uQ0oQcYZUB9hnlBdfWpmc5ScDs5DC60VOCfho0GthiQ4BqxLbQxp+e9G4Zan1A2aWtZuj+CVT
+ jWQ11chTAvvN1eCdAyaoX7C9urjWpbG/Aywa+YXqKfAoTPz+3fT0RHfHWH7S0izNRw7MnO8Q6WI
+ CmnY0XVx0LN6Y09nAo4uRGRIJWbGon/qZs3T4WslAKOm3EVGJYCKiIMm7ggnFMauVWegBGC+pH+
+ /fvMULPn
+X-Authority-Analysis: v=2.4 cv=J66q7BnS c=1 sm=1 tr=0 ts=68c3f674 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=tOlg4r5JIpINhLxCU78A:9 a=CjuIK1q_8ugA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: Kg4MJyAHf9G2QmJMZ9GbEYyEv31mUj8J
+X-Proofpoint-ORIG-GUID: Kg4MJyAHf9G2QmJMZ9GbEYyEv31mUj8J
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-12_03,2025-09-11_02,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0 phishscore=0
- clxscore=1015 suspectscore=0 priorityscore=1501 spamscore=0
+ impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 phishscore=0
+ adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060039
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060038
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,18 +138,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 11, 2025 at 10:55:06PM +0800, Xiangxu Yin wrote:
-> Parse TCSR registers to support DP mode signaling via dp_phy_mode_reg.
-> Move USB PHY-only register configuration from com_init to
-> qmp_usbc_usb_power_on.
-
-Two sets of changes. Two commits.
-
+On Thu, Sep 11, 2025 at 10:55:07PM +0800, Xiangxu Yin wrote:
+> Define qmp_usbc_dp_phy_ops struct to support DP mode on USB/DP
+> switchable PHYs.
 > 
 > Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 > ---
->  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 47 ++++++++++++++++++++------------
->  1 file changed, 29 insertions(+), 18 deletions(-)
+>  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 192 ++++++++++++++++++++++++++++++-
+>  1 file changed, 191 insertions(+), 1 deletion(-)
+> 
+> @@ -1669,6 +1832,23 @@ static int qmp_usbc_parse_tcsr(struct qmp_usbc *qmp)
+>  	return 0;
+>  }
+>  
+> +static struct phy *qmp_usbc_phy_xlate(struct device *dev, const struct of_phandle_args *args)
+> +{
+> +	struct qmp_usbc *qmp = dev_get_drvdata(dev);
+> +
+> +	if (args->args_count == 0)
+> +		return qmp->usb_phy;
+> +
+> +	switch (args->args[0]) {
+> +	case QMP_USB43DP_USB3_PHY:
+> +		return qmp->usb_phy;
+> +	case QMP_USB43DP_DP_PHY:
+> +		return qmp->dp_phy;
+
+return qmp->dp_phy ?: ERR_PTR(-ENODEV);
+
+We are not expected to return NULL here (and dp_phy can be NULL).
+
+> +	}
+> +
+> +	return ERR_PTR(-EINVAL);
+> +}
+> +
+>  static int qmp_usbc_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> @@ -1743,9 +1923,19 @@ static int qmp_usbc_probe(struct platform_device *pdev)
+>  
+>  	phy_set_drvdata(qmp->usb_phy, qmp);
+>  
+> +	if (qmp->dp_serdes != 0) {
+> +		qmp->dp_phy = devm_phy_create(dev, np, &qmp_usbc_dp_phy_ops);
+> +		if (IS_ERR(qmp->dp_phy)) {
+> +			ret = PTR_ERR(qmp->dp_phy);
+> +			dev_err(dev, "failed to create PHY: %d\n", ret);
+> +			goto err_node_put;
+> +		}
+> +		phy_set_drvdata(qmp->dp_phy, qmp);
+> +	}
+> +
+>  	of_node_put(np);
+>  
+> -	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
+> +	phy_provider = devm_of_phy_provider_register(dev, qmp_usbc_phy_xlate);
+>  
+>  	return PTR_ERR_OR_ZERO(phy_provider);
+>  
+> 
+> -- 
+> 2.34.1
 > 
 
 -- 
