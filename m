@@ -2,137 +2,131 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 607A1B5767E
-	for <lists+freedreno@lfdr.de>; Mon, 15 Sep 2025 12:35:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CCE1B576E1
+	for <lists+freedreno@lfdr.de>; Mon, 15 Sep 2025 12:45:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3163E10E42D;
-	Mon, 15 Sep 2025 10:35:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 155DF10E433;
+	Mon, 15 Sep 2025 10:45:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="FPGp+DWn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jve2A073";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FPGp+DWn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jve2A073";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FZz7aImc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0EB510E426
- for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 10:35:12 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 70A1633722;
- Mon, 15 Sep 2025 10:35:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1757932511; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wyZ7R1j8ekVpPVWOeGovOVmplGZx5PoOUHolz+8mQ9A=;
- b=FPGp+DWnjZ8cpc2VUqQoiyB/9LNHZYKvuORtYnVfZ/XHaMFtXUVkqBJcO7rAv1RFBFx8Wt
- WO9vXmdo3ndVCRkwybC/JRSx7vg7aRbraBqaSL3pYejnsPSAS3V9zbavON3zPYoiuoyHq6
- t30gZa8OHDAhmOgPfFIgs/KdUCYtpH0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1757932511;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wyZ7R1j8ekVpPVWOeGovOVmplGZx5PoOUHolz+8mQ9A=;
- b=jve2A0736Y5pKNdzRyUDlpuD78LkpAU4DSyrxIJjrTFvm/CDnns1c+0qAhYAGzGZhQpsjD
- q17urp8vFAEgnsDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1757932511; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wyZ7R1j8ekVpPVWOeGovOVmplGZx5PoOUHolz+8mQ9A=;
- b=FPGp+DWnjZ8cpc2VUqQoiyB/9LNHZYKvuORtYnVfZ/XHaMFtXUVkqBJcO7rAv1RFBFx8Wt
- WO9vXmdo3ndVCRkwybC/JRSx7vg7aRbraBqaSL3pYejnsPSAS3V9zbavON3zPYoiuoyHq6
- t30gZa8OHDAhmOgPfFIgs/KdUCYtpH0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1757932511;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wyZ7R1j8ekVpPVWOeGovOVmplGZx5PoOUHolz+8mQ9A=;
- b=jve2A0736Y5pKNdzRyUDlpuD78LkpAU4DSyrxIJjrTFvm/CDnns1c+0qAhYAGzGZhQpsjD
- q17urp8vFAEgnsDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D535D1368D;
- Mon, 15 Sep 2025 10:35:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WO5lMt7rx2hmEwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 15 Sep 2025 10:35:10 +0000
-Message-ID: <331c5105-481f-4776-943f-376b21ccc430@suse.de>
-Date: Mon, 15 Sep 2025 12:35:10 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14FA510E433
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 10:45:16 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58FAQPCA017534
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 10:45:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 3q9UHllEUzo7emL0csxSsit2MUCrJ9I6itNrb0wCCSE=; b=FZz7aImcq32G0kDj
+ Oa/v2b1+4ho8TvoVx33/+DXzLu6BhQ+T0y2fU2AyBKpZPlGY9Kk3B3T/s4UjJO3x
+ noR9HzsHnCHE+qs5qXNp4LA5L38qpD8KRJuCcw3w/RcKtM9wFfXVtWC2ygn864pG
+ 6rGWIDOGU0AKw5IN5vhxFFne2Pc/Nh4htyRXVZYhuEhEUAumTfGHbmSoyqc//iri
+ +LzLbhra0i3BdLPrYDkwj24dJQofMd10m8psh9gl40fmyJnQ5yXRiuy3sylmDUXj
+ zlOs2iqquxLthxrORvtKbARxuKl1sCNtqZU9sIW8cVCoHU0oN7K3b+l7k6UKzjQK
+ +0QCbA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 496h1sg1q1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 10:45:14 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-245fbdc2546so6684445ad.0
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 03:45:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757933112; x=1758537912;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=3q9UHllEUzo7emL0csxSsit2MUCrJ9I6itNrb0wCCSE=;
+ b=i8wDXmqYMTKxMd2mi4AOAPuphx1/sCewVN3ooKB2oc6QNeoawKJT6s6flVjSQEJJfA
+ MgvxH000ttxGDvMADd2UF2Jd1gLLjTXsrFI4jdTrydL9E0TnL8wPTbNeaI9wR1TsVbhS
+ xC3maPbqjBDSfvHutWKRl2+lLwkxEFF+htwdxEgzjTKnEMWN/8zMiZ2peVX/HlDObAUp
+ OGH+/dSlXvEAJhjKg43hOW0CA+/jQPeARTsLCYmtKPM0ya5U59Lmu9qkA1Lrh1OaUaSU
+ gm7k3RkXPo3lvZVkTHlT4JZY4U35hUW2hisKnxSD0fKY7VRijO6nP7I8ni028IpBi86X
+ oyqQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWnXPwP7d0lkfFn5FjFWhpQBQOExPuEQtk+JJQID/hKP33d1yS0G1Uzrj1kV0tUEt6FHXC6Q/Cbdaw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyv3KnAX7UjT/XC1u2gUEhxfFCNUoiDfDcX3mt13uzugs5Y5ima
+ EwTIWVxFhpGL3jx0nfQRjQwONoQ/yf8mVt14prr9JWkEDhDuzXJDVB50e8c3aR8z4zM3ejHy7Vs
+ +R0iLxrd1w6rTu3W5EZ6h2s+HhjWK3F0+44mN9nDJ/ZPWRKj6q/64cS1ifEK+dZZLSy15puw=
+X-Gm-Gg: ASbGncuXKfWJ9KmyAIpeN17F4OM1APc/CoqErmAuzwnLJhL5B6mWtPQKEqYATnKXR7b
+ kz5MvxixvFtWYbFSr7UeZNrhGFi/xNl0NwT27x46eHnjD5YJ+VVaT6GWF108SsdfuEmGtqgnySa
+ XFu8/O399t5Nald98qbqL0/67GplSedt5lT3JttNOjAnYZy2LMT9RkZZZ7SrKw6Gtk2AiPBWk9I
+ pMF+Wq6FqOgcJ0F22TBQbDs52CFvK1ZjA/uukaaa5sA3rEcEsL7WPPTrVd7qk6J5h0NZ0l7IYJu
+ 9fkNJeM3AV0NbpI8j5PDHzhSg4LpZmOuvKOh9gco3rycQRuTrFu0FfPXcKv+i2epw1bj5spevhb
+ quGywXtDBQ+nzOWr5vU5og0fALXgxn8jmwv4=
+X-Received: by 2002:a17:902:c94a:b0:262:923b:4e2e with SMTP id
+ d9443c01a7336-262923b5125mr46665245ad.11.1757933112386; 
+ Mon, 15 Sep 2025 03:45:12 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGYdD9O4QdRiVJ5hAs101DS3Zf4FAq6fcZz1dgavqsmhdSqj3W4RYmxEazrWjBJJAH2vJCcqw==
+X-Received: by 2002:a17:902:c94a:b0:262:923b:4e2e with SMTP id
+ d9443c01a7336-262923b5125mr46664835ad.11.1757933111666; 
+ Mon, 15 Sep 2025 03:45:11 -0700 (PDT)
+Received: from [10.133.33.231] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2664f0071e5sm27436305ad.68.2025.09.15.03.45.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Sep 2025 03:45:11 -0700 (PDT)
+Message-ID: <8baa3f62-8069-42cb-810d-33e1ad61abbb@oss.qualcomm.com>
+Date: Mon, 15 Sep 2025 18:45:02 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/25] drm/dumb-buffers: Fix and improve buffer-size
- calculation
-To: simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, geert@linux-m68k.org,
- tomi.valkeinen@ideasonboard.com
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org
-References: <20250821081918.79786-1-tzimmermann@suse.de>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20250821081918.79786-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v4 08/13] phy: qcom: qmp-usbc: Add USB/DP switchable PHY
+ clk register
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
+ li.liu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+References: <20250911-add-displayport-support-for-qcs615-platform-v4-0-2702bdda14ed@oss.qualcomm.com>
+ <20250911-add-displayport-support-for-qcs615-platform-v4-8-2702bdda14ed@oss.qualcomm.com>
+ <6p43oxn57kke5eotoqtt5gqtmhmgeteoymewqm3ko5q5veyegs@krkh4dwdno5i>
+ <335ffce5-19c6-409d-8386-686fe9e5dea5@oss.qualcomm.com>
+ <7ozv3u7xuvtz2x5q3pp5kdeydtsu5jlrgwjnxpxxiuh7przr2z@35uo7t3b4ze2>
+ <05e8069e-895c-48b2-8a25-a4a680728cfa@oss.qualcomm.com>
+ <ykxl2xjrabsvs6llaf6p3cpiler2nhyrsbnhrbvhtl2is27cig@fbtj45n4e2yd>
+From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+In-Reply-To: <ykxl2xjrabsvs6llaf6p3cpiler2nhyrsbnhrbvhtl2is27cig@fbtj45n4e2yd>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,kernel.org,linux.intel.com,linux-m68k.org,ideasonboard.com];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[20]; RCVD_COUNT_TWO(0.00)[2];
- MID_RHS_MATCH_FROM(0.00)[]; TO_DN_NONE(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
+X-Proofpoint-ORIG-GUID: AU0NPG1hbC6tvpTikAVHShEz9Ailx70g
+X-Authority-Analysis: v=2.4 cv=A/1sP7WG c=1 sm=1 tr=0 ts=68c7ee3a cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=rsY2jHysN4_Lp2AvgbIA:9
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: AU0NPG1hbC6tvpTikAVHShEz9Ailx70g
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTE1MDA5OCBTYWx0ZWRfX6/YZ0DDWSjm1
+ qC6+tzS5ozLJMqcHnyQPEsATvUcHcmzS1oF7Fe5Y+Ba89Qid2Sf9ad1HOGQFiWtc9GytPE45fTs
+ T0PFoujsey/JyNvT5C5ThW/9DbObaCrPDR15QpPZsfVfGD3IWpKa0rksvEFBkHD55keva1R93Ag
+ 9NCpdbX+SIPvoSkjesi4YD6NNhcmXwT1geAu7Aer5nIyBjPc4WfiRew+uHtZMDr9vWNowCW/IU4
+ 7qUzUMgVf85UCaMWFFoRFTJUX2BxZgFmqxsXZFWOQyKBF4/nJNzivn1FRn1ATYOqXvh3mTdgmkN
+ p4WFUoIivIWq3+TwR1KdeEq/tKb3HvMoe83rS9sqXBn6DCVjL6BR7DjzfMB22s2fwmGH3sT5s7s
+ 6XbpyMaI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-15_04,2025-09-12_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 spamscore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509150098
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,114 +142,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-FYI, I significant number of these patches got a review already. I 
-intent to merge these and then send out the others for each driver 
-individually.
 
-Am 21.08.25 um 10:17 schrieb Thomas Zimmermann:
-> Dumb-buffer pitch and size is specified by width, height, bits-per-pixel
-> plus various hardware-specific alignments. The calculation of these
-> values is inconsistent and duplicated among drivers. The results for
-> formats with bpp < 8 are sometimes incorrect.
+On 9/15/2025 6:14 PM, Dmitry Baryshkov wrote:
+> On Mon, Sep 15, 2025 at 06:02:19PM +0800, Xiangxu Yin wrote:
+>> On 9/12/2025 8:08 PM, Dmitry Baryshkov wrote:
+>>> On Fri, Sep 12, 2025 at 08:00:14PM +0800, Xiangxu Yin wrote:
+>>>> On 9/12/2025 6:19 PM, Dmitry Baryshkov wrote:
+>>>>> On Thu, Sep 11, 2025 at 10:55:05PM +0800, Xiangxu Yin wrote:
+>>>>>> Add USB/DP switchable PHY clock registration and DT parsing for DP offsets.
+>>>>>> Extend qmp_usbc_register_clocks and clock provider logic to support both
+>>>>>> USB and DP instances.
+>>>>>>
+>>>>>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+>>>>>> ---
+>>>>>>  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 208 +++++++++++++++++++++++++++++--
+>>>>>>  1 file changed, 195 insertions(+), 13 deletions(-)
+>>>>>> +	default:
+>>>>>> +		return 0;
+>>>>>> +	}
+>>>>>> +}
+>>>>>> +
+>>>>>> +static int qmp_usbc_register_clocks(struct qmp_usbc *qmp, struct device_node *np)
+>>>>>> +{
+>>>>>> +	int ret;
+>>>>>>  
+>>>>>> -	ret = of_clk_add_hw_provider(np, of_clk_hw_simple_get, &fixed->hw);
+>>>>>> +	ret = phy_pipe_clk_register(qmp, np);
+>>>>>>  	if (ret)
+>>>>>>  		return ret;
+>>>>>>  
+>>>>>> -	/*
+>>>>>> -	 * Roll a devm action because the clock provider is the child node, but
+>>>>>> -	 * the child node is not actually a device.
+>>>>>> -	 */
+>>>>>> -	return devm_add_action_or_reset(qmp->dev, phy_clk_release_provider, np);
+>>>>>> +	if (qmp->dp_serdes != 0) {
+>>>>>> +		ret = phy_dp_clks_register(qmp, np);
+>>>>>> +		if (ret)
+>>>>>> +			return ret;
+>>>>>> +	}
+>>>>>> +
+>>>>>> +	return devm_of_clk_add_hw_provider(qmp->dev, qmp_usbc_clks_hw_get, qmp);
+>>>>> Do you understand what did the comment (that you've removed) say? And
+>>>>> why?
+>>> And this was ignored :-(
+>> Sorry for missing this part.
+>>
+>> For USB-C PHY, the legacy implementation only supports USB with a single
+>> device node. The new driver for USB and DP also uses a single device node.
+> There is no 'new driver'. It's about DT.
 >
-> This series fixes this for most drivers. Default scanline pitch and
-> buffer size are now calculated with the existing 4CC helpers. There is
-> a new helper drm_mode_size_dumb() that calculates scanline pitch and
-> buffer size according to driver requirements.
->
-> The series fixes the common GEM implementations for DMA, SHMEM and
-> VRAM. It further changes most implementations of dumb_create to use
-> the new helper. A small number of drivers has more complicated
-> calculations and will be updated by a later patches.
->
-> v6:
-> - extend TODO item (Tomi)
-> - fix typos in documentation (Tomi)
-> v5:
-> - use check_mul_overflow() for overflow test (Tomi)
-> - imx: fix intermediate code (Tomi)
-> - rz-du: include dumb-buffers header
-> v4:
-> - improve UAPI documentation
-> - document bpp special cases
-> - use drm_warn_once()
-> - add TODO lists
-> - armada: fix pitch alignment
-> v3:
-> - document UAPI semantics
-> - fall back to bpp-based allocation for unknown color modes
-> - cleanups
-> v2:
-> - rewrite series
-> - convert many individual drivers besides the shared GEM helpers
->
-> Thomas Zimmermann (25):
->    drm/dumb-buffers: Sanitize output on errors
->    drm/dumb-buffers: Provide helper to set pitch and size
->    drm/gem-dma: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/gem-shmem: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/gem-vram: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/armada: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/exynos: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/gma500: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/hibmc: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/imx/ipuv3: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/loongson: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/mediatek: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/msm: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/nouveau: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/omapdrm: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/qxl: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/renesas/rcar-du: Compute dumb-buffer sizes with
->      drm_mode_size_dumb()
->    drm/renesas/rz-du: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/rockchip: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/tegra: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/virtio: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/vmwgfx: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/xe: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/xen: Compute dumb-buffer sizes with drm_mode_size_dumb()
->    drm/xlnx: Compute dumb-buffer sizes with drm_mode_size_dumb()
->
->   Documentation/gpu/todo.rst                    |  37 ++++
->   drivers/gpu/drm/armada/armada_gem.c           |  16 +-
->   drivers/gpu/drm/drm_dumb_buffers.c            | 170 ++++++++++++++++--
->   drivers/gpu/drm/drm_gem_dma_helper.c          |   7 +-
->   drivers/gpu/drm/drm_gem_shmem_helper.c        |  16 +-
->   drivers/gpu/drm/drm_gem_vram_helper.c         |  89 +++------
->   drivers/gpu/drm/exynos/exynos_drm_gem.c       |   8 +-
->   drivers/gpu/drm/gma500/gem.c                  |  21 +--
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  25 ++-
->   drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |  29 ++-
->   drivers/gpu/drm/loongson/lsdc_gem.c           |  29 +--
->   drivers/gpu/drm/mediatek/mtk_gem.c            |  13 +-
->   drivers/gpu/drm/msm/msm_gem.c                 |  27 ++-
->   drivers/gpu/drm/nouveau/nouveau_display.c     |   7 +-
->   drivers/gpu/drm/omapdrm/omap_gem.c            |  15 +-
->   drivers/gpu/drm/qxl/qxl_dumb.c                |  17 +-
->   drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c |   7 +-
->   drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c  |   8 +-
->   drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |  12 +-
->   drivers/gpu/drm/tegra/gem.c                   |   8 +-
->   drivers/gpu/drm/virtio/virtgpu_gem.c          |  11 +-
->   drivers/gpu/drm/vmwgfx/vmwgfx_surface.c       |  21 +--
->   drivers/gpu/drm/xe/xe_bo.c                    |   8 +-
->   drivers/gpu/drm/xen/xen_drm_front.c           |   7 +-
->   drivers/gpu/drm/xlnx/zynqmp_kms.c             |   7 +-
->   include/drm/drm_dumb_buffers.h                |  14 ++
->   include/drm/drm_gem_vram_helper.h             |   6 -
->   include/uapi/drm/drm_mode.h                   |  50 +++++-
->   28 files changed, 457 insertions(+), 228 deletions(-)
->   create mode 100644 include/drm/drm_dumb_buffers.h
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+>> The function devm_of_clk_add_hw_provider internally handles both
+>> of_clk_add_hw_provider and devres_add, and supports automatic resource
+>> release.
+>>
+>> So I think using devm_of_clk_add_hw_provider allows us to remove
+>> of_clk_add_hw_provider and devm_add_action_or_reset.
+> Which node is passed to of_clk_add_hw_provider() in the legacy DT case?
+> Which node is passed to of_clk_add_hw_provider() by
+> devm_of_clk_add_hw_provider()?
 
 
+Ohh, legacy is child node and devm is dev->of_node.
+
+Will add that back for compatibility.
+
+
+>> For combo PHY, the legacy implementation uses two device nodes: dp_np and
+>> usb_np. To maintain forward compatibility, we need to keep support for
+>> both nodes and retain the related logic.
