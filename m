@@ -2,79 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 588C8B56D35
-	for <lists+freedreno@lfdr.de>; Mon, 15 Sep 2025 02:14:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B132DB57D38
+	for <lists+freedreno@lfdr.de>; Mon, 15 Sep 2025 15:32:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAC9B10E264;
-	Mon, 15 Sep 2025 00:14:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3A210E4BC;
+	Mon, 15 Sep 2025 13:32:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SUOFF4XN";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="kmrrAcC3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1FE910E03E
- for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 00:14:16 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58EMp3Jb022921
- for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 00:14:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=wfIfmtGDU0fMWPSXfBq3QGPr
- RejWAR38abE4jrrVyJ4=; b=SUOFF4XNRO46ay3UYMsN/RFX10KQxXKyoxTnQuXZ
- jFJzdaDG7YKTMEn9DWCJWxVSXROJy/EXK3NdO04I9mcIXSc+Yh/oybm+zoM+ge5X
- gi4fhfdHiD1oKn3jHPCZVjcbVhwM3M+b5O/K2xeAn5ptq4erGu7d/KduI3Oth0WJ
- +B805Q8T8Djcm8Rj4Ww2v9PMeN3VK6fe56aORWjK90imQIePdZ9NFJr4nuelu3MG
- rhecpEnLlhZspV/JJp+w/R9551cQIuSaCTbO+YqVOXuJrhx273m369UH0Fdvprq4
- MlL1BYxYnMQndpZgj3CiU5DnpjQx81xZnY8MOt7Q2TsqqQ==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4950pv2xw0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 00:14:15 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-767e5b2a74fso27625576d6.1
- for <freedreno@lists.freedesktop.org>; Sun, 14 Sep 2025 17:14:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757895255; x=1758500055;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wfIfmtGDU0fMWPSXfBq3QGPrRejWAR38abE4jrrVyJ4=;
- b=S/SOyWLdBf456gxmbQSCHX6/svIoIcEuYZKu4cXMQ0QrBklmmPGxs7/UBq31ElBbPC
- 5e0KPKv9twp88JnMsg8dk2iVlodhuqBKyeA3Rv4ecxy3xs5Pnw43mL/CVwjC62uJi/ii
- bZfo1kKg8YLPWy3iWlxHzS+dZIvsv4c433DnSaSMGHekuoHeDz29hpwAxOHrNZyp/iEm
- myBgr95Qs/zNLtutWwEu+wc/EuTd9r+axn15Gz0eE+yemw2K+23fJ60ZBM+eU025OH1d
- wfwBiic1yWMALbgA8SZ5s335GhWt9Ex9IAZV89S3+ENUUb+DrYyZl43IBeudaf/lQC3g
- uMlw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWBjARmnrkrP7o5Ogb5bBzH5D9wdHiElik+OjGGerBkHbOttrBTsrB1JcSsYI5+TQ4GQqhftzeWOCs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyFiWAH6pSjancpm4W74Sn2L4coGuD6xiVvlm6yjWVZIn4+JhM0
- PYgvXkj49iMZiC1E2C0KsKukODz8jIEkBgq+9eCr0IDPI6OeZvCCOUmA+mFyNTYEsmwgEd02oFL
- vTWFOg70GH6t9mP5NzmmsnowMQJG6DAmqwMiw2S6NbB6Nf62WzhrZ/5NUMeiCBjAE2SOpr5I=
-X-Gm-Gg: ASbGncsKNlXSlI5rQehAtzAoOC/1uqGMyEXMPuLekuEkE1EiVMvlIsSD4rF6f4aC0p0
- 4Iyyp9yByn9VP8oosK6Zb0+Dkyi6hw4iR/qpF+55MJLV+I+H0ihKafqZqQcWAEmHUZrtDvgWXwM
- NQCtl2j6z+715NxOiq9oRTP5+TCpUQKqBVqnY7cs/vitHMgpBMSq308+sL+JtQVZjK7Enp4BgQF
- 8PQXr2Wrxbr00LvyKW4mLoDTQ5k0F2zgVcBbnB1XW+jXYJZfZxhQF9We/wKX9eeeqprXwO2T47h
- JbjzryK9nl520Ss8hXKg2HMphtIM3VyAWS5diNzDRbi7jWJo1kCFn88wBvts9OP900E/XNjvz9u
- N2YXEsBrFA6L+14cxmaa5E21LciM9UaJjSU7mGpaKm6+hK7Hbc10h
-X-Received: by 2002:a05:6214:268e:b0:70d:cabf:470d with SMTP id
- 6a1803df08f44-762262daa1cmr182241856d6.27.1757895254717; 
- Sun, 14 Sep 2025 17:14:14 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHObBFwIlp3GQ+VOBYwejw1PxkvVAwhDilkZbOEooVdFxkX7Rq1AOhro4RGokvljow6YU9iPw==
-X-Received: by 2002:a05:6214:268e:b0:70d:cabf:470d with SMTP id
- 6a1803df08f44-762262daa1cmr182241606d6.27.1757895254257; 
- Sun, 14 Sep 2025 17:14:14 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-56e5c692daesm3255202e87.26.2025.09.14.17.14.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Sep 2025 17:14:13 -0700 (PDT)
-Date: Mon, 15 Sep 2025 03:14:11 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013012.outbound.protection.outlook.com
+ [40.107.162.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5031010E29B;
+ Mon, 15 Sep 2025 03:36:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sFVU1Q9DZhB9azOpyp5ylsb3OZ5a9Fdp+rQZa7avniw3wC1kIK1bk7bI7syaDHkz3N3fNZjmP3lWJxiD9ZL3MsbhFJh5pVm3PS2UOLj2fmjiGbKJ9lCEuihhDiIVyK45Czg/f1W9v6C0Ztf8xOXlWqMXdDNz5HviYzKN4trMUYQ5xwimingW/l5ZAS/ngxR3vhZzxnyfeRL9D/k3HUHBdCoCIUsOH+1naCHXo6HTCk4a7+PcC3QLkzY+eQ6ZS6vr071w9yR5R44aSDdrBtS2q7KqOK6g+oXrRmfLAZGjyaus2q8Nzrp44Agk1DjydJCoQjDHuCWcliD6mu7dpFGi6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6tUnDiJ2on+MgKl5OlwpuM6z2uOqyynvbdhenF21HR8=;
+ b=nyfPxhx+3BTLqO1IFQrK+AA3qmccWehJJK1hy3F6J9di+lM30lsf0gOoXHraEu+OD+KcDI7KZ52yaj2k7vrhG/yUBej9yWLpvvYmoRw6aOZo9pCOhAUTHH59QH51ZQXqJX0fNb/IdqJ4Z0g659V2PC8Bwf7+Xo0xSKTOePXJy1CnI/U3JyUbuGtYvmv0x6Bum1M/ZGqRRzd8RnPHAmU4/cC8V7ZbB5JqmFvfTC11o7wA+yTrL/UDFifbreOYavhX6d3h62RpPDozvmW6dFZYBw/95GtFyEqWFs+WmJzTE6XcDxv9z/YekF7joevEzi/iYjL81kUy1rf/XItsBjTxow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6tUnDiJ2on+MgKl5OlwpuM6z2uOqyynvbdhenF21HR8=;
+ b=kmrrAcC35gKUTaL06Bskwm4m1f9JKVsEo/e0S1ceJc7OH69nE60I1Gs/K+ObyaDa3XqVm8FZQ3AYsLn/yxgwwZGkjzdDqBukDMOBAtKA/IPSsjv7YHcUypnZzARImYLhOsYUKQ9/NVF0jPJXGn3l+468/Rn2vc9WNnzthARa5I9C9JYIUUHeBnvNrJrmUZos1FDrOov/VJew9ZY7mALn4sgElMCLQf+8pzatgyNE2CN70Dap8E2cyeV84leAWfRR9RWmA4meLTgv4gqmCNB96x7b6G9NsOw8lUinPDal7XpA12wxPIT/t17v1lYgXD2b87sUtmlyCA6zLX1XQrU11Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DB9PR04MB8461.eurprd04.prod.outlook.com (2603:10a6:10:2cf::20)
+ by GV1PR04MB10352.eurprd04.prod.outlook.com (2603:10a6:150:1c4::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.21; Mon, 15 Sep
+ 2025 03:36:10 +0000
+Received: from DB9PR04MB8461.eurprd04.prod.outlook.com
+ ([fe80::b1b9:faa9:901b:c197]) by DB9PR04MB8461.eurprd04.prod.outlook.com
+ ([fe80::b1b9:faa9:901b:c197%4]) with mapi id 15.20.9137.010; Mon, 15 Sep 2025
+ 03:36:10 +0000
+Date: Mon, 15 Sep 2025 12:47:36 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
 To: Brian Masney <bmasney@redhat.com>
 Cc: Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -97,43 +67,102 @@ Cc: Philipp Zabel <p.zabel@pengutronix.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>,
- linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/9] drm: convert from clk round_rate() to
- determine_rate()
-Message-ID: <pdodeksqchby7gtr7oukm7wqleu535kzh2g3uaseqmkxv5g7qx@jvh5fcppvutm>
+ Samuel Holland <samuel@sholland.org>,
+ Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v2 1/9] drm/imx/ipuv3/imx-tve: convert from round_rate()
+ to determine_rate()
+Message-ID: <20250915044736.GC1331@nxa18884-linux.ap.freescale.net>
 References: <20250811-drm-clk-round-rate-v2-0-4a91ccf239cf@redhat.com>
- <aMawQYUIjPw9m4IO@redhat.com>
-MIME-Version: 1.0
+ <20250811-drm-clk-round-rate-v2-1-4a91ccf239cf@redhat.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aMawQYUIjPw9m4IO@redhat.com>
-X-Proofpoint-ORIG-GUID: 1oS4SBc-u9Ec36TRclVIB5P9RU3JyF7D
-X-Authority-Analysis: v=2.4 cv=PsWTbxM3 c=1 sm=1 tr=0 ts=68c75a57 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=ErCwDgQeR7lfzThPobAA:9 a=CjuIK1q_8ugA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: 1oS4SBc-u9Ec36TRclVIB5P9RU3JyF7D
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTEzMDAyOSBTYWx0ZWRfX9tWck6MQeZo9
- XMkjmnq1A0CnWLR9TL8Gzb+y8MHt+Sex2EjWoJDDuTGm4/fIbLEIGcdkabqyUxSaJp0+uOwN8p6
- VTps+g/mPYr8G8TK9qNc8udt36LtyQAfgKem/vp7ujQTdGM0PnYJcgLCA4dfqs8F8VH4jtw6uqE
- 8cKjU7c95zVNGEF2GhgRvEK2lZGpyr8RVF4okhYvJs3oee9o2rt6RpE80VhXjrzg8FDR9d93ujz
- aQaPFC7s2s6pCh+3HAT5Tf6bpe7K1A5YbiMxRVnGxzVD0HkwJSHRsiShJHJ+wAA9LpFmQpT7OsD
- o6JvtEktAoFYP4i6ksiCQwF1IYAqQdaKGc/nm5Z9hRr22b06LNwiw+IPPkMHxAoqYXdlNlm02Q7
- VPODikJo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-14_08,2025-09-12_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 clxscore=1015 malwarescore=0 suspectscore=0
- spamscore=0 bulkscore=0 adultscore=0 impostorscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2509130029
+In-Reply-To: <20250811-drm-clk-round-rate-v2-1-4a91ccf239cf@redhat.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: SI2PR02CA0053.apcprd02.prod.outlook.com
+ (2603:1096:4:196::16) To DB9PR04MB8461.eurprd04.prod.outlook.com
+ (2603:10a6:10:2cf::20)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR04MB8461:EE_|GV1PR04MB10352:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82ba0994-f83a-4855-b49c-08ddf4090289
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|52116014|19092799006|1800799024|7053199007|38350700014;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mcKSCJO8VA5ZTN/c7Ur99acuppU0PDXmUk/yCqpsCuUVIAKebihy+eErfd+2?=
+ =?us-ascii?Q?Z6TTMq421Psv50jS4YpuSp+FuUZtYQcRKWQWT8Y7xKQdubL3Lpt78KC9gt5c?=
+ =?us-ascii?Q?oxDVlKo3Hxvy5EfLFH/shZp6JgX3iNisdgyjDqzMoWZjmEVv4gWhRsgwRF49?=
+ =?us-ascii?Q?4hxyQaKIYoWAcYfsZhxTrwKeHEWTkQcxpUKOkGcU+2WJaeDRwnhs83ZRYLXF?=
+ =?us-ascii?Q?Q1KiU1S11XySCj9gkHevUdS4+pmvoq37bowSjNoPSO7i/rlTDhv0hYgEM6bS?=
+ =?us-ascii?Q?ND/S1EN2h2XB1/zAVZsLe0loNeaW/bCMBklxhM5XMJwnMTsJHRNMAkGkw10q?=
+ =?us-ascii?Q?4/tmFH7ndwt6/aFJC6I0TCZLgi20TCJXOj0k5dOqKEyT6F2NRQoX0q25Fg9O?=
+ =?us-ascii?Q?WkANbJZPv9DSip2MiwUOFWFY1wjPyWZHMRN3/VRgYYyn5D6d/AD20RhH0yC8?=
+ =?us-ascii?Q?Ux00QH+2W19GQg7U9CWqh3UiK7859NJbDQ38NuD93Ts6JiMDALaT1N0WrUvl?=
+ =?us-ascii?Q?sLGt0EQN/604qh7f+HF8IWKr46pvgL+vsfGIDXsvwrUpF+xTCGtAihu+czgd?=
+ =?us-ascii?Q?7kJqRg5u6J6Yu3H8frz7T8ONrNtnbrUqlx9RJ6b1hqqyas/rznApFbB/3qfS?=
+ =?us-ascii?Q?HBEnCzHFNqJDkDw3ZNUmgOx3Vveuri2kgp71vLvsvgfh9RGnykgMrgCZszny?=
+ =?us-ascii?Q?hpE2PwlhAqK0WpNvWiIPXoRIfPvD1Db6T+yDZ2PsYkhZw/5JCllq3pjNauLA?=
+ =?us-ascii?Q?fM0FiB2ShVIWg32an9aUTtErBZK1rTggjb7GH7+Q6wj4xqjdH+0WV1VtkLi0?=
+ =?us-ascii?Q?Ytii5N0J2ZESKVpWsE6ulPl12EuWMjU5b+az6CGYIM82ZgD9L4tAWA4vuHM0?=
+ =?us-ascii?Q?RpUMBGUUc8a4PGBFGBSLyvqvmPma5Ut4eElLJKkP6bjMU8pD0NKUS4rHOAMv?=
+ =?us-ascii?Q?T9peiN8Tv50HpJFVwscvZNW5PaUEwq8OB8mjJqmq3kC4CJdSBonrDRfPlI60?=
+ =?us-ascii?Q?8vSBa3vSiZVfApQcUET7J+92SLzjq7d5cmsCoKpp1YgD4Jv50C3kfySXshp1?=
+ =?us-ascii?Q?BjryyTaFfufTFsB2VLtWmsaH2xedCrnGAd8Bd6RDWEYnpHqEUCyCAaQ0dxsQ?=
+ =?us-ascii?Q?vmoHDB0pDcbj2u8HEdxoe9HGpnU0Ew5zIO2gBJlx54orfWYKr4K/8WRT99p3?=
+ =?us-ascii?Q?nBt5walLlk5J0mS5+FcXBSN6uT7MKjREeZhTxrCFVQRafABFQLJT8IT3rs4f?=
+ =?us-ascii?Q?hYeb/E+hKXB6oCvt8BBjThN9IsDUD/abrb7sj+3hWJZeP2A/PqMn9OURnDL5?=
+ =?us-ascii?Q?fm1Zbfx+EJmOWIFsl2I18Ri/Ck0sloXowkt2toIYkg1NnXESuYtIzOw0io3k?=
+ =?us-ascii?Q?bjEWSe/aJOVTDD3KqvuKGkOTBKbmILhs6bZEv4JC+JzEQhZlFelWsQ6Nr+22?=
+ =?us-ascii?Q?5DJstupWMVqHRkLtQnDjnKZQogr+vDuUu6ogffFfDYS9D/Wx7Qi+Rg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB9PR04MB8461.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(52116014)(19092799006)(1800799024)(7053199007)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?IdD2nPTq5Jx560ogxeGDX6TPBBIUqEFbM6mMcIKT6NFAV2gb/7Qx8SXcKsMZ?=
+ =?us-ascii?Q?dK7AERnkRPaGsU5YQmjXIIratG7OTqzDIZATt/G1mfqhpRlvoPHVfJ8gXysc?=
+ =?us-ascii?Q?jRc5tJWafPBUd3sVx8pKGLOqV/pmk6HJ/mzY0MBmrXMa02K+JlGEwZ3aoIrD?=
+ =?us-ascii?Q?qj3F++7kCPIqe1D6A7aIur7PYtzPCeppugd89WTjOAaRXFd4vnx3KLIJ+lEa?=
+ =?us-ascii?Q?r9xo7FozqWWiOMk/U7Vp9lqEutuCz8iUjha5Ukri2W/EIV2ZDyQWvwsq289j?=
+ =?us-ascii?Q?ES3e5HV6uREdiwp1dejtBRM6v7KM4Tc8yvpzxBHkQeNZqiWeuba/Y/Mh8heb?=
+ =?us-ascii?Q?v0Ld2HAA6FkjZQXGaw5MaA02I6pPcCmUSQ3S7ZYEZ80Lt4fDJWQgudE0qpZl?=
+ =?us-ascii?Q?hlztYJnOXskYGtAJUPc9fkyzYTLfsZDL9KHTaMzRPhz7lImj+vwYXM2kfsjo?=
+ =?us-ascii?Q?E/+2Q1l5MmpVz7bkog+AcRwgdMKuit1UJYUmNgQDCPKCcledFGBMI2F/2F6D?=
+ =?us-ascii?Q?EEo7FzLEQUW1l9VuQ0B/9x158Q6adk9WfzfyoB0vO2YNbu6cqZjI9UcxKppk?=
+ =?us-ascii?Q?maxHcOZ5miLEyDN55Q75RZDgGzVCa2KFNsbQCeHEMLfInettltDL5HakzDNe?=
+ =?us-ascii?Q?+sZJpqHgsIGJo3Ral91nu1kg0aid9sgAeF8RGEjH5jbIMSMP0MsxWjW4R4PA?=
+ =?us-ascii?Q?WquxC64SsSCGnvSABe+w29tIrxdYeUA6CX4MXlwYpNkqD+NzdWL0UdbpMSJs?=
+ =?us-ascii?Q?xzGUyJMNAWVy7OtpPKTn6n/hw6GwB3Rnf2f5W+pYsAzdBcZjL7+AC1YTjaLF?=
+ =?us-ascii?Q?UlpMg1Jxy32lvbWm2I602z1cnPwnkkoqSmyd68jfWIzNqw7+ULFQQlLykuAr?=
+ =?us-ascii?Q?q0AxL4svn3pwYQ+TXzM8Z1/2incSfDhZ1/GUO1pf/ocOwjlsRIzqFa5nXwEo?=
+ =?us-ascii?Q?I3oz/mp7ej2NgTUawwtoCZnNQJCRKe/iFx2R5svwT4MxQmaMbrE/ZTZD+DqT?=
+ =?us-ascii?Q?Evzc8htt69I2KV0kxA6iHE620u/2opqK1hl5XTIdW8a0EQjdZ/QM/KYdYaux?=
+ =?us-ascii?Q?wcx20h5ubOzPzKprjvO1e6W5JfxxNsc18MzbTYsOWUO/L6fCjEIIKOltpgfo?=
+ =?us-ascii?Q?iVICCljg+iOTXio0YiqCQ+lhV+7hEJGicK+W4gDv6mdtV7K3JRYWrCtJ9y+x?=
+ =?us-ascii?Q?AcVkRDyprTa7HZrLaa1OlfzaZTB+srqUT1m2AGGZl7vMSbwABQdz2My7Lft6?=
+ =?us-ascii?Q?YXlHGq5HjdHg4pCBz3USW1Ix1NpkaI+1PpehPQ0ORWPbHae728+up7NpNWRh?=
+ =?us-ascii?Q?9lHeAHODy/fPiUPdkT3Z8ZDhVCKa/lbijFTeCWoMafD7+BH+GJ3fnd4hHOia?=
+ =?us-ascii?Q?DcURbpcfbaGOOcWaSVn7WLmTadvQpj9Zq1f2Il7L+x61TMEG58yTH0cxgXpu?=
+ =?us-ascii?Q?qkPP8Xl22921B2MUGCpGJu6a3fm3Z3Q34TcC0cTEKs5vla4AcG5980D2nGAp?=
+ =?us-ascii?Q?GBnttE62sz4J4glXYoMltGftLyDwQNXflcKSr1cqdb3AX3O+v649/XsnMtA9?=
+ =?us-ascii?Q?QOqA9pMCGE8gawxSAmboUiyssEvm+RkmOtel9vUU?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82ba0994-f83a-4855-b49c-08ddf4090289
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB8461.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2025 03:36:10.3133 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FpY+gGP4Q7Y3zMp7KGdggBEaq/ll2GT5ShHNSt//AaUFqQpWq1AajHsG0A/Tl7mXJbOIfTWYmQ9ZJnGeE3LpGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10352
+X-Mailman-Approved-At: Mon, 15 Sep 2025 13:32:31 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,34 +178,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Sep 14, 2025 at 08:08:33AM -0400, Brian Masney wrote:
-> Hi all,
-> 
-> On Mon, Aug 11, 2025 at 06:56:04AM -0400, Brian Masney wrote:
-> > The round_rate() clk ops is deprecated in the clk framework in favor
-> > of the determine_rate() clk ops, so let's go ahead and convert the
-> > drivers in the drm subsystem using the Coccinelle semantic patch
-> > posted below. I did a few minor cosmetic cleanups of the code in a
-> > few cases.
-> > 
-> > Changes since v1:
-> > - Drop space after the cast (Maxime)
-> > - Added various Acked-by and Reviewed-by tags
-> 
-> Would it be possible to get this picked up for v6.18? I'd like to remove
-> this API from drivers/clk in v6.19.
-> 
-> I'm not sure which tree(s) this should go through. All of the patches
-> except patch 1 have at least one Acked-by or Reviewed-by.
+On Mon, Aug 11, 2025 at 06:56:05AM -0400, Brian Masney wrote:
+>The round_rate() clk ops is deprecated, so migrate this driver from
+>round_rate() to determine_rate() using the Coccinelle semantic patch
+>on the cover letter of this series.
+>
+>Signed-off-by: Brian Masney <bmasney@redhat.com>
 
-Patches 3, 4 were merged through the msm tree.
-
-> 
-> Thanks,
-> 
-> Brian
-> 
-
--- 
-With best wishes
-Dmitry
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
