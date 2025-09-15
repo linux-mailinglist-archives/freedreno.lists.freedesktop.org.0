@@ -2,76 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C382B56853
-	for <lists+freedreno@lfdr.de>; Sun, 14 Sep 2025 14:08:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 588C8B56D35
+	for <lists+freedreno@lfdr.de>; Mon, 15 Sep 2025 02:14:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F055210E22F;
-	Sun, 14 Sep 2025 12:08:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAC9B10E264;
+	Mon, 15 Sep 2025 00:14:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="imz9D0ZW";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SUOFF4XN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6062510E237
- for <freedreno@lists.freedesktop.org>; Sun, 14 Sep 2025 12:08:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1757851722;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=TGC4WoAJlpX9tdCXckzAZr5W3saj1ZSsINit3PsYuzA=;
- b=imz9D0ZWulrhNzDA9ecq5NsgrmHxFAE22jVC/qw8KJNN3prtT1ImYL6dKQcMGnMcfjN3kg
- 7pNJnJJPgdc0tTAKSAcvFfU3XnvL9LT/4du4A/9qLEu6VFkP3vCO4nCQ6T4QEks20jA3g8
- 81W68oipXGK5MKoYBJ5XpezqP5DZzuQ=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-381-IFD0GzHzMK68TXI68PN33w-1; Sun, 14 Sep 2025 08:08:39 -0400
-X-MC-Unique: IFD0GzHzMK68TXI68PN33w-1
-X-Mimecast-MFC-AGG-ID: IFD0GzHzMK68TXI68PN33w_1757851718
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-828bd08624aso119249985a.1
- for <freedreno@lists.freedesktop.org>; Sun, 14 Sep 2025 05:08:39 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1FE910E03E
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 00:14:16 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58EMp3Jb022921
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 00:14:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=wfIfmtGDU0fMWPSXfBq3QGPr
+ RejWAR38abE4jrrVyJ4=; b=SUOFF4XNRO46ay3UYMsN/RFX10KQxXKyoxTnQuXZ
+ jFJzdaDG7YKTMEn9DWCJWxVSXROJy/EXK3NdO04I9mcIXSc+Yh/oybm+zoM+ge5X
+ gi4fhfdHiD1oKn3jHPCZVjcbVhwM3M+b5O/K2xeAn5ptq4erGu7d/KduI3Oth0WJ
+ +B805Q8T8Djcm8Rj4Ww2v9PMeN3VK6fe56aORWjK90imQIePdZ9NFJr4nuelu3MG
+ rhecpEnLlhZspV/JJp+w/R9551cQIuSaCTbO+YqVOXuJrhx273m369UH0Fdvprq4
+ MlL1BYxYnMQndpZgj3CiU5DnpjQx81xZnY8MOt7Q2TsqqQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4950pv2xw0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Sep 2025 00:14:15 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-767e5b2a74fso27625576d6.1
+ for <freedreno@lists.freedesktop.org>; Sun, 14 Sep 2025 17:14:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757851718; x=1758456518;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TGC4WoAJlpX9tdCXckzAZr5W3saj1ZSsINit3PsYuzA=;
- b=bHHZwhF8wzus58vDLP9DYCCPZ+6+S/3RmZ2aNnnnq8LJnqKbpgoJRz0WT/a2cRkDw3
- BoMauY2BH/1Sz0L0Sm+U6Xl6vui/NF0z7+ZAuOZG5quKh5JDSINfYMcJ8cTeYKmb3Gml
- L2jSOaG3wdi+bxbLN3UTaymfElQRT/3Wlw50Zrnu9zYdjW42Qf0VoiyAUy/zhCwgg0rp
- hHnxTBCNRW5CyP72Mv8tds6OMRdnvur4Bctp3PoM/sDA28lEaFNKfVpaElMYZHqau644
- Ko6773SSZiNJy4qNhQUPmPhQOOme358QOUcPinRkPNla70cbxU7KsZ0uYQ8MOzFTcYfn
- f57Q==
+ d=1e100.net; s=20230601; t=1757895255; x=1758500055;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wfIfmtGDU0fMWPSXfBq3QGPrRejWAR38abE4jrrVyJ4=;
+ b=S/SOyWLdBf456gxmbQSCHX6/svIoIcEuYZKu4cXMQ0QrBklmmPGxs7/UBq31ElBbPC
+ 5e0KPKv9twp88JnMsg8dk2iVlodhuqBKyeA3Rv4ecxy3xs5Pnw43mL/CVwjC62uJi/ii
+ bZfo1kKg8YLPWy3iWlxHzS+dZIvsv4c433DnSaSMGHekuoHeDz29hpwAxOHrNZyp/iEm
+ myBgr95Qs/zNLtutWwEu+wc/EuTd9r+axn15Gz0eE+yemw2K+23fJ60ZBM+eU025OH1d
+ wfwBiic1yWMALbgA8SZ5s335GhWt9Ex9IAZV89S3+ENUUb+DrYyZl43IBeudaf/lQC3g
+ uMlw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWPPR8kut7Ibj52/rRsKVL1IyBnCUgNI7kLDabPXKqB2QscnAp6MbTBEpa8nMaeuE8lGPwUMQD0X4M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvkMjGWyNjcfbcR0bQ7KdkNom9S125xClxIEi+C91v256tCgg/
- 9BlkU2fAY1/Pcfd5vLXeIrG3b+oXMGxxd6EmICbrh4fC+0mzIjwLa1sJSWj8L0tCyhBI/fPpa49
- 3KbsotK1toYH9yTolx1hrXA2DYsgMF9VhBoKyen+Oiyrns2imqVT2Z0fi50yLNWKkeGlrxw==
-X-Gm-Gg: ASbGnctfJJ3qKYHv0kGA+pbnqa6G82n/bwfPdAhCAWpaPPaL80Y1KhGFDDIK9mYQzCH
- JRB+QVxwJd59RB8kSgc43DXFGRc+T4rOJ0fLaB+Lr3mlj4GNJk7jzvj8zifHMGeQuP4UnBpUs2X
- MpifmOjaD4+eWf+se5OERRYhG9uZE0H54xaiaNhEHhBp6n++knEXZWlU3h9ekvnHpEOwdY/mEeC
- r0pj7iISrpYowaMZ72HRIbAAwbrGXMl0Ubr4ssJAfOyg9uaIatFGD+UcSn7vaXpazMqTQ2Mk6Qv
- bH9QWtHNY6N07SInxT5bA3dL6um9iwvISGbDu2i29L45KQCCE8z2vfOJyRmceF40HSlv6LhB9B2
- UA/nud7IJeVA13Z5NTTc7S5xf9cuor+s=
-X-Received: by 2002:a05:620a:c4f:b0:815:9bd3:72a4 with SMTP id
- af79cd13be357-82401a95c9bmr1036170285a.69.1757851718254; 
- Sun, 14 Sep 2025 05:08:38 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFRdCKGXPgtbhvJpUCdDwCaaC2B0DLna/CzbBAvfkLzYJU98qL9IvUSFcqawGBto49lPMPxgQ==
-X-Received: by 2002:a05:620a:c4f:b0:815:9bd3:72a4 with SMTP id
- af79cd13be357-82401a95c9bmr1036164085a.69.1757851717778; 
- Sun, 14 Sep 2025 05:08:37 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net.
- [73.183.52.120]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-820cfcaca15sm580413985a.71.2025.09.14.05.08.35
+ AJvYcCWBjARmnrkrP7o5Ogb5bBzH5D9wdHiElik+OjGGerBkHbOttrBTsrB1JcSsYI5+TQ4GQqhftzeWOCs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyFiWAH6pSjancpm4W74Sn2L4coGuD6xiVvlm6yjWVZIn4+JhM0
+ PYgvXkj49iMZiC1E2C0KsKukODz8jIEkBgq+9eCr0IDPI6OeZvCCOUmA+mFyNTYEsmwgEd02oFL
+ vTWFOg70GH6t9mP5NzmmsnowMQJG6DAmqwMiw2S6NbB6Nf62WzhrZ/5NUMeiCBjAE2SOpr5I=
+X-Gm-Gg: ASbGncsKNlXSlI5rQehAtzAoOC/1uqGMyEXMPuLekuEkE1EiVMvlIsSD4rF6f4aC0p0
+ 4Iyyp9yByn9VP8oosK6Zb0+Dkyi6hw4iR/qpF+55MJLV+I+H0ihKafqZqQcWAEmHUZrtDvgWXwM
+ NQCtl2j6z+715NxOiq9oRTP5+TCpUQKqBVqnY7cs/vitHMgpBMSq308+sL+JtQVZjK7Enp4BgQF
+ 8PQXr2Wrxbr00LvyKW4mLoDTQ5k0F2zgVcBbnB1XW+jXYJZfZxhQF9We/wKX9eeeqprXwO2T47h
+ JbjzryK9nl520Ss8hXKg2HMphtIM3VyAWS5diNzDRbi7jWJo1kCFn88wBvts9OP900E/XNjvz9u
+ N2YXEsBrFA6L+14cxmaa5E21LciM9UaJjSU7mGpaKm6+hK7Hbc10h
+X-Received: by 2002:a05:6214:268e:b0:70d:cabf:470d with SMTP id
+ 6a1803df08f44-762262daa1cmr182241856d6.27.1757895254717; 
+ Sun, 14 Sep 2025 17:14:14 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHObBFwIlp3GQ+VOBYwejw1PxkvVAwhDilkZbOEooVdFxkX7Rq1AOhro4RGokvljow6YU9iPw==
+X-Received: by 2002:a05:6214:268e:b0:70d:cabf:470d with SMTP id
+ 6a1803df08f44-762262daa1cmr182241606d6.27.1757895254257; 
+ Sun, 14 Sep 2025 17:14:14 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-56e5c692daesm3255202e87.26.2025.09.14.17.14.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Sep 2025 05:08:37 -0700 (PDT)
-Date: Sun, 14 Sep 2025 08:08:33 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>,
+ Sun, 14 Sep 2025 17:14:13 -0700 (PDT)
+Date: Mon, 15 Sep 2025 03:14:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Brian Masney <bmasney@redhat.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
@@ -92,26 +97,43 @@ To: Philipp Zabel <p.zabel@pengutronix.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>,
+ linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-sunxi@lists.linux.dev,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ freedreno@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Subject: Re: [PATCH v2 0/9] drm: convert from clk round_rate() to
  determine_rate()
-Message-ID: <aMawQYUIjPw9m4IO@redhat.com>
+Message-ID: <pdodeksqchby7gtr7oukm7wqleu535kzh2g3uaseqmkxv5g7qx@jvh5fcppvutm>
 References: <20250811-drm-clk-round-rate-v2-0-4a91ccf239cf@redhat.com>
+ <aMawQYUIjPw9m4IO@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20250811-drm-clk-round-rate-v2-0-4a91ccf239cf@redhat.com>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: iLaZimls8YafSyoBimwPyz54PNDWCth8UweIfx6ycAs_1757851718
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <aMawQYUIjPw9m4IO@redhat.com>
+X-Proofpoint-ORIG-GUID: 1oS4SBc-u9Ec36TRclVIB5P9RU3JyF7D
+X-Authority-Analysis: v=2.4 cv=PsWTbxM3 c=1 sm=1 tr=0 ts=68c75a57 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=ErCwDgQeR7lfzThPobAA:9 a=CjuIK1q_8ugA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: 1oS4SBc-u9Ec36TRclVIB5P9RU3JyF7D
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTEzMDAyOSBTYWx0ZWRfX9tWck6MQeZo9
+ XMkjmnq1A0CnWLR9TL8Gzb+y8MHt+Sex2EjWoJDDuTGm4/fIbLEIGcdkabqyUxSaJp0+uOwN8p6
+ VTps+g/mPYr8G8TK9qNc8udt36LtyQAfgKem/vp7ujQTdGM0PnYJcgLCA4dfqs8F8VH4jtw6uqE
+ 8cKjU7c95zVNGEF2GhgRvEK2lZGpyr8RVF4okhYvJs3oee9o2rt6RpE80VhXjrzg8FDR9d93ujz
+ aQaPFC7s2s6pCh+3HAT5Tf6bpe7K1A5YbiMxRVnGxzVD0HkwJSHRsiShJHJ+wAA9LpFmQpT7OsD
+ o6JvtEktAoFYP4i6ksiCQwF1IYAqQdaKGc/nm5Z9hRr22b06LNwiw+IPPkMHxAoqYXdlNlm02Q7
+ VPODikJo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-14_08,2025-09-12_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 clxscore=1015 malwarescore=0 suspectscore=0
+ spamscore=0 bulkscore=0 adultscore=0 impostorscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2509130029
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,26 +149,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi all,
-
-On Mon, Aug 11, 2025 at 06:56:04AM -0400, Brian Masney wrote:
-> The round_rate() clk ops is deprecated in the clk framework in favor
-> of the determine_rate() clk ops, so let's go ahead and convert the
-> drivers in the drm subsystem using the Coccinelle semantic patch
-> posted below. I did a few minor cosmetic cleanups of the code in a
-> few cases.
+On Sun, Sep 14, 2025 at 08:08:33AM -0400, Brian Masney wrote:
+> Hi all,
 > 
-> Changes since v1:
-> - Drop space after the cast (Maxime)
-> - Added various Acked-by and Reviewed-by tags
+> On Mon, Aug 11, 2025 at 06:56:04AM -0400, Brian Masney wrote:
+> > The round_rate() clk ops is deprecated in the clk framework in favor
+> > of the determine_rate() clk ops, so let's go ahead and convert the
+> > drivers in the drm subsystem using the Coccinelle semantic patch
+> > posted below. I did a few minor cosmetic cleanups of the code in a
+> > few cases.
+> > 
+> > Changes since v1:
+> > - Drop space after the cast (Maxime)
+> > - Added various Acked-by and Reviewed-by tags
+> 
+> Would it be possible to get this picked up for v6.18? I'd like to remove
+> this API from drivers/clk in v6.19.
+> 
+> I'm not sure which tree(s) this should go through. All of the patches
+> except patch 1 have at least one Acked-by or Reviewed-by.
 
-Would it be possible to get this picked up for v6.18? I'd like to remove
-this API from drivers/clk in v6.19.
+Patches 3, 4 were merged through the msm tree.
 
-I'm not sure which tree(s) this should go through. All of the patches
-except patch 1 have at least one Acked-by or Reviewed-by.
+> 
+> Thanks,
+> 
+> Brian
+> 
 
-Thanks,
-
-Brian
-
+-- 
+With best wishes
+Dmitry
