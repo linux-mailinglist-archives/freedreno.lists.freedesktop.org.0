@@ -2,129 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82BADB59F74
-	for <lists+freedreno@lfdr.de>; Tue, 16 Sep 2025 19:37:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3C1BB802D2
+	for <lists+freedreno@lfdr.de>; Wed, 17 Sep 2025 16:46:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57D8610E12D;
-	Tue, 16 Sep 2025 17:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D39210E858;
+	Wed, 17 Sep 2025 14:46:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XjSML6OU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MIwa8x9g";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F179510E3AA
- for <freedreno@lists.freedesktop.org>; Tue, 16 Sep 2025 17:37:50 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58GADPvi019573
- for <freedreno@lists.freedesktop.org>; Tue, 16 Sep 2025 17:37:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=asmJMTOYWO6MF0j8LTYTYFsk
- hlkUXWRnPY3+bCKiCFM=; b=XjSML6OUsA7YEzsSUp9jzWcCdOj2nMcPPedHkIu9
- SiBG0MbFV6Eh9qVS+Xi9etlfsevozD7saVGyecfN/LKtlqdw1bGuB3a3EInXjH2B
- dPbYiMHzMSydct75/ZBHqiqAc0JzK9XTfbWVBUYKb4uiVjkQ9EZYsVRIfbojdbw2
- oflzVPFO8/qEfWOD91rhhvYmkL6vor2rSW+mTDuiagjZLfVjj7aVnwj4tdX6sKTF
- DnoPQ0AcJyG3kDCZCNmn2+/akw+kwI3gA5vyKlAFzpbmERkFAcAIwufRc6qF5w/N
- SJ6er7IRlPl+rAL/GMAAxSL5jceGigwoA/poIUa4/As7Fg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 494yma9v3j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 16 Sep 2025 17:37:49 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4b49666c8b8so110877431cf.3
- for <freedreno@lists.freedesktop.org>; Tue, 16 Sep 2025 10:37:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758044269; x=1758649069;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=asmJMTOYWO6MF0j8LTYTYFskhlkUXWRnPY3+bCKiCFM=;
- b=bbR0ZrQ398s8z/So834HCgRU1qMv+/U+5wQsbI/nOgCU5WeljEjeaJZcViFYJaPRFv
- wJc/fz6etr4DD9lKnj+StakuLaOqzMJpIpF9NUv7xhLCY0bP2Ud3r3I5lQ5Zxn3WQU1H
- 3DhwQF0yleuZ5AJg7HtBpbrYwwlwd4EqBpxkFWP8jl96W4pdmALaHSAoUAviuidNeEtA
- 8gWmVOvZmkl0n4bYJpnUvJeqzzoSrtRWpJVDewxQq+2lKOb/JQDCJW7H+eRQupXJyvZu
- huTiZqK4Eo1ykl2HBmDyeupE62ckVrK+g8NSdcIhXsII9OanzwiM37BXcDQNyK/Om+3E
- ZzqQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWwS56CajPWS67zMDV4gatXEaXP7VCwW06CQLwDiZKhfKIRH8kbkQJciBqzTp86iQOoAYeMcU0qfrs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPEWtrvqebPvAXeC6tQMySNW6ANg6YJJyRFJNHcGbGc6d+2hi4
- HhdeggC1dLLQoGtmoXNlkVT0ZBQXqYGNpww8jwpV4ksDqmFbxqacrlz9YLisZjDPmw2BWvt6nTu
- 3RKitvjmMBcJDNwBzzu2dkAZXnPDvqRf9QQ66pKeZiv3yVd0Jt/F+HZobsJqgllMEjYCb6Z8=
-X-Gm-Gg: ASbGncug3UmELBtQtgALQVj1v0gi+THgTKbKkqkLJyW2hU4TpweyfY2cr4UYQLg9CGr
- 41rpIfGcH5IPUwyboDzrKy+dQab3WzIsdILYOXO0FedaLFhMpOCZxK/k6itLfwLpsUVdhCIzvX5
- GoI4WRsW7GUlxsKgFmX6zBlACPx0rkA8sEJpr3SHIxfyg8SZ1hKVCURL1wE5nNlfIsZRmTZNy7a
- +uJGwSr0mnn0ZUa+lwvdKN66bo1/ycIblw505yaEfQbsJZokX6q2GZXvlUzUCOE+C+H3H/dHqsw
- lCsXUrbZqF6gxC8M1dkTD8SIJ5wW8A5hMeWbRpboGjF3PqxtPicvgfD5i4PsU+suF0MslMrofu8
- 47qg9U9z0+IrMtIa2eusPjSAmdo2EipqYWngKMtKIxcFP/RoJDSbh
-X-Received: by 2002:a05:622a:428d:b0:4b6:2336:7005 with SMTP id
- d75a77b69052e-4b77d08c1dfmr178883551cf.19.1758044268978; 
- Tue, 16 Sep 2025 10:37:48 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEINTEPiFvuj+G9ik9pEiQhi0J/sHmetYeMmXJ12N3mEWuP8rQExfbslVak9k+CMhjZMs47OA==
-X-Received: by 2002:a05:622a:428d:b0:4b6:2336:7005 with SMTP id
- d75a77b69052e-4b77d08c1dfmr178883081cf.19.1758044268385; 
- Tue, 16 Sep 2025 10:37:48 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-56e6460f61dsm4437835e87.113.2025.09.16.10.37.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Sep 2025 10:37:47 -0700 (PDT)
-Date: Tue, 16 Sep 2025 20:37:45 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH RESEND 0/2] drm/bridge: lontium-lt9611uxc: switch to
- DRM_BRIDGE_OP_HDMI_AUDIO
-Message-ID: <3n5gjebxuafxgsl7yl6ife76cnfwblsggsp2kkcrbjjansbvi7@smi7zeexy5gy>
-References: <20250803-lt9611uxc-hdmi-v1-0-cb9ce1793acf@oss.qualcomm.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD14F10E858;
+ Wed, 17 Sep 2025 14:46:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B860560227;
+ Wed, 17 Sep 2025 14:46:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC381C4CEF0;
+ Wed, 17 Sep 2025 14:46:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1758120371;
+ bh=QiXOszuUJaheRV8S9Arrs3CKQDXneHf83M7ZXth8QR4=;
+ h=From:Subject:Date:To:Cc:From;
+ b=MIwa8x9gHctSBJzz9zwPFWbclfLYWnLFUCKoJnI+49+anpgrnykmOdyUjTTvAbLkZ
+ 82mnCK4D4uDWlw4RIpC+5ERBSM1P5SR4ciJanNbxduEky/QciqERoB1qq1NED9XiSn
+ 66gB6tkJyjfAZDQrfQPzBle3VfJkdjxsSS4F24ej1n2WfyFEDXrDtnYMz1BhYgvAdE
+ 6O7kyVki6zaIYpXNAPRNVkX6gb9dEBPhchv6lIWzdkQjoqjXmsB015AvkbAdSVuJ0y
+ aCJsawhoW8KjCtbxUdJx5ZTtm6WpZb6XyJBaNjU+g23ptMjyxWCIj1Z9Ci9qorSl8d
+ Fy0HzdBvAOIKA==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v4 00/39] drm/atomic: Get rid of existing states (not really)
+Date: Wed, 17 Sep 2025 16:45:41 +0200
+Message-Id: <20250917-drm-no-more-existing-state-v4-0-5d4b9889c3c8@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250803-lt9611uxc-hdmi-v1-0-cb9ce1793acf@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTEzMDAxOSBTYWx0ZWRfX8nx3qULFLztU
- ZT9KcBycsdatm84zffVuYsbBib3PZIDERYhOF/7XmUoJmwhefPGlEKyNg+Mpaaqpzue/LSglf4s
- OpzvaJsOtw8OASCIN6X9T7cj1WoypS3p/Nx0a314StgzIlaWMoIjsEtsLkxSu1LomdbAeSdwoaB
- dgJuh/nIPJP4vo7qvSUUugJrErm/8JSYdKyQu8Z3AFIVlejfEDDNUFXjySQh/7hbxRxglhbO43S
- 8EROxpmO2Xt7q+tK0ZUJyJ0zGolFtdIyl6TReoCctdPnrUs4XPOSscyiKq/VDD4KKW0T58gum1l
- cPPZzf9+H4q0kSOdKKRNoazJK/u90NP0CmT6JZwcJtKVbViq+M7DgCE+AsLuVofC/BBdk4ix56D
- 1wKBn59h
-X-Authority-Analysis: v=2.4 cv=cdTSrmDM c=1 sm=1 tr=0 ts=68c9a06e cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=BgkF6ddApZc5WCf5u_gA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: nBUKV8eu2EOtC4Jsivxn3j6ros4lzlnr
-X-Proofpoint-GUID: nBUKV8eu2EOtC4Jsivxn3j6ros4lzlnr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-16_02,2025-09-12_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0
- bulkscore=0 impostorscore=0 spamscore=0 malwarescore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2509130019
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJXJymgC/43NQQ6CMBCF4auQrh1TWgvUlfcwLqCdQqO2piUEQ
+ 7i7hY0aE+Lyf5l8M5GIwWIkx2wiAQcbrXcpDruMqK52LYLVqQmjTNCKCdDhDs7D3QcEHG3srWs
+ h9nWPIBvOBFN5zXlDEvAIaOy44udL6i5d+/Bcfw35sv7FDjlQMLRSSktTCSVPVwwOb3sfWrK4A
+ 3tbkrJNiyVLo6yMEqbQRfFj8U9Lblo8Wbkq61LLgirOv6x5nl/BcxAsXQEAAA==
+X-Change-ID: 20250825-drm-no-more-existing-state-9b3252c1a33b
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org, 
+ Liviu Dudau <liviu.dudau@arm.com>, Russell King <linux@armlinux.org.uk>, 
+ Manikandan Muralidharan <manikandan.m@microchip.com>, 
+ Dharma Balasubiramani <dharma.b@microchip.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ linux-arm-kernel@lists.infradead.org, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, linux-samsung-soc@vger.kernel.org, 
+ Liu Ying <victor.liu@nxp.com>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
+ Edmund Dea <edmund.j.dea@intel.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+ Sui Jingfeng <suijingfeng@loongson.cn>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, linux-rockchip@lists.infradead.org, 
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org, 
+ Hans de Goede <hansg@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5910; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=QiXOszuUJaheRV8S9Arrs3CKQDXneHf83M7ZXth8QR4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDBmnTs7nOfS799mbr9bv3QWVn5ovvPrUukglLeninLOyA
+ R/m/WFW65jKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATMeJlbHgVHJux/5lLmPAb
+ rsdT1NM0Dn/JDXOK3CIpESl7v+b+5x1ai+viVEpeF7X81Wy2KQtqZWyYybN97q7MiwaiXzYWJTp
+ ZHKzc3xN17e/JKRb7Pqd0/KjmNtjwSJFdl1GqyGg2q73RpDcA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,45 +121,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Aug 03, 2025 at 02:53:50PM +0300, Dmitry Baryshkov wrote:
-> Use DRM HDMI audio helpers in order to implement HDMI audio support for
-> Lontium LT9611UXC bridge.
+Hi,
 
-It's been waiting a while, it got posted as a part of another series,
-but I think I'd like to apply this by the end of the week if nobody
-objects.
+Here's a series to get rid of the drm_atomic_helper_get_existing_*_state
+accessors.
 
-A note regarding OP_HDMI vs OP_HDMI_AUDIO: there is really no point in
-going through the OP_HDMI other than bridging the HPD even to the HDMI
-audio through the framework code. The bridge driver doesn't implement
-atomic_check (on purpose), the mode_valid() check is also performed
-against a fixed table of modes handled by the firmware.
+The initial intent was to remove the __drm_*_state->state pointer to
+only rely on old and new states, but we still need it now to know which
+of the two we need to free: if a state has not been committed (either
+dropped or checked only), then we need to free the new one, if it has
+been committed we need to free the old state. 
 
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
-> Dmitry Baryshkov (2):
->       drm/bridge: add connector argument to .hpd_notify callback
->       drm/bridge: lontium-lt9611uxc: switch to HDMI audio helpers
-> 
->  drivers/gpu/drm/bridge/lontium-lt9611uxc.c     | 125 ++++++++++---------------
->  drivers/gpu/drm/display/drm_bridge_connector.c |   2 +-
->  drivers/gpu/drm/meson/meson_encoder_hdmi.c     |   1 +
->  drivers/gpu/drm/msm/dp/dp_display.c            |   3 +-
->  drivers/gpu/drm/msm/dp/dp_drm.h                |   3 +-
->  drivers/gpu/drm/omapdrm/dss/hdmi4.c            |   1 +
->  include/drm/drm_bridge.h                       |   1 +
->  7 files changed, 57 insertions(+), 79 deletions(-)
-> ---
-> base-commit: 024e09e444bd2b06aee9d1f3fe7b313c7a2df1bb
-> change-id: 20250718-lt9611uxc-hdmi-3dd96306cdff
-> 
-> Best regards,
-> -- 
-> With best wishes
-> Dmitry
-> 
+Thus, the state pointer is kept (and documented) only to point to the
+state we should free eventually.
 
+All users have been converted to the relevant old or new state
+accessors.  
+
+This was tested on tidss.
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v4:
+- Fix ingenic
+- Rebased on latest drm-misc-next tag
+- Link to v3: https://lore.kernel.org/r/20250909-drm-no-more-existing-state-v3-0-1c7a7d960c33@kernel.org
+
+Changes in v3:
+- Added an armada rework patch
+- Added an ingenic fix
+- Collected tags
+- Rebased on latest drm-misc-next tag
+- Link to v2: https://lore.kernel.org/r/20250902-drm-no-more-existing-state-v2-0-de98fc5f6d66@kernel.org
+
+Changes in v2:
+- Dropped the first and second patches
+- Reworked the recipient list to be nicer with SMTPs
+- Link to v1: https://lore.kernel.org/r/20250825-drm-no-more-existing-state-v1-0-f08ccd9f85c9@kernel.org
+
+---
+Maxime Ripard (39):
+      drm/atomic: Convert drm_atomic_get_connector_state() to use new connector state
+      drm/atomic: Remove unused drm_atomic_get_existing_connector_state()
+      drm/atomic: Document __drm_connectors_state state pointer
+      drm/atomic: Convert __drm_atomic_get_current_plane_state() to modern accessor
+      drm/atomic: Convert drm_atomic_get_plane_state() to use new plane state
+      drm/vkms: Convert vkms_crtc_atomic_check() to use new plane state
+      drm/tilcdc: crtc: Use drm_atomic_helper_check_crtc_primary_plane()
+      drm/atomic: Remove unused drm_atomic_get_existing_plane_state()
+      drm/atomic: Document __drm_planes_state state pointer
+      drm/atomic: Convert drm_atomic_get_crtc_state() to use new connector state
+      drm/ingenic: ipu: Switch to drm_atomic_get_new_crtc_state()
+      drm/arm/malidp: Switch to drm_atomic_get_new_crtc_state()
+      drm/armada: Drop always true condition in atomic_check
+      drm/armada: Switch to drm_atomic_get_new_crtc_state()
+      drm/atmel-hlcdc: Switch to drm_atomic_get_new_crtc_state()
+      drm/exynos: Switch to drm_atomic_get_new_crtc_state()
+      drm/imx-dc: Switch to drm_atomic_get_new_crtc_state()
+      drm/imx-dcss: Switch to drm_atomic_get_new_crtc_state()
+      drm/imx-ipuv3: Switch to drm_atomic_get_new_crtc_state()
+      drm/ingenic: Switch to drm_atomic_get_new_crtc_state()
+      drm/kmb: Switch to drm_atomic_get_new_crtc_state()
+      drm/logicvc: Switch to drm_atomic_get_new_crtc_state()
+      drm/loongson: Switch to drm_atomic_get_new_crtc_state()
+      drm/mediatek: Switch to drm_atomic_get_new_crtc_state()
+      drm/msm/mdp5: Switch to drm_atomic_get_new_crtc_state()
+      drm/omap: Switch to drm_atomic_get_new_crtc_state()
+      drm/rockchip: Switch to drm_atomic_get_new_crtc_state()
+      drm/sun4i: Switch to drm_atomic_get_new_crtc_state()
+      drm/tegra: Switch to drm_atomic_get_new_crtc_state()
+      drm/tilcdc: Switch to drm_atomic_get_new_crtc_state()
+      drm/vboxvideo: Switch to drm_atomic_get_new_crtc_state()
+      drm/vc4: Switch to drm_atomic_get_new_crtc_state()
+      drm/atomic: Switch to drm_atomic_get_new_crtc_state()
+      drm/framebuffer: Switch to drm_atomic_get_new_crtc_state()
+      drm/atomic: Remove unused drm_atomic_get_existing_crtc_state()
+      drm/atomic: Document __drm_crtcs_state state pointer
+      drm/ingenic: crtc: Switch to ingenic_drm_get_new_priv_state()
+      drm/atomic: Convert drm_atomic_get_private_obj_state() to use new plane state
+      drm/atomic: Document __drm_private_objs_state state pointer
+
+ drivers/gpu/drm/arm/malidp_planes.c             |   2 +-
+ drivers/gpu/drm/armada/armada_plane.c           |   7 +-
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c |   2 +-
+ drivers/gpu/drm/drm_atomic.c                    |  21 ++--
+ drivers/gpu/drm/drm_framebuffer.c               |   2 +-
+ drivers/gpu/drm/exynos/exynos_drm_plane.c       |   2 +-
+ drivers/gpu/drm/imx/dc/dc-plane.c               |   2 +-
+ drivers/gpu/drm/imx/dcss/dcss-plane.c           |   4 +-
+ drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c         |   3 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c       |  13 ++-
+ drivers/gpu/drm/ingenic/ingenic-ipu.c           |   4 +-
+ drivers/gpu/drm/kmb/kmb_plane.c                 |   3 +-
+ drivers/gpu/drm/logicvc/logicvc_layer.c         |   4 +-
+ drivers/gpu/drm/loongson/lsdc_plane.c           |   2 +-
+ drivers/gpu/drm/mediatek/mtk_plane.c            |   3 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c      |   7 +-
+ drivers/gpu/drm/omapdrm/omap_plane.c            |   2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c     |   6 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c    |   2 +-
+ drivers/gpu/drm/sun4i/sun8i_ui_layer.c          |   3 +-
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c          |   3 +-
+ drivers/gpu/drm/tegra/dc.c                      |   2 +-
+ drivers/gpu/drm/tilcdc/tilcdc_crtc.c            |   9 +-
+ drivers/gpu/drm/tilcdc/tilcdc_plane.c           |   3 +-
+ drivers/gpu/drm/vboxvideo/vbox_mode.c           |   8 +-
+ drivers/gpu/drm/vc4/vc4_plane.c                 |   6 +-
+ drivers/gpu/drm/vkms/vkms_crtc.c                |   4 +-
+ include/drm/drm_atomic.h                        | 144 ++++++++++++------------
+ 28 files changed, 132 insertions(+), 141 deletions(-)
+---
+base-commit: 91494dee1091a14d91da6bcb39e12a907765c793
+change-id: 20250825-drm-no-more-existing-state-9b3252c1a33b
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Maxime Ripard <mripard@kernel.org>
+
