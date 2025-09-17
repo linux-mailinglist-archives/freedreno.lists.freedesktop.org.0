@@ -2,65 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4AFB80353
-	for <lists+freedreno@lfdr.de>; Wed, 17 Sep 2025 16:47:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB9E6B807EE
+	for <lists+freedreno@lfdr.de>; Wed, 17 Sep 2025 17:23:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E7FF10E870;
-	Wed, 17 Sep 2025 14:47:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C9FF10E894;
+	Wed, 17 Sep 2025 15:23:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EogpYMUQ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JJ0D0+Oy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6AB610E870;
- Wed, 17 Sep 2025 14:47:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9A3E0443DB;
- Wed, 17 Sep 2025 14:47:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24EC7C4CEF7;
- Wed, 17 Sep 2025 14:47:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1758120441;
- bh=hm0tnipoDHHszNsEnA1Tr51B4Yy6srxE7cfH3UWZfeQ=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=EogpYMUQsSDiGFuPH8pCZ+DBDC7mChG7yv0FCtk/Xydr+SViUV6k4dqOuJq+9r3xW
- okyTAQxtuRwyhrloNoNx1pCFtXjNYIWYrtnlimaEWgscrAXPw5Gpe/3pBbMJMEPV+R
- /M1wTXIKaq/bqM0f10R48Sqs9+sKLpU0CqHXosqCiflZbfZelOsQxgj8h2LG3Vb2V7
- 08ejdpSGr1xi7lAHCeTALFCznwCEDj5wWcEysEsmmvVfqWKWrmHdOMoSAwLVFgtUbb
- 81Hit7qqx6gwDvyfuJV0GDBlWVVlatN9B5ggPZe6hWmOlrf0sIKg4gYiM+MC2xqnLJ
- WDI6PzfTXXFnw==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Sep 2025 16:46:06 +0200
-Subject: [PATCH v4 25/39] drm/msm/mdp5: Switch to
- drm_atomic_get_new_crtc_state()
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A663210E61E
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Sep 2025 15:23:22 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58HB0uH1031000
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Sep 2025 15:23:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ hkuUdQX7nxBy44xM3O1Jw/UC+fZY6KNKeDJmrHrs58A=; b=JJ0D0+OyNT1Y3y2t
+ 53aL+5Y/zKB2As2DeC2JiHxwU2fqUFsIk+XMFzLSH2e6jMjbIQ+po4NmDHnM5Pdc
+ 5pzbDfZ0ElTVh7ND4bhqitEbd9ihIuCAqEwI6yTmpFVoZ+Z6SOMxBKcxmYCFjNI1
+ 7syTeArT3jLN+hPDXlEYELtrrN5T/C3Y4XeOXmBfwhr/v+wMZuh3k9Hy9+V5PlIi
+ CusmWlkA0CNDT86Q9w4e78LRKD5F1IUHPddKa3IQRKMGAM6UEdV0rSG5OtS5+euQ
+ L4uknADngoWU4PXolsp2gY9rnrtN5Xz6jKAauyfk+qa/rAtYdFMixNFBFzy6S9hC
+ T1fhhw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 497fy0tw1p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Sep 2025 15:23:20 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-24458345f5dso83590035ad.3
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Sep 2025 08:23:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758122599; x=1758727399;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hkuUdQX7nxBy44xM3O1Jw/UC+fZY6KNKeDJmrHrs58A=;
+ b=vi+IlC2ggq7mnxi6rhF8BJCU3OebPxvFJiB6Du9arjkFDzxrPEUlFPrN/LB7PwFTgj
+ ew/aQlN03DLLKBvGsFBElRqMEdqZ3Pnq/EDhuGx/ztTkTrsiHcIVITW8dA+0y+RLBM8H
+ OLnxaxXcvJIdYeUnR5bqaW9roLiRmCYBe+spZdkMsH0eJNePa/A4wFCEW/g13x/kWQH8
+ ciISmkQO8n7GTtEy0J4pOuBkn/cNN0a1tzvXEmrM4hLiuuPkxKbsdpL3RMFv+4v+BZM6
+ E59KWF/4y8+S1xE77+VpGHItmhiJ7SmZjusTfh9kYzVdaFleMboDErKx7Uv0CXM0tj0L
+ 6X3A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWBzJ3VaGTBsrHAzrmShsuveMFNiYMDqu98U/BfaR/YhF9W7tnKDy4toG8DXE3kgYNMcaek6w+Ryv8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YziNnSxX+W88qLZAfTCp79ptXuvPr7Q4oA0SGCi2elrj2czcFGs
+ PbIgouXU53mfA7ZJlKpJFWhaUFM60kBKYmRZdGIxbqPoF4qol2BePmBo3vLo10thogkMxyWy8/z
+ WbGEV0V7+0QuwGdeWqCans8dDYi7cXs1pCnI+Te5X3+4HdfrRot007j7HoZK2bA+V7LiCurc=
+X-Gm-Gg: ASbGncuQ3Sz2hODAG7V8j06+uaccCYJG2TL7ZrNKH+Orp9bCqzJaC2Df/BAvkE0qvc8
+ zdeCbrPjCyQgRh/V/4kMXKvvPGGO62i1BiboFCDqC6nxThZHfe88Rqf505e/XWwpGK88qTIQlC1
+ eD+SeHeFFeHo3ne4gZJP2tNPmYOThDTr8zLEx+JBvoEjGilIEZj/JVmhNhqYsQTGeHnfmrn7tBJ
+ 5Uc/NjQClrpR/sHHyvqpklo+/FcAMKrqiFfYuc7EWUe5WblDXF5NMvvHYbY5XSmCjTt/Mnn8X8W
+ HHwJLCLyTQiJqqYpyuFJF3w6kgk8HH8hdICCgNJA8O0UqB350J0o8rMcAWuqdQ==
+X-Received: by 2002:a17:903:38c3:b0:267:c984:8d9f with SMTP id
+ d9443c01a7336-26812190909mr30626665ad.24.1758122598810; 
+ Wed, 17 Sep 2025 08:23:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFjCSL/wVBrdr9GTni105ATqT9QvPqd/6Ymxhl3Pv/aweBNEgAX544T667idtInt4u95hUChw==
+X-Received: by 2002:a17:903:38c3:b0:267:c984:8d9f with SMTP id
+ d9443c01a7336-26812190909mr30626285ad.24.1758122598156; 
+ Wed, 17 Sep 2025 08:23:18 -0700 (PDT)
+Received: from [10.91.118.43] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2681650f85dsm19625645ad.119.2025.09.17.08.23.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Sep 2025 08:23:15 -0700 (PDT)
+Message-ID: <c08872c9-cdad-4e62-827b-7985cb3b18de@oss.qualcomm.com>
+Date: Wed, 17 Sep 2025 20:53:09 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20250917-drm-no-more-existing-state-v4-25-5d4b9889c3c8@kernel.org>
-References: <20250917-drm-no-more-existing-state-v4-0-5d4b9889c3c8@kernel.org>
-In-Reply-To: <20250917-drm-no-more-existing-state-v4-0-5d4b9889c3c8@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2354; i=mripard@kernel.org;
- h=from:subject:message-id; bh=hm0tnipoDHHszNsEnA1Tr51B4Yy6srxE7cfH3UWZfeQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDBmnTq46fWfHxzsbJrOGCqXfqBeXnCS8nCdZmfnR+7sxJ
- 97/iXks0DGFhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmwvKasWHD4juCSl5Vu/0M
- b57bM+foy/2ftGfWK0+eeP5Sv3hw1nRTXoX67D9TOX6uTT9usrPZdC9jxeMqR2e+fUeqpS/lOTE
- uuf+7fn3Tqq8b5+7lWXOJJS/sdaOwaKbfCuWLH17cN0v5KLwCAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/msm: preemption aware hangcheck
+To: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20250911-preemption_aware_hangcheck-v1-0-974819876819@gmail.com>
+ <20250911-preemption_aware_hangcheck-v1-2-974819876819@gmail.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20250911-preemption_aware_hangcheck-v1-2-974819876819@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: MP0yhbdp0WAFgqVwjBUa0RfvNS_D5yO4
+X-Authority-Analysis: v=2.4 cv=btZMBFai c=1 sm=1 tr=0 ts=68cad268 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=pGLkceISAAAA:8 a=yYA4gsvIKTL2XcNT0icA:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: MP0yhbdp0WAFgqVwjBUa0RfvNS_D5yO4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTE2MDIwMiBTYWx0ZWRfX35eHdNs/eIR0
+ ziYjFcpnz1AWORyaDicgRHBso37DpqIipgnjrZAzi2xA0uEiXSKFB67ZsBWfzTLtE8RAxbSiiYO
+ mE3otz/i1y/hgHK7LGNKKYYv9S1TvuOr1NN7+Uz8eRww5Z0cMEQ47wvJBzGBszaDN5+Wo8QvW2x
+ ThmC6D9/+ThIy6A8azfAQVk9E51C6/kibj8xyk3nvRdt/8WqhsjVYlcbAAUfScau/OIFQ1AN3/4
+ kT8AcdPvstf0b2MxKFqLe/5Q2znDus8COWiSOQdaWrAh9fz9eZ27B7ZoHYGE1B+HxGsSxmnlAt+
+ SxGNxPVKrJHDmp8/zXu33ZBy/AO2pkvJgDRmj9+hKLPcLSoe0hS4/xVACAXTCQHE0NV8lfJzVND
+ DzGuYkYR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-17_01,2025-09-17_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 malwarescore=0
+ spamscore=0 adultscore=0 phishscore=0 suspectscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2509160202
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,65 +129,427 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The msm atomic_check implementation uses the deprecated
-drm_atomic_get_existing_crtc_state() helper.
+On 9/11/2025 10:31 PM, Anna Maniscalco wrote:
+> Rework hangcheck code to work well toghether with preemption.
+> 
+> Track the time a job has spent in a ring by storing timestamps of the
+> `CP_ALWAYS_ON_CONTEXT` register at the beginning of a job and when
+> switching rings as well as reading it back if the ring is currently
+> active.
+> 
+> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c     |  3 +-
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c     |  3 +-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 28 +++++++++++++++--
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+>  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 25 +++++++++++----
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c   |  3 +-
+>  drivers/gpu/drm/msm/msm_gpu.c             | 51 +++++++++++++++++++++++++------
+>  drivers/gpu/drm/msm/msm_gpu.h             |  3 ++
+>  drivers/gpu/drm/msm/msm_ringbuffer.h      |  6 ++++
+>  9 files changed, 102 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index 4a04dc43a8e6764a113d0ade3dee94bd4c0083af..cb4775a35da0706e571eb27ce617044de84ca118 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -1255,7 +1255,8 @@ static void a5xx_fault_detect_irq(struct msm_gpu *gpu)
+>  		gpu_read(gpu, REG_A5XX_CP_IB2_BUFSZ));
+>  
+>  	/* Turn off the hangcheck timer to keep it from bothering us */
+> -	timer_delete(&gpu->hangcheck_timer);
+> +	for (int i = 0; i < gpu->nr_rings; i++)
+> +		timer_delete(&gpu->rb[i]->hangcheck_timer);
+>  
+>  	kthread_queue_work(gpu->worker, &gpu->recover_work);
+>  }
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index fc62fef2fed87f065cb8fa4e997abefe4ff11cd5..103c19fa8669f06a6c1627ced1daf2bcd60415db 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -28,7 +28,8 @@ static void a6xx_gmu_fault(struct a6xx_gmu *gmu)
+>  	gmu->hung = true;
+>  
+>  	/* Turn off the hangcheck timer while we are resetting */
+> -	timer_delete(&gpu->hangcheck_timer);
+> +	for (int i = 0; i < gpu->nr_rings; i++)
+> +		timer_delete(&gpu->rb[i]->hangcheck_timer);
+>  
+>  	/* Queue the GPU handler because we need to treat this as a recovery */
+>  	kthread_queue_work(gpu->worker, &gpu->recover_work);
 
-This hook is called as part of the global atomic_check, thus before the
-states are swapped. The existing state thus points to the new state, and
-we can use drm_atomic_get_new_crtc_state() instead.
+I think a helper routine makes sense. We have to disable hangcheck
+whenever recover_worker is queued.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index b8f8ae940b55f5578abdbdec6bf1e90a53e721a5..7647e3dfd50db7446589e67949ed08d0a422f543 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -465,6 +465,9 @@ static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>  	get_stats_counter(ring, REG_A6XX_CP_ALWAYS_ON_COUNTER,
+>  		rbmemptr_stats(ring, index, alwayson_start));
+>  
+> +	get_stats_counter(ring, REG_A6XX_CP_ALWAYS_ON_CONTEXT,
+> +		rbmemptr(ring, last_job_start_ctx));
+> +
+>  	OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
+>  	OUT_RING(ring, CP_SET_THREAD_BOTH);
+>  
+> @@ -1816,7 +1819,8 @@ static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
+>  		gpu_read(gpu, REG_A6XX_CP_IB2_REM_SIZE));
+>  
+>  	/* Turn off the hangcheck timer to keep it from bothering us */
+> -	timer_delete(&gpu->hangcheck_timer);
+> +	for (int i = 0; i < gpu->nr_rings; i++)
+> +		timer_delete(&gpu->rb[i]->hangcheck_timer);
+>  
+>  	/* Turn off interrupts to avoid triggering recovery again */
+>  	gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, 0);
+> @@ -1839,7 +1843,8 @@ static void a7xx_sw_fuse_violation_irq(struct msm_gpu *gpu)
+>  	 */
+>  	if (status & (A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING |
+>  		      A7XX_CX_MISC_SW_FUSE_VALUE_LPAC)) {
+> -		timer_delete(&gpu->hangcheck_timer);
+> +		for (int i = 0; i < gpu->nr_rings; i++)
+> +			timer_delete(&gpu->rb[i]->hangcheck_timer);
+>  
+>  		kthread_queue_work(gpu->worker, &gpu->recover_work);
+>  	}
+> @@ -2327,6 +2332,22 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+>  	return 0;
+>  }
+>  
+> +static int a6xx_get_ctx_timestamp(struct msm_ringbuffer *ring, uint64_t *value)
+> +{
+> +	struct msm_gpu *gpu = ring->gpu;
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +
+> +	guard(spinlock_irqsave)(&a6xx_gpu->eval_lock);
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index 7c790406d533fbabb330c438419efb18204cc4b7..4ca183fb61a95af60ef5a2c011ae6b2a0df963f0 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -334,12 +334,11 @@ static int mdp5_plane_atomic_check(struct drm_plane *plane,
- 
- 	crtc = new_plane_state->crtc ? new_plane_state->crtc : old_plane_state->crtc;
- 	if (!crtc)
- 		return 0;
- 
--	crtc_state = drm_atomic_get_existing_crtc_state(state,
--							crtc);
-+	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
- 	if (WARN_ON(!crtc_state))
- 		return -EINVAL;
- 
- 	return mdp5_plane_atomic_check_with_state(crtc_state, new_plane_state);
- }
-@@ -371,12 +370,12 @@ static int mdp5_plane_atomic_async_check(struct drm_plane *plane,
- 	struct mdp5_plane_state *mdp5_state = to_mdp5_plane_state(new_plane_state);
- 	struct drm_crtc_state *crtc_state;
- 	int min_scale, max_scale;
- 	int ret;
- 
--	crtc_state = drm_atomic_get_existing_crtc_state(state,
--							new_plane_state->crtc);
-+	crtc_state = drm_atomic_get_new_crtc_state(state,
-+						   new_plane_state->crtc);
- 	if (WARN_ON(!crtc_state))
- 		return -EINVAL;
- 
- 	if (!crtc_state->active)
- 		return -EINVAL;
+Is eval_lock initialized anywhere? Also why do we need this?
 
--- 
-2.50.1
+> +
+> +	if (a6xx_in_preempt(a6xx_gpu) || ring != a6xx_gpu->cur_ring)
+This will race with preemption. I think we should wrap the preempt state
+check and the regread under the preempt lock.
 
+> +		return -EBUSY;
+> +
+> +	*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_CONTEXT);With IFPC, we cannot access a GX domain register (CP, RBBM etc) unless
+we are certain that the GX is powered up. Could you please test this
+series along with the IFPC series? If we hit the right timing, there
+should be a GMU fence error in the dmesg. Not sure how easy it is to hit
+that timing, but I believe there is a problem here conceptually.
+
+> +
+> +	return 0;
+> +}
+> +
+>  static struct msm_ringbuffer *a6xx_active_ring(struct msm_gpu *gpu)
+>  {
+>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> @@ -2555,6 +2576,7 @@ static const struct adreno_gpu_funcs funcs = {
+>  		.get_rptr = a6xx_get_rptr,
+>  		.progress = a6xx_progress,
+>  		.sysprof_setup = a6xx_gmu_sysprof_setup,
+> +		.get_ctx_timestamp = a6xx_get_ctx_timestamp,
+>  	},
+>  	.get_timestamp = a6xx_gmu_get_timestamp,
+>  };
+> @@ -2584,6 +2606,7 @@ static const struct adreno_gpu_funcs funcs_gmuwrapper = {
+>  		.create_private_vm = a6xx_create_private_vm,
+>  		.get_rptr = a6xx_get_rptr,
+>  		.progress = a6xx_progress,
+> +		.get_ctx_timestamp = a6xx_get_ctx_timestamp,
+>  	},
+>  	.get_timestamp = a6xx_get_timestamp,
+>  };
+> @@ -2616,6 +2639,7 @@ static const struct adreno_gpu_funcs funcs_a7xx = {
+>  		.get_rptr = a6xx_get_rptr,
+>  		.progress = a6xx_progress,
+>  		.sysprof_setup = a6xx_gmu_sysprof_setup,
+> +		.get_ctx_timestamp = a6xx_get_ctx_timestamp,
+>  	},
+>  	.get_timestamp = a6xx_gmu_get_timestamp,
+>  };
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> index 0b17d36c36a9567e6afa4269ae7783ed3578e40e..7248d3d38c6d8a06cb4a536043bf4877179447cc 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -80,6 +80,7 @@ struct a6xx_gpu {
+>  	struct drm_gem_object *preempt_postamble_bo;
+>  	void *preempt_postamble_ptr;
+>  	uint64_t preempt_postamble_iova;
+> +	uint64_t preempt_postamble_cntreset_end;
+>  	uint64_t preempt_postamble_len;
+>  	bool postamble_enabled;
+>  
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> index afc5f4aa3b17334027f3c20072cc3f059a9733b7..88a65549fa8038d4836eb5aeaea775d679415315 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> @@ -99,11 +99,15 @@ static void a6xx_preempt_timer(struct timer_list *t)
+>  	kthread_queue_work(gpu->worker, &gpu->recover_work);
+>  }
+>  
+> -static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu)
+> +static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu, struct msm_ringbuffer *ring)
+>  {
+>  	u32 *postamble = a6xx_gpu->preempt_postamble_ptr;
+> +	uint64_t last_active_ctxcycles;
+>  	u32 count = 0;
+>  
+> +	if (ring)
+> +		last_active_ctxcycles = rbmemptr(ring, last_active_ctxcycles);
+> +
+>  	postamble[count++] = PKT7(CP_REG_RMW, 3);
+>  	postamble[count++] = REG_A6XX_RBBM_PERFCTR_SRAM_INIT_CMD;
+>  	postamble[count++] = 0;
+> @@ -118,6 +122,15 @@ static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu)
+>  	postamble[count++] = CP_WAIT_REG_MEM_4_MASK(0x1);
+>  	postamble[count++] = CP_WAIT_REG_MEM_5_DELAY_LOOP_CYCLES(0);
+>  
+> +	a6xx_gpu->preempt_postamble_cntreset_end = count;
+> +
+> +	postamble[count++] = PKT7(ring ? CP_REG_TO_MEM : CP_NOP, 3);
+> +	postamble[count++] = CP_REG_TO_MEM_0_REG(REG_A6XX_CP_ALWAYS_ON_CONTEXT) |
+> +		CP_REG_TO_MEM_0_CNT(2) |
+> +		CP_REG_TO_MEM_0_64B;
+> +	postamble[count++] = lower_32_bits(last_active_ctxcycles);
+> +	postamble[count++] = upper_32_bits(last_active_ctxcycles);
+> +
+>  	a6xx_gpu->preempt_postamble_len = count;
+>  
+>  	a6xx_gpu->postamble_enabled = true;
+> @@ -129,9 +142,9 @@ static void preempt_disable_postamble(struct a6xx_gpu *a6xx_gpu)
+>  
+>  	/*
+>  	 * Disable the postamble by replacing the first packet header with a NOP
+> -	 * that covers the whole buffer.
+> +	 * that skips the counters reset part.
+>  	 */
+> -	*postamble = PKT7(CP_NOP, (a6xx_gpu->preempt_postamble_len - 1));
+> +	*postamble = PKT7(CP_NOP, (a6xx_gpu->preempt_postamble_cntreset_end - 1));
+>  
+>  	a6xx_gpu->postamble_enabled = false;
+>  }
+> @@ -338,8 +351,8 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
+>  	/* Enable or disable postamble as needed */
+>  	sysprof = refcount_read(&a6xx_gpu->base.base.sysprof_active) > 1;
+>  
+> -	if (!sysprof && !a6xx_gpu->postamble_enabled)
+> -		preempt_prepare_postamble(a6xx_gpu);
+> +	if (!sysprof)
+> +		preempt_prepare_postamble(a6xx_gpu, ring);
+>  
+>  	if (sysprof && a6xx_gpu->postamble_enabled)
+>  		preempt_disable_postamble(a6xx_gpu);
+> @@ -454,7 +467,7 @@ void a6xx_preempt_init(struct msm_gpu *gpu)
+>  			gpu->vm, &a6xx_gpu->preempt_postamble_bo,
+>  			&a6xx_gpu->preempt_postamble_iova);
+>  
+> -	preempt_prepare_postamble(a6xx_gpu);
+> +	preempt_prepare_postamble(a6xx_gpu, NULL);
+>  
+>  	if (IS_ERR(a6xx_gpu->preempt_postamble_ptr))
+>  		goto fail;
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index afaa3cfefd357dc0230994c8b5830a14c6d7a352..58f1e2a95bbfb00feb5a3bb91853e6bb533ec631 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -334,7 +334,8 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int flags,
+>  		struct msm_gpu_fault_info fault_info = {};
+>  
+>  		/* Turn off the hangcheck timer to keep it from bothering us */
+> -		timer_delete(&gpu->hangcheck_timer);
+> +		for (int i = 0; i < gpu->nr_rings; i++)
+> +			timer_delete(&gpu->rb[i]->hangcheck_timer);
+>  
+>  		fault_info.ttbr0 = info->ttbr0;
+>  		fault_info.iova  = iova;
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index 17759abc46d7d7af4117b1d71f1d5fba6ba0b61c..a3c5073aca1f65e450e0673262e8ca4bc7a5be6f 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -463,7 +463,9 @@ static void recover_worker(struct kthread_work *work)
+>  	struct drm_device *dev = gpu->dev;
+>  	struct msm_drm_private *priv = dev->dev_private;
+>  	struct msm_gem_submit *submit;
+> -	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
+> +	struct msm_ringbuffer *cur_ring = gpu->hung_ring ?
+> +		gpu->hung_ring : gpu->funcs->active_ring(gpu);
+> +	gpu->hung_ring = NULL;
+>  	char *comm = NULL, *cmd = NULL;
+>  	struct task_struct *task;
+>  	int i;
+> @@ -613,11 +615,17 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
+>  	mutex_unlock(&gpu->lock);
+>  }
+>  
+> -static void hangcheck_timer_reset(struct msm_gpu *gpu)
+> +static void hangcheck_ring_timer_reset(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>  {
+>  	struct msm_drm_private *priv = gpu->dev->dev_private;
+> -	mod_timer(&gpu->hangcheck_timer,
+> -			round_jiffies_up(jiffies + msecs_to_jiffies(priv->hangcheck_period)));
+> +	mod_timer(&ring->hangcheck_timer,
+> +			  round_jiffies_up(jiffies + msecs_to_jiffies(priv->hangcheck_period)));
+> +}
+> +
+> +static void hangcheck_timer_reset(struct msm_gpu *gpu)
+> +{
+> +	for (int i = 0; i < gpu->nr_rings; i++)
+> +		hangcheck_ring_timer_reset(gpu, gpu->rb[i]);
+
+It triggers my OCD a bit that there are multiple timers flying around
+waking up CPU clusters. But this is okay for now I guess. :)
+
+>  }
+>  
+>  static bool made_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+> @@ -635,11 +643,33 @@ static bool made_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>  	return true;
+>  }
+>  
+> +static bool check_ring_timeout(struct msm_ringbuffer *ring, unsigned long timeout)
+> +{
+> +	struct msm_gpu *gpu = ring->gpu;
+> +	struct msm_ringbuffer *curr_ring = gpu->funcs->active_ring(gpu);
+> +	u64 start, end;
+> +	int ret;
+> +
+> +	if (!gpu->funcs->get_ctx_timestamp)
+> +		return !made_progress(gpu, ring);
+> +
+> +	start = ring->memptrs->last_job_start_ctx;
+> +
+> +	if (!gpu->funcs->get_ctx_timestamp(ring, &end))
+I suppose you want the other way. ie, if get_ctx_timestamp() returns
+-EBUSY, which means gpu is either under preemption or in a different
+ring, use the memptr data.
+
+> +		end = ring->memptrs->last_active_ctxcycles;
+
+Assuming my above comment is correct, if GPU is under preemption, there
+is a chance that the postamble might not have got executed. So with a
+stale 'end' value, the below calc may go wrong?
+
+> +
+> +	if (end >= start)
+> +		return (end - start) < timeout;
+> +	else
+> +		return false;
+
+In case of an infinite shader blocking preemption, wouldn't we always
+return false here?
+
+-Akhil> +}
+> +
+>  static void hangcheck_handler(struct timer_list *t)
+>  {
+> -	struct msm_gpu *gpu = timer_container_of(gpu, t, hangcheck_timer);
+> +	struct msm_ringbuffer *ring = timer_container_of(ring, t, hangcheck_timer);
+> +	struct msm_gpu *gpu = ring->gpu;
+> +	struct msm_drm_private *priv = gpu->dev->dev_private;
+>  	struct drm_device *dev = gpu->dev;
+> -	struct msm_ringbuffer *ring = gpu->funcs->active_ring(gpu);
+>  	uint32_t fence = ring->memptrs->fence;
+>  
+>  	if (fence != ring->hangcheck_fence) {
+> @@ -647,7 +677,7 @@ static void hangcheck_handler(struct timer_list *t)
+>  		ring->hangcheck_fence = fence;
+>  		ring->hangcheck_progress_retries = 0;
+>  	} else if (fence_before(fence, ring->fctx->last_fence) &&
+> -			!made_progress(gpu, ring)) {
+> +			check_ring_timeout(ring, priv->hangcheck_period * 192000)) {
+>  		/* no progress and not done.. hung! */
+>  		ring->hangcheck_fence = fence;
+>  		ring->hangcheck_progress_retries = 0;
+> @@ -658,6 +688,7 @@ static void hangcheck_handler(struct timer_list *t)
+>  		DRM_DEV_ERROR(dev->dev, "%s:     submitted fence: %u\n",
+>  				gpu->name, ring->fctx->last_fence);
+>  
+> +		gpu->hung_ring = ring;
+>  		kthread_queue_work(gpu->worker, &gpu->recover_work);
+>  	}
+>  
+> @@ -911,7 +942,7 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>  	submit->ring->cur_ctx_seqno = submit->queue->ctx->seqno;
+>  
+>  	pm_runtime_put(&gpu->pdev->dev);
+> -	hangcheck_timer_reset(gpu);
+> +	hangcheck_ring_timer_reset(gpu, submit->ring);
+
+Should we reset hangcheck whenever there is a submission to a random ring?
+
+-Akhil
+
+>  }
+>  
+>  /*
+> @@ -1011,8 +1042,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>  	if (funcs->progress)
+>  		priv->hangcheck_period /= 2;
+>  
+> -	timer_setup(&gpu->hangcheck_timer, hangcheck_handler, 0);
+> -
+>  	spin_lock_init(&gpu->perf_lock);
+>  
+>  
+> @@ -1097,6 +1126,8 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>  			goto fail;
+>  		}
+>  
+> +		timer_setup(&gpu->rb[i]->hangcheck_timer, hangcheck_handler, 0);
+> +
+>  		memptrs += sizeof(struct msm_rbmemptrs);
+>  		memptrs_iova += sizeof(struct msm_rbmemptrs);
+>  	}
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index a597f2bee30b6370ecc3639bfe1072c85993e789..7bf1b7f4bc4b61338bfa4c1463eb549f8c22d5c3 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -93,6 +93,7 @@ struct msm_gpu_funcs {
+>  	 */
+>  	bool (*progress)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
+>  	void (*sysprof_setup)(struct msm_gpu *gpu);
+> +	int (*get_ctx_timestamp)(struct msm_ringbuffer *ring, uint64_t *value);
+>  };
+>  
+>  /* Additional state for iommu faults: */
+> @@ -257,6 +258,8 @@ struct msm_gpu {
+>  	/* work for handling GPU recovery: */
+>  	struct kthread_work recover_work;
+>  
+> +	struct msm_ringbuffer *hung_ring;
+> +
+>  	/** retire_event: notified when submits are retired: */
+>  	wait_queue_head_t retire_event;
+>  
+> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> index d1e49f701c8176e50d2b9a5cca35acee67f75209..316247fb089f26bd657ccf8464a5039e1cd1ac45 100644
+> --- a/drivers/gpu/drm/msm/msm_ringbuffer.h
+> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> @@ -37,6 +37,8 @@ struct msm_rbmemptrs {
+>  	volatile struct msm_gpu_submit_stats stats[MSM_GPU_SUBMIT_STATS_COUNT];
+>  	volatile u64 ttbr0;
+>  	volatile u32 context_idr;
+> +	volatile u64 last_job_start_ctx;
+> +	volatile u64 last_active_ctxcycles;
+>  };
+>  
+>  struct msm_cp_state {
+> @@ -73,6 +75,10 @@ struct msm_ringbuffer {
+>  	uint64_t memptrs_iova;
+>  	struct msm_fence_context *fctx;
+>  
+> +	/* Hang and Inactivity Detection:
+> +	 */
+> +	struct timer_list hangcheck_timer;
+> +
+>  	/**
+>  	 * hangcheck_progress_retries:
+>  	 *
+> 
