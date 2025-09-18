@@ -2,72 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D02AB84D12
-	for <lists+freedreno@lfdr.de>; Thu, 18 Sep 2025 15:29:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4385EB84D1B
+	for <lists+freedreno@lfdr.de>; Thu, 18 Sep 2025 15:29:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0836110E8AF;
-	Thu, 18 Sep 2025 13:29:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19B6110E8BF;
+	Thu, 18 Sep 2025 13:29:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qtdpN7AS";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BLq86PkE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6B3910E8AC
- for <freedreno@lists.freedesktop.org>; Thu, 18 Sep 2025 13:29:43 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-77615d6af4fso1402942b3a.3
- for <freedreno@lists.freedesktop.org>; Thu, 18 Sep 2025 06:29:43 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69DFD10E8BF
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Sep 2025 13:29:49 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-323266d6f57so980996a91.0
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Sep 2025 06:29:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758202183; x=1758806983; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1758202189; x=1758806989; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=nb8DHyczwqx5+B7VoAEcDJ2+iN4T6lU4LExrmwq9l0Q=;
- b=qtdpN7ASyNMZwhWYlV+u1zwy5UYpPFS+TrPynMFVWIsYhSjTMMjSuoJ7pBOgLwx+Hq
- ux82nyVaXjD+7ESHGGJmYuYZR1EdMkkzXgIQHAcBH0xqKV7cmr7TsySB00gKjUhZ3AaB
- lXStrWXgpZeBMFUx/dKHDJGpEoOhA3qId5TUkdx6ixlg3yZBhiRjxDnYL8YH4I2zRHBW
- Rb9lCvKvnZ9crudswjq0//+zNjxl/4BlGsfp014j8T42EON7RpqLoT8BOUto1o5oMw2g
- zmNJ+KZKIkv+Cb67Y978RwvMBlnHEQw3xuFbTCOPMno/m5/0b/QEET2wcsaKWotLfDOD
- vFUw==
+ :reply-to; bh=nuRBfqh8CopNeGj4s9JcPIl8SA4pKW/98Tru8VZbruE=;
+ b=BLq86PkEoIj4lNwekhYCXlSldWmqONRuo9IG6RV1ezjb7FprODfR/1dcttNTBr2Uj5
+ 4eZKR2OMINcuGqd0pWdEfu31/UNeoStPUG96Z/woZOijSG/HmKKCIQ7Vb29j3eWCjZfn
+ s9pw4j4Y83oRg1EQ8NAa6oTMtcBH5qJoPeuGe5wM2uKcjZfrwYTNRXGG5//aITcwePZL
+ Px7kqa2YP0pBgfO+QZBVU2VG2tCe6hXkhZfJcEfQmO7YlnbeMliqyjjmS/IGMfKB34HS
+ EVsuK2z9hK+huXt9oUyB6RZI2BrIuDEc7MpmKblMWNoSH1uA+u6YMKEQ3rBDdwP8dF+7
+ rmHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758202183; x=1758806983;
+ d=1e100.net; s=20230601; t=1758202189; x=1758806989;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nb8DHyczwqx5+B7VoAEcDJ2+iN4T6lU4LExrmwq9l0Q=;
- b=U5IN15KKIcSgUZli2ggLB0v1ZbTnzANxLSHw0pJ4kaq9OYa4qhmEp+sJTxb2SjVewK
- +KqAUFBZVojAvJco15170hlf8+zORu7cs4IF5NkiIiJbbk9Hea/fpRKOE79joEr7JKFe
- v5667xhFAtjy82HVDYYqjHEDRlpzq/qup/Ebd1wPjFWPkDnX2Y2ftXIGYRtNSWRLqaSp
- 0MzBGb0qvSkvewAsz2ikTG5P31Xz8tmPHxYcDnaa4zJM3cVjeU19dCf6SMgGbUzBjka+
- 6Ik0JwcRo1DLK3bhqAVQgeDqLoxLAQXPdCEgiICinaZA1/QTKMybb6lWEnIPFlg/Vm9j
- QPdw==
+ bh=nuRBfqh8CopNeGj4s9JcPIl8SA4pKW/98Tru8VZbruE=;
+ b=Y8JxbcOYtCzM4h0q2s5CaljSZrNuQpFL8YqPFdztT14kyPkjg9WoB6QVnObS7lhf9U
+ WI4h27ymrSSRmb5hkwFMMUsW1+amJlriQ0Ob5LeJDCtcRVViF0ehtoJa58ByuSQ3ekH+
+ t/0DYY5TgiJZfEY8d/ex4Ay+uZU0E2+AdgG0+zEIyZXfAjvG58X6T9Dis8v6fUaCau23
+ 5lMQ2SWqjtPiBs7DY+LznhhvCn58Mz53sFvm6szHC5UumdueuGTpoddNHNh18UQrAc1j
+ SXwiK0mG0LsNiQpUwV+BEqIbJF6TWfru5BHOemlghmUXXv6iZhitqg6ELixyOO/gmpY8
+ F0yw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWlOy7j9mhc+H9HKWrQqyyArrQQeCmWTYt4UW1eRGp2q9Ip0ohbmIQ7Wv3zsCKp8N3jeii9WOLiaZE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwswjjoTfpkEQmyyO4e4h3wvNOqd2JdLIMlgsCHqZZz5C87yNLF
- rfm2MLoT2cp6L8lzvj2ZcrIicmYUGNenlH2fbxUMlkSfDHvFFdyyC+w89raXVJ4lvAo=
-X-Gm-Gg: ASbGncvoukklelJ5gYLecwrJUtc4ppksXRjaa87Gee0plld9CfCLF9ZuLgKifktd3nK
- bS3kHlKzk9Ycf7px7URJoSIPEo2/eI3/a+ukLyWfX1fJQdcnQLdp9ahihVH0+xYsea19hqIRNDL
- KKxeVRw37Jv3b7kV4+b5hAre3vtEMgldmVaRe67Jrjb5m3rWLLzb25LqgsB/9QvzSSJlY5KBoWd
- DSOOfyxNkFN6f35qEV+83GzQDgk64wIESFXa83BWk+9GCGp3t8t1gCPWvlVjKM5U1nn0OVmKQ4z
- 8izB5G9Vv4s8Dmr+y7/EWXvLJiQSDZx4fG3GZsfvsr5OOhev0/AQSk47AusCf1QLVDDFeKmlFn4
- x0slvahYpyO+LZSGZrNIrAMhIdgj5J1+9L9+0jsA//7U6cA==
-X-Google-Smtp-Source: AGHT+IERrXzRoc+Dcq10Q0G9F1/YT45cEstADmE67sqQDMdNAlS0SOYp9/sdHR5M5e7UMvIXy/yQRA==
-X-Received: by 2002:a05:6a21:6d9c:b0:243:ff76:eada with SMTP id
- adf61e73a8af0-27a99f4dda9mr8608207637.6.1758202183247; 
- Thu, 18 Sep 2025 06:29:43 -0700 (PDT)
+ AJvYcCWArM/BmcxG4c7b9QngGyy1b2H5dKEmHU+Yt826Ke38pAftTIDwgEKlRctNYPMRq2niBT0GlKYuljM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrMYKThYvdgjDo6odzn71/WIGzJX4hd4BfWTqGeslHeimpLIRU
+ Eb/8iLOtjIK3jaDs1RM1yQAwYaKgZY4QhD9vkntDQ9iyrowhWVcDi8dCjPZ5LJ2rys0=
+X-Gm-Gg: ASbGnctGLbXKanKb4FFPJj5O3yYbBRn6s6jsDjbvL1P4rv1vlSWgzEhBJ6lduFZXyRp
+ jlGvVdUev+xORqfSCDNhd2FI2K9befHaM96kIVl0wIVAQAhpPaitYk4r+tDna+kjuy1amaQzM62
+ 20dCH4HEXq6WgGU5aCZDizeEvj08T7/7A7SwRg7zPEWjV5GOgRzb6WAlaBuXeZc95b07mQkVk2i
+ B6SehQauKIIRU7VHdJW+YpDf5r7i4lf6XzaXLLSzx3jBSvrL8ZFzXKlI/5m8uE4mzlEtweb89Jf
+ 0RXZGQaB8vmvMqEA94nCxoV6MoevzQ5722+YQdQc5HEMPfh4iq0qged+4SI9V83lUdhksLRlS57
+ WDVEKQwCxvTnBdUaQjHHoe4VcNjpz8nzOVLJyTrg0tJBeDg==
+X-Google-Smtp-Source: AGHT+IHFJ1UXuMDIcizq+VwgouZRP1MpzHNb3lgea1Tc65YVimECTE5UfJoCwJJFEWAwPnexmrET2A==
+X-Received: by 2002:a17:90b:4c4c:b0:32e:3e2c:8ad8 with SMTP id
+ 98e67ed59e1d1-32ee3f73a0amr7783868a91.20.1758202188968; 
+ Thu, 18 Sep 2025 06:29:48 -0700 (PDT)
 Received: from [127.0.1.1] ([112.64.61.5]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b54ff35cc76sm2331479a12.10.2025.09.18.06.29.36
+ 41be03b00d2f7-b54ff35cc76sm2331479a12.10.2025.09.18.06.29.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Sep 2025 06:29:43 -0700 (PDT)
+ Thu, 18 Sep 2025 06:29:48 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 18 Sep 2025 21:28:57 +0800
-Subject: [PATCH v16 05/10] drm/msm/dpu: split PIPES_PER_STAGE definition
- per plane and mixer
+Date: Thu, 18 Sep 2025 21:28:58 +0800
+Subject: [PATCH v16 06/10] drm/msm/dpu: Use dedicated WB number definition
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-5-ff6232e3472f@linaro.org>
+Message-Id: <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-6-ff6232e3472f@linaro.org>
 References: <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-0-ff6232e3472f@linaro.org>
 In-Reply-To: <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-0-ff6232e3472f@linaro.org>
 To: Abhinav Kumar <abhinav.kumar@linux.dev>, 
@@ -81,11 +80,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Jun Nie <jun.nie@linaro.org>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
  Dmitry Baryshkov <lumag@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1758202147; l=6547;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1758202147; l=1716;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=W7Ypqle5HGFFo4IvgWFjt6doyniRke+2cRvl/toTL9w=;
- b=fAUAwG8srJr1uBcTLuEup5NeEpfBmRb/V2ElRLETXxKXcy/NY/fNnKOwVmXqYUg7WtaXFy5E4
- jtDNNWxFDUoAYiDVjh6oYo9/2iXDcAdyedCTLuIh/QVGqpVZ6rw5I9M
+ bh=PRJ+au3DI7HiuWEGK005K0r17ABM8j6SQDUJwlnMCMI=;
+ b=LCib+BVV8wTLxZd2X7O64JU7UwWu9AMDspmPEKtl2onfR7RP0tAEONojfQ5IvOsin/POXyC4Y
+ Ua4gKxQopuLDEQAr5K4RUIKczTuh4iGAR4E1AoEZREolcmSf0bb7Cd9
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -103,167 +102,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The stage contains configuration for a mixer pair. Currently the plane
-supports just one stage and 2 pipes. Quad-pipe support will require
-handling 2 stages and 4 pipes at the same time. In preparation for that
-add a separate define, PIPES_PER_PLANE, to denote number of pipes that
-can be used by the plane.
+Currently MAX_CHANNELS_PER_ENC is defined as 2, because 2 channels are
+supported at most in one encoder. The case of 4 channels per encoder is
+to be added. To avoid breaking current WB usage case, use dedicated WB
+definition before 4 WB usage case is supported in future.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  7 +++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 19 +++++++++----------
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h   |  4 ++--
- 4 files changed, 15 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index c69b63f858329f60908fa7544fb2e5b3aba88540..7b57e638def60f02116325401a8341da11d58e50 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -472,8 +472,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
- 		if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
- 			bg_alpha_enable = true;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 1318f9e63ef1e7bab078ae17e39d9ed19c04f465..55b83ba6102d38a9ec97bc4d12ad31810e4b261a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -56,6 +56,7 @@
+ 	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
  
--
--		for (i = 0; i < PIPES_PER_STAGE; i++) {
-+		for (i = 0; i < PIPES_PER_PLANE; i++) {
- 			if (!pstate->pipe[i].sspp)
- 				continue;
- 			set_bit(pstate->pipe[i].sspp->idx, active_fetch);
-@@ -1305,7 +1304,7 @@ static int dpu_crtc_reassign_planes(struct drm_crtc *crtc, struct drm_crtc_state
- 	return ret;
- }
+ #define MAX_CHANNELS_PER_ENC 2
++#define MAX_CWB_PER_ENC 2
  
--#define MAX_CHANNELS_PER_CRTC 2
-+#define MAX_CHANNELS_PER_CRTC PIPES_PER_PLANE
- #define MAX_HDISPLAY_SPLIT 1080
+ #define IDLE_SHORT_TIMEOUT	1
  
- static struct msm_display_topology dpu_crtc_get_topology(
-@@ -1675,7 +1674,7 @@ static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
- 			state->crtc_x, state->crtc_y, state->crtc_w,
- 			state->crtc_h);
+@@ -182,7 +183,7 @@ struct dpu_encoder_virt {
+ 	struct dpu_encoder_phys *cur_master;
+ 	struct dpu_encoder_phys *cur_slave;
+ 	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
+-	struct dpu_hw_cwb *hw_cwb[MAX_CHANNELS_PER_ENC];
++	struct dpu_hw_cwb *hw_cwb[MAX_CWB_PER_ENC];
+ 	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
  
--		for (i = 0; i < PIPES_PER_STAGE; i++) {
-+		for (i = 0; i < PIPES_PER_PLANE; i++) {
- 			if (!pstate->pipe[i].sspp)
- 				continue;
- 			seq_printf(s, "\tsspp[%d]:%s\n",
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-index 175639c8bfbb9bbd02ed35f1780bcbd869f08c36..9f75b497aa0c939296207d58dde32028d0a76a6d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-@@ -34,6 +34,7 @@
- #define DPU_MAX_PLANES			4
- #endif
+ 	unsigned int dsc_mask;
+@@ -2389,7 +2390,7 @@ void dpu_encoder_helper_phys_setup_cwb(struct dpu_encoder_phys *phys_enc,
+ 	 */
+ 	cwb_cfg.input = INPUT_MODE_LM_OUT;
  
-+#define PIPES_PER_PLANE			2
- #define PIPES_PER_STAGE			2
- #ifndef DPU_MAX_DE_CURVES
- #define DPU_MAX_DE_CURVES		3
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 5bcdfe7078f717a59dc5a4883702d921ecf2025b..0be3eeb5edf0c14efb20eec02ba17e072fa2c829 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -634,7 +634,7 @@ static void _dpu_plane_color_fill(struct dpu_plane *pdpu,
- 		return;
- 
- 	/* update sspp */
--	for (i = 0; i < PIPES_PER_STAGE; i++) {
-+	for (i = 0; i < PIPES_PER_PLANE; i++) {
- 		if (!pstate->pipe[i].sspp)
+-	for (int i = 0; i < MAX_CHANNELS_PER_ENC; i++) {
++	for (int i = 0; i < MAX_CWB_PER_ENC; i++) {
+ 		hw_cwb = dpu_enc->hw_cwb[i];
+ 		if (!hw_cwb)
  			continue;
- 		_dpu_plane_color_fill_pipe(pstate, &pstate->pipe[i],
-@@ -1157,7 +1157,7 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
- 		 * resources are freed by dpu_crtc_assign_plane_resources(),
- 		 * but clean them here.
- 		 */
--		for (i = 0; i < PIPES_PER_STAGE; i++)
-+		for (i = 0; i < PIPES_PER_PLANE; i++)
- 			pstate->pipe[i].sspp = NULL;
- 
- 		return 0;
-@@ -1211,7 +1211,7 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
- 	pipe_cfg = &pstate->pipe_cfg[0];
- 	r_pipe_cfg = &pstate->pipe_cfg[1];
- 
--	for (i = 0; i < PIPES_PER_STAGE; i++)
-+	for (i = 0; i < PIPES_PER_PLANE; i++)
- 		pstate->pipe[i].sspp = NULL;
- 
- 	if (!plane_state->fb)
-@@ -1344,7 +1344,7 @@ void dpu_plane_flush(struct drm_plane *plane)
- 		/* force 100% alpha */
- 		_dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
- 	else {
--		for (i = 0; i < PIPES_PER_STAGE; i++)
-+		for (i = 0; i < PIPES_PER_PLANE; i++)
- 			dpu_plane_flush_csc(pdpu, &pstate->pipe[i]);
- 	}
- 
-@@ -1466,8 +1466,7 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane,
- 			crtc->base.id, DRM_RECT_ARG(&state->dst),
- 			&fmt->pixel_format, MSM_FORMAT_IS_UBWC(fmt));
- 
--	/* move the assignment here, to ease handling to another pairs later */
--	for (i = 0; i < PIPES_PER_STAGE; i++) {
-+	for (i = 0; i < PIPES_PER_PLANE; i++) {
- 		if (!drm_rect_width(&pstate->pipe_cfg[i].src_rect))
- 			continue;
- 		dpu_plane_sspp_update_pipe(plane, &pstate->pipe[i],
-@@ -1481,7 +1480,7 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane,
- 
- 	pstate->plane_fetch_bw = 0;
- 	pstate->plane_clk = 0;
--	for (i = 0; i < PIPES_PER_STAGE; i++) {
-+	for (i = 0; i < PIPES_PER_PLANE; i++) {
- 		if (!drm_rect_width(&pstate->pipe_cfg[i].src_rect))
- 			continue;
- 		pstate->plane_fetch_bw += _dpu_plane_calc_bw(pdpu->catalog, fmt,
-@@ -1500,7 +1499,7 @@ static void _dpu_plane_atomic_disable(struct drm_plane *plane)
- 	struct dpu_sw_pipe *pipe;
- 	int i;
- 
--	for (i = 0; i < PIPES_PER_STAGE; i += 1) {
-+	for (i = 0; i < PIPES_PER_PLANE; i += 1) {
- 		pipe = &pstate->pipe[i];
- 		if (!pipe->sspp)
- 			continue;
-@@ -1619,7 +1618,7 @@ static void dpu_plane_atomic_print_state(struct drm_printer *p,
- 
- 	drm_printf(p, "\tstage=%d\n", pstate->stage);
- 
--	for (i = 0; i < PIPES_PER_STAGE; i++) {
-+	for (i = 0; i < PIPES_PER_PLANE; i++) {
- 		pipe = &pstate->pipe[i];
- 		if (!pipe->sspp)
- 			continue;
-@@ -1676,7 +1675,7 @@ void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
- 		return;
- 
- 	pm_runtime_get_sync(&dpu_kms->pdev->dev);
--	for (i = 0; i < PIPES_PER_STAGE; i++) {
-+	for (i = 0; i < PIPES_PER_PLANE; i++) {
- 		if (!pstate->pipe[i].sspp)
- 			continue;
- 		_dpu_plane_set_qos_ctrl(plane, &pstate->pipe[i], enable);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-index 007f044499b99ac9c2e4b58e98e6add013a986de..1ef5a041b8acae270826f20ea9553cbfa35a9f82 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-@@ -31,8 +31,8 @@
-  */
- struct dpu_plane_state {
- 	struct drm_plane_state base;
--	struct dpu_sw_pipe pipe[PIPES_PER_STAGE];
--	struct dpu_sw_pipe_cfg pipe_cfg[PIPES_PER_STAGE];
-+	struct dpu_sw_pipe pipe[PIPES_PER_PLANE];
-+	struct dpu_sw_pipe_cfg pipe_cfg[PIPES_PER_PLANE];
- 	enum dpu_stage stage;
- 	bool needs_qos_remap;
- 	bool pending;
 
 -- 
 2.34.1
