@@ -2,150 +2,126 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2B10B8EF95
-	for <lists+freedreno@lfdr.de>; Mon, 22 Sep 2025 07:02:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCA6AB8F339
+	for <lists+freedreno@lfdr.de>; Mon, 22 Sep 2025 08:58:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94B8810E3A9;
-	Mon, 22 Sep 2025 05:02:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD7210E077;
+	Mon, 22 Sep 2025 06:58:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BcNVWZn6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hihU5vLu";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 941EE10E3A8;
- Mon, 22 Sep 2025 05:02:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 503AD601DC;
- Mon, 22 Sep 2025 05:02:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A858C4CEF5;
- Mon, 22 Sep 2025 05:02:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1758517333;
- bh=/nk8xPLOsGXuSw5wS41Jy4q570vGloBiPOCZp2/irX0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BcNVWZn6zT4Gv/IUZ2C0NZn/XQ5pAMMpsZzcS58NBPYxD2oFH/k4xQ1OcYygH2JDO
- qM8XphYZH6pOzc+c2uakvnfuiVmB28vwfNolajwWxIrag0Gc1iZ0LiKuoKaX4EXv7U
- h1tGLKcFUdBrn8iKhoSlB6ijAzBdHBAHMrirLbcw=
-Date: Mon, 22 Sep 2025 07:02:08 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: "Farber, Eliav" <farbere@amazon.com>
-Cc: "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "jdike@addtoit.com" <jdike@addtoit.com>, "richard@nod.at" <richard@nod.at>,
- "anton.ivanov@cambridgegreys.com" <anton.ivanov@cambridgegreys.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "luto@kernel.org" <luto@kernel.org>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
- "hpa@zytor.com" <hpa@zytor.com>,
- "tony.luck@intel.com" <tony.luck@intel.com>,
- "qiuxu.zhuo@intel.com" <qiuxu.zhuo@intel.com>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "james.morse@arm.com" <james.morse@arm.com>,
- "rric@kernel.org" <rric@kernel.org>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "evan.quan@amd.com" <evan.quan@amd.com>,
- "james.qian.wang@arm.com" <james.qian.wang@arm.com>,
- "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
- "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>,
- "brian.starkey@arm.com" <brian.starkey@arm.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "jdelvare@suse.com" <jdelvare@suse.com>,
- "linux@roeck-us.net" <linux@roeck-us.net>,
- "fery@cypress.com" <fery@cypress.com>,
- "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>,
- "agk@redhat.com" <agk@redhat.com>,
- "snitzer@redhat.com" <snitzer@redhat.com>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>,
- "rajur@chelsio.com" <rajur@chelsio.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "kuba@kernel.org" <kuba@kernel.org>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- "alexandre.torgue@st.com" <alexandre.torgue@st.com>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "malattia@linux.it" <malattia@linux.it>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "mgross@linux.intel.com" <mgross@linux.intel.com>,
- "intel-linux-scu@intel.com" <intel-linux-scu@intel.com>,
- "artur.paszkiewicz@intel.com" <artur.paszkiewicz@intel.com>,
- "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
- "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
- "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
- "clm@fb.com" <clm@fb.com>, "josef@toxicpanda.com" <josef@toxicpanda.com>,
- "dsterba@suse.com" <dsterba@suse.com>,
- "jack@suse.com" <jack@suse.com>, "tytso@mit.edu" <tytso@mit.edu>,
- "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "dushistov@mail.ru" <dushistov@mail.ru>,
- "luc.vanoostenryck@gmail.com" <luc.vanoostenryck@gmail.com>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "pmladek@suse.com" <pmladek@suse.com>,
- "sergey.senozhatsky@gmail.com" <sergey.senozhatsky@gmail.com>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>,
- "minchan@kernel.org" <minchan@kernel.org>,
- "ngupta@vflare.org" <ngupta@vflare.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "kuznet@ms2.inr.ac.ru" <kuznet@ms2.inr.ac.ru>,
- "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>,
- "pablo@netfilter.org" <pablo@netfilter.org>,
- "kadlec@netfilter.org" <kadlec@netfilter.org>,
- "fw@strlen.de" <fw@strlen.de>, "jmaloy@redhat.com" <jmaloy@redhat.com>,
- "ying.xue@windriver.com" <ying.xue@windriver.com>,
- "willy@infradead.org" <willy@infradead.org>,
- "sashal@kernel.org" <sashal@kernel.org>,
- "ruanjinjie@huawei.com" <ruanjinjie@huawei.com>,
- "David.Laight@aculab.com" <David.Laight@aculab.com>,
- "herve.codina@bootlin.com" <herve.codina@bootlin.com>,
- "Jason@zx2c4.com" <Jason@zx2c4.com>,
- "bvanassche@acm.org" <bvanassche@acm.org>,
- "keescook@chromium.org" <keescook@chromium.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, 
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
- "coreteam@netfilter.org" <coreteam@netfilter.org>,
- "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "Chocron, Jonathan" <jonnyc@amazon.com>
-Subject: Re: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
-Message-ID: <2025092203-untreated-sloppily-23b5@gregkh>
-References: <20250919101727.16152-1-farbere@amazon.com>
- <2025092136-unelected-skirt-d91d@gregkh>
- <4f497306c58240a88c0bb001786c3ad2@amazon.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C742610E077
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 06:58:28 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58LNC9fZ025551
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 06:58:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 4Y6J0JvZHZTyvNJ+YjUFLmgs0dQUdIkfQWhpixwMQlQ=; b=hihU5vLujTq8+L80
+ Icsn6E7T6N+IaKbEkE4Wcozq/6of7Tg29DDnlCkpObJjZ6uhOhlgf6q9M7xjsJ+o
+ eXMT/Fa4AM8pvf8sIEutFQ9UBw4yKbEl+UVJECznaYOxqd/BldofcAwj8h2UZvuQ
+ TONAwpwmX3/TLT2H3aySHyxlPnJLhGThbxP0X0acwezvkyZIXwxuv1i+VMDAzZsZ
+ Bvf6bUX46PMoBANDm3nbbKIpAXANZlSdvCrHUbQtDZJ6enK7XW/jG/b3qIdGuPu3
+ +Vfp/2TJIwv8hPd63wue22DMQnNjT3MJ0N03Lb6h4zJaLkVxen2mcIvMZc98PYlW
+ 2XGrDQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 499mbv3mud-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 06:58:27 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-26970768df5so10057135ad.1
+ for <freedreno@lists.freedesktop.org>; Sun, 21 Sep 2025 23:58:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758524306; x=1759129106;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=4Y6J0JvZHZTyvNJ+YjUFLmgs0dQUdIkfQWhpixwMQlQ=;
+ b=ak8TJDHsy1+QYsnbWu9vNMFWsKGVbYpLZcHOkuZvNoARenQ4E/Ui+L1X7KGJ6V5H5X
+ RjqiPj6wZ+ZE03WfxomV8dEz298TQXbeJPRRYASDbL5YGxmWgGm+i0TWBk1XCEB3JmEX
+ 2vPkMhnfFOYgAIb0DwIUMQSoEHcdunAep+83N8YAvmY2kTHTyymRPOAJ223KsLxoqzh/
+ bbpPYUS7GZvxrFOM+HhORVMW5LKMHar6zTU4v1/q0cV5SrTKMeHK7Hwjw0/vSD4VIOuV
+ 1FT7PKIqB9S2WmUeHSrwi1g0rXnz/prI5JKdr6mkw/S4Xm+3zT78Vw2plVugi627yfAU
+ mS5A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVKYxUZR8q4OFPJd9sR0cYquZoWL8kB+GyN5IWYwJqz1pIh903bzVl+D1tKmmpq3fNuZ6cWZoKDIP0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjvORtfaSMnPE6469VyLTUzz6mCKN+rWzmZAD1lnLzSWYq1qDU
+ vyHR78S4JhMQsp7vhfQhzmL2nZ+W1oQc+jGFYn2k8Oph27X81q4ryhYe8ze2B0bGVdAmkYrsKlf
+ 44lwdQhNqYORX70oN+yURLg7IT7YpRHvLrGQqVFTRzBT9VuVmCfcl2KqEGdRlcFY16wPet0g=
+X-Gm-Gg: ASbGncsxMssDMUI8qrxqhH2H9RNc33DdIuhlqvbH8H/AUMHlJ0walIIbtRRaC7M0EaG
+ p0AGoYDtMRNDpomkWT4F9Yho9fnhX9w41aHr2SMJzFZgTE4rP9lzRWgxamc+UwtKGanmrSFDPOx
+ JNPgsJqTH2ZTi9IX45aAAzmfzVPnj1Z7hdK8pxtxQj81v1igOhqYcaJl8M0PMHMYhJ6i678QLEf
+ 6B8cyGBV+Nqc1NaIXjSi2iYP6yuYBbYqFDQaD4vQfBLPhheGgcRrf0lMQ7lkQjAZRxyd1+Pp4RY
+ 35IUG4GDu9ZZ6dJ7xAawNrhKcztOQxzO4UwaKO1Do7fxJzI4hymgQDtfI+8NLCa+nAjTzKfAu8q
+ iYshiG8twzUAunzBe21KiRsQ0kZmQ41jykw==
+X-Received: by 2002:a05:6a21:32a5:b0:266:1f27:a035 with SMTP id
+ adf61e73a8af0-292762e34e1mr8296809637.6.1758524306367; 
+ Sun, 21 Sep 2025 23:58:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGOnFw/Aim0P+Z+Av0f4nHGRdPopw7vSUWV5zLElAHa1cdJ6EyoyUbPMlHQZWh/gnjmhtMsIw==
+X-Received: by 2002:a05:6a21:32a5:b0:266:1f27:a035 with SMTP id
+ adf61e73a8af0-292762e34e1mr8296796637.6.1758524305726; 
+ Sun, 21 Sep 2025 23:58:25 -0700 (PDT)
+Received: from [10.133.33.87] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b55138043b6sm8998663a12.26.2025.09.21.23.58.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 21 Sep 2025 23:58:25 -0700 (PDT)
+Message-ID: <14cdf3a4-714c-4136-8c1d-99392e7911f5@oss.qualcomm.com>
+Date: Mon, 22 Sep 2025 14:58:17 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4f497306c58240a88c0bb001786c3ad2@amazon.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/14] phy: qcom: qmp-usbc: Add QCS615 USB/DP PHY
+ config and DP mode support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
+ li.liu@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+References: <20250919-add-displayport-support-for-qcs615-platform-v5-0-eae6681f4002@oss.qualcomm.com>
+ <20250919-add-displayport-support-for-qcs615-platform-v5-12-eae6681f4002@oss.qualcomm.com>
+ <bfpgktxgo2hb6dpzy3i7jdr6w4de5boorx4n6qeapct2vre4sn@4z2mnppridn5>
+From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+In-Reply-To: <bfpgktxgo2hb6dpzy3i7jdr6w4de5boorx4n6qeapct2vre4sn@4z2mnppridn5>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=ZcAdNtVA c=1 sm=1 tr=0 ts=68d0f393 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=JsSO4BFUhKJy4KAi8vwA:9
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: SgdRDrRXEs27ZZ5AyiO_v4CH60FnfEla
+X-Proofpoint-GUID: SgdRDrRXEs27ZZ5AyiO_v4CH60FnfEla
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTIwMDAzMSBTYWx0ZWRfX03opKYg1MXsq
+ mYpzcG10YBIVJwXgkQhmbOKlluyf7bif2X+E5S/AL+uVHVCK1CW5YB7ExS0z5sDP9RiLOxHTNxp
+ g5f/H7aCshzN98S//vyuYUIlkcjtfv8HFnrxtyJ5OjlxhhjXF87OwelGUkol+4RtJ9ol9Y3erpA
+ 0aTEJRGvrYRpXxOozsKbSv3xyA7M2tQWGsdiG7jgjRzLyGyiDiVa4JovhyyNJq7qiHFr3aiMme0
+ Js1KsaoiDW/WVhsxwFdVsFA7rpHGehXI0yqKmm1Nl/7qiJLK6q5b0j1jQWoT51OUNk7j/LPrMvF
+ TpeyGLhre5TiADfNeQOIr2JoRG+IZfgdojY2qS58tl3/BUMM+HRgJ49IidbA9i2Kg+L9DDcqyoR
+ D4Hr3V7L
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-22_01,2025-09-19_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ phishscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509200031
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,32 +137,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Sep 21, 2025 at 09:37:02PM +0000, Farber, Eliav wrote:
-> > On Fri, Sep 19, 2025 at 10:17:00AM +0000, Eliav Farber wrote:
-> > > This series includes a total of 27 patches, to align minmax.h of
-> > > v5.15.y with v6.17-rc6.
-> > >
-> > > The set consists of 24 commits that directly update minmax.h:
-> > > 1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() macro
-> > >    once")
-> >
-> > But this isn't in 5.15.y, so how is this syncing things up?
-> >
-> > I'm all for this, but I got confused here, at the first commit :)
-> 
-> It's a typo.
-> It should be 5.10.y and not 5.15.y.
-> 
-> > Some of these are also only in newer kernels, which, as you know, is
-> > generally a bad thing (i.e. I can't take patches only for older
-> > kernels.)
-> >
-> > I want these changes, as they are great, but can you perhaps provide
-> > patch series for newer kernels first so that I can then take these?
-> 
-> So you'd first like first to align 6.16 with 6.17, then 6.15 with 6.16,
-> then 6.12 with 6.15, then 6.6 with 6.12, and so on until we eventually
-> align 5.10 and even 5.4?
 
-Yes please!
+On 9/20/2025 2:41 AM, Dmitry Baryshkov wrote:
+> On Fri, Sep 19, 2025 at 10:24:29PM +0800, Xiangxu Yin wrote:
+>> Add QCS615-specific configuration for USB/DP PHY, including DP init
+>> routines, voltage swing tables, and platform data. Add compatible
+>> "qcs615-qmp-usb3-dp-phy".
+>>
+>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+>> ---
+>>  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 395 +++++++++++++++++++++++++++++++
+>>  1 file changed, 395 insertions(+)
+>>
+>> +
+>> +	writel(0x3f, qmp->dp_tx + QSERDES_V2_TX_TRANSCEIVER_BIAS_EN);
+>> +	writel(0x10, qmp->dp_tx + QSERDES_V2_TX_HIGHZ_DRVR_EN);
+>> +	writel(0x0a, qmp->dp_tx + QSERDES_V2_TX_TX_POL_INV);
+>> +	writel(0x3f, qmp->dp_tx2 + QSERDES_V2_TX_TRANSCEIVER_BIAS_EN);
+>> +	writel(0x10, qmp->dp_tx2 + QSERDES_V2_TX_HIGHZ_DRVR_EN);
+>> +	writel(0x0a, qmp->dp_tx2 + QSERDES_V2_TX_TX_POL_INV);
+> Are you sure that these don't need to be adjusted based on
+> qmp->orientation or selected lanes count?
+>
+> In fact... I don't see orientation handling for DP at all. Don't we need
+> it?
 
+
+Thanks for the review.
+
+I agree with your reasoning and compared talos 14nm HPG with hana/kona
+7nm PHY HPG; the 7nm COMBO PHY series has orientation/lane-count dependent
+configs, but the 14nm PHY series does not. On QCS615 (talos), the TX_*
+registers you pointed to are programmed with constant values regardless
+of orientation or lane count. This has been confirmed from both the HPG
+and the downstream reference driver.
+
+For orientation, from reference the only difference is DP_PHY_MODE, which
+is set by qmp_usbc_configure_dp_mode(). The DP PHY does have an
+SW_PORTSELECT-related register, but due to talos lane mapping from the
+DP controller to the PHY not being the standard <0 1 2 3> sequence, it
+cannot reliably handle orientation flip. Also, QCS615 is a fixed-
+orientation platform (not DP-over-TypeC), so there is no validated hardware
+path for orientation flip on this platform.
+
+
+>
+>> +
+>> +	writel(0x18, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+>> +	writel(0x19, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+>> +
+>> +	if (readl_poll_timeout(qmp->dp_dp_phy + QSERDES_V2_DP_PHY_STATUS,
+>> +			       status,
+>> +			       ((status & BIT(1)) > 0),
+>> +			       500,
+>> +			       10000)){
+>> +		dev_err(qmp->dev, "PHY_READY not ready\n");
+>> +		return -ETIMEDOUT;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
