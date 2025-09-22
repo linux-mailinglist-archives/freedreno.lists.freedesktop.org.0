@@ -2,161 +2,126 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0E06B90399
-	for <lists+freedreno@lfdr.de>; Mon, 22 Sep 2025 12:45:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63978B9056E
+	for <lists+freedreno@lfdr.de>; Mon, 22 Sep 2025 13:24:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A25AA10E415;
-	Mon, 22 Sep 2025 10:45:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D1FC10E424;
+	Mon, 22 Sep 2025 11:24:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="IMvdEOaM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QgGg0dC6";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fra-out-002.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-002.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [3.65.3.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B57510E415;
- Mon, 22 Sep 2025 10:45:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758537940; x=1790073940;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=jHPTQZFCaC0QVf/rAslU2rF+GKEtXGi5htBMXx8M8BI=;
- b=IMvdEOaMe0FP+IRiNewRyRaabx48iIkR6MASuvWpSUyJRCz4No1zsMj3
- JJkx18PvOX4VxXtT7+b/z+LHjF4zoySj64sfRjKGuYAYCqZG5hejOE9YA
- qQQlCJiQNG/xRUtkvVoeVq8NS7PNXApOfYn82/PzS4izkM+75VP4Om2LH
- qMW0Ohj/UlUx5cqki//gorCp/4bnAhxNPQnnc/PkoX3Ann3pMdXYB6N4i
- CQ8JRm8d78O41hqV4swQq0KdQj4zidPRvKsqbCobiE9s6b4Zoz1mUNqaO
- EGo/8/s2hD32Nbtg5CNo7SsAufXeENVgMkX/8b9vziSIfI+feCNVcgScO Q==;
-X-CSE-ConnectionGUID: 6hOHCxAKSfC6e+p5CvVdZw==
-X-CSE-MsgGUID: YBSxBrJDRxalvxjSB5/Ebw==
-X-IronPort-AV: E=Sophos;i="6.18,285,1751241600"; 
-   d="scan'208";a="2482713"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-002.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2025 10:45:38 +0000
-Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:29409]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.10.226:2525]
- with esmtp (Farcaster)
- id f47c06f5-2d15-4c95-af11-de6ff2958513; Mon, 22 Sep 2025 10:45:38 +0000 (UTC)
-X-Farcaster-Flow-ID: f47c06f5-2d15-4c95-af11-de6ff2958513
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB002.ant.amazon.com (10.252.51.79) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Mon, 22 Sep 2025 10:45:38 +0000
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Mon, 22 Sep 2025 10:45:37 +0000
-Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
- EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
- 15.02.2562.020; Mon, 22 Sep 2025 10:45:37 +0000
-From: "Farber, Eliav" <farbere@amazon.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-CC: "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "jdike@addtoit.com"
- <jdike@addtoit.com>, "richard@nod.at" <richard@nod.at>,
- "anton.ivanov@cambridgegreys.com" <anton.ivanov@cambridgegreys.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "luto@kernel.org" <luto@kernel.org>, "peterz@infradead.org"
- <peterz@infradead.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
- "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
- "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
- "tony.luck@intel.com" <tony.luck@intel.com>, "qiuxu.zhuo@intel.com"
- <qiuxu.zhuo@intel.com>, "mchehab@kernel.org" <mchehab@kernel.org>,
- "james.morse@arm.com" <james.morse@arm.com>, "rric@kernel.org"
- <rric@kernel.org>, "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>, "alexander.deucher@amd.com"
- <alexander.deucher@amd.com>, "christian.koenig@amd.com"
- <christian.koenig@amd.com>, "airlied@linux.ie" <airlied@linux.ie>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "evan.quan@amd.com" <evan.quan@amd.com>, 
- "james.qian.wang@arm.com" <james.qian.wang@arm.com>, "liviu.dudau@arm.com"
- <liviu.dudau@arm.com>, "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>, 
- "brian.starkey@arm.com" <brian.starkey@arm.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "robdclark@gmail.com" <robdclark@gmail.com>,
- "sean@poorly.run" <sean@poorly.run>, "jdelvare@suse.com" <jdelvare@suse.com>, 
- "linux@roeck-us.net" <linux@roeck-us.net>, "fery@cypress.com"
- <fery@cypress.com>, "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>,
- "agk@redhat.com" <agk@redhat.com>, "snitzer@redhat.com" <snitzer@redhat.com>, 
- "dm-devel@redhat.com" <dm-devel@redhat.com>, "rajur@chelsio.com"
- <rajur@chelsio.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "kuba@kernel.org" <kuba@kernel.org>, "peppe.cavallaro@st.com"
- <peppe.cavallaro@st.com>, "alexandre.torgue@st.com"
- <alexandre.torgue@st.com>, "joabreu@synopsys.com" <joabreu@synopsys.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, "malattia@linux.it"
- <malattia@linux.it>, "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "mgross@linux.intel.com" <mgross@linux.intel.com>,
- "intel-linux-scu@intel.com" <intel-linux-scu@intel.com>,
- "artur.paszkiewicz@intel.com" <artur.paszkiewicz@intel.com>,
- "jejb@linux.ibm.com" <jejb@linux.ibm.com>, "martin.petersen@oracle.com"
- <martin.petersen@oracle.com>, "sakari.ailus@linux.intel.com"
- <sakari.ailus@linux.intel.com>, "clm@fb.com" <clm@fb.com>,
- "josef@toxicpanda.com" <josef@toxicpanda.com>, "dsterba@suse.com"
- <dsterba@suse.com>, "jack@suse.com" <jack@suse.com>, "tytso@mit.edu"
- <tytso@mit.edu>, "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "dushistov@mail.ru" <dushistov@mail.ru>, "luc.vanoostenryck@gmail.com"
- <luc.vanoostenryck@gmail.com>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "pmladek@suse.com" <pmladek@suse.com>, "sergey.senozhatsky@gmail.com"
- <sergey.senozhatsky@gmail.com>, "andriy.shevchenko@linux.intel.com"
- <andriy.shevchenko@linux.intel.com>, "linux@rasmusvillemoes.dk"
- <linux@rasmusvillemoes.dk>, "minchan@kernel.org" <minchan@kernel.org>,
- "ngupta@vflare.org" <ngupta@vflare.org>, "akpm@linux-foundation.org"
- <akpm@linux-foundation.org>, "kuznet@ms2.inr.ac.ru" <kuznet@ms2.inr.ac.ru>,
- "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>, "pablo@netfilter.org"
- <pablo@netfilter.org>, "kadlec@netfilter.org" <kadlec@netfilter.org>,
- "fw@strlen.de" <fw@strlen.de>, "jmaloy@redhat.com" <jmaloy@redhat.com>,
- "ying.xue@windriver.com" <ying.xue@windriver.com>, "willy@infradead.org"
- <willy@infradead.org>, "sashal@kernel.org" <sashal@kernel.org>,
- "ruanjinjie@huawei.com" <ruanjinjie@huawei.com>, "David.Laight@aculab.com"
- <David.Laight@aculab.com>, "herve.codina@bootlin.com"
- <herve.codina@bootlin.com>, "Jason@zx2c4.com" <Jason@zx2c4.com>,
- "bvanassche@acm.org" <bvanassche@acm.org>, "keescook@chromium.org"
- <keescook@chromium.org>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-um@lists.infradead.org"
- <linux-um@lists.infradead.org>, "linux-edac@vger.kernel.org"
- <linux-edac@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "linux-hwmon@vger.kernel.org"
- <linux-hwmon@vger.kernel.org>, "linux-input@vger.kernel.org"
- <linux-input@vger.kernel.org>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "netfilter-devel@vger.kernel.org"
- <netfilter-devel@vger.kernel.org>, "coreteam@netfilter.org"
- <coreteam@netfilter.org>, "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>, "Chocron, Jonathan" <jonnyc@amazon.com>
-Subject: RE: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
-Thread-Topic: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
-Thread-Index: AQHcK64HHJftfGNvN0Cy23wGYTG5SQ==
-Date: Mon, 22 Sep 2025 10:45:37 +0000
-Message-ID: <df8d65b372864d149035eb1f016f08ae@amazon.com>
-References: <20250919101727.16152-1-farbere@amazon.com>
- <2025092136-unelected-skirt-d91d@gregkh>
- <4f497306c58240a88c0bb001786c3ad2@amazon.com>
- <2025092203-untreated-sloppily-23b5@gregkh>
-In-Reply-To: <2025092203-untreated-sloppily-23b5@gregkh>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.85.143.178]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9522D10E424
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 11:24:56 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58M8KF2V001358
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 11:24:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ vhPS2DpVO5rMmjT/67K3Kgtn22q0loN6kh/+0Y18da0=; b=QgGg0dC6cMzJyY5V
+ U4MIXE3SNPYSAo/GeX3s0AWO2iV/lZaMuwLV0Wp+fKBapBNp4ektQDDYmqerkttY
+ if8+54j9ruF+bdo6p1HGdUhq+2gUwpJx0/pf2/F2OIQso1V9BQf7rKJUjjZK8TBM
+ 0VX71Cj4f2xbJSX9E1+Mli5BelOeuNLKtODYfkpmcoFGxuqHxnFkylKLSljR3CBN
+ dz42Io3C3ivdvjik6hVWpJIKVCKDzbz8K5HX6Ek3d+0jZByGjxTvk/o3/oin5EtJ
+ 47qDlqVQ+pXDxj+FxFRrXJ29B3NrIF5dSBDPyxPem+71jcwg3T9suQ1knjYycfCA
+ eSa8zA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 499n1fcewa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 11:24:55 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-26b3e727467so9423795ad.0
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 04:24:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758540295; x=1759145095;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=vhPS2DpVO5rMmjT/67K3Kgtn22q0loN6kh/+0Y18da0=;
+ b=S+Loa38kyZyBO4nUrJhWDv+feCR4EiPrvB2rKxZOOBFt06hW2C6H+/UaRqfmS17/C6
+ J1srEYP5RuumfGQ5E5WM4TdelqpO4TW9xSs6NI8VU4ryo3tTLnqLzkzsU/jI33pHvVUs
+ uSFZ+bDh3YsaLJL/MNLj079610HeLpw7uwFKWrvnTEEJHKJmT0Nfd/Pq37NVZ15yAiQn
+ NKciZTvCLpk2VGny2rlnS1axgnEz3X21CMpOpf2nnpeqfXSXhHgF3Z2tISTOgEDdx1e+
+ 9afG/anuyHlLTXMZzHWLQWh5+wqjIkxGGVvD1oCxJolldoKpjmlvOnw1ym8VbQNpwDak
+ Jgcg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW3L2NCDZBX0iykN+lQbd+xyQXhpREdXjArtrslxPJczi8S3iLVpBN07YdhQDEMwDp/jzw8USXzGNM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy/t0c9fZzs+yPRXDbkOu0KHRG80cboylgP0XVbKEgQSQqwwYce
+ ckf3LdqOhfHPfSKu0nXVJ0uUyuvTtH48uSBLbuCzHi/xuXBpkB4jmQA+jhS/K1UUVfiWzecR0bk
+ 7NUuOG1gtwh1LWZ18FljAHf6EeUuztrTF+7nRerCOPjr06jA86s9yAs/kxOfJA6n6jA5QkdU=
+X-Gm-Gg: ASbGncsiOBMbORVDRbE2EP0mOQK84Ukmh8yHG2hv0i1RijpTusPe4olc8qZhljohqKZ
+ q4DfktWTe/3FUBPrhTUczj6hY0e3KyOag1keYJrcbFaaLC5e3pG77IydxCTt95I6Jaqmdizd7T6
+ y2Y2wd5tm9u16ZN5MawIxnykIZWC6ZiP90k8HI83B2Dvkaz7So2OuGKDlery1h91/EJArZJmFAb
+ wQj0j7YCVRXlL91mwXyXe6VVghOuLdsC+ZTgZNn9Zcf4wi62QgK3CJFuJu8UmBetQ54RWdCtyl9
+ YRA/yknhUNOWGI49+VMmJjVb1fiSxS1xYDU1cHG66wVtVm38nVS3/0IAHmxglVrogA==
+X-Received: by 2002:a17:902:d4c5:b0:267:c4fa:e269 with SMTP id
+ d9443c01a7336-269ba40a079mr100698125ad.1.1758540294883; 
+ Mon, 22 Sep 2025 04:24:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG+c5b351K4AXCSVsRHuVDsbJ0ksLZK6y2QQ3N9fyfPYi1xv4nAje1JQyBpRpK9QX3Bk658FQ==
+X-Received: by 2002:a17:902:d4c5:b0:267:c4fa:e269 with SMTP id
+ d9443c01a7336-269ba40a079mr100697835ad.1.1758540294349; 
+ Mon, 22 Sep 2025 04:24:54 -0700 (PDT)
+Received: from [10.64.16.135] ([114.94.8.21]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-269803416a2sm127178725ad.134.2025.09.22.04.24.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Sep 2025 04:24:53 -0700 (PDT)
+Message-ID: <f4a5ffad-ca5e-4a54-a39b-4ed69ab3a729@oss.qualcomm.com>
+Date: Mon, 22 Sep 2025 19:24:45 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/14] phy: qcom: qmp-usbc: Add QCS615 USB/DP PHY
+ config and DP mode support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
+ li.liu@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+References: <20250919-add-displayport-support-for-qcs615-platform-v5-0-eae6681f4002@oss.qualcomm.com>
+ <20250919-add-displayport-support-for-qcs615-platform-v5-12-eae6681f4002@oss.qualcomm.com>
+ <bfpgktxgo2hb6dpzy3i7jdr6w4de5boorx4n6qeapct2vre4sn@4z2mnppridn5>
+ <14cdf3a4-714c-4136-8c1d-99392e7911f5@oss.qualcomm.com>
+ <2ewxoe76rrii4w3n5b6wl32vmatcp2boj75o65cuq5nx4f2a55@7cn6m7oxzu6c>
+From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+In-Reply-To: <2ewxoe76rrii4w3n5b6wl32vmatcp2boj75o65cuq5nx4f2a55@7cn6m7oxzu6c>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: DxzE366xgSbL5PGo5os8VSy5foInxRXO
+X-Proofpoint-GUID: DxzE366xgSbL5PGo5os8VSy5foInxRXO
+X-Authority-Analysis: v=2.4 cv=No/Rc9dJ c=1 sm=1 tr=0 ts=68d13207 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=XVeZa78dugChcG7OFuEA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTIwMDAzNyBTYWx0ZWRfX25eipBbcYPiR
+ Rc5VaZSvANsgfTImJNYBHrzQf+rhQQAYXqTlOYK7dujCE2P8rA5GLRU7y61PJyDOHj9Fphiawti
+ adbaiE3QHyeOl3H+ACymgc4KB2KeWpXFL6c3M2W3v1/8u2XhGrMWWtg5nRcs9oxGDHAbbh+HCR+
+ g7VEU6JBSUuy7WD8yosS1Uzno9/KQ5zvIRltesbJKvPHmzFYnaay5cYNNdq09vidYGuOXLC23ii
+ M1CbDiNm53W09uxl58mCOpD7eSjj82PqY4rBRqX6m/DoHVWFEhijPwUIE++VN4BiXc3+WIbmk40
+ xDT+bJ8Ycb5s5TiEPPBdUgxzvhGSDeuRQBNe8EEAs8TToWc8AMu1i/R8oYws6MAxJCp7YcvK8XX
+ urH7C3Cc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-22_01,2025-09-22_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ phishscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509200037
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,50 +137,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-> On Sun, Sep 21, 2025 at 09:37:02PM +0000, Farber, Eliav wrote:
-> > > On Fri, Sep 19, 2025 at 10:17:00AM +0000, Eliav Farber wrote:
-> > > > This series includes a total of 27 patches, to align minmax.h of=20
-> > > > v5.15.y with v6.17-rc6.
-> > > >
-> > > > The set consists of 24 commits that directly update minmax.h:
-> > > > 1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() ma=
-cro
-> > > >    once")
-> > >
-> > > But this isn't in 5.15.y, so how is this syncing things up?
-> > >
-> > > I'm all for this, but I got confused here, at the first commit :)
-> >
-> > It's a typo.
-> > It should be 5.10.y and not 5.15.y.
-> >
-> > > Some of these are also only in newer kernels, which, as you know, is=
-=20
-> > > generally a bad thing (i.e. I can't take patches only for older
-> > > kernels.)
-> > >
-> > > I want these changes, as they are great, but can you perhaps provide=
-=20
-> > > patch series for newer kernels first so that I can then take these?
-> >
-> > So you'd first like first to align 6.16 with 6.17, then 6.15 with=20
-> > 6.16, then 6.12 with 6.15, then 6.6 with 6.12, and so on until we=20
-> > eventually align 5.10 and even 5.4?
+
+On 9/22/2025 5:45 PM, Dmitry Baryshkov wrote:
+> On Mon, Sep 22, 2025 at 02:58:17PM +0800, Xiangxu Yin wrote:
+>> On 9/20/2025 2:41 AM, Dmitry Baryshkov wrote:
+>>> On Fri, Sep 19, 2025 at 10:24:29PM +0800, Xiangxu Yin wrote:
+>>>> Add QCS615-specific configuration for USB/DP PHY, including DP init
+>>>> routines, voltage swing tables, and platform data. Add compatible
+>>>> "qcs615-qmp-usb3-dp-phy".
+>>>>
+>>>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+>>>> ---
+>>>>  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 395 +++++++++++++++++++++++++++++++
+>>>>  1 file changed, 395 insertions(+)
+>>>>
+>>>> +
+>>>> +	writel(0x3f, qmp->dp_tx + QSERDES_V2_TX_TRANSCEIVER_BIAS_EN);
+>>>> +	writel(0x10, qmp->dp_tx + QSERDES_V2_TX_HIGHZ_DRVR_EN);
+>>>> +	writel(0x0a, qmp->dp_tx + QSERDES_V2_TX_TX_POL_INV);
+>>>> +	writel(0x3f, qmp->dp_tx2 + QSERDES_V2_TX_TRANSCEIVER_BIAS_EN);
+>>>> +	writel(0x10, qmp->dp_tx2 + QSERDES_V2_TX_HIGHZ_DRVR_EN);
+>>>> +	writel(0x0a, qmp->dp_tx2 + QSERDES_V2_TX_TX_POL_INV);
+>>> Are you sure that these don't need to be adjusted based on
+>>> qmp->orientation or selected lanes count?
+>>>
+>>> In fact... I don't see orientation handling for DP at all. Don't we need
+>>> it?
+>>
+>> Thanks for the review.
+>>
+>> I agree with your reasoning and compared talos 14nm HPG with hana/kona
+>> 7nm PHY HPG; the 7nm COMBO PHY series has orientation/lane-count dependent
+>> configs, but the 14nm PHY series does not. On QCS615 (talos), the TX_*
+>> registers you pointed to are programmed with constant values regardless
+>> of orientation or lane count. This has been confirmed from both the HPG
+>> and the downstream reference driver.
+> Thanks for the confirmation.
 >
-> Yes please!
-
-Stable 6.16.8 didn't require any changs.
-
-I pulled the changes for 6.12.48:
-https://lore.kernel.org/stable/20250922103123.14538-1-farbere@amazon.com/T/=
-#t
-and 6.6.107:
-https://lore.kernel.org/stable/20250922103241.16213-1-farbere@amazon.com/T/=
-#t
-
-Once approved, I'll continue with other longterm branches.
-
----
-Regards, Eliav
+>> For orientation, from reference the only difference is DP_PHY_MODE, which
+>> is set by qmp_usbc_configure_dp_mode(). The DP PHY does have an
+>> SW_PORTSELECT-related register, but due to talos lane mapping from the
+>> DP controller to the PHY not being the standard <0 1 2 3> sequence, it
+>> cannot reliably handle orientation flip. Also, QCS615 is a fixed-
+>> orientation platform (not DP-over-TypeC), so there is no validated hardware
+>> path for orientation flip on this platform.
+> Wait... I thought that the the non-standard lane order is handled by the
+> DP driver, then we should be able to handle the orientation inside PHY
+> driver as usual.
 
 
+Yes, I have confirmed this with our verification team.
+
+For the non-standard lane order, handling flip requires swapping mapped 
+lane 0 ↔ lane 3 and lane 1 ↔ lane 2 in the logical2physical mapping.
+This is a hardware limitation, and with the current PHY driver we cannot
+propagate orientation status to dp_ctrl for processing.
+
+
+> Anyway, please add a FIXME comment into the source file and a note to
+> the commit message that SW_PORTSELECT should be handled, but it's not a
+> part of this patch for the stated reasons.
+
+
+OK, I will add a |FIXME| comment in |qmp_usbc_dp_power_on| and update the
+related commit message.
+
+
+>>
+>>>> +
+>>>> +	writel(0x18, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+>>>> +	writel(0x19, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+>>>> +
+>>>> +	if (readl_poll_timeout(qmp->dp_dp_phy + QSERDES_V2_DP_PHY_STATUS,
+>>>> +			       status,
+>>>> +			       ((status & BIT(1)) > 0),
+>>>> +			       500,
+>>>> +			       10000)){
+>>>> +		dev_err(qmp->dev, "PHY_READY not ready\n");
+>>>> +		return -ETIMEDOUT;
+>>>> +	}
+>>>> +
+>>>> +	return 0;
+>>>> +}
+>>>> +
