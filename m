@@ -2,80 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A003FB914FC
-	for <lists+freedreno@lfdr.de>; Mon, 22 Sep 2025 15:12:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85513B91DE7
+	for <lists+freedreno@lfdr.de>; Mon, 22 Sep 2025 17:13:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D4AE10E1BB;
-	Mon, 22 Sep 2025 13:12:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A8AF10E1CC;
+	Mon, 22 Sep 2025 15:13:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ch1JZDV+";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9102E10E1BB
- for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 13:12:21 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0D51A244C
- for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 06:12:13 -0700 (PDT)
-Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CC0753F694
- for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 06:12:20 -0700 (PDT)
-Date: Mon, 22 Sep 2025 14:10:19 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Eliav Farber <farbere@amazon.com>
-Cc: linux@armlinux.org.uk, jdike@addtoit.com, richard@nod.at,
- anton.ivanov@cambridgegreys.com, dave.hansen@linux.intel.com,
- luto@kernel.org, peterz@infradead.org, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
- tony.luck@intel.com, qiuxu.zhuo@intel.com, mchehab@kernel.org,
- james.morse@arm.com, rric@kernel.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- evan.quan@amd.com, james.qian.wang@arm.com,
- mihail.atanassov@arm.com, brian.starkey@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robdclark@gmail.com, sean@poorly.run,
- jdelvare@suse.com, linux@roeck-us.net, fery@cypress.com,
- dmitry.torokhov@gmail.com, agk@redhat.com, snitzer@redhat.com,
- dm-devel@redhat.com, rajur@chelsio.com, davem@davemloft.net,
- kuba@kernel.org, peppe.cavallaro@st.com, alexandre.torgue@st.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, malattia@linux.it,
- hdegoede@redhat.com, mgross@linux.intel.com,
- intel-linux-scu@intel.com, artur.paszkiewicz@intel.com,
- jejb@linux.ibm.com, martin.petersen@oracle.com,
- sakari.ailus@linux.intel.com, gregkh@linuxfoundation.org,
- clm@fb.com, josef@toxicpanda.com, dsterba@suse.com, jack@suse.com,
- tytso@mit.edu, adilger.kernel@dilger.ca, dushistov@mail.ru,
- luc.vanoostenryck@gmail.com, rostedt@goodmis.org, pmladek@suse.com,
- sergey.senozhatsky@gmail.com, andriy.shevchenko@linux.intel.com,
- linux@rasmusvillemoes.dk, minchan@kernel.org, ngupta@vflare.org,
- akpm@linux-foundation.org, kuznet@ms2.inr.ac.ru,
- yoshfuji@linux-ipv6.org, pablo@netfilter.org, kadlec@netfilter.org,
- fw@strlen.de, jmaloy@redhat.com, ying.xue@windriver.com,
- willy@infradead.org, sashal@kernel.org, ruanjinjie@huawei.com,
- David.Laight@aculab.com, herve.codina@bootlin.com, Jason@zx2c4.com,
- bvanassche@acm.org, keescook@chromium.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-um@lists.infradead.org, linux-edac@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-btrfs@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-sparse@vger.kernel.org,
- linux-mm@kvack.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, tipc-discussion@lists.sourceforge.net,
- stable@vger.kernel.org, jonnyc@amazon.com
-Subject: Re: [PATCH 04/27 5.10.y] minmax: add in_range() macro
-Message-ID: <aNFKuyJ8_EjdDwn8@e110455-lin.cambridge.arm.com>
-References: <20250919101727.16152-1-farbere@amazon.com>
- <20250919101727.16152-5-farbere@amazon.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E34510E48A
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 15:13:13 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58M9G4t1022699
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 15:13:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=6L9xQwPvNyqamZukUXThzBL99kp13JUWCh+pkhXMJs8=; b=Ch
+ 1JZDV+r8a/WgnKlOpaq43F9UXMaE7QwFKQFTc49dqHxNTCmTe3l+dGBTQN5/TPmM
+ x39TiYYB18ZZuaM9vNEeWb+M4uOXoYafbF7ZwTD7q/BE14Sa6+odQIFtpSeUm101
+ 3x+01mzW4QBpFYlbrWORWQakdsbwSJ6C8MLXe1PfNGvdmD5BC/CS/HvHJOXlcXXN
+ 1rqTpD/saU4PxETzDxSYubavNCNOwKaJ1cMvEytGRhI6JAs8JszfAQgdtIakwr+7
+ AC69IdlsFgwwKw91ZpvC++2o22NFJVAh75nm0JaLE4hWAbGUVeyjIWi9ua6WxXtU
+ 2cZJ8TH7K/nR9ngV2g3A==
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
+ [209.85.160.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49b3ny8yxc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 15:13:12 +0000 (GMT)
+Received: by mail-oa1-f69.google.com with SMTP id
+ 586e51a60fabf-32aed063939so4572826fac.2
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 08:13:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758553991; x=1759158791;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6L9xQwPvNyqamZukUXThzBL99kp13JUWCh+pkhXMJs8=;
+ b=WCGbBchyt11sv1ML8Yjl3XKEGFJ9Fn4MuqBbE3p+eIfWY1dkYbaL4FfLIKNFMKN1Vw
+ p85FD3biFyRUR8vx/nZSt0FaowdubvtLW36COJcHMZ16cqTHXNpYFEWvKvUSL3yTYTA2
+ r2JEvGouuLSkp/qpuaud0lYCJdM587qIxRzpq7mU/gCk32c3tycO+2UflTriHNr4n4WR
+ 4EuF9ux0MKsjaSPfPBAJZajJOAN1YXouGg/2mkTfFtee0vteq0cmirid9Mj8TqxCYnr7
+ 7RGqSWK4ZXhzmwIFZajt0UfNDvZr7gl2+ZQO2ZGbwWnhcaCOLwFCaOuWHFktUkflwxfD
+ kyAQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX9aF6kA7ORBadAtRH/7gpaMArt+JBGrvjhOsMZ8PbeRHFpoEiGQN6PpYdDyBnUEot5GNbueZbx4I8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxsu1ZkwkyG/gYT7uOtNI8Y2q8xh2MBVBEiys/1jKkTBxCU6RBG
+ XOCwJvaRoVjgBncObzo8Z3RW2iyV9MCOAbzaMfPtDAiiDU30dCxyYR527TiL25FgR0EGcjiwIr0
+ 4tI8nol4twj0wwZuvXVfmbGOrDnpBm9PkX8FRNF0uaGWVAJcHziFcckn5p/tHSSdS87I8H02Nqd
+ 4A8H+IXH8XDWfk0IDZ3hpUFqG2ZLnaFNbuhM6vvtzQelmESQ==
+X-Gm-Gg: ASbGncsHxxOqn8tJr2OGHot3XSOyXi7UukG6jvkAsPt/buIV95p2yscKWklNdGG16go
+ IptEinUIVATldtDag++vOpsv3vb9H9GhVKXmqC088D3JKG84POVSz6MN5Pr2qMH8mBOGPz2dPeV
+ pwt5BihUI2NGNhbOLGHd78Dp/wzz9sr92wCC38+yeJV9VbGudRcO9R
+X-Received: by 2002:a05:6870:d203:b0:321:27af:4b0 with SMTP id
+ 586e51a60fabf-33bb387a8efmr7066543fac.21.1758553991295; 
+ Mon, 22 Sep 2025 08:13:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFeI3VUzLWw/6kf7cmjW8nkegRTNOSrOJHdfgWLSr9Z07F+QepvdikPR1+KMJ0NepSDMgedO2i6ynxIGcy1040=
+X-Received: by 2002:a05:6870:d203:b0:321:27af:4b0 with SMTP id
+ 586e51a60fabf-33bb387a8efmr7066517fac.21.1758553990880; Mon, 22 Sep 2025
+ 08:13:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250919101727.16152-5-farbere@amazon.com>
+References: <20250919-add-displayport-support-for-qcs615-platform-v5-0-eae6681f4002@oss.qualcomm.com>
+ <20250919-add-displayport-support-for-qcs615-platform-v5-14-eae6681f4002@oss.qualcomm.com>
+ <j7ooyi5vih6ofnjigdgj6uk3ycutugunpm5pu5zf55pu5ua6r2@agg73zakjicn>
+In-Reply-To: <j7ooyi5vih6ofnjigdgj6uk3ycutugunpm5pu5zf55pu5ua6r2@agg73zakjicn>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Mon, 22 Sep 2025 08:13:00 -0700
+X-Gm-Features: AS18NWDsjwQT4-UMvgr22Kwg3NRpxj1iGVDde1kRYPcz2iKyW9TnGKIpG41ve0w
+Message-ID: <CACSVV00Bat6LE=joM+Wh3HnC1=c3_Y=crxUGdhLQWxxpZ17Q3g@mail.gmail.com>
+Subject: Re: [PATCH v5 14/14] drm/msm/dp: Add support for lane mapping
+ configuration
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
+ li.liu@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=EuPSrTcA c=1 sm=1 tr=0 ts=68d16788 cx=c_pps
+ a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10
+ a=EUspDBNiAAAA:8 a=Ck2O2MNpSjHhtJkipUsA:9 a=QEXdDO2ut3YA:10
+ a=y8BKWJGFn5sdPF1Y92-H:22
+X-Proofpoint-GUID: 9s7hWdj-8j4WdzHnfZ_QNDHcmua7w0i3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTIyMDA5MCBTYWx0ZWRfX2GHhMqUMRlou
+ S3zQT9G0qA8c3nNfUEk905GB2jKeSFLvZHJnMfhKx8R2v8VKvmkNyEDAQy4UJVwg8WhWiezjtkI
+ h8L/KyJc+V0GQppZNpPQnMIOzfbNwqQqeGzUtME9pyyK/jPpEG/pFh7REkYvZ36qnUeA0+rNjyQ
+ HUGmZ7U+MC1I9C6LZQUHGBncHFsA2Jov2GhJ4L/fmzupyQrt4fk/wLRuGya/iujaNie3x3sS7Se
+ unRkvPxRP8SfuB2djnbkyOjzjeaXms8b8mnoBdUEq7oLQlwz0XNGFnMQIauqqkn5XagzLsG3m47
+ RS9iQHNizzmDMhWQLb9ia5C+JyIx/zjnfGRMhzoLJcB2SFlNIkn+V0k8VhAyR1+BQUp4OcJBlEJ
+ /I9NryrP
+X-Proofpoint-ORIG-GUID: 9s7hWdj-8j4WdzHnfZ_QNDHcmua7w0i3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-22_01,2025-09-22_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 malwarescore=0 spamscore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509220090
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,480 +127,134 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 19, 2025 at 10:17:04AM +0000, Eliav Farber wrote:
-> From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-> 
-> [ Upstream commit f9bff0e31881d03badf191d3b0005839391f5f2b ]
-> 
-> Patch series "New page table range API", v6.
-> 
-> This patchset changes the API used by the MM to set up page table entries.
-> The four APIs are:
-> 
->     set_ptes(mm, addr, ptep, pte, nr)
->     update_mmu_cache_range(vma, addr, ptep, nr)
->     flush_dcache_folio(folio)
->     flush_icache_pages(vma, page, nr)
-> 
-> flush_dcache_folio() isn't technically new, but no architecture
-> implemented it, so I've done that for them.  The old APIs remain around
-> but are mostly implemented by calling the new interfaces.
-> 
-> The new APIs are based around setting up N page table entries at once.
-> The N entries belong to the same PMD, the same folio and the same VMA, so
-> ptep++ is a legitimate operation, and locking is taken care of for you.
-> Some architectures can do a better job of it than just a loop, but I have
-> hesitated to make too deep a change to architectures I don't understand
-> well.
-> 
-> One thing I have changed in every architecture is that PG_arch_1 is now a
-> per-folio bit instead of a per-page bit when used for dcache clean/dirty
-> tracking.  This was something that would have to happen eventually, and it
-> makes sense to do it now rather than iterate over every page involved in a
-> cache flush and figure out if it needs to happen.
-> 
-> The point of all this is better performance, and Fengwei Yin has measured
-> improvement on x86.  I suspect you'll see improvement on your architecture
-> too.  Try the new will-it-scale test mentioned here:
-> https://lore.kernel.org/linux-mm/20230206140639.538867-5-fengwei.yin@intel.com/
-> You'll need to run it on an XFS filesystem and have
-> CONFIG_TRANSPARENT_HUGEPAGE set.
-> 
-> This patchset is the basis for much of the anonymous large folio work
-> being done by Ryan, so it's received quite a lot of testing over the last
-> few months.
-> 
-> This patch (of 38):
-> 
-> Determine if a value lies within a range more efficiently (subtraction +
-> comparison vs two comparisons and an AND).  It also has useful (under some
-> circumstances) behaviour if the range exceeds the maximum value of the
-> type.  Convert all the conflicting definitions of in_range() within the
-> kernel; some can use the generic definition while others need their own
-> definition.
-> 
-> Link: https://lkml.kernel.org/r/20230802151406.3735276-1-willy@infradead.org
-> Link: https://lkml.kernel.org/r/20230802151406.3735276-2-willy@infradead.org
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
->  arch/arm/mm/pageattr.c                        |  6 ++---
->  .../drm/arm/display/include/malidp_utils.h    |  2 +-
->  .../display/komeda/komeda_pipeline_state.c    | 24 ++++++++---------
+On Fri, Sep 19, 2025 at 11:35=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Fri, Sep 19, 2025 at 10:24:31PM +0800, Xiangxu Yin wrote:
+> > QCS615 platform requires non-default logical-to-physical lane mapping d=
+ue
+> > to its unique hardware routing. Unlike the standard mapping sequence
+> > <0 1 2 3>, QCS615 uses <3 2 0 1>, which necessitates explicit
+> > configuration via the data-lanes property in the device tree. This ensu=
+res
+> > correct signal routing between the DP controller and PHY.
+> >
+> > For partial definitions, fill remaining lanes with unused physical lane=
+s
+> > in ascending order.
+> >
+> > Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/msm/dp/dp_ctrl.c | 10 +++----
+> >  drivers/gpu/drm/msm/dp/dp_link.c | 60 ++++++++++++++++++++++++++++++++=
+++++++++
+> >  drivers/gpu/drm/msm/dp/dp_link.h |  1 +
+> >  3 files changed, 66 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/=
+dp_link.c
+> > index 2aeb3ecf76fab2ee6a9512b785ca5dceebfc3964..34a91e194a124ef5372f133=
+52f7b3513aa88da2a 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_link.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_link.c
+> > @@ -1236,6 +1236,61 @@ static u32 msm_dp_link_link_frequencies(struct d=
+evice_node *of_node)
+> >       return frequency;
+> >  }
+> >
+> > +/*
+> > + * Always populate msm_dp_link->lane_map with 4 lanes.
+> > + * - Use DTS "data-lanes" if present; otherwise fall back to default m=
+apping.
+> > + * - For partial definitions, fill remaining entries with unused lanes=
+ in
+> > + *   ascending order.
+> > + */
+> > +static int msm_dp_link_lane_map(struct device *dev, struct msm_dp_link=
+ *msm_dp_link)
+> > +{
+> > +     struct device_node *of_node =3D dev->of_node;
+> > +     struct device_node *endpoint;
+> > +     int cnt =3D msm_dp_link->max_dp_lanes;
+> > +     u32 tmp[DP_MAX_NUM_DP_LANES];
+> > +     u32 map[DP_MAX_NUM_DP_LANES] =3D {0, 1, 2, 3}; /* default 1:1 map=
+ping */
+> > +     bool used[DP_MAX_NUM_DP_LANES] =3D {false};
+> > +     int i, j =3D 0, ret =3D -EINVAL;
+> > +
+> > +     endpoint =3D of_graph_get_endpoint_by_regs(of_node, 1, -1);
+> > +     if (endpoint) {
+> > +             ret =3D of_property_read_u32_array(endpoint, "data-lanes"=
+, tmp, cnt);
+> > +             if (ret)
+> > +                     dev_dbg(dev, "endpoint data-lanes read failed (re=
+t=3D%d)\n", ret);
+> > +     }
+> > +
+> > +     if (ret) {
+> > +             ret =3D of_property_read_u32_array(of_node, "data-lanes",=
+ tmp, cnt);
+> > +             if (ret) {
+> > +                     dev_info(dev, "data-lanes not defined, set to def=
+ault\n");
+> > +                     goto out;
+> > +             }
+> > +     }
+> > +
+> > +     for (i =3D 0; i < cnt; i++) {
+> > +             if (tmp[i] >=3D DP_MAX_NUM_DP_LANES) {
+> > +                     dev_err(dev, "data-lanes[%d]=3D%u out of range\n"=
+, i, tmp[i]);
+> > +                     return -EINVAL;
+> > +             }
+> > +             used[tmp[i]] =3D true;
+> > +             map[i] =3D tmp[i];
+> > +     }
+> > +
+> > +     /* Fill the remaining entries with unused physical lanes (ascendi=
+ng) */
+> > +     for (i =3D cnt; i < DP_MAX_NUM_DP_LANES && j < DP_MAX_NUM_DP_LANE=
+S; j++) {
+>
+> Nit: i =3D cnt, j =3D 0; Don't init loop variables at the top of the
+> function.
 
-For the malidp and komeda changes:
+These days we can party like it's c99 and declare loop variables
+inside the for(), instead of at the top of the function.  My
+preference is to do so, unless the loop variable is used after the
+loop.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+BR,
+-R
 
-Best regards,
-Liviu
-
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |  6 -----
->  .../net/ethernet/chelsio/cxgb3/cxgb3_main.c   | 18 ++++++-------
->  fs/btrfs/misc.h                               |  2 --
->  fs/ext2/balloc.c                              |  2 --
->  fs/ext4/ext4.h                                |  2 --
->  fs/ufs/util.h                                 |  6 -----
->  include/linux/minmax.h                        | 27 +++++++++++++++++++
->  lib/logic_pio.c                               |  3 ---
->  net/netfilter/nf_nat_core.c                   |  6 ++---
->  net/tipc/core.h                               |  2 +-
->  net/tipc/link.c                               | 10 +++----
->  14 files changed, 61 insertions(+), 55 deletions(-)
-> 
-> diff --git a/arch/arm/mm/pageattr.c b/arch/arm/mm/pageattr.c
-> index 9790ae3a8c68..3b3bfa825fad 100644
-> --- a/arch/arm/mm/pageattr.c
-> +++ b/arch/arm/mm/pageattr.c
-> @@ -25,7 +25,7 @@ static int change_page_range(pte_t *ptep, unsigned long addr, void *data)
->  	return 0;
->  }
->  
-> -static bool in_range(unsigned long start, unsigned long size,
-> +static bool range_in_range(unsigned long start, unsigned long size,
->  	unsigned long range_start, unsigned long range_end)
->  {
->  	return start >= range_start && start < range_end &&
-> @@ -46,8 +46,8 @@ static int change_memory_common(unsigned long addr, int numpages,
->  	if (!size)
->  		return 0;
->  
-> -	if (!in_range(start, size, MODULES_VADDR, MODULES_END) &&
-> -	    !in_range(start, size, VMALLOC_START, VMALLOC_END))
-> +	if (!range_in_range(start, size, MODULES_VADDR, MODULES_END) &&
-> +	    !range_in_range(start, size, VMALLOC_START, VMALLOC_END))
->  		return -EINVAL;
->  
->  	data.set_mask = set_mask;
-> diff --git a/drivers/gpu/drm/arm/display/include/malidp_utils.h b/drivers/gpu/drm/arm/display/include/malidp_utils.h
-> index 49a1d7f3539c..9f83baac6ed8 100644
-> --- a/drivers/gpu/drm/arm/display/include/malidp_utils.h
-> +++ b/drivers/gpu/drm/arm/display/include/malidp_utils.h
-> @@ -35,7 +35,7 @@ static inline void set_range(struct malidp_range *rg, u32 start, u32 end)
->  	rg->end   = end;
->  }
->  
-> -static inline bool in_range(struct malidp_range *rg, u32 v)
-> +static inline bool malidp_in_range(struct malidp_range *rg, u32 v)
->  {
->  	return (v >= rg->start) && (v <= rg->end);
->  }
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
-> index 7cc891c091f8..3e414d2fbdda 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
-> @@ -305,12 +305,12 @@ komeda_layer_check_cfg(struct komeda_layer *layer,
->  	if (komeda_fb_check_src_coords(kfb, src_x, src_y, src_w, src_h))
->  		return -EINVAL;
->  
-> -	if (!in_range(&layer->hsize_in, src_w)) {
-> +	if (!malidp_in_range(&layer->hsize_in, src_w)) {
->  		DRM_DEBUG_ATOMIC("invalidate src_w %d.\n", src_w);
->  		return -EINVAL;
->  	}
->  
-> -	if (!in_range(&layer->vsize_in, src_h)) {
-> +	if (!malidp_in_range(&layer->vsize_in, src_h)) {
->  		DRM_DEBUG_ATOMIC("invalidate src_h %d.\n", src_h);
->  		return -EINVAL;
->  	}
-> @@ -452,14 +452,14 @@ komeda_scaler_check_cfg(struct komeda_scaler *scaler,
->  	hsize_out = dflow->out_w;
->  	vsize_out = dflow->out_h;
->  
-> -	if (!in_range(&scaler->hsize, hsize_in) ||
-> -	    !in_range(&scaler->hsize, hsize_out)) {
-> +	if (!malidp_in_range(&scaler->hsize, hsize_in) ||
-> +	    !malidp_in_range(&scaler->hsize, hsize_out)) {
->  		DRM_DEBUG_ATOMIC("Invalid horizontal sizes");
->  		return -EINVAL;
->  	}
->  
-> -	if (!in_range(&scaler->vsize, vsize_in) ||
-> -	    !in_range(&scaler->vsize, vsize_out)) {
-> +	if (!malidp_in_range(&scaler->vsize, vsize_in) ||
-> +	    !malidp_in_range(&scaler->vsize, vsize_out)) {
->  		DRM_DEBUG_ATOMIC("Invalid vertical sizes");
->  		return -EINVAL;
->  	}
-> @@ -574,13 +574,13 @@ komeda_splitter_validate(struct komeda_splitter *splitter,
->  		return -EINVAL;
->  	}
->  
-> -	if (!in_range(&splitter->hsize, dflow->in_w)) {
-> +	if (!malidp_in_range(&splitter->hsize, dflow->in_w)) {
->  		DRM_DEBUG_ATOMIC("split in_w:%d is out of the acceptable range.\n",
->  				 dflow->in_w);
->  		return -EINVAL;
->  	}
->  
-> -	if (!in_range(&splitter->vsize, dflow->in_h)) {
-> +	if (!malidp_in_range(&splitter->vsize, dflow->in_h)) {
->  		DRM_DEBUG_ATOMIC("split in_h: %d exceeds the acceptable range.\n",
->  				 dflow->in_h);
->  		return -EINVAL;
-> @@ -624,13 +624,13 @@ komeda_merger_validate(struct komeda_merger *merger,
->  		return -EINVAL;
->  	}
->  
-> -	if (!in_range(&merger->hsize_merged, output->out_w)) {
-> +	if (!malidp_in_range(&merger->hsize_merged, output->out_w)) {
->  		DRM_DEBUG_ATOMIC("merged_w: %d is out of the accepted range.\n",
->  				 output->out_w);
->  		return -EINVAL;
->  	}
->  
-> -	if (!in_range(&merger->vsize_merged, output->out_h)) {
-> +	if (!malidp_in_range(&merger->vsize_merged, output->out_h)) {
->  		DRM_DEBUG_ATOMIC("merged_h: %d is out of the accepted range.\n",
->  				 output->out_h);
->  		return -EINVAL;
-> @@ -866,8 +866,8 @@ void komeda_complete_data_flow_cfg(struct komeda_layer *layer,
->  	 * input/output range.
->  	 */
->  	if (dflow->en_scaling && scaler)
-> -		dflow->en_split = !in_range(&scaler->hsize, dflow->in_w) ||
-> -				  !in_range(&scaler->hsize, dflow->out_w);
-> +		dflow->en_split = !malidp_in_range(&scaler->hsize, dflow->in_w) ||
-> +				  !malidp_in_range(&scaler->hsize, dflow->out_w);
->  }
->  
->  static bool merger_is_available(struct komeda_pipeline *pipe,
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 655938df4531..f11da95566da 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -657,12 +657,6 @@ struct block_header {
->  	u32 data[];
->  };
->  
-> -/* this should be a general kernel helper */
-> -static int in_range(u32 addr, u32 start, u32 size)
-> -{
-> -	return addr >= start && addr < start + size;
-> -}
-> -
->  static bool fw_block_mem(struct a6xx_gmu_bo *bo, const struct block_header *blk)
->  {
->  	if (!in_range(blk->addr, bo->iova, bo->size))
-> diff --git a/drivers/net/ethernet/chelsio/cxgb3/cxgb3_main.c b/drivers/net/ethernet/chelsio/cxgb3/cxgb3_main.c
-> index 8a167eea288c..10790a370f22 100644
-> --- a/drivers/net/ethernet/chelsio/cxgb3/cxgb3_main.c
-> +++ b/drivers/net/ethernet/chelsio/cxgb3/cxgb3_main.c
-> @@ -2131,7 +2131,7 @@ static const struct ethtool_ops cxgb_ethtool_ops = {
->  	.set_link_ksettings = set_link_ksettings,
->  };
->  
-> -static int in_range(int val, int lo, int hi)
-> +static int cxgb_in_range(int val, int lo, int hi)
->  {
->  	return val < 0 || (val <= hi && val >= lo);
->  }
-> @@ -2162,19 +2162,19 @@ static int cxgb_extension_ioctl(struct net_device *dev, void __user *useraddr)
->  			return -EINVAL;
->  		if (t.qset_idx >= SGE_QSETS)
->  			return -EINVAL;
-> -		if (!in_range(t.intr_lat, 0, M_NEWTIMER) ||
-> -		    !in_range(t.cong_thres, 0, 255) ||
-> -		    !in_range(t.txq_size[0], MIN_TXQ_ENTRIES,
-> +		if (!cxgb_in_range(t.intr_lat, 0, M_NEWTIMER) ||
-> +		    !cxgb_in_range(t.cong_thres, 0, 255) ||
-> +		    !cxgb_in_range(t.txq_size[0], MIN_TXQ_ENTRIES,
->  			      MAX_TXQ_ENTRIES) ||
-> -		    !in_range(t.txq_size[1], MIN_TXQ_ENTRIES,
-> +		    !cxgb_in_range(t.txq_size[1], MIN_TXQ_ENTRIES,
->  			      MAX_TXQ_ENTRIES) ||
-> -		    !in_range(t.txq_size[2], MIN_CTRL_TXQ_ENTRIES,
-> +		    !cxgb_in_range(t.txq_size[2], MIN_CTRL_TXQ_ENTRIES,
->  			      MAX_CTRL_TXQ_ENTRIES) ||
-> -		    !in_range(t.fl_size[0], MIN_FL_ENTRIES,
-> +		    !cxgb_in_range(t.fl_size[0], MIN_FL_ENTRIES,
->  			      MAX_RX_BUFFERS) ||
-> -		    !in_range(t.fl_size[1], MIN_FL_ENTRIES,
-> +		    !cxgb_in_range(t.fl_size[1], MIN_FL_ENTRIES,
->  			      MAX_RX_JUMBO_BUFFERS) ||
-> -		    !in_range(t.rspq_size, MIN_RSPQ_ENTRIES,
-> +		    !cxgb_in_range(t.rspq_size, MIN_RSPQ_ENTRIES,
->  			      MAX_RSPQ_ENTRIES))
->  			return -EINVAL;
->  
-> diff --git a/fs/btrfs/misc.h b/fs/btrfs/misc.h
-> index 6461ebc3a1c1..40ad75511435 100644
-> --- a/fs/btrfs/misc.h
-> +++ b/fs/btrfs/misc.h
-> @@ -8,8 +8,6 @@
->  #include <asm/div64.h>
->  #include <linux/rbtree.h>
->  
-> -#define in_range(b, first, len) ((b) >= (first) && (b) < (first) + (len))
-> -
->  static inline void cond_wake_up(struct wait_queue_head *wq)
->  {
->  	/*
-> diff --git a/fs/ext2/balloc.c b/fs/ext2/balloc.c
-> index 9bf086821eb3..1d9380c5523b 100644
-> --- a/fs/ext2/balloc.c
-> +++ b/fs/ext2/balloc.c
-> @@ -36,8 +36,6 @@
->   */
->  
->  
-> -#define in_range(b, first, len)	((b) >= (first) && (b) <= (first) + (len) - 1)
-> -
->  struct ext2_group_desc * ext2_get_group_desc(struct super_block * sb,
->  					     unsigned int block_group,
->  					     struct buffer_head ** bh)
-> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-> index 1dc1292d8977..4adaf97d7435 100644
-> --- a/fs/ext4/ext4.h
-> +++ b/fs/ext4/ext4.h
-> @@ -3659,8 +3659,6 @@ static inline void set_bitmap_uptodate(struct buffer_head *bh)
->  	set_bit(BH_BITMAP_UPTODATE, &(bh)->b_state);
->  }
->  
-> -#define in_range(b, first, len)	((b) >= (first) && (b) <= (first) + (len) - 1)
-> -
->  /* For ioend & aio unwritten conversion wait queues */
->  #define EXT4_WQ_HASH_SZ		37
->  #define ext4_ioend_wq(v)   (&ext4__ioend_wq[((unsigned long)(v)) %\
-> diff --git a/fs/ufs/util.h b/fs/ufs/util.h
-> index 4931bec1a01c..89247193d96d 100644
-> --- a/fs/ufs/util.h
-> +++ b/fs/ufs/util.h
-> @@ -11,12 +11,6 @@
->  #include <linux/fs.h>
->  #include "swab.h"
->  
-> -
-> -/*
-> - * some useful macros
-> - */
-> -#define in_range(b,first,len)	((b)>=(first)&&(b)<(first)+(len))
-> -
->  /*
->   * functions used for retyping
->   */
-> diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-> index abdeae409dad..7affadcb2a29 100644
-> --- a/include/linux/minmax.h
-> +++ b/include/linux/minmax.h
-> @@ -3,6 +3,7 @@
->  #define _LINUX_MINMAX_H
->  
->  #include <linux/const.h>
-> +#include <linux/types.h>
->  
->  /*
->   * min()/max()/clamp() macros must accomplish three things:
-> @@ -175,6 +176,32 @@
->   */
->  #define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
->  
-> +static inline bool in_range64(u64 val, u64 start, u64 len)
-> +{
-> +	return (val - start) < len;
-> +}
-> +
-> +static inline bool in_range32(u32 val, u32 start, u32 len)
-> +{
-> +	return (val - start) < len;
-> +}
-> +
-> +/**
-> + * in_range - Determine if a value lies within a range.
-> + * @val: Value to test.
-> + * @start: First value in range.
-> + * @len: Number of values in range.
-> + *
-> + * This is more efficient than "if (start <= val && val < (start + len))".
-> + * It also gives a different answer if @start + @len overflows the size of
-> + * the type by a sufficient amount to encompass @val.  Decide for yourself
-> + * which behaviour you want, or prove that start + len never overflow.
-> + * Do not blindly replace one form with the other.
-> + */
-> +#define in_range(val, start, len)					\
-> +	((sizeof(start) | sizeof(len) | sizeof(val)) <= sizeof(u32) ?	\
-> +		in_range32(val, start, len) : in_range64(val, start, len))
-> +
->  /**
->   * swap - swap values of @a and @b
->   * @a: first value
-> diff --git a/lib/logic_pio.c b/lib/logic_pio.c
-> index 07b4b9a1f54b..2ea564a40064 100644
-> --- a/lib/logic_pio.c
-> +++ b/lib/logic_pio.c
-> @@ -20,9 +20,6 @@
->  static LIST_HEAD(io_range_list);
->  static DEFINE_MUTEX(io_range_mutex);
->  
-> -/* Consider a kernel general helper for this */
-> -#define in_range(b, first, len)        ((b) >= (first) && (b) < (first) + (len))
-> -
->  /**
->   * logic_pio_register_range - register logical PIO range for a host
->   * @new_range: pointer to the IO range to be registered.
-> diff --git a/net/netfilter/nf_nat_core.c b/net/netfilter/nf_nat_core.c
-> index b7c3c902290f..96b61f0658c8 100644
-> --- a/net/netfilter/nf_nat_core.c
-> +++ b/net/netfilter/nf_nat_core.c
-> @@ -262,7 +262,7 @@ static bool l4proto_in_range(const struct nf_conntrack_tuple *tuple,
->  /* If we source map this tuple so reply looks like reply_tuple, will
->   * that meet the constraints of range.
->   */
-> -static int in_range(const struct nf_conntrack_tuple *tuple,
-> +static int nf_in_range(const struct nf_conntrack_tuple *tuple,
->  		    const struct nf_nat_range2 *range)
->  {
->  	/* If we are supposed to map IPs, then we must be in the
-> @@ -311,7 +311,7 @@ find_appropriate_src(struct net *net,
->  				       &ct->tuplehash[IP_CT_DIR_REPLY].tuple);
->  			result->dst = tuple->dst;
->  
-> -			if (in_range(result, range))
-> +			if (nf_in_range(result, range))
->  				return 1;
->  		}
->  	}
-> @@ -543,7 +543,7 @@ get_unique_tuple(struct nf_conntrack_tuple *tuple,
->  	if (maniptype == NF_NAT_MANIP_SRC &&
->  	    !(range->flags & NF_NAT_RANGE_PROTO_RANDOM_ALL)) {
->  		/* try the original tuple first */
-> -		if (in_range(orig_tuple, range)) {
-> +		if (nf_in_range(orig_tuple, range)) {
->  			if (!nf_nat_used_tuple(orig_tuple, ct)) {
->  				*tuple = *orig_tuple;
->  				return;
-> diff --git a/net/tipc/core.h b/net/tipc/core.h
-> index 73a26b0b9ca1..7c86fa4bb967 100644
-> --- a/net/tipc/core.h
-> +++ b/net/tipc/core.h
-> @@ -199,7 +199,7 @@ static inline int less(u16 left, u16 right)
->  	return less_eq(left, right) && (mod(right) != mod(left));
->  }
->  
-> -static inline int in_range(u16 val, u16 min, u16 max)
-> +static inline int tipc_in_range(u16 val, u16 min, u16 max)
->  {
->  	return !less(val, min) && !more(val, max);
->  }
-> diff --git a/net/tipc/link.c b/net/tipc/link.c
-> index 336d1bb2cf6a..ca96bdb77190 100644
-> --- a/net/tipc/link.c
-> +++ b/net/tipc/link.c
-> @@ -1588,7 +1588,7 @@ static int tipc_link_advance_transmq(struct tipc_link *l, struct tipc_link *r,
->  					  last_ga->bgack_cnt);
->  			}
->  			/* Check against the last Gap ACK block */
-> -			if (in_range(seqno, start, end))
-> +			if (tipc_in_range(seqno, start, end))
->  				continue;
->  			/* Update/release the packet peer is acking */
->  			bc_has_acked = true;
-> @@ -2216,12 +2216,12 @@ static int tipc_link_proto_rcv(struct tipc_link *l, struct sk_buff *skb,
->  		strncpy(if_name, data, TIPC_MAX_IF_NAME);
->  
->  		/* Update own tolerance if peer indicates a non-zero value */
-> -		if (in_range(peers_tol, TIPC_MIN_LINK_TOL, TIPC_MAX_LINK_TOL)) {
-> +		if (tipc_in_range(peers_tol, TIPC_MIN_LINK_TOL, TIPC_MAX_LINK_TOL)) {
->  			l->tolerance = peers_tol;
->  			l->bc_rcvlink->tolerance = peers_tol;
->  		}
->  		/* Update own priority if peer's priority is higher */
-> -		if (in_range(peers_prio, l->priority + 1, TIPC_MAX_LINK_PRI))
-> +		if (tipc_in_range(peers_prio, l->priority + 1, TIPC_MAX_LINK_PRI))
->  			l->priority = peers_prio;
->  
->  		/* If peer is going down we want full re-establish cycle */
-> @@ -2264,13 +2264,13 @@ static int tipc_link_proto_rcv(struct tipc_link *l, struct sk_buff *skb,
->  		l->rcv_nxt_state = msg_seqno(hdr) + 1;
->  
->  		/* Update own tolerance if peer indicates a non-zero value */
-> -		if (in_range(peers_tol, TIPC_MIN_LINK_TOL, TIPC_MAX_LINK_TOL)) {
-> +		if (tipc_in_range(peers_tol, TIPC_MIN_LINK_TOL, TIPC_MAX_LINK_TOL)) {
->  			l->tolerance = peers_tol;
->  			l->bc_rcvlink->tolerance = peers_tol;
->  		}
->  		/* Update own prio if peer indicates a different value */
->  		if ((peers_prio != l->priority) &&
-> -		    in_range(peers_prio, 1, TIPC_MAX_LINK_PRI)) {
-> +		    tipc_in_range(peers_prio, 1, TIPC_MAX_LINK_PRI)) {
->  			l->priority = peers_prio;
->  			rc = tipc_link_fsm_evt(l, LINK_FAILURE_EVT);
->  		}
-> -- 
-> 2.47.3
-> 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+> Other than that:
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>
+>
+> > +             if (!used[j])
+> > +                     map[i++] =3D j;
+> > +     }
+> > +
+> > +out:
+> > +     if (endpoint)
+> > +             of_node_put(endpoint);
+> > +
+> > +     dev_dbg(dev, "data-lanes count %d <%d %d %d %d>\n", cnt, map[0], =
+map[1], map[2], map[3]);
+> > +     memcpy(msm_dp_link->lane_map, map, sizeof(map));
+> > +     return 0;
+> > +}
+> > +
+> >  static int msm_dp_link_parse_dt(struct device *dev, struct msm_dp_link=
+ *msm_dp_link)
+> >  {
+> >       struct device_node *of_node =3D dev->of_node;
+>
+> --
+> With best wishes
+> Dmitry
