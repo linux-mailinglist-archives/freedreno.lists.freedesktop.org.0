@@ -2,119 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85513B91DE7
-	for <lists+freedreno@lfdr.de>; Mon, 22 Sep 2025 17:13:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C06DB923C0
+	for <lists+freedreno@lfdr.de>; Mon, 22 Sep 2025 18:33:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A8AF10E1CC;
-	Mon, 22 Sep 2025 15:13:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE3410E2E2;
+	Mon, 22 Sep 2025 16:33:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ch1JZDV+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yypMGV0y";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E34510E48A
- for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 15:13:13 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58M9G4t1022699
- for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 15:13:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=6L9xQwPvNyqamZukUXThzBL99kp13JUWCh+pkhXMJs8=; b=Ch
- 1JZDV+r8a/WgnKlOpaq43F9UXMaE7QwFKQFTc49dqHxNTCmTe3l+dGBTQN5/TPmM
- x39TiYYB18ZZuaM9vNEeWb+M4uOXoYafbF7ZwTD7q/BE14Sa6+odQIFtpSeUm101
- 3x+01mzW4QBpFYlbrWORWQakdsbwSJ6C8MLXe1PfNGvdmD5BC/CS/HvHJOXlcXXN
- 1rqTpD/saU4PxETzDxSYubavNCNOwKaJ1cMvEytGRhI6JAs8JszfAQgdtIakwr+7
- AC69IdlsFgwwKw91ZpvC++2o22NFJVAh75nm0JaLE4hWAbGUVeyjIWi9ua6WxXtU
- 2cZJ8TH7K/nR9ngV2g3A==
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49b3ny8yxc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 15:13:12 +0000 (GMT)
-Received: by mail-oa1-f69.google.com with SMTP id
- 586e51a60fabf-32aed063939so4572826fac.2
- for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 08:13:12 -0700 (PDT)
+Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
+ [209.85.128.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5283F10E2E9
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 16:33:02 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id
+ 5b1f17b1804b1-45ed646b656so40998875e9.3
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Sep 2025 09:33:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1758558781; x=1759163581; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=v1wHAoCkXd5geKh9VVRmxk6qpbp5tT7LVPERA+lkELM=;
+ b=yypMGV0yCvyF9GNIXo+ISa4Ijuy+4n6PCxFPOLr/NOM3qWSurA19Dzlg/jLfT5el8u
+ YrJ0MAtXQLaaK+vUlFdQTbWo01c+pl82TgbzTiQ6YbUVRZaSzW5sUQhRMR0wk5rMlWvA
+ nbjLPBYbeTD2WmjPf/zdTLWwsjE23YxeOqA8F90f8I00qFH/dfuM5HmY8ke/KeMcaKNX
+ NOfz0XigE0FMge1Gzuieuu86UQKxEjt8m98v+Ow37ObMX0GcD9m3seVikef5OgUs6FZ2
+ sZre84Hiav7xluWIGhNLXsMZm7J4w7X6nsgMhDMOzVHJ8j9AHPc9owVm3+eHfcrJbppP
+ mISA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758553991; x=1759158791;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6L9xQwPvNyqamZukUXThzBL99kp13JUWCh+pkhXMJs8=;
- b=WCGbBchyt11sv1ML8Yjl3XKEGFJ9Fn4MuqBbE3p+eIfWY1dkYbaL4FfLIKNFMKN1Vw
- p85FD3biFyRUR8vx/nZSt0FaowdubvtLW36COJcHMZ16cqTHXNpYFEWvKvUSL3yTYTA2
- r2JEvGouuLSkp/qpuaud0lYCJdM587qIxRzpq7mU/gCk32c3tycO+2UflTriHNr4n4WR
- 4EuF9ux0MKsjaSPfPBAJZajJOAN1YXouGg/2mkTfFtee0vteq0cmirid9Mj8TqxCYnr7
- 7RGqSWK4ZXhzmwIFZajt0UfNDvZr7gl2+ZQO2ZGbwWnhcaCOLwFCaOuWHFktUkflwxfD
- kyAQ==
+ d=1e100.net; s=20230601; t=1758558781; x=1759163581;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=v1wHAoCkXd5geKh9VVRmxk6qpbp5tT7LVPERA+lkELM=;
+ b=tbk98/bWIHdszWlMlB/ibmrg/28T0REYKdn0lQ8qLG+ovjWNQai776avoPTF4fr/hW
+ b9R2dBVuKh+VKHupDy17CiVvjvdbF9InkvltCWEkn81Ny+gnZH4sEeF2i2awW+il4KIM
+ ufIKS8uiRCxxJTYRCPAKdXgBAzHSLZ3wNhG3o1oTV46miJqaGcNuVUS2EI7Ddbnzzus8
+ m+wCyiJOqBGthXs5FwGBWV7R3ATXM1iJ3XGsYOZFbFXN4iihgM7j1h5N0sE9c/8vJipw
+ TBT4zR7V8huWmCXDmyxHXWoKA2rVu/AjlQ+DpGsJJzpJe94J5+3Ff5/URw0+HHjhLGIs
+ I9wA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX9aF6kA7ORBadAtRH/7gpaMArt+JBGrvjhOsMZ8PbeRHFpoEiGQN6PpYdDyBnUEot5GNbueZbx4I8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxsu1ZkwkyG/gYT7uOtNI8Y2q8xh2MBVBEiys/1jKkTBxCU6RBG
- XOCwJvaRoVjgBncObzo8Z3RW2iyV9MCOAbzaMfPtDAiiDU30dCxyYR527TiL25FgR0EGcjiwIr0
- 4tI8nol4twj0wwZuvXVfmbGOrDnpBm9PkX8FRNF0uaGWVAJcHziFcckn5p/tHSSdS87I8H02Nqd
- 4A8H+IXH8XDWfk0IDZ3hpUFqG2ZLnaFNbuhM6vvtzQelmESQ==
-X-Gm-Gg: ASbGncsHxxOqn8tJr2OGHot3XSOyXi7UukG6jvkAsPt/buIV95p2yscKWklNdGG16go
- IptEinUIVATldtDag++vOpsv3vb9H9GhVKXmqC088D3JKG84POVSz6MN5Pr2qMH8mBOGPz2dPeV
- pwt5BihUI2NGNhbOLGHd78Dp/wzz9sr92wCC38+yeJV9VbGudRcO9R
-X-Received: by 2002:a05:6870:d203:b0:321:27af:4b0 with SMTP id
- 586e51a60fabf-33bb387a8efmr7066543fac.21.1758553991295; 
- Mon, 22 Sep 2025 08:13:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFeI3VUzLWw/6kf7cmjW8nkegRTNOSrOJHdfgWLSr9Z07F+QepvdikPR1+KMJ0NepSDMgedO2i6ynxIGcy1040=
-X-Received: by 2002:a05:6870:d203:b0:321:27af:4b0 with SMTP id
- 586e51a60fabf-33bb387a8efmr7066517fac.21.1758553990880; Mon, 22 Sep 2025
- 08:13:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250919-add-displayport-support-for-qcs615-platform-v5-0-eae6681f4002@oss.qualcomm.com>
- <20250919-add-displayport-support-for-qcs615-platform-v5-14-eae6681f4002@oss.qualcomm.com>
- <j7ooyi5vih6ofnjigdgj6uk3ycutugunpm5pu5zf55pu5ua6r2@agg73zakjicn>
-In-Reply-To: <j7ooyi5vih6ofnjigdgj6uk3ycutugunpm5pu5zf55pu5ua6r2@agg73zakjicn>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 22 Sep 2025 08:13:00 -0700
-X-Gm-Features: AS18NWDsjwQT4-UMvgr22Kwg3NRpxj1iGVDde1kRYPcz2iKyW9TnGKIpG41ve0w
-Message-ID: <CACSVV00Bat6LE=joM+Wh3HnC1=c3_Y=crxUGdhLQWxxpZ17Q3g@mail.gmail.com>
-Subject: Re: [PATCH v5 14/14] drm/msm/dp: Add support for lane mapping
- configuration
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ AJvYcCWJ5O/f0+ikLmhOtvnmVkqMcxbsfdzWKsxsEkvcYgMPOYVv9PRYwaKX/S83jk+t4WFZvI5BGUIlUF0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyKFZermVD5chRzNOtr18OpohGVdOeWrmo+C2uEDVp4Kybln9RP
+ xlg83xfnRhlBSyZiKlYhxxScHbwAzmxkSCXJTThddvj3nEFGbUdEcgiwGENl9lUY8F8=
+X-Gm-Gg: ASbGncs0h6DtTpWwqJ8Arl7MffvG8cTVfgMwA+UPklTMIfHsUbS58Y2PhA3X4L/0TuL
+ 2bcMqEN/u5hvUEGk9pd99MXj/qmPcPvxUpbo3s3t24nKG9+4bVBnhlJzgmn5zS/S0mjhmOBnBbM
+ C8kBR0B4Pl09AJ0hqkYzCicm9Ov3ZeauYl9H/5hcNB5ft97VV/LiQJZCEBtYHZ223V17ZOQxcXq
+ VWYr+5TCNPIoAIsG+CIG5FYlifuDI9sEKFAUiMF6vfzL1vjt76MZSjjaVoctQlgLPt2opRnyD4a
+ TeNOEJcA8u1AcVMJ4jPCbHVwINNkYgVn20dFKZ4hApi0SAoCVyymzE7J+DmNtVuw3Tin/mo2ZPS
+ N5jqmH0NjKLy6iB9JTaymKpFATch38uQ5
+X-Google-Smtp-Source: AGHT+IGnQPkxMftXWyc0+CV4hBsymweO1uIa+g45TRCqmBDBE2a4JgAwlc/K21Y2/aal8sHjc8EnYQ==
+X-Received: by 2002:a05:600c:4f42:b0:468:7a5a:725 with SMTP id
+ 5b1f17b1804b1-4687a5a0801mr128268745e9.1.1758558780393; 
+ Mon, 22 Sep 2025 09:33:00 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff21:30:ae58:9ec8:1ac6:e1a6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-464eadd7e11sm219510625e9.0.2025.09.22.09.32.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Sep 2025 09:32:59 -0700 (PDT)
+Date: Mon, 22 Sep 2025 18:32:55 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
- li.liu@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=EuPSrTcA c=1 sm=1 tr=0 ts=68d16788 cx=c_pps
- a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10
- a=EUspDBNiAAAA:8 a=Ck2O2MNpSjHhtJkipUsA:9 a=QEXdDO2ut3YA:10
- a=y8BKWJGFn5sdPF1Y92-H:22
-X-Proofpoint-GUID: 9s7hWdj-8j4WdzHnfZ_QNDHcmua7w0i3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTIyMDA5MCBTYWx0ZWRfX2GHhMqUMRlou
- S3zQT9G0qA8c3nNfUEk905GB2jKeSFLvZHJnMfhKx8R2v8VKvmkNyEDAQy4UJVwg8WhWiezjtkI
- h8L/KyJc+V0GQppZNpPQnMIOzfbNwqQqeGzUtME9pyyK/jPpEG/pFh7REkYvZ36qnUeA0+rNjyQ
- HUGmZ7U+MC1I9C6LZQUHGBncHFsA2Jov2GhJ4L/fmzupyQrt4fk/wLRuGya/iujaNie3x3sS7Se
- unRkvPxRP8SfuB2djnbkyOjzjeaXms8b8mnoBdUEq7oLQlwz0XNGFnMQIauqqkn5XagzLsG3m47
- RS9iQHNizzmDMhWQLb9ia5C+JyIx/zjnfGRMhzoLJcB2SFlNIkn+V0k8VhAyR1+BQUp4OcJBlEJ
- /I9NryrP
-X-Proofpoint-ORIG-GUID: 9s7hWdj-8j4WdzHnfZ_QNDHcmua7w0i3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-22_01,2025-09-22_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 malwarescore=0 spamscore=0 adultscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509220090
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] drm/msm: Fix refcnt underflow in error path
+Message-ID: <aNF6N8u1VIFSTaRM@linaro.org>
+References: <20250723190852.18394-1-robin.clark@oss.qualcomm.com>
+ <20250723190852.18394-2-robin.clark@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250723190852.18394-2-robin.clark@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,134 +92,184 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 19, 2025 at 11:35=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
->
-> On Fri, Sep 19, 2025 at 10:24:31PM +0800, Xiangxu Yin wrote:
-> > QCS615 platform requires non-default logical-to-physical lane mapping d=
-ue
-> > to its unique hardware routing. Unlike the standard mapping sequence
-> > <0 1 2 3>, QCS615 uses <3 2 0 1>, which necessitates explicit
-> > configuration via the data-lanes property in the device tree. This ensu=
-res
-> > correct signal routing between the DP controller and PHY.
-> >
-> > For partial definitions, fill remaining lanes with unused physical lane=
-s
-> > in ascending order.
-> >
-> > Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-> > ---
-> >  drivers/gpu/drm/msm/dp/dp_ctrl.c | 10 +++----
-> >  drivers/gpu/drm/msm/dp/dp_link.c | 60 ++++++++++++++++++++++++++++++++=
-++++++++
-> >  drivers/gpu/drm/msm/dp/dp_link.h |  1 +
-> >  3 files changed, 66 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/=
-dp_link.c
-> > index 2aeb3ecf76fab2ee6a9512b785ca5dceebfc3964..34a91e194a124ef5372f133=
-52f7b3513aa88da2a 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_link.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_link.c
-> > @@ -1236,6 +1236,61 @@ static u32 msm_dp_link_link_frequencies(struct d=
-evice_node *of_node)
-> >       return frequency;
-> >  }
-> >
-> > +/*
-> > + * Always populate msm_dp_link->lane_map with 4 lanes.
-> > + * - Use DTS "data-lanes" if present; otherwise fall back to default m=
-apping.
-> > + * - For partial definitions, fill remaining entries with unused lanes=
- in
-> > + *   ascending order.
-> > + */
-> > +static int msm_dp_link_lane_map(struct device *dev, struct msm_dp_link=
- *msm_dp_link)
-> > +{
-> > +     struct device_node *of_node =3D dev->of_node;
-> > +     struct device_node *endpoint;
-> > +     int cnt =3D msm_dp_link->max_dp_lanes;
-> > +     u32 tmp[DP_MAX_NUM_DP_LANES];
-> > +     u32 map[DP_MAX_NUM_DP_LANES] =3D {0, 1, 2, 3}; /* default 1:1 map=
-ping */
-> > +     bool used[DP_MAX_NUM_DP_LANES] =3D {false};
-> > +     int i, j =3D 0, ret =3D -EINVAL;
-> > +
-> > +     endpoint =3D of_graph_get_endpoint_by_regs(of_node, 1, -1);
-> > +     if (endpoint) {
-> > +             ret =3D of_property_read_u32_array(endpoint, "data-lanes"=
-, tmp, cnt);
-> > +             if (ret)
-> > +                     dev_dbg(dev, "endpoint data-lanes read failed (re=
-t=3D%d)\n", ret);
-> > +     }
-> > +
-> > +     if (ret) {
-> > +             ret =3D of_property_read_u32_array(of_node, "data-lanes",=
- tmp, cnt);
-> > +             if (ret) {
-> > +                     dev_info(dev, "data-lanes not defined, set to def=
-ault\n");
-> > +                     goto out;
-> > +             }
-> > +     }
-> > +
-> > +     for (i =3D 0; i < cnt; i++) {
-> > +             if (tmp[i] >=3D DP_MAX_NUM_DP_LANES) {
-> > +                     dev_err(dev, "data-lanes[%d]=3D%u out of range\n"=
-, i, tmp[i]);
-> > +                     return -EINVAL;
-> > +             }
-> > +             used[tmp[i]] =3D true;
-> > +             map[i] =3D tmp[i];
-> > +     }
-> > +
-> > +     /* Fill the remaining entries with unused physical lanes (ascendi=
-ng) */
-> > +     for (i =3D cnt; i < DP_MAX_NUM_DP_LANES && j < DP_MAX_NUM_DP_LANE=
-S; j++) {
->
-> Nit: i =3D cnt, j =3D 0; Don't init loop variables at the top of the
-> function.
+Hi Rob,
 
-These days we can party like it's c99 and declare loop variables
-inside the for(), instead of at the top of the function.  My
-preference is to do so, unless the loop variable is used after the
-loop.
+On Wed, Jul 23, 2025 at 12:08:49PM -0700, Rob Clark wrote:
+> If we hit an error path in GEM obj creation before msm_gem_new_handle()
+> updates obj->resv to point to the gpuvm resv object, then obj->resv
+> still points to &obj->_resv.  In this case we don't want to decrement
+> the refcount of the object being freed (since the refcnt is already
+> zero).  This fixes the following splat:
+> 
+>    ------------[ cut here ]------------
+>    refcount_t: underflow; use-after-free.
+>    WARNING: CPU: 9 PID: 7013 at lib/refcount.c:28 refcount_warn_saturate+0xf4/0x148
+>    Modules linked in: uinput snd_seq_dummy snd_hrtimer aes_ce_ccm snd_soc_wsa884x regmap_sdw q6prm_clocks q6apm_lpass_da>
+>     qcom_pil_info i2c_hid drm_kms_helper qcom_common qcom_q6v5 phy_snps_eusb2 qcom_geni_serial drm qcom_sysmon pinctrl_s>
+>    CPU: 9 UID: 1000 PID: 7013 Comm: deqp-vk Not tainted 6.16.0-rc4-debug+ #25 PREEMPT(voluntary)
+>    Hardware name: LENOVO 83ED/LNVNB161216, BIOS NHCN53WW 08/02/2024
+>    pstate: 61400005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+>    pc : refcount_warn_saturate+0xf4/0x148
+>    lr : refcount_warn_saturate+0xf4/0x148
+>    sp : ffff8000a2073920
+>    x29: ffff8000a2073920 x28: 0000000000000010 x27: 0000000000000010
+>    x26: 0000000000000042 x25: ffff000810e09800 x24: 0000000000000010
+>    x23: ffff8000a2073b94 x22: ffff000ddb22de00 x21: ffff000ddb22dc00
+>    x20: ffff000ddb22ddf8 x19: ffff0008024934e0 x18: 000000000000000a
+>    x17: 0000000000000000 x16: ffff9f8c67d77340 x15: 0000000000000000
+>    x14: 00000000ffffffff x13: 2e656572662d7265 x12: 7466612d65737520
+>    x11: 3b776f6c66726564 x10: 00000000ffff7fff x9 : ffff9f8c67506c70
+>    x8 : ffff9f8c69fa26f0 x7 : 00000000000bffe8 x6 : c0000000ffff7fff
+>    x5 : ffff000f53e14548 x4 : ffff6082ea2b2000 x3 : ffff0008b86ab080
+>    x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0008b86ab080
+>    Call trace:
+>     refcount_warn_saturate+0xf4/0x148 (P)
+>     msm_gem_free_object+0x248/0x260 [msm]
+>     drm_gem_object_free+0x24/0x40 [drm]
+>     msm_gem_new+0x1c4/0x1e0 [msm]
+>     msm_gem_new_handle+0x3c/0x1a0 [msm]
+>     msm_ioctl_gem_new+0x38/0x70 [msm]
+>     drm_ioctl_kernel+0xc8/0x138 [drm]
+>     drm_ioctl+0x2c8/0x618 [drm]
+>     __arm64_sys_ioctl+0xac/0x108
+>     invoke_syscall.constprop.0+0x64/0xe8
+>     el0_svc_common.constprop.0+0x40/0xe8
+>     do_el0_svc+0x24/0x38
+>     el0_svc+0x54/0x1d8
+>     el0t_64_sync_handler+0x10c/0x138
+>     el0t_64_sync+0x19c/0x1a0
+>    irq event stamp: 3698694
+>    hardirqs last  enabled at (3698693): [<ffff9f8c675021dc>] __up_console_sem+0x74/0x90
+>    hardirqs last disabled at (3698694): [<ffff9f8c68ce8164>] el1_dbg+0x24/0x90
+>    softirqs last  enabled at (3697578): [<ffff9f8c6744ec5c>] handle_softirqs+0x454/0x4b0
+>    softirqs last disabled at (3697567): [<ffff9f8c67360244>] __do_softirq+0x1c/0x28
+>    ---[ end trace 0000000000000000 ]---
+> 
+> Fixes: b58e12a66e47 ("drm/msm: Add _NO_SHARE flag")
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/msm_gem.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 33d3354c6102..958bac4e2768 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -1114,10 +1114,12 @@ static void msm_gem_free_object(struct drm_gem_object *obj)
+>  		put_pages(obj);
+>  	}
+>  
+> -	if (msm_obj->flags & MSM_BO_NO_SHARE) {
+> +	if (obj->resv != &obj->_resv) {
+>  		struct drm_gem_object *r_obj =
+>  			container_of(obj->resv, struct drm_gem_object, _resv);
+>  
+> +		WARN_ON(!(msm_obj->flags & MSM_BO_NO_SHARE));
+> +
+>  		/* Drop reference we hold to shared resv obj: */
+>  		drm_gem_object_put(r_obj);
+>  	}
 
-BR,
--R
+This patch seems to break something for direct IRIS/video playback using
+dmabuf. I use a simple GStreamer test pipeline for testing IRIS on X1E
+(on GNOME, in case that matters):
 
-> Other than that:
->
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->
->
-> > +             if (!used[j])
-> > +                     map[i++] =3D j;
-> > +     }
-> > +
-> > +out:
-> > +     if (endpoint)
-> > +             of_node_put(endpoint);
-> > +
-> > +     dev_dbg(dev, "data-lanes count %d <%d %d %d %d>\n", cnt, map[0], =
-map[1], map[2], map[3]);
-> > +     memcpy(msm_dp_link->lane_map, map, sizeof(map));
-> > +     return 0;
-> > +}
-> > +
-> >  static int msm_dp_link_parse_dt(struct device *dev, struct msm_dp_link=
- *msm_dp_link)
-> >  {
-> >       struct device_node *of_node =3D dev->of_node;
->
-> --
-> With best wishes
-> Dmitry
+ $ gst-launch-1.0 filesrc location=bbb_sunflower_2160p_60fps_normal.mp4 \
+   ! qtdemux name=d d.video_0 ! h264parse ! v4l2h264dec \
+   ! capture-io-mode=dmabuf ! waylandsink
+
+The video plays fine, but if I try to exit (CTRL+C) the display hangs
+for a few seconds and then the console is spammed with pretty much
+exactly the messages that you tried to fix here. If I revert this patch,
+everything is fine again. It feels like your patch does exactly the
+opposite for this use case. :-)
+
+It seems to run into the WARN_ON you added.
+
+Any ideas?
+
+linux-next should have IRIS support for the Slim 7x if you want to try
+this for yourself. Or alternatively, there is a backport for 6.17-rc7 in
+the Linaro arm64-laptops tree: https://gitlab.com/Linaro/arm64-laptops/linux
+
+You can find the test video here:
+https://download.blender.org/demo/movies/BBB/
+
+Thanks,
+Stephan
+
+[  107.430721] ------------[ cut here ]------------
+[  107.435513] WARNING: CPU: 3 PID: 2040 at drivers/gpu/drm/msm/msm_gem.c:1127 msm_gem_free_object+0x1f8/0x264 [msm]
+[  107.630472] CPU: 3 UID: 1000 PID: 2040 Comm: .gnome-shell-wr Not tainted 6.17.0-rc7 #1 PREEMPT 
+[  107.630482] pstate: 81400005 (Nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+[  107.630488] pc : msm_gem_free_object+0x1f8/0x264 [msm]
+[  107.676630] lr : msm_gem_free_object+0x138/0x264 [msm]
+[  107.676666] sp : ffff800092a1bb30
+[  107.676668] x29: ffff800092a1bb80 x28: ffff800092a1bce8 x27: ffffbc702dbdbe08
+[  107.676676] x26: 0000000000000008 x25: 0000000000000009 x24: 00000000000000a6
+[  107.676682] x23: ffff00083c72f850 x22: ffff00083c72f868 x21: ffff00087e69f200
+[  107.676689] x20: ffff00087e69f330 x19: ffff00084d157ae0 x18: 0000000000000000
+[  107.676695] x17: 0000000000000000 x16: ffffbc704bd46b80 x15: 0000ffffd0959540
+[  107.676701] x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
+[  107.676706] x11: ffffbc702e6cdb48 x10: 0000000000000000 x9 : 000000000000003f
+[  107.676712] x8 : ffff800092a1ba90 x7 : 0000000000000000 x6 : 0000000000000020
+[  107.676718] x5 : ffffbc704bd46c40 x4 : fffffdffe102cf60 x3 : 0000000000400032
+[  107.676724] x2 : 0000000000020000 x1 : ffff00087e6978e8 x0 : ffff00087e6977e8
+[  107.676731] Call trace:
+[  107.676733]  msm_gem_free_object+0x1f8/0x264 [msm] (P)
+[  107.676771]  drm_gem_object_free+0x1c/0x30 [drm]
+[  107.676816]  drm_gem_object_handle_put_unlocked+0x138/0x150 [drm]
+[  107.676852]  drm_gem_object_release_handle+0x5c/0xcc [drm]
+[  107.676886]  drm_gem_handle_delete+0x68/0xbc [drm]
+[  107.788743]  drm_gem_close_ioctl+0x34/0x40 [drm]
+[  107.793553]  drm_ioctl_kernel+0xc0/0x130 [drm]
+[  107.798178]  drm_ioctl+0x360/0x4e0 [drm]
+[  107.802277]  __arm64_sys_ioctl+0xac/0x104
+[  107.806436]  invoke_syscall+0x48/0x104
+[  107.810334]  el0_svc_common.constprop.0+0x40/0xe0
+[  107.815209]  do_el0_svc+0x1c/0x28
+[  107.818662]  el0_svc+0x34/0xec
+[  107.821838]  el0t_64_sync_handler+0xa0/0xe4
+[  107.826173]  el0t_64_sync+0x198/0x19c
+[  107.829971] ---[ end trace 0000000000000000 ]---
+[  107.834789] ------------[ cut here ]------------
+[  107.839587] refcount_t: underflow; use-after-free.
+[  107.844553] WARNING: CPU: 3 PID: 2040 at lib/refcount.c:28 refcount_warn_saturate+0xf4/0x144
+[  108.052928] CPU: 3 UID: 1000 PID: 2040 Comm: .gnome-shell-wr Tainted: G        W           6.17.0-rc7 #1 PREEMPT 
+[  108.063491] Tainted: [W]=WARN
+[  108.075627] pstate: 61400005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+[  108.082808] pc : refcount_warn_saturate+0xf4/0x144
+[  108.087756] lr : refcount_warn_saturate+0xf4/0x144
+[  108.092704] sp : ffff800092a1bb20
+[  108.096141] x29: ffff800092a1bb20 x28: ffff800092a1bce8 x27: ffffbc702dbdbe08
+[  108.103491] x26: 0000000000000008 x25: 0000000000000009 x24: 00000000000000a6
+[  108.110852] x23: ffff00083c72f850 x22: ffff00083c72f868 x21: ffff00087e69f200
+[  108.118222] x20: ffff00087e69f330 x19: ffff00084d157ae0 x18: 0000000000000006
+[  108.125572] x17: 0000000000000000 x16: ffffbc704ba1eda0 x15: ffff800092a1b6ef
+[  108.132925] x14: 000000000000003a x13: 000000000000003a x12: 0000000000000000
+[  108.140280] x11: 00000000000000c0 x10: d2c95932de8ceaa3 x9 : 128386994077d608
+[  108.147631] x8 : ffff000840c0c588 x7 : 0000000002ac3ea0 x6 : 0000000000000002
+[  108.154990] x5 : 0000000435572e2f x4 : 0000000000000002 x3 : 0000000000000010
+[  108.162339] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff000840c0b480
+[  108.169697] Call trace:
+[  108.172243]  refcount_warn_saturate+0xf4/0x144 (P)
+[  108.177199]  msm_gem_free_object+0x25c/0x264 [msm]
+[  108.182167]  drm_gem_object_free+0x1c/0x30 [drm]
+[  108.186943]  drm_gem_object_handle_put_unlocked+0x138/0x150 [drm]
+[  108.193237]  drm_gem_object_release_handle+0x5c/0xcc [drm]
+[  108.198906]  drm_gem_handle_delete+0x68/0xbc [drm]
+[  108.203867]  drm_gem_close_ioctl+0x34/0x40 [drm]
+[  108.208651]  drm_ioctl_kernel+0xc0/0x130 [drm]
+[  108.213248]  drm_ioctl+0x360/0x4e0 [drm]
+[  108.217319]  __arm64_sys_ioctl+0xac/0x104
+[  108.221464]  invoke_syscall+0x48/0x104
+[  108.225343]  el0_svc_common.constprop.0+0x40/0xe0
+[  108.230207]  do_el0_svc+0x1c/0x28
+[  108.233650]  el0_svc+0x34/0xec
+[  108.236817]  el0t_64_sync_handler+0xa0/0xe4
+[  108.241143]  el0t_64_sync+0x198/0x19c
+[  108.244931] ---[ end trace 0000000000000000 ]---
+
