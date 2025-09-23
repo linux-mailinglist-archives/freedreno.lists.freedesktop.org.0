@@ -2,83 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAF9FB975CC
-	for <lists+freedreno@lfdr.de>; Tue, 23 Sep 2025 21:35:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D72DAB97B27
+	for <lists+freedreno@lfdr.de>; Wed, 24 Sep 2025 00:21:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AABA710E05A;
-	Tue, 23 Sep 2025 19:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90E0010E1E0;
+	Tue, 23 Sep 2025 22:20:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="s28hwR+u";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="F/h0kwTp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3F7510E05A
- for <freedreno@lists.freedesktop.org>; Tue, 23 Sep 2025 19:35:37 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id
- 4fb4d7f45d1cf-631845b51e2so4349032a12.3
- for <freedreno@lists.freedesktop.org>; Tue, 23 Sep 2025 12:35:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758656136; x=1759260936; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=qdwjSx6yqDrwznedzComO+rifSLut17oWkmQ13N72Tc=;
- b=s28hwR+umgUiSCuflwtPbUwxBVYdhEbcjoem6EWF9T9HX1T5T5KLISxflpl0HeOIT0
- p9oN0dqq52sCJPBaFerqa8HTZhicdaQb+coILTRwW9rSZ5UxrHWG4SPthSQ4O/HVAvJu
- ff+gErKsXb9dWN5bSp9i9nDne8D19S/gyg6SoWL7uP+OtcRkbulpZWXGopotXKhPPkTD
- ZIM+aHSoQ8GSW4Zw4NE4B8cLpCqbprH/cvMalJDHR3vCn5PYH3o1AhRpSVc/53ixlE3H
- lB2WWOGeFJJBQN1RORJck9CAFbIxhDt01lk9qntXtgQEV2sTgVyjkC8VGU3fSRaw/DU9
- wqYA==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C07A10E1E0
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Sep 2025 22:20:46 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58NF5swc014904
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Sep 2025 22:20:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ XCqgOa0zMg3bAGkPnVwXTeYirB6xruRZWHedTA8lg7c=; b=F/h0kwTpuzKJK9Si
+ C/vHQHBGXHXHcpUGOYGpWXmSYEgDE3kQXgXBZXjBZRqWKVAwdmfXBOk1F1Kmsirm
+ uEAScIhViYBsKBb6KarpaHr+0uWwz8czX2/9RqgY1YDFmb+ej+4IgAEkOz2hg506
+ RS0z876GscswgrouDyiwKBaZgIRbYbAL3aliex+xmh/gfvERGfOJQTaZrB6/X00P
+ zFoFuaotLPLHPa+lrD/ynOGx9YOBRvpa2+pYbQK5vtLiHMjQztJJ7kBYhJ6XJg5o
+ hhTbqhVIKPDW53cHFvasOg3/LupMjWsBw84aysd/4Oe9OBpQhYAsWnX7AXzwxWYP
+ hwQG9Q==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49b3kk64x4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Sep 2025 22:20:44 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-b55735710f0so689670a12.2
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Sep 2025 15:20:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758656136; x=1759260936;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qdwjSx6yqDrwznedzComO+rifSLut17oWkmQ13N72Tc=;
- b=EYJ90rZsRiA6hFViUQVTaxC/Dq62sgTBhhLd3koR0fsS5wXxPpsz9SDx3Tw6wMFbRv
- drT7bMyYLTfd2QttJl2+Sy/b75+G8kKVPgAJFmN7+gAIU4j0eneRwrs0zvOzkODaWJ7P
- DM7o44akDSAkr9ElHTul+VN8orT0bRHLKj8hOG28VFF7kMR5JDAnUxtaknKdzCvvsqMJ
- EibLkn77iOnalZ2Tj+e5GzdW8qcgZ8ZQVxVq03AGhWcJOlbfpuNN56zlrZT8NvCcGypB
- 4iOpUIgTJncdYBaOsZS8td2+6xrBFlfAt4c7cM4DAJxfk4iimWig4eV3JUqikjepCLKW
- fkLg==
+ d=1e100.net; s=20230601; t=1758666032; x=1759270832;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XCqgOa0zMg3bAGkPnVwXTeYirB6xruRZWHedTA8lg7c=;
+ b=E07NUYPfA9mUxDbs6Wl8pPCybDqfWgVk+Ruysyb5dmVGvJu7BUvmAoiJ8EUys4jdBd
+ aek2pHwP1NoP2jFZ9qAOACfwgrJqGNp9+YU0iqBbsIvwG3KrvZw915J2Y1YDQp0dVeXz
+ T54CiKXljEb7PKcTorYPurQa44rSjlX76OQpxYM9Djjvz+NpZGPIVn/1SKiHxznlJ+/3
+ NghwLc7dCYkG8Knpl6LqZCAA0OwLgqDsnyWeiNPAx1ILn0vH8omh+J7zDPpTMf1Lgb7z
+ YQG0g2nNNSf8ebZukOg2xAMZYMYhMFWrr2xg8H9VSRPacSbeMu7uGtelQf9YvHw25gd/
+ ha5Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBycDojl0Fz5hDH349BCZoF3KJS496+6RZP/epTfOk9lc69pjIRK7aXVfjahVY74FdArQpsZhmsoU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz5syb1Io8BEb1TcegxwZZgjgax+6aQdW8/kSoJsdZNoKhECV4z
- iEtiMpWYliPxH0x8JIh4rxdtpdLuOss8EL9CDxLcKfn+b9kXgpA1RiE5mhLUpW84a2s=
-X-Gm-Gg: ASbGncvHUqumAlEKHH7uLvSmg1mlL2VIZHR/E70qL9ioQ8CYHFORVpzOT9RcR6t5FCs
- ULH+Vqzs3XgwBdvzzAdhLWxNTxigewxiLwOpouJMaMzisahumFk8I9ShgErvJC52d5aPFO7mqUS
- DqXDItK9YgHbLMH1JCgUJV+igpusnP9sIYp0WPuMTu5lbTYOJVOS4g6p/UeHBoABm3oPGnPf202
- A2Rg9fy2y7zul8dzlfYHiRzmShd6DBm7mV6ESWAylmjVbaR5hqxO6McIT5u9Xzjmus4WiOknP3h
- KhnB5PTXUMLDSWWbvSxZxYtN5f6IbwFFZ0u11iKgWs93bbBDzhkzHNIWL55LHwcNBQssPP9/IvM
- T0Y6ga1Ym18BvQfdp8iyeTj8y3PM3voV8
-X-Google-Smtp-Source: AGHT+IGlCvK6yuqIUQUFOgGwHK0uqqneA6mTN1hmeGJkoLmdyjKHvGizIk+emNFkQbBfTqMzUbXl5A==
-X-Received: by 2002:a17:907:d25:b0:b0e:8cd4:e2d3 with SMTP id
- a640c23a62f3a-b302705ebc2mr337045066b.19.1758656136185; 
- Tue, 23 Sep 2025 12:35:36 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff21:30:bd4e:c20d:5910:982f])
+ AJvYcCVZ4LvWgFp0vAX3XVX5j84tCinHm1Kofu/iusFKgeaREQNy5Y93W/JJl/bQ9VPpzR8sS5w7Z6P3mxs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJ43GzoS8FEqhuB81pgcHBveJzRqqdGc8ecpkN3E5aIFn0fqcG
+ va3XwbfLH5S2MVJelEK/l9HvPYWR2PFgf33TgITiz2IhnZHsFjlnJrWNDU3ZCzIcYwy9YCgEcy/
+ YomDsthmQTkK83fIAfkIPTZ06WpLKDAcZ9NRPT/C9xtzzcQCPnCqfHb5RAssPUARAt5kaULs=
+X-Gm-Gg: ASbGncvo3jQpboD2/quD1uU0xRejcz+fW2yFwGNdp9iRfJWyKn9lYpbjluvdutwyfQh
+ RCK1tZDGgQHDArBQdtQPDs1+0sfHaKLcPP3zOtzNwAmf3zg3T2DoGMxQvn+ZJXML4gR+yES1xZd
+ yVdXtakkcOsh7z6uMs84idZFF5e5UhpKNeu394ICozNU7UeZNCn1oxzMx/jG57jVvITOzP1PqLN
+ P5APk0O0iBa2A5Sf9UxNFnJZ+eKh8J+B7Ue8q3KGwiVizsL/EYUq4yg7NaipkqRoLjw9b5K8SW4
+ Y5Ehj498nD/HmI3Ww+oF30N+019anDSwtIxSO+uqOZoB4RS+NNoefw2pnPcgXktr3U9Hc7CMXA+
+ ZBgSo4Kvt0W5IfHQuVTPiFg==
+X-Received: by 2002:a05:6a20:72a7:b0:2cc:692a:3a2b with SMTP id
+ adf61e73a8af0-2cfdcfefdcbmr6109109637.16.1758666032112; 
+ Tue, 23 Sep 2025 15:20:32 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHrs2A71G+cFUsubAv+Vc1pQAa4dVVMm+2irnjFOxF6C7V/RXWnkIMo3dVaiu2z3htTxPtYpQ==
+X-Received: by 2002:a05:6a20:72a7:b0:2cc:692a:3a2b with SMTP id
+ adf61e73a8af0-2cfdcfefdcbmr6109080637.16.1758666031687; 
+ Tue, 23 Sep 2025 15:20:31 -0700 (PDT)
+Received: from [10.134.71.99] (i-global254.qualcomm.com. [199.106.103.254])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b27217f616esm995766666b.72.2025.09.23.12.35.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Sep 2025 12:35:35 -0700 (PDT)
-Date: Tue, 23 Sep 2025 21:35:31 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
+ 41be03b00d2f7-b554aa612e7sm6897265a12.8.2025.09.23.15.20.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Sep 2025 15:20:31 -0700 (PDT)
+Message-ID: <19bf97ed-3cb7-4b69-8d54-3cfef15f93f8@oss.qualcomm.com>
+Date: Tue, 23 Sep 2025 15:20:29 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/dpu: Don't adjust mode clock if 3d merge is
+ supported
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/msm: Fix GEM free for imported dma-bufs
-Message-ID: <aNL2g40S03YUs9wR@linaro.org>
-References: <20250923140441.746081-1-robin.clark@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250923140441.746081-1-robin.clark@oss.qualcomm.com>
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abel Vesa <abel.vesa@linaro.org>
+References: <20250922-modeclk-fix-v1-1-a9b8faec74f8@oss.qualcomm.com>
+ <cjoxzwkvzjv7pqelcxcepafanauxjt7p5b3qevjdr5bsomifce@i67l2hzavctj>
+Content-Language: en-US
+From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+In-Reply-To: <cjoxzwkvzjv7pqelcxcepafanauxjt7p5b3qevjdr5bsomifce@i67l2hzavctj>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: y3xmzp4E2BuiUV9g6RNjajygAbLMD8oz
+X-Proofpoint-ORIG-GUID: y3xmzp4E2BuiUV9g6RNjajygAbLMD8oz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTIyMDA4OSBTYWx0ZWRfX02ipquzfw0V9
+ dBRHC/w1iCb3f4XDeGE+N4GQQ+Ox8pFEDl/r3KghwBefi/W7aIyjUgt1xVjmKH4LhZ2vdMMS0P2
+ KtPq4WNK+Qrn5QaOw+mLrwmbv8SZWNrvU1rgEY1wgHIFdjUw7eFVUSmA92u+m9/8h/0DTlbNkYx
+ bJvR9/Vh04XKyySDbl8RjhIv2JnvTVdTdJ1pWoT5WaC1SYZLwnGpdH+dQzs0P7iunHNxUv+RhZS
+ B5GiMWxwk9fXiGZhElXCflpQXYRMEZGW8Zfh8plz4SIJ6CBqpRcnAeKcs1tRUmc5iLmT4QisULm
+ 6JDKZ+ndyTWq9aO1BSXjxiYQHYj0d+vrOsdcK2iBrtHnlVTyY2fBCXzTnNXAIYFocdIq+K6HNu8
+ Ce1kH2u+
+X-Authority-Analysis: v=2.4 cv=BabY0qt2 c=1 sm=1 tr=0 ts=68d31d3d cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=1kqHEmTGbaOex8fRdXYA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-23_06,2025-09-22_05,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 bulkscore=0 priorityscore=1501
+ adultscore=0 malwarescore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509220089
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,92 +131,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 23, 2025 at 07:04:40AM -0700, Rob Clark wrote:
-> Imported dma-bufs also have obj->resv != &obj->_resv.  So we should
-> check both this condition in addition to flags for handling the
-> _NO_SHARE case.
+
+
+On 9/22/2025 4:50 PM, Dmitry Baryshkov wrote:
+> On Mon, Sep 22, 2025 at 04:32:39PM -0700, Jessica Zhang wrote:
+>> Since 3D merge allows for higher mode clocks to be supported across
+>> multiple layer mixers, filter modes based on adjusted mode clocks
+>> only if 3D merge isn't supported.
+>>
+>> Reported-by: Abel Vesa <abel.vesa@linaro.org>
+>> Fixes: 62b7d6835288 ("drm/msm/dpu: Filter modes based on adjusted mode clock")
+>> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> index 4b970a59deaf..5ac51863a189 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> @@ -1549,7 +1549,8 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+>>   	 * The given mode, adjusted for the perf clock factor, should not exceed
+>>   	 * the max core clock rate
+>>   	 */
+>> -	if (dpu_kms->perf.max_core_clk_rate < adjusted_mode_clk * 1000)
+>> +	if (!dpu_kms->catalog->caps->has_3d_merge &&
 > 
-> Fixes this splat that was reported with IRIS video playback:
+> Well, not quite. If 3D merge is available, we should allow 2x of the
+> clock, instead of skipping the check completely. I don't think that we
+> should allow 8k or 16k just because the platform has 3D Mux.
+
+Hi Dmitry,
+
+Ack, I'll fix the math here.
+
+Thanks,
+
+Jessica Zhang
+
 > 
->     ------------[ cut here ]------------
->     WARNING: CPU: 3 PID: 2040 at drivers/gpu/drm/msm/msm_gem.c:1127 msm_gem_free_object+0x1f8/0x264 [msm]
->     CPU: 3 UID: 1000 PID: 2040 Comm: .gnome-shell-wr Not tainted 6.17.0-rc7 #1 PREEMPT
->     pstate: 81400005 (Nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
->     pc : msm_gem_free_object+0x1f8/0x264 [msm]
->     lr : msm_gem_free_object+0x138/0x264 [msm]
->     sp : ffff800092a1bb30
->     x29: ffff800092a1bb80 x28: ffff800092a1bce8 x27: ffffbc702dbdbe08
->     x26: 0000000000000008 x25: 0000000000000009 x24: 00000000000000a6
->     x23: ffff00083c72f850 x22: ffff00083c72f868 x21: ffff00087e69f200
->     x20: ffff00087e69f330 x19: ffff00084d157ae0 x18: 0000000000000000
->     x17: 0000000000000000 x16: ffffbc704bd46b80 x15: 0000ffffd0959540
->     x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
->     x11: ffffbc702e6cdb48 x10: 0000000000000000 x9 : 000000000000003f
->     x8 : ffff800092a1ba90 x7 : 0000000000000000 x6 : 0000000000000020
->     x5 : ffffbc704bd46c40 x4 : fffffdffe102cf60 x3 : 0000000000400032
->     x2 : 0000000000020000 x1 : ffff00087e6978e8 x0 : ffff00087e6977e8
->     Call trace:
->      msm_gem_free_object+0x1f8/0x264 [msm] (P)
->      drm_gem_object_free+0x1c/0x30 [drm]
->      drm_gem_object_handle_put_unlocked+0x138/0x150 [drm]
->      drm_gem_object_release_handle+0x5c/0xcc [drm]
->      drm_gem_handle_delete+0x68/0xbc [drm]
->      drm_gem_close_ioctl+0x34/0x40 [drm]
->      drm_ioctl_kernel+0xc0/0x130 [drm]
->      drm_ioctl+0x360/0x4e0 [drm]
->      __arm64_sys_ioctl+0xac/0x104
->      invoke_syscall+0x48/0x104
->      el0_svc_common.constprop.0+0x40/0xe0
->      do_el0_svc+0x1c/0x28
->      el0_svc+0x34/0xec
->      el0t_64_sync_handler+0xa0/0xe4
->      el0t_64_sync+0x198/0x19c
->     ---[ end trace 0000000000000000 ]---
->     ------------[ cut here ]------------
+>> +	    dpu_kms->perf.max_core_clk_rate < adjusted_mode_clk * 1000)
+>>   		return MODE_CLOCK_HIGH;
+>>   
+>>   	/*
+>>
+>> ---
+>> base-commit: b5bad77e1e3c7249e4c0c88f98477e1ee7669b63
+>> change-id: 20250922-modeclk-fix-a870375d9960
+>>
+>> Best regards,
+>> --
+>> Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+>>
 > 
-> Reported-by: Stephan Gerhold <stephan.gerhold@linaro.org>
 
-Tested-by: Stephan Gerhold <stephan.gerhold@linaro.org>
-
-Perhaps also add
-
-Closes: https://lore.kernel.org/r/aNF6N8u1VIFSTaRM@linaro.org/
-
-when applying.
-
-Thanks!
-Stephan
-
-> Fixes: de651b6e040b ("drm/msm: Fix refcnt underflow in error path")
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/msm_gem.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index 9f0f5b77f1bd..3aea9b493375 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -1121,12 +1121,16 @@ static void msm_gem_free_object(struct drm_gem_object *obj)
->  		put_pages(obj);
->  	}
->  
-> -	if (obj->resv != &obj->_resv) {
-> +	/*
-> +	 * In error paths, we could end up here before msm_gem_new_handle()
-> +	 * has changed obj->resv to point to the shared resv.  In this case,
-> +	 * we don't want to drop a ref to the shared r_obj that we haven't
-> +	 * taken yet.
-> +	 */
-> +	if ((msm_obj->flags & MSM_BO_NO_SHARE) && (obj->resv != &obj->_resv)) {
->  		struct drm_gem_object *r_obj =
->  			container_of(obj->resv, struct drm_gem_object, _resv);
->  
-> -		WARN_ON(!(msm_obj->flags & MSM_BO_NO_SHARE));
-> -
->  		/* Drop reference we hold to shared resv obj: */
->  		drm_gem_object_put(r_obj);
->  	}
-> -- 
-> 2.51.0
-> 
