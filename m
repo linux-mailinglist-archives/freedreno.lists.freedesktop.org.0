@@ -2,130 +2,117 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DCB7B9C198
-	for <lists+freedreno@lfdr.de>; Wed, 24 Sep 2025 22:36:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC5AEB9C449
+	for <lists+freedreno@lfdr.de>; Wed, 24 Sep 2025 23:25:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32E1510E7E1;
-	Wed, 24 Sep 2025 20:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A490610E7F4;
+	Wed, 24 Sep 2025 21:25:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="d+OE44W9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AJjVsTMY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [63.176.194.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C54F10E7D5;
- Wed, 24 Sep 2025 20:36:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758746205; x=1790282205;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=k0dUe76w+6n5/NfsPbyefGVCom+xh3GGcFcV3Olhmks=;
- b=d+OE44W9jbByL1hmHCwkV5URh82L0Uyf9V1a8NtfmvuPDDO60bHaZxBB
- EPQLlHlyaSfXiE/pajc/uvGLpN1VugTBZ1lXjnCur8Z0MHOMLYZkblyrb
- 3CijXt3C8vD+WwhJV611mK2DVKKs50EYZ8LnFr19f7kjgXZVpOMAB+ns/
- O3CSsVpPy7Zmgyoscx++0y6jTaxUXeZHP2dDXxe7Hr6EDkA6/F/QJ+z2K
- VjlNJ+XIZ67SHBESuCK1tV4DHHEztQuV2mdfN+XrZFET5/TDaZ+yUHhJf
- dP1ejOUQ8ky3WvdrQd2X92VUrknUiiZcQWhyZ/M1+a2mmXvelj38UntYO w==;
-X-CSE-ConnectionGUID: kb0ojWBxQquIo7b+A20p7Q==
-X-CSE-MsgGUID: 3HJY1uZTRPStEEbVVudamg==
-X-IronPort-AV: E=Sophos;i="6.18,291,1751241600"; 
-   d="scan'208";a="2631102"
-Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2025 20:36:42 +0000
-Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.226:12645]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.10.226:2525]
- with esmtp (Farcaster)
- id b27aa07b-d914-4c3d-9271-6483e848842d; Wed, 24 Sep 2025 20:36:42 +0000 (UTC)
-X-Farcaster-Flow-ID: b27aa07b-d914-4c3d-9271-6483e848842d
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB001.ant.amazon.com (10.252.51.26) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Wed, 24 Sep 2025 20:36:29 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 24 Sep 2025
- 20:35:53 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <linux@armlinux.org.uk>, <richard@nod.at>,
- <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>,
- <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>,
- <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>,
- <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>,
- <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>,
- <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
- <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
- <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <jdelvare@suse.com>,
- <linux@roeck-us.net>, <linus.walleij@linaro.org>,
- <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
- <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>,
- <snitzer@kernel.org>, <dm-devel@redhat.com>, <rajur@chelsio.com>,
- <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <peppe.cavallaro@st.com>,
- <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>,
- <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>,
- <malattia@linux.it>, <hdegoede@redhat.com>, <markgross@kernel.org>,
- <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
- <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>,
- <gregkh@linuxfoundation.org>, <fei1.li@intel.com>, <clm@fb.com>,
- <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, 
- <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
- <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>,
- <pmladek@suse.com>, <senozhatsky@chromium.org>,
- <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
- <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>,
- <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>,
- <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>,
- <ying.xue@windriver.com>, <andrii@kernel.org>, <mykolal@fb.com>,
- <ast@kernel.org>, <daniel@iogearbox.net>, <martin.lau@linux.dev>,
- <song@kernel.org>, <yhs@fb.com>, <john.fastabend@gmail.com>,
- <kpsingh@kernel.org>, <sdf@google.com>, <haoluo@google.com>,
- <jolsa@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>,
- <wad@chromium.org>, <willy@infradead.org>, <farbere@amazon.com>,
- <sashal@kernel.org>, <ruanjinjie@huawei.com>, <quic_akhilpo@quicinc.com>,
- <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
- <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
- <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
- <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
- <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
- <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <stable@vger.kernel.org>
-CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
- <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Pedro
- Falcato" <pedro.falcato@gmail.com>
-Subject: [PATCH 19/19 v6.1.y] minmax.h: remove some #defines that are only
- expanded once
-Date: Wed, 24 Sep 2025 20:23:20 +0000
-Message-ID: <20250924202320.32333-20-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20250924202320.32333-1-farbere@amazon.com>
-References: <20250924202320.32333-1-farbere@amazon.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F96B10E7F5
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 21:25:58 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58OCSw7K025075
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 21:25:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=/q7ck5ZyxDPq0cljoMqHt8gL
+ Qtmb0+gJMZIvbJmIoeg=; b=AJjVsTMYWe8KNtGxUliteivSdRkvmVN37VkR8vQF
+ 81Lr7iwa6AFnulnbbWu+5Oeqs0JVdbxizZ7SbK6cXDLnHiMCvM89NE3m3c83QY9B
+ D7mGjjnRSzaVRTHUqZ56u3PTtxTXR/qlHdU89+HWgbnme0gCCt7f4hfti9q1r4KR
+ 2YcapPTFg3cizBULbi7I25kjZ451aa7wEkWTUWydbSWqTyQ4amxLfEk7O0Q3XA/o
+ s1Bp6k7brfs1hdpi6/hf7sP/vTkC2V5Q2MVmNPq0WdXr8KUgKJDQJaTgOTt+RvaK
+ k+AE9gYXmECSk95qhMes4YN0gcRbryckYbSQGagVlI92Rg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 499hyex41s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 21:25:57 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4b793b04fe0so6689131cf.3
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 14:25:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758749156; x=1759353956;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/q7ck5ZyxDPq0cljoMqHt8gLQtmb0+gJMZIvbJmIoeg=;
+ b=VGi4AnQ65304Qum218An2MR5EBlqImGxPiPUSKlplK00WzWHjlAnuym8/LkSXpzB1S
+ HT7f1FJ02nmuUd7w9mxRxq+Twx5gaq+Xzb4lGvIZjTfHvwUSieSeuqZNwKUYlhMf2NkQ
+ k/Z5fvneIoyQ62bQMCxZrdkarQC/ROLNRcsTvhrTCZI6ysYoQ/Ru7p+mHDO62Er0BeVc
+ LmLd5Fyu48s3qEsHkMXkn5UhK6JwLu2svSIlJByLzMBrNz39makanAhoiGLTPZZNrzS+
+ FizzJlcuu9sGrx/tOKLRqAoE491fkdM4o2xVokmCBYFqjxnAqL+1PKk17Tx6xERs8vEW
+ A2Rg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUh3/WypDlUHU2rQIj+EOOYgzp4g3IrKh4Jt6F9x3QN1ccxg6ORJnaDW+Twt1LO49R4gemWRHJok28=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzF8o6N3CkXYRwUq2mkEL+kGbGDlS19hg/x5JtR5+dni186IiR8
+ yCi9ylibL/MsTT5DD4NYHmxcr5zmnFZy+JCz4k9GCQPyzsniqqL6AKrYi0BHAZDb8sYPQvgepZu
+ tfcSBH2PueooHq4AxHVmlYIlBHSkW5YF2SokNs+tb9W//gGf6/O4+BdMs1VSau/FiOLB4JJ8=
+X-Gm-Gg: ASbGncvU8Sq3YQ6LY/T2vc2wZVUTZqJMROlY98jE/ODFpIsMaYOip/uUOX6o0zYcsDm
+ 3ODsqpYU3Uw04twleZ0uvXAaBxr67AZF8IDn4fA7HIcjECfr9j2CbfSG2DEe7PBAkFoywA26SWm
+ 9uoe2lfpZ/1IjB4jShYuxtOSdt1rl1RoZQ12Tlu83WeVYwRFkH6/yR4zh0Wo6YJ1lIqKhRXelN1
+ LJ0K+rVFoLbT84Y+vONdPOlddgaFLTDHkrXP13N7g2tgOrBXFwRyC2dFkbw8vfsNEJm6LbQwVQW
+ AFSdIKb97PMsfCAaNNZCLgWLOayINuqjxj+QxSmNPG/V++RLUAG9zcRzoIDbTxM8uwwUOf5G2lB
+ m3zX5JOmKo3wJhRdZ4zkVeAxZQ+lsOuEpnKMoO3YofisBaaBwA5sQ
+X-Received: by 2002:ac8:7c42:0:b0:4b7:aaa2:c8f6 with SMTP id
+ d75a77b69052e-4da4b42c83cmr16927701cf.43.1758749155799; 
+ Wed, 24 Sep 2025 14:25:55 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFa2soASBumvR1Wp37An6aFpQ1N0R0qrYSFiiAAmklOZuBLiBN8NvuSKWYrA3++YveaEu9QLA==
+X-Received: by 2002:ac8:7c42:0:b0:4b7:aaa2:c8f6 with SMTP id
+ d75a77b69052e-4da4b42c83cmr16927471cf.43.1758749155363; 
+ Wed, 24 Sep 2025 14:25:55 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-583139f9915sm33226e87.39.2025.09.24.14.25.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Sep 2025 14:25:54 -0700 (PDT)
+Date: Thu, 25 Sep 2025 00:25:52 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abel Vesa <abel.vesa@linaro.org>
+Subject: Re: [PATCH v2] drm/msm/dpu: Fix adjusted mode clock check for 3d merge
+Message-ID: <3h57fefla2kv5mh2fmldma5v57do7uohljnzyd2pnkpsdugxle@ylqizvhtril5>
+References: <20250923-modeclk-fix-v2-1-01fcd0b2465a@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D046UWA002.ant.amazon.com (10.13.139.39) To
- EX19D018EUA004.ant.amazon.com (10.252.50.85)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250923-modeclk-fix-v2-1-01fcd0b2465a@oss.qualcomm.com>
+X-Proofpoint-GUID: ezQ6KO76GWJ5PVXFJqcXXeog2tiMaVwq
+X-Authority-Analysis: v=2.4 cv=YMOfyQGx c=1 sm=1 tr=0 ts=68d461e5 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=1bp3yVi2_WrJ7BMISZwA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTIwMDAwNCBTYWx0ZWRfX994tUVKR2h6a
+ 28HWqy+ZXwGIRSOfPO5cvvF0n6/KzP65DO7UGwKo9LtY/ylPSkX+QYbeBbOq9FJoeRTOW79vIvJ
+ D2f3zVz9r8WWi0jSG7wxxCGnBrAQN9+fb3IgLFkdQsDKc1zsMS41SqEaahpXb4Je0c33WvZ2IGw
+ oPPWQwlxA7d1gBAZiyEatm3vKCMR+DQ+CPcsMPKfxfGYh48nxxHIL/vQNs6aptnMe6XgPUHF1I0
+ TunDMbaRDFTnA1vo0YNYLmrqyRyBdi6Y4Stbqzdjo75/w1odKzEwjXZsFpWV4j0J4yO1Xo5Yz71
+ 9jq881waOvdsWlY1qwarDNuT9is2rK9ztESzSbZbxSrq2LWeMAu5BUEVHW7fqujVHVyYKAwVXxn
+ F3uzssnu
+X-Proofpoint-ORIG-GUID: ezQ6KO76GWJ5PVXFJqcXXeog2tiMaVwq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-24_06,2025-09-24_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 adultscore=0 priorityscore=1501 spamscore=0
+ clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509200004
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,81 +128,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: David Laight <David.Laight@ACULAB.COM>
+On Tue, Sep 23, 2025 at 04:03:50PM -0700, Jessica Zhang wrote:
+> Since 3D merge allows for larger modes to be supported across 2 layer
+> mixers, filter modes based on adjusted mode clock / 2 when 3d merge is
+> supported.
+> 
+> Reported-by: Abel Vesa <abel.vesa@linaro.org>
+> Fixes: 62b7d6835288 ("drm/msm/dpu: Filter modes based on adjusted mode clock")
+> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Divide adjusted mode clock by 2 if 3d merge enabled (Dmitry)
+> - Link to v1: https://lore.kernel.org/r/20250922-modeclk-fix-v1-1-a9b8faec74f8@oss.qualcomm.com
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
 
-[ Upstream commit 2b97aaf74ed534fb838d09867d09a3ca5d795208 ]
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-The bodies of __signed_type_use() and __unsigned_type_use() are much the
-same size as their names - so put the bodies in the only line that expands
-them.
 
-Similarly __signed_type() is defined separately for 64bit and then used
-exactly once just below.
-
-Change the test for __signed_type from CONFIG_64BIT to one based on gcc
-defined macros so that the code is valid if it gets used outside of a
-kernel build.
-
-Link: https://lkml.kernel.org/r/9386d1ebb8974fbabbed2635160c3975@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
- include/linux/minmax.h | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
-
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 2bbdd5b5e07e..eaaf5c008e4d 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -46,10 +46,8 @@
-  * comparison, and these expressions only need to be careful to not cause
-  * warnings for pointer use.
-  */
--#define __signed_type_use(ux) (2 + __is_nonneg(ux))
--#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
- #define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
--	__signed_type_use(ux) : __unsigned_type_use(ux))
-+	(2 + __is_nonneg(ux)) : (1 + 2 * (sizeof(ux) < 4)))
- 
- /*
-  * Check whether a signed value is always non-negative.
-@@ -57,7 +55,7 @@
-  * A cast is needed to avoid any warnings from values that aren't signed
-  * integer types (in which case the result doesn't matter).
-  *
-- * On 64-bit any integer or pointer type can safely be cast to 'long'.
-+ * On 64-bit any integer or pointer type can safely be cast to 'long long'.
-  * But on 32-bit we need to avoid warnings about casting pointers to integers
-  * of different sizes without truncating 64-bit values so 'long' or 'long long'
-  * must be used depending on the size of the value.
-@@ -66,12 +64,12 @@
-  * them, but we do not use s128 types in the kernel (we do use 'u128',
-  * but they are handled by the !is_signed_type() case).
-  */
--#ifdef CONFIG_64BIT
--  #define __signed_type(ux) long
-+#if __SIZEOF_POINTER__ == __SIZEOF_LONG_LONG__
-+#define __is_nonneg(ux) statically_true((long long)(ux) >= 0)
- #else
--  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
-+#define __is_nonneg(ux) statically_true( \
-+	(typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L)))(ux) >= 0)
- #endif
--#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
- 
- #define __types_ok(ux, uy) \
- 	(__sign_use(ux) & __sign_use(uy))
 -- 
-2.47.3
-
+With best wishes
+Dmitry
