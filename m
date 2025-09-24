@@ -2,96 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6572FB9A792
-	for <lists+freedreno@lfdr.de>; Wed, 24 Sep 2025 17:08:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F9ECB9B28A
+	for <lists+freedreno@lfdr.de>; Wed, 24 Sep 2025 20:02:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E43110E750;
-	Wed, 24 Sep 2025 15:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD50610E7A8;
+	Wed, 24 Sep 2025 18:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ICD0vnNK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aIsBhjhf";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F05B810E751
- for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 15:08:49 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-267facf9b58so50846735ad.2
- for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 08:08:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758726529; x=1759331329; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Mtm7YfP7BSI3RTZ9+FG8XqmZhlh22m357qfVk/qkxE8=;
- b=ICD0vnNKu2dtpNpU2YxV/VUHAdK7g1p6tU3YjDmGLB2OxjEQNSYCpqFWqLcziZLCwS
- c50tlOEo2o+Q5olB6MrVh7vriMBIS1CTcWJc8LTJ51oXV6FhceqOgJl9wyqFxXSSR/h6
- tyGw6YuoslmURVI32FEmb+edjOr6pfPvT4J6SXoM3FlV/B2O1GxK6mCEWherRV0YJ3Ru
- zsAexAinfVnTrsf95FNvYtfKFZuPUOt9YrwnxjAhCuUu/zoxYK6lK67wb3yhYR41QVcD
- pYy9TQAyVnLf4L9GhEW4um+WFEF59FAvFy3L/JPchVkhKTU6VOPQMT0CPyDyroWjalLl
- SzaA==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5544010E7A8
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 18:02:09 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58OCeVUq023770
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 18:02:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=pSWUBIP6OFTuLo6Z1De8G0wG
+ CS7yFi6QHVszeQXIBZo=; b=aIsBhjhfmw75Lj2UmgwSjfiFQSyC5lTNEa0QzADr
+ I0Tw8NoUyj6lGB7TDddj++G/U+DD2v5KJy2F54bHBz6sIl0qqPiTu0LUPguebZCO
+ mdd1IVWYJ8PTVjddsRt+ZWR0RSF/+rpSBB4LiPz4svGae6c8SUb2wl9yVKjIgwmN
+ dLr8f76/SfC1vtlC1yuXUHimv/4VhYGm/tGPp0ecxxZtgINrHwwUPD7c2KMmXVQv
+ gPbqgkvtvcHfYPaBUhc36zcXniMG46eZ44RpQ7wNVWfuIPB5sdEw07SED3b4TGGh
+ BB5qrISaYMPG5hrwvJqDgmlyq52/jBkZtr4FZBh9y8pnNg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49bwp0caxh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 18:02:08 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-268141f759aso638515ad.2
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 11:02:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758726529; x=1759331329;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Mtm7YfP7BSI3RTZ9+FG8XqmZhlh22m357qfVk/qkxE8=;
- b=kD19/w4VovSlpRUCKdMN3hC81oC8uGnik4q9ICteiXmwUzMnDwjV0gd12B+kQWhBse
- 6gogiJ/Ot0mVs+1/JIPalHsVziCg7kuPb29RK+PmI7/u1ZtJVP3KoetJX/xy2NNmgshv
- j7ZJ4e+W/0FsyzxKTw5lGJTKbwa1Q1YqqgWVgwBdmpu8rTIvmq88c7z+opJ8kzv1ZJQd
- U2L2+ti4eirJbbL+V/NLF1zFDkuQ8hJLPjXwrRmu8NsE3/Uo/FQzvvPZwpHBfNbXgTbv
- hITzRW3gUFfbpvUeiZRCZTiOZwoYLdtf8WZnbkHZlWIp6QUKuwB8RRVNijyyFXQ3gf1R
- rhhQ==
+ d=1e100.net; s=20230601; t=1758736927; x=1759341727;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=pSWUBIP6OFTuLo6Z1De8G0wGCS7yFi6QHVszeQXIBZo=;
+ b=oSuePw/Fg94KftUGWI20dgIhO2PxIQLNMv+eCu2SfFyHtNMcYIlpVZ/hjC673n7wb2
+ fhFGwKndHVXX/ilHez0jHGUKMYZJ+d5+fYrVjoFXm2roQ0cHWKijXR/5Y1jjOu1MeyUJ
+ 5tUNa1Ymy4GYVEHO3D8cIScP3cyGbv6yyANCevN3diRPXIy1lu4iKOUglJGiMmZ/w8xA
+ b+T5EC9EhuKEnw9j0EgPXsXQMpvQF7R6U8r2H9Q8gf9BaFbgt5jn1ps7w5PxxuMVB95t
+ hPddQLhbGJHYkzxhqxWKB6Rc6rMmQoQpbG/eYJLi3z4MLgkyC1AcKGX0rh936DxFygwh
+ 7pIw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUDybYCaJJS5vM5JNU8Mz0pZTneyC8NILS3HQCEEuU25uqdyWNUMIQH650LUQrEHu+wkcsS76lmx/8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzzR9uYQqgj65s8B6qNjVECNpUslaUDs7YV0lUzgWdRp7VJZeGa
- xHlUjCUEMlJjIP+K+2IMsgbvJGPN0eZQi3RayWk20aZ2PId8iJ3ub/hwk/u7vxiWjKI=
-X-Gm-Gg: ASbGncv6G5XEpu6Couk31tga0gKYOI8A6Qgin0luZoTlVPREPDSxJAK0mvGwX7z08gV
- zZGEDdH3OWkS28bDfOPOzpugwfBMi/0k2DJElGQMpYa81emdjxWe8AejevJnRzleqXWDk7MwxYa
- H8NLB7DY/kwJl9/s0I5gvTWMqVaWLjRL8vAwkZ05z0suVlBS8ibjc4rZkrfAGsvp5XmsETe9k1h
- nXDDfR+UeoEuDn/j5PAS2Pe4F2Tjxt2nGulDOAfF/5yWb70Hiijgo9zpBVdCH2tT7yLua+bR17S
- qTpZQJBeAjbSeios5Fzg3GYkWeZD+vO1EGJLd6V4yx6ggzBc6MqjW/NRHUIJqZzCnIxls1MmH7Y
- S5SoAZPoRibjVGqT6
-X-Google-Smtp-Source: AGHT+IEEfbkQbo6VyHZL6DNe6uKS5V8miS4VoGJIvm14SbYPZxktKLOnaj7fLoQ1xnJPrs48EB5euw==
-X-Received: by 2002:a17:902:c409:b0:269:96db:939 with SMTP id
- d9443c01a7336-27ed4af3882mr21675ad.58.1758726529408; 
- Wed, 24 Sep 2025 08:08:49 -0700 (PDT)
-Received: from [127.0.1.1] ([112.64.61.5]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-26b59d6538bsm158717445ad.82.2025.09.24.08.08.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Sep 2025 08:08:49 -0700 (PDT)
-From: Jun Nie <jun.nie@linaro.org>
-Date: Wed, 24 Sep 2025 23:08:12 +0800
-Subject: [PATCH v3 3/3] drm/msm/dsi: Support dual panel use case with
- single CRTC
+ AJvYcCVMSdHZn8Zp7TXb0NM/YTIbXFbQ7f7QoOrZx/woxjTZwE7cnEu6Vr/zOTyLeCQc7JZ0g1D8dBHe/78=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtNjNBiy/k2quxdtbzuxKbx8cw7wc/MICAgFct+f6cnp9UepvO
+ 48er5UzBieT6yoYZuTkis9P9++cPb/nOGm1P801mZoSKzNpG7g6zds8zqNFGbH2iAi5AwtTv8cj
+ CIHQEC9NqgpaWDTJ+beNbpPuEEzA++mzQw4FtSY4Qbz1KWClPjCbkmQLV0RyD6+jau8sY/YS0Nl
+ lrDYwUlQaCzQ1wyXI4MKnt+8dvdkXu7PQXEywqcasSdgh7iA==
+X-Gm-Gg: ASbGncvkVZkdDt69NGUFzQyQ9YmhhTUkhs1zYkMDsMo0C4jOFYn+m22/6jEfW8OY+tF
+ LfMl4e+xCSsYwfTZQPuc41jvCFXBvKSVIsOryLDqoThtY2XtGczu02Zd8OctuC59GL7gtTYi3H+
+ DPMrDs+Ig9XcpgNMbXL1+Vht8LLZbaWz/ovnjc7jdQTXgR5VYfilizKA==
+X-Received: by 2002:a17:902:fc48:b0:246:80b1:8c87 with SMTP id
+ d9443c01a7336-27ed4a4974fmr8989625ad.43.1758736926921; 
+ Wed, 24 Sep 2025 11:02:06 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF5VmtuJaJ4FUTe+FfHtk0uwoMs69qvC4ZVktOshLxRHet1WOOLGg/pw6UxmNBmfwikkG9MfLRfsTbV6YrLk6w=
+X-Received: by 2002:a17:902:fc48:b0:246:80b1:8c87 with SMTP id
+ d9443c01a7336-27ed4a4974fmr8988525ad.43.1758736926053; Wed, 24 Sep 2025
+ 11:02:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250924-dsi-dual-panel-upstream-v3-3-6927284f1098@linaro.org>
 References: <20250924-dsi-dual-panel-upstream-v3-0-6927284f1098@linaro.org>
-In-Reply-To: <20250924-dsi-dual-panel-upstream-v3-0-6927284f1098@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Jun Nie <jun.nie@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1758726499; l=3407;
- i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=uv//tTQkdWUOMylUjOz31Zc7MGTY0kN4NR2rEqP2pKI=;
- b=cbwhi38kXfeCUrP4iZc3vGzSS+7SXsK87SMxbLuZ9SDfEikysPiAQH8mgdl2o1BXHWxilRTI6
- p1c+UJbkOexAxVBPSqmtKoMbjP0ZBRrXe9yAPnK5V74UKYdfcPyy0MI
-X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
- pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
+ <20250924-dsi-dual-panel-upstream-v3-2-6927284f1098@linaro.org>
+In-Reply-To: <20250924-dsi-dual-panel-upstream-v3-2-6927284f1098@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Wed, 24 Sep 2025 21:01:54 +0300
+X-Gm-Features: AS18NWCTdNjmJ2KpP_0NKcgbLpYWYdnYEoHnk-FxT_mIPh1RGl91Lr1OC3FQLOM
+Message-ID: <CAO9ioeW2AHDM3KSRu-WOvy+1De9tqfhrCNozw5Wkh=CJDHxFYg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] drm/mipi-dsi: Add flag to support dual-panel
+ configurations
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Authority-Analysis: v=2.4 cv=KNxaDEFo c=1 sm=1 tr=0 ts=68d43220 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10
+ a=KKAkSRfTAAAA:8 a=JmB1tVOSonE3mgEak7wA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: pY7OltVnPxci88UTu3A2lsQHzgsyJC5m
+X-Proofpoint-ORIG-GUID: pY7OltVnPxci88UTu3A2lsQHzgsyJC5m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTIzMDEzOCBTYWx0ZWRfX0eEtP6glSTRM
+ Hd3OEDnU7frMM+8sglSyhGFiLdJsVdmWvzLY5KaX63gCCR9l/oMkkYxN1e6mt20dPX0BopDmvcz
+ i4iDAMUtRv8bXnocp+NDiF+pJzyzUeS4p+vY1nGyr5T369egO5hlQcecBlpB8W2K8AkzbjijDLF
+ AtSo11LVr98Dv8bmRzJissW/alfHs9PJ6LOGEgzW+wwE4vwIK/LE21M+O9LdUmwGLFfzOEGTv6p
+ 6X3Sp+OoPEMRcMi3WuO3pWbrle/TGyjfbxuANnu7juMhL5c8+c2+42GqvZqdbOoLqPIxRNx6WxL
+ cLZXNheFvVIhdI7G+3IvtFwIUkCkdl3rsgfbKzfdHocENKWNiUWG6PBQefPe91ZnnFPwYelKsJC
+ U+0wcWrs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-24_04,2025-09-24_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 clxscore=1015 phishscore=0 suspectscore=0
+ adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2509230138
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,91 +127,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Support a hardware configuration where two independent DSI panels are
-driven by a single, synchronous CRTC. This configuration uses a bonded
-DSI link to provide a unified vblank for both displays.
+On Wed, 24 Sept 2025 at 18:08, Jun Nie <jun.nie@linaro.org> wrote:
+>
+> Some devices treat two independent physical DSI panels as a single
+> logical panel from the CRTC's perspective. However, two separate DSI
+> hosts are still required to drive the panels individually.
+>
+> Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
+> allows a panel driver to inform the DSI host that it is part of a
+> dual-panel setup, enabling the host to coordinate both physical
+> displays as one.
 
-This allows application software to treat the two displays as a single,
-wide framebuffer with a synchronized refresh cycle, simplifying rendering
-logic for side-by-side panel arrangements.
+How is it being set?
+>
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> ---
+>  include/drm/drm_mipi_dsi.h | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+> index 5a85ba01f402a3866b70828391bb417bb8dd5956..0faff285d9ffeb19e4523cdc7bf21c1ec20e6eff 100644
+> --- a/include/drm/drm_mipi_dsi.h
+> +++ b/include/drm/drm_mipi_dsi.h
+> @@ -170,6 +170,7 @@ struct mipi_dsi_device_info {
+>   * @host: DSI host for this peripheral
+>   * @dev: driver model device node for this peripheral
+>   * @attached: the DSI device has been successfully attached
+> + * @dual_panel: the DSI device is one instance of dual panel
+>   * @name: DSI peripheral chip type
+>   * @channel: virtual channel assigned to the peripheral
+>   * @format: pixel format for video mode
+> @@ -188,6 +189,7 @@ struct mipi_dsi_device {
+>         struct mipi_dsi_host *host;
+>         struct device dev;
+>         bool attached;
+> +       bool dual_panel;
+>
+>         char name[DSI_DEV_NAME_SIZE];
+>         unsigned int channel;
+>
+> --
+> 2.34.1
+>
 
-At the DSI host level, the frame width for each link must be that of an
-individual panel. The driver therefore halves the CRTC's horizontal
-resolution before configuring the DSI host and any DSC encoders, ensuring
-each panel receives the correct half of the framebuffer.
-
-While the DSI panel driver should manage two panels togehter.
-1. During probe, the driver finds the sibling dsi host via device tree
-phandle and register the 2nd panel to get another mipi_dsi_device.
-2. Set dual_panel flag on both mipi_dsi_device.
-3. Prepare DSC data per requirement from single panel.
-4. All DSI commands should be send on every DSI link.
-5. Handle power supply for 2 panels in one shot, the same is true to
-   brightness.
-6. From the CRTC's perspective, the two panels appear as one wide display.
-   The driver exposes a DRM mode where the horizontal timings (hdisplay,
-   hsync_start, etc.) are doubled, while the vertical timings remain those
-   of a single panel. Because 2 panels are expected to be mounted in
-   left/right position.
-
-To maintain synchronization, both DSI links are configured to share a
-single clock source, with the DSI1 controller using the clock provided
-to DSI0 as below.
-
-&mdss_dsi1 {
-   assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
-		     <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
-   assigned-clock-parents = <&mdss_dsi0_phy 0>, <&mdss_dsi0_phy 1>;
-}
-
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index de51cb02f267205320c5a94fc4188413e05907e6..1fddcea7f86547258be18a51a0a3e3f96f6c3838 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -177,6 +177,7 @@ struct msm_dsi_host {
- 	bool registered;
- 	bool power_on;
- 	bool enabled;
-+	bool is_dual_panel;
- 	int irq;
- };
- 
-@@ -935,7 +936,10 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 			return;
- 		}
- 
--		dsc->pic_width = mode->hdisplay;
-+		if (msm_host->is_dual_panel)
-+			dsc->pic_width = hdisplay;
-+		else
-+			dsc->pic_width = mode->hdisplay;
- 		dsc->pic_height = mode->vdisplay;
- 		DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
- 
-@@ -1609,6 +1613,7 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
- 	if (dsi->lanes > msm_host->num_data_lanes)
- 		return -EINVAL;
- 
-+	msm_host->is_dual_panel = dsi->dual_panel;
- 	msm_host->channel = dsi->channel;
- 	msm_host->lanes = dsi->lanes;
- 	msm_host->format = dsi->format;
-@@ -2492,6 +2497,9 @@ enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
- 	if (!msm_host->dsc)
- 		return MODE_OK;
- 
-+	if (msm_host->is_dual_panel)
-+		pic_width = mode->hdisplay / 2;
-+
- 	if (pic_width % dsc->slice_width) {
- 		pr_err("DSI: pic_width %d has to be multiple of slice %d\n",
- 		       pic_width, dsc->slice_width);
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
