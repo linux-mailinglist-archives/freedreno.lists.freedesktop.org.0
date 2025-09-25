@@ -2,117 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5AEB9C449
-	for <lists+freedreno@lfdr.de>; Wed, 24 Sep 2025 23:25:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82E12B9D676
+	for <lists+freedreno@lfdr.de>; Thu, 25 Sep 2025 06:44:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A490610E7F4;
-	Wed, 24 Sep 2025 21:25:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03AD510E83C;
+	Thu, 25 Sep 2025 04:44:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AJjVsTMY";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ncfnJBLq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F96B10E7F5
- for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 21:25:58 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58OCSw7K025075
- for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 21:25:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=/q7ck5ZyxDPq0cljoMqHt8gL
- Qtmb0+gJMZIvbJmIoeg=; b=AJjVsTMYWe8KNtGxUliteivSdRkvmVN37VkR8vQF
- 81Lr7iwa6AFnulnbbWu+5Oeqs0JVdbxizZ7SbK6cXDLnHiMCvM89NE3m3c83QY9B
- D7mGjjnRSzaVRTHUqZ56u3PTtxTXR/qlHdU89+HWgbnme0gCCt7f4hfti9q1r4KR
- 2YcapPTFg3cizBULbi7I25kjZ451aa7wEkWTUWydbSWqTyQ4amxLfEk7O0Q3XA/o
- s1Bp6k7brfs1hdpi6/hf7sP/vTkC2V5Q2MVmNPq0WdXr8KUgKJDQJaTgOTt+RvaK
- k+AE9gYXmECSk95qhMes4YN0gcRbryckYbSQGagVlI92Rg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 499hyex41s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 21:25:57 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4b793b04fe0so6689131cf.3
- for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 14:25:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758749156; x=1759353956;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
+ [74.125.224.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 895CB10E83C
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Sep 2025 04:43:55 +0000 (UTC)
+Received: by mail-yx1-f49.google.com with SMTP id
+ 956f58d0204a3-63605f6f64eso205638d50.1
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Sep 2025 21:43:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1758775434; x=1759380234; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/q7ck5ZyxDPq0cljoMqHt8gLQtmb0+gJMZIvbJmIoeg=;
- b=VGi4AnQ65304Qum218An2MR5EBlqImGxPiPUSKlplK00WzWHjlAnuym8/LkSXpzB1S
- HT7f1FJ02nmuUd7w9mxRxq+Twx5gaq+Xzb4lGvIZjTfHvwUSieSeuqZNwKUYlhMf2NkQ
- k/Z5fvneIoyQ62bQMCxZrdkarQC/ROLNRcsTvhrTCZI6ysYoQ/Ru7p+mHDO62Er0BeVc
- LmLd5Fyu48s3qEsHkMXkn5UhK6JwLu2svSIlJByLzMBrNz39makanAhoiGLTPZZNrzS+
- FizzJlcuu9sGrx/tOKLRqAoE491fkdM4o2xVokmCBYFqjxnAqL+1PKk17Tx6xERs8vEW
- A2Rg==
+ bh=1oJ0z/i9UwoXPf+FRdpG+d9rqB85q6G/tg6yqdMdAbE=;
+ b=ncfnJBLqgOwF2QVDB8SREW3tJi+w00crRsoU6qjV3nw0yoVfNg674FEdVWWYUKuyJA
+ KrexN1ASjjO8iL6rc8cT+Y48sPpAWgqfJ4Jbk7990K0XdI085FUGvCAD5bT1Xljz+PEg
+ QPF+TFJPh4SRj4ccQyA0TsPAtxLkx28X1JXuNCsbsBoD4T8boSfZxO70YcgCG98+DbTL
+ IBMyQH32su0DKBmMFnwlI5wYkGK71iaX/IKnbvYkq5A0sZXzRqqSlksBU/nZtQLTUrwg
+ KcUtJXIhHt+rQSXX6nHxIQ8LYB4qdqRVCIPIXW/3ql7ASDwMc5augRpmuUbvPhBJTlF4
+ fgjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758775434; x=1759380234;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1oJ0z/i9UwoXPf+FRdpG+d9rqB85q6G/tg6yqdMdAbE=;
+ b=gEG7xBvJZjwjOX1+z/lLOJNigD83FRqN3d+1cinOpn8eb6uAjQEUKEcTxeP24kmaHr
+ 6N/+kVqxGoLINyxv/PkKfcaKc6aFeEGBYlq34Pb1+USPcVzXn9YeMbWD4hu3USeTUl2B
+ cQHdmDR99g2CQ/JzHONbH3ic/elLD4MmX0gcCRBPxCkaRsiA9OW8NKNywP+YRdQclyjM
+ 5Qc0neIVwGkDAK5t0jXSiIi4Kk3bXU+DQMBd+QKD87+oLOixtnCRGckAokhUsokLWgrH
+ YKv8LfrT8vwQpFw/F6sAdsB2shk/3fr3WAn5FaGk4kTY6MsVMYQEbF8wbLwCl0q0Jivw
+ jJ5Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUh3/WypDlUHU2rQIj+EOOYgzp4g3IrKh4Jt6F9x3QN1ccxg6ORJnaDW+Twt1LO49R4gemWRHJok28=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzF8o6N3CkXYRwUq2mkEL+kGbGDlS19hg/x5JtR5+dni186IiR8
- yCi9ylibL/MsTT5DD4NYHmxcr5zmnFZy+JCz4k9GCQPyzsniqqL6AKrYi0BHAZDb8sYPQvgepZu
- tfcSBH2PueooHq4AxHVmlYIlBHSkW5YF2SokNs+tb9W//gGf6/O4+BdMs1VSau/FiOLB4JJ8=
-X-Gm-Gg: ASbGncvU8Sq3YQ6LY/T2vc2wZVUTZqJMROlY98jE/ODFpIsMaYOip/uUOX6o0zYcsDm
- 3ODsqpYU3Uw04twleZ0uvXAaBxr67AZF8IDn4fA7HIcjECfr9j2CbfSG2DEe7PBAkFoywA26SWm
- 9uoe2lfpZ/1IjB4jShYuxtOSdt1rl1RoZQ12Tlu83WeVYwRFkH6/yR4zh0Wo6YJ1lIqKhRXelN1
- LJ0K+rVFoLbT84Y+vONdPOlddgaFLTDHkrXP13N7g2tgOrBXFwRyC2dFkbw8vfsNEJm6LbQwVQW
- AFSdIKb97PMsfCAaNNZCLgWLOayINuqjxj+QxSmNPG/V++RLUAG9zcRzoIDbTxM8uwwUOf5G2lB
- m3zX5JOmKo3wJhRdZ4zkVeAxZQ+lsOuEpnKMoO3YofisBaaBwA5sQ
-X-Received: by 2002:ac8:7c42:0:b0:4b7:aaa2:c8f6 with SMTP id
- d75a77b69052e-4da4b42c83cmr16927701cf.43.1758749155799; 
- Wed, 24 Sep 2025 14:25:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFa2soASBumvR1Wp37An6aFpQ1N0R0qrYSFiiAAmklOZuBLiBN8NvuSKWYrA3++YveaEu9QLA==
-X-Received: by 2002:ac8:7c42:0:b0:4b7:aaa2:c8f6 with SMTP id
- d75a77b69052e-4da4b42c83cmr16927471cf.43.1758749155363; 
- Wed, 24 Sep 2025 14:25:55 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-583139f9915sm33226e87.39.2025.09.24.14.25.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Sep 2025 14:25:54 -0700 (PDT)
-Date: Thu, 25 Sep 2025 00:25:52 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abel Vesa <abel.vesa@linaro.org>
-Subject: Re: [PATCH v2] drm/msm/dpu: Fix adjusted mode clock check for 3d merge
-Message-ID: <3h57fefla2kv5mh2fmldma5v57do7uohljnzyd2pnkpsdugxle@ylqizvhtril5>
-References: <20250923-modeclk-fix-v2-1-01fcd0b2465a@oss.qualcomm.com>
+ AJvYcCXY6d74UtyE7g6d/iDAn46sKh6C7R+ZWl+lLU2v2tJkTPnA5Pg1IhIH5hsgirTP7Thj7oJB9lKjxbc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzddobXESPBtyWKKhnOXNeUpn2nsBGT0/Lo/PR+uov18A8rj4uq
+ YtlvR5dasXTFIim4aLfrgJ3IkfeKWjxZVUFbp3F2JAvEFru7m5uygrKIE4E3Sb4QyLGk2XBIQVh
+ r4/tktzavt+nWqi4V15Pcc7+Co9FVCdJT4f09Plie4w==
+X-Gm-Gg: ASbGnctj2Id6033Oh/fEIFfVjw5qNZl972r1UhyaYDn2GgNZX4xN6sPTemS7igKquDA
+ Y3lNyuPqTcmFtUUSfGi2gF+0PVUY4oBmDMpIqHagHI8ID1cInrL7TWzo45hhyvvv8SE6qpPpwxU
+ ye+wwkfxggz+mzevUeNIEqpe6W1JmZ0iuggaTIN5JWfKB5v4WHP84dl204LBEo3QNNfIFWFxc7y
+ nXz6/XKbveu6qImOXLkNn/KnQZJJyi9w1BpmA==
+X-Google-Smtp-Source: AGHT+IFrDu14o9eG1G/hd/jmgmyyF5h7kKgIrglBSkEsXTmL19swhPH9YqIMrOxeKGPXFw+V8ureBREiZfTmlkcgTpM=
+X-Received: by 2002:a05:690e:2146:b0:633:961a:bd46 with SMTP id
+ 956f58d0204a3-6361a85f9a2mr1236698d50.25.1758775434361; Wed, 24 Sep 2025
+ 21:43:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250923-modeclk-fix-v2-1-01fcd0b2465a@oss.qualcomm.com>
-X-Proofpoint-GUID: ezQ6KO76GWJ5PVXFJqcXXeog2tiMaVwq
-X-Authority-Analysis: v=2.4 cv=YMOfyQGx c=1 sm=1 tr=0 ts=68d461e5 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
- a=1bp3yVi2_WrJ7BMISZwA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTIwMDAwNCBTYWx0ZWRfX994tUVKR2h6a
- 28HWqy+ZXwGIRSOfPO5cvvF0n6/KzP65DO7UGwKo9LtY/ylPSkX+QYbeBbOq9FJoeRTOW79vIvJ
- D2f3zVz9r8WWi0jSG7wxxCGnBrAQN9+fb3IgLFkdQsDKc1zsMS41SqEaahpXb4Je0c33WvZ2IGw
- oPPWQwlxA7d1gBAZiyEatm3vKCMR+DQ+CPcsMPKfxfGYh48nxxHIL/vQNs6aptnMe6XgPUHF1I0
- TunDMbaRDFTnA1vo0YNYLmrqyRyBdi6Y4Stbqzdjo75/w1odKzEwjXZsFpWV4j0J4yO1Xo5Yz71
- 9jq881waOvdsWlY1qwarDNuT9is2rK9ztESzSbZbxSrq2LWeMAu5BUEVHW7fqujVHVyYKAwVXxn
- F3uzssnu
-X-Proofpoint-ORIG-GUID: ezQ6KO76GWJ5PVXFJqcXXeog2tiMaVwq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-24_06,2025-09-24_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 adultscore=0 priorityscore=1501 spamscore=0
- clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509200004
+References: <20250924-dsi-dual-panel-upstream-v3-0-6927284f1098@linaro.org>
+ <20250924-dsi-dual-panel-upstream-v3-3-6927284f1098@linaro.org>
+ <v3tfzspjck2oqppelx7bmi5uflhs47ixw6tjmq2d7inauzfo7k@gxebj3buyuni>
+In-Reply-To: <v3tfzspjck2oqppelx7bmi5uflhs47ixw6tjmq2d7inauzfo7k@gxebj3buyuni>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Thu, 25 Sep 2025 12:43:43 +0800
+X-Gm-Features: AS18NWDgoGjQmOdf_hz0GeNod_X081dyusIHBuXhWh7GwxfQWDtv3U1S9TJ5f90
+Message-ID: <CABymUCMvczXHM-cOXNko77xDVxX8Q6MA2AEZcGx_Yg6TWosMAg@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] drm/msm/dsi: Support dual panel use case with
+ single CRTC
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,26 +98,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 23, 2025 at 04:03:50PM -0700, Jessica Zhang wrote:
-> Since 3D merge allows for larger modes to be supported across 2 layer
-> mixers, filter modes based on adjusted mode clock / 2 when 3d merge is
-> supported.
-> 
-> Reported-by: Abel Vesa <abel.vesa@linaro.org>
-> Fixes: 62b7d6835288 ("drm/msm/dpu: Filter modes based on adjusted mode clock")
-> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Divide adjusted mode clock by 2 if 3d merge enabled (Dmitry)
-> - Link to v1: https://lore.kernel.org/r/20250922-modeclk-fix-v1-1-a9b8faec74f8@oss.qualcomm.com
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=B4=
+9=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 03:21=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, Sep 24, 2025 at 11:08:12PM +0800, Jun Nie wrote:
+> > Support a hardware configuration where two independent DSI panels are
+> > driven by a single, synchronous CRTC. This configuration uses a bonded
+> > DSI link to provide a unified vblank for both displays.
+> >
+> > This allows application software to treat the two displays as a single,
+> > wide framebuffer with a synchronized refresh cycle, simplifying renderi=
+ng
+> > logic for side-by-side panel arrangements.
+>
+> I'd like to understand how is it framed on the overall system design
+> level. If it's a panel controlled over the DSI interface, it's fine
+> since we can broadcast commands over two DSI links. What if the panel
+> (or bridge) is controlled via I2C / SPI?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+You mean there is only DSI data and all configuration is done via I2C/SPI,
+right? I do not have a real use case so far, but it can be supported in the
+same way. Panel driver finds the sibling panel via device tree to get the
+peer I2C/SPI first. All commands are send to every bus in panel driver.
 
-
--- 
-With best wishes
-Dmitry
+>
+> >
+> > At the DSI host level, the frame width for each link must be that of an
+> > individual panel. The driver therefore halves the CRTC's horizontal
+> > resolution before configuring the DSI host and any DSC encoders, ensuri=
+ng
+> > each panel receives the correct half of the framebuffer.
+>
+> >
+> > While the DSI panel driver should manage two panels togehter.
+> > 1. During probe, the driver finds the sibling dsi host via device tree
+> > phandle and register the 2nd panel to get another mipi_dsi_device.
+> > 2. Set dual_panel flag on both mipi_dsi_device.
+> > 3. Prepare DSC data per requirement from single panel.
+> > 4. All DSI commands should be send on every DSI link.
+> > 5. Handle power supply for 2 panels in one shot, the same is true to
+> >    brightness.
+> > 6. From the CRTC's perspective, the two panels appear as one wide displ=
+ay.
+> >    The driver exposes a DRM mode where the horizontal timings (hdisplay=
+,
+> >    hsync_start, etc.) are doubled, while the vertical timings remain th=
+ose
+> >    of a single panel. Because 2 panels are expected to be mounted in
+> >    left/right position.
+> >
+> > To maintain synchronization, both DSI links are configured to share a
+> > single clock source, with the DSI1 controller using the clock provided
+> > to DSI0 as below.
+> >
+> > &mdss_dsi1 {
+> >    assigned-clocks =3D <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
+> >                    <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
+> >    assigned-clock-parents =3D <&mdss_dsi0_phy 0>, <&mdss_dsi0_phy 1>;
+> > }
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/d=
+si/dsi_host.c
+> > index de51cb02f267205320c5a94fc4188413e05907e6..1fddcea7f86547258be18a5=
+1a0a3e3f96f6c3838 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > @@ -177,6 +177,7 @@ struct msm_dsi_host {
+> >       bool registered;
+> >       bool power_on;
+> >       bool enabled;
+> > +     bool is_dual_panel;
+> >       int irq;
+> >  };
+> >
+> > @@ -935,7 +936,10 @@ static void dsi_timing_setup(struct msm_dsi_host *=
+msm_host, bool is_bonded_dsi)
+> >                       return;
+> >               }
+> >
+> > -             dsc->pic_width =3D mode->hdisplay;
+> > +             if (msm_host->is_dual_panel)
+> > +                     dsc->pic_width =3D hdisplay;
+> > +             else
+> > +                     dsc->pic_width =3D mode->hdisplay;
+> >               dsc->pic_height =3D mode->vdisplay;
+> >               DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
+> >
+> > @@ -1609,6 +1613,7 @@ static int dsi_host_attach(struct mipi_dsi_host *=
+host,
+> >       if (dsi->lanes > msm_host->num_data_lanes)
+> >               return -EINVAL;
+> >
+> > +     msm_host->is_dual_panel =3D dsi->dual_panel;
+> >       msm_host->channel =3D dsi->channel;
+> >       msm_host->lanes =3D dsi->lanes;
+> >       msm_host->format =3D dsi->format;
+> > @@ -2492,6 +2497,9 @@ enum drm_mode_status msm_dsi_host_check_dsc(struc=
+t mipi_dsi_host *host,
+> >       if (!msm_host->dsc)
+> >               return MODE_OK;
+> >
+> > +     if (msm_host->is_dual_panel)
+> > +             pic_width =3D mode->hdisplay / 2;
+> > +
+> >       if (pic_width % dsc->slice_width) {
+> >               pr_err("DSI: pic_width %d has to be multiple of slice %d\=
+n",
+> >                      pic_width, dsc->slice_width);
+> >
+> > --
+> > 2.34.1
+> >
+>
+> --
+> With best wishes
+> Dmitry
