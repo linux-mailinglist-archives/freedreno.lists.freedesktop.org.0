@@ -2,128 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB36CBA1BBD
-	for <lists+freedreno@lfdr.de>; Fri, 26 Sep 2025 00:04:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BC41BA1C72
+	for <lists+freedreno@lfdr.de>; Fri, 26 Sep 2025 00:22:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00B4D10E9BF;
-	Thu, 25 Sep 2025 22:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 543AA10E2F6;
+	Thu, 25 Sep 2025 22:22:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ru+UCULM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZNA42WuJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18ADD10E9BF
- for <freedreno@lists.freedesktop.org>; Thu, 25 Sep 2025 22:04:21 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58PIQIsI012446
- for <freedreno@lists.freedesktop.org>; Thu, 25 Sep 2025 22:04:20 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93FA910E2F6
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Sep 2025 22:22:12 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58PIPkeH014389
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Sep 2025 22:22:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- j9jhbfMWZLDlbLvHbgzYA6UULoA9b5J9ED0wfYv3EO0=; b=Ru+UCULM1uxxF5QY
- PDVRfUOSeKE72n7qUtoocVn/0tyOHj9fRxaGgSbk4rZ86lGWt9+5WJV3rXB/XAbk
- Nk6bozdWhGvHx0Alt95icca7C4ODdW6591lIlQwg4zah3Y8PkwsS+REDlYL1zBAe
- 2gOrehMmLyv7U38Wfbm9R8LCx5/ND/Y6XkT4RJeQqwV7AbA722xoHEOmcLu2753F
- Nol86Xr6VgkCSY8g6wRCC4YiL5ew8OzzVnoTl3tmbcS5yNVcDpndvJyF8cgGJ3cU
- xwkQtuv0JPsB82pmqxoLoU1xI3mT081BHe1N+3n3T3xolTJ+cVNW7OaU1LKMbL37
- xxt8PA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49db0q0h2k-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=jRfNzZCnLAcaDWnEKn5/jyR8
+ JVxVY0FW7A/2m5ca+aA=; b=ZNA42WuJqPUVqpxupotcXOSumqsGQeqSTS9bIWOT
+ CGdDK2bPRKCjKOU28jFPVGSaR0l2q2VAwm4qc5UaMvaj4Raf1iuRJRvHDmvayXsz
+ mSyEmWADs103GsYG6UOzNp+qUL4PmHVyDmLYi4fswJJxsXPplAshI0g0azKhoO1/
+ /EJqarGPth2iqP5D50/vTFy30MYniSxbs4d3CIV1FXj2uJTfhiZ0Fyp0mD/4bv/S
+ SsNkVQWnrx19iDWzDS82A2vKP22k0IQXgflA0Bog1MIFatQPfKQ1aRP5zKJenhEc
+ qsl4Q1LMsXztc7W3eE4SKfzxFilm9pZRc/dDuVenWZgSdw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49db0rgjfn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 25 Sep 2025 22:04:20 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-8544316ef6aso563803985a.1
- for <freedreno@lists.freedesktop.org>; Thu, 25 Sep 2025 15:04:20 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Sep 2025 22:22:12 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4bf85835856so40258731cf.1
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Sep 2025 15:22:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758837859; x=1759442659;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=j9jhbfMWZLDlbLvHbgzYA6UULoA9b5J9ED0wfYv3EO0=;
- b=pNWaxzzJVladAQdjc2lTBpVZ69CQwg/t6gdRMv1Q7Q/6PVclnKYqWuYAm4uAfPxL/a
- Y4rBl8E7XP+wBmlUFAumiJc9Jpa53FVYcluCKoAvjpX3WzqhN/x24J59HWmoM5Odx6fH
- udH5iB9o+uRd2a7sz897GTe9nW987P0A3TLPmGhy/BrKtGMHRmpKAwQJxhJi7Cxuz50Q
- 40lIrozUnjodlrzLXqJZ/aCPHChx7TiOXCXPO5v7fsRGhL+Q0wKEKHmVLjqVTFJHfO4J
- SuWLmTlnxr2/804zImEpZhQ3+q4uT0/xZnex+JZfiyflxCZZyWi0FxuNqV2+TN+F8fau
- Z+4A==
+ d=1e100.net; s=20230601; t=1758838931; x=1759443731;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jRfNzZCnLAcaDWnEKn5/jyR8JVxVY0FW7A/2m5ca+aA=;
+ b=GcNuEY9IP5mDgsxgZZyA89nmMVWSHgvZfb+L5sICtG6vUcGAF73QlI7y7QEUdhQ96E
+ tZTgxT/f7k4pDYIbgGlQHtU6q5re8Q9u4m59/kjfM5Ge9NLyPAgQO6XHJhrvB53paTCG
+ IhJk7ptWXRhUlEmPQZzA/T+QCBPJ0qW4A7OPosU7O29ZdMmI0LhzHUf+q1iGk0eBLeeK
+ 1nXx3mAsPMrhZmGMNq8opNLHZQlezUaPn7dRUiqENGLa2Q3sP5U0n9LkSBOquRcvdjDa
+ 1TiqhcbZzU3kuRws8w7t+MxFGzviKyiNNNB6tFbNNpDrYUWzSzPlZJg1MX43Cbwks534
+ aBYA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU099pfXGMBS3e7c3x4qSFvXGcwxk+eYQ1pNN+O2d2xq6dmMBiuwyjOPDgwiljjKzpEuzBReGp9IMM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzP874kLpEPXFuebZ6rfFAYGmrUEnfxrlFWykoZ9ZobBKWl/M3q
- /lantZwXgM3Fo1GrYPWx7pjgbC1/DoAXvZEgko91EbWhoZY+b1Al/vxmGowhPD68VPWE5dNDKZi
- 1gaoJ9I6oPwEYFFxMvAyCdh2AlfgpV+/UpHu8CmSkmE9xhlni23AimrE3UHU5v9aKrJZyu60=
-X-Gm-Gg: ASbGncuqkbZnX/+XS+aD5USIukGkrw+a6gQ7Eq8LJgMg6u2mLRnYdL63qfQy0DqX5S1
- oO9tijtZ1Xghvuw9ZgIZyBOw+B5S7yOPfAEtgPrjDlf5xmQblMETYx6aZze3f/fYMo/3dT9LpyE
- X8Ud5o+BXgZQgTVC8P58U2qamxOiFRrbjDhGN2WvhbH66ahJZnstJMqiJG5hSzw1uQ4WKz45kPk
- pn2vW0fiWA7x2Q4BR3tK0KIA+gePrNoLVCRDMhzcbWowQadlPNPIWxw0tw/yZ2UqKxejPUKZB82
- n6hn9Vr1ARsDlhq4Heyi8GO9BHcNEW8UlwrapJbC3s4770SxZMogf33pSRHcyI7wvm+5wSsaUIm
- GVGOorJHSEX7wgBpUjNZUsL3obI3oSJsUNvFLvv+rlZv+Tbfmglw1
-X-Received: by 2002:a05:620a:4890:b0:84a:d990:a6d8 with SMTP id
- af79cd13be357-85aea5ff6a0mr735531385a.49.1758837859141; 
- Thu, 25 Sep 2025 15:04:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGxdA6dS4wu8OVd+3ocLVo0gkXNYMpAtVMslmaMzvNNUlBIIxaIcvu9v3eIlSDmgpeHrfAggw==
-X-Received: by 2002:a05:620a:4890:b0:84a:d990:a6d8 with SMTP id
- af79cd13be357-85aea5ff6a0mr735525385a.49.1758837858668; 
- Thu, 25 Sep 2025 15:04:18 -0700 (PDT)
+ AJvYcCX+uF2dUSqpE0JyxYhKPdhBqnX0Us2XNmrgcRAzZMc8TxDoSUTMlgWjw3pPEeoyWQvOlmTLrJhx6k0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhvGthSWzT1vq+SDMOHJ0wBt19QSRhUFzyUvPss0453H9IsXkO
+ oRBBfPsskCxICBnclEuV9Fspg8ZmPpW2CbrjEAI20F3msBqQnMCHkV0XW/V8wsJeESUqlU0CEHa
+ cFxt38jUfKAp5bqPwXVGYeAwjepm9oec1FlIPHNMjuk/N8v7fpetqjuGJCv6llls4imzfmgM=
+X-Gm-Gg: ASbGncvVcwqWBhmZsTzrUpN/A+SGM4Dk+mZYmwe1xadNmvmcTph92LAfNwFPBhvV8mo
+ g45TF2OIz1tqJeDnIotw4pTJsWRSWobzdnQju54o2v38qQ3CoCUPjk0ZlqpearAgItSVWu/6ZV+
+ Dl3kmJBuqcOfL00kAlEUgDR0YJK2YZL90+98P3FVp3s9xdHB5OwUBY8uqJEgI73tQEOXzI0UEZ9
+ zdGXbP+EoFzI86dhHBt9nBozGMoKVbfg+EHtXZxDxcHPjS2heZRyE4ywbnYLZMzBJRE8GhDwRyq
+ lvm2+6gMJDmxXchEI1khy2iWienYwU/OonCnrZq36Z0Rcqb+dU920jqLEhN16sX3NKRjP6D5tiT
+ at7Ac0OgNkGrX9L9aqacf0CMCGRKJNlza5EwOyD4kgOVAXWfnav+c
+X-Received: by 2002:a05:622a:4b:b0:4b0:6a6c:c8cf with SMTP id
+ d75a77b69052e-4daca1f78f0mr51621461cf.15.1758838930666; 
+ Thu, 25 Sep 2025 15:22:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHO3r+ySgumuy0R8ZW76Gz42nyn6z1QUTob1YhU0jpfjtecRv5c1wNLaL6B2ApNmXtWNxgQww==
+X-Received: by 2002:a05:622a:4b:b0:4b0:6a6c:c8cf with SMTP id
+ d75a77b69052e-4daca1f78f0mr51621141cf.15.1758838930184; 
+ Thu, 25 Sep 2025 15:22:10 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-36fb528984csm8078481fa.30.2025.09.25.15.04.15
+ 2adb3069b0e04-58316a31df6sm1135993e87.111.2025.09.25.15.22.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Sep 2025 15:04:16 -0700 (PDT)
-Date: Fri, 26 Sep 2025 01:04:14 +0300
+ Thu, 25 Sep 2025 15:22:09 -0700 (PDT)
+Date: Fri, 26 Sep 2025 01:22:07 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+To: Abel Vesa <abel.vesa@linaro.org>
+Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] drm/mipi-dsi: Add flag to support dual-panel
- configurations
-Message-ID: <vqiizai33y53o3h6ovhilcco5yyssfqwqrqnccskqoye23bf2o@rtob2tooaqr3>
-References: <20250924-dsi-dual-panel-upstream-v3-0-6927284f1098@linaro.org>
- <20250924-dsi-dual-panel-upstream-v3-2-6927284f1098@linaro.org>
- <CAO9ioeW2AHDM3KSRu-WOvy+1De9tqfhrCNozw5Wkh=CJDHxFYg@mail.gmail.com>
- <CABymUCP2m-Z1spkAydryNWfysXTVma_H=7w=0GYL6+aH5KW9QA@mail.gmail.com>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/msm/dpu: Fix adjusted mode clock check for 3d merge
+Message-ID: <g7kqqed625hlz7yq5uwxyimfupxryr2et5jxsrmgw7jk5x5zg7@zdrgqf63n4w5>
+References: <20250923-modeclk-fix-v2-1-01fcd0b2465a@oss.qualcomm.com>
+ <krinjfouhgak2fvrv4runtv4kbocvfjpwxq6y53no3ajo3ykih@ooucnj5peu7j>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCP2m-Z1spkAydryNWfysXTVma_H=7w=0GYL6+aH5KW9QA@mail.gmail.com>
-X-Proofpoint-ORIG-GUID: HaUM8dgjgQasoLeeJQN4wogeFTu8Ly3O
-X-Proofpoint-GUID: HaUM8dgjgQasoLeeJQN4wogeFTu8Ly3O
-X-Authority-Analysis: v=2.4 cv=aZhsXBot c=1 sm=1 tr=0 ts=68d5bc64 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=TPbfgU9MJehzMSnRnG4A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI1MDE3MSBTYWx0ZWRfX5bRl22MSMOOn
- e+NwqQtsAYaD63u7jPCfflhK4bj1XBfKDK/qIc8qvkKWTesnXSEmIBuR4Vd16QuEM2ka137SiDA
- 2j+Rr0wJrYLxR/+VSURuzt5HIITUzMxUFYa1OMgOH6Q09UDUuj6laMgw4zECHtL9vGoytmGcqN8
- dqSnpCHatotpmpg1XFehaUPi6FKp5OHUCLj4ngbiwf7TqiMJqlxb123dVIfWocFHTRvxmGeeWUi
- mL/8iPCUUX/Q3WhHjJW6QSN8KlKmSow2O+jiVaXkgJqCwoWQc2hUHRmj940CQb2duZg4La7p2Mg
- g4g+ua2KcYG6digcR0Mplb2YEGVII7AV/t3Dn9yaIudP5yz5inkCgleLaoilaKEvgoSV33CluSw
- PW2BzT5wLEiSP851kxbdL0C/4M9DFQ==
+In-Reply-To: <krinjfouhgak2fvrv4runtv4kbocvfjpwxq6y53no3ajo3ykih@ooucnj5peu7j>
+X-Authority-Analysis: v=2.4 cv=dP+rWeZb c=1 sm=1 tr=0 ts=68d5c094 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Nu1Um9oaDxGSo2OYYacA:9
+ a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: z9Yie2QJBLdkhGk0rYE4HHe8WitzWSt5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI1MDE3MSBTYWx0ZWRfX3RHapRdqGjWT
+ C/tSa0RVCWJSOq7Y49M9Cm22xdxnxcsbXKvt7tQND4CtsebVLSFmykzSV+nTUeGuCbUvVsj6QUJ
+ Gn1Rb2flMXQu5YRn5Fk7A6f7zoTc5e2rsKpGCAPnQWnpN19ln2VAguzGRZqcHQEXSEhWfkUNb0m
+ mDJ7ExYWFK2CjDgYljScqwt83F0wNm+hCGZ7HeHVaG5dTA3n8ax0UaJnTiO6P2SsnWw9ipRWcLZ
+ U9q78raGyB7QDb9f70jRJx7OFeXRaT6OcUYwTtQ//HNexhnfIp2ZjY+cM7BLsQs3+cQWws+Boxq
+ c+FNjKtuQw2Exs86nWOPrcla+3jtDKiFAj+qsBOSccRacd2WrBZa0C8QbKQtxF6jwFbecgGW7ho
+ qcesiNemI8EnBqURUTKe3nQMoQraZw==
+X-Proofpoint-GUID: z9Yie2QJBLdkhGk0rYE4HHe8WitzWSt5
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-25_02,2025-09-25_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 suspectscore=0 malwarescore=0 adultscore=0
- clxscore=1015 impostorscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 suspectscore=0 adultscore=0 bulkscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2509250171
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -141,63 +128,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 25, 2025 at 03:10:35PM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年9月25日周四 02:02写道：
-> >
-> > On Wed, 24 Sept 2025 at 18:08, Jun Nie <jun.nie@linaro.org> wrote:
-> > >
-> > > Some devices treat two independent physical DSI panels as a single
-> > > logical panel from the CRTC's perspective. However, two separate DSI
-> > > hosts are still required to drive the panels individually.
-> > >
-> > > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
-> > > allows a panel driver to inform the DSI host that it is part of a
-> > > dual-panel setup, enabling the host to coordinate both physical
-> > > displays as one.
-> >
-> > How is it being set?
+On Thu, Sep 25, 2025 at 09:51:28AM +0300, Abel Vesa wrote:
+> On 25-09-23 16:03:50, Jessica Zhang wrote:
+> > Since 3D merge allows for larger modes to be supported across 2 layer
+> > mixers, filter modes based on adjusted mode clock / 2 when 3d merge is
+> > supported.
+> > 
+> > Reported-by: Abel Vesa <abel.vesa@linaro.org>
+> > Fixes: 62b7d6835288 ("drm/msm/dpu: Filter modes based on adjusted mode clock")
+> > Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 > 
-> This is set by panel driver in probe(). You mean this should be documented
-> here, right?
+> Reviewed-by: Abel Vesa <abel.vesa@linaro.org>
 
-Yes.
+Is it also a T-B? ;-)
 
-> 
-> > >
-> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > ---
-> > >  include/drm/drm_mipi_dsi.h | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > >
-> > > diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
-> > > index 5a85ba01f402a3866b70828391bb417bb8dd5956..0faff285d9ffeb19e4523cdc7bf21c1ec20e6eff 100644
-> > > --- a/include/drm/drm_mipi_dsi.h
-> > > +++ b/include/drm/drm_mipi_dsi.h
-> > > @@ -170,6 +170,7 @@ struct mipi_dsi_device_info {
-> > >   * @host: DSI host for this peripheral
-> > >   * @dev: driver model device node for this peripheral
-> > >   * @attached: the DSI device has been successfully attached
-> > > + * @dual_panel: the DSI device is one instance of dual panel
-> > >   * @name: DSI peripheral chip type
-> > >   * @channel: virtual channel assigned to the peripheral
-> > >   * @format: pixel format for video mode
-> > > @@ -188,6 +189,7 @@ struct mipi_dsi_device {
-> > >         struct mipi_dsi_host *host;
-> > >         struct device dev;
-> > >         bool attached;
-> > > +       bool dual_panel;
-> > >
-> > >         char name[DSI_DEV_NAME_SIZE];
-> > >         unsigned int channel;
-> > >
-> > > --
-> > > 2.34.1
-> > >
-> >
-> >
-> > --
-> > With best wishes
-> > Dmitry
 
 -- 
 With best wishes
