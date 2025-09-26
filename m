@@ -2,120 +2,122 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DF5EBA3F78
-	for <lists+freedreno@lfdr.de>; Fri, 26 Sep 2025 15:53:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF185BA4074
+	for <lists+freedreno@lfdr.de>; Fri, 26 Sep 2025 16:05:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 320C210EA6B;
-	Fri, 26 Sep 2025 13:53:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9C210E0A8;
+	Fri, 26 Sep 2025 14:05:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q6lo/YR9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LT6uGOFX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF5CF10EA6B
- for <freedreno@lists.freedesktop.org>; Fri, 26 Sep 2025 13:53:56 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58Q8vfx2001556
- for <freedreno@lists.freedesktop.org>; Fri, 26 Sep 2025 13:53:56 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2AEC10EA6F
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Sep 2025 14:05:46 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58Q8vffS014653
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Sep 2025 14:05:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Yi4YzfqCRhtpYtMSpi4c2pxv
- l7JbhY/mvPEjH/nHU/A=; b=Q6lo/YR9Xww7cyAqG2tiisx9896ylw2lmlhsi1kw
- ohTR9fLm5V8++Jwg6DlKftwyxU8ebwyPmtw3soLo+vY4/F9ttxvcrhDtHQNxZ2zY
- nbsGvln+/gULtI4PVzp+1z1xvWszL4ArwaJhGIUSWfkhjZAvyEloNWQ0bXyvoF1F
- p1+byedn7jC34PreGn9bOlTEB7B6jNgKG1/D7nuBuhNbwUxKtz00Qp/5gplFufs5
- z8aApQK0vHd7+PtPeKCTAKwjEX4rXbLvb4Yl3sIlnJuMdLNJQPnTowtr5VoJxVEa
- bKXXNrTASPK+FmJZNFw9VXEY7nQ5LNP0umsD/SUtD6VNcw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49db0tu1vh-1
+ :references:subject:to; s=qcppdkim1; bh=584nrbDAdLBURaO0cgXzCKXy
+ eOmRtZu/VSbhHT0wC+M=; b=LT6uGOFX0SR1QZQJx9bkXdGg/dXzjHdSfKJWmOwi
+ ljGQn5xCogB1rQaZbF7TQjvv7rqySxM4f8vz4W6EG0xvvsZZrHZ9+SGW+CAxZouq
+ jbIx+2yFc+TajvJYxuLkLkwq2r4AlML6lXHXq58vVNXIwulwRXy8K3dcrc5kAXs+
+ bOSMYW4IoVT3BYgfwM5/aIuqPlfz5yfZrMNrlcqI/0JNMYRVd5jjoTX9FyXjEvgw
+ +Ffqrkn8clA6GSCPx8HXzIAiH3F9NFhxq/nq6j4rNwCSs7yAO6X9WiITkQYpY45h
+ lu4DSs0+DyP9uSx+QdYxo91+dHCp/jQYgSKX+pR25euFjA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49db34k272-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 26 Sep 2025 13:53:55 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4d6a41b5b66so53485221cf.1
- for <freedreno@lists.freedesktop.org>; Fri, 26 Sep 2025 06:53:55 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Sep 2025 14:05:45 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4de5fe839aeso9087201cf.3
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Sep 2025 07:05:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758894835; x=1759499635;
+ d=1e100.net; s=20230601; t=1758895545; x=1759500345;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Yi4YzfqCRhtpYtMSpi4c2pxvl7JbhY/mvPEjH/nHU/A=;
- b=cxDLywU9jJwG25qcdBv71os39sYtMxNP5ViDxk16mSvBOBo7sQ9GJdhfI31JsdfmHV
- 0DqRJZSAxQabxcuylyXMGQa/NT9TW216tTYivAZc+r4a4zbZjUF6ubUF4wZvdH4Occ/8
- Dc3My9fbXDpRWYeWr61J63dk1FWnKZlakBYWLGP9YieS+s2K+BazLiVQSt0kQJhzaduF
- gvMdb2bUlEP/ooVr+x7kG2SVXmP6BdC17PXoIQA56yFjm7wsJ+1AzMEpAfLFdCJRcDCW
- HM4h29F5f+ejWa6Y7HZqqjJVZr/T9/WSSrg5fughQTuyIIjSxDkxWVOYfBCdEJPvALDx
- ivTw==
+ bh=584nrbDAdLBURaO0cgXzCKXyeOmRtZu/VSbhHT0wC+M=;
+ b=YzOl5p60LzvP2Qwe4dNzOb/zxxKus7DWCL6oxBWFLN8uVK4PXiq3jT0BT6i1JuMdTs
+ lidvb8I4EFRy2Wojl7zSSn2ye7Aoy0aM3Uoqz9Y/3Mjk0WjrQ2aXcL5B31jQxBP7ztdJ
+ HA3l36xQgPDq7+jmnYgNDQMlni7Yk9mju+br0PRTRqqFVc0lyOeRk2VXah8a8Vyx65Nl
+ 7TMN4MdmsLA6K+x0FQbqXCt0ys4TYKXgusvLpfXi1cOSqb1dQMCgcry4h42XrEVJp/Fk
+ kJ1s11pZEVIijQVbG3xIJ1yQSrPgna4pz9eidFhLmZkXtl6JmYuST7NBcRIaQoy/xmzL
+ Q2Xw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWNFcBIpJVAN8fyvuhptW2JMJZYaJf9m66vyQec7f47ofTNU2ma519r+QIDo4PsZV+0ITczKsWXxqk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyhTt6yBekn8NCcCgwQT4GcMpbAd7VC+hb3C0MvXmLnSj+5vyya
- WFHYJP1TISkY9WfPUwJZdSSBXwt8mv0PSmKLbsyvSwgPVzfNIFWk8kkS6kYdQ/Y30hjqe+phXbi
- ZjZFJzbg/ctPLX/e0TMarnodjggEc7GBguQyB75cmB1XgYS7MgqGxFGf+w8K+nhNvd6Npkws=
-X-Gm-Gg: ASbGncu7xi6v814u1JUhAkKUlRxgYDm8sC6qZvv8V8Ep/18UWz6djFh34Xf3aShl2Xy
- OkpOWfQOLVJxFiv/NxlHBghq8BIp1UPLinesU61avYCsOXqtK4azC8u0lLSvQRDtG2vHM7ysa5R
- so3pxs1lzoPh2Hqmyt0HWiTFeAA/K1A6mUyy7L5VhATAVEVRioU6Qo43izPSnHqCYXMAYY4o20W
- PUUHPsUm1yBi+iumMxwjiW0v0iVzGxwou4pVp62kROqe46LrxLPtI1ZITZ13RV+ShYDBGWC+2GB
- ietYyZu0cMLJlHKRZ2X6hG/fUgOAtSrBP0QsHPELm7FJ/YyHogoNzq5zdvDqvVqvrc4cvvVX57G
- nyAH4vFRHV9gy7DQDTzsuT8C3EEyvsvgQE8GP+JHMdZA8wekt3Mo3
-X-Received: by 2002:a05:622a:4a8e:b0:4c8:79b4:93a0 with SMTP id
- d75a77b69052e-4da4b1406e7mr95494411cf.47.1758894834807; 
- Fri, 26 Sep 2025 06:53:54 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGOQIkyN74txiM9v6NI3108EID0DXdgO7j0P2wRzxlXTBsHtrmHH2UgL3y0BBRZ8yy0boNzTA==
-X-Received: by 2002:a05:622a:4a8e:b0:4c8:79b4:93a0 with SMTP id
- d75a77b69052e-4da4b1406e7mr95493941cf.47.1758894834250; 
- Fri, 26 Sep 2025 06:53:54 -0700 (PDT)
+ AJvYcCU6b+wHS4/B+kmoeclbSDipJBYNigJwUkoJvKbv+qbWkSXOol/S2Cg9RWIkDB9J6ZHvt/zo6L3XG2Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyiW641dubbgifgcuVmtoA35kfceYqDxVFsnK+93GuC2O0sqHXx
+ Vefepddu9tZ/FQUpTEGRsof8gmJ5j1Enw+tUpDgm3WAdIBjt6Ssiakooy2PRHaJi3YPumgCCzm/
+ 8wJaKC9AaiyZzbzNh2TzMBRuuKfoFSYvfCQ9fifFFL7gYNPVTlukVcIW9grzdz8YxVDpjyCk=
+X-Gm-Gg: ASbGncuDTsaYX3MrOqKdgDzt9/4FfJxLAhUq5djDeBqTc/u9PbxqFLbezoVvTsaOtId
+ 4pZX1An4lFHN73Ar7egSVkoro+4vItAQohb2OZ+coa9rylyI43bKbzOMiAQzSzPJDKUA94qnv9l
+ 8cuBzWsoIzCW0kabqlvh+DwEFoG0SX32Do/VyOxvf1O+xQOMJGfx9Ki4XYGtnEFAg6VcH6jF04x
+ E71RMBRTEI4zO2DtxXs15IyKIyjUX85Ij4fWETb/2ZTzv2hYtXJvoib1xUvxGNHvN4d6Hp0BZeR
+ OPSV7eNFgWY+92l0fDvQtkYxNu4r1HZzhqO6rhKxVCjTALGUTBNJHMoMKET3+KXqArQ9VjYb/wU
+ nCVZ5cVwnaZ5jJGS9afeEPC5E63jcMhqkASp0ymNQ3BanQ7EZ+KDX
+X-Received: by 2002:a05:622a:768f:b0:4db:dd57:e093 with SMTP id
+ d75a77b69052e-4dbdd57fb69mr58371721cf.51.1758895544765; 
+ Fri, 26 Sep 2025 07:05:44 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHltJA6GbWIV/+igvGWnl22Iv/P1bx9gnuRDpBgQL59uVz2fnVyjK+CDBIlVIjHHYtcOin3WA==
+X-Received: by 2002:a05:622a:768f:b0:4db:dd57:e093 with SMTP id
+ d75a77b69052e-4dbdd57fb69mr58370611cf.51.1758895543827; 
+ Fri, 26 Sep 2025 07:05:43 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-583173d1c08sm1814560e87.147.2025.09.26.06.53.53
+ 38308e7fff4ca-36fb7710256sm12274671fa.45.2025.09.26.07.05.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Sep 2025 06:53:53 -0700 (PDT)
-Date: Fri, 26 Sep 2025 16:53:51 +0300
+ Fri, 26 Sep 2025 07:05:42 -0700 (PDT)
+Date: Fri, 26 Sep 2025 17:05:41 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Mani Chandana Ballary Kuntumalla <quic_mkuntuma@quicinc.com>
-Cc: marijn.suijten@somainline.org, swboyd@chromium.org, mripard@kernel.org,
- abel.vesa@linaro.org, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- robin.clark@oss.qualcomm.com, jessica.zhang@oss.qualcomm.com,
- abhinav.kumar@linux.dev, sean@poorly.run, airlied@gmail.com,
- simona@ffwll.ch, alex.vinarskis@gmail.com,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_riteshk@quicnic.com, quic_amitsi@quicnic.com
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: lemans-ride: Enable dispcc1
-Message-ID: <v4b35cmwbkoosdgs3d6ftml4yvdkyh27q65ssqojplb7uyniwp@wuxbeof7cikr>
-References: <20250926085956.2346179-1-quic_mkuntuma@quicinc.com>
- <20250926085956.2346179-4-quic_mkuntuma@quicinc.com>
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_rajeevny@quicinc.com,
+ quic_vproddut@quicinc.com, quic_jesszhan@quicinc.com
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: qcs8300: add Display Serial
+ Interface device nodes
+Message-ID: <5irzdmwxs2j4ppti35hc5235yxqq576doerrrk6fhcpj7f726a@eh5rl2jwb5kg>
+References: <20250925053602.4105329-1-quic_amakhija@quicinc.com>
+ <20250925053602.4105329-3-quic_amakhija@quicinc.com>
+ <vsty7sy7gi2eeyifokwcqpoycmarxietkijmlkymwrmzmdsfws@x64f4ulbc6ja>
+ <8c248bf8-2f25-443d-a08f-6504c349b72b@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250926085956.2346179-4-quic_mkuntuma@quicinc.com>
-X-Authority-Analysis: v=2.4 cv=I9Vohdgg c=1 sm=1 tr=0 ts=68d69af3 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=COk6AnOGAAAA:8 a=bQGRJ9mVl6_deHTFyO4A:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: GZ7R19Y2A21-NwTWOyD2wiXO0pYlJIS1
-X-Proofpoint-ORIG-GUID: GZ7R19Y2A21-NwTWOyD2wiXO0pYlJIS1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI1MDE3MSBTYWx0ZWRfX8RzzO9v52pRp
- qSgBg29uZwqNWGniWvluOQx1MNvc3HmgsmwRzs3TLausaco8w8ZDa8BDP9JnY1YItYelSfaoHN4
- nYu1o8az12wTbgiiTbnPMaP4Xe69+nIYxhPiSk7y92quiFbfzCSaO/Jb1fkLY7p2EYzbRqAXDR4
- m164dGG/Y16NBTwgxtw4JDN4BxuC3FOeNJvsi/akRN+AAXLUgPX+pp53j/DXxdxxunvWHbaBI0c
- r2yuNsk7gzfAPCjFYYDsY7UoXXY0m5HdqfchJ7QXhc42/u1QcgeV9jskWXD6QHb4V6KRf+rSXJ1
- dkWVc7ypROIyqaAAEcCubb+fKzZHB8S/8yWr9b2XJ0Ypq2Qg5J7MgdW60BoZ4Cum4gMJyiQFN5u
- 4yZKZHhrTQaj0LusqxTaCM9MX41tRg==
+In-Reply-To: <8c248bf8-2f25-443d-a08f-6504c349b72b@quicinc.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI1MDE3MiBTYWx0ZWRfX8gbNq24+n5j8
+ b6eKyCoUDaG+aO8gZcomAYj8ZdNU0y7v9tmEMgznB2YkL9LM2rFWW22H9/6Lxdui40AbmyeWCje
+ Te58uc5p8Eynjl8j8/K0NNrd9SRwICNDCvHhBRJm9B2AMy5L/XiICpqAel86wYxnRydHUViCpnM
+ rGqGVkmfRfsMLSmpCJf0J8w/lHDpbVMfyKjlzcq9qf9djgsG8EVi6Pyjp0iJdtzekZ8qjiDufgY
+ lTEs0NYIufZpKBdbt+0ur21OLRH9MlzVBXJoYg29THvdmwNP1Mxu2tPMgIP7b+rSsqaSR9OpT+J
+ gn7tD6GTGcqf8FSUJ4/9oUybj2YPncnuNWqvE4LyDstOXPtIV0mWWuqAffPKcsTGMCtzLSLiWx0
+ MwDX5SizrlWnMQs/G0MRn387O8c3pg==
+X-Authority-Analysis: v=2.4 cv=Hb0ZjyE8 c=1 sm=1 tr=0 ts=68d69db9 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=COk6AnOGAAAA:8 a=fWuQbBWbtaeYDtlrs1EA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: 6F_6aOMBtRPIWoO4EDFHbSsLzvl7Jb1g
+X-Proofpoint-GUID: 6F_6aOMBtRPIWoO4EDFHbSsLzvl7Jb1g
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-26_04,2025-09-26_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0 bulkscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0 impostorscore=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2509250171
+ reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2509250172
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,36 +133,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 26, 2025 at 02:29:55PM +0530, Mani Chandana Ballary Kuntumalla wrote:
-> This change enables display1 clock controller.
+On Fri, Sep 26, 2025 at 02:55:19PM +0530, Ayushi Makhija wrote:
+> On 9/26/2025 3:32 AM, Dmitry Baryshkov wrote:
+> > On Thu, Sep 25, 2025 at 11:06:01AM +0530, Ayushi Makhija wrote:
+> >> Add device tree nodes for the DSI0 controller with their corresponding
+> >> PHY found on Qualcomm QCS8300 SoC.
+> >>
+> >> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/qcs8300.dtsi | 95 ++++++++++++++++++++++++++-
+> >>  1 file changed, 94 insertions(+), 1 deletion(-)
+> >>
+> >> +
+> >> +			mdss_dsi0_phy: phy@ae94400 {
+> >> +				compatible = "qcom,sa8775p-dsi-phy-5nm";
+> > 
+> > Add qcs8300-specific compatible and use sa8775p as a fallback
+> > 
 > 
-> Signed-off-by: Mani Chandana Ballary Kuntumalla <quic_mkuntuma@quicinc.com>
-> ---
->  arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi | 4 ++++
->  1 file changed, 4 insertions(+)
+> Hi Dmitry,
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi b/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
-> index c69aa2f41ce2..d4436bc473ba 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
-> @@ -436,6 +436,10 @@ vreg_l8e: ldo8 {
->  	};
->  };
->  
-> +&dispcc1 {
-> +	status = "okay";
+> I have one doubt, even though the ctrl and phy versions for sa8775p(LeMans) and qcs8300(Monaco) are same.
+> Why can't we use the same compatible string that we have used for LeMans ctrl and phy ? what is the need to define a separate
+> compatible string for monaco ctrl and phy ?
 
-I think this one should be enabled by default. Unless Konrad or Bjorn
-disagrees, please fix lemans.dtsi.
-
-> +};
-> +
->  &i2c11 {
->  	clock-frequency = <400000>;
->  	status = "okay";
-> -- 
-> 2.34.1
-> 
+Konrad responded with the reason. But also, this question should have
+been asked when you took a first look at the qcom,qcs8300-mdss.yaml.
+It has two compats for DPU, DP and eDP PHY blocks (for exactly the same
+reason).
 
 -- 
 With best wishes
