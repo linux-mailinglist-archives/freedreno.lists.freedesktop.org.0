@@ -2,128 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28604BA5EF0
-	for <lists+freedreno@lfdr.de>; Sat, 27 Sep 2025 14:25:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 091A7BA5F39
+	for <lists+freedreno@lfdr.de>; Sat, 27 Sep 2025 14:49:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 001AA10E187;
-	Sat, 27 Sep 2025 12:25:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 518C010E1A0;
+	Sat, 27 Sep 2025 12:48:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LtAHyxdA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gqOj/vhM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C7F110E187
- for <freedreno@lists.freedesktop.org>; Sat, 27 Sep 2025 12:25:54 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58R4CRLi016632
- for <freedreno@lists.freedesktop.org>; Sat, 27 Sep 2025 12:25:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 8HTZrkSYrqPPOE5aWwuZ/eo7FP1KIcHRJKoII1rHuug=; b=LtAHyxdAoERLVHjZ
- JbX115ejTnojvTKRZuUdPj0fYaO0C0eczNiv43mvnGuxSSJNaGnD1UyGLqOKGQZw
- G6Z8Q4wwd2Ef0gn5ZI/RYEX6KCE9ujwfgSiAauKN4FHhV1deKSpo5TxFND3UzPZe
- a/m22yMSkF1Y95uwOT82TntEsXDs0FDo4A7UtkQSo4Ffb/RAhRoAxf7UpC+Hejn9
- dBDqQ5oUq1zp2UGyeq8b/pdQaPlJDwifMdhRvfRmyj2zjLLzCq/bEqDqvYgL58gh
- 0cxqGGcLeSDfy3a2BnH23sP6+bZyfHJCaPBgeMZiMsF9R+KK8+uRnuMOnBeresZY
- FVLe+A==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49e8pd8msy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 27 Sep 2025 12:25:54 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-819d2492a75so133570285a.1
- for <freedreno@lists.freedesktop.org>; Sat, 27 Sep 2025 05:25:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758975953; x=1759580753;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8HTZrkSYrqPPOE5aWwuZ/eo7FP1KIcHRJKoII1rHuug=;
- b=b78ifyM/i9rLMM6TmQJn1XnhSVayGWt6yKYJClTr9g186MCrYh9FlIYlRcVew6ZqVn
- 4H08i5rcGslkQE7rOdED5zAOK9rAiI9OAJ2LN9va5Jyz1dYXxKip+UA6XNHlM3KAhbVt
- ykP3DOqg9zD2LjVtUQwHKXAMcHDgZJZEBLyfEJoUzB6i7jRnLvTT+qlrormb52YjTgjB
- vW2LRwxDZvi8ne8lYn2p4rjnoFJYgqLM98rFeq2pNe5AB88qNSNZpkD/A9XwL/mGuEtR
- 5qWAVo5dY2DZIhaQX95NyvY+uxnkkDsfE1DrNz2UZIiRXw9g3Rrn7JX54lMSqQRzAxR3
- sM7A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVTmF0ZhjBm+bZOC2h+tu6J7U1UmaS1C7OdEGsh9BmdZ3qlm19y+Fo/5QdA6rFwDCcv83AKKMdhzC0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyg3oTrhsmVxYe/ptTd95kq/py9Ro+MYCmNsxNw+xRnGEWHVBia
- WQk1FcOI6SVtZ953XLB2Aq1C9T1ml8Fv8okhlGuwfy4ZlBJBfB36o+A78I8af/ZaEgKbABJWSfV
- tli55LyjXD1wad5CuJV/dvjygThEgXa/laj29cHEzxPPGA01ZHNH4ElxpDyIvFkxwHP8LHWM=
-X-Gm-Gg: ASbGnctwkwsh0rppESfg67NqX0M1F3sW/VFcDi1FgWVQ9hlMPipn0Lif7RCmwnzz4fR
- MTBnoQCoyw0tkd+H3siMnImZU4JWM0zT0IDMziU5JuKpnD5AC4KQif2k484iw/l7r1vQxukmtIS
- py3WX+sRrjR0hsxf+k3FksU4dkACC4eZhRLU9lKQ/QHZ1vfBf6AFNfKY3P1RcoPJEWhJ38+rR0g
- H/QfPYKqIz1agZ9vPTTZzSbdlA3sbYDwgGXlF+BWwtVWTvexsH1z5HMpHH9zcTfNK5DfPgcsgAZ
- tVdC9hxlp/6w6bEz2La2hgltX0nKDciZUY6C7PcfDGa4Ok0qyrjwzId8vg7m9iQJXkYoBcNcLVk
- BDFq+vtmjMl9Igcx+JKIkPw==
-X-Received: by 2002:a05:620a:3182:b0:812:81c6:266c with SMTP id
- af79cd13be357-85ae6d81db3mr926479485a.9.1758975953007; 
- Sat, 27 Sep 2025 05:25:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGCG2e/ZW9GFpuGzcSJqt6X2AuHy0M9fiQ/EEgWD1R6USyO/kkVUy9LiI1L21B8ibFVZJ2N8g==
-X-Received: by 2002:a05:620a:3182:b0:812:81c6:266c with SMTP id
- af79cd13be357-85ae6d81db3mr926475985a.9.1758975952413; 
- Sat, 27 Sep 2025 05:25:52 -0700 (PDT)
-Received: from [192.168.149.223] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b353fa65a62sm554412366b.47.2025.09.27.05.25.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 27 Sep 2025 05:25:51 -0700 (PDT)
-Message-ID: <7cfa782b-07a5-4f0e-9151-44a42c77badc@oss.qualcomm.com>
-Date: Sat, 27 Sep 2025 14:25:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 10/14] phy: qcom: qmp-usbc: Add USB/DP exclude handling
-To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06A8310E14F;
+ Sat, 27 Sep 2025 12:48:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1758977326; x=1790513326;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=0W45DesrwvOL7dwAbK4Wk7k7PmMheNSI1z8Zd+4XNIw=;
+ b=gqOj/vhMaq2Bpp8r2n75owTTNezZp9WAsc+xIGYA2S4SdGveR/XomhJh
+ tmWqSNYxgHWgTNGFPKWKS/RaLnrpp370wl6p9oV2rd5mAEVzKh/Gs/28d
+ LJgAq2GSo9Qwz2jxzOhnAE7pM1pT3IF3blNtoFlA5E2j85XnUNje6HXXs
+ Z/wJHnl7IzDolr/oegQyuy/RyoR53ZBL4pgrW/LbQNc4cqFK9EGNS3qHw
+ wFg4zVa6OtgNKd6ab6cpJ3bIbkHLV5msXOz9iY5d9+3AlFfXHccs3ODtP
+ 8OyJ8g+boIy3bzxI6WSl4ZMpeseo7+OJBlqcHi4w9MIyBno2RGaN+7NVj A==;
+X-CSE-ConnectionGUID: aLQPeY7fSliDV36Zm3wyxw==
+X-CSE-MsgGUID: e0JNFeMZRW+XVvpTNoC8TQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11565"; a="86734728"
+X-IronPort-AV: E=Sophos;i="6.18,297,1751266800"; d="scan'208";a="86734728"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2025 05:48:45 -0700
+X-CSE-ConnectionGUID: EtxiiekZTFm3ZEexcFIrlg==
+X-CSE-MsgGUID: PAlpPQWsRdGdV4Lp7P0oNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,297,1751266800"; d="scan'208";a="208568713"
+Received: from lkp-server02.sh.intel.com (HELO 84c55410ccf6) ([10.239.97.151])
+ by orviesa002.jf.intel.com with ESMTP; 27 Sep 2025 05:48:38 -0700
+Received: from kbuild by 84c55410ccf6 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1v2ULr-00073X-2Y;
+ Sat, 27 Sep 2025 12:48:35 +0000
+Date: Sat, 27 Sep 2025 20:48:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <lumag@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
- li.liu@oss.qualcomm.com, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-References: <20250926-add-displayport-support-for-qcs615-platform-v7-0-dc5edaac6c2b@oss.qualcomm.com>
- <20250926-add-displayport-support-for-qcs615-platform-v7-10-dc5edaac6c2b@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250926-add-displayport-support-for-qcs615-platform-v7-10-dc5edaac6c2b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Xgr1hXOTvgmbMievhCRgK3xUF_XJ_I--
-X-Authority-Analysis: v=2.4 cv=MYZhep/f c=1 sm=1 tr=0 ts=68d7d7d2 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=7a1U2GcbA96CJLvzQ6EA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: Xgr1hXOTvgmbMievhCRgK3xUF_XJ_I--
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI3MDAzNiBTYWx0ZWRfX9vTxIOtRjxuR
- yiZWNQBJ+UAUP+q2NAdinnA0+wG6isWPv+tdBzny8I5CdofkecsEzgy4fACAO0pXDTxex787E7w
- q/EbCHSEUN0EcMCUsmF9pDCjmiSVL2U9vYLjzXuMiDGTqb2QdBDAYNUV0/ycBMFm5I1hjLFJS1j
- IyjB9IpvusxhthmTKAlXIPZBUw9olryYIzG0ny10e1E0A8qm1oNHtASoaNCZWDIYySKqrmiMa6T
- 9zQEJV5hcJpU1ZVG4rBWR6HtBJlcINIuclglkkyo0BMRjYgaDY2qH8Sjlx7ADSTQu45HxeTJKkj
- Inw1NAhW5nqz52qV4vdp8Vosrq+maIN4WVAy2Q5VPEcF1sdNLlJTmHMzxoypdjCAF1TpWoLfPVv
- rixR4I4H9qy1fDGbj2XjRAv2f4Qpmw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-27_03,2025-09-26_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
- priorityscore=1501 phishscore=0 malwarescore=0 spamscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2509150000
- definitions=main-2509270036
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>,
+ Samuel Holland <samuel@sholland.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH 1/9] drm/display: hdmi-state-helpers: warn on unsupported
+ InfoFrame types
+Message-ID: <202509272013.GAc17rsa-lkp@intel.com>
+References: <20250927-limit-infoframes-2-v1-1-697511bd050b@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250927-limit-infoframes-2-v1-1-697511bd050b@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,19 +91,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 9/26/25 9:25 AM, Xiangxu Yin wrote:
-> When both USB and DP PHY modes are enabled simultaneously on the same
-> QMP USBC PHY, it can lead to hardware misconfiguration and undefined
-> behavior. This happens because the PHY resources are not designed to
-> operate in both modes at the same time.
-> 
-> To prevent this, introduce a mutual exclusion check between USB and DP
-> PHY modes.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-> ---
+Hi Dmitry,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+kernel test robot noticed the following build errors:
 
-Konrad
+[auto build test ERROR on bf2602a3cb2381fb1a04bf1c39a290518d2538d1]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-display-hdmi-state-helpers-warn-on-unsupported-InfoFrame-types/20250927-090630
+base:   bf2602a3cb2381fb1a04bf1c39a290518d2538d1
+patch link:    https://lore.kernel.org/r/20250927-limit-infoframes-2-v1-1-697511bd050b%40oss.qualcomm.com
+patch subject: [PATCH 1/9] drm/display: hdmi-state-helpers: warn on unsupported InfoFrame types
+config: x86_64-buildonly-randconfig-002-20250927 (https://download.01.org/0day-ci/archive/20250927/202509272013.GAc17rsa-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250927/202509272013.GAc17rsa-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202509272013.GAc17rsa-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/display/drm_hdmi_state_helper.c:924:17: error: use of undeclared identifier 'it'
+     924 |                 dev_warn_once(it->dev, "unsupported HDMI infoframe 0x%x\n", frame->any.type);
+         |                               ^
+>> drivers/gpu/drm/display/drm_hdmi_state_helper.c:924:63: error: use of undeclared identifier 'frame'
+     924 |                 dev_warn_once(it->dev, "unsupported HDMI infoframe 0x%x\n", frame->any.type);
+         |                                                                             ^
+   drivers/gpu/drm/display/drm_hdmi_state_helper.c:953:17: error: use of undeclared identifier 'it'
+     953 |                 dev_warn_once(it->dev, "unsupported HDMI infoframe 0x%x\n", frame->any.type);
+         |                               ^
+   3 errors generated.
+
+
+vim +/it +924 drivers/gpu/drm/display/drm_hdmi_state_helper.c
+
+   916	
+   917	static int clear_infoframe(struct drm_connector *connector,
+   918				   struct drm_connector_hdmi_infoframe *old_frame)
+   919	{
+   920		int ret;
+   921	
+   922		ret = clear_device_infoframe(connector, old_frame->data.any.type);
+   923		if (ret == -EOPNOTSUPP)
+ > 924			dev_warn_once(it->dev, "unsupported HDMI infoframe 0x%x\n", frame->any.type);
+   925		if (ret)
+   926			return ret;
+   927	
+   928		return 0;
+   929	}
+   930	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
