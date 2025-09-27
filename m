@@ -2,80 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 091A7BA5F39
-	for <lists+freedreno@lfdr.de>; Sat, 27 Sep 2025 14:49:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7904DBA6A82
+	for <lists+freedreno@lfdr.de>; Sun, 28 Sep 2025 10:02:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 518C010E1A0;
-	Sat, 27 Sep 2025 12:48:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 554B910E0AB;
+	Sun, 28 Sep 2025 08:02:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gqOj/vhM";
+	dkim=pass (2048-bit key; unprotected) header.d=cknow.org header.i=@cknow.org header.b="l35Yh+D4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06A8310E14F;
- Sat, 27 Sep 2025 12:48:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758977326; x=1790513326;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=0W45DesrwvOL7dwAbK4Wk7k7PmMheNSI1z8Zd+4XNIw=;
- b=gqOj/vhMaq2Bpp8r2n75owTTNezZp9WAsc+xIGYA2S4SdGveR/XomhJh
- tmWqSNYxgHWgTNGFPKWKS/RaLnrpp370wl6p9oV2rd5mAEVzKh/Gs/28d
- LJgAq2GSo9Qwz2jxzOhnAE7pM1pT3IF3blNtoFlA5E2j85XnUNje6HXXs
- Z/wJHnl7IzDolr/oegQyuy/RyoR53ZBL4pgrW/LbQNc4cqFK9EGNS3qHw
- wFg4zVa6OtgNKd6ab6cpJ3bIbkHLV5msXOz9iY5d9+3AlFfXHccs3ODtP
- 8OyJ8g+boIy3bzxI6WSl4ZMpeseo7+OJBlqcHi4w9MIyBno2RGaN+7NVj A==;
-X-CSE-ConnectionGUID: aLQPeY7fSliDV36Zm3wyxw==
-X-CSE-MsgGUID: e0JNFeMZRW+XVvpTNoC8TQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11565"; a="86734728"
-X-IronPort-AV: E=Sophos;i="6.18,297,1751266800"; d="scan'208";a="86734728"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2025 05:48:45 -0700
-X-CSE-ConnectionGUID: EtxiiekZTFm3ZEexcFIrlg==
-X-CSE-MsgGUID: PAlpPQWsRdGdV4Lp7P0oNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,297,1751266800"; d="scan'208";a="208568713"
-Received: from lkp-server02.sh.intel.com (HELO 84c55410ccf6) ([10.239.97.151])
- by orviesa002.jf.intel.com with ESMTP; 27 Sep 2025 05:48:38 -0700
-Received: from kbuild by 84c55410ccf6 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1v2ULr-00073X-2Y;
- Sat, 27 Sep 2025 12:48:35 +0000
-Date: Sat, 27 Sep 2025 20:48:05 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <lumag@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>,
- Samuel Holland <samuel@sholland.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH 1/9] drm/display: hdmi-state-helpers: warn on unsupported
- InfoFrame types
-Message-ID: <202509272013.GAc17rsa-lkp@intel.com>
-References: <20250927-limit-infoframes-2-v1-1-697511bd050b@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250927-limit-infoframes-2-v1-1-697511bd050b@oss.qualcomm.com>
+X-Greylist: delayed 567 seconds by postgrey-1.36 at gabe;
+ Sat, 27 Sep 2025 10:05:47 UTC
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com
+ [91.218.175.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B31EC10E16A
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Sep 2025 10:05:46 +0000 (UTC)
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow.org; s=key1;
+ t=1758966978;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Y3x1Sed9F8EalDsModwxtm1c+k2dv0YDnCmwsZS/B5g=;
+ b=l35Yh+D4Q2oNYPZGHMcBntinmXfzF0w9i3ouEm37VXZ6knq0Ae65AveIxo7DWlUXX/i+rI
+ v6MxMPbMJ69e4NgfYM1fErKz9U+zPUoHg9qcQQGzTGnGhNuhn8VNyiR/v8eoJYFvOlxK4Y
+ KjRvxgJZyCyx7E0M9e9Leluq2Jxzt5PDE9IF3IVZJiJxiEoUIfMlU4xQx+T4a5vAyldUuW
+ xpgjM3TksXpYjr5OtjfXp/88vr82N5V4yaXWtn2OL8UyF6wW7MXKEBgJ1VWpwCLl4kYShC
+ 7PvMeOhNe/2T65bMjiZ4DNMOdt6L97L4945a/yit58jOIvnWucwvWBwc8Dqk1g==
+Content-Type: multipart/signed;
+ boundary=009f252ba09693b5e8abec8ec687c59ee2a383ff22d9e36d8a97ad51c14e;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Sat, 27 Sep 2025 11:56:07 +0200
+Message-Id: <DD3HR1AGS7HT.2D858FUG2L2YB@cknow.org>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-sunxi@lists.linux.dev>
+Subject: Re: [PATCH 8/9] drm/rockchip: inno-hdmi: handle unsupported InfoFrames
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Diederik de Haas" <didi.debian@cknow.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Liu Ying"
+ <victor.liu@nxp.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>,
+ "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jessica.zhang@oss.qualcomm.com>, "Sean Paul" <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>, "Sandy Huang"
+ <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ "Andy Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@csie.org>,
+ "Samuel Holland" <samuel@sholland.org>
+References: <20250927-limit-infoframes-2-v1-0-697511bd050b@oss.qualcomm.com>
+ <20250927-limit-infoframes-2-v1-8-697511bd050b@oss.qualcomm.com>
+In-Reply-To: <20250927-limit-infoframes-2-v1-8-697511bd050b@oss.qualcomm.com>
+X-Migadu-Flow: FLOW_OUT
+X-Mailman-Approved-At: Sun, 28 Sep 2025 08:02:36 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,57 +78,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+--009f252ba09693b5e8abec8ec687c59ee2a383ff22d9e36d8a97ad51c14e
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-kernel test robot noticed the following build errors:
+On Sat Sep 27, 2025 at 3:04 AM CEST, Dmitry Baryshkov wrote:
+> Make write_hdmi_infoframe() and clear_infoframe() callbacks
+> return -EOPNOTSUPP for unsupported InfoFrames and make sure that
+> atomic_check() callback doesn't allow unsupported InfoFrames to be
+> enabled.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/rockchip/inno_hdmi.c | 46 +++++++++++++++++++++++++++---=
+------
+>  1 file changed, 35 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/rockchip/inno_hdmi.c b/drivers/gpu/drm/rockc=
+hip/inno_hdmi.c
+> index f24827dc1421cf5e0c1be63a80da23d645cf3f24..dc2d68b9c87f7ae7b06ecbeae=
+bc82b9689c1abfd 100644
+> --- a/drivers/gpu/drm/rockchip/inno_hdmi.c
+> +++ b/drivers/gpu/drm/rockchip/inno_hdmi.c
+> @@ -641,11 +641,8 @@ static int inno_hdmi_disable_frame(struct drm_connec=
+tor *connector,
+>  {
+>  	struct inno_hdmi *hdmi =3D connector_to_inno_hdmi(connector);
+> =20
+> -	if (type !=3D HDMI_INFOFRAME_TYPE_AVI) {
+> -		drm_err(connector->dev,
+> -			"Unsupported infoframe type: %u\n", type);
+> -		return 0;
+> -	}
+> +	if (type !=3D HDMI_INFOFRAME_TYPE_AVI)
+> +		return -EOPNOTSUPP;
+> =20
+>  	hdmi_writeb(hdmi, HDMI_CONTROL_PACKET_BUF_INDEX, INFOFRAME_AVI);
+> =20
+> @@ -659,11 +656,8 @@ static int inno_hdmi_upload_frame(struct drm_connect=
+or *connector,
+>  	struct inno_hdmi *hdmi =3D connector_to_inno_hdmi(connector);
+>  	ssize_t i;
+> =20
+> -	if (type !=3D HDMI_INFOFRAME_TYPE_AVI) {
+> -		drm_err(connector->dev,
+> -			"Unsupported infoframe type: %u\n", type);
+> -		return 0;
+> -	}
+> +	if (type !=3D HDMI_INFOFRAME_TYPE_AVI)
+> +		return -EOPNOTSUPP;
+> =20
+>  	inno_hdmi_disable_frame(connector, type);
+> =20
+> @@ -673,6 +667,36 @@ static int inno_hdmi_upload_frame(struct drm_connect=
+or *connector,
+>  	return 0;
+>  }
+> =20
+> +static int inno_hdmi_connector_atomic_check(struct drm_connector *connec=
+tor,
+> +					    struct drm_atomic_state *state)
+> +{
+> +	struct drm_connector_state *conn_state =3D
+> +		drm_atomic_get_new_connector_state(state, connector);
+> +	int ret;
+> +
+> +	ret =3D drm_atomic_helper_connector_hdmi_check(connector, state);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* not supported by the driver */
+> +	conn_state->hdmi.infoframes.spd.set =3D false;
+> +
+> +	/* FIXME: not supported by the driver */
+> +	conn_state->hdmi.infoframes.hdmi.set =3D false;
+> +
+> +	/* should not happen, HDR support not enabled */
+> +	if (drm_WARN_ON_ONCE(connector->dev,
+> +			     connector->hdmi.infoframes.audio.set))
+> +		return -EOPNOTSUPP;
+> +
+> +	/* should not happen, audio support not enabled */
+> +	if (drm_WARN_ON_ONCE(connector->dev,
+> +			     conn_state->hdmi.infoframes.hdr_drm.set))
+> +		return -EOPNOTSUPP;
 
-[auto build test ERROR on bf2602a3cb2381fb1a04bf1c39a290518d2538d1]
+Looks like the comments are on the wrong line? Also in patch 7.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-display-hdmi-state-helpers-warn-on-unsupported-InfoFrame-types/20250927-090630
-base:   bf2602a3cb2381fb1a04bf1c39a290518d2538d1
-patch link:    https://lore.kernel.org/r/20250927-limit-infoframes-2-v1-1-697511bd050b%40oss.qualcomm.com
-patch subject: [PATCH 1/9] drm/display: hdmi-state-helpers: warn on unsupported InfoFrame types
-config: x86_64-buildonly-randconfig-002-20250927 (https://download.01.org/0day-ci/archive/20250927/202509272013.GAc17rsa-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250927/202509272013.GAc17rsa-lkp@intel.com/reproduce)
+Cheers,
+  Diederik
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202509272013.GAc17rsa-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/display/drm_hdmi_state_helper.c:924:17: error: use of undeclared identifier 'it'
-     924 |                 dev_warn_once(it->dev, "unsupported HDMI infoframe 0x%x\n", frame->any.type);
-         |                               ^
->> drivers/gpu/drm/display/drm_hdmi_state_helper.c:924:63: error: use of undeclared identifier 'frame'
-     924 |                 dev_warn_once(it->dev, "unsupported HDMI infoframe 0x%x\n", frame->any.type);
-         |                                                                             ^
-   drivers/gpu/drm/display/drm_hdmi_state_helper.c:953:17: error: use of undeclared identifier 'it'
-     953 |                 dev_warn_once(it->dev, "unsupported HDMI infoframe 0x%x\n", frame->any.type);
-         |                               ^
-   3 errors generated.
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct drm_connector_hdmi_funcs inno_hdmi_hdmi_connector_fu=
+ncs =3D {
+>  	.clear_infoframe	=3D inno_hdmi_disable_frame,
+>  	.write_infoframe	=3D inno_hdmi_upload_frame,
+> @@ -1029,7 +1053,7 @@ static const struct drm_connector_funcs inno_hdmi_c=
+onnector_funcs =3D {
+>  };
+> =20
+>  static struct drm_connector_helper_funcs inno_hdmi_connector_helper_func=
+s =3D {
+> -	.atomic_check =3D drm_atomic_helper_connector_hdmi_check,
+> +	.atomic_check =3D inno_hdmi_connector_atomic_check,
+>  	.get_modes =3D inno_hdmi_connector_get_modes,
+>  	.mode_valid =3D inno_hdmi_connector_mode_valid,
+>  };
 
 
-vim +/it +924 drivers/gpu/drm/display/drm_hdmi_state_helper.c
+--009f252ba09693b5e8abec8ec687c59ee2a383ff22d9e36d8a97ad51c14e
+Content-Type: application/pgp-signature; name="signature.asc"
 
-   916	
-   917	static int clear_infoframe(struct drm_connector *connector,
-   918				   struct drm_connector_hdmi_infoframe *old_frame)
-   919	{
-   920		int ret;
-   921	
-   922		ret = clear_device_infoframe(connector, old_frame->data.any.type);
-   923		if (ret == -EOPNOTSUPP)
- > 924			dev_warn_once(it->dev, "unsupported HDMI infoframe 0x%x\n", frame->any.type);
-   925		if (ret)
-   926			return ret;
-   927	
-   928		return 0;
-   929	}
-   930	
+-----BEGIN PGP SIGNATURE-----
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+iHUEABYKAB0WIQT1sUPBYsyGmi4usy/XblvOeH7bbgUCaNe0uwAKCRDXblvOeH7b
+bn7bAPwJebDnI2AKKmrsKb1ukF91oehuobCOe5iej/is8fNtcwD/U9U72TebO6mY
+b18goM6s7bCYCHVCztoR8gN8bUTvIgo=
+=dph3
+-----END PGP SIGNATURE-----
+
+--009f252ba09693b5e8abec8ec687c59ee2a383ff22d9e36d8a97ad51c14e--
