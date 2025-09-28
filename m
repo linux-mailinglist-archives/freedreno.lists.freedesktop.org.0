@@ -2,90 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A35CBA6AE6
-	for <lists+freedreno@lfdr.de>; Sun, 28 Sep 2025 10:25:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41479BA6AEC
+	for <lists+freedreno@lfdr.de>; Sun, 28 Sep 2025 10:25:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6494D10E0E4;
-	Sun, 28 Sep 2025 08:24:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C75310E0EA;
+	Sun, 28 Sep 2025 08:25:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IMqOPF2R";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="d25S158d";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11AB010E0E4
- for <freedreno@lists.freedesktop.org>; Sun, 28 Sep 2025 08:24:57 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58S4uvV3021744
- for <freedreno@lists.freedesktop.org>; Sun, 28 Sep 2025 08:24:57 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8020210E0EA
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Sep 2025 08:25:00 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58S4MSLm021815
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Sep 2025 08:24:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=rc2O4wz2Xp3rHoz8/mUbsM
- fKLduyX74HJKpJIAxeyFQ=; b=IMqOPF2RwTNjYzv3tzCtFIDfj53rMbYzw9zi5a
- Y9LeTo/S+tjjGF9oJRxXAfKeFY3aIlPfVF7ujyjbB4MuT9rzcb703ByiNhpuxby1
- qY0pQRVdJB2gbPUSLPeC/V20uBZlwzoVbN2DgFnVxwXKYzHQnBqoXB+3wj89AXTv
- T5iQOHTFezAh18vkMe3bQuChogXu+EPxkSeoMcBmKrv1gVIRYH6ojpNWd/7URQAt
- HHBtgI5Qh0P598ZSc0tiu+zecOUipf5VdRGswtuO7JomOBiXqVek9SRrPBZ1H2MM
- 5uJMjr/0yRfOhNGRl7NkImgXclV789e+a33pyEW5mTgSz5IQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49e6x5jfpd-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 3RNoMb86TETM38fjgm0MR4bIq5hfRNj//M20P1hCu3M=; b=d25S158dbMUwLxBm
+ R785Dd80o16MVQY7oYklF1CygQd2zDKI/89YN/PSnPdDxigAtHQ7Uu7x6WndWr6Y
+ kbnXr2nNoIbbRQ6W7paF+hgHR7FHm2rmGqCQaJp85xHd/e3KdwdjVacZRZUMs6TR
+ xF+52srTpnRuniTacA7SjovxmMP63S1tgIu+2A340QmTOjSCL2A8gWvBGHq+2Hrm
+ sUva607nq+00q+upnoxqpvnyGZi+/9p+wb66S20GXn+euiMH2ra9MNcA25Gen5P/
+ RfUwB7JBbgmRIa0li9JMoKJbjPlfc++6gn/ZNtP1XW6g8UU1WXnKpFTwTWtKDi22
+ nbWfSA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49e80tjct9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 28 Sep 2025 08:24:56 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4d9a3ca3ec8so69427921cf.0
- for <freedreno@lists.freedesktop.org>; Sun, 28 Sep 2025 01:24:56 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Sep 2025 08:24:59 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4d6a41b5b66so86514841cf.1
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Sep 2025 01:24:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759047896; x=1759652696;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rc2O4wz2Xp3rHoz8/mUbsMfKLduyX74HJKpJIAxeyFQ=;
- b=dBpUJcs2Y0aWNMAWolpovmTcXu+5fx+ux2Nqzkfprj9GCRLcqvntj8/1cJc2sg1fQe
- q3TS+idS+r2VP5J0tSZ/MWyz0eE/ue1QYyFX1XBHUG0bo67icu7WJs7hhCgCVRGxVhQt
- rq+lhdHwRLj1qXVq3cvvsXVJuZVqYR0l5bF9Nh5vLb5q0bZJ0Lajt8H0ne+5ZCHtwC+/
- HuDD1iUok7urm/3Ta2fnnd2kZHlZggk4XAt31KEvFmuWK9JrMZfCP7NGvRigM4mJggHW
- qUMWPhRYIropVWbcWaFDEoVGbiRDwPOZzuViGkA1theC7IklWqKms3X/QyheYk6Wh55/
- 6MmQ==
+ d=1e100.net; s=20230601; t=1759047899; x=1759652699;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3RNoMb86TETM38fjgm0MR4bIq5hfRNj//M20P1hCu3M=;
+ b=MwG1SsNJsMnb3LLhUJHcRm9VGpgzUnpLY78ksQI9aGl9UFmtiqq/hs0c8IOTyHELxV
+ H2Rt0tuOAqinerHOWsHHlUj0J3u0EhweLoIxOzPqdbmgDHg97N1PUtYhrwsFidYTF7ot
+ kEcBbsiFDstwzEggJX3e+cgAhGTUchrAIC6PYmLuif2LfUHWyl4xMr8c6sdmSiPJvdyY
+ 41GmPGX/yh9jsRnbarkSSmzjARj8qCu0lIhpkKesDXqzlJc5M0v8Qn5X3peskD+DUtoc
+ MgNVYqXMy4Fy7woailGhV9y53lxca6frAVDP+aB2N6e4cS43lJBPuJzC9/do8flfM0Rc
+ qOwg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUxHAawwPlVTqXbOpn9xU3l4C5Xj1ZBMP8xQv0VRfbNCEjZtdBT54s/NcZPnzbUApnCgzKpXsfxiz8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwaSGlBIt2U/Tq0i8LQBJOtJELcjp+igNSt2ExHhj04bBIxlBz2
- VXJk6NmkCEFPqzjzTG7x3N2Xw6zbuj7gjgJOLpIBwzeR1oKgq5VCLae1x81cO8+cSphZX2oMkpT
- VAKVGDDIwpoiTEozB/2c25HkHShNDLc0voxat3lU+zn99jWx7OUNYNmE4uZIIf2tkdn4roiU=
-X-Gm-Gg: ASbGncsS9Tz7AwGnGOABzUiJhEYADku0/VoGLiGNincNfXwgQHHi+ftoG1aQNqmLoJ3
- obClMgwhR+YKHPBMbbhiDM9cdsQ+daL13f6pX3XWgN+tj/qjDU1TvGnpoSDpAZ/XETr9GuKxyRY
- rt4GwmQGdO3a01NZtb2DuXunxZ1mDNP+/ak/ps13UW/OVu3NAfwYMfEseMhm9VQ71HGpAdd2e6I
- eXOHA2kFCn+jRScTfuCu8NUw1P8j8T2UrSrXNn5jBnTQ3VlVU/rZnH+CXpGEEYudmuPgMtF0KGP
- /6PNJwEcHEIwjH5ke/Rb6OTXDMMwfCqtuTRXK2JsoZe6sjBGGBK5V065ONxzEbP4gGcyDo60ZaI
- EJ1QKFHXYvBN81ht8g6oY/NoNOwC6QnjFqrblWmrXpDsswiDlFk5f
-X-Received: by 2002:a05:622a:19a3:b0:4df:194:b46d with SMTP id
- d75a77b69052e-4df0194c12cmr55268841cf.80.1759047895949; 
- Sun, 28 Sep 2025 01:24:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGSQGqS4aJ7VDAivVQk/ANpuwQy7ctS7IE9D3fgBdrHjHXtkW+JEen25AcKMFhLLPIqmo1upQ==
-X-Received: by 2002:a05:622a:19a3:b0:4df:194:b46d with SMTP id
- d75a77b69052e-4df0194c12cmr55268701cf.80.1759047895487; 
- Sun, 28 Sep 2025 01:24:55 -0700 (PDT)
+ AJvYcCWcOd7ulg0a+GDOqrury1dJH3rHDAZw3fAEKylzAzb5aFRqzOwLGiPVuq85N9j6BhjskhAyLHHZ0N4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBHuX86YwC5YUhbzMXtF82olZJQj7G/vzy2oRT6NY67J5ZFI58
+ MNu3GvsTtlQBu499KVHWhMKeFHa6q58uKSpLjplx54Pyee+G07B4vKr6HdURmsknP54Jktf7I0i
+ 64tj+Sqpg/r8ET4mQ+SDvEpttzu20LeRWe5xb1+bB+zpmSsDBWsYR0BOzFG8X4ykpq+OzQ3g=
+X-Gm-Gg: ASbGncuwa7RfeDy2KoHKmsqUl8+kXddSZjkBHJFNvqwxuSQ+f9IXXkNNJbd6lzVb/aw
+ pGm/NLd4qHgJ+RDU54aGDO7MEQBocM5BI1WDF/QYg6JGLLYVguH0D0xsXmpaGJ8Te5sneF3Qq65
+ Pn2j+XScvKOPDFhw/iMQjDKXzgVWzoxcxHTdmdbMgfmNszr7keW9eIDc6JVbJEGpOleuKMMST6b
+ ixYwbW1ZcOGkktc1TFisG8jjD0zhtTfm/jmHnAwFy8cYRiYTb5q+O0xak4EMIj3fGSGonTQ+y+q
+ xXKcFyWK2zoViJW7xH2cK4YbKasIzbSU7SGM6Wp/pQorQrbQTvCfhgwB5AfrqLkaOXGI8XFrUrg
+ /B/JT/COMH3JLEUS/iNkqoL+4St0rxtzDpDHBtaOXfVgUpbNT1fAQ
+X-Received: by 2002:a05:622a:4185:b0:4dd:d5ad:a0b0 with SMTP id
+ d75a77b69052e-4ddd5ada161mr94504401cf.72.1759047898467; 
+ Sun, 28 Sep 2025 01:24:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGT1kPr+SGAov5dmZPG5ScdAxxwbVTr7us/Vb/QdaIyPAfJXzB+Vh1Hhl5wl5GH8A9R5uXnVw==
+X-Received: by 2002:a05:622a:4185:b0:4dd:d5ad:a0b0 with SMTP id
+ d75a77b69052e-4ddd5ada161mr94504081cf.72.1759047897951; 
+ Sun, 28 Sep 2025 01:24:57 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-583166561c0sm3244298e87.81.2025.09.28.01.24.53
+ 2adb3069b0e04-583166561c0sm3244298e87.81.2025.09.28.01.24.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 28 Sep 2025 01:24:53 -0700 (PDT)
+ Sun, 28 Sep 2025 01:24:55 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v2 0/9] drm/connector: hdmi: limit infoframes per driver
- capabilities, second approach
-Date: Sun, 28 Sep 2025 11:24:45 +0300
-Message-Id: <20250928-limit-infoframes-2-v2-0-6f8f5fd04214@oss.qualcomm.com>
+Date: Sun, 28 Sep 2025 11:24:46 +0300
+Subject: [PATCH v2 1/9] drm/display: hdmi-state-helpers: warn on
+ unsupported InfoFrame types
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAM3w2GgC/32NQQqDMBBFryKz7kiSEiVd9R7FRdSxDhjTZqy0i
- Hdv6gG6+fA+/Pc3EEpMApdig0QrC8c5gzkV0I1+vhNynxmMMlY5U+PEgRfkeYhD8oEEDVatO5N
- 1jmrnIQ8fiQZ+H9Jbk3lkWWL6HB+r/rV/datGhZWrrdZtr6xqr1GkfL781MUQyhzQ7Pv+BWNgR
- Ue7AAAA
-X-Change-ID: 20250927-limit-infoframes-2-6b93e599e79a
+Message-Id: <20250928-limit-infoframes-2-v2-1-6f8f5fd04214@oss.qualcomm.com>
+References: <20250928-limit-infoframes-2-v2-0-6f8f5fd04214@oss.qualcomm.com>
+In-Reply-To: <20250928-limit-infoframes-2-v2-0-6f8f5fd04214@oss.qualcomm.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
@@ -108,39 +106,40 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2537;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1404;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=wXdpgIK2nMReHeFFkBUwQqE/S6v5i1Ns3S0QQzaiDpU=;
- b=owEBbAGT/pANAwAKAYs8ij4CKSjVAcsmYgBo2PDTB73mP/OiC/2SDbHHGonN3evfKMNBf+mFV
- TAqz55+BLGJATIEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaNjw0wAKCRCLPIo+Aiko
- 1QGaB/dCkhCFXM3rS/LZOxNFSLK33p0eqjXUwRLj/k1HSm4nPT5ACqB10fJ3tODSDVscNubP0oR
- jfmyJiJzo6t6DoZD77G8Nj64HnQj5ie1loe2Gq8taQC/i6+qO0ReHUV68PcRZJ4/RjIU3SFWYGr
- B0zT0V5KzHabbu+gztU9ddfmCS5QCau8INJXipea8RT1wLTnGNAWjHjycLW4akzsWGYMGmTD3dy
- eYpOMrWIfTBaRqxQh18GUkTypkJLT/cx0JwTR2Tg040mVGp2fCpVCbTwweZgCSWyuuaRHRVeK52
- pmZkVNSrt+Wnj6FEnoqFtN3ELK6yNEwAzYWXHwb2GyWEDPE=
+ bh=R1Bpa6Fvy73+xL3P7L887ElbwPPq4/fFwLVlkuQV7Qc=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBo2PDTlnZoYPxDU4Z3gTveisyzt0XXcXxDuN/YH
+ mhxi8pIdgOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaNjw0wAKCRCLPIo+Aiko
+ 1UePB/9divEoptM9vQNCxc18kAVQN3qANEu3nhMR3r4BSfaNzPAgUOW2mNme52A/q2gPVBSnzf9
+ ebr/ZjBmks2wcDwW2G2cOA8QHgDbJNdyGZxYRZb10FWI9lZPabLiArqIAFpeeVWK5qKPILTipmO
+ 3Yg9yyurABK8qpLUIxoUTtfJYwP42ZT33yO2Qy/cSCznvwZNq72XvTwYh09swLDXM0wv+7kRUUY
+ z7Gb5CR8PPJKhkq7Vv/X3+HA/zwAvqplPHATfkcNdqltowoMh71+IS5wuGYtpTqaQsZp1deBanC
+ xEmQoHpcBTmRcZ1XwWEMUFPeTHNgFqBQHTbf0WXLyu1mQUou
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: 9j6FscS1uC-_-tXyBQ-GXWfYjooY6shJ
-X-Proofpoint-ORIG-GUID: 9j6FscS1uC-_-tXyBQ-GXWfYjooY6shJ
-X-Authority-Analysis: v=2.4 cv=ZtPg6t7G c=1 sm=1 tr=0 ts=68d8f0d8 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=BiG78YgtQv3mHEaFN1cA:9
- a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI3MDAxOCBTYWx0ZWRfX9ilO7QVUg2Lh
- 9ldKvjM2bTNnkrJY2jNUh48kdEeVZIdrIEbd6RAPgX5GEPF6kFTPbHF/TbaIUK9J9zgHNuLTdbp
- H+/v/MB8a6i2rx8JIVhSxo6mZPAlLWNHyp/9NIvqFwOIoqE8xWTsAqqdJG23HOZowSChIsBF/kF
- nen56+l8yBnXzZ9zcrF6qYxkgM09xdqbfsZFZhfxXxiCImNd5/hLgbWiobS/vxWV9hGn4IWtnye
- T52Eg84TRMGeqqqeq6cJ01AaDUrCTE6PyqYgmi2KfmqWk2cQm5d0aE5NC9bwpzUFlNOAgZtPTWz
- 87rk/INuRVuJSofSz1lgdKjAVSYJ088RuAhKR8SjyZ5iYPNML/UtY+F8Kj9HkaB1AI8Sbj52QDL
- 0sEK2hnr1jWz4s//8nq5kYZ8SemCPg==
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI3MDAyOSBTYWx0ZWRfXwdSmGRo7yizA
+ zWWyYLQFlK7hMd6aMUXozu0Wy5Ct7v3lwE+wG8A6Veb8DUmp2LymSbrLLFy3NEw6KaiLfjej5K0
+ tZ3TW9gsbwFtiJVGUuMBD1ha0z8sfVaLp/N10Jw3/zqPomocWpaFvN7hf+7Jh2R1ZTuFipIS9tw
+ 5PbbvEpEtPbPaFJPZNuuwmOHNNJlzdRTETRL7E9WXARiXDVlse2Q6KKi/+yFPB4PqQnC9c0bfwc
+ T6AuklZcbaEAvaVq9lFJRWIBlhEV9tzHrYK63O6vmdNHETQbLFgkJPE4dy4Y/k6HTv1egXOk1qz
+ pUgoeU+wQf51LmIeKCqMCw1w1mXcGbspUCHgmZ8nH1liwO3cVNPCirPhXCWqMoRr2vD4NVSTKpl
+ Oa4JzAmgv5UQ1+szE+6noOdBVNbcmQ==
+X-Proofpoint-GUID: KxTMKcmA423PNxOE3um19hhxvFbuDWjg
+X-Authority-Analysis: v=2.4 cv=OMkqHCaB c=1 sm=1 tr=0 ts=68d8f0db cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=9qaGXxVFTICEpRVd4z0A:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: KxTMKcmA423PNxOE3um19hhxvFbuDWjg
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-28_04,2025-09-26_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2509270018
+ impostorscore=0 malwarescore=0 bulkscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2509150000
+ definitions=main-2509270029
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,56 +155,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-It's not uncommon for the particular device to support only a subset of
-HDMI InfoFrames. Currently it's mostly ignored by the framework: it
-calls write_infoframe() / clear_infoframe() callbacks for all frames and
-expects them to return success even if the InfoFrame is not supported.
-
-Sort that out, making sure that all interfaces are consistent:
-- In atomic_check() callback verify and disable unsupported InfoFrames.
-- In write_infoframe() / clear_infoframe() callbacks return -EOPNOTSUPP
-  for unsupported InfoFrames.
-- In write_device_infoframe() / clear_infoframe() functions warn if the
-  callback returns -EOPNOTSUPP for the frame which is set (or was set
-  beforehand).
+In preparation to tightening driver control over generated InfoFrames,
+make sure to warn the user if the driver rejects the InfoFrames on the
+grounds of it being unsupported.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-Changes in v2:
-- Fixed build issue in common code
-- Fixed comments regarding HDR / audio frames (Diedrik)
-- In adv7511 actually check for the HDR frame (the comment was correct)
-  rather than the audio infoframe (c&p error).
-- Link to v1: https://lore.kernel.org/r/20250927-limit-infoframes-2-v1-0-697511bd050b@oss.qualcomm.com
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
----
-Dmitry Baryshkov (9):
-      drm/display: hdmi-state-helpers: warn on unsupported InfoFrame types
-      drm/bridge: adv7511: handle unsupported InfoFrames
-      drm/bridge: ite-it6263: handle unsupported InfoFrames
-      drm/bridge: lontium-lt9611: handle unsupported InfoFrames
-      drm/bridge: synopsys/dw-hdmi-qp: handle unsupported InfoFrames
-      drm/msm: hdmi: handle unsupported InfoFrames
-      drm/rockchip: rk3066_hdmi: handle unsupported InfoFrames
-      drm/rockchip: inno-hdmi: handle unsupported InfoFrames
-      drm/sun4i: hdmi: handle unsupported InfoFrames
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index a561f124be99a0cd4259dbacf5f5f6651ff8a0ea..e85a6cf6e67232528861521bb21251bfdce6f8b9 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -920,6 +920,9 @@ static int clear_infoframe(struct drm_connector *connector,
+ 	int ret;
+ 
+ 	ret = clear_device_infoframe(connector, old_frame->data.any.type);
++	if (ret == -EOPNOTSUPP)
++		drm_warn_once(connector->dev, "unsupported HDMI infoframe 0x%x\n",
++			      old_frame->data.any.type);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -947,6 +950,9 @@ static int write_device_infoframe(struct drm_connector *connector,
+ 		return len;
+ 
+ 	ret = funcs->write_infoframe(connector, frame->any.type, buffer, len);
++	if (ret == -EOPNOTSUPP)
++		drm_warn_once(connector->dev, "unsupported HDMI infoframe 0x%x\n",
++			      frame->any.type);
+ 	if (ret) {
+ 		drm_dbg_kms(dev, "Call failed: %d\n", ret);
+ 		return ret;
 
- drivers/gpu/drm/bridge/adv7511/adv7511_drv.c    | 20 ++++++++--
- drivers/gpu/drm/bridge/ite-it6263.c             | 27 ++++++++++++-
- drivers/gpu/drm/bridge/lontium-lt9611.c         | 22 ++++++++---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c    | 20 ++++++++--
- drivers/gpu/drm/display/drm_hdmi_state_helper.c |  6 +++
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c          | 19 +++++++--
- drivers/gpu/drm/rockchip/inno_hdmi.c            | 47 +++++++++++++++++------
- drivers/gpu/drm/rockchip/rk3066_hdmi.c          | 39 +++++++++++++++----
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c          | 51 ++++++++++++++++++++++---
- 9 files changed, 208 insertions(+), 43 deletions(-)
----
-base-commit: bf2602a3cb2381fb1a04bf1c39a290518d2538d1
-change-id: 20250927-limit-infoframes-2-6b93e599e79a
-
-Best regards,
 -- 
-With best wishes
-Dmitry
+2.47.3
 
