@@ -2,79 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B49BBA9424
-	for <lists+freedreno@lfdr.de>; Mon, 29 Sep 2025 15:00:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6162BBA9671
+	for <lists+freedreno@lfdr.de>; Mon, 29 Sep 2025 15:48:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE0510E40F;
-	Mon, 29 Sep 2025 13:00:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BE0A10E425;
+	Mon, 29 Sep 2025 13:48:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jz8wwdhF";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TQNQxHbi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0B110E40F;
- Mon, 29 Sep 2025 13:00:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAAD110E425;
+ Mon, 29 Sep 2025 13:48:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D323340AE1;
- Mon, 29 Sep 2025 13:00:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3639AC4CEF4;
- Mon, 29 Sep 2025 13:00:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1759150806;
- bh=v14ZqLeXTqvnBbKfvaWvZF9NSLmuvJRKsZQBeOmW5Wk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jz8wwdhF/Yk6MGtZ5Kdn5W8KFDTZFtIhNpHLM8je6/OG7jVFn/717TBkjRnVxmSPy
- VI1Dku+c1ztJrRasrV2hmU/nNli7IsX8XRIGI5PCB9xbYnmwPj4pjsb4xFcXXvCftj
- IGkGfw9u6XLg7PdBvq/L4qevkPuOrYAAbXa0HjFMi/gj/RUXV860hs6msyfOP2l43H
- 3kPkDzyiPpaIwploKLOSx8yoBoCD4+9f+UNSRUcMaLxTKBhC7hKg4vrrlS/TvSomde
- e7XsEjO2ZImnkX2A/V6Ub3iFY0snOBM3YLzqDbLzkbboJAY2kJkoai/xENtnwBglub
- +WuX5P/Ynzd+w==
-Date: Mon, 29 Sep 2025 15:00:04 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Daniel Stone <daniel@fooishbar.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Liu Ying <victor.liu@nxp.com>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per
- driver capabilities
-Message-ID: <20250929-gregarious-worm-of-memory-c5354d@houat>
-References: <CAPj87rNDtfEYV88Ue0bFXJwQop-zy++Ty7uQ9XfrQ2TbAijeRg@mail.gmail.com>
- <57ekub6uba7iee34sviadareqxv234zbmkr7avqofxes4mqnru@vgkppexnj6cb>
- <20250901-voracious-classy-hedgehog-ee28ef@houat>
- <voknqdv3zte2jzue5yxmysdiixxkogvpblvrccp5gu55x5ycca@srrcscly4ch4>
- <st6wob5hden6ypxt2emzokfhl3ezpbuypv2kdtf5zdrdhlyjfw@l2neflb4uupo>
- <pe6g2fanw65p67kfy5blbtiytngxmr6nkbazymojs4a66yvpl3@7j4ccnsvc6az>
- <20250910-didactic-honored-chachalaca-f233b2@houat>
- <x562ueky2z5deqqmhl222moyrbylfwi35u4hb34dpl3z52ra4c@dyw4iayrewnz>
- <20250925-fervent-merry-beagle-2baba3@penduick>
- <qx5ashx62pufott6hnsfna3qntnoyvxwxze4rihhuxcsdxi37s@bbdvc3sfsgne>
+ by sea.source.kernel.org (Postfix) with ESMTP id 7FFBB48A3E;
+ Mon, 29 Sep 2025 13:48:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08107C4CEF4;
+ Mon, 29 Sep 2025 13:48:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1759153681;
+ bh=eVkxFmIpIc7XoZdv+IJQ3n11xJPvt7/kqsX3m7/whd4=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=TQNQxHbiXXFunqr3EsqQP+eQU5/V6AcmO2pYhjttlAy1k/kZFFG8HLgV+0PhQo855
+ 3fAUmSi42FQrP2kcKjGbfILeXg01Dwaav9tkPo41z+2mngqEWrK77O+9cQaFBtjp5n
+ rH3bDwWhlAISZbB66kPeA/xg/Z4OiOg4O/hVhdZU=
+Subject: Patch "minmax: deduplicate __unconst_integer_typeof()" has been added
+ to the 6.1-stable tree
+To: David.Laight@ACULAB.COM, Rodrigo.Siqueira@amd.com,
+	Xinhui.Pan@amd.com, adilger.kernel@dilger.ca, agk@redhat.com,
+	airlied@gmail.com, akpm@linux-foundation.org,
+	alexander.deucher@amd.com, alexandre.torgue@foss.st.com,
+	amd-gfx@lists.freedesktop.org, andrii@kernel.org,
+	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
+	artur.paszkiewicz@intel.com, ast@kernel.org, bp@alien8.de,
+	brian.starkey@arm.com, christian.koenig@amd.com, clm@fb.com,
+	coreteam@netfilter.org, daniel@ffwll.ch, daniel@iogearbox.net,
+	dave.hansen@linux.intel.com, davem@davemloft.net,
+	dm-devel@redhat.com, dmitry.baryshkov@linaro.org,
+	dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
+	dsahern@kernel.org, dsterba@suse.com, dushistov@mail.ru,
+	edumazet@google.com, evan.quan@amd.com, farbere@amazon.com,
+	fei1.li@intel.com, freedreno@lists.freedesktop.org, fw@strlen.de,
+	gregkh@linuxfoundation.org, haoluo@google.com,
+	harry.wentland@amd.com, hdegoede@redhat.com,
+	herve.codina@bootlin.com, hpa@zytor.com, jack@suse.com,
+	james.morse@arm.com, james.qian.wang@arm.com, jdelvare@suse.com,
+	jejb@linux.ibm.com, jernej.skrabec@gmail.com, jmaloy@redhat.com,
+	joabreu@synopsys.com, johannes@sipsolutions.net,
+	john.fastabend@gmail.com, jolsa@kernel.org, josef@toxicpanda.com,
+	kadlec@netfilter.org, keescook@chromium.org, kpsingh@kernel.org,
+	krzysztof.kozlowski@linaro.org, kuba@kernel.org,
+	linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, linux-staging@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
+	linux@armlinux.org.uk, linux@rasmusvillemoes.dk, linux@roeck-us.net,
+	liviu.dudau@arm.com, luc.vanoostenryck@gmail.com, luto@kernel.org,
+	maarten.lankhorst@linux.intel.com, malattia@linux.it,
+	markgross@kernel.org, martin.lau@linux.dev,
+	martin.petersen@oracle.com, maz@kernel.org, mchehab@kernel.org,
+	mcoquelin.stm32@gmail.com, mhiramat@kernel.org,
+	mihail.atanassov@arm.com, minchan@kernel.org, mingo@redhat.com,
+	mripard@kernel.org, mykolal@fb.com, ngupta@vflare.org,
+	pabeni@redhat.com, pablo@netfilt, er.org@freedesktop.org,
+	peppe.cavallaro@st.com, peterz@infradead.org, pmladek@suse.com,
+	qiuxu.zhuo@intel.com, quic_abhinavk@quicinc.com,
+	quic_akhilpo@quicinc.com, rajur@chelsio.com, richard@nod.at,
+	robdclark@gmail.com, rostedt@goodmis.org, rric@kernel.org,
+	ruanjinjie@huawei.com, sakari.ailus@linux.intel.com,
+	samuel@sholland.org, sashal@kernel.org, sdf@google.com,
+	sean@poorly.run, senozhatsky@chromium.org, shuah@kernel.org,
+	snitzer@kernel.org, song@kernel.org, sunpeng.li@amd.com,
+	tglx@linutronix.de, tipc-discussion@lists.sourceforge.net,
+	tony.luck@intel.com, tytso@mit.edu, tzimmermann@suse.de,
+	wad@chromium.org, wens@csie.org, willy@infradead.org, x86@kernel.org,
+	yhs@fb.com, ying.xue@windriver.com, yoshfuji@linux-ipv6.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 29 Sep 2025 15:47:49 +0200
+In-Reply-To: <20250924202320.32333-4-farbere@amazon.com>
+Message-ID: <2025092949-coil-hardwood-72bf@gregkh>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="5omahayljejanoli"
-Content-Disposition: inline
-In-Reply-To: <qx5ashx62pufott6hnsfna3qntnoyvxwxze4rihhuxcsdxi37s@bbdvc3sfsgne>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,239 +104,100 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---5omahayljejanoli
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per
- driver capabilities
-MIME-Version: 1.0
+This is a note to let you know that I've just added the patch titled
 
-On Thu, Sep 25, 2025 at 05:16:07PM +0300, Dmitry Baryshkov wrote:
-> On Thu, Sep 25, 2025 at 03:13:47PM +0200, Maxime Ripard wrote:
-> > On Wed, Sep 10, 2025 at 06:26:56PM +0300, Dmitry Baryshkov wrote:
-> > > On Wed, Sep 10, 2025 at 09:30:19AM +0200, Maxime Ripard wrote:
-> > > > On Wed, Sep 03, 2025 at 03:03:43AM +0300, Dmitry Baryshkov wrote:
-> > > > > On Tue, Sep 02, 2025 at 08:06:54PM +0200, Maxime Ripard wrote:
-> > > > > > On Tue, Sep 02, 2025 at 06:45:44AM +0300, Dmitry Baryshkov wrot=
-e:
-> > > > > > > On Mon, Sep 01, 2025 at 09:07:02AM +0200, Maxime Ripard wrote:
-> > > > > > > > On Sun, Aug 31, 2025 at 01:29:13AM +0300, Dmitry Baryshkov =
-wrote:
-> > > > > > > > > On Sat, Aug 30, 2025 at 09:30:01AM +0200, Daniel Stone wr=
-ote:
-> > > > > > > > > > Hi Dmitry,
-> > > > > > > > > >=20
-> > > > > > > > > > On Sat, 30 Aug 2025 at 02:23, Dmitry Baryshkov
-> > > > > > > > > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > > > > > > > > > > It's not uncommon for the particular device to suppor=
-t only a subset of
-> > > > > > > > > > > HDMI InfoFrames. It's not a big problem for the kerne=
-l, since we adopted
-> > > > > > > > > > > a model of ignoring the unsupported Infoframes, but i=
-t's a bigger
-> > > > > > > > > > > problem for the userspace: we end up having files in =
-debugfs which do
-> > > > > > > > > > > mot match what is being sent on the wire.
-> > > > > > > > > > >
-> > > > > > > > > > > Sort that out, making sure that all interfaces are co=
-nsistent.
-> > > > > > > > > >=20
-> > > > > > > > > > Thanks for the series, it's a really good cleanup.
-> > > > > > > > > >=20
-> > > > > > > > > > I know that dw-hdmi-qp can support _any_ infoframe, by =
-manually
-> > > > > > > > > > packing it into the two GHDMI banks. So the supported s=
-et there is
-> > > > > > > > > > 'all of the currently well-known ones, plus any two oth=
-ers, but only
-> > > > > > > > > > two and not more'. I wonder if that has any effect on t=
-he interface
-> > > > > > > > > > you were thinking about for userspace?
-> > > > > > > > >=20
-> > > > > > > > > I was mostly concerned with the existing debugfs interfac=
-e (as it is
-> > > > > > > > > also used e.g. for edid-decode, etc).
-> > > > > > > > >=20
-> > > > > > > > > It seems "everything + 2 spare" is more or less common (A=
-DV7511, MSM
-> > > > > > > > > HDMI also have those. I don't have at hand the proper dat=
-asheet for
-> > > > > > > > > LT9611 (non-UXC one), but I think its InfoFrames are also=
- more or less
-> > > > > > > > > generic).  Maybe we should change debugfs integration to =
-register the
-> > > > > > > > > file when the frame is being enabled and removing it when=
- it gets unset.
-> > > > > > > >=20
-> > > > > > > > But, like, for what benefit?
-> > > > > > > >=20
-> > > > > > > > It's a debugfs interface for userspace to consume. The curr=
-ent setup
-> > > > > > > > works fine with edid-decode already. Why should we complica=
-te the design
-> > > > > > > > that much and create fun races like "I'm running edid-decod=
-e in parallel
-> > > > > > > > to a modeset that would remove the file I just opened, what=
- is the file
-> > > > > > > > now?".
-> > > > > > >=20
-> > > > > > > Aren't we trading that with the 'I'm running edid-decode in p=
-aralle with
-> > > > > > > to a modeset and the file suddenly becomes empty'?
-> > > > > >=20
-> > > > > > In that case, you know what the file is going to be: empty. And=
- you went
-> > > > > > from a racy, straightforward, design to a racy, complicated, de=
-sign.
-> > > > > >=20
-> > > > > > It was my question before, but I still don't really see what be=
-nefits it
-> > > > > > would have, and why we need to care about it in the core, when =
-it could
-> > > > > > be dealt with in the drivers just fine on a case by case basis.
-> > > > >=20
-> > > > > Actually it can not: debugfs files are registered from the core, =
-not
-> > > > > from the drivers. That's why I needed all the supported_infoframes
-> > > > > (which later became software_infoframes).
-> > > >=20
-> > > > That's one thing we can change then.
-> > > >=20
-> > > > > Anyway, I'm fine with having empty files there.
-> > > > >=20
-> > > > > > > > > Then in the long run we can add 'slots' and allocate some=
- of the frames
-> > > > > > > > > to the slots. E.g. ADV7511 would get 'software AVI', 'sof=
-tware SPD',
-> > > > > > > > > 'auto AUDIO' + 2 generic slots (and MPEG InfoFrame which =
-can probably be
-> > > > > > > > > salvaged as another generic one)). MSM HDMI would get 'so=
-ftware AVI',
-> > > > > > > > > 'software AUDIO' + 2 generic slots (+MPEG + obsucre HDMI =
-which I don't
-> > > > > > > > > want to use). Then the framework might be able to priorit=
-ize whether to
-> > > > > > > > > use generic slots for important data (as DRM HDR, HDMI) o=
-r less important
-> > > > > > > > > (SPD).
-> > > > > > > >=20
-> > > > > > > > Why is it something for the framework to deal with? If you =
-want to have
-> > > > > > > > extra infoframes in there, just go ahead and create additio=
-nal debugfs
-> > > > > > > > files in your driver.
-> > > > > > > >=20
-> > > > > > > > If you want to have the slot mechanism, check in your atomi=
-c_check that
-> > > > > > > > only $NUM_SLOT at most infoframes are set.
-> > > > > > >=20
-> > > > > > > The driver can only decide that 'we have VSI, SPD and DRM Inf=
-oFrames
-> > > > > > > which is -ETOOMUCH for 2 generic slots'. The framework should=
- be able to
-> > > > > > > decide 'the device has 2 generic slots, we have HDR data, use=
- VSI and
-> > > > > > > DRM InfoFrames and disable SPD for now'.
-> > > > > >=20
-> > > > > > I mean... the spec does? The spec says when a particular feature
-> > > > > > requires to send a particular infoframe. If your device cannot =
-support
-> > > > > > to have more than two "features" enabled at the same time, so b=
-e it. It
-> > > > > > something that should be checked in that driver atomic_check.
-> > > > >=20
-> > > > > Sounds good to me. Let's have those checks in the drivers until we
-> > > > > actually have seveal drivers performing generic frame allocation.
-> > > > >=20
-> > > > > > Or just don't register the SPD debugfs file, ignore it, put a c=
-omment
-> > > > > > there, and we're done too.
-> > > > >=20
-> > > > > It's generic code.
-> > > > >=20
-> > > > > > > But... We are not there yet and I don't have clear usecase (w=
-e support
-> > > > > > > HDR neither on ADV7511 nor on MSM HDMI, after carefully readi=
-ng the
-> > > > > > > guide I realised that ADV7511 has normal audio infoframes). M=
-aybe I
-> > > > > > > should drop all the 'auto' features, simplifying this series =
-and land
-> > > > > > > [1] for LT9611UXC as I wanted origianlly.
-> > > > > > >=20
-> > > > > > > [1] https://lore.kernel.org/dri-devel/20250803-lt9611uxc-hdmi=
--v1-2-cb9ce1793acf@oss.qualcomm.com/
-> > > > > >=20
-> > > > > > Looking back at that series, I think it still has value to rely=
- on the
-> > > > > > HDMI infrastructure at the very least for the atomic_check sani=
-tization.
-> > > > > >=20
-> > > > > > But since you wouldn't use the generated infoframes, just skip =
-the
-> > > > > > debugfs files registration. You're not lying to userspace anymo=
-re, and
-> > > > > > you get the benefits of the HDMI framework.
-> > > > >=20
-> > > > > We create all infoframe files for all HDMI connectors.
-> > > >=20
-> > > > Then we can provide a debugfs_init helper to register all of them, =
-or
-> > > > only some of them, and let the drivers figure it out.
-> > > >=20
-> > > > Worst case scenario, debugfs files will not get created, which is a=
- much
-> > > > better outcome than having to put boilerplate in every driver that =
-will
-> > > > get inconsistent over time.
-> > >=20
-> > > debugfs_init() for each infoframe or taking some kind of bitmask?
-> >=20
-> > I meant turning hdmi_debugfs_add and create_hdmi_*_infoframe_file into
-> > public helpers. That way, drivers that don't care can use the (renamed)
-> > hdmi_debugfs_add, and drivers with different constraints can register
-> > the relevant infoframes directly.
->=20
-> Doesn't that mean more boilerplate?
+    minmax: deduplicate __unconst_integer_typeof()
 
-I don't think it would? In the general case, it wouldn't change
-anything, and in special cases, then it's probably going to be different
-=66rom one driver to the next so there's not much we can do.
+to the 6.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-> In the end, LT9611UXC is a special case, for which I'm totally fine
-> not to use HDMI helpers at this point: we don't control infoframes
-> (hopefully that can change), we don't care about the TMDS clock, no
-> CEC, etc.
+The filename of the patch is:
+     minmax-deduplicate-__unconst_integer_typeof.patch
+and it can be found in the queue-6.1 subdirectory.
 
-Not using the helpers sound pretty reasonable here too.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-> For all other usecases I'm fine with having atomic_check() unset all
-> unsupported infoframes and having empty files in debugfs. Then we can
-> evolve over the time, once we see a pattern. We had several drivers
-> which had very limited infoframes support, but I think this now gets
-> sorted over the time.
 
-I never talked about atomic_check()? You were initially concerned that
-the framework would expose data in debugfs that it's not using. Not
-registering anything in debugfs solves that, but I'm not sure we need to
-special case atomic_check.
+From linux-staging+bounces-34577-greg=kroah.com@lists.linux.dev Wed Sep 24 22:27:13 2025
+From: Eliav Farber <farbere@amazon.com>
+Date: Wed, 24 Sep 2025 20:23:04 +0000
+Subject: minmax: deduplicate __unconst_integer_typeof()
+To: <linux@armlinux.org.uk>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>, <brian.starkey@arm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <maz@k
+ ernel.org>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>, <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>, <peppe.cavallaro@st.com>, <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>, <malattia@linux.it>, <hdegoede@redhat.com>, <markgross@kernel.org>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <gregkh@linuxfoundation.org>, <fei1.li@intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>, <pmladek@suse.com>, <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.
+ org>, <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <andrii@kernel.org>, <mykolal@fb.com>, <ast@kernel.org>, <daniel@iogearbox.net>, <martin.lau@linux.dev>, <song@kernel.org>, <yhs@fb.com>, <john.fastabend@gmail.com>, <kpsingh@kernel.org>, <sdf@google.com>, <haoluo@google.com>, <jolsa@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>, <wad@chromium.org>, <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>, <ruanjinjie@huawei.com>, <quic_akhilpo@quicinc.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vge
+ r.kernel.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>, <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+Message-ID: <20250924202320.32333-4-farbere@amazon.com>
 
-Worst case scenario, we're going to generate infoframes the driver will
-ignore.
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Maxime
+[ Upstream commit 5e57418a2031cd5e1863efdf3d7447a16a368172 ]
 
---5omahayljejanoli
-Content-Type: application/pgp-signature; name="signature.asc"
+It appears that compiler_types.h already have an implementation of the
+__unconst_integer_typeof() called __unqual_scalar_typeof().  Use it
+instead of the copy.
 
------BEGIN PGP SIGNATURE-----
+Link: https://lkml.kernel.org/r/20230911154913.4176033-1-andriy.shevchenko@linux.intel.com
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Herve Codina <herve.codina@bootlin.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ include/linux/minmax.h |   25 ++-----------------------
+ 1 file changed, 2 insertions(+), 23 deletions(-)
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaNqC0wAKCRAnX84Zoj2+
-diX/AYD7tGMpz//OLeUzSg3QYHAZkitZyXT00YfJmgxYpCUMSnb6h8ucgQ8Om8Vk
-gbiiQX0Bf2U6KVN7HpvEuga5AMtIOqqgCE/fQHox7oXRJiC3nuzlZW5e70PMzD7l
-uQgN/qqEkQ==
-=aZZH
------END PGP SIGNATURE-----
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -169,27 +169,6 @@
+ #define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
+ 
+ /*
+- * Remove a const qualifier from integer types
+- * _Generic(foo, type-name: association, ..., default: association) performs a
+- * comparison against the foo type (not the qualified type).
+- * Do not use the const keyword in the type-name as it will not match the
+- * unqualified type of foo.
+- */
+-#define __unconst_integer_type_cases(type)	\
+-	unsigned type:  (unsigned type)0,	\
+-	signed type:    (signed type)0
+-
+-#define __unconst_integer_typeof(x) typeof(			\
+-	_Generic((x),						\
+-		char: (char)0,					\
+-		__unconst_integer_type_cases(char),		\
+-		__unconst_integer_type_cases(short),		\
+-		__unconst_integer_type_cases(int),		\
+-		__unconst_integer_type_cases(long),		\
+-		__unconst_integer_type_cases(long long),	\
+-		default: (x)))
+-
+-/*
+  * Do not check the array parameter using __must_be_array().
+  * In the following legit use-case where the "array" passed is a simple pointer,
+  * __must_be_array() will return a failure.
+@@ -203,13 +182,13 @@
+  * 'int *buff' and 'int buff[N]' types.
+  *
+  * The array can be an array of const items.
+- * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
++ * typeof() keeps the const qualifier. Use __unqual_scalar_typeof() in order
+  * to discard the const qualifier for the __element variable.
+  */
+ #define __minmax_array(op, array, len) ({				\
+ 	typeof(&(array)[0]) __array = (array);				\
+ 	typeof(len) __len = (len);					\
+-	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
++	__unqual_scalar_typeof(__array[0]) __element = __array[--__len];\
+ 	while (__len--)							\
+ 		__element = op(__element, __array[__len]);		\
+ 	__element; })
 
---5omahayljejanoli--
+
+Patches currently in stable-queue which might be from farbere@amazon.com are
+
+queue-6.1/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+queue-6.1/minmax-add-in_range-macro.patch
+queue-6.1/minmax-deduplicate-__unconst_integer_typeof.patch
+queue-6.1/minmax-introduce-min-max-_array.patch
