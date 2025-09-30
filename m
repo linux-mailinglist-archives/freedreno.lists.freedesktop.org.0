@@ -2,82 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 908C0BAB863
-	for <lists+freedreno@lfdr.de>; Tue, 30 Sep 2025 07:50:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA46FBAB86C
+	for <lists+freedreno@lfdr.de>; Tue, 30 Sep 2025 07:50:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6950D10E26F;
-	Tue, 30 Sep 2025 05:50:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0B6310E4F3;
+	Tue, 30 Sep 2025 05:50:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lt/QzqV2";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="maM9JAzg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1CA10E4EF
- for <freedreno@lists.freedesktop.org>; Tue, 30 Sep 2025 05:50:20 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58U4HP18017557
- for <freedreno@lists.freedesktop.org>; Tue, 30 Sep 2025 05:50:19 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3836710E4F2
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Sep 2025 05:50:27 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58U4HjAr015093
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Sep 2025 05:50:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- b3KVfEGjSay2MX7CoJvLOzV1CqboHslXk9pdc9qozsE=; b=Lt/QzqV2PX0S0ruc
- 9FWTfzCCUYcj+zhi2JgJw3zmuSYHFNZMybigdd8EJV3x4fVNPlNqnx8UurLNECAW
- gws+NNgNM9/UKdVNpMw+M5b73MCaGr0L/HqhJ9ZwxQq35nnQ8RHWG49xjbtKmt7X
- rEbUWklmsdd+s3bePJey5K9eVrBmJuhyw7E37nQG7VjF3YElTsNWiexjeEE9CMNK
- GQEGJUyhfpn/h8Nmq19Y4JX0NUD9LdSvQvG6N37/TQN/xaUUH+VpDItV9NL+3GLv
- 0IgqdowmcND1Fd7UBVlF92ASDyBah9lThER1cUZj/TItiDw5UO3I5tKaAGYRWhiK
- WjCcPA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49e80tqvn3-1
+ 5DcOYuuJJ+cW6vFNFMyOqLHX/YGKWTBxTGWvOie70iM=; b=maM9JAzgC8bn3UtP
+ bK3l9Mr5pbIBVnd51dGsizmhHoKWbbpPi/8nG7N4p9sJEp+cARaCmUjI/BafMMBS
+ OShbyK0S7NsVakVVhBPMC4di37if5ePlKzRjD+GcdQ+CjyaUmHzJt07bNQu42aDB
+ nIlUYI6k8sfMZbjTEQKa41YRiaeXreNbDHN52R5E/qafzwncU7iaFwjom1g8Rb1f
+ Hv4nzvTG68XgnXz7uoQMVUPqb7cA9QMwsFlMM1lj3AHvrhfTZ+8Rlj7Jzd09iudx
+ tO+gOPVF28/UYIXaIVF5CW51UdhMXIA0SlO0BMYVP8hrofLC9foRJ2DHMtvG470Z
+ SC9o0A==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49e6vqyswb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 30 Sep 2025 05:50:19 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-27ee41e062cso51408225ad.1
- for <freedreno@lists.freedesktop.org>; Mon, 29 Sep 2025 22:50:19 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Sep 2025 05:50:26 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-32eb18b5500so8787492a91.2
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Sep 2025 22:50:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759211418; x=1759816218;
+ d=1e100.net; s=20230601; t=1759211426; x=1759816226;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=b3KVfEGjSay2MX7CoJvLOzV1CqboHslXk9pdc9qozsE=;
- b=LDtQ+LpkGYlXhoPboPp2SkFcjEqQOuoQmVaoHFBRGAX55r0BCjL2mZRCcRzOlrvJSJ
- j7Ccqio1S/cg1doHzf2tJL+E/KIXuDUX+mH7TLzeRCC8GicaGocRR+kq9T52k6amES4B
- f9wE/kkcBlUhvEhZw3xdHa345p38FZjK4sCLs4sW4jn2mIBL0T/Jf+pnTsMyqm4oYBW4
- uOxRo4fvX0y1Rf0zNqEXs+oupV1w8Qd+Hns5yImsaU+S2sCm2pA/RWjnc1+SPh2LvkCS
- s2LthVfciRNPy8Kexy/LVwmw4K23XQulEaRzehDRvxoFNVGpBNptvzZbVzSQ8iIwlUIe
- 3l2Q==
+ bh=5DcOYuuJJ+cW6vFNFMyOqLHX/YGKWTBxTGWvOie70iM=;
+ b=hDvklSH2J9WkLwSqJJN4DTXVmUiDt0PnyHZVYYy4yhTJKTDS37GrWoJxbSs5f4vFs9
+ ila/YcxHO+An2/y1S/wrOmhqI52S8HXpa/cmq0bjC2hreix7O//nRAwl20muhQLrYrnP
+ yVQ314xZlqEUDg/vc//jg2YfSRVib7Cp2ia+PbBRdRLf0ynkwsf9rbMvaQdm/JWG9cEK
+ +J9v+OllA7/tMecK7iJq6fYSVg8Wc0vkFAiFn1MCe4Y9nyEm1Eu78Zrzr1i21uXXF4jW
+ 1GDbsiEQIkdt+aqQ2F1bkKco84ARBq9adFsaJ4ME+BcILd0audZHB6aBxg/KcUf4EQBC
+ lK6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWJ9F2pyIZEEkQqet+mXtLR70n7hjbZq6K7AJnOmshNSMyFV6ou6yMks2Psqw+X2DO14Sq6FHdwHcI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoM1u7L02BxW7VmlnVWKcvIhehXSc3G13PIZnL6435e1I+FKXd
- KuO5Iq/hF+SI80op7u0Kaps/MBJyb/9mpGAop7DjgCHLimpy/gk0VuOjGvghxwOxZH0dV2uXUY1
- 6hSO0SFl6BcJO3azC3NHhRpNWjp1iBxJng7nHckSf4K2SQTod7ovsEiky6Gr951MGllLptEo=
-X-Gm-Gg: ASbGncuZVEAfKsqTuThI8pXxftwm0YEqnQin9bOyLp1Cl5wRtcaWWNRRXteoFfnlqgd
- UUr9X11K79SpB116P/e+x7Rd3SdalVW9p8sx9EU3GcXYzqt5XvVbj1Z7jm4R+kmL7HUoEMOBP/7
- u3OzmCGcmTFPF6tHKb0tSaB5VOfk13Ex2qgOu+q6dFD0TT4ym4bRgZcov2phLSR+E4/HR0qqk7T
- /nPJtmBAPK7jL5PhAOjsVU/zMzkAgsg1JTlul1nILUJ5URFvELcG6A5Km4H97yAM0jzAURsMe6K
- 0A4DVFM2qPpR8hsV6VzL5pBY13/qzv/RkIvyU44CUe1QwUIw4VjqbCishdiqB75YpvJWRg==
-X-Received: by 2002:a17:90b:314c:b0:32e:96b1:fb6e with SMTP id
- 98e67ed59e1d1-3342a29906dmr20304935a91.18.1759211417994; 
- Mon, 29 Sep 2025 22:50:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFo0RE2YKa4ZygxZu6kxjp8Q2RIAaVkJ/MyZNvDXmSDipKXnnMeHOY/Pjn5S54HjeUH61NjDQ==
-X-Received: by 2002:a17:90b:314c:b0:32e:96b1:fb6e with SMTP id
- 98e67ed59e1d1-3342a29906dmr20304912a91.18.1759211417534; 
- Mon, 29 Sep 2025 22:50:17 -0700 (PDT)
+ AJvYcCVNp5z4SDjpVKqoLrQsdk3t+sgjdnnWA7CSMdjm54X9oOX4fgDCyrRSxSIF/R+7Yn6yZ9SF+GMugZY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWygMDOjyPyFMIPzR3IHI3QLno8wX35EfdgDPyfzP4RBrEdlVB
+ Gzmh0B76qhSVlcGmWM4YSWD5chXkkYvp6WH7Fi9geOr3h0JTUM5LX/+ddCEIqTI8XyvOzv0zp0G
+ Eh+Mq7hB/Ok9j0ciPEXlG4ZFnoMNarwIurHBfVf72Uo2YneLi2nfFItyE6DaPcUcrLcaNAUk=
+X-Gm-Gg: ASbGncsZN98sFUf5PE5DNTYrBK0GJJ5iEoGDxgYVoLthsN0AZqh6Ywncc3d83oMr4Mz
+ n4h8CQdk6xv0UTfr7f0Cwb68NsvCQlvzl5qzgKLJN53R8XnFdQG2hn4g2eieFlkxwwJnZFEwhts
+ 5NdI7SZ3ejRUs0dzvG+WCwMve6pQLJpEAHJKwF6xajS8RzCO5UVEsP8V4Wswb1Y2+MMvNOJXcvf
+ Da/cHzqYEa1vqxR/tWHCDl7AZePLTXs0Tk3wLC4xfSQ5T2Y6tl56bFgwVAmZqqW2UiFcIKkzhXp
+ FhmxGBiIJPVc6gscoSnjlzUAi4x+Z+Ff3OaX8g2qSt9u5lFAr0ZvHMy1No8ER3cQd1/jqA==
+X-Received: by 2002:a17:90b:2684:b0:32b:94a2:b0d5 with SMTP id
+ 98e67ed59e1d1-3342a318acbmr22583490a91.37.1759211425542; 
+ Mon, 29 Sep 2025 22:50:25 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFUIQWH84fqllYLQOn6xvNXBsEPOR+cZgKu2hLJ5kpoceLfbQeC3W3x6mtJBPFDPhqUZSJFdQ==
+X-Received: by 2002:a17:90b:2684:b0:32b:94a2:b0d5 with SMTP id
+ 98e67ed59e1d1-3342a318acbmr22583460a91.37.1759211425055; 
+ Mon, 29 Sep 2025 22:50:25 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3341be23412sm19029779a91.20.2025.09.29.22.50.10
+ 98e67ed59e1d1-3341be23412sm19029779a91.20.2025.09.29.22.50.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Sep 2025 22:50:17 -0700 (PDT)
+ Mon, 29 Sep 2025 22:50:24 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Tue, 30 Sep 2025 11:18:09 +0530
-Subject: [PATCH 04/17] drm/msm/adreno: Create adreno_func->submit_flush()
+Date: Tue, 30 Sep 2025 11:18:10 +0530
+Subject: [PATCH 05/17] drm/msm/a6xx: Rename and move a7xx_cx_mem_init()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250930-kaana-gpu-support-v1-4-73530b0700ed@oss.qualcomm.com>
+Message-Id: <20250930-kaana-gpu-support-v1-5-73530b0700ed@oss.qualcomm.com>
 References: <20250930-kaana-gpu-support-v1-0-73530b0700ed@oss.qualcomm.com>
 In-Reply-To: <20250930-kaana-gpu-support-v1-0-73530b0700ed@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -101,35 +101,35 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
  devicetree@vger.kernel.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1759211380; l=2662;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1759211380; l=2329;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=HQNn0GpSr5MaoATHj12j1OfeIQxkRKUAuDUx63OS8o0=;
- b=R/N87ADKLI885gc4zTsGjeVFnAH7lthAW1ze2DZJAlARQpSnNO9Y+gAiY+MUbS9j70fOi7I4V
- Whw/OBdpDLmDwFAQAOu1zNCO8SxfWv4eBVJ1taJgS1R0W3pl7D4FPDR
+ bh=r9oQbEwLVJJDIQbYTusbpAt6OAJRxZxziR2i2dJYHBs=;
+ b=XtsAQGS6JKr43XfgTE3f3PxKYwJMKqXqAQxlF0DEooff7/mkggdbd/tl5m3RDE7pPZll3vDo/
+ khRRRuP4zrzCfhmz8gkqnP94SAjFhZEUgylnY6MbreRTFexF/VIk2LO
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI3MDAyOSBTYWx0ZWRfX6IBjKb0JUKjZ
- SV3LPjwBfBxXvAuWzfcPsOjYk9fMSuI4v0nqa+31xlHHmCOuzLgYLLca0f904B+C650EGuTzxFb
- ve/+hYUkD7Uy5E4oYLa41gfGRuiNHPGu1FN7/dc4zITCZf52Vtk9SfWfS+RvupgUVVIK1P6/Ee6
- NMlv9I9TDmTuGz4exRPovnLhMYxIUweqqrvwUbRVd0wMybmIX8HeODep6cD+iUSowW1U6CYO5F9
- gJnEQ8Lb4ap0RjD9wzDQaukyNsDmYYnF/Nyg8IiZwd+ZSxU/qtLTCJ5dO7c6+3qi4UQxnVkrr/j
- SSsh8w8CXvxU5VZm77MH0xh1hMJfj7AJhSg+X02wvaJqqOhoeVwP2gfHqz9oG8F4UiwRaDUKVYE
- OVV0wcXSS0YfT5hOmiJMu88Sn+4zdA==
-X-Proofpoint-GUID: lbVKBEV6t1lWd07K6G9HtCzmwJMiY704
-X-Authority-Analysis: v=2.4 cv=OMkqHCaB c=1 sm=1 tr=0 ts=68db6f9b cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=geZ1VMdEqvdXz0YL0KoA:9
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: lbVKBEV6t1lWd07K6G9HtCzmwJMiY704
+X-Proofpoint-GUID: Ow320Et4ekkj9qeWHS_o44IBciHVvz5g
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI3MDAxNyBTYWx0ZWRfXzJIxgi43x5Ls
+ UCG8DRKPLZWfaT0j6mUreyKirw2jDiBf5A/ORzLbv6dSWCN/jEJ2hxMvst0ZaQuCBo5bRUpguJ4
+ 7Temg//ClPcv0g7KNE3ld1BU1+C70zBG4HAtaul7Omhr1A094V4hgBEyBepI8p6CL4DB/QqWmSk
+ +Wrm1lDxx4P31mKyvp2+fY9hUF62OHUXwHHvA1QoF1lC6DYSazTrjoAUmpgigdC3q+Waq3tLLG7
+ zCzoM0uGJ9cRuGlCe66I9V8RFsWNaQzHXmygg43CYf8UWayyleDjtO6D6S/Q0EnAsCDyUH2p2Ay
+ c+xw3X/7LOsG6N/TUqxhayXZXSR33IoLJ09s7D9gJE8MEynoRyahsulQxz3Cs7eJNVDJ8RJ9ypA
+ 8JKxPTsAT40WXKh/Frz583mYjer4rQ==
+X-Authority-Analysis: v=2.4 cv=IeiKmGqa c=1 sm=1 tr=0 ts=68db6fa2 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=yJojWOMRYYMA:10 a=EUspDBNiAAAA:8 a=HijK2bQ2CIbjB8v2WwsA:9
+ a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: Ow320Et4ekkj9qeWHS_o44IBciHVvz5g
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-30_01,2025-09-29_04,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 bulkscore=0 phishscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ suspectscore=0 spamscore=0 adultscore=0 impostorscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2509150000
- definitions=main-2509270029
+ definitions=main-2509270017
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,71 +145,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To dynamically decide the right flush routine, convert a6xx_flush to an
-adreno_func op. This will help us to reuse a7xx_submit() along with
-a8xx_flush op.
+Rename to a7xx_gpu_feature_probe() and move it to adreno_gpu_func list
+so that we can simplify the caller.
 
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 7 +++++--
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 1 +
- 2 files changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 11 ++++++-----
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h |  1 +
+ 2 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index b8f8ae940b55f5578abdbdec6bf1e90a53e721a5..9cc2f008388929f0c8e8f70a3e3e79fb4d35ab38 100644
+index 9cc2f008388929f0c8e8f70a3e3e79fb4d35ab38..4be0117c3ab1d56dc81b43ff00e3cc48b02b080f 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -391,7 +391,7 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 
- 	trace_msm_gpu_submit_flush(submit, read_gmu_ao_counter(a6xx_gpu));
- 
--	a6xx_flush(gpu, ring);
-+	adreno_gpu->funcs->submit_flush(gpu, ring);
+@@ -2065,10 +2065,10 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
+ 		a6xx_gpu->llc_mmio = ERR_PTR(-EINVAL);
  }
  
- static void a6xx_emit_set_pseudo_reg(struct msm_ringbuffer *ring,
-@@ -591,7 +591,7 @@ static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+-static int a7xx_cx_mem_init(struct a6xx_gpu *a6xx_gpu)
++static int a7xx_gpu_feature_probe(struct msm_gpu *gpu)
+ {
+-	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+-	struct msm_gpu *gpu = &adreno_gpu->base;
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+ 	u32 fuse_val;
+ 	int ret;
  
- 	trace_msm_gpu_submit_flush(submit, read_gmu_ao_counter(a6xx_gpu));
- 
--	a6xx_flush(gpu, ring);
-+	adreno_gpu->funcs->submit_flush(gpu, ring);
- 
- 	/* Check to see if we need to start preemption */
- 	a6xx_preempt_trigger(gpu);
-@@ -2557,6 +2557,7 @@ static const struct adreno_gpu_funcs funcs = {
- 		.sysprof_setup = a6xx_gmu_sysprof_setup,
+@@ -2621,6 +2621,7 @@ static const struct adreno_gpu_funcs funcs_a7xx = {
  	},
  	.get_timestamp = a6xx_gmu_get_timestamp,
-+	.submit_flush = a6xx_flush,
- };
- 
- static const struct adreno_gpu_funcs funcs_gmuwrapper = {
-@@ -2586,6 +2587,7 @@ static const struct adreno_gpu_funcs funcs_gmuwrapper = {
- 		.progress = a6xx_progress,
- 	},
- 	.get_timestamp = a6xx_get_timestamp,
-+	.submit_flush = a6xx_flush,
- };
- 
- static const struct adreno_gpu_funcs funcs_a7xx = {
-@@ -2618,6 +2620,7 @@ static const struct adreno_gpu_funcs funcs_a7xx = {
- 		.sysprof_setup = a6xx_gmu_sysprof_setup,
- 	},
- 	.get_timestamp = a6xx_gmu_get_timestamp,
-+	.submit_flush = a6xx_flush,
+ 	.submit_flush = a6xx_flush,
++	.feature_probe = a7xx_gpu_feature_probe,
  };
  
  struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+@@ -2702,8 +2703,8 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 		return ERR_PTR(ret);
+ 	}
+ 
+-	if (adreno_is_a7xx(adreno_gpu)) {
+-		ret = a7xx_cx_mem_init(a6xx_gpu);
++	if (adreno_gpu->funcs->feature_probe) {
++		ret = adreno_gpu->funcs->feature_probe(gpu);
+ 		if (ret) {
+ 			a6xx_destroy(&(a6xx_gpu->base.base));
+ 			return ERR_PTR(ret);
 diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 390fa6720d9b096f4fa7d1639645d453d43b153a..77b1c73ff8946fb0f8ff279e16c973cade50c130 100644
+index 77b1c73ff8946fb0f8ff279e16c973cade50c130..5abe442637e321fb996402fd833711f0a948e176 100644
 --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
 +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -74,6 +74,7 @@ enum adreno_family {
- struct adreno_gpu_funcs {
+@@ -75,6 +75,7 @@ struct adreno_gpu_funcs {
  	struct msm_gpu_funcs base;
  	int (*get_timestamp)(struct msm_gpu *gpu, uint64_t *value);
-+	void (*submit_flush)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
+ 	void (*submit_flush)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
++	int (*feature_probe)(struct msm_gpu *gpu);
  };
  
  struct adreno_reglist {
