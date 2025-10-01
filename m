@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8D9CBB513D
-	for <lists+freedreno@lfdr.de>; Thu, 02 Oct 2025 22:04:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2CCCBB513A
+	for <lists+freedreno@lfdr.de>; Thu, 02 Oct 2025 22:04:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4608510E84C;
-	Thu,  2 Oct 2025 20:04:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDC9D10E38D;
+	Thu,  2 Oct 2025 20:04:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B4zeAH+q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PB3En4Ti";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
  [209.85.128.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7773A10E1A3
- for <freedreno@lists.freedesktop.org>; Wed,  1 Oct 2025 14:01:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8F1110E0F5
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Oct 2025 14:01:17 +0000 (UTC)
 Received: by mail-wm1-f67.google.com with SMTP id
- 5b1f17b1804b1-46e2e363118so69761975e9.0
- for <freedreno@lists.freedesktop.org>; Wed, 01 Oct 2025 07:01:06 -0700 (PDT)
+ 5b1f17b1804b1-46e6771c523so2136995e9.1
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Oct 2025 07:01:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759327265; x=1759932065; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1759327276; x=1759932076; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Fsszsfqn6nKhuQ5ZGb0FQ/doPY/Ih/TU5I38riDkDPQ=;
- b=B4zeAH+qa7zIkcBRUgaVL3ARqf8/n0vyZWrwSZR5VjEQLbhl6Cakd/gSo3m9EXRFm8
- or0sF5kP96wdJwuxugmD8/V+WWYjG/HZvI0pZ5q/pcDj0YWEk5aJtdB7Qkmv3qaQzz21
- rcvrN5aMQrPuuGkmv0os/MkfAYCcF/MbW+vZv/4TqYnXQEzHC43H2n+5DcHVByC3bIYS
- zqbUH3JEGnArtsqWn+XNK+cDpblUZiQvHoYYPvJXC+qVF9SZccNxvbp2a3W97pFo53Bl
- xVOyZ+mTpHzTWIuQ1ev4OCNZlAj/m9JY9I+fiXsSHY425bKJwWSJb55G5wlCpQF3wg/r
- GYaA==
+ bh=r88bVkU6R3YFAsO3wz4+pTX+MHJI0oI//rtTqu0aO6E=;
+ b=PB3En4TiViFK3GzAXTcC3909KjynmfX82bV2u8QRP9BJQwjXz5Y+umDtLpi5+52bc3
+ VzAKCOJXVsbVpfSj0gVZ6IVil9sao8nAa30vexZWWqroh8dKW/9PzLnJMeqxLlUJ4iDz
+ gfL2wFipAfaPmJvg7OHTKBFKxtQhhbASSnIv7bZISCMM1CF1wHp6KzeDhsL1D5EJtvsC
+ KPby9NGXpX9m+QSvyJQkJaxp9n2DbJgoTQ4Fdczl7e1iGqKdcJlGhCz2zfXpOR3iMokM
+ DYrxkWgq4BW9NksP/JmMEHKf/JxlT/9AxYiD+V4piI5NWxTsYP3VvWCdtqJisH9O8EFM
+ fV9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759327265; x=1759932065;
+ d=1e100.net; s=20230601; t=1759327276; x=1759932076;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Fsszsfqn6nKhuQ5ZGb0FQ/doPY/Ih/TU5I38riDkDPQ=;
- b=Lp7Ei6vsVZFo0xXMYdDJHkQLDyqgtHEallg06IInu7OhuVhV6QNrWP1u5xh2GjUm6y
- li+l/s9L47nNXzF5FO9qzt/YYoCTVNOeiZJsxw3ShxVeT3F5TaUmvqqMhx3weoCSqM+S
- mhMth1Scyc/UD8XySWZoMRBHRxdx4pvZaxY8V+T9csy4dV26g9NB7S3mCd7mTEPjosJM
- tLd2miLvjwl2R/unllw0yVasQxQq6ClIfkAqUARhy0uUK/8MwxUnZOGt/MQLuhMCGpsf
- 6/kaxvzwm13P0Dq3cr6kQyT04fFIgD77FTVMKlz7yRCZPJD3QwGRa/UB5TtIvXtGgoNR
- P0Yw==
+ bh=r88bVkU6R3YFAsO3wz4+pTX+MHJI0oI//rtTqu0aO6E=;
+ b=NvpfHg0Vj/DRrVfKeGVMccq2qMl5IBZa4ujCMr04Nby3FLUZgP6rTS89vkabkJCzUd
+ c0kdpINGVUMwN+wtaxXiQERnzF7bZcauw2vwUTgMoEoosKXJWYgf9iPxXY7b4R92IoXT
+ kAArTbQ10Hoa8GuVIvU1kuwgOC0pKKJ7WDhqUfKGWc15cgy/N5je1JQe2a2jJLuZmEtH
+ 5xzZugD4VtmB/QevX5mU7tvIaba6mRUHWVd8QemFBrDjdCR7ADSkb45JRRMJe+SSkPiO
+ ZCuGNOwHHyQjdx2zWt+Dy+NWLDpBRAuaIuDMS9Pf3z2xvAd8SAFbKkTtJcJauQVJ47ef
+ vYWw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU19FDDGbsl+3ddBrBiDwx7NQyzFLZ1L3m/v0Ps9RpI4PYaCiU3CZMXxR1G8Ama/QfJnfp99x3TaMw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx/uQokVVmu8a7ezY4Z1AfDkq565KI4VyAb4GUPsSFIQcIziQ1c
- UnlhmFUljuDwbZ9x2wB6EvpdqCaBfflicmM6DPqFwqM4QfLP8+Yizyyi
-X-Gm-Gg: ASbGncslqJYa4tMPzMbL/m8bG9f8ZKKebkYFXmW2qhYH7QVemMTsc3czimyj3RSSEv+
- 8oh/p+qePHn83PAns25qhQXFoNLcTazAJKRh2qYNy8XIna5uAW3upNCClZgITA50y1YdHPfDnS7
- Zm5ZOj7tWfKjrns+G2zBIqmiQkoXXnAEMC7NJRpNQCa2ljrXpdDyCnt6gV+OMciK6+GCYSEm6F7
- KQ+1rw1i0tY++J2tSELrYaTul9u50phR/9fM9aWD5nbSl29dGmtWP0NENjGxideJ62pbiOeQMp3
- gW/rMvB65U6u/ifociuHIr5fHFJNEx28yHViIH1AwRcf6UJcrpWXTjZwF0PAd7ZGjI8T8FQEJyB
- Q5yoIf29h0K9NqzZGGBJsIA11g1X0iVHYTx9J9elJ0axziexOVVwN6FuLUBvaeiabd5Nov96eEL
- EzmoAcnTD5tHLvyGC35mWXepqiyafa5RGKpy+UC611z95DEbJxFQspQg==
-X-Google-Smtp-Source: AGHT+IGfdA3CFMOqzDfdHGv3iprZDyUerHzmhklMNsvWYGm9CmujeeYnsM2kSToIaaRJkR9fFhfaSg==
-X-Received: by 2002:a05:6000:18a7:b0:3ee:154e:4f9 with SMTP id
- ffacd0b85a97d-425577f31e3mr2814568f8f.20.1759327264519; 
- Wed, 01 Oct 2025 07:01:04 -0700 (PDT)
+ AJvYcCXBOIDtMw06qNxw5ZWX3ttN4cQ0hu+p8rBFIyu1u0mhR908E0xcr1iyOWuQ9QXgaeuAPZENqiDWEe4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzP0ppSxOu9i6y0JQ9ffRrW4TXedwNarmBDMofdlaQuDWPy3xfd
+ erghdeWafw+qHsgHL4uAWWFE4RwqHKc2YXBFOB5GbOV1e603myad0mFO
+X-Gm-Gg: ASbGncv4UkLPhkYY6pHWZOT5DUkNCbHgwAd9x1Ut2AVrTRbdeHlV+Dsd+eX6njNCmuz
+ wIoyKNeo9VrNI4cm1j8NYGsu847QoSwYpGmbxOie6rxsRW1yZjOLJFLvahSEmJa4lqHc62D/87a
+ zsuErnli2lgxCvUGdhR0pjJPyyyTJdrZbgzFe8m1FrjfCDbxCwLyDUNz5ZbOutaZDexlsmgLWXF
+ 6/esAD6FfveU6EzqcR7gb9Enxqq0BLhk33b/E0vwY2xBYRS6bhWFGOnzLQM2DRQ8JEohF4fRlbp
+ 1cTpGrdw1KOiJmuQDSBndnHmPsVj79wA8UoMrSqeYpyIFZ3ew+dQvRCoGam1Rrkn4VK/Zv7jJEU
+ j53w0gJvjmGl9XJIdCLwkZH/HgGdnQJ7lElwx/CdAp388zyxi+AwlDF4j2tRjSBXg0AbXPxPCw8
+ IrDHQanJwiqOAweXhQNFYhrlyRq4+HJi+0kadqq8+RKW3Fzg7Ct9G2oA==
+X-Google-Smtp-Source: AGHT+IF6jIPdEU9MFXPhCPUkqzhyaWrP5uY2bhk5OwNgz8t2vPUiheyA7QIaNPR9raR1Aa2Qrunkyg==
+X-Received: by 2002:a05:600c:4e4a:b0:45b:9a46:69e9 with SMTP id
+ 5b1f17b1804b1-46e612de19dmr34857695e9.31.1759327274375; 
+ Wed, 01 Oct 2025 07:01:14 -0700 (PDT)
 Received: from LAPTOP-AMJDAUEJ.soton.ac.uk
  (globalprotect-nat-extbord.soton.ac.uk. [152.78.0.24])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-40fb89065b5sm27029828f8f.17.2025.10.01.07.00.56
+ ffacd0b85a97d-40fb89065b5sm27029828f8f.17.2025.10.01.07.01.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Oct 2025 07:01:04 -0700 (PDT)
+ Wed, 01 Oct 2025 07:01:14 -0700 (PDT)
 From: Junjie Cao <caojunjie650@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
@@ -83,9 +83,10 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: Junjie Cao <caojunjie650@gmail.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [PATCH 1/3] dt-bindings: display: panel: Add Novatek NT36532
-Date: Wed,  1 Oct 2025 21:59:12 +0800
-Message-ID: <20251001135914.13754-2-caojunjie650@gmail.com>
+Subject: [PATCH 2/3] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
+Date: Wed,  1 Oct 2025 21:59:13 +0800
+Message-ID: <20251001135914.13754-3-caojunjie650@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251001135914.13754-1-caojunjie650@gmail.com>
 References: <20251001135914.13754-1-caojunjie650@gmail.com>
@@ -107,104 +108,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-NT36532 is a driver IC used to drive MIPI-DSI panels. It is found
-in OnePlus Pad 2 tablets with CSOT panels.
+From: Jun Nie <jun.nie@linaro.org>
 
+Some panels support multiple slice to be sent in a single DSC packet. And
+this feature is a must for specific panels, such as JDI LPM026M648C. Add a
+dsc_slice_per_pkt member into struct mipi_dsi_device and support the
+feature in msm mdss driver.
+
+Co-developed-by: Jonathan Marek <jonathan@marek.ca>
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
 Signed-off-by: Junjie Cao <caojunjie650@gmail.com>
 ---
- .../display/panel/novatek,nt36532.yaml        | 83 +++++++++++++++++++
- 1 file changed, 83 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+ include/drm/drm_mipi_dsi.h         |  2 ++
+ 2 files changed, 12 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml
-new file mode 100644
-index 000000000000..ca4b16459a72
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml
-@@ -0,0 +1,83 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/novatek,nt36532.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Novatek NT36532 based DSI display Panels
-+
-+maintainers:
-+  - Junjie Cao <caojunjie650@gmail.com>
-+
-+description: |
-+  The NT36532 IC from Novatek is a Driver IC used to drive MIPI-DSI panels.
-+
-+allOf:
-+  - $ref: panel-common-dual.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - csot,ppc100hb1-1
-+      - const: novatek,nt36532
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: phandle of gpio for reset line - This should be 8mA
-+
-+  vddio-supply:
-+    description: regulator that supplies the I/O voltage
-+
-+  ports: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vddio-supply
-+  - reset-gpios
-+  - ports
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "csot,ppc100hb1-1", "novatek,nt36532";
-+            reg = <0>;
-+
-+            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
-+
-+            vddio-supply = <&vreg_l12b_1p8>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    panel_in_0: endpoint {
-+                        remote-endpoint = <&dsi0_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    panel_in_1: endpoint {
-+                        remote-endpoint = <&dsi1_out>;
-+                    };
-+                };
-+            };
-+        };
-+    };
-+
-+...
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index e0de545d4077..773ce8520698 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -166,6 +166,7 @@ struct msm_dsi_host {
+ 
+ 	struct drm_display_mode *mode;
+ 	struct drm_dsc_config *dsc;
++	unsigned int dsc_slice_per_pkt;
+ 
+ 	/* connected device info */
+ 	unsigned int channel;
+@@ -910,17 +911,10 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ 	slice_per_intf = dsc->slice_count;
+ 
+ 	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
+-	bytes_per_pkt = dsc->slice_chunk_size; /* * slice_per_pkt; */
++	bytes_per_pkt = dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt;
+ 
+ 	eol_byte_num = total_bytes_per_intf % 3;
+-
+-	/*
+-	 * Typically, pkt_per_line = slice_per_intf * slice_per_pkt.
+-	 *
+-	 * Since the current driver only supports slice_per_pkt = 1,
+-	 * pkt_per_line will be equal to slice per intf for now.
+-	 */
+-	pkt_per_line = slice_per_intf;
++	pkt_per_line = slice_per_intf / msm_host->dsc_slice_per_pkt;
+ 
+ 	if (is_cmd_mode) /* packet data type */
+ 		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
+@@ -1069,12 +1063,8 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 		else
+ 			/*
+ 			 * When DSC is enabled, WC = slice_chunk_size * slice_per_pkt + 1.
+-			 * Currently, the driver only supports default value of slice_per_pkt = 1
+-			 *
+-			 * TODO: Expand mipi_dsi_device struct to hold slice_per_pkt info
+-			 *       and adjust DSC math to account for slice_per_pkt.
+ 			 */
+-			wc = msm_host->dsc->slice_chunk_size + 1;
++			wc = msm_host->dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt + 1;
+ 
+ 		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
+ 			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+@@ -1683,8 +1673,13 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
+ 	msm_host->lanes = dsi->lanes;
+ 	msm_host->format = dsi->format;
+ 	msm_host->mode_flags = dsi->mode_flags;
+-	if (dsi->dsc)
++	if (dsi->dsc) {
+ 		msm_host->dsc = dsi->dsc;
++		msm_host->dsc_slice_per_pkt = dsi->dsc_slice_per_pkt;
++		/* for backwards compatibility, assume 1 if not set */
++		if (!msm_host->dsc_slice_per_pkt)
++			msm_host->dsc_slice_per_pkt = 1;
++	}
+ 
+ 	ret = dsi_dev_attach(msm_host->pdev);
+ 	if (ret)
+diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+index 3aba7b380c8d..2ddec7931bd0 100644
+--- a/include/drm/drm_mipi_dsi.h
++++ b/include/drm/drm_mipi_dsi.h
+@@ -180,6 +180,7 @@ struct mipi_dsi_device_info {
+  * be set to the real limits of the hardware, zero is only accepted for
+  * legacy drivers
+  * @dsc: panel/bridge DSC pps payload to be sent
++ * @dsc_slice_per_pkt: number of DSC slices to be sent as in a single packet
+  */
+ struct mipi_dsi_device {
+ 	struct mipi_dsi_host *host;
+@@ -194,6 +195,7 @@ struct mipi_dsi_device {
+ 	unsigned long hs_rate;
+ 	unsigned long lp_rate;
+ 	struct drm_dsc_config *dsc;
++	unsigned int dsc_slice_per_pkt;
+ };
+ 
+ /**
 -- 
 2.48.1
 
