@@ -2,135 +2,128 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48D42BB2376
-	for <lists+freedreno@lfdr.de>; Thu, 02 Oct 2025 03:08:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E416BB253B
+	for <lists+freedreno@lfdr.de>; Thu, 02 Oct 2025 04:04:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1943810E753;
-	Thu,  2 Oct 2025 01:08:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEFA910E761;
+	Thu,  2 Oct 2025 02:04:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kAJ89+YB";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cmFWv5sR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB1DA10E753
- for <freedreno@lists.freedesktop.org>; Thu,  2 Oct 2025 01:08:19 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 591IciV0010907
- for <freedreno@lists.freedesktop.org>; Thu, 2 Oct 2025 01:08:19 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05CB610E762
+ for <freedreno@lists.freedesktop.org>; Thu,  2 Oct 2025 02:04:15 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 591Ibwuh023373
+ for <freedreno@lists.freedesktop.org>; Thu, 2 Oct 2025 02:04:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- D7Od5VFbcggRAlxWiQ0g5qlG79Lv/bUugfwD4ZphtXA=; b=kAJ89+YBtKdwEXA/
- EY/RUK7xmEzz0FzDZ2y2M4hb4nQW03UXjthgmqSMXl+ImeN+/c84JPJ4z8HcaqVC
- kGm6fdGj+l1I2rULN2UIyh4O0pChAybfBTc2nvMX6YO2tP3e98hlyY8LXxg1tNTg
- I6mEJCb8nERgWCIcFpiOcFKzJDTd5H28k1sXGIA9xlSAKhN7KwaLxPqz8+4ohQD1
- 3kyP7S9zQp4J6FXn7fQft5TSCY9om/mTj+QadQk92PpVlwgMtKE3eM0d+RdDtAvD
- p3aHvlMB+EW/WNAI6VhRrzWF84AJR+Fq4DrZ8/VFS+Vy6CAfjtmkjdeGxqD+XI2m
- Vg80gQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49e93hp21y-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Fl/AGlCNPzgp60GeVcsnYx9M
+ fic5Mf7tmPNGf37B3YU=; b=cmFWv5sRCfA9bu+l1CGegC0oVwCyRF1WSfXTqw7/
+ c3ii2lErKalhkzrw+3kpKdGmsDL1zaD+YnGtRpvLDuKVuycB5lU87XdgCpAhqJiE
+ +TnIhfq4N0cvS1XL1jIVpPkC3bJXTD8BmRez6WePl7cV7PInxkiwqdSZklVUDkJn
+ btYMeJYjYB4NFud6RPq3OY8KGALvEZpojZLaN5ZsCyAJWDGWDRCMk1kGjuqZyAJZ
+ 7M102ffyh34kwET1EU2NFiHjgzvg4JfSsMNtj1L0tbkIYDg1eQWa9FUxpNQ4RKeG
+ PlGv0De0+0Lm76jeFzC9LDflaZ0+oOo+2eT8WtcuG2TRoA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49e8a66ed5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 02 Oct 2025 01:08:19 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4deb67c61caso14558991cf.2
- for <freedreno@lists.freedesktop.org>; Wed, 01 Oct 2025 18:08:19 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 02 Oct 2025 02:04:14 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4d6a41b5b66so12714751cf.1
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Oct 2025 19:04:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759367298; x=1759972098;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=D7Od5VFbcggRAlxWiQ0g5qlG79Lv/bUugfwD4ZphtXA=;
- b=Y5WKDmNmJNQ2f4edacGie+QO5+K/2ByvW/mXzf/KxCd1zosjT9ZAfe7PLYtyjJLLRv
- C7HVKZdBCmIjCMKLHb16xg+tAwudCdNlxF0a/M3M4YYK6rbWMe7UBVNryAv3bojxw/B+
- bImfkYU9YHo8ruxlyArjRzgDOD3J2ivxU/a5fdXlubOaVP25/Jrk1KtmYca/sHKysOzv
- +dK24mJ0FU6xVJLadHy1dtpdBZgJ25q8WS+1Ltrp3OrJeAymkIkCqr+1CPvQ4JeWRJLF
- Mp6HG51rDM/YVppZlctd+hVhU8BNv5fAIJkqVEBbYhQhJbMI0xNaurkBmn7ocpHcp35j
- 4xag==
+ d=1e100.net; s=20230601; t=1759370654; x=1759975454;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Fl/AGlCNPzgp60GeVcsnYx9Mfic5Mf7tmPNGf37B3YU=;
+ b=wToB32uXTRo0CM2MYsosL230nAZH0kYvsWDKrFbMOmBHiX08Jmwsbgs224Pbgto3E0
+ LmpdMyIAtgNJCjO4d+hvXjcsUUBEq1m60hbi+AaK/Uu7U6drlegyvlJFI0rg69rBkeAY
+ e60kTNfUJXhODiNfLMUSY8UPNVLhft0axSUWpsuOcaHUcta/pO13/q+ExDzILW+CKE4A
+ puqz8MIZwtsSCVSy9PVx5P7Wx5zXGqr9OdzEQydTTXdYwZ7lFNeiIkqjNLBGSzOz5G6g
+ QKkg2hLk5joxph7/o9YqcKvjuvz6TWY5HeOPYlFadyJwxqdufAzwIE3IqXAyBfL4zdId
+ yg7g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWovfA5UMQKzJOg4VjR3nYZUtJZcRjFCNie+k5tDnlQ3/tYPYtfKW5PxK9FEn4n0t/NFAZZ0LXx+lI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJ12L46OTlM6wRzR1wWi3Y7qOwEYlAurNpWVeF0OCw5H1JliAd
- UVazcO9nouHF04RRoX0Ucvrfc3uhrfcIauQAVyYEgcD+VPr6SOi6uC2dMVG4aIc8lusq/sw837M
- 1W9rJm64826Ld8o4YOv3lh3JZAVzIEq5EQPdfkebK2UgnUjwtkt1zAICqtQJf9WaCRQU3qnI=
-X-Gm-Gg: ASbGncsZRBEKjlu8Rrl9ZF6VfuQhtW3AvI89s2SgocHqA0XgQW1M+m3ht/brwqQnj/7
- /tfyPPTsJQA9SAhKPaQFHrE+H6VLeEjsXRVkNAY7vmRfVJfZAUarMHVvwCAHs0OUgKMxDyTWroW
- JdWtFIrecEGFRDHZF4J7D30ObNGNBgAfmsDbs9zj/eB4/9hpC4vZvfVDX7R7BUNE7soV6LUnz1X
- dy2vYbPtkE7BhsebnSjJ79MyP2soeH77Vwmg5gXpNvHVbVK5QbpzPmjsRNbrJwyKdhWbGGARmX9
- /UoK1XIJmyvC/ELeVvG+7QJHdLyD9Ju4lKBbQ0P2iNWk9SNXu7hpn2uVLvuNoPuVflfAtg+rcAK
- K58ccFZ6Z0NpY8VLhxVkbvasLZK6N73sdULXctnunTVmgvCPFJFk8+AdXkw==
-X-Received: by 2002:a05:622a:53c7:b0:4b7:aa52:a6f3 with SMTP id
- d75a77b69052e-4e41df6e97dmr78906681cf.39.1759367297966; 
- Wed, 01 Oct 2025 18:08:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHrZaqEqf2UGQPe+mVMDuKAcfgbDUzaQ4FB8Nc046Mcl+O0GtaoEhYIkuD7lCFi+fSNe0W6CA==
-X-Received: by 2002:a05:622a:53c7:b0:4b7:aa52:a6f3 with SMTP id
- d75a77b69052e-4e41df6e97dmr78906061cf.39.1759367297485; 
- Wed, 01 Oct 2025 18:08:17 -0700 (PDT)
+ AJvYcCUpj/rZd+zAkPZ3RTpJ8SieDMjRTIOFUrZu6RK0Pw3MEbhxpBaufu8+dIuyly+6vp+FQHIxYos4r9k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcpeDDIv8F68AXXh2ilOnM5hU/XDxu7emZwttv4l/J7dfczfAR
+ GOQZAIoL98dW8tVbqCINT6vvOgH0bxOUYUtoC88VUnepYD3sSm6qluXp1/l8QtKgfcbA6CjYXsv
+ E4MHZEtN/G+lOUE5A6O2Www0EwI/XINP+YvNxlWHfidB9NLMNIRsMB+MVb0WWmmawxCuIbxQ=
+X-Gm-Gg: ASbGncvOX6ZMTbb4eTX+O3taZqbdT4FwKCKakk1pRLlYSIpZBmvUE+C22MRIURlVui9
+ UIFMB3e3nnFqgSSA2jMqyVjcRtsyVFmqtQMIMBeUzDJp4TCSxpKeZZPgjYl4ir+JpnapLZUewb9
+ YP/IZyUFUqtNZrLaIMvJefQeXlLKfrwdUT+Wr/O92QlFP1DC4OgMY90kVoHqj6Z7rVg+kF5Ukzq
+ 3m0MM3yLrpeMu1QPPy5yrF0PhT4X5VySnOroXDjORAhDZSTWDme6i+ZTrsBM888AATKwFf6ugZg
+ 0xsZLwN1ZdzrD9G51ae/+gnHCqc3ZockESHbQeEKbSXiE6qtgdo+8Y+PfjCX8SIcQ6AnX76Gt2/
+ sw28zo74gf4lpldTHF2VGLjy7XwGDSjTeXGjzYrUh4s0kw4DpBAMIP+yO8w==
+X-Received: by 2002:a05:622a:1f85:b0:4e5:6eef:cf5d with SMTP id
+ d75a77b69052e-4e56eefd0e5mr3437701cf.82.1759370653975; 
+ Wed, 01 Oct 2025 19:04:13 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEMNoV8VxZzwB9ISG0Qcqu86I8IUKjtKfBRp5TKNTJODnfTge4BFASA8/Hk84j8esTc0pEIqQ==
+X-Received: by 2002:a05:622a:1f85:b0:4e5:6eef:cf5d with SMTP id
+ d75a77b69052e-4e56eefd0e5mr3437251cf.82.1759370653504; 
+ Wed, 01 Oct 2025 19:04:13 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-373ba273eeasm2860421fa.9.2025.10.01.18.08.14
+ 2adb3069b0e04-58b0109afbdsm390835e87.0.2025.10.01.19.04.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Oct 2025 18:08:15 -0700 (PDT)
-Date: Thu, 2 Oct 2025 04:08:12 +0300
+ Wed, 01 Oct 2025 19:04:09 -0700 (PDT)
+Date: Thu, 2 Oct 2025 05:03:59 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Connor Abbott <cwabbott0@gmail.com>, rob.clark@oss.qualcomm.com,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+To: Junjie Cao <caojunjie650@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org
-Subject: Re: [PATCH 12/17] drm/msm/adreno: Introduce A8x GPU Support
-Message-ID: <o55el5zduao57uomzm6zeqslxjg7rtzfbttk7gq6gvsatapktx@5lflwspish24>
-References: <20250930-kaana-gpu-support-v1-0-73530b0700ed@oss.qualcomm.com>
- <20250930-kaana-gpu-support-v1-12-73530b0700ed@oss.qualcomm.com>
- <ks3ppjsy35wka2at5nxrr74l5mvzr4l6ovm5ncohanu2gn3ytl@gt2mzwjehq73>
- <CACSVV00AFEJVti7BryA-_sosmBKCuDtX7+NEi4aL4X98AqR1Qg@mail.gmail.com>
- <CACu1E7H0Y9wLwN=ztx+YSQLMQuqOF0hYPqvF-VdXyFW65og6og@mail.gmail.com>
- <845ea929-d245-44b1-a0f5-2ea67ca595d9@oss.qualcomm.com>
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Jonathan Marek <jonathan@marek.ca>, Eugene Lepshy <fekz115@gmail.com>,
+ Jun Nie <jun.nie@linaro.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH 2/3] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
+Message-ID: <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
+References: <20251001135914.13754-1-caojunjie650@gmail.com>
+ <20251001135914.13754-3-caojunjie650@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <845ea929-d245-44b1-a0f5-2ea67ca595d9@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI3MDA0MSBTYWx0ZWRfX9gAZHkKIhriE
- 5vrXUy0KWrrKLoDlObfGkmamyjNZb9paUn9OMGpXE5UIVzZ8d1mwFw7k8RrTgwRNyFND4hcrbHa
- aBNrHvTffRrGLjdyEwXs40VNGe14ElpKIt4+fzFgdX4R5yG4h1kD0+2oJG3noMlveVhj3HAI5J2
- 30gxDNf/GdO7HqA+sPiBGQaPdCJ2jFNVnRpINLVk54lAN7LDSB48yF6V05MExCRc9LbAglfTVg2
- 05esvLw0BnWsFuJ73yj3Po8or+7sqMUsQeKRzWSVRFL46p/lHaaRHFSZ/mHRtUL5HNARQzOjt/e
- W2QSO7tLOP6hq3ECC4WPhRwzgVZ4f6dkaJ0Lk7Vq2/4IBHojWOEqf5GvDEXyGLTsh/u8Rz0db2L
- STgqG6ZO39SE9RqbBN3+epVnGKKXBg==
-X-Proofpoint-GUID: Ss5TwqnPR60a6l3JPGg44ewSJ2v4Xe1t
-X-Proofpoint-ORIG-GUID: Ss5TwqnPR60a6l3JPGg44ewSJ2v4Xe1t
-X-Authority-Analysis: v=2.4 cv=Rfydyltv c=1 sm=1 tr=0 ts=68ddd083 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=x6icFKpwvdMA:10 a=EUspDBNiAAAA:8 a=3yd5t0Cfpw69QvuzZ3oA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+In-Reply-To: <20251001135914.13754-3-caojunjie650@gmail.com>
+X-Authority-Analysis: v=2.4 cv=RZKdyltv c=1 sm=1 tr=0 ts=68dddd9e cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=x6icFKpwvdMA:10 a=KKAkSRfTAAAA:8 a=RAbU-raeAAAA:8 a=pGLkceISAAAA:8
+ a=chGVdZ9yfDdcOS25WoAA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+ a=cvBusfyB2V15izCimMoJ:22 a=JiizpSU_mAIq9zsZDqn2:22
+X-Proofpoint-GUID: 1WE6hq5FqI8lCXZIFCQfVIinBiHEUTDc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI3MDAzMyBTYWx0ZWRfX7JhasbWjsAh7
+ v+5oTZHZfOx7XOkNq2Iu4kK0ILXx1sE+8KqxsC0xeDQ/rN8CUO2uFmQV7giWQleHvRionqwboOY
+ DoJbLIK4qMlWNdKc3pdFpzOLNzuQe//PVl8mH05GizZVISkv5gytrZd9OcU5Rf8uZ8y1OZNH8zI
+ a+HwSJSM+At42u3sdLP+r2VMA0yKicYo6VgZ5e2gEz1kJqrIxgeDoIfyiJLGC88uIr/RD6KwJck
+ FEbnK/aRoqjwFusB/V5HeJofkXxTVfvGubgjhU3a32mTGyKGoksY1yk6jTbK34p872mOvux0naA
+ eXvLv9RQ2aVy1OcNDHWIdDkRRHULsHW85O9JbAEieGUI/+Vvf2ZraxV/2AJ7hGkXODdNEvuCRZB
+ ZyxCsV/xdpirnshII37RX+Bp6IqwLA==
+X-Proofpoint-ORIG-GUID: 1WE6hq5FqI8lCXZIFCQfVIinBiHEUTDc
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-01_07,2025-09-29_04,2025-03-28_01
+ definitions=2025-10-02_01,2025-09-29_04,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 bulkscore=0 adultscore=0 lowpriorityscore=0
- impostorscore=0 clxscore=1015 malwarescore=0 spamscore=0 suspectscore=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 adultscore=0 phishscore=0
+ impostorscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2509270041
+ reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2509270033
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,73 +139,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 02, 2025 at 02:32:21AM +0530, Akhil P Oommen wrote:
-> On 9/30/2025 2:11 PM, Connor Abbott wrote:
-> > On Tue, Sep 30, 2025 at 10:08 AM Rob Clark <rob.clark@oss.qualcomm.com> wrote:
-> > > 
-> > > On Tue, Sep 30, 2025 at 12:43 AM Dmitry Baryshkov
-> > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > > > 
-> > > > On Tue, Sep 30, 2025 at 11:18:17AM +0530, Akhil P Oommen wrote:
-> > > > > A8x is the next generation of Adreno GPUs, featuring a significant
-> > > > > hardware design change. A major update to the design is the introduction
-> > > > > of Slice architecture. Slices are sort of mini-GPUs within the GPU which
-> > > > > are more independent in processing Graphics and compute workloads. Also,
-> > > > > in addition to the BV and BR pipe we saw in A7x, CP has more concurrency
-> > > > > with additional pipes.
-> > > > > 
-> > > > > From a software interface perspective, these changes have a significant
-> > > > > impact on the KMD side. First, the GPU register space has been extensively
-> > > > > reorganized. Second, to avoid  a register space explosion caused by the
-> > > > > new slice architecture and additional pipes, many registers are now
-> > > > > virtualized, instead of duplicated as in A7x. KMD must configure an
-> > > > > aperture register with the appropriate slice and pipe ID before accessing
-> > > > > these virtualized registers.
-> > > > > 
-> > > > > This patch adds only a skeleton support for the A8x family. An A8x GPU
-> > > > > support will be added in an upcoming patch.
-> > > > 
-> > > > Consider this lands in a commit message. What would it mean in the Git
-> > > > history?
+On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:
+> From: Jun Nie <jun.nie@linaro.org>
 > 
-> Commit text is not just for git history. This sentence is for a reviewer who
-> is going through the patches one by one.
-
-You can put this in the commit message (in the git tree) under three
-dashes:
-
------ CUT ----
-drm: subject
-
-Foo bar baz.
-
-SoB: you
----
-
-All the notes and details  that will be ignored by git-am.
------ CUT ----
-
-
-
-> > > > > @@ -2561,10 +2583,8 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
-> > > > >       adreno_gpu->base.hw_apriv =
-> > > > >               !!(config->info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
-> > > > > 
-> > > > > -     /* gpu->info only gets assigned in adreno_gpu_init() */
-> > > > > -     is_a7xx = config->info->family == ADRENO_7XX_GEN1 ||
-> > > > > -               config->info->family == ADRENO_7XX_GEN2 ||
-> > > > > -               config->info->family == ADRENO_7XX_GEN3;
-> > > > > +     /* gpu->info only gets assigned in adreno_gpu_init(). A8x is included intentionally */
-> > > > > +     is_a7xx = config->info->family >= ADRENO_7XX_GEN1;
-> > > > 
-> > > > Is A8xx also a part of is_a7xx? What about the A9XX which will come at
-> > > > some point in future?
+> Some panels support multiple slice to be sent in a single DSC packet. And
+> this feature is a must for specific panels, such as JDI LPM026M648C. Add a
+> dsc_slice_per_pkt member into struct mipi_dsi_device and support the
+> feature in msm mdss driver.
 > 
-> I think this is okay for now. I have a separate patch which reworks the
-> cx_mem initialization. That will completely remove the above ugliness.
+> Co-developed-by: Jonathan Marek <jonathan@marek.ca>
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> Signed-off-by: Junjie Cao <caojunjie650@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+>  include/drm/drm_mipi_dsi.h         |  2 ++
+>  2 files changed, 12 insertions(+), 15 deletions(-)
 
-Ack.
-
+Please extract the generic part, so that it can be merged through a
+generic tree.
 
 -- 
 With best wishes
