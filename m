@@ -2,114 +2,109 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 925EBBB5BA5
-	for <lists+freedreno@lfdr.de>; Fri, 03 Oct 2025 03:17:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CC94BB62CF
+	for <lists+freedreno@lfdr.de>; Fri, 03 Oct 2025 09:33:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A82110E869;
-	Fri,  3 Oct 2025 01:17:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D150B10E8D2;
+	Fri,  3 Oct 2025 07:33:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="adZtzzby";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EIYtbZlp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04E0010E86B
- for <freedreno@lists.freedesktop.org>; Fri,  3 Oct 2025 01:17:09 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 592HJx7j007817
- for <freedreno@lists.freedesktop.org>; Fri, 3 Oct 2025 01:17:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=NszYJNXUum61Ftvgh9BoHIbg
- Xs/NhaLC23ASv+k9yTY=; b=adZtzzbyNJG4Qibg2lpRct8Xd0WYI9m+fpgiIP8j
- RUWhvSXufHfFkNhTt/Qd4g6Y8vxXkw43zAYs/r0yTk0bpYNl7JdldY73vSVYXhRa
- EnaS+KHtE5qBhBiMhyp0Bk/sto0n/QH/NS3Wk9wXxMzB9YugqdwOAXgkkO3K9qyV
- NeJEycjjHKmqwWbxKdLJcYd3Y/WvhzxU7UK7Yci9U6f/MHThFUhY9d0TPaQTumCt
- GCLTj7XkejVhZjM0N78nBT91y4S7v3S5RTSEjGvKzxckNfErhPQMmzSC8H6xwU3Z
- eYIHRp/S6Z8B6iHyLgdkY09AQrNaM/d5OqeRbg2etQ5xew==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49hkhh2ma6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 03 Oct 2025 01:17:08 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4e0e7caf22eso43692251cf.3
- for <freedreno@lists.freedesktop.org>; Thu, 02 Oct 2025 18:17:08 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E52710E8E6
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Oct 2025 07:33:31 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-46e52279279so12470345e9.3
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Oct 2025 00:33:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1759476810; x=1760081610; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=5grRFMX+2MrPypsgKycA1aZd8AJQaqdGLD/iYz7bwBc=;
+ b=EIYtbZlpcecgy0Cj6FgT2RyLIdR+JCiBXmZqPr+WYq+tQE92q8qSY+qO3CnrIoftV4
+ l57cm2gDzejRkqb4p400lbLkji0x0uWzwdSS/VxAW4LX3yrGQe2OBkbM3JPGaup9MC6s
+ J674e0In6j6DP42iO8CnU4yl/qQh3r2cJ+UAkNSTGvbDsTY6JB+XTb2n7HVo6hEXRodq
+ YDmVeNU/bOj7BePpy6b68Wo/OomBcGFFAmzEUYf8to/Ud62ZUNZTyvfFwYWAVTWNbMlK
+ 4FuQ3kSDpGPqzJ8LR7Xp/8bBxyaoZ48BmqyQOQOAIiOoiXl5mi12XSRpc4xk6a+OstW9
+ g3yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759454228; x=1760059028;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NszYJNXUum61Ftvgh9BoHIbgXs/NhaLC23ASv+k9yTY=;
- b=oJnf84M0yCvTFvKZbpRtVKEVRIKOnbWjqQL9jHkKEHqKg3rdjsHhAJi7Xg0t7hpPU1
- rzQSbTHZsyJV1o/E20ch2SrNWEIb6N2e3vBtlQ6yg5uEhly/OZZWu4Gyd+1DcXRAA5Se
- b3jNgsegmmwvbwWLtwmgPa6ta5IOYWCBx/T4MxLH2ARuh56q/zVyxb7SqWKDhYFamZlb
- /+4baLTKhHiE/EP3ojsEIRlQ/OAVBU9hoz92NC984IVd0GuhDwefr4p6XCFYGx9sbbeu
- GtSQLUEx+6qifOxE0oqUYw2oyU4xjOpz+NbIVaBDbLbm8LqjPU0teWzGFU5QprAKK85Y
- l0XQ==
+ d=1e100.net; s=20230601; t=1759476810; x=1760081610;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=5grRFMX+2MrPypsgKycA1aZd8AJQaqdGLD/iYz7bwBc=;
+ b=Le6EMNnc9W3trG+OSGJUaljfO2fDXA6B5E6BIoIBGeVXmdw8JQGNrTbjVAaLzTiVK5
+ ejt2nbf3PPq3AldpXQKaISqsoRPV8yUa6KLvXtl35IOl6dTP7Y1xbjXzuAaHsfRS2xyv
+ /NJ+vCFwh12cDhGJ153nZ1Z5eKYDW7tQScj2Le8mS1UL4d6vRA4wBWkqdIYNLgULTW+W
+ 3hMu4DuwTej6maKM49g564qrK16ni3jFIqGPvjmUBM3CK5nX8beINiWB3nJqky2Dc5Dp
+ sXMgnY5FEOs4sdYAQnxfFUobr5w+76DOdkS/F78REibgu/pfEhn0gaQT/rX8ESOOFVDe
+ jI3w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV673AL1CTqIR6CdbXKcFXoXlrWBtp8UtzUSA0WeQkRtHKMmU1BGqZS+Upu+hLNv+Ta5Za7lf+/rh8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxX8OR4DAs0xlnU3QqAKzhQda2XRdxBkpdaTRctCNRZpOLNOX8k
- G3HG2VlPMeelFVi1ejiT0icTyNnkLMn9X6/+3l9ByrYWKeWw41I9RFhl12TpQw5VYIGF10YRaZ1
- HLdvr8wDkrakQN29jplsB+oTpreW2wfaNb/NDphU85/FHEY74+O2NiEyUZcHfHAua9Mz2+5c=
-X-Gm-Gg: ASbGnctBr/92soj9gpNgO0Q3daofJnItCDlZcvdAyaTk9dN/8fnGe7Lg5cvStxaq180
- IF+HqmjS12WUZI2ofGmk8yNXczX68MFejRobhnTtTJ7MbrzBitV7/FGKY2eGsUZI2CeIAc3BmVz
- WZzhT0L2mRtlMy4KPm9pqDmgQCrAOXDW43kI1HWncBXaPKo7CSQCcFXH7DGWrQh3WW2LdIZkuCz
- VzW/ciEfRcy8Jb1vt6luWheumsKgeF4asqPxdp/SoBFm4QL4Y2SxwTK4vxPU0AraKKxFIxL2Cll
- z53WlwlGzzuT4mjqJJRUiK3+vAelM4erc/WmWionsPaN/R5kue5UmbH5kie5lOHCGn9hT3pfmL/
- YO07gSiWkaZIgnIKcfUK1Ie76QGhqybFWh6rdbsX7Lg9Jwwk7mdjmQahpTQ==
-X-Received: by 2002:a05:622a:394:b0:4ce:dcd9:20ea with SMTP id
- d75a77b69052e-4e576b13f4fmr21738241cf.57.1759454228073; 
- Thu, 02 Oct 2025 18:17:08 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF7wGlhN9Q1fx9OZHmwE/WJqZbiUdV2GSH/vjmHZyoClwDnnRtTJTDDldA0C+AO+Zy05bZYKw==
-X-Received: by 2002:a05:622a:394:b0:4ce:dcd9:20ea with SMTP id
- d75a77b69052e-4e576b13f4fmr21737781cf.57.1759454227579; 
- Thu, 02 Oct 2025 18:17:07 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ AJvYcCUg57Tf6CeiiLFV0xERj2+IWdfTh7yfLP4D9zlXvVY6fudap/umsWdfipGKgFr7KvsCAEp6y+qQbYI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywnb9manvnUP0Y+QtvdnpWwyvGq/pF3QTHCSVc49rEBXO/GiDiW
+ SN1LAcImLsMrpU9L7jR2imtQLt9tCn3Eclp9lEQbXLJAA+HSDZfcC78RNqq7UEKMP8o=
+X-Gm-Gg: ASbGnct2aXJOJZcxzhnhmDY8dmvVolJ4qj5isxvyQgIF9ceArPmHIoR+Dd3f1UY1lb7
+ 2kY7P7E8RQtmxJ9dzqiX+kMSsQwlc/WSAQRq6M4Na/RGJhiG+fIcL/2n/ZC2RV5AijT5Hd9Jaww
+ SwZ8yeiZY2VRorX3DOURs67fiEcuIyFPa4uhiFjUbFT5oO6k9Batj/fogkyT1RZXd4uGffHPWbl
+ mdVG/Y1rOF8y1C7Y2Iworsm3q/dpVHPdz8ULugSkTJtWkckI1V3p3eAYNYowWy5It2lxECCyAxM
+ 38I09u8O7y/p9GFep6vm4I4d5VABs6Vo3RCG2UDwZ0lgPrrcfBHBQK6L6H59p52WDZasp9lNlQV
+ m/ks7kncxIqe5zUdJyXsqqX7SXTI3YFQ6tWWl/zzDfyDa70R9cmAdJmUZUzxCGtFh3Fju9v227a
+ pu7WEVpeODa6phzSVI8NG0KIWPH+k=
+X-Google-Smtp-Source: AGHT+IE3WIkcpTDGTYbL1KkTG7og5gmapvp+rB9slPdpJDq+7fpgXOqr+o6R0DGbS0j/8Ti8nPucHg==
+X-Received: by 2002:a05:600c:6094:b0:46e:39e1:fc3c with SMTP id
+ 5b1f17b1804b1-46e710fff73mr14591685e9.5.1759476809742; 
+ Fri, 03 Oct 2025 00:33:29 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:3d9:2080:1516:b5be:def8:9a0b?
+ ([2a01:e0a:3d9:2080:1516:b5be:def8:9a0b])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-58b0113f3ddsm1316191e87.52.2025.10.02.18.17.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Oct 2025 18:17:05 -0700 (PDT)
-Date: Fri, 3 Oct 2025 04:17:02 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH] MAINTAINERS: Update Jessica Zhang's email address
-Message-ID: <35jqgias5o4ruhkc72oacepcq4skfzpe4gyivg2pz7bnpy5luj@d5saa7y7rcus>
-References: <20251002-quit-qcom-v1-1-0898a63ffddd@oss.qualcomm.com>
+ 5b1f17b1804b1-46e675b557fsm96132185e9.0.2025.10.03.00.33.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Oct 2025 00:33:29 -0700 (PDT)
+Message-ID: <3ccc3649-dbb6-406a-bec4-fb3d4068bad1@linaro.org>
+Date: Fri, 3 Oct 2025 09:33:27 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] MAINTAINERS: Update Jessica Zhang's email address
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+References: <20251002-quit-qcom-v1-1-0898a63ffddd@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
 In-Reply-To: <20251002-quit-qcom-v1-1-0898a63ffddd@oss.qualcomm.com>
-X-Proofpoint-GUID: Je14Q6EpLW3Gncv4n49mmrxZISEYY06H
-X-Authority-Analysis: v=2.4 cv=cILtc1eN c=1 sm=1 tr=0 ts=68df2414 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=x6icFKpwvdMA:10 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=snQqrI5GwQTDGbkEZYgA:9
- a=CjuIK1q_8ugA:10 a=2MHBSq50hwYA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDAyMDA0NyBTYWx0ZWRfX24kInPrdpIt3
- lC4NNo5BYcr0MW8RWs0QHnS6tOhln16lCHYBMISsHMVO7TsNjFBFwNsZEu1LBQbUPrPqzSlq7im
- Fs21H2/r4gwLF7obG3Tp9Q00vjoo5rnA0LL2wtlyh0GL5RALL+56RMhc8FgSamhNeKCOqhSLz+j
- ubs+B+oG4ST3zN/PPbtUaiWdZZqe0GVx0f2ZCE0/KvhMSZz6YfdnZDqLHYaEJ0VFws6TINTr27N
- SfQzH6R4JpEssvrfuf8OtQSQ3sWKnMVMwQnYOocfjadKEBr61RnV8NAM2vnvZ0r7NXQndFeQ7wQ
- 9sIqj+s2awWNeqFyZvnfGIKQQhu7TIECbvR8pGOFei35+v8NS/jn27exWoC6G5cYZuCas5tJ21Z
- OtLCxj7QuQnQHYDxOFLUqWnom3x7JQ==
-X-Proofpoint-ORIG-GUID: Je14Q6EpLW3Gncv4n49mmrxZISEYY06H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-02_09,2025-10-02_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
- impostorscore=0 bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2509150000
- definitions=main-2510020047
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,22 +117,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 02, 2025 at 04:57:35PM -0700, Jessica Zhang wrote:
+On 10/3/25 01:57, Jessica Zhang wrote:
 > My current email will stop working soon. Update my email address to
 > jesszhan0024@gmail.com
 > 
 > Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 > ---
->  MAINTAINERS | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>   MAINTAINERS | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7e7515a412e9..7a712ded8f9f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7652,7 +7652,7 @@ DRM DRIVER for Qualcomm display hardware
+>   M:	Rob Clark <robin.clark@oss.qualcomm.com>
+>   M:	Dmitry Baryshkov <lumag@kernel.org>
+>   R:	Abhinav Kumar <abhinav.kumar@linux.dev>
+> -R:	Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> +R:	Jessica Zhang <jesszhan0024@gmail.com>
+>   R:	Sean Paul <sean@poorly.run>
+>   R:	Marijn Suijten <marijn.suijten@somainline.org>
+>   L:	linux-arm-msm@vger.kernel.org
+> @@ -8325,7 +8325,7 @@ F:	drivers/gpu/drm/clients/drm_log.c
+>   
+>   DRM PANEL DRIVERS
+>   M:	Neil Armstrong <neil.armstrong@linaro.org>
+> -R:	Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> +R:	Jessica Zhang <jesszhan0024@gmail.com>
+>   L:	dri-devel@lists.freedesktop.org
+>   S:	Maintained
+>   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> 
+> ---
+> base-commit: b5bad77e1e3c7249e4c0c88f98477e1ee7669b63
+> change-id: 20251002-quit-qcom-5125b64a86aa
+> 
+> Best regards,
+> --
+> Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
+Acked-by: Neil Armstrong <neil.armstrong@linaro.org>
