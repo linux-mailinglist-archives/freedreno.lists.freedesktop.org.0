@@ -2,102 +2,113 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7CDDBB9988
-	for <lists+freedreno@lfdr.de>; Sun, 05 Oct 2025 18:49:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11E83BBCCCD
+	for <lists+freedreno@lfdr.de>; Mon, 06 Oct 2025 00:02:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6740810E083;
-	Sun,  5 Oct 2025 16:49:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC1E810E108;
+	Sun,  5 Oct 2025 22:02:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Ji9l96Hk";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lF6Cdduc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E79DE10E083;
- Sun,  5 Oct 2025 16:49:29 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 595FQfrG015449;
- Sun, 5 Oct 2025 16:49:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- tPVF23H4KRbb2lLHjXqxQetrDyeJXYe4YGDhrbuxxfw=; b=Ji9l96HkCxSgUIRo
- Y4H3b49AlWqVFukZUcrIhURWV3ZKKqaWHnj2UlyIFactFAZN2BzFnq1FMHkJ8qKX
- 3eI9tr/ViSlNEqikKSYNh+7BkJiI9IQPm4XxFaGckq96cFuoNAETKXqewO/RRrFD
- ust67IL75S9UKglKXWhCDJo2cSK5EvmD2C7azY0EF/o80R21bVNwgXLZpoE5foW+
- uXZlelVqPm6kfWw8XBvmJ2iKv0N9WB5W39HOEtXTttD3Yt443Y3kX99Lu7BQ30Uh
- iTPpqRh7jSLTLpum8Ecu9YUJqH3Oz+2CVDrALqLTMTsh0sVbqkv5IwpePG4UHQ7G
- lIsodA==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49jtk6tbfq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 05 Oct 2025 16:49:07 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 595GmjqR008864
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 5 Oct 2025 16:48:45 GMT
-Received: from [10.216.28.59] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.24; Sun, 5 Oct
- 2025 09:48:37 -0700
-Message-ID: <aaa9f760-70aa-4bee-b6ab-d6fb02ea3c78@quicinc.com>
-Date: Sun, 5 Oct 2025 22:18:34 +0530
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1975210E108
+ for <freedreno@lists.freedesktop.org>; Sun,  5 Oct 2025 22:02:13 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 595Ll4jr008187
+ for <freedreno@lists.freedesktop.org>; Sun, 5 Oct 2025 22:02:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=N256hlAuYoC5VZZOOilDZ2b/
+ UfNCJGDfOP6dgO8ecLc=; b=lF6CdducMpVUxg7v5KV2xvLDDr/WMRHAUalgLEZ7
+ kLNEId6NLIuWAfWhK047h0e2/E0TQO5xAMTh8+awSmuUS37KuZSQ/MyJEKnp7PZn
+ K0/MIrNdK0xbz9X4rt5bA2v1BQmG2hrxZKckDOiUEfCoZoGMKrjRdMJHdbrvcTiS
+ wAW5ZGsnrRQAtQve6pOyQTX7Zqs1iGsyxYdFcP19g4LnNi110y3zaKvW91gQThcY
+ rojAaBssKiLTLp3HImNDdKOoy5KuBIwQoooOcFqJ4vc5g/7l6+PDfUoo31QGmoAP
+ QgsjbfQ68z1fZyNnSwpoTdPFjw5mGc877HnZN968KnS7jQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49js9dtqm5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Sun, 05 Oct 2025 22:02:12 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-b55443b4114so2886864a12.2
+ for <freedreno@lists.freedesktop.org>; Sun, 05 Oct 2025 15:02:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1759701732; x=1760306532;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=N256hlAuYoC5VZZOOilDZ2b/UfNCJGDfOP6dgO8ecLc=;
+ b=aIj1l2rBR+v0mafqCRWYauiEuLoV5TIagJip2WXRhbkZJL64+rd69wegD/rpoD+mmF
+ zIrx5gFp2KU5jhpNOqbK9OPclfcauVO6AJ/V6uaylkkoWb2AUjRR+SzJLXVoOHc7zm7i
+ LklTzv3CICtgTM8d6beCPBDBksfvdkWwl64+9pnNMkqpMNJHdUHNWfx9uvzoV+o26YUq
+ vzDg/q0jAts3dU2WzTKr/UXYvQFNjQyPuZd+En3E/iuiax+EImST9JRRUDnTOUbW0R8W
+ KBIzwW5eOB19bNjcNGhfS5e60vlaoz48AUE5FhOSMBouZGbsMlfH9M5h2AZSoYD9pK+a
+ ieAA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXdmq0Kv3sNe/9EtRcwHjl8RyJEQCPsBtRalSmFYwkcTVeKqlgoNnehwP7F1+tImy9hw1ZLNidz1MI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy8vRyEuG2Qzd3ve3bnOrqf3EZ2DyQJj0gwxiNzpAMgBKX81BYv
+ pj0opLc8N4DwDsw67PcDlRXpA4uKB4ozouM+whw6qF3m3OYrN9zEN+Tn762R9C49qybj0aDCKWy
+ sQjdzrTw3EIn12yvzhnmH6LReU4T7wnZ9EjmzG14hEGJ2CCaaed4WJdGqgfJRZ8mginPrnKvCtQ
+ pUB0CuvTH87+JhyWWNpCz0eDzxV6ZilzM5RC3UR/yw8/YuYg==
+X-Gm-Gg: ASbGnct0G9P2Xo6S0oqLq1wYwBfTLc3E1FBlEmGcB0njcGPpUohWE/zMVrNZ7wTYaPm
+ QZALt+hw2rLszd1iHfuXSE9VeJ8a8+nDwwXKZvTMaATLZtbHf+dk7teAskIAD1hPLkcAZO8iAb3
+ VDIHAFMRNYjUp4KZHcuPC6tqn2Ew0si0ZBqv5Mp27wjYUvQGYsc8u8u4SaQQ==
+X-Received: by 2002:a17:902:db0b:b0:269:b2a5:8827 with SMTP id
+ d9443c01a7336-28e9a5441d2mr123489755ad.16.1759701731628; 
+ Sun, 05 Oct 2025 15:02:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEw5H3bnClwmyFijTzPlTIdJv/FoUFtpaPkBeTmanH+Kmn1x1n5CJdxzZudHkd+BA4S2ApQpqFUagP05oAcE14=
+X-Received: by 2002:a17:902:db0b:b0:269:b2a5:8827 with SMTP id
+ d9443c01a7336-28e9a5441d2mr123489405ad.16.1759701731098; Sun, 05 Oct 2025
+ 15:02:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: qcs8300: add Display Serial
- Interface device nodes
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <marijn.suijten@somainline.org>,
- <andersson@kernel.org>, <robh@kernel.org>, <robh+dt@kernel.org>,
- <krzk+dt@kernel.org>, <konradybcio@kernel.org>, <conor+dt@kernel.org>,
- <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
- <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
- <quic_rajeevny@quicinc.com>, <quic_vproddut@quicinc.com>,
- <quic_jesszhan@quicinc.com>
 References: <20250925053602.4105329-1-quic_amakhija@quicinc.com>
  <20250925053602.4105329-3-quic_amakhija@quicinc.com>
  <vsty7sy7gi2eeyifokwcqpoycmarxietkijmlkymwrmzmdsfws@x64f4ulbc6ja>
-Content-Language: en-US
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-In-Reply-To: <vsty7sy7gi2eeyifokwcqpoycmarxietkijmlkymwrmzmdsfws@x64f4ulbc6ja>
+ <aaa9f760-70aa-4bee-b6ab-d6fb02ea3c78@quicinc.com>
+In-Reply-To: <aaa9f760-70aa-4bee-b6ab-d6fb02ea3c78@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Mon, 6 Oct 2025 01:01:59 +0300
+X-Gm-Features: AS18NWCM1r74v1bXxfrsrgftusyMHXRCg5iM3xO5_k0pu2EPz6imHWWBkRHsRFA
+Message-ID: <CAO9ioeWHJSj74VBR=2kHJDe_p1oG9Ngs6q9+s=CySGD3KY6sPQ@mail.gmail.com>
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: qcs8300: add Display Serial
+ Interface device nodes
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_rajeevny@quicinc.com,
+ quic_vproddut@quicinc.com, quic_jesszhan@quicinc.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA0MDAxNyBTYWx0ZWRfX+DkfXmBAkhpH
- myN+9dwxaBBu7CPbtCbo1FxSkCNQlSQ8Ou+5aEDrqHY4zUg3SbBMxKZ2juSw+nqSJMPBoLOPCwZ
- DbR5otC0a1TaDQdOZ503CccFz32crxJZDhaHhr0vvGZwLo+u+XNYgZpfItu7LQR545dl4Ai8E5I
- 96enqek60e3aCplEyzd3wAvqIomGrkCoE4c7/1y0YJ7HZStuaVLMeKyZBO5dPJGowtBDzk2kBIg
- 3XwmUPpYTQhiS2b0Ch2D4xcna98Xvo0iEuKq99wOu+Zyykf04Davcd3h+1rrpTvBQsbfwbfX+Rn
- 0aAnCtOz9wuEznVuz1vtZGDMPt/ak2mEle1Clny3M7Z0NmF5mTgZJcYTQTDFW+VgH2S2xebbCiC
- dWAWioXzOD1VbYo0RMp8jtNEyZP1GA==
-X-Authority-Analysis: v=2.4 cv=do3Wylg4 c=1 sm=1 tr=0 ts=68e2a183 cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=gEfo2CItAAAA:8
- a=COk6AnOGAAAA:8 a=EZMjUrQSJwNfLy8y1NAA:9 a=QEXdDO2ut3YA:10
- a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22 a=nl4s5V0KI7Kw-pW0DWrs:22
- a=pHzHmUro8NiASowvMSCR:22 a=xoEH_sTeL_Rfw54TyV31:22
-X-Proofpoint-GUID: 26OMeIVJV4_zqYUtWX-tpwwtUNTJXif_
-X-Proofpoint-ORIG-GUID: 26OMeIVJV4_zqYUtWX-tpwwtUNTJXif_
+X-Authority-Analysis: v=2.4 cv=Hrl72kTS c=1 sm=1 tr=0 ts=68e2eae4 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10
+ a=gEfo2CItAAAA:8 a=COk6AnOGAAAA:8 a=0nM2LEvACttjMDtNBYMA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22 a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: EmhbFx2Xf1jjUFYCjOKhNAQjqpJjzACZ
+X-Proofpoint-ORIG-GUID: EmhbFx2Xf1jjUFYCjOKhNAQjqpJjzACZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA0MDAwNCBTYWx0ZWRfX1rVPGFR/g0Yn
+ dyM+xlvyNefe5B/qUxjteW0dHgkmysOEG+kSYqozzDHxO8ahN+cwAowfG1kpubdwSBGrp2FekjH
+ UkSO1FBRR52yP+2vn/hXkXp5Iffv+wffwa8QbZb+7EdOvBEvb94fFMnOM6GDCd46s6DDoGVTvPr
+ GKqUqRwOkO7E+2Ofnz/mvmjXksHPcAOC/uJAbBOqDD3DxoSx48QFIBOtLozc0v0qv37feSnHGgn
+ XkjzMo6YRgATXYi2G91eHTYsDLTMIFuMqwPL6VWbccb3shCgYAUYsS50AYsCuuatDHq1+iFWJTg
+ zNo9DqthE9Uy5FlJmPqGZvwELBYI6/n7VX+aRvRDBGkDD1WVbVlyl0f7BUdRPb3Yk4IS3GYWNoA
+ +HlDbWSwymxafK0lGCptYA8BbaqrIg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-05_06,2025-10-02_03,2025-03-28_01
+ definitions=2025-10-05_07,2025-10-02_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
- malwarescore=0 spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0
+ clxscore=1015 phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2510040017
+ reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2510040004
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,76 +124,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 9/26/2025 3:32 AM, Dmitry Baryshkov wrote:
-> On Thu, Sep 25, 2025 at 11:06:01AM +0530, Ayushi Makhija wrote:
->> Add device tree nodes for the DSI0 controller with their corresponding
->> PHY found on Qualcomm QCS8300 SoC.
->>
->> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
->> ---
->>  arch/arm64/boot/dts/qcom/qcs8300.dtsi | 95 ++++++++++++++++++++++++++-
->>  1 file changed, 94 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/qcs8300.dtsi b/arch/arm64/boot/dts/qcom/qcs8300.dtsi
->> index e0e1f63fc45b..834ae0522f2f 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs8300.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/qcs8300.dtsi
->> @@ -3,6 +3,7 @@
->>   * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
->>   */
->>  
->> +#include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
->>  #include <dt-bindings/clock/qcom,qcs8300-gcc.h>
->>  #include <dt-bindings/clock/qcom,rpmh.h>
->>  #include <dt-bindings/clock/qcom,sa8775p-camcc.h>
->> @@ -4854,6 +4855,13 @@ dpu_intf0_out: endpoint {
->>  							remote-endpoint = <&mdss_dp0_in>;
->>  						};
->>  					};
->> +
->> +					port@1 {
->> +						reg = <1>;
->> +						dpu_intf1_out: endpoint {
->> +							remote-endpoint = <&mdss_dsi0_in>;
->> +						};
->> +					};
->>  				};
->>  
->>  				mdp_opp_table: opp-table {
->> @@ -4881,6 +4889,89 @@ opp-650000000 {
->>  				};
->>  			};
->>  
->> +			mdss_dsi0: dsi@ae94000 {
->> +				compatible =  "qcom,sa8775p-dsi-ctrl","qcom,mdss-dsi-ctrl";
-> 
-> qcom,qcs8300-dsi-ctrl. You might use three compatibles (qcs8300, sa8775p
-> and the generic one), but there should be qcs8300 one.
-> 
+On Sun, 5 Oct 2025 at 19:49, Ayushi Makhija <quic_amakhija@quicinc.com> wrote:
+>
+> On 9/26/2025 3:32 AM, Dmitry Baryshkov wrote:
+> > On Thu, Sep 25, 2025 at 11:06:01AM +0530, Ayushi Makhija wrote:
+> >> Add device tree nodes for the DSI0 controller with their corresponding
+> >> PHY found on Qualcomm QCS8300 SoC.
+> >>
+> >> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/qcs8300.dtsi | 95 ++++++++++++++++++++++++++-
+> >>  1 file changed, 94 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/qcs8300.dtsi b/arch/arm64/boot/dts/qcom/qcs8300.dtsi
+> >> index e0e1f63fc45b..834ae0522f2f 100644
+> >> --- a/arch/arm64/boot/dts/qcom/qcs8300.dtsi
+> >> +++ b/arch/arm64/boot/dts/qcom/qcs8300.dtsi
+> >> @@ -3,6 +3,7 @@
+> >>   * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> >>   */
+> >>
+> >> +#include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
+> >>  #include <dt-bindings/clock/qcom,qcs8300-gcc.h>
+> >>  #include <dt-bindings/clock/qcom,rpmh.h>
+> >>  #include <dt-bindings/clock/qcom,sa8775p-camcc.h>
+> >> @@ -4854,6 +4855,13 @@ dpu_intf0_out: endpoint {
+> >>                                                      remote-endpoint = <&mdss_dp0_in>;
+> >>                                              };
+> >>                                      };
+> >> +
+> >> +                                    port@1 {
+> >> +                                            reg = <1>;
+> >> +                                            dpu_intf1_out: endpoint {
+> >> +                                                    remote-endpoint = <&mdss_dsi0_in>;
+> >> +                                            };
+> >> +                                    };
+> >>                              };
+> >>
+> >>                              mdp_opp_table: opp-table {
+> >> @@ -4881,6 +4889,89 @@ opp-650000000 {
+> >>                              };
+> >>                      };
+> >>
+> >> +                    mdss_dsi0: dsi@ae94000 {
+> >> +                            compatible =  "qcom,sa8775p-dsi-ctrl","qcom,mdss-dsi-ctrl";
+> >
+> > qcom,qcs8300-dsi-ctrl. You might use three compatibles (qcs8300, sa8775p
+> > and the generic one), but there should be qcs8300 one.
+> >
+>
+> Hi Dmitry,
+>
+> If I am adding three compatible string for ctrl,
+>
+> compatible = "qcom,qcs8300-dsi-ctrl",
+>              "qcom,sa8775p-dsi-ctrl",
+>              "qcom,mdss-dsi-ctrl";
+>
+> while validating dt-binding and dtsi against dt-schema. I am getting below errors
+>
+>
+> /local/mnt/workspace/amakhija/linux_next/linux/arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: dsi@ae94000: compatible: 'oneOf' conditional failed, one must be fixed:
+>         ['qcom,qcs8300-dsi-ctrl', 'qcom,sa8775p-dsi-ctrl', 'qcom,mdss-dsi-ctrl'] is too long
+>         'qcom,qcs8300-dsi-ctrl' is not one of ['qcom,dsi-ctrl-6g-qcm2290', 'qcom,mdss-dsi-ctrl']
+>         'qcom,mdss-dsi-ctrl' was expected
+>         from schema $id: http://devicetree.org/schemas/display/msm/dsi-controller-main.yaml#
+>
+> According to the dsi-controller-main.yaml schema only two strings are allowed one is the SOC specific and other one is generic "qcom,mdss-dsi-ctrl".
+>
+> Shall I keep only two strings qcom,qcs8300-mdss.yaml and the generic one "qcom,mdss-dsi-ctrl" or if we want to support 3 strings in compatible sting we need to modify the dsi-controller-main.yaml ?
 
-Hi Dmitry, 
+Of course.
 
-If I am adding three compatible string for ctrl,
+> Similarly, I am getting error for dsi_phy compatible string only one SOC specific compatible string is allow.
 
-compatible = "qcom,qcs8300-dsi-ctrl",
-             "qcom,sa8775p-dsi-ctrl",
-             "qcom,mdss-dsi-ctrl";
+So, what's the question? You are adding support for the platform. So
+yes, you need to modify the schema.
 
-while validating dt-binding and dtsi against dt-schema. I am getting below errors
-
-
-/local/mnt/workspace/amakhija/linux_next/linux/arch/arm64/boot/dts/qcom/qcs8300-ride.dtb: dsi@ae94000: compatible: 'oneOf' conditional failed, one must be fixed:
-        ['qcom,qcs8300-dsi-ctrl', 'qcom,sa8775p-dsi-ctrl', 'qcom,mdss-dsi-ctrl'] is too long
-        'qcom,qcs8300-dsi-ctrl' is not one of ['qcom,dsi-ctrl-6g-qcm2290', 'qcom,mdss-dsi-ctrl']
-        'qcom,mdss-dsi-ctrl' was expected
-        from schema $id: http://devicetree.org/schemas/display/msm/dsi-controller-main.yaml#
-
-According to the dsi-controller-main.yaml schema only two strings are allowed one is the SOC specific and other one is generic "qcom,mdss-dsi-ctrl".
-
-Shall I keep only two strings qcom,qcs8300-mdss.yaml and the generic one "qcom,mdss-dsi-ctrl" or if we want to support 3 strings in compatible sting we need to modify the dsi-controller-main.yaml ?
-
-Similarly, I am getting error for dsi_phy compatible string only one SOC specific compatible string is allow.
-
-Thanks,
-Ayushi
-
+-- 
+With best wishes
+Dmitry
