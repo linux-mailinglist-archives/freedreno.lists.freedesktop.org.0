@@ -2,129 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F262BBBD909
-	for <lists+freedreno@lfdr.de>; Mon, 06 Oct 2025 12:02:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D07BCBBD9FD
+	for <lists+freedreno@lfdr.de>; Mon, 06 Oct 2025 12:09:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE44810E30F;
-	Mon,  6 Oct 2025 10:02:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6E6A10E08A;
+	Mon,  6 Oct 2025 10:09:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NQ588+Dh";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NSyLqFuk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6318010E30B
- for <freedreno@lists.freedesktop.org>; Mon,  6 Oct 2025 10:02:31 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5962AxjS019973
- for <freedreno@lists.freedesktop.org>; Mon, 6 Oct 2025 10:02:30 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE39110E3D8
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Oct 2025 10:09:31 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5960Z2TW010245
+ for <freedreno@lists.freedesktop.org>; Mon, 6 Oct 2025 10:09:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=emQk5agLRXov7YwB97bnLlbt
- YdyYufIKmyT5dEhdxvU=; b=NQ588+DhRqmfTiF2po3K/IQCh5QcODgFSvxnOvBp
- 4IISFD1OSztW8A4BXSxomjt6lKNuAuIrgETuEccYBJiGkLbBD/+vpXn3HnJBouq/
- 11uOdZBU54oF+T2EkFKyXVB9KTyss/9HzypZL4NBO2yAC6KW1nHXuPVn2LXLfrRu
- QvZOqBF+jHfqS8kef/+h/M/4Bcpc+sk7YVPid2VHlvJ/lKd20BZPrlDFesXksqkg
- maU7rkwjWUEdd2bFJt7Qu06mOsw0TFZSUmT5AMwGtqq9Gwt6LBlpO9ef24MRkw0K
- ayPvSENTdF5Nv/QprYP4tUt+oRnrzvIztSA+5Ln2g/bgEA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49jrxn3rs3-1
+ :references:subject:to; s=qcppdkim1; bh=bXYSL6RF+4InEd3ZqLPZ7ukK
+ 78ULLvWwWztGrXPi/Lg=; b=NSyLqFukvnIpuOu0VLpXrMUvszqgIVaaEH8fuVtR
+ tWz55tSwDwm2jpHH1++YsLnANV/+mQiFLa9Ywznq/mBSdWVwcvlsf2rFgq0jMqfl
+ Gc6ARMtgS+x5tAVeHlG/5UkpDokjLECeAJSEzBb4P3F5xswVzQYwsSoKwd+k2LDR
+ nzl7KhZ/RidNcWa/n0C0w5/YqznBux5sMRFjfTNVFg2il/aUXJC98g1ai31NuLM8
+ AQf8NdRIQvkktvAujGf1LL0hSICTipG5K0+jEJQJs7uDSgin/RaeGwTyav9+8mv2
+ yVI8l6B32zzL6fz5TOyZcMjW24C/o+4CvytdoVb0VG1EZw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49juy6ufsb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 06 Oct 2025 10:02:30 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4d91b91b6f8so55695971cf.3
- for <freedreno@lists.freedesktop.org>; Mon, 06 Oct 2025 03:02:30 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Oct 2025 10:09:31 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4db75c7fa8dso115109491cf.0
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Oct 2025 03:09:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759744950; x=1760349750;
+ d=1e100.net; s=20230601; t=1759745370; x=1760350170;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=emQk5agLRXov7YwB97bnLlbtYdyYufIKmyT5dEhdxvU=;
- b=EbQ9grpEQYst+Kr17Km67SC0qaq6LGnwDpEDf9ywMLZznfUCWQbYWJ/VsKhgcIL8WX
- rAISNB3lez2Q4Mz9vASlh4AtLNRHc73W3wWr1Im1rgAxx1jBlw5c1rnE71mbK+4V5L2u
- OUMIWl/Fe0F9J1DtMWelBbyKqbElqgBjuZSLMLqFzuvTxd296mJNvLvStanUMsa/5SNc
- sjtpTgbHLTIe5uWX/6gNXBp2tdKhmYa7GjdKt2BQRzLTNH5Jshay/S/AWk6GfLKNggcq
- 1g5V2q4tTFpt7oXH9T+d2zsOK6mjhCAVpf1k3E9Vzm6x4i2WlV7Xi+p+L/MUGkJxDnQ6
- baBQ==
+ bh=bXYSL6RF+4InEd3ZqLPZ7ukK78ULLvWwWztGrXPi/Lg=;
+ b=WUVtu+xJOqjTJOT03YNqeZGFBU8hXnbL05QAUyX/9tcrT2d+MPr2h4tjC+PhArLPo4
+ Zf9qXqXnf1jd7Ei8Zr1FB+TF5YtEnfjTNk+whxriaPrD4cqyl4Ohesl9GxUdELZD1Ve9
+ 7Rj8qEYpMqp8FT2gff0vo3cH6tPTTNFUWAn7WPVjHIxVFQYohiUb06t6iYzbZDekBFCZ
+ JROBWYvMSEQ4MMkKMPHsFsNHMStH/cnxwW6ABNwwDom/VJz/Ki1tVZO++Gj094yu1SI7
+ Lagzq5FrxorLzAycg4gtThTartjr4Spr/g0ao1BdEPpIfIdql8c1kpxa0M/tFGZhPC1p
+ KXXg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdcBijkBADMtOK94XWOzkDtSD9B5o8XSBbQWPVF5Hvmc2QF4sBDq6XdVMEqK0CAfnvAHVSCrMJjZg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywt9vGV3hLtJuSn7Rruk/jm/lTBOUmYmAWuBonN5SBkbw8jMCDP
- Hp2QseeitUWg3TtVlKiG8fcg52cc+yRxOMiDMABx7kQi8gu5bjRslLIf86/h6tCf/lyWt7nZmSi
- 5G4IiXihdoWbl6Tp5SnidU5OkU0MsGJMgYKDZUgqzcFNCEuJtX1tWpzrBUoDaKw9qWsppDRs=
-X-Gm-Gg: ASbGncu+PXzy82PByecg7YJ+WVnGcm+Vd7rv9i6Y1WtubNOmyOv8Zy06/+rGVz5sA/4
- FeI4VQumkvMLgj5vwywrSrbjbnG3zo/gIMDZ2sHGhI33xLmF3alfzd2dvU1SPk8DlYBZvgXDIRg
- wKJ32EO5GcuSdnkF753WKWSqS9L5ECCeuYwGCDLThKPvW5mAwd9dDY+jeHJPnue40X4GVJAa/HD
- XZgMSTbpQyirUuXdW1RBsm7+do6neDs+Nqc8vSsFiG9HJov1LURyctmT/Q9pRdlz0V4KoM4rQY+
- LJ/n7w4o/9ubOQaTf4bhUy9lgxXl/O6z2Pl97DvBBTVa6b4ZcQfOAkqg4Zc4HkEXHoZC0e45lic
- emgDJMkpmGLSotx4CqO/lTLqz9GaPLHSlcjsuphCxQj8WcIZjvm30lHY5Rw==
-X-Received: by 2002:a05:622a:909:b0:4d2:a1a7:214a with SMTP id
- d75a77b69052e-4e576adad30mr157836251cf.45.1759744949568; 
- Mon, 06 Oct 2025 03:02:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGy/JDsMXdS7AYgrpeJ5Yyjg3ZDELYIlzxigHOiHIhaIjrnMXpioVVArym3UE6bvb/Dvdh7bQ==
-X-Received: by 2002:a05:622a:909:b0:4d2:a1a7:214a with SMTP id
- d75a77b69052e-4e576adad30mr157835651cf.45.1759744949077; 
- Mon, 06 Oct 2025 03:02:29 -0700 (PDT)
+ AJvYcCWmNTpNApKuV121J1jttQSxzU7MhBlNNh+IzCya7MgNutv7xAq2QyvRcmAXj4MGZneBhqO77wIb5SA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy4jMkieHCGOsLfFsVQu/un4/ImRx4LoAZR/QrvnJ7d1OrQ8mo2
+ 3XMpn/tg+0ce523QJJ+bxKTLB2JuplUYFHPrmfHgzclE0DTj57OSlEhXi7RzBGUFRtIsnFWe78B
+ KUoicumXWKg4U5WyWF3qkegckWP6KtJe4QtIfiXc28If9R2NskImdo0JRX7MJmuhClB3guv4=
+X-Gm-Gg: ASbGncv2gGo11cdov1bODMMdMxRs31lL3/D7j7sDG5ZW12Oer4iGpcnM4KSc7y2Li+n
+ qVSqK022cISwL3clgpRPrtYZUAb/6Ndu9pkWwR1O/31Nrn5OKhpW30YgffigOctJmjUL1QXbp3K
+ v73CkmsLxO5y7yciYGrk4sC76GHwlLZ6wdZLiknryKQ+j3cMYSmEFsqFa0xJJlDidI8dm93ar4h
+ EjFcmy1QOF19eLg5x4ce/35xlSkM5AO++R7QGz0Ywe5w+Jd+BhoZs0F6CIvWWpkj8+utTTYDm80
+ CC8O9WBfnCXXSfqDF0NWxsP0m8kzvmT30Sh1xp2t7fpqNyb4RkEm7SS5M1CVA9RnwWXVMwiwvlk
+ LKkcJKKg44lvDtpOqkk4MzHADwdM8yEBmbp9lwLGhCzT0rrMmJFLsHaakWQ==
+X-Received: by 2002:a05:622a:1f06:b0:4db:f0f4:9661 with SMTP id
+ d75a77b69052e-4e576ad691emr146555141cf.65.1759745370162; 
+ Mon, 06 Oct 2025 03:09:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF/EFwvYFDtuXYBmDcVcbVZDXlZvHJf8WdbRFA9SctOvGp2clXL+AeK+d+ABYU0RotnUXbOKg==
+X-Received: by 2002:a05:622a:1f06:b0:4db:f0f4:9661 with SMTP id
+ d75a77b69052e-4e576ad691emr146554711cf.65.1759745369675; 
+ Mon, 06 Oct 2025 03:09:29 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-58b0113490dsm4901255e87.32.2025.10.06.03.02.25
+ 2adb3069b0e04-58b011ab24fsm4891035e87.120.2025.10.06.03.09.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Oct 2025 03:02:26 -0700 (PDT)
-Date: Mon, 6 Oct 2025 13:02:23 +0300
+ Mon, 06 Oct 2025 03:09:28 -0700 (PDT)
+Date: Mon, 6 Oct 2025 13:09:26 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Junjie Cao <caojunjie650@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Jonathan Marek <jonathan@marek.ca>, Eugene Lepshy <fekz115@gmail.com>,
- Jun Nie <jun.nie@linaro.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 3/3] drm/panel: Add Novatek NT36532 panel driver
-Message-ID: <rxm67cbwkp2qyxdlgqb3fz7fhiskmnhidhjvl4mhqn67iq2x4n@wfueruiiq7kp>
-References: <20251001135914.13754-1-caojunjie650@gmail.com>
- <20251001135914.13754-4-caojunjie650@gmail.com>
- <lfdhib6a7ct36nmj3of2setjft7ydrf6sfgtx7qued7qd56nhc@2xol3grm5re7>
- <e36572bf-4fb4-425e-8d10-c5efa5af97f3@oss.qualcomm.com>
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonathan@marek.ca, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_rajeevny@quicinc.com,
+ quic_vproddut@quicinc.com
+Subject: Re: [PATCH v2 2/7] dt-bindings: msm: dsi-controller-main: document
+ the QCS8300 DSI CTRL
+Message-ID: <anirh7smpjsis24pl4k4wckrimujbbodwnl67n3ipebprz673c@kdaowpncrzia>
+References: <20251006013924.1114833-1-quic_amakhija@quicinc.com>
+ <20251006013924.1114833-3-quic_amakhija@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e36572bf-4fb4-425e-8d10-c5efa5af97f3@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA0MDAwMSBTYWx0ZWRfX+LV1gXzRRxgg
- jHzV6voItxWQBA7WX6gCp7d8wAjBFb+MYEKCc9jWV8qdD2zbCbiYjrspgp9SaFMCQVifNsuWk3q
- ejDMNvkrCL+xpBpVwtb0iqs8V2YdwR+G8xb8htFE0gzmml8fi3kbdUusdUwiYc6h7YjFXjsPk3+
- jXu+8QfG+MvP9WRTtY65TNxELrxDrDvKLBjcqHpm80VtANxbs4ZTQKbQaUB8jlSJA2yY/L3CBzK
- QLM7P9zpKs50/xTW6WzMkylEnbyV309JoPdlSDayhAoy4lvoNidwGGHQV7+4jieyqnfo5+6E9Q4
- e6w7pDK9F5o1ktGhf/RKb/nGDPHDB5zgH/VCwcBYW+2zbiqEnkoV1gfSK8QCxcIJaIZ/3Pq92dP
- NiEFo+LZU34Dm3+kRMrUcqsOav6i2w==
-X-Proofpoint-GUID: KiN2u7QUgUEg73hv_1rbgiiX1rOzJjHm
-X-Proofpoint-ORIG-GUID: KiN2u7QUgUEg73hv_1rbgiiX1rOzJjHm
-X-Authority-Analysis: v=2.4 cv=EqnfbCcA c=1 sm=1 tr=0 ts=68e393b6 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=x6icFKpwvdMA:10 a=pGLkceISAAAA:8 a=8BRzra-YsWo1JaVNFEUA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
+In-Reply-To: <20251006013924.1114833-3-quic_amakhija@quicinc.com>
+X-Authority-Analysis: v=2.4 cv=IrITsb/g c=1 sm=1 tr=0 ts=68e3955b cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=x6icFKpwvdMA:10 a=COk6AnOGAAAA:8 a=F4Q9eJ9c0RUMKujZamsA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: vpV9uPAaTX3yWqcl2UkXLwsJIIRAWnJi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA0MDAyOSBTYWx0ZWRfX0/QT8pDzzZDX
+ LFi15/Up15TIlzi7gQAkV0AIZLQE0IahWoGSIlepqQ5Pp5Jp0f/RK0noNLIQDdfwhqZnJIsYH/6
+ Ro4o2WWmVfyLWXSuNbPCSglbUfGeGnFJSMDD1LoahSMFGY5cj71G2PhLbARMNa8MWrRmB3t4fWs
+ jGcg3pJ215JG8BpX4e/fzHhQw3O8PQwdYjXwUBZFkyAqr9hm00DjslZo14rf5WmMuq1buecquV5
+ Sdxr/Qknj5/o502Gxf4y1C4fel1Lj7BX5jzE/jP7aKWFsO+5u/9RXs5AKNSBoQ5+rB9R7SjQG/a
+ QQGsKDyT7UaA1i1cSEnAgcy/DPNlcKF0Eup/1UUHhOGzTHs6ERuxRXHME36M3U9R/cOiZ9QLUJk
+ t8xG923JhVW1oKFzXnyBdeNTjePYew==
+X-Proofpoint-ORIG-GUID: vpV9uPAaTX3yWqcl2UkXLwsJIIRAWnJi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-10-06_03,2025-10-02_03,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0
- adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1015
+ adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0
+ spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2510040001
+ reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2510040029
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,39 +131,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 06, 2025 at 11:24:35AM +0200, Konrad Dybcio wrote:
-> On 10/2/25 4:04 AM, Dmitry Baryshkov wrote:
-> > On Wed, Oct 01, 2025 at 09:59:14PM +0800, Junjie Cao wrote:
-> >> Add a driver for panels using the Novatek NT36532 Display Driver IC,
-> >> including support for the CSOT PPC100HB1-1, found in the OnePlus Pad 2
-> >> tablets.
-> >>
-> >> Signed-off-by: Junjie Cao <caojunjie650@gmail.com>
-> >> ---
-> >>  MAINTAINERS                                   |   7 +
-> >>  drivers/gpu/drm/panel/Kconfig                 |  10 +
-> >>  drivers/gpu/drm/panel/Makefile                |   1 +
-> >>  drivers/gpu/drm/panel/panel-novatek-nt36532.c | 437 ++++++++++++++++++
-> >>  4 files changed, 455 insertions(+)
-> >>  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36532.c
-> >>
-> >> +
-> >> +static const struct panel_info csot_panel_info = {
-> >> +	.width_mm = 250,
-> >> +	.height_mm = 177,
-> >> +	.lanes = 4,
-> >> +	.format = MIPI_DSI_FMT_RGB888,
-> >> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS |
-> >> +		      MIPI_DSI_MODE_LPM,
-> >> +	.display_mode = csot_display_mode,
-> >> +	.dsc_slice_per_pkt = 2,
-> > 
-> > As this is not a part of the standard, what if the DSI host doesn't
-> > support this feature?
+On Mon, Oct 06, 2025 at 07:09:19AM +0530, Ayushi Makhija wrote:
+> Document the DSI CTRL on the QCS8300 Platform.
 > 
-> Shouldn't the core gracefully throw something like an -EINVAL?
+> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> ---
+>  .../bindings/display/msm/dsi-controller-main.yaml           | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> index 4400d4cce072..8ae08d3b0200 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> @@ -45,6 +45,11 @@ properties:
+>                - qcom,sm8650-dsi-ctrl
+>                - qcom,sm8750-dsi-ctrl
+>            - const: qcom,mdss-dsi-ctrl
+> +      - items:
+> +          - enum:
+> +              - qcom,qcs8300-dsi-ctrl
+> +          - const: qcom,sa8775p-dsi-ctrl
+> +          - const: qcom,mdss-dsi-ctrl
+>        - enum:
+>            - qcom,dsi-ctrl-6g-qcm2290
+>            - qcom,mdss-dsi-ctrl # This should always come with an SoC-specific compatible
+> @@ -329,6 +334,7 @@ allOf:
+>            contains:
+>              enum:
+>                - qcom,msm8998-dsi-ctrl
+> +              - qcom,qcs8300-dsi-ctrl
 
-There is no 'core' here. Each DSI DRM host manages DSC on their own.
+No need to, your compat settings already contain the sa8775p string,
+which will match this clause
+
+>                - qcom,sa8775p-dsi-ctrl
+>                - qcom,sar2130p-dsi-ctrl
+>                - qcom,sc7180-dsi-ctrl
+> -- 
+> 2.34.1
+> 
 
 -- 
 With best wishes
