@@ -2,105 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6A16BBCF11
-	for <lists+freedreno@lfdr.de>; Mon, 06 Oct 2025 03:39:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A8B0BBD2CB
+	for <lists+freedreno@lfdr.de>; Mon, 06 Oct 2025 09:02:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C624410E3AE;
-	Mon,  6 Oct 2025 01:39:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2782210E331;
+	Mon,  6 Oct 2025 07:02:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="mmSksWsK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WI/xZhqE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B229810E304;
- Mon,  6 Oct 2025 01:39:42 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5961TvVm017137;
- Mon, 6 Oct 2025 01:39:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=19WFsK2uZEP
- CoYq9JkZq3FCpogFeqhw7MzvA3wUKpks=; b=mmSksWsK+z/7ZWBPBm5m62KijhF
- cPPW7UCpWeCr8NXVzkGg98GWAmZYYC+aPmtsgfGJLsPW44Ry5hTjgKw1A5BYfwmH
- Ie6q9ZZY1yAPuDSJG/YbYaNg/WFr4ellHowYQJJ4Qfqof/yXqy8PmD2PP9+HsGQN
- nSoABuc+Dv1CmhYqb5SJPJjdRLyvpLrez5vYB3B+SurhUh2EGQxqMAV1qeJ3fWKf
- 1ZD1EoyPhaj8oYKk62Jfe0BkkrfcMNqkzDkUAt92nIBHLUKiWmZ8kBgmGBf4KbeL
- ZbekTC0/jIyF06O/knm4hIGv6JuK6kL9uUe2ezaKTNjy1thPY/swGmixm1w==
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49jtk6tu0c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Oct 2025 01:39:31 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 5961dSCZ003806; 
- Mon, 6 Oct 2025 01:39:28 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 49jvnkybty-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Oct 2025 01:39:28 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 5961dS54003793;
- Mon, 6 Oct 2025 01:39:28 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com
- [10.213.99.91])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 5961dS0l003791
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Oct 2025 01:39:28 +0000
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
- id 60F655A0; Mon,  6 Oct 2025 07:09:26 +0530 (+0530)
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, robdclark@gmail.com,
- dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonathan@marek.ca, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_rajeevny@quicinc.com,
- quic_vproddut@quicinc.com
-Subject: [PATCH v2 7/7] arm64: dts: qcom: qcs8300-ride: add anx7625 DSI to DP
- bridge node
-Date: Mon,  6 Oct 2025 07:09:24 +0530
-Message-Id: <20251006013924.1114833-8-quic_amakhija@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20251006013924.1114833-1-quic_amakhija@quicinc.com>
-References: <20251006013924.1114833-1-quic_amakhija@quicinc.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A593F10E3BE;
+ Mon,  6 Oct 2025 07:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1759734167; x=1791270167;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=PXJ6MRuzR6aMbdgG6mYjkWRtJiUQB3/rHCe+G2vrpVk=;
+ b=WI/xZhqEusHTiBVLmqPiXHdp6pPZ/h54VTG73rioOmbOTT1SHtMKzIv9
+ yp9sAxOUf4xJVGdOyfAVUt4uEsVOD8AFxlBp8MHJOjp3wkr/Ishkrd3dD
+ MjnYoxk/sqsL6P7Na8qaJkTb+JWBAEeI9y26SyY6iUWNsbvw4mAHd+uP6
+ +I085RSG+LTpoTqTnbgl/WvCAMF8ncWtbWYMWVByNysEW7yt2yQCZlcEU
+ ibcpQxR4rJ5wfyADQwjtt6CtrZIQ+pB/cMEy+gtcaikLXOil+vc7J7eTC
+ WAAiC3NRZCDkG668sJg/+AFQ+PuwuUFtAofkwT4Hs+MhkgJbjRkSSP5pr A==;
+X-CSE-ConnectionGUID: r3ZCRLZ1TJqiL8s/GWbd6w==
+X-CSE-MsgGUID: jtp3V1jKTnW9GA+GnyS+jg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11573"; a="73005296"
+X-IronPort-AV: E=Sophos;i="6.18,319,1751266800"; d="scan'208";a="73005296"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2025 00:02:46 -0700
+X-CSE-ConnectionGUID: iyLLkEz/SOGMrqj15F92Fg==
+X-CSE-MsgGUID: u1fNJsPGSsy+WvwcoZPP1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,319,1751266800"; d="scan'208";a="184096523"
+Received: from krybak-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.162])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2025 00:02:43 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH] MAINTAINERS: Update Jessica Zhang's email address
+In-Reply-To: <v37d36nd7ues6fp53ncrqdzvmikzjn4pf427wztzatc3pvqhvn@kpg5jrkqbfc4>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20251002-quit-qcom-v1-1-0898a63ffddd@oss.qualcomm.com>
+ <35jqgias5o4ruhkc72oacepcq4skfzpe4gyivg2pz7bnpy5luj@d5saa7y7rcus>
+ <e42176e9-cac0-4142-b463-9eaf86906c46@linaro.org>
+ <v37d36nd7ues6fp53ncrqdzvmikzjn4pf427wztzatc3pvqhvn@kpg5jrkqbfc4>
+Date: Mon, 06 Oct 2025 10:02:40 +0300
+Message-ID: <b3aec4bd094bb5f4a531907f295721438fe5f2d1@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA0MDAxNyBTYWx0ZWRfX6wuzJBPWz5Vv
- SJfNyKkLV3x6dtdvr0K1wDh5BelwLd0wbREqF/cx7sqyEki8ktQHejAu3XCqFW/M+w07xFKLNIx
- BhQKRZ6hESc1C0toN7VcwdIcxdVNgzNZmQuYUx+cP2CsY/tUE4ltigIj8obD7gJ1hKSC6PEpzVP
- DfABBLRwENZgtm4Lmn7awD5t0wZo9cY3JGm1Y0vTx5kB0oNhAEIdypskV4BP3XvnSwztClLVjnN
- 002LuvmTBT+m7fBPN9AjBa/eldvIyZc6bfatFz/i7Cr6aHBXo29YysCbCujc1p2Ggjse3Zqp+P9
- /8MwbIMlgQqiYjtpd08o9W8xHYd57XgFrRH7KE8K2cvy5XBBp+bXF8pLnykPT9MKMG2kfLJzeOw
- mJCKTV5BVn8v9CphIwBaDC0erTyYqQ==
-X-Authority-Analysis: v=2.4 cv=do3Wylg4 c=1 sm=1 tr=0 ts=68e31dd3 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=x6icFKpwvdMA:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=PS1UjZDpBljCGRlzRBMA:9
- a=TjNXssC_j7lpFel5tvFf:22 a=nl4s5V0KI7Kw-pW0DWrs:22 a=pHzHmUro8NiASowvMSCR:22
- a=xoEH_sTeL_Rfw54TyV31:22
-X-Proofpoint-GUID: gOyZQZQUy3LV01cZluVSVzs3Vrpbf6A5
-X-Proofpoint-ORIG-GUID: gOyZQZQUy3LV01cZluVSVzs3Vrpbf6A5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-06_01,2025-10-02_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
- malwarescore=0 spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2510040017
+Content-Type: text/plain
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,227 +75,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add anx7625 DSI to DP bridge device node.
+On Fri, 03 Oct 2025, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> On Fri, Oct 03, 2025 at 11:01:56AM +0200, Neil Armstrong wrote:
+>> On 10/3/25 03:17, Dmitry Baryshkov wrote:
+>> > On Thu, Oct 02, 2025 at 04:57:35PM -0700, Jessica Zhang wrote:
+>> > > My current email will stop working soon. Update my email address to
+>> > > jesszhan0024@gmail.com
+>> > > 
+>> > > Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+>> > > ---
+>> > >   MAINTAINERS | 4 ++--
+>> > >   1 file changed, 2 insertions(+), 2 deletions(-)
+>> > > 
+>> > 
+>> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> > 
+>> > 
+>> 
+>> So dim complains you didn't review with the right address...
+>> 
+>> dim: ERROR: 261785a47e0b ("MAINTAINERS: Update Jessica Zhang's email address"): Mandatory Maintainer Acked-by missing., aborting
+>> 
+>> I guess it expects Dmitry Baryshkov <lumag@kernel.org>
+>
+> No. It is a known limitation of dim, it expects a maintainers's review,
+> but there aer no maintainers for MAINTAINERS file. 
 
-Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs8300-ride.dts | 170 ++++++++++++++++++++++
- 1 file changed, 170 insertions(+)
+Yeah, maybe MAINTAINERS deserves an explicit exception in dim.
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs8300-ride.dts b/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-index 891e49602c97..5d4040376857 100644
---- a/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-@@ -24,6 +24,64 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	vreg_12p0: vreg-12p0-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_12P0";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+	};
-+
-+	vreg_5p0: vreg-5p0-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_5P0";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+
-+		vin-supply = <&vreg_12p0>;
-+	};
-+
-+	vreg_1p8: vreg-1p8-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_1P8";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		vin-supply = <&vreg_5p0>;
-+	};
-+
-+	vreg_1p0: vreg-1p0-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_1P0";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1000000>;
-+		regulator-max-microvolt = <1000000>;
-+
-+		vin-supply = <&vreg_1p8>;
-+	};
-+
-+	vreg_3p0: vreg-3p0-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_3P0";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3000000>;
-+		regulator-max-microvolt = <3000000>;
-+
-+		vin-supply = <&vreg_12p0>;
-+	};
-+
- 	dp0-connector {
- 		compatible = "dp-connector";
- 		label = "DP0";
-@@ -36,6 +94,18 @@ dp0_connector_in: endpoint {
- 		};
- 	};
- 
-+	dp-dsi0-connector {
-+		compatible = "dp-connector";
-+		label = "DSI0";
-+		type = "full-size";
-+
-+		port {
-+			dp_dsi0_connector_in: endpoint {
-+				remote-endpoint = <&dsi2dp_bridge_out>;
-+			};
-+		};
-+	};
-+
- 	regulator-usb2-vbus {
- 		compatible = "regulator-fixed";
- 		regulator-name = "USB2_VBUS";
-@@ -316,6 +386,70 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/qcs8300/a623_zap.mbn";
- };
- 
-+&i2c8 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	io_expander: gpio@74 {
-+		compatible = "ti,tca9539";
-+		reg = <0x74>;
-+		interrupts-extended = <&tlmm 93 IRQ_TYPE_EDGE_BOTH>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		reset-gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
-+
-+		pinctrl-0 = <&io_expander_intr_active>,
-+			    <&io_expander_reset_active>;
-+		pinctrl-names = "default";
-+	};
-+
-+	i2c-mux@70 {
-+		compatible = "nxp,pca9543";
-+		#address-cells = <1>;
-+
-+		#size-cells = <0>;
-+		reg = <0x70>;
-+
-+		i2c@0 {
-+			reg = <0>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			bridge@58 {
-+				compatible = "analogix,anx7625";
-+				reg = <0x58>;
-+				interrupts-extended = <&io_expander 2 IRQ_TYPE_EDGE_FALLING>;
-+				enable-gpios = <&io_expander 1 GPIO_ACTIVE_HIGH>;
-+				reset-gpios = <&io_expander 0 GPIO_ACTIVE_HIGH>;
-+				vdd10-supply = <&vreg_1p0>;
-+				vdd18-supply = <&vreg_1p8>;
-+				vdd33-supply = <&vreg_3p0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						dsi2dp_bridge_in: endpoint {
-+							remote-endpoint = <&mdss_dsi0_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dsi2dp_bridge_out: endpoint {
-+							remote-endpoint = <&dp_dsi0_connector_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
- &pmm8650au_1_gpios {
- 	usb2_en: usb2-en-state {
- 		pins = "gpio7";
-@@ -353,10 +487,31 @@ &mdss_dp0_phy {
- 	status = "okay";
- };
- 
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l5a>;
-+
-+	status = "okay";
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
-+&mdss_dsi0_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&dsi2dp_bridge_in>;
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
- 
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
- &remoteproc_adsp {
- 	firmware-name = "qcom/qcs8300/adsp.mbn";
- 	status = "okay";
-@@ -419,6 +574,21 @@ dp_hot_plug_det: dp-hot-plug-det-state {
- 		function = "edp0_hot";
- 		bias-disable;
- 	};
-+
-+	io_expander_intr_active: io-expander-intr-active-state {
-+		pins = "gpio93";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	io_expander_reset_active: io-expander-reset-active-state {
-+		pins = "gpio66";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+		output-high;
-+	};
- };
- 
- &uart7 {
+
 -- 
-2.34.1
-
+Jani Nikula, Intel
