@@ -2,85 +2,132 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1E10BBDC37
-	for <lists+freedreno@lfdr.de>; Mon, 06 Oct 2025 12:47:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDDF8BBDC86
+	for <lists+freedreno@lfdr.de>; Mon, 06 Oct 2025 12:50:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AAFF10E412;
-	Mon,  6 Oct 2025 10:47:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A22D010E413;
+	Mon,  6 Oct 2025 10:50:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E597mMN/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WUcwFQ9S";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D87610E412;
- Mon,  6 Oct 2025 10:47:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7F5B860454;
- Mon,  6 Oct 2025 10:47:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FDD7C4CEF5;
- Mon,  6 Oct 2025 10:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1759747669;
- bh=FX1Lzu7+bvM9e8qmukvbO1hpPMzmlxgfp1qFo7AK/EQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=E597mMN/x7YVkjNX1Bc0G8W7GHt89kk8u2seksXgi5q2H3Gw9DqBry/MoIgd7Hl/f
- QcuYuZ/DwxfZxXg04LwRoNwgtiAl8T7SsOstK7UXK8SyqkUmffohAckrwzORjzcTe+
- /i/1SV3Pn0pttPu3dXePy8Hlmyjuwx9fL801o6Qw=
-Date: Mon, 6 Oct 2025 12:47:45 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Eliav Farber <farbere@amazon.com>
-Cc: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
- dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, tony.luck@intel.com, qiuxu.zhuo@intel.com,
- james.morse@arm.com, rric@kernel.org, airlied@linux.ie,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, robdclark@gmail.com,
- sean@poorly.run, jdelvare@suse.com, linux@roeck-us.net,
- linus.walleij@linaro.org, dmitry.torokhov@gmail.com, maz@kernel.org,
- wens@csie.org, jernej.skrabec@gmail.com, agk@redhat.com,
- snitzer@redhat.com, dm-devel@redhat.com, davem@davemloft.net,
- kuba@kernel.org, mcoquelin.stm32@gmail.com,
- krzysztof.kozlowski@canonical.com, malattia@linux.it,
- hdegoede@redhat.com, mgross@linux.intel.com, jejb@linux.ibm.com,
- martin.petersen@oracle.com, sakari.ailus@linux.intel.com,
- clm@fb.com, josef@toxicpanda.com, dsterba@suse.com, jack@suse.com,
- tytso@mit.edu, adilger.kernel@dilger.ca, dushistov@mail.ru,
- luc.vanoostenryck@gmail.com, rostedt@goodmis.org, pmladek@suse.com,
- senozhatsky@chromium.org, andriy.shevchenko@linux.intel.com,
- linux@rasmusvillemoes.dk, minchan@kernel.org, ngupta@vflare.org,
- akpm@linux-foundation.org, yoshfuji@linux-ipv6.org,
- dsahern@kernel.org, pablo@netfilter.org, kadlec@netfilter.org,
- fw@strlen.de, jmaloy@redhat.com, ying.xue@windriver.com,
- shuah@kernel.org, willy@infradead.org, sashal@kernel.org,
- quic_akhilpo@quicinc.com, ruanjinjie@huawei.com,
- David.Laight@aculab.com, herve.codina@bootlin.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-um@lists.infradead.org, linux-edac@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-btrfs@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-sparse@vger.kernel.org,
- linux-mm@kvack.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, tipc-discussion@lists.sourceforge.net,
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Subject: Re: [PATCH v2 07/19 5.15.y] minmax: simplify and clarify
- min_t()/max_t() implementation
-Message-ID: <2025100648-capable-register-101b@gregkh>
-References: <20251003130006.41681-1-farbere@amazon.com>
- <20251003130006.41681-8-farbere@amazon.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB7DF10E412
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Oct 2025 10:50:00 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 595NB993010297
+ for <freedreno@lists.freedesktop.org>; Mon, 6 Oct 2025 10:49:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ IN3CVmizwhnegBcGc3ulurAszyJXyt4uRPeWQ6uV/vI=; b=WUcwFQ9SMmiTZbx2
+ NCNeZ1nWtZj9SZeY0FBSxzXMH2IzPbeI3uKZPRyDG5mIBhrMbs10/bHJuffXN1S6
+ 48ULwM2+mereT1CMxjpteWfk2W6DE7SpPaMQsKBSaw72XyizRA1Vb59NKoU3BYF2
+ kN/HEYqbQueAvdOe+N8mgH21IY8fPnz6c8f/WGVRE8w18TQTDEZPzYlp5pOUh0lf
+ zq+LbL8Whz/R/nlEOxyrky6T8KZI+AHAWTJxHzZr4qHilz/JFh5CmyACSz8HviOr
+ Spq4Ys3qsT8/OfP0FULlcV0FUoOP+wws6TueECzH/vCxhsEMrC864LP8WoN/bm5A
+ MH9+MA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49jut1kjqa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Oct 2025 10:49:59 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4dd729008d7so11168661cf.1
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Oct 2025 03:49:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1759747798; x=1760352598;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=IN3CVmizwhnegBcGc3ulurAszyJXyt4uRPeWQ6uV/vI=;
+ b=SQ7t8elJK/dnkYDxA1OHray3Q1PkdrVWsHxi48MP8CeSOwCra6fAb0AhV7njFWtxRT
+ T0LYSkdgMH0y1/BnopYB4kPtKJw+VJ9PDRgel+hHDM+ZhlSRyLaulvlmnTpGVOJJn7H1
+ pIv1NWCyUM08F8Im4P1Cf7wXf3RwaBmWSXZYpN97iLhX4oynQiTGc8ynhPH8VODqz6+m
+ vuwqet9JqzzGXmagplZIO40Qd2v8DbwJ5PQaGjrnrNPtGNBE/TP35omdzdsnMiAe7Nrj
+ VKfzFERteqYMNaiELYYMO5go1PIaET6AuKLaBsBhED1LyaTHvXHMX3jsmdh4PlQFjm3/
+ X/FA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVjxDHze2VHbwE15UiFOnsWCA5L8vksHamCw07ulfNhnWFvmDpVJkqvr6NOHE1W7A2eP9LhxdCCaGQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxbESvY3hmLLpHVsp4XqZskM+S4KDEBTg1ASGJGCAfkUCic0dy+
+ yrEkETZKk3np9noDJPIARqnMKR2au5Lkyt4xaU3o9e+vcWK+TLUREwl8BaSa4DjsPSLDYXHZObT
+ mxQjP0L27f0YdsDGOE0qiJnqIN/ur9w3k3SFXO4gQAXFWH8Xvu71z+tTDtJ4KIQV8JlmPIC4=
+X-Gm-Gg: ASbGncud+WYqba7+WVYxeu+XUakYGcIsqxKr+rkETnR79nHipmu8UgI/nt1zBCSOhe4
+ pMsbk8hgwGgP539W/I5UeaYJfStz6tyukgkKKIYWljqMt/MYvk+OOCY1Ytd0M+VAFHcPgsJevx0
+ okQwUAssZ6jtyHGgXRgvypng4dQ8mkW7pSDP6nkxRUAEPKPmtJ46uRhfhq6kN9kOUqxiD/x142g
+ kPIbs9zuBWya8yRgXrrTSut2w9AU+KBDhrk//ufxAqj7MsRrrDIWyLVd7pnPuXR6xfolhTePcsI
+ iHfMO/GrrFygOvWyCQMS2i3X5wV7h2n88YUl5KVX2cbKhqWGCGSA7QXcTT33XHW7Ct+Nv8MqMJ9
+ mMIImC6EYSmenyefBWtwespTCkTE=
+X-Received: by 2002:a05:622a:60f:b0:4dc:fc58:c50c with SMTP id
+ d75a77b69052e-4e576a45606mr94443271cf.5.1759747798223; 
+ Mon, 06 Oct 2025 03:49:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHSEU8VjnAr3dc4CRE1tKa0vgiLD4zAxaPVFZcAL5lIiyFY/V+S9ZVpzOWmv+pNPBnQHAcwzQ==
+X-Received: by 2002:a05:622a:60f:b0:4dc:fc58:c50c with SMTP id
+ d75a77b69052e-4e576a45606mr94443021cf.5.1759747797738; 
+ Mon, 06 Oct 2025 03:49:57 -0700 (PDT)
+Received: from [192.168.149.223] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b4865f741f1sm1118572366b.39.2025.10.06.03.49.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Oct 2025 03:49:57 -0700 (PDT)
+Message-ID: <65d0012c-4c06-4b39-9375-89d635f8abeb@oss.qualcomm.com>
+Date: Mon, 6 Oct 2025 12:49:53 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251003130006.41681-8-farbere@amazon.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm/panel: Add Novatek NT36532 panel driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Junjie Cao <caojunjie650@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Jonathan Marek <jonathan@marek.ca>, Eugene Lepshy <fekz115@gmail.com>,
+ Jun Nie <jun.nie@linaro.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+References: <20251001135914.13754-1-caojunjie650@gmail.com>
+ <20251001135914.13754-4-caojunjie650@gmail.com>
+ <lfdhib6a7ct36nmj3of2setjft7ydrf6sfgtx7qued7qd56nhc@2xol3grm5re7>
+ <e36572bf-4fb4-425e-8d10-c5efa5af97f3@oss.qualcomm.com>
+ <rxm67cbwkp2qyxdlgqb3fz7fhiskmnhidhjvl4mhqn67iq2x4n@wfueruiiq7kp>
+ <53aafa84-6d6a-4963-827e-c1600270662f@oss.qualcomm.com>
+ <2do3dk7gqvbloocsv46t3zrc4ghvhrpiqre6djk6heese3wz75@dlqwkdsnrkbr>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <2do3dk7gqvbloocsv46t3zrc4ghvhrpiqre6djk6heese3wz75@dlqwkdsnrkbr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Jck9Zb3nulEF6Gi24QaYYj4OGULJ5act
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA0MDAyNyBTYWx0ZWRfX5MYpk6WbH8D9
+ 2wGETRIPeEd9LKShoTPMbJkUyQckizXMP0Tl3+qDH7JmzF1b+ArFSInL7R9OT4IgpCEB6HPYV1N
+ 4yO/h2kvr8qC3/vft68KyfH6YE3Zy4b9lFyqSlYojGepL7uJ/jjVN0LKblUOaf8fUdGrPrt1Ne2
+ agtJe4UiP7ANwzKQTt9DI9UAHlnub1g4KvWXs2aTXvHN/meUQ8P5yuS7ypbnON1lPCVxLObkc2l
+ l9Yp3tLNzowfmro7Luw07ET+prqqjqbyy1NKXd1xNqamCBZB9t2LTKCDLCT+9nql71hXcrzFOGg
+ 6ng35Ll3jeFRhPCOZAYKuK0iPXYHPWViKw1YxVTemUrcA0Al+7Q386TM861eox8RQ90PUs/USqt
+ gVlVePdi2Gw+L7p8bIoJ/WpYm7hLfg==
+X-Authority-Analysis: v=2.4 cv=Vqcuwu2n c=1 sm=1 tr=0 ts=68e39ed7 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=pGLkceISAAAA:8 a=zTkMZ0gcjxiqpFU4bxAA:9
+ a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: Jck9Zb3nulEF6Gi24QaYYj4OGULJ5act
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-06_03,2025-10-02_03,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ suspectscore=0 bulkscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2510040027
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,57 +143,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 03, 2025 at 12:59:54PM +0000, Eliav Farber wrote:
-> From: Linus Torvalds <torvalds@linux-foundation.org>
+On 10/6/25 12:39 PM, Dmitry Baryshkov wrote:
+> On Mon, Oct 06, 2025 at 12:10:05PM +0200, Konrad Dybcio wrote:
+>> On 10/6/25 12:02 PM, Dmitry Baryshkov wrote:
+>>> On Mon, Oct 06, 2025 at 11:24:35AM +0200, Konrad Dybcio wrote:
+>>>> On 10/2/25 4:04 AM, Dmitry Baryshkov wrote:
+>>>>> On Wed, Oct 01, 2025 at 09:59:14PM +0800, Junjie Cao wrote:
+>>>>>> Add a driver for panels using the Novatek NT36532 Display Driver IC,
+>>>>>> including support for the CSOT PPC100HB1-1, found in the OnePlus Pad 2
+>>>>>> tablets.
+>>>>>>
+>>>>>> Signed-off-by: Junjie Cao <caojunjie650@gmail.com>
+>>>>>> ---
+>>>>>>  MAINTAINERS                                   |   7 +
+>>>>>>  drivers/gpu/drm/panel/Kconfig                 |  10 +
+>>>>>>  drivers/gpu/drm/panel/Makefile                |   1 +
+>>>>>>  drivers/gpu/drm/panel/panel-novatek-nt36532.c | 437 ++++++++++++++++++
+>>>>>>  4 files changed, 455 insertions(+)
+>>>>>>  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36532.c
+>>>>>>
+>>>>>> +
+>>>>>> +static const struct panel_info csot_panel_info = {
+>>>>>> +	.width_mm = 250,
+>>>>>> +	.height_mm = 177,
+>>>>>> +	.lanes = 4,
+>>>>>> +	.format = MIPI_DSI_FMT_RGB888,
+>>>>>> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS |
+>>>>>> +		      MIPI_DSI_MODE_LPM,
+>>>>>> +	.display_mode = csot_display_mode,
+>>>>>> +	.dsc_slice_per_pkt = 2,
+>>>>>
+>>>>> As this is not a part of the standard, what if the DSI host doesn't
+>>>>> support this feature?
+>>>>
+>>>> Shouldn't the core gracefully throw something like an -EINVAL?
+>>>
+>>> There is no 'core' here. Each DSI DRM host manages DSC on their own.
+>>
+>> drm_dsc_helper?
 > 
-> [ Upstream commit 017fa3e89187848fd056af757769c9e66ac3e93d ]
-> 
-> This simplifies the min_t() and max_t() macros by no longer making them
-> work in the context of a C constant expression.
-> 
-> That means that you can no longer use them for static initializers or
-> for array sizes in type definitions, but there were only a couple of
-> such uses, and all of them were converted (famous last words) to use
-> MIN_T/MAX_T instead.
-> 
-> Cc: David Laight <David.Laight@aculab.com>
-> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-> Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> No, that's just for calculating PPS and some other values. It's one of
+> the problems of the DSI model, which I tried to solve a year ago, but
+> failed up to now to do it completely and clearly. The DSI device can't
+> check host's capabilities. It declares what it needs inside struct
+> mipi_dsi_device and hopes for the best.
 
-Eliav, your testing infrastructure needs some work, this patch breaks
-the build on this kernel tree:
+Alright, thanks for the explanation
 
-In file included from ./include/linux/kernel.h:16,
-                 from ./include/linux/list.h:9,
-                 from ./include/linux/wait.h:7,
-                 from ./include/linux/wait_bit.h:8,
-                 from ./include/linux/fs.h:6,
-                 from fs/erofs/internal.h:10,
-                 from fs/erofs/zdata.h:9,
-                 from fs/erofs/zdata.c:6:
-fs/erofs/zdata.c: In function ‘z_erofs_decompress_pcluster’:
-fs/erofs/zdata.h:185:61: error: ISO C90 forbids variable length array ‘pages_onstack’ [-Werror=vla]
-  185 |         min_t(unsigned int, THREAD_SIZE / 8 / sizeof(struct page *), 96U)
-      |                                                             ^~~~
-./include/linux/minmax.h:49:23: note: in definition of macro ‘__cmp_once_unique’
-   49 |         ({ type ux = (x); type uy = (y); __cmp(op, ux, uy); })
-      |                       ^
-./include/linux/minmax.h:164:27: note: in expansion of macro ‘__cmp_once’
-  164 | #define min_t(type, x, y) __cmp_once(min, type, x, y)
-      |                           ^~~~~~~~~~
-fs/erofs/zdata.h:185:9: note: in expansion of macro ‘min_t’
-  185 |         min_t(unsigned int, THREAD_SIZE / 8 / sizeof(struct page *), 96U)
-      |         ^~~~~
-fs/erofs/zdata.c:847:36: note: in expansion of macro ‘Z_EROFS_VMAP_ONSTACK_PAGES’
-  847 |         struct page *pages_onstack[Z_EROFS_VMAP_ONSTACK_PAGES];
-      |                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
-
-
-I'll drop this whole series, please do a bit more testing before sending
-out a new version.
-
-thanks,
-
-greg k-h
+Konrad
