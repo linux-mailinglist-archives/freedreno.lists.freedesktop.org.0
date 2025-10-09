@@ -2,120 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64B01BCB043
-	for <lists+freedreno@lfdr.de>; Fri, 10 Oct 2025 00:07:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD12BCB0B9
+	for <lists+freedreno@lfdr.de>; Fri, 10 Oct 2025 00:14:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B96CE10EB2C;
-	Thu,  9 Oct 2025 22:07:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5AA910EB31;
+	Thu,  9 Oct 2025 22:14:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fp17ahPT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d56Gdbse";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9CC10EB2E
- for <freedreno@lists.freedesktop.org>; Thu,  9 Oct 2025 22:07:01 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 599GG2Xe023121
- for <freedreno@lists.freedesktop.org>; Thu, 9 Oct 2025 22:07:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- PR41P3ZaU4FEtAYgEwsHsgOa9cZPdhmWSVDIIYk7xVk=; b=Fp17ahPT8DWjCQpt
- qouBdxGL1HMc6qfBQ5fW9eknKz0/5+fYAXH6FGfBwTVqeKnXsCrtGof8SNNFqChl
- vXB0p1CInUbxoMqW31vKUzukBG8LlPAY+IEhKUX9qYRTPK2aaCV3Umy4IqPsxF1Z
- SXZYRzGntiBxBIdpbPw1MTD/qjsmSCBn2o/mGZf5seTFB59S9odpAcMN921M0KzF
- vQwv+yLvRoH1N1oaJbeePgp1KDCm6Uu/gv1iid4CEI0KeNuygZ6mnT5QHiCJOKB8
- 2X8OLjzYRY/cVhU2ii49bg060HRAN/F4ftjh83y/pP//xh4qQgU7yZWwE1Nzimma
- pM+cUA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49pgdsrue3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 09 Oct 2025 22:07:00 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-33428befc49so3632450a91.0
- for <freedreno@lists.freedesktop.org>; Thu, 09 Oct 2025 15:07:00 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D23110EB30
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Oct 2025 22:14:19 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-b463f986f80so327819966b.2
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Oct 2025 15:14:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760048057; x=1760652857; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=+C1qgBpiLGQ9qb0EvZ/pqN9napeSCut88weJBHDFgWE=;
+ b=d56Gdbseo9nynb9bF+XlSSPq0N9T3qapslh3EbZ7IT+QCrW8P3BR9nZrzaJjspQy5l
+ izU0dURbWOjKGsiKYxglaWvCCFYXZSK+hxOIMautkalhygKxb/RuuHdUvOhpQpW5CJwd
+ IjcAsY/9vwI6AbNr/TZcaLgAqKVYQcxz3UWyRAxOiseWZv9PkpgXxDbv/B97Ulmsjbwk
+ 1AoaqB4DTsQRZ2bIFX3TVHQmE+HHfnqys0GqVrmq+f3sZY4O24YRcVLB4itkDNCrHW7P
+ /sTZgLFWRmOLbQncd6t9gmfHH8aPqt+kTSWUV4uwMZ7/W/ZfVR/nIfzN/GDp7j48musP
+ sHCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760047619; x=1760652419;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PR41P3ZaU4FEtAYgEwsHsgOa9cZPdhmWSVDIIYk7xVk=;
- b=vhZ/UAqTCPeKYYhGdW9nW/50CE7DZ92Zg/A5ss2i9tHqiiANXTnQlgJfJhNn5QIzsY
- Of/A+7z1VPp4wrvE5jTjVzcuDP9CtNa13Eurca8Le5NwzgPfpegf9V+2pyCgnj6OtKte
- 9F0MhpAbf4aJyrqZ89E7+Lz2OhBUrjAdx331vWt9gm4nNZpEt/oTLI5jejlt64kxhA3/
- 1OtjM7MaMQGt2h+LLySDawxAjh0mkhPYmnJfIWvItAj3kH0vOv3ngcLjehvTQAb8gGe0
- JufY713QeLVfIG9MqsI7Ku6O4N4ckf/OkIHovI7Yytv2GYbqqf5n5E8++2msCJ08Q5Ck
- 9S7A==
+ d=1e100.net; s=20230601; t=1760048057; x=1760652857;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+C1qgBpiLGQ9qb0EvZ/pqN9napeSCut88weJBHDFgWE=;
+ b=iLeyTNYxwUIPjzYsXgWYpI/Sf1+YyFM8MI+su55detKxeYUcdQMEWxfFeeDxJlnWhd
+ 2CRWiA7F2bdsdrOHbUBwX1SqII9rxSin3W/HbU9I7ZuZ+YAMgu1QAuXNAfUyE5VGG5xA
+ K+vYN67bQaL8VOJIYcZQTsZMZVX1PU8Auly5y0aGH2ApjS96WwINhvn2v70kNDzFcXbh
+ 7BHzk0fL5OENUz4E/zEtzSesv20orKbMifq2/5Gh4UidSy/GpYVsqbMTJQfDRLyXsp8Z
+ YbbOfPgqwBNxGxskInxUU8fteHnyzLfQrkI5dr6CyxTXw4pFDQbhhvdcmgwbyTn/SZ5y
+ BVyQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV6Ci7j9sWNjZju2uDw2+MwL2V9RRVA0wgmtym01fyj/9YHdKcsvEIAgVbGl6xhi7MIxyhSt2dhWNw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkossGt1dn40IZ9UdejylfvEbkAB/311BZ+HRSULEcEYRJmVFT
- tUac3qS7VSffI8R1SwOmD+4+QW/FKP5fFntAOMk18deocFqTzLpT8d4GzkCo4v5aIAnsw8Bluo4
- 5yc/RUpaDzmaqFaM2CGmPm/LjLFGYoUtArMn7dwRdHMlMUpBCfZQeo/lHlT1C34U4FlSNdJI=
-X-Gm-Gg: ASbGncs0dLZn6JuxN0rH5PuCMhJ5JpeOxK+vsHISDIQm7zpURQYzpCsp/v7HatIQOKP
- 128rUB9qwm5POYIAUxczf9MQJh0+fJs/y3ZmRec4q4NdK66dNL7g80XVxiznDlURrRf6tJsQ4ju
- AZGdXHQsq8XBkMoXbpH69+26cN1+Nfc0tMPZI6O9mrSSe/LxLgMnhmIc5cGOFhw4D3/kJlIEb71
- 1x+61+ddIVIy3RfNFYLudOdfEPmCgz/e9Ou/I7Zc+GAWbJOLH2jh9DADxj7zktPcDf4KyBXPWZX
- 5MmSMn1Yt5Xqmb4HwDBacdD75H2MmfDqxlEu3oDzcFex89nfobMWfeoitFcdDTjlANwGPkfRcQz
- 1NYAnLIz7jb6zBHu5DC7DqBvEvRE=
-X-Received: by 2002:a17:90b:58ec:b0:330:a1ee:e119 with SMTP id
- 98e67ed59e1d1-339edaae564mr18570382a91.9.1760047618908; 
- Thu, 09 Oct 2025 15:06:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE4fyyM+GG4JOApDItPR8uaTlgz9TNMfnQuqAW3pfKetHHZhA+J8uV0VeyiU+3SyCfTwZRmzQ==
-X-Received: by 2002:a17:90b:58ec:b0:330:a1ee:e119 with SMTP id
- 98e67ed59e1d1-339edaae564mr18570335a91.9.1760047618340; 
- Thu, 09 Oct 2025 15:06:58 -0700 (PDT)
-Received: from [10.71.109.75] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-33b61b0ed20sm908807a91.23.2025.10.09.15.06.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Oct 2025 15:06:57 -0700 (PDT)
-Message-ID: <55709a7e-21bd-4728-a818-d2739fa1a86e@oss.qualcomm.com>
-Date: Thu, 9 Oct 2025 15:06:55 -0700
+ AJvYcCUJZ2HbbdMeMjOmvB6koqeawxm+vL7IXZ8fpNa6nBVeHm4sqWLUwk+p8/CzcKt21ZonDi2UPKR90Ks=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/HPc2ExYTijo4lTbSZDJ+Qdm3JuKLfhXQ9edpk5w7o1HJdq33
+ blnT4nJc9uOJnnNPv4xHkZ1KiZB1rkH9WxM5eEyziIiXcDW5AOWMEMA=
+X-Gm-Gg: ASbGncvK62UWTWzIWjIov4ugR0x+4ILRm1/nESq+H0L1MuecbT1S8IBNy8FWREdy1qS
+ SP7Mt7H8bByw1doFHpjikH/TlSJksm39XUEbndbNORFPYQdapc3/aMq5GMneBOOijZ8Xhyx3JJa
+ nj+MLt/7eF25qZbOogb3ZXA4+0B/RQRhUPgKqykQqob84ePf8WeMeObf1IUfqHR8hIw0y9fudVr
+ DG/ZDflayli/E69NpI/4C8ujlGYNZtHYA7FHE24/JLKKsCUu7mJfn4V6BwzRphrVk6EADy+f7oV
+ a7ISj7GWwfdOI1Ur080fnrG5Euk5a2BqKswArj7MJun0Y/gKDX92iEtFcIbB3q8GeLYn0/gkgSl
+ XHyEyl7N9k5E6+u0xXVq706sI0piVAMnWaYRUnw2etzDt1okC4UT+U1dpz2UGgVwrGFOTE8AeJ9
+ 5DqeJCBWnIkeEpDR/3Bj0TCMpQQhYbsaZvoTff5VhnDQ==
+X-Google-Smtp-Source: AGHT+IGJY2MnbndzBWS/Rpwtary79mPSlYcRrWBWKoF2nGdG3wTBAiynYZRbgnU4c2AkM1DSx73G6Q==
+X-Received: by 2002:a17:907:60cb:b0:b3f:f6d:1da7 with SMTP id
+ a640c23a62f3a-b50ac4c4085mr1073754066b.54.1760048057118; 
+ Thu, 09 Oct 2025 15:14:17 -0700 (PDT)
+Received: from [192.168.1.17] (host-79-26-169-51.retail.telecomitalia.it.
+ [79.26.169.51]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b55d67c9b68sm69162366b.32.2025.10.09.15.14.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Oct 2025 15:14:16 -0700 (PDT)
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Date: Fri, 10 Oct 2025 00:13:35 +0200
+Subject: [PATCH] drm/msm: make sure last_fence is always updated
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dpu: Remove dead-code in
- dpu_encoder_helper_reset_mixers()
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-References: <8e3b2fbbf5440aa219feb667f5423c7479eb2656.1760040536.git.christophe.jaillet@wanadoo.fr>
-Content-Language: en-US
-From: Mahesh Bharadwaj Kannan <mahesh.kannan@oss.qualcomm.com>
-In-Reply-To: <8e3b2fbbf5440aa219feb667f5423c7479eb2656.1760040536.git.christophe.jaillet@wanadoo.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: X9q4sh7p1KQvwuQSuCvGOeku6daH4-Be
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA5MDA5OCBTYWx0ZWRfX8z6zgT+VVcgd
- KvlWVv3rFHW9+MgwiF7nSnw2zmFfHVyjmixIDqkc3vN8T5Otuzsb+VDGWsR/9BCWPWtfqXdn2VW
- XPY9jbxb0tJHnxOGqpNyL5zAQPPfVLXOeo6RrexQ4ncDoQ+OverksfGcodlvJD5BhcIurYCumAd
- 5k5B23GDw1RjhJ5wnCMiKTpu1SSE6q1JdftGEKjVa3tHH5XfTFtx8QMh6SSxNuEd1bIVboNS0rF
- wWPQkOSOs25vMbrPiMzg1DCchbMcb70h1hBnQkP2QuoHcc84xsYMz6dxxmlVO7eYAKyUjpNuGFA
- +D9tgaqVFi+S2uSVkn660C77s4ZOL0hya5hnOhQDVmunt/fvABiwS0jVCF+DTMwUGyOtj3mhxEH
- 38Xe1aeI/Y64jgTg8kNuWog1YEaXTQ==
-X-Authority-Analysis: v=2.4 cv=DISCIiNb c=1 sm=1 tr=0 ts=68e83204 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=EUspDBNiAAAA:8 a=HXVKm-MKDGyxfSjg48sA:9
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: X9q4sh7p1KQvwuQSuCvGOeku6daH4-Be
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-09_08,2025-10-06_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 spamscore=0 clxscore=1011
- priorityscore=1501 suspectscore=0 phishscore=0 impostorscore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2510020000
- definitions=main-2510090098
+Message-Id: <20251010-close_fence_wait_fix-v1-1-fd3e394dcadd@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAI4z6GgC/x2MUQqAIBAFrxL7nbAKftRVIiTsWQuhoVFBdPekz
+ xmYeaggCwr1zUMZpxRJsYJuG/LrFBcomSuTYWM1c6f8lgpcQPRw1ySHC3IrZmhvrNEAqKZ7RtX
+ /dhjf9wOaWwlrZgAAAA==
+X-Change-ID: 20251009-close_fence_wait_fix-00e1c2521eee
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Anna Maniscalco <anna.maniscalco2000@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1760048055; l=1780;
+ i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
+ bh=HDcLQ9jItgD9jx1XKHtGXKjYDLot5RODNSnCPekFFbU=;
+ b=0XGlKf43ydVDbBU8ka57El68pwGM62R4dn0ImMJ8BTHLNe67KsNIpUaqhZjUzg1QMDFt7U5sG
+ PjwlujPkoBdCnP5j5xX/9+hAc74gRAAO00sSJEmhoWgMgetUSoKT4Pd
+X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
+ pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,14 +105,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/9/2025 1:09 PM, Christophe JAILLET wrote:
+Make sure last_fence is updated in both the kernel managed vm path as
+well as the vm-bind path.
 
-> 'mixer' is only zeroed and is not use. Remove it.
->
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 3 ---
->   1 file changed, 3 deletions(-)
+This fixes a bug where last_fence is not waited on context close leading
+to faults as resources are freed while in use.
 
-Acked-By: Mahesh Bharadwaj Kannan <mahesh.kannan@oss.qualcomm.com>
+Fixes: 92395af63a99 ("drm/msm: Add VM_BIND submitqueue")
+---
+Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+---
+ drivers/gpu/drm/msm/msm_gem_submit.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 3ab3b27134f93b01236fec5833a18a6e2ad2cf5e..ae91a5614bf377985ff7875fc36baf174780a250 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -409,6 +409,10 @@ static void submit_attach_object_fences(struct msm_gem_submit *submit)
+ 	struct msm_gem_vm *vm = to_msm_vm(submit->vm);
+ 	struct dma_fence *last_fence;
+ 
++	last_fence = vm->last_fence;
++	vm->last_fence = dma_fence_unwrap_merge(submit->user_fence, last_fence);
++	dma_fence_put(last_fence);
++
+ 	if (msm_context_is_vmbind(submit->queue->ctx)) {
+ 		drm_gpuvm_resv_add_fence(submit->vm, &submit->exec,
+ 					 submit->user_fence,
+@@ -427,10 +431,6 @@ static void submit_attach_object_fences(struct msm_gem_submit *submit)
+ 			dma_resv_add_fence(obj->resv, submit->user_fence,
+ 					   DMA_RESV_USAGE_READ);
+ 	}
+-
+-	last_fence = vm->last_fence;
+-	vm->last_fence = dma_fence_unwrap_merge(submit->user_fence, last_fence);
+-	dma_fence_put(last_fence);
+ }
+ 
+ static int submit_bo(struct msm_gem_submit *submit, uint32_t idx,
+
+---
+base-commit: b5bad77e1e3c7249e4c0c88f98477e1ee7669b63
+change-id: 20251009-close_fence_wait_fix-00e1c2521eee
+
+Best regards,
+-- 
+Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
