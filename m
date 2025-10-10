@@ -2,94 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4537BCE25E
-	for <lists+freedreno@lfdr.de>; Fri, 10 Oct 2025 19:49:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC2ABCE35A
+	for <lists+freedreno@lfdr.de>; Fri, 10 Oct 2025 20:24:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C50D10EC65;
-	Fri, 10 Oct 2025 17:49:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DE4D10EC6B;
+	Fri, 10 Oct 2025 18:24:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TzNevAPd";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="X+JWwdZd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71BEA10EC65
- for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 17:49:51 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-62ec5f750f7so4045598a12.3
- for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 10:49:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760118590; x=1760723390; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4FlMoGYBpYvb/EBbOzxkP+h2B57HDoj8CpMbpuq4sQ4=;
- b=TzNevAPdSorQB18RE4p5V7rlE1ptgNAz5l+TBCLU5apOmCIQemEdvqMFrIxw1/0SmD
- Ne21ENdkVttFxkicVg0WmkkRESKg+/I3gQR0mrZsM7uiSXymSedYhUIZbjFuKirYQXR/
- hjvWRVD3MJPrpG+yIQLzUguyIKC4QQ+116SKoMcqsvSdzIEQbJfBX5u1KDaR5DaSFXeh
- YThSa3WMNEpp6gPTkx/sUIe4z0LN3s9U8U2uLEuG0reo3R5hy+YLVyIQ7TgXSB8zYwp6
- 5l4eyZAn38YWZ6G6VurFlMDJyx/yXb5Gv7DzVFRsbglcL3pIq068dPzeHxq5OB0b7qOn
- FZWw==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC7D710EC6B
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 18:24:51 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59AFCkad018566
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 18:24:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 9upVP/EYtvQuDS97rpn85pAn6Fk2yzF+mqttaZezhaA=; b=X+JWwdZdAeZ3rDg6
+ 97b9XDrZ/xBR0ZSPHDZS3h2jz4QC5InXWMJqQ1bQv0nAWAQNMBTcASa84rg8MPxQ
+ EgJKPsqcBKkMoofLZu5cj57izKqDqDlRvIpFC3qWsPzAj1onspnHiqMCWOxWsrDQ
+ qRW7dRCDAlThIgGOwZN1sYVe4twiXPXggsd4a6pFiDQBItqzAyL2nr2psV6iZuWO
+ USVwvIUJZPpATqCcYysbx1YyaenK2g7jK0qs2/EWieXSkkej1222AWQKWr2rpDV+
+ dBUX2oxt54stYhZd/BW8uRvSIU93lesPCGWqlxrIAUO5lrZrwRH7rfqDmhlpHqRy
+ VjhQUA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49nv4m7cwe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 18:24:51 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-85e23ce41bdso104098285a.3
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 11:24:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760118590; x=1760723390;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4FlMoGYBpYvb/EBbOzxkP+h2B57HDoj8CpMbpuq4sQ4=;
- b=mULyRU2xZVD9B7DOaGe6M8TrqwTAC+J425vAe6n9i+LySNrg3eYsZcNtiLByf1Lb/b
- ykwb4XNpMscoKlH9I/0ER/8v21FUL6nM0XczpbWhd3ebCwa4toLG8xz7dz1lvILgz7CG
- gpR8jriqhiq64TujNq57YEVwYDZuPxhM6qi09ycu5AUwFsRz8ymB2POYgyEKUenNrzUD
- eK1f53vWIlyV+oMksfKeesRPI5DQNthf6n9U0OaZFIZTuxHkX5IjUwMnHdsKtBShO3Q4
- 1u11VgLwVt/ThB8CpLgMCqdE3F0r5BM2ldOgWXF5k9P2v9nPGUIzu2Hzs4UEt5857CNH
- WmUg==
+ d=1e100.net; s=20230601; t=1760120690; x=1760725490;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9upVP/EYtvQuDS97rpn85pAn6Fk2yzF+mqttaZezhaA=;
+ b=lSPmWWP1PilIQujjsCWytA0ehg4NjfDRgeNWKjuUXqy/RElByvDrZEU6nU8S5o/5cd
+ 9NuyhaXOTN3OkGMRCC8p9RKMFv8jWlgruiPSUONzLXLHGg+BrTjv15a8Ms1nh3jezo+y
+ iAMEcpPPE32LX0rlayDGco06cBn0tEgXzUwJswT/KRYDcRpm+oo9yQmr9o4jNtDpOuWA
+ g7t4yYfbXjBWr7+jDKXC13Wu/IEI46NI9MF2uh6cp+5BjR5ndyXA44xj6byNF0bG16VE
+ LTYJYEYWp2Rp4FSHw6/atoU9/ondxOwW30zOMR2mmfArOITVRXTpo7qGPkGJ8gEWX+u4
+ OUHQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXQqbDWV49/hOUXyyZs2lnmLvmRDd4etYXP699oYhvRhq+1LtrBy4T6MAzN5rtgbyP6ZVHmD0tNGSE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+Pfx9Ey46c1fW4tyPr1TiMH6WlhGvDDpJ+nMFZZE+j+B6xDbd
- 4bM0WzVB+7Dk9nSeFnsIKAI0vJC8b0suEkym+b2S9Zzx+t5T1jbLVp0=
-X-Gm-Gg: ASbGncsN2R29m/QupRs7FSVLoIalNS5OKDAe+SZjRgM7jBnkS0IzBbWIWUkxLJCICFt
- npF+D/1lK6nj1mwACM5j0KZvhxMBlm4wB7H2Hh5DZckeMeHZWx+Ni+/F30QkUKb/BGHEJm3msGO
- hFG9hhp2Gt83zXIFXFCejJjBWLYTBZ5hBA7MWxJZ1ljYgW8/ibVItVzHWwcOLWPEj4c4HBW02lz
- vGkP4GgjDtjSZzitmPqJ+ZghdzNYKR/6Mqq1HVHwW3AJ6zEUKY4Bhq8wQK+N3OyuiloR4m85V2K
- fR/rMa+RHsHNQWwVGujtEA8lUpyMqqLnrlPFt6ieSD3QxE14Fbpz2XlOrtVU8K9QFXW4IN7e/ct
- 0oylDnzpJQn/y/KyjK7vJ9DmbRXh64zpKEeaejXHRwLXFsSL/ZMiIKldVixZZnombjUvBpz+471
- OFk5Us71bqLLi4SjLnFTqoSuG+2g==
-X-Google-Smtp-Source: AGHT+IHDJR17PQFFrv0Ddj5LxOyqWyfj6LF/dr8cN6Gek6nwWLnn8Mv5hRRCyiL9/vubmJXWRweCCg==
-X-Received: by 2002:a05:6402:1456:b0:63a:3e7:49e4 with SMTP id
- 4fb4d7f45d1cf-63a03e75ebamr6614994a12.16.1760118589666; 
- Fri, 10 Oct 2025 10:49:49 -0700 (PDT)
-Received: from [192.168.1.17] (host-79-43-163-15.retail.telecomitalia.it.
- [79.43.163.15]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-63a52b0f860sm2751785a12.15.2025.10.10.10.49.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Oct 2025 10:49:49 -0700 (PDT)
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Fri, 10 Oct 2025 19:49:42 +0200
-Subject: [PATCH RFC] drm/msm: Workaround IFPC counters bug
+ AJvYcCUXxjBj1OC/YIsy2N2gbn4HW5o8+Pwqq1IeneHK3LgnBku8C4DxRJFKC7dsnmPmkbDu796MSJksuhk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxvM+RSr/mRU7ErmQdRPo+mNJPzykL6izCmC6TWvIMNxSGHNbvm
+ sO3497XIeDeimWxIPcj681yTJzjwtRCU9hk/fZnycAW1zu05xpHvV1T1BnsdjLgoLJMjp1Mmpdv
+ 0vpHN57Dhts1sKxqb4Ay5EDT+Hd8iLwQ8BC0dWuH5E/BTXUkH1JIaYtzY3vOlLSuyWbfstZ8=
+X-Gm-Gg: ASbGncvBpMRjJJrosC9vG3lR4eCfBtMwM158SjsISz8NqV6KR/vZE6p9xhmDql79AtE
+ kZPnXWPMx7ja5ZEwEa7daacE47p3ZFaJ0b5+ii3P26sDepNIvjyzRBEeKaXJ2ojoQ++00oY8S6H
+ 1NyYiZuAX0ko1UQQTl9QIDG9Vtn3Vx8cXW+bksWpv/IFGKBIkqdjdQTB8kBKf+jJIBvVUlEJeaH
+ IxfM0DJXBn8I2B7UQZb4potW95P5UXcOCqkEOMiTy/03Ca8dP5YU4P2/WRv7VHgFIIQsPWtydVC
+ hZnSUzPuqtA5Lk9Uz/emlOxTE5JFw1nIsbHHudsa7TPd5ryClfie5vMSQhmqtYJ6UIengY/Qcnr
+ fqkSM4nSSWTpySWvw01RlQw==
+X-Received: by 2002:a05:620a:3905:b0:878:7b3e:7bbf with SMTP id
+ af79cd13be357-883527ca0b4mr1292955985a.3.1760120689954; 
+ Fri, 10 Oct 2025 11:24:49 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGJDHOXXLxWpzMVsdELZY+jNe3rRfKX4hd2hb4fDYH/CA8/2CoNx4Yo+5Y9x92+KWGKQNrRvw==
+X-Received: by 2002:a05:620a:3905:b0:878:7b3e:7bbf with SMTP id
+ af79cd13be357-883527ca0b4mr1292953585a.3.1760120689465; 
+ Fri, 10 Oct 2025 11:24:49 -0700 (PDT)
+Received: from [192.168.149.223] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b55d67d2ce9sm288483766b.35.2025.10.10.11.24.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Oct 2025 11:24:49 -0700 (PDT)
+Message-ID: <7f10f4b4-a5d6-47e7-9e27-8b6e48866e8c@oss.qualcomm.com>
+Date: Fri, 10 Oct 2025 20:24:46 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251010-ifpc_counters_fix-v1-1-9187962b7d20@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADVH6WgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI1NDA0MD3cy0guT45PzSvJLUouL4tMwKXYukFBMTc4NUM2NTQyWgvoKiVKA
- w2MxopSA3Z6XY2loAOHIok2gAAAA=
-X-Change-ID: 20251010-ifpc_counters_fix-8bd4470e6351
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC] drm/msm: Workaround IFPC counters bug
+To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Anna Maniscalco <anna.maniscalco2000@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1760118588; l=1299;
- i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=9XOq6YPq24CpDOGDOJ8EWJ8bkkDKwD6bJxPjyv75+Lc=;
- b=MjmbVLvbkiAWzCaRMDnhmThnylcuH2TPO3Q03Qe8qxN/k0yrCNsKkFfz9mAh+yTN19jpeQ3TK
- 4lQ5OySpqjODehM8UT3s2xR9wOwF/HQKtLp0gxkDepDKw516sdSDi6f
-X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
- pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20251010-ifpc_counters_fix-v1-1-9187962b7d20@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20251010-ifpc_counters_fix-v1-1-9187962b7d20@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA4MDEyMSBTYWx0ZWRfXxn5oLpbk8byb
+ C8wHepTnwEUG5m24BRo5d8NAQ7xubnqwALk12awHTOe8rNuEGF3jh1ebqETTcNX+ehumamBXajE
+ TdthmBETPl+Z+iinGjGCfJ5W7oAHZfPEp7xJcRanAnWiD2UdTqf3WOgs7+iZ4TOCR1s1R7OwSUx
+ bDPUUXVHq/y4aegVf37jSbbhIxLCJGWAD/lqjLPJHEiNTPgJfhqxzQXPsUhb12o7RyKYQkB8lCz
+ 1UX9rJqzc9b6sdWWOzyM/GGd9tkr1VRi5/iTacaM7uMfvBYzKaCWibAIdUROWfS2HpVne7bHsl4
+ xJmt/iX/OqC2TCHv9fbbka5dp7OnkcnmXLybsgGB4vRPXZePzSpkNFnAkB1JBY9UglCyX6RXobk
+ QWVOQ+JYSvgfmmE04oJRhAA/GcDV/g==
+X-Authority-Analysis: v=2.4 cv=B6G0EetM c=1 sm=1 tr=0 ts=68e94f73 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=pGLkceISAAAA:8 a=LTEgcuO_lhVDbfJd3wgA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: 2yGXvouFR0U_XIBz4OV4H1ByL26s109b
+X-Proofpoint-ORIG-GUID: 2yGXvouFR0U_XIBz4OV4H1ByL26s109b
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-10_04,2025-10-06_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ malwarescore=0 adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510080121
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,42 +129,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When keepalive vote is set to false IFPC will be re-enabled even if the
-perfcounter oob vote is set.
+On 10/10/25 7:49 PM, Anna Maniscalco wrote:
+> When keepalive vote is set to false IFPC will be re-enabled even if the
+> perfcounter oob vote is set.
+> 
+> Workaround this by not setting keepalive vote when sysprof is active.
+> 
+> ---
+> I have little confidence that this is the proper solution hence why
+> this is an RFC.
+> 
+> Hopefully something better can be found.
+> 
+> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-Workaround this by not setting keepalive vote when sysprof is active.
+Your sign-off is in the non-git-logged section here as well
 
----
-I have little confidence that this is the proper solution hence why
-this is an RFC.
-
-Hopefully something better can be found.
-
-Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-index afc5f4aa3b17334027f3c20072cc3f059a9733b7..975b91e2c439f659b7f716cff87f73d389641d91 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-@@ -191,7 +191,8 @@ void a6xx_preempt_irq(struct msm_gpu *gpu)
- 
- 	set_preempt_state(a6xx_gpu, PREEMPT_NONE);
- 
--	a6xx_preempt_keepalive_vote(gpu, false);
-+	if (refcount_read(&a6xx_gpu->base.base.sysprof_active) <= 0)
-+		a6xx_preempt_keepalive_vote(gpu, false);
- 
- 	trace_msm_gpu_preemption_irq(a6xx_gpu->cur_ring->id);
- 
-
----
-base-commit: b5bad77e1e3c7249e4c0c88f98477e1ee7669b63
-change-id: 20251010-ifpc_counters_fix-8bd4470e6351
-
-Best regards,
--- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
-
+Konrad
