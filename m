@@ -2,94 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD12BCB0B9
-	for <lists+freedreno@lfdr.de>; Fri, 10 Oct 2025 00:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFF7EBCC161
+	for <lists+freedreno@lfdr.de>; Fri, 10 Oct 2025 10:14:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5AA910EB31;
-	Thu,  9 Oct 2025 22:14:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFE7B10EB73;
+	Fri, 10 Oct 2025 08:14:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d56Gdbse";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g53NOtR9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D23110EB30
- for <freedreno@lists.freedesktop.org>; Thu,  9 Oct 2025 22:14:19 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-b463f986f80so327819966b.2
- for <freedreno@lists.freedesktop.org>; Thu, 09 Oct 2025 15:14:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760048057; x=1760652857; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=+C1qgBpiLGQ9qb0EvZ/pqN9napeSCut88weJBHDFgWE=;
- b=d56Gdbseo9nynb9bF+XlSSPq0N9T3qapslh3EbZ7IT+QCrW8P3BR9nZrzaJjspQy5l
- izU0dURbWOjKGsiKYxglaWvCCFYXZSK+hxOIMautkalhygKxb/RuuHdUvOhpQpW5CJwd
- IjcAsY/9vwI6AbNr/TZcaLgAqKVYQcxz3UWyRAxOiseWZv9PkpgXxDbv/B97Ulmsjbwk
- 1AoaqB4DTsQRZ2bIFX3TVHQmE+HHfnqys0GqVrmq+f3sZY4O24YRcVLB4itkDNCrHW7P
- /sTZgLFWRmOLbQncd6t9gmfHH8aPqt+kTSWUV4uwMZ7/W/ZfVR/nIfzN/GDp7j48musP
- sHCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760048057; x=1760652857;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+C1qgBpiLGQ9qb0EvZ/pqN9napeSCut88weJBHDFgWE=;
- b=iLeyTNYxwUIPjzYsXgWYpI/Sf1+YyFM8MI+su55detKxeYUcdQMEWxfFeeDxJlnWhd
- 2CRWiA7F2bdsdrOHbUBwX1SqII9rxSin3W/HbU9I7ZuZ+YAMgu1QAuXNAfUyE5VGG5xA
- K+vYN67bQaL8VOJIYcZQTsZMZVX1PU8Auly5y0aGH2ApjS96WwINhvn2v70kNDzFcXbh
- 7BHzk0fL5OENUz4E/zEtzSesv20orKbMifq2/5Gh4UidSy/GpYVsqbMTJQfDRLyXsp8Z
- YbbOfPgqwBNxGxskInxUU8fteHnyzLfQrkI5dr6CyxTXw4pFDQbhhvdcmgwbyTn/SZ5y
- BVyQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUJZ2HbbdMeMjOmvB6koqeawxm+vL7IXZ8fpNa6nBVeHm4sqWLUwk+p8/CzcKt21ZonDi2UPKR90Ks=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw/HPc2ExYTijo4lTbSZDJ+Qdm3JuKLfhXQ9edpk5w7o1HJdq33
- blnT4nJc9uOJnnNPv4xHkZ1KiZB1rkH9WxM5eEyziIiXcDW5AOWMEMA=
-X-Gm-Gg: ASbGncvK62UWTWzIWjIov4ugR0x+4ILRm1/nESq+H0L1MuecbT1S8IBNy8FWREdy1qS
- SP7Mt7H8bByw1doFHpjikH/TlSJksm39XUEbndbNORFPYQdapc3/aMq5GMneBOOijZ8Xhyx3JJa
- nj+MLt/7eF25qZbOogb3ZXA4+0B/RQRhUPgKqykQqob84ePf8WeMeObf1IUfqHR8hIw0y9fudVr
- DG/ZDflayli/E69NpI/4C8ujlGYNZtHYA7FHE24/JLKKsCUu7mJfn4V6BwzRphrVk6EADy+f7oV
- a7ISj7GWwfdOI1Ur080fnrG5Euk5a2BqKswArj7MJun0Y/gKDX92iEtFcIbB3q8GeLYn0/gkgSl
- XHyEyl7N9k5E6+u0xXVq706sI0piVAMnWaYRUnw2etzDt1okC4UT+U1dpz2UGgVwrGFOTE8AeJ9
- 5DqeJCBWnIkeEpDR/3Bj0TCMpQQhYbsaZvoTff5VhnDQ==
-X-Google-Smtp-Source: AGHT+IGJY2MnbndzBWS/Rpwtary79mPSlYcRrWBWKoF2nGdG3wTBAiynYZRbgnU4c2AkM1DSx73G6Q==
-X-Received: by 2002:a17:907:60cb:b0:b3f:f6d:1da7 with SMTP id
- a640c23a62f3a-b50ac4c4085mr1073754066b.54.1760048057118; 
- Thu, 09 Oct 2025 15:14:17 -0700 (PDT)
-Received: from [192.168.1.17] (host-79-26-169-51.retail.telecomitalia.it.
- [79.26.169.51]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b55d67c9b68sm69162366b.32.2025.10.09.15.14.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Oct 2025 15:14:16 -0700 (PDT)
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Fri, 10 Oct 2025 00:13:35 +0200
-Subject: [PATCH] drm/msm: make sure last_fence is always updated
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8B6810EB6E;
+ Fri, 10 Oct 2025 08:14:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id E8DEA62524;
+ Fri, 10 Oct 2025 08:14:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22E1C4CEF1;
+ Fri, 10 Oct 2025 08:14:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1760084046;
+ bh=KBhauJchfnzFeJEawQEQnDO9+Jc5SxI8nJTdfXgySh0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=g53NOtR9eXGi+oTKvFnDSYfeBhhdpUfGfkRbkTGw5yen7AQ//fbSJgHwwkMKTlUfQ
+ MXh/humZZqFUPVhGJ0Bg0ykem2gOQols7sbzrKuaG3YXGeCk17MLN4I4vLBwRjk5d5
+ Lk1Zydh2bIxBzAuXdTspjHjSLXco/mdfe1Tq2mb0mD9lUqjF4CCN7KkoItM5v0jwiB
+ zFbeDISFwX0Mn1CKNNeb4AeUjU9YfTcFxsFJawiw5wVHnojVPeBVnqo6LJtU3g1MZi
+ ZBfLVydgDuPGi7MXIJU1i3DQlzv2EgTRKOoc0eDOvQr+kNdZCPCxlQbPWuHV/sWPMa
+ IEaazoPtU0yqg==
+Message-ID: <1154f275-f934-46ae-950a-209d31463525@kernel.org>
+Date: Fri, 10 Oct 2025 10:14:00 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251010-close_fence_wait_fix-v1-1-fd3e394dcadd@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAI4z6GgC/x2MUQqAIBAFrxL7nbAKftRVIiTsWQuhoVFBdPekz
- xmYeaggCwr1zUMZpxRJsYJuG/LrFBcomSuTYWM1c6f8lgpcQPRw1ySHC3IrZmhvrNEAqKZ7RtX
- /dhjf9wOaWwlrZgAAAA==
-X-Change-ID: 20251009-close_fence_wait_fix-00e1c2521eee
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/msm/dpu: Fix adjusted mode clock check for 3d merge
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Anna Maniscalco <anna.maniscalco2000@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1760048055; l=1780;
- i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=HDcLQ9jItgD9jx1XKHtGXKjYDLot5RODNSnCPekFFbU=;
- b=0XGlKf43ydVDbBU8ka57El68pwGM62R4dn0ImMJ8BTHLNe67KsNIpUaqhZjUzg1QMDFt7U5sG
- PjwlujPkoBdCnP5j5xX/9+hAc74gRAAO00sSJEmhoWgMgetUSoKT4Pd
-X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
- pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abel Vesa <abel.vesa@linaro.org>
+References: <20250923-modeclk-fix-v2-1-01fcd0b2465a@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20250923-modeclk-fix-v2-1-01fcd0b2465a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,51 +107,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Make sure last_fence is updated in both the kernel managed vm path as
-well as the vm-bind path.
+On 24/09/2025 01:03, Jessica Zhang wrote:
+> Since 3D merge allows for larger modes to be supported across 2 layer
+> mixers, filter modes based on adjusted mode clock / 2 when 3d merge is
+> supported.
+> 
+> Reported-by: Abel Vesa <abel.vesa@linaro.org>
+> Fixes: 62b7d6835288 ("drm/msm/dpu: Filter modes based on adjusted mode clock")
+> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> ---
+> Changes in v2:
 
-This fixes a bug where last_fence is not waited on context close leading
-to faults as resources are freed while in use.
+Fixes display on SM8750 MTP:
 
-Fixes: 92395af63a99 ("drm/msm: Add VM_BIND submitqueue")
----
-Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
----
- drivers/gpu/drm/msm/msm_gem_submit.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 3ab3b27134f93b01236fec5833a18a6e2ad2cf5e..ae91a5614bf377985ff7875fc36baf174780a250 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -409,6 +409,10 @@ static void submit_attach_object_fences(struct msm_gem_submit *submit)
- 	struct msm_gem_vm *vm = to_msm_vm(submit->vm);
- 	struct dma_fence *last_fence;
- 
-+	last_fence = vm->last_fence;
-+	vm->last_fence = dma_fence_unwrap_merge(submit->user_fence, last_fence);
-+	dma_fence_put(last_fence);
-+
- 	if (msm_context_is_vmbind(submit->queue->ctx)) {
- 		drm_gpuvm_resv_add_fence(submit->vm, &submit->exec,
- 					 submit->user_fence,
-@@ -427,10 +431,6 @@ static void submit_attach_object_fences(struct msm_gem_submit *submit)
- 			dma_resv_add_fence(obj->resv, submit->user_fence,
- 					   DMA_RESV_USAGE_READ);
- 	}
--
--	last_fence = vm->last_fence;
--	vm->last_fence = dma_fence_unwrap_merge(submit->user_fence, last_fence);
--	dma_fence_put(last_fence);
- }
- 
- static int submit_bo(struct msm_gem_submit *submit, uint32_t idx,
-
----
-base-commit: b5bad77e1e3c7249e4c0c88f98477e1ee7669b63
-change-id: 20251009-close_fence_wait_fix-00e1c2521eee
+Tested-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
--- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Krzysztof
 
