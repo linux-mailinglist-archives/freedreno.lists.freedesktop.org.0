@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BC2ABCE35A
-	for <lists+freedreno@lfdr.de>; Fri, 10 Oct 2025 20:24:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97245BCE3A3
+	for <lists+freedreno@lfdr.de>; Fri, 10 Oct 2025 20:27:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DE4D10EC6B;
-	Fri, 10 Oct 2025 18:24:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5D510EC72;
+	Fri, 10 Oct 2025 18:26:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="X+JWwdZd";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EixBlhDP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC7D710EC6B
- for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 18:24:51 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59AFCkad018566
- for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 18:24:51 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7194810EC71
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 18:26:58 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59AFaINn012113
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 18:26:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9upVP/EYtvQuDS97rpn85pAn6Fk2yzF+mqttaZezhaA=; b=X+JWwdZdAeZ3rDg6
- 97b9XDrZ/xBR0ZSPHDZS3h2jz4QC5InXWMJqQ1bQv0nAWAQNMBTcASa84rg8MPxQ
- EgJKPsqcBKkMoofLZu5cj57izKqDqDlRvIpFC3qWsPzAj1onspnHiqMCWOxWsrDQ
- qRW7dRCDAlThIgGOwZN1sYVe4twiXPXggsd4a6pFiDQBItqzAyL2nr2psV6iZuWO
- USVwvIUJZPpATqCcYysbx1YyaenK2g7jK0qs2/EWieXSkkej1222AWQKWr2rpDV+
- dBUX2oxt54stYhZd/BW8uRvSIU93lesPCGWqlxrIAUO5lrZrwRH7rfqDmhlpHqRy
- VjhQUA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49nv4m7cwe-1
+ Wux/efAeHzCjaBAhhspzOVq9mish0P7Dal7te3lz2Gw=; b=EixBlhDP/KgaxFaK
+ wMFeMm1eHoIcmfag8ZS2MDWMvrIqIP+jR9UrlHyAQdju5mX0uR0ri0sRtqDTdD0d
+ Tir++onkLRBk9Jd0WgwH2mWpHxsXm2n1jk/ukicezla1H1rMpPT3QT5FHFCKrIXe
+ REQbAaw1Crwpe0rlQrGngL1wfhf5K7TXD/zFAQXVcHiIjint0eZR5cCf/qEDFWkM
+ lZWCDDoRPOQJ6mdSGKI/ZIMh9PdArZeZmcCBDb0ecBms1qufA5gCnS4fAqGDZ6ne
+ cPZoXWWSdhB3Q4A68Frgia6uqrPohyc/TnRauHcHGeh7rr0k+9oMdzv2L5qEbU3G
+ f+OSoA==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49q4x1gfc8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 18:24:51 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-85e23ce41bdso104098285a.3
- for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 11:24:51 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 18:26:57 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-8247c6738edso9103276d6.0
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 11:26:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760120690; x=1760725490;
+ d=1e100.net; s=20230601; t=1760120817; x=1760725617;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9upVP/EYtvQuDS97rpn85pAn6Fk2yzF+mqttaZezhaA=;
- b=lSPmWWP1PilIQujjsCWytA0ehg4NjfDRgeNWKjuUXqy/RElByvDrZEU6nU8S5o/5cd
- 9NuyhaXOTN3OkGMRCC8p9RKMFv8jWlgruiPSUONzLXLHGg+BrTjv15a8Ms1nh3jezo+y
- iAMEcpPPE32LX0rlayDGco06cBn0tEgXzUwJswT/KRYDcRpm+oo9yQmr9o4jNtDpOuWA
- g7t4yYfbXjBWr7+jDKXC13Wu/IEI46NI9MF2uh6cp+5BjR5ndyXA44xj6byNF0bG16VE
- LTYJYEYWp2Rp4FSHw6/atoU9/ondxOwW30zOMR2mmfArOITVRXTpo7qGPkGJ8gEWX+u4
- OUHQ==
+ bh=Wux/efAeHzCjaBAhhspzOVq9mish0P7Dal7te3lz2Gw=;
+ b=WxdpRyyzmoG752cdLyAk9hCkIgPIq1sLQ1OhJrBTaiP2F/UCEA2l2AtcqfMF58mbQQ
+ tuXn8zNcu1hRp6HciT7U07sHWWnrneTBdRrZoRJQXSVYnb6PTFiH1wRFJt4cFnwZxL98
+ 3P40rJaqgiYHqVHcIHKsYQ8+oKdJfSAIcgJHrfVGVCpic5QMhtE/PA4VGJ0gwyvMesB1
+ H6FRUIcjwt+IuWChIhO8C8xZ6CQUHhgFY4Q8sUtkDb/CN+ZIekOu3VAOcgYv9HFVpSLo
+ aq3w5/RsNhPozUGARPs1AaY1+2jNpr+irkhZB/hkx0EAe0oH4kSeHdRV4FxEWbP6seFS
+ mNGg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUXxjBj1OC/YIsy2N2gbn4HW5o8+Pwqq1IeneHK3LgnBku8C4DxRJFKC7dsnmPmkbDu796MSJksuhk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxvM+RSr/mRU7ErmQdRPo+mNJPzykL6izCmC6TWvIMNxSGHNbvm
- sO3497XIeDeimWxIPcj681yTJzjwtRCU9hk/fZnycAW1zu05xpHvV1T1BnsdjLgoLJMjp1Mmpdv
- 0vpHN57Dhts1sKxqb4Ay5EDT+Hd8iLwQ8BC0dWuH5E/BTXUkH1JIaYtzY3vOlLSuyWbfstZ8=
-X-Gm-Gg: ASbGncvBpMRjJJrosC9vG3lR4eCfBtMwM158SjsISz8NqV6KR/vZE6p9xhmDql79AtE
- kZPnXWPMx7ja5ZEwEa7daacE47p3ZFaJ0b5+ii3P26sDepNIvjyzRBEeKaXJ2ojoQ++00oY8S6H
- 1NyYiZuAX0ko1UQQTl9QIDG9Vtn3Vx8cXW+bksWpv/IFGKBIkqdjdQTB8kBKf+jJIBvVUlEJeaH
- IxfM0DJXBn8I2B7UQZb4potW95P5UXcOCqkEOMiTy/03Ca8dP5YU4P2/WRv7VHgFIIQsPWtydVC
- hZnSUzPuqtA5Lk9Uz/emlOxTE5JFw1nIsbHHudsa7TPd5ryClfie5vMSQhmqtYJ6UIengY/Qcnr
- fqkSM4nSSWTpySWvw01RlQw==
-X-Received: by 2002:a05:620a:3905:b0:878:7b3e:7bbf with SMTP id
- af79cd13be357-883527ca0b4mr1292955985a.3.1760120689954; 
- Fri, 10 Oct 2025 11:24:49 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGJDHOXXLxWpzMVsdELZY+jNe3rRfKX4hd2hb4fDYH/CA8/2CoNx4Yo+5Y9x92+KWGKQNrRvw==
-X-Received: by 2002:a05:620a:3905:b0:878:7b3e:7bbf with SMTP id
- af79cd13be357-883527ca0b4mr1292953585a.3.1760120689465; 
- Fri, 10 Oct 2025 11:24:49 -0700 (PDT)
+ AJvYcCW87RWwlbrbjnqzK53rtIaI/lsgUHpVdOHdQ8fZOKXKu/Z63S7zCcvuh+XXymuu/RdHrwORz7AiRC4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySYy1NJ6S40Zc5Dz0Flk4+Aj2koomOWVFcDqvSU07NvK+MUuOU
+ EOovUBZRKQ4K65qweKY41bMEdpwp5CMCUJUKrifL72OeWZrYk41XEvdAOKv59KeQxlIUMmDBDOy
+ zLbpeJ/Kl2QTBoOTNnZ/PVAeOmQ2jJf/ye3wox4alEWyxR9M36/+uO3LYPgAcUGm3cH5M9Vk=
+X-Gm-Gg: ASbGncu0vLf5F2uYhFkiXMC4wCHcmXY3mN8xb5Fk1zugTASpw0FyC0fmLQqmEqSOaj3
+ e4+CNuZAr2epqCt9dY0D/e8gTURzArRhTmD0jVYy1sqLln6oIbJCSUhV5KxsMDg+pDZnb/CfTaH
+ O256fTB8UNWWYq+jwIiyJmGShlaJ8QEpLDN+2Ti9o6qOBLfwWsuqmJVhRq/aAOrmhP0TFbT3E8D
+ CMe1r6T7Be054Gha25NUrqAotZRhg5if/K0s/gp89HVBmwM7/mOUgakYXuZ5Sry5n3yTZ15hPP2
+ qS+9TPrHGp70ue2LrhVrSjPbBI/aZT5jLVDqxNsOscmuCcHWkPcyLrOvILvKXCvp51LDGD1UCkn
+ DSYJCVtOgjhzfMrnz96NB1w==
+X-Received: by 2002:a05:6214:4102:b0:773:84c1:396 with SMTP id
+ 6a1803df08f44-87b20ff9b56mr118583346d6.1.1760120816762; 
+ Fri, 10 Oct 2025 11:26:56 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHbv3DZ79BE34Kn/wUGZkuQspPjyI7j0FCaMJKAoltlhtem37CFBxGiGcrS2O8G/hsHNEwilQ==
+X-Received: by 2002:a05:6214:4102:b0:773:84c1:396 with SMTP id
+ 6a1803df08f44-87b20ff9b56mr118582886d6.1.1760120816054; 
+ Fri, 10 Oct 2025 11:26:56 -0700 (PDT)
 Received: from [192.168.149.223] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b55d67d2ce9sm288483766b.35.2025.10.10.11.24.47
+ 4fb4d7f45d1cf-63a5235dccfsm2882274a12.9.2025.10.10.11.26.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Oct 2025 11:24:49 -0700 (PDT)
-Message-ID: <7f10f4b4-a5d6-47e7-9e27-8b6e48866e8c@oss.qualcomm.com>
-Date: Fri, 10 Oct 2025 20:24:46 +0200
+ Fri, 10 Oct 2025 11:26:54 -0700 (PDT)
+Message-ID: <3e098e06-0ee6-477b-8a52-7370ed37b36e@oss.qualcomm.com>
+Date: Fri, 10 Oct 2025 20:26:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH RFC] drm/msm: Workaround IFPC counters bug
@@ -93,27 +93,28 @@ From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 In-Reply-To: <20251010-ifpc_counters_fix-v1-1-9187962b7d20@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA4MDEyMSBTYWx0ZWRfXxn5oLpbk8byb
- C8wHepTnwEUG5m24BRo5d8NAQ7xubnqwALk12awHTOe8rNuEGF3jh1ebqETTcNX+ehumamBXajE
- TdthmBETPl+Z+iinGjGCfJ5W7oAHZfPEp7xJcRanAnWiD2UdTqf3WOgs7+iZ4TOCR1s1R7OwSUx
- bDPUUXVHq/y4aegVf37jSbbhIxLCJGWAD/lqjLPJHEiNTPgJfhqxzQXPsUhb12o7RyKYQkB8lCz
- 1UX9rJqzc9b6sdWWOzyM/GGd9tkr1VRi5/iTacaM7uMfvBYzKaCWibAIdUROWfS2HpVne7bHsl4
- xJmt/iX/OqC2TCHv9fbbka5dp7OnkcnmXLybsgGB4vRPXZePzSpkNFnAkB1JBY9UglCyX6RXobk
- QWVOQ+JYSvgfmmE04oJRhAA/GcDV/g==
-X-Authority-Analysis: v=2.4 cv=B6G0EetM c=1 sm=1 tr=0 ts=68e94f73 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=pGLkceISAAAA:8 a=LTEgcuO_lhVDbfJd3wgA:9
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: 2yGXvouFR0U_XIBz4OV4H1ByL26s109b
-X-Proofpoint-ORIG-GUID: 2yGXvouFR0U_XIBz4OV4H1ByL26s109b
+X-Proofpoint-GUID: MoAcFlgttWBIYrHqyi_wBSNn1YvhtK51
+X-Authority-Analysis: v=2.4 cv=N4gk1m9B c=1 sm=1 tr=0 ts=68e94ff1 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=pGLkceISAAAA:8 a=3vACEWP1_XwkJBBmlSAA:9
+ a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDEwMDA5MCBTYWx0ZWRfX7cTzPTOuJwY6
+ DZWU2j5B1W+J0CyquxLHIxLNt0JnhzN5OwRrgDlvn8FrT1TxmeTUe3gQ/Dr2nhVckDWEcKs1iR+
+ Lr0QBB+3rHeG1HQTy12P6XE/cmFDpQy8n3c4C1km+tgNscSHeB28WDY3RyTDsTuzAcui5+p3c2y
+ D5cx4zSNFcjcIHD6KJ+Gf/qsWqN/xWWGLzxhdpvYoTV8Ob3qjRiIRIfdhhQHGxBOWMGoSsD+p40
+ b1iblzA9RKYvhdd0r9Q7/oNahSUG464+33thRaXM8xVg7vChHd/fqeMwkGGwFSbKaS93FmB+kCP
+ wJ7WRVHD9DrRYYBWU3h4Gbj0XBoFE+ilR/6Q4yuUx0KIKdGR3x4Zdg0SJqb+GyHECu5W26RBLkJ
+ JcdDHXSOCKodm1gAwLx4r/dozilSUQ==
+X-Proofpoint-ORIG-GUID: MoAcFlgttWBIYrHqyi_wBSNn1YvhtK51
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-10-10_04,2025-10-06_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- malwarescore=0 adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510080121
+ suspectscore=0 spamscore=0 clxscore=1015 bulkscore=0 adultscore=0
+ phishscore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2510020000
+ definitions=main-2510100090
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,7 +143,34 @@ On 10/10/25 7:49 PM, Anna Maniscalco wrote:
 > Hopefully something better can be found.
 > 
 > Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> index afc5f4aa3b17334027f3c20072cc3f059a9733b7..975b91e2c439f659b7f716cff87f73d389641d91 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> @@ -191,7 +191,8 @@ void a6xx_preempt_irq(struct msm_gpu *gpu)
+>  
+>  	set_preempt_state(a6xx_gpu, PREEMPT_NONE);
+>  
+> -	a6xx_preempt_keepalive_vote(gpu, false);
+> +	if (refcount_read(&a6xx_gpu->base.base.sysprof_active) <= 0)
 
-Your sign-off is in the non-git-logged section here as well
+This returns an unsigned type, so you can just do:
+
+if (!refcount_read(..))
 
 Konrad
+
+> +		a6xx_preempt_keepalive_vote(gpu, false);
+>  
+>  	trace_msm_gpu_preemption_irq(a6xx_gpu->cur_ring->id);
+>  
+> 
+> ---
+> base-commit: b5bad77e1e3c7249e4c0c88f98477e1ee7669b63
+> change-id: 20251010-ifpc_counters_fix-8bd4470e6351
+> 
+> Best regards,
