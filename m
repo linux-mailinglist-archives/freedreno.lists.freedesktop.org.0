@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2771FBD2FF2
-	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 14:34:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D875FBD300D
+	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 14:35:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C02C010E2A5;
-	Mon, 13 Oct 2025 12:34:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8947E10E38F;
+	Mon, 13 Oct 2025 12:35:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TXcT0qSB";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jZ5vOFEe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B81D10E32E
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 12:34:55 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59DB20I5030097
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 12:34:55 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D1010E2A5
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 12:35:33 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59D7Q2au012540
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 12:35:32 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=gObp1VGk4sT3wo0aNUTQnaxb
- hlPxOaJ9VK/6dcghZLQ=; b=TXcT0qSBuY5yfp/PNTnIrw7XNb+s9/QYCReqou30
- gtIGh5w1O98le1QLr/UGIlqf0FRAMWKyhoiDDhQq/h5jYDxRoxHhe6PFGxmTGO4+
- iKvu+DfCH4bBE45FfhsCs0Kr6YXrVVfvxA52xvansO5wQ7lI0sOFFKbBRHrR6CF0
- h8H2/uLaBv/6+Iq89Xp4/B79JK/GTDI0ThFUGtYMDBywKpLJu8svaMWw/lmLFzZu
- R+K8n4dJuanKaKDQH7sH9oCVV5sXmIT25qvxdKQhxYsCoq+ieJP5tDS+KCFNMaG+
- OCfDv0LxPObPXHhVyDS8uCiV5xNtoVyaJw4sHJ0TQhqPDw==
+ :references:subject:to; s=qcppdkim1; bh=m7L3o4Pwi86bgIe35Awo4E+H
+ exJtX6srm8LE+iq3Tr8=; b=jZ5vOFEegJlPQpNfq3lTwLEnKM2Ukq9nwYbVRsfM
+ XsN1rgjkcOX8zxZOxM4o45s1FEseh78LcztQ+fmeRqquEGP/39OkDCXLVDa7q5La
+ +lRHXkqajUk2aR8U5D6n9Q4SmcC+curU7m0ND7GTQC5kok+JNl9UM+1kCXAcNKLS
+ /M2Uhl2bsPfo6STYYZ44vvKVk8RCQ8Q7xUEN4KC9RgNujHSfHGJ34ZHFd5WyoDPs
+ TgwJbgrZXjTmzbhY9RrZaO52pNzB2GdwdvioGfD5A2X6CvSBGDBZbSoKQ7KA4V06
+ BgnMfkx6A4D1htxF2nQFc463c8jd4TBb1b9yxdtas3Rnog==
 Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
  [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49qff0mgmf-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49rw1a8uv6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 12:34:54 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 12:35:32 +0000 (GMT)
 Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-8589058c6d1so963741085a.3
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 05:34:54 -0700 (PDT)
+ af79cd13be357-8544316ef6aso314111485a.1
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 05:35:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760358893; x=1760963693;
+ d=1e100.net; s=20230601; t=1760358931; x=1760963731;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gObp1VGk4sT3wo0aNUTQnaxbhlPxOaJ9VK/6dcghZLQ=;
- b=e+uyj151Oc4QcFaGPhfhtxjiRw/lopa0Bs1twqABUlEmO2pQAF3ioPhKAIsonJADUW
- MF/AFFgDCZvXDGbM72/jyqhXEzV5iM860ZlTIuuvzL6iaWm2vomCGAOen6VHIq4z5Jke
- zAoi8/JZYAK2Vde/uTwpGFNBU+gcoxWxvtjHkwbzitcJhq0c8KAcJcwBPviO8uR307UZ
- XL50UDfXx65kvD7KsW0bzO8htK+5hPcyLC+9Q85NYkjTxk01iZYOAl+RYBmYymFYBE0q
- GTOhgrXOHp9pPB97yTWyHOuXpKyc/8O2SpQG+Wjajtpf0Wx/X4Pm0/PmIvZ1ggXFLgEZ
- Lc1A==
+ bh=m7L3o4Pwi86bgIe35Awo4E+HexJtX6srm8LE+iq3Tr8=;
+ b=KXKUL3eeD7FdCJVKG8mvHHNXr2ZC0hZ9+eO4vXTpBePbH4pnXW/eaZM9tVA3Td4J9F
+ B+z/jsgJLwgXqZdwdm/xm+IXVC1CTnxwSV73RtHrKWazx83XbYFOqa5z5fPrmtTf7rOT
+ HndcmYZ53ovjN2u/AbaAEIUdPo0lTWoqvIhJdkzDKxtKpODf1YYDbyGaf/siobq4tysp
+ veNnhl7Wa2dzwBr8U4WP8mY1+oqLTfe76l+BDvfTUT+VMnpaN4ZeB5O2JmfecfBjqQGJ
+ nlTQdZqbY2nKx/GnN7MP4keu5nNB07EbwLOTKL2SSK56CMgo3xhkHHmvEf6oWmbIOaj+
+ ofuA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV8Pl7g9ONhu+KsvdCR8XQvxC1ivAn6I/KmtyfIPpqyXjCJ9HHfnjyGV3SvetihWFjnJEr4S8bfMg8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxOqawuhhHjJ/7AExNVDC5mzknIjrEdnNT0dhCbv+FsAgi0jaFZ
- /wxgniSfj9iHK1/2b1E2CDXBHgm10ZQvL7d0nqHKJRBrSX6iRCJ2tzfj4a9QJtBY7lnxC2Gg+ry
- 2Zd46BTTEv+gUVG5UnrlHR7Ny57eLi/Uc9zuGxF73qTVVHcEfcKTpS60IZCxBAUbUL+2zhAQ=
-X-Gm-Gg: ASbGncsehshm7laSMem9QLcZWQwhBN1o1pQoV7cRHQ+S937ZK3eWleGkHNFhqUUeqfi
- ms3FM+3pSEIsR+Fy4uKSZekkEvHDB/s2YEu08EXKcFuaKVvYaJ+q/SCshIFjJdtHFgeEo02E+0/
- NRsi3jMbZer0RRg3MH1DHhrqlt+V0aS1xnRaBUfwmuc2GFCpnmn+/4jeOLHnvErj5JF1ijaapM5
- 7tzqjDCKoX8vwPJrC/ggREU2ISQeZ0UQ4TZcZK1z3f4RDjwSk97dM50v8B6IpDnPV1w96HrsT+b
- 2VBMtlGa3tZ5/0SpZUTLLV3sPDN6ioFKpsYvcoTWOQuWoTx/r1RirtmEy6nDxEXfMtxQJzY2z/Y
- WbPGcjFu8bgNUdD93PIg9p7o7eoeFni1SBAIr8crODMDp8RCYdAJ7
-X-Received: by 2002:ac8:5885:0:b0:4b7:9581:a211 with SMTP id
- d75a77b69052e-4e6eace7e6cmr280427831cf.24.1760358893336; 
- Mon, 13 Oct 2025 05:34:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG5+lAIUbag3KQ/uyAYMUw2tzUdGLO9/5D5HdSvdyoQpY7sOU2YLiAsMhiWrQQX23CCsWeehA==
-X-Received: by 2002:ac8:5885:0:b0:4b7:9581:a211 with SMTP id
- d75a77b69052e-4e6eace7e6cmr280427561cf.24.1760358892867; 
- Mon, 13 Oct 2025 05:34:52 -0700 (PDT)
+ AJvYcCUT0pOWBeZc7HCcMHbnuaDrE3SdJtmHFgMldqKuM7WKZGI2WlkdMYUGv5k7yTYfTCmdcJSB50/pByY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxuvN3Hie2AMpqW94bOIBIYH41EIfL6Vjkcvp/G2AgmmSEchhNR
+ jHx+3CDiHGQwBzm+zE4YrKngRjjjz7gUUiI2l/Z5zAV4DIvMieAQh9m02SReMCJjyOnBDG8w9bX
+ i2fdL60LPfb4tq+qMdWiTYK3EmC7qanDigZRJq2OSXdblfJhL24q/eitzUHI4+QIgBwDc2DI=
+X-Gm-Gg: ASbGnctmwVSxAL4aOMNV4GUkWooXj+vnhWKCZgz3hQd8mnYCcTq3IwnjHwBjiNDhpck
+ 4s/u1fDAU/1KnsOTNCN7TqsyDK7AaCp7j/zNo8wQiEEzFg5tlBwgeSpvSyAZvHLp+5diD9zqSD6
+ ITknx0ki+o1XkEN31WZtPX0PVqDfafX+aH31ogEDLGiH3gSgZCDNJBmJ/3qiinRavA2+SCiao81
+ Jz/YBpeBTAPN8M2vTHqD93A3xKbUZIYalp9YBvw4zvQ3OqBbrCUDcQGGE308dZHeCcqfMnCmdal
+ CtloY3cDzxZeIFZGC9jpw3V8jvEL5K6RdoENUgYVRTXz2mYwSsmV3DPfSjqczV1GPO+WqTZUyOG
+ CJla2IgH1XwnZ2sy/X3gMdvFFYr44hL2LdaAVDseOCciXR+pZhPlY
+X-Received: by 2002:a05:620a:4411:b0:84f:110c:b6ec with SMTP id
+ af79cd13be357-883546e153fmr2786633985a.76.1760358930986; 
+ Mon, 13 Oct 2025 05:35:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGtTA5MLWXtycAaJRA0YpGMVukU6FtceKKwRiGS0eYpqRLVEiT3h5hR82xs7c3USv5CsJzY1w==
+X-Received: by 2002:a05:620a:4411:b0:84f:110c:b6ec with SMTP id
+ af79cd13be357-883546e153fmr2786630085a.76.1760358930475; 
+ Mon, 13 Oct 2025 05:35:30 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59088563b53sm4075703e87.84.2025.10.13.05.34.51
+ 2adb3069b0e04-590881fe5besm4080369e87.50.2025.10.13.05.35.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Oct 2025 05:34:52 -0700 (PDT)
-Date: Mon, 13 Oct 2025 15:34:50 +0300
+ Mon, 13 Oct 2025 05:35:29 -0700 (PDT)
+Date: Mon, 13 Oct 2025 15:35:27 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Ritesh Kumar <quic_riteshk@quicinc.com>
 Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
@@ -90,37 +90,36 @@ Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
  quic_vproddut@quicinc.com
-Subject: Re: [PATCH v2 1/3] dt-bindings: phy: qcom-edp: Add edp ref clk for
- sa8775p
-Message-ID: <aifibm7pjva3rkb4gkzyxun46sraxyeh7jh6vgcirv5tsbf6ad@7f5bbs4ix7sa>
+Subject: Re: [PATCH v2 2/3] dt-bindings: display/msm: qcom, sa8775p-mdss:
+ update edp phy example
+Message-ID: <cjweltdnffozpi5amqvrfwikw3a4plogjm6ozhbf2lqee2neby@ueoha7dmhpgq>
 References: <20251013104806.6599-1-quic_riteshk@quicinc.com>
- <20251013104806.6599-2-quic_riteshk@quicinc.com>
+ <20251013104806.6599-3-quic_riteshk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251013104806.6599-2-quic_riteshk@quicinc.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDExMDAxOCBTYWx0ZWRfXwVr9Vu4ZIAVm
- nXKEnSLfVmbITTtkBp9DZAHDusjeGz6d6hi1gNbu9eyRl2beTHRn2Zq3m3yQbsV5vZUNVcwlyWw
- ZcraUPpAUjajCwB+YEIIQ0x6MOUCLv5VrnXBoua6Ytb0DB/yA6R/zwcOgaxt5hsjFN0V1g16VFY
- UoTq9eeAf1MyhVIG0fRzOpSyAstbxgGDonL4IWtG2dk2bVUBSRdAammIZ3FdtS+O8rS6d7wMRfX
- Eo+heAKhxk0Ak70aBy5+WzKsAzDPsSN7VI4A+jW2rDW0OAe4j04Q8IKe3eUUHNPs8MXFCRM0v03
- QxoMwgkA06nuPZlGnP+Z6DYmuRhpVOO6ql4aYM+dQ5jJ2PZJySAI2pNwzeC14CUPFieFBfVN6jk
- WrZOkHc0cii1KuDepwf7ED2JKCSohg==
-X-Proofpoint-GUID: tqvhozmFJijE6lBIjywt68bGW1vqJihT
-X-Authority-Analysis: v=2.4 cv=PriergM3 c=1 sm=1 tr=0 ts=68ecf1ee cx=c_pps
+In-Reply-To: <20251013104806.6599-3-quic_riteshk@quicinc.com>
+X-Authority-Analysis: v=2.4 cv=K88v3iWI c=1 sm=1 tr=0 ts=68ecf214 cx=c_pps
  a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=x6icFKpwvdMA:10 a=COk6AnOGAAAA:8 a=yLsOkrEfH68IAt7CJG4A:9 a=CjuIK1q_8ugA:10
+ a=x6icFKpwvdMA:10 a=COk6AnOGAAAA:8 a=en-7mTTXfYbHl6GqnY0A:9 a=CjuIK1q_8ugA:10
  a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: tqvhozmFJijE6lBIjywt68bGW1vqJihT
+X-Proofpoint-GUID: LdoltFpB4sUp8Tm4emK4xf8EefcZfq71
+X-Proofpoint-ORIG-GUID: LdoltFpB4sUp8Tm4emK4xf8EefcZfq71
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDEzMDAzNSBTYWx0ZWRfX9+3DjvScCLIT
+ C+QwAUgtiqmyXgI9vXQ3U+38Po4zoGJ7FwLljekedc9BM3uSj9qJHL6jTNrUVQAfXq+ZAVzX1h2
+ XIDPTRIRprnm4Yn0fhojuwyTB0hSHN9aDUvg7D844b/ORDEhfWaakOV0TSKsPpOEGdLDnzi5tQe
+ mMXor2eupG5snU4fQtVRjVBT6Cn2U48A6ye+GAlHOu7K1GWDV0XzRK+XfJIzZVmyZIcr1aho80y
+ DH1esHAyRGv0DmghomIJX8qNt1izQYeiX0hQeHEBIMwcIlIriNVOmUaFkl+6bkshwN2+0jmkiPV
+ /BRixchwloe9IodUo52144p45t7laf8dN0oL1beneBcTRDD6lZxA3Gs/wWBd5+T2dVBowWtLsyx
+ DroSuw7+vsMZx6VABikOM4vUrecpxA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-10-13_04,2025-10-06_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 phishscore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 impostorscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2510020000
- definitions=main-2510110018
+ malwarescore=0 spamscore=0 impostorscore=0 priorityscore=1501 phishscore=0
+ adultscore=0 clxscore=1015 bulkscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510130035
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,32 +135,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 13, 2025 at 04:18:04PM +0530, Ritesh Kumar wrote:
-> Add edp reference clock for sa8775p edp phy.
+On Mon, Oct 13, 2025 at 04:18:05PM +0530, Ritesh Kumar wrote:
+> Update clock entry in edp phy example node to add support for edp
+> reference clock.
+
+eDP, PHY.
+
 > 
 > Signed-off-by: Ritesh Kumar <quic_riteshk@quicinc.com>
 > ---
->  Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  .../devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml  | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> index bfc4d75f50ff..b0e4015596de 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> @@ -73,6 +73,7 @@ allOf:
->          compatible:
->            enum:
->              - qcom,x1e80100-dp-phy
-> +            - qcom,sa8775p-edp-phy
 
-Usually such lists are sorted.
-
->      then:
->        properties:
->          clocks:
-> -- 
-> 2.17.1
-> 
 
 -- 
 With best wishes
