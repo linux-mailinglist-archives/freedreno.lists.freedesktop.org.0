@@ -2,70 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4E09BD11F4
-	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 03:52:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96759BD1212
+	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 03:53:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8975E10E1D1;
-	Mon, 13 Oct 2025 01:52:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E75D10E32B;
+	Mon, 13 Oct 2025 01:53:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M51VJscT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nhYAoRxW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
  [209.85.208.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2920610E31B
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 01:52:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32C7F10E1D1
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 01:53:32 +0000 (UTC)
 Received: by mail-ed1-f68.google.com with SMTP id
- 4fb4d7f45d1cf-631df7b2dffso8331801a12.1
- for <freedreno@lists.freedesktop.org>; Sun, 12 Oct 2025 18:52:49 -0700 (PDT)
+ 4fb4d7f45d1cf-639102bba31so7659014a12.2
+ for <freedreno@lists.freedesktop.org>; Sun, 12 Oct 2025 18:53:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760320368; x=1760925168; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760320411; x=1760925211; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=YRrC5ujv29o4Dn7uYuCsIN4DoTMp+m253g/eeBCZNpc=;
- b=M51VJscTzHTKbJDjAlrzRlY8huiQdUm3HMMMItQS0gqd2tXs2NRaVa0MVs2SU/4VSC
- Ru5a5L32SvLRFGrqZhVqjf+VOStGfHUzjy9AkHJ47iRx7Knf40M18lI1FVUL7CF/VR7u
- YEBLEbb+SxjlakwXgn0zrzytHzc7qx78vWnjzY4FM4NFMWlNRp78l5EiX7eL9VzrBLWu
- d8uh6PPnP1tcXy8iOf5+kAOuoT5gn4cVcdvG877bNLW88Cjje5DgxmspmxVOI6c3gAco
- Z9eoaUNlMTZ/V1ZVBqdPqAXWU50DnzVVzOwNkiBA/t1XAL/f92meMDsZ/UtYrkkSzNSU
- fwqA==
+ bh=jib6qtZ7uovkQhx/qSCYqbTejviWgQQiEea0Nhubv1E=;
+ b=nhYAoRxWA1+RPNLkrZfz9WmOUM0w8bBzVOGNJhocyUYiXUtbq21ljo1LdYCTVd+Mid
+ QZZ5+1MHqgDNohAPWmlgJv70yt57p+df61UZWC1a66k4FUrv6zdMjRzJeuq96/Jjmc/f
+ eMxJIoGI3+Fh/+a9bFb3Y8vlDBkOqW8403nfCCuLxGouoxs1DCV+TnruUEky4H8Qc05o
+ 5+wzwnkx9PkqrDjtohUsWvqFH+eFfD1qRhS5abEco8EkYj1LugbNwE+WrozYXu70vdUw
+ eTYi6nQecoR7R2L18/0f8pf0kmmsy8zIsqbxXGbboEH0yT1tLlF/UIEdsYS8oIV0GyMN
+ REjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760320368; x=1760925168;
+ d=1e100.net; s=20230601; t=1760320411; x=1760925211;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=YRrC5ujv29o4Dn7uYuCsIN4DoTMp+m253g/eeBCZNpc=;
- b=nZMmh/3xp+9aof69zwUncdnR2NypJu6L3kfGSXbWcoS96WzZij/5I6uX4MjgN2giIl
- GRuee0abJAobZEhASxc/vMBHvZmyIX0IS9MPUpnWNefF2MZvPaGwEkxujuyyuskmIqlm
- z1Wm0ZQgXI7AUZO3qvivjFJEjp+I6NUk2HGemXaNsgLtYwTHyS5X2/DPU918A2I89U62
- 5J6ZnBEXteR4MAx+mSxbiqHjj0uc/1dWZQa9dCCwDbPhDNrGWgjWKVwnM31a2yRgLuss
- ohj/oGBTLTmXzVKvR/vozzvoUReEKCusUbw5BD4qX97NsErLPmXd7yTxNFU19cAfdAvP
- P5+g==
+ bh=jib6qtZ7uovkQhx/qSCYqbTejviWgQQiEea0Nhubv1E=;
+ b=xLyEIntDNbvYDtJhTyNo0WJo39Rup1HFdIqd2Dvz0gwGlJtonNrorUF4wDt10KP/Ux
+ sOsSoVCC0AUTm4PuadyXqAm0KIxthOh6DMo0wSokjQNJ0QlIatGu6GKkfKmtZWbjaGeI
+ 7MhXF5gFVUojuXJPsQkC71nuBnIvLrArS6s4j1inVArB6cQLFkaNcUlG1ZG5AatDatTU
+ XDMU/qlZsnxl764sZjxTCEt2D3iw5ZSJhCHPw8BhTYsQ5TD1bPsVWFYDyDg6Kvtzn0X8
+ ILybrbRpyK0ztTmoh6wXze4UvCrAeCgC3vYMXB11l/RrGVqXDOcqEv3BHcsd60ph3bB9
+ Pzuw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU1aklUd8W9b5sxWk+sh9nooC84R/CK5rMa6WYpbPkcV5y1CN986+xBbbD9tf4YVmed7P3Be3MRXnM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzb49W7R42tkJ6d+FSL1XjslaXv9ciUVBYyhyrjTuao+42Tl0L9
- xbzNP+q7tGW5CzbMCkiHD0qT9Jlmdw6ABIYlG/RlFSEbd64/qVMSq+5eBK5ySCGEUsqeZ3I7+IA
- SoWlFptv3FNRzWI3G8iJcKhZsr0FdbLo=
-X-Gm-Gg: ASbGnct7zA7akLgJ73uet94I6Q5WbAh95mxabVxec9c1MMAq6Rlhi5rQ21OREld7t/F
- UtDFb7CNQOq0H2KcVOGgyzKGtLuzEJ/J+2gIxSKaPb+lS8lBQIj5LpoVqYfSVIji9H/k/FUIfle
- FeHSKgjE7FDP+yOdYkMLxfrCgT/w8Ald48klC6moWYUNGzAXVfOtOYcSYjYTk/9ZuLbQTE3hhtT
- Wv42lu5Sdb56aAy5ERCKxKdCw==
-X-Google-Smtp-Source: AGHT+IGVwit7EnJqjWJCndPnOaagwjFwRfHJs7DHjGaz2CJNOtKY3nJ4z/ccrJw0qhRGNyC1RhAM+KOBqlgUZm2HII4=
-X-Received: by 2002:aa7:c58e:0:b0:62f:c8fc:dce5 with SMTP id
- 4fb4d7f45d1cf-639bb229269mr18330933a12.10.1760320367440; Sun, 12 Oct 2025
- 18:52:47 -0700 (PDT)
+ AJvYcCUWjo9ZY3cArOfi65aNf9ZsiEahnCmVFoo61LRfELZgP3vPWrM8T35Qgge0fBDD/DNfPaYUX4UaQ5Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyaNucl+bF0IaREgFqlFaSw2Mc0Ei2/MNpDYCIh7qu4+rgJTK16
+ TR+iI34W58akGb/YzI7sTdJ4pzuInAfiZM/TE/WgB+1MsSJ60MrCPDCKPu6UDox36ZzfKsLSBki
+ dFNauDYhqGEKrAOwH5GgNttAKWDNFYlQ=
+X-Gm-Gg: ASbGncuUwKO+xyj8Ks2eftwskjELdAsdoKYbxIqhEHcZkcC0ZEuAHJ+lL/kMCg0UlmU
+ SVrqXgu6xgqulaH6Xt+SHC/N3mA/IXB5Xr1q2PrclUHJ41AAWZpOf+48+QBWv3yzxp14FBaxs4S
+ oc+wfokDvBQS1MUsAo0ZQPqpVER5VAddM9ozybkWrTiYG47dWWxj+XDkv5Ts5QHxDTVbyXNwDi9
+ gM12VCmc1DJEwF7+jG7g7wghg==
+X-Google-Smtp-Source: AGHT+IHNL1BUTxL2xPvRlvw72ZaxFIL6RT4owwNyRO7JLM5S/Xgryvv1liecPpjG1QLNARe02zsa23/lQ3BBsnrQvyc=
+X-Received: by 2002:a05:6402:13d1:b0:626:4774:2420 with SMTP id
+ 4fb4d7f45d1cf-639d5c320c0mr17570498a12.20.1760320410533; Sun, 12 Oct 2025
+ 18:53:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251001135914.13754-1-caojunjie650@gmail.com>
- <20251001135914.13754-3-caojunjie650@gmail.com>
- <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
-In-Reply-To: <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
+ <20251001135914.13754-4-caojunjie650@gmail.com>
+ <lfdhib6a7ct36nmj3of2setjft7ydrf6sfgtx7qued7qd56nhc@2xol3grm5re7>
+In-Reply-To: <lfdhib6a7ct36nmj3of2setjft7ydrf6sfgtx7qued7qd56nhc@2xol3grm5re7>
 From: =?UTF-8?B?5pu55L+K5p2w?= <caojunjie650@gmail.com>
-Date: Mon, 13 Oct 2025 09:52:34 +0800
-X-Gm-Features: AS18NWAwf-hT5rzEa8wZmFlK7aIZOX32p7ZERcY3_A8yYvmRn0M2ZAgY7d92ZDE
-Message-ID: <CAK6c68jBwykcWZm3ckm3nwab-X9Are4rD-eauE4rXA2+XvuX1w@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/msm/dsi: support DSC configurations with
- slice_per_pkt > 1
+Date: Mon, 13 Oct 2025 09:53:18 +0800
+X-Gm-Features: AS18NWCXgZGcIsMOlZRhCMOrt21hgF7Nu9A3rD70J3JwS3-UfBSVjAvvGwnrsc8
+Message-ID: <CAK6c68gLfH63Ywv_sP3YkHngihc4vscpdFrehj6uRfwEL=ZAfQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/panel: Add Novatek NT36532 panel driver
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
@@ -84,7 +83,7 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  freedreno@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="0000000000003136b206410086f8"
+Content-Type: multipart/alternative; boundary="000000000000c2c4b706410088f4"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,41 +99,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---0000000000003136b206410086f8
+--000000000000c2c4b706410088f4
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 >Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=
-=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=99=E9=81=93=EF=BC=9A
->On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:
->> From: Jun Nie <jun.nie@linaro.org>
+=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:05=E5=86=99=E9=81=93=EF=BC=9A
+>On Wed, Oct 01, 2025 at 09:59:14PM +0800, Junjie Cao wrote:
+>> Add a driver for panels using the Novatek NT36532 Display Driver IC,
+>> including support for the CSOT PPC100HB1-1, found in the OnePlus Pad 2
+>> tablets.
 >>
->> Some panels support multiple slice to be sent in a single DSC packet. An=
-d
->> this feature is a must for specific panels, such as JDI LPM026M648C. Add
-a
->> dsc_slice_per_pkt member into struct mipi_dsi_device and support the
->> feature in msm mdss driver.
->>
->> Co-developed-by: Jonathan Marek <jonathan@marek.ca>
->> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
->> Signed-off-by: Jun Nie <jun.nie@linaro.org>
 >> Signed-off-by: Junjie Cao <caojunjie650@gmail.com>
 >> ---
->>  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
->>  include/drm/drm_mipi_dsi.h         |  2 ++
->>  2 files changed, 12 insertions(+), 15 deletions(-)
+>>  MAINTAINERS                                   |   7 +
+>>  drivers/gpu/drm/panel/Kconfig                 |  10 +
+>>  drivers/gpu/drm/panel/Makefile                |   1 +
+>>  drivers/gpu/drm/panel/panel-novatek-nt36532.c | 437 ++++++++++++++++++
+>>  4 files changed, 455 insertions(+)
+>>  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36532.c
+>>
+>> +
+>> +static const struct panel_info csot_panel_info =3D {
+>> +     .width_mm =3D 250,
+>> +     .height_mm =3D 177,
+>> +     .lanes =3D 4,
+>> +     .format =3D MIPI_DSI_FMT_RGB888,
+>> +     .mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOU=
+S |
+>> +                   MIPI_DSI_MODE_LPM,
+>> +     .display_mode =3D csot_display_mode,
+>> +     .dsc_slice_per_pkt =3D 2,
 >
->Please extract the generic part, so that it can be merged through a
->generic tree.
+>As this is not a part of the standard, what if the DSI host doesn't
+>support this feature?
 >
 
-Sorry, I don't get it.  The generic part, generic tree? Do you mean
-the drm tree? `slice_per_pkt >=3D 2` is seen on the panels of these
-tablets that are equipped with qcom chips. I don't know if these
-panels are used on other platforms, and if it is necessary to do it
-in drm.
+Without it, parameters will not be calculated correctly, garbled then.
 
+>> +     .dsc_cfg =3D &csot_dsc_cfg,
+>> +     .init_sequence =3D csot_init_sequence,
+>> +     .is_dual_dsi =3D true,
+>> +};
+>> +
+>
 >--
 >With best wishes
 >Dmitry
@@ -142,35 +150,41 @@ in drm.
 Regards,
 Junjie
 
---0000000000003136b206410086f8
+--000000000000c2c4b706410088f4
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr">&gt;Dmitry Baryshkov &lt;<a href=3D"mailto:dmitry.baryshko=
 v@oss.qualcomm.com">dmitry.baryshkov@oss.qualcomm.com</a>&gt; =E4=BA=8E2025=
-=E5=B9=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=99=E9=81=93=EF=
-=BC=9A<br>&gt;On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:<b=
-r>&gt;&gt; From: Jun Nie &lt;<a href=3D"mailto:jun.nie@linaro.org">jun.nie@=
-linaro.org</a>&gt;<br>&gt;&gt;<br>&gt;&gt; Some panels support multiple sli=
-ce to be sent in a single DSC packet. And<br>&gt;&gt; this feature is a mus=
-t for specific panels, such as JDI LPM026M648C. Add a<br>&gt;&gt; dsc_slice=
-_per_pkt member into struct mipi_dsi_device and support the<br>&gt;&gt; fea=
-ture in msm mdss driver.<br>&gt;&gt;<br>&gt;&gt; Co-developed-by: Jonathan =
-Marek &lt;<a href=3D"mailto:jonathan@marek.ca">jonathan@marek.ca</a>&gt;<br=
->&gt;&gt; Signed-off-by: Jonathan Marek &lt;<a href=3D"mailto:jonathan@mare=
-k.ca">jonathan@marek.ca</a>&gt;<br>&gt;&gt; Signed-off-by: Jun Nie &lt;<a h=
-ref=3D"mailto:jun.nie@linaro.org">jun.nie@linaro.org</a>&gt;<br>&gt;&gt; Si=
-gned-off-by: Junjie Cao &lt;<a href=3D"mailto:caojunjie650@gmail.com">caoju=
-njie650@gmail.com</a>&gt;<br>&gt;&gt; ---<br>&gt;&gt; =C2=A0drivers/gpu/drm=
-/msm/dsi/dsi_host.c | 25 ++++++++++---------------<br>&gt;&gt; =C2=A0includ=
-e/drm/drm_mipi_dsi.h =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A02 ++<br>&gt;&gt; =
-=C2=A02 files changed, 12 insertions(+), 15 deletions(-)<br>&gt;<br>&gt;Ple=
-ase extract the generic part, so that it can be merged through a<br>&gt;gen=
-eric tree.<br>&gt;<br><br>Sorry, I don&#39;t get it.=C2=A0 The generic part=
-, generic tree? Do you mean<br>the drm tree? `slice_per_pkt &gt;=3D 2` is s=
-een on the panels of these<br>tablets that are equipped with qcom chips. I =
-don&#39;t know if these<br>panels are used on other platforms, and if it is=
- necessary to do it<br>in drm.<br><br>&gt;-- <br>&gt;With best wishes<br>&g=
-t;Dmitry <br><br>Regards,<br>Junjie</div>
+=E5=B9=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:05=E5=86=99=E9=81=93=EF=
+=BC=9A<br>&gt;On Wed, Oct 01, 2025 at 09:59:14PM +0800, Junjie Cao wrote:<b=
+r>&gt;&gt; Add a driver for panels using the Novatek NT36532 Display Driver=
+ IC,<br>&gt;&gt; including support for the CSOT PPC100HB1-1, found in the O=
+nePlus Pad 2<br>&gt;&gt; tablets.<br>&gt;&gt;<br>&gt;&gt; Signed-off-by: Ju=
+njie Cao &lt;<a href=3D"mailto:caojunjie650@gmail.com">caojunjie650@gmail.c=
+om</a>&gt;<br>&gt;&gt; ---<br>&gt;&gt; =C2=A0MAINTAINERS =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A0 7 +<br>&gt;&gt; =C2=A0drivers/gpu/drm/=
+panel/Kconfig =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=
+=A010 +<br>&gt;&gt; =C2=A0drivers/gpu/drm/panel/Makefile =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0 1 +<br>&gt;&gt; =C2=A0driver=
+s/gpu/drm/panel/panel-novatek-nt36532.c | 437 ++++++++++++++++++<br>&gt;&gt=
+; =C2=A04 files changed, 455 insertions(+)<br>&gt;&gt; =C2=A0create mode 10=
+0644 drivers/gpu/drm/panel/panel-novatek-nt36532.c<br>&gt;&gt;<br>&gt;&gt; =
++<br>&gt;&gt; +static const struct panel_info csot_panel_info =3D {<br>&gt;=
+&gt; + =C2=A0 =C2=A0 .width_mm =3D 250,<br>&gt;&gt; + =C2=A0 =C2=A0 .height=
+_mm =3D 177,<br>&gt;&gt; + =C2=A0 =C2=A0 .lanes =3D 4,<br>&gt;&gt; + =C2=A0=
+ =C2=A0 .format =3D MIPI_DSI_FMT_RGB888,<br>&gt;&gt; + =C2=A0 =C2=A0 .mode_=
+flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS |<br>&gt;&gt;=
+ + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 MIPI_DSI_=
+MODE_LPM,<br>&gt;&gt; + =C2=A0 =C2=A0 .display_mode =3D csot_display_mode,<=
+br>&gt;&gt; + =C2=A0 =C2=A0 .dsc_slice_per_pkt =3D 2,<br>&gt;<br>&gt;As thi=
+s is not a part of the standard, what if the DSI host doesn&#39;t<br>&gt;su=
+pport this feature?<br>&gt;<br><br>Without it, parameters will not be calcu=
+lated correctly, garbled then.<br><br>&gt;&gt; + =C2=A0 =C2=A0 .dsc_cfg =3D=
+ &amp;csot_dsc_cfg,<br>&gt;&gt; + =C2=A0 =C2=A0 .init_sequence =3D csot_ini=
+t_sequence,<br>&gt;&gt; + =C2=A0 =C2=A0 .is_dual_dsi =3D true,<br>&gt;&gt; =
++};<br>&gt;&gt; +<br>&gt;<br>&gt;-- <br>&gt;With best wishes<br>&gt;Dmitry =
+<br><br>Regards,<br>Junjie</div>
 
---0000000000003136b206410086f8--
+--000000000000c2c4b706410088f4--
