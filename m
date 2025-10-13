@@ -2,71 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B7A7BD12BB
-	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 04:09:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F012BD12DA
+	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 04:09:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DFCE10E362;
-	Mon, 13 Oct 2025 02:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0992D10E363;
+	Mon, 13 Oct 2025 02:09:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="feY7Lr9O";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AJPfEvSP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
- [209.85.208.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6824C10E362
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 02:09:14 +0000 (UTC)
-Received: by mail-ed1-f68.google.com with SMTP id
- 4fb4d7f45d1cf-62fa062a1abso6862746a12.2
- for <freedreno@lists.freedesktop.org>; Sun, 12 Oct 2025 19:09:14 -0700 (PDT)
+Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
+ [209.85.208.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00E9310E363
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 02:09:45 +0000 (UTC)
+Received: by mail-ed1-f67.google.com with SMTP id
+ 4fb4d7f45d1cf-63963066fb0so7690874a12.3
+ for <freedreno@lists.freedesktop.org>; Sun, 12 Oct 2025 19:09:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760321353; x=1760926153; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760321384; x=1760926184; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=X7LwVVt+oIonXpTgbR8cBIFBDId8LwLF2NsksQagWtM=;
- b=feY7Lr9OIelC3UfPbPkJGEalfDYk1uL/nKaQ5XFsorww3WLRkYHs9PQ1ZOvcTSzyHL
- 6L6nevWjy0a/Ml7wzf9IR2T+Vlrh5V8cVM3Df9cVdP9ttjYBFUl9RYT1gfrqVThr7EQs
- a1LnUtQtQKHmuyvtnpV6DvsVk0cS+slfe48Mfq4lBEEWLmmcOQSLrnV6xoARSDZnX87J
- z4M2eC9pfx0XvuUZIjhEnJJa2EgHrcsG3SwWnBzDDWaLfovrPXi2kzJp+SBdOq4dCcUw
- jG44dBDrRLsPc2fbaYLDDQANIPInZeNYazpIuwtYu45cnynIV/6+AijHgClxrvl41XUK
- Biyw==
+ bh=wN9WKZXYO2Nmb+YIelwARSerR3E1lKOGfH0FqHzn+JU=;
+ b=AJPfEvSPFWpZwnPLd5ms+NTaObrPIQiTp22bYHSUJ1ydY+UK++X5J8aNCcFJxuK1qa
+ qNnarLZWZ4uNfpuITkRb+rRo0XTuNHuPfCA4J/8MCUdwHjdZbgWH5MnwkKYSPZkktYx3
+ vOyG1q/UYYlWz+x0eh/LfBEenaAV/1qyYlWxy4ZNO2H98t/iYPQF+ivmHduWMHsrlsfg
+ evoF88WNfwvgHvhaNcrIWfUCS6pEdSP+JhfjxPZz+W9Ba6burDGK6xv/RqeXIryiSnpl
+ 4t/obBHxLc5aNN0aKavEP/a0E+gMCSvcFB0Y5KCdEqtOiU4cZMOq4vBlcHYS1ZX15RtO
+ bMNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760321353; x=1760926153;
+ d=1e100.net; s=20230601; t=1760321384; x=1760926184;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=X7LwVVt+oIonXpTgbR8cBIFBDId8LwLF2NsksQagWtM=;
- b=G71ieNGGhEfHw+AwrVTvBP9ZprnaXjgxCqJk07KGj7uNVDrziLj1x83rlCHl3PDJ/x
- H3mklfhS5FzTx564di1wYB/54Xs+GZKfCUZKeCYPPogVo3SKt6iItQMr1Jg+RE7eAjlv
- hKwNLhxEvXXqTME0icDa8CVutR/U6UH/gEIVx8HEuo14V0m1siSU6MggNmCYKb8Vg64M
- Og3MborE7rwvYadonSHuNWegMYfGF10Z6AXR3cm99l6YCIRwW329nR3bjYIrFZYzliDU
- ATL/eAQCLwQYlTTymoqoDwgb8/d3wOW7opSGKLoZ8HZyHsJ1dWRubdFuCCO2QCi5A+zO
- pnZw==
+ bh=wN9WKZXYO2Nmb+YIelwARSerR3E1lKOGfH0FqHzn+JU=;
+ b=MK0c3sIW6TF928pB4p4tFT9lYQqa2mOcle9wSzHUj0cJVRexzspO6QqhfSufVEoAS+
+ e9Y1JZtTTqXwWHh/QYhazvP0+oxUxnOXpQh/uaMeVPSjcOLU0oM29mpDIR6QxtAULeJf
+ CVGeAQqpu5xzmHf/L8lmJSBvjuZ+Nh15+CitBi1Ihn0S8dJ/FSmkhQss4MhWQrSY7deR
+ JeHyIyqbZf+551TTpcYjCp2JlUYRseuSvOrAtDTIcyU7eAsIoDYqBBotwU2qOwAb3TOT
+ XZJ35OZXJFh+7PeHCDTkeKi+lK01DWQAf8Su4TJMIIeiagWc+fVtC9/b//Yl/HR4nhzA
+ OrjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXwGQxCf1dhUM4y9C+WiYpRir0gwtTSmw30B1V58pP2V9MIXo7Lie2FP97yl/T1kiZ4FNXTh11yl54=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzAf6xJ1Ms2cmzYXJWUaD5SzbYdtU6PoV3PEYi+cEs5xiloo98f
- W3s541p3jK2vizilJmpWRc97pDf+Eu5Zg5jIVR1UXmptKF8z5HAOJ4WxobBh/6R/dBmWwQX7UiY
- WfypB3aaywI6ZWeTHNSjyvDIzfFVOpYg=
-X-Gm-Gg: ASbGncvr1EPA3Z15X1KA1dIY5HJ9EUCOUXm69/A9RlhL7yP6EoJRQWp7tmiPhWAHn+s
- VSjiHUZagWRORn/eEo8/fiN4JkYf76y7BwioUG0XaVV2pS/czMIU9QwlJLxLkoqHeOsa9iI1yvO
- c+oAhvw6BOftZgGq3V+vG6OxBqKM26TPsjzuMvP5oWnbu+0hXa8rk4nzKVPbWUQBGTgYZaejusw
- /xzBS6uIMF0NREbHyMEPG8xbaUoHZh2GWnR
-X-Google-Smtp-Source: AGHT+IHVNbPGb048RDwqDj3lyAGwhgF/NMREQX2ImeZH2JgNCDST+u6RIr04BMZZplROx4+MGMoD+CNhHbPvpufAoho=
-X-Received: by 2002:a05:6402:144c:b0:639:ffb5:3606 with SMTP id
- 4fb4d7f45d1cf-639ffb539d3mr11793727a12.33.1760321352764; Sun, 12 Oct 2025
- 19:09:12 -0700 (PDT)
+ AJvYcCX0hrrWn5qu1UWZXAkvmg8lhFlBoL2nc/DzuIC8ow74MahGVpx2BbVvMfnVQm0YMkg8G3yjlIK0d+c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxvucCHV7Gk0NazLxeU9Bjd9A2hjbS7Wb+wfUa+5FUyHdLO+pcP
+ jssulF1DeM2DKl9zt9XK0yN+nb52UymvGSxjB60810jPHljIVVtZBZddav/b0V8h0gqqZnnk946
+ d1n3GoOps+nw16ollnNZEbH6m31E4hP4=
+X-Gm-Gg: ASbGnctX1/baUSDXy/uVcPLkPd9as864jzKOOU0NvNj3SEuDN/UmxY4ujrSWtdLOZrX
+ /LA7C/lMgHRjcDCbFFO70u2TtAJtiL9tg1d8C92RybipMwkcy2hIujtEZTFeqDOoAeNVnop7RCS
+ 4fovmXdLu8qbme1LISYeOzD6ZWHeUS8QJ3wcJRy2k2ek4lZQ2pYHKlwhyf6ru28s8vQv9lmMjsH
+ kAnUFw48MwTwM5NL2SoFdOd9Dvk6lkb8Yt6
+X-Google-Smtp-Source: AGHT+IHSJMTE42FzCsgTGmPKRezFnzYeGwD48gJLrMiPETpubu6LIUbFJ/YFNHidT3rkFndsTeRCcQITlZmFIhHHLUY=
+X-Received: by 2002:a05:6402:5106:b0:638:e8af:35d9 with SMTP id
+ 4fb4d7f45d1cf-639d5c3e994mr18251877a12.23.1760321384245; Sun, 12 Oct 2025
+ 19:09:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251001135914.13754-1-caojunjie650@gmail.com>
- <20251001135914.13754-3-caojunjie650@gmail.com>
- <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
-In-Reply-To: <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
+ <20251001135914.13754-4-caojunjie650@gmail.com>
+ <lfdhib6a7ct36nmj3of2setjft7ydrf6sfgtx7qued7qd56nhc@2xol3grm5re7>
+In-Reply-To: <lfdhib6a7ct36nmj3of2setjft7ydrf6sfgtx7qued7qd56nhc@2xol3grm5re7>
 From: =?UTF-8?B?5pu55L+K5p2w?= <caojunjie650@gmail.com>
-Date: Mon, 13 Oct 2025 10:09:00 +0800
-X-Gm-Features: AS18NWC3lE60pFWwk3f8ArZQPSoc7l5pOk_MADcRyruwf3oXoyqNAhiZmduKRSQ
-Message-ID: <CAK6c68jzWLYgrFXRUsYkvSWE9CRSGVmeyOp7cNhixhyBZBC=1Q@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/msm/dsi: support DSC configurations with
- slice_per_pkt > 1
+Date: Mon, 13 Oct 2025 10:09:32 +0800
+X-Gm-Features: AS18NWB68269yeiTzdACPvm7V3NMKR_y0HxD4z4iqSVQM-VjCZQP0WcUwHJ0Wsc
+Message-ID: <CAK6c68h307fRVR=QKJG1pRJuDi1oCSrSYXBamwpAMx_jUgX7fg@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/panel: Add Novatek NT36532 panel driver
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
@@ -103,36 +102,45 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=B4=
-10=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=99=E9=81=93=EF=BC=9A
->On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:
->> From: Jun Nie <jun.nie@linaro.org>
+10=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:05=E5=86=99=E9=81=93=EF=BC=9A
+>On Wed, Oct 01, 2025 at 09:59:14PM +0800, Junjie Cao wrote:
+>> Add a driver for panels using the Novatek NT36532 Display Driver IC,
+>> including support for the CSOT PPC100HB1-1, found in the OnePlus Pad 2
+>> tablets.
 >>
->> Some panels support multiple slice to be sent in a single DSC packet. An=
-d
->> this feature is a must for specific panels, such as JDI LPM026M648C. Add=
- a
->> dsc_slice_per_pkt member into struct mipi_dsi_device and support the
->> feature in msm mdss driver.
->>
->> Co-developed-by: Jonathan Marek <jonathan@marek.ca>
->> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
->> Signed-off-by: Jun Nie <jun.nie@linaro.org>
 >> Signed-off-by: Junjie Cao <caojunjie650@gmail.com>
 >> ---
->>  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
->>  include/drm/drm_mipi_dsi.h         |  2 ++
->>  2 files changed, 12 insertions(+), 15 deletions(-)
+>>  MAINTAINERS                                   |   7 +
+>>  drivers/gpu/drm/panel/Kconfig                 |  10 +
+>>  drivers/gpu/drm/panel/Makefile                |   1 +
+>>  drivers/gpu/drm/panel/panel-novatek-nt36532.c | 437 ++++++++++++++++++
+>>  4 files changed, 455 insertions(+)
+>>  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36532.c
+>>
+>> +
+>> +static const struct panel_info csot_panel_info =3D {
+>> +     .width_mm =3D 250,
+>> +     .height_mm =3D 177,
+>> +     .lanes =3D 4,
+>> +     .format =3D MIPI_DSI_FMT_RGB888,
+>> +     .mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOU=
+S |
+>> +                   MIPI_DSI_MODE_LPM,
+>> +     .display_mode =3D csot_display_mode,
+>> +     .dsc_slice_per_pkt =3D 2,
 >
->Please extract the generic part, so that it can be merged through a
->generic tree.
+>As this is not a part of the standard, what if the DSI host doesn't
+>support this feature?
 >
 
-Sorry, I don't get it.  The generic part, generic tree? Do you mean
-the drm tree? `slice_per_pkt >=3D 2` is seen on the panels of these
-tablets that are equipped with qcom chips. I don't know if these
-panels are used on other platforms, and if it is necessary to do it
-in drm.
+Without it, parameters will not be calculated correctly, garbled then.
 
+>> +     .dsc_cfg =3D &csot_dsc_cfg,
+>> +     .init_sequence =3D csot_init_sequence,
+>> +     .is_dual_dsi =3D true,
+>> +};
+>> +
+>
 >--
 >With best wishes
 >Dmitry
