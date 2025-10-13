@@ -2,137 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FBD6BD38AC
-	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 16:34:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 768F5BD4FA2
+	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 18:25:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2EC10E46F;
-	Mon, 13 Oct 2025 14:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5DCA10E1F3;
+	Mon, 13 Oct 2025 16:25:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TJzZQnq7";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="04OTVAjT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72E6D10E46F
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 14:34:11 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59D7QTBW012880
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 14:34:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- UnjM2iW4CXaWPsxTyAY4aMVtXNn2X/TlNCmubEZb6tU=; b=TJzZQnq7cyFpLFad
- HZOosQoW1dz6Gfz7pgkTYO6/uzN7eA7tUD4BUGRV4+AWHmAA/tHXM8GrUC3NbKIb
- spyp11FdPh+Lttl+aBnDkjosNPlRa0dT6MSOOI7L83mef3gcJ6xS/OJoHDAcMUbt
- MQdhf4//d5kUoEL/5YtSpFs9bcaWgcZMgFdmAn05VKwzlO30IXfcgunWtq3CnePV
- CX+ZGYrC047nrkEpsRo0ehfuH1o/bqdw8yR6rNzfLLjZDqxgcfGolP0uc/+6HZvU
- Cw+TA6bIXvvLQibRhg/AAAJWuJePvpEBhsD1lSMpAFK8Hn+JFhBToUchZoubKL7R
- 2kNB8A==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49rw1a98kk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 14:34:10 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-81a8065daf4so130985906d6.0
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 07:34:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760366049; x=1760970849;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UnjM2iW4CXaWPsxTyAY4aMVtXNn2X/TlNCmubEZb6tU=;
- b=QbUBbAjTnwLTmLDMZoiXwyB3gh4N066p67jrwkYTjXB9w+2/j33b4URWKqJc9D2ZY2
- ys4dfXxF8ltfQbg+uVAN9Kd9nGo8myRExCJrOl9Qk8zZTilQ9Ypuas710mn/4bI4+U/d
- m78SkVVd7Ym2WFnKobsKpKAQSROPvpViuthlQWyPd1Rft1TXzpesNcwkT/u152L7q5NV
- TAJHICj5bLr+QtzTeM5W3zW84OTvJKl95BF2bfQVt7qhoe6h7B8Ov90iLIq4mN9slCZK
- WuaX3R+cR2rml//YEpYFVcUlB4rYhSSULSrD6bPtcgUDZh6oHMEs05fgIgn6jRpGHnrY
- ZPtQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUrv27gK7+3cRRFnEXrNusG3wzCiEkUqWo8KKNaE+M1+arX7TTwdj8Y1jOXQw20ZRr2nl+zd4mdEDs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMIQjozYkjk3LDUMMDeeC/8/67V5mZGWv+ZroU0kF2fcGFRDEH
- XRvBt/F1pnfpdsDVck3zHUN2dqBxPzIMFEqJ07wfEDzhitFzlXvbdw00n7HqWmStP7si2ImJgMI
- hEH/vuKy7ZcLN9LVNQ+ah73gyNZGakyv0nq6fZmHHkgZ6pq+kni/rzZAMQTzs2bCYKKz+kqg=
-X-Gm-Gg: ASbGncvukhZLP49iF2vkKamJezoJwDYcQXG6f+BnyZGoL9ALtDbXT24faWEHQYW0lJO
- /Avo4GpbG7nx7rWjCPZY0qTJF05pdr09KfiLLFBxvNHZyQslBtQNoaxve/nvqYbM5wVFo6NfwUn
- qmMd0VHLd+PuiaM2m7mQFIZtza9X1fRACpwKUP+yAkkNo4hTuYLywrwJ0JKVax1zcVPqEll6O5e
- JIE6aUnh+eBzsiuw2m3uCS8i5N28HGpUrCzDrVjelOJM3hbWJDqwomCZYYUWwHaacj+0+EgHiri
- VIA9fALF7tZUjEMMeYXzE/8D0WWG3xIE88KqU08gZJVsu4Gg9zvqg8wTxGnYyu89nrjx0eAc/cf
- DsFAfekzRKeuKea8LHBT6WrehXbj++prLj/Ey+jtQlz8q2r6Uj60p
-X-Received: by 2002:a05:622a:1190:b0:4da:256c:3d42 with SMTP id
- d75a77b69052e-4e6ead66d3bmr306582881cf.59.1760366049438; 
- Mon, 13 Oct 2025 07:34:09 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHsAa9RE0jQv7/KQ4V1BacvQuNOMhawZJVvcdaOp6lQ4V+xaBIvIkvcwLEkbpiulXd2rlgZyQ==
-X-Received: by 2002:a05:622a:1190:b0:4da:256c:3d42 with SMTP id
- d75a77b69052e-4e6ead66d3bmr306582221cf.59.1760366048780; 
- Mon, 13 Oct 2025 07:34:08 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5908856394bsm4179132e87.66.2025.10.13.07.34.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Oct 2025 07:34:08 -0700 (PDT)
-Date: Mon, 13 Oct 2025 17:34:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Junjie Cao <caojunjie650@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Jonathan Marek <jonathan@marek.ca>, Eugene Lepshy <fekz115@gmail.com>,
- Jun Nie <jun.nie@linaro.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 2/3] drm/msm/dsi: support DSC configurations with
- slice_per_pkt > 1
-Message-ID: <3a2v2i5lximl6q7eidd5zhjoyckz2fvgv52rhjruiuyuc6v3a3@5kdqa2eypidt>
-References: <20251001135914.13754-1-caojunjie650@gmail.com>
- <20251001135914.13754-3-caojunjie650@gmail.com>
- <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
- <CAK6c68jBwykcWZm3ckm3nwab-X9Are4rD-eauE4rXA2+XvuX1w@mail.gmail.com>
- <9cafccd5-35d4-46c5-aa57-1b0b8ec116e8@oss.qualcomm.com>
- <CAK6c68iV=n3BvMMa30FuehbMs7-U01s0saZnsYwPVoiyw0VTrg@mail.gmail.com>
- <icj24ghckurcunjormsfhhscng4wfcxiyadl2z5xduitxxqqmp@iws3pssew5dx>
- <CAK6c68hZq2o9YXxzd2dv5AXw5-UfKv_58MoUrQfGyfPiONArEg@mail.gmail.com>
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C85610E182;
+ Mon, 13 Oct 2025 16:25:02 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id B8570C093B0;
+ Mon, 13 Oct 2025 16:24:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9DF6A6067B;
+ Mon, 13 Oct 2025 16:24:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 98BE7102F2240; 
+ Mon, 13 Oct 2025 18:24:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1760372697; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=PC31koJdVp7I18KJXXznsupuFReAJu7dqL5WcMJcy3A=;
+ b=04OTVAjTiOEFsDi5yuKJEPPMia+eupmavbDoA7y9ukJCInFmK1cylzLMINZpgRiKkjS12R
+ LHD1uKGL0p4tiUjnB760f9sOkZbD072dMYy2ndR8Q1xN4kIu4ig4qZnV8CdJkckoMLui+D
+ NV8q+5fjRt5FWWtTT5Pz1ZATGth7vynV5yEPDJcODpBltuIZj5/1X/Aa4+8Tv+CrIJSdZz
+ CT/iRbBrdfgm0YaFNloPsvdwqK1mQEQzLU+8Ibg7GMTbfYllbtOreoa6w4psXE2nlABLY9
+ b4JA2+aW1E5j1pbLPT5DLwhnEulgEwtuOly7fAUjaROdsK8sqTwtzOd/1iomrg==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH 0/2] drm/atomic: protect bridge private_obj during bridge
+ removal
+Date: Mon, 13 Oct 2025 18:24:21 +0200
+Message-Id: <20251013-drm-bridge-atomic-vs-remove-private_obj-v1-0-1fc2e58102e0@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAK6c68hZq2o9YXxzd2dv5AXw5-UfKv_58MoUrQfGyfPiONArEg@mail.gmail.com>
-X-Authority-Analysis: v=2.4 cv=K88v3iWI c=1 sm=1 tr=0 ts=68ed0de2 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=x6icFKpwvdMA:10 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=RAbU-raeAAAA:8
- a=pGLkceISAAAA:8 a=MZ1LVty5hXXzp8AwOaAA:9 a=lqcHg5cX4UMA:10 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22 a=cvBusfyB2V15izCimMoJ:22
- a=JiizpSU_mAIq9zsZDqn2:22
-X-Proofpoint-GUID: WKITWwXGAHZWB51Wj-V7VlX5qK48L7uf
-X-Proofpoint-ORIG-GUID: WKITWwXGAHZWB51Wj-V7VlX5qK48L7uf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDEzMDAzNSBTYWx0ZWRfX/L8c3Dj3LdKo
- aUOSIsYfdCXoNf+XISz5qJFGELjdw0woPGmDxIPPF4ELMHOjQJXGJdjn8jJJ0CoIJAfr1Q39IqR
- f5UAYXQCBqoIfBRQWJARlf5qapUDpaL67l0EbupaXUNtE3WFZRPAiUQkMzuKbipVDdL/XQA2o+a
- Wo2KxnRLo35jNh3dK5Ttq6qdxEtm8egAnZD3/h3KT3iR0MjGuz52fpmVJxdShbrnsPG3aLIQ5JB
- lbpZC3UBqI46EdkiohSuHx+mvTE/ieTybrZQhFSwy8fhpI15DLKClE8NcFufTlOkCalbrAbWuMS
- vih8ZZopQCkKszev1MK0gnAPZAxEGdwU/rGueA9oFG8v+XiaxRjwvXiLODlc2t+KuGnhwJVuoLt
- NrNbGLpdcVFHzVYQAQLa4q5PHG+bbw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-13_05,2025-10-06_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 impostorscore=0 priorityscore=1501 phishscore=0
- adultscore=0 clxscore=1015 bulkscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510130035
+X-B4-Tracking: v=1; b=H4sIALUn7WgC/x2N0QqDMAwAf0XyvEDbIW7+iozRNtFlUCuplIH47
+ ys+Hgd3BxRW4QJjd4BylSJ5bWBvHcSPXxdGocbgjOutsXckTRhUqBm/5yQRa0HllCvjplL9zu8
+ cvkjD0z1MHzhQhFbblGf5XafpdZ5/1Mbq7nkAAAA=
+X-Change-ID: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Paul Cercueil <paul@crapouillou.net>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.14.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,88 +92,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 13, 2025 at 09:17:04PM +0800, Junjie Cao wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年10月13日周一 20:31写道：
-> > On Mon, Oct 13, 2025 at 07:04:43PM +0800, Junjie Cao wrote:
-> > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2025年10月13日周一 17:39写道：
-> > > > On 13/10/2025 04:52, 曹俊杰 wrote:
-> > > > >  >Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com
-> > > > > <mailto:dmitry.baryshkov@oss.qualcomm.com>> 于2025年10月2日周四 10:04写道：
-> > > > >  >On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:
-> > > > >  >> From: Jun Nie <jun.nie@linaro.org <mailto:jun.nie@linaro.org>>
-> > > > >  >>
-> > > > >  >> Some panels support multiple slice to be sent in a single DSC
-> > > > > packet. And
-> > > > >  >> this feature is a must for specific panels, such as JDI LPM026M648C.
-> > > > > Add a
-> > > > >  >> dsc_slice_per_pkt member into struct mipi_dsi_device and support the
-> > > > >  >> feature in msm mdss driver.
-> > > > >  >>
-> > > > >  >> Co-developed-by: Jonathan Marek <jonathan@marek.ca
-> > > > > <mailto:jonathan@marek.ca>>
-> > > > >  >> Signed-off-by: Jonathan Marek <jonathan@marek.ca
-> > > > > <mailto:jonathan@marek.ca>>
-> > > > >  >> Signed-off-by: Jun Nie <jun.nie@linaro.org <mailto:jun.nie@linaro.org>>
-> > > > >  >> Signed-off-by: Junjie Cao <caojunjie650@gmail.com
-> > > > > <mailto:caojunjie650@gmail.com>>
-> > > > >  >> ---
-> > > > >  >>  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
-> > > > >  >>  include/drm/drm_mipi_dsi.h         |  2 ++
-> > > > >  >>  2 files changed, 12 insertions(+), 15 deletions(-)
-> > > > >  >
-> > > > >  >Please extract the generic part, so that it can be merged through a
-> > > > >  >generic tree.
-> > > > >  >
-> > > > >
-> > > > > Sorry, I don't get it.  The generic part, generic tree? Do you mean
-> > > > > the drm tree? `slice_per_pkt >= 2` is seen on the panels of these
-> > > > > tablets that are equipped with qcom chips. I don't know if these
-> > > > > panels are used on other platforms, and if it is necessary to do it
-> > > > > in drm.
-> > > >
-> > > > There are two changes here:
-> > > > - MIPI DSI header change
-> > > > - msm DSI driver
-> > > >
-> > > > I've asked to split it to those two commits so that he change for
-> > > > drm_mipi_dsi.h is more obvious for reviewers and so that it can be
-> > > > merged through a drm-misc tree (or through drm-msm tree provided it gets
-> > > > a necessary ack).
-> > > >
-> > >
-> > > Thanks for your clear explanation.
-> > >
-> > > I don't mind to add the field separately. But should I submit it
-> > > with the panel driver together? Otherwise, this field is unused
-> > > for a while.
-> > >
-> > > However, as you mentioned, this is not a part of standard, neither
-> > > mipi dsi nor VESA DSC. Recently, only Qualcomm devices require it
-> > > to calculate parameters, then we use them to program registers. Why
-> > > don't we parse the field from devicetree?
-> >
-> > Because the value is uniquelly identified by the panel's compat string.
-> >
-> 
-> Yes, it is panel specified.
-> But can we set it for every panel like
-> 
-> &mdss_dsi0 {
->     qcom,mdss-dsc-slice-per-pkt = <2>;
-> 
->     status = "okay";
-> 
->     panel: panel@0 {
->         compatible = "foo,bar";
->         reg = <0>;
->     };
-> };
-> 
-> or moving the property to panel node? We access it from child node.
+This series avoids a race between DRM bridge removal and usage of the
+bridge private_obj during DRM_MODESET_LOCK_ALL_BEGIN/END() and other
+locking operations.
 
-Why do you need it in DT if the panel driver can provide this
-information.
+This is part of the work towards removal of bridges from a still existing
+DRM pipeline without use-after-free. The grand plan was discussed in [0].
+Here's the work breakdown (➜ marks the current series):
 
+ 1. … add refcounting to DRM bridges (struct drm_bridge)
+    (based on devm_drm_bridge_alloc() [0])
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. … add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. … protect encoder bridge chain with a mutex
+       7. of_drm_find_bridge
+       8. drm_of_find_panel_or_bridge, *_of_get_bridge
+       9. … enforce drm_bridge_add before drm_bridge_attach
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. ➜ handle gracefully atomic updates during bridge removal
+    A. … Add drm_dev_enter/exit() to protect device resources
+    B. ➜ protect private_obj removal from list
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. finish the hotplug bridge work, moving code to the core and potentially
+    removing the hotplug-bridge itself (this needs to be clarified as
+    points 1-3 are developed)
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+The need for this series emerged during testing of DRM bridge
+hot-plugging. Very rarely on hot-unplug the following warning has appeared:
+  
+  WARNING: CPU: 0 PID: 123 at include/drm/drm_modeset_lock.h:114 drm_atomic_private_obj_fini+0x64/0x80
+  ...
+  Call trace:
+   drm_atomic_private_obj_fini+0x64/0x80
+   drm_bridge_detach+0x38/0x98
+
+The actual change is in patch 2 along with a detailed explanation.
+Patch 1 is just a preparation step.
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Luca Ceresoli (2):
+      drm/atomic: pass drm_device pointer to drm_atomic_private_obj_fini()
+      drm_atomic_private_obj_fini: protect private_obj removal from list
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       | 2 +-
+ drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c | 2 +-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c           | 2 +-
+ drivers/gpu/drm/display/drm_dp_tunnel.c                 | 2 +-
+ drivers/gpu/drm/drm_atomic.c                            | 9 ++++++++-
+ drivers/gpu/drm/drm_bridge.c                            | 2 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c               | 2 +-
+ drivers/gpu/drm/ingenic/ingenic-ipu.c                   | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c                 | 2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c                | 2 +-
+ drivers/gpu/drm/omapdrm/omap_drv.c                      | 2 +-
+ drivers/gpu/drm/tegra/hub.c                             | 2 +-
+ drivers/gpu/drm/vc4/vc4_kms.c                           | 6 +++---
+ include/drm/drm_atomic.h                                | 3 ++-
+ 14 files changed, 24 insertions(+), 16 deletions(-)
+---
+base-commit: 3b80ba4fb2d81c77cfef535b202162cbb8aa1f6e
+change-id: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Luca Ceresoli <luca.ceresoli@bootlin.com>
+
