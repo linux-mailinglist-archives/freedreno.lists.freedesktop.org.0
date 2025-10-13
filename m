@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96759BD1212
-	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 03:53:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A370BD1294
+	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 04:02:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E75D10E32B;
-	Mon, 13 Oct 2025 01:53:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF97E10E025;
+	Mon, 13 Oct 2025 02:02:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nhYAoRxW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VFO8CXVi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
  [209.85.208.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32C7F10E1D1
- for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 01:53:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0C7510E352
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 02:02:31 +0000 (UTC)
 Received: by mail-ed1-f68.google.com with SMTP id
- 4fb4d7f45d1cf-639102bba31so7659014a12.2
- for <freedreno@lists.freedesktop.org>; Sun, 12 Oct 2025 18:53:32 -0700 (PDT)
+ 4fb4d7f45d1cf-631df7b2dffso8339083a12.1
+ for <freedreno@lists.freedesktop.org>; Sun, 12 Oct 2025 19:02:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760320411; x=1760925211; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760320950; x=1760925750; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jib6qtZ7uovkQhx/qSCYqbTejviWgQQiEea0Nhubv1E=;
- b=nhYAoRxWA1+RPNLkrZfz9WmOUM0w8bBzVOGNJhocyUYiXUtbq21ljo1LdYCTVd+Mid
- QZZ5+1MHqgDNohAPWmlgJv70yt57p+df61UZWC1a66k4FUrv6zdMjRzJeuq96/Jjmc/f
- eMxJIoGI3+Fh/+a9bFb3Y8vlDBkOqW8403nfCCuLxGouoxs1DCV+TnruUEky4H8Qc05o
- 5+wzwnkx9PkqrDjtohUsWvqFH+eFfD1qRhS5abEco8EkYj1LugbNwE+WrozYXu70vdUw
- eTYi6nQecoR7R2L18/0f8pf0kmmsy8zIsqbxXGbboEH0yT1tLlF/UIEdsYS8oIV0GyMN
- REjg==
+ bh=cKOZo+MGQBv4KkNvRAav7sTJbp8ajk9ELpgGPOLBZm4=;
+ b=VFO8CXVii0FG/VDW2hDWP0x/0AbbjKG71ilsAR+cnHNFBRQbBaHOAsiRAUCB/h9GoM
+ v9U52ag1tu/UN9iqX0xa5sUsBg7aNV28cr0ZESzxIbbCoUhYH7NeZweVw4d8jwYBUXM5
+ gSV7f/hO9fs1YSfQDY45hUVJbq1LahLVYaXHa6aasLQnYExtp4qgoj1NM5OpiHl2SZlW
+ T/ImWxm0gEi6XUPRt+FEMPnhYBpxfMse1ND86MmCqp+F2+Pk/7HXgW6tmRzagGPDu0CH
+ e+NawavBrdHeEOID11ooAcNDPJ+oHl9xdCLnmjWOumXDRdqdoYha8zViV0fSd2JEvIDu
+ M2tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760320411; x=1760925211;
+ d=1e100.net; s=20230601; t=1760320950; x=1760925750;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jib6qtZ7uovkQhx/qSCYqbTejviWgQQiEea0Nhubv1E=;
- b=xLyEIntDNbvYDtJhTyNo0WJo39Rup1HFdIqd2Dvz0gwGlJtonNrorUF4wDt10KP/Ux
- sOsSoVCC0AUTm4PuadyXqAm0KIxthOh6DMo0wSokjQNJ0QlIatGu6GKkfKmtZWbjaGeI
- 7MhXF5gFVUojuXJPsQkC71nuBnIvLrArS6s4j1inVArB6cQLFkaNcUlG1ZG5AatDatTU
- XDMU/qlZsnxl764sZjxTCEt2D3iw5ZSJhCHPw8BhTYsQ5TD1bPsVWFYDyDg6Kvtzn0X8
- ILybrbRpyK0ztTmoh6wXze4UvCrAeCgC3vYMXB11l/RrGVqXDOcqEv3BHcsd60ph3bB9
- Pzuw==
+ bh=cKOZo+MGQBv4KkNvRAav7sTJbp8ajk9ELpgGPOLBZm4=;
+ b=vIwg4KazyEeL6T3SaJw8X9lNRG4AQphu5WXKFqFMOaTRB9aqe1unKS3yw418wqY0Tn
+ OK1/qMm1naCZQhWMbG+K1zbNfBaWYlL2aLORqu58ILTMhCALEzzduE1ktT0RsVWIb78A
+ cJkXPrumMApj4a82KCQGhmd7r6bUxO0LVABocCwYRdXTh+zRnbXSWz8XwQgaJ8lXwohO
+ FXKcdQraq2SwSLlWKbOHmSC32TI/mPy5VvIYPYfeH3HUWQ0do9+mEQRxekpp8xBsOEHt
+ p22DYHhcZuerKmKaPBuf7FFGZY2RlNXfyj1MryOloA0RUkioqT9djP/k3oz1N3G31Yzk
+ JNEQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUWjo9ZY3cArOfi65aNf9ZsiEahnCmVFoo61LRfELZgP3vPWrM8T35Qgge0fBDD/DNfPaYUX4UaQ5Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyaNucl+bF0IaREgFqlFaSw2Mc0Ei2/MNpDYCIh7qu4+rgJTK16
- TR+iI34W58akGb/YzI7sTdJ4pzuInAfiZM/TE/WgB+1MsSJ60MrCPDCKPu6UDox36ZzfKsLSBki
- dFNauDYhqGEKrAOwH5GgNttAKWDNFYlQ=
-X-Gm-Gg: ASbGncuUwKO+xyj8Ks2eftwskjELdAsdoKYbxIqhEHcZkcC0ZEuAHJ+lL/kMCg0UlmU
- SVrqXgu6xgqulaH6Xt+SHC/N3mA/IXB5Xr1q2PrclUHJ41AAWZpOf+48+QBWv3yzxp14FBaxs4S
- oc+wfokDvBQS1MUsAo0ZQPqpVER5VAddM9ozybkWrTiYG47dWWxj+XDkv5Ts5QHxDTVbyXNwDi9
- gM12VCmc1DJEwF7+jG7g7wghg==
-X-Google-Smtp-Source: AGHT+IHNL1BUTxL2xPvRlvw72ZaxFIL6RT4owwNyRO7JLM5S/Xgryvv1liecPpjG1QLNARe02zsa23/lQ3BBsnrQvyc=
-X-Received: by 2002:a05:6402:13d1:b0:626:4774:2420 with SMTP id
- 4fb4d7f45d1cf-639d5c320c0mr17570498a12.20.1760320410533; Sun, 12 Oct 2025
- 18:53:30 -0700 (PDT)
+ AJvYcCVaBWstMG7pscQU5MpIxtjw0bohScR0tAwK3ulE7cxrk4cEuR39oUtw4f9KDnHxmuXM6q8IW1MedF0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAcTl/p2JOHkQttXde9qd2BBaCIDa+KqCgdAWfjWhwQv1T+y8L
+ uldJhoeAA67nwlaeooss0uqLzl0h2eCK2LLupizHhRcZDbsMZGOsVS+e8i0Yeg2B40trDNXBtNR
+ y/OoMVQ+/+EU13AITJnP8c5jjCMahPHI=
+X-Gm-Gg: ASbGncutpbh1yVtpxwAfdA18o+/cGHsBTjg8zO2DpSykEE/DdVgO3cdadbHhKy29KAK
+ 8A8jgVWyma1UeLSvfPWuoye8wqU5aPVDSygZKtGwNXxCjquIv1373rYf74ujT8XJvlWtM4yHggz
+ WV3++sPGJ14C14yp1FHlzkxDWyBS0w/j1NcSJLZFbPMyprxi6d7tv6RYSkzTI3epzYoMWdg9hjP
+ sWOhqlKhcMo6yV+6igPF/nzAA==
+X-Google-Smtp-Source: AGHT+IFTAKUZcpu0Or52X4cPFWH/lGvPoMo0cZl0OXAFq6HByiIQIZ46OQicUY/q4dcLXyIxPvL349rhnXiTBLRJSJ8=
+X-Received: by 2002:a05:6402:2788:b0:63b:3aae:c426 with SMTP id
+ 4fb4d7f45d1cf-63b3aaeeffdmr11764783a12.19.1760320950055; Sun, 12 Oct 2025
+ 19:02:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251001135914.13754-1-caojunjie650@gmail.com>
- <20251001135914.13754-4-caojunjie650@gmail.com>
- <lfdhib6a7ct36nmj3of2setjft7ydrf6sfgtx7qued7qd56nhc@2xol3grm5re7>
-In-Reply-To: <lfdhib6a7ct36nmj3of2setjft7ydrf6sfgtx7qued7qd56nhc@2xol3grm5re7>
+ <20251001135914.13754-3-caojunjie650@gmail.com>
+ <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
+In-Reply-To: <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
 From: =?UTF-8?B?5pu55L+K5p2w?= <caojunjie650@gmail.com>
-Date: Mon, 13 Oct 2025 09:53:18 +0800
-X-Gm-Features: AS18NWCXgZGcIsMOlZRhCMOrt21hgF7Nu9A3rD70J3JwS3-UfBSVjAvvGwnrsc8
-Message-ID: <CAK6c68gLfH63Ywv_sP3YkHngihc4vscpdFrehj6uRfwEL=ZAfQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/panel: Add Novatek NT36532 panel driver
+Date: Mon, 13 Oct 2025 10:02:18 +0800
+X-Gm-Features: AS18NWDYBe2ziyEiQdPGz_Noz0h9TvWVbunULPyIXdj2bUT39mUslIiSO0_o0Zc
+Message-ID: <CAK6c68gnXo5re5z--t5P17UOPN+BHDjDR4D4NhBnuSHLq1AVpg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
@@ -83,7 +83,7 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  freedreno@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000c2c4b706410088f4"
+Content-Type: multipart/alternative; boundary="000000000000eb369d064100a892"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,50 +99,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---000000000000c2c4b706410088f4
+--000000000000eb369d064100a892
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
->Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=
-=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:05=E5=86=99=E9=81=93=EF=BC=9A
->On Wed, Oct 01, 2025 at 09:59:14PM +0800, Junjie Cao wrote:
->> Add a driver for panels using the Novatek NT36532 Display Driver IC,
->> including support for the CSOT PPC100HB1-1, found in the OnePlus Pad 2
->> tablets.
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=B4=
+10=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=99=E9=81=93=EF=BC=9A
+>On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:
+>> From: Jun Nie <jun.nie@linaro.org>
 >>
+>> Some panels support multiple slice to be sent in a single DSC packet. An=
+d
+>> this feature is a must for specific panels, such as JDI LPM026M648C. Add
+a
+>> dsc_slice_per_pkt member into struct mipi_dsi_device and support the
+>> feature in msm mdss driver.
+>>
+>> Co-developed-by: Jonathan Marek <jonathan@marek.ca>
+>> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+>> Signed-off-by: Jun Nie <jun.nie@linaro.org>
 >> Signed-off-by: Junjie Cao <caojunjie650@gmail.com>
 >> ---
->>  MAINTAINERS                                   |   7 +
->>  drivers/gpu/drm/panel/Kconfig                 |  10 +
->>  drivers/gpu/drm/panel/Makefile                |   1 +
->>  drivers/gpu/drm/panel/panel-novatek-nt36532.c | 437 ++++++++++++++++++
->>  4 files changed, 455 insertions(+)
->>  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36532.c
->>
->> +
->> +static const struct panel_info csot_panel_info =3D {
->> +     .width_mm =3D 250,
->> +     .height_mm =3D 177,
->> +     .lanes =3D 4,
->> +     .format =3D MIPI_DSI_FMT_RGB888,
->> +     .mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOU=
-S |
->> +                   MIPI_DSI_MODE_LPM,
->> +     .display_mode =3D csot_display_mode,
->> +     .dsc_slice_per_pkt =3D 2,
+>>  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+>>  include/drm/drm_mipi_dsi.h         |  2 ++
+>>  2 files changed, 12 insertions(+), 15 deletions(-)
 >
->As this is not a part of the standard, what if the DSI host doesn't
->support this feature?
+>Please extract the generic part, so that it can be merged through a
+>generic tree.
 >
 
-Without it, parameters will not be calculated correctly, garbled then.
+Sorry, I don't get it.  The generic part, generic tree? Do you mean
+the drm tree? `slice_per_pkt >=3D 2` is seen on the panels of these
+tablets that are equipped with qcom chips. I don't know if these
+panels are used on other platforms, and if it is necessary to do it
+in drm.
 
->> +     .dsc_cfg =3D &csot_dsc_cfg,
->> +     .init_sequence =3D csot_init_sequence,
->> +     .is_dual_dsi =3D true,
->> +};
->> +
->
 >--
 >With best wishes
 >Dmitry
@@ -150,41 +141,108 @@ Without it, parameters will not be calculated correctly, garbled then.
 Regards,
 Junjie
 
---000000000000c2c4b706410088f4
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=B4=
+10=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=99=E9=81=93=EF=BC=9A
+
+> On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:
+> > From: Jun Nie <jun.nie@linaro.org>
+> >
+> > Some panels support multiple slice to be sent in a single DSC packet. A=
+nd
+> > this feature is a must for specific panels, such as JDI LPM026M648C. Ad=
+d
+> a
+> > dsc_slice_per_pkt member into struct mipi_dsi_device and support the
+> > feature in msm mdss driver.
+> >
+> > Co-developed-by: Jonathan Marek <jonathan@marek.ca>
+> > Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > Signed-off-by: Junjie Cao <caojunjie650@gmail.com>
+> > ---
+> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+> >  include/drm/drm_mipi_dsi.h         |  2 ++
+> >  2 files changed, 12 insertions(+), 15 deletions(-)
+>
+> Please extract the generic part, so that it can be merged through a
+> generic tree.
+>
+> --
+> With best wishes
+> Dmitry
+>
+
+--000000000000eb369d064100a892
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">&gt;Dmitry Baryshkov &lt;<a href=3D"mailto:dmitry.baryshko=
-v@oss.qualcomm.com">dmitry.baryshkov@oss.qualcomm.com</a>&gt; =E4=BA=8E2025=
-=E5=B9=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:05=E5=86=99=E9=81=93=EF=
-=BC=9A<br>&gt;On Wed, Oct 01, 2025 at 09:59:14PM +0800, Junjie Cao wrote:<b=
-r>&gt;&gt; Add a driver for panels using the Novatek NT36532 Display Driver=
- IC,<br>&gt;&gt; including support for the CSOT PPC100HB1-1, found in the O=
-nePlus Pad 2<br>&gt;&gt; tablets.<br>&gt;&gt;<br>&gt;&gt; Signed-off-by: Ju=
-njie Cao &lt;<a href=3D"mailto:caojunjie650@gmail.com">caojunjie650@gmail.c=
-om</a>&gt;<br>&gt;&gt; ---<br>&gt;&gt; =C2=A0MAINTAINERS =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A0 7 +<br>&gt;&gt; =C2=A0drivers/gpu/drm/=
-panel/Kconfig =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=
-=A010 +<br>&gt;&gt; =C2=A0drivers/gpu/drm/panel/Makefile =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0 1 +<br>&gt;&gt; =C2=A0driver=
-s/gpu/drm/panel/panel-novatek-nt36532.c | 437 ++++++++++++++++++<br>&gt;&gt=
-; =C2=A04 files changed, 455 insertions(+)<br>&gt;&gt; =C2=A0create mode 10=
-0644 drivers/gpu/drm/panel/panel-novatek-nt36532.c<br>&gt;&gt;<br>&gt;&gt; =
-+<br>&gt;&gt; +static const struct panel_info csot_panel_info =3D {<br>&gt;=
-&gt; + =C2=A0 =C2=A0 .width_mm =3D 250,<br>&gt;&gt; + =C2=A0 =C2=A0 .height=
-_mm =3D 177,<br>&gt;&gt; + =C2=A0 =C2=A0 .lanes =3D 4,<br>&gt;&gt; + =C2=A0=
- =C2=A0 .format =3D MIPI_DSI_FMT_RGB888,<br>&gt;&gt; + =C2=A0 =C2=A0 .mode_=
-flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS |<br>&gt;&gt;=
- + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 MIPI_DSI_=
-MODE_LPM,<br>&gt;&gt; + =C2=A0 =C2=A0 .display_mode =3D csot_display_mode,<=
-br>&gt;&gt; + =C2=A0 =C2=A0 .dsc_slice_per_pkt =3D 2,<br>&gt;<br>&gt;As thi=
-s is not a part of the standard, what if the DSI host doesn&#39;t<br>&gt;su=
-pport this feature?<br>&gt;<br><br>Without it, parameters will not be calcu=
-lated correctly, garbled then.<br><br>&gt;&gt; + =C2=A0 =C2=A0 .dsc_cfg =3D=
- &amp;csot_dsc_cfg,<br>&gt;&gt; + =C2=A0 =C2=A0 .init_sequence =3D csot_ini=
-t_sequence,<br>&gt;&gt; + =C2=A0 =C2=A0 .is_dual_dsi =3D true,<br>&gt;&gt; =
-+};<br>&gt;&gt; +<br>&gt;<br>&gt;-- <br>&gt;With best wishes<br>&gt;Dmitry =
-<br><br>Regards,<br>Junjie</div>
+<div dir=3D"ltr">Dmitry Baryshkov &lt;<a href=3D"mailto:dmitry.baryshkov@os=
+s.qualcomm.com" target=3D"_blank">dmitry.baryshkov@oss.qualcomm.com</a>&gt;=
+ =E4=BA=8E2025=E5=B9=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=
+=99=E9=81=93=EF=BC=9A<span class=3D"gmail-im"><br>&gt;On Wed, Oct 01, 2025 =
+at 09:59:13PM +0800, Junjie Cao wrote:<br>&gt;&gt; From: Jun Nie &lt;<a hre=
+f=3D"mailto:jun.nie@linaro.org" target=3D"_blank">jun.nie@linaro.org</a>&gt=
+;<br>&gt;&gt;<br>&gt;&gt; Some panels support multiple slice to be sent in =
+a single DSC packet. And<br>&gt;&gt; this feature is a must for specific pa=
+nels, such as JDI LPM026M648C. Add a<br>&gt;&gt; dsc_slice_per_pkt member i=
+nto struct mipi_dsi_device and support the<br>&gt;&gt; feature in msm mdss =
+driver.<br>&gt;&gt;<br>&gt;&gt; Co-developed-by: Jonathan Marek &lt;<a href=
+=3D"mailto:jonathan@marek.ca" target=3D"_blank">jonathan@marek.ca</a>&gt;<b=
+r>&gt;&gt; Signed-off-by: Jonathan Marek &lt;<a href=3D"mailto:jonathan@mar=
+ek.ca" target=3D"_blank">jonathan@marek.ca</a>&gt;<br>&gt;&gt; Signed-off-b=
+y: Jun Nie &lt;<a href=3D"mailto:jun.nie@linaro.org" target=3D"_blank">jun.=
+nie@linaro.org</a>&gt;<br>&gt;&gt; Signed-off-by: Junjie Cao &lt;<a href=3D=
+"mailto:caojunjie650@gmail.com" target=3D"_blank">caojunjie650@gmail.com</a=
+>&gt;<br>&gt;&gt; ---<br>&gt;&gt; =C2=A0drivers/gpu/drm/msm/dsi/dsi_host.c =
+| 25 ++++++++++---------------<br>&gt;&gt; =C2=A0include/drm/drm_mipi_dsi.h=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A02 ++<br>&gt;&gt; =C2=A02 files changed=
+, 12 insertions(+), 15 deletions(-)<br>&gt;<br>&gt;Please extract the gener=
+ic part, so that it can be merged through a<br>&gt;generic tree.<br>&gt;<br=
+><br></span>Sorry, I don&#39;t get it.=C2=A0 The generic part, generic tree=
+? Do you mean<br>the drm tree? `slice_per_pkt &gt;=3D 2` is seen on the pan=
+els of these<br>tablets that are equipped with qcom chips. I don&#39;t know=
+ if these<br>panels are used on other platforms, and if it is necessary to =
+do it<br>in drm.<span class=3D"gmail-im"><br><br>&gt;-- <br>&gt;With best w=
+ishes<br>&gt;Dmitry <br><br></span>Regards,<br>Junjie</div><br><div class=
+=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr=
+">Dmitry Baryshkov &lt;<a href=3D"mailto:dmitry.baryshkov@oss.qualcomm.com"=
+>dmitry.baryshkov@oss.qualcomm.com</a>&gt; =E4=BA=8E2025=E5=B9=B410=E6=9C=
+=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=99=E9=81=93=EF=BC=9A<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">On Wed, Oct 01, 2025 at 09=
+:59:13PM +0800, Junjie Cao wrote:<br>
+&gt; From: Jun Nie &lt;<a href=3D"mailto:jun.nie@linaro.org" target=3D"_bla=
+nk">jun.nie@linaro.org</a>&gt;<br>
+&gt; <br>
+&gt; Some panels support multiple slice to be sent in a single DSC packet. =
+And<br>
+&gt; this feature is a must for specific panels, such as JDI LPM026M648C. A=
+dd a<br>
+&gt; dsc_slice_per_pkt member into struct mipi_dsi_device and support the<b=
+r>
+&gt; feature in msm mdss driver.<br>
+&gt; <br>
+&gt; Co-developed-by: Jonathan Marek &lt;<a href=3D"mailto:jonathan@marek.c=
+a" target=3D"_blank">jonathan@marek.ca</a>&gt;<br>
+&gt; Signed-off-by: Jonathan Marek &lt;<a href=3D"mailto:jonathan@marek.ca"=
+ target=3D"_blank">jonathan@marek.ca</a>&gt;<br>
+&gt; Signed-off-by: Jun Nie &lt;<a href=3D"mailto:jun.nie@linaro.org" targe=
+t=3D"_blank">jun.nie@linaro.org</a>&gt;<br>
+&gt; Signed-off-by: Junjie Cao &lt;<a href=3D"mailto:caojunjie650@gmail.com=
+" target=3D"_blank">caojunjie650@gmail.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++--------------=
+-<br>
+&gt;=C2=A0 include/drm/drm_mipi_dsi.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=
+=A0 2 ++<br>
+&gt;=C2=A0 2 files changed, 12 insertions(+), 15 deletions(-)<br>
+<br>
+Please extract the generic part, so that it can be merged through a<br>
+generic tree.<br>
+<br>
+-- <br>
+With best wishes<br>
+Dmitry<br>
+</blockquote></div>
 
---000000000000c2c4b706410088f4--
+--000000000000eb369d064100a892--
