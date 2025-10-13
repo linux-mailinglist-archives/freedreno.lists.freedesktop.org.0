@@ -2,57 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1B64BCF83B
-	for <lists+freedreno@lfdr.de>; Sat, 11 Oct 2025 18:21:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4E09BD11F4
+	for <lists+freedreno@lfdr.de>; Mon, 13 Oct 2025 03:52:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2A7410E08B;
-	Sat, 11 Oct 2025 16:21:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8975E10E1D1;
+	Mon, 13 Oct 2025 01:52:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.b="pAzpKwey";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M51VJscT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 353 seconds by postgrey-1.36 at gabe;
- Fri, 10 Oct 2025 19:15:47 UTC
-Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com
- [95.215.58.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E552410EC7C
- for <freedreno@lists.freedesktop.org>; Fri, 10 Oct 2025 19:15:47 +0000 (UTC)
-Message-ID: <39a7f9a7-b97c-4851-9a00-ab926967d7c8@postmarketos.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
- s=key1; t=1760123383;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5diY5uCD/YJY9STm/+KyjBx0wU7pxgCFd8nIteFoVMY=;
- b=pAzpKweyoRoyM4yCIeWDl+NK4p7K4nEciI1EWaopPgazh1rJOMj3tIk+Mt+fORGTErLvwn
- g+GQIRULpCJfAj5DSygRokNrSZa4dUsoGxDmH5CqtiRRdAcgLhts8VnedT0Cl8v0Ul5Z1+
- w6rZ0ylVguxwCo6hDvvV1pz5LW+SW3dDRLtO4L2PpTdTcd56AIQPSHGh/fPVBklxxjrcQa
- uBBEsqxXLzoShWQ0uBbsrPQYqXceDeIwxewVE5LebOOlMvRYK49ioAOo8GQ2f8Dy+utGkE
- gaDsJMxDJ3+Be4P/kwozftD9wUKm7VVOvZsurer5/B/AMnOCE0CMScEEPQJP/g==
-Date: Fri, 10 Oct 2025 22:09:38 +0300
+Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
+ [209.85.208.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2920610E31B
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Oct 2025 01:52:49 +0000 (UTC)
+Received: by mail-ed1-f68.google.com with SMTP id
+ 4fb4d7f45d1cf-631df7b2dffso8331801a12.1
+ for <freedreno@lists.freedesktop.org>; Sun, 12 Oct 2025 18:52:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760320368; x=1760925168; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=YRrC5ujv29o4Dn7uYuCsIN4DoTMp+m253g/eeBCZNpc=;
+ b=M51VJscTzHTKbJDjAlrzRlY8huiQdUm3HMMMItQS0gqd2tXs2NRaVa0MVs2SU/4VSC
+ Ru5a5L32SvLRFGrqZhVqjf+VOStGfHUzjy9AkHJ47iRx7Knf40M18lI1FVUL7CF/VR7u
+ YEBLEbb+SxjlakwXgn0zrzytHzc7qx78vWnjzY4FM4NFMWlNRp78l5EiX7eL9VzrBLWu
+ d8uh6PPnP1tcXy8iOf5+kAOuoT5gn4cVcdvG877bNLW88Cjje5DgxmspmxVOI6c3gAco
+ Z9eoaUNlMTZ/V1ZVBqdPqAXWU50DnzVVzOwNkiBA/t1XAL/f92meMDsZ/UtYrkkSzNSU
+ fwqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760320368; x=1760925168;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YRrC5ujv29o4Dn7uYuCsIN4DoTMp+m253g/eeBCZNpc=;
+ b=nZMmh/3xp+9aof69zwUncdnR2NypJu6L3kfGSXbWcoS96WzZij/5I6uX4MjgN2giIl
+ GRuee0abJAobZEhASxc/vMBHvZmyIX0IS9MPUpnWNefF2MZvPaGwEkxujuyyuskmIqlm
+ z1Wm0ZQgXI7AUZO3qvivjFJEjp+I6NUk2HGemXaNsgLtYwTHyS5X2/DPU918A2I89U62
+ 5J6ZnBEXteR4MAx+mSxbiqHjj0uc/1dWZQa9dCCwDbPhDNrGWgjWKVwnM31a2yRgLuss
+ ohj/oGBTLTmXzVKvR/vozzvoUReEKCusUbw5BD4qX97NsErLPmXd7yTxNFU19cAfdAvP
+ P5+g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU1aklUd8W9b5sxWk+sh9nooC84R/CK5rMa6WYpbPkcV5y1CN986+xBbbD9tf4YVmed7P3Be3MRXnM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzb49W7R42tkJ6d+FSL1XjslaXv9ciUVBYyhyrjTuao+42Tl0L9
+ xbzNP+q7tGW5CzbMCkiHD0qT9Jlmdw6ABIYlG/RlFSEbd64/qVMSq+5eBK5ySCGEUsqeZ3I7+IA
+ SoWlFptv3FNRzWI3G8iJcKhZsr0FdbLo=
+X-Gm-Gg: ASbGnct7zA7akLgJ73uet94I6Q5WbAh95mxabVxec9c1MMAq6Rlhi5rQ21OREld7t/F
+ UtDFb7CNQOq0H2KcVOGgyzKGtLuzEJ/J+2gIxSKaPb+lS8lBQIj5LpoVqYfSVIji9H/k/FUIfle
+ FeHSKgjE7FDP+yOdYkMLxfrCgT/w8Ald48klC6moWYUNGzAXVfOtOYcSYjYTk/9ZuLbQTE3hhtT
+ Wv42lu5Sdb56aAy5ERCKxKdCw==
+X-Google-Smtp-Source: AGHT+IGVwit7EnJqjWJCndPnOaagwjFwRfHJs7DHjGaz2CJNOtKY3nJ4z/ccrJw0qhRGNyC1RhAM+KOBqlgUZm2HII4=
+X-Received: by 2002:aa7:c58e:0:b0:62f:c8fc:dce5 with SMTP id
+ 4fb4d7f45d1cf-639bb229269mr18330933a12.10.1760320367440; Sun, 12 Oct 2025
+ 18:52:47 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [PATCH v2] drm/msm: make sure last_fence is always updated
-To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+References: <20251001135914.13754-1-caojunjie650@gmail.com>
+ <20251001135914.13754-3-caojunjie650@gmail.com>
+ <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
+In-Reply-To: <cwgn24f6tnmytd4omr2tul4e5jjin3ijji3ff3qkumqm2xe3t3@ntayu3m5kai3>
+From: =?UTF-8?B?5pu55L+K5p2w?= <caojunjie650@gmail.com>
+Date: Mon, 13 Oct 2025 09:52:34 +0800
+X-Gm-Features: AS18NWAwf-hT5rzEa8wZmFlK7aIZOX32p7ZERcY3_A8yYvmRn0M2ZAgY7d92ZDE
+Message-ID: <CAK6c68jBwykcWZm3ckm3nwab-X9Are4rD-eauE4rXA2+XvuX1w@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20251010-close_fence_wait_fix-v2-1-adb332dbff65@gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Alexey Minnekhanov <alexeymin@postmarketos.org>
-In-Reply-To: <20251010-close_fence_wait_fix-v2-1-adb332dbff65@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Sat, 11 Oct 2025 16:21:16 +0000
+ Antonino Maniscalco <antomani103@gmail.com>, 
+ Jonathan Marek <jonathan@marek.ca>, Eugene Lepshy <fekz115@gmail.com>,
+ Jun Nie <jun.nie@linaro.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="0000000000003136b206410086f8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,73 +100,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10.10.2025 17:39, Anna Maniscalco wrote:
-> Update last_fence in the vm-bind path instead of kernel managed path.
-> 
-> last_fence is used to wait for work to finish in vm_bind contexts but not
-> used for kernel managed contexts.
-> 
-> This fixes a bug where last_fence is not waited on context close leading
-> to faults as resources are freed while in use.
-> 
-> Fixes: 92395af63a99 ("drm/msm: Add VM_BIND submitqueue")
-> ---
-> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-> ---
-> Changes in v2:
-> - Only update last_fence on vm_bind path
-> - Link to v1: https://lore.kernel.org/r/20251010-close_fence_wait_fix-v1-1-fd3e394dcadd@gmail.com
-> ---
->   drivers/gpu/drm/msm/msm_gem_submit.c | 9 +++++----
->   1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 3ab3b27134f93b01236fec5833a18a6e2ad2cf5e..75d9f357437006ff261db148901e176eae670d41 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -414,6 +414,11 @@ static void submit_attach_object_fences(struct msm_gem_submit *submit)
->   					 submit->user_fence,
->   					 DMA_RESV_USAGE_BOOKKEEP,
->   					 DMA_RESV_USAGE_BOOKKEEP);
-> +
-> +		last_fence = vm->last_fence;
-> +		vm->last_fence = dma_fence_unwrap_merge(submit->user_fence, last_fence);
-> +		dma_fence_put(last_fence);
-> +
->   		return;
->   	}
->   
-> @@ -427,10 +432,6 @@ static void submit_attach_object_fences(struct msm_gem_submit *submit)
->   			dma_resv_add_fence(obj->resv, submit->user_fence,
->   					   DMA_RESV_USAGE_READ);
->   	}
-> -
-> -	last_fence = vm->last_fence;
-> -	vm->last_fence = dma_fence_unwrap_merge(submit->user_fence, last_fence);
-> -	dma_fence_put(last_fence);
->   }
->   
->   static int submit_bo(struct msm_gem_submit *submit, uint32_t idx,
-> 
-> ---
-> base-commit: b5bad77e1e3c7249e4c0c88f98477e1ee7669b63
-> change-id: 20251009-close_fence_wait_fix-00e1c2521eee
-> 
-> Best regards,
+--0000000000003136b206410086f8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+>Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=E5=B9=
+=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=99=E9=81=93=EF=BC=9A
+>On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:
+>> From: Jun Nie <jun.nie@linaro.org>
+>>
+>> Some panels support multiple slice to be sent in a single DSC packet. An=
+d
+>> this feature is a must for specific panels, such as JDI LPM026M648C. Add
+a
+>> dsc_slice_per_pkt member into struct mipi_dsi_device and support the
+>> feature in msm mdss driver.
+>>
+>> Co-developed-by: Jonathan Marek <jonathan@marek.ca>
+>> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+>> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+>> Signed-off-by: Junjie Cao <caojunjie650@gmail.com>
+>> ---
+>>  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+>>  include/drm/drm_mipi_dsi.h         |  2 ++
+>>  2 files changed, 12 insertions(+), 15 deletions(-)
+>
+>Please extract the generic part, so that it can be merged through a
+>generic tree.
+>
 
-Since 6.17 I'm seeing gpu faults that were not present in 6.16, they
-look like [1].
+Sorry, I don't get it.  The generic part, generic tree? Do you mean
+the drm tree? `slice_per_pkt >=3D 2` is seen on the panels of these
+tablets that are equipped with qcom chips. I don't know if these
+panels are used on other platforms, and if it is necessary to do it
+in drm.
 
-I was hoping this patch can fix it, because faults go away if I comment
-out put_iova_spaces() inside msm_gem_close(), and this patch mentions
-close path and faults together, ... but no. Perhaps something else is
-wrong somewhere?
+>--
+>With best wishes
+>Dmitry
 
-[1] https://paste.sr.ht/~minlexx/09a9b3d4bfff3e7be3e96cd88fe8cf34621cb655
-
---
 Regards,
-Alexey Minnekhanov
+Junjie
 
+--0000000000003136b206410086f8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">&gt;Dmitry Baryshkov &lt;<a href=3D"mailto:dmitry.baryshko=
+v@oss.qualcomm.com">dmitry.baryshkov@oss.qualcomm.com</a>&gt; =E4=BA=8E2025=
+=E5=B9=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=99=E9=81=93=EF=
+=BC=9A<br>&gt;On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:<b=
+r>&gt;&gt; From: Jun Nie &lt;<a href=3D"mailto:jun.nie@linaro.org">jun.nie@=
+linaro.org</a>&gt;<br>&gt;&gt;<br>&gt;&gt; Some panels support multiple sli=
+ce to be sent in a single DSC packet. And<br>&gt;&gt; this feature is a mus=
+t for specific panels, such as JDI LPM026M648C. Add a<br>&gt;&gt; dsc_slice=
+_per_pkt member into struct mipi_dsi_device and support the<br>&gt;&gt; fea=
+ture in msm mdss driver.<br>&gt;&gt;<br>&gt;&gt; Co-developed-by: Jonathan =
+Marek &lt;<a href=3D"mailto:jonathan@marek.ca">jonathan@marek.ca</a>&gt;<br=
+>&gt;&gt; Signed-off-by: Jonathan Marek &lt;<a href=3D"mailto:jonathan@mare=
+k.ca">jonathan@marek.ca</a>&gt;<br>&gt;&gt; Signed-off-by: Jun Nie &lt;<a h=
+ref=3D"mailto:jun.nie@linaro.org">jun.nie@linaro.org</a>&gt;<br>&gt;&gt; Si=
+gned-off-by: Junjie Cao &lt;<a href=3D"mailto:caojunjie650@gmail.com">caoju=
+njie650@gmail.com</a>&gt;<br>&gt;&gt; ---<br>&gt;&gt; =C2=A0drivers/gpu/drm=
+/msm/dsi/dsi_host.c | 25 ++++++++++---------------<br>&gt;&gt; =C2=A0includ=
+e/drm/drm_mipi_dsi.h =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A02 ++<br>&gt;&gt; =
+=C2=A02 files changed, 12 insertions(+), 15 deletions(-)<br>&gt;<br>&gt;Ple=
+ase extract the generic part, so that it can be merged through a<br>&gt;gen=
+eric tree.<br>&gt;<br><br>Sorry, I don&#39;t get it.=C2=A0 The generic part=
+, generic tree? Do you mean<br>the drm tree? `slice_per_pkt &gt;=3D 2` is s=
+een on the panels of these<br>tablets that are equipped with qcom chips. I =
+don&#39;t know if these<br>panels are used on other platforms, and if it is=
+ necessary to do it<br>in drm.<br><br>&gt;-- <br>&gt;With best wishes<br>&g=
+t;Dmitry <br><br>Regards,<br>Junjie</div>
+
+--0000000000003136b206410086f8--
