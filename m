@@ -2,79 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FBA7BD97D5
-	for <lists+freedreno@lfdr.de>; Tue, 14 Oct 2025 14:59:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 258F4BD9DB3
+	for <lists+freedreno@lfdr.de>; Tue, 14 Oct 2025 16:04:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6AC010E603;
-	Tue, 14 Oct 2025 12:59:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B364C10E61E;
+	Tue, 14 Oct 2025 14:04:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D5GxntrZ";
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="ZyQO1s+I";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9VLwke00";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC39710E603;
- Tue, 14 Oct 2025 12:59:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 275C043D0A;
- Tue, 14 Oct 2025 12:59:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D81EC4CEF1;
- Tue, 14 Oct 2025 12:59:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760446786;
- bh=ZhISUXySewUzN/ns2FfxFiHN9csHHGyNg0LrJVsNY9Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=D5GxntrZGSVfV8cfOzjBIyQVpgAh8GbR01ne23uHNx1XTCO9lnM4Q5r4tp9aaLJJT
- FC7S+Xit/kxfdxh39Uu1Iv4XJHQamnRoaTkpmyK+vy4GdHOwhaihLx9HM4KtieCxm+
- WimjbnMKDtAxlgtMUdqXRw7+qhEOxgmOs2GtoS2vFXKVKyiqnX2CmA71tiSfwmMg1E
- ZRslKZFVPwaZ881xNcMC8X4fippQtqdGTmavb7fYd6ibSnKoOteYrpX3NRKvs/F8cV
- GH2KRANMCAdF/C8ckLajW1fsorjFaUZONH078XWsdLHjUMCADbJyW3g6dmGzUM00U9
- ullDWMLksH/+A==
-Date: Tue, 14 Oct 2025 14:59:43 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Daniel Stone <daniel@fooishbar.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Liu Ying <victor.liu@nxp.com>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per
- driver capabilities
-Message-ID: <2a5fitdzr2bz235fj6rvqzxr6ckszkjbazjfszlvnizdh2cvbt@w3ypjo7vahhs>
-References: <st6wob5hden6ypxt2emzokfhl3ezpbuypv2kdtf5zdrdhlyjfw@l2neflb4uupo>
- <pe6g2fanw65p67kfy5blbtiytngxmr6nkbazymojs4a66yvpl3@7j4ccnsvc6az>
- <20250910-didactic-honored-chachalaca-f233b2@houat>
- <x562ueky2z5deqqmhl222moyrbylfwi35u4hb34dpl3z52ra4c@dyw4iayrewnz>
- <20250925-fervent-merry-beagle-2baba3@penduick>
- <qx5ashx62pufott6hnsfna3qntnoyvxwxze4rihhuxcsdxi37s@bbdvc3sfsgne>
- <20250929-gregarious-worm-of-memory-c5354d@houat>
- <itgffxygopi7etkt7xhvmyuvyl5ad3k43nsxvjzw3ubtwiikn7@ocugfdaigtu7>
- <20251003-uptight-echidna-of-stamina-815305@houat>
- <zpygq4kapil3swsmhhqkdwny4ry2dznnzixsw5rkza5p2kqnvp@abvf2vxlbwif>
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 311CB10E61D;
+ Tue, 14 Oct 2025 14:04:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Date:Subject:From; t=1760450668; bh=POZJoYeAh9Ape4Vz22iS9RG
+ 4lQbKzFY6rrb0lkpBS60=; b=ZyQO1s+ItIpEJCKAc50L5zX7OpM1v8EQ43mrU5aI8ZrbMO/Bpq
+ +gOeL0xMnouZdOYa1cYPNLgdP3kjUA4Vi5xzCFp7eShX1ExplQORdjrtSNVtibxH/I7vPwywv3s
+ nLiROVRRvnmm9vE+fl/jqWefObFu6UuMnBNDg87dmFJdwSwrTbJ1+4wvtfBbHEHU5qFTItOt6/x
+ NCuZ+7/5+sWA19WER6T2CmeIUGgJNGAxRCjVWGoeBJE2Zg0qxeJOkDBH0m6f9HaG+ywB7dYO8jT
+ gE25LIoCrJxPiH1atiav6VtROmvhsPEdLA7sUeszt7stFulNs6034UCER9UutKUIAGA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Date:Subject:From; t=1760450668; bh=POZJoYeAh9Ape4Vz22iS9RG
+ 4lQbKzFY6rrb0lkpBS60=; b=9VLwke00XwuZlNV4JY4llWmJIgCSGsivffnez+tmhUurwd3RC9
+ TlHnA67EOLZ45l8kZVzvAahT2dnyfUAaFzCA==;
+From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
+ <barnabas.czeman@mainlining.org>
+Subject: [PATCH v10 0/3] Initial support of MSM8937 and Xiaomi Redmi 3S
+Date: Tue, 14 Oct 2025 16:04:23 +0200
+Message-Id: <20251014-msm8937-v10-0-b3e8da82e968@mainlining.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="pv57vmkekis4fyrx"
-Content-Disposition: inline
-In-Reply-To: <zpygq4kapil3swsmhhqkdwny4ry2dznnzixsw5rkza5p2kqnvp@abvf2vxlbwif>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAGdY7mgC/3XRwU7EIBAG4FfZcLaGGdoO48n3MB7oAF0S2zWta
+ TSbfXfpJkoT8TgTvn8YuKo1LCms6ul0VUvY0poucy5AP5yUnN08hib53FCosdMIupnWybKhBtG
+ GqL2YIKzy6fclxPR5j3p5zfU5rR+X5euevMHe/cmA34wNGt2QRwq+p0jaPk8uzW9pTvP4eFlGt
+ QdteMBoCsaMB2bKzd4Eb6rYHHFbsMnYO08CFkVkqOK2YANdwW3GEMFgsKRdy1XcFdziYeduv3Z
+ kSxwitL6O+4Itlkff+h1r1gM6GXoKVUwHbA6TKWM06DgOwG6gKrb/YLtPJi++N+Kckyrmglkfv
+ oozdppJGKSzGv7g2+32Ddw76ZGMAgAA
+X-Change-ID: 20250210-msm8937-228ef0dc3ec9
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, 
+ =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
+ Robert Marko <robimarko@gmail.com>, 
+ Adam Skladowski <a_skl39@protonmail.com>, 
+ Sireesh Kodali <sireeshkodali@protonmail.com>, 
+ Das Srinagesh <quic_gurus@quicinc.com>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, iommu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ linux@mainlining.org, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ Dang Huynh <danct12@riseup.net>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1760450666; l=3812;
+ i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
+ bh=C+I7jRzy1uHJ8YIDmnk3OZCclxRG44SM/5BgAM5ngnA=;
+ b=XwivLAYsPR4LZnKO9q5c7+bFeTDlvdy8G2gZvkodlsKGnvlLS7vSOvbr0krVq648cRwNcCqWl
+ YIJu7HLB0FDAcRgq5zJpbMKQu5gcBUs5V57aEl/Xm8J2+GwBInUz0Uc
+X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
+ pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,293 +102,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This patch series add initial support for MSM8937 SoC
+and Xiaomi Redmi 3S (land).
 
---pv57vmkekis4fyrx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per
- driver capabilities
-MIME-Version: 1.0
+The series is extending the MSM8917 gcc and pinctrl drivers
+because they are sibling SoCs.
+MSM8937 have 4 more A53 cores and have one more dsi port then
+MSM8917.
+It implements little-big architecture and uses Adreno 505.
 
-On Fri, Oct 03, 2025 at 06:54:47PM +0300, Dmitry Baryshkov wrote:
-> On Fri, Oct 03, 2025 at 03:22:23PM +0200, Maxime Ripard wrote:
-> > On Tue, Sep 30, 2025 at 10:02:28AM +0300, Dmitry Baryshkov wrote:
-> > > On Mon, Sep 29, 2025 at 03:00:04PM +0200, Maxime Ripard wrote:
-> > > > On Thu, Sep 25, 2025 at 05:16:07PM +0300, Dmitry Baryshkov wrote:
-> > > > > On Thu, Sep 25, 2025 at 03:13:47PM +0200, Maxime Ripard wrote:
-> > > > > > On Wed, Sep 10, 2025 at 06:26:56PM +0300, Dmitry Baryshkov wrot=
-e:
-> > > > > > > On Wed, Sep 10, 2025 at 09:30:19AM +0200, Maxime Ripard wrote:
-> > > > > > > > On Wed, Sep 03, 2025 at 03:03:43AM +0300, Dmitry Baryshkov =
-wrote:
-> > > > > > > > > On Tue, Sep 02, 2025 at 08:06:54PM +0200, Maxime Ripard w=
-rote:
-> > > > > > > > > > On Tue, Sep 02, 2025 at 06:45:44AM +0300, Dmitry Barysh=
-kov wrote:
-> > > > > > > > > > > On Mon, Sep 01, 2025 at 09:07:02AM +0200, Maxime Ripa=
-rd wrote:
-> > > > > > > > > > > > On Sun, Aug 31, 2025 at 01:29:13AM +0300, Dmitry Ba=
-ryshkov wrote:
-> > > > > > > > > > > > > On Sat, Aug 30, 2025 at 09:30:01AM +0200, Daniel =
-Stone wrote:
-> > > > > > > > > > > > > > Hi Dmitry,
-> > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > On Sat, 30 Aug 2025 at 02:23, Dmitry Baryshkov
-> > > > > > > > > > > > > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > > > > > > > > > > > > > > It's not uncommon for the particular device t=
-o support only a subset of
-> > > > > > > > > > > > > > > HDMI InfoFrames. It's not a big problem for t=
-he kernel, since we adopted
-> > > > > > > > > > > > > > > a model of ignoring the unsupported Infoframe=
-s, but it's a bigger
-> > > > > > > > > > > > > > > problem for the userspace: we end up having f=
-iles in debugfs which do
-> > > > > > > > > > > > > > > mot match what is being sent on the wire.
-> > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > Sort that out, making sure that all interface=
-s are consistent.
-> > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > Thanks for the series, it's a really good clean=
-up.
-> > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > I know that dw-hdmi-qp can support _any_ infofr=
-ame, by manually
-> > > > > > > > > > > > > > packing it into the two GHDMI banks. So the sup=
-ported set there is
-> > > > > > > > > > > > > > 'all of the currently well-known ones, plus any=
- two others, but only
-> > > > > > > > > > > > > > two and not more'. I wonder if that has any eff=
-ect on the interface
-> > > > > > > > > > > > > > you were thinking about for userspace?
-> > > > > > > > > > > > >=20
-> > > > > > > > > > > > > I was mostly concerned with the existing debugfs =
-interface (as it is
-> > > > > > > > > > > > > also used e.g. for edid-decode, etc).
-> > > > > > > > > > > > >=20
-> > > > > > > > > > > > > It seems "everything + 2 spare" is more or less c=
-ommon (ADV7511, MSM
-> > > > > > > > > > > > > HDMI also have those. I don't have at hand the pr=
-oper datasheet for
-> > > > > > > > > > > > > LT9611 (non-UXC one), but I think its InfoFrames =
-are also more or less
-> > > > > > > > > > > > > generic).  Maybe we should change debugfs integra=
-tion to register the
-> > > > > > > > > > > > > file when the frame is being enabled and removing=
- it when it gets unset.
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > But, like, for what benefit?
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > It's a debugfs interface for userspace to consume. =
-The current setup
-> > > > > > > > > > > > works fine with edid-decode already. Why should we =
-complicate the design
-> > > > > > > > > > > > that much and create fun races like "I'm running ed=
-id-decode in parallel
-> > > > > > > > > > > > to a modeset that would remove the file I just open=
-ed, what is the file
-> > > > > > > > > > > > now?".
-> > > > > > > > > > >=20
-> > > > > > > > > > > Aren't we trading that with the 'I'm running edid-dec=
-ode in paralle with
-> > > > > > > > > > > to a modeset and the file suddenly becomes empty'?
-> > > > > > > > > >=20
-> > > > > > > > > > In that case, you know what the file is going to be: em=
-pty. And you went
-> > > > > > > > > > from a racy, straightforward, design to a racy, complic=
-ated, design.
-> > > > > > > > > >=20
-> > > > > > > > > > It was my question before, but I still don't really see=
- what benefits it
-> > > > > > > > > > would have, and why we need to care about it in the cor=
-e, when it could
-> > > > > > > > > > be dealt with in the drivers just fine on a case by cas=
-e basis.
-> > > > > > > > >=20
-> > > > > > > > > Actually it can not: debugfs files are registered from th=
-e core, not
-> > > > > > > > > from the drivers. That's why I needed all the supported_i=
-nfoframes
-> > > > > > > > > (which later became software_infoframes).
-> > > > > > > >=20
-> > > > > > > > That's one thing we can change then.
-> > > > > > > >=20
-> > > > > > > > > Anyway, I'm fine with having empty files there.
-> > > > > > > > >=20
-> > > > > > > > > > > > > Then in the long run we can add 'slots' and alloc=
-ate some of the frames
-> > > > > > > > > > > > > to the slots. E.g. ADV7511 would get 'software AV=
-I', 'software SPD',
-> > > > > > > > > > > > > 'auto AUDIO' + 2 generic slots (and MPEG InfoFram=
-e which can probably be
-> > > > > > > > > > > > > salvaged as another generic one)). MSM HDMI would=
- get 'software AVI',
-> > > > > > > > > > > > > 'software AUDIO' + 2 generic slots (+MPEG + obsuc=
-re HDMI which I don't
-> > > > > > > > > > > > > want to use). Then the framework might be able to=
- prioritize whether to
-> > > > > > > > > > > > > use generic slots for important data (as DRM HDR,=
- HDMI) or less important
-> > > > > > > > > > > > > (SPD).
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > Why is it something for the framework to deal with?=
- If you want to have
-> > > > > > > > > > > > extra infoframes in there, just go ahead and create=
- additional debugfs
-> > > > > > > > > > > > files in your driver.
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > If you want to have the slot mechanism, check in yo=
-ur atomic_check that
-> > > > > > > > > > > > only $NUM_SLOT at most infoframes are set.
-> > > > > > > > > > >=20
-> > > > > > > > > > > The driver can only decide that 'we have VSI, SPD and=
- DRM InfoFrames
-> > > > > > > > > > > which is -ETOOMUCH for 2 generic slots'. The framewor=
-k should be able to
-> > > > > > > > > > > decide 'the device has 2 generic slots, we have HDR d=
-ata, use VSI and
-> > > > > > > > > > > DRM InfoFrames and disable SPD for now'.
-> > > > > > > > > >=20
-> > > > > > > > > > I mean... the spec does? The spec says when a particula=
-r feature
-> > > > > > > > > > requires to send a particular infoframe. If your device=
- cannot support
-> > > > > > > > > > to have more than two "features" enabled at the same ti=
-me, so be it. It
-> > > > > > > > > > something that should be checked in that driver atomic_=
-check.
-> > > > > > > > >=20
-> > > > > > > > > Sounds good to me. Let's have those checks in the drivers=
- until we
-> > > > > > > > > actually have seveal drivers performing generic frame all=
-ocation.
-> > > > > > > > >=20
-> > > > > > > > > > Or just don't register the SPD debugfs file, ignore it,=
- put a comment
-> > > > > > > > > > there, and we're done too.
-> > > > > > > > >=20
-> > > > > > > > > It's generic code.
-> > > > > > > > >=20
-> > > > > > > > > > > But... We are not there yet and I don't have clear us=
-ecase (we support
-> > > > > > > > > > > HDR neither on ADV7511 nor on MSM HDMI, after careful=
-ly reading the
-> > > > > > > > > > > guide I realised that ADV7511 has normal audio infofr=
-ames). Maybe I
-> > > > > > > > > > > should drop all the 'auto' features, simplifying this=
- series and land
-> > > > > > > > > > > [1] for LT9611UXC as I wanted origianlly.
-> > > > > > > > > > >=20
-> > > > > > > > > > > [1] https://lore.kernel.org/dri-devel/20250803-lt9611=
-uxc-hdmi-v1-2-cb9ce1793acf@oss.qualcomm.com/
-> > > > > > > > > >=20
-> > > > > > > > > > Looking back at that series, I think it still has value=
- to rely on the
-> > > > > > > > > > HDMI infrastructure at the very least for the atomic_ch=
-eck sanitization.
-> > > > > > > > > >=20
-> > > > > > > > > > But since you wouldn't use the generated infoframes, ju=
-st skip the
-> > > > > > > > > > debugfs files registration. You're not lying to userspa=
-ce anymore, and
-> > > > > > > > > > you get the benefits of the HDMI framework.
-> > > > > > > > >=20
-> > > > > > > > > We create all infoframe files for all HDMI connectors.
-> > > > > > > >=20
-> > > > > > > > Then we can provide a debugfs_init helper to register all o=
-f them, or
-> > > > > > > > only some of them, and let the drivers figure it out.
-> > > > > > > >=20
-> > > > > > > > Worst case scenario, debugfs files will not get created, wh=
-ich is a much
-> > > > > > > > better outcome than having to put boilerplate in every driv=
-er that will
-> > > > > > > > get inconsistent over time.
-> > > > > > >=20
-> > > > > > > debugfs_init() for each infoframe or taking some kind of bitm=
-ask?
-> > > > > >=20
-> > > > > > I meant turning hdmi_debugfs_add and create_hdmi_*_infoframe_fi=
-le into
-> > > > > > public helpers. That way, drivers that don't care can use the (=
-renamed)
-> > > > > > hdmi_debugfs_add, and drivers with different constraints can re=
-gister
-> > > > > > the relevant infoframes directly.
-> > > > >=20
-> > > > > Doesn't that mean more boilerplate?
-> > > >=20
-> > > > I don't think it would? In the general case, it wouldn't change
-> > > > anything, and in special cases, then it's probably going to be diff=
-erent
-> > > > from one driver to the next so there's not much we can do.
-> > > >=20
-> > > > > In the end, LT9611UXC is a special case, for which I'm totally fi=
-ne
-> > > > > not to use HDMI helpers at this point: we don't control infoframes
-> > > > > (hopefully that can change), we don't care about the TMDS clock, =
-no
-> > > > > CEC, etc.
-> > > >=20
-> > > > Not using the helpers sound pretty reasonable here too.
-> > > >=20
-> > > > > For all other usecases I'm fine with having atomic_check() unset =
-all
-> > > > > unsupported infoframes and having empty files in debugfs. Then we=
- can
-> > > > > evolve over the time, once we see a pattern. We had several drive=
-rs
-> > > > > which had very limited infoframes support, but I think this now g=
-ets
-> > > > > sorted over the time.
-> > > >=20
-> > > > I never talked about atomic_check()? You were initially concerned t=
-hat
-> > > > the framework would expose data in debugfs that it's not using. Not
-> > > > registering anything in debugfs solves that, but I'm not sure we ne=
-ed to
-> > > > special case atomic_check.
-> > >=20
-> > > Well... I ended up with [1], handling infoframes in the atomic_check()
-> > > rather than registering fewer infoframe debugfs files. This way device
-> > > state is consistent, we don't have enabled instances, etc. However it
-> > > results in repetetive code in atomic_check().
-> > >=20
-> > > [1] https://lore.kernel.org/dri-devel/20250928-limit-infoframes-2-v2-=
-0-6f8f5fd04214@oss.qualcomm.com/
-> >=20
-> > I guess we can continue the discussion there, but I'm not sure we want
-> > to have more boilerplate in drivers, and especially in the atomic_check
-> > part. If drivers are inconsistent or wrong in the debugfs path, there's
-> > no major issue. If they are wrong in the atomic_check path, it will lead
-> > to regressions, possibly in paths that are pretty hard to test.
->=20
-> You've responded there and I can drop the extra handling for HDR DRM and
-> audio infoframes in the atomic_check(). What is your opinion about the
-> atomic_check() unsetting the infoframe->set for SPD and HDMI infoframes?
+Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+---
+Changes in v10:
+- Rebase on latest next.
+- Remove applied patches.
+- Link to v9: https://lore.kernel.org/r/20250903-msm8937-v9-0-a097c91c5801@mainlining.org
 
-HDMI infoframes are mandatory, so that's a big no-no.
+Changes in v9:
+- msm8937:
+  - Update vbif size to 0x3000.
+  - Update qfprom size to 0x3000.
+  - Remove extra line below wcnss-wlan2-pins.
+  - Update gpu_speedbin address to 0x201b.
+- qcom.yaml: Rebase on latest next.
+- Link to v8: https://lore.kernel.org/r/20250831-msm8937-v8-0-b7dcd63caaac@mainlining.org
 
-For SPD, It's really not clear to me why atomic_check should do that in
-the first place. Your initial concern was about exposing infoframes in
-debugfs that wouldn't be used by the driver.
+Changes in v8:
+- msm8937:
+  - Fix scm compatible.
+  - Fix position of sram@60000 node.
+- Document qcom,scm-msm8937 compatible
+- Link to v7: https://lore.kernel.org/r/20250831-msm8937-v7-0-232a9fb19ab7@mainlining.org
 
-If the driver doesn't register a debugfs file for SPD, and ignores
-whatever is in the atomic state, what's should we force drivers to do
-that?
+Changes in v7:
+- gpu.yaml: update adreno 505 pattern
+- Link to v6: https://lore.kernel.org/r/20250820-msm8937-v6-0-b090b2acb67e@mainlining.org
 
-Maxime
+Changes in v6:
+- msm8937:
+  - Fix nodes ordering.
+  - Format clocks, reg, dmas and -names properties.
+  - Add gpu_speedbin.
+- Describe A505 clocks.
+- Link to v5: https://lore.kernel.org/r/20250421-msm8937-v5-0-bf9879ef14d9@mainlining.org
 
---pv57vmkekis4fyrx
-Content-Type: application/pgp-signature; name="signature.asc"
+Changes in v5:
+- msm8937:
+  - Remove wrongly defined idle-states.
+  - Fix thermal zones.
+  - Use the header with DSI phy clock IDs.
+  - Fix the nodes order.
+  - Fix the pinctrls style.
+  - Follow gcc header changes.
+- msm8937-xiaomi-land:
+  - Remove headphone switch and speaker amplifier bindings.
+  - Unify status property style.
+- gcc bindings:
+  - Expand MSM8953 gcc schema with MSM8937.
+  - Add MSM8937 prefix for MSM8937 specific clocks.
+- gcc:
+  - Follow the bindings changes.
+- Drop alwayson clock documentation it will be handled in another
+  patchset.
+- Link to v4: https://lore.kernel.org/r/20250315-msm8937-v4-0-1f132e870a49@mainlining.org
 
------BEGIN PGP SIGNATURE-----
+Changes in v4:
+- Add missing rpmcc include for qcom,gcc-msm8937 dtbinding exmaple.
+- msm8937: add missing space after s9-p1@230
+- msm8937-xiaomi-land: replace LED_FUNCTION_INDICATOR to LED_FUNCTION_STATUS
+- Remove applied patches
+- Link to v3: https://lore.kernel.org/r/20250224-msm8937-v3-0-dad7c182cccb@mainlining.org
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaO5JPwAKCRAnX84Zoj2+
-duEAAX9yKv7uO8VdcjYR4Kwp6gikm4F/ln5YezNtMS7ZHqhWc+NrtUr5L8x46LXk
-I/EVxMMBf1r9Titw4ePMiR4JKKB6wRidwH6Of9oE3SGDW33XlGXF4J2CPSg6crPm
-SdIMbyrDLA==
-=8YRt
------END PGP SIGNATURE-----
+Changes in v3:
+- Fix qcom,gcc-msm8937 dtbinding example 
+- Link to v2: https://lore.kernel.org/r/20250223-msm8937-v2-0-b99722363ed3@mainlining.org
 
---pv57vmkekis4fyrx--
+Changes in v2:
+- drop applied patches
+- drop gcc schema commits infavor of a new schema for gcc-msm8937
+- document always on clock for adreno 505/506/510
+- msm8937:
+  - set cache size
+  - rename cpu labels
+  - fix style issues addressed by review
+- msm8937-xiaom-land:
+  - remove unused serial0 alias
+  - remove regulator-always-on from pm8937_l6
+  - add blue indicator led for aw2013
+- Link to v1: https://lore.kernel.org/r/20250211-msm8937-v1-0-7d27ed67f708@mainlining.org
+
+---
+Barnabás Czémán (2):
+      dt-bindings: arm: qcom: Add Xiaomi Redmi 3S
+      arm64: dts: qcom: Add Xiaomi Redmi 3S
+
+Dang Huynh (1):
+      arm64: dts: qcom: Add initial support for MSM8937
+
+ Documentation/devicetree/bindings/arm/qcom.yaml  |    6 +
+ arch/arm64/boot/dts/qcom/Makefile                |    1 +
+ arch/arm64/boot/dts/qcom/msm8937-xiaomi-land.dts |  381 ++++
+ arch/arm64/boot/dts/qcom/msm8937.dtsi            | 2133 ++++++++++++++++++++++
+ 4 files changed, 2521 insertions(+)
+---
+base-commit: 52ba76324a9d7c39830c850999210a36ef023cde
+change-id: 20250210-msm8937-228ef0dc3ec9
+
+Best regards,
+-- 
+Barnabás Czémán <barnabas.czeman@mainlining.org>
