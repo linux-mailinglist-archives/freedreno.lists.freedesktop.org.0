@@ -2,91 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CBF0BD91D7
-	for <lists+freedreno@lfdr.de>; Tue, 14 Oct 2025 13:52:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 715B1BD9231
+	for <lists+freedreno@lfdr.de>; Tue, 14 Oct 2025 13:55:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC6410E5B2;
-	Tue, 14 Oct 2025 11:52:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2103510E5B8;
+	Tue, 14 Oct 2025 11:55:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="p/KryFUe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ac0wAHH2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A804E10E21D
- for <freedreno@lists.freedesktop.org>; Tue, 14 Oct 2025 11:52:12 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-46e48d6b95fso46024885e9.3
- for <freedreno@lists.freedesktop.org>; Tue, 14 Oct 2025 04:52:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1760442731; x=1761047531; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=S5kwp6ZoI0Qw9Lio9IILJuSek2MXZc7hvFxHIxIa6Qg=;
- b=p/KryFUeMcYglQCJw0BYhA9jm5vC+BqZxL4EmRRwKUOJTnmXXCadctkFGix5rNQuIy
- UVP6UlbCBoQbcN19fbTk+9foInLQWZ2z3bTb6kHGlaMzDwT9dtOLehh8CMDwCanw6Pni
- 4nPcSZChj8cSWjMDPd3EhWLgLN/YkmL3F+p6iybJfhlsLt+4PGG5QNtQUlkdR+bEYr5N
- DGWx9extvX+co/qXToAyKbhHTDq0K2H8jajBWtQEAcfz+/xN6UJdMtP+yTTX2mLjN+SY
- W8cUC66+EwgpljqL9hl6Kz9eZLIqW68KYrQjpkgZy8qqdsrjN8gXykirfkFgsb4Gy+3p
- qtgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760442731; x=1761047531;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=S5kwp6ZoI0Qw9Lio9IILJuSek2MXZc7hvFxHIxIa6Qg=;
- b=P5mPfsrEFxfHhqxm8PRjJWmyS/RU6MI9wOAnO7mt1QdhTfYDfhrcMBEkv+a22bm+FE
- GQStBgYD1rGAKv7li8zex+xw8NBNVAk9+Ig3OU/BxThNoG9L/rYIj7pkpSD/DP6Klg/G
- PCPUfkFDJ5xf5iClbLLouIgF4rh0nZiRurp+qIZEuEoKR5XjzHBbyl/MeonipfcxcCFR
- Z+ZNQ2Ru9qL8pUG21/3V9hL90RnymbDcCmUDX9kLWFJZ9fV6+57EpQU95JcmtBeBu4ts
- DoKQxi1uMevNWnxgAkUmbeiu1mHKib7VzrfFh9ANkEwOFj8lj0vk+UcZ7YgeVEBoydz9
- 7y6g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVzhrC9qfMfAq0jOQRnN1HV/h3eIXD7/5/Rz35O2FrF6AbuZB7y0U5PJyE2zl/sjfbWbHOQNeqEzU0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy2sgM9X94QprTkFla/lQvkbLyhPAhNYUfidWUf14cnFZC8m1eF
- xlNveXwPDp2aRUKUvQGfRYoZjDQ6c4IObtTce/6aIHxfZ3ETRQT7UuJSG8gXi8maUxU=
-X-Gm-Gg: ASbGncuXvP9I35CPArGbAnZsxQwuZKgHPgmS3YMJ2C1aJZGmAQCHttbigpK5RA3ZhU9
- qZcMTe65ByPK/7wFtPy/0BoZ5MqjheHMn/JolS9VAk6XbOdopgW4VdxpS3v51aWejtpouVOjUj2
- S4SNIOhgXCRzzWgMa6eVZTB7IpAaq0MLZ762on1wmgSl1t0LIR1Sx26qzRajy80YQcxxrAbyvjj
- zdc+jx12wZ+TzL6acNxJi2M7/caOHngBNsR+ps/UY9u7ae92wP0ONV1oG9nFAhYdoSMYU+TkG20
- nDcjF1onhmROjBNFiZDP2kEFryppZ7sOcAb46ytn1qSgkrMlH5olCgUYHPGHnkho46/NVIJWUqU
- 2yThHKEMmhbCYuvxiH87qB0fQ9r/JyP9Q0BMcZdOGkmdwc3yretRE
-X-Google-Smtp-Source: AGHT+IE0T5cvpE7QhDWujs9OdISYV+M+qLIfcBtU5FuqXOEPjcO1IUVOft+IiRF/W2H0Fcynpk8rfA==
-X-Received: by 2002:a05:600c:3b29:b0:46e:7e22:ff6a with SMTP id
- 5b1f17b1804b1-46fa9aa1d79mr180603815e9.15.1760442731072; 
- Tue, 14 Oct 2025 04:52:11 -0700 (PDT)
-Received: from linaro.org ([86.121.7.169]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fb489af92sm255991685e9.17.2025.10.14.04.52.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Oct 2025 04:52:09 -0700 (PDT)
-Date: Tue, 14 Oct 2025 14:52:07 +0300
-From: Abel Vesa <abel.vesa@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95E2B10E5B8;
+ Tue, 14 Oct 2025 11:55:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 415EE45C1B;
+ Tue, 14 Oct 2025 11:55:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0A51FC116C6;
+ Tue, 14 Oct 2025 11:55:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1760442912;
+ bh=5QysjArlLvVj9vb89PbOImCsPn/7ZhWrnV4+464hrmE=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=ac0wAHH2aFmFtmfTHPJZ6KesAwUtuRXczDE5adklRM2lyxGcHuqUcZW+UytrprKYc
+ Sh6dCAR6olS5UnDjX1afigGkUxTA2MQZIlqXcOGH29FL8Rr3gPhc0Qjq3zDWhdl7CQ
+ V9OwgbTjtYlX007qVigAP23lJaNX1lhUvz6SuNcoEvgJKsn5y8mxHQS1RqPkzLP9in
+ Fb9Wba7CtyHA+iasVQHzfr46uKaK7z1w+cjR5QsPiAo7znJ757XsYswa9WUMMQRKnb
+ MCCKfilHpynJyQq8LeucgqewJM0z5qrQkr6uTOA97BCdy3h3dLe8Cqwz5XOfdKqh/X
+ dAhbEsYAF3TwA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id E7816CCD18E;
+ Tue, 14 Oct 2025 11:55:11 +0000 (UTC)
+From: Xiangxu Yin via B4 Relay
+ <devnull+xiangxu.yin.oss.qualcomm.com@kernel.org>
+Subject: [PATCH v3 0/3] Add DisplayPort support to QCS615 devicetree
+Date: Tue, 14 Oct 2025 19:54:53 +0800
+Message-Id: <20251014-add-displayport-support-to-qcs615-devicetree-v3-0-74ec96ba8144@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABI67mgC/53RQWrDMBAF0KsYrasgjW05DqXkHqULWRo3AttyJ
+ MU0hNy9Y5uUlqbQdiVmFv8xXxcWMTiMbJddWMDJRecHGvKHjJmDHl6RO0szAwGlFLLg2lpuXRw
+ 7fR59SDyexuVNnh9NVLLklmIMpoDI0WhtFVRatJpR5BiwdW8L9/xC88HF5MN50Sc5b2eokCDF3
+ 6BJcsEFtNtC12CKotkfT864wWyM79lMTXCL/8cdE1C8BFHbtipsIcXex7g5nnRH8f1qXNf7ApI
+ cXVqPZD3GqJcWd9njjIta5J/xD7j14SbTPtHY82lLblVX0ojSSlDwzX2aa72DSLUiIzd+SMF3H
+ YYvVOxJEnzKueTWKoFNY6kY/LUA6scO755S0SnWlGi1NspAcx9qdEQ+b1zaZSU0ulI50KdaKvj
+ 6DinT/4yuAgAA
+X-Change-ID: 20251014-add-displayport-support-to-qcs615-devicetree-ecaad627a0fa
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/6] dt-bindings: display: msm: Document the Glymur
- DiplayPort controller
-Message-ID: <mugh42lzc64wfkcacwo3z3pj7o5m3gx2ksjh47q3q6gu5dwqly@vfvs2n3czy6v>
-References: <20250911-glymur-display-v1-0-d391a343292e@linaro.org>
- <20250911-glymur-display-v1-3-d391a343292e@linaro.org>
- <mgbv5zoptfox664jswi3imvibrd7d2teazeuied37dw3ooiex5@lli2bsap7d3x>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <mgbv5zoptfox664jswi3imvibrd7d2teazeuied37dw3ooiex5@lli2bsap7d3x>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, fange.zhang@oss.qualcomm.com, 
+ yongxing.mou@oss.qualcomm.com, li.liu@oss.qualcomm.com, 
+ Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1760442909; l=3363;
+ i=xiangxu.yin@oss.qualcomm.com; s=20241125; h=from:subject:message-id;
+ bh=5QysjArlLvVj9vb89PbOImCsPn/7ZhWrnV4+464hrmE=;
+ b=wbbBrLhaT6QyslhYkCjUI2mN5i8ELMJLggyOoZlHW8kIDq0z7x+VHPMBLQtOkF3LhDqjIGFUk
+ k5yKtzyOoUIAnlTuFwIXhvfsSl9vlACtsWNgjq4gDcHFxWC6Nr/rTBv
+X-Developer-Key: i=xiangxu.yin@oss.qualcomm.com; a=ed25519;
+ pk=F1TwipJzpywfbt3n/RPi4l/A4AVF+QC89XzCHgZYaOc=
+X-Endpoint-Received: by B4 Relay for xiangxu.yin@oss.qualcomm.com/20241125
+ with auth_id=542
+X-Original-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,19 +89,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: xiangxu.yin@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25-09-11 16:01:30, Dmitry Baryshkov wrote:
-> On Thu, Sep 11, 2025 at 03:28:50PM +0300, Abel Vesa wrote:
-> > Document the DisplayPort controller found in the Qualcomm Glymur SoC.
-> > There are 4 controllers and their base addresses and layouts differ,
-> > therefore being incompatible with all previous platforms.
-> 
-> ... and it's a new core revision.
-> 
-> BTW: any additional clocks or regions for DP?
+This series enables DisplayPort functionality on QCS615 platforms.
+It introduces the required bindings, updates SM6150 dtsi for DP controller
+and QMP USB3-DP PHY, and enables DP on the QCS615 Ride board with 
+connector and link configuration.
 
-No new regions and AFAICT no new clocks.
+Depends-on:
+https://lore.kernel.org/all/20250903-add-display-support-for-qcs615-platform-v8-1-7971c05d1262@oss.qualcomm.com/
+https://lore.kernel.org/all/20250916-add-dp-controller-support-for-sm6150-v3-1-dd60ebbd101e@oss.qualcomm.com/
+https://lore.kernel.org/all/20250926-add-displayport-support-for-qcs615-platform-v7-1-dc5edaac6c2b@oss.qualcomm.com/
 
-Sorry for the late reply.
+Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+---
+Changes in v3:
+- Move data-lanes from board DTS to SoC DTS [Dmitry]
+- Add missing assigned-clock PIXEL1_CLK_SRC [Dmitry]
+- Update subject prefix to qcom: qcs615-ride: for DTS patch [Konrad]
+- Link to v2: https://lore.kernel.org/r/20251014-add-displayport-support-to-qcs615-devicetree-v2-0-1209df74d410@oss.qualcomm.com
+
+Changes in v2:
+- Update register padding and ordering [Dmitry]
+- Rebase the series on the latest driver
+- Link to v1: https://lore.kernel.org/all/20241210-add-displayport-support-to-qcs615-devicetree-v1-0-02f84a92c44b@quicinc.com/
+
+---
+Xiangxu Yin (3):
+      dt-bindings: display/msm: Add SM6150 DisplayPort controller
+      arm64: dts: qcom: Add DisplayPort and QMP USB3DP PHY for SM6150
+      arm64: dts: qcom: qcs615-ride: Enable DisplayPort
+
+ .../bindings/display/msm/qcom,sm6150-mdss.yaml     |  11 ++
+ arch/arm64/boot/dts/qcom/qcs615-ride.dts           |  30 ++++++
+ arch/arm64/boot/dts/qcom/sm6150.dtsi               | 113 ++++++++++++++++++++-
+ 3 files changed, 152 insertions(+), 2 deletions(-)
+---
+base-commit: 52ba76324a9d7c39830c850999210a36ef023cde
+change-id: 20251014-add-displayport-support-to-qcs615-devicetree-ecaad627a0fa
+prerequisite-message-id: <20250903-add-display-support-for-qcs615-platform-v8-0-7971c05d1262@oss.qualcomm.com>
+prerequisite-patch-id: 58be7053007469980bd7cc9fe315b66bbe021c31
+prerequisite-patch-id: 3c2120117f72c64f69beff32c0239fbc7f808f36
+prerequisite-message-id: <20250916-add-dp-controller-support-for-sm6150-v3-1-dd60ebbd101e@oss.qualcomm.com>
+prerequisite-patch-id: eb07ea58347e77ee18fb6dade040affb0ab68954
+prerequisite-message-id: <20250926-add-displayport-support-for-qcs615-platform-v7-0-dc5edaac6c2b@oss.qualcomm.com>
+prerequisite-patch-id: 8c6c905df7ee55a92a4e52362c8fa7cd9742de04
+prerequisite-patch-id: 0dba0fafd032bbd6cd117175f61efd1e56ae9228
+prerequisite-patch-id: d954b18774cfc0cfdb23de09aab3c56cefb8e1ea
+prerequisite-patch-id: 13f2d2efbcee6337001b5f8519a6da9a41d05276
+prerequisite-patch-id: 3a7144645ede23ccc7d54420e5a32e5bfa3bb776
+prerequisite-patch-id: b3ea55e92953c1526eaf7c5c21d939a5f8502711
+prerequisite-patch-id: 977189ef7cecbe7237175a8ef611fffb814193b0
+prerequisite-patch-id: 3a12c1b4f00eb1d074e51d586f2dae3a44de0613
+prerequisite-patch-id: 7f80e93057c1fd088ac6b4b0652cdfe2ea221cd5
+prerequisite-patch-id: 8b29d292717782982e4450a509f4428fe6e895f2
+prerequisite-patch-id: 621c3ba6bcf5b5782a5264faed72fdadfd47c630
+prerequisite-patch-id: 9c63f2c5bb39527e3031b2d168e3c9419441e8df
+prerequisite-patch-id: 364f6a7d8f4e1bc79a8f236b8d5a2425ffd225fe
+prerequisite-patch-id: eb09ea48625b5c0d39ffb37babe7d8c32a4b3122
+
+Best regards,
+-- 
+Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+
+
