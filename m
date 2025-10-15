@@ -2,127 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 743F9BDBFD8
-	for <lists+freedreno@lfdr.de>; Wed, 15 Oct 2025 03:35:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22B8CBDC110
+	for <lists+freedreno@lfdr.de>; Wed, 15 Oct 2025 03:54:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E503810E6C7;
-	Wed, 15 Oct 2025 01:35:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62E4E10E6CA;
+	Wed, 15 Oct 2025 01:54:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WkHXfgjX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="doR6YQP0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4813C10E6C7
- for <freedreno@lists.freedesktop.org>; Wed, 15 Oct 2025 01:35:20 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59EKRtMs017110
- for <freedreno@lists.freedesktop.org>; Wed, 15 Oct 2025 01:35:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- k2n5J3Jvlq5ovhLn5DGN5KkteKpvoUV0qo2PgJM6Fp0=; b=WkHXfgjXNdO/iuhp
- iSWmUM3w50cjnd4o7FH7Yc7dq20uzSaIAHKnp766ugBFJbUpt/i+WluFzWTu4wWp
- IcY1HybFxkhHF2Ck2kRyeljJhsliSzo/gkQe66b90M15G9LdbKmJSVU+ypnmvL7K
- 01DcAPUvK6sSRvTnOIrZ3M2NwYI/fjUR2P7yMWXVmsohrFNApmm39hsqnGdjl+3t
- 80PL6jhZGrbor9cqVMql3jDzipq6lT4iRFhUNOAzVDux4vW49Aj3Y990UlOOQUmy
- AQwd/2H2aETVxO1u6lr2RBDXcc+Q4My+zdZ9bCQkRgS4uR4+zampQ/zvEN9t0STt
- T7zupg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49qg0c2jqk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 15 Oct 2025 01:35:19 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-33085284badso1987098a91.1
- for <freedreno@lists.freedesktop.org>; Tue, 14 Oct 2025 18:35:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760492119; x=1761096919;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=k2n5J3Jvlq5ovhLn5DGN5KkteKpvoUV0qo2PgJM6Fp0=;
- b=rrN8zko2HPxO48d7qYN4HY2VKpKsBgopYLn9GgslI3hMifqdXmFfAtTFS9rju7X8uK
- P+mPxBr/qSEffNxYr0L3yHDM1iLuaDG2lDnQeJCQY3pGQ5rgTQdEbqKKrO23N7eyYr6Y
- 9MUd4BJUW36VlXmP2JvDN2Leho3zL1W8v/ZQTJnOh4pYgRa/IjIGhVyUx87zgz4lNA3N
- 59wq02IuJuquJOkSZBnw2pmL9os7YMRmK9GFP6nQTKV74fNCiBVnFkdlvse/WycIUk8s
- mSWCU/WHZ4PvWtVRlFGpJGTOyxxsy0wM8pA6HqE616XHwl42chuvGfVLJ+YC6gXKcAIh
- /rJA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUkrYh/1L21a1GAaW/ywfolztdXTcvFcpnjr8ksOysNTm11JEBmZOV+uD3YDlUCsNnlPINM69lAJt8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwdDvqvq5ylh8ILnk2TurD1Rb6kpUniEKLE9/wdVosU9e4FsMQK
- pt8lDMcSf/kwRxFMtxaugVVjkWmSrJwtOLA3WW9DVe+/u9A79RfhA6Evm0xo3wwPHMBJH9AA7Kn
- RCiVcKK9CCmM2QBpfEforql6f4u3bQUL4aOlF0Ndgs28TY2f8g08yTC+6OA6szUgphDzoxeU=
-X-Gm-Gg: ASbGnctKCUxHqxlt+YBuU4+sJns1FSIvotBNcxDQaeXz719afHkr72E7f/5Dq++laAW
- XexQSLQCXAXmSz3XzEYsRK22XAopLkM7f2zVuJ2bdEMA0CsnQJH4UkP7eHYO00loVYjFvEhM7IO
- m7LZmLF5VsqSYLhMP7AZRJ2ZsJlSUmpnPlfhGp/1+iapUBV/N4ejhtIwqobC80oN2No7BmywClp
- ZN4cy/A7Toe+oxczPx56orDcovSIpiOXvbOVdrpk3ZgdyrnFtJBmE1lEAwczGxqkKE7qQzqrl9R
- UlKmyd8cebSCb5v1t6425MZMTdfilO+dXVW9zf/0OiB/34P5UFiJr4Pv5C64sD0SmJ8ovbAiLw2
- SQAuK47XKo2HKNygraohGnQAtjXx9lkVgeUI=
-X-Received: by 2002:a17:90b:1d10:b0:32b:dfd7:e42c with SMTP id
- 98e67ed59e1d1-33b95dfc275mr970066a91.5.1760492118740; 
- Tue, 14 Oct 2025 18:35:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHc+CZt0xREG6/4LPwJm/Rd0O6qubFBGwHV4l8y5dMCUoHmdZH14Lg5AhY6jiw29nPPSwGWyA==
-X-Received: by 2002:a17:90b:1d10:b0:32b:dfd7:e42c with SMTP id
- 98e67ed59e1d1-33b95dfc275mr970028a91.5.1760492118252; 
- Tue, 14 Oct 2025 18:35:18 -0700 (PDT)
-Received: from [10.133.33.159] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b678df7e1d1sm13305597a12.40.2025.10.14.18.35.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Oct 2025 18:35:17 -0700 (PDT)
-Message-ID: <fb83f6b4-019d-4dca-86d5-87ed018153a3@oss.qualcomm.com>
-Date: Wed, 15 Oct 2025 09:35:08 +0800
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A01C310E257;
+ Wed, 15 Oct 2025 01:54:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2DDF443AF8;
+ Wed, 15 Oct 2025 01:54:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ECB52C4CEE7;
+ Wed, 15 Oct 2025 01:54:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1760493282;
+ bh=+vEmGWQQrDRoUOjcjCvVy31byqjOMqF0O0P7SdUqhAk=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=doR6YQP0p3imKKSDU5voYElw78pLSUFVYz6eJEaRUVDuAzXXexX7gpLL9WMi9vBaE
+ uIxYTGsi3MjvSiWrIGN9MrP9kPI/b/lU3Qg/6C2mqu+K3szCXRDQxI41t5UdB7YqCc
+ ZmUVvJhVQW8HGojGjg3HfcRF6zPsGBFi2Yul9WGNAZNY6xhZqLb+A1ZUympa8VHPR/
+ A80VLGK0mG11eTUlAPAFuTevABFEQAluOy4+qequfBtQ4pbiEzlUOFoAH4Q1vS2z2t
+ fqUyCFW6EurkLJaLqpayjxUh514xWiRBXHiBRKfFq8E37oRLNC88kmBaSpZYdDw/6d
+ 06/4kXxzi3ejw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D6183CCD192;
+ Wed, 15 Oct 2025 01:54:41 +0000 (UTC)
+From: Xiangxu Yin via B4 Relay
+ <devnull+xiangxu.yin.oss.qualcomm.com@kernel.org>
+Subject: [PATCH v4 0/3] Add DisplayPort support to QCS615 devicetree
+Date: Wed, 15 Oct 2025 09:53:17 +0800
+Message-Id: <20251015-add-displayport-support-to-qcs615-devicetree-v4-0-aa2cb8470e9d@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: qcs615-ride: Enable DisplayPort
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
- li.liu@oss.qualcomm.com
-References: <20251014-add-displayport-support-to-qcs615-devicetree-v3-0-74ec96ba8144@oss.qualcomm.com>
- <20251014-add-displayport-support-to-qcs615-devicetree-v3-3-74ec96ba8144@oss.qualcomm.com>
- <geh3pbatv53bnk2zgyalnwvumvcsqaz6n7x6dniohsfk7r56sq@mpflfuye62ly>
-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-In-Reply-To: <geh3pbatv53bnk2zgyalnwvumvcsqaz6n7x6dniohsfk7r56sq@mpflfuye62ly>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 6ZAGDVIIhee_PmtceDwTw1N5zm4qBjxX
-X-Proofpoint-ORIG-GUID: 6ZAGDVIIhee_PmtceDwTw1N5zm4qBjxX
-X-Authority-Analysis: v=2.4 cv=eaIwvrEH c=1 sm=1 tr=0 ts=68eefa57 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=2THbcKMbQ0HsdItsycQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDExMDAyMiBTYWx0ZWRfXy3NIdsv0t3aU
- znUK88B+66j8G4ha2tB8gkC30GU8DAUVRAXgTRg09zeplinS0szgvMnmryXdlo2nlWTQbzVKUaY
- u5NcDNQaWYSXxygsQDFJl9C3qLoAQhoF1appt6oLdexGeHbeYmxybgjfmQqjLqSbYgXHIUjucN+
- yzJr2+wnhb166e0Eh/6E9cluDlilWWuVL0sw8560mmnB+kbJhDm7uYfURRGDkk3Oe1PFyFN0wRm
- mGcp1vGI5y/PsaHc8l5fftKABQSfapTPbnsWAf57GBj/cEPNLE7OpoUCapRKY7nngIU4TdtKXbZ
- wtMhxtsdzJO5gYm5sPhTBi5oUGXPWeGaT2llYuhVcon1YaXy9266KagQD93P6r9S9kcLHv2heQ0
- I+3nbDrBpH+BrEzTk4GjEXm6b67svQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-15_01,2025-10-13_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0
- adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510110022
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJH+7mgC/6XSy27DIBAF0F+xWJcIMMZxVFX5j6oLDOMGKTYOE
+ KtRlH/v4Ch9qK7Ux8qaWdyjufhMIgQHkWyKMwkwuej8gIO8K4jZ6eEZqLM4E8FExRmXVFtLrYv
+ jXp9GHxKNx3H+Jk8PJipeUYsxBlIAoGC0tkrUmnWaYOQYoHMvM/f4hPPOxeTDadYnnrcZklxw9
+ jto4pRRJrq11I0wUrbbw9EZN5iV8T3J1CRu8X+4YxIYzwVrbFdLKznb+hhXh6PeY3z/bpT/MUo
+ 0agmmUa1ecykXjMu1wwB4XXTpWiTpIUY9v9SmuM84a1j5EX+DOx9uMu4Tjj2d1tltam5YZblQ4
+ ov7kJ9uAeHqiozU+CEFv99D+ETFHiWWL+PUWsWgbS0WAz8WhPq2w8VTajzFmgqs1kYZ0S5DrY5
+ A88alTVGJVteqFPjjWCz48gpjMVG+EgMAAA==
+X-Change-ID: 20251014-add-displayport-support-to-qcs615-devicetree-ecaad627a0fa
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, fange.zhang@oss.qualcomm.com, 
+ yongxing.mou@oss.qualcomm.com, li.liu@oss.qualcomm.com, 
+ Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1760493277; l=3567;
+ i=xiangxu.yin@oss.qualcomm.com; s=20241125; h=from:subject:message-id;
+ bh=+vEmGWQQrDRoUOjcjCvVy31byqjOMqF0O0P7SdUqhAk=;
+ b=jOYFbhrT/z9IZpDENYQXg8bRTDadKw2rUZZxpgbvZExuThvBXCrliX+pV01mFt4TjG35cadzf
+ z8UQ2XTu3ElD4s8PqMOQW4xv8f+2dMamNIRb66aUlTmt0VV83eBrslD
+X-Developer-Key: i=xiangxu.yin@oss.qualcomm.com; a=ed25519;
+ pk=F1TwipJzpywfbt3n/RPi4l/A4AVF+QC89XzCHgZYaOc=
+X-Endpoint-Received: by B4 Relay for xiangxu.yin@oss.qualcomm.com/20241125
+ with auth_id=542
+X-Original-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,26 +89,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: xiangxu.yin@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This series enables DisplayPort functionality on QCS615 platforms.
+It introduces the required bindings, updates SM6150 dtsi for DP controller
+and QMP USB3-DP PHY, and enables DP on the QCS615 Ride board with 
+connector and link configuration.
 
-On 10/15/2025 6:16 AM, Dmitry Baryshkov wrote:
-> On Tue, Oct 14, 2025 at 07:54:56PM +0800, Xiangxu Yin via B4 Relay wrote:
->> From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
->>
->> Add DP connector node and configure MDSS DisplayPort controller for
->> QCS615 Ride platform. Include lane mapping and PHY supply settings
-> The "lane mapping" no longer applies. LGTM otherwise.
+Depends-on:
+https://lore.kernel.org/all/20250903-add-display-support-for-qcs615-platform-v8-1-7971c05d1262@oss.qualcomm.com/
+https://lore.kernel.org/all/20250916-add-dp-controller-support-for-sm6150-v3-1-dd60ebbd101e@oss.qualcomm.com/
+https://lore.kernel.org/all/20250926-add-displayport-support-for-qcs615-platform-v7-1-dc5edaac6c2b@oss.qualcomm.com/
+
+Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+---
+Changes in v4:
+- Update commit message to reflect data-lanes changes.
+- Link to v3: https://lore.kernel.org/r/20251014-add-displayport-support-to-qcs615-devicetree-v3-0-74ec96ba8144@oss.qualcomm.com
+
+Changes in v3:
+- Move data-lanes from board DTS to SoC DTS [Dmitry]
+- Add missing assigned-clock PIXEL1_CLK_SRC [Dmitry]
+- Update subject prefix to qcom: qcs615-ride: for DTS patch [Konrad]
+- Link to v2: https://lore.kernel.org/r/20251014-add-displayport-support-to-qcs615-devicetree-v2-0-1209df74d410@oss.qualcomm.com
+
+Changes in v2:
+- Update register padding and ordering [Dmitry]
+- Rebase the series on the latest driver
+- Link to v1: https://lore.kernel.org/all/20241210-add-displayport-support-to-qcs615-devicetree-v1-0-02f84a92c44b@quicinc.com/
+
+---
+Xiangxu Yin (3):
+      dt-bindings: display/msm: Add SM6150 DisplayPort controller
+      arm64: dts: qcom: Add DisplayPort and QMP USB3DP PHY for SM6150
+      arm64: dts: qcom: qcs615-ride: Enable DisplayPort
+
+ .../bindings/display/msm/qcom,sm6150-mdss.yaml     |  11 ++
+ arch/arm64/boot/dts/qcom/qcs615-ride.dts           |  30 ++++++
+ arch/arm64/boot/dts/qcom/sm6150.dtsi               | 113 ++++++++++++++++++++-
+ 3 files changed, 152 insertions(+), 2 deletions(-)
+---
+base-commit: 52ba76324a9d7c39830c850999210a36ef023cde
+change-id: 20251014-add-displayport-support-to-qcs615-devicetree-ecaad627a0fa
+prerequisite-message-id: <20250903-add-display-support-for-qcs615-platform-v8-0-7971c05d1262@oss.qualcomm.com>
+prerequisite-patch-id: 58be7053007469980bd7cc9fe315b66bbe021c31
+prerequisite-patch-id: 3c2120117f72c64f69beff32c0239fbc7f808f36
+prerequisite-message-id: <20250916-add-dp-controller-support-for-sm6150-v3-1-dd60ebbd101e@oss.qualcomm.com>
+prerequisite-patch-id: eb07ea58347e77ee18fb6dade040affb0ab68954
+prerequisite-message-id: <20250926-add-displayport-support-for-qcs615-platform-v7-0-dc5edaac6c2b@oss.qualcomm.com>
+prerequisite-patch-id: 8c6c905df7ee55a92a4e52362c8fa7cd9742de04
+prerequisite-patch-id: 0dba0fafd032bbd6cd117175f61efd1e56ae9228
+prerequisite-patch-id: d954b18774cfc0cfdb23de09aab3c56cefb8e1ea
+prerequisite-patch-id: 13f2d2efbcee6337001b5f8519a6da9a41d05276
+prerequisite-patch-id: 3a7144645ede23ccc7d54420e5a32e5bfa3bb776
+prerequisite-patch-id: b3ea55e92953c1526eaf7c5c21d939a5f8502711
+prerequisite-patch-id: 977189ef7cecbe7237175a8ef611fffb814193b0
+prerequisite-patch-id: 3a12c1b4f00eb1d074e51d586f2dae3a44de0613
+prerequisite-patch-id: 7f80e93057c1fd088ac6b4b0652cdfe2ea221cd5
+prerequisite-patch-id: 8b29d292717782982e4450a509f4428fe6e895f2
+prerequisite-patch-id: 621c3ba6bcf5b5782a5264faed72fdadfd47c630
+prerequisite-patch-id: 9c63f2c5bb39527e3031b2d168e3c9419441e8df
+prerequisite-patch-id: 364f6a7d8f4e1bc79a8f236b8d5a2425ffd225fe
+prerequisite-patch-id: eb09ea48625b5c0d39ffb37babe7d8c32a4b3122
+
+Best regards,
+-- 
+Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 
 
-Oh, I forgot to update the commit message. I’ll fix it in the next version.
-
-
->> to support DP output.
->>
->> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/qcs615-ride.dts | 30 ++++++++++++++++++++++++++++++
->>  1 file changed, 30 insertions(+)
->>
