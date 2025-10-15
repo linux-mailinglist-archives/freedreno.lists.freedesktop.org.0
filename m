@@ -2,109 +2,104 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD0D8BDCFD7
-	for <lists+freedreno@lfdr.de>; Wed, 15 Oct 2025 09:26:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2358ABDDB9B
+	for <lists+freedreno@lfdr.de>; Wed, 15 Oct 2025 11:19:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70F9310E276;
-	Wed, 15 Oct 2025 07:26:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14FD610E766;
+	Wed, 15 Oct 2025 09:19:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="C3YeCjD9";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="QOJw+CNv";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01CC610E276
- for <freedreno@lists.freedesktop.org>; Wed, 15 Oct 2025 07:26:56 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-42557c5cedcso3309687f8f.0
- for <freedreno@lists.freedesktop.org>; Wed, 15 Oct 2025 00:26:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1760513215; x=1761118015; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=y9LKr8c4AZy90CShrcGX7pZTKvN/kuV9gDox9nEwyjk=;
- b=C3YeCjD9ESuU24L8MRZcsT+FPhSgIw4VgCDr7SIgR2vBz6B7zRc4FYZVJY8u9Amg98
- jjKnHFf17WRjbC+FqwKjDmjW7iOp4iQDvAvmQ6+Wi7pq3DM8iWWJTJha/nvtQbP4Jd3L
- +LKl3+MPFNxgNUUZQVwqq7eV7A/iVP9ChUGsBgTT7WSblQj6WyKGEba8wWMr3H6IO4AL
- j6PZRcdY9niu9uCX+EyNYTmP4r+FJIf7y+BEV29zjVppreJ4rrAAiZTtqQvgmZKJ2gxu
- jq1/ty0S0kprAjNI7FsejCAP3sCU2KBYwPdC/x/L0qdFRXV9b85G3ETtyHYCYqrrd1WP
- bmKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760513215; x=1761118015;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=y9LKr8c4AZy90CShrcGX7pZTKvN/kuV9gDox9nEwyjk=;
- b=AAMZc0hNdHTeJp+ddTbJyOcPVpoiIS4Hd4fIdTkfBvsG9yrjjg+/1Kiz9AbJcG66DC
- eBrNwi5cVKQWBE0sQIi8/2EJebecCjoXxpaSgR61FElRrYIsmytlnv1rc2wUDBX5dV3v
- K5hmkrdm16077r1czQ3439Ol2oC+Ojwk0OOJ5YZq0S4F/NMzVpyC7ii1mqsFFjNHBF+U
- RhScShUSsCeLU40EkZY1d/EG9p718f261Js6ItPmqW/7aWxbpbKbzcxPoVK4Ixi1AfDm
- oTK6xlbIPGYx+5+p+5MNsRYuL6jN55JlKoSegziH/T3DjhKyvUgYy9PrPaMJ/76oh5K/
- DlHg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWdn51bIc7EIoi98S+SmUSXAE5tLF3ZDjvuAjuC5rDY9mwUuHUkBWPf+kQB2cePV5Em1k4priPLN0k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzeh6Dx6a/uAPhtqOMPWv+fZG+dqA/HqOf5sKMzbhHQrVcg3uEA
- ArFui2zRxSW5sUmOvq3YtwJ8csacn0LEec5s/oVScpyPZ3B7NMgIdQ9vyc4vZoCkSb4=
-X-Gm-Gg: ASbGncsIYAzl3H2Q6hfZAzbuBHNGnwuX+DqtD7a3q66PKTxC/xLqRwGQqpiDxnyJ7hK
- LylQk/HSJcMqGaqyNKkwgJTPoUhd3b5UNiD0zfWXBpwCEiJO7/X0wMKZlOfQeTk7JiZLDOKbenD
- Ewunkdj2Z6Vs03zAvdgKPayEwz/W/P/bGZoLqpAZD8cx7REAP2+euRRttxJGVTZwDdMlBaKmOR5
- d4+80QRojwXKQhpTBDSg9n5KM2q7IkV9fJ0I06Y6hTcokG+uvqVgyoxqXIG2Ikp4/42xxGDxmnW
- jTwZjbUyUGeZjeTv/v69kx1QWRqTJzIuSXA5ZUH62FlaNN65uadq1CwdZ1/0BjYM28SOYpGXAL6
- wYELO/McN6IKgbqXS/BMEIIm1WvWq9LExZDpnW9nQeXVZHb3Vowo8UFSBRHzCL40OG8AkB4yOaV
- W5RFsWIn3JYzadSUZ1Az4o23fWCKlVhpqFQRhwVKi7
-X-Google-Smtp-Source: AGHT+IHHwcCTmm/vrgRmtvSgxozxppcZledDwbcL4KZQXqwFqDlzftxRdw5MBdI9t2oHDJ1rb68IEg==
-X-Received: by 2002:a05:6000:22c5:b0:3fd:bf1d:15d1 with SMTP id
- ffacd0b85a97d-4266e8dde71mr16693928f8f.49.1760513215308; 
- Wed, 15 Oct 2025 00:26:55 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:3d9:2080:ef0f:4a43:2fd:39aa?
- ([2a01:e0a:3d9:2080:ef0f:4a43:2fd:39aa])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426ce5e13b6sm27556373f8f.44.2025.10.15.00.26.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Oct 2025 00:26:54 -0700 (PDT)
-Message-ID: <6eedef19-5473-4c09-bae5-04490f711d9e@linaro.org>
-Date: Wed, 15 Oct 2025 09:26:53 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F03D510E760;
+ Wed, 15 Oct 2025 09:19:33 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59F2sEmR014780;
+ Wed, 15 Oct 2025 09:19:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ zd0Js33uT4qAQsGbVa94/D6bzrHjWGPrzmHI09kg7LA=; b=QOJw+CNvy50zjqMC
+ IgFfRdlXC5TLoszBj/q8hnGFMTt2O1tI9nzCMXlOETZkn/pjAtrOnhPwnGAnps+i
+ 3NUAT6LvtWvn4navdjmybHU9U5Zq6DG+ax0rEkH0NbyKBSgG71fk3RrU+U6xqRXI
+ +Q94On32Rk8DC7hzpwHQU1HOXUR3d8Uha0nkEKRykCCI5/b77mE486Iu7g7St+C4
+ UcsIwB0222EXyTOhg94f7pZ4DtsbmXpAgdi+aO6n3wI/25rlS0glIgSQSUBeWEDn
+ ShvkPx/51yU8IgaMJJCCAjeBtC5bbIeX9ZgvoQlS4pcZO6P6IA8oe5iOnabxDQYO
+ Tqmm3w==
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49qfbj3v4n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Oct 2025 09:19:24 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 59F9JNTp016333
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Oct 2025 09:19:23 GMT
+Received: from [10.216.55.200] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.24; Wed, 15 Oct
+ 2025 02:19:12 -0700
+Message-ID: <4bd619e7-e9ca-44a8-9d36-10c18d7a8157@quicinc.com>
+Date: Wed, 15 Oct 2025 14:49:08 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] MAINTAINERS: Update Jessica Zhang's email address
-To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20251002-quit-qcom-v1-1-0898a63ffddd@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20251002-quit-qcom-v1-1-0898a63ffddd@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 0/3] Add edp reference clock for lemans
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: <robin.clark@oss.qualcomm.com>, <lumag@kernel.org>,
+ <abhinav.kumar@linux.dev>, <jessica.zhang@oss.qualcomm.com>,
+ <sean@poorly.run>, <marijn.suijten@somainline.org>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <quic_mahap@quicinc.com>, <andersson@kernel.org>,
+ <konradybcio@kernel.org>, <mani@kernel.org>,
+ <James.Bottomley@hansenpartnership.com>, <martin.petersen@oracle.com>,
+ <vkoul@kernel.org>, <kishon@kernel.org>,
+ <cros-qcom-dts-watchers@chromium.org>, <linux-phy@lists.infradead.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <quic_vproddut@quicinc.com>
+References: <20251013104806.6599-1-quic_riteshk@quicinc.com>
+ <7jmk3txdrnit6zn7ufra7davmomggd3graizdu6wqonp3lljza@mfnxt2owpknq>
+From: Ritesh Kumar <quic_riteshk@quicinc.com>
+In-Reply-To: <7jmk3txdrnit6zn7ufra7davmomggd3graizdu6wqonp3lljza@mfnxt2owpknq>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDExMDAxOCBTYWx0ZWRfX8VUjADvpBF8S
+ kMdccCGoi2LX0d3PplLf45/vynuXKc10l8JtzCzzKGlNx2Y+Bep9yX37ktbVWBMCPvpgIdQB3d1
+ vmAwlofGUcdN5HgfYyVU7CrXH+tkp19VEVKEeTWRuZGNLFOGDwJ1Jt24x0R/RE+0ZbeRX8Cn/ka
+ RERxGOc3IJJ8arYtXyWRh00F2MFDt3oK1hIB6An6JCXtUXwfPyr+JUwCaMO8MyNOetpUgVJ464u
+ Z2dHKe6fdTc2FvWHJ7vvz5QvliqUqITKrq5AoIB1+ksXq1upQ7M3FiNiu20uYWT9G3+3pX9S62h
+ uJCK5NRAUki0R4EdGnivAYTi6BAzCleg7H4WJjLif+j2tnw9aNGy2JKs6T88P2J2swL5qUHLEb9
+ pyQ9s1ZymTkjl61WWUURf8SKx6r5Lg==
+X-Proofpoint-ORIG-GUID: WkUePfu7CdqX9UE-bIRZOgucfbNQ8Sp4
+X-Authority-Analysis: v=2.4 cv=bodBxUai c=1 sm=1 tr=0 ts=68ef671c cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=nQ7leC29giJESoIIZeQA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=nl4s5V0KI7Kw-pW0DWrs:22 a=pHzHmUro8NiASowvMSCR:22
+ a=xoEH_sTeL_Rfw54TyV31:22
+X-Proofpoint-GUID: WkUePfu7CdqX9UE-bIRZOgucfbNQ8Sp4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-15_04,2025-10-13_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510110018
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,56 +112,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On 10/3/25 01:57, Jessica Zhang wrote:
-> My current email will stop working soon. Update my email address to
-> jesszhan0024@gmail.com
-> 
-> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> ---
->   MAINTAINERS | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 7e7515a412e9..7a712ded8f9f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -7652,7 +7652,7 @@ DRM DRIVER for Qualcomm display hardware
->   M:	Rob Clark <robin.clark@oss.qualcomm.com>
->   M:	Dmitry Baryshkov <lumag@kernel.org>
->   R:	Abhinav Kumar <abhinav.kumar@linux.dev>
-> -R:	Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> +R:	Jessica Zhang <jesszhan0024@gmail.com>
->   R:	Sean Paul <sean@poorly.run>
->   R:	Marijn Suijten <marijn.suijten@somainline.org>
->   L:	linux-arm-msm@vger.kernel.org
-> @@ -8325,7 +8325,7 @@ F:	drivers/gpu/drm/clients/drm_log.c
->   
->   DRM PANEL DRIVERS
->   M:	Neil Armstrong <neil.armstrong@linaro.org>
-> -R:	Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> +R:	Jessica Zhang <jesszhan0024@gmail.com>
->   L:	dri-devel@lists.freedesktop.org
->   S:	Maintained
->   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+On 10/13/2025 6:04 PM, Dmitry Baryshkov wrote:
+> On Mon, Oct 13, 2025 at 04:18:03PM +0530, Ritesh Kumar wrote:
+> > On lemans chipset, edp reference clock is being voted by ufs mem phy
+> > (ufs_mem_phy: phy@1d87000). But after commit 77d2fa54a9457
+> > ("scsi: ufs: qcom : Refactor phy_power_on/off calls") edp reference
+> > clock is getting turned off, leading to below phy poweron failure on
+> > lemans edp phy.
+>
+> How does UFS turn on eDP reference clock?
 
-Could you also update .mailmap in a follow-up patch ?
+In lemans, GCC_EDP_REF_CLKREF_EN is voted as qref clock in ufs_mem_phy.
 
-Thanks,
-Neil
 
-> 
-> ---
-> base-commit: b5bad77e1e3c7249e4c0c88f98477e1ee7669b63
-> change-id: 20251002-quit-qcom-5125b64a86aa
-> 
-> Best regards,
-> --
-> Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> 
+ufs_mem_phy: phy@1d87000 {
+     compatible = "qcom,sa8775p-qmp-ufs-phy";
+     reg = <0x0 0x01d87000 0x0 0xe10>;
+     /*
+      * Yes, GCC_EDP_REF_CLKREF_EN is correct in qref. It
+      * enables the CXO clock to eDP *and* UFS PHY.
+      */
+     clocks = <&rpmhcc RPMH_CXO_CLK>,
+              <&gcc GCC_UFS_PHY_PHY_AUX_CLK>,
+              <&gcc GCC_EDP_REF_CLKREF_EN>;
+     clock-names = "ref", "ref_aux", "qref";
 
+>
+>
