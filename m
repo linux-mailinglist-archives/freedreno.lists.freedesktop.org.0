@@ -2,73 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43215BEB6D3
-	for <lists+freedreno@lfdr.de>; Fri, 17 Oct 2025 22:00:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42793BEB6DE
+	for <lists+freedreno@lfdr.de>; Fri, 17 Oct 2025 22:01:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC21A10E19E;
-	Fri, 17 Oct 2025 20:00:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E033B10E19E;
+	Fri, 17 Oct 2025 20:01:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KLdR1iGk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bMQufVhJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C40710E19E
- for <freedreno@lists.freedesktop.org>; Fri, 17 Oct 2025 20:00:56 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-59052926cf9so2591874e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 17 Oct 2025 13:00:56 -0700 (PDT)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE22210E19E
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Oct 2025 20:01:11 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-3737d0920e6so25027811fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Oct 2025 13:01:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760731254; x=1761336054; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760731270; x=1761336070; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=E6uQHUW9ChgQjFk3rZ7rRlcJ/k+AJJTDJCwK+JBs0nE=;
- b=KLdR1iGkp1VFau+ij97aernrMHPzZ8qdjM+2UkjJx3RRPxYZJK2S5ZxgloEWz33p7H
- 74szbF1oOWxoivgzzQYl7ec7sC7DGnCORgm3d6WzWZA0s1hXeft2O4sZ0GK+4FFWG1kz
- PlJoz7ZFjwgX7jZ72pWbb+qrqPl3GLEGg+a+eHtVhsOV2n+gjuV0CSxWnXumvdkteLad
- B7OowZXPTbcv/DcC7pNXKM9BYrj89bkZ0O3zvaDYHAO1jZKBg6dcPxqkwi8BTMZ8OsBI
- MJP/jiIZ77sGVwKUYwxsK/ZouJIcLn93zAwRHO217UqNuZB4HFAvyQ5z3447T1XfshbD
- /1rQ==
+ :reply-to; bh=ZvamalkucLTXF0UtA58TBlyJrhax3HxRIT0v5R1YbAI=;
+ b=bMQufVhJqjrJo/aa4ln43JNL08mIsRAGCcNe/0FLVlaCiCYmzyuMzXeEHjC9Rk4rld
+ rYXqlNWFRNfNB1cqLo8zR1Vp53qEIPWXeSCtfCx9ceCtuf3JTGsfD4B4v4BWBf6w37MS
+ q+tXlwPPG0c6Sy+mxh3bNo0oYtT/zPNrui+EkmmTP0N3f0DPcAE3vXWjT4uTN779J+eK
+ qGfpGrBcimPyWFqad/+YPwa8j8DOmdh08z905UcUfyTie413oiyF8hMo5NoVtok17lwh
+ uxTm7KevkqYiDhOYFv3+9VC/pgHKlrI6mpM5trsHsutli76uOe79PccwyFMpe6sZLd8H
+ Qa/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760731254; x=1761336054;
+ d=1e100.net; s=20230601; t=1760731270; x=1761336070;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=E6uQHUW9ChgQjFk3rZ7rRlcJ/k+AJJTDJCwK+JBs0nE=;
- b=PKz7h3ByBPwvtOz2s6NKu1qSAid+6Gb2iBbFYZp+FA62z1L1+w+TmFizk8WVDHc5zN
- 0ljiIMUayeVOlIB81Pje+IA3EjmGthIzbwNoLLYwuZobJZMQPPwRNSvtpKUkyjA2PrNj
- GzJFpnO7aC7flQLncthRw6dp4/x8Bpxr+0Mj9vGUlKHIiYEpGtNstTu/rWvju01fkBDj
- Lt3VIZfQc1QrirLQGtdesbE8rGqnMJUF235sJfI/vDIp9iaFd5wlCXUO2akHmfMTkfY/
- MuXiITDgxvLMfqLRzGP3AuhWc7Gh2J7m7sDj+5sZOTszZ40hcLUsbKlibzt3J4BTUKNR
- CynA==
+ bh=ZvamalkucLTXF0UtA58TBlyJrhax3HxRIT0v5R1YbAI=;
+ b=HETZLB0PmWPo9xeDvQwgrnKlm6+n9bvRQ3xqOSI8wlZuOC9MYfrwC/3r3M1kjk7p3c
+ sXyj08tPN394G6DFg+Ch7IlI7dVdDFvwF1NZ4T/Xa3hkXT12Pzd0N4TTH9+DAEI1jG9g
+ ST8FBdgXr4v/Fw29w47yCGE9+TeY2tnXvNHc2J5kl8yhjJ6aVluVhjefPZkY2JJ2fiRQ
+ ZEHPpe85IeFhIjTfYjZOjcu39aKSLEcl3gdqBkrCq6+osc+z7vRhhRxn3uCFMo/e9TiL
+ 1yf5+6xxBb0ZzNhE1LN4jVUXmV4wCPGrH3fB6iHs0i27ZZhbUWawhQr5SMB9hAvr9IcU
+ Ql8Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXhI1bFRjbI7ABxrtCM7wS101ckDZLn4z2u+Qi344Z6azssjOd+PSY39IFg+KSDY7gmakXiaNjTJQA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxeSzudduZR4HqsJdSdIcnZ9OOXo5974219HSc1fEcLY8n/U+Uz
- /U804dT+3177aPIIgQce/oBXDlyRDbifgsoQznRQ6IbEjoKedxvNDfTg
-X-Gm-Gg: ASbGncuAcizGUN68a2KvBLOdxu5wxnHDZjNUBL3pcAJZ94cPIk6k6+6W9YcD0m1KXi+
- Nol2LZN8AIzGDBXHBH5tENuzZiZT3Pl2blH5hyQp0xJzQ82/00N20TFm8GFRSwoi6im2PX4/Cwx
- 10UNkd4v1jwYh2fIaxOH0QV474l52i7YeA/1tGmJQllFConY2j59mNYmQ7UsvuMFJh9TgRn7uu7
- 8Jc6EEfO+z+oJssY9xT8VF+byqsKDzgdcPznW9gN02qXHVly2YZY/0dNSiNwmt45eaUIUt/RSes
- RvMRjaEJGy2CeRfhj6rfRP9l9LevGVs9C6QaIuFvuJV5m1UWkmRayFpHU3HyOEaPg8zy/JVv5iy
- 5z7qeMBUcODDq8BRgcXfMghYQe8nrNueIWCSjcOs2DqgEFAnzEkWw5MNSvhpYBZ1dg58PvzZzk8
- BP19UC6VT37xYxIDj+PlHugtPLl+MQI7x83X5MRo5r6JXZlLxxftGMCOK0utKI9w==
-X-Google-Smtp-Source: AGHT+IENQjN/CUYsH9VFFm4pVHWkRuMc9LBZvX1RWDo3Xnsvi+JcACMpM7wNhoU7fWK1Lo5cRQfMcA==
-X-Received: by 2002:a05:651c:1586:b0:36b:5945:d3e8 with SMTP id
- 38308e7fff4ca-3779796dc35mr16004461fa.39.1760731254333; 
- Fri, 17 Oct 2025 13:00:54 -0700 (PDT)
+ AJvYcCXwHk930i5QKk35LK4joLh55Dd7riSQfkfS6T6/gMcVJh1aK5LKjTPJ26K+4z5/qEHxyYwSCLgAYss=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRIfIR+jyda0CtToOv5o/6pSUbXUVw5dzfEAIUQaFYUv9lkEI/
+ RjsqwlhKHMXBrPNNL4BiupyGlgXwOqqXACmpy/aB5rdqT7g37ktAXArI
+X-Gm-Gg: ASbGncvVoMfI8tiQeEGEKMLRu2caZNAV1jnI4sNW3FQfTc4A98WFXmgqx/iHU5XSH4D
+ r6wCPXarzn1XWCLo5S4DD+muN+/2e3IMK05sof5I+kukPhX57OxC+fcj0zsS88Hkxbav2k6+bP3
+ VXPMxm8tl/9o0A0Gy0d9Kbg/sWvXYbCf9w+KTtgEcabCwawhtv3UN1UFIZGV4JMvJI21QNlDEvJ
+ 1YSIhXRXY+I+TWtxa87ovTRyLuzkRiUW821ot6G4Sr3vr1fCodMLzuMrWgTCNA2WPXSEHSqL/7R
+ PldDOjJsmVXQCwZyqV4P6iEYhRzWDgmatEvS8UBMrGpL9U9fRe8aAdzOvK4dxR0CAcTp91gUwRY
+ 4uqUwNE/KCGFl2dinVQnk4NSdD5fYamLuRgtDiClMrmPc2xl0A7qDjTu7/DAWfJjF0BaxYyjiOP
+ Tgt4HaAGMe3tQsUBavcrqeXUSc/YLs4Mp/2NnDuYvThIWYrgLXk976JHqhO770ag==
+X-Google-Smtp-Source: AGHT+IGGkPzUg9+WLDnfzSVIMAOLQOKXgwa2ttL1tbW7RtbDwguoGHJ6HNdyipMTINLcvQ/30wWafQ==
+X-Received: by 2002:a2e:a583:0:b0:35f:246:a751 with SMTP id
+ 38308e7fff4ca-3779781d39emr17282741fa.5.1760731270001; 
+ Fri, 17 Oct 2025 13:01:10 -0700 (PDT)
 Received: from [192.168.1.244] (public-nat-13.vpngate.v4.open.ad.jp.
  [219.100.37.245]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-377a921d99bsm1580861fa.22.2025.10.17.13.00.41
+ 38308e7fff4ca-377a921d99bsm1580861fa.22.2025.10.17.13.00.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Oct 2025 13:00:54 -0700 (PDT)
+ Fri, 17 Oct 2025 13:01:09 -0700 (PDT)
 From: Vladimir Lypak <vladimir.lypak@gmail.com>
-Date: Fri, 17 Oct 2025 19:58:38 +0000
-Subject: [PATCH 4/6] drm/msm/dpu: Fix pixel extension sub-sampling
+Date: Fri, 17 Oct 2025 19:58:39 +0000
+Subject: [PATCH 5/6] drm/msm/dpu: Require linear modifier for writeback
+ framebuffers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251017-b4-dpu-fixes-v1-4-40ce5993eeb6@gmail.com>
+Message-Id: <20251017-b4-dpu-fixes-v1-5-40ce5993eeb6@gmail.com>
 References: <20251017-b4-dpu-fixes-v1-0-40ce5993eeb6@gmail.com>
 In-Reply-To: <20251017-b4-dpu-fixes-v1-0-40ce5993eeb6@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -101,42 +102,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In _dpu_plane_setup_pixel_ext function instead of dividing just chroma
-source resolution once (component 1 and 2), second component is divided
-once more because src_w and src_h variable is reused between iterations.
-Third component receives wrong source resolution too (from component 2).
-To fix this introduce temporary variables for each iteration.
+UBWC-related register configuration for writeback is not implemented in
+the driver yet but there aren't any checks for non-linear modifiers in
+atomic_check. Thus when compressed framebuffer is attached to writeback
+connector it will be filled with linear image data. This patch forbids
+non-linear modifiers for writeback framebuffers until UBWC support for
+writeback is properly implemented.
 
-Fixes: dabfdd89eaa9 ("drm/msm/disp/dpu1: add inline rotation support for sc7280")
+Fixes: 71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c")
 Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 6effe0fa4837284a1f038e4907c4c91d239aeb8b..905524ceeb1f192c093f1be7f571b29eb4b53379 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -500,13 +500,15 @@ static void _dpu_plane_setup_pixel_ext(struct dpu_hw_scaler3_cfg *scale_cfg,
- 	int i;
- 
- 	for (i = 0; i < DPU_MAX_PLANES; i++) {
-+		uint32_t w = src_w, h = src_h;
-+
- 		if (i == DPU_SSPP_COMP_1_2 || i == DPU_SSPP_COMP_2) {
--			src_w /= chroma_subsmpl_h;
--			src_h /= chroma_subsmpl_v;
-+			w /= chroma_subsmpl_h;
-+			h /= chroma_subsmpl_v;
- 		}
- 
--		pixel_ext->num_ext_pxls_top[i] = src_h;
--		pixel_ext->num_ext_pxls_left[i] = src_w;
-+		pixel_ext->num_ext_pxls_top[i] = h;
-+		pixel_ext->num_ext_pxls_left[i] = w;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+index cd73468e369a93c50303db2a7d4499bcb17be5d1..7545c0293efbd8f7eb34a4ac56f616b7cadae1c0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+@@ -72,6 +72,9 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
+ 		DPU_ERROR("invalid fb w=%d, maxlinewidth=%u\n",
+ 			  fb->width, dpu_wb_conn->maxlinewidth);
+ 		return -EINVAL;
++	} else if (fb->modifier != DRM_FORMAT_MOD_LINEAR) {
++		DPU_ERROR("unsupported fb modifier:%#llx\n", fb->modifier);
++		return -EINVAL;
  	}
- }
  
+ 	return drm_atomic_helper_check_wb_connector_state(conn_state->connector, conn_state->state);
 
 -- 
 2.51.0
