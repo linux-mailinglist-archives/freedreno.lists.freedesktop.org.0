@@ -2,62 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68EE8BDF230
-	for <lists+freedreno@lfdr.de>; Wed, 15 Oct 2025 16:43:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F2BBBE70C1
+	for <lists+freedreno@lfdr.de>; Fri, 17 Oct 2025 10:05:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C11B10E2B2;
-	Wed, 15 Oct 2025 14:43:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A81AA10EB3D;
+	Fri, 17 Oct 2025 08:05:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RnSAVYbX";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jfsQ3+mn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2105810E2AD;
- Wed, 15 Oct 2025 14:43:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5393E10EB3D;
+ Fri, 17 Oct 2025 08:05:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8744B40510;
- Wed, 15 Oct 2025 14:43:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33AFDC4CEF8;
- Wed, 15 Oct 2025 14:43:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760539431;
- bh=BdVewfzADni3rA+uLXMhw0FIoVYxSlv8WO8HdhDGEeg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RnSAVYbX0pa/TbdwnqgAHLNi46jSc10fCqckm8meRRNlXCmzpes/MSgltOMJe09Ug
- JxdyInJGKhLHxSlIgFJYP5d1DMa/AN+TmOb6ZU2mngBuBTa4kiL0a7IlbiS/i8S+En
- /g4iXr3ZZjsFXgBInBqjDkI8vQ+S34EDoT113jIB013olFZ4zSjfvHAcPKJhj9WFs4
- m4yFWLccda0qiXQeUmNJq6scITEXvAsc57cu+xGApgTtwsq6T+ZXd60XHE0JrriWE+
- DDvL41D7J1pPoPbzucyHLUzWqhosGqSBeUrK2nvYQ0B3z5PDNtoU2YzTocZjSKawIk
- hvNZK+1DARCAA==
-Date: Wed, 15 Oct 2025 09:43:49 -0500
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Ritesh Kumar <quic_riteshk@quicinc.com>, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, abhinav.kumar@linux.dev,
- jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, krzk+dt@kernel.org, conor+dt@kernel.org,
- quic_mahap@quicinc.com, andersson@kernel.org,
- konradybcio@kernel.org, mani@kernel.org,
- James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
- vkoul@kernel.org, kishon@kernel.org,
- cros-qcom-dts-watchers@chromium.org, linux-phy@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
- quic_vproddut@quicinc.com
-Subject: Re: [PATCH v2 1/3] dt-bindings: phy: qcom-edp: Add edp ref clk for
- sa8775p
-Message-ID: <20251015144349.GA3302193-robh@kernel.org>
-References: <20251013104806.6599-1-quic_riteshk@quicinc.com>
- <20251013104806.6599-2-quic_riteshk@quicinc.com>
- <xofvrsdi2s37qefp2fr6av67c5nokvlw3jm6w3nznphm3x223f@yyatwo5cur6u>
+ by sea.source.kernel.org (Postfix) with ESMTP id D658A43E61;
+ Fri, 17 Oct 2025 08:05:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34845C4CEE7;
+ Fri, 17 Oct 2025 08:05:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1760688345;
+ bh=jQhy/ox3fIOhCY7knzkIZUyacLZTGHWrr3u52zYJAkI=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=jfsQ3+mnT/1hXaKowyNh4ESs5gv7XWT4llLVtqMbxf719r6AbXjDWmR8zBVavKXTr
+ DspwYEGBxW2V4PZWTnFyaExmgP7lqPD2tc7Ax5IkWv9QpHXRROMLLI3Ym8cvq16VYc
+ dXU+JcHgFA2fnbNWSnt0GfCEyA/6Q/jr15A9yGug=
+Subject: Patch "minmax: avoid overly complicated constant expressions in VM
+ code" has been added to the 5.15-stable tree
+To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
+	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
+	akpm@linux-foundation.org, amd-gfx@lists.freedesktop.org,
+	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
+	bp@alien8.de, clm@fb.com, coreteam@netfilter.org, daniel@ffwll.ch,
+	dave.hansen@linux.intel.com, davem@davemloft.net,
+	dm-devel@redhat.com, dmitry.torokhov@gmail.com,
+	dri-devel@lists.freedesktop.org, dsahern@kernel.org,
+	dsterba@suse.com, dushistov@mail.ru, farbere@amazon.com,
+	freedreno@lists.freedesktop.org, fw@strlen.de,
+	gregkh@linuxfoundation.org, hdegoede@redhat.com,
+	herve.codina@bootlin.com, hpa@zytor.com, jack@suse.com,
+	james.morse@arm.com, jdelvare@suse.com, jdike@addtoit.com,
+	jejb@linux.ibm.com, jernej.skrabec@gmail.com, jmaloy@redhat.com,
+	josef@toxicpanda.com, kadlec@netfilter.org,
+	krzysztof.kozlowski@canonical.com, kuba@kernel.org,
+	linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, linux-staging@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.co, m@freedesktop.org,
+	linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
+	linux@rasmusvillemoes.dk, linux@roeck-us.net,
+	lorenzo.stoakes@oracle.com, luc.vanoostenryck@gmail.com,
+	luto@kernel.org, maarten.lankhorst@linux.intel.com,
+	malattia@linux.it, martin.petersen@oracle.com, maz@kernel.org,
+	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
+	minchan@kernel.org, mingo@redhat.com, mripard@kernel.org,
+	ngupta@vflare.org, pablo@netfilter.org, peterz@infradead.org,
+	pmladek@suse.com, qiuxu.zhuo@intel.com, quic_akhilpo@quicinc.com,
+	richard@nod.at, robdclark@gmail.com, rostedt@goodmis.org,
+	rric@kernel.org, ruanjinjie@huawei.com, sakari.ailus@linux.intel.com,
+	sashal@kernel.org, sean@poorly.run, senozhatsky@chromium.org,
+	shuah@kernel.org, snitzer@redhat.com, tglx@linutronix.de,
+	tipc-discussion@lists.sourceforge.net, tony.luck@intel.com,
+	torvalds@linux-foundation.org, tytso@mit.edu, tzimmermann@suse.de,
+	wens@csie.org, willy@infradead.org, x86@kernel.org,
+	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 17 Oct 2025 10:05:09 +0200
+In-Reply-To: <20251008152946.29285-6-farbere@amazon.com>
+Message-ID: <2025101709-handcart-hunger-c414@gregkh>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <xofvrsdi2s37qefp2fr6av67c5nokvlw3jm6w3nznphm3x223f@yyatwo5cur6u>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,18 +90,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 13, 2025 at 03:37:47PM +0300, Dmitry Baryshkov wrote:
-> On Mon, Oct 13, 2025 at 04:18:04PM +0530, Ritesh Kumar wrote:
-> > Add edp reference clock for sa8775p edp phy.
-> 
-> eDP, PHY.
-> 
-> I'd probably ask to squash both DT binding patches together, but this
-> might cause cross-subsystem merge issues. I'll leave this to DT
-> maintainers discretion, whether to require a non-warning-adding patch or
-> two patches with warnings in the middle of the series.
 
-One patch.
+This is a note to let you know that I've just added the patch titled
 
-Rob
+    minmax: avoid overly complicated constant expressions in VM code
 
+to the 5.15-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+and it can be found in the queue-5.15 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From linux-staging+bounces-34820-greg=kroah.com@lists.linux.dev Wed Oct  8 17:33:38 2025
+From: Eliav Farber <farbere@amazon.com>
+Date: Wed, 8 Oct 2025 15:29:30 +0000
+Subject: minmax: avoid overly complicated constant expressions in VM code
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@l
+ inux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>, <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>, <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@l
+ ists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>, <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, David Laight <David.Laight@aculab.com>
+Message-ID: <20251008152946.29285-6-farbere@amazon.com>
+
+From: Linus Torvalds <torvalds@linux-foundation.org>
+
+[ Upstream commit 3a7e02c040b130b5545e4b115aada7bacd80a2b6 ]
+
+The minmax infrastructure is overkill for simple constants, and can
+cause huge expansions because those simple constants are then used by
+other things.
+
+For example, 'pageblock_order' is a core VM constant, but because it was
+implemented using 'min_t()' and all the type-checking that involves, it
+actually expanded to something like 2.5kB of preprocessor noise.
+
+And when that simple constant was then used inside other expansions:
+
+  #define pageblock_nr_pages      (1UL << pageblock_order)
+  #define pageblock_start_pfn(pfn)  ALIGN_DOWN((pfn), pageblock_nr_pages)
+
+and we then use that inside a 'max()' macro:
+
+	case ISOLATE_SUCCESS:
+		update_cached = false;
+		last_migrated_pfn = max(cc->zone->zone_start_pfn,
+			pageblock_start_pfn(cc->migrate_pfn - 1));
+
+the end result was that one statement expanding to 253kB in size.
+
+There are probably other cases of this, but this one case certainly
+stood out.
+
+I've added 'MIN_T()' and 'MAX_T()' macros for this kind of "core simple
+constant with specific type" use.  These macros skip the type checking,
+and as such need to be very sparingly used only for obvious cases that
+have active issues like this.
+
+Reported-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Link: https://lore.kernel.org/all/36aa2cad-1db1-4abf-8dd2-fb20484aabc3@lucifer.local/
+Cc: David Laight <David.Laight@aculab.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ include/linux/minmax.h |    7 +++++++
+ 1 file changed, 7 insertions(+)
+
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -270,4 +270,11 @@ static inline bool in_range32(u32 val, u
+ #define swap(a, b) \
+ 	do { typeof(a) __tmp = (a); (a) = (b); (b) = __tmp; } while (0)
+ 
++/*
++ * Use these carefully: no type checking, and uses the arguments
++ * multiple times. Use for obvious constants only.
++ */
++#define MIN_T(type,a,b) __cmp(min,(type)(a),(type)(b))
++#define MAX_T(type,a,b) __cmp(max,(type)(a),(type)(b))
++
+ #endif	/* _LINUX_MINMAX_H */
+
+
+Patches currently in stable-queue which might be from farbere@amazon.com are
+
+queue-5.15/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+queue-5.15/minmax-add-in_range-macro.patch
+queue-5.15/minmax-deduplicate-__unconst_integer_typeof.patch
+queue-5.15/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+queue-5.15/minmax-introduce-min-max-_array.patch
