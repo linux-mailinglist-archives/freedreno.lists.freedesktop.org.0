@@ -2,90 +2,128 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E924ABEE4F4
-	for <lists+freedreno@lfdr.de>; Sun, 19 Oct 2025 14:38:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0A99BEE977
+	for <lists+freedreno@lfdr.de>; Sun, 19 Oct 2025 18:02:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DEA610E10B;
-	Sun, 19 Oct 2025 12:38:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ADC010E216;
+	Sun, 19 Oct 2025 16:02:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nPSmMhj3";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="A60wrfVL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB67210E10B;
- Sun, 19 Oct 2025 12:38:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 408344079E;
- Sun, 19 Oct 2025 12:38:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2363C4CEE7;
- Sun, 19 Oct 2025 12:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760877510;
- bh=oGwiDB09ge0ciPiwd9WRh3Y/M8CeD9dHfclvYoY7FBA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nPSmMhj3TEXZoJrVWpARUkUyuGqk5lSFTPPoq1ZLeK3fCa9fne3RGlMO8KN1UE5lj
- ujRuOzzKq00FxR8F6wzbmtZQ/5O3ZNw8lG3lB3NfHxm+YwEDzwS2JsXmf0Ca6p4Frl
- ca5FOfnjYZ+gRAebgpsYtYTlOl8nww3/qAlyQSN0=
-Date: Sun, 19 Oct 2025 14:38:26 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org,
- linux@armlinux.org.uk, jdike@addtoit.com, richard@nod.at,
- anton.ivanov@cambridgegreys.com, dave.hansen@linux.intel.com,
- luto@kernel.org, peterz@infradead.org, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
- tony.luck@intel.com, qiuxu.zhuo@intel.com, mchehab@kernel.org,
- james.morse@arm.com, rric@kernel.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- evan.quan@amd.com, james.qian.wang@arm.com, liviu.dudau@arm.com,
- mihail.atanassov@arm.com, brian.starkey@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robdclark@gmail.com, sean@poorly.run,
- jdelvare@suse.com, linux@roeck-us.net, fery@cypress.com,
- dmitry.torokhov@gmail.com, agk@redhat.com, snitzer@redhat.com,
- dm-devel@redhat.com, rajur@chelsio.com, davem@davemloft.net,
- kuba@kernel.org, peppe.cavallaro@st.com, alexandre.torgue@st.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, malattia@linux.it,
- hdegoede@redhat.com, mgross@linux.intel.com,
- intel-linux-scu@intel.com, artur.paszkiewicz@intel.com,
- jejb@linux.ibm.com, martin.petersen@oracle.com,
- sakari.ailus@linux.intel.com, clm@fb.com, josef@toxicpanda.com,
- dsterba@suse.com, xiang@kernel.org, chao@kernel.org, jack@suse.com,
- tytso@mit.edu, adilger.kernel@dilger.ca, dushistov@mail.ru,
- luc.vanoostenryck@gmail.com, rostedt@goodmis.org, pmladek@suse.com,
- sergey.senozhatsky@gmail.com, andriy.shevchenko@linux.intel.com,
- linux@rasmusvillemoes.dk, minchan@kernel.org, ngupta@vflare.org,
- akpm@linux-foundation.org, kuznet@ms2.inr.ac.ru,
- yoshfuji@linux-ipv6.org, pablo@netfilter.org, kadlec@netfilter.org,
- fw@strlen.de, jmaloy@redhat.com, ying.xue@windriver.com,
- willy@infradead.org, sashal@kernel.org, ruanjinjie@huawei.com,
- David.Laight@aculab.com, herve.codina@bootlin.com, Jason@zx2c4.com,
- keescook@chromium.org, kbusch@kernel.org, bvanassche@acm.org,
- ndesaulniers@google.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-um@lists.infradead.org,
- linux-edac@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-btrfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
- linux-sparse@vger.kernel.org, linux-mm@kvack.org,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- tipc-discussion@lists.sourceforge.net
-Subject: Re: [PATCH v2 00/27 5.10.y] Backport minmax.h updates from v6.17-rc7
-Message-ID: <2025101905-matter-freezable-39e5@gregkh>
-References: <20251017090519.46992-1-farbere@amazon.com>
- <2025101704-rumble-chatroom-60b5@gregkh>
- <20251017160924.GA2728735@ax162>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C7EC10E218
+ for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 16:02:31 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59J8hGLv004476
+ for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 16:02:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=yrSgxSLSjug2hqzstf5hGIeQ
+ dvScIsYA26L3fjhfwUQ=; b=A60wrfVL9zZXiJo1IpYz5nSiXDhJggSOBHOpZkcc
+ tlEyseTYqS/ksvdbaDIM4xqXhH0AI8SNEg5poSQa6MnO0U3gkv0/wHZ+LW401cjl
+ TbpqwHrALb3oAEU3qn8lDhxRWU6UjE4aA0EP7S7HhCQ95vm0ShrjGSygZnkV8DfV
+ u/1b75DmFFnSSN7r4zNkl5rIOQexFxo47+aLiFttYBRZrGcB7lugIdY6BdlEwmIm
+ LVu9DQpsYbPjUFdm8qtASQ8ptQKYjFfAIVun/PdmA3OcU46mVZNAH6SlHqa/kAyy
+ xkh0MQo9VfIfM5eqvPM/87ayI4rlCiexYTCfrN7WlcCNqQ==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
+ [209.85.222.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49v469ahar-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 16:02:30 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id
+ a1e0cc1a2514c-932ca066facso359113241.1
+ for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 09:02:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760889749; x=1761494549;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yrSgxSLSjug2hqzstf5hGIeQdvScIsYA26L3fjhfwUQ=;
+ b=QPgVNKAD+DaYF0GcGJeV7BWsxsFjYlEPMSqkz7oVgPrQTaCYZ+8042/WK/F67go5Yt
+ Us0o2kIYoV8ZZG1HRKaum5lGfMnW0sfnKs5fe9OTGGgdpTpgCF0TeJEkn2e+50nGqFys
+ hSAdf2g2sKrKjhABz1/1h3pdmlrVsji1x0JI3YX+uwQsLHqcawXQ6TI1DA0gmqC5ht1i
+ GccjyG0eVaie4mPjksXF042t7znO+5mqoM4RSogDviO2oFSvG7lgEWq1zolRv2W5ZtYI
+ EL2ZClvXigcZxOhl6xMaYLueAhKfQvXPBF35NjaU4r+JoNsEEChR/g2YIj1GSDatbYbT
+ WlCw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVXkl6yp4Ei5kk7nz85EHvFUkjXZdrQqQY6MzGjhvkJDDtaHoGflYGA6UeurfMtW/7+oWBjDm3Bz+E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxLHEZZNfdTnns4Vnk0GmctQDRC5W/TgMEzeyN16VdjCaaD0CZ
+ GX9uxz8wsHX8bDifjhVk4+IIr4QY9Xpq/fUyvDUjFnSO6p/dMZQwGcjIGPEsYlLlBn1/7PkDAbv
+ GPMhS5EHd4D/Dar/STTsdxplBfUOVRk0Hy2wBuzIDBTIXjkxIJsGVDQbXKIm0M+fOaGfiDrU=
+X-Gm-Gg: ASbGncs/zN7+eT8uZ/JE/7MOv6N3M9eFE0hfRfXtbh/Upt1NmKKIAEPiiiv4uQ5LmXW
+ TQnPxF81x1SqwTYptdDctVfbZB30iDgyY1DOdL3XZ2X9HcdWIFrSBuDVnLP11YkPil6vLTACwhI
+ jsUrE5Nm3x0LVrQSBPRN+6LRWYsbXzGQmdIa8wuf2E5s3QkN/Ntawyn4xvpEkULxV6vQtp40rg3
+ WopzBDYuoa56qxZqy3j3U6s3OBsaILl2v8FzjrigKJZSVt2tOXJNHO+M+m/UUCNR8SilF56fEM9
+ tDFmrfanjFo5ciK/VlxK1l+RbabZ8oQuXfzM8Iq6SSVcR/jC0B68oESlPgtq3yGfr5vPWza0N/v
+ IHDJK4bJ2Gfh/pGLzh3tpa7QMaOicyL7/yMtkoL4z+FsqKfsmJRwv5/lq5wcXuH9NIQ3lN34rpS
+ ZmAMdISVqnanY=
+X-Received: by 2002:a05:6122:3d05:b0:54a:8cfe:193e with SMTP id
+ 71dfb90a1353d-5564ee5fc31mr2779093e0c.5.1760889749462; 
+ Sun, 19 Oct 2025 09:02:29 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGX12e9u2jTwAw/ohWphMrO/Z/+CwpFfiWoBiRqZoykAWDjj50XtmQqV9+4tCn2aAkVSr9v8A==
+X-Received: by 2002:a05:6122:3d05:b0:54a:8cfe:193e with SMTP id
+ 71dfb90a1353d-5564ee5fc31mr2779046e0c.5.1760889748963; 
+ Sun, 19 Oct 2025 09:02:28 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-377a9578a51sm14051151fa.42.2025.10.19.09.02.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Oct 2025 09:02:27 -0700 (PDT)
+Date: Sun, 19 Oct 2025 19:02:25 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: xiangxu.yin@oss.qualcomm.com
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
+ li.liu@oss.qualcomm.com
+Subject: Re: [PATCH v4 2/3] arm64: dts: qcom: Add DisplayPort and QMP USB3DP
+ PHY for SM6150
+Message-ID: <aruuyvtzi2notuxdoi6mk45y3zybu7dpttpteqrektszkhh4hw@uipxhhy5nar4>
+References: <20251015-add-displayport-support-to-qcs615-devicetree-v4-0-aa2cb8470e9d@oss.qualcomm.com>
+ <20251015-add-displayport-support-to-qcs615-devicetree-v4-2-aa2cb8470e9d@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251017160924.GA2728735@ax162>
+In-Reply-To: <20251015-add-displayport-support-to-qcs615-devicetree-v4-2-aa2cb8470e9d@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: AVhdPkDvpCJTg58jT-7lMngLBP76H2dK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDE4MDAzMiBTYWx0ZWRfX/9g6srFyzr+Y
+ FDnYDMbYoDRakkbTlyVj27CILBQWINOsWUEuGmrCdqdlJJcdqPMJUOkR1noqv+jxKO8GB8F0yM7
+ pKu2eaCfCYCarLKT3PzQLg0M+nfSzkBBsPi/Tm5/nEJ+TXFvH0Rxjvv1ZxrXOi+w2Y+S7lZGtu3
+ WJl6FLPhFLERKd8HrTBY/QdDY66LvD3niNBS2Z3MttVsrAr3ZeHENqoGrtTTIPrdsWiBVG9ah0p
+ mXklc1Jumcgrdz88f21wLJqxBiTkPQqx/Bb1R9AIr7ULQGSuq7xnh3PE52Eyjd/PB97r1wKLlqC
+ rK5qWlj4eDTIs7j6momlGMurhSuQtyMGstzKFz/p7NSqKHiryb5+70cVry1ZEVYAQ+OswASX9/0
+ pjeVjue0zDjDHzNdYjxHxssDZ74EpQ==
+X-Authority-Analysis: v=2.4 cv=U8qfzOru c=1 sm=1 tr=0 ts=68f50b96 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8
+ a=jqVs4JzIjkIIVyEy1LMA:9 a=CjuIK1q_8ugA:10 a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-GUID: AVhdPkDvpCJTg58jT-7lMngLBP76H2dK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-19_05,2025-10-13_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ spamscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510180032
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,70 +139,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 17, 2025 at 05:09:24PM +0100, Nathan Chancellor wrote:
-> On Fri, Oct 17, 2025 at 05:03:02PM +0200, Greg KH wrote:
-> > On Fri, Oct 17, 2025 at 09:04:52AM +0000, Eliav Farber wrote:
-> > > This series backports 27 patches to update minmax.h in the 5.10.y
-> > > branch, aligning it with v6.17-rc7.
-> > > 
-> > > The ultimate goal is to synchronize all long-term branches so that they
-> > > include the full set of minmax.h changes.
-> > > 
-> > > - 6.12.y has already been backported; the changes are included in
-> > >   v6.12.49.
-> > > - 6.6.y has already been backported; the changes are included in
-> > >   v6.6.109.
-> > > - 6.1.y has already been backported; the changes are currently in the
-> > >   6.1-stable tree.
-> > > - 5.15.y has already been backported; the changes are currently in the
-> > >   5.15-stable tree.
-> > 
-> > With this series applied, on an arm64 server, building 'allmodconfig', I
-> > get the following build error.
-> > 
-> > Oddly I don't see it on my x86 server, perhaps due to different compiler
-> > versions?
-> > 
-> > Any ideas?
-> > 
-> > thanks,
-> > 
-> > greg k-h
-> > 
-> > ------------------------
-> > 
-> > In function ‘rt2800_txpower_to_dev’,
-> >     inlined from ‘rt2800_config_channel’ at ../drivers/net/wireless/ralink/rt2x00/rt2800lib.c:4022:25:
-> > ./../include/linux/compiler_types.h:309:45: error: call to ‘__compiletime_assert_1168’ declared with attribute error: clamp() low limit -7 greater than high limit 15
-> >   309 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-> >       |                                             ^
-> > ./../include/linux/compiler_types.h:290:25: note: in definition of macro ‘__compiletime_assert’
-> >   290 |                         prefix ## suffix();                             \
-> >       |                         ^~~~~~
-> > ./../include/linux/compiler_types.h:309:9: note: in expansion of macro ‘_compiletime_assert’
-> >   309 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-> >       |         ^~~~~~~~~~~~~~~~~~~
-> > ../include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
-> >    39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-> >       |                                     ^~~~~~~~~~~~~~~~~~
-> > ../include/linux/minmax.h:188:9: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-> >   188 |         BUILD_BUG_ON_MSG(statically_true(ulo > uhi),                            \
-> >       |         ^~~~~~~~~~~~~~~~
-> > ../include/linux/minmax.h:195:9: note: in expansion of macro ‘__clamp_once’
-> >   195 |         __clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
-> >       |         ^~~~~~~~~~~~
-> > ../include/linux/minmax.h:218:36: note: in expansion of macro ‘__careful_clamp’
-> >   218 | #define clamp_t(type, val, lo, hi) __careful_clamp(type, val, lo, hi)
-> >       |                                    ^~~~~~~~~~~~~~~
-> > ../drivers/net/wireless/ralink/rt2x00/rt2800lib.c:3980:24: note: in expansion of macro ‘clamp_t’
-> >  3980 |                 return clamp_t(char, txpower, MIN_A_TXPOWER, MAX_A_TXPOWER);
-> >       |                        ^~~~~~~
+On Wed, Oct 15, 2025 at 09:53:19AM +0800, Xiangxu Yin via B4 Relay wrote:
+> From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
 > 
-> Missing commit 3bc753c06dd0 ("kbuild: treat char as always unsigned")?
+> Introduce DisplayPort controller node and associated QMP USB3-DP PHY
+> for SM6150 SoC. Add data-lanes property to the DP endpoint and update
+> clock assignments for proper DP integration.
+> 
+> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sm6150.dtsi | 113 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 111 insertions(+), 2 deletions(-)
+> 
 
-That's going to be messy to backport, it's not even in 6.1.y, so let's
-leave that alone if at all possible.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-thanks,
 
-greg k-h
+-- 
+With best wishes
+Dmitry
