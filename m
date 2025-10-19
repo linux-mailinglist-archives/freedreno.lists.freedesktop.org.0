@@ -2,128 +2,155 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 606E9BEE49F
-	for <lists+freedreno@lfdr.de>; Sun, 19 Oct 2025 14:14:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A1D1BEE4CB
+	for <lists+freedreno@lfdr.de>; Sun, 19 Oct 2025 14:37:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D03F310E1F4;
-	Sun, 19 Oct 2025 12:14:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23ED510E10B;
+	Sun, 19 Oct 2025 12:37:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="En65Ngbl";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mr7tZ637";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE6510E1F4
- for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 12:14:29 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59J8PNhH020811
- for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 12:14:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- puNPrhTEXrfqnZblxaqGqUil1ruzTr+zCkgmrxJ5Bek=; b=En65NgblGY8NIrNy
- BjKP5KUK4ujMB3MNse92ose8la5TWB9nGsRowsVSqd47vWUpN1okqFrwbLRbe/Pe
- FNXx2CSQ1X00JbGgoIsnH6KHLWY1Qolrujvn/NYfSUhBI4uBbBj3taB/vAEKIjMg
- G+LNq+UP+2K3EqrMaLSzL+a9/fwmXBc2Vc95pgWrtnRnurCCfm6AZnlgQNC/gZv1
- RIiZAK7ux1qSlEfc63GcdYqlW9InQamQsiC4mUnRhK9etJjKT0GL+cHeJx6Kjb/s
- cRb/ARXhJ2FMsgtGx0SoulEaH3RtZW1rxb22UtmhV6SMakH6axSzxO6MljqW6bs8
- EtMyZw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49v2yv2a5a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 12:14:28 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-88f1dad9992so364808685a.1
- for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 05:14:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760876068; x=1761480868;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=puNPrhTEXrfqnZblxaqGqUil1ruzTr+zCkgmrxJ5Bek=;
- b=ONU/TkuRy8YyChkDp1O0TTJF0Kn/yUQXzoRoB/NW/bWnqndKYwSSzLijpDO52mFVwx
- OSjnFTj2pqsMc8CFA4K9i3EdYAFTt9NUHxmizRwyw1N1hd/KfrBz/bK6qSJUqvmX7SEr
- LsATceEYAKcUtcc1QKpXRTrB02psfdxbMSfp+8BQyxCuHUIMq7N/o2Tbb+ANHIS3ofY8
- B7EnOm4G9YJ75GjYNMQ3rILHhzqC+G9fETT60IZREVLl+p48X6LNvSiIA0N1Fm74HrYm
- Wnu6zFgOxRdCGQ++YEA19DUoDdCCVptlZjDomD6XI6LlzI/hT1tYWrtE9zfPv3IpurOU
- 914w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWEP89aVv5O5pKNpwCMygGqUq5ThlT6VOcGL1fb5icsXNFXq8fYfRO0ty1jPZTe7MTgUIOW1NXuBEA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwparttKoXpBBGr4rm6PEIpLoEhYI988hCf/WOJ+6MVFe/Ds6NZ
- chjFSYMs1DmvQS1cg+KIU71IELB2kP+D7senM90n4Qcjl7TDS17ZgikKuEvILFxZf67vympYUxK
- YNWnFwxOnv56yRHAIbIxrTB+fm4pGMCAlcWuegKz68oI0UmOqdb83jcNKYBHvLrY3W1bwcsM=
-X-Gm-Gg: ASbGnct2Y62ESVo2tO15U4vdo0yZI66+w+8gJRfzp1DVyAc+TlCRTIj1Ehe/rGsRmCJ
- NHL/KEMlIuXt67vq9Dtab6yl+3wyIwowBwuFm5DI/CF8rEihRM/MXQ7yvprCYljwThAJvZqwQD8
- A3ONJVyZDOq6IpNAhoSHJ5fkCDO1fwEdqxGbFgrcalqNW74LJ0NveOZUQPnI4cWNv3EkxZIut9S
- PtQk1LUbwAdr5xxGo0kzk7vDRUWXOFpfEo/aFdueY20ST1dRFLgGIyfC1ijOcPszMVnVEuUdt/T
- P4YDceGrU1SOQG/ioAplRzGr+IcEBpTz6CvuHlbpykZC0RodKOznY8Sw/k1A4dyKuY8HkYe35aY
- PWzcz3oMXjE39ObQfKyiBVIGDlGwo/fHf48GemAPd+MuhJaOcuSUmHsLkwSB5WNdFppmwEknl2E
- ZGgHYM6ClnCDk=
-X-Received: by 2002:ac8:5985:0:b0:4e8:911a:2af1 with SMTP id
- d75a77b69052e-4e89d3625e2mr152707011cf.46.1760876067801; 
- Sun, 19 Oct 2025 05:14:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG8+CZ0NJ9bBoZZ1GZiXuCbYiL/YP/qmggrLH+uJV7bA2b9ganhGBoaFnRrleOl3gY/Yk+zFA==
-X-Received: by 2002:ac8:5985:0:b0:4e8:911a:2af1 with SMTP id
- d75a77b69052e-4e89d3625e2mr152706601cf.46.1760876067319; 
- Sun, 19 Oct 2025 05:14:27 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-591deec0b98sm1528227e87.40.2025.10.19.05.14.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Oct 2025 05:14:26 -0700 (PDT)
-Date: Sun, 19 Oct 2025 15:14:23 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ritesh Kumar <quic_riteshk@quicinc.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, quic_mahap@quicinc.com, andersson@kernel.org,
- konradybcio@kernel.org, mani@kernel.org,
- James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
- vkoul@kernel.org, kishon@kernel.org,
- cros-qcom-dts-watchers@chromium.org, linux-phy@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
- quic_vproddut@quicinc.com
-Subject: Re: [PATCH v2 0/3] Add edp reference clock for lemans
-Message-ID: <ql5ps7cv7x6hz3otzz45uv6pbr64x2hdapa66vq2jtnt6l536h@kbktvupxpf4y>
-References: <20251013104806.6599-1-quic_riteshk@quicinc.com>
- <7jmk3txdrnit6zn7ufra7davmomggd3graizdu6wqonp3lljza@mfnxt2owpknq>
- <4bd619e7-e9ca-44a8-9d36-10c18d7a8157@quicinc.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF38210E10B;
+ Sun, 19 Oct 2025 12:37:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 285FE604E4;
+ Sun, 19 Oct 2025 12:37:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54864C4CEE7;
+ Sun, 19 Oct 2025 12:37:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1760877463;
+ bh=dgzA9LsGuiP/mYejoGwFkpon4M45cMihfvBvR4qrSRg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mr7tZ637v1WDh2Nr8sg19/xoeGzZL3RvlnXfYUykPJk+G6zQteton6Oo+u5wVdnxN
+ ZBC8QPSBVC5hJfXNWgutJHN6QRJ4bxeGe2+hYWxIp2brHCNu/KXcKMeG5P43CM4Fjg
+ vDPDOANq6idL2020QoIIUuWRPKXTuhm7Nf2n5Cxw=
+Date: Sun, 19 Oct 2025 14:37:40 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "Farber, Eliav" <farbere@amazon.com>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ "jdike@addtoit.com" <jdike@addtoit.com>, "richard@nod.at" <richard@nod.at>,
+ "anton.ivanov@cambridgegreys.com" <anton.ivanov@cambridgegreys.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
+ "hpa@zytor.com" <hpa@zytor.com>,
+ "tony.luck@intel.com" <tony.luck@intel.com>,
+ "qiuxu.zhuo@intel.com" <qiuxu.zhuo@intel.com>,
+ "mchehab@kernel.org" <mchehab@kernel.org>,
+ "james.morse@arm.com" <james.morse@arm.com>,
+ "rric@kernel.org" <rric@kernel.org>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "evan.quan@amd.com" <evan.quan@amd.com>,
+ "james.qian.wang@arm.com" <james.qian.wang@arm.com>,
+ "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
+ "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>,
+ "brian.starkey@arm.com" <brian.starkey@arm.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "sean@poorly.run" <sean@poorly.run>,
+ "jdelvare@suse.com" <jdelvare@suse.com>,
+ "linux@roeck-us.net" <linux@roeck-us.net>,
+ "fery@cypress.com" <fery@cypress.com>,
+ "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>,
+ "agk@redhat.com" <agk@redhat.com>,
+ "snitzer@redhat.com" <snitzer@redhat.com>,
+ "dm-devel@redhat.com" <dm-devel@redhat.com>,
+ "rajur@chelsio.com" <rajur@chelsio.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "kuba@kernel.org" <kuba@kernel.org>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "alexandre.torgue@st.com" <alexandre.torgue@st.com>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "malattia@linux.it" <malattia@linux.it>,
+ "hdegoede@redhat.com" <hdegoede@redhat.com>,
+ "mgross@linux.intel.com" <mgross@linux.intel.com>,
+ "intel-linux-scu@intel.com" <intel-linux-scu@intel.com>,
+ "artur.paszkiewicz@intel.com" <artur.paszkiewicz@intel.com>,
+ "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
+ "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
+ "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+ "clm@fb.com" <clm@fb.com>, "josef@toxicpanda.com" <josef@toxicpanda.com>,
+ "dsterba@suse.com" <dsterba@suse.com>,
+ "xiang@kernel.org" <xiang@kernel.org>, "chao@kernel.org" <chao@kernel.org>,
+ "jack@suse.com" <jack@suse.com>, "tytso@mit.edu" <tytso@mit.edu>,
+ "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+ "dushistov@mail.ru" <dushistov@mail.ru>,
+ "luc.vanoostenryck@gmail.com" <luc.vanoostenryck@gmail.com>,
+ "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "pmladek@suse.com" <pmladek@suse.com>,
+ "sergey.senozhatsky@gmail.com" <sergey.senozhatsky@gmail.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>,
+ "minchan@kernel.org" <minchan@kernel.org>,
+ "ngupta@vflare.org" <ngupta@vflare.org>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "kuznet@ms2.inr.ac.ru" <kuznet@ms2.inr.ac.ru>,
+ "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>,
+ "pablo@netfilter.org" <pablo@netfilter.org>,
+ "kadlec@netfilter.org" <kadlec@netfilter.org>,
+ "fw@strlen.de" <fw@strlen.de>, "jmaloy@redhat.com" <jmaloy@redhat.com>,
+ "ying.xue@windriver.com" <ying.xue@windriver.com>,
+ "willy@infradead.org" <willy@infradead.org>,
+ "sashal@kernel.org" <sashal@kernel.org>,
+ "ruanjinjie@huawei.com" <ruanjinjie@huawei.com>,
+ "David.Laight@aculab.com" <David.Laight@aculab.com>,
+ "herve.codina@bootlin.com" <herve.codina@bootlin.com>,
+ "Jason@zx2c4.com" <Jason@zx2c4.com>,
+ "keescook@chromium.org" <keescook@chromium.org>,
+ "kbusch@kernel.org" <kbusch@kernel.org>,
+ "nathan@kernel.org" <nathan@kernel.org>,
+ "bvanassche@acm.org" <bvanassche@acm.org>,
+ "ndesaulniers@google.com" <ndesaulniers@google.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+ "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, 
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
+ "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
+ "linux-erofs@lists.ozlabs.org" <linux-erofs@lists.ozlabs.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
+ "coreteam@netfilter.org" <coreteam@netfilter.org>,
+ "tipc-discussion@lists.sourceforge.net"
+ <tipc-discussion@lists.sourceforge.net>
+Subject: Re: [PATCH v2 00/27 5.10.y] Backport minmax.h updates from v6.17-rc7
+Message-ID: <2025101929-curator-poplar-7460@gregkh>
+References: <20251017090519.46992-1-farbere@amazon.com>
+ <2025101704-rumble-chatroom-60b5@gregkh>
+ <CH0PR18MB5433BB2E99395D2AC8B0E0FBC6F7A@CH0PR18MB5433.namprd18.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4bd619e7-e9ca-44a8-9d36-10c18d7a8157@quicinc.com>
-X-Proofpoint-ORIG-GUID: HnY69h12cc1f2dCVSh7F0tTaA9AfM3PS
-X-Proofpoint-GUID: HnY69h12cc1f2dCVSh7F0tTaA9AfM3PS
-X-Authority-Analysis: v=2.4 cv=f+5FxeyM c=1 sm=1 tr=0 ts=68f4d624 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=FYAu2dUYg65mSESSDlUA:9
- a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDE4MDAyMyBTYWx0ZWRfXx+QJl3bv7sJp
- g7yKi3GnDhfOCKYpg8Dd9X0d+0G6rcFMGOZiP4LNhseHxJHdh++6TXbWoB9JnqV0AZcji2eg5NI
- knl3Rrq/Gyg75p3ES4IBsJBucb13t+gzIACtnhwdUlL4o5C5BEwaV/os36s49Cs7cm1UoqGfKcW
- eU1F+m55BEVGWsLVo7pqtvgzYBafaWulfgFTfGeTZz/6ndSFR8JqllqVRtY/UQ0vdfzt7kvzI5N
- g4u1xz17osWmVlfK5aGyBuI/0I8r2n/mzddgSwMRTWCh3vImGC10O7Xza68uKpilBloOf3qD/32
- FXNoCPiGtQtr98MJWCheaF3Xb/K2086/9+HZVKm24wJOq6HZmBusoB5GvPCU792Gg6SRdsCub30
- JQsrw0yA84op2Y42B/HUfuJnTaQ8gw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-19_05,2025-10-13_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- adultscore=0 phishscore=0 bulkscore=0 clxscore=1015 spamscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2510020000
- definitions=main-2510180023
+In-Reply-To: <CH0PR18MB5433BB2E99395D2AC8B0E0FBC6F7A@CH0PR18MB5433.namprd18.prod.outlook.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,39 +166,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 15, 2025 at 02:49:08PM +0530, Ritesh Kumar wrote:
+On Sat, Oct 18, 2025 at 08:07:32PM +0000, Farber, Eliav wrote:
+> > On Fri, Oct 17, 2025 at 09:04:52AM +0000, Eliav Farber wrote:
+> > > This series backports 27 patches to update minmax.h in the 5.10.y
+> > > branch, aligning it with v6.17-rc7.
+> > >
+> > > The ultimate goal is to synchronize all long-term branches so that they
+> > > include the full set of minmax.h changes.
+> > >
+> > > - 6.12.y has already been backported; the changes are included in
+> > >   v6.12.49.
+> > > - 6.6.y has already been backported; the changes are included in
+> > >   v6.6.109.
+> > > - 6.1.y has already been backported; the changes are currently in the
+> > >   6.1-stable tree.
+> > > - 5.15.y has already been backported; the changes are currently in the
+> > >   5.15-stable tree.
+> >
+> > With this series applied, on an arm64 server, building 'allmodconfig', I
+> > get the following build error.
+> >
+> > Oddly I don't see it on my x86 server, perhaps due to different compiler
+> > versions?
+> >
+> > Any ideas?
 > 
-> On 10/13/2025 6:04 PM, Dmitry Baryshkov wrote:
-> > On Mon, Oct 13, 2025 at 04:18:03PM +0530, Ritesh Kumar wrote:
-> > > On lemans chipset, edp reference clock is being voted by ufs mem phy
-> > > (ufs_mem_phy: phy@1d87000). But after commit 77d2fa54a9457
-> > > ("scsi: ufs: qcom : Refactor phy_power_on/off calls") edp reference
-> > > clock is getting turned off, leading to below phy poweron failure on
-> > > lemans edp phy.
-> > 
-> > How does UFS turn on eDP reference clock?
+> This mainline commit is missing:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/net/wireless/ralink/rt2x00/rt2800lib.c?h=v6.18-rc1&id=66063033f77e10b985258126a97573f84bb8d3b4
 > 
-> In lemans, GCC_EDP_REF_CLKREF_EN is voted as qref clock in ufs_mem_phy.
+> This fix already exists in 5.15.y:
+> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/drivers/net/wireless/ralink/rt2x00/rt2800lib.c?h=v5.15.194&id=2d3cef3d7a5df260a14a6679c4aca0c97e570ee5
+> â€¦but is missing in 5.10.y.
 > 
+> I now backported it to 5.10.y here:
+> https://lore.kernel.org/stable/20251018195945.18825-1-farbere@amazon.com/T/#u
 
-Ack, please fix other comments.
+Thanks,I've queued that up now.
 
-> 
-> ufs_mem_phy: phy@1d87000 {
->     compatible = "qcom,sa8775p-qmp-ufs-phy";
->     reg = <0x0 0x01d87000 0x0 0xe10>;
->     /*
->      * Yes, GCC_EDP_REF_CLKREF_EN is correct in qref. It
->      * enables the CXO clock to eDP *and* UFS PHY.
->      */
->     clocks = <&rpmhcc RPMH_CXO_CLK>,
->              <&gcc GCC_UFS_PHY_PHY_AUX_CLK>,
->              <&gcc GCC_EDP_REF_CLKREF_EN>;
->     clock-names = "ref", "ref_aux", "qref";
-> 
-> > 
-> > 
-
--- 
-With best wishes
-Dmitry
+greg k-h
