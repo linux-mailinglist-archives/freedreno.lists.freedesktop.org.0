@@ -2,66 +2,112 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A678BF14E6
-	for <lists+freedreno@lfdr.de>; Mon, 20 Oct 2025 14:46:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50789BF1B75
+	for <lists+freedreno@lfdr.de>; Mon, 20 Oct 2025 16:06:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF0E210E32F;
-	Mon, 20 Oct 2025 12:46:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F39CE10E44C;
+	Mon, 20 Oct 2025 14:06:03 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lL9R78Ky";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Mon, 20 Oct 2025 11:42:36 UTC
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B631B10E29A;
- Mon, 20 Oct 2025 11:42:36 +0000 (UTC)
-X-UUID: 2883f10aada911f0a38c85956e01ac42-20251020
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CTE_8B
- HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
- HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
- HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME
- IP_UNTRUSTED, SRC_UNTRUSTED, IP_LOWREP, SRC_LOWREP, DN_TRUSTED
- SRC_TRUSTED, SA_EXISTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
- DMARC_NOPASS, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
- GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.6, REQID:9e0a14a9-ab98-4269-b939-fd4775a0f249, IP:10,
- U
- RL:0,TC:0,Content:0,EDM:25,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:30
-X-CID-INFO: VERSION:1.3.6, REQID:9e0a14a9-ab98-4269-b939-fd4775a0f249, IP:10,
- URL
- :0,TC:0,Content:0,EDM:25,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:30
-X-CID-META: VersionHash:a9d874c, CLOUDID:5827c87bff38bde25837b5837f87607c,
- BulkI
- D:251020193614H7E4RRCI,BulkQuantity:1,Recheck:0,SF:17|19|25|45|66|78|102|8
- 50,TC:nil,Content:0|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:40,QS:nil,BE
- C:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2883f10aada911f0a38c85956e01ac42-20251020
-X-User: hehuiwen@kylinos.cn
-Received: from localhost.localdomain [(220.202.195.150)] by mailgw.kylinos.cn
- (envelope-from <hehuiwen@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 252442399; Mon, 20 Oct 2025 19:37:28 +0800
-From: Huiwen He <hehuiwen@kylinos.cn>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Huiwen He <hehuiwen@kylinos.cn>
-Subject: [PATCH] drm/msm: Fix NULL pointer dereference in
- crashstate_get_vm_logs()
-Date: Mon, 20 Oct 2025 19:37:08 +0800
-Message-ID: <20251020113708.7403-1-hehuiwen@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3B5C10E44C
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Oct 2025 14:06:02 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-471bde1e8f8so7168525e9.0
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Oct 2025 07:06:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1760969161; x=1761573961; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=Sd6YgMZ0EvLCVMfSrtsFSXjlb0MkGk3ybivpWnrAPLc=;
+ b=lL9R78KylnSBtgdDehtUaacLTBx7X8yv3/fr3vmK6FXXliTuWvl2hfsryPFXAXlD0L
+ rdJAcm4KAFlsAbtGb4oMWjzAFYabXfW9GQnfbeijSs0rf34I3KK4LYQEm9NigZ1B9GAa
+ 0Hf32Kd8I3irSN5uqH8OnLmXwbdZNeZRJHnqXRsb9/2Ev18+QT86hitABtn40I/wLLNN
+ bl/JJ+ZUQLXD/mb0WiUFLk+pogeyCij8H55wKUU0l7sPSkRRazyQdHdRtYS55/fPE3Mj
+ HJhJZuLrOBWKCvhFfLav/Bs4tN4VP4Uy+sS6kb1ScLpPyGHR9FSGCcUDBtmsWV8L9tkI
+ 2kMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760969161; x=1761573961;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Sd6YgMZ0EvLCVMfSrtsFSXjlb0MkGk3ybivpWnrAPLc=;
+ b=iAuNohw5Z6qVwhpfOU75g9U2F1NgE1bynm+y9sNyswWjEu+8QG1MnTGnYMGYCoHouE
+ ccmwRnp7sHLTWBz8m2Jz/r7dr0tm/5ijj51MQaGV5GYbjku/Ygy0ZONllCGknMEo4Lov
+ xPE/YeE5CEttqJhUC3i5C6YS8MfzkS8VdglGNIbkPfrLYTWc7ZKfvXTl6kUl0LYAQw/x
+ I2wUEwk7So+MoI8ERvsSgHntg1/sBZ9vDRVMo2+B8sbsOYpcx6rsO5l2E+Ji7EwlVLyv
+ 7MCVBBu0YnLq1oMGFRPQwCecdKcZimupgoEJxdn4hT8aBE6FFPXhEFeuTReeIYiPXbXz
+ X9zw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUkuN0OLFTMNdqXR+BhD4s+fobFROcPg2OCJxTJ4tOSnCaIBT4I9q5EkbVu33Y+VQlKbH9wfAwjacg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxkQD+eT43yo4IA/P5QASU1oYrL5YLjhnvTkwGzypK3YRnDcjZj
+ 44DL8wCHMkUmJ9+yPjxCYu9bziUeybB749IAotVShkNuYcYIgKeuICmYX66no6yUy8A=
+X-Gm-Gg: ASbGncsAu1TDukibh+s82zjXL1Vcdgb63A+VwjykxeJZAmWK/7T7xoKdWu0HAsIG12Q
+ Q/macqNKDJwv2EglPfV7pvcHEHkhhXiEfI+jp79WgKaHzuFkUCzD+xDcjhqs41O7J2EQFh+GqRp
+ LFsJfpv99JlyTF6ohn4MV5IZQcjpwbbCFr1P3Y+Y079LFd8QRrZDKvSiA4UxEJLLYV7/rfZgVsY
+ DkshKQuVOzb4MNPC+/fOSCDBaL4KlEBJ67Pf1CXgCrGUNmkBbyC4egP3OoIjI/deNeD92g+1FkC
+ R56JzCt0w740kwO9FApGkNP7xtUHWKQ83qCzrRTpynb05mG3ZoJ9idSxVafnreEZtROmMjnIktS
+ vzX8V4bLpTnFfQHYwBu+ttX78NWyaykKfdz2lce94l0JMt6ea3bIipm2d0b/6UegPtjDTz1zsfd
+ +X1bSUNZGX2GZcYBeNetIyaewYnIk7kccvpozNLazTK0hYgLH3Wg==
+X-Google-Smtp-Source: AGHT+IElds44AnSuk+S+AOVQ8FVT5v16YAL1G1ZowhiBJ5/rHMYiBeguB3q2TELyHFS/vYMlf6gFlw==
+X-Received: by 2002:a05:600c:8b0c:b0:471:58f:601f with SMTP id
+ 5b1f17b1804b1-47117912389mr105066595e9.30.1760969160728; 
+ Mon, 20 Oct 2025 07:06:00 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:3d9:2080:4f9c:f978:568:7b9c?
+ ([2a01:e0a:3d9:2080:4f9c:f978:568:7b9c])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-471144239f4sm232439905e9.2.2025.10.20.07.06.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Oct 2025 07:06:00 -0700 (PDT)
+Message-ID: <1b783a60-39c7-49b5-8932-e77230f6cddd@linaro.org>
+Date: Mon, 20 Oct 2025 16:05:59 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 20 Oct 2025 12:46:39 +0000
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH v2] drm/msm/dpu: Filter modes based on adjusted mode clock
+To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20250506-filter-modes-v2-1-c20a0b7aa241@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20250506-filter-modes-v2-1-c20a0b7aa241@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,40 +120,164 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-crashstate_get_vm_logs() did not check the result of kmalloc_array()
-before using state->vm_logs. In low memory situations, kmalloc_array()
-may fail and return NULL, leading to a kernel crash when the array
-is accessed in the subsequent loop.
+Hi,
 
-Fix this by checking the return value of kmalloc_array(). If allocation
-fails, set state->nr_vm_logs to 0, and exit the function safely.
+On 5/7/25 03:38, Jessica Zhang wrote:
+> Filter out modes that have a clock rate greater than the max core clock
+> rate when adjusted for the perf clock factor
+> 
+> This is especially important for chipsets such as QCS615 that have lower
+> limits for the MDP max core clock.
+> 
+> Since the core CRTC clock is at least the mode clock (adjusted for the
+> perf clock factor) [1], the modes supported by the driver should be less
+> than the max core clock rate.
+> 
+> [1] https://elixir.bootlin.com/linux/v6.12.4/source/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c#L83
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 
-Fixes: 9edc52967cc7 ("drm/msm: Add VM logging for VM_BIND updates")
-Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
----
- drivers/gpu/drm/msm/msm_gpu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+This change breaks the T14s OLED display, no modes are reported on the eDP connector.
+msm_dpu ae01000.display-controller: [drm:update_display_info.part.0 [drm]] [CONNECTOR:41:eDP-1] Assigning EDID-1.4 digital sink color depth as 10 bpc.
+msm_dpu ae01000.display-controller: [drm:update_display_info.part.0 [drm]] [CONNECTOR:41:eDP-1] ELD monitor
+msm_dpu ae01000.display-controller: [drm:update_display_info.part.0 [drm]] [CONNECTOR:41:eDP-1] ELD size 20, SAD count 0
+[drm:drm_mode_object_put.part.0 [drm]] OBJ ID: 113 (1)
+msm_dpu ae01000.display-controller: [drm:drm_mode_prune_invalid [drm]] Rejected mode: "2880x1800": 120 652260 2880 2912 2920 2980 1800 1808 1816 1824 0x48 0x9 (CLOCK_HIGH)
+msm_dpu ae01000.display-controller: [drm:drm_mode_prune_invalid [drm]] Rejected mode: "2880x1800": 60 652260 2880 2888 2920 2980 1800 1808 1816 3648 0x40 0x9 (CLOCK_HIGH)
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 17759abc46d7..51df6ff945d2 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -348,6 +348,12 @@ static void crashstate_get_vm_logs(struct msm_gpu_state *state, struct msm_gem_v
- 
- 	state->vm_logs = kmalloc_array(
- 		state->nr_vm_logs, sizeof(vm->log[0]), GFP_KERNEL);
-+	if (!state->vm_logs) {
-+		state->nr_vm_logs = 0;
-+		mutex_unlock(&vm->mmu_lock);
-+		return;
-+	}
-+
- 	for (int i = 0; i < state->nr_vm_logs; i++) {
- 		int idx = (i + first) & vm_log_mask;
- 
--- 
-2.43.0
+With this reverted on v6.18-rc, display works again.
+
+Neil
+
+> ---
+> Changes in v2:
+> - *crtc_clock -> *mode_clock (Dmitry)
+> - Changed adjusted_mode_clk check to use multiplication (Dmitry)
+> - Switch from quic_* email to OSS email
+> - Link to v1: https://lore.kernel.org/lkml/20241212-filter-mode-clock-v1-1-f4441988d6aa@quicinc.com/
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 35 ++++++++++++++++++---------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  3 +++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 12 +++++++++
+>   3 files changed, 39 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> index 0fb5789c60d0..13cc658065c5 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> @@ -31,6 +31,26 @@ enum dpu_perf_mode {
+>   	DPU_PERF_MODE_MAX
+>   };
+>   
+> +/**
+> + * dpu_core_perf_adjusted_mode_clk - Adjust given mode clock rate according to
+> + *   the perf clock factor.
+> + * @crtc_clk_rate - Unadjusted mode clock rate
+> + * @perf_cfg: performance configuration
+> + */
+> +u64 dpu_core_perf_adjusted_mode_clk(u64 mode_clk_rate,
+> +				    const struct dpu_perf_cfg *perf_cfg)
+> +{
+> +	u32 clk_factor;
+> +
+> +	clk_factor = perf_cfg->clk_inefficiency_factor;
+> +	if (clk_factor) {
+> +		mode_clk_rate *= clk_factor;
+> +		do_div(mode_clk_rate, 100);
+> +	}
+> +
+> +	return mode_clk_rate;
+> +}
+> +
+>   /**
+>    * _dpu_core_perf_calc_bw() - to calculate BW per crtc
+>    * @perf_cfg: performance configuration
+> @@ -75,28 +95,21 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
+>   	struct drm_plane *plane;
+>   	struct dpu_plane_state *pstate;
+>   	struct drm_display_mode *mode;
+> -	u64 crtc_clk;
+> -	u32 clk_factor;
+> +	u64 mode_clk;
+>   
+>   	mode = &state->adjusted_mode;
+>   
+> -	crtc_clk = (u64)mode->vtotal * mode->hdisplay * drm_mode_vrefresh(mode);
+> +	mode_clk = (u64)mode->vtotal * mode->hdisplay * drm_mode_vrefresh(mode);
+>   
+>   	drm_atomic_crtc_for_each_plane(plane, crtc) {
+>   		pstate = to_dpu_plane_state(plane->state);
+>   		if (!pstate)
+>   			continue;
+>   
+> -		crtc_clk = max(pstate->plane_clk, crtc_clk);
+> -	}
+> -
+> -	clk_factor = perf_cfg->clk_inefficiency_factor;
+> -	if (clk_factor) {
+> -		crtc_clk *= clk_factor;
+> -		do_div(crtc_clk, 100);
+> +		mode_clk = max(pstate->plane_clk, mode_clk);
+>   	}
+>   
+> -	return crtc_clk;
+> +	return dpu_core_perf_adjusted_mode_clk(mode_clk, perf_cfg);
+>   }
+>   
+>   static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> index d2f21d34e501..3740bc97422c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> @@ -54,6 +54,9 @@ struct dpu_core_perf {
+>   	u32 fix_core_ab_vote;
+>   };
+>   
+> +u64 dpu_core_perf_adjusted_mode_clk(u64 clk_rate,
+> +				    const struct dpu_perf_cfg *perf_cfg);
+> +
+>   int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
+>   		struct drm_crtc_state *state);
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 0714936d8835..5e3c34fed63b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1501,6 +1501,7 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+>   						const struct drm_display_mode *mode)
+>   {
+>   	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
+> +	u64 adjusted_mode_clk;
+>   
+>   	/* if there is no 3d_mux block we cannot merge LMs so we cannot
+>   	 * split the large layer into 2 LMs, filter out such modes
+> @@ -1508,6 +1509,17 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+>   	if (!dpu_kms->catalog->caps->has_3d_merge &&
+>   	    mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
+>   		return MODE_BAD_HVALUE;
+> +
+> +	adjusted_mode_clk = dpu_core_perf_adjusted_mode_clk(mode->clock,
+> +							    dpu_kms->perf.perf_cfg);
+> +
+> +	/*
+> +	 * The given mode, adjusted for the perf clock factor, should not exceed
+> +	 * the max core clock rate
+> +	 */
+> +	if (dpu_kms->perf.max_core_clk_rate < adjusted_mode_clk * 1000)
+> +		return MODE_CLOCK_HIGH;
+> +
+>   	/*
+>   	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
+>   	 */
+> 
+> ---
+> base-commit: db76003ade5953d4a83c2bdc6e15c2d1c33e7350
+> change-id: 20250506-filter-modes-c60b4332769f
+> 
+> Best regards,
 
