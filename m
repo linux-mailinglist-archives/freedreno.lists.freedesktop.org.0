@@ -2,84 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2CD5BF14E3
-	for <lists+freedreno@lfdr.de>; Mon, 20 Oct 2025 14:46:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A678BF14E6
+	for <lists+freedreno@lfdr.de>; Mon, 20 Oct 2025 14:46:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5491310E323;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF0E210E32F;
 	Mon, 20 Oct 2025 12:46:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EJfEo0Cf";
-	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67DB610E216
- for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 16:16:07 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-7847ee5f59dso16440387b3.2
- for <freedreno@lists.freedesktop.org>; Sun, 19 Oct 2025 09:16:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760890566; x=1761495366; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=w65OdgmpV8I1cxj2sfq4rK12q9mD/l6u6jCluPLlwTY=;
- b=EJfEo0Cf8+DN14jjbheL8tRhuW70lHMNn+k5/+m/EIQA+dAA5F0ku3iCb5FfzlR4MI
- 7rvinNF335F8fK+NuBWET//3vTA2UruPUJjzJuNHdjMIxkUifb4IBACsWmb8Ne+0sbcM
- QmiOSLdMb8vUe+L1YP77uyt3DHoOKgwmaD4StuAwOKo/v3yvfAZV7KmdCA+a29HnB1v2
- 7/XFJxxYQsi5KrNrHJGs6pt3QsR7VuquQyVMyOxHXNTJQ2Tlvq3GgGNzWrluyP0jHHdd
- VJumLwsDwd48yil7gQaAn4gLB4wXsLINjB6l4aUMHSvcf3qY397Q894eSBTDIok+EBju
- 9vHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760890566; x=1761495366;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=w65OdgmpV8I1cxj2sfq4rK12q9mD/l6u6jCluPLlwTY=;
- b=jaywr+pKnMNr3IrulcNqiHCrbC4PZhLnRdLuXwrcEuYmx2MosymlP+RgQl6l/KEMco
- CuhC/L7unVrIQyWzigjfmDOpE5yZ+REOk+73vEpkwvAgoZaIushXUun1iNDExKjsRORv
- IKSGpqpy5H78y/L9X4A9Y2IOVtPpZcWVFhJo1KYjrTpYYBRL4wYjKZzQJRBHv5E+9t8E
- f1VPkWZxNeVPsG+kdvbfN1CHCU3mTLGwJUJE+pEJQrQkh775y+ACRqFtoIQsuR2htJ0E
- Rue5zDxZ8o6Mg5ou6UkJ1x1VoYBKobTdYALHkC3H/P5WG1b564h6O0EY1gL5N6OXX/+O
- qZQQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVAlVneENgdLa5Usic7LgC8L82RIp4cE9AT31Uu33SogYWexfq+LgpIQh7+QtVWH12M0R3mW5oM6KY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5lRLIg5fJM0yBxxGAcP1k0BwaKAed/jQyS6Lcd86LcV8qYaqR
- N9U/SM34IG2yxKtUpKjYeCIBtyD9bVR0G4SPvAwfDv/gHh2jo5iJvvIw
-X-Gm-Gg: ASbGncu7bNX5wZfJrBmPsHxZkQeGRMvX/9hC0DXByScGFM0hxqTUkSTh4QzmV/jh1IW
- Hq0q2LtpXo3uowGO1GVsqLOWFmNt8+HlS98NPPywyjlhaGG4UZSDnCvhAhBJqK7oaoClpp21GIW
- 0vjumzqj0efs/f31xRUweB5CR0Jza8wwh7hSvJZrBm5KO2hofsgA5FCYZRikj/4bZiB23FrSQ+Q
- IbWPiSNgO+k9k3X2ZKWQTMNo21AaLKRSaR6XvBMd0FUMdiWfyJg565J9t+hY4bwLK3gIC5Jn2bJ
- ltJCDQzB4/1EhMJVC5hkKLr0V3e0GCAhCABntABw0BPYBseU+0TkmlQ9lZTmkyTafJUQomEvPgA
- dJTVSw/1xbXICjkUwkbHe+/WniAIbdtsPlX/NZ2hET/k+EWPSsP46Qv62GEYXg0VgELg1In9Dvk
- XyIRMWF5DDrkNriD7xKCFXLfrMWYJX5vb48iVeZhYUDFfxBqaG3JymwnMkOiM=
-X-Google-Smtp-Source: AGHT+IElWfzAepNqK3LlpQymTFB+dnzq6dId0s4n8cc9tbggmQJHdM08XYTf6C3f7CI5MrGaIVI7tg==
-X-Received: by 2002:a05:690e:168c:b0:63c:f5a6:f30f with SMTP id
- 956f58d0204a3-63e1626157bmr8254979d50.57.1760890566174; 
- Sun, 19 Oct 2025 09:16:06 -0700 (PDT)
-Received: from localhost (104-48-214-220.lightspeed.snantx.sbcglobal.net.
- [104.48.214.220]) by smtp.gmail.com with UTF8SMTPSA id
- 956f58d0204a3-63e266bc09csm1738354d50.11.2025.10.19.09.16.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Oct 2025 09:16:05 -0700 (PDT)
-From: Steev Klimaszewski <threeway@gmail.com>
-To: devnull+federico.izzo.pro@kernel.org
-Cc: abhinav.kumar@linux.dev, agx@sigxcpu.org, airlied@gmail.com, david@ixit.cz,
- dri-devel@lists.freedesktop.org, federico@izzo.pro,
- freedreno@lists.freedesktop.org, jesszhan0024@gmail.com,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- lumag@kernel.org, marijn.suijten@somainline.org, nicola@corna.info,
- phone-devel@vger.kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- simona@ffwll.ch, ~postmarketos/upstreaming@lists.sr.ht,
- Steev Klimaszewski <threeway@gmail.com>
-Subject: Re: [PATCH v3] drm/msm/dpu: Add DSPP GC driver to provide GAMMA_LUT
- DRM property
-Date: Sun, 19 Oct 2025 11:15:59 -0500
-Message-ID: <20251019161559.6731-1-threeway@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251019-dpu-add-dspp-gc-driver-v3-1-840491934e56@izzo.pro>
-References: <20251019-dpu-add-dspp-gc-driver-v3-1-840491934e56@izzo.pro>
+X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
+ Mon, 20 Oct 2025 11:42:36 UTC
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B631B10E29A;
+ Mon, 20 Oct 2025 11:42:36 +0000 (UTC)
+X-UUID: 2883f10aada911f0a38c85956e01ac42-20251020
+X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
+ HR_CTE_8B
+ HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+ HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+ HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME
+ IP_UNTRUSTED, SRC_UNTRUSTED, IP_LOWREP, SRC_LOWREP, DN_TRUSTED
+ SRC_TRUSTED, SA_EXISTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+ DMARC_NOPASS, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+ GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.6, REQID:9e0a14a9-ab98-4269-b939-fd4775a0f249, IP:10,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:30
+X-CID-INFO: VERSION:1.3.6, REQID:9e0a14a9-ab98-4269-b939-fd4775a0f249, IP:10,
+ URL
+ :0,TC:0,Content:0,EDM:25,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:30
+X-CID-META: VersionHash:a9d874c, CLOUDID:5827c87bff38bde25837b5837f87607c,
+ BulkI
+ D:251020193614H7E4RRCI,BulkQuantity:1,Recheck:0,SF:17|19|25|45|66|78|102|8
+ 50,TC:nil,Content:0|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:40,QS:nil,BE
+ C:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2883f10aada911f0a38c85956e01ac42-20251020
+X-User: hehuiwen@kylinos.cn
+Received: from localhost.localdomain [(220.202.195.150)] by mailgw.kylinos.cn
+ (envelope-from <hehuiwen@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 252442399; Mon, 20 Oct 2025 19:37:28 +0800
+From: Huiwen He <hehuiwen@kylinos.cn>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Huiwen He <hehuiwen@kylinos.cn>
+Subject: [PATCH] drm/msm: Fix NULL pointer dereference in
+ crashstate_get_vm_logs()
+Date: Mon, 20 Oct 2025 19:37:08 +0800
+Message-ID: <20251020113708.7403-1-hehuiwen@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Oct 2025 12:46:39 +0000
@@ -98,12 +77,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Federico,
+crashstate_get_vm_logs() did not check the result of kmalloc_array()
+before using state->vm_logs. In low memory situations, kmalloc_array()
+may fail and return NULL, leading to a kernel crash when the array
+is accessed in the subsequent loop.
 
-With this patch applied this also works on the Thinkpad X13s (SC8280XP), thank
-you for this, I know a lot of end users have been asking about this for quite a
-long time, so nice to see that we might finally get it.
+Fix this by checking the return value of kmalloc_array(). If allocation
+fails, set state->nr_vm_logs to 0, and exit the function safely.
 
-Tested-by: Steev Klimaszewski <threeway@gmail.com>
+Fixes: 9edc52967cc7 ("drm/msm: Add VM logging for VM_BIND updates")
+Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
--- steev
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 17759abc46d7..51df6ff945d2 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -348,6 +348,12 @@ static void crashstate_get_vm_logs(struct msm_gpu_state *state, struct msm_gem_v
+ 
+ 	state->vm_logs = kmalloc_array(
+ 		state->nr_vm_logs, sizeof(vm->log[0]), GFP_KERNEL);
++	if (!state->vm_logs) {
++		state->nr_vm_logs = 0;
++		mutex_unlock(&vm->mmu_lock);
++		return;
++	}
++
+ 	for (int i = 0; i < state->nr_vm_logs; i++) {
+ 		int idx = (i + first) & vm_log_mask;
+ 
+-- 
+2.43.0
+
