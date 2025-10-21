@@ -2,82 +2,126 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D4C6BF55F5
-	for <lists+freedreno@lfdr.de>; Tue, 21 Oct 2025 10:56:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63658BF5791
+	for <lists+freedreno@lfdr.de>; Tue, 21 Oct 2025 11:21:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D175610E59F;
-	Tue, 21 Oct 2025 08:56:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1882E10E0B7;
+	Tue, 21 Oct 2025 09:21:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="uPsWNRB0";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PPEXYGax";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2063910E59F;
- Tue, 21 Oct 2025 08:56:17 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 46C28C0B887;
- Tue, 21 Oct 2025 08:55:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D530260680;
- Tue, 21 Oct 2025 08:56:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id B6201102F23CA; 
- Tue, 21 Oct 2025 10:55:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1761036973; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=2jsZwBtV7vcAxoIXxBFATWt9hXEb5kKdYra5Pb8R+Ow=;
- b=uPsWNRB0+A4j4p75d9ZIHFcTGJnIUItQv++zY88SDuQTyJ26WNQw6boN4+M7z62kHlLqz4
- X5RtR90esp+xo0ut9aGXxL3bw2h+hakY15G92owMYPe0kEmFx5eqyzgHyU7Gqw1oErwc9n
- NQvzK6lkr4i3bHid2qDrqvKh1SrQS7xeReUnwjY0t/JCIGhLI/J117ijGWvDo71uaQ23dI
- 38hWbAVlcGD1j2Br2T5NEMnvNAu70hZbX5UzqVjQuKIuiSvHwMVsg/8Q1F7Ym4QHVRSCR6
- W7J2+pYQGxbWLFBARxxD1fvAb86Iau8RkH0F6o0wjkKZufRFsPIpnzDbB4SmOA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 21 Oct 2025 10:55:36 +0200
-Subject: [PATCH v2] drm/atomic: drm_atomic_private_obj_fini: protect
- private_obj removal from list
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F81010E0B7
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 09:21:55 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59L8K485026889
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 09:21:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ gtYgfBJiMiBp1ITu/OF7uYQwL1eNKdtPSXCX6k15khQ=; b=PPEXYGaxg6HgnYS4
+ pID3Cvgf1vrHAo6whXQSqPz5HEYgczqmuNMybSojMbxt+dkucqgzJoodUEPOlL3s
+ l4xoc7KNPWDo3VYnt+31ekIiDgoDWSiYvzgLo5P63VXkqC1l5fMPvlkgl4MxDBxi
+ cNvZlhoDSaSWZowEbSlJMTLWXqf/gRmCz3amorDn1Vf/06fg1kPx+7SCP8CoZymH
+ cs1QYfWEXUxbLPvpJju5LR62nXAhiAmvVsbcLZbhNoi2j665vhQUu9nQys4RA30E
+ 5nXrPO/7LLmt7dn8PXH/YivfNAJ8GnphdP9FyLr8u8LQfdUJlh82wWyRuwUDdUwV
+ eJDRKA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49v08pgcsg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 09:21:54 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-891d3eba6f8so185272785a.3
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 02:21:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761038514; x=1761643314;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=gtYgfBJiMiBp1ITu/OF7uYQwL1eNKdtPSXCX6k15khQ=;
+ b=wrX2U24zWVoqDZ5m9bZsAAEHUyYSYxE/TsjanJFvaawJhU2mM0jstFnWHyFJXUomIC
+ AY56jlTWMNglj+gm3oX7lbCoCmQqAb5lkOwxzJs/elecpnsh+Wls+tye1E7tjgm0ViWc
+ 3dnVLlQTG3TVhoX5TJ+OjwCrUj/ZNaHL9cji2gOUl+qXangUzlg8UINYYgmEPbtEldY9
+ Z38NOzuJ4YWn4gSz3PEQpsFTh+XWsRzKcAhdUIJ5zaU78MK9TpUd3ijuD4N7zRMRkfCY
+ ElMJa46O4yV1k+LBekEMS/AWnuKwg6tpF4beFqgIi/CsUkdWBTx8zD+PSRTEoUGV4apw
+ 1gAQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXQliKHtD33yAMWAaqba1np/0NOA9H30mVNDCCXc3P/K5+PLmlCB0X41S9/RRDTRpt6YFbpwyWtehI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwHdfXYqmz8qnSfd5AZVf3ShRkrfybA0mmIvLXYVEC4ax3AbzCX
+ PAORiqjSKcgik35d1hmckZf5DFnDWDU8KB/x70xDxtiQuSBPcWzLjg/63rcN5qPphiVENjXg0XQ
+ 12OBEHLRBJI7m3pXTf2NIXkUm7LVANK+zdOPFlOcenHJYj1Pwie7AbVnuTByLmPN/4KGotTM=
+X-Gm-Gg: ASbGnctzi6Ue551+ssdXfMSQ4w1vxZLgiZHwRbaFqW7BU4O/sRubdDudgszjtcnXQXM
+ 3CfYb/oOzpXcTt+AFKmW6ylX0/h8CjS0qT4ymL7e8uWydk1jGpuNpLyMw8XDlzXkizdBHH/0JaM
+ 00dpt7PNHTZGREcVD1wdHfpxSnXeIrVD5gJVWGFquXaJM8lhXv74rJFgs3lbkra3JGKhirZtHsB
+ bIYA1mKc7VsK+Yrh0Ep/NJcbMITbV9BbO0fg8IUwZ32R/7e4/QeceQy2cb8fJZ9OnKWBFKm4d0a
+ DoB4lKnR5PfmkVLmdsN4rWWxU6CQhFbbipIx99NmEbxd1RQlwvJxxqcw1Hze4veNX1/wGrir9y5
+ 1uGMkEY+r/jJbGDcYaXGT/A9ouO1EC/MYFHQblGJ80YbV6OAGpJ3iupW+
+X-Received: by 2002:a05:620a:4556:b0:862:bd48:923e with SMTP id
+ af79cd13be357-896e1f22803mr204772585a.4.1761038513674; 
+ Tue, 21 Oct 2025 02:21:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFyRgyrhR42atC+DLLdSulKMeyUrebbaa2AH53YBYgQ1Ndfz9lEI8czuvc0fAlmCABfGCmvBg==
+X-Received: by 2002:a05:620a:4556:b0:862:bd48:923e with SMTP id
+ af79cd13be357-896e1f22803mr204770785a.4.1761038513109; 
+ Tue, 21 Oct 2025 02:21:53 -0700 (PDT)
+Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b65e8581780sm1010151266b.31.2025.10.21.02.21.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Oct 2025 02:21:52 -0700 (PDT)
+Message-ID: <7bed8dcb-279d-4bc0-bc9c-706ab598bb2f@oss.qualcomm.com>
+Date: Tue, 21 Oct 2025 11:21:49 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20251021-drm-bridge-atomic-vs-remove-private_obj-v2-1-412a18399bac@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAIdK92gC/5WQy04DMQxFf2WUNUZ5dCbprPgPVFV5eKgRmZQkR
- EVV/510yoIty2tLPsf3ygpmwsLm4coyNiqU1h7k08D8ya5vCBR6ZpLLUXChIOQILlPoG1tTJA+
- tQMaYGsI5U7MVj8m9Q9B7afjo0AXP+rVzxoUuG+n10POJSk35ewM3cZ/+n9EEcBCLlzgawSXyF
- 5dS/aD12afIDrcHNuPnV/+rPtjM2YLQ95HqPGi0fDcZZbgUkxfcaTUp5fZ6CkrhYo0XMig9sr9
- 99Ho2U242018juBtlLFjBokCpd11J27nJbnL7AcDtjglpAQAA
-X-Change-ID: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Paul Cercueil <paul@crapouillou.net>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.14.2
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] arm64: dts: qcom: qcs615-ride: Enable DisplayPort
+To: xiangxu.yin@oss.qualcomm.com, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, fange.zhang@oss.qualcomm.com,
+ yongxing.mou@oss.qualcomm.com, li.liu@oss.qualcomm.com
+References: <20251021-add-displayport-support-to-qcs615-devicetree-v5-0-92f0f3bf469f@oss.qualcomm.com>
+ <20251021-add-displayport-support-to-qcs615-devicetree-v5-3-92f0f3bf469f@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20251021-add-displayport-support-to-qcs615-devicetree-v5-3-92f0f3bf469f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDE4MDAwMCBTYWx0ZWRfX3RJfOaWpIcwP
+ Nu4SUXBr3EuEsg7XFfp7mZ+SuRoLi1STucy7SkHSfHXiYms8EgqlxNyne9f+BXkqsu24NKh/56m
+ H8AiXeZcd2smle3PpY3S1tfsAtOtLPI9gdAv0RrMGoA3FL9/OLBxZ3xRswcPh1JRNSwGpK7WRa6
+ dIyN3Loo5IbUVAwrQgq8TJYjbeTCgCudQbVmNiJXvlkiJm/lbNW1Soie0xmUWYdRTu6Ug6ryKtp
+ /Ube0RuvFVtmyG5HEJHxHlRl/JMJI6GbEmogaPhwcNV9jcTQQ2KYEASrWk5xzEiEIVEXPJvoDf5
+ 0y6gp+64sBV/EXgtXdWZ9tfNqO6/5VQqPGlxMTXkRYpmfeYPKzW/dYBPAHCQQnOz6fLzYO3d7qM
+ EX+aoZ6+gxvClTJmTQkrd4fof9oPEg==
+X-Proofpoint-GUID: 40HcRXjxyf8XItcSI5_wthPbG-mXU7hl
+X-Authority-Analysis: v=2.4 cv=Up1u9uwB c=1 sm=1 tr=0 ts=68f750b2 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EUspDBNiAAAA:8 a=jvkLkXCew81jr3KDB_IA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: 40HcRXjxyf8XItcSI5_wthPbG-mXU7hl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-20_07,2025-10-13_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510180000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,163 +137,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently drm_bridge_detach() expects that the bridge private_obj is not
-locked by a drm_modeset_acquire_ctx, and it warns in case that happens:
+On 10/21/25 5:18 AM, Xiangxu Yin via B4 Relay wrote:
+> From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> 
+> Add DP connector node and configure MDSS DisplayPort controller for
+> QCS615 Ride platform. Include PHY supply settings to support DP output.
+> 
+> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> ---
 
-  drm_bridge_detach()
-  -> drm_atomic_private_obj_fini()
-     -> list_del(&obj->head) // removes priv_obj from
-                             // dev->mode_config.privobj_list
-     -> obj->funcs->atomic_destroy_state()
-     -> drm_modeset_lock_fini(&obj->lock)
-        -> WARN_ON(!list_empty(&lock->head)) // warn if priv_obj->lock
-	                                     // is still in ctx->locked
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The expectation is not respected when introducing bridge hot-plugging. In
-such case the warning triggers if the bridge is being removed concurrently
-to an operation that locks the private object using a
-drm_modeset_acquire_ctx, such as in this execution scenario:
-
-  CPU0:
-  drm_mode_obj_get_properties_ioctl() // userspace request
-  -> DRM_MODESET_LOCK_ALL_BEGIN()
-  .  -> drm_for_each_privobj() // loop on dev->mode_config.privobj_list
-  .     - lock the privobj mutex
-  .	- add priv_obj->lock to ctx->locked
-  .	  (list of locks to be released later)
-  .
-  .                         CPU1:
-  .                         drm_bridge_detach() // bridge hot-unplug
-  .		            -> WARN triggers!
-  .
-  -> DRM_MODESET_LOCK_ALL_END()
-     -> for each lock in ctx->locked
-	- remove priv_obj->lock from ctx->locked
-        - unlock the privobj mutex
-
-Fix this by using DRM_MODESET_LOCK_ALL_BEGIN/END() around the list removal
-in drm_atomic_private_obj_fini(). This ensures that exactly one of these
-happens:
-
- * the concurrent code (e.g. drm_mode_obj_get_properties_ioctl()) acquires
-   all the locks first, so it can execute fully and release the
-   privobj->lock before drm_atomic_private_obj_fini() calls list_del() and
-   before the WARN_ON()
- * drm_atomic_private_obj_fini() acquires all the locks first, so it
-   removes its privobj->lock from the dev->mode_config.privobj_list; the
-   concurrent code will run afterwards and not acquire that lock because it
-   is not present anymore
-
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
-This series prevents a race between DRM bridge removal and usage of the
-bridge private_obj during DRM_MODESET_LOCK_ALL_BEGIN/END() and other
-locking operations.
-
-This is part of the work towards removal of bridges from a still existing
-DRM pipeline without use-after-free. The grand plan was discussed in [0].
-Here's the work breakdown (➜ marks the current series):
-
- 1. … add refcounting to DRM bridges (struct drm_bridge)
-    (based on devm_drm_bridge_alloc() [0])
-    A. ✔ add new alloc API and refcounting (v6.16)
-    B. ✔ convert all bridge drivers to new API (v6.17)
-    C. ✔ kunit tests (v6.17)
-    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
-         and warn on old allocation pattern (v6.17)
-    E. … add get/put on drm_bridge accessors
-       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
-       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
-       3. ✔ drm_bridge_get_next_bridge() (v6.19)
-       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
-       5. ✔ drm_bridge_connector_init (v6.19)
-       6. … protect encoder bridge chain with a mutex
-       7. of_drm_find_bridge
-       8. drm_of_find_panel_or_bridge, *_of_get_bridge
-       9. … enforce drm_bridge_add before drm_bridge_attach
-    F. ✔ debugfs improvements
-       1. ✔ add top-level 'bridges' file (v6.16)
-       2. ✔ show refcount and list lingering bridges (v6.19)
- 2. ➜ handle gracefully atomic updates during bridge removal
-    A. … Add drm_dev_enter/exit() to protect device resources
-    B. ➜ protect private_obj removal from list
- 3. … DSI host-device driver interaction
- 4. ✔ removing the need for the "always-disconnected" connector
- 5. finish the hotplug bridge work, moving code to the core and potentially
-    removing the hotplug-bridge itself (this needs to be clarified as
-    points 1-3 are developed)
-
-[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
-
-The need for this series emerged during testing of DRM bridge
-hot-plugging. Very rarely on hot-unplug the following warning has appeared:
-
-  WARNING: CPU: 0 PID: 123 at include/drm/drm_modeset_lock.h:114 drm_atomic_private_obj_fini+0x64/0x80
-  ...
-  Call trace:
-   drm_atomic_private_obj_fini+0x64/0x80
-   drm_bridge_detach+0x38/0x98
-
-This series depends on:
- * https://lore.kernel.org/dri-devel/20251014-drm-private-obj-reset-v2-0-6dd60e985e9d@kernel.org
-   - dependency on patch 1 only
-   - reason: this patch uses the obj->dev introduced by the other series
----
-Changes in v2:
-- Adapted to work on top of "drm/atomic: Add dev pointer to drm_private_obj"
-- Removed 'To: jessica.zhang@oss.qualcomm.com', invalid address
-- Link to v1: https://lore.kernel.org/r/20251013-drm-bridge-atomic-vs-remove-private_obj-v1-0-1fc2e58102e0@bootlin.com
----
-
-Changes in v2:
-- added 'drm/atomic:' prefix to commit title
-- Adapted to work on top of "drm/atomic: Add dev pointer to drm_private_obj"
-- Slightly improved commit message
----
- drivers/gpu/drm/drm_atomic.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index c161f561d937e2e26de617912078c739adb521dd..107530c1b9978122d2ebf05f7af2ca77f9faa21b 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -810,7 +810,13 @@ EXPORT_SYMBOL(drm_atomic_private_obj_init);
- void
- drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- {
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret = 0;
-+
-+	DRM_MODESET_LOCK_ALL_BEGIN(obj->dev, ctx, 0, ret);
- 	list_del(&obj->head);
-+	DRM_MODESET_LOCK_ALL_END(obj->dev, ctx, ret);
-+
- 	obj->funcs->atomic_destroy_state(obj, obj->state);
- 	drm_modeset_lock_fini(&obj->lock);
- }
-
----
-base-commit: 7ea0468380216c10b73633b976d33efa8c12d375
-change-id: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
-prerequisite-change-id: 20251008-drm-private-obj-reset-ae1e2741027a:v2
-prerequisite-patch-id: 031aec6ea9c41371568d42df2ab6dc3ca35ac85c
-prerequisite-patch-id: cd9c28ecb798993ed3c3550191cb0fbafbf90bde
-prerequisite-patch-id: e05cb0386e8ed0c82ec6a914f6c6ad47a7c841fa
-prerequisite-patch-id: a68ff4bb5ba6fd882ca11946d92bb33253812e7d
-prerequisite-patch-id: ed1c29018986837cfb0030796a7bfce98aef3445
-prerequisite-patch-id: 1e1efb36e40d79bea5ee70380abcbb956508326a
-prerequisite-patch-id: 48fcc6b38c7acc1e00d57002a4973ccae6b2889d
-prerequisite-patch-id: a122d6d3dd86039f7bf64c082f30c4de676066f9
-prerequisite-patch-id: b1ae0e3be3cb2304ed8820cf36a29b88ef110d5b
-prerequisite-patch-id: e061eea62a9ee500c239229e3d4c8d7e8edd2964
-prerequisite-patch-id: 7e94f6a9760cf58b31d709be849eed855275e140
-prerequisite-patch-id: dd3ac7d8cb8af58ea5f41b6c4b43dd844fb29d81
-prerequisite-patch-id: 410a9287f82c1af0caf3d8ff4f562b83a33c514b
-prerequisite-patch-id: 51e733e1ad1973889a75131c62521b11b16d54d5
-prerequisite-patch-id: bf0a8bf82d137cfd1d672df246116136c82523ca
-prerequisite-patch-id: fcc237e7836e87b3cad72b32ea976bd6a6190dad
-
-Best regards,
--- 
-Luca Ceresoli <luca.ceresoli@bootlin.com>
-
+Konrad
