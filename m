@@ -2,80 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B68CBF6E71
-	for <lists+freedreno@lfdr.de>; Tue, 21 Oct 2025 15:54:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5B21BF700B
+	for <lists+freedreno@lfdr.de>; Tue, 21 Oct 2025 16:15:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53EA710E5F7;
-	Tue, 21 Oct 2025 13:54:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8515D10E5F4;
+	Tue, 21 Oct 2025 14:15:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bm/uGYTI";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Y8ErFV1p";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DCF110E5F8
- for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 13:54:23 +0000 (UTC)
-Received: by mail-oo1-f50.google.com with SMTP id
- 006d021491bc7-651c646b857so2707780eaf.0
- for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 06:54:23 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCC8610E5FD
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 14:15:07 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-42706c3b7cfso1944265f8f.2
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 07:15:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761054862; x=1761659662; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7zRCoVsDUrAKkHnPzEPaybWLTpv8PSDVhOpYhyOZPuA=;
- b=Bm/uGYTIea1TxCtKGtp+y699qvdNuQHI5lfDZebz1zW96chxPbnGNALYq+n5q6s2/p
- AOLU2++maKKcDtuguieqav32Cb2w8Z+pV8/g0hFIly7lwfwURZ9hUktHIu0LyOVcbwHe
- 2Z5/5pRVfzDV/IudXdUUH7G+mBHYc13ZbGeTPq7T9B0EFyXBhujsIy6MawGryGlt34JL
- nlgiFkhUVZzjEQCqG1nW/vktI+Wgya2uHfUKI9LkzSJUYlsszC9L3zozZmLStG2vwgIw
- kM8IelY8Tk4WhFR6No5kupGSlQAvnaWSKVSgXk2Q6+/UYs4KOe2X3GzUlrXBWoI0EApy
- D54Q==
+ d=linaro.org; s=google; t=1761056106; x=1761660906; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=e/dqpTPnvV8iWWmqMGgRLH33p/ANKaib0nnfEtLriAI=;
+ b=Y8ErFV1p2pbL8xuiDO2YFQ9yejvOejUHhlS+j/GWIjVQAHDHXj8W72xT5NNwq/nk9t
+ Gi4j70gd/TKL3NuyUz6z6zVKtkUs3zyCek/NDz/onqEvY4Ojum4XW4WNtaiHsovnB+5H
+ v1zn9M0iMMSFqbtMHHMdmAMwAfvmR3RJp8CfwC875MJ80BXbA8RTaLQuXIRX4rSljeL0
+ QY72J6EWMzSonHn/k8sL62W4qI5BKrKSFkdhe2PlKZtMpTgb7v4/iq1gVfk4kzWt7Ogh
+ 6f0v3ekyCfySodIvoZQlsPHZg9Z32svZT/rpUaM3Tvvq7kO4GgvWW1rXjSJCa/Um9GMO
+ lqng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761054862; x=1761659662;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7zRCoVsDUrAKkHnPzEPaybWLTpv8PSDVhOpYhyOZPuA=;
- b=DCDMHcv6eCegAFigtQCgVapWobzBeUmkD1ibC5lxZKsi5489XAzxWBnpFCiy+5Wuj4
- Wc8l3uJVemoUXaeMCrwfEDPqYjlx/P4giFl4E0s30MDhkWLthL+0dkYhff5FcqxI5Fho
- z9eodHAn9SB3ZRJIyRvztoOYcyboE5C2YeXZ3cXPYhRifvI1W8/VRSqk/ldeWcpIuCJR
- mGHvMpZ3BTjQBfXB7j0ulNrNqXPph0D0ORO6k0EBNfccyA+0VdBm9peuos2s+iEpjMOH
- 47q8Y7vV+evTNbwcB83+ZQwQPddSdwN1nQpPqWERBkEbTkrqhJH5k14OFXWu5yby5k++
- IbLQ==
+ d=1e100.net; s=20230601; t=1761056106; x=1761660906;
+ h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=e/dqpTPnvV8iWWmqMGgRLH33p/ANKaib0nnfEtLriAI=;
+ b=PIxRmRhMEIU/Ctk61CpfxAqe1MCBTZoAkDZdWgs1FUDJXJmiHTS6bZSAh+oSmZ49E/
+ gz4VSRjBdQROG9bPvvD1AxdjZts3xnm5xrJBiGMX8Fc+VOCefuur6+7pzycagR/5NJVx
+ fKrwvJRxWfKU9aBUS3BJvtWK0qIs5FeuR/xVbPMBTOH714XGxIa/HQupI8CnpOt4YNHz
+ VyQg1BfpPdViPm4e4BbM6hd43qjtgTh3gHxu1Djn0SRLOg3Qtf3CIVB93G4nqfQMA/jc
+ 6ysqsNaLH23wRZogFPEeklq/i5ilH6w1vgwSqImmwnpqGmLbGG6T82rckH8FBzqQrGsG
+ hCMg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXgvM27d1RUr0FRux1Uub50PGYGSGiHLChSS+jxLEnCXeEvKmIkMKwcolyKzTy6MqNH3tW9P1utbXo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2yJBDe1Qz/xFifcPCtgcNeuITzTNKATD97J2p67bFwgDUCh8T
- 6TVnlyv0gjn8ehZ59lqWaXfqzaIM//SB9XHp+Ga7QdJGqH5UdeD8CRcV24zrfZNjdpuv1L6ybRQ
- ViLsSdMQQhvNcot/rwSQWD9wQB55BL0o=
-X-Gm-Gg: ASbGnctuLe6O760FZC9N4zhoVx1eOAWDeO03vJzpsTw3/3OEn9ftD3ZwCNFJcf5+MeM
- hSkg/+1GP9UMCMWBzCyGYprCWhL9tnvYRifo83jMiczOTFv61RG4qKRloahAUY/3Fnm1Nqv1C6T
- W4NdKc+0UStgFftccTb9Y5JYQ/rNvAsiAip36+qYuYan5+pd2E8zc+MEOLjIQuVvDh1Fv3eqj2K
- lpAWOImJOQhBNJU+9BEM2gn42dpON3r7TdoN+Ep++M7fBUHczv68EyYSIwFNAqKlr4KAZErLXf1
- ddlU
-X-Google-Smtp-Source: AGHT+IEEJhV+7HDnd1rLWzRKPuVeGqK0sxHNPjpMcz5TApDVHa18O8uA1yfTw5iWk/coCiGbH7jCRQhrN34RTrEXqCE=
-X-Received: by 2002:a05:6808:1889:b0:43c:afd4:646d with SMTP id
- 5614622812f47-443a2ed23f8mr6546477b6e.14.1761054862105; Tue, 21 Oct 2025
- 06:54:22 -0700 (PDT)
+ AJvYcCW/KyvS3RplWK7uYIWnElksITTqfTkxPYWIJuc9vM9Xh8BH1lCwsZ/aQ96jgCGAwVWM60ranOpRxmE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxsrbiTQX6abN2wpcawlbs9pP07wi99iwbCiYb2bKqUALV1Tb2a
+ MZfSnRKQiMZm7qdolpFu0DseJjLkvf07Ol3QOVFdkCJzqrqJwa974iMWM0VF2USp8qYOsEGRmQE
+ 0npNX
+X-Gm-Gg: ASbGncs7TMLDd1qDrC4RSowL351+cQpC9cuNJwYOLl8b63MIRxS5V22MTBE9dUQRQQh
+ hIwKmoKGp7W8SDDXLO9O9cNN/k0fuKtlg8mnB3YMcEbTG/AhBc/+fI4C6fsOaPW/SkMECTQe8Vr
+ h/FAkf20E2Mr1j5I8yiw/7cohPCR3/XVpOUZG7DhFwX2bC/8WtNafjFBPuulDVgy6c6UjrM1D/7
+ 6+ep/GojzCKBUzlbKO/IIKLxEK1itaM6XNntiGzd5r1s8NVzz+XaiWDqgW36JEuFYBNgeTB/tCt
+ e520n6q0hFmcXXNr94JTdn8NMiDQWUdwwUIXvCez/wq5wvDSzUZugwOW7mwfZs0W389OapuiYUM
+ DBRSwBpcs2g60GD0/CjKnO+MBtQzd6gfOAqvIX/8SLsk4i4h/QFsImbT0ebCo6DSl6QV3NnKe5g
+ mj0s/5hnPBhFB5VP1W
+X-Google-Smtp-Source: AGHT+IHCNZ/tdeM6x90rsmi2VCTmRefM5mCM/ZgV62wABJXCvN9MGq3+VgVSrxQSIurd14j6LlHgGg==
+X-Received: by 2002:a5d:5f82:0:b0:3fa:5925:4b07 with SMTP id
+ ffacd0b85a97d-42704d74f9fmr10437179f8f.18.1761056106262; 
+ Tue, 21 Oct 2025 07:15:06 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-427f00ce3e2sm20554878f8f.47.2025.10.21.07.15.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Oct 2025 07:15:05 -0700 (PDT)
+Date: Tue, 21 Oct 2025 17:15:02 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: oe-kbuild@lists.linux.dev, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: lkp@intel.com, oe-kbuild-all@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Jie Zhang <quic_jiezh@quicinc.com>
+Subject: Re: [PATCH 1/6] drm/msm/a6xx: Add support for Adreno 612
+Message-ID: <202510212140.4YWihsB7-lkp@intel.com>
 MIME-Version: 1.0
-References: <20251009132006.45834-1-tzimmermann@suse.de>
- <20251009132006.45834-2-tzimmermann@suse.de>
-In-Reply-To: <20251009132006.45834-2-tzimmermann@suse.de>
-From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Date: Tue, 21 Oct 2025 15:54:11 +0200
-X-Gm-Features: AS18NWD9WGUNOjZaiHNhwA1jJulHFlj-NuelchpaG-8PGVgNFP5jcKmCav4IxoA
-Message-ID: <CAMeQTsbLQcUbFvDMgMoA2EZqO-f5j1fkjtBKWKQmKdMBeJ7Yzw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] drm/client: Add client free callback to unprepare
- fb_helper
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: jfalempe@redhat.com, javierm@redhat.com, mripard@kernel.org, 
- maarten.lankhorst@linux.intel.com, dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251017-qcs615-spin-2-v1-1-0baa44f80905@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,303 +104,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 9, 2025 at 3:31=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse.=
-de> wrote:
->
-> Add free callback to struct drm_client_funcs. Invoke function to
-> free the client memory as part of the release process. Implement
-> free for fbdev emulation.
->
-> Fbdev emulation allocates and prepares client memory in
-> drm_fbdev_client_setup(). The release happens in fb_destroy from
-> struct fb_ops. Multiple implementations of this callback exist in
-> the various drivers that provide fbdev implementation. Each of them
-> needs to follow the implementation details of the fbdev setup code.
->
-> Adding a free callback for the client puts the unprepare and release
-> of the fbdev client in a single place.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Hi Akhil,
 
-For gma500:
-Acked-by: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+kernel test robot noticed the following build warnings:
 
-> ---
->  drivers/gpu/drm/armada/armada_fbdev.c      |  2 --
->  drivers/gpu/drm/clients/drm_fbdev_client.c | 17 +++++++++++++++--
->  drivers/gpu/drm/drm_client.c               |  4 ++++
->  drivers/gpu/drm/drm_fbdev_dma.c            |  4 ----
->  drivers/gpu/drm/drm_fbdev_shmem.c          |  2 --
->  drivers/gpu/drm/drm_fbdev_ttm.c            |  2 --
->  drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |  2 --
->  drivers/gpu/drm/gma500/fbdev.c             |  3 ---
->  drivers/gpu/drm/i915/display/intel_fbdev.c |  2 --
->  drivers/gpu/drm/msm/msm_fbdev.c            |  2 --
->  drivers/gpu/drm/omapdrm/omap_fbdev.c       |  2 --
->  drivers/gpu/drm/radeon/radeon_fbdev.c      |  2 --
->  drivers/gpu/drm/tegra/fbdev.c              |  2 --
->  include/drm/drm_client.h                   | 10 ++++++++++
->  14 files changed, 29 insertions(+), 27 deletions(-)
->
-> diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/arma=
-da/armada_fbdev.c
-> index cb53cc91bafb..22e2081bfa04 100644
-> --- a/drivers/gpu/drm/armada/armada_fbdev.c
-> +++ b/drivers/gpu/drm/armada/armada_fbdev.c
-> @@ -28,8 +28,6 @@ static void armada_fbdev_fb_destroy(struct fb_info *inf=
-o)
->         fbh->fb->funcs->destroy(fbh->fb);
->
->         drm_client_release(&fbh->client);
-> -       drm_fb_helper_unprepare(fbh);
-> -       kfree(fbh);
->  }
->
->  static const struct fb_ops armada_fb_ops =3D {
-> diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm=
-/clients/drm_fbdev_client.c
-> index f894ba52bdb5..5336accab1b6 100644
-> --- a/drivers/gpu/drm/clients/drm_fbdev_client.c
-> +++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
-> @@ -13,16 +13,28 @@
->   * struct drm_client_funcs
->   */
->
-> +static void drm_fbdev_client_free(struct drm_client_dev *client)
-> +{
-> +       struct drm_fb_helper *fb_helper =3D drm_fb_helper_from_client(cli=
-ent);
-> +
-> +       drm_fb_helper_unprepare(fb_helper);
-> +       kfree(fb_helper);
-> +}
-> +
->  static void drm_fbdev_client_unregister(struct drm_client_dev *client)
->  {
->         struct drm_fb_helper *fb_helper =3D drm_fb_helper_from_client(cli=
-ent);
->
->         if (fb_helper->info) {
-> +               /*
-> +                * Fully probed framebuffer device
-> +                */
->                 drm_fb_helper_unregister_info(fb_helper);
->         } else {
-> +               /*
-> +                * Partially initialized client, no framebuffer device ye=
-t
-> +                */
->                 drm_client_release(&fb_helper->client);
-> -               drm_fb_helper_unprepare(fb_helper);
-> -               kfree(fb_helper);
->         }
->  }
->
-> @@ -88,6 +100,7 @@ static int drm_fbdev_client_resume(struct drm_client_d=
-ev *client, bool holds_con
->
->  static const struct drm_client_funcs drm_fbdev_client_funcs =3D {
->         .owner          =3D THIS_MODULE,
-> +       .free           =3D drm_fbdev_client_free,
->         .unregister     =3D drm_fbdev_client_unregister,
->         .restore        =3D drm_fbdev_client_restore,
->         .hotplug        =3D drm_fbdev_client_hotplug,
-> diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
-> index 3fa38d4ac70b..fe9c6d7083ea 100644
-> --- a/drivers/gpu/drm/drm_client.c
-> +++ b/drivers/gpu/drm/drm_client.c
-> @@ -168,6 +168,10 @@ void drm_client_release(struct drm_client_dev *clien=
-t)
->
->         drm_client_modeset_free(client);
->         drm_client_close(client);
-> +
-> +       if (client->funcs && client->funcs->free)
-> +               client->funcs->free(client);
-> +
->         drm_dev_put(dev);
->  }
->  EXPORT_SYMBOL(drm_client_release);
-> diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_=
-dma.c
-> index 8bd626ef16c7..c6196293e424 100644
-> --- a/drivers/gpu/drm/drm_fbdev_dma.c
-> +++ b/drivers/gpu/drm/drm_fbdev_dma.c
-> @@ -57,8 +57,6 @@ static void drm_fbdev_dma_fb_destroy(struct fb_info *in=
-fo)
->         drm_client_buffer_vunmap(fb_helper->buffer);
->         drm_client_framebuffer_delete(fb_helper->buffer);
->         drm_client_release(&fb_helper->client);
-> -       drm_fb_helper_unprepare(fb_helper);
-> -       kfree(fb_helper);
->  }
->
->  static const struct fb_ops drm_fbdev_dma_fb_ops =3D {
-> @@ -92,8 +90,6 @@ static void drm_fbdev_dma_shadowed_fb_destroy(struct fb=
-_info *info)
->         drm_client_buffer_vunmap(fb_helper->buffer);
->         drm_client_framebuffer_delete(fb_helper->buffer);
->         drm_client_release(&fb_helper->client);
-> -       drm_fb_helper_unprepare(fb_helper);
-> -       kfree(fb_helper);
->  }
->
->  static const struct fb_ops drm_fbdev_dma_shadowed_fb_ops =3D {
-> diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbde=
-v_shmem.c
-> index 1e827bf8b815..51573058df6f 100644
-> --- a/drivers/gpu/drm/drm_fbdev_shmem.c
-> +++ b/drivers/gpu/drm/drm_fbdev_shmem.c
-> @@ -65,8 +65,6 @@ static void drm_fbdev_shmem_fb_destroy(struct fb_info *=
-info)
->         drm_client_buffer_vunmap(fb_helper->buffer);
->         drm_client_framebuffer_delete(fb_helper->buffer);
->         drm_client_release(&fb_helper->client);
-> -       drm_fb_helper_unprepare(fb_helper);
-> -       kfree(fb_helper);
->  }
->
->  static const struct fb_ops drm_fbdev_shmem_fb_ops =3D {
-> diff --git a/drivers/gpu/drm/drm_fbdev_ttm.c b/drivers/gpu/drm/drm_fbdev_=
-ttm.c
-> index 85feb55bba11..ccf460fbc1f0 100644
-> --- a/drivers/gpu/drm/drm_fbdev_ttm.c
-> +++ b/drivers/gpu/drm/drm_fbdev_ttm.c
-> @@ -53,8 +53,6 @@ static void drm_fbdev_ttm_fb_destroy(struct fb_info *in=
-fo)
->         drm_client_framebuffer_delete(fb_helper->buffer);
->
->         drm_client_release(&fb_helper->client);
-> -       drm_fb_helper_unprepare(fb_helper);
-> -       kfree(fb_helper);
->  }
->
->  static const struct fb_ops drm_fbdev_ttm_fb_ops =3D {
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/=
-exynos/exynos_drm_fbdev.c
-> index 93de25b77e68..a3bd21a827ad 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> @@ -42,8 +42,6 @@ static void exynos_drm_fb_destroy(struct fb_info *info)
->         drm_framebuffer_remove(fb);
->
->         drm_client_release(&fb_helper->client);
-> -       drm_fb_helper_unprepare(fb_helper);
-> -       kfree(fb_helper);
->  }
->
->  static const struct fb_ops exynos_drm_fb_ops =3D {
-> diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbde=
-v.c
-> index a6af21514cff..bc92fa24a1e2 100644
-> --- a/drivers/gpu/drm/gma500/fbdev.c
-> +++ b/drivers/gpu/drm/gma500/fbdev.c
-> @@ -84,9 +84,6 @@ static void psb_fbdev_fb_destroy(struct fb_info *info)
->         drm_gem_object_put(obj);
->
->         drm_client_release(&fb_helper->client);
-> -
-> -       drm_fb_helper_unprepare(fb_helper);
-> -       kfree(fb_helper);
->  }
->
->  static const struct fb_ops psb_fbdev_fb_ops =3D {
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm=
-/i915/display/intel_fbdev.c
-> index 3fbdf75415cc..d5f26c8bb102 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> @@ -146,8 +146,6 @@ static void intel_fbdev_fb_destroy(struct fb_info *in=
-fo)
->         drm_framebuffer_remove(fb_helper->fb);
->
->         drm_client_release(&fb_helper->client);
-> -       drm_fb_helper_unprepare(fb_helper);
-> -       kfree(fb_helper);
->  }
->
->  __diag_push();
-> diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fb=
-dev.c
-> index b5969374d53f..aad6fb77f0de 100644
-> --- a/drivers/gpu/drm/msm/msm_fbdev.c
-> +++ b/drivers/gpu/drm/msm/msm_fbdev.c
-> @@ -52,8 +52,6 @@ static void msm_fbdev_fb_destroy(struct fb_info *info)
->         drm_framebuffer_remove(fb);
->
->         drm_client_release(&helper->client);
-> -       drm_fb_helper_unprepare(helper);
-> -       kfree(helper);
->  }
->
->  static const struct fb_ops msm_fb_ops =3D {
-> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapd=
-rm/omap_fbdev.c
-> index 948af7ec1130..b5df2923d2a6 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> @@ -103,8 +103,6 @@ static void omap_fbdev_fb_destroy(struct fb_info *inf=
-o)
->         drm_framebuffer_remove(fb);
->
->         drm_client_release(&helper->client);
-> -       drm_fb_helper_unprepare(helper);
-> -       kfree(helper);
->  }
->
->  /*
-> diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/rade=
-on/radeon_fbdev.c
-> index dc81b0c2dbff..4df6c9167bf0 100644
-> --- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-> +++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-> @@ -184,8 +184,6 @@ static void radeon_fbdev_fb_destroy(struct fb_info *i=
-nfo)
->         radeon_fbdev_destroy_pinned_object(gobj);
->
->         drm_client_release(&fb_helper->client);
-> -       drm_fb_helper_unprepare(fb_helper);
-> -       kfree(fb_helper);
->  }
->
->  static const struct fb_ops radeon_fbdev_fb_ops =3D {
-> diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.=
-c
-> index 1b70f5e164af..91aece6f34e0 100644
-> --- a/drivers/gpu/drm/tegra/fbdev.c
-> +++ b/drivers/gpu/drm/tegra/fbdev.c
-> @@ -53,8 +53,6 @@ static void tegra_fbdev_fb_destroy(struct fb_info *info=
-)
->         drm_framebuffer_remove(fb);
->
->         drm_client_release(&helper->client);
-> -       drm_fb_helper_unprepare(helper);
-> -       kfree(helper);
->  }
->
->  static const struct fb_ops tegra_fb_ops =3D {
-> diff --git a/include/drm/drm_client.h b/include/drm/drm_client.h
-> index bdd845e383ef..eecb8d6e15c7 100644
-> --- a/include/drm/drm_client.h
-> +++ b/include/drm/drm_client.h
-> @@ -28,6 +28,16 @@ struct drm_client_funcs {
->          */
->         struct module *owner;
->
-> +       /**
-> +        * @free:
-> +        *
-> +        * Called when the client gets unregistered. Implementations shou=
-ld
-> +        * release all client-specific data and free the memory.
-> +        *
-> +        * This callback is optional.
-> +        */
-> +       void (*free)(struct drm_client_dev *client);
-> +
->         /**
->          * @unregister:
->          *
-> --
-> 2.51.0
->
+url:    https://github.com/intel-lab-lkp/linux/commits/Akhil-P-Oommen/drm-msm-a6xx-Add-support-for-Adreno-612/20251018-011020
+base:   cb6649f6217c0331b885cf787f1d175963e2a1d2
+patch link:    https://lore.kernel.org/r/20251017-qcs615-spin-2-v1-1-0baa44f80905%40oss.qualcomm.com
+patch subject: [PATCH 1/6] drm/msm/a6xx: Add support for Adreno 612
+config: powerpc-randconfig-r073-20251021 (https://download.01.org/0day-ci/archive/20251021/202510212140.4YWihsB7-lkp@intel.com/config)
+compiler: clang version 16.0.6 (https://github.com/llvm/llvm-project 7cbf1a2591520c2491aa35339f227775f4d3adf6)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+| Closes: https://lore.kernel.org/r/202510212140.4YWihsB7-lkp@intel.com/
+
+smatch warnings:
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c:641 a6xx_set_hwcg() error: uninitialized symbol 'cgc_hyst'.
+
+vim +/cgc_hyst +641 drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+
+4b565ca5a2cbbbb Jordan Crouse  2018-08-06  600  static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
+4b565ca5a2cbbbb Jordan Crouse  2018-08-06  601  {
+4b565ca5a2cbbbb Jordan Crouse  2018-08-06  602  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+4b565ca5a2cbbbb Jordan Crouse  2018-08-06  603  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+4b565ca5a2cbbbb Jordan Crouse  2018-08-06  604  	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+b1c53a2a2d395d4 Jonathan Marek 2020-07-10  605  	const struct adreno_reglist *reg;
+4b565ca5a2cbbbb Jordan Crouse  2018-08-06  606  	unsigned int i;
+40c297eb245b1c9 Konrad Dybcio  2024-08-28  607  	u32 cgc_delay, cgc_hyst;
+51682bc4abf4b55 Konrad Dybcio  2024-08-28  608  	u32 val, clock_cntl_on;
+4b565ca5a2cbbbb Jordan Crouse  2018-08-06  609  
+dff2f69f3e8a6ea Rob Clark      2024-06-18  610  	if (!(adreno_gpu->info->a6xx->hwcg || adreno_is_a7xx(adreno_gpu)))
+b1c53a2a2d395d4 Jonathan Marek 2020-07-10  611  		return;
+b1c53a2a2d395d4 Jonathan Marek 2020-07-10  612  
+66ffb9150b00f3f Jonathan Marek 2020-07-10  613  	if (adreno_is_a630(adreno_gpu))
+66ffb9150b00f3f Jonathan Marek 2020-07-10  614  		clock_cntl_on = 0x8aa8aa02;
+5cb9695ccef2305 Jie Zhang      2025-10-17  615  	else if (adreno_is_a610(adreno_gpu) || adreno_is_a612(adreno_gpu))
+e7fc9398e608a7b Konrad Dybcio  2023-06-16  616  		clock_cntl_on = 0xaaa8aa82;
+18397519cb62248 Konrad Dybcio  2024-02-23  617  	else if (adreno_is_a702(adreno_gpu))
+18397519cb62248 Konrad Dybcio  2024-02-23  618  		clock_cntl_on = 0xaaaaaa82;
+66ffb9150b00f3f Jonathan Marek 2020-07-10  619  	else
+66ffb9150b00f3f Jonathan Marek 2020-07-10  620  		clock_cntl_on = 0x8aa8aa82;
+66ffb9150b00f3f Jonathan Marek 2020-07-10  621  
+5cb9695ccef2305 Jie Zhang      2025-10-17  622  	if (adreno_is_a612(adreno_gpu))
+5cb9695ccef2305 Jie Zhang      2025-10-17  623  		cgc_delay = 0x11;
+5cb9695ccef2305 Jie Zhang      2025-10-17  624  	else if (adreno_is_a615_family(adreno_gpu))
+5cb9695ccef2305 Jie Zhang      2025-10-17  625  		cgc_delay = 0x111;
+5cb9695ccef2305 Jie Zhang      2025-10-17  626  	else
+5cb9695ccef2305 Jie Zhang      2025-10-17  627  		cgc_delay = 0x10111;
+5cb9695ccef2305 Jie Zhang      2025-10-17  628  
+5cb9695ccef2305 Jie Zhang      2025-10-17  629  	if (adreno_is_a612(adreno_gpu))
+5cb9695ccef2305 Jie Zhang      2025-10-17  630  		cgc_hyst = 0x55;
+
+Only initialized here and not on other paths.
+
+5cb9695ccef2305 Jie Zhang      2025-10-17  631  	else if (adreno_is_a615_family(adreno_gpu))
+5cb9695ccef2305 Jie Zhang      2025-10-17  632  		cgc_delay = 0x555;
+5cb9695ccef2305 Jie Zhang      2025-10-17  633  	else
+5cb9695ccef2305 Jie Zhang      2025-10-17  634  		cgc_delay = 0x5555;
+40c297eb245b1c9 Konrad Dybcio  2024-08-28  635  
+af66706accdf5af Konrad Dybcio  2023-09-25  636  	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_MODE_CNTL,
+51682bc4abf4b55 Konrad Dybcio  2024-08-28  637  			state ? adreno_gpu->info->a6xx->gmu_cgc_mode : 0);
+af66706accdf5af Konrad Dybcio  2023-09-25  638  	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_DELAY_CNTL,
+40c297eb245b1c9 Konrad Dybcio  2024-08-28  639  			state ? cgc_delay : 0);
+af66706accdf5af Konrad Dybcio  2023-09-25  640  	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_HYST_CNTL,
+40c297eb245b1c9 Konrad Dybcio  2024-08-28 @641  			state ? cgc_hyst : 0);
+                                                                                ^^^^^^^^
+Uninitialized
+
+af66706accdf5af Konrad Dybcio  2023-09-25  642  
+dff2f69f3e8a6ea Rob Clark      2024-06-18  643  	if (!adreno_gpu->info->a6xx->hwcg) {
+d2bcca0ccccfa5e Neil Armstrong 2024-02-16  644  		gpu_write(gpu, REG_A7XX_RBBM_CLOCK_CNTL_GLOBAL, 1);
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
