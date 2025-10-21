@@ -2,93 +2,137 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C44DBF5F61
-	for <lists+freedreno@lfdr.de>; Tue, 21 Oct 2025 13:11:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E7B9BF62C5
+	for <lists+freedreno@lfdr.de>; Tue, 21 Oct 2025 13:51:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0AA610E29F;
-	Tue, 21 Oct 2025 11:11:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2BDB10E0B1;
+	Tue, 21 Oct 2025 11:51:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XSpFW6Kv";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TPst316W";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD55010E5AB
- for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 11:11:02 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-42702037a01so794973f8f.3
- for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 04:11:02 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B218510E22E
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 11:51:42 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-4270a072a0bso579855f8f.0
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Oct 2025 04:51:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1761045061; x=1761649861; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=q5EyTqZZ7MGdSDa8l4x23g921Hy97xpn6zc3palSUX4=;
- b=XSpFW6KvCWRWoFcd9nvl8P78vw6jw/qD6TPem+haXL37gOH+ufBNrzi50sy2XlZiHv
- pmnU8OEpjEgw67ymqoqGxs7j12yRnQVoRqBH+6S58G7ygGBOQfxkLN9B23MWodPzSHIy
- UmYBIWmM1zdVuoA4fbxtABJs23HCN9wIB+c5eNONgKvkYnLqndbWiRpextQ8/ndK9Txc
- gYQqVUT021t/iVu1MremaAlo7YJ8lbU2E1oGMMCq246v9zQTrkd2p8jEtCYkoCYMtQ6I
- 5XVDRKyJToEl/58JGDgK0n5i2q0CyHUIs41kD7GHmZEzsbCcbZc3MMfAO16VtaYgS3cU
- 63wA==
+ d=linaro.org; s=google; t=1761047501; x=1761652301; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6oW5/XOBvE7uDDwrEHiFEsRScYTj311N2yjZu7+rowU=;
+ b=TPst316WOY08Kcmj75ZrKNyraQBSXXrlv3o80H+ilA3PbTqCoXUOAxXfw5Hv2t53BA
+ ZYtEVTDCfI9fYY0wNxeMX+XWHqWatpotKOJ1nhps5+2eC9cGK6CnoB7Vv3gIpQd6LTQ5
+ +HxZOa+fSBLvrTeAa6JIPLuXmbaz/EB/q2JeFtbOK3yPgm/0FdNEbzgumVyc9pJcDsRQ
+ pCdHh1FNzUvi1wF9/5odGOCbPK8mw+XZ5NKcntgshSywXgh7OWe5z5ZNk4LNZEGXqR6d
+ XJ8M08tJucRh/Pw9B3oQuaqcyTmHTeLR7RzN5vDquCeKqWWubIprkbH5VI6c7ctUE3id
+ Wuog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761045061; x=1761649861;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=q5EyTqZZ7MGdSDa8l4x23g921Hy97xpn6zc3palSUX4=;
- b=o0Rrj07mcmo31AmHUyoe/2UbL1yWCFIsw7+xD1hi2eW8TVeiYUKX/sCtpVjD9+Xw1n
- ZWgayPSAildXAkCE699/OiUZ/EL5HlXLDqJ/SDNkKMwOyYPMsD7mHDDkY1fthWL+vbO8
- mOTnjbgcALAV/vNKFPnd0oyTxlfps84KpLO/QykKOcyknR5HSugBv2UNXpgbFpAITQal
- DXrIDPpB7M345OgRchveqoKiDpXZ9qW0ZvtBD888/8W+kJzozHaAnC6QqQ6dCGDRzLts
- +MH5cWFud9UCKVBzJ0xfpwV9wwB4JGFoD2YpT1txENniFrk1qLAlAEPbbi5sZxEqu/2F
- DtPw==
+ d=1e100.net; s=20230601; t=1761047501; x=1761652301;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6oW5/XOBvE7uDDwrEHiFEsRScYTj311N2yjZu7+rowU=;
+ b=Ub+Tfz69bRBVQ8cxrMMZIPCydRgSDMrDwfTcClaxXzXgaa9f1M4cF2lEtX5Zkafgbu
+ YhzY92dvQDsRbrw4EcJZvWq1vazEQGKzZqVOOswI4ZMJ9jGDjGBX1MntjXxxjca77+SA
+ 0Kw9jx3z8lo3rEkG8N4n+gFQ+jWOZHhrnL6sQ/ulQ1nAx6GtEv1zhyUDKmz54/LUxm/B
+ Mn3sRq+/czfTvgxH21u/nfhn7B3J+vjBvQvPy1evpTXUEZtnI64IJVbOE4tjXHhQf3nG
+ 5H+GVCHvTGVKXaTnvTZky5Fboco1OgQztS1EPi2ibfYRX4TiuEvzuYqfam1qmIYxI7Mq
+ KhgA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWjaXn2k5ZB9TfvxFeu7Pa0GdySf8qFOmafpKe6I3jaHRCdTGa/5E/WSdsrAX9JG3orY+Gh+Ir0qnM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxXtZuUkIvKhDOwlPjJ0cPrsWisHjRtmA+a7FgtRAgwu3YRI751
- mUth2nWJ12//QAMKGfbiI9xF4d/BmT9KloWS6nLDTO8NPPsGmc4eAKTSjVtSuIka7so=
-X-Gm-Gg: ASbGncuRg7V+yYBbR5dHZQQ4pbfUcMBBaDnD4hvTzQGMai3FcWEOZl6DEfJf+hdQHPN
- U/0vVsvlEvYoCvSNUwNNkGTN74wO9rKKzrQOsgaHbAo2psxzQ7RYS4des96KhhlAzkFsZ5MMAYe
- 8WN/AhdsikUWVdoez4YHzCRpBTN86LDASPhNbtYgX4QiG21KBFn8d6qcmLBTk3bE3+JJ4I1xGd9
- u1K5llSUq8uueJIPrFnK2iL3pDB/iHf9IailncFzNHLu9YPeSxQiTudaZDaWY1Pu43I9mgScTwA
- iQlEMERo8a416OFIm1W8CkNpXopFeS0q1NWqmH3X8lrgqwzPBEzo+29GNWiRz37JBU2AlUaz/AI
- y1MSQmD++RcU+ba8Wbcst6ZjC2MApzIHJ9cEO78fDSSEkhFWXBT1uvnrtTx6OQfDzhtd1iF+FJ3
- bJe7QOTwV6+Fg=
-X-Google-Smtp-Source: AGHT+IE6kW17wi16G56epg97Q5LRZhtLyC50m5D+iXMza5wlR5ua98abI/s6v0YwjekhlOLH+56S6w==
-X-Received: by 2002:a05:600c:19c7:b0:471:152a:e57d with SMTP id
- 5b1f17b1804b1-474942d9c6fmr12082165e9.3.1761045061205; 
- Tue, 21 Oct 2025 04:11:01 -0700 (PDT)
-Received: from kuoka.. ([178.197.219.123]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-427f00ce06bsm19510485f8f.45.2025.10.21.04.10.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Oct 2025 04:11:00 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ AJvYcCUOFXj23OIIZkBRK9oZhja989Z/ovFpbsIMrvTC7jv6GNHtJYJJ7/Xl2emj+cgEXXk2NurHxKz4O58=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxbpaqbj8UPO5a6+pamiAy3mFzIJ6hqXqv3n6I692+uEY+p7X0e
+ V+5pVq2QxKJWJ1li0o+AQzSA0nLbVuxaiA67LyDmSlaKGQZQFJxc3BQUmCjarpJjpWI=
+X-Gm-Gg: ASbGncusdAze+kwK7a8t8NaJ474ObpFYA4kLbuw+ic2kjMvVG5ctJKsA4KAUrOZP2KF
+ KU1qOEpw1zdNAsDJQyvgWaW0qd4Jirny3OmN1xREAGMfAw0uBOjyYiixNcZZu/NsHenDUPcz8TG
+ 8OPMufxgdBJdzFxiOgFT30SFxxwCviDTcCXtGtJQYCtRzVJqfpAyVXt31EBfB+oKGLQu3ucsXBz
+ aXB5VAspkJbNxmHQlwT93P9KsMzYTVvk9ROPS/tlWyDhtOPrQ3NXox8HojYP/BPXY2xtgZWC1Ln
+ ZXVssmaWqDZeNHjeieYt9NrWgdUSSH8vq5LqYs00uqR6EVaXtEBuQ0SF/on6onxd8klL3V1adMa
+ +Owrc2JCT2SRtUg9UyxSpuelYJ8NR8ZeSeVoroC8HnvPeuOnvgsO2JNbvOWmeyMwqfvMZ/g3aeu
+ 2ZbPGbLHhA/08vS2unOxVMy4PjYf0yXNA=
+X-Google-Smtp-Source: AGHT+IGapGQl9lwmTZCkT8BrnxKktV2NGxlaa53OeTneIyZI/RrGfOsAomtObddDU522LsfDuHf/RA==
+X-Received: by 2002:a05:6000:2c0a:b0:408:4c25:60f1 with SMTP id
+ ffacd0b85a97d-4284e56ffbemr1187253f8f.10.1761047500936; 
+ Tue, 21 Oct 2025 04:51:40 -0700 (PDT)
+Received: from [192.168.1.29] ([178.197.219.123])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-427f00ba01bsm19717753f8f.41.2025.10.21.04.51.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Oct 2025 04:51:40 -0700 (PDT)
+Message-ID: <15a1cd8d-bbbb-4a42-8061-64dbcd7d3200@linaro.org>
+Date: Tue, 21 Oct 2025 13:51:38 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: x1e78100-t14s: Add audio playback
+ over DisplayPort
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 2/2] arm64: dts: qcom: x1e78100-t14s: Add audio playback over
- DisplayPort
-Date: Tue, 21 Oct 2025 13:10:52 +0200
-Message-ID: <20251021111050.28554-4-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20251021111050.28554-3-krzysztof.kozlowski@linaro.org>
 References: <20251021111050.28554-3-krzysztof.kozlowski@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20251021111050.28554-4-krzysztof.kozlowski@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ 2+47PN9NZAOyb771QoVr8A==
+In-Reply-To: <20251021111050.28554-4-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,107 +148,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add necessary DAI links and DAI name prefixes to enable audio playback
-over USB/DisplayPort and HDMI.  The HDMI port is not yet enabled, but it
-should carry respective DAI name prefix regardless.
+On 21/10/2025 13:10, Krzysztof Kozlowski wrote:
+> Add necessary DAI links and DAI name prefixes to enable audio playback
+> over USB/DisplayPort and HDMI.  The HDMI port is not yet enabled, but it
+> should carry respective DAI name prefix regardless.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> ALSA UCM and audioreach topology will follow up as well.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
----
+Also, in case keeping both patches in one patchset was not obvious:
+The first patch is needed to avoid dtbs_check warning, thus there is no
+strict dependency and patches should go via different trees, however DTS
+patch should reach next once binding hits it.
 
-ALSA UCM and audioreach topology will follow up as well.
----
- .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   | 56 +++++++++++++++++++
- 1 file changed, 56 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-index 654cbce9d6ec..103c4ca97adb 100644
---- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-@@ -351,6 +351,54 @@ sound {
- 				"VA DMIC1", "VA MIC BIAS1",
- 				"TX SWR_INPUT1", "ADC2_OUTPUT";
- 
-+		displayport-0-dai-link {
-+			link-name = "DisplayPort0 Playback";
-+
-+			codec {
-+				sound-dai = <&mdss_dp0>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+
-+		displayport-1-dai-link {
-+			link-name = "DisplayPort1 Playback";
-+
-+			codec {
-+				sound-dai = <&mdss_dp1>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+
-+		displayport-2-dai-link {
-+			link-name = "DisplayPort2 Playback";
-+
-+			codec {
-+				sound-dai = <&mdss_dp2>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_2>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+
- 		wcd-playback-dai-link {
- 			link-name = "WCD Playback";
- 
-@@ -1013,6 +1061,8 @@ &mdss {
- };
- 
- &mdss_dp0 {
-+	sound-name-prefix = "DisplayPort0";
-+
- 	status = "okay";
- };
- 
-@@ -1021,6 +1071,8 @@ &mdss_dp0_out {
- };
- 
- &mdss_dp1 {
-+	sound-name-prefix = "DisplayPort1";
-+
- 	status = "okay";
- };
- 
-@@ -1028,6 +1080,10 @@ &mdss_dp1_out {
- 	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
- };
- 
-+&mdss_dp2 {
-+	sound-name-prefix = "DisplayPort2";
-+};
-+
- &mdss_dp3 {
- 	/delete-property/ #sound-dai-cells;
- 
--- 
-2.48.1
-
+Best regards,
+Krzysztof
