@@ -2,77 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 002CEC01469
-	for <lists+freedreno@lfdr.de>; Thu, 23 Oct 2025 15:13:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F274C022D2
+	for <lists+freedreno@lfdr.de>; Thu, 23 Oct 2025 17:39:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FCCE10E0EA;
-	Thu, 23 Oct 2025 13:13:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 728F110E91A;
+	Thu, 23 Oct 2025 15:39:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="h3/2VkoI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ME/7p8ou";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="K/X2RGOT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IqmoN06N";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="rOOk+1L8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mYDNeC29";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="DAlA3sZc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ySnrNCRC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 022E910E900
- for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 13:13:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAEC110E921
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 15:39:48 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8327D21196;
- Thu, 23 Oct 2025 13:13:14 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 38AC321187;
+ Thu, 23 Oct 2025 15:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1761225198; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1761233983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=VjyzPpbvI5fhxQYesxK6omzD3LUeRTF6x2me5bgnC6s=;
- b=h3/2VkoIvy4pRQU2gTt3fNBwV0Bpbbc6fEDrsTopCy+Oc9ygrJlyzxkj+XUv+evYCkFIsX
- XycuwAXQ7Qr3XRqgrQIrq/nrl/HVtboKu1jsbnqODHI+radDjly+yvVE9QAVk+sXSp6sdL
- AfNrxoqCJZN6Ab3GnOJxOg46wyWHjHc=
+ bh=oyYHstVcDj/SkrQCRCxmIIkIeLsDuJ8po4N2nL2Frfc=;
+ b=rOOk+1L8Um5iOXXt85CJNrMgUxmzOVrAYvM+tfLETiCGLl2aiJttREq8V3mSKUpcxTqqdj
+ l7TViKhxC0xQVhT6iShwws/h5oGPMkztPOi078I6xr6Uteps0EYGkai+oRAVFx5nyFv6Vn
+ 1O8pNJi3YSFsfXJDrweOYfqpid31cf4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1761225198;
+ s=susede2_ed25519; t=1761233983;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=VjyzPpbvI5fhxQYesxK6omzD3LUeRTF6x2me5bgnC6s=;
- b=ME/7p8ouKJM9GLK5zhVbPES1FQGzbPB+WtDCNwBbPItYzwxarZUw8UUgzdVjgfMPfWzy1b
- Yu7qcwHlW+gndTCQ==
+ bh=oyYHstVcDj/SkrQCRCxmIIkIeLsDuJ8po4N2nL2Frfc=;
+ b=mYDNeC298lzqFC8qoZuZk5pNwTUK0YntJyAJtllNJNwZ/toC8a4IZDW8Z6SgJA7xxU8H5k
+ fok4BvyFKK5MrzDw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1761225194; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1761233979; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=VjyzPpbvI5fhxQYesxK6omzD3LUeRTF6x2me5bgnC6s=;
- b=K/X2RGOTD97ojVmDnp2/TWG7VX3nK6sy3QfPe0O8Mf5iX9n6Nk297EBdyPdTc/AapSJ6o8
- Bl2axhNH1SuvJBA+cfo1A0JnrYpCZ0bUumGG8QeuE9uOq7XJiI3rrpcKofro9GX3cTLgq9
- 2YxSqVAJLHedFD4negyZJ4pi5s8BNjs=
+ bh=oyYHstVcDj/SkrQCRCxmIIkIeLsDuJ8po4N2nL2Frfc=;
+ b=DAlA3sZcZeuOjOFICW30MLLWNxNhjXDLqzmJqQrGX9qWDKTIWBN2A2EoFjI0emJdLEFFTa
+ Xy490TDIoI4lzA1jHkx2uCbfi4FN/0kAZSaNlYyg3DiH9kDtT987gwlO79m3H4UB4N/2Lj
+ XwXnnNWvs4GANBXdlNDc7KKSXmZGqLs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1761225194;
+ s=susede2_ed25519; t=1761233979;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=VjyzPpbvI5fhxQYesxK6omzD3LUeRTF6x2me5bgnC6s=;
- b=IqmoN06Nrak9Ra4aXuBALYij0axCl7XBGCZZGAeI9W8NWeYnuuI1W93KWKfSM4xXHTrj9x
- vlmNPTouyAONGzAQ==
+ bh=oyYHstVcDj/SkrQCRCxmIIkIeLsDuJ8po4N2nL2Frfc=;
+ b=ySnrNCRC698xP5gkeFXzPyzRo9yOOVBWHgBM3q98Rk7ngacFmPwelNmhM99uFpvyvUArD1
+ eKLz4ieDlW08yWBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2B38713285;
- Thu, 23 Oct 2025 13:13:14 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8204A136CF;
+ Thu, 23 Oct 2025 15:39:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id e0oYCeop+mjlGwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 23 Oct 2025 13:13:14 +0000
-Message-ID: <b984815e-b115-49a2-951c-e4ab8049cecc@suse.de>
-Date: Thu, 23 Oct 2025 15:13:13 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Z1hfHTpM+mihKQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 23 Oct 2025 15:39:38 +0000
+Message-ID: <38e59db5-eae2-4b6e-bdec-8205f1303d9b@suse.de>
+Date: Thu, 23 Oct 2025 17:39:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/4] drm/client: Add client free callback to unprepare
@@ -114,7 +114,8 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
 In-Reply-To: <20251009132006.45834-2-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Spam-Level: 
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
@@ -124,11 +125,9 @@ X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
  RCPT_COUNT_TWELVE(0.00)[13]; FROM_EQ_ENVFROM(0.00)[];
  TO_DN_NONE(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.de:email]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid]
 X-Spam-Flag: NO
 X-Spam-Score: -4.30
-X-Spam-Level: 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,7 +143,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Acked by Jani via irc to go through  drm-misc
+
 
 Am 09.10.25 um 15:16 schrieb Thomas Zimmermann:
 > Add free callback to struct drm_client_funcs. Invoke function to
@@ -161,6 +160,13 @@ Am 09.10.25 um 15:16 schrieb Thomas Zimmermann:
 > of the fbdev client in a single place.
 >
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+via irc
+
+https://people.freedesktop.org/~cbrill/dri-log/?channel=radeon&highlight_names=&date=2025-10-23&show_html=true
+
 > ---
 >   drivers/gpu/drm/armada/armada_fbdev.c      |  2 --
 >   drivers/gpu/drm/clients/drm_fbdev_client.c | 17 +++++++++++++++--
