@@ -2,125 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8745C0046C
-	for <lists+freedreno@lfdr.de>; Thu, 23 Oct 2025 11:36:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3065C00DA7
+	for <lists+freedreno@lfdr.de>; Thu, 23 Oct 2025 13:46:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67CCE10E3B3;
-	Thu, 23 Oct 2025 09:36:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C6BB10E3DC;
+	Thu, 23 Oct 2025 11:46:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PxBvhXIA";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AG/7kiHs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAC710E3B3
- for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 09:36:48 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59N6NGcx016465
- for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 09:36:48 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 405D210E3DB
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 11:46:16 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59N7YJCh011783
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 11:46:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- K+iM28/6ufZlmOomF1p5E1/bkuTFa6Bw8f1OnjTV6/Y=; b=PxBvhXIASB+Tew5z
- LahhQmxH6wst8V0qUTE1SOLZ+qyg1Ns1EuO374nnKPigUFPguw8M1zXnOPCOm+hj
- FYdSNj0llMpTRgFFzQR/Qoirqy3EB8EJ9e3OM0dceb0YSOhas16XVE8LqFc6hsVW
- 3DJEfJlNrZR9Z7w4RWDwm8a7k1U0vF9KVS0IdTrrm8uHZj5LGkftPZ43ide3mn8V
- Fu2BKMPimHQ3yZEp0h0uAnuail5MIj/gJaetzq5EoY1oe0hNbSgfDx7gX7Sk1tuT
- WiINMPjOcX04IcGvJr2Ap+W/M0mK2ys/ksYG7ysTU6mL+ki+03rxUIDHpkz1ftsN
- eN6aIQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49xkpsdfmk-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=MxuIotyBL55oBcMXr+JxN4AV
+ 8Gzau+khOnLw0uMLwiE=; b=AG/7kiHs7N6pOQg3k2714gtxaacwe+b11V+Qxw0I
+ Gu3nGXyQXnnl2wcGdF4vMjXMe/9qh3BGYvdzCS0MsPOsKxCTt/wzX9Rq1tl2xrbU
+ 73PCUnFsHIskxPhes8UiAHznc8EZcKfCyUud6Wvtk9iD71ex9VJMS/PMvMgfMZMh
+ nHr3826/BOjI8mxOxiIhGQJZKLIdayhTdzbGifxonGp2Ot/2dcR6VAqaQ5CPKyKx
+ 7OOdihE1qqqXk2t2Rtmgx0354pQ2uieNY437lT1DP0qdHgHr12jP8xDC1IfgsH+9
+ fRlKxhSQ6lyIuk8OotssUFYlf49PYcTYFgoQbXxDp03SwA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49y524aefj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 09:36:47 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-890921c382eso16470285a.1
- for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 02:36:47 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 11:46:15 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4e892f776d0so36413521cf.0
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 04:46:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761212206; x=1761817006;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=K+iM28/6ufZlmOomF1p5E1/bkuTFa6Bw8f1OnjTV6/Y=;
- b=QzOw2s0t2LYKp9zluzHaQqSQo2eBbJFfEGScY38DoiiXdB+3VQc9B3NXqJriY3oZAA
- sSAbEMoQ/QmlSozlONW3GLG1Gt6AP8JB85UWOV8N5ZR3e10+KlgyGbGMj+6+vuFxIn25
- XeqCbxNhFw3ksOgqeHzxJ4vgjdn0pIcmqWdHKI6u4mvb06gso5a+UloibJtYU0kNcAuE
- Ol0b8/2sz1cUhJQRv2wEjdnoLl4mOaslxi3WTz/tf3zBHB7C0gEmOJZGa4fnCJj85b1R
- NKRLhaE5tMu3prHwTyz1XCNy+tni+2D14xQHbRWmEB4QEuCEn8RewqFMYvPawZRrFYNc
- hBaA==
+ d=1e100.net; s=20230601; t=1761219974; x=1761824774;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MxuIotyBL55oBcMXr+JxN4AV8Gzau+khOnLw0uMLwiE=;
+ b=vTN41Jrpk2AB+hQLwr/gshIar0Q0E7HMOMNfl4L5wkLJu+SwjHeLXaAG+wwb2dUJ+c
+ LsDDf51dKh1oNvdcH1wIxPU8gD0tioXv1sdU8UDI6bfUDZnfx7tyIhKw8Do544vxV7pL
+ JgayHOIiz1YPNbl4sIFVBp952W+ze58uZV0uSpNuBa+8OwhtszlpyKYjPc/HwmOe56D1
+ RaFv1i2HGAAHk9QIUuzk05TRHCbToDpHHBjgIapuv5/BDqOCZxDF+pXVi2IPb+Myn+c9
+ R8Lk6TvewBI0/uXYnX4DdeJ96P/KO/FogHbbKKD+oDmbxToEFMaIa43EdbJERCrOewjU
+ xk/w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVjMIp83cUVlCbye6//4n3GXyCCQU2b7RXySsbEJ2f5SlplC8hwJUJydphj3bMUdGBPbSuQ1nneYUk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwrHCwkPg/6Yh63CfUTw+J194z0Fp6saQOFaCm9oeUvw72jF3U0
- Kam9HY3g+moFFSc6y9B6QInfESpb6V8kI3+BcV7zLTaiZNqWUZjlAFtFNUlNwFV+12Dw2QT8nAx
- 6MpezLvyZXbOQRlaEpC2Bi+Wlkhi80q52wTcz1YJIpDUMxNM1/f9U/4GGISjsmQterThUnsA=
-X-Gm-Gg: ASbGncv7q28XZ9XV5UjpkPwIWupPCk42LmyvCEOMY1H5UXa1oJtc8Tvv0BVdwtfOF3T
- OvIoVkolKDthcNwcjbSMzOMEQVkNp1M2WhAZSOGi5KvxoR3KoHUJ/+KiAHDQbp8NMZcQQOqT4b/
- 4SmAEelpwU/EUFgvcdXMv8F4WulY5yzwf3JmRBUXMk0ciqRe0Y4DJtJSkpUHW/ewaQB5fDV4l20
- IbyptzexuXhwN17tGZHIEGq0Gi5l9l/rQNDGpHM8G8OSadG/cKh646tZ2ZibZbqRDxC0Q3wpbDY
- bpIGYCaCKAWXQ8dhIFDd9bHoUys4HJ6HNuK1m6xtLOR4U807vE64oHKlPO5Gxk2scnRBtchkytc
- gqeD6PjqiGnJeIobsoZgNMCojvD1ZaiI+Qt3fmddINAbX38iLfp7X55u2
-X-Received: by 2002:a05:620a:190e:b0:85a:4bc8:3d2d with SMTP id
- af79cd13be357-890706fe6admr2117633385a.8.1761212206517; 
- Thu, 23 Oct 2025 02:36:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH6mY50FZNSqye8z3osZjKohykPCr4NQ1LXRm9tZBZ3NgHs0Ck4cRYybkcjDjgqxKHupXrKRw==
-X-Received: by 2002:a05:620a:190e:b0:85a:4bc8:3d2d with SMTP id
- af79cd13be357-890706fe6admr2117630485a.8.1761212205954; 
- Thu, 23 Oct 2025 02:36:45 -0700 (PDT)
-Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b6d5147240csm159119066b.73.2025.10.23.02.36.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 02:36:45 -0700 (PDT)
-Message-ID: <10999a80-df1a-45c5-ba1e-e64b2afeeb4f@oss.qualcomm.com>
-Date: Thu, 23 Oct 2025 11:36:42 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/12] dt-bindings: display/msm: qcom, kaanapali-mdss: Add
- Kaanapali
-To: "Rob Herring (Arm)" <robh@kernel.org>,
- yuanjie yang <yuanjie.yang@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, mripard@kernel.org,
- linux-kernel@vger.kernel.org, aiqun.yu@oss.qualcomm.com,
- marijn.suijten@somainline.org, abhinav.kumar@linux.dev,
- simona@ffwll.ch, devicetree@vger.kernel.org,
- tingwei.zhang@oss.qualcomm.com, krzk+dt@kernel.org,
- freedreno@lists.freedesktop.org, neil.armstrong@linaro.org,
- quic_mkrishn@quicinc.com, linux-arm-msm@vger.kernel.org,
- lumag@kernel.org, airlied@gmail.com, sean@poorly.run,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
- jonathan@marek.ca, robin.clark@oss.qualcomm.com,
- quic_khsieh@quicinc.com, conor+dt@kernel.org, yongxing.mou@oss.qualcomm.com
+ AJvYcCUT2hcBSsm0yHbG4OyyOx45Nm7TUXsuY2rgqdKXiYNWg0ly0ymLE4ggEDT5QniqOyb0ExocCf+OIoU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyUu/nn8WHFV/69DkLIGY704qj/3kBsGB+mu6yQSP2R3py+baXm
+ wKexbpGyJqWmNBOJ4gpmKZAL9HdOIqC9pMq/8TzMyOupL6yKseRZ8Ti+vndVfa+e65xF5RDC13g
+ vthXI8QEIW+9uFGYLhcgtjOk+quFng6F43ETJlbaiHij4nLBENVF805QrKuBF3i2lRZxcI9k=
+X-Gm-Gg: ASbGncsXch1EZ+SociTc63D7FQx0x1xHrQFSs1e/QEtwhWCMVMnsoF8m9YLGuiCWIda
+ n/CYV5aZkI7Hl6x3f67Fn0AxlCz8Yolqq3twwhy8f1MZsM9lmgEguOpsJTP/NloToYzkQm3AEkq
+ 02EZcPAixpYkrlqMht58oWapKktD2tEf0WycHxquEs3D6xC4hmp9+yhcVWcVCSKdjHeduuoWB1j
+ ddt6gncTOjVP3wfAjlje2Tm6fudM0rBXeO5qtbGCr1rlihtM1FOwlwRGpkdD4s2a4dqHPvDSBz/
+ Jk+J1WmU3JtYnF/EmP13Jl6Y0IZlqkwKw/j2xUfzKLM6Mc+VOMQpQhtGCs1A5qjDb1G+CsqDonQ
+ bZuiikF9Q4Zo631HAmkKJTPt6EwfL3Jd8yT6kXCN58h2fOtFTP2WQj+nPV19A9xOtv6tErRkk2U
+ G1dmTuuTgahfPD
+X-Received: by 2002:a05:622a:1a21:b0:4e8:ac66:ee44 with SMTP id
+ d75a77b69052e-4e8ac66f4a4mr250238131cf.39.1761219974202; 
+ Thu, 23 Oct 2025 04:46:14 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE8+pCnO8ZvR8ffZYHTiXBpe8PitkiTaa+bMCiZZSPHl7XKSC3gu/++FOyxZx7Quca27fB8MQ==
+X-Received: by 2002:a05:622a:1a21:b0:4e8:ac66:ee44 with SMTP id
+ d75a77b69052e-4e8ac66f4a4mr250237771cf.39.1761219973768; 
+ Thu, 23 Oct 2025 04:46:13 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-592f4d39b96sm656447e87.110.2025.10.23.04.46.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Oct 2025 04:46:12 -0700 (PDT)
+Date: Thu, 23 Oct 2025 14:46:10 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: yuanjie yang <yuanjie.yang@oss.qualcomm.com>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, quic_mkrishn@quicinc.com, jonathan@marek.ca,
+ quic_khsieh@quicinc.com, neil.armstrong@linaro.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
+Subject: Re: [PATCH 00/12] drm/msm: Add support for Kaanapali
+Message-ID: <r6kjuxajnimaqazeimzc5gscv2qxudjzkyooxumzakjzojibbl@2jiw6duxfbtz>
 References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
- <20251023081736.1251-1-yuanjie.yang@oss.qualcomm.com>
- <176121209123.1694835.2815069098750745260.robh@kernel.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <176121209123.1694835.2815069098750745260.robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDIxMDE5MCBTYWx0ZWRfXxDFvY+87Y97A
- tNPGPmEqvvwKX65CnvxONayM7g0yCpFadoCIwKYmnsOC6JfFAc0SWLabe1K0yEdT33pTTyBH94E
- hoHljcyq3T6EXU6mqW3q7TEKZrarBfJBYD1OlAOxcgImVrpqP2ygNI5XzIWLV2uESRWoLg2NxkB
- /magRsK4rzo8pag5pnBiaUEtLHrJ/9ylCmrZ/QGOnANmWLzu9afL/6MgfknrNYmWzHVjn36qTgs
- pjCRGju0oOZRwSoWYFBmMPa2g8Q5xRvlAHQ6+kE7IkNoAOV2T82ltMhceN4pH4QgTLNTaICiTHB
- adG/NJeXzYbC7kOQbJ35LYbbAfmyu7ME/4mXgj7ok1dEwDlRjl7IfbGH48qSih22lssjlQDl4Ts
- GGzxm+oAs+JrqiCjHr5hv4/AWRLsYw==
-X-Authority-Analysis: v=2.4 cv=FbM6BZ+6 c=1 sm=1 tr=0 ts=68f9f72f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=SdGosrV6Qt3YffhYJa8A:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: Dzlb1FsvM0Gpc3-BMYOvbpv7HzXr42Nn
-X-Proofpoint-ORIG-GUID: Dzlb1FsvM0Gpc3-BMYOvbpv7HzXr42Nn
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDIyMDE1NSBTYWx0ZWRfX17L8hP4ZecsP
+ rhC+iwh1q8GjlBbtmYTUXm+D1o9JK1TlFwhuJjuQysC16FHdniGBOhukx/fgYJj9qzHW1xHnrxL
+ I4N/M7NlkL65Rar4EXQxJ4BgdspTtSYKjxV6pQQQQgygtqJoFn4fzJpQKmvQPnM89wT04Akjoxw
+ /SCy8oaZSe6O2j5adjJ2gAjJLJZvYQZ6TDUYb/WAKB9ibmnnkAyWz4OPri5+foI3dIINi+D5JN0
+ JGeqbiYI2gg7SvLZfWMYZXXtYrRkbyFQX08JVnriIQGNS2YIwSG4ap+LOzXbH937p+WjUp1X16p
+ sK1cd91tDPVGjEwHpwvtnLTZrDl6oYLb+nmxPa5IvZnWUWHd9D1C8E+RRxJwsFSpNyhlXNetC74
+ GllLaBf+Tj7qwSTg1AVEx8Ke4IHxQg==
+X-Authority-Analysis: v=2.4 cv=Uotu9uwB c=1 sm=1 tr=0 ts=68fa1587 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=qC_FGOx9AAAA:8 a=EUspDBNiAAAA:8
+ a=PFSzt4Q9d-Ge22CFuaAA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+ a=fsdK_YakeE02zTmptMdW:22
+X-Proofpoint-GUID: CPWXABWz7B5G-6c9jsi0mIyTT5WOX2Cq
+X-Proofpoint-ORIG-GUID: CPWXABWz7B5G-6c9jsi0mIyTT5WOX2Cq
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-10-22_08,2025-10-22_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 spamscore=0 impostorscore=0 clxscore=1015 adultscore=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ adultscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510210190
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510220155
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,30 +131,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/23/25 11:34 AM, Rob Herring (Arm) wrote:
+On Thu, Oct 23, 2025 at 03:53:49PM +0800, yuanjie yang wrote:
+> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 > 
-> On Thu, 23 Oct 2025 16:17:36 +0800, yuanjie yang wrote:
->> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
->>
->> Add MDSS/MDP display subsystem for Qualcomm Kaanapali.
->>
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
->> ---
->>  .../display/msm/qcom,kaanapali-mdss.yaml      | 298 ++++++++++++++++++
->>  1 file changed, 298 insertions(+)
->>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
->>
+> The Kaanapali MDSS has some differences compared to the SM8750 MDSS:
+> - DSI PHY/DSI base address have some changes.
+> - DPU 13.0:
+>   - SSPP layout has a great change.
+>   - interrupt INTF layout has some changes.
 > 
-> My bot found errors running 'make dt_binding_check' on your patch:
+> This patchset contains DSI PHY, DSI Controller, DPU & MDSS bindings
+> in addition to the driver changes.
 > 
-> yamllint warnings/errors:
+> We have already tested the display functionality using the Kaanapali-mtp
+> device on the Kaanapali branch of kernel-qcom repository.
+> Test command: "modetest -r -v"
+> kernel-qcom repository: https://git.codelinaro.org/clo/linux-kernel/kernel-qcom/-/tree/kaanapali
 > 
-> dtschema/dtc warnings/errors:
-> Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.example.dts:26:18: fatal error: dt-bindings/interconnect/qcom,kaanapali-rpmh.h: No such file or directory
->    26 |         #include <dt-bindings/interconnect/qcom,kaanapali-rpmh.h>
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> ---
+> Yuanjie Yang (12):
+>   drm/msm/dsi/phy: Add support for Kaanapali
+>   drm/msm/dpu: Add support for Kaanapali DPU
+>   drm/msm/dpu: Compatible with Kaanapali interrupt register
+>   drm/msm/mdss: Add support for Kaanapali
+>   drm/msm/dsi: Add support for Kaanapali
+>   drm/msm/dpu: Add Kaanapali SSPP sub-block support
+>   drm/panel: Set sufficient voltage for panel nt37801
+>   arm64: defconfig: Enable NT37801 DSI panel driver
+>   dt-bindings: display/msm: qcom,kaanapali-dpu: Add Kaanapali
+>   dt-bindings: display/msm: dsi-phy-7nm: Add Kaanapali DSi PHY
+>   dt-bindings: display/msm: dsi-controller-main: Add Kaanapali
+>   dt-bindings: display/msm: qcom,kaanapali-mdss: Add Kaanapali
 
-Please do what you did with the other clocks and simply refer to it
-as some vague &rpmhcc_xo_clk which doesn't actually need to be defined
+The order is wrong:
 
-Konrad
+- bindings
+- driver changes
+- DT changes
+
+
+-- 
+With best wishes
+Dmitry
