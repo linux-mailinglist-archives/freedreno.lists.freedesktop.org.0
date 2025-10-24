@@ -2,116 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80A78C06C47
-	for <lists+freedreno@lfdr.de>; Fri, 24 Oct 2025 16:48:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45C7DC06D10
+	for <lists+freedreno@lfdr.de>; Fri, 24 Oct 2025 16:57:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D73610EAB0;
-	Fri, 24 Oct 2025 14:48:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E35C610E10A;
+	Fri, 24 Oct 2025 14:57:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JEBuUOTr";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FfE/7FXN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC08E10EAB0
- for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 14:48:14 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-471191ac79dso22767275e9.3
- for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 07:48:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1761317293; x=1761922093; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=A1Hx5nLLV2Jg5MZCp9AF1ElKQLvEIm2+dthQoOXPOnI=;
- b=JEBuUOTruqx8yTXBqXp4zBj6/kpZh4qV48Mi0cDNTqtZK/6TDcpny8/nNl1GgXkOxW
- ZzANxAdHuqgsmojDDXq87x7b8+bxElMyfdOw4guOLoipANkRB1wg3lrmOTpw5mBm+7Tp
- zL03GX+258XNyaqnjxMUr+8TTjMIs/+xQsvG3IUqqEfL6iTYGM4wnuhK33N15cnB1Hoo
- jqxl60V6MlkAp/o7VFUVZhWOt1MBM0raXui99gGXC99qUu7AwsDpHY1S6KikNFC7wznd
- 3oovNK6/3Dzttvm+nO5Yw5C3h6c+RTuMzDGCSv3wc48D4lmHpkzCQz/RkvNTOPmvAWyN
- i7VA==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C3BA10E10A
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 14:57:15 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59OCvjXg022356
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 14:57:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=60sB8Wuf9kTa2rtyBom7E3
+ 5OMwjLtVwCZLKP46MCeGQ=; b=FfE/7FXN/lbKuAWCh0Ln0vnyufCffscLn+hLvp
+ imRcO/oQWFF0pLuLN6lZ5+mSzinrRhhVA0HLprolG6iuNQBB77sUPMXqGgDlxqRl
+ 13TOsqejJqR9Qc2aMWxc+gazN4BVggsrRa/G1i0/DwWsWatpS317LD0S4c4GyGS5
+ rPS4qL4ks5/K33jmDimBMON+MGLLtPSEWYZa1I1bFHs8QJCuZh7SMgHv9/gERUhO
+ 5eYLLP1x0AtsCPPmoMuZmBF9idAyBb5D7YwnFxGwqXGgJD56ZjeXijd5/CwVMOO2
+ qKqVYpB9ThiQarTbuzf88XQ1+u/FU+Fb81IuVLO6obhqIVOg==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49y67qpbf7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 14:57:14 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-7a27ade1e73so1373238b3a.2
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 07:57:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761317293; x=1761922093;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=A1Hx5nLLV2Jg5MZCp9AF1ElKQLvEIm2+dthQoOXPOnI=;
- b=eKsO3NsYqpF3SMPX9dfP+FiKtBhxh4of79Nh2E2jnlMlM+k6uQ/0hnVLDJFEzmH35a
- WNrywoESt/a2L8MPoWvUPLbpbu8+QKLm4rbV3dBT4SnSGiqyxdrb3xn1DIKIG/unCogJ
- A0HLZjvB0P6PZHl7/maEBUGangrzew4V3NPe1TpjIzez/ReNcsm3SWWejhyQexLIOpWj
- BRRbrdM1BSmmEcPqvw5qBGpyK7cKgM0enQCCKGthdGHnJmiF7pQ4VfZYdWoqtWFqnchp
- cROuKY8upMEAssar3/M0jBMeyZOEopvvxKDMIFIxhyph0W3I4du12Tw9c8BiVNsvqiOT
- icBg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWkDvJb9Bfaw7WxKAjr6UqcZWEihsBItKFGO5Bnw2ZhOIxyxFAI8fMdoUGd7q7WyDNncyaO9eXreJE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz5QDB3AoSi7OCtJ7oPDP0CNfr0Vy2ScaJ3u+KsjuLVZjYYj5Rr
- I/1rtu4YvTXsUUkx94q24e8qu2u8EuvaBO3WwT+XjGx/Rakfcr3uwlEvP5IbvMl5UO8=
-X-Gm-Gg: ASbGnctiVy1Mtibsgn8l+fF2FeMQzdGqSjIpFcs0M8cyy08q1dFcx6tdNOcUZhL21/m
- JU6rFGsUohVAJRCiZd1lzya/WOb5Sw39g1+TEtgz+IzWsS5MeubtV1268ztvj27L9wO21H4LSsY
- wWyEt1UW7M98WiALGAgkyue5ENc+2WC0suxppqdKC6HGbNRcWGhBIiXPYrZvj2sYONKlDeCTN4D
- nyYyy38ijVK8TlFpcCnnttdOKgO50EByp1lhotBCnsgWv337/wCDPQrhXEVKrELibDaMunvHf4w
- y4i8IXdwRW3U4Hki3H5oVkOjzDgOOdFju26/256rcsAMxOn3WLGzGTE6mAyEl8gTtAgvRqtP60r
- iFLsRhouBveN12wYnGLC9m9zSPZKDB0AUu94JPFgLp3pcVoKl+fU8ZX/ji3Xpjqqp6kMp1MxJPP
- r53+NXBRmJM1Rn64eQ/v1SW+Z0g+P3HJOJ4aiwENS1ejW19eLsXjvtG/+IeQWAzPw=
-X-Google-Smtp-Source: AGHT+IEVOj5qtIK9SZlpsAuRM/0uGNxmJtS/Z+rrAuP/YjslZpEI5RN54V/lFTwvhArOAWWIiCnq5Q==
-X-Received: by 2002:a05:600c:6309:b0:46e:4499:ba30 with SMTP id
- 5b1f17b1804b1-475d2ed1ba5mr21582565e9.30.1761317293064; 
- Fri, 24 Oct 2025 07:48:13 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:3d9:2080:b4ee:479d:354c:6970?
- ([2a01:e0a:3d9:2080:b4ee:479d:354c:6970])
+ d=1e100.net; s=20230601; t=1761317834; x=1761922634;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=60sB8Wuf9kTa2rtyBom7E35OMwjLtVwCZLKP46MCeGQ=;
+ b=U3R2DeGWoYh9hOT0EFGV1WX+fgmtnhztngiNgOTN9xSC1b7a3btg9fSsFlp8B9/s0a
+ tflOMN+4Q21d+6qH1Ew7TjvhA1Nqa3gDLHu0TJaVn9cRtvuEnkYbHVDBMe1z1/61PjI9
+ XgTFeiSoziQlK0hLhNuGkeyEWZFgAwy8SsgLQYAXlHKvGyeLMdSrPJLeLxWnCzeKCY6K
+ h2TlYasdspR2zKq9XOdBGzpR+/CJ2j82iwdF7P9ayeTe3m+14vmtQrV7z9+FKBSr7ZZX
+ aPouuueoiTqrbf6UkdvtgxactD6AhmkB4ijs2eXPAStvGZlR1j5MqrEUHmWiQsXjuD+f
+ m+1g==
+X-Gm-Message-State: AOJu0Ywmkfh8oK3Xei8yW/BHdK771pGHnT63jJoa2xDnzW+l5UnK0Oxv
+ NUfx4p7uAvXzdwxHRrJYCRH/hodNzmnJ3ayDk1aAsyYbymXnn2NCywz8inSg/zrIauKgHXw/Q8Y
+ JNjZR9EmgHIfZpSBlLRYWhj8xXowBwYp+jHAKajKx2Jh8PRznxuDk96ELRX6p9lmIXcrnfqNnle
+ 2WIeQ=
+X-Gm-Gg: ASbGncuPaX1+E4Mc466Of/oBaB08CZUSGNGuIrzocgw0AWtNv9RzvjaQSYYDHM6zsC1
+ b7DWimNIS6dMlDWMPyjPz0+5y4KiT49AeKuiHxRih+Gv1niOUeDl1vp3qz0A3yptnOF9ACqXn9l
+ 5irC6vFuzQT7DUif+DxBN3nkt+zaYeQzcUNgytd+OgybI0C6HZcB7DqDZ3H2gCUkIIEVkILVytJ
+ bC9OJ4VaeoF21eCWkYT0ynAjC/1u0MXLtr5nnTqtLzm5sq+LVo+lGtYgCW7cbFoFgAVwiL8paUO
+ OEF6kaQb+Ay2l6uftF3rpZT9nrDJskjvbDRAU9orrD7ND3vhnJ5KiaAcvOB6DW5bkDcmdRRwEuC
+ ixSL6UfSU4kQv8eGcB3iIiOI=
+X-Received: by 2002:a05:6a20:6a20:b0:2cd:a43f:78fb with SMTP id
+ adf61e73a8af0-33deb36eb42mr3243598637.48.1761317833830; 
+ Fri, 24 Oct 2025 07:57:13 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHoCzabHI6k75TFLxJXPCs3EzFvxfhcUQKHHRumUBapOaZLUKiSau/3jarrJCmQTq99vTz3iQ==
+X-Received: by 2002:a05:6a20:6a20:b0:2cd:a43f:78fb with SMTP id
+ adf61e73a8af0-33deb36eb42mr3243559637.48.1761317833320; 
+ Fri, 24 Oct 2025 07:57:13 -0700 (PDT)
+Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-475cae924a1sm120723715e9.2.2025.10.24.07.48.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Oct 2025 07:48:11 -0700 (PDT)
-Message-ID: <7d8e9395-d2e4-413c-9058-fe22e3d2d68f@linaro.org>
-Date: Fri, 24 Oct 2025 16:48:09 +0200
+ 41be03b00d2f7-b6cf4e326c9sm5282228a12.34.2025.10.24.07.57.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Oct 2025 07:57:13 -0700 (PDT)
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Date: Fri, 24 Oct 2025 20:26:41 +0530
+Subject: [PATCH] MAINTAINERS: Remove Jessica from drm-msm reviewers
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7] drm/msm/dsi/phy: Fix reading zero as PLL rates when
- unprepared
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250908094950.72877-2-krzysztof.kozlowski@linaro.org>
- <50a49d72-2b1e-471d-b0c4-d5a0b38b2a21@linaro.org>
- <05d6ea2a-c1ae-422d-b178-5d2a306f3669@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <05d6ea2a-c1ae-422d-b178-5d2a306f3669@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20251024-remove-jessica-v1-1-f1bb2dfc2e18@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAKiT+2gC/yXMywqDMBCF4VeRWTeQu9ZXKS5mkrFNQW0TKwXx3
+ Rvq8jtw/h0K58QF+maHzFsqaZkr1KWB8MD5ziLFatBSOyW1FZmnZWPx5FJSQKGQovEGrbct1NM
+ r85i+/+BtOJ35/and9RyBsLAIyzSltW/8iGQ0kXeyQyLqqCUVnL12bO0og9FGS44OhuP4AexUH
+ R2sAAAA
+X-Change-ID: 20251024-remove-jessica-1abd363a4647
+To: Rob Clark <rob.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1761317830; l=1017;
+ i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
+ bh=1gylyZmwNHyN2C9jDd9SKYKbQ5zm1ooRwXpqxab04r4=;
+ b=pdd+LTwZ020zxaFl6Wy5zG3KXzhkz84usSUTeXn1QGl2mVqqs8x4yLz5fcQNOxh5I2lu0NXM9
+ o8xsd1jvA5LD7aQyht28013ZYK0iWWNDL+yyHlDXvN92sR6M/wy2b6X
+X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDIyMDE2OCBTYWx0ZWRfX1iDzDnnV52Ka
+ N2AqeX0vPGb4C8gNCr/CbHoAMUYCDIZzNVKq/N5z9F1KnM4NlZpWV7HUMLjuGlu/PbKWLjCWgNW
+ j95OKSfuI05OO5MiklbQnySRsImZEQTrF90v58jjzbv54y6UsVhBfUqiKtHxAhi3L0a+iwrkMIV
+ J3CRBBySwXD6pBEYAJ4/Lp06zQFBNdhr29CPWEU6XhTuHW+IjSkJyYnoCrjHJX4Z2kalpO1AeJc
+ n1tXrFEqC/noCmvb4B9XiQyqMtEkdUiqhNd9qcGvSJVeNyO0JAuhY/HXZRjHOujhvkMMwWfxkXT
+ Q6FMIj1+CfmAFarc8yT0mGaPP/9hV/d74T9AbAAILm48AAc2NJU9dT4o4W+PDv16exm7odvWhNx
+ 1DtNppNSc8Uw5SdiY5IejHMPgA2eyg==
+X-Authority-Analysis: v=2.4 cv=LMRrgZW9 c=1 sm=1 tr=0 ts=68fb93ca cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=tVI0ZWmoAAAA:8 a=oH-qu8LnP-yuNCiDOAsA:9
+ a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22 a=-BPWgnxRz2uhmvdm1NTO:22
+X-Proofpoint-GUID: 3Sbcml7evDxx1gxW840a2o1uOgbn7swP
+X-Proofpoint-ORIG-GUID: 3Sbcml7evDxx1gxW840a2o1uOgbn7swP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-24_02,2025-10-22_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
+ bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510220168
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,106 +128,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/24/25 16:34, Krzysztof Kozlowski wrote:
-> On 24/10/2025 14:43, Neil Armstrong wrote:
->> Hi,
->>
->> On 9/8/25 11:49, Krzysztof Kozlowski wrote:
->>> Hardware Programming Guide for DSI PHY says that PLL_SHUTDOWNB and
->>> DIGTOP_PWRDN_B have to be asserted for any PLL register access.
->>> Whenever dsi_pll_7nm_vco_recalc_rate() or dsi_pll_7nm_vco_set_rate()
->>> were called on unprepared PLL, driver read values of zero leading to all
->>> sort of further troubles, like failing to set pixel and byte clock
->>> rates.
->>>
->>> Asserting the PLL shutdown bit is done by dsi_pll_enable_pll_bias() (and
->>> corresponding dsi_pll_disable_pll_bias()) which are called through the
->>> code, including from PLL .prepare() and .unprepare() callbacks.
->>>
->>> The .set_rate() and .recalc_rate() can be called almost anytime from
->>> external users including times when PLL is or is not prepared, thus
->>> driver should not interfere with the prepare status.
->>>
->>> Implement simple reference counting for the PLL bias, so
->>> set_rate/recalc_rate will not change the status of prepared PLL.
->>>
->>> Issue of reading 0 in .recalc_rate() did not show up on existing
->>> devices, but only after re-ordering the code for SM8750.
->>
->> It happens this breaks the bonded DSI use-case, mainly because both PHYs
->> uses the same PLL, and trying to enable the DSI0 PHY PLL from the DSI1
->> PHY fails because the DSI0 PHY enable_count == 0.
-> 
-> 
-> If it is ==0, the check you removed would not be hit and enable would
-> work. I don't quite get the analysis.
-> 
->>
->> Reverting part the the patch makes the bonded work again:
->> ===================><===============================
->> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
->> index 32f06edd21a9..24811c52d34c 100644
->> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
->> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
->> @@ -426,11 +426,8 @@ static void dsi_pll_enable_pll_bias(struct dsi_pll_7nm *pll)
->>    	u32 data;
->>
->>    	spin_lock_irqsave(&pll->pll_enable_lock, flags);
->> -	if (pll->pll_enable_cnt++) {
->> -		spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
->> -		WARN_ON(pll->pll_enable_cnt == INT_MAX);
->> -		return;
->> -	}
->> +	pll->pll_enable_cnt++;
->> +	WARN_ON(pll->pll_enable_cnt == INT_MAX);
->>
->>    	data = readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
->>    	data |= DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
->> @@ -965,10 +962,8 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
->>    	u32 const delay_us = 5;
->>    	u32 const timeout_us = 1000;
->>    	struct msm_dsi_dphy_timing *timing = &phy->timing;
->> -	struct dsi_pll_7nm *pll = phy->pll_data;
->>    	void __iomem *base = phy->base;
->>    	bool less_than_1500_mhz;
->> -	unsigned long flags;
->>    	u32 vreg_ctrl_0, vreg_ctrl_1, lane_ctrl0;
->>    	u32 glbl_pemph_ctrl_0;
->>    	u32 glbl_str_swi_cal_sel_ctrl, glbl_hstx_str_ctrl_0;
->> @@ -1090,13 +1085,10 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
->>    		glbl_rescode_bot_ctrl = 0x3c;
->>    	}
->>
->> -	spin_lock_irqsave(&pll->pll_enable_lock, flags);
-> 
-> This should not be removed.
-> 
->> -	pll->pll_enable_cnt = 1;
-> 
-> So you basically remoevd pll_enable_cnt everywhere and reverted entirely
-> my commit. How is this patch different than revert?
+Jessica has left Qualcomm and her Qualcomm email address is bouncing.
+So remove Jessica from the reviewer list of drm-msm display driver for now.
 
-No I did not, I kept the dsi_pll_disable_pll_bias() refcounting and call from
-all the clock ops, which is basically needed here to never access PLL without
-PLL_SHUTDOWNB and DIGTOP_PWRDN_B being asserted.
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+ MAINTAINERS | 1 -
+ 1 file changed, 1 deletion(-)
 
-I only removed the pll_enable_cnt from dsi_7nm_phy_enable/disable because the
-PHY code is designed to allow setting the PLL rate while the PHY is disabled.
-And the bonded DSI hits this use case by setting the DSI0 PHY PLL rate while
-configuring the PLL1 PHY.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5889df9de210..064aecda38cf 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7889,7 +7889,6 @@ DRM DRIVER for Qualcomm display hardware
+ M:	Rob Clark <robin.clark@oss.qualcomm.com>
+ M:	Dmitry Baryshkov <lumag@kernel.org>
+ R:	Abhinav Kumar <abhinav.kumar@linux.dev>
+-R:	Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+ R:	Sean Paul <sean@poorly.run>
+ R:	Marijn Suijten <marijn.suijten@somainline.org>
+ L:	linux-arm-msm@vger.kernel.org
 
-So I wonder why it was added in the beginning because since you call dsi_pll_disable_pll_bias()
-in each clk op, the Hardware Programming Guide for DSI PHY is satisfied ?
+---
+base-commit: 6fab32bb6508abbb8b7b1c5498e44f0c32320ed5
+change-id: 20251024-remove-jessica-1abd363a4647
 
-The commit message doesn't say anything related to dsi_7nm_phy_enable/disable.
-
-Neil
-
-> 
-> Best regards,
-> Krzysztof
+Best regards,
+-- 
+Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
