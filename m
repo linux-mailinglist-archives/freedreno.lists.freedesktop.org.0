@@ -2,76 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A70BAC042C8
-	for <lists+freedreno@lfdr.de>; Fri, 24 Oct 2025 04:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77484C0431F
+	for <lists+freedreno@lfdr.de>; Fri, 24 Oct 2025 04:59:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4119F10E09A;
-	Fri, 24 Oct 2025 02:53:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16A4A10E9C1;
+	Fri, 24 Oct 2025 02:59:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vja0226+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eUrSOHyj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62CF610E05A
- for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 02:53:48 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59NEVHsS004624
- for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 02:53:48 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF1CC10E9C1
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 02:59:21 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59NEWuUI032198
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 02:59:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=1AnIMj/fZtv1MiyLm9YqLVrG
- zqa9XAiNsyWK56Y5qGo=; b=Vja0226+k7TqLJsdNzB7NAhTv83mniRwbs+/iN4l
- bAutC44mvZXPxxhNkhut4dLi6e0/ybvoCnBm2SU0bDHBJtSnHBIF4r9V+HetGgnm
- auNxwl3Js//PqXhkxNV9hkRojRaBc5e5JiUpVER8amWVHKgG+RiMCtiPeHFgfRis
- 8KdxXA90O7WiQVY8AqG9uPax7YQ8SzPEgr6ka4L/L4ri4hcolF/qYlF2CMofYGcD
- uJ9NFoDKXrmpFcM8yAxm1QW65cslDyL1u3q1wya90wTnfysYOPzHaoAQnLje6fQO
- sQdaNIERLIaz2boCfV8IC5sKQyBOl38+l1QdkmxTDyBtOA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49yp6k1tq5-1
+ :references:subject:to; s=qcppdkim1; bh=alHbWdl9Rj2RBorWf/yZSPFW
+ VTNaKm9v1UuWbZYPNvQ=; b=eUrSOHyj7vWrS2OW5rC4UsVIJg5sxsso6QnHTwpF
+ wsk6WgAezBockomuEiWMVZJ/Ihf9AqYUyJaiY1UUFMfD9BdifmOZySj2dh+//afH
+ gl5O2dqNb5SskkfICscvFv8ZJ4PlEnmOe5U2oKoSoWO6h7lfNS2M/6gZ47aTpzHg
+ ZcGUILrnS+M+WQNCkJVtrXNS/kcmeX3Hlj3dSpJgkxZUsu2V/QcgqeUNOT/EN4G3
+ ViG3Lek8j9TvmY1EV8rgEtcwX2PwezOLkw373YD8UVQq1a6m1LwKGCz5FvbcQnTN
+ LI/AVcYq93xWoPiwbNorIadVkXLW6L6/tfiXFh9Y/B9Prg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49v2geak2u-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 02:53:47 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-87c1f435bd6so45104256d6.1
- for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 19:53:47 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Oct 2025 02:59:20 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-84a3a7ac082so386934985a.2
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Oct 2025 19:59:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761274426; x=1761879226;
+ d=1e100.net; s=20230601; t=1761274760; x=1761879560;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1AnIMj/fZtv1MiyLm9YqLVrGzqa9XAiNsyWK56Y5qGo=;
- b=RPfQhNQgppb6GMqEQpR/7jkcHT08jF05KSGWMXlO2sW5RuhxTdd+nxlZlek3dIPdX7
- FLSFQZWqPNR3Ly8o8RACc9NBaI1M9icnWKswHwDsC/wknLpSoUgPEObL17JFNULCvN0S
- BxuVpYHR0GFvNnEaYHqabLc9CUZh9pZO3xsgEvFe/tZsZgptGwf+1JkqDqLjrsxkpO5a
- xoA8KFZy1YIj5OO1t3zBNQZW0hf/rNg7g5EOzOg1iDI8ZAwScP/wcGW8/mIkEQlYqbWf
- Tz9YaMWtDf9E1RUT/G07X553ENlPy22l2dOrucUrPADwuLccOE+2Zj1nf7EAth8awrCw
- HQVQ==
+ bh=alHbWdl9Rj2RBorWf/yZSPFWVTNaKm9v1UuWbZYPNvQ=;
+ b=VkHTmPZpoGocbh+pXBLba9u5LcbUogm3PeUstbrjf34jpt+xxZUT8WWPhJsZD57Zxh
+ M6JWvUyjskYrCS00YeuIThefLHU71pNaOCBMEtSYWFEYpJEtrlWYu7TQgFTFJVp877CY
+ b4j1HC6RsSwB6GezEzHqf5Tc+yuphb1I7TgBbZLD7pND7WKZanEvQl13dGuL2nrGK7Xf
+ SziGFcb5UU3ZTnr++Ovlc8JTzk7JqXrv8yx0KBef8vSV3ciPoFnxjt3gj5qqEb/8faUw
+ mmx3ctJp90xt/5AuekzGrMe6+0iQLzA127sOF8bA2aP8TuDIuLOMBeghpWRuJSAI6mJw
+ RWoA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVHcmUDqUV1UVuvMjXfwmRIiqNAUoZkfPpGbIfERQiNBOydKH3atn/wUCkUxkDMUVMngU1+ftK1E14=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXeG7ZINM5M5DTpKjwtfhGrUYbeqpu79nodxWGc7/NnEBdsmJD
- gBFoVIlUm0noTlkooxaUKDfT7lFSLWNn0RkkOK9GTMJ7it45+xFiAwEY6gMeojgDR3Xu6IDx43p
- qiBMy0nywJmQsaHt6BIKnq7cFiLPwk59dBeLNBF2PzgGD9qa7Lwi/k27B30EW03X/SMZpTwo=
-X-Gm-Gg: ASbGncuzkU+c5gtLJyXI5i1SOzZFbT75umJCUdjUCPxJ/Xw4emKiDtVBSciBILdC6WX
- Pj4V+XM/FAy3B8aMkXu6C7nbykkbv+X1aY2jf8pyVcuY20ZGPsYZNPv+VEAZWURkWgiDq+yeUka
- KSch4LLfvcwt+aP2jtjHZpeHK5kGtbZV7eq9URnRUp5kmoGB3CG+devcJ4B7z1lB5J7SljVgL2/
- iDBnkEHXNdL5GBvbT3EZ+mqYNsotsZ8XIgoawkxtmHejv1zAtTTXKyXCV13oPhrd0o78w1LemdV
- trvFxWLo0NhULikUTs/Ak3VYgVt+ihF9U6PtWOdbHqXDZl5TmIyaA+R9UXJYawcUGCd7aipiys3
- EkQTJ3j2O6Chh99BBwgU/S7lrhVNpWaupsq0/vR5tkHWq4JLMxc38I1ynjy1m
-X-Received: by 2002:a05:6214:410e:b0:84d:5b71:8a85 with SMTP id
- 6a1803df08f44-87fb6439ca3mr7555836d6.31.1761274426355; 
- Thu, 23 Oct 2025 19:53:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGaOFp5HaH9aqEVFvfJ1oTbXXQsaapZSMekoXbvaSSF90t+H5yygdjMIo9XC0v72zQIgKxbbA==
-X-Received: by 2002:a05:6214:410e:b0:84d:5b71:8a85 with SMTP id
- 6a1803df08f44-87fb6439ca3mr7555606d6.31.1761274425663; 
- Thu, 23 Oct 2025 19:53:45 -0700 (PDT)
+ AJvYcCVE+KcHeL7wi1dXvGRs831sQy6rpX4FXQX4Xlg+gQN2R5nvT5xSGInGa18f8qfBuTSLTo5pVSGrGuM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzxD+d6fAqGLCi8v1T1P0/GDh2zB6h+wMHqExgyIg9GAwXlfDTV
+ tK77VA5klcqcrd/olIBzQeeEqQb6F611Ii38VmDkqyw1r4ii2dxu6rf+D2c1OfBzidGX8cLa0ku
+ N8AWxif/cLIOHfhzyz1Sq1QIAURX4PlqYqJyfI/bIlE+0+yn+Ue3zFBDh2zt0Nkm0kd8adiM=
+X-Gm-Gg: ASbGncvfu+cXnq5iWGmfxMSIvFX+2ScVnHlt1oZ58/QwBgfqmbxCBag2KDlYpAReK5u
+ U0Z7+/3fL0RvloW6vqo/LXPko8ida0aP3qi/0qIiQKVMmsQ1Z/V77N3dmX2qz0vjd0UEIx3WvIQ
+ DToPb4ofk6d+mcDBJrUtKaV65NdEYQoL9N7ujbvV1Re9dYZH9u9SpjpqyThlvCX2yZ+TjQwvB5U
+ TiJ50mJtRmC34MjMxpv705Y4MoGNc1xruL27cqHT4cLp4JO9t3TGpO6q3UocQuqRYszQSOc/Vy8
+ c8ZGqQanPalAb5WgEY91D/Pc64VujKxhoGwT81YMUSWiXVAh6QuMqY843G3NtNC3BBuxhC1ZjFE
+ ieXpwCFJ8SV/dUFwbKLbIVItj2NXZDeqfs24QHCP56p/SawM5V20aUCuLv8tO
+X-Received: by 2002:a05:620a:44d1:b0:89a:ad1c:5135 with SMTP id
+ af79cd13be357-89aad1c5576mr1081388685a.0.1761274759980; 
+ Thu, 23 Oct 2025 19:59:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHu/QPO9m9brJvJf/IlDol46ZUfnhMKMfRAWUSM0GHftzDhJSrp/isYST7dyuvvS0TjSLd0GA==
+X-Received: by 2002:a05:620a:44d1:b0:89a:ad1c:5135 with SMTP id
+ af79cd13be357-89aad1c5576mr1081384785a.0.1761274759524; 
+ Thu, 23 Oct 2025 19:59:19 -0700 (PDT)
 Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-87f8fb6d2e4sm28732776d6.13.2025.10.23.19.53.37
+ af79cd13be357-89c1264383bsm291555585a.59.2025.10.23.19.59.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Oct 2025 19:53:45 -0700 (PDT)
-Date: Fri, 24 Oct 2025 10:53:34 +0800
+ Thu, 23 Oct 2025 19:59:19 -0700 (PDT)
+Date: Fri, 24 Oct 2025 10:59:07 +0800
 From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
@@ -84,37 +84,38 @@ Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
  aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
-Subject: Re: [PATCH 02/12] drm/msm/dpu: Add support for Kaanapali DPU
-Message-ID: <aPrqLrOPMLzwN5k1@yuanjiey.ap.qualcomm.com>
+Subject: Re: [PATCH 03/12] drm/msm/dpu: Compatible with Kaanapali interrupt
+ register
+Message-ID: <aPrre+WXogSZIE7L@yuanjiey.ap.qualcomm.com>
 References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
- <20251023075401.1148-3-yuanjie.yang@oss.qualcomm.com>
- <b35l5nwswf6t4k32edqccytrfjbvaloqoh4hksfkqrqmrsx4ee@3aatdgwmxp4g>
+ <20251023075401.1148-4-yuanjie.yang@oss.qualcomm.com>
+ <nfekr4vi34ftxzyyf5xv4tsb5cr3tokiyfkerypqjf26dos3uq@42wcn6ji7nnb>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b35l5nwswf6t4k32edqccytrfjbvaloqoh4hksfkqrqmrsx4ee@3aatdgwmxp4g>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDIzMDEzMSBTYWx0ZWRfXxTgak9AopZvr
- gg48MtodRjVpezolnw+zgW9Tykrd4Tk8Zk2obOU75IQ2e+39h6yIJVKe1EfPClwm36y6whb1fWA
- QQLQck7w0lxKi3lAfSsGjnlUS1iIqeTdGkWwOxwgdt3YsKAanu/4z5Daf/1XdS0yirDECl/SiGO
- dZKNUGo/btNgRmb+7jKEQIuSJ9jnjPzQyHp5ZxxJvmtgsSFmCQcEKzu2VN+kWOZhjtY6nC+xMwf
- 55RmWjA+I4UAmuVez8hS0f4buHPBlYw9zecvstNfk0oGcAfPu5RWH7t5Huq8+IWEZg0cdZ9Y1q5
- XgktYiTVNxPrw/7n5cLRrlOczRqQnqlaBo845+p4kSTfnojnjYHFlSHr4AVqs4fjLNTN7iLgm1i
- TkOdbjAkOZ/Gr3cpmOVBoYL96ZAYbg==
-X-Proofpoint-GUID: d4vrH_spNSdBeJUsvUGwbuSqyCO71fc9
-X-Authority-Analysis: v=2.4 cv=bL8b4f+Z c=1 sm=1 tr=0 ts=68faea3b cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+In-Reply-To: <nfekr4vi34ftxzyyf5xv4tsb5cr3tokiyfkerypqjf26dos3uq@42wcn6ji7nnb>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDE4MDAyMCBTYWx0ZWRfX7284lH7h4bUW
+ OhMRa24yxwnuHRpNCJfmeQAsktBymc0HvmF2//icHLGGsugBGfk6IHP/VxSNIOZeMPYh8izrCvL
+ RYzi5hnDvS7rItAc1pJEpfc+PYVS963IIkT2Z6+9/I6Ut4VEMDZvUcwUy+YrY0x+0L94RuLJ2OS
+ PW2Aj93fZJ+7AMZSvjchK4VsM1DxV3VWAGiTfsmSvQow98a3E29Q1ZdiRZoJC/pnGbYiE8vQLfi
+ hg3g0ARAV8DwNaSQDR8KuIci3loWhBy5rpfVAovU8R74+3Cbaze0vLlvTzSFAZQ6J+sQMX/rFx/
+ fZP4nBKH6XtbQeBE563v4uUzm9qLTkphnwY524TCbRYg2QmRD/iQFRvT37OJvkHRNzBD1TgGQwd
+ aIYg3Tll9jE3bj+mFbAfSwLBry6xqw==
+X-Authority-Analysis: v=2.4 cv=KqFAGGWN c=1 sm=1 tr=0 ts=68faeb88 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=kj9zAlcOel0A:10 a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=0tOC-D8kvco1IiGT83AA:9 a=CjuIK1q_8ugA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-ORIG-GUID: d4vrH_spNSdBeJUsvUGwbuSqyCO71fc9
+ a=EUspDBNiAAAA:8 a=EXeeq68Q20KqPfprLVgA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: 1uAkpiuMXfONk_JYpXhO6jcRP8x6SpKS
+X-Proofpoint-ORIG-GUID: 1uAkpiuMXfONk_JYpXhO6jcRP8x6SpKS
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-10-23_03,2025-10-22_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
- spamscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 clxscore=1015 phishscore=0 malwarescore=0 impostorscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510230131
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510180020
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,239 +131,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 23, 2025 at 02:56:49PM +0300, Dmitry Baryshkov wrote:
-> On Thu, Oct 23, 2025 at 03:53:51PM +0800, yuanjie yang wrote:
+On Thu, Oct 23, 2025 at 02:59:12PM +0300, Dmitry Baryshkov wrote:
+> On Thu, Oct 23, 2025 at 03:53:52PM +0800, yuanjie yang wrote:
 > > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 > > 
-> > Add support for Display Processing Unit (DPU) version 13.0
-> > on the Kaanapali platform. This version introduces changes
-> > to the SSPP sub-block structure. Add common block and rectangle
-> > blocks to accommodate these structural modifications for compatibility.
+> > DPU version 13 introduces changes to the interrupt register
+> > layout. Update the driver to support these modifications for
+> > proper interrupt handling.
 > 
-> This needs to come up differently: first implement driver changes for
-> the changed SSPP blocks, then add Kaananapali catalog entries.
-OK, will adjust patch order.
+> So... Previous patch enabled support for the platform and it has been
+> using wrong registers for interrupts? I think that's broken.
+
+I want to express DPU 13 has different INTF register address, so need to add new
+interrupt array to let DPU 13 interrupt work fine. Maybe I should optimize my commit msg.
 
 > > 
 > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 > > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 > > ---
-> >  .../disp/dpu1/catalog/dpu_13_0_kaanapali.h    | 492 ++++++++++++++++++
-> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  44 ++
-> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  29 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
-> >  4 files changed, 565 insertions(+), 1 deletion(-)
-> >  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_13_0_kaanapali.h
+> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 89 ++++++++++++++++++-
+> >  1 file changed, 88 insertions(+), 1 deletion(-)
 > > 
-> > +
-> > +static const struct dpu_cwb_cfg kaanapali_cwb[] = {
-> > +	{
-> > +		.name = "cwb_0", .id = CWB_0,
-> > +		.base = 0x169200, .len = 0x20,
-> > +	},
-> > +	{
-> > +		.name = "cwb_1", .id = CWB_1,
-> > +		.base = 0x169600, .len = 0x20,
-> > +	},
-> > +	{
-> > +		.name = "cwb_2", .id = CWB_2,
-> > +		.base = 0x16A200, .len = 0x20,
-> > +	},
-> > +	{
-> > +		.name = "cwb_3", .id = CWB_3,
-> > +		.base = 0x16A600, .len = 0x20,
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> > index 49bd77a755aa..8d265581f6ec 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> > @@ -40,6 +40,15 @@
+> >  #define MDP_INTF_REV_7xxx_INTR_TEAR_STATUS(intf)	(MDP_INTF_REV_7xxx_TEAR_OFF(intf) + 0x004)
+> >  #define MDP_INTF_REV_7xxx_INTR_TEAR_CLEAR(intf)		(MDP_INTF_REV_7xxx_TEAR_OFF(intf) + 0x008)
+> >  
+> > +#define MDP_INTF_REV_13xx_OFF(intf)			(0x18D000 + 0x1000 * (intf))
 > 
-> lowercase hex
+> Lowercase hex
 OK, will fix.
 
-> > +	},
-> > +};
-> > +
-> 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > index 6641455c4ec6..5a24ed0f818c 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > @@ -241,6 +241,25 @@ static const u32 wb2_formats_rgb_yuv[] = {
-> >  	.rotation_cfg = NULL, \
-> >  	}
-> >  
-> > +/* kaanapali SSPP common configuration */
-> > +#define _KAANAPALI_VIG_SBLK(scaler_ver) \
-> 
-> And then it gets reused for some other platform... No. Please come up
-> with a generic enough name.
-_KAANAPALI_VIG_SBLK --> _VIG_SBLK_REC0_REC1
-
-This "_VIG_SBLK_REC0_REC1" is a good name here? 
-
-> 
-> > +	{ \
-> > +	.cmn_blk = {.name = "cmn_blk", \
-> > +		.base = 0, .len = 0x100,},	\
-> 
-> No, sblks shouldn't have .base set to 0. It's the main block.
-
-OK will drop it.
-
-> > +	.sspp_rec0_blk = {.name = "sspp_rec0", \
-> > +		.base = 0x1000, .len = 0x180,},	\
-> > +	.csc_blk = {.name = "csc", \
-> > +		.base = 0x1800, .len = 0x100,}, \
-> > +	.scaler_blk = {.name = "scaler", \
-> > +		.version = scaler_ver, \
-> > +		.base = 0x2000, .len = 0xec,}, \
-> > +	.sspp_rec1_blk = {.name = "sspp_rec1", \
-> > +		.base = 0x3000, .len = 0x180,},	\
-> > +	.format_list = plane_formats_yuv, \
-> > +	.num_formats = ARRAY_SIZE(plane_formats_yuv), \
-> > +	.rotation_cfg = NULL, \
-> > +	}
-> > +
-> >  #define _VIG_SBLK_ROT(scaler_ver, rot_cfg) \
-> >  	{ \
-> >  	.scaler_blk = {.name = "scaler", \
-> > @@ -329,6 +348,9 @@ static const struct dpu_sspp_sub_blks dpu_vig_sblk_qseed3_3_3 =
-> >  static const struct dpu_sspp_sub_blks dpu_vig_sblk_qseed3_3_4 =
-> >  				_VIG_SBLK(SSPP_SCALER_VER(3, 4));
-> >  
-> > +static const struct dpu_sspp_sub_blks dpu_vig_sblk_qseed3_3_5 =
-> > +				_KAANAPALI_VIG_SBLK(SSPP_SCALER_VER(3, 5));
-> > +
-> >  static const struct dpu_sspp_sub_blks dpu_rgb_sblk = _RGB_SBLK();
-> >  
-> >  static const struct dpu_sspp_sub_blks dpu_dma_sblk = _DMA_SBLK();
-> > @@ -412,6 +434,11 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
-> >  	.len = 0x20, .version = 0x20000},
-> >  };
-> >  
-> > +static const struct dpu_pingpong_sub_blks kaanapali_pp_sblk = {
-> > +	.dither = {.name = "dither", .base = 0xc0,
-> > +	.len = 0x40, .version = 0x30000},
-> > +};
-> > +
-> >  /*************************************************************
-> >   * DSC sub blocks config
-> >   *************************************************************/
-> > @@ -452,6 +479,13 @@ static const struct dpu_cdm_cfg dpu_cdm_5_x = {
-> >  	.base = 0x79200,
-> >  };
-> >  
-> > +static const struct dpu_cdm_cfg dpu_cdm_kaanapali_x = {
-> 
-> 13_x
-OK, will fix.
-
-> > +	.name = "cdm_0",
-> > +	.id = CDM_0,
-> > +	.len = 0x240,
-> > +	.base = 0x19e000,
-> > +};
-> > +
-> >  /*************************************************************
-> >   * VBIF sub blocks config
-> >   *************************************************************/
-> > @@ -639,6 +673,10 @@ static const struct dpu_qos_lut_entry sc7180_qos_linear[] = {
-> >  	{.fl = 0, .lut = 0x0011222222335777},
-> >  };
-> >  
-> > +static const struct dpu_qos_lut_entry kaanapali_qos_linear[] = {
-> > +	{.fl = 0, .lut = 0x0011223344556666},
-> > +};
-> > +
-> >  static const struct dpu_qos_lut_entry sm6350_qos_linear_macrotile[] = {
-> >  	{.fl = 0, .lut = 0x0011223445566777 },
-> >  };
-> > @@ -668,6 +706,10 @@ static const struct dpu_qos_lut_entry sc7180_qos_macrotile[] = {
-> >  	{.fl = 0, .lut = 0x0011223344556677},
-> >  };
-> >  
-> > +static const struct dpu_qos_lut_entry kaanapali_qos_macrotile[] = {
-> > +	{.fl = 0, .lut = 0x0011223344556666},
-> > +};
-> > +
-> >  static const struct dpu_qos_lut_entry sc8180x_qos_macrotile[] = {
-> >  	{.fl = 10, .lut = 0x0000000344556677},
-> >  };
-> > @@ -726,3 +768,5 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
-> >  
-> >  #include "catalog/dpu_10_0_sm8650.h"
-> >  #include "catalog/dpu_12_0_sm8750.h"
-> > +#include "catalog/dpu_13_0_kaanapali.h"
-> > +
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> > index f0768f54e9b3..99c81c24630f 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> > @@ -208,6 +208,30 @@ struct dpu_dsc_blk {
-> >  	u32 len;
-> >  };
-> >  
-> > +/**
-> > + * struct dpu_sspp_rec_blk - sspp rec sub-blk information
-> 
-> SSPP, REC
-OK, will fix.
- 
-> > + * @name: string name for debug purposes
-> > + * @base: offset of this sub-block relative to the block offset
-> > + * @len: register block length of this sub-block
-> > + */
-> > +struct dpu_sspp_rec_blk {
-> > +	char name[DPU_HW_BLK_NAME_LEN];
-> > +	u32 base;
-> > +	u32 len;
-> > +};
-> > +
-> > +/**
-> > + * struct dpu_sspp_cmn_blk - sspp common sub-blk information
-> > + * @name: string name for debug purposes
-> > + * @base: offset of this sub-block relative to the block offset
-> > + * @len: register block length of this sub-block
-> > + */
-> > +struct dpu_sspp_cmn_blk {
-> > +	char name[DPU_HW_BLK_NAME_LEN];
-> > +	u32 base;
-> > +	u32 len;
-> > +};
+> > +#define MDP_INTF_REV_13xx_INTR_EN(intf)			(MDP_INTF_REV_13xx_OFF(intf) + 0x1c0)
+> > +#define MDP_INTF_REV_13xx_INTR_STATUS(intf)		(MDP_INTF_REV_13xx_OFF(intf) + 0x1c4)
+> > +#define MDP_INTF_REV_13xx_INTR_CLEAR(intf)		(MDP_INTF_REV_13xx_OFF(intf) + 0x1c8)
+> > +#define MDP_INTF_REV_13xx_TEAR_OFF(intf)		(0x18D800 + 0x1000 * (intf))
+> > +#define MDP_INTF_REV_13xx_INTR_TEAR_EN(intf)		(MDP_INTF_REV_13xx_TEAR_OFF(intf) + 0x000)
+> > +#define MDP_INTF_REV_13xx_INTR_TEAR_STATUS(intf)	(MDP_INTF_REV_13xx_TEAR_OFF(intf) + 0x004)
+> > +#define MDP_INTF_REV_13xx_INTR_TEAR_CLEAR(intf)		(MDP_INTF_REV_13xx_TEAR_OFF(intf) + 0x008)
 > > +
 > >  /**
-> >   * enum dpu_qos_lut_usage - define QoS LUT use cases
-> >   */
-> > @@ -294,7 +318,9 @@ struct dpu_sspp_sub_blks {
-> >  	u32 qseed_ver;
-> >  	struct dpu_scaler_blk scaler_blk;
-> >  	struct dpu_pp_blk csc_blk;
-> > -
-> > +	struct dpu_sspp_cmn_blk cmn_blk;
-> > +	struct dpu_sspp_rec_blk sspp_rec0_blk;
-> > +	struct dpu_sspp_rec_blk sspp_rec1_blk;
-> >  	const u32 *format_list;
-> >  	u32 num_formats;
-> >  	const struct dpu_rotation_cfg *rotation_cfg;
-> > @@ -778,6 +804,7 @@ extern const struct dpu_mdss_cfg dpu_sa8775p_cfg;
-> >  extern const struct dpu_mdss_cfg dpu_sm8550_cfg;
-> >  extern const struct dpu_mdss_cfg dpu_sm8650_cfg;
-> >  extern const struct dpu_mdss_cfg dpu_sm8750_cfg;
-> > +extern const struct dpu_mdss_cfg dpu_kaanapali_cfg;
-> >  extern const struct dpu_mdss_cfg dpu_x1e80100_cfg;
-> >  
-> >  #endif /* _DPU_HW_CATALOG_H */
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> > index 4e5a8ecd31f7..15bec44324d5 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> > @@ -1505,6 +1505,7 @@ static const struct dev_pm_ops dpu_pm_ops = {
-> >  };
-> >  
-> >  static const struct of_device_id dpu_dt_match[] = {
-> > +	{ .compatible = "qcom,kaanapali-dpu", .data = &dpu_kaanapali_cfg, },
-> >  	{ .compatible = "qcom,msm8917-mdp5", .data = &dpu_msm8917_cfg, },
-> >  	{ .compatible = "qcom,msm8937-mdp5", .data = &dpu_msm8937_cfg, },
-> >  	{ .compatible = "qcom,msm8953-mdp5", .data = &dpu_msm8953_cfg, },
-> > -- 
-> > 2.34.1
-> > 
+> >   * struct dpu_intr_reg - array of DPU register sets
+> >   * @clr_off:	offset to CLEAR reg
 > 
 > -- 
 > With best wishes
