@@ -2,44 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E91EEC092D3
-	for <lists+freedreno@lfdr.de>; Sat, 25 Oct 2025 18:09:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D51B9C093CC
+	for <lists+freedreno@lfdr.de>; Sat, 25 Oct 2025 18:15:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 381D210E297;
-	Sat, 25 Oct 2025 16:09:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D45D010E2A0;
+	Sat, 25 Oct 2025 16:15:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qi3c8lNP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ej+8x8/Y";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D968D10E296;
- Sat, 25 Oct 2025 16:09:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0A7010E2A0;
+ Sat, 25 Oct 2025 16:15:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 26CE66021F;
- Sat, 25 Oct 2025 16:09:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E02E0C113D0;
- Sat, 25 Oct 2025 16:09:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AE5B344F8D;
+ Sat, 25 Oct 2025 16:15:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EE70C4CEFB;
+ Sat, 25 Oct 2025 16:15:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761408557;
- bh=Kj9CyqIl6bx7QyHTIuFylRaD3S93OlCZnDP02NYM0XM=;
+ s=k20201202; t=1761408913;
+ bh=78ERbFKaeO0h6PkzV58N49XWB06R/jyEXp38t/OS7tw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qi3c8lNP7iXgsOybxTlplDHu1buo6IO8CNvbGUnAl3Fxd2EUZy69QsIsmNZ+vRAEI
- OKyXNizTLnpq/2GEpn1srpJx2GlpI47rNsrDBaj3VgZl2XUOmJ3cTaM5SCKKD5X5Ee
- kVIv3k6D2yBR8mo7SEWOviWkZMGTXrRiYnwRy9ZiohCfnG6ulWH6CaSM1wyf9gmrBK
- xd31o8+UZP8yw0FJZ/ID0aokjPSApI2CiCHDOrRidfGjajyUfuL1t7zLB7XvXU9hPO
- 2TrbdT+6H9QJtTnRUiaIJU074rkyiO4dg31EHKe5s+rJ+8ZzFxRNFYEVe/ds1aBC1F
- Y1gtuEgygpWoQ==
+ b=ej+8x8/Y8+G0SLKDGSSSod+6qKvBWEOz3JNDqH/DIsM4OPnegVAE8PHpdjv1gHESJ
+ XFdIRfHD1qXBAn9fG/rcwE0awD57lxGNYWmmJmiPfJVaDLdJCp41WGWR7cJYqbu1fj
+ w766HjEXF9kPUJkK5U9Iy2Zx0HWkHpwcf7yKdlhFjKADX5KBgCw01ekXx5bugyRI2A
+ vLsm89iBpFzSze7iW9+D4iybCD3BYQfdC/ALTG573AS8A4/GgZxMr79nBETN+HI8Lw
+ mVpdX8GPgueKWyedKOkhEbRumitCPGSgMzM/IlUXYIh6Rn2ylBkLOhxdOMFggOneeX
+ vTWaUJnz5EfCg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+Cc: Antonino Maniscalco <antomani103@gmail.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Sasha Levin <sashal@kernel.org>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.17] drm/msm/a6xx: Switch to GMU AO counter
-Date: Sat, 25 Oct 2025 11:53:58 -0400
-Message-ID: <20251025160905.3857885-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.17-5.15] drm/msm: make sure to not queue up recovery
+ more than once
+Date: Sat, 25 Oct 2025 11:55:58 -0400
+Message-ID: <20251025160905.3857885-127-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251025160905.3857885-1-sashal@kernel.org>
 References: <20251025160905.3857885-1-sashal@kernel.org>
@@ -64,16 +66,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+From: Antonino Maniscalco <antomani103@gmail.com>
 
-[ Upstream commit f195421318bd00151b3a111af6f315a25c3438a8 ]
+[ Upstream commit 10fb1b2fcaee5545a5e54db1ed4d7b15c2db50c8 ]
 
-CP_ALWAYS_ON counter falls under GX domain which is collapsed during
-IFPC. So switch to GMU_ALWAYS_ON counter for any CPU reads since it is
-not impacted by IFPC. Both counters are clocked by same xo clock source.
+If two fault IRQs arrive in short succession recovery work will be
+queued up twice.
 
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Patchwork: https://patchwork.freedesktop.org/patch/673373/
+When recovery runs a second time it may end up killing an unrelated
+context.
+
+Prevent this by masking off interrupts when triggering recovery.
+
+Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Patchwork: https://patchwork.freedesktop.org/patch/670023/
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -82,145 +89,65 @@ LLM Generated explanations, may be completely bogus:
 
 YES
 
-- Problem fixed
-  - The CP_ALWAYS_ON counter lives in the GPU GX power domain and
-    stops/gets reset during IFPC (inter‑frame power collapse). This
-    makes CPU-side reads unreliable or forces the driver to wake the GX
-    domain just to read a timestamp, which is fragile and power-
-    inefficient.
-  - The commit switches CPU reads to the GMU AO (always-on) counter,
-    which is not impacted by IFPC and is clocked from the same XO clock,
-    preserving timing semantics.
+- What it fixes: Two fault IRQs arriving back-to-back can queue
+  `recover_work` twice; the second recovery may kill an unrelated
+  context. The change masks interrupts before queuing recovery so
+  subsequent fault IRQs don’t re-queue recovery.
+- Core change: In `drivers/gpu/drm/msm/adreno/a6xx_gpu.c:1821-1824`,
+  `a6xx_fault_detect_irq()` adds:
+  - `gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, 0);` to mask all RBBM
+    interrupts before `kthread_queue_work(gpu->worker,
+    &gpu->recover_work);`
+  - This follows the hangcheck timer being disabled, ensuring no further
+    spurious recovery triggers while the first recovery proceeds.
+- Call path impact: `a6xx_irq()` invokes `a6xx_fault_detect_irq()` on
+  hang detect (`drivers/gpu/drm/msm/adreno/a6xx_gpu.c:1891-1900`). With
+  the new mask, subsequent IRQs won’t retrigger recovery for the same
+  incident.
+- Interrupts are safely restored: During recovery, the GPU is
+  reinitialized and interrupts are re-enabled in `a6xx_hw_init()` via
+  `REG_A6XX_RBBM_INT_0_MASK` (sets `A6XX_INT_MASK`/`A7XX_INT_MASK`) at
+  `drivers/gpu/drm/msm/adreno/a6xx_gpu.c:1410-1413`. `a6xx_recover()`
+  calls `msm_gpu_hw_init(gpu)` to perform this re-init
+  (`drivers/gpu/drm/msm/adreno/a6xx_gpu.c:1614`). Additionally, the top-
+  level wrapper brackets `hw_init` with `disable_irq/enable_irq`
+  (`drivers/gpu/drm/msm/msm_gpu.c:168-174`), so the flow cleanly unmasks
+  after reset.
+- Consistency with existing patterns: A similar mask-on-fault pattern
+  already exists for a7xx SW fuse violations
+  (`drivers/gpu/drm/msm/adreno/a6xx_gpu.c:1831-1834`), indicating this
+  is the established approach to prevent repeated fault handling.
+- Stable suitability:
+  - User-visible bugfix: Prevents erroneous second recovery that can
+    kill unrelated contexts.
+  - Small and contained: One register write in an error path; no ABI or
+    feature changes.
+  - Low regression risk: Interrupts are restored during the normal
+    recovery/reinit path; only affects a6xx hang/fault handling.
+  - No architectural churn, limited to DRM/MSM Adreno a6xx driver.
 
-- What changed
-  - Added a safe 64-bit read helper for the GMU AO counter with a hi-lo-
-    hi read to avoid torn reads:
-    drivers/gpu/drm/msm/adreno/a6xx_gpu.c:19
-    - Reads `REG_A6XX_GMU_ALWAYS_ON_COUNTER_{H,L}` via `gmu_read()` and
-      rechecks the high word to ensure atomicity.
-  - Replaced CP counter reads in CPU-side tracepoints:
-    - a6xx_submit now traces with GMU AO:
-      drivers/gpu/drm/msm/adreno/a6xx_gpu.c:392
-    - a7xx_submit now traces with GMU AO:
-      drivers/gpu/drm/msm/adreno/a6xx_gpu.c:592
-  - Simplified timestamp retrieval to avoid waking GX or using OOB
-    votes:
-    - a6xx_gmu_get_timestamp now returns the GMU AO counter directly:
-      drivers/gpu/drm/msm/adreno/a6xx_gpu.c:2314
-    - This removes previous lock/OOB sequences to temporarily block IFPC
-      just to read `REG_A6XX_CP_ALWAYS_ON_COUNTER`.
-  - Importantly, GPU-side emissions that snapshot the CP always-on
-    counter via CP_REG_TO_MEM remain unchanged (they run when the GPU is
-    active and safe): for example the stats reads in submit paths still
-    use `REG_A6XX_CP_ALWAYS_ON_COUNTER` (e.g.,
-    drivers/gpu/drm/msm/adreno/a6xx_gpu.c:372-375).
+Conclusion: This is a minimal, targeted fix for a real correctness issue
+with low risk and clear recovery restore points, making it a good
+candidate for backporting to all supported stable kernels that include
+the a6xx driver.
 
-- Why this is a good stable candidate
-  - Real bug impact: CPU reads of CP_ALWAYS_ON during IFPC can be stale,
-    zero, or require disruptive OOB votes that wake the domain; this can
-    cause incorrect timestamps (MSM_PARAM_TIMESTAMP), spurious power-
-    ups, and trace anomalies. Moving to GMU AO fixes this by design.
-  - Small, contained, and low risk:
-    - All changes are local to the MSM Adreno a6xx/a7xx driver and a
-      single source file.
-    - No ABI or feature changes; only the source of the timestamp for
-      CPU reads changes.
-    - The helper uses a standard hi-lo-hi pattern to ensure a correct
-      64-bit read.
-    - The GMU AO counter is already described in the hardware XML and
-      used elsewhere (e.g., other GMU counters), and the driver already
-      depends on GMU MMIO.
-  - Maintains timing consistency:
-    - Both CP_ALWAYS_ON and GMU_ALWAYS_ON are clocked from XO (19.2
-      MHz); userspace semantics are preserved. See the driver also
-      treating GMU counters as 19.2 MHz (e.g.,
-      drivers/gpu/drm/msm/adreno/a6xx_gpu.c:2361-2369).
-
-- Side effects and regressions
-  - Positive: avoids GMU OOB perfcounter votes and GMU lock/handshake
-    just to read a timestamp, reducing the chance of deadlocks or long-
-    latency paths during IFPC.
-  - No architectural changes; no changes to command submission ordering
-    or power sequencing.
-  - Tracepoints now log the GMU AO value; this improves reliability
-    during IFPC without affecting functionality.
-
-- Dependencies present
-  - `gmu_read()` and the `REG_A6XX_GMU_ALWAYS_ON_COUNTER_{H,L}` macros
-    are already in-tree (drivers/gpu/drm/msm/adreno/a6xx_gmu.h:122 and
-    drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml:131-132).
-  - The patch updates only `drivers/gpu/drm/msm/adreno/a6xx_gpu.c`, and
-    aligns with existing GMU usage patterns.
-
-Conclusion: This is a targeted, safe bug fix that improves timestamp
-reliability and avoids unnecessary power domain manipulations during
-IFPC. It meets stable backport criteria.
-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 30 ++++++++++++++-------------
- 1 file changed, 16 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 536da1acf615e..1e363af319488 100644
+index 45dd5fd1c2bfc..f8992a68df7fb 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -16,6 +16,19 @@
+@@ -1727,6 +1727,9 @@ static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
+ 	/* Turn off the hangcheck timer to keep it from bothering us */
+ 	timer_delete(&gpu->hangcheck_timer);
  
- #define GPU_PAS_ID 13
- 
-+static u64 read_gmu_ao_counter(struct a6xx_gpu *a6xx_gpu)
-+{
-+	u64 count_hi, count_lo, temp;
++	/* Turn off interrupts to avoid triggering recovery again */
++	gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, 0);
 +
-+	do {
-+		count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-+		count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
-+		temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-+	} while (unlikely(count_hi != temp));
-+
-+	return (count_hi << 32) | count_lo;
-+}
-+
- static bool fence_status_check(struct msm_gpu *gpu, u32 offset, u32 value, u32 status, u32 mask)
- {
- 	/* Success if !writedropped0/1 */
-@@ -376,8 +389,7 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	OUT_RING(ring, upper_32_bits(rbmemptr(ring, fence)));
- 	OUT_RING(ring, submit->seqno);
- 
--	trace_msm_gpu_submit_flush(submit,
--		gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER));
-+	trace_msm_gpu_submit_flush(submit, read_gmu_ao_counter(a6xx_gpu));
- 
- 	a6xx_flush(gpu, ring);
+ 	kthread_queue_work(gpu->worker, &gpu->recover_work);
  }
-@@ -577,8 +589,7 @@ static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	}
  
- 
--	trace_msm_gpu_submit_flush(submit,
--		gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER));
-+	trace_msm_gpu_submit_flush(submit, read_gmu_ao_counter(a6xx_gpu));
- 
- 	a6xx_flush(gpu, ring);
- 
-@@ -2260,16 +2271,7 @@ static int a6xx_gmu_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
- 
--	mutex_lock(&a6xx_gpu->gmu.lock);
--
--	/* Force the GPU power on so we can read this register */
--	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
--
--	*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER);
--
--	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
--
--	mutex_unlock(&a6xx_gpu->gmu.lock);
-+	*value = read_gmu_ao_counter(a6xx_gpu);
- 
- 	return 0;
- }
 -- 
 2.51.0
 
