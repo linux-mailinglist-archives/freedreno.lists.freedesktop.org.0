@@ -2,56 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB981C0A77E
-	for <lists+freedreno@lfdr.de>; Sun, 26 Oct 2025 13:42:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9F5CC0AF2F
+	for <lists+freedreno@lfdr.de>; Sun, 26 Oct 2025 18:39:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB96210E274;
-	Sun, 26 Oct 2025 12:42:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D16210E06D;
+	Sun, 26 Oct 2025 17:39:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="hhh69V4E";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="revnM00z";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bbXkz1DY";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Qq9XwTOf";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bbXkz1DY";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Qq9XwTOf";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 478 seconds by postgrey-1.36 at gabe;
- Sun, 26 Oct 2025 01:39:07 UTC
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEF510E079
- for <freedreno@lists.freedesktop.org>; Sun, 26 Oct 2025 01:39:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1761442266; bh=EE732K+laFOiOUF7JYzZWpC
- tYOYACOEeKOK6VM0p4DQ=; b=hhh69V4EyJGSon+3+TbIpAs3sAp/RDcTEtb2ZSNlULIVHu864y
- fzar638uPozvV4M40oKLWQMjF1AFgQiJH1QCBtDkuEUyBYkJXZ/32DB/fQMQC7JvqAGb8bBE2bZ
- BEsNlhvzjRG51IaUTcha2a/C4tgS7sWTFUHCLBVgsrgz5qbWpLkV0YTu5SmRQmvkdDQ+3fO7Qqy
- qjSttkGsY3kvgYtcB+v3SFR0cYGwsevqjP/wM83SEyQbok7vPthPoMXECwAz/mTzf1BO6Veq2Ph
- c/Oum6ubagVBaTRbwxAtnwBzs0ORQN4/UUYCObFsyntOZR5n7/Wb3f5+9Ykl6xrf6dA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1761442266; bh=EE732K+laFOiOUF7JYzZWpC
- tYOYACOEeKOK6VM0p4DQ=; b=revnM00zh7sEUCrKuXJwfdEwycRZTlFUGHjiZyjXh3I5pPEd5i
- VPnizSWEnIrJVjUpZRok48efLa9ktNkiDjDg==;
-Message-ID: <02356e35-0a3a-4a50-ad38-3032f9f166c9@mainlining.org>
-Date: Sun, 26 Oct 2025 02:31:06 +0100
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49ED710E32E
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Oct 2025 17:39:51 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 67E8E1F385;
+ Sun, 26 Oct 2025 17:39:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1761500389; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=OZ22lVGEAexwGsjTiSwzDDhbg/xwdQkHelPXrad0fWc=;
+ b=bbXkz1DYDWqxicoHA3xxclMBv5RAxfp8S8gdHKr95Bmpc82WjDs2ct+ZWVn3/m1YQ8F7vk
+ a9Qfysm24dDDSVsP75MH3MtQ6ikDBRfVw5lN4iLrNJFkt5FN4khowPAb0q1bF2Yp0SKJJa
+ NlQn6OgjJ+cQ0yGrR8dzxdgWan2LnPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1761500389;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=OZ22lVGEAexwGsjTiSwzDDhbg/xwdQkHelPXrad0fWc=;
+ b=Qq9XwTOfWmK0H646Okuy9BO+c0SAXapCbyK2XcMFQJH87nRCFG5kiCXAPjlb043yxJEn+q
+ gh1TMniW67pZHsAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1761500389; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=OZ22lVGEAexwGsjTiSwzDDhbg/xwdQkHelPXrad0fWc=;
+ b=bbXkz1DYDWqxicoHA3xxclMBv5RAxfp8S8gdHKr95Bmpc82WjDs2ct+ZWVn3/m1YQ8F7vk
+ a9Qfysm24dDDSVsP75MH3MtQ6ikDBRfVw5lN4iLrNJFkt5FN4khowPAb0q1bF2Yp0SKJJa
+ NlQn6OgjJ+cQ0yGrR8dzxdgWan2LnPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1761500389;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=OZ22lVGEAexwGsjTiSwzDDhbg/xwdQkHelPXrad0fWc=;
+ b=Qq9XwTOfWmK0H646Okuy9BO+c0SAXapCbyK2XcMFQJH87nRCFG5kiCXAPjlb043yxJEn+q
+ gh1TMniW67pZHsAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D41813675;
+ Sun, 26 Oct 2025 17:39:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id AIL3JORc/mghawAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Sun, 26 Oct 2025 17:39:48 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch,
+ linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, inki.dae@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, patrik.r.jakobsson@gmail.com,
+ jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ sean@poorly.run, marijn.suijten@somainline.org,
+ tomi.valkeinen@ideasonboard.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, thierry.reding@gmail.com, mperttunen@nvidia.com,
+ jonathanh@nvidia.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] drm/fb-helper: Allocate and release fb_info in single place
+Date: Sun, 26 Oct 2025 18:18:47 +0100
+Message-ID: <20251026173944.219373-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC RFT] drm/msm: adreno: attach the GMU device to a driver
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
-Content-Language: en-US
-From: Jens Reidel <adrian@mainlining.org>
-In-Reply-To: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Sun, 26 Oct 2025 12:42:43 +0000
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.29 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.19)[-0.974]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
+ RCPT_COUNT_TWELVE(0.00)[31]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[]; TAGGED_RCPT(0.00)[];
+ FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,armlinux.org.uk,linux.intel.com,kernel.org,samsung.com,intel.com,oss.qualcomm.com,linux.dev,poorly.run,somainline.org,ideasonboard.com,amd.com,nvidia.com];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLq3cifbxyhc6qbbynzfc6amns)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Flag: NO
+X-Spam-Score: -1.29
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,614 +117,494 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/22/25 14:44, Neil Armstrong wrote:
-> Due to the sync_state is enabled by default in pmdomain & CCF since v6.17,
-> the GCC and GPUCC sync_state would stay pending, leaving the resources in
-> full performance:
-> gcc-x1e80100 100000.clock-controller: sync_state() pending due to 3d6a000.gmu
-> gpucc-x1e80100 3d90000.clock-controller: sync_state() pending due to 3d6a000.gmu
-> 
-> In order to fix this state and allow the GMU to be properly
-> probed, let's add a proper driver for the GMU and add it to
-> the MSM driver components.
-> 
-> Only the proper GMU has been tested since I don't have
-> access to hardware with a GMU wrapper.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 354 ++++++++++++++---------------
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |   6 -
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |   3 -
->   drivers/gpu/drm/msm/adreno/adreno_device.c |   4 +
->   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |   4 +
->   drivers/gpu/drm/msm/msm_drv.c              |  16 +-
->   6 files changed, 192 insertions(+), 195 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index fc62fef2fed8..6e7c3e627509 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -1859,11 +1859,14 @@ void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu)
->   	pm_runtime_put(&gpu->pdev->dev);
->   }
->   
-> -void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
-> +static void a6xx_gmu_unbind(struct device *dev, struct device *master, void *data)
->   {
-> -	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> +	struct platform_device *pdev = to_platform_device(dev);
-> +	struct msm_drm_private *priv = dev_get_drvdata(master);
-> +	struct msm_gpu *gpu = priv->gpu;
-> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->   	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-> -	struct platform_device *pdev = to_platform_device(gmu->dev);
->   
->   	mutex_lock(&gmu->lock);
->   	if (!gmu->initialized) {
-> @@ -1903,9 +1906,6 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
->   		free_irq(gmu->gmu_irq, gmu);
->   		free_irq(gmu->hfi_irq, gmu);
->   	}
-> -
-> -	/* Drop reference taken in of_find_device_by_node */
-> -	put_device(gmu->dev);
->   }
->   
->   static int cxpd_notifier_cb(struct notifier_block *nb,
-> @@ -1919,169 +1919,130 @@ static int cxpd_notifier_cb(struct notifier_block *nb,
->   	return 0;
->   }
->   
-> -int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
-> +static int a6xx_gmu_bind(struct device *dev, struct device *master, void *data)
->   {
-> -	struct platform_device *pdev = of_find_device_by_node(node);
-> -	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-> -	int ret;
-> -
-> -	if (!pdev)
-> -		return -ENODEV;
-> -
-> -	gmu->dev = &pdev->dev;
-> -
-> -	ret = of_dma_configure(gmu->dev, node, true);
-> -	if (ret)
-> -		return ret;
-> -
-> -	pm_runtime_enable(gmu->dev);
-> -
-> -	/* Mark legacy for manual SPTPRAC control */
-> -	gmu->legacy = true;
-> -
-> -	/* Map the GMU registers */
-> -	gmu->mmio = a6xx_gmu_get_mmio(pdev, "gmu");
-> -	if (IS_ERR(gmu->mmio)) {
-> -		ret = PTR_ERR(gmu->mmio);
-> -		goto err_mmio;
-> -	}
-> -
-> -	gmu->cxpd = dev_pm_domain_attach_by_name(gmu->dev, "cx");
-> -	if (IS_ERR(gmu->cxpd)) {
-> -		ret = PTR_ERR(gmu->cxpd);
-> -		goto err_mmio;
-> -	}
-> -
-> -	if (!device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME)) {
-> -		ret = -ENODEV;
-> -		goto detach_cxpd;
-> -	}
-> -
-> -	init_completion(&gmu->pd_gate);
-> -	complete_all(&gmu->pd_gate);
-> -	gmu->pd_nb.notifier_call = cxpd_notifier_cb;
-> -
-> -	/* Get a link to the GX power domain to reset the GPU */
-> -	gmu->gxpd = dev_pm_domain_attach_by_name(gmu->dev, "gx");
-> -	if (IS_ERR(gmu->gxpd)) {
-> -		ret = PTR_ERR(gmu->gxpd);
-> -		goto err_mmio;
-> -	}
-> -
-> -	gmu->initialized = true;
-> -
-> -	return 0;
-> -
-> -detach_cxpd:
-> -	dev_pm_domain_detach(gmu->cxpd, false);
-> -
-> -err_mmio:
-> -	iounmap(gmu->mmio);
-> -
-> -	/* Drop reference taken in of_find_device_by_node */
-> -	put_device(gmu->dev);
-> -
-> -	return ret;
-> -}
-> -
-> -int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
-> -{
-> -	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> +	struct platform_device *pdev = to_platform_device(dev);
-> +	struct msm_drm_private *priv = dev_get_drvdata(master);
-> +	struct msm_gpu *gpu = dev_to_gpu(&priv->gpu_pdev->dev);
-> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->   	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-> -	struct platform_device *pdev = of_find_device_by_node(node);
->   	struct device_link *link;
->   	int ret;
->   
-> -	if (!pdev)
-> -		return -ENODEV;
-> -
-> -	gmu->dev = &pdev->dev;
-> +	gmu->dev = dev;
->   
-> -	ret = of_dma_configure(gmu->dev, node, true);
-> +	ret = of_dma_configure(gmu->dev, dev->of_node, true);
->   	if (ret)
->   		return ret;
->   
-> -	/* Set GMU idle level */
-> -	gmu->idle_level = (adreno_gpu->info->quirks & ADRENO_QUIRK_IFPC) ?
-> -		GMU_IDLE_STATE_IFPC : GMU_IDLE_STATE_ACTIVE;
-> +	if (adreno_has_gmu_wrapper(adreno_gpu))
-> +		/* Mark legacy for manual SPTPRAC control */
-> +		gmu->legacy = true;
-> +
-> +	if (!gmu->legacy)
-> +		/* Set GMU idle level */
-> +		gmu->idle_level = (adreno_gpu->info->quirks & ADRENO_QUIRK_IFPC) ?
-> +			GMU_IDLE_STATE_IFPC : GMU_IDLE_STATE_ACTIVE;
->   
->   	pm_runtime_enable(gmu->dev);
->   
-> -	/* Get the list of clocks */
-> -	ret = a6xx_gmu_clocks_probe(gmu);
-> -	if (ret)
-> -		goto err_put_device;
-> +	if (!gmu->legacy) {
-> +		/* Get the list of clocks */
-> +		ret = a6xx_gmu_clocks_probe(gmu);
-> +		if (ret)
-> +			return ret;
->   
-> -	ret = a6xx_gmu_memory_probe(adreno_gpu->base.dev, gmu);
-> -	if (ret)
-> -		goto err_put_device;
-> +		ret = a6xx_gmu_memory_probe(adreno_gpu->base.dev, gmu);
-> +		if (ret)
-> +			return ret;
->   
-> +		/* A660 now requires handling "prealloc requests" in GMU firmware
-> +		 * For now just hardcode allocations based on the known firmware.
-> +		 * note: there is no indication that these correspond to "dummy" or
-> +		 * "debug" regions, but this "guess" allows reusing these BOs which
-> +		 * are otherwise unused by a660.
-> +		 */
-> +		gmu->dummy.size = SZ_4K;
-> +		if (adreno_is_a660_family(adreno_gpu) ||
-> +		    adreno_is_a7xx(adreno_gpu)) {
-> +			ret = a6xx_gmu_memory_alloc(gmu, &gmu->debug, SZ_4K * 7,
-> +						    0x60400000, "debug");
-> +			if (ret)
-> +				goto err_memory;
-> +
-> +			gmu->dummy.size = SZ_8K;
-> +		}
->   
-> -	/* A660 now requires handling "prealloc requests" in GMU firmware
-> -	 * For now just hardcode allocations based on the known firmware.
-> -	 * note: there is no indication that these correspond to "dummy" or
-> -	 * "debug" regions, but this "guess" allows reusing these BOs which
-> -	 * are otherwise unused by a660.
-> -	 */
-> -	gmu->dummy.size = SZ_4K;
-> -	if (adreno_is_a660_family(adreno_gpu) ||
-> -	    adreno_is_a7xx(adreno_gpu)) {
-> -		ret = a6xx_gmu_memory_alloc(gmu, &gmu->debug, SZ_4K * 7,
-> -					    0x60400000, "debug");
-> +		/* Allocate memory for the GMU dummy page */
-> +		ret = a6xx_gmu_memory_alloc(gmu, &gmu->dummy, gmu->dummy.size,
-> +					    0x60000000, "dummy");
->   		if (ret)
->   			goto err_memory;
->   
-> -		gmu->dummy.size = SZ_8K;
-> -	}
-> -
-> -	/* Allocate memory for the GMU dummy page */
-> -	ret = a6xx_gmu_memory_alloc(gmu, &gmu->dummy, gmu->dummy.size,
-> -				    0x60000000, "dummy");
-> -	if (ret)
-> -		goto err_memory;
-> +		/* Note that a650 family also includes a660 family: */
-> +		if (adreno_is_a650_family(adreno_gpu) ||
-> +		    adreno_is_a7xx(adreno_gpu)) {
-> +			ret = a6xx_gmu_memory_alloc(gmu, &gmu->icache,
-> +				SZ_16M - SZ_16K, 0x04000, "icache");
-> +			if (ret)
-> +				goto err_memory;
-> +		/*
-> +		 * NOTE: when porting legacy ("pre-650-family") GPUs you may be tempted to add a condition
-> +		 * to allocate icache/dcache here, as per downstream code flow, but it may not actually be
-> +		 * necessary. If you omit this step and you don't get random pagefaults, you are likely
-> +		 * good to go without this!
-> +		 */
-> +		} else if (adreno_is_a640_family(adreno_gpu)) {
-> +			ret = a6xx_gmu_memory_alloc(gmu, &gmu->icache,
-> +				SZ_256K - SZ_16K, 0x04000, "icache");
-> +			if (ret)
-> +				goto err_memory;
-> +
-> +			ret = a6xx_gmu_memory_alloc(gmu, &gmu->dcache,
-> +				SZ_256K - SZ_16K, 0x44000, "dcache");
-> +			if (ret)
-> +				goto err_memory;
-> +		} else if (adreno_is_a630_family(adreno_gpu)) {
-> +			/* HFI v1, has sptprac */
-> +			gmu->legacy = true;
-> +
-> +			/* Allocate memory for the GMU debug region */
-> +			ret = a6xx_gmu_memory_alloc(gmu, &gmu->debug, SZ_16K, 0, "debug");
-> +			if (ret)
-> +				goto err_memory;
-> +		}
->   
-> -	/* Note that a650 family also includes a660 family: */
-> -	if (adreno_is_a650_family(adreno_gpu) ||
-> -	    adreno_is_a7xx(adreno_gpu)) {
-> -		ret = a6xx_gmu_memory_alloc(gmu, &gmu->icache,
-> -			SZ_16M - SZ_16K, 0x04000, "icache");
-> -		if (ret)
-> -			goto err_memory;
-> -	/*
-> -	 * NOTE: when porting legacy ("pre-650-family") GPUs you may be tempted to add a condition
-> -	 * to allocate icache/dcache here, as per downstream code flow, but it may not actually be
-> -	 * necessary. If you omit this step and you don't get random pagefaults, you are likely
-> -	 * good to go without this!
-> -	 */
-> -	} else if (adreno_is_a640_family(adreno_gpu)) {
-> -		ret = a6xx_gmu_memory_alloc(gmu, &gmu->icache,
-> -			SZ_256K - SZ_16K, 0x04000, "icache");
-> +		/* Allocate memory for the GMU log region */
-> +		ret = a6xx_gmu_memory_alloc(gmu, &gmu->log, SZ_16K, 0, "log");
->   		if (ret)
->   			goto err_memory;
->   
-> -		ret = a6xx_gmu_memory_alloc(gmu, &gmu->dcache,
-> -			SZ_256K - SZ_16K, 0x44000, "dcache");
-> +		/* Allocate memory for for the HFI queues */
-> +		ret = a6xx_gmu_memory_alloc(gmu, &gmu->hfi, SZ_16K, 0, "hfi");
->   		if (ret)
->   			goto err_memory;
-> -	} else if (adreno_is_a630_family(adreno_gpu)) {
-> -		/* HFI v1, has sptprac */
-> -		gmu->legacy = true;
->   
-> -		/* Allocate memory for the GMU debug region */
-> -		ret = a6xx_gmu_memory_alloc(gmu, &gmu->debug, SZ_16K, 0, "debug");
-> -		if (ret)
-> -			goto err_memory;
-> -	}
-> +		if (adreno_is_a650_family(adreno_gpu) ||
-> +		    adreno_is_a7xx(adreno_gpu)) {
-> +			gmu->rscc = a6xx_gmu_get_mmio(pdev, "rscc");
-> +			if (IS_ERR(gmu->rscc)) {
-> +				ret = -ENODEV;
-> +				goto err_mmio;
-> +			}
-> +		} else {
-> +			gmu->rscc = gmu->mmio + 0x23000;
-> +		}
->   
-> -	/* Allocate memory for the GMU log region */
-> -	ret = a6xx_gmu_memory_alloc(gmu, &gmu->log, SZ_16K, 0, "log");
-> -	if (ret)
-> -		goto err_memory;
-> +		/* Get the HFI and GMU interrupts */
-> +		gmu->hfi_irq = a6xx_gmu_get_irq(gmu, pdev, "hfi", a6xx_hfi_irq);
-> +		gmu->gmu_irq = a6xx_gmu_get_irq(gmu, pdev, "gmu", a6xx_gmu_irq);
->   
-> -	/* Allocate memory for for the HFI queues */
-> -	ret = a6xx_gmu_memory_alloc(gmu, &gmu->hfi, SZ_16K, 0, "hfi");
-> -	if (ret)
-> -		goto err_memory;
-> +		if (gmu->hfi_irq < 0 || gmu->gmu_irq < 0) {
-> +			ret = -ENODEV;
-> +			goto err_mmio;
-> +		}
-> +	}
->   
->   	/* Map the GMU registers */
->   	gmu->mmio = a6xx_gmu_get_mmio(pdev, "gmu");
-> @@ -2090,26 +2051,6 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->   		goto err_memory;
->   	}
->   
-> -	if (adreno_is_a650_family(adreno_gpu) ||
-> -	    adreno_is_a7xx(adreno_gpu)) {
-> -		gmu->rscc = a6xx_gmu_get_mmio(pdev, "rscc");
-> -		if (IS_ERR(gmu->rscc)) {
-> -			ret = -ENODEV;
-> -			goto err_mmio;
-> -		}
-> -	} else {
-> -		gmu->rscc = gmu->mmio + 0x23000;
-> -	}
-> -
-> -	/* Get the HFI and GMU interrupts */
-> -	gmu->hfi_irq = a6xx_gmu_get_irq(gmu, pdev, "hfi", a6xx_hfi_irq);
-> -	gmu->gmu_irq = a6xx_gmu_get_irq(gmu, pdev, "gmu", a6xx_gmu_irq);
-> -
-> -	if (gmu->hfi_irq < 0 || gmu->gmu_irq < 0) {
-> -		ret = -ENODEV;
-> -		goto err_mmio;
-> -	}
-> -
->   	gmu->cxpd = dev_pm_domain_attach_by_name(gmu->dev, "cx");
->   	if (IS_ERR(gmu->cxpd)) {
->   		ret = PTR_ERR(gmu->cxpd);
-> @@ -2122,11 +2063,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->   		goto detach_cxpd;
->   	}
->   
-> -	/* Other errors are handled during GPU ACD probe */
-> -	gmu->qmp = qmp_get(gmu->dev);
-> -	if (PTR_ERR_OR_ZERO(gmu->qmp) == -EPROBE_DEFER) {
-> -		ret = -EPROBE_DEFER;
-> -		goto detach_gxpd;
-> +	if (!gmu->legacy) {
-> +		/* Other errors are handled during GPU ACD probe */
-> +		gmu->qmp = qmp_get(gmu->dev);
-> +		if (PTR_ERR_OR_ZERO(gmu->qmp) == -EPROBE_DEFER) {
-> +			ret = -EPROBE_DEFER;
-> +			goto detach_gxpd;
-> +		}
->   	}
->   
->   	init_completion(&gmu->pd_gate);
-> @@ -2139,18 +2082,20 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->   	 */
->   	gmu->gxpd = dev_pm_domain_attach_by_name(gmu->dev, "gx");
->   
-> -	/* Get the power levels for the GMU and GPU */
-> -	a6xx_gmu_pwrlevels_probe(gmu);
-> +	if (!gmu->legacy) {
-> +		/* Get the power levels for the GMU and GPU */
-> +		a6xx_gmu_pwrlevels_probe(gmu);
->   
-> -	ret = a6xx_gmu_acd_probe(gmu);
-> -	if (ret)
-> -		goto detach_gxpd;
-> +		ret = a6xx_gmu_acd_probe(gmu);
-> +		if (ret)
-> +			goto detach_gxpd;
->   
-> -	/* Set up the HFI queues */
-> -	a6xx_hfi_init(gmu);
-> +		/* Set up the HFI queues */
-> +		a6xx_hfi_init(gmu);
->   
-> -	/* Initialize RPMh */
-> -	a6xx_gmu_rpmh_init(gmu);
-> +		/* Initialize RPMh */
-> +		a6xx_gmu_rpmh_init(gmu);
-> +	}
->   
->   	gmu->initialized = true;
->   
-> @@ -2170,16 +2115,57 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->   
->   err_mmio:
->   	iounmap(gmu->mmio);
-> -	if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "rscc"))
-> -		iounmap(gmu->rscc);
-> -	free_irq(gmu->gmu_irq, gmu);
-> -	free_irq(gmu->hfi_irq, gmu);
-> +	if (!gmu->legacy) {
-> +		if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "rscc"))
-> +			iounmap(gmu->rscc);
-> +		free_irq(gmu->gmu_irq, gmu);
-> +		free_irq(gmu->hfi_irq, gmu);
-> +	}
->   
->   err_memory:
-> -	a6xx_gmu_memory_free(gmu);
-> -err_put_device:
-> -	/* Drop reference taken in of_find_device_by_node */
-> -	put_device(gmu->dev);
-> +	if (!gmu->legacy)
-> +		a6xx_gmu_memory_free(gmu);
->   
->   	return ret;
->   }
-> +
-> +static const struct component_ops a6xx_gmu_ops = {
-> +	.bind   = a6xx_gmu_bind,
-> +	.unbind = a6xx_gmu_unbind,
-> +};
-> +
-> +static int a6xx_gmu_probe(struct platform_device *pdev)
-> +{
-> +	return component_add(&pdev->dev, &a6xx_gmu_ops);
-> +}
-> +
-> +static void a6xx_gmu_remove(struct platform_device *pdev)
-> +{
-> +
-> +	component_del(&pdev->dev, &a6xx_gmu_ops);
-> +}
-> +
-> +static const struct of_device_id dt_match[] = {
-> +	{ .compatible = "qcom,adreno-gmu" },
-> +	{ .compatible = "qcom,adreno-gmu-wrapper" },
-> +	{}
-> +};
-> +
-> +static struct platform_driver a6xx_gmu_drv = {
-> +	.probe = a6xx_gmu_probe,
-> +	.remove = a6xx_gmu_remove,
-> +	.driver = {
-> +		.name = "a6xx_gmu",
-> +		.of_match_table = dt_match,
-> +	},
-> +};
-> +
-> +void __init a6xx_gmu_register(void)
-> +{
-> +	platform_driver_register(&a6xx_gmu_drv);
-> +}
-> +
-> +void __exit a6xx_gmu_unregister(void)
-> +{
-> +	platform_driver_unregister(&a6xx_gmu_drv);
-> +}
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index b8f8ae940b55..d418f49f47a1 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -2352,8 +2352,6 @@ static void a6xx_destroy(struct msm_gpu *gpu)
->   
->   	a6xx_llc_slices_destroy(a6xx_gpu);
->   
-> -	a6xx_gmu_remove(a6xx_gpu);
-> -
->   	adreno_gpu_cleanup(adreno_gpu);
->   
->   	kfree(a6xx_gpu);
-> @@ -2689,10 +2687,6 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->   	if (adreno_is_a618(adreno_gpu) || adreno_is_7c3(adreno_gpu))
->   		priv->gpu_clamp_to_idle = true;
->   
-> -	if (adreno_has_gmu_wrapper(adreno_gpu))
-> -		ret = a6xx_gmu_wrapper_init(a6xx_gpu, node);
-> -	else
-> -		ret = a6xx_gmu_init(a6xx_gpu, node);
->   	of_node_put(node);
->   	if (ret) {
->   		a6xx_destroy(&(a6xx_gpu->base.base));
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> index 0b17d36c36a9..070af413e5ad 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> @@ -252,9 +252,6 @@ bool a6xx_gmu_isidle(struct a6xx_gmu *gmu);
->   int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
->   void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
->   
-> -int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
-> -int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
-> -void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
->   void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu);
->   
->   void a6xx_preempt_init(struct msm_gpu *gpu);
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 28f744f3caf7..9f9b5863a8de 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -415,6 +415,8 @@ void __init adreno_register(void)
->   		return;
->   
->   	platform_driver_register(&adreno_driver);
-> +
-> +	a6xx_gmu_register();
->   }
->   
->   void __exit adreno_unregister(void)
-> @@ -422,5 +424,7 @@ void __exit adreno_unregister(void)
->   	if (skip_gpu)
->   		return;
->   
-> +	a6xx_gmu_unregister();
-> +
->   	platform_driver_unregister(&adreno_driver);
->   }
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index 390fa6720d9b..d3a653adbc72 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -678,6 +678,10 @@ struct msm_gpu *a3xx_gpu_init(struct drm_device *dev);
->   struct msm_gpu *a4xx_gpu_init(struct drm_device *dev);
->   struct msm_gpu *a5xx_gpu_init(struct drm_device *dev);
->   struct msm_gpu *a6xx_gpu_init(struct drm_device *dev);
-> +struct msm_gpu *a6xx_gpu_init(struct drm_device *dev);
-> +
-> +void __init a6xx_gmu_register(void);
-> +void __exit a6xx_gmu_unregister(void);
->   
->   static inline uint32_t get_wptr(struct msm_ringbuffer *ring)
->   {
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 7e977fec4100..0618da7e8b40 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -998,18 +998,30 @@ static const struct of_device_id msm_gpu_match[] = {
->   	{ },
->   };
->   
-> +static const struct of_device_id msm_gmu_match[] = {
-> +	{ .compatible = "qcom,adreno-gmu" },
-> +	{ .compatible = "qcom,adreno-gmu-wrapper" },
-> +	{ },
-> +};
-> +
->   static int add_gpu_components(struct device *dev,
->   			      struct component_match **matchptr)
->   {
-> -	struct device_node *np;
-> +	struct device_node *np, *gmu;
->   
->   	np = of_find_matching_node(NULL, msm_gpu_match);
->   	if (!np)
->   		return 0;
->   
-> -	if (of_device_is_available(np) && adreno_has_gpu(np))
-> +	if (of_device_is_available(np) && adreno_has_gpu(np)) {
->   		drm_of_component_match_add(dev, matchptr, component_compare_of, np);
->   
-> +		gmu = of_find_matching_node(NULL, msm_gmu_match);
-> +		if (of_device_is_available(gmu))
-> +			drm_of_component_match_add(dev, matchptr, component_compare_of, gmu);
-> +		of_node_put(gmu);
-> +	}
-> +
->   	of_node_put(np);
->   
->   	return 0;
-> 
-> ---
-> base-commit: 211ddde0823f1442e4ad052a2f30f050145ccada
-> change-id: 20251022-topic-adreno-attach-gmu-to-driver-e47025fd7ebb
-> 
-> Best regards,
+Move the calls to drm_fb_helper_alloc_info() from drivers into a
+single place in fbdev helpers. Allocates struct fb_info for a new
+framebuffer device. Then call drm_fb_helper_single_fb_probe() to
+create an fbdev screen buffer. Also release the instance on errors
+by calling drm_fb_helper_release_info().
 
-Hi Neil,
+Simplifies the code and fixes the error cleanup for some of the
+drivers.
 
-thanks for the patch. With it applied, my GPU fails to initialize.
-Here's the related dmesg section:
+Regular release of the struct fb_info instance still happens in
+drm_fb_helper_fini() as before.
 
-[    1.733062] [drm:dpu_kms_hw_init:1173] dpu hardware revision:0x50020000
-[    1.735229] [drm] Initialized msm 1.13.0 for 
-ae01000.display-controller on minor 0
-[    1.735403] msm_dpu ae01000.display-controller: 
-[drm:adreno_request_fw] loaded qcom/a630_sqe.fw from new location
-[    1.735513] msm_dpu ae01000.display-controller: 
-[drm:adreno_request_fw] loaded qcom/a630_gmu.bin from new location
-[    1.746710] a6xx_gmu 506a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* 
-Timeout waiting for GMU OOB set BOOT_SLUMBER: 0x800000
-[    1.746766] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] 
-*ERROR* Couldn't power up the GPU: -110
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/armada/armada_fbdev.c      |  8 +----
+ drivers/gpu/drm/drm_fb_helper.c            | 39 +++++++---------------
+ drivers/gpu/drm/drm_fbdev_dma.c            | 12 ++-----
+ drivers/gpu/drm/drm_fbdev_shmem.c          | 12 ++-----
+ drivers/gpu/drm/drm_fbdev_ttm.c            | 10 +-----
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |  9 +----
+ drivers/gpu/drm/gma500/fbdev.c             |  8 +----
+ drivers/gpu/drm/i915/display/intel_fbdev.c |  9 +----
+ drivers/gpu/drm/msm/msm_fbdev.c            |  9 +----
+ drivers/gpu/drm/omapdrm/omap_fbdev.c       |  9 +----
+ drivers/gpu/drm/radeon/radeon_fbdev.c      |  9 +----
+ drivers/gpu/drm/tegra/fbdev.c              |  9 +----
+ include/drm/drm_fb_helper.h                | 12 -------
+ 13 files changed, 25 insertions(+), 130 deletions(-)
 
-This could be because I have an Adreno 630-family GPU, which is marked 
-as legacy in a6xx_gmu_init / a6xx_gmu_bind. Previously, the rest of the 
-init code would just always run, while now, some parts are conditionally 
-disabled for legacy GPUs - that may be unintentional? However, 
-unconditionally enabling those parts seems to fail to initialize the GPU 
-followed by a reset shortly after, so there's probably more to this.
+diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
+index 22e2081bfa04..c8778a6d8a8d 100644
+--- a/drivers/gpu/drm/armada/armada_fbdev.c
++++ b/drivers/gpu/drm/armada/armada_fbdev.c
+@@ -43,10 +43,10 @@ int armada_fbdev_driver_fbdev_probe(struct drm_fb_helper *fbh,
+ 				    struct drm_fb_helper_surface_size *sizes)
+ {
+ 	struct drm_device *dev = fbh->dev;
++	struct fb_info *info = fbh->info;
+ 	struct drm_mode_fb_cmd2 mode;
+ 	struct armada_framebuffer *dfb;
+ 	struct armada_gem_object *obj;
+-	struct fb_info *info;
+ 	int size, ret;
+ 	void *ptr;
+ 
+@@ -90,12 +90,6 @@ int armada_fbdev_driver_fbdev_probe(struct drm_fb_helper *fbh,
+ 	if (IS_ERR(dfb))
+ 		return PTR_ERR(dfb);
+ 
+-	info = drm_fb_helper_alloc_info(fbh);
+-	if (IS_ERR(info)) {
+-		ret = PTR_ERR(info);
+-		goto err_fballoc;
+-	}
+-
+ 	info->fbops = &armada_fb_ops;
+ 	info->fix.smem_start = obj->phys_addr;
+ 	info->fix.smem_len = obj->obj.size;
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 53e9dc0543de..dd80f5c5feec 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -495,20 +495,7 @@ int drm_fb_helper_init(struct drm_device *dev,
+ }
+ EXPORT_SYMBOL(drm_fb_helper_init);
+ 
+-/**
+- * drm_fb_helper_alloc_info - allocate fb_info and some of its members
+- * @fb_helper: driver-allocated fbdev helper
+- *
+- * A helper to alloc fb_info and the member cmap. Called by the driver
+- * within the struct &drm_driver.fbdev_probe callback function. Drivers do
+- * not need to release the allocated fb_info structure themselves, this is
+- * automatically done when calling drm_fb_helper_fini().
+- *
+- * RETURNS:
+- * fb_info pointer if things went okay, pointer containing error code
+- * otherwise
+- */
+-struct fb_info *drm_fb_helper_alloc_info(struct drm_fb_helper *fb_helper)
++static struct fb_info *drm_fb_helper_alloc_info(struct drm_fb_helper *fb_helper)
+ {
+ 	struct device *dev = fb_helper->dev->dev;
+ 	struct fb_info *info;
+@@ -535,17 +522,8 @@ struct fb_info *drm_fb_helper_alloc_info(struct drm_fb_helper *fb_helper)
+ 	framebuffer_release(info);
+ 	return ERR_PTR(ret);
+ }
+-EXPORT_SYMBOL(drm_fb_helper_alloc_info);
+ 
+-/**
+- * drm_fb_helper_release_info - release fb_info and its members
+- * @fb_helper: driver-allocated fbdev helper
+- *
+- * A helper to release fb_info and the member cmap.  Drivers do not
+- * need to release the allocated fb_info structure themselves, this is
+- * automatically done when calling drm_fb_helper_fini().
+- */
+-void drm_fb_helper_release_info(struct drm_fb_helper *fb_helper)
++static void drm_fb_helper_release_info(struct drm_fb_helper *fb_helper)
+ {
+ 	struct fb_info *info = fb_helper->info;
+ 
+@@ -558,7 +536,6 @@ void drm_fb_helper_release_info(struct drm_fb_helper *fb_helper)
+ 		fb_dealloc_cmap(&info->cmap);
+ 	framebuffer_release(info);
+ }
+-EXPORT_SYMBOL(drm_fb_helper_release_info);
+ 
+ /**
+  * drm_fb_helper_unregister_info - unregister fb_info framebuffer device
+@@ -1809,6 +1786,11 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
+ 	height = dev->mode_config.max_height;
+ 
+ 	drm_client_modeset_probe(&fb_helper->client, width, height);
++
++	info = drm_fb_helper_alloc_info(fb_helper);
++	if (IS_ERR(info))
++		return PTR_ERR(info);
++
+ 	ret = drm_fb_helper_single_fb_probe(fb_helper);
+ 	if (ret < 0) {
+ 		if (ret == -EAGAIN) {
+@@ -1817,13 +1799,12 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
+ 		}
+ 		mutex_unlock(&fb_helper->lock);
+ 
+-		return ret;
++		goto err_drm_fb_helper_release_info;
+ 	}
+ 	drm_setup_crtcs_fb(fb_helper);
+ 
+ 	fb_helper->deferred_setup = false;
+ 
+-	info = fb_helper->info;
+ 	info->var.pixclock = 0;
+ 
+ 	/* Need to drop locks to avoid recursive deadlock in
+@@ -1846,6 +1827,10 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
+ 	mutex_unlock(&kernel_fb_helper_lock);
+ 
+ 	return 0;
++
++err_drm_fb_helper_release_info:
++	drm_fb_helper_release_info(fb_helper);
++	return ret;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_dma.c
+index c6196293e424..442d964039b7 100644
+--- a/drivers/gpu/drm/drm_fbdev_dma.c
++++ b/drivers/gpu/drm/drm_fbdev_dma.c
+@@ -268,9 +268,9 @@ int drm_fbdev_dma_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ {
+ 	struct drm_client_dev *client = &fb_helper->client;
+ 	struct drm_device *dev = fb_helper->dev;
++	struct fb_info *info = fb_helper->info;
+ 	struct drm_client_buffer *buffer;
+ 	struct drm_framebuffer *fb;
+-	struct fb_info *info;
+ 	u32 format;
+ 	struct iosys_map map;
+ 	int ret;
+@@ -300,12 +300,6 @@ int drm_fbdev_dma_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	fb_helper->buffer = buffer;
+ 	fb_helper->fb = fb;
+ 
+-	info = drm_fb_helper_alloc_info(fb_helper);
+-	if (IS_ERR(info)) {
+-		ret = PTR_ERR(info);
+-		goto err_drm_client_buffer_vunmap;
+-	}
+-
+ 	drm_fb_helper_fill_info(info, fb_helper, sizes);
+ 
+ 	if (fb->funcs->dirty)
+@@ -313,12 +307,10 @@ int drm_fbdev_dma_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	else
+ 		ret = drm_fbdev_dma_driver_fbdev_probe_tail(fb_helper, sizes);
+ 	if (ret)
+-		goto err_drm_fb_helper_release_info;
++		goto err_drm_client_buffer_vunmap;
+ 
+ 	return 0;
+ 
+-err_drm_fb_helper_release_info:
+-	drm_fb_helper_release_info(fb_helper);
+ err_drm_client_buffer_vunmap:
+ 	fb_helper->fb = NULL;
+ 	fb_helper->buffer = NULL;
+diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbdev_shmem.c
+index 51573058df6f..2190e2230b83 100644
+--- a/drivers/gpu/drm/drm_fbdev_shmem.c
++++ b/drivers/gpu/drm/drm_fbdev_shmem.c
+@@ -134,10 +134,10 @@ int drm_fbdev_shmem_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ {
+ 	struct drm_client_dev *client = &fb_helper->client;
+ 	struct drm_device *dev = fb_helper->dev;
++	struct fb_info *info = fb_helper->info;
+ 	struct drm_client_buffer *buffer;
+ 	struct drm_gem_shmem_object *shmem;
+ 	struct drm_framebuffer *fb;
+-	struct fb_info *info;
+ 	u32 format;
+ 	struct iosys_map map;
+ 	int ret;
+@@ -167,12 +167,6 @@ int drm_fbdev_shmem_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	fb_helper->buffer = buffer;
+ 	fb_helper->fb = fb;
+ 
+-	info = drm_fb_helper_alloc_info(fb_helper);
+-	if (IS_ERR(info)) {
+-		ret = PTR_ERR(info);
+-		goto err_drm_client_buffer_vunmap;
+-	}
+-
+ 	drm_fb_helper_fill_info(info, fb_helper, sizes);
+ 
+ 	info->fbops = &drm_fbdev_shmem_fb_ops;
+@@ -193,12 +187,10 @@ int drm_fbdev_shmem_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	info->fbdefio = &fb_helper->fbdefio;
+ 	ret = fb_deferred_io_init(info);
+ 	if (ret)
+-		goto err_drm_fb_helper_release_info;
++		goto err_drm_client_buffer_vunmap;
+ 
+ 	return 0;
+ 
+-err_drm_fb_helper_release_info:
+-	drm_fb_helper_release_info(fb_helper);
+ err_drm_client_buffer_vunmap:
+ 	fb_helper->fb = NULL;
+ 	fb_helper->buffer = NULL;
+diff --git a/drivers/gpu/drm/drm_fbdev_ttm.c b/drivers/gpu/drm/drm_fbdev_ttm.c
+index ccf460fbc1f0..9a7fa59e2bc7 100644
+--- a/drivers/gpu/drm/drm_fbdev_ttm.c
++++ b/drivers/gpu/drm/drm_fbdev_ttm.c
+@@ -203,12 +203,6 @@ int drm_fbdev_ttm_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 		goto err_drm_client_framebuffer_delete;
+ 	}
+ 
+-	info = drm_fb_helper_alloc_info(fb_helper);
+-	if (IS_ERR(info)) {
+-		ret = PTR_ERR(info);
+-		goto err_vfree;
+-	}
+-
+ 	drm_fb_helper_fill_info(info, fb_helper, sizes);
+ 
+ 	info->fbops = &drm_fbdev_ttm_fb_ops;
+@@ -225,12 +219,10 @@ int drm_fbdev_ttm_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	info->fbdefio = &fb_helper->fbdefio;
+ 	ret = fb_deferred_io_init(info);
+ 	if (ret)
+-		goto err_drm_fb_helper_release_info;
++		goto err_vfree;
+ 
+ 	return 0;
+ 
+-err_drm_fb_helper_release_info:
+-	drm_fb_helper_release_info(fb_helper);
+ err_vfree:
+ 	vfree(screen_buffer);
+ err_drm_client_framebuffer_delete:
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+index a3bd21a827ad..539ce0a87886 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+@@ -57,18 +57,11 @@ static int exynos_drm_fbdev_update(struct drm_fb_helper *helper,
+ 				   struct drm_fb_helper_surface_size *sizes,
+ 				   struct exynos_drm_gem *exynos_gem)
+ {
+-	struct fb_info *fbi;
++	struct fb_info *fbi = helper->info;
+ 	struct drm_framebuffer *fb = helper->fb;
+ 	unsigned int size = fb->width * fb->height * fb->format->cpp[0];
+ 	unsigned long offset;
+ 
+-	fbi = drm_fb_helper_alloc_info(helper);
+-	if (IS_ERR(fbi)) {
+-		DRM_DEV_ERROR(to_dma_dev(helper->dev),
+-			      "failed to allocate fb info.\n");
+-		return PTR_ERR(fbi);
+-	}
+-
+ 	fbi->fbops = &exynos_drm_fb_ops;
+ 
+ 	drm_fb_helper_fill_info(fbi, helper, sizes);
+diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbdev.c
+index bc92fa24a1e2..c92e2068c2c2 100644
+--- a/drivers/gpu/drm/gma500/fbdev.c
++++ b/drivers/gpu/drm/gma500/fbdev.c
+@@ -108,7 +108,7 @@ int psb_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	struct drm_device *dev = fb_helper->dev;
+ 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
+-	struct fb_info *info;
++	struct fb_info *info = fb_helper->info;
+ 	struct drm_framebuffer *fb;
+ 	struct drm_mode_fb_cmd2 mode_cmd = { };
+ 	int size;
+@@ -167,12 +167,6 @@ int psb_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	fb_helper->funcs = &psb_fbdev_fb_helper_funcs;
+ 	fb_helper->fb = fb;
+ 
+-	info = drm_fb_helper_alloc_info(fb_helper);
+-	if (IS_ERR(info)) {
+-		ret = PTR_ERR(info);
+-		goto err_drm_framebuffer_unregister_private;
+-	}
+-
+ 	info->fbops = &psb_fbdev_fb_ops;
+ 
+ 	/* Accessed stolen memory directly */
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index e5449c41cfa1..9cd03e2adeb2 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -267,8 +267,8 @@ int intel_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 	struct intel_display *display = to_intel_display(helper->dev);
+ 	struct intel_fbdev *ifbdev = to_intel_fbdev(helper);
+ 	struct intel_framebuffer *fb = ifbdev->fb;
++	struct fb_info *info = helper->info;
+ 	struct ref_tracker *wakeref;
+-	struct fb_info *info;
+ 	struct i915_vma *vma;
+ 	unsigned long flags = 0;
+ 	bool prealloc = false;
+@@ -318,13 +318,6 @@ int intel_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 		goto out_unlock;
+ 	}
+ 
+-	info = drm_fb_helper_alloc_info(helper);
+-	if (IS_ERR(info)) {
+-		drm_err(display->drm, "Failed to allocate fb_info (%pe)\n", info);
+-		ret = PTR_ERR(info);
+-		goto out_unpin;
+-	}
+-
+ 	helper->funcs = &intel_fb_helper_funcs;
+ 	helper->fb = &fb->base;
+ 
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index aad6fb77f0de..fd19995b12b5 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -91,9 +91,9 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ {
+ 	struct drm_device *dev = helper->dev;
+ 	struct msm_drm_private *priv = dev->dev_private;
++	struct fb_info *fbi = helper->info;
+ 	struct drm_framebuffer *fb = NULL;
+ 	struct drm_gem_object *bo;
+-	struct fb_info *fbi = NULL;
+ 	uint64_t paddr;
+ 	uint32_t format;
+ 	int ret, pitch;
+@@ -126,13 +126,6 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 		goto fail;
+ 	}
+ 
+-	fbi = drm_fb_helper_alloc_info(helper);
+-	if (IS_ERR(fbi)) {
+-		DRM_DEV_ERROR(dev->dev, "failed to allocate fb info\n");
+-		ret = PTR_ERR(fbi);
+-		goto fail;
+-	}
+-
+ 	DBG("fbi=%p, dev=%p", fbi, dev);
+ 
+ 	helper->funcs = &msm_fbdev_helper_funcs;
+diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+index b5df2923d2a6..c4671ab87f9c 100644
+--- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
++++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+@@ -153,9 +153,9 @@ int omap_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 	struct drm_device *dev = helper->dev;
+ 	struct omap_drm_private *priv = dev->dev_private;
+ 	struct omap_fbdev *fbdev = priv->fbdev;
++	struct fb_info *fbi = helper->info;
+ 	struct drm_framebuffer *fb = NULL;
+ 	union omap_gem_size gsize;
+-	struct fb_info *fbi = NULL;
+ 	struct drm_mode_fb_cmd2 mode_cmd = {0};
+ 	struct drm_gem_object *bo;
+ 	dma_addr_t dma_addr;
+@@ -224,13 +224,6 @@ int omap_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 		goto fail;
+ 	}
+ 
+-	fbi = drm_fb_helper_alloc_info(helper);
+-	if (IS_ERR(fbi)) {
+-		dev_err(dev->dev, "failed to allocate fb info\n");
+-		ret = PTR_ERR(fbi);
+-		goto fail;
+-	}
+-
+ 	DBG("fbi=%p, dev=%p", fbi, dev);
+ 
+ 	helper->funcs = &omap_fbdev_helper_funcs;
+diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
+index 4df6c9167bf0..0c52efdc29d9 100644
+--- a/drivers/gpu/drm/radeon/radeon_fbdev.c
++++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
+@@ -204,7 +204,7 @@ int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	struct radeon_device *rdev = fb_helper->dev->dev_private;
+ 	const struct drm_format_info *format_info;
+ 	struct drm_mode_fb_cmd2 mode_cmd = { };
+-	struct fb_info *info;
++	struct fb_info *info = fb_helper->info;
+ 	struct drm_gem_object *gobj;
+ 	struct radeon_bo *rbo;
+ 	struct drm_framebuffer *fb;
+@@ -245,13 +245,6 @@ int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	fb_helper->funcs = &radeon_fbdev_fb_helper_funcs;
+ 	fb_helper->fb = fb;
+ 
+-	/* okay we have an object now allocate the framebuffer */
+-	info = drm_fb_helper_alloc_info(fb_helper);
+-	if (IS_ERR(info)) {
+-		ret = PTR_ERR(info);
+-		goto err_drm_framebuffer_unregister_private;
+-	}
+-
+ 	info->fbops = &radeon_fbdev_fb_ops;
+ 
+ 	/* radeon resume is fragile and needs a vt switch to help it along */
+diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
+index 91aece6f34e0..8f40882aa76e 100644
+--- a/drivers/gpu/drm/tegra/fbdev.c
++++ b/drivers/gpu/drm/tegra/fbdev.c
+@@ -73,10 +73,10 @@ int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 	struct tegra_drm *tegra = helper->dev->dev_private;
+ 	struct drm_device *drm = helper->dev;
+ 	struct drm_mode_fb_cmd2 cmd = { 0 };
++	struct fb_info *info = helper->info;
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+ 	unsigned long offset;
+-	struct fb_info *info;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+ 	int err;
+@@ -97,13 +97,6 @@ int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+ 
+-	info = drm_fb_helper_alloc_info(helper);
+-	if (IS_ERR(info)) {
+-		dev_err(drm->dev, "failed to allocate framebuffer info\n");
+-		drm_gem_object_put(&bo->gem);
+-		return PTR_ERR(info);
+-	}
+-
+ 	fb = tegra_fb_alloc(drm,
+ 			    drm_get_format_info(drm, cmd.pixel_format, cmd.modifier[0]),
+ 			    &cmd, &bo, 1);
+diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+index c1d38d54a112..2faf8aaf98dc 100644
+--- a/include/drm/drm_fb_helper.h
++++ b/include/drm/drm_fb_helper.h
+@@ -256,8 +256,6 @@ int drm_fb_helper_check_var(struct fb_var_screeninfo *var,
+ 
+ int drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper);
+ 
+-struct fb_info *drm_fb_helper_alloc_info(struct drm_fb_helper *fb_helper);
+-void drm_fb_helper_release_info(struct drm_fb_helper *fb_helper);
+ void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper);
+ void drm_fb_helper_fill_info(struct fb_info *info,
+ 			     struct drm_fb_helper *fb_helper,
+@@ -340,16 +338,6 @@ drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper)
+ 	return 0;
+ }
+ 
+-static inline struct fb_info *
+-drm_fb_helper_alloc_info(struct drm_fb_helper *fb_helper)
+-{
+-	return NULL;
+-}
+-
+-static inline void drm_fb_helper_release_info(struct drm_fb_helper *fb_helper)
+-{
+-}
+-
+ static inline void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper)
+ {
+ }
+-- 
+2.51.1
 
-Please let me know if there's anything I can do to help debug this.
-
-Best regards,
-Jens
