@@ -2,59 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50E4FC0B4CA
-	for <lists+freedreno@lfdr.de>; Sun, 26 Oct 2025 22:45:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 355C4C0B5FB
+	for <lists+freedreno@lfdr.de>; Sun, 26 Oct 2025 23:34:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E159F10E039;
-	Sun, 26 Oct 2025 21:45:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDEDE10E0EF;
+	Sun, 26 Oct 2025 22:34:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A+SY37Nd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KuQiCFa2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93B3C10E039;
- Sun, 26 Oct 2025 21:45:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EADDD10E0EF;
+ Sun, 26 Oct 2025 22:34:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9CAA6604A6;
- Sun, 26 Oct 2025 21:45:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07E73C4CEE7;
- Sun, 26 Oct 2025 21:45:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3935460377;
+ Sun, 26 Oct 2025 22:34:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91A3C4CEE7;
+ Sun, 26 Oct 2025 22:34:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761515121;
- bh=2oCXk8yWmT0Rh4DSL89Lqqbb+y930NQMDgM+wHt8Qt8=;
+ s=k20201202; t=1761518051;
+ bh=LBZTOeQzkwEAtB+OTRZAwa0RyutEcg+dNryHY4Ipwrg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=A+SY37NdmY8yTOMg3t4DSAkQIi+CpDzeYrHeqdy3xgeMwmbFeyUiuSOFv3g86huVn
- 1TA4nX/YEE2mxAY9PclfciiHdRhVZavCqP16DAplI0CVJsQK4Var5GayqVJgaUN6W9
- lKhCxOnQsUNFNX4jShVt1yHaQTIYFlcX/Iyn9+2dciWCMx/oh+fro3SytPwPScesnn
- q1dYbSsZtmukHxchoPjapKoJ7EQiPUAhKlQ6T5Sw2wq0RwCwGaKXs/DJfnf2C5eS+O
- HZBuIwU5+1FGydsT9eRWB2ki9PKs4d0JxQ8jvKRI51Nen1JnQ7pxbvmZU2UK4uXUfk
- lcTSHBnvWrAgg==
-Date: Sun, 26 Oct 2025 16:45:19 -0500
+ b=KuQiCFa2Uh2PcSTOLJ1L5PL7m+mmvkGcjhcRwlEoojfKCnshek1AmFwxaVoHqv6tC
+ ru4L8as1G665sHXfJGfaKIwfEPC0RiUjENx6zLqcNisrKngEy38XkLA0TzgyE7GkQR
+ W1qr3Z/vdHJlYgulKiAIztztW2Rp/Tig/sEbfqof03g+Qy7H8UmOjOdOWRiM8J7mtA
+ noe1PzrjhwSCi32T+qPgtr/3+Q8E1yG+pppjv8clBq0lQRILKZ2i47M305MBEnjiXQ
+ r6j72mgW+Ev5hZwNmcY7WaXh6705A0UMhD+Ake4Cq/XFAip5aiVVnE7lVl/vUerK9p
+ 8VHzzg9DWXm4A==
+Date: Sun, 26 Oct 2025 17:34:09 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- Conor Dooley <conor+dt@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: display/msm: Reference DAI schema for
- DAI properties
-Message-ID: <176151511679.2990875.10147448365246102323.robh@kernel.org>
-References: <20251021111050.28554-3-krzysztof.kozlowski@linaro.org>
+To: yuanjie yang <yuanjie.yang@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, simona@ffwll.ch, airlied@gmail.com,
+ quic_khsieh@quicinc.com, lumag@kernel.org,
+ marijn.suijten@somainline.org, aiqun.yu@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ tzimmermann@suse.de, quic_mkrishn@quicinc.com,
+ neil.armstrong@linaro.org, jonathan@marek.ca,
+ robin.clark@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ abhinav.kumar@linux.dev, freedreno@lists.freedesktop.org,
+ yongxing.mou@oss.qualcomm.com, krzk+dt@kernel.org,
+ devicetree@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
+ mripard@kernel.org, sean@poorly.run, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 09/12] dt-bindings: display/msm: qcom,kaanapali-dpu: Add
+ Kaanapali
+Message-ID: <176151804747.3053476.10366376472665121341.robh@kernel.org>
+References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
+ <20251023080609.1212-1-yuanjie.yang@oss.qualcomm.com>
+ <20251023080609.1212-4-yuanjie.yang@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251021111050.28554-3-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20251023080609.1212-4-yuanjie.yang@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,15 +70,18 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Tue, 21 Oct 2025 13:10:51 +0200, Krzysztof Kozlowski wrote:
-> DisplayPort nodes are DAIs (Digital Audio Interfaces): they have already
-> 'sound-dai-cells'.  Reference the common DAI schema to bring common
-> properties for them, which allows also customizing DAI name prefix.
+On Thu, 23 Oct 2025 16:06:06 +0800, yuanjie yang wrote:
+> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Add DPU version 13.0 for Qualcomm Kaanapali Soc. The Kaanapali
+> DPU and SM8750 have significant differences, including additions
+> and removals of registers, as well as changes in register addresses.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/display/msm/dp-controller.yaml         | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  .../devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml         | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
