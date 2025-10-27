@@ -2,60 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E28AC0F835
-	for <lists+freedreno@lfdr.de>; Mon, 27 Oct 2025 18:02:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0EF9C0F917
+	for <lists+freedreno@lfdr.de>; Mon, 27 Oct 2025 18:14:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A59610E520;
-	Mon, 27 Oct 2025 17:02:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0A3610E160;
+	Mon, 27 Oct 2025 17:14:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sROLKMoC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nCiqRJDA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E31A610E520;
- Mon, 27 Oct 2025 17:02:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C7C310E160;
+ Mon, 27 Oct 2025 17:14:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9124640C58;
- Mon, 27 Oct 2025 17:02:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F54EC4CEF1;
- Mon, 27 Oct 2025 17:02:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A5A21440DA;
+ Mon, 27 Oct 2025 17:14:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB6DC4CEF1;
+ Mon, 27 Oct 2025 17:14:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761584530;
- bh=aH66x+qi6wkGS5vlWmcbx+X2SNlXqg5IctaXAlPdLV0=;
+ s=k20201202; t=1761585260;
+ bh=riL/1ZLw+rZSAzmG3LWiquvYVubXh4lPo2gMuGTnZhY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sROLKMoC+Cbth9uUgf8fowYWiC9iEhAnTvvWbcCBA35ZofYUNrFH/umMZ+XEsL74i
- yz2dSHQ7rHFb7P8HwAvMpdwmq0AuJHLdmddOyC2cQy3TRJ8BNgtYHs+vMXFFUnPiul
- UMJkDjOjmuMtTKIvNKAR82PKp2z6mzKeL/p5brB61B3+qI5Z+punIJQIoKIRm1QHms
- 6K21l7qbO2zwDmwKhLHh3DKCwRqzauqUH6sfOWTDxMiaZ7D+U/tuu8uUFv73i9I7LB
- JFmK2fvPdGrA7Azj5MMKTqRhU4vOEIbCMd52eRd+BX687XqITCvDPxuMpNNjChv8pp
- f9tbifVHBK9lw==
-Date: Mon, 27 Oct 2025 12:05:02 -0500
+ b=nCiqRJDA+4na9AVF0xFYjv6wnEWRHoQPE+dft2faZhJ63T6bpbH3T7/P7P2CP1ptH
+ ibAvGV3SZKL2+jereFKam6Uhk+MeqCT54fH5vgyTDRnHVPH8sOAhMI8VrotdngPsQ8
+ MmasD/CkXAAIEh0BPlq8efTYyN398eGNq/1gxjQ6koLjidYgy5GwE8PkVyFXdPLvC6
+ UnJjQUOnVJurn1sRi3mWnnyI+4x42aiWa5+no/2eStIhgZNbgVaO2t3xPFh5iVPkkc
+ aFpMszJ1c+sf/S0kFumGn4PI3EFNRKgx2+QtplTloxwFflMZF6LPCIfzSSMwCwvsil
+ d6hOlrNPl3CHQ==
+Date: Mon, 27 Oct 2025 12:17:13 -0500
 From: Bjorn Andersson <andersson@kernel.org>
-To: Ritesh Kumar <quic_riteshk@quicinc.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, 
- abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com, sean@poorly.run, 
- marijn.suijten@somainline.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, 
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, quic_mahap@quicinc.com, 
- konradybcio@kernel.org, mani@kernel.org, James.Bottomley@hansenpartnership.com,
- martin.petersen@oracle.com, vkoul@kernel.org, kishon@kernel.org, 
- cros-qcom-dts-watchers@chromium.org, linux-phy@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
- quic_vproddut@quicinc.com
-Subject: Re: [PATCH v2 1/3] dt-bindings: phy: qcom-edp: Add edp ref clk for
- sa8775p
-Message-ID: <wai7uqe6bn6kcfp3gmgqvc7sfrs37vmpqh6cucc7mopwf5x76j@vkxbwvqiqlyz>
-References: <20251013104806.6599-1-quic_riteshk@quicinc.com>
- <20251013104806.6599-2-quic_riteshk@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Abel Vesa <abel.vesa@linaro.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 7/7] soc: qcom: ubwc: Add configuration Glymur platform
+Message-ID: <ump2gq7hta5dzul7bwjmb45dtrxezkbticdwis7opl2drmnuyz@wwlanncd6xlb>
+References: <20251014-glymur-display-v2-0-ff935e2f88c5@linaro.org>
+ <20251014-glymur-display-v2-7-ff935e2f88c5@linaro.org>
+ <7dxq62ltoeerb4g2fgchb2hd7eomvlexfgyvamxsuuirblavtn@4bg3dy2bukdq>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251013104806.6599-2-quic_riteshk@quicinc.com>
+In-Reply-To: <7dxq62ltoeerb4g2fgchb2hd7eomvlexfgyvamxsuuirblavtn@4bg3dy2bukdq>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,42 +73,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 13, 2025 at 04:18:04PM +0530, Ritesh Kumar wrote:
-> Add edp reference clock for sa8775p edp phy.
-
-Perhaps the eDP ref clock was missed in the initial contribution,
-perhaps it wasn't supposed to be described at the time, perhaps the
-hardware changed...we can only speculate on the purpose of this patch...
-
-You could change this however, by following
-https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
-and start your commit message with an explanation of the problem you're
-trying to solve...
-
+On Mon, Oct 27, 2025 at 02:29:01PM +0200, Dmitry Baryshkov wrote:
+> On Tue, Oct 14, 2025 at 03:38:32PM +0300, Abel Vesa wrote:
+> > Describe the Universal Bandwidth Compression (UBWC) configuration
+> > for the new Glymur platform.
+> > 
+> > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> > ---
+> >  drivers/soc/qcom/ubwc_config.c | 12 ++++++++++++
+> >  1 file changed, 12 insertions(+)
+> > 
 > 
-> Signed-off-by: Ritesh Kumar <quic_riteshk@quicinc.com>
+> Bjorn, do you indent to pick up this patch on your own or would you ack
+> merging it through the drm/msm tree?
+> 
 
-Please start using your oss.qualcomm.com 
+As there's no dependencies between the trees, I can pick these through
+the qcom tree now.
 
 Regards,
 Bjorn
 
-> ---
->  Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> index bfc4d75f50ff..b0e4015596de 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> @@ -73,6 +73,7 @@ allOf:
->          compatible:
->            enum:
->              - qcom,x1e80100-dp-phy
-> +            - qcom,sa8775p-edp-phy
->      then:
->        properties:
->          clocks:
 > -- 
-> 2.17.1
-> 
+> With best wishes
+> Dmitry
