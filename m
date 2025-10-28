@@ -2,77 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96A16C11BB4
-	for <lists+freedreno@lfdr.de>; Mon, 27 Oct 2025 23:34:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 878A7C12CE8
+	for <lists+freedreno@lfdr.de>; Tue, 28 Oct 2025 04:48:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FCEA10E575;
-	Mon, 27 Oct 2025 22:34:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3558210E1D1;
+	Tue, 28 Oct 2025 03:48:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LOK6cmVf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="r+LlHi1D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42FE210E575;
- Mon, 27 Oct 2025 22:34:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 406FC10E57B;
+ Tue, 28 Oct 2025 03:48:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1DACD4890B;
- Mon, 27 Oct 2025 22:34:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 175F2C19421;
- Mon, 27 Oct 2025 22:34:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 20E0860298;
+ Tue, 28 Oct 2025 03:48:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2741AC4CEE7;
+ Tue, 28 Oct 2025 03:48:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761604493;
- bh=+K1KqNSFjEqsZ6MriQT0b2DMEnTu05BP2udtDaFfjnA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LOK6cmVf1BQ02otHtC3zXB5I3pw/JVh0gj3xZoU4TeAvFzdJbsiItBVIG1Da1rRSw
- AtIcwTZqDVJXIDtZZ1spcXlko2yYDzrqYfMMlQWvipzsemZZzTY2g1hI8C7t95SyQF
- UT4gMtaqQWCNA89OTkKLaNJBJbCLqhobaPTQHJTrP8hi2207GFzxDPYq8SZPHTCELz
- kSlVCc0gKw6ZTHS+YahtYrxRO3hgTMdku/n87YO88CzymThBOrYJfmklDyVj/rhK01
- BimNfGv3aw2A3R/4sx/TIUNbbeozGucSk1FKIqhQov8GZfnjn9cA3sBxxU4622tuJU
- s+tHjx81KtkVA==
+ s=k20201202; t=1761623308;
+ bh=F9PEdAfzgWQQ2Eeck3XTAAh60sY+/GKtfF7NT+YXA9k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=r+LlHi1DRjrYdeHjbmQptIeHgcr+h+3w70uVuYEPJGPrY4kRuE4Afm1cwWeN17Ni6
+ IABr8PF3+vkXuiicY7YlxBsudMRGr6JUVREv4e2Z+ouddyWJCC9UNFN5LtV9jm+QLU
+ +CYLaW7XWhQKux0MzE9HXbpzqwFx70xulmvMKLOFD4sNLFNDUh9gYLTLpFmrbmX9AO
+ h0LGzo7sj/QQz430yP8rbrguggjQBsur4KRWQqRPEnvgfDyQ0px7BbYYyhsIW//bVN
+ G/JiIFDV+D0+dvFICRAVgdqEjRUhe5n77ARIKYdvU1u3IwTYdHw2wI7C9NvqCts/Xj
+ YbEd4ytzBVAFg==
+Date: Mon, 27 Oct 2025 22:51:23 -0500
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
- =?UTF-8?q?Otto=20Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
- Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Robert Marko <robimarko@gmail.com>,
- Adam Skladowski <a_skl39@protonmail.com>,
- Sireesh Kodali <sireeshkodali@protonmail.com>,
- Das Srinagesh <quic_gurus@quicinc.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
+To: yuanjie yang <yuanjie.yang@oss.qualcomm.com>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, 
+ abhinav.kumar@linux.dev, sean@poorly.run, marijn.suijten@somainline.org, 
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, quic_mkrishn@quicinc.com, jonathan@marek.ca, 
+ quic_khsieh@quicinc.com, neil.armstrong@linaro.org,
+ linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- linux@mainlining.org, Dang Huynh <danct12@riseup.net>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v10 0/3] Initial support of MSM8937 and Xiaomi Redmi 3S
-Date: Mon, 27 Oct 2025 17:36:46 -0500
-Message-ID: <176160465234.73268.17064439770048270449.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251014-msm8937-v10-0-b3e8da82e968@mainlining.org>
-References: <20251014-msm8937-v10-0-b3e8da82e968@mainlining.org>
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
+Subject: Re: [PATCH 08/12] arm64: defconfig: Enable NT37801 DSI panel driver
+Message-ID: <wuh7agcgg6spghilnx4amqukaaydj25u7kbdiod7fl6pu2ulvm@pmosyuo43cyw>
+References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
+ <20251023080609.1212-1-yuanjie.yang@oss.qualcomm.com>
+ <20251023080609.1212-3-yuanjie.yang@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251023080609.1212-3-yuanjie.yang@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,28 +68,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Tue, 14 Oct 2025 16:04:23 +0200, Barnabás Czémán wrote:
-> This patch series add initial support for MSM8937 SoC
-> and Xiaomi Redmi 3S (land).
+On Thu, Oct 23, 2025 at 04:06:05PM +0800, yuanjie yang wrote:
+> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 > 
-> The series is extending the MSM8917 gcc and pinctrl drivers
-> because they are sibling SoCs.
-> MSM8937 have 4 more A53 cores and have one more dsi port then
-> MSM8917.
-> It implements little-big architecture and uses Adreno 505.
+> Build the NT37801 DSI panel driver as module.
 > 
-> [...]
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 
-Applied, thanks!
+You (Yuanjie) authored the patch, but forgot to sign-off, then Yongxing
+provided certificate of origin, then you provide certificate of origin
+and send it to list?
 
-[1/3] arm64: dts: qcom: Add initial support for MSM8937
-      commit: a829f6f2e8a727409d2b896bff244d33ef21fe29
-[2/3] dt-bindings: arm: qcom: Add Xiaomi Redmi 3S
-      commit: 1a614267281fa477b7d1eeb7b225f106161eb739
-[3/3] arm64: dts: qcom: Add Xiaomi Redmi 3S
-      commit: 2144f6d57d8ef8b0c73bd97d8e5f2783e67afc35
+Please correct.
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+Also, all other patches in this series are merged by DRM maintainers,
+while I'm supposed to merge this one. Please send it separately, once
+it's ready to be merged.
+
+Thanks,
+Bjorn
+
+> ---
+>  arch/arm64/configs/defconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+> index 8cfb5000fa8e..537a065db11c 100644
+> --- a/arch/arm64/configs/defconfig
+> +++ b/arch/arm64/configs/defconfig
+> @@ -945,6 +945,7 @@ CONFIG_DRM_PANEL_SITRONIX_ST7703=m
+>  CONFIG_DRM_PANEL_STARTEK_KD070FHFID015=m
+>  CONFIG_DRM_PANEL_TRULY_NT35597_WQXGA=m
+>  CONFIG_DRM_PANEL_VISIONOX_VTDR6130=m
+> +CONFIG_DRM_PANEL_NOVATEK_NT37801=m
+>  CONFIG_DRM_DISPLAY_CONNECTOR=m
+>  CONFIG_DRM_FSL_LDB=m
+>  CONFIG_DRM_ITE_IT6263=m
+> -- 
+> 2.34.1
+> 
