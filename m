@@ -2,112 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 910A6C1394B
-	for <lists+freedreno@lfdr.de>; Tue, 28 Oct 2025 09:43:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D755C13F08
+	for <lists+freedreno@lfdr.de>; Tue, 28 Oct 2025 10:55:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D27B510E5C3;
-	Tue, 28 Oct 2025 08:43:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C44610E1D8;
+	Tue, 28 Oct 2025 09:55:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ByPbBEfO";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="R8FjLV0v";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5031C10E5BC
- for <freedreno@lists.freedesktop.org>; Tue, 28 Oct 2025 08:43:01 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-3ece0e4c5faso5057712f8f.1
- for <freedreno@lists.freedesktop.org>; Tue, 28 Oct 2025 01:43:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1761640980; x=1762245780; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=6NXCKjRFgrYiAfp2xjDLu8YxTLQNZXtyNLdLhXM4zbE=;
- b=ByPbBEfO97FnI20xy2XKXscbVO76xPm8W844JDKtbB3ivcov7E3/4tGiivXPOsPRRV
- F6MeId4PLWF5O2oGrON18djYXlvPDym2WVG6rtyPseqXKedn2iaDOs/I6ZS28uCNpLw/
- 3azQcFQkdrCvEkAhzyg2ldEbfJNOSV3tLhe1Il7pOTNwlDpmr0AYKJzrQQakAF44cTOm
- l/iBwVO/RFbDvh0DqNNq7i1fK9ty9dCQM5ysN/YBoDxWyeFUvpy3QAdhcq2kk1xuURkQ
- cJV6Ub9o46SSGscXNtyltviQ0dtPFOIyPc9wysJQ4yQMb8FJbkYg3PgokidQ2ohbJpXA
- LoUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761640980; x=1762245780;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=6NXCKjRFgrYiAfp2xjDLu8YxTLQNZXtyNLdLhXM4zbE=;
- b=vjvRUuQy65v9YHL+n50ir5by/oAhCwepoYyn/V+yHOCnYLhG4QiDyYgkeT2lVS22on
- peqqxKihriBbiQpOOUj8Ok5j2kcGS8I6R+kyPu+uDrsD5D1JYkn+/KdyWCFtGWr5iQPf
- gdcZ9/nnPeuCwmNirw4fF6+yFPwAAjnbe4HUe9UTngcYz3uyeEBPxs4piY7gGdoKLr6Q
- e2ThsSjCf2By1g/vF0NqHnQtO2/HvDMxZxMJz5Db25W16hrdpKsIoM5878LcZnBxqM8b
- gRckErwsj1Lt72EKDMKSWs4fHT/oZXgQfjWHA5aRSa+uvgySzNZ367v8Qbs4gnrnnH0d
- Zkhw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUv1aH/FtYqG5HaYcFQ5+FnNt4S+gDoJQkjsh2nv3K20GHTEf2gGWfkmXWaeAQU1LtdETUXxCxIN9c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzl+Y+PB7s0KG/O5T/1KFHPvX78hvnv2ZB45hmlBqZjOHIZgGbF
- lWygO9ZkJKD1EjdqmHiNoCN0UVqttxuCj9Az8a1IwcS0Adt1KTl8caOo8G7zseohWVE=
-X-Gm-Gg: ASbGncv43LOHq0ZpHSy7oSxmVKYwclquLwi6mWvY2mD6Q9Nu/PRwRGnqoLOJeeTeC5e
- 6Vy3wSRjBvzrrmZ6wSXIYEncgKA1QfbOLQ7fJSd+YzU4vGNWGJbm9yZigAlRvKy8yswq1dZmD9R
- hQumSsK0fA88vIlcm9WfT52e6HB6dGBWFgbtWfwnIQcLoJaEDvY9H2QscZr/dwZqgThX9vHm40Y
- p6FQevy643bAgV3GAj0WXqXrKjXec4qtP17m3+nRIdiDUmbEFmMP6cWiOx5p6CFV44CzaFK1/e5
- B3bEqQprthsYLaSO4RkOZiIH5VhcNSqMeRIgqWHqc3kUuvuMJ4qRICqYq5j+oJR/kbAD/yflwW4
- M/LS5wkHQgEjt2lTxPGuBSJyYwSQ0F3tm1K++p9BfHo3EWTJEt9Kr+ZEFHRcXUaC3mipjINVtEp
- ekB9noakpWDlEZa5szqtuTHSOwka+R3ogrAayD4AmiczVepOVO/Q==
-X-Google-Smtp-Source: AGHT+IGO/CrRm+czlEY/95+Qqx9U6VFPdwHdnit4aNOq5qYQYeiVQ3qkFspoLXuMWyUgnNASWVZ6rg==
-X-Received: by 2002:a05:6000:1861:b0:427:928:787f with SMTP id
- ffacd0b85a97d-429a7e4ee59mr1933860f8f.21.1761640979509; 
- Tue, 28 Oct 2025 01:42:59 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:cad:2140:ebe6:df10:d28d:aa5?
- ([2a01:e0a:cad:2140:ebe6:df10:d28d:aa5])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429952e2e06sm19118388f8f.46.2025.10.28.01.42.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Oct 2025 01:42:59 -0700 (PDT)
-Message-ID: <6381550a-4c1a-429d-b6c1-8c7ae77bf325@linaro.org>
-Date: Tue, 28 Oct 2025 09:42:57 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5065910E09B;
+ Tue, 28 Oct 2025 09:55:33 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 59S4p2MF591277; Tue, 28 Oct 2025 09:54:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ smXHDMXrCZNA+TvjDFOW48yo98V1HfJ29j+4aR1KUQE=; b=R8FjLV0v2mm/yqCC
+ Wr4HczVqwyo7QRsxb1OaxN73EJL6VxA+W3Z2mjSgTByxhb6XHsMOFaj4/NeIj9oR
+ 2Bj7kKQaqPdSQT/DLcIiJNcP9ljYpaawC4BjXySVe3cBgGYTaQj82W8/6HY2G6Aa
+ G6kVZV/VhMelIieDEtPn3I8kZEMib9LperpsfxIy25z3h+OikJlEkR6X5abO16FJ
+ EL/mcCO3mPbdAQH3NA9M+RDIKLsInkP7fAyezzHuLm64pjTsJXsqSFs50uJkJihU
+ CgXulsXX0xWb5yKzZEOfbtquDcbQci3GcoBAMmoLukPLTXd/4SwbJqj7O3tfHxQo
+ DluBkQ==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a2q5u8vke-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Oct 2025 09:54:59 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 59S9swt8004710
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Oct 2025 09:54:58 GMT
+Received: from [10.206.96.75] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.24; Tue, 28 Oct
+ 2025 02:54:49 -0700
+Message-ID: <9fe1375d-f4fc-443a-a9b0-eb8079e08376@quicinc.com>
+Date: Tue, 28 Oct 2025 15:24:46 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v2] drm/msm/dpu: Filter modes based on adjusted mode clock
-To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20250506-filter-modes-v2-1-c20a0b7aa241@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20250506-filter-modes-v2-1-c20a0b7aa241@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2 1/3] dt-bindings: phy: qcom-edp: Add edp ref clk for
+ sa8775p
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: <robin.clark@oss.qualcomm.com>, <lumag@kernel.org>,
+ <abhinav.kumar@linux.dev>, <jessica.zhang@oss.qualcomm.com>,
+ <sean@poorly.run>, <marijn.suijten@somainline.org>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <quic_mahap@quicinc.com>, <andersson@kernel.org>,
+ <konradybcio@kernel.org>, <mani@kernel.org>,
+ <James.Bottomley@hansenpartnership.com>, <martin.petersen@oracle.com>,
+ <vkoul@kernel.org>, <kishon@kernel.org>,
+ <cros-qcom-dts-watchers@chromium.org>, <linux-phy@lists.infradead.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <quic_vproddut@quicinc.com>
+References: <20251013104806.6599-1-quic_riteshk@quicinc.com>
+ <20251013104806.6599-2-quic_riteshk@quicinc.com>
+ <aifibm7pjva3rkb4gkzyxun46sraxyeh7jh6vgcirv5tsbf6ad@7f5bbs4ix7sa>
+From: Ritesh Kumar <quic_riteshk@quicinc.com>
+In-Reply-To: <aifibm7pjva3rkb4gkzyxun46sraxyeh7jh6vgcirv5tsbf6ad@7f5bbs4ix7sa>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDI4MDA4MyBTYWx0ZWRfXzukzlvziT20S
+ HHowZRHU+mOMJ+gVXtpwz2Z2hTQxObF4IrfL9fdSu8Tx2aLRfGNc6ocku5lIHq0HH930gddcqLw
+ 8VikFxtFZS5SU/RDyADfRqs6B1YsHX6Lb+vOJRJsjS+XJBwYci/UQzkQGr5lBWmhuTNi0nl0v2y
+ 3tB+h3ka3m8Gm1z9dFI1+yJ5lMwMBygShHiNEANftCw1c3F7VmEsQkvLkmb+pooKxU1pcbGTtdI
+ OunDTfEDA7E1zj5a0Tmw302DOz0LAm3M7Joa+In4+WAzTquB+TMFOulRBChBELdL7S+Aboubi2H
+ FQAaGmvkn7jpe0nASxBhzFH8lvKb11beeAS0TtsqTH73Nx70rLZxCL/Xs1nOq/2Yg275DOuTrSZ
+ pAhCckTou7M0fmeN1fJJo41Ig1kfpA==
+X-Proofpoint-ORIG-GUID: wX0ON1gh3e_AQW4vGI8oM0EVR5bZwTkO
+X-Proofpoint-GUID: wX0ON1gh3e_AQW4vGI8oM0EVR5bZwTkO
+X-Authority-Analysis: v=2.4 cv=c9CmgB9l c=1 sm=1 tr=0 ts=690092f3 cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=COk6AnOGAAAA:8 a=dsHzLA6eIQ2_NKwUNnsA:9
+ a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22 a=nl4s5V0KI7Kw-pW0DWrs:22
+ a=pHzHmUro8NiASowvMSCR:22 a=xoEH_sTeL_Rfw54TyV31:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-28_03,2025-10-22_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 spamscore=0 priorityscore=1501 adultscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510020000 definitions=main-2510280083
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,232 +114,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 5/7/25 03:38, Jessica Zhang wrote:
-> Filter out modes that have a clock rate greater than the max core clock
-> rate when adjusted for the perf clock factor
-> 
-> This is especially important for chipsets such as QCS615 that have lower
-> limits for the MDP max core clock.
-> 
-> Since the core CRTC clock is at least the mode clock (adjusted for the
-> perf clock factor) [1], the modes supported by the driver should be less
-> than the max core clock rate.
-> 
-> [1] https://elixir.bootlin.com/linux/v6.12.4/source/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c#L83
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - *crtc_clock -> *mode_clock (Dmitry)
-> - Changed adjusted_mode_clk check to use multiplication (Dmitry)
-> - Switch from quic_* email to OSS email
-> - Link to v1: https://lore.kernel.org/lkml/20241212-filter-mode-clock-v1-1-f4441988d6aa@quicinc.com/
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 35 ++++++++++++++++++---------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  3 +++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 12 +++++++++
->   3 files changed, 39 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> index 0fb5789c60d0..13cc658065c5 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> @@ -31,6 +31,26 @@ enum dpu_perf_mode {
->   	DPU_PERF_MODE_MAX
->   };
->   
-> +/**
-> + * dpu_core_perf_adjusted_mode_clk - Adjust given mode clock rate according to
-> + *   the perf clock factor.
-> + * @crtc_clk_rate - Unadjusted mode clock rate
-> + * @perf_cfg: performance configuration
-> + */
-> +u64 dpu_core_perf_adjusted_mode_clk(u64 mode_clk_rate,
-> +				    const struct dpu_perf_cfg *perf_cfg)
-> +{
-> +	u32 clk_factor;
-> +
-> +	clk_factor = perf_cfg->clk_inefficiency_factor;
-> +	if (clk_factor) {
-> +		mode_clk_rate *= clk_factor;
-> +		do_div(mode_clk_rate, 100);
-> +	}
-> +
-> +	return mode_clk_rate;
-> +}
-> +
->   /**
->    * _dpu_core_perf_calc_bw() - to calculate BW per crtc
->    * @perf_cfg: performance configuration
-> @@ -75,28 +95,21 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
->   	struct drm_plane *plane;
->   	struct dpu_plane_state *pstate;
->   	struct drm_display_mode *mode;
-> -	u64 crtc_clk;
-> -	u32 clk_factor;
-> +	u64 mode_clk;
->   
->   	mode = &state->adjusted_mode;
->   
-> -	crtc_clk = (u64)mode->vtotal * mode->hdisplay * drm_mode_vrefresh(mode);
-> +	mode_clk = (u64)mode->vtotal * mode->hdisplay * drm_mode_vrefresh(mode);
->   
->   	drm_atomic_crtc_for_each_plane(plane, crtc) {
->   		pstate = to_dpu_plane_state(plane->state);
->   		if (!pstate)
->   			continue;
->   
-> -		crtc_clk = max(pstate->plane_clk, crtc_clk);
-> -	}
-> -
-> -	clk_factor = perf_cfg->clk_inefficiency_factor;
-> -	if (clk_factor) {
-> -		crtc_clk *= clk_factor;
-> -		do_div(crtc_clk, 100);
-> +		mode_clk = max(pstate->plane_clk, mode_clk);
->   	}
->   
-> -	return crtc_clk;
-> +	return dpu_core_perf_adjusted_mode_clk(mode_clk, perf_cfg);
->   }
->   
->   static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> index d2f21d34e501..3740bc97422c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> @@ -54,6 +54,9 @@ struct dpu_core_perf {
->   	u32 fix_core_ab_vote;
->   };
->   
-> +u64 dpu_core_perf_adjusted_mode_clk(u64 clk_rate,
-> +				    const struct dpu_perf_cfg *perf_cfg);
-> +
->   int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
->   		struct drm_crtc_state *state);
->   
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 0714936d8835..5e3c34fed63b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1501,6 +1501,7 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
->   						const struct drm_display_mode *mode)
->   {
->   	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
-> +	u64 adjusted_mode_clk;
->   
->   	/* if there is no 3d_mux block we cannot merge LMs so we cannot
->   	 * split the large layer into 2 LMs, filter out such modes
-> @@ -1508,6 +1509,17 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
->   	if (!dpu_kms->catalog->caps->has_3d_merge &&
->   	    mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
->   		return MODE_BAD_HVALUE;
-> +
-> +	adjusted_mode_clk = dpu_core_perf_adjusted_mode_clk(mode->clock,
-> +							    dpu_kms->perf.perf_cfg);
-> +
-> +	/*
-> +	 * The given mode, adjusted for the perf clock factor, should not exceed
-> +	 * the max core clock rate
-> +	 */
-> +	if (dpu_kms->perf.max_core_clk_rate < adjusted_mode_clk * 1000)
-> +		return MODE_CLOCK_HIGH;
 
-This test doesn't take in account if the mode is for a bonded DSI mode, which
-is the same mode on 2 interfaces doubled, but it's valid since we could literally
-set both modes separately. In bonded DSI this mode_clk must be again divided bv 2
-in addition to the fix:
-https://lore.kernel.org/linux-arm-msm/20250923-modeclk-fix-v2-1-01fcd0b2465a@oss.qualcomm.com/
+On 10/13/2025 6:04 PM, Dmitry Baryshkov wrote:
+> On Mon, Oct 13, 2025 at 04:18:04PM +0530, Ritesh Kumar wrote:
+> > Add edp reference clock for sa8775p edp phy.
+> > 
+> > Signed-off-by: Ritesh Kumar <quic_riteshk@quicinc.com>
+> > ---
+> >  Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
+> > index bfc4d75f50ff..b0e4015596de 100644
+> > --- a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
+> > +++ b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
+> > @@ -73,6 +73,7 @@ allOf:
+> >          compatible:
+> >            enum:
+> >              - qcom,x1e80100-dp-phy
+> > +            - qcom,sa8775p-edp-phy
+>
+> Usually such lists are sorted.
 
-I'm trying to find a correct way to handle that, I have tried that:
-===========================><========================================
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 48c3aef1cfc2..6aa5db1996e3 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1684,8 +1684,10 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
-  static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
-  						const struct drm_display_mode *mode)
-  {
-+	struct drm_encoder *encoder = get_encoder_from_crtc(crtc);
-  	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
-  	u64 adjusted_mode_clk;
-+	unsigned int intfs;
+Sure, will update in next version.
 
-  	/* if there is no 3d_mux block we cannot merge LMs so we cannot
-  	 * split the large layer into 2 LMs, filter out such modes
-@@ -1700,12 +1702,18 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
-  	if (dpu_kms->catalog->caps->has_3d_merge)
-  		adjusted_mode_clk /= 2;
-
-+	intfs = dpu_encoder_get_intf_count(encoder);
-+	if (intfs)
-+		adjusted_mode_clk /= intfs;
-+
-  	/*
-  	 * The given mode, adjusted for the perf clock factor, should not exceed
-  	 * the max core clock rate
-  	 */
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 3dd202e0ce94..862239b7d4bc 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2892,6 +2892,23 @@ enum dpu_intf_mode dpu_encoder_get_intf_mode(struct drm_encoder *encoder)
-  	return INTF_MODE_NONE;
-  }
-
-+/**
-+ * dpu_encoder_get_intf_count - get interface count of the given encoder
-+ * @encoder: Pointer to drm encoder object
-+ */
-+unsigned int dpu_encoder_get_intf_count(struct drm_encoder *encoder)
-+{
-+	struct dpu_encoder_virt *dpu_enc = NULL;
-+
-+	if (!encoder) {
-+		DPU_ERROR("invalid encoder\n");
-+		return 0;
-+	}
-+	dpu_enc = to_dpu_encoder_virt(encoder);
-+
-+	return dpu_enc->num_phys_encs;
-+}
-+
-  /**
-   * dpu_encoder_helper_get_cwb_mask - get CWB blocks mask for the DPU encoder
-   * @phys_enc: Pointer to physical encoder structure
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index ca1ca2e51d7e..f10ad297b379 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -58,6 +58,8 @@ int dpu_encoder_wait_for_tx_complete(struct drm_encoder *drm_encoder);
-
-  enum dpu_intf_mode dpu_encoder_get_intf_mode(struct drm_encoder *encoder);
-
-+unsigned int dpu_encoder_get_intf_count(struct drm_encoder *encoder);
-+
-  void dpu_encoder_virt_runtime_resume(struct drm_encoder *encoder);
-
-  uint32_t dpu_encoder_get_clones(struct drm_encoder *drm_enc);
-====================================><========================================
-
-But this doesn't work since the crtc hasn't been associated to the encoder yet....
-
-Neil
-
-> +
->   	/*
->   	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
->   	 */
-> 
-> ---
-> base-commit: db76003ade5953d4a83c2bdc6e15c2d1c33e7350
-> change-id: 20250506-filter-modes-c60b4332769f
-> 
-> Best regards,
-
+>
+> >      then:
+> >        properties:
+> >          clocks:
+> > -- 
+> > 2.17.1
+> > 
+>
