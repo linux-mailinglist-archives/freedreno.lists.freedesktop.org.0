@@ -2,117 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACB7FC1B725
-	for <lists+freedreno@lfdr.de>; Wed, 29 Oct 2025 15:55:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33886C1C709
+	for <lists+freedreno@lfdr.de>; Wed, 29 Oct 2025 18:29:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FBAD10E7E1;
-	Wed, 29 Oct 2025 14:55:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0914510E211;
+	Wed, 29 Oct 2025 17:29:53 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IV+H1s5c";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from TYPPR03CU001.outbound.protection.outlook.com
- (mail-japaneastazolkn19012062.outbound.protection.outlook.com [52.103.43.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4D0A10E3BE;
- Tue, 28 Oct 2025 12:37:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wc4Q2zv6i/MSHogqNteWeo3Gn39JopYxAoB2tS7LWTWaJ7FAaqb9YFwMpbSo6MkUauP8CTivp3K3UKgWGJgpYDc7U35Ujs9wzhHCQJwKNn6F3u43yM7lRfJvKJ4HaWmLBRIlK5pXVyZXGw0SzGM8sAEWvOKsQis9QEibPui+YXzvY3akJskimNOGXTr75jF/Z7Qu63q7JWHUZkKJG57swqMyoPiGQbTyyuHPse4KS/XMCEng6cLFTEO0b3XjP2RG2z92SNxQ4YOHBqMtxdHgTZfR2En+EG2LkIrZtJfXnOc1we/EvKRbI4qx/CdXvP6NZiowPHevZAMjolrKDPbBMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BtfCMPonMQnZTfsWU/6SNbxFTo/0NcddAbicn0/c52k=;
- b=kbOn7dRUiQXDXs9O3MutccMMGkqSjUXwNUEFSPtSJIW2QltUkVd9tfQNHdm5zeeFBge++ctruHDqAT1cZrJCsip2D/FHS6WYaTjqD7iszPQMRq3HXwPCYRVbDkO2bAB473C1AO/MqN7Xs5QV1mTFfFaUHCOX3kpCM4dDFrvpBWF/0jq6PrjDCuy8Zd7FDmT9BWmdI39WLs8ftkiVorRIH7lQhYC3ZdOhwfJ+nusTHuY4FAE3FzlklGLis2HOluxSyUdUYvb7jnaS/3JpXgjNVMbW7ZWaf9OMuWZDZREnIwOOHDg1SuDw/h1x15q+A7poiieiU4DEwFMDAkD+IpgDRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Received: from TYUPR06MB6099.apcprd06.prod.outlook.com (2603:1096:400:356::8)
- by SEZPR06MB5607.apcprd06.prod.outlook.com (2603:1096:101:9a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Tue, 28 Oct
- 2025 12:36:56 +0000
-Received: from TYUPR06MB6099.apcprd06.prod.outlook.com
- ([fe80::2223:6c27:d5c2:aa47]) by TYUPR06MB6099.apcprd06.prod.outlook.com
- ([fe80::2223:6c27:d5c2:aa47%5]) with mapi id 15.20.9253.017; Tue, 28 Oct 2025
- 12:36:56 +0000
-From: Teguh Sobirin <teguh@sobir.in>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD94110E210;
+ Wed, 29 Oct 2025 17:29:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DDC5A603FF;
+ Wed, 29 Oct 2025 17:29:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9493C4CEF7;
+ Wed, 29 Oct 2025 17:29:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1761758990;
+ bh=6c2lRH79gPUfqUGUAT2Ahh0VCQFp9aMLWeaNEpTU2VA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=IV+H1s5cA6+q0eMfmwxGdQll40rtEMuen9ODGoXJ0OyV1c7HlROjIDiHl6KG9b0cM
+ FSyPQD1mtMazchRKzcZKMw1h7JchjzQPcBc7nocjWzUmL4vSgLFvItd+Jaz0E+42LF
+ KmMKufHWsKhpeg1WlsfRIDF1IV0kh6aYcAOtiplt/PoA72VVW5roiYDDYtAXFP1jyG
+ +PtQEywQFP5nH85YlDKYPBQe1x5HqqGu4UVQgdYiTiGfGwEJDPXOkfYH+KNLBq5LiH
+ 72EH3Yb1CURWbl9kIaes24S5Lqils3FF9J3gk0zDo74JmDpxq2QUXMv/H9L8AWBL1U
+ 68B80NxBEviJA==
+Date: Wed, 29 Oct 2025 12:32:53 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: xiangxu.yin@oss.qualcomm.com
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Teguh Sobirin <teguh@sobir.in>
-Subject: [PATCH] drm/msm/dpu: Set vsync source irrespective of mdp top support
-Date: Tue, 28 Oct 2025 20:36:35 +0800
-Message-ID: <TYUPR06MB6099CBBE5090DB12A2C187E3DDFDA@TYUPR06MB6099.apcprd06.prod.outlook.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH8PR05CA0017.namprd05.prod.outlook.com
- (2603:10b6:510:2cc::29) To TYUPR06MB6099.apcprd06.prod.outlook.com
- (2603:1096:400:356::8)
-X-Microsoft-Original-Message-ID: <20251028123635.3523769-1-teguh@sobir.in>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
+ li.liu@oss.qualcomm.com, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v6 3/4] arm64: dts: qcom: Add DisplayPort and QMP USB3DP
+ PHY for SM6150
+Message-ID: <xjes5h45y44cahs7avj4xngprwnks3alnf25tsbptyvckajz3q@lhawlg5vamls>
+References: <20251024-add-displayport-support-to-qcs615-devicetree-v6-0-c4316975dd0e@oss.qualcomm.com>
+ <20251024-add-displayport-support-to-qcs615-devicetree-v6-3-c4316975dd0e@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYUPR06MB6099:EE_|SEZPR06MB5607:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88b8274f-45ab-49a1-410a-08de161eadca
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|19110799012|5072599009|461199028|5062599005|23021999003|8060799015|15080799012|41001999006|3412199025|440099028|39105399003|40105399003|41105399003|1710799026;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0KkIK1Rggj8CeZCNOlhABX9edZrEWeu6zkYfn61L0bcAsSUQH1P32ZtlMU52?=
- =?us-ascii?Q?zHUnUkfhdk9Rb0oCL1u0e1V/0z88B3GdXl/WeZ+Suzn1huqCUaP0VXVJLJh6?=
- =?us-ascii?Q?DN83ZpT2yRZn147m6lIvVqhAkMvDl7WVSPNMcailSMPgw5U8u+GLh4tel/Y3?=
- =?us-ascii?Q?fPNnEpYciK8+hCReC9610uuo+8BRT6ftLZqOLJbzJpiC46RuVd7eeMdN8fKm?=
- =?us-ascii?Q?HnTEHLSxVOM8URb8gb5vhajcLBHZhBx3ie3FSL1KXVvJ85czQH8+N91fy50y?=
- =?us-ascii?Q?y3B+LP9/Y6un6FxjzDQDJW3KY2oiMDZ58DEiP5bZYep8h2BMgJtg9HNat3MJ?=
- =?us-ascii?Q?5ZezXX5dG8WU3gNS43mQUAKe4oZsVV0KVMTwAQYVItn/LQvJAIX1d16B9PsN?=
- =?us-ascii?Q?Zv+fzaZP33lgDoYbhMm7X2BBo6TgZXEazWvZKaEZcfXukQmwYRNTv2wHd3iN?=
- =?us-ascii?Q?+eUkakxrP5N/YqKmijw8KJpdAumsreKfR8rTKlbs247htZILhaAEVoRwJZHR?=
- =?us-ascii?Q?nZRjclbhzMCgHaIgg2KD/dHUKxLGJyUomks1CNnHRn51sSDHTHaBjQRZnrNR?=
- =?us-ascii?Q?bYUhjEHz9i89urqDWmFKXDZ5FdDFHh0/qZy2MK6GLaOj28/5v74EgUd6l9TD?=
- =?us-ascii?Q?C8lQShHbhYg7dFIoDJrIqJxpOd8v6nQs5lNU5jSm4S12jpavujqQidkSIVnT?=
- =?us-ascii?Q?kW2DQPDlbos3OCgwTdmjlEjgN2WDiGZ7BWYOSe3jaV8IJzyy4EWGdG2Klm4v?=
- =?us-ascii?Q?vzcmV0WNaiLUSetNl0wfqh9OiiW6w7PbaqiT6P+LwQR1sFI+jYmehMaPRnuu?=
- =?us-ascii?Q?Ox0N8Y10KhaeBorzkA8eN1CR3icVuUeUIg2k/gORkIfmwKSh1NREZDFE2Tyc?=
- =?us-ascii?Q?Ex44gR/eltGnJ/7YgRMERsxYLl1rUqDoeRGl7FSn4JCVPO5C8msIIX6Nk3Dp?=
- =?us-ascii?Q?e3QM8vVKFYOV7WuN4+JXD6eWsDQD1FJM4re+ZD/JjR+Ux0AR1D6QYqVJNBT/?=
- =?us-ascii?Q?uHJkK+IKSNkD67yHITjZC6TK+PbXcpgUvD92I7LfPkBzG7htCuIdYEBArnSb?=
- =?us-ascii?Q?VMJGSDwbZSjJwKeqDM4icuJ+aTYoP9ouU+i7g9TYJ2z4wetMN51cIjG9U2aU?=
- =?us-ascii?Q?O9jK7DPlDRO4tXZivLUJFkEVAgdRCo0Qttzqnhs5KP1HYIbYaZtQ5ZkmrIZV?=
- =?us-ascii?Q?wmI+tu2PUuTlbgBr1Ybv0F8ay3fkQERnJcUQ5V8A66ENynvYIb5Mqa1V2qF6?=
- =?us-ascii?Q?zP6HSnrvLrytxdobq8yjezZ+k8p4uGgiSS2YUP2JNmR7h0FKuiSAHlH0pQBx?=
- =?us-ascii?Q?bCA=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?TFqIriSk0PXiLFrg8W/nNwBdaXYN2sc45gebu0SEIC2aLQOccg4QOZdbQxae?=
- =?us-ascii?Q?b37vbcAhKjzuy1pIBUiOQG6ZvkJULf5ZwPJ5T5jZMTJJHBzs+wxkogAZjSwA?=
- =?us-ascii?Q?sJP29KPQ/w/Cb4hDBonn7lcIyMRaEQ28JzBhUIl4zMCnezYgupbDRPCRMz/B?=
- =?us-ascii?Q?YRtXuq/eSLTojWDZ2SNGCn6GdiOQtthqF+egaxT7mOR1vlLBO74m8zJIwfQm?=
- =?us-ascii?Q?Y4aGr0zNLciDDiWnAgKOkfBMkCLxpUjRTvZOzHibdKAM/J32KsuMm3PpRkk+?=
- =?us-ascii?Q?2ua/WDXLAwR//luWPWnfRnv+6YmZGDAwjm8wz89Ih9qbPgiaGwv2sdpD2xZm?=
- =?us-ascii?Q?dpc/J3wIkUKFcvHoTobPdg1E/oyU26hBUiCsgS2G3ZNHXBKzJocQ01yfMqhQ?=
- =?us-ascii?Q?CC3Dl8pm/ZbR5kRovr71YHT/zJoYYuVCItM/bCq/psu1x8ATEYJMVytY4fAV?=
- =?us-ascii?Q?yKuG9oHroqF0pbVNR8FDpjRjiL1jp4ICOBy4FNzkCiFXgb1GxFL6GV00hupp?=
- =?us-ascii?Q?/YIc7jv702wxeq16ZGj7Q51ixk+hRgk/MyXP24+Lf+0C8crvW/hPpwoUgKjv?=
- =?us-ascii?Q?alja9Q58Im5VAhg90MTbLhlruJoz3U4+Soxt/HV3nQOvBePt7NHn30wWa2hy?=
- =?us-ascii?Q?zOJoOAh4I3pOyDo03DG5ukjPMGz/cjWZI3aTjpU1h878c4TyWAsKtZmzqIi2?=
- =?us-ascii?Q?rXHdZ6Rmh3fcykqtQhmuYrTOtVz/yAvz2oXNTp6t//SQx3aQUc1/cFVE+sj0?=
- =?us-ascii?Q?dgc5EpCggikwpSO7VGdqKBDS6PrMcZa4H3/RpoD4AZn8K0XeSQTLbaagUKKx?=
- =?us-ascii?Q?D6S+3QnUdhc6DXhjzNJeY1TgAQdlmmWzwX6KXjJxUV+p8YV9/GbZTaSVleNy?=
- =?us-ascii?Q?iAx4KiGrzBw4fISua6uC1XFQu9g9M7x7Gcd3BJZyXfOYUXkPoyjbkhTiUdjS?=
- =?us-ascii?Q?PHV1Zi/SMGY9plEb1JWsF1t7Ecd6E8x1mnmptAdi8GosOOsrmg+iHvUqbB2y?=
- =?us-ascii?Q?gAqxL+Yvoh1QVjP3Z8lYX/5YEVSzGi2dXsYMP8EIkjZqU0H3JNOOAwlnxjj0?=
- =?us-ascii?Q?sgnNapbts8RI5EwTjIY3DOZDQ9LLW6pHyil7tBjsoizXFRJYSlX+3cuGarSB?=
- =?us-ascii?Q?ZyP9w6xQ1GizRPPo4uCEv7H/Fig22CvJyJKJUEF8CJ3wSp+GfMYXkzPR6eHx?=
- =?us-ascii?Q?WAfO9EJAKVvRdjU3zYFj3UU56FQgxrJc30e5Yw=3D=3D?=
-X-OriginatorOrg: sct-15-20-8534-20-msonline-outlook-6a509.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88b8274f-45ab-49a1-410a-08de161eadca
-X-MS-Exchange-CrossTenant-AuthSource: TYUPR06MB6099.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2025 12:36:56.1972 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5607
-X-Mailman-Approved-At: Wed, 29 Oct 2025 14:55:51 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251024-add-displayport-support-to-qcs615-devicetree-v6-3-c4316975dd0e@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,56 +74,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move the loop over phys_encs outside the
-hw_mdptop->ops.setup_vsync_source block.
-This way, vsync_sel() is called for each interface.
+On Fri, Oct 24, 2025 at 01:21:03PM +0800, Xiangxu Yin via B4 Relay wrote:
+> From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> 
 
-This change ensures TE vsync selection works
-even if setup_vsync_source is not implemented.
+Please fix the subject prefix and drop the "for SM6150" suffix.
 
-Signed-off-by: Teguh Sobirin <teguh@sobir.in>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++------------
- 1 file changed, 9 insertions(+), 13 deletions(-)
+Regards,
+Bjorn
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 258edaa18fc0..f36c5c7924a3 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -784,24 +784,20 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
- 		return;
- 	}
- 
-+	/* Set vsync source irrespective of mdp top support */
-+	vsync_cfg.vsync_source = disp_info->vsync_source;
-+
- 	if (hw_mdptop->ops.setup_vsync_source) {
- 		for (i = 0; i < dpu_enc->num_phys_encs; i++)
- 			vsync_cfg.ppnumber[i] = dpu_enc->hw_pp[i]->idx;
-+	}
- 
--		vsync_cfg.pp_count = dpu_enc->num_phys_encs;
--		vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
--
--		vsync_cfg.vsync_source = disp_info->vsync_source;
--
--		hw_mdptop->ops.setup_vsync_source(hw_mdptop, &vsync_cfg);
--
--		for (i = 0; i < dpu_enc->num_phys_encs; i++) {
--			phys_enc = dpu_enc->phys_encs[i];
-+	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-+		phys_enc = dpu_enc->phys_encs[i];
- 
--			if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
--				phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
--						vsync_cfg.vsync_source);
--		}
-+		if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
-+			phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
-+					vsync_cfg.vsync_source);
- 	}
- }
- 
--- 
-2.34.1
-
+> Introduce DisplayPort controller node and associated QMP USB3-DP PHY
+> for SM6150 SoC. Add data-lanes property to the DP endpoint and update
+> clock assignments for proper DP integration.
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sm6150.dtsi | 115 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 113 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm6150.dtsi b/arch/arm64/boot/dts/qcom/sm6150.dtsi
+> index 6128d8c48f9c0807ac488ddac3b2377678e8f8c3..9741f8d14c72ed7dd6a5e483c5c0d578662f1d31 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6150.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm6150.dtsi
+> @@ -14,6 +14,7 @@
+>  #include <dt-bindings/interconnect/qcom,icc.h>
+>  #include <dt-bindings/interconnect/qcom,qcs615-rpmh.h>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/phy/phy-qcom-qmp.h>
+>  #include <dt-bindings/power/qcom-rpmpd.h>
+>  #include <dt-bindings/power/qcom,rpmhpd.h>
+>  #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+> @@ -3717,6 +3718,7 @@ port@0 {
+>  						reg = <0>;
+>  
+>  						dpu_intf0_out: endpoint {
+> +							remote-endpoint = <&mdss_dp0_in>;
+>  						};
+>  					};
+>  
+> @@ -3749,6 +3751,89 @@ opp-307200000 {
+>  				};
+>  			};
+>  
+> +			mdss_dp0: displayport-controller@ae90000 {
+> +				compatible = "qcom,sm6150-dp", "qcom,sm8150-dp", "qcom,sm8350-dp";
+> +
+> +				reg = <0x0 0x0ae90000 0x0 0x200>,
+> +				      <0x0 0x0ae90200 0x0 0x200>,
+> +				      <0x0 0x0ae90400 0x0 0x600>,
+> +				      <0x0 0x0ae90a00 0x0 0x600>,
+> +				      <0x0 0x0ae91000 0x0 0x600>;
+> +
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <12>;
+> +
+> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK>;
+> +				clock-names = "core_iface",
+> +					      "core_aux",
+> +					      "ctrl_link",
+> +					      "ctrl_link_iface",
+> +					      "stream_pixel",
+> +					      "stream_1_pixel";
+> +
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>,
+> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK_SRC>;
+> +				assigned-clock-parents = <&usb_qmpphy_2 QMP_USB43DP_DP_LINK_CLK>,
+> +							 <&usb_qmpphy_2 QMP_USB43DP_DP_VCO_DIV_CLK>,
+> +							 <&usb_qmpphy_2 QMP_USB43DP_DP_VCO_DIV_CLK>;
+> +
+> +				phys = <&usb_qmpphy_2 QMP_USB43DP_DP_PHY>;
+> +				phy-names = "dp";
+> +
+> +				operating-points-v2 = <&dp_opp_table>;
+> +				power-domains = <&rpmhpd RPMHPD_CX>;
+> +
+> +				#sound-dai-cells = <0>;
+> +
+> +				status = "disabled";
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@0 {
+> +						reg = <0>;
+> +
+> +						mdss_dp0_in: endpoint {
+> +							remote-endpoint = <&dpu_intf0_out>;
+> +						};
+> +					};
+> +
+> +					port@1 {
+> +						reg = <1>;
+> +
+> +						mdss_dp0_out: endpoint {
+> +							data-lanes = <3 2 0 1>;
+> +						};
+> +					};
+> +				};
+> +
+> +				dp_opp_table: opp-table {
+> +					compatible = "operating-points-v2";
+> +
+> +					opp-160000000 {
+> +						opp-hz = /bits/ 64 <160000000>;
+> +						required-opps = <&rpmhpd_opp_low_svs>;
+> +					};
+> +
+> +					opp-270000000 {
+> +						opp-hz = /bits/ 64 <270000000>;
+> +						required-opps = <&rpmhpd_opp_svs>;
+> +					};
+> +
+> +					opp-540000000 {
+> +						opp-hz = /bits/ 64 <540000000>;
+> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> +					};
+> +				};
+> +			};
+> +
+>  			mdss_dsi0: dsi@ae94000 {
+>  				compatible = "qcom,sm6150-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+>  				reg = <0x0 0x0ae94000 0x0 0x400>;
+> @@ -3844,8 +3929,8 @@ dispcc: clock-controller@af00000 {
+>  				 <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
+>  				 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>,
+>  				 <0>,
+> -				 <0>,
+> -				 <0>;
+> +				 <&usb_qmpphy_2 QMP_USB43DP_DP_LINK_CLK>,
+> +				 <&usb_qmpphy_2 QMP_USB43DP_DP_VCO_DIV_CLK>;
+>  
+>  			#clock-cells = <1>;
+>  			#reset-cells = <1>;
+> @@ -4214,6 +4299,32 @@ usb_qmpphy: phy@88e6000 {
+>  			status = "disabled";
+>  		};
+>  
+> +		usb_qmpphy_2: phy@88e8000 {
+> +			compatible = "qcom,qcs615-qmp-usb3-dp-phy";
+> +			reg = <0x0 0x088e8000 0x0 0x2000>;
+> +
+> +			clocks = <&gcc GCC_USB2_SEC_PHY_AUX_CLK>,
+> +				 <&gcc GCC_USB3_SEC_CLKREF_CLK>,
+> +				 <&gcc GCC_AHB2PHY_WEST_CLK>,
+> +				 <&gcc GCC_USB2_SEC_PHY_PIPE_CLK>;
+> +			clock-names = "aux",
+> +				      "ref",
+> +				      "cfg_ahb",
+> +				      "pipe";
+> +
+> +			resets = <&gcc GCC_USB3PHY_PHY_SEC_BCR >,
+> +				 <&gcc GCC_USB3_DP_PHY_SEC_BCR>;
+> +			reset-names = "phy_phy",
+> +				      "dp_phy";
+> +
+> +			#clock-cells = <1>;
+> +			#phy-cells = <1>;
+> +
+> +			qcom,tcsr-reg = <&tcsr 0xbff0 0xb24c>;
+> +
+> +			status = "disabled";
+> +		};
+> +
+>  		usb_1: usb@a6f8800 {
+>  			compatible = "qcom,qcs615-dwc3", "qcom,dwc3";
+>  			reg = <0x0 0x0a6f8800 0x0 0x400>;
+> 
+> -- 
+> 2.34.1
+> 
+> 
