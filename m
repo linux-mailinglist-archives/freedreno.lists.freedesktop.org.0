@@ -2,92 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 395D5C17F7E
-	for <lists+freedreno@lfdr.de>; Wed, 29 Oct 2025 03:00:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1BC1C17FDF
+	for <lists+freedreno@lfdr.de>; Wed, 29 Oct 2025 03:05:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D268C10E6D6;
-	Wed, 29 Oct 2025 02:00:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71ADB10E6D4;
+	Wed, 29 Oct 2025 02:05:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="R6ampo+Z";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EBgcHULO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gi7/LrHo";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dO2l4J03";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E534710E6D7
- for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 02:00:48 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB66310E6D4
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 02:05:28 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 59SJlUWH2525420
- for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 02:00:48 GMT
+ 59SJle5M2575860
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 02:05:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=5bzOXYFwaaf6ef1nwwsvGpFG
- 6gZ9ZAmal1F522J4MMQ=; b=R6ampo+ZFvsBAF4jHDCSWRHW7XLMIkAVCsvkw3Vx
- p/jWr9sS9uwLn0sW7C9FfQ0CZhMTV5Dnj7NqWLW4dQF7z1p1eYFMy4mhEXcoJLzM
- HZIqEJLYa6ucI8zD4TSrN1K8Ez/JTIwUdGPxKa+97IShOaZkHRkB1KEbBZhYfnFr
- 6eyZufooWZkvbWXf83vTJY7577i44wN5xPwlKnKcY85rd9NkkuYu2gX7SqMhn/WV
- rCicL0c4myCD05l3IF/1eR16s+xR8LHX3YZ7X0rYTbIFOSy6p6akQwkuJjamOevL
- nxpHbqoQGzbXAn9q42tl/JH17MI4LfxCiqcST6J99euOWQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a34a3rtnd-1
+ :references:subject:to; s=qcppdkim1; bh=oNYnTyhROEtSOeCA2ONPfk1z
+ k2xXS0IqmDQAJE9y2I8=; b=gi7/LrHoeAiQsPm9Ov/wB6nY1FRSi/Il3LJHMdth
+ McGeaav8atOxCK0TyTyVlqp/9x4KwHim/nqRAZzRj1HEv+oT8OW5pmm+P+sVcwrI
+ VCGnfCW3XhaE0kQalC6q/eVgw2Rq9oC33yL8pdwI+BHj0y4fGEmlqkaF5Pw2cOxF
+ gA+IkmL4zajq/2HU+SutIuFDEey8MeUy623VCPLohF+0DvyvFYwQVdvC3XbuK1dY
+ U56uLcoOqhNCAZQXB7G4q57Van1eWJxVmn84MX/3bkLtHhUjrI3skKJvSCe6GxJG
+ J6QtRqyk2+zNKfiiFtbxde2/VogKVKxNl8uWJJq6fAPvEA==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a34a20uea-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 02:00:48 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8a65ae81248so643147985a.2
- for <freedreno@lists.freedesktop.org>; Tue, 28 Oct 2025 19:00:48 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 02:05:28 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-87dfd03fb72so335372216d6.3
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Oct 2025 19:05:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1761703247; x=1762308047;
+ d=oss.qualcomm.com; s=google; t=1761703527; x=1762308327;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=5bzOXYFwaaf6ef1nwwsvGpFG6gZ9ZAmal1F522J4MMQ=;
- b=EBgcHULO41fjW0zeEygLq+n7FqSoGUUEYSyzMMSUDFWvMvsrXL00w5FWDOznmOpSo4
- QEGME1BEzFCYq/WelbpPgpw01T/iBa6QZDwvMLMzM9vCyyZ61FoKYLQCYEGWYEPmNtdo
- 0C4AthHsurTzUeNAu4e9IsPWXP5x5mDQx4cZnka7Tu/6mpkVEBPfipTtdsuh49iwqGXf
- YkYFgZmngF1x7nkKhixUGW7/WLBUmRAVbD3miUeU8iYTY7GOQk+c31Hen+Owmh0K5B6w
- yb434HQ1OAGd5uVAhfgOY6tyekO2WaBGq2KaMzf5W6ZArzhUMoCZMjtdIc+yCnVXCz23
- y7Iw==
+ bh=oNYnTyhROEtSOeCA2ONPfk1zk2xXS0IqmDQAJE9y2I8=;
+ b=dO2l4J03r7GgMxGoljUFldeRGPNZ+F/xb893DFxdBwbz37j05Jpdgi0ikxp6yp848B
+ jbb2vKZSDy9S8Mp2zFnjWMqv+090o939A4Fy4ftTWjx13TfX5sLnq5JOfND2puawOrXj
+ 1uwv5zs7bLdMJ/8j2K3PWTUeLGKl13r6ZWyo1mNs+s2lXuvyurplHnTDICrYu43pBlXd
+ RCPZYbEVuyykHxHy+Yrbgv39CSLmlFvi/H49lagT/4bk+CnTcKkAq3mLOevQRoEWeyTo
+ eCGhxTh5cqAXr/k9hJu7+BeH1oKzWlMD/WGMMlrJM+riAguVX2bx8qx4YCxrYQw4SezY
+ M6nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761703247; x=1762308047;
+ d=1e100.net; s=20230601; t=1761703527; x=1762308327;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5bzOXYFwaaf6ef1nwwsvGpFG6gZ9ZAmal1F522J4MMQ=;
- b=fixqkywlhe3M2d/J1a31JwFSxlHhM3Z+8zS1sSzMLIIw+BT5LsNYsJs+3I/cFU4CsZ
- hI7HnfBzeUom+UCwLSI41gyVc4ID4hG2nm2BP/53jXCiBSN0cGMnvntE5EO8E1LWxwc3
- x/Y1YqlK7HozmZHIJPudoG6G85hc1CY18iq35hfZXcwHklNfG+O+Tp7gAD1E+t9Ugs5O
- 3iyRcG4n1wkxXQCbDu9fAhrZIJcgvfedJgH+xqr8DMPYvOogz3Uy+Uvm4LGTdQFsaWT+
- +CsV1YItmNP3mvVVlRdvPwPPy/WYlmLAAEcKxFWsw3t401nd08aYfS03Z7wjZzjVqHOz
- Q35g==
+ bh=oNYnTyhROEtSOeCA2ONPfk1zk2xXS0IqmDQAJE9y2I8=;
+ b=tmIlaDIvctQY3eGyJbK7vmJD9rHbnyylNIcPzaLiMzMa2GGoVQ9LQiIjviFODNkXAM
+ 548OB4/WXw13R/Nm9Sonrem2ztQOeEnO6LWk4cQ2m365Z6WAmUza8h5Ijl6vlzIxfcTp
+ 3WiuecO5XTpS2wqEFxVqTD/nP7Q6LRHRwKHoUXncNnYG5xR15JOkrSXJ7QPaHbjWawgm
+ vpRzYhpPwopvumyqEfk4i5+r7Ii2excz3UAOVIm0ME1h5MQ/cZK4H6W/LubON5M9PTT0
+ ZpRsxlKawLt5KqEDDmYfyE+s/Wc1Lnk+vjqkTcoSdP66yPS3FAzUJ57HoTpLCqa3cWBk
+ HTXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXIFHJ57B+UmHMGkUUZlyeDf52mFPdkMXB96e62O7EPgVvnx9RyT3mPbeh5qu4Xq4Lr+J2v+h53TGc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywh3mTHJ4vO4Tcit9bSWTY8S00aNA1dloWUYMkCR0VNnEG2slnI
- GlqEcab1EymzeKGsUvjbR06UhrqbU3UvB1ERBkMVepV+UU4yzm2WyzraEpPFjlDUAO8+s5yDh5U
- nY5yl/S8TcCIuWQVin3fpZ6XBkzPKWXgyCSjd114AB8W9e5OPDY2jzJEcoTcUk9tjrftgfdU=
-X-Gm-Gg: ASbGncvp4EeJUn0+w7qt4b45ztQ80cgGvztNWovg8EavlD3ph8q+QhZKV/+33WMiUQz
- USvZdkkujiRdEooqU4nud6HGRXlLskzs4pNWMu2mZs0mIgNeduIQyqf3Loca1pyOYkHo0yEgUDW
- NgQFSgFKvTeZtRa9OCVtz8iBxwhCvvbPuu1SR1JZrjzo/2ThnHVlro10ifw7zMNRRgwLmgPdGTH
- HCkMIaNKoS9xP2HuNepBovxcP0g4veJxyu6vnVIkSmLgCKeisYaH2kEyIKpGUvetqIOBIlElXbn
- JVM39FXAlOB8scWrk688UtAGC1nrnuBHthf/SHq5i2rYH5mzGsDRRnNT1vzGrkEK6junNFIZ+Eu
- BOtmRytJ8yObw4cxu8iAdLOPI6HoVkCtD0QTnKN6NzCq173ZHgPDTbcbOLrrfUz8d
-X-Received: by 2002:a05:620a:4610:b0:89f:9693:2522 with SMTP id
- af79cd13be357-8a8ef62221amr176131585a.73.1761703247218; 
- Tue, 28 Oct 2025 19:00:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFRJWEWBjcsXXkAu9QGAiqjDf7yt8PDhra8aQ88qxBQFgifGl7DRhLvxMb2Y2wrCbtbr5g8rw==
-X-Received: by 2002:a05:620a:4610:b0:89f:9693:2522 with SMTP id
- af79cd13be357-8a8ef62221amr176124585a.73.1761703246623; 
- Tue, 28 Oct 2025 19:00:46 -0700 (PDT)
+ AJvYcCV2MASS0S5t2i3z5y0u2GgPuChNH1kpxZBdBJfkZJMK9xGu3RWFgm8h6DrlpjZeHst8B/az7w0tOzM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5rXhwuCQbShhAEMihGyywFEUrtuKDp4G8fuEF6zpG5TmdyE/8
+ 97/gcRRAZjrKD2XELPGPSagnyq2qRnBFK3uz2wb+cEU1DNmMo+btSsyRA9VnAznTnBwe8QH9Ol4
+ POv5uE+4TrzkT3y77p/REiTPc8Xc2GcUMKGxkv15c2OB+M/3d3XhXlT0pcMxEhaoZjAuP7rw=
+X-Gm-Gg: ASbGnctOzWNNZPcv2qnNMXA676jXNclVoG4ekBBpc1iYU75gc/YaQVb6CxocqpMQ5WB
+ 3wWLM9lE0R53s7p3TZbIaxB9EIrM20RQPBi3utgYr5unQwphUYyn03Mo6cFNvouslJ/XSLAsDTu
+ ses5Z8rdzSsYtenfdddhYrijJUKIXC/ZxI/0bseRZzeJN/hlZIUw1tB1RvomoWZo53BGtIdBJ34
+ Opwkx6e+LPF0pyGjqty+OqzQclzxZaGdoRso9Mt9hcn4UCW3GAXrAJHtXd4rj/D/BwbyT5LhHvd
+ Tqo/JIGxBe7M7wUCP47/cACrMfJYCsX00bYKNdIfGm1r7N5qJhd19cGIyfmknb+pFLSPz/eH+D+
+ yXf/xpHMfl5PoeP0F8041ZqoH63bMNQYmi6KOI5jQYqRc+g7HerrxafNSLUtAh2Dk
+X-Received: by 2002:a05:6214:1c47:b0:87d:c94a:17e1 with SMTP id
+ 6a1803df08f44-88009c08041mr17921646d6.48.1761703527390; 
+ Tue, 28 Oct 2025 19:05:27 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGumAqyzy6p7G2g0/1nCG8Lfj49elpmE29lrS0JJixqIdFWH3Cdjr565IB/rUF7KuDDpYUNRA==
+X-Received: by 2002:a05:6214:1c47:b0:87d:c94a:17e1 with SMTP id
+ 6a1803df08f44-88009c08041mr17921186d6.48.1761703526864; 
+ Tue, 28 Oct 2025 19:05:26 -0700 (PDT)
 Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-89f24cd592bsm964396885a.18.2025.10.28.19.00.37
+ 6a1803df08f44-87fc48a7467sm88752116d6.5.2025.10.28.19.05.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Oct 2025 19:00:46 -0700 (PDT)
-Date: Wed, 29 Oct 2025 10:00:34 +0800
+ Tue, 28 Oct 2025 19:05:26 -0700 (PDT)
+Date: Wed, 29 Oct 2025 10:05:15 +0800
 From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jessica Zhang <jesszhan0024@gmail.com>
 Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
  simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
@@ -98,41 +98,39 @@ Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
  aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
-Subject: Re: [PATCH 10/12] dt-bindings: display/msm: dsi-phy-7nm: Add
- Kaanapali DSi PHY
-Message-ID: <aQF1Qp6Lmru2oHC7@yuanjiey.ap.qualcomm.com>
+Subject: Re: [PATCH 03/12] drm/msm/dpu: Compatible with Kaanapali interrupt
+ register
+Message-ID: <aQF2WwriXy2yFzkv@yuanjiey.ap.qualcomm.com>
 References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
- <20251023080609.1212-1-yuanjie.yang@oss.qualcomm.com>
- <20251023080609.1212-5-yuanjie.yang@oss.qualcomm.com>
- <em666johhzrluo5z4t2nu5jo4yuowegaemlrursvczx2zze5o5@uakt5j22ygwm>
- <aPsYVUjyPru5FwPe@yuanjiey.ap.qualcomm.com>
- <2pyurzgalnjwsxqw7qhfguebps45ne6iua7gvioagz554ra6ru@nhe4tnmabqp2>
+ <20251023075401.1148-4-yuanjie.yang@oss.qualcomm.com>
+ <a4a7f1c9-1817-4092-9ab1-07209bb44125@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2pyurzgalnjwsxqw7qhfguebps45ne6iua7gvioagz554ra6ru@nhe4tnmabqp2>
-X-Proofpoint-ORIG-GUID: i_khzrn9jQMM6ie5xfM2Y8V8aS9ITqDl
-X-Authority-Analysis: v=2.4 cv=HM3O14tv c=1 sm=1 tr=0 ts=69017550 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+In-Reply-To: <a4a7f1c9-1817-4092-9ab1-07209bb44125@gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDI5MDAxNCBTYWx0ZWRfX45uJmqg0wIMp
+ nyVvW/Vx/o9beE6thqV91cvx0teFU/6Dqgw0Yuzoku/3BHnO0lTcWd4BILmmpZFIfc0POUavpMo
+ HzjRNXQfaQO2+fGkvZRdZbyT5PN41trlzlR/V3sWoPuotMkalmg56t1V+2oJrYdj/9zKEp8tNOe
+ fW5j5ep0lUJyl2izyoBHpAI1GgMTYXex8cfrf/I8ZcMgr3KC79qlzrgPl4tGFSMtn3thPfyqFRS
+ wUCnqBFcGRYNjn3ucrdcuuiI5BC1KHOEy7vpdGkVf2cYBkRd6kMKa9ZoIOa1amGGZCeLFuGF6aS
+ BCQ0zJulOKEYtzX851gApEtQ934FkpeotrsQZ6glruXr58mlk3djRF+Ai9Rz8iuDtQE/lnRkUv8
+ ksnKnS2AF2A8vKFFruFFRM1+Lj+KHg==
+X-Authority-Analysis: v=2.4 cv=V5ZwEOni c=1 sm=1 tr=0 ts=69017668 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=kj9zAlcOel0A:10 a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=7IK9lZAqeo-zbWUCvDwA:9
- a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDI5MDAxMyBTYWx0ZWRfX9qnwunUCztBQ
- ZM/ydAiHhu6lDcGeiJ0hjdpBrKbQumsOG1Q4q4XEHVUB5eE5bAAKz6IuBx7mgdEn8W/ts8PIWsT
- xR2Ge/Se2j2k55IDlN8f+9HrN5OClDoNrm8XOsm7LofQ7ViBD7Coj+/vB5J15Z77xv8Es0VEsbU
- 5WVplCM4qmJhID0RJbUrCxiHnIHcHOwPp6GYBBps6Jyz9Kj5Z3yLsU6z7kk/GoyD7NaJ5oR5zL/
- Hz+KJrcAhUTBZw2uWmf2eMMX/SRyv+VBtdtyJbggnbma2n3NlXKhobq9IMT+9ZdyCncKNGlH9Wz
- lY+lndOoah1PqAA+ZjaURD/gt0r2nw5Ev++1Y7iYToawZoaUwQUL2ottFTegCApMWjiTlwVuwud
- o/3b5y1oueSHTIwFtg77BE5BS9eWjA==
-X-Proofpoint-GUID: i_khzrn9jQMM6ie5xfM2Y8V8aS9ITqDl
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=wkyyw-Wu4EUB7OuTH_AA:9
+ a=CjuIK1q_8ugA:10 a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-GUID: XSOO7GFaPZ_EKyL73L48FIw9B-K2QUdG
+X-Proofpoint-ORIG-GUID: XSOO7GFaPZ_EKyL73L48FIw9B-K2QUdG
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-10-29_01,2025-10-22_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0 phishscore=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2510290013
+ spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 bulkscore=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ definitions=main-2510290014
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,38 +146,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 27, 2025 at 03:30:43PM +0200, Dmitry Baryshkov wrote:
-> On Fri, Oct 24, 2025 at 02:10:29PM +0800, yuanjiey wrote:
-> > On Thu, Oct 23, 2025 at 03:16:31PM +0300, Dmitry Baryshkov wrote:
-> > > On Thu, Oct 23, 2025 at 04:06:07PM +0800, yuanjie yang wrote:
-> > > > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > > 
-> > > In the subject: DSI, not DSi
-> > OK will note.
-> > 
-> >  
-> > > > 
-> > > > Add DSI PHY for Kaanapali.
-> > > 
-> > > Why?
-> > 
-> > DSI phy for Kaanapali have no significant diiference with previous version(SM8750).
-> > But some register change make it imcompatible with previous version(SM8750).
+On Mon, Oct 27, 2025 at 11:07:20PM -0700, Jessica Zhang wrote:
+> On 10/23/2025 12:53 AM, yuanjie yang wrote:
+> > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 > 
-> It's either "no significant difference" or "register change make it
-> incompatible". You can't say both.
-Sure, will optimize commit message.
+> Hi Yuanjie,
+> 
+> Can you reword the commit message title to be more clear on what this patch
+> *does*? "Compatible with Kaanapali interrupt register" is vague.
+> 
+> Something like "Add interrupt registers for DPU 13.x" is a complete sentence
+> and makes it clear that you're adding interrupt registers.
+>
+Sure, will use "Add interrupt registers for DPU 13.x" for commit message.
 
 Thanks,
 Yuanjie
  
-> > 
-> > I will give this reason in my next patch.
-> > 
-> > Thanks
-> > Yuanjie.
-> > 
+> Thanks,
 > 
-> -- 
-> With best wishes
-> Dmitry
+> Jessica Zhang
+> 
+> > 
+> > DPU version 13 introduces changes to the interrupt register
+> > layout. Update the driver to support these modifications for
+> > proper interrupt handling.
+> > 
+> > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > ---
+> >   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 89 ++++++++++++++++++-
+> >   1 file changed, 88 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> > index 49bd77a755aa..8d265581f6ec 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> > @@ -40,6 +40,15 @@
+> >   #define MDP_INTF_REV_7xxx_INTR_TEAR_STATUS(intf)	(MDP_INTF_REV_7xxx_TEAR_OFF(intf) + 0x004)
+> >   #define MDP_INTF_REV_7xxx_INTR_TEAR_CLEAR(intf)		(MDP_INTF_REV_7xxx_TEAR_OFF(intf) + 0x008)
+> > +#define MDP_INTF_REV_13xx_OFF(intf)			(0x18D000 + 0x1000 * (intf))
+> > +#define MDP_INTF_REV_13xx_INTR_EN(intf)			(MDP_INTF_REV_13xx_OFF(intf) + 0x1c0)
+> > +#define MDP_INTF_REV_13xx_INTR_STATUS(intf)		(MDP_INTF_REV_13xx_OFF(intf) + 0x1c4)
+> > +#define MDP_INTF_REV_13xx_INTR_CLEAR(intf)		(MDP_INTF_REV_13xx_OFF(intf) + 0x1c8)
+> > +#define MDP_INTF_REV_13xx_TEAR_OFF(intf)		(0x18D800 + 0x1000 * (intf))
+> > +#define MDP_INTF_REV_13xx_INTR_TEAR_EN(intf)		(MDP_INTF_REV_13xx_TEAR_OFF(intf) + 0x000)
+> > +#define MDP_INTF_REV_13xx_INTR_TEAR_STATUS(intf)	(MDP_INTF_REV_13xx_TEAR_OFF(intf) + 0x004)
+> > +#define MDP_INTF_REV_13xx_INTR_TEAR_CLEAR(intf)		(MDP_INTF_REV_13xx_TEAR_OFF(intf) + 0x008)
+> > +
+> >   /**
+> >    * struct dpu_intr_reg - array of DPU register sets
+> >    * @clr_off:	offset to CLEAR reg
+> > @@ -199,6 +208,82 @@ static const struct dpu_intr_reg dpu_intr_set_7xxx[] = {
+> >   	},
+> >   };
+> > +/*
+> > + * dpu_intr_set_13xx -  List of DPU interrupt registers for DPU >= 13.0
+> > + */
+> > +static const struct dpu_intr_reg dpu_intr_set_13xx[] = {
+> > +	[MDP_SSPP_TOP0_INTR] = {
+> > +		INTR_CLEAR,
+> > +		INTR_EN,
+> > +		INTR_STATUS
+> > +	},
+> > +	[MDP_SSPP_TOP0_INTR2] = {
+> > +		INTR2_CLEAR,
+> > +		INTR2_EN,
+> > +		INTR2_STATUS
+> > +	},
+> > +	[MDP_SSPP_TOP0_HIST_INTR] = {
+> > +		HIST_INTR_CLEAR,
+> > +		HIST_INTR_EN,
+> > +		HIST_INTR_STATUS
+> > +	},
+> > +	[MDP_INTF0_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_CLEAR(0),
+> > +		MDP_INTF_REV_13xx_INTR_EN(0),
+> > +		MDP_INTF_REV_13xx_INTR_STATUS(0)
+> > +	},
+> > +	[MDP_INTF1_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_CLEAR(1),
+> > +		MDP_INTF_REV_13xx_INTR_EN(1),
+> > +		MDP_INTF_REV_13xx_INTR_STATUS(1)
+> > +	},
+> > +	[MDP_INTF1_TEAR_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_TEAR_CLEAR(1),
+> > +		MDP_INTF_REV_13xx_INTR_TEAR_EN(1),
+> > +		MDP_INTF_REV_13xx_INTR_TEAR_STATUS(1)
+> > +	},
+> > +	[MDP_INTF2_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_CLEAR(2),
+> > +		MDP_INTF_REV_13xx_INTR_EN(2),
+> > +		MDP_INTF_REV_13xx_INTR_STATUS(2)
+> > +	},
+> > +	[MDP_INTF2_TEAR_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_TEAR_CLEAR(2),
+> > +		MDP_INTF_REV_13xx_INTR_TEAR_EN(2),
+> > +		MDP_INTF_REV_13xx_INTR_TEAR_STATUS(2)
+> > +	},
+> > +	[MDP_INTF3_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_CLEAR(3),
+> > +		MDP_INTF_REV_13xx_INTR_EN(3),
+> > +		MDP_INTF_REV_13xx_INTR_STATUS(3)
+> > +	},
+> > +	[MDP_INTF4_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_CLEAR(4),
+> > +		MDP_INTF_REV_13xx_INTR_EN(4),
+> > +		MDP_INTF_REV_13xx_INTR_STATUS(4)
+> > +	},
+> > +	[MDP_INTF5_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_CLEAR(5),
+> > +		MDP_INTF_REV_13xx_INTR_EN(5),
+> > +		MDP_INTF_REV_13xx_INTR_STATUS(5)
+> > +	},
+> > +	[MDP_INTF6_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_CLEAR(6),
+> > +		MDP_INTF_REV_13xx_INTR_EN(6),
+> > +		MDP_INTF_REV_13xx_INTR_STATUS(6)
+> > +	},
+> > +	[MDP_INTF7_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_CLEAR(7),
+> > +		MDP_INTF_REV_13xx_INTR_EN(7),
+> > +		MDP_INTF_REV_13xx_INTR_STATUS(7)
+> > +	},
+> > +	[MDP_INTF8_INTR] = {
+> > +		MDP_INTF_REV_13xx_INTR_CLEAR(8),
+> > +		MDP_INTF_REV_13xx_INTR_EN(8),
+> > +		MDP_INTF_REV_13xx_INTR_STATUS(8)
+> > +	},
+> > +};
+> > +
+> >   #define DPU_IRQ_MASK(irq_idx)	(BIT(DPU_IRQ_BIT(irq_idx)))
+> >   static inline bool dpu_core_irq_is_valid(unsigned int irq_idx)
+> > @@ -507,7 +592,9 @@ struct dpu_hw_intr *dpu_hw_intr_init(struct drm_device *dev,
+> >   	if (!intr)
+> >   		return ERR_PTR(-ENOMEM);
+> > -	if (m->mdss_ver->core_major_ver >= 7)
+> > +	if (m->mdss_ver->core_major_ver >= 13)
+> > +		intr->intr_set = dpu_intr_set_13xx;
+> > +	else if (m->mdss_ver->core_major_ver >= 7)
+> >   		intr->intr_set = dpu_intr_set_7xxx;
+> >   	else
+> >   		intr->intr_set = dpu_intr_set_legacy;
