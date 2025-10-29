@@ -2,146 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9179AC1932C
-	for <lists+freedreno@lfdr.de>; Wed, 29 Oct 2025 09:52:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2421EC19691
+	for <lists+freedreno@lfdr.de>; Wed, 29 Oct 2025 10:40:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C63510E77B;
-	Wed, 29 Oct 2025 08:52:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE55010E756;
+	Wed, 29 Oct 2025 09:40:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TiL73PMh";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TZEBI3+1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UnPN4LNL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12AF210E77E
- for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 08:52:07 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 59T4v0EF3664600
- for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 08:52:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- av3l7CgY2QNZB00klVJ5AYC93NCt1x2urffNIO++BXg=; b=TiL73PMhOsIwXPoC
- tHfhxg1xKUhDKFUANgnj7PFK+1hc9FfRAlPBu/orrl47t8MCZRwYUGMI4GyiDN9z
- mo7anCDBWHu4Z/Ycmc3+7icxkDlZAvd0CxYzQJ8XO1C58IYHAzi13klIKSrJ3PXM
- jUy1hugiHMVilb3U1SZnQ2NaaNttFUdOIN3OQo/pq/ejlsxh3hcUUWzrBb1NEeL2
- 5zSFwFzAQNST0OwaJEV2GGGIt02xZVBd4Zcjv0L8sRXUZgIWrYm3BRO/j/IIFHY9
- kqCpU8VE2bhOVy/vJQ4dRZBZZfO7lGEiDhhu6VV41jUGUyNuDSJsyDrqdEIKOEBy
- 05JQPw==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a34a3sv87-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 08:52:06 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-7811aa16c6bso1074593b3a.2
- for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 01:52:06 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF06F10E756
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 09:40:28 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4710a1f9e4cso56544635e9.0
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Oct 2025 02:40:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1761727925; x=1762332725;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=av3l7CgY2QNZB00klVJ5AYC93NCt1x2urffNIO++BXg=;
- b=TZEBI3+102QP1p34so95dfrkNfjWL6sELxxoLmFrV5UA+jDDXURDjaYphSPkwUDAB0
- YB0A6Ng5XpTAaAAo/uoIHcgM0Vk9kuSfRoZFt1sCf+BUm7Kt+qLjkGmTnv4WeVh6cDyV
- 7gA0oSsIQlNZTpkyAa4tComBRDoqsaNBYkz2hKWA08Kj6cYpIalNcq5bsUt5M1r36lf+
- kl2B8DbeptMnrxfJAaH0RoJ4k+UmL8+FPMYnjwmYA3SJPVa6m6TsWIKGQW621TXaHmfM
- 7fPFHXJ6mKVvxHuB6dnOaC85b++PhommU1mctUJ0eI5jDwX0+ol/OvTqHrSUTwuzZZ0s
- cAOg==
+ d=linaro.org; s=google; t=1761730827; x=1762335627; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=MpD8LIzdwjI+LuQZp/Ng/8pA8/EN8OIRE+rVL25JQdI=;
+ b=UnPN4LNLXrXscAmq24sDSkTq2HcHluCflWElt4RbEs4U8W0WLPqCnT4VnlTNtrTL/+
+ P5iCpQVrKbKEX/lJAyg6GsFWkeB0iGm99UXbnktOp2a3G3rrxC77FmiXGYPCVxNtGaob
+ iQhan9Y27LP6DbTFu+Vf5E2j8ChaDiMJhIsgzvfENx+YNxICuscNsvW2cUer6iIa2I+q
+ 7OSCI41MP1BHsshuu3LwSjoNbRMvDfNWHi7GnyqjJSmBV24nfRmJNHownmVtwIzn7sH8
+ jPSxTXgB1ADuuAfRxQMIpHE9XjTaKyjX+KRElmGpy+cnU7kwVj1s5n2TZAJtQ+voa6ce
+ 8qfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761727925; x=1762332725;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=av3l7CgY2QNZB00klVJ5AYC93NCt1x2urffNIO++BXg=;
- b=KFH8/EmzjOBMz+oOxE43nhxR7U/D5KPFU3KL0irXUgcArPcjnAu2ADqoNm8RNykikG
- vfFz/9Kv4n/OLFkG6OUOR0+nLaXUoGfW202z7HsyGRfRHH9TCadXX8REek0Kf2o0BAKP
- pLhhj/eTsmZoPCrMS3JfoVSU8iT21wHhYngDm7SU0WTelXZ71GUxsRVk5LqmczMoSDdW
- QSbuD3qUPIAyj6N8Hlj3C60aZus+/tUFEY50sdS3wdMCPDE40egazTeSH9VLhCTvSWWO
- yyzCnrXiOrJZclXF0Gskgok6P3NIKzf7FT5p+GH6yJHPJeYHoSscmYERL5ik27GJDc/a
- 9lBg==
+ d=1e100.net; s=20230601; t=1761730827; x=1762335627;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=MpD8LIzdwjI+LuQZp/Ng/8pA8/EN8OIRE+rVL25JQdI=;
+ b=SH0lva7GAgZUvsDRFoqpUaEVBCXhJtfKk2T++B2XfUBH1I6ABAoED5aN4V3IRU0tTG
+ jphKKtCV7HWaFP7ngdV0G7MZXgxtS3EQiRyooBwoXH3k6sjMUvQ2osWuy0yUVbr+83FQ
+ NeEg+o6eJoJEMDn7t0vCbjj+N/JLeNIZxmyvmwqHZkHm+3z8Qpu1CdLiSQvFczcDpcDj
+ ovVlh9LE5pq2qkjuoB//jiPkKNY3DJVlj2aAU8y5LGWiKZ+B6YM27wL21VCDo2hcWPST
+ mAZUIej6MaCGYMVblaC6aapTlQGDrsnsLVRG7sCGazHR1M1BNk437FFbKFxHhHmsIrrx
+ ydGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWx+fP4rgLwyVNVABohc8re9PcwpLmLSHp44Jo003B3LtWAZ/yQD/iW/vNFTrixVDk8k7nHh+gGZRg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yysez4ArbLH2VYYnUTNZawayn2YiPLKzRklFm59lVKnKkUkzVK9
- WDxBAQqnMF8fKnR8Y3W6Z0n5aENEsNQZXNF8CMUwcKtPd6CZKbIdpvv4XowwPSFAn+xfrRlmPu6
- m/R8DtPo8TQzEbzGaxI7ZHq+71T6Jozyt5DclwQkdafhrixYuus/bAEJi8FObdrcJs9XiPdY=
-X-Gm-Gg: ASbGncv84w+cW1FSMUNBpZeJyQWWdcBq/3EAsjJOG2ZJPlpI4fZTFwdVbLHDCD+qc0x
- +ptzQFao8B+uaVkIj/kgauXH/xc8trGyCqIqJB/Qut43EFwQbsayHm61z6Ok97LSMBrcGWQUZE3
- /NNTfjYm0TdwKrXxKzUesT5kInIjFJEpbHzFIEXYez+DJvERQpLSMohDccVQ8VUj5yswSI1+2RH
- tV4TIz20Tamvc1X0GjHCEecrQ4rb/sFweGqofBgvWR6omp93wRa8zXHdlPQjE7vaeA5HEEbNqXh
- bYXeTvNNRw6fjO5cazOWb9RgOvi6HQYhoE8fDsSKz73Blus8LmiR+lhg3IElZ+qNdEr9qNtKseK
- /jl2Ay2Vn8CK0GHv47LcmICBHD2hyKy+LP1VaoVv5pgZBd9oKZyPwCMvuVQrF867dLtrYZg==
-X-Received: by 2002:a05:6a00:1ad0:b0:77e:ec80:b3d0 with SMTP id
- d2e1a72fcca58-7a4e4c1cf59mr1483015b3a.3.1761727925445; 
- Wed, 29 Oct 2025 01:52:05 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IErF2e2GenJryHvPr/6RHFg5TGcrt4MMCyAHRCvS2P23eAMSyzqRgz3/EI9LDiuXTVNF8h7rA==
-X-Received: by 2002:a05:6a00:1ad0:b0:77e:ec80:b3d0 with SMTP id
- d2e1a72fcca58-7a4e4c1cf59mr1482997b3a.3.1761727925015; 
- Wed, 29 Oct 2025 01:52:05 -0700 (PDT)
-Received: from [10.133.33.251] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7a414012bf4sm14636390b3a.1.2025.10.29.01.51.58
+ AJvYcCWxT1lhiz3fyVeakRxPahG6AsPW6ETGKZTukrq7/R+3OvTLphANi3Drsy3yppjFS6Rbi9nDIQMbRtg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwXEp/U4pRv/sDkqV2Khk2fNcXld7pMWmFHdnU8UIB/4WVRxYZR
+ Jg7DJ8xoxIkK7Rod6GyKZUkJYXN+YhSYVjFr/cLNMw6NMuRT8PFipjwqZzKiy7Efzo0=
+X-Gm-Gg: ASbGnctyc32Mqa6SyX7aWm6sQkH017Mj/Z0ZTttmz/ZeMbEVVdi3KFMslMNxKhc+TvV
+ OkDlestmd4tKHpKimw8TWAgTKOLv39npx+8CD0pHSwuUjbLnWB1lMkEQMNH5d/ZOes28OUQsCei
+ 7ThgYJNq9xFbKXNUVpelTPFv1oLg+QXFEt/RE6C+JnomfXUzwJPJ10Hl/kUr0lEI+6YGekFKHpw
+ a2F9aMswDImIXBZRh7hv5ZK0dyfFEMZ/e4nFhhA+tZ0FdTW4FJcHCm0vJsejtbZirWpFPw/9PPn
+ OddMMG1oUAhqREd+QQxZBp+0KbFJWIMrD6Nj2LfbriWWwj+yld1HZh5V0TdE4PS3oa06Cp06NzT
+ VtaMh6VW8WzbKT3WjUThrYmOWc2cGwyOdfCHHDdGcHPEjLozA7itazTSnEunlMeleG0oROHxjDP
+ C0H7vDWyHkMV8THzJQv9EuJZBHi5HYeK2WGQ/s+XuhnlWGcXhPKw==
+X-Google-Smtp-Source: AGHT+IGnoupx3oh4ehhHWev6na4HNe4UnW8e6EUSqdzNJvKIIl1nuletM5oT3QUF4LOjqh0ytQBULQ==
+X-Received: by 2002:a05:600c:1d1c:b0:475:da1a:5418 with SMTP id
+ 5b1f17b1804b1-4771e1c9da8mr18311955e9.1.1761730827171; 
+ Wed, 29 Oct 2025 02:40:27 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:cad:2140:3447:eb7a:cb9f:5e0?
+ ([2a01:e0a:cad:2140:3447:eb7a:cb9f:5e0])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429952cb7e8sm25577436f8f.19.2025.10.29.02.40.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Oct 2025 01:52:04 -0700 (PDT)
-Message-ID: <91b0be4d-9e09-49a2-8794-2ec1f191d03e@oss.qualcomm.com>
-Date: Wed, 29 Oct 2025 16:51:55 +0800
+ Wed, 29 Oct 2025 02:40:26 -0700 (PDT)
+Message-ID: <09cbf40d-6536-4bda-94d6-5b45a5746962@linaro.org>
+Date: Wed, 29 Oct 2025 10:40:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/4] dt-bindings: display: msm: Add SM6150 DisplayPort
- controller
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2] drm/msm/dpu: Filter modes based on adjusted mode clock
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
- li.liu@oss.qualcomm.com
-References: <20251024-add-displayport-support-to-qcs615-devicetree-v6-0-c4316975dd0e@oss.qualcomm.com>
- <20251024-add-displayport-support-to-qcs615-devicetree-v6-1-c4316975dd0e@oss.qualcomm.com>
- <20251027152647.GA915648-robh@kernel.org>
- <207641b8-c272-46d5-a459-eb720a4b94a6@oss.qualcomm.com>
- <2rvypo4rvvjrtnjow37vfqifbkr7gfra5n6rnrshubtk4nxt2w@uan44zq44iem>
-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-In-Reply-To: <2rvypo4rvvjrtnjow37vfqifbkr7gfra5n6rnrshubtk4nxt2w@uan44zq44iem>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: _dkI0Tq0vuP9Z-PlsHB0YKzCqMuZKoHj
-X-Authority-Analysis: v=2.4 cv=HM3O14tv c=1 sm=1 tr=0 ts=6901d5b6 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8
- a=RJh-vHJcJB1ee0c-uTEA:9 a=PRpDppDLrCsA:10 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDI5MDA2NSBTYWx0ZWRfX8NCkNZhkdMMn
- 7ZfqPKwH70xRsIIgOSd5C/GPIqESRx/2eOPqE5WvY5hLnS1Luak8l/bpWMC17ekRxpnTddhCXv+
- oJjBgZ8F0ntGeZQaO46GfwtpGmBRwbbqkZTT8taXlxtSq5aVdXbTfD794cFsLPAZZFsAW//8kFy
- S1QBXfk36FyZPXPhJSlOc1Vd55ZHDZDMR0zq1eduG3XKtCYblZudicz8+j9byMHKZFRgDrF1feZ
- TYt9x2xaeuOvhc8gI3Syg4h/MX+xND4lAuAHVMaxuHAWgBI0SvxrfjU136sC/o+CrAYjtupk0PN
- gcZqVJrbxc4ildfKWIPR1YpowdUp0Kl5x+bayrGoIrF6/dt/AffrtzJNVEwhiN8wBIXWUcQvyiM
- UldURWHFPC+qNU3TnB3p3liM2+7utg==
-X-Proofpoint-GUID: _dkI0Tq0vuP9Z-PlsHB0YKzCqMuZKoHj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-29_04,2025-10-22_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0 phishscore=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2510290065
+ linux-kernel@vger.kernel.org
+References: <20250506-filter-modes-v2-1-c20a0b7aa241@oss.qualcomm.com>
+ <6381550a-4c1a-429d-b6c1-8c7ae77bf325@linaro.org>
+ <da56lghirjcwesz4usdlfpttwcmvoql2h6bvjommoyfskjdkgk@hrlgx4ukt4aa>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <da56lghirjcwesz4usdlfpttwcmvoql2h6bvjommoyfskjdkgk@hrlgx4ukt4aa>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,65 +123,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 10/29/2025 3:57 AM, Dmitry Baryshkov wrote:
-> On Tue, Oct 28, 2025 at 01:06:52PM +0800, Xiangxu Yin wrote:
->> On 10/27/2025 11:26 PM, Rob Herring wrote:
->>> On Fri, Oct 24, 2025 at 01:21:01PM +0800, Xiangxu Yin wrote:
->>>> SM6150 uses the same DisplayPort controller as SM8150, which is already
->>>> compatible with SM8350. Add the SM6150-specific compatible string and
->>>> update the binding example accordingly.
->>>>
->>>> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
->>>> ---
->>>>  .../devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml      | 10 ++++++++++
->>>>  1 file changed, 10 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml
->>>> index 9ac24f99d3ada1c197c9654dc9babebccae972ed..ba0dea2edea98cee0826cf38b3f33361666e004a 100644
->>>> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml
->>>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml
->>>> @@ -51,6 +51,16 @@ patternProperties:
->>>>        compatible:
->>>>          const: qcom,sm6150-dpu
->>>>  
->>>> +  "^displayport-controller@[0-9a-f]+$":
->>>> +    type: object
->>>> +    additionalProperties: true
->>>> +    properties:
->>>> +      compatible:
->>>> +        items:
->>>> +          - const: qcom,sm6150-dp
->>>> +          - const: qcom,sm8150-dp
->>>> +          - const: qcom,sm8350-dp
->>> The actual schema will check the order. Here, just:
+On 10/28/25 20:52, Dmitry Baryshkov wrote:
+> On Tue, Oct 28, 2025 at 09:42:57AM +0100, neil.armstrong@linaro.org wrote:
+>> On 5/7/25 03:38, Jessica Zhang wrote:
+>>> Filter out modes that have a clock rate greater than the max core clock
+>>> rate when adjusted for the perf clock factor
 >>>
->>> compatible:
->>>   contains:
->>>     const: qcom,sm6150-dp
+>>> This is especially important for chipsets such as QCS615 that have lower
+>>> limits for the MDP max core clock.
+>>>
+>>> Since the core CRTC clock is at least the mode clock (adjusted for the
+>>> perf clock factor) [1], the modes supported by the driver should be less
+>>> than the max core clock rate.
+>>>
+>>> [1] https://elixir.bootlin.com/linux/v6.12.4/source/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c#L83
+>>>
+>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+>>> ---
+>>> Changes in v2:
+>>> - *crtc_clock -> *mode_clock (Dmitry)
+>>> - Changed adjusted_mode_clk check to use multiplication (Dmitry)
+>>> - Switch from quic_* email to OSS email
+>>> - Link to v1: https://lore.kernel.org/lkml/20241212-filter-mode-clock-v1-1-f4441988d6aa@quicinc.com/
+>>> ---
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 35 ++++++++++++++++++---------
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  3 +++
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 12 +++++++++
+>>>    3 files changed, 39 insertions(+), 11 deletions(-)
+>>>
 >>
->> My initial plan was to use only `qcom,sm6150-dp` with `contains` as suggested.
->>
->> But when I tried that, CHECK_DTBS schema check failed:
->> ‘displayport-controller@ae90000:compatible: ['qcom,sm6150-dp', 'qcom,sm8150-dp', 'qcom,sm8350-dp'] is too long
->> from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm6150-mdss.yaml’‘
->>
->> So, I have added all.
-> Please use properties: compatible: contains: 
+>> This test doesn't take in account if the mode is for a bonded DSI mode, which
+>> is the same mode on 2 interfaces doubled, but it's valid since we could literally
+>> set both modes separately. In bonded DSI this mode_clk must be again divided bv 2
+>> in addition to the fix:
+>> https://lore.kernel.org/linux-arm-msm/20250923-modeclk-fix-v2-1-01fcd0b2465a@oss.qualcomm.com/
+> 
+>  From the docs:
+> 
+>           * Since this function is both called from the check phase of an atomic
+>           * commit, and the mode validation in the probe paths it is not allowed
+>           * to look at anything else but the passed-in mode, and validate it
+>           * against configuration-invariant hardware constraints. Any further
+>           * limits which depend upon the configuration can only be checked in
+>           * @mode_fixup or @atomic_check.
+> 
+> Additionally, I don't think it is correct to divide mode_clk by two. In
+> the end, the DPU processes the mode in a single pass, so the perf
+> constrains applies as is, without additional dividers.
 
+Sorry but this is not correct, the current check means nothing. If you
+enable 2 separate DSI outputs or enable then in bonded mode, the DPU
+processes it the same so the bonded doubled mode should be valid.
 
-Ok, I missed the focus on the 'contains' syntax earlier. will update it in the next version.
+The difference between separate or bonded DSI DPU-wise is only the
+synchronisation of vsyncs between interfaces.
 
+So this check against the max frequency means nothing and should be
+removed, but we should solely rely on the bandwidth calculation instead.
 
->>
->>>> +
->>>>    "^dsi@[0-9a-f]+$":
->>>>      type: object
->>>>      additionalProperties: true
->>>>
->>>> -- 
->>>> 2.34.1
->>>>
+Neil
+
+> 
+> 
+>> I'm trying to find a correct way to handle that, I have tried that:
+>> ===========================><========================================
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> index 48c3aef1cfc2..6aa5db1996e3 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> 
+
