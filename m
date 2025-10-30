@@ -2,145 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 675A3C21A7D
-	for <lists+freedreno@lfdr.de>; Thu, 30 Oct 2025 19:05:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55F06C21BFE
+	for <lists+freedreno@lfdr.de>; Thu, 30 Oct 2025 19:23:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38BFD10E31D;
-	Thu, 30 Oct 2025 18:05:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28CD010E96F;
+	Thu, 30 Oct 2025 18:23:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gx8gZ6Hq";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YBPQIY/L";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zeq3Ll3Q";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D429510E323
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 18:05:11 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 59UC7ULn2623035
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 18:05:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=hpNzVsUmvobA7lIT4TbTwiLz
- yOdc/tSke27DY7ldyFQ=; b=Gx8gZ6HqWOMBNy+5o5c1F/H1BM468lUL8C5s7jXF
- ddMnH/KTbqp4wovULa7lxwB/mo+gReXt79A1Me2YtHlMlFJWVAanAXOceF+xDmqD
- 8Sb2JHkATKruHEvU/8q1khpclepcXCE6OCpd6Oc/ZEWH07BEdOXA8QVureLjpPaw
- c+FStGuplxeRwgK7gkcwkhma8ma6/fqDq7gl5aTyI4pyab2NkFSGq4Tn8rxwAFWO
- QgWUNHRtJZaRTbXxuLoG1C9mvrR3BmP6hMWncO38YLXqnNSJ3saA95vs3BaVitoR
- gsd1a8HxOYpjvBcLUQPi578hS/xMRDP/wMlkoCdMJ/aDqQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a41fxj7sv-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 18:05:10 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4eba247f3efso27845641cf.1
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 11:05:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1761847510; x=1762452310;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=hpNzVsUmvobA7lIT4TbTwiLzyOdc/tSke27DY7ldyFQ=;
- b=YBPQIY/LZCku60UH+XCdEq7u4tvJ3fDsYM9jR+Z0TAknhQzduWAV9IBxC41hZZh4iY
- QXN7TT8/oathLITv4gFaiLXQRmjympKui+kZd0quChitu3Pfdm12y/CJ4SDBXWPcgoi3
- tAqzg+LdcMq+MultqidNEn8nb7lA/ssU4bNYOSaU7NeQ3tztDzXztvG2xXqjrg1dw7C/
- iPDtgPz9zRgPYG66DKUOpIq9wRnoNx06qBIL38XdLF+5md50oBmB61B735w66sgle927
- 9BiiwKCvCQYsP1p7jhtmbbKg1F/8V3QoXYrI968bT+NReORh5D40KojF38XMDMFH1vhT
- 4Q+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761847510; x=1762452310;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hpNzVsUmvobA7lIT4TbTwiLzyOdc/tSke27DY7ldyFQ=;
- b=m8Q2VH6V0qRuQWGzF52tSiXlgO8Mh7gqCJE4PIARDagaKqj+kDwktaEvxrLcYjDpMq
- +6uao58fYxlFRjJnVq168rjtwH2RBGzrfJLyvClci57wqAkA4aaKPQawGg0ncDI0rwvs
- +jQFZfrJD2XOvJbHl/BDdAVCHNJ6h/Du+LkNZPgVrQSxNz1dGxSSqyqmeSigYgtU3Phz
- PHgGb4A6AxxOhazm4nK7oI1EU490eOyxHY9dbG9yx4LLDOfNfxSs6wKiPUism3a3QcNG
- eiEEeQ3FN6nPHjuZsLZioT8FEoOX8orGrUb80hM5mhZ9UsyPJhtNaw1NFoGXnS0/PGtC
- s7VA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUMGqcPtfEExgc5J7kVh0poHpr7gaaUorI3zrFMulCIe+jOwgVvlL+04zTysW45MdMAkD6Dmn+CjZc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyp0+EJWeITGORJZ0XVCkbRDM3g7B68aUs4BioqIUrfp9IIDUQ5
- AAvY+yjQScNLEHl7mPlaPXRM4/WRfVbVM6ENxVGBrclTaVjnMYgNIIrt9NF7lhh+yIDm7FC7qEj
- ZpVwnVXNu+Ffy4go5ybOMZw8cFFqX/3hwaxtZ5G/iiIb1K6Cxd+zPa2WBbmBwNIYU42uB22o=
-X-Gm-Gg: ASbGncsCMvPfkwHnvG+qNZ7CqnANw3G54gDQkgMlW+yEN0N8pXzfaXTyk8vBj4eWU5b
- IbAHvVM1dck672hyYv9kwbGbfYlT3+HAdVgHr/ys0TIgXtOcu5g7+BKbkw/IpAwUC2wbUEjAnf3
- aMAXg6YruOzzdNxwROWdxMqosAfgAClC/7yGzrn4ZWUkC5xgXZjM2tIwb/mLH/GutVz+LHmXC/E
- E+MqPYT07V0nWRrftzHUI6jD7iYhp5P3s5qDH0mAp52wqLXUYMJcRAP0lYuUNWOY+HRvLGON9aI
- oWl3daxjM9cU30tTlarEFktq7SRn9O1ULBkwYAeeuwmz7sHhaXc4aKRyUnDwsSJ6bUlREzNMgPw
- 0xRRLsUzVCiIsckqV9+aRL6DzkodVJzLXZ1TWu8Oug2CvRzJGq0tbpEVskbx6hDSkwLVLshZpUx
- wKijEe9G/t020m
-X-Received: by 2002:a05:622a:1aa4:b0:4e8:9596:ee6d with SMTP id
- d75a77b69052e-4ed30e159f8mr7797381cf.9.1761847509921; 
- Thu, 30 Oct 2025 11:05:09 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IElDt9l0NR9/vDPiU5LTv+UBt4T29PKNjIh11r0yOe2hphXbziVzZPIVwEal2E9S0jpWwC89Q==
-X-Received: by 2002:a05:622a:1aa4:b0:4e8:9596:ee6d with SMTP id
- d75a77b69052e-4ed30e159f8mr7796561cf.9.1761847509253; 
- Thu, 30 Oct 2025 11:05:09 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59301f50a6fsm4714062e87.35.2025.10.30.11.05.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Oct 2025 11:05:08 -0700 (PDT)
-Date: Thu, 30 Oct 2025 20:05:06 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, abhinav.kumar@linux.dev, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, quic_mkrishn@quicinc.com, jonathan@marek.ca,
- quic_khsieh@quicinc.com, neil.armstrong@linaro.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEA7110E8BC;
+ Thu, 30 Oct 2025 18:23:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 95BAE41996;
+ Thu, 30 Oct 2025 18:23:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B814EC4CEF1;
+ Thu, 30 Oct 2025 18:23:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1761848626;
+ bh=UsFyb5LwLc+VPhhExCfcPzJaryjFY+bm+a2YZeSYVs8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Zeq3Ll3Qhj8fO2nXwKC0IlLvlsoJicbj4rr/bpl4NHhmMR49sXbKfQndSNLgY+v19
+ ph8ogI467aKXAZct7Q1ubvTmJZLsxyf8dbRdzE88nALb00Lgg/+ITBxMkyLPXcNFVw
+ cmq5R4VvOdqu2ZUYnpDHdG3s+iTOQqlGh/IdmHVOrR6QEJSUibx0e6jNq3YSEWa7uD
+ FozxFt2Up/9SwhLritwpKUKpifEb0htJWWSKrspYY+PzyOIcy3y4Letz/MJtJDVi1Y
+ AprFwePjXuhcTlivXL/z+8RypM43T46v6iR623vsjemku6EFaXiO1D8IPduap/rPrP
+ sj8niayBo1GlA==
+Date: Thu, 30 Oct 2025 13:26:54 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
- aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
-Subject: Re: [PATCH 08/12] arm64: defconfig: Enable NT37801 DSI panel driver
-Message-ID: <g5oia3ndlitxrquptsvalfesjujjtlfh7gvrao4vf7vqaqzxvo@5q3bwz7ubmrb>
-References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
- <20251023080609.1212-1-yuanjie.yang@oss.qualcomm.com>
- <20251023080609.1212-3-yuanjie.yang@oss.qualcomm.com>
- <wuh7agcgg6spghilnx4amqukaaydj25u7kbdiod7fl6pu2ulvm@pmosyuo43cyw>
- <aQF98RvLuOlJZlFi@yuanjiey.ap.qualcomm.com>
- <38c8e26c-08a4-42d9-8f6d-93969af90d50@kernel.org>
- <aQLOaI3ngjswi7kd@yuanjiey.ap.qualcomm.com>
- <7c1e0cb5-2483-4efa-be52-84cbe5d1a4b2@kernel.org>
- <aQMOz4P2/WyjXy1b@yuanjiey.ap.qualcomm.com>
+ linux-kernel@vger.kernel.org, 
+ fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
+ li.liu@oss.qualcomm.com, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v6 3/4] arm64: dts: qcom: Add DisplayPort and QMP USB3DP
+ PHY for SM6150
+Message-ID: <nopwvwal3el37fln4zmvg5n2ik5wq6k72tflktcl2r7dof5fmy@m4tglis55mt5>
+References: <20251024-add-displayport-support-to-qcs615-devicetree-v6-0-c4316975dd0e@oss.qualcomm.com>
+ <20251024-add-displayport-support-to-qcs615-devicetree-v6-3-c4316975dd0e@oss.qualcomm.com>
+ <xjes5h45y44cahs7avj4xngprwnks3alnf25tsbptyvckajz3q@lhawlg5vamls>
+ <da6eebe0-13ec-4168-aac1-2eef9db3bd13@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aQMOz4P2/WyjXy1b@yuanjiey.ap.qualcomm.com>
-X-Proofpoint-GUID: SRn_zJdApOc5IqjDqR9RcAAIzlZVeHuy
-X-Authority-Analysis: v=2.4 cv=UJrQ3Sfy c=1 sm=1 tr=0 ts=6903a8d6 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=59EQD5k8VZCOn1K0OjEA:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: SRn_zJdApOc5IqjDqR9RcAAIzlZVeHuy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMwMDE1MCBTYWx0ZWRfXxy/zO8TUe+gj
- UJFQxz3RXt3IeHUmE3TzCc5TvxxhqEOoKEJY0ggIFUhhslOzAI91FLf7l8W2aeNQk/dEyDDNwW+
- Glp3S3+ToS/NwVpmj6+lIES4x1eO13PiA8pflIpJ2AZGwHNOeoMdjsheC1Db0NgmH8u44yJkl5N
- FsgMwfWhoIJHpp/U1/jMgoZXHnEkIyvLnGlR0bB4HJUXlPZrlJ4Avyy0gJ3cvZSSh41UTKwBT27
- 2UpmlmJzEC+MPLBQDOnzTZTNS340i+L/DFpmRoczf51kWTAcc/VhVDE/XnaI53NKsT37fLOVKA0
- +aHG5Z1Aa4YvNWRU6qgb5vvWReLz8b6V/kJgp24zm1AwPGNXLVkgkTkhm+meuevomNbO7u6oI4/
- +r1fu5+KaXFcQqsjeFln/kYrgzGoMQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-10-30_06,2025-10-29_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 spamscore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2510300150
+In-Reply-To: <da6eebe0-13ec-4168-aac1-2eef9db3bd13@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,56 +76,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 30, 2025 at 03:07:59PM +0800, yuanjiey wrote:
-> On Thu, Oct 30, 2025 at 06:37:40AM +0100, Krzysztof Kozlowski wrote:
-> > On 30/10/2025 03:33, yuanjiey wrote:
-> > > On Wed, Oct 29, 2025 at 02:05:20PM +0100, Krzysztof Kozlowski wrote:
-> > >> On 29/10/2025 03:37, yuanjiey wrote:
-> > >>> On Mon, Oct 27, 2025 at 10:51:23PM -0500, Bjorn Andersson wrote:
-> > >>>> On Thu, Oct 23, 2025 at 04:06:05PM +0800, yuanjie yang wrote:
-> > >>>>> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > >>>>>
-> > >>>>> Build the NT37801 DSI panel driver as module.
-> > >>>>>
-> > >>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> > >>>>> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > >>>>
-> > >>>> You (Yuanjie) authored the patch, but forgot to sign-off, then Yongxing
-> > >>>> provided certificate of origin, then you provide certificate of origin
-> > >>>> and send it to list?
-> > >>>>
-> > >>>> Please correct.
-> > >>>
-> > >>> All the display patches were jointly developed by Yongxing and me.
-> > >>> So every patch 
-> > >>
-> > >>
-> > >> So two people were working on this absolutely trivial defconfig change?
-> > >> I have troubles believing this.
-> > > I want to say these patches I am first author and yongxing give me support, so
-> > > I think yongxing is second author.
-> > > 
-> > > I want to express my gratitude for Yongxing's support in every patch, so I included
-> > > both our names in the sign-off for each one.
-> > > 
-> > > However, if my intention causes any trouble for maintainer, I can remove Yongxing's
-> > > sign-off from this patch.
-> > 
-> > 
-> > Please read submitting patches to understand what Signed-off-by means.
-> > Otherwise I have doubts we can accept your patches - you simply do not
-> > understand what you are certifying.
-> Thanks for your tips, and I learn some tips from submitting patches: 
-> https://elixir.bootlin.com/linux/v6.18-rc3/source/Documentation/process/submitting-patches.rst#L524
+On Thu, Oct 30, 2025 at 03:21:09PM +0800, Xiangxu Yin wrote:
 > 
-> I thinks below sign should be true, if you also think it true, I will use it in next patches.
+> On 10/30/2025 1:32 AM, Bjorn Andersson wrote:
+> > On Fri, Oct 24, 2025 at 01:21:03PM +0800, Xiangxu Yin via B4 Relay wrote:
+> >> From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> >>
+> > Please fix the subject prefix and drop the "for SM6150" suffix.
+> >
+> > Regards,
+> > Bjorn
 > 
->  Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->  Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->  Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> 
+> Ok, due to sm6150.dtsi have renamed to talos.dtsi in newest version.
+> 
+> Will update to 'arm64: dts: qcom: talos: Add DisplayPort and QMP USB3DP PHY'
+> 
 
-Does one-liner need two engineers to co-develop it?
+I'd be happy with that, thank you.
 
--- 
-With best wishes
-Dmitry
+Regards,
+Bjorn
+
+> 
+> >> Introduce DisplayPort controller node and associated QMP USB3-DP PHY
+> >> for SM6150 SoC. Add data-lanes property to the DP endpoint and update
+> >> clock assignments for proper DP integration.
+> >>
+> >> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> >> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/sm6150.dtsi | 115 ++++++++++++++++++++++++++++++++++-
+> >>  1 file changed, 113 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/sm6150.dtsi b/arch/arm64/boot/dts/qcom/sm6150.dtsi
+> >> index 6128d8c48f9c0807ac488ddac3b2377678e8f8c3..9741f8d14c72ed7dd6a5e483c5c0d578662f1d31 100644
+> >> --- a/arch/arm64/boot/dts/qcom/sm6150.dtsi
+> >> +++ b/arch/arm64/boot/dts/qcom/sm6150.dtsi
+> >> @@ -14,6 +14,7 @@
+> >>  #include <dt-bindings/interconnect/qcom,icc.h>
+> >>  #include <dt-bindings/interconnect/qcom,qcs615-rpmh.h>
+> >>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+> >> +#include <dt-bindings/phy/phy-qcom-qmp.h>
+> >>  #include <dt-bindings/power/qcom-rpmpd.h>
+> >>  #include <dt-bindings/power/qcom,rpmhpd.h>
+> >>  #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+> >> @@ -3717,6 +3718,7 @@ port@0 {
+> >>  						reg = <0>;
+> >>  
+> >>  						dpu_intf0_out: endpoint {
+> >> +							remote-endpoint = <&mdss_dp0_in>;
+> >>  						};
+> >>  					};
+> >>  
+> >> @@ -3749,6 +3751,89 @@ opp-307200000 {
+> >>  				};
+> >>  			};
+> >>  
+> >> +			mdss_dp0: displayport-controller@ae90000 {
+> >> +				compatible = "qcom,sm6150-dp", "qcom,sm8150-dp", "qcom,sm8350-dp";
+> >> +
+> >> +				reg = <0x0 0x0ae90000 0x0 0x200>,
+> >> +				      <0x0 0x0ae90200 0x0 0x200>,
+> >> +				      <0x0 0x0ae90400 0x0 0x600>,
+> >> +				      <0x0 0x0ae90a00 0x0 0x600>,
+> >> +				      <0x0 0x0ae91000 0x0 0x600>;
+> >> +
+> >> +				interrupt-parent = <&mdss>;
+> >> +				interrupts = <12>;
+> >> +
+> >> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> >> +					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+> >> +					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+> >> +					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+> >> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
+> >> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK>;
+> >> +				clock-names = "core_iface",
+> >> +					      "core_aux",
+> >> +					      "ctrl_link",
+> >> +					      "ctrl_link_iface",
+> >> +					      "stream_pixel",
+> >> +					      "stream_1_pixel";
+> >> +
+> >> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+> >> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>,
+> >> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL1_CLK_SRC>;
+> >> +				assigned-clock-parents = <&usb_qmpphy_2 QMP_USB43DP_DP_LINK_CLK>,
+> >> +							 <&usb_qmpphy_2 QMP_USB43DP_DP_VCO_DIV_CLK>,
+> >> +							 <&usb_qmpphy_2 QMP_USB43DP_DP_VCO_DIV_CLK>;
+> >> +
+> >> +				phys = <&usb_qmpphy_2 QMP_USB43DP_DP_PHY>;
+> >> +				phy-names = "dp";
+> >> +
+> >> +				operating-points-v2 = <&dp_opp_table>;
+> >> +				power-domains = <&rpmhpd RPMHPD_CX>;
+> >> +
+> >> +				#sound-dai-cells = <0>;
+> >> +
+> >> +				status = "disabled";
+> >> +
+> >> +				ports {
+> >> +					#address-cells = <1>;
+> >> +					#size-cells = <0>;
+> >> +
+> >> +					port@0 {
+> >> +						reg = <0>;
+> >> +
+> >> +						mdss_dp0_in: endpoint {
+> >> +							remote-endpoint = <&dpu_intf0_out>;
+> >> +						};
+> >> +					};
+> >> +
+> >> +					port@1 {
+> >> +						reg = <1>;
+> >> +
+> >> +						mdss_dp0_out: endpoint {
+> >> +							data-lanes = <3 2 0 1>;
+> >> +						};
+> >> +					};
+> >> +				};
+> >> +
+> >> +				dp_opp_table: opp-table {
+> >> +					compatible = "operating-points-v2";
+> >> +
+> >> +					opp-160000000 {
+> >> +						opp-hz = /bits/ 64 <160000000>;
+> >> +						required-opps = <&rpmhpd_opp_low_svs>;
+> >> +					};
+> >> +
+> >> +					opp-270000000 {
+> >> +						opp-hz = /bits/ 64 <270000000>;
+> >> +						required-opps = <&rpmhpd_opp_svs>;
+> >> +					};
+> >> +
+> >> +					opp-540000000 {
+> >> +						opp-hz = /bits/ 64 <540000000>;
+> >> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> >> +					};
+> >> +				};
+> >> +			};
+> >> +
+> >>  			mdss_dsi0: dsi@ae94000 {
+> >>  				compatible = "qcom,sm6150-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+> >>  				reg = <0x0 0x0ae94000 0x0 0x400>;
+> >> @@ -3844,8 +3929,8 @@ dispcc: clock-controller@af00000 {
+> >>  				 <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
+> >>  				 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>,
+> >>  				 <0>,
+> >> -				 <0>,
+> >> -				 <0>;
+> >> +				 <&usb_qmpphy_2 QMP_USB43DP_DP_LINK_CLK>,
+> >> +				 <&usb_qmpphy_2 QMP_USB43DP_DP_VCO_DIV_CLK>;
+> >>  
+> >>  			#clock-cells = <1>;
+> >>  			#reset-cells = <1>;
+> >> @@ -4214,6 +4299,32 @@ usb_qmpphy: phy@88e6000 {
+> >>  			status = "disabled";
+> >>  		};
+> >>  
+> >> +		usb_qmpphy_2: phy@88e8000 {
+> >> +			compatible = "qcom,qcs615-qmp-usb3-dp-phy";
+> >> +			reg = <0x0 0x088e8000 0x0 0x2000>;
+> >> +
+> >> +			clocks = <&gcc GCC_USB2_SEC_PHY_AUX_CLK>,
+> >> +				 <&gcc GCC_USB3_SEC_CLKREF_CLK>,
+> >> +				 <&gcc GCC_AHB2PHY_WEST_CLK>,
+> >> +				 <&gcc GCC_USB2_SEC_PHY_PIPE_CLK>;
+> >> +			clock-names = "aux",
+> >> +				      "ref",
+> >> +				      "cfg_ahb",
+> >> +				      "pipe";
+> >> +
+> >> +			resets = <&gcc GCC_USB3PHY_PHY_SEC_BCR >,
+> >> +				 <&gcc GCC_USB3_DP_PHY_SEC_BCR>;
+> >> +			reset-names = "phy_phy",
+> >> +				      "dp_phy";
+> >> +
+> >> +			#clock-cells = <1>;
+> >> +			#phy-cells = <1>;
+> >> +
+> >> +			qcom,tcsr-reg = <&tcsr 0xbff0 0xb24c>;
+> >> +
+> >> +			status = "disabled";
+> >> +		};
+> >> +
+> >>  		usb_1: usb@a6f8800 {
+> >>  			compatible = "qcom,qcs615-dwc3", "qcom,dwc3";
+> >>  			reg = <0x0 0x0a6f8800 0x0 0x400>;
+> >>
+> >> -- 
+> >> 2.34.1
+> >>
+> >>
