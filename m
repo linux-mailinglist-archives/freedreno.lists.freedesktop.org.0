@@ -2,138 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C430C230F9
-	for <lists+freedreno@lfdr.de>; Fri, 31 Oct 2025 03:51:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 799BEC23D86
+	for <lists+freedreno@lfdr.de>; Fri, 31 Oct 2025 09:38:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21F7010E188;
-	Fri, 31 Oct 2025 02:51:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5778610EAC1;
+	Fri, 31 Oct 2025 08:38:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eveHNNsV";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dbgz7UaF";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XwNrq2NZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 279DE10EAAD
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:51:02 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 59UKeRHu3281442
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:51:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=DsJkS4Jj0YiOEfhK6rX+s7mE
- DdCGFC+Wm4+5HWL4rHQ=; b=eveHNNsVfcKDk2mAiXSreXJVEOwKUUuuY6Zts5Tr
- 5AESW65mOBYtL7nwuX53K71yGXaxATGqw94J3pUygtlsJHBtQs81RuBEqqXujSe5
- HaabpV7FW9xwhAFIua679dZMrJ33wNgs+vyLMF217YN3vM0pgUl7AMiW04OYP+i4
- AbiiIOFpB0+ukr/+mnEcD/OmcjcNfZvn252BCCMeo8q1PSXQR3sj79AWm0IW6O54
- H3dFQj8yPtcC5X6W2BOPbu8TynatIJn1AdVwX7w3PQikCgIrdyFHyXmmZnAub0C+
- m1udYkR6Upz9OHJhQyQsc8hczsbEEAZYtUYVZ9xekJXoDw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a468kjf03-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:51:01 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4ed240c3d93so14885741cf.2
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 19:51:00 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DEFF10E3AF
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 08:38:19 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-429b85c3880so1801448f8f.2
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 01:38:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1761879060; x=1762483860;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=DsJkS4Jj0YiOEfhK6rX+s7mEDdCGFC+Wm4+5HWL4rHQ=;
- b=Dbgz7UaFl1MbcqMdHEfZlUkpeRro04Z9g6c088qlEh55GIjtzelq3drLVkAiTFTxDb
- DxkrVMy/tuD4XIzXnKsJ0yXywuAyORy2Qkh1N1mo9mx9MRis8tbAbKgsCvMkaES7EzuR
- +wbJvjdDnBrwmiIfBf/9kEGolhe55E2Ui2i8ESW+flHMXV4QJdhlwOfrlSPMeDVy7+9H
- rLU6mH+fQ6iX184zjys+VxQgbpc8bgp0lAPUctpw+XlmvEqogBnuNS7qz8rSz78+n2+f
- LMqjvvmV5HNCTJ4kYddjW42a3Hao5fsYQjSS/bZcPHPlyIFgMmFI3YpdkgYZ1xghsAYx
- 7y8g==
+ d=linaro.org; s=google; t=1761899898; x=1762504698; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=f6lvlxZOeNShZGHSRhU6n7ci4eXoYPRCi1nv1xhCxuA=;
+ b=XwNrq2NZLuE6un+JbJJdzvVcwbqHCxIziSJsfUPz8m4jhRiQpiG2k6wpYX+Givvefa
+ UnPPn43cKazdYVBLIZWWVwyYRat9BUm8+NkklODd1DsndGi80Z19z0+UHOquuy1zNmXz
+ DTS0AjAfi9OhOMviRXluUOMT+k1umK0gu0tfKbaOmcE64Q171/k1kpuf6jlaiju62CDD
+ P7FtYqpXAkos1DkMrWzqYcXDVvcQH4SMpEMxMDe75swjzwpb0CFiUzK7ATBgEnICCgQR
+ 513xaIM87i/hnC2gwn91tArzIv1F83ikQjbIoqt0wyShD8CdKVcA5nZXM1k8BkL7YeBl
+ tDHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761879060; x=1762483860;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DsJkS4Jj0YiOEfhK6rX+s7mEDdCGFC+Wm4+5HWL4rHQ=;
- b=Zo6U4ILzcCP8+260mPx8idmibA24gRmEtAY9SZXlChJfaW6dd7rmx301m5jl+1wDy2
- GZB0YdAkykspsPnj6Kq19enqjl7dnRXw5/CtD5rAIVURFNKUQVKxWV4wNMl9W3eDq8ak
- vGLXSiqGzQMJbxVNofs2Cp6GEf6e6GGIc7qRxir2uRroeXRZdQa5SmYaaIwePtEjlCz9
- mvAJJdnddPYTAogNgTA8FwWPUWeUBP116SCy/ujaw6HYSo9HGQEZuKs9pTl9E0cQXdyM
- EL7sy4JlmRVw6+somgRTB62z98SI3bkNP6Npqio2sOfwWUZl0tagCcDxPXg1QR8bwZA/
- LdNA==
+ d=1e100.net; s=20230601; t=1761899898; x=1762504698;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=f6lvlxZOeNShZGHSRhU6n7ci4eXoYPRCi1nv1xhCxuA=;
+ b=G/BhQkuQ2VTAXM17Ad3HZOdVxTNE7qI93mqS5SuIW3IoiWjB/ZJ15Al6Wu6smnnRhL
+ uKwXQPzKcrhKhrQc4VPfJ3CPb/Hgx3ywkr9z53oV4Lx5BPUG7Hg3mgE58FAzvcPd7KM/
+ kFdG2d4p6Fbal4O2Pi7fBDtz+BVmwEuN2tAbi1q2A8n1TmynHY+WOoRWvTICnxwzHWvA
+ guKSL7/YwK6/3R4UzROmnb6KOrtJBaIp8Fo3COlBj5ocoi2JzfyVikdZrM/wavLR12Ii
+ Khz7wFo+APmqzuNRDVRNyCN80zpOR7AQLzAlZ3qMbyapHsFTbdAY5LU/+OkeX4HD/iw4
+ AyWw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV2fetBjUhlFL9DGPnuNeZiiUKtbG2cSjp1uHcD1GsA/qovictroun7ykFm8iqUEOygeC/0FjkIAn8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCyYWjJogpQ1B5KRP0tvf/SET0n+frt0ow5uxgRYs6poQqHbbK
- lBCOl1d59iaKiUDz9rrp1q97b7zwBRAYfupUVjnKciynu9s+6I1Vgyx6PIMjNKjgpGFvcTr59IT
- oEqbhbIxtnEQX4nbksbaClFrzuyrEHiT7yrJc4PRJX7CvvVO0YGbvVNo8Q13zDXVqz9769TA=
-X-Gm-Gg: ASbGncu8st7XmCJNLwgiahZLVOkF72IglNUNhtZx2/FFeTcy28gH38F0bYneTFNCDo6
- rfnAkqVlSzJINusFuiXa8F6PosPNIDGppEkXWW/aJFte4iLjOLDxFWs2xG5Mmre1qvq4EpzLaDU
- Zpue3i1vMR8OogaL6vk9pHMc8qUF45RxqL7Rjwjx4K7lM5KZh1YN0sB+JUIYUByxaAV0sxk4feQ
- XfRFIUZwNd4gOmWr/WYLpRHNapnogyxZQrMgG6fuWSQQgaxVCGzpqZiA7miNKfAnxcGxqlYh1GS
- MhatVMCsKDeWUHpJql2S1LckEd1J0qRIlHldF0+kHxivSxRZ+MULbAwDRy6FKs/Zm0YYk3BFO33
- Jtruf1bn7bzUQ0RF+UT4jCAL7SuxtVkt6kRShaok8c6Vx5tVimp0qN6EKCp+v
-X-Received: by 2002:a05:622a:250f:b0:4ec:f5cd:871e with SMTP id
- d75a77b69052e-4ed30d84c4dmr24792601cf.11.1761879060395; 
- Thu, 30 Oct 2025 19:51:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHXYqZxTVqoWzxiWk3B/+KdG7WVS4s1P0rx3pIBR/sRe6vbtf2x7h6Rv+eqmkdkShyGqNrA6g==
-X-Received: by 2002:a05:622a:250f:b0:4ec:f5cd:871e with SMTP id
- d75a77b69052e-4ed30d84c4dmr24792241cf.11.1761879059921; 
- Thu, 30 Oct 2025 19:50:59 -0700 (PDT)
-Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
- [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8803606f2besm3522226d6.23.2025.10.30.19.50.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Oct 2025 19:50:59 -0700 (PDT)
-Date: Fri, 31 Oct 2025 10:50:47 +0800
-From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, quic_mkrishn@quicinc.com, jonathan@marek.ca,
- quic_khsieh@quicinc.com, neil.armstrong@linaro.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
- aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
-Subject: Re: [PATCH 03/12] drm/msm/dpu: Compatible with Kaanapali interrupt
- register
-Message-ID: <aQQkB6Ma2z3c6iyh@yuanjiey.ap.qualcomm.com>
-References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
- <20251023075401.1148-4-yuanjie.yang@oss.qualcomm.com>
- <nfekr4vi34ftxzyyf5xv4tsb5cr3tokiyfkerypqjf26dos3uq@42wcn6ji7nnb>
- <aPrre+WXogSZIE7L@yuanjiey.ap.qualcomm.com>
- <st53uwtdow2rl6bvmfitro2dmodxtzfnhyzon4xeeetkkwekxh@ewlzkelq25wm>
- <aQGAvLFkH80Id3p3@yuanjiey.ap.qualcomm.com>
- <br3aukcmx3p2mtowqglcuf77s5xfnfv3eisjexabxhjzigkjno@wk7sqptjn43a>
+ AJvYcCUPsj874th2IS42hOrW8FLU9lMUHsJXS9kx/kXDFdJFWPdZY5wjf5+zit2SuIc9L5x50KEAEHxf5Lg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxtnt8KjhzdkyBbAU5xQXBWr6cN14cZf9dnuT8G7Ezratv4oJsj
+ 2Sg2kpRYjM0hIleCbXoTSfbGkmF2R4jbKx1pFnugV8S6WBaork4LixzduMtNMjCzqe8=
+X-Gm-Gg: ASbGnctCd3E2R0H1rmLvTIieO4quJcU9HD+DZgYJKdYXSmYVubsCwLJnh/u7oAgjs3M
+ WJQ/xrs4ZXr2Chz2nAzycwlEi3DMsWB8FKQgzYk9JUBDUICR4Gr/fZfQSNWZ9UH8lnARM+ELCLA
+ hYVA1guuB/BeKuyqXv7t54Ub63GhKz1AZdPYthbkcgkwi+YV4wvecvWPaWDMOQsa82kRValwHZd
+ eRGFb18uRdOsInLkGVRgnmNaQyXS9Dssx2G8OFXIKLllFO13Y5AqDdyxshIDTKYVl9WpThMxebB
+ RFMS53/AmcliWq5GhPQxTkJ2X24pMM3ffI3djJf7gM7grolpTJZNbWolDMEOOq17TtXPP1vLqPB
+ Jam2eLlbmQ4MUsHHPLxqXlCRQLGX3aQMYU9JDgrNlYi/r1G8e5SL8SYBJnM3XK4e5GfynGL9Ipk
+ iXnEtRzU9S1ePU+VNFmJ5hKZMDam3nZ7Z92ou3qsbA+nP6DgtsWWZfVQjT2/J8LYs=
+X-Google-Smtp-Source: AGHT+IErXLg/QmSgzOAE18wcz9HH6P7fSPY03Id1jjTfataBPrbX11spvWK9xxIDtFbQtBn/mPn0cA==
+X-Received: by 2002:a05:6000:2489:b0:429:b751:7929 with SMTP id
+ ffacd0b85a97d-429bd6ae1f4mr2336595f8f.45.1761899897805; 
+ Fri, 31 Oct 2025 01:38:17 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:cad:2140:d967:2bcf:d2d0:b324?
+ ([2a01:e0a:cad:2140:d967:2bcf:d2d0:b324])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429c13edc36sm2278703f8f.37.2025.10.31.01.38.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 31 Oct 2025 01:38:17 -0700 (PDT)
+Message-ID: <f5041496-ee83-479a-995f-79b6952bcafe@linaro.org>
+Date: Fri, 31 Oct 2025 09:38:15 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <br3aukcmx3p2mtowqglcuf77s5xfnfv3eisjexabxhjzigkjno@wk7sqptjn43a>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMxMDAyMyBTYWx0ZWRfX/q+Pt+kUTpSH
- 8d9JxKMsMDxviKWysMT7pC4pxbUHXMPGBpdMxcLuxMi+pT5VGA2wnhONrWAU0Edr4fcBaHVRtkq
- MGme/RFiuMTSZYqhBsVD+AqQ+phoApA0OoRnczVfZ439Fj7clwLlzN/9c8V3r+2BQijX4UDIJr0
- 7hEnop5HUIVCbo5Al6RF42yfk10fztYWS20xCmI5ukLWc0hARc/FoIBa9FxgyGZo58f6u24eoQf
- jkqHawQJetsCAjayjC7+VrvFvAspiEQ6+TBnjm9If/qiSYxE9Gp3kF22M6zJ6GbDUWkgC4aNC84
- pQU4ubDepWBtzWOEoABe13xmLEZEROE4CyK+/mIe8eg/cG3ExRvGL1bvd7kjiTKzAlATLOPMHh+
- p5A3nKDPf59cJWJc22snM4U9/JkWQg==
-X-Proofpoint-ORIG-GUID: e-jUOVFO9CI35LcCEqTozYbkI3asgDe8
-X-Authority-Analysis: v=2.4 cv=LoWfC3dc c=1 sm=1 tr=0 ts=69042415 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=kj9zAlcOel0A:10 a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=9FCQf4pbOLePcO8AN0IA:9
- a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: e-jUOVFO9CI35LcCEqTozYbkI3asgDe8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-10-30_08,2025-10-29_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 adultscore=0 impostorscore=0 malwarescore=0
- phishscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2510310023
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH RFC RFT] drm/msm: adreno: attach the GMU device to a driver
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
+ <c8058713-b126-461b-8ae6-19c4574a8105@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <c8058713-b126-461b-8ae6-19c4574a8105@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,48 +123,126 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 30, 2025 at 08:02:13PM +0200, Dmitry Baryshkov wrote:
-> On Wed, Oct 29, 2025 at 10:49:32AM +0800, yuanjiey wrote:
-> > On Mon, Oct 27, 2025 at 03:21:33PM +0200, Dmitry Baryshkov wrote:
-> > > On Fri, Oct 24, 2025 at 10:59:07AM +0800, yuanjiey wrote:
-> > > > On Thu, Oct 23, 2025 at 02:59:12PM +0300, Dmitry Baryshkov wrote:
-> > > > > On Thu, Oct 23, 2025 at 03:53:52PM +0800, yuanjie yang wrote:
-> > > > > > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > > > > > 
-> > > > > > DPU version 13 introduces changes to the interrupt register
-> > > > > > layout. Update the driver to support these modifications for
-> > > > > > proper interrupt handling.
-> > > > > 
-> > > > > So... Previous patch enabled support for the platform and it has been
-> > > > > using wrong registers for interrupts? I think that's broken.
-> > > > 
-> > > > I want to express DPU 13 has different INTF register address, so need to add new
-> > > > interrupt array to let DPU 13 interrupt work fine. Maybe I should optimize my commit msg.
-> > > 
-> > > Make sure that patches are structured logically. You can not enable
-> > > support for the hardware if the interrupts are not (yet) handled.
-> > 
-> > Kaanapali Dpu interrupts: 
-> > INTR_IDX_VSYNC,
-> > INTR_IDX_PINGPONG,
-> > INTR_IDX_UNDERRUN,
-> > INTR_IDX_CTL_START,
-> > INTR_IDX_RDPTR,
-> > INTR_IDX_WB_DONE,
-> > 
-> > are handled by irq handler, so here enable dpu_intr_set_13xx. 
-> 
-> You have enabled DPU 13 in the previous commit. And only now you are
-> adding support for interrupt registers on DPU 13.x. No, that's not good.
+Hi,
 
-OK, I think I should merge this patch into the DPU 13 enablement patch. 
+On 10/30/25 22:29, Akhil P Oommen wrote:
+> On 10/22/2025 6:14 PM, Neil Armstrong wrote:
+>> Due to the sync_state is enabled by default in pmdomain & CCF since v6.17,
+>> the GCC and GPUCC sync_state would stay pending, leaving the resources in
+>> full performance:
+>> gcc-x1e80100 100000.clock-controller: sync_state() pending due to 3d6a000.gmu
+>> gpucc-x1e80100 3d90000.clock-controller: sync_state() pending due to 3d6a000.gmu
+>>
+>> In order to fix this state and allow the GMU to be properly
+>> probed, let's add a proper driver for the GMU and add it to
+>> the MSM driver components.
+>>
+>> Only the proper GMU has been tested since I don't have
+>> access to hardware with a GMU wrapper.
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 354 ++++++++++++++---------------
+>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |   6 -
+>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |   3 -
+>>   drivers/gpu/drm/msm/adreno/adreno_device.c |   4 +
+>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |   4 +
+>>   drivers/gpu/drm/msm/msm_drv.c              |  16 +-
+>>   6 files changed, 192 insertions(+), 195 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> index fc62fef2fed8..6e7c3e627509 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> @@ -1859,11 +1859,14 @@ void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu)
+>>   	pm_runtime_put(&gpu->pdev->dev);
+>>   }
+>>   
+>> -void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
+>> +static void a6xx_gmu_unbind(struct device *dev, struct device *master, void *data)
+>>   {
+> 
+> I feel we should keep gmu and gmu_wrapper implementations separate. It
+> is already overloaded. How about adding a separate gmu_wrapper_bind_ops
+> and keep it in the match data?
+
+Good idea, will try something like that.
+
+> 
+>> -	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+>> +	struct platform_device *pdev = to_platform_device(dev);
+>> +	struct msm_drm_private *priv = dev_get_drvdata(master);
+>> +	struct msm_gpu *gpu = priv->gpu;
+> 
+> << snip >>
+> 
+>>   static inline uint32_t get_wptr(struct msm_ringbuffer *ring)
+>>   {
+>> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+>> index 7e977fec4100..0618da7e8b40 100644
+>> --- a/drivers/gpu/drm/msm/msm_drv.c
+>> +++ b/drivers/gpu/drm/msm/msm_drv.c
+>> @@ -998,18 +998,30 @@ static const struct of_device_id msm_gpu_match[] = {
+>>   	{ },
+>>   };
+>>   
+>> +static const struct of_device_id msm_gmu_match[] = {
+>> +	{ .compatible = "qcom,adreno-gmu" },
+>> +	{ .compatible = "qcom,adreno-gmu-wrapper" },
+>> +	{ },
+>> +};
+>> +
+>>   static int add_gpu_components(struct device *dev,
+>>   			      struct component_match **matchptr)
+>>   {
+>> -	struct device_node *np;
+>> +	struct device_node *np, *gmu;
+>>   
+>>   	np = of_find_matching_node(NULL, msm_gpu_match);
+>>   	if (!np)
+>>   		return 0;
+>>   
+>> -	if (of_device_is_available(np) && adreno_has_gpu(np))
+>> +	if (of_device_is_available(np) && adreno_has_gpu(np)) {
+>>   		drm_of_component_match_add(dev, matchptr, component_compare_of, np);
+>>   
+>> +		gmu = of_find_matching_node(NULL, msm_gmu_match);
+> 
+> Instead of this, we can probably use the gmu phandle from "qcom,gmu"
+> property? That is quicker and also doesn't assume that there is only a
+> single GPU.
+
+Ack you're right, let's do this since we have the GPU node already.
+
+> 
+>> +		if (of_device_is_available(gmu))
+>> +			drm_of_component_match_add(dev, matchptr, component_compare_of, gmu);
+>> +		of_node_put(gmu);
+> I think you missed the recently added headless support. Please check
+> separate_gpu_kms modparam and msm_gpu_probe().
+
+I saw it but seems I probably forgot the check if it's still functional,
+will double check.
 
 Thanks,
-Yuanjie
- 
-> -- 
-> With best wishes
-> Dmitry
+Neil
+
+> 
+> -Akhil
+> 
+>> +	}
+>> +
+>>   	of_node_put(np);
+>>   
+>>   	return 0;
+>>
+>> ---
+>> base-commit: 211ddde0823f1442e4ad052a2f30f050145ccada
+>> change-id: 20251022-topic-adreno-attach-gmu-to-driver-e47025fd7ebb
+>>
+>> Best regards,
+
