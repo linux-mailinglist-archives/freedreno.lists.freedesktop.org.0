@@ -2,98 +2,100 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C28C5C266A4
-	for <lists+freedreno@lfdr.de>; Fri, 31 Oct 2025 18:41:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CBBEC2670A
+	for <lists+freedreno@lfdr.de>; Fri, 31 Oct 2025 18:44:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 905B110EBFD;
-	Fri, 31 Oct 2025 17:41:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC63310EC02;
+	Fri, 31 Oct 2025 17:44:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jgb4u2wQ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CezIoV90";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KQvCDgXx";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PrnAT1sw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C52810EBFC
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 17:41:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 701E710EC01
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 17:44:57 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 59VDHkMR1826683
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 17:41:43 GMT
+ 59VDDrfV1827335
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 17:44:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=VxcmZzcynSgst4RcXe7R2leI
- 1xanu1Y8+qSXxwbZpnA=; b=jgb4u2wQ8qyrzhZlz/p0Whn7KbNJZ2jPrbs6xJ/o
- jC7R0EPPBt0oSIUyHgA04gxpa+pi8dl37ipTdu/WjhQnI4v50fF46S1xrZYkaI0w
- yk3k4kGGC/lBOr3sDj0UIX/kzlMchuEizmx5NujP+lXtvOAjV5JVnHYNN8KVZXP2
- HRpbDwhZABWIN9nuK9jge1XDZy6gX5/lbBq2F+iJsVp90MFxfCD+2bHNiim/SBxp
- 9j0AQ3FG2ZK9ZlGsQOzjMvwWQe29eCncCShGuvtjatL7VVH55jOVxSPlVw+XV3/N
- 9ZlzQtSgpkU8ZGfn5ZJHf+rdbuZjyQH8xx681LYXuG6djQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a4p11t4cj-1
+ :references:subject:to; s=qcppdkim1; bh=vvHKLumKKaVNpfG3W6t6aYP4
+ CbJ/5LJdAfa5MGOu8/4=; b=KQvCDgXxzqVclXNmB/ngqm50Mk7X6iKbKzWhNvSZ
+ 3UOCW9qdgrNnEhPbnfM8eiYiRoHX03qLmUAIo1ISyAVsf/690rZHRCi212QFmYoC
+ MxwhMx99YqoMX4x6p0oi5H0zFOziho/1iXldgNH5SYdvwKq9ArNlY8vkFBMgCGH9
+ t34Kbv/jT5VjbaWOinGglah/q5jqQYRwHShskdT4mhcytUeOu0E4/5eKkbBWStil
+ +Zp2V8ITUy1QEUpi7Le4mhpRqu8dnw4c8VOuus9SW18opppNxMnwLGbfy2aWlp7S
+ 7zPJDOaOJ4agF8YSsEARJozB5mkk2aqGY3U/7ZV/q0K15Q==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a4p11t4na-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 17:41:42 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4ecf1b7686cso95738011cf.0
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 10:41:42 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 17:44:56 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4eba1cea10dso86532711cf.1
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 10:44:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1761932502; x=1762537302;
+ d=oss.qualcomm.com; s=google; t=1761932696; x=1762537496;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=VxcmZzcynSgst4RcXe7R2leI1xanu1Y8+qSXxwbZpnA=;
- b=CezIoV902JRczUK82j4gLXNC1EaVfZ1y6hDSHIa7n0ID3W6+0eEZdmQhCkIC5Vo81n
- jngr/HYjagvdDNdQP0Lht8GZDigePrtWwd6+gY4Tqm+YKX/0b3YlUsUVSzAWQ6KEFIvN
- itYNId1ApYvIu+OQZIY1IqXWbZdjwp4mUd3f4nOZ+2LzKt6KlIoNrp2F7hEKoD6oOKNE
- J7UzddX7Bp7EBGDWOQ/JWtndSVG1ewNngARhuxAGuwd2kMUdGdKHXpSV3Nc4QuOBlqvf
- +qMVCo0Pw1mePG+5l2pBMjlGoYInJgTAQCzKIU4oe0T22eG0Zomj4vfkBJGCwd+PBQNG
- T2yA==
+ bh=vvHKLumKKaVNpfG3W6t6aYP4CbJ/5LJdAfa5MGOu8/4=;
+ b=PrnAT1sw/kZn5qObwWSkA/kjiMdtQVEJ41dVaNCutGdjv8ubZwR5NUy4fTlGPIcKuV
+ 0ADNzxv39fm7e0ziIfRffJnmN15BR0pVbDNO3UWFDv2NlGSfpVemF0zqsGJSTnUvM38I
+ yACSTnAjv8EzUlbfUq8g6/HnMh17tDhBEaCR0qOIsKcY/kCoTRxcjZePDQgsuXr11XSc
+ UzDEZFD7+Ye8n/MCYe08ttzBlYfXt+qyS7NPlJhPrfawV2wRDht57O8ypevpfdH63qsn
+ 870i+qxNpB5hVd+CojsvTF5M45RnwhhXf9Wt8m2F8VUqLW2hkLsBNa8alObtIJi09Rdt
+ 4SBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761932502; x=1762537302;
+ d=1e100.net; s=20230601; t=1761932696; x=1762537496;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VxcmZzcynSgst4RcXe7R2leI1xanu1Y8+qSXxwbZpnA=;
- b=Ji0pzr8TlBB5EnUYMCt5KD14ZALESdMklHGRc62HzkRKv3IQcJuPXFIeFDQEdEm6qV
- J0i/h/GXR9zFSJKEd7TzPV/Sp53/cHKYVbV0pDojP2nUpxjmm62wWSXzE0ReRwSSr77m
- hjVXOgo7DwSb1VMcsof4kaa/MOdASh8s2xRJ7aT3CSKEwzhiCzvFqjx8JxnvQktUsI4D
- 729vhjDINGqeeAhp9UGyq0d134N/syFKhBRuGgFsVu7Ffp5viuJwbEsdZykgss/ADWr9
- 7L58DdDSJV2vvhPQPA0gQ9VVcBanEMoecwoa6R7gRj3YjKie1SzQd7LSXk6mqmS67xfB
- jjWw==
+ bh=vvHKLumKKaVNpfG3W6t6aYP4CbJ/5LJdAfa5MGOu8/4=;
+ b=JiGldcvxzsLuI1sMz269SOmjAq+u/cEAODAx67LxwYikXJIRPVnOmcCDQoZmB96ZYb
+ 2CZRqDwgyg6L3uVZqJ5FMlc+qO8z6VUJwQZBqh5WQASnt9Dd8ehzjLtWuiovl7BFLtmu
+ V+RnX84+rfZdXvPGb/q8IHuNEZitLtkiFFTO/E0lJxq+e0yqZIt0dmDh/QWnsLICfYfu
+ Dx0dC/lIRYxA2wI2vhQVk70HOW9lPihxSyv8F7dNyshMdFN74HFftY5+a7HylQOOXCxT
+ GMWXFVGGSbVoYqqqrvlruiTFFMa6/qnyQQ3kisZ266SSbRBHmyqvWyW5qgVTg0f6bMwv
+ PMww==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURxluxM/dxelhi9ZRR1+x85tzM52av9g5KtGtoamN6homW+5+PdPAxPQea1Xd55+M7K4SIvnHspCo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzpO+XAI+W4eb7jRwaD3iV7A90mLxvPa1VmVacpzwm+/+E8xa0f
- C9YkZT/QtcJtlBF5X6YAmvMeIr3YRVGLcI7vEr/FiBz6bZLvT8129D2hjHuqwgNIGduCoaVzelC
- D7F7emwiGv7mCHWFx0aP/vQHD/CjSGNDaQBobrKyJ6MFrJqBK8IRVjOXpiI0rUQsNMDIAO+4=
-X-Gm-Gg: ASbGnctWx5zDfDPJ4zQSrJmTVjTFAMkgkfUgMpWjFpJKnX0Mq5TX+afQmco5+bfMZmU
- F57tYvvwbfKh/8pj1ArClezbTANC8Ba/z+7RVoo5zA5wih7wxCXInSCeBH/sKDnf5vBMagSXr9Q
- Qd+Ol53uWf2ccmfvJbz5cQlbIxUe+0zirFTGC6AAEMDzphMSy5r0JsMxfO6sb1Pb/qDOrlQUYe2
- t+CpEdt5JABXtlvjGXhkR2aJUZM1FQcC//q0z8PkRk9Q9IOUT+Nt8q2kUH+xQ/N1CXJ4f1gRDBR
- 3H9co2b11eeTk6uFqUEED12R0+GOLMsxzEN97Ex2nFCWVvGzhgiie94wbvkzBS0TK7Em+Fd23/y
- 2RLR9A43hn2e6t93TlU/eBNSgZuO0fSDTLZcor+VAVeyus3paHHpvAdo/5ZFJPP3BHkzUzym398
- WjHPs+9B38SXlM
-X-Received: by 2002:a05:622a:d17:b0:4ed:21d8:2cb5 with SMTP id
- d75a77b69052e-4ed21d82e33mr87278711cf.0.1761932502259; 
- Fri, 31 Oct 2025 10:41:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF52XCb5YnBlyr6nx3UabwoWlqzwYIQndJlneAcj5eO+eZNaiaeosWcRCR9H5Jmo/0rPR9lpA==
-X-Received: by 2002:a05:622a:d17:b0:4ed:21d8:2cb5 with SMTP id
- d75a77b69052e-4ed21d82e33mr87278221cf.0.1761932501724; 
- Fri, 31 Oct 2025 10:41:41 -0700 (PDT)
+ AJvYcCVhVna1XELvvbQJgmD4burLv2EGwdmXvaeNV83z3NhvTZ+90vqEMNnH/gRQf1XE/Uz2Xs5YBIBHqL4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+aOvbMT64tlI2zfwuyfZTTsVp/PGbEXKugdRN/hlYUg3aGggf
+ PNN4CJVqebSlfqSTeBHeGwxGBLJM+OZCSTrq0IN/Oo8ynhlK5mmGInbc3sO/WTm6ruBoZ2YT+AN
+ 5CBLatsI3ax5+V65eIxAHuCuJicxb6GppcLrHaJ8Ct0kqg73m7Yz7kVJJ3xXGSaq2GWusH3I=
+X-Gm-Gg: ASbGncvv2Q4V4BpE0CKOWtxpC3ZqKPzwWBpF6BqbxXtGx2dU2DnaNQEmBHhBrbnIjLL
+ asU6wKNKEJYwZK0R9GuAzNzdxbeKjQS3UAxmAT58V1DcOnd3GXVRIETGc9XJG/ujDnJiaSUwlhg
+ iufie+gyCYT2UEn44Tm4j+BJGfhhvyQ5IWg6HhL1Q0aJt27CAlr+jaE256GVkbWwtXQFBZ/0BgW
+ X+0a5Ht0XoBw2QkjvveZgIkhIXTMD6q+XCslxTn0Lnc2siL8+V2Hd0VHpHhUx2MMPFmrtP2Ab5B
+ pMmFLqQn6ZdFqPFbG3umHQqJ+86+fUSBpwC/M+V1Jc26l2OulYwx6+T2FM6tYr1LR/pqUsKBqdI
+ XKxyaF36MuycRN1OlkyNNdln7suu9L2FoNq3HxsRMMOeQSv8wV1CxKBDxzRNubBEhbBI7pGyEt0
+ saXp8n5OJZWFq2
+X-Received: by 2002:a05:622a:1aa4:b0:4ec:f4be:cd9e with SMTP id
+ d75a77b69052e-4ed3109b8f2mr50682751cf.73.1761932695712; 
+ Fri, 31 Oct 2025 10:44:55 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG9bEHzE8FUhJ91Y/44yaTELcPDElgy8o9JtMJnkidFrR8S2ct4TEYiKDSKIhS6PFHQgLRXEQ==
+X-Received: by 2002:a05:622a:1aa4:b0:4ec:f4be:cd9e with SMTP id
+ d75a77b69052e-4ed3109b8f2mr50682271cf.73.1761932695194; 
+ Fri, 31 Oct 2025 10:44:55 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5941f39d162sm633076e87.37.2025.10.31.10.41.39
+ 2adb3069b0e04-5941f5b5cc4sm639106e87.72.2025.10.31.10.44.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Oct 2025 10:41:39 -0700 (PDT)
-Date: Fri, 31 Oct 2025 19:41:37 +0200
+ Fri, 31 Oct 2025 10:44:54 -0700 (PDT)
+Date: Fri, 31 Oct 2025 19:44:52 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, abhinav.kumar@linux.dev, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
  conor+dt@kernel.org, quic_mkrishn@quicinc.com, jonathan@marek.ca,
  quic_khsieh@quicinc.com, neil.armstrong@linaro.org,
@@ -101,38 +103,39 @@ Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
  aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
-Subject: Re: [PATCH 03/12] drm/msm/dpu: Compatible with Kaanapali interrupt
- register
-Message-ID: <s3j6zlsoy5jdv5cj2x6bndtaxkdhiqam2rzwl4uxqlys3ojkjo@yvoktj7x5mok>
-References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
- <20251023075401.1148-4-yuanjie.yang@oss.qualcomm.com>
- <nfekr4vi34ftxzyyf5xv4tsb5cr3tokiyfkerypqjf26dos3uq@42wcn6ji7nnb>
- <aPrre+WXogSZIE7L@yuanjiey.ap.qualcomm.com>
- <st53uwtdow2rl6bvmfitro2dmodxtzfnhyzon4xeeetkkwekxh@ewlzkelq25wm>
- <aQGAvLFkH80Id3p3@yuanjiey.ap.qualcomm.com>
- <br3aukcmx3p2mtowqglcuf77s5xfnfv3eisjexabxhjzigkjno@wk7sqptjn43a>
- <aQQkB6Ma2z3c6iyh@yuanjiey.ap.qualcomm.com>
+Subject: Re: [PATCH 08/12] arm64: defconfig: Enable NT37801 DSI panel driver
+Message-ID: <epz7tibi4kduo6agfirr4fe477dakdccwob4xq2nz6qkjqakr6@jmweqjka4xgd>
+References: <20251023080609.1212-1-yuanjie.yang@oss.qualcomm.com>
+ <20251023080609.1212-3-yuanjie.yang@oss.qualcomm.com>
+ <wuh7agcgg6spghilnx4amqukaaydj25u7kbdiod7fl6pu2ulvm@pmosyuo43cyw>
+ <aQF98RvLuOlJZlFi@yuanjiey.ap.qualcomm.com>
+ <38c8e26c-08a4-42d9-8f6d-93969af90d50@kernel.org>
+ <aQLOaI3ngjswi7kd@yuanjiey.ap.qualcomm.com>
+ <7c1e0cb5-2483-4efa-be52-84cbe5d1a4b2@kernel.org>
+ <aQMOz4P2/WyjXy1b@yuanjiey.ap.qualcomm.com>
+ <4e444fd3-b079-4e0c-9449-1c119e1d710a@kernel.org>
+ <aQQevC/Jd76rTNSU@yuanjiey.ap.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aQQkB6Ma2z3c6iyh@yuanjiey.ap.qualcomm.com>
-X-Proofpoint-ORIG-GUID: XQWhEXQF2kQ1Dg9BkMwecPzocdzJjeZY
-X-Authority-Analysis: v=2.4 cv=RbCdyltv c=1 sm=1 tr=0 ts=6904f4d6 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <aQQevC/Jd76rTNSU@yuanjiey.ap.qualcomm.com>
+X-Proofpoint-ORIG-GUID: NWu4lOD73T0mhOMCMQaYtLfjul40UFHP
+X-Authority-Analysis: v=2.4 cv=RbCdyltv c=1 sm=1 tr=0 ts=6904f598 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=chW72Tx8-oYo0CBprPIA:9 a=CjuIK1q_8ugA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: XQWhEXQF2kQ1Dg9BkMwecPzocdzJjeZY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMxMDE1OCBTYWx0ZWRfXwMag58jqfXnv
- 3UxJ0MUx4uHqENDtBdau40v3k/BZo3V5mMhJcQy5nGm61q018m4HJfRahMz467h/iSjKr++6Gmo
- 8SVTNihfs4F4D0o1AYT0ErLvGXYcV+jPLGRuGri4FH9LiflsBlSMJLKBU635NDi1DBPP5x3wr79
- sU5Pv00WhfJulDZwNs4hGQ4xJK2jsh2xXiZKCfqMGEB7zNP0C9pwbQV1zjrMXXtTxGCA2rN7Ufn
- uSwbKxm4mMJOGFeUwTsa1fKXCGtXkmYVahn8yXsmVsRSWC8Fx6vacDKaEm4J4jRSSREDcrU739d
- Dp9wzNNeRNQfsv7uY+RvkSSdPx5RnM/1DIodkNqgtnDuwe+dqcLnn/ZjRqKo0H7QXCCRsvu2sXk
- MO5wZUsXy60katnr3DvpDEz4MQLhwA==
+ a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=SA9wRs256TnAP9KdDBoA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-GUID: NWu4lOD73T0mhOMCMQaYtLfjul40UFHP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMxMDE1OCBTYWx0ZWRfX+X5tDV/jbO3Y
+ +ud3ji8CN9Uwy6Lp7UDjXb2uaaTRodslzbSVd9TAouKdz/VQ6bm3pONduWMrViTGK1Kn2Ax+f2I
+ Sdc9CUHhbQz3NeRpbKts5Ap33Nr702+T5SdcgfIJNEyfXi7KRTRMREm6sjSusZCfZlAM8Fu5qyL
+ 69MeKqf3kvwZ3yTdBoV2jGXRBf6Rgg4Tp+PLSqNe8i9LYKZAn07Modp1ArIvd+1BFt1MTLExg4n
+ ARJaGKQ7QRSDAARSDF+PPRhBEiY25XCaaTnrmVkAoCgAcNnvKgNhPhw3Qxe0xKlzJ4zL9szL9vG
+ m2U1icfkixqQ2arx0/QsV/n77Rm0rpSpNDBKqXuyFDUKT6P6X462N//jH+l8jwSRvxlFgtrjqsn
+ zDVGGOP89zdkd8wXIjLUUP0cBnvuWw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-10-31_05,2025-10-29_03,2025-10-01_01
+ definitions=2025-10-31_06,2025-10-29_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
  adultscore=0 bulkscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
@@ -153,53 +156,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 31, 2025 at 10:50:47AM +0800, yuanjiey wrote:
-> On Thu, Oct 30, 2025 at 08:02:13PM +0200, Dmitry Baryshkov wrote:
-> > On Wed, Oct 29, 2025 at 10:49:32AM +0800, yuanjiey wrote:
-> > > On Mon, Oct 27, 2025 at 03:21:33PM +0200, Dmitry Baryshkov wrote:
-> > > > On Fri, Oct 24, 2025 at 10:59:07AM +0800, yuanjiey wrote:
-> > > > > On Thu, Oct 23, 2025 at 02:59:12PM +0300, Dmitry Baryshkov wrote:
-> > > > > > On Thu, Oct 23, 2025 at 03:53:52PM +0800, yuanjie yang wrote:
-> > > > > > > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > > > > > > 
-> > > > > > > DPU version 13 introduces changes to the interrupt register
-> > > > > > > layout. Update the driver to support these modifications for
-> > > > > > > proper interrupt handling.
-> > > > > > 
-> > > > > > So... Previous patch enabled support for the platform and it has been
-> > > > > > using wrong registers for interrupts? I think that's broken.
-> > > > > 
-> > > > > I want to express DPU 13 has different INTF register address, so need to add new
-> > > > > interrupt array to let DPU 13 interrupt work fine. Maybe I should optimize my commit msg.
-> > > > 
-> > > > Make sure that patches are structured logically. You can not enable
-> > > > support for the hardware if the interrupts are not (yet) handled.
+On Fri, Oct 31, 2025 at 10:28:12AM +0800, yuanjiey wrote:
+> On Thu, Oct 30, 2025 at 11:43:49AM +0100, Krzysztof Kozlowski wrote:
+> > On 30/10/2025 08:07, yuanjiey wrote:
+> > > On Thu, Oct 30, 2025 at 06:37:40AM +0100, Krzysztof Kozlowski wrote:
+> > >> On 30/10/2025 03:33, yuanjiey wrote:
+> > >>> On Wed, Oct 29, 2025 at 02:05:20PM +0100, Krzysztof Kozlowski wrote:
+> > >>>> On 29/10/2025 03:37, yuanjiey wrote:
+> > >>>>> On Mon, Oct 27, 2025 at 10:51:23PM -0500, Bjorn Andersson wrote:
+> > >>>>>> On Thu, Oct 23, 2025 at 04:06:05PM +0800, yuanjie yang wrote:
+> > >>>>>>> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > >>>>>>>
+> > >>>>>>> Build the NT37801 DSI panel driver as module.
+> > >>>>>>>
+> > >>>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > >>>>>>> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > >>>>>>
+> > >>>>>> You (Yuanjie) authored the patch, but forgot to sign-off, then Yongxing
+> > >>>>>> provided certificate of origin, then you provide certificate of origin
+> > >>>>>> and send it to list?
+> > >>>>>>
+> > >>>>>> Please correct.
+> > >>>>>
+> > >>>>> All the display patches were jointly developed by Yongxing and me.
+> > >>>>> So every patch 
+> > >>>>
+> > >>>>
+> > >>>> So two people were working on this absolutely trivial defconfig change?
+> > >>>> I have troubles believing this.
+> > >>> I want to say these patches I am first author and yongxing give me support, so
+> > >>> I think yongxing is second author.
+> > >>>
+> > >>> I want to express my gratitude for Yongxing's support in every patch, so I included
+> > >>> both our names in the sign-off for each one.
+> > >>>
+> > >>> However, if my intention causes any trouble for maintainer, I can remove Yongxing's
+> > >>> sign-off from this patch.
+> > >>
+> > >>
+> > >> Please read submitting patches to understand what Signed-off-by means.
+> > >> Otherwise I have doubts we can accept your patches - you simply do not
+> > >> understand what you are certifying.
+> > > Thanks for your tips, and I learn some tips from submitting patches: 
+> > > https://elixir.bootlin.com/linux/v6.18-rc3/source/Documentation/process/submitting-patches.rst#L524
 > > > 
-> > > Kaanapali Dpu interrupts: 
-> > > INTR_IDX_VSYNC,
-> > > INTR_IDX_PINGPONG,
-> > > INTR_IDX_UNDERRUN,
-> > > INTR_IDX_CTL_START,
-> > > INTR_IDX_RDPTR,
-> > > INTR_IDX_WB_DONE,
+> > > I thinks below sign should be true, if you also think it true, I will use it in next patches.
 > > > 
-> > > are handled by irq handler, so here enable dpu_intr_set_13xx. 
+> > >  Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 > > 
-> > You have enabled DPU 13 in the previous commit. And only now you are
-> > adding support for interrupt registers on DPU 13.x. No, that's not good.
+> > How does co-developing match what you wrote "give me support"?
+> OK, I will fix sign, will keep sign below in next patch:
 > 
-> OK, I think I should merge this patch into the DPU 13 enablement patch. 
+> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 
-No, just change the order of the patches: first you add necessary driver
-bits, then you add catalog entry.
+There was already one and it doesn't help, because co-developing means
+actually developing together or one after another. "giving support" is
+not co-developing-by.
 
 > 
 > Thanks,
 > Yuanjie
 >  
-> > -- 
-> > With best wishes
-> > Dmitry
+> > >  Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > >  Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > 
+> > 
+> > 
+> > Best regards,
+> > Krzysztof
 
 -- 
 With best wishes
