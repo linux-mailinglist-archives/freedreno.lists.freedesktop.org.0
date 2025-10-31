@@ -2,95 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5C72C22F9C
-	for <lists+freedreno@lfdr.de>; Fri, 31 Oct 2025 03:22:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7C27C22FF9
+	for <lists+freedreno@lfdr.de>; Fri, 31 Oct 2025 03:28:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF86F10E154;
-	Fri, 31 Oct 2025 02:22:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA67F10EA9D;
+	Fri, 31 Oct 2025 02:28:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MTKCRy3C";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ifTYqeZM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Cz5Qr348";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yos1Bxqu";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEA5410E975
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:22:08 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51EE610E154
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:28:27 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 59UIQs483115502
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:22:08 GMT
+ 59UKsQ8I832852
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:28:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=3c1obq8ZZLIS5GwXPjQ6YRMj
- wgPZ1GO2NkBLtaKSH38=; b=MTKCRy3C00PEmbbajCqM9XMRIvF2EC05LSoBw22u
- eBnXU0FrabPR3cpF6hGOD6gYTkAwQbQVRIRA6vDvQseAOEqQuepSKlej9SmCLIWq
- e2NEU7cTHtO9Q1fTh7ttZfb9Fr0+nZFQAGnMg7PaGSB1VdO1iN+t6iQKJlSe+R94
- VSVsxtVahIg6dFuwWyYJGPhBbt1hEkkAVkLluopHS+5Up4/vmjaFPxTaBDGcnz8G
- nqe0iX16qBTXFM6298vQqSNWwAfaIx0u4tgbi6k/FhbIh+/VXiEWoaTvtIJQHbaZ
- yKkQDWtjrB9O+FKhanWMBct4H+tbv2+pjILWPSVoFDgW8Q==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a45b42kjx-1
+ :references:subject:to; s=qcppdkim1; bh=mygVM9j4kzb1+d6IfzSVkBIT
+ dt7PzesZDBTeq/ZmytY=; b=Cz5Qr348CmuqAsqhgi/Yegi14vGxTJGQcvS7IfQB
+ Hd4kOOTNW6ElOOv1F4iWmToN76k+trMWwZ50pJnHLaw5909zjN3C+jogxU6arsCd
+ L7wvpsSd+InjEHyZpfWpxK6gq2rIAcqesLngWjxW14beSU0Dt4oTbiQ8K4luXrc+
+ YdBbacjKqk5zBbHMm7IiYTmrSZ6KiCRyMUSG9rBCY/sIbw2xBl+6hZoyFRwmR7pX
+ sgl/zkiVtiPi2ayh+vQm8ogPhtDqKYfRAKyly5Rilj8W1jYmALd5o/21I3DdYpYi
+ OgScHBHjzTWfUzPFQcZg+6fALLJe+xEqDreHnMBRjb0JgA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a4ffb0nfq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:22:07 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4eba1cea10dso59650751cf.1
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 19:22:07 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:28:26 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8a4ef35cc93so465069385a.3
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 19:28:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1761877327; x=1762482127;
+ d=oss.qualcomm.com; s=google; t=1761877706; x=1762482506;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=3c1obq8ZZLIS5GwXPjQ6YRMjwgPZ1GO2NkBLtaKSH38=;
- b=ifTYqeZMyVHfsP3L3VWE0Fg0CuVHDjhuotp6pM9SCTVw0cCDy63nZ/z2bHShpe7dPN
- xpjmPmAekAn+U0cNiSpk0FkPAM9e0QUUxqsOsV76JZ+/sXUvQFcKQDx2UcPCA8hLDVpT
- BzQYCEyQMZSowYAzCSbGBAj68pQEl/kfM7U2oTyGSiuXhsd/1uPQGBDaBKZqdKyvK7ll
- 5KoiPk0HVLtOnSx9Zbr29kWdJ14S06HlK3RnFQh4qyftRvpaHASKVGs5fBrgIeWUbYq0
- kpGWoLQJWkFKcvxih+GyACJqTvYDlFdl6RVrLn9XH0VLsXNjQFDJ+nbk8n1YcICvkKh7
- kWRw==
+ bh=mygVM9j4kzb1+d6IfzSVkBITdt7PzesZDBTeq/ZmytY=;
+ b=Yos1BxqurjwgXhmhPELXp9p3e6/lyvig7OhcDAA5iRfRCtjiN0I8oeGLeaM/ynJZ9W
+ tPrqIX0wWNiDfloX+k2W/z5Jv+WKtHzZsLgEtW4bUkh3vEtIDsymO6K3tMJqZs6++Iff
+ FOj5fS45sucgqGDmS9l5WUWcdGc0BWqfyFwtohzm9prwOg9OTDLpkLALHv4z54DWbAgi
+ qLJE9Nrd+ghxj8TgpIfxraBs1smodNKIzgOHc766D0v0QEO8W18RFCsPfiSmdNaC73hS
+ uIN3EMc5Xs1LDLdxamU1imfgJTGcwSz6hEQBoSrjNAHUXI9SFF3B6WgCSuyTIDJC/JWy
+ /pJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761877327; x=1762482127;
+ d=1e100.net; s=20230601; t=1761877706; x=1762482506;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3c1obq8ZZLIS5GwXPjQ6YRMjwgPZ1GO2NkBLtaKSH38=;
- b=Fsdx9+I24DfsTbCA6GBM/JrwPm5FC7Zc4QPHGi/TH/W9nMhM4uhdQxWSodU3Bpp+q1
- 2hBWZHbDf+cVk6nxAlTNRVKe0OZE8sNHD0//Zx+EiFJZS8OrOthDDNrNuH/96YWarTXH
- X8LPsRY7JyLyYqV5WEo3622lplbN4swJRVzu2Mz1tvuB7vur9cOxi3D1/EAB08AWnB0J
- 7bzJZhaYX+VcnIXR5WSd85I3858rKTXe2TE21FrSnIh15dTnZ8zEybcdcYzSPrcX0FGU
- L59RnumU97XDdQDpzzGcXtdyl/zh2xq8gkiuc2w6mIZPp5HMDg3WmO1sUf3dyvgnNj4Y
- k0cQ==
+ bh=mygVM9j4kzb1+d6IfzSVkBITdt7PzesZDBTeq/ZmytY=;
+ b=Zf03PHJ5UnDGnEOzrBlz+368CfrJbayjNoTW/V/vUaN1qU9BjLupDpJ6Oxcs+yfKz8
+ EuKLfiG7fWmaKSVDi7DeMlNig6i20okV3xkxrRBjUeLvF/fTfXA/nVktspXP7HwjSjpv
+ QJV+9t4F97ehHFw2VM1RBDm32PMB3LrJHkal6xBrP6PZgFvR9WR0P1na4PSlQTCVY5kB
+ K8nBI80zJ2bW5iIIPhhxoyUTugO08/PTeeg85/MawPkpV8ICvENL97QFVIS0Hwrnm9OH
+ axFalS4CHGBxrbgDwSX1FUag1vVcqCFDwhV+2Nj/tZYL1u/L29c7gFjy9i7Ovld2lGbf
+ DQbA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXE4drof/ttokdE9hl6iVRwT8wQm+4+hhYDvBX2wFi9q0t2FStJD/jRSGkB4784WEj6fJ1TsQkm2G0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOZQAz/aNeu0JpadD9BUXd6Abp7YllUSJ1kD3hcngHstc0+DKI
- SvJnQbwCd/7L+uX0eCVTt/3Ix2i19vkrKLJfRcrbSSR2+btM96p5IFpuDrqJ7wqvQKCVcuG5nMc
- ZkVnddrUwg4DEbmGUJMBy5legzxXStZmxCczcuywHU6FR5YhMMRjH+lTGc8EXeoVXME9070Q=
-X-Gm-Gg: ASbGncuaPMO3qHuRT73dvWtbo5tOLmu2VwQzwbIpyRxVYmSdGC/mMu6+kZaK8uwExU1
- H3wICTaV4dIsE2ccGS+afHWaCOWMwkRpatNgoKauTZ5ITZa9WEODN+r4wkpTEhNw5532sokipIY
- 5vc0XASrQiqmzTcDap5Se/ml1l6Zhm53ug66CVcn08HhuN1R+LYyFHz7RG6r6RBXYsNgOH1yu4p
- m5S1aehZI+D2zHJlNBnNpnAKs440oyJrFMQqzsUt/QQSoVfMxJeraNmwtp1OHaOAC5SdmFQ1EQL
- lJj41l/kWR3oRmOJrqKVCwPaRJ4IKuAhFKTkVeJj43c7b3pusiEyGdQUas56iUvW8TGx5AXt6x9
- Nu3fwyBLVS8CNG0bmjqV15PShaIKTxEEnI03ADVlSnGM4rUdQuIHci+7T1ui0
-X-Received: by 2002:a05:622a:44c:b0:4ed:2715:611d with SMTP id
- d75a77b69052e-4ed31076fc4mr20775791cf.65.1761877327137; 
- Thu, 30 Oct 2025 19:22:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGarE31FcqziYFgtP5AQeoEmQTIs0pBD7iyBHmNixxePHSIEujlFrVA2g4rLiwQlMH6ljRAYw==
-X-Received: by 2002:a05:622a:44c:b0:4ed:2715:611d with SMTP id
- d75a77b69052e-4ed31076fc4mr20775461cf.65.1761877326654; 
- Thu, 30 Oct 2025 19:22:06 -0700 (PDT)
+ AJvYcCVcw+lg1+H6B4Hnt3XHNT60pP+REYNFB09aEEGH0HGwf74iXbbgcgfiqkRaui2Nq8wYstC9dlMB514=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxD+wVCrKHD5N2T0D0MxHmoyMEdNJAwngM3W2WmVkk/BHM8jczD
+ 6vzIjdrUdu1yJFVLUYM+LxajipaYPn4qYf509Kghy857gaVSn8LuIhF6QOeEJ7ia0a7xTygegKR
+ qP7n/P64UdnklShkhnoEBMKTMkXvtRRrAg0l0rVwg/S6JgXSCsT+KsRmBs+keBOdq90+boVI=
+X-Gm-Gg: ASbGncvmbnfWB3/jETARQP265DvJsTzjxm87aEEfBlVLudLsUGqOoz8eCcoFi8+yiJd
+ ssMeX6gK5ELLt2LH8aaijCdVI6P7jOZfKUONjX1YSjIUPRIodrFE29ZqfkHsrc2U78MNi62MWVd
+ MHRW5bxcXFBWTM49T68gFy3Zof0y8RVYBRHs/OBaDooW60BBIIwOYCyBKw5zIgKlVsAS8b1M1XO
+ JfBddvucrYIMzXLe/QgGoKbeJ5kemIlXVNctWZMIMXM5oU9IWrt29OV3Qpb9zmT3iz2h1PxLpIY
+ np8qp+nBtOXKTuFtyj+ge7QAOOMcpYHEYE/dDz3fHTS9ZUuI4YprupoWD02/NhL8Z5aOVpytaN7
+ SBc5z4+tacsNT8bv/FNDJXmLprz7nc3N9o1BOP963fTyffE4gDALLLApqkMNg
+X-Received: by 2002:a05:620a:28cc:b0:89a:2f9b:10d3 with SMTP id
+ af79cd13be357-8ab98eba5a6mr237554185a.30.1761877705628; 
+ Thu, 30 Oct 2025 19:28:25 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHr+5kD+JtS6mIytCdLqJ68RKUbehYh6oGlHnqbAxbfTUJ3LV9xtxz77D0wjhEnj/7Q+aRjjQ==
+X-Received: by 2002:a05:620a:28cc:b0:89a:2f9b:10d3 with SMTP id
+ af79cd13be357-8ab98eba5a6mr237551785a.30.1761877705158; 
+ Thu, 30 Oct 2025 19:28:25 -0700 (PDT)
 Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8ac03a75453sm23545385a.51.2025.10.30.19.21.57
+ af79cd13be357-8ac0106e063sm25886285a.26.2025.10.30.19.28.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Oct 2025 19:22:06 -0700 (PDT)
-Date: Fri, 31 Oct 2025 10:21:54 +0800
+ Thu, 30 Oct 2025 19:28:24 -0700 (PDT)
+Date: Fri, 31 Oct 2025 10:28:12 +0800
 From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, abhinav.kumar@linux.dev, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
  conor+dt@kernel.org, quic_mkrishn@quicinc.com, jonathan@marek.ca,
  quic_khsieh@quicinc.com, neil.armstrong@linaro.org,
@@ -98,45 +99,45 @@ Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
  aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
-Subject: Re: [PATCH 07/12] drm/panel: Set sufficient voltage for panel nt37801
-Message-ID: <aQQdQoCLeKhYtY7W@yuanjiey.ap.qualcomm.com>
+Subject: Re: [PATCH 08/12] arm64: defconfig: Enable NT37801 DSI panel driver
+Message-ID: <aQQevC/Jd76rTNSU@yuanjiey.ap.qualcomm.com>
 References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
  <20251023080609.1212-1-yuanjie.yang@oss.qualcomm.com>
- <20251023080609.1212-2-yuanjie.yang@oss.qualcomm.com>
- <zxofh6bwee3vjjlntlfqy7yg2iu2mipjvl7s5bcm6gbh233cjq@nuicjojawd2d>
- <aPsWEhM7i+gDjXE0@yuanjiey.ap.qualcomm.com>
- <4bnvh2ydtrmejknzpsxoalxoyjpq5g5cjbrico5ezbek24r52s@u5zy6ekh6lps>
- <aQF0zzUpLeUu4lrC@yuanjiey.ap.qualcomm.com>
- <5hftxsuqz745mxxk2hjpwfxwrm73p2l3dxn2mb2uqb2c44fd2w@l5xvadj7gvvg>
- <aQLInjBCbeNJVanK@yuanjiey.ap.qualcomm.com>
- <r3sbg5r5pesrfrave7l6nx4ws62eogfn7m4f5c3ur2a6xkhsss@f5vfre2hd2cr>
+ <20251023080609.1212-3-yuanjie.yang@oss.qualcomm.com>
+ <wuh7agcgg6spghilnx4amqukaaydj25u7kbdiod7fl6pu2ulvm@pmosyuo43cyw>
+ <aQF98RvLuOlJZlFi@yuanjiey.ap.qualcomm.com>
+ <38c8e26c-08a4-42d9-8f6d-93969af90d50@kernel.org>
+ <aQLOaI3ngjswi7kd@yuanjiey.ap.qualcomm.com>
+ <7c1e0cb5-2483-4efa-be52-84cbe5d1a4b2@kernel.org>
+ <aQMOz4P2/WyjXy1b@yuanjiey.ap.qualcomm.com>
+ <4e444fd3-b079-4e0c-9449-1c119e1d710a@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <r3sbg5r5pesrfrave7l6nx4ws62eogfn7m4f5c3ur2a6xkhsss@f5vfre2hd2cr>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMxMDAxOSBTYWx0ZWRfXz81At2E8rckp
- jUzXF9JvedPq0q+fPwCbcPSfiSfQZmU3Cy7uelB4QK6wlIXMJzR1xz74yNkGZDL/9Ox24u9WYYO
- cpLbvnn3ZlCVknfNgCg+bFS/D1IIGkgGlKuhR9wNowJa3jv7E/XqrL4c+jNhlbfg68MD5ZU1qL5
- oi66b5zfgZMxWXG39Y7VpwmYfmGVv85d4NOjs7mhmIEGVUsu75vTN/xNXXUgPR15hBsipoLUHSG
- Ko4ity4qai0Bdv65Wm14uyVxBKxa+uQwEdnPs9OEO/NSh2/Ko308l9aKRY4oOtmxyO1lOAno1K1
- 39TUAcpD0aSoYNPwZJP2/t9oSU4f+EW2PmV1Tiap5rB8+jcsqq9y5KFrK/sDw4YigAfMG9bE6h1
- uVUZoqeEP9Go6cUP2Q4ASP5vptkk7Q==
-X-Authority-Analysis: v=2.4 cv=KePfcAYD c=1 sm=1 tr=0 ts=69041d4f cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+In-Reply-To: <4e444fd3-b079-4e0c-9449-1c119e1d710a@kernel.org>
+X-Proofpoint-GUID: UK_lK6_qRhF2ko6E3AZu_wCOZ6YyfrEr
+X-Authority-Analysis: v=2.4 cv=fpjRpV4f c=1 sm=1 tr=0 ts=69041eca cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=kj9zAlcOel0A:10 a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8
- a=hV_kQwtX5ugguncQdNAA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: gwIO8lBjxU8YFcTR45LPPYKSgoEB2C5U
-X-Proofpoint-GUID: gwIO8lBjxU8YFcTR45LPPYKSgoEB2C5U
+ a=VkNPw1HP01LnGYTKEx00:22 a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8
+ a=wiB8FAKGFwBon0ndxVIA:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+ a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-ORIG-GUID: UK_lK6_qRhF2ko6E3AZu_wCOZ6YyfrEr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMxMDAyMCBTYWx0ZWRfX9vQMFq2YdrJC
+ pNELTV+jNqZRgQ8+QO2qVuLpGBE5brwKB7JQ9GsqOTPyxZiaZmKQ15Y8V8JPc0BS5qnVyXdVSi7
+ qrEr0on3WuAtjtFBJTWSQJ8E+NHckqIE9Id9mOkKrwaGyDzkoi3+er14x5rzenuSANib8kwc7RU
+ D+jGFN07EFUXxW0nKxWC2HArrMA11/L7ac5qaDFH/xX8QpeSHM7ea2AzpLAsobV88FPa1huXic2
+ csxI/S9fyNJ/xYNAss7m9nQooqSL7SxCmpOO30HKRG8JSDSYSlTP+uxJ0TonyCByklSBEFEeQtp
+ /ezyfsO91iwTBLX4D4e8lR7uiI99FW6r/VvNzSHRj/suB5nG7boLmS222O9wzTndZS5roIzXh5c
+ WfdAH/vYhC6RcDJwymq7l7BafoC23g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-10-30_08,2025-10-29_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 adultscore=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0 impostorscore=0
+ bulkscore=0 priorityscore=1501 phishscore=0 malwarescore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2510310019
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2510310020
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,87 +153,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 30, 2025 at 07:57:46PM +0200, Dmitry Baryshkov wrote:
-> On Thu, Oct 30, 2025 at 10:08:30AM +0800, yuanjiey wrote:
-> > On Wed, Oct 29, 2025 at 02:20:13PM +0200, Dmitry Baryshkov wrote:
-> > > On Wed, Oct 29, 2025 at 09:58:39AM +0800, yuanjiey wrote:
-> > > > On Mon, Oct 27, 2025 at 02:22:04PM +0200, Dmitry Baryshkov wrote:
-> > > > > On Fri, Oct 24, 2025 at 02:00:50PM +0800, yuanjiey wrote:
-> > > > > > On Thu, Oct 23, 2025 at 03:14:38PM +0300, Dmitry Baryshkov wrote:
-> > > > > > > On Thu, Oct 23, 2025 at 04:06:04PM +0800, yuanjie yang wrote:
-> > > > > > > > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > > > > > > > 
-> > > > > > > > The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states
-> > > > > > > > VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
-> > > > > > > > 
-> > > > > > > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> > > > > > > > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > > > > > > > ---
-> > > > > > > >  drivers/gpu/drm/panel/panel-novatek-nt37801.c | 5 +++++
-> > > > > > > >  1 file changed, 5 insertions(+)
-> > > > > > > > 
-> > > > > > > > diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37801.c b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
-> > > > > > > > index d6a37d7e0cc6..7eda16e0c1f9 100644
-> > > > > > > > --- a/drivers/gpu/drm/panel/panel-novatek-nt37801.c
-> > > > > > > > +++ b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
-> > > > > > > > @@ -267,6 +267,11 @@ static int novatek_nt37801_probe(struct mipi_dsi_device *dsi)
-> > > > > > > >  	if (ret < 0)
-> > > > > > > >  		return ret;
-> > > > > > > >  
-> > > > > > > > +	ret = regulator_set_voltage(ctx->supplies[0].consumer,
-> > > > > > > > +				    1650000, 1950000);
-> > > > > > > 
-> > > > > > > This should be done in the DT. Limit the voltage per the user.
-> > > > > > Two reason:
-> > > > > > 1.
-> > > > > > I see https://patchwork.freedesktop.org/patch/354612/
-> > > > > > 
-> > > > > > panel panel-novatek-nt35510.c also use regulator_set_voltage set right voltage,
-> > > > > > so I do the same work.
-> > > > > 
-> > > > > Please look for the majority rather than the exceptions. Out of all
-> > > > > panel drivers only two set the voltage directly.
-> > > > > 
-> > > > > > 
-> > > > > > 2.     Kaanapali vddio regulator:
-> > > > > > 
-> > > > > > 		vreg_l12b_1p8: ldo12 {
-> > > > > > 			regulator-name = "vreg_l12b_1p8";
-> > > > > > 			regulator-min-microvolt = <1200000>;
-> > > > > > 			regulator-max-microvolt = <1800000>;
-> > > > > > 
-> > > > > > 	Voltage is from 1.2~.1.8 V , So I can not set it 1.65~1.95 V from DT(1.95V is beyond the allowed range).
-> > > > > > 	So I use regulator_set_voltage to set voltage, and regulator_set_voltage will choose the appropriate voltage.
-> > > > > 
-> > > > > DT has to list the voltage values that work for the devices on that
-> > > > > particular platform. So, ldo12 should be listing 1.64 - 1.8 V.
-> > > > get it. I check downstream DT,
-> > > >   dosnstream DT:
-> > > >    regulator-min-microvolt = <1800000>;
-> > > >    regulator-max-microvolt = <1800000>;
-> > > > 
-> > > >   I test 1.8V works, So I will add 1.8V in next patch, do you think it is ok?
-> > > 
-> > > What does panel's datasheet say?
+On Thu, Oct 30, 2025 at 11:43:49AM +0100, Krzysztof Kozlowski wrote:
+> On 30/10/2025 08:07, yuanjiey wrote:
+> > On Thu, Oct 30, 2025 at 06:37:40AM +0100, Krzysztof Kozlowski wrote:
+> >> On 30/10/2025 03:33, yuanjiey wrote:
+> >>> On Wed, Oct 29, 2025 at 02:05:20PM +0100, Krzysztof Kozlowski wrote:
+> >>>> On 29/10/2025 03:37, yuanjiey wrote:
+> >>>>> On Mon, Oct 27, 2025 at 10:51:23PM -0500, Bjorn Andersson wrote:
+> >>>>>> On Thu, Oct 23, 2025 at 04:06:05PM +0800, yuanjie yang wrote:
+> >>>>>>> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> >>>>>>>
+> >>>>>>> Build the NT37801 DSI panel driver as module.
+> >>>>>>>
+> >>>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> >>>>>>> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> >>>>>>
+> >>>>>> You (Yuanjie) authored the patch, but forgot to sign-off, then Yongxing
+> >>>>>> provided certificate of origin, then you provide certificate of origin
+> >>>>>> and send it to list?
+> >>>>>>
+> >>>>>> Please correct.
+> >>>>>
+> >>>>> All the display patches were jointly developed by Yongxing and me.
+> >>>>> So every patch 
+> >>>>
+> >>>>
+> >>>> So two people were working on this absolutely trivial defconfig change?
+> >>>> I have troubles believing this.
+> >>> I want to say these patches I am first author and yongxing give me support, so
+> >>> I think yongxing is second author.
+> >>>
+> >>> I want to express my gratitude for Yongxing's support in every patch, so I included
+> >>> both our names in the sign-off for each one.
+> >>>
+> >>> However, if my intention causes any trouble for maintainer, I can remove Yongxing's
+> >>> sign-off from this patch.
+> >>
+> >>
+> >> Please read submitting patches to understand what Signed-off-by means.
+> >> Otherwise I have doubts we can accept your patches - you simply do not
+> >> understand what you are certifying.
+> > Thanks for your tips, and I learn some tips from submitting patches: 
+> > https://elixir.bootlin.com/linux/v6.18-rc3/source/Documentation/process/submitting-patches.rst#L524
 > > 
-> > The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states 
-> > VDDI=1.65V~1.95V.
+> > I thinks below sign should be true, if you also think it true, I will use it in next patches.
 > > 
-> > So I should follow datasheet to set DT ldo12: 1.64 - 1.8V ?
+> >  Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 > 
-> If the panel declares minimum voltage to 1.65 V, why are you declaring
-> 1.64 V as the mimimal voltage for the rail?
+> How does co-developing match what you wrote "give me support"?
+OK, I will fix sign, will keep sign below in next patch:
 
-Corrcet here:
-
-DT ldo12 will be  1.65 - 1.8V
+Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 
 Thanks,
 Yuanjie
-
  
-> > 
-> > if you think it is ture, I will fix it in next patch.
-> -- 
-> With best wishes
-> Dmitry
+> >  Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> >  Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> 
+> 
+> 
+> Best regards,
+> Krzysztof
