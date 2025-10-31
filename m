@@ -2,134 +2,141 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56D75C2271E
-	for <lists+freedreno@lfdr.de>; Thu, 30 Oct 2025 22:42:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5C72C22F9C
+	for <lists+freedreno@lfdr.de>; Fri, 31 Oct 2025 03:22:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D89510EA3F;
-	Thu, 30 Oct 2025 21:42:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF86F10E154;
+	Fri, 31 Oct 2025 02:22:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nB5i1vu0";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hTWKBETU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MTKCRy3C";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ifTYqeZM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70E7910EA3F
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 21:42:25 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEA5410E975
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:22:08 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 59UFERwK084019
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 21:42:25 GMT
+ 59UIQs483115502
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:22:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- tzlUFB86mAlTUURMeKWMWkUk71VirJXlKOjLKibgrMs=; b=nB5i1vu0NdPS2wPx
- eoVqkrmQogyhWYaOs20hxamRBiclaCE1rJP/ANv1/v66gfysCp87g8B0X6yAfDVG
- tBBv5x0wietJnBXQMZaMn+xUcUikSp7wzsR09UlMBuxFz7ND/5jjoxg8Ji1d/jeT
- f1Ibr1HMacj/mYR0bk+n+P1NWw0B9BteWOemHdm4KlMW5Q5M44k8dNVDXt1V22GI
- r3y0rOO2pK2Xb0sJsM+NII+umkQUahqhzai6A3uf06FGHWZAmDtd0rjjERqwrHIF
- bIpb3G5Bsy+ppJpefCSyQAhCKnYZ9nRwuiX2UaEG2P7WGW9N1d3H1MsaDyTm2JP2
- VIc9JA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a4ag392te-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=3c1obq8ZZLIS5GwXPjQ6YRMj
+ wgPZ1GO2NkBLtaKSH38=; b=MTKCRy3C00PEmbbajCqM9XMRIvF2EC05LSoBw22u
+ eBnXU0FrabPR3cpF6hGOD6gYTkAwQbQVRIRA6vDvQseAOEqQuepSKlej9SmCLIWq
+ e2NEU7cTHtO9Q1fTh7ttZfb9Fr0+nZFQAGnMg7PaGSB1VdO1iN+t6iQKJlSe+R94
+ VSVsxtVahIg6dFuwWyYJGPhBbt1hEkkAVkLluopHS+5Up4/vmjaFPxTaBDGcnz8G
+ nqe0iX16qBTXFM6298vQqSNWwAfaIx0u4tgbi6k/FhbIh+/VXiEWoaTvtIJQHbaZ
+ yKkQDWtjrB9O+FKhanWMBct4H+tbv2+pjILWPSVoFDgW8Q==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a45b42kjx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 21:42:24 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4e8a387d01bso54590431cf.3
- for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 14:42:24 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 02:22:07 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4eba1cea10dso59650751cf.1
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Oct 2025 19:22:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1761860544; x=1762465344;
+ d=oss.qualcomm.com; s=google; t=1761877327; x=1762482127;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=tzlUFB86mAlTUURMeKWMWkUk71VirJXlKOjLKibgrMs=;
- b=hTWKBETUo9XJKjWHPIEXgA281bBgY/QAasF01huUFvz8VyhEq2nqh03AtNqWyecHSz
- 1AueTUHR055Q2AXwxG2EvzY2Tu2aacX4HDfhzFvSvI0Ui0/DepAXqzyMfdDfvckO/qYH
- ixUjKVKWBB9Ju0ujB5LVbUN00bAkYpYZuKp1ME/g/YcGh5XEoG2Mmf0HMky8MPrI1/M4
- Wo+z75GMk3obyH5aImE1fAAetl84jLH8mcClx2879XtzAV6UwAuK1uzH04SttoWRfEVU
- kzTMXi6t/Klr1nYfIn+Q3fz9eAEzfjg2zQvv1nGFyNWycunOl5iSOdCWJVL+c3giciLj
- Ndmg==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=3c1obq8ZZLIS5GwXPjQ6YRMjwgPZ1GO2NkBLtaKSH38=;
+ b=ifTYqeZMyVHfsP3L3VWE0Fg0CuVHDjhuotp6pM9SCTVw0cCDy63nZ/z2bHShpe7dPN
+ xpjmPmAekAn+U0cNiSpk0FkPAM9e0QUUxqsOsV76JZ+/sXUvQFcKQDx2UcPCA8hLDVpT
+ BzQYCEyQMZSowYAzCSbGBAj68pQEl/kfM7U2oTyGSiuXhsd/1uPQGBDaBKZqdKyvK7ll
+ 5KoiPk0HVLtOnSx9Zbr29kWdJ14S06HlK3RnFQh4qyftRvpaHASKVGs5fBrgIeWUbYq0
+ kpGWoLQJWkFKcvxih+GyACJqTvYDlFdl6RVrLn9XH0VLsXNjQFDJ+nbk8n1YcICvkKh7
+ kWRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761860544; x=1762465344;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tzlUFB86mAlTUURMeKWMWkUk71VirJXlKOjLKibgrMs=;
- b=N1nc/RJHWxe3zrBexw64osJ2qXno90x7SWW48WNVHXBaB5ktXS4prrQQx+lbFhEbCj
- 2HCYPF4ElR8SqnVDq/X9GFV2okF9fAfmqF/8AUsgevvXnsyj5yqlWbGloMOCqoZmCLmF
- CCwIu7Mf8OUr/mra5TDxTPHROdQLwKOFBUh+w86WfBbCy1ElZvzGeHcsFpkE40ACGw4u
- 01gr5HAgpxb4qCP3gb51CAa13/Yp32YRI4PbmQGLg67wKTWj7/gMKozpTc84/VbRmc38
- 6rPSjCHuiDNcYERrT4cR6PnLUAAxb/MTwngDvTVrlrd4z3WMMmIEuJgXRtS9YNmRgANa
- KqCQ==
+ d=1e100.net; s=20230601; t=1761877327; x=1762482127;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3c1obq8ZZLIS5GwXPjQ6YRMjwgPZ1GO2NkBLtaKSH38=;
+ b=Fsdx9+I24DfsTbCA6GBM/JrwPm5FC7Zc4QPHGi/TH/W9nMhM4uhdQxWSodU3Bpp+q1
+ 2hBWZHbDf+cVk6nxAlTNRVKe0OZE8sNHD0//Zx+EiFJZS8OrOthDDNrNuH/96YWarTXH
+ X8LPsRY7JyLyYqV5WEo3622lplbN4swJRVzu2Mz1tvuB7vur9cOxi3D1/EAB08AWnB0J
+ 7bzJZhaYX+VcnIXR5WSd85I3858rKTXe2TE21FrSnIh15dTnZ8zEybcdcYzSPrcX0FGU
+ L59RnumU97XDdQDpzzGcXtdyl/zh2xq8gkiuc2w6mIZPp5HMDg3WmO1sUf3dyvgnNj4Y
+ k0cQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVz9xJr1C8dzcqZ3IB0usKAb3Yc2hu6TpDNR3YfQK9bDWJPJAjLg6sE6w3i5VG5b9UfaJ5/RzkqYAA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGtADy0cTrMRqlvJGBJOj72d6jtvJ4WTYS2gTSSx7jTLKlvAMx
- OzVImsGlBwjN7o1U0p6+qpunXV6HA7b5tRjtBEqvAHvb+03aJGuasif9QBzMN+D3f+vpF6d4bvu
- klQ+41Y01fyGrwsI22pBLGrX9WFBOy4bPT7yr96W5DZY2ZfAeAz5NCbaYkM/aKS93lcYx31o=
-X-Gm-Gg: ASbGncuRkyk7ZyCrqkN+/+Whr4cYdj01a4q3YzCFngHfV3nPDRoJvDm0jNjIt/uy+Nc
- FbOErIGK8vU/b2yk27Dwi3t+1FOzBhJt+xzKDruHARqxRxcz8EXUxdso1GoHm4GsS/N5gAyGtSg
- /LiWRzabZRAAXY+75e+YhwSh1V3FCFOs0Ix0nAPrlnPIB57Jtk0BcmDp3aXQLz74bqAA+QFV0tl
- CihK0BYJtyfC1QzLZ7D5lBZPTofetEOLV2X79u4ntx1njmEQ0eWuE0JXNibl+tWPRQtCUTLUceL
- 5ZFJlpL1AI5O4mtwQTwAGXQUB69GUyZRxVVOcaF3cru0u6GzF0lcwm81k+E/TuMAuj5Rlsn419z
- I9qHkcX8WJM8E08L3wpfjsAw=
-X-Received: by 2002:a05:6a00:8d1:b0:7a2:7bdd:cbf4 with SMTP id
- d2e1a72fcca58-7a77a9ca32dmr956530b3a.27.1761859787094; 
- Thu, 30 Oct 2025 14:29:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF7gJS7A8SHkbq5oKF6sDj7A6I6fhFxuB0Lxorh9exZXB3/O9HNGHkmZRZA8yyMj7usEqcVoQ==
-X-Received: by 2002:a05:6a00:8d1:b0:7a2:7bdd:cbf4 with SMTP id
- d2e1a72fcca58-7a77a9ca32dmr956495b3a.27.1761859786477; 
- Thu, 30 Oct 2025 14:29:46 -0700 (PDT)
-Received: from [192.168.1.6] ([106.222.233.132])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7a414012d13sm19972568b3a.9.2025.10.30.14.29.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Oct 2025 14:29:46 -0700 (PDT)
-Message-ID: <c8058713-b126-461b-8ae6-19c4574a8105@oss.qualcomm.com>
-Date: Fri, 31 Oct 2025 02:59:40 +0530
+ AJvYcCXE4drof/ttokdE9hl6iVRwT8wQm+4+hhYDvBX2wFi9q0t2FStJD/jRSGkB4784WEj6fJ1TsQkm2G0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwOZQAz/aNeu0JpadD9BUXd6Abp7YllUSJ1kD3hcngHstc0+DKI
+ SvJnQbwCd/7L+uX0eCVTt/3Ix2i19vkrKLJfRcrbSSR2+btM96p5IFpuDrqJ7wqvQKCVcuG5nMc
+ ZkVnddrUwg4DEbmGUJMBy5legzxXStZmxCczcuywHU6FR5YhMMRjH+lTGc8EXeoVXME9070Q=
+X-Gm-Gg: ASbGncuaPMO3qHuRT73dvWtbo5tOLmu2VwQzwbIpyRxVYmSdGC/mMu6+kZaK8uwExU1
+ H3wICTaV4dIsE2ccGS+afHWaCOWMwkRpatNgoKauTZ5ITZa9WEODN+r4wkpTEhNw5532sokipIY
+ 5vc0XASrQiqmzTcDap5Se/ml1l6Zhm53ug66CVcn08HhuN1R+LYyFHz7RG6r6RBXYsNgOH1yu4p
+ m5S1aehZI+D2zHJlNBnNpnAKs440oyJrFMQqzsUt/QQSoVfMxJeraNmwtp1OHaOAC5SdmFQ1EQL
+ lJj41l/kWR3oRmOJrqKVCwPaRJ4IKuAhFKTkVeJj43c7b3pusiEyGdQUas56iUvW8TGx5AXt6x9
+ Nu3fwyBLVS8CNG0bmjqV15PShaIKTxEEnI03ADVlSnGM4rUdQuIHci+7T1ui0
+X-Received: by 2002:a05:622a:44c:b0:4ed:2715:611d with SMTP id
+ d75a77b69052e-4ed31076fc4mr20775791cf.65.1761877327137; 
+ Thu, 30 Oct 2025 19:22:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGarE31FcqziYFgtP5AQeoEmQTIs0pBD7iyBHmNixxePHSIEujlFrVA2g4rLiwQlMH6ljRAYw==
+X-Received: by 2002:a05:622a:44c:b0:4ed:2715:611d with SMTP id
+ d75a77b69052e-4ed31076fc4mr20775461cf.65.1761877326654; 
+ Thu, 30 Oct 2025 19:22:06 -0700 (PDT)
+Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8ac03a75453sm23545385a.51.2025.10.30.19.21.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Oct 2025 19:22:06 -0700 (PDT)
+Date: Fri, 31 Oct 2025 10:21:54 +0800
+From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, quic_mkrishn@quicinc.com, jonathan@marek.ca,
+ quic_khsieh@quicinc.com, neil.armstrong@linaro.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
+Subject: Re: [PATCH 07/12] drm/panel: Set sufficient voltage for panel nt37801
+Message-ID: <aQQdQoCLeKhYtY7W@yuanjiey.ap.qualcomm.com>
+References: <20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com>
+ <20251023080609.1212-1-yuanjie.yang@oss.qualcomm.com>
+ <20251023080609.1212-2-yuanjie.yang@oss.qualcomm.com>
+ <zxofh6bwee3vjjlntlfqy7yg2iu2mipjvl7s5bcm6gbh233cjq@nuicjojawd2d>
+ <aPsWEhM7i+gDjXE0@yuanjiey.ap.qualcomm.com>
+ <4bnvh2ydtrmejknzpsxoalxoyjpq5g5cjbrico5ezbek24r52s@u5zy6ekh6lps>
+ <aQF0zzUpLeUu4lrC@yuanjiey.ap.qualcomm.com>
+ <5hftxsuqz745mxxk2hjpwfxwrm73p2l3dxn2mb2uqb2c44fd2w@l5xvadj7gvvg>
+ <aQLInjBCbeNJVanK@yuanjiey.ap.qualcomm.com>
+ <r3sbg5r5pesrfrave7l6nx4ws62eogfn7m4f5c3ur2a6xkhsss@f5vfre2hd2cr>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Subject: Re: [PATCH RFC RFT] drm/msm: adreno: attach the GMU device to a driver
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMwMDE4MyBTYWx0ZWRfX9I6W00ROHbC8
- D+CUb7fuI2XuOva2RhH+HfMHMkFChENSlZBrR5JZI31l2Yo4dVN76nPKli0y67CLwFP8yoOnVLT
- Tevcc/MBWBJUj+jaHeB+I2VtBAgVuwWtPV4AtZpSAt0iYJ0CTG+EnfajT7mOiepFLi8wVLNe2el
- Q9MsEx3edrrMtvQpiJxhXgQKGYQZZgCq12xibj8a56diNBYey/3nB6h8rpgGQWCh5xlBNh/aRyg
- eTIyMyvKbYkQoQK9h24I0hGj2vrAwN5GBxmgysEY/XV5E4QY4h652aA6WAmmALxf1e/XYgI4Tw9
- yFNO8HAigN7+9rsl+gpkMNDFlQSv3a/1opedDxfAiVe5QC6s0YlTMFOaUcKGPhUaQLingNdfAXA
- j6oly1Gysr6WeWwPhR6N8KTcvIFUnA==
-X-Authority-Analysis: v=2.4 cv=TrnrRTXh c=1 sm=1 tr=0 ts=6903dbc0 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=rTtKBu4o5onlnI9juXDqsQ==:17
- a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=KKAkSRfTAAAA:8 a=ZJ4cUMe89lpGfuoIxrAA:9
- a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: bAfHd8r_sGxneSiJeX8D_lc5qd6je2kw
-X-Proofpoint-GUID: bAfHd8r_sGxneSiJeX8D_lc5qd6je2kw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <r3sbg5r5pesrfrave7l6nx4ws62eogfn7m4f5c3ur2a6xkhsss@f5vfre2hd2cr>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMxMDAxOSBTYWx0ZWRfXz81At2E8rckp
+ jUzXF9JvedPq0q+fPwCbcPSfiSfQZmU3Cy7uelB4QK6wlIXMJzR1xz74yNkGZDL/9Ox24u9WYYO
+ cpLbvnn3ZlCVknfNgCg+bFS/D1IIGkgGlKuhR9wNowJa3jv7E/XqrL4c+jNhlbfg68MD5ZU1qL5
+ oi66b5zfgZMxWXG39Y7VpwmYfmGVv85d4NOjs7mhmIEGVUsu75vTN/xNXXUgPR15hBsipoLUHSG
+ Ko4ity4qai0Bdv65Wm14uyVxBKxa+uQwEdnPs9OEO/NSh2/Ko308l9aKRY4oOtmxyO1lOAno1K1
+ 39TUAcpD0aSoYNPwZJP2/t9oSU4f+EW2PmV1Tiap5rB8+jcsqq9y5KFrK/sDw4YigAfMG9bE6h1
+ uVUZoqeEP9Go6cUP2Q4ASP5vptkk7Q==
+X-Authority-Analysis: v=2.4 cv=KePfcAYD c=1 sm=1 tr=0 ts=69041d4f cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=kj9zAlcOel0A:10 a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8
+ a=hV_kQwtX5ugguncQdNAA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-ORIG-GUID: gwIO8lBjxU8YFcTR45LPPYKSgoEB2C5U
+X-Proofpoint-GUID: gwIO8lBjxU8YFcTR45LPPYKSgoEB2C5U
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-10-30_07,2025-10-29_03,2025-10-01_01
+ definitions=2025-10-30_08,2025-10-29_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
- bulkscore=0 malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ suspectscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 adultscore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 spamscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2510300183
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2510310019
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,105 +152,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/22/2025 6:14 PM, Neil Armstrong wrote:
-> Due to the sync_state is enabled by default in pmdomain & CCF since v6.17,
-> the GCC and GPUCC sync_state would stay pending, leaving the resources in
-> full performance:
-> gcc-x1e80100 100000.clock-controller: sync_state() pending due to 3d6a000.gmu
-> gpucc-x1e80100 3d90000.clock-controller: sync_state() pending due to 3d6a000.gmu
+On Thu, Oct 30, 2025 at 07:57:46PM +0200, Dmitry Baryshkov wrote:
+> On Thu, Oct 30, 2025 at 10:08:30AM +0800, yuanjiey wrote:
+> > On Wed, Oct 29, 2025 at 02:20:13PM +0200, Dmitry Baryshkov wrote:
+> > > On Wed, Oct 29, 2025 at 09:58:39AM +0800, yuanjiey wrote:
+> > > > On Mon, Oct 27, 2025 at 02:22:04PM +0200, Dmitry Baryshkov wrote:
+> > > > > On Fri, Oct 24, 2025 at 02:00:50PM +0800, yuanjiey wrote:
+> > > > > > On Thu, Oct 23, 2025 at 03:14:38PM +0300, Dmitry Baryshkov wrote:
+> > > > > > > On Thu, Oct 23, 2025 at 04:06:04PM +0800, yuanjie yang wrote:
+> > > > > > > > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > > > > > > > 
+> > > > > > > > The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states
+> > > > > > > > VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
+> > > > > > > > 
+> > > > > > > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > > > > > > > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > > > > > > > ---
+> > > > > > > >  drivers/gpu/drm/panel/panel-novatek-nt37801.c | 5 +++++
+> > > > > > > >  1 file changed, 5 insertions(+)
+> > > > > > > > 
+> > > > > > > > diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37801.c b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+> > > > > > > > index d6a37d7e0cc6..7eda16e0c1f9 100644
+> > > > > > > > --- a/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+> > > > > > > > +++ b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+> > > > > > > > @@ -267,6 +267,11 @@ static int novatek_nt37801_probe(struct mipi_dsi_device *dsi)
+> > > > > > > >  	if (ret < 0)
+> > > > > > > >  		return ret;
+> > > > > > > >  
+> > > > > > > > +	ret = regulator_set_voltage(ctx->supplies[0].consumer,
+> > > > > > > > +				    1650000, 1950000);
+> > > > > > > 
+> > > > > > > This should be done in the DT. Limit the voltage per the user.
+> > > > > > Two reason:
+> > > > > > 1.
+> > > > > > I see https://patchwork.freedesktop.org/patch/354612/
+> > > > > > 
+> > > > > > panel panel-novatek-nt35510.c also use regulator_set_voltage set right voltage,
+> > > > > > so I do the same work.
+> > > > > 
+> > > > > Please look for the majority rather than the exceptions. Out of all
+> > > > > panel drivers only two set the voltage directly.
+> > > > > 
+> > > > > > 
+> > > > > > 2.     Kaanapali vddio regulator:
+> > > > > > 
+> > > > > > 		vreg_l12b_1p8: ldo12 {
+> > > > > > 			regulator-name = "vreg_l12b_1p8";
+> > > > > > 			regulator-min-microvolt = <1200000>;
+> > > > > > 			regulator-max-microvolt = <1800000>;
+> > > > > > 
+> > > > > > 	Voltage is from 1.2~.1.8 V , So I can not set it 1.65~1.95 V from DT(1.95V is beyond the allowed range).
+> > > > > > 	So I use regulator_set_voltage to set voltage, and regulator_set_voltage will choose the appropriate voltage.
+> > > > > 
+> > > > > DT has to list the voltage values that work for the devices on that
+> > > > > particular platform. So, ldo12 should be listing 1.64 - 1.8 V.
+> > > > get it. I check downstream DT,
+> > > >   dosnstream DT:
+> > > >    regulator-min-microvolt = <1800000>;
+> > > >    regulator-max-microvolt = <1800000>;
+> > > > 
+> > > >   I test 1.8V works, So I will add 1.8V in next patch, do you think it is ok?
+> > > 
+> > > What does panel's datasheet say?
+> > 
+> > The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states 
+> > VDDI=1.65V~1.95V.
+> > 
+> > So I should follow datasheet to set DT ldo12: 1.64 - 1.8V ?
 > 
-> In order to fix this state and allow the GMU to be properly
-> probed, let's add a proper driver for the GMU and add it to
-> the MSM driver components.
-> 
-> Only the proper GMU has been tested since I don't have
-> access to hardware with a GMU wrapper.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 354 ++++++++++++++---------------
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |   6 -
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |   3 -
->  drivers/gpu/drm/msm/adreno/adreno_device.c |   4 +
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |   4 +
->  drivers/gpu/drm/msm/msm_drv.c              |  16 +-
->  6 files changed, 192 insertions(+), 195 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index fc62fef2fed8..6e7c3e627509 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -1859,11 +1859,14 @@ void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu)
->  	pm_runtime_put(&gpu->pdev->dev);
->  }
->  
-> -void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
-> +static void a6xx_gmu_unbind(struct device *dev, struct device *master, void *data)
->  {
+> If the panel declares minimum voltage to 1.65 V, why are you declaring
+> 1.64 V as the mimimal voltage for the rail?
 
-I feel we should keep gmu and gmu_wrapper implementations separate. It
-is already overloaded. How about adding a separate gmu_wrapper_bind_ops
-and keep it in the match data?
+Corrcet here:
 
-> -	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> +	struct platform_device *pdev = to_platform_device(dev);
-> +	struct msm_drm_private *priv = dev_get_drvdata(master);
-> +	struct msm_gpu *gpu = priv->gpu;
+DT ldo12 will be  1.65 - 1.8V
 
-<< snip >>
+Thanks,
+Yuanjie
 
->  static inline uint32_t get_wptr(struct msm_ringbuffer *ring)
->  {
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 7e977fec4100..0618da7e8b40 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -998,18 +998,30 @@ static const struct of_device_id msm_gpu_match[] = {
->  	{ },
->  };
->  
-> +static const struct of_device_id msm_gmu_match[] = {
-> +	{ .compatible = "qcom,adreno-gmu" },
-> +	{ .compatible = "qcom,adreno-gmu-wrapper" },
-> +	{ },
-> +};
-> +
->  static int add_gpu_components(struct device *dev,
->  			      struct component_match **matchptr)
->  {
-> -	struct device_node *np;
-> +	struct device_node *np, *gmu;
->  
->  	np = of_find_matching_node(NULL, msm_gpu_match);
->  	if (!np)
->  		return 0;
->  
-> -	if (of_device_is_available(np) && adreno_has_gpu(np))
-> +	if (of_device_is_available(np) && adreno_has_gpu(np)) {
->  		drm_of_component_match_add(dev, matchptr, component_compare_of, np);
->  
-> +		gmu = of_find_matching_node(NULL, msm_gmu_match);
-
-Instead of this, we can probably use the gmu phandle from "qcom,gmu"
-property? That is quicker and also doesn't assume that there is only a
-single GPU.
-
-> +		if (of_device_is_available(gmu))
-> +			drm_of_component_match_add(dev, matchptr, component_compare_of, gmu);
-> +		of_node_put(gmu);
-I think you missed the recently added headless support. Please check
-separate_gpu_kms modparam and msm_gpu_probe().
-
--Akhil
-
-> +	}
-> +
->  	of_node_put(np);
->  
->  	return 0;
-> 
-> ---
-> base-commit: 211ddde0823f1442e4ad052a2f30f050145ccada
-> change-id: 20251022-topic-adreno-attach-gmu-to-driver-e47025fd7ebb
-> 
-> Best regards,
+ 
+> > 
+> > if you think it is ture, I will fix it in next patch.
+> -- 
+> With best wishes
+> Dmitry
