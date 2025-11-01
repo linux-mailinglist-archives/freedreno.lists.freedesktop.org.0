@@ -2,83 +2,130 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8F32C2735C
-	for <lists+freedreno@lfdr.de>; Sat, 01 Nov 2025 00:43:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1E07C27EB9
+	for <lists+freedreno@lfdr.de>; Sat, 01 Nov 2025 13:57:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45B0C10E110;
-	Fri, 31 Oct 2025 23:43:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C320510E332;
+	Sat,  1 Nov 2025 12:57:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mhrQ62bX";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DtiiOUvX";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="clpvf0I/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com
- [74.125.224.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7BA610E110
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 23:43:36 +0000 (UTC)
-Received: by mail-yx1-f51.google.com with SMTP id
- 956f58d0204a3-63bc1aeb427so3078022d50.3
- for <freedreno@lists.freedesktop.org>; Fri, 31 Oct 2025 16:43:36 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D89310E332
+ for <freedreno@lists.freedesktop.org>; Sat,  1 Nov 2025 12:57:38 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5A12oAZ9387005
+ for <freedreno@lists.freedesktop.org>; Sat, 1 Nov 2025 12:57:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=GN6gpt39o6//WjbpTKlKjBfjUHi2y2bKsxupqs7pKU8=; b=Dt
+ iiOUvXeQQJWf+k7n6l4FlCYsKlDOo6wF0/gVZBk/pnlRh6OG06MlII/KO57lzs31
+ 6yolqVLfx/pKWDPJg2lSEGPiTHrVdGog4RmfBt+mK9JM8OvFMXFbWBmR6BE3n57v
+ Y/dSA/a6MGtib7VPKkgV4uNTUfe8VSnuVp3dd6kl8A98P/F5kF+zKuy8EGvLF6SW
+ BmP12HgadllxbjzJYtRku64uyQQSDx7X8Q5iv31bKrS6zWuoB4xBNxZxuHkBdEgW
+ XkPRE+Mu5tuYDe1venoJFC4QAQH9gTDZKBkhdjexYb7qpK0KkWoZm69rr4WwD8v0
+ uJxBNoEsQ4uuYGTpGHsw==
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a57we8uq5-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Sat, 01 Nov 2025 12:57:37 +0000 (GMT)
+Received: by mail-oi1-f199.google.com with SMTP id
+ 5614622812f47-44fa7b2d873so1617404b6e.3
+ for <freedreno@lists.freedesktop.org>; Sat, 01 Nov 2025 05:57:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761954216; x=1762559016; darn=lists.freedesktop.org;
+ d=oss.qualcomm.com; s=google; t=1762001857; x=1762606657;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FgO/DWOmuj6w8q58zdaOU7zMQCVZmvikJjSVWAUKf5k=;
- b=mhrQ62bXN0rt4LEkVTE63r0XmItReUatoGSBSCgKs02ttJQKBZV8j3zkhxinepIHMw
- 6wwVtEq2m1zARCAP9iWfFihjO46O2VF8pDiZ9STsVzGPCEDVDt9wzGaCbIibiYaxWLfS
- DeG/hSrd6iNvvbsawXZkMs+NvS5VLdDxX1YGNYEh0/k8J7JA71iPGYtOHypkKuubyf/z
- Ouy2m2v1FJwb7CNiunRAbwy3iasaXxyzkTJryiPLLD0IwSWbfw5CUiK4/m+38YyM38HT
- Ww/id0u9laY0RgL9dPITj2kNlw/ldK37xCPuAdY0tgNvvmP/tR3/VwxCi10yktXuyTRj
- yG7Q==
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=GN6gpt39o6//WjbpTKlKjBfjUHi2y2bKsxupqs7pKU8=;
+ b=clpvf0I/QaKJ6dlWOvcz2qj+3MrOwB9+pRdmVIAWPXugjgpaJSRF9RTYeCYrIP+HVS
+ wquqgjwqOuJNSDxAQQ+hPXiA6yQORIRh3zRMz7wq9r8iF8WuX9w4g+ZittA9joQ7PuRr
+ Hu29hwtH/IQVvS5dSY4B8LHLuRKzGSMEJWLXZDmeVGtrtJKKROv/1+sdCOBSuE2a634N
+ De6j+/tzf/vTBYNXln4K+JSBzftulwrJc1AEICNiIOCwJJuiMYorNmJRemqQ7tQgGdwf
+ kuTvmoBEXTpYsn53KpvdHSQWLldwqWGZyZ2ypbnMlgM05vnhugfHfJ6vwo+gWt4H8i0U
+ 8owg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761954216; x=1762559016;
+ d=1e100.net; s=20230601; t=1762001857; x=1762606657;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=FgO/DWOmuj6w8q58zdaOU7zMQCVZmvikJjSVWAUKf5k=;
- b=mVF7i+xuUeMMXtW75WXsMEd7srTrwYiUYy0OtSP39rF5LphGHFfYEI8PrXprXQsfAO
- QvlucK7wy6SbxSN3FTB44xlsDSK0C3vf/HDbRZDxXD+DC9pZQZcIm5VoQtfE2W4YNBYK
- o3K13BgsVKowdgWqsUU5t8GXG1VsII1XoGj7vcocTuleFfUKBbwE7z8BF40lWwKHvhSR
- zdrrQ4K1CUPoI5Q1LIai3zGitniSs0TeRPbVInN8trT9i1Jf3vuV5CrVLlSfwXGVYCUo
- AeaaJey7ZfaAiYfcpA/hiRjWDHVDt8svRVS0+j003eKCBzW9NHlSf4HxFULhGEqoEQDs
- UZkQ==
+ :reply-to:in-reply-to:references:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GN6gpt39o6//WjbpTKlKjBfjUHi2y2bKsxupqs7pKU8=;
+ b=TpFJTioKef5Adyut4dN1CeVdkRorVaZesCliRIJSNwjb0ndq9FzLiEy9H/m4hj1xgX
+ kz+E5yVore3BJWVvd8egItzlu5uCScQxB1EY6RHDkb2ybIiP1e4oRiGL7ZB+Fzspnrf2
+ 2Y4OZEvsWLVO8boB4dWjB7QqrDsSgF6rCk2a0mAC2bKyK1Opd3ry6fhEmtLnaqBRdvZn
+ camJkrT1wAaPqvVXEi3345qbEPA0syyIY7QXi8WKz4mCS84x6UTAeat0ks9OaAGuCjTh
+ VJp1o2iN1DmUA/r2LhRPiIDI5lM4rwe4TSM9he1IV0jzhACJsNzcubzlz32XQ3vNGAFq
+ WJZQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWYOvif/uYD+/dn/cjh5HujyD14X3hhTQqcSNoXGcDNu4Dry16lq+Y1N6zVHfq1GeYuCg5TWP+4n0Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzN2/khQGd/qeqGLK8XzmqnrMri8OjnMZiG4OxA4mNW/31Ij3qX
- pkwBCX49eGBEUqjL1QzUEYMw4j9IQs9aDfZV4dD2JztjEqVc+tqliOXrpmBoclQ14kxIxFkhM7j
- aKlTsL13e9RDxDJnO7bof7Byr+IpYkKY=
-X-Gm-Gg: ASbGncu+yHC4kcClRVy6j9ViyggPzy3LhzDyqpTQm/M3I2iJ+BESG5HkInVVSC2j7u8
- hOdNYj66JuQKrem9b8IKVwbHxPDW487GutgrGJRnGD5ltS5TENmCTGDKSFIBBoqhOt9qs+4xqTw
- hi2sZ8XAUCx2NKthQAn1ZrjCp5bMoDrsWe56kk1nWLk9txBzPPaLphjPHL3ZLlsSwT58iT1PaVp
- wMbA44n/kDQVThBTx/7BUJsC9Ohrbz/k6j0OtH5hP3QnUoV6tqisyisi+fqU99xqiiA1rok9/l9
- mx697/8JxwRBe7BI/Q==
-X-Google-Smtp-Source: AGHT+IFK5Mg3P3wWGK+GySaVQXlBC0Ubey7TBZYaOxffUY/BqMs0ME8D/+JRN26TZyPOSuTMs+miZG2jn3GWI721SSE=
-X-Received: by 2002:a05:690e:d8b:b0:63f:9f4a:3ea with SMTP id
- 956f58d0204a3-63f9f4a0557mr1762776d50.19.1761954215782; Fri, 31 Oct 2025
- 16:43:35 -0700 (PDT)
+ AJvYcCWHwXPZKgfPxc3HdT/bHiI8Xns53rmwY4U/M0BxvOpsEKJ3P6ibbdCAilr0na6YgmuDniC3RF72Csw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzdubjvD0KXmXodx6vmK47TNWJu2PuWBQJG8FXPV8MS7Uovup8o
+ KDsyTY6malLg5ukj54NO62r0+9Gl6fd3tcj4gG7r+MISdHiYs0kWd4TY0nzqlii1MAzUVkITm/a
+ iHiVofWhYKFGRDBjg/u9q2LTEVbTKBsnoi+3KXkixtXZMOEAsq6X6d6/B8yyuKNaUkKMIXxyCt3
+ D09pEd5NHD3ON8+6uuhb8McZ4bcCPW8bAVbbYx0aacBXH6MA==
+X-Gm-Gg: ASbGncsd9/ltUud/OFUkuhvPcfmg5VcaiWAEaTQUUiHcGf2AiGDu46HtEwMrHx8ZCeu
+ hpBUWadgKc8FUgQSrEJr97pW8OULiz1Wm9q2WxE+4uZJxhBArJqAZqilSJ+8/digQ2Kc8DZiZjT
+ l02mx1ajwh0lqvToYBfgvbjOsTCBgGAHLHPjmcv02mlxezrHE7MFWWPHzsqvlfjuIcxZpB6ilvt
+ sy8BsWzMbjpPFY=
+X-Received: by 2002:a05:6808:1395:b0:43f:75c5:57e1 with SMTP id
+ 5614622812f47-44f95eb9a32mr3052051b6e.18.1762001856933; 
+ Sat, 01 Nov 2025 05:57:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHSZCgJFRRbRntQyU/jMD4SdopeuBQLtXGPHNOR+3XpYFUVZPmSaDlMP5/4p8dDW1tBsNVfQYutjVNe3R0atsY=
+X-Received: by 2002:a05:6808:1395:b0:43f:75c5:57e1 with SMTP id
+ 5614622812f47-44f95eb9a32mr3052036b6e.18.1762001856562; Sat, 01 Nov 2025
+ 05:57:36 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250908-ifpc-support-v2-0-631b1080bf91@oss.qualcomm.com>
  <20250908-ifpc-support-v2-15-631b1080bf91@oss.qualcomm.com>
-In-Reply-To: <20250908-ifpc-support-v2-15-631b1080bf91@oss.qualcomm.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Fri, 31 Oct 2025 16:43:25 -0700
-X-Gm-Features: AWmQ_blqeY-HldrhXd9X3mz1P5MLF3t6WOznNDOk6v6bu4NoTLrVvav3xvoKWiY
-Message-ID: <CAPaKu7TQ3tkQREG8xphW_L5eQPLuQhA=oKjfmYVJDR7PsNBXQg@mail.gmail.com>
+ <CAPaKu7TQ3tkQREG8xphW_L5eQPLuQhA=oKjfmYVJDR7PsNBXQg@mail.gmail.com>
+In-Reply-To: <CAPaKu7TQ3tkQREG8xphW_L5eQPLuQhA=oKjfmYVJDR7PsNBXQg@mail.gmail.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Sat, 1 Nov 2025 05:57:25 -0700
+X-Gm-Features: AWmQ_bmJNIWsGXJ9igpVvjSPKZvPAb_uZwlX3x7hysAr5tWUQUTqmyJnka2MZDs
+Message-ID: <CACSVV02B8BzvznzOoMw0EgOXEY39syWdyfzTcqWB0qsYjf42hQ@mail.gmail.com>
 Subject: Re: [PATCH v2 15/16] drm/msm/a6xx: Enable IFPC on Adreno X1-85
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+To: Chia-I Wu <olvaffe@gmail.com>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Antonino Maniscalco <antomani103@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=M85A6iws c=1 sm=1 tr=0 ts=690603c1 cx=c_pps
+ a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
+ a=YJZoVlBuq9nIZB7zQycA:9 a=QEXdDO2ut3YA:10 a=efpaJB4zofY2dbm2aIRb:22
+X-Proofpoint-ORIG-GUID: 1dJx8ScYPyfnFs9lVliDaqFd9pQBzayo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTAxMDExMCBTYWx0ZWRfX2zp2oiflo7tK
+ LG55Z1t/6YkAMM1ueduxaWV9maVBCIe46NC2geZkqKl0YbM639vPalcWpECsq0JIJHA2l3j9tvf
+ 8cwGZUDYsb1zvz8AAEghlQ58Vv3sVTsnW6QEdD+eD/CYyn3kV+ZY+D/ebuc4FPWiikVBu13crZ5
+ BJqQVrHpirFS1yCwV50bcq4S6xaKIHWLd1V8ySJWk9brj8yHqmtW4kHFex6+ptZLEmhFx1ATNvr
+ d0mpGFz0pUd6yzT2zPSIGt95do3otOrXyYfEY/zuv01mZ1R7uQ29auzefKdtQhOyf0DxnbvC3H/
+ zHNIaC4DdcoqcbHehMykSZLoVf5elxUo1+uu+a+DNJ5p1PgQNxW9Dx6uGhJbrzZd9mJ/YjssvTP
+ HtnRuT1pE4Rb7ORus30jKsJFwZvSZQ==
+X-Proofpoint-GUID: 1dJx8ScYPyfnFs9lVliDaqFd9pQBzayo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-01_02,2025-10-29_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511010110
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,183 +138,200 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 8, 2025 at 1:28=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualcomm=
-.com> wrote:
+On Fri, Oct 31, 2025 at 4:43=E2=80=AFPM Chia-I Wu <olvaffe@gmail.com> wrote=
+:
 >
-> Add the IFPC restore register list and enable IFPC support on Adreno
-> X1-85 gpu.
->
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 68 +++++++++++++++++++++++++=
-+++++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 15 +++++--
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
->  3 files changed, 79 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/=
-msm/adreno/a6xx_catalog.c
-> index 00e1afd46b81546eec03e22cda9e9a604f6f3b60..547c046730a9b50a82cc9b27f=
-08a5b1eeb08dced 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> @@ -1343,6 +1343,69 @@ static const uint32_t a7xx_pwrup_reglist_regs[] =
+> On Mon, Sep 8, 2025 at 1:28=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualco=
+mm.com> wrote:
+> >
+> > Add the IFPC restore register list and enable IFPC support on Adreno
+> > X1-85 gpu.
+> >
+> > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 68 +++++++++++++++++++++++=
++++++++-
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 15 +++++--
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+> >  3 files changed, 79 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/dr=
+m/msm/adreno/a6xx_catalog.c
+> > index 00e1afd46b81546eec03e22cda9e9a604f6f3b60..547c046730a9b50a82cc9b2=
+7f08a5b1eeb08dced 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> > @@ -1343,6 +1343,69 @@ static const uint32_t a7xx_pwrup_reglist_regs[] =
 =3D {
+> >
+> >  DECLARE_ADRENO_REGLIST_LIST(a7xx_pwrup_reglist);
+> >
+> > +/* Applicable for X185, A750 */
+> > +static const u32 a750_ifpc_reglist_regs[] =3D {
+> > +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_0,
+> > +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_1,
+> > +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_2,
+> > +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_3,
+> > +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_4,
+> > +       REG_A6XX_TPL1_NC_MODE_CNTL,
+> > +       REG_A6XX_SP_NC_MODE_CNTL,
+> > +       REG_A6XX_CP_DBG_ECO_CNTL,
+> > +       REG_A6XX_CP_PROTECT_CNTL,
+> > +       REG_A6XX_CP_PROTECT(0),
+> > +       REG_A6XX_CP_PROTECT(1),
+> > +       REG_A6XX_CP_PROTECT(2),
+> > +       REG_A6XX_CP_PROTECT(3),
+> > +       REG_A6XX_CP_PROTECT(4),
+> > +       REG_A6XX_CP_PROTECT(5),
+> > +       REG_A6XX_CP_PROTECT(6),
+> > +       REG_A6XX_CP_PROTECT(7),
+> > +       REG_A6XX_CP_PROTECT(8),
+> > +       REG_A6XX_CP_PROTECT(9),
+> > +       REG_A6XX_CP_PROTECT(10),
+> > +       REG_A6XX_CP_PROTECT(11),
+> > +       REG_A6XX_CP_PROTECT(12),
+> > +       REG_A6XX_CP_PROTECT(13),
+> > +       REG_A6XX_CP_PROTECT(14),
+> > +       REG_A6XX_CP_PROTECT(15),
+> > +       REG_A6XX_CP_PROTECT(16),
+> > +       REG_A6XX_CP_PROTECT(17),
+> > +       REG_A6XX_CP_PROTECT(18),
+> > +       REG_A6XX_CP_PROTECT(19),
+> > +       REG_A6XX_CP_PROTECT(20),
+> > +       REG_A6XX_CP_PROTECT(21),
+> > +       REG_A6XX_CP_PROTECT(22),
+> > +       REG_A6XX_CP_PROTECT(23),
+> > +       REG_A6XX_CP_PROTECT(24),
+> > +       REG_A6XX_CP_PROTECT(25),
+> > +       REG_A6XX_CP_PROTECT(26),
+> > +       REG_A6XX_CP_PROTECT(27),
+> > +       REG_A6XX_CP_PROTECT(28),
+> > +       REG_A6XX_CP_PROTECT(29),
+> > +       REG_A6XX_CP_PROTECT(30),
+> > +       REG_A6XX_CP_PROTECT(31),
+> > +       REG_A6XX_CP_PROTECT(32),
+> > +       REG_A6XX_CP_PROTECT(33),
+> > +       REG_A6XX_CP_PROTECT(34),
+> > +       REG_A6XX_CP_PROTECT(35),
+> > +       REG_A6XX_CP_PROTECT(36),
+> > +       REG_A6XX_CP_PROTECT(37),
+> > +       REG_A6XX_CP_PROTECT(38),
+> > +       REG_A6XX_CP_PROTECT(39),
+> > +       REG_A6XX_CP_PROTECT(40),
+> > +       REG_A6XX_CP_PROTECT(41),
+> > +       REG_A6XX_CP_PROTECT(42),
+> > +       REG_A6XX_CP_PROTECT(43),
+> > +       REG_A6XX_CP_PROTECT(44),
+> > +       REG_A6XX_CP_PROTECT(45),
+> > +       REG_A6XX_CP_PROTECT(46),
+> > +       REG_A6XX_CP_PROTECT(47),
+> > +};
+> > +
+> > +DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
+> > +
+> >  static const struct adreno_info a7xx_gpus[] =3D {
+> >         {
+> >                 .chip_ids =3D ADRENO_CHIP_IDS(0x07000200),
+> > @@ -1432,12 +1495,14 @@ static const struct adreno_info a7xx_gpus[] =3D=
+ {
+> >                 .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> >                 .quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> >                           ADRENO_QUIRK_HAS_HW_APRIV |
+> > -                         ADRENO_QUIRK_PREEMPTION,
+> > +                         ADRENO_QUIRK_PREEMPTION |
+> > +                         ADRENO_QUIRK_IFPC,
+> >                 .init =3D a6xx_gpu_init,
+> >                 .a6xx =3D &(const struct a6xx_info) {
+> >                         .hwcg =3D a740_hwcg,
+> >                         .protect =3D &a730_protect,
+> >                         .pwrup_reglist =3D &a7xx_pwrup_reglist,
+> > +                       .ifpc_reglist =3D &a750_ifpc_reglist,
+> >                         .gmu_chipid =3D 0x7050001,
+> >                         .gmu_cgc_mode =3D 0x00020202,
+> >                 },
+> > @@ -1466,6 +1531,7 @@ static const struct adreno_info a7xx_gpus[] =3D {
+> >                 .a6xx =3D &(const struct a6xx_info) {
+> >                         .protect =3D &a730_protect,
+> >                         .pwrup_reglist =3D &a7xx_pwrup_reglist,
+> > +                       .ifpc_reglist =3D &a750_ifpc_reglist,
+> >                         .gmu_chipid =3D 0x7090100,
+> >                         .gmu_cgc_mode =3D 0x00020202,
+> >                         .bcms =3D (const struct a6xx_bcm[]) {
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/a6xx_gpu.c
+> > index 76dd78f5c48ea818a2aa209e0c0c88bc5e8f4e06..91a2a82c4f388ca6b052172=
+efdd7255165f3c04a 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > @@ -828,11 +828,10 @@ static void a7xx_patch_pwrup_reglist(struct msm_g=
+pu *gpu)
+> >         u32 *dest =3D (u32 *)&lock->regs[0];
+> >         int i;
+> >
+> > -       reglist =3D adreno_gpu->info->a6xx->pwrup_reglist;
+> > -
+> >         lock->gpu_req =3D lock->cpu_req =3D lock->turn =3D 0;
+> > -       lock->ifpc_list_len =3D 0;
+> > -       lock->preemption_list_len =3D reglist->count;
+> > +
+> > +       reglist =3D adreno_gpu->info->a6xx->ifpc_reglist;
+> This is NULL on X1-45 and causes
 >
->  DECLARE_ADRENO_REGLIST_LIST(a7xx_pwrup_reglist);
->
-> +/* Applicable for X185, A750 */
-> +static const u32 a750_ifpc_reglist_regs[] =3D {
-> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_0,
-> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_1,
-> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_2,
-> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_3,
-> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_4,
-> +       REG_A6XX_TPL1_NC_MODE_CNTL,
-> +       REG_A6XX_SP_NC_MODE_CNTL,
-> +       REG_A6XX_CP_DBG_ECO_CNTL,
-> +       REG_A6XX_CP_PROTECT_CNTL,
-> +       REG_A6XX_CP_PROTECT(0),
-> +       REG_A6XX_CP_PROTECT(1),
-> +       REG_A6XX_CP_PROTECT(2),
-> +       REG_A6XX_CP_PROTECT(3),
-> +       REG_A6XX_CP_PROTECT(4),
-> +       REG_A6XX_CP_PROTECT(5),
-> +       REG_A6XX_CP_PROTECT(6),
-> +       REG_A6XX_CP_PROTECT(7),
-> +       REG_A6XX_CP_PROTECT(8),
-> +       REG_A6XX_CP_PROTECT(9),
-> +       REG_A6XX_CP_PROTECT(10),
-> +       REG_A6XX_CP_PROTECT(11),
-> +       REG_A6XX_CP_PROTECT(12),
-> +       REG_A6XX_CP_PROTECT(13),
-> +       REG_A6XX_CP_PROTECT(14),
-> +       REG_A6XX_CP_PROTECT(15),
-> +       REG_A6XX_CP_PROTECT(16),
-> +       REG_A6XX_CP_PROTECT(17),
-> +       REG_A6XX_CP_PROTECT(18),
-> +       REG_A6XX_CP_PROTECT(19),
-> +       REG_A6XX_CP_PROTECT(20),
-> +       REG_A6XX_CP_PROTECT(21),
-> +       REG_A6XX_CP_PROTECT(22),
-> +       REG_A6XX_CP_PROTECT(23),
-> +       REG_A6XX_CP_PROTECT(24),
-> +       REG_A6XX_CP_PROTECT(25),
-> +       REG_A6XX_CP_PROTECT(26),
-> +       REG_A6XX_CP_PROTECT(27),
-> +       REG_A6XX_CP_PROTECT(28),
-> +       REG_A6XX_CP_PROTECT(29),
-> +       REG_A6XX_CP_PROTECT(30),
-> +       REG_A6XX_CP_PROTECT(31),
-> +       REG_A6XX_CP_PROTECT(32),
-> +       REG_A6XX_CP_PROTECT(33),
-> +       REG_A6XX_CP_PROTECT(34),
-> +       REG_A6XX_CP_PROTECT(35),
-> +       REG_A6XX_CP_PROTECT(36),
-> +       REG_A6XX_CP_PROTECT(37),
-> +       REG_A6XX_CP_PROTECT(38),
-> +       REG_A6XX_CP_PROTECT(39),
-> +       REG_A6XX_CP_PROTECT(40),
-> +       REG_A6XX_CP_PROTECT(41),
-> +       REG_A6XX_CP_PROTECT(42),
-> +       REG_A6XX_CP_PROTECT(43),
-> +       REG_A6XX_CP_PROTECT(44),
-> +       REG_A6XX_CP_PROTECT(45),
-> +       REG_A6XX_CP_PROTECT(46),
-> +       REG_A6XX_CP_PROTECT(47),
-> +};
-> +
-> +DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
-> +
->  static const struct adreno_info a7xx_gpus[] =3D {
->         {
->                 .chip_ids =3D ADRENO_CHIP_IDS(0x07000200),
-> @@ -1432,12 +1495,14 @@ static const struct adreno_info a7xx_gpus[] =3D {
->                 .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
->                 .quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
->                           ADRENO_QUIRK_HAS_HW_APRIV |
-> -                         ADRENO_QUIRK_PREEMPTION,
-> +                         ADRENO_QUIRK_PREEMPTION |
-> +                         ADRENO_QUIRK_IFPC,
->                 .init =3D a6xx_gpu_init,
->                 .a6xx =3D &(const struct a6xx_info) {
->                         .hwcg =3D a740_hwcg,
->                         .protect =3D &a730_protect,
->                         .pwrup_reglist =3D &a7xx_pwrup_reglist,
-> +                       .ifpc_reglist =3D &a750_ifpc_reglist,
->                         .gmu_chipid =3D 0x7050001,
->                         .gmu_cgc_mode =3D 0x00020202,
->                 },
-> @@ -1466,6 +1531,7 @@ static const struct adreno_info a7xx_gpus[] =3D {
->                 .a6xx =3D &(const struct a6xx_info) {
->                         .protect =3D &a730_protect,
->                         .pwrup_reglist =3D &a7xx_pwrup_reglist,
-> +                       .ifpc_reglist =3D &a750_ifpc_reglist,
->                         .gmu_chipid =3D 0x7090100,
->                         .gmu_cgc_mode =3D 0x00020202,
->                         .bcms =3D (const struct a6xx_bcm[]) {
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index 76dd78f5c48ea818a2aa209e0c0c88bc5e8f4e06..91a2a82c4f388ca6b052172ef=
-dd7255165f3c04a 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -828,11 +828,10 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu=
- *gpu)
->         u32 *dest =3D (u32 *)&lock->regs[0];
->         int i;
->
-> -       reglist =3D adreno_gpu->info->a6xx->pwrup_reglist;
-> -
->         lock->gpu_req =3D lock->cpu_req =3D lock->turn =3D 0;
-> -       lock->ifpc_list_len =3D 0;
-> -       lock->preemption_list_len =3D reglist->count;
-> +
-> +       reglist =3D adreno_gpu->info->a6xx->ifpc_reglist;
-This is NULL on X1-45 and causes
+>   [    8.795603] Unable to handle kernel NULL pointer dereference at
+> virtual address 0000000000000008
 
-  [    8.795603] Unable to handle kernel NULL pointer dereference at
-virtual address 0000000000000008
+Hmm, this is probably going to happen on all a7xx which don't have
+IFPC from the looks of it.
 
-> +       lock->ifpc_list_len =3D reglist->count;
->
->         /*
->          * For each entry in each of the lists, write the offset and the =
-current
-> @@ -843,6 +842,14 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu =
-*gpu)
->                 *dest++ =3D gpu_read(gpu, reglist->regs[i]);
->         }
->
-> +       reglist =3D adreno_gpu->info->a6xx->pwrup_reglist;
-> +       lock->preemption_list_len =3D reglist->count;
-> +
-> +       for (i =3D 0; i < reglist->count; i++) {
-> +               *dest++ =3D reglist->regs[i];
-> +               *dest++ =3D gpu_read(gpu, reglist->regs[i]);
-> +       }
-> +
->         /*
->          * The overall register list is composed of
->          * 1. Static IFPC-only registers
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.h
-> index 124c63c4615930b00c64e488a498163ae35afccd..0b17d36c36a9567e6afa4269a=
-e7783ed3578e40e 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> @@ -45,6 +45,7 @@ struct a6xx_info {
->         const struct adreno_reglist *hwcg;
->         const struct adreno_protect *protect;
->         const struct adreno_reglist_list *pwrup_reglist;
-> +       const struct adreno_reglist_list *ifpc_reglist;
->         u32 gmu_chipid;
->         u32 gmu_cgc_mode;
->         u32 prim_fifo_threshold;
->
-> --
-> 2.50.1
->
+We should either check for the IFPC quirk.. or maybe just drop the
+quirk and decide whether IFPC is supported based on ifpc_reglist !=3D
+NULL?
+
+(That said, we probably do want to have IFPC enabled for x1-45)
+
+BR,
+-R
+
+> > +       lock->ifpc_list_len =3D reglist->count;
+> >
+> >         /*
+> >          * For each entry in each of the lists, write the offset and th=
+e current
+> > @@ -843,6 +842,14 @@ static void a7xx_patch_pwrup_reglist(struct msm_gp=
+u *gpu)
+> >                 *dest++ =3D gpu_read(gpu, reglist->regs[i]);
+> >         }
+> >
+> > +       reglist =3D adreno_gpu->info->a6xx->pwrup_reglist;
+> > +       lock->preemption_list_len =3D reglist->count;
+> > +
+> > +       for (i =3D 0; i < reglist->count; i++) {
+> > +               *dest++ =3D reglist->regs[i];
+> > +               *dest++ =3D gpu_read(gpu, reglist->regs[i]);
+> > +       }
+> > +
+> >         /*
+> >          * The overall register list is composed of
+> >          * 1. Static IFPC-only registers
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/ms=
+m/adreno/a6xx_gpu.h
+> > index 124c63c4615930b00c64e488a498163ae35afccd..0b17d36c36a9567e6afa426=
+9ae7783ed3578e40e 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> > @@ -45,6 +45,7 @@ struct a6xx_info {
+> >         const struct adreno_reglist *hwcg;
+> >         const struct adreno_protect *protect;
+> >         const struct adreno_reglist_list *pwrup_reglist;
+> > +       const struct adreno_reglist_list *ifpc_reglist;
+> >         u32 gmu_chipid;
+> >         u32 gmu_cgc_mode;
+> >         u32 prim_fifo_threshold;
+> >
+> > --
+> > 2.50.1
+> >
