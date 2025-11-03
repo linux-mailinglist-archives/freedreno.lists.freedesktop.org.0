@@ -2,143 +2,148 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D45ADC2C96D
-	for <lists+freedreno@lfdr.de>; Mon, 03 Nov 2025 16:11:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76032C2CD5F
+	for <lists+freedreno@lfdr.de>; Mon, 03 Nov 2025 16:43:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C52A610E419;
-	Mon,  3 Nov 2025 15:11:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4757D10E42F;
+	Mon,  3 Nov 2025 15:43:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aHAktgvO";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bPsx/QtL";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="d7kIV6RQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XBjtmBJ7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAF9010E419
- for <freedreno@lists.freedesktop.org>; Mon,  3 Nov 2025 15:11:35 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A76D10E432
+ for <freedreno@lists.freedesktop.org>; Mon,  3 Nov 2025 15:43:47 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5A3EsRnM3444749
- for <freedreno@lists.freedesktop.org>; Mon, 3 Nov 2025 15:11:34 GMT
+ 5A3CZbDZ2269764
+ for <freedreno@lists.freedesktop.org>; Mon, 3 Nov 2025 15:43:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- UCJAK7Pd4+aj+wxIVjIVEoofMTvNUM501URNtwpY89s=; b=aHAktgvOJhWLL9Pl
- oiRageaRcNP0GjmoVER3oMJiQp0IIjFSdxDbLJUfKWF6V63+ycXERiNQ1sDNT6Lr
- 3ClmeXGshkzuicp7+kkNlUJJ6vblUxHhBkxBRTT82ePameSLWo2Doy1e4P7n6Eki
- wprlWG/jMCkXCRUi1ynMh53bX8n0rEB/VOXcxFudUeIo74OdJIXlcAs6rcrTLeyo
- 0uK0YnFue9obl0m7U1gkSN6O4bjdIVrWvNQJj6QsPsh5Ukqks7+n/4MSWCKCJ14b
- cb582dysdGLr2/4lLPhSBTi79ZInl4uDpIEYbjUC92h0WlAgX8WZieB0bXWsx/9Z
- QagOaQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a6xjqr1np-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=MLSUVL0011U+bl1QMn4/8R
+ YN+a6NKJhjMZdbnPjm8I8=; b=d7kIV6RQuk2dJu82om2Hyg0nCJdmJFIbieZBex
+ UcUexBkW1A1pHw1YLH1oEZCEYQmiZyG1tTg+W+EMJjVc7J5itpALy1cgKv8fWoXa
+ /Mmua1p2EkDmlEkVw/K5y4lpc8m/DUv2CQ6+gZfLw/Nl2LNFQCcXFplnTfBTApQy
+ VfRThU2RC1Q/eVkipHd4nJLeOdd/dRSRi/eL389i/JIpCwTnLeU93ebfb3/oKUVa
+ cGBX2AACTL1F/lbp3MEy7RbKsWlFpNStdqW3a8fcbbzZtvwANsSFu5kEghvSuh+a
+ AP17TfOC1ARXeGOMB/Y/Kyg8aAsXDoWU1uqv63YR0MQDB+EQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a6pv79mmg-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 03 Nov 2025 15:11:33 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-33da1f30fdfso11566382a91.3
- for <freedreno@lists.freedesktop.org>; Mon, 03 Nov 2025 07:11:33 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Nov 2025 15:43:46 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4eba90c163cso90346291cf.0
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Nov 2025 07:43:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1762182693; x=1762787493;
+ d=oss.qualcomm.com; s=google; t=1762184625; x=1762789425;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=UCJAK7Pd4+aj+wxIVjIVEoofMTvNUM501URNtwpY89s=;
- b=bPsx/QtL3zqyED701acw/hwPPfSWgxyb8tCDYuSHrYdzgtJV6iAhaMNFJ9RHjEnoKr
- IR6aOq2muo0zG2JRTjC9HfQCAzAGR2JTgBV89JiWtkAsrS0lk+9UHjK3098j5IOGGoMz
- zBrf0wgyYLjya7NrcU+oelQRC/uaAtjV9bb0v224+jjYzQnLghto1kFoTfIt8qpk0eEu
- y6ffWoVkkZoMfqMJfoc0lZCs4OGvOu4YXL1o5GgkRsOIc9GrG6J8BpHS4mk4GPl8+rw7
- IN2InqnAfcfLVopEGvHLEd8HVpmLXw9HZagONm/gbR09gIhAZWhJtS9dU++LEnKdYaZh
- W1kA==
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MLSUVL0011U+bl1QMn4/8RYN+a6NKJhjMZdbnPjm8I8=;
+ b=XBjtmBJ72zxquscCEP/KGIJXy0jhZuH50VuPHKr/mS42bcnoUpEOYK75XCVN+Xah8P
+ DZ1OIzgizJFw+tH04lRG/M4WDfVkm1hJR8FKWE2ZxJMONt4YAIcE/Bq+OhjmTXVWtEMC
+ 3RO2fRIj/WTn7+ZfqW5D4X7EOhDDc3/GpwOIjLpjxXJ+slMSwLe+tLtGpV8f7rXonMdL
+ dwxvDowFXDAFYF0U4xAKbWPKprCu/XyAuz8QuU/OdGDfa4V0Ov/D2oSebgH4KBKv00RM
+ DD9idON8Nm/CqkZeK/sj6P7JGLROoP5xOI3K8rJvR465S0wk4XWeHNLfR9fCv6h6tWVa
+ 0xag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762182693; x=1762787493;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UCJAK7Pd4+aj+wxIVjIVEoofMTvNUM501URNtwpY89s=;
- b=Kgd6aPBCwhhzIJ+bBtJHe77QQqVaIssrLLW83vs5nV79LXjh02ivDM2dYQay9xLc7u
- e9xNrdsTVra1kW8NoTP6pOuIAY0vPCYJ05+bDek8pg1HabPQuCqfnGnnIo4VBWEkryXn
- GwkxE1EC0ZdnSWNc/jWYzxhMcBQM0hwvVJ9VAVqdGBE1gp2vtDw8rRBxmneRqAs6kjbd
- +rl3hk35+rRUwmj/c8uXtMcYqAnjTSB4F2IFz2ECZqOf5djqsO6/WZXgfiYylMV1Mn6k
- lyxbC9QX7zcVups9oVzL6SBtDLEVP+5jjleHQYfxjApmL+CIdwQ4YUKTbWLIhzTZL7Jj
- xhfw==
+ d=1e100.net; s=20230601; t=1762184625; x=1762789425;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MLSUVL0011U+bl1QMn4/8RYN+a6NKJhjMZdbnPjm8I8=;
+ b=mJDURHji0RiHthESC726WnLwAEOua51akukwYHa6wfF00/Bg0GTa4R+G/NnQRPHGCl
+ tykqCkPByVeUwx6VSDB6GvQ2MHVgQR3o6W92TMPMJyiCFCr/tQ1wlcAsyMW/Luqi4TWL
+ Lx27mHwq7F1TEdPI7NBivUatQDlOA/4PkCqEL4WdYAJKGl5sbPCwizivoXG6ULT5rMjk
+ ou53bbhyJ2dzNg+NcsR1BsIF6qLAfVYB6lOqsDhRjNUwotFa7dCgRwwH0RFnD8L7FlEt
+ LbRSYH7Bj5JrD6qM2P570WYOof85TK2hKvuMNE2g9BLePzXGY6DgQ7LT5/mGOsGiManz
+ zmOA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU578Ge+ynAkZ2lu65quEoLamvVn/BH1OxRmyYENTPRMuA00H3O+awwqIFZO9jKA//sQx91IUGGa4Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzM2YAYBJO1vEicNRg3vsHVTplYTwW8MSwNs5zqT/fNP3Ok/rZo
- DCHojgd18q/1e7YU3yelr6R6iAJ4heT5Mtf87APScNLCTp+bKLOwF/xoJhncI6sBr14Vqup+BnZ
- W76tMMCdpQIVoFeXa4JkSkpk5vWL8/vFzkoTekuAPknyTHzm4bn0YL2iUU8blE1fcROK0xAU=
-X-Gm-Gg: ASbGnctwUQeV5KLGCCg6MY31m3q1g+ps6bvFQIQSufarbrDCWKrnqWHcb9QUlrXjxdV
- nwPjw4wjhz+XeESPZHcrWCq2EQ/aV1qZ0/aY57GIompnYoXCDVyXuqraUN+NXCpeh9P4z0DwH6v
- L8LbXMhn5AwaSFuKFX3+WaxVpK6HDEOK7vTo7MJpE0nCRe+x2SgplD2DjFIFDf1MizxbrT1LvKh
- O90lKprXOjeRs/I3lbBuo7Dvxaz0lOGyEEk7a7QaFiemvEB/fWlAztG0HI+CTE8+xDXaT+pu7iG
- bZqzb8xBjAd/4bUwAT0Dd6SkkS1vERoZlYIPPjgKc0Su1NTpEqvBWpjn89JuDa65PEika4ws0Dz
- zffJhzB4KMfVySOjd2dmJhg==
-X-Received: by 2002:a17:90b:51d1:b0:336:9dcf:ed14 with SMTP id
- 98e67ed59e1d1-3408306b9f3mr15500201a91.23.1762182692528; 
- Mon, 03 Nov 2025 07:11:32 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IESf0Nr7es9ACs3xLYQHQL6znc/SOeNTdnJIBLHpv32YpmW22UrjULWnWPm19AUoFoOpZYFYw==
-X-Received: by 2002:a17:90b:51d1:b0:336:9dcf:ed14 with SMTP id
- 98e67ed59e1d1-3408306b9f3mr15500142a91.23.1762182691936; 
- Mon, 03 Nov 2025 07:11:31 -0800 (PST)
-Received: from [10.206.104.82] ([202.46.23.25])
+ AJvYcCXQdnkPJKJpEbzKJL+9ap/vatKOUv/xSPP/6l3x8bset1INXfyyEvu+FK2MnKBQPWDL+trQ4iFbZvs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjZL7PJ/boStw9x/rBfUhQqVngeGbMOawZjuhcxoKBo0gW5IZc
+ 0WdRRODXGceDifb78k3iAq1BQquIPzNoL7RsUEbKrGV5Ng1XWHuYQ+VH90m3Uks3/l9bxTEMxCe
+ g7hntRpfYHL8LNH5BW8y33+dT3prSfQ9H8Y0Y1Ui6qQHCUSBVRSMUTPuKWzjBSHWoE4xhvO4=
+X-Gm-Gg: ASbGnctp7mbxvSdDkKzPTqFjLKR3cANF4kv3/Pibn/g3a2yXinAdD73BPRwsKJbom5J
+ BkNNnb1F5dKProkl4zuMeS+mKblwKr9UWezcddc0nvuwHv/GRTu4DF/fBZAwSsIXwAhDWHDIjWT
+ 6e3mesq36VaBRCHKThK25svlMhrsT8/sE/AWexqMxQR4mlIsXPqluo6ev6EtIO0lpy+GcBaE5/f
+ iXv/Us5MkW7dvFdf4KEQORLXz61JvhrdB7TobZaziRQxdmDbpF1vSN1U/NwgnJJZVg1ThRt3lcy
+ 92rL4XthFcJM542g2rn7/xRRPyLU3tBzF+lmS0zMCCeo4d4TPeYTq6BPe8MqfLnfUIWs8a/TgYG
+ +0uoxHGhQpGJMTDFUrI2lMeKZU+PADzoSjwbkR5zG7CPesjUP0NHRqEts2vT+nuOQ8KOLgV6uh6
+ JbqLsAawqBVQ/8
+X-Received: by 2002:a05:622a:244a:b0:4e8:a7d6:bbf8 with SMTP id
+ d75a77b69052e-4ed310bd456mr153322791cf.75.1762184624694; 
+ Mon, 03 Nov 2025 07:43:44 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGx6fdpy9ffRuVsvhz8yNjpEytEyKHoZ4q3oHwfdF2Lj12GhBZH98nF9j0PD7DIHX03P4jxmw==
+X-Received: by 2002:a05:622a:244a:b0:4e8:a7d6:bbf8 with SMTP id
+ d75a77b69052e-4ed310bd456mr153322311cf.75.1762184624084; 
+ Mon, 03 Nov 2025 07:43:44 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-340ad517882sm4492958a91.5.2025.11.03.07.11.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Nov 2025 07:11:30 -0800 (PST)
-Message-ID: <5272401a-612c-467e-a833-36fe72837d5b@oss.qualcomm.com>
-Date: Mon, 3 Nov 2025 20:41:23 +0530
+ 2adb3069b0e04-5943445901csm9896e87.104.2025.11.03.07.43.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Nov 2025 07:43:43 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Mon, 03 Nov 2025 17:43:39 +0200
+Subject: [PATCH v2] drm/msm: fix allocation of dumb buffers for non-RGB formats
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/16] drm/msm/a6xx: Enable IFPC on Adreno X1-85
-To: Chia-I Wu <olvaffe@gmail.com>
-Cc: rob.clark@oss.qualcomm.com, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251103-drm-msm-fix-nv12-v2-1-75103b64576e@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAKrNCGkC/32NwQrCMBBEf6Xs2S3ZaEU9+R/SQ5psbMA0mtWgl
+ P67sR/gZeDNMDMzCOfAAqdmhswlSEhTBb1pwI5mujIGVxm00h2R0uhyxCgRfXjjVEgjkVd8sFs
+ aNEOt3TPXbJ289JXHIM+UP+tDoZ/7Z6wQEqrj3g122JmO/DmJtI+XudkUY1sF+mVZvvMpUU+3A
+ AAA
+X-Change-ID: 20251102-drm-msm-fix-nv12-11f0e8c31b2e
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250908-ifpc-support-v2-0-631b1080bf91@oss.qualcomm.com>
- <20250908-ifpc-support-v2-15-631b1080bf91@oss.qualcomm.com>
- <CAPaKu7TQ3tkQREG8xphW_L5eQPLuQhA=oKjfmYVJDR7PsNBXQg@mail.gmail.com>
- <CACSVV02B8BzvznzOoMw0EgOXEY39syWdyfzTcqWB0qsYjf42hQ@mail.gmail.com>
- <1d6a50c3-eb1d-46a9-922c-e57e6e83779d@oss.qualcomm.com>
- <CAPaKu7QvBZmx0b8SDBY1H3u-Em+0py0BrGkmrfGUXkx1uQrg3A@mail.gmail.com>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <CAPaKu7QvBZmx0b8SDBY1H3u-Em+0py0BrGkmrfGUXkx1uQrg3A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 6IwjhVBBMIGjY2YjTfDSajDJ7RLPnpRi
-X-Proofpoint-ORIG-GUID: 6IwjhVBBMIGjY2YjTfDSajDJ7RLPnpRi
-X-Authority-Analysis: v=2.4 cv=criWUl4i c=1 sm=1 tr=0 ts=6908c626 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=ZGesvalcjkYv3LExhKQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTAzMDEzNyBTYWx0ZWRfX0GbrEfl+WtZY
- r1FGxyCmxYIcVmkLzkMYq6PpbBfIk9MmojyPs1uVUcvQSMy00RKZsfEfwoMKr6skYouVTnsge8B
- jZKYzX0lKdMkIMVVhBNbqUyoFnqocdCYey1hFoFtMLWCznru3K8YVQa/e0lTsuTFVnlmFVPRay9
- GWbQzzzJ7CJK7BQlccdMHEcpoMsnuL0c2gytRRyLUoE7iUSvnWVOHQrK/GAlgIQMqTBdl0rtT2H
- Vzx7ojPBsWO+RwvM3pl69j7uDaKiCToatWH9s/IZg9rJXCnDTrhp5xDQths9YJa87Q7xfEPN2na
- 4DoJTZbsSpZ6sOO6vA5Q6C6qCUSzwF7b9uPeCv3AeccYwKT3tQPRDrnxPQEyDJGoJFUuLMWNOmM
- NDxbL0Wg3ByK3nG0qN3kpgFH/UamHQ==
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2345;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=eI5cBu6QQfK3tjsQDS+FvtnmilDLe0nXXkJB8PTH17U=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpCM2vxYMRKRx5ca1WQ0ggB27XbRlV3JD/T9Vpx
+ zk2DpptdJWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaQjNrwAKCRCLPIo+Aiko
+ 1UX6B/wO+drRIoqx9TL/752F67KiRKU8cWu0rZlFvlMMTXZcBfAk5L+VM4ZQ9/jv0GQVE1AT3Gz
+ B/nNq2btijArTstBZfeCr/BIaiUqC8JAENJLZ6u0Asl9piNg4FzFy4cVpLbs9xKCCijyoCHEZ/n
+ xPPgbJ1J2qaHWNgXxONsRfWpZqZv4MlgM9JMSOQaxJ2SL+3hxf0s+pd1MT2XPRgyFIaVWEq0DWn
+ 6WpcHjXB1MqnL/7CIWrHqnYW326EiaeBrbBf/n8jNgS5T+F+hiH4F3XpXfx8762oQ6dDFl644QE
+ XaaFFLmCEvkunyMKs1urQ7es0YTVxPbUPKrMSO8ZwzRnhuiv
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: 4s_-vxHsoNaSScrLdCeF01OOtyQA3zC6
+X-Authority-Analysis: v=2.4 cv=A7dh/qWG c=1 sm=1 tr=0 ts=6908cdb2 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KVldPKIrq6pl5aLy4YAA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: 4s_-vxHsoNaSScrLdCeF01OOtyQA3zC6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTAzMDE0MSBTYWx0ZWRfX6at9XnEi0x2E
+ lEeTxk5bvcPVzbnR4CaM+9TyN+tUFQ+ysIHkM6mg9gRr6fuYorHWAiI+zral3ptJkWJIXL38fOq
+ 3c0hGBY4g7xv81X+8QXLuy00NVU6QZbTz9kb+jUeufXLPVKSLkULDm6Lx1VDBIiMTW5cyJgkHW8
+ EsPTxpv5TE1BK4Z4fcov17Z7IrIgah1dD8WP1J5y+/BHMX0Kv0N0f/OA6nVXkAzbwew8vgk5rF0
+ UZvY0AXTCjD9OSxp7tOLVNHFEmR+Ogvv+7UwMLTeaUn7B1K2Y4MrWWesFujeizbrJvetVbq7uvO
+ fzs+nwg1dYAcXSM3hILnZaSyot/rOOsWdVGVp1H9tVEiiPCVOJ7vNSz/eldc8LN+dI2RmjjNC3u
+ YKajoQ1DV5xB4cP9mMi69j1aQqGyaQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-03_02,2025-11-03_02,2025-10-01_01
+ definitions=2025-11-03_03,2025-11-03_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- impostorscore=0 clxscore=1015 spamscore=0 suspectscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2511030137
+ phishscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 spamscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511030141
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,207 +159,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/2/2025 11:25 PM, Chia-I Wu wrote:
-> On Sat, Nov 1, 2025 at 12:52 PM Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
->>
->> On 11/1/2025 6:27 PM, Rob Clark wrote:
->>> On Fri, Oct 31, 2025 at 4:43 PM Chia-I Wu <olvaffe@gmail.com> wrote:
->>>>
->>>> On Mon, Sep 8, 2025 at 1:28 AM Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
->>>>>
->>>>> Add the IFPC restore register list and enable IFPC support on Adreno
->>>>> X1-85 gpu.
->>>>>
->>>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>>> ---
->>>>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 68 ++++++++++++++++++++++++++++++-
->>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 15 +++++--
->>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
->>>>>  3 files changed, 79 insertions(+), 5 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>> index 00e1afd46b81546eec03e22cda9e9a604f6f3b60..547c046730a9b50a82cc9b27f08a5b1eeb08dced 100644
->>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>> @@ -1343,6 +1343,69 @@ static const uint32_t a7xx_pwrup_reglist_regs[] = {
->>>>>
->>>>>  DECLARE_ADRENO_REGLIST_LIST(a7xx_pwrup_reglist);
->>>>>
->>>>> +/* Applicable for X185, A750 */
->>>>> +static const u32 a750_ifpc_reglist_regs[] = {
->>>>> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_0,
->>>>> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_1,
->>>>> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_2,
->>>>> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_3,
->>>>> +       REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_4,
->>>>> +       REG_A6XX_TPL1_NC_MODE_CNTL,
->>>>> +       REG_A6XX_SP_NC_MODE_CNTL,
->>>>> +       REG_A6XX_CP_DBG_ECO_CNTL,
->>>>> +       REG_A6XX_CP_PROTECT_CNTL,
->>>>> +       REG_A6XX_CP_PROTECT(0),
->>>>> +       REG_A6XX_CP_PROTECT(1),
->>>>> +       REG_A6XX_CP_PROTECT(2),
->>>>> +       REG_A6XX_CP_PROTECT(3),
->>>>> +       REG_A6XX_CP_PROTECT(4),
->>>>> +       REG_A6XX_CP_PROTECT(5),
->>>>> +       REG_A6XX_CP_PROTECT(6),
->>>>> +       REG_A6XX_CP_PROTECT(7),
->>>>> +       REG_A6XX_CP_PROTECT(8),
->>>>> +       REG_A6XX_CP_PROTECT(9),
->>>>> +       REG_A6XX_CP_PROTECT(10),
->>>>> +       REG_A6XX_CP_PROTECT(11),
->>>>> +       REG_A6XX_CP_PROTECT(12),
->>>>> +       REG_A6XX_CP_PROTECT(13),
->>>>> +       REG_A6XX_CP_PROTECT(14),
->>>>> +       REG_A6XX_CP_PROTECT(15),
->>>>> +       REG_A6XX_CP_PROTECT(16),
->>>>> +       REG_A6XX_CP_PROTECT(17),
->>>>> +       REG_A6XX_CP_PROTECT(18),
->>>>> +       REG_A6XX_CP_PROTECT(19),
->>>>> +       REG_A6XX_CP_PROTECT(20),
->>>>> +       REG_A6XX_CP_PROTECT(21),
->>>>> +       REG_A6XX_CP_PROTECT(22),
->>>>> +       REG_A6XX_CP_PROTECT(23),
->>>>> +       REG_A6XX_CP_PROTECT(24),
->>>>> +       REG_A6XX_CP_PROTECT(25),
->>>>> +       REG_A6XX_CP_PROTECT(26),
->>>>> +       REG_A6XX_CP_PROTECT(27),
->>>>> +       REG_A6XX_CP_PROTECT(28),
->>>>> +       REG_A6XX_CP_PROTECT(29),
->>>>> +       REG_A6XX_CP_PROTECT(30),
->>>>> +       REG_A6XX_CP_PROTECT(31),
->>>>> +       REG_A6XX_CP_PROTECT(32),
->>>>> +       REG_A6XX_CP_PROTECT(33),
->>>>> +       REG_A6XX_CP_PROTECT(34),
->>>>> +       REG_A6XX_CP_PROTECT(35),
->>>>> +       REG_A6XX_CP_PROTECT(36),
->>>>> +       REG_A6XX_CP_PROTECT(37),
->>>>> +       REG_A6XX_CP_PROTECT(38),
->>>>> +       REG_A6XX_CP_PROTECT(39),
->>>>> +       REG_A6XX_CP_PROTECT(40),
->>>>> +       REG_A6XX_CP_PROTECT(41),
->>>>> +       REG_A6XX_CP_PROTECT(42),
->>>>> +       REG_A6XX_CP_PROTECT(43),
->>>>> +       REG_A6XX_CP_PROTECT(44),
->>>>> +       REG_A6XX_CP_PROTECT(45),
->>>>> +       REG_A6XX_CP_PROTECT(46),
->>>>> +       REG_A6XX_CP_PROTECT(47),
->>>>> +};
->>>>> +
->>>>> +DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
->>>>> +
->>>>>  static const struct adreno_info a7xx_gpus[] = {
->>>>>         {
->>>>>                 .chip_ids = ADRENO_CHIP_IDS(0x07000200),
->>>>> @@ -1432,12 +1495,14 @@ static const struct adreno_info a7xx_gpus[] = {
->>>>>                 .inactive_period = DRM_MSM_INACTIVE_PERIOD,
->>>>>                 .quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
->>>>>                           ADRENO_QUIRK_HAS_HW_APRIV |
->>>>> -                         ADRENO_QUIRK_PREEMPTION,
->>>>> +                         ADRENO_QUIRK_PREEMPTION |
->>>>> +                         ADRENO_QUIRK_IFPC,
->>>>>                 .init = a6xx_gpu_init,
->>>>>                 .a6xx = &(const struct a6xx_info) {
->>>>>                         .hwcg = a740_hwcg,
->>>>>                         .protect = &a730_protect,
->>>>>                         .pwrup_reglist = &a7xx_pwrup_reglist,
->>>>> +                       .ifpc_reglist = &a750_ifpc_reglist,
->>>>>                         .gmu_chipid = 0x7050001,
->>>>>                         .gmu_cgc_mode = 0x00020202,
->>>>>                 },
->>>>> @@ -1466,6 +1531,7 @@ static const struct adreno_info a7xx_gpus[] = {
->>>>>                 .a6xx = &(const struct a6xx_info) {
->>>>>                         .protect = &a730_protect,
->>>>>                         .pwrup_reglist = &a7xx_pwrup_reglist,
->>>>> +                       .ifpc_reglist = &a750_ifpc_reglist,
->>>>>                         .gmu_chipid = 0x7090100,
->>>>>                         .gmu_cgc_mode = 0x00020202,
->>>>>                         .bcms = (const struct a6xx_bcm[]) {
->>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>> index 76dd78f5c48ea818a2aa209e0c0c88bc5e8f4e06..91a2a82c4f388ca6b052172efdd7255165f3c04a 100644
->>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>> @@ -828,11 +828,10 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
->>>>>         u32 *dest = (u32 *)&lock->regs[0];
->>>>>         int i;
->>>>>
->>>>> -       reglist = adreno_gpu->info->a6xx->pwrup_reglist;
->>>>> -
->>>>>         lock->gpu_req = lock->cpu_req = lock->turn = 0;
->>>>> -       lock->ifpc_list_len = 0;
->>>>> -       lock->preemption_list_len = reglist->count;
->>>>> +
->>>>> +       reglist = adreno_gpu->info->a6xx->ifpc_reglist;
->>>> This is NULL on X1-45 and causes
->>>>
->>>>   [    8.795603] Unable to handle kernel NULL pointer dereference at
->>>> virtual address 0000000000000008
->>>
->>> Hmm, this is probably going to happen on all a7xx which don't have
->>> IFPC from the looks of it.
->>>
->>> We should either check for the IFPC quirk.. or maybe just drop the
->>> quirk and decide whether IFPC is supported based on ifpc_reglist !=
->>> NULL?
->>>
->>> (That said, we probably do want to have IFPC enabled for x1-45)
->>
->> We should add a check for IFPC quirk here. Chia, do you plan to send a fix?
->>
->> To enable IFPC, we can just add a750_ifpc_reglist_regs[] to
->> adreno_gpu->info->a6xx->ifpc_reglist and enable the IFPC quirk.
-> Maybe it is easier for you to do the fix? Because I would have several
-> little questions (what happens when the reglist and the quirk flag are
-> inconsistent? how about preemption reglist?)
-> 
-> I am happy to do the testing.
+Several users (including IGT kms_getfb tests) allocate DUMB buffers for
+YUV data. Commit 538fa012cbdb ("drm/msm: Compute dumb-buffer sizes with
+drm_mode_size_dumb()") broke that usecase, since in those cases
+drm_driver_color_mode_format() returns DRM_FORMAT_INVALID.
 
-No problem. I will send a fix.
+Handle the YUV usecase, aligning to 32-bit pixels.
 
--Akhil
+Fixes: 538fa012cbdb ("drm/msm: Compute dumb-buffer sizes with drm_mode_size_dumb()")
+Closes: https://lore.kernel.org/all/vptw5tquup34e3jen62znnw26qe76f3pys4lpsal5g3czwev6y@2q724ibos7by/
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Changes in v2:
+- s/SZ_32/32/g (Thomas)
+- Link to v1: https://lore.kernel.org/r/20251102-drm-msm-fix-nv12-v1-1-096dbcb4a51f@oss.qualcomm.com
+---
+ drivers/gpu/drm/msm/msm_gem.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-> 
->>
->> -Akhil.
->>
->>>
->>> BR,
->>> -R
->>>
->>>>> +       lock->ifpc_list_len = reglist->count;
->>>>>
->>>>>         /*
->>>>>          * For each entry in each of the lists, write the offset and the current
->>>>> @@ -843,6 +842,14 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
->>>>>                 *dest++ = gpu_read(gpu, reglist->regs[i]);
->>>>>         }
->>>>>
->>>>> +       reglist = adreno_gpu->info->a6xx->pwrup_reglist;
->>>>> +       lock->preemption_list_len = reglist->count;
->>>>> +
->>>>> +       for (i = 0; i < reglist->count; i++) {
->>>>> +               *dest++ = reglist->regs[i];
->>>>> +               *dest++ = gpu_read(gpu, reglist->regs[i]);
->>>>> +       }
->>>>> +
->>>>>         /*
->>>>>          * The overall register list is composed of
->>>>>          * 1. Static IFPC-only registers
->>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>> index 124c63c4615930b00c64e488a498163ae35afccd..0b17d36c36a9567e6afa4269ae7783ed3578e40e 100644
->>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>> @@ -45,6 +45,7 @@ struct a6xx_info {
->>>>>         const struct adreno_reglist *hwcg;
->>>>>         const struct adreno_protect *protect;
->>>>>         const struct adreno_reglist_list *pwrup_reglist;
->>>>> +       const struct adreno_reglist_list *ifpc_reglist;
->>>>>         u32 gmu_chipid;
->>>>>         u32 gmu_cgc_mode;
->>>>>         u32 prim_fifo_threshold;
->>>>>
->>>>> --
->>>>> 2.50.1
->>>>>
->>
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 435c0067c2641786ca7b4a42cca0ae7e7dda3451..017411a0bf4503f02b04d9aa9177958762e950e4 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -701,7 +701,6 @@ int msm_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 		struct drm_mode_create_dumb *args)
+ {
+ 	u32 fourcc;
+-	const struct drm_format_info *info;
+ 	u64 pitch_align;
+ 	int ret;
+ 
+@@ -711,12 +710,16 @@ int msm_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 	 * Use the result as pitch alignment.
+ 	 */
+ 	fourcc = drm_driver_color_mode_format(dev, args->bpp);
+-	if (fourcc == DRM_FORMAT_INVALID)
+-		return -EINVAL;
+-	info = drm_format_info(fourcc);
+-	if (!info)
+-		return -EINVAL;
+-	pitch_align = drm_format_info_min_pitch(info, 0, SZ_32);
++	if (fourcc != DRM_FORMAT_INVALID) {
++		const struct drm_format_info *info;
++
++		info = drm_format_info(fourcc);
++		if (!info)
++			return -EINVAL;
++		pitch_align = drm_format_info_min_pitch(info, 0, 32);
++	} else {
++		pitch_align = round_up(args->width, 32) * DIV_ROUND_UP(args->bpp, SZ_8);
++	}
+ 	if (!pitch_align || pitch_align > U32_MAX)
+ 		return -EINVAL;
+ 	ret = drm_mode_size_dumb(dev, args, pitch_align, 0);
+
+---
+base-commit: 98bd8b16ae57e8f25c95d496fcde3dfdd8223d41
+change-id: 20251102-drm-msm-fix-nv12-11f0e8c31b2e
+
+Best regards,
+-- 
+With best wishes
+Dmitry
 
