@@ -2,58 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A885EC2F0D0
-	for <lists+freedreno@lfdr.de>; Tue, 04 Nov 2025 04:04:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41299C2F323
+	for <lists+freedreno@lfdr.de>; Tue, 04 Nov 2025 04:49:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 363E510E508;
-	Tue,  4 Nov 2025 03:04:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9198210E513;
+	Tue,  4 Nov 2025 03:49:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WKESfiwn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YCoXatok";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7610E10E22D;
- Tue,  4 Nov 2025 03:04:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1E0B10E508;
+ Tue,  4 Nov 2025 03:49:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 24ADC44058;
- Tue,  4 Nov 2025 03:04:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FD56C4CEFD;
- Tue,  4 Nov 2025 03:04:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 29F46444A5;
+ Tue,  4 Nov 2025 03:49:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33761C4CEF7;
+ Tue,  4 Nov 2025 03:49:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1762225478;
- bh=ZlrAYcT8RP/bgBcBfF8bGO2Rd1/BQTXE1H4fj1wz00s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WKESfiwnLJ6ikA/MjCzt7Ftb/R0x3Yck+4cw3QGFh2eMdY9BstQTxqGe8CQt58W3t
- JxUPLLNQ2hdkRkEMui834cNUnYqFeDH5iqF7zTyTzaEwpcXodHPVtH9Pd1oU4SuzVr
- BkTwPpIFSTu1UgxjvqgaaLwqwfhTI+Mo0ormO6XReaqfYgI0lufezJKzhBuSmNrEiS
- nKrzlFa0GRwwiY9omxqrZvpgJakZ+5tOrsDB0lLojZmql9n20Aw63ublkth3z43h4u
- wLsD5Yl8F+9ga9XF6xJDAsdzXGJvELtiP+nFJN8cAHOC3/ZgA5l0rREgEUmEt9dFsD
- g7seOqFnRi3lA==
-Date: Mon, 3 Nov 2025 21:08:09 -0600
+ s=k20201202; t=1762228176;
+ bh=6pjQezU4iwekhElF+PBuaDe7tVtkK82fk5KyzqXZ8Cw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=YCoXatokCFxgWqIhTzyTAdEYOahZgkdImF9ovuBfWpKFctgxRRSzyE9Egag2hKZej
+ DovnzgGxYSntC/DoKCHBW0+X8MtqT61p0TtPrh5EWor7chSFr1v5n3oUK6v2A0iSyx
+ zcggZIw7Eu7PHzY0tCDEeT5HLORySxOGJZhPyAnplgDWFPE13JoZbmUXGVcd+Hp7Qb
+ WtdUiywXmFq2l164tZek/Szryui98qGlgwKoeKbjVv/bP4fqru1TO8uX6QnZ+5wOZf
+ TjS4rE3OmzY8ExnBmZR7OX6W6iw+9GCDXI6Sxspsr+Rd4+mR43VlrHdKlnQrv6UiNu
+ V2gnxLxE5/Gjg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display/msm: Reference DAI schema for
- DAI properties
-Message-ID: <mrz254g4ujnwq2bsu63ajqxvgbtokbrwusbdydcj7nny3ctqv3@evj2xqqgiela>
-References: <20251021111050.28554-3-krzysztof.kozlowski@linaro.org>
+ Jonathan Marek <jonathan@marek.ca>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org
+Subject: Re: (subset) [PATCH 00/17] drm/msm/adreno: Introduce Adreno 8xx
+ family support
+Date: Mon,  3 Nov 2025 21:53:00 -0600
+Message-ID: <176222838011.1146775.11549730263195869073.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20250930-kaana-gpu-support-v1-0-73530b0700ed@oss.qualcomm.com>
+References: <20250930-kaana-gpu-support-v1-0-73530b0700ed@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251021111050.28554-3-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,43 +76,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 21, 2025 at 01:10:51PM +0200, Krzysztof Kozlowski wrote:
-> DisplayPort nodes are DAIs (Digital Audio Interfaces): they have already
-> 'sound-dai-cells'.  Reference the common DAI schema to bring common
-> properties for them, which allows also customizing DAI name prefix.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-
-Regards,
-Bjorn
-
-> ---
->  .../devicetree/bindings/display/msm/dp-controller.yaml         | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+On Tue, 30 Sep 2025 11:18:05 +0530, Akhil P Oommen wrote:
+> This series adds the A8xx HWL along with Adreno 840 GPU support to the
+> drm-msm driver. A8x is the next generation in the Adreno family,
+> featuring a significant hardware design change. A major update to the
+> design is the introduction of 'Slice' architecture. Slices are sort of
+> mini-GPUs within the GPU which are more independent in processing Graphics
+> and compute workloads. Also, in addition to the BV and BR pipe we saw in
+> A7x, CP has more concurrency with additional pipes.
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index aeb4e4f36044..08c273f707c1 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -198,6 +198,7 @@ allOf:
->                  - qcom,sa8775p-dp
->                  - qcom,x1e80100-dp
->        then:
-> +        $ref: /schemas/sound/dai-common.yaml#
->          oneOf:
->            - required:
->                - aux-bus
-> @@ -295,7 +296,7 @@ allOf:
->            minItems: 6
->            maxItems: 8
->  
-> -additionalProperties: false
-> +unevaluatedProperties: false
->  
->  examples:
->    - |
-> -- 
-> 2.48.1
-> 
+> [...]
+
+Applied, thanks!
+
+[01/17] soc: qcom: ubwc: Add config for Kaanapali
+        commit: 85d55d8cc3ef7f77b249c97e9fac6a0fc5f5daa7
+
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
