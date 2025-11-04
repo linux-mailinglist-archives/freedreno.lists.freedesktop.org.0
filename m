@@ -2,120 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 790E5C307B1
-	for <lists+freedreno@lfdr.de>; Tue, 04 Nov 2025 11:24:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64881C3108F
+	for <lists+freedreno@lfdr.de>; Tue, 04 Nov 2025 13:43:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E72EB10E258;
-	Tue,  4 Nov 2025 10:24:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 387FB10E5D4;
+	Tue,  4 Nov 2025 12:43:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="uwu7EiHC";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="S3xRN0GK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98B9910E258;
- Tue,  4 Nov 2025 10:24:27 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 6A9991A1871;
- Tue,  4 Nov 2025 10:24:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 30128606EF;
- Tue,  4 Nov 2025 10:24:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id F3E03102F1CE8; Tue,  4 Nov 2025 11:24:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1762251864; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references:autocrypt;
- bh=Yh/SOsjRqtgPLuq8QRVnn/lrGryn5Z5zYSTW9+Wd1lE=;
- b=uwu7EiHCDvkOi+ZlaNqDmWa7sDjt1+KNUXllXXwIo7BBazhl8rSoPx6BVnpH9z+jfnu3AN
- M704y1JCBh8jUjN0L1cESmxgAsuL/HG1dpnA8pkxVWp+V+NUYpIsRVSEdL1KPdP6GhPMtM
- NMZcL50+dzYfv1YP7uz27gLG9O83Kv4TwoM5Vz1q/0Sgwyl5sDhiNrZVhWiFwVL0miKigv
- QCIJ805towdU/JbBzlnj80L6OK/kU++DuYG/iG4h/SXHDnQjUn8N2K6QbLxM9f6YFvJw65
- 6/5Bic3PvCFetE3+rKQiGGPaLwxTnrpCFS0pnzFfB44qrYnmLbrU8KLeS4N4vg==
-Message-ID: <d6545844-f7f6-4714-927f-cf985dc50a54@bootlin.com>
-Date: Tue, 4 Nov 2025 11:24:17 +0100
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D10C10E439
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Nov 2025 12:43:52 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-429c19b5de4so444987f8f.3
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Nov 2025 04:43:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1762260230; x=1762865030; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=Lx9/ZRtBYuBkF+gPYtIKjkasAjUUPJxma7p0SkGX9yg=;
+ b=S3xRN0GKP0vbf++42fs6Kb+7/Xk+r+fNcUcyhJ65Ee9XVHMtwgER5hYPVksV8PmZGZ
+ tM2jlz+YwAZVJRuJ/+bnVo4yzVp5XT7Uy5uQWpL0kR0LaARkgZGqSzLq5xwncUyPalty
+ hTuzBbgGw50DNiSN0zi0ljEpmUexo3THn60ItgGDdSmY8/zmdCJOaIGVl3idmJ+dhxv1
+ EXSMa6EAoqkJy/ok6Tmig/gMyLtRaToawdHpSw99nSXsHHmrrtxwoVmMLZ5duwEVlbfl
+ 2t1tsRoB4AKDctun55XXmkr2NJCLLaaNn0nMTz++TPIAVbjs7PzepoUZfl0MbvvJ6aj2
+ 1VoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762260230; x=1762865030;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Lx9/ZRtBYuBkF+gPYtIKjkasAjUUPJxma7p0SkGX9yg=;
+ b=g+gKmsvwJKyABXS4siQLTHIEzHnjV3WVDmkx1vBH2Meppqcccv40qPRtQl9UzzOq05
+ g0p11yxaK6tRXdYcx/ZExGYIDOiAhGhsCxLNm1zSzPyQJ9n9EVRmBBksXlxuCZnVutXW
+ O6EyX+BGwMj1DF1/39p/LhwMoy5J6y8d5h8fOS0BbGtt/jBBRDEqddUNfkD78RJhNHJe
+ 7YTMgmrW4nGivg4U07lV7+slMo2tGQ0fedtKawM9iw6aEfCK5EjODTScjL5rUPAE0jGK
+ LBT7lez5B2s8WQ/SddNLu9JiqYgw9JLf7slzzoQi5iv5s/J70/04owKQTjWuf+KtEjX9
+ xeQA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVLwQuFcg9EPK16TYg8xFJP2+JDRmhXY76wJ7b7c8VFjF0nplEdTjWGZMUdhUma7ZBPw5z+9ZRCSSU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxVP9m+ZMprhO+lkKnHZgUZgRy71fbexOU2dW9S6XZ8fJYoNs8V
+ 0EN8tVEP/YHcYks7hZQ8zC4UUni43UiPSdT1/49/2mD3buZvi5VNyioJOXl5TAWbWXM=
+X-Gm-Gg: ASbGncsfGQVOL46ORMPo6mBQvjhwz3cr2AppTxlcJjwhE3+7ZDl89EpPIQNZouKQW2I
+ NkOZpPD8sxvUwsWsE9OAznQ1Gk0zAwZotLKFJxXG4mnlVrFjNLNjFP89HDKi4POb6BPR/KUs+po
+ dqufZJU1dQYhq1ENWf00K482oW5WzR9gBmqmrO5K4YW//6yl36OKFdNLRyvh6WTKzd0dZrrQTcb
+ x+6GXtYbnjqDORlv/4By8GQe3YBbi3LS61Bz9+8sTpr8ao5AdHLoYsOMtLGOqAngLw9tBl7vuJf
+ 5wWBTZwl73XxGg+VtOsnU6NqlIMsqdpX430CfTOm12IehPWheJh/QCwPU6Vtl2zcEbuqTl6fPaF
+ 4eTlqxTaL0Bs95XAo4J3mKxKwoYvko4w8ZMF3a0JMizcRPTIkUr4GOKxBNSs1DnvDy8B0enhMSW
+ qWjLkGgmmIzuzc6jw2eAcOT0wmnasfD7fzrA==
+X-Google-Smtp-Source: AGHT+IEn+IPeP7UmbTbyN63za3XNZH29ht14vh3RcuTm0OyZm3PpaImB86o2gV2dUHwnhJO5ffQksw==
+X-Received: by 2002:a5d:5f43:0:b0:429:d3e9:65b with SMTP id
+ ffacd0b85a97d-429d3e90f22mr5616888f8f.59.1762260230228; 
+ Tue, 04 Nov 2025 04:43:50 -0800 (PST)
+Received: from [192.168.27.65] (home.rastines.starnux.net. [82.64.67.166])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429dc1f5f8csm4352163f8f.23.2025.11.04.04.43.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 04 Nov 2025 04:43:49 -0800 (PST)
+Message-ID: <5ff947f0-d743-422d-a897-b241ff1e02a4@linaro.org>
+Date: Tue, 4 Nov 2025 13:43:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] drm: writeback: Refactor drm_writeback_connector
- structure
-To: Suraj Kandpal <suraj.kandpal@intel.com>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Cc: dmitry.baryshkov@oss.qualcomm.com, ankit.k.nautiyal@intel.com,
- arun.r.murthy@intel.com, uma.shankar@intel.com, jani.nikula@intel.com,
- harry.wentland@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- robin.clark@oss.qualcomm.com, abhinav.kumar@linux.dev, tzimmermann@suse.de,
- jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, laurent.pinchart+renesas@ideasonboard.com,
- mcanal@igalia.com, dave.stevenson@raspberrypi.com,
- tomi.valkeinen+renesas@ideasonboard.com,
- kieran.bingham+renesas@ideasonboard.com
-References: <20251007054528.2900905-1-suraj.kandpal@intel.com>
- <20251007054528.2900905-2-suraj.kandpal@intel.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH RFC RFT] drm/msm: adreno: attach the GMU device to a driver
+To: Jens Reidel <adrian@mainlining.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
+ <02356e35-0a3a-4a50-ad38-3032f9f166c9@mainlining.org>
+ <e9e117ed-823c-47e3-8ed6-14dbecc844bc@linaro.org>
+ <bb4a8978-790a-46c5-94bd-9f97ffa15b64@mainlining.org>
 Content-Language: en-US, fr
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
- 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
-In-Reply-To: <20251007054528.2900905-2-suraj.kandpal@intel.com>
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <bb4a8978-790a-46c5-94bd-9f97ffa15b64@mainlining.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,50 +124,194 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-Le 07/10/2025 à 07:45, Suraj Kandpal a écrit :
-> Some drivers cannot work with the current design where the connector
-> is embedded within the drm_writeback_connector such as Intel and
-> some drivers that can get it working end up adding a lot of checks
-> all around the code to check if it's a writeback conenctor or not,
-> this is due to the limitation of inheritance in C.
-> To solve this move the drm_writeback_connector within the
-> drm_connector and remove the drm_connector base which was in
-> drm_writeback_connector. Make this drm_writeback_connector
-> a union with hdmi connector to save memory and since a connector can
-> never be both writeback and hdmi it should serve us well.
-> Do all other required modifications that come with these changes
-> along with addition of new function which returns the drm_connector
-> when drm_writeback_connector is present.
-> Modify drivers using the drm_writeback_connector to
-> allow them to use this connector without breaking them.
-> The drivers modified here are amd, komeda, mali, vc4, vkms,
-> rcar_du, msm
+On 11/4/25 02:30, Jens Reidel wrote:
+> Hi Neil,
 > 
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
-> V1 -> V2: Use &connector->writeback, make commit message imperative (Dmitry)
-> ---
+> On 10/29/25 11:25 AM, Neil Armstrong wrote:
+>> Hi,
+>>
+>> On 10/26/25 02:31, Jens Reidel wrote:
+>>> On 10/22/25 14:44, Neil Armstrong wrote:
+>>>> Due to the sync_state is enabled by default in pmdomain & CCF since v6.17,
+>>>> the GCC and GPUCC sync_state would stay pending, leaving the resources in
+>>>> full performance:
+>>>> gcc-x1e80100 100000.clock-controller: sync_state() pending due to 3d6a000.gmu
+>>>> gpucc-x1e80100 3d90000.clock-controller: sync_state() pending due to 3d6a000.gmu
+>>>>
+>>>> In order to fix this state and allow the GMU to be properly
+>>>> probed, let's add a proper driver for the GMU and add it to
+>>>> the MSM driver components.
+>>>>
+>>>> Only the proper GMU has been tested since I don't have
+>>>> access to hardware with a GMU wrapper.
+>>>>
+>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>>> ---
+>>>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 354 +++++++++++++ +---------------
+>>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |   6 -
+>>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |   3 -
+>>>>   drivers/gpu/drm/msm/adreno/adreno_device.c |   4 +
+>>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |   4 +
+>>>>   drivers/gpu/drm/msm/msm_drv.c              |  16 +-
+>>>>   6 files changed, 192 insertions(+), 195 deletions(-)
+>>>>
+>>
+>> <snip>
+>>
+>>>>
+>>>> ---
+>>>> base-commit: 211ddde0823f1442e4ad052a2f30f050145ccada
+>>>> change-id: 20251022-topic-adreno-attach-gmu-to-driver-e47025fd7ebb
+>>>>
+>>>> Best regards,
+>>>
+>>> Hi Neil,
+>>>
+>>> thanks for the patch. With it applied, my GPU fails to initialize.
+>>> Here's the related dmesg section:
+>>>
+>>> [    1.733062] [drm:dpu_kms_hw_init:1173] dpu hardware revision:0x50020000
+>>> [    1.735229] [drm] Initialized msm 1.13.0 for ae01000.display- controller on minor 0
+>>> [    1.735403] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/a630_sqe.fw from new location
+>>> [    1.735513] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/a630_gmu.bin from new location
+>>> [    1.746710] a6xx_gmu 506a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set BOOT_SLUMBER: 0x800000
+>>> [    1.746766] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* Couldn't power up the GPU: -110
+>>>
+>>> This could be because I have an Adreno 630-family GPU, which is marked as legacy in a6xx_gmu_init / a6xx_gmu_bind. Previously, the rest of the init code would just always run, while now, some parts are conditionally disabled for legacy GPUs - that may be unintentional? However, unconditionally enabling those parts seems to fail to initialize the GPU followed by a reset shortly after, so there's probably more to this.
+>>>
+>>> Please let me know if there's anything I can do to help debug this.
+>>
+>> Thanks for the report, it's an sdm845 based right ?
+> 
+> Almost, it's SM7150 with Adreno 618.
+> 
+>>
+>> I may have mismatched the role of the legacy parameter...
+>>
+>> Could you try this on top:
+> 
+> <snip>
+> 
+>> ===========================><=====================================
+> 
+> This is about what I had already tried earlier. I wasn't able to grab a log from
+> UART to see what exactly was still wrong back then, but I finally got around to it today.
+> 
+> Short excerpt from decoded stacktrace:
+> 
+> [    4.838573] Unable to handle kernel paging request at virtual address 0000000000023010
+> [    4.846726] Mem abort info:
+> [    4.857916]   ESR = 0x0000000096000044
+> [    4.870865]   EC = 0x25: DABT (current EL), IL = 32 bits
+> [    4.883897]   SET = 0, FnV = 0
+> [    4.895344]   EA = 0, S1PTW = 0
+> [    4.898584]   FSC = 0x04: level 0 translation fault
+> [    4.898586] Data abort info:
+> [    4.898587]   ISV = 0, ISS = 0x00000044, ISS2 = 0x00000000
+> [    4.898589]   CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+> [    4.898591]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+> [    4.898593] [0000000000023010] user address but active_mm is swapper
+> [    4.898597] Internal error: Oops: 0000000096000044 [#1]  SMP
+> [    4.898600] Modules linked in:
+> [    4.898612] Tainted: [W]=WARN
+> [    4.898613] Hardware name: xiaomi Xiaomi POCO X3 NFC (Huaxing)/Xiaomi POCO X3 NFC (Huaxing), BIOS 2025.10-gcb980be18336 10/01/2025
+> [    4.898616] Workqueue: events_unbound deferred_probe_work_func
+> [    4.911316]
+> [    4.911318] pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [    4.911321] pc : a6xx_gmu_rpmh_init (arch/arm64/include/asm/io.h:43 include/asm-generic/io.h:293 drivers/gpu/drm/msm/adreno/a6xx_gmu.h:183 drivers/gpu/drm/msm/adreno/a6xx_gmu.c:621)
+> [    4.911327] lr : a6xx_gmu_rpmh_init (drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1811)
+> [    4.911331] sp : ffff8000809f3560
+> [    4.911332] x29: ffff8000809f3560 x28: 0000000000000001
+> [    4.919938]  x27: ffff800081e50000
+> [    4.919940] x26: 0000000000000300 x25: 0068000000000413 x24: ffffc51d5cca9000
+> [    4.919944] x23: 0000000000030090 x22: ffff000080aec3b0 x21: ffff00008162c010
+> [    4.919947] x20: ffff000080aec578 x19: ffff800081f90000 x18: 000000000aa663d1
+> [    4.919950] x17: ffffc51d5cefc000 x16: ffffc51d5cca9d80 x15: 0078000000000f13
+> [    4.930595]
+> [    4.930596] x14: 0000000000000000 x13: ffff800081f9ffff x12: ffff800081f9ffff
+> [    4.930600] x11: 0000000001000000 x10: 0000000000023010 x9 : 0000000000000000
+> [    4.930603] x8 : 0000000000000000 x7 : ffff00008155a960 x6 : 0000000000000000
+> [    4.930606] x5 : 0000000000000cc0 x4 : 0000000000001000 x3 : 007800000b49ff13
+> [    4.930610] x2 : 000000000b4a0000
+> [    4.942943]  x1 : ffff800081fa0000 x0 : ffff800081e50000
+> [    4.942947] Call trace:
+> [    4.942948]  a6xx_gmu_rpmh_init (arch/arm64/include/asm/io.h:43 include/asm-generic/io.h:293 drivers/gpu/drm/msm/adreno/a6xx_gmu.h:183 drivers/gpu/drm/msm/adreno/a6xx_gmu.c:621) (P)
+> [    4.942954]  a6xx_gmu_bind (drivers/gpu/drm/msm/adreno/a6xx_gmu.c:2102)
+> [    4.942957]  component_bind_all (drivers/base/component.c:660)
+> [    4.956709]  msm_drm_init (drivers/gpu/drm/msm/msm_drv.c:159)
+> [    4.956714]  msm_drm_bind (drivers/gpu/drm/msm/msm_drv.c:1032)
+> 
+> Turns out that previously, gmu->mmio was assigned before setting
+> gmu->rscc = gmu->mmio + 0x23000;
+> With your changes, the order is now wrong.
 
-[...]
+Oh crap
 
->   drivers/gpu/drm/vkms/vkms_composer.c          |  2 +-
->   drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
->   drivers/gpu/drm/vkms/vkms_writeback.c         | 13 ++--
+> Moving the assignment up again (and applying the diff you shared
+> for proper handling of legacy parameter) fixes it:
+> 
+> ==========================================
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -2027,6 +2027,13 @@ static int a6xx_gmu_bind(struct device *dev, struct device *master, void *data)
+>                  if (ret)
+>                          goto err_memory;
+> 
+> +               /* Map the GMU registers */
+> +               gmu->mmio = a6xx_gmu_get_mmio(pdev, "gmu");
+> +               if (IS_ERR(gmu->mmio)) {
+> +                       ret = PTR_ERR(gmu->mmio);
+> +                       goto err_memory;
+> +               }
+> +
+>                  if (adreno_is_a650_family(adreno_gpu) ||
+>                      adreno_is_a7xx(adreno_gpu)) {
+>                          gmu->rscc = a6xx_gmu_get_mmio(pdev, "rscc");
+> @@ -2048,13 +2055,6 @@ static int a6xx_gmu_bind(struct device *dev, struct device *master, void *data)
+>                  }
+>          }
+> 
+> -       /* Map the GMU registers */
+> -       gmu->mmio = a6xx_gmu_get_mmio(pdev, "gmu");
+> -       if (IS_ERR(gmu->mmio)) {
+> -               ret = PTR_ERR(gmu->mmio);
+> -               goto err_memory;
+> -       }
+> -
+>          gmu->cxpd = dev_pm_domain_attach_by_name(gmu->dev, "cx");
+>          if (IS_ERR(gmu->cxpd)) {
+>                  ret = PTR_ERR(gmu->cxpd);
+> ==========================================
+> 
+> This almost certainly isn't correct either because the wrapper needs
+> its registers mapped too, perhaps this is better suited for moving it
+> above the if block, I think that makes more sense.
 
-For the VKMS part:
+Yes, merging both functions was a bad move...
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> 
+> With the legacy parameter changes and GMU register mapping prior to RSCC
+> offset calculation:Tested-by: Jens Reidel <adrian@mainlining.org> # SM7150
 
-Thanks,
-Louis Chauvet
+Thanks for testing !
 
---
-Louis Chauvet, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Following Akhil's review, I'll probably keep the wrapper and normal
+gmu bind/unbind separated for the first step.
+
+Neil
+
+> 
+> Best regards,Jens
+>>
+>> Thanks,
+>> Neil
+>>
+>>>
+>>> Best regards,
+>>> Jens
+>>
 
