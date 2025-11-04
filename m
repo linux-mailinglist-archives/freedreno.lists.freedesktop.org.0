@@ -2,76 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46938C2EC50
-	for <lists+freedreno@lfdr.de>; Tue, 04 Nov 2025 02:34:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7649FC2F0A8
+	for <lists+freedreno@lfdr.de>; Tue, 04 Nov 2025 03:59:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C730210E508;
-	Tue,  4 Nov 2025 01:33:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA9B10E22B;
+	Tue,  4 Nov 2025 02:59:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e6Klvi7r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HTZrmV3L";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C87C10E502;
- Tue,  4 Nov 2025 01:33:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC5D510E068;
+ Tue,  4 Nov 2025 02:59:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 749BB444CD;
- Tue,  4 Nov 2025 01:33:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2D49AC2BC9E;
- Tue,  4 Nov 2025 01:33:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7261444413;
+ Tue,  4 Nov 2025 02:59:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C85C4CEE7;
+ Tue,  4 Nov 2025 02:59:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1762220027;
- bh=dKK/EqIbC7RXoHraufPxWjhKrP9sGcj1RRvh9auQVQk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=e6Klvi7roYXtebOvJjNGRSPopYcOrO98WYA8Oo1llRlfIW1r9e6NT+QU/k8cj1vcw
- 4GOdtZa8ZxcrKH/RH6zzNyDb6K0RESRemL2LF2mg8SSmPnkwtbmkLwG/7kAv+b4PGQ
- 2h5ZHG95cRhU8Sns3wHkzpl9ZsyRBnIJA52GZTwh0Md4FmbK4rDiRxqTaCZnGTLJq6
- Ky/uMl2Mdj0UXBWN9J4a8JYcMg0sawRdnFC+P/h0S52dtmmPAvI6w9MIg8aLveDtdt
- POuRxxwFNHt3DklWQ1c+ivaeuX7mGUslsYQkxzdb9Zxqrte62E3+5Ik4tPP+RQq16x
- Bmrxlmm+6vepw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 2538ECCFA06;
- Tue,  4 Nov 2025 01:33:47 +0000 (UTC)
-From: Xiangxu Yin via B4 Relay
- <devnull+xiangxu.yin.oss.qualcomm.com@kernel.org>
-Date: Tue, 04 Nov 2025 09:33:26 +0800
-Subject: [PATCH v7 4/4] arm64: dts: qcom: qcs615-ride: Enable DisplayPort
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251104-add-displayport-support-to-qcs615-devicetree-v7-4-e51669170a6f@oss.qualcomm.com>
-References: <20251104-add-displayport-support-to-qcs615-devicetree-v7-0-e51669170a6f@oss.qualcomm.com>
-In-Reply-To: <20251104-add-displayport-support-to-qcs615-devicetree-v7-0-e51669170a6f@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ s=k20201202; t=1762225161;
+ bh=pZCOHjj1efJAEnHBeLtvAawr6ePQ+W1jtHPifnCyZmQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HTZrmV3LuoMWtn5wRl+nAZc8Ui+CYwjc0ji++mQCHmBhT/4919Je1UI8mGq6JIzdz
+ Kfu/MnihENMkvxyS8S8axjeWQfpyxSX8OmQ7Ge2xkDy+3iYrtliY47oupmg9Dyg79O
+ haDvWAL4WvlpftDYpllxVt3tFwrmPxPjHEgMylHAEupqOf77AyFlE/wUirG3fK+UXK
+ ftQpBWENPWiTeU0d/knppi+MBac1X5wjBhy1thHoNQI5g4gMpUTZCww4vwvaRqfUNZ
+ r9okq6LKygLoqIeuPMpV8kwgy77tGilHoFkktpb6AfqirblO+vZ1vQP+9JV1dKFpmK
+ idOG0moT4scRQ==
+Date: Mon, 3 Nov 2025 21:02:53 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, fange.zhang@oss.qualcomm.com, 
- yongxing.mou@oss.qualcomm.com, li.liu@oss.qualcomm.com, 
- Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1762220025; l=1609;
- i=xiangxu.yin@oss.qualcomm.com; s=20241125; h=from:subject:message-id;
- bh=UefwVFw5JL4lAwuEgs1CevP0v8Ntkh5qwaIuq5AJOpU=;
- b=vWo74HSLzDxGqV9nALtuOvNxJ4/G6KqBt8qKUbQ0evnO2cCkUudGnXfRgqCXmmitkHWsywbpJ
- cQdzLxao6hwC55cLwalIAZrLlQOdiEDXToatSwUMs193Eq5xlaFBkja
-X-Developer-Key: i=xiangxu.yin@oss.qualcomm.com; a=ed25519;
- pk=F1TwipJzpywfbt3n/RPi4l/A4AVF+QC89XzCHgZYaOc=
-X-Endpoint-Received: by B4 Relay for xiangxu.yin@oss.qualcomm.com/20241125
- with auth_id=542
-X-Original-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Connor Abbott <cwabbott0@gmail.com>, Srinivas Kandagatla <srini@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Gaurav Kohli <quic_gkohli@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v6 2/6] dt-bindings: nvmem: qfprom: Add sa8775p compatible
+Message-ID: <bkhjgw4mtfmkatxjl7enn4fqqjbutealhaqgxihdmcvhekyyd4@lsosso5ta74z>
+References: <20250910-a663-gpu-support-v6-0-5da15827b249@oss.qualcomm.com>
+ <20250910-a663-gpu-support-v6-2-5da15827b249@oss.qualcomm.com>
+ <8ff537c9-efa0-4aeb-987d-150bef8b7c00@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8ff537c9-efa0-4aeb-987d-150bef8b7c00@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,78 +69,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: xiangxu.yin@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+On Mon, Sep 22, 2025 at 12:55:36PM +0100, Srinivas Kandagatla wrote:
+> Hi Bjorn,
+> 
+> On 9/10/25 12:25 PM, Akhil P Oommen wrote:
+> > Document compatible string for the QFPROM on Lemans platform.
+> > 
+> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> > ---
+> 
+> In case you plan to pick this up.
+> 
+> 
+> Acked-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> 
 
-Add DP connector node and configure MDSS DisplayPort controller for
-QCS615 Ride platform. Include PHY supply settings to support DP output.
+Thanks, it seems though that I missed your reply earlier.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs615-ride.dts | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Please pick the binding through the driver branch if you can, then I'll
+pick the dts changes.
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-index be67eb173046f9e4ac58157f282c3af41e53d374..5a24c19c415e3fa92e3b543ed48b2fcd6b20c6ca 100644
---- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-@@ -39,6 +39,20 @@ xo_board_clk: xo-board-clk {
- 		};
- 	};
- 
-+	dp0-connector {
-+		compatible = "dp-connector";
-+		label = "DP0";
-+		type = "mini";
-+
-+		hpd-gpios = <&io_expander 8 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			dp0_connector_in: endpoint {
-+				remote-endpoint = <&mdss_dp0_out>;
-+			};
-+		};
-+	};
-+
- 	dp-dsi0-connector {
- 		compatible = "dp-connector";
- 		label = "DSI0";
-@@ -423,6 +437,15 @@ &mdss {
- 	status = "okay";
- };
- 
-+&mdss_dp0 {
-+	status = "okay";
-+};
-+
-+&mdss_dp0_out {
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000>;
-+	remote-endpoint = <&dp0_connector_in>;
-+};
-+
- &mdss_dsi0 {
- 	vdda-supply = <&vreg_l11a>;
- 	status = "okay";
-@@ -624,6 +647,13 @@ &usb_qmpphy {
- 	status = "okay";
- };
- 
-+&usb_qmpphy_2 {
-+	vdda-phy-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+
-+	status = "okay";
-+};
-+
- &usb_1 {
- 	status = "okay";
- };
+Regards,
+Bjorn
 
--- 
-2.34.1
-
-
+> --srini
+> 
+> >  Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+> > index 3f6dc6a3a9f1adc582a28cf71414b0e9d08629ed..7d1612acca48d24c3b54c4d25fa8a210176d3bb5 100644
+> > --- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+> > +++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+> > @@ -39,6 +39,7 @@ properties:
+> >            - qcom,qcs404-qfprom
+> >            - qcom,qcs615-qfprom
+> >            - qcom,qcs8300-qfprom
+> > +          - qcom,sa8775p-qfprom 
+> >            - qcom,sar2130p-qfprom
+> >            - qcom,sc7180-qfprom
+> >            - qcom,sc7280-qfprom
+> > 
+> 
