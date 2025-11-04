@@ -2,116 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64881C3108F
-	for <lists+freedreno@lfdr.de>; Tue, 04 Nov 2025 13:43:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02B35C315F8
+	for <lists+freedreno@lfdr.de>; Tue, 04 Nov 2025 15:05:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 387FB10E5D4;
-	Tue,  4 Nov 2025 12:43:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="S3xRN0GK";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40B8410E5E7;
+	Tue,  4 Nov 2025 14:05:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D10C10E439
- for <freedreno@lists.freedesktop.org>; Tue,  4 Nov 2025 12:43:52 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-429c19b5de4so444987f8f.3
- for <freedreno@lists.freedesktop.org>; Tue, 04 Nov 2025 04:43:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1762260230; x=1762865030; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=Lx9/ZRtBYuBkF+gPYtIKjkasAjUUPJxma7p0SkGX9yg=;
- b=S3xRN0GKP0vbf++42fs6Kb+7/Xk+r+fNcUcyhJ65Ee9XVHMtwgER5hYPVksV8PmZGZ
- tM2jlz+YwAZVJRuJ/+bnVo4yzVp5XT7Uy5uQWpL0kR0LaARkgZGqSzLq5xwncUyPalty
- hTuzBbgGw50DNiSN0zi0ljEpmUexo3THn60ItgGDdSmY8/zmdCJOaIGVl3idmJ+dhxv1
- EXSMa6EAoqkJy/ok6Tmig/gMyLtRaToawdHpSw99nSXsHHmrrtxwoVmMLZ5duwEVlbfl
- 2t1tsRoB4AKDctun55XXmkr2NJCLLaaNn0nMTz++TPIAVbjs7PzepoUZfl0MbvvJ6aj2
- 1VoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762260230; x=1762865030;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=Lx9/ZRtBYuBkF+gPYtIKjkasAjUUPJxma7p0SkGX9yg=;
- b=g+gKmsvwJKyABXS4siQLTHIEzHnjV3WVDmkx1vBH2Meppqcccv40qPRtQl9UzzOq05
- g0p11yxaK6tRXdYcx/ZExGYIDOiAhGhsCxLNm1zSzPyQJ9n9EVRmBBksXlxuCZnVutXW
- O6EyX+BGwMj1DF1/39p/LhwMoy5J6y8d5h8fOS0BbGtt/jBBRDEqddUNfkD78RJhNHJe
- 7YTMgmrW4nGivg4U07lV7+slMo2tGQ0fedtKawM9iw6aEfCK5EjODTScjL5rUPAE0jGK
- LBT7lez5B2s8WQ/SddNLu9JiqYgw9JLf7slzzoQi5iv5s/J70/04owKQTjWuf+KtEjX9
- xeQA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVLwQuFcg9EPK16TYg8xFJP2+JDRmhXY76wJ7b7c8VFjF0nplEdTjWGZMUdhUma7ZBPw5z+9ZRCSSU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxVP9m+ZMprhO+lkKnHZgUZgRy71fbexOU2dW9S6XZ8fJYoNs8V
- 0EN8tVEP/YHcYks7hZQ8zC4UUni43UiPSdT1/49/2mD3buZvi5VNyioJOXl5TAWbWXM=
-X-Gm-Gg: ASbGncsfGQVOL46ORMPo6mBQvjhwz3cr2AppTxlcJjwhE3+7ZDl89EpPIQNZouKQW2I
- NkOZpPD8sxvUwsWsE9OAznQ1Gk0zAwZotLKFJxXG4mnlVrFjNLNjFP89HDKi4POb6BPR/KUs+po
- dqufZJU1dQYhq1ENWf00K482oW5WzR9gBmqmrO5K4YW//6yl36OKFdNLRyvh6WTKzd0dZrrQTcb
- x+6GXtYbnjqDORlv/4By8GQe3YBbi3LS61Bz9+8sTpr8ao5AdHLoYsOMtLGOqAngLw9tBl7vuJf
- 5wWBTZwl73XxGg+VtOsnU6NqlIMsqdpX430CfTOm12IehPWheJh/QCwPU6Vtl2zcEbuqTl6fPaF
- 4eTlqxTaL0Bs95XAo4J3mKxKwoYvko4w8ZMF3a0JMizcRPTIkUr4GOKxBNSs1DnvDy8B0enhMSW
- qWjLkGgmmIzuzc6jw2eAcOT0wmnasfD7fzrA==
-X-Google-Smtp-Source: AGHT+IEn+IPeP7UmbTbyN63za3XNZH29ht14vh3RcuTm0OyZm3PpaImB86o2gV2dUHwnhJO5ffQksw==
-X-Received: by 2002:a5d:5f43:0:b0:429:d3e9:65b with SMTP id
- ffacd0b85a97d-429d3e90f22mr5616888f8f.59.1762260230228; 
- Tue, 04 Nov 2025 04:43:50 -0800 (PST)
-Received: from [192.168.27.65] (home.rastines.starnux.net. [82.64.67.166])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429dc1f5f8csm4352163f8f.23.2025.11.04.04.43.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Nov 2025 04:43:49 -0800 (PST)
-Message-ID: <5ff947f0-d743-422d-a897-b241ff1e02a4@linaro.org>
-Date: Tue, 4 Nov 2025 13:43:48 +0100
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6CAC710E5E7
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Nov 2025 14:04:58 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A3A62C41
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Nov 2025 06:04:50 -0800 (PST)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B1E8F3F694
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Nov 2025 06:04:57 -0800 (PST)
+Date: Tue, 4 Nov 2025 14:04:54 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+Cc: "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "dmitry.baryshkov@oss.qualcomm.com" <dmitry.baryshkov@oss.qualcomm.com>,
+ "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ "Murthy, Arun R" <arun.r.murthy@intel.com>,
+ "Shankar, Uma" <uma.shankar@intel.com>,
+ "Nikula, Jani" <jani.nikula@intel.com>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "siqueira@igalia.com" <siqueira@igalia.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>,
+ "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
+ "sean@poorly.run" <sean@poorly.run>,
+ "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
+ "laurent.pinchart+renesas@ideasonboard.com"
+ <laurent.pinchart+renesas@ideasonboard.com>, 
+ "mcanal@igalia.com" <mcanal@igalia.com>,
+ "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
+ "tomi.valkeinen+renesas@ideasonboard.com"
+ <tomi.valkeinen+renesas@ideasonboard.com>, 
+ "kieran.bingham+renesas@ideasonboard.com"
+ <kieran.bingham+renesas@ideasonboard.com>, 
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
+Subject: Re: [PATCH v2 1/7] drm: writeback: Refactor drm_writeback_connector
+ structure
+Message-ID: <aQoIBroBqQc3B-RD@e110455-lin.cambridge.arm.com>
+References: <20251007054528.2900905-1-suraj.kandpal@intel.com>
+ <20251007054528.2900905-2-suraj.kandpal@intel.com>
+ <aQjDejhzGRYJT614@e110455-lin.cambridge.arm.com>
+ <DM3PPF208195D8D5DDD56AA88E006E66AD9E3C4A@DM3PPF208195D8D.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH RFC RFT] drm/msm: adreno: attach the GMU device to a driver
-To: Jens Reidel <adrian@mainlining.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
- <02356e35-0a3a-4a50-ad38-3032f9f166c9@mainlining.org>
- <e9e117ed-823c-47e3-8ed6-14dbecc844bc@linaro.org>
- <bb4a8978-790a-46c5-94bd-9f97ffa15b64@mainlining.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <bb4a8978-790a-46c5-94bd-9f97ffa15b64@mainlining.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <DM3PPF208195D8D5DDD56AA88E006E66AD9E3C4A@DM3PPF208195D8D.namprd11.prod.outlook.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,194 +83,292 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/4/25 02:30, Jens Reidel wrote:
-> Hi Neil,
+On Tue, Nov 04, 2025 at 05:11:25AM +0000, Kandpal, Suraj wrote:
+> > Subject: Re: [PATCH v2 1/7] drm: writeback: Refactor
+> > drm_writeback_connector structure
+> > 
+> > On Tue, Oct 07, 2025 at 11:15:23AM +0530, Suraj Kandpal wrote:
+> > > Some drivers cannot work with the current design where the connector
+> > > is embedded within the drm_writeback_connector such as Intel and some
+> > > drivers that can get it working end up adding a lot of checks all
+> > > around the code to check if it's a writeback conenctor or not, this is
+> > > due to the limitation of inheritance in C.
+> > > To solve this move the drm_writeback_connector within the
+> > > drm_connector and remove the drm_connector base which was in
+> > > drm_writeback_connector. Make this drm_writeback_connector a union
+> > > with hdmi connector to save memory and since a connector can never be
+> > > both writeback and hdmi it should serve us well.
+> > > Do all other required modifications that come with these changes along
+> > > with addition of new function which returns the drm_connector when
+> > > drm_writeback_connector is present.
+> > > Modify drivers using the drm_writeback_connector to allow them to use
+> > > this connector without breaking them.
+> > > The drivers modified here are amd, komeda, mali, vc4, vkms, rcar_du,
+> > > msm
+> > >
+> > > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> > > ---
+> > > V1 -> V2: Use &connector->writeback, make commit message imperative
+> > > (Dmitry)
+> > > ---
+> > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
+> > > .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+> > > .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  8 +--
+> > > .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  6 +-
+> > >  .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+> > >  .../arm/display/komeda/komeda_wb_connector.c  |  8 +--
+> > >  drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+> > >  drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+> > >  drivers/gpu/drm/arm/malidp_hw.c               |  6 +-
+> > >  drivers/gpu/drm/arm/malidp_mw.c               |  8 +--
+> > >  drivers/gpu/drm/drm_atomic_uapi.c             |  2 +-
+> > >  drivers/gpu/drm/drm_writeback.c               | 35 ++++++----
+> > 
+> > For the komeda and malidp drivers, as well as for the drm_writeback.c
+> > changes:
+> > 
+> > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> > 
+> > 
+> > [snip]
+> > 
+> > 
+> > > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> > > index 8f34f4b8183d..1b090e6bddc1 100644
+> > > --- a/include/drm/drm_connector.h
+> > > +++ b/include/drm/drm_connector.h
+> > > @@ -1882,6 +1882,61 @@ struct drm_connector_cec {
+> > >  	void *data;
+> > >  };
+> > >
+> > > +/**
+> > > + * struct drm_writeback_connector - DRM writeback connector  */
+> > > +struct drm_writeback_connector {
+> > > +	/**
+> > > +	 * @pixel_formats_blob_ptr:
+> > > +	 *
+> > > +	 * DRM blob property data for the pixel formats list on writeback
+> > > +	 * connectors
+> > > +	 * See also drm_writeback_connector_init()
+> > > +	 */
+> > > +	struct drm_property_blob *pixel_formats_blob_ptr;
+> > > +
+> > > +	/** @job_lock: Protects job_queue */
+> > > +	spinlock_t job_lock;
+> > > +
+> > > +	/**
+> > > +	 * @job_queue:
+> > > +	 *
+> > > +	 * Holds a list of a connector's writeback jobs; the last item is the
+> > > +	 * most recent. The first item may be either waiting for the hardware
+> > > +	 * to begin writing, or currently being written.
+> > > +	 *
+> > > +	 * See also: drm_writeback_queue_job() and
+> > > +	 * drm_writeback_signal_completion()
+> > > +	 */
+> > > +	struct list_head job_queue;
+> > > +
+> > > +	/**
+> > > +	 * @fence_context:
+> > > +	 *
+> > > +	 * timeline context used for fence operations.
+> > > +	 */
+> > > +	unsigned int fence_context;
+> > > +	/**
+> > > +	 * @fence_lock:
+> > > +	 *
+> > > +	 * spinlock to protect the fences in the fence_context.
+> > > +	 */
+> > > +	spinlock_t fence_lock;
+> > > +	/**
+> > > +	 * @fence_seqno:
+> > > +	 *
+> > > +	 * Seqno variable used as monotonic counter for the fences
+> > > +	 * created on the connector's timeline.
+> > > +	 */
+> > > +	unsigned long fence_seqno;
+> > > +	/**
+> > > +	 * @timeline_name:
+> > > +	 *
+> > > +	 * The name of the connector's fence timeline.
+> > > +	 */
+> > > +	char timeline_name[32];
+> > > +};
+> > > +
+> > >  /**
+> > >   * struct drm_connector - central DRM connector control structure
+> > >   *
+> > > @@ -2291,10 +2346,16 @@ struct drm_connector {
+> > >  	 */
+> > >  	struct llist_node free_node;
+> > >
+> > > -	/**
+> > > -	 * @hdmi: HDMI-related variable and properties.
+> > > -	 */
+> > > -	struct drm_connector_hdmi hdmi;
+> > > +	union {
+> > 
+> > This is a surprising choice. Before this patch one had to have a separate
+> > writeback connector besides the HDMI connector. Going forward it looks like
+> > you still need two connectors, one that uses the writeback member and one
+> > that uses the hdmi one. Is that intended?
+> > 
+> > I was expecting that you're going to declare the writeback member next to the
+> > hdmi, without overlap. If you do that, then you also don't need to move the
+> > struct drm_writeback declaration from the header file and it should be enough
+> > to include the drm_writeback.h file.
 > 
-> On 10/29/25 11:25 AM, Neil Armstrong wrote:
->> Hi,
->>
->> On 10/26/25 02:31, Jens Reidel wrote:
->>> On 10/22/25 14:44, Neil Armstrong wrote:
->>>> Due to the sync_state is enabled by default in pmdomain & CCF since v6.17,
->>>> the GCC and GPUCC sync_state would stay pending, leaving the resources in
->>>> full performance:
->>>> gcc-x1e80100 100000.clock-controller: sync_state() pending due to 3d6a000.gmu
->>>> gpucc-x1e80100 3d90000.clock-controller: sync_state() pending due to 3d6a000.gmu
->>>>
->>>> In order to fix this state and allow the GMU to be properly
->>>> probed, let's add a proper driver for the GMU and add it to
->>>> the MSM driver components.
->>>>
->>>> Only the proper GMU has been tested since I don't have
->>>> access to hardware with a GMU wrapper.
->>>>
->>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>> ---
->>>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 354 +++++++++++++ +---------------
->>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |   6 -
->>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |   3 -
->>>>   drivers/gpu/drm/msm/adreno/adreno_device.c |   4 +
->>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |   4 +
->>>>   drivers/gpu/drm/msm/msm_drv.c              |  16 +-
->>>>   6 files changed, 192 insertions(+), 195 deletions(-)
->>>>
->>
->> <snip>
->>
->>>>
->>>> ---
->>>> base-commit: 211ddde0823f1442e4ad052a2f30f050145ccada
->>>> change-id: 20251022-topic-adreno-attach-gmu-to-driver-e47025fd7ebb
->>>>
->>>> Best regards,
->>>
->>> Hi Neil,
->>>
->>> thanks for the patch. With it applied, my GPU fails to initialize.
->>> Here's the related dmesg section:
->>>
->>> [    1.733062] [drm:dpu_kms_hw_init:1173] dpu hardware revision:0x50020000
->>> [    1.735229] [drm] Initialized msm 1.13.0 for ae01000.display- controller on minor 0
->>> [    1.735403] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/a630_sqe.fw from new location
->>> [    1.735513] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/a630_gmu.bin from new location
->>> [    1.746710] a6xx_gmu 506a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set BOOT_SLUMBER: 0x800000
->>> [    1.746766] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* Couldn't power up the GPU: -110
->>>
->>> This could be because I have an Adreno 630-family GPU, which is marked as legacy in a6xx_gmu_init / a6xx_gmu_bind. Previously, the rest of the init code would just always run, while now, some parts are conditionally disabled for legacy GPUs - that may be unintentional? However, unconditionally enabling those parts seems to fail to initialize the GPU followed by a reset shortly after, so there's probably more to this.
->>>
->>> Please let me know if there's anything I can do to help debug this.
->>
->> Thanks for the report, it's an sdm845 based right ?
-> 
-> Almost, it's SM7150 with Adreno 618.
-> 
->>
->> I may have mismatched the role of the legacy parameter...
->>
->> Could you try this on top:
-> 
-> <snip>
-> 
->> ===========================><=====================================
-> 
-> This is about what I had already tried earlier. I wasn't able to grab a log from
-> UART to see what exactly was still wrong back then, but I finally got around to it today.
-> 
-> Short excerpt from decoded stacktrace:
-> 
-> [    4.838573] Unable to handle kernel paging request at virtual address 0000000000023010
-> [    4.846726] Mem abort info:
-> [    4.857916]   ESR = 0x0000000096000044
-> [    4.870865]   EC = 0x25: DABT (current EL), IL = 32 bits
-> [    4.883897]   SET = 0, FnV = 0
-> [    4.895344]   EA = 0, S1PTW = 0
-> [    4.898584]   FSC = 0x04: level 0 translation fault
-> [    4.898586] Data abort info:
-> [    4.898587]   ISV = 0, ISS = 0x00000044, ISS2 = 0x00000000
-> [    4.898589]   CM = 0, WnR = 1, TnD = 0, TagAccess = 0
-> [    4.898591]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-> [    4.898593] [0000000000023010] user address but active_mm is swapper
-> [    4.898597] Internal error: Oops: 0000000096000044 [#1]  SMP
-> [    4.898600] Modules linked in:
-> [    4.898612] Tainted: [W]=WARN
-> [    4.898613] Hardware name: xiaomi Xiaomi POCO X3 NFC (Huaxing)/Xiaomi POCO X3 NFC (Huaxing), BIOS 2025.10-gcb980be18336 10/01/2025
-> [    4.898616] Workqueue: events_unbound deferred_probe_work_func
-> [    4.911316]
-> [    4.911318] pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> [    4.911321] pc : a6xx_gmu_rpmh_init (arch/arm64/include/asm/io.h:43 include/asm-generic/io.h:293 drivers/gpu/drm/msm/adreno/a6xx_gmu.h:183 drivers/gpu/drm/msm/adreno/a6xx_gmu.c:621)
-> [    4.911327] lr : a6xx_gmu_rpmh_init (drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1811)
-> [    4.911331] sp : ffff8000809f3560
-> [    4.911332] x29: ffff8000809f3560 x28: 0000000000000001
-> [    4.919938]  x27: ffff800081e50000
-> [    4.919940] x26: 0000000000000300 x25: 0068000000000413 x24: ffffc51d5cca9000
-> [    4.919944] x23: 0000000000030090 x22: ffff000080aec3b0 x21: ffff00008162c010
-> [    4.919947] x20: ffff000080aec578 x19: ffff800081f90000 x18: 000000000aa663d1
-> [    4.919950] x17: ffffc51d5cefc000 x16: ffffc51d5cca9d80 x15: 0078000000000f13
-> [    4.930595]
-> [    4.930596] x14: 0000000000000000 x13: ffff800081f9ffff x12: ffff800081f9ffff
-> [    4.930600] x11: 0000000001000000 x10: 0000000000023010 x9 : 0000000000000000
-> [    4.930603] x8 : 0000000000000000 x7 : ffff00008155a960 x6 : 0000000000000000
-> [    4.930606] x5 : 0000000000000cc0 x4 : 0000000000001000 x3 : 007800000b49ff13
-> [    4.930610] x2 : 000000000b4a0000
-> [    4.942943]  x1 : ffff800081fa0000 x0 : ffff800081e50000
-> [    4.942947] Call trace:
-> [    4.942948]  a6xx_gmu_rpmh_init (arch/arm64/include/asm/io.h:43 include/asm-generic/io.h:293 drivers/gpu/drm/msm/adreno/a6xx_gmu.h:183 drivers/gpu/drm/msm/adreno/a6xx_gmu.c:621) (P)
-> [    4.942954]  a6xx_gmu_bind (drivers/gpu/drm/msm/adreno/a6xx_gmu.c:2102)
-> [    4.942957]  component_bind_all (drivers/base/component.c:660)
-> [    4.956709]  msm_drm_init (drivers/gpu/drm/msm/msm_drv.c:159)
-> [    4.956714]  msm_drm_bind (drivers/gpu/drm/msm/msm_drv.c:1032)
-> 
-> Turns out that previously, gmu->mmio was assigned before setting
-> gmu->rscc = gmu->mmio + 0x23000;
-> With your changes, the order is now wrong.
+> Hi,
+> Thanks for the review
+> The reason for this came from the discussion on previous patches and was suggested by Dmitry.
+> The idea is that a connector can never be both an HDMI and writeback connector at the same time
+> Hence we save space if we pack them together.
 
-Oh crap
+Hmm, but you can still have all the CEC and HDMI codecs data in that connector,
+which feels strange.  Also, what's the issue with having a connector that has
+both a valid HDMI state and an associated writeback at the same time (i.e.
+don't use the union)? Writing back the memory the output that goes to HDMI is
+valid, right?
 
-> Moving the assignment up again (and applying the diff you shared
-> for proper handling of legacy parameter) fixes it:
-> 
-> ==========================================
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -2027,6 +2027,13 @@ static int a6xx_gmu_bind(struct device *dev, struct device *master, void *data)
->                  if (ret)
->                          goto err_memory;
-> 
-> +               /* Map the GMU registers */
-> +               gmu->mmio = a6xx_gmu_get_mmio(pdev, "gmu");
-> +               if (IS_ERR(gmu->mmio)) {
-> +                       ret = PTR_ERR(gmu->mmio);
-> +                       goto err_memory;
-> +               }
-> +
->                  if (adreno_is_a650_family(adreno_gpu) ||
->                      adreno_is_a7xx(adreno_gpu)) {
->                          gmu->rscc = a6xx_gmu_get_mmio(pdev, "rscc");
-> @@ -2048,13 +2055,6 @@ static int a6xx_gmu_bind(struct device *dev, struct device *master, void *data)
->                  }
->          }
-> 
-> -       /* Map the GMU registers */
-> -       gmu->mmio = a6xx_gmu_get_mmio(pdev, "gmu");
-> -       if (IS_ERR(gmu->mmio)) {
-> -               ret = PTR_ERR(gmu->mmio);
-> -               goto err_memory;
-> -       }
-> -
->          gmu->cxpd = dev_pm_domain_attach_by_name(gmu->dev, "cx");
->          if (IS_ERR(gmu->cxpd)) {
->                  ret = PTR_ERR(gmu->cxpd);
-> ==========================================
-> 
-> This almost certainly isn't correct either because the wrapper needs
-> its registers mapped too, perhaps this is better suited for moving it
-> above the if block, I think that makes more sense.
+Maybe that is not something that you considered, but with this patch (without union)
+we can drop the need to have a separate connector just for writeback. We're breaking
+user space compatibility, true, but it feels like a good change to be able to
+attach a writeback to any connector and get its output. The drivers that don't support
+that can reject the commit that attaches the writeback to the existing connector.
 
-Yes, merging both functions was a bad move...
+Best regards,
+Liviu
 
 > 
-> With the legacy parameter changes and GMU register mapping prior to RSCC
-> offset calculation:Tested-by: Jens Reidel <adrian@mainlining.org> # SM7150
-
-Thanks for testing !
-
-Following Akhil's review, I'll probably keep the wrapper and normal
-gmu bind/unbind separated for the first step.
-
-Neil
-
+> Regards,
+> Suraj Kandpal
 > 
-> Best regards,Jens
->>
->> Thanks,
->> Neil
->>
->>>
->>> Best regards,
->>> Jens
->>
+> > 
+> > Best regards,
+> > Liviu
+> > 
+> > > +		/**
+> > > +		 * @hdmi: HDMI-related variable and properties.
+> > > +		 */
+> > > +		struct drm_connector_hdmi hdmi;
+> > > +		/**
+> > > +		 * @writeback: Writeback related valriables.
+> > > +		 */
+> > > +		struct drm_writeback_connector writeback;
+> > > +	};
+> > >
+> > >  	/**
+> > >  	 * @hdmi_audio: HDMI codec properties and non-DRM state.
+> > > diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
+> > > index 958466a05e60..702141099520 100644
+> > > --- a/include/drm/drm_writeback.h
+> > > +++ b/include/drm/drm_writeback.h
+> > > @@ -15,66 +15,6 @@
+> > >  #include <drm/drm_encoder.h>
+> > >  #include <linux/workqueue.h>
+> > >
+> > > -/**
+> > > - * struct drm_writeback_connector - DRM writeback connector
+> > > - */
+> > > -struct drm_writeback_connector {
+> > > -	/**
+> > > -	 * @base: base drm_connector object
+> > > -	 */
+> > > -	struct drm_connector base;
+> > > -
+> > > -	/**
+> > > -	 * @pixel_formats_blob_ptr:
+> > > -	 *
+> > > -	 * DRM blob property data for the pixel formats list on writeback
+> > > -	 * connectors
+> > > -	 * See also drm_writeback_connector_init()
+> > > -	 */
+> > > -	struct drm_property_blob *pixel_formats_blob_ptr;
+> > > -
+> > > -	/** @job_lock: Protects job_queue */
+> > > -	spinlock_t job_lock;
+> > > -
+> > > -	/**
+> > > -	 * @job_queue:
+> > > -	 *
+> > > -	 * Holds a list of a connector's writeback jobs; the last item is the
+> > > -	 * most recent. The first item may be either waiting for the hardware
+> > > -	 * to begin writing, or currently being written.
+> > > -	 *
+> > > -	 * See also: drm_writeback_queue_job() and
+> > > -	 * drm_writeback_signal_completion()
+> > > -	 */
+> > > -	struct list_head job_queue;
+> > > -
+> > > -	/**
+> > > -	 * @fence_context:
+> > > -	 *
+> > > -	 * timeline context used for fence operations.
+> > > -	 */
+> > > -	unsigned int fence_context;
+> > > -	/**
+> > > -	 * @fence_lock:
+> > > -	 *
+> > > -	 * spinlock to protect the fences in the fence_context.
+> > > -	 */
+> > > -	spinlock_t fence_lock;
+> > > -	/**
+> > > -	 * @fence_seqno:
+> > > -	 *
+> > > -	 * Seqno variable used as monotonic counter for the fences
+> > > -	 * created on the connector's timeline.
+> > > -	 */
+> > > -	unsigned long fence_seqno;
+> > > -	/**
+> > > -	 * @timeline_name:
+> > > -	 *
+> > > -	 * The name of the connector's fence timeline.
+> > > -	 */
+> > > -	char timeline_name[32];
+> > > -};
+> > > -
+> > >  /**
+> > >   * struct drm_writeback_job - DRM writeback job
+> > >   */
+> > > @@ -131,10 +71,10 @@ struct drm_writeback_job {
+> > >  	void *priv;
+> > >  };
+> > >
+> > > -static inline struct drm_writeback_connector *
+> > > -drm_connector_to_writeback(struct drm_connector *connector)
+> > > +static inline struct drm_connector *
+> > > +drm_writeback_to_connector(struct drm_writeback_connector
+> > > +*wb_connector)
+> > >  {
+> > > -	return container_of(connector, struct drm_writeback_connector,
+> > base);
+> > > +	return container_of(wb_connector, struct drm_connector, writeback);
+> > >  }
+> > >
+> > >  int drm_writeback_connector_init(struct drm_device *dev,
+> > > --
+> > > 2.34.1
+> > >
+> > 
+> > --
+> > ====================
+> > | I would like to |
+> > | fix the world,  |
+> > | but they're not |
+> > | giving me the   |
+> >  \ source code!  /
+> >   ---------------
+> >     ¯\_(ツ)_/¯
 
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
