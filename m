@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A725C346C5
-	for <lists+freedreno@lfdr.de>; Wed, 05 Nov 2025 09:17:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEEACC34871
+	for <lists+freedreno@lfdr.de>; Wed, 05 Nov 2025 09:44:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5DF710E6C6;
-	Wed,  5 Nov 2025 08:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7CB010E6D9;
+	Wed,  5 Nov 2025 08:44:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hRAX053p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CzGUfFRL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2942610E6BA;
- Wed,  5 Nov 2025 08:17:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8C9B10E6D9;
+ Wed,  5 Nov 2025 08:44:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DC28041951;
- Wed,  5 Nov 2025 08:17:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A795C4CEF8;
- Wed,  5 Nov 2025 08:17:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6CF7D4376F;
+ Wed,  5 Nov 2025 08:44:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CD0C4CEF8;
+ Wed,  5 Nov 2025 08:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1762330657;
- bh=06k4jiJ4UrEXvHOJ4Ftew/dE8v3AQcvShbjYMBlJyaM=;
+ s=k20201202; t=1762332276;
+ bh=B1mrzqdCotHeUPx6GmeRphi3vwwxC29uywn7AUaYpIM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hRAX053pqlS/biqlxS55e7WkR1rnJD2Ll3kHwh3ho0yO8FdKLq8ayRWOsL1uOb2Dw
- zgq7w2JbN/BivhMed+bG6PIb+g2X58+UN+hQpqC0yxZF99wdXMsrMCrApQlgjp87xG
- kwX4l7yRP0czu03WkNU4T2VEIR9gu4us44IiI5HGUE/WOHdPOse8JdL+3K0L9fbZoM
- uCa8GU/zMtaGemJiIezmBt2rQTVL+AAEE1dIKPJ8rf62ckcyZP/lgj6uA2TosgbQ8i
- CHfur3vNK+3Unfqiogfw8Ln53N7PhyMkWtf2hTntTjZhfjfkntPy0N5gmOz7g7zIZf
- cTivoQy8JqWdQ==
-Date: Wed, 5 Nov 2025 09:17:35 +0100
+ b=CzGUfFRLTsL19Qi/+XP0OzEpr4fmO4sluqZzOHVtWApYci0N543doqZb2LYPRMQR4
+ dY3EVAfT1DZ2vwrO7fYLaNlYaTSnc+KirvRrrwMu6Ew/NsyGtBg43SQTwVp6Sir5ET
+ ODovueBinj4gWGjlSR5zIFRhClia0uE1HD8cXIzP6s91aSZItsvOjfYekB9LCByPlR
+ +owTzT/WQLgiiks5rvCRODfMhUIKdFzoFYtM9H1JdeJAQTf3yvj8hbxZfQPqTT8I9z
+ ILgsXLWk6nWUVl6SrnknhDK+0kpfZ5ka+Z1NQgsi801m2a32GWLRkoYE2Gd55ZaGeu
+ mZFe9LQ00RxUA==
+Date: Wed, 5 Nov 2025 09:44:33 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+To: Ritesh Kumar <riteshk@qti.qualcomm.com>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, 
+ abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com, sean@poorly.run, 
+ marijn.suijten@somainline.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, 
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, quic_mahap@quicinc.com, 
+ andersson@kernel.org, konradybcio@kernel.org, mani@kernel.org, 
+ James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
+ vkoul@kernel.org, kishon@kernel.org, 
+ cros-qcom-dts-watchers@chromium.org, Ritesh Kumar <quic_riteshk@quicinc.com>, 
+ linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
- fange.zhang@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
- li.liu@oss.qualcomm.com
-Subject: Re: [PATCH v7 1/4] dt-bindings: display: msm: sm6150-mdss: Add
- DisplayPort controller
-Message-ID: <20251105-merry-liberal-macaw-ef387a@kuoka>
-References: <20251104-add-displayport-support-to-qcs615-devicetree-v7-0-e51669170a6f@oss.qualcomm.com>
- <20251104-add-displayport-support-to-qcs615-devicetree-v7-1-e51669170a6f@oss.qualcomm.com>
+ linux-scsi@vger.kernel.org, quic_vproddut@quicinc.com
+Subject: Re: [PATCH v3 1/2] dt-bindings: phy: qcom-edp: Add eDP ref clk for
+ sa8775p
+Message-ID: <20251105-juicy-rhino-of-action-b6be48@kuoka>
+References: <20251104114327.27842-1-riteshk@qti.qualcomm.com>
+ <20251104114327.27842-2-riteshk@qti.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20251104-add-displayport-support-to-qcs615-devicetree-v7-1-e51669170a6f@oss.qualcomm.com>
+In-Reply-To: <20251104114327.27842-2-riteshk@qti.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,18 +72,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Nov 04, 2025 at 09:33:23AM +0800, Xiangxu Yin wrote:
-> SM6150 uses the same DisplayPort controller as SM8150, which is compatible
-> with SM8350. Add SM6150-specific compatible string for the DisplayPort
-> controller.
+On Tue, Nov 04, 2025 at 05:13:26PM +0530, Ritesh Kumar wrote:
+> From: Ritesh Kumar <quic_riteshk@quicinc.com>
 > 
-> Signed-off-by: Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+> When the initial contribution of eDP PHY for sa8775p was done,
+> eDP reference clock voting was missed. It worked fine at that
+> time because the clock was already enabled by the UFS PHY driver.
+> 
+> After commit 77d2fa54a945 ("scsi: ufs: qcom : Refactor
+> phy_power_on/off calls"), eDP reference clock started getting
+> turned off, leading to the following PHY power-on failure:
+> 
+> phy phy-aec2a00.phy.10: phy poweron failed --> -110
+> 
+> To fix this, explicit voting for the eDP reference clock is
+> required. This patch adds the eDP reference clock for sa8775p
+> eDP PHY and updates the corresponding example node.
+
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+
+> 
+> Signed-off-by: Ritesh Kumar <quic_riteshk@quicinc.com>
 > ---
->  .../devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml         | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  .../devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml  | 6 ++++--
+>  Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml     | 1 +
+>  2 files changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> index e2730a2f25cf..6c827cf9692b 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> @@ -200,9 +200,11 @@ examples:
+>                    <0x0aec2000 0x1c8>;
+>  
+>              clocks = <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_AUX_CLK>,
+> -                     <&dispcc0 MDSS_DISP_CC_MDSS_AHB_CLK>;
+> +                     <&dispcc0 MDSS_DISP_CC_MDSS_AHB_CLK>,
+> +                     <&gcc GCC_EDP_REF_CLKREF_EN>;
+>              clock-names = "aux",
+> -                          "cfg_ahb";
+> +                          "cfg_ahb",
+> +                          "ref";
+>  
+>              #clock-cells = <1>;
+>              #phy-cells = <0>;
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
+> index bfc4d75f50ff..ba757b08b9b1 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
+> @@ -72,6 +72,7 @@ allOf:
+>        properties:
+>          compatible:
+>            enum:
+> +            - qcom,sa8775p-edp-phy
+>              - qcom,x1e80100-dp-phy
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+I don't have such code in latest next, which makes it impossible to
+review.
 
-Best regards,
-Krzysztof
-
+>      then:
+>        properties:
+> -- 
+> 2.17.1
+> 
