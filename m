@@ -2,103 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DE90C36C4D
-	for <lists+freedreno@lfdr.de>; Wed, 05 Nov 2025 17:46:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42D12C36C53
+	for <lists+freedreno@lfdr.de>; Wed, 05 Nov 2025 17:46:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C850410E07E;
-	Wed,  5 Nov 2025 16:46:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB93B10E2DC;
+	Wed,  5 Nov 2025 16:46:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VixT6fi8";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G/YpK4bq";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="We2S4wmO";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fqj5WWc8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A23C410E07E
- for <freedreno@lists.freedesktop.org>; Wed,  5 Nov 2025 16:46:09 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6313B10E2DC
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Nov 2025 16:46:15 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5A5EBTsK4011376
- for <freedreno@lists.freedesktop.org>; Wed, 5 Nov 2025 16:46:08 GMT
+ 5A5E8Cj8876632
+ for <freedreno@lists.freedesktop.org>; Wed, 5 Nov 2025 16:46:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=/39PKwKFPjq6vqHlDBh03E
- gjb7S4PRc4fvYafgd61Yw=; b=VixT6fi8nRXeC0k+VrY2iTrZlvx1i5UG5Xncnm
- od/PfZETODOe6PkYnJUfoMKDg91TU2P60ML6wj6Ff+4vbo/PEAIK/L965gcwYnCO
- hmRgS87aJgRx5IGkAdQCzzqJhT+YXYn9+huiQZfhl+FlaB367K/7LJdF7mKEmy0g
- e7ckavKOSFHX/isu7bxAVQ5nyu9ayGaMDAs07bnHn3JSAceiR7RAqeQnV57PqcsF
- ZEQwqQ2j+pB7NaLjAKKIqDKdx7H+MtKsg1sNnq2WwkVqeh1F+szu1tt23a4LVq9N
- /wQ1FxPkvdNcX59yfOrtWQsteCnChHP6pGIzJ4j727eD946w==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a7ynwswvu-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ V0NNfdE3hYTw3zNUDaf9Tkr9rvcnD4dKnWyPzOQRNqA=; b=We2S4wmOLyuO1nHH
+ rRTzXzsQ0dFfXANFMEu8iGnKmhNm2oE616DBj3v3aCGlvbiYW9J2KTkWVN8Z2wKM
+ ruW7IWzMG4AdH7m3znPgYiDHvwg3/5L3akRs6IJUXJn22vHaFE59yHtS+0DHZVMO
+ NugzL9PqaCoXhXizTTGVs5/GJpxwt5KfCUMkqCqcqNIzgax3DbWtc04X+23pIloz
+ NnalIx3qCMW26nytLWWck0+rr+N0JycPwuqrqYBgVJMNh6tKo4EC5WphkBlxKDZs
+ PtrqDw4kvrkadaw+qnwKayn0ZvJPBEoSCc5F1FtIHEbaNlo0bJM0y2b814WSF78z
+ X2L43A==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a88318gye-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 05 Nov 2025 16:46:08 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-3416dc5754fso86566a91.1
- for <freedreno@lists.freedesktop.org>; Wed, 05 Nov 2025 08:46:08 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Nov 2025 16:46:14 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-32eb18b5659so58062a91.2
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Nov 2025 08:46:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1762361168; x=1762965968;
+ d=oss.qualcomm.com; s=google; t=1762361174; x=1762965974;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=/39PKwKFPjq6vqHlDBh03Egjb7S4PRc4fvYafgd61Yw=;
- b=G/YpK4bqWVMh4hmelsA/G1un+yg8775jKV6UiCEl1BnSkTCbfeSfPprJwXZMJnNrzt
- Pk8AoLT4kMTQR2G6QDJd8u5uPObPCcU+mds1HbCfaRAq3eb/yUYQeBgGWPW9c1FQRaFk
- w7ZZUteGFEr85/fYHrZitXqEfdTu04uZlup1TTva1ZHlYjmxFApu038vFusQ6Z9YH4Af
- xiDJcro4gn6rTfhaSb2MweOu9CaA2DJc6rGO5aZcZpFjCNmBW7ef0KSmSjI8j5adzRDk
- 8y11FcRuH428moICs2YaTXoelogn8jxbPFMYXQpPk/9HMzpmwkJ6GB/RhJtgt5Dh8T1p
- TiuA==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=V0NNfdE3hYTw3zNUDaf9Tkr9rvcnD4dKnWyPzOQRNqA=;
+ b=fqj5WWc8PPRMKx/Eucd+oBym1zTHDzcofNVpDFC9t4IClG3k+ZMgQ6hLZd9+XqIND6
+ bBBTMRxU/Lps5eaKrRokT/ExOc+qLw8sS0ZEe7AK5OxXdLrjiTKoPQGrfsO/kgwGIMga
+ nS8IhS9Ftt1JwwdnDni5mwthV3VBPwIEmLsaKadSmU84JS019/AeWweIvwLuemNOwrVO
+ RqwgKpNuVOSsP4QOuGDoFapF7wiMDqWowXou0cfbxJ4UKFplAGWWxku0ZRQI85voeb8a
+ Joe3/6vsDxQRbG9Y4nCP2I0H29uSutzWdRY0PSYgo150VCZWshx02f0qEuF07bPee6Ay
+ xOEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762361168; x=1762965968;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=/39PKwKFPjq6vqHlDBh03Egjb7S4PRc4fvYafgd61Yw=;
- b=ScCgZdprf7YhhI+hsow2zAk98bJE3ZBFu759NLl6HQU0DSYXAKQ0WOGXOs8aUay4+J
- 3+54nED5KfKLGqG0c7zQ5pTSSv2aS1PBpDosFMqV1qIcZ3IIuGTpHzRmr16qYkqD/LTX
- 10KzhJeemkvhiE0gcdGCPcpy3MXc69E4sTaZ7JffPmUL+fUCe4az2EOYbQQiCZ05ZVvj
- MFDvUdBTtTmiBgHskSW/z7Pf7MWlHtvpqDRGDF4ZMS59BoEq3pwl9Du4BG7eNBFJPKwQ
- JnCjg6XDRUXCN0BgKBxEny/9CSxoaQpau2J+lFrqQ5wHcslhfabfnYvNgwtlUuEUxOnE
- dI3g==
+ d=1e100.net; s=20230601; t=1762361174; x=1762965974;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=V0NNfdE3hYTw3zNUDaf9Tkr9rvcnD4dKnWyPzOQRNqA=;
+ b=S2lLqG+gagwa60tn2iMBf4gxuf6MucflAr/C+WlLZYRAlrRorDfySFJEt/b7Ef7f4R
+ l8sKdxm9+TW+bxyq7B3lrh7IK/At75w+xLHaY82dwXMaDicW45SmnmnhQ3EjkNiDixal
+ zXmi1gTLnGREumCkznd5L3fP2nmxEHKpXjc5pbAAEgZO0SMWrQiqG2vBOVLgXXjpjnyt
+ 5vXQeUk4fqlCdWuZbeOeLuu6LVvK4a464aFfTpurYC/MEt7rJBzVx4NHxIUvkgqCWRkJ
+ 4lLjZQodXD5U6bu3y97nrfb5NKRUapT0ZT1WtIku95hxMF5nkoZqU1W5QXbACkkVUPKs
+ mffQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpz3UHojU4HBJIxvt8w3pl4FF4Vx70ENxa19I5hNal7xhxxlNfJ8or4HhkX/A6QAcKGKuWx3KqX5U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+geRgCcEqyVJNvfpegvjia824zwcR31AUtn5bSoi/f3LWdiQP
- tA7QNe79Of/yOtvtxrN/4DeKrx8XelcOceGu5M3pxHQKnULYBf+VmrVbcGTv6tkn1/zDKW7H5WO
- g1EpTRBGiwX28bIK3aaGWCbCr+x/yk6N/kd12L5PHfNESkDa6dQpHYlLjZW+WMVvDuqhF8y4=
-X-Gm-Gg: ASbGncvG3WWDOzysx97I3AWj+jvIchbXqOMnWHdGFvcNStpeiIv8mXYXed1Aqmu45RK
- McvwrCqjtPpak0Up9RMVU8mHLTw7R2IZpKm6G1vNAMM/VCNv2C7UIjDZjLOPvaVVTJ+a8JjDJn0
- 8N20O9FqqKlVg7Ui8qf13qgV5ECJI5Zop7flnIOh6q1LSS+XOm8yoreRiR6tvPq9HiAo5c/wbg9
- ZGlWqnSF4V/ucGAU9HIjpFZY0ZhB4ut6kk+TEmxgP2DcYkOjcPgPlqqSUDfLrMIwH+hxFsKOKSy
- WXZz/Zbni21tS2egMu/XVqmvd8OZ3MikrMSFEnBqOnoyyd0QIFshKT2hGAJhdRCcPnoF+IXjC67
- vtch4OeCFd2NXG7vGXi7j1e0=
-X-Received: by 2002:a17:90b:4a49:b0:32e:9f1e:4ee4 with SMTP id
- 98e67ed59e1d1-341a6dd9c48mr5286929a91.17.1762361167552; 
- Wed, 05 Nov 2025 08:46:07 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEgcT+6/XLEEYHAFLkWWkahGQ+87zU0D5ZMUZde6qTS8n4Sil+15JEtBQZqISHAL207X+eFuA==
-X-Received: by 2002:a17:90b:4a49:b0:32e:9f1e:4ee4 with SMTP id
- 98e67ed59e1d1-341a6dd9c48mr5286861a91.17.1762361166876; 
- Wed, 05 Nov 2025 08:46:06 -0800 (PST)
+ AJvYcCVBhbEnN8bFgU2pCduFEicFRvmY1aAbiaImGJ13Cp0e1V1z4T+Uz4kv0hlKnpN7ldmLSKyRSi8zwag=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywm88KN4tkd99I4VPaZVsnKc+Hg6X0tCn2j4tm7g7mTqvo3Lf7M
+ z4KmB+zDvzr87GyCCe/bzCu9ZQpKTHkAGXXNBgpF1eb8tz6cvQ9YSxVBiXJxTYhLeHZgnIS1Xg5
+ Uw12eDzMWLSDs/CQxLIukBAE8PKBKW8OlBDWDWun22Zkd/r2223HITE5b8O9ephDEaLbaTAs=
+X-Gm-Gg: ASbGnctbF/+Eniv4z8z6LrtcuN0Ja7bGtf+B2j8mcwhC45Ova3bu0TbF+u6C3SCyU+G
+ r1neFIFvh40+s3Ni6p+0wzV31Rnl7rILCq9fDD7zvOE2kygeUuacpkwS3F4lrV6NIXkLwPDH8Ia
+ U65XSvfBa1EjQ3UC2skCyUXDHfEt+PD/r1D6HPUxgFBMVV19oh87B6waHFhuC3n3LhmvGLhelYT
+ UDop7o1KLywwUT4WAGS/GhrwOp9RgBQTgN+y+sBVPD3QqcRaVhOyUwyjLCnyTxTXMw3+xsF5eRz
+ fCzJi5+fnlS+9T3Mb2IzXA1C2bD9+QRNa4+jGx4aOI43OLzo3OLP7NFDARmWCYPOHaonlhTELr3
+ nwkQiOlJqQHSm6mK4+30+yiU=
+X-Received: by 2002:a17:90b:274e:b0:33e:2d0f:4793 with SMTP id
+ 98e67ed59e1d1-341a6c2dd89mr5133567a91.11.1762361174257; 
+ Wed, 05 Nov 2025 08:46:14 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IExDXPdqPDT2NkdJ7fX7iWKr2pf+irb2Zq0hx+Byc3+KFA1DEVgM9hn1fe4HmX+JkqxfTmWJw==
+X-Received: by 2002:a17:90b:274e:b0:33e:2d0f:4793 with SMTP id
+ 98e67ed59e1d1-341a6c2dd89mr5133518a91.11.1762361173752; 
+ Wed, 05 Nov 2025 08:46:13 -0800 (PST)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-341a68c822dsm3426249a91.8.2025.11.05.08.45.59
+ 98e67ed59e1d1-341a68c822dsm3426249a91.8.2025.11.05.08.46.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Nov 2025 08:46:06 -0800 (PST)
+ Wed, 05 Nov 2025 08:46:13 -0800 (PST)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Subject: [PATCH v7 0/5] DRM/MSM: Support for Adreno 663 GPU
-Date: Wed, 05 Nov 2025 22:15:44 +0530
-Message-Id: <20251105-a663-gpu-support-v7-0-1bcf7f151125@oss.qualcomm.com>
+Date: Wed, 05 Nov 2025 22:15:45 +0530
+Subject: [PATCH v7 1/5] dt-bindings: nvmem: qfprom: Add sa8775p compatible
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADh/C2kC/3XRzW7CMAwH8FdBOS8odr458R7TDkmTQqTRlqatm
- BDvvhTEQGp3/Fvxz7F8JTn2KWay21xJH6eUU9uUoD82pDq65hBpCiUTZCiYBU2dUpweupHmsev
- afqAehJaVQaOYIqWt62OdLnfy86vkY8pD2//cJ0wwV5+YWWITUEZR1tHxmgclwv48pio11bZqT
- 2TmJvwjgCGuEFgIboLjBrlQVi8J/kZwtkLwQvhQQ7BVVAxhSYgnIZlZ/YUohNUBlfcIQsR9m/P
- 2PLrvQpxejnw5ltkVRxZHK6gdc0YrX//jqDcH1lZSxZHBgTSoPQq74twe1+tj2Tan4XFC4l2Od
- H6Uht2miZeBzlMAmCwdt1+HLkdsQQIAAA==
-X-Change-ID: 20240917-a663-gpu-support-b1475c828606
+Message-Id: <20251105-a663-gpu-support-v7-1-1bcf7f151125@oss.qualcomm.com>
+References: <20251105-a663-gpu-support-v7-0-1bcf7f151125@oss.qualcomm.com>
+In-Reply-To: <20251105-a663-gpu-support-v7-0-1bcf7f151125@oss.qualcomm.com>
 To: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -116,43 +112,39 @@ Cc: Gaurav Kohli <quic_gkohli@quicinc.com>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Krzysztof Kozlowski <krzk@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1762361159; l=4315;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1762361159; l=998;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=PcDDIBcEIGtNyT7znZSa4/D1SLEv+wO02puHeHxpSrA=;
- b=DuupHbe7N+zgImOfEL0Mmxrj/O9yI0sSVA4F4Hd7ZxpYqyp/SqnhHNYP7OhmBvWfjsvx6O2Ag
- /PY4o4zW5ygBu1PjX/PO8U9J13aJYEbw5dXUwP9djL4KnHY+3hSS4pC
+ bh=CSOgdQpc0lMePHubTaI8zKt7XuYIPcsGjD7SJ+d1YnY=;
+ b=i1IXdpI+2THuQXFa8wLghoNr7UkEvIZ+HYFBfmuX0sPOdoo24L21KRdyc21kfonQ2ky812AeR
+ 7Q+ZR+DzxwSADT8vgD11jIiqgJfy4qZSSfcOGwkSN4fE6qUFppbBcpE
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTA1MDEyOSBTYWx0ZWRfXyZbyOYRbAFsO
- muJpQUAxY0JmoqzdnkRxSpbEX3VNrZbChAhclDZ5iThenxaORVkfMjrnGJus2ZoNgwKlOzDPPvP
- WlFQH1Hnmrs8+5fJEgwM9XJ90mOHJ3JlxL+ojqcrusc0Yu9ZGisxiFmBNoewTsP/sLRXI5tKEZ4
- wqFtErGcoNXnxj5/qoE1W6K2Smk/jyImjzP43OFI44Jdj0wzEBjrCk0khlZUwj5KdcnP20sixYw
- 3LxKjYqdHD/R+8yqR5puStEH8PRdYahgnw8L89cEIx/K8cx4YOX5haGdwjG1VbvjSEvbxtdEdvH
- n9mqyGUxt8rBxRwVtxK2uhTA7CqDsGJH7cE2s97mosqXt1seKoeYZBgKC2VaDrK/lP7S2mj3yYB
- G1FGR0ZwZydg6AX6XWWKH6xsaqXDyg==
-X-Proofpoint-ORIG-GUID: hhnkTfw_YW88Sz-5vT9CG7r9UW2XXQG9
-X-Proofpoint-GUID: hhnkTfw_YW88Sz-5vT9CG7r9UW2XXQG9
-X-Authority-Analysis: v=2.4 cv=IpETsb/g c=1 sm=1 tr=0 ts=690b7f50 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-ORIG-GUID: sRXcCAsUBjLX7sDEUNMC7l_cEbk55gdA
+X-Proofpoint-GUID: sRXcCAsUBjLX7sDEUNMC7l_cEbk55gdA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTA1MDEyOSBTYWx0ZWRfX2O7gb9x0U4L7
+ kAXkj0VDiShh7UX9xzwC/2yLmCitr3iS0SQcWp/MpfEO0og3D7xBvR4j32BmkZLUtQKWK/0KVvv
+ OmkoB09RqYLOn+wZTJMIPpFFPt7HFapKMNjTiISsh32mKwEbXyoBz5S7MTtWgkCn4SUawmykcob
+ /ig6Kv5iosqWCP7uAgs3p+Nn8T05n+S4fQlDhAW8me7edPjORAHLKXKcfwZ57Hrhl3rjvOwmTLY
+ WWQwjdbMZcDXu7vS2SW+6GHYmP4xO1AVJsdByGRKAly43J+GBhsuGKyq3UTQp9IqNDY34xW/y3V
+ ll/O24JcVEsso/sX24x6d7LvHxd4BmxWr9IUguCch10VdIrZVwsv6oMgz0Pf3w5RgadOQ+neP3Q
+ +UZP7AZ05iCJZBqbss3Aa/+/pxM7sw==
+X-Authority-Analysis: v=2.4 cv=Mdhhep/f c=1 sm=1 tr=0 ts=690b7f56 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8
- a=pGLkceISAAAA:8 a=KKAkSRfTAAAA:8 a=tVI0ZWmoAAAA:8 a=QyXUC8HyAAAA:8
- a=e5mUnYsNAAAA:8 a=jTv6lf4Jh5MpNzVl0_IA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22 a=TjNXssC_j7lpFel5tvFf:22 a=cvBusfyB2V15izCimMoJ:22
- a=-BPWgnxRz2uhmvdm1NTO:22 a=Vxmtnl_E_bksehYqCbjh:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=TNpnUgr77EDisZP18eEA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+ a=cvBusfyB2V15izCimMoJ:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-05_06,2025-11-03_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 adultscore=0 priorityscore=1501 bulkscore=0
- suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511050129
+ lowpriorityscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ suspectscore=0 spamscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ definitions=main-2511050129
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,115 +160,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This series adds support for Adreno 663 gpu found in SA8775P (Lemans)
-chipsets. The closest gpu which is currently supported in drm-msm is A660.
-Following are the major differences with that:
-	1. gmu/zap firmwares
-	2. Recommended to disable Level2 swizzling
+Document compatible string for the QFPROM on Lemans platform.
 
-Verified kmscube/weston/glmark2-es2. This series is rebased on top of
-v6.17-rc1.
-
-Due to the SKU detection support in this series, the device tree series
-technically has a runtime dependency on the driver change in patch#1.
-But I think that is okay since we never had GPU support in this
-platform and  the gpu support is enabled here. 
-
-Apologies for the back to back rev bump. I am hoping to get this picked
-up for v6.18.
-
-Patch#1 is for Rob Clark, Patch#2 for Srinivas and the rest are for Bjorn to pick up.
-
-[1] https://lore.kernel.org/all/20250803110113.401927-1-wasim.nazir@oss.qualcomm.com/
-
-To: Rob Clark <robdclark@gmail.com>
-To: Sean Paul <sean@poorly.run>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Connor Abbott <cwabbott0@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Gaurav Kohli <quic_gkohli@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-
--Akhil
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Acked-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
-Changes in v7:
-- Rebased on next-20251105
-- Dropped drm-msm speedbin patch which is already picked up
-- Picked up trailers
-- Link to v6: https://lore.kernel.org/r/20250910-a663-gpu-support-v6-0-5da15827b249@oss.qualcomm.com
+ Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v6:
-- Keep the efuse's reg range 4K aligned (Konrad)
-- Update GMU's opp table to bump frequency to 500Mhz (Konrad)
-- Link to v5: https://lore.kernel.org/r/20250909-a663-gpu-support-v5-0-761fa0a876bf@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+index 3f6dc6a3a9f1adc582a28cf71414b0e9d08629ed..7d1612acca48d24c3b54c4d25fa8a210176d3bb5 100644
+--- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+@@ -39,6 +39,7 @@ properties:
+           - qcom,qcs404-qfprom
+           - qcom,qcs615-qfprom
+           - qcom,qcs8300-qfprom
++          - qcom,sa8775p-qfprom
+           - qcom,sar2130p-qfprom
+           - qcom,sc7180-qfprom
+           - qcom,sc7280-qfprom
 
-Changes in v5:
-- Remove unnecessary labels in the gpu cooling patch (Konrad)
-- Update the RPMH corner for 530 Mhz
-- Wire up the gpu speedbin node to the gpu
-- Link to v4: https://lore.kernel.org/r/20250822-a663-gpu-support-v4-0-97d26bb2144e@oss.qualcomm.com
-
-Changes in v4:
-- Rebased on top of another series which renames DT files
-- Enabled GPU on IoT boards as per the latest definition
-- Picked up SKU detection support
-- Added GPU passive cooling support
-- Link to v3: https://lore.kernel.org/r/20241030-a663-gpu-support-v3-0-bdf1d9ce6021@quicinc.com
-
-Changes in v3:
-- Rebased on the latest msm-next tip
-- Added R-b tags from Dmitry
-- Dropped patch #1 and #2 from v2 revision since they are already
-picked up in msm-next
-- Link to v2: https://lore.kernel.org/r/20241022-a663-gpu-support-v2-0-38da38234697@quicinc.com
-
-Changes in v2:
-- Fixed ubwc configuration (dimtry)
-- Split out platform dt patch (dimtry)
-- Fix formatting in the dt patch (dimtry)
-- Updated Opp table to include all levels
-- Updated bw IB votes to match downstream
-- Rebased on top of msm-next tip
-- Link to v1: https://lore.kernel.org/r/20240918-a663-gpu-support-v1-0-25fea3f3d64d@quicinc.com
-
----
-Akhil P Oommen (3):
-      dt-bindings: nvmem: qfprom: Add sa8775p compatible
-      arm64: dts: qcom: lemans-evk: Enable Adreno 663 GPU
-      arm64: dts: qcom: qcs9100-ride: Enable Adreno 663 GPU
-
-Gaurav Kohli (1):
-      arm64: dts: qcom: lemans: Add GPU cooling
-
-Puranam V G Tejaswi (1):
-      arm64: dts: qcom: sa8775p: Add gpu and gmu nodes
-
- .../devicetree/bindings/nvmem/qcom,qfprom.yaml     |   1 +
- arch/arm64/boot/dts/qcom/lemans-evk.dts            |   8 +
- arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi   |   8 +
- arch/arm64/boot/dts/qcom/lemans.dtsi               | 174 ++++++++++++++++++++-
- 4 files changed, 185 insertions(+), 6 deletions(-)
----
-base-commit: 185cd3dc1a12b97194a62eba9d217d280ef74135
-change-id: 20240917-a663-gpu-support-b1475c828606
-
-Best regards,
 -- 
-Akhil P Oommen <akhilpo@oss.qualcomm.com>
+2.51.0
 
