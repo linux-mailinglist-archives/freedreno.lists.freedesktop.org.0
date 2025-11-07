@@ -2,109 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA603C3F72B
-	for <lists+freedreno@lfdr.de>; Fri, 07 Nov 2025 11:30:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96B28C3FA35
+	for <lists+freedreno@lfdr.de>; Fri, 07 Nov 2025 12:05:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C009E10EA6D;
-	Fri,  7 Nov 2025 10:30:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F03210EA8B;
+	Fri,  7 Nov 2025 11:05:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JJ6l5huu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="itR1TzGq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F17FA10EA6E
- for <freedreno@lists.freedesktop.org>; Fri,  7 Nov 2025 10:30:30 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-47112a73785so3562835e9.3
- for <freedreno@lists.freedesktop.org>; Fri, 07 Nov 2025 02:30:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1762511429; x=1763116229; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:from:references:cc:to:subject:reply-to:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=JdXi1VUn5WnebblzEeFtNSpH8JjcIBHUGIXhJ5CQTgk=;
- b=JJ6l5huuAOE2b8ByVJvJkh9AnKJZwdfgA+B1oOOp6yl3wP4pZ8XkACh/H6+ZPhOR1m
- fNfGbsSyONiAzGjpm1XV+qEmVpAcrlhHZcxOVOuqeNKKvYo5JcrprmhytfnPZvStvYWi
- Mvp37zbMZFbbHHtnrfZe8/8RSabafwx1JU/tR2sfEupsE3C6M4fgOD1exvFMIAzYTDBr
- Nx+xashlBeb8Tunad0o3Xn9cCSIqVpnA7X42PrXRHMU68GbBU71h4dxR6jc8d8tTE2Sp
- OnsWL31yIjHt890S1bAvyy7W4mM7ZN2EpyFY32hrO4Il9eYAjOtQ5MMOSnHIgGqr8pdC
- fDoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762511429; x=1763116229;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:from:references:cc:to:subject:reply-to:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JdXi1VUn5WnebblzEeFtNSpH8JjcIBHUGIXhJ5CQTgk=;
- b=EF5u+VCBnxn+xDRv8yxWYucMo5dMFqocSng+bodc2fg8ektC/XQhniG73KOvZLCXnL
- XXAiOiwVPzr9FaBzWPmsYvn65IsEti4hfTjuspUQcP+uXZpspV/JmZwNdmoVI2FLpKnJ
- KvMXUFb/fNSxJvBZrbZ3zrfnaPSfKuQM5eo2MLEI1jJoa+dUDmVOSz2NXsY/hzUF8nky
- I04W1/PRAIn4BEnOAPZclAEOgOvyh8LWA8BFW67I95dRcN2Ce9yPtaw1iZ+6KWRqErYF
- nwAWWC6qzSUnXhU/Oy9vfwENzTcShss02UpRo2uOQFd0jUtmBISYxrARdl/Ve8m7mnJl
- cuqA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVuK9S5FSrYGS/Q8mIaKeqENElu8pWLvsvKFZnI9ULTIHjeNpa3YhOFYNUqzlU3zwTeV6ncwF5fVnw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzyGgH73cmYA/WadOl2DaIk9iRK39bjZLnIQprFbK2jRv2JvCc7
- BBhTAmlFpOxB6eAH6h1Tacjk7hDZJcYlCVwbn8D/cEJlL4r5bhDCGfun8yd+9dLolRR+L5CiQvO
- hN5KCDUk=
-X-Gm-Gg: ASbGncuZxQFqBXC9NqgChZy5KPy7SyB+pg5voEA0MBpnaNVeWMA0UBCeX5Elpos0U9x
- UhULexnOaOTLmFgff5qmHim6aX0P/jWksqLsXETKy3f6ZM5Vrgp22Yu7TU2feuLVh+9hATCP/gt
- JlWH9tCiGV3vTDRV18tWP3JYA7UcAicykMTEbMQTT02aLbTEaSBuXUpW6DyO4/CgK79bXrnqzly
- 3RqGuEylm6PmCaZ6vDI3593C7roFwN0OgrMBaNbpdF/2aU7/TpjfvGaWe6QAcQJHNbZOXSSYZFw
- YH5RFRlqtJhP8Z7nr5H4Xq9QGAhQNANY6qdGQSTKn0YpcM7nRkFYihF4ePtT86A3X/3Ry8yoCf/
- l06JUPq6OBCxK+ZoAu/oMoDgUN6whkt9+P9/w5eee49WFfnjaa0KMqpv7fkVTExZ725p2tUGubG
- LmErnaADFbtQDrdN7wAm4MY/OGVK3afmJSdw==
-X-Google-Smtp-Source: AGHT+IE6wGGrTa2Of4J6WHqQuB5miuumaX9005ll7uHOZgbpYuJ46LLqftJ0moP7xlPSeD3ujFGq5g==
-X-Received: by 2002:a05:600c:35d0:b0:477:6d96:b3e7 with SMTP id
- 5b1f17b1804b1-4776d96b678mr16427785e9.33.1762511429427; 
- Fri, 07 Nov 2025 02:30:29 -0800 (PST)
-Received: from [192.168.27.65] (home.rastines.starnux.net. [82.64.67.166])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4776bcdd8e3sm39799555e9.10.2025.11.07.02.30.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Nov 2025 02:30:29 -0800 (PST)
-Message-ID: <e928b078-ad35-461e-8aaf-d5ec036ac4db@linaro.org>
-Date: Fri, 7 Nov 2025 11:30:28 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C68C10EA84;
+ Fri,  7 Nov 2025 11:05:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1762513533; x=1794049533;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=v776QJKUlaoHpHbZOwb7lKz6YsrkRzuR2qpxDWxtrnA=;
+ b=itR1TzGquAvodGcFMVgUS8OVLh9CQO4uDlGeeLhDjLQsdXGxz3BDDxiQ
+ d1Z8/PiCzLI71ezNFMq2QcaHwv1P4adVBQ3+GDdPCJhKOf9D6KJqO/b55
+ KzR7DUFjnPVgNRfZc0CPqDAFv15mSMhiXUDbQLRJ76YhLerYyKEEcQ4Ov
+ 8e7LjwQsbpea1cctxao+dgwc9d/H05Xf5jyOD4T6LgpcM+WJoMVD4ESb3
+ pDq0hdrJSgKbVEXCBfwTLACEuiUQBwzGJb42GI7bsMT646g8C4TlhgEan
+ 1FiAVJlvvyM62HRbWafC/xsvXDrkCeURzHnsDXWoCXsci8uud2wegqZm5 Q==;
+X-CSE-ConnectionGUID: s65eUDd4TNOdlW+N95l4cw==
+X-CSE-MsgGUID: 4koJC9CQS/GzN09x/prbSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11605"; a="82063930"
+X-IronPort-AV: E=Sophos;i="6.19,286,1754982000"; d="scan'208";a="82063930"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2025 03:05:24 -0800
+X-CSE-ConnectionGUID: 29IIpQ3sQxe+gTqN0DgrvA==
+X-CSE-MsgGUID: w+pBUL8fTD+ADf7yyoTx4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,286,1754982000"; d="scan'208";a="211457387"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.124])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2025 03:05:19 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: [PATCH 3/6] drm/msm: use drm_crtc_vblank_waitqueue()
+Date: Fri,  7 Nov 2025 13:04:57 +0200
+Message-ID: <5917fd537f4a775a1c135a68f294df3917980943.1762513240.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1762513240.git.jani.nikula@intel.com>
+References: <cover.1762513240.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Add Akhil as a reviewer for the Adreno driver
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20251104220245.240480-1-robin.clark@oss.qualcomm.com>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20251104220245.240480-1-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,30 +73,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/4/25 23:02, Rob Clark wrote:
-> Akhil should be getting tagged to review GPU patches.
-> 
-> Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
->   MAINTAINERS | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 1083598bb2b6..033675aab0d0 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -7880,6 +7880,7 @@ DRM DRIVER for Qualcomm Adreno GPUs
->   M:	Rob Clark <robin.clark@oss.qualcomm.com>
->   R:	Sean Paul <sean@poorly.run>
->   R:	Konrad Dybcio <konradybcio@kernel.org>
-> +R:	Akhil P Oommen <akhilpo@oss.qualcomm.com>
->   L:	linux-arm-msm@vger.kernel.org
->   L:	dri-devel@lists.freedesktop.org
->   L:	freedreno@lists.freedesktop.org
+We have drm_crtc_vblank_waitqueue() to get the wait_queue_head_t pointer
+for a vblank. Use it instead of poking at dev->vblank[] directly.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Due to the macro maze of wait_event_timeout() that uses the address-of
+operator on the argument, we have to pass it in with the indirection
+operator.
+
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c | 3 ++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
+index da53ca88251e..e8066f9fd534 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
+@@ -527,13 +527,14 @@ static void mdp4_crtc_wait_for_flush_done(struct drm_crtc *crtc)
+ 	struct drm_device *dev = crtc->dev;
+ 	struct mdp4_crtc *mdp4_crtc = to_mdp4_crtc(crtc);
+ 	struct mdp4_kms *mdp4_kms = get_kms(crtc);
++	wait_queue_head_t *queue = drm_crtc_vblank_waitqueue(crtc);
+ 	int ret;
+ 
+ 	ret = drm_crtc_vblank_get(crtc);
+ 	if (ret)
+ 		return;
+ 
+-	ret = wait_event_timeout(dev->vblank[drm_crtc_index(crtc)].queue,
++	ret = wait_event_timeout(*queue,
+ 		!(mdp4_read(mdp4_kms, REG_MDP4_OVERLAY_FLUSH) &
+ 			mdp4_crtc->flushed_mask),
+ 		msecs_to_jiffies(50));
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+index 4c4900a7beda..373ae7d9bf01 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+@@ -1234,6 +1234,7 @@ static void mdp5_crtc_wait_for_flush_done(struct drm_crtc *crtc)
+ 	struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
+ 	struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc->state);
+ 	struct mdp5_ctl *ctl = mdp5_cstate->ctl;
++	wait_queue_head_t *queue = drm_crtc_vblank_waitqueue(crtc);
+ 	int ret;
+ 
+ 	/* Should not call this function if crtc is disabled. */
+@@ -1244,7 +1245,7 @@ static void mdp5_crtc_wait_for_flush_done(struct drm_crtc *crtc)
+ 	if (ret)
+ 		return;
+ 
+-	ret = wait_event_timeout(dev->vblank[drm_crtc_index(crtc)].queue,
++	ret = wait_event_timeout(*queue,
+ 		((mdp5_ctl_get_commit_status(ctl) &
+ 		mdp5_crtc->flushed_mask) == 0),
+ 		msecs_to_jiffies(50));
+-- 
+2.47.3
+
