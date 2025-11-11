@@ -2,115 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027DFC49D5B
-	for <lists+freedreno@lfdr.de>; Tue, 11 Nov 2025 01:11:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 206A5C4B97C
+	for <lists+freedreno@lfdr.de>; Tue, 11 Nov 2025 07:04:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3964910E329;
-	Tue, 11 Nov 2025 00:11:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B05EB10E4E2;
+	Tue, 11 Nov 2025 06:04:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RQNhfVxW";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="EDWHUYPz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4C2F10E101;
- Tue, 11 Nov 2025 00:11:40 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 708F960147;
- Tue, 11 Nov 2025 00:11:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3B5C113D0;
- Tue, 11 Nov 2025 00:11:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1762819899;
- bh=UJb6mXnrZynjLpPgHUrW0+nPkNlnIA1ohpPmrhdt5kI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=RQNhfVxWS3kSkUZ3/Yn/h0BmXL51tmLd+96fcvkdQVv1vGLPiWTHRkycOoEeo86n+
- AomTbI2OwWKrh916BvopP2FmTFRSTMpM+ffKgocFApMJHdp1EKgU6X5hO4qa0osljw
- 17UC1rMSI+vUK4hzsEvsvxu9BntOhbPUYi/m0034GgTDaN8qQYvPNZ+teI5+B2ybWa
- HwOKozmrkxff/CrJtzPPwDnYAm5CuGW9jLgaRZXE1tGy7RFW1GXxjP1lsvTw64BiD6
- 3+AvpY4WKIjmTgnbEp1K+YKbfLbuPtZz53Jb09WBB7saLr4xY2Ybz2RWqug2curgjQ
- RYENRwzTM6ubQ==
-Date: Mon, 10 Nov 2025 18:11:37 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Corey Minyard <corey@minyard.net>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C72EE10E4E2
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 06:04:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=yXHOEfbHGbvqbP1Nad+xAerCqiTYHUSbE0LcjnK5MOc=; b=EDWHUYPzks2P1f8YajAH8QGHua
+ zr78W5BMj2gEuDYW2kwMOb0gXx+iw+tl569j1McNUYCz1l4CXp6yEvXVORBqLfO7PXYliGVhge36S
+ yhg2XUMiUNTKXlbYmfY9ocwzGiTLMqQzd+VrD64XWVNkDlALWgZdbFAIAF2xdSbGHIP7MwZzwLsL8
+ YvgjNOs2CJmFCGSilvI1FvBVFzFl0FuWlZmto/YtqcMn1tIMnjJkOc2fqSAt5EE6ewKQ2gbubIPpq
+ JL11cxH0bsJ/vAuPPCKYCDs9YRiyvbdYkxT8FXjM4ihmGJ9sSIkHDud35x9vBdxz1BhstKhrcWQKm
+ 3YEhsIlQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1vIhTw-00000006aj8-09zz; Tue, 11 Nov 2025 06:03:56 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Hans Verkuil <hverkuil@kernel.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>,
- Sagi Maimon <maimon.sagi@gmail.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
- Max Kellermann <max.kellermann@ionos.com>,
- Takashi Iwai <tiwai@suse.de>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
- ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>,
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
- Sesidhar Baddela <sebaddel@cisco.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v1 17/23] PCI: epf-test: Switch to use %ptSp
-Message-ID: <20251111001137.GA2145521@bhelgaas>
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] drm/msm/disp: fix kernel-doc warnings
+Date: Mon, 10 Nov 2025 22:03:53 -0800
+Message-ID: <20251111060353.1972869-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251110184727.666591-18-andriy.shevchenko@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,34 +61,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Nov 10, 2025 at 07:40:36PM +0100, Andy Shevchenko wrote:
-> Use %ptSp instead of open coded variants to print content of
-> struct timespec64 in human readable format.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Fix all kernel-doc warnings in msm_disp_snapshot.h:
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+msm_disp_snapshot.h:53: warning: Function parameter or struct member
+ 'blocks' not described in 'msm_disp_state'
+msm_disp_snapshot.h:69: warning: Function parameter or struct member
+ 'node' not described in 'msm_disp_state_block'
+msm_disp_snapshot.h:69: warning: Excess struct member 'drm_dev' description
+ in 'msm_disp_state_block'
+msm_disp_snapshot.h:95: warning: No description found for return value
+ of 'msm_disp_snapshot_state_sync'
+msm_disp_snapshot.h:100: warning: bad line: 
+msm_disp_snapshot.h:117: warning: bad line: 
+msm_disp_snapshot.h:125: warning: bad line: 
+msm_disp_snapshot.h:142: warning: Excess function parameter 'name'
+ description in 'msm_disp_snapshot_add_block'
 
-> ---
->  drivers/pci/endpoint/functions/pci-epf-test.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/endpoint/functions/pci-epf-test.c b/drivers/pci/endpoint/functions/pci-epf-test.c
-> index b05e8db575c3..debd235253c5 100644
-> --- a/drivers/pci/endpoint/functions/pci-epf-test.c
-> +++ b/drivers/pci/endpoint/functions/pci-epf-test.c
-> @@ -331,9 +331,8 @@ static void pci_epf_test_print_rate(struct pci_epf_test *epf_test,
->  		rate = div64_u64(size * NSEC_PER_SEC, ns * 1000);
->  
->  	dev_info(&epf_test->epf->dev,
-> -		 "%s => Size: %llu B, DMA: %s, Time: %llu.%09u s, Rate: %llu KB/s\n",
-> -		 op, size, dma ? "YES" : "NO",
-> -		 (u64)ts.tv_sec, (u32)ts.tv_nsec, rate);
-> +		 "%s => Size: %llu B, DMA: %s, Time: %ptSp s, Rate: %llu KB/s\n",
-> +		 op, size, dma ? "YES" : "NO", &ts, rate);
->  }
->  
->  static void pci_epf_test_copy(struct pci_epf_test *epf_test,
-> -- 
-> 2.50.1
-> 
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot.h |   13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+--- linux-next-20251107.orig/drivers/gpu/drm/msm/disp/msm_disp_snapshot.h
++++ linux-next-20251107/drivers/gpu/drm/msm/disp/msm_disp_snapshot.h
+@@ -38,6 +38,7 @@
+  * struct msm_disp_state - structure to store current dpu state
+  * @dev: device pointer
+  * @drm_dev: drm device pointer
++ * @blocks: list head for hardware state blocks
+  * @atomic_state: atomic state duplicated at the time of the error
+  * @time: timestamp at which the coredump was captured
+  */
+@@ -55,7 +56,7 @@ struct msm_disp_state {
+ /**
+  * struct msm_disp_state_block - structure to store each hardware block state
+  * @name: name of the block
+- * @drm_dev: handle to the linked list head
++ * @node: handle to the linked list head
+  * @size: size of the register space of this hardware block
+  * @state: array holding the register dump of this hardware block
+  * @base_addr: starting address of this hardware block's register space
+@@ -88,8 +89,9 @@ void msm_disp_snapshot_destroy(struct dr
+  * msm_disp_snapshot_state_sync - synchronously snapshot display state
+  * @kms:  the kms object
+  *
+- * Returns state or error
++ * Returns: state or error
+  *
++ * Context:
+  * Must be called with &kms->dump_mutex held
+  */
+ struct msm_disp_state *msm_disp_snapshot_state_sync(struct msm_kms *kms);
+@@ -97,7 +99,7 @@ struct msm_disp_state *msm_disp_snapshot
+ /**
+  * msm_disp_snapshot_state - trigger to dump the display snapshot
+  * @drm_dev:	handle to drm device
+-
++ *
+  * Returns:	none
+  */
+ void msm_disp_snapshot_state(struct drm_device *drm_dev);
+@@ -114,7 +116,7 @@ void msm_disp_state_print(struct msm_dis
+ /**
+  * msm_disp_snapshot_capture_state - utility to capture atomic state and hw registers
+  * @disp_state:	    handle to msm_disp_state struct
+-
++ *
+  * Returns:	none
+  */
+ void msm_disp_snapshot_capture_state(struct msm_disp_state *disp_state);
+@@ -122,7 +124,7 @@ void msm_disp_snapshot_capture_state(str
+ /**
+  * msm_disp_state_free - free the memory after the coredump has been read
+  * @data:	    handle to struct msm_disp_state
+-
++ *
+  * Returns: none
+  */
+ void msm_disp_state_free(void *data);
+@@ -130,7 +132,6 @@ void msm_disp_state_free(void *data);
+ /**
+  * msm_disp_snapshot_add_block - add a hardware block with its register dump
+  * @disp_state:	    handle to struct msm_disp_state
+- * @name:           name of the hardware block
+  * @len:            size of the register space of the hardware block
+  * @base_addr:      starting address of the register space of the hardware block
+  * @fmt:            format in which the block names need to be printed
