@@ -2,138 +2,151 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42336C4E7A5
-	for <lists+freedreno@lfdr.de>; Tue, 11 Nov 2025 15:30:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 592BCC4E823
+	for <lists+freedreno@lfdr.de>; Tue, 11 Nov 2025 15:37:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12CE110E5A4;
-	Tue, 11 Nov 2025 14:30:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AFA010E340;
+	Tue, 11 Nov 2025 14:37:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=minyard-net.20230601.gappssmtp.com header.i=@minyard-net.20230601.gappssmtp.com header.b="cq+Ia/is";
+	dkim=pass (2048-bit key; unprotected) header.d=minyard-net.20230601.gappssmtp.com header.i=@minyard-net.20230601.gappssmtp.com header.b="2GwE9k6u";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8C210E5D6
- for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 14:30:38 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-378ccb8f84aso40907241fa.3
- for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 06:30:38 -0800 (PST)
+Received: from mail-oo1-f66.google.com (mail-oo1-f66.google.com
+ [209.85.161.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93E3810E340
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 14:37:30 +0000 (UTC)
+Received: by mail-oo1-f66.google.com with SMTP id
+ 006d021491bc7-656bb297e31so791343eaf.0
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 06:37:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=minyard-net.20230601.gappssmtp.com; s=20230601; t=1762871437; x=1763476237;
+ d=minyard-net.20230601.gappssmtp.com; s=20230601; t=1762871850; x=1763476650;
  darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=aB3Kna1Ydum3rSWq2Q4kNhk8LAGVHiOY3JIzqpUlVwM=;
- b=cq+Ia/isfSweLbL+EuP2lt1xt8MBJ1Gj1IsNedkiBvqixyd6P7fNI759FjVT/33H+X
- 9yCvmb99MpBdFDmva8bGLW65Gxi+jCDllNWYPbUYAcWdIrxQH0mp6ANL5b49ZbID+fmv
- ZMcbkKGD6+0WoZQSHAjzhNyesmrtJaGKSA/ODLGqdqN0P655OIZRrtCQ67PQA1nF1VDs
- E/0+4X9BV6z4ofUgjE8TnUMpxHcqz/p9aQObUWgBQdZdWZVqDbLEYhwoBBHoc5Tb4e4H
- oSHtLQ2LGsmAvyLZtl6kRbzuqmMqkp3/xZq2pmzR4woSC1fN7QWGo3+FQiKheVvBAIb7
- jQpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762871437; x=1763476237;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=in-reply-to:content-disposition:mime-version:references:reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aB3Kna1Ydum3rSWq2Q4kNhk8LAGVHiOY3JIzqpUlVwM=;
- b=kWv2nuRzVH9GfDsxMM/F6h4i7z+0vjgS2NrGCk769KFtW0L8ccg/Zmx+jiDb2WjdPl
- vp+un3H9KYYWashEk6BFvkRXjMGLnCvp6rTvpq6tL+cndXp8UVp17w/hMVn0i6q3/KUo
- XYjO8FpdMTdnQZSL8iBbp+HYz2b5bI5asnBUcSTx3hr2Jd2THxTkw00c2hpn+PXZccOY
- kj92kOSYJSpakyuz+3/VA7fJ22ksw2rNydqe6YxQh4EpcpIubhlGYeapy05LETNJLliC
- xQnMzVVkxLnJm2gnEMNGRtl937fyXyhnyQRofscJLLQEgbf84RCNc+nDrWXWy2wWpHik
- algw==
+ bh=sI/Bx88S/ljGSNn+PL5Rjkz6jNPZ9Ne5hLvzfkx+saI=;
+ b=2GwE9k6u9Gvvtu/M4GxW7NcRVqVvQbfkrayHpkRxlLN0VC5d3g5GVeQXuH9nb/rNOR
+ njDgxzjMwZFMyFl2JiXdqbOG0TL1jqfPNdzNlp+DUw1AZkE/XH0JmJUleRIw2yQyHr1Z
+ fhlBK1mUnzs1+9xt83Kt2z/IaVywdrNt25VThkQwn+az/DyE7yjf/LW10IYswxoTMyPX
+ KMjQb2bupElMsiyeuwY1FkaceX5VQc7tc8fUl6P3pS8NPJRqY26ddxU1SRf0dhHfxKE8
+ VBZ46vFr6TvX4eUYVsq+2Z+/Wu0Y3ycAbLI70gTCvfJvxLyaJhJEWNtF1f2mTKAp4K47
+ nMLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762871850; x=1763476650;
+ h=in-reply-to:content-disposition:mime-version:references:reply-to
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=sI/Bx88S/ljGSNn+PL5Rjkz6jNPZ9Ne5hLvzfkx+saI=;
+ b=XS2EKnbZvPdNTKJ3u+4EKBuVYPffHvDFJWETJG9lc1UwwkAaPdX/2fa2TETj65iCH3
+ 4QCHV6xXxum7BwUPjCkHSHh1VDPbV506RKJ7+yAO6WU0sCVGgCXLAGpo2FVY6dGUTHTw
+ v6lbdzrUCf87ZufIlH2kLu9jfQ9LB0lFBebzPdAzDcCsN/J5g37yQKicf6odoHk/neuO
+ B/28uYFKrFS+Zg7aAgEgyYRk7vhRkcQEKqmHpQKvGqZpwqnwkRLI1G4Sji0hEP9BVVJS
+ snEjfRpOB2UV2gr+gUXaj00wsg1Z6S5xLA8nVLlbTxrUo8SpvIMxvQ0iQLmKdNoJQ0uY
+ A+9g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUiHFe3oNVVvec/hFwMIVVFPKIUYzkvidIeSXW+otCDEcIUYiToWiRGVgfpdIU1FbJ0mDplxLY+Ec8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxsKamBu6yg7d+OIesVx/yMCvSYErqeyPsrIq2RApE92NJeoUzj
- NyfhV5rMuYJ84RwKuyVtnHgb5KCkwQDEO+dY+DR9hAm/kA1SeI6Ud7l3Vs+iyA0CxvIHPKXQ6w2
- niG23SyMkT9gXCg3jV+vTlMjVzdQMfL4ylxiOsKqY0Q==
-X-Gm-Gg: ASbGncv86XL5f2SoeeINFKfHAcuLx4HHM9xajwddYlnxFF5KRn2vjrywGX1gf75MWdz
- f23zR4hLbkQhkDQsiowdyZqxmTa5MYl/k9bO3RzW64cpeTVITq3tftGxK9iupOfIwQn2b0sqjyZ
- aNvQaV4udiUQbelcNZ+DvX5dz3Bk6kfB8nw4gMUO+o752j1/L5h9n+1vR3ZlslkA4Np9s7Bs4Sg
- UJhuiPYSHBerBTyss/+onsearXz9ahAVANjSAavjRBK0XbcL6Z8ZN49g7KeUd3FPeZJ/g==
-X-Google-Smtp-Source: AGHT+IHIkpA6rhiYIBJPGXbu43mtrXsVXRAjUn5Tnc/nVn4XCQWhRjYlEu/X5WxF0zlqRt3mYY1fmThRtTARr/9+XVU=
-X-Received: by 2002:a05:6512:10d2:b0:594:2db8:312b with SMTP id
- 2adb3069b0e04-5945f1465c4mr3726443e87.7.1762871436263; Tue, 11 Nov 2025
- 06:30:36 -0800 (PST)
-MIME-Version: 1.0
+ AJvYcCX3xiJFwUW8z4KiPnFfUFSHa75hN8SpMyOE1Qxwk3/QZEs+7w7g3Jcm43D8Kox25rIt08Ten2XCAOA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyZUL+JlDUlMpHcVheLZjAO5Ww0fs94MsOwjknnJnAc9j4i4lBg
+ B6P98kMxPgBLkEWnx8E3pF/tVhNfyIm7xo/Z8tGGFYv6psJQVk1gCIqJXWkpjDn1ddg=
+X-Gm-Gg: ASbGncvORvYzstOViXXBVUxQjcMjqGowqimMEuRlYMlix1aCTr2H1evUBOJvNx10J7/
+ Wfri8u0dO4jgwBOPOA0/43zAOJfr/Hsd+gh+ChMXa1uFgiCaYYlRBgmR7E5OmLeMshmD92DBug8
+ S1L6bG4Kf52XOKA+HAMUWCbXvgLPTkU/Ja2wVFRaVwQ1JInCiVc9GQiJKx4gLKJRUIcVrQFoYFE
+ nPPct0esPePm2vnEJL1uOQJp+l1nHsY8mG6+JOoVQpSWuMC3otPV+XqpEr1YkN6kouJSFuG+SYh
+ Ocefnim3eg9dJsXiU+k+lpknFaj3t4SzcqyqW511Qw8Y04JaPzO81fo/MF0Aqt5I+EyqeVKYpgP
+ kj5SI0ejYcuYVD2eR7Mmd2ULPT10i+qzLSjzuT4dFad2Oz3F5UpUzktBFCfy8St9cGL7IzItDZn
+ HjKO8=
+X-Google-Smtp-Source: AGHT+IFusuA/Ax3anjd0HIltuToxJUS02/udclYoHdoDI29Kk3VNxq4/rhyMyYWudQr5f0WcO3jkBQ==
+X-Received: by 2002:a05:6870:4792:b0:3e7:f4a9:588b with SMTP id
+ 586e51a60fabf-3e7f4a9b0bcmr4110818fac.15.1762871849590; 
+ Tue, 11 Nov 2025 06:37:29 -0800 (PST)
+Received: from mail.minyard.net ([2001:470:b8f6:1b:b4e9:19a3:cdaf:7174])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-3e7d6f7a27dsm4861066fac.0.2025.11.11.06.37.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Nov 2025 06:37:29 -0800 (PST)
+Date: Tue, 11 Nov 2025 08:37:24 -0600
+From: Corey Minyard <corey@minyard.net>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Christian K??nig <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Max Kellermann <max.kellermann@ionos.com>,
+ Takashi Iwai <tiwai@suse.de>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstr??m <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Krzysztof Wilczy??ski <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v1 12/23] ipmi: Switch to use %ptSp
+Message-ID: <aRNKJIyk2ne39ScE@mail.minyard.net>
 References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
  <20251110184727.666591-13-andriy.shevchenko@linux.intel.com>
  <pvjnjwm25ogu7khrpg5ttxylwnxazwxxb4jpvxhw7ysvqzkkpa@ucekjrrppaqm>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <pvjnjwm25ogu7khrpg5ttxylwnxazwxxb4jpvxhw7ysvqzkkpa@ucekjrrppaqm>
-From: Corey Minyard <corey@minyard.net>
-Date: Tue, 11 Nov 2025 06:30:24 -0800
-X-Gm-Features: AWmQ_bmtZ_NzCjBDc-E_88i-zoQ3qkiy8-YjkQobPCCDd_5SvJDnh5UOEsI6sqU
-Message-ID: <CAB9gMfrr5ReWD6EzGLpwnubnkRJg-VX0vpnPn-kuXsaYGFEAMg@mail.gmail.com>
-Subject: Re: [PATCH v1 12/23] ipmi: Switch to use %ptSp
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Ulf Hansson <ulf.hansson@linaro.org>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Calvin Owens <calvin@wbinvd.org>, Sagi Maimon <maimon.sagi@gmail.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Karan Tilak Kumar <kartilak@cisco.com>,
- Casey Schaufler <casey@schaufler-ca.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, 
- Max Kellermann <max.kellermann@ionos.com>, Takashi Iwai <tiwai@suse.de>,
- linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org, 
- netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org, 
- linux-pci@vger.kernel.org, linux-s390@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev, 
- ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Richard Cochran <richardcochran@gmail.com>, 
- Stefan Haberland <sth@linux.ibm.com>, Jan Hoeppner <hoeppner@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>, 
- Sesidhar Baddela <sebaddel@cisco.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xiubo Li <xiubli@redhat.com>, 
- Ilya Dryomov <idryomov@gmail.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Content-Type: multipart/alternative; boundary="000000000000be4f5a0643527dff"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,51 +159,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: corey@minyard.net
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---000000000000be4f5a0643527dff
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-No, it's not really important, and it's better to use a standardized
-output.  Thanks for pointing this out, though.
-
--corey
-
-On Tue, Nov 11, 2025 at 12:08=E2=80=AFAM Sergey Senozhatsky <
-senozhatsky@chromium.org> wrote:
-
+On Tue, Nov 11, 2025 at 05:08:25PM +0900, Sergey Senozhatsky wrote:
 > On (25/11/10 19:40), Andy Shevchenko wrote:
 > [..]
-> > +     dev_dbg(smi_info->io.dev, "**%s: %ptSp\n", msg, &t);
->
+> > +	dev_dbg(smi_info->io.dev, "**%s: %ptSp\n", msg, &t);
+> 
 > Strictly speaking, this is not exactly equivalent to %lld.%9.9ld
 > or %lld.%6.6ld but I don't know if that's of any importance.
->
->
+> 
 
---000000000000be4f5a0643527dff
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Dang it, I'm traveling and used the wrong way to send the previous response.
+Sorry.
 
-<div dir=3D"ltr">No, it&#39;s not really important, and it&#39;s better to =
-use a standardized output.=C2=A0 Thanks for pointing this out, though.<div>=
-<br></div><div>-corey</div></div><br><div class=3D"gmail_quote gmail_quote_=
-container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Nov 11, 2025 at 12=
-:08=E2=80=AFAM Sergey Senozhatsky &lt;<a href=3D"mailto:senozhatsky@chromiu=
-m.org">senozhatsky@chromium.org</a>&gt; wrote:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex">On (25/11/10 19:40), Andy Shevchenko wrote=
-:<br>
-[..]<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dev_dbg(smi_info-&gt;<a href=3D"http://io.dev" re=
-l=3D"noreferrer" target=3D"_blank">io.dev</a>, &quot;**%s: %ptSp\n&quot;, m=
-sg, &amp;t);<br>
-<br>
-Strictly speaking, this is not exactly equivalent to %lld.%9.9ld<br>
-or %lld.%6.6ld but I don&#39;t know if that&#39;s of any importance.<br>
-<br>
-</blockquote></div>
+Anyway, yes, it's not equivalent, but it's not important.  It's better
+to use a standard output format.  Thanks for pointing this out.
 
---000000000000be4f5a0643527dff--
+Thanks,
+
+-corey
