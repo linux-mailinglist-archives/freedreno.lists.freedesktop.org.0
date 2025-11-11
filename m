@@ -2,148 +2,150 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AFF3C51D5C
-	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 12:07:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59242C52701
+	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 14:23:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1492310E6EE;
-	Wed, 12 Nov 2025 11:07:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C481310E090;
+	Wed, 12 Nov 2025 13:23:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AbFmXmBT";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hYFqgrFU";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="KLTSD+7s";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 080E610E6EF
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 11:07:47 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5AC9gjSK1109209
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 11:07:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- fhpeU9U5S/hGeJg9f9bTT5WPcsYN6w1Wj4PWqyqzdyc=; b=AbFmXmBTta7gKjns
- M54/EkecUo+B6cPlccmI4n5Aj9/wqRd2an+bzFJ+ms700a4OajXZeUEs0gXWQRLc
- etsB8+PdB0dKId8+lOeFMHY7TYoDx1ABopbYg7tBtpG6H6xL3S35HNvLdVM/zgAq
- yfYjYPBDelBKRb0j2yq5sVRydVg/9Wase8IyulhN4dEeUlmoH2zYiu39rd5AJymA
- 5IfH9hlH087LSQuSPibn+jT/AI985QAaVn+au/GJ6aMhUMY+rDwa++KEfRyjYwxK
- dXGbWqcERW93lnoYSWvH1QxycRclRX0ECjE89dnAtVJyZcIgPp1aXQ1KNS+XJChv
- rcbN5w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acqum083j-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 11:07:46 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4ede0bd2154so757371cf.1
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 03:07:46 -0800 (PST)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 367F510E5ED
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 15:03:59 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-b73161849e1so387984466b.2
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 07:03:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1762945666; x=1763550466;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fhpeU9U5S/hGeJg9f9bTT5WPcsYN6w1Wj4PWqyqzdyc=;
- b=hYFqgrFULH4NfU0TcVpWP0dTH29AglFGEDWOUl2SCDARA7lLQMpVaE8znFL6GFqEXm
- w/4IrD/es68KF8MThA9/TMPSqoRuYBHUMIgJuEnxiRugfYKyUcIlWBKBAuWkh3mfbCXM
- E1WrdgY+39S9GZB2hvPwjRgJwZQgZXta1uYQqLTlXrJPkOgCfiw0aRLp8kdD3aHThWyG
- x/heSpbFAsk9y28Dq6SXUBxb/OKTBY6I/dYvvxzNjmS/hHPEsyoRRiU5J3yRaA2+IBMB
- Na4sl3arBEMOwC6Z8TYkEEsksVB/GftHYH8Y40YVGFyNyiEr/VxjAMADiYm+IspNpn7U
- kE3w==
+ d=suse.com; s=google; t=1762873437; x=1763478237; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=wi+5dbYm5JIgaP/t7Nx547fFCD450JcmYNBqfgVm42E=;
+ b=KLTSD+7sPuKSu7uEZ5GlSgwoZufPhlYmjsn/dyMEV20zrbEDIWsnL7WB8CBKGtcRP8
+ jkv1OWmYgA1t015e7yRH8ZhTKDy3hau0RGo6gbuGK6RBr+Pr8gppq7EydFni6aqUczyE
+ cVK6zOB5qJijRXSETLuQogpOrLZnhVGcsnMbPQ4YfU/dUeLCYpbAgt+FsqalfdsY19kj
+ dclMfHrMtMWs4Ce+PO5Uza3qqT+vL4eSfMxC6VskS/d6LjE8qQYfhgsS6mRiZG41km4E
+ I27BMCjj1zm039Pe4nWO3MoLj2+TWnKdwED9iBQqBsqUPupnCqUXCpYZPulMlnvO7UAc
+ 439g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762945666; x=1763550466;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=fhpeU9U5S/hGeJg9f9bTT5WPcsYN6w1Wj4PWqyqzdyc=;
- b=r1s8ncyiendoiAApsVhnhMeO6HLkuWOGs9Puz8Kn7Ac2AkOQwI/GnBRrIs84Xw+Y8k
- vgLcte+d5RyxIJSGpwbkrMBNkig0W35EeToBFQGtyMljRbeEmw0dZC/8hrPzRjiMvQiE
- y4friluQE8ycHQi40+h9KABg0ZEzkV5J4XSNWRAsDnbbYQaFla084ULhMoINiJ+ap7AH
- ltai5xpXFe0/8UdTFs8h/7aXHnqJpBpJCTj7RrJgc94rDOnfWW+PY7TK7aBc6foI0bC7
- AWFlc+giIdizuq4Sz0oP/yAXS63+980wsAENqC3hYXgUFstJz+KU5pCsVmXMVREImqes
- OVlQ==
+ d=1e100.net; s=20230601; t=1762873437; x=1763478237;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wi+5dbYm5JIgaP/t7Nx547fFCD450JcmYNBqfgVm42E=;
+ b=voc55M5sIBECCGaDXz28UFpmcTOqeoFpsCdsvshf24LycDWyk/+G83CnCNOpG5gTKu
+ BzFuuLviAF8fz+Ep1mzzFDyaYfQGSyWWI4qAYTUN9SIlwcVTf528Zpw5MiqE5x6w5C3i
+ KLJPiec6devq2bTKdDW2xp+rjJQkpG8FQxURJ3IO55tFU6H0jRNzNbwwSzkSSoUSZMzJ
+ BAxyNa95Gr3EfS6qG/t6Hh9r5+QkChFednmk6vkMZZgW3iZ6xMTtg5H/CzJURlQAoL8e
+ bk+tV7nwYbtJ8EhAsXqjRhh9IE2xZJ97stmEBrGw7GoTb1HYX6rycvNn+LNrH/Z8I86H
+ K9Iw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWcPuNiTgrE7J6HZdrjFw1RrfzTqxIVcPQkc13bOIp9vGuSdbjDOWefbmEAI+QcomKi42Zv4fg2y9I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNj9P5ij/068xldOBZSzKL4mDMLpvTBjr/sddmk0z2GgdTXIiF
- B2RUayiTMPaSj0tjcl6h8ufWGPTTw3kPexJreIcEW3HRQZnBIwq4MIqSCyqy8jyH+yBHf+ejhXT
- nnjVF0/uV2SKbx8Og/eEsphW0mT/Di/lkOhFqYMAr3eL6pQkOyveTyPCsLvDXUrKcTRshuDg=
-X-Gm-Gg: ASbGnctAVo0jyF3qenBadI5KqFNg+YI3WwJ0CAREvMP1XQfLw0CE/5ZqwFtyo/PlIFz
- xPlgDSH7Kh0a6Mbkpxs7nBb/MoLVS+WXHUcur3NAuHVnckInOwhajhIpFOMDidLyZJez1g5N24V
- U2nZlkMzL65+fcErepG+bh1F9xjaHu86sIhnwe7FPrWkaeN6vQYpzVlB1yJDz5ZmspOZMqJwtfW
- OXctMJ+XdM+NYZvwFhv0KwuOfg1pT49lCTp3DjhynwRGwx8HzBxiAC/NQltlM8u/khArPxkwESn
- 6y7SWWPvmPssBBv5rhuI2XYZmgGAoQc19UEHlrXQby64YZr3PTv3i1P4fS7UFFUenE+jmSWvp9G
- tiES8580DibmKGlGKVhdcOyl/rCz0v23UMewe9c2f0j0PH/RbyPxU6nWE
-X-Received: by 2002:a05:622a:1a9a:b0:4e8:a001:226d with SMTP id
- d75a77b69052e-4eddbcc8ccbmr21834741cf.7.1762945666366; 
- Wed, 12 Nov 2025 03:07:46 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEsThee/kJ9PQlX1eMjNVcf3pwMggayYjNqOtdauF4RKz6aTdQHNiSCZ2A6kK70/XwvxAErjQ==
-X-Received: by 2002:a05:622a:1a9a:b0:4e8:a001:226d with SMTP id
- d75a77b69052e-4eddbcc8ccbmr21834301cf.7.1762945665887; 
- Wed, 12 Nov 2025 03:07:45 -0800 (PST)
-Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64165b2aa03sm10031978a12.6.2025.11.12.03.07.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Nov 2025 03:07:45 -0800 (PST)
-Message-ID: <1202b66c-6d4f-4909-a010-7e5e3ec7f0c7@oss.qualcomm.com>
-Date: Wed, 12 Nov 2025 12:07:41 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/21] drm/msm/adreno: Support AQE engine
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, Jordan Crouse
- <jordan@cosmicpenguin.net>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+ AJvYcCWGw54LDwV28wrdOesgN6xXZFh/TvDmceshElXqG5l5kTsnW/DkXiArKdeRhfckj2GAGLXFykioI+w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YylIoGOO0I9sZLCPqXdbHYMkfIOJP7MdTp0apztGYuyNQ8CQnAc
+ UHaPlQUPp2mUik5BfNaWO8R0x/ey+3+daXUQFvtrACbO2SUyJnTM1RBq5HLwqeqgf2Q=
+X-Gm-Gg: ASbGncvovk4UR5YLSngI4QGUjBZdMGUIdqLUTLagpIs8vMmWT0mT2c8ku38lqOhE+hA
+ oK9usvcMFfS7IvKg33ZH0NyiObZca1mZKBm6v6o4+rOyDR4aj5vXLDowIXhW8kVfwlwvx/FtdAN
+ LOGpSNXFH/bHY7IpG7VTOy/13Ueo4Q+dadPkeqI1M63vgm/LLNfl9xZIq5sRLRTH6ReBwHIls/w
+ naIjZn/c9DJzc+lBGF2lOYZehS8EKzu0mpjv9Th+2GdPsyHzUbKPL2uRKhW+ea5U7T5isoIJxgk
+ zSIMoMHz2+CTYYzv4AQOsYs+8bf81aE2rPKqMZiU/UuRooH8u5k+JcZ0CbUYJBACN9tEEwo78Gh
+ 9epfN4uLj+AMYV6GB5ZS/x+f4ir273kMJLkRSbF5kjVMeCTfdRV5OFaDb908zX4VdxThzqNRV54
+ t1g1tCk5cJizceP2WL1Q==
+X-Google-Smtp-Source: AGHT+IGWUxoIalLG5xLZllX+zCkekRXIo7e3xykwl2APS2wZQPGHNLqastwX+dw6XlJnfwm9Fe+bGg==
+X-Received: by 2002:a17:906:f590:b0:b71:cec2:d54 with SMTP id
+ a640c23a62f3a-b72e04e4ebemr1306841566b.57.1762873437355; 
+ Tue, 11 Nov 2025 07:03:57 -0800 (PST)
+Received: from pathway (nat2.prg.suse.com. [195.250.132.146])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b72bdbc9656sm1374243166b.7.2025.11.11.07.03.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Nov 2025 07:03:56 -0800 (PST)
+Date: Tue, 11 Nov 2025 16:03:53 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Corey Minyard <corey@minyard.net>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Connor Abbott <cwabbott0@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org
-References: <20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com>
- <20251110-kaana-gpu-support-v2-14-bef18acd5e94@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20251110-kaana-gpu-support-v2-14-bef18acd5e94@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDA4OSBTYWx0ZWRfX/GZwWL/E0C63
- TNtc2IalhYsqeqS5VoP4/aun1iqXrZLGWmzOfdlIxg3PKt3ZRtz3s8hJ4lr8CcWNVo+TKbokiG1
- gKI4fh0SiNj8FP2qBfQB0RJ5RfUCXZR2Wwn0A0VDZ0Io03+22nIvYBAxq644TfQYj093Viqryyz
- H4kYaAogdiM7SNCyupVqoS6XTp1vgJaAQOt8Vc/IySv07Cs3o3tWtd5G//253eqNFjOd1wZa6I9
- 0CiUQWk+MBL0guFpxrY+AsIn0iBSBPVugzV2/3FVSoegDTgjcOVMKVH5ZusPj4x3DoNi+T3iKE6
- VcVNn5IwojVqKIEuuTwh4zxR8MZ7cV6ybrfv3+svcbtbV7TIGzmON94KoEtZOnj65ITCnT1T3JN
- GGnFRVQuvBksNdIiHF0AK/gHVngJlQ==
-X-Proofpoint-GUID: K4H8aHArrqstiDr_ZHOWuz3DVYQXMYsm
-X-Proofpoint-ORIG-GUID: K4H8aHArrqstiDr_ZHOWuz3DVYQXMYsm
-X-Authority-Analysis: v=2.4 cv=KeTfcAYD c=1 sm=1 tr=0 ts=69146a82 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=XSWwlsXGtsdNaMXbhvkA:9
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-12_03,2025-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 suspectscore=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511120089
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v2 01/21] lib/vsprintf: Add specifier for printing struct
+ timespec64
+Message-ID: <aRNQWc8O2y94zoj8@pathway>
+References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
+ <20251111122735.880607-2-andriy.shevchenko@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251111122735.880607-2-andriy.shevchenko@linux.intel.com>
+X-Mailman-Approved-At: Wed, 12 Nov 2025 13:23:05 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,64 +161,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/10/25 5:37 PM, Akhil P Oommen wrote:
-> AQE (Applicaton Qrisc Engine) is a dedicated core inside CP which aides
-> in Raytracing related workloads. Add support for loading the AQE firmware
-> and initialize the necessary registers.
+On Tue 2025-11-11 13:20:01, Andy Shevchenko wrote:
+> A handful drivers want to print a content of the struct timespec64
+> in a format of %lld:%09ld. In order to make their lives easier, add
+> the respecting specifier directly to the printf() implementation.
 > 
-> Since AQE engine has dependency on preemption context records, expose
-> Raytracing support to userspace only when preemption is enabled.
-> 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > ---
+>  Documentation/core-api/printk-formats.rst | 11 ++++++++--
+>  lib/tests/printf_kunit.c                  |  4 ++++
+>  lib/vsprintf.c                            | 25 +++++++++++++++++++++++
+>  3 files changed, 38 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/core-api/printk-formats.rst b/Documentation/core-api/printk-formats.rst
+> index 7f2f11b48286..c0b1b6089307 100644
+> --- a/Documentation/core-api/printk-formats.rst
+> +++ b/Documentation/core-api/printk-formats.rst
+> @@ -547,11 +547,13 @@ Time and date
+>  	%pt[RT]s		YYYY-mm-dd HH:MM:SS
+>  	%pt[RT]d		YYYY-mm-dd
+>  	%pt[RT]t		HH:MM:SS
+> -	%pt[RT][dt][r][s]
+> +	%ptSp			<seconds>.<nanoseconds>
 
-Side question: is the AQE fully functional on any gen7 targets?
-A750?
+I know that that there was no good choice. But I am curious.
+Does the 'p' stands for some particular word, for example, "plain" ?
 
-[...]
+I do not want to start bike shedding but I think about
+using 'n' as "number".
 
-> -		adreno_gpu->has_ray_tracing =
-> -			!!(fuse_val & A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING);
-> +		/*
-> +		 * AQE requires preemption records, so disable raytracing
-> +		 * if preemption is not supported
-> +		 */
-> +		if (gpu->nr_rings == 1)
-
-"nr_rings > 1"?
-
-> +			adreno_gpu->has_ray_tracing =
-> +				!!(fuse_val & A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING);
->  	} else if (adreno_is_a740(adreno_gpu)) {
->  		/* Raytracing is always enabled on a740 */
->  		adreno_gpu->has_ray_tracing = true;
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> index b507ff4e1756..7921b4a68937 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> @@ -58,6 +58,8 @@ struct a6xx_gpu {
+> +	%pt[RST][dt][r][s]
 >  
->  	struct drm_gem_object *sqe_bo;
->  	uint64_t sqe_iova;
-> +	struct drm_gem_object *aqe_bo;
-> +	uint64_t aqe_iova;
+>  For printing date and time as represented by::
 >  
->  	struct msm_ringbuffer *cur_ring;
->  	struct msm_ringbuffer *next_ring;
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> index 78dcb9bc3377..2ef69161f1d0 100644
-> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> @@ -616,6 +616,9 @@ static int hw_init(struct msm_gpu *gpu)
->  		goto out;
+> -	R  struct rtc_time structure
+> +	R  content of struct rtc_time
+> +	S  content of struct timespec64
+>  	T  time64_t type
 >  
->  	gpu_write64(gpu, REG_A8XX_CP_SQE_INSTR_BASE, a6xx_gpu->sqe_iova);
-> +	if (a6xx_gpu->aqe_iova)
-> +		gpu_write64(gpu, REG_A8XX_CP_AQE_INSTR_BASE_0, a6xx_gpu->aqe_iova);
+>  in human readable format.
+> @@ -563,6 +565,11 @@ The %pt[RT]s (space) will override ISO 8601 separator by using ' ' (space)
+>  instead of 'T' (Capital T) between date and time. It won't have any effect
+>  when date or time is omitted.
+>  
+> +The %ptSp is equivalent to %lld.%09ld for the content of the struct timespec64.
+> +When the other specifiers are given, it becomes the respective equivalent of
+> +%ptT[dt][r][s].%09ld. In other words, the seconds are being printed in
+> +the human readable format followed by a dot and nanoseconds.
+> +
+>  Passed by reference.
+>  
+>  struct clk
+> diff --git a/lib/vsprintf.c b/lib/vsprintf.c
+> index 3f99834fd788..fdd06e8957a3 100644
+> --- a/lib/vsprintf.c
+> +++ b/lib/vsprintf.c
+> @@ -2464,6 +2488,7 @@ early_param("no_hash_pointers", no_hash_pointers_enable);
+>   * - 'g' For block_device name (gendisk + partition number)
+>   * - 't[RT][dt][r][s]' For time and date as represented by:
 
-I believe you should also set CP_AQE_APRIV_CNTL per-pipe
+We should add 'S' here as well:
 
-Should we also enable AQE1 while at it, to reduce potential backwards
-compatibility issues? Would that require solving the iommu woes?
+   * - 't[RST][dt][r][s]' For time and date as represented by:
 
-Konrad
+That said, I am not sure about the optional '[p]'. We could
+either do:
+
+   * - 't[RST][p][dt][r][s]' For time and date as represented by:
+
+or
+
+   * - 'tSp'	For time represented by struct timespec64 printed
+		as seconds.nanoseconds
+   * - 't[RST][dt][r][s]' For time and date as represented by:
+
+>   *      R    struct rtc_time
+> + *      S    struct timespec64
+>   *      T    time64_t
+>   * - 'C' For a clock, it prints the name (Common Clock Framework) or address
+>   *       (legacy clock framework) of the clock
+
+Otherwise, it looks good.
+
+Best Regards,
+Petr
