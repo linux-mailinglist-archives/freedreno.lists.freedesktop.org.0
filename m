@@ -2,149 +2,138 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC4F4C4E748
-	for <lists+freedreno@lfdr.de>; Tue, 11 Nov 2025 15:27:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42336C4E7A5
+	for <lists+freedreno@lfdr.de>; Tue, 11 Nov 2025 15:30:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A017210E340;
-	Tue, 11 Nov 2025 14:27:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12CE110E5A4;
+	Tue, 11 Nov 2025 14:30:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ELmNGRaY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RfCEMWu3";
+	dkim=pass (2048-bit key; unprotected) header.d=minyard-net.20230601.gappssmtp.com header.i=@minyard-net.20230601.gappssmtp.com header.b="cq+Ia/is";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4514A10E340
- for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 14:27:14 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5ABBGdKQ2027969
- for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 14:27:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- VLUjnRdYKOuu5qj1KoQzXxsr2RycgjfhzOqnzAirtEk=; b=ELmNGRaYr3Ek/O6D
- IZP2qD4dyHqpwVTbQTB5Yw3o7cHSgiJmwqmKEAZZuu/Enh+gW8oEjFXL/nEAT3Kr
- BF3WhBOaHZgcNJEUMFuq6hqLxo8WqaeE1epEsVy6qbmYVSYc9PWsbkAIXUpnh+Gn
- FjjokjwRWSwj07XNlHaB94Sun9WFZfj5zsYISJ7hHCGfQunpODwWgXSfrhtoR0g2
- DDJvIWFa4vjpKY04ixCA4UYNl5IsESmhuJhQJbJuUqxwr5P5XR5DfoOHWvKn5tCo
- CfxfwSfKOxzJdYrZs6Z7LeJ3AevlDHLGPuwe0BXz/SyUqlIgLS7uxuvJ1vt6H3fD
- OGAqFg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4abxqw1h46-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 14:27:13 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-7a43210187cso3984435b3a.3
- for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 06:27:13 -0800 (PST)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8C210E5D6
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 14:30:38 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-378ccb8f84aso40907241fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Nov 2025 06:30:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1762871233; x=1763476033;
+ d=minyard-net.20230601.gappssmtp.com; s=20230601; t=1762871437; x=1763476237;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VLUjnRdYKOuu5qj1KoQzXxsr2RycgjfhzOqnzAirtEk=;
- b=RfCEMWu3yPsP2Zzl3Ki/++yRqm6aqw9KDTj0ts0VioqgMlcS/S+bR8jnJCrpZwtSk7
- A3S1Gm8a5KOQEJG6NdHhdB2s6dbV8kczqlW04TIEBU7uqsdZ54LcAJzk6EUPzcV+HBhX
- Zh/OPW7pMnYf1Ib5GuthPVKC1ZvyPDfUqEI9MBk8YQtIwlZZRdj0sYUYzeYaZsJE1ILP
- gOVU5GChZMXG+PzsyPt7xt1yl8gIncHLKbEgpiR8sAiAbdLXJ7pqw1ubKV5Y0YsznmJx
- r5/pkf5EFkxnDZrXCxyfGIbRFncd1ohx4kfajeWC8DL/ih+qQIbZw4xzV+T5BwznvmFx
- mbNA==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=aB3Kna1Ydum3rSWq2Q4kNhk8LAGVHiOY3JIzqpUlVwM=;
+ b=cq+Ia/isfSweLbL+EuP2lt1xt8MBJ1Gj1IsNedkiBvqixyd6P7fNI759FjVT/33H+X
+ 9yCvmb99MpBdFDmva8bGLW65Gxi+jCDllNWYPbUYAcWdIrxQH0mp6ANL5b49ZbID+fmv
+ ZMcbkKGD6+0WoZQSHAjzhNyesmrtJaGKSA/ODLGqdqN0P655OIZRrtCQ67PQA1nF1VDs
+ E/0+4X9BV6z4ofUgjE8TnUMpxHcqz/p9aQObUWgBQdZdWZVqDbLEYhwoBBHoc5Tb4e4H
+ oSHtLQ2LGsmAvyLZtl6kRbzuqmMqkp3/xZq2pmzR4woSC1fN7QWGo3+FQiKheVvBAIb7
+ jQpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762871233; x=1763476033;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=VLUjnRdYKOuu5qj1KoQzXxsr2RycgjfhzOqnzAirtEk=;
- b=wcytLUJmaVOb1hy3Gjqj1OKo6DYQfTcDY0TsN+jgpn0oxvmrexHFIvgjmFVvYu7Kpm
- piIIL/gnG6veFIek3i0OZdHdwLx6Hb3nGvQqIwpHgZIUxBIZh/xMed0IQ/eJO8OWBskC
- Euy5mXf8VVXSXAanWXbJH/yB6jhOxsRBUUTpuaaiQ8VOLIYrYGKw2aMYpMV0XE9l/sgT
- L6Er2W6CIVQchmOA56oohUFqr248TgHlEBcMC2llkwb5gPj6p1ERTbtBjtLRHqh2doHJ
- 4IMLo5EmpbPTz7HGKLkghsjfBsc3T09f322GmVu6mP4cKRFuaX0yY5nkBb3cVj+30Zp6
- oeFQ==
+ d=1e100.net; s=20230601; t=1762871437; x=1763476237;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=aB3Kna1Ydum3rSWq2Q4kNhk8LAGVHiOY3JIzqpUlVwM=;
+ b=kWv2nuRzVH9GfDsxMM/F6h4i7z+0vjgS2NrGCk769KFtW0L8ccg/Zmx+jiDb2WjdPl
+ vp+un3H9KYYWashEk6BFvkRXjMGLnCvp6rTvpq6tL+cndXp8UVp17w/hMVn0i6q3/KUo
+ XYjO8FpdMTdnQZSL8iBbp+HYz2b5bI5asnBUcSTx3hr2Jd2THxTkw00c2hpn+PXZccOY
+ kj92kOSYJSpakyuz+3/VA7fJ22ksw2rNydqe6YxQh4EpcpIubhlGYeapy05LETNJLliC
+ xQnMzVVkxLnJm2gnEMNGRtl937fyXyhnyQRofscJLLQEgbf84RCNc+nDrWXWy2wWpHik
+ algw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXBjRVDmcPX1QQmq4w9yjIAu8Qz53wuxuB70XEYhFq0iPTT/hCuPSgtRQBWqXTd3rV+cVQJ16PmkEU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxDYyIsCvAL45Ez/l0m7yq2qjK/kmgV6FjPVAbd3gysUbV3J+M1
- OGvFR7pRWrTLKsEHEHJnMwsE6xJsQWsl7FQpRME/kN4GBVTpfhepUZgy7/2ZGhhdtJ8jL0v535J
- wFYdPlZNwIdsJCqUoQZGvHMGbQlfkZYp5791LahYbYk5TnExMnrU9O/Snjw9ZHmWCtbdWgD8=
-X-Gm-Gg: ASbGncvSiE13A1XfUdp/tlLp9HGSLvJDFayCMzDdebhQuBBmMiYu8Sph2+Tyh3u+ayf
- 9EVwzUUmvA+XZPa4DRLIwZgIiUXlCF5bd8L51OzhTG+ixkiZu+ruoRL6NQzjZs4dkiGZOHu67pG
- dC5HjI4Rkced+PkpkqPWi05ZQX1NQ4lkznkdbovbMWUkjZUJ/RYty8Mlr8lRnxFSk6SOEQcCwAa
- h69VmTBzml7n2w74RMcC10CBD0AN79xdTVcLUP/6OYc3zH3H2LuZSyx6zwYJeM1UGa6AtZdvlpB
- mHhRreCDs3WP8ZArPJTKsI3unXv7zwLJICYFD8GhHARrmA2jP/hmlMdjpjPLzyBCxTl36YDVrHI
- xpdYEDvbqcYqHKc22Ku32Ig==
-X-Received: by 2002:a05:6a00:b44:b0:781:17fb:d3ca with SMTP id
- d2e1a72fcca58-7b2266a8d96mr16270332b3a.15.1762871232988; 
- Tue, 11 Nov 2025 06:27:12 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHGS/7Y+JCV0WL0rDJJwpThYAOraNVEcFIM32zGMLfnISD9Q77+PeHDE8FGvMX6ZgCVDRIoTA==
-X-Received: by 2002:a05:6a00:b44:b0:781:17fb:d3ca with SMTP id
- d2e1a72fcca58-7b2266a8d96mr16270287b3a.15.1762871232438; 
- Tue, 11 Nov 2025 06:27:12 -0800 (PST)
-Received: from [10.206.103.12] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7b75bda9f77sm100571b3a.15.2025.11.11.06.27.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Nov 2025 06:27:12 -0800 (PST)
-Message-ID: <08f8de55-52a5-4942-9a39-222fafb093a5@oss.qualcomm.com>
-Date: Tue, 11 Nov 2025 19:57:03 +0530
+ AJvYcCUiHFe3oNVVvec/hFwMIVVFPKIUYzkvidIeSXW+otCDEcIUYiToWiRGVgfpdIU1FbJ0mDplxLY+Ec8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxsKamBu6yg7d+OIesVx/yMCvSYErqeyPsrIq2RApE92NJeoUzj
+ NyfhV5rMuYJ84RwKuyVtnHgb5KCkwQDEO+dY+DR9hAm/kA1SeI6Ud7l3Vs+iyA0CxvIHPKXQ6w2
+ niG23SyMkT9gXCg3jV+vTlMjVzdQMfL4ylxiOsKqY0Q==
+X-Gm-Gg: ASbGncv86XL5f2SoeeINFKfHAcuLx4HHM9xajwddYlnxFF5KRn2vjrywGX1gf75MWdz
+ f23zR4hLbkQhkDQsiowdyZqxmTa5MYl/k9bO3RzW64cpeTVITq3tftGxK9iupOfIwQn2b0sqjyZ
+ aNvQaV4udiUQbelcNZ+DvX5dz3Bk6kfB8nw4gMUO+o752j1/L5h9n+1vR3ZlslkA4Np9s7Bs4Sg
+ UJhuiPYSHBerBTyss/+onsearXz9ahAVANjSAavjRBK0XbcL6Z8ZN49g7KeUd3FPeZJ/g==
+X-Google-Smtp-Source: AGHT+IHIkpA6rhiYIBJPGXbu43mtrXsVXRAjUn5Tnc/nVn4XCQWhRjYlEu/X5WxF0zlqRt3mYY1fmThRtTARr/9+XVU=
+X-Received: by 2002:a05:6512:10d2:b0:594:2db8:312b with SMTP id
+ 2adb3069b0e04-5945f1465c4mr3726443e87.7.1762871436263; Tue, 11 Nov 2025
+ 06:30:36 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 21/21] dt-bindings: arm-smmu: Add Glymur GPU SMMU
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, Jordan Crouse
- <jordan@cosmicpenguin.net>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
+ <20251110184727.666591-13-andriy.shevchenko@linux.intel.com>
+ <pvjnjwm25ogu7khrpg5ttxylwnxazwxxb4jpvxhw7ysvqzkkpa@ucekjrrppaqm>
+In-Reply-To: <pvjnjwm25ogu7khrpg5ttxylwnxazwxxb4jpvxhw7ysvqzkkpa@ucekjrrppaqm>
+From: Corey Minyard <corey@minyard.net>
+Date: Tue, 11 Nov 2025 06:30:24 -0800
+X-Gm-Features: AWmQ_bmtZ_NzCjBDc-E_88i-zoQ3qkiy8-YjkQobPCCDd_5SvJDnh5UOEsI6sqU
+Message-ID: <CAB9gMfrr5ReWD6EzGLpwnubnkRJg-VX0vpnPn-kuXsaYGFEAMg@mail.gmail.com>
+Subject: Re: [PATCH v1 12/23] ipmi: Switch to use %ptSp
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>,
- Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org
-References: <20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com>
- <20251110-kaana-gpu-support-v2-21-bef18acd5e94@oss.qualcomm.com>
- <20251111-mighty-aromatic-urchin-f80cd9@kuoka>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <20251111-mighty-aromatic-urchin-f80cd9@kuoka>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTExMDExNiBTYWx0ZWRfX8Ih6gKwG+c5N
- 43iD2XoTUkYQ0ZCAaylEd13Fu7p1pIMHH/yoIf5rpSApyWPcfXwOlYJwl9Y/d+z80owCfT1y+OC
- FIZ6tiNop2dJa4e6g23sExM5601y7ZtfCF2K7cPYErahofOS3jdNfK7QtWFjMxV92FV1FWAxugz
- NYex072Z2cx1LeZIw/m5kHFGwe0TvKCr3ZBn25zpDlx8hlDZY1WasRwEniT6ceTU4e011IWK66F
- KWvTA0QgsT/4qqqbkLhrCX1duLKdAxbw3QK0c8g0h/SEZfZuC5+LHIRgy2qXt5hPeJaXvJccg4f
- nEJ5tCGdhX/b5akxI0XqSKCisbWbYUFsCQiAnWxT3LjYqmDC28NnGqUidcwhLI2akvbNjxnUxu7
- bKQ9OIUnYgU6BCM4kdK6KJx518hCYA==
-X-Proofpoint-GUID: a7Th8cJ8inBkRuOS0wC0qujaulhiKtZS
-X-Proofpoint-ORIG-GUID: a7Th8cJ8inBkRuOS0wC0qujaulhiKtZS
-X-Authority-Analysis: v=2.4 cv=CeIFJbrl c=1 sm=1 tr=0 ts=691347c1 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=WzT3ZZK9S2hwGh7ljtQA:9
- a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-11_02,2025-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 phishscore=0 malwarescore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2511110116
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>, Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Casey Schaufler <casey@schaufler-ca.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, 
+ Max Kellermann <max.kellermann@ionos.com>, Takashi Iwai <tiwai@suse.de>,
+ linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org, 
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org, 
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev, 
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ linux-sound@vger.kernel.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Richard Cochran <richardcochran@gmail.com>, 
+ Stefan Haberland <sth@linux.ibm.com>, Jan Hoeppner <hoeppner@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>, 
+ Sesidhar Baddela <sebaddel@cisco.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xiubo Li <xiubli@redhat.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Content-Type: multipart/alternative; boundary="000000000000be4f5a0643527dff"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,21 +149,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/11/2025 1:20 PM, Krzysztof Kozlowski wrote:
-> On Mon, Nov 10, 2025 at 10:07:27PM +0530, Akhil P Oommen wrote:
->> Update the devicetree bindings to support the gpu smmu present in
->> the Glymur chipset.
->>
->> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> 
-> So you ignored entire review? I drop the patcshet from DT patchwork.
+--000000000000be4f5a0643527dff
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Same here. This is a new patch. :)
+No, it's not really important, and it's better to use a standardized
+output.  Thanks for pointing this out, though.
 
--Akhil
+-corey
 
-> 
-> Best regards,
-> Krzysztof
-> 
+On Tue, Nov 11, 2025 at 12:08=E2=80=AFAM Sergey Senozhatsky <
+senozhatsky@chromium.org> wrote:
 
+> On (25/11/10 19:40), Andy Shevchenko wrote:
+> [..]
+> > +     dev_dbg(smi_info->io.dev, "**%s: %ptSp\n", msg, &t);
+>
+> Strictly speaking, this is not exactly equivalent to %lld.%9.9ld
+> or %lld.%6.6ld but I don't know if that's of any importance.
+>
+>
+
+--000000000000be4f5a0643527dff
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">No, it&#39;s not really important, and it&#39;s better to =
+use a standardized output.=C2=A0 Thanks for pointing this out, though.<div>=
+<br></div><div>-corey</div></div><br><div class=3D"gmail_quote gmail_quote_=
+container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Nov 11, 2025 at 12=
+:08=E2=80=AFAM Sergey Senozhatsky &lt;<a href=3D"mailto:senozhatsky@chromiu=
+m.org">senozhatsky@chromium.org</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">On (25/11/10 19:40), Andy Shevchenko wrote=
+:<br>
+[..]<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0dev_dbg(smi_info-&gt;<a href=3D"http://io.dev" re=
+l=3D"noreferrer" target=3D"_blank">io.dev</a>, &quot;**%s: %ptSp\n&quot;, m=
+sg, &amp;t);<br>
+<br>
+Strictly speaking, this is not exactly equivalent to %lld.%9.9ld<br>
+or %lld.%6.6ld but I don&#39;t know if that&#39;s of any importance.<br>
+<br>
+</blockquote></div>
+
+--000000000000be4f5a0643527dff--
