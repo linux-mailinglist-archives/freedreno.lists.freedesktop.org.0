@@ -2,98 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F66AC51B32
-	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 11:37:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55F94C51CA6
+	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 11:56:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33D8710E08E;
-	Wed, 12 Nov 2025 10:37:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D48D10E08E;
+	Wed, 12 Nov 2025 10:56:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="p0Oz30K3";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kk28w3V4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YlTfbT+T";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HnQpwrnP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AAF410E08E
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:37:34 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2075D10E6E9
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:56:07 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5AC6x0Rb3502467
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:37:33 GMT
+ 5AC9WwES1001738
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:56:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yEvEVaysBiDJvqu7zSpO/ven4wuPjiUA9FzLjPjO1Lk=; b=p0Oz30K3ZkEWwuzp
- iqiim70ICP+vQQno+zYJnXP3FiLNW/NqOujPtIY2anc++sqN5gaDBPycS0NGFyFX
- dpaoAHlUUwgvFGRmEFlte6Q8mA+lKrD9UJkcg1RWWZA4pZpilpZt69WCHX9kZaoz
- 3iG3mxKT/mv/TWO1givhucRFRitwKYp92KbL6yeP7RnsGST1HSYK6DeJ8D2z78pf
- fLH8OFRFwugXCRlNnTYSgmUaLMsZMHKuIBbKB7GCEQEYfqshTC+LviPVOOA7SKdX
- CXobtf7q7JlojXQJW4Mn8oAhLcQ+baKjrmDIsLWcCpZC6lJXo78vrDERvDKQ13HS
- /bV64Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acdcc23fn-1
+ q7J8baXgxyTkhN2ZdMYqtwC3Hhdgc0z63es0iUEKVbE=; b=YlTfbT+TpP6Q//J2
+ 88dZBFYjCM7mJWQbvLvCgNBnt79B1djKmdfOGuzl/+iuS3qaHSbgt8nZm9geeWJM
+ EwucGUm3IpaplnqdDfeWTdrpoCVvJeAa0SlphjJx/CipbmbNbfOWCvoG9sMatwTH
+ tHQ/dxIhZuY1GhAaGECAtuO+JzvLQACttntfzqIZC7a19Cw7Bzvqfd0Re5N1viYa
+ OGTENQuDwMfZhdelpH3rWa43UBIvTuMqKThNYEGIjsZjkllXWb++ZOtls0/VL7U2
+ NUr1jhbOIGY/esw833NUGvru2Hdy5K62Xkeftl/wTpZSV2SxrX/ssMhfqEsxgAec
+ VRvoBA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acqq20aj1-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:37:33 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-8b25db7fd44so25048585a.2
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 02:37:33 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:56:06 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4ed6317be8cso2224931cf.0
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 02:56:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1762943852; x=1763548652;
+ d=oss.qualcomm.com; s=google; t=1762944965; x=1763549765;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=yEvEVaysBiDJvqu7zSpO/ven4wuPjiUA9FzLjPjO1Lk=;
- b=kk28w3V4/fuzxk6gKdvRuKY8ftlyuFgYL3Ojq5uEnqZiIldoEPYryG7idt68Upprl/
- j7IaQBP4yQhTrTygYhMWQjRqixs8nDCraCdfkC4biFs3Qrmbkm0DLTQNy+tNpqb6GZlo
- 2xizybjdTVA2c4xSbcuTfKRoGSEcLA0DhsZO8WQz1i7lcuMdFQ6/vCacVM81DPuZE5Pg
- VeonLMayBHATnwwKP1zr6wcKZSIFOXpxbPzPYSfL41bRjd3BgbMdoGMgP5CsTaWpLraq
- mlfcg7R/Y1LX+FCbr0Mv5rmNOgv9td+6cismIuQ9MRvCWyPv0sWrNRmiGsv+mFyY41V1
- w+Rw==
+ bh=q7J8baXgxyTkhN2ZdMYqtwC3Hhdgc0z63es0iUEKVbE=;
+ b=HnQpwrnP5Kr0bSOTIET33GJXcL5XBL9P50xm3ZLoHgFlYtJuZM/lkIiehOmlN+uf9L
+ gk4yBideVYcRJt049ItWzCho3Jj6O13FLdyuXMi30nsmyGepFUq1S474EMFqtzrJTrIE
+ eM3+EOZaxlwNlNsakkyS6R4LWuBlnro9jf7ok7jr6u2riir7VvfOmwLRk9Bu/+mcwNsa
+ icvzVRQHnQ6n/5RgARQCJYS6+AnmYSedOsIThceVShiCJBqhUTjWpKBeuHzpdA6FNGIZ
+ PyhgqVj1BZx2kTLalccmBT1KDFFmhOiaSqC/SYvfw0diXLwn6Oz0v9uHw1JUrS8rziUn
+ evMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762943852; x=1763548652;
+ d=1e100.net; s=20230601; t=1762944965; x=1763549765;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=yEvEVaysBiDJvqu7zSpO/ven4wuPjiUA9FzLjPjO1Lk=;
- b=gRJnYekK7DSNnVuj0Rbn2ifcr9kOjO1EM1PHwkIa++GsY1liQ0P94CKmyMSt8zd9az
- i0jcPw0M4f8937ZPIl7MNYXB4i2CcQGiVWbGbDuw4v5DcSmT93S0yoSl0jcEHsPF3Vfw
- zT+MJZo1ZBXHLhkgQDrWyOziJmuq/sQfqzOa3K8qw8CPNUHW/sVJIx0OVyj9TPinUTNc
- mx0J1OnBlGZJ17OfX5beMhDuM4EW9ucZfYn9WfPbqXdYaYn66xFu9Cb6LZFlyYn62Htt
- JVCoOtl/otigk6QjHI4oBV7ttzzGrvEWplDvhWTM3mpG/0JqQxHMb+m4AIROanEFFd/E
- p3OQ==
+ bh=q7J8baXgxyTkhN2ZdMYqtwC3Hhdgc0z63es0iUEKVbE=;
+ b=iG+M4GYSNiHvFFYXXtcfl40qWFHGqV0O9Q37KJsZxAJvvZX2k8uMrC9kUHkMNnbDMZ
+ HNPC36kF/xaGYXTzChJVIdxQgx28B6KVxXxCcG3+b5gSyhYT47ZIlZBc+Y7qz7PD1kqz
+ zhn1qn58Q0nZHGfhjKWMXe9M1AP/0BBcjEJIeJVvmx5/muN0LAbDWFYGtpyms/TMf2Dj
+ lrtCd8BkaEKCR0lzVPe8TLbbZs4fLfnivhSmEsVDHUk4ldX1rPwfBdEHZHa9qfkk5CVT
+ QM1HFEKpGN8z9PuvfbsBD0OKfBkvh4wxwYIuMya+C2+nhYllfu2Ssz/vFmNoPN9zU+2O
+ dDMQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWexOOFH7cwhSZOR3UYxOa2+RkWPrU2z1GV+Oy9hqD3YlYJ7TowNBIF3QRCfs9eQpWhyEP+jAL+u3o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyNehdJaFGQvncICZyUlRS/zPM77YjpiJVDZUQUjhpQcYgvd27O
- nI1fa4VEfDDGdb7kubgMvv6FHAStrvX9Bh5FHWAl+D2JVjeuV5q/DgMN1l/HOxFDbroLpU1VSHW
- 7Ej6q5iRb8+QJ1qif3mt8i04aWDSB6EKSQ2nyHRT7WOcLWPxd2wK+adt4SAK+SRJMhsBZoKY=
-X-Gm-Gg: ASbGncvn1EdFo6IrKp1GW28x66SZOkaQnqkp68tLT9BHF2Dz8+RJXinsqeLuhPGQVlg
- tMXaT5HVM0WBxGffAbcIxq/TtV7LShjP8IwVk0l8OwzKis68Biz7OWus+lQwSC6UuN98njJ/ut3
- f3Ia+9JlmsZ+zl6gKUaZIqua1ONgqAvvCBwQg6Ul1wWD2HLalh/FlFl62VxGGSypS8Q3/sGC8KH
- +6dt5ASagCZP4+itREtmUafSVfjV2/O4Od/5o97I6QBoeEQQCzzGup4JuyX0sBBq3PUZqYwoJvW
- H+tX/uySCTfyLht8iicA1odPUyTx08j9KcwlpbAAiwjTko0r9o5qIlaFzzt2GUcob9R1LWPRm7Z
- 8cDdiPUoSxRi8tczGYKuw2Y5nBwZb1fOk1CnfgP6crzSDfX7XXWPqohc2
-X-Received: by 2002:a05:620a:c44:b0:8a2:eb35:8df9 with SMTP id
- af79cd13be357-8b29b96bfacmr174329185a.11.1762943852367; 
- Wed, 12 Nov 2025 02:37:32 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHnodYPH8G4uSHNNb8nQWE1cE1kx1PmZfPb6CE/gBIDzIV9Um7jRFbvxAfRziignE7KgxTdXA==
-X-Received: by 2002:a05:620a:c44:b0:8a2:eb35:8df9 with SMTP id
- af79cd13be357-8b29b96bfacmr174327385a.11.1762943851866; 
- Wed, 12 Nov 2025 02:37:31 -0800 (PST)
+ AJvYcCXiDhHGYmLf+HvgXOwPt+jwdlgDLaI/WjhD90zMjaXZvqGAGjWJQxGbYiZkVmHA0IjlncMIMqeWKUA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDWv3yQgSu29TROgP8/CRw7ielG7PkQWlLkuPU4LHsGbFqtXMJ
+ MH+PChYPxg78pLO88HnhJPLFB+x+D2jX+ubcQ50wdh0IWqsS+KphKlB9rhubB8G3lrmT4FWWOPq
+ g8wnizjTtawRSo5yYIk6AVVxcWoCgflwZgs28rwMDuxOsRTWEXm0JMcMp0kkzOesu8OtZUcI=
+X-Gm-Gg: ASbGncsif1Q7jJFlVCw52c+sViGDEF/MWpF0giylB0oZ4d/t+qmrQ3fX6JOPF8t2AYr
+ FzhuhNhf2lZ/IBGUzDWW13AQ1jSet8UgGwu+I+YSHEsUuVSVUYlOoCEt3WbU2Ln+RI8R0CG5rFV
+ XrkFQhELTNo3i0sNqZeS7BAmbiEXSHZLkxjfSPLSrDfTLxDIRCr5hBpiH8mvJBsjriZEW920HQF
+ PGNiE1pe5mlYNt5aCL8BHcwjYXeR4UpunaVzHM4SGQRU8peCfmcnsPDNOSU04mMaXc5WsPsADuN
+ m1vYkiCAFE9FbqIxd86l2YkQEkarWFFaw+oDs2H7ui/hwRujCACyfI4kRfFFk0KAMuAPXzWVGA9
+ 2D5CLCPf59vKaRrqRrv2XKzcTx9bTGrs8faSCQQudcZTa04LW/SaxzqUO
+X-Received: by 2002:a05:622a:5d12:b0:4ed:de8b:4436 with SMTP id
+ d75a77b69052e-4edde8b4640mr9664951cf.12.1762944965498; 
+ Wed, 12 Nov 2025 02:56:05 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHehnHC4uvc/Oy+HlpbxtFmbNd/Io3lA6JdYlICTyBqU+FS0kyknsLAZ4U0LhGMGqz+5Q6+5A==
+X-Received: by 2002:a05:622a:5d12:b0:4ed:de8b:4436 with SMTP id
+ d75a77b69052e-4edde8b4640mr9664541cf.12.1762944965047; 
+ Wed, 12 Nov 2025 02:56:05 -0800 (PST)
 Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72bfa0f37csm1559184066b.64.2025.11.12.02.37.28
+ a640c23a62f3a-b73381dd3besm103142666b.43.2025.11.12.02.56.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Nov 2025 02:37:31 -0800 (PST)
-Message-ID: <ae21a963-696a-48f3-af91-ee72aef4b60d@oss.qualcomm.com>
-Date: Wed, 12 Nov 2025 11:37:27 +0100
+ Wed, 12 Nov 2025 02:56:04 -0800 (PST)
+Message-ID: <8f1caccc-8a49-4c26-aeb4-f46f81593a30@oss.qualcomm.com>
+Date: Wed, 12 Nov 2025 11:56:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 16/21] drm/msm/adreno: Do CX GBIF config before GMU
- start
+Subject: Re: [PATCH v2 09/21] drm/msm/a6xx: Rebase GMU register offsets
 To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
@@ -117,35 +116,34 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
  devicetree@vger.kernel.org
 References: <20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com>
- <20251110-kaana-gpu-support-v2-16-bef18acd5e94@oss.qualcomm.com>
+ <20251110-kaana-gpu-support-v2-9-bef18acd5e94@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20251110-kaana-gpu-support-v2-16-bef18acd5e94@oss.qualcomm.com>
+In-Reply-To: <20251110-kaana-gpu-support-v2-9-bef18acd5e94@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 1AD2eQQSyzXRjJkuhiV_BiotiOWVGYcj
-X-Proofpoint-ORIG-GUID: 1AD2eQQSyzXRjJkuhiV_BiotiOWVGYcj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDA4NSBTYWx0ZWRfX7wx+50T5nxUi
- 032DxWWX8c3+6gDLvzxJXxXJGWeIaWFQwOuLEeIcMGjtLS9ZuOMgCvVqkxqPy5+uesEkDQI4Z9I
- Mozbptssj8bwKWm4UndYieket501mC/a8MWFSKAN9UEbgAAKNg1ORllThk4Gk0FJOd8ftqXKM2P
- jOC4RSVfXXhzJZ2PGwoW/mHqJOtUF5+Rbgxkdscf/h7QdKAEPldtjqsV+mejqhIAVp3OAD+C7bj
- ZIRv3GfAfheH0EuXLGd+Hbf0F5WL3m9jXSa3CdwmtzJlv+X13iLFVagoDcA7knaepHkkpBtV4pz
- xIKUkdDSpt/vEfvyWCk/H4VweRlPVvyzQr8p5+ecM2IkbheMCc06df2unxWjNw5/OIrpHn9PZk7
- D6vLG8rsWDJ8+od5svGBtmQr3gZ4/w==
-X-Authority-Analysis: v=2.4 cv=L/0QguT8 c=1 sm=1 tr=0 ts=6914636d cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Authority-Analysis: v=2.4 cv=EbHFgfmC c=1 sm=1 tr=0 ts=691467c6 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=XltbfQAJAwjtl7jyp1EA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=LTedVN9yYKzQwah-PCsA:9
+ a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: Q744cWUgyiInLNTQQWDiqd-EYwec_voR
+X-Proofpoint-GUID: Q744cWUgyiInLNTQQWDiqd-EYwec_voR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDA4NyBTYWx0ZWRfX2E2eP4UyrbuM
+ Cd310FvS5Sizzc1JFoWvBlP8jn253zzaecnwGEI9+PzxAszk7WarnuVilrGpZjlLr9E9BIXv6rG
+ iSYZZvx8O3eqWFr9ApLMP4JgHKzw7bdpeH20ItPhixD+872dq+hG6DDvxqstkrtEmbwffFMnDny
+ PqIX1Ug3yP3nWgVRvM06J4L99aD2LIZxtwiOqldsJwKf9bUG2xe2MI+gpgIWayg/In7ZKKe9vql
+ 0tmJHHndoBoD01M7l1uftVZLLu6mD6sEE62SFTaWcJph2J6/r9ZYzWYLa5xLqpaoOfI4BnQ+sCL
+ 8M1vxadAVg2gMgKJs8OugOwvUy4QK7Kgyf0Cp8KU/Z55CVRwHLvr200lZTnLkIHF3B/1r79VDQL
+ wOFAHeJLyOjgqqE32ZikpzPW2gyueA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-12_03,2025-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- clxscore=1015 adultscore=0 suspectscore=0 spamscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2511120085
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511120087
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,103 +160,39 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 11/10/25 5:37 PM, Akhil P Oommen wrote:
-> GMU lies on the CX domain and accesses CX GBIF. So do CX GBIF
-> configurations before GMU wakes up. This was not a problem so far, but
-> A840 GPU is very sensitive to this requirement. Also, move these
-> registers to the catalog.
+> GMU registers are always at a fixed offset from the GPU base address,
+> a consistency maintained at least within a given architecture generation.
+> In A8x family, the base address of the GMU has changed, but the offsets
+> of the gmu registers remain largely the same. To enable reuse of the gmu
+> code for A8x chipsets, update the gmu register offsets to be relative
+> to the GPU's base address instead of GMU's.
 > 
 > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
 
+The resulting diff is a little convoluted, but I think it generally
+does the right thing
+
 [...]
 
-> +	/* For A7x and newer, do the CX GBIF configurations before GMU wake up */
-> +	for (int i = 0; (gbif_cx && gbif_cx[i].offset); i++)
-> +		gpu_write(gpu, gbif_cx[i].offset, gbif_cx[i].value);
-
-We haven't been doing this a lot in the GPU driver, but adding a
-.num_entries-like field is both more memory efficient and less error-prone
-
+> +static void __iomem *a6xx_gmu_get_mmio(struct platform_device *pdev,
+> +		const char *name, resource_size_t *start)
+> +{
+> +	void __iomem *ret;
+> +	struct resource *res = platform_get_resource_byname(pdev,
+> +			IORESOURCE_MEM, name);
 > +
-> +	/* For A7x and newer, do the CX GBIF configurations before GMU wake up */
-
-duplicate comment
-
-> +	if (adreno_is_a8xx(adreno_gpu)) {
-> +		gpu_write(gpu, REG_A8XX_GBIF_CX_CONFIG, 0x20023000);
-> +		gmu_write(gmu, REG_A6XX_GMU_MRC_GBIF_QOS_CTRL, 0x33);
-
-Either set this prio value here, or in a8xx_gpu.c
-
+> +	if (!res) {
+> +		DRM_DEV_ERROR(&pdev->dev, "Unable to find the %s registers\n", name);
+> +		return ERR_PTR(-EINVAL);
 > +	}
 > +
->  	/* Set up the lowest idle level on the GMU */
->  	a6xx_gmu_power_config(gmu);
->  
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 029f7bd25baf..66771958edb2 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1265,17 +1265,20 @@ static int hw_init(struct msm_gpu *gpu)
->  	/* enable hardware clockgating */
->  	a6xx_set_hwcg(gpu, true);
->  
-> -	/* VBIF/GBIF start*/
-> -	if (adreno_is_a610_family(adreno_gpu) ||
-> -	    adreno_is_a640_family(adreno_gpu) ||
-> -	    adreno_is_a650_family(adreno_gpu) ||
-> -	    adreno_is_a7xx(adreno_gpu)) {
-> +	/* For gmuwrapper implementations, do the VBIF/GBIF CX configuration here */
-> +	if (adreno_is_a610_family(adreno_gpu)) {
->  		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE0, 0x00071620);
-
-a640/650 family GPUs didn't receive a .gbif_cx addition in the catalog to match
-
->  		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE1, 0x00071620);
->  		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE2, 0x00071620);
->  		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE3, 0x00071620);
-> -		gpu_write(gpu, REG_A6XX_RBBM_GBIF_CLIENT_QOS_CNTL,
-> -			  adreno_is_a7xx(adreno_gpu) ? 0x2120212 : 0x3);
+> +	ret = ioremap(res->start, resource_size(res));
+> +	if (!ret) {
+> +		DRM_DEV_ERROR(&pdev->dev, "Unable to map the %s registers\n", name);
+> +		return ERR_PTR(-EINVAL);
 > +	}
-> +
-> +	if (adreno_is_a610_family(adreno_gpu) ||
-> +	    adreno_is_a640_family(adreno_gpu) ||
-> +	    adreno_is_a650_family(adreno_gpu)) {
-> +		gpu_write(gpu, REG_A6XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x3);
-> +	} else if (adreno_is_a7xx(adreno_gpu)) {
-> +		gpu_write(gpu, REG_A6XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x2120212);
->  	} else {
->  		gpu_write(gpu, REG_A6XX_RBBM_VBIF_CLIENT_QOS_CNTL, 0x3);
 
-Downstream seems to set QOS_CNTL at the same time as QSB_SIDEn for
-these targets
-
-
->  	}
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> index 031ca0e4b689..cf700f7de09b 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> @@ -46,6 +46,7 @@ struct a6xx_info {
->  	const struct adreno_protect *protect;
->  	const struct adreno_reglist_list *pwrup_reglist;
->  	const struct adreno_reglist_list *ifpc_reglist;
-> +	const struct adreno_reglist *gbif_cx;
->  	const struct adreno_reglist_pipe *nonctxt_reglist;
->  	u32 gmu_chipid;
->  	u32 gmu_cgc_mode;
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> index 2ef69161f1d0..ad140b0d641d 100644
-> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> @@ -500,6 +500,9 @@ static int hw_init(struct msm_gpu *gpu)
->  
->  	gpu_write(gpu, REG_A6XX_RBBM_SECVID_TSB_CNTL, 0);
->  
-> +	/* Increase priority of GMU traffic over GPU traffic */
-> +	gmu_write(gmu, REG_A6XX_GMU_MRC_GBIF_QOS_CTRL, 0x33);
-
-Kgsl (later) added this for A740 too - would it be beneficial to enable
-unconditionally on gen7+?
+You can use devres here too, devm_platform_get_and_ioremap_resource()
 
 Konrad
