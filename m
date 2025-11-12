@@ -2,147 +2,148 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43AA8C51866
-	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 11:00:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9632C518F6
+	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 11:07:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7E9310E6D9;
-	Wed, 12 Nov 2025 10:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD84810E6DF;
+	Wed, 12 Nov 2025 10:07:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AnS32Jw0";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ipDCEZES";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kAGdreiM";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N7e17uzZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C842310E040
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:00:00 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B10A10E6DF
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:07:49 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5AC9hT2N907270
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 09:59:59 GMT
+ 5AC9ggJg1109094
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:07:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- /c8M8R+TWpXRQ5e1+bQrBnPfd6et7TV4rbqupFG9SIs=; b=AnS32Jw0ui6C8JOY
- hiPKBk1G4+knA0yFTPdpEN1SZwfHaZFz4tFVcbsVQ9IJ5pY7s0a42fBtGJkaNhZn
- dIrOr48Vx48OTdnNHvTLezT+eYp2723P/NsAd9bkiuCdYsUldX2xwlu8KLiAILmt
- zzeKMU2LLcMYA3fzCWYnr3iWf0zNVUKDMrrV4DHhs8bMFEaeX3m8Z9+smhLgubRc
- PeOJ0ydOcuZaeHnNI8dPpGdS9hl0h2r7hYJdIGgoetwxgmlfdSFPnQuHQnODFHmI
- SJ0BlK4q2Equkaba5vjiU0N1ltD3uoe1CxBCAZeNMs0nel/le8dcemsABbpQ161j
- FAB8kw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acqur821h-1
+ 5tMUAPHj3MTUC9Ymia6xtrQkXoeMohe0oVZfqEDumFs=; b=kAGdreiMYqZZcG2C
+ a0uUG51Xyaex5zm8dEzDifgrYM5roPuhPx6kulk58BS+3W4TQOgTjoDq/LETD+5v
+ toGP7tnj8cm8v2VOP+Lz/IpXCakCM90iM38mvClvDOeFEsYdpaWGBXd1aHjxLjpp
+ AG2iXmEwEz9WwP5KH0yLT47UkP4ZycamLGgCsOVpOXREEsSXGEPofqjIuh1/A6cl
+ 8LeM5ogKJJzUCQJLJcS3TvjBK/3S3BtpOkBOzEhYPUkaFk6OcMno02VIYZ06WDsx
+ ptIuEYHOCgcE0bzK3p9fTf3uJs5R1wFxbW1ukttPz3Fs2uSqO/F6CPSlVCgrZfQs
+ ttvkZA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acqum03bq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 09:59:59 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-8b25f8d38efso24124885a.3
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 01:59:59 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 10:07:49 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4ed5ff5e770so1355381cf.3
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 02:07:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1762941599; x=1763546399;
+ d=oss.qualcomm.com; s=google; t=1762942068; x=1763546868;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=/c8M8R+TWpXRQ5e1+bQrBnPfd6et7TV4rbqupFG9SIs=;
- b=ipDCEZESi/5KyCB4QZFsXe9BZ+MNdNQxpbnDhG6gPXcEgsUN4CjhLiJ59p+GwpwyMz
- Wj6HBqGvfh8+6OSTT89dheWeKmuSY7yP6pdKebXf1b0jQ922FJZrcTnTO5fIy+ERJrcb
- uoy00XeN18/DxjP41yd4ZCoEXR55O2CpZItkw36rNFgnBmFElqseHRnM24oWvSKNTQ5W
- HN25HbcWWYjmixSkeg0ZKynGM1Ggp2aUpaf+2kAjYMc/IJpK39pbSI/0YteEdLXHHu0l
- DUTbpCvxgoz3JTYo/Pon8m6Crb6Ihgo8s+ZBg7SNqzo1GNUBMcyTkjrd+4mXmjvNleII
- AFpw==
+ bh=5tMUAPHj3MTUC9Ymia6xtrQkXoeMohe0oVZfqEDumFs=;
+ b=N7e17uzZD46o2mSxNBldlcM8BWFkId0qjCProOFPDCPn6LfJi8IyjpaVys8r2NJ1LZ
+ 4TRnLxTmtE1+YOYoUCfry4AZGH9gtVK0XKmcgy06VhXYVlBZFY6wY30icaWz+CtF2cMk
+ GIeezlnxqJw8XFHTWW9ivwEvFi8kZpQLXUt0eMBh4CoJf+Z9ZtssGxmNOnpGM5y4c6yE
+ YAxjmmcCGNPqyPSID01vqmtZ/EGzvrHvrcTi6B+PPq8m/unFony02bb8rSGeEWILCvV5
+ GWO1IA0f1q3glYpicwcYeOb63eDi+Dl1u+HM2ktKr1X43yve12GSwQCKuLSn4A0iS5Mw
+ zu3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762941599; x=1763546399;
+ d=1e100.net; s=20230601; t=1762942068; x=1763546868;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=/c8M8R+TWpXRQ5e1+bQrBnPfd6et7TV4rbqupFG9SIs=;
- b=gFDdhjDBgdfe1XSjY3vbU1aXOMvLOLELPBpxPE84ZMWBqyc/jKoKnl/L3en6LNM7Ed
- 4HJvkrYBFLg20LLrR/WzOevQnVhijctQlUhqL/b1CR0pVFjAcks2+qAFN/wiKBx1F6Dp
- //N3PQ5KqteI1JYuQph8IHfCJXxArdBfJ4PoJBmuuzjKagji5Kg6SFRKBeKTGR2SDH3e
- NecRI2M3Sx/OQzaOsRU2r/sibIINnDqyrDAoM0YKDzci/H9dOKF4yfIh33j4CXdGvVSG
- r8n7wqRGB1DT+IzU/JGLN4NXSXCwd8L0NsYlw3vFiVxv5XWi+8yvvps0AtgNczxmqif6
- BKnA==
+ bh=5tMUAPHj3MTUC9Ymia6xtrQkXoeMohe0oVZfqEDumFs=;
+ b=HKX02buu+oEpqescpkTQe5OScNvqRDi52RUQ8HOmxdQZYmkUjCiXru3vSpKykta+OP
+ snfFi7y2g0tq98DoISn4FOiVdwMwFHUdBjsiRhFEOoPeTpbRhrfKvWM44zpGoa+f/eyY
+ lx6byPasgGxLqYi5HdCf0bNZsdTWrbCFb0Y6OZgTFO7Rbdj8N48qtJ/Z0EfgIB9HU7Ko
+ IIXCCibKhw1i7VRhhbeRuSUcCboL1Y/N5XGH7h4jY8E99IVboa+cgzUaPYiFBHqjR/Pt
+ 5CmSk7nAV5VWHAMPbIrHUH4tWHoVgHjJJXJM1pSmhMEo5x2yMi4F6Zlv2lkwIV2gKG7V
+ be9w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEy3mGRG3rbiqY0w7Wl377UsYHOUjFte9+F/FmYC+3RS+ls75RaQvc9+LeBZMf+W4bA/akR7DojIw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy3L5zb9SKnpAvayeNkMtgj/ohta6KUqcZn8b6/PCAAqmJ9honq
- 6vxjzkjHnGAGNAOCMWnYw6vrv/8DDjrTVYLtfqU2E0JmlsBfyCyK7lGzvxgMdXlsPNLrNo+/dWT
- QqJThs2DIg26UUvyTxeDROI+ucflQtbJBr9rW/qTxjpC4bmYMxJDRqCX3Q5o0oWPxW8p2PHw=
-X-Gm-Gg: ASbGnctLJNfAtqBQEgN1jo90nw4QQn80k49DS+Ut6K9aTeA+ojXWIvIyXI1L4BxcNfk
- vyDceD9eozQ8yioKUtz9fa/TYM6zE1u2INS1ohsGxfPN+z8M4s3NDaiOiEzQWySaVPK1+orFAhr
- Y9M9pdxOdEb5PemC5fYNy07N+6k7MoP151F+QkcI0TMLIx7n2xriEJgNj7OpZ9qLaFxMkU7M+SA
- bxg7TVwLPS9ZITGXkHfmKSSpxS7uWFhKm/HMGkQmkWflrAno3/Bg7wVeAVDI8j27Wjz9FIv4/7i
- mxPAo1gR6QcOjdz0fenKsItEd71gif0QkbyNb9XmkkQALzTGZKyLfPVZm5qKa0ufcT1+FL4w7mI
- 7aRB4cXTEsbA8h0jbRsQLfleapfs4j33Ci9CXgjcx1+Ec0nJlxm5+XnFY
-X-Received: by 2002:a05:620a:4047:b0:8b2:fea:21ad with SMTP id
- af79cd13be357-8b29b7c1df7mr186052985a.9.1762941599123; 
- Wed, 12 Nov 2025 01:59:59 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFeACvtEsXBDBf86oFt1CCQ2CtTgxFZLUvN151CpNKDu+hMJHO80+bcfR0KyKS8bfTOd2+bww==
-X-Received: by 2002:a05:620a:4047:b0:8b2:fea:21ad with SMTP id
- af79cd13be357-8b29b7c1df7mr186050985a.9.1762941598464; 
- Wed, 12 Nov 2025 01:59:58 -0800 (PST)
+ AJvYcCW0b1UVijE0p5JvLO96XTVJNcHPotyguu1S3LXlDL8zYvk6JIPnhOK2mEbg9rEeryN4NajuAo8nCkQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YycrsZ2Bs9VkCcjqXgWa0xc9lSKP9CYRVdWi+jWoC2dfZqU4uGW
+ I7fYCP9xnKS11isOPs1rLknb8pGvpjxdCuAdkKa9HwAEfpHm9zLu3myT8OHaHRrK0+4JY19NQEj
+ kaAtc0CyMVcDqpvp4Hv9ys8+86zC6VBvzlFhe9nBsBMXQ7nWB+LlgKNyynRppq7iOvij03OA=
+X-Gm-Gg: ASbGncuC9YS3Cum3y6yLLkORP7AMPvqgGn6Oid1lJmEWtnWP9PyT0vNRZzLmOOvHDMx
+ aFW51w+SR4Z0mp+EP2kDqeToaOyRAbH2/LdtCk5wUMvmLiHrdw98mqEsyWk8knEbO0HRZorVM0Y
+ 7W8o5SLCHJFLqFhtIOXpqEMPDChvAyWIO+Vtc8Y/B+0i5tM8OBB9pS/OtGzvkIVQKWLlIFbA3nt
+ vakTgZBJvf9JdnJpdK0gWzwdvtP3N7eu12drAbBUp+naZH7c3uVh/YtmYrIh3yihSKYKb7kiCSq
+ NxjWykl3OmBn66RYMLE066Q/mG/ZOOzMFS2GJFQmEE1LlvWJVZ65armVJjEjRfsZ2S3zepAjhuA
+ MqCigrdoA09U+A4fc5FM+UGb2DIIs9t/JCOdmUMsakIxnh2xZbaxZ0a0E
+X-Received: by 2002:a05:622a:18a2:b0:4e8:90f4:c3aa with SMTP id
+ d75a77b69052e-4eddbdad648mr18859891cf.8.1762942068468; 
+ Wed, 12 Nov 2025 02:07:48 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGd6taWWH3kgb8r8uxKAXxyDkXj9rB9AL10HGL6oyqqdNWof71H5ltc/gx7kawJfP1MWxxJCw==
+X-Received: by 2002:a05:622a:18a2:b0:4e8:90f4:c3aa with SMTP id
+ d75a77b69052e-4eddbdad648mr18859471cf.8.1762942067993; 
+ Wed, 12 Nov 2025 02:07:47 -0800 (PST)
 Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72bfa0f37csm1552008366b.64.2025.11.12.01.59.55
+ a640c23a62f3a-b72d3baf872sm1427413366b.27.2025.11.12.02.07.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Nov 2025 01:59:58 -0800 (PST)
-Message-ID: <2b10f34e-ab3c-4329-9034-8666b252ac49@oss.qualcomm.com>
-Date: Wed, 12 Nov 2025 10:59:54 +0100
+ Wed, 12 Nov 2025 02:07:47 -0800 (PST)
+Message-ID: <da9e9d31-7745-4eb6-ac24-50905dc2a133@oss.qualcomm.com>
+Date: Wed, 12 Nov 2025 11:07:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] drm/msm/a6xx: Add support for Adreno 612
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+Subject: Re: [PATCH v2 01/21] drm/msm/a6xx: Flush LRZ cache before PT switch
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, Jordan Crouse
+ <jordan@cosmicpenguin.net>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Dan Carpenter <dan.carpenter@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Jie Zhang <quic_jiezh@quicinc.com>
-References: <20251107-qcs615-spin-2-v2-0-a2d7c4fbf6e6@oss.qualcomm.com>
- <20251107-qcs615-spin-2-v2-1-a2d7c4fbf6e6@oss.qualcomm.com>
- <abf79d96-72c2-453b-aa2d-0626be584baa@oss.qualcomm.com>
- <65714302-3b71-4a15-8647-ad707e056302@oss.qualcomm.com>
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Connor Abbott <cwabbott0@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org
+References: <20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com>
+ <20251110-kaana-gpu-support-v2-1-bef18acd5e94@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <65714302-3b71-4a15-8647-ad707e056302@oss.qualcomm.com>
+In-Reply-To: <20251110-kaana-gpu-support-v2-1-bef18acd5e94@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDA3OSBTYWx0ZWRfX1gYFOQ0udloJ
- W005siwt3s9psif6fi4N35QYjixS9RP096azNJPZNrqjNEdZhQXAA/EOvrJKdg6j7WTaBF1vUE3
- aMaCxykDMQcWSMPAwPfWmzFn7yeoe4CJ0WiYwsraOCxljPtDO7P1TweXReJV9z1LdH5UperHsw3
- BkkA1sWQ6QYxJqCTr51ufUek0nlaX928dBdtIHrth4Rd0mgTqa3gE8DSvDB2/ED1OMnt2j+BTHh
- 0/E+H2aWzwWvAJgsSHTVTq/5ZnFF7bcR5Gw56RJ5RYGY+Y5BEruVgt5uRnkyIMkkQ8wnOYsl4nG
- ZRpwLYmjOYhkW9b49ib5Z4F9j3oG+ATTVp9N6eE1iuK3RDJPgapzPHW3M+UXjxgHmc4Jyv5HOFu
- Tph11D6CDzE5sl0Xgd+0DStY88lyhg==
-X-Proofpoint-GUID: SfHaCzs1pmccYvL6scFQYPriUknlER1O
-X-Authority-Analysis: v=2.4 cv=bbBmkePB c=1 sm=1 tr=0 ts=69145a9f cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDA4MSBTYWx0ZWRfX7UjSU7Oe5bXC
+ /4+EIxRq4m8jJdBb+HjVVmDevIiTRgtKDrAVgs63i8hYFA6vDPuQ1OksccNETh0i0Ef/p3nFOnz
+ z8+PGBIupC+da3NNmqVhK3NW8UY2QRnRhhVKIE3iZC+6bx4hhFCQtJuYwMEwOy4X6tFqLa7lQjK
+ Orp+mgJ8U1Q1R1lRft+bEm8ZL9Bm7N1fiN1PihOXLmYhErKidPYqPZ9xB532TW2XboahsPG7Sbd
+ klIvaBIQSiWXSZ8puqpJFqplE7eq8qnvn1sGZ0UwRZfDloEGOQM/LoNS9kPAo/mZQh/ToPRt8jE
+ 74APmn8iIRBJuQhiHv63sy2z4xyHwzmH3g6fS8fTKHPsm06ozYfmyGXBwkzkIqI5me7Uiobv4KC
+ o/okfrMmfqGH8HwVe0Slky+ydb/ayw==
+X-Proofpoint-GUID: uu5r2dEk9JQJuwN27it4Gioimv3bZVrS
+X-Proofpoint-ORIG-GUID: uu5r2dEk9JQJuwN27it4Gioimv3bZVrS
+X-Authority-Analysis: v=2.4 cv=KeTfcAYD c=1 sm=1 tr=0 ts=69145c75 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=yXIK2swZwOVbrSwllKgA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: SfHaCzs1pmccYvL6scFQYPriUknlER1O
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=FVkm2KtGXHSZZ5XTrLgA:9
+ a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-12_03,2025-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 phishscore=0 spamscore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2511120079
+ phishscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 suspectscore=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511120081
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,44 +159,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/11/25 4:10 PM, Akhil P Oommen wrote:
-> On 11/7/2025 2:28 PM, Konrad Dybcio wrote:
->> On 11/6/25 9:50 PM, Akhil P Oommen wrote:
->>> From: Jie Zhang <quic_jiezh@quicinc.com>
->>>
->>> Add support for Adreno 612 GPU found in SM6150/QCS615 chipsets.
->>> A612 falls under ADRENO_6XX_GEN1 family and is a cut down version
->>> of A615 GPU.
->>>
->>> A612 has a new IP called Reduced Graphics Management Unit or RGMU
->>> which is a small state machine which helps to toggle GX GDSC
->>> (connected to CX rail) to implement IFPC feature. It doesn't support
->>> any other features of a full fledged GMU like clock control, resource
->>> voting to rpmh etc. So we need linux clock driver support like other
->>> gmu-wrapper implementations to control gpu core clock and gpu GX gdsc.
->>> This patch skips RGMU core initialization and act more like a
->>> gmu-wrapper case.
->>>
->>> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
->>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>> ---
->>
->> [...]
->>
->>>  	/* Enable fault detection */
->>> -	if (adreno_is_a730(adreno_gpu) ||
->>> +	if (adreno_is_a612(adreno_gpu) ||
->>> +	    adreno_is_a730(adreno_gpu) ||
->>>  	    adreno_is_a740_family(adreno_gpu))
->>>  		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0xcfffff);
->>
->> Downstream sets this to 0x3fffff, but IDK if having a timeout too
->> large is an issue
+On 11/10/25 5:37 PM, Akhil P Oommen wrote:
+> As per the recommendation, A7x and newer GPUs should flush the LRZ cache
+> before switching the pagetable. Update a6xx_set_pagetable() to do this.
+> While we are at it, sync both BV and BR before issuing  a
+> CP_RESET_CONTEXT_STATE command, to match the downstream sequence.
 > 
-> I reviewed this. It should be 0xcfffff. It looks like the latest tip of
-> kgsl has an incorrect value for a612 gpu.
+> Fixes: af66706accdf ("drm/msm/a6xx: Add skeleton A7xx support")
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index b8f8ae940b55..6f7ed07670b1 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -224,7 +224,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+>  		OUT_RING(ring, submit->seqno - 1);
+>  
+>  		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
+> -		OUT_RING(ring, CP_SET_THREAD_BOTH);
+> +		OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BOTH);
+>  
+>  		/* Reset state used to synchronize BR and BV */
+>  		OUT_PKT7(ring, CP_RESET_CONTEXT_STATE, 1);
+> @@ -235,7 +235,13 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+>  			 CP_RESET_CONTEXT_STATE_0_RESET_GLOBAL_LOCAL_TS);
+>  
+>  		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
+> -		OUT_RING(ring, CP_SET_THREAD_BR);
+> +		OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BOTH);
 
-Thanks for confirming. This patch looks good to me then!
+IIUC downstream doesn't sync here since there's a sync after the LRZ
+flush, but I don't think that's a meaningful difference.
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
