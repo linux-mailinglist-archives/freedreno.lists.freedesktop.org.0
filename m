@@ -2,65 +2,148 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F443C53A20
-	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 18:20:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23683C548B4
+	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 22:07:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDF4F10E091;
-	Wed, 12 Nov 2025 17:20:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60EAE10E127;
+	Wed, 12 Nov 2025 21:07:51 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dvvDkzDV";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GIEr/UXu";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC7B910E091;
- Wed, 12 Nov 2025 17:20:00 +0000 (UTC)
-X-UUID: ceb250d6bfeb11f0a38c85956e01ac42-20251113
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CTE_8B
- HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
- HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
- HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
- IP_UNTRUSTED, SRC_UNTRUSTED, IP_LOWREP, SRC_LOWREP, DN_TRUSTED
- SRC_TRUSTED, SA_EXISTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
- DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
- GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.6, REQID:0bf9be2b-6375-4dc2-9421-be126dd8db82, IP:10,
- U
- RL:0,TC:0,Content:0,EDM:25,RT:0,SF:-30,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:5
-X-CID-INFO: VERSION:1.3.6, REQID:0bf9be2b-6375-4dc2-9421-be126dd8db82, IP:10,
- URL
- :0,TC:0,Content:0,EDM:25,RT:0,SF:-30,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:5
-X-CID-META: VersionHash:a9d874c, CLOUDID:394edc65d7854e1d9a3c2af0a673f48f,
- BulkI
- D:251113011956PDO1GP7J,BulkQuantity:0,Recheck:0,SF:10|66|78|102|850,TC:nil
- ,Content:0|15|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil
- ,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ceb250d6bfeb11f0a38c85956e01ac42-20251113
-X-User: hehuiwen@kylinos.cn
-Received: from localhost.localdomain [(220.202.195.89)] by mailgw.kylinos.cn
- (envelope-from <hehuiwen@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 434298174; Thu, 13 Nov 2025 01:19:55 +0800
-From: Huiwen He <hehuiwen@kylinos.cn>
-To: robin.clark@oss.qualcomm.com
-Cc: sean@poorly.run, konradybcio@kernel.org, lumag@kernel.org,
- abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Huiwen He <hehuiwen@kylinos.cn>
-Subject: [PATCH] drm/msm: fix missing NULL check after kcalloc in
- crashstate_get_bos()
-Date: Thu, 13 Nov 2025 01:19:47 +0800
-Message-Id: <20251112171947.486220-1-hehuiwen@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55EE810E035
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 21:07:50 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5ACIPNoC2087249
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 21:07:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ DWMyaNg51yAfSqWuMQm6DsWh4pCeuwKPEWjNwRpWJFc=; b=dvvDkzDVzUeQRl9f
+ VrapumChgiXe5wG4wMkNAAmc2X+v0HRLKhYGwECmwLn5SDxIJ/dG/L89sSSR45qP
+ ws/IZSe+6bPavyd8gMfbInM3Vv7+zndUAV5zTFh9Y6OpkBqTNSRsaRRbYP5cduFh
+ CWIGmuBHr6CPR6DZ9CP5ozuz6ll0/H859hD/xnRJFd/1ZpqZYXtlIFIachq2RHSu
+ sKXNp8q1MWPTPRoWierLXH2yOCmctffd4K/7zW9wQSi6Q25dXAYbl/036hXGPNTS
+ 6DEQYSJcnphMTKRTv5QBoptmROh+jLflb8MXJeXYwixIjZT1LANQj0T8y7PtViCw
+ gIt9tw==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acygm8dv5-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 21:07:48 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-7a9fb6fcc78so45871b3a.3
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 13:07:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1762981668; x=1763586468;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=DWMyaNg51yAfSqWuMQm6DsWh4pCeuwKPEWjNwRpWJFc=;
+ b=GIEr/UXuPpk1rtx4g3ZNt73b00PXgrJOM9zj7skj3DXanlmpaZa3lOqQC4VThSMIBq
+ YkF53l6gnTOvdJGu2mumXvaGVBIGsf4usL22eYkhepUn1Uk88cwqXz+0lcExmqr2Cg4X
+ 3R4/7y0qod4WXZpkWvQO+yyED7dV+2FaTtvpFOeYiX8SJq+b+JS5V5ue1JP8NtLsQVKX
+ rFOp0oYoMUmKJkyIVIULHHz5kty2gG0bFvjDV7wAZCT6kBureOiGZsdaUpbSfhQ/uQzQ
+ arEizNr8w/wQ9QmuBxoUHp2BHKlUENOr1ehbxIkYAkvUKzG35AYUGAZprGPVsBdCE4Wx
+ oROg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762981668; x=1763586468;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DWMyaNg51yAfSqWuMQm6DsWh4pCeuwKPEWjNwRpWJFc=;
+ b=pd/XC+faEedwtjQFHdMszLBF5CqCLez9iL0/k8aphaveqOU+cQ5ZIZO4RtftjEca7N
+ /Ga17xwW/8ft4YZAVBOv2c9bKknQwrpFYfreNLl9KtdtZtHqShdUfKTduPu2Ra2Hlxuh
+ BR34GSc5XuXhVIg3lVTdJ1pBihxsLXfhaiJg45LNRgc+j4YR9qhsEz+AufdInvy0neYt
+ b9ivVkhgc9m7lkT+ky9BbBWdpSkhBMt1X8/bBIseiZDe/SrUP7RTnZjFBWk/72j7KgkC
+ 1PSX8u2k6/7+fTCpOKHb0jNa1HP68yxLXW6mDyN7WCub4LTI/MXgew+SQJfXq/+jTqdC
+ EPBg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVJrHn2tt3/s8rcaWknEgWbN9M3vrFitjnGn+myhDScAXgqm8kNG4KBHVKj7yEz1ReubfW75hdlNHo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx77hOO1cbG/4oolYjSb/RUyHo97xbg3j4atRn1M9yVucf/3QU+
+ XcOT/vuEqki58zhkP/GBU+p4hD8sr/GBJT4Xe2Iq3mS/wCwUTebNbA+fSvZldT4EHik3QnQ57e0
+ vyhJWineWOD83EBm/xKNtxCxFl7IkUSOS/M4n+D+ojxeqpGnGQw3c8O42YHF7zLEhS4/xNQo=
+X-Gm-Gg: ASbGnct3HyxnlcV3cOuL0pgmT0VwQvVsH5rZcs/4yyKhibtwHkONgrwHkid0tkfkuXF
+ yMM7XsAG0fWR+6wHrfS9l/g2LL8ZS7e4roA0lfPJzm2wGl+jtrRWz+gLAhK5XpJ1L0RfAZE31Y2
+ +UeuEPO/t1k4kPl263w13pIVaLeGqUQ+1RQx0BRAMg48TBDjudkdCBCo9MjjQqgmLkBfAouv8Dc
+ z1cCxz4L69Ai8TZs99c6ibAbvX5NLS5PNrNrvj31tafbi7kCo2jOv7VL5c0owLOH9Fzf9v7yTzo
+ 0aS4gTvsY968MXKAfC7OGEzAV7kEcnLMjnmNZiqIvFmUT7LCGnRRIjRJSo5QxgpzY3TY7C2k37L
+ dL3VC4ZFcs+9dtUjNJVLpFQ==
+X-Received: by 2002:a05:6a00:9508:b0:77f:416e:de8e with SMTP id
+ d2e1a72fcca58-7b7a4edebdbmr4669566b3a.26.1762981667634; 
+ Wed, 12 Nov 2025 13:07:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGKzD5r9VfuhnSBaFB/wMVsbTr573DGBz89wF4dbIOOszP4AA+4sdkCrWHfyRuslYFgh/6AuQ==
+X-Received: by 2002:a05:6a00:9508:b0:77f:416e:de8e with SMTP id
+ d2e1a72fcca58-7b7a4edebdbmr4669532b3a.26.1762981667046; 
+ Wed, 12 Nov 2025 13:07:47 -0800 (PST)
+Received: from [192.168.1.5] ([106.222.234.47])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7b0c9c0874bsm19343016b3a.16.2025.11.12.13.07.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Nov 2025 13:07:46 -0800 (PST)
+Message-ID: <7ece2feb-79ab-478e-936b-607cfda22707@oss.qualcomm.com>
+Date: Thu, 13 Nov 2025 02:37:37 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 17/21] drm/msm/a8xx: Add support for Adreno X2-85 GPU
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, Jordan Crouse
+ <jordan@cosmicpenguin.net>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org
+References: <20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com>
+ <20251110-kaana-gpu-support-v2-17-bef18acd5e94@oss.qualcomm.com>
+ <f9aafd73-fe4a-4399-a0c8-0da1c109283a@oss.qualcomm.com>
+Content-Language: en-US
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+In-Reply-To: <f9aafd73-fe4a-4399-a0c8-0da1c109283a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 7d-amzv1Y_h7s7nmBTdkFuJGFtviC3bU
+X-Authority-Analysis: v=2.4 cv=E/fAZKdl c=1 sm=1 tr=0 ts=6914f724 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=2IP1oaZ8+KUWsYovLW0HHw==:17
+ a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=wj3I1jakp0zn3Am71_UA:9
+ a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-ORIG-GUID: 7d-amzv1Y_h7s7nmBTdkFuJGFtviC3bU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDE3MSBTYWx0ZWRfX9uBwP4AbRI2I
+ QPIkpMncspdbl+J0o+YehbHK8F5ofx4zxnwGa9sI71W7ftKDBCh/sArZT+RjYAfYU20ZOsE3sx5
+ atci33GY/4yuxIFjLt5FV8Q3irpM3+VeN69Qb9wSUOf4dmXnAzm5xsftsZiVkcNMP48kPiWMJDA
+ F1GKVorseC8OfngQC0McCVVKvrW7JDQK0U/THqI93Jq9q5Ih1XvWVmKXQXwq0dvRRUdwROlghsf
+ W7sK5jdR9e3CPcgOICrK9lRsNA/XgaSTe4Ozhnfu1t6TSYXca5QdBcXBzyMM1FKzURoYCh9eH0b
+ 5RikNXXcWhDB/hSJcxugWFA4X2RVFrFrdLv5aR4ZRI5XX1baIA7zrUNgJsAM3SI84idibx4xV6O
+ m/Jy0D/Uzd8eildYabR7F1eDtKqh0Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-12_06,2025-11-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 phishscore=0 suspectscore=0
+ bulkscore=0 impostorscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511120171
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,51 +159,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The crashstate_get_bos() function allocates memory for `state->bos`
-using kcalloc(), but the vmbind path does not check for allocation
-failure before dereferencing it in the following drm_gpuvm_for_each_va()
-loop. This could lead to a NULL pointer dereference if memory allocation
-fails.
+On 11/12/2025 8:11 PM, Konrad Dybcio wrote:
+> On 11/10/25 5:37 PM, Akhil P Oommen wrote:
+>> Adreno X2-85 GPU is found in the next generation of Qualcomm's compute
+>> series chipset called Snapdragon X2 Elite (a.k.a Glymur). It is based
+>> on the new A8x slice architecture and features up to 4 slices. Due to
+>> the wider 12 channel DDR support, there is higher DDR bandwidth available
+>> than previous generation to improve performance.
+>>
+>> Add a new entry in the catalog along with the necessary register
+>> configurations to enable support for it.
+>>
+>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>> ---
+> 
+> [...]
+> 
+>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 131 ++++++++++++++++++++++++++++++
+>>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c     |   3 +
+>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |   5 ++
+>>  3 files changed, 139 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>> index fa3ae725f389..2e5b0573c212 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>> @@ -1625,6 +1625,108 @@ static const struct adreno_info a7xx_gpus[] = {
+>>  };
+>>  DECLARE_ADRENO_GPULIST(a7xx);
+>>  
+>> +static const struct adreno_reglist_pipe x285_nonctxt_regs[] = {
+> 
+> It's certainly not the same silicon, but a830 sets a bunch more regs
+> here and has a lot more comments in kgsl. Could you check if any of
+> these settings are required/beneficial?
 
-Fix this by wrapping the drm_gpuvm_for_each_va() loop with a NULL check
-on state->bos, similar to the safety check in the non-vmbind path.
+This list will see more updates.
 
-Fixes: af9aa6f316b3d ("drm/msm: Crashdump support for sparse")
-Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
----
- drivers/gpu/drm/msm/msm_gpu.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+> 
+> 
+>> +static const u32 x285_protect_regs[] = {
+>> +	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
+> 
+> In case anyone asks, there are simply no registers before 0x8<<2
+> 
+>> +	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
+>> +	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
+>> +	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
+>> +	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
+>> +	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
+>> +	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
+>> +	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
+>> +	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
+>> +	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
+>> +	A6XX_PROTECT_NORDWR(0x0082c, 0x0000),
+>> +	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
+>> +	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
+>> +	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
+>> +	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
+>> +	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
+>> +	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
+>> +	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
+>> +	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
+>> +	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
+>> +	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
+>> +	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
+> 
+> 830 has start=0x03cc6 len=0x1fff but that must be a bug unless a lot of
+> registers have shifted from there.. I see there's perf counters so perhaps
+> perfetto-proofing?
+> 
+>> +	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
+>> +	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
+>> +	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
+>> +	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
+>> +	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
+>> +	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
+>> +	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
+>> +	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
+>> +	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
+>> +	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
+>> +	A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
+> 
+> 830 has len=4 here, with len=6 you can't write to GEN8_SP_NC_MODE_CNTL_2
+> which I think may be useful for UMD
+On A8x, all non-ctxt register configurations are moved to KMD.
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 17759abc46d7..a9b5f5106ebc 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -287,16 +287,17 @@ static void crashstate_get_bos(struct msm_gpu_state *state, struct msm_gem_submi
- 
- 		state->bos = kcalloc(cnt, sizeof(struct msm_gpu_state_bo), GFP_KERNEL);
- 
--		drm_gpuvm_for_each_va (vma, submit->vm) {
--			bool dump = rd_full || (vma->flags & MSM_VMA_DUMP);
-+		if (state->bos)
-+			drm_gpuvm_for_each_va(vma, submit->vm) {
-+				bool dump = rd_full || (vma->flags & MSM_VMA_DUMP);
- 
--			/* Skip MAP_NULL/PRR VMAs: */
--			if (!vma->gem.obj)
--				continue;
-+				/* Skip MAP_NULL/PRR VMAs: */
-+				if (!vma->gem.obj)
-+					continue;
- 
--			msm_gpu_crashstate_get_bo(state, vma->gem.obj, vma->va.addr,
--						  dump, vma->gem.offset, vma->va.range);
--		}
-+				msm_gpu_crashstate_get_bo(state, vma->gem.obj, vma->va.addr,
-+							  dump, vma->gem.offset, vma->va.range);
-+			}
- 
- 		drm_exec_fini(&exec);
- 	} else {
--- 
-2.25.1
+> 
+>> +	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
+>> +	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
+>> +	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
+>> +	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
+>> +	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
+> 
+> This carveout differs slightly vs 830 but I think that's mandated
+> 
+>> +	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
+>> +	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
+>> +	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
+>> +	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
+>> +	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
+>> +	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
+>> +	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
+>> +	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
+> 
+> This differs vs a830 but it's kgsl that has a harmless? logic bug:
+> 
+> { GEN8_CP_PROTECT_REG_GLOBAL + 40, 0x1f400, 0x1f877, 1 },
+> { GEN8_CP_PROTECT_REG_GLOBAL + 41, 0x1f878, 0x1ffff, 0 },
+> { GEN8_CP_PROTECT_REG_GLOBAL + 42, 0x1f930, 0x1fc59, 1 },
+> 
+> (0x1f930 is overwritten)
+
+I think this overlay is intentional to save a protect register.
+Otherwise, we need to use 3 Protect registers to describe this range.
+
+> 
+>> +	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
+>> +	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
+>> +	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
+>> +	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
+>> +	A6XX_PROTECT_NORDWR(0x27882, 0x000a),
+> 
+> These 2 seem to have been changed vs 830 for counters (all good)
+We are not opening up the perfcounters to UMD for A8x at the moment. We
+should think about the UABI for perfcounter before that.
+
+> 
+>> +	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
+>> +};
+>> +
+>> +DECLARE_ADRENO_PROTECT(x285_protect, 64);
+>> +
+>>  static const uint32_t a840_pwrup_reglist_regs[] = {
+>>  	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
+>>  	REG_A7XX_SP_READ_SEL,
+>> @@ -1809,6 +1911,35 @@ static const struct adreno_reglist a840_gbif[] = {
+>>  
+>>  static const struct adreno_info a8xx_gpus[] = {
+>>  	{
+>> +		.chip_ids = ADRENO_CHIP_IDS(0x44070041),
+>> +		.family = ADRENO_8XX_GEN1,
+>> +		.fw = {
+>> +			[ADRENO_FW_SQE] = "gen80100_sqe.fw",
+>> +			[ADRENO_FW_GMU] = "gen80100_gmu.bin",
+>> +		},
+>> +		.gmem = 21 * SZ_1M,
+>> +		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+>> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+>> +			  ADRENO_QUIRK_HAS_HW_APRIV,
+> 
+> No preemption and IFPC - I supopose the smart thing to do before we
+> know things are stable
+
+Right.
+
+> 
+>> +		.funcs = &a8xx_gpu_funcs,
+>> +		.a6xx = &(const struct a6xx_info) {
+>> +			.protect = &x285_protect,
+>> +			.nonctxt_reglist = x285_nonctxt_regs,
+>> +			.gbif_cx = a840_gbif,
+>> +			.gmu_chipid = 0x8010100,
+> 
+> Is this the chip id for the final revision silicon?
+
+Yes. For v2.
+
+> 
+> [...]
+> 
+>> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+>> index ad140b0d641d..d283d0b55623 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+>> @@ -175,6 +175,9 @@ static void a8xx_set_hwcg(struct msm_gpu *gpu, bool state)
+>>  	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>>  	u32 val;
+>>  
+>> +	if (adreno_is_x285(adreno_gpu))
+>> +		gpu_write(gpu, REG_A8XX_RBBM_CGC_0_PC, 0x00000702);
+> 
+> kgsl sets this only when turning on hwcg (bool state in this func) and
+> on a830 family - should we turn this into an A8XX_GEN1 check?
+
+X285 is not strictly Gen1 or Gen2. HW development is not really linear.
+I might update it to GEN2 in future when we add more a8x features. Not sure.
+
+We can revisit this when we add A830 GPU.
+
+-Akhil.
+ >
+> Konrad
 
