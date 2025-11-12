@@ -2,122 +2,148 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41D78C52966
-	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 15:00:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 658E6C52C30
+	for <lists+freedreno@lfdr.de>; Wed, 12 Nov 2025 15:41:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03F1610E746;
-	Wed, 12 Nov 2025 14:00:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3874410E74C;
+	Wed, 12 Nov 2025 14:41:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YZ0FyE35";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jqI73YUP";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bmUxz52/";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VlGAO26/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF72B10E747
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 14:00:49 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3353710E74C
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 14:41:15 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5ACDsCiL1314289
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 14:00:49 GMT
+ 5AC9CckZ510360
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 14:41:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=pFBpxvCThnvTjNirIlaCiwpE5flozd6oDfK2MM6c4Bc=; b=YZ
- 0FyE35DJvhsctetv+GZA8d1/C4lvdQEfA3egCJ3nsIXAUrl3WEDcaAMK+tCUm4OA
- W1F+D/489qT7pQqR3I6pWkn4gh19aYk2pU+kxaxo6DbAnnCQHz3/CuqVZXCzVn+F
- a7zHSSYvd+gNv2I7a6UY6wG3QYrsMC4Noogdaa/yku6pFWVMVIYo3atzE9I3agug
- LcsMu2d/+E7xQ/etXeTThjfgRMtIFMoDmHSngwc/h4GlAv9txoZA+ywdtkMXPri5
- 4AbQgCCfu4sZ1b34/Eu2pniR8jzlwIMuxn/Im0+QRsSfJZ9nrvlLEvIcsOE2t7CD
- 1oKaWhHhbMdbZv/MSWrQ==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
- [209.85.161.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acuhg00mr-1
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UD4Gbr1H+DyzPCYqHbTvNAKVexCnZ/nezzgxwkeMezY=; b=bmUxz52/Iw9SLV8Q
+ cDUdlkCUELernVB3ZD4vXVxAzAyfyjHPRV4xCAJlngjnNUtOc6Byq2KNxi/tStqf
+ CUjtiJ4fgX8eoTQr8IhP2KGRNEbmNq9E0TB84wQeSeq/XADx+e2QFXlfG84dcuKP
+ S59yKXRaZnAY8alRrsu5X6zO7UPeoknhBNj1DtSAvUVoynzuEYF1Uho/cnPF5fpr
+ 8g9KVjP22Xq1igkVAhGzApngqZH3YVbgg743xPFI5G9v4SD0h47Xd6ujpigal5he
+ jsAHEPMCgLDJXPhTBBNZvtId/HyXLidtmdlWv/KeeBvaA2aD2zBv3FQT65VSG2Nz
+ My7pdw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acqdgh2a5-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 14:00:49 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id
- 006d021491bc7-656de6cff6fso1130826eaf.3
- for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 06:00:49 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 14:41:14 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4edaa289e0dso3211261cf.3
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Nov 2025 06:41:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1762956048; x=1763560848;
+ d=oss.qualcomm.com; s=google; t=1762958473; x=1763563273;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=pFBpxvCThnvTjNirIlaCiwpE5flozd6oDfK2MM6c4Bc=;
- b=jqI73YUPfmqsgWy1KwupAIG08BJytolGxMu9asObDerSQofjYsz4ciCLhapIPkoOg8
- D7HZuY+K4rpZ4OG9abbgIBVHmovyLL0nRWtqjAg2fx4rS34LLJCZm5Rp/HcEEkxlwPac
- prgfjVJpzV+83SRt5FRkTN9R98NruvUhu8j3JwUYx7tZSQ56IPkwzEJQPPEPsQJQtf9S
- fRn/+MHPwQOqBBTxCrmynuK+i/bUGa3DwK0K3GQcy+qgOo7XhQvt+WdPQ9YplRc9EXSZ
- 5mlj2saV5snx/IUyjvka/OKfM6brd5JE2Xqm8163ylaJL/6H8vBAA3aw/lRxbRHj3SO8
- 1FwQ==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=UD4Gbr1H+DyzPCYqHbTvNAKVexCnZ/nezzgxwkeMezY=;
+ b=VlGAO26/lDMUHKUohuZEJQs2Ix+m/tb31bOzMRq87gQShcM+oWrCs3/SLBJuJZypm1
+ CyHFfUlw6zy+K1SAcPKuoGpjwJ8qYGZCIdjH48A4Iwhbwj9o8vSH3GQHxtiRK5kSS7se
+ Bw0pSFfO2jTA6ENws64NqvQ20iNeTyISx7Gnyd/IB6NByw4ajSLwOfcRJAgXQng2TYYP
+ kPCpiuLAtGr4pSfLi4+NiqCKMkz63471UskutICOALZ7dNYQ0ahURsE2iBIp8jbLxTGB
+ dpt+L6/Z2Ak0Ya8/UtFR45VcxXsmvP7jTfwOh4KGRXuCqub6ID0thQx8NJSZzNrvX7lJ
+ ihEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762956048; x=1763560848;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pFBpxvCThnvTjNirIlaCiwpE5flozd6oDfK2MM6c4Bc=;
- b=AnhNKXA9OlV4nCIh5kzldjmGnRKuLUPG85AaJcxRq3FsDJ/W2S2xp4I72beFJye2Bq
- A2d0suNJbF68SfO8/E585GDv4xQKMnu8oES16WzrWoi7WtSNcCMSK2G0R1lU9TFmLI8F
- yoTrpYbfSLLon/NZBbb8fmB4cvQRyG6+5wQB9+jXXQKPUQRqYiOBxyKTAbv6N1mSbTpi
- siPYwHW8lhqbsaAysFzui7mxO9d5hBuiQutDaN6mcB0M0UaKmnFbcRYM4sAEr1iCymkP
- Lma8117aZd3m7Nv120af49pgPSHi8TjPbtoRKLzPi1EauQinODDbt6zdDyi5VF1BEJRf
- LmPw==
+ d=1e100.net; s=20230601; t=1762958473; x=1763563273;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=UD4Gbr1H+DyzPCYqHbTvNAKVexCnZ/nezzgxwkeMezY=;
+ b=qqKp2VkbN0pEypVD3EPyE3sY4DP16jketg8pOJKvwgrPcV3Bqml9BeQ0jpX8CZBXiy
+ RlwnZgrlsfF0MVdlGVT29SrRmCCAF0j3mz78T5j63x8vzC5ejDK7NFK8hSy3AfFuJLnV
+ TYqLtkoo9dG1Rp2cFaP/6j85ROAC1dznjbcQBnuK6TT2BT1TZlsfC3J5DKJSoYO+73lf
+ lQmMUoE3OZ4OFEVIPQK8p8Dcja69CHtblTuSsa4OYgv+q/6/RGtWVfww7H2CViJcULxm
+ 6bFCW89JSkt/bsjhbDfmQeLdsZspapxi168JNhu01zIa+eYhivJWzo2kk4XNYwryjM9U
+ 5oAg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXPxMXYEAY/xkDz65o3+DoODSSlGwlYf+8eLwjNITiYCPPLGt7Ls0OxNAcJP/GCcM9IZPXb+/pI4hw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVor9gbYdK3R4IIGuBTqAkKKUp/O9chDXUdd3hA6u9/9wx4IDB
- 76V66bdk+/9t/74FtJevI/CXWNXirtaRz0riqyGRU2lVoGvfIAbpQeotLulnciu3Tu+sm08BL5F
- L3YBdUyOEiRaRv8aS1787pc7TcFPFk6gKiWQ68611T1fe+JqqUsJI2R0kDlPI1rH/lAH3lLzzzG
- ioBMkHgaD1hIE7MAzO0QFzBDpW/Te/9DaF7X+liX/ooCS4ePqZKpylyQ==
-X-Gm-Gg: ASbGncvp0z3aDtg5FWeZJwHyEboGQKx8B1QuBUOYutfZ5gygDArqIrKcO54H7Mp/3rc
- S6W8C8uPuqjL8hWrYTLtAe0OxzkjuS07PPv8bh/pEqgu7lL6shNb8ORrPcQPBKqmYoWkie5RWcb
- PqSklcApofTjeM4A+GoYytGtSisPatwx6CXQfxyHmLrFdIghbIubiDUEEaO9MrCOyRyk1B7CD1s
- eJS2ylUGDqO1/A=
-X-Received: by 2002:a05:6808:1b12:b0:450:507:c77d with SMTP id
- 5614622812f47-450744c0bd4mr1438123b6e.2.1762956048313; 
- Wed, 12 Nov 2025 06:00:48 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGH96c1EnT3cd13kxATKATzWmWR3BVJ09jffO+pUV8+0w4fuulnyNcRl+pIMD8xQH7UGqOY2SEAhMOOnfhadkY=
-X-Received: by 2002:a05:6808:1b12:b0:450:507:c77d with SMTP id
- 5614622812f47-450744c0bd4mr1438095b6e.2.1762956047813; Wed, 12 Nov 2025
- 06:00:47 -0800 (PST)
+ AJvYcCVKjlEaY0WZy1hYyOvk9yplbLZ+aeVV1rBY7XEPYCM+IuLNrZHHU4FJRY2PebrNFM/WcFWYzxKbMqM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyz4hBPo++YFqCiVm9Jr0VechjrQWFSyeDXVwaqMOw6Uyvq6vpq
+ xFi69YOAz201rsjOfUppdRB/rjKMVbKSN+XJFhx67Lvs+rsWP1WdWhmIMaDGiV6thIVPJw2eJZE
+ oaIw6GXj9ktqEdZ2ZwPyO7lZedMPW6rackJtIo36ttm8sIczlrePkQCl+R1JEU1TFwWPbWhg=
+X-Gm-Gg: ASbGncslzrofArX8rmW5wEJzMu3Mj4gCAF/kcbJWjfnosKAB6sO3mQC3tfOmPMVHAI/
+ THicR+Y2EQzSKXjS+LeeIIiCJihtXwgdePGNy6mu09YcNSNj/Kk0//Kxde7qmYTT445cCQ3Rk0s
+ TAmTPy31dMd76YcM4WqJgHB7W1pV2l+nlRSE0ClFrO3FmBwdhaPl9opQ36Gqri7DMnmpCi372Cf
+ GotOHgAJ9smvuNujXrqdU2O0SW1MWnWTEYsqpxVy0lHBbDHJcjLzvKtMZJVtnZTH7wSsPAuwtY7
+ i5MGytoGbNMQaGhTD52kpTv1a95kfCVXfWsMKQzFic48eWiT6JTwBHMyHlkl3+Q0zUCWPErs23n
+ wqO+pTPM5fEu3L/JrhbVPMIpggD5yjUYSaagUtjOz5hdfQuAD+U1z0ML/
+X-Received: by 2002:a05:622a:728c:b0:4ed:e2dc:dae4 with SMTP id
+ d75a77b69052e-4ede2dceb1emr8250771cf.0.1762958473431; 
+ Wed, 12 Nov 2025 06:41:13 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGXNVu4MbvjBQmXxL3FDdcuNjCm2cJCAQ1jZODPaFYu8y34KljTh9u/VDha9brFuHl1b+1Ffg==
+X-Received: by 2002:a05:622a:728c:b0:4ed:e2dc:dae4 with SMTP id
+ d75a77b69052e-4ede2dceb1emr8250331cf.0.1762958472880; 
+ Wed, 12 Nov 2025 06:41:12 -0800 (PST)
+Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64169852018sm9952464a12.16.2025.11.12.06.41.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Nov 2025 06:41:12 -0800 (PST)
+Message-ID: <f9aafd73-fe4a-4399-a0c8-0da1c109283a@oss.qualcomm.com>
+Date: Wed, 12 Nov 2025 15:41:08 +0100
 MIME-Version: 1.0
-References: <20251020113708.7403-1-hehuiwen@kylinos.cn>
-In-Reply-To: <20251020113708.7403-1-hehuiwen@kylinos.cn>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Wed, 12 Nov 2025 06:00:37 -0800
-X-Gm-Features: AWmQ_bmSomh-Lqktfo9-_yIT0yuHH5MOogLEutWFwCLiDDcs5TN9J_P3zC898No
-Message-ID: <CACSVV02vOhbW9U-9ZAT3QAh8ZKqr1vyO0sQY7CDRAGrwM997NA@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm: Fix NULL pointer dereference in
- crashstate_get_vm_logs()
-To: Huiwen He <hehuiwen@kylinos.cn>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=NbnrFmD4 c=1 sm=1 tr=0 ts=69149311 cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=G_YO64yXUFrr-ST3v2gA:9
- a=QEXdDO2ut3YA:10 a=k4UEASGLJojhI9HsvVT1:22
-X-Proofpoint-GUID: BTfNGlnLIDUOHkBiKv2Z3Zm6SrdkWOuB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDExMiBTYWx0ZWRfX6JBPpcx84e5P
- iWleaJtvQ4EegsKZiqxnhhiTNfIY7lDDGsajqci1oh7yq5VrLq16ZcMLRB4OMyck2WnMhFHdNBK
- ZzhRcfqz5vKQpgWcnceaF9DRh4ROG5jEvGJkWtUmNOobGzOjhHDStk8d0LSw5ia+CpkTsaQpeT+
- Z8YrZWvYL7qmt/GLKInzopfs55pffq1tYYC4WOPq5uTdkooxWigjFy5sM8QstdnWmPgm3PoBbpV
- FjdQ+EtFZxgfXKpBlAbg13zP9pBKWYKpn1xOaRX7Vq4Sd+frh7YstmQgcgbojIKAsMp8n3Efceh
- bUbS3OIA+kiun7AiYuvyc/90b46osOZ/WXqGmUxnjPFcElRTVK/bFMVntXJqzFJ7wI1enKabA6/
- uHHOKpqO2AhzO3PAeItk0fG1xJgpWw==
-X-Proofpoint-ORIG-GUID: BTfNGlnLIDUOHkBiKv2Z3Zm6SrdkWOuB
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 17/21] drm/msm/a8xx: Add support for Adreno X2-85 GPU
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, Jordan Crouse
+ <jordan@cosmicpenguin.net>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Connor Abbott <cwabbott0@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org
+References: <20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com>
+ <20251110-kaana-gpu-support-v2-17-bef18acd5e94@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20251110-kaana-gpu-support-v2-17-bef18acd5e94@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=dtrWylg4 c=1 sm=1 tr=0 ts=69149c8a cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=BrXyDZ9iCYK2Fy0JuVIA:9
+ a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: p_AjWOF0RIhSswPDdEH4O6fhE8IS2mOY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDExOCBTYWx0ZWRfXx2xLRZX7WDh1
+ ULVOT4l9LUSHtdPZ/Fq8Qy6W+f25QgqbQoPYNbrupkH0jJj5aNSmFjQwTa4hbU2RXeuXVsbRHtZ
+ S5Tw4uzbrUfbOS73qFcc6tibniLoGlrF3cfA3sSJ9ZKJDtxmglrj+Um7jLyzafl6WJKnz5Mwdwv
+ tN4TOxN3sWSxdC1Y1l3mR/B1RDzVZMonPrc+KwIXK7W+iNtL052JGvP2+iL5IV3oadW1D64MjJX
+ 9oHlN0eSlQny7anf49lIM8UjD82Le4655YI6w9TzEtwMt516tdnGFyXJcBCLUbkgHihpKaU+TuV
+ QvGylB7XjwCX/FMbC+HFsmtxEbH1L2OI6w3l4VSCNz8e3RQErnmA0X0QtLo8xTZwHtHxKS2ikHB
+ Ehh8pJzuwQfmpoGOOFjTv81fgc7nzQ==
+X-Proofpoint-ORIG-GUID: p_AjWOF0RIhSswPDdEH4O6fhE8IS2mOY
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-12_03,2025-11-11_03,2025-10-01_01
+ definitions=2025-11-12_04,2025-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 spamscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2511120112
+ priorityscore=1501 lowpriorityscore=0 phishscore=0 clxscore=1015 adultscore=0
+ impostorscore=0 spamscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511120118
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,53 +156,172 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 20, 2025 at 4:37=E2=80=AFAM Huiwen He <hehuiwen@kylinos.cn> wro=
-te:
->
-> crashstate_get_vm_logs() did not check the result of kmalloc_array()
-> before using state->vm_logs. In low memory situations, kmalloc_array()
-> may fail and return NULL, leading to a kernel crash when the array
-> is accessed in the subsequent loop.
->
-> Fix this by checking the return value of kmalloc_array(). If allocation
-> fails, set state->nr_vm_logs to 0, and exit the function safely.
->
-> Fixes: 9edc52967cc7 ("drm/msm: Add VM logging for VM_BIND updates")
-> Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
+On 11/10/25 5:37 PM, Akhil P Oommen wrote:
+> Adreno X2-85 GPU is found in the next generation of Qualcomm's compute
+> series chipset called Snapdragon X2 Elite (a.k.a Glymur). It is based
+> on the new A8x slice architecture and features up to 4 slices. Due to
+> the wider 12 channel DDR support, there is higher DDR bandwidth available
+> than previous generation to improve performance.
+> 
+> Add a new entry in the catalog along with the necessary register
+> configurations to enable support for it.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/msm_gpu.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.=
-c
-> index 17759abc46d7..51df6ff945d2 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -348,6 +348,12 @@ static void crashstate_get_vm_logs(struct msm_gpu_st=
-ate *state, struct msm_gem_v
->
->         state->vm_logs =3D kmalloc_array(
->                 state->nr_vm_logs, sizeof(vm->log[0]), GFP_KERNEL);
-> +       if (!state->vm_logs) {
-> +               state->nr_vm_logs =3D 0;
-> +               mutex_unlock(&vm->mmu_lock);
-> +               return;
 
-You could simplify this by just setting state->nr_vm_logs to zero and
-dropping the other two lines
+[...]
 
-BR,
--R
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 131 ++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c     |   3 +
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |   5 ++
+>  3 files changed, 139 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index fa3ae725f389..2e5b0573c212 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1625,6 +1625,108 @@ static const struct adreno_info a7xx_gpus[] = {
+>  };
+>  DECLARE_ADRENO_GPULIST(a7xx);
+>  
+> +static const struct adreno_reglist_pipe x285_nonctxt_regs[] = {
 
-> +       }
+It's certainly not the same silicon, but a830 sets a bunch more regs
+here and has a lot more comments in kgsl. Could you check if any of
+these settings are required/beneficial?
+
+
+> +static const u32 x285_protect_regs[] = {
+> +	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
+
+In case anyone asks, there are simply no registers before 0x8<<2
+
+> +	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
+> +	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
+> +	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
+> +	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
+> +	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
+> +	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
+> +	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
+> +	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
+> +	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
+> +	A6XX_PROTECT_NORDWR(0x0082c, 0x0000),
+> +	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
+> +	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
+> +	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
+> +	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
+> +	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
+> +	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
+> +	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
+> +	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
+> +	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
+> +	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
+> +	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
+
+830 has start=0x03cc6 len=0x1fff but that must be a bug unless a lot of
+registers have shifted from there.. I see there's perf counters so perhaps
+perfetto-proofing?
+
+> +	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
+> +	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
+> +	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
+> +	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
+> +	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
+> +	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
+> +	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
+> +	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
+> +	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
+> +	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
+> +	A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
+
+830 has len=4 here, with len=6 you can't write to GEN8_SP_NC_MODE_CNTL_2
+which I think may be useful for UMD
+
+> +	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
+> +	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
+> +	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
+> +	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
+> +	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
+
+This carveout differs slightly vs 830 but I think that's mandated
+
+> +	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
+> +	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
+> +	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
+> +	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
+> +	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
+> +	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
+> +	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
+> +	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
+
+This differs vs a830 but it's kgsl that has a harmless? logic bug:
+
+{ GEN8_CP_PROTECT_REG_GLOBAL + 40, 0x1f400, 0x1f877, 1 },
+{ GEN8_CP_PROTECT_REG_GLOBAL + 41, 0x1f878, 0x1ffff, 0 },
+{ GEN8_CP_PROTECT_REG_GLOBAL + 42, 0x1f930, 0x1fc59, 1 },
+
+(0x1f930 is overwritten)
+
+> +	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
+> +	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
+> +	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
+> +	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
+> +	A6XX_PROTECT_NORDWR(0x27882, 0x000a),
+
+These 2 seem to have been changed vs 830 for counters (all good)
+
+> +	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
+> +};
 > +
->         for (int i =3D 0; i < state->nr_vm_logs; i++) {
->                 int idx =3D (i + first) & vm_log_mask;
->
-> --
-> 2.43.0
->
+> +DECLARE_ADRENO_PROTECT(x285_protect, 64);
+> +
+>  static const uint32_t a840_pwrup_reglist_regs[] = {
+>  	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
+>  	REG_A7XX_SP_READ_SEL,
+> @@ -1809,6 +1911,35 @@ static const struct adreno_reglist a840_gbif[] = {
+>  
+>  static const struct adreno_info a8xx_gpus[] = {
+>  	{
+> +		.chip_ids = ADRENO_CHIP_IDS(0x44070041),
+> +		.family = ADRENO_8XX_GEN1,
+> +		.fw = {
+> +			[ADRENO_FW_SQE] = "gen80100_sqe.fw",
+> +			[ADRENO_FW_GMU] = "gen80100_gmu.bin",
+> +		},
+> +		.gmem = 21 * SZ_1M,
+> +		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> +			  ADRENO_QUIRK_HAS_HW_APRIV,
+
+No preemption and IFPC - I supopose the smart thing to do before we
+know things are stable
+
+> +		.funcs = &a8xx_gpu_funcs,
+> +		.a6xx = &(const struct a6xx_info) {
+> +			.protect = &x285_protect,
+> +			.nonctxt_reglist = x285_nonctxt_regs,
+> +			.gbif_cx = a840_gbif,
+> +			.gmu_chipid = 0x8010100,
+
+Is this the chip id for the final revision silicon?
+
+[...]
+
+> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> index ad140b0d641d..d283d0b55623 100644
+> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> @@ -175,6 +175,9 @@ static void a8xx_set_hwcg(struct msm_gpu *gpu, bool state)
+>  	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>  	u32 val;
+>  
+> +	if (adreno_is_x285(adreno_gpu))
+> +		gpu_write(gpu, REG_A8XX_RBBM_CGC_0_PC, 0x00000702);
+
+kgsl sets this only when turning on hwcg (bool state in this func) and
+on a830 family - should we turn this into an A8XX_GEN1 check?
+
+Konrad
