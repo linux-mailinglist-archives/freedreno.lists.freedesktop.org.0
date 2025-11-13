@@ -2,89 +2,152 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B71C3C5644B
-	for <lists+freedreno@lfdr.de>; Thu, 13 Nov 2025 09:29:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B84FBC5694F
+	for <lists+freedreno@lfdr.de>; Thu, 13 Nov 2025 10:27:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 824B010E71A;
-	Thu, 13 Nov 2025 08:29:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87BCA10E7F5;
+	Thu, 13 Nov 2025 09:27:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="oI9oInL8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DZ2znY/d";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i9YbKVVV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E86810E655;
- Thu, 13 Nov 2025 08:29:00 +0000 (UTC)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5AD1hL5f031849;
- Thu, 13 Nov 2025 08:28:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=corp-2025-04-25; bh=L755pfX4QkDpSZyK7BWp0gYkFZGjW
- 0PmXIOXR6FLM6w=; b=oI9oInL877eAM6b8/YFX+pQOAG/i4q+kPdgvySR/9+UF6
- 9h+379hV8zqpWoialvNP1nXA6T/h8DuFqj94Ed4OCZF6IpjYLgE2VGvOPrzfnBZZ
- jr8fvNcJnN83Gep3fncSQK0C8N/m3hrClGJ0vsOcZPAvKL4SOXdlszv/oUoGBcpl
- 7pveHYLNZ1ehRd5vhDkQRTaHGxNpMhrxCdHm2FMNn3BaQ86CSTzhffmScGmyqMLl
- 2makasNqwxH+DlG8EXe3BdojyRJ3KPUi7KLMd8dCeyqi6M8PmnFMOY6XxBVmrU1m
- bZlIus9rqK4CndujKka8d7cVp5rVt3qHG1/hzz7aw==
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4acyra95v6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 13 Nov 2025 08:28:44 +0000 (GMT)
-Received: from pps.filterd
- (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 5AD84fU2005516; Thu, 13 Nov 2025 08:28:43 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 4a9vabt63r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 13 Nov 2025 08:28:43 +0000
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 5AD8SgPq010061;
- Thu, 13 Nov 2025 08:28:42 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id
- 4a9vabt63a-1; Thu, 13 Nov 2025 08:28:42 +0000
-From: Alok Tiwari <alok.a.tiwari@oracle.com>
-To: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, antomani103@gmail.com,
- akhilpo@oss.qualcomm.com, simona@ffwll.ch, airlied@gmail.com,
- marijn.suijten@somainline.org, robin.clark@oss.qualcomm.com,
- sean@poorly.run, konradybcio@kernel.org, lumag@kernel.org,
- abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com
-Cc: alok.a.tiwarilinux@gmail.com, alok.a.tiwari@oracle.com
-Subject: [PATCH] drm/msm/a6xx: move preempt_prepare_postamble after error check
-Date: Thu, 13 Nov 2025 00:28:31 -0800
-Message-ID: <20251113082839.3821867-1-alok.a.tiwari@oracle.com>
-X-Mailer: git-send-email 2.50.1
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0093510E7F5
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 09:27:17 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5AD93BIN3113350
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 09:27:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ hBQHZTyCsz2E3OEb1ZqiRZ3GGm1s7VIXPos3wQ/Oo+o=; b=DZ2znY/dexHHqMHq
+ 9UkWyfkyA6sxniXfSVzQ3mjIGhqO9rwCQKTW75wPB3nlkpUsS0OtYu8UxJQXenRk
+ pcC/7jHqrzkDz1W3+4SVTQy5RvEhR1a1BLews3b1dTMnuu5k0dQ020YVVJy2DVN5
+ sZMi3oF9NrfocKv5ItoZdY74rweVMQxLL2DnVYQHV/b9nofgv98w5BqsQjFYHz4L
+ iDylQbuQi84kF6BdGMY6P+BalSzQ5+T0zJ6ubsI91moQLfbQiSMla/AmjbyqcdGf
+ 5NG/PtPFaRkLM+oxZm3TV4c2B5cWISuXHS5uwwv0W++sQfpde37Bk9ymdiBQgomD
+ 05IFsQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acuw4b915-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 09:27:17 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8b25f8d38efso21294385a.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 01:27:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1763026035; x=1763630835;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hBQHZTyCsz2E3OEb1ZqiRZ3GGm1s7VIXPos3wQ/Oo+o=;
+ b=i9YbKVVVkaOnkg63jUbn6o1lMGJmtGjs0I8TdrJ7ojJxyLRy9xDKUYnR/gMVJLTy+b
+ Y319d76WtZXYurQiFf5rYB5y9t4BxalOWbckxonN/8ShSkOhKcmEQoWI3mQ+wiYxb+u/
+ 53rhXebKuMaGdqdKkpxnzBBaJdK4TZ002oS9lxut6ieBO2Zly7I/nVmWitPVcto0E4QN
+ McjynbUbloz9Kb3oOLWqhlIhaq99LjZYUfKOcDTQJLtPdng0chhTedSKSKH4FLqH1XWW
+ mOc5nGQMuXWaUM1LRlnGqNuokJbKI5cUTh4MG7JN5lPRsmUsd1zNcizEvI+r5+PkyXS7
+ k8AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763026035; x=1763630835;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hBQHZTyCsz2E3OEb1ZqiRZ3GGm1s7VIXPos3wQ/Oo+o=;
+ b=ajrKubfLUVUppeUTq9Y5O8+IBvLSa+ztvqbPAu9ku/o4y4CgUEGLcmICFgcbFamJRX
+ ajowNswvnbFmiMeWvg/I/YUrBrOpWHPVEcmaWgwEqNPq3ERM70ORft+F5z4hNFzCcqKh
+ H1CFonuvgmqlRLU42TESNMsyyLiHgIJ0p+B/IU3N3pMxZJAfdbDJEg+VOnmz+13ltCwU
+ UQlHJzIiKBhpJvrwvDYHo5JoLno1/jQoIi8s6Jdj13NgQmf6T4G2etSZotZhgPHSj6aX
+ FOiU49igWC7/f+NxyYx/SbFo0sC5hKbLiVs157r68rj2eNloYVLIrFSid/JL/A0BJHDI
+ k4JA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUxs+kWnUqH+x+knWQq/KOLnwQF38d9hU7TmC0eLw9I9qfXLs8LN7MANtPU/jm5MoozOH4DtM+ZaZ0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwC3Gm2Zx4E9up387ETZ/JZvmI9e7lAwCmgHi8m9g7ZuwwxCk0T
+ KcQd8A2sftYmx7Ui4pCVj8nGqB6BS6CHB/GllcU/3VCWuFwfGYa9JQF1wqWGyW35fPoIAHWLEjX
+ MWn9FrLolMrDZ8j7bb6o9HxfID+14fC9gWI8v4ZzglBt9Z7H4r99JVez4wgx6hyZo0QcjP5k=
+X-Gm-Gg: ASbGncvWsKEHlKDixGkWFCxluSC18A+UDMu9zgXAMPakXmqclXyOmcg23f7ClohWjUo
+ C4Q2zumu9d5PANtb114KuLFH0jUW/+vqo23RrT2t7kRIK+dve4sHB8R4t+Gl0XIQthx/ITaHyca
+ TnIsHoCSQQ3I92A6826q1qkzlQxT529s68a/HyN/Vw2B+6hOAdHwRjq3n0yaEhz6EG08Q3Sq5fG
+ tDKVN3D+Qgzl+IdyMHU86v8DFKsueftiGao+Q9ypa76bmEv8H/VW4XCnojrw9yoLxzxclW0W28x
+ JFITA/f4/98tpIbqaNX+B1PL0UweGKcqni9F47BVk/DKaizG/cl5/lmtjPpLsc5c/xWJZ/YOzCD
+ Ho3LS7WRlMih7pL+LkMEiR/yOQ/Y6Z0hZeuRBkvY6lTI5VUvvc54Ttcm6
+X-Received: by 2002:ac8:57d6:0:b0:4ec:f9c2:c200 with SMTP id
+ d75a77b69052e-4eddbd957bemr55093311cf.11.1763026034635; 
+ Thu, 13 Nov 2025 01:27:14 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHoZxoEy/JmKlmxIOPZpqL8nflJ1JnawU4oD4ovv9bKA6hPgIGxSwD69qSzkbCaaUf89Ywfyg==
+X-Received: by 2002:ac8:57d6:0:b0:4ec:f9c2:c200 with SMTP id
+ d75a77b69052e-4eddbd957bemr55092921cf.11.1763026034164; 
+ Thu, 13 Nov 2025 01:27:14 -0800 (PST)
+Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6433a4ce83dsm1028106a12.34.2025.11.13.01.27.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Nov 2025 01:27:13 -0800 (PST)
+Message-ID: <d87bea02-1a89-4854-b760-617c3655b287@oss.qualcomm.com>
+Date: Thu, 13 Nov 2025 10:27:09 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/21] drm/msm/adreno: Move adreno_gpu_func to catalogue
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, Jordan Crouse
+ <jordan@cosmicpenguin.net>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org
+References: <20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com>
+ <20251110-kaana-gpu-support-v2-5-bef18acd5e94@oss.qualcomm.com>
+ <28d62905-c191-4c3a-995e-a4146ffce619@oss.qualcomm.com>
+ <12e6f588-e422-4803-ae14-56e5297e564d@oss.qualcomm.com>
+ <os7rpbynyoeolwvbrocx3yrrxzhextx3srywal2i54jj6dw3mw@n6fbt3pzjvj6>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <os7rpbynyoeolwvbrocx3yrrxzhextx3srywal2i54jj6dw3mw@n6fbt3pzjvj6>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 4-NnUdA13EPb_xFNdvvJug5YUGm6Hluo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEzMDA2OCBTYWx0ZWRfX58DLghnmUWHb
+ epHwSTNX9+okzswA/6SQvN6NeFjJij7ORIsjs8F/cENJ4psu7IDlAQ8bM4Zb6afKLgaudDtgJln
+ rS6iagoLquuUlsOndW2VwLk1khKhnD2fA3w5BPjpAzpkrJZqn/kfvNoM3tfv/67gBhGrh2pcuWy
+ VgWqMi5d6hECXcGNXVJYROl2ixshC2FHfCtuLLPRdgqiU8daPokNWVhzyLbJbOlR7Ibg3gF/XxG
+ FA1xKp+aZgdsmoPRfAXVlD3LG0a76wJYqaSm7Uxl9hxnaLRNOIr/l0HZcHbNJ7pD7lIDjWzVGXk
+ P6T8RWi0UslSH6qObT6TXIDzROV6hBPfY1g4ZrWtYkWjF9qSFw0MLCL07AWBUxPl8/aMW1iLurl
+ d1wKxsHXrH03z4QxsV8YQoN7sEzL1w==
+X-Authority-Analysis: v=2.4 cv=F+Bat6hN c=1 sm=1 tr=0 ts=6915a475 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=pBDOg7y053Z06RvWvLkA:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: 4-NnUdA13EPb_xFNdvvJug5YUGm6Hluo
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-12_06,2025-11-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- malwarescore=0
- adultscore=0 bulkscore=0 suspectscore=0 spamscore=0 mlxscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2510240000 definitions=main-2511130060
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDE1MSBTYWx0ZWRfX5sE5d3HnRC0s
- Unohqy4sNW838gfuRybSh/4Lta+QRIcdY9Sy+HE6/OsdZnP06y8x9dFebH3t0r91/JS2YC3lSqH
- Pg3qqzgso+FuFozMmgezE0ky0Afebb9a0rQl/2OV11qQKUiVsG+TZSSF89vY5nUexZNw1YDqdgS
- gz+bg9sLX2TuonkJu3WgGs2rVRoYwd9+xVAXaxDmeDdVS2WnMSdWYfngDTGb6pzCLNPtJ9VcF9p
- oVMg+Dtoqz4N6+48F9KIOcT+MuXJyfed1acmfXxmn5+LorFdNEZF0C2B1WKVAE2o4018NLd2K4F
- iW1nhDVoWo7Z+cTqmPSlgZpxbSJTiJ9FT0dnPJehWjcU5m7kHes631JUXO/CWfLMO3r31Ae/qFU
- rXNMEWRaVHFa3hBr7iF1jOoP3XDMgw==
-X-Proofpoint-GUID: G3sjtzsN5Qw7oFEiQZTzYoGQqQjBRMBi
-X-Authority-Analysis: v=2.4 cv=ILgPywvG c=1 sm=1 tr=0 ts=691596bc cx=c_pps
- a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
- a=6UeiqGixMTsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=yPCof4ZbAAAA:8
- a=KEv1GmVSPCL-WcEB-q4A:9 a=cPQSjfK2_nFv0Q5t_7PE:22
-X-Proofpoint-ORIG-GUID: G3sjtzsN5Qw7oFEiQZTzYoGQqQjBRMBi
+ definitions=2025-11-13_01,2025-11-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 malwarescore=0 phishscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ definitions=main-2511130068
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,38 +163,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move the call to preempt_prepare_postamble() after verifying that
-preempt_postamble_ptr is valid. If preempt_postamble_ptr is NULL,
-dereferencing it in preempt_prepare_postamble() would lead to a crash.
+On 11/13/25 4:38 AM, Dmitry Baryshkov wrote:
+> On Thu, Nov 13, 2025 at 03:32:51AM +0530, Akhil P Oommen wrote:
+>> On 11/12/2025 3:52 PM, Konrad Dybcio wrote:
+>>> On 11/10/25 5:37 PM, Akhil P Oommen wrote:
+>>>> In A6x family (which is a pretty big one), there are separate
+>>>> adreno_func definitions for each sub-generations. To streamline the
+>>>> identification of the correct struct for a gpu, move it to the
+>>>> catalogue and move the gpu_init routine to struct adreno_gpu_funcs.
+>>>>
+>>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>>>> ---
+>>>
+>>> [...]
+>>>
+>>>
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>> index 44df6410bce1..9007a0e82a59 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>> @@ -683,7 +683,7 @@ static const struct adreno_info a6xx_gpus[] = {
+>>>
+>>> Somewhere among this diff, a619_holi needs to have gmu_wrapper funcs
+>>
+>> Could you point me to the holi's devicetree? Currently I see only a610
+>> (sm6115) and a702 (qcm2290) uses gmu_wrapper.
+> 
+> I don't think upstream was ported to SM4350. SM6375 should need the same
+> hook, but I don't know why Konrad didn't enable GPU on that platform.
 
-This change avoids calling the preparation function when the
-postamble allocation has failed, preventing potential NULL pointer
-dereference and ensuring proper error handling.
+I'll try to fire up -next and confirm it hasn't bitrotten.
 
-Fixes: 50117cad0c50 ("drm/msm/a6xx: Use posamble to reset counters on preemption")
-Signed-off-by: Alok Tiwari <alok.a.tiwari@oracle.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-index afc5f4aa3b17..747a22afad9f 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-@@ -454,11 +454,11 @@ void a6xx_preempt_init(struct msm_gpu *gpu)
- 			gpu->vm, &a6xx_gpu->preempt_postamble_bo,
- 			&a6xx_gpu->preempt_postamble_iova);
- 
--	preempt_prepare_postamble(a6xx_gpu);
--
- 	if (IS_ERR(a6xx_gpu->preempt_postamble_ptr))
- 		goto fail;
- 
-+	preempt_prepare_postamble(a6xx_gpu);
-+
- 	timer_setup(&a6xx_gpu->preempt_timer, a6xx_preempt_timer, 0);
- 
- 	return;
--- 
-2.50.1
-
+Konrad
