@@ -2,153 +2,125 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3991C57932
-	for <lists+freedreno@lfdr.de>; Thu, 13 Nov 2025 14:11:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07AB6C581D5
+	for <lists+freedreno@lfdr.de>; Thu, 13 Nov 2025 16:02:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96A3810E810;
-	Thu, 13 Nov 2025 13:11:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D080C10E861;
+	Thu, 13 Nov 2025 15:02:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TOqMaBTs";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YR3suPF8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VRe81eVr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53B3610E806
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 13:11:00 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5ADCTamV3441912
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 13:10:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- DRTlfmcA5G3RNmazWc6q+mJMqfQXqWOCzTyBT64u9rM=; b=TOqMaBTsjWUqDCE5
- HDed8I/iW2bdO1rwLxiMq7m7eb87aqzdumHxxMdVgZ8/CEnauG+fKxWLkRNspXks
- bM24P6wv/5ylAbR/OnXEbcJZ7VUmCaFSW7XylRBDABE5A18wVpNvXt3wrVDCVYBu
- bBiUrn4EVnTECSgSiRVGXRESIrU8cF1oWGyYOiusBeGhnMk5aI4KyfDGHegM4eW9
- qrfjzvuYHqpAvZv0/1Mfbpr4+NOqgHVqaSKtdgRLuWHj+9sT73RLQusyIZ4BZrSu
- vOWUFz6snmp1LvuBpdCipRhcr+7aKiHKnr4DTFsv5QxC+Fv+9CLXTFzHj8P0D5gd
- LN+fBA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ad9789cnd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 13:10:59 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4ed861df509so2827061cf.1
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 05:10:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1763039459; x=1763644259;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=DRTlfmcA5G3RNmazWc6q+mJMqfQXqWOCzTyBT64u9rM=;
- b=YR3suPF8odmmZ0JupPX+5yPRwz5V8KemkbbWzwGm+iF4rSequuOhzU98aRhBitpvlA
- tIu94X7ZG33iyCJc5XVUbHD2xKRHYH+FOXkp0VUEOXzfum1yKnZ1WrHpWqQncItpQ2NV
- mg/sWP6HfqDo3aQtC1DQxh9ASbTs+8ZzwDbjsY2WDQAsD5tAp3kYVPSl9ztjUJ89vC3E
- r6l8/dLsAUg/9TseyhfgOV4Y06E6ucwT71FPKNEC6BNF6mauBN6apANraQtT4zykZScX
- Uiq8RQUEUw866zD4MdMp6eJCAvZYYhs8jyKWLqT1RWJjJaobmlXGpvouvIB0QPy1afBg
- hQ9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763039459; x=1763644259;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DRTlfmcA5G3RNmazWc6q+mJMqfQXqWOCzTyBT64u9rM=;
- b=YuZmVi+ib7xYHh/gk0Tbfgz42Qd3RnGohWh+7XfZUDKrCTgMaB+NJFwK+wVHJDoiaC
- KCwW0tNZzWYxOke1mfCxxSD92+iVh0qCS8n0Oq1RIuhdRjTF+lz51B309Ic8cbaZL8r+
- X/rKvtV7YeIo4JvCXrF7nhAyvJFQZYsg3riIxvD46ClcwwpgpzDizHCSRW5BD4aOLQ6K
- tkYaVMYQ1XwiF/kr2n6I2QZhBdniA8jdF1GN6Y+9PfFDt4f9JN0SEHmwW/wu9yLdLLR/
- mxdwXcLg9vLBm8mPxwDONW4YFK+67Wm+mNAwyyfbi9dEYAUBs4iHxUYyCUWqqpipjX1y
- Njwg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXK+qVJuGh4qP7C1+MeV4E1HEm9/r7TmbknnvQx7zTjTXomLVW19qxmSbr/1ybFsdAEHpOjPW2LWuA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxnuBTaT1Y17IS8LQXllSWf7eQeR1spALqargLFCZVGVUMiHJ9t
- X1fsx5zz6FuWXeo1B4/ds4hFmBziny6eA4Vj+Ekmuse11XZ/qc4fkVtKrOmWPFYa/tDiitbUJLI
- 0u+3gFO7HzVoKn3dgC1C7IFZCOZ39sx72PQt/gmqvTHvrx4N7VzNkJup6u5SSO1Cf9DBhnPE=
-X-Gm-Gg: ASbGncvIYH2vsStkq8pEFDyLJb65SYHLposMEQzJsTlUovNGcsOARYpkO+IYbBsDHVy
- T6yC285owdl6ogSyKP/0DQ9f4m3JSUYSQon0CBAEetwCKHuIAtiMvCiw4pkb0uYSNNzCM74fV6w
- 4lDInmVIuobIaBFV/CWSu91e3Iz60td+3VnVuIg2GCXpUcNqk1BZ6aRlBM92l582C5ACmmqo+2+
- EsGIrwvI1NfBrhSirR6okjcASuqE9H44rT+1uF3U2zhKwj3xoeBLOAdVGj5tmOckjXc5vkoGUIQ
- z7UdBACQ9wTLjTtrC6V/6+IC4eqitzdOIfVn4pnBxGTYux2jFa+qSAvsJ6363xyuUuL/D8KQqn1
- iY8rcZDYsxZmfMOcLlBAuzZJ+AsafjGV6ZSv/XN/sboP4XWTYh2ooKs7O
-X-Received: by 2002:a05:622a:316:b0:4b5:e4dc:1ee5 with SMTP id
- d75a77b69052e-4eddbc3b368mr66675681cf.3.1763039458858; 
- Thu, 13 Nov 2025 05:10:58 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFubAqHtUuJnDF+wjB0W9VlEiOIp1rA9oYXxjeZ4nxOglG6BzzsPMTiYzTMIQ8sTZ3z4gCpOw==
-X-Received: by 2002:a05:622a:316:b0:4b5:e4dc:1ee5 with SMTP id
- d75a77b69052e-4eddbc3b368mr66675131cf.3.1763039458247; 
- Thu, 13 Nov 2025 05:10:58 -0800 (PST)
-Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a498102sm1451965a12.24.2025.11.13.05.10.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 05:10:57 -0800 (PST)
-Message-ID: <2a42b980-c037-4b08-85a0-07f5ca8dcc1e@oss.qualcomm.com>
-Date: Thu, 13 Nov 2025 14:10:53 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/21] drm/msm/adreno: Move adreno_gpu_func to catalogue
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, Jordan Crouse
- <jordan@cosmicpenguin.net>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CABC10E841;
+ Thu, 13 Nov 2025 15:02:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763046162; x=1794582162;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=vx0/Sdb0miwmSnREMEy30Z2f25MQbxHWNPqxk4mpfZk=;
+ b=VRe81eVrxoCBcgzavv3+aNRPrGhNBHEh7nmxzooX0ReTUfIZs8jAxNP4
+ /tX+MOjoLOsdyd/1ZKHTia1TRiGwI6t7WnmqDOz3F6XTm8AjTJgezyfeX
+ 1EeNWEc4NiiAUTLLOymowCHjAjqUrDBTotzOssGvl49sqmIIG7UjEgq7O
+ QDnFA7oN+K309bir8LcArClFjq9EU9US4PZRkzgS/W2OoGG3iVyBnfqxC
+ 0m75w/LEM5KsUEYdEnbfTlaLAIinVZY69V7cM+Klr6/AXvfMp3USRP4Qd
+ 9qGG98IeTPjLKQCJAR+iSREJNr7Du7v37w8CEMsJCdo6BIxeDuQw2Msns w==;
+X-CSE-ConnectionGUID: oP0QdHZAT1ypcvF4d8LUHQ==
+X-CSE-MsgGUID: BEuIt3lTTf6tJ5ZxthVhHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054016"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054016"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 07:02:40 -0800
+X-CSE-ConnectionGUID: LWhFLovNRgWDoJiNm0HUow==
+X-CSE-MsgGUID: nE6QdQs7Rjq7/OOgIgzs2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220324615"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:20 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 008C496; Thu, 13 Nov 2025 16:02:18 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Corey Minyard <corey@minyard.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org
-References: <20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com>
- <20251110-kaana-gpu-support-v2-5-bef18acd5e94@oss.qualcomm.com>
- <28d62905-c191-4c3a-995e-a4146ffce619@oss.qualcomm.com>
- <12e6f588-e422-4803-ae14-56e5297e564d@oss.qualcomm.com>
- <os7rpbynyoeolwvbrocx3yrrxzhextx3srywal2i54jj6dw3mw@n6fbt3pzjvj6>
- <d87bea02-1a89-4854-b760-617c3655b287@oss.qualcomm.com>
- <kwf62e5l5n4pwfmetvhicupj7r6ow46dnlkkluyhl7s5wuazpw@q7vbdi7d6ul3>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <kwf62e5l5n4pwfmetvhicupj7r6ow46dnlkkluyhl7s5wuazpw@q7vbdi7d6ul3>
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v3 00/21] treewide: Introduce %ptS for struct timespec64 and
+ convert users
+Date: Thu, 13 Nov 2025 15:32:14 +0100
+Message-ID: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEzMDA5OSBTYWx0ZWRfXwDPhknf7R6h4
- qqnWLZMEWVRQt2X6LTTl8c+oNPNnkYz/eMqIKKgJlNSvwLgW7CEm0a6lRK4hP0jhquPhbhM0cOI
- mvxhUvfX4V6+ICfDeVw/WNY7Td7+aEinSwdeCQhy0gNVgE7ZSeQBpqe9nrZjBiV1pToJhF+Eupj
- Gp2v3J7x0hArMpV4i9No0clHhoEhc9NjmInixnSAGiAK1Ht32A74IuF6jWpiaDKA/3oKd4akRVg
- A+JoVsvyI9tS1iGiS4Ibx5Bml9LKT9DDyQ5faMyFxP2fQdiKf6Bn+xT1X51cyMDi1PozeTAHE7/
- 4RaHwCUmzL9WDQNHoA6/uf81X9fGmS2Op4Ye1NRGs0GYLzofhPmDxhJkS3z/zK/hA7bQiU3y2J1
- 1MElrX++wqWpajKPoZzTHKJDcX6/TA==
-X-Proofpoint-ORIG-GUID: E1IkNF27oPfnmP3EgFcpJb4_o0o9UFc5
-X-Proofpoint-GUID: E1IkNF27oPfnmP3EgFcpJb4_o0o9UFc5
-X-Authority-Analysis: v=2.4 cv=PIYCOPqC c=1 sm=1 tr=0 ts=6915d8e3 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=WG-851GjljAyzOMNImgA:9
- a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-13_02,2025-11-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
- lowpriorityscore=0 phishscore=0 bulkscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511130099
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,41 +136,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/13/25 1:22 PM, Dmitry Baryshkov wrote:
-> On Thu, Nov 13, 2025 at 10:27:09AM +0100, Konrad Dybcio wrote:
->> On 11/13/25 4:38 AM, Dmitry Baryshkov wrote:
->>> On Thu, Nov 13, 2025 at 03:32:51AM +0530, Akhil P Oommen wrote:
->>>> On 11/12/2025 3:52 PM, Konrad Dybcio wrote:
->>>>> On 11/10/25 5:37 PM, Akhil P Oommen wrote:
->>>>>> In A6x family (which is a pretty big one), there are separate
->>>>>> adreno_func definitions for each sub-generations. To streamline the
->>>>>> identification of the correct struct for a gpu, move it to the
->>>>>> catalogue and move the gpu_init routine to struct adreno_gpu_funcs.
->>>>>>
->>>>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>>>> ---
->>>>>
->>>>> [...]
->>>>>
->>>>>
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>> index 44df6410bce1..9007a0e82a59 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>> @@ -683,7 +683,7 @@ static const struct adreno_info a6xx_gpus[] = {
->>>>>
->>>>> Somewhere among this diff, a619_holi needs to have gmu_wrapper funcs
->>>>
->>>> Could you point me to the holi's devicetree? Currently I see only a610
->>>> (sm6115) and a702 (qcm2290) uses gmu_wrapper.
->>>
->>> I don't think upstream was ported to SM4350. SM6375 should need the same
->>> hook, but I don't know why Konrad didn't enable GPU on that platform.
->>
->> I'll try to fire up -next and confirm it hasn't bitrotten.
-> 
-> Maybe then a patch to enable it too?
+Here is the third part of the unification time printing in the kernel.
+This time for struct timespec64. The first patch brings a support
+into printf() implementation (test cases and documentation update
+included) followed by the treewide conversion of the current users.
 
-I was hoping this would be implicitly obvious
+Petr, we got like more than a half being Acked, I think if you are okay
+with this, the patches that have been tagged can be applied.
 
-Konrad
+Note, not everything was compile-tested. Kunit test has been passed, though.
+
+Changelog v3:
+- fixed a compilation issue with fnic (LKP), also satisfied checkpatch
+- collected more tags
+
+Petr, I have not renamed 'p' to 'n' due to much of rework and
+noise introduction for the changes that has been reviewed.
+However, I addressed the documentation issues.
+
+v2: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
+
+Changelog v2:
+- dropped wrong patches (Hans, Takashi)
+- fixed most of the checkpatch warnings (fdo CI, media CI)
+- collected tags
+
+v1: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
+
+Andy Shevchenko (21):
+  lib/vsprintf: Add specifier for printing struct timespec64
+  ceph: Switch to use %ptSp
+  libceph: Switch to use %ptSp
+  dma-buf: Switch to use %ptSp
+  drm/amdgpu: Switch to use %ptSp
+  drm/msm: Switch to use %ptSp
+  drm/vblank: Switch to use %ptSp
+  drm/xe: Switch to use %ptSp
+  e1000e: Switch to use %ptSp
+  igb: Switch to use %ptSp
+  ipmi: Switch to use %ptSp
+  media: av7110: Switch to use %ptSp
+  mmc: mmc_test: Switch to use %ptSp
+  net: dsa: sja1105: Switch to use %ptSp
+  PCI: epf-test: Switch to use %ptSp
+  pps: Switch to use %ptSp
+  ptp: ocp: Switch to use %ptSp
+  s390/dasd: Switch to use %ptSp
+  scsi: fnic: Switch to use %ptSp
+  scsi: snic: Switch to use %ptSp
+  tracing: Switch to use %ptSp
+
+ Documentation/core-api/printk-formats.rst     | 11 +++-
+ drivers/char/ipmi/ipmi_si_intf.c              |  3 +-
+ drivers/char/ipmi/ipmi_ssif.c                 |  6 +--
+ drivers/dma-buf/sync_debug.c                  |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  |  3 +-
+ drivers/gpu/drm/drm_vblank.c                  |  6 +--
+ .../gpu/drm/msm/disp/msm_disp_snapshot_util.c |  3 +-
+ drivers/gpu/drm/msm/msm_gpu.c                 |  3 +-
+ drivers/gpu/drm/xe/xe_devcoredump.c           |  4 +-
+ drivers/mmc/core/mmc_test.c                   | 20 +++----
+ drivers/net/dsa/sja1105/sja1105_tas.c         |  8 ++-
+ drivers/net/ethernet/intel/e1000e/ptp.c       |  7 +--
+ drivers/net/ethernet/intel/igb/igb_ptp.c      |  7 +--
+ drivers/pci/endpoint/functions/pci-epf-test.c |  5 +-
+ drivers/pps/generators/pps_gen_parport.c      |  3 +-
+ drivers/pps/kapi.c                            |  3 +-
+ drivers/ptp/ptp_ocp.c                         | 13 ++---
+ drivers/s390/block/dasd.c                     |  3 +-
+ drivers/scsi/fnic/fnic_trace.c                | 52 ++++++++-----------
+ drivers/scsi/snic/snic_debugfs.c              | 10 ++--
+ drivers/scsi/snic/snic_trc.c                  |  5 +-
+ drivers/staging/media/av7110/av7110.c         |  2 +-
+ fs/ceph/dir.c                                 |  5 +-
+ fs/ceph/inode.c                               | 49 ++++++-----------
+ fs/ceph/xattr.c                               |  6 +--
+ kernel/trace/trace_output.c                   |  6 +--
+ lib/tests/printf_kunit.c                      |  4 ++
+ lib/vsprintf.c                                | 28 +++++++++-
+ net/ceph/messenger_v2.c                       |  6 +--
+ 29 files changed, 130 insertions(+), 153 deletions(-)
+
+-- 
+2.50.1
+
