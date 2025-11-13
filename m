@@ -2,98 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E988BC56A82
-	for <lists+freedreno@lfdr.de>; Thu, 13 Nov 2025 10:43:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D543C56C87
+	for <lists+freedreno@lfdr.de>; Thu, 13 Nov 2025 11:16:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4E0610E34C;
-	Thu, 13 Nov 2025 09:43:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9E8010E345;
+	Thu, 13 Nov 2025 10:16:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UA1XHHHd";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G2k+bp7i";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="f5DuOwsB";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CX/oVccL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9621510E34C
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 09:43:00 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 496DA10E33C
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 10:15:59 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5AD4wpXI3336970
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 09:42:59 GMT
+ 5AD97MBl2962633
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 10:15:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- omyFsDM0eGj29Q1WT1EzsONp+JQNaIFi05rWWj2fj0k=; b=UA1XHHHd06fGc5oj
- UDE+8yWJZUDMpUakkDIBVnZ0jGSLIw1/LrjbR4g9fysnT0ovoqWOW3Ndpc7EpCbb
- HGdAgKMXxXnmD+Cc2QrNEqE+ucptu0uYQ0uHQ1xWmVTsw2TL6sAFykqfnhw2w9T+
- KjDzxSIR32k7vnh1wz1Rlhi5UvNBFaYzkMed/JBioNpx3Tf3bq6XtX3O925XHiML
- 7Lm4wL6pT6JfytKQ5RepsV03igwJVXDuZGar3glhxLxtkhNoBYuSFs8VMSF3BTxJ
- yadKRTeBB63jFiY3i/ojJyr1bMOmIm6W8Kvmkf7oRVSYdY8akmubSoVY/UdiKZYN
- L06QZw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ad8sa0vnr-1
+ JvCSjp0KOt/6f6FBApM09wUVTIiEbjk59DEEY4ZXJZM=; b=f5DuOwsBWJ0oPJ+7
+ ++1/bYzbYnOZyBwTIJIWwqoyhNJ5WsFSghy5OJPBoG61kMMQiXlg1sGG0njxd/M3
+ +I5c9QK50V1RukgWtcZFN60ZxIu7n1XRRJ1DUQJkkyoybnyq/cAFcWp1GD23r5qy
+ scktDcFNQip6wHIfZtNU38GveonTYxyONtE+7Qk54yaxRQL4xquX//+7XP5JXfm1
+ hyfNp5cYTkRppB/Svc81t+TC+VKy2695vxHIQSUm/RmaR2XjiDjOYzquZxNZTSCA
+ Mcp2NOTcMjJnplxn4M6ro3fG9g2y+O5/9q4xjis1X5OEGp9zamXxJ+InSx+1mOZW
+ dV7RsA==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4acwbpu5h3-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 09:42:59 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4ed9122dce9so808621cf.2
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 01:42:59 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 10:15:58 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-87ff7511178so1651796d6.2
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 02:15:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1763026979; x=1763631779;
+ d=oss.qualcomm.com; s=google; t=1763028957; x=1763633757;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=omyFsDM0eGj29Q1WT1EzsONp+JQNaIFi05rWWj2fj0k=;
- b=G2k+bp7i75sVf+rG2nr72rvPtY2jwCJmO9CFy0rAXxsQPRqW90ynYK/Iw3v2A/m8pk
- JouAbvx7yXC3coueprQP1TDoo8eZkbCxGrZy4jyFGnDlA/CMcf0OmJk14ctLHondJULh
- zs6kUO+dXmqOLgeJTO/MSlzp1mMVFLneyq9JDpcv83MyjT9QC2H2Flz8YgjxClRUVHWm
- VfaDVSYammpOWDDj6hpzf42F5r8Ikp24uZK5E+Eou1847zRnIaQ7/Gxfuj9wZz82ICw/
- gpO9eOv26jeMEcO58vRh7wkpGLESi8yYZsRVZ0CF47vuTk/ovrFcXBjXSXabsLizg0N8
- 1jxw==
+ bh=JvCSjp0KOt/6f6FBApM09wUVTIiEbjk59DEEY4ZXJZM=;
+ b=CX/oVccLnhDcJ/QLyLLFEIJAFnMkV0YPFEk9cgwaYVWTR/LjqHJfDp898c+7ZoU8eY
+ bA6uQAjllmZosfV6L+K18Y8uLNVQsy2eAaWBO1AjfAHARHfrhgiS5Du0df+aKuYB/1oM
+ JsoHW+HC8OEcdnkSzLKbuXDcvsNeqxjrN6xquIp6hKOMupINUbLgk+mnQHVVKbC7IMhZ
+ r6dH5y1r6wcabzDkXIj+Fb8O2myI0YCXZ7QseRf8y9NWWmxGkW2sIhO6Fl1Ch4FcT8+i
+ slcRQQevXL7eXGbpTcsRuDRoABq+3K/jK4Ku/wX6lkctaOUlQLwqRTFxxqVumFHoR1bz
+ nY6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763026979; x=1763631779;
+ d=1e100.net; s=20230601; t=1763028957; x=1763633757;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=omyFsDM0eGj29Q1WT1EzsONp+JQNaIFi05rWWj2fj0k=;
- b=NM5J4l0sIRCLKqa5Opc6Anh08mPNuNHNPBxbFOFTu7QYZ32UkUqlhwg731mPlU/WUy
- 79mU4C2KCdWVZb2ATHXuybzecwax/MER5BSzEw/bnlf9glMhoO9ln0nXLSH/aB9Hp8VT
- 75i0/DK7GfzaWi7qKXYgBLCNaPqnC+SiLmyxbEYfpvKN1CUGb0I77FwrZsW/zZMoNX5c
- HYhu0lV1kiKtGXKA/r8De9oIPZH0CNsJcPf92TcLo1zItuAQ2KEJt9/abf1N9qNx3fLg
- S0LYGa2vCYhErI5WE3TGX+xfT6d6Q/UWnSyCk7mn/Vbo75Em2RmH7M+EUz8jnuqkMJp4
- 0Vrw==
+ bh=JvCSjp0KOt/6f6FBApM09wUVTIiEbjk59DEEY4ZXJZM=;
+ b=JkrVJfzfvLba1BPS9fPmgqKCMtPh7d65jimnj1TyXXs+wq1m639ZryiRm49S2nonYe
+ uBrKrBBb9dM9bB1OLIs8fy+6Lua25GB+BxQQHAWOSaJGrzex4naCwWJAOViaEvIsVdB/
+ e2vx0IXMW3XIEeye7CcWszRHu99/fHJANfzDSAoM3pJc1C8aYID/5WG3xKaIvf6Gstxv
+ aNm/b0haCJRImDlMt9QFM7Znaltc33Al1ISvCmosthGYF0ZvTPyFmPMT8J5rFFvSPc9z
+ KBC8xY4/ibu/wmEev6f2Sooq2gE+glz8/RdQ7EPDI7tO704wYisnyPbV0ztlObIi79zv
+ pHtg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUgq4DsagNllUPhi4IaUePMuvQ4NQ/hqtG8ebpY+jn8mBpUG2OoCwvpu61/iNUEf/otvqgApEw2IEw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEWS8QJW7Uddy7GWDMxaX/moIGdx6wAE7Bv89iAiqc7FTwm9Ru
- HgpBfa+su/Z2xudZfGbgsBr3BVrgRbKf8k1xXbRwZZWb6WkToZ/D+c0qiWgycWhO47+AqB6vwS1
- aPOXTxTUIPlYPDUlJd0LnS+brq7i7XtFoMXlE9zzsWW2wK0NKV7o5jnDw/IHRZ+6Ua+URt1U=
-X-Gm-Gg: ASbGncsSdgvBALuE+7dx2Yw/lU0Gb16dS4pZiRif6gDnBHUukwvIq6+f0h1NBTqk1Jl
- 2/nvVMuQO0quKWh6JW/zlrknRkYJbHG0sI+7+WxpX4TeoE15wXOJZ8ra/BfYHwyZG22b6lT9N1Q
- Ck8Kr/ooH0ZU3lv3/2RMBqibkDpNru1qnpsQg8TrTVTHCnu5DaGullgTMtjlurKz9tcMNxGfkTU
- J4TNSpcAIzRkQBu5xOyr1PSwG0OuNFiW5UWSEQIJUmcOPC9/9L+Jr34NV5YYDpUe7WwdLigWeLQ
- dU4ddutHTqx/wmYLOEcMwE0abC9LzvATAsVKz9OyY9cmA7r9XNLPuyBuDs9qgUt+TXNV0l/dq5A
- 9SNlIUzcVuKbsU4MTpVOAnk0It7xINGWj+5rGiRosAByheHfcBDR/ifMD
-X-Received: by 2002:a05:622a:7908:b0:4ed:e284:4a18 with SMTP id
- d75a77b69052e-4ede2845978mr28815981cf.9.1763026978841; 
- Thu, 13 Nov 2025 01:42:58 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGvKWw3IiL7wkrQy/+jmFVdR2o6TRc+eiHUU5enpTNDh4j+/qHBb66cMr9ZJ4pw+AV310uIfA==
-X-Received: by 2002:a05:622a:7908:b0:4ed:e284:4a18 with SMTP id
- d75a77b69052e-4ede2845978mr28815661cf.9.1763026978200; 
- Thu, 13 Nov 2025 01:42:58 -0800 (PST)
+ AJvYcCWywrkROC6QmzMFb/99ksPa4aLpvcKbL3WV3RdPK6K77fVs9/HW+6Dtl8LwOCCPh9ulRg2j/LgvFBk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxVFi2NIsHr6EPDojhGBRvQ2j14Fv/ABELdyjd4fpao3eBw6u9h
+ 1BZckx3wEfxS8mGP15tIS9vkti5XQDuiA/SKBsGjmdxxoGNV5es91bS2rCKh/qWV8e+0ZfeypIT
+ cEKj1PXbPMlPxa6l3PwoZ1za04h5obRBDX2Xh5zpqqGTQDSr/5KzitC3z6+yAVypE2VGBdoQ=
+X-Gm-Gg: ASbGnctpVVU3Cd4nL3u63GgxrycLNi/iwkXdLI+W8HUua0FFduxF1AXfmzTlUYBGArW
+ ws2ZUYECx/mB+ZpRUTexipvlVxnj/BntTRuT0HMGB/REKQSjURJQqeXhsoVxwvcuvl/vpBi32Ez
+ NTT8/+EY7C7oqJE85WepVi5qQT8BkWyubcv5fmmtSFcJnCuxCkit1Psb5q0ctcDOs/yDg9UJN28
+ RPKb7rTHbOd83z0Qpi71fU2RYxCnOwFmd7MF8Uk9alw4Vxm48BCMotP4znMAgp3INAOUMIFENO+
+ nO+yNwbjw3Mh1LwS2HL5Dc9fLmbTFfHzbfd8RPu26j0qCuFkzfy2pMP5gbqnDfXWdQvKmm9BZjM
+ WlDI6S2gaBTtgWDe5QKdBUsJraP5c7uhJb5QZC0Jb/qcQXtk59fyKm352
+X-Received: by 2002:a05:622a:34e:b0:4e0:b24a:6577 with SMTP id
+ d75a77b69052e-4eddbc813a2mr56579861cf.2.1763028957208; 
+ Thu, 13 Nov 2025 02:15:57 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHYGGvlMlXA3tlMF/ZtGBm8iwPIdQWTrlzVZ71x0zfbAy4zIV6GAjpA4kAum7jiWgiDmmhH8w==
+X-Received: by 2002:a05:622a:34e:b0:4e0:b24a:6577 with SMTP id
+ d75a77b69052e-4eddbc813a2mr56579561cf.2.1763028956628; 
+ Thu, 13 Nov 2025 02:15:56 -0800 (PST)
 Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fdac667sm124168766b.58.2025.11.13.01.42.54
+ 4fb4d7f45d1cf-6433a3d8775sm1137866a12.5.2025.11.13.02.15.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 01:42:57 -0800 (PST)
-Message-ID: <fee56a54-5da0-47a4-b8e3-7ec01e2a1559@oss.qualcomm.com>
-Date: Thu, 13 Nov 2025 10:42:53 +0100
+ Thu, 13 Nov 2025 02:15:56 -0800 (PST)
+Message-ID: <aff7043c-0029-433c-9340-22718909e583@oss.qualcomm.com>
+Date: Thu, 13 Nov 2025 11:15:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/21] drm/msm/a6xx: Share dependency vote table with
- GMU
+Subject: Re: [PATCH v2 13/21] drm/msm/adreno: Introduce A8x GPU Support
 To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
@@ -117,34 +116,35 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
  devicetree@vger.kernel.org
 References: <20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com>
- <20251110-kaana-gpu-support-v2-12-bef18acd5e94@oss.qualcomm.com>
+ <20251110-kaana-gpu-support-v2-13-bef18acd5e94@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20251110-kaana-gpu-support-v2-12-bef18acd5e94@oss.qualcomm.com>
+In-Reply-To: <20251110-kaana-gpu-support-v2-13-bef18acd5e94@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: fOAHQ-Uj45RL_r5uhoEzAcN-ZP4Ompvg
-X-Proofpoint-ORIG-GUID: fOAHQ-Uj45RL_r5uhoEzAcN-ZP4Ompvg
-X-Authority-Analysis: v=2.4 cv=dcGNHHXe c=1 sm=1 tr=0 ts=6915a823 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Authority-Analysis: v=2.4 cv=NvjcssdJ c=1 sm=1 tr=0 ts=6915afde cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=DqcpYa4PS6cT72Y9dlEA:9
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEzMDA3MCBTYWx0ZWRfX2XoZ23ncA3V0
- +moEx27Plb8eTdqJYhaN4+8Kvn60HSy4oBf++NoCoB5zhsiQqMJdYQ7k0yRWvCb8JJtvu9OoFpr
- z7OrVg1hvqux9NN3LoWaFIQmadTtCyjuPdQYlQSIEcCJRhaklwJsCk0jyDWbtmtybHiJf6W0F/h
- MfQpV965BldH27CMRfjtFj4oFxElTZPDsZVcozOEDtYSnxnTYQCfXLr5cOjwZOBipoZ+YNpUuFl
- /C4rKZ7M9gY3EUOWpwPEGZ8vn02KQLJsolPC8u5anVeSq+wOjqq008fHcop0+vOVeoWl+afAS+w
- yxicPH1WJapN1H6K4clQ/y+66q3JTXQg0OgLB/JKmpt/IlIwrsdNWXnlZXiSigMVqrqjK0uurI8
- QvtjgB5IFx/YFvclq814R6Bo0Ue4Qw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=WeZqmzoOQpb_IxObF4IA:9
+ a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: S3klbBiiON_4XLOIItiMQr3PfCDs-er2
+X-Proofpoint-ORIG-GUID: S3klbBiiON_4XLOIItiMQr3PfCDs-er2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEzMDA3NSBTYWx0ZWRfX8iZ4pmLNgKHe
+ W878Dr+LT03PgDE+6EkkOWyv2oCrLLWPQtVmst9hdLCTrZt9KXKGTEH4NT/jZqR8ewkkZZyNNj9
+ 6zcKpmIt/lmPxEBTxq715zcld7AD9CVW3dmbQbA5EjJEgJ3D8IazkqDGI4zqUGdzVX3dF0CBVVT
+ 35Et9iQtnerL1jTke1VomVMZ+uZ0haYb8Zm2dnuZBY0GISjo2cnOq8/Go1cqdjRU/OV82fg+R8O
+ H8lIife5fumQNJ2cwQQdGqnnh5x8QDfcs4gHY8Dbfn9jEF3bVIFWYu8KJqPEOpIyMrBotppH42K
+ S7mbnXFEHgKFo0opxN2LL3MnhQswiEh/l29/BXxOpwaenT7k9JVFfwTUzajyu7MEalvkiwd0Lp8
+ PbGCwkBn+BPLk6QR4dIhcD2+8IZ1Pg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-13_01,2025-11-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 clxscore=1015 impostorscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511130070
+ clxscore=1015 spamscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ priorityscore=1501 malwarescore=0 adultscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ definitions=main-2511130075
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,144 +161,261 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 11/10/25 5:37 PM, Akhil P Oommen wrote:
-> A8x GMU firmwares expect a separate vote table which describes the
-> relationship between the Gx rail and MxA rail (and possibly Cx rail).
-> Create this new vote table and implement the new HFI message which
-> allows passing vote tables to send this data to GMU.
+> A8x is the next generation of Adreno GPUs, featuring a significant
+> hardware design change. A major update to the design is the introduction
+> of Slice architecture. Slices are sort of mini-GPUs within the GPU which
+> are more independent in processing Graphics and compute workloads. Also,
+> in addition to the BV and BR pipe we saw in A7x, CP has more concurrency
+> with additional pipes.
+> 
+> From a software interface perspective, these changes have a significant
+> impact on the KMD side. First, the GPU register space has been extensively
+> reorganized. Second, to avoid  a register space explosion caused by the
+> new slice architecture and additional pipes, many registers are now
+> virtualized, instead of duplicated as in A7x. KMD must configure an
+> aperture register with the appropriate slice and pipe ID before accessing
+> these virtualized registers.
+> 
+> This patch adds only a skeleton support for the A8x family. An A8x GPU
+> support will be added in an upcoming patch.
 > 
 > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
 
 [...]
 
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 54 +++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 53 ++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 17 +++++++++++
->  4 files changed, 125 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 8597d7adf2f7..396da035cbe8 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -1591,6 +1591,57 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
->  	return 0;
->  }
->  
-> +static int a6xx_gmu_rpmh_dep_votes_init(struct device *dev, u32 *votes,
-> +		unsigned long *freqs, int freqs_count)
-
-Checkpatch should be grumpy about indentation here
-
-[...]
-
-> +	/* Construct a vote for rest of the corners */
-> +	for (int i = 1; i < freqs_count; i++) {
-> +		u8 j, index = 0;
-> +		unsigned int level = a6xx_gmu_get_arc_level(dev, freqs[i]);
-
-nit: reverse-Christmas-tree would be nice here
-
-> +
-> +		/* Get the primary index that matches the arc level */
-> +		for (j = 0; j < count; j++) {
-> +			if (mx[j] >= level) {
-> +				index = j;
-> +				break;
-> +			}
-> +		}
-> +
-> +		if (j == count) {
-> +			DRM_DEV_ERROR(dev,
-> +				      "Mx Level %u not found in the RPMh list\n",
-> +				      level);
-> +			DRM_DEV_ERROR(dev, "Available levels:\n");
-> +			for (j = 0; j < count; j++)
-> +				DRM_DEV_ERROR(dev, "  %u\n", mx[j]);
-> +
-> +			return -EINVAL;
-> +		}
-> +
-> +		/* Construct the vote */
-> +		votes[i] = (0x3fff << 14) | (index << 8) | (0xff);
-
-FIELD_PREP() + GENMASK, please
-
-[...]
-
-> +static int a8xx_hfi_send_perf_table(struct a6xx_gmu *gmu)
+> +static void a8xx_aperture_slice_set(struct msm_gpu *gpu, enum adreno_pipe pipe, u32 slice)
 > +{
-> +	unsigned int num_gx_votes = 3, num_cx_votes = 2;
-> +	struct a6xx_hfi_table_entry *entry;
-> +	struct a6xx_hfi_table *tbl;
-> +	int ret, i;
-> +	u32 size;
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +	u32 val;
 > +
-> +	size = sizeof(*tbl) +  (2 * sizeof(tbl->entry[0])) +
-> +		(gmu->nr_gpu_freqs * num_gx_votes * sizeof(gmu->gx_arc_votes[0])) +
-> +		(gmu->nr_gmu_freqs * num_cx_votes * sizeof(gmu->cx_arc_votes[0]));
-> +	tbl = devm_kzalloc(gmu->dev, size, GFP_KERNEL);
+> +	val = A8XX_CP_APERTURE_CNTL_HOST_PIPEID(pipe) | A8XX_CP_APERTURE_CNTL_HOST_SLICEID(slice);
 
-devm_ only adds overhead here, there's not even an error-return path,
-go with regular kzalloc/kfree
+There's also a BIT(23) value here which is seemingly never set, but
+perhaps may come in useful for the bigger GPU
 
-> +	tbl->type = HFI_TABLE_GPU_PERF;
 > +
-> +	/* First fill GX votes */
-> +	entry = &tbl->entry[0];
-> +	entry->count = gmu->nr_gpu_freqs;
-> +	entry->stride = num_gx_votes;
+> +	if (a6xx_gpu->cached_aperture == val)
+> +		return;
 > +
-> +	for (i = 0; i < gmu->nr_gpu_freqs; i++) {
-> +		unsigned int base = i * entry->stride;
+> +	gpu_write(gpu, REG_A8XX_CP_APERTURE_CNTL_HOST, val);
 > +
-> +		entry->data[base+0] = gmu->gx_arc_votes[i];
-> +		entry->data[base+1] = gmu->dep_arc_votes[i];
-> +		entry->data[base+2] = gmu->gpu_freqs[i] / 1000;
+> +	a6xx_gpu->cached_aperture = val;
+> +}
+> +
+> +static void a8xx_aperture_aquire(struct msm_gpu *gpu, enum adreno_pipe pipe, unsigned long *flags)
 
-This is essentially struct perf_gx_level with the ACD field recycled
+"acquire"
 
+> +{
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +
+> +	spin_lock_irqsave(&a6xx_gpu->aperture_lock, *flags);
+> +
+> +	a8xx_aperture_slice_set(gpu, pipe, 0);
+
+Maybe we can add "unsigned long flags[MAX_NUM_SLICES]" to a6xx_gpu
+to make the API a little more ergonomic.. but maybe that's too much
+IDK
+
+[...]
+
+> +	a6xx_gpu->slice_mask = a6xx_llc_read(a6xx_gpu,
+> +			REG_A8XX_CX_MISC_SLICE_ENABLE_FINAL) & GENMASK(3, 0);
+
+Please define that field in the XML
+
+[...]
+
+> +}
+> +
+> +static u32 a8xx_get_first_slice(struct a6xx_gpu *a6xx_gpu)
+> +{
+> +	return ffs(a6xx_gpu->slice_mask) - 1;
+> +}
+> +
+> +static inline bool _a8xx_check_idle(struct msm_gpu *gpu)
+> +{
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +
+> +	/* Check that the GMU is idle */
+> +	if (!a6xx_gmu_isidle(&a6xx_gpu->gmu))
+> +		return false;
+> +
+> +	/* Check that the CX master is idle */
+> +	if (gpu_read(gpu, REG_A8XX_RBBM_STATUS) &
+> +			~A8XX_RBBM_STATUS_CP_AHB_BUSY_CX_MASTER)
+> +		return false;
+> +
+> +	return !(gpu_read(gpu, REG_A8XX_RBBM_INT_0_STATUS) &
+> +		A6XX_RBBM_INT_0_MASK_RBBM_HANG_DETECT);
+
+Odd parenthesis-alignment (couple times in the file), checkpatch
+usually mumbles at that
+
+[...]
+
+> +
+> +void a8xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+> +{
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +	uint32_t wptr;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&ring->preempt_lock, flags);
+> +
+> +	/* Copy the shadow to the actual register */
+> +	ring->cur = ring->next;
+> +
+> +	/* Make sure to wrap wptr if we need to */
+> +	wptr = get_wptr(ring);
+> +
+> +	/* Update HW if this is the current ring and we are not in preempt*/
+> +	if (!a6xx_in_preempt(a6xx_gpu)) {
+> +		if (a6xx_gpu->cur_ring == ring)
+> +			gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
+
+I think this should use _fenced too, but I guess the preempt detail
+is just a harmless copypasta
+
+[...]
+
+> +static void a8xx_set_hwcg(struct msm_gpu *gpu, bool state)
+> +{
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+> +	u32 val;
+> +
+> +	gmu_write(gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_MODE_CNTL,
+> +			state ? adreno_gpu->info->a6xx->gmu_cgc_mode : 0);
+> +	gmu_write(gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_DELAY_CNTL,
+> +			state ? 0x110111 : 0);
+
+a840 sets this, a830 sets 0x10111, please confirm which way x2 skews
+
+> +	gmu_write(gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_HYST_CNTL,
+> +			state ? 0x55555 : 0);
+> +
+> +	gpu_write(gpu, REG_A8XX_RBBM_CLOCK_CNTL_GLOBAL, 1);
+> +	gpu_write(gpu, REG_A8XX_RBBM_CGC_GLOBAL_LOAD_CMD, state ? 1 : 0);
+
+!!state
+
+[...]
+
+> +static void a8xx_nonctxt_config(struct msm_gpu *gpu, u32 *gmem_protect)
+> +{
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	const struct a6xx_info *info = adreno_gpu->info->a6xx;
+> +	const struct adreno_reglist_pipe *regs = info->nonctxt_reglist;
+> +	unsigned int pipe_id, i;
+> +	unsigned long flags;
+> +
+> +	for (pipe_id = PIPE_NONE; pipe_id <= PIPE_DDE_BV; pipe_id++) {
+> +		/* We don't have support for LPAC yet */
+> +		if (pipe_id == PIPE_LPAC)
+> +			continue;
+
+This seems arbitrary - one because there are no defines targetting PIPE_LPAC
+specifcally in the reg lists you shared and two because it would almost
+certainly not hurt to configure these registers and otherwise not power up
+the LPAC pipeline
+
+> +
+> +		a8xx_aperture_aquire(gpu, pipe_id, &flags);
+> +
+> +		for (i = 0; regs[i].offset; i++) {
+> +			if (!(BIT(pipe_id) & regs[i].pipe))
+> +				continue;
+> +
+> +			if (regs[i].offset == REG_A8XX_RB_GC_GMEM_PROTECT)
+> +				*gmem_protect = regs[i].value;
+> +
+> +			gpu_write(gpu, regs[i].offset, regs[i].value);
+> +		}
+> +
+> +		a8xx_aperture_release(gpu, flags);
 > +	}
 > +
-> +	/* Then fill CX votes */
-> +	entry = (struct a6xx_hfi_table_entry *)
-> +		&tbl->entry[0].data[gmu->nr_gpu_freqs * num_gx_votes];
+> +	a8xx_aperture_clear(gpu);
+> +}
 > +
-> +	entry->count = gmu->nr_gmu_freqs;
-> +	entry->stride = num_cx_votes;
+> +static int a8xx_cp_init(struct msm_gpu *gpu)
+> +{
+> +	struct msm_ringbuffer *ring = gpu->rb[0];
+> +	u32 mask;
 > +
-> +	for (i = 0; i < gmu->nr_gmu_freqs; i++) {
-> +		unsigned int base = i * entry->stride;
+> +	/* Disable concurrent binning before sending CP init */
+> +	OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
+> +	OUT_RING(ring, BIT(27));
 > +
-> +		entry->data[base] = gmu->cx_arc_votes[i];
-> +		entry->data[base+1] = gmu->gmu_freqs[i] / 1000;
+> +	OUT_PKT7(ring, CP_ME_INIT, 4);
+> +
+> +	/* Use multiple HW contexts */
+> +	mask = BIT(0);
+> +
+> +	/* Enable error detection */
+> +	mask |= BIT(1);
+> +
+> +	/* Set default reset state */
+> +	mask |= BIT(3);
+> +
+> +	/* Disable save/restore of performance counters across preemption */
+> +	mask |= BIT(6);
+> +
+> +	OUT_RING(ring, mask);
+> +
+> +	/* Enable multiple hardware contexts */
+> +	OUT_RING(ring, 0x00000003);
+> +
+> +	/* Enable error detection */
+> +	OUT_RING(ring, 0x20000000);
+> +
+> +	/* Operation mode mask */
+> +	OUT_RING(ring, 0x00000002);
 
-And this is struct perf_level
+Should we include the pwrup reglist from the get-go too? I don't think
+you used the ones you declared in patch 15 (or at least my ctrl-f can't
+find the use of it)
 
 [...]
 
-> +#define HFI_H2F_MSG_TABLE 15
-> +
-> +struct a6xx_hfi_table_entry {
-> +	u32 count;
-> +	u32 stride;
-> +	u32 data[];
-> +};
-> +
-> +struct a6xx_hfi_table {
-> +	u32 header;
-> +	u32 version;
-> +#define HFI_TABLE_BW_VOTE 0
-> +#define HFI_TABLE_GPU_PERF 1
+> +#define A8XX_CP_INTERRUPT_STATUS_MASK_PIPE \
+> +	(A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_CSFRBWRAP | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_CSFIB1WRAP | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_CSFIB2WRAP | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_CSFIB3WRAP | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_CSFSDSWRAP | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_CSFMRBWRAP | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_CSFVSDWRAP | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_OPCODEERROR | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_VSDPARITYERROR | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_REGISTERPROTECTIONERROR | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_ILLEGALINSTRUCTION | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_SMMUFAULT | \
+> +	 A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_VBIFRESP | \
 
-Such defines usually go below the field definition, not above
+kgsl also enables VBIFRESTP(TYPE/READ/LIENT)
+
+[...]
+
+> +	/* Setup GMEM Range in UCHE */
+> +	gmem_range_min = SZ_64M;
+
+this doesn't seem to ever change, you can inline it
+
+[...]
+
+> +static void a8xx_dump(struct msm_gpu *gpu)
+> +{
+> +	DRM_DEV_INFO(&gpu->pdev->dev, "status:   %08x\n",
+> +			gpu_read(gpu, REG_A8XX_RBBM_STATUS));
+
+This can be a single line
 
 Konrad
-> +	u32 type;
-> +	struct a6xx_hfi_table_entry entry[];
-> +};
-> +
->  #define HFI_H2F_MSG_GX_BW_PERF_VOTE 30
->  
->  struct a6xx_hfi_gx_bw_perf_vote_cmd {
-> 
