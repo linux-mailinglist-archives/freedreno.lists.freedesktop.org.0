@@ -2,98 +2,98 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF968C5A951
-	for <lists+freedreno@lfdr.de>; Fri, 14 Nov 2025 00:31:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0CCEC5A961
+	for <lists+freedreno@lfdr.de>; Fri, 14 Nov 2025 00:31:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF6B310E96B;
-	Thu, 13 Nov 2025 23:31:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E07CA10E96C;
+	Thu, 13 Nov 2025 23:31:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dcmpx793";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EO7nrXj8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KGtxKzUH";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VrvHvElO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A04AC10E96E
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 23:31:10 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6246D10E96E
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 23:31:18 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5ADMamGT1629517
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 23:31:10 GMT
+ 5ADMb3VL1494600
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 23:31:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ogd55nO2nJMubbd6drWs5Znn7Ejg1QAMnSKWLgnRFIU=; b=dcmpx79369qnBr4c
- +yDP0pXqwJYJZ3z8L+GDq616nmiqW8Qg2ScL+qoEIf2jnxoIUYZJZaHtOvT/9F72
- 12mzK9VsMrKe3e78AZ/opjEFYnwWS5brVEoy67HQwAoRcjk+fU1Ksg+nn2eD2IZR
- kwoKBY6zD3f3Qs7Zu9mEr1t2nlmVtnKiWxl6VjogbG62ykWpOl6CZzK7nOeb1vzo
- j+7COuUwy1YBGWT2lJGc7yNvu3M2yXzFzszpOo3NLQtL2maeheQhr8JAMgJOSfGZ
- xxtW7dwzoOgmeg0DXAkuGFdAvdprY0WOLiKs+Gy8mhs8wMzWS4LimAD/fyD+ivit
- xbHaLg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4adr9d841v-1
+ CB6S9RVY8vn0wwCs22L7iOojAOJ0e95Ai4UolOq6vfE=; b=KGtxKzUH+J5DQrn+
+ b39dfSRZwLf6w3PqwnzLuD56w9NEAa7HaZLr2mWjRVzZzzwCFoOmPeAbyz7nDD/g
+ gA1v4MOc0aOqQjbfUdWG4JXqjjtvKfunW7IHSKhwphD9XdaS5ic6FueqWpxbM+ji
+ vLl+Un/09Lw/eEzw7GPvvTgzz9sptbc4g6f0zz08qFgHbwMBx960KQp+QgcnfyFc
+ u9CmChwS6XrHHbhuzCl3JHPPRwTZP4OnDZgEGpStQ14pn14lXzUdmtesflaivinD
+ r3bbk5h6SNq6dnm2z9JBP2qCTSU5qVuREnvwECjPk/UH3Epz5tNSmITRRgmDhJYy
+ t1IpMQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4adr9dr467-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 23:31:10 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-b6097ca315bso3104770a12.3
- for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 15:31:10 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 23:31:17 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-7b80de683efso2759822b3a.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 15:31:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1763076669; x=1763681469;
+ d=oss.qualcomm.com; s=google; t=1763076676; x=1763681476;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ogd55nO2nJMubbd6drWs5Znn7Ejg1QAMnSKWLgnRFIU=;
- b=EO7nrXj8rlyVQ9EZshZUiBsTHacnshds1S6S20UyHe9Pzn6IH+jUFVBwMc4sXeKvCY
- icYdgKMjlDFLR7C1o822kqYo+DSirbz5/ccIP0/y/nhIkwzmzBTJYiuCpjWFQC9ZXM/G
- QfurJypetVP1B7zExY7DXaKYe4gI8qiBGEhTDTVBaKX1eGGwl4HSGbQzTiUGLn2WfGxw
- kHCUn+wCftKLsLqDDiqVi2HgdpbUvTq2ZyJlA6c1JYPzsi9PRvdzsAJFPPOqD05nu1as
- tkdgalynWeagFWvMh2C911cpG+Ao5SdmZeZW5w7xvMcAYBpsbdO5j9Fapq1f/LvS0Cc8
- BMuA==
+ :reply-to; bh=CB6S9RVY8vn0wwCs22L7iOojAOJ0e95Ai4UolOq6vfE=;
+ b=VrvHvElORT/HPoOQ0O71ByeN2DDb2h5WYDviBHpIDtdZYHyzlUD4Fp70LOsxkgpp6u
+ 0K1QYXCxujSHOLLyie6h+PM8qAG5w0sPOIEd5bIraejCsBmJhsrigMaP75W1GA5o9ZUm
+ QEt50xjbSJNlWIWdup+l9sA6ep1hvLOUW8I+0WLxbvA9Oqn15rBetQWLXL542Mty8gbV
+ dsdK05iLT7QpyAKRASnFnePtYKOxXkvsFBH64+UJEm6LQkEW4slqe3JpvqfmJPoSKJO2
+ NxEoIdiKmoumYbtjTVRY7NEa58uosL9bt2af5U9ObsUFnvPGXSwOm4kUySUU9PDdmrC/
+ Uz+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763076669; x=1763681469;
+ d=1e100.net; s=20230601; t=1763076676; x=1763681476;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=ogd55nO2nJMubbd6drWs5Znn7Ejg1QAMnSKWLgnRFIU=;
- b=fjbyeO9Lirbxj9B99WIME+qeXkjLWTIYz1Ipeg+HKWfPBIwksr5U8P+qnC4v9vT6pq
- p5j1qnhIHf4ULvB8+V+Z3afR+lFYoPM+H5Tu0fKYuZ0eQ584jDYuJbo7E1RGyHng7e7m
- DdEGRdm+ftlYM7A0up1hSPHRC1oPJEgdUhkZJ9zPa4VLMknSrQymi+sEVAw5FIwXbzyq
- lVHc8i3dYfNNh+tiHPm2ps6SxyicpPPBqA5LeJKzMPUCDVZF9aWiph+vbCq+n/xyaPlc
- e2HF+yuTtazryc9+bYhKT5xm+1Z2tyj5oZ1GoDs0rKqXhgaR/Q+ByxOb1eDthLP4MK/N
- DdkQ==
+ bh=CB6S9RVY8vn0wwCs22L7iOojAOJ0e95Ai4UolOq6vfE=;
+ b=kl9n22foFqkn4Y+LPMoEyxyEVi4VHN3jeKy3RM2OFX6JfKbZZDkH339FN4FRMlMgVk
+ akvLGpSb3+ir/eJpeD1OrBDouoa/Ri4qxcCbwTPzNJQj+uwTvoH8R8j8vyFkqezhaPTc
+ yGANESFmT2hEFW91wV9yBvJE/Z5kG3IKLOGFWAk9xv+AJmRrByqoLWj3hnnTqzo0MGdg
+ xRk9K1hNoV9DRepTDBc41vef5dnINDecHvXirP/gVGth3jNMKjhv94gexlp8UASMfx7a
+ /pJbyPUNGCHpPTjt/Dpk2ZUFw57QycT1IlvgVYAyUoah4DAY5M6ACziXmJcWz+gXZDCb
+ 2hwA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX0kyHODAu9QYtwQatHKd6X1ZHCv8K6X/3pW/BzvdVMnYvYN/C5lUQ+1YkCw/LtC7bhFXlx05BKdNM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yydk8bIPq1c3++e8qzzajPu8s+GevU+9e4Pjs4ZIsaL+8IBebls
- JA1DRRkeBQws2hvRsIHb6il2sgmoIeWFR3wUMs2fOqXWK9pAzDGFeatJ6jj/MuNtVNdmSEVm3Rz
- BOgEDP3MLiKLSsH92tSfESOt+jU7+oXoiBJKBv0K4TDhJrc1mJV7vS9D6uxTiwjrntVOvFoA=
-X-Gm-Gg: ASbGncuoPkIU52bf4//1nNyDSH8/xIV4Q40bovX8brDUBYwE9imobk1HnNwF894FyOx
- niBS2/npfwI7RUU86k28Qjav6gM6gQMM3JcYIBpjhFRSvpFcHy4mFiKdifTWtzXk+3CWm6Yg7TI
- wLZDBIiLQopfUcMHQAIA6edOwynEXGuVzxVmNZT/Vk1elLhknAS0c+hUYZfPIREqtU0okhDkJRk
- JEcLsdqB83mL3jcXBdoh9aNWPT2juzBr4SoRYVDGM8+LZcKFW54Ul8/gEckzKagjCTmqd7m5L7p
- G8/P1UbMARkjFvDdr0ETNl9aj5VdkozpFnDqyz8JAtLhszrZlKZQhj3vi+bNTJoF2fvKAFGGHoj
- huOLB/LWX3IIIyTzywtY9jHw=
-X-Received: by 2002:a05:6a20:3d1a:b0:342:2a1b:86fa with SMTP id
- adf61e73a8af0-35ba1b90665mr1474102637.45.1763076669061; 
- Thu, 13 Nov 2025 15:31:09 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IELj1AccU1iAtNlF/d1rwvp3D0O0GtJ2fmP978ebIYh6+n2bRYHdSZZAqBoSZaQIswf+5R01A==
-X-Received: by 2002:a05:6a20:3d1a:b0:342:2a1b:86fa with SMTP id
- adf61e73a8af0-35ba1b90665mr1474054637.45.1763076668465; 
- Thu, 13 Nov 2025 15:31:08 -0800 (PST)
+ AJvYcCUMGbng2caP+pJInWUJ55sgm2H1+9gFtenlYUzAW3Qmr7yX0wii5ZYPJMtxp3kv4BUEb9owdPPiWMg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzTFDtD03uXB9KvNx0X9gsrGAY5UIFzls0ccjC4vy8b6R+Dw6VU
+ 5BA4O/WBZKlrU7M4oU7yOZF7dU8mB9+l/MXRUmRE/1u6lQsyBZW7jmEidglDR6GdAqLcKc3rArq
+ WfZ7FbZs9dNig2RBYyQXJlzi2Jk0bKFC/xPotNbe2tnE1Jb6qnoRKhU0fUaij3Ks+kLAhIGQ=
+X-Gm-Gg: ASbGncvCGvICziv8KKDhUy5DpNEyOdgjTnWbqKiWO9jfeJHfTlz+2T9aw6cKaJffFrf
+ o+1WZou66k11MXYSG944Nzy1v+KXyH1gkrmh9N/W4bEp6T40Sm8NJPZdBK/XrAgccquqEBQ+qvc
+ 0+cCKC3f60mAN0XduhTBnCV7Bf+weDBMyXEXiyg4Q8gga4pNco/3QOcB7REYw2OI32cxgirW/TH
+ 7oYCVJwyeodv/3C3EFqUDZZlEvQLr1pxH/F7IJ94Z3d7eNCzoPET2eKyqJVmOIc0+iXTeCYHyUn
+ uetl6tRV8x10Tpx4z1KG7padJ3mtlVPhTP1sxVPAQ2Ts/dtc2Q8OBoAsEuCGeixwnP/vno/kdko
+ Mf3cTGmOSUkus5R14DFmADHM=
+X-Received: by 2002:a05:6a20:432c:b0:334:9e81:4e5b with SMTP id
+ adf61e73a8af0-35b9fa7d7a2mr1620114637.5.1763076676433; 
+ Thu, 13 Nov 2025 15:31:16 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHdM1TwSBI7bgq33ThxEnHBZmojfXX5geEyT5PoZRuCcR8MI8vCw1SVH8pAT63wHxcRCPzgVw==
+X-Received: by 2002:a05:6a20:432c:b0:334:9e81:4e5b with SMTP id
+ adf61e73a8af0-35b9fa7d7a2mr1620072637.5.1763076675794; 
+ Thu, 13 Nov 2025 15:31:15 -0800 (PST)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-bc36ed72cd1sm3049486a12.11.2025.11.13.15.31.01
+ 41be03b00d2f7-bc36ed72cd1sm3049486a12.11.2025.11.13.15.31.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Nov 2025 15:31:08 -0800 (PST)
+ Thu, 13 Nov 2025 15:31:15 -0800 (PST)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Fri, 14 Nov 2025 04:59:08 +0530
-Subject: [PATCH v3 11/20] drm/msm/a6xx: Improve MX rail fallback in RPMH
- vote init
+Date: Fri, 14 Nov 2025 04:59:09 +0530
+Subject: [PATCH v3 12/20] drm/msm/a6xx: Share dependency vote table with
+ GMU
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251114-kaana-gpu-support-v3-11-92300c7ec8ff@oss.qualcomm.com>
+Message-Id: <20251114-kaana-gpu-support-v3-12-92300c7ec8ff@oss.qualcomm.com>
 References: <20251114-kaana-gpu-support-v3-0-92300c7ec8ff@oss.qualcomm.com>
 In-Reply-To: <20251114-kaana-gpu-support-v3-0-92300c7ec8ff@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -119,33 +119,33 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
  devicetree@vger.kernel.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1763076574; l=2950;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1763076574; l=6424;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=6xiTxu+QK2g5DX1T1txHhYRR5FauCvoidVNtsUXBMYQ=;
- b=IttmFcbenAkdyewwx77FnOo0XWIhoBfw7cDraxU2XeqU/3OiNFFUAG7R+9K8RedUjOJawDXlp
- Jb4HDun0pjmA42rV3ROB75c/jOtuhSsvRqvyUfDYw/rz2cgt1d0uQGa
+ bh=Q9m5CNKx9FOzxd+4ydSe4NBkO7HUkggyOwY3jdIpxD8=;
+ b=NPkyBRxYexgIIAzKrksfzpRy0u9mDbXENkjhYmm8cIG5w6QdjcjACga2a/91CypC7DfAVDUlE
+ r5RFSeSv+zNAAJGYNDldjht8qM2ircdr6UAw9rn+VDW1ghazd7F40cF
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-GUID: sQtbL8LzkIL8OTXdyCoiry0qsdQD7cYk
-X-Authority-Analysis: v=2.4 cv=Rdidyltv c=1 sm=1 tr=0 ts=69166a3e cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Authority-Analysis: v=2.4 cv=IaiKmGqa c=1 sm=1 tr=0 ts=69166a45 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=feIks7WodE12ze-Om1wA:9
- a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: sQtbL8LzkIL8OTXdyCoiry0qsdQD7cYk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEzMDE4NSBTYWx0ZWRfX87+8Iu++S0VQ
- dFdLljd9DuOS2NGGEPNzoTn0kI7cbA807ioJ6cvrrw7igwZDcJKvcGZ31Pp/XD7Sz+pDfVRnWfF
- 1IqJwkE8PsXFLKgdVRntzx2MT5m8roCx3NmqC/3fVLA8iz9G0g9hNYHJBfBkSXqaaa3nS1l3lLF
- oVRgxVCUELnY8tgueD8Ar8BQWXCJlAjD6W6Ztmxiv4Je4kVCPIfiWlHdxgPcAo/vdRfA0TpIljt
- pgNwsLCsBtqyfwdcvTR2r3Ux9UTd5cN8ptJgk2VkxKa81ilnI2OUoGT6GqAYmqJ3QmpF4bq40/L
- NgTYRmRhXtDiwnr//PWHdx/G+k9P6rgsQ0OXGdsf3nLmZZszwwlRVd8ujadzJjfoVlNKk/dsWqc
- C1hV9Nul7wWUD8fBblDOVdxovcABrQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=jvJuTtenM57zLa_9FEIA:9
+ a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-ORIG-GUID: YObCnjEO2sWyKYsvruztoTSahyLnohgY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEzMDE4NSBTYWx0ZWRfX9hlXiCIN/CYp
+ 2Qys7mQDLvoKmfLStxueeZJ01uDkz8gvQWko8N/4kBcqXJKyaR96wbYT+h6HZ+EU4XylXU+VKug
+ Et02Ufy0uAoejm3Of4+EQRUQDyZc8+pa7xME9PDzhPjUg0PS45/A+AEuvz68WdgJWLaqSmP6+0h
+ ipJ9EvbGOfMq0HrLbJXC37eF8sKCPRbYhemeTT/rrQckz5saCG9Y9eXzLF90Ip3UhloiObikf4u
+ bTLTvArGOsVn+b2npxb8rReUZvVBihHg68k7FebH8XDA/TApKrOKWXd4n2mKytLbs6pufrefP+F
+ Uvsu4bX/dYIPzE7CD7OH7oqezgngEqm9lv/rr7qT9Obn4DljH4YIf/nLGVVQYjofRyylpvqQCBA
+ QTznrVqwM8JLy9AOLA2B8WO79n8J1w==
+X-Proofpoint-GUID: YObCnjEO2sWyKYsvruztoTSahyLnohgY
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-13_06,2025-11-13_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 adultscore=0 impostorscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 priorityscore=1501 adultscore=0 bulkscore=0 phishscore=0
+ clxscore=1015 spamscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511130185
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -163,81 +163,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Current logic assumes that the voltage corners in both MxG and MxA are
-always same. This is not true for recent targets. So, rework the rpmh init
-sequence to probe and calculate the votes with the respective rails, ie,
-GX rails should use MxG as secondary rail and Cx rail should use MxA as
-the secondary rail.
+A8x GMU firmwares expect a separate vote table which describes the
+relationship between the Gx rail and MxA rail (and possibly Cx rail).
+Create this new vote table and implement the new HFI message which
+allows passing vote tables to send this data to GMU.
 
-Fixes: d6225e0cd096 ("drm/msm/adreno: Add support for X185 GPU")
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 54 +++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 53 ++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 17 +++++++++++
+ 4 files changed, 125 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 53461be14dc3..f32e1aba146b 100644
+index f32e1aba146b..158c0cd2d92b 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1518,13 +1518,14 @@ static unsigned int a6xx_gmu_get_arc_level(struct device *dev,
+@@ -1590,6 +1590,57 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
+ 	return 0;
  }
  
- static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
--		unsigned long *freqs, int freqs_count, const char *id)
-+		unsigned long *freqs, int freqs_count,
-+		const char *pri_id, const char *sec_id)
- {
- 	int i, j;
- 	const u16 *pri, *sec;
- 	size_t pri_count, sec_count;
- 
--	pri = cmd_db_read_aux_data(id, &pri_count);
-+	pri = cmd_db_read_aux_data(pri_id, &pri_count);
- 	if (IS_ERR(pri))
- 		return PTR_ERR(pri);
- 	/*
-@@ -1535,13 +1536,7 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
- 	if (!pri_count)
- 		return -EINVAL;
- 
--	/*
--	 * Some targets have a separate gfx mxc rail. So try to read that first and then fall back
--	 * to regular mx rail if it is missing
--	 */
--	sec = cmd_db_read_aux_data("gmxc.lvl", &sec_count);
--	if (IS_ERR(sec) && sec != ERR_PTR(-EPROBE_DEFER))
--		sec = cmd_db_read_aux_data("mx.lvl", &sec_count);
-+	sec = cmd_db_read_aux_data(sec_id, &sec_count);
- 	if (IS_ERR(sec))
- 		return PTR_ERR(sec);
- 
-@@ -1609,15 +1604,24 @@ static int a6xx_gmu_rpmh_votes_init(struct a6xx_gmu *gmu)
- 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
- 	const struct a6xx_info *info = adreno_gpu->info->a6xx;
- 	struct msm_gpu *gpu = &adreno_gpu->base;
-+	const char *sec_id;
-+	const u16 *gmxc;
- 	int ret;
- 
-+	gmxc = cmd_db_read_aux_data("gmxc.lvl", NULL);
-+	if (gmxc == ERR_PTR(-EPROBE_DEFER))
-+		return -EPROBE_DEFER;
++static int a6xx_gmu_rpmh_dep_votes_init(struct device *dev, u32 *votes,
++		unsigned long *freqs, int freqs_count)
++{
++	const u16 *mx;
++	size_t count;
 +
-+	/* If GMxC is present, prefer that as secondary rail for GX votes */
-+	sec_id = IS_ERR_OR_NULL(gmxc) ? "mx.lvl" : "gmxc.lvl";
++	mx = cmd_db_read_aux_data("mx.lvl", &count);
++	if (IS_ERR(mx))
++		return PTR_ERR(mx);
++	/*
++	 * The data comes back as an array of unsigned shorts so adjust the
++	 * count accordingly
++	 */
++	count >>= 1;
++	if (!count)
++		return -EINVAL;
 +
- 	/* Build the GX votes */
- 	ret = a6xx_gmu_rpmh_arc_votes_init(&gpu->pdev->dev, gmu->gx_arc_votes,
--		gmu->gpu_freqs, gmu->nr_gpu_freqs, "gfx.lvl");
-+		gmu->gpu_freqs, gmu->nr_gpu_freqs, "gfx.lvl", sec_id);
- 
- 	/* Build the CX votes */
++	/* Fix the vote for zero frequency */
++	votes[0] = 0xffffffff;
++
++	/* Construct a vote for rest of the corners */
++	for (int i = 1; i < freqs_count; i++) {
++		unsigned int level = a6xx_gmu_get_arc_level(dev, freqs[i]);
++		u8 j, index = 0;
++
++		/* Get the primary index that matches the arc level */
++		for (j = 0; j < count; j++) {
++			if (mx[j] >= level) {
++				index = j;
++				break;
++			}
++		}
++
++		if (j == count) {
++			DRM_DEV_ERROR(dev,
++				      "Mx Level %u not found in the RPMh list\n",
++				      level);
++			DRM_DEV_ERROR(dev, "Available levels:\n");
++			for (j = 0; j < count; j++)
++				DRM_DEV_ERROR(dev, "  %u\n", mx[j]);
++
++			return -EINVAL;
++		}
++
++		/* Construct the vote */
++		votes[i] = (0x3fff << 14) | (index << 8) | (0xff);
++	}
++
++	return 0;
++}
++
+ /*
+  * The GMU votes with the RPMh for itself and on behalf of the GPU but we need
+  * to construct the list of votes on the CPU and send it over. Query the RPMh
+@@ -1623,6 +1674,9 @@ static int a6xx_gmu_rpmh_votes_init(struct a6xx_gmu *gmu)
  	ret |= a6xx_gmu_rpmh_arc_votes_init(gmu->dev, gmu->cx_arc_votes,
--		gmu->gmu_freqs, gmu->nr_gmu_freqs, "cx.lvl");
-+		gmu->gmu_freqs, gmu->nr_gmu_freqs, "cx.lvl", "mx.lvl");
+ 		gmu->gmu_freqs, gmu->nr_gmu_freqs, "cx.lvl", "mx.lvl");
  
++	ret |= a6xx_gmu_rpmh_dep_votes_init(gmu->dev, gmu->dep_arc_votes,
++		gmu->gpu_freqs, gmu->nr_gpu_freqs);
++
  	/* Build the interconnect votes */
  	if (info->bcms && gmu->nr_gpu_bws > 1)
+ 		ret |= a6xx_gmu_rpmh_bw_votes_init(adreno_gpu, info, gmu);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+index edf6c282cd76..2af074c8e8cf 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+@@ -97,6 +97,7 @@ struct a6xx_gmu {
+ 	int nr_gpu_freqs;
+ 	unsigned long gpu_freqs[GMU_MAX_GX_FREQS];
+ 	u32 gx_arc_votes[GMU_MAX_GX_FREQS];
++	u32 dep_arc_votes[GMU_MAX_GX_FREQS];
+ 	struct a6xx_hfi_acd_table acd_table;
+ 
+ 	int nr_gpu_bws;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+index 550de6ad68ef..da113e5b535d 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+@@ -23,6 +23,7 @@ static const char * const a6xx_hfi_msg_id[] = {
+ 	HFI_MSG_ID(HFI_H2F_MSG_START),
+ 	HFI_MSG_ID(HFI_H2F_FEATURE_CTRL),
+ 	HFI_MSG_ID(HFI_H2F_MSG_CORE_FW_START),
++	HFI_MSG_ID(HFI_H2F_MSG_TABLE),
+ 	HFI_MSG_ID(HFI_H2F_MSG_GX_BW_PERF_VOTE),
+ 	HFI_MSG_ID(HFI_H2F_MSG_PREPARE_SLUMBER),
+ };
+@@ -255,11 +256,63 @@ static int a6xx_hfi_send_perf_table_v1(struct a6xx_gmu *gmu)
+ 		NULL, 0);
+ }
+ 
++static int a8xx_hfi_send_perf_table(struct a6xx_gmu *gmu)
++{
++	unsigned int num_gx_votes = 3, num_cx_votes = 2;
++	struct a6xx_hfi_table_entry *entry;
++	struct a6xx_hfi_table *tbl;
++	int ret, i;
++	u32 size;
++
++	size = sizeof(*tbl) +  (2 * sizeof(tbl->entry[0])) +
++		(gmu->nr_gpu_freqs * num_gx_votes * sizeof(gmu->gx_arc_votes[0])) +
++		(gmu->nr_gmu_freqs * num_cx_votes * sizeof(gmu->cx_arc_votes[0]));
++	tbl = kzalloc(size, GFP_KERNEL);
++	tbl->type = HFI_TABLE_GPU_PERF;
++
++	/* First fill GX votes */
++	entry = &tbl->entry[0];
++	entry->count = gmu->nr_gpu_freqs;
++	entry->stride = num_gx_votes;
++
++	for (i = 0; i < gmu->nr_gpu_freqs; i++) {
++		unsigned int base = i * entry->stride;
++
++		entry->data[base+0] = gmu->gx_arc_votes[i];
++		entry->data[base+1] = gmu->dep_arc_votes[i];
++		entry->data[base+2] = gmu->gpu_freqs[i] / 1000;
++	}
++
++	/* Then fill CX votes */
++	entry = (struct a6xx_hfi_table_entry *)
++		&tbl->entry[0].data[gmu->nr_gpu_freqs * num_gx_votes];
++
++	entry->count = gmu->nr_gmu_freqs;
++	entry->stride = num_cx_votes;
++
++	for (i = 0; i < gmu->nr_gmu_freqs; i++) {
++		unsigned int base = i * entry->stride;
++
++		entry->data[base] = gmu->cx_arc_votes[i];
++		entry->data[base+1] = gmu->gmu_freqs[i] / 1000;
++	}
++
++	ret = a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_TABLE, tbl, size, NULL, 0);
++
++	kfree(tbl);
++	return ret;
++}
++
+ static int a6xx_hfi_send_perf_table(struct a6xx_gmu *gmu)
+ {
++	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
++	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	struct a6xx_hfi_msg_perf_table msg = { 0 };
+ 	int i;
+ 
++	if (adreno_is_a8xx(adreno_gpu))
++		return a8xx_hfi_send_perf_table(gmu);
++
+ 	msg.num_gpu_levels = gmu->nr_gpu_freqs;
+ 	msg.num_gmu_levels = gmu->nr_gmu_freqs;
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
+index 653ef720e2da..6f9f74a0bc85 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
+@@ -185,6 +185,23 @@ struct a6xx_hfi_msg_core_fw_start {
+ 	u32 handle;
+ };
+ 
++#define HFI_H2F_MSG_TABLE 15
++
++struct a6xx_hfi_table_entry {
++	u32 count;
++	u32 stride;
++	u32 data[];
++};
++
++struct a6xx_hfi_table {
++	u32 header;
++	u32 version;
++	u32 type;
++#define HFI_TABLE_BW_VOTE 0
++#define HFI_TABLE_GPU_PERF 1
++	struct a6xx_hfi_table_entry entry[];
++};
++
+ #define HFI_H2F_MSG_GX_BW_PERF_VOTE 30
+ 
+ struct a6xx_hfi_gx_bw_perf_vote_cmd {
 
 -- 
 2.51.0
