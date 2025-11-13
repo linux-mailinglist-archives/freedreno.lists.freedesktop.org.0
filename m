@@ -2,273 +2,159 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF9C0C698CE
-	for <lists+freedreno@lfdr.de>; Tue, 18 Nov 2025 14:11:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFD34C5A8CD
+	for <lists+freedreno@lfdr.de>; Fri, 14 Nov 2025 00:29:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A15E10E4A3;
-	Tue, 18 Nov 2025 13:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9454B10E960;
+	Thu, 13 Nov 2025 23:29:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cisco.com header.i=@cisco.com header.b="c8eTXUnC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HZtJVv3J";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gWM79YrT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 425 seconds by postgrey-1.36 at gabe;
- Thu, 13 Nov 2025 22:41:52 UTC
-Received: from alln-iport-5.cisco.com (alln-iport-5.cisco.com [173.37.142.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2203F10E951;
- Thu, 13 Nov 2025 22:41:52 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A18810E960
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 23:29:45 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5ADMajjA1703670
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 23:29:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=SyFk5zcqS7Ph8XKnWlZh2u
+ bVnnsYVplPvWIOQ6aWBiU=; b=HZtJVv3Jh1HkaZRkLJlJberqZysyyYId0dCyI8
+ rAlx1V3ZNjax9rPJO4yOImknFW86sBWiQMNT6Q0XiKiwtgHutZKzxkiNeWnjFkrE
+ wAB0AOBl4eB712bD0nL2bsBFmLr9SQE3f1R1ekxK/nh5BqwFRzIyVeToHgfn4Um6
+ 8RPf5V1PcrlWiJrAM8ehSsly5gFIZe8Ej/laEL+VGNozs9/VG0zdxqj35lPlzAov
+ 6lI5alCvJK9i5ClfVZRNGLQKtjso+4/iobMiFYMiiSKIcajtD6oaShrwOK6UkMD7
+ hf8RZDIB/AlXcegl19UON30vLIp157rQql+irVbUlDUsSprQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4adr9e83u6-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 23:29:44 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-297f48e81b8so26055485ad.0
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Nov 2025 15:29:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cisco.com; i=@cisco.com; l=5367; q=dns/txt;
- s=iport01; t=1763073712; x=1764283312;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=8JVJ68Ci8hH+vA9bF8YiFlkwB1Lv6uIdcNwtst+8pPM=;
- b=c8eTXUnCieKdMxG0CUbcNew+EaOQNgaVbDH493GKQJPnWtxUDL8apmAB
- lpBm077YPq0bHmYrG9aGbErWlrYyXUdm1LA8yg+40mQLpojM5+7VVdUCH
- HJD8cPk5ZTU0VXIg9ag8EUyo3ZI5thLod1GMNkcUMfUPgBH9+V1b2MT9k
- 1Nok0bujkIkpNb/kkmyjuv6jdfVl5FH/Jan7/KQUCSh7OqylyhYG0zNGE
- BLBT5sikt+oJktRJi9Qg9Bu0xC92M32wUyrZmi43xK1MJEQ0AXLG6ism8
- wVSvAjYyyPa224OCV9vVN5w4/6FtTXnco2Oo57ot8uRSbeyWfIt65wRkV w==;
-X-CSE-ConnectionGUID: YTSVUW0tTfCbPUIE7/AuvA==
-X-CSE-MsgGUID: G118re47R8GUKroEzTrCMQ==
-X-IPAS-Result: =?us-ascii?q?A0BAAAByXBZp/5IQJK1aHAEBAQEBAQcBARIBAQQEAQFAJ?=
- =?us-ascii?q?YEYBgEBCwGBbVIHghtJiCADhSyGWIIhA54aFIFrDwEBAQ0CUQQBAYUHAoxaA?=
- =?us-ascii?q?iY1CA4BAgQBAQEBAwIDAQEBAQEBAQEBAQELAQEFAQEBAgEHBYEOE4ZchloBA?=
- =?us-ascii?q?QEBAxIVUhACAQgOCi4xJQIEAQ0FCBqFVAMBAqRLAYFAAooreIEBM4EB4CaBS?=
- =?us-ascii?q?gGIUgGFbjuEPScbgg2BV3mBbz6EKhuEE4IvBIIigQ6GJ3mLYIZjUngcA1ksA?=
- =?us-ascii?q?VUTFwsHBYEgEDMDIAo0LQIUDRASDwQWBS0dcAwoEhAfGBFgVECDSRAMBmgPB?=
- =?us-ascii?q?oESGUkCAgIFAisVOoFoBQEcBhwSAgMBAgI6VQ2BdwICBIIZfoFvGw+JSIEaA?=
- =?us-ascii?q?wttPTcGDhsFBIE1BZQUghNpAT1RgTEMUwQsY5JsCIMjAbAfCoQcog0XhASNE?=
- =?us-ascii?q?4cCklKZBiKodAIEAgQFAhABAQaBaQE6gVlwFYMiUhkPji0WkxsBtUN4AjoCB?=
- =?us-ascii?q?wsBAQMJk2cBAQ?=
-IronPort-PHdr: A9a23:WEvVuhAdVoRfCoohv67+UyQVXRdPi9zP1kY9454jjfdJaqu8us+kN
- 03E7vIrh1jMDs3X6PNB3vLfqLuoGXcB7pCIrG0YfdRSWgUEh8Qbk01oAMOMBUDhav+/Ryc7B
- 89FElRi+hmG
-IronPort-Data: A9a23:QjNwfq2erFPh209V2vbD5eJwkn2cJEfYwER7XKvMYLTBsI5bpzxSz
- jNJWDyPOa6MZWWkKIxxYYjg8EMHvpHcnN5iSQtl3Hw8FHgiRegpqji6wuYcGwvIc6UvmWo+t
- 512huHodZ5yFjmH4E/xbtANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq8wIDqtYAbeORXUXU6
- Lsen+WFYAX4gmctaTpPg06+gEoHUMra6WtwUmMWPZinjHeG/1EJAZQWI72GLneQauF8Au6gS
- u/f+6qy92Xf8g1FIovNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ajs7XAMEhhXJ/0F1lqTzeJ
- OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXcG7lyX7n3XQL/pGPX0NA7AnovpLD0pEz
- cE5BW9KRw2drrfjqF67YrEEasULJc3vOsYb/3pn1zycVadgSpHYSKKM7thdtNsyrpkRRrCFO
- YxAN3w2MEqojx5nYj/7DLo9lf20h332cBVTqUmeouw85G27IAlZjuGwa4aPJI3SLSlTtmnB/
- zLc8jimOEE1Cf+FzheXzmiHo9aayEsXX6pXTtVU7MVCiVifg2MdGDUSVECnur+3kEOzV99EK
- FAT4mwpt6da3ECxT5zxUgO1pFaAvwUAQJxeCeA35AyWybbT+0CeHGdsZjBbZdEqrsIwQhQu1
- 0SVhJXnHzFivLCOSm6a7vGTtzzaESkTMWIGID8JZQ8E+MX45o8pgx/DQ81gDKmtyNrvFlnNL
- yuipSw6gfAXyMUMzaj+pQGBiDO3rZ+PRQkwjunKYl+YAspCTNfNT6Sj6EPQ6rBLK4Pxc7VLl
- CRsdxS2hAzWMaywqQ==
-IronPort-HdrOrdr: A9a23:6QFaW6lX1nfrZ/y3ozsQ1WKBLqfpDfNjiWdD5ihNYBxZY6Wkfp
- +V7ZcmPE7P6Ar5BktApTnZAtj/fZq9z/JICYl4B8bFYOCUghrYEGgE1/qs/9SAIVyzygcz79
- YbT0ETMqyVMbE+t7eE3ODaKadv/DDkytHUuQ629R4EJm8aCdAE0+46MHfmLqQcfng+OXNNLu
- vm2iMxnUvZRZ14VLXdOlA1G8L4i5ngkpXgbRQaBxghxjWvoFqTgoLSIlyz5DtbdylA74sD3A
- H+/jAR4J/Nj9iLjjvnk0PD5ZVfn9XsjvFZAtaXt8QTIjLwzi61eYVIQdS5zXAIidDqzGxvvM
- jHoh8mMcg2wWjWZHuJrRzk3BSl+Coy6kXl1USTjRLY0I/ErXMBeoh8bLBiA1/kAnkbzZZBOW
- VwriSkXq9sfFb9deLGloH1vl9R5xKJSDEZ4J4uZjRkIPgjgflq3M0iFIc/KuZbIMo8g7pXS9
- VGHYXS4u1bfkidaG2ctm5zwMa0VnB2BRueRFMe0/blmAS+sUoJhnfw/vZv1kso5dY4Ud1J9u
- 7EOqNnmPVHSdIXd7t0AKMETdGsAmLATBrQOCbKSG6XWZ0vKjbIsdr68b817OaldNgBy4Yzgo
- 3IVBdduXQpc0zjBMWS1NlA8wzLQm+6QTPxo/suraRRq/n5Xv7mICeDQFchn4+ppOgeGNTSX7
- KpNJdfE5bYXB3T8EZyrnrDsrVpWA0juZcuy6QGsnq107f2FrE=
-X-Talos-CUID: 9a23:zhDel2AvhGzVkqX6Exhbz3ApJZg5TnP2xk/tAmLnTk90VpTAHA==
-X-Talos-MUID: 9a23:QefMOQZqTQnOhuBTmGa11CtvaJhSs4uTK1oKvIc6oeKhDHkl
-X-IronPort-Anti-Spam-Filtered: true
-Received: from alln-l-core-09.cisco.com ([173.36.16.146])
- by alln-iport-5.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384;
- 13 Nov 2025 22:34:45 +0000
-Received: from alln-opgw-3.cisco.com (alln-opgw-3.cisco.com [173.37.147.251])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by alln-l-core-09.cisco.com (Postfix) with ESMTPS id 8F49118000162;
- Thu, 13 Nov 2025 22:34:45 +0000 (GMT)
-X-CSE-ConnectionGUID: GCrkPvmrQQyYT0zT2MC+fg==
-X-CSE-MsgGUID: XijHqBfrRMaTSrqVw0ziAg==
-Authentication-Results: alln-opgw-3.cisco.com;
- dkim=pass (signature verified) header.i=@cisco.com
-X-IronPort-AV: E=Sophos;i="6.19,303,1754956800"; d="scan'208";a="36153306"
-Received: from mail-ch4pr07cu00101.outbound.protection.outlook.com (HELO
- CH4PR07CU001.outbound.protection.outlook.com) ([40.93.20.97])
- by alln-opgw-3.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384;
- 13 Nov 2025 22:34:40 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gzxoebjS9ToWZ6hkFn/yQS0iiplaQq1B4uUQr0RFXuTMtZe72qWKPaG3zeMn26vWbIUlrcW0xe1x5Z6AE/AQ0C3bRseVPhIvBh3olnvhwkAvI1F8xuvYDAqZY+ca8QP9WQOpcwDN0FIJjZm7eFuCIJCHeOFchgTOrzE5tGxI318PpwHZH/atRcXt0450+vS7OqWhGblRJM6hGqVaLVHf+Gn0pfH59UDzAzTCqwBFYuynnIPrV8z/D0SF780/FcP5TPFqLGc4Jz7vVUu5owU/wPyl+CqljKGnPurboag5vnjAWCn0pDFc7X1cRjSr929YyrQV+gyZrAx+Dk/ie/Bu7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8JVJ68Ci8hH+vA9bF8YiFlkwB1Lv6uIdcNwtst+8pPM=;
- b=wQak6JIoINwHL1xP/fq5L8vTabF8f9R4aD+z5MVNdyLO+dN/g9+GwFS4wtQ4KpOUrOV/kRnaI+ktN3ACIpuQul8qUUSJt04bppepZcDS8kp98Ps9pCxaNLxJkNI7pJXih62kvQ2gfhiToK69kKhcJA49IIEDsk4YkNzmRnS7EqBTimK6tiMMDQnRpHB2J7BO0RHFdWfEiwT++GtOp40H2PsMvirkCTQ6e25HPa76rYFIrzzc+kbkUO5v43lrHyZ47I8j8uICIS3yyPyUrko2G3AXGl4YRv5pOeXPVjDK9CtK2HT3DJjv3kY5fNw+MwypfUD15ctnAIHmdjTbfUdP8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cisco.com; dmarc=pass action=none header.from=cisco.com;
- dkim=pass header.d=cisco.com; arc=none
-Received: from SJ0PR11MB5896.namprd11.prod.outlook.com (2603:10b6:a03:42c::19)
- by IA1PR11MB7755.namprd11.prod.outlook.com (2603:10b6:208:420::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Thu, 13 Nov
- 2025 22:34:36 +0000
-Received: from SJ0PR11MB5896.namprd11.prod.outlook.com
- ([fe80::2081:bcd4:cb3e:e2dd]) by SJ0PR11MB5896.namprd11.prod.outlook.com
- ([fe80::2081:bcd4:cb3e:e2dd%4]) with mapi id 15.20.9320.013; Thu, 13 Nov 2025
- 22:34:36 +0000
-From: "Karan Tilak Kumar (kartilak)" <kartilak@cisco.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Corey Minyard
- <corey@minyard.net>, =?iso-8859-2?Q?Christian_K=F6nig?=
- <christian.koenig@amd.com>, "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Matthew Brost
- <matthew.brost@intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, Aleksandr
- Loktionov <aleksandr.loktionov@intel.com>, Vitaly Lifshits
- <vitaly.lifshits@intel.com>, Manivannan Sadhasivam <mani@kernel.org>, Niklas
- Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>, Vadim Fedorenko
- <vadim.fedorenko@linux.dev>, Sagi Maimon <maimon.sagi@gmail.com>, "Martin K.
- Petersen" <martin.petersen@oracle.com>, Hans Verkuil
- <hverkuil+cisco@kernel.org>, Casey Schaufler <casey@schaufler-ca.com>, Steven
- Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, Viacheslav
- Dubeyko <Slava.Dubeyko@ibm.com>, Max Kellermann <max.kellermann@ionos.com>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org"
- <linaro-mm-sig@lists.linaro.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "linux-mmc@vger.kernel.org"
- <linux-mmc@vger.kernel.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "intel-wired-lan@lists.osuosl.org"
- <intel-wired-lan@lists.osuosl.org>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>, "linux-s390@vger.kernel.org"
- <linux-s390@vger.kernel.org>, "linux-scsi@vger.kernel.org"
- <linux-scsi@vger.kernel.org>, "linux-staging@lists.linux.dev"
- <linux-staging@lists.linux.dev>, "ceph-devel@vger.kernel.org"
- <ceph-devel@vger.kernel.org>, "linux-trace-kernel@vger.kernel.org"
- <linux-trace-kernel@vger.kernel.org>
-CC: Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
- <senozhatsky@chromium.org>, Jonathan Corbet <corbet@lwn.net>, Sumit Semwal
- <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, Konrad
- Dybcio <konradybcio@kernel.org>, Lucas De Marchi <lucas.demarchi@intel.com>,
- =?iso-8859-2?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek
- Kitszel <przemyslaw.kitszel@intel.com>,
- =?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>, Kishon
- Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>, Jonathan Lemon
- <jonathan.lemon@gmail.com>, Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>, Jan Hoeppner <hoeppner@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, "Satish
- Kharat (satishkh)" <satishkh@cisco.com>, "Sesidhar Baddela (sebaddel)"
- <sebaddel@cisco.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xiubo
- Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: RE: [PATCH v3 19/21] scsi: fnic: Switch to use %ptSp
-Thread-Topic: [PATCH v3 19/21] scsi: fnic: Switch to use %ptSp
-Thread-Index: AQHcVK6ozanKNwbcFU2LSi/oClNkW7TxMIPg
-Date: Thu, 13 Nov 2025 22:34:36 +0000
-Message-ID: <SJ0PR11MB5896D2F9DAC35FF8ADB29087C3CDA@SJ0PR11MB5896.namprd11.prod.outlook.com>
-References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
- <20251113150217.3030010-20-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20251113150217.3030010-20-andriy.shevchenko@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR11MB5896:EE_|IA1PR11MB7755:EE_
-x-ms-office365-filtering-correlation-id: 3cf75da7-1b8e-4777-1265-08de2304d313
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|38070700021|921020; 
-x-microsoft-antispam-message-info: =?iso-8859-2?Q?EV+qDQ4opgT6YErEt+UTHCFYqvHTNJI5xuKV0TWvVDABI0Ef8+VDdGTavR?=
- =?iso-8859-2?Q?SNJR5b3R0U9xD3zMHb8nX29wKP3IboINDE5Vu3YwhbTGwLiATuVYXvnS/z?=
- =?iso-8859-2?Q?IuCxsetISmon5JlHrjND3OG8FJcZK0TctHcd7wsSq0vX5gTK4Mly8e2tXB?=
- =?iso-8859-2?Q?8niGQPhFBtcfIvxSP02U+OsRVhVAlAZU9FNl3umrxpWNh2Ou/gAUtKMMja?=
- =?iso-8859-2?Q?vuk/ZOK8y62KRUh4+Yqy1hLRgoy4MzxIQm9ENoDUDKejiY6VAmxaHBtFMv?=
- =?iso-8859-2?Q?khC+LYVKosq8tq4fM65y1+JzsHqZPyWKtv2KiMvx/00QoNn4AxpcNxgov/?=
- =?iso-8859-2?Q?f7J3E9cKAtg2zReMnMxzzrtN3tDrlmZvQPQGDFohM7peloBOxRkKX2glgv?=
- =?iso-8859-2?Q?6p593bO9o3W6G9PSesKeQ9Qk4a9MIRTejqyErN++fwt7BiOL2Oda2guwYK?=
- =?iso-8859-2?Q?DzzccPSUzCrJOelr77JA9iEVIu8KJnD2fd66UlCv7gk3Fh/B5QZXLJaGtu?=
- =?iso-8859-2?Q?5LG5k8+7w3IoPhyFfMFqo25jCT+TxxiBwFSXTUJEPDjp9yLPR/o545NFJ7?=
- =?iso-8859-2?Q?dqplbeu5arprxhwRAyU085ei3Qb9ABYMk0kBR5G3nrwItNBjoNKE7rLfZ2?=
- =?iso-8859-2?Q?WL5jfsO+dsZjt6gxuOMRbyO47AgSAm5bCq5TMLEEoXRz3bwvr6uK1rr3Ns?=
- =?iso-8859-2?Q?yRSBerbmJD/ZZ+ObnNDbOOH2iCkHUJuVJxvO43eV7MHOp354KyauFmaAnx?=
- =?iso-8859-2?Q?ve3W8QuXW9HC8E002cKp+JmxPMtAaet0UYmffOQ/QtH9pwqs4RWURUqq10?=
- =?iso-8859-2?Q?AjWtBDSOgaBz07nb/wVUnhjGu3IlwbuOc05yLo7NAt+ogtQuPheZLWdkse?=
- =?iso-8859-2?Q?sVJEQXE+iIsU6NtdDfGyvgqpPx+wEai/fzTe1OsBTT3g4ISw8I0lqUo7PN?=
- =?iso-8859-2?Q?Ui58IOsGbxGXrkTbfHasebGXowPe7ji1AbBtVYVvz/fA7riU7f6beYLRg1?=
- =?iso-8859-2?Q?s8CRYhMj5gncWcknGIRth3Ni/LpRDlE3jvW0TIByQodKFwcoTNRcZqS9VZ?=
- =?iso-8859-2?Q?u3BmU+kB3fay6joTlS1WDA4diI9X9Pduq+SPZuk3EqHOLxb3YEP2NNMM+V?=
- =?iso-8859-2?Q?F9ehoScC422VY4fWpfpEaSZpNiOMQNq0233ZGVagJMez1oEpHJolJ4IYDF?=
- =?iso-8859-2?Q?rr95lC/zxpoLNZwcwqL5nHwh+kfByty09Vl9v6IhYVaw416rCIM5swf9cr?=
- =?iso-8859-2?Q?cPUHa7lW/29d0PAAhUgphYMjq79TEGuuu+U9e5RQGvksOA26HWqQdVvcN0?=
- =?iso-8859-2?Q?+WW1bi3sCAWfoKq6H5qjbVJe21oBV3lx6AnX6rS+XSG4QMSETxmaFEKKVb?=
- =?iso-8859-2?Q?7y5luHp8/I+Y8wqeUtKPqJ5rH2x/El887tArDaXVwW1B6ayD3B+SPdK+E5?=
- =?iso-8859-2?Q?ju2AWJVNKsxRVZOx/Fi/WE971MHiHUvsR/yupHVmPZC/6Ewd+LlaC1Q8uA?=
- =?iso-8859-2?Q?iV1i/kX1mV6VgVa4nc14YAcu9qryk57wAI+Wd+gH+oypoZd76+5cQufEzy?=
- =?iso-8859-2?Q?1EOlIiZCP+WpsYf5xLKPUCNLz49r?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR11MB5896.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(921020);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-2?Q?JAcZu+XLiUOU8CJSSgwLGu7Y/XMu8k1WUI7Ah4cqVJUMBWde4kmxiTEO9K?=
- =?iso-8859-2?Q?dpJ5rZhOLpU5T9t2I/XlB3US7ufDrG0lM/DZfTCqdaK946hnz5F77s3wKJ?=
- =?iso-8859-2?Q?qgMA0wh2jdBFePzNXbR77En+zJXbyV1ndr+UumsF8SMXKQJ+OOdSR8UrSN?=
- =?iso-8859-2?Q?RklHn/G95gf/JEC5Pdn9PYix/KgqLWjYnGNlXVniFqQzmiQWxxn4ht70VM?=
- =?iso-8859-2?Q?KVEpzpUuas1b+v/EjYw8umW4FzWillX9WIeKnPt/6oQBFIJI/oLhWHdQP1?=
- =?iso-8859-2?Q?wnDX4bYaOllhPkyzIUDdEAo0NLx6N78O8eMe8ZJmYBnW2JmZXA2nqFIXpP?=
- =?iso-8859-2?Q?IuZUYiIFNz+bkdMYmPth6KYoNyyeT22qA89rVpsfDxgYbRNhk+PEGwIJTg?=
- =?iso-8859-2?Q?EUmtoXbbYR/FobrnsouXDWjP1UYOdDAcAqbXlCqucsdi+lqasmhosWEH6D?=
- =?iso-8859-2?Q?yNcXgt2c/bB/umXc8F0Faueqx5RwVzzx1kJs3F9ENKkf1aAs988BbpP98s?=
- =?iso-8859-2?Q?Hs9lqXCsJKbR2SjsIP71J7dJzshIi1m/+MaiOcNcZZwmFLH6OA0oLN1v/R?=
- =?iso-8859-2?Q?gFzW/ELHRS0DbgWKB7GYozXa+3UMEldiHkSWT8gJ8bswch5/+t8VcYpSM2?=
- =?iso-8859-2?Q?7SxAuxLOsE4QePikmND7AeXMC6ojUIO228eQUOPqV8Q/DBI8skTva0pEq8?=
- =?iso-8859-2?Q?zvS9imhV+clIJAH2JfiiDhLUVs2sscc4qUGi7J2MtsE/vr2xHwA4aYNEAH?=
- =?iso-8859-2?Q?6yrdru3DI77uvaD6At6OwOqH8Cmm7+UoYAq8DCO9E8LN6OJrIuO2BtQ4pM?=
- =?iso-8859-2?Q?zCcBbB7unQO+pQnEjPMFLwaweL6TuXmQ6cYEaSaS2pEssJFr1F8vb617QA?=
- =?iso-8859-2?Q?uT/5s+cP16uCXXJFqfF3HTg9YOlpH/R/l6hTu4a/BhcvDzGOiSOjsgsPIi?=
- =?iso-8859-2?Q?n9HTEQdHTjI25vY7N5PqZRdEsd8G4jP3CZT8lPbyLaEWO+vCshV22lTRxr?=
- =?iso-8859-2?Q?L1R9JCkMR7q2rtXScfGH7K7h/L8Y4ssMradPA8ycNfEVRJ9hs7vFneUsaZ?=
- =?iso-8859-2?Q?NjLQJ46yxpyfzQipPYwIHLDKqzhQa/+bo1lTBGm4YOEMP318iH+ibcrv5q?=
- =?iso-8859-2?Q?R1IVAFTppmRUMzxJLuJTqV57wDRNmFlU7iqH65Jni/Bvxaf6pbLIE7shYi?=
- =?iso-8859-2?Q?/2BGpuUbA4hZwANp5E2Ih0hTWre1X0SeJHcQSXLAbEfTlpiVg7+yPt6E8N?=
- =?iso-8859-2?Q?JRr22MREJHr68n99H9VNcbUoTQWVXswgoHEiBGZHzfX7HKaT4Yc7Lfh/ek?=
- =?iso-8859-2?Q?75nIHJeeC9hhA4SXFNcxHI4uVyIrmRngkUolr2urenyu5zezfaxO8JmDX4?=
- =?iso-8859-2?Q?euhetnR8XyZRSStChswMTaP4l+NvTgcbWtuVl/Qe+7Q+bANcHMFtChFlcX?=
- =?iso-8859-2?Q?rNZDbbAepHlFEvJYUvQOhkjbDJ5+ve7TfD5nwyLfqN6vDPi+FVRCaB0GDX?=
- =?iso-8859-2?Q?K2I1JeGZQuGp30dM9ISX8xW5V+CTM78+bCoYjXzG4dt2onHVAGTQagC4Xu?=
- =?iso-8859-2?Q?0sHGJ1xqsQUIK7WWDvUVIyf7n4jVA4sIYkNo5AI1i7GyLjrvEd2IlwNxsF?=
- =?iso-8859-2?Q?Q9PMXYfRADkiwN7AmZyMvDbaLqpemSwu9Y?=
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+ d=oss.qualcomm.com; s=google; t=1763076584; x=1763681384;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=SyFk5zcqS7Ph8XKnWlZh2ubVnnsYVplPvWIOQ6aWBiU=;
+ b=gWM79YrT1tk3HiVc8CIO76GDOMNGbm93NTta+y1IoLh9k/I57GN5/+OpqRYXDCD6vW
+ XKP6CmvEJ41jZXqJPyZF3odVxiwHs1XqYb1BT3wsJqa70Cymc6zHBBI8aG/eV/mgR2TX
+ /MCmSndhBUPJfxwWT7nN/KNzHyv0g0iXhGtqZZ1GFPeioYC80Q4GmsG5hq8bYgrlr4uI
+ anknyP8OhNkHlxYYGjVg3f9+6xENU8X0eEQ7Xx0XUu8+tpFNvW+prcOOztXrIv2/Z2mm
+ qDFQJYeJCZt/68Kexaa8mTRcD5/MrXdHOGmqzKwE8coufgsIPJ1MYcuY7y8z0A99AiG+
+ AZPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763076584; x=1763681384;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SyFk5zcqS7Ph8XKnWlZh2ubVnnsYVplPvWIOQ6aWBiU=;
+ b=xPm6jVkjg2UyzTAJ7Vn15oRrDHgVH25Eec9geJZLnnruPoyJl9BezEggP+OHCG4ynq
+ iX7C9VIUzfgonoI1LLSmnS3XhPNMdBCW5hnVsbVTZGyWC2NIQYrqYP+HFVY0V8t7axmp
+ 3wVoMZPzn10CtFkX71FzgSmw5/LfdfZ0vd3E57DEG1xgoNJRYPps7o+PfD/WdKvovKxT
+ t9Y5wx+3DGByIwrDDOtpt0cH7Gr5cU/Z50svGU3UuhJZyVeTmlgEQ0KuFhAnKvRMg3w4
+ Firjhcr8FyQN6Lf+hWAcxRBZsRwgC22R8mdrxdzDCch2vR8fSgTz3BiX5TpfSuiN539d
+ xZRA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWWd4qJ+p7lbGZtssOmW2A99i1PHckefBCsOSToLazUXeYQUMrZHDYrVSbZ2l0F4boCFBmPTRxI5jc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymhQR3Ie/RifGdifx2l1mNSNHCzeVybGypzcuRbSsyOb27VYhP
+ 3IzruGkm5fFiZvIvYNkmp0XWNQKpx+BpDP57NhrNIgtvkZRlHEVUaogsTnvh1Joym9+ToeZsMyD
+ uvyWTisG+Dlw5SeDYwzTFEaQJcNwxlQUnFH48BOyB+YxAQuZY0//pmblWymUkPWkBmqwHYhU=
+X-Gm-Gg: ASbGncspu96orE1y6m62VE94psAqh1Cjn/hEV1KsKiDSFVQHLfqd5FlXvU70/gcLZWL
+ ec1u1K9Yf3izc08955FOxG6ebN06f6IQBjOB375lr/ljkRZ2HKsARxBXckXM77khhJxjbGE9uJW
+ xofYt8OuWDsOYvW+jKCHD0Y6z+v/ZkCEHs97YpKhb4iUebeNaYGu1C8fz9NZzf090DdC9jtc9pD
+ Ejyo0Mh+AQCmUBCX6FEOr43NHtMzokNYUoXihH4JvGoCyNYaIpMr/+n6m0WE8AX3SSlSbnhvNJ1
+ Crn5dRJBR7SRA0sb1+rGGY9EnWdzyKtoDMs91q0huXlqD1GqZOYt6qowbI2O0pIq4ezYuAcxb9L
+ N3ba8gvE8n4VruyeV29bInlA=
+X-Received: by 2002:a17:903:11c7:b0:281:fd60:807d with SMTP id
+ d9443c01a7336-29867ec97d1mr13571485ad.2.1763076583712; 
+ Thu, 13 Nov 2025 15:29:43 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IH0JoKSqTMESiDKuWUM4M75A1GvjOSZKSKBeYjatr/BGas5j9pizj/bo7phZeFbq/ZDKNvORg==
+X-Received: by 2002:a17:903:11c7:b0:281:fd60:807d with SMTP id
+ d9443c01a7336-29867ec97d1mr13571265ad.2.1763076583020; 
+ Thu, 13 Nov 2025 15:29:43 -0800 (PST)
+Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-bc36ed72cd1sm3049486a12.11.2025.11.13.15.29.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Nov 2025 15:29:41 -0800 (PST)
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: [PATCH v3 00/20] drm/msm/adreno: Introduce Adreno 8xx family support
+Date: Fri, 14 Nov 2025 04:58:57 +0530
+Message-Id: <20251114-kaana-gpu-support-v3-0-92300c7ec8ff@oss.qualcomm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: cisco.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5896.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3cf75da7-1b8e-4777-1265-08de2304d313
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2025 22:34:36.0943 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5ae1af62-9505-4097-a69a-c1553ef7840e
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qzy1shonmI5zJGs1dmaG8CrCP6foCu3hlDlOh8wFz+DyMGfoDNvNl+htR9RXXM+Thcff9uKfnLugIX4fvwAgxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7755
-X-Outbound-SMTP-Client: 173.37.147.251, alln-opgw-3.cisco.com
-X-Outbound-Node: alln-l-core-09.cisco.com
-X-Mailman-Approved-At: Tue, 18 Nov 2025 13:11:39 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALlpFmkC/23OQQ6CMBAF0KuQrh0yUySKK+9hXJR20Eal2BaiI
+ dzdAokrNk3+JP/9jiKwtxzEKRuF58EG69oUil0m9F21NwZrUhYSZYmVrOChVKvg1vUQ+q5zPgK
+ RkaSPjSKjRep1nhv7WczLdc2e332i43oUtQoM2r1eNp6ylj8RZp6IUMyFuw3R+e/yp4GWxjpf4
+ Mb8QIBwKMoCazwgsjm7EPJ3r57zQp6eBR3kH5qHtiCZoJobOiptSq72G9A0TT/Bv30cMwEAAA=
+ =
+X-Change-ID: 20250929-kaana-gpu-support-11d21c8fa1dc
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Connor Abbott <cwabbott0@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <rob.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1763076573; l=7615;
+ i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
+ bh=J+VkJjrkoaNRlDaKnTG93cqZ7QXfLD1gOTCZPhZm8Z4=;
+ b=8p7XjN3Y1LQcpmECcDL5FAlQrwIXhy+O+Jxm62gGRbKGs6Mgoe2vlW3Mos1mEnGrJBx0avjHI
+ PotaQrfxNXSAUUHFflb3gEMXobClbU70XJydWwa0baHKjJF+/oYLlR4
+X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Authority-Analysis: v=2.4 cv=ccPfb3DM c=1 sm=1 tr=0 ts=691669e8 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=qC_FGOx9AAAA:8 a=VwQbUJbxAAAA:8
+ a=XQ7dgq76HTNx6dD4gTwA:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+ a=fsdK_YakeE02zTmptMdW:22
+X-Proofpoint-GUID: OCvh4dWbQHXtK8KNzPBt5Ntk18qMZped
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEzMDE4NSBTYWx0ZWRfXzjVgFe5vFa0k
+ AU+yWafJxqMAUECeNJsGX1mBwu5atyLCiBNOXvkeBCD2r9DhYR6/sIAqq7PJ1HEW8ZiFY8CmJO8
+ YbClKAlyh3z4Xyad8GplIsxbVVDHRzQvvGL7dMLGJU9MgifPth1JM0fiB05e5MEG2Ou2hRUlK/X
+ OLpF0KWJLpdMk8bVhBPONjix4C4ASk3/3IAh/UgEShgOqyaIf3aACA6EuH2gAiELU60y28rk0Mx
+ A40ORB7ALRq8GfKhEhpZf36Y7e8Z0mZGrapnXY4Rzt/Y6DbTcVuLk7q3CQZOS4Y8ButUNiAVzZk
+ gPKiN3JlcjuZSoKQt+eFo4UPPycs9IqJp8cIjJS/He2K2AGgr85ffspYmKthO7E8nuqQ9skrX5O
+ Y2lNrQk9ugYHwr/AxKLlDFhs92tEAw==
+X-Proofpoint-ORIG-GUID: OCvh4dWbQHXtK8KNzPBt5Ntk18qMZped
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-13_06,2025-11-13_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ malwarescore=0 spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511130185
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -284,152 +170,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thursday, November 13, 2025 6:33 AM, Andy Shevchenko <andriy.shevchenko@=
-linux.intel.com> wrote:
->
-> Use %ptSp instead of open coded variants to print content of
-> struct timespec64 in human readable format.
->
-> Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
-> drivers/scsi/fnic/fnic_trace.c | 52 ++++++++++++++--------------------
-> 1 file changed, 22 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/scsi/fnic/fnic_trace.c b/drivers/scsi/fnic/fnic_trac=
-e.c
-> index cdc6b12b1ec2..0a849a195a8e 100644
-> --- a/drivers/scsi/fnic/fnic_trace.c
-> +++ b/drivers/scsi/fnic/fnic_trace.c
-> @@ -138,9 +138,8 @@ int fnic_get_trace_data(fnic_dbgfs_t *fnic_dbgfs_prt)
-> */
-> len +=3D scnprintf(fnic_dbgfs_prt->buffer + len,
-> (trace_max_pages * PAGE_SIZE * 3) - len,
-> -                               "%16llu.%09lu %-50s %8x %8x %16llx %16llx=
- "
-> -                               "%16llx %16llx %16llx\n", (u64)val.tv_sec=
-,
-> -                               val.tv_nsec, str, tbp->host_no, tbp->tag,
-> +                               "%ptSp %-50s %8x %8x %16llx %16llx %16llx=
- %16llx %16llx\n",
-> +                               &val, str, tbp->host_no, tbp->tag,
-> tbp->data[0], tbp->data[1], tbp->data[2],
-> tbp->data[3], tbp->data[4]);
-> rd_idx++;
-> @@ -180,9 +179,8 @@ int fnic_get_trace_data(fnic_dbgfs_t *fnic_dbgfs_prt)
-> */
-> len +=3D scnprintf(fnic_dbgfs_prt->buffer + len,
-> (trace_max_pages * PAGE_SIZE * 3) - len,
-> -                               "%16llu.%09lu %-50s %8x %8x %16llx %16llx=
- "
-> -                               "%16llx %16llx %16llx\n", (u64)val.tv_sec=
-,
-> -                               val.tv_nsec, str, tbp->host_no, tbp->tag,
-> +                               "%ptSp %-50s %8x %8x %16llx %16llx %16llx=
- %16llx %16llx\n",
-> +                               &val, str, tbp->host_no, tbp->tag,
-> tbp->data[0], tbp->data[1], tbp->data[2],
-> tbp->data[3], tbp->data[4]);
-> rd_idx++;
-> @@ -215,30 +213,26 @@ int fnic_get_stats_data(struct stats_debug_info *de=
-bug,
-> {
-> int len =3D 0;
-> int buf_size =3D debug->buf_size;
-> -     struct timespec64 val1, val2;
-> +     struct timespec64 val, val1, val2;
-> int i =3D 0;
->
-> -     ktime_get_real_ts64(&val1);
-> +     ktime_get_real_ts64(&val);
-> len =3D scnprintf(debug->debug_buffer + len, buf_size - len,
-> "------------------------------------------\n"
-> "\t\tTime\n"
-> "------------------------------------------\n");
->
-> +     val1 =3D timespec64_sub(val, stats->stats_timestamps.last_reset_tim=
-e);
-> +     val2 =3D timespec64_sub(val, stats->stats_timestamps.last_read_time=
-);
-> len +=3D scnprintf(debug->debug_buffer + len, buf_size - len,
-> -             "Current time :          [%lld:%ld]\n"
-> -             "Last stats reset time:  [%lld:%09ld]\n"
-> -             "Last stats read time:   [%lld:%ld]\n"
-> -             "delta since last reset: [%lld:%ld]\n"
-> -             "delta since last read:  [%lld:%ld]\n",
-> -     (s64)val1.tv_sec, val1.tv_nsec,
-> -     (s64)stats->stats_timestamps.last_reset_time.tv_sec,
-> -     stats->stats_timestamps.last_reset_time.tv_nsec,
-> -     (s64)stats->stats_timestamps.last_read_time.tv_sec,
-> -     stats->stats_timestamps.last_read_time.tv_nsec,
-> -     (s64)timespec64_sub(val1, stats->stats_timestamps.last_reset_time).=
-tv_sec,
-> -     timespec64_sub(val1, stats->stats_timestamps.last_reset_time).tv_ns=
-ec,
-> -     (s64)timespec64_sub(val1, stats->stats_timestamps.last_read_time).t=
-v_sec,
-> -     timespec64_sub(val1, stats->stats_timestamps.last_read_time).tv_nse=
-c);
-> +                      "Current time :          [%ptSp]\n"
-> +                      "Last stats reset time:  [%ptSp]\n"
-> +                      "Last stats read time:   [%ptSp]\n"
-> +                      "delta since last reset: [%ptSp]\n"
-> +                      "delta since last read:  [%ptSp]\n",
-> +                      &val,
-> +                      &stats->stats_timestamps.last_reset_time, &val1,
-> +                      &stats->stats_timestamps.last_read_time, &val2);
->
-> stats->stats_timestamps.last_read_time =3D val1;
->
-> @@ -416,8 +410,8 @@ int fnic_get_stats_data(struct stats_debug_info *debu=
-g,
-> jiffies_to_timespec64(stats->misc_stats.last_ack_time, &val2);
->
-> len +=3D scnprintf(debug->debug_buffer + len, buf_size - len,
-> -               "Last ISR time: %llu (%8llu.%09lu)\n"
-> -               "Last ACK time: %llu (%8llu.%09lu)\n"
-> +               "Last ISR time: %llu (%ptSp)\n"
-> +               "Last ACK time: %llu (%ptSp)\n"
-> "Max ISR jiffies: %llu\n"
-> "Max ISR time (ms) (0 denotes < 1 ms): %llu\n"
-> "Corr. work done: %llu\n"
-> @@ -437,10 +431,8 @@ int fnic_get_stats_data(struct stats_debug_info *deb=
-ug,
-> "Number of rport not ready: %lld\n"
-> "Number of receive frame errors: %lld\n"
-> "Port speed (in Mbps): %lld\n",
-> -               (u64)stats->misc_stats.last_isr_time,
-> -               (s64)val1.tv_sec, val1.tv_nsec,
-> -               (u64)stats->misc_stats.last_ack_time,
-> -               (s64)val2.tv_sec, val2.tv_nsec,
-> +               (u64)stats->misc_stats.last_isr_time, &val1,
-> +               (u64)stats->misc_stats.last_ack_time, &val2,
-> (u64)atomic64_read(&stats->misc_stats.max_isr_jiffies),
-> (u64)atomic64_read(&stats->misc_stats.max_isr_time_ms),
-> (u64)atomic64_read(&stats->misc_stats.corr_work_done),
-> @@ -857,8 +849,8 @@ void copy_and_format_trace_data(struct fc_trace_hdr *=
-tdata,
-> len =3D *orig_len;
->
-> len +=3D scnprintf(fnic_dbgfs_prt->buffer + len, max_size - len,
-> -                      "%ptTs.%09lu ns%8x       %c%8x\t",
-> -                      &tdata->time_stamp.tv_sec, tdata->time_stamp.tv_ns=
-ec,
-> +                      "%ptSs ns%8x       %c%8x\t",
-> +                      &tdata->time_stamp,
-> tdata->host_no, tdata->frame_type, tdata->frame_len);
->
-> fc_trace =3D (char *)FC_TRACE_ADDRESS(tdata);
-> --
-> 2.50.1
->
->
+This series adds the A8xx HWL along with Adreno 840 GPU support to the
+drm-msm driver. A8x is the next generation in the Adreno family,
+featuring a significant hardware design change. A major update to the
+design is the introduction of 'Slice' architecture. Slices are sort of
+mini-GPUs within the GPU which are more independent in processing Graphics
+and compute workloads. Also, in addition to the BV and BR pipe we saw in
+A7x, CP has more concurrency with additional pipes.
 
-Acked-by: Karan Tilak Kumar <kartilak@cisco.com>
+From KMD-HW SWI perspective, there is significant register shuffling in
+some of the blocks. For slice or aperture related registers which are
+virtualized now, KMD/crashdumper has to configure an aperture register
+to access them. On the GMU front, there are some shuffling in register
+offsets, but it is manageable as of now. There is a new HFI message to
+transfer data tables and new power related features to support higher
+peak currents and thermal mitigations.
 
-Thanks for the change, Andy.
+Adreno 840 GPU is the second generation architecture in the A8x family
+present in Kaanapali (a.k.a Snapdragon 8 Elite Gen 5) chipset [1]. It
+has a maximum of 3 slices with 2 SPs per slice. Along with the 3-slice
+configuration, there is also another 2-slice SKU (Partial Slice SKU).
+A840 GPU has a bigger 18MB of GMEM which can be utilized for graphics
+and compute workload. It also features improved Concurrent binning
+support, UBWC v6 etc.
 
-Can you please advise how I can compile test this change?
+Adreno X2-85 GPU present in Glymur chipset is very similar to A840
+architecturally. So adding initial support for it requires just an
+additional entry in the catalog with the necessary register lists.
 
-Regards,
-Karan
+This series adds only the driver side support along with a few dt bindings
+updates. Devicetree patches will be sent separately, but those who
+are interested can take look at it from the Qualcomm's public tree [2].
+Features like coredump, gmu power features, ifpc, preemption etc will be
+added in a future series.
+
+Initial few patches are for improving code sharing between a6xx/a7xx and
+a8x routines. Then there is a patch to rebase GMU register offsets from
+GPU's base. Rest of the patches add A8x HWL and Adreno 840/X2-85 GPU
+support.
+
+Mesa support for A8x/A840 GPU is WIP and will be posted in the near
+future.
+
+[1] https://www.qualcomm.com/products/mobile/snapdragon/smartphones/snapdragon-8-series-mobile-platforms/snapdragon-8-elite-gen-5
+[2] https://git.codelinaro.org/clo/linux-kernel/kernel-qcom/-/commit/5fb72c27909d56660db6afe8e3e08a09bd83a284
+
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+Changes in v3:
+- Squash gpu smmu bindings patches for Kaana and Glymur (Krzysztof)
+- Reuse a6xx_flush() and drop the patch that added submit_flush callback
+- Fix GBIF configs for a640 and a650 family (Konrad)
+- Add partial SKU detection support
+- Correct Chipids in the catalog
+- Add a new patch to drop SCRATCH reg dumps (Rob)
+- Read slice info right after CX gdsc is up
+- Don't drop raytracing support if preemption is unsupported
+- Drop the unused A840 pwrup list (Konrad)
+- Updates to A840 nonctxt list (Rob)
+- Capture trailers
+- Link to v2: https://lore.kernel.org/r/20251110-kaana-gpu-support-v2-0-bef18acd5e94@oss.qualcomm.com
+
+Changes in v2:
+- Rebase on top of next-20251110 tag
+- Include support for Glymur chipset
+- Drop the ubwc_config driver patch as it is picked up
+- Sync the latest a6xx register definitions from Rob's tree
+- New patch to do LRZ flush to fix pagefaults
+- Reuse a7xx_cx_mem_init(). Dropped related patch (Connor)
+- Few changes around cp protect configuration to align it with downstream
+- Fix the incorrect register usage at few places
+- Updates to non-ctxt register list
+- Serialize aperture updates (Rob)
+- More helpful cp error irq logging
+- Split A8x GMU support patch (Dmitry)
+- Use devm_platform_get_and_ioremap_resource in GMU init (Konrad)
+- Link to v1: https://lore.kernel.org/r/20250930-kaana-gpu-support-v1-0-73530b0700ed@oss.qualcomm.com
+
+---
+Akhil P Oommen (20):
+      drm/msm/a6xx: Flush LRZ cache before PT switch
+      drm/msm/a6xx: Fix the gemnoc workaround
+      drm/msm/a6xx: Skip dumping SCRATCH registers
+      drm/msm/adreno: Common-ize PIPE definitions
+      drm/msm/adreno: Move adreno_gpu_func to catalogue
+      drm/msm/adreno: Move gbif_halt() to adreno_gpu_func
+      drm/msm/adreno: Add MMU fault handler to adreno_gpu_func
+      drm/msm/a6xx: Sync latest register definitions
+      drm/msm/a6xx: Rebase GMU register offsets
+      drm/msm/a8xx: Add support for A8x GMU
+      drm/msm/a6xx: Improve MX rail fallback in RPMH vote init
+      drm/msm/a6xx: Share dependency vote table with GMU
+      drm/msm/adreno: Introduce A8x GPU Support
+      drm/msm/adreno: Support AQE engine
+      drm/msm/a8xx: Add support for Adreno 840 GPU
+      drm/msm/adreno: Do CX GBIF config before GMU start
+      drm/msm/a8xx: Add support for Adreno X2-85 GPU
+      dt-bindings: arm-smmu: Add Kaanapali and Glymur GPU SMMU
+      dt-bindings: display/msm/gmu: Add Adreno 840 GMU
+      dt-bindings: display/msm/gmu: Add Adreno X2-85 GMU
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |   60 +-
+ .../devicetree/bindings/iommu/arm,smmu.yaml        |    2 +
+ drivers/gpu/drm/msm/Makefile                       |    2 +
+ drivers/gpu/drm/msm/adreno/a2xx_catalog.c          |    7 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |   50 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.h              |    2 +
+ drivers/gpu/drm/msm/adreno/a3xx_catalog.c          |   13 +-
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c              |   52 +-
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.h              |    2 +
+ drivers/gpu/drm/msm/adreno/a4xx_catalog.c          |    7 +-
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c              |   54 +-
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.h              |    2 +
+ drivers/gpu/drm/msm/adreno/a5xx_catalog.c          |   17 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |   61 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.h              |    1 +
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |  369 +++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  287 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   25 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  393 ++--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |   31 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        |   18 +-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |   53 +
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.h              |   17 +
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c              | 1205 ++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |    4 +-
+ .../gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h  |  420 ++---
+ .../gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h  |  332 ++--
+ .../gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h  |  470 ++---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   38 +-
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml      | 1954 +++++++++++++++-----
+ .../gpu/drm/msm/registers/adreno/a6xx_enums.xml    |    2 +-
+ drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml  |  283 +--
+ .../gpu/drm/msm/registers/adreno/a7xx_enums.xml    |    7 -
+ .../drm/msm/registers/adreno/a8xx_descriptors.xml  |  120 ++
+ .../gpu/drm/msm/registers/adreno/a8xx_enums.xml    |  289 +++
+ .../gpu/drm/msm/registers/adreno/adreno_common.xml |   12 +
+ 36 files changed, 5008 insertions(+), 1653 deletions(-)
+---
+base-commit: edf57d8dafc63f9298a209e518ea6a2e0df78ed0
+change-id: 20250929-kaana-gpu-support-11d21c8fa1dc
+
+Best regards,
+-- 
+Akhil P Oommen <akhilpo@oss.qualcomm.com>
+
