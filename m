@@ -2,107 +2,150 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2F7BC5D0D7
-	for <lists+freedreno@lfdr.de>; Fri, 14 Nov 2025 13:16:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 035B0C5D31E
+	for <lists+freedreno@lfdr.de>; Fri, 14 Nov 2025 13:59:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B09A810EA57;
-	Fri, 14 Nov 2025 12:16:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C228C10EA65;
+	Fri, 14 Nov 2025 12:59:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OQP9Mujj";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="ZsixpfpJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71CCD10EA54;
- Fri, 14 Nov 2025 12:16:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 84C116017A;
- Fri, 14 Nov 2025 12:16:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA893C4CEF5;
- Fri, 14 Nov 2025 12:16:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1763122572;
- bh=xPOPe5KPnNiu09gF7yQRUhum6s9WtN78iX7rty+2ULQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=OQP9MujjMCq4Uv/f866Yn2CCo9a4YMujBOwr2ADvwuThtbnLO8bkdZS2CofH+L6l8
- JYS+HMULZebmC+Of/wI4fJzkMjuWJKK5YoPvOnG79fHV21fynxJVi9uNuOnKWO3fKZ
- rLbDg4wZB4UiWCvV7aFcgBAME2TwnCOLwQ3C4qaXHfB+1wGyxSTvxpSYM+EB3tEITV
- gS+HQ/RltMbeTQ7PVd2tPDrSb8oSUH3L7DB8NUNx2UcX69l1tPYOxZP+IosaFMU0+U
- GWomPsGw5MTmA1oj4yLVqhJiOL98CRP81Krxp3kSr8qxN7eidwH9moepMHp01bef5x
- uSFuFUjUHHuHQ==
-Message-ID: <e7e4b35f-8c8c-4a11-8d3a-193ba93bb6d8@kernel.org>
-Date: Fri, 14 Nov 2025 13:16:04 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/6] dt-bindings: display/msm/rgmu: Document A612 RGMU
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D5B10EA67
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 12:59:45 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-b713c7096f9so245561766b.3
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 04:59:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1763125184; x=1763729984; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=lIa30kEZfIOzXn6c2Ch+jzSexECrPYWXzGffwwy3r9Q=;
+ b=ZsixpfpJG1QUNODyjTiTARC5aqtWQZn3wo6hzqaC/PU9M+uxjxvautpzi3C6lQRO2+
+ Xwa8admdAen296t0BSmcNfJk8zTjp/rGAQp+pkaT6Qt7ci4gr5cgCaJslNIqvQCiNS14
+ S3TjC1HnZ9s0hraBzXhsu7nPnjww2RnfItknmKKrkGI0zBuB6quqHTdV7ihq6HY/TH1A
+ f3m08ykeIbetCOv4NTf8aeU+vVAjrTdUZgYInoagJBRFdmMNukg3ZPzGpr6JH+2vgWzE
+ tp0EOiNk6mN5i8DhPy/DYyhTEbbDPLme422bI3AVkI4oCEc268DLfaCksr0hxDL8O5ub
+ sWOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763125184; x=1763729984;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lIa30kEZfIOzXn6c2Ch+jzSexECrPYWXzGffwwy3r9Q=;
+ b=qay0wAKWxtbbjDxOs2hDeDufjSms1VmMGtbmTknVWJvuP4ZKNJ1MYZZ/od3wRQk5he
+ /vzsF7jJb+V7zqB1PdTklYUG0UYxpmr5t7snVWxZbi7D/s94Vp5FR3rCLqMQoZOtVRrp
+ ae+3rz0V9NXuZGIvH9Hv935ZEJ64/kBjlxthMGLXAXv9vuzVdLxXrwxVZkExZxC5a8lB
+ S/VUBFHL8WKDBF0EdmNvruVsVsiVjPkhiOiMhPEcINepmu95tY2Py0zhKuUV3OsLv8HW
+ rn5VU+3tz6tXzDX0Zn4xxMMMO5fYSfdY+XDr0hq3ZfAve/1kebF3vrHbS3BBfRifBXUJ
+ GT0w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVUHOM+XpbVdULXZsLpkkALQXVkzrlzaLW+qpMC8/ncap5pFW97gGNXktQs7ui/aXmxHq4TbngZA4E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx1lo8W229J1ImWG5G0jgC/L3iQD070UjFryWeCkDjVfkOkN6GR
+ +46ThaXr5tkFD9F1PkIP+Gve5nRuf1NcEcxrfl6pjEyXI+9L6XEPU8icBt9Jr7E5hXY=
+X-Gm-Gg: ASbGncuQ390PpTqHu77rXn+C+Nww5rHqdoom6RhbqbMC81JH/vtrHaF/avw4Rb3w6n2
+ 7lt5efpQ841qCN+WO2OC86AtvRWABAl3+Z56CLKl1N5V9SOXwdfpdS6RM7fOuQm28R37HD1KJuO
+ svHmFnBNDufVs22yS69zhI87JIgvyExdngHUNobGIIMa+nPIBGUqVnCnKWi7Thy4FDLqhLSqOPF
+ cZQKZn0zPXsdCqChbQvsQtcLf6PgU49xs/kzOXSf2MBhDPvoZo4Hx8xNHhOljNxlvzPgtD2974d
+ 5LXyqcYekdqZiKQS3Xq2kEglzVnwkXxj2mgnv9dOyZTs1F6E2pse5kwXT0LtOkxn4MQQENTxY6u
+ DqryaOu712LTg+OmefUzHVZb2QW/AYYZI8EXu2lgyML/RNTWefGzWAn6aTtg6aJeqpqZaJYKVqB
+ OeNpw=
+X-Google-Smtp-Source: AGHT+IH6H5eoyoDiGCawX8hcyfAIsFqjcgfKx5GqQ3M5ZUeRqB23EXgoQaPPEhXoJ1r2rQPfP0tLQA==
+X-Received: by 2002:a17:906:f105:b0:b73:7652:ef9e with SMTP id
+ a640c23a62f3a-b737652f76bmr38125366b.55.1763125183501; 
+ Fri, 14 Nov 2025 04:59:43 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b734fd80a3asm382714666b.37.2025.11.14.04.59.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Nov 2025 04:59:42 -0800 (PST)
+Date: Fri, 14 Nov 2025 13:59:38 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Corey Minyard <corey@minyard.net>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Dan Carpenter <dan.carpenter@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Jie Zhang <jie.zhang@oss.qualcomm.com>
-References: <20251107-qcs615-spin-2-v2-0-a2d7c4fbf6e6@oss.qualcomm.com>
- <20251107-qcs615-spin-2-v2-3-a2d7c4fbf6e6@oss.qualcomm.com>
- <20251110-persimmon-wombat-of-holiness-6b3f9c@kuoka>
- <f08c8707-eb72-4689-b53b-acd6e3218836@oss.qualcomm.com>
- <e0e82b22-ecef-4136-834b-ea4a6b00e179@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <e0e82b22-ecef-4136-834b-ea4a6b00e179@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v3 01/21] lib/vsprintf: Add specifier for printing struct
+ timespec64
+Message-ID: <aRcnug35DOZ3IGNi@pathway.suse.cz>
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+ <20251113150217.3030010-2-andriy.shevchenko@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251113150217.3030010-2-andriy.shevchenko@linux.intel.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,86 +161,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/11/2025 13:08, Akhil P Oommen wrote:
-> On 11/14/2025 5:30 PM, Akhil P Oommen wrote:
->> On 11/10/2025 1:21 PM, Krzysztof Kozlowski wrote:
->>> On Fri, Nov 07, 2025 at 02:20:08AM +0530, Akhil P Oommen wrote:
->>>> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
->>>>
->>>> RGMU a.k.a Reduced Graphics Management Unit is a small state machine
->>>> with the sole purpose of providing IFPC (Inter Frame Power Collapse)
->>>> support. Compared to GMU, it doesn't manage GPU clock, voltage
->>>> scaling, bw voting or any other functionalities. All it does is detect
->>>> an idle GPU and toggle the GDSC switch. As it doesn't access DDR space,
->>>> it doesn't require iommu.
->>>>
->>>> So far, only Adreno 612 GPU has an RGMU core. Document RGMU in the GMU's
->>>> schema.
->>>>
->>>> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
->>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>> ---
->>>>  .../devicetree/bindings/display/msm/rgmu.yaml      | 131 +++++++++++++++++++++
->>>>  MAINTAINERS                                        |   1 +
->>>>  2 files changed, 132 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/msm/rgmu.yaml b/Documentation/devicetree/bindings/display/msm/rgmu.yaml
->>>> new file mode 100644
->>>> index 000000000000..7621556477d0
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/display/msm/rgmu.yaml
->>>
->>> Filename matching compatible, so qcom,adreno-rgmu.yaml
->>>
->>>
->>>> @@ -0,0 +1,131 @@
->>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>>> +# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->>>> +%YAML 1.2
->>>> +---
->>>> +
->>>> +$id: http://devicetree.org/schemas/display/msm/rgmu.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: RGMU attached to certain Adreno GPUs
->>>> +
->>>> +maintainers:
->>>> +  - Rob Clark <robin.clark@oss.qualcomm.com>
->>>> +
->>>> +description: |
->>>
->>> Do not need '|' unless you need to preserve formatting.
->>>
->>>> +  RGMU (Reduced Graphics Management Unit) IP is present in some GPUs that
->>>> +  belong to Adreno A6xx family. It is a small state machine that helps to
->>>> +  toggle the GX GDSC (connected to CX rail) to implement IFPC feature and save
->>>> +  power.
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    items:
->>>> +      - const: qcom,adreno-rgmu-612.0
->>>> +      - const: qcom,adreno-rgmu
->>>> +
->>>> +  reg:
->>>> +    items:
->>>> +      - description: Core RGMU registers
->>>> +
->>>> +  reg-names:
->>>> +    items:
->>>> +      - const: gmu
->>>
->>> Drop reg-names, useless for one entry with same name as the block name.
->>
->> Just to confirm, drop only reg-names, but keep 'reg'?
+On Thu 2025-11-13 15:32:15, Andy Shevchenko wrote:
+> A handful drivers want to print a content of the struct timespec64
+> in a format of %lld:%09ld. In order to make their lives easier, add
+> the respecting specifier directly to the printf() implementation.
 > 
-> Wait. We should keep 'reg'.
-> 
-> If we remove 'reg-names' here, we cannot use reg-names in DT too because
-> we are setting additionalProperties to False, right?
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
+Looks goor to me:
 
-Yes, I ask to drop reg-names from everywhere because they are pointless.
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Tested-by: Petr Mladek <pmladek@suse.com>
 
-Best regards,
-Krzysztof
+I wonder how to move forward. I could take the whole patchset via
+printk tree. There is no conflict with linux-next at the moment.
+
+It seems that only 3 patches haven't got any ack yet. I am going
+to wait for more feedback and push it later the following week
+(Wednesday or so) unless anyone complains.
+
+Best Regards,
+Petr
