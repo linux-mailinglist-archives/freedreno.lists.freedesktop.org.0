@@ -2,150 +2,146 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 035B0C5D31E
-	for <lists+freedreno@lfdr.de>; Fri, 14 Nov 2025 13:59:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 307C1C5D8EF
+	for <lists+freedreno@lfdr.de>; Fri, 14 Nov 2025 15:26:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C228C10EA65;
-	Fri, 14 Nov 2025 12:59:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED61810EA84;
+	Fri, 14 Nov 2025 14:26:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="ZsixpfpJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="onGjc7qK";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OQhKEQca";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24D5B10EA67
- for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 12:59:45 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-b713c7096f9so245561766b.3
- for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 04:59:45 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BDDF10E248
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 14:26:36 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5AEDuBgf4123866
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 14:26:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ l9no/0GxZu07rSqXKlYIfPnkQay7eVZlKqtoBFEi2pc=; b=onGjc7qK7k480p0+
+ 9xm/ydktUD61A5FPyRVnxcyvkkUEmSezTIcdhaqTu1ES2CI77dsomBXbBPqNRR4z
+ x/9Eoy2WPml6sskYOZhjw3q3k4xY+c3/+LLNY3YmkHj/6nZg6Ws8B/Yil6MMk7Jj
+ Y0Ad1c0M8K2ixfIJMcv8TyQWpvzMKkoPOZWEw8lGz+oNXoHXZi20lDnJWq2HLlzp
+ sPniywPeDgRsLlQB4GMn0u2G5wnh8dueM5BhOgRJd8WIInrexXLUG99zASdOiB3+
+ Kjvqlfp7XaWmlmZpMe5rg/XiYavJxbJKjJW2OJ1/eVsy3HVsrY9F8tTOKwafco8F
+ gOpqJA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ae5r7r2vx-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 14:26:35 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4e89f4a502cso55284821cf.2
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 06:26:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1763125184; x=1763729984; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=lIa30kEZfIOzXn6c2Ch+jzSexECrPYWXzGffwwy3r9Q=;
- b=ZsixpfpJG1QUNODyjTiTARC5aqtWQZn3wo6hzqaC/PU9M+uxjxvautpzi3C6lQRO2+
- Xwa8admdAen296t0BSmcNfJk8zTjp/rGAQp+pkaT6Qt7ci4gr5cgCaJslNIqvQCiNS14
- S3TjC1HnZ9s0hraBzXhsu7nPnjww2RnfItknmKKrkGI0zBuB6quqHTdV7ihq6HY/TH1A
- f3m08ykeIbetCOv4NTf8aeU+vVAjrTdUZgYInoagJBRFdmMNukg3ZPzGpr6JH+2vgWzE
- tp0EOiNk6mN5i8DhPy/DYyhTEbbDPLme422bI3AVkI4oCEc268DLfaCksr0hxDL8O5ub
- sWOA==
+ d=oss.qualcomm.com; s=google; t=1763130394; x=1763735194;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=l9no/0GxZu07rSqXKlYIfPnkQay7eVZlKqtoBFEi2pc=;
+ b=OQhKEQcaUn92WeSxLfK67GbX1az4kUwA4aZnTn/JYa6OnolPVok0QRA9GCaPIqAqhl
+ oGw2toimOz3pc0Ne3FT2qnak4QQzKWqtIeODAzT12oUbhOcqe/I8WnNSTPy35tOdZjS8
+ XjnzVjpmz+P9+BiYlO/c4m+AjxrBaQNOwIsU4qEsukqCZDAQmQ65BsIISlnbinfphuWY
+ K7XwB9Z+xmm6cEFpePb6T5ivkASjRNUo6N4v67h11oq4Vm/MdBpTQMDSdHbWAYJIJJ18
+ QvZW5FDeB4owWE85CuSaZBFs2c4ke/koCM7uCna+a3X3muO23zvBmOrY5iGEY7bRRT0r
+ 2zAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763125184; x=1763729984;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lIa30kEZfIOzXn6c2Ch+jzSexECrPYWXzGffwwy3r9Q=;
- b=qay0wAKWxtbbjDxOs2hDeDufjSms1VmMGtbmTknVWJvuP4ZKNJ1MYZZ/od3wRQk5he
- /vzsF7jJb+V7zqB1PdTklYUG0UYxpmr5t7snVWxZbi7D/s94Vp5FR3rCLqMQoZOtVRrp
- ae+3rz0V9NXuZGIvH9Hv935ZEJ64/kBjlxthMGLXAXv9vuzVdLxXrwxVZkExZxC5a8lB
- S/VUBFHL8WKDBF0EdmNvruVsVsiVjPkhiOiMhPEcINepmu95tY2Py0zhKuUV3OsLv8HW
- rn5VU+3tz6tXzDX0Zn4xxMMMO5fYSfdY+XDr0hq3ZfAve/1kebF3vrHbS3BBfRifBXUJ
- GT0w==
+ d=1e100.net; s=20230601; t=1763130394; x=1763735194;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=l9no/0GxZu07rSqXKlYIfPnkQay7eVZlKqtoBFEi2pc=;
+ b=VfLV9LvtIbDcLdZVTl3w0MuN3g/hUH2TEIk0uwPHEWa1PKhhBsY92qMXZpBQ+0YtJ7
+ xN31/KpLGAoKaLy7Ns3QgKFl15gjkDjSf0bGiVz1QV6yosy/F18TkmfXbh6+ZUI0UvFY
+ M+pXYgg2payQpG8cas8WZubCeEe6hROlX3j/16z916yqHyQwYMW+LinOWk/K9HmUPra8
+ Mf0ez7JbXOaqfYYRh1io9vb9wb2SO5spALEF82EisknSIrOGDYBgCAwL+tA0KbP33ZWN
+ oLbqY0SNz+VVj+6KRUcmVTMoAwSoRFvTADaryvIuj/LoBpJ/WhBmKCHT9jAICP9u2yAe
+ bhbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUHOM+XpbVdULXZsLpkkALQXVkzrlzaLW+qpMC8/ncap5pFW97gGNXktQs7ui/aXmxHq4TbngZA4E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1lo8W229J1ImWG5G0jgC/L3iQD070UjFryWeCkDjVfkOkN6GR
- +46ThaXr5tkFD9F1PkIP+Gve5nRuf1NcEcxrfl6pjEyXI+9L6XEPU8icBt9Jr7E5hXY=
-X-Gm-Gg: ASbGncuQ390PpTqHu77rXn+C+Nww5rHqdoom6RhbqbMC81JH/vtrHaF/avw4Rb3w6n2
- 7lt5efpQ841qCN+WO2OC86AtvRWABAl3+Z56CLKl1N5V9SOXwdfpdS6RM7fOuQm28R37HD1KJuO
- svHmFnBNDufVs22yS69zhI87JIgvyExdngHUNobGIIMa+nPIBGUqVnCnKWi7Thy4FDLqhLSqOPF
- cZQKZn0zPXsdCqChbQvsQtcLf6PgU49xs/kzOXSf2MBhDPvoZo4Hx8xNHhOljNxlvzPgtD2974d
- 5LXyqcYekdqZiKQS3Xq2kEglzVnwkXxj2mgnv9dOyZTs1F6E2pse5kwXT0LtOkxn4MQQENTxY6u
- DqryaOu712LTg+OmefUzHVZb2QW/AYYZI8EXu2lgyML/RNTWefGzWAn6aTtg6aJeqpqZaJYKVqB
- OeNpw=
-X-Google-Smtp-Source: AGHT+IH6H5eoyoDiGCawX8hcyfAIsFqjcgfKx5GqQ3M5ZUeRqB23EXgoQaPPEhXoJ1r2rQPfP0tLQA==
-X-Received: by 2002:a17:906:f105:b0:b73:7652:ef9e with SMTP id
- a640c23a62f3a-b737652f76bmr38125366b.55.1763125183501; 
- Fri, 14 Nov 2025 04:59:43 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
+ AJvYcCXdKY6Jx/L2XdvN4Jjd7iYfj16DgTyjgU5h9IeHaI3RJfs0A7fD0VFgdo+STHrl8c7RZldwnXKb+5k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwV9vymnaBIOdHZ8Kt1rr33h6Vmx8pesVxNRFSlBLEeX8+tOkGa
+ EqGTMGNUAo/6mP0COvMdF5IH2OJsPhg1UqI8S95tfotNV31BmQ36+Viw24Noxg2hZNBVwOOtuSu
+ mNLtMTZccoDQDJtPYJ+ttXacNvDcYTihKsoohbnmQzHwX/VUZ77XJRfXZG9IjC3NzO9HrNgE=
+X-Gm-Gg: ASbGncscFGzm6uo0VD1Snux84SLH8O816CHGO6qAw2PsYS27Go4rwADjXw/qzVPpTLA
+ +ZZtxJz7MjX1njYgyX8SBxZpit2bLMKi02D5QUsyaewnrjb1JIGXv2xQjoowfTwGik6UhLfRthW
+ EzNOGe6EePhHAZkHUiNwsfhuWV+bgAzZ+boSWJiWfkieLoJEJGV4DctPQq7ki/8GKfmin1zUVmK
+ eBJonJFDTUzuaOuk/7APJNIL2R5vKDeyVaLsoQY19zwYCmIlY6huzQGXzZUgv4o/4hy4xhO9nKh
+ UMLOWcY4qN0wJgnYhl4N0PbAalFNrkj/2+lgdAjzZlTerpAVJ/K/4MWOeC8b5dX7iBdD7jm/lRS
+ DB1Q0KRqF6iywgi7uLZ0QtfSDG3Yq9bJ4Pv0pHoKNvm0kMq4HjXcL6XomWAt+ZXh8VLw10Ixqac
+ kMSguTqPCjtJ3G
+X-Received: by 2002:ac8:5809:0:b0:4ed:1948:a8a2 with SMTP id
+ d75a77b69052e-4edf212af38mr48477221cf.40.1763130394368; 
+ Fri, 14 Nov 2025 06:26:34 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGHscNoHLm1MuydPFCmacZaAgfo0Tvh6OgbQ4/hlbC4OeYTE54MJSZKbngEqsl8733UCg4WVw==
+X-Received: by 2002:ac8:5809:0:b0:4ed:1948:a8a2 with SMTP id
+ d75a77b69052e-4edf212af38mr48476551cf.40.1763130393831; 
+ Fri, 14 Nov 2025 06:26:33 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fd80a3asm382714666b.37.2025.11.14.04.59.40
+ 38308e7fff4ca-37b9cee0cabsm10318821fa.40.2025.11.14.06.26.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Nov 2025 04:59:42 -0800 (PST)
-Date: Fri, 14 Nov 2025 13:59:38 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Corey Minyard <corey@minyard.net>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Sagi Maimon <maimon.sagi@gmail.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
- Max Kellermann <max.kellermann@ionos.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
- ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Fri, 14 Nov 2025 06:26:33 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>,
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
- Sesidhar Baddela <sebaddel@cisco.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH v3 01/21] lib/vsprintf: Add specifier for printing struct
- timespec64
-Message-ID: <aRcnug35DOZ3IGNi@pathway.suse.cz>
-References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
- <20251113150217.3030010-2-andriy.shevchenko@linux.intel.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abel.vesa@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v3 0/7] drm/msm: Add display support for Glymur platform
+Date: Fri, 14 Nov 2025 16:26:27 +0200
+Message-ID: <176312947284.1737000.2080843930887893997.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251027-glymur-display-v3-0-aa13055818ac@linaro.org>
+References: <20251027-glymur-display-v3-0-aa13055818ac@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251113150217.3030010-2-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE0MDExNiBTYWx0ZWRfXwGOZFQtqA+yi
+ MmU5YCxdG4IMRQ6NND+s/nnwbVndtrIlN7Yy8nSNBQRpPjy5JcXH1ipei0FF+L7bzBeaHI5WwUh
+ oj1rUH9N8PcUfMMPyroJAQnyyhhrqZjGfWMX+xUNd8a5GLCvWYXYOzLYm3StbGRinQkfpLaUMv6
+ Ao464x9bebfkkKAyHfqRRXSRjAWqmT9pgIr8RES0o+KKMfG4WkioX2lR6ewxfkwDP0FDCQAlKeM
+ PxH9Ece5ezf8r6Pp9RFPeOEIkH7SZj1Cyl8Kal/Y46codNiK7zcA3rZoJ3waiyQuDWd/tRA5c+M
+ BttPa2aCJuN0lbXmz6R2XdVrXy7/K5gjcZVCibdfmDdw+ahr5zHTA/QCIPS86U7fH68JtDr3i72
+ +9uxtY/oAqD7QYccADL03B3RVjspOQ==
+X-Proofpoint-ORIG-GUID: rGz3jfVVj_TxO4jSjTXC4q05ocVVMjXM
+X-Authority-Analysis: v=2.4 cv=BJO+bVQG c=1 sm=1 tr=0 ts=69173c1b cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=e5mUnYsNAAAA:8 a=c_IYe_yHoYF0OweyKxMA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: rGz3jfVVj_TxO4jSjTXC4q05ocVVMjXM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-14_04,2025-11-13_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ priorityscore=1501 adultscore=0 spamscore=0 malwarescore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ definitions=main-2511140116
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,24 +157,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu 2025-11-13 15:32:15, Andy Shevchenko wrote:
-> A handful drivers want to print a content of the struct timespec64
-> in a format of %lld:%09ld. In order to make their lives easier, add
-> the respecting specifier directly to the printf() implementation.
+On Mon, 27 Oct 2025 16:59:17 +0200, Abel Vesa wrote:
+> The Glymur MDSS is based on the one found in SM8750, with 2 minor number
+> version bump.
 > 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> 
 
-Looks goor to me:
+Applied to msm-next, thanks!
 
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Tested-by: Petr Mladek <pmladek@suse.com>
+[1/7] dt-bindings: display: msm: Document the Glymur Mobile Display SubSystem
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/29deccdb0927
+[2/7] dt-bindings: display: msm: Document the Glymur Display Processing Unit
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/306305f38cd5
+[3/7] dt-bindings: display: msm: Document the Glymur DiplayPort controller
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/144a3862f626
+[4/7] drm/msm/mdss: Add Glymur device configuration
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/401388017c14
+[5/7] drm/msm/dpu: Add support for Glymur
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/d15c65a4645c
+[6/7] drm/msm/dp: Add support for Glymur
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/eaedeef2b9aa
+[7/7] soc: qcom: ubwc: Add configuration Glymur platform
+      (no commit info)
 
-I wonder how to move forward. I could take the whole patchset via
-printk tree. There is no conflict with linux-next at the moment.
+Best regards,
+-- 
+With best wishes
+Dmitry
 
-It seems that only 3 patches haven't got any ack yet. I am going
-to wait for more feedback and push it later the following week
-(Wednesday or so) unless anyone complains.
 
-Best Regards,
-Petr
