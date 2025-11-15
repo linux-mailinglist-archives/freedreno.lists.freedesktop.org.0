@@ -2,96 +2,147 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE773C5FCEF
-	for <lists+freedreno@lfdr.de>; Sat, 15 Nov 2025 02:10:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A88BC5FF31
+	for <lists+freedreno@lfdr.de>; Sat, 15 Nov 2025 04:08:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B36D10EB94;
-	Sat, 15 Nov 2025 01:10:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4130A10EB73;
+	Sat, 15 Nov 2025 03:08:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MnauAKVd";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RAWU0XNi";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jpJU6huA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B3C410EBAD
- for <freedreno@lists.freedesktop.org>; Sat, 15 Nov 2025 01:10:00 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id
- e9e14a558f8ab-434709e7cc9so12184625ab.1
- for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 17:10:00 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7799B10EB73
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Nov 2025 03:08:14 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5AF2CKKl1474977
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Nov 2025 03:08:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=U65TdZ0xWh9RTPUOJQQdTg
+ JX0pVxkPF+VkIbt7jf5ZY=; b=RAWU0XNicy2pzeWvhi+GH8iUklYxRBrHGlITlP
+ In1P47D7RICMJOAHNrspvyOSkViaQ6ui+JklEhXF7C1+O9FYl+YWfe+bcr2DpjpP
+ Qi2u4qSFEhCMCL49BL1uRlIJYuKBsmtij8LdhNNk2q6lRxDRjqkOaVwocZboC0hm
+ RUDBfOCetco35fIqO15KPz5OdcyEY8AkpDHyaGYjeoVY1mT9+V6uv1aAW5zGqQvD
+ noKzpLwjdkFy+TvJaXqpEMISe/VmhC1OZyOaFTaGc73aptncWjfPuNJ66dhsJYU9
+ cGL/rTRxCGrZ0GTkHJxkBP2wFhQI2DJ9Y2gaJzjP6A0mCkGg==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4aegh602w6-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Nov 2025 03:08:13 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-8803f43073bso95046196d6.0
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Nov 2025 19:08:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763168999; x=1763773799; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=o0qRv7D69CzuYjO3j1EhxqH/ct/yNh/3IP2tz5K1Gqw=;
- b=MnauAKVdwOyQNJUcByp7D0BtfIQjE5qM0YXjbX5j6be3IO0Q33h2ge5aGx0LJWMDDb
- OXKyDH+ANASq9pa2hu7vDLbm3P1xNO9bMcW7VPOa+3kxnpaf/Oz0tT03GtW5rPpANhV5
- RscDyImmkmAOJdYfx8ucdwtsvqMSg/ySJv8NPWwQDjSqbmdCWS+OOOFpaB7yutfee6XV
- lxO3ztqDZCWbRdfsEA4ZfjoWhVIBQCoZBAUG79Y8houdWUKm7ndrNWeCnc0bcJDh4dOX
- b6WEV+5PaiJ8ofdGZo2zoKxRN0DZrNB8Z8HBd5AUKENb4WFV3zkLz64+IyjAMmiUzO0Y
- Zikw==
+ d=oss.qualcomm.com; s=google; t=1763176093; x=1763780893;
+ darn=lists.freedesktop.org; 
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=U65TdZ0xWh9RTPUOJQQdTgJX0pVxkPF+VkIbt7jf5ZY=;
+ b=jpJU6huAE/mAXjbpmbp6Q1KufKHx3UwdxjIwfKnaUlJGXqnRnQAIoI1QAdeojn4aME
+ /JO2zPlQRgvmNBbUGI0YVxaTS9TACEGHmY5gWPXcS/07ACi7MgTPpxD+kZEocTRokc97
+ vytJXaf5Ve7Xtjn0Z95ko5Lc5JYl7gy6UnK63SGKIqzDyVpAvnPY+Edx2a52PwV5LybH
+ 4BG9+vidRc7fAKbT2opYp+QRQCWhkzZmw9OplVr7dyLhDBWqtkPAr4tTYXmEueff2F0q
+ FC/G38KhFc1RkcG+XOWKU0nmyzI/tk83jnklR3TQt7OpQ9r0HvmpYue+JD6WlL2F+XZT
+ cQ5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763168999; x=1763773799;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=o0qRv7D69CzuYjO3j1EhxqH/ct/yNh/3IP2tz5K1Gqw=;
- b=UpKMTfYYJeozEEURgygW2jjCwtMoyJse7w8/s8QNDpxsDuNFzjIgceZ7W9gNwBFY6f
- BcAdD9fPNhPDLXYIhXUGKVV0escDQT5fGsSSLhRF+2So9CeEFK2oYqf1a36Edsvf+kt9
- ifzExiGEvh/rM/+OBTlU2xtniOLCXMOL2rMJ7a2kZS8iTCNEcgvRlac+BApz7HV7QFuh
- EsXuNZAcMs/hAMftavD3ARC8Xbv02/Tta9NLKBJI81xcQntsMGULdUmA7EJbwnm+7Ybw
- 7l856ahJIYzwaPBW/NXt8FmETeqBAca0eYZ32thtV21nF/YmSBsYvNoL36SZZU9e/RFC
- S+gQ==
+ d=1e100.net; s=20230601; t=1763176093; x=1763780893;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=U65TdZ0xWh9RTPUOJQQdTgJX0pVxkPF+VkIbt7jf5ZY=;
+ b=Nd8DOY5AKQVTlV0ZTR89qnor0KILAWh9USduiL1qzOIoGlt6DNIPJbeJJWa4WLmKo8
+ BdwwocMCHaVDJ/rNdg/by6C7XXvL0hlkUBOK0PD/PXZXjeJxfHKi1MuTE1A2izFUqEpU
+ jqMw+k7X6X89aVAjU1G6BcHVU6xF+V1KuARrysh5kNMgf69GisiPEaFB9a3vUBnSv5Mo
+ XwElS0bq8LM55UWbnsh6ZX7pOScfaSZGGNIT2VtW9mY8Qnjuhb+v1wAxFFhzEDG+Y/4/
+ A1GpBT1lqQvcVEUsggk4WOcQye06l+WZQNwsZGQ2GyT5g8NrM666rE/dPaapSU6j1bYW
+ IwTQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVmaTIC1jxoUwpEXTTfclh48OI08rolD2mVcsUXyx51QO/qtc5LHKUzyr6AzeOro9Y/WCp95bOQvh8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YymYwDAL4P7/nmBMaCVAuuAIdiQgj8UIH6gkLgveQ/V0Jt8Kt2N
- 248to2FB/3S1Lvl5gxT3u1U8t4vc/Spq6C/6rb+xmavw/FXa8LSQyP0/TQ2jGUSGuQLuqzwGy8o
- hk5CRsfSZjuc31OvMiOKM25CAMhNv+w4=
-X-Gm-Gg: ASbGncs4MsV0lMAACCOrVEMwTLBa0n0UolqVpzlrYMqjrU58tw9hFxC6RDv/QFBSA9E
- eNUq/oT2yNRg5aic83PsWiO26Mr3x4wXQLwizY12E8CKf2XM2y/s5So44cIAj1eGjkpGEzIyh8H
- 6wpTq5h3Jc3AOSBoR1WOLsr1Ow8z5IKMsNsFnJhLKVMHXIowObzSptoM4oBqPgaBAN4Yw31KsfA
- tZjO8elsnbcKis8A9u0tU3Cwuu6qtzvVQhFTebre58eDqLvNAKXCUBsCBSHXsFNLtmBm0/VezoV
- PRTa8Q==
-X-Google-Smtp-Source: AGHT+IGKr+SF3i4IMqwtFmH1LrnsWvseLPJ1eP5fnws2PS56tgVe0SFilID5gX/syOfN/2tpbyjVHNc8lJjWhGJSBeY=
-X-Received: by 2002:a05:6e02:3784:b0:433:2812:8066 with SMTP id
- e9e14a558f8ab-4348c91b9ecmr67887805ab.23.1763168998948; Fri, 14 Nov 2025
- 17:09:58 -0800 (PST)
+ AJvYcCXEV+GS7DVLFIGVo8hZflIi1sZGLDpfuHvn9bX3b3pkmnfUPZcT35YC9IpERXLYSTNSX2+EMgYFjYg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxuBn5bTPPcWqiYndIHwgAjbgLqu1R/NYHfoO/JsJEldwzrzR/P
+ LT5+44Y1EYt5ZJf9u+XglAWV5+xYDtXHun+ay9uhE8ldAk6qmQLki9dotcPU0neZw0Hl5D0mZeB
+ nkpNE6a66XY63z5kmRwH2gKlzFDH3vsPc5J18yYONFkaMQkyZ2JMWvoYq6KiFhTVBGBuyXaE=
+X-Gm-Gg: ASbGncu9hWFDcjQQ5NbN1YZtpC9e+KoLDw9aEWUyplIYiYQWfcOK6CCcZL33p+yixPF
+ PvzcD7kfn7SfZo5QWUvxq3EtmMY6VCpGbudkPT+uicn0qTPHD7vhLiElog69DIeHV8lkk12mLaY
+ dD+KqjqS8CWPF7s10AQNuPsH8fynSV4Q30/UOLRwWhhjVA/rxDrYyoCuKgNM8+H7U+GWqJaXdwO
+ xn755Sol0lvkERUE9ZReKKggQ28NpoZVMhmlJA7xOIxHPAne78BYGHQoGFW5z1hvQNtLn27fA+X
+ dOtHdC/LILyrjJTPe0dXzlapuWCylDPzcUS4LHYB27kuAsq+zi1fCX6w3YXhwsqYqTa5vldqDxb
+ Ab+Cif/VtPc8aPefie/7PmyHYLVfyDMkaS7KRJHqE5L/IeqNwDYytVHJmOM+4Eh6V7hrwfP720j
+ 6gpF//B6MDkRxQ
+X-Received: by 2002:a05:6214:d01:b0:880:51ab:a3e3 with SMTP id
+ 6a1803df08f44-882926e53a2mr72211606d6.67.1763176092592; 
+ Fri, 14 Nov 2025 19:08:12 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IETRNQmWX8aGvtyoUqPy2210fEEuV0gG5CavmUUbG/DhynOs/idqSmfZ0BxhEj1o5mR+Mms2A==
+X-Received: by 2002:a05:6214:d01:b0:880:51ab:a3e3 with SMTP id
+ 6a1803df08f44-882926e53a2mr72211336d6.67.1763176092032; 
+ Fri, 14 Nov 2025 19:08:12 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-595804003afsm1470162e87.71.2025.11.14.19.08.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Nov 2025 19:08:11 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Sat, 15 Nov 2025 05:08:08 +0200
+Subject: [PATCH] drm/msm/dpu: disable gamma correction unit on SC7180
 MIME-Version: 1.0
-References: <20251114-kaana-gpu-support-v3-0-92300c7ec8ff@oss.qualcomm.com>
-In-Reply-To: <20251114-kaana-gpu-support-v3-0-92300c7ec8ff@oss.qualcomm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 14 Nov 2025 17:09:47 -0800
-X-Gm-Features: AWmQ_blMGRjNwnGFGy7X8EnS3-0DGpK0qt7AurVAQy8ubC4mlk6tdicKfSfYn9U
-Message-ID: <CAF6AEGt=qUeEcNbyETriZLnpwt+Zg7K2N7SUsc4Riu5z54VaoQ@mail.gmail.com>
-Subject: Re: [PATCH v3 00/20] drm/msm/adreno: Introduce Adreno 8xx family
- support
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, 
- Jordan Crouse <jordan@cosmicpenguin.net>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Connor Abbott <cwabbott0@gmail.com>,
- linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- iommu@lists.linux.dev, devicetree@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <rob.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251115-dpu-fix-gc-v1-1-0a4fd718208d@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAJfuF2kC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1NDQ0NT3ZSCUt20zArd9GRdS2PDtNTEZHNTcwNTJaCGgqJUoAzYsOjY2lo
+ Ac/x6PVwAAAA=
+X-Change-ID: 20251115-dpu-fix-gc-931feac75705
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Federico Amedeo Izzo <federico@izzo.pro>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2060;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=Ar/QIifOQLCAoE88Y/UPeNAcQ8ZidFpXscg4CHs0wGs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpF+6aIYfjo0upzZFrpTKA6w5gwaS8l/xy/i+Bg
+ XtDzufUWqyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaRfumgAKCRCLPIo+Aiko
+ 1a4SCACRd6VY2fRsbqKupUjg02if9uHDZMa1MI2Rl7krml3BiE1IJahoi8BOkY3tEwKN6oP+XFE
+ HDmVMgWp+LJLImUqHSeoe/QvRjgvoZpq2piGjKWFuuSMsA0LHLIFTDkfKEURPqDIGZ3YSuChfbn
+ fuqh/6Kv7+oBml+JT1uNL3UnL4MzG0JjE/hcNBcou161YO0eLGnRwAW6vcG7IU9fowU7cktvB7D
+ HcixQQZLA/KwGO9fKVaiHdEfQ+400BUDzbwTRO9G5oMAzQoHVC2+ywnPt1p1AAujIUtwUA/FqlF
+ ptdWiKrQHXo0G2VGV0b0weiVkUmu/ntXrC7UQ4GrPffgVg1F
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=U+efzOru c=1 sm=1 tr=0 ts=6917ee9d cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EUspDBNiAAAA:8 a=njhVRvNgssgpu8VHMlYA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-GUID: fsiJ9pEBWO3cg0tDJmqECmDBDe6s2c-I
+X-Proofpoint-ORIG-GUID: fsiJ9pEBWO3cg0tDJmqECmDBDe6s2c-I
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE1MDAyNCBTYWx0ZWRfX2hNF9b6tNEJ2
+ q+lxkwwuyVPq+/rnIsgCdFtogNHAEW6Xvly78MDVncg4/qZGZ641D610pTPK71OyNQDX9sjSAzQ
+ a1voAj7N4FmYAi5adOAxW0TtbitEhPXVT6n2neAvGZAphPR0QCImFQd3OPtDYB5qiOCUXAWLef9
+ LxpKDgZ2vYGczkrohcD904sX9Mq0sPwynN0RYe2Ntm+hqIhe0Vl01n7kQiEmZC50LE+pyzueDUn
+ iKmyGG5M3piwOTfb0KTNo5vzC9Up+IPzr7vevBRGcU3JMUZ0kJwtD3sL/KFokJ0eP1VlsXPbDA8
+ INo7rp+oWL24rcD/a9Vg0/NiwbgReXX0QJaLDBlifSbSRsUiv3JB66Cc0tGLT6IpCQ/yxUFo2mA
+ Nzj+d5+A4Kb1Xd4W4xBQgPEBH+5lmg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-15_01,2025-11-13_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ phishscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511150024
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,164 +158,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Nov 13, 2025 at 3:29=E2=80=AFPM Akhil P Oommen <akhilpo@oss.qualcom=
-m.com> wrote:
->
-> This series adds the A8xx HWL along with Adreno 840 GPU support to the
-> drm-msm driver. A8x is the next generation in the Adreno family,
-> featuring a significant hardware design change. A major update to the
-> design is the introduction of 'Slice' architecture. Slices are sort of
-> mini-GPUs within the GPU which are more independent in processing Graphic=
-s
-> and compute workloads. Also, in addition to the BV and BR pipe we saw in
-> A7x, CP has more concurrency with additional pipes.
->
-> From KMD-HW SWI perspective, there is significant register shuffling in
-> some of the blocks. For slice or aperture related registers which are
-> virtualized now, KMD/crashdumper has to configure an aperture register
-> to access them. On the GMU front, there are some shuffling in register
-> offsets, but it is manageable as of now. There is a new HFI message to
-> transfer data tables and new power related features to support higher
-> peak currents and thermal mitigations.
->
-> Adreno 840 GPU is the second generation architecture in the A8x family
-> present in Kaanapali (a.k.a Snapdragon 8 Elite Gen 5) chipset [1]. It
-> has a maximum of 3 slices with 2 SPs per slice. Along with the 3-slice
-> configuration, there is also another 2-slice SKU (Partial Slice SKU).
-> A840 GPU has a bigger 18MB of GMEM which can be utilized for graphics
-> and compute workload. It also features improved Concurrent binning
-> support, UBWC v6 etc.
->
-> Adreno X2-85 GPU present in Glymur chipset is very similar to A840
-> architecturally. So adding initial support for it requires just an
-> additional entry in the catalog with the necessary register lists.
->
-> This series adds only the driver side support along with a few dt binding=
-s
-> updates. Devicetree patches will be sent separately, but those who
-> are interested can take look at it from the Qualcomm's public tree [2].
-> Features like coredump, gmu power features, ifpc, preemption etc will be
-> added in a future series.
->
-> Initial few patches are for improving code sharing between a6xx/a7xx and
-> a8x routines. Then there is a patch to rebase GMU register offsets from
-> GPU's base. Rest of the patches add A8x HWL and Adreno 840/X2-85 GPU
-> support.
->
-> Mesa support for A8x/A840 GPU is WIP and will be posted in the near
-> future.
+IGT reported test failures with Gamma correction block on SC7180.
+Disable GC subblock on SC7180 until we trage the issue.
 
-mesa support: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/384=
-50
+Cc: Federico Amedeo Izzo <federico@izzo.pro>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Most likely I will squash this into the GC patch
+---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c         | 9 +++++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-BR,
--R
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+index c990ba3b5db02d65934179d5ad42bd740f6944b2..b6415adcea10126fb6bb29d60a9d4159052a61ba 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+@@ -103,7 +103,7 @@ static const struct dpu_dspp_cfg sc7180_dspp[] = {
+ 	{
+ 		.name = "dspp_0", .id = DSPP_0,
+ 		.base = 0x54000, .len = 0x1800,
+-		.sblk = &sdm845_dspp_sblk,
++		.sblk = &sc7180_dspp_sblk,
+ 	},
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 23bb39b471b71e3f313321ad1c7a6bd4d2159019..bfd34368a03641651530d9c564a74d2e9398f656 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -389,6 +389,15 @@ static const struct dpu_dspp_sub_blks sdm845_dspp_sblk = {
+ 		.len = 0x90, .version = 0x40000},
+ };
+ 
++/*
++ * Some of Gamma-related IGT tests fail on SC7180. Disable GC until we triage
++ * those failures.
++ */
++static const struct dpu_dspp_sub_blks sc7180_dspp_sblk = {
++	.pcc = {.name = "pcc", .base = 0x1700,
++		.len = 0x90, .version = 0x40000},
++};
++
+ static const struct dpu_dspp_sub_blks sm8750_dspp_sblk = {
+ 	.pcc = {.name = "pcc", .base = 0x1700,
+ 		.len = 0x90, .version = 0x60000},
 
-> [1] https://www.qualcomm.com/products/mobile/snapdragon/smartphones/snapd=
-ragon-8-series-mobile-platforms/snapdragon-8-elite-gen-5
-> [2] https://git.codelinaro.org/clo/linux-kernel/kernel-qcom/-/commit/5fb7=
-2c27909d56660db6afe8e3e08a09bd83a284
->
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Squash gpu smmu bindings patches for Kaana and Glymur (Krzysztof)
-> - Reuse a6xx_flush() and drop the patch that added submit_flush callback
-> - Fix GBIF configs for a640 and a650 family (Konrad)
-> - Add partial SKU detection support
-> - Correct Chipids in the catalog
-> - Add a new patch to drop SCRATCH reg dumps (Rob)
-> - Read slice info right after CX gdsc is up
-> - Don't drop raytracing support if preemption is unsupported
-> - Drop the unused A840 pwrup list (Konrad)
-> - Updates to A840 nonctxt list (Rob)
-> - Capture trailers
-> - Link to v2: https://lore.kernel.org/r/20251110-kaana-gpu-support-v2-0-b=
-ef18acd5e94@oss.qualcomm.com
->
-> Changes in v2:
-> - Rebase on top of next-20251110 tag
-> - Include support for Glymur chipset
-> - Drop the ubwc_config driver patch as it is picked up
-> - Sync the latest a6xx register definitions from Rob's tree
-> - New patch to do LRZ flush to fix pagefaults
-> - Reuse a7xx_cx_mem_init(). Dropped related patch (Connor)
-> - Few changes around cp protect configuration to align it with downstream
-> - Fix the incorrect register usage at few places
-> - Updates to non-ctxt register list
-> - Serialize aperture updates (Rob)
-> - More helpful cp error irq logging
-> - Split A8x GMU support patch (Dmitry)
-> - Use devm_platform_get_and_ioremap_resource in GMU init (Konrad)
-> - Link to v1: https://lore.kernel.org/r/20250930-kaana-gpu-support-v1-0-7=
-3530b0700ed@oss.qualcomm.com
->
-> ---
-> Akhil P Oommen (20):
->       drm/msm/a6xx: Flush LRZ cache before PT switch
->       drm/msm/a6xx: Fix the gemnoc workaround
->       drm/msm/a6xx: Skip dumping SCRATCH registers
->       drm/msm/adreno: Common-ize PIPE definitions
->       drm/msm/adreno: Move adreno_gpu_func to catalogue
->       drm/msm/adreno: Move gbif_halt() to adreno_gpu_func
->       drm/msm/adreno: Add MMU fault handler to adreno_gpu_func
->       drm/msm/a6xx: Sync latest register definitions
->       drm/msm/a6xx: Rebase GMU register offsets
->       drm/msm/a8xx: Add support for A8x GMU
->       drm/msm/a6xx: Improve MX rail fallback in RPMH vote init
->       drm/msm/a6xx: Share dependency vote table with GMU
->       drm/msm/adreno: Introduce A8x GPU Support
->       drm/msm/adreno: Support AQE engine
->       drm/msm/a8xx: Add support for Adreno 840 GPU
->       drm/msm/adreno: Do CX GBIF config before GMU start
->       drm/msm/a8xx: Add support for Adreno X2-85 GPU
->       dt-bindings: arm-smmu: Add Kaanapali and Glymur GPU SMMU
->       dt-bindings: display/msm/gmu: Add Adreno 840 GMU
->       dt-bindings: display/msm/gmu: Add Adreno X2-85 GMU
->
->  .../devicetree/bindings/display/msm/gmu.yaml       |   60 +-
->  .../devicetree/bindings/iommu/arm,smmu.yaml        |    2 +
->  drivers/gpu/drm/msm/Makefile                       |    2 +
->  drivers/gpu/drm/msm/adreno/a2xx_catalog.c          |    7 +-
->  drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |   50 +-
->  drivers/gpu/drm/msm/adreno/a2xx_gpu.h              |    2 +
->  drivers/gpu/drm/msm/adreno/a3xx_catalog.c          |   13 +-
->  drivers/gpu/drm/msm/adreno/a3xx_gpu.c              |   52 +-
->  drivers/gpu/drm/msm/adreno/a3xx_gpu.h              |    2 +
->  drivers/gpu/drm/msm/adreno/a4xx_catalog.c          |    7 +-
->  drivers/gpu/drm/msm/adreno/a4xx_gpu.c              |   54 +-
->  drivers/gpu/drm/msm/adreno/a4xx_gpu.h              |    2 +
->  drivers/gpu/drm/msm/adreno/a5xx_catalog.c          |   17 +-
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |   61 +-
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.h              |    1 +
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |  369 +++-
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  287 ++-
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   25 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  393 ++--
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |   31 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        |   18 +-
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |   53 +
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.h              |   17 +
->  drivers/gpu/drm/msm/adreno/a8xx_gpu.c              | 1205 ++++++++++++
->  drivers/gpu/drm/msm/adreno/adreno_device.c         |    4 +-
->  .../gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h  |  420 ++---
->  .../gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h  |  332 ++--
->  .../gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h  |  470 ++---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   38 +-
->  drivers/gpu/drm/msm/registers/adreno/a6xx.xml      | 1954 ++++++++++++++=
-+-----
->  .../gpu/drm/msm/registers/adreno/a6xx_enums.xml    |    2 +-
->  drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml  |  283 +--
->  .../gpu/drm/msm/registers/adreno/a7xx_enums.xml    |    7 -
->  .../drm/msm/registers/adreno/a8xx_descriptors.xml  |  120 ++
->  .../gpu/drm/msm/registers/adreno/a8xx_enums.xml    |  289 +++
->  .../gpu/drm/msm/registers/adreno/adreno_common.xml |   12 +
->  36 files changed, 5008 insertions(+), 1653 deletions(-)
-> ---
-> base-commit: edf57d8dafc63f9298a209e518ea6a2e0df78ed0
-> change-id: 20250929-kaana-gpu-support-11d21c8fa1dc
->
-> Best regards,
-> --
-> Akhil P Oommen <akhilpo@oss.qualcomm.com>
->
+---
+base-commit: e2f085ab8636fae2ebe0adf42071e7558234cd7b
+change-id: 20251115-dpu-fix-gc-931feac75705
+
+Best regards,
+-- 
+With best wishes
+Dmitry
+
