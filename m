@@ -2,139 +2,135 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AE41C63AF0
-	for <lists+freedreno@lfdr.de>; Mon, 17 Nov 2025 12:01:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A358C63CA8
+	for <lists+freedreno@lfdr.de>; Mon, 17 Nov 2025 12:25:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B777010E3A7;
-	Mon, 17 Nov 2025 11:01:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CB5510E36A;
+	Mon, 17 Nov 2025 11:25:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rGWYzEGJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="myGhlPJQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PT5nfZpy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
- [74.125.224.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D21110E3A8
- for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 11:01:15 +0000 (UTC)
-Received: by mail-yx1-f52.google.com with SMTP id
- 956f58d0204a3-63e16fbdd50so3634803d50.2
- for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 03:01:15 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C28410E35C
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 11:25:42 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5AHBKkmD3040233
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 11:25:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ DWoPim49AaUbsvQ7OBAsCz7JIUC8pQiq8bzO11oAofg=; b=myGhlPJQcQUN3m1f
+ vhojFWveibAK/5N+ThHxznofkP3OsfaU/11houm4nMWY/8HtezzeDju5KtsPBkBj
+ g2+1qjNG3lv4H5aEFCD8eF0prlhl6bs7i5YBdiKMGnSJbYBLVML9NGFw6XvgwbuK
+ NX9LSNOihJGx69/rcggKgGvDbaq3WgRN6m8nUGn0FIVPe9iKgfESWu3e7AuSfrSJ
+ l1nsjZIW6bvAFjW/eNACObI0w98R7naQ2AkKMFh0TZEuPEK27QkMiiuGLgXetXbe
+ IulyK68xizJoMCBi0/LRLO9og/AW7LpvMoSvcYXFiyfWYMyogyIzXsQU5TuO0NDT
+ EM5+1A==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4aejh04gxp-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 11:25:40 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4ede0bd2154so15887531cf.1
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 03:25:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1763377274; x=1763982074; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=/RSfdrwfxNJQiZz80hQXf9twz6yOQXKrW5ZfA5HxaxE=;
- b=rGWYzEGJqEi99qHctaP87trGMrdAGuwv4GrrQXjH3cU+eAResOFjd1qo5/ugh57pLN
- /32eix5G2SniEuad4khM+xi4mkAbBnQwcnoOFxUEnebbVBRK8cjBFVkP2mGpsJF4xH7v
- 40kl4fX1DNVz6LkWqGQDaJeU8ID+Y2JM2FqOQ5HzrzZJQ44rA4NlP+Fpug5M3XdUr6X1
- 6lYE0UCqUTwjiONC6szlx/AHer8mzCgOBdGJq7LhX/QfFxxJDHktGefqs9UZq3B6cLMb
- ExtpH9Wu9whBjnboY8+T/HokG15TUIzP8nK3fB12na76M9Tz9XDr3tCz5k29G+hNvnoO
- ZSZg==
+ d=oss.qualcomm.com; s=google; t=1763378740; x=1763983540;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=DWoPim49AaUbsvQ7OBAsCz7JIUC8pQiq8bzO11oAofg=;
+ b=PT5nfZpyRqvAN06aKD5sF7QCTvSySaX0QaZ/vX4uQCcTHvMpVVzGUahdTtfmjL0jPR
+ whdn9aEcoq4WV0WGTcqkbXfjwkn+oHs6n+fDNvxkw41F4kf3lu+P+Koh6OVvi8IricNl
+ b4Ug3Q3oZ80KsxZRm2rfOUNfTnVzv+L8JitUIaKgZriOVmBN0vxkHr3VMLghTSQgA8bm
+ XkAFlePbxI1dV4lrgw8qcManX+BBvAV5J9ZOpJaaLzfWUS7ScNY4EsDt2WLsKGHP+5Pc
+ U28ZOuK2ykWnKIG77K6CI5lVq3kBLyp6LreKHto2A8sN8aPE3p+tHiVit2vlfX763xdX
+ N9Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763377274; x=1763982074;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/RSfdrwfxNJQiZz80hQXf9twz6yOQXKrW5ZfA5HxaxE=;
- b=xR92nEP8IquPjwSeGgbHLWMr0bCfkPcYR+WY/sK4o/8SZe64v8RjUdTygmHKun/gJW
- DAJSmQ2nr3kXZe7qan41x3zimyVGWZp0IRoUYQpSXjqODe3W6wEdF1zIVmnrCYk6t+SA
- pRRooDwJTthSTO7X2gEN5PzFZuaWHQA/Vt1IQDkVkpeoMctUHkS6Ri81SZ3UpOLDmg0E
- ADixm6mNvok2VTK6P5clOcQ18yr1vekRNw92ddQPtLCkkKrf1kODiQ7OfuCdFZiGX7YY
- 2nUBfgfM3e8A/lWK4Sr7suw8CiEpMYA7/AdnmxFVE5Rjls+a8XC+BlfG5BGoWRKv1dPD
- dSVg==
+ d=1e100.net; s=20230601; t=1763378740; x=1763983540;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DWoPim49AaUbsvQ7OBAsCz7JIUC8pQiq8bzO11oAofg=;
+ b=KxDLOYQ0mId7wDjjrxDVdlMBYOvWQKrceXkp4FfMY/n/Lfy7F25w7TlxH7Sa1GObVk
+ IMoxcYGQzFZ6SAtbDgNSQzjDzLbZXrTCMoqYw87FCTfCNjkOrypprgjC3S3+oLtiJx4I
+ se9BURmEnB3+xtGW2q/+j9YeHMjSEOL0ViBfwJEWltXAH4aiEyjmfhZpZBhphs+lU5IC
+ KEOTGsVBFh3YHdBw1rz96Rxu9qxIl0l1GrtRGbs01tTqplp4p9dYA6ULLnj3i2qKRRZA
+ +G1GASZ6ws7O5fZAGh1Ms8P8Li8UAvj73qtS5SzFVC1ZCf5gsyg3SY+fCh+lcxOtnkdq
+ ALnw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWS17BPsQfF539N43eOqYGo8btwnn1o7vgZPQUQjDea+BR4dy2eSSVpVMKFEKg5kC03ObaQeWqcmq8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzuWd507uDDNIbqLDnhVbv3Br/Y1kDd+FfvE/5l+M3NhKhMrEB2
- ZGz18hRMvGt+YK89zIjn0egNRsdwx//O6fB9fnWZrcmKWFxFEULARJzY4bWF+aqzT7Zdx9SCCo+
- nhXDaNzi89jkreB5zTkdkrn0I/a9hM1mZfMm9xodflg==
-X-Gm-Gg: ASbGncuBBKPSRSpD5SDwwpdoAv4/mkpFLzu6IYMBmuxRU8MHwBsCRy+3jccUf2FrSLp
- bw+sADIlLO3aHpxUmWsYwlSCjpJVDNhxkxHBIeF/M9MAYG22BmKhvK8uLv+Q3WGFCi0V38NOm03
- ngPVSwyuyHwQjNgcJK4QeuSqA/Aa544EEKpd/WtelgwbsEFPnmAk1s3WGczjKEZ/k3aiUJDzSHN
- Fd5oX6VgWVDkyzImEmUL2xIrj8dH7h4GdLAp3L8S6Yv2n7g/d6tre37mfuVMHrBj1RzD4lt2taB
- /wLEhOw=
-X-Google-Smtp-Source: AGHT+IEjvegoUIWfi8UaBD0jEKwHtT+y2Cbu5UHhJ+VHUPJu6okR0AoxTFiIq+cxtmlIxdFEnLzs3e2dtieQR/hKIVs=
-X-Received: by 2002:a05:690e:d86:b0:642:84a:7ba4 with SMTP id
- 956f58d0204a3-642084a7c6bmr1567493d50.85.1763377273901; Mon, 17 Nov 2025
- 03:01:13 -0800 (PST)
+ AJvYcCXlkZPqUxyduP8JaeCdQ4mbYvGtbkbtmoGQbnlwJ8Ay4fbqPauX6VDRYcFAjOP4Y6OiJY+qdUd5AG0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtjCyMWpDYa7f+2KboYy+UaF7PfccW34G/Qh0YHCQhN0OKEeOo
+ 7yHfdhqjnwmV+s4ue8SCd/GMDOvWMC8HZQnGSswGVsaSL3wHl1CQBEu/MgdrHKxi9i245ER8DmN
+ wmXi/RmAga5kX0PWc9Gahy5NPjEGKn7n2PVR4UEnoWSXl3TikMstruO9kVR2Ir73YGrDtnwg=
+X-Gm-Gg: ASbGncurFWJE+wxnyiGWxxWTu3WGH3N4ZaepeQz3Nat5CnQPMJuhAjEmaupdm3w+1oc
+ uTn0cAkB5jlvPW0/HVt1nlmV8bkTYfMc/yz1QpTmQBpNfKbgvX2CPUJWaNUzPeraMOSkuomKFEp
+ 98347iRLuQGMj9h+glWONs9HYyFlewCHza9hvz8KT7kaSjiwa3Fm/Q0SaHxvhKEejsnSD2al5cp
+ ulvtI/0WQmC4uItoCPd+dOlO2iZUjIa4dSYj6rW8WRBauuNTH4SJrdY4F895MbGNHG4o02HZMRk
+ b/odC/lsCy9X4OSxZ5vyOI6Bnjew7dIAiU3Ou0lZWAfUPrroVl/RbKIpRVMQjXuH9hsbPUe129u
+ HW5AhJc2uJvA2Ln6Jl1ka0COCwJHof0XGaXaie9ceD3oK0xd4LbAM7wmj
+X-Received: by 2002:a05:622a:4f8d:b0:4ee:87e:dedf with SMTP id
+ d75a77b69052e-4ee087ee1c8mr52470701cf.8.1763378740420; 
+ Mon, 17 Nov 2025 03:25:40 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHb4Ps3dPzCqOHGYfilA8tMKme1OEdnyPVxzwMviUQvqScJt0idpN8FF+7TPF+Fjwwa4wsGQg==
+X-Received: by 2002:a05:622a:4f8d:b0:4ee:87e:dedf with SMTP id
+ d75a77b69052e-4ee087ee1c8mr52470441cf.8.1763378739967; 
+ Mon, 17 Nov 2025 03:25:39 -0800 (PST)
+Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6433a3d839esm9776968a12.8.2025.11.17.03.25.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Nov 2025 03:25:39 -0800 (PST)
+Message-ID: <6457c60a-2ede-4df8-ad82-d974690eba89@oss.qualcomm.com>
+Date: Mon, 17 Nov 2025 12:25:36 +0100
 MIME-Version: 1.0
-References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
- <20251113150217.3030010-14-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20251113150217.3030010-14-andriy.shevchenko@linux.intel.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Mon, 17 Nov 2025 12:00:38 +0100
-X-Gm-Features: AWmQ_bk2fwrMGKoLr3e8DW_NORum6cYwB-Ynf9Wgckyt3WUUk5QWFuYE7vXt0wM
-Message-ID: <CAPDyKFotmQyHzBim-8nib-KVvQaQgA_ELbgdC_Q4Y95-GrvRSw@mail.gmail.com>
-Subject: Re: [PATCH v3 13/21] mmc: mmc_test: Switch to use %ptSp
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Corey Minyard <corey@minyard.net>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>, 
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Calvin Owens <calvin@wbinvd.org>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Sagi Maimon <maimon.sagi@gmail.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Casey Schaufler <casey@schaufler-ca.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, 
- Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
- Max Kellermann <max.kellermann@ionos.com>, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-mmc@vger.kernel.org, netdev@vger.kernel.org, 
- intel-wired-lan@lists.osuosl.org, linux-pci@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-staging@lists.linux.dev, ceph-devel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/dpu: disable gamma correction unit on SC7180
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>, 
- Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>, 
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Satish Kharat <satishkh@cisco.com>, Sesidhar Baddela <sebaddel@cisco.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Federico Amedeo Izzo <federico@izzo.pro>
+References: <20251115-dpu-fix-gc-v1-1-0a4fd718208d@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20251115-dpu-fix-gc-v1-1-0a4fd718208d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=W9U1lBWk c=1 sm=1 tr=0 ts=691b0635 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=JlwW-Zz180dxR8tk6I0A:9
+ a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10 a=zZCYzV9kfG8A:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: tROf6mGeohX4bpcHyKxZEv6XxburnOd_
+X-Proofpoint-ORIG-GUID: tROf6mGeohX4bpcHyKxZEv6XxburnOd_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE3MDA5NiBTYWx0ZWRfX1SRdbEKAcDc8
+ YywJqGPsba6XEQpcrOWc5U2wsGJa5PQz2Hc1j3R6XZJYrKjtGKDL5SHy6BnlWE07YV/tJMh0g/I
+ IAodJcu/ubJWwa/EenZWuXUn0vbYl8E1ox+15kE3OHkQN76H6gtcTGBgdYETJ/WOdnHd2PWkOV2
+ PE1bV6YLmTao72S7abT98EBb1uuCxfuUBW20MS9XqutGYguREV5IZQkqo19eKTEH8GjX2QLML3B
+ /JfQ/wI+d6YL4hYi8hC3+URpmshOeghB3opvbjFwunsW/6A6A4aHU0CVmGNDZ8XmrEDFTtr3ELF
+ 36EREHHRBzsjIrxleTrFQ/lGFpgbiHpQXaxcB73L3agfBkIbI5xgrb1ihBriXtDM1QYnGyJftfs
+ POrmRtED4MBtQCOUbYVF4wt/k6ccyA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-17_02,2025-11-13_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ spamscore=0 clxscore=1015 phishscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511170096
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,61 +146,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 13 Nov 2025 at 16:03, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> Use %ptSp instead of open coded variants to print content of
-> struct timespec64 in human readable format.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-Acked-by: Ulf Hansson <ulf.hansson@linaro.org>
-
-Kind regards
-Uffe
-
+On 11/15/25 4:08 AM, Dmitry Baryshkov wrote:
+> IGT reported test failures with Gamma correction block on SC7180.
+> Disable GC subblock on SC7180 until we trage the issue.
+> 
+> Cc: Federico Amedeo Izzo <federico@izzo.pro>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->  drivers/mmc/core/mmc_test.c | 20 ++++++++------------
->  1 file changed, 8 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/mmc/core/mmc_test.c b/drivers/mmc/core/mmc_test.c
-> index a74089df4547..01d1e62c2ce7 100644
-> --- a/drivers/mmc/core/mmc_test.c
-> +++ b/drivers/mmc/core/mmc_test.c
-> @@ -586,14 +586,11 @@ static void mmc_test_print_avg_rate(struct mmc_test_card *test, uint64_t bytes,
->         rate = mmc_test_rate(tot, &ts);
->         iops = mmc_test_rate(count * 100, &ts); /* I/O ops per sec x 100 */
->
-> -       pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took "
-> -                        "%llu.%09u seconds (%u kB/s, %u KiB/s, "
-> -                        "%u.%02u IOPS, sg_len %d)\n",
-> -                        mmc_hostname(test->card->host), count, sectors, count,
-> -                        sectors >> 1, (sectors & 1 ? ".5" : ""),
-> -                        (u64)ts.tv_sec, (u32)ts.tv_nsec,
-> -                        rate / 1000, rate / 1024, iops / 100, iops % 100,
-> -                        test->area.sg_len);
-> +       pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took %ptSp seconds (%u kB/s, %u KiB/s, %u.%02u IOPS, sg_len %d)\n",
-> +               mmc_hostname(test->card->host), count, sectors, count,
-> +               sectors >> 1, (sectors & 1 ? ".5" : ""), &ts,
-> +               rate / 1000, rate / 1024, iops / 100, iops % 100,
-> +               test->area.sg_len);
->
->         mmc_test_save_transfer_result(test, count, sectors, ts, rate, iops);
->  }
-> @@ -3074,10 +3071,9 @@ static int mtf_test_show(struct seq_file *sf, void *data)
->                 seq_printf(sf, "Test %d: %d\n", gr->testcase + 1, gr->result);
->
->                 list_for_each_entry(tr, &gr->tr_lst, link) {
-> -                       seq_printf(sf, "%u %d %llu.%09u %u %u.%02u\n",
-> -                               tr->count, tr->sectors,
-> -                               (u64)tr->ts.tv_sec, (u32)tr->ts.tv_nsec,
-> -                               tr->rate, tr->iops / 100, tr->iops % 100);
-> +                       seq_printf(sf, "%u %d %ptSp %u %u.%02u\n",
-> +                                  tr->count, tr->sectors, &tr->ts, tr->rate,
-> +                                  tr->iops / 100, tr->iops % 100);
->                 }
->         }
->
-> --
-> 2.50.1
->
+> Most likely I will squash this into the GC patch
+> ---
+
+Peeking at downstream, 7180 and 845 should have the exact same GC
+(v1.8).. it seems like there's an attempt to program it through
+REGDMA instead of regular reg access. Not sure if it's actually
+necessary or just an optimization
+
+What tests are exactly failing? I couldn't track it down on FDO GL
+
+Konrad
