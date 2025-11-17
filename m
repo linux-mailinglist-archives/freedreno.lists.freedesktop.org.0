@@ -2,98 +2,139 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C748C637D6
-	for <lists+freedreno@lfdr.de>; Mon, 17 Nov 2025 11:19:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AE41C63AF0
+	for <lists+freedreno@lfdr.de>; Mon, 17 Nov 2025 12:01:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5266910E33F;
-	Mon, 17 Nov 2025 10:19:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B777010E3A7;
+	Mon, 17 Nov 2025 11:01:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ZWsoU4u7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rGWYzEGJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44B0810E33F
- for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 10:19:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1763374785;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8Sj1yzB+yodW9emJVWyrm3VZBnBWrcQvlOUnMxJLYhU=;
- b=ZWsoU4u7QfTWdxqzAnrBEBGDdgI7E7j6/Z3NE8mxQorqjbKwliEsdCzgZntPZkYXuRr5WE
- qiCQypiljGGDNlkqOgq+tV+eVaRVHDrFLv4ol0t3J6hYksK/nlKNpOQJmpfUx8u6+obJZx
- rcGNU251xAljKBCsJqeO4hzgrDouUtg=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-368-jUD509RRP8Sb2bh6jhTAwg-1; Mon, 17 Nov 2025 05:19:42 -0500
-X-MC-Unique: jUD509RRP8Sb2bh6jhTAwg-1
-X-Mimecast-MFC-AGG-ID: jUD509RRP8Sb2bh6jhTAwg_1763374781
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-42b2f79759bso2864675f8f.2
- for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 02:19:42 -0800 (PST)
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
+ [74.125.224.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D21110E3A8
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 11:01:15 +0000 (UTC)
+Received: by mail-yx1-f52.google.com with SMTP id
+ 956f58d0204a3-63e16fbdd50so3634803d50.2
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 03:01:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1763377274; x=1763982074; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=/RSfdrwfxNJQiZz80hQXf9twz6yOQXKrW5ZfA5HxaxE=;
+ b=rGWYzEGJqEi99qHctaP87trGMrdAGuwv4GrrQXjH3cU+eAResOFjd1qo5/ugh57pLN
+ /32eix5G2SniEuad4khM+xi4mkAbBnQwcnoOFxUEnebbVBRK8cjBFVkP2mGpsJF4xH7v
+ 40kl4fX1DNVz6LkWqGQDaJeU8ID+Y2JM2FqOQ5HzrzZJQ44rA4NlP+Fpug5M3XdUr6X1
+ 6lYE0UCqUTwjiONC6szlx/AHer8mzCgOBdGJq7LhX/QfFxxJDHktGefqs9UZq3B6cLMb
+ ExtpH9Wu9whBjnboY8+T/HokG15TUIzP8nK3fB12na76M9Tz9XDr3tCz5k29G+hNvnoO
+ ZSZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763374781; x=1763979581;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8Sj1yzB+yodW9emJVWyrm3VZBnBWrcQvlOUnMxJLYhU=;
- b=GK10s6oeQO8uOShlpRXWnzptXpwLvKY+jojKyYXffm3syO8gSxVpZdV5RoZyBtzxBi
- YHhT2yr9NQaZ+Qfwh7UBmpvzjkaIXR/IulNWUQitgmvktota7a12e7nMJqil8dySzzFB
- z7qeorh8sAeS3nBCe49G3nxBnuVMvOycl+jFGQfIOlNyPe8mm6PebLOAgI0swQInLXKS
- eVNovOKZd1vVlnc0uhvkf3SOg/HAUBZpUiyb73T06opkWcc6G/MKBlMhubUvoB3EO60O
- M4jN6z8iHxuUlfduCepJlE69+qk8VLWyHR4Xg8kyCIexbfyo8iaBXzxhgnl3FdVent9s
- ZWHQ==
+ d=1e100.net; s=20230601; t=1763377274; x=1763982074;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/RSfdrwfxNJQiZz80hQXf9twz6yOQXKrW5ZfA5HxaxE=;
+ b=xR92nEP8IquPjwSeGgbHLWMr0bCfkPcYR+WY/sK4o/8SZe64v8RjUdTygmHKun/gJW
+ DAJSmQ2nr3kXZe7qan41x3zimyVGWZp0IRoUYQpSXjqODe3W6wEdF1zIVmnrCYk6t+SA
+ pRRooDwJTthSTO7X2gEN5PzFZuaWHQA/Vt1IQDkVkpeoMctUHkS6Ri81SZ3UpOLDmg0E
+ ADixm6mNvok2VTK6P5clOcQ18yr1vekRNw92ddQPtLCkkKrf1kODiQ7OfuCdFZiGX7YY
+ 2nUBfgfM3e8A/lWK4Sr7suw8CiEpMYA7/AdnmxFVE5Rjls+a8XC+BlfG5BGoWRKv1dPD
+ dSVg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWxYdh/ji9nTMY2o48AUIkK7U27iKLl/Z05WA8RQhjxqT59TmKSNGdw9KUSMcvvSU3lg1dtnVLilX4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwTmLd5TAHac6gWS0iZEvWPAudENeMFa3iSNfCksOOkWhWDc1Kl
- 6/qriMCNk2pyGvOQM443T/vYR0p+f9uy30bN4a01E8onn0JtIP6imDvh00MASqzknPsNPp8uY3C
- A6tMT6BfaV/5BUl2jjQJH/kSwqNQfIrJWF9nz3T8DzdsIKQB45t42kGVf0loZq1Fye5eD0g==
-X-Gm-Gg: ASbGncsNtnWDKoZI0u8cvOoavpXdBhyENQ/bwAsDuQ+zdQTUQrL3oQGFLs3Bq5+okmq
- E4k1kVsM8eyHRvpDhXZjPKIlrNtSygn+U3ZVs6fTQYnzj14MAGPfUPH0XC5mhTk6fmjguihF9uD
- JP9nocDzRRvAZ3aBLtAd9UD6NCVoiK3csT4JEGA1uXim+hDvTJfCH9mxfveXjEmrUcWW2DMB1qO
- ks/r/Hp336I5EKbq+bMcijjb6mJKPwH81oTqVYkUd62UK5vA6wNzlAXZHbTWmb6XN4Fn9TYE+hj
- xj7L0FtHe1o8fcwNxZKOeHqd4EVRvWYsHYahjFa7iZ0SAss5JaeyEUBckdotrN7Wl2VUbdqhirN
- HBPMSxdrQfnSsq9qgyeGQUJ8s0U/yGU4RzgDPGa5P
-X-Received: by 2002:a5d:5f47:0:b0:427:9e6:3a64 with SMTP id
- ffacd0b85a97d-42b593847f2mr10779169f8f.47.1763374780935; 
- Mon, 17 Nov 2025 02:19:40 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHuLJzRkeZwRTSmYiDMNFB5b9Y04M5/X3K0AsCLwjmRlR2lS/HTXuIsn1n38y2t71o3SspdXw==
-X-Received: by 2002:a5d:5f47:0:b0:427:9e6:3a64 with SMTP id
- ffacd0b85a97d-42b593847f2mr10779119f8f.47.1763374780429; 
- Mon, 17 Nov 2025 02:19:40 -0800 (PST)
-Received: from localhost ([195.166.127.210]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42b53f0b8d6sm26377484f8f.28.2025.11.17.02.19.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Nov 2025 02:19:39 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
- simona@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, inki.dae@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, patrik.r.jakobsson@gmail.com,
- jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- sean@poorly.run, marijn.suijten@somainline.org,
- tomi.valkeinen@ideasonboard.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, thierry.reding@gmail.com, mperttunen@nvidia.com,
- jonathanh@nvidia.com
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v2] drm/fb-helper: Allocate and release fb_info in
- single place
-In-Reply-To: <20251027081245.80262-1-tzimmermann@suse.de>
-References: <20251027081245.80262-1-tzimmermann@suse.de>
-Date: Mon, 17 Nov 2025 11:19:38 +0100
-Message-ID: <87ikf9kll1.fsf@ocarina.mail-host-address-is-not-set>
+ AJvYcCWS17BPsQfF539N43eOqYGo8btwnn1o7vgZPQUQjDea+BR4dy2eSSVpVMKFEKg5kC03ObaQeWqcmq8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuWd507uDDNIbqLDnhVbv3Br/Y1kDd+FfvE/5l+M3NhKhMrEB2
+ ZGz18hRMvGt+YK89zIjn0egNRsdwx//O6fB9fnWZrcmKWFxFEULARJzY4bWF+aqzT7Zdx9SCCo+
+ nhXDaNzi89jkreB5zTkdkrn0I/a9hM1mZfMm9xodflg==
+X-Gm-Gg: ASbGncuBBKPSRSpD5SDwwpdoAv4/mkpFLzu6IYMBmuxRU8MHwBsCRy+3jccUf2FrSLp
+ bw+sADIlLO3aHpxUmWsYwlSCjpJVDNhxkxHBIeF/M9MAYG22BmKhvK8uLv+Q3WGFCi0V38NOm03
+ ngPVSwyuyHwQjNgcJK4QeuSqA/Aa544EEKpd/WtelgwbsEFPnmAk1s3WGczjKEZ/k3aiUJDzSHN
+ Fd5oX6VgWVDkyzImEmUL2xIrj8dH7h4GdLAp3L8S6Yv2n7g/d6tre37mfuVMHrBj1RzD4lt2taB
+ /wLEhOw=
+X-Google-Smtp-Source: AGHT+IEjvegoUIWfi8UaBD0jEKwHtT+y2Cbu5UHhJ+VHUPJu6okR0AoxTFiIq+cxtmlIxdFEnLzs3e2dtieQR/hKIVs=
+X-Received: by 2002:a05:690e:d86:b0:642:84a:7ba4 with SMTP id
+ 956f58d0204a3-642084a7c6bmr1567493d50.85.1763377273901; Mon, 17 Nov 2025
+ 03:01:13 -0800 (PST)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: h7tVeva636eSjwfjwxlL-axizYd8__aauXwArhGTkQM_1763374781
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+ <20251113150217.3030010-14-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20251113150217.3030010-14-andriy.shevchenko@linux.intel.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Mon, 17 Nov 2025 12:00:38 +0100
+X-Gm-Features: AWmQ_bk2fwrMGKoLr3e8DW_NORum6cYwB-Ynf9Wgckyt3WUUk5QWFuYE7vXt0wM
+Message-ID: <CAPDyKFotmQyHzBim-8nib-KVvQaQgA_ELbgdC_Q4Y95-GrvRSw@mail.gmail.com>
+Subject: Re: [PATCH v3 13/21] mmc: mmc_test: Switch to use %ptSp
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Corey Minyard <corey@minyard.net>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>, 
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, 
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-mmc@vger.kernel.org, netdev@vger.kernel.org, 
+ intel-wired-lan@lists.osuosl.org, linux-pci@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-staging@lists.linux.dev, ceph-devel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>, 
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>, 
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Satish Kharat <satishkh@cisco.com>, Sesidhar Baddela <sebaddel@cisco.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,37 +150,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
+On Thu, 13 Nov 2025 at 16:03, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> Use %ptSp instead of open coded variants to print content of
+> struct timespec64 in human readable format.
+>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Hello Thomas,
+Acked-by: Ulf Hansson <ulf.hansson@linaro.org>
 
-> Move the calls to drm_fb_helper_alloc_info() from drivers into a
-> single place in fbdev helpers. Allocates struct fb_info for a new
-> framebuffer device. Then call drm_fb_helper_single_fb_probe() to
-> create an fbdev screen buffer. Also release the instance on errors
-> by calling drm_fb_helper_release_info().
->
-> Simplifies the code and fixes the error cleanup for some of the
-> drivers.
->
-> Regular release of the struct fb_info instance still happens in
-> drm_fb_helper_fini() as before.
->
-> v2:
-> - remove error rollback in driver implementations (kernel test robot)
-> - initialize info in TTM implementation (kernel test robot)
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Kind regards
+Uffe
+
 > ---
-
-It simplifies the drivers' code indeed.
-
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+>  drivers/mmc/core/mmc_test.c | 20 ++++++++------------
+>  1 file changed, 8 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/mmc/core/mmc_test.c b/drivers/mmc/core/mmc_test.c
+> index a74089df4547..01d1e62c2ce7 100644
+> --- a/drivers/mmc/core/mmc_test.c
+> +++ b/drivers/mmc/core/mmc_test.c
+> @@ -586,14 +586,11 @@ static void mmc_test_print_avg_rate(struct mmc_test_card *test, uint64_t bytes,
+>         rate = mmc_test_rate(tot, &ts);
+>         iops = mmc_test_rate(count * 100, &ts); /* I/O ops per sec x 100 */
+>
+> -       pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took "
+> -                        "%llu.%09u seconds (%u kB/s, %u KiB/s, "
+> -                        "%u.%02u IOPS, sg_len %d)\n",
+> -                        mmc_hostname(test->card->host), count, sectors, count,
+> -                        sectors >> 1, (sectors & 1 ? ".5" : ""),
+> -                        (u64)ts.tv_sec, (u32)ts.tv_nsec,
+> -                        rate / 1000, rate / 1024, iops / 100, iops % 100,
+> -                        test->area.sg_len);
+> +       pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took %ptSp seconds (%u kB/s, %u KiB/s, %u.%02u IOPS, sg_len %d)\n",
+> +               mmc_hostname(test->card->host), count, sectors, count,
+> +               sectors >> 1, (sectors & 1 ? ".5" : ""), &ts,
+> +               rate / 1000, rate / 1024, iops / 100, iops % 100,
+> +               test->area.sg_len);
+>
+>         mmc_test_save_transfer_result(test, count, sectors, ts, rate, iops);
+>  }
+> @@ -3074,10 +3071,9 @@ static int mtf_test_show(struct seq_file *sf, void *data)
+>                 seq_printf(sf, "Test %d: %d\n", gr->testcase + 1, gr->result);
+>
+>                 list_for_each_entry(tr, &gr->tr_lst, link) {
+> -                       seq_printf(sf, "%u %d %llu.%09u %u %u.%02u\n",
+> -                               tr->count, tr->sectors,
+> -                               (u64)tr->ts.tv_sec, (u32)tr->ts.tv_nsec,
+> -                               tr->rate, tr->iops / 100, tr->iops % 100);
+> +                       seq_printf(sf, "%u %d %ptSp %u %u.%02u\n",
+> +                                  tr->count, tr->sectors, &tr->ts, tr->rate,
+> +                                  tr->iops / 100, tr->iops % 100);
+>                 }
+>         }
+>
+> --
+> 2.50.1
+>
