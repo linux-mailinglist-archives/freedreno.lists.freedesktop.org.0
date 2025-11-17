@@ -2,89 +2,140 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77D5CC64576
-	for <lists+freedreno@lfdr.de>; Mon, 17 Nov 2025 14:25:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E378BC64687
+	for <lists+freedreno@lfdr.de>; Mon, 17 Nov 2025 14:39:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56F4510E3C7;
-	Mon, 17 Nov 2025 13:25:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 684A810E0D5;
+	Mon, 17 Nov 2025 13:39:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="S8VZKR93";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FXri2I17";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eK6w3fHh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD8A410E092;
- Mon, 17 Nov 2025 13:25:29 +0000 (UTC)
-Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5AHC8PPS024585;
- Mon, 17 Nov 2025 13:25:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=corp-2025-04-25; bh=fYUbOTIvdj8J/pO6wz8BXCy+HCk+/
- c3gY76CEtkAHfY=; b=S8VZKR93E3mn/A2TYPI/x3f5kbLtNyr422/0KT393gGKg
- 2KVnBtTPkPT0xcI1NIEu5zU55wAhYYBqok8HFTGDWIv95zJB3D8BUeWqa4qGC/sP
- 4n5z85sW5fQpxhAMctsN7qiPuIkNCUpjH7Rq2+p5qhV4W4oOl2EiLoyRIV0nyYai
- W7xcPO1eVQSpI+lSlMfCM8glEb/op5A1YGOejTLcw3veQVmD2So3T7LZyJz6EoQA
- kA+AZledv9J6DPvgPHKVN/UZyZLzl+ymnqortUgZRtDwK1+DuLUDckB0kD7oydOB
- SIxgJ+3hrhOhBQfu0mjvKiPuaTthX3AG4y9EO0Bug==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4aejbbagm2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 17 Nov 2025 13:25:21 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 5AHD4qU6009714; Mon, 17 Nov 2025 13:25:20 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 4aefybq9qs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 17 Nov 2025 13:25:20 +0000
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 5AHDKxd1019094;
- Mon, 17 Nov 2025 13:25:20 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 4aefybq9pj-1; Mon, 17 Nov 2025 13:25:19 +0000
-From: Alok Tiwari <alok.a.tiwari@oracle.com>
-To: jordan@cosmicpenguin.net, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- simona@ffwll.ch, airlied@gmail.com, marijn.suijten@somainline.org,
- robin.clark@oss.qualcomm.com, sean@poorly.run, konradybcio@kernel.org,
- lumag@kernel.org, abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com
-Cc: alok.a.tiwarilinux@gmail.com, alok.a.tiwari@oracle.com
-Subject: [PATCH] drm/msm/a6xx: check state before dereferencing in a6xx_show
-Date: Mon, 17 Nov 2025 05:25:11 -0800
-Message-ID: <20251117132516.18834-1-alok.a.tiwari@oracle.com>
-X-Mailer: git-send-email 2.50.1
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B21110E0D5
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 13:39:38 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5AHB2jLp3917049
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 13:39:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ madWQ8LNSH0zkc6V66UGGR8dYDx8zrt7q0Rlr0n4JSQ=; b=FXri2I17p8o0uSsa
+ l756g/4+5dAWAWNQ2+yzKFFJbeFnX0OcY8nt2wrOHncflCEMfcadsVQ2P/SGy6vU
+ mnTGiW9+xjiI68V8h3X1XOZiKREAQ1IW+YZN/tpNOiDE6iH7RUbYUmWu37x131c2
+ FUwZ08Su9AnYFu1SV54el7jvH6d2bRVuahSmGzJmColFRy+6eTuC+wnbzu5Va8eQ
+ /10TW+AX8HjDcurmhOD8OdqtjPP9YQYhXZJXao5nl8PjL4VLYlLQg96hurZQRVNW
+ J6EKZ7BoLRVTrkqHXF7PxgMMKlLkfYNjj79g5HIJKS21gSqgSuOJKF5R2xigR3/b
+ u7gqZg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ag2fx8e04-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 13:39:37 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4edace8bc76so12375761cf.3
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Nov 2025 05:39:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1763386777; x=1763991577;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=madWQ8LNSH0zkc6V66UGGR8dYDx8zrt7q0Rlr0n4JSQ=;
+ b=eK6w3fHhnjOHAMbDv2lFxOVG/BxCQ2LYs6EiIoLy3r672SfxwwajkwqbKmDZOzbMIj
+ 4n8IYFsQfD5RRVCKawTkDkMz93IYDejTgTkK87wi4Q0HwnLe5xV+RLuBEJ7lQigbX7xA
+ oadpWM2KX1MMEizgl0pyGklKTAM+8pect4c+0mCxUSHw8p4MfmP1LY9EEMxLzb5CEuHE
+ X1QUdNGNUrESpeepHfJjS0oAR5y8cbhThp60yN65ndVICHSFTq3Dn/i/rviro8AiozU1
+ QQag0tuhulQdyh0Ev5PuE9USDz9ABFFMykAKjs7eywS18iTh1Th1JQbwL/NH0jdES+Dy
+ yOnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763386777; x=1763991577;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=madWQ8LNSH0zkc6V66UGGR8dYDx8zrt7q0Rlr0n4JSQ=;
+ b=i0SCW7xZcgjzsuXk93CODjHrPao5MCuNhsIkNykHRcdHryMQCE/zvZRze5u7a4YEAB
+ BoJV3+ug/b87Eusfr/R3pQUOBHPZ6CkDgAnqWJJyNMtNLGZmhQ0V0RXJLij1zkZuJNH/
+ //pgRNALuS0WUWLLwVif3875cOdWzpLn4DES/sDcLabdcywRRpffuIgC7pCAj4FH66Qg
+ O8QkEUFSZ9AmR+1vweCYVHdTFaTB1B39i5SjXgc+PKyF6C2jF7Wol2LjZEsYnYlsh10p
+ MJS1kKOQtNO8PyzsTctU4yJJiW5C38vJf+WNyXgOLJwb3JIIWJ1vFDSdvnBLG4lHAhxF
+ WgRQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVYs3HaLDeokgXLgZ5Q7XF23IjDtbOwRYmt35kDzn1kgvdzfKUzjecPuN5pbV7ckjMKRmd666aOEQk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxKXm/TZaWvyZ5Ov6T15nlwsZZRIYJrQULiSvzkb4bKDUwoHfa2
+ 9rrMlbr2hfbAjwbYkwvfj/T4GFjS3N1TZQXpfQPhpydhkCyjXEggsz7qj88AuQW3EW6DgU7wLau
+ 5WhhE2U6MOLen1Xgnzn9PbLT4ormhOo0rkYaEltJy9Hn2BGkXTLikNZudU2JfpruDeWDhm0c=
+X-Gm-Gg: ASbGncvsci/25Q5h7qk6zlyvgHpoBw7GuvjvR2v+lLR/YQ1BVJdI7YF5DcieN5WPJtD
+ u2P+7qvmHpGyni9qlc4sYq779Sv/EXas09IKFJS7dup/koR0iPQcqmgf+gpKFmMNZjc5bWEuatE
+ btyE9buEzm1ve/DRjdNQH7QNw9ETfSaDBT46locSIuTE159WTEXhPC3Cho0kHDQXgRCXpBBPIWr
+ zFRMQuZ3P6Veh+Nj8ZNk35gs4q4W5947zZ37sEh7d2xryhXp8+3Hne5vdgL1/wTxJySGInzdOuf
+ DW4DKbHQXJNeSZmzwFuCz7/tzgDWTnG52QaB3zljT6RXyTzOhOTiTO1BVfz8mFWLkVssTKm/DAv
+ ONyhPVgGRC8Y56FV38kuiE3YbrcL5x//BENAUS0OzqoBBxSkRTAQd3EFv
+X-Received: by 2002:a05:622a:8e01:b0:4ee:1588:6186 with SMTP id
+ d75a77b69052e-4ee1588686emr42287311cf.11.1763386776954; 
+ Mon, 17 Nov 2025 05:39:36 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGT8ylpMPqKnQUlh0IndGHgSMmDdm1g/UFqOcl+Eqo38NWcx4OZT9FwONF6B4ZL7MlT4U9B4w==
+X-Received: by 2002:a05:622a:8e01:b0:4ee:1588:6186 with SMTP id
+ d75a77b69052e-4ee1588686emr42286991cf.11.1763386776246; 
+ Mon, 17 Nov 2025 05:39:36 -0800 (PST)
+Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6433a3d6f5bsm10176335a12.6.2025.11.17.05.39.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Nov 2025 05:39:35 -0800 (PST)
+Message-ID: <d49d449b-7bbb-46fc-8e10-f04649d852f2@oss.qualcomm.com>
+Date: Mon, 17 Nov 2025 14:39:32 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/dpu: disable gamma correction unit on SC7180
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Federico Amedeo Izzo <federico@izzo.pro>
+References: <20251115-dpu-fix-gc-v1-1-0a4fd718208d@oss.qualcomm.com>
+ <6457c60a-2ede-4df8-ad82-d974690eba89@oss.qualcomm.com>
+ <CAO9ioeUfZQVy7VFUp8FEVHN2_uL0ZB9jbkuexWY4D12YN_O3Jw@mail.gmail.com>
+ <8541a10d-99ca-43d2-bafa-8e33bba01382@oss.qualcomm.com>
+ <CAO9ioeVT_1qGedvdACkE4pqbsP8VReeArbe=-zaH-SHfhi3pkQ@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAO9ioeVT_1qGedvdACkE4pqbsP8VReeArbe=-zaH-SHfhi3pkQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 0XIalhAa2HhC8YWRigL1pUPlTfNmHTPK
+X-Authority-Analysis: v=2.4 cv=EIELElZC c=1 sm=1 tr=0 ts=691b2599 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8
+ a=emW-11kZ4ehC4T1iGCQA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: 0XIalhAa2HhC8YWRigL1pUPlTfNmHTPK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE3MDExNSBTYWx0ZWRfX42bJV6Jk/FmS
+ J4AF+DsBtasD67u0du0DeeTPteldwCrpjN/fz0loUMAuMLymyI4AjKGK9o8OAddXqvNCcpfiPWQ
+ JM+pCn6D9qEnjsD7oZFyLoSUJMzkicDGulVeBm011KUmrNfXpvFIjZIPE2Eazk/aSB52y/BMaz2
+ y+kjcKlPSWlFheP/TzYZ2KGUxs/vttFwMHFiXgb9xUeloq/easl/fs9MQGYxMWowT4S3oF52vTW
+ pk/DuPI+XydirdtXox6/4m2W1qlp3TiITlb03ESt//KhLHiz22vJcKvfXsEhvawit5qvGuBacRr
+ 4SgJYVuNR1aiu4NkAiqq7ggPUUgbQXDoTGJpvRcT26Vuj1r1MPb4Bk9DIqF1/bYpypuUMvTbORP
+ QUgglEHReGTxWoC01sZOE0w2nHhqfw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-17_03,2025-11-13_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- phishscore=0 bulkscore=0
- suspectscore=0 mlxscore=0 mlxlogscore=999 spamscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2510240000
- definitions=main-2511170114
-X-Authority-Analysis: v=2.4 cv=BoqQAIX5 c=1 sm=1 tr=0 ts=691b2241 b=1 cx=c_pps
- a=e1sVV491RgrpLwSTMOnk8w==:117
- a=e1sVV491RgrpLwSTMOnk8w==:17
- a=6UeiqGixMTsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=yPCof4ZbAAAA:8
- a=hCstY7e2S1fvUqSyfcgA:9 cc=ntf awl=host:13643
-X-Proofpoint-ORIG-GUID: p8SV1iRViiIPk0xrw9uBdigvWSQ5l_F2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE1MDAzMiBTYWx0ZWRfX8GfC2jL1dCAs
- yUc4qVt6dKQ1CjXWWPPiwb8jScJ38xkgo1TCq/cZMzN2Cbr32zfTaE7pMPiof8jdjaG0Mxrq5Em
- VEjP1hiJ2OA7VrwZZP/HLkrxxXCxDUxIeiLJHAylzqd+VkFYcoWStZCsNazn/I2idLOVKVGX+vE
- kuEYpmB6y8H1irjWfG6JTnqzdFg73c5qAFr8YsTOS5M2JOJQQn6VZr7yxTlJ67/xmaCNpLiIqGw
- wpylOiXFpGiWy7vc5l8BzOEliUep9AAHmLibRb1doZif4ZgBexyRcxTwNrEzaq9HEjO0XJg9cvR
- KPw4vTspil8j7WAlDNL9UySjL3EtVyedggKrZ7AVqSdmfhpwmXmp80UQY6lqQeB8jrm7GD0Gi5l
- dN7k6fPXoqydo+ua343MQSb/CEHlF8nL81rJIKFN67OFBRpPfrE=
-X-Proofpoint-GUID: p8SV1iRViiIPk0xrw9uBdigvWSQ5l_F2
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 spamscore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 phishscore=0 impostorscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511170115
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,41 +151,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently, a6xx_show() dereferences state before checking whether it is
-NULL or an error pointer.This can lead to invalid memory access if state
-is invalid.
+On 11/17/25 2:16 PM, Dmitry Baryshkov wrote:
+> On Mon, 17 Nov 2025 at 14:10, Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
+>>
+>> On 11/17/25 12:51 PM, Dmitry Baryshkov wrote:
+>>> On Mon, 17 Nov 2025 at 13:25, Konrad Dybcio
+>>> <konrad.dybcio@oss.qualcomm.com> wrote:
+>>>>
+>>>> On 11/15/25 4:08 AM, Dmitry Baryshkov wrote:
+>>>>> IGT reported test failures with Gamma correction block on SC7180.
+>>>>> Disable GC subblock on SC7180 until we trage the issue.
+>>>>>
+>>>>> Cc: Federico Amedeo Izzo <federico@izzo.pro>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>>>> ---
+>>>>> Most likely I will squash this into the GC patch
+>>>>> ---
+>>>>
+>>>> Peeking at downstream, 7180 and 845 should have the exact same GC
+>>>> (v1.8).. it seems like there's an attempt to program it through
+>>>> REGDMA instead of regular reg access. Not sure if it's actually
+>>>> necessary or just an optimization
+>>>
+>>> I think it's mostly an optimization.
+>>>
+>>>> What tests are exactly failing? I couldn't track it down on FDO GL
+>>>
+>>> See [1] and other failed SC7180 jobs from the same pipeline. I haven't
+>>> triaged it yet, but I assume this might be related to platform
+>>> resources (it has only 2 LM blocks and only 1 DSPP).
+>>> Another possibility is that maybe we need higher CFG bus bandwidth
+>>> when writing LUT registers.
+>>>
+>>> [1] https://gitlab.freedesktop.org/drm/msm/-/jobs/87878393
+>>
+>> igt.kms_color@gamma.log fails, we get an ENAVAIL (-119) (which doesn't
+>> seem like a good return value for this error but anyway..), dmesg says
+>>
+>> 05:42:13.199: [   75.472174] [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]failed to get dspp on lm 0
+>> 05:42:13.199: [   75.481487] [drm:_dpu_rm_make_reservation] [dpu error]unable to find appropriate mixers
+>> 05:42:13.199: [   75.490235] [drm:dpu_rm_reserve] [dpu error]failed to reserve hw resources: -119
+>>
+>> which comes from:
+>>
+>> idx = lm_cfg->dspp - DSPP_0;
+>> if (idx < 0 || idx >= ARRAY_SIZE(rm->dspp_blks)) {
+>>         // misleading error message, it's not LM%d, but DSPP%d
+>>         DPU_ERROR("failed to get dspp on lm %d\n", lm_cfg->dspp);
+>>         return false;
+>> }
+>>
+>> which comes from:
+>>
+>> static const struct dpu_lm_cfg sc7180_lm[] = {
+>>         {
+>>                 .name = "lm_0", .id = LM_0,
+>>                 .base = 0x44000, .len = 0x320,
+>>                 .features = MIXER_MSM8998_MASK,
+>>                 .sblk = &sc7180_lm_sblk,
+>>                 .lm_pair = LM_1,
+>>                 .pingpong = PINGPONG_0,
+>>                 .dspp = DSPP_0,
+>>         }, {
+>>                 .name = "lm_1", .id = LM_1,
+>>                 .base = 0x45000, .len = 0x320,
+>>                 .features = MIXER_MSM8998_MASK,
+>>                 .sblk = &sc7180_lm_sblk,
+>>                 .lm_pair = LM_0,
+>>                 .pingpong = PINGPONG_1,
+>>                 // no dspp here, errors out
+>>         },
+>> };
+>>
+>> would simply binding .dspp = DSPP_0 to the other one just work here?
+> 
+> Only LM_0 can use DSPP_0, that part is not flexible.
 
-Move the IS_ERR_OR_NULL(state) check to the top of the function before
-any use of state.
+OK that makes sense
 
-Fixes: 1707add81551 ("drm/msm/a6xx: Add a6xx gpu state")
-Signed-off-by: Alok Tiwari <alok.a.tiwari@oracle.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+>> Also, would that mean we can only have gamma control on a single active
+>> LM at a time?
+> 
+> We can only control gamma on LM_0 on this platform.
+> 
+> BTW, the other log is more interesting:
+> 
+> [3] https://gitlab.freedesktop.org/drm/msm/-/jobs/87895515/viewer
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 4c7f3c642f6a..e408e1d84ade 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -1976,14 +1976,14 @@ static void a6xx_show_debugbus(struct a6xx_gpu_state *a6xx_state,
- void a6xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
- 		struct drm_printer *p)
- {
-+	if (IS_ERR_OR_NULL(state))
-+		return;
-+
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu_state *a6xx_state = container_of(state,
- 			struct a6xx_gpu_state, base);
- 	int i;
- 
--	if (IS_ERR_OR_NULL(state))
--		return;
--
- 	drm_printf(p, "gpu-initialized: %d\n", a6xx_state->gpu_initialized);
- 
- 	adreno_show(gpu, state, p);
--- 
-2.50.1
+I wonder if we need to take a closer look at this hunk:
 
+/* Disable 8-bit rounding mode */
+gc_lut->flags = 0;
+
+also, IGT tests XRGB8888 - any chance the X is getting mistakenly
+(un)modified?
+
+Konrad
