@@ -2,127 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3E76C6A4F2
-	for <lists+freedreno@lfdr.de>; Tue, 18 Nov 2025 16:30:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 394F7C6A716
+	for <lists+freedreno@lfdr.de>; Tue, 18 Nov 2025 16:56:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C441E10E4E5;
-	Tue, 18 Nov 2025 15:30:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1320510E4E8;
+	Tue, 18 Nov 2025 15:56:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GsciJI+e";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B12YxdW9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UFKTkVzq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C6CC10E4E5
- for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 15:29:59 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5AIB26Yn375672
- for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 15:29:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=I+VDmgEGyB6TgQRIfvWH0W0zNDau9SODpdv
- whVSLYSM=; b=GsciJI+eubbH2Zmbgge245eKjnyy1XkJFZ116YUk6WP9LAt4OV5
- chSnlm/0lB2NYYL5CAeSzv/WDruvnDN8rmlEYZg2J5gHafySfRbC+4LpEeX/ctqh
- ZYlwpK7AoME1ijgGfm92JuoPWq9+mYBeeZKZK9CKofoT12BKRksywKrzwrN7fbz/
- pzODjAdPZtmg37xmbOqaTBmlMrlVBU55fA+tmV4K/RvOT+1WrhJ6AcB2dueFiYiN
- pJKKN/5ZQIzBFwLl82W09vE/M3hdBAzylhO6mBHzUs/QLRwK78/ayMJb7BxDHdUF
- BAYRgkcQ7cZRU/P+cOcGR5zqwWA4HQlrdgw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ag76nkk5u-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 15:29:58 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-b9d73d57328so5046549a12.1
- for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 07:29:58 -0800 (PST)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E1410E4ED
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 15:56:27 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-299e43c1adbso3695845ad.3
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 07:56:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1763479797; x=1764084597;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=I+VDmgEGyB6TgQRIfvWH0W0zNDau9SODpdvwhVSLYSM=;
- b=B12YxdW95xvBx548Z9H+HULWXw+felUvfOqSS2rvpGWwenRJgtjwEV8hu7fZakLUSy
- 8rzRB3yCFAlBKWLuwH7KuUN5uBOS2x+n5YluEVp+9fYYolNFZjRYPlnqzpSjnsxAzLJk
- fGOZBB9tpNbAT6GiQrR/aMY1cUpLK2f+UNz65uUjV6MVrdPbUKU7XHKOCtgOo98SkzYd
- GT61r8eoXtYVlhyknRfXpyfvuM/YRzMXtaMJwhWYlJ3t9Yzjz8p2+P5walpIw1Pie7/v
- pNZ2t4AxGV4PtTPI4OczqQYwJIiyaPB2LKTgUBRcFB7NYlzB2BMFgUNzZE804J2hDlJF
- U/lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763479797; x=1764084597;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1763481387; x=1764086187; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=I+VDmgEGyB6TgQRIfvWH0W0zNDau9SODpdvwhVSLYSM=;
- b=NVkFOESLZhfYavKV7IhQxsV8GalNWnebvdtjC5k7/rGpRGRgYYXfcD2yk5YA6g0DOu
- E/I4h7YatsMHfnVGlKA/0sr/XJH4gJ4wM0PfXcoRAimiNQfPd0EriKB1SA0aRtoNYLE0
- cnkNbSqpbEQaNJLLlMJlMpnFKS7TcQzqT3w9HnSz9ROkA3x9TH2MAPpD8RVysfkMoI5h
- awz41DHiXG8ZkoYwen9gMVxQx9ypv17Tq3CwuA6kBEen4i07tRmNyf8ePr25P9C7cKyI
- EVZee/hBMbawKCCCXdQQDNYs8XypZFniCuNYekNBuHEv11Wk8kc5L5AKq80i+ymfR6Ly
- AEtg==
+ bh=M5WRdUpA2CUE7aS1AisvjTy+gobCtbtissttVLsKK2w=;
+ b=UFKTkVzqPQt/WCVkZPaYByLl5H9lw2HKN47ppcn3/XRjaR04R/54y3ptII6K+TFO72
+ qP44vOcl3E7imXYMObr/5KY4UQSsBOlwiRBleD9Vb03FogB86dhYafQ4e9qm33/Jfz8R
+ HLTF9Nb+5Z5mJabK5onq6ZYarQC2iaPeXA13ea/SuXsRmPBKoCXuas5LSxu8Pj+6FZM5
+ 4M5JkssqucrxyBs101wyqimn9xdkOfZVIeIx6HSUmrZMaQKHATbUt2xHMrxhaw4dvSm1
+ SsJ6XDocJWngLh3CFYd+nnZ/EjvxtCTFyXXu4QGjoSTLrLrY9grepxZ50Ge8kph7UNRN
+ jEFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763481387; x=1764086187;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=M5WRdUpA2CUE7aS1AisvjTy+gobCtbtissttVLsKK2w=;
+ b=qIxPTOqnmqJYw+ldxq0sY4thX9bqAqvaAmzm60MZcvlosUpYmaxb4DyllFsaLxoNHv
+ qO7gKBI3MevzWJEsWhK/TjxOwlQTLwh6cdg5iImDxL2ivaqUWTQ0HblV01iUg8X5NuIB
+ nGLdirB0FAd5nlMOjTyP/vO6c3Obtmnon2nh2O7AHVzDZpm9vW0wgRAD6ReFDaz7y2+K
+ FULT1qDFJy0MD//twoAn7jTF9CXXdorvDFTo/LItjdor7DtHoXjG35dO8R8LpvtRAQRy
+ FPzme4x6MAb17xJsVPgwmkemshEaOnJ5TDXRsm5ARfAGeWx4ucImQLW2IvFgIVP1WSRJ
+ cnxQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW0VJU5U1XgPREwVc74IVxk5dmDW6MxQIi0sGM6lxa7nkzPfs73V0aswY0MsACo9FcbWv9gZLSdajE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtWXsHsDsSlTh1QxHvFMWYszrN83uT0hY7n9jLzLau8FtVR38m
- CWXdfURKA4i/flUD1iM/c5ssTXXO2zmh1TexGM0E1LlnFSYkIryQ5MPssFw3dyPxe+37uGhEY7g
- 3SN5DTlEheTTYAEw35GZ/yeC6CfQUzwf/cb9jRwcsmvDJqjgSLirb3+hbqChdHG5qzRyHzrs=
-X-Gm-Gg: ASbGnctnf1QRilKNSkySg9mdi5F5zZdSr2wN5J78Tv4litQ1yQlCqSO/8rsFzaXden3
- 2ksVcPlgGHNuRHEp1oZSDjAKTI2GqWxYDMJAKqvSblZ5lLLG0WPXpAnzUf6ib2mpvXLHo1ZtLr5
- BmSQQKLjRCdi40P5rshqjWMfqzZpyvzYxrQECfGj3g8+wpkv9+a8N8kVuknjr5l/NPOHJB3v2rz
- dZ7ADPSPyJ41gJXrkahGt58xIYnl+wPXdiLYRsA3m06wZ6xyodA6Al3t5e3PBdx0DKpDYrRtMZD
- bhWCGkPJxpUq0aeMK/j+eXOv0eqNj0DmbOinWN2DYsecWkM2uPRcJn2weIzaU5woYCCLQoHGOdL
- zB7lE2A1/UlqjJa9BEZjO8IflxE/Ga1rLc14G3mp2GCZz0Ns6pJncrGca
-X-Received: by 2002:a05:6a20:3952:b0:341:84ee:7597 with SMTP id
- adf61e73a8af0-35ba228b7c4mr18420531637.47.1763479797463; 
- Tue, 18 Nov 2025 07:29:57 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEe4mHSbCZax4MAs1NmPegRHOtwX0Q3zmqbi4opsIbcLXwrTwyddGfmcrdprr0gXjZZ4jZQ0g==
-X-Received: by 2002:a05:6a20:3952:b0:341:84ee:7597 with SMTP id
- adf61e73a8af0-35ba228b7c4mr18420492637.47.1763479796936; 
- Tue, 18 Nov 2025 07:29:56 -0800 (PST)
-Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-bc375081bf8sm15591289a12.24.2025.11.18.07.29.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Nov 2025 07:29:56 -0800 (PST)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Connor Abbott <cwabbott0@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2] drm/msm/registers: Fix encoding fields in 64b registers
-Date: Tue, 18 Nov 2025 07:29:49 -0800
-Message-ID: <20251118152952.226510-1-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.51.1
+ AJvYcCWexYjLVyJtCjm0T+tbGKvG2EdRrLfPfBnkbdUD7BKwPdi686PuqwJW9u7j4+O843vGweC2PL5j8l0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyp1QxOCWZbS+p3CCgGD1R/rmkp6EnaAkiSZeJFF16YYAeXnRyG
+ dXLAao5AxlOv82zND2l3HLuFrhdLvfhmrN79KuB02SwaiF6oVS4vwPETqfepsWxllmGQevEWPCW
+ BfRGENAJ7R5qagJ313QHRxD1e5fdQctw=
+X-Gm-Gg: ASbGnctIWlk3mB6YkfSExQMIUEBH6L1GMSXvGfEWC46iIwX3Y2n5Q2TdqPTfs84mSgs
+ paODLtjlUo5SnO4l1z0UCPlzakyW3FLV4rRcg3xtomrmzAZ5NArxRYfQnOOeWiZX0XzIC3sBE9x
+ PUVKiyn7KexHNWz1bF/3lho5OYfHa+6vOd/s+62DYb+yFT1HeOGOmPQqm3UiW8JUlPY0KKDjJPN
+ 5+SryzpKEnvaJ2BKF2bVEb5LNF5BfgzRaucxYidENsdjSiAyVd6yzzhWL/YErHQxq59u7KhBAy2
+ bXAO335Qrax5kTez
+X-Google-Smtp-Source: AGHT+IE8t1o/EHIJG7uVd/X+qmNh/IfoMFCfRZRkp7Xo8e8ghyzgHnHIC3pizFSaKdc3W9ZzA4z9Bd0F68Sq2swtnFU=
+X-Received: by 2002:a17:90b:1b01:b0:341:b5a2:3e78 with SMTP id
+ 98e67ed59e1d1-343fa74f0bfmr9250914a91.3.1763481387271; Tue, 18 Nov 2025
+ 07:56:27 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE4MDEyNCBTYWx0ZWRfXznDsiVZcfND1
- qh8SqMLKvFB5kdoY9LGYrJPSXCWDZgGdRSaRzq3ZOgTNiChLWGC6qf1YCU3/qHrd2yV8XXnbVQE
- 35JMOFHYfkKzo3DvT1u4b/FN9F3oYa8b2iMlCIQdLcwTah6S0E3CACOJpt0GOCiT3qp0wP9PB4o
- edV8AYE+hQBWQNV0GPCWcuFx4Nn4KIsDtpF0no37qOYKjUY7PGyb5v//5A94EzVsUYx4kUlDaph
- 2wtDRHTlccZpJrNDu4K3aw7adD2rQvYnwSv+ZvF7+k1bVmw0RRFL9lsRzNr+EBoivjCTWNxPbdY
- pZ5p4u0r0nyzUz1Dv+vulxRvMQn6bHOYzvu1T+DqgbZp366yCvxEn3GzHuwBSIEuxi8D1MloN+Z
- P4KVAYptuuQXSpISBuisxmr9DeceEQ==
-X-Proofpoint-GUID: ZB1lkR80TMkFOT8YN2UFIv9sNpoZH5pC
-X-Proofpoint-ORIG-GUID: ZB1lkR80TMkFOT8YN2UFIv9sNpoZH5pC
-X-Authority-Analysis: v=2.4 cv=a4I9NESF c=1 sm=1 tr=0 ts=691c90f6 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
- a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=OSLXHSMv42BtIwkUFNYA:9
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-18_01,2025-11-18_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 clxscore=1015 bulkscore=0
- adultscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511180124
+References: <20251118-kaana-gpu-support-v4-0-86eeb8e93fb6@oss.qualcomm.com>
+ <20251118-kaana-gpu-support-v4-15-86eeb8e93fb6@oss.qualcomm.com>
+In-Reply-To: <20251118-kaana-gpu-support-v4-15-86eeb8e93fb6@oss.qualcomm.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Tue, 18 Nov 2025 10:56:16 -0500
+X-Gm-Features: AWmQ_bmdki1r5-87hufvE1VD2aBWZ9nuG-r_2OiqIAnZ7-v6leUi15c6-xeP3Cc
+Message-ID: <CACu1E7HzsnSjz0SiUJT0SMNJ7cFhiNdtUE9jKHpvD3UzG6EegQ@mail.gmail.com>
+Subject: Re: [PATCH v4 15/22] drm/msm/adreno: Support AQE engine
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, 
+ Jordan Crouse <jordan@cosmicpenguin.net>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ iommu@lists.linux.dev, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,83 +102,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Based on mesa commit 3f70b0578402 ("freedreno/registers: Fix encoding
-fields in 64b registers"), but with some fixes to not skip emitting
-interrupt enum values.
+On Tue, Nov 18, 2025 at 3:53=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualcom=
+m.com> wrote:
+>
+> AQE (Applicaton Qrisc Engine) is a dedicated core inside CP which aides
+> in Raytracing related workloads. Add support for loading the AQE firmware
+> and initialize the necessary registers.
+>
+> Since AQE engine has dependency on preemption context records, expose
+> Raytracing support to userspace only when preemption is enabled.
 
-v2: Don't append "ull" to 32b reg MASK defines, to avoid printf format
-    conversion warnings all over the place
+I guess the plan is to expose MSM_PARAM_AQE later once preemption
+records are in place and for now just load the firmware to ensure that
+people have it?
 
-Co-developed-by: Connor Abbott <cwabbott0@gmail.com>
-Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/registers/gen_header.py | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+The interrupt error handling is still missing, but I guess that can be
+handled later if that's the plan.
 
-diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
-index 1d603dadfabd..2acad951f1e2 100644
---- a/drivers/gpu/drm/msm/registers/gen_header.py
-+++ b/drivers/gpu/drm/msm/registers/gen_header.py
-@@ -189,12 +189,13 @@ class Bitset(object):
- 		print("    return (struct fd_reg_pair) {")
- 		print("        .reg = (uint32_t)%s," % reg.reg_offset())
- 		print("        .value =")
-+		cast = "(uint64_t)" if reg.bit_size == 64 else ""
- 		for f in self.fields:
- 			if f.type in [ "address", "waddress" ]:
- 				continue
- 			else:
- 				type, val = f.ctype("fields.%s" % field_name(reg, f))
--				print("            (%-40s << %2d) |" % (val, f.low))
-+				print("            (%s%-40s << %2d) |" % (cast, val, f.low))
- 		value_name = "dword"
- 		if reg.bit_size == 64:
- 			value_name = "qword"
-@@ -264,10 +265,11 @@ class Bitset(object):
- 				  (prefix, prefix, prefix, skip))
- 
- 
--	def dump(self, is_deprecated, prefix=None):
-+	def dump(self, is_deprecated, prefix=None, reg=None):
- 		if prefix is None:
- 			prefix = self.name
--		if self.reg and self.reg.bit_size == 64:
-+		reg64 = reg and self.reg and self.reg.bit_size == 64
-+		if reg64:
- 			print("static inline uint32_t %s_LO(uint32_t val)\n{" % prefix)
- 			print("\treturn val;\n}")
- 			print("static inline uint32_t %s_HI(uint32_t val)\n{" % prefix)
-@@ -283,14 +285,17 @@ class Bitset(object):
- 			elif f.type == "boolean" or (f.type is None and f.low == f.high):
- 				tab_to("#define %s" % name, "0x%08x" % (1 << f.low))
- 			else:
--				tab_to("#define %s__MASK" % name, "0x%08x" % mask(f.low, f.high))
-+				typespec = "ull" if reg64 else "u"
-+				tab_to("#define %s__MASK" % name, "0x%08x%s" % (mask(f.low, f.high), typespec))
- 				tab_to("#define %s__SHIFT" % name, "%d" % f.low)
- 				type, val = f.ctype("val")
-+				ret_type = "uint64_t" if reg64 else "uint32_t"
-+				cast = "(uint64_t)" if reg64 else ""
- 
--				print("static inline uint32_t %s(%s val)\n{" % (name, type))
-+				print("static inline %s %s(%s val)\n{" % (ret_type, name, type))
- 				if f.shr > 0:
- 					print("\tassert(!(val & 0x%x));" % mask(0, f.shr - 1))
--				print("\treturn ((%s) << %s__SHIFT) & %s__MASK;\n}" % (val, name, name))
-+				print("\treturn (%s(%s) << %s__SHIFT) & %s__MASK;\n}" % (cast, val, name, name))
- 		print()
- 
- class Array(object):
-@@ -437,7 +442,7 @@ class Reg(object):
- 			print("static inline%s uint32_t REG_%s(%s) { return 0x%08x + %s; }" % (depcrstr, self.full_name, proto, offset, strides))
- 
- 		if self.bitset.inline:
--			self.bitset.dump(is_deprecated, self.full_name)
-+			self.bitset.dump(is_deprecated, self.full_name, self)
- 		print("")
- 
- 	def dump_pack_struct(self, is_deprecated):
--- 
-2.51.1
+Connor
 
+>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 22 ++++++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h   |  2 ++
+>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c   |  3 +++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  1 +
+>  4 files changed, 28 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index 810b64b909f5..9a643bcccdcf 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1118,6 +1118,23 @@ static int a6xx_ucode_load(struct msm_gpu *gpu)
+>                 }
+>         }
+>
+> +       if (!a6xx_gpu->aqe_bo && adreno_gpu->fw[ADRENO_FW_AQE]) {
+> +               a6xx_gpu->aqe_bo =3D adreno_fw_create_bo(gpu,
+> +                       adreno_gpu->fw[ADRENO_FW_AQE], &a6xx_gpu->aqe_iov=
+a);
+> +
+> +               if (IS_ERR(a6xx_gpu->aqe_bo)) {
+> +                       int ret =3D PTR_ERR(a6xx_gpu->aqe_bo);
+> +
+> +                       a6xx_gpu->aqe_bo =3D NULL;
+> +                       DRM_DEV_ERROR(&gpu->pdev->dev,
+> +                               "Could not allocate AQE ucode: %d\n", ret=
+);
+> +
+> +                       return ret;
+> +               }
+> +
+> +               msm_gem_object_set_name(a6xx_gpu->aqe_bo, "aqefw");
+> +       }
+> +
+>         /*
+>          * Expanded APRIV and targets that support WHERE_AM_I both need a
+>          * privileged buffer to store the RPTR shadow
+> @@ -2400,6 +2417,11 @@ static void a6xx_destroy(struct msm_gpu *gpu)
+>                 drm_gem_object_put(a6xx_gpu->sqe_bo);
+>         }
+>
+> +       if (a6xx_gpu->aqe_bo) {
+> +               msm_gem_unpin_iova(a6xx_gpu->aqe_bo, gpu->vm);
+> +               drm_gem_object_put(a6xx_gpu->aqe_bo);
+> +       }
+> +
+>         if (a6xx_gpu->shadow_bo) {
+>                 msm_gem_unpin_iova(a6xx_gpu->shadow_bo, gpu->vm);
+>                 drm_gem_object_put(a6xx_gpu->shadow_bo);
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.h
+> index e6218b0b9732..3a054fcdeb4a 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -59,6 +59,8 @@ struct a6xx_gpu {
+>
+>         struct drm_gem_object *sqe_bo;
+>         uint64_t sqe_iova;
+> +       struct drm_gem_object *aqe_bo;
+> +       uint64_t aqe_iova;
+>
+>         struct msm_ringbuffer *cur_ring;
+>         struct msm_ringbuffer *next_ring;
+> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a8xx_gpu.c
+> index c9cd7546024a..e011e80ceb50 100644
+> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> @@ -627,6 +627,9 @@ static int hw_init(struct msm_gpu *gpu)
+>                 goto out;
+>
+>         gpu_write64(gpu, REG_A8XX_CP_SQE_INSTR_BASE, a6xx_gpu->sqe_iova);
+> +       if (a6xx_gpu->aqe_iova)
+> +               gpu_write64(gpu, REG_A8XX_CP_AQE_INSTR_BASE_0, a6xx_gpu->=
+aqe_iova);
+> +
+>         /* Set the ringbuffer address */
+>         gpu_write64(gpu, REG_A6XX_CP_RB_BASE, gpu->rb[0]->iova);
+>         gpu_write(gpu, REG_A6XX_CP_RB_CNTL, MSM_GPU_RB_CNTL_DEFAULT);
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.h
+> index c496b63ffd41..0aca222c46bc 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -27,6 +27,7 @@ enum {
+>         ADRENO_FW_PFP =3D 1,
+>         ADRENO_FW_GMU =3D 1, /* a6xx */
+>         ADRENO_FW_GPMU =3D 2,
+> +       ADRENO_FW_AQE =3D 3,
+>         ADRENO_FW_MAX,
+>  };
+>
+>
+> --
+> 2.51.0
+>
