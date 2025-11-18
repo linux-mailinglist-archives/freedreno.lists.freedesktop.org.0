@@ -2,98 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA7ECC68489
-	for <lists+freedreno@lfdr.de>; Tue, 18 Nov 2025 09:51:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CEA6C68492
+	for <lists+freedreno@lfdr.de>; Tue, 18 Nov 2025 09:51:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D88910E444;
-	Tue, 18 Nov 2025 08:51:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49ED610E443;
+	Tue, 18 Nov 2025 08:51:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZbQn/brj";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UDWGo9Vi";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BGCKO1TT";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C0xzEWKT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52EEA10E440
- for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 08:51:26 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4141110E446
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 08:51:34 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5AI8Dtb32194259
- for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 08:51:26 GMT
+ 5AI6SxXj386625
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 08:51:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- H4vCyzBAng103Oq0fMyz/UmnE+wwp6D/i+dL9/t/Pjo=; b=ZbQn/brjBhwoMCd/
- IXPswd+gdSg8ZixoZa5dJWsmP1Ku/zoA5LoC7BMJCRfwM0dL2cACyBXx/hP0dJNR
- w3gez8M0G3VQDwe0y9GX1ECUUhLBj43GfqOMriaOfD29Dgm4c5J3BEn+N1MYNSEe
- UmeJ9/fe9tXuwUhAJH3Vn9wGezXaxEMd2K96b+GZFFVPKpbBKdSVGFGDRkK2qIws
- c5F5qEGOddVkXdolc5LYbL+VBl7jBDAyAqRHr7vmCs68RP3IpaOevwTt4kEqlAMd
- 2jQ3eF/DOGkCp4Rad4w59Y2nec+cy8oeqtvjQE8V7wkr26V4/+NJgzSuPy15ADCD
- 8DBFMw==
+ n8PgB48It9l4+bkgeIQSRAK2mU0wwCQ3DP0FmhMvQ2U=; b=BGCKO1TTAyU069p/
+ i4rb15w2jCE/nVofuquIXNRUsAqggCHFPmaCEjpn6NtGJYbXj4aJf7ezqTXvf0H0
+ 2aYhQ13cJNQxscyaDZn+zuEuAGFxzVKJi8LoWki9L2Ex1Xr9gQPTrCYDcyUS5Vvo
+ UfIzKwpQMphc/UrF7lKMV2kwV+qvZS5c91nU3tDte9O73C3LPKyd1nO8Nf2bL3F4
+ CqBYJgzeHVjdhFR2sUfwZXRrRhB5szA/oYEjgcbBst4y0crwdxl1OkKynAXXmqvf
+ 7Gp81+i7JsItbb2Mp8ryR2T/j8UnFWnI1dG/HZ7GakP6HxYbjF1+sWtJcvEANy58
+ rJefgQ==
 Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
  [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4agn3y83cq-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4agag8hsww-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 08:51:25 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 08:51:33 +0000 (GMT)
 Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-297f587dc2eso95577425ad.2
- for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 00:51:25 -0800 (PST)
+ d9443c01a7336-299ddb0269eso27165615ad.0
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Nov 2025 00:51:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1763455885; x=1764060685;
+ d=oss.qualcomm.com; s=google; t=1763455893; x=1764060693;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=H4vCyzBAng103Oq0fMyz/UmnE+wwp6D/i+dL9/t/Pjo=;
- b=UDWGo9VismXoCk8N81osVBdvXZuJs56Ho3KJ6WoxBtDquGNiX1ESWn5bR/Nk8nB/Z5
- bY5Q6MLGe/qrjryykyoBSSXcqecMrBYatAOx+cUgjURdlSIU2g71ns84rXqUlTGDFIE5
- 6guOCtbSx8Ls2bCBr04PG1QPVlFjFNYyXtUBpev7x/+qv6BlgvVtu9zneBkAyTOI5hVm
- cqk5axL52mKBIEAyphjCo369d2teFmLLKsxYkmikI2kN09ALfsZ/eWcKk+XJehwJ70OU
- kfHQ3i1qFViZC3thvVenrWtlVp9vIuvyL3Rj7lwTjtRsrqEcregl7zZaSdNshZkQITSa
- A6vw==
+ :reply-to; bh=n8PgB48It9l4+bkgeIQSRAK2mU0wwCQ3DP0FmhMvQ2U=;
+ b=C0xzEWKTW0b5CkBJTqQJTY6MuUvPc+SbxSE4YJ3cCSyDAf5R6ej6m3IRjXpkjPP2zC
+ 3anzl8RM/biozC6EquZK7hco7CQFh+oHWHPgbhIbUdrYfPNZ4jCADhB4EMHiYNf8qESk
+ Ho/XprBx6fZfOpz9r28ATzQV6NYGMPl/yp2minhsruDcztUrslXi0yl3JO+wPmVPnsC7
+ jq3eMXDC2uwtwmnFhjgK6PhnAl/8/WdVijaiZrn0EL8UhgaKU+3YtWzfIftjrOxreS97
+ aij0fxCAXfVEe1b2Jf0pBFchU4skSzW5Lkiv0/K58ZWbVOCfJb1H7dPdqFx99sPYSdlf
+ jzdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763455885; x=1764060685;
+ d=1e100.net; s=20230601; t=1763455893; x=1764060693;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=H4vCyzBAng103Oq0fMyz/UmnE+wwp6D/i+dL9/t/Pjo=;
- b=N30amGYlw9msWauu3w4R7zWaeBvEosUR3BkyRt/bg6dI1244VijGS4KxtdL2gi9RQ7
- higASIuHBWKjPl9bA3xD03BGxSD0VHLmgZlol87DcMACZPRC2V+TuqYBH62gYp7F8XPv
- OSZ9hRG3kH63SGaZbf7NWqgUQauByQTl3Sfwa9hzpTFMKCOsA+blyrm5qKt+AnT63XRQ
- t0tZgvkH378jX+Tm3zSEjHDIOA0IOXZ5AeFjJeD4RvVW9TiZhuBCALeRX9ykK+6eqZOT
- dCxI4gsj1miM/DAKmSgFb/pnOxct2C9ZWWOLrnLtgB7ud0yGag0zH42aK/0yQSnNciqV
- fr/g==
+ bh=n8PgB48It9l4+bkgeIQSRAK2mU0wwCQ3DP0FmhMvQ2U=;
+ b=YTPvT0AwWGAOU+jX+yZ5lnSTQk6taLKrck4ctJwik0Kdnrpo+7umrqUzpwHuLVxfAW
+ gVsbjCsTJYqdMUPieLCHdLb+mt6vkP0gYuLSUemDN2+F9rJr9aSv8xTGRYX24MJg9VW8
+ 29RyZx8GqoBBZTtsYy6bNzKbCA4FoaLD1YvhrnFiZekl11htCkBs6yfw4aPwGbQQE7MT
+ JM7npqHaCTHmdGcRhaEgOk12LjhmRL/W/eB0jXChcAr7+ZAq/QerzXMF46Aj9Xyz0raJ
+ E276UHRTx1X5+M7u9GKJPdJmcVJyXPHTCP2yj6Nb8uF8yrJBk2jz/K2d5RYqFgmbEyeU
+ HNpA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVTPxyYTSLGy20BeyjtPFGLk2Ey3+/qxAfxM70aomBRP2KHWvZTnIJAzJwD0ZmEQeuMXC1wQgLyBEo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+7WG8rnlBIkCZqjyN3/H7anb+cDG4L+6MAhHjeF/x7yBxN25e
- cWP9hIozM4ZwEmJj70bCJuEcasyh5rLf12eBbqZirq/8XqFHuz7JGWXn1PqSpY7SJ71Ps7zVOIQ
- ms2NJYb8AKU6hgCrx2yRq77NRt5/wXNZ3mGT9SwDfQ+Z73O53wYEoRRJMgePdbsR03nQHJu0=
-X-Gm-Gg: ASbGncuuyC1dP/h7aU8HwQHMrJ+p1SX5vWaabBZz4iB2UxtjsIZF4sVQjCs1youB40R
- BRifIvj7a29oUQL/xTXgWVkwmp9JLMc7LSxVfb6I8gugTg4IPYt/kNl19wzVB9J5spIQ1BrIHtO
- BtQgzC9amm1AO7JMzVFoOU/mNJqq0Ou4WJx+3zSBj27v26JwCRQo0pK/D12+15TNNSvgBR/nTVh
- Fe3Fan8MpCTdQ7do/wfTfWa+9beWZvhBYQsVHJ4nqLWpDovp5aEVxDDEYtm8CDKqFzdXiT4bGlE
- JO1fABbgV299HScuOwYT7qMSgOt331rdo2HSkM0IyeMeYMnQUxU5ExdFLWgEEU6+5GYDql9hAkJ
- qxQWB7743Yz9YmMXfR0GYTOE=
-X-Received: by 2002:a17:902:f603:b0:295:5b68:9967 with SMTP id
- d9443c01a7336-2986a752d17mr194312795ad.49.1763455885228; 
- Tue, 18 Nov 2025 00:51:25 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFbC51hO2dOCARJAyGl+8Koi6W7aP2bRmpLcyj3T7XMY2HEbsh68c6kf4TSJcXeGL2xke4r6g==
-X-Received: by 2002:a17:902:f603:b0:295:5b68:9967 with SMTP id
- d9443c01a7336-2986a752d17mr194312525ad.49.1763455884759; 
- Tue, 18 Nov 2025 00:51:24 -0800 (PST)
+ AJvYcCWWsJERWn/tC/4Cv/nleHzDuDYuIVEusiMjqfQCS5rAOA6Wl2ILqMc7wyDrysN3nevZLleslLsVpR8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyuO2Mz+KmnkL1oYt5qIVDbX0EH5S9IcXVnLLxQtk0ZzBv6BWvz
+ LB7IHcZ7OrFiGIrT3VV07sFOdwX1sWPt5C+5SoZfKfvGGtfnsTzqbN6+pK7aUpgcgmJtQbDgHpd
+ nrRpHNjOpZpj/+XRcBldS3TRmyTEjM+S3q1E/KiZdHxQ1Z8AT2SHsdUWkqQ/OLQxtmatmTaU=
+X-Gm-Gg: ASbGncudMR17WQwNJPChml1ezWQ9rgCgga9J1xLtkiBk+WT4H7Jky08Xp5B8/8kAZcH
+ 0pikf9TPUtmVDaWQZS9t2ea2OCguaXxLM/+vBTaA8sxyINYXld/BNhSIXcd8dj5K5LTCbCrqhUm
+ qQmt0XaPVBwHosJbdATtQP766BdcCiwVEtgiQyWZwjA2Pw2jz2UjKeotCKIJBwPKsDt5Qkvtr47
+ 1qCOpP+H7emmAN3IYTSlgP7HFSGpPVelzbVuort73X2JSBAGkJi2Aq1m4D5HvCbhf5ZpfP4ByQd
+ MhrNeo5yhww9m3cRlgZkKcdMFY/faoAVbDcuXAWM0ywoCVr0k6hBbhsAqAcouYwH1HtSjJvvhWn
+ PJXSnE2NIuMx93hMpgIH56y0=
+X-Received: by 2002:a17:902:ec84:b0:295:269d:87cf with SMTP id
+ d9443c01a7336-2986a6b56a9mr192322405ad.5.1763455892994; 
+ Tue, 18 Nov 2025 00:51:32 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IG/1w2jno1zLyed+Q2GzLtuvbQPSdeph5rJVVJKuzROZehmddk/3K1qPE4B4EcyW57S867iOQ==
+X-Received: by 2002:a17:902:ec84:b0:295:269d:87cf with SMTP id
+ d9443c01a7336-2986a6b56a9mr192322055ad.5.1763455892479; 
+ Tue, 18 Nov 2025 00:51:32 -0800 (PST)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2985c2568c1sm162910695ad.47.2025.11.18.00.51.17
+ d9443c01a7336-2985c2568c1sm162910695ad.47.2025.11.18.00.51.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Nov 2025 00:51:24 -0800 (PST)
+ Tue, 18 Nov 2025 00:51:32 -0800 (PST)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Tue, 18 Nov 2025 14:20:28 +0530
-Subject: [PATCH v4 01/22] drm/msm/a6xx: Fix out of bound IO access in
- a6xx_get_gmu_registers
+Date: Tue, 18 Nov 2025 14:20:29 +0530
+Subject: [PATCH v4 02/22] drm/msm/a6xx: Flush LRZ cache before PT switch
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251118-kaana-gpu-support-v4-1-86eeb8e93fb6@oss.qualcomm.com>
+Message-Id: <20251118-kaana-gpu-support-v4-2-86eeb8e93fb6@oss.qualcomm.com>
 References: <20251118-kaana-gpu-support-v4-0-86eeb8e93fb6@oss.qualcomm.com>
 In-Reply-To: <20251118-kaana-gpu-support-v4-0-86eeb8e93fb6@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -118,37 +117,37 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
  devicetree@vger.kernel.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- stable@vger.kernel.org
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1763455868; l=1041;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1763455868; l=1701;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=75w/DSS2hsmQuGew0+oPiaGMUNyIZyrF4qSNr7xCjPw=;
- b=jLipoeUTateSBD+g7vKKvS2yUCM4T7jj8HbWbcE3idzdOQIu0EPirauUiY3Is2Tzh/Nibkr/K
- 97kGQ3WCvoMAzjLIS/xjcAXB0eXKO6+mlb+Pc7iuP/yIi+AHnbe11mu
+ bh=U6hCxZZPt/0oNlBV0Loqbw+1ONR49vXzGV9kkJKQhe0=;
+ b=C/pQ042VX0YsNIUePu8RhYDT4KrYwopA1aJuj7t79NKSGb6UQ5wtIm4sVjq3irgGDqFwMiXFh
+ 6bDOXlnFvndDYd0I6mseZ7fkw9MQk6CD38MF/bxLZlvdHiqWoo3qp2V
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE4MDA2OSBTYWx0ZWRfX8072Kkdrs3UT
- 9H1dI7KmXhbjbB97kEF1P2x0FySVyOmT2HnhyTvs8JZfsvjaFN2YRHLU9zWjFgZyukXx+Px8e+k
- WSV1XGx71sz60fe14K+NSsbXnX5rWK65rJX0vXvFEV3NGPIp5b/VTfHvska9LEGrsfZ9UG5j92Z
- q6QCFEAAKcmg5zEcjWjrMawcdkQmgQ7WEkfZx/KXayNcq9rp2cSQr3f0Y6NEusgI4ySEZBAooza
- DsOgYf/WVMx/3cVCIp5CF86RIZo8L5sWGW9NmHvqYMpyetRv1rBUfAyKTrNLy/SgrTYqda5FX3w
- Ky6bj2OsbMLzyVZFiHJuL7XD2WaaHFbxO2P18ZCt9CSiYNVk7a5Yg2S7NPwccW+TeQvzvuRLm6n
- 2aItFxSALgaP93lsnt7DyKocNee1YQ==
-X-Proofpoint-GUID: me6rVurT595Mp2CFoTYGk5DODqisaOIW
-X-Proofpoint-ORIG-GUID: me6rVurT595Mp2CFoTYGk5DODqisaOIW
-X-Authority-Analysis: v=2.4 cv=FtIIPmrq c=1 sm=1 tr=0 ts=691c338d cx=c_pps
+X-Proofpoint-GUID: g38e4BFJAHB2p5EMuELu-D3BvI6HPqfJ
+X-Proofpoint-ORIG-GUID: g38e4BFJAHB2p5EMuELu-D3BvI6HPqfJ
+X-Authority-Analysis: v=2.4 cv=G6sR0tk5 c=1 sm=1 tr=0 ts=691c3395 cx=c_pps
  a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=PiXygW76SPkGC_ia2qEA:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=bBR9okFf-Jgdumx6fEkA:9
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE4MDA2OSBTYWx0ZWRfX+5iBuyTyLtPj
+ 3iKM1Tw9ytuJc9WIDjUuzLqH9IyqWEyaisZdxo0jMNIsDte5urhEPvBCOZBhzuI0P1GR6dlAmx6
+ quYpSc4pH1+O8oF8Qv6caQGuP2J+lGe4ayKEAOZvn/kgFwK2p6Ifa+wX+IHlD7nYYL5JUqie5LI
+ m1avOoqrOmuh9whUU+t31v1s4afXihtSJRGymLmQ/B4bS7wIYaRt/YFXIQ1cIzGsgjVC5I+HY9D
+ nrhQ6C5QzCh9hrAbasXF63OHmvsiPmRseAxT8lJHWc090VRTrbnTKUxlgPILE6Yt40zqZHkSOlK
+ 4ibMDM14oGIFklchVL5fnwYrT8EksEuHJaf9QuJGqrrN1J+K5jPxOBKaV/S7kmm5JW66z10nAOD
+ YejwjMFLa5cn3N3rJAD581hFp+yCpw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-17_04,2025-11-13_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 phishscore=0 adultscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ priorityscore=1501 phishscore=0 impostorscore=0 lowpriorityscore=0
+ clxscore=1015 bulkscore=0 malwarescore=0 adultscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
  definitions=main-2511180069
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -165,29 +164,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-REG_A6XX_GMU_AO_AHB_FENCE_CTRL register falls under GMU's register
-range. So, use gmu_write() routines to write to this register.
+As per the recommendation, A7x and newer GPUs should flush the LRZ cache
+before switching the pagetable. Update a6xx_set_pagetable() to do this.
+While we are at it, sync both BV and BR before issuing  a
+CP_RESET_CONTEXT_STATE command, to match the downstream sequence.
 
-Fixes: 1707add81551 ("drm/msm/a6xx: Add a6xx gpu state")
-Cc: stable@vger.kernel.org
+Fixes: af66706accdf ("drm/msm/a6xx: Add skeleton A7xx support")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 838150ff49ab..d2d6b2fd3cba 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -1255,7 +1255,7 @@ static void a6xx_get_gmu_registers(struct msm_gpu *gpu,
- 		return;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 779c1da7c46d..e6393ef0fd78 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -224,7 +224,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 		OUT_RING(ring, submit->seqno - 1);
  
- 	/* Set the fence to ALLOW mode so we can access the registers */
--	gpu_write(gpu, REG_A6XX_GMU_AO_AHB_FENCE_CTRL, 0);
-+	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_AO_AHB_FENCE_CTRL, 0);
+ 		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
+-		OUT_RING(ring, CP_SET_THREAD_BOTH);
++		OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BOTH);
  
- 	_a6xx_get_gmu_registers(gpu, a6xx_state, &a6xx_gmu_reglist[2],
- 		&a6xx_state->gmu_registers[3], false);
+ 		/* Reset state used to synchronize BR and BV */
+ 		OUT_PKT7(ring, CP_RESET_CONTEXT_STATE, 1);
+@@ -235,7 +235,13 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 			 CP_RESET_CONTEXT_STATE_0_RESET_GLOBAL_LOCAL_TS);
+ 
+ 		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
+-		OUT_RING(ring, CP_SET_THREAD_BR);
++		OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BOTH);
++
++		OUT_PKT7(ring, CP_EVENT_WRITE, 1);
++		OUT_RING(ring, LRZ_FLUSH);
++
++		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
++		OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BR);
+ 	}
+ 
+ 	if (!sysprof) {
 
 -- 
 2.51.0
