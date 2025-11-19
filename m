@@ -2,93 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5FEBC6EBC6
-	for <lists+freedreno@lfdr.de>; Wed, 19 Nov 2025 14:11:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB0D7C6F7C8
+	for <lists+freedreno@lfdr.de>; Wed, 19 Nov 2025 16:00:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFD4410E24A;
-	Wed, 19 Nov 2025 13:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A239A10E650;
+	Wed, 19 Nov 2025 15:00:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="LaPCcjZi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PwqIxE92";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D4C10E24A
- for <freedreno@lists.freedesktop.org>; Wed, 19 Nov 2025 13:11:19 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-b73669bdcd2so938434766b.2
- for <freedreno@lists.freedesktop.org>; Wed, 19 Nov 2025 05:11:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1763557878; x=1764162678; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=2hIjgqXWXn3Sbfto+9OWapsp1QwhUBtS+kZIjBq+Tlw=;
- b=LaPCcjZi7EVwyffkNGTptbk31UK2L0vpseElImv0p33uRVtxFANzoySZPLut/lSTnh
- 0RwZhx5JuQZ2F9J9GhQz885vlDp2b1MrO66zr0nMiOHxnpNJHWNcDodxEyvLAWom6LW0
- zKDlJ4WyYHm3vDCqipnQrYKPZlUpafMPumOkVd5nCtgRire8Kc3/ELpTUl4jl0GjMcX6
- Y1Goyj7/sr8it5NxXI/4PDrkvUucomknvpoHDoy9jLXP+Jk6lzdjPCuTBKgNr4iZHm6y
- a33VbQz/XgmSqnMpVfABkVlIWkEe2xNXwJrfn4hEbT35BVAunmj6eEoBpsdkULIUeVmX
- 1Ggg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763557878; x=1764162678;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2hIjgqXWXn3Sbfto+9OWapsp1QwhUBtS+kZIjBq+Tlw=;
- b=q8FN2oZleRatEid1tHcaBc4x9KXfQLNUrtXmu6waKExhDO9c5QUR2D6sKAnzUG4diS
- +TY+tTzWVo9OgUIIzpy1Zl76bAwA7+BkxQJzr1NKxZplAkoaFZzO3zC3TL+Bvqw2fp6Y
- 3laiodc7BhBOMi+I/FSaO6a6cep2ABvvqvZqJuCArMA8I8yqsQwilWsm7u5jsZLzq4Ga
- JkT+fp/5k6OUpsuxHwVuh5lo2QT8KDXgFhQwjteCc4ZBzCvUfbEGn1bvf4SwGIyewWvW
- FUy+ejFe+91wQ8K78/RA4FKZXjSwTrT1+G+0n9NX3Hv0FK+/Mk5yW6CkYK/cVq6om0aa
- Qp+Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUhlwvTpGjmzG/UW6QR1FDA24p0lO+2OdS+Y+TY+79B10E3TlKLXyiRE3SSB2cUhRxzdEQ3tLWTqC0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRYCSCqrhwJihDVM7bP/vxWpy6cDe2aAH6wx77tJzUtVvIjpdq
- BIxHqkQSaRdpsCzvVUy3lE8dvHQxvQw7YBqlUX6vZycR/nXbLYQF7KQYhidSZR9GG0Y=
-X-Gm-Gg: ASbGncunsscm2wTvBlHALIewZZ2TXieFUpbHig3OyF7hmPTCk5nIH5h4lDlbYOrgmMu
- wFKq4pl0ITKP1Hd3uhSmDhFiiYuMq4IVLemLhXKUQOqiYEENu/7Q8QZBOLyxw0+l/tMyjh9OQiQ
- dsbrg5Mw1SkThce9susD+jUYbz0PNpqibD2mVQlbUZmlQm07vA1AzgBgSmQOc/ok+/MaaVo0c9F
- jYyLDezsOC7cwKVY4LX8o/Hkpl6KT1+8mTaXKhcVvPumgs2dgavRgv+XwEQXxdLtpXVL/WuR5+k
- 7eWtbDoClVI8pOZYi2yM1fRmxXyGhrg6qIF62+WVbo24CYIouZprM/Y9+o+7ukwX6hgmyjhJf77
- 9o3pwTjrRSuvvk2D0ffandaEUb4+P+TACttmDjDVAQoisON96i0QuUzGeEYBuBRmibaAO9iYa9M
- AUlqO+2hszjbLR/g==
-X-Google-Smtp-Source: AGHT+IHh/9HSY9QxYY7JWRlsHkQE77dEey/TQadLHho4kIFH9l0Cnuj5X98H1aD+vZkw9c2t87Tcgg==
-X-Received: by 2002:a17:907:96a7:b0:b6d:50f7:a805 with SMTP id
- a640c23a62f3a-b7367c02586mr2099815666b.59.1763557878059; 
- Wed, 19 Nov 2025 05:11:18 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a3d8775sm15093392a12.5.2025.11.19.05.11.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Nov 2025 05:11:17 -0800 (PST)
-Date: Wed, 19 Nov 2025 14:11:12 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Corey Minyard <corey@minyard.net>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Sagi Maimon <maimon.sagi@gmail.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
- Max Kellermann <max.kellermann@ionos.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC5A210E64F;
+ Wed, 19 Nov 2025 15:00:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763564451; x=1795100451;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=6VLOKmDo4WviGUhM4qQZA7IzCWHn1ZvDUbxiE4MHVTw=;
+ b=PwqIxE92BHunt/rCEM+35DFrV5Js1lkLdEcSgqSbWQ2mwnb8LXlyrYu1
+ Xsw2Yi6CgDptdwZG9jKX596BkpTmpBBJylkwjDdCMsjF8y92SYeTBni0V
+ L02L8Y5UT+gqi2D6XKxUF+eH3Ca0rGuH+TXvrmEtyFgk1hqkzRhpZtlgt
+ KXVTlFFSDt7Etbq4dc1NmLWNgP6Yd31CJWBmFf8zADODprEjFIREKzK/F
+ mwLdwOfYrLZiXQiQgoGSNy46zTrBn6ee95a6vYbN4PBI9GmAZvBwfO9Mo
+ INWT85WJNnnK7Dl1iO7JjwEWPzSfVUOVeeObxFD6CQWD/NRl1llDAwUuw g==;
+X-CSE-ConnectionGUID: KtOsV4EgRGWFZCoXNOli9A==
+X-CSE-MsgGUID: 49qp4tYFQzaG4LRpcg5LIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="91085420"
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="91085420"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2025 06:59:36 -0800
+X-CSE-ConnectionGUID: 1p6r6x9uS5u32zRd1eVaZg==
+X-CSE-MsgGUID: voIFHWIqQSaE97KThetVqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="191329073"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.245])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2025 06:59:30 -0800
+Date: Wed, 19 Nov 2025 16:59:28 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Petr Mladek <pmladek@suse.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -99,52 +57,18 @@ Cc: Corey Minyard <corey@minyard.net>,
  ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
  Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>,
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
- Sesidhar Baddela <sebaddel@cisco.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>
+ Jonathan Corbet <corbet@lwn.net>
 Subject: Re: [PATCH v3 00/21] treewide: Introduce %ptS for struct timespec64
  and convert users
-Message-ID: <aR3B8ECx9W6F0BV_@pathway.suse.cz>
+Message-ID: <aR3bUMvPCqZr5utj@smile.fi.intel.com>
 References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+ <aR3B8ECx9W6F0BV_@pathway.suse.cz>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <aR3B8ECx9W6F0BV_@pathway.suse.cz>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,31 +84,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu 2025-11-13 15:32:14, Andy Shevchenko wrote:
-> Here is the third part of the unification time printing in the kernel.
-> This time for struct timespec64. The first patch brings a support
-> into printf() implementation (test cases and documentation update
-> included) followed by the treewide conversion of the current users.
+On Wed, Nov 19, 2025 at 02:11:12PM +0100, Petr Mladek wrote:
+> On Thu 2025-11-13 15:32:14, Andy Shevchenko wrote:
+> > Here is the third part of the unification time printing in the kernel.
+> > This time for struct timespec64. The first patch brings a support
+> > into printf() implementation (test cases and documentation update
+> > included) followed by the treewide conversion of the current users.
+> > 
+> > Petr, we got like more than a half being Acked, I think if you are okay
+> > with this, the patches that have been tagged can be applied.
+> > 
+> > Note, not everything was compile-tested. Kunit test has been passed, though.
 > 
-> Petr, we got like more than a half being Acked, I think if you are okay
-> with this, the patches that have been tagged can be applied.
+> JFYI, the patchset has been committed into printk/linux.git,
+> branch for-6.19-vsprintf-timespec64.
 > 
-> Note, not everything was compile-tested. Kunit test has been passed, though.
+> Note, that I have:
+> 
+>    + fixed the 19th patch as proposed, see
+>      https://lore.kernel.org/all/aR2XAYWTEgMZu_Mx@pathway.suse.cz/
+> 
+>    + reviewed all patches but I triple checked 7th patch which
+>      did not have any ack yet. And I added my Reviewed-by tag
+>      there. ;-)
+> 
+>    + I tried build with allyesconfig. It succeeded. I am not 100%
+>      sure that it built all modified sources but...
 
-JFYI, the patchset has been committed into printk/linux.git,
-branch for-6.19-vsprintf-timespec64.
+Thank you!
 
-Note, that I have:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-   + fixed the 19th patch as proposed, see
-     https://lore.kernel.org/all/aR2XAYWTEgMZu_Mx@pathway.suse.cz/
 
-   + reviewed all patches but I triple checked 7th patch which
-     did not have any ack yet. And I added my Reviewed-by tag
-     there. ;-)
-
-   + I tried build with allyesconfig. It succeeded. I am not 100%
-     sure that it built all modified sources but...
-
-Best Regards,
-Petr
