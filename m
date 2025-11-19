@@ -2,49 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A168DC6DF96
-	for <lists+freedreno@lfdr.de>; Wed, 19 Nov 2025 11:27:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5FEBC6EBC6
+	for <lists+freedreno@lfdr.de>; Wed, 19 Nov 2025 14:11:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78CD210E5CA;
-	Wed, 19 Nov 2025 10:27:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFD4410E24A;
+	Wed, 19 Nov 2025 13:11:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a2rG3LKK";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="LaPCcjZi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25DCE10E5CA;
- Wed, 19 Nov 2025 10:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763548034; x=1795084034;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=jmw9bhTP6DqEEo8SaI642JH1s3dFqQGzetmEw8f3+f0=;
- b=a2rG3LKK7zrREVyFoZGBLCSXXmyycmw07I+jkBYSX7Nr0C7fZxXWQ6/6
- sV4QS3nac4iVTt3JF7DY7QLwtozDtpu0XpEdd8vGDTYpw1CNMC6bk3V6Q
- n2knbfUPLkQGNwvYcOqUCBd4zJlpKBsvKWZHmezcw8XNMwzm7V6QAuTMm
- +ZVDcml27L669p51xNQ/HRhUsjk51GQD1NwWp0ee52R70+hBsiX/lHoeA
- 8hc0Ti9sdq60IJ1SRw33s8Tma2OXljTPTCiNOEN3CzSsfLdbnl5OlyR0s
- kWei3mTHywiE6Yzh5t/+DWPNgJs1r4hIryifVIvf7XKVgDSv/aknjjRJq Q==;
-X-CSE-ConnectionGUID: BP1OGhOyR3G5u2l9w7QN6A==
-X-CSE-MsgGUID: QWqZCdVVSOSZC73kQOkMbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11617"; a="65286208"
-X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="65286208"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2025 02:27:12 -0800
-X-CSE-ConnectionGUID: BabbyDhyQAOE+ZtEsTT7/g==
-X-CSE-MsgGUID: bIH3DAOlTZmt1WuzGTp/dQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="195322765"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.245.245])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2025 02:26:53 -0800
-Date: Wed, 19 Nov 2025 12:26:51 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Petr Mladek <pmladek@suse.com>
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D4C10E24A
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Nov 2025 13:11:19 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-b73669bdcd2so938434766b.2
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Nov 2025 05:11:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1763557878; x=1764162678; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=2hIjgqXWXn3Sbfto+9OWapsp1QwhUBtS+kZIjBq+Tlw=;
+ b=LaPCcjZi7EVwyffkNGTptbk31UK2L0vpseElImv0p33uRVtxFANzoySZPLut/lSTnh
+ 0RwZhx5JuQZ2F9J9GhQz885vlDp2b1MrO66zr0nMiOHxnpNJHWNcDodxEyvLAWom6LW0
+ zKDlJ4WyYHm3vDCqipnQrYKPZlUpafMPumOkVd5nCtgRire8Kc3/ELpTUl4jl0GjMcX6
+ Y1Goyj7/sr8it5NxXI/4PDrkvUucomknvpoHDoy9jLXP+Jk6lzdjPCuTBKgNr4iZHm6y
+ a33VbQz/XgmSqnMpVfABkVlIWkEe2xNXwJrfn4hEbT35BVAunmj6eEoBpsdkULIUeVmX
+ 1Ggg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763557878; x=1764162678;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2hIjgqXWXn3Sbfto+9OWapsp1QwhUBtS+kZIjBq+Tlw=;
+ b=q8FN2oZleRatEid1tHcaBc4x9KXfQLNUrtXmu6waKExhDO9c5QUR2D6sKAnzUG4diS
+ +TY+tTzWVo9OgUIIzpy1Zl76bAwA7+BkxQJzr1NKxZplAkoaFZzO3zC3TL+Bvqw2fp6Y
+ 3laiodc7BhBOMi+I/FSaO6a6cep2ABvvqvZqJuCArMA8I8yqsQwilWsm7u5jsZLzq4Ga
+ JkT+fp/5k6OUpsuxHwVuh5lo2QT8KDXgFhQwjteCc4ZBzCvUfbEGn1bvf4SwGIyewWvW
+ FUy+ejFe+91wQ8K78/RA4FKZXjSwTrT1+G+0n9NX3Hv0FK+/Mk5yW6CkYK/cVq6om0aa
+ Qp+Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUhlwvTpGjmzG/UW6QR1FDA24p0lO+2OdS+Y+TY+79B10E3TlKLXyiRE3SSB2cUhRxzdEQ3tLWTqC0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRYCSCqrhwJihDVM7bP/vxWpy6cDe2aAH6wx77tJzUtVvIjpdq
+ BIxHqkQSaRdpsCzvVUy3lE8dvHQxvQw7YBqlUX6vZycR/nXbLYQF7KQYhidSZR9GG0Y=
+X-Gm-Gg: ASbGncunsscm2wTvBlHALIewZZ2TXieFUpbHig3OyF7hmPTCk5nIH5h4lDlbYOrgmMu
+ wFKq4pl0ITKP1Hd3uhSmDhFiiYuMq4IVLemLhXKUQOqiYEENu/7Q8QZBOLyxw0+l/tMyjh9OQiQ
+ dsbrg5Mw1SkThce9susD+jUYbz0PNpqibD2mVQlbUZmlQm07vA1AzgBgSmQOc/ok+/MaaVo0c9F
+ jYyLDezsOC7cwKVY4LX8o/Hkpl6KT1+8mTaXKhcVvPumgs2dgavRgv+XwEQXxdLtpXVL/WuR5+k
+ 7eWtbDoClVI8pOZYi2yM1fRmxXyGhrg6qIF62+WVbo24CYIouZprM/Y9+o+7ukwX6hgmyjhJf77
+ 9o3pwTjrRSuvvk2D0ffandaEUb4+P+TACttmDjDVAQoisON96i0QuUzGeEYBuBRmibaAO9iYa9M
+ AUlqO+2hszjbLR/g==
+X-Google-Smtp-Source: AGHT+IHh/9HSY9QxYY7JWRlsHkQE77dEey/TQadLHho4kIFH9l0Cnuj5X98H1aD+vZkw9c2t87Tcgg==
+X-Received: by 2002:a17:907:96a7:b0:b6d:50f7:a805 with SMTP id
+ a640c23a62f3a-b7367c02586mr2099815666b.59.1763557878059; 
+ Wed, 19 Nov 2025 05:11:18 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6433a3d8775sm15093392a12.5.2025.11.19.05.11.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Nov 2025 05:11:17 -0800 (PST)
+Date: Wed, 19 Nov 2025 14:11:12 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Corey Minyard <corey@minyard.net>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  "Dr. David Alan Gilbert" <linux@treblig.org>,
@@ -117,17 +137,14 @@ Cc: Corey Minyard <corey@minyard.net>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH v3 19/21] scsi: fnic: Switch to use %ptSp
-Message-ID: <aR2bazZn8m4EMHdW@smile.fi.intel.com>
+Subject: Re: [PATCH v3 00/21] treewide: Introduce %ptS for struct timespec64
+ and convert users
+Message-ID: <aR3B8ECx9W6F0BV_@pathway.suse.cz>
 References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
- <20251113150217.3030010-20-andriy.shevchenko@linux.intel.com>
- <aR2XAYWTEgMZu_Mx@pathway.suse.cz>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aR2XAYWTEgMZu_Mx@pathway.suse.cz>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,128 +160,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Nov 19, 2025 at 11:08:01AM +0100, Petr Mladek wrote:
-> On Thu 2025-11-13 15:32:33, Andy Shevchenko wrote:
-> > Use %ptSp instead of open coded variants to print content of
-> > struct timespec64 in human readable format.
+On Thu 2025-11-13 15:32:14, Andy Shevchenko wrote:
+> Here is the third part of the unification time printing in the kernel.
+> This time for struct timespec64. The first patch brings a support
+> into printf() implementation (test cases and documentation update
+> included) followed by the treewide conversion of the current users.
 > 
-> I was about to commit the changes into printk/linux.git and
-> found a mistake during the final double check, see below.
+> Petr, we got like more than a half being Acked, I think if you are okay
+> with this, the patches that have been tagged can be applied.
 > 
-> > diff --git a/drivers/scsi/fnic/fnic_trace.c b/drivers/scsi/fnic/fnic_trace.c
-> > index cdc6b12b1ec2..0a849a195a8e 100644
-> > --- a/drivers/scsi/fnic/fnic_trace.c
-> > +++ b/drivers/scsi/fnic/fnic_trace.c
-> > @@ -215,30 +213,26 @@ int fnic_get_stats_data(struct stats_debug_info *debug,
-> >  {
-> >  	int len = 0;
-> >  	int buf_size = debug->buf_size;
-> > -	struct timespec64 val1, val2;
-> > +	struct timespec64 val, val1, val2;
-> >  	int i = 0;
-> >  
-> > -	ktime_get_real_ts64(&val1);
-> > +	ktime_get_real_ts64(&val);
-> >  	len = scnprintf(debug->debug_buffer + len, buf_size - len,
-> >  		"------------------------------------------\n"
-> >  		 "\t\tTime\n"
-> >  		"------------------------------------------\n");
-> >  
-> > +	val1 = timespec64_sub(val, stats->stats_timestamps.last_reset_time);
-> > +	val2 = timespec64_sub(val, stats->stats_timestamps.last_read_time);
-> >  	len += scnprintf(debug->debug_buffer + len, buf_size - len,
-> > -		"Current time :          [%lld:%ld]\n"
-> > -		"Last stats reset time:  [%lld:%09ld]\n"
-> > -		"Last stats read time:   [%lld:%ld]\n"
-> > -		"delta since last reset: [%lld:%ld]\n"
-> > -		"delta since last read:  [%lld:%ld]\n",
-> > -	(s64)val1.tv_sec, val1.tv_nsec,
-> > -	(s64)stats->stats_timestamps.last_reset_time.tv_sec,
-> > -	stats->stats_timestamps.last_reset_time.tv_nsec,
-> > -	(s64)stats->stats_timestamps.last_read_time.tv_sec,
-> > -	stats->stats_timestamps.last_read_time.tv_nsec,
-> > -	(s64)timespec64_sub(val1, stats->stats_timestamps.last_reset_time).tv_sec,
-> > -	timespec64_sub(val1, stats->stats_timestamps.last_reset_time).tv_nsec,
-> > -	(s64)timespec64_sub(val1, stats->stats_timestamps.last_read_time).tv_sec,
-> > -	timespec64_sub(val1, stats->stats_timestamps.last_read_time).tv_nsec);
-> > +			 "Current time :          [%ptSp]\n"
-> > +			 "Last stats reset time:  [%ptSp]\n"
-> > +			 "Last stats read time:   [%ptSp]\n"
-> > +			 "delta since last reset: [%ptSp]\n"
-> > +			 "delta since last read:  [%ptSp]\n",
-> 
-> Both delta times are printed at the end.
-> 
-> > +			 &val,
-> > +			 &stats->stats_timestamps.last_reset_time, &val1,
-> > +			 &stats->stats_timestamps.last_read_time, &val2);
-> 
-> I think that this should be:
-> 
-> 			 &stats->stats_timestamps.last_reset_time,
-> 			 &stats->stats_timestamps.last_read_time,
-> 			 &val1, &val2);
-> 
-> >  	stats->stats_timestamps.last_read_time = val1;
-> 
-> The original code stored the current time in "val1". This should be:
-> 
-> 	stats->stats_timestamps.last_read_time = val;
-> 
-> > @@ -416,8 +410,8 @@ int fnic_get_stats_data(struct stats_debug_info *debug,
-> >  	jiffies_to_timespec64(stats->misc_stats.last_ack_time, &val2);
-> 
-> Just for record. Another values are stored into @val1 and @val2 at
-> this point.
-> 
-> >  	len += scnprintf(debug->debug_buffer + len, buf_size - len,
-> > -		  "Last ISR time: %llu (%8llu.%09lu)\n"
-> > -		  "Last ACK time: %llu (%8llu.%09lu)\n"
-> > +		  "Last ISR time: %llu (%ptSp)\n"
-> > +		  "Last ACK time: %llu (%ptSp)\n"
-> >  		  "Max ISR jiffies: %llu\n"
-> >  		  "Max ISR time (ms) (0 denotes < 1 ms): %llu\n"
-> >  		  "Corr. work done: %llu\n"
-> > @@ -437,10 +431,8 @@ int fnic_get_stats_data(struct stats_debug_info *debug,
-> >  		  "Number of rport not ready: %lld\n"
-> >  		 "Number of receive frame errors: %lld\n"
-> >  		 "Port speed (in Mbps): %lld\n",
-> > -		  (u64)stats->misc_stats.last_isr_time,
-> > -		  (s64)val1.tv_sec, val1.tv_nsec,
-> > -		  (u64)stats->misc_stats.last_ack_time,
-> > -		  (s64)val2.tv_sec, val2.tv_nsec,
-> > +		  (u64)stats->misc_stats.last_isr_time, &val1,
-> > +		  (u64)stats->misc_stats.last_ack_time, &val2,
-> 
-> So, this is correct!
-> 
-> >  		  (u64)atomic64_read(&stats->misc_stats.max_isr_jiffies),
-> >  		  (u64)atomic64_read(&stats->misc_stats.max_isr_time_ms),
-> >  		  (u64)atomic64_read(&stats->misc_stats.corr_work_done),
-> 
-> 
-> Now, I think that there is no need to resend the entire huge patchset.
-> 
-> I could either fix this when comitting or commit the rest and
-> you could send only this patch for review.
+> Note, not everything was compile-tested. Kunit test has been passed, though.
 
-Thank you for the thoroughly done review, I changed that patch between the
-versions and the problem is that for printf() specifiers (extensions) we do not
-have an automatic type checking. We starve for a GCC plugin for that, yeah...
+JFYI, the patchset has been committed into printk/linux.git,
+branch for-6.19-vsprintf-timespec64.
 
-In any case, if you fold your changes in, I will appreciate that!
-Otherwise it's also fine with me to send a patch separately later on.
+Note, that I have:
 
-> PS: All other patches look good. Well, nobody acked 7th patch yet.
->     But I think that the change is pretty straightforward and
->     we could do it even without an ack.
+   + fixed the 19th patch as proposed, see
+     https://lore.kernel.org/all/aR2XAYWTEgMZu_Mx@pathway.suse.cz/
 
-This is my understanding as well. It changes the output, but that output is
-debug anyway. So I don't expect breakage of anything we have an obligation
-to keep working.
+   + reviewed all patches but I triple checked 7th patch which
+     did not have any ack yet. And I added my Reviewed-by tag
+     there. ;-)
 
--- 
-With Best Regards,
-Andy Shevchenko
+   + I tried build with allyesconfig. It succeeded. I am not 100%
+     sure that it built all modified sources but...
 
-
+Best Regards,
+Petr
