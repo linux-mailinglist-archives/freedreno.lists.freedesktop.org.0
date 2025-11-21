@@ -2,119 +2,133 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2899FC777F5
-	for <lists+freedreno@lfdr.de>; Fri, 21 Nov 2025 07:03:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96DE3C78FE2
+	for <lists+freedreno@lfdr.de>; Fri, 21 Nov 2025 13:17:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E877C10E7E8;
-	Fri, 21 Nov 2025 06:03:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B28510E137;
+	Fri, 21 Nov 2025 12:17:02 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mT508ZRs";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SXOFjQ62";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazolkn19013082.outbound.protection.outlook.com [52.103.43.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFB3C10E7E8;
- Fri, 21 Nov 2025 06:03:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rYSDLH+wsQq1NrAP1pIpZx/aicnyZMREH84UKfI7UlpAIMReQ/CGxO6Br+dvdNB9RAW7XvP4YUdQYdA46mwcwyrAqhTeiQB7qHjrQ2qTgs7yZUJZmn4sRtBOqI4SIqiUhj9yQ1l8b9B6601bZN8BJxDuWSErz9ETArvzwMO5fH85Cvj7mrBztKqIAQBp7QRFU66W9V3b6FzZiD37+XN+4P3DVRgLNp7x/TmTSyuRn3U6haO3rp6Wqcuw/rmumfsknifSHh+DjNKRdQ7ClZwWNNARyL15wAY4KEcAJ4BbnD4lt6cBFdn4+yenmZ+kPSG4TuN/ekImDDHiHavdK1SGEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OEuXGghlXifS3UFu6BCDdTcCQ0MF2WWGO1PZOe+x6gE=;
- b=aIVlAfkXxgAxPBhYntWFt7494WooOFmZxWjqXrc4/QuEyziimakTc5oc9h10HvFvToEYBd3+jNOtKHwHAgQ6l2ST2ZtI6+VHEDzqrtER+ovw1t3GMIft4VGSWMAD2n7vCuBIiVrzVRZvgNN3wyJfQcLKIX6w8pG6XyjkmSbevNwFO6BQlQ92I88tstbMAcTz6n66WVA/0wRY1exQ5E3Ls6JQwoG7l+QaxxSuEhRcDlF7afENfDnCgwoESFVKof/qdxrdqTmKE5ptYRI/mbCc3GfYtes/d7X6Zog4uMwFbrUXAiWt+2clec9pMKCCDmdpdLpqmyiCUwF8qX54ol87FQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Received: from TYUPR06MB6099.apcprd06.prod.outlook.com (2603:1096:400:356::8)
- by KL1PR06MB6710.apcprd06.prod.outlook.com (2603:1096:820:fe::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.11; Fri, 21 Nov
- 2025 06:03:38 +0000
-Received: from TYUPR06MB6099.apcprd06.prod.outlook.com
- ([fe80::2223:6c27:d5c2:aa47]) by TYUPR06MB6099.apcprd06.prod.outlook.com
- ([fe80::2223:6c27:d5c2:aa47%5]) with mapi id 15.20.9320.013; Fri, 21 Nov 2025
- 06:03:38 +0000
-From: Teguh Sobirin <teguh@sobir.in>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84EAB10E137
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Nov 2025 12:17:00 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5AL9SYSM3541448
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Nov 2025 12:16:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=QaNnVLYnlnRhWIm4jNcLz6mZ
+ ygcebyyLlqzwUaRtrnI=; b=mT508ZRsNRTqr8DnFSkjCZTkAd4GvUBjLQDw99zg
+ Tjsl919tISAJp86joL1PZInJ6CpdjjXMNTmeRjMC3rETaklabmdoLekmgOiMP750
+ SzQYbWukdIQ2Ow2mlpnuXZwTxS7IqgzgUAwzV9i275tS7T1FJ1/kkEt/DPeRyLCK
+ jXbkZGSnyHo2KlZL4faVNA13LX8EmH6ADe9wF9mZ/2Chud4Cbw/OlLcN3UnBA1Dd
+ b7mKe9ajPbvRh+vZgpPueE7FcyJd+8QtjamxyDt0kc+8hb/LCgBbmGOPHEz8YYRU
+ OnIVAkpHyFS7v7/VluOvAdCeD8K1S3BSGC8g1ROmaukgOA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ajng00gaa-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Nov 2025 12:16:59 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8b26bc4984bso824740785a.1
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Nov 2025 04:16:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1763727418; x=1764332218;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=QaNnVLYnlnRhWIm4jNcLz6mZygcebyyLlqzwUaRtrnI=;
+ b=SXOFjQ62eDe5mk8nC+0UbnyvX77WCBUx2qLOOXWv3J5mlDYGaO5tqZoJfRkNieD13Y
+ GXxc2PZNz5shHYmJIpLYBTc2QxLCrtBNK1WXY/Pz1mtiHmsv874ogxUzh6kp5m9u0zzC
+ GRwmqRIG5NSAt2oVIkH8I46ZFKyQDqlrO6ZcofP1H3J5lgNyXrYSnOTvigR9OcSwhaAv
+ w/mbEGuxM6pOA76gfge0hxvsgWss9/G6qe52GksRSh0XN1rEiWyOFMVKGzFYTv4i6IoW
+ TQBAvCdEwA17VXYumsbOGPgzARwWfscCHXzVjr+fFQMPZb61T+0NpAsL/mmAw19Y5EMg
+ 87Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763727418; x=1764332218;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QaNnVLYnlnRhWIm4jNcLz6mZygcebyyLlqzwUaRtrnI=;
+ b=aHv8lq74CaYt3WSaPMx0dCFLKuJlqt+qBjY9SOh1VfKi6ydmlBdNa2u2pUEkaB8Oz6
+ kTlxrvgK+h6SeehTa5XipJEN8Z8r1EIlaHV0k87AInIo3rwTMzAjNUTMJSOxf3ZTQwWS
+ kU0ZIfqn/6WTsn3hbP31QmI25dm5BnYx6yuE55SGukDAYlwpWNbECByUXW0VcWWSdEV8
+ rRyuVHXO40ZHbucbZHvGEmWe0WZkUb7u4eQVSE6jgxDwZlVcIH72thvuxbLEyFAftt4t
+ 0LjCSi0OfQMOXOXgGXxenjtD/SG1Mp5A83u73lYnUbvoHETbnNQeUUQh0EFIqGZT9y1X
+ e1zA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXtHqmWkkCLFxmauHH+zokdzMNh4ReoXeoJmqsswxPy+wtey7OXfYghMG9KTg/Lp9eSzOjjKg5di3g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyMSkUjFRDvvWpdWyoszvIRTnHHr7TUqR2C0eh0KlNlC5EB6Ret
+ wNbOB3WZHlAk6BGD95e6OMuIcrCIXnbTA19WKhubdnuDX4cZk4Uy/wGJvLKXWvjv2Uek3uqjgZi
+ sIi93rtFvFl0/gPMe/bTUTC0lC9Nt8mzxTcJNpZSW1soNXLq//tEx/EbGhPglds1nv74lb/w=
+X-Gm-Gg: ASbGncuFIlBpELufpLAucKGqdZNKGzDYmc6KbqRhVPEOEoabBRPi+iXOkWnhnSLnWPw
+ LXOYUjmmZN6CrSTgQqyYudeHSB3uo9qtgu0fk3ECRAThHAS/EcBahzHnupqbfk92MkH9MjfrU9C
+ iBKtgYANE0dN5nKi4W/kMyehe/kujvc5XeojJNnKBnNzJkhTl1c4uSF5R5P6ZMIB6NQInex0vg+
+ +QvDPx5q77K3TpM+0EMSODSifQraH19JGza8K+qghPYaugbMbP/vpaSUfNU1J8TI8TuuyhWNUEh
+ FVRZL6CUPSBZdr1iHHftggXIQ0oUr/J94+mW9ib7DGj+lg3pb05BdGJBLprpd+7ax7DdWFWbWeD
+ jPExWcov2nPlkC9XXdcpESwZIS9yAxFL0FI+w5p8ong5IVnMsu8m8qxs6qb+c8Ubs/etF35JcTs
+ 2CAfV1ZDbBVABibnkVSH+HntI=
+X-Received: by 2002:ad4:4ea6:0:b0:86a:7c95:126f with SMTP id
+ 6a1803df08f44-8847c4c7de0mr27551466d6.27.1763727418535; 
+ Fri, 21 Nov 2025 04:16:58 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEUoX/mjzI1b4o1ytqdR+jI1yLiJw/zVz9VwmNQMbCqUbuv4Gu6bPjAqN2mH2X/VzpmYNsHKQ==
+X-Received: by 2002:ad4:4ea6:0:b0:86a:7c95:126f with SMTP id
+ 6a1803df08f44-8847c4c7de0mr27551126d6.27.1763727418121; 
+ Fri, 21 Nov 2025 04:16:58 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-37cc6a9fb2dsm10503991fa.0.2025.11.21.04.16.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Nov 2025 04:16:57 -0800 (PST)
+Date: Fri, 21 Nov 2025 14:16:55 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Teguh Sobirin <teguh@sobir.in>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Teguh Sobirin <teguh@sobir.in>
-Subject: [PATCH v2] drm/msm/dpu: Set vsync source irrespective of mdp top
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/msm/dpu: Set vsync source irrespective of mdp top
  support
-Date: Fri, 21 Nov 2025 14:02:08 +0800
-Message-ID: <TYUPR06MB6099C539BD2C937F8630FF8EDDD5A@TYUPR06MB6099.apcprd06.prod.outlook.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BY3PR04CA0011.namprd04.prod.outlook.com
- (2603:10b6:a03:217::16) To TYUPR06MB6099.apcprd06.prod.outlook.com
- (2603:1096:400:356::8)
-X-Microsoft-Original-Message-ID: <20251121060207.148684-1-teguh@sobir.in>
+Message-ID: <52avqc3n4fxuypv6fkejuxkmuounxa67e5lsnfeynek6yxq6tm@ink6yoklpxes>
+References: <TYUPR06MB6099C539BD2C937F8630FF8EDDD5A@TYUPR06MB6099.apcprd06.prod.outlook.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYUPR06MB6099:EE_|KL1PR06MB6710:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a688eb9-d040-4d9f-3f83-08de28c3b614
-X-MS-Exchange-SLBlob-MailProps: a+H6FLLcF3rgze9d9FGU1K9+vGKRAfgQURV+DDaV8ESDn5UT3UKppYR+0Dkw2lkRA9grYQNvS7snCv7t+QU8YjPA10tZOesc0eypjp9U24GVrYhV+tPkaTlmI7NXL9xUVi3AdEk48YZslvpED+IiYPIWVm0mvDorHow1F1JEHpiRIIquejBfvUx2NpyEQmPeCZUK4OpgWX1wytmkOX4tfOZk+k6AEm3LFkWwSR9vY6wZCYJwctHW6e40+1ueAqsI/efD2YAb6bxvUmTCtIuweSiQ6NYoEgEBWhzC1Egef5G2Bp+8kYlgji+PMheAe+yfukLQ+dBLkxoWU93laqS6puO1hitx6eftBGbl3eSPm6onYNzww5PZVTMwjK+kZdLCR96kO5QvJ/10KrWN5rlxii9D9G22KqgBHKFuXG/KxMVh/6hK6zpOEqaFMEg9Dr6DvnA5X11xq7MHqW/otmkyT58DE/hFEc31ulgZvvl/Hanv1YQTu3s0jzdf52WRYUkJ39S7+Kchzg+qIZ/1GtohHcWFTbFwuh5HyOGbL758NhQGDl4TBudJepL+VtWI4bycKqfw0SRMhxesoEY4rS05fe/IHoX05UQiI2q7noWTQ/KsfTbwDPUTiDyH4ls32SuNtE+ocFoRgd6tDuchJtCOIWcli7h7BUhZ2JoHfEedAtJxZIDr/k6FpF02Zvz0Yv7p82ttV+c+h+wdW043Hr/XpBPrv/44rdh7+mKK0TUS+77v76D71ogRsqA7jHkmqY7cVPRn38ESN/ZNRYsrajnnfMJmTd+WI3zPyZQsiaTwCuuvVjJ9otjk2iBGCRDGsgzn
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|51005399006|461199028|19110799012|15080799012|8060799015|23021999003|41001999006|5062599005|5072599009|1602099012|40105399003|3412199025|4302099013|440099028|10035399007|1710799026;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ZO8GW+acHbrczRdORbVJH3hzkacXIHzCLRpxcdDX7dnBD3N4Ee9ljHhLCdi0?=
- =?us-ascii?Q?y9QkF5p4lpQKxz5Fp7YEmLs7ahtGFafzm6Y8Ntp2i2Z0zIujNuwso2clBX6+?=
- =?us-ascii?Q?IF8KCBQ9bbf7KIzzqMZ0x92w0g5jMtzsw1rPA6VXSf8+//OJuHS5SyQtrWGa?=
- =?us-ascii?Q?sGJ3Kn+pmdjxoXXt3xGRJYeB7+LelUqeJGz4a4bH78vlJE6TF4cN4gE0WPxg?=
- =?us-ascii?Q?PvU/raR5f/4Fzm9jIKDVGNKePL+Oq2DwK66KPWqouGBZSgnty2RgZb4OUICC?=
- =?us-ascii?Q?QEziezeShWgy83rn8pRwvuRjypN9BWmaxoCEznF2Mx8HzWFDNE3DSUu/03FU?=
- =?us-ascii?Q?RADqXO4NUSCwEHK8t/tM/5Q/CasfeAXfMqys+tKd3LmPJI1kqhwgt5N8V0r9?=
- =?us-ascii?Q?BsRkK8h7fUaEdBqVTIqMPDf9P5SuhSWDc04vUbp58YdZQ1jI+6YPT0yUMDn8?=
- =?us-ascii?Q?FDFFNR3jj18AajdiKf4S3Xhcw3jUIHWJOdQM+6cfTjYXaT7arJKHc45TnXNm?=
- =?us-ascii?Q?wSaoDkiookMiVULKTBubfdXrPTARvw95IvKvhJVRY1qZ/GXFBpVM5aIos5KH?=
- =?us-ascii?Q?L/FqK1W75euwRPQuVkjO3i377e4NkHSzEGUsrwWp+JDzoJMBSM5jFK9VzFwg?=
- =?us-ascii?Q?C34AXL+iZ78ufuwx2GtMRpy8uq53A4nf8jIO1idwU0hvpLBlqbyoN0z5AVR4?=
- =?us-ascii?Q?FGA4FNTIYiStsrpUHGN2dtZmaLsYKt5q07soq2E0GtRTSuSXGp4ypy+t+bpm?=
- =?us-ascii?Q?DzMmQ9vHLOthncz7SatKU6s8C65VptgNZLg5FcGotL1DRGqc0WOPz8eJE68a?=
- =?us-ascii?Q?3pJot+3MR6jTd9mdNnWFLO7BJmGvA0q0IsbyldxdPDjeuAJb8pe+f7kI6yZy?=
- =?us-ascii?Q?MLYSudLZbBYB3ZzmHaxlIrIJzbIKvCvsAmJU1bH8F8pEsvcV9c2fNhnikc1Z?=
- =?us-ascii?Q?04wf11eF5i+B/qC9ff1bdoaf/axfykWG9YRFNK4ANT68tc9n3Hf4UiRY2FHi?=
- =?us-ascii?Q?ZxRvZ4aOGld4ZAH42vp2gKuXsuncH4DCQgRpEQYb7Nnv+04YslbLmL1oBSGm?=
- =?us-ascii?Q?YVerMUV2FViTewhYRHcK4tRBaEjYFFUJ1VY8mYtMzRwgIGDdmoM4tE8yv/OP?=
- =?us-ascii?Q?3N8atav8W58GxtoLnO+4HBeN90MWdqIpA5ACSDtPRHjtoIbDdR2R+S3wvnqp?=
- =?us-ascii?Q?9VLMEcwxDly8ftEmf9Yte29HErsRN6ldtGWwTs12OQcQREVNJWvyIa4gLsCd?=
- =?us-ascii?Q?aRaNVI02d2adDsa7sP5w4OMOlN5B25KHAhzQzx3D1p9dfrQb6iyfFVztWRXH?=
- =?us-ascii?Q?fn+kegJDBmIALABmiZ/XzkQ9ah/Fr20d7XKIJH6Os9iYZXT+6P9/9Ic5kTKc?=
- =?us-ascii?Q?LZLwRPqa6Ajf5Pi6U+qKOd/LsUzyF2qZbx/d5ivU7c8dAcxMjQ=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?A/knN+E/Btn3MTED0pS0eLtLTWLpJK3YUsc3vf+kIdEHDs2qtwcZiBiX7JbS?=
- =?us-ascii?Q?UoDxSu8L9fwAaQHlZsilorWeKkeqv7uCkuhkIvFTA+YjkaGHWQCOTLpIvqbc?=
- =?us-ascii?Q?EhqT8HN3ZOG8akjvc7dZwDUJq/hFEe13tqGTt8ouZd/QD74mhu2ONMrvFzR5?=
- =?us-ascii?Q?fsj8CF6x6D45dtgOFcE4Z8cRonBixwfC13YL1A+JEdOE13zzdzg+mtxg+Y53?=
- =?us-ascii?Q?l+HL8GBFR/HwNmtCm2NDyNOOzd2EIT7XUASvZmoMoPrIZu1GIelJgULufvMz?=
- =?us-ascii?Q?qKQPg26cywLKQV6JwZDeeVQVnVEAxs/Kq8d57xO+qGWGNGWnIMuNUu+TWJsl?=
- =?us-ascii?Q?tpyqE3WE6yisn/LQntAedwPOxrrYNh8f3WERcAyoVaFZ69P/h3mZuW0AxR+U?=
- =?us-ascii?Q?iJkdm0DO2N5+W1gktozZbzCodED6MwSLFP6JitHaLXWqSZr3JSoDg9FX5hfR?=
- =?us-ascii?Q?ppgwiX67A9sp8LGpoKeQ5yt07RT7SfN4aH8ctLswDcKf0+4W+1qR3wFm7J4Q?=
- =?us-ascii?Q?Su6RTo/uvI3o+WUyxD4TtOsXwVsdKFkCqp1SgAKnYf/tyHE+JC3Zzbj8WS3u?=
- =?us-ascii?Q?RVMUT9ZwsAWi1JyXqbCbSWpg2BF5XZNm/oLpA/Cno9TRGFiM3OOABA6jexjy?=
- =?us-ascii?Q?m3qT/epxEu/fyEilD8+KMf8GXyM0ukAnUWV6+bcpXNJGtdCPi3kQB8Sajrpb?=
- =?us-ascii?Q?ehEQGMkpZ0iOQcyn7/aPlUWlcSsuTtmFQUSre2Rs5EHr6QBtGl4VnIBl4X3x?=
- =?us-ascii?Q?Lg3lWNjVusxh+d6rOp2HjKuwJAvb8kif3KiYYFHLwtEDLS6JzHUrqXQ+hjGy?=
- =?us-ascii?Q?mUTlWg6r/ycBM6XYYygPqQaqEV9s+WsRazPedKs1tCkSsHCbkgYXAJSjfDWe?=
- =?us-ascii?Q?HaIw9BA571g+pZdOph4uEFV0vQDCBjZUyJ4RcSG/wi3DW6t7oMOwMaci85s2?=
- =?us-ascii?Q?6zVnzJ1KWBNW96moqqwz4rvqXcgvJzrsV1UXvz01bJ20T2ts+8ETJqg7kM/n?=
- =?us-ascii?Q?3ldGgrmVcgIu83NN/8zUpCGfbrRAjHBYKM27w4W5CJ8R+uwrPM+F6at34BGY?=
- =?us-ascii?Q?KArFMh4t1CNxHTziHtDepmL81gQtHGFFjIIMKX/Ap85eXUXed0++YQpg7D1f?=
- =?us-ascii?Q?4SHwcE0hr6dYNrqsAQ+juqoAijR2AUiy+t8vd2TbxEPGtbY91mvdOEiQn7IT?=
- =?us-ascii?Q?v79iIdgt7gD6H/mf1yBlFwAWYnqx5E1lzEB9sQ=3D=3D?=
-X-OriginatorOrg: sct-15-20-8534-20-msonline-outlook-6a509.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a688eb9-d040-4d9f-3f83-08de28c3b614
-X-MS-Exchange-CrossTenant-AuthSource: TYUPR06MB6099.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2025 06:03:37.9359 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6710
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <TYUPR06MB6099C539BD2C937F8630FF8EDDD5A@TYUPR06MB6099.apcprd06.prod.outlook.com>
+X-Proofpoint-ORIG-GUID: O2rP6ydLy2ljaP0mmVyFonbKsAGgMmir
+X-Authority-Analysis: v=2.4 cv=R+UO2NRX c=1 sm=1 tr=0 ts=6920583b cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=UqCG9HQmAAAA:8 a=EUspDBNiAAAA:8 a=Weq4iwZbzhTgL2Q6ZfAA:9
+ a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: O2rP6ydLy2ljaP0mmVyFonbKsAGgMmir
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTIxMDA5MiBTYWx0ZWRfXxve6+YDpsISx
+ 8npAu3Cv5T/ZeYDC/uY1XagYs3jDbogWz/R/xZO6XuupOTpvppX+6kV7V6eoCs5+xelK5suOW/F
+ UQ6pG9PJIilRKbbv3SNNELPG5d+Lwv7WvF0338Ww59tXUAHIcUMsrOqh++ZMiWGHm5REO0qJK4o
+ 18cvNffxKYHxiw2lJq/A0vW3G35AY64pka6bz+FY1hZjkI1C1aPrpgIon6lDITqp201WXmbRvyf
+ OiMS//MnrPmVjy7U7CIyajjaJoLIWVWegwIZqOnQb8XwYHEcGApmP9fYgfOP74WzAr/Fs7pECRI
+ OGxe5IpdwbrwpF9bUdmXr28sn/Z5Z73qTd20f2AqvFMyEaNMX3eieIK8GowYwinwb4HoVNjTK83
+ szBsus7TxOQWVf+fv/N+hU7LtdC37g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-21_03,2025-11-20_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 priorityscore=1501 bulkscore=0 adultscore=0
+ lowpriorityscore=0 spamscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511210092
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,60 +144,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since DPU 5.x the vsync source TE setup is split between MDP TOP and
-INTF blocks.  Currently all code to setup vsync_source is only exectued
-if MDP TOP implements the setup_vsync_source() callback. However on
-DPU >= 8.x this callback is not implemented, making DPU driver skip all
-vsync setup. Move the INTF part out of this condition, letting DPU
-driver to setup TE vsync selection on all new DPU devices.
+On Fri, Nov 21, 2025 at 02:02:08PM +0800, Teguh Sobirin wrote:
+> Since DPU 5.x the vsync source TE setup is split between MDP TOP and
+> INTF blocks.  Currently all code to setup vsync_source is only exectued
+> if MDP TOP implements the setup_vsync_source() callback. However on
+> DPU >= 8.x this callback is not implemented, making DPU driver skip all
+> vsync setup. Move the INTF part out of this condition, letting DPU
+> driver to setup TE vsync selection on all new DPU devices.
+> 
+> Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> ---
+> Changes in v2:
+> - Corrected commit message suggested by Dmitry Baryshkov.
+> - Link to v1: https://lore.kernel.org/linux-arm-msm/TYUPR06MB6099CBBE5090DB12A2C187E3DDFDA@TYUPR06MB6099.apcprd06.prod.outlook.com/
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++------------
+>  1 file changed, 9 insertions(+), 13 deletions(-)
 
-Signed-off-by: Teguh Sobirin <teguh@sobir.in>
----
-Changes in v2:
-- Corrected commit message suggested by Dmitry Baryshkov.
-- Link to v1: https://lore.kernel.org/linux-arm-msm/TYUPR06MB6099CBBE5090DB12A2C187E3DDFDA@TYUPR06MB6099.apcprd06.prod.outlook.com/
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++------------
- 1 file changed, 9 insertions(+), 13 deletions(-)
+Fixes: e955a3f0d86e ("drm/msm/dpu: Implement tearcheck support on INTF block")
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index d1cfe81a3373..f468d054f5bd 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -774,24 +774,20 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
- 		return;
- 	}
- 
-+	/* Set vsync source irrespective of mdp top support */
-+	vsync_cfg.vsync_source = disp_info->vsync_source;
-+
- 	if (hw_mdptop->ops.setup_vsync_source) {
- 		for (i = 0; i < dpu_enc->num_phys_encs; i++)
- 			vsync_cfg.ppnumber[i] = dpu_enc->hw_pp[i]->idx;
-+	}
- 
--		vsync_cfg.pp_count = dpu_enc->num_phys_encs;
--		vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
--
--		vsync_cfg.vsync_source = disp_info->vsync_source;
--
--		hw_mdptop->ops.setup_vsync_source(hw_mdptop, &vsync_cfg);
--
--		for (i = 0; i < dpu_enc->num_phys_encs; i++) {
--			phys_enc = dpu_enc->phys_encs[i];
-+	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-+		phys_enc = dpu_enc->phys_encs[i];
- 
--			if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
--				phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
--						vsync_cfg.vsync_source);
--		}
-+		if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
-+			phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
-+					vsync_cfg.vsync_source);
- 	}
- }
- 
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
 -- 
-2.34.1
-
+With best wishes
+Dmitry
